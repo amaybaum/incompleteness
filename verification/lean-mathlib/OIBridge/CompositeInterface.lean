@@ -64,6 +64,8 @@ import Mathlib.Analysis.Normed.Module.FiniteDimension
 namespace OIBridge
 namespace CompositeInterface
 
+noncomputable section
+
 open Set KInfFoundations OrbitGeneration OrbitNormalization
 
 /-! ### §A — coordinate vocabulary of the chart -/
@@ -127,12 +129,11 @@ theorem affine_eval (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (x : Fin d → ℝ) :
 /-- The expansion of an affine functional of the chart in the unit and the coordinates. -/
 theorem affine_expand (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) :
     e = e 0 • unitEff d + ∑ i, e.linear (fun j => if i = j then 1 else 0) • coord i := by
-  ext x
+  refine AffineMap.ext fun x => ?_
   rw [affine_eval e x, AffineMap.coe_add, Pi.add_apply, affine_sum_apply, AffineMap.coe_smul,
     Pi.smul_apply, smul_eq_mul, unitEff_apply, mul_one]
-  congr 1
-  exact Finset.sum_congr rfl fun i _ => by
-    rw [AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul, coord_apply]
+  exact congrArg (fun s => _ + s) (Finset.sum_congr rfl fun i _ => by
+    rw [AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul, coord_apply])
 
 /-- Every affine functional is bounded in absolute value on `Ω`. -/
 def BoundedAffine (Ω : Set (Fin d → ℝ)) : Prop :=
@@ -160,7 +161,7 @@ theorem exists_effect_rescale {Ω : Set (Fin d → ℝ)} (hb : BoundedAffine Ω)
     constructor
     · exact mul_nonneg (inv_nonneg.mpr h2K.le) (by linarith)
     · exact (inv_mul_le_one₀ h2K).mpr (by linarith)
-  · ext x
+  · refine AffineMap.ext fun x => ?_
     simp only [AffineMap.coe_smul, AffineMap.coe_add, Pi.smul_apply, Pi.add_apply, unitEff_apply,
       smul_eq_mul, mul_one]
     rw [← mul_assoc, mul_inv_cancel₀ hK0, one_mul]
@@ -297,10 +298,9 @@ theorem prodEff_expand (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → �
         rw [map_add, LinearMap.add_apply, AffineMap.coe_add, Pi.add_apply, LinearMap.map_smul,
           LinearMap.smul_apply, AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul, map_sum,
           LinearMap.sum_apply, affine_sum_apply]
-        congr 1
-        exact Finset.sum_congr rfl fun i _ => by
+        exact congrArg (fun s => _ + s) (Finset.sum_congr rfl fun i _ => by
           rw [LinearMap.map_smul, LinearMap.smul_apply, AffineMap.coe_smul, Pi.smul_apply,
-            smul_eq_mul]
+            smul_eq_mul])
 
 /-- **L1.** The marginal of a product state is its first factor. -/
 theorem margA_prodState (x : Fin dA → ℝ) (y : Fin dB → ℝ) : D.margA (D.prodState x y) = x := by
@@ -324,10 +324,9 @@ theorem eff_condA (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) {ω : V} (hf : D.prodEf
     e (D.condA f ω) = D.prodEff e f ω / D.prodEff (unitEff dA) f ω := by
   rw [D.prodEff_expand e f ω, affine_eval e (D.condA f ω), add_div, Finset.sum_div,
     mul_div_cancel_right₀ _ hf]
-  congr 1
-  exact Finset.sum_congr rfl fun i _ => by
+  exact congrArg (fun s => _ + s) (Finset.sum_congr rfl fun i _ => by
     show _ * (D.prodEff (coord i) f ω / D.prodEff (unitEff dA) f ω) = _
-    rw [mul_div_assoc]
+    rw [mul_div_assoc])
 
 /-- **L9.** No signalling on products: the conditional state of a product is its first factor. -/
 theorem condA_prodState (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) {y : Fin dB → ℝ} (hy : f y ≠ 0)
@@ -497,7 +496,7 @@ theorem isEffectOn_minBody {e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ} {f : (Fin dB �
     (he : IsEffectOn ΩA e) (hf : IsEffectOn ΩB f) : IsEffectOn (D.minBody ΩA ΩB) (D.prodEff e f) := by
   have hconv : Convex ℝ {ω : V | 0 ≤ D.prodEff e f ω ∧ D.prodEff e f ω ≤ 1} := by
     intro ω hω ω' hω' a b ha hb hab
-    simp only [Set.mem_setOf_eq] at hω hω' ⊢
+    simp only [Set.mem_ofPred_eq] at hω hω' ⊢
     rw [Convex.combo_affine_apply hab, smul_eq_mul, smul_eq_mul]
     constructor
     · exact add_nonneg (mul_nonneg ha hω.1) (mul_nonneg hb hω'.1)
@@ -508,7 +507,7 @@ theorem isEffectOn_minBody {e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ} {f : (Fin dB �
       {ω : V | 0 ≤ D.prodEff e f ω ∧ D.prodEff e f ω ≤ 1} := by
     intro ω hω
     obtain ⟨x, hx, y, hy, rfl⟩ := hω
-    rw [Set.mem_setOf_eq, D.prodEff_apply]
+    rw [Set.mem_ofPred_eq, D.prodEff_apply]
     exact ⟨mul_nonneg (he x hx).1 (hf y hy).1, mul_le_one₀ (he x hx).2 (hf y hy).1 (hf y hy).2⟩
   exact fun ω hω => convexHull_min hsub hconv hω
 
@@ -516,13 +515,13 @@ theorem unit_eq_one_minBody {ω : V} (hω : ω ∈ D.minBody ΩA ΩB) :
     D.prodEff (unitEff dA) (unitEff dB) ω = 1 := by
   have hconv : Convex ℝ {ω : V | D.prodEff (unitEff dA) (unitEff dB) ω = 1} := by
     intro ω hω ω' hω' a b ha hb hab
-    simp only [Set.mem_setOf_eq] at hω hω' ⊢
+    simp only [Set.mem_ofPred_eq] at hω hω' ⊢
     rw [Convex.combo_affine_apply hab, hω, hω', smul_eq_mul, smul_eq_mul, mul_one, mul_one, hab]
   have hsub : Set.image2 D.prodState ΩA ΩB ⊆
       {ω : V | D.prodEff (unitEff dA) (unitEff dB) ω = 1} := by
     intro ω hω
     obtain ⟨x, hx, y, hy, rfl⟩ := hω
-    rw [Set.mem_setOf_eq, D.prodEff_apply, unitEff_apply, unitEff_apply, mul_one]
+    rw [Set.mem_ofPred_eq, D.prodEff_apply, unitEff_apply, unitEff_apply, mul_one]
   exact convexHull_min hsub hconv hω
 
 /-- The minimal body is a pre-composite. -/
@@ -530,7 +529,7 @@ def minPre : PreComposite ΩA ΩB V where
   toProductData := D
   Ω := D.minBody ΩA ΩB
   convex := convex_convexHull ℝ _
-  prod_mem x hx y hy := subset_convexHull ℝ _ (Set.mem_image2_of_mem hx hy)
+  prod_mem _ hx _ hy := subset_convexHull ℝ _ (Set.mem_image2_of_mem hx hy)
   prodEff_effect _ _ he hf := D.isEffectOn_minBody ΩA ΩB he hf
   prodEff_unit _ hω := D.unit_eq_one_minBody ΩA ΩB hω
 
@@ -616,8 +615,7 @@ theorem coeff_succ (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (i : Fin d) :
 theorem sum_coeff_hom (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (x : Fin d → ℝ) :
     ∑ μ, coeff e μ * hom x μ = e x := by
   rw [Fin.sum_univ_succ, coeff_zero, hom_zero, mul_one, affine_eval e x]
-  congr 1
-  exact Finset.sum_congr rfl fun i _ => by rw [coeff_succ, hom_succ]
+  exact congrArg (fun s => _ + s) (Finset.sum_congr rfl fun i _ => by rw [coeff_succ, hom_succ])
 
 theorem coeff_add (e e' : (Fin d → ℝ) →ᵃ[ℝ] ℝ) : coeff (e + e') = coeff e + coeff e' := by
   funext μ
@@ -660,26 +658,26 @@ theorem pEff_pState (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → ℝ)
 
 theorem pEff_add_left (e e' : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) :
     pEff (e + e') f = pEff e f + pEff e' f := by
-  ext ω
+  refine AffineMap.ext fun ω => ?_
   simp only [pEff_apply, AffineMap.coe_add, Pi.add_apply, coeff_add, add_mul,
     Finset.sum_add_distrib]
 
 theorem pEff_smul_left (a : ℝ) (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) :
     pEff (a • e) f = a • pEff e f := by
-  ext ω
+  refine AffineMap.ext fun ω => ?_
   simp only [pEff_apply, AffineMap.coe_smul, Pi.smul_apply, coeff_smul, smul_eq_mul, Finset.mul_sum]
   refine Finset.sum_congr rfl fun μ _ => Finset.sum_congr rfl fun ν _ => ?_
   ring
 
 theorem pEff_add_right (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f f' : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) :
     pEff e (f + f') = pEff e f + pEff e f' := by
-  ext ω
+  refine AffineMap.ext fun ω => ?_
   simp only [pEff_apply, AffineMap.coe_add, Pi.add_apply, coeff_add, mul_add, add_mul,
     Finset.sum_add_distrib]
 
 theorem pEff_smul_right (a : ℝ) (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) :
     pEff e (a • f) = a • pEff e f := by
-  ext ω
+  refine AffineMap.ext fun ω => ?_
   simp only [pEff_apply, AffineMap.coe_smul, Pi.smul_apply, coeff_smul, smul_eq_mul, Finset.mul_sum]
   refine Finset.sum_congr rfl fun μ _ => Finset.sum_congr rfl fun ν _ => ?_
   ring
@@ -704,7 +702,8 @@ theorem modelData_prodEff (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB �
     (modelData dA dB).prodEff e f = pEff e f := rfl
 
 /-- The homogeneous basis functionals: the unit, then the coordinates. -/
-def basisEff (μ : Fin (d + 1)) : (Fin d → ℝ) →ᵃ[ℝ] ℝ := Fin.cons (unitEff d) coord μ
+def basisEff (μ : Fin (d + 1)) : (Fin d → ℝ) →ᵃ[ℝ] ℝ :=
+  (Fin.cons (unitEff d) coord : Fin (d + 1) → (Fin d → ℝ) →ᵃ[ℝ] ℝ) μ
 
 theorem coeff_basisEff (μ ν : Fin (d + 1)) : coeff (basisEff μ) ν = if μ = ν then 1 else 0 := by
   refine Fin.cases ?_ (fun i => ?_) μ <;> refine Fin.cases ?_ (fun j => ?_) ν
@@ -776,8 +775,8 @@ theorem simplex_isCompact (N : ℕ) : IsCompact (simplex N) := by
   have hcl : IsClosed (simplex N) := by
     have h1 : IsClosed {p : Fin N → ℝ | ∀ i, 0 ≤ p i} := by
       have : {p : Fin N → ℝ | ∀ i, 0 ≤ p i} = ⋂ i, {p : Fin N → ℝ | 0 ≤ p i} := by
-        ext p
-        simp only [Set.mem_setOf_eq, Set.mem_iInter]
+        refine AffineMap.ext fun p => ?_
+        simp only [Set.mem_ofPred_eq, Set.mem_iInter]
       rw [this]
       exact isClosed_iInter fun i => isClosed_le continuous_const (continuous_apply i)
     have h2 : IsClosed {p : Fin N → ℝ | ∑ i, p i = 1} :=
@@ -856,17 +855,17 @@ def paddedPre : PreComposite ΩA ΩB (V × ℝ) where
     exact Prod.ext (by simp) (by simp)
   prodEff := LinearMap.mk₂ ℝ (padEff P)
     (fun e e' f => by
-      ext p
+      refine AffineMap.ext fun p => ?_
       simp only [padEff_apply, map_add, LinearMap.add_apply, AffineMap.coe_add, Pi.add_apply])
     (fun a e f => by
-      ext p
+      refine AffineMap.ext fun p => ?_
       simp only [padEff_apply, LinearMap.map_smul, LinearMap.smul_apply, AffineMap.coe_smul,
         Pi.smul_apply])
     (fun e f f' => by
-      ext p
+      refine AffineMap.ext fun p => ?_
       simp only [padEff_apply, map_add, AffineMap.coe_add, Pi.add_apply])
     (fun a e f => by
-      ext p
+      refine AffineMap.ext fun p => ?_
       simp only [padEff_apply, LinearMap.map_smul, AffineMap.coe_smul, Pi.smul_apply])
   prodEff_apply e f x y := by
     rw [LinearMap.mk₂_apply, padEff_apply]
@@ -972,19 +971,21 @@ theorem comp1_core :
     ¬ ∃ C : Composite ball3 ball3 (Carrier 3 3 × ℝ), C.toPreComposite = paddedBall3 :=
   ⟨fun _ _ _ _ _ D x y => D.margA_prodState x y,
     fun _ _ _ _ _ D r₀ x => D.margA_attach r₀ x,
-    fun _ _ _ _ _ _ _ P ω hω e => P.eff_margA hω e,
-    fun _ _ _ _ _ _ _ P hc hconv ω hω => P.margA_mem hc hconv hω,
-    fun _ _ _ _ _ _ _ P R ω hω =>
+    fun _ _ _ _ _ _ _ P _ hω e => P.eff_margA hω e,
+    fun _ _ _ _ _ _ _ P hc hconv _ hω => P.margA_mem hc hconv hω,
+    fun _ _ _ _ _ _ _ P R _ hω =>
       ⟨P.readout_sum R hω, P.isEffectOn_readout R.f R.pd.2.1 0, P.isEffectOn_readout R.f R.pd.2.1 1⟩,
     fun _ _ _ _ _ D f k x y => D.readout_prodState f k x y,
     fun _ _ _ _ _ _ _ P R k x => P.readout_attach R k x,
-    fun _ _ _ _ _ _ _ P hc hconv f hf ω hω hne => P.condA_mem hc hconv hf hω hne,
-    fun _ _ _ _ _ D f y hy x => D.condA_prodState f hy x,
+    fun _ _ _ _ _ _ _ P hc hconv _ hf _ hω hne => P.condA_mem hc hconv hf hω hne,
+    fun _ _ _ _ _ D f _ hy x => D.condA_prodState f hy x,
     fun _ _ _ _ _ _ _ P _ hG => P.jointReversible_words hG,
     fun _ _ _ _ _ _ _ P => ⟨P.minBody_subset, P.subset_maxBody⟩,
     fun _ _ _ _ _ _ _ C => C.pairing_injective,
     ⟨bitComposite⟩, ⟨ball3MinComposite⟩, ball3Min_subset_ball3Max,
     not_locallyTomographic_paddedBall3, no_composite_over_paddedBall3⟩
+
+end
 
 end CompositeInterface
 end OIBridge
