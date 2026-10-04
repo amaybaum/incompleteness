@@ -1,0 +1,182 @@
+[
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+4,
+8
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+1
+]
+],
+"over_rank": true,
+"preps": 257,
+"rank": 8,
+"rule": "nonlinear",
+"stage": "A",
+"verdict": "OVER-RANK(dims [2, 4, 8])",
+"welldef": false
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+4,
+8
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+0,
+1
+]
+],
+"over_rank": true,
+"preps": 258,
+"rank": 13,
+"rule": "nonlinear",
+"stage": "A",
+"verdict": "OVER-RANK(dims [2, 4, 8])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+4,
+7
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+2
+]
+],
+"over_rank": true,
+"preps": 257,
+"rank": 7,
+"rule": "nonlinear",
+"stage": "A",
+"verdict": "OVER-RANK(dims [2, 4, 7])",
+"welldef": false
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+5,
+10
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+1
+]
+],
+"over_rank": true,
+"preps": 257,
+"rank": 13,
+"rule": "majority",
+"stage": "A",
+"verdict": "OVER-RANK(dims [2, 5, 10])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+5,
+14
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+0,
+1
+]
+],
+"over_rank": true,
+"preps": 258,
+"rank": 20,
+"rule": "majority",
+"stage": "A",
+"verdict": "OVER-RANK(dims [2, 5, 14])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+5,
+10
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+2
+]
+],
+"over_rank": true,
+"preps": 257,
+"rank": 13,
+"rule": "majority",
+"stage": "A",
+"verdict": "OVER-RANK(dims [2, 5, 10])",
+"welldef": true
+}
+]
