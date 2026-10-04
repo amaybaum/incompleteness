@@ -775,7 +775,7 @@ theorem simplex_isCompact (N : ℕ) : IsCompact (simplex N) := by
   have hcl : IsClosed (simplex N) := by
     have h1 : IsClosed {p : Fin N → ℝ | ∀ i, 0 ≤ p i} := by
       have : {p : Fin N → ℝ | ∀ i, 0 ≤ p i} = ⋂ i, {p : Fin N → ℝ | 0 ≤ p i} := by
-        refine AffineMap.ext fun p => ?_
+        refine Set.ext fun p => ?_
         simp only [Set.mem_ofPred_eq, Set.mem_iInter]
       rw [this]
       exact isClosed_iInter fun i => isClosed_le continuous_const (continuous_apply i)
