@@ -1,0 +1,16 @@
+REPLAY-A R_5 ((0, 1), (0, 1)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((0, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((1, 0), (0, 2)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((1, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+[harness] the background command running this replay was stopped at its 2 h limit at 06:4x UTC after 4 of its jobs (all MATCH above); the gate is rerun in full below, the same jobs in the same order
+REPLAY-A R_5 ((0, 1), (0, 1)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((0, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((1, 0), (0, 2)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((1, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((2, 0), (0, 2)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((2, 1), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((3, 0), (0, 2)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((3, 1), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((3, 2), (3, 2)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((0, 1), (3, 2)) NOT-INVASIVE(rank 4) rank 4 MATCH
+REPLAY-A R_5 10 jobs, mismatches 0; GATE V8 OK
