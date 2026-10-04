@@ -548,24 +548,24 @@ theorem exists_factor_invMatrix {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
     (hi : (interior Ω).Nonempty) : ∃ B : Matrix (Fin d) (Fin d) ℝ, Bᵀ * B = invMatrix Ω := by
   have hS : (invMatrix Ω).PosDef := invMatrix_posDef hc hi
   -- The LDL decomposition `S = L * diagonal D * Lᴴ`; its diagonal entries are positive.
-  have hpos : ∀ i, 0 < Matrix.LDL.diagEntries hS i := by
+  have hpos : ∀ i, 0 < LDL.diagEntries hS i := by
     intro i
-    have hrow : Matrix.LDL.lowerInv hS i ≠ 0 := by
+    have hrow : LDL.lowerInv hS i ≠ 0 := by
       intro h0
-      have hdet : (Matrix.LDL.lowerInv hS).det = 0 :=
+      have hdet : (LDL.lowerInv hS).det = 0 :=
         Matrix.det_eq_zero_of_row_eq_zero i fun j => congrFun h0 j
-      exact (Matrix.isUnit_det_of_invertible (Matrix.LDL.lowerInv hS)).ne_zero hdet
-    have hx : star (Matrix.LDL.lowerInv hS i) ≠ 0 := by rwa [star_trivial]
+      exact (Matrix.isUnit_det_of_invertible (LDL.lowerInv hS)).ne_zero hdet
+    have hx : star (LDL.lowerInv hS i) ≠ 0 := by rwa [star_trivial]
     have h := hS.dotProduct_mulVec_pos hx
     rw [star_trivial, star_trivial] at h
-    unfold Matrix.LDL.diagEntries
+    unfold LDL.diagEntries
     rw [EuclideanSpace.inner_toLp_toLp, star_trivial, star_trivial, dotProduct_comm]
     exact h
-  set L := Matrix.LDL.lower hS with hL
-  set D := Matrix.LDL.diagEntries hS with hD
+  set L := LDL.lower hS with hL
+  set D := LDL.diagEntries hS with hD
   have hLDL : L * Matrix.diagonal D * Lᴴ = invMatrix Ω := by
-    have := Matrix.LDL.lower_conj_diag hS
-    rwa [Matrix.LDL.diag] at this
+    have := LDL.lower_conj_diag hS
+    rwa [LDL.diag] at this
   set s : Fin d → ℝ := fun i => Real.sqrt (D i) with hs
   have hsq : Matrix.diagonal s * Matrix.diagonal s = Matrix.diagonal D := by
     rw [Matrix.diagonal_mul_diagonal]
