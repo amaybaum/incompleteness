@@ -1346,6 +1346,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Round OPACT-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-opact-1-completion-action/preregistration.md. The kernel layer defines a completion-valued operation datum, which carries each stage preparation to a point of the completed body, and the two respect conditions StateRespect and AffineRespect; AffineRespect implies StateRespect and not conversely (midOp_stateRespect, midOp_not_affineRespect). Under AffineRespect a datum induces exactly one affine map of the chart of a nonempty completed body of finite rank (existsUnique_induced), an affine extension forces AffineRespect (affineRespect_of_induced), the induced map preserves the completed body (induced_mem) and composes (induced_after), a datum with an inverse datum induces an affine equivalence that preserves the body (preservesBody_inducedEquiv), and stage effects read after the induced map are effects (isEffectOn_pullback). Carried by no manuscript. Nothing here supplies an operation, a flow, transitivity, an invariant inner product, a dimension or a ball, and nothing uses SC∞."
+    },
+    {
+      "name": "the completed-chart adapter, the boundary-state bridge, boundary purity, and the invariant-inner-product ball of a boundary-transitive body (round TRB-1, reconstruction; design draft)",
+      "modules": [
+        "TransitiveBody"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Round TRB-1 (architectural round 2), a native round under AGENTS.md §A.39, drafted from D = 7c821261. The kernel layer: the chart body of a completion chart is compact, convex and has nonempty interior with no finite-dimensionality of the completion space (chartBody_isCompact, chartBody_interior_nonempty); boundary states and frontier points coincide in a convex body with interior, one theorem per direction (frontier_of_isBoundaryState, isBoundaryState_of_frontier); under body-preserving all-boundary transitivity every boundary state is extreme, so a body with a non-extreme boundary state is boundary transitive for no body-preserving family (extreme_of_isBoundaryState_of_transitive, not_boundaryTransitive_of_nonextreme_boundary); a compact convex body with interior that is boundary transitive under a body-preserving family is the closed ball of its invariant inner product about its centroid (eq_qBall_of_boundaryTransitive) and an affine image of the coordinate Euclidean ball of its dimension (exists_affine_image_eq_eball), through the frozen normalization adapter (exists_sqrt_invMatrix, qnorm_eq_sum_sq); TRANS (a body group acting transitively on all boundary states) and ORD∞ (a member of infinite order) are defined separately with no implication between them in the module, and the four separation controls on ball3 and the square and octahedron polytope controls are theorems. Carried by no manuscript. Nothing here claims dimension 3, energy observability, a drive, or any OI sourcing of finite rank, stage consistency or operation data."
     }
   ]
 }
