@@ -252,6 +252,7 @@ import OIBridge.CompletionAction
 import OIBridge.TransitiveBody
 import OIBridge.CompositionOrder
 import OIBridge.CompositeInterface
+import OIBridge.CompositeDimension
 
 namespace OIBridge
 
