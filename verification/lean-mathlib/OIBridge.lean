@@ -251,6 +251,7 @@ import OIBridge.StageCompletion
 import OIBridge.CompletionAction
 import OIBridge.TransitiveBody
 import OIBridge.CompositionOrder
+import OIBridge.CompositeInterface
 
 namespace OIBridge
 
