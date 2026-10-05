@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "DIM-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "8f3299c1e191ae575bb6ee56fc4b63fbe0773623",
+ "f": "2aea1f3bcbe6110ce32f2a2f82ccc7fb2b3809ec",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-dim-1-dimension-selector/preregistration.md",
+   "blob": "9b5c20dc0a53879944efb79d2622f5cf8f911296"
+  }
+ ],
+ "governed_paths_digest": "0454165cc241ffc5cf5f60d227915675bde2b743175206f778ad507bb047f4f5",
+ "e": "5533aac20dd2115b07f9b5b59160f457ea65521c",
+ "tree_e": "9b21d664fc49c0670ca3b0cff44fe7f8179b81f3",
+ "execution_delta_digest": "898bd527b1fb9973ec218fb20c45158c55ea5f2f63f1a6df18b77195cc52ade6",
+ "candidates": [],
+ "landing": {
+  "base": "8f3299c1e191ae575bb6ee56fc4b63fbe0773623",
+  "object": "e3e6cc24b22b1a48efde8e65433ce1c359f829a5",
+  "reconciliations": [
+   "e3e6cc24b22b1a48efde8e65433ce1c359f829a5"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "f2653317ee2748b4df228dd0a251dcc3595d0b93387b11ca2324fee70c2dacdf"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "2aea1f3bcbe6110ce32f2a2f82ccc7fb2b3809ec",
+   "record": "https://github.com/amaybaum/incompleteness/pull/791#issuecomment-5994580757"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "2aea1f3bcbe6110ce32f2a2f82ccc7fb2b3809ec",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37288883017"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "5533aac20dd2115b07f9b5b59160f457ea65521c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/791#issuecomment-5994581420"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "5533aac20dd2115b07f9b5b59160f457ea65521c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37301654513"
+  }
+ ]
+}
