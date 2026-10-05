@@ -178,27 +178,27 @@ theorem ehom_apply (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (x : Fin d → ℝ) :
 zero at `w` is the sharp effect along `u`, and `u` is a unit vector. -/
 theorem sharp_eq_of_certain {r : (Fin d → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffectOn (eball d) r)
     {u w : Fin d → ℝ} (hu : u ∈ eball d) (hw : w ∈ eball d) (h1 : r u = 1) (h0 : r w = 0) :
-    ∑ j, u j ^ 2 = 1 ∧ r = sharpEff u := by
+    ∑ j : Fin d, u j ^ 2 = 1 ∧ r = sharpEff u := by
   have hL := lor_ehom he
   have hb := (lor_pair_bound hL hu).2
   have hm := (he (-w) (neg_mem_eball hw)).2
   rw [ehom_apply] at h1 h0 hm
-  have hneg : ∑ j, ehom r j.succ * (-w) j = -∑ j, ehom r j.succ * w j := by
+  have hneg : ∑ j : Fin d, ehom r j.succ * (-w) j = -∑ j : Fin d, ehom r j.succ * w j := by
     rw [← Finset.sum_neg_distrib]
     exact Finset.sum_congr rfl fun j _ => by rw [Pi.neg_apply]; ring
   rw [hneg] at hm
   have hc : ehom r 0 = 1 / 2 := by linarith
-  have hau : ∑ j, ehom r j.succ * u j = 1 / 2 := by linarith
+  have hau : ∑ j : Fin d, ehom r j.succ * u j = 1 / 2 := by linarith
   have ha2 : ∑ j : Fin d, ehom r j.succ ^ 2 ≤ 1 / 4 := by
     have := hL.2
     rw [hc] at this
     linarith
   rw [mem_eball] at hu
-  have hexp : ∑ j, (u j - 2 * ehom r j.succ) ^ 2 =
-      ∑ j, u j ^ 2 - 4 * ∑ j, ehom r j.succ * u j + 4 * ∑ j, ehom r j.succ ^ 2 := by
+  have hexp : ∑ j : Fin d, (u j - 2 * ehom r j.succ) ^ 2 =
+      ∑ j : Fin d, u j ^ 2 - 4 * ∑ j : Fin d, ehom r j.succ * u j + 4 * ∑ j : Fin d, ehom r j.succ ^ 2 := by
     rw [Finset.mul_sum, Finset.mul_sum, ← Finset.sum_sub_distrib, ← Finset.sum_add_distrib]
     exact Finset.sum_congr rfl fun j _ => by ring
-  have hle : ∑ j, (u j - 2 * ehom r j.succ) ^ 2 ≤ 0 := by rw [hexp]; linarith
+  have hle : ∑ j : Fin d, (u j - 2 * ehom r j.succ) ^ 2 ≤ 0 := by rw [hexp]; linarith
   have hz : ∀ j, u j = 2 * ehom r j.succ := by
     intro j
     have hzero := (Finset.sum_eq_zero_iff_of_nonneg
@@ -206,10 +206,10 @@ theorem sharp_eq_of_certain {r : (Fin d → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffect
       (le_antisymm hle (Finset.sum_nonneg fun j _ => sq_nonneg _)) j (Finset.mem_univ j)
     have := pow_eq_zero_iff (n := 2) (by norm_num) |>.1 hzero
     linarith
-  have hu2 : ∑ j, u j ^ 2 = 4 * ∑ j, ehom r j.succ ^ 2 := by
+  have hu2 : ∑ j : Fin d, u j ^ 2 = 4 * ∑ j : Fin d, ehom r j.succ ^ 2 := by
     rw [Finset.mul_sum]
     exact Finset.sum_congr rfl fun j _ => by rw [hz j]; ring
-  have hau2 : ∑ j, ehom r j.succ * u j = 2 * ∑ j, ehom r j.succ ^ 2 := by
+  have hau2 : ∑ j : Fin d, ehom r j.succ * u j = 2 * ∑ j : Fin d, ehom r j.succ ^ 2 := by
     rw [Finset.mul_sum]
     exact Finset.sum_congr rfl fun j _ => by rw [hz j]; ring
   refine ⟨by linarith, ?_⟩
@@ -235,14 +235,19 @@ noncomputable def reflLin (m : Fin d → ℝ) : (Fin d → ℝ) →ₗ[ℝ] (Fin
       rw [← Finset.sum_add_distrib]
       exact Finset.sum_congr rfl fun j _ => by rw [Pi.add_apply]; ring
     funext i
-    simp only [Pi.add_apply, Pi.sub_apply, Pi.smul_apply, smul_eq_mul, h]
+    show (x + y) i - (2 * (∑ j, (x + y) j * m j) / ∑ j, m j ^ 2) * m i =
+      (x i - (2 * (∑ j, x j * m j) / ∑ j, m j ^ 2) * m i) +
+        (y i - (2 * (∑ j, y j * m j) / ∑ j, m j ^ 2) * m i)
+    rw [h, Pi.add_apply]
     ring
   map_smul' c x := by
     have h : ∑ j, (c • x) j * m j = c * ∑ j, x j * m j := by
       rw [Finset.mul_sum]
       exact Finset.sum_congr rfl fun j _ => by rw [Pi.smul_apply, smul_eq_mul]; ring
     funext i
-    simp only [Pi.smul_apply, Pi.sub_apply, smul_eq_mul, RingHom.id_apply, h]
+    show (c • x) i - (2 * (∑ j, (c • x) j * m j) / ∑ j, m j ^ 2) * m i =
+      c * (x i - (2 * (∑ j, x j * m j) / ∑ j, m j ^ 2) * m i)
+    rw [h, Pi.smul_apply, smul_eq_mul]
     ring
 
 theorem reflLin_apply (m x : Fin d → ℝ) :
@@ -425,7 +430,7 @@ theorem axisVec_sq (hd : 0 < d) : ∑ j, axisVec hd j ^ 2 = 1 := by
   rw [Finset.sum_eq_single (⟨0, hd⟩ : Fin d)]
   · simp [axisVec]
   · intro j _ hj
-    simp [axisVec, Pi.single_apply, hj]
+    simp [axisVec, hj]
   · intro h
     exact absurd (Finset.mem_univ _) h
 
@@ -476,8 +481,10 @@ theorem lor_decomp (hd : 0 < d) {v : HVec d} (hv : Lor v) :
       · simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul, hom_zero, sharpVec_zero]
         ring
       · simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul, hom_succ, sharpVec_succ,
-          Pi.zero_apply]
-        field_simp
+          Pi.zero_apply, mul_zero, zero_add]
+        have h2 : 2 * s * (v j.succ / s / 2) = v j.succ := by
+          field_simp
+        exact h2.symm
 
 /-- A linear functional nonnegative on every sharp vector is nonnegative on the cone. -/
 theorem nonneg_of_sharp (hd : 0 < d) (L : HVec d →ₗ[ℝ] ℝ)
@@ -779,7 +786,7 @@ theorem maxConeOf_sharpFamily_zero_ne : maxConeOf (sharpFamily 0) ≠ maxCone (e
   intro h
   have hempty : sharpFamily 0 = ∅ := by
     ext e
-    simp only [sharpFamily, Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false, not_exists,
+    simp only [sharpFamily, Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false, not_exists,
       not_and]
     intro b hb
     simp at hb
