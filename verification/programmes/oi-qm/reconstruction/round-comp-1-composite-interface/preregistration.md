@@ -253,17 +253,22 @@ descriptively, so that the proper name can be a forbidden token of S1.
 
 ### The predicted execution tree
 
-- **`(recorded at F)`** (`claude/comp1-predicted`, a single-parent child of `D`) is the execution tree less the result
-  note. Its files and blobs:
-  - this preregistration in its drafting revision `(recorded at F)`, blob `(recorded at F)`;
+- **`8e294cb4f878276444609e683a3acd9ea80b13a2`** (`claude/comp1-predicted`, a single-parent child of `D`) is the
+  execution tree less the result note. Its files and blobs:
+  - this preregistration in its drafting revision `7a203cf5`, blob `8d3d3021`;
   - `controls.py`, blob `38f1898a82a4ffcacc39383bcb64f8116bbbeeb8`;
   - `CompositeInterface.lean`, blob `91567f53`;
   - `OIBridge.lean`, blob `b1a8b89a6e18969bf1840fdc5b3ce330e1e843fb`;
   - the census, blob `ba36fdd4a6ad64a1fe77aafe21f569e64028a633`.
-- `delta(D, (recorded at F))` is exactly those five paths: the record directory's two files and the three execution paths.
+- `delta(D, 8e294cb4)` is exactly those five paths: the record directory's two files and the three execution paths.
   It adds no gate, selector, transitivity, order, drive or flow module, and no file other than these.
-- At that commit `controls.py check (recorded at F)`, run from the tree's own frozen `controls.py`, passes all 18 checks.
-- **Run (recorded at F)** (`workflow_dispatch` on `(recorded at F)`) (recorded at F)
+- At that commit `controls.py check 8e294cb4`, run from the tree's own frozen `controls.py`, passes all 18 checks.
+- **Run 37262395333** (`workflow_dispatch` on `8e294cb4`) completed with conclusion success; every one of its 32 jobs
+  succeeded. The Mathlib bridge (job 111612168434) built `OIBridge.CompositeInterface` (3631 build jobs) with each of
+  the 64 frozen `#print axioms` lines reporting exactly `[propext, Classical.choice, Quot.sound]`, and its release
+  gate passed every step (`lean-axioms` 5616 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records
+  intact; 31 receipts hold). Design run 4 (37261154814, the same three execution blobs on `claude/comp1-dev3`)
+  likewise completed with all 32 jobs green.
 
 These runs are design evidence, not attestations.
 
