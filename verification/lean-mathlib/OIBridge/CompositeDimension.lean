@@ -2587,7 +2587,7 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
     obtain ⟨f, hf⟩ : ∃ f : HVec d, f = hom 0 + ∑ j, b j • v j := ⟨_, rfl⟩
     obtain ⟨t, ht⟩ : ∃ t : HVec d, t = hom 0 + s • v i := ⟨_, rfl⟩
     have hs2 : s ^ 2 = 1 := by rcases hs with h | h <;> rw [h] <;> norm_num
-    have hd00 : dotB (hom 0) (hom 0) = 1 := dot_hom_hom_zero 0
+    have hd00 : dotB (hom 0) (hom 0) = 1 := dot_hom_hom_zero (0 : Fin d → ℝ)
     have hd0 : ∀ r, dotB (hom 0) (v r) = 0 := fun r => by
       rw [dotB_apply, Fin.sum_univ_succ, hom_zero, one_mul, hv0 r]; simp [hom_succ]
     have hd0' : ∀ r, dotB (v r) (hom 0) = 0 := fun r => by
@@ -2605,7 +2605,8 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
       rw [Finset.sum_ite_eq]
       simp
     have hSS : dotB (∑ j, b j • v j) (∑ j, b j • v j) = 1 := by
-      rw [LinearMap.map_sum₂, Finset.sum_congr rfl fun j _ => LinearMap.map_smul₂ dotB (b j) (v j) _]
+      rw [LinearMap.map_sum₂, Finset.sum_congr rfl fun j _ =>
+        LinearMap.map_smul₂ dotB (b j) (v j) (∑ j', b j' • v j')]
       simp only [smul_eq_mul, hS1']
       rw [← hb]
       exact Finset.sum_congr rfl fun j _ => (sq _).symm
@@ -2623,7 +2624,7 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
       · rw [ht0]; exact zero_le_one
       · rw [ht0]
         simp only [ht, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul, smul_eq_mul,
-          hd00, hd0, hd0', hvv', if_true]
+          hd00, hd0, hd0', hvv', eq_self_iff_true, if_true]
         nlinarith [hs2]
     have htN : homMap N t = t := by
       rw [ht, map_add, map_smul, homMap_hom, map_zero, hvN]
