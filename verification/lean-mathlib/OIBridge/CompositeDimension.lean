@@ -704,11 +704,11 @@ theorem ne_four_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[�
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) : d ≠ 4 :=
   fun h => not_even_of_nativeGate hN hG ⟨2, by omega⟩
 
-/-- The data the written S1–S2–S4 reduction extracts from a native gate whose `+1` eigenspace has
-tangent dimension `p`: the `E₊` blocks `A`, `B` on a target index set of size `m`, antisymmetric
-in the pair index, with the Lorentz positivity of `I + Γ` at `t = ±eᵢ` against every unit effect
-and one nonzero entry. The reduction from `NativeGate` to this data is a written proof and is not
-certified in this module; the data is the hypothesis of `NativeGateBall.p_le_one`. -/
+/-- The data the S1–S2–S4 reduction extracts from a native gate whose `+1` eigenspace has tangent
+dimension `p`: the `E₊` blocks `A`, `B` on a target index set of size `m`, antisymmetric in the
+pair index, with the Lorentz positivity of `I + Γ` at `t = ±eᵢ` against every unit effect and one
+nonzero entry. For `2 ≤ d` the data is derived from the frozen hypotheses in §Q
+(`blockData_of_nativeGate`); it is the hypothesis of `NativeGateBall.p_le_one`. -/
 structure BlockData (p : ℕ) : Prop where
   blocks : ∃ (m : ℕ) (A : Fin p → Matrix (Fin m) (Fin m) ℝ)
       (B : Fin p → Fin p → Matrix (Fin m) (Fin m) ℝ),
