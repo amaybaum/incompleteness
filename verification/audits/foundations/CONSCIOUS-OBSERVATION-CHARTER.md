@@ -1,6 +1,6 @@
 # CONSC-1 research charter — physical registration, empirical observation, and conscious perspective
 
-> **Status — exploratory conceptual audit; merge-held.** This thread does not alter the physics core, any Lean definition, any theorem status, or the empirical standing of the framework. Consciousness remains a conjectural extension. The thread exists to determine whether the corpus currently uses *observation* for two importantly different notions and, if so, how to state the distinction without importing consciousness into physical measurement dynamics.
+> **Status — exploratory conceptual audit; merge-held.** This thread does not alter the physics core, any Lean definition, any theorem status, or the empirical standing of the framework. Consciousness remains a conjectural extension. The thread exists to determine whether the corpus currently uses *observation* for two importantly different notions and, if so, how to state the distinction without importing consciousness into physical measurement dynamics. **This is an ordinary advisory audit, not a native V3 round:** its result may recommend wording or identify a foundations question, but it does not freeze a theorem, verdict, or manuscript change. Any promotion to a governed/frozen result requires a separately chartered owner-authorized round.
 
 **Base:** `00ee70a60cf59d421c0056619709459d704fae99`.
 
@@ -80,6 +80,8 @@ Ask separately whether the book should also state the converse epistemic point:
 
 > consciousness is not necessary for physical registration, but some form of conscious perspective may be necessary for a registration to constitute *experienced empirical evidence*.
 
+**Before evaluating that sentence, fix the semantics of "empirical evidence".** The result must say whether the term is being used (a) perspective-neutrally, for a physical record that can in principle bear evidential relations, or (b) perspective-relatively, for evidence as experienced/available to an epistemic subject. If (b) is chosen, any claim that a conscious perspective is necessary for *experienced* evidence is partly or wholly definitional and must not be reported as a substantive discovery. If (a) is chosen, the audit must identify what independent content consciousness adds, if any.
+
 The audit must distinguish a definitional/epistemological claim from a dynamical claim and must not present the second sentence as an established scientific theorem.
 
 ### COBS-5 — self-referential closure
@@ -108,6 +110,8 @@ Return a minimal change set, if any, for:
 
 Changes should clarify scope rather than enlarge the physics claims. If no change is needed, say so.
 
+**Parallel-source rule.** Any proposed book edit must name and supply the corresponding edit in both the chapter source (for example `book/ch18-beyond.md`, `book/ch01-observation.md`, or `book/ch04-methodology.md`) and the live compiled Markdown mirror `book/The-Incompleteness-of-Observation-FULL.md`. A proposed change to only one side is incomplete.
+
 ## Guardrails
 
 1. **No consciousness-causes-collapse claim.** Consciousness is not to be inserted into the physical measurement dynamics.
@@ -128,7 +132,7 @@ The thread should return one result note with:
 - a verdict under COBS-3;
 - the status of the two-arrow analysis;
 - whether Chapter 18's present one-way statement should be supplemented;
-- exact proposed manuscript edits, if any;
+- exact proposed manuscript edits, if any, with every book edit paired between its chapter source and `book/The-Incompleteness-of-Observation-FULL.md`;
 - a clear boundary between **physical registration**, **operational observation**, **empirical evidence**, and **phenomenal consciousness**;
 - unresolved questions and what evidence or argument would settle them.
 
