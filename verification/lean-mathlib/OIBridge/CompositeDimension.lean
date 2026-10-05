@@ -64,6 +64,7 @@ import OIBridge.NativeGateBall
 import Mathlib.LinearAlgebra.FiniteDimensional.Lemmas
 import Mathlib.LinearAlgebra.FreeModule.Finite.Matrix
 import Mathlib.LinearAlgebra.Matrix.ToLin
+import Mathlib.Analysis.InnerProductSpace.PiL2
 
 namespace OIBridge
 namespace CompositeDimension
@@ -712,10 +713,10 @@ theorem p_le_one_of_blockData {p : ℕ} (h : BlockData p) : p ≤ 1 := by
 noncomputable def tangentPlus (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : ℕ :=
   Module.finrank ℝ (plusSpace N) - 1
 
-/-- **The selector, conditional on the block reduction.** Two identical copies of the Euclidean
-ball with a native gate whose block data is as the written reduction states have dimension one or
-three. Parity is proved from the frozen hypotheses; the block data is the named premise. -/
-theorem dim_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+/-- **The selector given the block data.** Two identical copies of the Euclidean ball with a
+native gate whose block data is as stated have dimension one or three. Parity is proved from the
+frozen hypotheses; the block data is derived from them in §Q (`blockData_of_nativeGate`). -/
+theorem dim_of_nativeGate_of_blockData {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
     (hB : BlockData (tangentPlus N)) : d = 1 ∨ d = 3 := by
   have hsum := finrank_plus_add_finrank_minus hN.invol
@@ -729,13 +730,13 @@ theorem ne_five_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[�
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
     (hB : BlockData (tangentPlus N)) : d ≠ 5 := by
   intro h
-  rcases dim_of_nativeGate hN hG hB with h1 | h2 <;> omega
+  rcases dim_of_nativeGate_of_blockData hN hG hB with h1 | h2 <;> omega
 
 theorem ne_seven_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
     (hB : BlockData (tangentPlus N)) : d ≠ 7 := by
   intro h
-  rcases dim_of_nativeGate hN hG hB with h1 | h2 <;> omega
+  rcases dim_of_nativeGate_of_blockData hN hG hB with h1 | h2 <;> omega
 
 /-- `Fin.sum_univ_four` at the index type of `W 3`, which is `Fin (3 + 1)` syntactically. -/
 theorem sum_univ_four' (f : Fin (3 + 1) → ℝ) : ∑ i, f i = f 0 + f 1 + f 2 + f 3 :=
@@ -1454,17 +1455,437 @@ theorem not_entangling_one {z : Fin 1 → ℝ} {N : (Fin 1 → ℝ) →ₗ[ℝ] 
   rw [hG.frame a b]
   exact ⟨corner z a, corner_mem_one hz a, corner z (a + b), corner_mem_one hz _, rfl⟩
 
-/-- **The selector under the entangling clause.** Two identical copies of the Euclidean ball with
-a native gate whose block data is as the written reduction states, and which is entangling, have
-dimension three. -/
-theorem three_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+/-- The selector under the entangling clause, given the block data. -/
+theorem three_of_nativeGate_of_blockData {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
     (hB : BlockData (tangentPlus N)) (hE : Entangling (eball d) G) : d = 3 := by
-  rcases dim_of_nativeGate hN hG hB with h1 | h3
+  rcases dim_of_nativeGate_of_blockData hN hG hB with h1 | h3
   · exfalso
     subst h1
     exact not_entangling_one hN hG hE
   · exact h3
+
+/-! ### §Q — the block reduction: from `NativeGate` to `BlockData` (S1, S2, S4) -/
+
+/-- The product of two homogenized vectors as a joint vector. -/
+def tens (X Y : HVec d) : W d := fun μ ν => X μ * Y ν
+
+theorem tens_apply (X Y : HVec d) (μ ν : Fin (d + 1)) : tens X Y μ ν = X μ * Y ν := rfl
+
+theorem prodState_eq_tens (x y : Fin d → ℝ) : prodState x y = tens (hom x) (hom y) := rfl
+
+theorem tens_add_left (X X' Y : HVec d) : tens (X + X') Y = tens X Y + tens X' Y := by
+  funext μ ν; simp only [tens_apply, Pi.add_apply]; ring
+
+theorem tens_add_right (X Y Y' : HVec d) : tens X (Y + Y') = tens X Y + tens X Y' := by
+  funext μ ν; simp only [tens_apply, Pi.add_apply]; ring
+
+theorem tens_smul_left (c : ℝ) (X Y : HVec d) : tens (c • X) Y = c • tens X Y := by
+  funext μ ν; simp only [tens_apply, Pi.smul_apply, smul_eq_mul]; ring
+
+theorem tens_smul_right (c : ℝ) (X Y : HVec d) : tens X (c • Y) = c • tens X Y := by
+  funext μ ν; simp only [tens_apply, Pi.smul_apply, smul_eq_mul]; ring
+
+theorem tens_zero_left (Y : HVec d) : tens 0 Y = 0 := by
+  funext μ ν; simp only [tens_apply, Pi.zero_apply, zero_mul]
+
+theorem tens_zero_right (X : HVec d) : tens X 0 = 0 := by
+  funext μ ν; simp only [tens_apply, Pi.zero_apply, mul_zero]
+
+/-- The product with a fixed left factor, as a linear map in the right factor. -/
+def tensL (X : HVec d) : HVec d →ₗ[ℝ] W d where
+  toFun Y := tens X Y
+  map_add' Y Y' := tens_add_right X Y Y'
+  map_smul' c Y := tens_smul_right c X Y
+
+theorem tensL_apply (X Y : HVec d) : tensL X Y = tens X Y := rfl
+
+/-- The product with a fixed right factor, as a linear map in the left factor. -/
+def tensR (Y : HVec d) : HVec d →ₗ[ℝ] W d where
+  toFun X := tens X Y
+  map_add' X X' := tens_add_left X X' Y
+  map_smul' c X := tens_smul_left c X Y
+
+theorem tensR_apply (X Y : HVec d) : tensR Y X = tens X Y := rfl
+
+theorem pairVal_add_omega (a b : HVec d) (ω ω' : W d) :
+    pairVal a b (ω + ω') = pairVal a b ω + pairVal a b ω' := by
+  unfold pairVal
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun ν _ => ?_
+  simp only [Pi.add_apply]; ring
+
+theorem pairVal_smul_omega (c : ℝ) (a b : HVec d) (ω : W d) :
+    pairVal a b (c • ω) = c * pairVal a b ω := by
+  unfold pairVal
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun ν _ => ?_
+  simp only [Pi.smul_apply, smul_eq_mul]; ring
+
+theorem pairVal_zero_omega (a b : HVec d) : pairVal a b (0 : W d) = 0 := by
+  unfold pairVal; simp
+
+theorem pairVal_add_left (a a' b : HVec d) (ω : W d) :
+    pairVal (a + a') b ω = pairVal a b ω + pairVal a' b ω := by
+  unfold pairVal
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun ν _ => ?_
+  simp only [Pi.add_apply]; ring
+
+theorem pairVal_add_right (a b b' : HVec d) (ω : W d) :
+    pairVal a (b + b') ω = pairVal a b ω + pairVal a b' ω := by
+  unfold pairVal
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [← Finset.sum_add_distrib]
+  refine Finset.sum_congr rfl fun ν _ => ?_
+  simp only [Pi.add_apply]; ring
+
+/-- The pairing with a product: the two dot products. -/
+theorem pairVal_tens (a b X Y : HVec d) :
+    pairVal a b (tens X Y) = (∑ μ, a μ * X μ) * ∑ ν, Y ν * b ν := by
+  simp only [pairVal, tens_apply]
+  rw [Finset.sum_mul_sum]
+  exact Finset.sum_congr rfl fun μ _ => Finset.sum_congr rfl fun ν _ => by ring
+
+/-- The pairing as a linear functional of the joint vector. -/
+def pvOmega (a b : HVec d) : W d →ₗ[ℝ] ℝ where
+  toFun ω := pairVal a b ω
+  map_add' ω ω' := pairVal_add_omega a b ω ω'
+  map_smul' c ω := pairVal_smul_omega c a b ω
+
+theorem pvOmega_apply (a b : HVec d) (ω : W d) : pvOmega a b ω = pairVal a b ω := rfl
+
+/-- The pairing as a linear functional of the left (control) effect. -/
+def pvLeft (b : HVec d) (ω : W d) : HVec d →ₗ[ℝ] ℝ where
+  toFun a := pairVal a b ω
+  map_add' a a' := pairVal_add_left a a' b ω
+  map_smul' c a := pairVal_smul_left c a b ω
+
+theorem pvLeft_apply (a b : HVec d) (ω : W d) : pvLeft b ω a = pairVal a b ω := rfl
+
+/-- The pairing with the unit control effect reads the first row. -/
+theorem pairVal_hom_zero_left (b : HVec d) (ω : W d) :
+    pairVal (hom (0 : Fin d → ℝ)) b ω = ∑ ν, b ν * ω 0 ν := by
+  unfold pairVal
+  rw [Fin.sum_univ_succ, hom_zero]
+  simp only [hom_succ, Pi.zero_apply, zero_mul, Finset.sum_const_zero, add_zero, one_mul]
+  exact Finset.sum_congr rfl fun ν _ => mul_comm _ _
+
+theorem smul_mem_maxCone {ω : W d} (hω : ω ∈ maxCone (eball d)) {c : ℝ} (hc : 0 ≤ c) :
+    c • ω ∈ maxCone (eball d) := by
+  show ∀ e f, IsEffectOn (eball d) e → IsEffectOn (eball d) f → 0 ≤ prodEffVal e f (c • ω)
+  intro e f he hf
+  have := hω e f he hf
+  unfold prodEffVal at this ⊢
+  rw [pairVal_smul_omega]
+  exact mul_nonneg hc this
+
+theorem zero_mem_maxCone : (0 : W d) ∈ maxCone (eball d) := by
+  show ∀ e f, IsEffectOn (eball d) e → IsEffectOn (eball d) f → 0 ≤ prodEffVal e f (0 : W d)
+  intro e f _ _
+  unfold prodEffVal
+  rw [pairVal_zero_omega]
+
+/-- A cone vector with vanishing head is zero. -/
+theorem lor_eq_zero_of_head {X : HVec d} (hX : Lor X) (h0 : X 0 = 0) : X = 0 := by
+  have hs : ∑ j : Fin d, X j.succ ^ 2 ≤ 0 := by
+    have := hX.2; rw [h0, zero_pow two_ne_zero] at this; exact this
+  have hz : ∀ j : Fin d, X j.succ = 0 := by
+    intro j
+    have := (Finset.sum_eq_zero_iff_of_nonneg (fun j _ => sq_nonneg (X j.succ))).1
+      (le_antisymm hs (Finset.sum_nonneg fun j _ => sq_nonneg _)) j (Finset.mem_univ _)
+    exact (pow_eq_zero_iff two_ne_zero).mp this
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · exact h0
+  · exact hz j
+
+/-- A cone vector with positive head is a positive multiple of a ball point. -/
+theorem lor_eq_smul_hom {X : HVec d} (hX : Lor X) (hpos : 0 < X 0) :
+    X = X 0 • hom (fun j => (X 0)⁻¹ * X j.succ) ∧ (fun j => (X 0)⁻¹ * X j.succ) ∈ eball d := by
+  constructor
+  · funext μ
+    refine Fin.cases ?_ (fun j => ?_) μ
+    · rw [Pi.smul_apply, hom_zero, smul_eq_mul, mul_one]
+    · simp only [Pi.smul_apply, hom_succ, smul_eq_mul]
+      rw [← mul_assoc, mul_inv_cancel₀ hpos.ne', one_mul]
+  · rw [mem_eball]
+    have h1 : ∑ j : Fin d, ((X 0)⁻¹ * X j.succ) ^ 2 = (X 0)⁻¹ ^ 2 * ∑ j : Fin d, X j.succ ^ 2 := by
+      rw [Finset.mul_sum]; exact Finset.sum_congr rfl fun j _ => by ring
+    rw [h1]
+    calc (X 0)⁻¹ ^ 2 * ∑ j : Fin d, X j.succ ^ 2 ≤ (X 0)⁻¹ ^ 2 * X 0 ^ 2 :=
+          mul_le_mul_of_nonneg_left hX.2 (sq_nonneg _)
+      _ = 1 := by rw [← mul_pow, inv_mul_cancel₀ hpos.ne', one_pow]
+
+/-- **Positivity transfer.** A linear map sending product states of the ball into the maximal
+cone sends every product of two cone vectors into the maximal cone. -/
+theorem tens_mem_maxCone {G' : W d →ₗ[ℝ] W d}
+    (hpos : ∀ x ∈ eball d, ∀ y ∈ eball d, G' (prodState x y) ∈ maxCone (eball d))
+    {X Y : HVec d} (hX : Lor X) (hY : Lor Y) : G' (tens X Y) ∈ maxCone (eball d) := by
+  rcases eq_or_lt_of_le hX.1 with hx0 | hxpos
+  · rw [lor_eq_zero_of_head hX hx0.symm, tens_zero_left, map_zero]; exact zero_mem_maxCone
+  rcases eq_or_lt_of_le hY.1 with hy0 | hypos
+  · rw [lor_eq_zero_of_head hY hy0.symm, tens_zero_right, map_zero]; exact zero_mem_maxCone
+  obtain ⟨hXe, hxm⟩ := lor_eq_smul_hom hX hxpos
+  obtain ⟨hYe, hym⟩ := lor_eq_smul_hom hY hypos
+  rw [hXe, hYe, tens_smul_left, tens_smul_right, smul_smul, ← prodState_eq_tens, map_smul]
+  exact smul_mem_maxCone (hpos _ hxm _ hym) (mul_nonneg hxpos.le hypos.le)
+
+/-- Positivity of the gate on four cone vectors. -/
+theorem gate_pairVal_nonneg {G' : W d →ₗ[ℝ] W d}
+    (hpos : ∀ x ∈ eball d, ∀ y ∈ eball d, G' (prodState x y) ∈ maxCone (eball d))
+    {a X b Y : HVec d} (ha : Lor a) (hX : Lor X) (hb : Lor b) (hY : Lor Y) :
+    0 ≤ pairVal a b (G' (tens X Y)) :=
+  pairVal_nonneg_of_maxCone (tens_mem_maxCone hpos hX hY) ha hb
+
+/-- The standard basis vector of the homogenized space. -/
+def bvec (i : Fin (d + 1)) : HVec d := fun k => if i = k then 1 else 0
+
+theorem bvec_apply (i k : Fin (d + 1)) : bvec i k = if i = k then (1 : ℝ) else 0 := rfl
+
+theorem bvec_zero_eq : bvec (0 : Fin (d + 1)) = hom (0 : Fin d → ℝ) := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [bvec_apply, if_pos rfl, hom_zero]
+  · rw [bvec_apply, if_neg (Fin.succ_ne_zero j).symm, hom_succ, Pi.zero_apply]
+
+/-- The tangent lift `(0, c)`. -/
+def lift (c : Fin d → ℝ) : HVec d := Matrix.vecCons 0 c
+
+@[simp] theorem lift_zero (c : Fin d → ℝ) : lift c 0 = 0 := rfl
+
+@[simp] theorem lift_succ (c : Fin d → ℝ) (j : Fin d) : lift c j.succ = c j :=
+  Matrix.cons_val_succ _ _ _
+
+theorem hom_eq_add_lift (x : Fin d → ℝ) : hom x = hom 0 + lift x := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [Pi.add_apply, hom_zero, hom_zero, lift_zero, add_zero]
+  · rw [Pi.add_apply, hom_succ, hom_succ, lift_succ, Pi.zero_apply, zero_add]
+
+theorem lift_add (c c' : Fin d → ℝ) : lift (c + c') = lift c + lift c' := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [Pi.add_apply, lift_zero, lift_zero, lift_zero, add_zero]
+  · rw [Pi.add_apply, lift_succ, lift_succ, lift_succ, Pi.add_apply]
+
+theorem lift_smul (c : ℝ) (x : Fin d → ℝ) : lift (c • x) = c • lift x := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [Pi.smul_apply, lift_zero, lift_zero, smul_zero]
+  · rw [Pi.smul_apply, lift_succ, lift_succ, Pi.smul_apply]
+
+theorem lift_neg (x : Fin d → ℝ) : lift (-x) = -lift x := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [Pi.neg_apply, lift_zero, lift_zero, neg_zero]
+  · rw [Pi.neg_apply, lift_succ, lift_succ, Pi.neg_apply]
+
+theorem lift_vecTail {u : HVec d} (h : u 0 = 0) : lift (Matrix.vecTail u) = u := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [lift_zero, h]
+  · rw [lift_succ]; rfl
+
+theorem lor_hom_zero : Lor (hom (0 : Fin d → ℝ)) :=
+  ⟨by rw [hom_zero]; exact zero_le_one, by simp [hom_succ]⟩
+
+theorem lor_hom {x : Fin d → ℝ} (hx : x ∈ eball d) : Lor (hom x) := by
+  refine ⟨by rw [hom_zero]; exact zero_le_one, ?_⟩
+  rw [hom_zero, one_pow]
+  simp only [hom_succ]
+  exact mem_eball.mp hx
+
+theorem lor_hom_of_unit {x : Fin d → ℝ} (hx : ∑ j, x j ^ 2 = 1) : Lor (hom x) :=
+  lor_hom (mem_eball.mpr hx.le)
+
+theorem lor_hom_zero_add_smul_bvec (j : Fin d) {s : ℝ} (hs : s ^ 2 ≤ 1) :
+    Lor (hom (0 : Fin d → ℝ) + s • bvec j.succ) := by
+  have h0 : (hom (0 : Fin d → ℝ) + s • bvec j.succ) 0 = 1 := by
+    rw [Pi.add_apply, hom_zero, Pi.smul_apply, bvec_apply, if_neg (Fin.succ_ne_zero j).symm,
+      smul_zero, add_zero]
+  have ht : ∀ k : Fin d,
+      (hom (0 : Fin d → ℝ) + s • bvec j.succ) k.succ ^ 2 = if j = k then s ^ 2 else 0 := by
+    intro k
+    rw [Pi.add_apply, hom_succ, Pi.zero_apply, zero_add, Pi.smul_apply, smul_eq_mul, bvec_apply]
+    by_cases hjk : j = k
+    · subst hjk; rw [if_pos rfl, if_pos rfl, mul_one]
+    · rw [if_neg (fun h => hjk (Fin.succ_inj.mp h)), if_neg hjk, mul_zero, zero_pow two_ne_zero]
+  refine ⟨by rw [h0]; exact zero_le_one, ?_⟩
+  rw [h0, one_pow, Finset.sum_congr rfl fun k _ => ht k, Finset.sum_ite_eq]
+  simpa using hs
+
+/-- A linear functional nonnegative on the cone and vanishing at the centre vanishes. -/
+theorem linearMap_eq_zero_of_nonneg_lor (F : HVec d →ₗ[ℝ] ℝ) (hpos : ∀ X, Lor X → 0 ≤ F X)
+    (h0 : F (hom 0) = 0) : F = 0 := by
+  have hb : ∀ i : Fin (d + 1), F (bvec i) = 0 := by
+    intro i
+    refine Fin.cases ?_ (fun j => ?_) i
+    · rw [bvec_zero_eq]; exact h0
+    · have h1 := hpos _ (lor_hom_zero_add_smul_bvec j (s := 1) (by norm_num))
+      have h2 := hpos _ (lor_hom_zero_add_smul_bvec j (s := -1) (by norm_num))
+      rw [map_add, map_smul, h0, zero_add, one_smul] at h1
+      rw [map_add, map_smul, h0, zero_add, smul_eq_mul] at h2
+      linarith
+  apply LinearMap.ext; intro X
+  rw [LinearMap.pi_apply_eq_sum_univ F X, LinearMap.zero_apply]
+  exact Finset.sum_eq_zero fun i _ => by
+    rw [show (fun j => if i = j then (1 : ℝ) else 0) = bvec i from rfl, hb i, smul_zero]
+
+/-- A linear map vanishing on the cone vanishes. -/
+theorem linearMap_eq_zero_of_lor {E : Type*} [AddCommGroup E] [Module ℝ E] (F : HVec d →ₗ[ℝ] E)
+    (h : ∀ X, Lor X → F X = 0) : F = 0 := by
+  have hb : ∀ i : Fin (d + 1), F (bvec i) = 0 := by
+    intro i
+    refine Fin.cases ?_ (fun j => ?_) i
+    · rw [bvec_zero_eq]; exact h _ lor_hom_zero
+    · have h1 := h _ (lor_hom_zero_add_smul_bvec j (s := 1) (by norm_num))
+      rwa [map_add, map_smul, h _ lor_hom_zero, zero_add, one_smul] at h1
+  apply LinearMap.ext; intro X
+  rw [LinearMap.pi_apply_eq_sum_univ F X, LinearMap.zero_apply]
+  exact Finset.sum_eq_zero fun i _ => by
+    rw [show (fun j => if i = j then (1 : ℝ) else 0) = bvec i from rfl, hb i, smul_zero]
+
+theorem hom_add_hom_neg (z : Fin d → ℝ) : hom z + hom (-z) = (2 : ℝ) • hom 0 := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · simp only [Pi.add_apply, Pi.smul_apply, hom_zero, smul_eq_mul]; norm_num
+  · simp only [Pi.add_apply, Pi.smul_apply, hom_succ, Pi.neg_apply, Pi.zero_apply, smul_eq_mul]
+    ring
+
+/-- The two corners are orthogonal as homogenized vectors. -/
+theorem dot_hom_neg_hom {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) :
+    ∑ μ, hom (-z) μ * hom z μ = 0 := by
+  rw [Fin.sum_univ_succ, hom_zero, hom_zero, one_mul]
+  simp only [hom_succ, Pi.neg_apply]
+  have : ∑ j, -z j * z j = -∑ j, z j ^ 2 := by
+    rw [← Finset.sum_neg_distrib]; exact Finset.sum_congr rfl fun j _ => by ring
+  rw [this, hz]; ring
+
+theorem dot_hom_hom_neg {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) :
+    ∑ μ, hom z μ * hom (-z) μ = 0 := by
+  rw [← dot_hom_neg_hom hz]; exact Finset.sum_congr rfl fun μ _ => mul_comm _ _
+
+/-- **The corner face.** A cone vector annihilated by the antipodal corner effect lies on the
+corner ray. -/
+theorem lor_face {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {m : HVec d} (hm : Lor m)
+    (h : ∑ μ, hom (-z) μ * m μ = 0) : m = m 0 • hom z := by
+  have hdot : ∑ j, z j * m j.succ = m 0 := by
+    rw [Fin.sum_univ_succ, hom_zero, one_mul] at h
+    simp only [hom_succ, Pi.neg_apply] at h
+    have : ∑ j, -z j * m j.succ = -∑ j, z j * m j.succ := by
+      rw [← Finset.sum_neg_distrib]; exact Finset.sum_congr rfl fun j _ => by ring
+    linarith
+  have hcs : (∑ j, z j * m j.succ) ^ 2 ≤ (∑ j, z j ^ 2) * ∑ j, m j.succ ^ 2 :=
+    Finset.sum_mul_sq_le_sq_mul_sq Finset.univ z (fun j => m j.succ)
+  rw [hdot, hz, one_mul] at hcs
+  have hsq : ∑ j, m j.succ ^ 2 = m 0 ^ 2 := le_antisymm hm.2 hcs
+  have hzero : ∑ j, (m j.succ - m 0 * z j) ^ 2 = 0 := by
+    have : ∀ j, (m j.succ - m 0 * z j) ^ 2
+        = m j.succ ^ 2 - 2 * m 0 * (z j * m j.succ) + m 0 ^ 2 * z j ^ 2 := fun j => by ring
+    rw [Finset.sum_congr rfl fun j _ => this j, Finset.sum_add_distrib, Finset.sum_sub_distrib,
+      ← Finset.mul_sum, ← Finset.mul_sum, hdot, hz, hsq]
+    ring
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [Pi.smul_apply, hom_zero, smul_eq_mul, mul_one]
+  · have := (Finset.sum_eq_zero_iff_of_nonneg (fun j _ => sq_nonneg (m j.succ - m 0 * z j))).1
+      hzero j (Finset.mem_univ _)
+    have h2 := (pow_eq_zero_iff two_ne_zero).mp this
+    rw [Pi.smul_apply, hom_succ, smul_eq_mul]
+    linarith
+
+theorem tens_hom_inj {x : Fin d → ℝ} {Y Y' : HVec d} (h : tens (hom x) Y = tens (hom x) Y') :
+    Y = Y' := by
+  funext ν
+  have := congrFun (congrFun h 0) ν
+  rwa [tens_apply, tens_apply, hom_zero, one_mul, one_mul] at this
+
+theorem toOp_bvec (ω : W d) (ν μ : Fin (d + 1)) : toOp ω (bvec ν) μ = ω μ ν := by
+  rw [toOp_apply]
+  simp only [bvec_apply, mul_ite, mul_one, mul_zero]
+  rw [Finset.sum_ite_eq]
+  simp
+
+/-- The target map on a corner slice: the first row of `G' (hom z ⊗ Y)`. -/
+def cornerMap (z : Fin d → ℝ) (G' : W d →ₗ[ℝ] W d) : HVec d →ₗ[ℝ] HVec d :=
+  (LinearMap.proj (0 : Fin (d + 1)) : W d →ₗ[ℝ] HVec d) ∘ₗ G' ∘ₗ tensL (hom z)
+
+theorem cornerMap_apply (z : Fin d → ℝ) (G' : W d →ₗ[ℝ] W d) (Y : HVec d) :
+    cornerMap z G' Y = G' (tens (hom z) Y) 0 := rfl
+
+/-- **S1, the controlled form.** A linear map with the frame on the corner `z` slice and product
+positivity acts on that slice as `hom z ⊗ (·)`: the control output is the corner itself. -/
+theorem corner_form {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {G' : W d →ₗ[ℝ] W d}
+    (hframe : ∀ b : Fin 2, G' (prodState z (corner z b)) = prodState z (corner z b))
+    (hpos : ∀ x ∈ eball d, ∀ y ∈ eball d, G' (prodState x y) ∈ maxCone (eball d)) (Y : HVec d) :
+    G' (tens (hom z) Y) = tens (hom z) (cornerMap z G' Y) := by
+  have hzl : Lor (hom z) := lor_hom_of_unit hz
+  have hzl' : Lor (hom (-z)) := lor_hom_of_unit (by simpa [neg_sq] using hz)
+  have hA : ∀ f, Lor f → ∀ Y, pairVal (hom (-z)) f (G' (tens (hom z) Y)) = 0 := by
+    intro f hf
+    let F : HVec d →ₗ[ℝ] ℝ := pvOmega (hom (-z)) f ∘ₗ G' ∘ₗ tensL (hom z)
+    have hF : ∀ Y, F Y = pairVal (hom (-z)) f (G' (tens (hom z) Y)) := fun Y => rfl
+    have hFpos : ∀ X, Lor X → 0 ≤ F X := fun X hX => by
+      rw [hF]; exact gate_pairVal_nonneg hpos hzl' hzl hf hX
+    have hk : ∀ b : Fin 2, F (hom (corner z b)) = 0 := by
+      intro b
+      rw [hF, ← prodState_eq_tens, hframe b, prodState_eq_tens, pairVal_tens, dot_hom_neg_hom hz,
+        zero_mul]
+    have h0 : F (hom 0) = 0 := by
+      have h2 : F ((2 : ℝ) • hom 0) = 0 := by
+        rw [← hom_add_hom_neg, map_add]
+        have hk0 := hk 0
+        have hk1 := hk 1
+        rw [corner_zero] at hk0
+        rw [corner_one] at hk1
+        rw [hk0, hk1, add_zero]
+      rw [map_smul, smul_eq_mul] at h2
+      linarith
+    have hF0 := linearMap_eq_zero_of_nonneg_lor F hFpos h0
+    intro Y
+    rw [← hF, hF0, LinearMap.zero_apply]
+  have hB : ∀ Y, Lor Y → ∀ f, Lor f →
+      toOp (G' (tens (hom z) Y)) f = (toOp (G' (tens (hom z) Y)) f 0) • hom z := by
+    intro Y hY f hf
+    apply lor_face hz (lor_toOp_of_maxCone (tens_mem_maxCone hpos hzl hY) hf)
+    rw [← pairVal_eq_sum_toOp]
+    exact hA f hf Y
+  have hC : ∀ Y, Lor Y → ∀ f,
+      toOp (G' (tens (hom z) Y)) f = (toOp (G' (tens (hom z) Y)) f 0) • hom z := by
+    intro Y hY
+    have hD := linearMap_eq_zero_of_lor
+      (toOp (G' (tens (hom z) Y))
+        - ((LinearMap.proj (0 : Fin (d + 1)) : HVec d →ₗ[ℝ] ℝ) ∘ₗ
+            toOp (G' (tens (hom z) Y))).smulRight (hom z))
+      (fun f hf => by
+        rw [LinearMap.sub_apply, LinearMap.smulRight_apply, LinearMap.comp_apply,
+          LinearMap.proj_apply]
+        exact sub_eq_zero.mpr (hB Y hY f hf))
+    intro f
+    have := LinearMap.congr_fun hD f
+    rwa [LinearMap.sub_apply, LinearMap.smulRight_apply, LinearMap.comp_apply,
+      LinearMap.proj_apply, LinearMap.zero_apply, sub_eq_zero] at this
+  have hE : ∀ Y, Lor Y → G' (tens (hom z) Y) = tens (hom z) (cornerMap z G' Y) := by
+    intro Y hY
+    funext μ ν
+    have := congrFun (hC Y hY (bvec ν)) μ
+    rw [toOp_bvec, Pi.smul_apply, toOp_bvec, smul_eq_mul] at this
+    rw [this, tens_apply, cornerMap_apply, mul_comm]
+  have hF := linearMap_eq_zero_of_lor (G' ∘ₗ tensL (hom z) - tensL (hom z) ∘ₗ cornerMap z G')
+    (fun Y hY => by
+      rw [LinearMap.sub_apply, LinearMap.comp_apply, LinearMap.comp_apply, tensL_apply,
+        tensL_apply, hE Y hY, sub_self])
+  have := LinearMap.congr_fun hF Y
+  rwa [LinearMap.sub_apply, LinearMap.comp_apply, LinearMap.comp_apply, tensL_apply, tensL_apply,
+    LinearMap.zero_apply, sub_eq_zero] at this
 
 /-! ### §P — controls: the classical gate of two intervals, and `eball 4` -/
 
@@ -1622,8 +2043,8 @@ theorem dim1_core :
     ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ)) (G : W 4 ≃ₗ[ℝ] W 4),
       IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G :=
   ⟨fun _ _ _ _ hN hG => not_even_of_nativeGate hN hG,
-    fun _ _ _ _ hN hG hB => dim_of_nativeGate hN hG hB,
-    fun _ _ _ _ hN hG hB hE => three_of_nativeGate hN hG hB hE,
+    fun _ _ _ _ hN hG hB => dim_of_nativeGate_of_blockData hN hG hB,
+    fun _ _ _ _ hN hG hB hE => three_of_nativeGate_of_blockData hN hG hB hE,
     ⟨isNot_nflip, nativeGate_cnot, entangling_cnot⟩,
     ⟨isNot_neg1, nativeGate_cnot1, not_entangling_cnot1, not_product_cnot1_mixed⟩,
     no_gate_four⟩
@@ -1649,7 +2070,7 @@ end OIBridge
 #print axioms OIBridge.CompositeDimension.entangling_cnot
 #print axioms OIBridge.CompositeDimension.eq_corner_of_extreme
 #print axioms OIBridge.CompositeDimension.not_entangling_one
-#print axioms OIBridge.CompositeDimension.three_of_nativeGate
+#print axioms OIBridge.CompositeDimension.three_of_nativeGate_of_blockData
 #print axioms OIBridge.CompositeDimension.isNot_neg1
 #print axioms OIBridge.CompositeDimension.nativeGate_cnot1
 #print axioms OIBridge.CompositeDimension.not_entangling_cnot1
@@ -1679,6 +2100,6 @@ end OIBridge
 #print axioms OIBridge.CompositeDimension.ne_two_of_nativeGate
 #print axioms OIBridge.CompositeDimension.ne_four_of_nativeGate
 #print axioms OIBridge.CompositeDimension.p_le_one_of_blockData
-#print axioms OIBridge.CompositeDimension.dim_of_nativeGate
+#print axioms OIBridge.CompositeDimension.dim_of_nativeGate_of_blockData
 #print axioms OIBridge.CompositeDimension.ne_five_of_nativeGate
 #print axioms OIBridge.CompositeDimension.ne_seven_of_nativeGate
