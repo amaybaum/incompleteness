@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "ORD-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "afa66d16d7adaffe94fb9bac391e6039c51dad8a",
+ "f": "cf3509e8bccb284a70932846922ce07f962788cf",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-ord-1-composition-order/preregistration.md",
+   "blob": "301cccc078bbea81b0368f77451b6b8ec8bfd904"
+  }
+ ],
+ "governed_paths_digest": "02214495042dba38b2ef05602a38d64ccd9f866b91c5984276a6d3dfaa8d9fac",
+ "e": "5afc20b90e66723405d9b25887fa4ba40d507d85",
+ "tree_e": "3be98b883e988524c2f9b900136e8a2788219d97",
+ "execution_delta_digest": "dc33430777d59003be3f1a87fb5b17e1965800e6a5442abc4be552378c9e478d",
+ "candidates": [],
+ "landing": {
+  "base": "afa66d16d7adaffe94fb9bac391e6039c51dad8a",
+  "object": "2f90d92759ef43c15e33b60e854f89270a4a1eee",
+  "reconciliations": [
+   "2f90d92759ef43c15e33b60e854f89270a4a1eee"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "05083706741857db877624b6dcab97a187e62cae251ca2d6003cf4a6c2431f6f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "cf3509e8bccb284a70932846922ce07f962788cf",
+   "record": "https://github.com/amaybaum/incompleteness/pull/788#issuecomment-5984450815"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "cf3509e8bccb284a70932846922ce07f962788cf",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37233878948"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "5afc20b90e66723405d9b25887fa4ba40d507d85",
+   "record": "https://github.com/amaybaum/incompleteness/pull/788#issuecomment-5987494555"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "5afc20b90e66723405d9b25887fa4ba40d507d85",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37237375751"
+  }
+ ]
+}
