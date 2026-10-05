@@ -984,8 +984,9 @@ minimal premises from which it follows. It has four parts, each with its own sta
 - **K1 — the dimension. CONDITIONAL.** For two locally tomographic `d`-balls with full self-dual
   effect cones, one common NOT involution on both copies and a native CNOT satisfying the two NOT
   relations with two-sided product positivity, `d ∈ {1, 3}`. The dimension-free steps are
-  kernel-proved, the dimension-dependent steps are exact for `d ≤ 7`, and the theorem for general
-  `d` rests on the round's written proof. It does not say that bare OI selects `d = 3`: its OI
+  kernel-proved and the dimension-dependent steps are exact for `d ≤ 7` in round NB-1; the theorem
+  for general `d` is a kernel theorem of round DIM-1 (`dim_of_nativeGate`), and with an entangling
+  gate `d = 3` (`three_of_nativeGate`). It does not say that bare OI selects `d = 3`: its OI
   reading is conditional on the copies' NOTs agreeing. Dropping the control-NOT relation, or
   allowing different NOTs on the two copies, admits `d = 5` countermodels.
 - **K2 — the composite. OPEN.** Read-only research has mapped a candidate `d = 3` composition
