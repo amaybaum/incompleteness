@@ -28,9 +28,8 @@
         `NativeGateBall.parity` the two eigenspaces have equal dimension
         (`finrank_plus_eq_finrank_minus`);
     §J  the exclusions: no even `d` (`not_even_of_nativeGate`, with `d = 2`, `d = 4`); given the
-        block data of the written S1–S2–S4 reduction (`BlockData`, the hypothesis of
-        `NativeGateBall.p_le_one`, a named premise here), `d = 1 ∨ d = 3` (`dim_of_nativeGate`),
-        with `d = 5` and `d = 7` as instances;
+        block data (`BlockData`, the hypothesis of `NativeGateBall.p_le_one`, derived in §Q),
+        `d = 1 ∨ d = 3` (`dim_of_nativeGate_of_blockData`), with `d = 5` and `d = 7` as instances;
     §K  survival, the `d = 3` gate: a signed permutation `cnot` of the sixteen entries of `W 3`,
         the reflection `nflip` as the common NOT with axis `z3`, `IsNot` (`isNot_nflip`), the frame
         (`cnot_frame`) and the two relations (`cnot_relT`, `cnot_relC`) by exact evaluation;
@@ -47,15 +46,30 @@
         `Entangling (eball 3) cnot` (`entangling_cnot`);
     §O  `d = 1` is not entangling: an extreme point of the interval is a corner, and the frame
         carries every pure product input to a product (`not_entangling_one`); with §J,
-        `three_of_nativeGate : … → Entangling … → d = 3`;
+        `three_of_nativeGate_of_blockData`;
+    §Q  the block reduction, S1–S2–S4 of round NB-1, in the kernel for `2 ≤ d`: positivity on
+        every product of cone vectors (`tens_mem_maxCone`); a linear functional nonnegative on
+        the cone and zero at the centre is zero (`linearMap_eq_zero_of_nonneg_lor`); the corner
+        face of the cone (`lor_face`); S1, the controlled form on a corner slice (`corner_form`,
+        `gate_corner`, `gate_corner_symm`), the target maps `Mfwd`, `Minv`, inverse to each other,
+        commuting with the NOT by Rt, and the `−z` slice by Rc (`gate_corner_neg`); the normalized
+        gate on the corner and centre slices (`gt_corner`, `gt_corner_neg`, `gt_center`); the
+        tangent argument along the boundary curve through a corner (`lor_curve`,
+        `tangent_vanish`); S2, the control output of a tangent slice is orthogonal to both
+        corners (`gt_tangent_corners`) and the two sphere identities (`gt_sphere`,
+        `gt_sphere_corner`), hence for the block form `Phi` the centre value vanishes, the mixed
+        values agree and the diagonal values vanish on unit tangent directions (`Phi_sphere`,
+        `Phi_center`); the tangent `+1` eigenspace has dimension `tangentPlus N`
+        (`finrank_tangentSpace`) and an orthonormal basis (`exists_orthonormal_basis`); S4, the
+        value identity and the nonzero entry, assembled into the block data
+        (`blockData_of_orthonormal`, `blockData_of_nativeGate`); the selectors from the frozen
+        hypotheses alone, `dim_of_nativeGate : IsNot … → NativeGate … → d = 1 ∨ d = 3` and
+        `three_of_nativeGate : … → Entangling … → d = 3`, with `d = 0` excluded by the unit clause
+        (`pos_of_isNot`) and `d = 1` handled directly;
     §P  controls: the classical gate `cnot1` of two intervals satisfies every hypothesis
         (`nativeGate_cnot1`) except the entangling clause (`not_entangling_cnot1`), and creates
         correlations from the mixed input `(0, z1)` (`not_product_cnot1_mixed`); `eball 4` carries
         no gate (`no_gate_four`); the verdict `dim1_core`.
-
-  Not proved here: the reduction from `NativeGate` to `BlockData` (the controlled form S1, the block
-  structure S2 and the value identity S4), which remains the written proof of round NB-1; the
-  selector theorems carry `BlockData` as a named premise.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -1788,7 +1802,7 @@ theorem lor_face {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {m : HVec d} (hm 
   rw [hdot, hz, one_mul] at hcs
   have hsq : ∑ j, m j.succ ^ 2 = m 0 ^ 2 := le_antisymm hm.2 hcs
   have hzero : ∑ j, (m j.succ - m 0 * z j) ^ 2 = 0 := by
-    have : ∀ j, (m j.succ - m 0 * z j) ^ 2
+    have : ∀ j : Fin d, (m j.succ - m 0 * z j) ^ 2
         = m j.succ ^ 2 - 2 * m 0 * (z j * m j.succ) + m 0 ^ 2 * z j ^ 2 := fun j => by ring
     rw [Finset.sum_congr rfl fun j _ => this j, Finset.sum_add_distrib, Finset.sum_sub_distrib,
       ← Finset.mul_sum, ← Finset.mul_sum, hdot, hz, hsq]
@@ -2187,6 +2201,576 @@ theorem gt_sphere_corner {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (F
     rw [← hF]
     exact tangent_vanish F hFpos hz' hc hzc' h0
 
+/-- The dot product of the homogenized space as a bilinear map. -/
+def dotB : HVec d →ₗ[ℝ] HVec d →ₗ[ℝ] ℝ :=
+  LinearMap.mk₂ ℝ (fun u w => ∑ μ, u μ * w μ)
+    (fun u u' w => by
+      show ∑ μ, (u + u') μ * w μ = ∑ μ, u μ * w μ + ∑ μ, u' μ * w μ
+      rw [← Finset.sum_add_distrib]
+      exact Finset.sum_congr rfl fun μ _ => by rw [Pi.add_apply]; ring)
+    (fun r u w => by
+      show ∑ μ, (r • u) μ * w μ = r • ∑ μ, u μ * w μ
+      simp only [Pi.smul_apply, smul_eq_mul, Finset.mul_sum]
+      exact Finset.sum_congr rfl fun μ _ => by ring)
+    (fun u w w' => by
+      show ∑ μ, u μ * (w + w') μ = ∑ μ, u μ * w μ + ∑ μ, u μ * w' μ
+      rw [← Finset.sum_add_distrib]
+      exact Finset.sum_congr rfl fun μ _ => by rw [Pi.add_apply]; ring)
+    (fun r u w => by
+      show ∑ μ, u μ * (r • w) μ = r • ∑ μ, u μ * w μ
+      simp only [Pi.smul_apply, smul_eq_mul, Finset.mul_sum]
+      exact Finset.sum_congr rfl fun μ _ => by ring)
+
+theorem dotB_apply (u w : HVec d) : dotB u w = ∑ μ, u μ * w μ := rfl
+
+/-- A vector whose dot square is at most twice its head square is a cone vector. -/
+theorem lor_of_dotB {X : HVec d} (h0 : 0 ≤ X 0) (h : dotB X X ≤ 2 * X 0 ^ 2) : Lor X := by
+  refine ⟨h0, ?_⟩
+  rw [dotB_apply, Fin.sum_univ_succ] at h
+  have e : ∑ j : Fin d, X j.succ * X j.succ = ∑ j : Fin d, X j.succ ^ 2 :=
+    Finset.sum_congr rfl fun j _ => (sq _).symm
+  rw [e] at h
+  nlinarith [h]
+
+/-- **The block form.** The target bilinear form of the normalized gate on the tangent control
+slice `c`, read against the control effect `a`. -/
+noncomputable def Phi (z : Fin d → ℝ) (G : W d ≃ₗ[ℝ] W d) (a : HVec d) (c : Fin d → ℝ) :
+    HVec d →ₗ[ℝ] HVec d →ₗ[ℝ] ℝ :=
+  LinearMap.mk₂ ℝ (fun f t => pairVal a f (G (tens (lift c) (Minv z G t))))
+    (fun f f' t => pairVal_add_right a f f' _)
+    (fun r f t => by
+      show pairVal a (r • f) (G (tens (lift c) (Minv z G t)))
+        = r • pairVal a f (G (tens (lift c) (Minv z G t)))
+      rw [pairVal_smul_right, smul_eq_mul])
+    (fun f t t' => by
+      show pairVal a f (G (tens (lift c) (Minv z G (t + t'))))
+        = pairVal a f (G (tens (lift c) (Minv z G t))) + pairVal a f (G (tens (lift c) (Minv z G t')))
+      rw [map_add, tens_add_right, map_add, pairVal_add_omega])
+    (fun r f t => by
+      show pairVal a f (G (tens (lift c) (Minv z G (r • t))))
+        = r • pairVal a f (G (tens (lift c) (Minv z G t)))
+      rw [map_smul, tens_smul_right, map_smul, pairVal_smul_omega, smul_eq_mul])
+
+theorem Phi_apply (z : Fin d → ℝ) (G : W d ≃ₗ[ℝ] W d) (a : HVec d) (c : Fin d → ℝ)
+    (f t : HVec d) : Phi z G a c f t = pairVal a f (G (tens (lift c) (Minv z G t))) := rfl
+
+/-- The two sphere identities in block form: on a unit tangent target direction `u`, the diagonal
+value equals the centre value and the two mixed values agree. -/
+theorem Phi_sphere {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {c : Fin d → ℝ}
+    (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) {u : HVec d}
+    (hu0 : u 0 = 0) (hu : ∑ μ, u μ ^ 2 = 1) :
+    Phi z G a c u u = Phi z G a c (hom 0) (hom 0) ∧
+    Phi z G a c (hom 0) u = Phi z G a c u (hom 0) := by
+  have h1 : Phi z G a c (hom 0 - u) (hom 0 + u) = 0 := gt_sphere hN hG hc hzc ha hu0 hu
+  have hu0' : (-u) 0 = 0 := by rw [Pi.neg_apply, hu0, neg_zero]
+  have hu' : ∑ μ, (-u) μ ^ 2 = 1 := by simpa [neg_sq] using hu
+  have h2 : Phi z G a c (hom 0 - -u) (hom 0 + -u) = 0 := gt_sphere hN hG hc hzc ha hu0' hu'
+  rw [sub_neg_eq_add, ← sub_eq_add_neg] at h2
+  simp only [map_add, map_sub, LinearMap.add_apply, LinearMap.sub_apply] at h1 h2
+  constructor <;> linarith
+
+/-- The centre value of the block form vanishes. -/
+theorem Phi_center {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {c : Fin d → ℝ}
+    (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) :
+    Phi z G a c (hom 0) (hom 0) = 0 := by
+  have hz0 : lift z 0 = 0 := lift_zero z
+  have hz1 : ∑ μ, lift z μ ^ 2 = 1 := by
+    rw [Fin.sum_univ_succ, lift_zero, zero_pow two_ne_zero, zero_add]
+    simpa using hN.unit
+  obtain ⟨ha1, hb1⟩ := Phi_sphere hN hG hc hzc ha hz0 hz1
+  have hc0 : Phi z G a c (hom z) (hom z) = 0 := (gt_sphere_corner hN hG hc hzc ha).1
+  have hc1 : Phi z G a c (hom (-z)) (hom (-z)) = 0 := (gt_sphere_corner hN hG hc hzc ha).2
+  rw [hom_eq_add_lift z] at hc0
+  rw [hom_eq_add_lift (-z), lift_neg, ← sub_eq_add_neg] at hc1
+  simp only [map_add, map_sub, LinearMap.add_apply, LinearMap.sub_apply] at hc0 hc1
+  linarith
+
+/-- The centre value vanishes for every control effect. -/
+theorem Phi_center_all {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {c : Fin d → ℝ}
+    (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) (a : HVec d) :
+    Phi z G a c (hom 0) (hom 0) = 0 := by
+  have h := linearMap_eq_zero_of_lor (pvLeft (hom 0) (G (tens (lift c) (Minv z G (hom 0)))))
+    (fun a ha => Phi_center hN hG hc hzc ha)
+  have := LinearMap.congr_fun h a
+  rw [LinearMap.zero_apply] at this
+  exact this
+
+/-- The block form against the unit control effect vanishes identically. -/
+theorem Phi_hom_zero_eq_zero {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+    {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) (f t : HVec d) :
+    Phi z G (hom 0) c f t = 0 := by
+  have key : ∀ f t, Lor f → Lor t → Phi z G (hom 0) c f t = 0 := by
+    intro f t hf ht
+    obtain ⟨h1, h2⟩ := gt_tangent_corners hN hG hc hzc hf ht
+    have hboth : pairVal (hom z + hom (-z)) f (G (tens (lift c) (Minv z G t))) = 0 := by
+      rw [pairVal_add_left, h1, h2, add_zero]
+    rw [hom_add_hom_neg, pairVal_smul_left] at hboth
+    rw [Phi_apply]
+    linarith
+  have hT : ∀ f, Lor f → Phi z G (hom 0) c f = 0 := fun f hf =>
+    linearMap_eq_zero_of_lor _ (fun t ht => key f t hf ht)
+  have hF : Phi z G (hom 0) c = 0 := linearMap_eq_zero_of_lor _ hT
+  rw [hF, LinearMap.zero_apply, LinearMap.zero_apply]
+
+/-- The block form against the lifted corner axis vanishes identically. -/
+theorem Phi_lift_z_eq_zero {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+    {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) (f t : HVec d) :
+    Phi z G (lift z) c f t = 0 := by
+  have key : ∀ f t, Lor f → Lor t → Phi z G (lift z) c f t = 0 := by
+    intro f t hf ht
+    have h2 := (gt_tangent_corners hN hG hc hzc hf ht).2
+    have h0 := Phi_hom_zero_eq_zero hN hG hc hzc f t
+    rw [hom_eq_add_lift z, pairVal_add_left] at h2
+    rw [Phi_apply] at h0
+    rw [Phi_apply]
+    linarith
+  have hT : ∀ f, Lor f → Phi z G (lift z) c f = 0 := fun f hf =>
+    linearMap_eq_zero_of_lor _ (fun t ht => key f t hf ht)
+  have hF : Phi z G (lift z) c = 0 := linearMap_eq_zero_of_lor _ hT
+  rw [hF, LinearMap.zero_apply, LinearMap.zero_apply]
+
+/-- The tangent part of the `+1` eigenspace: the `+1` eigenvectors with vanishing head. -/
+def tangentSpace (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : Submodule ℝ (HVec d) :=
+  plusSpace N ⊓ LinearMap.ker (LinearMap.proj (0 : Fin (d + 1)) : HVec d →ₗ[ℝ] ℝ)
+
+theorem mem_tangentSpace {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {v : HVec d} :
+    v ∈ tangentSpace N ↔ homMap N v = v ∧ v 0 = 0 := by
+  rw [tangentSpace, Submodule.mem_inf, mem_plusSpace, LinearMap.mem_ker, LinearMap.proj_apply]
+
+theorem hom_zero_ne_zero : hom (0 : Fin d → ℝ) ≠ 0 := fun h => by
+  have := congrFun h 0
+  rw [hom_zero, Pi.zero_apply] at this
+  exact one_ne_zero this
+
+/-- The tangent part of the `+1` eigenspace has dimension `tangentPlus N`. -/
+theorem finrank_tangentSpace (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) :
+    Module.finrank ℝ (tangentSpace N) = tangentPlus N := by
+  have hsup : tangentSpace N ⊔ Submodule.span ℝ {hom (0 : Fin d → ℝ)} = plusSpace N := by
+    apply le_antisymm
+    · exact sup_le inf_le_left
+        ((Submodule.span_singleton_le_iff_mem _ _).mpr (hom_zero_mem_plusSpace N))
+    · intro v hv
+      rw [Submodule.mem_sup]
+      refine ⟨v - v 0 • hom 0, ?_, v 0 • hom 0, Submodule.mem_span_singleton.mpr ⟨v 0, rfl⟩,
+        sub_add_cancel _ _⟩
+      rw [mem_tangentSpace]
+      refine ⟨?_, ?_⟩
+      · rw [map_sub, map_smul, mem_plusSpace.mp hv, mem_plusSpace.mp (hom_zero_mem_plusSpace N)]
+      · rw [Pi.sub_apply, Pi.smul_apply, hom_zero, smul_eq_mul, mul_one, sub_self]
+  have hinf : tangentSpace N ⊓ Submodule.span ℝ {hom (0 : Fin d → ℝ)} = ⊥ := by
+    rw [Submodule.eq_bot_iff]
+    intro v hv
+    obtain ⟨hv1, hv2⟩ := Submodule.mem_inf.mp hv
+    obtain ⟨r, rfl⟩ := Submodule.mem_span_singleton.mp hv2
+    have := (mem_tangentSpace.mp hv1).2
+    rw [Pi.smul_apply, hom_zero, smul_eq_mul, mul_one] at this
+    rw [this, zero_smul]
+  have h := Submodule.finrank_sup_add_finrank_inf_eq (tangentSpace N)
+    (Submodule.span ℝ {hom (0 : Fin d → ℝ)})
+  rw [hsup, hinf, finrank_bot, finrank_span_singleton hom_zero_ne_zero] at h
+  unfold tangentPlus
+  omega
+
+/-- Every subspace of the homogenized space has an orthonormal basis for the dot product, in sum
+form: a family of its dimension, orthonormal, and separating the subspace. -/
+theorem exists_orthonormal_basis (S : Submodule ℝ (HVec d)) :
+    ∃ (q : ℕ) (v : Fin q → HVec d), q = Module.finrank ℝ S ∧ (∀ r, v r ∈ S) ∧
+      (∀ r s, ∑ μ, v r μ * v s μ = if r = s then 1 else 0) ∧
+      (∀ u ∈ S, (∀ r, ∑ μ, v r μ * u μ = 0) → u = 0) := by
+  let e : EuclideanSpace ℝ (Fin (d + 1)) ≃ₗ[ℝ] HVec d :=
+    WithLp.linearEquiv 2 ℝ (Fin (d + 1) → ℝ)
+  let K : Submodule ℝ (EuclideanSpace ℝ (Fin (d + 1))) :=
+    S.map (e.symm : HVec d →ₗ[ℝ] EuclideanSpace ℝ (Fin (d + 1)))
+  have hK : Module.finrank ℝ K = Module.finrank ℝ S := LinearEquiv.finrank_map_eq e.symm S
+  let b := stdOrthonormalBasis ℝ K
+  have hinner : ∀ x y : EuclideanSpace ℝ (Fin (d + 1)), inner ℝ x y = ∑ μ, e x μ * e y μ := by
+    intro x y
+    rw [PiLp.inner_apply]
+    exact Finset.sum_congr rfl fun μ _ =>
+      (by rw [RCLike.inner_apply, conj_trivial, mul_comm] : inner ℝ (x μ) (y μ) = x μ * y μ)
+  have hmem : ∀ x : K, e (x : EuclideanSpace ℝ (Fin (d + 1))) ∈ S := by
+    intro x
+    obtain ⟨y, hy, hyeq⟩ := Submodule.mem_map.mp x.2
+    have : e (x : EuclideanSpace ℝ (Fin (d + 1))) = y := by rw [← hyeq, e.apply_symm_apply]
+    rw [this]; exact hy
+  refine ⟨Module.finrank ℝ K, fun r => e (b r : EuclideanSpace ℝ (Fin (d + 1))), hK,
+    fun r => hmem (b r), ?_, ?_⟩
+  · intro r s
+    have h := orthonormal_iff_ite.mp b.orthonormal r s
+    rw [Submodule.coe_inner, hinner] at h
+    exact h
+  · intro u hu hperp
+    have huK : e.symm u ∈ K := Submodule.mem_map_of_mem hu
+    have hrepr := b.sum_repr' ⟨e.symm u, huK⟩
+    have hzero : ∀ r, inner ℝ (b r) (⟨e.symm u, huK⟩ : K) = 0 := by
+      intro r
+      rw [Submodule.coe_inner, hinner]
+      have := hperp r
+      simpa [e.apply_symm_apply] using this
+    rw [Finset.sum_eq_zero (fun r _ => by rw [hzero r, zero_smul])] at hrepr
+    have h0 : e.symm u = 0 := by
+      have := congrArg Subtype.val hrepr
+      simpa using this.symm
+    rw [← e.apply_symm_apply u, h0, map_zero]
+
+/-- The control tangent directions: the coordinate vector `e_k` with its `z`-component removed. -/
+def tperp (z : Fin d → ℝ) (k : Fin d) : Fin d → ℝ := fun j => (if k = j then 1 else 0) - z k * z j
+
+theorem tperp_apply (z : Fin d → ℝ) (k j : Fin d) :
+    tperp z k j = (if k = j then (1 : ℝ) else 0) - z k * z j := rfl
+
+theorem sum_ite_mul (k : Fin d) (f : Fin d → ℝ) :
+    ∑ j, (if k = j then (1 : ℝ) else 0) * f j = f k := by
+  simp only [ite_mul, one_mul, zero_mul]
+  rw [Finset.sum_ite_eq]
+  simp
+
+theorem tperp_sq {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) (k : Fin d) :
+    ∑ j, tperp z k j ^ 2 = 1 - z k ^ 2 := by
+  have e1 : ∀ j, tperp z k j ^ 2 = (if k = j then (1 : ℝ) else 0) * (if k = j then (1 : ℝ) else 0)
+      - 2 * z k * ((if k = j then (1 : ℝ) else 0) * z j) + z k ^ 2 * z j ^ 2 := fun j => by
+    rw [tperp_apply]; ring
+  rw [Finset.sum_congr rfl fun j _ => e1 j, Finset.sum_add_distrib, Finset.sum_sub_distrib,
+    ← Finset.mul_sum, ← Finset.mul_sum, sum_ite_mul, sum_ite_mul, hz, if_pos rfl]
+  ring
+
+theorem tperp_le_one {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) (k : Fin d) :
+    ∑ j, tperp z k j ^ 2 ≤ 1 := by
+  rw [tperp_sq hz k]; nlinarith [sq_nonneg (z k)]
+
+theorem tperp_dot_z {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) (k : Fin d) :
+    ∑ j, z j * tperp z k j = 0 := by
+  have e1 : ∀ j, z j * tperp z k j = (if k = j then (1 : ℝ) else 0) * z j - z k * z j ^ 2 :=
+    fun j => by rw [tperp_apply]; ring
+  rw [Finset.sum_congr rfl fun j _ => e1 j, Finset.sum_sub_distrib, sum_ite_mul, ← Finset.mul_sum,
+    hz]
+  ring
+
+theorem tperp_mem {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) (k : Fin d) : tperp z k ∈ eball d :=
+  mem_eball.mpr (tperp_le_one hz k)
+
+/-- The lifted tangent direction is the basis vector less its `z`-component. -/
+theorem lift_tperp (z : Fin d → ℝ) (k : Fin d) :
+    lift (tperp z k) = bvec k.succ - z k • lift z := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · rw [lift_zero, Pi.sub_apply, bvec_apply, if_neg (Fin.succ_ne_zero k), Pi.smul_apply, lift_zero,
+      smul_zero, sub_zero]
+  · rw [lift_succ, tperp_apply, Pi.sub_apply, bvec_apply, Pi.smul_apply, lift_succ, smul_eq_mul,
+      Fin.succ_inj]
+
+/-- Some control tangent direction is nonzero when `2 ≤ d`. -/
+theorem exists_tperp_ne_zero {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) (hd : 2 ≤ d) :
+    ∃ l, tperp z l ≠ 0 := by
+  by_contra hcon
+  have hall : ∀ l, z l ^ 2 = 1 := by
+    intro l
+    have h0 : tperp z l = 0 := by
+      by_contra h; exact hcon ⟨l, h⟩
+    have := tperp_sq hz l
+    rw [h0] at this
+    simp at this
+    linarith
+  have hsum := hz
+  rw [Finset.sum_congr rfl fun l _ => hall l] at hsum
+  simp at hsum
+  omega
+
+theorem dot_hom_hom_zero (x : Fin d → ℝ) : ∑ μ, hom x μ * hom (0 : Fin d → ℝ) μ = 1 := by
+  rw [Fin.sum_univ_succ, hom_zero, hom_zero, one_mul]
+  simp [hom_succ]
+
+theorem sum_bvec_mul (μ : Fin (d + 1)) (g : HVec d) : ∑ μ', bvec μ μ' * g μ' = g μ := by
+  simp only [bvec_apply, ite_mul, one_mul, zero_mul]
+  rw [Finset.sum_ite_eq]
+  simp
+
+/-- The pairing against a basis control effect reads a row. -/
+theorem pairVal_bvec (μ : Fin (d + 1)) (b : HVec d) (ω : W d) :
+    pairVal (bvec μ) b ω = ∑ ν, ω μ ν * b ν := by
+  rw [pairVal_eq_sum_toOp, sum_bvec_mul, toOp_apply]
+
+theorem sum_row_hom_zero (ω : W d) (μ : Fin (d + 1)) :
+    ∑ ν, ω μ ν * hom (0 : Fin d → ℝ) ν = ω μ 0 := by
+  rw [Fin.sum_univ_succ, hom_zero, mul_one]
+  simp [hom_succ]
+
+theorem tens_ne_zero {X Y : HVec d} (hX : X ≠ 0) (hY : Y ≠ 0) : tens X Y ≠ 0 := by
+  obtain ⟨μ, hμ⟩ := Function.ne_iff.mp hX
+  obtain ⟨ν, hν⟩ := Function.ne_iff.mp hY
+  intro h
+  have := congrFun (congrFun h μ) ν
+  rw [tens_apply, Pi.zero_apply, Pi.zero_apply] at this
+  exact mul_ne_zero (by simpa using hμ) (by simpa using hν) this
+
+theorem pairVal_sub_left (a a' b : HVec d) (ω : W d) :
+    pairVal (a - a') b ω = pairVal a b ω - pairVal a' b ω := by
+  unfold pairVal
+  rw [← Finset.sum_sub_distrib]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [← Finset.sum_sub_distrib]
+  refine Finset.sum_congr rfl fun ν _ => ?_
+  simp only [Pi.sub_apply]; ring
+
+/-- **The assembly (S2 and S4).** An orthonormal basis of the tangent `+1` eigenspace yields the
+block data: the matrices are indexed by the control tangent directions `tperp`, `B` is
+antisymmetric by the sphere identities, the Lorentz positivity is the gate's positivity on the
+product of the control data with the target data `(1, b)`, `(1, ±eᵢ)`, and some entry of `A` is
+nonzero because the gate is injective. -/
+theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (hd : 2 ≤ d)
+    {q : ℕ} (v : Fin q → HVec d) (hvS : ∀ r, v r ∈ tangentSpace N)
+    (hvv : ∀ r s, ∑ μ, v r μ * v s μ = if r = s then 1 else 0)
+    (hspan : ∀ u ∈ tangentSpace N, (∀ r, ∑ μ, v r μ * u μ = 0) → u = 0) : BlockData q := by
+  have hz := hN.unit
+  have hv0 : ∀ r, v r 0 = 0 := fun r => (mem_tangentSpace.mp (hvS r)).2
+  have hvN : ∀ r, homMap N (v r) = v r := fun r => (mem_tangentSpace.mp (hvS r)).1
+  have hvu : ∀ r, ∑ μ, v r μ ^ 2 = 1 := fun r => by
+    have := hvv r r
+    rw [if_pos rfl] at this
+    rw [← this]
+    exact Finset.sum_congr rfl fun μ _ => sq _
+  have hpos : ∀ x ∈ eball d, ∀ y ∈ eball d,
+      (G : W d →ₗ[ℝ] W d) (prodState x y) ∈ maxCone (eball d) :=
+    fun x hx y hy => hG.posFwd x hx y hy
+  have hsym : ∀ k l r, Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v r)
+      = Phi z G (hom (tperp z k)) (tperp z l) (v r) (hom 0) := fun k l r =>
+    (Phi_sphere hN hG (tperp_le_one hz l) (tperp_dot_z hz l) (lor_hom (tperp_mem hz k)) (hv0 r)
+      (hvu r)).2
+  have hdiag : ∀ k l r, Phi z G (hom (tperp z k)) (tperp z l) (v r) (v r) = 0 := fun k l r => by
+    rw [(Phi_sphere hN hG (tperp_le_one hz l) (tperp_dot_z hz l) (lor_hom (tperp_mem hz k)) (hv0 r)
+      (hvu r)).1]
+    exact Phi_center hN hG (tperp_le_one hz l) (tperp_dot_z hz l) (lor_hom (tperp_mem hz k))
+  have hanti : ∀ k l r s, Phi z G (hom (tperp z k)) (tperp z l) (v r) (v s)
+      + Phi z G (hom (tperp z k)) (tperp z l) (v s) (v r) = 0 := by
+    intro k l r s
+    by_cases hrs : r = s
+    · subst hrs; rw [hdiag, add_zero]
+    · obtain ⟨w, hw⟩ : ∃ w : HVec d, w = (8 / 17 : ℝ) • v r + (15 / 17 : ℝ) • v s := ⟨_, rfl⟩
+      have hw0 : w 0 = 0 := by
+        rw [hw, Pi.add_apply, Pi.smul_apply, Pi.smul_apply, hv0, hv0, smul_zero, smul_zero,
+          add_zero]
+      have hwu : ∑ μ, w μ ^ 2 = 1 := by
+        have e : ∀ μ, w μ ^ 2 = (8 / 17 : ℝ) ^ 2 * (v r μ * v r μ)
+            + 2 * ((8 / 17 : ℝ) * (15 / 17 : ℝ)) * (v r μ * v s μ)
+            + (15 / 17 : ℝ) ^ 2 * (v s μ * v s μ) := fun μ => by
+          rw [hw, Pi.add_apply, Pi.smul_apply, Pi.smul_apply, smul_eq_mul, smul_eq_mul]; ring
+        rw [Finset.sum_congr rfl fun μ _ => e μ, Finset.sum_add_distrib, Finset.sum_add_distrib,
+          ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum, hvv r r, hvv r s, hvv s s,
+          if_pos rfl, if_pos rfl, if_neg hrs]
+        norm_num
+      have hww : Phi z G (hom (tperp z k)) (tperp z l) w w = 0 := by
+        rw [(Phi_sphere hN hG (tperp_le_one hz l) (tperp_dot_z hz l) (lor_hom (tperp_mem hz k)) hw0
+          hwu).1]
+        exact Phi_center hN hG (tperp_le_one hz l) (tperp_dot_z hz l) (lor_hom (tperp_mem hz k))
+      rw [hw] at hww
+      simp only [map_add, map_smul, LinearMap.add_apply, LinearMap.smul_apply, smul_eq_mul,
+        hdiag] at hww
+      linarith
+  refine ⟨d, fun r => Matrix.of fun k l => Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v r),
+    fun r s => Matrix.of fun k l => Phi z G (hom (tperp z k)) (tperp z l) (v r) (v s), ?_, ?_, ?_⟩
+  · intro r s
+    ext k l
+    rw [Matrix.of_apply, Matrix.neg_apply, Matrix.of_apply]
+    exact eq_neg_of_add_eq_zero_left (hanti k l r s)
+  · intro k l i s hs b hb
+    simp only [Matrix.of_apply]
+    have hcl := tperp_le_one hz l
+    have hzl := tperp_dot_z hz l
+    have hak : Lor (hom (tperp z k)) := lor_hom (tperp_mem hz k)
+    obtain ⟨f, hf⟩ : ∃ f : HVec d, f = hom 0 + ∑ j, b j • v j := ⟨_, rfl⟩
+    obtain ⟨t, ht⟩ : ∃ t : HVec d, t = hom 0 + s • v i := ⟨_, rfl⟩
+    have hs2 : s ^ 2 = 1 := by rcases hs with h | h <;> rw [h] <;> norm_num
+    have hd00 : dotB (hom 0) (hom 0) = 1 := dot_hom_hom_zero 0
+    have hd0 : ∀ r, dotB (hom 0) (v r) = 0 := fun r => by
+      rw [dotB_apply, Fin.sum_univ_succ, hom_zero, one_mul, hv0 r]; simp [hom_succ]
+    have hd0' : ∀ r, dotB (v r) (hom 0) = 0 := fun r => by
+      rw [dotB_apply, Fin.sum_univ_succ, hom_zero, mul_one, hv0 r]; simp [hom_succ]
+    have hvv' : ∀ r s, dotB (v r) (v s) = if r = s then 1 else 0 := hvv
+    have hS0 : dotB (∑ j, b j • v j) (hom 0) = 0 := by
+      rw [LinearMap.map_sum₂]
+      exact Finset.sum_eq_zero fun j _ => by rw [LinearMap.map_smul₂, hd0', smul_zero]
+    have hS0' : dotB (hom 0) (∑ j, b j • v j) = 0 := by
+      rw [map_sum]
+      exact Finset.sum_eq_zero fun j _ => by rw [map_smul, hd0, smul_zero]
+    have hS1' : ∀ j, dotB (v j) (∑ j', b j' • v j') = b j := fun j => by
+      rw [map_sum]
+      simp only [map_smul, smul_eq_mul, hvv', mul_ite, mul_one, mul_zero]
+      rw [Finset.sum_ite_eq]
+      simp
+    have hSS : dotB (∑ j, b j • v j) (∑ j, b j • v j) = 1 := by
+      rw [LinearMap.map_sum₂, Finset.sum_congr rfl fun j _ => LinearMap.map_smul₂ dotB (b j) (v j) _]
+      simp only [smul_eq_mul, hS1']
+      rw [← hb]
+      exact Finset.sum_congr rfl fun j _ => (sq _).symm
+    have hf0 : f 0 = 1 := by
+      rw [hf, Pi.add_apply, hom_zero, Finset.sum_apply]
+      simp only [Pi.smul_apply, hv0, smul_zero, Finset.sum_const_zero, add_zero]
+    have ht0 : t 0 = 1 := by
+      rw [ht, Pi.add_apply, hom_zero, Pi.smul_apply, hv0, smul_zero, add_zero]
+    have hfL : Lor f := by
+      apply lor_of_dotB
+      · rw [hf0]; exact zero_le_one
+      · rw [hf0, hf, LinearMap.map_add₂, map_add, map_add, hd00, hS0', hS0, hSS]; norm_num
+    have htL : Lor t := by
+      apply lor_of_dotB
+      · rw [ht0]; exact zero_le_one
+      · rw [ht0]
+        simp only [ht, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul, smul_eq_mul,
+          hd00, hd0, hd0', hvv', if_true]
+        nlinarith [hs2]
+    have htN : homMap N t = t := by
+      rw [ht, map_add, map_smul, homMap_hom, map_zero, hvN]
+    have hR : 0 ≤ pairVal (hom (tperp z k)) f (G (tens (hom (tperp z l)) (Minv z G t))) :=
+      gate_pairVal_nonneg hpos hak (lor_hom (tperp_mem hz l)) hfL (lor_Minv hN hG htL)
+    have hsplit : pairVal (hom (tperp z k)) f (G (tens (hom (tperp z l)) (Minv z G t)))
+        = ∑ ν, t ν * f ν
+          + pairVal (hom (tperp z k)) f (G (tens (lift (tperp z l)) (Minv z G t))) := by
+      rw [hom_eq_add_lift (tperp z l), tens_add_left, map_add, pairVal_add_omega,
+        gt_center hN hG htN, pairVal_tens, dot_hom_hom_zero, one_mul]
+    rw [hsplit] at hR
+    change 0 ≤ dotB t f + Phi z G (hom (tperp z k)) (tperp z l) f t at hR
+    have hft : dotB t f = 1 + s * b i := by
+      simp only [ht, hf, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul, smul_eq_mul,
+        hd00, hd0, hd0', hS0', hS1'] <;> ring
+    have hΦ : Phi z G (hom (tperp z k)) (tperp z l) f t
+        = Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (hom 0)
+          + s * Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v i)
+          + (∑ j, b j * Phi z G (hom (tperp z k)) (tperp z l) (v j) (hom 0)
+            + s * ∑ j, b j * Phi z G (hom (tperp z k)) (tperp z l) (v j) (v i)) := by
+      rw [hf, ht, LinearMap.map_add₂, map_add, map_add, map_smul, map_smul, LinearMap.map_sum₂,
+        LinearMap.map_sum₂,
+        Finset.sum_congr rfl fun j _ =>
+          LinearMap.map_smul₂ (Phi z G (hom (tperp z k)) (tperp z l)) (b j) (v j) (hom 0),
+        Finset.sum_congr rfl fun j _ =>
+          LinearMap.map_smul₂ (Phi z G (hom (tperp z k)) (tperp z l)) (b j) (v j) (v i)]
+      simp only [smul_eq_mul]
+    have hΦ00 := Phi_center_all hN hG hcl hzl (hom (tperp z k))
+    have hsumsplit : ∑ j, b j * (Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v j)
+          + s * ((if j = i then (1 : ℝ) else 0) + Phi z G (hom (tperp z k)) (tperp z l) (v j) (v i)))
+        = ∑ j, b j * Phi z G (hom (tperp z k)) (tperp z l) (v j) (hom 0) + s * b i
+          + s * ∑ j, b j * Phi z G (hom (tperp z k)) (tperp z l) (v j) (v i) := by
+      have e : ∀ j, b j * (Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v j)
+          + s * ((if j = i then (1 : ℝ) else 0) + Phi z G (hom (tperp z k)) (tperp z l) (v j) (v i)))
+          = b j * Phi z G (hom (tperp z k)) (tperp z l) (v j) (hom 0)
+            + (if j = i then s * b j else 0)
+            + s * (b j * Phi z G (hom (tperp z k)) (tperp z l) (v j) (v i)) := by
+        intro j; rw [hsym k l j]; split_ifs <;> ring
+      rw [Finset.sum_congr rfl fun j _ => e j, Finset.sum_add_distrib, Finset.sum_add_distrib,
+        Finset.sum_ite_eq', ← Finset.mul_sum]
+      simp only [Finset.mem_univ, if_true]
+    rw [hsumsplit]
+    rw [hft, hΦ, hΦ00] at hR
+    linarith
+  · by_contra hcon
+    have hzero : ∀ r k l, Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v r) = 0 := by
+      intro r k l
+      by_contra h
+      exact hcon ⟨r, k, l, by rw [Matrix.of_apply]; exact h⟩
+    obtain ⟨l, hl⟩ := exists_tperp_ne_zero hz hd
+    have hcl := tperp_le_one hz l
+    have hzl := tperp_dot_z hz l
+    obtain ⟨ω, hω⟩ : ∃ ω : W d, ω = G (tens (lift (tperp z l)) (Minv z G (hom 0))) := ⟨_, rfl⟩
+    have hMi0 : Minv z G (hom (0 : Fin d → ℝ)) ≠ 0 := by
+      intro h
+      have := Mfwd_Minv hN hG (hom (0 : Fin d → ℝ))
+      rw [h, map_zero] at this
+      exact hom_zero_ne_zero this.symm
+    have hlift : lift (tperp z l) ≠ 0 := by
+      intro h
+      apply hl
+      funext j
+      have := congrFun h j.succ
+      rwa [lift_succ, Pi.zero_apply] at this
+    have hωne : ω ≠ 0 := by
+      rw [hω]
+      intro h
+      exact tens_ne_zero hlift hMi0 (G.map_eq_zero_iff.mp h)
+    have hrow : ∀ μ, ω μ = 0 := by
+      intro μ
+      apply hspan (ω μ)
+      · rw [mem_tangentSpace]
+        constructor
+        · have h1 : actT N ω = ω := by
+            rw [hω, ← gate_actT hN hG, actT_tens, ← Minv_homMap hN hG, homMap_hom, map_zero]
+          exact congrFun h1 μ
+        · have h := Phi_center_all hN hG hcl hzl (bvec μ)
+          rw [Phi_apply, ← hω, pairVal_bvec, sum_row_hom_zero] at h
+          exact h
+      · intro r
+        have hk : ∀ k, pairVal (hom (tperp z k)) (v r) ω = 0 := by
+          intro k
+          have := hzero r k l
+          rw [hsym k l r, Phi_apply, ← hω] at this
+          exact this
+        have h0 : pairVal (hom 0) (v r) ω = 0 := by
+          have := Phi_hom_zero_eq_zero hN hG hcl hzl (v r) (hom 0)
+          rwa [Phi_apply, ← hω] at this
+        have hz' : pairVal (lift z) (v r) ω = 0 := by
+          have := Phi_lift_z_eq_zero hN hG hcl hzl (v r) (hom 0)
+          rwa [Phi_apply, ← hω] at this
+        have hb : ∀ μ', pairVal (bvec μ') (v r) ω = 0 := by
+          intro μ'
+          refine Fin.cases ?_ (fun k => ?_) μ'
+          · rw [bvec_zero_eq]; exact h0
+          · have hk' := hk k
+            rw [hom_eq_add_lift (tperp z k), lift_tperp, pairVal_add_left, h0, zero_add,
+              pairVal_sub_left, pairVal_smul_left, hz', mul_zero, sub_zero] at hk'
+            exact hk'
+        have := hb μ
+        rw [pairVal_bvec] at this
+        calc ∑ μ', v r μ' * ω μ μ' = ∑ ν, ω μ ν * v r ν :=
+              Finset.sum_congr rfl fun ν _ => mul_comm _ _
+          _ = 0 := this
+    exact hωne (funext hrow)
+
+/-- **The block reduction (S1, S2, S4).** Two identical copies of the Euclidean ball of
+dimension at least two with a native gate carry the block data of the `+1` eigenspace's tangent
+dimension. -/
+theorem blockData_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hd : 2 ≤ d) (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+    BlockData (tangentPlus N) := by
+  obtain ⟨q, v, hq, hvS, hvv, hspan⟩ := exists_orthonormal_basis (tangentSpace N)
+  rw [finrank_tangentSpace] at hq
+  rw [← hq]
+  exact blockData_of_orthonormal hN hG hd v hvS hvv hspan
+
+/-- The unit clause of the NOT excludes `d = 0`. -/
+theorem pos_of_isNot {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    (hN : IsNot (eball d) z N) : 0 < d := by
+  rcases Nat.eq_zero_or_pos d with h | h
+  · exfalso
+    subst h
+    have := hN.unit
+    simp at this
+  · exact h
+
+/-- **The selector.** Two identical copies of the Euclidean ball with a native gate have
+dimension one or three. -/
+theorem dim_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+    d = 1 ∨ d = 3 := by
+  have hpos := pos_of_isNot hN
+  rcases Nat.lt_or_ge d 2 with h | h
+  · left; omega
+  · exact dim_of_nativeGate_of_blockData hN hG (blockData_of_nativeGate h hN hG)
+
+/-- **The selector under the entangling clause.** Two identical copies of the Euclidean ball with
+an entangling native gate have dimension three. -/
+theorem three_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+    (hE : Entangling (eball d) G) : d = 3 := by
+  rcases dim_of_nativeGate hN hG with hone | hthree
+  · exfalso
+    subst hone
+    exact not_entangling_one hN hG hE
+  · exact hthree
+
 /-! ### §P — controls: the classical gate of two intervals, and `eball 4` -/
 
 /-- The classical gate of two intervals: the control index is added to the target index. -/
@@ -2325,26 +2909,23 @@ theorem no_gate_four : ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[�
 
 /-! ### The verdict -/
 
-/-- The kernel layer's verdict: the parity exclusion, the selector conditional on the block data,
-the selector under the entangling clause, the `d = 3` witness, the classical controls and the
-`eball 4` exclusion. -/
+/-- The kernel layer's verdict: the parity exclusion, the selector, the selector under the
+entangling clause, the `d = 3` witness, the classical controls and the `eball 4` exclusion. -/
 theorem dim1_core :
     (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
       IsNot (eball d) z N → NativeGate (eball d) z N G → ¬ Even d) ∧
     (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
-      IsNot (eball d) z N → NativeGate (eball d) z N G → BlockData (tangentPlus N) →
-        d = 1 ∨ d = 3) ∧
+      IsNot (eball d) z N → NativeGate (eball d) z N G → d = 1 ∨ d = 3) ∧
     (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
-      IsNot (eball d) z N → NativeGate (eball d) z N G → BlockData (tangentPlus N) →
-        Entangling (eball d) G → d = 3) ∧
+      IsNot (eball d) z N → NativeGate (eball d) z N G → Entangling (eball d) G → d = 3) ∧
     (IsNot (eball 3) z3 nflip ∧ NativeGate (eball 3) z3 nflip cnot ∧ Entangling (eball 3) cnot) ∧
     (IsNot (eball 1) z1 neg1 ∧ NativeGate (eball 1) z1 neg1 cnot1 ∧
       ¬ Entangling (eball 1) cnot1 ∧ ¬ IsProduct (eball 1) (cnot1 (prodState 0 z1))) ∧
     ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ)) (G : W 4 ≃ₗ[ℝ] W 4),
       IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G :=
   ⟨fun _ _ _ _ hN hG => not_even_of_nativeGate hN hG,
-    fun _ _ _ _ hN hG hB => dim_of_nativeGate_of_blockData hN hG hB,
-    fun _ _ _ _ hN hG hB hE => three_of_nativeGate_of_blockData hN hG hB hE,
+    fun _ _ _ _ hN hG => dim_of_nativeGate hN hG,
+    fun _ _ _ _ hN hG hE => three_of_nativeGate hN hG hE,
     ⟨isNot_nflip, nativeGate_cnot, entangling_cnot⟩,
     ⟨isNot_neg1, nativeGate_cnot1, not_entangling_cnot1, not_product_cnot1_mixed⟩,
     no_gate_four⟩
@@ -2403,3 +2984,43 @@ end OIBridge
 #print axioms OIBridge.CompositeDimension.dim_of_nativeGate_of_blockData
 #print axioms OIBridge.CompositeDimension.ne_five_of_nativeGate
 #print axioms OIBridge.CompositeDimension.ne_seven_of_nativeGate
+
+#print axioms OIBridge.CompositeDimension.tens_mem_maxCone
+#print axioms OIBridge.CompositeDimension.linearMap_eq_zero_of_nonneg_lor
+#print axioms OIBridge.CompositeDimension.linearMap_eq_zero_of_lor
+#print axioms OIBridge.CompositeDimension.lor_face
+#print axioms OIBridge.CompositeDimension.corner_form
+#print axioms OIBridge.CompositeDimension.gate_corner
+#print axioms OIBridge.CompositeDimension.gate_corner_symm
+#print axioms OIBridge.CompositeDimension.Mfwd_Minv
+#print axioms OIBridge.CompositeDimension.Minv_Mfwd
+#print axioms OIBridge.CompositeDimension.lor_Minv
+#print axioms OIBridge.CompositeDimension.Mfwd_homMap
+#print axioms OIBridge.CompositeDimension.Minv_homMap
+#print axioms OIBridge.CompositeDimension.gate_corner_neg
+#print axioms OIBridge.CompositeDimension.gt_corner
+#print axioms OIBridge.CompositeDimension.gt_corner_neg
+#print axioms OIBridge.CompositeDimension.gt_center
+#print axioms OIBridge.CompositeDimension.eq_zero_of_quadratic_nonneg
+#print axioms OIBridge.CompositeDimension.lor_curve
+#print axioms OIBridge.CompositeDimension.tangent_vanish
+#print axioms OIBridge.CompositeDimension.gt_tangent_corners
+#print axioms OIBridge.CompositeDimension.gt_sphere
+#print axioms OIBridge.CompositeDimension.gt_sphere_corner
+#print axioms OIBridge.CompositeDimension.lor_of_dotB
+#print axioms OIBridge.CompositeDimension.Phi_sphere
+#print axioms OIBridge.CompositeDimension.Phi_center
+#print axioms OIBridge.CompositeDimension.Phi_center_all
+#print axioms OIBridge.CompositeDimension.Phi_hom_zero_eq_zero
+#print axioms OIBridge.CompositeDimension.Phi_lift_z_eq_zero
+#print axioms OIBridge.CompositeDimension.finrank_tangentSpace
+#print axioms OIBridge.CompositeDimension.exists_orthonormal_basis
+#print axioms OIBridge.CompositeDimension.tperp_sq
+#print axioms OIBridge.CompositeDimension.tperp_dot_z
+#print axioms OIBridge.CompositeDimension.lift_tperp
+#print axioms OIBridge.CompositeDimension.exists_tperp_ne_zero
+#print axioms OIBridge.CompositeDimension.blockData_of_orthonormal
+#print axioms OIBridge.CompositeDimension.blockData_of_nativeGate
+#print axioms OIBridge.CompositeDimension.pos_of_isNot
+#print axioms OIBridge.CompositeDimension.dim_of_nativeGate
+#print axioms OIBridge.CompositeDimension.three_of_nativeGate
