@@ -30,10 +30,32 @@
     §J  the exclusions: no even `d` (`not_even_of_nativeGate`, with `d = 2`, `d = 4`); given the
         block data of the written S1–S2–S4 reduction (`BlockData`, the hypothesis of
         `NativeGateBall.p_le_one`, a named premise here), `d = 1 ∨ d = 3` (`dim_of_nativeGate`),
-        with `d = 5` and `d = 7` as instances.
+        with `d = 5` and `d = 7` as instances;
+    §K  survival, the `d = 3` gate: a signed permutation `cnot` of the sixteen entries of `W 3`,
+        the reflection `nflip` as the common NOT with axis `z3`, `IsNot` (`isNot_nflip`), the frame
+        (`cnot_frame`) and the two relations (`cnot_relT`, `cnot_relC`) by exact evaluation;
+    §L  the cone `Lor` of homogenized effect vectors of the ball: every effect of the ball has its
+        coefficients in the cone (`lor_ehom`), every cone vector of head at most one half is an
+        effect (`isEffectOn_affOf`), and a maximal-cone vector read as an operator carries the cone
+        into itself (`lor_toOp_of_maxCone`);
+    §M  two-sided positivity of the `d = 3` gate on every product state of the ball, by the exact
+        inequality `cnot_core` (`cnot_prodEffVal_nonneg`), so `NativeGate (eball 3) z3 nflip cnot`
+        (`nativeGate_cnot`);
+    §N  the entangling clause for the `d = 3` gate: the pure product input `(xplus, z3)` has the
+        image `phiW`, which is a joint state, not a product state, and an extreme joint state by the
+        extreme-ray argument on the cone (`lor_ray`, `phiW_eq_of_segment`), so
+        `Entangling (eball 3) cnot` (`entangling_cnot`);
+    §O  `d = 1` is not entangling: an extreme point of the interval is a corner, and the frame
+        carries every pure product input to a product (`not_entangling_one`); with §J,
+        `three_of_nativeGate : … → Entangling … → d = 3`;
+    §P  controls: the classical gate `cnot1` of two intervals satisfies every hypothesis
+        (`nativeGate_cnot1`) except the entangling clause (`not_entangling_cnot1`), and creates
+        correlations from the mixed input `(0, z1)` (`not_product_cnot1_mixed`); `eball 4` carries
+        no gate (`no_gate_four`); the verdict `dim1_core`.
 
   Not proved here: the reduction from `NativeGate` to `BlockData` (the controlled form S1, the block
-  structure S2 and the value identity S4), which remains the written proof of round NB-1.
+  structure S2 and the value identity S4), which remains the written proof of round NB-1; the
+  selector theorems carry `BlockData` as a named premise.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -715,6 +737,14 @@ theorem ne_seven_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[�
   intro h
   rcases dim_of_nativeGate hN hG hB with h1 | h2 <;> omega
 
+/-- `Fin.sum_univ_four` at the index type of `W 3`, which is `Fin (3 + 1)` syntactically. -/
+theorem sum_univ_four' (f : Fin (3 + 1) → ℝ) : ∑ i, f i = f 0 + f 1 + f 2 + f 3 :=
+  Fin.sum_univ_four f
+
+/-- `Fin.sum_univ_two` at the index type of `W 1`, which is `Fin (1 + 1)` syntactically. -/
+theorem sum_univ_two' (f : Fin (1 + 1) → ℝ) : ∑ i, f i = f 0 + f 1 :=
+  Fin.sum_univ_two f
+
 /-! ### §K — survival: the `d = 3` gate -/
 
 /-- The sign of the `d = 3` gate on the homogenized index pair: `−1` at `(1, 3)` and `(2, 2)`. -/
@@ -802,8 +832,8 @@ theorem nflip_apply (x : Fin 3 → ℝ) (i : Fin 3) : nflip x i = (![1, -1, -1] 
 @[simp] theorem z3_one : z3 1 = 0 := rfl
 @[simp] theorem z3_two : z3 2 = 1 := rfl
 
-theorem corner_zero (z : Fin 3 → ℝ) : corner z 0 = z := rfl
-theorem corner_one (z : Fin 3 → ℝ) : corner z 1 = -z := rfl
+theorem corner_zero (z : Fin d → ℝ) : corner z 0 = z := rfl
+theorem corner_one (z : Fin d → ℝ) : corner z 1 = -z := rfl
 
 theorem actT_apply (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) (μ ν : Fin (d + 1)) :
     actT N ω μ ν = homMap N (ω μ) ν := rfl
@@ -846,7 +876,7 @@ theorem cnot_relC (ω : W 3) : actC nflip (cnot (actC nflip ω)) = actT nflip (c
 
 /-- The cone of homogenized vectors whose unit coordinate dominates the norm of the rest: the
 homogenized coefficients of the effects of the ball, up to scale. -/
-def Lor (v : HVec d) : Prop := 0 ≤ v 0 ∧ ∑ j, v j.succ ^ 2 ≤ v 0 ^ 2
+def Lor (v : HVec d) : Prop := 0 ≤ v 0 ∧ ∑ j : Fin d, v j.succ ^ 2 ≤ v 0 ^ 2
 
 theorem lor_smul {v : HVec d} (hv : Lor v) {c : ℝ} (hc : 0 ≤ c) : Lor (c • v) := by
   refine ⟨mul_nonneg hc hv.1, ?_⟩
@@ -855,35 +885,35 @@ theorem lor_smul {v : HVec d} (hv : Lor v) {c : ℝ} (hc : 0 ≤ c) : Lor (c •
 
 /-- A vector of the cone paired with a unit-ball point: the tail pairing is bounded by the head. -/
 theorem lor_pair_bound {v : HVec d} (hv : Lor v) {x : Fin d → ℝ} (hx : x ∈ eball d) :
-    -v 0 ≤ ∑ j, v j.succ * x j ∧ ∑ j, v j.succ * x j ≤ v 0 := by
-  have hcs := Finset.sum_mul_sq_le_sq_mul_sq Finset.univ (fun j => v j.succ) x
+    -v 0 ≤ ∑ j : Fin d, v j.succ * x j ∧ ∑ j : Fin d, v j.succ * x j ≤ v 0 := by
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq Finset.univ (fun j : Fin d => v j.succ) x
   rw [mem_eball] at hx
-  have h1 : (∑ j, v j.succ * x j) ^ 2 ≤ v 0 ^ 2 := by
+  have h1 : (∑ j : Fin d, v j.succ * x j) ^ 2 ≤ v 0 ^ 2 := by
     refine le_trans hcs ?_
-    calc (∑ j, v j.succ ^ 2) * ∑ j, x j ^ 2 ≤ v 0 ^ 2 * 1 :=
+    calc (∑ j : Fin d, v j.succ ^ 2) * ∑ j : Fin d, x j ^ 2 ≤ v 0 ^ 2 * 1 :=
           mul_le_mul hv.2 hx (Finset.sum_nonneg fun j _ => sq_nonneg _) (sq_nonneg _)
       _ = v 0 ^ 2 := mul_one _
   exact abs_le_of_sq_le_sq' h1 hv.1
 
 /-- The affine functional with the given homogenized coefficients. -/
 noncomputable def affOf (v : HVec d) : (Fin d → ℝ) →ᵃ[ℝ] ℝ where
-  toFun x := v 0 + ∑ j, v j.succ * x j
-  linear := ∑ j, v j.succ • (LinearMap.proj j : (Fin d → ℝ) →ₗ[ℝ] ℝ)
+  toFun x := v 0 + ∑ j : Fin d, v j.succ * x j
+  linear := ∑ j : Fin d, v j.succ • (LinearMap.proj j : (Fin d → ℝ) →ₗ[ℝ] ℝ)
   map_vadd' p w := by
     simp only [vadd_eq_add, Pi.add_apply, mul_add, Finset.sum_add_distrib, LinearMap.sum_apply,
       LinearMap.smul_apply, LinearMap.proj_apply, smul_eq_mul]
     ring
 
-theorem affOf_apply (v : HVec d) (x : Fin d → ℝ) : affOf v x = v 0 + ∑ j, v j.succ * x j := rfl
+theorem affOf_apply (v : HVec d) (x : Fin d → ℝ) : affOf v x = v 0 + ∑ j : Fin d, v j.succ * x j := rfl
 
 theorem affOf_linear (v : HVec d) :
-    (affOf v).linear = ∑ j, v j.succ • (LinearMap.proj j : (Fin d → ℝ) →ₗ[ℝ] ℝ) := rfl
+    (affOf v).linear = ∑ j : Fin d, v j.succ • (LinearMap.proj j : (Fin d → ℝ) →ₗ[ℝ] ℝ) := rfl
 
 /-- The homogenized coefficients of `affOf v` are `v`. -/
 theorem ehom_affOf (v : HVec d) : ehom (affOf v) = v := by
   funext μ
   refine Fin.cases ?_ (fun j => ?_) μ
-  · show v 0 + ∑ j, v j.succ * (0 : Fin d → ℝ) j = v 0
+  · show v 0 + ∑ j : Fin d, v j.succ * (0 : Fin d → ℝ) j = v 0
     simp
   · show (affOf v).linear (fun i => if j = i then (1 : ℝ) else 0) = v j.succ
     rw [affOf_linear]
@@ -911,32 +941,32 @@ theorem lor_ehom {e : (Fin d → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffectOn (eball d
   have h0mem : (0 : Fin d → ℝ) ∈ eball d := by rw [mem_eball]; simp
   have he0 : 0 ≤ ehom e 0 := by rw [ehom_zero_eq]; exact (he 0 h0mem).1
   refine ⟨he0, ?_⟩
-  obtain ⟨s, hs⟩ : ∃ s : ℝ, s = ∑ j, ehom e j.succ ^ 2 := ⟨_, rfl⟩
+  obtain ⟨s, hs⟩ : ∃ s : ℝ, s = ∑ j : Fin d, ehom e j.succ ^ 2 := ⟨_, rfl⟩
   rw [← hs]
   have hs0 : 0 ≤ s := hs ▸ Finset.sum_nonneg fun j _ => sq_nonneg _
   rcases eq_or_lt_of_le hs0 with h0 | hpos
   · rw [← h0]; exact sq_nonneg _
   · have hsq : Real.sqrt s * Real.sqrt s = s := Real.mul_self_sqrt hs0
     have hne : Real.sqrt s ≠ 0 := ne_of_gt (Real.sqrt_pos.2 hpos)
-    have hxmem : (fun j => -(1 / Real.sqrt s) * ehom e j.succ) ∈ eball d := by
+    have hxmem : (fun j : Fin d => -(1 / Real.sqrt s) * ehom e j.succ) ∈ eball d := by
       rw [mem_eball]
-      calc ∑ j, (-(1 / Real.sqrt s) * ehom e j.succ) ^ 2
-          = ∑ j, (1 / Real.sqrt s) ^ 2 * ehom e j.succ ^ 2 :=
+      calc ∑ j : Fin d, (-(1 / Real.sqrt s) * ehom e j.succ) ^ 2
+          = ∑ j : Fin d, (1 / Real.sqrt s) ^ 2 * ehom e j.succ ^ 2 :=
             Finset.sum_congr rfl fun j _ => by ring
-        _ = (1 / Real.sqrt s) ^ 2 * ∑ j, ehom e j.succ ^ 2 := (Finset.mul_sum _ _ _).symm
+        _ = (1 / Real.sqrt s) ^ 2 * ∑ j : Fin d, ehom e j.succ ^ 2 := (Finset.mul_sum _ _ _).symm
         _ = (1 / Real.sqrt s) ^ 2 * s := by rw [hs]
         _ = (1 / Real.sqrt s) ^ 2 * (Real.sqrt s * Real.sqrt s) := by rw [hsq]
         _ = (1 / Real.sqrt s * Real.sqrt s) ^ 2 := by ring
         _ = 1 := by rw [one_div_mul_cancel hne, one_pow]
         _ ≤ 1 := le_refl 1
-    have hval := ehom_dot e (fun j => -(1 / Real.sqrt s) * ehom e j.succ)
+    have hval := ehom_dot e (fun j : Fin d => -(1 / Real.sqrt s) * ehom e j.succ)
     rw [Fin.sum_univ_succ, hom_zero, mul_one] at hval
     simp only [hom_succ] at hval
-    have hsum : ∑ j, ehom e j.succ * (-(1 / Real.sqrt s) * ehom e j.succ) = -Real.sqrt s := by
-      calc ∑ j, ehom e j.succ * (-(1 / Real.sqrt s) * ehom e j.succ)
-          = ∑ j, -(1 / Real.sqrt s) * ehom e j.succ ^ 2 :=
+    have hsum : ∑ j : Fin d, ehom e j.succ * (-(1 / Real.sqrt s) * ehom e j.succ) = -Real.sqrt s := by
+      calc ∑ j : Fin d, ehom e j.succ * (-(1 / Real.sqrt s) * ehom e j.succ)
+          = ∑ j : Fin d, -(1 / Real.sqrt s) * ehom e j.succ ^ 2 :=
             Finset.sum_congr rfl fun j _ => by ring
-        _ = -(1 / Real.sqrt s) * ∑ j, ehom e j.succ ^ 2 := (Finset.mul_sum _ _ _).symm
+        _ = -(1 / Real.sqrt s) * ∑ j : Fin d, ehom e j.succ ^ 2 := (Finset.mul_sum _ _ _).symm
         _ = -(1 / Real.sqrt s) * s := by rw [hs]
         _ = -Real.sqrt s := by
             rw [neg_mul, neg_inj, div_mul_eq_mul_div, one_mul, div_eq_iff hne, hsq]
@@ -999,19 +1029,19 @@ theorem lor_of_forall_pair {g : HVec d} (h : ∀ a : HVec d, Lor a → 0 ≤ ∑
     rw [Fin.sum_univ_succ, hom_zero, one_mul] at this
     simpa [hom_succ] using this
   refine ⟨hg0, ?_⟩
-  obtain ⟨t, ht⟩ : ∃ t : ℝ, t = ∑ j, g j.succ ^ 2 := ⟨_, rfl⟩
+  obtain ⟨t, ht⟩ : ∃ t : ℝ, t = ∑ j : Fin d, g j.succ ^ 2 := ⟨_, rfl⟩
   rw [← ht]
   have ht0 : 0 ≤ t := ht ▸ Finset.sum_nonneg fun j _ => sq_nonneg _
   have hsq : Real.sqrt t ^ 2 = t := Real.sq_sqrt ht0
-  have hlor : Lor (Matrix.vecCons (Real.sqrt t) fun j => -g j.succ) := by
+  have hlor : Lor (Matrix.vecCons (Real.sqrt t) fun j : Fin d => -g j.succ) := by
     refine ⟨Real.sqrt_nonneg t, ?_⟩
-    show ∑ j, (-g j.succ) ^ 2 ≤ Real.sqrt t ^ 2
+    show ∑ j : Fin d, (-g j.succ) ^ 2 ≤ Real.sqrt t ^ 2
     rw [hsq, ht]
     exact le_of_eq (Finset.sum_congr rfl fun j _ => neg_sq _)
   have hpair := h _ hlor
   rw [Fin.sum_univ_succ] at hpair
   simp only [Matrix.cons_val_zero, Matrix.cons_val_succ] at hpair
-  have hsum : ∑ j, -g j.succ * g j.succ = -t := by
+  have hsum : ∑ j : Fin d, -g j.succ * g j.succ = -t := by
     rw [ht, ← Finset.sum_neg_distrib]
     exact Finset.sum_congr rfl fun j _ => by ring
   rw [hsum] at hpair
@@ -1112,7 +1142,7 @@ theorem prodEffVal_cnot_prodState (e f : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ) (x y :
         + ehom e 1 * (x 0 * (ehom f 1 + ehom f 0 * y 0) - x 1 * (ehom f 3 * y 1 - ehom f 2 * y 2))
         + ehom e 2 * (x 1 * (ehom f 1 + ehom f 0 * y 0) + x 0 * (ehom f 3 * y 1 - ehom f 2 * y 2))
         + ehom e 3 * (x 2 * (ehom f 0 + ehom f 1 * y 0) + (ehom f 2 * y 1 + ehom f 3 * y 2)) := by
-  simp only [prodEffVal, pairVal, cnot_apply, cnotFun_apply, prodState_apply, Fin.sum_univ_four]
+  simp only [prodEffVal, pairVal, cnot_apply, cnotFun_apply, prodState_apply, sum_univ_four']
   simp +decide [sgn, pc, pt]
   ring
 
@@ -1229,13 +1259,13 @@ theorem phiW_mem_jointStates : phiW ∈ jointStates (eball 3) := by
   exact cnot_prodState_mem_maxCone xplus_mem z3_mem
 
 @[simp] theorem toOp_phiW_zero (t : HVec 3) : toOp phiW t 0 = t 0 := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+  rw [toOp_apply, sum_univ_four']; simp +decide [phiW]
 @[simp] theorem toOp_phiW_one (t : HVec 3) : toOp phiW t 1 = t 1 := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+  rw [toOp_apply, sum_univ_four']; simp +decide [phiW]
 @[simp] theorem toOp_phiW_two (t : HVec 3) : toOp phiW t 2 = -t 2 := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+  rw [toOp_apply, sum_univ_four']; simp +decide [phiW]
 @[simp] theorem toOp_phiW_three (t : HVec 3) : toOp phiW t 3 = t 3 := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+  rw [toOp_apply, sum_univ_four']; simp +decide [phiW]
 
 /-- The extreme rays of the cone: a boundary vector that is a positive combination of two cone
 vectors is proportional to each of them. -/
@@ -1287,28 +1317,28 @@ theorem lor_ray {f g h : HVec 3} (hf : f 1 ^ 2 + f 2 ^ 2 + f 3 ^ 2 = f 0 ^ 2)
   have hzero : (f 0 * g 1 - g 0 * f 1) ^ 2 + (f 0 * g 2 - g 0 * f 2) ^ 2
       + (f 0 * g 3 - g 0 * f 3) ^ 2 = 0 := by
     linear_combination (-(f 0 ^ 2)) * hQg + (2 * f 0 * g 0) * hMgf + (g 0 ^ 2) * hf
-  have s1 : f 0 * g 1 - g 0 * f 1 = 0 := (pow_eq_zero_iff two_ne_zero).mp
-    (le_antisymm (by linarith [sq_nonneg (f 0 * g 2 - g 0 * f 2),
-      sq_nonneg (f 0 * g 3 - g 0 * f 3)]) (sq_nonneg _))
-  have s2 : f 0 * g 2 - g 0 * f 2 = 0 := (pow_eq_zero_iff two_ne_zero).mp
-    (le_antisymm (by linarith [sq_nonneg (f 0 * g 1 - g 0 * f 1),
-      sq_nonneg (f 0 * g 3 - g 0 * f 3)]) (sq_nonneg _))
-  have s3 : f 0 * g 3 - g 0 * f 3 = 0 := (pow_eq_zero_iff two_ne_zero).mp
-    (le_antisymm (by linarith [sq_nonneg (f 0 * g 1 - g 0 * f 1),
-      sq_nonneg (f 0 * g 2 - g 0 * f 2)]) (sq_nonneg _))
+  have q1 := sq_nonneg (f 0 * g 1 - g 0 * f 1)
+  have q2 := sq_nonneg (f 0 * g 2 - g 0 * f 2)
+  have q3 := sq_nonneg (f 0 * g 3 - g 0 * f 3)
+  have s1 : f 0 * g 1 - g 0 * f 1 = 0 :=
+    (pow_eq_zero_iff two_ne_zero).mp (le_antisymm (by linarith) q1)
+  have s2 : f 0 * g 2 - g 0 * f 2 = 0 :=
+    (pow_eq_zero_iff two_ne_zero).mp (le_antisymm (by linarith) q2)
+  have s3 : f 0 * g 3 - g 0 * f 3 = 0 :=
+    (pow_eq_zero_iff two_ne_zero).mp (le_antisymm (by linarith) q3)
   exact ⟨by linarith, by linarith, by linarith⟩
 
 /-- The test vectors `(1, s eᵢ)` of the control space. -/
 def tv (i : Fin 4) (s : ℝ) : HVec 3 := fun μ => if μ = 0 then 1 else if μ = i then s else 0
 
 theorem toOp_tv1 (ω : W 3) (s : ℝ) (μ : Fin 4) : toOp ω (tv 1 s) μ = ω μ 0 + ω μ 1 * s := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [tv]
+  rw [toOp_apply, sum_univ_four']; simp +decide [tv]
 
 theorem toOp_tv2 (ω : W 3) (s : ℝ) (μ : Fin 4) : toOp ω (tv 2 s) μ = ω μ 0 + ω μ 2 * s := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [tv]
+  rw [toOp_apply, sum_univ_four']; simp +decide [tv]
 
 theorem toOp_tv3 (ω : W 3) (s : ℝ) (μ : Fin 4) : toOp ω (tv 3 s) μ = ω μ 0 + ω μ 3 * s := by
-  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [tv]
+  rw [toOp_apply, sum_univ_four']; simp +decide [tv]
 
 /-- The ray equations of a segment through the entangled image, read on a boundary test vector. -/
 theorem ray_eqs {ω₁ ω₂ : W 3} (h₁ : ω₁ ∈ maxCone (eball 3)) (h₂ : ω₂ ∈ maxCone (eball 3))
@@ -1349,8 +1379,9 @@ theorem phiW_eq_of_segment {ω₁ ω₂ : W 3} (h₁ : ω₁ ∈ jointStates (eb
   obtain ⟨d1, d2, d3⟩ := hp 2 (-1) (by simp +decide [tv]) (by simp +decide [tv])
   obtain ⟨f1, f2, f3⟩ := hp 3 1 (by simp +decide [tv]) (by simp +decide [tv])
   obtain ⟨g1, g2, g3⟩ := hp 3 (-1) (by simp +decide [tv]) (by simp +decide [tv])
-  simp +decide [toOp_tv1, toOp_tv2, toOp_tv3, tv] at a1 a2 a3 b1 b2 b3 c1 c2 c3 d1 d2 d3 f1 f2 f3
-    g1 g2 g3
+  simp +decide [toOp_tv1, tv] at a1 a2 a3 b1 b2 b3
+  simp +decide [toOp_tv2, tv] at c1 c2 c3 d1 d2 d3
+  simp +decide [toOp_tv3, tv] at f1 f2 f3 g1 g2 g3
   funext μ ν
   fin_cases μ <;> fin_cases ν <;> simp +decide [phiW] <;> linarith
 
@@ -1364,8 +1395,267 @@ theorem entangling_cnot : Entangling (eball 3) cnot :=
     obtain ⟨a, b, ha, hb, -, hsum⟩ := hseg
     exact phiW_eq_of_segment h₁ h₂ ha hb hsum⟩
 
+/-! ### §O — `d = 1` is not entangling: the frame maps every pure product to a product -/
+
+theorem fin1_ext {x y : Fin 1 → ℝ} (h : x 0 = y 0) : x = y :=
+  funext fun i => by rw [Fin.fin_one_eq_zero i]; exact h
+
+theorem corner_mem_one {z : Fin 1 → ℝ} (hz : z 0 ^ 2 = 1) : ∀ a : Fin 2, corner z a ∈ eball 1 := by
+  rw [Fin.forall_fin_two]
+  constructor
+  · rw [corner_zero, mem_eball, Fin.sum_univ_one, hz]
+  · rw [corner_one, mem_eball, Fin.sum_univ_one, Pi.neg_apply, neg_sq, hz]
+
+/-- An extreme point of the interval is a corner. -/
+theorem eq_corner_of_extreme {z : Fin 1 → ℝ} (hz : z 0 ^ 2 = 1) {x : Fin 1 → ℝ}
+    (hx : x ∈ (eball 1).extremePoints ℝ) : ∃ a : Fin 2, x = corner z a := by
+  have hxb : x 0 ^ 2 ≤ 1 ^ 2 := by
+    have := hx.1; rw [mem_eball, Fin.sum_univ_one] at this; rwa [one_pow]
+  obtain ⟨hge, hle⟩ := abs_le_of_sq_le_sq' hxb zero_le_one
+  have hz' : z 0 = 1 ∨ z 0 = -1 := by
+    have : (z 0 - 1) * (z 0 + 1) = 0 := by linear_combination hz
+    rcases mul_eq_zero.mp this with h | h
+    · left; linarith
+    · right; linarith
+  have hx' : x 0 = 1 ∨ x 0 = -1 := by
+    rcases eq_or_lt_of_le hle with h1 | hlt
+    · left; exact h1
+    rcases eq_or_lt_of_le hge with h2 | hgt
+    · right; exact h2.symm
+    exfalso
+    have hm1 : (fun _ : Fin 1 => (1 : ℝ)) ∈ eball 1 := by
+      rw [mem_eball, Fin.sum_univ_one]; norm_num
+    have hm2 : (fun _ : Fin 1 => (-1 : ℝ)) ∈ eball 1 := by
+      rw [mem_eball, Fin.sum_univ_one]; norm_num
+    have hseg : x ∈ openSegment ℝ (fun _ : Fin 1 => (1 : ℝ)) (fun _ => -1) := by
+      refine ⟨(1 + x 0) / 2, (1 - x 0) / 2, by linarith, by linarith, by ring, ?_⟩
+      apply fin1_ext
+      simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul]
+      ring
+    have h1 := hx.2 hm1 hm2 hseg
+    have h2 : (1 : ℝ) = x 0 := congrFun h1 0
+    linarith
+  rcases hx' with h | h <;> rcases hz' with hz1 | hz1
+  · exact ⟨0, fin1_ext (by rw [corner_zero]; linarith)⟩
+  · exact ⟨1, fin1_ext (by rw [corner_one, Pi.neg_apply]; linarith)⟩
+  · exact ⟨1, fin1_ext (by rw [corner_one, Pi.neg_apply]; linarith)⟩
+  · exact ⟨0, fin1_ext (by rw [corner_zero]; linarith)⟩
+
+/-- No gate of two intervals is entangling: the frame carries every pure product input to a
+product state. -/
+theorem not_entangling_one {z : Fin 1 → ℝ} {N : (Fin 1 → ℝ) →ₗ[ℝ] (Fin 1 → ℝ)}
+    {G : W 1 ≃ₗ[ℝ] W 1} (hN : IsNot (eball 1) z N) (hG : NativeGate (eball 1) z N G) :
+    ¬ Entangling (eball 1) G := by
+  rintro ⟨x, hx, y, hy, -, hnp⟩
+  have hz : z 0 ^ 2 = 1 := by have := hN.unit; rwa [Fin.sum_univ_one] at this
+  obtain ⟨a, rfl⟩ := eq_corner_of_extreme hz hx
+  obtain ⟨b, rfl⟩ := eq_corner_of_extreme hz hy
+  apply hnp
+  rw [hG.frame a b]
+  exact ⟨corner z a, corner_mem_one hz a, corner z (a + b), corner_mem_one hz _, rfl⟩
+
+/-- **The selector under the entangling clause.** Two identical copies of the Euclidean ball with
+a native gate whose block data is as the written reduction states, and which is entangling, have
+dimension three. -/
+theorem three_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+    (hB : BlockData (tangentPlus N)) (hE : Entangling (eball d) G) : d = 3 := by
+  rcases dim_of_nativeGate hN hG hB with h1 | h3
+  · exfalso
+    subst h1
+    exact not_entangling_one hN hG hE
+  · exact h3
+
+/-! ### §P — controls: the classical gate of two intervals, and `eball 4` -/
+
+/-- The classical gate of two intervals: the control index is added to the target index. -/
+def cnot1Fun (ω : W 1) : W 1 := fun μ ν => ω (μ + ν) ν
+
+theorem add_add_self_fin2 : ∀ μ ν : Fin 2, μ + ν + ν = μ := by decide
+
+/-- The classical gate as a linear equivalence. -/
+def cnot1 : W 1 ≃ₗ[ℝ] W 1 where
+  toFun := cnot1Fun
+  invFun := cnot1Fun
+  map_add' ω₁ ω₂ := by funext μ ν; rfl
+  map_smul' c ω := by funext μ ν; rfl
+  left_inv ω := by
+    funext μ ν
+    show ω (μ + ν + ν) ν = ω μ ν
+    rw [add_add_self_fin2]
+  right_inv ω := by
+    funext μ ν
+    show ω (μ + ν + ν) ν = ω μ ν
+    rw [add_add_self_fin2]
+
+theorem cnot1_apply (ω : W 1) (μ ν : Fin 2) : cnot1 ω μ ν = ω (μ + ν) ν := rfl
+
+/-- The corner axis of the interval. -/
+def z1 : Fin 1 → ℝ := fun _ => 1
+
+/-- The NOT of the interval: negation. -/
+def neg1 : (Fin 1 → ℝ) →ₗ[ℝ] (Fin 1 → ℝ) := -LinearMap.id
+
+theorem neg1_apply (x : Fin 1 → ℝ) (i : Fin 1) : neg1 x i = -x i := rfl
+
+@[simp] theorem z1_zero : z1 0 = 1 := rfl
+@[simp] theorem hom_one1 (x : Fin 1 → ℝ) : hom x 1 = x 0 := rfl
+@[simp] theorem homMap_neg1_zero (v : HVec 1) : homMap neg1 v 0 = v 0 := rfl
+@[simp] theorem homMap_neg1_one (v : HVec 1) : homMap neg1 v 1 = -v 1 := rfl
+
+theorem isNot_neg1 : IsNot (eball 1) z1 neg1 where
+  unit := by rw [Fin.sum_univ_one]; simp
+  invol x := by funext i; rw [neg1_apply, neg1_apply, neg_neg]
+  preserves x hx := by
+    rw [mem_eball, Fin.sum_univ_one] at hx ⊢
+    rw [neg1_apply, neg_sq]; exact hx
+  flips := by funext i; rfl
+
+theorem cnot1_frame (a b : Fin 2) :
+    cnot1 (prodState (corner z1 a) (corner z1 b)) = prodState (corner z1 a) (corner z1 (a + b)) := by
+  fin_cases a <;> fin_cases b <;> funext μ ν <;> fin_cases μ <;> fin_cases ν <;>
+    simp +decide [cnot1_apply, prodState_apply, corner_zero, corner_one]
+
+theorem cnot1_relT (ω : W 1) : actT neg1 (cnot1 (actT neg1 ω)) = cnot1 ω := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;> simp +decide [actT_apply, cnot1_apply]
+
+theorem cnot1_relC (ω : W 1) : actC neg1 (cnot1 (actC neg1 ω)) = actT neg1 (cnot1 ω) := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;> simp +decide [actC_apply, actT_apply, cnot1_apply]
+
+theorem lor_one {v : HVec 1} (hv : Lor v) : 0 ≤ v 0 ∧ v 1 ^ 2 ≤ v 0 ^ 2 := by
+  obtain ⟨h0, h⟩ := hv
+  rw [Fin.sum_univ_one] at h
+  exact ⟨h0, h⟩
+
+/-- The core inequality of the classical gate. -/
+theorem cnot1_core (e0 a1 f0 b1 x y : ℝ) (he0 : 0 ≤ e0) (ha : a1 ^ 2 ≤ e0 ^ 2) (hf0 : 0 ≤ f0)
+    (hb : b1 ^ 2 ≤ f0 ^ 2) (hx : x ^ 2 ≤ 1) (hy : y ^ 2 ≤ 1) :
+    0 ≤ (e0 + a1 * x) * f0 + y * (e0 * x + a1) * b1 := by
+  have hA : 0 ≤ e0 + a1 * x := by
+    have h : (a1 * x) ^ 2 ≤ e0 ^ 2 := by
+      rw [mul_pow]
+      calc a1 ^ 2 * x ^ 2 ≤ e0 ^ 2 * 1 := mul_le_mul ha hx (sq_nonneg _) (sq_nonneg _)
+        _ = e0 ^ 2 := mul_one _
+    linarith [(abs_le_of_sq_le_sq' h he0).1]
+  have hid : (e0 + a1 * x) ^ 2 - (e0 * x + a1) ^ 2 = (e0 ^ 2 - a1 ^ 2) * (1 - x ^ 2) := by ring
+  have hB : (e0 * x + a1) ^ 2 ≤ (e0 + a1 * x) ^ 2 := by
+    have := mul_nonneg (sub_nonneg.mpr ha) (sub_nonneg.mpr hx)
+    linarith
+  have h2 : (y * (e0 * x + a1) * b1) ^ 2 ≤ ((e0 + a1 * x) * f0) ^ 2 := by
+    rw [mul_pow, mul_pow, mul_pow]
+    calc y ^ 2 * (e0 * x + a1) ^ 2 * b1 ^ 2 ≤ 1 * (e0 + a1 * x) ^ 2 * f0 ^ 2 :=
+          mul_le_mul (mul_le_mul hy hB (sq_nonneg _) zero_le_one) hb (sq_nonneg _)
+            (by positivity)
+      _ = (e0 + a1 * x) ^ 2 * f0 ^ 2 := by rw [one_mul]
+  linarith [(abs_le_of_sq_le_sq' h2 (mul_nonneg hA hf0)).1]
+
+theorem prodEffVal_cnot1_prodState (e f : (Fin 1 → ℝ) →ᵃ[ℝ] ℝ) (x y : Fin 1 → ℝ) :
+    prodEffVal e f (cnot1 (prodState x y))
+      = (ehom e 0 + ehom e 1 * x 0) * ehom f 0 + y 0 * (ehom e 0 * x 0 + ehom e 1) * ehom f 1 := by
+  simp only [prodEffVal, pairVal, cnot1_apply, prodState_apply, sum_univ_two']
+  simp +decide
+  ring
+
+theorem cnot1_prodState_mem_maxCone {x y : Fin 1 → ℝ} (hx : x ∈ eball 1) (hy : y ∈ eball 1) :
+    cnot1 (prodState x y) ∈ maxCone (eball 1) := by
+  show ∀ e f, IsEffectOn (eball 1) e → IsEffectOn (eball 1) f →
+    0 ≤ prodEffVal e f (cnot1 (prodState x y))
+  intro e f he hf
+  obtain ⟨he0, ha⟩ := lor_one (lor_ehom he)
+  obtain ⟨hf0, hb⟩ := lor_one (lor_ehom hf)
+  rw [mem_eball, Fin.sum_univ_one] at hx hy
+  rw [prodEffVal_cnot1_prodState]
+  exact cnot1_core _ _ _ _ _ _ he0 ha hf0 hb hx hy
+
+/-- The classical gate satisfies every native-gate hypothesis. -/
+theorem nativeGate_cnot1 : NativeGate (eball 1) z1 neg1 cnot1 where
+  frame := cnot1_frame
+  posFwd x hx y hy := cnot1_prodState_mem_maxCone hx hy
+  posInv x hx y hy := cnot1_prodState_mem_maxCone hx hy
+  relT := cnot1_relT
+  relC := cnot1_relC
+
+/-- The classical gate is not entangling. -/
+theorem not_entangling_cnot1 : ¬ Entangling (eball 1) cnot1 :=
+  not_entangling_one isNot_neg1 nativeGate_cnot1
+
+/-- The classical gate creates correlations from the mixed product input `(0, z1)`: the image is
+not a product state. The entangling clause is not met, so correlation alone does not qualify. -/
+theorem not_product_cnot1_mixed : ¬ IsProduct (eball 1) (cnot1 (prodState 0 z1)) := by
+  rintro ⟨x', -, y', -, h⟩
+  have h01 : y' 0 = 0 := by
+    have := congrFun (congrFun h 0) 1
+    simp +decide [cnot1_apply, prodState_apply] at this
+    linarith
+  have h11 : x' 0 * y' 0 = 1 := by
+    have := congrFun (congrFun h 1) 1
+    simp +decide [cnot1_apply, prodState_apply] at this
+    linarith
+  rw [h01, mul_zero] at h11
+  exact zero_ne_one h11
+
+/-- `eball 4` carries no native gate. -/
+theorem no_gate_four : ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ))
+    (G : W 4 ≃ₗ[ℝ] W 4), IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G := by
+  rintro ⟨z, N, G, hN, hG⟩
+  exact ne_four_of_nativeGate hN hG rfl
+
+/-! ### The verdict -/
+
+/-- The kernel layer's verdict: the parity exclusion, the selector conditional on the block data,
+the selector under the entangling clause, the `d = 3` witness, the classical controls and the
+`eball 4` exclusion. -/
+theorem dim1_core :
+    (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+      IsNot (eball d) z N → NativeGate (eball d) z N G → ¬ Even d) ∧
+    (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+      IsNot (eball d) z N → NativeGate (eball d) z N G → BlockData (tangentPlus N) →
+        d = 1 ∨ d = 3) ∧
+    (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+      IsNot (eball d) z N → NativeGate (eball d) z N G → BlockData (tangentPlus N) →
+        Entangling (eball d) G → d = 3) ∧
+    (IsNot (eball 3) z3 nflip ∧ NativeGate (eball 3) z3 nflip cnot ∧ Entangling (eball 3) cnot) ∧
+    (IsNot (eball 1) z1 neg1 ∧ NativeGate (eball 1) z1 neg1 cnot1 ∧
+      ¬ Entangling (eball 1) cnot1 ∧ ¬ IsProduct (eball 1) (cnot1 (prodState 0 z1))) ∧
+    ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ)) (G : W 4 ≃ₗ[ℝ] W 4),
+      IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G :=
+  ⟨fun _ _ _ _ hN hG => not_even_of_nativeGate hN hG,
+    fun _ _ _ _ hN hG hB => dim_of_nativeGate hN hG hB,
+    fun _ _ _ _ hN hG hB hE => three_of_nativeGate hN hG hB hE,
+    ⟨isNot_nflip, nativeGate_cnot, entangling_cnot⟩,
+    ⟨isNot_neg1, nativeGate_cnot1, not_entangling_cnot1, not_product_cnot1_mixed⟩,
+    no_gate_four⟩
+
 end CompositeDimension
 end OIBridge
+
+#print axioms OIBridge.CompositeDimension.isNot_nflip
+#print axioms OIBridge.CompositeDimension.cnot_frame
+#print axioms OIBridge.CompositeDimension.cnot_relT
+#print axioms OIBridge.CompositeDimension.cnot_relC
+#print axioms OIBridge.CompositeDimension.lor_ehom
+#print axioms OIBridge.CompositeDimension.isEffectOn_affOf
+#print axioms OIBridge.CompositeDimension.lor_toOp_of_maxCone
+#print axioms OIBridge.CompositeDimension.cnot_core
+#print axioms OIBridge.CompositeDimension.cnot_prodEffVal_nonneg
+#print axioms OIBridge.CompositeDimension.nativeGate_cnot
+#print axioms OIBridge.CompositeDimension.extreme_of_unit
+#print axioms OIBridge.CompositeDimension.phiW_not_product
+#print axioms OIBridge.CompositeDimension.phiW_mem_jointStates
+#print axioms OIBridge.CompositeDimension.lor_ray
+#print axioms OIBridge.CompositeDimension.phiW_eq_of_segment
+#print axioms OIBridge.CompositeDimension.entangling_cnot
+#print axioms OIBridge.CompositeDimension.eq_corner_of_extreme
+#print axioms OIBridge.CompositeDimension.not_entangling_one
+#print axioms OIBridge.CompositeDimension.three_of_nativeGate
+#print axioms OIBridge.CompositeDimension.isNot_neg1
+#print axioms OIBridge.CompositeDimension.nativeGate_cnot1
+#print axioms OIBridge.CompositeDimension.not_entangling_cnot1
+#print axioms OIBridge.CompositeDimension.not_product_cnot1_mixed
+#print axioms OIBridge.CompositeDimension.no_gate_four
+#print axioms OIBridge.CompositeDimension.dim1_core
 
 #print axioms OIBridge.CompositeDimension.ehom_dot
 #print axioms OIBridge.CompositeDimension.homMap_homMap
