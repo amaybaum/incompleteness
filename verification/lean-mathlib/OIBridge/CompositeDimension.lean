@@ -1709,7 +1709,7 @@ theorem lor_hom_of_unit {x : Fin d → ℝ} (hx : ∑ j, x j ^ 2 = 1) : Lor (hom
 theorem lor_hom_zero_add_smul_bvec (j : Fin d) {s : ℝ} (hs : s ^ 2 ≤ 1) :
     Lor (hom (0 : Fin d → ℝ) + s • bvec j.succ) := by
   have h0 : (hom (0 : Fin d → ℝ) + s • bvec j.succ) 0 = 1 := by
-    rw [Pi.add_apply, hom_zero, Pi.smul_apply, bvec_apply, if_neg (Fin.succ_ne_zero j).symm,
+    rw [Pi.add_apply, hom_zero, Pi.smul_apply, bvec_apply, if_neg (Fin.succ_ne_zero j),
       smul_zero, add_zero]
   have ht : ∀ k : Fin d,
       (hom (0 : Fin d → ℝ) + s • bvec j.succ) k.succ ^ 2 = if j = k then s ^ 2 else 0 := by
@@ -1784,7 +1784,7 @@ theorem lor_face {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {m : HVec d} (hm 
       rw [← Finset.sum_neg_distrib]; exact Finset.sum_congr rfl fun j _ => by ring
     linarith
   have hcs : (∑ j, z j * m j.succ) ^ 2 ≤ (∑ j, z j ^ 2) * ∑ j, m j.succ ^ 2 :=
-    Finset.sum_mul_sq_le_sq_mul_sq Finset.univ z (fun j => m j.succ)
+    Finset.sum_mul_sq_le_sq_mul_sq Finset.univ z (fun j : Fin d => m j.succ)
   rw [hdot, hz, one_mul] at hcs
   have hsq : ∑ j, m j.succ ^ 2 = m 0 ^ 2 := le_antisymm hm.2 hcs
   have hzero : ∑ j, (m j.succ - m 0 * z j) ^ 2 = 0 := by
@@ -1886,6 +1886,306 @@ theorem corner_form {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {G' : W d →�
   have := LinearMap.congr_fun hF Y
   rwa [LinearMap.sub_apply, LinearMap.comp_apply, LinearMap.comp_apply, tensL_apply, tensL_apply,
     LinearMap.zero_apply, sub_eq_zero] at this
+
+/-- The corner map carries the cone into itself. -/
+theorem lor_cornerMap {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {G' : W d →ₗ[ℝ] W d}
+    (hpos : ∀ x ∈ eball d, ∀ y ∈ eball d, G' (prodState x y) ∈ maxCone (eball d))
+    {Y : HVec d} (hY : Lor Y) : Lor (cornerMap z G' Y) :=
+  lor_of_forall_pair fun a ha => by
+    rw [cornerMap_apply, ← pairVal_hom_zero_left]
+    exact pairVal_nonneg_of_maxCone (tens_mem_maxCone hpos (lor_hom_of_unit hz) hY) lor_hom_zero ha
+
+/-- The forward target map `M₀` of the gate on the corner `z` slice. -/
+def Mfwd (z : Fin d → ℝ) (G : W d ≃ₗ[ℝ] W d) : HVec d →ₗ[ℝ] HVec d :=
+  cornerMap z (G : W d →ₗ[ℝ] W d)
+
+/-- The target map of the inverse gate on the corner `z` slice. -/
+def Minv (z : Fin d → ℝ) (G : W d ≃ₗ[ℝ] W d) : HVec d →ₗ[ℝ] HVec d :=
+  cornerMap z (G.symm : W d →ₗ[ℝ] W d)
+
+theorem gate_corner {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    G (tens (hom z) Y) = tens (hom z) (Mfwd z G Y) :=
+  corner_form hN.unit
+    (fun b => by
+      have h := hG.frame 0 b
+      rw [corner_zero, zero_add] at h
+      exact h)
+    (fun x hx y hy => hG.posFwd x hx y hy) Y
+
+theorem gate_corner_symm {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    G.symm (tens (hom z) Y) = tens (hom z) (Minv z G Y) :=
+  corner_form hN.unit
+    (fun b => by
+      have h := hG.frame 0 b
+      rw [corner_zero, zero_add] at h
+      calc G.symm (prodState z (corner z b)) = G.symm (G (prodState z (corner z b))) := by rw [h]
+        _ = prodState z (corner z b) := G.symm_apply_apply _)
+    (fun x hx y hy => hG.posInv x hx y hy) Y
+
+theorem Mfwd_Minv {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    Mfwd z G (Minv z G Y) = Y := by
+  apply tens_hom_inj (x := z)
+  rw [← gate_corner hN hG, ← gate_corner_symm hN hG, G.apply_symm_apply]
+
+theorem Minv_Mfwd {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    Minv z G (Mfwd z G Y) = Y := by
+  apply tens_hom_inj (x := z)
+  rw [← gate_corner_symm hN hG, ← gate_corner hN hG, G.symm_apply_apply]
+
+theorem lor_Minv {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {Y : HVec d} (hY : Lor Y) :
+    Lor (Minv z G Y) :=
+  lor_cornerMap hN.unit (fun x hx y hy => hG.posInv x hx y hy) hY
+
+theorem actT_tens (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (X Y : HVec d) :
+    actT N (tens X Y) = tens X (homMap N Y) := by
+  funext μ ν
+  show homMap N (fun ν => X μ * Y ν) ν = X μ * homMap N Y ν
+  have : (fun ν => X μ * Y ν) = X μ • Y := rfl
+  rw [this, map_smul, Pi.smul_apply, smul_eq_mul]
+
+theorem actC_tens (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (X Y : HVec d) :
+    actC N (tens X Y) = tens (homMap N X) Y := by
+  funext μ ν
+  show homMap N (fun κ => tens X Y κ ν) μ = homMap N X μ * Y ν
+  have : (fun κ => tens X Y κ ν) = Y ν • X := by
+    funext κ; simp only [tens_apply, Pi.smul_apply, smul_eq_mul]; ring
+  rw [this, map_smul, Pi.smul_apply, smul_eq_mul, mul_comm]
+
+theorem gate_actT {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (ω : W d) :
+    G (actT N ω) = actT N (G ω) := by
+  have h := hG.relT (actT N ω)
+  rw [actT_actT hN.invol] at h
+  exact h.symm
+
+theorem gate_actC {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (ω : W d) :
+    G (actC N ω) = actC N (actT N (G ω)) := by
+  have h2 := congrArg (actC N) (hG.relC ω)
+  rwa [actC_actC hN.invol] at h2
+
+/-- Rt on the corner map: `M₀` commutes with the homogenized NOT. -/
+theorem Mfwd_homMap {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    Mfwd z G (homMap N Y) = homMap N (Mfwd z G Y) := by
+  apply tens_hom_inj (x := z)
+  rw [← gate_corner hN hG, ← actT_tens N (hom z) Y, gate_actT hN hG (tens (hom z) Y),
+    gate_corner hN hG Y, actT_tens N (hom z) (Mfwd z G Y)]
+
+theorem Minv_homMap {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    Minv z G (homMap N Y) = homMap N (Minv z G Y) := by
+  conv_lhs => rw [← Mfwd_Minv hN hG Y, ← Mfwd_homMap hN hG, Minv_Mfwd hN hG]
+
+/-- Rc on the corner `−z` slice: the target map there is `N M₀`. -/
+theorem gate_corner_neg {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (Y : HVec d) :
+    G (tens (hom (-z)) Y) = tens (hom (-z)) (homMap N (Mfwd z G Y)) := by
+  have hz' : homMap N (hom z) = hom (-z) := by rw [homMap_hom, hN.flips]
+  rw [← hz', ← actC_tens N (hom z) Y, gate_actC hN hG (tens (hom z) Y), gate_corner hN hG Y,
+    actT_tens N (hom z) (Mfwd z G Y), actC_tens N (hom z) (homMap N (Mfwd z G Y))]
+
+/-- The normalized gate `G (I ⊗ M₀⁻¹)` on the corner `z` slice is the identity. -/
+theorem gt_corner {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (t : HVec d) :
+    G (tens (hom z) (Minv z G t)) = tens (hom z) t := by
+  rw [gate_corner hN hG, Mfwd_Minv hN hG]
+
+/-- The normalized gate on the corner `−z` slice is `I ⊗ N`. -/
+theorem gt_corner_neg {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) (t : HVec d) :
+    G (tens (hom (-z)) (Minv z G t)) = tens (hom (-z)) (homMap N t) := by
+  rw [gate_corner_neg hN hG, Mfwd_Minv hN hG]
+
+theorem eq_of_two_smul_eq {A B : W d} (h : (2 : ℝ) • A = (2 : ℝ) • B) : A = B := by
+  have hA : ((1 / 2 : ℝ) * 2) • A = A := by norm_num
+  have hB : ((1 / 2 : ℝ) * 2) • B = B := by norm_num
+  rw [← hA, ← hB, ← smul_smul, ← smul_smul, h]
+
+/-- The normalized gate on the centre slice fixes every `+1` eigenvector of the target. -/
+theorem gt_center {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {t : HVec d}
+    (ht : homMap N t = t) : G (tens (hom 0) (Minv z G t)) = tens (hom 0) t := by
+  apply eq_of_two_smul_eq
+  rw [← map_smul, ← tens_smul_left 2 (hom 0) (Minv z G t), ← hom_add_hom_neg z, tens_add_left,
+    map_add, gt_corner hN hG,
+    gt_corner_neg hN hG, ht, ← tens_add_left, hom_add_hom_neg z, tens_smul_left]
+
+/-- `0 ≤ α s² + β s` for every `s`, with `0 ≤ α`, forces `β = 0`. -/
+theorem eq_zero_of_quadratic_nonneg {α β : ℝ} (hα : 0 ≤ α)
+    (h : ∀ s : ℝ, 0 ≤ α * s ^ 2 + β * s) : β = 0 := by
+  by_contra hβ
+  have hpos : 0 < α + 1 := by linarith
+  have hne : α + 1 ≠ 0 := hpos.ne'
+  have hs1 : (α + 1) * (-β / (α + 1)) = -β := by field_simp
+  have key := h (-β / (α + 1))
+  obtain ⟨s, hs⟩ : ∃ s : ℝ, s = -β / (α + 1) := ⟨_, rfl⟩
+  rw [← hs] at hs1 key
+  have hαs : α * s = -β - s := by
+    have h' : α * s + s = -β := by rw [← hs1]; ring
+    linarith
+  have hval : α * s ^ 2 + β * s = -(s ^ 2) := by
+    calc α * s ^ 2 + β * s = s * (α * s + β) := by ring
+      _ = -(s ^ 2) := by rw [hαs]; ring
+  rw [hval] at key
+  have hs2 : s ^ 2 = 0 := le_antisymm (by linarith) (sq_nonneg s)
+  have hs0 : s = 0 := (pow_eq_zero_iff two_ne_zero).mp hs2
+  rw [hs0, mul_zero] at hs1
+  exact hβ (neg_eq_zero.mp hs1.symm)
+
+/-- The boundary curve through the corner `w` in a tangent direction `c` of norm at most one:
+every point is a cone vector. -/
+theorem lor_curve {w c : Fin d → ℝ} (hw : ∑ j, w j ^ 2 = 1) (hc : ∑ j, c j ^ 2 ≤ 1)
+    (hwc : ∑ j, w j * c j = 0) (s : ℝ) :
+    Lor ((1 + s ^ 2) • hom (0 : Fin d → ℝ) + (1 - s ^ 2) • lift w + (2 * s) • lift c) := by
+  set X : HVec d := (1 + s ^ 2) • hom (0 : Fin d → ℝ) + (1 - s ^ 2) • lift w + (2 * s) • lift c
+    with hX
+  have hhead : X 0 = 1 + s ^ 2 := by
+    rw [hX]
+    simp only [Pi.add_apply, Pi.smul_apply, hom_zero, lift_zero, smul_eq_mul]
+    ring
+  have htail : ∀ j : Fin d, X j.succ = (1 - s ^ 2) * w j + 2 * s * c j := by
+    intro j
+    rw [hX]
+    simp only [Pi.add_apply, Pi.smul_apply, hom_succ, lift_succ, Pi.zero_apply, smul_eq_mul]
+    ring
+  have hsum : ∑ j : Fin d, X j.succ ^ 2 = ∑ j : Fin d, ((1 - s ^ 2) * w j + 2 * s * c j) ^ 2 :=
+    Finset.sum_congr rfl fun j _ => by rw [htail j]
+  have hexp : ∑ j : Fin d, ((1 - s ^ 2) * w j + 2 * s * c j) ^ 2
+      = (1 - s ^ 2) ^ 2 * ∑ j, w j ^ 2 + 2 * ((1 - s ^ 2) * (2 * s)) * ∑ j, w j * c j
+        + (2 * s) ^ 2 * ∑ j, c j ^ 2 := by
+    rw [Finset.mul_sum, Finset.mul_sum, Finset.mul_sum, ← Finset.sum_add_distrib,
+      ← Finset.sum_add_distrib]
+    exact Finset.sum_congr rfl fun j _ => by ring
+  refine ⟨by rw [hhead]; positivity, ?_⟩
+  rw [hhead, hsum, hexp, hw, hwc]
+  have hid : (1 - s ^ 2) ^ 2 + (2 * s) ^ 2 = (1 + s ^ 2) ^ 2 := by ring
+  nlinarith [hid, mul_le_mul_of_nonneg_left hc (sq_nonneg (2 * s))]
+
+/-- **The tangent argument.** A linear functional nonnegative on the cone and vanishing at the
+boundary point `hom w` vanishes on every tangent direction at `w`. -/
+theorem tangent_vanish (F : HVec d →ₗ[ℝ] ℝ) (hpos : ∀ X, Lor X → 0 ≤ F X) {w c : Fin d → ℝ}
+    (hw : ∑ j, w j ^ 2 = 1) (hc : ∑ j, c j ^ 2 ≤ 1) (hwc : ∑ j, w j * c j = 0)
+    (h0 : F (hom w) = 0) : F (lift c) = 0 := by
+  have hF0 : 0 ≤ F (hom 0) := hpos _ lor_hom_zero
+  have hsum : F (hom 0) + F (lift w) = 0 := by rw [← map_add, ← hom_eq_add_lift w]; exact h0
+  have hq : ∀ s : ℝ, 0 ≤ (2 * F (hom 0)) * s ^ 2 + (2 * F (lift c)) * s := by
+    intro s
+    have h := hpos _ (lor_curve hw hc hwc s)
+    simp only [map_add, map_smul, smul_eq_mul] at h
+    have hid : (1 + s ^ 2) * F (hom 0) + (1 - s ^ 2) * F (lift w) + 2 * s * F (lift c)
+        = (2 * F (hom 0)) * s ^ 2 + (2 * F (lift c)) * s
+          + (F (hom 0) + F (lift w)) * (1 - s ^ 2) := by ring
+    rw [hid, hsum, zero_mul, add_zero] at h
+    exact h
+  have := eq_zero_of_quadratic_nonneg (by linarith) hq
+  linarith
+
+/-- **S2, first step.** On a tangent control slice the normalized gate's control output is
+orthogonal to both corners, for cone-valued target data. -/
+theorem gt_tangent_corners {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {c : Fin d → ℝ}
+    (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {f t : HVec d} (hf : Lor f) (ht : Lor t) :
+    pairVal (hom (-z)) f (G (tens (lift c) (Minv z G t))) = 0 ∧
+    pairVal (hom z) f (G (tens (lift c) (Minv z G t))) = 0 := by
+  have hzl : Lor (hom z) := lor_hom_of_unit hN.unit
+  have hz' : ∑ j, (-z) j ^ 2 = 1 := by simpa [neg_sq] using hN.unit
+  have hzc' : ∑ j, (-z) j * c j = 0 := by
+    simp only [Pi.neg_apply, neg_mul, Finset.sum_neg_distrib, hzc, neg_zero]
+  have hzl' : Lor (hom (-z)) := lor_hom_of_unit hz'
+  have hMt : Lor (Minv z G t) := lor_Minv hN hG ht
+  have hpos : ∀ x ∈ eball d, ∀ y ∈ eball d,
+      (G : W d →ₗ[ℝ] W d) (prodState x y) ∈ maxCone (eball d) :=
+    fun x hx y hy => hG.posFwd x hx y hy
+  constructor
+  · let F : HVec d →ₗ[ℝ] ℝ := pvOmega (hom (-z)) f ∘ₗ (G : W d →ₗ[ℝ] W d) ∘ₗ tensR (Minv z G t)
+    have hF : ∀ X, F X = pairVal (hom (-z)) f (G (tens X (Minv z G t))) := fun X => rfl
+    have hFpos : ∀ X, Lor X → 0 ≤ F X := fun X hX => by
+      rw [hF]; exact gate_pairVal_nonneg hpos hzl' hX hf hMt
+    have h0 : F (hom z) = 0 := by
+      rw [hF, gt_corner hN hG, pairVal_tens, dot_hom_neg_hom hN.unit, zero_mul]
+    rw [← hF]
+    exact tangent_vanish F hFpos hN.unit hc hzc h0
+  · let F : HVec d →ₗ[ℝ] ℝ := pvOmega (hom z) f ∘ₗ (G : W d →ₗ[ℝ] W d) ∘ₗ tensR (Minv z G t)
+    have hF : ∀ X, F X = pairVal (hom z) f (G (tens X (Minv z G t))) := fun X => rfl
+    have hFpos : ∀ X, Lor X → 0 ≤ F X := fun X hX => by
+      rw [hF]; exact gate_pairVal_nonneg hpos hzl hX hf hMt
+    have h0 : F (hom (-z)) = 0 := by
+      rw [hF, gt_corner_neg hN hG, pairVal_tens, dot_hom_hom_neg hN.unit, zero_mul]
+    rw [← hF]
+    exact tangent_vanish F hFpos hz' hc hzc' h0
+
+/-- **S2, the sphere identity at the corner `z`.** For a unit tangent target direction `u`, the
+antipodal target effect annihilates the normalized gate's image of the tangent slice. -/
+theorem gt_sphere {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {c : Fin d → ℝ}
+    (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) {u : HVec d}
+    (hu0 : u 0 = 0) (hu : ∑ μ, u μ ^ 2 = 1) :
+    pairVal a (hom 0 - u) (G (tens (lift c) (Minv z G (hom 0 + u)))) = 0 := by
+  have hτ : ∑ j, Matrix.vecTail u j ^ 2 = 1 := by
+    rw [Fin.sum_univ_succ, hu0, zero_pow two_ne_zero, zero_add] at hu
+    exact hu
+  have hτ' : ∑ j, (-Matrix.vecTail u) j ^ 2 = 1 := by simpa [neg_sq] using hτ
+  have h1 : hom 0 + u = hom (Matrix.vecTail u) := by
+    rw [hom_eq_add_lift (Matrix.vecTail u), lift_vecTail hu0]
+  have h2 : hom 0 - u = hom (-Matrix.vecTail u) := by
+    rw [hom_eq_add_lift (-Matrix.vecTail u), lift_neg, lift_vecTail hu0, sub_eq_add_neg]
+  rw [h1, h2]
+  have hpos : ∀ x ∈ eball d, ∀ y ∈ eball d,
+      (G : W d →ₗ[ℝ] W d) (prodState x y) ∈ maxCone (eball d) :=
+    fun x hx y hy => hG.posFwd x hx y hy
+  let F : HVec d →ₗ[ℝ] ℝ := pvOmega a (hom (-Matrix.vecTail u)) ∘ₗ (G : W d →ₗ[ℝ] W d) ∘ₗ
+    tensR (Minv z G (hom (Matrix.vecTail u)))
+  have hF : ∀ X, F X = pairVal a (hom (-Matrix.vecTail u))
+      (G (tens X (Minv z G (hom (Matrix.vecTail u))))) := fun X => rfl
+  have hFpos : ∀ X, Lor X → 0 ≤ F X := fun X hX => by
+    rw [hF]
+    exact gate_pairVal_nonneg hpos ha hX (lor_hom_of_unit hτ') (lor_Minv hN hG (lor_hom_of_unit hτ))
+  have h0 : F (hom z) = 0 := by
+    rw [hF, gt_corner hN hG, pairVal_tens, dot_hom_hom_neg hτ, mul_zero]
+  rw [← hF]
+  exact tangent_vanish F hFpos hN.unit hc hzc h0
+
+/-- **S2, the sphere identity at the corner `−z`**, evaluated at the two corner target states. -/
+theorem gt_sphere_corner {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) {c : Fin d → ℝ}
+    (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) :
+    pairVal a (hom z) (G (tens (lift c) (Minv z G (hom z)))) = 0 ∧
+    pairVal a (hom (-z)) (G (tens (lift c) (Minv z G (hom (-z))))) = 0 := by
+  have hz' : ∑ j, (-z) j ^ 2 = 1 := by simpa [neg_sq] using hN.unit
+  have hzc' : ∑ j, (-z) j * c j = 0 := by
+    simp only [Pi.neg_apply, neg_mul, Finset.sum_neg_distrib, hzc, neg_zero]
+  have hNz : homMap N (hom z) = hom (-z) := by rw [homMap_hom, hN.flips]
+  have hNz' : homMap N (hom (-z)) = hom z := by rw [homMap_hom, map_neg, hN.flips, neg_neg]
+  have hpos : ∀ x ∈ eball d, ∀ y ∈ eball d,
+      (G : W d →ₗ[ℝ] W d) (prodState x y) ∈ maxCone (eball d) :=
+    fun x hx y hy => hG.posFwd x hx y hy
+  constructor
+  · let F : HVec d →ₗ[ℝ] ℝ := pvOmega a (hom z) ∘ₗ (G : W d →ₗ[ℝ] W d) ∘ₗ tensR (Minv z G (hom z))
+    have hF : ∀ X, F X = pairVal a (hom z) (G (tens X (Minv z G (hom z)))) := fun X => rfl
+    have hFpos : ∀ X, Lor X → 0 ≤ F X := fun X hX => by
+      rw [hF]
+      exact gate_pairVal_nonneg hpos ha hX (lor_hom_of_unit hN.unit)
+        (lor_Minv hN hG (lor_hom_of_unit hN.unit))
+    have h0 : F (hom (-z)) = 0 := by
+      rw [hF, gt_corner_neg hN hG, hNz, pairVal_tens, dot_hom_neg_hom hN.unit, mul_zero]
+    rw [← hF]
+    exact tangent_vanish F hFpos hz' hc hzc' h0
+  · let F : HVec d →ₗ[ℝ] ℝ := pvOmega a (hom (-z)) ∘ₗ (G : W d →ₗ[ℝ] W d) ∘ₗ
+      tensR (Minv z G (hom (-z)))
+    have hF : ∀ X, F X = pairVal a (hom (-z)) (G (tens X (Minv z G (hom (-z))))) := fun X => rfl
+    have hFpos : ∀ X, Lor X → 0 ≤ F X := fun X hX => by
+      rw [hF]
+      exact gate_pairVal_nonneg hpos ha hX (lor_hom_of_unit hz') (lor_Minv hN hG (lor_hom_of_unit hz'))
+    have h0 : F (hom (-z)) = 0 := by
+      rw [hF, gt_corner_neg hN hG, hNz', pairVal_tens, dot_hom_hom_neg hN.unit, mul_zero]
+    rw [← hF]
+    exact tangent_vanish F hFpos hz' hc hzc' h0
 
 /-! ### §P — controls: the classical gate of two intervals, and `eball 4` -/
 
