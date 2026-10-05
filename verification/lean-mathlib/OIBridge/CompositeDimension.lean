@@ -1797,11 +1797,11 @@ theorem lor_face {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) {m : HVec d} (hm 
     have : ∑ j, -z j * m j.succ = -∑ j, z j * m j.succ := by
       rw [← Finset.sum_neg_distrib]; exact Finset.sum_congr rfl fun j _ => by ring
     linarith
-  have hcs : (∑ j, z j * m j.succ) ^ 2 ≤ (∑ j, z j ^ 2) * ∑ j, m j.succ ^ 2 :=
+  have hcs : (∑ j, z j * m j.succ) ^ 2 ≤ (∑ j, z j ^ 2) * ∑ j : Fin d, m j.succ ^ 2 :=
     Finset.sum_mul_sq_le_sq_mul_sq Finset.univ z (fun j : Fin d => m j.succ)
   rw [hdot, hz, one_mul] at hcs
-  have hsq : ∑ j, m j.succ ^ 2 = m 0 ^ 2 := le_antisymm hm.2 hcs
-  have hzero : ∑ j, (m j.succ - m 0 * z j) ^ 2 = 0 := by
+  have hsq : ∑ j : Fin d, m j.succ ^ 2 = m 0 ^ 2 := le_antisymm hm.2 hcs
+  have hzero : ∑ j : Fin d, (m j.succ - m 0 * z j) ^ 2 = 0 := by
     have : ∀ j : Fin d, (m j.succ - m 0 * z j) ^ 2
         = m j.succ ^ 2 - 2 * m 0 * (z j * m j.succ) + m 0 ^ 2 * z j ^ 2 := fun j => by ring
     rw [Finset.sum_congr rfl fun j _ => this j, Finset.sum_add_distrib, Finset.sum_sub_distrib,
@@ -2396,7 +2396,8 @@ theorem exists_orthonormal_basis (S : Submodule ℝ (HVec d)) :
   have hmem : ∀ x : K, e (x : EuclideanSpace ℝ (Fin (d + 1))) ∈ S := by
     intro x
     obtain ⟨y, hy, hyeq⟩ := Submodule.mem_map.mp x.2
-    have : e (x : EuclideanSpace ℝ (Fin (d + 1))) = y := by rw [← hyeq, e.apply_symm_apply]
+    have : e (x : EuclideanSpace ℝ (Fin (d + 1))) = y := by
+      rw [← hyeq]; exact e.apply_symm_apply y
     rw [this]; exact hy
   refine ⟨Module.finrank ℝ K, fun r => e (b r : EuclideanSpace ℝ (Fin (d + 1))), hK,
     fun r => hmem (b r), ?_, ?_⟩
@@ -2461,8 +2462,8 @@ theorem lift_tperp (z : Fin d → ℝ) (k : Fin d) :
   refine Fin.cases ?_ (fun j => ?_) μ
   · rw [lift_zero, Pi.sub_apply, bvec_apply, if_neg (Fin.succ_ne_zero k), Pi.smul_apply, lift_zero,
       smul_zero, sub_zero]
-  · rw [lift_succ, tperp_apply, Pi.sub_apply, bvec_apply, Pi.smul_apply, lift_succ, smul_eq_mul,
-      Fin.succ_inj]
+  · rw [lift_succ, tperp_apply, Pi.sub_apply, bvec_apply, Pi.smul_apply, lift_succ, smul_eq_mul]
+    simp only [Fin.succ_inj]
 
 /-- Some control tangent direction is nonzero when `2 ≤ d`. -/
 theorem exists_tperp_ne_zero {z : Fin d → ℝ} (hz : ∑ j, z j ^ 2 = 1) (hd : 2 ≤ d) :
@@ -2576,7 +2577,7 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
     fun r s => Matrix.of fun k l => Phi z G (hom (tperp z k)) (tperp z l) (v r) (v s), ?_, ?_, ?_⟩
   · intro r s
     ext k l
-    rw [Matrix.of_apply, Matrix.neg_apply, Matrix.of_apply]
+    simp only [Matrix.of_apply, Matrix.neg_apply]
     exact eq_neg_of_add_eq_zero_left (hanti k l r s)
   · intro k l i s hs b hb
     simp only [Matrix.of_apply]
@@ -2671,7 +2672,7 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
     have hzero : ∀ r k l, Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v r) = 0 := by
       intro r k l
       by_contra h
-      exact hcon ⟨r, k, l, by rw [Matrix.of_apply]; exact h⟩
+      exact hcon ⟨r, k, l, by simp only [Matrix.of_apply]; exact h⟩
     obtain ⟨l, hl⟩ := exists_tperp_ne_zero hz hd
     have hcl := tperp_le_one hz l
     have hzl := tperp_dot_z hz l
