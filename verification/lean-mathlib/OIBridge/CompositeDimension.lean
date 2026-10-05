@@ -842,6 +842,528 @@ theorem cnot_relC (ω : W 3) : actC nflip (cnot (actC nflip ω)) = actT nflip (c
   fin_cases μ <;> fin_cases ν <;>
     simp +decide [actC_apply, actT_apply, cnot_apply, cnotFun_apply, sgn, pc, pt]
 
+/-! ### §L — the cone of homogenized effect vectors of the ball -/
+
+/-- The cone of homogenized vectors whose unit coordinate dominates the norm of the rest: the
+homogenized coefficients of the effects of the ball, up to scale. -/
+def Lor (v : HVec d) : Prop := 0 ≤ v 0 ∧ ∑ j, v j.succ ^ 2 ≤ v 0 ^ 2
+
+theorem lor_smul {v : HVec d} (hv : Lor v) {c : ℝ} (hc : 0 ≤ c) : Lor (c • v) := by
+  refine ⟨mul_nonneg hc hv.1, ?_⟩
+  simp only [Pi.smul_apply, smul_eq_mul, mul_pow, ← Finset.mul_sum]
+  exact mul_le_mul_of_nonneg_left hv.2 (sq_nonneg c)
+
+/-- A vector of the cone paired with a unit-ball point: the tail pairing is bounded by the head. -/
+theorem lor_pair_bound {v : HVec d} (hv : Lor v) {x : Fin d → ℝ} (hx : x ∈ eball d) :
+    -v 0 ≤ ∑ j, v j.succ * x j ∧ ∑ j, v j.succ * x j ≤ v 0 := by
+  have hcs := Finset.sum_mul_sq_le_sq_mul_sq Finset.univ (fun j => v j.succ) x
+  rw [mem_eball] at hx
+  have h1 : (∑ j, v j.succ * x j) ^ 2 ≤ v 0 ^ 2 := by
+    refine le_trans hcs ?_
+    calc (∑ j, v j.succ ^ 2) * ∑ j, x j ^ 2 ≤ v 0 ^ 2 * 1 :=
+          mul_le_mul hv.2 hx (Finset.sum_nonneg fun j _ => sq_nonneg _) (sq_nonneg _)
+      _ = v 0 ^ 2 := mul_one _
+  exact abs_le_of_sq_le_sq' h1 hv.1
+
+/-- The affine functional with the given homogenized coefficients. -/
+noncomputable def affOf (v : HVec d) : (Fin d → ℝ) →ᵃ[ℝ] ℝ where
+  toFun x := v 0 + ∑ j, v j.succ * x j
+  linear := ∑ j, v j.succ • (LinearMap.proj j : (Fin d → ℝ) →ₗ[ℝ] ℝ)
+  map_vadd' p w := by
+    simp only [vadd_eq_add, Pi.add_apply, mul_add, Finset.sum_add_distrib, LinearMap.sum_apply,
+      LinearMap.smul_apply, LinearMap.proj_apply, smul_eq_mul]
+    ring
+
+theorem affOf_apply (v : HVec d) (x : Fin d → ℝ) : affOf v x = v 0 + ∑ j, v j.succ * x j := rfl
+
+theorem affOf_linear (v : HVec d) :
+    (affOf v).linear = ∑ j, v j.succ • (LinearMap.proj j : (Fin d → ℝ) →ₗ[ℝ] ℝ) := rfl
+
+/-- The homogenized coefficients of `affOf v` are `v`. -/
+theorem ehom_affOf (v : HVec d) : ehom (affOf v) = v := by
+  funext μ
+  refine Fin.cases ?_ (fun j => ?_) μ
+  · show v 0 + ∑ j, v j.succ * (0 : Fin d → ℝ) j = v 0
+    simp
+  · show (affOf v).linear (fun i => if j = i then (1 : ℝ) else 0) = v j.succ
+    rw [affOf_linear]
+    simp only [LinearMap.sum_apply, LinearMap.smul_apply, LinearMap.proj_apply, smul_eq_mul,
+      mul_ite, mul_one, mul_zero]
+    rw [Finset.sum_ite_eq]
+    simp
+
+/-- A cone vector with head at most one half is the coefficient vector of an effect of the ball. -/
+theorem isEffectOn_affOf {v : HVec d} (hv : Lor v) (hv0 : v 0 ≤ 1 / 2) :
+    IsEffectOn (eball d) (affOf v) := by
+  intro x hx
+  obtain ⟨h1, h2⟩ := lor_pair_bound hv hx
+  rw [affOf_apply]
+  constructor <;> linarith
+
+theorem ehom_zero_eq (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) : ehom e 0 = e 0 := by
+  have h := ehom_dot e 0
+  rw [Fin.sum_univ_succ, hom_zero, mul_one] at h
+  simp only [hom_succ, Pi.zero_apply, mul_zero, Finset.sum_const_zero, add_zero] at h
+  exact h.symm
+
+/-- The homogenized coefficients of an effect of the ball lie in the cone. -/
+theorem lor_ehom {e : (Fin d → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffectOn (eball d) e) : Lor (ehom e) := by
+  have h0mem : (0 : Fin d → ℝ) ∈ eball d := by rw [mem_eball]; simp
+  have he0 : 0 ≤ ehom e 0 := by rw [ehom_zero_eq]; exact (he 0 h0mem).1
+  refine ⟨he0, ?_⟩
+  obtain ⟨s, hs⟩ : ∃ s : ℝ, s = ∑ j, ehom e j.succ ^ 2 := ⟨_, rfl⟩
+  rw [← hs]
+  have hs0 : 0 ≤ s := hs ▸ Finset.sum_nonneg fun j _ => sq_nonneg _
+  rcases eq_or_lt_of_le hs0 with h0 | hpos
+  · rw [← h0]; exact sq_nonneg _
+  · have hsq : Real.sqrt s * Real.sqrt s = s := Real.mul_self_sqrt hs0
+    have hne : Real.sqrt s ≠ 0 := ne_of_gt (Real.sqrt_pos.2 hpos)
+    have hxmem : (fun j => -(1 / Real.sqrt s) * ehom e j.succ) ∈ eball d := by
+      rw [mem_eball]
+      calc ∑ j, (-(1 / Real.sqrt s) * ehom e j.succ) ^ 2
+          = ∑ j, (1 / Real.sqrt s) ^ 2 * ehom e j.succ ^ 2 :=
+            Finset.sum_congr rfl fun j _ => by ring
+        _ = (1 / Real.sqrt s) ^ 2 * ∑ j, ehom e j.succ ^ 2 := (Finset.mul_sum _ _ _).symm
+        _ = (1 / Real.sqrt s) ^ 2 * s := by rw [hs]
+        _ = (1 / Real.sqrt s) ^ 2 * (Real.sqrt s * Real.sqrt s) := by rw [hsq]
+        _ = (1 / Real.sqrt s * Real.sqrt s) ^ 2 := by ring
+        _ = 1 := by rw [one_div_mul_cancel hne, one_pow]
+        _ ≤ 1 := le_refl 1
+    have hval := ehom_dot e (fun j => -(1 / Real.sqrt s) * ehom e j.succ)
+    rw [Fin.sum_univ_succ, hom_zero, mul_one] at hval
+    simp only [hom_succ] at hval
+    have hsum : ∑ j, ehom e j.succ * (-(1 / Real.sqrt s) * ehom e j.succ) = -Real.sqrt s := by
+      calc ∑ j, ehom e j.succ * (-(1 / Real.sqrt s) * ehom e j.succ)
+          = ∑ j, -(1 / Real.sqrt s) * ehom e j.succ ^ 2 :=
+            Finset.sum_congr rfl fun j _ => by ring
+        _ = -(1 / Real.sqrt s) * ∑ j, ehom e j.succ ^ 2 := (Finset.mul_sum _ _ _).symm
+        _ = -(1 / Real.sqrt s) * s := by rw [hs]
+        _ = -Real.sqrt s := by
+            rw [neg_mul, neg_inj, div_mul_eq_mul_div, one_mul, div_eq_iff hne, hsq]
+    rw [hsum] at hval
+    have hpos' := (he _ hxmem).1
+    have hle : Real.sqrt s ≤ ehom e 0 := by linarith
+    calc s = Real.sqrt s ^ 2 := (Real.sq_sqrt hs0).symm
+      _ ≤ ehom e 0 ^ 2 := pow_le_pow_left₀ (Real.sqrt_nonneg s) hle 2
+
+theorem pairVal_eq_sum_toOp (a b : HVec d) (ω : W d) :
+    pairVal a b ω = ∑ μ, a μ * toOp ω b μ := by
+  unfold pairVal
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [toOp_apply, Finset.mul_sum]
+  exact Finset.sum_congr rfl fun ν _ => by ring
+
+theorem pairVal_smul_left (c : ℝ) (a b : HVec d) (ω : W d) :
+    pairVal (c • a) b ω = c * pairVal a b ω := by
+  unfold pairVal
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [Finset.mul_sum]
+  exact Finset.sum_congr rfl fun ν _ => by simp only [Pi.smul_apply, smul_eq_mul]; ring
+
+theorem pairVal_smul_right (c : ℝ) (a b : HVec d) (ω : W d) :
+    pairVal a (c • b) ω = c * pairVal a b ω := by
+  unfold pairVal
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun μ _ => ?_
+  rw [Finset.mul_sum]
+  exact Finset.sum_congr rfl fun ν _ => by simp only [Pi.smul_apply, smul_eq_mul]; ring
+
+/-- A maximal-cone vector pairs nonnegatively with every two cone vectors. -/
+theorem pairVal_nonneg_of_maxCone {ω : W d} (hω : ω ∈ maxCone (eball d)) {a b : HVec d}
+    (ha : Lor a) (hb : Lor b) : 0 ≤ pairVal a b ω := by
+  have hpa : 0 < 2 * (a 0 + 1) := by linarith [ha.1]
+  have hpb : 0 < 2 * (b 0 + 1) := by linarith [hb.1]
+  have hca : 0 < 1 / (2 * (a 0 + 1)) := div_pos one_pos hpa
+  have hcb : 0 < 1 / (2 * (b 0 + 1)) := div_pos one_pos hpb
+  have ha1 : 1 / (2 * (a 0 + 1)) * (2 * (a 0 + 1)) = 1 := one_div_mul_cancel (ne_of_gt hpa)
+  have hb1 : 1 / (2 * (b 0 + 1)) * (2 * (b 0 + 1)) = 1 := one_div_mul_cancel (ne_of_gt hpb)
+  have ha0 : ((1 / (2 * (a 0 + 1))) • a) 0 ≤ 1 / 2 := by
+    simp only [Pi.smul_apply, smul_eq_mul]; linarith
+  have hb0 : ((1 / (2 * (b 0 + 1))) • b) 0 ≤ 1 / 2 := by
+    simp only [Pi.smul_apply, smul_eq_mul]; linarith
+  have hpos := hω (affOf ((1 / (2 * (a 0 + 1))) • a)) (affOf ((1 / (2 * (b 0 + 1))) • b))
+    (isEffectOn_affOf (lor_smul ha hca.le) ha0) (isEffectOn_affOf (lor_smul hb hcb.le) hb0)
+  rw [prodEffVal, ehom_affOf, ehom_affOf, pairVal_smul_left, pairVal_smul_right, ← mul_assoc]
+    at hpos
+  have h2 : (1 / (2 * (a 0 + 1)) * (1 / (2 * (b 0 + 1)))) * 0
+      ≤ (1 / (2 * (a 0 + 1)) * (1 / (2 * (b 0 + 1)))) * pairVal a b ω := by
+    rw [mul_zero]; exact hpos
+  exact le_of_mul_le_mul_left h2 (mul_pos hca hcb)
+
+/-- A vector pairing nonnegatively with every cone vector lies in the cone. -/
+theorem lor_of_forall_pair {g : HVec d} (h : ∀ a : HVec d, Lor a → 0 ≤ ∑ μ, a μ * g μ) :
+    Lor g := by
+  have hg0 : 0 ≤ g 0 := by
+    have := h (hom 0) ⟨by rw [hom_zero]; exact zero_le_one, by simp [hom_succ]⟩
+    rw [Fin.sum_univ_succ, hom_zero, one_mul] at this
+    simpa [hom_succ] using this
+  refine ⟨hg0, ?_⟩
+  obtain ⟨t, ht⟩ : ∃ t : ℝ, t = ∑ j, g j.succ ^ 2 := ⟨_, rfl⟩
+  rw [← ht]
+  have ht0 : 0 ≤ t := ht ▸ Finset.sum_nonneg fun j _ => sq_nonneg _
+  have hsq : Real.sqrt t ^ 2 = t := Real.sq_sqrt ht0
+  have hlor : Lor (Matrix.vecCons (Real.sqrt t) fun j => -g j.succ) := by
+    refine ⟨Real.sqrt_nonneg t, ?_⟩
+    show ∑ j, (-g j.succ) ^ 2 ≤ Real.sqrt t ^ 2
+    rw [hsq, ht]
+    exact le_of_eq (Finset.sum_congr rfl fun j _ => neg_sq _)
+  have hpair := h _ hlor
+  rw [Fin.sum_univ_succ] at hpair
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_succ] at hpair
+  have hsum : ∑ j, -g j.succ * g j.succ = -t := by
+    rw [ht, ← Finset.sum_neg_distrib]
+    exact Finset.sum_congr rfl fun j _ => by ring
+  rw [hsum] at hpair
+  rcases eq_or_lt_of_le ht0 with h0 | hpos
+  · rw [← h0]; exact sq_nonneg _
+  · have hsqpos : 0 < Real.sqrt t := Real.sqrt_pos.2 hpos
+    have hle : Real.sqrt t ≤ g 0 := by
+      have h2 : Real.sqrt t * Real.sqrt t ≤ Real.sqrt t * g 0 := by
+        rw [Real.mul_self_sqrt ht0]; linarith
+      exact le_of_mul_le_mul_left h2 hsqpos
+    calc t = Real.sqrt t ^ 2 := hsq.symm
+      _ ≤ g 0 ^ 2 := pow_le_pow_left₀ (Real.sqrt_nonneg t) hle 2
+
+/-- A maximal-cone vector, read as an operator, carries the cone into itself. -/
+theorem lor_toOp_of_maxCone {ω : W d} (hω : ω ∈ maxCone (eball d)) {f : HVec d} (hf : Lor f) :
+    Lor (toOp ω f) :=
+  lor_of_forall_pair fun a ha => by
+    rw [← pairVal_eq_sum_toOp]
+    exact pairVal_nonneg_of_maxCone hω ha hf
+
+theorem lor_three {v : HVec 3} (hv : Lor v) : 0 ≤ v 0 ∧ v 1 ^ 2 + v 2 ^ 2 + v 3 ^ 2 ≤ v 0 ^ 2 := by
+  obtain ⟨h0, h⟩ := hv
+  rw [Fin.sum_univ_three] at h
+  exact ⟨h0, h⟩
+
+theorem lor_of_three {v : HVec 3} (h0 : 0 ≤ v 0) (h : v 1 ^ 2 + v 2 ^ 2 + v 3 ^ 2 ≤ v 0 ^ 2) :
+    Lor v := ⟨h0, by rw [Fin.sum_univ_three]; exact h⟩
+
+/-! ### §M — two-sided positivity of the `d = 3` gate -/
+
+/-- The core inequality: the image of a product state under the gate, paired with two cone
+vectors, in the variables `P Q R S` of the target side. -/
+theorem cnot_core (e0 a1 a2 a3 x1 x2 x3 P Q R S : ℝ) (he0 : 0 ≤ e0)
+    (ha : a1 ^ 2 + a2 ^ 2 + a3 ^ 2 ≤ e0 ^ 2) (hx : x1 ^ 2 + x2 ^ 2 + x3 ^ 2 ≤ 1)
+    (hP : 0 ≤ P) (hPQ : R ^ 2 + S ^ 2 ≤ P ^ 2 - Q ^ 2) :
+    0 ≤ e0 * (P + x3 * Q) + a1 * (x1 * R - x2 * S) + a2 * (x2 * R + x1 * S)
+      + a3 * (x3 * P + Q) := by
+  have hx3 : x3 ^ 2 ≤ 1 := by linarith [sq_nonneg x1, sq_nonneg x2]
+  have hQ2 : Q ^ 2 ≤ P ^ 2 := by linarith [sq_nonneg R, sq_nonneg S]
+  have hg0 : 0 ≤ P + x3 * Q := by
+    have h : (x3 * Q) ^ 2 ≤ P ^ 2 := by
+      rw [mul_pow]
+      calc x3 ^ 2 * Q ^ 2 ≤ 1 * P ^ 2 := mul_le_mul hx3 hQ2 (sq_nonneg _) zero_le_one
+        _ = P ^ 2 := one_mul _
+    linarith [(abs_le_of_sq_le_sq' h hP).1]
+  have hgid : (P + x3 * Q) ^ 2
+      - ((x1 * R - x2 * S) ^ 2 + (x2 * R + x1 * S) ^ 2 + (x3 * P + Q) ^ 2)
+      = (1 - x3 ^ 2) * (P ^ 2 - Q ^ 2) - (x1 ^ 2 + x2 ^ 2) * (R ^ 2 + S ^ 2) := by ring
+  have h3 : (x1 ^ 2 + x2 ^ 2) * (R ^ 2 + S ^ 2) ≤ (1 - x3 ^ 2) * (P ^ 2 - Q ^ 2) :=
+    mul_le_mul (by linarith) hPQ (by positivity) (by linarith)
+  have hg : (x1 * R - x2 * S) ^ 2 + (x2 * R + x1 * S) ^ 2 + (x3 * P + Q) ^ 2
+      ≤ (P + x3 * Q) ^ 2 := by linarith
+  have hcsid : (a1 ^ 2 + a2 ^ 2 + a3 ^ 2)
+        * ((x1 * R - x2 * S) ^ 2 + (x2 * R + x1 * S) ^ 2 + (x3 * P + Q) ^ 2)
+      - (a1 * (x1 * R - x2 * S) + a2 * (x2 * R + x1 * S) + a3 * (x3 * P + Q)) ^ 2
+      = (a1 * (x2 * R + x1 * S) - a2 * (x1 * R - x2 * S)) ^ 2
+        + (a1 * (x3 * P + Q) - a3 * (x1 * R - x2 * S)) ^ 2
+        + (a2 * (x3 * P + Q) - a3 * (x2 * R + x1 * S)) ^ 2 := by ring
+  have hcs : (a1 * (x1 * R - x2 * S) + a2 * (x2 * R + x1 * S) + a3 * (x3 * P + Q)) ^ 2
+      ≤ (e0 * (P + x3 * Q)) ^ 2 := by
+    rw [mul_pow]
+    calc (a1 * (x1 * R - x2 * S) + a2 * (x2 * R + x1 * S) + a3 * (x3 * P + Q)) ^ 2
+        ≤ (a1 ^ 2 + a2 ^ 2 + a3 ^ 2)
+          * ((x1 * R - x2 * S) ^ 2 + (x2 * R + x1 * S) ^ 2 + (x3 * P + Q) ^ 2) := by
+          linarith [sq_nonneg (a1 * (x2 * R + x1 * S) - a2 * (x1 * R - x2 * S)),
+            sq_nonneg (a1 * (x3 * P + Q) - a3 * (x1 * R - x2 * S)),
+            sq_nonneg (a2 * (x3 * P + Q) - a3 * (x2 * R + x1 * S))]
+      _ ≤ e0 ^ 2 * (P + x3 * Q) ^ 2 := mul_le_mul ha hg (by positivity) (sq_nonneg _)
+  have := (abs_le_of_sq_le_sq' hcs (mul_nonneg he0 hg0)).1
+  linarith
+
+/-- The target-side quantities of the core inequality from the coefficient bounds. -/
+theorem cnot_target (f0 b1 b2 b3 y1 y2 y3 : ℝ) (hf0 : 0 ≤ f0)
+    (hb : b1 ^ 2 + b2 ^ 2 + b3 ^ 2 ≤ f0 ^ 2) (hy : y1 ^ 2 + y2 ^ 2 + y3 ^ 2 ≤ 1) :
+    0 ≤ f0 + b1 * y1 ∧
+      (b1 + f0 * y1) ^ 2 + (b3 * y2 - b2 * y3) ^ 2
+        ≤ (f0 + b1 * y1) ^ 2 - (b2 * y2 + b3 * y3) ^ 2 := by
+  constructor
+  · have h : (b1 * y1) ^ 2 ≤ f0 ^ 2 := by
+      rw [mul_pow]
+      calc b1 ^ 2 * y1 ^ 2 ≤ f0 ^ 2 * 1 :=
+            mul_le_mul (by linarith [sq_nonneg b2, sq_nonneg b3])
+              (by linarith [sq_nonneg y2, sq_nonneg y3]) (sq_nonneg _) (sq_nonneg _)
+        _ = f0 ^ 2 := mul_one _
+    linarith [(abs_le_of_sq_le_sq' h hf0).1]
+  · have hid : (f0 + b1 * y1) ^ 2 - (b2 * y2 + b3 * y3) ^ 2 - (b1 + f0 * y1) ^ 2
+        - (b3 * y2 - b2 * y3) ^ 2
+        = (f0 ^ 2 - b1 ^ 2) * (1 - y1 ^ 2) - (b2 ^ 2 + b3 ^ 2) * (y2 ^ 2 + y3 ^ 2) := by ring
+    have h1 : (b2 ^ 2 + b3 ^ 2) * (y2 ^ 2 + y3 ^ 2) ≤ (f0 ^ 2 - b1 ^ 2) * (1 - y1 ^ 2) :=
+      mul_le_mul (by linarith) (by linarith) (by positivity)
+        (by linarith [sq_nonneg b2, sq_nonneg b3])
+    linarith
+
+/-- The pairing of two effects with the gate image of a product state, in coordinates. -/
+theorem prodEffVal_cnot_prodState (e f : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ) (x y : Fin 3 → ℝ) :
+    prodEffVal e f (cnot (prodState x y))
+      = ehom e 0 * ((ehom f 0 + ehom f 1 * y 0) + x 2 * (ehom f 2 * y 1 + ehom f 3 * y 2))
+        + ehom e 1 * (x 0 * (ehom f 1 + ehom f 0 * y 0) - x 1 * (ehom f 3 * y 1 - ehom f 2 * y 2))
+        + ehom e 2 * (x 1 * (ehom f 1 + ehom f 0 * y 0) + x 0 * (ehom f 3 * y 1 - ehom f 2 * y 2))
+        + ehom e 3 * (x 2 * (ehom f 0 + ehom f 1 * y 0) + (ehom f 2 * y 1 + ehom f 3 * y 2)) := by
+  simp only [prodEffVal, pairVal, cnot_apply, cnotFun_apply, prodState_apply, Fin.sum_univ_four]
+  simp +decide [sgn, pc, pt]
+  ring
+
+/-- Two-sided positivity of the `d = 3` gate on product states of the ball. -/
+theorem cnot_prodEffVal_nonneg {e f : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffectOn (eball 3) e)
+    (hf : IsEffectOn (eball 3) f) {x y : Fin 3 → ℝ} (hx : x ∈ eball 3) (hy : y ∈ eball 3) :
+    0 ≤ prodEffVal e f (cnot (prodState x y)) := by
+  obtain ⟨he0, ha⟩ := lor_three (lor_ehom he)
+  obtain ⟨hf0, hb⟩ := lor_three (lor_ehom hf)
+  rw [mem_eball, Fin.sum_univ_three] at hx hy
+  obtain ⟨hP, hPQ⟩ := cnot_target (ehom f 0) (ehom f 1) (ehom f 2) (ehom f 3) (y 0) (y 1) (y 2)
+    hf0 hb hy
+  rw [prodEffVal_cnot_prodState]
+  exact cnot_core (ehom e 0) (ehom e 1) (ehom e 2) (ehom e 3) (x 0) (x 1) (x 2) _ _ _ _ he0 ha hx
+    hP hPQ
+
+theorem cnot_prodState_mem_maxCone {x y : Fin 3 → ℝ} (hx : x ∈ eball 3) (hy : y ∈ eball 3) :
+    cnot (prodState x y) ∈ maxCone (eball 3) := by
+  show ∀ e f, IsEffectOn (eball 3) e → IsEffectOn (eball 3) f →
+    0 ≤ prodEffVal e f (cnot (prodState x y))
+  intro e f he hf
+  exact cnot_prodEffVal_nonneg he hf hx hy
+
+/-- The `d = 3` gate satisfies every native-gate hypothesis. -/
+theorem nativeGate_cnot : NativeGate (eball 3) z3 nflip cnot where
+  frame := cnot_frame
+  posFwd x hx y hy := cnot_prodState_mem_maxCone hx hy
+  posInv x hx y hy := cnot_prodState_mem_maxCone hx hy
+  relT := cnot_relT
+  relC := cnot_relC
+
+/-! ### §N — the entangling clause for the `d = 3` gate -/
+
+/-- A unit vector is an extreme point of the ball. -/
+theorem extreme_of_unit {x : Fin 3 → ℝ} (hx : x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2 = 1) :
+    x ∈ (eball 3).extremePoints ℝ := by
+  refine ⟨by rw [mem_eball, Fin.sum_univ_three]; exact hx.le, ?_⟩
+  intro u hu v hv hseg
+  obtain ⟨a, b, ha, hb, hab, hz⟩ := hseg
+  rw [mem_eball, Fin.sum_univ_three] at hu hv
+  obtain rfl : b = 1 - a := by linarith
+  have e0 := congrFun hz 0
+  have e1 := congrFun hz 1
+  have e2 := congrFun hz 2
+  simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul] at e0 e1 e2
+  rw [← e0, ← e1, ← e2] at hx
+  have hid : a * (u 0 ^ 2 + u 1 ^ 2 + u 2 ^ 2) + (1 - a) * (v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2)
+      - ((a * u 0 + (1 - a) * v 0) ^ 2 + (a * u 1 + (1 - a) * v 1) ^ 2
+        + (a * u 2 + (1 - a) * v 2) ^ 2)
+      = a * (1 - a) * ((u 0 - v 0) ^ 2 + (u 1 - v 1) ^ 2 + (u 2 - v 2) ^ 2) := by ring
+  have h1 := mul_le_mul_of_nonneg_left hu ha.le
+  have h2 := mul_le_mul_of_nonneg_left hv hb.le
+  have hw : a * (1 - a) * ((u 0 - v 0) ^ 2 + (u 1 - v 1) ^ 2 + (u 2 - v 2) ^ 2)
+      ≤ a * (1 - a) * 0 := by rw [mul_zero]; linarith
+  have hw' := le_of_mul_le_mul_left hw (mul_pos ha hb)
+  have d0 : u 0 - v 0 = 0 := (pow_eq_zero_iff two_ne_zero).mp
+    (le_antisymm (by linarith [sq_nonneg (u 1 - v 1), sq_nonneg (u 2 - v 2)]) (sq_nonneg _))
+  have d1 : u 1 - v 1 = 0 := (pow_eq_zero_iff two_ne_zero).mp
+    (le_antisymm (by linarith [sq_nonneg (u 0 - v 0), sq_nonneg (u 2 - v 2)]) (sq_nonneg _))
+  have d2 : u 2 - v 2 = 0 := (pow_eq_zero_iff two_ne_zero).mp
+    (le_antisymm (by linarith [sq_nonneg (u 0 - v 0), sq_nonneg (u 1 - v 1)]) (sq_nonneg _))
+  have hu0 : u 0 = x 0 := by
+    have hv : v 0 = u 0 := by linarith
+    rw [hv] at e0; linarith
+  have hu1 : u 1 = x 1 := by
+    have hv : v 1 = u 1 := by linarith
+    rw [hv] at e1; linarith
+  have hu2 : u 2 = x 2 := by
+    have hv : v 2 = u 2 := by linarith
+    rw [hv] at e2; linarith
+  funext i
+  fin_cases i
+  · exact hu0
+  · exact hu1
+  · exact hu2
+
+/-- The pure input of the entangling witness: the unit vector of the first coordinate. -/
+def xplus : Fin 3 → ℝ := ![1, 0, 0]
+
+@[simp] theorem xplus_zero : xplus 0 = 1 := rfl
+@[simp] theorem xplus_one : xplus 1 = 0 := rfl
+@[simp] theorem xplus_two : xplus 2 = 0 := rfl
+
+/-- The entangled image: the diagonal joint vector with entries `1, 1, −1, 1`. -/
+def phiW : W 3 := fun μ ν => if μ = ν then (if μ = 2 then -1 else 1) else 0
+
+theorem cnot_prodState_xplus_z3 : cnot (prodState xplus z3) = phiW := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [cnot_apply, cnotFun_apply, sgn, pc, pt, prodState_apply, phiW]
+
+theorem xplus_mem : xplus ∈ eball 3 := by rw [mem_eball, Fin.sum_univ_three]; simp
+
+theorem z3_mem : z3 ∈ eball 3 := by rw [mem_eball, Fin.sum_univ_three]; simp
+
+/-- The entangled image is not a product state. -/
+theorem phiW_not_product : ¬ IsProduct (eball 3) phiW := by
+  rintro ⟨x', -, y', -, h⟩
+  have h10 : x' 0 = 0 := by
+    have := congrFun (congrFun h 1) 0
+    simp +decide [phiW, prodState_apply] at this
+    linarith
+  have h11 : x' 0 * y' 0 = 1 := by
+    have := congrFun (congrFun h 1) 1
+    simp +decide [phiW, prodState_apply] at this
+    linarith
+  rw [h10, zero_mul] at h11
+  exact zero_ne_one h11
+
+/-- The entangled image is a joint state. -/
+theorem phiW_mem_jointStates : phiW ∈ jointStates (eball 3) := by
+  refine ⟨?_, by simp +decide [phiW]⟩
+  rw [← cnot_prodState_xplus_z3]
+  exact cnot_prodState_mem_maxCone xplus_mem z3_mem
+
+@[simp] theorem toOp_phiW_zero (t : HVec 3) : toOp phiW t 0 = t 0 := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+@[simp] theorem toOp_phiW_one (t : HVec 3) : toOp phiW t 1 = t 1 := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+@[simp] theorem toOp_phiW_two (t : HVec 3) : toOp phiW t 2 = -t 2 := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+@[simp] theorem toOp_phiW_three (t : HVec 3) : toOp phiW t 3 = t 3 := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [phiW]
+
+/-- The extreme rays of the cone: a boundary vector that is a positive combination of two cone
+vectors is proportional to each of them. -/
+theorem lor_ray {f g h : HVec 3} (hf : f 1 ^ 2 + f 2 ^ 2 + f 3 ^ 2 = f 0 ^ 2)
+    (hg : Lor g) (hh : Lor h) {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsum : a • g + b • h = f) :
+    f 0 * g 1 = g 0 * f 1 ∧ f 0 * g 2 = g 0 * f 2 ∧ f 0 * g 3 = g 0 * f 3 := by
+  obtain ⟨hg0, hg'⟩ := lor_three hg
+  obtain ⟨hh0, hh'⟩ := lor_three hh
+  have e0 := congrFun hsum 0
+  have e1 := congrFun hsum 1
+  have e2 := congrFun hsum 2
+  have e3 := congrFun hsum 3
+  simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul] at e0 e1 e2 e3
+  have hM : g 1 * h 1 + g 2 * h 2 + g 3 * h 3 ≤ g 0 * h 0 := by
+    have hcs : (g 1 * h 1 + g 2 * h 2 + g 3 * h 3) ^ 2 ≤ (g 0 * h 0) ^ 2 := by
+      rw [mul_pow]
+      calc (g 1 * h 1 + g 2 * h 2 + g 3 * h 3) ^ 2
+          ≤ (g 1 ^ 2 + g 2 ^ 2 + g 3 ^ 2) * (h 1 ^ 2 + h 2 ^ 2 + h 3 ^ 2) := by
+            nlinarith [sq_nonneg (g 1 * h 2 - g 2 * h 1), sq_nonneg (g 1 * h 3 - g 3 * h 1),
+              sq_nonneg (g 2 * h 3 - g 3 * h 2)]
+        _ ≤ g 0 ^ 2 * h 0 ^ 2 := mul_le_mul hg' hh' (by positivity) (sq_nonneg _)
+    exact (abs_le_of_sq_le_sq' hcs (mul_nonneg hg0 hh0)).2
+  have hQ : a ^ 2 * (g 0 ^ 2 - (g 1 ^ 2 + g 2 ^ 2 + g 3 ^ 2))
+      + 2 * a * b * (g 0 * h 0 - (g 1 * h 1 + g 2 * h 2 + g 3 * h 3))
+      + b ^ 2 * (h 0 ^ 2 - (h 1 ^ 2 + h 2 ^ 2 + h 3 ^ 2)) = 0 := by
+    have hf2 := hf
+    rw [← e0, ← e1, ← e2, ← e3] at hf2
+    linear_combination (-1 : ℝ) * hf2
+  have t1 : 0 ≤ a ^ 2 * (g 0 ^ 2 - (g 1 ^ 2 + g 2 ^ 2 + g 3 ^ 2)) :=
+    mul_nonneg (sq_nonneg a) (by linarith)
+  have t2 : 0 ≤ 2 * a * b * (g 0 * h 0 - (g 1 * h 1 + g 2 * h 2 + g 3 * h 3)) :=
+    mul_nonneg (mul_nonneg (mul_nonneg (by norm_num) ha.le) hb.le) (by linarith)
+  have t3 : 0 ≤ b ^ 2 * (h 0 ^ 2 - (h 1 ^ 2 + h 2 ^ 2 + h 3 ^ 2)) :=
+    mul_nonneg (sq_nonneg b) (by linarith)
+  have hQg : g 0 ^ 2 - (g 1 ^ 2 + g 2 ^ 2 + g 3 ^ 2) = 0 := by
+    have h4 : a ^ 2 * (g 0 ^ 2 - (g 1 ^ 2 + g 2 ^ 2 + g 3 ^ 2)) = 0 := by linarith
+    rcases mul_eq_zero.mp h4 with h | h
+    · exact absurd h (pow_ne_zero 2 ha.ne')
+    · exact h
+  have hMgh : g 0 * h 0 - (g 1 * h 1 + g 2 * h 2 + g 3 * h 3) = 0 := by
+    have h4 : 2 * a * b * (g 0 * h 0 - (g 1 * h 1 + g 2 * h 2 + g 3 * h 3)) = 0 := by linarith
+    rcases mul_eq_zero.mp h4 with h | h
+    · exact absurd h (mul_pos (mul_pos two_pos ha) hb).ne'
+    · exact h
+  have hMgf : g 0 * f 0 - (g 1 * f 1 + g 2 * f 2 + g 3 * f 3) = 0 := by
+    rw [← e0, ← e1, ← e2, ← e3]
+    linear_combination a * hQg + b * hMgh
+  have hzero : (f 0 * g 1 - g 0 * f 1) ^ 2 + (f 0 * g 2 - g 0 * f 2) ^ 2
+      + (f 0 * g 3 - g 0 * f 3) ^ 2 = 0 := by
+    linear_combination (-(f 0 ^ 2)) * hQg + (2 * f 0 * g 0) * hMgf + (g 0 ^ 2) * hf
+  have s1 : f 0 * g 1 - g 0 * f 1 = 0 := (pow_eq_zero_iff two_ne_zero).mp
+    (le_antisymm (by linarith [sq_nonneg (f 0 * g 2 - g 0 * f 2),
+      sq_nonneg (f 0 * g 3 - g 0 * f 3)]) (sq_nonneg _))
+  have s2 : f 0 * g 2 - g 0 * f 2 = 0 := (pow_eq_zero_iff two_ne_zero).mp
+    (le_antisymm (by linarith [sq_nonneg (f 0 * g 1 - g 0 * f 1),
+      sq_nonneg (f 0 * g 3 - g 0 * f 3)]) (sq_nonneg _))
+  have s3 : f 0 * g 3 - g 0 * f 3 = 0 := (pow_eq_zero_iff two_ne_zero).mp
+    (le_antisymm (by linarith [sq_nonneg (f 0 * g 1 - g 0 * f 1),
+      sq_nonneg (f 0 * g 2 - g 0 * f 2)]) (sq_nonneg _))
+  exact ⟨by linarith, by linarith, by linarith⟩
+
+/-- The test vectors `(1, s eᵢ)` of the control space. -/
+def tv (i : Fin 4) (s : ℝ) : HVec 3 := fun μ => if μ = 0 then 1 else if μ = i then s else 0
+
+theorem toOp_tv1 (ω : W 3) (s : ℝ) (μ : Fin 4) : toOp ω (tv 1 s) μ = ω μ 0 + ω μ 1 * s := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [tv]
+
+theorem toOp_tv2 (ω : W 3) (s : ℝ) (μ : Fin 4) : toOp ω (tv 2 s) μ = ω μ 0 + ω μ 2 * s := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [tv]
+
+theorem toOp_tv3 (ω : W 3) (s : ℝ) (μ : Fin 4) : toOp ω (tv 3 s) μ = ω μ 0 + ω μ 3 * s := by
+  rw [toOp_apply, Fin.sum_univ_four]; simp +decide [tv]
+
+/-- The ray equations of a segment through the entangled image, read on a boundary test vector. -/
+theorem ray_eqs {ω₁ ω₂ : W 3} (h₁ : ω₁ ∈ maxCone (eball 3)) (h₂ : ω₂ ∈ maxCone (eball 3))
+    {a b : ℝ} (ha : 0 < a) (hb : 0 < b) (hsum : a • ω₁ + b • ω₂ = phiW) {t : HVec 3}
+    (ht0 : t 0 = 1) (ht : t 1 ^ 2 + t 2 ^ 2 + t 3 ^ 2 = 1) :
+    toOp ω₁ t 1 = toOp ω₁ t 0 * t 1 ∧ toOp ω₁ t 2 = toOp ω₁ t 0 * (-t 2) ∧
+      toOp ω₁ t 3 = toOp ω₁ t 0 * t 3 := by
+  have htl : Lor t := lor_of_three (by rw [ht0]; exact zero_le_one) (by rw [ht0, ht, one_pow])
+  have hg := lor_toOp_of_maxCone h₁ htl
+  have hh := lor_toOp_of_maxCone h₂ htl
+  have hlin : toOp (a • ω₁ + b • ω₂) = a • toOp ω₁ + b • toOp ω₂ := by
+    rw [← toOpLin_apply, map_add, map_smul, map_smul]; rfl
+  have hsum' : a • toOp ω₁ t + b • toOp ω₂ t = toOp phiW t := by
+    rw [← hsum, hlin, LinearMap.add_apply, LinearMap.smul_apply, LinearMap.smul_apply]
+  have hf : toOp phiW t 1 ^ 2 + toOp phiW t 2 ^ 2 + toOp phiW t 3 ^ 2 = toOp phiW t 0 ^ 2 := by
+    rw [toOp_phiW_zero, toOp_phiW_one, toOp_phiW_two, toOp_phiW_three, neg_sq, ht0, ht, one_pow]
+  obtain ⟨e1, e2, e3⟩ := lor_ray hf hg hh ha hb hsum'
+  rw [toOp_phiW_zero, ht0, one_mul] at e1 e2 e3
+  rw [toOp_phiW_one] at e1
+  rw [toOp_phiW_two] at e2
+  rw [toOp_phiW_three] at e3
+  exact ⟨e1, e2, e3⟩
+
+/-- A joint state on an open segment through the entangled image is the entangled image. -/
+theorem phiW_eq_of_segment {ω₁ ω₂ : W 3} (h₁ : ω₁ ∈ jointStates (eball 3))
+    (h₂ : ω₂ ∈ jointStates (eball 3)) {a b : ℝ} (ha : 0 < a) (hb : 0 < b)
+    (hsum : a • ω₁ + b • ω₂ = phiW) : ω₁ = phiW := by
+  have h00 : ω₁ 0 0 = 1 := h₁.2
+  have hp : ∀ (i : Fin 4) (s : ℝ), tv i s 0 = 1 →
+      tv i s 1 ^ 2 + tv i s 2 ^ 2 + tv i s 3 ^ 2 = 1 →
+      toOp ω₁ (tv i s) 1 = toOp ω₁ (tv i s) 0 * tv i s 1 ∧
+        toOp ω₁ (tv i s) 2 = toOp ω₁ (tv i s) 0 * (-tv i s 2) ∧
+        toOp ω₁ (tv i s) 3 = toOp ω₁ (tv i s) 0 * tv i s 3 :=
+    fun i s hi0 hn => ray_eqs h₁.1 h₂.1 ha hb hsum hi0 hn
+  obtain ⟨a1, a2, a3⟩ := hp 1 1 (by simp +decide [tv]) (by simp +decide [tv])
+  obtain ⟨b1, b2, b3⟩ := hp 1 (-1) (by simp +decide [tv]) (by simp +decide [tv])
+  obtain ⟨c1, c2, c3⟩ := hp 2 1 (by simp +decide [tv]) (by simp +decide [tv])
+  obtain ⟨d1, d2, d3⟩ := hp 2 (-1) (by simp +decide [tv]) (by simp +decide [tv])
+  obtain ⟨f1, f2, f3⟩ := hp 3 1 (by simp +decide [tv]) (by simp +decide [tv])
+  obtain ⟨g1, g2, g3⟩ := hp 3 (-1) (by simp +decide [tv]) (by simp +decide [tv])
+  simp +decide [toOp_tv1, toOp_tv2, toOp_tv3, tv] at a1 a2 a3 b1 b2 b3 c1 c2 c3 d1 d2 d3 f1 f2 f3
+    g1 g2 g3
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;> simp +decide [phiW] <;> linarith
+
+/-- The `d = 3` gate is entangling: the pure product input `(xplus, z3)` has an extreme joint
+image that is not a product state. -/
+theorem entangling_cnot : Entangling (eball 3) cnot :=
+  ⟨xplus, extreme_of_unit (by simp), z3, extreme_of_unit (by simp), by
+    rw [cnot_prodState_xplus_z3]
+    refine ⟨⟨phiW_mem_jointStates, ?_⟩, phiW_not_product⟩
+    intro ω₁ h₁ ω₂ h₂ hseg
+    obtain ⟨a, b, ha, hb, -, hsum⟩ := hseg
+    exact phiW_eq_of_segment h₁ h₂ ha hb hsum⟩
+
 end CompositeDimension
 end OIBridge
 
