@@ -56,7 +56,7 @@ This glossary defines the framework's distinctive terminology and the technical 
 
 **DSW (Danielson-Satishchandran-Wald) horizon decoherence.** A 2022 result by Danielson, Satishchandran, and Wald proving within standard QFT in curved spacetime that Killing horizons impose fundamental decoherence on nearby quantum superpositions, with rate determined by horizon geometry. External convergence with the framework's universality-class content. Discussed in Chapter 9 §9.7 and Chapter 15 §15.8.
 
-**Embedded observer.** The framework's technical term for an observer who is a substructure of the system they are trying to describe — coupled to the system, bounded in extent, unable to access the full state from outside. The central object of the framework's analysis. Defined precisely in Chapter 1 §1.2, characterized by C1–C4 in §1.3.
+**Embedded observer.** The framework's technical term for an observer that is a proper subsystem of the system it registers — coupled to the system, bounded in extent, unable to access the full state from outside. A detector, a protein interior or a cosmological horizon qualifies; nothing in the definition requires consciousness. The central object of the framework's analysis. Defined precisely in Chapter 1 §1.2, characterized by C1–C4 in §1.3.
 
 **Emergent description.** The reduced description of the visible sector after marginalizing over (tracing out) the hidden sector. In the framework, every finite-horizon observable law — C1–C4 or not — admits a fixed-basis unitary quantum representation ($S \iff D \iff Q_{\mathrm{fb}}$, [Main §3.4]); systems satisfying C1–C4 constitute the memory-bearing sector, where hidden predictive memory is unavoidable in every completion. Developed throughout Chapter 1.
 
