@@ -2623,8 +2623,9 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
       apply lor_of_dotB
       · rw [ht0]; exact zero_le_one
       · rw [ht0]
-        simp only [ht, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul, smul_eq_mul,
-          hd00, hd0, hd0', hvv', eq_self_iff_true, if_true]
+        simp only [ht, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul,
+          LinearMap.add_apply, LinearMap.smul_apply, smul_eq_mul, hd00, hd0, hd0', hvv',
+          eq_self_iff_true, if_true]
         nlinarith [hs2]
     have htN : homMap N t = t := by
       rw [ht, map_add, map_smul, homMap_hom, map_zero, hvN]
@@ -2638,8 +2639,8 @@ theorem blockData_of_orthonormal {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ
     rw [hsplit] at hR
     change 0 ≤ dotB t f + Phi z G (hom (tperp z k)) (tperp z l) f t at hR
     have hft : dotB t f = 1 + s * b i := by
-      simp only [ht, hf, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul, smul_eq_mul,
-        hd00, hd0, hd0', hS0', hS1'] <;> ring
+      simp only [ht, hf, LinearMap.map_add₂, map_add, LinearMap.map_smul₂, map_smul,
+        LinearMap.add_apply, LinearMap.smul_apply, smul_eq_mul, hd00, hd0, hd0', hS0', hS1'] <;> ring
     have hΦ : Phi z G (hom (tperp z k)) (tperp z l) f t
         = Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (hom 0)
           + s * Phi z G (hom (tperp z k)) (tperp z l) (hom 0) (v i)
