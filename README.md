@@ -57,7 +57,8 @@ Several later physics conclusions require explicitly named hypotheses or bridge 
 
 Applications outside the physics core are exploratory and carry **no evidential weight for the core framework**:
 
-- [`papers/Complexity.md`](papers/Complexity.md) and [`papers/Computation.md`](papers/Computation.md) — computation and complexity;
+- [`papers/Complexity.md`](papers/Complexity.md) — the structural chain toward evolution and complexity;
+- [`papers/Computation.md`](papers/Computation.md) — computation and complexity theory;
 - [`papers/Medicine.md`](papers/Medicine.md) — medicine;
 - [`papers/Bioinformatics.md`](papers/Bioinformatics.md) — computational biology;
 - the consciousness discussion in the book.
@@ -84,7 +85,7 @@ $$
 \sin^2\theta_{12}=\frac13-\frac{1}{4\pi^2}=0.3080.
 $$
 
-The value was derived after JUNO's first measurement, so the existing agreement is a **retrodiction**, not a prediction made in advance. The paper treats JUNO's design-lifetime precision as the forward test. Full numerical and classification details belong in [`papers/Juno.md`](papers/Juno.md) and the relevant physics papers rather than being duplicated here.
+The value was derived after JUNO's first measurement, so the existing agreement is a **retrodiction**, not a prediction made in advance. The paper treats JUNO's design-lifetime precision as the forward test. Full numerical and classification details are in the `Juno` paper and the relevant physics papers rather than being duplicated here.
 
 ## Verification
 
@@ -96,12 +97,7 @@ The verification suite is the authoritative place for machine-checked status. It
 
 CI checks the proof layers, probes, coverage and governed receipts. Exact theorem counts and current obligations change as the programme advances, so this README intentionally does **not** hard-code those counts.
 
-For current status, use:
-
-- [`verification/README.md`](verification/README.md) — verification architecture and flagship formal results;
-- [`verification/ROADMAP.md`](verification/ROADMAP.md) — the live obligation queue;
-- [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md) — how to run the zero-import checks;
-- [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md) — the narrower zero-import formalization roadmap.
+The verification architecture and flagship formal results are described in `verification/README.md`, and the live obligation queue is `verification/ROADMAP.md`; both are linked under *Start here*. To run the zero-import checks, see [`verification/lean/VERIFYING.md`](verification/lean/VERIFYING.md); the narrower zero-import formalization roadmap is [`verification/lean/ROADMAP.md`](verification/lean/ROADMAP.md).
 
 ## Repository map
 
@@ -114,14 +110,12 @@ incompleteness/
 └── README.md
 ```
 
-### Other papers and materials
+### Other materials in `papers/`
 
 - [`papers/Explainer.md`](papers/Explainer.md) — older overview, superseded by the book and retained for reference.
-- [`papers/Complexity.md`](papers/Complexity.md) — conjectural extension from the framework toward evolution and complexity.
-- [`papers/Computation.md`](papers/Computation.md) — conjectural extension toward computation and complexity theory.
-- [`papers/Medicine.md`](papers/Medicine.md) — conjectural medical extension.
-- [`papers/Bioinformatics.md`](papers/Bioinformatics.md) — conjectural computational-biology extension.
 - [`papers/oi_lattice_code/`](papers/oi_lattice_code/) — lattice Monte Carlo and related numerical source.
+
+The core papers are tabulated above; the conjectural-extension papers are listed under *3. Conjectural extensions*.
 
 ## Current research frontier
 
@@ -133,7 +127,7 @@ That roadmap tracks, among other areas, operational/composite refinements; the *
 
 **The Incompleteness of Observation: A Unified Framework from Quantum Mechanics to Computational Biology** develops the framework across 20 chapters with expanded exposition, appendices, glossary and bibliography.
 
-See [`book/README.md`](book/README.md) for the reader's guide and [`book/The-Incompleteness-of-Observation-FULL.pdf`](book/The-Incompleteness-of-Observation-FULL.pdf) for the compiled manuscript.
+The reader's guide is `book/README.md` (linked under *Start here*); the compiled manuscript is [`book/The-Incompleteness-of-Observation-FULL.pdf`](book/The-Incompleteness-of-Observation-FULL.pdf).
 
 ## Citation and archive
 
