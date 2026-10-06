@@ -1400,6 +1400,15 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Round K1-BRIDGE-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-k1-bridge-1-effect-availability/preregistration.md. NativeGateOf Ω avail z N T is DIM-1's NativeGate with maxCone Ω replaced by maxConeOf avail in the two positivity clauses; EntanglingOf Ω avail T is Entangling with the joint states of maxConeOf avail. The cone equality carries the relative hypotheses to DIM-1's (nativeGate_of_cone_eq, entangling_of_cone_eq), and on eball d, 0 < d, EffectsOn (eball d) avail with OG-1's four named hypotheses (PreservesBody, SharpSeed, BoundaryTransitive, SeedOrbitAvailable; in the ROADMAP's labels body preservation, K∞-Seed, K∞-Trans and K∞-V4) give that equality by EFF-1's maxConeOf_avail_eq, so the relative selectors dim_of_nativeGateOf (d = 1 or d = 3) and three_of_nativeGateOf (d = 3) are EFF-1's cone equality, the transport and DIM-1's dim_of_nativeGate and three_of_nativeGate, with no new dimension argument and no mixing closure or unit premise. Controls carried from EFF-1: at d = 0 the cone equality fails (cone_eq_fails_zero); at d = 3 the one-axis family with the unit consists of effects and its cone is not maxCone (eball 3) (cone_eq_fails_axis). The verdict is k1b_core. Carried by no manuscript. Nothing here sources effect soundness, body preservation, K∞-Seed, K∞-Trans, K∞-V4, IsNot or the relative native-gate and entangling hypotheses; the product form of the composite tests (DIM-1's carrier W d) is a premise of both rounds and is not addressed; nothing here concerns K2, K∞-Stage, K∞-Act, K∞-Drive, K∞-Copy, K∞-Geom, Kₙ or K3."
+    },
+    {
+      "name": "design check (thread TWO-LE, not for landing): 2 <= d on eball d as two sharp binary tests inequivalent modulo complementation",
+      "modules": [
+        "TwoSharpTests"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Disposable design check on a branch outside the governed chain; carried by no manuscript."
     }
   ]
 }
