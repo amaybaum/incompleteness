@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "EFF-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "e9882f968522c178b6ed55f954535ce77305d2e6",
+ "f": "c1e5deacb99f6bd73cd58acce2b8006fd465c50c",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-eff-1-effect-space/preregistration.md",
+   "blob": "e2e74dc13abf5debbdd3f72ab9490e6ebd360c59"
+  }
+ ],
+ "governed_paths_digest": "7437ab3b6db389e77d98a20af08ce1b8c3c255411c3d113448b4d01a51757b6c",
+ "e": "458fb5bcf97a8c2c45775ce61f5ef78310a291d1",
+ "tree_e": "04ffff78a5e9fd978faefd476da21b6780501eed",
+ "execution_delta_digest": "3e9de4a7499e03c1dd03f40891d917f996561e73ec7325e1fe9ac9bb384a0e0f",
+ "candidates": [],
+ "landing": {
+  "base": "e9882f968522c178b6ed55f954535ce77305d2e6",
+  "object": "9a4a8fcc0daf2739d86ef72fd12f4c99c1a27168",
+  "reconciliations": [
+   "9a4a8fcc0daf2739d86ef72fd12f4c99c1a27168"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "80c854f71d84501f696b39cdd25f400d9557066c5f22a85bc30034288885f574"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "c1e5deacb99f6bd73cd58acce2b8006fd465c50c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/795#issuecomment-6010033049"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "c1e5deacb99f6bd73cd58acce2b8006fd465c50c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37416488623"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "458fb5bcf97a8c2c45775ce61f5ef78310a291d1",
+   "record": "https://github.com/amaybaum/incompleteness/pull/795#issuecomment-6010357527"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "458fb5bcf97a8c2c45775ce61f5ef78310a291d1",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37419756840"
+  }
+ ]
+}
