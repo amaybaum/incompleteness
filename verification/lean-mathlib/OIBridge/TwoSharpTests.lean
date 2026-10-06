@@ -28,7 +28,7 @@ namespace TwoSharpTests
 open Set KInfFoundations OrbitGeneration TransitiveBody CompositeDimension CompositeInterface
 open EffectSpace K1Bridge
 
-variable {V : Type*} [AddCommGroup V] [Module ℝ V] {d : ℕ}
+variable {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] {d : ℕ}
 
 /-- Two sharp binary tests of `Ω`, separated on `Ω` from each other and from each other's
 complement. -/
