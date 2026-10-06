@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "K2-GUARD-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "8daf2bc0ad9c4fe4e9ae422b3a9a010a80ab9e53",
+ "f": "9c4834b050a87e82b1c44d048f902976b2511131",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k2-guard-1-interface/preregistration.md",
+   "blob": "12800955d371b8c07acbf513b113a742e762b00f"
+  }
+ ],
+ "governed_paths_digest": "cc968ef7597a9dc5bff6bdbf913b172e0e37fb25f63c35f5bc44724331ff146b",
+ "e": "02199ae39aae1dcfbadc28d5291d1b7528ecef46",
+ "tree_e": "41319ddac1eb75b83fe8c962931248b84aa01093",
+ "execution_delta_digest": "341bfcf05f4bb1aecdcff2dccfe676b7a3b0ed6937edc9aae47ba9e5e1e2cf94",
+ "candidates": [],
+ "landing": {
+  "base": "8daf2bc0ad9c4fe4e9ae422b3a9a010a80ab9e53",
+  "object": "fede60d15dc0d947b631b50754c19bf4ae35eec0",
+  "reconciliations": [
+   "fede60d15dc0d947b631b50754c19bf4ae35eec0"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "bd702a6c085f3a99b4443173b7cc66f23c6df336a58b77e5f4a94c4f5742ed9b"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "9c4834b050a87e82b1c44d048f902976b2511131",
+   "record": "https://github.com/amaybaum/incompleteness/pull/800#issuecomment-6018530610"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "9c4834b050a87e82b1c44d048f902976b2511131",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37476267644"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "02199ae39aae1dcfbadc28d5291d1b7528ecef46",
+   "record": "https://github.com/amaybaum/incompleteness/pull/800#issuecomment-6019831293"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "02199ae39aae1dcfbadc28d5291d1b7528ecef46",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37482167276"
+  }
+ ]
+}
