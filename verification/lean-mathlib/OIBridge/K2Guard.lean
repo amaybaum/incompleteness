@@ -80,7 +80,7 @@ theorem det_reflY : LinearMap.det reflY = -1 := by
     refine LinearMap.ext fun x => funext fun i => ?_
     rw [Matrix.toLin'_apply, Matrix.mulVec_diagonal, reflY_apply]
   rw [h, LinearMap.det_toLin', Matrix.det_diagonal, Fin.prod_univ_three]
-  first | (norm_num; done) | (simp; done) | (simp; norm_num; done)
+  simp
 
 /-- `nflip`, DIM-1's NOT, is a rotation: its determinant is `1`. -/
 theorem det_nflip : LinearMap.det nflip = 1 := by
@@ -88,7 +88,7 @@ theorem det_nflip : LinearMap.det nflip = 1 := by
     refine LinearMap.ext fun x => funext fun i => ?_
     rw [Matrix.toLin'_apply, Matrix.mulVec_diagonal, nflip_apply]
   rw [h, LinearMap.det_toLin', Matrix.det_diagonal, Fin.prod_univ_three]
-  first | (norm_num; done) | (simp; done) | (simp; norm_num; done)
+  simp
 
 /-- The candidate-cone family of two copies of `eball 3`: the sets of joint vectors containing
 every product state of the ball and contained in DIM-1's maximal cone. -/
@@ -118,13 +118,11 @@ theorem chain_eq : cnot (actT reflY (cnot (prodState xplus z3))) = chainW := by
 
 theorem sharpVec_negX : sharpVec (![-1, 0, 0] : Fin 3 → ℝ) = ![1 / 2, -1 / 2, 0, 0] := by
   funext i
-  fin_cases i <;> first | rfl | (simp [sharpVec]; done) | (simp [sharpVec]; norm_num; done) |
-    (norm_num [sharpVec]; done)
+  fin_cases i <;> first | rfl | simp [sharpVec]
 
 theorem sharpVec_negZ : sharpVec (![0, 0, -1] : Fin 3 → ℝ) = ![1 / 2, 0, 0, -1 / 2] := by
   funext i
-  fin_cases i <;> first | rfl | (simp [sharpVec]; done) | (simp [sharpVec]; norm_num; done) |
-    (norm_num [sharpVec]; done)
+  fin_cases i <;> first | rfl | simp [sharpVec]
 
 theorem sharpEff_negX_isEffectOn : IsEffectOn (eball 3) (sharpEff ![-1, 0, 0]) :=
   sharpEff_isEffectOn (by simp [Fin.sum_univ_three])
@@ -136,9 +134,7 @@ theorem sharpEff_negZ_isEffectOn : IsEffectOn (eball 3) (sharpEff ![0, 0, -1]) :
 theorem chain_value :
     prodEffVal (sharpEff ![-1, 0, 0]) (sharpEff ![0, 0, -1]) chainW = -1 / 2 := by
   simp only [prodEffVal, sharpEff, ehom_affOf, sharpVec_negX, sharpVec_negZ]
-  first | (simp [pairVal, sum_univ_four', chainW]; done) |
-    (simp [pairVal, sum_univ_four', chainW]; norm_num; done) |
-    (norm_num [pairVal, sum_univ_four', chainW]; done)
+  simp [pairVal, sum_univ_four', chainW]
 
 /-! ### §C — the orientation obstruction -/
 
@@ -228,9 +224,7 @@ theorem rotation_chain_value :
       (cnot (actT nflip (cnot (prodState xplus z3)))) = 0 := by
   rw [cnot_prodState_xplus_z3, actT_nflip_phiW, cnot_rotW]
   simp only [prodEffVal, sharpEff, ehom_affOf, sharpVec_negX, sharpVec_negZ]
-  first | (simp [pairVal, sum_univ_four', rotChainW]; done) |
-    (simp [pairVal, sum_univ_four', rotChainW]; norm_num; done) |
-    (norm_num [pairVal, sum_univ_four', rotChainW]; done)
+  simp [pairVal, sum_univ_four', rotChainW]
 
 /-! ### §E — the dimension selector with `2 ≤ d` -/
 
