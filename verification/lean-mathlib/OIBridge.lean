@@ -254,6 +254,7 @@ import OIBridge.CompositionOrder
 import OIBridge.CompositeInterface
 import OIBridge.CompositeDimension
 import OIBridge.EffectSpace
+import OIBridge.K1Bridge
 
 namespace OIBridge
 
