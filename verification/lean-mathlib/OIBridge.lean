@@ -253,6 +253,7 @@ import OIBridge.TransitiveBody
 import OIBridge.CompositionOrder
 import OIBridge.CompositeInterface
 import OIBridge.CompositeDimension
+import OIBridge.EffectSpace
 
 namespace OIBridge
 
