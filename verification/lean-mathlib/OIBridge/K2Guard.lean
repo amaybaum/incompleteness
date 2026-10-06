@@ -135,6 +135,7 @@ theorem chain_value :
     prodEffVal (sharpEff ![-1, 0, 0]) (sharpEff ![0, 0, -1]) chainW = -1 / 2 := by
   simp only [prodEffVal, sharpEff, ehom_affOf, sharpVec_negX, sharpVec_negZ]
   simp [pairVal, sum_univ_four', chainW]
+  norm_num
 
 /-! ### §C — the orientation obstruction -/
 
@@ -225,6 +226,7 @@ theorem rotation_chain_value :
   rw [cnot_prodState_xplus_z3, actT_nflip_phiW, cnot_rotW]
   simp only [prodEffVal, sharpEff, ehom_affOf, sharpVec_negX, sharpVec_negZ]
   simp [pairVal, sum_univ_four', rotChainW]
+  norm_num
 
 /-! ### §E — the dimension selector with `2 ≤ d` -/
 
