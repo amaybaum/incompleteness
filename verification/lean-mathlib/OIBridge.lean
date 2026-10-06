@@ -256,6 +256,7 @@ import OIBridge.CompositeDimension
 import OIBridge.EffectSpace
 import OIBridge.K1Bridge
 import OIBridge.K2Guard
+import OIBridge.SharpTests
 
 namespace OIBridge
 
