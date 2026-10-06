@@ -37,7 +37,7 @@ namespace OIBridge
 namespace K1Bridge
 
 open Set KInfFoundations OrbitGeneration TransitiveBody CompositeDimension CompositeInterface
-  EffectSpace
+open EffectSpace
 
 variable {d : ℕ}
 
