@@ -80,9 +80,9 @@ Each extension should be judged on its own test-or-break conditions.
 
 `Juno` presents
 
-$
+$$
 \sin^2\theta_{12}=\frac13-\frac{1}{4\pi^2}=0.3080.
-$
+$$
 
 The value was derived after JUNO's first measurement, so the existing agreement is a **retrodiction**, not a prediction made in advance. The paper treats JUNO's design-lifetime precision as the forward test. Full numerical and classification details belong in [`papers/Juno.md`](papers/Juno.md) and the relevant physics papers rather than being duplicated here.
 
