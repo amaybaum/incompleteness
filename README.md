@@ -34,7 +34,7 @@ fixed-basis unitary/Born representation (Q_fb)
 
 The representation equivalence is universal at this finite-record level. The specifically OI content is the embedded-observer structure: coupling, hidden capacity, persistence and history readback constrain what a faithful realization must contain.
 
-`Main` develops this finite-horizon correspondence together with the hidden-memory and recurrence results. The strongest coherent instrument/composite lift is a separate question, and Bell-completion and later physics-layer bridges are tracked separately rather than folded into the base theorem.
+`Main` develops this finite-horizon correspondence together with the hidden-memory and recurrence results. Later operational/composite refinements, Bell questions and physics-layer bridges are tracked separately rather than folded into the base theorem; their current status lives in the verification roadmap.
 
 ## What is core, conditional, and conjectural
 
@@ -48,10 +48,10 @@ The physics core is developed in `Main`, `SM`, `GR`, `Substratum`, `Structure`, 
 
 Several later physics conclusions require explicitly named hypotheses or bridge statements. These are not silently promoted to consequences of OI. Important examples include:
 
-- **H-link** — identifies the exact six-link cubic representation with a physical gauge carrier; the single-copy clause gives the (K=6) reading.
+- **H-link** — identifies the exact six-link cubic representation with a physical gauge carrier; the single-copy clause gives the $K=6$ reading.
 - **H-cust** — the custodial kinetic/condensate premise used by the stabilizer route.
 - **H-Bell** — the open requirement that the preparation-dependent graph construction preserve operational no-signaling and the intended metric/continuum structure.
-- the remaining instrument/composite, running, chirality, generation and related manuscript-specific hypotheses recorded in the papers and verification roadmap.
+- other manuscript-specific bridge hypotheses and obligations recorded in the papers and verification roadmap.
 
 ### 3. Conjectural extensions
 
@@ -69,7 +69,7 @@ Each extension should be judged on its own test-or-break conditions.
 | Work | Role |
 | --- | --- |
 | [`Main`](papers/Main.md) | Finite embedded observers, hidden memory, the finite-horizon (S \iff D \iff Q_{\mathrm{fb}}) correspondence, and falsification conditions. |
-| [`SM`](papers/SM.md) | The (d=3) simple-cubic branch, exact lattice/representation results, and the Standard-Model phenomenology with its named bridge assumptions. |
+| [`SM`](papers/SM.md) | The $d=3$ simple-cubic branch, exact lattice/representation results, and the Standard-Model phenomenology with its named bridge assumptions. |
 | [`GR`](papers/GR.md) | The cosmological-horizon route to the gravitational and dark-sector programme, with assumptions and open calculations stated where they enter. |
 | [`Substratum`](papers/Substratum.md) | Reconstruction and substratum gauge structure; the proved converse is scoped to the local propagating lattice/gauge residue under its stated hypotheses. Bell-inclusive uniqueness remains separate. |
 | [`Structure`](papers/Structure.md) | Observation/gauge hierarchies, universality classes of embedded observers, and comparison with other unification programmes. |
@@ -123,18 +123,11 @@ incompleteness/
 - [`papers/Bioinformatics.md`](papers/Bioinformatics.md) — conjectural computational-biology extension.
 - [`papers/oi_lattice_code/`](papers/oi_lattice_code/) — lattice Monte Carlo and related numerical source.
 
-## What remains open
+## Current research frontier
 
-The project keeps open seams explicit rather than treating them as established consequences. Among the important ones are:
+The verification programme changes faster than this README should. Rather than duplicating a potentially stale list of “open” claims here, the repository keeps the authoritative status of each obligation in [`verification/ROADMAP.md`](verification/ROADMAP.md).
 
-- the strongest common coherent instrument/composite representation;
-- the physical-carrier identification beyond the exact cubic representation;
-- the remaining chirality/generation and related Standard-Model bridge conditions;
-- Bell-compatible completion of the adopted state-dependent graph route;
-- parts of the gravity/running chain that remain conditional or reported rather than independently verified;
-- the smooth continuum emergence and other manuscript-specific obligations tracked in the live roadmap.
-
-The authoritative status of any current obligation is [`verification/ROADMAP.md`](verification/ROADMAP.md).
+That roadmap tracks, among other areas, operational/composite refinements, physical-carrier identification, Standard-Model bridge conditions, Bell-compatible completion, gravity/running obligations and continuum emergence. Individual items may be proved, conditional, refuted or open; use the roadmap for the current verdict.
 
 ## Book
 
