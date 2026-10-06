@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "K1-BRIDGE-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "20aa54803df5d74e6c67a1341ca022dee340a65b",
+ "f": "7c18bcaf457e45771c175197ea86d5e1856a9b31",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-bridge-1-effect-availability/preregistration.md",
+   "blob": "07f8f656e373964e9501e8323c21411c09b06397"
+  }
+ ],
+ "governed_paths_digest": "f2cef0bd02a5b9644cb6e1a0cdbfd4a5bcd55f05b2ecb0a522e904f2befbf8bc",
+ "e": "edcc0e7a007059d4045b2b1d18784462db748ff3",
+ "tree_e": "7c5c4c854c9a890f5fd07502bdeb28e5b5af2df4",
+ "execution_delta_digest": "bcb24b85073d79a4999163a60ce09c91d0302aa3ce3fb1cd966d96703f4dc16e",
+ "candidates": [],
+ "landing": {
+  "base": "20aa54803df5d74e6c67a1341ca022dee340a65b",
+  "object": "f85ab967f150984671aa25f49aff3e6c0ee7a4c8",
+  "reconciliations": [
+   "f85ab967f150984671aa25f49aff3e6c0ee7a4c8"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "e776f619d6e9d587376a557746d25fc2415f1015b938c0afcb92169a304fe5da"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "7c18bcaf457e45771c175197ea86d5e1856a9b31",
+   "record": "https://github.com/amaybaum/incompleteness/pull/798#issuecomment-6013691164"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "7c18bcaf457e45771c175197ea86d5e1856a9b31",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37439409368"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "edcc0e7a007059d4045b2b1d18784462db748ff3",
+   "record": "https://github.com/amaybaum/incompleteness/pull/798#issuecomment-6014720829"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "edcc0e7a007059d4045b2b1d18784462db748ff3",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37448159098"
+  }
+ ]
+}
