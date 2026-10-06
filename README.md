@@ -50,7 +50,7 @@ Several later physics conclusions require explicitly named hypotheses or bridge 
 
 - **H-link** — identifies the exact six-link cubic representation with a physical gauge carrier; the single-copy clause gives the $K=6$ reading.
 - **H-cust** — the custodial kinetic/condensate premise used by the stabilizer route.
-- **H-Bell** — the open requirement that the preparation-dependent graph construction preserve operational no-signaling and the intended metric/continuum structure.
+- **H-Bell** — the open compatibility requirement that preparation-indexed graphs (i) supply the required ontic parameter dependence, (ii) preserve operational no-signaling, and (iii) preserve the metric/Ollivier--Ricci structure strongly enough for the continuum-curvature step.
 - other manuscript-specific bridge hypotheses and obligations recorded in the papers and verification roadmap.
 
 ### 3. Conjectural extensions
@@ -68,21 +68,21 @@ Each extension should be judged on its own test-or-break conditions.
 
 | Work | Role |
 | --- | --- |
-| [`Main`](papers/Main.md) | Finite embedded observers, hidden memory, the finite-horizon (S \iff D \iff Q_{\mathrm{fb}}) correspondence, and falsification conditions. |
+| [`Main`](papers/Main.md) | Finite embedded observers, hidden memory, the finite-horizon $S \iff D \iff Q_{\mathrm{fb}}$ correspondence, and falsification conditions. |
 | [`SM`](papers/SM.md) | The $d=3$ simple-cubic branch, exact lattice/representation results, and the Standard-Model phenomenology with its named bridge assumptions. |
 | [`GR`](papers/GR.md) | The cosmological-horizon route to the gravitational and dark-sector programme, with assumptions and open calculations stated where they enter. |
-| [`Substratum`](papers/Substratum.md) | Reconstruction and substratum gauge structure; the proved converse is scoped to the local propagating lattice/gauge residue under its stated hypotheses. Bell-inclusive uniqueness remains separate. |
+| [`Substratum`](papers/Substratum.md) | Reconstruction and substratum gauge structure; the proved converse is scoped to the local propagating lattice/gauge residue under its stated hypotheses. Bell-inclusive existence is conditional on H-Bell; its uniqueness is open. |
 | [`Structure`](papers/Structure.md) | Observation/gauge hierarchies, universality classes of embedded observers, and comparison with other unification programmes. |
-| [`Methodology`](papers/Methodology.md) | Developmental foundations and philosophy-of-physics treatment of the framework and its axiom structure. |
+| [`Methodology`](papers/Methodology.md) | **Developmental draft** on the framework's foundations, methodology, and axiom structure. |
 | [`Juno`](papers/Juno.md) | Focused presentation of the parameter-free solar-mixing value and its retrodictive/forward-test status. |
 
 ## A focused empirical example: JUNO
 
 `Juno` presents
 
-\[
+$
 \sin^2\theta_{12}=\frac13-\frac{1}{4\pi^2}=0.3080.
-\]
+$
 
 The value was derived after JUNO's first measurement, so the existing agreement is a **retrodiction**, not a prediction made in advance. The paper treats JUNO's design-lifetime precision as the forward test. Full numerical and classification details belong in [`papers/Juno.md`](papers/Juno.md) and the relevant physics papers rather than being duplicated here.
 
@@ -127,7 +127,7 @@ incompleteness/
 
 The verification programme changes faster than this README should. Rather than duplicating a potentially stale list of “open” claims here, the repository keeps the authoritative status of each obligation in [`verification/ROADMAP.md`](verification/ROADMAP.md).
 
-That roadmap tracks, among other areas, operational/composite refinements, physical-carrier identification, Standard-Model bridge conditions, Bell-compatible completion, gravity/running obligations and continuum emergence. Individual items may be proved, conditional, refuted or open; use the roadmap for the current verdict.
+That roadmap tracks, among other areas, operational/composite refinements; the **K1–K3 / K∞ / Kₙ pre-quantum kinematics programme**; physical-carrier identification; Standard-Model bridge conditions; Bell-compatible completion; gravity/running obligations; and continuum emergence. Individual items may be proved, conditional, refuted or open; use the roadmap for the current verdict.
 
 ## Book
 
