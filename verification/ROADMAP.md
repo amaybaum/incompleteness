@@ -65,7 +65,7 @@ quantum mechanics.
 | **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the named hypothesis is that the manuscripts' physical substratum is that packaged carrier, and that identification is the whole of what this row tracks; separately, and outside `A6Cov` rather than a condition on it, the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stands outside the interface, as does the complex carrier itself, proved not to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
 | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN**, and now EXACT: round C4-1 put the manuscripts' realization clause in the kernel as `RoutedReadback`, bounded what a discharge would need and what it would buy, and made the residual exact **per cut** — at the cosmological cut the finite realization datum itself, which the manuscripts describe and do not supply, and then a routed witness within the window; at the lattice cut `[SM]` Theorem 22's readback genericity lemma in the form `LatticeCutReadback` over admissible regions at the return window | the actual physical realization |
 | **P1** | H-Bell — composite and Bell closure | OI→QM / Bell | **OPEN** | Bell-inclusive completion |
-| **P1** | K — pre-quantum kinematics: from field-neutral operational premises to the complex matrix kinematics the finite characterization assumes | OI→QM / Reconstruction | **OPEN** — K3 **CONDITIONAL** on reaching complex matrix kinematics (`genTheory_qm_of_quantumArchitecture`, `typed_determined_iff`); K1 **CONDITIONAL** (rounds NB-1 and DIM-1: two identical balls on the coordinate carrier `W d` with full affine effects, one common NOT and the native-gate hypotheses give `d ∈ {1, 3}`, and `d = 3` with an entangling gate); K2 **OPEN** (read-only research, no governed round); K∞ **OPEN** — field-neutral drivability, a sharp-update / singleton-face principle and identical-copy covariance, none sourced; its geometric branch is scoped to an elementary system; Kₙ **OPEN** — no theorem lifts the elementary `d = 3` system to the complex matrix carriers of every finite size that the K3 interfaces take as given | complex quantum kinematics in the conclusion rather than the premises |
+| **P1** | K — pre-quantum kinematics: from field-neutral operational premises to the complex matrix kinematics the finite characterization assumes | OI→QM / Reconstruction | **OPEN** — K3 **CONDITIONAL** on reaching complex matrix kinematics (`genTheory_qm_of_quantumArchitecture`, `typed_determined_iff`); K1 **CONDITIONAL** (rounds NB-1 and DIM-1: two identical balls on the coordinate carrier `W d` with full affine effects, one common NOT and the native-gate hypotheses give `d ∈ {1, 3}`, and `d = 3` with an entangling gate); K2 **OPEN** (read-only research, no governed round); K∞ **OPEN** — eight unsourced obligations: K∞-Stage (SC∞, elementary scope, finite rank), K∞-Act (reversible operation data), K∞-Drive (drivability), K∞-Trans (boundary transitivity, not implied by K∞-Drive), K∞-Seed (sharp seed), K∞-V4 (seed-orbit availability), K∞-Copy (identical-copy covariance) and K∞-Geom (the elementary-scoped geometric input); Kₙ **OPEN** — no theorem lifts the elementary `d = 3` system to the complex matrix carriers of every finite size, with their operational repertoire, that the K3 interfaces take as given | complex quantum kinematics in the conclusion rather than the premises |
 | **P1** | Stochastic observer interface — source `(Obs, μ)` from the stated architecture | Foundations / physical realization | **OPEN**, with the present architecture bounded negatively: `StochasticInterface` proves the invariant ensemble is not uniquely determined on the wave substratum under its stated hypotheses (`ensemble_underdetermined`, `waveSubstratum_stochastic_interface_gap`), while the observation-map leg is not supplied on `Substratum.Conf`. The remaining obligation is to supply independently motivated structure selecting the physical observation map and ensemble, or prove that the claims consuming an induced stochastic law are invariant under that residual choice. This is distinct from C4: C4 asks whether hidden history is routed back; this row asks which `(Obs, μ)` defines the observed stochastic law in the first place. | a fully sourced physical stochastic law `(φ, Obs, μ)` |
 | **P1** | H-∞ — finite operational theory → continuum / infinite-dimensional completion | OI→QM / continuum | **OPEN** — the exact operational-completion theorems and the Track-B equivalence programme are finite-carrier results. `RegionLimit`, `CoherentContinuumSource` and the quasilocal audits establish selected continuum/local-algebra facts, but no theorem upgrades the full finite OI→QM characterization to arbitrary infinite-dimensional or QFT systems. Infinite-support instruments are a separate, deliberately unprioritized question below and do not close this obligation. | a scope-correct OI→QM statement beyond finite carriers |
 | **P2** | Bekir–Golomb integer classification | Reconstruction | **EXTERNAL** | removes the last reconstruction premise |
@@ -991,19 +991,43 @@ minimal premises from which it follows. It has five parts, each with its own sta
   reading is conditional on the copies' NOTs agreeing. Dropping the control-NOT relation, or
   allowing different NOTs on the two copies, admits `d = 5` countermodels.
 - **K2 — the composite. OPEN.** Read-only research has mapped a candidate `d = 3` composition
-  route, but no governed round records the classification or the cone theorem. The formal
-  composition theorem, the antiunitary and complete-positivity bridge, and the relation to the K3
-  machinery are open. K2 does not discharge H-Bell.
-- **K∞ — the field-neutral premises. OPEN.** The obligations are:
-  - **field-neutral drivability** (K∞-R), load-bearing and unsourced;
-  - **a sharp-update or singleton-face principle**: the certain outcome of a proper sharp binary
-    test identifies one state. A corrected statement, excluding the unit effect, is planned for a
-    successor foundations round and is not frozen;
-  - **identical-copy covariance**, or copy naturality: identical copies' NOTs agree. It is
-    load-bearing and unsourced. An untested candidate weakening is that the frame-preserving
-    conjugacy class of the native inversion is determined by system type rather than by token; if
-    the planned exact probe confirms it, the obligation becomes type covariance of native
-    inversion.
+  route, but no governed round records the classification or the cone theorem. Its obligations
+  include local tomography, which DIM-1's carrier `W d` encodes as a premise, the composite cone,
+  local actions compatible with it, the formal composition theorem, the antiunitary and
+  complete-positivity bridge, and the relation to the K3 machinery; all are open. K2 does not
+  discharge H-Bell.
+- **K∞ — the field-neutral premises. OPEN.** The obligations are seams of the present route to the
+  elementary ball, each carried by a named kernel object; they are not claimed to be independent,
+  and later theorems may discharge several together. All are unsourced.
+  - **K∞-Stage** — stage consistency, the elementary scope and finite rank: `SCInf`,
+    `BinaryVisible` and `FiniteRank`. Finite rank gives the completion chart that TRB-1 normalizes
+    (`exists_completionChart`). A predicate for the full elementary-visible scope is not yet
+    formalized.
+  - **K∞-Act** — reversible operation data on the completed body: an `OpDatum` with
+    `AffineRespect` and an inverse datum, which induce body-preserving affine equivalences
+    (`preservesBody_inducedEquiv`).
+  - **K∞-Drive** — field-neutral drivability, `ElementaryDrivability`.
+  - **K∞-Trans** — all-boundary transitivity, `BoundaryTransitive`, which TRB-1 consumes for the
+    ball (`exists_affine_image_eq_eball`) and OG-1 for the sharp family (`seedOrbit_ball3_eq`).
+    K∞-Drive does not give it: a drive's flow preserves the ball and a sharp seed and is not
+    boundary transitive (`not_boundaryTransitive_flow`), and no theorem derives transitivity from
+    `ElementaryDrivability` on a general body.
+  - **K∞-Seed** — a sharp seed, `SharpSeed`; on the completion it follows from SC∞ and a stage
+    effect with values one and zero at two stage preparations (`sharpSeed_completion`).
+  - **K∞-V4** — seed-orbit availability, `SeedOrbitAvailable` (V4′): every transport of the seed
+    along the orbit is available. Body preservation of a transport does not supply it.
+  - **K∞-Copy** — identical-copy covariance, or copy naturality: identical copies' NOTs agree. An
+    untested candidate weakening is that the frame-preserving conjugacy class of the native
+    inversion is determined by system type rather than by token; if the planned exact probe
+    confirms it, the obligation becomes type covariance of native inversion.
+  - **K∞-Geom** — a sharp-update or singleton-face principle: the certain outcome of a proper sharp
+    binary test identifies one state. A corrected statement, excluding the unit effect, is planned
+    for a successor foundations round and is not frozen.
+
+  The label K∞-R is ambiguous in the landed records: `OrbitGeneration` and OG-1's record use it for
+  `BoundaryTransitive`. The queue uses K∞-Drive and K∞-Trans. The obligations, their kernel objects
+  and the negative result for the flow are recorded in
+  [`audits/foundations/kinf-seams-audit.md`](audits/foundations/kinf-seams-audit.md).
 
   The geometric obligation is not committed uniquely to singleton faces: a successor foundations
   round may express the needed geometric input through corrected sharp-face structure or through a
@@ -1026,7 +1050,9 @@ minimal premises from which it follows. It has five parts, each with its own sta
 - **Kₙ — elementary-to-arbitrary-carrier lift. OPEN.** DIM-1 reaches only the elementary `d = 3`
   ball, while the K3 interfaces quantify over every finite carrier: `FiniteOperationalTheory`,
   `ImplementationClass`, `DrivesElementary` and `ShadowQuantum` take the complex matrix carriers of
-  every finite size, and their ancilla extensions, as given. No current theorem supplies the lift.
+  every finite size, and their ancilla extensions, as given, together with the implementation
+  repertoire that `DrivesElementary` assumes at every carrier. Kₙ therefore lifts the operational
+  architecture, not only the state and effect spaces. No current theorem supplies the lift.
   No theorem consumes the DIM-1 ball, and K2's candidate route composes elementary systems only.
   Because K∞'s geometric branch is elementary-scoped, Kₙ is not a consequence of it. Kₙ may be
   discharged either by K2 plus a suitable subsystem or subspace principle, relating higher-level
@@ -1038,11 +1064,25 @@ minimal premises from which it follows. It has five parts, each with its own sta
 that the frozen supporting-effect and singleton-face vocabulary mishandled the unit effect. Its
 execution was withdrawn, and no foundations vocabulary from that round is authoritative.
 
-**A research direction, unproved.** The three K∞ obligations may be sourced by a theory of the
+**A research direction, unproved.** K∞-Geom, K∞-Drive and K∞-Copy may be sourced by a theory of the
 physical observation interaction, in which sharp outcomes carry a sourced update rule,
 observational contexts admit continuous reversible transport, and the type of native inversion is
 invariant across identical system tokens. These are three separate candidates, not one principle;
 only the third has so far produced a candidate reduction of an existing premise.
+
+**The finite route.** The order in which the present route consumes these obligations:
+
+```
+K∞-Stage (stage consistency, elementary scope, finite rank)  →  finite-dimensional completed body
+K∞-Act                                                       →  reversible affine actions on the body
+K∞-Drive, K∞-Trans, K∞-Seed, K∞-V4                           →  the elementary ball and its sharp family
+                                                             →  the effect cone of the ball (EFF-1)
+K2 (local tomography, the composite cone)
+K∞-Copy, the native gate (frame, NOT relations, two-sided positivity, entangling)
+                                                             →  d = 3 (DIM-1)
+Kₙ (the operational architecture at every finite carrier)
+K3                                                           →  finite operational quantum theory
+```
 
 This row is orthogonal to `P0`: a complete operational reconstruction would not by itself select a
 unique quantum history.
