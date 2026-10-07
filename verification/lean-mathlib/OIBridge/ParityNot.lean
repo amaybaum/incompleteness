@@ -251,10 +251,17 @@ theorem det_eq_one_of_piRotation {N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ
   have hu3 : u 0 ^ 2 + u 1 ^ 2 + u 2 ^ 2 = 1 := by
     rw [Fin.sum_univ_three] at hu
     exact hu
-  rw [← LinearMap.det_toMatrix', Matrix.det_fin_three]
-  simp only [LinearMap.toMatrix'_apply, hN, Pi.sub_apply, Pi.smul_apply, smul_eq_mul,
-    Fin.sum_univ_three, Pi.single_apply]
-  norm_num
+  have hent : ∀ i j : Fin 3, LinearMap.toMatrix' N i j =
+      2 * u j * u i - (if i = j then 1 else 0) := fun i j => by
+    rw [LinearMap.toMatrix'_apply, hN]
+    simp [Pi.single_apply]
+  have hd : ∀ i : Fin 3, LinearMap.toMatrix' N i i = 2 * u i * u i - 1 := fun i => by
+    rw [hent, if_pos rfl]
+  have ho : ∀ i j : Fin 3, i ≠ j → LinearMap.toMatrix' N i j = 2 * u j * u i := fun i j h => by
+    rw [hent, if_neg h, sub_zero]
+  rw [← LinearMap.det_toMatrix', Matrix.det_fin_three, hd 0, hd 1, hd 2,
+    ho 0 1 (by decide), ho 0 2 (by decide), ho 1 0 (by decide), ho 1 2 (by decide),
+    ho 2 0 (by decide), ho 2 1 (by decide)]
   linear_combination 2 * hu3
 
 /-- **The NOT at `d = 3` has determinant one.** -/
@@ -327,13 +334,20 @@ theorem minusSpace_refl3_le :
   rw [mem_minusSpace] at hv
   rw [Submodule.mem_span_singleton]
   refine ⟨v 3, ?_⟩
+  have e0 : homMap refl3 v 0 = 1 * v 0 := homMap_diagSign _ _ _
+  have e1 : homMap refl3 v 1 = 1 * v 1 := homMap_diagSign _ _ _
+  have e2 : homMap refl3 v 2 = 1 * v 2 := homMap_diagSign _ _ _
   have h0 := congrFun hv 0
   have h1 := congrFun hv 1
   have h2 := congrFun hv 2
-  simp only [refl3, homMap_diagSign, Pi.neg_apply] at h0 h1 h2
-  norm_num at h0 h1 h2
+  rw [e0, Pi.neg_apply] at h0
+  rw [e1, Pi.neg_apply] at h1
+  rw [e2, Pi.neg_apply] at h2
+  have z0 : v 0 = 0 := by linarith
+  have z1 : v 1 = 0 := by linarith
+  have z2 : v 2 = 0 := by linarith
   funext i
-  fin_cases i <;> simp [Pi.single_apply] <;> linarith
+  fin_cases i <;> simp <;> linarith
 
 theorem plusSpace_negId3_le :
     plusSpace negId3 ≤ Submodule.span ℝ {(Pi.single 0 1 : HVec 3)} := by
@@ -341,13 +355,20 @@ theorem plusSpace_negId3_le :
   rw [mem_plusSpace] at hv
   rw [Submodule.mem_span_singleton]
   refine ⟨v 0, ?_⟩
+  have e1 : homMap negId3 v 1 = -1 * v 1 := homMap_diagSign _ _ _
+  have e2 : homMap negId3 v 2 = -1 * v 2 := homMap_diagSign _ _ _
+  have e3 : homMap negId3 v 3 = -1 * v 3 := homMap_diagSign _ _ _
   have h1 := congrFun hv 1
   have h2 := congrFun hv 2
   have h3 := congrFun hv 3
-  simp only [negId3, homMap_diagSign] at h1 h2 h3
-  norm_num at h1 h2 h3
+  rw [e1] at h1
+  rw [e2] at h2
+  rw [e3] at h3
+  have z1 : v 1 = 0 := by linarith
+  have z2 : v 2 = 0 := by linarith
+  have z3 : v 3 = 0 := by linarith
   funext i
-  fin_cases i <;> simp [Pi.single_apply] <;> linarith
+  fin_cases i <;> simp <;> linarith
 
 theorem finrank_minusSpace_refl3_le : Module.finrank ℝ (minusSpace refl3) ≤ 1 := by
   have hne : (Pi.single 3 1 : HVec 3) ≠ 0 := by
@@ -389,6 +410,7 @@ theorem det_negId3 : LinearMap.det negId3 = -1 := by
     rw [Matrix.toLin'_apply, Matrix.mulVec_diagonal]
     rfl
   rw [h, LinearMap.det_toLin', Matrix.det_diagonal, Fin.prod_univ_three]
+  show (-1 : ℝ) * -1 * -1 = -1
   norm_num
 
 /-- DIM-1's `cnot` with `nflip` carries the two relations. -/
@@ -479,22 +501,23 @@ theorem gateRel_gJ3 : GateRel nflip gJ3 :=
    fun ω => by simp only [gJ3_apply]; exact sgate_relC homMap_nflip_sign odd3_perm3 ω⟩
 
 /-- The direction of the first sharp effect of the witness, `−(3/5 e₂ + 4/5 e₃)`. -/
-def w3 : Fin 3 → ℝ := ![0, -3 / 5, -4 / 5]
+noncomputable def w3 : Fin 3 → ℝ := ![0, -3 / 5, -4 / 5]
 
 theorem w3_unit : ∑ j, w3 j ^ 2 = 1 := by
   rw [Fin.sum_univ_three]
-  norm_num [w3]
+  show (0 : ℝ) ^ 2 + (-3 / 5) ^ 2 + (-4 / 5) ^ 2 = 1
+  norm_num
 
 theorem sharpVec_w3 : sharpVec w3 = ![1 / 2, 0, -3 / 10, -2 / 5] := by
   funext i
   fin_cases i
   · rfl
-  · show w3 0 / 2 = 0
-    norm_num [w3]
-  · show w3 1 / 2 = -3 / 10
-    norm_num [w3]
-  · show w3 2 / 2 = -2 / 5
-    norm_num [w3]
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (-3 / 5 : ℝ) / 2 = -3 / 10
+    norm_num
+  · show (-4 / 5 : ℝ) / 2 = -2 / 5
+    norm_num
 
 theorem sharpVec_z3 : sharpVec z3 = ![1 / 2, 0, 0, 1 / 2] := by
   funext i
@@ -619,11 +642,12 @@ theorem finrank_plus_eq_finrank_minus_n5 :
   finrank_plus_eq_finrank_minus_rel isNot_n5 gateRel_gJ5
 
 /-- The direction of the first sharp effect of the witness, `−(3/5 e₃ + 4/5 e₅)`. -/
-def w5 : Fin 5 → ℝ := fun i => if i = 2 then -3 / 5 else if i = 4 then -4 / 5 else 0
+noncomputable def w5 : Fin 5 → ℝ := fun i => if i = 2 then -3 / 5 else if i = 4 then -4 / 5 else 0
 
 theorem w5_unit : ∑ j, w5 j ^ 2 = 1 := by
   rw [Fin.sum_univ_five]
-  norm_num [w5]
+  show (0 : ℝ) ^ 2 + 0 ^ 2 + (-3 / 5) ^ 2 + 0 ^ 2 + (-4 / 5) ^ 2 = 1
+  norm_num
 
 theorem z5_unit : ∑ j, z5 j ^ 2 = 1 := isNot_n5.unit
 
@@ -632,32 +656,32 @@ theorem sharpVec_w5 : sharpVec w5 = fun μ : Fin (5 + 1) =>
   funext i
   fin_cases i
   · rfl
-  · show w5 0 / 2 = _
-    norm_num [w5]
-  · show w5 1 / 2 = _
-    norm_num [w5]
-  · show w5 2 / 2 = _
-    norm_num [w5]
-  · show w5 3 / 2 = _
-    norm_num [w5]
-  · show w5 4 / 2 = _
-    norm_num [w5]
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (-3 / 5 : ℝ) / 2 = -3 / 10
+    norm_num
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (-4 / 5 : ℝ) / 2 = -2 / 5
+    norm_num
 
 theorem sharpVec_z5 : sharpVec z5 = fun μ : Fin (5 + 1) =>
     if μ = 0 then 1 / 2 else if μ = 5 then 1 / 2 else 0 := by
   funext i
   fin_cases i
   · rfl
-  · show z5 0 / 2 = _
-    norm_num [z5]
-  · show z5 1 / 2 = _
-    norm_num [z5]
-  · show z5 2 / 2 = _
-    norm_num [z5]
-  · show z5 3 / 2 = _
-    norm_num [z5]
-  · show z5 4 / 2 = _
-    norm_num [z5]
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (0 : ℝ) / 2 = 0
+    norm_num
+  · show (1 : ℝ) / 2 = 1 / 2
+    rfl
 
 theorem sum_univ_six' (f : Fin (5 + 1) → ℝ) :
     ∑ i, f i = f 0 + f 1 + f 2 + f 3 + f 4 + f 5 :=
