@@ -129,7 +129,7 @@ theorem hom_smul_zK (k : ℕ) (c : ℝ) (μ : Fin (2 * k + 1 + 1)) :
   · simp
   · rw [hom_succ, Fin.val_succ]
     simp only [Pi.smul_apply, smul_eq_mul, zK]
-    split_ifs <;> first | (exfalso; omega) | (norm_num; done)
+    split_ifs <;> first | (exfalso; omega) | norm_num
 
 theorem hom_zK (k : ℕ) (μ : Fin (2 * k + 1 + 1)) :
     hom (zK k) μ = if (μ : ℕ) = 0 then 1 else if (μ : ℕ) = 2 * k + 1 then 1 else 0 := by
@@ -137,7 +137,7 @@ theorem hom_zK (k : ℕ) (μ : Fin (2 * k + 1 + 1)) :
   · simp
   · rw [hom_succ, Fin.val_succ]
     simp only [zK]
-    split_ifs <;> first | (exfalso; omega) | (norm_num; done)
+    split_ifs <;> first | (exfalso; omega) | norm_num
 
 theorem gRev_frame_aux (k : ℕ) {s t : ℝ} (hs : s = 1 ∨ s = -1) {x y w : Fin (2 * k + 1) → ℝ}
     (hx : x = s • zK k) (hy : y = t • zK k) (hw : w = (s * t) • zK k) :
@@ -151,7 +151,7 @@ theorem gRev_frame_aux (k : ℕ) {s t : ℝ} (hs : s = 1 ∨ s = -1) {x y w : Fi
     have hr : ((Fin.rev μ : Fin (2 * k + 1 + 1)) : ℕ) = 2 * k + 1 - μ := by
       rw [Fin.val_rev]; omega
     simp only [gRev_apply, sgate, prodState_apply, hom_smul_zK, hr, oddK, decide_eq_true_eq]
-    split_ifs <;> first | (exfalso; omega) | (norm_num; done) | ring
+    split_ifs <;> first | (exfalso; omega) | norm_num
 
 /-- **The frame.** `gRev k` acts as the controlled NOT on the corners. -/
 theorem gRev_frame (k : ℕ) (a b : Fin 2) :
@@ -213,7 +213,7 @@ theorem hom_xK (k : ℕ) (μ : Fin (2 * k + 1 + 1)) :
   · simp
   · rw [hom_succ, Fin.val_succ]
     simp only [xK]
-    split_ifs <;> first | (exfalso; omega) | (norm_num; done)
+    split_ifs <;> first | (exfalso; omega) | norm_num
 
 theorem sum_xK_sq (k : ℕ) : ∑ j, xK k j ^ 2 = 1 := by
   have h : ∀ j : Fin (2 * k + 1), xK k j ^ 2 = if (j : ℕ) = 0 then 1 else 0 := fun j => by
@@ -227,7 +227,7 @@ theorem sum_wK_sq (k : ℕ) (hk : 1 ≤ k) : ∑ j, wK k j ^ 2 = 1 := by
       (if (j : ℕ) = 2 * k - 1 then 9 / 25 else 0) + (if (j : ℕ) = 2 * k then 16 / 25 else 0) :=
     fun j => by
       simp only [wK]
-      split_ifs <;> first | (exfalso; omega) | (norm_num; done)
+      split_ifs <;> first | (exfalso; omega) | norm_num
   rw [Finset.sum_congr rfl fun j _ => h j, Finset.sum_add_distrib,
     sum_val_ite (2 * k + 1) (2 * k - 1) (by omega) (9 / 25),
     sum_val_ite (2 * k + 1) (2 * k) (by omega) (16 / 25)]
@@ -268,12 +268,12 @@ theorem gRev_value (k : ℕ) (hk : 1 ≤ k) :
     have hr : ((Fin.rev μ : Fin (2 * k + 1 + 1)) : ℕ) = 2 * k + 1 - μ := by
       rw [Fin.val_rev]; omega
     simp only [gRev_apply, sgate, prodState_apply, hom_xK, hom_zK, hr, oddK, decide_eq_true_eq,
-      entW, Pi.add_apply, Fin.ext_iff, Fin.val_succ, Fin.val_zero, Fin.val_mk, zero_add]
-    split_ifs <;> first | (exfalso; omega) | (norm_num; done)
+      entW, Pi.add_apply, Fin.ext_iff, Fin.val_succ, Fin.val_zero, zero_add]
+    split_ifs <;> first | (exfalso; omega) | norm_num
   rw [prodEffVal_sharp, hω, pairVal_add_omega, pairVal_add_omega, pairVal_add_omega, pairVal_entW,
     pairVal_entW, pairVal_entW, pairVal_entW]
-  simp only [sharpVec_zero, sharpVec_succ, wK, zK, Fin.val_mk]
-  split_ifs <;> first | (exfalso; omega) | (norm_num; done)
+  simp only [sharpVec_zero, sharpVec_succ, wK, zK]
+  split_ifs <;> first | (exfalso; omega) | norm_num
 
 theorem gRev_not_mem_maxCone (k : ℕ) (hk : 1 ≤ k) :
     gRev k (prodState (xK k) (zK k)) ∉ maxCone (eball (2 * k + 1)) := fun h => by
