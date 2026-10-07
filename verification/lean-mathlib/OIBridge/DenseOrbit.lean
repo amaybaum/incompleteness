@@ -17,8 +17,11 @@
   (B) The cone. EFF-1 reads boundary transitivity only to make every sharp effect available. Under a
   dense boundary orbit the available sharp directions are dense in the sphere, and the pairing of a
   joint vector with two sharp effects is continuous in the two directions, so the available family
-  still determines `maxCone (eball d)` (`maxConeOf_avail_eq_of_dense`). The relative selector with
-  `2 ≤ d` follows (`three_of_nativeGateOf_of_two_le_dense`).
+  still determines `maxCone (eball d)` (`maxConeOf_avail_eq_of_dense`). K1-BRIDGE-1 reads boundary
+  transitivity only through that cone equality, so its transports and relative selectors follow
+  (`nativeGate_of_avail_dense`, `entangling_of_avail_dense`, `dim_of_nativeGateOf_dense`,
+  `three_of_nativeGateOf_dense`), as does the relative selector with `2 ≤ d`
+  (`three_of_nativeGateOf_of_two_le_dense`).
 
   (C) Strictness. The identity with the reflections in hyperplanes orthogonal to rational vectors is
   a countable body-preserving family with a dense boundary orbit on `eball d`
@@ -272,6 +275,39 @@ theorem maxConeOf_avail_eq_of_dense (hd : 0 < d) (hG : PreservesBody (eball d) G
   · rw [← maxConeOf_fullEffects]
     exact maxConeOf_anti fun e he => hE e he
 
+/-- K1-BRIDGE-1's native-gate transport under a dense boundary orbit. -/
+theorem nativeGate_of_avail_dense (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+    (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+    (hK : DenseBoundaryOrbit (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+    {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+    (hT : NativeGateOf (eball d) avail z N T) : NativeGate (eball d) z N T :=
+  nativeGate_of_cone_eq (maxConeOf_avail_eq_of_dense hd hG hP1 hK hV4 hE) hT
+
+/-- K1-BRIDGE-1's entangling transport under a dense boundary orbit. -/
+theorem entangling_of_avail_dense (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+    (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+    (hK : DenseBoundaryOrbit (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+    {T : W d ≃ₗ[ℝ] W d} (hEnt : EntanglingOf (eball d) avail T) : Entangling (eball d) T :=
+  entangling_of_cone_eq (maxConeOf_avail_eq_of_dense hd hG hP1 hK hV4 hE) hEnt
+
+/-- **The dimension, relative to the available family,** under a dense boundary orbit. -/
+theorem dim_of_nativeGateOf_dense (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+    (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+    (hK : DenseBoundaryOrbit (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+    {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T) : d = 1 ∨ d = 3 :=
+  dim_of_nativeGate hN (nativeGate_of_avail_dense hd hE hG hP1 hK hV4 hT)
+
+/-- **Three, relative to the available family,** under a dense boundary orbit. -/
+theorem three_of_nativeGateOf_dense (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+    (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+    (hK : DenseBoundaryOrbit (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+    {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+    (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T)
+    (hEnt : EntanglingOf (eball d) avail T) : d = 3 :=
+  three_of_nativeGate hN (nativeGate_of_avail_dense hd hE hG hP1 hK hV4 hT)
+    (entangling_of_avail_dense hd hE hG hP1 hK hV4 hEnt)
+
 /-- **The relative selector with `2 ≤ d`** under a dense boundary orbit. -/
 theorem three_of_nativeGateOf_of_two_le_dense (hd : 2 ≤ d) (hE : EffectsOn (eball d) avail)
     (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
@@ -384,6 +420,10 @@ end OIBridge
 #print axioms OIBridge.DenseOrbit.exists_affine_image_eq_eball_of_dense
 #print axioms OIBridge.DenseOrbit.chartBody_eq_eball_of_dense
 #print axioms OIBridge.DenseOrbit.maxConeOf_avail_eq_of_dense
+#print axioms OIBridge.DenseOrbit.nativeGate_of_avail_dense
+#print axioms OIBridge.DenseOrbit.entangling_of_avail_dense
+#print axioms OIBridge.DenseOrbit.dim_of_nativeGateOf_dense
+#print axioms OIBridge.DenseOrbit.three_of_nativeGateOf_dense
 #print axioms OIBridge.DenseOrbit.three_of_nativeGateOf_of_two_le_dense
 #print axioms OIBridge.DenseOrbit.denseBoundaryOrbit_ratRefl
 #print axioms OIBridge.DenseOrbit.not_boundaryTransitive_ratRefl
