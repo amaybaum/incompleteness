@@ -267,7 +267,6 @@ theorem maxConeOf_avail_eq_of_dense (hd : 0 < d) (hG : PreservesBody (eball d) G
       exact ⟨hK u x hbu (isBoundaryState_eball_of_sphere hx),
         hK u y hbu (isBoundaryState_eball_of_sphere hy)⟩
     have hmem := hS.closure_subset_iff.mpr hsub hxy
-    dsimp only [Set.mem_setOf_eq] at hmem
     rw [prodEffVal_sharp]
     exact hmem
   · rw [← maxConeOf_fullEffects]
