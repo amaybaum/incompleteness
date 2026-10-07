@@ -336,16 +336,16 @@ theorem phi_lift_minus_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ]
   have huu : ∑ ν, u ν * u ν = 1 := by
     rw [← hu]
     exact Finset.sum_congr rfl fun ν _ => (sq _).symm
-  have hS1 : ∑ ν, (hom (0 : Fin d → ℝ) - u) ν * (hom 0 - u) ν = 2 := by
-    have e : ∀ ν, (hom (0 : Fin d → ℝ) - u) ν * (hom 0 - u) ν
-        = hom (0 : Fin d → ℝ) ν * hom 0 ν - 2 * (hom (0 : Fin d → ℝ) ν * u ν) + u ν * u ν :=
+  have hS1 : ∑ ν, (hom (0 : Fin d → ℝ) - u) ν * (hom (0 : Fin d → ℝ) - u) ν = 2 := by
+    have e : ∀ ν, (hom (0 : Fin d → ℝ) - u) ν * (hom (0 : Fin d → ℝ) - u) ν
+        = hom (0 : Fin d → ℝ) ν * hom (0 : Fin d → ℝ) ν - 2 * (hom (0 : Fin d → ℝ) ν * u ν) + u ν * u ν :=
       fun ν => by rw [Pi.sub_apply]; ring
     rw [Finset.sum_congr rfl fun ν _ => e ν, Finset.sum_add_distrib, Finset.sum_sub_distrib,
       ← Finset.mul_sum, dot_hom_hom_zero, hh0u, huu]
     norm_num
-  have hS2 : ∑ ν, (hom (0 : Fin d → ℝ) + u) ν * (hom 0 - u) ν = 0 := by
-    have e : ∀ ν, (hom (0 : Fin d → ℝ) + u) ν * (hom 0 - u) ν
-        = hom (0 : Fin d → ℝ) ν * hom 0 ν - u ν * u ν :=
+  have hS2 : ∑ ν, (hom (0 : Fin d → ℝ) + u) ν * (hom (0 : Fin d → ℝ) - u) ν = 0 := by
+    have e : ∀ ν, (hom (0 : Fin d → ℝ) + u) ν * (hom (0 : Fin d → ℝ) - u) ν
+        = hom (0 : Fin d → ℝ) ν * hom (0 : Fin d → ℝ) ν - u ν * u ν :=
       fun ν => by rw [Pi.add_apply, Pi.sub_apply]; ring
     rw [Finset.sum_congr rfl fun ν _ => e ν, Finset.sum_sub_distrib, dot_hom_hom_zero, huu,
       sub_self]
