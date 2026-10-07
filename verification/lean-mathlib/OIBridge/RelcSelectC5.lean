@@ -116,7 +116,7 @@ theorem ptC5_ptC5 : ∀ μ ν : Fin 6, ptC5 (pcC5 μ ν) (ptC5 μ ν) = ν := by
 
 theorem sgnC5_mul_sgnC5 : ∀ μ ν : Fin 6, sgnC5 μ ν * sgnC5 (pcC5 μ ν) (ptC5 μ ν) = 1 := by
   intro μ ν
-  fin_cases μ <;> fin_cases ν <;> simp +decide [sgnC5, pcC5, ptC5]
+  fin_cases μ <;> fin_cases ν <;> simp +decide [sgnC5]
 
 /-- The target index read by `gC5` has the sign class of the target index written. -/
 theorem oddC5_ptC5 : ∀ μ ν : Fin 6, oddC5 (ptC5 μ ν) = oddC5 ν := by decide
@@ -157,18 +157,18 @@ theorem gC5_relT (ω : W 5) : actT nC5 (gC5 (actT nC5 ω)) = gC5 ω := by
   funext μ ν
   have hodd := oddC5_ptC5 μ ν
   simp only [actT_apply, homMap_nC5_sign, gC5_apply, gC5Fun_apply, hodd]
-  split_ifs <;> first | ring | simp_all
+  split_ifs <;> ring
 
 /-- The control side of the relation at the entry `(w₂, w₂)` of the image of the matrix unit at
 `(w₁, w₁)`. -/
 theorem gC5_relC_lhs : actC nC5 (gC5 (actC nC5 (OddChar.entW 3 3))) 4 4 = 1 := by
   simp +decide [actC_apply, homMap_nC5_sign, gC5_apply, gC5Fun_apply, sgnC5, pcC5, ptC5, oddC5,
-    OddChar.entW] <;> norm_num
+    OddChar.entW]
 
 /-- The target side of the relation at the same entry. -/
 theorem gC5_relC_rhs : actT nC5 (gC5 (OddChar.entW 3 3)) 4 4 = -1 := by
-  simp +decide [actT_apply, homMap_nC5_sign, gC5_apply, gC5Fun_apply, sgnC5, pcC5, ptC5, oddC5,
-    OddChar.entW] <;> norm_num
+  simp +decide [actT_apply, homMap_nC5_sign, gC5_apply, gC5Fun_apply, sgnC5,
+    OddChar.entW]
 
 /-- **The control relation fails.** -/
 theorem gC5_not_relC : ¬ ∀ ω, actC nC5 (gC5 (actC nC5 ω)) = actT nC5 (gC5 ω) := by

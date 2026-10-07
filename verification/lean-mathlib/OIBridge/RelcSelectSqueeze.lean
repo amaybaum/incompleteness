@@ -172,8 +172,8 @@ theorem gSq_symm_apply (ω : W 5) : gSq.symm ω = gSqInvFun ω := rfl
 theorem gSq_frame (a b : Fin 2) :
     gSq (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b)) := by
   fin_cases a <;> fin_cases b <;> funext μ ν <;> fin_cases μ <;> fin_cases ν <;>
-    simp +decide [gSq_apply, gSqFun_apply, sqW, sqR, sqK, sqPc, sqPt, sqCls, sqSig, perm5, odd5,
-      prodState_apply, corner_zero, corner_one, z5] <;> norm_num
+    simp +decide [gSq_apply, gSqFun_apply, sqW, sqR, sqK, sqPc, sqPt, sqSig, perm5,
+      prodState_apply, corner_zero, corner_one, z5]
 
 /-- The signs of the homogenized `n5`. -/
 noncomputable def sqSg (μ : Fin 6) : ℝ := if odd5 μ then -1 else 1
@@ -364,9 +364,7 @@ theorem gSq_core (a0 a1 a2 a3 a4 a5 b0 b1 b2 b3 b4 b5 x0 x1 x2 x3 x4 y0 y1 y2 y3
     (x0 ^ 2 + x1 ^ 2 + x2 ^ 2 + x3 ^ 2) (a1 ^ 2 + a2 ^ 2 + a3 ^ 2 + a4 ^ 2)
     (by linarith [hx4.1]) (by linarith [hx4.2]) (by linarith [ha5.1]) (by linarith [ha5.2])
     hA hB (by positivity) (by positivity) (by linarith) (by linarith) hCe hCo hkey
-  first
-    | exact h
-    | linarith [h]
+  exact h
 
 /-- The pairing of two vectors with the image of a product state: the decomposition identity. -/
 theorem pairVal_gSq_prodState (a b : HVec 5) (x y : Fin 5 → ℝ) :
@@ -381,13 +379,10 @@ theorem pairVal_gSq_prodState (a b : HVec 5) (x y : Fin 5 → ℝ) :
   -- Primary: evaluate the 36 entries on the left only, so that simp never rewrites the
   -- right-hand side (e.g. by cancelling common summands); then `ring`. Fallback: DIM-1's
   -- `prodEffVal_cnot_prodState` pattern.
-  first
-    | conv_lhs =>
-        simp only [pairVal, gSq_apply, gSqFun_apply, prodState_apply, sum_univ_six']
-        simp +decide [sqW, sqR, sqK, sqPc, sqPt, sqCls, sqSig, perm5, odd5]
-      ring
-    | simp only [pairVal, gSq_apply, gSqFun_apply, prodState_apply, sum_univ_six']
-      simp +decide [sqW, sqR, sqK, sqPc, sqPt, sqCls, sqSig, perm5, odd5] <;> ring
+  conv_lhs =>
+    simp only [pairVal, gSq_apply, gSqFun_apply, prodState_apply, sum_univ_six']
+    simp +decide [sqW, sqR, sqK, sqPc, sqPt, sqCls, sqSig, perm5, odd5]
+  ring
 
 theorem lor_five {v : HVec 5} (hv : Lor v) :
     0 ≤ v 0 ∧ v 1 ^ 2 + v 2 ^ 2 + v 3 ^ 2 + v 4 ^ 2 + v 5 ^ 2 ≤ v 0 ^ 2 := by
@@ -444,7 +439,8 @@ theorem gSq_symm_value :
     prodEffVal (sharpEff z5) (sharpEff (-x5)) (gSq.symm (prodState z5 x5)) = -1 / 2 := by
   rw [prodEffVal_sharp, sharpVec_z5, sharpVec_negx5]
   simp +decide [pairVal, sum_univ_six', gSq_symm_apply, gSqInvFun_apply, sqWi, sqPc, sqPt, sqCls,
-    sqSig, perm5, odd5, prodState_apply, x5, z5] <;> norm_num
+    sqSig, perm5, odd5, prodState_apply, x5, z5]
+  norm_num
 
 theorem gSq_symm_not_mem_maxCone : gSq.symm (prodState z5 x5) ∉ maxCone (eball 5) := fun h => by
   have hv := h _ _ (sharpEff_isEffectOn z5_unit) (sharpEff_isEffectOn negx5_unit)
@@ -480,9 +476,7 @@ definitionally; `LinearEquiv.symm_symm` is the fallback). -/
 theorem gSqInv_posInv :
     ∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm.symm (prodState x y) ∈ maxCone (eball 5) := by
   intro x hx y hy
-  first
-    | exact gSq_posFwd x hx y hy
-    | (rw [LinearEquiv.symm_symm]; exact gSq_posFwd x hx y hy) -- MATHLIB-NAME-UNVERIFIED
+  exact gSq_posFwd x hx y hy
 
 /-- **Inverse positivity does not imply forward positivity** under the NOT, the frame and the two
 relations at `d = 5`: the inverse of the squeezed gate. -/
@@ -553,13 +547,15 @@ theorem gCtl_value :
     prodEffVal (sharpEff x5) (sharpEff (-e5b)) (gCtlFun (prodState x5 e5b)) = -1 / 40 := by
   rw [prodEffVal_sharp, sharpVec_x5, sharpVec_nege5b]
   simp +decide [pairVal, sum_univ_six', gCtlFun_apply, sqR, sqPc, sqPt, sqCls, sqSig, perm5, odd5,
-    prodState_apply, x5, e5b] <;> norm_num
+    prodState_apply, x5, e5b]
+  norm_num
 
 /-- With the squeeze the same test pairs to `9/80`. -/
 theorem gSq_ctl_test_value :
     prodEffVal (sharpEff x5) (sharpEff (-e5b)) (gSq (prodState x5 e5b)) = 9 / 80 := by
   rw [prodEffVal_sharp, pairVal_gSq_prodState, sharpVec_x5, sharpVec_nege5b]
-  simp +decide [x5, e5b] <;> norm_num
+  simp +decide [x5, e5b]
+  norm_num
 
 /-- **Countercontrol.** Without the squeeze, forward positivity fails. -/
 theorem gCtl_not_posFwd :

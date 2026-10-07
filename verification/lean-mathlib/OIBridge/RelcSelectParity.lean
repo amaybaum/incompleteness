@@ -230,8 +230,8 @@ noncomputable def relCSplitEven {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)
         (fun u => mem_plusSpace_of_comm_relC hN F.2 u),
       LinearMap.codRestrict (minusSpace N) (F.1 ∘ₗ (minusSpace N).subtype)
         (fun u => mem_minusSpace_of_comm_relC hN F.2 u))
-  map_add' F₁ F₂ := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl)
-  map_smul' c F := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl)
+  map_add' _ _ := Prod.ext (LinearMap.ext fun _ => rfl) (LinearMap.ext fun _ => rfl)
+  map_smul' _ _ := Prod.ext (LinearMap.ext fun _ => rfl) (LinearMap.ext fun _ => rfl)
 
 /-- Restriction of an anticommuting operator to the two eigenspaces of the homogenized NOT. -/
 noncomputable def relCSplitOdd {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) :
@@ -242,8 +242,8 @@ noncomputable def relCSplitOdd {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
         (fun u => mem_minusSpace_of_anticomm_relC hN F.2 u),
       LinearMap.codRestrict (plusSpace N) (F.1 ∘ₗ (minusSpace N).subtype)
         (fun u => mem_plusSpace_of_anticomm_relC hN F.2 u))
-  map_add' F₁ F₂ := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl)
-  map_smul' c F := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl)
+  map_add' _ _ := Prod.ext (LinearMap.ext fun _ => rfl) (LinearMap.ext fun _ => rfl)
+  map_smul' _ _ := Prod.ext (LinearMap.ext fun _ => rfl) (LinearMap.ext fun _ => rfl)
 
 theorem relCSplitEven_injective {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) :
     Function.Injective (relCSplitEven hN) := by
@@ -291,10 +291,8 @@ theorem finrank_ker_relCConj_sub_le {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → 
       ((plusSpace N →ₗ[ℝ] plusSpace N) × (minusSpace N →ₗ[ℝ] minusSpace N))
         = Module.finrank ℝ (plusSpace N) * Module.finrank ℝ (plusSpace N)
           + Module.finrank ℝ (minusSpace N) * Module.finrank ℝ (minusSpace N) := by
-    first
-    | (rw [Module.finrank_prod, Module.finrank_linearMap ℝ ℝ (plusSpace N) (plusSpace N),
-          Module.finrank_linearMap ℝ ℝ (minusSpace N) (minusSpace N)]; done)
-    | (simp only [Module.finrank_prod, Module.finrank_linearMap]; done)
+    rw [Module.finrank_prod, Module.finrank_linearMap ℝ ℝ (plusSpace N) (plusSpace N),
+      Module.finrank_linearMap ℝ ℝ (minusSpace N) (minusSpace N)]
   exact h.trans e.le
 
 /-- The operators anticommuting with `H` have dimension at most `2PQ`. -/
@@ -307,10 +305,8 @@ theorem finrank_ker_relCConj_add_le {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → 
       ((plusSpace N →ₗ[ℝ] minusSpace N) × (minusSpace N →ₗ[ℝ] plusSpace N))
         = Module.finrank ℝ (plusSpace N) * Module.finrank ℝ (minusSpace N)
           + Module.finrank ℝ (minusSpace N) * Module.finrank ℝ (plusSpace N) := by
-    first
-    | (rw [Module.finrank_prod, Module.finrank_linearMap ℝ ℝ (plusSpace N) (minusSpace N),
-          Module.finrank_linearMap ℝ ℝ (minusSpace N) (plusSpace N)]; done)
-    | (simp only [Module.finrank_prod, Module.finrank_linearMap]; done)
+    rw [Module.finrank_prod, Module.finrank_linearMap ℝ ℝ (plusSpace N) (minusSpace N),
+      Module.finrank_linearMap ℝ ℝ (minusSpace N) (plusSpace N)]
   exact h.trans e.le
 
 /-! ### §E — parity from the control relation -/
@@ -324,18 +320,10 @@ theorem balance_of_bounds_relC {n P Q : ℕ} (hn : P + Q = n) (hQ : 1 ≤ Q)
   have e3 : P * Q = Q * P := by ring
   rw [e1] at h1
   rw [e2, e3] at h2
-  -- MATHLIB-NAME-UNVERIFIED (by compile): `Nat.le_of_add_le_add_left` is not used elsewhere in
-  -- OIBridge; it is stated in Lean v4.33.0 core `Init/Data/Nat/Basic.lean`. `linarith` follows.
   have hA : Q * P ≤ Q * Q := by
-    first
-    | exact Nat.le_of_add_le_add_left h1
-    | linarith
-    | nlinarith [h1]
+    exact Nat.le_of_add_le_add_left h1
   have hB : Q * Q ≤ Q * P := by
-    first
-    | exact Nat.le_of_add_le_add_left h2
-    | linarith
-    | nlinarith [h2]
+    exact Nat.le_of_add_le_add_left h2
   exact Nat.eq_of_mul_eq_mul_left hQ (le_antisymm hA hB)
 
 /-- **Parity from the control relation.** The `+1` and `−1` eigenspaces of the homogenized NOT
