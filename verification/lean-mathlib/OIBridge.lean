@@ -259,6 +259,7 @@ import OIBridge.K2Guard
 import OIBridge.SharpTests
 import OIBridge.DenseOrbit
 import OIBridge.ParityNot
+import OIBridge.OddChar
 
 namespace OIBridge
 
