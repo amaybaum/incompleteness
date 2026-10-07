@@ -224,7 +224,7 @@ theorem continuous_sharpVec_apply (μ : Fin (d + 1)) :
 theorem continuous_pairVal_sharp (ω : W d) :
     Continuous fun p : (Fin d → ℝ) × (Fin d → ℝ) => pairVal (sharpVec p.1) (sharpVec p.2) ω := by
   unfold pairVal
-  refine continuous_finset_sum _ fun μ _ => continuous_finset_sum _ fun ν _ => ?_
+  refine continuous_finsetSum _ fun μ _ => continuous_finsetSum _ fun ν _ => ?_
   exact (((continuous_sharpVec_apply μ).comp continuous_fst).mul continuous_const).mul
     ((continuous_sharpVec_apply ν).comp continuous_snd)
 
@@ -249,22 +249,27 @@ theorem maxConeOf_avail_eq_of_dense (hd : 0 < d) (hG : PreservesBody (eball d) G
     have hav : ∀ g ∈ G, sharpEff (g u) ∈ avail := fun g hg => by
       rw [← htr g hg]
       exact hV4 g hg
-    set O := (fun g : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ) => g u) '' G with hO
     have hS : IsClosed {p : (Fin d → ℝ) × (Fin d → ℝ) | 0 ≤ pairVal (sharpVec p.1) (sharpVec p.2) ω} :=
       isClosed_le continuous_const (continuous_pairVal_sharp ω)
-    have hsub : O ×ˢ O ⊆ {p : (Fin d → ℝ) × (Fin d → ℝ) | 0 ≤ pairVal (sharpVec p.1) (sharpVec p.2) ω} := by
+    have hsub : ((fun g : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ) => g u) '' G) ×ˢ
+        ((fun g : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ) => g u) '' G) ⊆
+        {p : (Fin d → ℝ) × (Fin d → ℝ) | 0 ≤ pairVal (sharpVec p.1) (sharpVec p.2) ω} := by
       rintro ⟨_, _⟩ ⟨⟨g, hg, rfl⟩, ⟨g', hg', rfl⟩⟩
       have h := hω _ (hav g hg) _ (hav g' hg')
       rw [prodEffVal_sharp] at h
+      show 0 ≤ pairVal (sharpVec (g u)) (sharpVec (g' u)) ω
       exact h
     show ∀ e ∈ sharpFamily d, ∀ f ∈ sharpFamily d, 0 ≤ prodEffVal e f ω
     rintro e ⟨x, hx, rfl⟩ f ⟨y, hy, rfl⟩
-    have hxy : (x, y) ∈ closure (O ×ˢ O) := by
+    have hxy : (x, y) ∈ closure (((fun g : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ) => g u) '' G) ×ˢ
+        ((fun g : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ) => g u) '' G)) := by
       rw [closure_prod_eq]
       exact ⟨hK u x hbu (isBoundaryState_eball_of_sphere hx),
         hK u y hbu (isBoundaryState_eball_of_sphere hy)⟩
+    have hmem := hS.closure_subset_iff.mpr hsub hxy
+    dsimp only [Set.mem_setOf_eq] at hmem
     rw [prodEffVal_sharp]
-    exact hS.closure_subset_iff.mpr hsub hxy
+    exact hmem
   · rw [← maxConeOf_fullEffects]
     exact maxConeOf_anti fun e he => hE e he
 
@@ -328,11 +333,11 @@ theorem denseBoundaryOrbit_ratRefl : DenseBoundaryOrbit (eball d) (ratRefl d) :=
       linarith
     have hF : reflLin (u - v) u = v := reflLin_swap hu1 hv1 hm0
     have hs2 : Continuous fun m : Fin d → ℝ => ∑ j, m j ^ 2 :=
-      continuous_finset_sum _ fun j _ => (continuous_apply j).pow 2
+      continuous_finsetSum _ fun j _ => (continuous_apply j).pow 2
     have hc : ContinuousAt (fun m : Fin d → ℝ => reflLin m u) (u - v) := by
       show ContinuousAt (fun m : Fin d → ℝ => u - (2 * (∑ j, u j * m j) / ∑ j, m j ^ 2) • m) (u - v)
       have hs1 : Continuous fun m : Fin d → ℝ => ∑ j, u j * m j :=
-        continuous_finset_sum _ fun j _ => continuous_const.mul (continuous_apply j)
+        continuous_finsetSum _ fun j _ => continuous_const.mul (continuous_apply j)
       exact continuousAt_const.sub
         (((continuous_const.mul hs1).continuousAt.div hs2.continuousAt hm0).smul continuousAt_id)
     rw [Metric.mem_closure_iff]
