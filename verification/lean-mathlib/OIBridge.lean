@@ -257,6 +257,7 @@ import OIBridge.EffectSpace
 import OIBridge.K1Bridge
 import OIBridge.K2Guard
 import OIBridge.SharpTests
+import OIBridge.DenseOrbit
 
 namespace OIBridge
 
