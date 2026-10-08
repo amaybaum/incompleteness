@@ -260,6 +260,10 @@ import OIBridge.SharpTests
 import OIBridge.DenseOrbit
 import OIBridge.ParityNot
 import OIBridge.OddChar
+import OIBridge.RelcSelectParity
+import OIBridge.RelcSelectBlock
+import OIBridge.RelcSelectSqueeze
+import OIBridge.RelcSelectC5
 
 namespace OIBridge
 
