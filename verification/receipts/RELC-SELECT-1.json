@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "RELC-SELECT-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "e2426ba4109dcd719d518aefbd3c417b7c6fdc5b",
+ "f": "1003b029b4949516e615cea8fbf0531c0ced583b",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-relc-select-1/preregistration.md",
+   "blob": "7b9c608b1947e24b94007cadb19114abe3c50b2a"
+  }
+ ],
+ "governed_paths_digest": "ccbccb9f5c87ee597fa503dac562588e49350d5d06ab7402157dd60b99207f5b",
+ "e": "7ba0461a47e7b72817b311c2799c3f5f78b6c7b0",
+ "tree_e": "3eda562bfad11d46d1ac3247f8b675b4766d4441",
+ "execution_delta_digest": "927c0f4f6c79a286dbb0487cc3aac61b47737c5319e32081963aac3213fbecc4",
+ "candidates": [],
+ "landing": {
+  "base": "e2426ba4109dcd719d518aefbd3c417b7c6fdc5b",
+  "object": "abe80829748c38064be7e44c3a7ddeb2843db191",
+  "reconciliations": [
+   "abe80829748c38064be7e44c3a7ddeb2843db191"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "b98ba885ad48271acbd32f224e016ef3aaeaf7ae96d6121279751584d76d0388"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "1003b029b4949516e615cea8fbf0531c0ced583b",
+   "record": "https://github.com/amaybaum/incompleteness/pull/805#issuecomment-6052968158"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "1003b029b4949516e615cea8fbf0531c0ced583b",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37727395526"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "7ba0461a47e7b72817b311c2799c3f5f78b6c7b0",
+   "record": "https://github.com/amaybaum/incompleteness/pull/805#issuecomment-6054210214"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "7ba0461a47e7b72817b311c2799c3f5f78b6c7b0",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37734381834"
+  }
+ ]
+}
