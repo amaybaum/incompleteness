@@ -7,7 +7,7 @@
   and a gate `gC5` with `gC5 ∘ gC5 = id` that satisfies `NativeGate`'s frame, target relation,
   forward positivity and inverse positivity, and fails its control relation. So DIM-1's selector
   conclusion `d = 1 ∨ d = 3` does not follow from those four fields and `IsNot` alone
-  (`not_dim_of_relT`).
+  (`relT_not_dimension_selecting`).
 
   The gate is round NB-1's `d = 5` J/K map (control `C5` of NB-1; the `d = 5` member of the REL-T
   family `C_d`). In homogeneous indices `u = 0, x = 1, y = 2, w₁ = 3, w₂ = 4, z = 5` it is the
@@ -385,7 +385,7 @@ theorem not_nativeGate_gC5 : ¬ NativeGate (eball 5) z5 nC5 gC5 :=
 
 /-- **Without the control relation the selector fails**: `IsNot`, the frame, two-sided
 positivity and the target relation do not force `d = 1 ∨ d = 3`. -/
-theorem not_dim_of_relT :
+theorem relT_not_dimension_selecting :
     ¬ ∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
       IsNot (eball d) z N →
       (∀ a b : Fin 2,
@@ -412,4 +412,4 @@ end OIBridge
 #print axioms OIBridge.RelcSelect.gC5_posInv
 #print axioms OIBridge.RelcSelect.c5_sep
 #print axioms OIBridge.RelcSelect.not_nativeGate_gC5
-#print axioms OIBridge.RelcSelect.not_dim_of_relT
+#print axioms OIBridge.RelcSelect.relT_not_dimension_selecting

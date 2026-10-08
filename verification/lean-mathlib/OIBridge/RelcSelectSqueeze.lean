@@ -11,7 +11,7 @@
   `not_nativeGate_gSqInv`).
 
   §A  Transfer of the frame and the two relations from `G` to `G.symm`, for every `d`, `N`, `G`
-      with `IsNot` (`frame_symm`, `relT_symm`, `relC_symm`, `gateRel_symm`).
+      with `IsNot` (`frame_symm`, `relT_symm`, `relC_symm_of_relT`, `gateRel_symm`).
   §B  The gate as a weighted involutive index permutation: entry `(m, n)` of `gSq ω` is
       `sqW m n * ω (sqPc m n) (sqPt m n)`; the inverse has weights `sqWi`.
   §C  Frame and relations.
@@ -20,8 +20,6 @@
       five real-variable lemmas (`rsq_cs4`, `rsq_ab`, `rsq_s`, `rsq_key`, `rsq_assemble`).
   §E  Inverse positivity fails: an exact value `−1/2` with two sharp effects (`gSq_symm_value`).
   §F  Packaged statements.
-  §G  Countercontrol: the same `G_ε` without the squeeze (`λ = 1`) fails forward positivity, value
-      `−1/40` (`gCtl_value`); the squeezed gate gives `9/80` on the same test (`gSq_ctl_test_value`).
 -/
 import OIBridge.OddChar
 
@@ -60,7 +58,7 @@ theorem relT_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d →
   rw [hc, G.apply_symm_apply, G.apply_symm_apply, actT_actT hN.invol]
 
 /-- The target and the control relation of `G` give the control relation of `G.symm`. -/
-theorem relC_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+theorem relC_symm_of_relT {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot Ω z N) (hT : ∀ ω, actT N (G (actT N ω)) = G ω)
     (hC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)) :
     ∀ ω, actC N (G.symm (actC N ω)) = actT N (G.symm ω) := by
@@ -79,7 +77,7 @@ theorem relC_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d →
 
 theorem gateRel_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot Ω z N) (hR : GateRel N G) : GateRel N G.symm :=
-  ⟨relT_symm hN hR.relT, relC_symm hN hR.relT hR.relC⟩
+  ⟨relT_symm hN hR.relT, relC_symm_of_relT hN hR.relT hR.relC⟩
 
 /-! ### §B — the squeezed gate at `d = 5` -/
 
@@ -471,13 +469,6 @@ theorem gSq_sep :
       ∧ ¬ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5)) :=
   ⟨isNot_n5, gSq_frame, gateRel_gSq, gSq_posFwd, gSq_not_posInv⟩
 
-/-- Inverse positivity of `gSq.symm` is forward positivity of `gSq` (`gSq.symm.symm = gSq`
-definitionally; `LinearEquiv.symm_symm` is the fallback). -/
-theorem gSqInv_posInv :
-    ∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm.symm (prodState x y) ∈ maxCone (eball 5) := by
-  intro x hx y hy
-  exact gSq_posFwd x hx y hy
-
 /-- **Inverse positivity does not imply forward positivity** under the NOT, the frame and the two
 relations at `d = 5`: the inverse of the squeezed gate. -/
 theorem gSqInv_sep :
@@ -486,91 +477,16 @@ theorem gSqInv_sep :
           gSq.symm (prodState (corner z5 a) (corner z5 b))
             = prodState (corner z5 a) (corner z5 (a + b)))
       ∧ GateRel n5 gSq.symm
-      ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm.symm (prodState x y) ∈ maxCone (eball 5))
+      ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq (prodState x y) ∈ maxCone (eball 5))
       ∧ ¬ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5)) :=
-  ⟨isNot_n5, frame_symm gSq_frame, gateRel_symm isNot_n5 gateRel_gSq, gSqInv_posInv,
-    gSq_not_posInv⟩
-
-/-! ### §G — countercontrol: the same `G_ε` without the squeeze -/
-
-/-- `G_ε` with `λ = 1` (no squeeze), as a function. -/
-noncomputable def gCtlFun (ω : W 5) : W 5 := fun m n => sqR m * ω (sqPc m n) (sqPt m n)
-
-theorem gCtlFun_apply (ω : W 5) (m n : Fin 6) :
-    gCtlFun ω m n = sqR m * ω (sqPc m n) (sqPt m n) := rfl
-
-/-- The second axis of `eball 5`. -/
-def e5b : Fin 5 → ℝ := fun i => if i = 1 then 1 else 0
-
-theorem e5b_unit : ∑ j, e5b j ^ 2 = 1 := by
-  rw [Fin.sum_univ_five]
-  simp [e5b]
-
-theorem nege5b_unit : ∑ j, (-e5b) j ^ 2 = 1 := by
-  rw [sum_neg_sq]
-  exact e5b_unit
-
-theorem sharpVec_x5 : sharpVec x5 = fun μ : Fin (5 + 1) =>
-    if μ = 0 then 1 / 2 else if μ = 1 then 1 / 2 else 0 := by
-  funext i
-  fin_cases i
-  · rfl
-  · show x5 0 / 2 = 1 / 2
-    simp [x5]
-  · show x5 1 / 2 = 0
-    simp [x5]
-  · show x5 2 / 2 = 0
-    simp [x5]
-  · show x5 3 / 2 = 0
-    simp [x5]
-  · show x5 4 / 2 = 0
-    simp [x5]
-
-theorem sharpVec_nege5b : sharpVec (-e5b) = fun μ : Fin (5 + 1) =>
-    if μ = 0 then 1 / 2 else if μ = 2 then -1 / 2 else 0 := by
-  funext i
-  fin_cases i
-  · rfl
-  · show -e5b 0 / 2 = 0
-    simp [e5b]
-  · show -e5b 1 / 2 = -1 / 2
-    simp [e5b]
-  · show -e5b 2 / 2 = 0
-    simp [e5b]
-  · show -e5b 3 / 2 = 0
-    simp [e5b]
-  · show -e5b 4 / 2 = 0
-    simp [e5b]
-
-/-- Without the squeeze the image of `(e₁, e₂)` pairs to `−ε/4 = −1/40`. -/
-theorem gCtl_value :
-    prodEffVal (sharpEff x5) (sharpEff (-e5b)) (gCtlFun (prodState x5 e5b)) = -1 / 40 := by
-  rw [prodEffVal_sharp, sharpVec_x5, sharpVec_nege5b]
-  simp +decide [pairVal, sum_univ_six', gCtlFun_apply, sqR, sqPc, sqPt, sqCls, sqSig, perm5, odd5,
-    prodState_apply, x5, e5b]
-  norm_num
-
-/-- With the squeeze the same test pairs to `9/80`. -/
-theorem gSq_ctl_test_value :
-    prodEffVal (sharpEff x5) (sharpEff (-e5b)) (gSq (prodState x5 e5b)) = 9 / 80 := by
-  rw [prodEffVal_sharp, pairVal_gSq_prodState, sharpVec_x5, sharpVec_nege5b]
-  simp +decide [x5, e5b]
-  norm_num
-
-/-- **Countercontrol.** Without the squeeze, forward positivity fails. -/
-theorem gCtl_not_posFwd :
-    ¬ ∀ x ∈ eball 5, ∀ y ∈ eball 5, gCtlFun (prodState x y) ∈ maxCone (eball 5) := fun h => by
-  have hm := h _ x5_mem _ (mem_eball_of_sphere e5b_unit)
-  have hv := hm _ _ (sharpEff_isEffectOn x5_unit) (sharpEff_isEffectOn nege5b_unit)
-  rw [gCtl_value] at hv
-  norm_num at hv
+  ⟨isNot_n5, frame_symm gSq_frame, gateRel_symm isNot_n5 gateRel_gSq, gSq_posFwd, gSq_not_posInv⟩
 
 end RelcSelect
 end OIBridge
 
 #print axioms OIBridge.RelcSelect.frame_symm
 #print axioms OIBridge.RelcSelect.relT_symm
-#print axioms OIBridge.RelcSelect.relC_symm
+#print axioms OIBridge.RelcSelect.relC_symm_of_relT
 #print axioms OIBridge.RelcSelect.gateRel_symm
 #print axioms OIBridge.RelcSelect.gSq_frame
 #print axioms OIBridge.RelcSelect.gateRel_gSq
@@ -581,9 +497,5 @@ end OIBridge
 #print axioms OIBridge.RelcSelect.gSq_not_posInv
 #print axioms OIBridge.RelcSelect.not_nativeGate_gSq
 #print axioms OIBridge.RelcSelect.not_nativeGate_gSqInv
-#print axioms OIBridge.RelcSelect.gSqInv_posInv
 #print axioms OIBridge.RelcSelect.gSq_sep
 #print axioms OIBridge.RelcSelect.gSqInv_sep
-#print axioms OIBridge.RelcSelect.gCtl_value
-#print axioms OIBridge.RelcSelect.gSq_ctl_test_value
-#print axioms OIBridge.RelcSelect.gCtl_not_posFwd
