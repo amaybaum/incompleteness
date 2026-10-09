@@ -156,8 +156,10 @@ It does **not** show that `hgate` can be removed from the theorem. `M_D` refutes
   - a completed body is closed by definition [K `body_isClosed`];
   - an operation datum with an inverse datum induces a body-preserving affine equivalence of the chart
     [K `preservesBody_inducedEquiv`].
-  - Both are stated for one `DirectedStages`. The landed directed systems are `badD` and `bitTower`
-    (`StageCompletion`) and `midD` (`CompletionAction`), each a system of one copy's stages.
+  - Both are stated for one `DirectedStages`. The only `DirectedStages` values at `bcbc516f` are `badD`, `bitTower`
+    (`StageCompletion`) and `midD` (`CompletionAction`): the two bad stages, the constant classical-bit tower and the
+    constant midpoint stage. Every other mention of the type is the structure, its attribute line, COMP-1's docstring
+    or a binder over a generic system (the exact census of all 29 mentions is in `round-draft/controls.py`).
   - COMP-1's module header excludes the stage-level product of two `DirectedStages`.
   - No landed declaration builds a directed system for a pair, an operation datum for a pair gate, or a map from `W 3`
     to a completion chart.
