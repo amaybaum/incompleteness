@@ -3,10 +3,11 @@
   of the package KT(4; 01|23, 02|13) → IE₁: the identification of each pair cone with `Q3` or its
   twin, and the realization witnesses.
 
-  Every `sorry` here is an open proof obligation and is the whole proof of its theorem. No module
-  imports this file, so no proof of the Pauli-free route (`FourCopyCore` through
-  `FourCopyHeadline`) depends on it. A theorem below whose proof is written out composes other
-  statements and inherits their open obligations; `#print axioms` at the end reports which.
+  Every `sorry` here is an open proof obligation and is the whole proof of its theorem. No
+  FourCopy module imports this file (only the library root `OIBridge.lean` does), so no proof of
+  the Pauli-free route (`FourCopyCore` through `FourCopyHeadline`) depends on it. A theorem below
+  whose proof is written out composes other statements and inherits their open obligations;
+  `#print axioms` at the end reports `sorryAx` for each such theorem that still rests on one.
 
   `kt4_forward` takes the four-copy data as `KT4`: two COMP-1 pre-composites (`PreComposite`: the
   interface fields other than local tomography), one body, and the four-token coherence clause

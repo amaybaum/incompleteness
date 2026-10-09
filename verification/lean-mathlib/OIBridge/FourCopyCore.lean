@@ -1,7 +1,8 @@
 /-
   OIBridge/FourCopyCore.lean — design (EQ4-F), not adopted: the Pauli-free vocabulary of the
-  four-copy package KT(4; 01|23, 02|13) → IE₁ ∧ parity. Definitions only: every proof obligation
-  of the package lives in another module. No complex number, Pauli matrix or PSD cone appears.
+  four-copy package KT(4; 01|23, 02|13) → IE₁ ∧ parity. Definitions, and Lemma R at target `01`
+  (`FourCopyCoherent.target01`); every other proof obligation of the package lives in another
+  module. No complex number, Pauli matrix or PSD cone appears.
 
   * the four-copy contraction `fourVal` and Lemma R's interface form `PairLinked`;
   * the COMP-1 chart of a pair body (`flatW`, `pairBody`, `tabCoord`, `tabEff`);

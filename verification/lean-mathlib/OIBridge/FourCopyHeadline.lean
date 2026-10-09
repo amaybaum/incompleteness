@@ -1,8 +1,8 @@
 /-
   OIBridge/FourCopyHeadline.lean — design (EQ4-F), not adopted: the Pauli-free headline
   KT(4; 01|23, 02|13) → IE₁ ∧ parity. The proofs here are assemblies: they add no `sorry` of
-  their own, and `#print axioms` reports, through the exposed sub-lemmas of `FourCopyIE1.lean`,
-  exactly which open obligations each result still rests on.
+  their own, and `#print axioms` reports `sorryAx` for a result exactly when it still rests on an
+  open sub-lemma of `FourCopyIE1.lean`.
 
   * G13 (`ie1_all`): IE₁ for every pair, from the cross relation, the rotation links and the
     invariance lemmas at targets `01` and `02`.

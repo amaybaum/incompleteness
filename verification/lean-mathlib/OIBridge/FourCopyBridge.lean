@@ -147,12 +147,9 @@ theorem bilin_tabEff {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
       ∑ a, ∑ c, ∑ b, ∑ d, E a c * F b d * D (tabCoord a c) (tabCoord b d) ω := by
   simp only [tabEff, map_sum, LinearMap.map_smul, LinearMap.sum_apply, LinearMap.smul_apply,
     affine_sum_apply, AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul]
-  first
-    | (rw [sum4_swap]; exact Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun c _ =>
-        Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun d _ => by ring1)
-    | (exact Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun c _ =>
-        Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun d _ => by ring1)
-    | (simp only [sum_univ_four']; ring1)
+  rw [sum4_swap]
+  exact Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun c _ =>
+    Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun d _ => by ring1
 
 /-! ### §D — O21: dual-cone tables are effects up to a positive scale -/
 

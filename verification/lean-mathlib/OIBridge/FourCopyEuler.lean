@@ -44,12 +44,12 @@ theorem cycEquiv_symm_apply' (v : Fin 3 → ℝ) : cycEquiv.symm v = ![v 1, v 2,
 theorem toMatrix'_rot3 (t : ℝ) : LinearMap.toMatrix' ((rot3 t).linear : E3) = Rz t := by
   ext i j
   rw [LinearMap.toMatrix'_apply, rot3_linear_apply]
-  fin_cases i <;> fin_cases j <;> simp +decide [rotFun, Rz, Pi.single_apply]
+  fin_cases i <;> fin_cases j <;> simp +decide [rotFun, Rz]
 
 theorem toMatrix'_rotX (t : ℝ) : LinearMap.toMatrix' ((rotX t).linear : E3) = Rx t := by
   ext i j
   rw [LinearMap.toMatrix'_apply, rotX_linear_apply, cycEquiv_apply', cycEquiv_symm_apply']
-  fin_cases i <;> fin_cases j <;> simp +decide [rotFun, Rx, Pi.single_apply]
+  fin_cases i <;> fin_cases j <;> simp +decide [rotFun, Rx]
 
 theorem Rz_mem (t : ℝ) : Rz t ∈ Matrix.specialOrthogonalGroup (Fin 3) ℝ := by
   rw [Matrix.mem_specialOrthogonalGroup_iff, Matrix.mem_orthogonalGroup_iff]
@@ -167,8 +167,7 @@ theorem so3_euler {R : E3} (hR : IsRot3 R) :
     intro i
     rw [← hGtG, ← hS]
     simp only [Matrix.mul_apply, Matrix.transpose_apply, hGcol]
-  obtain ⟨φ, hφ⟩ := stab_matrix hSmem (by simp [hS2, Matrix.one_apply])
-    (by simp [hS2, Matrix.one_apply]) (by simp [hS2, Matrix.one_apply])
+  obtain ⟨φ, hφ⟩ := stab_matrix hSmem (by simp [hS2]) (by simp [hS2]) (by simp [hS2])
   refine ⟨ψ, θ, φ, ?_⟩
   apply LinearMap.toMatrix'.injective
   rw [LinearMap.toMatrix'_comp, LinearMap.toMatrix'_comp, toMatrix'_rot3, toMatrix'_rotX,

@@ -2,8 +2,12 @@
   OIBridge/FourCopyIE1.lean — design (EQ4-F), not adopted: the exposed sub-lemmas of the
   Pauli-free route KT(4) → IE₁ ∧ parity (DEPGRAPH §4.1). This file holds every `sorry` of that
   route: each open sub-lemma below is one placeholder, and the assembly in
-  `FourCopyHeadline.lean` composes them without further `sorry`. The lemmas whose proofs are
-  written out here are complete. No complex number, Pauli matrix or PSD cone is used.
+  `FourCopyHeadline.lean` composes them without further `sorry`. No complex number, Pauli matrix
+  or PSD cone is used.
+
+  Proved here: G5, G9a–G9d, G10, G10′, G11, G12, G12′ and G14a, with the rotation facts they
+  read. Open, one placeholder each: G6 (`cross_rel_symm`, read by the classification only), G7
+  (`link_mem`) and its two table identities G7(ii) and G7(iii), and G14b (`parity_witnesses`).
 
   * G5, G6: the cross relations `K = Θ '' K'*` and `K' = Θ⁻¹ '' K*` for a target in the form of
     Lemma R (`PairLinked`), from Bell tables in the link cones and in their duals.
@@ -13,13 +17,16 @@
     the conjugated rotation words carried by the links.
   * G10: the conjugated words generate the rotations (Euler, O39).
   * G11: inclusion under every rotation gives image equality.
-  * G12: IE₁ of a closed convex cone and of its dual are equivalent.
+  * G12: IE₁ passes to the dual cone; for a cone equal to its bidual it passes back.
   * G14: Lemma P with its four memberships as hypotheses (`kt4_parity_of_witnesses`, complete),
     and the reduction of the witnesses to memberships under IE₁ (`parity_witnesses`).
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.FourCopyCore
+import OIBridge.FourCopyLocal
+import OIBridge.FourCopyEuler
+import OIBridge.FourCopyTables
 
 namespace OIBridge
 namespace FourCopy
@@ -29,6 +36,58 @@ open Set CompositeDimension K2Guard EffectSpace KInfFoundations TransitiveBody O
 noncomputable section
 
 local notation "E3" => ((Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
+
+/-! ### Rotation facts -/
+
+theorem isOrth3_of_isRot3 {R : E3} (hR : IsRot3 R) : IsOrth3 R := by
+  unfold IsRot3 at hR
+  unfold IsOrth3
+  exact (Matrix.mem_specialOrthogonalGroup_iff.1 hR).1
+
+theorem isRot3_trn {R : E3} (hR : IsRot3 R) : IsRot3 (trn R) := by
+  unfold IsRot3 at hR ⊢
+  rw [toMatrix'_trn]
+  obtain ⟨hO, hdet⟩ := Matrix.mem_specialOrthogonalGroup_iff.1 hR
+  rw [Matrix.mem_specialOrthogonalGroup_iff, Matrix.mem_orthogonalGroup_iff,
+    Matrix.transpose_transpose, Matrix.det_transpose]
+  exact ⟨(Matrix.mem_orthogonalGroup_iff' _ _).1 hO, hdet⟩
+
+/-- The conjugate of a rotation by an orthogonal map is a rotation. -/
+theorem isRot3_conj {A R : E3} (hA : IsOrth3 A) (hR : IsRot3 R) :
+    IsRot3 (trn A ∘ₗ R ∘ₗ A) := by
+  unfold IsRot3 at hR ⊢
+  unfold IsOrth3 at hA
+  rw [LinearMap.toMatrix'_comp, LinearMap.toMatrix'_comp, toMatrix'_trn]
+  obtain ⟨hRO, hRdet⟩ := Matrix.mem_specialOrthogonalGroup_iff.1 hR
+  have hAtA := (Matrix.mem_orthogonalGroup_iff' _ _).1 hA
+  have hd : (LinearMap.toMatrix' A).det * (LinearMap.toMatrix' A).det = 1 := by
+    have h := congrArg Matrix.det hAtA
+    rwa [Matrix.det_mul, Matrix.det_transpose, Matrix.det_one] at h
+  rw [Matrix.mem_specialOrthogonalGroup_iff]
+  refine ⟨Submonoid.mul_mem _ ?_ (Submonoid.mul_mem _ hRO hA), ?_⟩
+  · rw [Matrix.mem_orthogonalGroup_iff, Matrix.transpose_transpose]
+    exact hAtA
+  · rw [Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, hRdet]
+    linear_combination hd
+
+theorem rotX_zero_apply (v : Fin 3 → ℝ) : ((rotX 0).linear : E3) v = v := by
+  rw [rotX_linear_apply, rotFun_zero, LinearEquiv.apply_symm_apply]
+
+theorem trn_rot3 (t : ℝ) : trn ((rot3 t).linear : E3) = ((rot3 (-t)).linear : E3) := by
+  apply LinearMap.toMatrix'.injective
+  rw [toMatrix'_trn, toMatrix'_rot3, toMatrix'_rot3]
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp [Rz]
+
+theorem trn_rotX (t : ℝ) : trn ((rotX t).linear : E3) = ((rotX (-t)).linear : E3) := by
+  apply LinearMap.toMatrix'.injective
+  rw [toMatrix'_trn, toMatrix'_rotX, toMatrix'_rotX]
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp [Rx]
+
+/-- The transpose of a reversed word is a word. -/
+theorem trn_rotWord' (a b : ℝ) : trn (rotWord' a b) = rotWord (-a) (-b) := by
+  rw [rotWord', rotWord, trn_comp, trn_rot3, trn_rotX]
 
 /-! ### G5, G6 — the cross relations -/
 
@@ -40,7 +99,18 @@ theorem cross_rel {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
     (h3 : IsOrth3 Ab) (h4 : IsOrth3 Bb) (sa : bellOf Aa Ba ∈ La) (sb : bellOf Ab Bb ∈ Lb)
     (ea : bellOf Aa Ba ∈ dualW La) (eb : bellOf Ab Bb ∈ dualW Lb) :
     K = Theta Aa Ba Ab Bb '' dualW K' := by
-  sorry
+  apply Set.Subset.antisymm
+  · intro X hX
+    refine ⟨ThetaInv Aa Ba Ab Bb X, mem_dualW.2 fun Y hY => ?_, Theta_ThetaInv h1 h2 h3 h4 X⟩
+    have h5 := Theta_ipW h1 h2 h3 h4 (ThetaInv Aa Ba Ab Bb X) Y
+    rw [Theta_ThetaInv h1 h2 h3 h4] at h5
+    rw [← h5]
+    exact h.upper X hX Y hY _ ea _ eb
+  · rintro _ ⟨f, hf, rfl⟩
+    rw [← hbi]
+    refine mem_dualW.2 fun e he => ?_
+    rw [ipW_comm]
+    exact h.lower _ sa _ sb e he f hf
 
 /-- **G6.** The partner cone is the Θ⁻¹-image of the target's dual. Read by the classification
 (the squeeze), not by `kt4_general_ie1`. -/
@@ -81,7 +151,13 @@ theorem inv_left_ctrl {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
     (hKΘ : K = Theta Aa Ba Ab Bb '' dualW K') {M : E3}
     (hL : actC (Aa ∘ₗ M) (actT Ba phiW) ∈ La) (hb : bellOf Ab Bb ∈ Lb) :
     ∀ X ∈ K, actC (Aa ∘ₗ M ∘ₗ trn Aa) X ∈ K := by
-  sorry
+  intro X hX
+  rw [hKΘ] at hX
+  obtain ⟨f, hf, rfl⟩ := hX
+  rw [← hbi]
+  refine mem_dualW.2 fun e he => ?_
+  rw [ipW_comm, ← link_left_ctrl hA]
+  exact h.lower _ hL _ hb e he f hf
 
 /-- **G9b.** A control-side link on the right: invariance on the second token. -/
 theorem inv_right_ctrl {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
@@ -89,7 +165,13 @@ theorem inv_right_ctrl {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
     (hKΘ : K = Theta Aa Ba Ab Bb '' dualW K') {M : E3}
     (ha : bellOf Aa Ba ∈ La) (hL : actC (Ab ∘ₗ M) (actT Bb phiW) ∈ Lb) :
     ∀ X ∈ K, actT (Ab ∘ₗ M ∘ₗ trn Ab) X ∈ K := by
-  sorry
+  intro X hX
+  rw [hKΘ] at hX
+  obtain ⟨f, hf, rfl⟩ := hX
+  rw [← hbi]
+  refine mem_dualW.2 fun e he => ?_
+  rw [ipW_comm, ← link_right_ctrl Aa Ba hA]
+  exact h.lower _ ha _ hL e he f hf
 
 /-- **G9c.** A target-side link on the left: the partner's dual is invariant under the
 conjugated map `Ba · Mᵀ · Baᵀ` on its first token. -/
@@ -98,7 +180,18 @@ theorem inv_left_partner {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
     (h3 : IsOrth3 Ab) (h4 : IsOrth3 Bb) (hKΘ : K = Theta Aa Ba Ab Bb '' dualW K') {M : E3}
     (hL : actC Aa (actT (Ba ∘ₗ M) phiW) ∈ La) (hb : bellOf Ab Bb ∈ Lb) :
     ∀ f ∈ dualW K', actC (Ba ∘ₗ trn M ∘ₗ trn Ba) f ∈ dualW K' := by
-  sorry
+  intro f hf
+  have hmem : Theta Aa Ba Ab Bb (actC (Ba ∘ₗ trn M ∘ₗ trn Ba) f) ∈ K := by
+    rw [← hbi]
+    refine mem_dualW.2 fun e he => ?_
+    rw [ipW_comm, ← link_left_target Aa h2]
+    exact h.lower _ hL _ hb e he f hf
+  rw [hKΘ] at hmem
+  obtain ⟨g, hg, hgeq⟩ := hmem
+  have hinj := congrArg (ThetaInv Aa Ba Ab Bb) hgeq
+  rw [ThetaInv_Theta h1 h2 h3 h4, ThetaInv_Theta h1 h2 h3 h4] at hinj
+  rw [← hinj]
+  exact hg
 
 /-- **G9d.** A target-side link on the right: invariance of the partner's dual on its second
 token. -/
@@ -107,7 +200,18 @@ theorem inv_right_partner {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
     (h3 : IsOrth3 Ab) (h4 : IsOrth3 Bb) (hKΘ : K = Theta Aa Ba Ab Bb '' dualW K') {M : E3}
     (ha : bellOf Aa Ba ∈ La) (hL : actC Ab (actT (Bb ∘ₗ M) phiW) ∈ Lb) :
     ∀ f ∈ dualW K', actT (Bb ∘ₗ trn M ∘ₗ trn Bb) f ∈ dualW K' := by
-  sorry
+  intro f hf
+  have hmem : Theta Aa Ba Ab Bb (actT (Bb ∘ₗ trn M ∘ₗ trn Bb) f) ∈ K := by
+    rw [← hbi]
+    refine mem_dualW.2 fun e he => ?_
+    rw [ipW_comm, ← link_right_target Aa Ba Ab h4]
+    exact h.lower _ ha _ hL e he f hf
+  rw [hKΘ] at hmem
+  obtain ⟨g, hg, hgeq⟩ := hmem
+  have hinj := congrArg (ThetaInv Aa Ba Ab Bb) hgeq
+  rw [ThetaInv_Theta h1 h2 h3 h4, ThetaInv_Theta h1 h2 h3 h4] at hinj
+  rw [← hinj]
+  exact hg
 
 /-! ### G10, G11, G12 — from the words to IE₁ -/
 
@@ -116,23 +220,57 @@ theorem inv_right_partner {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
 theorem rot_of_words {P : E3 → Prop} (hmul : ∀ M N, P M → P N → P (M ∘ₗ N)) {A : E3}
     (hA : IsOrth3 A) (hgen : ∀ a b : ℝ, P (A ∘ₗ rotWord a b ∘ₗ trn A)) :
     ∀ R, IsRot3 R → P R := by
-  sorry
+  intro R hR
+  obtain ⟨ψ, θ, φ, hE⟩ := so3_euler (isRot3_conj hA hR)
+  have key : R = (A ∘ₗ rotWord ψ θ ∘ₗ trn A) ∘ₗ (A ∘ₗ rotWord φ 0 ∘ₗ trn A) := by
+    refine LinearMap.ext fun x => ?_
+    have h1 := congrArg (fun F : E3 => A (F (trn A x))) hE
+    simp only [LinearMap.comp_apply, apply_trn_apply hA] at h1
+    simp only [LinearMap.comp_apply, rotWord, trn_apply_apply hA, rotX_zero_apply]
+    exact h1
+  rw [key]
+  exact hmul _ _ (hgen ψ θ) (hgen φ 0)
 
 /-- **G10′.** The same for the transposed reversed words `A · (rotX b · rot3 a)ᵀ · Aᵀ`. -/
 theorem rot_of_words' {P : E3 → Prop} (hmul : ∀ M N, P M → P N → P (M ∘ₗ N)) {A : E3}
     (hA : IsOrth3 A) (hgen : ∀ a b : ℝ, P (A ∘ₗ trn (rotWord' a b) ∘ₗ trn A)) :
-    ∀ R, IsRot3 R → P R := by
-  sorry
+    ∀ R, IsRot3 R → P R :=
+  rot_of_words hmul hA fun a b => by
+    have h := hgen (-a) (-b)
+    rwa [trn_rotWord', neg_neg, neg_neg] at h
 
 /-- **G11.** Inclusion under every rotation gives image equality. -/
 theorem image_eq_of_rot {K : Set (W 3)} {act : E3 → W 3 → W 3}
     (hcomp : ∀ M N ω, act M (act N ω) = act (M ∘ₗ N) ω) (hid : ∀ ω, act LinearMap.id ω = ω)
     (h : ∀ R, IsRot3 R → ∀ ω ∈ K, act R ω ∈ K) : ∀ R, IsRot3 R → act R '' K = K := by
-  sorry
+  intro R hR
+  apply Set.Subset.antisymm
+  · rintro _ ⟨ω, hω, rfl⟩
+    exact h R hR ω hω
+  · intro ω hω
+    refine ⟨act (trn R) ω, h (trn R) (isRot3_trn hR) ω hω, ?_⟩
+    rw [hcomp, comp_trn_self (isOrth3_of_isRot3 hR), hid]
 
 /-- **G12.** IE₁ passes to the dual cone. -/
 theorem ie1_dualW {K : Set (W 3)} (h : IE1 K) : IE1 (dualW K) := by
-  sorry
+  have hC : ∀ R, IsRot3 R → ∀ E ∈ dualW K, actC R E ∈ dualW K := by
+    intro R hR E hE
+    refine mem_dualW.2 fun X hX => ?_
+    have hX' : actC (trn R) X ∈ K := by
+      rw [← (h (trn R) (isRot3_trn hR)).1]
+      exact ⟨X, hX, rfl⟩
+    have h1 := mem_dualW.1 hE _ hX'
+    rwa [ipW_actC, trn_trn] at h1
+  have hT : ∀ R, IsRot3 R → ∀ E ∈ dualW K, actT R E ∈ dualW K := by
+    intro R hR E hE
+    refine mem_dualW.2 fun X hX => ?_
+    have hX' : actT (trn R) X ∈ K := by
+      rw [← (h (trn R) (isRot3_trn hR)).2]
+      exact ⟨X, hX, rfl⟩
+    have h1 := mem_dualW.1 hE _ hX'
+    rwa [ipW_actT, trn_trn] at h1
+  exact fun R hR => ⟨image_eq_of_rot (act := actC) actC_comp actC_id hC R hR,
+    image_eq_of_rot (act := actT) actT_comp actT_id hT R hR⟩
 
 /-- **G12′.** IE₁ of the dual of a cone equal to its bidual gives IE₁ of the cone. -/
 theorem ie1_of_dualW {K : Set (W 3)} (hbi : dualW (dualW K) = K) (h : IE1 (dualW K)) :
@@ -173,6 +311,13 @@ end
 end FourCopy
 end OIBridge
 
+#print axioms OIBridge.FourCopy.isOrth3_of_isRot3
+#print axioms OIBridge.FourCopy.isRot3_trn
+#print axioms OIBridge.FourCopy.isRot3_conj
+#print axioms OIBridge.FourCopy.rotX_zero_apply
+#print axioms OIBridge.FourCopy.trn_rot3
+#print axioms OIBridge.FourCopy.trn_rotX
+#print axioms OIBridge.FourCopy.trn_rotWord'
 #print axioms OIBridge.FourCopy.cross_rel
 #print axioms OIBridge.FourCopy.cross_rel_symm
 #print axioms OIBridge.FourCopy.cnot_prodState_rot

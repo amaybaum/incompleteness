@@ -35,11 +35,7 @@ theorem isClosed_dualW (K : Set (W 3)) : IsClosed (dualW K) := by
   rw [h]
   refine isClosed_biInter fun X _ => isClosed_le continuous_const ?_
   show Continuous fun E : W 3 => ∑ μ, ∑ ν, E μ ν * X μ ν
-  first
-    | fun_prop
-    | (exact continuous_finsetSum _ fun μ _ => continuous_finsetSum _ fun ν _ =>
-        (continuous_apply_apply μ ν).mul continuous_const)
-    | continuity
+  fun_prop
 
 theorem subset_dualW_dualW (K : Set (W 3)) : K ⊆ dualW (dualW K) :=
   fun X hX => mem_dualW.2 fun E hE => by
