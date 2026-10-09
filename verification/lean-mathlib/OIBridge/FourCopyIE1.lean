@@ -1,25 +1,26 @@
 /-
-  OIBridge/FourCopyIE1.lean — design (EQ4-F), not adopted: the exposed sub-lemmas of the
-  Pauli-free route KT(4) → IE₁ ∧ parity (DEPGRAPH §4.1). This file holds every `sorry` of that
-  route: each open sub-lemma below is one placeholder, and the assembly in
-  `FourCopyHeadline.lean` composes them without further `sorry`. No complex number, Pauli matrix
-  or PSD cone is used.
+  OIBridge/FourCopyIE1.lean — design (EQ4-F), not adopted: the sub-lemmas of the Pauli-free route
+  KT(4) → IE₁ ∧ parity, with the helper lemmas they read. No complex number, Pauli matrix or PSD
+  cone is used, and no proof in this file uses `sorry`.
 
-  Proved here: G5, G9a–G9d, G10, G10′, G11, G12, G12′ and G14a, with the rotation facts they
-  read. Open, one placeholder each: G6 (`cross_rel_symm`, read by the classification only), G7
-  (`link_mem`) and its two table identities G7(ii) and G7(iii), and G14b (`parity_witnesses`).
-
+  * Rotation facts: orthogonal maps of determinant `1` are rotations, rotations compose, the
+    generators `rot3 t` and `rotX t` are rotations, the transpose keeps the determinant, and the
+    chart `A · reflY · Bᵀ` has determinant `-(det A · det B)`.
   * G5, G6: the cross relations `K = Θ '' K'*` and `K' = Θ⁻¹ '' K*` for a target in the form of
     Lemma R (`PairLinked`), from Bell tables in the link cones and in their duals.
-  * G7: rotation links: `cnot` on a product of rotated pure states is a rotated Bell table, read
-    on either token; the gate images of products supply them in every pair cone.
+  * G7: rotation links. `cnot` commutes with rotations about the third axis on the control token
+    and about the first axis on the target token; on a product of rotated pure states it gives a
+    rotated Bell table (G7(ii)), which reads the same on either token (G7(iii)); the gate images
+    of products supply these tables in every pair cone (`link_mem`).
   * G9: invariance of a target cone (control side) and of its partner's dual (target side) under
     the conjugated rotation words carried by the links.
   * G10: the conjugated words generate the rotations (Euler, O39).
   * G11: inclusion under every rotation gives image equality.
   * G12: IE₁ passes to the dual cone; for a cone equal to its bidual it passes back.
-  * G14: Lemma P with its four memberships as hypotheses (`kt4_parity_of_witnesses`, complete),
-    and the reduction of the witnesses to memberships under IE₁ (`parity_witnesses`).
+  * G14: Lemma P with its four memberships as hypotheses (`kt4_parity_of_witnesses`), and the
+    witnesses (`parity_witnesses`): a rotation carries the Bell table of the post-locals to the
+    Bell table of the pair's orientation bit, `idW` or `phiW`; the rotation by `π` about the
+    second axis (`rotYpi`) carries the image of `(xplus, z3)` to the image of `(-xplus, -z3)`.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
@@ -89,6 +90,63 @@ theorem trn_rotX (t : ℝ) : trn ((rotX t).linear : E3) = ((rotX (-t)).linear : 
 theorem trn_rotWord' (a b : ℝ) : trn (rotWord' a b) = rotWord (-a) (-b) := by
   rw [rotWord', rotWord, trn_comp, trn_rot3, trn_rotX]
 
+/-- An orthogonal map of determinant `1` is a rotation. -/
+theorem isRot3_of_det {R : E3} (hO : IsOrth3 R) (hd : LinearMap.det R = 1) : IsRot3 R := by
+  unfold IsRot3
+  unfold IsOrth3 at hO
+  rw [Matrix.mem_specialOrthogonalGroup_iff]
+  exact ⟨hO, by rw [LinearMap.det_toMatrix']; exact hd⟩
+
+theorem isRot3_comp {R S : E3} (hR : IsRot3 R) (hS : IsRot3 S) : IsRot3 (R ∘ₗ S) := by
+  unfold IsRot3 at *
+  rw [LinearMap.toMatrix'_comp]
+  exact Submonoid.mul_mem _ hR hS
+
+theorem isRot3_rot3 (t : ℝ) : IsRot3 ((rot3 t).linear : E3) := by
+  unfold IsRot3
+  rw [toMatrix'_rot3]
+  exact Rz_mem t
+
+theorem isRot3_rotX (t : ℝ) : IsRot3 ((rotX t).linear : E3) := by
+  unfold IsRot3
+  rw [toMatrix'_rotX]
+  exact Rx_mem t
+
+theorem det_trn (A : E3) : LinearMap.det (trn A) = LinearMap.det A := by
+  first
+  | rw [trn, LinearMap.det_toLin', Matrix.det_transpose, LinearMap.det_toMatrix']
+  | rw [← LinearMap.det_toMatrix', ← LinearMap.det_toMatrix', toMatrix'_trn, Matrix.det_transpose]
+
+/-- The chart of a Bell table has determinant `-(det A · det B)`. -/
+theorem det_chartOf (A B : E3) :
+    LinearMap.det (chartOf A B) = -(LinearMap.det A * LinearMap.det B) := by
+  rw [chartOf, LinearMap.det_comp, LinearMap.det_comp, det_reflY, det_trn]
+  ring
+
+theorem det_mul_self_of_orth {A : E3} (hA : IsOrth3 A) :
+    LinearMap.det A * LinearMap.det A = 1 := by
+  unfold IsOrth3 at hA
+  have h := congrArg Matrix.det ((Matrix.mem_orthogonalGroup_iff' _ _).1 hA)
+  rw [Matrix.det_mul, Matrix.det_transpose, Matrix.det_one, LinearMap.det_toMatrix'] at h
+  exact h
+
+theorem rot3_eq_linear (t : ℝ) (v : Fin 3 → ℝ) : rot3 t v = ((rot3 t).linear : E3) v := by
+  rw [rot3_apply, rot3_linear_apply]
+
+theorem rotX_eq_linear (t : ℝ) (v : Fin 3 → ℝ) : rotX t v = ((rotX t).linear : E3) v := by
+  first
+  | (rw [rotX_linear_apply, rotX, OrbitNormalization.mul_apply', OrbitNormalization.mul_apply',
+      OrbitNormalization.inv_apply', rot3_apply] <;> rfl)
+  | rfl
+
+theorem rot3_xplus_mem (t : ℝ) : rot3 t xplus ∈ eball 3 := by
+  rw [rot3_eq_linear]
+  exact orth_mem_eball (isOrth3_of_isRot3 (isRot3_rot3 t)) xplus_mem
+
+theorem rotX_z3_mem (t : ℝ) : rotX t z3 ∈ eball 3 := by
+  rw [rotX_eq_linear]
+  exact orth_mem_eball (isOrth3_of_isRot3 (isRot3_rotX t)) z3_mem
+
 /-! ### G5, G6 — the cross relations -/
 
 /-- **G5.** A target cone is the Θ-image of its partner's dual, for Bell tables of orthogonal
@@ -120,18 +178,108 @@ theorem cross_rel_symm {K K' La Lb : Set (W 3)} (h : PairLinked K K' La Lb)
     (sa : bellOf Aa Ba ∈ La) (sb : bellOf Ab Bb ∈ Lb)
     (ea : bellOf Aa Ba ∈ dualW La) (eb : bellOf Ab Bb ∈ dualW Lb) :
     K' = ThetaInv Aa Ba Ab Bb '' dualW K := by
-  sorry
+  have hKΘ := cross_rel h hbi h1 h2 h3 h4 sa sb ea eb
+  apply Set.Subset.antisymm
+  · intro Y hY
+    refine ⟨Theta Aa Ba Ab Bb Y, mem_dualW.2 fun X hX => ?_, ThetaInv_Theta h1 h2 h3 h4 Y⟩
+    rw [hKΘ] at hX
+    obtain ⟨f, hf, rfl⟩ := hX
+    rw [Theta_ipW h1 h2 h3 h4, ipW_comm Y f]
+    exact mem_dualW.1 hf Y hY
+  · rintro _ ⟨E, hE, rfl⟩
+    rw [← hbi']
+    refine mem_dualW.2 fun f hf => ?_
+    have hfK : Theta Aa Ba Ab Bb f ∈ K := by
+      rw [hKΘ]
+      exact ⟨f, hf, rfl⟩
+    have h5 := Theta_ipW h1 h2 h3 h4 f (ThetaInv Aa Ba Ab Bb E)
+    rw [Theta_ThetaInv h1 h2 h3 h4] at h5
+    rw [ipW_comm (ThetaInv Aa Ba Ab Bb E) f, ← h5, ipW_comm (Theta Aa Ba Ab Bb f) E]
+    exact mem_dualW.1 hE _ hfK
 
 /-! ### G7 — rotation links -/
+
+theorem homMap_rot3_one (t : ℝ) (v : HVec 3) :
+    homMap ((rot3 t).linear : E3) v 1 = Real.cos t * v 1 - Real.sin t * v 2 := by
+  first
+  | rfl
+  | exact (homMap_succ ((rot3 t).linear : E3) v 0).trans (rotFun_apply t (Matrix.vecTail v)).1
+
+theorem homMap_rot3_two (t : ℝ) (v : HVec 3) :
+    homMap ((rot3 t).linear : E3) v 2 = Real.sin t * v 1 + Real.cos t * v 2 := by
+  first
+  | rfl
+  | exact (homMap_succ ((rot3 t).linear : E3) v 1).trans (rotFun_apply t (Matrix.vecTail v)).2.1
+
+theorem homMap_rot3_three (t : ℝ) (v : HVec 3) : homMap ((rot3 t).linear : E3) v 3 = v 3 := by
+  first
+  | rfl
+  | exact (homMap_succ ((rot3 t).linear : E3) v 2).trans (rotFun_apply t (Matrix.vecTail v)).2.2
+
+theorem homMap_rotX_one (t : ℝ) (v : HVec 3) : homMap ((rotX t).linear : E3) v 1 = v 1 := by
+  first
+  | rfl
+  | exact (homMap_succ ((rotX t).linear : E3) v 0).trans
+      (rotFun_apply t (cycEquiv.symm (Matrix.vecTail v))).2.2
+
+theorem homMap_rotX_two (t : ℝ) (v : HVec 3) :
+    homMap ((rotX t).linear : E3) v 2 = Real.cos t * v 2 - Real.sin t * v 3 := by
+  first
+  | rfl
+  | exact (homMap_succ ((rotX t).linear : E3) v 1).trans
+      (rotFun_apply t (cycEquiv.symm (Matrix.vecTail v))).1
+
+theorem homMap_rotX_three (t : ℝ) (v : HVec 3) :
+    homMap ((rotX t).linear : E3) v 3 = Real.sin t * v 2 + Real.cos t * v 3 := by
+  first
+  | rfl
+  | exact (homMap_succ ((rotX t).linear : E3) v 2).trans
+      (rotFun_apply t (cycEquiv.symm (Matrix.vecTail v))).2.1
+
+set_option maxHeartbeats 1000000 in
+/-- `cnot` commutes with a rotation about the third axis on the control token. -/
+theorem cnot_actC_rot3 (t : ℝ) (ω : W 3) :
+    cnot (actC ((rot3 t).linear : E3) ω) = actC ((rot3 t).linear : E3) (cnot ω) := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actC_apply, cnot_apply, cnotFun_apply, sgn, pc, pt, homMap_rot3_one,
+      homMap_rot3_two, homMap_rot3_three] <;> ring
+
+set_option maxHeartbeats 1000000 in
+/-- `cnot` commutes with a rotation about the first axis on the target token. -/
+theorem cnot_actT_rotX (t : ℝ) (ω : W 3) :
+    cnot (actT ((rotX t).linear : E3) ω) = actT ((rotX t).linear : E3) (cnot ω) := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actT_apply, cnot_apply, cnotFun_apply, sgn, pc, pt, homMap_rotX_one,
+      homMap_rotX_two, homMap_rotX_three] <;> ring
+
+/-- A rotation about the third axis reads the same on either token of `phiW`. -/
+theorem actT_rot3_phiW (t : ℝ) :
+    actT ((rot3 t).linear : E3) phiW = actC ((rot3 t).linear : E3) phiW := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actT_apply, actC_apply, phiW, homMap_rot3_one, homMap_rot3_two,
+      homMap_rot3_three]
+
+/-- A rotation about the first axis reads the same on either token of `phiW`. -/
+theorem actT_rotX_phiW (t : ℝ) :
+    actT ((rotX t).linear : E3) phiW = actC ((rotX t).linear : E3) phiW := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actT_apply, actC_apply, phiW, homMap_rotX_one, homMap_rotX_two,
+      homMap_rotX_three]
 
 /-- **G7(ii).** `cnot` on a product of rotated pure states is a rotated Bell table. -/
 theorem cnot_prodState_rot (a b : ℝ) :
     cnot (prodState (rot3 a xplus) (rotX b z3)) = actC (rotWord a b) phiW := by
-  sorry
+  rw [rot3_eq_linear, rotX_eq_linear, ← actC_prodState, ← actT_prodState, cnot_actC_rot3,
+    cnot_actT_rotX, cnot_prodState_xplus_z3, actT_rotX_phiW, actC_comp, rotWord]
 
 /-- **G7(iii).** The same table read on the target token. -/
 theorem actC_rotWord_phiW (a b : ℝ) : actC (rotWord a b) phiW = actT (rotWord' a b) phiW := by
-  sorry
+  rw [rotWord', ← actT_comp, actT_rot3_phiW, ← actC_actT_comm, actT_rotX_phiW, actC_comp,
+    rotWord]
 
 /-- **G7.** The links of a pair: gate images of products of the ball, in control-side and
 target-side form. -/
@@ -140,7 +288,14 @@ theorem link_mem {N : W 3 ≃ₗ[ℝ] W 3} {A B A' B' : E3} (hcls : NClass N A B
     (hgate : ∀ ω ∈ K, N ω ∈ K) (a b : ℝ) :
     actC (A ∘ₗ rotWord a b) (actT B phiW) ∈ K ∧
       actC A (actT (B ∘ₗ rotWord' a b) phiW) ∈ K := by
-  sorry
+  have h1 : actC (A ∘ₗ rotWord a b) (actT B phiW) ∈ K := by
+    have hmem := hgate _ (hprod _ (orth_mem_eball (isOrth3_trn hcls.2.2.1) (rot3_xplus_mem a)) _
+      (orth_mem_eball (isOrth3_trn hcls.2.2.2.1) (rotX_z3_mem b)))
+    rw [hcls.apply_prodState, cnot_prodState_rot, ← actC_actT_comm, actC_comp] at hmem
+    exact hmem
+  refine ⟨h1, ?_⟩
+  rw [← actT_comp, ← actC_rotWord_phiW, ← actC_actT_comm, actC_comp]
+  exact h1
 
 /-! ### G9 — invariance carried by the links -/
 
@@ -295,8 +450,81 @@ theorem kt4_parity_of_witnesses {K01 K23 K02 K13 : Set (W 3)} {τ01 τ23 τ02 τ
   revert hv
   cases τ01 <;> cases τ23 <;> cases τ02 <;> cases τ13 <;> norm_num [sgnB, EvenCycle4, Bool.toNat]
 
-/-- **G14b.** Under IE₁ the post-locals of an N-CLASS gate reduce to the reflection charts
-`{I, reflY}`, and Lemma P's witnesses become memberships carrying the pair's orientation bit. -/
+theorem tabMul_idW (X : W 3) : tabMul X idW = X := by
+  rw [idW_eq_dg]
+  funext μ ν
+  fin_cases ν <;> simp [tabMul, dg, sum_univ_four']
+
+theorem actC_reflY_idW : actC reflY idW = phiW := by
+  rw [← tabMul_phiW_left, tabMul_idW]
+
+/-- The Bell table of the post-locals is the identity table in the chart `A · reflY · Bᵀ`. -/
+theorem bellOf_eq_actC (A B : E3) : bellOf A B = actC (chartOf A B) idW := by
+  have h : tabMul (bellOf A B) idW = actC (chartOf A B) idW := by
+    rw [bellOf, tabMul_actC_left, tabMul_actT_left, tabMul_phiW_left, actC_comp, actC_comp,
+      LinearMap.comp_assoc, chartOf]
+  rw [← h, tabMul_idW]
+
+/-- The rotation by `π` about the second axis, `diag(-1, 1, -1)`. -/
+def rotYpi : E3 where
+  toFun x := fun i => (![-1, 1, -1] : Fin 3 → ℝ) i * x i
+  map_add' x y := by funext i; simp only [Pi.add_apply, mul_add]
+  map_smul' c x := by funext i; simp only [Pi.smul_apply, smul_eq_mul, RingHom.id_apply]; ring
+
+theorem rotYpi_apply (x : Fin 3 → ℝ) (i : Fin 3) :
+    rotYpi x i = (![-1, 1, -1] : Fin 3 → ℝ) i * x i := rfl
+
+theorem homMap_rotYpi_one (v : HVec 3) : homMap rotYpi v 1 = -v 1 := by
+  show -1 * v 1 = -v 1; ring
+
+theorem homMap_rotYpi_two (v : HVec 3) : homMap rotYpi v 2 = v 2 := by
+  show 1 * v 2 = v 2; ring
+
+theorem homMap_rotYpi_three (v : HVec 3) : homMap rotYpi v 3 = -v 3 := by
+  show -1 * v 3 = -v 3; ring
+
+theorem rotYpi_eq_toLin' :
+    rotYpi = Matrix.toLin' (Matrix.diagonal (![-1, 1, -1] : Fin 3 → ℝ)) := by
+  refine LinearMap.ext fun x => funext fun i => ?_
+  rw [Matrix.toLin'_apply, Matrix.mulVec_diagonal, rotYpi_apply]
+
+theorem isRot3_rotYpi : IsRot3 rotYpi := by
+  have hO : IsOrth3 rotYpi := by
+    unfold IsOrth3
+    rw [rotYpi_eq_toLin', LinearMap.toMatrix'_toLin', Matrix.mem_orthogonalGroup_iff,
+      Matrix.diagonal_transpose, Matrix.diagonal_mul_diagonal, ← Matrix.diagonal_one]
+    congr 1
+    funext i
+    fin_cases i <;> norm_num
+  refine isRot3_of_det hO ?_
+  rw [rotYpi_eq_toLin', LinearMap.det_toLin', Matrix.det_diagonal, Fin.prod_univ_three]
+  simp
+
+theorem actC_rotYpi_dg (p q r s : ℝ) : actC rotYpi (dg p q r s) = dg p (-q) r (-s) := by
+  funext μ ν
+  fin_cases μ <;> fin_cases ν <;>
+    simp +decide [actC_apply, dg, homMap_rotYpi_one, homMap_rotYpi_two, homMap_rotYpi_three]
+
+/-- `rotYpi` on the control token carries the gate image of `(xplus, z3)` to the gate image of
+`(-xplus, -z3)`. -/
+theorem gateOf_neg_eq (τ : Bool) :
+    gateOf τ (prodState (-xplus) (-z3)) = actC rotYpi (gateOf τ (prodState xplus z3)) := by
+  rw [gateOf_prodState_neg, gateOf_prodState_xplus_z3, actC_rotYpi_dg]
+
+theorem smul_mem_dualW {K : Set (W 3)} {c : ℝ} (hc : 0 ≤ c) {E : W 3} (hE : E ∈ dualW K) :
+    c • E ∈ dualW K :=
+  mem_dualW.2 fun X hX => by
+    rw [ipW_smul_left]
+    exact mul_nonneg hc (mem_dualW.1 hE X hX)
+
+theorem actC_mem_of_ie1 {K : Set (W 3)} (h : IE1 K) {R : E3} (hR : IsRot3 R) {X : W 3}
+    (hX : X ∈ K) : actC R X ∈ K := by
+  rw [← (h R hR).1]
+  exact ⟨X, hX, rfl⟩
+
+/-- **G14b.** Under IE₁ a rotation carries the Bell table of the post-locals of an N-CLASS gate to
+the Bell table of the pair's orientation bit, and Lemma P's witnesses become memberships of the
+cone and, by G12, of its dual. -/
 theorem parity_witnesses {N : W 3 ≃ₗ[ℝ] W 3} {A B A' B' : E3} (hcls : NClass N A B A' B')
     {K : Set (W 3)} (hK : K ⊆ maxCone (eball 3))
     (hprod : ∀ x ∈ eball 3, ∀ y ∈ eball 3, prodState x y ∈ K)
@@ -304,7 +532,44 @@ theorem parity_witnesses {N : W 3 ≃ₗ[ℝ] W 3} {A B A' B' : E3} (hcls : NCla
     gateOf (orient A B) (prodState xplus z3) ∈ K ∧
       gateOf (orient A B) (tens (sharpVec xplus) (sharpVec z3)) ∈ dualW K ∧
       gateOf (orient A B) (tens (sharpVec (-xplus)) (sharpVec (-z3))) ∈ dualW K := by
-  sorry
+  have hA : IsOrth3 A := hcls.1
+  have hB : IsOrth3 B := hcls.2.1
+  have hC : IsOrth3 (chartOf A B) := isOrth3_chartOf hA hB
+  have hbs : bellOf A B ∈ K := bell_mem hcls hprod hgate
+  have hbe : bellOf A B ∈ dualW K := bell_mem_dual hcls hK hinv
+  obtain ⟨R, hR, hRH⟩ : ∃ R : E3, IsRot3 R ∧
+      actC R (bellOf A B) = gateOf (orient A B) (prodState xplus z3) := by
+    by_cases hD : LinearMap.det A * LinearMap.det B = -1
+    · have ho : orient A B = true := decide_eq_true hD
+      rw [ho, gateOf_true, cnotTw_prodState_xplus_z3, bellOf_eq_actC]
+      refine ⟨trn (chartOf A B), isRot3_trn (isRot3_of_det hC ?_), ?_⟩
+      · linarith [det_chartOf A B]
+      · rw [actC_comp, trn_comp_self hC, actC_id]
+    · have ho : orient A B = false := decide_eq_false hD
+      have hsq : (LinearMap.det A * LinearMap.det B - 1) *
+          (LinearMap.det A * LinearMap.det B + 1) = 0 := by
+        linear_combination (LinearMap.det B * LinearMap.det B) * det_mul_self_of_orth hA +
+          det_mul_self_of_orth hB
+      have hD1 : LinearMap.det A * LinearMap.det B = 1 := by
+        rcases mul_eq_zero.1 hsq with h | h
+        · linarith
+        · exact (hD (by linarith)).elim
+      rw [ho, gateOf_false, cnot_prodState_xplus_z3, bellOf_eq_actC]
+      refine ⟨reflY ∘ₗ trn (chartOf A B),
+        isRot3_of_det (isOrth3_comp isOrth3_reflY (isOrth3_trn hC)) ?_, ?_⟩
+      · rw [LinearMap.det_comp, det_reflY, det_trn, det_chartOf, hD1]
+        norm_num
+      · rw [actC_comp, LinearMap.comp_assoc, trn_comp_self hC, LinearMap.comp_id,
+          actC_reflY_idW]
+  have hRd : ∀ S : E3, IsRot3 S → actC S (bellOf A B) ∈ dualW K := fun S hS =>
+    actC_mem_of_ie1 (ie1_dualW hie) hS hbe
+  refine ⟨?_, ?_, ?_⟩
+  · rw [← hRH]
+    exact actC_mem_of_ie1 hie hR hbs
+  · rw [gateOf_sharp, ← hRH]
+    exact smul_mem_dualW (by norm_num) (hRd R hR)
+  · rw [gateOf_sharp, gateOf_neg_eq, ← hRH, actC_comp]
+    exact smul_mem_dualW (by norm_num) (hRd _ (isRot3_comp isRot3_rotYpi hR))
 
 end
 
@@ -318,8 +583,29 @@ end OIBridge
 #print axioms OIBridge.FourCopy.trn_rot3
 #print axioms OIBridge.FourCopy.trn_rotX
 #print axioms OIBridge.FourCopy.trn_rotWord'
+#print axioms OIBridge.FourCopy.isRot3_of_det
+#print axioms OIBridge.FourCopy.isRot3_comp
+#print axioms OIBridge.FourCopy.isRot3_rot3
+#print axioms OIBridge.FourCopy.isRot3_rotX
+#print axioms OIBridge.FourCopy.det_trn
+#print axioms OIBridge.FourCopy.det_chartOf
+#print axioms OIBridge.FourCopy.det_mul_self_of_orth
+#print axioms OIBridge.FourCopy.rot3_eq_linear
+#print axioms OIBridge.FourCopy.rotX_eq_linear
+#print axioms OIBridge.FourCopy.rot3_xplus_mem
+#print axioms OIBridge.FourCopy.rotX_z3_mem
 #print axioms OIBridge.FourCopy.cross_rel
 #print axioms OIBridge.FourCopy.cross_rel_symm
+#print axioms OIBridge.FourCopy.homMap_rot3_one
+#print axioms OIBridge.FourCopy.homMap_rot3_two
+#print axioms OIBridge.FourCopy.homMap_rot3_three
+#print axioms OIBridge.FourCopy.homMap_rotX_one
+#print axioms OIBridge.FourCopy.homMap_rotX_two
+#print axioms OIBridge.FourCopy.homMap_rotX_three
+#print axioms OIBridge.FourCopy.cnot_actC_rot3
+#print axioms OIBridge.FourCopy.cnot_actT_rotX
+#print axioms OIBridge.FourCopy.actT_rot3_phiW
+#print axioms OIBridge.FourCopy.actT_rotX_phiW
 #print axioms OIBridge.FourCopy.cnot_prodState_rot
 #print axioms OIBridge.FourCopy.actC_rotWord_phiW
 #print axioms OIBridge.FourCopy.link_mem
@@ -333,4 +619,18 @@ end OIBridge
 #print axioms OIBridge.FourCopy.ie1_dualW
 #print axioms OIBridge.FourCopy.ie1_of_dualW
 #print axioms OIBridge.FourCopy.kt4_parity_of_witnesses
+#print axioms OIBridge.FourCopy.tabMul_idW
+#print axioms OIBridge.FourCopy.actC_reflY_idW
+#print axioms OIBridge.FourCopy.bellOf_eq_actC
+#print axioms OIBridge.FourCopy.rotYpi
+#print axioms OIBridge.FourCopy.rotYpi_apply
+#print axioms OIBridge.FourCopy.homMap_rotYpi_one
+#print axioms OIBridge.FourCopy.homMap_rotYpi_two
+#print axioms OIBridge.FourCopy.homMap_rotYpi_three
+#print axioms OIBridge.FourCopy.rotYpi_eq_toLin'
+#print axioms OIBridge.FourCopy.isRot3_rotYpi
+#print axioms OIBridge.FourCopy.actC_rotYpi_dg
+#print axioms OIBridge.FourCopy.gateOf_neg_eq
+#print axioms OIBridge.FourCopy.smul_mem_dualW
+#print axioms OIBridge.FourCopy.actC_mem_of_ie1
 #print axioms OIBridge.FourCopy.parity_witnesses
