@@ -264,6 +264,9 @@ import OIBridge.RelcSelectParity
 import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
+import OIBridge.FourCopyDefs
+import OIBridge.FourCopyParity
+import OIBridge.FourCopyPackage
 
 namespace OIBridge
 
