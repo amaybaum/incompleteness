@@ -126,6 +126,19 @@ theorem tabEff_flatW (E ω : W 3) : tabEff E (flatW ω) = ipW E ω := by
   refine Finset.sum_congr rfl fun ν _ => ?_
   rw [AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul, tabCoord_flatW]
 
+/-- Exchange of the two index pairs of a fourfold sum. -/
+theorem sum4_swap (g : Fin (3 + 1) → Fin (3 + 1) → Fin (3 + 1) → Fin (3 + 1) → ℝ) :
+    ∑ a, ∑ c, ∑ b, ∑ d, g a c b d = ∑ b, ∑ d, ∑ a, ∑ c, g a c b d := by
+  calc ∑ a, ∑ c, ∑ b, ∑ d, g a c b d
+      = ∑ a, ∑ b, ∑ c, ∑ d, g a c b d :=
+        Finset.sum_congr rfl fun a _ => Finset.sum_comm
+    _ = ∑ b, ∑ a, ∑ c, ∑ d, g a c b d := Finset.sum_comm
+    _ = ∑ b, ∑ a, ∑ d, ∑ c, g a c b d :=
+        Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun a _ => Finset.sum_comm
+    _ = ∑ b, ∑ d, ∑ a, ∑ c, g a c b d :=
+        Finset.sum_congr rfl fun b _ => Finset.sum_comm
+
+set_option maxHeartbeats 4000000 in
 /-- The expansion of a bilinear product effect on two table functionals. -/
 theorem bilin_tabEff {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
     (D : ((Fin 16 → ℝ) →ᵃ[ℝ] ℝ) →ₗ[ℝ] ((Fin 16 → ℝ) →ᵃ[ℝ] ℝ) →ₗ[ℝ] (V →ᵃ[ℝ] ℝ))
@@ -133,10 +146,13 @@ theorem bilin_tabEff {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
     D (tabEff E) (tabEff F) ω =
       ∑ a, ∑ c, ∑ b, ∑ d, E a c * F b d * D (tabCoord a c) (tabCoord b d) ω := by
   simp only [tabEff, map_sum, LinearMap.map_smul, LinearMap.sum_apply, LinearMap.smul_apply,
-    affine_sum_apply, AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul, Finset.mul_sum]
-  refine Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun c _ =>
-    Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun d _ => ?_
-  ring
+    affine_sum_apply, AffineMap.coe_smul, Pi.smul_apply, smul_eq_mul]
+  first
+    | (rw [sum4_swap]; exact Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun c _ =>
+        Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun d _ => by ring1)
+    | (exact Finset.sum_congr rfl fun a _ => Finset.sum_congr rfl fun c _ =>
+        Finset.sum_congr rfl fun b _ => Finset.sum_congr rfl fun d _ => by ring1)
+    | (simp only [sum_univ_four']; ring1)
 
 /-! ### §D — O21: dual-cone tables are effects up to a positive scale -/
 

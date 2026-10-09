@@ -68,10 +68,11 @@ theorem ie1_all (K : Pr → Set (W 3)) (N : Pr → W 3 ≃ₗ[ℝ] W 3) (A B A' 
         (fun M M' hM hM' f hf => by rw [← actT_comp]; exact hM _ (hM' f hf)) (hoB Lb)
         (fun a b => inv_right_partner hPL (hbi T) (hoA La) (hoB La) (hoA Lb) (hoB Lb) hKΘ
           (hbs La) (hL Lb a b).2)
-    refine ⟨fun R hR => ⟨image_eq_of_rot actC_comp actC_id hC R hR,
-      image_eq_of_rot actT_comp actT_id hT R hR⟩, ?_⟩
+    refine ⟨fun R hR => ⟨image_eq_of_rot (act := actC) actC_comp actC_id hC R hR,
+      image_eq_of_rot (act := actT) actT_comp actT_id hT R hR⟩, ?_⟩
     exact ie1_of_dualW (hbi T') fun R hR =>
-      ⟨image_eq_of_rot actC_comp actC_id hC' R hR, image_eq_of_rot actT_comp actT_id hT' R hR⟩
+      ⟨image_eq_of_rot (act := actC) actC_comp actC_id hC' R hR,
+        image_eq_of_rot (act := actT) actT_comp actT_id hT' R hR⟩
   have h01 := step .p01 .p23 .p02 .p13 (FourCopyCoherent.target01 h)
   have h02 := step .p02 .p13 .p01 .p23 (FourCopyCoherent.target02 h)
   intro p

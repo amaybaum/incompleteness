@@ -128,12 +128,12 @@ theorem actC_actT_comm (M N : E3) (ω : W 3) : actC M (actT N ω) = actT N (actC
 theorem trn_comp_self {A : E3} (hA : IsOrth3 A) : trn A ∘ₗ A = LinearMap.id := by
   apply LinearMap.toMatrix'.injective
   rw [LinearMap.toMatrix'_comp, toMatrix'_trn, LinearMap.toMatrix'_id]
-  exact Matrix.mem_orthogonalGroup_iff'.1 hA
+  exact (Matrix.mem_orthogonalGroup_iff' _ _).1 hA
 
 theorem comp_trn_self {A : E3} (hA : IsOrth3 A) : A ∘ₗ trn A = LinearMap.id := by
   apply LinearMap.toMatrix'.injective
   rw [LinearMap.toMatrix'_comp, toMatrix'_trn, LinearMap.toMatrix'_id]
-  exact Matrix.mem_orthogonalGroup_iff.1 hA
+  exact (Matrix.mem_orthogonalGroup_iff _ _).1 hA
 
 theorem trn_apply_apply {A : E3} (hA : IsOrth3 A) (x : Fin 3 → ℝ) : trn A (A x) = x := by
   show (trn A ∘ₗ A) x = x
@@ -146,7 +146,7 @@ theorem apply_trn_apply {A : E3} (hA : IsOrth3 A) (x : Fin 3 → ℝ) : A (trn A
 theorem isOrth3_trn {A : E3} (hA : IsOrth3 A) : IsOrth3 (trn A) := by
   unfold IsOrth3
   rw [toMatrix'_trn, Matrix.mem_orthogonalGroup_iff, Matrix.transpose_transpose]
-  exact Matrix.mem_orthogonalGroup_iff'.1 hA
+  exact (Matrix.mem_orthogonalGroup_iff' _ _).1 hA
 
 theorem isOrth3_comp {A B : E3} (hA : IsOrth3 A) (hB : IsOrth3 B) : IsOrth3 (A ∘ₗ B) := by
   unfold IsOrth3 at *

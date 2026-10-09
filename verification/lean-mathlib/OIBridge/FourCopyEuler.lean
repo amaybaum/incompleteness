@@ -91,8 +91,8 @@ theorem stab_matrix {S : Matrix (Fin 3) (Fin 3) ℝ}
     (hS : S ∈ Matrix.specialOrthogonalGroup (Fin 3) ℝ)
     (h02 : S 0 2 = 0) (h12 : S 1 2 = 0) (h22 : S 2 2 = 1) : ∃ φ : ℝ, S = Rz φ := by
   obtain ⟨hO, hdet⟩ := Matrix.mem_specialOrthogonalGroup_iff.1 hS
-  have hr := Matrix.mem_orthogonalGroup_iff.1 hO
-  have hc := Matrix.mem_orthogonalGroup_iff'.1 hO
+  have hr := (Matrix.mem_orthogonalGroup_iff _ _).1 hO
+  have hc := (Matrix.mem_orthogonalGroup_iff' _ _).1 hO
   have r22 := congrFun (congrFun hr 2) 2
   have k00 := congrFun (congrFun hc 0) 0
   have k11 := congrFun (congrFun hc 1) 1
@@ -135,7 +135,7 @@ theorem so3_euler {R : E3} (hR : IsRot3 R) :
     rw [← hA]
     exact hR
   obtain ⟨hAO, -⟩ := Matrix.mem_specialOrthogonalGroup_iff.1 hAmem
-  have hAtA := Matrix.mem_orthogonalGroup_iff'.1 hAO
+  have hAtA := (Matrix.mem_orthogonalGroup_iff' _ _).1 hAO
   have hcol : A 0 2 ^ 2 + A 1 2 ^ 2 + A 2 2 ^ 2 = 1 := by
     have h := congrFun (congrFun hAtA 2) 2
     simp only [Matrix.mul_apply, Matrix.transpose_apply, Fin.sum_univ_three,
@@ -150,8 +150,8 @@ theorem so3_euler {R : E3} (hR : IsRot3 R) :
     rw [← hG]
     exact Submonoid.mul_mem _ (Rz_mem ψ) (Rx_mem θ)
   obtain ⟨hGO, hGdet⟩ := Matrix.mem_specialOrthogonalGroup_iff.1 hGmem
-  have hGGt := Matrix.mem_orthogonalGroup_iff.1 hGO
-  have hGtG := Matrix.mem_orthogonalGroup_iff'.1 hGO
+  have hGGt := (Matrix.mem_orthogonalGroup_iff _ _).1 hGO
+  have hGtG := (Matrix.mem_orthogonalGroup_iff' _ _).1 hGO
   have hGcol : ∀ k, G k 2 = A k 2 := by
     intro k
     rw [← hG]
@@ -167,8 +167,8 @@ theorem so3_euler {R : E3} (hR : IsRot3 R) :
     intro i
     rw [← hGtG, ← hS]
     simp only [Matrix.mul_apply, Matrix.transpose_apply, hGcol]
-  obtain ⟨φ, hφ⟩ := stab_matrix hSmem (by rw [hS2]; simp) (by rw [hS2]; simp)
-    (by rw [hS2]; simp)
+  obtain ⟨φ, hφ⟩ := stab_matrix hSmem (by simp [hS2, Matrix.one_apply])
+    (by simp [hS2, Matrix.one_apply]) (by simp [hS2, Matrix.one_apply])
   refine ⟨ψ, θ, φ, ?_⟩
   apply LinearMap.toMatrix'.injective
   rw [LinearMap.toMatrix'_comp, LinearMap.toMatrix'_comp, toMatrix'_rot3, toMatrix'_rotX,

@@ -31,15 +31,20 @@ noncomputable section
 theorem isClosed_dualW (K : Set (W 3)) : IsClosed (dualW K) := by
   have h : dualW K = ⋂ X ∈ K, {E : W 3 | 0 ≤ ipW E X} := by
     ext E
-    simp only [dualW, Set.mem_setOf_eq, Set.mem_iInter]
+    simp only [dualW, Set.mem_ofPred_eq, Set.mem_iInter]
   rw [h]
   refine isClosed_biInter fun X _ => isClosed_le continuous_const ?_
   show Continuous fun E : W 3 => ∑ μ, ∑ ν, E μ ν * X μ ν
-  exact continuous_finset_sum _ fun μ _ => continuous_finset_sum _ fun ν _ =>
-    ((continuous_apply ν).comp (continuous_apply μ)).mul continuous_const
+  first
+    | fun_prop
+    | (exact continuous_finsetSum _ fun μ _ => continuous_finsetSum _ fun ν _ =>
+        (continuous_apply_apply μ ν).mul continuous_const)
+    | continuity
 
 theorem subset_dualW_dualW (K : Set (W 3)) : K ⊆ dualW (dualW K) :=
-  fun X hX => mem_dualW.2 fun E hE => mem_dualW.1 hE X hX
+  fun X hX => mem_dualW.2 fun E hE => by
+    rw [ipW_comm]
+    exact mem_dualW.1 hE X hX
 
 /-! ### §B — tables represent linear functionals -/
 
@@ -89,8 +94,8 @@ theorem dualW_dualW {K : Set (W 3)} (hK : IsConvexCone K) (hne : K.Nonempty) :
       rwa [map_zero] at h0
     have hle : ∀ Y ∈ K, f Y ≤ 0 := by
       intro Y hY
-      by_contra hpos
-      push_neg at hpos
+      by_contra hpos'
+      have hpos : 0 < f Y := not_le.mp hpos'
       have ht : 0 ≤ u / f Y + 1 := add_nonneg (div_nonneg hu.le hpos.le) zero_le_one
       have hmem := hfu _ (subset_closure (hK.2 _ ht Y hY))
       rw [map_smul, smul_eq_mul, add_mul, div_mul_cancel₀ _ hpos.ne', one_mul] at hmem
@@ -101,7 +106,7 @@ theorem dualW_dualW {K : Set (W 3)} (hK : IsConvexCone K) (hne : K.Nonempty) :
       rw [ipW_neg_left, hE0, ← clm_eq_ipW]
       linarith [hle Y hY]
     have hX0 := mem_dualW.1 hX (-E0) hE
-    rw [ipW_neg_left, hE0, ← clm_eq_ipW] at hX0
+    rw [ipW_comm, ipW_neg_left, hE0, ← clm_eq_ipW] at hX0
     linarith
   · exact closure_minimal (subset_dualW_dualW K) (isClosed_dualW _)
 
