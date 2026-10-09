@@ -1,21 +1,24 @@
 /-
-  OIBridge/FourCopyPackage.lean — design preflight (EQ4-F), not adopted: the statement layer of the
-  package KT(4; 01|23, 02|13) → IE₁.
+  OIBridge/FourCopyPackage.lean — design preflight (EQ4-F), not adopted: the Pauli-dictionary stage
+  of the package KT(4; 01|23, 02|13) → IE₁: the identification of each pair cone with `Q3` or its
+  twin, and the realization witnesses.
 
-  Every `sorry` here is an open proof obligation and is the whole proof of its theorem. The
-  completed cheap layer (`FourCopyParity.lean`) imports only `FourCopyDefs.lean`, so no completed
-  proof depends on this file. A theorem below whose proof is written out composes other statements
-  of this file and inherits their open obligations; `#print axioms` at the end reports which.
+  Every `sorry` here is an open proof obligation and is the whole proof of its theorem. No module
+  imports this file, so no proof of the Pauli-free route (`FourCopyCore` through
+  `FourCopyHeadline`) depends on it. A theorem below whose proof is written out composes other
+  statements and inherits their open obligations; `#print axioms` at the end reports which.
 
-  The minimal headline `kt4_forward` takes the four-copy data as `KT4`: two COMP-1 pre-composites
-  (`PreComposite`: the interface fields other than local tomography), one body, and the four-token
-  coherence clause `TokenCoherent` as an explicit field. `kt4_forward_lt` is the convenience form
-  for COMP-1 `Composite`s, which carry the local-tomography field `lt`; it is proved from the
-  minimal form by forgetting `lt`. The pair cones are read in DIM-1's two-copy table carrier `W 3`.
+  `kt4_forward` takes the four-copy data as `KT4`: two COMP-1 pre-composites (`PreComposite`: the
+  interface fields other than local tomography), one body, and the four-token coherence clause
+  `TokenCoherent` as an explicit field. Inverse-gate preservation is not a hypothesis: the
+  recurrence lemma `inv_mem_of_orth` derives it from orthogonality, closedness and forward
+  preservation. `kt4_forward_lt` is the form for COMP-1 `Composite`s, which carry the
+  local-tomography field `lt`; it is proved from `kt4_forward` by forgetting `lt`. The pair cones
+  are read in DIM-1's two-copy table carrier `W 3`.
 
   Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
-import OIBridge.FourCopyDefs
+import OIBridge.FourCopyHeadline
 import OIBridge.MonoidalCompletion
 import Mathlib.LinearAlgebra.Matrix.PosDef
 import Mathlib.LinearAlgebra.UnitaryGroup
@@ -37,50 +40,15 @@ variable {K01 K23 K02 K13 : Set (W 3)}
 
 /-! ### A.1 The four readings of the four-copy contraction (Lemma R) -/
 
-/-- The four-copy contraction: `X` on tokens `01`, `Y` on `23`, `E` on `02`, `F` on `13`. -/
-def fourVal (X Y E F : W 3) : ℝ := ∑ a, ∑ b, ∑ c, ∑ d, X a b * Y c d * E a c * F b d
-
-/-- The two families read from one target pair `K`, with partner `K'` and link pairs `La`, `Lb`. -/
-structure PairLinked (K K' La Lb : Set (W 3)) : Prop where
-  upper : ∀ X ∈ K, ∀ Y ∈ K', ∀ E ∈ dualW La, ∀ F ∈ dualW Lb,
-    0 ≤ ipW X (tabMul (tabMul E Y) (tabT F))
-  lower : ∀ L ∈ La, ∀ L' ∈ Lb, ∀ e ∈ dualW K, ∀ f ∈ dualW K',
-    0 ≤ ipW e (tabMul (tabMul L f) (tabT L'))
-
-/-- Open. -/
-theorem fourVal_eq_01 (X Y E F : W 3) :
-    fourVal X Y E F = ipW X (tabMul (tabMul E Y) (tabT F)) := by
-  sorry
-
 /-- Open. -/
 theorem fourVal_eq_23 (X Y E F : W 3) :
     fourVal X Y E F = ipW Y (tabMul (tabMul (tabT E) X) F) := by
   sorry
 
 /-- Open. -/
-theorem fourVal_eq_02 (X Y E F : W 3) :
-    fourVal X Y E F = ipW E (tabMul (tabMul X F) (tabT Y)) := by
-  sorry
-
-/-- Open. -/
 theorem fourVal_eq_13 (X Y E F : W 3) :
     fourVal X Y E F = ipW F (tabMul (tabMul (tabT X) E) Y) := by
   sorry
-
-/-- Lemma R, target `01`. -/
-theorem FourCopyCoherent.target01 (h : FourCopyCoherent K01 K23 K02 K13) :
-    PairLinked K01 K23 K02 K13 :=
-  ⟨h.famI, h.famII⟩
-
-/-- Lemma R, target `02`: the `01` and `23` tables act as links. -/
-theorem FourCopyCoherent.target02 (h : FourCopyCoherent K01 K23 K02 K13) :
-    PairLinked K02 K13 K01 K23 where
-  upper X hX Y hY E hE F hF := by
-    have h1 := h.famII X hX Y hY E hE F hF
-    rwa [← fourVal_eq_01, fourVal_eq_02] at h1
-  lower L hL L' hL' e he f hf := by
-    have h1 := h.famI L hL L' hL' e he f hf
-    rwa [← fourVal_eq_01, fourVal_eq_02] at h1
 
 /-- Lemma R, target `23` (links read through the token exchange). Open. -/
 theorem FourCopyCoherent.target23 (h : FourCopyCoherent K01 K23 K02 K13) :
@@ -168,7 +136,7 @@ theorem exists_kt4Cone_of_fourCopyCoherent (h : FourCopyCoherent K01 K23 K02 K13
   · exact fun e he f hf Ω hΩ => hΩ.1 e he f hf
   · exact fun E hE F hF Ω hΩ => hΩ.2 E hE F hF
 
-/-! ### A.3 Aligned gates, N-CLASS and Bell data -/
+/-! ### A.3 Aligned gates -/
 
 /-- Open. -/
 theorem gateOf_symm_apply (τ : Bool) (ω : W 3) : (gateOf τ).symm ω = gateOf τ ω := by
@@ -177,45 +145,6 @@ theorem gateOf_symm_apply (τ : Bool) (ω : W 3) : (gateOf τ).symm ω = gateOf 
 /-- `cnotTw` satisfies DIM-1's native-gate hypotheses with `nflip` and `z3`. Open. -/
 theorem nativeGate_cnotTw : NativeGate (eball 3) z3 nflip cnotTw := by
   sorry
-
-/-- A reflection chart on the first token also turns `cnot` into `cnotTw`. Open. -/
-theorem actC_reflY_cnot_actC_reflY (ω : W 3) :
-    actC reflY (cnot (actC reflY ω)) = cnotTw ω := by
-  sorry
-
-/-- Orthogonality of a one-copy linear map. -/
-def IsOrth3 (A : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
-  LinearMap.toMatrix' A ∈ Matrix.orthogonalGroup (Fin 3) ℝ
-
-/-- **N-CLASS**: the gate is `cnot` between orthogonal local maps, post-locals `(A, B)` and
-pre-locals `(A', B')`. -/
-def NClass (N : W 3 ≃ₗ[ℝ] W 3) (A B A' B' : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
-  IsOrth3 A ∧ IsOrth3 B ∧ IsOrth3 A' ∧ IsOrth3 B' ∧
-    ∀ ω, N ω = actC A (actT B (cnot (actC A' (actT B' ω))))
-
-/-- N-CLASS gates are orthogonal for the pairing. Open. -/
-theorem NClass.ipW_map {N : W 3 ≃ₗ[ℝ] W 3} {A B A' B' : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)}
-    (h : NClass N A B A' B') (E X : W 3) : ipW (N E) (N X) = ipW E X := by
-  sorry
-
-/-- The post-local Bell table `H_R`, `R = A · reflY · Bᵀ`. -/
-def bellOf (A B : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : W 3 := actC A (actT B phiW)
-
-/-- Bell state: the gate applied to a product state of the ball. Open. -/
-theorem NClass.bell_state {N : W 3 ≃ₗ[ℝ] W 3} {A B A' B' : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)}
-    (h : NClass N A B A' B') : ∃ x ∈ eball 3, ∃ y ∈ eball 3, N (prodState x y) = bellOf A B := by
-  sorry
-
-/-- Bell effect: the gate applied to a product of sharp effects is `¼ H_R`. Open. -/
-theorem NClass.bell_effect {N : W 3 ≃ₗ[ℝ] W 3} {A B A' B' : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)}
-    (h : NClass N A B A' B') :
-    ∃ b c : Fin 3 → ℝ, ∑ j, b j ^ 2 = 1 ∧ ∑ j, c j ^ 2 = 1 ∧
-      N (tens (sharpVec b) (sharpVec c)) = (1 / 4 : ℝ) • bellOf A B := by
-  sorry
-
-/-- The Bell-link map in general charts: `Θ g = H_{R02} · g · H_{R13}ᵀ`. -/
-def Theta (A02 B02 A13 B13 : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) (g : W 3) : W 3 :=
-  tabMul (tabMul (bellOf A02 B02) g) (tabT (bellOf A13 B13))
 
 /-! ### A.4 Per-token reflection charts -/
 
@@ -234,74 +163,9 @@ theorem fourCopyCoherent_chart (ε : Fin 4 → Bool) (h : FourCopyCoherent K01 K
       (chartR (ε 0) (ε 2) '' K02) (chartR (ε 1) (ε 3) '' K13) := by
   sorry
 
-/-! ## Part B — the COMP-1 bridge -/
+/-! ## Part B — heavy layer (statements; proofs open) -/
 
-/-- The flattening of a pair table to the chart `Fin 16 → ℝ`. -/
-def flatW (ω : W 3) : Fin 16 → ℝ := fun i =>
-  ω ((@finProdFinEquiv 4 4).symm i).1 ((@finProdFinEquiv 4 4).symm i).2
-
-/-- The normalized body of a pair cone in the flat chart. -/
-def pairBody (K : Set (W 3)) : Set (Fin 16 → ℝ) := flatW '' {ω | ω ∈ K ∧ ω 0 0 = 1}
-
-/-- The table-entry functional `ω ↦ ω μ ν` on the flat chart (COMP-1's `coord`). -/
-def tabCoord (μ ν : Fin 4) : (Fin 16 → ℝ) →ᵃ[ℝ] ℝ := coord (@finProdFinEquiv 4 4 (μ, ν))
-
-/-- **The four-token coherence clause.** On the common body, the product of the coordinate
-effects `(a, b)` on pair `01` and `(c, d)` on pair `23` equals the product of the coordinate
-effects `(a, c)` on pair `02` and `(b, d)` on pair `13`: the token-level effect `a ⊗ b ⊗ c ⊗ d`
-is one functional whichever grouping builds it. -/
-def TokenCoherent {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
-    {Ω01 Ω23 Ω02 Ω13 : Set (Fin 16 → ℝ)} (PA : PreComposite Ω01 Ω23 V)
-    (PB : PreComposite Ω02 Ω13 V) : Prop :=
-  ∀ a b c d : Fin 4, ∀ ω ∈ PA.Ω,
-    PA.prodEff (tabCoord a b) (tabCoord c d) ω = PB.prodEff (tabCoord a c) (tabCoord b d) ω
-
-/-- **KT(4; 01|23, 02|13), minimal form.** Two COMP-1 pre-composites of the normalized pair bodies,
-one per grouping, with one body and the four-token coherence clause. Local tomography of the
-four-copy composite is not a field. -/
-structure KT4 (K01 K23 K02 K13 : Set (W 3)) (V : Type) [NormedAddCommGroup V]
-    [NormedSpace ℝ V] where
-  PA : PreComposite (pairBody K01) (pairBody K23) V
-  PB : PreComposite (pairBody K02) (pairBody K13) V
-  one_body : PA.Ω = PB.Ω
-  tok : TokenCoherent PA PB
-
-/-- **KT(4), convenience form with local tomography.** The same data with COMP-1 `Composite`s,
-whose field `lt` is local tomography of each grouping. -/
-structure KT4LT (K01 K23 K02 K13 : Set (W 3)) (V : Type) [NormedAddCommGroup V]
-    [NormedSpace ℝ V] where
-  CA : Composite (pairBody K01) (pairBody K23) V
-  CB : Composite (pairBody K02) (pairBody K13) V
-  one_body : CA.Ω = CB.Ω
-  tok : TokenCoherent CA.toPreComposite CB.toPreComposite
-
-/-- The convenience form gives the minimal form by forgetting `lt`. -/
-def KT4LT.toKT4 {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
-    (H : KT4LT K01 K23 K02 K13 V) : KT4 K01 K23 K02 K13 V :=
-  ⟨H.CA.toPreComposite, H.CB.toPreComposite, H.one_body, H.tok⟩
-
-/-- The normalized slice of DIM-1's maximal cone is bounded. Open. -/
-theorem abs_le_one_of_maxCone {ω : W 3} (hω : ω ∈ maxCone (eball 3)) (h00 : ω 0 0 = 1)
-    (μ ν : Fin 4) : |ω μ ν| ≤ 1 := by
-  sorry
-
-/-- Every dual-cone table is a positive multiple of an `IsEffectOn` effect of the normalized pair
-body (the full-effect reading). Open. -/
-theorem exists_effect_of_dualW {K : Set (W 3)} (hK : CandidateCone K) {E : W 3}
-    (hE : E ∈ dualW K) :
-    ∃ c : ℝ, 0 < c ∧ IsEffectOn (pairBody K) (c • ∑ μ, ∑ ν, E μ ν • tabCoord μ ν) := by
-  sorry
-
-/-- **Lemma B1.** KT(4) in the minimal form, with admissible pair cones, gives the interface
-predicate. Open. -/
-theorem fourCopyCoherent_of_kt4 {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
-    (a01 : PairAdm K01) (a23 : PairAdm K23) (a02 : PairAdm K02) (a13 : PairAdm K13)
-    (H : KT4 K01 K23 K02 K13 V) : FourCopyCoherent K01 K23 K02 K13 := by
-  sorry
-
-/-! ## Part C — heavy layer (statements; proofs open) -/
-
-/-! ### C.1 Pauli dictionary -/
+/-! ### B.1 Pauli dictionary -/
 
 /-- Pauli matrices in the coordinate order `1, X, Y, Z`. -/
 def pauli1 : Fin 4 → Matrix (Fin 2) (Fin 2) ℂ :=
@@ -352,17 +216,9 @@ theorem dualW_Q3 : dualW Q3 = Q3 := by
 theorem dualW_twin : dualW twin = twin := by
   sorry
 
-/-- Open. -/
-theorem isClosed_dualW (K : Set (W 3)) : IsClosed (dualW K) := by
-  sorry
-
 theorem isClosed_Q3 : IsClosed Q3 := by
   rw [← dualW_Q3]
   exact isClosed_dualW Q3
-
-/-- The orientation bit of a pair of local maps: their determinant product is `-1`. -/
-def orient (A B : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Bool :=
-  decide (LinearMap.det A * LinearMap.det B = -1)
 
 /-- The chart rule. Open. -/
 theorem chart_rule {A B : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)} (hA : IsOrth3 A) (hB : IsOrth3 B) :
@@ -374,14 +230,7 @@ theorem bellOf_mem_twistQ3 {A B : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)} (
     (hB : IsOrth3 B) : bellOf A B ∈ twistQ3 (orient A B) := by
   sorry
 
-/-! ### C.2 Bipolar -/
-
-/-- `K** = cl K` for a nonempty convex cone of tables. Open. -/
-theorem dualW_dualW {K : Set (W 3)} (hK : IsConvexCone K) (hne : K.Nonempty) :
-    dualW (dualW K) = closure K := by
-  sorry
-
-/-! ### C.3 Link filters and the pure-state supply -/
+/-! ### B.2 Link filters and the pure-state supply -/
 
 /-- The table of the pure state with coefficient matrix `C` (row index on the first token). -/
 def pureTab (C : Matrix (Fin 2) (Fin 2) ℂ) : W 3 :=
@@ -423,24 +272,12 @@ theorem Q3_subset_of_generic {K : Set (W 3)} (hK : IsConvexCone K) (hcl : IsClos
     (hpure : ∀ C : Matrix (Fin 2) (Fin 2) ℂ, (∀ i j, C i j ≠ 0) → pureTab C ∈ K) : Q3 ⊆ K := by
   sorry
 
-/-! ### C.4 Rotations, Euler generation, IE₁ -/
-
-/-- Rotations of one ball. -/
-def IsRot3 (R : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
-  LinearMap.toMatrix' R ∈ Matrix.specialOrthogonalGroup (Fin 3) ℝ
-
-/-- **IE₁** for one pair cone: invariance under every local rotation of either token. -/
-def IE1 (K : Set (W 3)) : Prop := ∀ R, IsRot3 R → actC R '' K = K ∧ actT R '' K = K
+/-! ### B.3 IE₁ of the Pauli cones -/
 
 /-- IE₁ in the drive form: invariance under the local lifts of the landed drive words. -/
 def IE1Drive (K : Set (W 3)) : Prop :=
   ∀ g ∈ driveWords3, actC (g.linear : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) '' K = K ∧
     actT (g.linear : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) '' K = K
-
-/-- Euler generation of the rotations of one ball. Open. -/
-theorem so3_euler {R : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)} (hR : IsRot3 R) :
-    ∃ ψ θ φ : ℝ, R = ((rot3 ψ * rotX θ * rot3 φ).linear : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) := by
-  sorry
 
 /-- Open. -/
 theorem ie1_Q3 : IE1 Q3 := by
@@ -454,18 +291,7 @@ theorem ie1_twin : IE1 twin := by
 theorem ie1Drive_of_ie1 {K : Set (W 3)} (h : IE1 K) : IE1Drive K := by
   sorry
 
-/-! ## Part D — the package -/
-
-/-- The four pairs of the instance: the groups of the groupings `01|23` and `02|13`. -/
-inductive Pr
-  | p01 | p23 | p02 | p13
-  deriving DecidableEq
-
-/-- The interface predicate for a family of pair cones. -/
-abbrev FCC (K : Pr → Set (W 3)) : Prop := FourCopyCoherent (K .p01) (K .p23) (K .p02) (K .p13)
-
-/-- Twist parity of the four-cycle. -/
-def EvenCycle (τ : Pr → Bool) : Prop := EvenCycle4 (τ .p01) (τ .p23) (τ .p02) (τ .p13)
+/-! ## Part C — the package -/
 
 /-- **Theorem B (aligned charts).** Gates exactly `cnot` or `cnotTw`. Open. -/
 theorem kt4_aligned (K : Pr → Set (W 3)) (τ : Pr → Bool)
@@ -499,39 +325,41 @@ theorem kt4_closure (K : Pr → Set (W 3)) (N : Pr → W 3 ≃ₗ[ℝ] W 3)
   sorry
 
 /-- **Theorem A (headline, minimal form).** From KT(4) as two COMP-1 pre-composites with one body
-and the four-token coherence clause (Lemma B1), admissible and closed pair cones, N-CLASS gates and
-inverse-gate preservation: every pair cone is `Q3` or its twin in its token charts, IE₁ holds for
-every pair, and the twist bits of the four-cycle have even parity. No local tomography of the
-four-copy composite is a hypothesis. -/
+and the four-token coherence clause (Lemma B1), admissible and closed pair cones, and N-CLASS gates
+preserving them: every pair cone is `Q3` or its twin in its token charts, IE₁ holds for every pair,
+and the twist bits of the four-cycle have even parity. Inverse-gate preservation is derived by the
+recurrence lemma. No local tomography of the four-copy composite is a hypothesis. -/
 theorem kt4_forward (K : Pr → Set (W 3)) (N : Pr → W 3 ≃ₗ[ℝ] W 3)
     (A B A' B' : Pr → (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
     (hcls : ∀ p, NClass (N p) (A p) (B p) (A' p) (B' p))
     (hadm : ∀ p, PairAdm (K p)) (hcl : ∀ p, IsClosed (K p))
-    (hgate : ∀ p, ∀ ω ∈ K p, N p ω ∈ K p) (hinv : ∀ p, ∀ ω ∈ K p, (N p).symm ω ∈ K p)
+    (hgate : ∀ p, ∀ ω ∈ K p, N p ω ∈ K p)
     {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
     (H : KT4 (K .p01) (K .p23) (K .p02) (K .p13) V) :
     (∃ τ : Pr → Bool, (∀ p, K p = twistQ3 (τ p)) ∧ EvenCycle τ) ∧ (∀ p, IE1 (K p)) := by
   have h : FCC K := fourCopyCoherent_of_kt4 (hadm .p01) (hadm .p23) (hadm .p02) (hadm .p13) H
+  have hinv : ∀ p, ∀ ω ∈ K p, (N p).symm ω ∈ K p := fun p =>
+    inv_mem_of_orth (hcls p).ipW_map (hcl p) (hgate p)
   obtain ⟨-, hK, hIE, hpar⟩ := kt4_general K N A B A' B' hcls hadm hcl hgate hinv h
   exact ⟨⟨fun p => orient (A p) (B p), hK, hpar⟩, hIE⟩
 
-/-- **Theorem A, convenience form with local tomography.** The same conclusion for COMP-1
-`Composite`s; it follows from the minimal form by forgetting `lt`. -/
+/-- **Theorem A, form with local tomography.** The same conclusion for COMP-1 `Composite`s; it
+follows from the minimal form by forgetting `lt`. -/
 theorem kt4_forward_lt (K : Pr → Set (W 3)) (N : Pr → W 3 ≃ₗ[ℝ] W 3)
     (A B A' B' : Pr → (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
     (hcls : ∀ p, NClass (N p) (A p) (B p) (A' p) (B' p))
     (hadm : ∀ p, PairAdm (K p)) (hcl : ∀ p, IsClosed (K p))
-    (hgate : ∀ p, ∀ ω ∈ K p, N p ω ∈ K p) (hinv : ∀ p, ∀ ω ∈ K p, (N p).symm ω ∈ K p)
+    (hgate : ∀ p, ∀ ω ∈ K p, N p ω ∈ K p)
     {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
     (H : KT4LT (K .p01) (K .p23) (K .p02) (K .p13) V) :
     (∃ τ : Pr → Bool, (∀ p, K p = twistQ3 (τ p)) ∧ EvenCycle τ) ∧ (∀ p, IE1 (K p)) :=
-  kt4_forward K N A B A' B' hcls hadm hcl hgate hinv H.toKT4
+  kt4_forward K N A B A' B' hcls hadm hcl hgate H.toKT4
 
 /-- **Corollary (IE₁ in the drive form).** -/
 theorem kt4_forward_drive (K : Pr → Set (W 3)) (hIE : ∀ p, IE1 (K p)) : ∀ p, IE1Drive (K p) :=
   fun p => ie1Drive_of_ie1 (hIE p)
 
-/-! ## Part E — remark, kept apart from the package -/
+/-! ## Part D — remark, kept apart from the package -/
 
 /-- Realization witness, uniform quantum configuration. Open. -/
 theorem fcc_uniform_Q3 : FourCopyCoherent Q3 Q3 Q3 Q3 := by
@@ -551,9 +379,6 @@ end
 end FourCopy
 end OIBridge
 
-#print axioms OIBridge.FourCopy.FourCopyCoherent.target01
-#print axioms OIBridge.FourCopy.FourCopyCoherent.target02
 #print axioms OIBridge.FourCopy.fourCopyCoherent_of_kt4Cone
-#print axioms OIBridge.FourCopy.fourCopyCoherent_of_kt4
 #print axioms OIBridge.FourCopy.kt4_forward
 #print axioms OIBridge.FourCopy.kt4_forward_lt
