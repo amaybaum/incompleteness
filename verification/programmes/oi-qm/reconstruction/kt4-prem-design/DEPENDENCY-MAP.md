@@ -27,9 +27,10 @@ inverse-gate clause from `hcls`, `hcl` and `hgate` (Lemma R, `inv_mem_of_orth`) 
 `dualW (dualW K_p) = K_p` from `hadm` and `hcl` (`bidual_of_adm`).
 
 Kernel status: in design run 37948419430 at `ff9c3a35`, `#print axioms kt4_forward_ie1` reports
-`[propext, Classical.choice, Quot.sound]`. The run's release gate failed on modules off this theorem's dependency
-closure (the unstarted Pauli stage and the unregistered census families), so the theorem is kernel-checked in a
-design run and is not certified.
+`[propext, Classical.choice, Quot.sound]`. The run's release gate failed at two steps: `lean-axioms`, on `sorryAx` in
+declarations of `FourCopyPackage` (the Pauli stage) on which the theorem does not depend, and `lean-manuscript`,
+because the eleven design modules carry no census disposition. The theorem is kernel-checked in a design run and is
+not certified.
 
 ## 2. Verification layers
 
@@ -155,7 +156,8 @@ It does **not** show that `hgate` can be removed from the theorem. `M_D` refutes
   - a completed body is closed by definition [K `body_isClosed`];
   - an operation datum with an inverse datum induces a body-preserving affine equivalence of the chart
     [K `preservesBody_inducedEquiv`].
-  - Both are stated for one `DirectedStages`. The only landed directed systems are `badD` and `bitTower`.
+  - Both are stated for one `DirectedStages`. The landed directed systems are `badD` and `bitTower`
+    (`StageCompletion`) and `midD` (`CompletionAction`), each a system of one copy's stages.
   - COMP-1's module header excludes the stage-level product of two `DirectedStages`.
   - No landed declaration builds a directed system for a pair, an operation datum for a pair gate, or a map from `W 3`
     to a completion chart.
