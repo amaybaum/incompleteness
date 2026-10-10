@@ -55,6 +55,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   timeboxed; written proofs only. Result: partial theorem (P1)–(P3) in NOTES-B3 §2.1. Wall recorded: non-grid or
   partially-product eigenbases and degenerate 2-tori need a moment-polytope covering analysis under `cnot ∈ N(T)`, not
   done. RESULTS B3-4 updated (still CONJECTURE, with partial results).
-- 2026-10-10T20:51Z — B3.C: (P2) extended to (P2′), any orthonormal product eigenbasis (non-grid case: support-3
+- 2026-10-10T20:50Z — B3.C: (P2) extended to (P2′), any orthonormal product eigenbasis (non-grid case: support-3
   products have pinned second factor, so face moduli lie on finitely many curves). Wall narrowed to eigenbases with
   exactly 1–3 product lines and degenerate 2-tori. Stopping the B3.C attempt at this wall (timebox).
+- 2026-10-10T20:50:31Z — commit 9bb9ce3a (B3.C (P2′)) pushed; remote head verified equal to local.
+- 2026-10-10T20:52Z — closing: nodes B1–B5 complete. Stop at the B3.C wall (no padding). Record defects of this
+  session, all corrected forward and kept visible: three timestamps were written from estimates instead of `date -u`
+  (b2 header, b3 header, two LOG lines). The two script cases are kept as `.run1.*` with outputs identical to the final
+  runs. Lean dispatches used: 0 of 3. Inbox: empty throughout.
