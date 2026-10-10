@@ -1,0 +1,28 @@
+CHECK K0a cnot(prodState xplus z3) == phiW: PASS 
+CHECK K0b cnot involution: PASS 
+CHECK K0b frame: PASS 
+CHECK K0c actC/actT on products: PASS 
+INFO rank R_A = 4, dim ker R_A = 2
+INFO respecting permutations: 48; distinct induced N: 48
+CHECK H1a RESPECT group finite and closed: PASS |G|=48 members={'nflip': True, 'rot3(pi)': True, 'S=R_z(pi/2)': True, 'cyc3': True}
+CHECK H1a contains nflip, rot3(pi), S, cyc3: PASS 
+CHECK H1b R (P_pi (x) I) = actC(N_pi) R and R (I (x) P_pi) = actT(N_pi) R for every respecting pi: PASS (48 perms)
+CHECK H1c separability half-space holds on the 36 ontic products, fails at phiW: PASS min ontic = 0, <w, phiW> = -2
+RESULT L-REG HIDDEN CONE CANNOT HOST CNOT
+RESULT L-REG INDUCES THE IDLE EXTENSION
+CHECK H2a phiW statistics valid: PASS S(phiW) = 14/5
+CHECK H2b local deterministic bound measured: PASS max = 2, min = -2
+INFO defect z_(1, 1): S = 14/5, valid = True, unit settings = True
+INFO defect z_(1, -1): S = 14/5, valid = True, unit settings = True
+INFO defect z_(-1, 1): S = 14/5, valid = True, unit settings = True
+INFO defect z_(-1, -1): S = 14/5, valid = True, unit settings = True
+CHECK H2c each Bell-type defect z_s exceeds the local bound with valid statistics: PASS 
+CHECK H2d phiW in K(Z_F): <phiW, z_s> >= 0 for all s and M(phiW) PSD (comparison): PASS pairings = [Fraction(0, 1), Fraction(1, 2), Fraction(0, 1), Fraction(1, 2)]
+RESULT L-REG EXCLUDES EVERY CANDIDATE CONE (BELL)
+CHECK H3 the 36 ontic products span W 3: PASS rank = 16
+CHECK CC1 transposition (+x <-> +y) violates RESPECT: PASS 
+CHECK CC2 product state within the local bound: PASS S(prod) = 0
+CHECK CC3 PR box exceeds the local bound: PASS S(PR) = 4
+CHECK CC4 SWAP of the registers is not P_pi (x) I: PASS 
+SUMMARY 17/17 checks pass
+VERDICT B1-HIDDEN-EXACT
