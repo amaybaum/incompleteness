@@ -1,0 +1,38 @@
+== o1_fieldneutral: tier F (classical protocol towers) ==
+
+F0     PASS  the menu generates 24 permutations of Omega
+   passive tower, L <= 4: 11 distinct posteriors
+F1     PASS  D_pass = id and D_fresh = id on every reachable posterior
+F2     PASS  all four point masses are reachable posteriors
+F3     PASS  point masses give z deterministically; every posterior is a mixture of point masses
+F4     PASS  no permutation maps a point mass to a balanced state (24 x 4)
+F5     PASS  visibility 0 with D_pass and D_fresh: 6336 sandwiches
+F6     PASS  classical memory: P_coh = 1, with D_x 1/2; the seed is the midpoint of two reachable point masses; D_x moves a point mass
+F7     PASS  recorder into the memory register: P_coh = 1, P_deph = 1/2; D_mem is not the identity on point masses
+
+-- F8: the knowledge-balance tower (passive obs removed, obsKB added)
+   KB-D tower, L <= 5: 7 distinct posteriors
+F8a    PASS  no reachable point mass; every posterior has all probabilities <= 1/2
+F8b    PASS  reachable posteriors = uniform + the six pair states
+F8c    PASS  six pair states: affine rank 3, each exposed (an octahedron)
+F8d    PASS  swap maps z+ to the extreme state x+ with P(z=0) = 1/2
+F8e    PASS  KB sandwich: P_coh = 1, P_deph = 1/2
+F8f    PASS  D_KB = r z+ + (1-r) z- on every reachable state, and D_KB(x+) != x+
+F8g    PASS  the z = 0 face of the reachable states: 1 state(s), z+
+
+-- F9: three-bit robustness of passivity
+F9     PASS  |group| = 1344, 11 posteriors (L <= 3): D_pass = id; V = 0 in 6336 sandwiches
+
+-- countercontrols
+CCF1   CC-OK (False as required)  'no reachable point mass' with the passive obs added back (11 posteriors)
+CCF2   CC-OK (False as required)  V = 0 for the KB-D sandwich
+CCF3   CC-OK (False as required)  D_mem is the identity on the point masses
+CCF4   CC-OK (False as required)  the seed (z=0, x uniform) is extreme in the passive body
+
+OK -- 16/16 checks, 4 countercontrols expected-false
+VERDICT ENVELOPE-F HOLDS: in the passive classical tower the path dephasing (observe-and-forget, or a
+  fresh-register record) is the identity on every reachable state, the extreme states are point masses
+  with deterministic readout, no permutation is a balanced pure mixer, and every sandwich has visibility 0.
+  The numbers 1 vs 1/2 appear classically only when the 'dephasing' erases the readback memory (D_x, or the
+  recorder written into the memory) from a non-extreme seed, or when the passive readout is replaced by the
+  knowledge-balance readout KB-D, which yields an octahedral body with a balanced extreme mixer (swap).

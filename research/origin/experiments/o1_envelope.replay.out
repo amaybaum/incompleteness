@@ -1,0 +1,82 @@
+== o1_envelope: tier M (matrix carrier, configuration frame) ==
+
+-- M1: DC <-> non-generating <-> non-detecting <-> monomial, for unitaries
+   I          d=2  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+   X          d=2  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+   Z          d=2  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+   S          d=2  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+   PH         d=2  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+   sqrtX      d=2  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   sqrtX^dag  d=2  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   Xrot(3/5)  d=2  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   Rot(3/5)   d=2  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   H          d=2  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   rot(pi/4)  d=2  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   ORTH3      d=3  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   MON3       d=3  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+   gateFlow3  d=3  unitary=True  DC=False  non-gen=False  non-det=False  monomial=False  agree=True
+   I3         d=3  unitary=True  DC=True  non-gen=True  non-det=True  monomial=True  agree=True
+M1       PASS  the four predicates agree on all 15 unitaries
+
+-- M2: the qubit sandwich (U, U^dagger) from |0><0|, path dephasing Delta
+   I          P_coh(0)=1  P_deph(0)=1  V=0  |a|^2=1  monomial=True
+   X          P_coh(0)=1  P_deph(0)=1  V=0  |a|^2=0  monomial=True
+   Z          P_coh(0)=1  P_deph(0)=1  V=0  |a|^2=1  monomial=True
+   S          P_coh(0)=1  P_deph(0)=1  V=0  |a|^2=1  monomial=True
+   PH         P_coh(0)=1  P_deph(0)=1  V=0  |a|^2=0  monomial=True
+   sqrtX      P_coh(0)=1  P_deph(0)=1/2  V=1/2  |a|^2=1/2  monomial=False
+   sqrtX^dag  P_coh(0)=1  P_deph(0)=1/2  V=1/2  |a|^2=1/2  monomial=False
+   Xrot(3/5)  P_coh(0)=1  P_deph(0)=337/625  V=288/625  |a|^2=9/25  monomial=False
+   Rot(3/5)   P_coh(0)=1  P_deph(0)=337/625  V=288/625  |a|^2=9/25  monomial=False
+   H          P_coh(0)=1  P_deph(0)=1/2  V=1/2  |a|^2=1/2  monomial=False
+   rot(pi/4)  P_coh(0)=1  P_deph(0)=1/2  V=1/2  |a|^2=1/2  monomial=False
+M2a      PASS  P_coh=1, P_deph=|a|^4+|b|^4, V=2|a|^2|b|^2, V=0 iff monomial (11 qubit unitaries)
+M2b      PASS  owner's witness (1, 1/2) holds exactly for the balanced unitaries: ['H', 'rot(pi/4)', 'sqrtX', 'sqrtX^dag']
+M2c      PASS  H then H: P_coh(0)=1, P_deph(0)=1/2
+
+-- M3: closure of DC under the instrument constructors (system qubit, ancilla qubit)
+M3       PASS  60 deterministic protocols: both branches and the aggregate are DC and trace-preserving
+
+-- M4: reachable set and composite sandwich, exhaustive over permutation pairs
+M4a      PASS  fresh-record path dephasing (blank register, CNOT, discard) equals Delta on the visible qubit
+M4b      PASS  every intermediate and final state diagonal (2304 runs)
+M4c      PASS  composite sandwich visibility exactly 0 for all 2304 runs (24 x 24 x 2 x 2)
+M4d      PASS  swap-with-memory: P_coh(0)=1, P_deph(0)=1 (memory, not coherence)
+
+-- M5: ones-fixing versus mixing (the four cells)
+   I          ones-fixing=True  monomial=True  V=0
+   X          ones-fixing=True  monomial=True  V=0
+   Z          ones-fixing=False  monomial=True  V=0
+   S          ones-fixing=False  monomial=True  V=0
+   PH         ones-fixing=False  monomial=True  V=0
+   sqrtX      ones-fixing=True  monomial=False  V=1/2
+   sqrtX^dag  ones-fixing=True  monomial=False  V=1/2
+   Xrot(3/5)  ones-fixing=True  monomial=False  V=288/625
+   Rot(3/5)   ones-fixing=False  monomial=False  V=288/625
+   H          ones-fixing=False  monomial=False  V=1/2
+   rot(pi/4)  ones-fixing=False  monomial=False  V=1/2
+M5a      PASS  all four cells populated; V = 0 in both monomial cells, V > 0 in both non-monomial cells
+   cells: (ones-fixing=True, monomial=True): ['I', 'X']; (ones-fixing=True, monomial=False): ['sqrtX', 'sqrtX^dag', 'Xrot(3/5)']; (ones-fixing=False, monomial=True): ['Z', 'S', 'PH']; (ones-fixing=False, monomial=False): ['Rot(3/5)', 'H', 'rot(pi/4)']
+M5b      PASS  gateFlow(swap,1/2): ones-fixing (K*1 = 1), non-monomial, balanced; sqrtX sqrtX |0> = |1> (P=1), dephased 1/2; same on 3 points
+M5c      PASS  transition flow at pi/4: unitary, non-monomial, moves the ones ray on 3 points (K*1 = [sqrt(2)*(1 - I)/2, sqrt(2)*(1 - I)/2, 1]), fixes it on 2 points
+
+-- M6: the interference exposure with the ones-fixing mixer sqrt(X)
+M6       PASS  seed, sqrtX, surplus, sqrtX^dag: branches 3/2, -1/2 (kernel tauChain_diag with hMat: 3/2, -1/2); with sqrtX as return mixer: -1/2, 3/2
+
+-- M7: DC is a linear subspace of dimension d^2 + (d^2-d)^2
+M7       PASS  dim DC: d=2 -> 8 (of 16), d=3 -> 45 (of 81)
+
+-- countercontrols
+CC1      CC-OK (False as required)  DC(Ad H)
+CC2      CC-OK (False as required)  DC of a monomial protocol with one (H (x) 1) step
+CC3      CC-OK (False as required)  ones-fixing(H)
+CC4      CC-OK (False as required)  ones-fixing(Z)
+CC5      CC-OK (False as required)  V = 0 with (H (x) 1) twice: P_coh(0)=1, P_deph(0)=1/2
+CC6      CC-OK (False as required)  V = 0 with coherent seed |+>, M1 = 1, M2 = H: P_coh(0)=1, P_deph(0)=1/2
+
+OK -- 14/14 checks, 6 countercontrols expected-false
+VERDICT ENVELOPE-M HOLDS: on the configuration carrier, DC <-> monomial for unitaries; every protocol of the
+  monomial class tested (attach, step, readout, feed-forward, coarse, discard) is DC; the sandwich visibility
+  of a qubit unitary is 2|a|^2|b|^2 (owner's 1 vs 1/2 exactly for the balanced ones: ['H', 'rot(pi/4)', 'sqrtX', 'sqrtX^dag']);
+  ones-fixing is independent of mixing (all four cells populated; gateFlow(swap,1/2) is a ones-fixing
+  balanced mixer); DC is a linear subspace, hence closed under mixtures and limits.
