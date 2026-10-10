@@ -21,6 +21,9 @@ step of its passive-tower exclusion.
   a map injective on them are all `0` or `1` are finitely many; an affine automorphism preserving
   a compact convex body with finitely many extreme points has finite order on it (`FiniteOrderOn`
   of `CompositionOrder`), so it does not have infinite order there.
+* **The chart body** (`finiteOrderOn_chartBody_of_binary`, `not_infiniteOrderOn_chartBody_of_binary`).
+  The same for the completed chart body of a stage tower and the automorphism induced by any
+  reversible datum respecting affine relations, stage-preserving or not.
 -/
 
 namespace OIBridge
@@ -246,6 +249,41 @@ theorem not_infiniteOrderOn_of_binary {d : ℕ} {K : Set V} (hc : IsCompact K)
 
 end FiniteOrder
 
+/-! ### Section D — the completed chart body of a stage tower -/
+
+section Chart
+
+open StageCompletion CompletionAction
+
+variable {D : DirectedStages} (C : CompletionChart D)
+
+/-- **Binary extreme points of the chart body give every reversible datum finite order.** If a map
+into `Fin k → ℝ` is injective on the extreme points of the chart body and takes only the values `0`
+and `1` there — as the coordinates of finitely many protocol effects do when every extreme point is
+outcome-deterministic — then every reversible datum respecting affine relations, whether or not it
+preserves stages, induces an automorphism of finite order on the chart body. -/
+theorem finiteOrderOn_chartBody_of_binary {k : ℕ} (L : (Fin C.d → ℝ) → (Fin k → ℝ))
+    (hinj : Set.InjOn L ((chartBody C).extremePoints ℝ))
+    (hbin : ∀ ω ∈ (chartBody C).extremePoints ℝ, ∀ j, L ω j = 0 ∨ L ω j = 1)
+    {S T : OpDatum D} (hS : AffineRespect S) (hT : AffineRespect T)
+    (hST : Undoes C S T hS) (hTS : Undoes C T S hT) :
+    CompositionOrder.FiniteOrderOn (chartBody C) (inducedEquiv C hS hT hST hTS) :=
+  finiteOrderOn_of_binary (TransitiveBody.chartBody_isCompact C)
+    (TransitiveBody.chartBody_convex C) L hinj hbin
+    (fun x hx => preservesBody_inducedEquiv C hS hT hST hTS _ rfl x hx)
+
+/-- **No infinite-order datum on a chart body with binary extreme points.** -/
+theorem not_infiniteOrderOn_chartBody_of_binary {k : ℕ} (L : (Fin C.d → ℝ) → (Fin k → ℝ))
+    (hinj : Set.InjOn L ((chartBody C).extremePoints ℝ))
+    (hbin : ∀ ω ∈ (chartBody C).extremePoints ℝ, ∀ j, L ω j = 0 ∨ L ω j = 1)
+    {S T : OpDatum D} (hS : AffineRespect S) (hT : AffineRespect T)
+    (hST : Undoes C S T hS) (hTS : Undoes C T S hT) :
+    ¬ CompositionOrder.InfiniteOrderOn (chartBody C) (inducedEquiv C hS hT hST hTS) :=
+  CompositionOrder.not_infiniteOrderOn_of_finiteOrderOn
+    (finiteOrderOn_chartBody_of_binary C L hinj hbin hS hT hST hTS)
+
+end Chart
+
 #print axioms lemmaP_extreme
 #print axioms cellMass_nonneg
 #print axioms cellMass_le_one
@@ -257,6 +295,8 @@ end FiniteOrder
 #print axioms finiteOrderOn_of_finite_extremePoints
 #print axioms finiteOrderOn_of_binary
 #print axioms not_infiniteOrderOn_of_binary
+#print axioms finiteOrderOn_chartBody_of_binary
+#print axioms not_infiniteOrderOn_chartBody_of_binary
 
 end OriginPassive
 end OIBridge
