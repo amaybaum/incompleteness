@@ -46,21 +46,25 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T20:44Z — run 38084161796 (dispatch 3/3) on `288f80ec`: `Build completed successfully (3654 jobs)`; the six
   FourCopyHeadline prints standard; gate `lean-axioms` OK (6015, no sorry); gate failures `lean-manuscript` (10 unregistered
   modules), `claims`, `duplicate`. Recorded in NOTES-E5 §4 (R-E5.3). No dispatch remains in this thread's allowance.
-- 2026-10-10T20:50Z — E2 addenda (Ω₄ also carries seed-orbit availability and K∞-1 for full effects [W5]; K∞-V4 relocated
+- 2026-10-10T20:48Z — E2 addenda (Ω₄ also carries seed-orbit availability and K∞-1 for full effects [W5]; K∞-V4 relocated
   to sequential closure [W]; the per-type matrix-level remark on K∞-Copy); E7 written (readiness table, skeletons S1–S6,
   drafts only, no control plane); handoff proposals HP-1 (coordinator, ROADMAP K wording, not applied), HP-2 (bridge),
   HP-3 (countermodels), HP-4 (origin); ledger summary recounted (22 rows: 18 OPEN, 3 CONDITIONAL, 1 EXTERNAL).
 - 2026-10-10T20:50Z — NOTES-E3 §2: `block` and `LabelInvariant` shown load-bearing for the descent by written generated-class
   countermodels (CONJECTURE [W]); R-E3.3 and S3's controls updated.
-- 2026-10-10T20:53Z — hygiene: two table cells carried `|x|⁴` (a pipe inside a markdown cell); written `‖x‖⁴` in LEDGER and
+- 2026-10-10T20:51Z — hygiene: two table cells carried `|x|⁴` (a pipe inside a markdown cell); written `‖x‖⁴` in LEDGER and
   RESULTS; every table row's column count checked.
 - 2026-10-10T20:52Z — NOTES-E3 §3 scope caveat (pressure test): the descent to odd carriers needs `ContextStable` with an
   odd-size spectator; it fixes the repertoire of carriers the formalism has as types, it does not produce them; R-E3.2
   scope sentence added.
-- 2026-10-10T20:53Z — close of the session's plan (E1–E7 done). Commits on `research/equivalence`: `04e69e04` (E1), `88cc525d`
+- 2026-10-10T20:52Z — close of the session's plan (E1–E7 done). Commits on `research/equivalence`: `04e69e04` (E1), `88cc525d`
   (E2), `dc31472c` (E3), `8103045f` (E4), `32612d8b` (E5, E6), `a9a8b34e` (E5 close), `7787b699` (E7, handoffs),
   `0e5673f7` (E3 addendum), `adfe2503` (table hygiene), `0f52efab` (E3 scope caveat), and this entry. Disposable branches
   (not for merge): `dev-equivalence/kinf-seams` (`0578b13d`, `f5367a7a`) and `dev-equivalence/kt4-at-l` (`288f80ec`).
   Dispatches used: 3 of 3 (runs 38083220991 failed at one declaration and was repaired; 38083519826 and 38084161796 green
   at module level). A diagnostic script for run 1 of `e2_copy_conj` was run from the session scratchpad (outside the
   repository); its output is summarized in NOTES-E2 §3 and the run-1 files are kept here.
+- 2026-10-10T20:55Z — LOG correction: three entry times had been written later than the commits that carry them; set to those
+  commits' times (`git log --format=%cI`): the E7/addenda entry 20:50Z → 20:48Z (`7787b699`, 20:48:58), the hygiene entry
+  20:53Z → 20:51Z (`adfe2503`, 20:51:34), the close entry 20:53Z → 20:52Z (`2ae3d47b`, 20:52:52). Every other entry checked
+  against its commit time; no other content changed. Commit: this entry's (reported in the final message).
