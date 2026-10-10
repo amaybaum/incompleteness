@@ -1,0 +1,9 @@
+PASS F0 closed form of flow(transition a b) t: M(0) = 1 and M'(t) = -i H M(t)
+PASS G1 transition-flow compressions equal flow(transition a b) t on S (32 ordered pairs, 3 carrier pairs)
+PASS G2 swap compressions equal permMatrix (swap a b) on S
+PASS G3 phase-gate compressions equal phaseGate a on S
+PASS B1 every bijection used is a bijection S x T -> S x Fin |T| with e(s0, iota s) = (s, 0)
+PASS K1 compression of a flow leaving iota(S) is not unitary: B B^H - 1 = [-sin(t)**2, 0, 0, 0, 0, 0, 0, 0, 0]
+PASS K2 4 is not a multiple of 3 (no bijection Fin 4 ~ Fin 3 x Fin m); 1_3 (x) X is not diagonal; the Fin-3 transition flow at t = 1 is not diagonal
+checks: 7, failures: 0
+VERDICT COMPRESSION-DESCENT-EXACT
