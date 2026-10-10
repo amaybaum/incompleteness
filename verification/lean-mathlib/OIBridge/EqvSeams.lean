@@ -88,7 +88,7 @@ theorem homMap_id' (v : HVec d) : homMap LinearMap.id v = v := by
   funext μ
   refine Fin.cases ?_ (fun j => ?_) μ
   · rfl
-  · rw [homMap_succ, LinearMap.id_apply] <;> rfl
+  · rw [homMap_succ, LinearMap.id_apply]; rfl
 
 theorem actT_comp' (M N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) :
     actT M (actT N ω) = actT (M ∘ₗ N) ω := by
@@ -152,12 +152,12 @@ def actTEq (g h : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (hgh : ∀ x, g (
 /-- The homogenized pairing of a vector with the coefficients of an affine functional. -/
 theorem sum_mul_ehom (e : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (v : HVec d) :
     ∑ ν, v ν * ehom e ν = v 0 * e 0 + e.linear (Matrix.vecTail v) := by
-  rw [Fin.sum_univ_succ]
+  rw [Fin.sum_univ_succ, LinearMap.pi_apply_eq_sum_univ e.linear (Matrix.vecTail v)]
   congr 1
-  · simp only [ehom, Matrix.cons_val_zero]
-  · rw [LinearMap.pi_apply_eq_sum_univ e.linear (Matrix.vecTail v)]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    simp only [ehom, Matrix.cons_val_succ, smul_eq_mul, Matrix.vecTail, Function.comp_apply]
+  all_goals first
+    | rfl
+    | (refine Finset.sum_congr rfl fun j _ => ?_
+       simp only [ehom, Matrix.cons_val_succ, smul_eq_mul, Matrix.vecTail, Function.comp_apply])
 
 theorem affine_linear_apply (f : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (x : Fin d → ℝ) :
     f.linear x = f x - f 0 := by
