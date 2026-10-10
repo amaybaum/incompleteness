@@ -171,3 +171,40 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   gate at `lean-manuscript`, by construction on a dev branch; the build, respectively); run 38091534622 was still in
   progress in its numerical-probe jobs, its Mathlib bridge job 114328799399 complete as recorded at 22:48Z (Build
   success, release gate red at `lean-manuscript` only).
+
+## Round 3
+
+- 2026-10-10T23:50Z — round 3 opened at thread head `5d266133` (verified: `git status` clean, `git log -1`). Re-read the
+  charter, LOG, LEDGER, RESULTS, NOTES-E2 … E10, the modules under `lean/`, the drafts under `preregistration-drafts/`,
+  `research/OVERVIEW.md` at overview `2a055180` (fetched from `origin research/overview`), the handoffs addressed to this
+  thread at that commit, and AGENTS.md at L (sha256 `959c4333…`, identical to the copy in the main checkout).
+- 2026-10-10T23:50Z — **receipt of HO-9 v1, HO-10 v1, HO-12 v1, HO-15 v1** (`research/HANDOFFS/` at overview `2a055180`),
+  each copied byte-identically to `inbox/` (sha256 and git blob checked equal to the source):
+  HO-9 `4b2c4a0f708e7ec5…` (blob `3e1260e3`), HO-10 `ef909f693f4b058a…` (blob `134197b1`), HO-12 `b9584f3be12d1b47…`
+  (blob `a9db4b81`), HO-15 `f941456f55174f23…` (blob `f9a525be`). HO-13 and HO-14 have this thread as source and are not
+  copied. **Reliance, stated before use** (only at the labels the handoffs carry; nothing in them is CERTIFIED except the
+  kernel declarations they name at L, each re-read at L before this entry):
+  - **HO-9 (item 3 only; items 1, 2, 4–7 are addressed to bridge and origin and are context, not relied on).** Item 3 —
+    on a passive, repeatable, finite-rank tower every reversible datum has finite order on the completed chart body, so
+    no OPS-Γ datum and no drive — is taken as a CONDITIONAL constraint ([W] tower step, [D] origin design run) on any
+    sourcing of K∞-Drive and K∞-Trans through classical conditioning towers; K∞-Seed is compatible with passive towers.
+    Its stage-crossing clause is CERTIFIED: `not_stagePreserving_of_infiniteOrderOn` (CompositionOrder.lean:378, read at
+    L). Used in the LEDGER round-3 notes (Kinf-Drive, Kinf-Trans) only; not a premise of any draft or theorem.
+  - **HO-10.** Item 2 (B3.C: a compact pair group containing `cnot` with abelian identity component leaves an exotic
+    invariant cone; CONDITIONAL on claim (D) [A]) and item 1 (the reachability theorem; CONJECTURE, written proof) are
+    used as comparators for node E11: they say the reachability hypothesis of the K2 schema cannot be met by any such
+    group, the complement of the schema's sufficient clause. Not a premise of the design module; nothing in HO-10 is
+    kernel-checked.
+  - **HO-12.** Item 1's (D1)–(D2) (the two-token dictionary and its intertwining; CONJECTURE-exact [X]) and the bridge's
+    draft `BridgeDictionary.lean` (sha256 `e4b60411…`, which did not build at `dict_tens`) are the convergence target of
+    node E11's dictionary, which re-derives the dictionary in this thread's own design module and cites the draft; the
+    clause (T) (a named premise; FAILED as a bridge) and items 2–4 (the A_miss split; the non-forcing CONDITIONAL on claim
+    (D); the order 11520 CONJECTURE) are recorded in the LEDGER round-3 note for K2 at their labels. HO-6's interface
+    request is answered by item 1; nothing in HO-12 is CERTIFIED.
+  - **HO-15.** Items 1–5 (Aut(Ω₄) = O(3) × ℤ₂; its orbits; `c*` constant on `C¹` bodies; the rank of the second
+    fundamental form; Ω₄'s cone self-dual for no inner product), each CONDITIONAL [W]+[X], and the assumption-watch marker
+    are the starting point of node E13 and a constraint on draft S4's non-inference rule and HP-1's wording; E13 re-checks
+    item 5 by its own exact computation before using it. The two kernel theorems it names, `exists_affine_image_eq_eball`
+    (TransitiveBody.lean:602) and `exists_affine_image_eq_eball_of_dense` (DenseOrbit.lean:174), are CERTIFIED at L (read
+    at L). Nothing else in HO-15 is CERTIFIED.
+  No research step of round 3 precedes this receipt's commit.
