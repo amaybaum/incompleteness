@@ -265,6 +265,7 @@ import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
 import OIBridge.OriginEnvelope
+import OIBridge.OriginPassive
 
 namespace OIBridge
 
