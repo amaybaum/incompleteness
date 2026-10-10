@@ -1,0 +1,9 @@
+CHECK T1 normalization                   PASS |prodState(a,b)|^2 = (1+|a|^2)(1+|b|^2) = 4 on S^2 x S^2; {1, a_i, b_j, a_i b_j} independent (rank 16)
+CHECK T2 support lemma identity          PASS Na Nb ipW(prodState, y) = 4 w^dag Y3 w with w = (a0 b1, a1 b0, a1 b1) (symbolic)
+COUNTERCONTROL CC3 w = (a0 b0, a1 b0, a1 b1): identity fails (as required)
+CHECK T3 open pure set on each null quadric PASS K(E0) z0 ok; K(e_3/4) z0 ok; K_F2 z0 ok; K_F2 z1 ok; K(Z_F) z0 ok; K(Z_F) z1 ok; K(Z_F) z2 ok; K(Z_F) z3 ok
+CHECK T4 sphere condition                PASS K(Z_F): normalized defects |4z_s|^2 = {4}, pure 4; K(e_c): 2*c**2 + 1; K(E0): 3
+COUNTERCONTROL CC1 E00 squared norm 1 (not 4, as required)
+COUNTERCONTROL CC2 {F, actC Rx F}: a pure state violating both constraints: (0, 1)
+summary: 7 checks, 0 failed
+VERDICT C3-INGREDIENTS-EXACT
