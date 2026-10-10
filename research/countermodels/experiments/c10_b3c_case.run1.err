@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/user/wt-research/countermodels/research/countermodels/experiments/c10_b3c_case.py", line 87, in <module>
+    g_ = sp.igcd(*[int(x) for x in n if x != 0]); n = n / g_
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/core/intfunc.py", line 189, in igcd
+    raise TypeError("igcd() takes at least 2 arguments (%s given)" % len(args))
+TypeError: igcd() takes at least 2 arguments (1 given)
+exit 1

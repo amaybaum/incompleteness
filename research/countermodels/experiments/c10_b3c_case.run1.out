@@ -1,0 +1,4 @@
+CHECK K0   PASS b1..b4 orthonormal; b1 = C2(1), b2 = C2(-1) maximally entangled; b3 = |0+>, b4 = |1-> products
+CHECK K1   PASS CNOT = I - 2|1-><1-|; u(al, be) unitary, commutes with CNOT; weights (al, be, al+be, 0) pairwise distinct (simple spectrum)
+CHECK K2   PASS z = (I - 2P_{b1})/8 fixed by H0 and CNOT; its table reproduces it; M(b1) M(b1)^dag = I/2, so |<b1|x(x)y>|^2 <= 1/2 and z in maxCone -- table of z: [[1/4, 0, 0, 0], [0, 0, 0, -1/4], [0, 0, 1/4, 0], [0, 1/4, 0, 0]]
+CHECK K3   PASS 8 pauliW(z) has eigenvalues (-1, 1, 1, 1): one negative, lambda_2 = -lambda_1 (X's condition, boundary); tr(P_b1 z) = -1/8 (K != Q3) -- eigenvalues [-1, 1, 1, 1]

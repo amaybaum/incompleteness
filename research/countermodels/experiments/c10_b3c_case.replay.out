@@ -1,0 +1,10 @@
+CHECK K0   PASS b1..b4 orthonormal; b1 = C2(1), b2 = C2(-1) maximally entangled; b3 = |0+>, b4 = |1-> products
+CHECK K1   PASS CNOT = I - 2|1-><1-|; u(al, be) unitary, commutes with CNOT; weights (al, be, al+be, 0) pairwise distinct (simple spectrum)
+CHECK K2   PASS z = (I - 2P_{b1})/8 fixed by H0 and CNOT; its table reproduces it; M(b1) M(b1)^dag = I/2, so |<b1|x(x)y>|^2 <= 1/2 and z in maxCone -- table of z: [[1/4, 0, 0, 0], [0, 0, 0, -1/4], [0, 0, 1/4, 0], [0, 1/4, 0, 0]]
+CHECK K3   PASS 8 pauliW(z) has eigenvalues (-1, 1, 1, 1): one negative, lambda_2 = -lambda_1 (X's condition, boundary); tr(P_b1 z) = -1/8 (K != Q3) -- eigenvalues [-1, 1, 1, 1]
+CHECK K4   PASS the slice C: facet normals = extreme rays (7 each), generators pairwise >= 0: C* = C; f = (-1,1,1,1) in C, so C != R^4_+ -- extreme rays [(-1, 1, 1, 1), (0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 1, 0, 0)]
+COUNTERCONTROL CC1  PASS the product basis {|00>, |01>, |1+>, |1->}: every basis vector is a product (no entangled fixed ray)
+COUNTERCONTROL CC2  PASS c = 5/2: eigenvalues (-3/2, 1, 1, 1) violate lambda_2 >= -lambda_1; 1 - (5/2)(1/2) < 0 at a best product -- eigenvalues [-3/2, 1, 1, 1]
+CHECK EX   PASS no Float in any recorded value
+summary: 8 checks, 0 failed
+VERDICT C10-B3C-CASE-EXACT: for H0 = the 2-torus with weights (al, be, al+be, 0) on {C2(1), C2(-1), |0+>, |1->} (two product lines, simple spectrum) and G = H0 x <cnot>, the single-defect cone K({z_C2(1)}) is an explicit G-invariant exotic cone; its H0-slice is the self-dual cone with extreme rays [(-1, 1, 1, 1), (0, 0, 0, 1), (0, 0, 1, 0), (0, 1, 0, 0), (1, 0, 0, 1), (1, 0, 1, 0), (1, 1, 0, 0)]

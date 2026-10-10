@@ -60,3 +60,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   order, polar). RESULTS rows C7.1–C7.7 (with C7.1f, C7.6f), C8.1–C8.4, C9.1–C9.7 appended; no earlier row changed.
   Handoff proposal HP2 (to equivalence via the coordinator). HO-7 relied on for the definition of Ω₄ only. Commit:
   round-2 write-up.
+- 2026-10-10T23:11Z — optional node (B3.C, HO-2 v1). NOTES-C10 S0 written 23:08:08Z (`date -u`); `c10_b3c_case.py` run 1
+  (23:09:07) stopped after K0–K3 with a TypeError in my facet-normalization helper, kept as run1; run 2 (23:09:18, helper
+  only) 8/8 `VERDICT C10-B3C-CASE-EXACT`, replay identical (out ffc453bf…). Result: an explicit exotic cone for a case
+  HO-2 lists as open, with its slice; the eigenline-orbit mechanism; residual region recorded. HO-2 relied on for the
+  statement of B3.C and its coverage list only. RESULTS rows C10.1–C10.3 and C2.8r appended. Handoff proposal HP3 (to
+  bridge via the coordinator). Commit: C10.
