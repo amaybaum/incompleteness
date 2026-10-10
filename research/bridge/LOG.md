@@ -64,3 +64,29 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   b2 header, the b3 header, the b4 pre-run note (fixed before its run) and three LOG lines (this entry included: first
   written as 20:52Z). The two script cases are kept as `.run1.*` with outputs identical to the final
   runs. Lean dispatches used: 0 of 3. Inbox: empty throughout.
+
+## Round 2
+
+- 2026-10-10T21:48Z — round 2 opened at thread head 5f4089a4 (verified clean, up to date with origin). Read, in order:
+  README.md, LOG.md, RESULTS.md, NOTES-B1 … NOTES-B5 (own round-1 record); the coordinator's
+  AUDIT-BRIDGE.md and OVERVIEW.md on research/overview @ 62cbb3cf (read-only). Audit: no label changes; B5-2
+  (formalization of Theorem B1.1) proposed as round-2 node.
+- 2026-10-10T21:48Z — receipts. Copied from research/overview @ 62cbb3cf `research/HANDOFFS/` into `inbox/`,
+  byte-identical (cmp), sha256:
+  - HO-4 v1 (countermodels → bridge, KZ1–KZ12) `0c67c44937839c6293126082ec9aff66d90fab4d1c112435eeef91630370b184`;
+  - HO-5 v1 (origin → bridge, SRC/SPEC, Lemma P) `25a4ff61de4b00ad32b266ff2328f8da0667c284d7540eef93852a93b81bbc8d`;
+  - HO-6 v1 (equivalence → bridge, one map for K2(c) and Kₙ) `901e8d1074ce41cc7d51095eafb5e994f18f716dd2c5e4953835e22a3ae2b9b0`.
+  Reliance (nothing in them is CERTIFIED; each item is used only at the label it carries):
+  - **HO-4.** Relied on in B8 only: KZ6 (local symmetry group of order 384, 96 local unitary Cliffords) and KZ7 (the
+    flow law `−sin t/8` for every axis) as CONDITIONAL exact facts of K(Z_F), both independently confirmed by the
+    coordinator; I re-derive what B8 needs from them with my own exact code rather than cite them as premises. KZ5 is
+    not relied on (rank-one-preserver input [U]). The composition-clause proposal is the object B8 tests, not an
+    assumption. KZ11's `K_circ` is not used (existence by EBF only).
+  - **HO-5.** Relied on in B9: item 1 (A_miss ⟺ (b) for `R_z(t)` all `t` ∧ (b) for `J = cyc3`) as CONDITIONAL [W]
+    with [X] identities, re-checked in my own script before use; item 4 (matrix reduction through
+    `substratumClass_contextStable`) as CONDITIONAL [W], used only to frame what B9 asks; item 5 (Lemma P) as a
+    constraint on any realization I construct (no passive token-level observation where a drive is wanted). Item 6
+    (the joint statement) is not relied on: unadopted proposal. SRC(J) and SPEC are OPEN and are not assumed.
+  - **HO-6.** Relied on as a planning input for B9 (the dictionary request), at its labels: W-DESC / Kₙ-DESC
+    CONJECTURE; the absence of a map at L [A]. I do not assume `ContextStable` is (b) (the handoff forbids the
+    identification without a formal map; B9's job is to state what such a map needs).
