@@ -74,7 +74,13 @@ lines. So design run 4 (run 37948419430, [A]) built `kt4_forward_ie1` over a ker
 
 **Re-derivation in this thread [D].** Branch `dev-equivalence/kt4-at-l` at `288f80ec` = this thread's checkpoint plus the
 ten Pauli-free modules (blobs checked equal to `ff9c3a35`'s; `FourCopyPackage`, the sorry-carrying Pauli stage imported
-by no headline module, omitted). Run 38084161796: RESULT-PENDING.
+by no headline module, omitted). **Run 38084161796** (`workflow_dispatch`, Mathlib bridge job 114307027913): `Build
+completed successfully (3654 jobs)`; the six headline prints — `ie1_all`, `parity_all`, `kt4_general_ie1`,
+`kt4_forward_ie1`, `kt4_forward_ie1_kt4`, `kt4_forward_ie1_lt` — each `[propext, Classical.choice, Quot.sound]`; the gate's
+`lean-axioms` step OK (6015 named results, no sorry); the gate failed at `lean-manuscript` (10 problems: the ten modules
+have no registry family, as in design runs 3–4) and at `claims` and `duplicate` (which scan the branch's `research/`
+tree). **So `kt4_forward_ie1` is re-derived over the kernel at L, at evidence level [D]** — kernel-checked in a design
+run, not certified.
 
 **What a certified re-derivation would and would not give.** Certifying `kt4_forward_ie1` at L needs a governed round
 (registry family under §A.35; the release gate's `lean-manuscript` step fails on unregistered modules). It would certify
@@ -85,4 +91,4 @@ P-ACT2), which would supply `hcl` and `hgate` together but presupposes K2 (KT4-P
 ## 5. Classification (§A.31)
 
 ELABORATING: `tok` is located precisely (multi-token LT, carrier-level), the substantive residue is FCC, and the
-re-derivation question is answered by tree identity plus a fresh design build. No NEW finding.
+re-derivation question is answered by tree identity plus a fresh design build (run 38084161796). No NEW finding.
