@@ -208,3 +208,5 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     (TransitiveBody.lean:602) and `exists_affine_image_eq_eball_of_dense` (DenseOrbit.lean:174), are CERTIFIED at L (read
     at L). Nothing else in HO-15 is CERTIFIED.
   No research step of round 3 precedes this receipt's commit.
+- 2026-10-10T23:52Z — E12 S0: `NOTES-E12.md` opened with its reading rule and predictions P1–P4 for the dispatch of
+  `dev-equivalence/omega4` at `95beab2b` (head checked by `git ls-remote` at 23:51Z); committed before the dispatch.
