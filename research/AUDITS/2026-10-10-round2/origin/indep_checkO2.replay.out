@@ -1,0 +1,15 @@
+== X1 density certificate on three states
+CONFIRMED X1 2cos = sqrt2 - 1/2 (min poly x^2 + x - 7/4), R01 of order 8, no common invariant line, R01 moves the axis of U: closure SO(3) with [L] -- min poly 4*x**2 + 4*x - 7
+== X2 the Hadamard pair is dihedral about one axis
+CONFIRMED X2 2cos = -3/2 (infinite order) but both reflections fix the axis of U': infinite dihedral, closure a proper O(2) -- axis [-(2 - sqrt(2))/(-10 + 7*sqrt(2)), -(-1 + sqrt(2))/(-3 + 2*sqrt(2)), 1]
+== X3 exclusivity on the 14 nontrivial partitions
+CONFIRMED X3 with the exchanges and one passive readout of any of the 14 nontrivial partitions every point mass is reachable: the body is the simplex -- 14 partitions
+== X4 KB-D instrument = forget_x o Luders_z
+CONFIRMED X4 forget_x(Luders_z(p | z = a)) is the uniform posterior on the cell {z = a}, branch by branch
+== X5 the Kochen-Specker circle tower
+CONFIRMED X5 cosine law exact and repeatable; stage tables rank 3; e^{ia} of infinite order; 1/2 only for the closure member R(pi/2) -- ranks [3, 3, 3, 3], min poly 5*x**2 - 6*x + 5
+== X6 level three: Lie algebra of the closure
+CONFIRMED X6 U orthogonal; Pi a rank-4 projector commuting with U; U + U^T = 0 off it and = (3/2) Pi on it; Lie closure of Y: 10 under the permutations (inside so(5) of the all-ones hyperplane), 15 = so(6) with Ad(M1); countercontrol Y0 stays at 10 -- dims perm-only 10, full 15, countercontrol 10; trace Pi = (4+0 r2)
+SUMMARY 6/6 CONFIRMED
+INDEP-O2-FIXED
+exit=0

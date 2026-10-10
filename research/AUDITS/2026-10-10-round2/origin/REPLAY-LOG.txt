@@ -1,0 +1,7 @@
+22:49:56Z replay start origin round 2 (cwd experiments/, python3 -I -B)
+REPLAY o5_kbd stdout=IDENTICAL stderr=DIFFERENT rc=0 22:49:57Z
+REPLAY o5_src stdout=IDENTICAL stderr=DIFFERENT rc=0 22:49:57Z
+REPLAY o6_tower stdout=IDENTICAL stderr=DIFFERENT rc=0 22:50:02Z
+REPLAY o7_density stdout=IDENTICAL stderr=DIFFERENT rc=0 22:50:02Z
+REPLAY o7_level3 stdout=IDENTICAL stderr=DIFFERENT rc=0 22:50:18Z
+DONE 22:50:18Z

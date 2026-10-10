@@ -1,0 +1,24 @@
+OK   CompositionOrder.lean:378 [not_stagePreserving_of_infiniteOrderOn] theorem not_stagePreserving_of_infiniteOrderOn {S T : OpDatum D} (hS : AffineRespect S)
+OK   CompositionOrder.lean:348 [finiteOrderOn_of_stagePreserving] theorem finiteOrderOn_of_stagePreserving {S T : OpDatum D} (hS : AffineRespect S)
+OK   CompositionOrder.lean:149 [exists_return] theorem exists_return {S : Finset α} {f : α → α} (hf : Function.Injective f)
+OK   CompositionOrder.lean:171 [exists_common_period] theorem exists_common_period {f : α → α} (A : Finset α)
+OK   TransitiveBody.lean:109 [chartBody_isCompact] theorem chartBody_isCompact : IsCompact (chartBody C) :=
+OK   TransitiveBody.lean:80 [chartBody_convex] theorem chartBody_convex : Convex ℝ (chartBody C) :=
+OK   CompletionAction.lean:352 [preservesBody_inducedEquiv] theorem preservesBody_inducedEquiv {S T : OpDatum D} (hS : AffineRespect S)
+OK   OperationalAssembly.lean:658 [readout_is_localLuders] theorem readout_is_localLuders (T : FiniteOperationalTheory A) (n : ℕ) (k : Fin n) :
+OK   OperationalAssembly.lean:675 [pureSeedPrep_available_of_swap] theorem pureSeedPrep_available_of_swap (T : FiniteOperationalTheory A) (n : ℕ)
+OK   OperationalAssembly.lean:492 [None] noncomputable def uniformAttach (n : ℕ) :
+OK   OperationalAssembly.lean:515 [None] def discardWith (n : ℕ) (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+OK   OperationalAssembly.lean:649 [None] prepAvail_discard : ∀ (n : ℕ)
+OK   InternalObserver.lean:249 [recordInstr] def recordInstr (a : A) : Matrix (A × A) (A × A) ℂ →ₗ[ℂ] Matrix (A × A) (A × A) ℂ :=
+OK   InternalObserver.lean:290 [recordInstr_not_passive] theorem recordInstr_not_passive (hA : 1 < Fintype.card A) :
+OK   StateMixingCoupling.lean:56 [None] inductive MixR (D : Set ℝ) : ∀ (T : Type) [Fintype T] [DecidableEq T], Matrix T T ℂ → Prop
+OK   StateMixingCoupling.lean:59 [None] | mix (n : ℕ) (θ : ℝ) (hθ : θ ∈ D) : MixR D (Fin 2 × Fin n) (mixImage n θ)
+OK   LieRankSource.lean:209 [None] def phaseGate (a : S) : Matrix S S ℂ := Matrix.diagonal fun p => if a = p then Complex.I else 1
+OK   DiscreteCompletion.lean:1926 [None] noncomputable abbrev fixedGateTheory (α : ℝ) : FiniteOperationalTheory (Fin 2) :=
+OK   DiscreteCompletion.lean:1522 [None] theorem denseUnitaryControl_of_fixedGate (hd : DerivedOI T) {α : ℝ} (hα : Irrational (α / Real.pi))
+OK   DiscreteCompletion.lean:1948 [None] theorem fixedGateTheory_not_qm (α : ℝ) : ¬ ExactAllFiniteEndomorphicQuantumOps (fixedGateTheory α) :=
+OK   SubstratumSource.lean:103 [genTheory_avail_conj] theorem genTheory_avail_conj {n : ℕ} {V : Matrix (A × Fin n) (A × Fin n) ℂ}
+OK   KInfFoundations.lean:425 [cyc3] noncomputable def cyc3 : (Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ) := cycEquiv.toAffineEquiv
+OK   KInfFoundations.lean:427 [cyc3_apply] theorem cyc3_apply (v : Fin 3 → ℝ) : cyc3 v 0 = v 2 ∧ cyc3 v 1 = v 0 ∧ cyc3 v 2 = v 1 :=
+MISSING 0 of 23

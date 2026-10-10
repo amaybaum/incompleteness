@@ -19,9 +19,9 @@ enters `main` only through a §A.39 governed round with separate authorization.
 | `research/overview` | this overview, `research/HANDOFFS/` (versioned handoffs), `research/AUDITS/` (coordinator audits), the milestone log | archive | live | coordinator only |
 | `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `5f4089a4` (audited) | active, priority 1 |
 | `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `54f79532` (audited) | active |
-| `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `4cec62c9` (audited) | active |
+| `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `42bc3da6` (round 2 audited) | active |
 | `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `8c67c7fb` (audited) | active |
-| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326) | thread branch | — | as created |
+| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366) | thread branch | — | as created |
 | `research/conscious-observation-loop` | pre-existing branch of the owner (CONSC-1 charter work, 2026-10-05); not part of this tree, untouched | — | `0cefaecb` | owner's |
 
 **CI on research branches.** Pushes to research branches trigger no workflow. A `workflow_dispatch` run on a dev
@@ -73,6 +73,10 @@ test). Round 1 added, with every claim at its label:
 - **Mutual dependency Origin ↔ bridge (origin, O4-D):** the bridge needs SRC (a balanced mixer `J` available on one
   token from a premise passing the disguise test) from Origin; Origin needs SPEC (the mixer's spectator stability,
   matrix form = what remains for `oiPlusMin_iff_qm`, pair form = (b)) from the bridge; neither discharges the other.
+- **SRC's only known mechanism does not reach the pair (origin round 2, HO-9):** the knowledge-balance readout makes
+  `J = cyc3` available on one token with the exact witness, but its exclusivity is excluded on the stated access, and
+  every product-register composite of such tokens is Bell-local — SRC via KB-D is token-only and cannot serve SPEC's
+  target. The one open Origin premise is an exclusive measure-and-re-prepare readout.
 
 Stage summaries (archived, audited): stage 5 — no principle at L derives (b); CONDITIONAL on a spectator clause; weakest
 content (b) for {flow, J} or {flow, phase flow} on one token. Stage 4 — dichotomy UNIQUE iff Ĝ·SEP = all pure states,
@@ -133,6 +137,20 @@ and (ii) K(Z_F).
   (finite rank of an infinite completion, an infinite-order stage-crossing datum with OFF, invasive repeatable
   observation); density at the balanced angle.
 - Coordinator audit: replays 6/6, independent check 5/5, citations 43/43 — `AUDIT-ORIGIN.md`.
+- **Round 2 (head `42bc3da6`, audited):** KB-D splits into an instrument (Lüders readout ∘ forgetful map: sourced) and an
+  exclusivity (no passive readout of any partition), and the exclusivity is excluded on the stated access by the native
+  readout (sharpened Lemma P; one passive readout of any of the 14 nontrivial partitions restores the simplex) —
+  CONDITIONAL [W]+[X]+[D]; a memory bound and the kernel recorder FAILED as sources; symplectic couplings force KB-D's
+  form only with unknown pointer conjugates (circular). SRC via KB-D is token-only: product-register composites are
+  Bell-local (CONDITIONAL). On passive repeatable finite-rank towers every reversible datum has finite order, so O3-T5's
+  requirements exclude each other there (CONDITIONAL [W]+[D]; the stage-crossing clause CERTIFIED,
+  CompositionOrder.lean:378); on an invasive re-preparing tower (Kochen–Specker cosine law; circle, sphere) they hold
+  together — the field-neutral Continuous Origin and the source of KB-D are one premise, an exclusive
+  measure-and-re-prepare readout (OPEN). At the balanced angle the kernel's rotation datum on three states is dense in
+  SO(3) (the Hadamard pair is a proper O(2): a correction of reading), and at the kernel's level three the generated
+  group's closure contains SO(6), SU(6) with the quarter phase — density without exactness (CONDITIONAL [X]+[W]+[L]).
+  Coordinator audit: replays 5/5, independent check 6/6 (the level-three Lie-algebra dimensions recomputed from
+  scratch), citations 23/23 — `AUDITS/2026-10-10-round2/AUDIT-ORIGIN-R2.md`; HO-9 issued.
 
 ### `research/equivalence` — LEDGER.md (22 obligations), RESULTS.md rows R-E1.1 … R-E7.1
 
@@ -167,6 +185,7 @@ and (ii) K(Z_F).
 | EBF (existence of self-dual extensions of self-positive seeds) | countermodels C2.6 (`K_circ`), stage 4 | [A] AUDIT-X |
 | the stipulated phase continuum (every diagonal unitary available) | origin O3-T1 (one balanced mixer per level ⇒ the drive) | kernel-available (`diagonal_avail`), its sourcing from OI outside this programme's rounds |
 | `ContextStable` as the matrix form of the spectator clause (b) needs | equivalence Kₙ-DESC; stage 5 β | the Kₙ reduction is not a discharge (HO-6) |
+| an exclusive measure-and-re-prepare readout (KB-D in discrete form; the cosine re-preparation law in continuous form) | origin round 2: the single open premise behind the Discrete witness from monomial input and the field-neutral Continuous Origin (O5-V, O6-V) | unsourced; its exclusivity contradicts the native passive Lüders readout; sources tried (memory bound, recorder) FAILED, symplectic couplings circular |
 
 ## Eliminated alternatives (round 1, each kept with evidence)
 
@@ -181,6 +200,9 @@ and (ii) K(Z_F).
   surgery cones for the κ-with-G16 and torus nodes; uniqueness of K(Z_F) given its symmetry group.
 - Deriving K∞-Trans from drivability, seed, V4, Geom and capacity together (Ω₄).
 - The prediction `c = 11` for two-tight-cap pure states of K(Z_F) (actual 10).
+- (Round 2, origin) A memory bound and the kernel recorder as sources of KB-D; passive repeatable finite-rank towers as
+  carriers of any infinite-order datum, hence of a drive; "two overlapping balanced mixers ⇒ dense control" for
+  reflections (infinite dihedral); SRC via KB-D as a route to a candidate pair cone (token-only, Bell-local composites).
 
 ## Open gaps, by thread (dependencies in parentheses)
 
@@ -191,8 +213,8 @@ and (ii) K(Z_F).
 | formalization of Theorem B1.1 as a design module (first H→P declaration) | bridge | — | design run first |
 | whether T excludes every exotic cone (EBF cones with a continuum of non-PSD extreme rays) | countermodels | — | only if proved; then after its disguise test |
 | explicit κ-with-G16 and torus cones (non-surgery constructions); non-orthogonal Bell-type triples; the slice-map fibres | countermodels | — | no |
-| SRC: a substratum-sourced balanced mixer on the stated access; the source of KB-D | origin | — | no |
-| the field-neutral Continuous Origin (finite rank, stage-crossing datum, invasive repeatable observation) | origin | HO-2c (stage-crossing generator); HO-8 targets | no |
+| SRC: the source of an exclusive measure-and-re-prepare readout (KB-D discrete, the cosine law continuous) — now the single open Origin premise; on the stated access its exclusivity is excluded | origin | — | no |
+| the field-neutral Continuous Origin: mutually exclusive requirements on passive towers; jointly satisfiable on an invasive re-preparing tower whose law is outside the stated access | origin | the same premise as SRC | no |
 | K2 (c) = (b); K∞ seams; Kₙ; H-Bell; H-∞; λ; Level III converse | equivalence | bridge (for (b)); origin (for the drive) | per obligation; S1–S6 below |
 
 ## Round-ready findings (none created; each needs owner authorization to open a §A.39 round)
@@ -239,6 +261,12 @@ run, failed runs kept), the 69/69 citation check at L, the step-level CI record,
   as listed. Progress toward OI–QM equivalence: the gap is now one proposition pair, SRC(J) (Origin) and SPEC(φ) ∧
   SPEC(J) (bridge), with every H-level route from embedded observation alone closed; S1–S4 of the K route are at
   round-ready statements. Handoffs HO-1 … HO-8 issued.
+- 2026-10-10 — **origin round 2 closed and audited** (head `42bc3da6`). New results (none certified beyond the cited
+  kernel clause): the exclusivity of KB-D is excluded on the stated access (sharpened Lemma P, design module green);
+  passive finite-rank towers carry no infinite-order datum; the three requirements of the field-neutral Continuous
+  Origin hold together on an invasive re-preparing tower; SRC via KB-D is token-only; density at the balanced angle in
+  SO(3) and, at level three, SO(6). Eliminated: memory-bound and recorder sources of KB-D; passive towers as carriers of
+  a drive. New assumption-watch marker: the exclusive measure-and-re-prepare readout. HO-9 issued.
 
 ## Next round (round 2) — nodes handed to the threads
 
@@ -248,7 +276,9 @@ run, failed runs kept), the 69/69 citation check at L, the step-level CI record,
   level is a theorem.
 - **countermodels:** receive HO-1, HO-2, HO-7; (C7) the EBF wall: attempt an explicit `K_circ` or a structural
   obstruction; (C8) non-orthogonal Bell-type triples; (C9) the single-system analogue of T on Ω₄-type bodies.
-- **origin:** receive HO-2, HO-3, HO-8; (O5) KB-D sourcing or a no-go on the stated access; (O6) the stage-crossing
-  generator (HO-2c) against O3-T5's three requirements; (O7) density at the balanced angle.
+- **origin:** round 2 done (HO-2, HO-3, HO-8 received at `8f0c832a`; O5–O7 closed at their walls; audited). Round-3
+  candidates: (O8) the exclusive readout as a premise — its exact statement, disguise test and what it would cost the
+  stated access (a no-go theorem over the native readout as a design module); (O9) density at level two; (O10) HO-9's
+  constraint carried to the pair: whether any re-preparing law on a pair of tokens can realize a candidate cone.
 - **equivalence:** receive HO-2; (E8) preregistration drafts for S1–S4 held on the thread branch for owner review;
   (E9) the Level III converse's exact statement; (E10) the K2 schema proof attempt (S6).

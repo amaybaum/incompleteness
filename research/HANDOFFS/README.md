@@ -19,13 +19,14 @@ the receiving thread's assumptions silently.
 | id | from | to | result | version | received (commit) |
 |---|---|---|---|---|---|
 | HO-1 | bridge | countermodels | exact finite embedded-observer realization of K(Z_F) in branch (a) (CONDITIONAL) | v1 | — |
-| HO-2 | bridge | equivalence, countermodels (origin may receive) | finite and locally finite substrata cannot carry the sufficient composite actions; R1 obstruction `10/9`; towers ⇒ abelian identity component (CONDITIONAL on [L]); Conjecture B3.C | v1 | — |
-| HO-3 | bridge | origin | locality of registers is Bell-local and hosts no candidate pair; GR.md:326 marker (hold) | v1 | — |
+| HO-2 | bridge | equivalence, countermodels (origin may receive) | finite and locally finite substrata cannot carry the sufficient composite actions; R1 obstruction `10/9`; towers ⇒ abelian identity component (CONDITIONAL on [L]); Conjecture B3.C | v1 | origin `8f0c832a` (as a constraint only); equivalence, countermodels pending |
+| HO-3 | bridge | origin | locality of registers is Bell-local and hosts no candidate pair; GR.md:326 marker (hold) | v1 | origin `8f0c832a` (scope only) |
 | HO-4 | countermodels | bridge | KZ1–KZ12, the realization-facing properties of K(Z_F) (CONDITIONAL); composition-clause proposal | v1 | — |
 | HO-5 | origin | bridge | A_miss ⟺ (b) for `R_z(t)` ∧ (b) for `J = cyc3`; SRC/SPEC dependency; Lemma P (CONDITIONAL) | v1 | — |
 | HO-6 | equivalence | bridge | one formal map (two-token dictionary + `ContextStable` transfer) would serve K2(c) and Kₙ (interface request; W-DESC CONJECTURE) | v1 | — |
 | HO-7 | equivalence | countermodels | three exact objects: Ω₄, the swapped gate, the `2^k` class (CONJECTURE, exact) | v1 | — |
-| HO-8 | equivalence | origin | minimal sourcing targets on the K route (per-row labels) | v1 | — |
+| HO-8 | equivalence | origin | minimal sourcing targets on the K route (per-row labels) | v1 | origin `8f0c832a` (as a list of targets at their labels) |
+| HO-9 | origin | bridge, equivalence | the exclusive measure-and-re-prepare readout is the one open Origin premise; KB-D's exclusivity excluded on the stated access; SRC via KB-D token-only; passive finite-rank towers carry no infinite-order datum; density at the balanced angle (SO(3); SO(6) at level three) | v1 | — |
 
 The equivalence thread's HP-1 (proposed ROADMAP wording for row K) is addressed to the coordinator, not to a thread;
 it is recorded in `research/OVERVIEW.md` under round-ready findings and is not a handoff.
