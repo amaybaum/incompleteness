@@ -62,7 +62,24 @@ cannot reach `Fin 3` from `Fin 4` (no bijection `Fin 4 ≃ Fin 3 × Fin m`). The
 diagonal blocks and adjoints; `|S| · m = 2^k` forces `|S| = 2^j`, so a block of a full-class matrix lands in a full
 class) and is drivable at every `Fin (2^k)`, yet it is not drivable at `Fin 3` (a transition flow is not diagonal) and it
 violates `ContextStable` (`1_3 ⊗ X` on `Fin 3 × Fin 2` is not diagonal) — K2 checks the two failure instances exactly.
-Whether `block` and `LabelInvariant` are each load-bearing was not tested.
+
+**`block` and `LabelInvariant` are load-bearing too (written; CONJECTURE [W], closures computed by hand, not by
+machine).** In both countermodels the class is *generated*: start from every matrix at every carrier of size `2^k` and
+close under all clauses except the one dropped; the claim is that the closure contains no non-diagonal operator at
+`Fin 3`, so it is drivable on every `Fin (2^k)` and not on `Fin 3`.
+- *Without `block`.* A 3-element carrier is reached only by `LabelInvariant` from 3-element types (`Fin 1 × Fin 3`,
+  `Fin 3 × Fin 1`, …), by `ContextStable` only as `1_{Fin 1} ⊗ K` (K already at a 3-element type) or `1_{Fin 3} ⊗ c`
+  (c a scalar at `Fin 1`), and by `proj` only as single-point diagonal projectors (`S = Fin 1`, `m = 3`); `mul`, `smul`,
+  `one` keep {unit-disk scalars} ∪ {unit-disk multiples of single-point projectors} ∪ {0}. No rule descends from a larger
+  carrier, so a transition flow on `Fin 3` never appears; `block` fails at the `(0,0)` block of a relabelled
+  `1_{Fin 3} ⊗ flow (transition · ·)` on `Fin 3 × Fin 4` (the construction of §2).
+- *Without `LabelInvariant`* (full classes at every type of power-of-two cardinality). An element at a type
+  `Fin 3 × Fin m` arises from `ContextStable` only as `1_{Fin 3} ⊗ K`, from `proj` only as `1_{Fin 3} ⊗ P_k`, and from
+  products of these, so every `block` landing at `Fin 3` is a scalar multiple of `1`; without relabelling no other type
+  feeds `Fin 3`. So `Fin 3` carries scalars only.
+
+So each of the three closure clauses the descent uses is load-bearing for it; the written closures are the weakest
+part of this node's evidence and are what a governed round (NOTES-E7 S3) would have to make exact.
 
 ## 3. The smallest theorem that moves Kₙ
 

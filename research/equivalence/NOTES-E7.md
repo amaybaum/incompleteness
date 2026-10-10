@@ -70,7 +70,8 @@ ROADMAP status: most ready rounds below would not, and each skeleton says so.
 - **Predicted outcome.** PROVED; strength high (complete written proof, exact instances `e3_compress` 7/7); the risk is
   kernel engineering (an `Equiv` extending a prescribed injection; a closed form of `flow (transition a b) t`).
 - **Controls.** `ContextStable` load-bearing: the class "full at sizes `2^k`, unit-disk diagonal elsewhere" (closure
-  clauses written; failures exact, `e3_compress` K2); invariance of the coordinate subspace load-bearing for the
+  clauses written; failures exact, `e3_compress` K2); `block` and `LabelInvariant` load-bearing: the generated classes of
+  NOTES-E3 §2 (written; to be made exact by the round); invariance of the coordinate subspace load-bearing for the
   generators: the non-unitary compression `e3_compress` K1; positive: `fullClass` (`fullClass_arch`,
   ImplementationLocality.lean:518).
 - **What no outcome licenses.** That K2 or OI supplies drivability on qubit registers, or the closure clauses.
