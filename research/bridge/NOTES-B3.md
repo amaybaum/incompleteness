@@ -109,8 +109,46 @@ granted, never forces `Q3`.*
 - The frame-axis circles commute with their `cnot`-conjugates (`e_x`, `e_z` on either token [X6]). They are exactly
   the axes stage 4 records as EXOTIC-E [A].
 
+### 2.1 Partial results toward Conjecture B3.C [W], added after the node's verdict (20:48Z)
+
+**Setting.**
+- `H` is a compact group of unitary and antiunitary conjugations of the pair, with `cnot ∈ H`.
+- Its identity component is a torus, `H₀ = T`.
+- `R(H) = H·P`, where `P` is the set of pure product states.
+- By claim D [A], `H` is EXOTIC as soon as some pure state lies outside `R(H)`.
+
+`T = H₀` is normal in `H`. Hence every `h ∈ H`, unitary or antiunitary, maps joint eigenlines of `T` to joint
+eigenlines. For antiunitary `h`: if `tφ = λφ`, then `hφ` is an eigenvector of `h t h⁻¹ ∈ T`.
+
+- **(P1) `dim T ≤ 1` ⇒ EXOTIC.** `R(H)` is a finite union of images of `T × P` under smooth maps, so its dimension is
+  at most `1 + 4 < 6 = dim CP³`.
+- **(P2) `T` has four distinct eigenlines forming a grid product basis ⇒ EXOTIC.** A grid product basis is, up to a
+  local unitary, `{α⊗β, α⊗β⊥, α⊥⊗β, α⊥⊗β⊥}`.
+  - A product state has coefficients `(ac, ad, bc, bd)` in such a basis. Its support therefore has size 1, 2 or 4,
+    never 3.
+  - `T` preserves supports, and every `h ∈ H` permutes the eigenlines, so it preserves support sizes.
+  - Hence `R(H)` misses every state of support size 3, for instance `(φ₁ + φ₂ + φ₃)/√3`.
+
+  This covers the following tori, with any finite extension normalizing them:
+  - the full diagonal (monomial) torus, i.e. the continuous phase flows on both tokens together with the `ZZ` phase;
+  - stage 4's S2 torus `actC R_z ∘ actT R_x` (EXOTIC-E [A], consistent);
+  - every torus of commuting local frame-axis flows whose eigenbasis is a grid.
+- **(P3) `T` has four distinct eigenlines, none of them a product state ⇒ EXOTIC.** Suppose `h·p = φ_k` with `h ∈ H`
+  and `p ∈ P`. Then `p = h⁻¹φ_k` is an eigenline, hence not a product, which is a contradiction. So `φ_k ∉ R(H)`. This
+  covers the Bell-diagonal 3-torus, the identity component of K(Z_F)'s own stabilizer (stage 4 Z [A]).
+
+**The wall.** The remaining cases are:
+- 2- and 3-dimensional tori whose eigenbasis is a non-grid product basis, such as `{|0β⟩, |0β⊥⟩, |1γ⟩, |1γ⊥⟩}` with
+  `β ≠ γ, γ⊥`;
+- eigenbases that contain some, but not only, product lines;
+- 2-dimensional tori with a 2-dimensional eigenspace.
+
+For these, `μ(P)` (the moment image in the simplex) is 3-dimensional. Whether the finitely many images `σ(μ(P))`,
+`σ` in the normalizer's image, cover the simplex needs a case analysis constrained by `cnot ∈ N(T)`. That analysis is
+not done here.
+
 **What is left OPEN.** Whether every compact pair group containing `cnot` with abelian identity component leaves an
-exotic invariant cone. This holds for finite groups (claim D [A]) and for the torus nodes recorded at stage 4 [A]. In
+exotic invariant cone, beyond (P1)–(P3). This holds for finite groups (claim D [A]) and for the torus nodes recorded at stage 4 [A]. In
 general it is open (Conjecture B3.C). With it, "no finite or locally finite H-level substratum ever forces `Q3`, even
 granted every spectator principle at every stage" would be unconditional. Without it, the statement is proved for the
 three sufficient contents listed above.

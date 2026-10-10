@@ -50,3 +50,8 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   RESULTS V-1 (standing verdict) added. Handoff proposals HP-1, HP-2, HP-3 written.
 - 2026-10-10T20:46Z — commit B4/B5 prepared (exact commit time recorded in the next entry): NOTES-B4.md, NOTES-B5.md, b4 script/outputs/replay, RESULTS rows B4-1..B5-3 and
   V-1, handoff-proposals/HP-1..HP-3.
+- 2026-10-10T20:46:21Z — commit B4/B5 recorded: 0e601e17 (pushed).
+- 2026-10-10T20:48Z — decision: bounded depth-first attempt on the residual Conjecture B3.C (scope of the B3 no-go),
+  timeboxed; written proofs only. Result: partial theorem (P1)–(P3) in NOTES-B3 §2.1. Wall recorded: non-grid or
+  partially-product eigenbases and degenerate 2-tori need a moment-polytope covering analysis under `cnot ∈ N(T)`, not
+  done. RESULTS B3-4 updated (still CONJECTURE, with partial results).
