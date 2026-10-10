@@ -45,3 +45,18 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (out d219d502…). NOTES-C9 S0 written 22:51Z; `c9_omega4.py` (one pre-run edit: header wording of CC1) run 1 12/12
   `VERDICT C9-OMEGA4-EXACT`, replay identical (out 88c5fc06…). Kernel citations TransitiveBody.lean:602 and
   DenseOrbit.lean:174 read at L. Commit: C7 part 2, C8, C9 scripts.
+- 2026-10-10T23:01Z — **provenance correction** (supersedes the "(sic …)" sentence of the 23:01Z entry, which is wrong). The
+  clock times written into the round-2 S0 headers and script headers were my estimates, not `date -u` readings,
+  although the script headers say "by date -u"; several are later than the runs they precede. The order S0 text →
+  script → first run holds in every case, by file modification times (UTC): NOTES-C7 22:40:29, c7_ebf_wall run 1
+  22:42:03–04, run 2 22:42:48; NOTES-C9 22:50:02, c9_omega4 (after its pre-run edit) 22:50:58, run 22:51:12;
+  NOTES-C8 22:55:46, c8_bell_sets.py 22:56:56, run 22:57:10; c7_circle.py (after its pre-run edits) 22:59:14, run
+  22:59:15. The stated header times (c7_ebf_wall 22:47Z and "RUN 2 22:52Z", c7_circle 23:02Z, c8 23:08Z, c9 22:53Z,
+  NOTES-C8 23:04Z, NOTES-C9 22:51Z) are therefore not the times of record; the scripts are left unedited (they have been
+  run), and each NOTES file carries a provenance note. All later timestamps in this LOG are `date -u` readings.
+- 2026-10-10T23:04Z — C7, C8, C9 written up. NOTES-C7 (W1–W5, verdict: no explicit continuum cone; Theorem C7-D; fibres over Circ
+  and over the simplex have ≥ 2 members by EBF; full Bell-circle surgery fails), NOTES-C8 (witness lemma, Theorem C8 for
+  triples, Bell-circle sets and the W^⊥ class; Conjecture C8-C), NOTES-C9 (Aut(Ω₄) = O(3) × ℤ₂, orbits, c*, second
+  order, polar). RESULTS rows C7.1–C7.7 (with C7.1f, C7.6f), C8.1–C8.4, C9.1–C9.7 appended; no earlier row changed.
+  Handoff proposal HP2 (to equivalence via the coordinator). HO-7 relied on for the definition of Ω₄ only. Commit:
+  round-2 write-up.
