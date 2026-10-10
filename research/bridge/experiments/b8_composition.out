@@ -1,0 +1,8 @@
+X1   PASS  24 Cliffords generated; for U in {drive step, S, H, cyc3 lift} and all 16 basis tables, M(actC B(U) w) = Ad(U(x)I) M(w) and M(actT B(U) w) = Ad(I(x)U) M(w); B(V) = cycEquiv
+     drive step B(P) = [[3/5, -4/5, 0], [4/5, 3/5, 0], [0, 0, 1]]
+X2   PASS  token A: 4 stabilizing Cliffords = the Paulis True; token B: 4 = Paulis True; 40 exclusions certified by witnesses
+X3   PASS  32 symbolic pairings (2 tokens x 2 flows x 2 witnesses x 4 defects); values ['-s', 's'] (= -s for W, +s for W^-1); every witness certified in PSD n Z_F*
+X4   PASS  Q3 control: every X2 and X3 witness pairs >= 0 with the image of every Bell projector under the same local map
+
+PASS 4  FAIL 0
+VERDICT B8-EXACT

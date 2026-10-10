@@ -130,3 +130,10 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   explicitly. The dispatch-1 text stays in history (3d775029 here; 00d43da4 on the dev branch).
 - 2026-10-10T22:36:12Z — dispatch 2 of 3: dev commit f1c5f0fb (child of 00d43da4; module blob 1677640f), run
   38092042844.
+- 2026-10-10T22:40:08Z — B8 decision rule written into `b8_composition.py`. Pre-run edit at 22:41:27Z (logged in
+  the header; rule text unchanged): `ov2` as `a·conj(a)`, and the X3 part of X4 implemented as the rule states.
+- 2026-10-10T22:41:34Z — `b8_composition.py` run 1: 4/4 PASS, VERDICT B8-EXACT; replay byte-identical. The
+  realization theorem has no Lean declaration at L (its checker is `opglue_probes.py` per the coverage ledger); the
+  kernel counterparts of its composition content are `InertSpectatorCompositionality` and
+  `finiteOI_not_implies_inert` (OIRealization.lean:360).
+- 2026-10-10T22:45Z — NOTES-B8 written; RESULTS rows B8-1 … B8-4 appended.
