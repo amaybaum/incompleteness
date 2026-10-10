@@ -47,9 +47,9 @@ ball (`not_boundaryTransitive_flow`, OrbitGeneration.lean:620) and that "no theo
   convex (`RelStrictConvex`, KInfFoundations.lean:144) and centrally symmetric (:160), and on which no body-preserving
   family is boundary transitive or has a dense boundary orbit? The witness is Ω₄ = {(x, s) ∈ ℝ³ × ℝ : ‖x‖⁴ + s⁴ ≤ 1}.
 - **Q-NONELL (kernel, the decisive step).** Is Ω₄ an affine image of `eball 4`?
-- **Q-EXACT (exact layer).** Do the exact instances behave as stated — including supporting-effect completeness of the
-  full effects on Ω₄ at exact boundary points, which the kernel layer does not prove — and does the Euclidean 4-ball
-  control pass the same checks with a consistent section system?
+- **Q-EXACT (exact layer).** Do the exact checks hold as stated — including supporting-effect completeness of the full
+  effects on Ω₄, through an exact sum-of-squares identity for the gradient gap of `F`, which the kernel layer does not
+  prove — and do the Euclidean 4-ball controls pass the same checks with a consistent section system?
 
 ## The kernel declarations the round would add (frozen surface, module `OIBridge/TransSeparation.lean`)
 
@@ -101,15 +101,33 @@ transitive or has a dense boundary orbit (round KTRANS-SEP-1, reconstruction)", 
 
 ## The exact layer (frozen probe `verification/lean/ktrans_sep1_probe.py`)
 
-The probe is `research/equivalence/experiments/e2_drive_trans.py` (sha256 `394850c8…`; 10 checks, exact sympy/rational
-arithmetic) extended by one check **W5** that the round would add before `F` and that has not been run: at the nine
-exact boundary points of D8, the functional `ℓ(x) = ∇F(p)·x / 4` satisfies `ℓ(p) = 1` and, on a fixed exact grid of
-states, `−1 ≤ ℓ ≤ 1` — instances of supporting-effect completeness for the full effects (the written step W5 of
-NOTES-E2 §2). Its existing checks: D1–D5 (the drive's fields), D6 (the seed), D7 (central symmetry), D8 (exact
+The probe is the design probe `research/equivalence/experiments/e8_ktrans_probe.py` (sha256 `c32afda9…`; exact sympy
+and rational arithmetic), frozen byte for byte. Its checks D1–D9 and C1, with their code, are those of
+`e2_drive_trans.py` (sha256 `394850c8…`): D1–D5 (the drive's fields), D6 (the seed), D7 (central symmetry), D8 (exact
 midpoints strictly inside), D9 (the section `{u⁴ + v⁴ ≤ 1}` is no conic `{Au² + 2Buv + Cv² ≤ 1}` through its exact
-boundary points), C1 (the Euclidean 4-ball passes D1–D5 and its section system is consistent, `B = 0`). The
-coordinator's independent check X1 (the four zero curvatures of the quartic section at its axis points; controls: the
-circle and an ellipse) is cited, not frozen.
+boundary points), C1 (the Euclidean 4-ball passes D1–D5 and its section system is consistent, `B = 0`). It adds:
+
+- **W5** (supporting-effect completeness for the full effects): the Euler identity `∇F(p)·p = 4F(p)`, and the gradient
+  gap of `F` as an explicit sum of squares, identically in `(y, p)`:
+  `F(y) − F(p) − ∇F(p)·(y − p) = (|y_x|² − |p_x|²)² + 2|p_x|²|y_x − p_x|² + (y_s − p_s)²((y_s + p_s)² + 2p_s²)`;
+  at the nine rational boundary points of D8 and two irrational ones, `p₁ = (√15/5, 0, 0, 2√5/5)` and
+  `p₂ = (2^(−1/4), 0, 0, 2^(−1/4))`, the effect `e_p = (1 + ∇F(p)·y/4)/2` is `1` at `p` and `0` at `−p`; on a grid of
+  1669 exact states the nine rational `e_p` take values in `[0, 1]`. With the written step in the probe's header (the
+  boundary states of Ω₄ in the sense of `IsBoundaryState`, KInfFoundations.lean:130, are the points with `F = 1`; the
+  identity gives `∇F(p)·y ≤ 4` on Ω₄; central symmetry gives `e_p ≥ 0`), every boundary state is certain for a proper
+  full effect.
+- **C2** (positive control): the same two identities on the Euclidean 4-ball, whose gap is `|y − p|²` — the form of
+  the kernel's `supportingEffectComplete_ball3` (KInfFoundations.lean:1053).
+- **XW1, XW2** (countercontrols, each must fail as stated): the sum of squares without its middle term is not an
+  identity; at `p₁` the Euclidean-normal functional is certain at `p₁` but exceeds `1` at the exact state
+  `(21/25, 0, 0, 21/25)` of Ω₄ (the sign of `(3/25)(√15 + 2√5) − 1` decided in rationals).
+
+With the full effects, supporting-effect completeness holds on every compact convex body in finite dimension by the
+supporting-hyperplane theorem [L] — recorded in the archive (`research/archive/threads/A/RESULT.md`, and
+`research/archive/threads/F/LEDGER.md` row B8, the kernel candidate `supportingEffectComplete_fullEffects` [A]); W5 is
+an explicit instance on Ω₄ and says nothing about an available effect family (K∞-1's content, `KInf1`
+KInfFoundations.lean:1013). The coordinator's independent check X1 (the four zero curvatures of the quartic
+section at its axis points; controls: the circle and an ellipse) is cited, not frozen.
 
 ## The decision rules (frozen; implemented by `controls.py verdict`)
 
@@ -119,7 +137,7 @@ circle and an ellipse) is cited, not frozen.
 | Q-NONELL | `KTRANS-SEP-NONELLIPSOID-NOT-ESTABLISHED` | otherwise |
 | Q-SEP | `KTRANS-SEP-SEPARATED` | `kinfTrans_separation` and every declaration it depends on in the module have their frozen statements, resolve to the landed objects, and are built at `E` with every frozen print within the three axioms |
 | Q-SEP | `KTRANS-SEP-NOT-ESTABLISHED` | otherwise |
-| Q-EXACT | `KTRANS-SEP-INSTANCES-EXACT` | the probe blob at `E`, run by `controls.py` with `python3 -I`, prints `PASS` for D1–D9, W5 and C1, no `FAIL`, `checks: 11, failures: 0` and `VERDICT DRIVE-SEED-GEOM-CAP2-NOT-TRANS` |
+| Q-EXACT | `KTRANS-SEP-INSTANCES-EXACT` | the probe blob at `E`, run by `controls.py` with `python3 -I`, prints `PASS` for D1–D9, W5, C1 and C2, no `FAIL`, `COUNTER XW1 fails as stated`, `COUNTER XW2 fails as stated`, `checks: 12, failures: 0` and `VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS` |
 | Q-EXACT | `KTRANS-SEP-INSTANCES-NOT-ESTABLISHED` | otherwise |
 
 No rule reads another cell's outcome. `KTRANS-SEP-1-READ` when the three cells are assigned; tokens printed by
@@ -135,8 +153,9 @@ No rule reads another cell's outcome. `KTRANS-SEP-1-READ` when the three cells a
 > Non-inference rule: this round says nothing about which bodies OI supplies, nothing about chart dimension 3, and
 > nothing about the composite. It does not show that boundary transitivity or a dense boundary orbit is false for the
 > bodies OI would supply; it shows only that the other single-system seams, in the form the kernel states them, do not
-> imply it. Supporting-effect completeness of the full effects on the body is checked on exact instances and argued in
-> writing, and is not a kernel theorem of this round. The probe is an exact computation, not a Lean kernel proof.
+> imply it. Supporting-effect completeness of the full effects on the body is checked as an exact identity with a
+> written step, holds with the full effects on every compact convex body in finite dimension, and is not a kernel
+> theorem of this round. The probe is an exact computation, not a Lean kernel proof.
 
 **Premise this round does NOT source:** boundary transitivity and its dense form themselves — the round is a separation,
 it shows they must come from their own source; and none of drivability, seed, strict convexity or symmetry for any OI
@@ -150,7 +169,10 @@ on a general body." Under `KTRANS-SEP-1-READ` with all three cells positive the 
 a general body the other single-system seams do not give it: a strictly convex, drivable, centrally symmetric body of
 chart dimension 4 with a sharp seed admits no boundary-transitive family and no dense boundary orbit
 (`kinfTrans_separation`)." HP-1's further phrase "and supporting-effect completeness" is licensed **only** if a later
-revision moves W5 into the kernel layer; under this draft it is not. K∞-Trans stays OPEN under every outcome.
+revision moves W5 into the kernel layer; under this draft it is not, and it is better omitted in any case: with the full
+effects the property holds on every compact convex body in finite dimension (the supporting-hyperplane theorem; thread
+F's B8 [A]), so it adds nothing about Ω₄, and K∞-1's content lies in the available effect family. K∞-Trans stays OPEN
+under every outcome.
 
 ## The controls (in `controls.py`)
 
@@ -165,7 +187,8 @@ revision moves W5 into the kernel layer; under this draft it is not. K∞-Trans 
   `exists_affine_image_eq_eball_of_dense`, `relStrictConvex_of_strictConvex`, `singletonFaces_of_relStrictConvex`
   resolve to the landed declarations at `D`. Mutation: a local `eball`.
 - **S3 positive control (exact layer)**: the Euclidean 4-ball passes D1–D5 and its section system is consistent (C1),
-  so the non-ellipse step is not vacuous. The kernel form of the positive control is landed at every dimension, `d = 4`
+  so the non-ellipse step is not vacuous; C2 gives the ball's gradient-gap identity, and XW1, XW2 show that W5 can
+  fail. The kernel form of the positive control is landed at every dimension, `d = 4`
   included: `boundaryTransitive_fullAut : BoundaryTransitive (eball d) (fullAut d)` (EffectSpace.lean:337); S2 reads its
   statement at `D`, so the separation's negative clauses are checked against a body on which the same clauses are
   positive.
@@ -182,7 +205,7 @@ revision moves W5 into the kernel layer; under this draft it is not. K∞-Trans 
 | the module was built before `F` (this draft's open hazard) | `C0`: a design run of the repaired module on the predicted tree, green at the Mathlib bridge build with all fifteen prints standard, recorded in this file before `F` |
 | the controls and the probe are the frozen ones | `C2`: blobs at stage 1 and at `E`; `controls.py --self-test` OK at `E` |
 | every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the fifteen prints, none with `sorryAx` |
-| the exact layer replays and renders | `C3`: shard `probes_ktranssep1` green with `VERDICT DRIVE-SEED-GEOM-CAP2-NOT-TRANS`; the aggregate job green |
+| the exact layer replays and renders | `C3`: shard `probes_ktranssep1` green with `VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS`; the aggregate job green |
 | the module is registered; no manuscript changes | `C4`: the release gate at `E` passing every step |
 | the change stays inside the governed paths | `C6`: `git diff --no-renames --name-status D E`; `C5` (G) |
 | the native receipts hold; the legacy records are untouched | `C7`: `v3_verifier --verify-round Q`; `legacy_records_check.py` at every stage commit and at `Q` |
@@ -193,14 +216,15 @@ revision moves W5 into the kernel layer; under this draft it is not. K∞-Trans 
 |---|---|---|---|
 | 1 | `195dfbee` (`dev-equivalence/omega4`, based on L; module `EqvOmega4`, blob `ee870649`) | 38090924005 | Mathlib bridge job 114327010280: **build failed** at two terms only, `EqvOmega4.lean:157:16` and `:215:16` (`fun v hv => le_of_lt hv` elaborated against `v ∈ omega4`: Type mismatch). Prints `[propext, Classical.choice, Quot.sound]` for `omega4_isCompact`, `conv_core`, `omega4_convex`, `abstract_strict`, `omega4_centrallySymmetric`, `sharpSeed_omega4`, `omega4_drivable`, `not_affine_eball_omega4`; `sorryAx` (error recovery at the two terms) for `omega4_strictConvex`, `relStrictConvex_omega4`, `singletonFaces_omega4`, `omega4_interior_nonempty`, `not_boundaryTransitive_omega4`, `not_denseBoundaryOrbit_omega4`, `kinfTrans_separation` |
 | repair | `95beab2b` (blob `9030f471`) | — (not dispatched: this draft's one dispatch of the round was run 1) | each failing term replaced by `by simp only [Set.mem_setOf_eq] at hv; rw [mem_omega4]; exact le_of_lt hv`; one unused simp argument dropped; no statement changed; **unmeasured** |
-| exact | `research/equivalence` | `e2_drive_trans` (local; replayed by the coordinator; decisive step independently confirmed as X1) | 10 checks, 0 failures, `VERDICT DRIVE-SEED-GEOM-CAP2-NOT-TRANS` |
+| exact (round 1) | `research/equivalence` | `e2_drive_trans` (local; replayed by the coordinator; decisive step independently confirmed as X1) | 10 checks, 0 failures, `VERDICT DRIVE-SEED-GEOM-CAP2-NOT-TRANS` |
+| exact (the probe to freeze) | `research/equivalence` | `e8_ktrans_probe` run 1 (local, `python3 -I -B`; replay byte-identical; py `c32afda9…`, out `d6f6d298…`) | 12 checks, 0 failures; `COUNTER XW1 fails as stated`, `COUNTER XW2 fails as stated`; grid of 1669 states; `VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS` |
 
 **Predicted outputs, generated from those measurements by the rules:** Q-NONELL `KTRANS-SEP-NONELLIPSOID-PROVED` is
 already supported by run 1 (the theorem built with standard axioms; it does not depend on the two failing terms). Q-SEP
 `KTRANS-SEP-SEPARATED` is **not** supported by any measurement: in run 1 its dependants printed `sorryAx`; the
-prediction rests on the repair being proof-only and is to be measured by `C0`. Q-EXACT: the ten existing checks are
-measured (`checks: 10`); W5 is unwritten and unmeasured, so the frozen rule's `checks: 11` is a design target, not a
-prediction from a measurement.
+prediction rests on the repair being proof-only and is to be measured by `C0`. Q-EXACT `KTRANS-SEP-INSTANCES-EXACT`
+is generated from the run of `e8_ktrans_probe` (`checks: 12, failures: 0`, both countercontrols failing as stated, the
+verdict token), the frozen probe being that blob (checkpoint `C2`).
 
 ## Stages and outcomes
 

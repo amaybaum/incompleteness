@@ -12,8 +12,14 @@ cite EqvOmega4.lean:157 -> ??
 cite ImplementationLocality.lean:506 -> Architecture
 cite InstrumentCompletion.lean:195 -> finiteSupport_iff_kraus
 cite K1Bridge.lean:128 -> dim_of_nativeGateOf
+cite KInfFoundations.lean:130 -> IsBoundaryState
+cite KInfFoundations.lean:135 -> SupportingEffectComplete
 cite KInfFoundations.lean:144 -> RelStrictConvex
+cite KInfFoundations.lean:149 -> fullEffects
 cite KInfFoundations.lean:264 -> ElementaryDrivability
+cite KInfFoundations.lean:1013 -> KInf1
+cite KInfFoundations.lean:1053 -> supportingEffectComplete_ball3
+cite KInfFoundations.lean:1089 -> not_kInf1_ball3_unit
 cite OrbitGeneration.lean:65 -> SharpSeed
 cite OrbitGeneration.lean:69 -> PreservesBody
 cite OrbitGeneration.lean:79 -> BoundaryTransitive
@@ -36,5 +42,5 @@ cite SubstratumSource.lean:86 -> QuantumArchitecture
 cite TransitiveBody.lean:518 -> eball
 cite TransitiveBody.lean:602 -> exists_affine_image_eq_eball
 cite TransitiveBody.lean:651 -> chartBody_eq_eball
-citations: 37 distinct (49 occurrences), named pairs: 24
+citations: 43 distinct (59 occurrences), named pairs: 31
 VERDICT CITATIONS-RESOLVE

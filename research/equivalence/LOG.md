@@ -151,3 +151,23 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   hypothesis name as kernel citations, and its floor of 40 exceeded the 37 citations found); kept as
   `e8_cite_check.run1.*`. Run 2 (scope rules and countercontrols X1–X3 in place of the floor, decision rule fixed
   before it ran): `VERDICT CITATIONS-RESOLVE`, 37 distinct citations, replay identical. RESULTS R-E8.5.
+- 2026-10-10T23:04Z — E8 continued (S4's exact layer, which its Q-EXACT rule required and which was unwritten):
+  `experiments/e8_ktrans_probe.py` assembled from `e2_drive_trans.py`'s D1–D9 and C1 (code copied, checked identical
+  line for line; `e2_drive_trans.py` not edited) plus W5 (Euler identity; the gradient gap of `F` as an explicit sum of
+  squares; eleven exact boundary points; a grid of 1669 states), the ball control C2 and the countercontrols XW1, XW2,
+  its decision rule fixed in the header before run 1. Run 1: 12/12, XW1 and XW2 fail as stated,
+  `VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS`; replay byte-identical. Pressure test: supporting-effect completeness with
+  the full effects holds on every compact convex body in finite dimension and is already recorded in the archive
+  (`threads/A/RESULT.md`; `threads/F/LEDGER.md` row B8), so W5 is CONFIRMING and S4 now advises omitting HP-1's phrase
+  "and supporting-effect completeness". S4 updated (Q-EXACT question and rule, exact layer, non-inference rule, HP-1
+  note, controls, invariant row, design table, predicted outputs); still not ready to freeze (`C0`). RESULTS R-E8.6.
+- 2026-10-10T23:08Z — NOTES-E8 written: the round's instruction names a NOTES file per node and E8 had none; it records
+  the four drafts, the three dispatches with their Mathlib bridge jobs and steps, S4's exact layer and the §A.31
+  classification.
+- 2026-10-10T23:09Z — `experiments/e8_cite_check.py` run 3: run 2's files kept as `e8_cite_check.run2.*` (they are the
+  measurement R-E8.5 cites, at `4a18e16a`); the script's documents list gains NOTES-E8.md, its decision rule unchanged.
+  `VERDICT CITATIONS-RESOLVE`, 43 distinct citations (59 occurrences, 31 named pairs), replay identical. RESULTS R-E8.7.
+- 2026-10-10T23:10Z — run status read through the API: runs 38090116254 and 38090924005 concluded `failure` (the release
+  gate at `lean-manuscript`, by construction on a dev branch; the build, respectively); run 38091534622 was still in
+  progress in its numerical-probe jobs, its Mathlib bridge job 114328799399 complete as recorded at 22:48Z (Build
+  success, release gate red at `lean-manuscript` only).

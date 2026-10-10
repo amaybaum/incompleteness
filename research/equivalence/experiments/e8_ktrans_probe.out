@@ -1,0 +1,31 @@
+== Omega4 = {(|x|^2)^2 + s^4 <= 1}
+PASS D1 the flow preserves F identically
+PASS D2 flow_zero and flow_add (R_z(t) R_z(u) = R_z(t+u))
+PASS D3 N = flow(pi) is an involution and moves e0 in Omega4
+PASS D4 J and J^-1 preserve F identically
+PASS D5 J_off_axis at t = pi/2, x = e1: J flow(pi/2) J^-1 e1 = e2, flow(s) e1 has zero third coordinate
+PASS D6 seed (1+s)/2: s^4 <= F gives |s| <= 1 on Omega4; values 1 and 0 at (0,0,0,+-1) in Omega4
+PASS D7 F(-v) = F(v) (central symmetry; capacity <= 2 by Lemma D)
+PASS D8 9 exact boundary points; every midpoint of a distinct pair has F < 1 (max 169/225)
+PASS D9 the section {u^4 + v^4 <= 1} is not {A u^2 + 2 B u v + C v^2 <= 1}: the boundary-point system has no solution
+== control: the Euclidean 4-ball
+PASS C1 ball4: D1-D5 hold and the section system is consistent (B = 0) -- solution [{A: 1, B: 0, C: 1, tau: 1/2}]
+== W5 and its controls
+   boundary point [1, 0, 0, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [-1, 0, 0, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [0, 1, 0, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [1/3, 2/3, 2/3, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [-2/3, 1/3, 2/3, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [3/5, 0, 4/5, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [0, 0, 0, 1]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [0, 0, 0, -1]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [0, 0, -1, 0]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [sqrt(15)/5, 0, 0, 2*sqrt(5)/5]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   boundary point [2**(3/4)/2, 0, 0, 2**(3/4)/2]: F = 1, e_p(p) = 1, e_p(-p) = 0
+   grid: 1669 exact states with F <= 1; over the nine rational e_p the values range over [0, 1]
+PASS W5 SEC for the full effects: Euler identity, gradient gap = explicit sum of squares, 11 exact boundary points, grid of 1669 states -- euler True, sos True, points True, grid True
+PASS C2 ball4: grad F(p).p = 2 F(p) and the gradient gap is |y - p|^2
+COUNTER XW1 fails as stated -- the sum of squares without 2|p_x|^2|y_x - p_x|^2 is not an identity
+COUNTER XW2 fails as stated -- |p1|^2 = 7/5, F(y*) = 388962/390625, e'(p1) = 1: True, p1.y*/|p1|^2 = 3*sqrt(15)/25 + 6*sqrt(5)/25 > 1 (3 b^2 = 3888/15625 > a^2 = 3844/15625)
+checks: 12, failures: 0
+VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS

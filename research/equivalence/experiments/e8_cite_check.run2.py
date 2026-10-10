@@ -10,8 +10,8 @@ CHECKS.
       structure, class, instance, noncomputable def), and the script prints the declared name;
   C3  where a citation is written directly after a backticked name -- "`name` (File.lean:NNN" or "`name`, File.lean:NNN"
       or "`name` File.lean:NNN" -- the declared name at that line equals `name` (its last dotted component).
-  Documents scanned: preregistration-drafts/S1..S4, NOTES-E8.md, NOTES-E9.md, NOTES-E10.md, the RESULTS rows R-AUDIT.1,
-  R-E8.*, R-E9.*, R-E10.*, the LEDGER section "Round-2 notes", handoff-proposals/HP-5..HP-7.  A citation with a line range or a slash list
+  Documents scanned: preregistration-drafts/S1..S4, NOTES-E9.md, NOTES-E10.md, the RESULTS rows R-AUDIT.1, R-E8.*, R-E9.*,
+  R-E10.*, the LEDGER section "Round-2 notes", handoff-proposals/HP-5..HP-7.  A citation with a line range or a slash list
   (":106/:110") is expanded to each listed line.
 
   Design modules of this thread (EqvKnDesc, EqvOmega4, EqvLevel3, StageSeed, CopyCovariance, EqvSeams,
@@ -26,9 +26,8 @@ RUN HISTORY.  Run 1 (kept: e8_cite_check.run1.{py,out,err}) did not render: its 
 above the 37 found, a design-module error location (EqvOmega4.lean:157) was read as a kernel citation, and the
 hypothesis name `hP1` was read as the declaration at K1Bridge.lean:128.  All three were defects of the checker, not of
 the documents; the scope rules above and the countercontrols X1-X3 replace the floor, which becomes a non-vacuity
-floor of 20.  Run 2 (kept: e8_cite_check.run2.{py,out,err,replay.out,replay.err}) rendered over the documents at commit
-4a18e16a.  Run 3 changes only the documents list, adding NOTES-E8.md, after draft S4's exact layer was updated.
-DECISION RULE (fixed before run 2; unchanged for run 3).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
+floor of 20.
+DECISION RULE (fixed before run 2).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
 20 distinct citations are found, and X1, X2, X3 each fail exactly as stated.  Otherwise "VERDICT NOT RENDERED" followed by
 each failing citation or countercontrol.
 """
@@ -41,7 +40,7 @@ OIB = os.path.join(ROOT, 'verification/lean-mathlib/OIBridge')
 HERE = '..'
 DOCS = ['preregistration-drafts/S1-kinf-seed.md', 'preregistration-drafts/S2-kinf-copy-type-covariance.md',
         'preregistration-drafts/S3-kn-descent.md', 'preregistration-drafts/S4-kinf-trans-separation.md',
-        'NOTES-E8.md', 'NOTES-E9.md', 'NOTES-E10.md',
+        'NOTES-E9.md', 'NOTES-E10.md',
         'handoff-proposals/HP-5-coordinator-level3-wording-and-s6-cost.md',
         'handoff-proposals/HP-6-bridge-origin-two-rotations-suffice.md',
         'handoff-proposals/HP-7-countermodels-finite-octahedral-group.md']
