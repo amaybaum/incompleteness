@@ -118,3 +118,15 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   list (the first fails one order), as the rule provides.
 - 2026-10-10T22:31Z — NOTES-B7 written; RESULTS rows B7-1 … B7-4 appended (round-2 section). B3-4 is not edited;
   B7-2 supersedes its label for the same statement.
+- 2026-10-10T22:33Z — run 38090784384 (dispatch 1) read through the jobs API and the job log (GitHub MCP job-log
+  reader; the built-in `gh` refuses the log host redirect). Mathlib bridge job 114326594532: **Build failure** (step 5,
+  22:28:43–22:30:37Z), Release gate skipped; every other job of the run green or still queued at reading time.
+  Cause: `𝒫` is Mathlib notation (`Set.powerset`) and cannot bind a variable, so the nine declarations binding it
+  failed to parse (`unexpected token '𝒫'`) and their dependents reported unknown identifiers. Built with
+  `#print axioms` = [propext, Classical.choice, Quot.sound]: `actCLin`, `actTLin`, `intertwine_of_respect`,
+  `span_prodSetOf`, `span_hom_of_frame`, `span_productSet`, `ctl_intertwine`. No `sorry`.
+- 2026-10-10T22:35Z — module corrected: `𝒫` renamed `Pd`; alternatives the linter reported as never executed removed
+  (each first alternative had succeeded); `mem_diffSub` added; the countercontrol evaluates its two entries
+  explicitly. The dispatch-1 text stays in history (3d775029 here; 00d43da4 on the dev branch).
+- 2026-10-10T22:36:12Z — dispatch 2 of 3: dev commit f1c5f0fb (child of 00d43da4; module blob 1677640f), run
+  38092042844.

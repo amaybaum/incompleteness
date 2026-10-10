@@ -6,9 +6,9 @@
   pair carrier `W 3`.
 
   A finite hidden pair model consists of hidden vectors `Λ → ℝ`, a linear pair readout
-  `R : (Λ → ℝ) →ₗ[ℝ] W 3`, a set `𝒫` of hidden vectors (the hidden distributions the pair can be
+  `R : (Λ → ℝ) →ₗ[ℝ] W 3`, a set `Pd` of hidden vectors (the hidden distributions the pair can be
   in) and a linear hidden map `P`; the pushforward `hpush π` along a hidden bijection `π` is one.
-  The hidden composite cone `hiddenCone R 𝒫` is the set of rays through `R '' 𝒫`.
+  The hidden composite cone `hiddenCone R Pd` is the set of rays through `R '' Pd`.
 
   Proved here:
     §A  the two local actions as linear maps of the carrier (`actCLin`, `actTLin`) and the control
@@ -28,14 +28,14 @@
         availability in context (A) give `R ∘ P = actC O ∘ R` and `actC O` maps the hidden
         composite cone into itself; `bH_respect_target` is the same for `actT O`; `bH_perm` is the
         form for a readout-respecting hidden bijection.
-        `bH_convex`: the statement of NOTES-B1 §2, with RESPECT assumed only on `𝒫` (convex, with
+        `bH_convex`: the statement of NOTES-B1 §2, with RESPECT assumed only on `Pd` (convex, with
         normalized readout), product behaviour on the realized products of the ball, and (A):
-        the same conclusions on `𝒫`. The readout-kernel form on the span of `𝒫` is derived
+        the same conclusions on `Pd`. The readout-kernel form on the span of `Pd` is derived
         (`respect_diff`, through the differences of two rays `diffSub`).
     §E  controls. A finite hidden pair model with product registers `Fin 4 × Fin 4`, local readout
         and the hidden bijection `tokPerm × id` (`ctlR`, `ctlPerm`) satisfies every hypothesis of
         `bH_perm` for the linear part `cycEquiv` of the kernel's `cyc3`, on the probability
-        simplex (`ctl_bH`, positive control). With `𝒫` the single point mass at `(e_x, 0)`, the
+        simplex (`ctl_bH`, positive control). With `Pd` the single point mass at `(e_x, 0)`, the
         same model keeps RESPECT and product behaviour, (A) fails, and `actC cycEquiv` moves the
         hidden cone (`ctl_counter`, countercontrol: (A) is not redundant).
 
@@ -65,18 +65,10 @@ def actCLin {d : ℕ} (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : W d �
   toFun := actC N
   map_add' ω ω' := by
     funext μ ν
-    first
-      | exact congrFun (map_add (homMap N) (fun κ => ω κ ν) (fun κ => ω' κ ν)) μ
-      | (simp only [actC_apply, Pi.add_apply];
-          rw [show (fun κ => ω κ ν + ω' κ ν) = (fun κ => ω κ ν) + (fun κ => ω' κ ν) from rfl,
-            map_add, Pi.add_apply])
+    exact congrFun (map_add (homMap N) (fun κ => ω κ ν) (fun κ => ω' κ ν)) μ
   map_smul' c ω := by
     funext μ ν
-    first
-      | exact congrFun (map_smul (homMap N) c (fun κ => ω κ ν)) μ
-      | (simp only [actC_apply, Pi.smul_apply, smul_eq_mul, RingHom.id_apply];
-          rw [show (fun κ => c * ω κ ν) = c • (fun κ => ω κ ν) from rfl, map_smul,
-            Pi.smul_apply, smul_eq_mul])
+    exact congrFun (map_smul (homMap N) c (fun κ => ω κ ν)) μ
 
 theorem actCLin_apply {d : ℕ} (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) :
     actCLin N ω = actC N ω := rfl
@@ -86,14 +78,10 @@ def actTLin {d : ℕ} (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : W d �
   toFun := actT N
   map_add' ω ω' := by
     funext μ
-    first
-      | exact map_add (homMap N) (ω μ) (ω' μ)
-      | (show homMap N (ω μ + ω' μ) = homMap N (ω μ) + homMap N (ω' μ); exact map_add _ _ _)
+    exact map_add (homMap N) (ω μ) (ω' μ)
   map_smul' c ω := by
     funext μ
-    first
-      | exact map_smul (homMap N) c (ω μ)
-      | (simp only [RingHom.id_apply]; exact map_smul (homMap N) c (ω μ))
+    exact map_smul (homMap N) c (ω μ)
 
 theorem actTLin_apply {d : ℕ} (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) :
     actTLin N ω = actT N ω := rfl
@@ -191,11 +179,7 @@ theorem span_prodSetOf {X : Set (Fin 3 → ℝ)} (hX : Submodule.span ℝ (hom '
   have hω : ω = tens (![1, 0, 0, 0] : HVec 3) (ω 0) + tens (![0, 1, 0, 0] : HVec 3) (ω 1)
       + tens (![0, 0, 1, 0] : HVec 3) (ω 2) + tens (![0, 0, 0, 1] : HVec 3) (ω 3) := by
     funext μ ν
-    fin_cases μ <;>
-      first
-        | (simp [tens_apply]; done)
-        | (simp +decide [tens_apply]; done)
-        | norm_num [tens_apply]
+    fin_cases μ <;> simp [tens_apply]
   rw [hω]
   exact Submodule.add_mem _ (Submodule.add_mem _ (Submodule.add_mem _
     (tens_mem_span_prodSetOf hX _ _) (tens_mem_span_prodSetOf hX _ _))
@@ -219,11 +203,7 @@ theorem span_hom_of_frame {X : Set (Fin 3 → ℝ)} (h0 : (0 : Fin 3 → ℝ) �
   have hv : v = v 0 • hom (0 : Fin 3 → ℝ) + v 1 • (hom xplus - hom (0 : Fin 3 → ℝ))
       + v 2 • (hom yplus - hom (0 : Fin 3 → ℝ)) + v 3 • (hom z3 - hom (0 : Fin 3 → ℝ)) := by
     funext i
-    fin_cases i <;>
-      first
-        | (simp [xplus, yplus, z3]; done)
-        | (simp [hom, xplus, yplus, z3]; done)
-        | norm_num [hom, xplus, yplus, z3]
+    fin_cases i <;> simp [xplus, yplus, z3]
   have m : ∀ x ∈ X, hom x ∈ Submodule.span ℝ (hom '' X) := fun x hx =>
     Submodule.subset_span ⟨x, hx, rfl⟩
   rw [hv]
@@ -248,23 +228,20 @@ variable {Λ : Type*}
 def hpush (π : Equiv.Perm Λ) : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ) where
   toFun μ := fun l => μ (π.symm l)
   map_add' μ ν := rfl
-  map_smul' c μ := by
-    first
-      | rfl
-      | (funext l; simp)
+  map_smul' c μ := rfl
 
 theorem hpush_apply (π : Equiv.Perm Λ) (μ : Λ → ℝ) (l : Λ) : hpush π μ l = μ (π.symm l) := rfl
 
 /-- The hidden composite cone: the rays through the realized pair states. -/
-def hiddenCone (R : (Λ → ℝ) →ₗ[ℝ] W 3) (𝒫 : Set (Λ → ℝ)) : Set (W 3) :=
-  {ω | ∃ c : ℝ, 0 ≤ c ∧ ∃ μ ∈ 𝒫, ω = c • R μ}
+def hiddenCone (R : (Λ → ℝ) →ₗ[ℝ] W 3) (Pd : Set (Λ → ℝ)) : Set (W 3) :=
+  {ω | ∃ c : ℝ, 0 ≤ c ∧ ∃ μ ∈ Pd, ω = c • R μ}
 
 /-- A linear map of the carrier intertwined with the hidden map on an invariant set of hidden
 vectors maps the hidden composite cone into itself. -/
 theorem hiddenCone_mapsTo (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ))
-    (𝒫 : Set (Λ → ℝ)) (T : W 3 →ₗ[ℝ] W 3) (hA : ∀ μ ∈ 𝒫, P μ ∈ 𝒫)
-    (hint : ∀ μ ∈ 𝒫, R (P μ) = T (R μ)) :
-    ∀ ω ∈ hiddenCone R 𝒫, T ω ∈ hiddenCone R 𝒫 := by
+    (Pd : Set (Λ → ℝ)) (T : W 3 →ₗ[ℝ] W 3) (hA : ∀ μ ∈ Pd, P μ ∈ Pd)
+    (hint : ∀ μ ∈ Pd, R (P μ) = T (R μ)) :
+    ∀ ω ∈ hiddenCone R Pd, T ω ∈ hiddenCone R Pd := by
   rintro _ ⟨c, hc, μ, hμ, rfl⟩
   exact ⟨c, hc, P μ, hA μ hμ, by rw [map_smul, hint μ hμ]⟩
 
@@ -273,12 +250,12 @@ behaviour on the products of a set `X` of token points whose homogenized points 
 availability in context (A): the readout intertwines `P` with `actC O`, and `actC O` maps the
 hidden composite cone into itself. -/
 theorem bH_respect {X : Set (Fin 3 → ℝ)} (hX : Submodule.span ℝ (hom '' X) = ⊤)
-    (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (𝒫 : Set (Λ → ℝ))
+    (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (Pd : Set (Λ → ℝ))
     (O : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
     (hW : ∀ ν, R ν = 0 → R (P ν) = 0)
     (hP : ∀ x ∈ X, ∀ y ∈ X, ∃ μ, R μ = prodState x y ∧ R (P μ) = prodState (O x) y)
-    (hA : ∀ μ ∈ 𝒫, P μ ∈ 𝒫) :
-    (∀ μ, R (P μ) = actC O (R μ)) ∧ ∀ ω ∈ hiddenCone R 𝒫, actC O ω ∈ hiddenCone R 𝒫 := by
+    (hA : ∀ μ ∈ Pd, P μ ∈ Pd) :
+    (∀ μ, R (P μ) = actC O (R μ)) ∧ ∀ ω ∈ hiddenCone R Pd, actC O ω ∈ hiddenCone R Pd := by
   have hint : ∀ μ ∈ (⊤ : Submodule ℝ (Λ → ℝ)), R (P μ) = actCLin O (R μ) := by
     refine intertwine_of_respect R P (actCLin O) ⊤ (prodSetOf X) (span_prodSetOf hX)
       (fun ν _ h0 => hW ν h0) ?_
@@ -286,16 +263,16 @@ theorem bH_respect {X : Set (Fin 3 → ℝ)} (hX : Submodule.span ℝ (hom '' X)
     obtain ⟨μ, h1, h2⟩ := hP x hx y hy
     exact ⟨μ, Submodule.mem_top, h1, by rw [h2, actCLin_apply, actC_prodState]⟩
   exact ⟨fun μ => hint μ Submodule.mem_top,
-    hiddenCone_mapsTo R P 𝒫 (actCLin O) hA (fun μ _ => hint μ Submodule.mem_top)⟩
+    hiddenCone_mapsTo R P Pd (actCLin O) hA (fun μ _ => hint μ Submodule.mem_top)⟩
 
 /-- **Theorem B1.1, readout-kernel form (target token).** -/
 theorem bH_respect_target {X : Set (Fin 3 → ℝ)} (hX : Submodule.span ℝ (hom '' X) = ⊤)
-    (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (𝒫 : Set (Λ → ℝ))
+    (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (Pd : Set (Λ → ℝ))
     (O : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
     (hW : ∀ ν, R ν = 0 → R (P ν) = 0)
     (hP : ∀ x ∈ X, ∀ y ∈ X, ∃ μ, R μ = prodState x y ∧ R (P μ) = prodState x (O y))
-    (hA : ∀ μ ∈ 𝒫, P μ ∈ 𝒫) :
-    (∀ μ, R (P μ) = actT O (R μ)) ∧ ∀ ω ∈ hiddenCone R 𝒫, actT O ω ∈ hiddenCone R 𝒫 := by
+    (hA : ∀ μ ∈ Pd, P μ ∈ Pd) :
+    (∀ μ, R (P μ) = actT O (R μ)) ∧ ∀ ω ∈ hiddenCone R Pd, actT O ω ∈ hiddenCone R Pd := by
   have hint : ∀ μ ∈ (⊤ : Submodule ℝ (Λ → ℝ)), R (P μ) = actTLin O (R μ) := by
     refine intertwine_of_respect R P (actTLin O) ⊤ (prodSetOf X) (span_prodSetOf hX)
       (fun ν _ h0 => hW ν h0) ?_
@@ -303,23 +280,23 @@ theorem bH_respect_target {X : Set (Fin 3 → ℝ)} (hX : Submodule.span ℝ (ho
     obtain ⟨μ, h1, h2⟩ := hP x hx y hy
     exact ⟨μ, Submodule.mem_top, h1, by rw [h2, actTLin_apply, actT_prodState]⟩
   exact ⟨fun μ => hint μ Submodule.mem_top,
-    hiddenCone_mapsTo R P 𝒫 (actTLin O) hA (fun μ _ => hint μ Submodule.mem_top)⟩
+    hiddenCone_mapsTo R P Pd (actTLin O) hA (fun μ _ => hint μ Submodule.mem_top)⟩
 
 /-- **Theorem B1.1 for a readout-respecting hidden bijection.** -/
 theorem bH_perm {X : Set (Fin 3 → ℝ)} (hX : Submodule.span ℝ (hom '' X) = ⊤)
-    (R : (Λ → ℝ) →ₗ[ℝ] W 3) (π : Equiv.Perm Λ) (𝒫 : Set (Λ → ℝ))
+    (R : (Λ → ℝ) →ₗ[ℝ] W 3) (π : Equiv.Perm Λ) (Pd : Set (Λ → ℝ))
     (O : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
     (hW : ∀ ν, R ν = 0 → R (hpush π ν) = 0)
     (hP : ∀ x ∈ X, ∀ y ∈ X, ∃ μ, R μ = prodState x y ∧ R (hpush π μ) = prodState (O x) y)
-    (hA : ∀ μ ∈ 𝒫, hpush π μ ∈ 𝒫) :
+    (hA : ∀ μ ∈ Pd, hpush π μ ∈ Pd) :
     (∀ μ, R (hpush π μ) = actC O (R μ)) ∧
-      ∀ ω ∈ hiddenCone R 𝒫, actC O ω ∈ hiddenCone R 𝒫 :=
-  bH_respect hX R (hpush π) 𝒫 O hW hP hA
+      ∀ ω ∈ hiddenCone R Pd, actC O ω ∈ hiddenCone R Pd :=
+  bH_respect hX R (hpush π) Pd O hW hP hA
 
 /-- Two rays through a convex set add to a ray through it. -/
-theorem ray_add {𝒫 : Set (Λ → ℝ)} (hconv : Convex ℝ 𝒫) {a a' : ℝ} (ha : 0 ≤ a) (ha' : 0 ≤ a')
-    {μ μ' : Λ → ℝ} (hμ : μ ∈ 𝒫) (hμ' : μ' ∈ 𝒫) :
-    ∃ A : ℝ, 0 ≤ A ∧ ∃ m ∈ 𝒫, a • μ + a' • μ' = A • m := by
+theorem ray_add {Pd : Set (Λ → ℝ)} (hconv : Convex ℝ Pd) {a a' : ℝ} (ha : 0 ≤ a) (ha' : 0 ≤ a')
+    {μ μ' : Λ → ℝ} (hμ : μ ∈ Pd) (hμ' : μ' ∈ Pd) :
+    ∃ A : ℝ, 0 ≤ A ∧ ∃ m ∈ Pd, a • μ + a' • μ' = A • m := by
   rcases eq_or_lt_of_le (add_nonneg ha ha') with h | h
   · have h1 : a = 0 := by linarith
     have h2 : a' = 0 := by linarith
@@ -330,14 +307,13 @@ theorem ray_add {𝒫 : Set (Λ → ℝ)} (hconv : Convex ℝ 𝒫) {a a' : ℝ}
     · rw [← add_div, div_self hne]
     · rw [smul_add, smul_smul, smul_smul, mul_div_cancel₀ a hne, mul_div_cancel₀ a' hne]
 
-/-- The differences of two rays through a convex nonempty set `𝒫`: a submodule of hidden vectors
-containing `𝒫`. -/
-def diffSub (𝒫 : Set (Λ → ℝ)) (hconv : Convex ℝ 𝒫) (hne : 𝒫.Nonempty) :
+/-- The differences of two rays through a convex nonempty set `Pd`: a submodule of hidden vectors
+containing `Pd`. -/
+def diffSub (Pd : Set (Λ → ℝ)) (hconv : Convex ℝ Pd) (hne : Pd.Nonempty) :
     Submodule ℝ (Λ → ℝ) where
-  carrier := {ν | ∃ a b : ℝ, 0 ≤ a ∧ 0 ≤ b ∧ ∃ μ₁ ∈ 𝒫, ∃ μ₂ ∈ 𝒫, ν = a • μ₁ - b • μ₂}
+  carrier := {ν | ∃ a b : ℝ, 0 ≤ a ∧ 0 ≤ b ∧ ∃ μ₁ ∈ Pd, ∃ μ₂ ∈ Pd, ν = a • μ₁ - b • μ₂}
   add_mem' := by
-    rintro _ _ ⟨a₁, b₁, ha₁, hb₁, μ₁, hμ₁, μ₂, hμ₂, rfl⟩
-      ⟨a₂, b₂, ha₂, hb₂, μ₃, hμ₃, μ₄, hμ₄, rfl⟩
+    rintro _ _ ⟨a₁, b₁, ha₁, hb₁, μ₁, hμ₁, μ₂, hμ₂, rfl⟩ ⟨a₂, b₂, ha₂, hb₂, μ₃, hμ₃, μ₄, hμ₄, rfl⟩
     obtain ⟨A, hA, m, hm, hAm⟩ := ray_add hconv ha₁ ha₂ hμ₁ hμ₃
     obtain ⟨B, hB, m', hm', hBm⟩ := ray_add hconv hb₁ hb₂ hμ₂ hμ₄
     refine ⟨A, B, hA, hB, m, hm, m', hm', ?_⟩
@@ -356,14 +332,18 @@ def diffSub (𝒫 : Set (Λ → ℝ)) (hconv : Convex ℝ 𝒫) (hne : 𝒫.None
       rw [smul_sub, smul_smul, smul_smul, neg_mul, neg_mul, neg_smul, neg_smul]
       abel
 
+theorem mem_diffSub {Pd : Set (Λ → ℝ)} {hconv : Convex ℝ Pd} {hne : Pd.Nonempty} {ν : Λ → ℝ} :
+    ν ∈ diffSub Pd hconv hne ↔
+      ∃ a b : ℝ, 0 ≤ a ∧ 0 ≤ b ∧ ∃ μ₁ ∈ Pd, ∃ μ₂ ∈ Pd, ν = a • μ₁ - b • μ₂ := Iff.rfl
+
 /-- RESPECT on a convex set with normalized readout gives RESPECT in readout-kernel form on the
 differences of rays through it. -/
-theorem respect_diff (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (𝒫 : Set (Λ → ℝ))
-    {hconv : Convex ℝ 𝒫} {hne : 𝒫.Nonempty}
-    (hnorm : ∀ μ ∈ 𝒫, R μ 0 0 = 1)
-    (hW : ∀ μ ∈ 𝒫, ∀ ν ∈ 𝒫, R μ = R ν → R (P μ) = R (P ν))
-    {ν : Λ → ℝ} (hν : ν ∈ diffSub 𝒫 hconv hne) (h0 : R ν = 0) : R (P ν) = 0 := by
-  obtain ⟨a, b, ha, hb, μ₁, hμ₁, μ₂, hμ₂, rfl⟩ := hν
+theorem respect_diff (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (Pd : Set (Λ → ℝ))
+    {hconv : Convex ℝ Pd} {hne : Pd.Nonempty}
+    (hnorm : ∀ μ ∈ Pd, R μ 0 0 = 1)
+    (hW : ∀ μ ∈ Pd, ∀ ν ∈ Pd, R μ = R ν → R (P μ) = R (P ν))
+    {ν : Λ → ℝ} (hν : ν ∈ diffSub Pd hconv hne) (h0 : R ν = 0) : R (P ν) = 0 := by
+  obtain ⟨a, b, ha, hb, μ₁, hμ₁, μ₂, hμ₂, rfl⟩ := mem_diffSub.mp hν
   have hR : a • R μ₁ = b • R μ₂ := by
     rw [map_sub, map_smul, map_smul, sub_eq_zero] at h0
     exact h0
@@ -373,41 +353,43 @@ theorem respect_diff (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ
     exact h00
   subst hab
   rcases eq_or_lt_of_le ha with h | h
-  · simp only [← h, zero_smul, sub_zero, map_zero]
+  · first
+      | simp only [← h, zero_smul, sub_zero, map_zero]
+      | (subst h; simp)
   · have hR' : R μ₁ = R μ₂ := smul_right_injective (W 3) h.ne' hR
     first
       | (simp only [map_sub, map_smul]; rw [hW μ₁ hμ₁ μ₂ hμ₂ hR', sub_self])
       | (rw [map_sub, map_sub, map_smul, map_smul, map_smul, map_smul, hW μ₁ hμ₁ μ₂ hμ₂ hR',
           sub_self])
 
-/-- **Theorem B1.1 as stated in NOTES-B1 §2.** RESPECT on the convex set `𝒫` of hidden
-distributions with normalized readout, the products of the ball realized in `𝒫` (H1) with product
-behaviour (P), and availability in context (A): on `𝒫` the readout intertwines `P` with `actC O`,
+/-- **Theorem B1.1 as stated in NOTES-B1 §2.** RESPECT on the convex set `Pd` of hidden
+distributions with normalized readout, the products of the ball realized in `Pd` (H1) with product
+behaviour (P), and availability in context (A): on `Pd` the readout intertwines `P` with `actC O`,
 and `actC O` maps the hidden composite cone into itself. -/
-theorem bH_convex (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (𝒫 : Set (Λ → ℝ))
-    (O : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) (hconv : Convex ℝ 𝒫)
-    (hnorm : ∀ μ ∈ 𝒫, R μ 0 0 = 1)
-    (hW : ∀ μ ∈ 𝒫, ∀ ν ∈ 𝒫, R μ = R ν → R (P μ) = R (P ν))
-    (hH1 : ∀ x ∈ eball 3, ∀ y ∈ eball 3, ∃ μ ∈ 𝒫, R μ = prodState x y)
-    (hP : ∀ μ ∈ 𝒫, ∀ x ∈ eball 3, ∀ y ∈ eball 3, R μ = prodState x y →
+theorem bH_convex (R : (Λ → ℝ) →ₗ[ℝ] W 3) (P : (Λ → ℝ) →ₗ[ℝ] (Λ → ℝ)) (Pd : Set (Λ → ℝ))
+    (O : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) (hconv : Convex ℝ Pd)
+    (hnorm : ∀ μ ∈ Pd, R μ 0 0 = 1)
+    (hW : ∀ μ ∈ Pd, ∀ ν ∈ Pd, R μ = R ν → R (P μ) = R (P ν))
+    (hH1 : ∀ x ∈ eball 3, ∀ y ∈ eball 3, ∃ μ ∈ Pd, R μ = prodState x y)
+    (hP : ∀ μ ∈ Pd, ∀ x ∈ eball 3, ∀ y ∈ eball 3, R μ = prodState x y →
       R (P μ) = prodState (O x) y)
-    (hA : ∀ μ ∈ 𝒫, P μ ∈ 𝒫) :
-    (∀ μ ∈ 𝒫, R (P μ) = actC O (R μ)) ∧
-      ∀ ω ∈ hiddenCone R 𝒫, actC O ω ∈ hiddenCone R 𝒫 := by
-  have hne : 𝒫.Nonempty := by
+    (hA : ∀ μ ∈ Pd, P μ ∈ Pd) :
+    (∀ μ ∈ Pd, R (P μ) = actC O (R μ)) ∧
+      ∀ ω ∈ hiddenCone R Pd, actC O ω ∈ hiddenCone R Pd := by
+  have hne : Pd.Nonempty := by
     obtain ⟨μ, hμ, _⟩ := hH1 0 zero_mem_eball3 0 zero_mem_eball3
     exact ⟨μ, hμ⟩
-  have hsub : ∀ μ ∈ 𝒫, μ ∈ diffSub 𝒫 hconv hne := fun μ hμ =>
-    ⟨1, 0, zero_le_one, le_refl 0, μ, hμ, μ, hμ, by rw [one_smul, zero_smul, sub_zero]⟩
-  have hint : ∀ μ ∈ diffSub 𝒫 hconv hne, R (P μ) = actCLin O (R μ) := by
-    refine intertwine_of_respect R P (actCLin O) (diffSub 𝒫 hconv hne) (prodSetOf (eball 3))
+  have hsub : ∀ μ ∈ Pd, μ ∈ diffSub Pd hconv hne := fun μ hμ =>
+    mem_diffSub.mpr ⟨1, 0, zero_le_one, le_refl 0, μ, hμ, μ, hμ, by rw [one_smul, zero_smul, sub_zero]⟩
+  have hint : ∀ μ ∈ diffSub Pd hconv hne, R (P μ) = actCLin O (R μ) := by
+    refine intertwine_of_respect R P (actCLin O) (diffSub Pd hconv hne) (prodSetOf (eball 3))
       (span_prodSetOf (span_hom_of_frame zero_mem_eball3 xplus_mem yplus_mem z3_mem))
-      (fun ν hν h0 => respect_diff R P 𝒫 hnorm hW hν h0) ?_
+      (fun ν hν h0 => respect_diff R P Pd hnorm hW hν h0) ?_
     rintro _ ⟨x, hx, y, hy, rfl⟩
     obtain ⟨μ, hμ, h1⟩ := hH1 x hx y hy
     exact ⟨μ, hsub μ hμ, h1, by rw [hP μ hμ x hx y hy h1, actCLin_apply, actC_prodState]⟩
   exact ⟨fun μ hμ => hint μ (hsub μ hμ),
-    hiddenCone_mapsTo R P 𝒫 (actCLin O) hA (fun μ hμ => hint μ (hsub μ hμ))⟩
+    hiddenCone_mapsTo R P Pd (actCLin O) hA (fun μ hμ => hint μ (hsub μ hμ))⟩
 
 /-- The probability simplex on the hidden configurations. -/
 def hidSimplex (κ : Type*) [Fintype κ] : Set (κ → ℝ) := {μ | (∀ l, 0 ≤ μ l) ∧ ∑ l, μ l = 1}
@@ -433,18 +415,14 @@ def tokPerm : Equiv.Perm (Fin 4) where
   invFun := ![0, 3, 1, 2]
   left_inv := by
     intro a
-    fin_cases a <;> first | rfl | decide | simp
+    fin_cases a <;> rfl
   right_inv := by
     intro a
-    fin_cases a <;> first | rfl | decide | simp
+    fin_cases a <;> rfl
 
 /-- The linear part of the kernel's `cyc3` permutes the token points as `tokPerm` does. -/
 theorem cyc_tok (a : Fin 4) : cycEquiv.toLinearMap (tok a) = tok (tokPerm a) := by
-  fin_cases a <;> funext i <;> fin_cases i <;>
-    first
-      | rfl
-      | (simp [tok, tokPerm, cycEquiv, xplus, yplus, z3]; done)
-      | norm_num [tok, tokPerm, cycEquiv, xplus, yplus, z3]
+  fin_cases a <;> funext i <;> fin_cases i <;> rfl
 
 /-- The control model's pair readout on the hidden registers `Fin 4 × Fin 4`: a hidden vector reads
 out as the combination of the products of its token points (product registers, local readout). -/
@@ -483,12 +461,12 @@ theorem ctlR_single (a b : Fin 4) :
   rw [Finset.sum_eq_single (a, b)]
   · simp
   · intro l _ hl
-    simp [Pi.single_apply, hl]
+    simp [hl]
   · intro h
     exact absurd (Finset.mem_univ _) h
 
 /-- **Positive control.** The control model satisfies every hypothesis of `bH_perm` for the linear
-part of `cyc3`, with `X` the four token points and `𝒫` the probability simplex. -/
+part of `cyc3`, with `X` the four token points and `Pd` the probability simplex. -/
 theorem ctl_bH :
     (∀ μ, ctlR (hpush ctlPerm μ) = actC cycEquiv.toLinearMap (ctlR μ)) ∧
       ∀ ω ∈ hiddenCone ctlR (hidSimplex (Fin 4 × Fin 4)),
@@ -505,7 +483,7 @@ theorem ctl_bH :
   · intro μ hμ
     exact hpush_hidSimplex ctlPerm hμ
 
-/-- **Countercontrol.** With `𝒫` the single point mass at the product `(e_x, 0)`, the control model
+/-- **Countercontrol.** With `Pd` the single point mass at the product `(e_x, 0)`, the control model
 keeps RESPECT and product behaviour (`ctl_bH`) while (A) fails, and `actC cycEquiv` moves the
 hidden cone: (A) is not redundant in `bH_respect`. -/
 theorem ctl_counter :
@@ -518,10 +496,14 @@ theorem ctl_counter :
   rw [Set.mem_singleton_iff] at hμ
   subst hμ
   rw [ctlR_single, actC_prodState, cyc_tok] at heq
+  have t1 : tok (tokPerm 1) 0 = 0 := rfl
+  have t2 : tok 1 0 = 1 := rfl
   have e1 := congrFun (congrFun heq 0) 0
   have e2 := congrFun (congrFun heq 1) 0
-  simp [prodState, tok, tokPerm, xplus, yplus] at e1 e2
-  linarith
+  simp only [prodState_apply, Pi.smul_apply, smul_eq_mul, hom_zero, hom_one', t1, t2] at e1 e2
+  first
+    | linarith
+    | (norm_num at e1 e2; linarith)
 
 #print axioms actCLin
 #print axioms actTLin
