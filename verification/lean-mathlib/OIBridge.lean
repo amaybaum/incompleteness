@@ -264,6 +264,8 @@ import OIBridge.RelcSelectParity
 import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
+import OIBridge.EqvSeams
+import OIBridge.EqvSeamsControl
 
 namespace OIBridge
 
