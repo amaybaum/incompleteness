@@ -1,0 +1,9 @@
+CHECK H1 flow law (every axis, both tokens) PASS ipW(R_n(t) z_s, R_n(pi/2) p_s) = -sin t/8; witness pairings in {0, (1 - n_i^2)/8}
+CHECK H2 sum rules                       PASS sum z_s = E00; ipW(z_s, T_psi_s) = -1/2; z_s + z_t PSD of rank 2
+CHECK H3 pure-like defects               PASS 4 z_s: entry (0,0) 1, squared norm 4, spectrum (-1/2, 1/2 x3)
+CHECK H4 maximal steering                PASS conditional target vector of 4 z_s for the sharp effect along a has length |a| (pure on |a| = 1)
+CHECK H5 no local first-order symmetry   PASS the only local generator commuting with every P_s is 0 (with c2_structure S1: the local stabilizer is finite)
+COUNTERCONTROL CC1 rotated product pairs 34/25 with a rotated product (>= 0 as required)
+COUNTERCONTROL CC2 with z_s in place of p_s the law fails: True
+summary: 7 checks, 0 failed
+VERDICT C6-HANDOFF-CHECKS-EXACT
