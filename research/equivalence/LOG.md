@@ -40,3 +40,5 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T20:35Z — commit `88cc525d` (E2): NOTES-E2, `lean/EqvSeams.lean`, `lean/EqvSeamsControl.lean`, probes, ledger rows.
 - 2026-10-10T20:36Z — `experiments/e3_compress.py`: 7/7, `VERDICT COMPRESSION-DESCENT-EXACT`; replay identical. Import
   graph at L re-checked (no ball-side ↔ complex-side edge).
+- 2026-10-10T20:38Z — commit `dc31472c` (E3): NOTES-E3, `e3_compress` probe and replay, ledger Kn row.
+- 2026-10-10T20:44Z — E4 written (no new probe; citations re-read against the kernel anchors at L).
