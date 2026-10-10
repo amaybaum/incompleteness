@@ -5,8 +5,8 @@ thread (HO-6's interface request; K2(c) and Kₙ). The coordinator routes.
 
 **Finding HP-6a (the transfer's needs).** Transferring `substratumClass_contextStable` (StructuralClosure.lean:261) to
 `W 3` needs three things.
-- (D1) The two-token dictionary with its product law [X b9 Y1; Lean design statement `BridgeDictionary.lean` if its
-  run is green].
+- (D1) The two-token dictionary with its product law [X b9 Y1]. A Lean draft `BridgeDictionary.lean` did not build (run 38093576860, failure in
+  `dict_tens`; RESULTS B9-5).
 - (D2) The dictionary's intertwining of the monomial images and of `cnot` [X b9 Y2–Y3].
 - (T) An M→P availability clause on the pair's own cone.
   - Only (T) carries cone content. For the monomial class it is SPEC_P(φ) ∧ SPEC_P(NOT): (b) for `R_z(φ)` and `nflip`.

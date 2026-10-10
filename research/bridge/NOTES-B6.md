@@ -11,6 +11,9 @@ token operation. If the full lemma is out of reach, formalize the largest exact 
 
 ## 1. What the module states
 
+In the Lean text the set of hidden distributions is named `Pd`: `𝒫` is reserved Mathlib notation (`Set.powerset`),
+which is what failed run 1. These notes keep `𝒫`.
+
 | declaration | content |
 |---|---|
 | `actCLin`, `actTLin` | the kernel's `actC N`, `actT N` as linear maps of `W d` |

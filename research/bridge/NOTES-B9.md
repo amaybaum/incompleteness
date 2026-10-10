@@ -93,10 +93,18 @@ Node B9 of `research/bridge` (round 2). Base L = `9f9f8257`. Evidence:
 
 ## 4. A Lean statement of the dictionary
 
-The exact content of (D1) and (D2) is above. A design-level Lean statement is feasible at small cost for (D1): the
-definitions and the product law `M(tens X Y) = m(X) ⊗ₖ m(Y)`, by bilinearity. The intertwining (D2) needs
-entrywise Pauli identities, which are heavier. Whether a module is built depends on the outcome of the B6 run and the
-one remaining dispatch; see LOG.md.
+`research/bridge/lean/BridgeDictionary.lean` (verbatim on `dev-bridge/b11-lemma` @ bbbefb72, run 38093576860) states
+the dictionary on the kernel's own tensor `tensorOf`, the operation `ContextStable` uses:
+- `pauli`, `tokMat v = ½ Σ v_μ σ_μ`, `dict ω = ¼ Σ ω_μν tensorOf σ_μ σ_ν`;
+- the product law `dict_tens`, `dict_prodState` (D1);
+- `monomial_extension_admissible`, the certified `substratumClass_contextStable` restated at the pair carrier: the
+  idle extension of a monomial one-token operator is admissible on `Fin 2 × Fin 2`;
+- `TransferClause 𝓘 K`, the clause (T) as a definition (a premise of nothing).
+
+The intertwining (D2) is not formalized; it needs entrywise Pauli identities. It is exact in b9 Y2–Y3.
+
+CI: run 38093576860 **did not** build the module: Build failure (23:02:28–23:04:23Z, job 114334767486). In `dict_tens` the `simp only [… Finset.sum_mul, Finset.mul_sum]` step nested the right-hand double sum with the second factor's index outside, so the termwise `ring` faced `X μ·Y ν` against `X ν·Y μ` and failed. The `first` fallback was not tried, because the error inside `exact (… by ring)` was recovered during elaboration rather than thrown. `dict_tens` and `dict_prodState` therefore print `sorryAx`. `monomial_extension_admissible` built on [propext, Classical.choice, Quot.sound]; `TransferClause` elaborated. BridgeLemma rebuilt in the same run with all 14 axiom lines standard. Untested fix for a later round: replace the `first` block by `simp only [Fin.sum_univ_four]` followed by `ring` (no index matching), or rewrite with `Finset.sum_comm` before the termwise step. The dictionary stays a draft (not [D]); its
+exact content rests on b9 Y1–Y3 [X]. No dispatch remains this round.
 
 ## 5. Verdict
 

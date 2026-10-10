@@ -181,3 +181,39 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - Release gate: `lean-axioms` **PASS** ("OK (5874 named result(s) reported, no sorr…"); FAIL only on `claims`,
     `duplicate`, `lean-manuscript` (1 problem), red by construction.
   B6 is [D]. NOTES-B6 §4 filled; RESULTS rows B6-1 and V-2 appended; NOTES-B9 §2's forward reference to B6 updated.
+- 2026-10-10T23:03:07Z — run 38092042844: at 23:03Z 21 jobs completed (Lean kernel check success; Mathlib bridge as
+  recorded), 11 numerical-probe shards still running. Remaining jobs cancelled to free runners for the other threads'
+  queued dispatches. The cancelled jobs do not bear on B6. Not a dispatch.
+- 2026-10-10T23:04:37Z — run 38093576860 (dispatch 3 of 3), Mathlib bridge job 114334767486:
+  - **Build failure** 23:02:28–23:04:23Z; Release gate skipped.
+  - `BridgeDictionary.dict_tens`: after `simp only [… Finset.sum_mul, Finset.mul_sum]` the right-hand double sum was
+    nested with the second factor's index outside; the termwise `ring` failed. The `first` fallback did not run,
+    because the error inside `exact (… by ring)` was recovered during elaboration. So `dict_tens` and
+    `dict_prodState` print `sorryAx`.
+  - `monomial_extension_admissible` built on the standard axioms. BridgeLemma rebuilt with all 14 axiom lines
+    standard.
+  - Dispatches used: 3 of 3. The dictionary stays a draft (RESULTS B9-5, OPEN). An untested fix is described in
+    NOTES-B9 §4. The research copy `lean/BridgeDictionary.lean` is kept equal to the dispatched text.
+  - Lesson recorded: a tactic error inside `exact (… by tac)` does not trigger `first`'s fallback.
+- 2026-10-10T23:05Z — run 38093576860's remaining probe jobs cancelled (as for runs 1 and 2; they do not bear on this
+  thread's work).
+- 2026-10-10T23:05:23Z — HP-6 corrected to the measured dictionary outcome (draft did not build). NOTES-B6 §1 gains a
+  one-line note on the `Pd` naming.
+- 2026-10-10T23:05Z — closing, round 2. Nodes B6–B9 done:
+  - B6: Theorem B1.1 [D], CI run 38092042844 green; both forms, local tomography proved, positive control and
+    countercontrol.
+  - B7: B3.C proved in all open cases, CONDITIONAL on claim (D) [A]; b7 13/13. Robustness run b7b recorded as
+    FAILED Z1 (generator design), with Z2/Z3 PASS.
+  - B8: HO-4 tested. The excluding clause is family membership; its matrix form is certified independent of the
+    sealed core; Stab_loc(K(Z_F)) = V4. b8 4/4.
+  - B9: transfer needs (D1), (D2) exact and (T) = (b) for the monomial images. The reduction to SPEC_P(J) is a
+    relocation; SPEC_P(J) with H2 ⟺ (b) for the native Clifford family. b9 7/7. The dictionary draft did not build.
+  Dispatches: 3 of 3 (runs 38090784384, 38092042844, 38093576860).
+  Deviations, all recorded above:
+  - one root import line per module on the dev branch (outside OIBridge/);
+  - estimate-based timestamps corrected forward (B8 entry at 22:45Z) or before use (b9 header 22:48Z, LOG 22:52Z,
+    the 22:50Z draft entry);
+  - b9 Y2's message text "as transcribed" for parsed tables;
+  - b7b's Z1 generator defect;
+  - cancellation of the leftover probe jobs of all three runs.
+  Inbox: HO-4 v1, HO-5 v1, HO-6 v1, received in e29b6a42.
