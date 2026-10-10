@@ -31,3 +31,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     property I need (automorphisms, extreme points, faces) exactly here; its positive properties (drivability, seed,
     V4, Geom, capacity) are not relied on. Items 2–3 are not used.
 - 2026-10-10T22:12Z — correction: commit d8a1461b also changed the wording of the 21:02Z entry ("consistency pass" → "consistency pass (round 1, …)"); restored to its original text here. Earlier entries are not edited.
+- 2026-10-10T22:58Z — C7 (part 1). Scratchpad exploration (numerical, not evidence): the diagonal surgery K^Circ, the
+  full-circle Bell surgery and Bell triples looked non-self-dual. NOTES-C7 S0 predictions written 22:41Z, before any
+  exact run. `c7_ebf_wall.py` run 1 5/7 NO VERDICT (kept as run1): C1 failed on Float(0.0) from Python-int inputs (an
+  exactness defect of my harness, caught by the check), CC-R stated a wrong slack identity (−Σp/2 instead of −Σp/2 − p_s;
+  conclusion unchanged); run 2 8/8 `VERDICT C7-EBF-WALL-EXACT` with the guard EX (no Float), replay identical
+  (out 43d18e5d…). Commit: C7 part 1.

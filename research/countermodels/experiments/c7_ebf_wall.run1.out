@@ -1,0 +1,16 @@
+== W0 conventions
+CHECK W0     PASS psi_s real orthonormal maximally entangled; pauliW(z_s) = (I - 2P_s)/8; diag_psi(1 - 2e_s) = 8 pauliW(z_s)
+== C1 Circ facts
+CHECK C1     FAIL e_s + e_t on the boundary of Circ (O in Circ), |e_s + e_t - 1/2|^2 = 1; y_d, y_d' boundary, orthogonal, u(y_d') = -u(y_d) -- y_d = [-2/5, 12/5, 6/5, 4/5], y_d' = [12/5, -2/5, 4/5, 6/5]
+== D2 the diagonal surgery K^Circ is not self-dual
+CHECK D2     PASS y = P_v + diag_psi(c0): pi(y) = y_d (extreme ray of Circ with a negative entry), c0 in int Circ, <psi_2|y|psi_3> = 1/2, p not in Circ -- c0 margin 19/160, p margin -9/32, y_11 = -2/5
+== CC-R countercontrol: no such witness for the slice R
+COUNTERCONTROL CC-R   FAIL for each extreme ray 1 - 2e_s of R: the facet slacks of (1 - 2e_s) - p at t != s sum to -sum(p)/2, so p >= 0 in R forces p = 0
+== D4 the sandwich C0 <= K' <= C0* and an incompatible pair in the gap
+CHECK D4     PASS P_v (profile (25,9,9,1) in Circ \ O) and w = P_u + (1/2)diag_psi(-1,1,1,1) (pi(w) in Circ, w in Q3 + R) lie in C0*, tr(w P_v) = -3 -- pi(w) = [-1/4, 3/4, 3/4, 3/4], Circ margins 180 / 1/4; <P_u, g z> = [1/2], <z, g z> in [0, 4]
+== D5 the fibre over the simplex slice
+CHECK D5     PASS y5 = u u^dag + 8 diag_psi(-1,1,1,1): pi(y5) = (1,9,9,9) >= 0, x^dag y5 x = -12 (not PSD); orbit pairings >= 160 > 0 -- <uu^dag, z> = -6 (coordinate fixed), [10] (moved); lower bounds 160, 160
+== CC-Q countercontrol: lambda = |u|^2 (2 p_1 - 1) = 6 gives a PSD table
+COUNTERCONTROL CC-Q   PASS at lambda = 6 the table is PSD with a zero eigenvalue: the seed needs 6 < lambda <= 9 -- eigenvalues [12, 6, 0]
+summary: 7 checks, 2 failed
+NO VERDICT
