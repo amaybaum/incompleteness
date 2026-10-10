@@ -1,0 +1,16 @@
+== X1 the token generators as unitary conjugations
+CONFIRMED X1 U_J unitary; Ad(U_J): sigma_x -> sigma_y -> sigma_z -> sigma_x; Ad(1 x U_J) = actT cyc3 on all 16 basis tables; Ad(1 x exp(-i t sigma_z/2)) = actT R_z(t) at cos t = 3/5
+== X2 the finite clause: order 384, phi0 unreachable
+CONFIRMED X2 |<cnot, actT R_z(pi/2), actT cyc3>| = 384; phi0 (|phi0|^2 = 16, table not rank one) is carried to a rank-one table by no element; the Bell state by some; product tables are rank one -- order 384, phi0 reachable by 0 elements, Bell by 192
+== X3 theta0/pi irrational, cos theta0 = 3/5
+CONFIRMED X3 (2+i)^2 = 3+4i, N(2+i) = 5 prime, (2+i)/(2-i) = (3+4i)/5 is neither a unit nor a Gaussian integer, so ((3+4i)/5)^n != 1 for all n >= 1; no R_z(theta0)^n = 1 for n <= 3000 -- ratio 3/5 + 4*I/5
+== X4 the reachability word on my own instances
+CONFIRMED X4 CNOT (1 x W) CNOT = P0 x W + P1 x X W X symbolically; on three Gaussian-rational states the word (1 x W') CNOT (1 x W) CNOT carries (a|0> + b|1>) x |0> to psi exactly, W and W' unitary -- kappas ['1/2 + I/2', '0', '2*sqrt(5)*I/5']
+== X5 the cone step on an instance
+CONFIRMED X5 a PSD Gaussian-rational 4x4 matrix is an exact sum of four rank-one terms (LDL), and v^* rho(omega) v = ipW(omega, table(vv^*))/4 on an instance -- pivots ['2', '-2*(1/2 - I/2)*(1/2 + I/2) + 3', '2 - 1/(-2*(1/2 - I/2)*(1/2 + I/2) + 3)', '-(1 - I + I*(-1/2 + I/2)/(-2*(1/2 - I/2)*(1/2 + I/2) + 3))*(1 - I*(-1/2 - I/2)/(-2*(1/2 - I/2)*(1/2 + I/2) + 3) + I)/(2 - 1/(-2*(1/2 - I/2)*(1/2 + I/2) + 3)) - (-1/2 - I/2)*(-1/2 + I/2)/(-2*(1/2 - I/2)*(1/2 + I/2) + 3) + 5/2'], v^* rho v = 19
+== X6 H-DYN on the monomial instance N = 4
+CONFIRMED X6 6144 monomial unitaries: H-DYN holds for exactly 96 (scalar diagonal), giving 24 distinct maps; Householder H = 1 - 2vv^T/25 orthogonal and violates H-DYN on all 16 units -- unitaries 96, maps 24, bad units 16
+== X7 E9 P1, P2, K1 finite instances
+CONFIRMED X7 Z E_01 Z = -E_01, phase map gives i E_01; permutation transports of E_01 x 1 have entries in {0, 1}; [E_01, E_10] = diag(1, -1); JW copies anticommute, even parts commute -- transport entries [0, 1]
+SUMMARY 7/7 CONFIRMED
+INDEP-E2-FIXED

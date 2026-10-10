@@ -1,0 +1,6 @@
+23:09:05Z replay start bridge round 2 (cwd experiments/, python3 -I -B)
+REPLAY b7_b3c stdout=IDENTICAL stderr=DIFFERENT rc=0 23:09:10Z
+REPLAY b7b_generic stdout=IDENTICAL stderr=DIFFERENT rc=0 23:09:10Z
+REPLAY b8_composition stdout=IDENTICAL stderr=DIFFERENT rc=0 23:09:30Z
+REPLAY b9_spec stdout=IDENTICAL stderr=DIFFERENT rc=0 23:09:56Z
+DONE 23:09:56Z

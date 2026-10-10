@@ -13,15 +13,15 @@ enters `main` only through a §A.39 governed round with separate authorization.
 
 ## Branch map
 
-| branch | purpose | base | head (round 1) | status |
+| branch | purpose | base | head (round 2) | status |
 |---|---|---|---|---|
 | `research/archive` | shared historical record: PT stages 1–6 and all prior rounds' working records, with manifests and provenance (`research/archive/README.md`) | L | `4dc0321c` | landed, read-only |
 | `research/overview` | this overview, `research/HANDOFFS/` (versioned handoffs), `research/AUDITS/` (coordinator audits), the milestone log | archive | live | coordinator only |
-| `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `5f4089a4` (audited) | active, priority 1 |
-| `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `54f79532` (audited) | active |
+| `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `3686049e` (round 2 audited) | active, priority 1 |
+| `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `e6d42cab` (round 2 audited) | active |
 | `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `42bc3da6` (round 2 audited) | active |
-| `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `8c67c7fb` (audited) | active |
-| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366) | thread branch | — | as created |
+| `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `5d266133` (round 2 audited) | active |
+| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (run 38090924005 at `195dfbee`; the repair commit unmeasured), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860) | thread branch | — | as created |
 | `research/conscious-observation-loop` | pre-existing branch of the owner (CONSC-1 charter work, 2026-10-05); not part of this tree, untouched | — | `0cefaecb` | owner's |
 
 **CI on research branches.** Pushes to research branches trigger no workflow. A `workflow_dispatch` run on a dev
@@ -77,6 +77,26 @@ test). Round 1 added, with every claim at its label:
   `J = cyc3` available on one token with the exact witness, but its exclusivity is excluded on the stated access, and
   every product-register composite of such tokens is Bell-local — SRC via KB-D is token-only and cannot serve SPEC's
   target. The one open Origin premise is an exclusive measure-and-re-prepare readout.
+- **A_miss splits (bridge round 2, HO-12):** a continuous abelian half SPEC_P(φ) — the phase flow, certified at the
+  matrix level by `substratumClass_contextStable`, needing at the pair level the transfer clause (T), which is (b) for
+  the flow and the NOT — and a finite half SPEC_P(J), which given H2 is (b) for the whole native Clifford local family
+  (`⟨cnot, actC J, actT J⟩ = ⟨cnot, local octahedral⟩`, order 11520) and at level H needs (A). Each half alone leaves
+  exotic cones (CONDITIONAL on claim (D)); together they force `Q3`. A transfer of the matrix theorem needs exactly
+  (D1) the dictionary, (D2) its intertwining — both exact — and (T); HO-6's "image cone" form is vacuous.
+- **Two exact operations suffice (equivalence round 2, HO-13):** in the pair-level schema H1 + H2 + H3, the flow clause
+  can be replaced by invariance under `R_z(θ₀)` (`cos θ₀ = 3/5`, irrational angle) and the native `J = cyc3` on one
+  token; the schema has a complete written proof in which A_miss enters only at reachability and no spectral theorem
+  is used (CONDITIONAL on H2, H3 and the two invariances). The finite clause `⟨R_z(π/2), cyc3⟩` fails at reachability
+  (order 384; `φ₀` unreachable; HO-14).
+- **B3.C holds conditional on claim (D) (bridge round 2, HO-10; countermodels HO-16):** every compact pair group with
+  `cnot` and abelian identity component misses a pure state from its orbit of products (reachability theorem, written
+  proof), hence leaves an exotic cone by claim (D); the finite and locally finite route is closed without conjecture.
+  From the cone side, an explicit exotic cone exists for a 2-torus with two product eigenlines, and for every
+  simple-spectrum torus with an eigenline orbit free of products (EBF).
+- **The realization theorem's excluding clause is family membership (bridge round 2, HO-11):** clause (4) is the
+  composite action for the instruments it is given; "an operation available to a token in isolation is a joint
+  instrument" is the clause that excludes K(Z_F), its matrix form certified independent of the sealed OI core
+  (`finiteOI_not_implies_inert`); the single-token rotations preserving K(Z_F) are exactly `V4` on each token.
 
 Stage summaries (archived, audited): stage 5 — no principle at L derives (b); CONDITIONAL on a spectator clause; weakest
 content (b) for {flow, J} or {flow, phase flow} on one token. Stage 4 — dichotomy UNIQUE iff Ĝ·SEP = all pure states,
@@ -101,6 +121,20 @@ and (ii) K(Z_F).
   (discrete form)" as a theorem at L.
 - OPEN: formalization of Theorem B1.1 (would be the first H→P declaration at L).
 - Coordinator audit: replays 4/4, independent check 5/5, citations 6/6 — `AUDITS/2026-10-10-round1/AUDIT-BRIDGE.md`.
+- **Round 2 (head `3686049e`, audited; RESULTS rows B6-1, B7-1 … B9-5, V-2):** Theorem B1.1 is a Lean design module
+  (`BridgeLemma.lean`: `bH_convex`, `bH_perm`, local tomography of the carrier proved, positive control and
+  countercontrol; run 38092042844 Build green, 14/14 prints standard — CONJECTURE [D]). B3.C holds in every case
+  CONDITIONAL on claim (D) [A]: every compact group of unitary/antiunitary pair conjugations with abelian identity
+  component misses a pure state from its orbit of products (B7-1, CONJECTURE, complete written proof; no orthonormal
+  basis has exactly three product vectors [L]); the finite/locally finite no-go is now conjecture-free (B7-4,
+  CONDITIONAL on Jordan [L] and (D)). HO-4's proposal tested: clause (4) of the realization theorem is the composite
+  action for the given instruments; the excluding clause is family membership, CERTIFIED independent of the sealed
+  core at the matrix level (OIRealization.lean:360); `Stab_loc(K(Z_F)) = V4` (exact among the Cliffords). The SPEC
+  side: a transfer needs (D1), (D2) exact and (T) — FAILED as a bridge (disguise test); A_miss ⟺ (T) ∧ SPEC_P(J)
+  (a relocation); `⟨cnot, actC J, actT J⟩` is the Clifford group of order 11520 (CONJECTURE, exhaustive); the
+  dictionary draft `BridgeDictionary.lean` did not build (B9-5, OPEN). Coordinator audit: replays 4/4, independent
+  check 5/5 (run 2; moment-orbit certificate, `V4`, both orders 11520, the torus, the dictionary), citations 14/14,
+  three runs step-verified — `AUDITS/2026-10-10-round2/AUDIT-BRIDGE-R2.md`; HO-10, HO-11, HO-12 issued.
 
 ### `research/countermodels` — RESULTS.md rows C1.1 … C6.2
 
@@ -117,6 +151,22 @@ and (ii) K(Z_F).
 - OPEN: whether T excludes every exotic cone (wall: cones with a continuum of non-PSD extreme rays, known only through
   EBF); non-orthogonal Bell-type triples; explicit κ-with-G16 and torus cones; the fibres of the slice map.
 - Coordinator audit: replays 7/7, independent check 7/7, citations 4/4 — `AUDIT-COUNTERMODELS.md`.
+- **Round 2 (head `e6d42cab`, audited; RESULTS rows C7.1 … C10.3, C2.8r):** the EBF wall has a structural
+  explanation — Theorem C7-D: a `T³_F`-invariant self-dual cone whose slice has property (N) (Circ has it, the reversed
+  simplex does not) has non-PSD extreme rays off `Fix`, so no surgery with torus-fixed defects is self-dual with slice
+  Circ; the diagonal surgery over Circ, the full Bell-circle surgery and its κ-invariant `C2` copy fail with exact
+  certificates (FAILED, kept); the fibres of the slice map over Circ and over the simplex are not singletons
+  (CONDITIONAL on EBF). Non-orthogonal Bell-type sets: the witness lemma C8-L and Theorem C8 — every triple with a
+  non-orthogonal pair, every finite set on one Bell circle, and the `W^⊥` class give non-self-dual surgeries;
+  Conjecture C8-C (self-dual iff pairwise orthogonal). Ω₄: `Aut(Ω₄) = O(3) × ℤ₂`, orbits the level sets of `s⁴`, the
+  single-system analogue `c*` of the facial invariant constant on smooth bodies (cannot see the non-transitivity),
+  Ω₄'s cone self-dual for no inner product; the single-system T is the landed uniqueness theorem (CERTIFIED,
+  TransitiveBody.lean:602, DenseOrbit.lean:174). B3.C from the cone side: an explicit exotic cone for the 2-torus on
+  `{C2(1), C2(−1), |0+⟩, |1−⟩}` with `cnot`, slice `(ℝ⁴₊ ∩ f*) + ℝ₊f` self-dual; the eigenline-orbit mechanism
+  (EBF). All CONDITIONAL as labelled; nothing kernel-checked beyond the two cited theorems. Coordinator audit: replays
+  5/5, independent check 7/7 (run 1; the Circ witness, the sandwich and simplex seeds, the Bell-circle certificate to
+  the exact value, a line-triple instance of C8, `det Hess`, the C10 facet enumeration both ways), citations 4/4,
+  four written proofs read — `AUDIT-COUNTERMODELS-R2.md`; HO-15, HO-16 issued.
 
 ### `research/origin` — RESULTS.md rows O1-T1 … O4-D
 
@@ -172,8 +222,22 @@ and (ii) K(Z_F).
 - OPEN: the obligations of the ledger at their statuses; the Level III converse; S1–S6 readiness (below).
 - Coordinator audit: replays 3/3, independent check 2/2, citations 19/19; two "CERTIFIED" rows re-labelled [X] as tree
   facts — `AUDIT-EQUIVALENCE.md`.
+- **Round 2 (head `5d266133`, audited; RESULTS rows R-AUDIT.1, R-E8.1 … R-E10.4):** preregistration drafts S1–S4 in
+  the native V3 format on the thread branch for owner review (S4 not ready: its design run failed at two terms,
+  checkpoint `C0`); Kₙ-DESC kernel-checked in a design run (`EqvKnDesc`, run 38090116254, 12 prints standard); S1's
+  and S2's modules compile standalone over L (run 38091534622); `not_affine_eball_omega4` built in the failed Ω₄ run;
+  S4's exact layer measured (12/12), with supporting-effect completeness for the full effects shown to hold on every
+  compact convex body, so HP-1's phrase is to be omitted. The Level III converse bounded: (C-REG) true by transfer along
+  the stage map ([D] `kraus_iff_of_member`), (C-DYN) false (`not_naiveConverseDyn` [D]; Target B at L), (C-KIN) false
+  (classical lattice, non-uniform sites [X]); repairs H-FAC, H-UNIF, H-GEN, H-DYN at one finite level ([W] + [L]); the
+  infinite-volume passage open. The K2 schema `pairCone_eq_Q3_of_drive` has a complete written proof in six lemmas,
+  A_miss entering only at reachability and no spectral theorem (CONDITIONAL on H2, H3, A_miss); the finite clause
+  fails (order 384, `φ₀` unreachable); `R_z(θ₀)` + `cyc3` suffice given H3. Round-2 citations 43/43 by the thread's own
+  check. Coordinator audit: replays 5/5, independent check 7/7 (run 2; `U_J`, the order 384 and `φ₀`, an exact
+  irrationality proof, the reachability word on new instances, the cone step, the H-DYN census, the Level III
+  instances), citations 45/45, three runs verified — `AUDIT-EQUIVALENCE-R2.md`; HO-13, HO-14 issued.
 
-## Newly identified assumptions (round 1)
+## Newly identified assumptions (rounds 1–2)
 
 | assumption | where it enters | status |
 |---|---|---|
@@ -186,8 +250,14 @@ and (ii) K(Z_F).
 | the stipulated phase continuum (every diagonal unitary available) | origin O3-T1 (one balanced mixer per level ⇒ the drive) | kernel-available (`diagonal_avail`), its sourcing from OI outside this programme's rounds |
 | `ContextStable` as the matrix form of the spectator clause (b) needs | equivalence Kₙ-DESC; stage 5 β | the Kₙ reduction is not a discharge (HO-6) |
 | an exclusive measure-and-re-prepare readout (KB-D in discrete form; the cosine re-preparation law in continuous form) | origin round 2: the single open premise behind the Discrete witness from monomial input and the field-neutral Continuous Origin (O5-V, O6-V) | unsourced; its exclusivity contradicts the native passive Lüders readout; sources tried (memory bound, recorder) FAILED, symplectic couplings circular |
+| the transfer clause (T) — the pulled-back idle extension of every admissible one-token implementation maps the pair's own cone into itself; for the monomial class (T) = SPEC_P(φ) ∧ SPEC_P(NOT), i.e. (b) for the phase flow and the NOT on each token | bridge round 2 (B9-1): the only cone-bearing clause of any transfer of `substratumClass_contextStable` to `W 3`; with it A_miss ⟺ SPEC_P(J) | a named premise; fails the disguise test; the certified matrix theorem supplies none of it |
+| claim (D) of the audited stage-4 record (an unreachable pure state seeds an exotic invariant cone with H1–H3; rests on EBF) | now load-bearing for B3.C (bridge B7-2), for the non-forcing of each half of A_miss (B9-3) and for the finite clause's exotic cones (equivalence R-E10.3) | [A]; EBF is not certified |
+| H-FAC (factor site algebras), H-UNIF (one site dimension), H-GEN (regions generated by sites), H-DYN (stage matrix units to stage matrix units) | equivalence round 2 (R-E9.4): the hypotheses that turn the false Level III converses into true ones at one finite level; H-FAC is the site-level quantum kinematics | named; the infinite-volume passage from H-DYN open |
+| Level III wording (assumption-watch marker): any "OI_Q ⟺ quasilocal lattice QM" sentence must name its right-hand side — with an abstract net it is false, with the target class it is (C-REG) and carries the matrix stages in its premise | equivalence HP-5; manuscript hold | marker, recorded here |
+| constancy of the facial invariant (`c*` on single systems) cannot source K∞-Trans; a source must constrain second-order data or the automorphism group | countermodels round 2 (C9.4, HO-15) | marker for draft S4 and the K∞ seams |
+| no unextendible product basis in `2⊗n` (bridge B7-3); Niven's theorem (equivalence R-E10.4 — discharged for the instance `cos θ₀ = 3/5` by the coordinator's exact Gaussian-prime argument) | B3.C's "exactly three product lines" case; the two-rotation clause | [L], named |
 
-## Eliminated alternatives (round 1, each kept with evidence)
+## Eliminated alternatives (rounds 1–2, each kept with evidence)
 
 - Locality of registers as the H→P bridge (Bell-local; CHSH `14/5`).
 - Fixed finite pair substrata and directed towers of finite substrata as carriers of A_miss, of an off-frame local
@@ -203,29 +273,49 @@ and (ii) K(Z_F).
 - (Round 2, origin) A memory bound and the kernel recorder as sources of KB-D; passive repeatable finite-rank towers as
   carriers of any infinite-order datum, hence of a drive; "two overlapping balanced mixers ⇒ dense control" for
   reflections (infinite dihedral); SRC via KB-D as a route to a candidate pair cone (token-only, Bell-local composites).
+- (Round 2, bridge) Clause (4) of the realization theorem as the clause excluding K(Z_F) (it is the composite action
+  for the given instruments; the excluding clause is family membership, i.e. (b)); "spectator stability on the image
+  cone" as the content of a `ContextStable` transfer (vacuous: the image cone is `Q3`); the transfer itself as a bridge
+  (it is the clause (T)); B3.C as a conjecture (now CONDITIONAL on claim (D)); the `𝒫` token and the `first`-fallback
+  tactic pattern (two failed builds, recorded).
+- (Round 2, countermodels) The diagonal surgery over Circ as `K_circ`; every surgery with torus-fixed defects and
+  slice Circ; the full Bell-circle surgery and the κ-invariant `C2` circle as explicit continuum cones; self-dual
+  surgeries on non-orthogonal Bell triples, on finite Bell-circle sets and on the `W^⊥` class; constancy of `c*` as a
+  source of K∞-Trans.
+- (Round 2, equivalence) The naive dynamical and kinematic converses of Level III (countermodels K1, K3, P1, P2); the
+  finite clause `⟨R_z(π/2), cyc3⟩` and the flow alone as substitutes for A_miss; a spectral theorem as a kernel cost
+  of S6; "supporting-effect completeness" as a distinguishing property of Ω₄.
 
 ## Open gaps, by thread (dependencies in parentheses)
 
 | gap | thread | depends on | ready for a governed round? |
 |---|---|---|---|
-| an H→P bridge: a principle yielding the spectator clause for the drive and one off-frame partner — now sharpened to SPEC(φ) ∧ SPEC(J) — or a proof that none exists beyond H-OI_g | bridge | SRC from origin (HO-5); the map request of HO-6; B3.C | no — research |
-| Conjecture B3.C (compact pair groups with abelian identity component leave an exotic cone) | bridge / countermodels | — | no |
-| formalization of Theorem B1.1 as a design module (first H→P declaration) | bridge | — | design run first |
-| whether T excludes every exotic cone (EBF cones with a continuum of non-PSD extreme rays) | countermodels | — | only if proved; then after its disguise test |
-| explicit κ-with-G16 and torus cones (non-surgery constructions); non-orthogonal Bell-type triples; the slice-map fibres | countermodels | — | no |
+| an H→P bridge: a principle yielding the spectator clause — now exactly the transfer clause (T) for the phase flow and the NOT (continuous half; by HO-13 one rational angle suffices) together with (A) for the native Clifford family (finite half) — or a proof that none exists beyond H-OI_g | bridge | SRC from origin (HO-5, HO-9); HO-12, HO-13 | no — research |
+| B3.C: holds CONDITIONAL on claim (D) (HO-10); remaining: a kernel-checked form of the reachability theorem; explicit cones in the residual region (HO-16); degenerate tori on the cone side | bridge / countermodels | claim (D) [A] (EBF) | no |
+| Theorem B1.1 is a design module ([D], run 38092042844 green); the two-token dictionary draft failed to build (B9-5); a governed round would need a census disposition and the owner's choice | bridge | — | design green; owner's choice |
+| whether T excludes every exotic cone: the undecided class is the EBF cones with a continuum of non-PSD extreme rays, now with a structural obstruction to closed forms (Theorem C7-D) | countermodels | — | only if proved; then after its disguise test |
+| explicit κ-with-G16 and torus cones (non-surgery; every surgery with torus-fixed defects fails); Conjecture C8-C (four or more Bell-type members); an explicit exotic cone for the finite octahedral group of order 384 (HO-14); the slice-map fibres | countermodels | HO-14 | no |
 | SRC: the source of an exclusive measure-and-re-prepare readout (KB-D discrete, the cosine law continuous) — now the single open Origin premise; on the stated access its exclusivity is excluded | origin | — | no |
 | the field-neutral Continuous Origin: mutually exclusive requirements on passive towers; jointly satisfiable on an invasive re-preparing tower whose law is outside the stated access | origin | the same premise as SRC | no |
-| K2 (c) = (b); K∞ seams; Kₙ; H-Bell; H-∞; λ; Level III converse | equivalence | bridge (for (b)); origin (for the drive) | per obligation; S1–S6 below |
+| K2 (c) = (T) at the pair level (HO-12); the K2 schema proved on paper (S6; kernel cost = dictionary + reachability); the K∞ seams (a source of K∞-Trans must constrain second-order data or the automorphism group, HO-15); Kₙ (design module green); H-Bell; H-∞; λ; the Level III converse bounded (C-REG true, C-DYN and C-KIN false; repairs H-FAC/H-UNIF/H-GEN/H-DYN; the infinite-volume passage open) | equivalence | bridge (for (T)); origin (for the drive) | per obligation; S1–S6 below |
 
 ## Round-ready findings (none created; each needs owner authorization to open a §A.39 round)
 
-From the equivalence thread (NOTES-E7, HP-1): preregistrations could be drafted now for **S1** K∞-Seed from a sharp
-stage test (design run 38083519826), **S2** type covariance for K∞-Copy (same run + `e2_copy_conj`), **S3** the descent
-of drivability Kₙ-DESC (`e3_compress` + written closure), **S4** the separation of K∞-Trans (`e2_drive_trans`; the
-decisive step independently confirmed), **S5** the per-region Level III converse (statement only), **S6** the K2 schema
-(statement and controls; heavy proof). None of S1–S6 sources a premise or would change a ROADMAP status by itself; the
+From the equivalence thread (NOTES-E7, NOTES-E8, HP-1, HP-5): preregistration **drafts** in the native V3 format now
+exist on the thread branch for owner review — **S1** KINF-SEED-1 (`preregistration-drafts/S1-kinf-seed.md`, sha256
+`58062eb0…`; module `StageSeed`, run 38091534622 green), **S2** KINF-COPY-1 (`S2-kinf-copy-type-covariance.md`,
+`bdf95a45…`; `CopyCovariance`, same run), **S3** KN-DESC-1 (`S3-kn-descent.md`, `f669caf4…`; `EqvKnDesc`, run
+38090116254 green; one pre-`F` revision item), each with its decision rules, controls, invariant→checkpoint table and
+predicted outputs generated from measurements at L; **S4** KTRANS-SEP-1 (`S4-kinf-trans-separation.md`, `93095ff2…`)
+is **not** ready: its module failed to build at two terms and the repair is unmeasured (checkpoint `C0`); its exact
+layer is measured and advises omitting "supporting-effect completeness" from HP-1's wording. **S5** (the per-region
+Level III converse) now has its transfer lemma as a design-run theorem (`kraus_iff_of_member`); **S6** (the K2 schema)
+has a complete written proof whose kernel cost is the dictionary `W 3 ≃ Herm(ℂ⁴)` plus an explicit reachability
+construction, no spectral theorem. None of S1–S6 sources a premise or would change a ROADMAP status by itself; the
 ROADMAP wording the thread proposes for row K (`research/equivalence/handoff-proposals/HP-1-…`, sha256
-`688afdea262d442c…`) lands only with the corresponding round. From the other threads: nothing round-ready.
+`688afdea262d442c…`) lands only with the corresponding round. From the bridge: Theorem B1.1 as a design module is green
+(B6-1) and could be packaged as a round at the owner's choice (it discharges nothing: a relocation of K2's local-action
+clause to the hidden premise (A)). From the other threads: nothing round-ready.
 
 ## Manuscript obligations (recorded, not applied; manuscript hold)
 
@@ -237,13 +327,16 @@ ROADMAP wording the thread proposes for row K (`research/equivalence/handoff-pro
 ## Handoffs
 
 Versioned, documented handoffs live in `research/HANDOFFS/` (protocol and index in its README). Issued 2026-10-10:
-HO-1 … HO-8. A thread never changes another thread's assumptions silently: the receiving thread records its receipt
-in its own `inbox/` with a commit before relying on a handoff.
+HO-1 … HO-8 after round 1 (all received), HO-9 … HO-16 after round 2 (receipts due in round 3). A thread never changes
+another thread's assumptions silently: the receiving thread records its receipt in its own `inbox/` with a commit
+before relying on a handoff.
 
 ## Audits
 
 `research/AUDITS/2026-10-10-round1/`: replays, independent checks (own scripts, decision rules fixed before the first
 run, failed runs kept), the 69/69 citation check at L, the step-level CI record, the evidence hash list.
+`research/AUDITS/2026-10-10-round2/`: the same for round 2 — replays 19/19, independent checks O2 6/6, B2 5/5, C2 7/7,
+E2 7/7, citations 23 + 14 + 4 + 45 at L, eight CI runs verified, the evidence hash list with commits.
 
 ## Milestone log
 
@@ -267,18 +360,52 @@ run, failed runs kept), the 69/69 citation check at L, the step-level CI record,
   Origin hold together on an invasive re-preparing tower; SRC via KB-D is token-only; density at the balanced angle in
   SO(3) and, at level three, SO(6). Eliminated: memory-bound and recorder sources of KB-D; passive towers as carriers of
   a drive. New assumption-watch marker: the exclusive measure-and-re-prepare readout. HO-9 issued.
+- 2026-10-10 — **round 2 closed and audited** (bridge `3686049e`, countermodels `e6d42cab`, equivalence `5d266133`,
+  origin `42bc3da6`). New theorems (none certified; labels as above): the bridge's reachability theorem for compact
+  pair groups with abelian identity component, making B3.C CONDITIONAL on claim (D) and the finite/locally finite no-go
+  conjecture-free; the identification of the transfer clause (T) and the split of A_miss into a continuous abelian
+  half and a finite Clifford half (order 11520); `Stab_loc(K(Z_F)) = V4`; Theorem B1.1 as a green design module. The
+  countermodels thread's Theorem C7-D (forced non-fixed defects) with exact failures of the natural continuum
+  surgeries, Theorem C8 for non-orthogonal Bell-type sets, `Aut(Ω₄) = O(3) × ℤ₂` with the `c*` marker, and an explicit
+  cone for a B3.C case. The equivalence thread's bounded Level III converse (C-REG true; C-DYN, C-KIN false; repairs
+  named), the complete written proof of the K2 schema with the two-rotation clause, the Kₙ-DESC design module, and
+  preregistration drafts S1–S3 (S4 not ready). Eliminated alternatives and new assumptions as listed. Progress toward
+  OI–QM equivalence: the composite-action gap is now a single pair-level clause (T) for one rational-angle rotation
+  and the NOT, plus the H-level availability (A) of the native Clifford family — each half alone provably insufficient
+  (conditional on (D)), together sufficient (K2 schema, written proof); Origin's SRC and the bridge's SPEC remain
+  mutually dependent with no new source. Handoffs HO-10 … HO-16 issued.
 
-## Next round (round 2) — nodes handed to the threads
+## Next round (round 3) — nodes handed to the threads
 
-- **bridge:** receive HO-4, HO-5, HO-6; (B6) Theorem B1.1 as a design module on a dev branch; (B7) attack B3.C on the
-  open eigenbasis cases; (B8) test the composition-clause proposal of HO-4 against the realization theorem's clauses;
-  (B9) the SPEC side of HO-5: what the pair-level spectator clause for `J` alone would need, given SPEC(φ) at the matrix
-  level is a theorem.
-- **countermodels:** receive HO-1, HO-2, HO-7; (C7) the EBF wall: attempt an explicit `K_circ` or a structural
-  obstruction; (C8) non-orthogonal Bell-type triples; (C9) the single-system analogue of T on Ω₄-type bodies.
-- **origin:** round 2 done (HO-2, HO-3, HO-8 received at `8f0c832a`; O5–O7 closed at their walls; audited). Round-3
-  candidates: (O8) the exclusive readout as a premise — its exact statement, disguise test and what it would cost the
-  stated access (a no-go theorem over the native readout as a design module); (O9) density at level two; (O10) HO-9's
-  constraint carried to the pair: whether any re-preparing law on a pair of tokens can realize a candidate cone.
-- **equivalence:** receive HO-2; (E8) preregistration drafts for S1–S4 held on the thread branch for owner review;
-  (E9) the Level III converse's exact statement; (E10) the K2 schema proof attempt (S6).
+Rules unchanged from rounds 1–2 (receipts first; S0 predictions before the first run with `date -u` readings; decision
+rules in script headers; failed runs kept; at most three `workflow_dispatch` runs per thread; dev branches
+`dev-<thread>/<topic>`), with one addition: **CI jobs are never cancelled** by a thread.
+
+- **bridge:** receive HO-9, HO-13, HO-16; (B10) the transfer clause (T) as the sourcing target: state the weakest
+  H-level premise that yields (T) for the monomial class alone (the phase flow and the NOT, at one rational angle by
+  HO-13), run its disguise test, and test it against B4's realization and the stated H-level constraints; (B11) the
+  two-token dictionary module: apply the recorded fix to `dict_tens` and formalize (D2) for the Clifford images and
+  `cnot` (one dispatch for the build); (B12) with HO-9 item 3 and HO-13: the finite half's sourcing — whether the
+  native Clifford family on one token can be H-sourced jointly with `cnot` on a stage-crossing (not finite) substratum,
+  sharpening B3-2's `10/9` obstruction to the two-operation clause; (B13, if time remains) a design-module statement of
+  the reachability theorem B7-1 with its finite cases proved.
+- **countermodels:** receive HO-10, HO-11, HO-14; (C11) an explicit exotic cone invariant under
+  `⟨cnot, actT R_z(π/2), actT cyc3⟩` (order 384; HO-14): the group's orbits on Bell-type defects, an invariant
+  pairwise-orthogonal Bell set if one exists (then a Theorem-S surgery), otherwise the obstruction and the EBF seed;
+  (C12) Conjecture C8-C at four members (two cap vectors outside `W` with independent `W^⊥`-projections) and the first
+  non-Bell multi-defect class; (C13) B3.C's residual region from the cone side (C10.3) with HO-10's existence in hand:
+  an explicit cone for one torus in which `G` carries every entangled eigenline onto a product eigenline, or the
+  obstruction; (C14, if time remains) `c`-values of the off-`Fix` defects of a `K_circ` via Theorem C7-D's orbit
+  structure.
+- **origin:** receive HO-12, HO-13; (O8) the exclusive readout as a premise: its exact statement, disguise test and
+  its cost on the stated access, as a no-go theorem over the native readout in a design module; (O10) HO-9's constraint
+  carried to the pair: whether any re-preparing law on a pair of tokens can realize a candidate cone, and in particular
+  whether the Kochen–Specker circle tower carries `J` together with one infinite-order frame-axis rotation on one token
+  (HO-13's target) with the exact witness; (O9, if time remains) density at level two.
+- **equivalence:** receive HO-9 (item 3), HO-12, HO-15; (E11) S6 as a design module: the dictionary
+  `W 3 ≃ Herm(ℂ⁴)` with its two compatibilities and the cone step (lower and upper bounds) as Lean statements, the
+  reachability lemma as a hypothesis; (E12) S4's checkpoint `C0`: dispatch the repaired `EqvOmega4` (`95beab2b`) and
+  record Q-SEP (one dispatch); (E13) with HO-15: test whether self-duality of the state cone, with the other
+  single-system seams, implies K∞-Trans in chart dimension 3 and 4 on exact candidate bodies, or exhibit a self-dual
+  non-transitive body; (E14, if time remains) the infinite-volume passage from H-DYN at every finite stage to a global
+  finite-range configuration bijection.

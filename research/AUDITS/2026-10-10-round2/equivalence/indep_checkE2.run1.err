@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/audit-research/equivalence/indep_checkE2.py", line 180, in <module>
+    res = [word_check(x, y) for x, y in inst]
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/audit-research/equivalence/indep_checkE2.py", line 180, in <listcomp>
+    res = [word_check(x, y) for x, y in inst]
+           ^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/audit-research/equivalence/indep_checkE2.py", line 170, in word_check
+    Wp = (Matrix.hstack(xh, yh) * Matrix.hstack(u, v).inv()).applyfunc(simplify)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 5223, in inv
+    return _inv(self, method=method, iszerofunc=iszerofunc,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/inverse.py", line 508, in _inv
+    rv = M.inverse_GE(iszerofunc=iszerofunc)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 5208, in inverse_GE
+    return _inv_GE(self, iszerofunc=iszerofunc)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/inverse.py", line 199, in _inv_GE
+    raise NonInvertibleMatrixError("Matrix det == 0; not invertible.")
+sympy.matrices.exceptions.NonInvertibleMatrixError: Matrix det == 0; not invertible.
+exit 1

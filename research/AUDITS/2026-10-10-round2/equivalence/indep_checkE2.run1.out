@@ -1,0 +1,7 @@
+== X1 the token generators as unitary conjugations
+CONFIRMED X1 U_J unitary; Ad(U_J): sigma_x -> sigma_y -> sigma_z -> sigma_x; Ad(1 x U_J) = actT cyc3 on all 16 basis tables; Ad(1 x exp(-i t sigma_z/2)) = actT R_z(t) at cos t = 3/5
+== X2 the finite clause: order 384, phi0 unreachable
+CONFIRMED X2 |<cnot, actT R_z(pi/2), actT cyc3>| = 384; phi0 (|phi0|^2 = 16, table not rank one) is carried to a rank-one table by no element; the Bell state by some; product tables are rank one -- order 384, phi0 reachable by 0 elements, Bell by 192
+== X3 theta0/pi irrational, cos theta0 = 3/5
+CONFIRMED X3 (2+i)^2 = 3+4i, N(2+i) = 5 prime, (2+i)/(2-i) = (3+4i)/5 is neither a unit nor a Gaussian integer, so ((3+4i)/5)^n != 1 for all n >= 1; no R_z(theta0)^n = 1 for n <= 3000 -- ratio 3/5 + 4*I/5
+== X4 the reachability word on my own instances

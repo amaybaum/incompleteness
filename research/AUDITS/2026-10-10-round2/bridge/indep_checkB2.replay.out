@@ -1,0 +1,13 @@
+== X1 the moment-orbit certificate on instance I1; Lemma 2(b); Lemma 3
+CONFIRMED X1 I1: one product vertex; eps < |det C_k|^2 at the three non-product vertices; d_{k,tau} > sqrt(eps) in all six orders at the product vertex; Lemma 2(b) exact on explicit products; Lemma 3 on exact triples -- d_min = -1/10 + sqrt(395)/60 > sqrt(eps) = 1/1000; 180 orthonormal product triples
+== X2 single-token stabilizer of K(Z_F) among the octahedral rotations
+CONFIRMED X2 exactly V4 on each token permutes Z_F; every other octahedral rotation moves a defect out of K(Z_F) (negative pairing with a certified member)
+== X3 <cnot, actC cyc3, actT cyc3> = <cnot, local octahedral>, order 11520
+CONFIRMED X3 both closures have order 11520 and coincide -- orders 11520, 11520
+== X4 the torus of the transferred monomial class; non-commutation with J
+CONFIRMED X4 the Ad-closure of {Z x I, I x Z} is span{Z x I, I x Z, Z x Z}, abelian; V Z V* = X and [Z, X] = 2iY -- dim 3
+== X5 the dictionary intertwines cnot and the monomial images; product law
+CONFIRMED X5 pauliW o cnot = Ad(CNOT) o pauliW; pauliW o actT R_z = Ad(I x U) o pauliW, pauliW o actC R_z = Ad(U x I) o pauliW; pauliW(prodState) = rho x rho
+SUMMARY 5/5 CONFIRMED
+INDEP-B2-FIXED
+exit=0

@@ -1,0 +1,71 @@
+RESOLVED+NAMED OIRealization.lean:360 ['finiteOI_not_implies_inert']
+RESOLVED CompositeDimension.lean:96 (no identifier named on the citing lines)
+RESOLVED+NAMED OIRealization.lean:343 ['sameCore_both_sides']
+RESOLVED+NAMED SpectatorBridge.lean:223 ['InertSpectatorCompositionality']
+RESOLVED+NAMED SpectatorBridge.lean:233 ['HasParallelReferenceExtension']
+RESOLVED+NAMED ReferenceExtension.lean:447 ['HasParallelReferenceExtension']
+RESOLVED+NAMED StructuralClosure.lean:261 ['substratumClass_contextStable']
+RESOLVED+NAMED SubstratumInterface.lean:75 ['IsMonomial']
+RESOLVED+NAMED ImplementationLocality.lean:359 ['ContextStable']
+RESOLVED+NAMED CompositeDimension.lean:741 ['pc', 'sgn']
+RESOLVED+NAMED KInfFoundations.lean:425 ['cyc3', 'cyc3_apply']
+RESOLVED+NAMED RouteB.lean:161 ['derivedOI_qm_iff_phaseFree']
+RESOLVED+NAMED MinimalRepertoire.lean:569 ['oiPlusMin_iff_qm']
+RESOLVED+NAMED SubstratumSource.lean:77 ['DrivesElementary']
+SUMMARY bridge: 14 distinct citations in added lines since 5f4089a4; resolved 14; named-and-found 13; unnamed 1
+CITATIONS-BRIDGE-RESOLVE
+RESOLVED+NAMED TransitiveBody.lean:602 ['exists_affine_image_eq_eball']
+RESOLVED+NAMED DenseOrbit.lean:174 ['exists_affine_image_eq_eball_of_dense']
+RESOLVED+NAMED KInfFoundations.lean:264 ['ElementaryDrivability']
+RESOLVED KInfFoundations.lean:590 (no identifier named on the citing lines)
+SUMMARY countermodels: 4 distinct citations in added lines since 54f79532; resolved 4; named-and-found 3; unnamed 1
+CITATIONS-COUNTERMODELS-RESOLVE
+RESOLVED+NAMED CompositionOrder.lean:348 ['finiteOrderOn_of_stagePreserving']
+RESOLVED+NAMED KInfFoundations.lean:264 ['ElementaryDrivability']
+RESOLVED+NAMED EffectSpace.lean:337 ['boundaryTransitive_fullAut']
+MISSING EqvOmega4.lean:157
+RESOLVED+NAMED KInfFoundations.lean:130 ['IsBoundaryState']
+RESOLVED KInfFoundations.lean:135 (no identifier named on the citing lines)
+RESOLVED+NAMED KInfFoundations.lean:1053 ['supportingEffectComplete_ball3']
+RESOLVED+NAMED KInfFoundations.lean:1089 ['not_kInf1_ball3_unit']
+RESOLVED QuasilocalCharacterization.lean:168 (no identifier named on the citing lines)
+RESOLVED QuasilocalAlgebra.lean:956 (no identifier named on the citing lines)
+RESOLVED+NAMED CarrierGeneralOIPlus.lean:207 ['oiPlus_iff_qm']
+RESOLVED+NAMED InstrumentCompletion.lean:195 ['finiteSupport_iff_kraus']
+RESOLVED+NAMED CarrierGeneralOIPlus.lean:198 ['oiPlus_of_qm']
+RESOLVED-UNNAMED QuasilocalCharacterization.lean:769 names ['E_01', 'not_naiveConverseDyn', 'phase_not_oiInduced'] not in window: theorem phase_localityPreserving (i₀ : ι) :
+RESOLVED CompositeDimension.lean:97 (no identifier named on the citing lines)
+RESOLVED+NAMED TransitiveBody.lean:603 ['eball', 'exists_affine_image_eq_eball']
+RESOLVED+NAMED TransitiveBody.lean:602 ['eball', 'exists_affine_image_eq_eball']
+MISSING NoSuchModule.lean:1
+RESOLVED CompletionAction.lean:144 (no identifier named on the citing lines)
+RESOLVED CompletionAction.lean:166 (no identifier named on the citing lines)
+RESOLVED+NAMED CompositeDimension.lean:218 ['N', 'NativeGate']
+RESOLVED-UNNAMED DenseOrbit.lean:53 names ['eball'] not in window: def DenseBoundaryOrbit {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] (Ω : Set V)
+RESOLVED DenseOrbit.lean:209 (no identifier named on the citing lines)
+RESOLVED+NAMED ImplementationLocality.lean:506 ['Architecture']
+RESOLVED+NAMED K1Bridge.lean:128 ['hP1']
+RESOLVED+NAMED KInfFoundations.lean:144 ['RelStrictConvex']
+RESOLVED KInfFoundations.lean:149 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1013 (no identifier named on the citing lines)
+RESOLVED+NAMED OrbitGeneration.lean:65 ['SharpSeed']
+RESOLVED-UNNAMED OrbitGeneration.lean:69 names ['eball'] not in window: def PreservesBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+RESOLVED OrbitGeneration.lean:79 (no identifier named on the citing lines)
+RESOLVED+NAMED OrbitGeneration.lean:620 ['not_boundaryTransitive_flow']
+RESOLVED OrbitGeneration.lean:652 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:159 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:400 (no identifier named on the citing lines)
+RESOLVED+NAMED OrbitNormalization.lean:427 ['sharpSeed_restrict']
+RESOLVED QuasilocalCharacterization.lean:792 (no identifier named on the citing lines)
+RESOLVED+NAMED StageCompletion.lean:78 ['SCInf']
+RESOLVED+NAMED StageCompletion.lean:224 ['sharpSeed_completion']
+RESOLVED StageCompletion.lean:350 (no identifier named on the citing lines)
+RESOLVED+NAMED StageCompletion.lean:401 ['bitTower_scInf']
+RESOLVED+NAMED StructuralClosure.lean:383 ['substratum_residual']
+RESOLVED+NAMED SubstratumSource.lean:77 ['DrivesElementary']
+RESOLVED SubstratumSource.lean:86 (no identifier named on the citing lines)
+RESOLVED+NAMED TransitiveBody.lean:518 ['eball']
+RESOLVED+NAMED TransitiveBody.lean:651 ['chartBody_eq_eball']
+RESOLVED QuasilocalCharacterization.lean:463 (no identifier named on the citing lines)
+SUMMARY equivalence: 47 distinct citations in added lines since 8c67c7fb; resolved 45; named-and-found 25; unnamed 17
+CITATIONS-EQUIVALENCE-FAIL

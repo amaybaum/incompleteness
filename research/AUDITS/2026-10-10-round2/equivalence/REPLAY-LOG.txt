@@ -1,0 +1,7 @@
+23:14:30Z replay start equivalence round 2 (cwd experiments/, python3 -I -B)
+REPLAY e8_ktrans_probe stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:32Z
+REPLAY e8_cite_check stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:32Z
+REPLAY e9_level3 stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:33Z
+REPLAY e9_dyn_finite stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:47Z
+REPLAY e10_k2_schema stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:50Z
+DONE 23:14:50Z

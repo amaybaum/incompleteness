@@ -1,0 +1,16 @@
+== X0 conventions
+CONFIRMED X0 psi_s real orthonormal entries +-1/2; cos t psi_1 + sin t psi_3 maximally entangled (symbolic); (3 psi_1 + 4i psi_2)/5 too; d_{psi_s} = 8 pauliW(z_s); (t, u) -> (t/2) 1 + u is an isometry onto R^4 (Circ = Lorentz cone, self-dual)
+== X1 C7 W1 witness and CC-R
+CONFIRMED X1 y_d on the boundary of Circ, dual ray y_d' pairs to 0 with opposite deviation; p outside Circ, c0 interior; y = P_v + diag(c0): pi(y) = y_d, <psi_2|y|psi_3> = 1/2, y_d has a negative entry; CC-R slack identity -sum p/2 - p_s -- profile of v ['0', '1', '1/4', '0'], c0 ['-2/5', '7/5', '19/20', '4/5']
+== X2 C7 W3, W4 numbers
+CONFIRMED X2 profile (25, 9, 9, 1)/44 in Circ \ O; pi(w) in Circ; tr(w P_v) = -3; tr(P_u sigma.diag) = 1/2, <diag, sigma diag> in {0, 4}; pi(y5) = (1, 9, 9, 9), x^dag y5 x = -12, coefficient 6 PSD and 8 not; orbit bound 160 for all 24 permutations -- eigenvalues at 6: {'12': 1, '6': 2, '0': 1}; at 8: {'8': 2, '6 - 2*sqrt(13)': 1, '6 + 2*sqrt(13)': 1}
+== X3 C7 W5 Bell-circle certificate
+CONFIRMED X3 d_g = Pperp - cos 2t sz - sin 2t sx; y_1, y_2 Hermitian, strictly in Z_circ* (A > 0, A^2 > B^2 + C^2); tr(y1 y2) equals the thread's value and is negative; B5 orthonormal pairs -- tr(y1 y2) = -475586012673053754301/30445958586078125000000; margins ['8990072864518037/4272030250000000000', '2407429698539/912232000000000']
+== X4 C8 witness construction on a line triple
+CONFIRMED X4 c = 16/25, c3 = 9/25, lam = 19/256; <y, d_1> = 0, <y, d_2>, <y, d_3> > 0, x^dag y x = -323/20736, <d_k, d_1> = 4 c_k > 0: y in K(Z)* \ K(Z); countercontrols eps = 1/2 (-3/100) and Z_F (all <d_k, d_1> = 0) -- <y,d_2> = 1323/1600, <y,d_3> = 109/100
+== X5 C9.1 Hessian determinant and automorphisms
+CONFIRMED X5 det Hess N = 2304 s^2 |x|^6; chain rule det Hess(N o A) = det(A)^2 det Hess N (A w) on an instance; |x|^2 rank 3; O(3) x Z2 instances preserve N; shear, scaling, x1-s rotation do not -- det Hess N = 2304*s**2*(x1**2 + x2**2 + x3**2)**3
+== X6 C10.1 the case and its slice
+CONFIRMED X6 basis orthonormal, two Bell and two product members; CNOT = I - 2|1-><1-| diagonal (1,1,1,-1); simple spectrum; M M^dag = I/2; z fixed by H0 and CNOT; slice cone: 7 extreme rays = 7 facet normals (self-dual), != R^4_+; R^4_+ n f* has the six predicted rays; countercontrols hold -- facets ['(-1, 1, 1, 1)', '(0, 0, 0, 1)', '(0, 0, 1, 0)', '(0, 1, 0, 0)', '(1, 0, 0, 1)', '(1, 0, 1, 0)', '(1, 1, 0, 0)']
+SUMMARY 7/7 CONFIRMED
+INDEP-C2-FIXED

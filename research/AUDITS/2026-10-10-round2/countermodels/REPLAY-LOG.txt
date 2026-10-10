@@ -1,0 +1,7 @@
+23:14:30Z replay start countermodels round 2 (cwd experiments/, python3 -I -B)
+REPLAY c7_ebf_wall stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:31Z
+REPLAY c7_circle stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:32Z
+REPLAY c8_bell_sets stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:34Z
+REPLAY c9_omega4 stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:48Z
+REPLAY c10_b3c_case stdout=IDENTICAL stderr=DIFFERENT rc=0 23:14:48Z
+DONE 23:14:48Z
