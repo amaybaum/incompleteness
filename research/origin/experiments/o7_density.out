@@ -1,0 +1,22 @@
+== o7_density ==
+
+orthogonality of R01, R12, H01, H12: True; determinants: 1, 1, -1, -1
+
+D1  rotation pair: orders 8, 8; U = R01 R12: tr - 1 = -1/2 + 1 sqrt2, minimal polynomial x^2 + (1) x + (-7/4), infinite order certified: True; axis n = [1/2 + 1/2 sqrt2, 1/2, 1/2 + 1/2 sqrt2], U n = n: True; R01 n parallel to n: False  -> closure = SO(3): True
+D2  reflection pair: U' = H01 H12 (det 1): tr - 1 = -3/2, minimal polynomial x - -3/2, infinite order certified: True; axis n' = [1/2 + 1/2 sqrt2, 1/2, -1/2 + 1/2 sqrt2]; H01 n' = n': True; H12 n' = n': True  -> closure = stabilizer of n' (a proper closed subgroup, a copy of O(2)): True
+D3  with the exchanges: permutations moving n off its line: 4/6; moving n' off its line: 5/6; odd permutations (det -1): 3  -> both closures = O(3): True
+D4  Ad(S0)(E01 - E10) = i (E01 + E10): True; still in so(3): False; real V with c V = diag(i,1,1): impossible (ratio i/1 real: False); determinants of the real generators: ['-1', '1'], det S0 = i  -> closure with S0 = {U : det(U)^4 = 1}, containing SU(3): True
+
+-- countercontrols (must be False)
+CC1  CC-OK (False as required)
+CC2  CC-OK (False as required)
+CC3  CC-OK (False as required)
+
+  D1: True
+  D2: True
+  D3: True
+  D4: True
+VERDICT DENSE-AT-THE-BALANCED-ANGLE: the rotation pair rot(pi/4) on overlapping pairs is dense in SO(3); the
+  reflection (Hadamard) pair has an infinite-order product but fixes its axis, so its closure is a proper
+  closed subgroup (a copy of O(2)); with the exchanges both close to O(3); as unitaries all are real (closure in
+  O(3), proper in U(3)); the quarter phase lifts the closure to {U : det(U)^4 = 1}, which contains SU(3).

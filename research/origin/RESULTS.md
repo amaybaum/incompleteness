@@ -166,3 +166,23 @@ declarations on [propext, Classical.choice, Quot.sound]; release gate red only o
 | script | sha256 (script) | sha256 (output) | result | replay |
 |---|---|---|---|---|
 | `o6_tower.py` | `1abb0a69…bdfd1f2` | `3e8e9fbc…f680ef4` | 10/10 items True, 5 countercontrols expected-false, VERDICT EXCLUSIVE-ON-PASSIVE-JOINT-ON-INVASIVE | byte-identical |
+
+## O7 — density at the balanced angle (round 2)
+
+Script `experiments/o7_density.py` (decision rule in the header before run 1; no edit after writing; run 1
+`VERDICT DENSE-AT-THE-BALANCED-ANGLE`, 3 countercontrols expected-false; replay byte-identical).
+
+| id | statement | label | evidence | where |
+|---|---|---|---|---|
+| O7-D1 | On three states, the kernel's balanced datum `rot(π/4)` on the overlapping pairs (0,1) and (1,2) generates a group dense in SO(3): U = R01R12 has 2 cos θ = √2 − 1/2 (minimal polynomial x² + x − 7/4), so infinite order, and R01 moves its axis off its line. | CONDITIONAL (certificate [X]; closure step [W] + [L] classification of closed subgroups of SO(3)) | [X] D1, CC2 | NOTES-O7 §1 |
+| O7-D2 | The Hadamard pair H01, H12 (reflections; audit X5) has an infinite-order product (2 cos θ′ = −3/2) but both generators fix its axis: the group is infinite dihedral and its closure is the stabilizer of one vector, a proper closed subgroup (a copy of O(2)). | CONDITIONAL ([X] exact fixing; dihedral structure [W]) | [X] D2, CC1 | NOTES-O7 §2 |
+| O7-D3 | With the exchanges (the six permutation matrices) both pairs generate groups whose closure is O(3). | CONDITIONAL ([X] axis moved, det −1 present; [W] + [L]) | [X] D3 | NOTES-O7 §0 |
+| O7-D4 | As unitaries all these groups are real, so their closures lie in O(3), proper in U(3), and do not give dense control even up to phase; with the quarter phase on one state the closure is {U : det(U)⁴ = 1}, containing SU(3): dense control up to phase on three states, without exactness (countable group). | CONDITIONAL ([X] Ad(S0) check; [W] maximality of so(3) in su(3); [L] Cartan) | [X] D4, CC3; [K DiscreteCompletion.lean:1522, :1948] for comparison | NOTES-O7 §3 |
+| O7-C | Correction of reading for O3-T7: its one-parameter-subgroup statement stands for both pairs; density at the balanced angle holds for the rotation datum (and with the exchanges for both), not for the Hadamard pair alone. O3-T7's row is not altered; this row narrows how it is read. | CONDITIONAL (on O7-D1, O7-D2) | as above | NOTES-O7 §2 |
+| O7-O | At the kernel's level three (six states, o3_density E2), density of the closure in SO(6), and SU(6) with the quarter phase, is not decided here. | OPEN | method recorded | NOTES-O7 §4 |
+
+**Script ledger (O7).**
+
+| script | sha256 (script) | sha256 (output) | result | replay |
+|---|---|---|---|---|
+| `o7_density.py` | `c3968310…ac23649` | `81a8e440…f4589` | 4/4 items True, 3 countercontrols expected-false, VERDICT DENSE-AT-THE-BALANCED-ANGLE | byte-identical |
