@@ -217,3 +217,41 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - b7b's Z1 generator defect;
   - cancellation of the leftover probe jobs of all three runs.
   Inbox: HO-4 v1, HO-5 v1, HO-6 v1, received in e29b6a42.
+
+## Round 3
+
+- 2026-10-10T23:47:37Z — round 3 opened at thread head 3686049e (clean, up to date with origin). Read, in order:
+  README.md, RESULTS.md, LOG.md, NOTES-B1 … NOTES-B9 (own record); research/OVERVIEW.md, the handoffs HO-9, HO-12,
+  HO-13, HO-16, HANDOFFS/README.md and AUDIT-BRIDGE-R2.md on research/overview @ 2a055180 (read-only); AGENTS.md at
+  L 9f9f8257 (§A.16, §A.21, §A.29, §A.31; identical to the read-only main checkout). Kernel reading at L for this
+  round: CompositionOrder.lean (§A, §B `StagePreserving` :234, §D :348, :378), CompletionAction.lean (`OpDatum` :46,
+  `AffineRespect` :58), KInfFoundations.lean (`rotFun` :351, `rotLin` :386, `rotEquiv` :400, `rot3` :411,
+  `cycEquiv` :416, `ball3Drive` :449), CompositeDimension.lean (§A, §K), MonoidalCompletion.lean (`tensorOf` :193);
+  Main.md:536–566 (the realization theorem: statement :544, clauses (1)–(5) at :546–:554, proof :558, remark :562);
+  GR.md:228 (OI⁺-1); research/archive/pt/I3/INVENTORY.md I3.150–I3.170.
+- 2026-10-10T23:55:08Z — receipts. Copied from research/overview @ 2a055180 `research/HANDOFFS/` into `inbox/`,
+  byte-identical (cmp), sha256:
+  - HO-9 v1 (origin → bridge, equivalence) `4b2c4a0f708e7ec5dda179002c88a71fca15f3d815bfa7c167a8261b3b7b6860`;
+  - HO-13 v1 (equivalence → bridge, origin) `1d2c884cdbb8f88adbd5ec9f5d74520de4273c0a23863b3c14b3ea80d464de2e`;
+  - HO-16 v1 (countermodels → bridge) `bd5a7af392275ebed5e817c104a20ea89f56e3356390eb3d772f9519450d4dfa`.
+  HO-12 is this thread's own result (source), not copied. Kernel declarations named in the handoffs, checked at L
+  before any use: CompositionOrder.lean:348 `finiteOrderOn_of_stagePreserving`, :378
+  `not_stagePreserving_of_infiniteOrderOn`; OperationalAssembly.lean:658 `readout_is_localLuders`, :675
+  `pureSeedPrep_available_of_swap` — all four resolve at those lines. These are the only CERTIFIED items the
+  handoffs carry; everything else in them is used at its own label.
+  Reliance:
+  - **HO-9.** Relied on in B12 only. Item 3 (on a passive repeatable finite-rank tower every reversible datum has
+    finite order) at its label CONDITIONAL; its stage-crossing clause is the kernel theorem CompositionOrder.lean:378,
+    which I cite directly. Item 6 (SRC via KB-D is token-only: product-register composites are Bell-local) as a
+    constraint on what a stage-crossing pair substratum may use. Items 1 and 5 as the current form of Origin's open
+    premise (context only). Item 4 (the invasive re-preparing tower) is context, not a premise. Item 7 is not relied
+    on. Not assumed: that KB-D, the re-preparing law or SRC is sourced; kernel status for the [D] declarations.
+  - **HO-13.** Relied on in B10 and B12. Item 2 (in the schema H1 + H2 + H3, invariance under `R_z(θ₀)`,
+    `cos θ₀ = 3/5`, and `J = cyc3` on one token suffices) at its label CONDITIONAL; it fixes the target clause of B10
+    ((T) at one rational angle). Item 1 (the K2 schema's written proof) at CONDITIONAL, used only to say what the
+    conjunction of the two halves forces. Item 3 (the finite clause, order 384) as context. The facts I use from it
+    (the trace and infinite order of `R_z(θ₀)`, the irrationality of `θ₀/π`) are recomputed in my own scripts.
+    Not assumed: that H2, H3, (b) or either operation is sourced; that lemma 4 is kernel-checked.
+  - **HO-16.** Not relied on as a premise in B10–B12. Used as context in B10/B12 only to note where its eigenline-orbit
+    mechanism does not apply (an identity component whose eigenlines are all products), and in B13 (if reached) for
+    comparison. Not assumed: B3.C from it; EBF certified.
