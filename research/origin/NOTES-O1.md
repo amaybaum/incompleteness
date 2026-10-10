@@ -159,10 +159,14 @@ reachable posteriors; visibility 0 in 6336 sandwiches; three-bit robustness, gen
 *Consequence:* an H-sandwich witness requires **invasive** observation — observe-and-forget ≠ idle on the
 reachable body — independently of where the mixer comes from. This is the discrete counterpart of NG2 [A
 oistage §7], which required invasive observation for a strictly convex body.
+*Scope.* T5 concerns the dephasing realized as which-path recording (observe-and-forget, or a fresh-register
+record). A dephasing realized as a twirl over frame-preserving operations is not covered by T5; it is covered by
+Lemma P (NOTES-O3 §3): when the native readout is passive and repeatable, every pure state is
+outcome-deterministic for it, so no balanced pure mixer exists to be twirled, whatever the dephasing.
 
 **T6 (outcome determinism).** If every extreme point of the body gives the frame readout a value 0 or 1, no
 reversible body automorphism maps a pure frame state to a balanced state (automorphisms preserve extremality)
-[W]. With the stated access (exchanges, passive readout, conditioning on records) every point mass is a
+[W]. The hypothesis follows from passivity and repeatability of the readout alone (Lemma P, NOTES-O3 §3). With the stated access (exchanges, passive readout, conditioning on records) every point mass is a
 reachable posterior — swap, read, swap back [X F2] — so the extreme points are the point masses, whose readout
 is deterministic [X F3], and no permutation is a balanced pure mixer [X F4]. The "balanced" seed (z = 0,
 x uniform) is the midpoint of two reachable point masses, not a pure state [X F6, CCF4].
@@ -193,8 +197,10 @@ mechanism M-KB.
 
 `OIBridge/OriginEnvelope.lean` on `dev-origin/envelope`: `conj_dephase_of_submonomial`, `dephase_sum`,
 `instAvail_substratum_dephase`, `instAvail_permClass_dephase`, `gateFlow_half_not_monomial`,
-`onesClass_mixer_available`, `onesFixing_class_carries_mixer`. Status and run id: see `LOG.md` and
-`RESULTS.md` (the module is copied to `research/origin/lean/` only if its build is green).
+`onesClass_mixer_available`, `onesFixing_class_carries_mixer`. Build green in workflow run 38084486326 at dev
+commit c3f7fbb2, every declaration on [propext, Classical.choice, Quot.sound]; copied verbatim to
+`lean/OriginEnvelope.lean` [D] (not certified). The first run, 38083822302 at 271ba177, failed to parse the scoped
+`ᴴ` notation.
 
 ## 7. Mechanisms the envelope kills (recorded as FAILED routes; detail in NOTES-O2)
 
