@@ -152,3 +152,11 @@ number of nonzero discrete Fourier coefficients of the response f [W].
   harmonics; minimal rank selects the cosine law.
 - **CONFIRMING, O6-C1.** F-D3 (`not_stagePreserving_of_infiniteOrderOn`), HO-2c's one-token clause, oistage R1
   (passive rotation tower with growing rank).
+
+## 6. Scope (skeptical pass on the favourable branch O6-I)
+
+The instance's substratum is a circle (a sphere for OFF) with its rotation-invariant measure, not OI's cubic lattice with
+the wave equation, and its readout law is chosen. O6-I shows that O3-T5's three requirements are compatible, with a
+repeatable readout, once a re-preparing law is granted; it does not show that OI's own substratum carries such a law,
+which is part of the open premise (O6-V). The infinite-order datum is a rotation of the substratum, a bijection of the
+stated kind; the only element outside the stated access is the readout law.

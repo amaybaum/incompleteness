@@ -220,3 +220,11 @@ the rule's inference used permutation invariance only); run 2 with the corrected
 |---|---|---|---|---|
 | `o7_level3.py` (run 2) | `e8f35239…446995c` | `53c31acd…52d611e` | dim L = 10, dim L′ = 15, L4 True, 3 countercontrols expected-false, VERDICT LEVEL3-DENSE | byte-identical |
 | `o7_level3.run1.py` (run 1, kept) | `3580b297…fc860c5` | `54dfe42f…88eb762` | dim L = 10; VERDICT LEVEL3-PROPER, superseded (inference outside the method) | — |
+
+## Verdicts by node (round 2)
+
+| node | verdict | label |
+|---|---|---|
+| O5 | KB-D is not sourced. It splits into an instrument (Lüders ∘ forgetful map: sourced) and an exclusivity (no passive readout of any partition: excluded on the stated access by the native readout; sharpened Lemma P with a design module). Memory bound and recorder FAILED; symplectic couplings force KB-D's form only with unknown pointer conjugates (the exclusivity relocated). If KB-D were SRC's source, SRC would be token-only: product-register composites are Bell-local. | CONDITIONAL (O5-T1, T1a [W] + [X] + [D]); FAILED (O5-a, O5-b); CONDITIONAL (O5-d, O5-SRC1, O5-SRC2); source of KB-D OPEN |
+| O6 | On passive repeatable finite-rank towers every reversible datum, stage-crossing or not, has finite order: O3-T5's requirements are mutually exclusive there. On an invasive re-preparing tower (circle and sphere substrata, cosine law) they hold together with a repeatable readout, the exact witness belonging to the closure. The field-neutral Continuous Origin and the source of KB-D are one premise: an exclusive measure-and-re-prepare readout. | CERTIFIED (O6-K, F-D3 at L); CONDITIONAL (O6-T1 [W] + [D], O6-T2, O6-I, O6-L); the re-preparing law's source OPEN |
+| O7 | At the balanced angle: on three states the kernel's rotation datum on overlapping pairs is dense in SO(3) (O(3) with the exchanges; containing SU(3) with the quarter phase); the Hadamard pair alone is a proper O(2); at the kernel's level three the generated group's closure contains SO(6), and SU(6) with the quarter phase — density without exactness. | CONDITIONAL (O7-D1–D4, O7-L3: [X] + [W] + [L]); O7-O superseded by O7-L3; O7-L3r1 FAILED as a verdict (kept) |
