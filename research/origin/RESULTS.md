@@ -202,3 +202,21 @@ Script `experiments/o5_src.py` (decision rule in the header before run 1; two pr
 | script | sha256 (script) | sha256 (output) | result | replay |
 |---|---|---|---|---|
 | `o5_src.py` | `c7c5bfd6…f7c7908` | `96e052e7…d41683` | 3/3 items True, 2 countercontrols expected-false, VERDICT SRC-KB-TOKEN-ONLY | byte-identical |
+
+## O7 (extension) — level three at the balanced angle (round 2)
+
+Script `experiments/o7_level3.py`: run 1 kept as `o7_level3.run1.{py,out,err}` (its LEVEL3-PROPER verdict superseded:
+the rule's inference used permutation invariance only); run 2 with the corrected method and rule fixed before it,
+`VERDICT LEVEL3-DENSE`, 3 countercontrols expected-false; replay byte-identical.
+
+| id | statement | label | evidence | where |
+|---|---|---|---|---|
+| O7-L3 | Supersedes O7-O. At the kernel's level three (six states), the closure of ⟨`mixImage 3 (π/4)`, permutations⟩ contains SO(6) (O(6) with odd permutations); with the single-state quarter phase it contains SU(6): the balanced fixed-gate theory has dense unitary control up to phase at level three, without exactness. The permutation-only algebra is exactly so(5) of the all-ones hyperplane; Ad(M1) completes it to so(6). | CONDITIONAL ([X] exact Lie-algebra dimensions 10 → 15 over Q(√2); [W] circle generator and so(6) maximal in su(6); [L] Cartan's closed-subgroup theorem; class membership from [K StateMixingCoupling.lean:56–59, LieRankSource.lean:209, DiscreteCompletion.lean:1926, SubstratumSource.lean:103]) | [X] L1–L4, CC1–CC3 | NOTES-O7 §6 |
+| O7-L3r1 | Run 1 of `o7_level3`: measurement dim L = 10 (permutation conjugates only) correct; its LEVEL3-PROPER verdict is not supported by the method and is superseded by O7-L3. | FAILED (as a verdict; kept with its files) | `o7_level3.run1.*` | NOTES-O7 §6 |
+
+**Script ledger (O7 extension).**
+
+| script | sha256 (script) | sha256 (output) | result | replay |
+|---|---|---|---|---|
+| `o7_level3.py` (run 2) | `e8f35239…446995c` | `53c31acd…52d611e` | dim L = 10, dim L′ = 15, L4 True, 3 countercontrols expected-false, VERDICT LEVEL3-DENSE | byte-identical |
+| `o7_level3.run1.py` (run 1, kept) | `3580b297…fc860c5` | `54dfe42f…88eb762` | dim L = 10; VERDICT LEVEL3-PROPER, superseded (inference outside the method) | — |
