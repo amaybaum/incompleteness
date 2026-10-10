@@ -66,3 +66,31 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   HO-2 lists as open, with its slice; the eigenline-orbit mechanism; residual region recorded. HO-2 relied on for the
   statement of B3.C and its coverage list only. RESULTS rows C10.1–C10.3 and C2.8r appended. Handoff proposal HP3 (to
   bridge via the coordinator). Commit: C10.
+
+## Round 3
+
+- 2026-10-10T23:48Z — round 3 session start (head e6d42cab, clean; first `date -u` reading of the session 23:48:10Z). Read
+  README, RESULTS, LOG, NOTES-C1 … NOTES-C10; from `origin/research/overview` @ 2a055180 (fetched; read-only):
+  OVERVIEW.md, HANDOFFS/README.md, HO-10, HO-11, HO-14, HO-16 and AUDITS/2026-10-10-round2/AUDIT-COUNTERMODELS-R2.md
+  (no label changes to this thread's rows); AGENTS.md at L 9f9f8257 (§A.16, §A.21, §A.29, §A.31; byte-identical to
+  the working copy, sha256 959c4333…); archive records used as definitions: PROTOCOL-STAGE3 (H1–H3), X/RESULT (SD1, the
+  single-defect characterization, EBF), AUDIT-X, Y/RESULT Y1 (claim D, the seed window), INTEGRATION-NOTE-STAGE4.
+  Disclosure: two version checks ran without `-I -B` (`python3 --version`; `python3 -c "import sympy; …"`, sympy
+  1.14.0, Python 3.11.15), outside the repository.
+- 2026-10-10T23:59Z — **receipts** (overview 2a055180), copied byte-identical into `inbox/` (sha256 equal to the
+  originals, checked at 23:59:30Z): HO-10 v1 `ef909f69…`, HO-11 v1 `cd6305f6…`, HO-14 v1 `af4c4b63…`. Reliance, only
+  at the labels the handoffs carry (none names a kernel declaration at L for what is used here, so nothing taken from
+  them is CERTIFIED):
+  - **HO-10 v1** (reachability theorem CONJECTURE; B3.C CONDITIONAL on claim (D) [A]): used in C13 only as the label
+    under which the residual region of C10.3 is covered (existence, CONJECTURE + (D)); the unreachable state C13 needs
+    is found and certified exactly here, so no row of this round rests on HO-10's item 1. Items 2–3 are cited, at their
+    labels, wherever a C13 row compares with them.
+  - **HO-11 v1**: item 3 (`Stab_loc(K(Z_F)) = V4`, exact among the Cliffords) is context for C11 (K(Z_F) is not
+    invariant under the order-384 group); the `cyc3` witness is recomputed here, so no row rests on it. Items 1–2 are not
+    used.
+  - **HO-14 v1**: the group `⟨cnot, actT R_z(π/2), actT cyc3⟩` and the state `φ₀` are the object of C11; the order 384
+    and the unreachability of `φ₀` (CONJECTURE, exhaustive) are recomputed with my own code before any use; the
+    existence of an exotic invariant cone enters only at CONDITIONAL on claim D [A] (EBF [A]).
+  Process note (2026-10-11T00:00Z): the first form of the receipts commit (local, never pushed, `f230bc04`) carried the
+  three inbox files without this LOG entry (my LOG edit had failed); the entry was added to that commit before any
+  push, with the same message.
