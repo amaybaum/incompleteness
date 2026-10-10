@@ -115,6 +115,13 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T22:28Z — dispatch 3/3: run **38091534622** on `8c92343e` (branch `dev-equivalence/split-l3`): modules
   `StageSeed` (S1) and `CopyCovariance` (S2), split from the built `EqvSeams`/`EqvSeamsControl` with no statement
   changed, and `EqvLevel3` (node E9). This is S1's and S2's one dispatch and the round's last; no dispatch remains.
-- 2026-10-10T22:30Z — drafts S1 (`preregistration-drafts/S1-kinf-seed.md`) and S2
+- 2026-10-10T22:28Z — drafts S1 (`preregistration-drafts/S1-kinf-seed.md`) and S2
   (`preregistration-drafts/S2-kinf-copy-type-covariance.md`) written; held for owner review; no round, PR or file under
   `verification/` created.
+- 2026-10-10T22:32Z — LOG correction: the entry for drafts S1/S2 had been written as 22:30Z, later than its commit
+  `7656bbe6` (22:28:46); set to 22:28Z. No other content changed.
+- 2026-10-10T22:32Z — drafts S3 (`preregistration-drafts/S3-kn-descent.md`, design run 38090116254 green at the build)
+  and S4 (`preregistration-drafts/S4-kinf-trans-separation.md`, marked not ready to freeze: its design run 38090924005
+  failed at two terms and the proof-only repair `95beab2b` is unmeasured) written. Design modules copied verbatim to
+  `lean/`: `EqvKnDesc.lean` (blob `8157f8ea`, = dev `05b5756c`), `EqvOmega4.run38090924005.lean` (blob `ee870649`, the
+  built-and-failed text of `195dfbee`) and `EqvOmega4.lean` (blob `9030f471`, the repaired text of `95beab2b`).
