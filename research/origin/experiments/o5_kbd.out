@@ -1,0 +1,58 @@
+== o5_kbd ==
+nontrivial partitions of Omega: 14 (Bell(4) - 1 = 14)
+
+-- A: the dichotomy on the classical carrier
+A1  access (S4, passive z): 11 posteriors; all point masses reachable: True; extreme points = the 4 point masses: True; extreme points deterministic for all 15 partitions: True; balanced extreme point: False  -> True
+A2  access (S4, passive z, KB-D z): 11 posteriors; all point masses reachable: True
+A3  access (S4, KB-D z): 7 posteriors; no point mass: True; = uniform + 6 pair states: True; extreme points = the 6 pair states: True; x+ extreme and z-balanced: True; z-readout repeatable at x+ (posteriors (1/2, 1/2, 0, 0), (0, 0, 1/2, 1/2)): True; observe-and-forget(x+) = (1/4, 1/4, 1/4, 1/4) = uniform != x+: True  -> True
+A4  access (S4, KB-D z, passive P) reaches every point mass, for each of the 14 nontrivial partitions P: 14/14  -> True
+A5  pure-seed pattern (read z, correct, forget; swap; repeat; swap back): passive readout -> (1, 0, 0, 0) (point mass (0,0), probability 1); KB-D readout -> (1/2, 0, 1/2, 0) (pair state)  -> True
+A6  passive decompositions on the A1 body for every partition at every reachable state: True; on the A3 body at x+: z-face = {z+}: True, 2x+ - z+ = (1/2, -1/2, 1, 0) not a state: True; separation control (segment [z+, z-]: passive, deterministic extreme points that are not point masses): True  -> True
+
+-- B: candidate (a), incompleteness read as a memory bound
+B1  1-bit memory, acceptance at the time (CNOT z->m, accept m=0, swap, CNOT z->m, accept m=0, swap): state (1, 0, 0, 0), acceptance probabilities 1/2, 1/2  -> point mass: True
+B2  embedded, no acceptance: of 40320 bijections of (z, x, m), 18432 give a point-mass posterior -> True; |GL(3,2)| = 168, affine bijections 1344: posterior support sizes [2, 4], pair states occurring 6/6 -> knowledge-balanced posteriors: True
+B3  frequencies given the preparation: coherent 1, dephased 1 (V = 0); memory-conditioned predictions: coherent 1, dephased [Fraction(1, 2)] (the record overwrote the preparation's record); with a fresh blank bit for the dephasing record: [Fraction(1, 1)]  -> True
+
+-- C: candidate (b), the kernel recorder under a finite-memory bound
+C1  recorder into a separate register: system marginal unchanged: True; recorder into the memory x: every outcome's posterior is the point mass (a, a): True  -> True
+C2  576 bijections of (z, x, r) fixing z: perfect record into an unknown register: 0; into a blank register: 16, each keeping x as a known bijective relabeling: True  -> True
+
+-- D: candidate (c), Lueders readout composed with a forgetful map
+D1  KB-D z = forget_x o Lueders z on all 11 reachable states of A1 and A3, branch by branch: True
+D2  the composite added to the stated access (passive readout kept): every point mass reachable (A2): True
+
+-- E: candidate (d), symplectic couplings
+E1  |GL(4,2)| = 20160; record couplings (z' = z, q' = z from q = 0), by class: symplectic & KB-D 32, symplectic & x kept 0, non-symplectic & KB-D 224, non-symplectic & x kept 128; with p known x' is a function of (z, x) in every case: True; the kickback coupling (x' = x + p) symplectic: True  -> True
+
+normalization control: every reachable posterior of A1, A2, A3 is a probability vector: True
+
+-- countercontrols (must be False)
+CC1  CC-OK (False as required)
+CC2  CC-OK (False as required)
+CC3  CC-OK (False as required)
+CC4  CC-OK (False as required)
+CC5  CC-OK (False as required)
+
+  A1: True
+  A2: True
+  A3: True
+  A4: True
+  A5: True
+  A6: True
+  B1: True
+  B2aff: True
+  B2pm: True
+  B3: True
+  C1: True
+  C2: True
+  D1: True
+  D2: True
+  E1: True
+VERDICT NO-GO-ON-STATED-ACCESS: with a passive repeatable readout in the access (the kernel's native Lueders
+  readout on the classical carrier) the body is the simplex, every extreme state is deterministic, and KB-D's
+  octahedron is excluded whatever is added (A1-A6); candidate (a) FAILED (procedures reach point masses with
+  one memory bit; embedded, the memory bound restricts posteriors (B2aff = True) but not frequencies, V = 0);
+  candidate (b) FAILED (the recorder is passive on the system or erases the memory to a known value);
+  candidate (c) sources the KB-D instrument only, not its exclusivity; candidate (d) forces KB-D, CONDITIONAL
+  on symplectic couplings together with an unknown pointer conjugate.
