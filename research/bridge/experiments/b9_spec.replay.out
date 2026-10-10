@@ -1,0 +1,27 @@
+Y1   PASS  M(prodState x y) = rho(x) (x) rho(y) symbolically
+Y2   PASS  M(cnot w) = CNOT M(w) CNOT on all 16 basis tables (pc/pt as transcribed); B(X) = nflip
+     pc/pt source block at L:
+       def pc : Fin 4 → Fin 4 → Fin 4
+         | 0, 0 => 0 | 0, 1 => 0 | 0, 2 => 3 | 0, 3 => 3
+         | 1, 0 => 1 | 1, 1 => 1 | 1, 2 => 2 | 1, 3 => 2
+         | 2, 0 => 2 | 2, 1 => 2 | 2, 2 => 1 | 2, 3 => 1
+         | 3, 0 => 3 | 3, 1 => 3 | 3, 2 => 0 | 3, 3 => 0
+       
+       /-- The target index read by the `d = 3` gate at an index pair. -/
+       def pt : Fin 4 → Fin 4 → Fin 4
+         | 0, 0 => 0 | 0, 1 => 1 | 0, 2 => 2 | 0, 3 => 3
+         | 1, 0 => 1 | 1, 1 => 0 | 1, 2 => 3 | 1, 3 => 2
+         | 2, 0 => 1 | 2, 1 => 0 | 2, 2 => 3 | 2, 3 => 2
+         | 3, 0 => 0 | 3, 1 => 1 | 3, 2 => 2 | 3, 3 => 3
+       
+       /-- The `d = 3` gate as a function: a signed permutation of the sixteen entries. -/
+     parsed pc = [[0, 0, 3, 3], [1, 1, 2, 2], [2, 2, 1, 1], [3, 3, 0, 0]]
+     parsed pt = [[0, 1, 2, 3], [1, 0, 3, 2], [1, 0, 3, 2], [0, 1, 2, 3]]
+Y3   PASS  B(diag(1, c+is)) = R_z(c,s); tensorOf 1 U pulls back to actT R_z and U (x) 1 to actC R_z on all 16 tables, symbolically under c^2 + s^2 = 1
+Y4   PASS  closure of {Z(x)I, I(x)Z} under CNOT, X(x)I, I(x)X, SWAP: dimension 3, all diagonal, all commutators zero (identity component abelian: the diagonal torus)
+Y5   PASS  cyc3 lift found; V Z V^* = [[0, 1], [1, 0]] (off-diagonal); [Z(x)I, VZV^*(x)I] != 0
+Y6   PASS  <cnot, actC cyc3, actT cyc3> on W 3: signed permutations, finite, order 11520 (divides 11520: True)
+Y7   PASS  cyc3 R_z(t) cyc3^-1 = R_x(t); cyc3 = R_z(pi/2) R_x(pi/2): True; cyc3 = R_x(pi/2) R_z(pi/2): False
+
+PASS 7  FAIL 0
+VERDICT B9-EXACT

@@ -137,3 +137,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   kernel counterparts of its composition content are `InertSpectatorCompositionality` and
   `finiteOI_not_implies_inert` (OIRealization.lean:360).
 - 2026-10-10T22:45Z — NOTES-B8 written; RESULTS rows B8-1 … B8-4 appended.
+- 2026-10-10T22:45:37Z — B9 decision rule written into `b9_spec.py`. Correction (forward) of the previous entry: the
+  line stamped 22:45Z for "NOTES-B8 written" is an estimate; the event preceded commit 9f2d40b3 (22:43:49Z).
+- 2026-10-10T22:46:40Z — `b9_spec.py` pre-run edit (logged in its header; rule text unchanged): the `pc`/`pt` tables
+  are parsed from CompositeDimension.lean at L; the draft's hand transcription of `pt` was its transpose. A further
+  pre-run fix: the header's edit time was first written as an estimate (22:48Z) and corrected to the `date -u` value
+  before the run.
+- 2026-10-10T22:46:45Z — `b9_spec.py` run 1: 7/7 PASS, VERDICT B9-EXACT; replay byte-identical. The Y2 message text
+  says "as transcribed"; the tables are parsed (printed in the output).
+- 2026-10-10T22:49Z — NOTES-B9 written; RESULTS rows B9-1 … B9-4 appended.
