@@ -22,7 +22,7 @@ such a discharge.
 | K∞-Drive | `ElementaryDrivability` KInfFoundations.lean:264 | no discharge; characterization OPS-Γ [A]; in chart dimension 3 a drive forces an ellipsoid (remark R3 below), in chart dimension 4 it does not (Ω₄) | CONJECTURE [W] + [L] (R3) | — |
 | K∞-Act | `OpDatum`, `AffineRespect`, `Undoes` CompletionAction.lean:46/58/325 | no change: the existence form is discharged by the identity datum and the content is relative to the consumed family (SA §2.3 [A]); label duals source `AffineRespect` (SA P-A [A]) | OPEN | [A] |
 | K∞-Stage | `SCInf` :78, `BinaryVisible` :244, `FiniteRank` :299 (StageCompletion) | no change: SC∞ by the protocol tower's `rfl` [A]; FiniteRank not forced on infinite carriers [A]; E2 adds that K∞-Seed is the stage-level sharp test plus this seam | OPEN | [A], [D] |
-| K∞-V4 | `SeedOrbitAvailable` OrbitGeneration.lean:74 | no change; its `G` is K∞-Trans's `G` | OPEN | — |
+| K∞-V4 | `SeedOrbitAvailable` OrbitGeneration.lean:74 (`∀ g ∈ G, seedTransport r g ∈ avail`, `seedTransport r g = r ∘ g⁻¹` :49) | reducible to an operational closure: if `r ∈ avail` and `avail` is closed under transport by the members of `G` (an available test followed by an available reversible operation's inverse is an available test), V4 holds — a relocation onto sequential closure, which the matrix interface has by its availability rules; its `G` is K∞-Trans's `G`, and with a dense countable `G` the available family can be countable (`countable_seedOrbit_cone` DenseOrbit.lean:403 [K]) | OPEN (relocated) | [W] (one line) + [K] |
 | K∞-Geom | `SingletonFaces` :139, `RelStrictConvex` :144 (KInfFoundations) | no change as an obligation; E2 shows it does not supply transitivity even with drivability (Ω₄) | OPEN | [X] + [W] |
 
 ## 1. K∞-Seed is the stage-level sharp test (EqvSeams §A, [D])
@@ -61,7 +61,15 @@ Classification: POSITIVE (a validated reduction; small).
   **every** effect family by `singletonFaces_of_relStrictConvex` (KInfFoundations.lean:590) [K]; exact midpoint instances
   (D8);
 - central symmetry (D7), hence capacity ≤ 2 by Lemma D (`card_le_two_of_centrallySymmetric`, KInfFoundations.lean:632)
-  [K] — so Ω₄ also meets the capacity clause of SA's proposed scope premise ElemScope [A].
+  [K] — so Ω₄ also meets the capacity clause of SA's proposed scope premise ElemScope [A];
+- supporting-effect completeness for the full effects, hence hypothesis K∞-1 (`KInf1` KInfFoundations.lean:1013, "a
+  compact convex body admitting an elementary drive has supporting-effect completeness") for `fullEffects Ω₄` [W5:
+  `F` is convex and homogeneous of degree 4, so at a boundary state `p` the functional `ℓ = ∇F(p)·x / 4` has `ℓ(p) = 1`,
+  `ℓ ≤ 1` on Ω₄ by the gradient inequality, `ℓ ≥ −1` by central symmetry; `(1 + ℓ)/2` is a proper effect certain at `p`];
+- seed-orbit availability for `G = Aut(Ω₄)` with `avail = fullEffects Ω₄` (every transport of an effect is an effect).
+So Ω₄ carries **every** single-system seam other than K∞-Trans in the form the kernel states it (Stage's finite rank
+trivially, Act abstractly by its automorphisms, Drive, Seed, V4, Geom with K∞-1), and no transitive or dense-orbit
+family.
 
 **What fails.** The plane section `{x₁ = x₂ = 0}` is `{u⁴ + v⁴ ≤ 1}`, which is no ellipse (D9: the boundary points
 `(1,0)`, `(0,1)`, `(t, ±t)` with `t⁴ = 1/2` force incompatible cross terms); an affine image of a ball centred at its
@@ -73,8 +81,10 @@ non-ellipse step is not vacuous.
 
 **Reading.** The landed `not_boundaryTransitive_flow` (OrbitGeneration.lean:620) shows that one drive's flow is not
 transitive on a body that *is* transitive under another family. Ω₄ is strictly stronger: on a general body the other
-single-system seams together — drivability, a seed, the geometric seam in its strongest form, capacity two — admit no
-transitive family at all, and no dense-orbit family either. So K∞-Trans (and KTRANS-DENSE-1's dense weakening) must be
+single-system seams together — drivability, a seed, seed-orbit availability, the geometric seam with K∞-1, capacity
+two — admit no transitive family at all, and no dense-orbit family either. It is the explicit countermodel the KINF
+design's chain anticipates (K-INF-DESIGN §8: Lemma C gives strict convexity, transitivity must come from the
+preparations' orbit structure, Lemma B then gives the ball [A]). So K∞-Trans (and KTRANS-DENSE-1's dense weakening) must be
 supplied by its own source; it cannot be derived from those seams. The verdict is about the body Ω₄ only; it says
 nothing about which bodies OI supplies, and nothing about chart dimension 3 (R3). Classification: **NEW** (for this
 programme's chain: it upgrades the ROADMAP's "no theorem derives transitivity from ElementaryDrivability on a general
@@ -137,7 +147,12 @@ have `NC ≠ NT`). (d) It is **not** shown to admit any gate that copy naturalit
 one-NOT gate with the target NOT (C6). (e) The design module `EqvSeamsControl`'s header sentence "type covariance
 therefore admits two-NOT data that the one-NOT hypothesis does not" is to be read in sense (c) only; the module was
 built before run 1's finding and is kept byte-identical to the built blob. (f) Three-copy consistency of mismatched
-splits (K-INF-DESIGN §17, probe 1b) was not run here. Classification: POSITIVE (confirms the ROADMAP's untested
+splits (K-INF-DESIGN §17, probe 1b) was not run here; thread B's part 2 [A] already found mismatched role-pure Model I
+assignments meeting R2, T1, T2 at d = 5, 7, and the J/K Model II failing the chain identity T3. (g) At the matrix level
+admissibility is a function of the carrier type (`ImplementationClass` ImplementationLocality.lean:244) transported
+along bijections (`LabelInvariant` :364), so two tokens of one type carry the same repertoire by construction and a
+token-dependent NOT assignment such as the J/K pairs cannot be stated there; type covariance is the field-neutral form of
+that per-type structure [W]. Classification: POSITIVE (confirms the ROADMAP's untested
 candidate at :1027–1029, in the form "type covariance of native inversion, equivalently equal ±1 eigenspace dimensions",
 with a kernel-checked design reduction and the countermodels' exclusion).
 
