@@ -78,6 +78,14 @@ kept): `z_s + z_t = (P_u + P_w)/4` lies in `Herm(v^⊥)` (check E1), so two tigh
   explicit face members and equals the sharp upper bound (rank of `Herm(v^⊥)` plus the tight defects; the hyperplane for a
   defect). For a defect the span is `z^⊥` by the null-cone argument of NOTES-C1 W4 (`pauliW(z)` has one negative and three
   positive eigenvalues).
+- **General values (not only the computed representatives).** For a pure extreme ray `P_v`: the face is
+  `{q + Σ_{tight} λ_s z_s : q ∈ A, qv = 0}`, so `c ≤ dim(Herm(v^⊥) + span{tight z_s})`; at most two caps are tight
+  (`|⟨ψ_s|v⟩|² = 1/2` for three `s` would sum past 1); one tight defect adds one dimension (`pauliW(z_s)v ≠ 0`), and two
+  tight defects `s, t` add one only, since `v ∈ span(ψ_s, ψ_t)` gives `z_s + z_t ∝ P_u + P_w ∈ Herm(v^⊥)`. Lower bound: the
+  pure states `u ⊥ v` with all `|⟨ψ_s|u⟩|² < |u|²/2` form a nonempty open subset of `ℂP(v^⊥) ≅ ℂP²` — the four excluded
+  sets are closed Fubini–Study balls of radius `≤ π/4`, each of volume `≤ 1/4` of `ℂP²`, with equality only if
+  `|Π_{v^⊥}ψ_s| = 1` for all `s`, impossible since `Σ_s |Π_{v^⊥}ψ_s|² = 3`; such an open set spans `Herm(v^⊥)`. So `c = 9` on
+  every interior pure state and `c = 10` on every boundary one [W], matching the exact representatives [X F].
 - **W4.** Since automorphisms of a self-dual cone preserve `c` on extreme rays ([A] Y6), every automorphism of K preserves
   the three classes: defects (`c = 15`), interior pure states (`c = 9`), boundary pure states (`c = 10`).
 
