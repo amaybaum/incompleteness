@@ -161,3 +161,22 @@ Together with §1 and §2, every compact `H` with abelian identity component mis
   - **POSITIVE**: the B3 no-go is now free of conjecture.
 - **Not claimed.** Anything for groups with non-abelian identity component. Those can reach every pure state; stage 4
   records such UNIQUE nodes. Claim (D) and EBF are used at [A] and not re-derived here.
+
+## 6. Robustness check on generated bases (`experiments/b7b_generic.py`)
+
+The decision rule was fixed at 22:58:57Z. There is one run, final; the replay is byte-identical. The run's verdict is
+**B7B-FAILED Z1**, kept as recorded.
+
+**What was tested.** 12 exactly orthonormal bases with Gaussian-rational entries, generated deterministically from
+Cayley transforms. The designed product-line counts were 0, 1 and 2, four bases each.
+
+**The results.**
+- **Z2 PASS.** Every basis is certified by Lemma 2, with the first parameter triple.
+- **Z3 PASS.** At all 13 product vertices, an explicit nearby product fails the certificate.
+- **Z1 FAIL.** The generator's design was wrong for one basis: `G1[0]` has 2 product lines where 1 was designed.
+  - This is a defect of the instance generator, not of the certificate. `G1[0]` is itself an instance of an open
+    case and is certified.
+  - The script was not edited after the run.
+
+**What it adds.** The certificate is not specific to hand-picked bases. It does not change B7-1 … B7-4, which rest on
+`b7_b3c.py` and the written proof.

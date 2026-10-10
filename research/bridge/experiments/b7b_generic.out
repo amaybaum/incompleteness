@@ -1,0 +1,18 @@
+     G0[0]: orthonormal=True, product lines=0 (designed 0), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G0[1]: orthonormal=True, product lines=0 (designed 0), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G0[2]: orthonormal=True, product lines=0 (designed 0), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G0[3]: orthonormal=True, product lines=0 (designed 0), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G1[0]: orthonormal=True, product lines=2 (designed 1), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G1[1]: orthonormal=True, product lines=1 (designed 1), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G1[2]: orthonormal=True, product lines=1 (designed 1), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G1[3]: orthonormal=True, product lines=1 (designed 1), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G2[0]: orthonormal=True, product lines=2 (designed 2), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G2[1]: orthonormal=True, product lines=2 (designed 2), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G2[2]: orthonormal=True, product lines=2 (designed 2), certified by eta=1/400, eta'=1/100, eps=1/1000000
+     G2[3]: orthonormal=True, product lines=2 (designed 2), certified by eta=1/400, eta'=1/100, eps=1/1000000
+Z1   FAIL  12 generated bases exactly orthonormal with the designed product-line counts
+Z2   PASS  every generated basis certified by Lemma 2 with a triple of PARAMS2
+Z3   PASS  countercontrol at 13 product vertices: explicit nearby products fail
+
+PASS 2  FAIL 1
+VERDICT B7B-FAILED Z1

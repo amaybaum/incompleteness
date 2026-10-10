@@ -161,3 +161,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   isomorphism `W 3 ≅ Herm(4)` is the standard Pauli-basis fact [W]. No result changes.
 - 2026-10-10T22:57Z — NOTES-B6 drafted (declarations, mapping to NOTES-B1 §2, gaps); its CI section is filled in
   after run 38092042844.
+- 2026-10-10T22:58:57Z — `b7b_generic.py` decision rule written (B7 robustness: generated bases).
+- 2026-10-10T22:59:56Z — `b7b_generic.py` run 1: Z1 FAIL, Z2 PASS, Z3 PASS → VERDICT B7B-FAILED Z1. `G1[0]` came out
+  with 2 product lines where the generator design expected 1. Recorded as is; no edit, no re-run. The certificate
+  passed on all 12 bases and the countercontrol at all 13 product vertices. Replay byte-identical (23:00Z).
+  NOTES-B7 §6 and RESULTS row B7-5 added.
+- 2026-10-10T22:58:58Z — run 38092042844: Mathlib bridge job started (monitor); Build in progress at 23:00Z.
