@@ -59,7 +59,8 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   products have pinned second factor, so face moduli lie on finitely many curves). Wall narrowed to eigenbases with
   exactly 1–3 product lines and degenerate 2-tori. Stopping the B3.C attempt at this wall (timebox).
 - 2026-10-10T20:50:31Z — commit 9bb9ce3a (B3.C (P2′)) pushed; remote head verified equal to local.
-- 2026-10-10T20:52Z — closing: nodes B1–B5 complete. Stop at the B3.C wall (no padding). Record defects of this
-  session, all corrected forward and kept visible: three timestamps were written from estimates instead of `date -u`
-  (b2 header, b3 header, two LOG lines). The two script cases are kept as `.run1.*` with outputs identical to the final
+- 2026-10-10T20:50Z — closing: nodes B1–B5 complete. Stop at the B3.C wall (no padding). Record defects of this
+  session, all corrected forward and kept visible: timestamps were written from estimates instead of `date -u` in the
+  b2 header, the b3 header, the b4 pre-run note (fixed before its run) and three LOG lines (this entry included: first
+  written as 20:52Z). The two script cases are kept as `.run1.*` with outputs identical to the final
   runs. Lean dispatches used: 0 of 3. Inbox: empty throughout.
