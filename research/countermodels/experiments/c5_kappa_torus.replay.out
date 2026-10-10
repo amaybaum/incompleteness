@@ -1,0 +1,10 @@
+CHECK K1 explicit kappa-invariant cones  PASS U(-1) = CNOT; U(x) unitary, fixes C2 (symbolic x, w'); H1 and certificates for z_C2(+-w'); orthogonal; K != Q3; level (ii) fails: Ad(I(x)Z) z_C2 = z_C1, T_C1 in K pairs -1/2
+RECORD kappa x = -i moves K_F2: witness pairing -1/2
+RECORD kappa x = -i moves K(Z_F): witness pairing -1/2
+COUNTERCONTROL CC2 U((3+4i)/5) C1(1) != C1(1): True
+CHECK K2 kappa torus at level (ii)       PASS Ad(I(x)Z) U(x) Ad(I(x)Z) = I + (x-1)|1+><1+|; fixed tables: dim 6 = {A (+) a (+) b} on (|0>(x)C^2) (+) |1-> (+) |1+>, all block vectors products
+COUNTERCONTROL CC1 a T_k-fixed non-PSD table pairs -4 with the product |1->: True
+CHECK K3 torus node: fixed tables diagonal in B PASS dim 4; B = (|0+>, |1->, |0->, |1+>) products
+COUNTERCONTROL CC3 fixed space at theta = phi = pi: dim 8 (> 4, as required)
+summary: 8 checks, 0 failed
+VERDICT C5-KAPPA-TORUS-EXACT
