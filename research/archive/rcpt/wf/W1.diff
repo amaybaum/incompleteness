@@ -1,0 +1,112 @@
+--- wf_D.yml	2026-10-01 18:03:59.685786840 +0000
++++ wf_1.yml	2026-10-01 18:03:59.708405503 +0000
+@@ -23,6 +23,12 @@
+   push:
+     branches: [main]
+   workflow_dispatch:
++    inputs:
++      a42_reuse_run:
++        description: 'Run id whose A42 exclusion receipts to validate. Only at intermediate execution commits a preregistration names; never at F, E or Q. Empty recomputes.'
++        required: false
++        default: ''
++        type: string
+ 
+ jobs:
+   kernel:
+@@ -372,7 +378,12 @@
+ 
+   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
+   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
+-  # On any other event the matrix job is skipped and the aggregate below requires exactly that.
++  # On any other event the matrix job and its receipt decision are skipped and the aggregate below
++  # requires exactly that. A computing exclusion shard runs under tools/ci_receipts.py, which audits
++  # the files it opens against the shard's manifest and uploads a receipt. A dispatch with the input
++  # a42_reuse_run validates every shard against that run's receipts instead (round CI-RECEIPTS-1):
++  # either all fifteen hold and the family is receipt-validated, or all fifteen are recomputed.
++  # F, E and Q are dispatched without the input and always recompute.
+   probes_a42_witness:
+     name: Numerical probes / A42 witness
+     runs-on: ubuntu-latest
+@@ -409,10 +420,44 @@
+         working-directory: verification/lean
+         run: python3 dita_support_minimality_probe.py --part d01span
+ 
++  a42_receipts:
++    name: Numerical probes / A42 receipts
++    if: ${{ github.event_name == 'workflow_dispatch' }}
++    runs-on: ubuntu-latest
++    permissions:
++      contents: read
++      actions: read
++    outputs:
++      mode: ${{ steps.decide.outputs.mode }}
++      source: ${{ steps.decide.outputs.source }}
++    steps:
++      - uses: actions/checkout@v4
++
++      - uses: actions/setup-python@v5
++        with:
++          python-version: '3.11'
++
++      - name: Install dependencies
++        run: pip install numpy==2.4.6 python-sat==1.9.dev15
++
++      - name: Receipt tool self-test
++        run: python3 tools/ci_receipts.py --self-test
++
++      - name: Decide (one decision for all fifteen shards)
++        id: decide
++        env:
++          GH_TOKEN: ${{ github.token }}
++          A42_REUSE_RUN: ${{ inputs.a42_reuse_run }}
++        run: python3 tools/ci_receipts.py decide --run "${A42_REUSE_RUN}"
++
+   probes_a42_exclusion:
+     name: Numerical probes / A42 exclusion (${{ matrix.part }})
++    needs: [a42_receipts]
+     if: ${{ github.event_name == 'workflow_dispatch' }}
+     runs-on: ubuntu-latest
++    permissions:
++      contents: read
++      actions: read
+     strategy:
+       fail-fast: false
+       matrix:
+@@ -428,9 +473,35 @@
+       - name: Install dependencies
+         run: pip install numpy==2.4.6 python-sat==1.9.dev15
+ 
++      - name: Mode
++        env:
++          MODE: ${{ needs.a42_receipts.outputs.mode }}
++        run: |
++          echo "mode=${MODE}"
++          test "${MODE}" = compute || test "${MODE}" = reuse
++
+       - name: A42 exclusion shard
+-        working-directory: verification/lean
+-        run: python3 dita_support_minimality_probe.py --part '${{ matrix.part }}'
++        id: shard
++        if: ${{ needs.a42_receipts.outputs.mode == 'compute' }}
++        run: >-
++          python3 tools/ci_receipts.py run --probe verification/lean/dita_support_minimality_probe.py
++          --part '${{ matrix.part }}' --receipt-dir "${RUNNER_TEMP}/receipt"
++
++      - name: Upload receipt
++        if: ${{ needs.a42_receipts.outputs.mode == 'compute' }}
++        uses: actions/upload-artifact@v4
++        with:
++          name: ${{ steps.shard.outputs.artifact }}
++          path: ${{ runner.temp }}/receipt/receipt.json
++          if-no-files-found: error
++          retention-days: 90
++
++      - name: A42 exclusion shard, receipt-validated
++        if: ${{ needs.a42_receipts.outputs.mode == 'reuse' }}
++        env:
++          GH_TOKEN: ${{ github.token }}
++          SOURCE: ${{ needs.a42_receipts.outputs.source }}
++        run: python3 tools/ci_receipts.py validate --part '${{ matrix.part }}' --run "${SOURCE}"
+ 
+   probes_foundations:
+     name: Numerical probes / foundations

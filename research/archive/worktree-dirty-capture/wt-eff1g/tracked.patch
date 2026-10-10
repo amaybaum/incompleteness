@@ -1,0 +1,12 @@
+diff --git a/verification/lean-mathlib/OIBridge/EffectSpace.lean b/verification/lean-mathlib/OIBridge/EffectSpace.lean
+index 62808675..8cd2061f 100644
+--- a/verification/lean-mathlib/OIBridge/EffectSpace.lean
++++ b/verification/lean-mathlib/OIBridge/EffectSpace.lean
+@@ -932,6 +932,7 @@ end OIBridge
+ #print axioms OIBridge.EffectSpace.isBoundaryState_eball_of_sphere
+ #print axioms OIBridge.EffectSpace.sphere_of_isBoundaryState_eball
+ #print axioms OIBridge.EffectSpace.sharp_eq_of_certain
++#print axioms OIBridge.EffectSpace.preservesBody_fullAut
+ #print axioms OIBridge.EffectSpace.reflLin_swap
+ #print axioms OIBridge.EffectSpace.boundaryTransitive_fullAut
+ #print axioms OIBridge.EffectSpace.seedTransport_mem_sharpFamily

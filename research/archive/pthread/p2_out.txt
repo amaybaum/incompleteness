@@ -1,0 +1,77 @@
+== seg: segment = eball 1 = classical bit (2-vertex simplex)
+   affine dim 1; simplex True; eigen-solution dim 2; blocks [[0], [1]]
+PASS seg: PI (some block >= 2 rays) iff not simplex
+PASS seg: barycentric record reconstructs every state (passive, separating) => NOT NRR, NOT PI
+PASS seg: complete readout context exists (deterministic + separating on pure states)
+PASS seg: a binary readout injective on pure states exists (PBIN fails on every polytope)
+PASS seg: simplex => sample effects jointly readable (product joint readout)
+PASS seg: EXTDEC iff not simplex
+== tri: classical trit, simplex 3 of KInfFoundations
+   affine dim 2; simplex True; eigen-solution dim 7; blocks [[0], [1], [2]]
+PASS tri: PI (some block >= 2 rays) iff not simplex
+PASS tri: barycentric record reconstructs every state (passive, separating) => NOT NRR, NOT PI
+PASS tri: complete readout context exists (deterministic + separating on pure states)
+PASS tri: a binary readout injective on pure states exists (PBIN fails on every polytope)
+PASS tri: simplex => sample effects jointly readable (product joint readout)
+PASS tri: EXTDEC iff not simplex
+== tet: classical 4-simplex
+   affine dim 3; simplex True; eigen-solution dim 9; blocks [[0], [1], [2], [3]]
+PASS tet: PI (some block >= 2 rays) iff not simplex
+PASS tet: barycentric record reconstructs every state (passive, separating) => NOT NRR, NOT PI
+PASS tet: complete readout context exists (deterministic + separating on pure states)
+PASS tet: a binary readout injective on pure states exists (PBIN fails on every polytope)
+PASS tet: simplex => sample effects jointly readable (product joint readout)
+PASS tet: EXTDEC iff not simplex
+== square: square (gbit)
+   affine dim 2; simplex False; eigen-solution dim 1; blocks [[0, 1, 2, 3]]
+PASS square: PI (some block >= 2 rays) iff not simplex
+PASS square: a binary readout injective on pure states exists (PBIN fails on every polytope)
+PASS square: non-simplex => an incompatible pair of sharp binary readouts found
+   e@verts=['0', '0', '1', '1'] f@verts=['0', '1', '0', '1']
+PASS square: two decompositions into pure states give the same state
+PASS square: EXTDEC iff not simplex
+== spekkens_oct: Spekkens toy bit: conv of edge midpoints of simplex 4 (octahedron), a classical HV model
+   affine dim 3; simplex False; eigen-solution dim 6; blocks [[0, 1, 2, 3, 4, 5]]
+PASS spekkens_oct: PI (some block >= 2 rays) iff not simplex
+PASS spekkens_oct: a binary readout injective on pure states exists (PBIN fails on every polytope)
+PASS spekkens_oct: non-simplex => an incompatible pair of sharp binary readouts found
+   e@verts=['0', '0', '1', '0', '1', '1'] f@verts=['0', '1', '0', '1', '0', '1']
+PASS spekkens_oct: two decompositions into pure states give the same state
+PASS spekkens_oct: EXTDEC iff not simplex
+== pyramid: pyramid over square = free join square (+) point
+   affine dim 3; simplex False; eigen-solution dim 2; blocks [[0, 1, 2, 3], [4]]
+PASS pyramid: PI (some block >= 2 rays) iff not simplex
+PASS pyramid: a binary readout injective on pure states exists (PBIN fails on every polytope)
+PASS pyramid: non-simplex => an incompatible pair of sharp binary readouts found
+   e@verts=['0', '0', '1', '1', '0'] f@verts=['0', '1', '0', '1', '0']
+PASS pyramid: two decompositions into pure states give the same state
+PASS pyramid: EXTDEC iff not simplex
+== eball d (finite subsets of the unit sphere; necessary conditions on passive branches)
+   eball 1: rays +-e_i; eigen-solution dim 2; blocks [[0], [1]]
+PASS eball 1: two singleton blocks (passive separating readout possible)
+PASS eball 1: record {sharpEff z1, sharpEff (-z1)} with re-preparation (+1,-1) reconstructs every state
+   eball 2: rays +-e_i; eigen-solution dim 1; blocks [[0, 1, 2, 3]]
+PASS eball 2: only scalar maps keep +-e_i as eigenvectors => NIWD, PI, NRR on eball 2
+   eball 3: rays +-e_i; eigen-solution dim 1; blocks [[0, 1, 2, 3, 4, 5]]
+PASS eball 3: only scalar maps keep +-e_i as eigenvectors => NIWD, PI, NRR on eball 3
+PASS eball 0: the unit readout with y = the point reconstructs (NRR and PI fail at d = 0)
+   eball 2: forced g11 = ['1/4', '1/4', '1/4']; g11(-3/5,-4/5) = -1/10
+PASS eball 2: forced joint element is negative at the sphere point (-3/5,-4/5) => incompatible
+PASS eball 2: (-3/5,-4/5) is on the unit sphere
+== summary table (polytopes)
+   body          dim     simplex HTST    PI      NRR     NIWD    PBIN    INCOMP  EXTDEC 
+   seg           1       True    False   False   False   False   False   False   False  
+   tri           2       True    True    False   False   False   False   False   False  
+   tet           3       True    True    False   False   False   False   False   False  
+   square        2       False   True    True    True    True    False   True    True   
+   spekkens_oct  3       False   True    True    True    True    False   True    True   
+   pyramid       3       False   True    True    True    False   False   True    True   
+PASS strictness: tri has HTST but not PI (HTST does not imply PI)
+PASS strictness: pyramid has PI but not NIWD (PI does not imply NIWD)
+PASS strictness: square has PI but not PBIN (PI does not imply PBIN)
+PASS classical HV witness: Spekkens octahedron satisfies PI, NRR, NIWD and INCOMP
+PASS every simplex fails PI, NRR, NIWD, PBIN, INCOMP, EXTDEC
+PASS spekkens_oct: the pair (0 in pair, 1 in pair) has no joint readout on the body
+   spekkens_oct: affine extension of e to ontic vertices = ['2', '0', '0', '0']
+PASS spekkens_oct: that body effect exceeds 1 at an ontic vertex (not a classical response function)
+ALL-PASS 47/47

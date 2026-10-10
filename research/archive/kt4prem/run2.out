@@ -1,0 +1,42 @@
+
+== S0  transcription of the landed tables
+PASS  S0.sgn    [source] sgn: the landed sign is -1 exactly at (1, 3) and (2, 2)
+PASS  S0.pc     [source] pc: the landed control-index table
+PASS  S0.pt     [source] pt: the landed target-index table
+PASS  S0.phiW   [source] phiW: the landed definition is diag(1, 1, -1, 1)
+PASS  S0.idW    [source] idW: the landed table is the identity
+PASS  S0.chainW [source] chainW: the landed table
+PASS  S0.reflY  [source] reflY: the landed map is diag(1, -1, 1)
+
+== S1  the quantum dictionary
+PASS  D1        [identity] pauliW (cnot w) = CNOT pauliW(w) CNOT^dagger for a symbolic table w (cnot is conjugation by CNOT)
+PASS  D2        [identity] cnot . cnot = id on a symbolic table
+PASS  D3        [identity] ipW E X = tr(opW(E) pauliW(X)) for symbolic E, X (the Euclidean pairing is the trace pairing)
+PASS  D4        [identity] pairVal a b w = tr((opV a (x) opV b) pauliW(w)) for symbolic a, b, w
+PASS  D5        [identity] pauliW (prodState x y) = rho(x) (x) rho(y), rho(x) = (I + x.s)/2, for symbolic x, y
+PASS  D6        [identity] opV a is Hermitian with trace 2 a0 and determinant a0^2 - |a|^2 (opV a >= 0 iff a in L)
+PASS  D7        [identity] for a symbolic quaternion q, U = q0 I - i q.s gives U s_k U^dagger = sum_i M_ik s_i with M^T M = |q|^4 I, det M = |q|^6, and pauliW(diag(|q|^2, M) w) = (U (x) I) pauliW(w) (U (x) I)^dagger (and on the second token)
+NOTE  D7.W      [written] at |q| = 1, M is a rotation and actC M = Ad(U (x) I), actT M = Ad(I (x) U); every U in SU(2) is of this form, and every rotation is M for some unit quaternion (the standard double cover SU(2) -> SO(3)). So actC R and actT R for rotations R are exactly the conjugations by local unitaries, and Q3, int Q3 are invariant under them.
+NOTE  D.W       [written] by D3 and the self-duality of the positive semidefinite cone under the trace pairing, dualW Q3 = {E : opW E >= 0}; by D4 and D6, Q3 lies in maxCone (opV a (x) opV b >= 0 for a, b in L); by D5 and D6, every prodState x y with x, y in eball 3 lies in Q3; by D1, cnot maps Q3 onto Q3 and int Q3 onto int Q3.
+
+== S2  an explicit carrier for KT4Core
+NOTE  S2.def    [written] V = R^{17x17} x R^{17x17}. For x in R^16 let xh = (1, x) and X the table X_ab = x_{4a+b}; for an affine e(x) = e0 + E.x let eh = (e0, E) and Et the table Et_ab = E_{4a+b} + e0 [a = b = 0]. stA x y = (xh yh^T, 0), stB x y = (0, xh yh^T); effA e f (P, Q) = eh^T P fh + sum_abcd Et_ab Ft_cd Q[1 + (4a+c), 1 + (4b+d)]; effB e f (P, Q) = eh^T Q fh + sum_abcd Et_ac Ft_bd P[1 + (4a+b), 1 + (4c+d)]. Both are linear in (P, Q) and bilinear in (e, f). The index map (a, b) -> 4a + b stands for the bijection flatW and tabCoord use; the identities below hold for any fixed bijection used consistently.
+PASS  H1        [identity] effA e f (stA x y) = e(x) f(y) for symbolic affine e, f and symbolic x, y in R^16
+PASS  H2        [identity] effB e f (stB x y) = e(x) f(y) for symbolic affine e, f and symbolic x, y in R^16
+PASS  H3        [identity] effA and effB are linear in each effect argument, on a symbolic element of V
+PASS  H4        [identity] tokA: effA (tabCoord a b) (tabCoord c d) (stA x y) = effB (tabCoord a c) (tabCoord b d) (stA x y), all 256 index quadruples, symbolic x, y  -- 256/256
+PASS  H5        [identity] tokB: the same with stB x y, all 256 index quadruples, symbolic x, y  -- 256/256
+PASS  H6        [identity] effB e f (stA x y) = fourVal X Y Et Ft (the cross value of grouping 02|13 effects on 01|23 states)
+PASS  H7        [identity] effA e f (stB x y) = sum Et_ab Ft_cd X_ac Y_bd (the cross value of 01|23 effects on 02|13 states)
+PASS  H8        [identity] fourVal X Y E F = ipW X (tabMul (tabMul E Y) (tabT F)) = ipW E (X F Y^T) for symbolic tables (famI is the positivity of this value)
+PASS  H9        [identity] sum e_ab f_cd L_ac L'_bd = ipW e (tabMul (tabMul L f) (tabT L')) for symbolic tables (the famII form)
+PASS  H10       [identity] e(flat X) = ipW Et X when X_00 = 1, symbolic e and X (an effect on a pair body is its table on the slice)
+NOTE  H.W       [written] let K02, K13 lie in maxCone and be closed under nonnegative scaling. If e is an effect on pairBody K02 then Et lies in dualW K02: a nonzero w in K02 has w_00 > 0 (in maxCone, w_00 >= 0, and w_00 = 0 forces w = 0, from a^T w b at a = (1, u), b = (1, v)), and ipW Et w = w_00 e(flat(w / w_00)) >= 0 by H10. Then posBA is famI at (X, Y, Et, Ft) by H6 and H8, and posAB is famII by H7 and H9. Together with H1, H2, H4, H5 and H3: FCC, the maxCone bound and nonnegative scaling of the four cones give KT4Core on this V. Conversely Lemma B1 (fourCopyCoherent_of_kt4Core, kernel-checked in the design module FourCopyBridge) gives FCC from KT4Core and the same two clauses. Under hadm the hypothesis H is therefore equivalent to FCC, by separately named arguments in each direction.
+
+== S3  FCC for uniform Q3 and for uniform maxCone
+PASS  F0        [identity] Pi is a permutation matrix (Pi Pi^T = I)
+PASS  F1        [enumerate] tr(s_m s_n) = 2 delta_mn for the four Pauli matrices  -- 16 pairs
+PASS  F2        [identity] fourVal X Y E F = tr( Pi (opW E (x) opW F) Pi^T (pauliW X (x) pauliW Y) ), symbolic X, Y, E, F (E on tokens 0, 2; F on 1, 3; X on 0, 1; Y on 2, 3)
+PASS  F3        [identity] sum e_ab f_cd L_ac L'_bd = tr( (opW e (x) opW f) Pi (pauliW L (x) pauliW L') Pi^T ), symbolic (the famII form, L on tokens 0, 2 and L' on 1, 3)
+FAIL  F2s       [sample] sample: fourVal X Y E F >= 0 at 256 exact quadruples of entangled and product states of Q3 and entangled and product effects of dualW Q3  -- minimum -1/16
+VERDICT  KT4-PREM-1-PROBE-FAILED

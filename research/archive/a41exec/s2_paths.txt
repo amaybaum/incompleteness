@@ -1,0 +1,12 @@
+verification/ROADMAP.md
+verification/lean-manuscript-census.json
+verification/lean-mathlib/OIBridge/DitaArcExclusivity.lean
+verification/lean-mathlib/OIBridge/DitaHierarchy.lean
+verification/lean-mathlib/OIBridge/DitaLocalEscape.lean
+verification/lean-mathlib/OIBridge/DitaTorusLocus.lean
+verification/lean/dita_arc_exclusivity_probe.py
+verification/lean/dita_hierarchy_probe.py
+verification/lean/dita_local_escape_probe.py
+verification/lean/dita_torus_locus_probe.py
+verification/lean/dita_torus_probe.py
+verification/programmes/oi-qm/track-b/act-41-index-map-semantics/measurements.json

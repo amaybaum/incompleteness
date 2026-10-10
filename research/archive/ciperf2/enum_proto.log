@@ -1,0 +1,14 @@
+landed probe executed (116s)
+E40    candidates  28  old    9.8s  new    4.8s  identical (keys, flats, insertion order, stats): True
+EE     candidates  28  old    9.7s  new    2.7s  identical (keys, flats, insertion order, stats): True
+PA     candidates  30  old    7.6s  new    1.9s  identical (keys, flats, insertion order, stats): True
+P      candidates  22  old    9.0s  new    2.7s  identical (keys, flats, insertion order, stats): True
+Q      candidates  30  old    7.9s  new    1.6s  identical (keys, flats, insertion order, stats): True
+T      candidates  30  old    7.8s  new    1.5s  identical (keys, flats, insertion order, stats): True
+Eg     candidates  28  old   12.5s  new    5.5s  identical (keys, flats, insertion order, stats): True
+-P+Q   candidates  26  old   10.3s  new    3.6s  identical (keys, flats, insertion order, stats): True
+-P-T   candidates  26  old    9.5s  new    3.0s  identical (keys, flats, insertion order, stats): True
+Q-T    candidates  34  old    7.8s  new    1.8s  identical (keys, flats, insertion order, stats): True
+H3     candidates  46  old   10.2s  new    3.7s  identical (keys, flats, insertion order, stats): True
+W      candidates  38  old    7.8s  new    1.9s  identical (keys, flats, insertion order, stats): True
+TOTAL old 109.9s new 34.5s; mismatching cases 0

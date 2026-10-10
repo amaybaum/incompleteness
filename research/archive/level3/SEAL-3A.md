@@ -1,0 +1,83 @@
+# SEAL-3A — code freeze before the first run (2026-10-03)
+
+Preregistration PREREG-3A.md as amended (owner approval); code hashes recorded before any Level-3A computation.
+
+```
+9fe88a1aa5f3db886005f7e9322f55e6897dfa276c81d0fec5fb1978c514390c  PREREG-3A.md
+4ef4c7751384c5445b16ff6f4c5d80624d7ad788663bea5db7472d8f5d8fe258  PREREG-3B-DRAFT.md
+8d9630c33d0f522cd637d258a0b04ea3af3b487c97b4750e704e7c238fae1ee0  record3_sim.py
+bbdd06be32bb81f825d003a0b0cee39671cc17f23d8d464d86164025bd8577cd  record3_fast.py
+efe534584533b1876c0303b7a0323a76f7a1e4b2da65f9b26ac564760e8e63af  analysis3.py
+c796c686f4f05f86f38ec57f3fb0fe618c1bceefbabffdec4f82a114111852ac  unit_letters.py
+9b3eac370b8e992f63cc848fbf8741624918bf0319f74f41d325ef45bf137355  validate3_brute.py
+3bd08bb4cd7fde38fef7674d9eee1ac2bb065a50cc6b0eca4b840399f6ae3ab5  validate3_fast.py
+5fa200e2d00ce348214e4f056cada50eb6f2f1fa881849ea0b4c94184f7b2e86  layers3.py
+789b53c9eb45f07ee4eaf1bff5a900130389a0515300779e62a21c2fd456db78  replay3.py
+e499a081b2a179bb930aed8125770fdb5ba51e4da0a5aed9c20ff1ff71c24d6b  ../record/record_sim.py
+c2c94a685489f1c75d7cbac8b5ec482c46e619586c40a1fd2134bf19e3adf60a  ../record/record_fast.py
+e82e2ab9724bbf5a98cf207a36ce75cbe46f23dcf130786140957b9c17ca2958  ../quotient/rankbasis.py
+```
+
+Amendment 1 (09:56 UTC, before any result run): validations V1'/V0' failed at once because step3/run3 rejected the free leap letter i (no pair map; the sealed code has no else branch). Fixed to raise only on unknown letters. New hashes:
+
+```
+ac812fbb11b0fd6eb1dfb3b86c1eca2e40d9f9b5b996add839f3d467bc452126  record3_sim.py
+455c74afaa66d6f942963e345a4d9428c40d11f3e450f25aff5fd0c8c12f09b6  record3_fast.py
+```
+
+Amendment 2 (12:16 UTC): the Stage-B run (Pool.map, 3 workers, started 10:13) was stopped by the session harness at its 2 h background limit before writing any result; the chained countercontrol census was stopped the same way ~11 min after the G sweep completed (sweep artifact layers3_linear.json fee05255 is complete and valid). driver3.py is added: orchestration only (per-kappa checkpoints, resumable, assembles the artifact in the frozen job order with the same serialization). analysis3.py and layers3.py are unchanged.
+
+```
+f328907a85daadd96328a3c07a3d9749f5758a164c7eb8e56ca7f79f5a675777  driver3.py
+fee05255ba5dee069f844664c28a1150e8eade3880ca3c541b347903caaa0425  layers3_linear.json
+```
+
+Amendment 3 (13:50 UTC): replay3B_ref.py added for section 6 item 5 in resumable form (reference table computed in 2000-protocol chunks, then the unchanged analysis3.analyze on it). Stage B artifact fast3_stageB_linear.json:
+
+```
+7e3c5e5e9d3363081ea1334f989f7bf8ac371e222446a358f288c4110bb51f93  replay3B_ref.py
+48296b1806502fec53360b77a78a6e0aac3ea979ae7d2e4c61a6572c40a3a1cc  fast3_stageB_linear.json
+```
+
+## Final seal (2026-10-03 16:36 UTC)
+
+Preregistered label: **EXPOSED**. Gates: validations OK; Stage-A replay 10/10; Stage-B replay MATCH; Stage-A rerun byte-identical; G identities 143/143; census bites 71/143.
+
+```
+9fe88a1aa5f3db886005f7e9322f55e6897dfa276c81d0fec5fb1978c514390c  PREREG-3A.md
+4ef4c7751384c5445b16ff6f4c5d80624d7ad788663bea5db7472d8f5d8fe258  PREREG-3B-DRAFT.md
+6206f1aa41833a2c4bef39d28729c7fdaf60dc8fe67446b74be51ca65239fe29  LEMMA-3A.md
+a7a0e87032649569d4b147ce9d9c2d1d66d6bcee0425c9895af4d7b506be47b7  RESULT-3A.md
+ac812fbb11b0fd6eb1dfb3b86c1eca2e40d9f9b5b996add839f3d467bc452126  record3_sim.py
+455c74afaa66d6f942963e345a4d9428c40d11f3e450f25aff5fd0c8c12f09b6  record3_fast.py
+efe534584533b1876c0303b7a0323a76f7a1e4b2da65f9b26ac564760e8e63af  analysis3.py
+f328907a85daadd96328a3c07a3d9749f5758a164c7eb8e56ca7f79f5a675777  driver3.py
+5fa200e2d00ce348214e4f056cada50eb6f2f1fa881849ea0b4c94184f7b2e86  layers3.py
+789b53c9eb45f07ee4eaf1bff5a900130389a0515300779e62a21c2fd456db78  replay3.py
+7e3c5e5e9d3363081ea1334f989f7bf8ac371e222446a358f288c4110bb51f93  replay3B_ref.py
+7e09c1967bbc47b7b8b305b8deb090c2e95f2505f3205c45d53da5e4ac5e6e71  geometry3.py
+c796c686f4f05f86f38ec57f3fb0fe618c1bceefbabffdec4f82a114111852ac  unit_letters.py
+9b3eac370b8e992f63cc848fbf8741624918bf0319f74f41d325ef45bf137355  validate3_brute.py
+3bd08bb4cd7fde38fef7674d9eee1ac2bb065a50cc6b0eca4b840399f6ae3ab5  validate3_fast.py
+9b88a7cc497bbfc2199a06955d69806d83ba88069770175532f3f15e51c656e0  fast3_stageA_linear.json
+48296b1806502fec53360b77a78a6e0aac3ea979ae7d2e4c61a6572c40a3a1cc  fast3_stageB_linear.json
+ceb33dc909f3897af1d67a3616e7b823e592cf82e7361730bf4465566a411bde  fast3_stageC_linear.json
+fee05255ba5dee069f844664c28a1150e8eade3880ca3c541b347903caaa0425  layers3_linear.json
+729bdd5b1192062fbffb3a42226ebf7218a84df1557916844aa840c806b1410e  cc3_census.json
+4affe2e4a3075099ba1410c000b4d0a4edbfca392c3e215b537eb21664cc74e3  replay3_A.log
+8474075484bddd628bef2fe48abcfd1d0242c9134f86200d9df0e154140bb914  replay3_B.log
+c277dbe80660ee6c6413150e34c22c57e7647f935120b91c69ddddaa1558ead4  rerun3_stageA.log
+9c5c86c0385f8c7ec054ba342a7850d6770604c3ee65faebfabea69674f8768c  geometry3_L3.log
+2d372de21130aa147ab42218e2506d60fb2bae045917361c4be9d672c65ef3e0  geometry3_L4.log
+dce2a73852cb107731dc75a1938940b04dd2fdf2dd460a9f48e0dad950efc6b6  unit_letters.log
+34f0cfcfc22b31c8c815820050feb6dad37a3c56fd3427b60f85a0f185b298ed  validate3_brute.log
+85210dc32d4d3c3dd17d44fe5fb8fcbde18007489e6ddbc2063ddb6030360e5b  validate3_fast.log
+c277dbe80660ee6c6413150e34c22c57e7647f935120b91c69ddddaa1558ead4  fast3_stageA_linear.log
+9aac1c51c4e9bb10bcd285510cf0c2fd65e17031a5a93ecb668cf1225f36cc4e  fast3_stageB_linear.log
+45be500b2d9d0ee6128929e1d3705d3fe56a02cb4d43f26d44f4ead39ad1601a  fast3_stageC_linear.log
+f876905d721c939265696cfcdbaf69955b63cb88432e729fbf14b59f00b48ad9  cc3_census.log
+97b39b7af5c0337f5be473e48286280f9a433818c9f6921fd347a104c05c5e01  layers3.log
+277386df223e733e207405269268c93a9e72c2ca530399a131169fa8a35acc31  ../select/CHARTER.md
+dc8bbd3dc0bd825cb4df345d3327a4a4c6c4a2e80afe0236e22747f69a56adb5  ../select/RESULT.md
+a35f3c510a755abd5a00b6d4fdf08615e7100a25cf0a4bc1dd102f4898d61ac5  ../select/checks.log
+```

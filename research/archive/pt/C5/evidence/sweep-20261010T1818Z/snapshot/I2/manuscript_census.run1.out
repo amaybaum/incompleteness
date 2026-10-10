@@ -1,0 +1,430 @@
+# I2 manuscript census (b)
+papers/Main.md:20 sentences=2/6 keys=C1,C2,C3,C4 map=UNMAPPED
+papers/Main.md:22 sentences=2/9 keys=H-,hypothesis map=UNMAPPED
+SECTION papers/Main.md:14-22 keyword-sentences=4
+papers/Main.md:82 sentences=4/8 keys=C1,C2,C3,C4,Theorem map=UNMAPPED
+SECTION papers/Main.md:82-82 keyword-sentences=4
+papers/Main.md:99 sentences=2/5 keys=C2,C3,C4,H- map=UNMAPPED
+SECTION papers/Main.md:95-99 keyword-sentences=2
+papers/Main.md:109 sentences=2/6 keys=C1,C2,Condition map=UNMAPPED
+papers/Main.md:113 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:115 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/Main.md:131 sentences=2/2 keys=C1,Lemma map=UNMAPPED
+papers/Main.md:133 sentences=1/1 keys=Lemma map=UNMAPPED
+papers/Main.md:137 sentences=1/1 keys=C4,Theorem map=UNMAPPED
+papers/Main.md:139 sentences=1/6 keys=C4 map=UNMAPPED
+papers/Main.md:141 sentences=2/3 keys=C4 map=UNMAPPED
+papers/Main.md:143 sentences=1/4 keys=C1 map=UNMAPPED
+papers/Main.md:147 sentences=4/5 keys=C1,C3 map=UNMAPPED
+papers/Main.md:151 sentences=1/5 keys=C1 map=UNMAPPED
+papers/Main.md:153 sentences=1/2 keys=C2 map=UNMAPPED
+papers/Main.md:155 sentences=1/3 keys=C2,hypothesis map=UNMAPPED
+papers/Main.md:157 sentences=2/2 keys=C2 map=UNMAPPED
+papers/Main.md:159 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:161 sentences=1/1 keys=C4 map=UNMAPPED
+papers/Main.md:165 sentences=6/6 keys=C2,C4,hypothesis map=UNMAPPED
+papers/Main.md:167 sentences=1/2 keys=C1,C3,C4,Lemma map=UNMAPPED
+papers/Main.md:170 sentences=1/5 keys=Condition map=UNMAPPED
+papers/Main.md:172 sentences=1/2 keys=C1,C3,C4 map=UNMAPPED
+papers/Main.md:174 sentences=2/2 keys=C2,C3,C4 map=UNMAPPED
+papers/Main.md:176 sentences=3/4 keys=C2 map=UNMAPPED
+papers/Main.md:184 sentences=1/2 keys=C1,C4 map=UNMAPPED
+SECTION papers/Main.md:101-196 keyword-sentences=38
+papers/Main.md:204 sentences=1/5 keys=hypothesis map=UNMAPPED
+papers/Main.md:206 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:210 sentences=1/8 keys=Lemma map=UNMAPPED
+papers/Main.md:212 sentences=9/24 keys=(i),(ii),(iii),(iv),A1,H- map=UNMAPPED
+papers/Main.md:216 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:218 sentences=3/7 keys=Lemma map=UNMAPPED
+papers/Main.md:224 sentences=1/3 keys=Lemma map=UNMAPPED
+papers/Main.md:242 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:244 sentences=1/2 keys=K map=UNMAPPED
+papers/Main.md:246 sentences=1/3 keys=Theorem map=UNMAPPED
+papers/Main.md:248 sentences=1/4 keys=Lemma map=UNMAPPED
+papers/Main.md:250 sentences=1/2 keys=hypothesis map=UNMAPPED
+papers/Main.md:254 sentences=1/14 keys=(i) map=UNMAPPED
+papers/Main.md:256 sentences=1/10 keys=Condition map=UNMAPPED
+papers/Main.md:262 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:264 sentences=1/1 keys=Lemma map=UNMAPPED
+papers/Main.md:270 sentences=1/3 keys=Lemma map=UNMAPPED
+papers/Main.md:276 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/Main.md:280 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/Main.md:282 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/Main.md:286 sentences=3/4 keys=C1,Condition map=UNMAPPED
+papers/Main.md:288 sentences=1/2 keys=C1 map=UNMAPPED
+papers/Main.md:294 sentences=1/1 keys=Lemma map=UNMAPPED
+papers/Main.md:298 sentences=1/5 keys=Corollary map=UNMAPPED
+papers/Main.md:300 sentences=2/2 keys=(i),(ii),(iii),Lemma map=UNMAPPED
+papers/Main.md:304 sentences=1/1 keys=(iv) map=UNMAPPED
+papers/Main.md:306 sentences=4/8 keys=(i),(ii),(iii),(iv) map=UNMAPPED
+papers/Main.md:308 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/Main.md:312 sentences=1/1 keys=Corollary,Lemma,Theorem map=UNMAPPED
+papers/Main.md:314 sentences=1/1 keys=Corollary map=UNMAPPED
+papers/Main.md:316 sentences=1/3 keys=Lemma map=UNMAPPED
+papers/Main.md:318 sentences=1/4 keys=hypothesis map=UNMAPPED
+papers/Main.md:320 sentences=6/8 keys=(iv),C1,C4,Corollary,Lemma,Theorem map=UNMAPPED
+papers/Main.md:322 sentences=1/1 keys=Lemma map=UNMAPPED
+papers/Main.md:326 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/Main.md:328 sentences=1/5 keys=Lemma map=UNMAPPED
+papers/Main.md:334 sentences=2/7 keys=C1,C3,C4 map=UNMAPPED
+papers/Main.md:336 sentences=3/7 keys=(i),(ii),C2,C3 map=UNMAPPED
+papers/Main.md:348 sentences=2/8 keys=(i),(iii),C1 map=UNMAPPED
+papers/Main.md:352 sentences=3/16 keys=C1,C4,Theorem,hypothesis map=UNMAPPED
+papers/Main.md:360 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/Main.md:362 sentences=1/1 keys=(i),(ii) map=UNMAPPED
+papers/Main.md:363 sentences=1/1 keys=(iii) map=UNMAPPED
+papers/Main.md:364 sentences=1/1 keys=(iv) map=UNMAPPED
+papers/Main.md:394 sentences=2/9 keys=Corollary,H- map=UNMAPPED
+papers/Main.md:398 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/Main.md:409 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/Main.md:411 sentences=2/5 keys=C4 map=UNMAPPED
+papers/Main.md:415 sentences=1/1 keys=C1,Lemma map=UNMAPPED
+papers/Main.md:419 sentences=1/3 keys=C1 map=UNMAPPED
+papers/Main.md:421 sentences=2/4 keys=C1 map=UNMAPPED
+papers/Main.md:423 sentences=2/4 keys=hypothesis map=UNMAPPED
+papers/Main.md:433 sentences=2/3 keys=C2,Theorem,hypothesis map=UNMAPPED
+papers/Main.md:437 sentences=1/2 keys=(ii) map=UNMAPPED
+papers/Main.md:447 sentences=1/1 keys=C2,K,Theorem,hypothesis map=UNMAPPED
+papers/Main.md:449 sentences=1/3 keys=(ii),C2 map=UNMAPPED
+papers/Main.md:451 sentences=3/4 keys=K,hypothesis map=UNMAPPED
+papers/Main.md:453 sentences=1/2 keys=C2 map=UNMAPPED
+papers/Main.md:456 sentences=3/3 keys=C1,C2,C3,C4,hypothesis map=UNMAPPED
+papers/Main.md:460 sentences=1/2 keys=K,Theorem map=UNMAPPED
+papers/Main.md:462 sentences=1/6 keys=K map=UNMAPPED
+papers/Main.md:464 sentences=1/5 keys=K map=UNMAPPED
+papers/Main.md:466 sentences=1/3 keys=Proposition map=UNMAPPED
+papers/Main.md:472 sentences=4/4 keys=K,Proposition map=UNMAPPED
+papers/Main.md:474 sentences=2/3 keys=K map=UNMAPPED
+papers/Main.md:476 sentences=3/7 keys=(ii),K,Proposition map=UNMAPPED
+papers/Main.md:478 sentences=3/4 keys=hypothesis map=UNMAPPED
+papers/Main.md:480 sentences=3/6 keys=C1,C2,C3,hypothesis map=UNMAPPED
+papers/Main.md:482 sentences=1/2 keys=(ii),(iii),C2,hypothesis map=UNMAPPED
+papers/Main.md:484 sentences=1/2 keys=C3,Theorem map=UNMAPPED
+papers/Main.md:492 sentences=4/5 keys=C3,Corollary,K,hypothesis map=UNMAPPED
+papers/Main.md:496 sentences=4/5 keys=C1,C2,C3,K,Theorem map=UNMAPPED
+papers/Main.md:500 sentences=5/11 keys=C1,C2,C3,C4,K map=UNMAPPED
+papers/Main.md:508 sentences=3/11 keys=(i),C4,Condition,hypothesis map=UNMAPPED
+papers/Main.md:510 sentences=2/2 keys=(i),(iii),Lemma map=UNMAPPED
+papers/Main.md:514 sentences=1/3 keys=(i),(ii),(iii) map=UNMAPPED
+papers/Main.md:516 sentences=2/3 keys=(i),(ii),(iii),C2,Condition map=UNMAPPED
+papers/Main.md:518 sentences=1/1 keys=(i) map=UNMAPPED
+papers/Main.md:520 sentences=1/1 keys=(ii) map=UNMAPPED
+papers/Main.md:522 sentences=1/1 keys=(ii),(iii),C1,C3,C4,K map=UNMAPPED
+papers/Main.md:526 sentences=1/2 keys=K,Theorem map=UNMAPPED
+papers/Main.md:534 sentences=1/12 keys=C4 map=UNMAPPED
+papers/Main.md:536 sentences=1/2 keys=K map=UNMAPPED
+papers/Main.md:538 sentences=2/8 keys=C1,C4,Proposition map=UNMAPPED
+papers/Main.md:542 sentences=1/8 keys=C1,C4,hypothesis map=UNMAPPED
+papers/Main.md:544 sentences=2/2 keys=K,Theorem map=UNMAPPED
+papers/Main.md:546 sentences=1/1 keys=Corollary,K,Lemma map=UNMAPPED
+papers/Main.md:548 sentences=1/1 keys=K map=UNMAPPED
+papers/Main.md:554 sentences=3/3 keys=K map=UNMAPPED
+papers/Main.md:556 sentences=5/11 keys=Corollary,K,Lemma map=UNMAPPED
+papers/Main.md:558 sentences=3/7 keys=K,Lemma map=UNMAPPED
+papers/Main.md:560 sentences=2/5 keys=Corollary,K map=UNMAPPED
+papers/Main.md:572 sentences=2/4 keys=K,Lemma map=UNMAPPED
+papers/Main.md:574 sentences=4/5 keys=(i),(ii),Corollary,K,Lemma,Theorem map=UNMAPPED
+papers/Main.md:576 sentences=3/3 keys=(ii),Corollary,Proposition map=UNMAPPED
+papers/Main.md:578 sentences=2/7 keys=(ii),K,Lemma map=UNMAPPED
+papers/Main.md:580 sentences=1/3 keys=Theorem map=UNMAPPED
+papers/Main.md:590 sentences=2/4 keys=C1,C2,C3,K map=UNMAPPED
+papers/Main.md:594 sentences=2/5 keys=(ii),C4 map=UNMAPPED
+papers/Main.md:596 sentences=2/4 keys=C1,C4,hypothesis map=UNMAPPED
+papers/Main.md:598 sentences=2/7 keys=K,Theorem map=UNMAPPED
+papers/Main.md:602 sentences=4/5 keys=C1,C3,C4 map=UNMAPPED
+papers/Main.md:604 sentences=3/4 keys=(ii) map=UNMAPPED
+papers/Main.md:606 sentences=3/5 keys=(i),(ii),(iii),C1,C2,C3,C4,hypothesis map=UNMAPPED
+papers/Main.md:608 sentences=3/3 keys=(iii),K map=UNMAPPED
+papers/Main.md:610 sentences=2/2 keys=(i),(ii),(iii) map=UNMAPPED
+papers/Main.md:612 sentences=2/3 keys=(ii),C1,C2,C3,C4 map=UNMAPPED
+papers/Main.md:614 sentences=2/2 keys=C1,C4 map=UNMAPPED
+papers/Main.md:618 sentences=3/5 keys=(i),(ii),Lemma map=UNMAPPED
+papers/Main.md:626 sentences=1/2 keys=(i) map=UNMAPPED
+papers/Main.md:628 sentences=1/6 keys=(ii) map=UNMAPPED
+papers/Main.md:630 sentences=2/8 keys=(iii),Lemma map=UNMAPPED
+papers/Main.md:632 sentences=2/6 keys=(iv),C1,C4 map=UNMAPPED
+papers/Main.md:634 sentences=2/4 keys=(v),C1,C2,C3,C4 map=UNMAPPED
+papers/Main.md:642 sentences=1/4 keys=Lemma map=UNMAPPED
+papers/Main.md:646 sentences=1/3 keys=Corollary map=UNMAPPED
+papers/Main.md:654 sentences=1/6 keys=C2 map=UNMAPPED
+SECTION papers/Main.md:200-656 keyword-sentences=216
+papers/Main.md:666 sentences=1/3 keys=C1,C4 map=UNMAPPED
+papers/Main.md:670 sentences=1/3 keys=C1,C4 map=UNMAPPED
+papers/Main.md:671 sentences=1/4 keys=C1,C4 map=UNMAPPED
+papers/Main.md:678 sentences=1/3 keys=(ii),(iii),C1,C4 map=UNMAPPED
+SECTION papers/Main.md:660-678 keyword-sentences=4
+papers/Main.md:698 sentences=1/3 keys=Lemma map=UNMAPPED
+papers/Main.md:700 sentences=1/6 keys=C2 map=UNMAPPED
+papers/Main.md:702 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/Main.md:706 sentences=2/6 keys=(i),(ii),(iii),(iv),(v),A1,A5,Axiom,C2,Lemma,hypothesis map=UNMAPPED
+papers/Main.md:708 sentences=1/2 keys=H-,hypothesis map=UNMAPPED
+papers/Main.md:712 sentences=2/2 keys=(i),(ii) map=UNMAPPED
+papers/Main.md:713 sentences=1/1 keys=(ii),(iii),C1,C2,C3,C4,hypothesis map=UNMAPPED
+papers/Main.md:715 sentences=1/1 keys=(ii),(iii),C1,C4 map=UNMAPPED
+papers/Main.md:717 sentences=1/1 keys=C1 map=UNMAPPED
+papers/Main.md:718 sentences=1/1 keys=C2,hypothesis map=UNMAPPED
+papers/Main.md:719 sentences=1/1 keys=C3 map=UNMAPPED
+papers/Main.md:720 sentences=1/1 keys=C1,C3,C4 map=UNMAPPED
+SECTION papers/Main.md:696-720 keyword-sentences=14
+papers/Main.md:724 sentences=2/2 keys=C1,C4,hypothesis map=UNMAPPED
+papers/Main.md:726 sentences=2/6 keys=C2,K,hypothesis map=UNMAPPED
+papers/Main.md:728 sentences=1/1 keys=Theorem,hypothesis map=UNMAPPED
+papers/Main.md:734 sentences=1/5 keys=K map=UNMAPPED
+papers/Main.md:736 sentences=5/8 keys=C2,C4,Corollary map=UNMAPPED
+papers/Main.md:738 sentences=6/10 keys=C1,C2,C4,Corollary,hypothesis map=UNMAPPED
+papers/Main.md:740 sentences=6/8 keys=(i),(ii),(iii),C2,K,hypothesis map=UNMAPPED
+SECTION papers/Main.md:722-740 keyword-sentences=23
+papers/Main.md:746 sentences=1/2 keys=C1,C4 map=UNMAPPED
+papers/Main.md:750 sentences=2/5 keys=C1,C2,C3,C4 map=UNMAPPED
+SECTION papers/Main.md:744-756 keyword-sentences=3
+papers/GR.md:168 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/GR.md:174 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/GR.md:178 sentences=1/6 keys=Proposition map=UNMAPPED
+papers/GR.md:180 sentences=1/1 keys=Corollary map=UNMAPPED
+papers/GR.md:184 sentences=1/2 keys=Corollary map=UNMAPPED
+papers/GR.md:186 sentences=2/5 keys=H- map=UNMAPPED
+papers/GR.md:194 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/GR.md:200 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/GR.md:204 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:208 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:212 sentences=5/9 keys=(i),(ii),(iii),(iv),(v) map=UNMAPPED
+papers/GR.md:214 sentences=1/2 keys=(i),(v),Theorem map=UNMAPPED
+papers/GR.md:216 sentences=2/4 keys=(i),(ii),(iii),(v),C1,C4 map=UNMAPPED
+papers/GR.md:218 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:222 sentences=1/1 keys=(i),(v),\boxed map=UNMAPPED
+papers/GR.md:224 sentences=1/3 keys=(iii),(v) map=UNMAPPED
+papers/GR.md:226 sentences=1/3 keys=(i),(ii) map=UNMAPPED
+papers/GR.md:236 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:238 sentences=1/2 keys=(i),(v) map=UNMAPPED
+papers/GR.md:252 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:254 sentences=1/7 keys=hypothesis map=UNMAPPED
+papers/GR.md:256 sentences=1/9 keys=Axiom map=UNMAPPED
+papers/GR.md:258 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:260 sentences=1/5 keys=A1,A6,hypothesis map=UNMAPPED
+papers/GR.md:264 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:268 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:274 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:282 sentences=1/1 keys=\boxed map=UNMAPPED
+papers/GR.md:296 sentences=1/4 keys=Lemma map=UNMAPPED
+SECTION papers/GR.md:164-296 keyword-sentences=35
+papers/GR.md:725 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/GR.md:739 sentences=1/3 keys=Theorem map=UNMAPPED
+papers/GR.md:745 sentences=3/4 keys=Corollary,Theorem map=UNMAPPED
+papers/GR.md:747 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/GR.md:749 sentences=1/2 keys=Corollary map=UNMAPPED
+SECTION papers/GR.md:709-752 keyword-sentences=7
+papers/SM.md:12 sentences=2/5 keys=H-,K map=UNMAPPED
+papers/SM.md:14 sentences=4/12 keys=C1,C3,C4,H-,Theorem,hypothesis map=UNMAPPED
+SECTION papers/SM.md:10-16 keyword-sentences=6
+papers/SM.md:48 sentences=1/8 keys=hypothesis map=UNMAPPED
+papers/SM.md:52 sentences=3/3 keys=C1,C2,C3,C4,Theorem map=UNMAPPED
+papers/SM.md:60 sentences=2/4 keys=C1,C4,H- map=UNMAPPED
+papers/SM.md:70 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/SM.md:72 sentences=2/2 keys=H-,K map=UNMAPPED
+papers/SM.md:74 sentences=2/3 keys=H-,K map=UNMAPPED
+SECTION papers/SM.md:40-95 keyword-sentences=11
+papers/SM.md:100 sentences=1/4 keys=A6 map=UNMAPPED
+papers/SM.md:104 sentences=3/3 keys=(i),(ii),(iii) map=UNMAPPED
+papers/SM.md:108 sentences=4/5 keys=(i),(ii),(iii) map=UNMAPPED
+papers/SM.md:110 sentences=3/3 keys=A6,H-,Theorem map=UNMAPPED
+papers/SM.md:114 sentences=1/4 keys=A6 map=UNMAPPED
+papers/SM.md:118 sentences=1/3 keys=Lemma map=UNMAPPED
+papers/SM.md:122 sentences=2/3 keys=Lemma map=UNMAPPED
+papers/SM.md:126 sentences=5/32 keys=(i),(ii),(iii),H-,Proposition,Theorem map=UNMAPPED
+papers/SM.md:130 sentences=1/16 keys=(iii) map=UNMAPPED
+papers/SM.md:132 sentences=1/13 keys=Theorem,hypothesis map=UNMAPPED
+papers/SM.md:134 sentences=2/5 keys=(ii),H-,Proposition map=UNMAPPED
+papers/SM.md:136 sentences=1/3 keys=Lemma map=UNMAPPED
+papers/SM.md:140 sentences=2/2 keys=(i),(iii),(iv) map=UNMAPPED
+papers/SM.md:146 sentences=6/27 keys=(i),(ii),(iii),(iv),hypothesis map=UNMAPPED
+papers/SM.md:152 sentences=1/4 keys=(iv) map=UNMAPPED
+papers/SM.md:154 sentences=1/3 keys=(v) map=UNMAPPED
+papers/SM.md:156 sentences=5/9 keys=(i),(ii),(iii),(iv) map=UNMAPPED
+SECTION papers/SM.md:96-165 keyword-sentences=40
+papers/SM.md:218 sentences=1/3 keys=Theorem map=UNMAPPED
+papers/SM.md:220 sentences=1/2 keys=Lemma map=UNMAPPED
+papers/SM.md:222 sentences=2/4 keys=A3,Proposition map=UNMAPPED
+papers/SM.md:228 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/SM.md:232 sentences=1/6 keys=C4 map=UNMAPPED
+papers/SM.md:238 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/SM.md:246 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/SM.md:248 sentences=4/4 keys=(i),(ii),(iii),Corollary,Lemma,Theorem map=UNMAPPED
+papers/SM.md:250 sentences=3/4 keys=(i),(ii),(iii) map=UNMAPPED
+papers/SM.md:252 sentences=1/1 keys=(iii) map=UNMAPPED
+papers/SM.md:254 sentences=2/2 keys=(i),Corollary map=UNMAPPED
+papers/SM.md:258 sentences=1/1 keys=(ii) map=UNMAPPED
+papers/SM.md:260 sentences=2/6 keys=(i),(ii),hypothesis map=UNMAPPED
+papers/SM.md:262 sentences=2/6 keys=(i),(ii) map=UNMAPPED
+papers/SM.md:266 sentences=1/2 keys=Corollary map=UNMAPPED
+papers/SM.md:274 sentences=1/1 keys=Corollary,Theorem map=UNMAPPED
+SECTION papers/SM.md:216-279 keyword-sentences=25
+papers/SM.md:537 sentences=3/5 keys=H-,Theorem,hypothesis map=UNMAPPED
+papers/SM.md:539 sentences=8/12 keys=(i),(ii),(iii),(iv),(v),H-,Theorem,hypothesis map=UNMAPPED
+papers/SM.md:543 sentences=1/4 keys=(iii) map=UNMAPPED
+papers/SM.md:547 sentences=2/4 keys=H-,Theorem,hypothesis map=UNMAPPED
+papers/SM.md:549 sentences=3/4 keys=(v),H-,Theorem,hypothesis map=UNMAPPED
+papers/SM.md:551 sentences=2/4 keys=Theorem map=UNMAPPED
+papers/SM.md:559 sentences=3/6 keys=H-,Theorem,hypothesis map=UNMAPPED
+papers/SM.md:561 sentences=3/5 keys=H-,Theorem,hypothesis map=UNMAPPED
+papers/SM.md:563 sentences=1/9 keys=(iii),Theorem map=UNMAPPED
+papers/SM.md:565 sentences=1/3 keys=(iii) map=UNMAPPED
+SECTION papers/SM.md:535-566 keyword-sentences=27
+papers/SM.md:1356 sentences=2/3 keys=C1,C2,C3,C4,Theorem map=UNMAPPED
+papers/SM.md:1358 sentences=1/1 keys=C1 map=UNMAPPED
+papers/SM.md:1360 sentences=3/3 keys=C2,hypothesis map=UNMAPPED
+papers/SM.md:1362 sentences=2/4 keys=C3,K,hypothesis map=UNMAPPED
+papers/SM.md:1364 sentences=2/3 keys=C1,C2,C3,C4 map=UNMAPPED
+papers/SM.md:1366 sentences=2/5 keys=C2,hypothesis map=UNMAPPED
+papers/SM.md:1368 sentences=1/2 keys=C1,C2,C3,C4,Corollary map=UNMAPPED
+SECTION papers/SM.md:1354-1369 keyword-sentences=13
+papers/SM.md:1584 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/SM.md:1588 sentences=1/7 keys=Theorem map=UNMAPPED
+papers/SM.md:1592 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/SM.md:1594 sentences=4/5 keys=(i),(ii),(iii),(iv) map=UNMAPPED
+papers/SM.md:1600 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/SM.md:1616 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/SM.md:1618 sentences=1/1 keys=K map=UNMAPPED
+papers/SM.md:1622 sentences=1/1 keys=K map=UNMAPPED
+SECTION papers/SM.md:1576-1635 keyword-sentences=11
+papers/Substratum.md:16 sentences=3/5 keys=H-,Lemma,Theorem map=UNMAPPED
+papers/Substratum.md:22 sentences=1/13 keys=H- map=UNMAPPED
+papers/Substratum.md:24 sentences=3/7 keys=C2,H-,Lemma map=UNMAPPED
+papers/Substratum.md:26 sentences=1/7 keys=C1,C4 map=UNMAPPED
+papers/Substratum.md:28 sentences=1/2 keys=Theorem map=UNMAPPED
+papers/Substratum.md:32 sentences=2/5 keys=H-,Lemma,Theorem map=UNMAPPED
+papers/Substratum.md:38 sentences=2/5 keys=K,Theorem map=UNMAPPED
+SECTION papers/Substratum.md:12-40 keyword-sentences=13
+papers/Substratum.md:44 sentences=2/9 keys=C2,C4 map=UNMAPPED
+papers/Substratum.md:48 sentences=2/5 keys=(i),(ii),(iii),H- map=UNMAPPED
+papers/Substratum.md:54 sentences=2/6 keys=C1,C3,C4 map=UNMAPPED
+papers/Substratum.md:56 sentences=2/4 keys=C1,C2,C4,hypothesis map=UNMAPPED
+SECTION papers/Substratum.md:42-65 keyword-sentences=8
+papers/Substratum.md:92 sentences=2/5 keys=(iii),A1,Theorem map=UNMAPPED
+papers/Substratum.md:94 sentences=1/3 keys=A2 map=UNMAPPED
+papers/Substratum.md:96 sentences=2/3 keys=(iv),A3,Theorem map=UNMAPPED
+papers/Substratum.md:98 sentences=1/3 keys=A4 map=UNMAPPED
+papers/Substratum.md:100 sentences=1/3 keys=A5 map=UNMAPPED
+papers/Substratum.md:102 sentences=4/5 keys=A6 map=UNMAPPED
+papers/Substratum.md:104 sentences=3/4 keys=A1,A3,A4,A5,A6 map=UNMAPPED
+papers/Substratum.md:106 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/Substratum.md:111 sentences=1/1 keys=C1,C2,C3,C4,hypothesis map=UNMAPPED
+papers/Substratum.md:115 sentences=1/1 keys=H- map=UNMAPPED
+papers/Substratum.md:118 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/Substratum.md:120 sentences=1/1 keys=C1,C4 map=UNMAPPED
+papers/Substratum.md:122 sentences=1/2 keys=A1,A2 map=UNMAPPED
+papers/Substratum.md:126 sentences=2/2 keys=C1,C2,C3,C4 map=UNMAPPED
+papers/Substratum.md:128 sentences=4/5 keys=A1,A2,C1,C2,C3,C4,hypothesis map=UNMAPPED
+papers/Substratum.md:130 sentences=1/4 keys=H-,hypothesis map=UNMAPPED
+papers/Substratum.md:132 sentences=2/5 keys=(i),(ii),(iii),A1,A6,H-,hypothesis map=UNMAPPED
+papers/Substratum.md:134 sentences=2/8 keys=A3,C1,C2,C3,C4 map=UNMAPPED
+papers/Substratum.md:136 sentences=3/10 keys=C1,C2,C3,C4,hypothesis map=UNMAPPED
+papers/Substratum.md:140 sentences=1/1 keys=Theorem map=UNMAPPED
+papers/Substratum.md:144 sentences=2/2 keys=A3,A4,A5,A6,H- map=UNMAPPED
+papers/Substratum.md:147 sentences=1/1 keys=K map=UNMAPPED
+papers/Substratum.md:158 sentences=1/2 keys=A3,A4,A5,Theorem map=UNMAPPED
+papers/Substratum.md:160 sentences=2/2 keys=H-,K map=UNMAPPED
+papers/Substratum.md:162 sentences=4/6 keys=(ii),A6,K,Theorem map=UNMAPPED
+papers/Substratum.md:164 sentences=1/4 keys=Theorem map=UNMAPPED
+papers/Substratum.md:166 sentences=2/2 keys=H- map=UNMAPPED
+papers/Substratum.md:170 sentences=1/6 keys=H- map=UNMAPPED
+papers/Substratum.md:172 sentences=1/1 keys=H-,Theorem map=UNMAPPED
+SECTION papers/Substratum.md:70-173 keyword-sentences=50
+papers/Substratum.md:188 sentences=3/3 keys=A1,A6,K,Lemma,hypothesis map=UNMAPPED
+papers/Substratum.md:190 sentences=2/6 keys=A3,A6,Lemma map=UNMAPPED
+papers/Substratum.md:192 sentences=4/5 keys=A1,A6,C2,H-,K,Lemma,Theorem,hypothesis map=UNMAPPED
+papers/Substratum.md:194 sentences=4/8 keys=C2,H-,Lemma map=UNMAPPED
+SECTION papers/Substratum.md:186-195 keyword-sentences=13
+MANUSCRIPT TOTAL keyword-sentences=567 lines=313 unmapped-lines=313
+
+# I2 roadmap census (c)
+verification/ROADMAP.md:63 | **P0** | What additional structure determines the relative quantum evolution OI leaves f map=UNMAPPED
+SECTION verification/ROADMAP.md:63-63 entries=1
+verification/ROADMAP.md:67 | **P1** | H-Bell — composite and Bell closure | OI→QM / Bell | **OPEN** | Bell-inclusive  map=UNMAPPED
+SECTION verification/ROADMAP.md:67-67 entries=1
+verification/ROADMAP.md:70 | **P1** | H-∞ — finite operational theory → continuum / infinite-dimensional completion | map=UNMAPPED
+SECTION verification/ROADMAP.md:70-70 entries=1
+verification/ROADMAP.md:75 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | form map=UNMAPPED
+SECTION verification/ROADMAP.md:75-75 entries=1
+verification/ROADMAP.md:79 **`P0a`, the MAP axis, is CLOSED.** Act 9 proved that **`R-2` alone** forces every same-in map=UNMAPPED
+verification/ROADMAP.md:86 **So act 7 layer 2's caveat sharpens, in the wording act 9 froze in advance and no further map=UNMAPPED
+verification/ROADMAP.md:91 **`P0b`, the ANCHOR axis, was run — and it COLLAPSED.** Act 10 asked the frozen question:  map=UNMAPPED
+verification/ROADMAP.md:95 **Availability was answered first, and answered in the negative on both witnesses.** The j map=UNMAPPED
+verification/ROADMAP.md:100 **`AB1` was therefore NOT assigned on either witness, although its proposition is TRUE on  map=UNMAPPED
+verification/ROADMAP.md:106 **So `P0` is NOT closed, and the anchor-axis dependence is not resolved — it is RECLASSIFI map=UNMAPPED
+verification/ROADMAP.md:110 **The reclassification rests on `AB0` alone.** `AB0` is a statement about act 7's **fixed* map=UNMAPPED
+verification/ROADMAP.md:117 **What stays live is therefore the UPSTREAM choice, wholly untouched.** Act 7's dilations  map=UNMAPPED
+verification/ROADMAP.md:120 **stands unchanged**; if anything `AB0` makes it more necessary, since the convention coul map=UNMAPPED
+verification/ROADMAP.md:123 **Act 7's `D3` gap remains separately OPEN and was not used.** Stinespring supplies **poin map=UNMAPPED
+verification/ROADMAP.md:131 **Acts 9 and 10 were characterizing conventions on a structure underdetermined one level u map=UNMAPPED
+verification/ROADMAP.md:137 **Act 11 asked what a coherent time-indexed lift on a fixed carrier determines, and proved map=UNMAPPED
+verification/ROADMAP.md:140 - **`GL2`** — a **time-dependent** element of the anchored stabilizer carries a coherent l map=UNMAPPED
+verification/ROADMAP.md:145 - **`GL3`** — a **constant** gauge leaves every relative object unchanged, so time-depende map=UNMAPPED
+verification/ROADMAP.md:148 - **`GI2`** — and this the freeze predicted at **no strength on either side**: there are t map=UNMAPPED
+verification/ROADMAP.md:155 **Two stabilizers, because conflating them was the error act 11's control plane was correc map=UNMAPPED
+verification/ROADMAP.md:158 **weak** class `𝒢ʷ ≅ U(1)^{|V|} × U(|V|(|A|−1))` adds the anchored phases and is the maxim map=UNMAPPED
+verification/ROADMAP.md:161 **not** maximal there, and act 11 does not claim it is. **The two `≅` identifications abov map=UNMAPPED
+verification/ROADMAP.md:165 **What this changes about `P0`.** The open question is no longer whether some convention r map=UNMAPPED
+verification/ROADMAP.md:171 **and** different in relative evolution. Act 11 supplies none and shows neither that one e map=UNMAPPED
+verification/ROADMAP.md:174 **What act 11 does NOT license.** `P0` is not closed. Act 7 layer 2's caveat **stands unch map=UNMAPPED
+verification/ROADMAP.md:180 **Act 7's `D3` is partially subsumed, precisely.** Act 11 subsumes it as a proposed *uniqu map=UNMAPPED
+verification/ROADMAP.md:191 **Act 11's gauge was one-sided.** `GL1w` classified the maximal uniform **right** visibili map=UNMAPPED
+verification/ROADMAP.md:198 - **`LG1`** — `𝒢_L` is invisible universally, maximal among uniform **left** actions consi map=UNMAPPED
+verification/ROADMAP.md:201 - **`RO1`** — act 11's open target is **closed positively**: two coherent lifts of one vis map=UNMAPPED
+verification/ROADMAP.md:206 - **`TG2`** — the fibre-Gram orbit theorem, both directions: two dilations are related by map=UNMAPPED
+verification/ROADMAP.md:210 - **`TG3`** — the quotient is nontrivial on a single law and dynamically distinct: at `|A| map=UNMAPPED
+verification/ROADMAP.md:215 - **`SH1`** — the shape theorem, **both directions at kernel level**: a Gram tuple is real map=UNMAPPED
+verification/ROADMAP.md:223 **What act 12 does NOT license.** No inequivalence of OI and QM. The Gram data is a **coor map=UNMAPPED
+verification/ROADMAP.md:227 **Joint maximality is neither asserted nor excluded**: `𝒢_L × 𝒢ʷ_{a₀}` is the two-sided un map=UNMAPPED
+verification/ROADMAP.md:229 **Overlap is not memory.** `GI2` is explained, not revised: its pair is a constant left mo map=UNMAPPED
+verification/ROADMAP.md:232 **What this changes about `P0`.** The quotient by the defined two-sided action is classifi map=UNMAPPED
+verification/ROADMAP.md:247 **The two-sided action of act 12 does not act on relative evolutions.** It is time-depende map=UNMAPPED
+verification/ROADMAP.md:251 **one** family of cross-time data, the two-time Gram data of the dilation columns at three map=UNMAPPED
+verification/ROADMAP.md:256 - **`CT1`** — the relative evolution is exactly the lift modulo a constant right unitary,  map=UNMAPPED
+verification/ROADMAP.md:258 - **`CT2` (a)** — level 3 determines the lift up to one constant left unitary, both direct map=UNMAPPED
+verification/ROADMAP.md:261 - **`CT2` (b)** — level 2 determines the lift up to one **constant** in-fibre left move an map=UNMAPPED
+verification/ROADMAP.md:266 - **`CT3`** — levels 0–2 are blind to every strong-right threading, universally (G); `GL2` map=UNMAPPED
+verification/ROADMAP.md:272 - **`CT4`** with **`CL1`** — two coherent lifts of the identity family on `|A| = 2`, relat map=UNMAPPED
+verification/ROADMAP.md:278 **Level 0 raw equality and level 0 modulo anchored phases are kept apart.** The weak-right map=UNMAPPED
+verification/ROADMAP.md:282 **The frozen post-round sentence, Case A, verbatim:** map=UNMAPPED
+verification/ROADMAP.md:292 **What act 13 does NOT license.** No selection principle is named, endorsed or excluded; n map=UNMAPPED
+verification/ROADMAP.md:315 **The residual freedom is not one object.** The strong right factor changes **no** anchore map=UNMAPPED
+verification/ROADMAP.md:320 - **`PQ0`** — the anchored channel `𝔇_{a₀}` and the cross-fibre Gram `Y_{i i'}` are tied t map=UNMAPPED
+verification/ROADMAP.md:324 - **`PQ1`** — the constant in-fibre left move is **redundancy relative to the visible carr map=UNMAPPED
+verification/ROADMAP.md:331 - **`PQ2`** — the time-dependent strong right gauge leaves the anchored column family **id map=UNMAPPED
+verification/ROADMAP.md:336 - **`PQ3`** — relative to the anchored-channel carrier the pair acts exactly as its left p map=UNMAPPED
+verification/ROADMAP.md:341 - **`PQ4`** — two reductions, each in the one direction it has and with its converse refus map=UNMAPPED
+verification/ROADMAP.md:346 **The frozen post-round sentence, Case A, verbatim:** map=UNMAPPED
+verification/ROADMAP.md:366 **What act 14 does NOT license.** No carrier is adopted as the physical one and none is as map=UNMAPPED
+verification/ROADMAP.md:391 - **`CF0`** — type P, settled by the round's own named and bounded search over the freeze' map=UNMAPPED
+verification/ROADMAP.md:398 - **`CF1`** — the composite's relative object is the constant left element's conjugation o map=UNMAPPED
+verification/ROADMAP.md:400 - **`CF2`** — a cancelling triple's strong family **cannot be constant in time**, through  map=UNMAPPED
+verification/ROADMAP.md:403 - **`CF3`** — `|A| ≥ 2` and `|V| ≥ 2` are both necessary, each a conjunct of one theorem. map=UNMAPPED
+verification/ROADMAP.md:404 - **`CF4`** — in any cancelling triple the strong family moves the relative **object** its map=UNMAPPED
+verification/ROADMAP.md:408 - **`CF5`** — **the fork is answered `PQ3-d⁺`**, at evidence level 2, by an exhibited canc map=UNMAPPED
+verification/ROADMAP.md:416 **The frozen post-round sentence, Case B, verbatim:** map=UNMAPPED
+verification/ROADMAP.md:435 **One clause of that frozen sentence reads against the outcome, and is carried unrepaired. map=UNMAPPED
+verification/ROADMAP.md:443 **What act 15 does NOT license.** No carrier is adopted as the physical one and none is as map=UNMAPPED
+verification/ROADMAP.md:475 **nothing** about the pair on exactly one of them — the re-anchored-channel carrier map=UNMAPPED
+verification/ROADMAP.md:479 - **`RN0`** — type P, settled by the round's own named and bounded search over 223 files a map=UNMAPPED
+verification/ROADMAP.md:484 - **`RN1`** — the refinement, universal at evidence level 2 through act 14's merged `PQ0`  map=UNMAPPED
+verification/ROADMAP.md:489 - **`RN2`** — the two contrapositives, universal at evidence level 2: a left part that mov map=UNMAPPED
+verification/ROADMAP.md:493 - **`RN3` (a)** — **`RN3-a⁺`**, against the freeze's own recorded sign prediction: act 15' map=UNMAPPED
+verification/ROADMAP.md:497 - **`RN3` (b)** — **the fork is answered `RN3⁺`, at line 1 of its four-outcome hierarchy** map=UNMAPPED
+verification/ROADMAP.md:502 - **`RN4`** — relative to `𝒪₂`, the redundancy subrelation of the threading equivalence do map=UNMAPPED
+verification/ROADMAP.md:508 **What act 16 does NOT license.** No carrier is adopted as the physical one and none is as map=UNMAPPED
+verification/ROADMAP.md:548 **The round's cross-time equivalence is `GramTrajEquiv`**: two lifts have the same traject map=UNMAPPED
+verification/ROADMAP.md:551 **adds no cross-time identification of its own**, and it is the only relation any quotient map=UNMAPPED
+verification/ROADMAP.md:555 - **`TJ0`** — type P, settled by the round's own named and bounded search over 223 files a map=UNMAPPED
+verification/ROADMAP.md:559 - **`TJ1`, the first axis** — both directions at evidence level 2, through act 12's merged map=UNMAPPED
+verification/ROADMAP.md:569 - **`TJ2`, the per-candidate verdicts** — four candidate principles were frozen **before** map=UNMAPPED
+verification/ROADMAP.md:579 - **`TJ3`, the second axis** — **line 4 of the five-line hierarchy, `TJ3-IMP`**, at eviden map=UNMAPPED
+verification/ROADMAP.md:588 **The two findings are on two axes and are not merged into one ordering.** "The present no map=UNMAPPED
+verification/ROADMAP.md:592 **What act 17 does NOT license.** It **endorses no selection principle** and says none is  map=UNMAPPED
+verification/ROADMAP.md:593 **the candidate class is four named propositions and is not exhaustive**, and each refutat map=UNMAPPED
+verification/ROADMAP.md:630 **Act 7's merged `DC1` is unrevised**, and acts 9, 10, 11, 12, 13 and 14 cite rather than  map=UNMAPPED
+verification/ROADMAP.md:636 **The chronology guard strengthened twice more.** Act 9's `R7-RBR` was repaired in review  map=UNMAPPED
+SECTION verification/ROADMAP.md:77-664 entries=78
+verification/ROADMAP.md:961 **And H-Bell is downstream of a harder obligation**, which this row records rather than le map=UNMAPPED
+SECTION verification/ROADMAP.md:936-970 entries=1
+SECTION verification/ROADMAP.md:1148-1157 entries=0
+ROADMAP TOTAL entries=83 unmapped=83

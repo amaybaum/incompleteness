@@ -1,0 +1,251 @@
+R7-VIS	11001	git	_rbr_archive_visibility_regression	ok_vis = _rbr_archive_visibility_regression()
+R7-ARCH	11030	git	_rbr_archive_regression	ok_arch = _rbr_archive_regression()
+R7-RBR	11183	git,state	_rbr_base_ancestry	ok_rbr &= _rbr_base_ancestry()
+R7-ABR	11510	git,state	_abr_execution_ancestry	ok_abr &= _abr_execution_ancestry()
+R7-HYA	11954	git,state	_hya_execution_ancestry	ok_hya &= _hya_execution_ancestry()
+R7-CLG	12392	git,state	_clg_execution_ancestry	ok_clg &= _clg_execution_ancestry()
+R7-TSG	12875	git,state	_tsg_execution_ancestry	ok_tsg &= _tsg_execution_ancestry()
+R7-SGT	13347	git,state	_sgt_execution_ancestry	ok_sgt &= _sgt_execution_ancestry()
+R7-A12P	14165	git,state	_a12p_execution_ancestry	ok_a12p &= _a12p_execution_ancestry()
+R7-CTI	14616	git,state	_cti_execution_ancestry	ok_cti &= _cti_execution_ancestry()
+R7-PQT	15250	git,state	_pqt_execution_ancestry	ok_pqt &= _pqt_execution_ancestry()
+R7-HYB	15892	git,state	_hyb_execution_ancestry	ok_hyb &= _hyb_execution_ancestry()
+R7-A6P	16486	git,state	_a6p_execution_ancestry	ok_a6p &= _a6p_execution_ancestry()
+R7-WTS	16958	git,state	_wts_execution_ancestry	ok_wts &= _wts_execution_ancestry()
+R7-PC4	17427	git,state	_pc4_execution_ancestry	ok_pc4 &= _pc4_execution_ancestry()
+R7-PC4S	17842	git,state	_pc4s_execution_ancestry	ok_pc4s &= _pc4s_execution_ancestry()
+R7-A6D	18368	git,state	_a6d_execution_ancestry	ok_a6d &= _a6d_execution_ancestry()
+R7-A6I	19279	git,state	_a6i_execution_ancestry	ok_a6i &= _a6i_execution_ancestry()
+R7-HYE	19914	git,state	_hye_execution_ancestry	ok_hye &= _hye_execution_ancestry()
+R7-TCF	20456	git,state	_tcf_execution_ancestry	ok_tcf &= _tcf_execution_ancestry()
+R7-TCF	20470	git,state	_si2_integrity_ok	ok_tcf &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-RNC	21047	git,state	_rnc_execution_ancestry	ok_rnc &= _rnc_execution_ancestry()
+R7-RNC	21061	git,state	_si2_integrity_ok	ok_rnc &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-TRJ	21768	git,state	_trj_execution_ancestry	ok_trj &= _trj_execution_ancestry()
+R7-TRJ	21782	git,state	_si2_integrity_ok	ok_trj &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-XTS	22576	git,state	_xts_execution_ancestry	ok_xts &= _xts_execution_ancestry()
+R7-XTS	22590	git,state	_si2_integrity_ok	ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-XTS	22886	git,state	_si2_integrity_ok	ok_xts &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-RNT	23329	git,state	_rnt_execution_ancestry	ok_rnt &= _rnt_execution_ancestry()
+R7-RNT	23346	git,state	_si2_integrity_ok	ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-RNT	23682	git,state	_si2_integrity_ok	ok_rnt &= _si2_integrity_ok()  # SI2-5: U5, the data-driven rule, gates in its place
+R7-OLT	24083	git,state	_olt_execution_ancestry	ok_olt &= _olt_execution_ancestry()
+R7-OLT	24090	git	(inline)	    ok_olt &= _olt_ok3
+R7-OLT	24092	git	_olt_ordering_pred	    ok_olt &= not _olt_ordering_pred(_olt_chain, '0' * 40, _OLT_DISC, _olt_texts)
+R7-OLT	24093	git	_olt_ordering_pred	    ok_olt &= not _olt_ordering_pred(_olt_chain, _OLT_LADDER, '1' * 40, _olt_texts)
+R7-OLT	24097	git	_olt_ordering_pred	    ok_olt &= not _olt_ordering_pred(_olt_chain, _OLT_LADDER, _OLT_DISC, _olt_t2)
+R7-OLT	24101	git	_olt_ordering_pred	    ok_olt &= _olt_t3[_olt_chain[0]] != _olt_texts.get(_olt_chain[0]) and not _olt_ordering_pred(_olt_chain, _OLT_LADDER
+R7-OLT	24111	git	_olt_locating	ok_olt &= _olt_locating()
+R7-OLT	24112	state	_olt_declarations	ok_olt &= _olt_declarations()
+R7-OLT	24114	git,state	_si2_integrity_ok	ok_olt &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+R7-OLN	24519	git,state	_oln_execution_ancestry	ok_oln &= _oln_execution_ancestry()
+R7-OLN	24526	git	(inline)	    ok_oln &= _oln_ok3
+R7-OLN	24528	git	_oln_ordering_pred	    ok_oln &= not _oln_ordering_pred(_oln_chain, '0' * 40, _OLN_MODC, _oln_texts)
+R7-OLN	24529	git	_oln_ordering_pred	    ok_oln &= not _oln_ordering_pred(_oln_chain, _OLN_STAGEA, '1' * 40, _oln_texts)
+R7-OLN	24533	git	_oln_ordering_pred	    ok_oln &= not _oln_ordering_pred(_oln_chain, _OLN_STAGEA, _OLN_MODC, _oln_t2)
+R7-OLN	24537	git	_oln_ordering_pred	    ok_oln &= _oln_t3[_oln_chain[0]] != _oln_texts.get(_oln_chain[0]) and not _oln_ordering_pred(_oln_chain, _OLN_STAGEA
+R7-OLN	24547	git	_oln_locating	ok_oln &= _oln_locating()
+R7-OLN	24548	state	_oln_declarations	ok_oln &= _oln_declarations()
+R7-OLN	24550	git,state	_si2_integrity_ok	ok_oln &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+R7-OLG	25050	git,state	_olg_execution_ancestry	ok_olg &= _olg_execution_ancestry()
+R7-OLG	25057	git	(inline)	    ok_olg &= _olg_ok3
+R7-OLG	25060	git	_olg_ordering_pred	    ok_olg &= not _olg_ordering_pred(_olg_chain, '0' * 40, _OLG_MODC, _V, _olg_texts)
+R7-OLG	25061	git	_olg_ordering_pred	    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, '1' * 40, _V, _olg_texts)
+R7-OLG	25062	git	_olg_ordering_pred	    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, (_V[0], _V[1], '2' * 40, _V[3]), _olg_texts)
+R7-OLG	25064	git	_olg_ordering_pred	    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, (_V[1], _V[0], _V[2], _V[3]), _olg_texts)
+R7-OLG	25068	git	_olg_ordering_pred	    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, _V, _olg_t2)
+R7-OLG	25072	git	_olg_ordering_pred	    ok_olg &= _olg_t3[_olg_chain[0]] != _olg_texts.get(_olg_chain[0]) and not _olg_ordering_pred(_olg_chain, _OLG_STAGEA
+R7-OLG	25076	git	_olg_ordering_pred	    ok_olg &= not _olg_ordering_pred(_olg_chain, _OLG_STAGEA, _OLG_MODC, _V, _olg_t4)
+R7-OLG	25080	git	_olg_ordering_pred	    ok_olg &= _olg_t5[_olg_chain[0]] != _olg_texts.get(_olg_chain[0]) and not _olg_ordering_pred(_olg_chain, _OLG_STAGEA
+R7-OLG	25091	git	_olg_locating	ok_olg &= _olg_locating()
+R7-OLG	25092	state	_olg_declarations	ok_olg &= _olg_declarations()
+R7-OLG	25093	git,state	_si2_integrity_ok	ok_olg &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+R7-OGS	25710	git,state	_ogs_execution_ancestry	ok_ogs &= _ogs_execution_ancestry()
+R7-OGS	25717	git	(inline)	    ok_ogs &= _ogs_ok3
+R7-OGS	25720	git	_ogs_ordering_pred	    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, '0' * 40, _OGS_MODC, _V, _ogs_texts)
+R7-OGS	25721	git	_ogs_ordering_pred	    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, '1' * 40, _V, _ogs_texts)
+R7-OGS	25722	git	_ogs_ordering_pred	    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, (_V[0], _V[1], '2' * 40, _V[3]), _ogs_texts)
+R7-OGS	25724	git	_ogs_ordering_pred	    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, (_V[1], _V[0], _V[2], _V[3]), _ogs_texts)
+R7-OGS	25728	git	_ogs_ordering_pred	    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t2)
+R7-OGS	25732	git	_ogs_ordering_pred	    ok_ogs &= _ogs_t2b[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGE
+R7-OGS	25736	git	_ogs_ordering_pred	    ok_ogs &= _ogs_t2c[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGE
+R7-OGS	25740	git	_ogs_ordering_pred	    ok_ogs &= _ogs_t3[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA
+R7-OGS	25744	git	_ogs_ordering_pred	    ok_ogs &= not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA, _OGS_MODC, _V, _ogs_t4)
+R7-OGS	25748	git	_ogs_ordering_pred	    ok_ogs &= _ogs_t5[_ogs_chain[0]] != _ogs_texts.get(_ogs_chain[0]) and not _ogs_ordering_pred(_ogs_chain, _OGS_STAGEA
+R7-OGS	25759	git	_ogs_locating	ok_ogs &= _ogs_locating()
+R7-OGS	25760	state	_ogs_declarations	ok_ogs &= _ogs_declarations()
+R7-OGS	25761	git,state	_si2_integrity_ok	ok_ogs &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+R7-OGC	26423	git,state	_ogc_execution_ancestry	ok_ogc &= _ogc_execution_ancestry()
+R7-OGC	26430	git	(inline)	    ok_ogc &= _ogc_ok3
+R7-OGC	26434	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, '0' * 40, _OGC_MODC, _V, _ogc_texts, _ogc_gate)
+R7-OGC	26435	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, _OGC_STAGEA, '1' * 40, _V, _ogc_texts, _ogc_gate)
+R7-OGC	26436	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, _OGC_STAGEA, _OGC_MODC, (_V[0], '2' * 40, _V[2]), _ogc_texts, _ogc_gate
+R7-OGC	26438	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(_ogc_chain, _OGC_STAGEA, _OGC_MODC, (_V[1], _V[0], _V[2]), _ogc_texts, _ogc_gate)
+R7-OGC	26442	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(*_P, _ogc_t2, _ogc_gate)
+R7-OGC	26446	git	_ogc_ordering_pred	    ok_ogc &= _ogc_t2b[_ogc_chain[0]] != _ogc_texts.get(_ogc_chain[0]) and not _ogc_ordering_pred(*_P, _ogc_t2b, _ogc_ga
+R7-OGC	26450	git	_ogc_ordering_pred	    ok_ogc &= _ogc_t2c[_ogc_chain[0]] != _ogc_texts.get(_ogc_chain[0]) and not _ogc_ordering_pred(*_P, _ogc_t2c, _ogc_ga
+R7-OGC	26454	git	_ogc_ordering_pred	    ok_ogc &= _ogc_t2d[_ogc_chain[0]] != _ogc_texts.get(_ogc_chain[0]) and not _ogc_ordering_pred(*_P, _ogc_t2d, _ogc_ga
+R7-OGC	26458	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(*_P, _ogc_t4, _ogc_gate)
+R7-OGC	26460	git	_ogc_ordering_pred	    ok_ogc &= _ogc_gate.get(3) is True and not _ogc_ordering_pred(*_P, _ogc_texts, {**_ogc_gate, 3: False})
+R7-OGC	26464	git	_ogc_ordering_pred	    ok_ogc &= not _ogc_ordering_pred(*_P, _ogc_t5, _ogc_gate)
+R7-OGC	26475	git	_ogc_locating	ok_ogc &= _ogc_locating()
+R7-OGC	26476	state	_ogc_declarations	ok_ogc &= _ogc_declarations()
+R7-OGC	26477	git,state	_si2_integrity_ok	ok_ogc &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+R7-CGR	27248	git,state	_cgr_execution_ancestry	ok_cgr &= _cgr_execution_ancestry()
+R7-CGR	27255	git	(inline)	    ok_cgr &= _cgr_ok3
+R7-CGR	27259	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, '0' * 40, _CGR_MODC, _V, _cgr_texts, _cgr_gate)
+R7-CGR	27260	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, _CGR_STAGEA, '1' * 40, _V, _cgr_texts, _cgr_gate)
+R7-CGR	27261	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, _CGR_STAGEA, _CGR_MODC, (_V[0], '2' * 40, _V[2]), _cgr_texts, _cgr_gate
+R7-CGR	27263	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(_cgr_chain, _CGR_STAGEA, _CGR_MODC, (_V[1], _V[0], _V[2]), _cgr_texts, _cgr_gate)
+R7-CGR	27267	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t2, _cgr_gate)
+R7-CGR	27271	git	_cgr_ordering_pred	    ok_cgr &= _cgr_t2a[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2a, _cgr_ga
+R7-CGR	27275	git	_cgr_ordering_pred	    ok_cgr &= _cgr_t2b[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2b, _cgr_ga
+R7-CGR	27279	git	_cgr_ordering_pred	    ok_cgr &= _cgr_t2c[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2c, _cgr_ga
+R7-CGR	27283	git	_cgr_ordering_pred	    ok_cgr &= _cgr_t2d[_cgr_chain[0]] != _cgr_texts.get(_cgr_chain[0]) and not _cgr_ordering_pred(*_P, _cgr_t2d, _cgr_ga
+R7-CGR	27287	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t4, _cgr_gate)
+R7-CGR	27291	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t4b, _cgr_gate)
+R7-CGR	27293	git	_cgr_ordering_pred	    ok_cgr &= _cgr_gate.get('several') is True and not _cgr_ordering_pred(*_P, _cgr_texts, {**_cgr_gate, 'several': Fals
+R7-CGR	27297	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t5, _cgr_gate)
+R7-CGR	27301	git	_cgr_ordering_pred	    ok_cgr &= not _cgr_ordering_pred(*_P, _cgr_t6, _cgr_gate)
+R7-CGR	27312	git	_cgr_locating	ok_cgr &= _cgr_locating()
+R7-CGR	27313	state	_cgr_declarations	ok_cgr &= _cgr_declarations()
+R7-CGR	27314	git,state	_si2_integrity_ok	ok_cgr &= _si2_integrity_ok()  # U5, the data-driven rule, gates in its place
+R7-NLV	27684	git,state	_nlv_execution_ancestry	_nlv_checks['authority'] = _nlv_execution_ancestry()
+R7-NLV	27686	git,state	(inline)	_nlv_checks['ordering'] = _nlv_order_ok
+R7-NLV	27691	state	_nlv_declarations	_nlv_checks['seal state'] = _nlv_declarations()
+R7-NLV	27724	git,state	_nlv_ordering_pred	    _nlv_checks['off-chain mutation'] = not _nlv_ordering_pred(
+R7-NLV	27726	git,state	_nlv_ordering_pred	    _nlv_checks['order mutation'] = not _nlv_ordering_pred(
+R7-NLV	27728	git,state	_nlv_ordering_pred	    _nlv_checks['gate mutation'] = not _nlv_ordering_pred(*_nlv_args, _nlv_texts, False)
+R7-NLV	27731	git,state	_nlv_ordering_pred	    _nlv_checks['premature verdict mutation'] = not _nlv_ordering_pred(*_nlv_args, _nlv_early, True)
+R7-NLV	27734	git,state	_nlv_ordering_pred	    _nlv_checks['premature A27-1 mutation'] = not _nlv_ordering_pred(*_nlv_args, _nlv_early, True)
+R7-PFR	28136	git,state	(inline)	_pfr_checks['chronology-recoverable'] = _pfr_chain is not None
+R7-PFR	28138	git,state	_pfr_chron_ok	    _pfr_checks['chronology'] = _pfr_chron_ok(_pfr_chain, _pfr_texts)
+R7-PFR	28156	git	_pfr_git	    _pfr_checks['stage-a-parent'] = (_pfr_git('rev-parse', _PFR_STAGEA + '^') or '').strip() == _PFR_B
+R7-PFR	28157	git,state	_pfr_git	    _pfr_checks['blob-unchanged'] = all(
+R7-PFR	28154	git,state	_pfr_chron_ok	        _pfr_checks['chron-mut:' + _nm] = not _pfr_chron_ok(_ch, _tx)
+R7-PFR	28204	git,state	_si2_authority	_pfr_checks['manifest-authority'] = bool(_si2_authority('PFR', tag='R7-PFR'))
+R7-PRA	28696	git,state	(inline)	_pra_checks['chronology-recoverable'] = _pra_chain is not None
+R7-PRA	28698	git,state	_pra_chron_ok	    _pra_checks['chronology'] = _pra_chron_ok(_pra_chain, _pra_texts)
+R7-PRA	28729	git	_pra_git	    _pra_checks['stage-a-parent'] = (
+R7-PRA	28731	git,state	_pra_git	    _pra_checks['blob-unchanged'] = all(
+R7-PRA	28727	git,state	_pra_chron_ok	        _pra_checks['chron-mut:' + _nm] = not _pra_chron_ok(_ch, _tx)
+R7-PRA	28805	git,state	_si2_authority	_pra_checks['manifest-authority'] = bool(_si2_authority('PRA', tag='R7-PRA'))
+R7-SI1	29519	git,state	_si1_execution_ancestry	ok_si1 &= _si1_execution_ancestry()
+R7-SI1	29556	git	_si1_no_forbidden_paths	ok_si1 &= _si1_no_forbidden_paths()
+R7-SI1	29588	git	(inline)	ok_si1 &= _si1_reach == 18 and _si1_spine == 6
+R7-SI1	29597	git	(inline)	ok_si1 &= len(_si1_cases) == 21 and len(_si1_obs) == 1
+R7-SI1	29598	git	(inline)	ok_si1 &= all(good for _n, good, _d in _si1_cases)
+R7-SI1	29599	git	(inline)	ok_si1 &= all(good for _n, good, _d in _si1_obs)
+R7-SI1	29626	git	(inline)	ok_si1 &= _si1_mb['records'] == 22 and _si1_mb['merge_bases'] == 22
+R7-SI1	29627	git	(inline)	ok_si1 &= _si1_mb['sealed'] == 18 and _si1_mb['branch_roots'] == 18
+R7-SI1	29630	git	(inline)	ok_si1 &= _si1_mb['mandate_compared'] == 0
+R7-SI1	29643	git	(inline)	ok_si1 &= _si1_tags is not None
+R7-SI1	29645	git	(inline)	    ok_si1 &= _si1_tags['base_tags'] == 90 and _si1_tags['base_all_pass']
+R7-SI1	29646	git	(inline)	    ok_si1 &= _si1_tags['matches_persisted'] is True
+R7-SI2	30830	git,state	_si2_execution_ancestry	ok_si2 &= _si2_execution_ancestry()
+R7-SI2	30831	git	_si2_base_provenance	ok_si2 &= _si2_base_provenance()
+R7-SI2	30835	git	(inline)	ok_si2 &= _si2_hold
+R7-SI2	30846	git,state	(inline)	ok_si2 &= _si2_m_ok
+R7-SI2	30855	git	(inline)	ok_si2 &= len(_si2_neg) == 9 and all(good for _n, good, _d in _si2_neg)
+R7-SI2	30866	git,state	(inline)	ok_si2 &= (_si2_auth['gate_on_u3'] == 23 and _si2_auth['gate_on_legacy'] == 0
+R7-SI2	30909	git,state	_si2_integrity_ok	ok_si2 &= _si2_integrity_ok() and not _si2_live_gates
+R7-SI2	30918	git,state	_si1_integrity	ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, _si2_u5m).items() if v] == ['mutated']
+R7-SI2	30920	git,state	_si1_integrity	ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, _si2_u5r).items() if v] == ['removed']
+R7-SI2	30921	git,state	_si1_integrity	ok_si2 &= [k for k, v in _si1_integrity(_si2_at1, dict(_si2_at1, ZZ={'kind': 'base-only', 'base': '1' * 40})).items() if
+R7-SI2	30933	git	(inline)	ok_si2 &= _si2_map_preserved
+R7-SI2	30948	git	(inline)	ok_si2 &= _si2_tagpersist is not None and _si2_tagpersist == _si2_base_map
+R7-SI2	30984	git	(inline)	ok_si2 &= _si2_141_holds
+R7-SI2	30985	git	(inline)	ok_si2 &= _si2_mb['records'] == 23 and _si2_mb['merge_bases'] == 23 and _si2_mb['sealed'] == 18
+R7-SI2	30986	git	(inline)	ok_si2 &= _si2_mb['branch_roots'] == 18 and _si2_mb['mandate_compared'] == 0
+R7-SI2	30995	git	_si2_region_relocated_verbatim	ok_si2 &= _si2_region_relocated_verbatim()
+R7-SI2	31000	git	(inline)	ok_si2 &= _si2_diff and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
+R7-SI3	31609	git,state	_si3_chronology	ok_si3 &= _si3_chronology()
+R7-SI3	31613	git,state	(inline)	ok_si3 &= _si3_hold
+R7-SI3	31624	git,state	_si2_integrity_ok	ok_si3 &= _si3_m_ok and _si2_integrity_ok()
+R7-SI3	31629	git,state	_si1_integrity	ok_si3 &= bool(_si3_at) and [k for k, v in _si1_integrity(_si3_at, dict(_si3_at, ZZ={'kind': 'base-only', 'base': '1' * 
+R7-SI3	31645	git	(inline)	ok_si3 &= _si3_rb_ok
+R7-SI3	31720	git	(inline)	ok_si3 &= _si3_neg8 and _si3_neg9
+R7-SI3	31722	state	_si3_base	ok_si3 &= _si3_base() is not None
+R7-SI3	31728	git,state	_si3_region_bounded	ok_si3 &= _si3_region_bounded()
+R7-SI3	31729	git,state	_si3_region_bounded	ok_si3 &= not _si3_region_bounded(_si3_src.replace('# ==== SI2-AUTHORITY-END ====', '_zz = 1\n# ==== SI2-AUTHORITY-END =
+R7-SI3	31730	git,state	_si3_region_bounded	ok_si3 &= not _si3_region_bounded(_si3_src.replace('# ==== SI2-AUTHORITY-END ====', _SI3_REGION_DELETIONS[1] + '# ==== S
+R7-SI3	31731	git,state	_si3_region_bounded	ok_si3 &= not _si3_region_bounded(_si3_src.replace('_SI2_INTEGRITY = {}\n', '_SI2_INTEGRITY = {}\n' + _SI3_REGION_DELETI
+R7-SI3	31732	git	_si2_region_no_stem	ok_si3 &= _si2_region_no_stem() and _si2_region_relocated_verbatim()
+R7-SI3	31738	git,state	(inline)	ok_si3 &= bool(_si3_diff) and not any(p.startswith('papers/') or p.startswith('book/') or p.endswith('.lean')
+R7-SI3	31748	git,state	(inline)	ok_si3 &= _si3_preserved
+R7-SI3	31752	git,state	_si3_map_preserved	    ok_si3 &= not _si3_map_preserved(_si3_base_map, _si3_flip)  # negative 10
+R7-SI3	31768	git,state	(inline)	ok_si3 &= _si3_tagpersist is not None and _si3_tagpersist == _si3_base_map
+R7-GR1	32011	git	(inline)	    _gr1_checks['pin:' + _p] = _got is not None and _got.decode().strip() == _b
+R7-GR1	32012	git	_gr1_git	_gr1_checks['pin:seals-tree'] = (
+R7-GR1	32028	git	_gr1_git	_gr1_checks['base-is-a-merge'] = len(
+R7-GR1	32054	git	(inline)	_gr1_checks['base-predicate-extracted'] = (
+R7-GR1	32056	git	_gr1_norm	_gr1_checks['base-predicate-is-the-frozen-old'] = (
+R7-GR1	32341	git	(inline)	_gr1_checks['suite-ran'] = _GR1_SUITE_N is not None
+R7-GR1	32342	git	(inline)	_gr1_checks['suite-29-rows'] = _GR1_SUITE_N == 29
+R7-GR1	32343	git	(inline)	_gr1_checks['suite-as-frozen'] = _GR1_SUITE_BAD == 0
+R7-GR1	32344	git	(inline)	_gr1_checks['suite-seven-reject-then-accept'] = _GR1_SUITE_FLIPS == 7
+R7-GR1	32350	git	_pfr_n	_gr1_checks['a29-sentences-provenanced'] = all(
+R7-GR1	32400	git,state	(inline)	_gr1_checks['chronology'] = bool(_GR1_CHRON_OK)
+R7-GR1	32402	git,seals-path	_gr1_seals_ok	    _gr1_checks['seals-tree-integrity'] = _gr1_seals_ok(_GR1_B)
+R7-GR1	32403	git,state	_si2_integrity_ok	_gr1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
+R7-GR1	32531	git	_gr1_budget	    _gr1_checks['placement-whole-file'] = _gr1_budget(_GR1_SELF, _GR1_BASE_SRC)
+R7-GR1	32532	git	_gr1_history_prefix	    _gr1_checks['history-prefix'] = _gr1_history_prefix(
+R7-GR1	32559	git	_gr1_seals_hist	    _gr1_checks['seals-tree-integrity'] = _gr1_seals_hist(_GR1_B, _GR1_E, _gr1_pin_l)
+R7-GR1	32539	git,state	(inline)	        _gr1_checks['placement-historical-budget'] = _GR1_STATE == 'RECORDED'
+R7-GR1	32540	git,state	(inline)	        _gr1_checks['history-prefix'] = _GR1_STATE == 'RECORDED'
+R7-GR1	32544	git	_gr1_budget	        _gr1_checks['placement-historical-budget'] = _gr1_budget(_e_src, _GR1_BASE_SRC)
+R7-GR1	32545	git	_gr1_history_prefix	        _gr1_checks['history-prefix'] = _gr1_history_prefix(_GR1_B, _GR1_E)
+R7-GR1	32563	git	_gr1_pin_ok	        _gr1_checks['landed-pin:' + _p] = _gr1_pin_ok(_p, _b, _GR1_E, _gr1_pin_l)
+R7-GR1	32554	git	(inline)	            _gr1_checks['landed-artifact:' + _rel.rsplit('/', 1)[-1]] = (
+R7-GR1	32697	git,seals-path,state	(inline)	    _gr1_checks['fixture:' + _nm] = _good
+R7-GR2	32821	git	_gr2_sha	_gr2_checks['s1-segment-hash'] = _gr2_sha(_GR2_S1_SEG) == _GR2_S1_SHA
+R7-GR2	32822	git	_gr2_sha	_gr2_checks['s2-segment-hash'] = _gr2_sha(_GR2_S2_SEG) == _GR2_S2_SHA
+R7-GR2	32823	git	_gr2_sha	_gr2_checks['s1-segment-hash-drift'] = _gr2_sha(_GR2_S1_SEG + ' ') != _GR2_S1_SHA
+R7-GR2	32824	git	_gr2_sha	_gr2_checks['s2-segment-hash-drift'] = _gr2_sha(_GR2_S2_SEG + ' ') != _GR2_S2_SHA
+R7-GR2	32825	git	(inline)	_gr2_checks['segments-once-at-base'] = (
+R7-GR2	33571	git,state	(inline)	_gr2_checks['chronology'] = bool(_GR2_CHRON_OK)
+R7-GR2	33572	git,seals-path,state	_gr1_seals_ok	_gr2_checks['seals-tree-integrity'] = (_gr1_seals_ok(_GR2_B) if _GR2_STATE == 'EXECUTION'
+R7-GR2	33574	git,state	_si2_integrity_ok	_gr2_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
+R7-GR2	33588	git	_gr2_budget	    _gr2_checks['placement-whole-file'] = _gr2_budget(_GR2_SELF)
+R7-GR2	33590	git,state	(inline)	    _gr2_checks['placement-historical-budget'] = _GR2_STATE == 'RECORDED'
+R7-GR2	33592	git,state	_gr2_budget	    _gr2_checks['placement-historical-budget'] = _gr2_budget(
+R7-GR2	33600	git	(inline)	    _gr2_checks['suite-a:' + _nm] = _ok
+R7-GR2	33603	git	(inline)	    _gr2_checks['suite-b:' + _nm] = _ok
+R7-GR2	33606	git	(inline)	    _gr2_checks['composition:' + _nm] = _ok
+R7-GR2	33609	git	(inline)	    _gr2_checks['fixture:' + _nm] = _ok
+R7-GR2	33634	git	(inline)	    _gr2_checks['negative:' + _nm] = _ok
+R7-GR2	33657	git,state	(inline)	_gr2_checks['tag-map'] = bool(
+R7-CV1	33806	git	_cv1_git	_cv1_checks['freeze-blob-at-base'] = (
+R7-CV1	33815	git	_gr2_sha	    _cv1_checks[_k + '-segment-hash'] = bool(_seg) and _gr2_sha(_seg) == _sha
+R7-CV1	33816	git	_gr2_sha	    _cv1_checks[_k + '-segment-hash-drift'] = _gr2_sha(_seg + ' ') != _sha
+R7-CV1	33817	git	(inline)	    _cv1_checks[_k + '-segment-once-at-base'] = bool(_seg) and _CV1_BASE_SRC.count(_seg) == 1
+R7-CV1	33818	git	(inline)	_cv1_checks['s1-anchors-once-at-base'] = (
+R7-CV1	33820	git	(inline)	_cv1_checks['s4-anchors-once-at-base'] = (
+R7-CV1	33833	git	_cv1_git	_cv1_checks['base-seals-tree'] = (
+R7-CV1	33836	git	_cv1_git	_cv1_checks['base-is-a-merge'] = len(
+R7-CV1	33838	git	_cv1_git	_cv1_checks['base-has-no-certificates'] = (
+R7-CV1	33840	git	_cv1_git	_cv1_checks['base-has-no-verifier'] = (
+R7-CV1	33918	git	(inline)	_cv1_checks['chronology'] = bool(_CV1_CHRON_OK)
+R7-CV1	33922	git,seals-path	_gr1_seals_ok	_cv1_checks['seals-tree-integrity'] = (_gr1_seals_ok(_CV1_B) if _CV1_STATE == 'EXECUTION'
+R7-CV1	33924	git,state	_si2_integrity_ok	_cv1_checks['seals-integrity-u5'] = bool(_si2_integrity_ok())
+R7-CV1	33981	git	_cv1_budget	    _cv1_checks['placement-whole-file'] = _cv1_budget(_CV1_SELF)
+R7-CV1	33985	git	_cv1_budget	    _cv1_checks['placement-historical-budget'] = _cv1_budget(_cv1_text(_CV1_E, _GR1_GUARD_PATH) or '')
+R7-CV1	33986	git	_cv1_revert	_cv1_checks['budget-mut:block-kept'] = not (
+R7-CV1	34371	git	(inline)	    _cv1_checks['s1:' + _nm] = _ok
+R7-CV1	34375	git,seals-path	(inline)	    _cv1_checks['s234:' + _nm] = _ok
+R7-CV1	34667	git,seals-path	(inline)	    _cv1_checks[_nm] = _ok
+R7-CV1	34776	git	(inline)	    _cv1_checks['additive-no-deletion'] = not any(s == 'D' for s, _p in _CV1_DIFF)
+R7-CV1	34777	git	(inline)	    _cv1_checks['additive-modified-only-the-named-files'] = all(
+R7-CV1	34779	git	(inline)	    _cv1_checks['additive-no-forbidden-path'] = not any(
+R7-CV1	34782	git	(inline)	    _cv1_checks['additive-no-cv2-object'] = not any(
+R7-CV1	34785	git	(inline)	    _cv1_checks['additive-added-under-the-named-roots'] = all(
+R7-CV1	34789	git	(inline)	_cv1_checks['no-r7-block-removed'] = bool(_CV1_BASE_SRC) and all(
+R7-CV1	34791	git	(inline)	_cv1_checks['no-check-call-removed'] = bool(_CV1_BASE_SRC) and all(
+R7-CV1	34975	git,seals-path,state	(inline)	_cv1_checks['census-6a-as-adjudicated'] = _CV1_6A == 'VERDICTS-AS-ADJUDICATED'
+R7-CV1	34976	git,seals-path,state	(inline)	_cv1_checks['census-6b-as-frozen'] = _CV1_6B == 'REPRESENTATION-AS-FROZEN'
+R7-CV1	34999	git,seals-path,state	(inline)	_cv1_checks['census-equal-to-committed'] = _CV1_CEN is not None and _CV1_CEN == _CV1_CENSUS
+R7-CV1	35003	git,seals-path,state	_pfr_n	_cv1_checks['note:6a-sentence'] = (_pfr_n(_CV1_SENT_6A) in _CV1_RESN) == (
+R7-CV1	35005	git,seals-path,state	_pfr_n	_cv1_checks['note:6b-sentence'] = (_pfr_n(_CV1_SENT_6B) in _CV1_RESN) == (
+R7-CV1	35017	git,state	(inline)	_cv1_checks['tag-map'] = bool(
+R7-CV1	35037	git	_cv1_git	    _cv1_checks['no-cv2-object-at-e'] = not any(
+R7-CV1	35035	git	(inline)	        _cv1_checks['landed-artifact:' + _rel.rsplit('/', 1)[-1]] = (

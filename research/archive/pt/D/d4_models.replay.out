@@ -1,0 +1,17 @@
+== M1  the non-identity landed gates
+PASS M1.0  [identity] cnot (M_Q, M_cl, M_max, M_refl, M_class, M_mix, M_int, M_tokC): frame at z3 and N-CLASS with locals (A, B, A', B') = ['[1, 1, 1]', '[1, 1, 1]', '[1, 1, 1]', '[1, 1, 1]']
+PASS M1.1  [identity] actT reflY . cnot (M_D at 13): frame at z3 and N-CLASS with locals (A, B, A', B') = ['[1, 1, 1]', '[1, -1, 1]', '[1, 1, 1]', '[1, 1, 1]']
+PASS M1.2  [identity] actT reflY . cnot . actT reflY = cnotTw (M_tok at 13): frame at z3 and N-CLASS with locals (A, B, A', B') = ['[1, 1, 1]', '[1, -1, 1]', '[1, 1, 1]', '[1, -1, 1]']
+
+== M2  the identity gate (M_id)
+PASS M2  [witness] id fails the frame at z3 (prodState(-z3, z3) is not mapped to prodState(-z3, -z3))
+
+== M3  relT in the CtrlGate classification (instances)
+PASS M3.Rot_z(3/5,4/5)  [identity] cnot . actT Rot_z(3/5,4/5): frame True, relC True, relT False; R0 commutes with nflip: False
+PASS M3.diag(1,-1,1)  [identity] cnot . actT diag(1,-1,1): frame True, relC True, relT True; R0 commutes with nflip: True
+
+== CC  countercontrol
+PASS CC  [countercontrol] countercontrol: actC(Rot_z(3/5,4/5)) . cnot has the frame and FAILS relC
+
+d4_models: 7 checks, 0 failed
+VERDICT D4-MODELS-CONSISTENT: every non-identity landed model gate has the frame and N-CLASS form; the identity gate fails the frame; relT for cnot . actT R0 holds exactly when R0 commutes with nflip on the two instances

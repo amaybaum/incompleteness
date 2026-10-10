@@ -1,0 +1,2054 @@
+[
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+1
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+1,
+0
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+1,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+1,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+2,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+2,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+3,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+3,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+0,
+1
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+0,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+0,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+1,
+0
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+1,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+1,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+2,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+2,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+3,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+3,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+0,
+1
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+0,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+0,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+1,
+0
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+1,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+1,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+2,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+2,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+2,
+3
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+3,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+3,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+3,
+2
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+0,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+1,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+2,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+3,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+0,
+1
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+0,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+0,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+1,
+0
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+1,
+2
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+1,
+3
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+2,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+2,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+2,
+3
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+0
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+1
+]
+],
+"preps": 767,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+},
+{
+"certified": true,
+"dimC": [
+2,
+3,
+3,
+3
+],
+"effects": 1555,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+2
+]
+],
+"preps": 755,
+"rank": 3,
+"rule": "linear",
+"stabilized": true,
+"verdict": "FAIL(dimC=3)",
+"welldef": true
+}
+]

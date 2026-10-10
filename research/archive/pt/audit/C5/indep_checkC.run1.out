@@ -1,0 +1,50 @@
+== T  transcription
+CONFIRMED T1 U_J realizes cyc3; cyc3 . rot3(t) . cyc3^-1 = R_x(t); R_x(pi) = nflip; rot3(pi) = diag(-1,-1,1) != nflip
+CONFIRMED T2 CNOT = I x P+ + Z x P- = I - 2|1-><1-|
+CONFIRMED T3 projective orders: |G16| = 16, |<G16, SWAP>| = 48 -- orders 16, 48
+== L  census Lie closures (Pauli coordinates; discrete closure under exact conjugation)
+CONFIRMED L1 L1 {flow}@C (i)/(ii) -- dims (2, 2)
+CONFIRMED L2 L2 {flow}@T (i)/(ii) -- dims (1, 1)
+CONFIRMED L3 L3 {flow both} (i)/(ii) -- dims (3, 3)
+CONFIRMED L4 L4 {flow,NOT}@C (i)/(ii) -- dims (2, 2)
+CONFIRMED L5 L5 {flow,NOT}@T (i)/(ii) -- dims (1, 1)
+CONFIRMED L6 L6 {J}@C / {NOT,J}@C (i)/(ii) -- dims (0, 0)
+CONFIRMED L7 L7 {flow,J}@C (i)/(ii) -- dims (6, 6)
+CONFIRMED L8 L8 {flow,J}@T (i)/(ii) -- dims (6, 6)
+CONFIRMED L9 L9 flow@C + J@T (i)/(ii) -- dims (15, 15)
+CONFIRMED L10 L10 flow@T + J@C (i)/(ii) -- dims (1, 1)
+CONFIRMED L11 L11 z-flow @C / @T / both (level i) -- dims (1, 2, 3)
+CONFIRMED L12 L12 {z-flow,J}@C / @T (level i) -- dims (6, 6)
+== U  UNIQUE criterion and reachability witnesses
+CONFIRMED U1 L({flow,J}@C) contains su(2) x P+ and su(2) x P- (p = X-eigenstates)
+CONFIRMED U2 L({flow,J}@T) contains |0><0| x su(2) and |1><1| x su(2)
+CONFIRMED U1c the flow-only node contains neither (criterion fails on the S3 instance)
+CONFIRMED U3 exact witness: (U+ x P+ + U- x P-) carries a product to psi0 = phi0/4 -- weights sqrt(13)/4, sqrt(3)/4
+CONFIRMED U4 exact witness: (U+ x P+ + U- x P-) carries a product to psi_a = (15,-1,7,7)/18 -- weights 7/9, 4*sqrt(2)/9
+== O  projective orbits of phi0's ray under the finite native groups
+MISMATCH O1 orbit of phi0 under <U_J x I, CNOT>: 768 rays -- size 48
+MISMATCH O2 orbit of phi0 under <I x U_J, CNOT>: 384 rays -- size 48
+MISMATCH O3 adding the NOT (X x I resp. I x X) leaves both orbits unchanged -- sizes 192, 192
+MISMATCH O4 d_low = min |det|^2/n^2 over both orbits = 5/256 -- 1/40, 5/72
+== S  torus seeds: exact minimum of |det|^2 along the non-local flow direction
+CONFIRMED S1 {flow}@C: |det|^2 along e^{-i b XX} is a homogeneous form in (cos 2b, sin 2b); det Q/tr Q <= exact lambda_min over the D-orbit {phi0, CNOT phi0} -- exact min 9/8 - sqrt(5)/2 ~ 0.00696601; bound min 1/144
+MISMATCH S2 C5's d_low for {flow}@C (level i) = 1/2304 (the bound at the minimizing orbit element) -- bound 1/144
+CONFIRMED S3 alpha = 499783/500000: r = 2 alpha - 1 < 1 and r^2 >= 1 - 4 d_low (seed admissible on the whole reachable set)
+MISMATCH S4 z-flow@T (N = Z x Z): d_low = 1/8704 -- bound 1/544, exact min 17/16 - 3*sqrt(2)/4 ~ 0.00183983
+CONFIRMED S5 stage-4 seeds c = 4609/4608 (actC Rx), 17409/17408 (actT Rz) lie in the windows from the exact minima and from the bounds
+MISMATCH S6 FLOAT sanity: a 20000-point scan of beta over the D-orbit never goes below the exact minimum -- scan min 0.00043538 vs exact 0.00696601
+MISMATCH S1c countercontrol: the reachable Bell state CNOT|+0> gives exact minimum 0 (no seed)
+== K  K(Z_F) and the named countercontrols
+CONFIRMED K1 every generator of <G16, SWAP> and both NOTs permute the defect set Z_F (K(Z_F) invariant)
+CONFIRMED K2 theta: 4 <prodState(a,b), z_s> = 1 + a^T M_s b with M_s orthogonal (symbolic), so every defect is in maxCone
+CONFIRMED K3 kappa: U(-1) = CNOT; C1, C2 mapped into C1 u C2 by U(w), CNOT, Z x I, I x Z, T (at a rational point); every circle point maximally entangled (symbolic); defect of C1(1)/sqrt2 = z_(-1,-1)
+CONFIRMED K4 kappa-cc: at w = -i a defect leaves K(Z_F): witness U psi_s in K(Z_F), pairing -1/2 -- ((1, 1), [1/2, 0, 0, 1/2], -1/2)
+CONFIRMED K5 zeta: D(w) fixes x = T(psi_(1,-1) + psi_(-1,1)) for all w (symbolic); J = permutation unitary in the defect basis is an automorphism of K(Z_F); J D(-1) J^-1 moves x
+CONFIRMED K6 iota-cc: (5,-5,-1,-1) in Q3 n E0* (3/13) pairs -5/13 with SWAP E0
+CONFIRMED K7 eta-cc: <E0, actT nflip E0> = -1 and <E0, actC nflip E0> = +1
+CONFIRMED K8 FORM-J: (U_J x I) CNOT (U_J x I)^dag = I x P+ + X x P-; Z-eigenvectors are not X-eigenvectors (no common eigenvector)
+CONFIRMED K9 CL1: F pairs >= 0 with products and with cnot-images of products (orthogonal forms, Cauchy-Schwarz); F not in Q3 (eigenvalue -1/8); F pairs -1/2 with its own state
+CONFIRMED K10 LAMBDA-tw: reflY R reflY is a rotation for a rotation R (symbolic)
+MISMATCH K11 THETA-cc: chainW = cnot idW (K2Guard:104) pairs -1/2 with the sharp effects of -e1, -e3; idW pairs >= 0 with sharp-effect products on a grid
+SUMMARY 33/42 CONFIRMED
+INDEP-C-MISMATCH

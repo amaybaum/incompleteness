@@ -1,0 +1,40 @@
+== D  the dichotomy's algebra (Y1)
+CONFIRMED D1 [identity] ipW(e_c, P_phi) = (1 - c |<phi0|phi>|^2)/2 (the cap defect's pairing with a pure state)
+CONFIRMED D2 [identity] orbit pairing ipW(e_c, g e_c) = (4 - 2c + c^2 |<phi0|g phi0>|^2)/16: nonnegative for every g iff c <= 2
+CONFIRMED D3 [identity] spectrum of e_c is {(1-c)/8, 1/8, 1/8, 1/8}: not PSD exactly when c > 1
+CONFIRMED D4c [countercontrol] countercontrol: c = 1 gives a PSD table (no defect) and c = 5/2 makes an orthogonal orbit pair negative (4 - 2c < 0): the window (1, 2] is sharp
+CONFIRMED D5 [identity] for the maximally entangled (1,1,1,-1)/2, |det Psi|^2 = 1/4 and the largest product overlap (1+sqrt(1-4|det|^2))/2 = 1/2 (Schmidt: lambda_max^2 with lambda_max lambda_min = |det|)
+CONFIRMED D5c [countercontrol] countercontrol: a product state has det Psi = 0 and largest product overlap 1
+
+== A  the axis classification (Y3): control-axis generators (n, n) and (n, Rz(pi) n) in su(2) + su(2)
+CONFIRMED A1 [identity] exceptional control axes at level (i): z (dim 1, commutes with cnot), x, y and (3,4,0) (dim 2, abelian two-torus): the protocol's S3 instance actC Rx is exceptional -- {'(0, 0, 1)': 1, '(1, 0, 0)': 2, '(0, 1, 0)': 2, '(3, 4, 0)': 2, '(1, 1, 1)': 4, '(5, 1, 1)': 4, '(2, 0, 1)': 4, '(0, 3, 4)': 4}
+CONFIRMED A2 [identity] off the exceptional set the closure has dimension 4 (R n + su(2)): it contains the full second factor {(0, b)}, hence every pure state is reachable (Y3's criterion)
+CONFIRMED A3 [identity] for n = (5,1,1): n - n' and n x n' are independent (two directions generate so(3)); for n = x they are dependent (n' = -n)
+CONFIRMED A4 [identity] level (ii): with the transpose's axis image (nx, -ny, nz) added, (3,4,0) becomes reachable (dim 6) while x, y, z stay exceptional: the exceptional set is the native frame's coordinate axes -- {'(3, 4, 0)': 6, '(1, 0, 0)': 2, '(0, 1, 0)': 2, '(0, 0, 1)': 1}
+
+== C  the S3 certificate's ingredients (Y4), actC Rx family: L = X(x)I, N = X(x)X
+CONFIRMED C1 [identity] det Psi(e^{-i beta X(x)X} psi) = cos(2beta) D - (i/2) sin(2beta) M with M independent of beta, for psi = phi0 and CNOT phi0 (symbolic in beta)
+CONFIRMED C2 [identity] both quadratic forms Q_psi are positive definite: |det Psi| stays bounded away from 0 on the whole torus orbit, so phi0 is unreachable under T.G16 (no product state in its orbit) -- det/tr = [1/9, 121/42]
+CONFIRMED C3 [witness] the seed c = 1 + x/8 with x = 4 min(det Q/tr Q)/|phi0|^4 equals 4609/4608 (Y's value) -- x = 1/576, c = 4609/4608
+CONFIRMED C4 [identity] window inequality: 1/m >= 2/(1 + sqrt(1 - x)) >= 1 + x/8 for x in (0, 1] (sampled exactly; algebra: sqrt(1-x) <= 1 - x/2 gives 2/(1+sqrt(1-x)) >= 1/(1 - x/4) >= 1 + x/4)
+CONFIRMED C5 [witness] consistency: the seed pairs >= 0 with 66 torus images of products and cnot-products, and negatively with P_phi0 (exact)
+MISMATCH C6c [countercontrol] countercontrol: a reachable state (the product |00>) gives the zero form det Q = 0, no certificate
+
+== S  structural invariants (Y6): the Aut-invariant c(x) = dim span(K cap x^perp), and non-perfectness of K(E0)
+MISMATCH S1 [identity] c(E0) = 15 in K(E0): 60 pure states on the boundary of E0's cap (ipW = 0 with E0, exact) span the whole hyperplane E0^perp (rank 15 of 15) -- rank 12
+CONFIRMED S2 [identity] ipW(E0, P00) = 1 > 0, so an element q + lambda E0 of K(E0) orthogonal to P00 has lambda = 0 and q is PSD on |00>^perp
+CONFIRMED S3 [identity] c(P00) = 9: the PSD tables supported on |00>^perp span Herm(3), real dimension 9; so E0 (c = 15) and P00 (c = 9) lie in different Aut(K(E0))-orbits, since c is invariant under automorphisms of a self-dual cone (A^T is an automorphism of K* = K): T fails for K(E0) -- rank 9
+CONFIRMED S4 [witness] y = P_f3 - E0 lies in E0^perp, pairs >= 0 with the face Q3 cap E0^perp (every PSD q orthogonal to E0 gives <y,q> = <P_f3,q> >= 0), and is not PSD (eigenvalues -1/4, -1/4, 1/4, 1/4): the face exposed by E0 is not self-dual in its span, so K(E0) is not perfect
+CONFIRMED S5c [countercontrol] countercontrol: the analogous construction P_f - P00 for Q3's face exposed by P00 does not even lie in P00^perp; the witness uses the defect's structure
+
+== R  the single rotation R1 (Y7): order-3 rotation about (5,1,1), with cnot only
+CONFIRMED R1 [identity] R = rotation by 2pi/3 about (5,1,1) is rational, orthogonal, det 1, of order exactly 3
+CONFIRMED R2 [identity] tr(R R') = 208/81, cos(angle of RR') = 127/162 (Y's value); 2cos = 127/81 is not an integer, so RR' is not of finite order (a rational algebraic integer would be an integer): the group <R, R'> is infinite
+CONFIRMED R3 [identity] target side: cos(angle of R Rx(pi) R Rx(pi)) = -113/162 (Y's value), also of infinite order -- -113/162
+CONFIRMED R4c [countercontrol] countercontrol: the corpus's cyc3 (order 3 about (1,1,1)) gives cos = -1/2 and RR' of order 3: the infinite-order criterion does not fire for it (Y's cc)
+CONFIRMED R5 [witness] actC(R) E0 is outside K(E0): ipW(actC(R)E0, E0) = 13/9 > 0 (so the defect pairing does not witness it), and no lambda in [0, 13/27] makes actC(R)E0 - lambda E0 PSD (exact root isolation on the four characteristic coefficients) -- feasible set EmptySet
+CONFIRMED R6 [identity] the SU(2) lift U of R (Gaussian-rational entries over sqrt-free numbers) conjugates Z to (R e_z).sigma: actC R = Ad(U (x) I)
+CONFIRMED R7 [witness] a pure state P_v in K(Z_F) (PSD, pairs >= 0 with every defect) pairs negatively with actC(R) e_s: the order-3 rotation about (5,1,1) carries a defect out of K(Z_F) (Y7's claim, with the coordinator's own witness) -- ((1, 1), -2383/5316, True, True)
+
+checks: 28, confirmed: 26
+VERDICT INDEP-Y-MISMATCH

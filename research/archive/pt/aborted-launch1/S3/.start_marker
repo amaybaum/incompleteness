@@ -1,0 +1,15 @@
+S3 COMP-CONS start marker
+date_utc: 2026-10-10T07:12:54Z
+S3_dir_listing_before_marker: empty (only . and ..)
+inputs.manifest.sha256: OK
+stage1.manifest.sha256: OK
+inputs2.manifest.sha256: OK
+base_HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626
+base_status_porcelain_lines: 0
+sha256 PROTOCOL.md: 239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23 check=OK
+sha256 PROTOCOL-AMENDMENT-1.md: b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83 check=OK
+sha256 PROTOCOL-AMENDMENT-2.md: 2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a check=OK
+sha256 PROTOCOL-STAGE2.md: 386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da check=OK
+sha256 inputs.manifest.sha256: 039413ca780cd8cbc9463845b800cff0be0911eb12e300f65ef1d17192543bf3
+sha256 stage1.manifest.sha256: fe01eee5228dc364dab3e9bc7156aa2ff94b934905b943a00c086e851aea0415
+sha256 inputs2.manifest.sha256: 715aeefe4c54305bca701596555680440358ee2131750db38213cacbc7228831

@@ -1,0 +1,5 @@
+M0 = (1, 1) frame True ; Rt and Rc force: [{a12: 0, a21: 0, k11: 0, k22: 0}]
+M0 = (1, -1) frame True ; Rt and Rc force: [{a12: 0, a21: 0, k11: 0, k22: 0}]
+M0 = (-1, 1) frame True ; Rt and Rc force: [{a12: 0, a21: 0, k11: 0, k22: 0}]
+M0 = (-1, -1) frame True ; Rt and Rc force: [{a12: 0, a21: 0, k11: 0, k22: 0}]
+exit 0 time 1s

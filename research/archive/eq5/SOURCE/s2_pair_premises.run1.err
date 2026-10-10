@@ -1,0 +1,58 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/sdm.py", line 90, in getitem
+    return self[i][j]
+           ~~~~~~~^^^
+KeyError: 1
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/repmatrix.py", line 987, in _getitem_RepMatrix
+    return self._rep.getitem_sympy(index_(i), index_(j))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/domainmatrix.py", line 211, in getitem_sympy
+    return self.domain.to_sympy(self.rep.getitem(i, j))
+                                ^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/sdm.py", line 99, in getitem
+    raise IndexError("index out of range")
+IndexError: index out of range
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SOURCE/s2_pair_premises.py", line 248, in <module>
+    ab = CNOT * skron(sp.Matrix([a0, a1]), sp.Matrix([b0, b1]))
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SOURCE/s2_pair_premises.py", line 220, in skron
+    return sp.Matrix(na * nb, na * nb, lambda i, j: A[i // nb, j // nb] * B[i % nb, j % nb])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/repmatrix.py", line 567, in __new__
+    return cls._new(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/repmatrix.py", line 578, in _new
+    rows, cols, flat_list = cls._handle_creation_inputs(*args, **kwargs)
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 3999, in _handle_creation_inputs
+    [cls._sympify(op(cls._sympify(i), cls._sympify(j)))
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 3999, in <listcomp>
+    [cls._sympify(op(cls._sympify(i), cls._sympify(j)))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SOURCE/s2_pair_premises.py", line 220, in <lambda>
+    return sp.Matrix(na * nb, na * nb, lambda i, j: A[i // nb, j // nb] * B[i % nb, j % nb])
+                                                                          ~^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/repmatrix.py", line 336, in __getitem__
+    return _getitem_RepMatrix(self, key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/repmatrix.py", line 1008, in _getitem_RepMatrix
+    return self.extract(i, j)
+           ^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 436, in extract
+    colsList = [a2idx(k, self.cols) for k in colsList]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 436, in <listcomp>
+    colsList = [a2idx(k, self.cols) for k in colsList]
+                ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 5396, in a2idx
+    raise IndexError("Index out of range: a[%s]" % (j,))
+IndexError: Index out of range: a[1]
+exit=1

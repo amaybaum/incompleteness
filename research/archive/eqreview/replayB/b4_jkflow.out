@@ -1,0 +1,47 @@
+PASS F1 d=3: G_0 = I
+PASS F1 d=3: G_pi = kernel cnot (CompositeDimension.cnot)
+PASS F1 d=3: group law G_a G_a = G_2a (cos a = 3/5)
+PASS F1 d=3: G_a G_-a = I
+PASS F2 d=3: G_a preserves the normalisation functional
+PASS F2 d=3: COND(R_a) slices (identity on +z, R_a on -z)
+PASS F3 d=3: G_a is not a product of local maps (operator-Schmidt rank 4 > 1)
+PASS F3 d=3: control: G_0 has operator-Schmidt rank 1
+PASS F2 d=3: R_a = homMap of an orthogonal map; J^2 = -1 on T, K^2 = -1 on E-
+PASS F1 d=5: G_0 = I
+PASS F1 d=5: G_pi = kernel gC5 (RelcSelect.gC5)
+PASS F1 d=5: group law G_a G_a = G_2a (cos a = 3/5)
+PASS F1 d=5: G_a G_-a = I
+PASS F2 d=5: G_a preserves the normalisation functional
+PASS F2 d=5: COND(R_a) slices (identity on +z, R_a on -z)
+PASS F4 d=5: G_pi has the frame and FAILS relC with its NOT (split (2,4), unbalanced)
+PASS F3 d=5: G_a is not a product of local maps (operator-Schmidt rank 4 > 1)
+PASS F3 d=5: control: G_0 has operator-Schmidt rank 1
+PASS F2 d=5: R_a = homMap of an orthogonal map; J^2 = -1 on T, K^2 = -1 on E-
+PASS F1 d=7: G_0 = I
+PASS F1 d=7: group law G_a G_a = G_2a (cos a = 3/5)
+PASS F1 d=7: G_a G_-a = I
+PASS F2 d=7: G_a preserves the normalisation functional
+PASS F2 d=7: COND(R_a) slices (identity on +z, R_a on -z)
+PASS F4 d=7: G_pi has the frame and FAILS relC with its NOT (split (2,6), unbalanced)
+PASS F3 d=7: G_a is not a product of local maps (operator-Schmidt rank 4 > 1)
+PASS F3 d=7: control: G_0 has operator-Schmidt rank 1
+PASS F2 d=7: R_a = homMap of an orthogonal map; J^2 = -1 on T, K^2 = -1 on E-
+PASS S1 d=3: value decomposition identity (symbolic in x, e, f, Y, c, s)
+PASS S2 d=3: key identity <f,Y><f,RY> - <f,AY>^2 - <f,BY>^2 = (2-2c)(PM - |w|^2) mod c^2+s^2=1
+PASS S3 d=3: 4(PM - |w|^2) = (f0^2-f_x^2-|f_-|^2)(Y0^2-Y_x^2) + |f_-|^2(Y0^2-Y_x^2-|Y_-|^2) + L
+PASS S3 d=3: L(f_-, Y_-) is the explicit sum of squares (complex Lagrange identity)
+PASS S1 d=5: value decomposition identity (symbolic in x, e, f, Y, c, s)
+PASS S2 d=5: key identity <f,Y><f,RY> - <f,AY>^2 - <f,BY>^2 = (2-2c)(PM - |w|^2) mod c^2+s^2=1
+PASS S3 d=5: 4(PM - |w|^2) = (f0^2-f_x^2-|f_-|^2)(Y0^2-Y_x^2) + |f_-|^2(Y0^2-Y_x^2-|Y_-|^2) + L
+PASS S3 d=5: L(f_-, Y_-) is the explicit sum of squares (complex Lagrange identity)
+PASS S1 d=7: value decomposition identity (symbolic in x, e, f, Y, c, s)
+PASS S2 d=7: key identity <f,Y><f,RY> - <f,AY>^2 - <f,BY>^2 = (2-2c)(PM - |w|^2) mod c^2+s^2=1
+PASS S3 d=7: 4(PM - |w|^2) = (f0^2-f_x^2-|f_-|^2)(Y0^2-Y_x^2) + |f_-|^2(Y0^2-Y_x^2-|Y_-|^2) + L
+PASS S3 d=7: L(f_-, Y_-) is the explicit sum of squares (complex Lagrange identity)
+     CC1 most negative value found: -18/25
+PASS CC1 countercontrol: tangent block of G_t with the classical rotation R_-t fails posFwd (exact negative value)
+PASS CC1 sanity: the J/K flow G_a has no negative value at the same sample points (min 0)
+     CC2 most negative value found: -1/5
+PASS CC2 countercontrol: J/K gate with the J-component scaled by 6/5 fails posFwd (exact negative value)
+b4_jkflow: 43/43 checks PASS
+VERDICT B4-JKFLOW-GREEN

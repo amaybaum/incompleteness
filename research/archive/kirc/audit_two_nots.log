@@ -1,0 +1,8 @@
+frame True
+invertible (G^2 = I) True
+J, K orthogonal complex structures on T_A, V-: True True
+J anticommutes with N_A on T_A: True
+Rt with N_B: (I(x)N_B) G (I(x)N_B) = G: True
+Rc with N_A on control, N_B on target: (N_A(x)I) G (N_A(x)I) = (I(x)N_B) G: True
+Rc with the SAME N (N_B on both): False
+positivity cross-check: min over unit s,t,f,g of (f(x)g)(G(s(x)t)) ~ -7.63e-16 (and for G^-1 = G)

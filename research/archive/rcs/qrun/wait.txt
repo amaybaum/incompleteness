@@ -1,0 +1,7 @@
+run=37740125662
+completed success attempt=1 sha=eecdecdf42f30dc35326850490a56901eae7649b event=workflow_dispatch
+jobs=32
+success:32
+  113188671297 Mathlib bridge success
+  113188671770 Lean kernel check success
+  113194678988 Numerical probes success

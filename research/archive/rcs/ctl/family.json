@@ -1,0 +1,12 @@
+{
+  "name": "DIM-1's dimension selector without the target relation: the control relation alone forces odd dimension; the frame, both positivity clauses and the control relation give d = 1 or d = 3; and at d = 5 explicit countermodels show that neither positivity clause can be dropped and that the target relation does not replace the control relation (round RELC-SELECT-1, reconstruction)",
+  "modules": [
+    "RelcSelectParity",
+    "RelcSelectBlock",
+    "RelcSelectSqueeze",
+    "RelcSelectC5"
+  ],
+  "status": "kernel-only",
+  "manuscript": [],
+  "note": "Round RELC-SELECT-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-relc-select-1/preregistration.md. Q-PAR: from IsNot (eball d) z N and the control relation alone, the two homogenized eigenspaces of N have equal dimension and d is not even (finrank_plus_eq_finrank_minus_relC, not_even_of_relC). Q-SEL: CtrlGate, NativeGate's frame, two positivity clauses and control relation without its target relation, gives d = 1 ∨ d = 3 with IsNot and d = 3 with Entangling (dim_of_ctrlGate, three_of_ctrlGate), through DIM-1's block reduction restated over CtrlGate with its one target-relation step replaced by actT_slice_ctrl. Q-POS: at d = 5 with PARITY-NOT-1's n5, the squeezed gate gSq has the frame, GateRel and forward positivity and fails inverse positivity, and its inverse has the frame, GateRel and inverse positivity and fails forward positivity (gSq_sep, gSqInv_sep). Q-REL: at d = 5 the witness NOT nC5 and NB-1's J/K map gC5 have the frame, the target relation and both positivity clauses and fail the control relation (c5_sep), so those clauses with IsNot do not give d = 1 ∨ d = 3 (relT_not_dimension_selecting). Carried by no manuscript. CtrlGate is the selector's hypothesis only; NativeGate and GateRel are unchanged and the target relation remains a field of both; the transfer of the control relation to an inverse reads the target relation; the frame is not audited."
+}

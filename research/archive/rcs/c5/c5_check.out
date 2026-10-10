@@ -1,0 +1,55 @@
+PASS A Lean sgnC5 condition text is the transcribed one
+PASS A Lean oddC5 text
+PASS A Lean tables define NB-1's frozen d = 5 J/K map (native_gate_ball_probe.jk_map at L)
+PASS A NB-1's N = diag(1,1,-1,-1,-1,-1) is homMap nC5
+PASS A Lean tables define REL-T's C_5 (relt_pos_exact.jk_gate(5))
+PASS B pcC5_pcC5
+PASS B ptC5_ptC5
+PASS B sgnC5_mul_sgnC5
+PASS B oddC5_ptC5
+PASS C nC5 = diag(1,-1,-1,-1,-1)
+PASS C IsNot: unit, involution, orthogonal (preserves eball), flips
+PASS C relt_common.isNot agrees
+PASS C frame
+PASS C relT
+PASS C relC fails
+PASS C G^2 = I (gC5.symm = gC5)
+PASS C eigenspaces of homMap nC5: (2, 4) (unbalanced)
+PASS C witness: actC nC5 (gC5 (actC nC5 (entW 3 3))) 4 4 = 1
+PASS C witness: actT nC5 (gC5 (entW 3 3)) 4 4 = -1
+PASS D prodEffVal_gC5_prodState: value = (e0+x4 e5)p + (e5+x4 e0)m + s1 al + s2 be
+PASS D p + m = <f, hom y>, p - m = <f, homMap nC5 (hom y)>
+PASS D the Lean statement text carries this RHS
+PASS E selC5_cs: (sum a^2)(sum b^2) - (a.b)^2 = sum_{i<j} (a_i b_j - a_j b_i)^2
+PASS E selC5_cauchy2: (s1^2+s2^2)(a^2+b^2) - (s1 a + s2 b)^2 = (s1 b - s2 a)^2
+PASS E selC5_besselJ: A4 B4 - dot^2 - (a.Jb)^2 = J1^2 + J2^2
+PASS E selC5_besselK: A4 B4 - dot^2 - (a.Kb)^2 = K1^2 + K2^2
+PASS E the Lean besselJ/besselK texts carry these terms
+PASS E s2 is besselJ's second term at a = (e1..e4), b = (x0..x3)
+PASS E be is besselK's second term at a = (f2..f5), b = (y1..y4)
+PASS E selC5_mix: (A+B)^2 - (2u)^2 = (A-B)^2 + 4(AB - u^2)
+PASS E selC5_target hid: (f0+f1 y0)^2 - (f0 y0+f1)^2 = (f0^2-f1^2)(1-y0^2)
+PASS E selC5_target hminus: the cs instance at (y0,-y1,..,-y4) has LHS (f1 y0 - (f2y1+..))^2 and the same norm
+PASS E selC5_ctrl hprod: (e0^2-e5^2)(1-x4^2)(p^2-m^2) = A B
+PASS E selC5_ctrl hsum: A + B + 2u = 2 * value
+PASS F countercontrol: gJ5_value = -1/10 reproduced
+PASS F countercontrol: a one-sign mutation breaks the value identity
+PASS F mutation J := id keeps frame, relT and G^2 = I (so the evaluator, not the relations, must catch it)
+PASS F countercontrol: (a.b)^2 + (a.Sb)^2 <= |a|^2|b|^2 fails for the symmetric swap S (value 8 > 4)
+PASS G sampled exact values of gC5 on sphere products / boundary effects >= 0 (min 1840547118394763/5417001515790515)
+PASS G countercontrol: the J := id mutation takes a negative exact value (min -15205115/42020431)
+PASS G the same witness is nonnegative for gC5 (value 13206193/42020431)
+   ring identity hid    ok
+   ring identity hid    ok
+   ring identity hid    ok
+   ring identity hid    ok
+   ring identity hid    ok
+   ring identity e1     ok
+   ring identity e2     ok
+   ring identity hid    ok
+   ring identity hprod  ok
+   ring identity hsum   ok
+PASS H parser self-test: a false identity is rejected
+PASS H all 10 `have ... := by ring` identities of the Lean draft hold as polynomial identities
+PASS H selC5_mix: no rational counterexample in 3000 samples
+c5_check: 44/44 checks pass

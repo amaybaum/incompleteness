@@ -1,0 +1,108 @@
+
+== positive controls (landed facts reproduced) ==
+PASS PC1 gJ5_value = -1/10 (ParityNot l.692)  -- -1/10
+PASS PC2 gRev_value k=1 = -1/10 (OddChar l.258)  -- -1/10
+PASS PC2 gRev_value k=2 = -1/10 (OddChar l.258)  -- -1/10
+PASS PC2 gRev_value k=3 = -1/10 (OddChar l.258)  -- -1/10
+PASS PC3 cnot frame/relT/relC (CompositeDimension cnot_frame/relT/relC)
+
+== certifier controls ==
+PASS CC0+ certifier certifies landed nativeGate_cnot on 40 samples (positive control)  -- 40/40
+PASS CC0- certifier rejects the gJ5 image (not in maxCone by ParityNot.gJ5_not_mem_maxCone)
+
+== d=5(eps=1/10,lam=1/2): exact algebraic clauses ==
+PASS d=5(eps=1/10,lam=1/2) IsNot.unit
+PASS d=5(eps=1/10,lam=1/2) IsNot.invol (signs^2 = 1)
+PASS d=5(eps=1/10,lam=1/2) IsNot.flips
+PASS d=5(eps=1/10,lam=1/2) frame
+PASS d=5(eps=1/10,lam=1/2) relT on all basis vectors
+PASS d=5(eps=1/10,lam=1/2) relC on all basis vectors
+PASS d=5(eps=1/10,lam=1/2) G is a linear equivalence (rank = (d+1)^2)  -- rank 36
+PASS d=5(eps=1/10,lam=1/2) G.symm o G = id on basis
+PASS d=5(eps=1/10,lam=1/2) N1: G.symm has frame, relT, relC
+PASS d=5(eps=1/10,lam=1/2) corner form G(hom z (x) Y) = hom z (x) K Y  (Mfwd = K_lam)
+PASS d=5(eps=1/10,lam=1/2) Minv = K^-1 does not preserve Lor: Minv(hom e1) not in Lor (lor_Minv fails)  -- ['1', '2', '0', '0', '0', '0']
+PASS d=5(eps=1/10,lam=1/2) posInv FAILS: prodEffVal (sharpEff z) (sharpEff -e1) (G.symm (prodState z e1)) = -1/2  -- expected -1/2
+
+== d=5(eps=1/10,lam=1/2): symbolic decomposition identity (sympy, exact) ==
+PASS d=5(eps=1/10,lam=1/2) V(a,b,x,y) == (1+al)/2 p A + (1-al)/2 q B + eps (Se Ce + So Co)  identically
+
+== d=5(eps=1/10,lam=1/2): posFwd sample certificates (exact S-lemma certificate per sample) ==
+PASS d=5(eps=1/10,lam=1/2) posFwd certified exactly on 218/218 sample product states  -- uncertified: 0
+PASS d=5(eps=1/10,lam=1/2) posFwd certified exactly at 40/40 float-adversarial product states  -- float minimum found -1.110e-16
+INFO d=5(eps=1/10,lam=1/2) exploratory float minimum of the normalized pairing over unit x,y and sharp a,b: -1.110e-16 (not a certificate)
+
+== countercontrols at d = 5 (each must FAIL posFwd with an exact witness) ==
+
+== d=5(eps=1/10,lam=1): exact algebraic clauses ==
+PASS d=5(eps=1/10,lam=1) IsNot.unit
+PASS d=5(eps=1/10,lam=1) IsNot.invol (signs^2 = 1)
+PASS d=5(eps=1/10,lam=1) IsNot.flips
+PASS d=5(eps=1/10,lam=1) frame
+PASS d=5(eps=1/10,lam=1) relT on all basis vectors
+PASS d=5(eps=1/10,lam=1) relC on all basis vectors
+PASS d=5(eps=1/10,lam=1) G is a linear equivalence (rank = (d+1)^2)  -- rank 36
+PASS d=5(eps=1/10,lam=1) G.symm o G = id on basis
+PASS d=5(eps=1/10,lam=1) N1: G.symm has frame, relT, relC
+PASS d=5(eps=1/10,lam=1) corner form G(hom z (x) Y) = hom z (x) K Y  (Mfwd = K_lam)
+PASS d=5(eps=1/10,lam=1) (no squeeze) Minv = id preserves Lor at hom e1, as lor_Minv requires
+     witness x = ['86040297550979142080229520/89030037463749646657961969', '424046127306374497163631392/5074712135433729859503832233', '217534575986400266098064560/1691570711811243286501277411', '1046359325395866489549902360/5074712135433729859503832233', '-123992407668866866295/5074712135433729859503832233'] 
+     y = ['-130543098/2741405059', '-2738295126/2741405059', '0', '0', '1/2741405059'] 
+     a-direction = ['207479645193822966980061285888/214689173995006411321669551397', '17939555868219723958131868176/214689173995006411321669551397', '27608847418546964144140973220/214689173995006411321669551397', '44266941845737255218258807408/214689173995006411321669551397', '-1780411616777801513315/214689173995006411321669551397'] 
+     b-direction = ['-130543098/2741405059', '2738295126/2741405059', '0', '0', '1/2741405059'] 
+     exact value = -214442751708175994114659197403157084138392263890810910159185257363191440131/8187814156130366629966115010312649749937326818749727143835008739846327232981
+PASS d=5(eps=1/10,lam=1) no-squeeze countercontrol fails posFwd: exact rational witness with unit x,y and sharp effects, value -0.026190 < 0  -- float min of (1,a).om.(1,b) = -0.104762
+PASS d=5(eps=1/10,lam=1) clean witness prodEffVal (sharpEff e1) (sharpEff -e2) (G (prodState e1 e2)) = -eps/4  -- -1/40
+PASS d=5(eps=1/10,lam=1/2) same test on the squeezed gate: ((1-lam) - eps*lam)/4 = 9/80 >= 0  -- 9/80
+     witness x = ['-27251604423974/104598068003935', '-606450476242156/941382612035415', '-27251604423974/104598068003935', '-606450476242156/941382612035415', '-174148129756429/941382612035415'] 
+     y = ['659224154553432/3623902492337761', '0', '-1268192562931944/3623902492337761', '0', '-3330132191272481/3623902492337761'] 
+     a-direction = ['107727926857800/413485141726607', '799116945609740/1240455425179821', '107727926857800/413485141726607', '799116945609740/1240455425179821', '-229474103735779/1240455425179821'] 
+     b-direction = ['3072089628713160/4890496265647961', '0', '-3355843243282420/4890496265647961', '0', '-1793748913305711/4890496265647961'] 
+     exact value = -761089729573581893161338247391815906868533398044516384983964/6898513456214392185953927932435970740961031964132514857871505
+PASS d=5(eps=1,lam=1/2) large-eps countercontrol fails posFwd: exact rational witness with unit x,y and sharp effects, value -0.110327 < 0  -- float min of (1,a).om.(1,b) = -0.441307
+
+== d=3(eps=1/16,lam=1/2): exact algebraic clauses ==
+PASS d=3(eps=1/16,lam=1/2) IsNot.unit
+PASS d=3(eps=1/16,lam=1/2) IsNot.invol (signs^2 = 1)
+PASS d=3(eps=1/16,lam=1/2) IsNot.flips
+PASS d=3(eps=1/16,lam=1/2) frame
+PASS d=3(eps=1/16,lam=1/2) relT on all basis vectors
+PASS d=3(eps=1/16,lam=1/2) relC on all basis vectors
+PASS d=3(eps=1/16,lam=1/2) G is a linear equivalence (rank = (d+1)^2)  -- rank 16
+PASS d=3(eps=1/16,lam=1/2) G.symm o G = id on basis
+PASS d=3(eps=1/16,lam=1/2) N1: G.symm has frame, relT, relC
+PASS d=3(eps=1/16,lam=1/2) corner form G(hom z (x) Y) = hom z (x) K Y  (Mfwd = K_lam)
+PASS d=3(eps=1/16,lam=1/2) Minv = K^-1 does not preserve Lor: Minv(hom e1) not in Lor (lor_Minv fails)  -- ['1', '2', '0', '0']
+PASS d=3(eps=1/16,lam=1/2) posInv FAILS: prodEffVal (sharpEff z) (sharpEff -e1) (G.symm (prodState z e1)) = -1/2  -- expected -1/2
+
+== d=3(eps=1/16,lam=1/2): symbolic decomposition identity (sympy, exact) ==
+PASS d=3(eps=1/16,lam=1/2) V(a,b,x,y) == (1+al)/2 p A + (1-al)/2 q B + eps (Se Ce + So Co)  identically
+
+== d=3(eps=1/16,lam=1/2): posFwd sample certificates (exact S-lemma certificate per sample) ==
+PASS d=3(eps=1/16,lam=1/2) posFwd certified exactly on 98/98 sample product states  -- uncertified: 0
+
+== d=7(eps=1/16,lam=1/2): exact algebraic clauses ==
+PASS d=7(eps=1/16,lam=1/2) IsNot.unit
+PASS d=7(eps=1/16,lam=1/2) IsNot.invol (signs^2 = 1)
+PASS d=7(eps=1/16,lam=1/2) IsNot.flips
+PASS d=7(eps=1/16,lam=1/2) frame
+PASS d=7(eps=1/16,lam=1/2) relT on all basis vectors
+PASS d=7(eps=1/16,lam=1/2) relC on all basis vectors
+PASS d=7(eps=1/16,lam=1/2) G is a linear equivalence (rank = (d+1)^2)  -- rank 64
+PASS d=7(eps=1/16,lam=1/2) G.symm o G = id on basis
+PASS d=7(eps=1/16,lam=1/2) N1: G.symm has frame, relT, relC
+PASS d=7(eps=1/16,lam=1/2) corner form G(hom z (x) Y) = hom z (x) K Y  (Mfwd = K_lam)
+PASS d=7(eps=1/16,lam=1/2) Minv = K^-1 does not preserve Lor: Minv(hom e1) not in Lor (lor_Minv fails)  -- ['1', '2', '0', '0', '0', '0', '0', '0']
+PASS d=7(eps=1/16,lam=1/2) posInv FAILS: prodEffVal (sharpEff z) (sharpEff -e1) (G.symm (prodState z e1)) = -1/2  -- expected -1/2
+
+== d=7(eps=1/16,lam=1/2): symbolic decomposition identity (sympy, exact) ==
+PASS d=7(eps=1/16,lam=1/2) V(a,b,x,y) == (1+al)/2 p A + (1-al)/2 q B + eps (Se Ce + So Co)  identically
+
+== d=7(eps=1/16,lam=1/2): posFwd sample certificates (exact S-lemma certificate per sample) ==
+PASS d=7(eps=1/16,lam=1/2) posFwd certified exactly on 78/78 sample product states  -- uncertified: 0
+
+== d=5(eps=1/16,lam=1/2): posFwd sample certificates (exact S-lemma certificate per sample) ==
+PASS d=5(eps=1/16,lam=1/2) posFwd certified exactly on 78/78 sample product states  -- uncertified: 0
+
+TOTAL 66 checks, 0 failed
+exit 0

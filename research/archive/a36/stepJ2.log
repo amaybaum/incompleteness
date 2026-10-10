@@ -1,0 +1,51 @@
+direction W (sector 2 trial 1), integer 16x16 (rows (a,b) = 4a+b, columns (c,d) = 4c+d):
+      3  -2  -3   0   0   0   0   0   3  -2  -3   0   0   0   0   0
+     10   0   4   2   0   0   0   0  10   0   4   2   0   0   0   0
+      2  -3  -4  -1   0   0   0   0   2  -3  -4  -1   0   0   0   0
+      8  -2   2   0   0   0   0   0   8  -2   2   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      3  -2  -3   0   0   0   0   0   3  -2  -3   0   0   0   0   0
+     10   0   4   2   0   0   0   0  10   0   4   2   0   0   0   0
+      2  -3  -4  -1   0   0   0   0   2  -3  -4  -1   0   0   0   0
+      8  -2   2   0   0   0   0   0   8  -2   2   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+W dephased (row 0 and column 0 removed):
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0  -5   0  -5  -7  -7  -7  -7   0  -5   0  -5  -7  -7  -7  -7
+      0   0   0   0   1   1   1   1   0   0   0   0   1   1   1   1
+      0  -5   0  -5  -5  -5  -5  -5   0  -5   0  -5  -5  -5  -5  -5
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+      0  -5   0  -5  -7  -7  -7  -7   0  -5   0  -5  -7  -7  -7  -7
+      0   0   0   0   1   1   1   1   0   0   0   0   1   1   1   1
+      0  -5   0  -5  -5  -5  -5  -5   0  -5   0  -5  -5  -5  -5  -5
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+      0   5   6   3   3   3   3   3   0   5   6   3   3   3   3   3
+affine family A_w: dim 36, mod gauge 5
+   dim(A_w ∩ T_c) mod gauge: 0
+   dim(A_w ∩ T_r) mod gauge: 0
+   dim(A_w ∩ span of column ((0, 1, 2, 3), (4, 5, 6, 7)) hulls) mod gauge: 0
+   dim(A_w ∩ span of column ((0, 2, 8, 10), (1, 3, 9, 11)) hulls) mod gauge: 3
+   dim(A_w ∩ span of column ((0, 2, 9, 11), (1, 3, 8, 10)) hulls) mod gauge: 0
+   dim(A_w ∩ span of column ((0, 4, 8, 12), (1, 5, 9, 13)) hulls) mod gauge: 2
+   dim(A_w ∩ span of row ((0, 1, 2, 3), (4, 5, 6, 7)) hulls) mod gauge: 0
+   dim(A_w ∩ span of row ((0, 2, 8, 10), (1, 3, 9, 11)) hulls) mod gauge: 3
+   dim(A_w ∩ span of row ((0, 2, 9, 11), (1, 3, 8, 10)) hulls) mod gauge: 0
+   dim(A_w ∩ span of row ((0, 4, 8, 12), (1, 5, 9, 13)) hulls) mod gauge: 1
+near point P = SIG ∘ u^W with u = (60+i)/(60-i): max phase angle 19.1°, Hadamard exactly: True
+   defect of P: 33
+   relabelled column-Diţă orientations through P: candidates 1, exact factorizations 0
+   relabelled row-Diţă orientations through P: candidates 1, exact factorizations 0
+   fixed-pairing cross-ratio identity violations at P: 176 of 576
+done (146s)

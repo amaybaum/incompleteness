@@ -1,0 +1,21 @@
+PASS C1 landed identity reproduced: actT reflY phiW == idW
+PASS C1 test charts are exactly orthogonal with determinants [1, -1, 1, -1]
+PASS C1 idW is fixed by every tested uniform chart actC a . actT a (proper and improper a)
+PASS C1 pauli(idW) == F/2 (F the flip of two qubits)
+PASS C1 <singlet| pauli(idW) |singlet> = -1/2 = -1/2, so pauli(idW) is not PSD
+PASS C2 per-token chart (I, R) carries idW to phiW, spectrum {1: 1, 0: 3}
+PASS C2 countercontrol: the same chart carries phiW (in Q3) to idW (not PSD)
+PASS C3 the twin's native exchange under the per-token chart is T.SWAP (exact on a generic table)
+PASS C3 idle extension of T.SWAP maps |0><0| (x) Phi+ to spectrum {1/2: 3, -1/2: 1, 0: 4}: eigenvalue -1/2, not positive
+PASS C3 control: Q3's native exchange (Ad SWAP) idly extended keeps the state PSD, spectrum {1: 1, 0: 7}
+PASS G n = 3: 1 unlabelled trees, every closure = 63
+PASS G n = 3 countercontrol: every one-edge-deleted forest closes at the sum over its components
+PASS G n = 4: 2 unlabelled trees, every closure = 255
+PASS G n = 4 countercontrol: every one-edge-deleted forest closes at the sum over its components
+PASS G n = 5: 3 unlabelled trees, every closure = 1023
+PASS G n = 5 countercontrol: every one-edge-deleted forest closes at the sum over its components
+PASS G n = 6: 6 unlabelled trees, every closure = 4095
+PASS G n = 6 countercontrol: every one-edge-deleted forest closes at the sum over its components
+PASS G n = 7: 11 unlabelled trees, every closure = 16383
+PASS G n = 7 countercontrol: every one-edge-deleted forest closes at the sum over its components
+review_pass2: 20/20 checks pass

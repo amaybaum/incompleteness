@@ -1,0 +1,17 @@
+|G| = 192
+K_tw generators: 36
+(i) countercontrol (k0, GHZ+): -2.5000e-01
+(i) min over filters of tr(g' Ad(k) k0)/norms, g' over the k0 orbit (8): -6.9778e-17
+(ii) countercontrol (GHZ+, k0; (1/2) (x) SWAP/2 effects): -1.5625e-02
+(ii) after quadruple 1: worst normalized min 3.7452e-11
+(ii) after quadruple 2: worst normalized min 3.7452e-11
+(ii) after quadruple 3: worst normalized min 3.6680e-11
+(ii) after quadruple 4: worst normalized min 3.3816e-12
+(ii) after quadruple 5: worst normalized min 3.3816e-12
+(ii) after quadruple 6: worst normalized min 3.3816e-12
+(ii) after quadruple 7: worst normalized min 4.4725e-14
+(ii) after quadruple 8: worst normalized min 4.4725e-14
+(ii) after quadruple 9: worst normalized min 4.4725e-14
+(ii) after quadruple 10: worst normalized min 4.4725e-14
+(ii) Lift(K_tw) nodes, 10 random generator quadruples: worst normalized min 4.4725e-14
+countercontrols negative: True

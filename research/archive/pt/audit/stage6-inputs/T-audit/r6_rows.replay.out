@@ -1,0 +1,8 @@
+CONFIRMED T1 tables A1, A2, A3 present with 199 item rows each, identical ids -- rows {'A1': 199, 'A2': 199, 'A3': 199, 'A3-seeds': 0}
+CONFIRMED T2 tallies 118/13/68 (A1, A2) and 118/12/1/68 (A3) -- {'A1': {'FAILS': 13, 'NOT REACHED': 68, 'SATISFIES': 118}, 'A2': {'FAILS': 13, 'NOT REACHED': 68, 'SATISFIES': 118}, 'A3': {'FAILS': 12, 'NOT REACHED': 68, 'SATISFIES': 118, 'UNDECIDED': 1}}
+CONFIRMED T3 FAILS ids as listed; A3 UNDECIDED = I3.161 -- A1 ['I3.133', 'I3.135', 'I3.137', 'I3.142', 'I3.144', 'I3.150', 'I3.151', 'I3.152', 'I3.153', 'I3.155', 'I3.160', 'I3.161', 'I3.165']; A3 undecided ['I3.161']
+CONFIRMED T4 every FAILS row is of a hypothesis class (dna, d4f, cand) -- []
+CONFIRMED T5 every hmg/nr row is NOT REACHED -- []
+classes per table: {'A1': {'b1': 13, 'cand': 2, 'cone': 12, 'd4f': 2, 'd4s': 1, 'd4v': 3, 'def': 12, 'dna': 9, 'gate': 7, 'hmg': 56, 'inh': 46, 'kthm': 1, 'nr': 12, 'thm': 23}, 'A2': {'b1': 13, 'cand': 2, 'cone': 12, 'd4f': 2, 'd4s': 1, 'd4v': 3, 'def': 12, 'dna': 9, 'gate': 7, 'hmg': 56, 'inh': 46, 'kthm': 1, 'nr': 12, 'thm': 23}, 'A3': {'b1': 13, 'cand': 2, 'cone': 12, 'd4f': 2, 'd4s': 1, 'd4v': 3, 'def': 12, 'dna': 9, 'gate': 7, 'hmg': 56, 'inh': 46, 'kthm': 1, 'nr': 12, 'thm': 23}}
+SUMMARY 5/5 CONFIRMED
+R6-ROWS-FIXED

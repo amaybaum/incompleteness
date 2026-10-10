@@ -1,0 +1,33 @@
+modules in tree: 214; K modules: 22; K modules present: 22
+
+## (1) K modules: importers / OIBridge imports
+KInfFoundations: importers = ['OrbitGeneration'] ; imports = ['CoherentExtension']
+OrbitGeneration: importers = ['OrbitNormalization'] ; imports = ['KInfFoundations', 'NativeGateBall']
+OrbitNormalization: importers = ['InvariantInnerProduct', 'StageCompletion'] ; imports = ['OrbitGeneration']
+TransitiveBody: importers = ['CompositeDimension'] ; imports = ['CompletionAction', 'InvariantInnerProduct']
+StageCompletion: importers = ['CompletionAction'] ; imports = ['OrbitNormalization']
+InvariantInnerProduct: importers = ['TransitiveBody'] ; imports = ['OrbitNormalization']
+CompletionAction: importers = ['CompositeInterface', 'CompositionOrder', 'TransitiveBody'] ; imports = ['StageCompletion']
+CompositionOrder: importers = [] ; imports = ['CompletionAction']
+CompositeInterface: importers = ['EffectSpace'] ; imports = ['CompletionAction']
+CompositeDimension: importers = ['EffectSpace'] ; imports = ['NativeGateBall', 'TransitiveBody']
+EffectSpace: importers = ['K1Bridge', 'ParityNot'] ; imports = ['CompositeDimension', 'CompositeInterface']
+K1Bridge: importers = ['K2Guard', 'SharpTests'] ; imports = ['EffectSpace']
+SharpTests: importers = [] ; imports = ['K1Bridge']
+K2Guard: importers = ['DenseOrbit'] ; imports = ['K1Bridge']
+DenseOrbit: importers = [] ; imports = ['K2Guard']
+NativeGateBall: importers = ['CompositeDimension', 'OrbitGeneration'] ; imports = []
+OddChar: importers = ['RelcSelectC5', 'RelcSelectParity', 'RelcSelectSqueeze'] ; imports = ['ParityNot']
+ParityNot: importers = ['OddChar', 'RelcSelectBlock'] ; imports = ['EffectSpace']
+RelcSelectParity: importers = ['RelcSelectBlock'] ; imports = ['OddChar']
+RelcSelectBlock: importers = [] ; imports = ['ParityNot', 'RelcSelectParity']
+RelcSelectSqueeze: importers = [] ; imports = ['OddChar']
+RelcSelectC5: importers = [] ; imports = ['OddChar']
+
+## (2) non-K modules importing a K module: []
+## (3) non-K modules imported by a K module: ['CoherentExtension']
+## (4) transitive importers of CompositeDimension: ['DenseOrbit', 'EffectSpace', 'K1Bridge', 'K2Guard', 'OddChar', 'ParityNot', 'RelcSelectBlock', 'RelcSelectC5', 'RelcSelectParity', 'RelcSelectSqueeze', 'SharpTests']
+     of which outside K: []
+## (4) transitive importers of KInfFoundations: ['CompletionAction', 'CompositeDimension', 'CompositeInterface', 'CompositionOrder', 'DenseOrbit', 'EffectSpace', 'InvariantInnerProduct', 'K1Bridge', 'K2Guard', 'OddChar', 'OrbitGeneration', 'OrbitNormalization', 'ParityNot', 'RelcSelectBlock', 'RelcSelectC5', 'RelcSelectParity', 'RelcSelectSqueeze', 'SharpTests', 'StageCompletion', 'TransitiveBody']
+     of which outside K: []
+END

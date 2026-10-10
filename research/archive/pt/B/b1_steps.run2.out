@@ -1,0 +1,35 @@
+
+== A  the _cons declarations are the design declarations with only the consuming lines changed
+PASS A1  [source] FourCopyHeadline.ie1_all -> ie1_all_cons: binders differ exactly by -['hgate', 'hprod'] +['hcons'], same result type, body differs exactly in the frozen lines -- binders True, type True, body True (removed 1, added 1)
+PASS A2  [source] FourCopyIE1.parity_witnesses -> parity_witnesses_cons: binders differ exactly by -['hgate', 'hinv', 'hprod'] +['hbe0', 'hbs0'], same result type, body differs exactly in the frozen lines -- binders True, type True, body True (removed 2, added 2)
+PASS A3  [source] FourCopyHeadline.parity_all -> parity_all_cons: binders differ exactly by -['hgate', 'hinv'] +['hbe', 'hbs'], same result type, body differs exactly in the frozen lines -- binders True, type True, body True (removed 4, added 4)
+PASS A4  [source] FourCopyHeadline.kt4_general_ie1 -> kt4_general_ie1_cons: binders differ exactly by -['hgate'] +['hcons'], same result type, body differs exactly in the frozen lines -- binders True, type True, body True (removed 7, added 4)
+PASS A5  [source] FourCopyHeadline.kt4_forward_ie1 -> kt4_forward_ie1_cons: binders differ exactly by -['hgate'] +['hcons'], same result type, body differs exactly in the frozen lines -- binders True, type True, body True (removed 1, added 1)
+PASS A6  [source] cons_of_oq1.link = the control half of link_mem with "hgate _ (hprod _ X _ Y)" read as "h.1 _ X _ Y"
+PASS A7  [source] cons_of_oq1.bs = bell_mem with "exact hgate _ (hprod x hx y hy)" read as "exact h.1 x hx y hy"
+PASS A8  [source] oq1_of_sect = bell_mem_dual with the inverse-gate step replaced and "refine ⟨h.1, ?_⟩" prepended (the scaling lines identical) -- removed ['have h := dualW_of_inv hcls.ipW_map hinv (sharp_mem_dualW hK hb hc)'], added ['refine ⟨h.1, ?_⟩', 'have h := gate_sharp_mem_dualW_of_inv_pos hcls.ipW_map h.2 hb hc']
+PASS A9  [source] gate_sharp_mem_dualW_of_inv_pos = sharp_mem_dualW read through the gate: the refine line and the sharpEff_isEffectOn tail identical, "hK hX" -> "hpos X hX" after the rewrite h1
+PASS A.cc  [countercontrol] countercontrol: a copy of ie1_all_cons with one extra changed line is not accepted by the A1 rule
+
+== B  hygiene of the UNBUILT file
+PASS B1  [source] no sorry, admit or axiom in B1_UNBUILT.lean
+PASS B2  [source] hgate occurs only in cons_of_hgate and prec_of_hgate (the implications FROM hgate); hinv nowhere -- ['cons_of_hgate', 'prec_of_hgate']
+PASS B3  [source] the file states UNBUILT in its header
+
+== C  every lemma the UNBUILT file calls exists in the design modules or the landed sources
+PASS C1  [source] all 59 called lemma names are declared in the design or landed sources
+PASS C2  [source] the NClass dot-lemmas used (apply_prodState, bell_state, bell_effect, ipW_map) are declared in FourCopyLocal
+PASS C3  [source] every listed name is actually used by the UNBUILT file (the list is not padded) -- 59/59
+
+== D  table-level identities behind the new lemmas
+PASS D1  [identity] locEquiv: actC C^T (actT D^T (actC C (actT D w))) = actC (C^T C) (actT (D^T D) w), symbolic (with C^T C = D^T D = I this is w: the stated inverse)
+PASS D2  [identity] nclass_comp_loc: N(A,B,A',B') (actC C (actT D w)) = N(A, B, A' C, B' D) w, symbolic (a corrected gate keeps its post-locals)
+PASS D3  [identity] link_target_of_ctrl: actC (A Rz Rx) (actT B phiW) = actC A (actT (B Rx Rz) phiW), symbolic A, B and angles (the control and target forms of a link are one table)
+PASS D4  [identity] N-CLASS gates fix the unit entry: N(A,B,A',B') w at (0,0) equals w at (0,0), symbolic (normalization is kept, used by GT-COMP <=> SECT)
+PASS D5  [identity] for the four gates of the models: the ipW-adjoint of N (the transpose formula) satisfies ipW (N E) X = ipW E (adj X) and is the inverse, adj . N = id, symbolic E, X (so the gate image of a product effect pairs with X as the product effect with N^-1 X)
+PASS D6  [identity] transported evaluation law, the four gates: ipW (N (a b^T)) (N (prodState x y)) = (a.x^)(b.y^), symbolic (the gate-transported product data satisfy COMP-1's evaluation law)
+PASS D.cc  [countercontrol] countercontrol: for a non-orthogonal pre-local the ipW-adjoint (transpose formula) is not the inverse: adj . N != id (orthogonality of the locals is what D5 uses)
+
+kinds: identity 6, source 15, countercontrol 2
+VERDICT B1-STEPS: each consuming step of the design proof has an exact counterpart in B1_UNBUILT.lean that changes only that step: link_mem (A1, A6), bell_mem (A4, A7), Lemma R (A4: deleted), bell_mem_dual (A4, A8, A9), parity_witnesses (A2, A3); kt4_general_ie1 and kt4_forward_ie1 are reassembled (A4, A5).  The file is UNBUILT; the sufficiency statements rest on these diffs, the design-run lemmas they call, and identities D1-D6.
+b1_steps: OK -- 23 checks

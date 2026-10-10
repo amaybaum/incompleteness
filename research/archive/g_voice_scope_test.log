@@ -1,0 +1,8 @@
+  OK   voice_check ignores verification/SYNTHETIC-SCOPE-PROBE.md  (control-plane and audit records are outside the manuscript)
+  OK   voice_check flags papers/SyntheticScopeProbe.md  (papers are manuscript and must be scanned)
+  OK   voice_check flags book/ch99-synthetic-scope-probe.md  (book chapters are manuscript and must be scanned)
+  OK   voice_check ignores book/README.md  (directory documentation beside the book is not manuscript prose)
+  OK   voice_check ignores papers/Complexity.md  (the documented papers/ exception, which stays exempt)
+  OK   voice_check flags book/Complexity.md  (the exception is keyed to papers/, not to the bare filename)
+
+voice_scope_test: OK (6 scope case(s); the checker scans the manuscript and only the manuscript)

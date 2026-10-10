@@ -1,0 +1,13 @@
+# Track B act 45 — result (temporary, local controls test only)
+
+**Outcome:** `A45-BRIDGE-PROVED`
+
+For a trivial-ancilla admissible dilation `pad U` of a visible slice `G`, the fixed-basis datum `realData U` — evolution `U`, uniform initial law, identity readout — has root-conditioned trajectory laws determined by `G` alone, also after `permClass` interventions on either side of `U`; its rooted families agree with those of a second such datum exactly when the two slices are equal; and each of its trajectory laws is `Q_fb`-realizable and stochastic, so it lies in the class the landed equivalence `S ⇔ D ⇔ Q_fb` describes. At the product configuration every flat 16 × 16 Hadamard `H` gives the unitary `U_H = H/4`, whose Born weights are `1/16`, the entries of `Γ₀ ⊗ Γ₀`. These are kernel theorems at evidence level 2. The round's probe computes, in exact arithmetic and not in the kernel, that an ancilla carried between steps as hidden basis states separates two dilations of one slice that share every column entering the slice, at two steps, while an ancilla attached as a tensor factor leaves the rooted family equal to `Gᵗ`. This is a statement about the frozen mathematical objects; it recovers no realization's class from its data, adopts no relation, carrier or intervention class as the physical one, and leaves `P0`'s cross-time parts open.
+
+**THE CLAUSE, carried at this mention — the result.**
+
+> Act 45 proves statements about the fixed-basis data that a single-time trivial-ancilla lift instantiates, and adopts none of them as anything but mathematics. A `BRIDGE-PROVED` verdict settles, for trivial-ancilla admissible dilations and the fixed-basis datum with the dilation's unitary as its evolution, a uniform initial law and the identity readout, that the root-conditioned trajectory laws are determined by the visible slice, also after `permClass` interventions on either side, that the rooted families agree exactly when the slices are equal, and that each trajectory law is fixed-basis realizable and stochastic. It recovers no realization's class from its data, proves nothing in the kernel about a nontrivial ancilla, adopts no relation, carrier or intervention class as the physical one, and leaves `P0`'s cross-time parts open; no principle gains physical status by appearing here, and nothing here names, endorses or excludes a selection principle.
+
+`fixed_basis_ancilla_probe: OK -- 16 checks: six flat realizations of one slice give equal rooted families before and after monomial interventions; carried ancilla separates at two steps; tensor-factor ancilla does not`
+
+Reference implementation `9d6086bbe3af28e576adf2fb51784b02a5d66e5f`; module at E `9d6086bbe3af28e576adf2fb51784b02a5d66e5f`.

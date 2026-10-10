@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eqreview/audit_eq4p.py", line 480, in <module>
+    rhs = (sp.Rational(1, 4) * ((a_ + d_) * sp.conjugate(a_ + d_)) * (m2 == m)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+TypeError: unsupported operand type(s) for *: 'Mul' and 'bool'
+exit 1

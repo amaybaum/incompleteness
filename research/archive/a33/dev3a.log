@@ -1,0 +1,2500 @@
+info: OIBridge/OrbitGeometryIsometries.lean:1259:0: 'OIBridge.OrbitGeometryIsometries.fourier_coord_uniform' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryIsometries.lean:1260:0: 'OIBridge.OrbitGeometryIsometries.fourier_coord_diff_norm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryIsometries.lean:1261:0: 'OIBridge.OrbitGeometryIsometries.fourier_circle_metric' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3593/3602] Replayed OIBridge.OrbitGeometryRigidity
+info: OIBridge/OrbitGeometryRigidity.lean:2329:0: 'OIBridge.OrbitGeometryRigidity.featureVec_ofLp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2330:0: 'OIBridge.OrbitGeometryRigidity.dist_featureVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2331:0: 'OIBridge.OrbitGeometryRigidity.featureVec_gauge' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2332:0: 'OIBridge.OrbitGeometryRigidity.gramPhaseEquiv_of_featureVec_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2333:0: 'OIBridge.OrbitGeometryRigidity.featureVec_mem_normalizedSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2334:0: 'OIBridge.OrbitGeometryRigidity.relabelled_fourier_mem_normalizedSet' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2335:0: 'OIBridge.OrbitGeometryRigidity.normalizedSet_eq_iUnion' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2336:0: 'OIBridge.OrbitGeometryRigidity.featureVec_image_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2337:0: 'OIBridge.OrbitGeometryRigidity.bridge_of_tuple_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2338:0: 'OIBridge.OrbitGeometryRigidity.tuple_isometry_of_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2339:0: 'OIBridge.OrbitGeometryRigidity.inner_sub_eq_of_dist_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2340:0: 'OIBridge.OrbitGeometryRigidity.exists_linearIsometryEquiv_of_inner_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2341:0: 'OIBridge.OrbitGeometryRigidity.exists_affineIsometryEquiv_of_dist_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2342:0: 'OIBridge.OrbitGeometryRigidity.eqOn_affineSpan_of_agree' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2343:0: 'OIBridge.OrbitGeometryRigidity.exists_affineIsometryEquiv_of_isSurjIsometryOn' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2344:0: 'OIBridge.OrbitGeometryRigidity.a26_0_affine_extension' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2345:0: 'OIBridge.OrbitGeometryRigidity.fourier_coord_002' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2346:0: 'OIBridge.OrbitGeometryRigidity.relabelled_coord_002' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2347:0: 'OIBridge.OrbitGeometryRigidity.a26_1_circle_census' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2348:0: 'OIBridge.OrbitGeometryRigidity.circle_coincide_trans' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2349:0: 'OIBridge.OrbitGeometryRigidity.stab_row_swap13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2350:0: 'OIBridge.OrbitGeometryRigidity.stab_col_swap13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2351:0: 'OIBridge.OrbitGeometryRigidity.stab_row_double' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2352:0: 'OIBridge.OrbitGeometryRigidity.stab_col_double' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2353:0: 'OIBridge.OrbitGeometryRigidity.perm_decomp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2354:0: 'OIBridge.OrbitGeometryRigidity.core_const_0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2355:0: 'OIBridge.OrbitGeometryRigidity.core_const_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2356:0: 'OIBridge.OrbitGeometryRigidity.core_const_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2357:0: 'OIBridge.OrbitGeometryRigidity.core_const_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2358:0: 'OIBridge.OrbitGeometryRigidity.core_const_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2359:0: 'OIBridge.OrbitGeometryRigidity.core_const_5' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2360:0: 'OIBridge.OrbitGeometryRigidity.core_const_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2361:0: 'OIBridge.OrbitGeometryRigidity.core_const_7' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2362:0: 'OIBridge.OrbitGeometryRigidity.core_const_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2363:0: 'OIBridge.OrbitGeometryRigidity.core_const_9' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2364:0: 'OIBridge.OrbitGeometryRigidity.core_const_10' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2365:0: 'OIBridge.OrbitGeometryRigidity.core_const_11' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2366:0: 'OIBridge.OrbitGeometryRigidity.core_const_12' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2367:0: 'OIBridge.OrbitGeometryRigidity.core_const_13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2368:0: 'OIBridge.OrbitGeometryRigidity.core_const_14' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2369:0: 'OIBridge.OrbitGeometryRigidity.core_const_15' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2370:0: 'OIBridge.OrbitGeometryRigidity.core_const_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2371:0: 'OIBridge.OrbitGeometryRigidity.core_const_17' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2372:0: 'OIBridge.OrbitGeometryRigidity.core_const_18' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2373:0: 'OIBridge.OrbitGeometryRigidity.core_val_0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2374:0: 'OIBridge.OrbitGeometryRigidity.core_val_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2375:0: 'OIBridge.OrbitGeometryRigidity.core_val_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2376:0: 'OIBridge.OrbitGeometryRigidity.core_val_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2377:0: 'OIBridge.OrbitGeometryRigidity.core_val_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2378:0: 'OIBridge.OrbitGeometryRigidity.core_val_5' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2379:0: 'OIBridge.OrbitGeometryRigidity.core_val_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2380:0: 'OIBridge.OrbitGeometryRigidity.core_val_7' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2381:0: 'OIBridge.OrbitGeometryRigidity.core_val_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2382:0: 'OIBridge.OrbitGeometryRigidity.core_val_9' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2383:0: 'OIBridge.OrbitGeometryRigidity.core_val_10' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2384:0: 'OIBridge.OrbitGeometryRigidity.core_val_11' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2385:0: 'OIBridge.OrbitGeometryRigidity.core_val_12' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2386:0: 'OIBridge.OrbitGeometryRigidity.core_val_13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2387:0: 'OIBridge.OrbitGeometryRigidity.core_val_14' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2388:0: 'OIBridge.OrbitGeometryRigidity.core_val_15' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2389:0: 'OIBridge.OrbitGeometryRigidity.core_val_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2390:0: 'OIBridge.OrbitGeometryRigidity.core_val_17' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2391:0: 'OIBridge.OrbitGeometryRigidity.core_val_18' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2392:0: 'OIBridge.OrbitGeometryRigidity.core_val_19' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2393:0: 'OIBridge.OrbitGeometryRigidity.core_val_20' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2394:0: 'OIBridge.OrbitGeometryRigidity.core_val_21' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2395:0: 'OIBridge.OrbitGeometryRigidity.core_val_22' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2396:0: 'OIBridge.OrbitGeometryRigidity.core_val_23' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2397:0: 'OIBridge.OrbitGeometryRigidity.core_val_24' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2398:0: 'OIBridge.OrbitGeometryRigidity.core_val_25' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2399:0: 'OIBridge.OrbitGeometryRigidity.core_val_26' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2400:0: 'OIBridge.OrbitGeometryRigidity.core_val_27' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2401:0: 'OIBridge.OrbitGeometryRigidity.core_val_28' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2402:0: 'OIBridge.OrbitGeometryRigidity.core_val_29' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2403:0: 'OIBridge.OrbitGeometryRigidity.core_val_30' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2404:0: 'OIBridge.OrbitGeometryRigidity.core_val_31' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2405:0: 'OIBridge.OrbitGeometryRigidity.nc_0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2406:0: 'OIBridge.OrbitGeometryRigidity.nc_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2407:0: 'OIBridge.OrbitGeometryRigidity.nc_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2408:0: 'OIBridge.OrbitGeometryRigidity.nc_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2409:0: 'OIBridge.OrbitGeometryRigidity.nc_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2410:0: 'OIBridge.OrbitGeometryRigidity.nc_5' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2411:0: 'OIBridge.OrbitGeometryRigidity.nc_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2412:0: 'OIBridge.OrbitGeometryRigidity.nc_7' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2413:0: 'OIBridge.OrbitGeometryRigidity.nc_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2414:0: 'OIBridge.OrbitGeometryRigidity.nc_9' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2415:0: 'OIBridge.OrbitGeometryRigidity.nc_10' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2416:0: 'OIBridge.OrbitGeometryRigidity.nc_11' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2417:0: 'OIBridge.OrbitGeometryRigidity.nc_12' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2418:0: 'OIBridge.OrbitGeometryRigidity.nc_13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2419:0: 'OIBridge.OrbitGeometryRigidity.nc_14' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2420:0: 'OIBridge.OrbitGeometryRigidity.nc_15' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2421:0: 'OIBridge.OrbitGeometryRigidity.nc_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2422:0: 'OIBridge.OrbitGeometryRigidity.nc_17' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2423:0: 'OIBridge.OrbitGeometryRigidity.nc_18' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2424:0: 'OIBridge.OrbitGeometryRigidity.nc_19' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2425:0: 'OIBridge.OrbitGeometryRigidity.nc_20' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2426:0: 'OIBridge.OrbitGeometryRigidity.nc_21' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2427:0: 'OIBridge.OrbitGeometryRigidity.nc_22' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2428:0: 'OIBridge.OrbitGeometryRigidity.nc_23' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2429:0: 'OIBridge.OrbitGeometryRigidity.nc_24' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2430:0: 'OIBridge.OrbitGeometryRigidity.nc_25' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2431:0: 'OIBridge.OrbitGeometryRigidity.nc_26' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2432:0: 'OIBridge.OrbitGeometryRigidity.nc_27' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2433:0: 'OIBridge.OrbitGeometryRigidity.nc_28' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2434:0: 'OIBridge.OrbitGeometryRigidity.nc_29' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2435:0: 'OIBridge.OrbitGeometryRigidity.nc_30' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2436:0: 'OIBridge.OrbitGeometryRigidity.nc_31' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2437:0: 'OIBridge.OrbitGeometryRigidity.nc_32' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2438:0: 'OIBridge.OrbitGeometryRigidity.nc_33' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2439:0: 'OIBridge.OrbitGeometryRigidity.nc_34' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2440:0: 'OIBridge.OrbitGeometryRigidity.nc_35' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2441:0: 'OIBridge.OrbitGeometryRigidity.nc_36' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2442:0: 'OIBridge.OrbitGeometryRigidity.nc_37' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2443:0: 'OIBridge.OrbitGeometryRigidity.nc_38' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2444:0: 'OIBridge.OrbitGeometryRigidity.nc_39' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2445:0: 'OIBridge.OrbitGeometryRigidity.nc_40' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2446:0: 'OIBridge.OrbitGeometryRigidity.nc_41' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2447:0: 'OIBridge.OrbitGeometryRigidity.nc_42' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2448:0: 'OIBridge.OrbitGeometryRigidity.nc_43' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2449:0: 'OIBridge.OrbitGeometryRigidity.nc_44' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2450:0: 'OIBridge.OrbitGeometryRigidity.nc_45' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2451:0: 'OIBridge.OrbitGeometryRigidity.nc_46' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2452:0: 'OIBridge.OrbitGeometryRigidity.nc_47' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2453:0: 'OIBridge.OrbitGeometryRigidity.nc_48' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2454:0: 'OIBridge.OrbitGeometryRigidity.nc_49' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2455:0: 'OIBridge.OrbitGeometryRigidity.nc_50' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2456:0: 'OIBridge.OrbitGeometryRigidity.nc_51' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2457:0: 'OIBridge.OrbitGeometryRigidity.nc_52' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2458:0: 'OIBridge.OrbitGeometryRigidity.nc_53' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2459:0: 'OIBridge.OrbitGeometryRigidity.nc_54' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2460:0: 'OIBridge.OrbitGeometryRigidity.nc_55' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2461:0: 'OIBridge.OrbitGeometryRigidity.nc_56' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2462:0: 'OIBridge.OrbitGeometryRigidity.nc_57' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2463:0: 'OIBridge.OrbitGeometryRigidity.nc_58' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2464:0: 'OIBridge.OrbitGeometryRigidity.nc_59' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2465:0: 'OIBridge.OrbitGeometryRigidity.nc_60' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2466:0: 'OIBridge.OrbitGeometryRigidity.nc_61' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2467:0: 'OIBridge.OrbitGeometryRigidity.nc_62' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2468:0: 'OIBridge.OrbitGeometryRigidity.nc_63' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2469:0: 'OIBridge.OrbitGeometryRigidity.nc_64' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2470:0: 'OIBridge.OrbitGeometryRigidity.nc_65' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2471:0: 'OIBridge.OrbitGeometryRigidity.nc_66' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2472:0: 'OIBridge.OrbitGeometryRigidity.nc_67' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2473:0: 'OIBridge.OrbitGeometryRigidity.nc_68' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2474:0: 'OIBridge.OrbitGeometryRigidity.nc_69' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2475:0: 'OIBridge.OrbitGeometryRigidity.nc_70' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2476:0: 'OIBridge.OrbitGeometryRigidity.nc_71' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2477:0: 'OIBridge.OrbitGeometryRigidity.pred_row_swap13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2478:0: 'OIBridge.OrbitGeometryRigidity.pred_col_swap13' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2479:0: 'OIBridge.OrbitGeometryRigidity.pred_row_double' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2480:0: 'OIBridge.OrbitGeometryRigidity.pred_col_double' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2481:0: 'OIBridge.OrbitGeometryRigidity.pred_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2482:0: 'OIBridge.OrbitGeometryRigidity.pred_row' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2483:0: 'OIBridge.OrbitGeometryRigidity.pred_col' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2484:0: 'OIBridge.OrbitGeometryRigidity.pred_stab' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2485:0: 'OIBridge.OrbitGeometryRigidity.a26_1_circle_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitGeometryRigidity.lean:2486:0: 'OIBridge.OrbitGeometryRigidity.rigid_motion_of_tuple_isometry' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+ℹ [3594/3602] Replayed OIBridge.StrictNaturalLift
+info: OIBridge/StrictNaturalLift.lean:293:0: 'OIBridge.StrictNaturalLift.a27_shared_fibreGram_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:294:0: 'OIBridge.StrictNaturalLift.a27_shared_weak_diagonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:295:0: 'OIBridge.StrictNaturalLift.a27_shared_weak_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:296:0: 'OIBridge.StrictNaturalLift.a27_shared_left_diagonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:297:0: 'OIBridge.StrictNaturalLift.a27_shared_weak_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:298:0: 'OIBridge.StrictNaturalLift.a27_shared_left_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:299:0: 'OIBridge.StrictNaturalLift.a27_shared_left_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:300:0: 'OIBridge.StrictNaturalLift.a27_shared_left_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:301:0: 'OIBridge.StrictNaturalLift.a27_shared_weak_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:302:0: 'OIBridge.StrictNaturalLift.a27_shared_left_admissible_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:303:0: 'OIBridge.StrictNaturalLift.a27_shared_right_admissible_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:304:0: 'OIBridge.StrictNaturalLift.a27_shared_admissible_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:305:0: 'OIBridge.StrictNaturalLift.a27_shared_admissible_entry_ne_zero' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:306:0: 'OIBridge.StrictNaturalLift.a27_shared_same_gram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:307:0: 'OIBridge.StrictNaturalLift.a27_shared_realizable_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:308:0: 'OIBridge.StrictNaturalLift.a27_shared_phase_coeff_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:309:0: 'OIBridge.StrictNaturalLift.a27_shared_transport_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:310:0: 'OIBridge.StrictNaturalLift.a27_shared_torsor' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:470:0: 'OIBridge.StrictNaturalLift.a27_0_strict_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:624:0: 'OIBridge.StrictNaturalLift.a27_h_relabel_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:625:0: 'OIBridge.StrictNaturalLift.a27_h_conj_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:626:0: 'OIBridge.StrictNaturalLift.a27_h_transpose_class' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:627:0: 'OIBridge.StrictNaturalLift.a27_h_transpose_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:628:0: 'OIBridge.StrictNaturalLift.a27_h_transpose_conj_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:671:0: 'OIBridge.StrictNaturalLift.a27_t_relabel_no_strict_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/StrictNaturalLift.lean:943:0: 'OIBridge.StrictNaturalLift.a27_1_reversible_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3595/3602] Replayed OIBridge.OrbitIsometryClassification
+info: OIBridge/OrbitIsometryClassification.lean:35:0: 'OIBridge.OrbitIsometryClassification.a32_shared_entry_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:45:0: 'OIBridge.OrbitIsometryClassification.a32_shared_entry_starI' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:53:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:61:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow3s' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:70:0: 'OIBridge.OrbitIsometryClassification.a32_shared_value_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:79:0: 'OIBridge.OrbitIsometryClassification.a32_shared_value_starI' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:89:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:108:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow_mod' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:116:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_relabel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:124:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_relabel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:132:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_star_relabel' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:141:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:150:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:159:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:168:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:181:57: This simp argument is unused:
+  a32_shared_star_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryClassification.lean:184:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_1d' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:198:33: This simp argument is unused:
+  a32_shared_value_starI
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:198:57: This simp argument is unused:
+  a32_shared_star_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryClassification.lean:201:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_1r' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:217:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_2d' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:231:33: This simp argument is unused:
+  a32_shared_value_starI
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryClassification.lean:234:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_2r' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:251:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_3d' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:266:33: This simp argument is unused:
+  a32_shared_value_starI
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryClassification.lean:269:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_3r' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:283:57: This simp argument is unused:
+  a32_shared_star_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryClassification.lean:286:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_4d' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:301:33: This simp argument is unused:
+  a32_shared_value_starI
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:301:57: This simp argument is unused:
+  a32_shared_star_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryClassification.lean:304:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_4r' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:315:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:327:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:336:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:345:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:395:0: 'OIBridge.OrbitIsometryClassification.a32_shared_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:404:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_mul_self' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:414:0: 'OIBridge.OrbitIsometryClassification.a32_shared_relabel' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:423:71: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:423:71: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:425:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_star' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:431:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryClassification.lean:433:0: 'OIBridge.OrbitIsometryClassification.a32_shared_coord_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:442:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:459:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:476:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:493:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:510:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_D' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:525:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:525:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:527:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:542:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:542:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:544:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:556:61: This simp argument is unused:
+  hzn
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:559:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:559:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:561:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:576:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:576:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:578:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:593:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:593:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:595:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_5' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:607:61: This simp argument is unused:
+  hzn
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:610:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:610:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:612:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:627:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:627:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:629:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_7' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:644:4: Unused tactic linter: `first
+| ring1
+| field_simp` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: OIBridge/OrbitIsometryClassification.lean:644:4: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+info: OIBridge/OrbitIsometryClassification.lean:646:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:665:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:690:0: 'OIBridge.OrbitIsometryClassification.a32_shared_classify' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:706:25: This simp argument is unused:
+  Matrix.submatrix_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:706:82: This simp argument is unused:
+  Equiv.swap_apply_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:712:25: This simp argument is unused:
+  Matrix.submatrix_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:712:82: This simp argument is unused:
+  Equiv.swap_apply_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:718:25: This simp argument is unused:
+  Matrix.submatrix_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:718:82: This simp argument is unused:
+  Equiv.swap_apply_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:742:25: This simp argument is unused:
+  Matrix.submatrix_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:742:82: This simp argument is unused:
+  Equiv.swap_apply_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:706:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:708:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:712:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:714:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:718:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:720:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:742:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:744:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryClassification.lean:766:0: 'OIBridge.OrbitIsometryClassification.a32_control_overlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:802:0: 'OIBridge.OrbitIsometryClassification.a32_shared_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:874:0: 'OIBridge.OrbitIsometryClassification.a32_shared_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:902:0: 'OIBridge.OrbitIsometryClassification.a32_control_moves' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:931:0: 'OIBridge.OrbitIsometryClassification.a32_control_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:958:0: 'OIBridge.OrbitIsometryClassification.a32_control_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryClassification.lean:1039:12: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.div_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:1039:28: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.div_re]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:1042:12: This simp argument is unused:
+  Complex.div_re
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.div_im]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:1042:28: This simp argument is unused:
+  Complex.div_im
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.div_re]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryClassification.lean:1020:106: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:1022:60: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:1033:58: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:1035:104: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:1039:44: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: OIBridge/OrbitIsometryClassification.lean:1042:44: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryClassification.lean:1047:0: 'OIBridge.OrbitIsometryClassification.a32_control_quarter' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:1073:0: 'OIBridge.OrbitIsometryClassification.a32_not_rigid' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryClassification.lean:1118:0: 'OIBridge.OrbitIsometryClassification.a32_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3597/3602] Replayed OIBridge.ProductAdmission
+info: OIBridge/ProductAdmission.lean:327:0: 'OIBridge.ProductAdmission.a29_shared_product_separated' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductAdmission.lean:328:0: 'OIBridge.ProductAdmission.a29_shared_not_trajEquiv_of_index' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductAdmission.lean:329:0: 'OIBridge.ProductAdmission.a29_shared_separated_solutions' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductAdmission.lean:330:0: 'OIBridge.ProductAdmission.a29_shared_splice' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductAdmission.lean:331:0: 'OIBridge.ProductAdmission.a29_p_hold' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductAdmission.lean:332:0: 'OIBridge.ProductAdmission.a29_n_relabel_instance' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [3598/3602] Replayed OIBridge.ProductStrictLift
+warning: OIBridge/ProductStrictLift.lean:271:6: This simp argument is unused:
+  mul_inv_cancel₀ hn
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.smul_mul, Matrix.mul_smul, smul_smul, inv_mul_cancel₀ hn, one_smul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/ProductStrictLift.lean:287:4: This simp argument is unused:
+  mul_inv_cancel₀ hn
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Matrix.smul_mul, Matrix.mul_smul, smul_smul, inv_mul_cancel₀ hn, one_smul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/ProductStrictLift.lean:427:0: 'OIBridge.ProductStrictLift.a30_shared_sum_single' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:428:0: 'OIBridge.ProductStrictLift.a30_shared_star_mul_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:429:0: 'OIBridge.ProductStrictLift.a30_shared_fibreGram_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:430:0: 'OIBridge.ProductStrictLift.a30_shared_weak_diagonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:431:0: 'OIBridge.ProductStrictLift.a30_shared_left_diagonal' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:432:0: 'OIBridge.ProductStrictLift.a30_shared_weak_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:433:0: 'OIBridge.ProductStrictLift.a30_shared_left_shape' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:434:0: 'OIBridge.ProductStrictLift.a30_shared_left_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:435:0: 'OIBridge.ProductStrictLift.a30_shared_left_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:436:0: 'OIBridge.ProductStrictLift.a30_shared_weak_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:437:0: 'OIBridge.ProductStrictLift.a30_shared_left_admissible_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:438:0: 'OIBridge.ProductStrictLift.a30_shared_right_admissible_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:439:0: 'OIBridge.ProductStrictLift.a30_shared_entry_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:440:0: 'OIBridge.ProductStrictLift.a30_shared_rows_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:441:0: 'OIBridge.ProductStrictLift.a30_shared_same_gram' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:442:0: 'OIBridge.ProductStrictLift.a30_shared_phase_coeff_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:443:0: 'OIBridge.ProductStrictLift.a30_shared_torsor' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:444:0: 'OIBridge.ProductStrictLift.a30_shared_transport_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:445:0: 'OIBridge.ProductStrictLift.a30_shared_strictify' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:475:0: 'OIBridge.ProductStrictLift.a30_s_strictify' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:557:0: 'OIBridge.ProductStrictLift.a30_t_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:678:0: 'OIBridge.ProductStrictLift.a30_c_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:769:0: 'OIBridge.ProductStrictLift.a30_c_admit' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:859:0: 'OIBridge.ProductStrictLift.a30_c_restrict' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:902:0: 'OIBridge.ProductStrictLift.a30_n_lifts' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductStrictLift.lean:951:0: 'OIBridge.ProductStrictLift.a30_0_admits' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [3599/3602] Replayed OIBridge.ProductOffLocusUniqueness
+info: OIBridge/ProductOffLocusUniqueness.lean:139:0: 'OIBridge.ProductOffLocusUniqueness.a31_shared_witnesses' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductOffLocusUniqueness.lean:208:0: 'OIBridge.ProductOffLocusUniqueness.a31_shared_transposition' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductOffLocusUniqueness.lean:286:0: 'OIBridge.ProductOffLocusUniqueness.a31_shared_precompose' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductOffLocusUniqueness.lean:402:0: 'OIBridge.ProductOffLocusUniqueness.a31_nonunique' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/ProductOffLocusUniqueness.lean:532:0: 'OIBridge.ProductOffLocusUniqueness.a31_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+✖ [3600/3602] Building OIBridge.OrbitIsometryGroup (212s)
+trace: .> LEAN_PATH=/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.33.0/bin/lean /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/OIBridge/OrbitIsometryGroup.lean -o /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/OrbitIsometryGroup.olean -i /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/OrbitIsometryGroup.ilean -c /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/OrbitIsometryGroup.c --setup /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/OrbitIsometryGroup.setup.json --json
+info: OIBridge/OrbitIsometryGroup.lean:18:0: 'OIBridge.OrbitIsometryGroup.a33_shared_msgn_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:24:0: 'OIBridge.OrbitIsometryGroup.a33_shared_entry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:38:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+error: OIBridge/OrbitIsometryGroup.lean:30:785: unsolved goals
+hx : ∀ (y : Fin 1), y = 0
+z : ℂ
+a b : Equiv.Perm (Fin 4)
+i₁ i₂ i₃ j₁ j₂ j₃ : Fin 4
+hh : star (1 / 2) = 1 / 2
+⊢ star (![![1, 1, 1, 1], ![1, z, -1, -z], ![1, -1, 1, -1], ![1, -z, -1, z]] (a i₁) (b j₁)) *
+                ![![1, 1, 1, 1], ![1, z, -1, -z], ![1, -1, 1, -1], ![1, -z, -1, z]] (a i₁) (b j₂) *
+              star (![![1, 1, 1, 1], ![1, z, -1, -z], ![1, -1, 1, -1], ![1, -z, -1, z]] (a i₂) (b j₂)) *
+            ![![1, 1, 1, 1], ![1, z, -1, -z], ![1, -1, 1, -1], ![1, -z, -1, z]] (a i₂) (b j₃) *
+          star (![![1, 1, 1, 1], ![1, z, -1, -z], ![1, -1, 1, -1], ![1, -z, -1, z]] (a i₃) (b j₃)) *
+        ![![1, 1, 1, 1], ![1, z, -1, -z], ![1, -1, 1, -1], ![1, -z, -1, z]] (a i₃) (b j₁) *
+      (1 / 64) =
+    ((((((((((((z ^ if ↑(a i₁) % 2 = 1 ∧ ↑(b j₂) % 2 = 1 then 1 else 0) *
+                            z ^ if ↑(a i₂) % 2 = 1 ∧ ↑(b j₃) % 2 = 1 then 1 else 0) *
+                          z ^ if ↑(a i₃) % 2 = 1 ∧ ↑(b j₁) % 2 = 1 then 1 else 0) *
+                        if 1 ≤ ↑(a i₁) ∧ 1 ≤ ↑(b j₁) ∧ a i₁ ≠ b j₁ then -1 else 1) *
+                      if 1 ≤ ↑(a i₁) ∧ 1 ≤ ↑(b j₂) ∧ a i₁ ≠ b j₂ then -1 else 1) *
+                    if 1 ≤ ↑(a i₂) ∧ 1 ≤ ↑(b j₂) ∧ a i₂ ≠ b j₂ then -1 else 1) *
+                  if 1 ≤ ↑(a i₂) ∧ 1 ≤ ↑(b j₃) ∧ a i₂ ≠ b j₃ then -1 else 1) *
+                if 1 ≤ ↑(a i₃) ∧ 1 ≤ ↑(b j₃) ∧ a i₃ ≠ b j₃ then -1 else 1) *
+              if 1 ≤ ↑(a i₃) ∧ 1 ≤ ↑(b j₁) ∧ a i₃ ≠ b j₁ then -1 else 1) *
+            star z ^ if ↑(a i₁) % 2 = 1 ∧ ↑(b j₁) % 2 = 1 then 1 else 0) *
+          star z ^ if ↑(a i₂) % 2 = 1 ∧ ↑(b j₂) % 2 = 1 then 1 else 0) *
+        star z ^ if ↑(a i₃) % 2 = 1 ∧ ↑(b j₃) % 2 = 1 then 1 else 0) *
+      (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:35:4: This simp argument is unused:
+  a33_shared_entry
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Matrix.of_apply, star_mul',
+    star_pow, a33_shared_msgn_star]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:35:33: This simp argument is unused:
+  star_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Matrix.of_apply,
+    a33_shared_entry, star_mul', a33_shared_msgn_star]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:35:43: This simp argument is unused:
+  a33_shared_msgn_star
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Matrix.of_apply,
+    a33_shared_entry, star_mul', star_pow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:36:49: This simp argument is unused:
+  Complex.star_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:39:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:53:0: 'OIBridge.OrbitIsometryGroup.a33_shared_feature_ext' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:60:0: 'OIBridge.OrbitIsometryGroup.a33_shared_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:67:0: 'OIBridge.OrbitIsometryGroup.a33_c_transitive_circles' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:74:0: 'OIBridge.OrbitIsometryGroup.a33_c_stabilizer_circle' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:81:0: 'OIBridge.OrbitIsometryGroup.a33_c_transitive_points' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:88:0: 'OIBridge.OrbitIsometryGroup.a33_c_stabilizer_point' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:95:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:102:8: This simp argument is unused:
+  Equiv.swap_apply_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Fin.ext_iff]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:102:30: This simp argument is unused:
+  Fin.ext_iff
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Equiv.swap_apply_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:102:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:103:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_0' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:110:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:111:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:118:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:119:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_2' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:126:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:127:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:134:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:135:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_4' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:142:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:143:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_5' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:150:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:151:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_6' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:158:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:159:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_7' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:166:43: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+info: OIBridge/OrbitIsometryGroup.lean:167:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_8' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:181:0: 'OIBridge.OrbitIsometryGroup.a33_shared_pt_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:187:55: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+info: OIBridge/OrbitIsometryGroup.lean:188:0: 'OIBridge.OrbitIsometryGroup.a33_shared_dist_sq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:194:0: 'OIBridge.OrbitIsometryGroup.a33_shared_unit_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:201:0: 'OIBridge.OrbitIsometryGroup.a33_shared_msgn_cast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:213:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord_int' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:221:2: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+info: OIBridge/OrbitIsometryGroup.lean:222:0: 'OIBridge.OrbitIsometryGroup.a33_shared_exp_range' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:240:31: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  i ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  c + d + e - f - g - i ≥ 0
+where
+ c := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1))
+ d := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1))
+ e := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2))
+ f := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1))
+ g := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2))
+ i := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1))
+error: OIBridge/OrbitIsometryGroup.lean:244:27: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  i ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  c + d + e - f - g - i ≥ 1
+where
+ c := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1))
+ d := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1))
+ e := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2))
+ f := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1))
+ g := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2))
+ i := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1))
+error: OIBridge/OrbitIsometryGroup.lean:248:31: omega could not prove the goal:
+a possible counterexample may satisfy the constraints
+  i ≥ 0
+  g ≥ 0
+  f ≥ 0
+  e ≥ 0
+  d ≥ 0
+  c ≥ 0
+  c + d + e - f - g - i ≤ 0
+where
+ c := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.1))
+ d := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.1))
+ e := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.2.2))
+ f := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.1) (b p.2.2.1))
+ g := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.1) (b p.2.2.2))
+ i := ↑((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (a p.1.2.2) (b p.2.1))
+info: OIBridge/OrbitIsometryGroup.lean:252:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord_form' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:265:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:269:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:268:23: This simp argument is unused:
+  star_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, one_pow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:270:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_0_p_4_p' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:283:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:287:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:286:23: This simp argument is unused:
+  star_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, one_pow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:288:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_0_p_8_p' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:301:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:305:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:304:33: This simp argument is unused:
+error: build failed
+  one_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, star_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:306:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_0_m_5_m' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:319:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:323:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:322:33: This simp argument is unused:
+  one_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, star_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:324:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_0_m_7_m' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:337:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:341:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:340:23: This simp argument is unused:
+  star_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, one_pow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:342:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_1_p_3_p' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:355:4: (kernel) application type mismatch
+  id (Eq.refl true)
+argument has type
+  true = true
+but function has type
+  decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1))) ^
+                  0 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.1))) ^
+                  1) =
+      true →
+    decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1))) ^
+                  0 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.1))) ^
+                  1) =
+      true
+error: OIBridge/OrbitIsometryGroup.lean:359:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:360:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_1_p_8_m' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:373:4: (kernel) application type mismatch
+  id (Eq.refl true)
+argument has type
+  true = true
+but function has type
+  decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1))) ^
+                  1 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.1))) ^
+                  0) =
+      true →
+    decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 2 3) p.2.1))) ^
+                  1 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 1 2) p.2.1))) ^
+                  0) =
+      true
+error: OIBridge/OrbitIsometryGroup.lean:377:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:378:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_1_m_5_p' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:391:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:395:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:394:33: This simp argument is unused:
+  one_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, star_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:396:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_1_m_6_m' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:409:4: (kernel) application type mismatch
+  id (Eq.refl true)
+argument has type
+  true = true
+but function has type
+  decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1))) ^
+                  0 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.1))) ^
+                  1) =
+      true →
+    decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1))) ^
+                  0 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 2 3) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 2 3) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.1))) ^
+                  1) =
+      true
+error: OIBridge/OrbitIsometryGroup.lean:413:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:414:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_2_p_4_m' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:427:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:431:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:430:23: This simp argument is unused:
+  star_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, one_pow]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:432:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_2_p_6_p' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:445:4: (kernel) deep recursion detected, use `set_option maxRecDepth <num>` to increase the limit
+error: OIBridge/OrbitIsometryGroup.lean:449:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+warning: OIBridge/OrbitIsometryGroup.lean:448:33: This simp argument is unused:
+  one_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [star_one, star_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:450:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_2_m_3_m' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:463:4: (kernel) application type mismatch
+  id (Eq.refl true)
+argument has type
+  true = true
+but function has type
+  decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1))) ^
+                  1 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.1))) ^
+                  0) =
+      true →
+    decide
+        (∀ (p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4),
+          (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.1) ((Equiv.swap 1 2) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.1) ((Equiv.swap 1 2) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) (1 p.1.2.2) ((Equiv.swap 1 2) p.2.1))) ^
+                  1 =
+            (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1) ((Equiv.swap 2 3) p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.1)
+                      ((Equiv.swap 2 3) p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((Equiv.swap 1 2) p.1.2.2)
+                    ((Equiv.swap 2 3) p.2.1)) *
+              (-1) ^
+                ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 2 3) p.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.2.2) +
+                    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.1)
+                          ((Equiv.swap 2 3) p.2.2.1) +
+                        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.1)
+                          ((Equiv.swap 2 3) p.2.2.2) +
+                      (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((Equiv.swap 1 2) p.1.2.2)
+                        ((Equiv.swap 2 3) p.2.1))) ^
+                  0) =
+      true
+error: OIBridge/OrbitIsometryGroup.lean:467:21: Application type mismatch: The argument
+  1 / 64
+has type
+  ℂ
+but is expected to have type
+  ℤ
+in the application
+  Mathlib.Tactic.LinearCombination.mul_const_eq hk (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:468:0: 'OIBridge.OrbitIsometryGroup.a33_shared_inc_2_m_7_p' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:477:0: 'OIBridge.OrbitIsometryGroup.a33_shared_sgz_unit' depends on axioms: [propext, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:490:2: unsolved goals
+case inl
+r : Fin 9
+z : ℂ
+hz : star z * z = 1
+p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4
+R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) :=
+  ![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+    (Equiv.swap 1 2, Equiv.swap 1 2)]
+hf :
+  ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+            (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+          ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+            (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+        1 →
+      mixedTriple
+          (fun i =>
+            (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                  ((R r).1 i)).submatrix
+              ⇑(R r).2 ⇑(R r).2)
+          p =
+        1 / 64 *
+            ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) *
+          z) ∧
+    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+            ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+          0 →
+        mixedTriple
+            (fun i =>
+              (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                    ((R r).1 i)).submatrix
+                ⇑(R r).2 ⇑(R r).2)
+            p =
+          1 / 64 *
+            ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1)))) ∧
+      ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+            ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+          -1 →
+        mixedTriple
+            (fun i =>
+              (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                    ((R r).1 i)).submatrix
+                ⇑(R r).2 ⇑(R r).2)
+            p =
+          1 / 64 *
+              ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                      (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                    ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                      (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) *
+            star z)
+h :
+  (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.1) +
+          (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.2.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.2) +
+        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).1
+            p.1.2.2)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).2
+            p.2.1) -
+      ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.1) +
+          (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.2.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.1) +
+        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).1
+            p.1.2.2)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).2
+            p.2.2.2)) =
+    -1
+⊢ (if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.1 then
+      -if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+          -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * (starRingEnd ℂ) z)
+                        else 1 / 64 * (starRingEnd ℂ) z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                        -(1 / 64 * (starRingEnd ℂ) z)
+                      else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                        -(1 / 64 * (starRingEnd ℂ) z)
+                      else 1 / 64 * (starRingEnd ℂ) z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                        -(1 / 64 * (starRingEnd ℂ) z)
+                      else 1 / 64 * (starRingEnd ℂ) z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+        else
+          if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                        -(1 / 64 * (starRingEnd ℂ) z)
+                      else 1 / 64 * (starRingEnd ℂ) z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                  -(1 / 64 * (starRingEnd ℂ) z)
+                else 1 / 64 * (starRingEnd ℂ) z
+    else
+      if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+        -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                        -(1 / 64 * (starRingEnd ℂ) z)
+                      else 1 / 64 * (starRingEnd ℂ) z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                  -(1 / 64 * (starRingEnd ℂ) z)
+                else 1 / 64 * (starRingEnd ℂ) z
+      else
+        if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+          -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                      -(1 / 64 * (starRingEnd ℂ) z)
+                    else 1 / 64 * (starRingEnd ℂ) z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                  -(1 / 64 * (starRingEnd ℂ) z)
+                else 1 / 64 * (starRingEnd ℂ) z
+        else
+          if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+            -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                    -(1 / 64 * (starRingEnd ℂ) z)
+                  else 1 / 64 * (starRingEnd ℂ) z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                  -(1 / 64 * (starRingEnd ℂ) z)
+                else 1 / 64 * (starRingEnd ℂ) z
+          else
+            if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                  -(1 / 64 * (starRingEnd ℂ) z)
+                else 1 / 64 * (starRingEnd ℂ) z
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                -(1 / 64 * (starRingEnd ℂ) z)
+              else 1 / 64 * (starRingEnd ℂ) z) =
+    if
+        (((if ↑((R r).1 p.1.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.1) % 2 = 1 then 1 else 0) +
+                if ↑((R r).1 p.1.2.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.2) % 2 = 1 then 1 else 0) +
+              if ↑((R r).1 p.1.2.2) % 2 = 1 ∧ ↑((R r).2 p.2.1) % 2 = 1 then 1 else 0) -
+            (((if ↑((R r).1 p.1.1) % 2 = 1 ∧ ↑((R r).2 p.2.1) % 2 = 1 then 1 else 0) +
+                if ↑((R r).1 p.1.2.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.1) % 2 = 1 then 1 else 0) +
+              if ↑((R r).1 p.1.2.2) % 2 = 1 ∧ ↑((R r).2 p.2.2.2) % 2 = 1 then 1 else 0) =
+          1 then
+      if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.1 then
+        -if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+                -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                            -(1 / 64 * z)
+                          else 1 / 64 * z
+                      else
+                        if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+      else if 1 ≤ ↑(⋯ ⋯) ∧ ⋯ then ⋯ else ⋯
+    else ⋯
+error: OIBridge/OrbitIsometryGroup.lean:493:2: unsolved goals
+case inr.inl
+r : Fin 9
+z : ℂ
+hz : star z * z = 1
+p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4
+R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) :=
+  ![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+    (Equiv.swap 1 2, Equiv.swap 1 2)]
+hf :
+  ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+            (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+          ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+            (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+        1 →
+      mixedTriple
+          (fun i =>
+            (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                  ((R r).1 i)).submatrix
+              ⇑(R r).2 ⇑(R r).2)
+          p =
+        1 / 64 *
+            ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) *
+          z) ∧
+    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+            ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+          0 →
+        mixedTriple
+            (fun i =>
+              (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                    ((R r).1 i)).submatrix
+                ⇑(R r).2 ⇑(R r).2)
+            p =
+          1 / 64 *
+            ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1)))) ∧
+      ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+            ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+          -1 →
+        mixedTriple
+            (fun i =>
+              (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                    ((R r).1 i)).submatrix
+                ⇑(R r).2 ⇑(R r).2)
+            p =
+          1 / 64 *
+              ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                      (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                    ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                      (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) *
+            star z)
+h :
+  (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.1) +
+          (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.2.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.2) +
+        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).1
+            p.1.2.2)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).2
+            p.2.1) -
+      ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.1) +
+          (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.2.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.1) +
+        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).1
+            p.1.2.2)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).2
+            p.2.2.2)) =
+    0
+⊢ (if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.1 then
+      -if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+          -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+        else
+          if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                else 1 / 64
+    else
+      if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+        -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                else 1 / 64
+      else
+        if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+          -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                else 1 / 64
+        else
+          if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+            -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                  else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                else 1 / 64
+          else
+            if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                else 1 / 64
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+              else 1 / 64) =
+    if
+        (((if ↑((R r).1 p.1.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.1) % 2 = 1 then 1 else 0) +
+                if ↑((R r).1 p.1.2.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.2) % 2 = 1 then 1 else 0) +
+              if ↑((R r).1 p.1.2.2) % 2 = 1 ∧ ↑((R r).2 p.2.1) % 2 = 1 then 1 else 0) -
+            (((if ↑((R r).1 p.1.1) % 2 = 1 ∧ ↑((R r).2 p.2.1) % 2 = 1 then 1 else 0) +
+                if ↑((R r).1 p.1.2.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.1) % 2 = 1 then 1 else 0) +
+              if ↑((R r).1 p.1.2.2) % 2 = 1 ∧ ↑((R r).2 p.2.2.2) % 2 = 1 then 1 else 0) =
+          1 then
+      if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.1 then
+        -if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+                -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                            -(1 / 64 * z)
+                          else 1 / 64 * z
+                      else
+                        if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+      else
+        if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+          -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = ⋯ then ⋯ else ⋯
+            else ⋯
+        else ⋯
+    else ⋯
+error: OIBridge/OrbitIsometryGroup.lean:496:2: unsolved goals
+case inr.inr
+r : Fin 9
+z : ℂ
+hz : star z * z = 1
+p : (Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4
+R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) :=
+  ![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+    (Equiv.swap 1 2, Equiv.swap 1 2)]
+hf :
+  ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+            (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+          ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+            (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+        1 →
+      mixedTriple
+          (fun i =>
+            (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                  ((R r).1 i)).submatrix
+              ⇑(R r).2 ⇑(R r).2)
+          p =
+        1 / 64 *
+            ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) *
+          z) ∧
+    ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+            ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+          0 →
+        mixedTriple
+            (fun i =>
+              (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                    ((R r).1 i)).submatrix
+                ⇑(R r).2 ⇑(R r).2)
+            p =
+          1 / 64 *
+            ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                  (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1)))) ∧
+      ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.1) -
+            ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.1) ((R r).2 p.2.1) +
+                (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) +
+              (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2)) =
+          -1 →
+        mixedTriple
+            (fun i =>
+              (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+                    ((R r).1 i)).submatrix
+                ⇑(R r).2 ⇑(R r).2)
+            p =
+          1 / 64 *
+              ↑((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.1) *
+                      (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.1) ((R r).2 p.2.2.1) *
+                    ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.1) *
+                      (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.1) ((R r).2 p.2.2.2)) *
+                  ((fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.2.2) *
+                    (fun x y => if 1 ≤ ↑x ∧ 1 ≤ ↑y ∧ x ≠ y then -1 else 1) ((R r).1 p.1.2.2) ((R r).2 p.2.1))) *
+            star z)
+h :
+  (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.1) +
+          (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.2.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.2) +
+        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).1
+            p.1.2.2)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).2
+            p.2.1) -
+      ((fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.1) +
+          (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).1
+              p.1.2.1)
+            ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                    (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                    (Equiv.swap 1 2, Equiv.swap 1 2)]
+                  r).2
+              p.2.2.1) +
+        (fun x y => if ↑x % 2 = 1 ∧ ↑y % 2 = 1 then 1 else 0)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).1
+            p.1.2.2)
+          ((![(1, 1), (1, Equiv.swap 2 3), (1, Equiv.swap 1 2), (Equiv.swap 2 3, 1), (Equiv.swap 2 3, Equiv.swap 2 3),
+                  (Equiv.swap 2 3, Equiv.swap 1 2), (Equiv.swap 1 2, 1), (Equiv.swap 1 2, Equiv.swap 2 3),
+                  (Equiv.swap 1 2, Equiv.swap 1 2)]
+                r).2
+            p.2.2.2)) =
+    1
+⊢ ⋯ →
+    (if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.1 then
+        -if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+                -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                            -(1 / 64 * z)
+                          else 1 / 64 * z
+                      else
+                        if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+      else
+        if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+          -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                          -(1 / 64 * z)
+                        else 1 / 64 * z
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+        else
+          if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                      else 1 / 64 * z
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+          else
+            if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+              -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                    else 1 / 64 * z
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+            else
+              if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                  else 1 / 64 * z
+              else
+                if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64 * z)
+                else 1 / 64 * z) =
+      if
+          (((if ↑((R r).1 p.1.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.1) % 2 = 1 then 1 else 0) +
+                  if ↑((R r).1 p.1.2.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.2) % 2 = 1 then 1 else 0) +
+                if ↑((R r).1 p.1.2.2) % 2 = 1 ∧ ↑((R r).2 p.2.1) % 2 = 1 then 1 else 0) -
+              (((if ↑((R r).1 p.1.1) % 2 = 1 ∧ ↑((R r).2 p.2.1) % 2 = 1 then 1 else 0) +
+                  if ↑((R r).1 p.1.2.1) % 2 = 1 ∧ ↑((R r).2 p.2.2.1) % 2 = 1 then 1 else 0) +
+                if ↑((R r).1 p.1.2.2) % 2 = 1 ∧ ↑((R r).2 p.2.2.2) % 2 = 1 then 1 else 0) =
+            0 then
+        if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.1 then
+          -if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+              -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+                  -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                          -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then
+                              -(1 / 64)
+                            else 1 / 64
+                        else
+                          if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                          else 1 / 64
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                          else 1 / 64
+                      else
+                        if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                          else 1 / 64
+                      else
+                        if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+            else
+              if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+                -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                          else 1 / 64
+                      else
+                        if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+              else
+                if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                  -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                      -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                        else 1 / 64
+                    else
+                      if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                else
+                  if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                      else 1 / 64
+                  else
+                    if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                    else 1 / 64
+        else
+          if 1 ≤ ↑((R r).1 p.1.2.2) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.2 = (R r).2 p.2.2.2 then
+            -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.2) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.2 then
+                -if 1 ≤ ↑((R r).1 p.1.2.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.2.1 = (R r).2 p.2.2.1 then
+                    -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.2.1 then
+                        -if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ¬(R r).1 p.1.1 = (R r).2 p.2.1 then -(1 / 64)
+                          else 1 / 64
+                      else if 1 ≤ ↑((R r).1 p.1.1) ∧ 1 ≤ ↑((R r).2 p.2.1) ∧ ⋯ then ⋯ else ⋯
+                  else ⋯
+              else ⋯
+          else ⋯
+      else ⋯
+warning: OIBridge/OrbitIsometryGroup.lean:491:15: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:494:15: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:497:15: This simp argument is unused:
+  h
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:499:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord_Z' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:507:10: This simp argument is unused:
+  Complex.star_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.mul_re, Complex.conj_re, Complex.conj_im] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:511:10: This simp argument is unused:
+  Complex.star_def
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Complex.mul_re, Complex.conj_re, Complex.conj_im] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:517:0: 'OIBridge.OrbitIsometryGroup.a33_shared_term' depends on axioms: [propext, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:520:224: unsolved goals
+case pos
+z : ℂ
+k : ℤ
+hz : star z * z = 1
+h✝ : k = 1
+⊢ z * (starRingEnd ℂ) z = 1
+
+case neg
+z : ℂ
+k : ℤ
+hz : star z * z = 1
+h✝¹ : ¬k = 1
+h✝ : ¬k = 0
+⊢ z * (starRingEnd ℂ) z = 1
+warning: OIBridge/OrbitIsometryGroup.lean:523:22: This simp argument is unused:
+  hz
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [star_star, mul_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:523:26: This simp argument is unused:
+  star_star
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hz, mul_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:524:0: 'OIBridge.OrbitIsometryGroup.a33_shared_Z_unit' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:553:2: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+warning: OIBridge/OrbitIsometryGroup.lean:552:64: This simp argument is unused:
+  ← Finset.mul_sum
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Fintype.card_prod, Fintype.card_fin, nsmul_eq_mul]
+
+Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:570:0: 'OIBridge.OrbitIsometryGroup.a33_shared_cross' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- OIBridge.OrbitIsometryGroup
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/35320629-5cda-4611-bdf5-86b031daec69' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+[command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

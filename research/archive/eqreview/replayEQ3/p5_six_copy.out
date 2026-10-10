@@ -1,0 +1,11 @@
+PASS S1 family (i3): sum X[abc] Y[def] E[ad] F[be] G[cf] = <X, (E (x) F (x) G).Y> (symbolic)
+PASS S2 family (ii3): conditioning L(03) L'(14) L''(25) on f(345) leaves (L (x) L' (x) L'').f on (0,1,2) (symbolic)
+PASS S3 (Delta (x) Delta (x) Delta).f = T3 f and pauli3(T3 f) = pauli3(f)^T (symbolic f)
+PASS S3 Bell links come from the standalone pair gate: cnot(prodState xplus z3) = Delta (state) and cnot(prodState xplus z3)/4 = cnot(sharp (x) sharp) (effect, dual action)
+PASS S4 (L_a (x) Delta (x) Delta).f = 2 coords3(Ad(diag(1,u) (x) 1 (x) 1)(pauli3(T3 f))) (symbolic f, u)
+PASS S4 the same on the third copy: (Delta (x) Delta (x) L_a'').f = 2 coords3(Ad(1 (x) 1 (x) diag(1,w))(pauli3(T3 f)))
+PASS S5 twin links: (idW (x) idW (x) idW).f = f; mixed (Delta (x) idW (x) idW).f has operator PT_0(pauli3 f) (symbolic)
+PASS S6 explicit 6-qubit trace tr((E(03) F(14) G(25)) (rho_X(012) rho_Y(345))) equals <X, (E (x) F (x) G).Y> with state tables coords3(rho) and effect tables coordsW(op)/4 (random exact instance)
+PASS S7 Cayley hyperdeterminant: Det(GHZ) = 1, Det(W) = 0, Det(|0>(|00>+|11>)) = 0, and Det((C0 (x) C1 (x) C2) psi) = (det C0 det C1 det C2)^2 Det(psi) (two random exact instances)
+--- p5_six_copy: 9/9 checks pass
+VERDICT P5-SIX-COPY-EXACT

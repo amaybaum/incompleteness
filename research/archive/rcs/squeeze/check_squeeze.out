@@ -1,0 +1,40 @@
+PASS  A1 sqW/sqPc/sqPt reproduce ledger Squeezed(k=2,1/10,1/2) on all 36 basis vectors
+PASS  A2 pc_pc, pt_pt (involution of the index map)
+PASS  A3 cls_pc: sqCls (sqPc m n) = sqCls m
+PASS  A4 odd_pt: odd5 (sqPt m n) = odd5 n
+PASS  A5 odd_pc: odd5 (sqPc m n) = (if odd5 n then !odd5 m else odd5 m)
+PASS  A6 wi_wf / wf_wi weight identities
+PASS  A7 gInvFun o gFun = id = gFun o gInvFun on the 36 basis vectors
+PASS  A8 frame (4 corner pairs)
+PASS  A9 relT on 36 basis vectors (hence all of W 5)
+PASS  A10 relC on 36 basis vectors
+PASS  A11 sqSg multiplicativity: sg(pt)=sg n, sg(pc)=sg m*sg n
+PASS  A12 posInv witness value = -1/2 (got -1/2)
+PASS  A13 gSq.symm (prodState z5 x5) = hom z5 (x) (1,2,0,0,0,0)
+PASS  A14 sharpVec(-x5) = (1/2,-1/2,0,0,0,0)
+PASS  A15 countercontrol lam=1: value -1/40 (got -1/40)
+PASS  A16 same test on the squeezed gate is >= 0 (got 9/80 = 9/80)
+PASS  A17 ledger model agrees on the countercontrol
+PASS  B1 pairVal a b (gSq (prodState x y)) = decomposition (22-variable polynomial identity)
+PASS  C1 rsq_cs4: RHS-LHS = sum of six Lagrange squares
+PASS  C2 rsq_ab hu2: (f-ts)^2-u^2 = [(f^2-t^2)(1-s^2)-u^2] + (fs-t)^2
+PASS  C3 rsq_ab final: AB-(t^2+f^2 s^2)/8 = [AB-L1L2] + [(f^2-t^2)(1-s^2)-u^2] + 1/2(t-fs)^2 + 3/8 t^2(1-s^2) + 3/8 s^2(f^2-t^2)
+PASS  C4 rsq_ab L1 >= 0, L2 >= 0: L1 = (f-ts+u)+ts/2, L2 = (f-ts-u)+ts/2
+PASS  C5 rsq_s: 2Tb + f^2 Sv - (Se^2+So^2) = certificate (all terms nonneg under hypotheses)
+PASS  C6 rsq_key: (Tb+F)/8 - (2Tb+F)/50 = 17/200 Tb + 21/200 F (both coefficients > 0)
+PASS  C7 rsq_assemble AM-GM: (P1+P2)^2 - (1-al^2) p q A B = (P1-P2)^2
+PASS  C8 rsq_assemble CS2: (Se^2+So^2)(Ce^2+Co^2) - (Se Ce + So Co)^2 = (Se Co - So Ce)^2
+PASS  C9 rsq_assemble: (Se^2+So^2)*(2 Tc Ta)/100 = (Se^2+So^2)/50 * (Tc Ta)
+PASS  C10 gSq_core hTa: (a0+a5)(a0-a5) - Ta = (a0^2 - (a1^2+..+a5^2)) + 0
+PASS  C11 rsq_key hr2 rewrite: (b1y0+b2y1+b3(-y2)+b4(-y3))^2 = (b1y0+b2y1-b3y2-b4y3)^2
+PASS  C12 rsq_key: A = f + u + r1/2 and B = f - u + r2/2 with u = b5 y4
+PASS  D0 generic (eps, lam) decomposition matches the ledger model at 60 rational points
+PASS  D1 eps = 1, lam = 1/2: posFwd fails at an exact rational point, value -1/10 at x=['1', '0', '0', '0', '0'] y=['0', '1', '0', '0', '0'] e=['1', '0', '0', '0', '0'] f=['-3/5', '-4/5', '0', '0', '0']
+PASS  D1' ledger model confirms the D1 value exactly (-1/10)
+PASS  D2 (1/10, 1/2) gate: same grid minimum is >= 0 (got 0; sanity only, not a proof)
+
+0 failed
+
+real	6m46.282s
+user	6m42.942s
+sys	0m0.078s

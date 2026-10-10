@@ -1,0 +1,26 @@
+release gate
+====================================================================
+  PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+  PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+  PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+  PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+  PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+  PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+  PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+  PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+  PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+  PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+  PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+  PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+  PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+  PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+  PASS  coverage         coverage_check: OK (129 canonical statements, 19 unattached 
+  FAIL  lean-axioms                   the toolchain, or run the check by hand with --
+  PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+  PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+  PASS  v3-self-test     v3_verifier: self-test OK
+  PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+  PASS  v3-receipts      RECEIPTS  42 receipt(s), all hold
+====================================================================
+release gate: FAILED -> lean-axioms
+(rerun the individual check for file/line detail)

@@ -1,0 +1,1215 @@
+{
+ "commit": "81150851f84c8aa1df71dc69013a6ca6f6d71b51",
+ "disposition_semantics": "disposition is for the state after V1/V2 protocol-choreography checks are retired; false_now marks statements already false or misleading at this commit",
+ "hits": [
+  {
+   "path": "AGENTS.md",
+   "lines": "77-87",
+   "quote": "When a control-plane preregistration is frozen by exact commit SHA and blob SHA ... A branch sync, merge-from-base, or unrelated commit therefore does not invalidate a freeze",
+   "asserts": "Code-review rule: freeze = approved blob; head may move (incl. merge-from-base) before merge/execution",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "Scope to §A.37 compatibility control planes; for a §A.39 round the freeze is the owner-designated commit F, every commit of F^D is single-parent (G9), none after F changes the control plane (G7), and later main enters only by reconciliation after E.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "474-478",
+   "quote": "Hence §A.37's diagnostic rule — check the exact-head certification before calling a red badge a research failure, and never cure it by merging main into a sealed execution.",
+   "asserts": "Lesson grounding a §A.37/guard rule",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Frame as the origin of the §A.37 compatibility-lifecycle rule; if the archive clauses are retired, say the guard behaviour it describes was retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "479-482",
+   "quote": "Hence §A.37's resolve-by-merits rule and its check that a landing adds exactly the execution's own diff.",
+   "asserts": "Lesson grounding landing-conflict rule",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Still true; the rule applies equally to §A.39 reconciliation merges (optionally cite both).",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "483-488",
+   "quote": "Hence §A.37's `D` / `B` / `M` vocabulary subsection and the control-plane lint.",
+   "asserts": "Lesson grounding D/B/M vocabulary and control_plane_lint",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Keep as lesson; if control-plane-lint/base-check are retired, record that as the lesson's current standing (compatibility rounds only).",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "602-604",
+   "quote": "Enforcement: guard `R7-MSP` pins this section",
+   "asserts": "V1 content clause pins §A.35",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Content (non-choreography) guard; unaffected unless R7-MSP itself is retired.",
+   "guard_pinned": [
+    "R7-MSP: ## §A.35 heading + \"updates the registry in the same commit\" (guard 2932-2934)"
+   ]
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "623-627",
+   "quote": "They are not split into global `preregistrations/` and `results/` folders: the split-PR protocol already separates them in time",
+   "asserts": "Preregistration/result separated by a split-PR protocol",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "\"the round lifecycle already separates them in time (the merged control plane under §A.37, the designated freeze F under §A.39)\".",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "653-658",
+   "quote": "## §A.37 Round lifecycle: control plane, then execution and landing / A round is run in **two pull requests**.",
+   "asserts": "Unqualified default: every round runs in two PRs",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "Title/opening say \"compatibility lifecycle\": \"A §A.37 compatibility round is run in two pull requests.\"",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "662-667",
+   "quote": "This rule governs **rounds begun after it was written**.",
+   "asserts": "Scope = all rounds after its writing",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "\"governs rounds begun after it was written and before V3-11's landing, and later rounds only when designated compatibility rounds\" (677-680 already says this; 662 contradicts it).",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "677-680",
+   "quote": "From `V3-11`'s landing this rule is the compatibility lifecycle, not the default.",
+   "asserts": "Cutover statement",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Correct; on V1/V2 retirement add what a designated compatibility round is then certified by.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "684-695",
+   "quote": "what the guard certifies, what review approved ... is a commit — `E`",
+   "asserts": "Guard certifies E (compat)",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "True for §A.37 rounds while the guard runs; past tense once chronology clauses are retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "715-716",
+   "quote": "Every control plane uses the following commit vocabulary, and no other meaning of \"base\" is permitted",
+   "asserts": "Universal D/B/M vocabulary",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "\"Every §A.37 control plane ...\"; §A.39 rounds use D/F/E/Λ/Q of architecture.md, and have no B.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "758-766",
+   "quote": "No execution branch may be created until this post-merge base certification is green.",
+   "asserts": "Execution gated on main-push base certification",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Correct inside compatibility scope once 653-667 are scoped; historical-note if control_plane_base_check is retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "768-788",
+   "quote": "`tools/control_plane_base_check.py` ... `tools/control_plane_lint.py` (release-gate step `control-plane-lint`) ... apply only to control-plane files that carry the block or are added or modified",
+   "asserts": "Tool behaviour",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Accurate (note: the lint also runs over any added §A.39 preregistration.md). Rewrite only if the step is retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "792-801",
+   "quote": "Its head is the object the guard certifies ... the certification of record is the run whose `head_sha` is `E`",
+   "asserts": "Guard certifies execution head (compat)",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Past tense / compat-only after chronology retirement.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "805-844",
+   "quote": "The guard asks its ancestry question of the real `pull_request.head.sha` ... only the pin moves its own check to archive mode",
+   "asserts": "Guard exact-head / archive-mode behaviour",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Describes live V1 choreography; becomes false when execution/archive-mode clauses are retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "846-849",
+   "quote": "A **control plane** carries no mandated historical base ... merging current main into the branch is the correct cure.",
+   "asserts": "Merging main into a control-plane branch is correct",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "Restrict to §A.37 control planes; under §A.39 every pre-F commit must be single-parent (G9), so merging main before F invalidates the round.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "851-935",
+   "quote": "The landing merge `L` ... takes a pin commit `P`, and `P` is mandatory ... Without `P` the guard fails closed ... One landing at a time, with green main between rounds.",
+   "asserts": "L/P landing shape enforced by guard",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Compat-only; \"One landing at a time\" reads as universal — scope it. Past tense for guard enforcement on retirement.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "937-957",
+   "quote": "stays the object the guard re-certifies in archive mode ... a state the guard rejects",
+   "asserts": "Rationale tied to guard archive mode",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "As above.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "959-965",
+   "quote": "This subsection governs **rounds begun after `SI-2`'s landing merge**.",
+   "asserts": "SI-2 manifest protocol governs all later rounds",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "Must stay verbatim (pinned); append a qualifier sentence (\"After V3-11's landing, only designated §A.37 compatibility rounds\") rather than editing the phrase, until SI2-7 is retired.",
+   "guard_pinned": [
+    "R7-SI2 SI2-7: heading (guard 30664) and \"governs **rounds begun after `SI-2`'s landing merge**\" (guard 30676)"
+   ]
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "967-977",
+   "quote": "validated by the generic validator `SI-2` made authoritative ... The guard's clause for a round is a call to that validator ... and nothing else gates.",
+   "asserts": "Seal validator authoritative; guard clause gates",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Accurate for §A.37 rounds; historical once seal clauses are retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "979-1022",
+   "quote": "writes **the round's own manifest record** ... **cease to GATE** ... **PROTECTED HISTORICAL SEAL STATE** ... **The retirement round is sealing.**",
+   "asserts": "Manifest-protocol P, legacy constants history",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Historical/compat; every bold phrase is pinned by R7-SI2 and cannot be edited until SI2-7 is retired.",
+   "guard_pinned": [
+    "R7-SI2 SI2-7 (guard 30659-30678, 30971-30975): 13 required phrases, 1 forbidden"
+   ]
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "1026-1027",
+   "quote": "This subsection governs **rounds begun after `SI-3`'s landing merge**.",
+   "asserts": "SI-3 rules govern all later rounds",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "\"governs §A.37 rounds begun after SI-3's landing merge\" (this phrase is NOT pinned; the heading is).",
+   "guard_pinned": [
+    "R7-SI3 SI3-6: heading \"### The representation retired, from `SI-3`'s landing\" (guard 31366)"
+   ]
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "1029-1072",
+   "quote": "**The legacy representation is retired.** ... **manifest accessor** ... **prospective declaration** ... **declared baseline** ... Each round declares its own baseline",
+   "asserts": "Post-SI-3 seal rules",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Keep (pinned). Minor: \"Each round declares its own baseline\" (1058) should read \"each §A.37 round\"; native rounds declare none.",
+   "guard_pinned": [
+    "R7-SI3 SI3-6 (guard 31361-31380, 31686-31691): 13 required phrases, 1 forbidden"
+   ]
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "1092-1095",
+   "quote": "`Q` is a single-parent child of `Λ` that adds only the receipt and, for a sealing round, its seal record.",
+   "asserts": "V3 seal record",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "True; optionally name the path verification/v3-seals/<round>.json so it is not confused with the \"seal manifest record\" denied at 1121.",
+   "guard_pinned": []
+  },
+  {
+   "path": "AGENTS.md",
+   "lines": "1121-1126",
+   "quote": "The guard (`V1`) and the round-certificate verifier (`V2`) keep running ... until a later round decides which of their checks survive, they are compatibility and repository-integrity gates.",
+   "asserts": "V1/V2 still run and can fail the gate",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "Rewrite at retirement to name which V1/V2 checks survive (content/integrity) and that choreography checks were retired by that round.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2010-2011; 2056-2057; 2136-2137; 2168-2169; 2194-2195; 2230-2232; 2274-2276; 2312-2313; 2377-2378; 2411-2412; 2443-2444; 2485-2487",
+   "quote": "Guard `R7-HYA` pins the preregistration blob by content and certifies the strengthened execution ancestry (and 11 siblings: A6D, TSG, SGT, A12P, CTI, PQT, HYB, WTS, PC4, PC4S, A6I; several \"with archive mode after the merge\")",
+   "asserts": "Present-tense: each round guard certifies execution ancestry / archive mode",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "12 sentences: on retirement change \"certifies\" to \"certified at execution\"; keep the pinned fragments verbatim.",
+   "guard_pinned": [
+    "\"Guard `R7-WTS` pins the preregistration blob by content\" (guard 16947)",
+    "\"Guard `R7-A6I`\" inside A6I paragraph (guard 19119)"
+   ]
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2519-2522",
+   "quote": "The round is **non-sealing** under `§A.37` ... `_A6P_SEALED_HEAD`, `_A6D_SEALED_HEAD`, `_A6I_SEALED_HEAD` and every `_*_MERGE` and `_*_BASE` constant are read and never written",
+   "asserts": "Legacy constants exist and are read",
+   "false_now": true,
+   "disposition": "historical-note",
+   "proposal": "\"were read and never written\" — SI-3 deleted every such constant (README 2604-2605).",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2533-2540",
+   "quote": "the guard machinery in that file remains **authoritative**. `R7-SI1` runs a generic validator ... as a SHADOW ... the shadow decides nothing.",
+   "asserts": "Guard authoritative; validator a shadow; 22 records",
+   "false_now": true,
+   "disposition": "historical-note",
+   "proposal": "\"At SI-1's landing ...\" — SI-2 made the validator authoritative; seals now hold 34 records (28 sealed, 6 base-only).",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2570-2584",
+   "quote": "The generic seal validator ... is now **authoritative** ... The old machinery still runs ... as a **shadow that gates nothing**",
+   "asserts": "Validator authoritative; old machinery runs as shadow",
+   "false_now": true,
+   "disposition": "historical-note",
+   "proposal": "\"From SI-2's landing the validator was authoritative for seal state; SI-3 removed the shadow machinery.\" No mention of V3 authority for native rounds.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2627-2629",
+   "quote": "the base's guard file, run at the mandated base on every run, returns ninety-two `PASS` verdicts",
+   "asserts": "Guard re-runs SI-3 base file every build",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "True while SI3-7 runs; past tense on retirement.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2629-2631",
+   "quote": "`AGENTS.md` §A.37 now states the representation retired ... once for every round after.",
+   "asserts": "§A.37 governs every later round",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "\"... once for every §A.37 round after\" (native §A.39 rounds carry no seal manifest record).",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2641-2642",
+   "quote": "`.github/workflows/verify.yml` runs the zero-import kernel check, the Mathlib build, and the probes as three independent jobs on every change under `verification/`.",
+   "asserts": "CI shape",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "Keep the prefix \"`.github/workflows/verify.yml` runs\" verbatim and after both A6 paragraphs (it is the end anchor of R7-A6P/R7-A6I paragraph extraction); correct the rest: six jobs, three required, no path filter.",
+   "guard_pinned": [
+    "end anchor for _a6p_paragraph (guard 16292) and _a6i_paragraph (guard 18787)"
+   ]
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2669-2677",
+   "quote": "**Dual gating.** ... so `V2` can reject a build ... `V1` is not retired and not a shadow: every `R7` block gates at `E`, at `L` and after ... while `V1` certifies it through `EXECUTION` → `LANDED-PENDING-PIN` → `ARCHIVED`",
+   "asserts": "V1 and V2 both gate; V1 certifies PRA",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "\"At CV-1's landing ...\"; state the retained status of V1/V2 in the V3 paragraph instead.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2678-2680",
+   "quote": "the set still names `PRA`, `V1` is not removed, and both are migration requirements of the next verifier architecture.",
+   "asserts": "V3 will migrate PRA/V1",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "V3's S13 migrates nothing: \"both are left to a later round (architecture.md S13)\".",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2682-2683",
+   "quote": "recomputed by the guard on every build",
+   "asserts": "CV-1 censuses recomputed by guard",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Past tense on retirement.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "2707-2710",
+   "quote": "Its projection over the `V2` attestation rows gates nothing ... `V1` and `V2` keep running and can still fail the release gate; they do not decide whether a native round is protocol-valid.",
+   "asserts": "Current authority split",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "Correct now; rewrite at retirement to state the surviving V1/V2 checks.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "56-57",
+   "quote": "the R7 guards pin those names",
+   "asserts": "Guards pin artifact names",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Content pins, unaffected by choreography retirement.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/README.md",
+   "lines": "171-179",
+   "quote": "`edge_rigidity_probe.py` carries the R7 lint ... and guards the claim boundaries round by round.",
+   "asserts": "Guard role",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Content role; unaffected.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/ROADMAP.md",
+   "lines": "24",
+   "quote": "| **ACTIVE** | A round is running, or is **frozen and merged** and awaiting execution. A drafted or closed control plane is not a frozen one. |",
+   "asserts": "A frozen round is one whose control plane is merged",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "\"... or is frozen (control plane merged under §A.37, or F designated under §A.39) and awaiting execution\".",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/ROADMAP.md",
+   "lines": "635-641",
+   "quote": "**The chronology guard strengthened twice more.** ... The property certified is *no commit reachable from the execution head lies outside the freeze's descendants*.",
+   "asserts": "Guard chronology property (present tense)",
+   "false_now": false,
+   "disposition": "historical-note",
+   "proposal": "Past tense if the ancestry clauses are retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/infrastructure/v3/architecture.md",
+   "lines": "6-7",
+   "quote": "Protocol 1 is the guard (`V1`) and protocol 2 the round certificate (`V2`).",
+   "asserts": "Naming",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "—",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/infrastructure/v3/architecture.md",
+   "lines": "15-19",
+   "quote": "operative for every round begun after round `V3-11`'s landing that the owner does not designate a compatibility round under `AGENTS.md` §A.37",
+   "asserts": "Scope",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "—",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/infrastructure/v3/architecture.md",
+   "lines": "382-385",
+   "quote": "or to any path under `verification/seals/`, which holds the seal state of protocol 2 and is no V3 round's.",
+   "asserts": "verification/seals is protocol 2 (V2) state",
+   "false_now": true,
+   "disposition": "rewrite",
+   "proposal": "The manifest is read by the V1 guard (SI-2 validator), not by tools/certificate_verifier.py: \"which holds protocol 1's seal manifest\". Normative path rule unchanged.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/infrastructure/v3/architecture.md",
+   "lines": "538-541",
+   "quote": "This specification changes no `V1` or `V2` state and does not specify their migration, which later rounds own. `CV-2`'s unfinished retirement is not touched by it.",
+   "asserts": "S13 no-migration settlement",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Stays true as a statement about the spec; the retiring round cites it.",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/release_gate.py",
+   "lines": "36-42",
+   "quote": "control_plane_lint   a control plane named its drafting snapshot as the mandated execution base",
+   "asserts": "Why the lint exists",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Rewrite only if the step is retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/release_gate.py",
+   "lines": "43-50",
+   "quote": "certificate_verifier the V2 round-certificate verifier, authoritative ... this step is where V2 can reject a build.",
+   "asserts": "V2 authoritative in gate",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "At retirement: state what V2 still checks (e.g. integrity only) or remove with the step. Guard pins the step text, see pins.",
+   "guard_pinned": [
+    "R7-CV1 release-gate-authoritative-step: '\"certificate-verifier\"' and '\"--mode\", \"authoritative\"' in release_gate.py (guard 34745-34747)"
+   ]
+  },
+  {
+   "path": "tools/release_gate.py",
+   "lines": "51-57",
+   "quote": "V1 and V2 keep running beside it and can still fail the gate; they do not decide whether a native round is protocol-valid.",
+   "asserts": "Authority split",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "Correct now; at retirement name which V1/V2 checks survive.",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/release_gate.py",
+   "lines": "113-117",
+   "quote": "control-plane-lint: a control plane must not give its drafting snapshot's SHA to the mandated execution base",
+   "asserts": "Lint purpose",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Compat; no change needed.",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/release_gate.py",
+   "lines": "157-163",
+   "quote": "certificate-verifier: the V2 round-certificate verifier in AUTHORITATIVE mode ... is what lets V2 reject a build. V1's guard gates beside it and is not retired here.",
+   "asserts": "V2 authoritative; V1 gates",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "At retirement, restate as integrity check or remove with the step.",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/release_gate.py",
+   "lines": "166-169",
+   "quote": "v3-receipts: the V3 verdict (round V3-11).",
+   "asserts": "V3 authority",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "—",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/certificate_verifier.py",
+   "lines": "1-45",
+   "quote": "--mode authoritative   exit non-zero on any failing certificate ...; A landed round is DATA under this protocol",
+   "asserts": "V2 self-description",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Describes V2 only; goes with the tool if retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/control_plane_base_check.py",
+   "lines": "4-9",
+   "quote": "AGENTS.md A.37 separates three commits a control plane can mean by \"base\"",
+   "asserts": "Compat vocabulary",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "—",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/control_plane_lint.py",
+   "lines": "1-31",
+   "quote": "a control plane must not confuse D with B ... plus any such file added or modified in git diff",
+   "asserts": "Lint scope includes any new preregistration.md",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Accurate; note it also lints §A.39 preregistrations (no B there).",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/v3_verifier.py",
+   "lines": "5-8",
+   "quote": "The projection over the V2 attestation rows ... gate nothing. V1 and V2 keep running beside it; they do not decide whether a native round is protocol-valid.",
+   "asserts": "Authority split",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "Correct now; rewrite at retirement (and the --project mode depends on verification/certificates/attestations/).",
+   "guard_pinned": []
+  },
+  {
+   "path": "tools/lean_manuscript_census.py",
+   "lines": "5-7, 29-31",
+   "quote": "R7 guards pin individual statements ... guard R7-MSP pins that contract.",
+   "asserts": "Content guards",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "—",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py",
+   "lines": "3-57",
+   "quote": "module docstring (R1-R9; \"R7 lint of all ten Lean files\")",
+   "asserts": "No protocol/authority statement",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Nothing to retire; docstring is silent on the round-protocol role.",
+   "guard_pinned": []
+  },
+  {
+   "path": ".github/workflows/verify.yml",
+   "lines": "9-14",
+   "quote": "The three verification jobs are required status checks on main",
+   "asserts": "Required checks",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "—",
+   "guard_pinned": []
+  },
+  {
+   "path": ".github/workflows/verify.yml",
+   "lines": "155-169",
+   "quote": "the guard's ARCHIVE mode resolves the pull request's base BRANCH ... execution mode resolves pull_request.head.sha instead",
+   "asserts": "fetch-depth justification via guard archive/execution mode",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "At retirement: justify fetch-depth by whatever still needs it (R7-RBR recovery if kept); drop archive-mode text.",
+   "guard_pinned": []
+  },
+  {
+   "path": ".github/workflows/verify.yml",
+   "lines": "220-234",
+   "quote": "A.37 base certification for control planes ... which is the certification an execution may branch from.",
+   "asserts": "Compat job",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Labelled A.37; rewrite/remove if the job is retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": ".github/workflows/verify.yml",
+   "lines": "262-267",
+   "quote": "CV-1: the V2 round-certificate verifier, in SHADOW MODE ... The authoritative call lives in tools/release_gate.py",
+   "asserts": "V2 authoritative call",
+   "false_now": false,
+   "disposition": "rewrite",
+   "proposal": "At retirement. Guard pins job text.",
+   "guard_pinned": [
+    "R7-CV1 workflow-job-in-shadow: \"name: Certificate verifier\", \"certificate_verifier.py --mode shadow\", and absence of \"--mode authoritative\" (guard 34733-34736)"
+   ]
+  },
+  {
+   "path": ".github/workflows/verify.yml",
+   "lines": "286-290",
+   "quote": "V3-2: the V3 verifier's diagnostics ... the projection over the V2 attestation rows",
+   "asserts": "V3 diagnostics",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Rewrite projection mention if V2 attestations retired.",
+   "guard_pinned": []
+  },
+  {
+   "path": "verification/programmes/hydrodynamics/PROGRAMME.md",
+   "lines": "3, 5",
+   "quote": "round H-B's control plane merged; round H-B executed on that base",
+   "asserts": "Status-base provenance",
+   "false_now": false,
+   "disposition": "keep",
+   "proposal": "Historical fact.",
+   "guard_pinned": []
+  }
+ ],
+ "counts_by_file": {
+  "AGENTS.md": {
+   "rewrite": 9,
+   "historical-note": 8,
+   "keep": 8
+  },
+  "verification/README.md": {
+   "historical-note": 7,
+   "rewrite": 4,
+   "keep": 2
+  },
+  "verification/ROADMAP.md": {
+   "rewrite": 1,
+   "historical-note": 1
+  },
+  "verification/infrastructure/v3/architecture.md": {
+   "keep": 3,
+   "rewrite": 1
+  },
+  "tools/release_gate.py": {
+   "keep": 3,
+   "rewrite": 3
+  },
+  "tools/certificate_verifier.py": {
+   "keep": 1
+  },
+  "tools/control_plane_base_check.py": {
+   "keep": 1
+  },
+  "tools/control_plane_lint.py": {
+   "keep": 1
+  },
+  "tools/v3_verifier.py": {
+   "rewrite": 1
+  },
+  "tools/lean_manuscript_census.py": {
+   "keep": 1
+  },
+  "verification/lean/edge_rigidity_probe.py": {
+   "keep": 1
+  },
+  ".github/workflows/verify.yml": {
+   "keep": 3,
+   "rewrite": 2
+  },
+  "verification/programmes/hydrodynamics/PROGRAMME.md": {
+   "keep": 1
+  }
+ },
+ "counts_total": {
+  "rewrite": 21,
+  "historical-note": 16,
+  "keep": 25
+ },
+ "false_now_total": 16,
+ "zero_hit_files": [
+  "verification/MIGRATION-MANIFEST.md",
+  "tools/v3_receipt.py",
+  "verification/programmes/oi-qm/PROGRAMME.md (only math/scope-guard uses)",
+  "no README/index under verification/infrastructure/"
+ ],
+ "guard_pins": {
+  "agents_md": [
+   {
+    "phrase": "## §A.35 Registry contract for the Lean-to-manuscript census",
+    "guard_line": 2933,
+    "kind": "required (R7-MSP)",
+    "agents_lines": [
+     576,
+     576
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "updates the registry in the same commit",
+    "guard_line": 2934,
+    "kind": "required (R7-MSP)",
+    "agents_lines": [
+     589,
+     589
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "### Sealing through the manifest, from `SI-2`'s landing",
+    "guard_line": 30664,
+    "kind": "required (R7-SI2 SI2-7, unflattened)",
+    "agents_lines": [
+     959,
+     959
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "writes **the round's own manifest record**",
+    "guard_line": 30665,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     979,
+     980
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "`sealed_head` = `E` and `merge` = `L`",
+    "guard_line": 30666,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     867,
+     867
+    ],
+    "occurrences": 2
+   },
+   {
+    "phrase": "It writes **no legacy constant**",
+    "guard_line": 30667,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     982,
+     982
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "How a new `sealed` record is created",
+    "guard_line": 30668,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     985,
+     985
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "How a completed non-sealing round's `base-only` record is created",
+    "guard_line": 30669,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     996,
+     996
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**cease to GATE**",
+    "guard_line": 30670,
+    "kind": "required (R7-SI2 SI2-7; mutation at 30973)",
+    "agents_lines": [
+     1008,
+     1008
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "has recreated the representation `SI-2` retired",
+    "guard_line": 30671,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     1010,
+     1010
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**PROTECTED HISTORICAL SEAL STATE**",
+    "guard_line": 30672,
+    "kind": "required (R7-SI2 SI2-7; mutation at 30974)",
+    "agents_lines": [
+     1011,
+     1011
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "makes the round that does it *sealing*",
+    "guard_line": 30673,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     1013,
+     1013
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**The retirement round is sealing.**",
+    "guard_line": 30674,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     1017,
+     1017
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "`sealed_head` = its `E`, `merge` = its `L` — and writes no legacy constant",
+    "guard_line": 30675,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     1021,
+     1022
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "governs **rounds begun after `SI-2`'s landing merge**",
+    "guard_line": 30676,
+    "kind": "required (R7-SI2 SI2-7)",
+    "agents_lines": [
+     961,
+     961
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "`P` sets the constants it owns to `E` and to `L`",
+    "guard_line": 30677,
+    "kind": "forbidden (R7-SI2 SI2-7; mutation at 30975)",
+    "agents_lines": [
+     null,
+     null
+    ],
+    "occurrences": 0
+   },
+   {
+    "phrase": "### The representation retired, from `SI-3`'s landing",
+    "guard_line": 31366,
+    "kind": "required (R7-SI3 SI3-6, unflattened)",
+    "agents_lines": [
+     1024,
+     1024
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**The legacy representation is retired.**",
+    "guard_line": 31367,
+    "kind": "required (R7-SI3 SI3-6; mutation at 31690)",
+    "agents_lines": [
+     1029,
+     1029
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**zero legacy assignment statements in the file**",
+    "guard_line": 31368,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1036,
+     1036
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "has recreated the representation that was retired",
+    "guard_line": 31369,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1036,
+     1037
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**manifest accessor**",
+    "guard_line": 31370,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1038,
+     1038
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**prospective declaration**",
+    "guard_line": 31371,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1044,
+     1044
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**`P` removes the entry when it writes the record**",
+    "guard_line": 31372,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1048,
+     1048
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**declared baseline**",
+    "guard_line": 31373,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1053,
+     1053
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**A closed round's contracts are read over the records it manifested.**",
+    "guard_line": 31374,
+    "kind": "required (R7-SI3 SI3-6; mutation at 31691)",
+    "agents_lines": [
+     1060,
+     1060
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "**The censuses are history.**",
+    "guard_line": 31375,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1068,
+     1068
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "never read as evidence about a later head",
+    "guard_line": 31376,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1071,
+     1071
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "both of which held until `SI-3`'s landing",
+    "guard_line": 31377,
+    "kind": "required (R7-SI3 SI3-6)",
+    "agents_lines": [
+     1006,
+     1007
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "remained **PROTECTED HISTORICAL SEAL STATE**",
+    "guard_line": 31378,
+    "kind": "required (R7-SI3 SI3-6; mutation at 31688)",
+    "agents_lines": [
+     1011,
+     1011
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "remain **PROTECTED HISTORICAL SEAL STATE**",
+    "guard_line": 31379,
+    "kind": "forbidden (R7-SI3 SI3-6)",
+    "agents_lines": [
+     null,
+     null
+    ],
+    "occurrences": 0
+   }
+  ],
+  "readme_md": [
+   {
+    "phrase": "Guard `R7-INV`",
+    "guard_line": 2759,
+    "kind": "required (R7-INV, _rd1)",
+    "readme_lines": [
+     852,
+     852
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "Guard `R7-MIN`",
+    "guard_line": 2865,
+    "kind": "required (R7-MIN, _rd1)",
+    "readme_lines": [
+     891,
+     891
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "Guard `R7-A6P`",
+    "guard_line": 16410,
+    "kind": "required in A6P paragraph (R7-A6P P9); mutation at 16542",
+    "readme_lines": [
+     2342,
+     2342
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "preregistration blob `e7cb701`, committed alone as `d24dc3c`",
+    "guard_line": 16406,
+    "kind": "required in A6P paragraph (R7-A6P P9)",
+    "readme_lines": [
+     2317,
+     2317
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "The substratum A6 covariance propagation (`audits/foundations/",
+    "guard_line": 16291,
+    "kind": "A6P paragraph start anchor",
+    "readme_lines": [
+     2316,
+     2316
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "`.github/workflows/verify.yml` runs",
+    "guard_line": 16292,
+    "kind": "A6P/A6I paragraph END anchor (also 18787)",
+    "readme_lines": [
+     2641,
+     2641
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "The substratum A6 instantiation round 2 (`programmes/substratum/a6-instantiation/`",
+    "guard_line": 18785,
+    "kind": "A6I paragraph start anchor",
+    "readme_lines": [
+     2448,
+     2449
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "preregistration blob `6f991c1`, merged alone by PR #623 as `3e5d6a8`, the mandated execution base",
+    "guard_line": 19110,
+    "kind": "required in A6I paragraph (R7-A6I I23)",
+    "readme_lines": [
+     2449,
+     2450
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "Guard `R7-A6I`",
+    "guard_line": 19119,
+    "kind": "required in A6I paragraph (R7-A6I I23)",
+    "readme_lines": [
+     2485,
+     2485
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "is a definition round, not a proof round, and is owner-called",
+    "guard_line": 19125,
+    "kind": "required (R7-A6I I23)",
+    "readme_lines": [
+     2044,
+     2044
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "Guard `R7-WTS` pins the preregistration blob by content",
+    "guard_line": 16947,
+    "kind": "required (R7-WTS W24)",
+    "readme_lines": [
+     2376,
+     2377
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "which is a propagation round of its own",
+    "guard_line": 3388,
+    "kind": "required (R7-RB1 loop)",
+    "readme_lines": [
+     919,
+     919
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "owner decision",
+    "guard_line": 3777,
+    "kind": "required (R7-SUB loop)",
+    "readme_lines": [
+     1032,
+     1032
+    ],
+    "occurrences": 6
+   },
+   {
+    "phrase": "third preregistered outcome",
+    "guard_line": 3777,
+    "kind": "required (R7-SUB loop)",
+    "readme_lines": [
+     1017,
+     1018
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "preregistered at level two",
+    "guard_line": 4189,
+    "kind": "required (R7-FLOW loop)",
+    "readme_lines": [
+     1125,
+     1125
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "realization by one protocol",
+    "guard_line": 4395,
+    "kind": "required (R7-PROP loop)",
+    "readme_lines": [
+     1183,
+     1183
+    ],
+    "occurrences": 1
+   },
+   {
+    "phrase": "that the preregistered Q3 or Q4 holds as stated",
+    "guard_line": 3631,
+    "kind": "required (R7-LIFT loop)",
+    "readme_lines": [
+     989,
+     990
+    ],
+    "occurrences": 1
+   }
+  ],
+  "notes": [
+   "AGENTS.md is read live only at guard 2932-2934 (R7-MSP), 30659-30678/30971-30975 (R7-SI2 SI2-7) and 31361-31380/31686-31691 (R7-SI3 SI3-6); other AGENTS.md reads (24042, 30499, 31257, 31863/_GR1_PINS) are at fixed historical commits and do not constrain the working tree.",
+   "verification/README.md is read live at guard 2484 (_rd/_rd1), 16127 (_A6P_README), 16648 (_WTSREADME), 18751 (_A6IREADME). The A6P and A6I paragraph extractors span from their start anchors (README 2316, 2448) to the first \"`.github/workflows/verify.yml` runs\" (README 2641), so the SI-1/SI-2/SI-3 sections lie INSIDE both extracted regions and are scanned by _a6p_non_licences/_a6i_non_licences.",
+   "V2 imposes no live doc pins: live-policy.json has count 0; README/AGENTS/release_gate/verify.yml appear only as unpinned certificate contributions.",
+   "Guard and tools read no AGENTS.md §A.37 opening text and nothing from §A.39; V3 tools read no documentation file."
+  ]
+ },
+ "historical_records": {
+  "total_historical_files": 166,
+  "per_pattern": {
+   "A37": 79,
+   "seal_protocol": 105,
+   "certificate_protocol": 28
+  },
+  "any": 106,
+  "by_kind": {
+   "amendment": 10,
+   "census.json": 4,
+   "preregistration.md": 50,
+   "result.md": 42
+  },
+  "regex": "A\\.37 | verification/seals|seal (record|constant|state|manifest)|seal-record|manifest record|sealing|non-sealing|sealed[ _]head|_SEALED_HEAD|archive pin|pin commit | round[- ]certificate|certificate_verifier|verification/certificates|\\bV2\\b",
+  "note": "166 tracked historical files (75 preregistration.md, 67 result.md, 20 amendment files, 4 census.json); 106 mention §A.37/seals/certificates by the union regex (A.37: 79, seal-protocol terms: 105, certificate terms incl. bare V2: 28; 27 without bare V2). Not listed individually; immutable."
+ },
+ "out_of_scope_note": {
+  "path": "verification/MIGRATION-RECORD.md",
+  "lines": "25",
+  "quote": "The test for what may be edited is whether a guard pins the file",
+  "asserts": "Edit test = guard pin",
+  "false_now": false,
+  "disposition": "historical-note",
+  "proposal": "Migration-round record; if pins move to receipts, say \"a guard or receipt pins\".",
+  "guard_pinned": []
+ }
+}

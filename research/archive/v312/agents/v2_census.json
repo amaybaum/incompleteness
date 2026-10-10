@@ -1,0 +1,691 @@
+{
+ "tool": "tools/certificate_verifier.py",
+ "head": "81150851f84c8aa1df71dc69013a6ca6f6d71b51",
+ "checks": [
+  {
+   "id": "V2-VIS",
+   "name": "visibility targets (event/env, base-ref recovery, deepening)",
+   "functions": [
+    "visibility_targets 516-553",
+    "Git.recover 121-136",
+    "Git.deepen 138-153",
+    "Git.is_shallow 117-119",
+    "evaluate 731-739"
+   ],
+   "codes": [
+    "visibility:head-unresolvable",
+    "visibility:no-event-payload",
+    "visibility:event-payload",
+    "visibility:head-sha",
+    "visibility:base-ref-unresolvable",
+    "visibility:head-absent"
+   ],
+   "reads": [
+    "env GITHUB_EVENT_NAME, GITHUB_EVENT_PATH, GITHUB_BASE_REF",
+    "event JSON payload (pull_request.head.sha, pull_request.base.ref)",
+    "git refs HEAD / refs/remotes/origin/<base ref>",
+    "NETWORK: git fetch origin (+refs/heads/<ref>:refs/remotes/origin/<ref>, --unshallow/--deepen; and fetch of each target sha) only when shallow or base ref unresolved"
+   ],
+   "protects": "That every derivation is evaluated over the A.37 visibility union (real PR head + live origin/<base>), never pull_request.base.sha, a local branch or the synthetic merge; on non-pull_request events the single target is HEAD.",
+   "cls": "retire",
+   "reason": "The visibility union exists only to make the A.37 landing-merge (L) derivation robust for long-lived execution PRs; any surviving historical check can use plain HEAD. Note: every git derivation below consumes these targets, so retiring it requires rebinding survivors to HEAD.",
+   "v3_pr_can_fail": "yes, environment-only: on a pull_request run it fails closed if the event payload is missing/unparsable, or origin/<base> cannot be resolved (shallow/single-branch checkout and fetch fails). Content of a V3 round cannot trigger it. The Mathlib bridge job checks out with fetch-depth: 0 (verify.yml:74), so it passes in the normal case.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-STORE",
+   "name": "store presence and stray files",
+   "functions": [
+    "Store.__init__ 243-259",
+    "read_json_dir 214-230",
+    "evaluate 727-730, 740-741"
+   ],
+   "codes": [
+    "store:absent",
+    "store:stray-file:<name>"
+   ],
+   "reads": [
+    "working tree: listing of verification/certificates/*.json (non-.json and subdirectories ignored)"
+   ],
+   "protects": "The certificate store exists and its root holds only STEM-named certificate JSON plus live-policy.json and legacy-v1-owned.json.",
+   "cls": "retain-historical",
+   "reason": "Cheap integrity of the directory holding the immutable legacy records; a stray/renamed certificate is a damaged record.",
+   "v3_pr_can_fail": "no: fires only if the PR removes verification/certificates or adds a non-stem .json at its root.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-SCH-CERT",
+   "name": "certificate schema",
+   "functions": [
+    "validate_cert 265-352",
+    "evaluate 744-750"
+   ],
+   "codes": [
+    "schema:unreadable",
+    "schema:not-an-object",
+    "schema:missing:<f>",
+    "schema:unknown-key:<k>",
+    "schema:schema",
+    "schema:protocol",
+    "schema:round-filename-mismatch",
+    "schema:origin",
+    "schema:shape",
+    "schema:content-only-topology:<f>",
+    "schema:hash:base",
+    "schema:control-plane",
+    "schema:control-plane-entry",
+    "schema:directory",
+    "schema:dependencies",
+    "schema:evidence",
+    "schema:evidence-entry",
+    "schema:hash:evidence",
+    "schema:evidence-duplicate-id",
+    "schema:contributions",
+    "schema:missing:translation",
+    "schema:translation",
+    "schema:forbidden:translation"
+   ],
+   "reads": [
+    "working tree: verification/certificates/<STEM>.json (52 files)"
+   ],
+   "protects": "Each certificate is well-formed JSON of the frozen oi-round-certificate schema (protocol 1|2, origin, shape, topology fields per shape, evidence/contribution/dependency lists, translation block iff translated-v1).",
+   "cls": "retain-historical",
+   "reason": "The parser of the 52 frozen records; evidence resolution depends on it. Topology/translation sub-rules are V2-protocol shape but cost nothing on frozen data. translation.migration_snapshot is hex-checked only, never compared to git.",
+   "v3_pr_can_fail": "no: only if a certificate file is edited.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-SCH-ROW",
+   "name": "attestation-record schema",
+   "functions": [
+    "validate_row 355-416",
+    "evaluate 751-757"
+   ],
+   "codes": [
+    "schema:unreadable",
+    "row:schema:not-an-object",
+    "row:schema:missing:<f>",
+    "row:schema:round-filename-mismatch",
+    "row:schema:protocol",
+    "row:schema:origin",
+    "row:schema:kind",
+    "row:schema:hash:<f>",
+    "row:schema:base-only-topology:<f>",
+    "row:schema:ci-forbidden",
+    "row:schema:migration-snapshot-forbidden",
+    "row:schema:ci",
+    "row:schema:unknown-key:<k>"
+   ],
+   "reads": [
+    "working tree: verification/certificates/attestations/<STEM>.json (36 files)"
+   ],
+   "protects": "Each attestation record is well-formed: landed rows carry sealed_head/tree/landing, base-only rows forbid them; translated rows carry migration_snapshot and no ci; native/bootstrap rows carry ci{exact_e,exact_l,main_push}.",
+   "cls": "retain-historical",
+   "reason": "Parser of frozen records. The ci block (A.37 exact-head CI attestation) and migration_snapshot are schema-checked only; no check compares them with GitHub or git.",
+   "v3_pr_can_fail": "no: only if an attestation file is edited.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-PROV",
+   "name": "corpus provenance / ledger pairing",
+   "functions": [
+    "evaluate 762-775"
+   ],
+   "codes": [
+    "provenance:second-bootstrap",
+    "row:content-only",
+    "ledger:row-missing",
+    "ledger:row-without-certificate"
+   ],
+   "reads": [
+    "in-memory store (certificates + attestation filenames)"
+   ],
+   "protects": "At most one bootstrap-v1 certificate; content-only rounds have no row; every translated non-content-only certificate has a row; no row lacks a certificate.",
+   "cls": "retain-historical",
+   "reason": "Detects deletion of a legacy attestation record (ledger-row-removed vector) or an orphan row. second-bootstrap is V2 provenance and can only fire if a certificate is added.",
+   "v3_pr_can_fail": "no: only if certificates/rows are added or removed.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-ROW-CERT",
+   "name": "row-to-certificate binding (incl. certificate blob pin)",
+   "functions": [
+    "evaluate 807-825",
+    "Git.blob_at 113-115"
+   ],
+   "codes": [
+    "row:certificate-invalid",
+    "row:certificate-mismatch:identity",
+    "row:content-only",
+    "row:base-mismatch",
+    "row:certificate-mismatch"
+   ],
+   "reads": [
+    "working tree certificate blob (translated-v1: 35 rows)",
+    "git object: verification/certificates/<STEM>.json at the recorded sealed_head (non-translated landed rows: CV1 only)"
+   ],
+   "protects": "Row and certificate agree on protocol/origin/base, and the row's certificate hash equals the certificate: for translated rows the CURRENT file blob (this is what makes the 35 row-backed translated certificates immutable), for CV1 the blob at its sealed head.",
+   "cls": "retain-historical",
+   "reason": "The only mechanism pinning the 35 row-backed translated certificate files. Gaps: the 16 content-only certificates and CV1's current file are not blob-pinned by anything in V2.",
+   "v3_pr_can_fail": "no: only if a certificate or row is edited.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-LEG-PART",
+   "name": "legacy-v1-owned partition",
+   "functions": [
+    "validate_legacy 469-490",
+    "evaluate 777-783, 793-799"
+   ],
+   "codes": [
+    "legacy-owned:missing",
+    "legacy-owned:schema",
+    "legacy-owned:count",
+    "legacy-owned:more-than-one",
+    "legacy-owned:entry",
+    "legacy-owned:has-certificate:<stem>",
+    "legacy-owned:has-row:<stem>",
+    "legacy-owned:certificate-for-owned-stem"
+   ],
+   "reads": [
+    "working tree: verification/certificates/legacy-v1-owned.json (1 entry: PRA)"
+   ],
+   "protects": "The V1/V2 ownership partition: at most one round (PRA) is certified by the prior protocol and it has no V2 certificate/row.",
+   "cls": "retire",
+   "reason": "Encodes which protocol (V1 vs V2) decides a round's validity -- superseded once V3 is the authority; it makes no validity claim about PRA itself.",
+   "v3_pr_can_fail": "no (file-presence/schema only; a V3 round does not touch it).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-LEG-PREREG",
+   "name": "legacy-owned preregistration blob pin and base existence",
+   "functions": [
+    "evaluate 784-792",
+    "Git.exists 106-107"
+   ],
+   "codes": [
+    "legacy-owned:preregistration:<stem>",
+    "legacy-owned:base:<stem>"
+   ],
+   "reads": [
+    "working tree: verification/programmes/oi-qm/track-b/act-29-product-admission/preregistration.md (blob 5451a52d...)",
+    "git object db: commit 0bedff07... exists"
+   ],
+   "protects": "PRA's frozen preregistration is unchanged in the tree and its recorded base commit exists.",
+   "cls": "retain-historical",
+   "reason": "Immutability of a landed round's frozen preregistration; the base-existence half is an object-existence check only (rebind-able).",
+   "v3_pr_can_fail": "no: only if PRA's preregistration is edited/moved or the clone lacks that commit.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-BASE",
+   "name": "B derivation: control-plane blob introduction -> recorded merge -> base",
+   "functions": [
+    "derive_base 559-588",
+    "Git.introducing_commits 191-208",
+    "Git.has_blob 186-189",
+    "Git.parents 155-157",
+    "evaluate 802-806"
+   ],
+   "codes": [
+    "base:git",
+    "base:zero-candidates",
+    "base:multiple-candidates",
+    "base:merge-disagreement",
+    "base:no-execution-affecting",
+    "base:disagreement"
+   ],
+   "reads": [
+    "git topology: git log --first-parent --find-object=<blob> <target> for each of the 42 control-plane blobs over each visibility target",
+    "git trees: ls-tree -r at every hit and its first parent"
+   ],
+   "protects": "For each of the 36 non-content-only certificates, each frozen control-plane artifact entered first-parent history at exactly one commit, equal to the recorded merge, and the last execution-affecting one is the recorded mandated base B (A.37 D/B chronology).",
+   "cls": "retire",
+   "reason": "Pure A.37 control-plane->base chronology. The artifact-integrity half is redundant: all 42 control-plane blobs are also pinned as the same certificate's evidence (V2-EVID) in the current tree.",
+   "v3_pr_can_fail": "conditionally yes: on a pull_request run the union of first-parent walks is used; if the PR branch absorbed main through a merge whose FIRST parent is the branch (GitHub \"Update branch\") after one of the 42 control-plane merges, that merge is a second introducing commit -> base:multiple-candidates (reproduced in a scratch repo with git 2.43). A conforming V3 round (D after all 42 merges; reconciliation first parent = later base per A.39) cannot hit it. Also base:git on git failure.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-TOPO-EXIST",
+   "name": "landed-row commits exist",
+   "functions": [
+    "derive_landed 593-599",
+    "Git.exists 106-107"
+   ],
+   "codes": [
+    "base:unreachable",
+    "sealed-head:unrecoverable",
+    "landing:unrecoverable"
+   ],
+   "reads": [
+    "git object db: base, sealed_head, landing commits of the 30 landed rows"
+   ],
+   "protects": "The commits a landed record names are present in the repository.",
+   "cls": "rebind",
+   "reason": "As \"the recorded commits of a historical record resolve\" it is object-level record integrity; under V2 it is the precondition of the E/L chronology.",
+   "v3_pr_can_fail": "no, except a clone missing those objects.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-TOPO-E",
+   "name": "E derivation and strong ancestry",
+   "functions": [
+    "derive_landed 600-609, 618-619",
+    "Git.strong_ancestry 162-172",
+    "Git.parents 155-157"
+   ],
+   "codes": [
+    "sealed-head:zero-candidates",
+    "sealed-head:multiple-candidates",
+    "sealed-head:disagreement",
+    "topology:ancestry"
+   ],
+   "reads": [
+    "git topology: parents of recorded landing; merge-base --is-ancestor; rev-list <sealed> ^<base> and per-commit ancestry"
+   ],
+   "protects": "The recorded sealed head is the unique non-first parent of the recorded landing that descends strongly from base (no pre-freeze side history), i.e. the A.37 sealed-execution chronology.",
+   "cls": "retire",
+   "reason": "A.37 E/L/base chronology. Caveat: over immutable commits it is deterministic, so in practice it can only fire if a row's base/sealed_head/landing field is edited -- attestation rows have NO blob pin anywhere in V2, so retiring V2-TOPO-* removes their only edit protection unless replaced by a row blob pin.",
+   "v3_pr_can_fail": "no (deterministic over fixed commits; only a row edit or missing objects).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-TOPO-TREE",
+   "name": "tree(sealed_head) equals recorded tree",
+   "functions": [
+    "derive_landed 610-617",
+    "Git.tree_of 109-111"
+   ],
+   "codes": [
+    "topology:tree-mismatch"
+   ],
+   "reads": [
+    "git object: tree of recorded sealed_head (subject=certified; current-tree subject only in corpus vectors)"
+   ],
+   "protects": "The recorded tree is exactly the content of the certified sealed head.",
+   "cls": "rebind",
+   "reason": "Useful as record integrity (the recorded tree identifies what was certified), not as a validity verdict.",
+   "v3_pr_can_fail": "no (deterministic; only a row edit).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-TOPO-L",
+   "name": "L derivation: unique landing over the visibility union",
+   "functions": [
+    "derive_landed 620-633",
+    "Git.merges_with_second_parent 174-184"
+   ],
+   "codes": [
+    "landing:git",
+    "landing:zero-candidates",
+    "landing:multiple-candidates",
+    "landing:disagreement"
+   ],
+   "reads": [
+    "git topology: git log --format=\"%H %P\" over full history of each visibility target"
+   ],
+   "protects": "Exactly one merge visible from the targets carries the sealed head as a non-first parent, and it equals the recorded landing (A.37 landing visibility / no rewritten landing).",
+   "cls": "retire",
+   "reason": "A.37 landing choreography over the PR-head/base-tip visibility union.",
+   "v3_pr_can_fail": "practically no: requires a new merge with a legacy sealed head as non-first parent (V3 reconciliation merges take E_v3 or a receipt commit) or git failure; zero-candidates impossible while the landing is on main.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-BASEONLY",
+   "name": "base-only row base reachable",
+   "functions": [
+    "derive_base_only 636-641",
+    "Git.is_ancestor 159-160"
+   ],
+   "codes": [
+    "base:unreachable"
+   ],
+   "reads": [
+    "git object db and ancestry of the 6 base-only rows' base against the visibility targets"
+   ],
+   "protects": "A base-only record's base exists and is an ancestor of some visibility target.",
+   "cls": "rebind",
+   "reason": "As \"the recorded base is in main's history\" it is record integrity; its visibility-target framing is V2.",
+   "v3_pr_can_fail": "no (bases are already on main).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-DEP",
+   "name": "dependency closure (fixpoint)",
+   "functions": [
+    "evaluate 832-855"
+   ],
+   "codes": [
+    "dependency:missing:<dep>",
+    "dependency:protocol-order:<dep>",
+    "dependency:failed:<dep>"
+   ],
+   "reads": [
+    "in-memory certificates (15 dependency edges over 52 certificates)"
+   ],
+   "protects": "Every declared dependency names an existing certificate of no later protocol, and a failing dependency fails its dependents.",
+   "cls": "retain-historical",
+   "reason": "Internal consistency of the frozen record graph; its failure propagation carries whatever checks survive. protocol-order is a V2 rule that cannot fire on the frozen corpus (all protocol 1).",
+   "v3_pr_can_fail": "no: only through a certificate edit or a propagated failure.",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-EVID",
+   "name": "evidence blob pins (universal live rule)",
+   "functions": [
+    "resolve_evidence 647-700 (685-692, 698-699)",
+    "evaluate 857-860"
+   ],
+   "codes": [
+    "evidence:missing:<id>",
+    "evidence:blob-mismatch:<id>"
+   ],
+   "reads": [
+    "working tree: the 157 evidence paths of certificates whose verdict is PASS (90 under verification/programmes, 26 infrastructure, 8 audits, 33 verification/seals/<STEM>.json)"
+   ],
+   "protects": "Every evidence file of every accepted legacy round (preregistrations incl. all 42 control-plane artifacts, results, census/data, 33 seal records) is present at its path with its certified blob.",
+   "cls": "retain-historical",
+   "reason": "The core integrity property of already-landed records. Note it is gated on verdict==PASS (line 858): a certificate failing any other check has its evidence skipped (the run still fails). This is the only way V2 reads verification/seals (as pinned blobs; no seal semantics). Contributions (202 paths) are never pinned.",
+   "v3_pr_can_fail": "no, unless the PR edits, moves or deletes one of the 157 pinned files (e.g. a legacy result.md, preregistration or verification/seals/*.json).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-RELOC",
+   "name": "relocation ledger",
+   "functions": [
+    "validate_relocations 419-441",
+    "resolve_evidence 656-684, 693-697"
+   ],
+   "codes": [
+    "relocation:schema:<name>",
+    "relocation:seq",
+    "relocation:unknown-evidence:<id>",
+    "relocation:missing-source:<id>",
+    "relocation:blob-mismatch:<id>",
+    "relocation:fork:<id>",
+    "relocation:duplicate-active:<id>"
+   ],
+   "reads": [
+    "working tree: verification/certificates/relocations/*.json (directory absent: 0 records)",
+    "working tree existence of relocation source paths"
+   ],
+   "protects": "An evidence file may move only via a contiguous, blob-preserving, non-forking relocation record, after which the old path must be gone.",
+   "cls": "retain-historical",
+   "reason": "The sanctioned way to move a historical evidence file without breaking its pin; vacuous today (no records).",
+   "v3_pr_can_fail": "no (no relocation records exist; only if the PR adds one).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-POLICY",
+   "name": "live policy",
+   "functions": [
+    "validate_policy 444-466",
+    "eval_predicate 493-510",
+    "evaluate 861-868"
+   ],
+   "codes": [
+    "live-policy:missing",
+    "live-policy:schema",
+    "live-policy:count",
+    "live-policy:clause:<i>",
+    "live-policy:clause:<id>:missing:<f>",
+    "live-policy:clause:<id>:predicate-type",
+    "live-policy:violated:<id>"
+   ],
+   "reads": [
+    "working tree: verification/certificates/live-policy.json (count 0, policies [])",
+    "working tree paths named by clause predicates (none)"
+   ],
+   "protects": "Round-owned live tree predicates (blob-pinned, path-absent, file-contains, file-lacks) hold on the current tree; the file must exist with protocol 2 and exact count.",
+   "cls": "retire",
+   "reason": "A V2 mechanism for round-owned live rules with zero clauses; today only its file-presence/schema can fail. (Rebind only if an owner wants a generic tree-predicate list.)",
+   "v3_pr_can_fail": "no (0 clauses; only if the file is removed/edited).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-CORPUS",
+   "name": "conformance corpus executed as an exact set",
+   "functions": [
+    "run_corpus 1023-1067",
+    "run_vector 986-1020",
+    "build_repo 902-958",
+    "vector_env 961-971",
+    "exact_set 974-983",
+    "main 1172-1174"
+   ],
+   "codes": [
+    "vacuity:expected-missing",
+    "vacuity:unreadable-vector:<f>",
+    "vacuity:vector-id-filename:<f>",
+    "vacuity:expected-mismatch:<id>",
+    "vector:<id>:<verdict>/<reason>",
+    "vacuity:count",
+    "vacuity:ids",
+    "vacuity:duplicate"
+   ],
+   "reads": [
+    "working tree: verification/certificates/conformance/v2/*.json (89 vectors + expected.json)",
+    "writes/reads temp dirs via tempfile.mkdtemp (87 synthetic repos; 2 vacuity vectors build none; 6 subject:current-tree vectors evaluate twice)",
+    "spawns git with os.environ copy; synthetic GITHUB_EVENT_* for 10 pull_request vectors"
+   ],
+   "protects": "The verifier implementation reproduces the expected verdict/reason on every fixture and executes exactly the corpus (no dropped/substituted vectors).",
+   "cls": "rebind",
+   "reason": "Self-test of whatever checks survive; vectors of retired families (ambiguity 6, visibility 8, topology 6, historical-subject 6, legacy-owned 5, live-policy 9, most provenance) must retire with them, and exact-set vacuity keeps the rest honest.",
+   "v3_pr_can_fail": "no from content; yes from environment (git missing/incompatible, unwritable temp dir -> ERROR mismatch).",
+   "file": "tools/certificate_verifier.py"
+  },
+  {
+   "id": "V2-CRASH",
+   "name": "uncaught exception path",
+   "functions": [
+    "main 1150-1181 (no top-level try)"
+   ],
+   "codes": [
+    "<traceback, exit 1>"
+   ],
+   "reads": [
+    "n/a"
+   ],
+   "protects": "Not a designed check: an unexpected exception (e.g. OSError reading a pinned file that isfile() admitted) aborts with a non-zero exit in either mode.",
+   "cls": "retain-substantive",
+   "reason": "Fail-closed default; not a policy. Listed for exhaustiveness (ambiguous whether to count as a check).",
+   "v3_pr_can_fail": "only on I/O faults.",
+   "file": "tools/certificate_verifier.py"
+  }
+ ],
+ "readers": [
+  {
+   "path": "tools/release_gate.py:165",
+   "what": "step \"certificate-verifier\": runs certificate_verifier.py --mode authoritative (comment 157-163, docstring 43-50)",
+   "gating": true
+  },
+  {
+   "path": ".github/workflows/verify.yml:281",
+   "what": "job \"Certificate verifier\" (268-284): --self-test",
+   "gating": "job not a required check per its own comment"
+  },
+  {
+   "path": ".github/workflows/verify.yml:284",
+   "what": "job \"Certificate verifier\": --mode shadow (always exit 0)",
+   "gating": false
+  },
+  {
+   "path": ".github/workflows/verify.yml:148-149",
+   "what": "Mathlib bridge job runs tools/release_gate.py, hence the authoritative step (fetch-depth: 0 at :74)",
+   "gating": true
+  },
+  {
+   "path": "tools/v3_verifier.py:76,1058-1063",
+   "what": "ATTESTATION_DIR = verification/certificates/attestations/; project() reads rows at a subject via git ls-tree; used only by --project (1461-1464) and --mode shadow (1465-1478, invoked verify.yml:310); never by --receipts",
+   "gating": false
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:33734-33736",
+   "what": "R7-CV1 guard block constants _CV1_VERIFIER/_CV1_CERTS/_CV1_CORPUS",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:33838-33841",
+   "what": "checks the CV1 base had no certificates dir / verifier (git rev-parse at _CV1_B)",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:33871-33878",
+   "what": "reads verification/certificates/attestations/CV1.json",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34389-34436",
+   "what": "_cv1_run_verifier: runs certificate_verifier.py --mode shadow --root <root> as subprocess and parses CERT/ROW/VECTOR/LEGACY-V1-OWNED/summary lines; checks verifier-ran, verifier-shadow-ok",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34437-34457",
+   "what": "reads conformance/v2/expected.json; corpus-exact, corpus-every-family (historical-subject==6, divergence==4)",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34459-34472",
+   "what": "reads tools/certificate_verifier.py source: stem-free, standard-library-only",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34528-34575,34651-34652",
+   "what": "bridge simulation: builds synthetic repos with verification/certificates/{ZZ.json,attestations/ZZ.json,legacy-v1-owned.json} and runs verifier --no-corpus",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34672-34724",
+   "what": "_cv1_store parses certificates + attestations; provenance-one-bootstrap-and-it-is-cv1, fifty-one translated, thirty-five translated rows; legacy-owned-exactly-pra; live-policy-zero-clauses; no-relocation-record",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34727-34748",
+   "what": "reads verify.yml text (workflow-job-in-shadow: shadow present, authoritative absent) and release_gate.py text (release-gate-authoritative-step)",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py:34786, 34955",
+   "what": "CV1 additive-diff root list; rep6b PRA LEGACY-V1-OWNED report over _CV1_CERT_OBJS",
+   "gating": "V1 guard"
+  },
+  {
+   "path": "verification/infrastructure/round-v3-2-shadow-verifier/census.json:14,59,104,113",
+   "what": "recorded historical V2 shadow summary lines (data, not an invocation)",
+   "gating": false
+  },
+  {
+   "path": "verification/certificates/CV1.json:14",
+   "what": "lists tools/certificate_verifier.py as a CV1 contribution (not blob-pinned)",
+   "gating": false
+  }
+ ],
+ "counts": {
+  "certificates": 52,
+  "certificates_by_origin": {
+   "translated-v1": 51,
+   "bootstrap-v1": 1
+  },
+  "certificates_by_shape": {
+   "sealing": 27,
+   "non-sealing": 9,
+   "content-only": 16
+  },
+  "certificates_by_protocol": {
+   "1": 52,
+   "2": 0
+  },
+  "certificates_with_control_plane": 36,
+  "control_plane_entries": 42,
+  "control_plane_entries_not_execution_affecting": 0,
+  "control_plane_blobs_also_pinned_as_own_evidence": 42,
+  "evidence_ids": 157,
+  "evidence_by_area": {
+   "verification/programmes": 90,
+   "verification/infrastructure": 26,
+   "verification/audits": 8,
+   "verification/seals": 33
+  },
+  "contributions_unpinned": 202,
+  "dependency_edges": 15,
+  "attestations": 36,
+  "attestations_by_kind": {
+   "landed translated-v1": 29,
+   "base-only translated-v1": 6,
+   "landed bootstrap-v1 (CV1)": 1
+  },
+  "relocations": 0,
+  "relocations_dir_present": false,
+  "live_policy_clauses": 0,
+  "legacy_v1_owned": [
+   "PRA"
+  ],
+  "conformance_vectors": 89,
+  "conformance_expected_entries": 89,
+  "expected_verdicts": {
+   "FAIL": 74,
+   "PASS": 15
+  },
+  "vector_families": {
+   "ambiguity": 6,
+   "artifact-class": 8,
+   "dependency": 4,
+   "divergence": 4,
+   "historical-subject": 6,
+   "ledger": 6,
+   "legacy-owned": 5,
+   "live-policy": 9,
+   "provenance": 6,
+   "schema": 19,
+   "topology": 6,
+   "vacuity": 2,
+   "visibility": 8
+  },
+  "vector_evaluate_modes": {
+   "verify": 81,
+   "subject:current-tree": 6,
+   "vacuity:fewer": 1,
+   "vacuity:substituted": 1
+  },
+  "vector_events": {
+   "push": 79,
+   "pull_request": 10
+  },
+  "corpus_execution": "run_corpus lists conformance/v2/*.json, requires each vector id == filename and vector.expect == expected.json[id]; each non-vacuity vector builds a fresh git repo in a tempfile.mkdtemp dir with commit-tree (exact parent order, placeholder substitution), synthesizes GITHUB_EVENT_* (pull_request payload file under .git) and calls evaluate() on it; verdict/reason compared to expected (prefix match); finally exact_set(executed, sorted(expected)) must hold. Serial, ~27s total.",
+  "seals_dir_files": 34,
+  "seals_pinned_as_evidence": 33,
+  "seal_not_pinned": "PRA.json (PRA is legacy-v1-owned)",
+  "receipts_read_by_v2": false,
+  "run_authoritative": {
+   "command": "python3 tools/certificate_verifier.py --mode authoritative",
+   "head": "81150851f84c8aa1df71dc69013a6ca6f6d71b51",
+   "exit": 0,
+   "wall": "27.6s",
+   "final_lines": [
+    "  EVIDENCE  157 id(s) resolved to their certified blobs, 0 failure(s)",
+    "  RELOCATIONS  0 record(s)",
+    "  POLICIES  0 clause(s)",
+    "  CERTIFICATES  52: 52 PASS, 0 UNATTESTED, 0 FAIL; records 36; legacy-owned 1",
+    "  VECTORS executed 89; corpus 89; families ambiguity=6 artifact-class=8 dependency=4 divergence=4 historical-subject=6 ledger=6 legacy-owned=5 live-policy=9 provenance=6 schema=19 topology=6 vacuity=2 visibility=8; mismatches 0; exact yes",
+    "certificate_verifier: authoritative OK (0 failure(s))"
+   ],
+   "targets": "HEAD 81150851f84c (no GITHUB_EVENT_NAME, push-mode)"
+  },
+  "run_self_test": {
+   "command": "python3 tools/certificate_verifier.py --self-test",
+   "exit": 0,
+   "final_line": "certificate_verifier: self-test OK",
+   "wall": "0.26s",
+   "note": "self_test 1073-1147: pure schema/exact_set/legacy/policy fixtures plus one synthetic repo evaluate (push); no repository read"
+  }
+ },
+ "notes": [
+  "UNATTESTED verdict (874-876) produces no failure code; it is report-only.",
+  "Non-failing inputs: contributions (schema only), row ci run ids/conclusions and head_shas (hex-only), migration_snapshot (hex-only) are never checked against git or GitHub.",
+  "Attestation rows are not blob-pinned by V2; their only protection is re-derivation by V2-ROW-CERT/V2-TOPO-*/V2-BASEONLY. The 16 content-only certificates and the current CV1.json are not blob-pinned either (schema + evidence + dependencies only).",
+  "Evidence resolution runs only over certificates with verdict PASS (line 858).",
+  "The tool never reads verification/receipts/ and never interprets verification/seals/ records; it only blob-pins 33 of them as evidence.",
+  "Network: only git fetch from origin in Git.recover/Git.deepen, triggered only by a shallow checkout or an unresolved origin/<base ref> on pull_request events.",
+  "V2-BASE multiple-candidates on a branch that absorbed main via a first-parent-branch merge was confirmed with a scratch repo (git 2.43): --first-parent --find-object reports the absorbing merge as introducing the blob."
+ ]
+}

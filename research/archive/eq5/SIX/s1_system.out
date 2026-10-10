@@ -1,0 +1,13 @@
+PASS K0 transcription control
+PASS E1 every ordered pair of bipartitions with a one-token part has an empty intersection
+PASS E2 crossings with all intersections nonempty: |S| = 4: 2|2 vs 2|2; |S| = 5: parts in {2,3}; |S| = 6: parts in {2,3,4} (counts {4: 90, 5: 360, 6: 390})
+PASS E3 no crossing with all intersections nonempty has a five-token part (K_5 enters only automatically)
+PASS E4 six-token crossing classes (effects, states) = [(('2|4', '2|4'), 120), (('2|4', '3|3'), 90), (('3|3', '2|4'), 90), (('3|3', '3|3'), 90)]
+PASS B five-token crossing (pair effect on (p,q), pair state on (p,r), y on (q,s,t)): conditional = Ad(Xi^T conj E) of the renamed y on all 64 units (3 random exact rank-one instances); every filter Ad(U) arises (E = 1, Xi = U^T); countercontrol Xi conj E fails
+PASS C glued state against a 1|3 product effect = five-token crossing value with cond(a; x) (3 random exact instances)
+PASS D glued state against a crossing 2|2 product of filtered Bell effects = (1/8) tr(x T(Ad(1 (x) A^dag (x) B^dag) y)) (3 random exact instances): implied by (A2) + (A3); countercontrol without T differs
+PASS F same-split glue network = (1/4) tr(T(M) N) with the two-token contractions (3 random exact instances); five-token confinement: <M, (1/2) PT_p(z)> is a five-token crossing value on all 16 units z, so M is in PT(PSD_4)* = PT(PSD_4) and, with T(PT(PSD_4)) = PT(PSD_4), the value is >= 0; countercontrol: the crossing-split value differs
+PASS G c = 1: the five-token conditional with a twin effect and a twin state is Ad((1/2) conj(B) A^T) of the renamed y (all 64 units, 2 random exact instances); the twin theta value is (1/8) tr(x y) (no T): implied by filter invariance and K3 = K3*
+PASS Q QM controls: PSD nodes give crossing-split values >= 0 (3 random exact instances); W3 nodes give 5/16 >= 0; countercontrol GHZ against W3 through three Bell links = -1/16 < 0
+--- s1_system: 11/11 checks pass
+VERDICT S1-SYSTEM-EXACT

@@ -1,0 +1,6 @@
+cnot  gt_center_two=True hcen=True hext=True F(hom -z)=0:True Phi(.;u,h0)=0:True actT_slice=True
+G_R   gt_center_two=True hcen=True hext=True F(hom -z)=0:True Phi(.;u,h0)=0:True actT_slice=True
+KG    gt_center_two=True hcen=True hext=False F(hom -z)=0:True Phi(.;u,h0)=0:False actT_slice=False
+controls: positive gates satisfy every step: PASS
+countercontrol KG (not positive): centre steps hold, positivity-derived step and conclusion fail: PASS
+VERDICT: each intermediate statement of the replacement route holds on cnot and G_R; on KG the chain breaks at the positivity-derived identity hext and the conclusion fails

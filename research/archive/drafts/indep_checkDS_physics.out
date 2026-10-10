@@ -1,0 +1,9 @@
+CONFIRMED P1 [identity] |psiL + psiR|^2 = |psiL|^2 + |psiR|^2 + 2 Re(psiL* psiR), symbolic complex
+CONFIRMED P2 [identity] screen density with a path record (detector unread): |psiL|^2<dL|dL> + |psiR|^2<dR|dR> + 2 Re(psiL* psiR <dL|dR>), symbolic; the input's form is the normalized case
+CONFIRMED P3 [identity] pure records, real overlap cos t: visibility^2 + distinguishability^2 = 1 (trace distance of the two record states) -- D = Abs(sin(t))
+CONFIRMED F1 [identity] certified cnot table: after the record, the path's reduced Bloch vector is (a1 b1, a2 b1, a3) -- coherence multiplied by b1, populations unchanged (symbolic, every product preparation)
+CONFIRMED F2 [identity] for a detector prepared at Bloch vector b with records d_L = d0, d_R = X d0, the overlap <d_L|d_R> = <d0|X|d0> = b1 (tr X rho(b) = b1): the cnot table reproduces V = |<d_L|d_R>| for this record family
+CONFIRMED F1c [countercontrol] without the record (no gate) the path keeps its full Bloch vector (predicted)
+
+checks: 6, confirmed: 6
+VERDICT INDEP-DS-PHYS-CONFIRMED

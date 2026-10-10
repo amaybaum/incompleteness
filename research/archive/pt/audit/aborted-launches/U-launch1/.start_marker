@@ -1,0 +1,71 @@
+# pt/U/.start_marker — thread U (UNIQ), stage 3, Q-SD proof attempt
+start_utc: 2026-10-10T10:24:51Z
+written_as: the first file in pt/U/ (pt/U/ did not exist before this write: "ls: cannot access 'U': No such file or directory")
+directory_state_of_pt_before_write:
+    total 304
+    drwxr-xr-x  23 root root  4096 Oct 10 10:22 .
+    drwx------ 277 root root 12288 Oct 10 09:14 ..
+    drwxr-xr-x   4 root root  4096 Oct 10 05:29 A
+    drwxr-xr-x   4 root root  4096 Oct 10 05:59 B
+    drwxr-xr-x   2 root root  4096 Oct 10 05:41 C
+    drwxr-xr-x   2 root root  4096 Oct 10 05:50 D
+    drwxr-xr-x   2 root root  4096 Oct 10 09:31 DS
+    -r--r--r--   1 root root   498 Oct 10 08:48 DS-LAUNCH-LOG.md
+    -rw-r--r--   1 root root 20284 Oct 10 09:40 INTEGRATION-ADDENDUM-STAGE2.md
+    -rw-r--r--   1 root root 17866 Oct 10 06:27 INTEGRATION-REVIEW.md
+    -r--r--r--   1 root root  3774 Oct 10 05:13 PROTOCOL-AMENDMENT-1.md
+    -rw-r--r--   1 root root   181 Oct 10 05:13 PROTOCOL-AMENDMENT-1.sha256
+    -r--r--r--   1 root root  3930 Oct 10 05:22 PROTOCOL-AMENDMENT-2.md
+    -rw-r--r--   1 root root   181 Oct 10 05:22 PROTOCOL-AMENDMENT-2.sha256
+    -r--r--r--   1 root root  8545 Oct 10 08:48 PROTOCOL-STAGE2-DS.md
+    -r--r--r--   1 root root    88 Oct 10 08:48 PROTOCOL-STAGE2-DS.sha256
+    -r--r--r--   1 root root 17623 Oct 10 07:12 PROTOCOL-STAGE2.md
+    -r--r--r--   1 root root    85 Oct 10 07:12 PROTOCOL-STAGE2.sha256
+    -r--r--r--   1 root root 12680 Oct 10 10:22 PROTOCOL-STAGE3.md
+    -r--r--r--   1 root root    85 Oct 10 10:22 PROTOCOL-STAGE3.sha256
+    -r--r--r--   1 root root 19714 Oct 10 04:32 PROTOCOL.md
+    -rw-r--r--   1 root root   169 Oct 10 04:32 PROTOCOL.sha256
+    drwxr-xr-x   2 root root  4096 Oct 10 08:34 S2
+    drwxr-xr-x   2 root root  4096 Oct 10 08:32 S3
+    -r--r--r--   1 root root  1401 Oct 10 07:25 STAGE2-LAUNCH-LOG.md
+    -r--r--r--   1 root root   490 Oct 10 10:22 STAGE3-LAUNCH-LOG.md
+    drwxr-xr-x   3 root root  4096 Oct 10 07:25 aborted-launch1
+    drwxr-xr-x   9 root root  4096 Oct 10 09:38 audit
+    drwxr-xr-x   2 root root  4096 Oct 10 05:32 auditA-replay
+    drwxr-xr-x   3 root root  4096 Oct 10 06:18 auditB-replay
+    drwxr-xr-x   2 root root  4096 Oct 10 05:44 auditC-replay
+    drwxr-xr-x   2 root root  4096 Oct 10 06:13 auditD-replay
+    drwxr-xr-x   2 root root  4096 Oct 10 09:37 auditDS-replay
+    drwxr-xr-x   2 root root  4096 Oct 10 09:04 auditS2-replay
+    drwxr-xr-x   2 root root  4096 Oct 10 08:49 auditS3-replay
+    drwxr-xr-x   7 root root  4096 Oct 10 04:30 base
+    dr-xr-xr-x   5 root root  4096 Oct 10 04:30 inputs
+    -r--r--r--   1 root root  4066 Oct 10 04:30 inputs.manifest.sha256
+    dr-xr-xr-x   3 root root  4096 Oct 10 07:10 inputs2
+    -r--r--r--   1 root root   315 Oct 10 07:10 inputs2.manifest.sha256
+    dr-xr-xr-x   2 root root  4096 Oct 10 08:47 inputs3
+    -r--r--r--   1 root root    86 Oct 10 08:48 inputs3.manifest.sha256
+    dr-xr-xr-x   2 root root  4096 Oct 10 10:22 inputs4
+    -r--r--r--   1 root root   100 Oct 10 10:22 inputs4.manifest.sha256
+    -r--r--r--   1 root root 18717 Oct 10 07:10 stage1.manifest.sha256
+    -r--r--r--   1 root root 15695 Oct 10 10:21 stage2.manifest.sha256
+
+start_checks (all run from pt/, read-only):
+  sha256sum -c --quiet:
+    inputs.manifest.sha256: rc=0
+    stage1.manifest.sha256: rc=0
+    inputs2.manifest.sha256: rc=0
+    inputs3.manifest.sha256: rc=0
+    stage2.manifest.sha256: rc=0
+    inputs4.manifest.sha256: rc=0
+  git -C base rev-parse HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626 (expected 9f9f8257a980a1819fbbc1dc0019917cf8678626: MATCH)
+  git -C base status --porcelain: 0 lines (empty: OK)
+  bytecode under base/ (__pycache__ or *.pyc): 0
+  protocol hashes (sha256sum):
+    239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+    b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+    2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+    386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+    086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+    1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+  protocol hash verdict: all six match the recorded hashes

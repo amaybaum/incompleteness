@@ -1,0 +1,8 @@
+PASS K0 transcription control
+PASS S1 polarization: B(x, y) = (1/4) sum_k i^(-k) B(x + i^k y, x + i^k y) (symbolic)
+PASS S2 (|0>+|1>)(|0>|u> + |1>|w>) = |00u> + |11w> + |01w> + |10u> (symbolic)
+PASS S3 tr_3|psi><psi| = |u|^2 |00><00| + |w|^2 |11><11| + (<w|u>|00><11| + h.c.) and Det(psi) = (u0 w1 - u1 w0)^2 (symbolic; the other Cayley terms vanish on psi)
+PASS S4 GHZ and omega_1/2 have marginal D/2, are supported on E and PSD there; countercontrol: W3 has entries outside E
+PASS R omega_1/2 is PSD, rank 4 on E, marginal D/2, not biseparable (tr(W3 omega) = -1/8 < 0), NPT across L|3 (<v|PT_3(omega)|v> = -1/4 < 0)
+--- p9_purification: 6/6 checks pass
+VERDICT P9-PURIFICATION-EXACT

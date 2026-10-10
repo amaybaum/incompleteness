@@ -1,0 +1,2 @@
+K_A: 64 generators x 5 reps; worst normalized min tr(W' Ad(k) W) = -2.414869e-17 at (42, 'pair-diff')
+K_B: 64 generators x 3 reps; worst normalized min tr(W' Ad(k) W) = -4.277868e-17 at (55, 'big')

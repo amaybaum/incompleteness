@@ -1,0 +1,81 @@
+records: 248
+
+## by kind (total 248)
+definition-as-hypothesis: 28
+hypothesis-structure: 73
+obligation: 7
+theorem: 140
+
+## by status class (total 248)
+assumed: 82
+conditional-on: 1
+definition (no status): 18
+open: 4
+proved [K]: 141
+refuted: 2
+
+## by level (total 248)
+G: 38
+H: 44
+M: 165
+O: 1
+
+## by bridge class (total 248)
+NB-G: 24
+NB-H: 34
+NB-HP: 8
+NB-M: 175
+other: 7
+
+## bearing other than none at L: 1
+I4.236 | Kₙ census §4 — scope of K∞'s geometric branch | level O | constrains the single-token structure the pair inherits (scope: the K∞ geometric premises are statements about an elementary, two-level system)
+
+## do-not-assume flags: 43
+I4.3 | HasParallelReferenceExtension | level M
+I4.4 | HasQutritReferenceExtension | level M
+I4.14 | InertSpectatorCompositionality | level M
+I4.29 | ContextStable | level M
+I4.31 | ImplementationLocality | level M
+I4.42 | OIPlusLocal | level M
+I4.45 | StructurallyClosed | level M
+I4.56 | LayerFlowExecutable | level M
+I4.65 | PhysicalCompletionConditions | level M
+I4.66 | CompositeOperationalValidity | level M
+I4.67 | HasCompositeUnitaryControl | level M
+I4.68 | IteratedAncillaClosure | level M
+I4.69 | SystemToLevelOne | level M
+I4.70 | ExactAllFiniteEndomorphicQuantumOps | level M
+I4.73 | WellFormed | level M
+I4.74 | SubstantiveCompletion | level M
+I4.80 | CompletedOI | level M
+I4.82 | ObservationalIndependence | level M
+I4.85 | ReversibleRichness | level M
+I4.87 | ObserverRecursion | level M
+I4.88 | OIPlus | level M
+I4.96 | ObservationalIndependence | level M
+I4.99 | ReversibleRichness | level M
+I4.102 | OIPlus | level M
+I4.110 | EmbeddedObservation | level M
+I4.115 | OIPlusEmbedded | level M
+I4.118 | PhaseFreeRichness | level M
+I4.120 | OIPlusMin | level M
+I4.123 | CyclicRichness | level M
+I4.124 | OIPlusPos | level M
+I4.127 | InverseAccessibility | level M
+I4.128 | LieRankRichness | level M
+I4.133 | ReversibleImplementationLocality | level M
+I4.137 | OIPlusMicro | level M
+I4.144 | QuantumArchitecture | level M
+I4.179 | PairFlowSourced | level M
+I4.187 | ShadowQuantum | level G
+I4.210 | psd_iff_trace_nonneg | level M
+I4.215 | psd_trace_mul_nonneg | level M
+I4.216 | accessible_cone_full | level M
+I4.241 | DerivedOI | level M
+I4.244 | ElementaryTransitionRichness | level M
+I4.245 | OIPlusElem | level M
+
+PASS: C1 every status classified
+PASS: C2 tallies sum to the record count
+PASS: C3 bridge fields non-empty
+VERDICT: COUNTS VALID

@@ -1,0 +1,9 @@
+{
+  "name": "The dimensions carrying a NOT, DIM-1's frame and the two gate relations are exactly the odd ones, and at each odd dimension at least three an explicit gate of the family with the frame and the relations fails forward positivity (round ODD-CHAR-1, reconstruction)",
+  "modules": [
+    "OddChar"
+  ],
+  "status": "kernel-only",
+  "manuscript": [],
+  "note": "Round ODD-CHAR-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-odd-char-1/preregistration.md. Q-FAM: for every k, nK k = diagSign (cK k), with sign −1 on the homogeneous indices above k, is a NOT of eball (2k+1) with axis the last coordinate zK k, and the sign-free reversal gate gRev k = sgateEquiv (oddK k) Fin.rev satisfies NativeGate's frame and GateRel (nK k) (gRev k) (isNot_nK, gRev_frame, gateRel_gRev). Q-ODD: some z, N, G with IsNot (eball d) z N, the frame and GateRel N G exist exactly when d is odd (exists_frame_gateRel_iff_odd), through PARITY-NOT-1's not_even_of_gateRel one way and DIM-1's cnot1 at d = 1 and gRev k at d = 2k+1 the other. Q-POS: for k ≥ 1 the image under gRev k of the product of the first axis with the corner pairs to −1/10 with the sharp effects of wK k and zK k, so forward positivity fails (gRev_value, not_posFwd_gRev, not_nativeGate_gRev). Carried by no manuscript. With DIM-1's dim_of_nativeGate, the positivity clauses are collectively load-bearing for excluding the odd dimensions above three; the round does not separate forward from inverse positivity, classifies no positive gate, and concerns no complex structure and no NOT of a physical theory."
+}

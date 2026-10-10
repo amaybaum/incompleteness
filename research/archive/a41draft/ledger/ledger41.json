@@ -1,0 +1,938 @@
+[
+ {
+  "id": "H12",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "Its first part is act 35's probe head, verbatim, for the shared objects.\n",
+  "new": "Its first part is act 35's probe head, verbatim, for the shared objects.\nIts Diţă searches test each partition structure at the sorted alignment (the rows of each row class in sorted\norder); the censuses over every index map are act 41's probes verification/lean/dita_index_map_probe.py,\nverification/lean/dita_index_map_independent.py and\nverification/lean/dita_index_map_hulls.py.\n",
+  "kind": "docstring",
+  "reason": "module docstring: scope of the searches and the pointer to act 41's probes (new row; the census counts the docstring as c)"
+ },
+ {
+  "id": "H1",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "print('== 2. Diţă factorizations by exhaustive search over block structures ==')",
+  "new": "print('== 2. Diţă factorizations by exhaustive search over block structures, the rows of each row class in sorted order ==')",
+  "kind": "string",
+  "reason": "census H1: section title re-scoped to the sorted alignment"
+ },
+ {
+  "id": "H2",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "at %s: (candidates, exact factorizations)'",
+  "new": "at %s: (candidates, exact at the sorted alignment)'",
+  "kind": "string",
+  "reason": "census H2: check label re-scoped"
+ },
+ {
+  "id": "H4",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "at SIG = Pu(1): (candidates, exact factorizations) (control)'",
+  "new": "at SIG = Pu(1): (candidates, exact at the sorted alignment) (control)'",
+  "kind": "string",
+  "reason": "census H4: check label re-scoped; SIG has five admitted 4x4 partition structures per orientation under every index map"
+ },
+ {
+  "id": "H5",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "print('== 4. every 4x4 Diţă hull through SIG: orientations,",
+  "new": "print('== 4. the 4x4 Diţă hulls through SIG at the sorted alignment: orientations,",
+  "kind": "string",
+  "reason": "census H5: section title re-scoped"
+ },
+ {
+  "id": "H6",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "'4x4 Diţă hulls through SIG (orientations × circle choices)'",
+  "new": "'4x4 Diţă hull parametrizations through SIG at the sorted alignment (orientations × circle choices)'",
+  "kind": "string",
+  "reason": "census H6: label re-scoped; the value counts parametrizations (Hazard 7)"
+ },
+ {
+  "id": "H7",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "'every hull tangent in ker DF and D²F vanishing exactly on every hull (failures)'",
+  "new": "'every sorted-alignment hull tangent in ker DF and D²F vanishing exactly on every sorted-alignment hull (failures)'",
+  "kind": "string",
+  "reason": "census H7: label re-scoped"
+ },
+ {
+  "id": "H8",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "'every hull tangent has dimension 14 mod gauge'",
+  "new": "'every sorted-alignment hull tangent has dimension 14 mod gauge'",
+  "kind": "string",
+  "reason": "census H8: label re-scoped"
+ },
+ {
+  "id": "H9",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "'the span of all 4x4 hull tangents mod gauge equals the defect'",
+  "new": "'the span of the sorted-alignment 4x4 hull tangents mod gauge equals the defect'",
+  "kind": "string",
+  "reason": "census H9: label re-scoped"
+ },
+ {
+  "id": "H10",
+  "path": "verification/lean/dita_hierarchy_probe.py",
+  "old": "print('dita_hierarchy_probe: OK -- P = SIG∘u60^W and Pu(u5), both of defect 37, admit no 4x4 and no 8x2 Diţă factorization of either orientation at any block structure and exactly one 2x8 per orientation, while SIG = Pu(1) has its 4x4 factorizations; W is an exact straight line at SIG; the 492 4x4 hulls through SIG span",
+  "new": "print('dita_hierarchy_probe: OK -- with the rows of each row class in sorted order, P = SIG∘u60^W and Pu(u5), both of defect 37, admit no 4x4 and no 8x2 Diţă factorization of either orientation at any block structure and exactly one 2x8 per orientation, while SIG = Pu(1) has four exact 4x4 factorizations of five candidates per orientation; W is an exact straight line at SIG; the 492 sorted-alignment 4x4 hull parametrizations through SIG span",
+  "kind": "string",
+  "reason": "census H10: success text re-scoped (tail unchanged)"
+ },
+ {
+  "id": "X1",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "act 36's exhaustive structure search.\n",
+  "new": "act 36's structure search, exhaustive over column blocks and row classes and testing each partition structure at the\nsorted alignment (the rows of each row class in sorted order). The censuses over every index map are act 41's probes\nverification/lean/dita_index_map_probe.py and verification/lean/dita_index_map_independent.py.\n",
+  "kind": "docstring",
+  "reason": "census X1: module docstring re-scoped, with the pointer to act 41's probes"
+ },
+ {
+  "id": "X31",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "# structure (column blocks, row classes) is admitted at u iff",
+  "new": "# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at\n# u iff",
+  "kind": "string",
+  "reason": "census X31: comment; admission is decided for a given alignment (comment only, invisible to ast)"
+ },
+ {
+  "id": "X2",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "\"\"\"the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials:",
+  "new": "\"\"\"the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the\n    rank-one condition at the sorted alignment, on a matrix of monomials:",
+  "kind": "docstring",
+  "reason": "census X2: search docstring re-scoped"
+ },
+ {
+  "id": "X3",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "print('== 1. the census: every Diţă structure of the stratum point, and its classes modulo the stabilizer ==')",
+  "new": "print('== 1. the census at the sorted alignment: the Diţă partition structures of the stratum point with the rows of each row class in sorted order, and their partition orbits under the stabilizer ==')",
+  "kind": "string",
+  "reason": "census X3: section title re-scoped; act 37's classes are partition orbits (Hazard 10)"
+ },
+ {
+  "id": "X4",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'exact structures of SIG by shape and form: 4x4, 8x2, 2x8, each column and row'",
+  "new": "'exact partition structures of SIG at the sorted alignment by shape and form: 4x4, 8x2, 2x8, each column and row'",
+  "kind": "string",
+  "reason": "census X4: label re-scoped"
+ },
+ {
+  "id": "X5",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'every structure reconstructs SIG exactly from its factors, with trivial twist'",
+  "new": "'every sorted-alignment partition structure reconstructs SIG exactly from its factors, with trivial twist'",
+  "kind": "string",
+  "reason": "census X5: label re-scoped"
+ },
+ {
+  "id": "X6",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the column-form and row-form structures coincide as index sets (SIG symmetric)'",
+  "new": "'the column-form and row-form sorted-alignment partition structures coincide as index sets (SIG symmetric)'",
+  "kind": "string",
+  "reason": "census X6: label re-scoped"
+ },
+ {
+  "id": "X7",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the stabilizer (order 1024, with transposition) permutes the 18 structures; orbit count and sizes'",
+  "new": "'the stabilizer (order 1024, with transposition) permutes the 18 partition structures admitted at the sorted alignment; partition-orbit count and sizes'",
+  "kind": "string",
+  "reason": "census X7: label re-scoped"
+ },
+ {
+  "id": "X8",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'each orbit pairs a structure with its own transpose and identifies nothing else'",
+  "new": "'each partition orbit of the sorted-alignment restriction pairs a partition structure with its own transpose and identifies nothing else'",
+  "kind": "string",
+  "reason": "census X8: label re-scoped"
+ },
+ {
+  "id": "X10",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the other classes: four 4x4, two 8x2, two 2x8'",
+  "new": "'the other partition orbits of the sorted-alignment restriction: four 4x4, two 8x2, two 2x8'",
+  "kind": "string",
+  "reason": "census X10: label re-scoped; the eight are partition orbits of the sorted-alignment restriction"
+ },
+ {
+  "id": "X11",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'P admits exactly the frozen class (column form; the row form is the same by symmetry)'",
+  "new": "'at the sorted alignment P admits exactly the frozen 2x8 partition structure (column form; the row form is the same by symmetry)'",
+  "kind": "string",
+  "reason": "census X11: label re-scoped"
+ },
+ {
+  "id": "X12",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'Pu(u5) admits exactly the frozen class'",
+  "new": "'at the sorted alignment Pu(u5) admits exactly the frozen 2x8 partition structure'",
+  "kind": "string",
+  "reason": "census X12: label re-scoped"
+ },
+ {
+  "id": "X13",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "print('== 3. the generic arc point, and the obstruction monomial of each other class ==')",
+  "new": "print('== 3. the generic arc point, and the obstruction monomial of each other named index map of the sorted-alignment census ==')",
+  "kind": "string",
+  "reason": "census X13: section title re-scoped"
+ },
+ {
+  "id": "X14",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'structures at a generic u (u a free symbol): (candidates, exact) by shape'",
+  "new": "'partition structures at a generic u (u a free symbol): (candidates, exact at the sorted alignment) by shape'",
+  "kind": "string",
+  "reason": "census X14: label re-scoped"
+ },
+ {
+  "id": "X15",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the one exact generic structure is the frozen 2x8 class'",
+  "new": "'the one exact generic partition structure at the sorted alignment is the frozen 2x8 partition structure'",
+  "kind": "string",
+  "reason": "census X15: label re-scoped"
+ },
+ {
+  "id": "X16",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'each other class imposes non-identity conditions, all of the form u^k = 1 with k in {-1, 1}'",
+  "new": "'each of the eight other named index maps of the sorted-alignment census imposes non-identity conditions, all of the form u^k = 1 with k in {-1, 1}'",
+  "kind": "string",
+  "reason": "census X16: label names the eight index maps tested"
+ },
+ {
+  "id": "X17",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the kernel witness identity of each other class is forced by its Diţă form,",
+  "new": "'the kernel witness identity of each of the eight other named index maps is forced by its Diţă form,",
+  "kind": "string",
+  "reason": "census X17: label names the eight index maps tested"
+ },
+ {
+  "id": "X18",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "print('== 4. the candidate exceptional set: every point where an extra proportionality or the rank-one condition of a generic candidate appears ==')",
+  "new": "print('== 4. the candidate exceptional set: every point where an extra proportionality, or the sorted-alignment rank-one condition of a generic candidate, appears ==')",
+  "kind": "string",
+  "reason": "census X18: section title re-scoped"
+ },
+ {
+  "id": "X19",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the generic 4x4 and 8x2 candidates satisfy the rank-one condition at u = 1 only'",
+  "new": "'the generic 4x4 and 8x2 candidates satisfy the rank-one condition at the sorted alignment at u = 1 only'",
+  "kind": "string",
+  "reason": "census X19: label re-scoped"
+ },
+ {
+  "id": "X20",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the candidate exceptional set, exactly (twenty points)'",
+  "new": "'the candidate exceptional set of the sorted-alignment calculus, exactly (twenty points)'",
+  "kind": "string",
+  "reason": "census X20: label re-scoped"
+ },
+ {
+  "id": "X21",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "print('== 5. the exhaustive search at every candidate point: the exact exceptional set ==')",
+  "new": "print('== 5. the search at the sorted alignment at every candidate point: the exceptional set at the sorted alignment ==')",
+  "kind": "string",
+  "reason": "census X21: section title re-scoped"
+ },
+ {
+  "id": "X22",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'at u = 1 the search returns the eighteen structures: (candidates, exact) by shape'",
+  "new": "'at u = 1 the search at the sorted alignment returns eighteen partition structures: (candidates, exact) by shape'",
+  "kind": "string",
+  "reason": "census X22: label re-scoped"
+ },
+ {
+  "id": "X23",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'at u = -1 the proportionality candidates are those of u = 1, but only the frozen class is exact'",
+  "new": "'at u = -1 the proportionality candidates are those of u = 1, but at the sorted alignment only the frozen 2x8 partition structure is exact'",
+  "kind": "string",
+  "reason": "census X23: label re-scoped"
+ },
+ {
+  "id": "X24",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'at every candidate point other than u = 1, exactly the frozen class is admitted'",
+  "new": "'at every candidate point other than u = 1, exactly the frozen 2x8 partition structure is admitted at the sorted alignment'",
+  "kind": "string",
+  "reason": "census X24: label re-scoped"
+ },
+ {
+  "id": "X25",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'THE EXACT EXCEPTIONAL SET IS {1}: outside the candidates the structure is the generic one, at the candidates the search decides'",
+  "new": "'the exceptional set at the sorted alignment is {1}: outside the candidates the partition structure is the generic one, at the candidates the search decides'",
+  "kind": "string",
+  "reason": "census X25: label re-scoped, capitals removed"
+ },
+ {
+  "id": "X26",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'the numeric exhaustive search (with factor unitarity) agrees with the symbolic one at all twelve Gaussian-rational candidates'",
+  "new": "'the numeric search (with factor unitarity) agrees with the symbolic one at all twelve Gaussian-rational candidates, both at the sorted alignment'",
+  "kind": "string",
+  "reason": "census X26: label re-scoped; both sides share the alignment rule"
+ },
+ {
+  "id": "X27c",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "# genuine deformations: each other class, with one twist phase moved off 1, is a point of that class's hull off SIG",
+  "new": "# genuine deformations: each of the eight other named index maps, with one twist phase moved off 1, gives a point of its hull off SIG",
+  "kind": "string",
+  "reason": "census X27 (comment): names the eight index maps"
+ },
+ {
+  "id": "X27",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'a genuine deformation inside each other class (one twist phase u5): unitary, off SIG, and found by the search in its own class'",
+  "new": "'a genuine deformation at each of the eight other named index maps (one twist phase u5): unitary, off SIG, and found by the search at the sorted alignment at its own partition structure'",
+  "kind": "string",
+  "reason": "census X27: label names the eight index maps"
+ },
+ {
+  "id": "X28",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "the transported frozen class is the one structure found'",
+  "new": "the transported frozen 2x8 partition structure is the one found at the sorted alignment'",
+  "kind": "string",
+  "reason": "census X28: label re-scoped"
+ },
+ {
+  "id": "X32",
+  "path": "verification/lean/dita_arc_exclusivity_probe.py",
+  "old": "'dita_arc_exclusivity_probe: OK -- at the certified stratum point SIG the eighteen Diţă structures form nine classes modulo the stabilizer with transposition; along the symmetric arc Pu(u) = SIG∘u^W the frozen 2x8 class persists identically, each of the eight other classes is admitted only where u = 1, the candidate exceptional set of the monomial calculus has twenty points, and the exhaustive search at each of them finds only the frozen class away from u = 1: the exact exceptional set is {1}'",
+  "new": "'dita_arc_exclusivity_probe: OK -- at the certified stratum point SIG, with the rows of each row class in sorted order, the eighteen Diţă partition structures found form nine partition orbits under the stabilizer with transposition; along the symmetric arc Pu(u) = SIG∘u^W the frozen 2x8 partition structure persists identically, each of the eight other named index maps is admitted only where u = 1, the candidate exceptional set of the sorted-alignment monomial calculus has twenty points, and the search at the sorted alignment at each of them finds only the frozen 2x8 partition structure away from u = 1: the exceptional set at the sorted alignment is {1}'",
+  "kind": "string",
+  "reason": "census X32: success text re-scoped"
+ },
+ {
+  "id": "L1",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "act 36's objects and exhaustive\nstructure search, act 36's stabilizer, and act 37's monomial calculus.\n",
+  "new": "act 36's objects and structure search\n(exhaustive over column blocks and row classes, each partition structure tested at the sorted alignment), act 36's\nstabilizer, and act 37's monomial calculus. The censuses over every index map are act 41's probes\nverification/lean/dita_index_map_probe.py and verification/lean/dita_index_map_independent.py.\n",
+  "kind": "docstring",
+  "reason": "census L1: module docstring re-scoped, with the pointer to act 41's probes"
+ },
+ {
+  "id": "L32",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "# structure (column blocks, row classes) is admitted at u iff",
+  "new": "# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at\n# u iff",
+  "kind": "string",
+  "reason": "mirror of census X31 in the verbatim head (comment only, invisible to ast)"
+ },
+ {
+  "id": "L2",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "\"\"\"the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials:",
+  "new": "\"\"\"the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the\n    rank-one condition at the sorted alignment, on a matrix of monomials:",
+  "kind": "docstring",
+  "reason": "census L2: search docstring re-scoped"
+ },
+ {
+  "id": "L3",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "print('== 2. class exclusions: the eighteen census structures, each admitted only at u = 1 ==')",
+  "new": "print('== 2. named exclusions: the eighteen named index maps of the sorted-alignment census, each admitted only at u = 1 ==')",
+  "kind": "string",
+  "reason": "census L3: section title re-scoped"
+ },
+ {
+  "id": "L4",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "\"act 37's census replayed: the nine column-form structures of SIG are exactly the frozen classes' index sets\"",
+  "new": "\"act 37's census replayed at the sorted alignment: the nine column-form partition structures of SIG admitted there are exactly the index sets of act 37's nine named index maps\"",
+  "kind": "string",
+  "reason": "census L4: label re-scoped"
+ },
+ {
+  "id": "L5",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'the row-form structures are the same index sets (SIG symmetric)'",
+  "new": "'the row-form partition structures at the sorted alignment are the same index sets (SIG symmetric)'",
+  "kind": "string",
+  "reason": "census L5: label re-scoped"
+ },
+ {
+  "id": "L6",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'each of the eighteen structures imposes non-identity conditions,",
+  "new": "'each of the eighteen named index maps imposes non-identity conditions,",
+  "kind": "string",
+  "reason": "census L6: label names the eighteen index maps"
+ },
+ {
+  "id": "L9",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "print('== 4. the exceptional set: every point at which any structure could appear, decided by the exhaustive search ==')",
+  "new": "print('== 4. the exceptional set: every point at which any partition structure could appear, decided by the search at the sorted alignment ==')",
+  "kind": "string",
+  "reason": "census L9: section title re-scoped"
+ },
+ {
+  "id": "L11",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'at u = 1 the search returns the eighteen structures: (candidates, exact) by form and shape'",
+  "new": "'at u = 1 the search at the sorted alignment returns eighteen partition structures: (candidates, exact) by form and shape'",
+  "kind": "string",
+  "reason": "census L11: label re-scoped"
+ },
+ {
+  "id": "L12",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'at u = -1 exactly one 2x8 structure per form is admitted: (candidates, exact) by form and shape'",
+  "new": "'at u = -1 the search at the sorted alignment admits exactly one 2x8 partition structure per form: (candidates, exact) by form and shape'",
+  "kind": "string",
+  "reason": "census L12: label re-scoped"
+ },
+ {
+  "id": "L13",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'the two structures at u = -1: index maps outside the census, blocks by column parity in the column form'",
+  "new": "'the two 2x8 partition structures found at u = -1 at the sorted alignment: index maps outside the sorted-alignment census of SIG, blocks by column parity in the column form'",
+  "kind": "string",
+  "reason": "census L13: label re-scoped"
+ },
+ {
+  "id": "L14",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'THE EXACT EXCEPTIONAL SET IS {1, -1}: the units at which some index maps admit a Diţă form of H(u) in some orientation'",
+  "new": "'the exceptional set at the sorted alignment is {1, -1}: the units at which a sorted-alignment index map admits a Diţă form of H(u) in some orientation'",
+  "kind": "string",
+  "reason": "census L14: label re-scoped, capitals removed"
+ },
+ {
+  "id": "L15",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "satisfies the relaxed rank-one condition'",
+  "new": "satisfies the relaxed rank-one condition at the sorted alignment'",
+  "kind": "string",
+  "reason": "census L15: label re-scoped"
+ },
+ {
+  "id": "L16",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'at u = 1 and u = -1 the relaxed structures are the strict ones'",
+  "new": "'at u = 1 and u = -1 the relaxed partition structures at the sorted alignment are the strict ones'",
+  "kind": "string",
+  "reason": "census L16: label re-scoped"
+ },
+ {
+  "id": "L17",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "print('== 5. sharpness: the structures at u = 1 and u = -1 are certified by exact reconstruction ==')",
+  "new": "print('== 5. sharpness: the nine named index maps of the sorted-alignment census at u = 1 and the two 2x8 index maps M_COL, M_ROW at u = -1 are certified by exact reconstruction ==')",
+  "kind": "string",
+  "reason": "census L17: section title names what is reconstructed"
+ },
+ {
+  "id": "L19",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'at u = -1 the numeric exhaustive search with factor unitarity finds exactly these two structures and nothing of the other shapes'",
+  "new": "'at u = -1 the numeric search at the sorted alignment, with factor unitarity, finds exactly these two partition structures and nothing of the other shapes'",
+  "kind": "string",
+  "reason": "census L19: label re-scoped"
+ },
+ {
+  "id": "L20",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'at u = 1: SIG is reconstructed exactly at every one of the nine census structures, and H(1) = SIG'",
+  "new": "'at u = 1: SIG is reconstructed exactly at every one of the nine named index maps of the sorted-alignment census, and H(1) = SIG'",
+  "kind": "string",
+  "reason": "census L20: label re-scoped"
+ },
+ {
+  "id": "L21",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "check('the structures at u = -1 are not admitted at generic u nor at u = 1 (the exceptional structures are isolated)', (any(x[2] == GEN_ONE for x in []) , all(x[2] == GEN_ONE for x in conditions_E(EE, 2, 8, M_COL[0], M_COL[1], False)), all(x[2] == GEN_ONE for x in conditions_E(ET, 2, 8, M_ROW[0], M_ROW[1], False)), admitted_points(conditions_E(EE, 2, 8, M_COL[0], M_COL[1], False)) == frozenset([PT_MINUS]), admitted_points(conditions_E(ET, 2, 8, M_ROW[0], M_ROW[1], False)) == frozenset([PT_MINUS])), (False, False, False, True, True))",
+  "new": "check('M_COL and M_ROW, the two 2x8 index maps at u = -1, are admitted neither at generic u nor at u = 1 (they are isolated)', (all(x[2] == GEN_ONE for x in conditions_E(EE, 2, 8, M_COL[0], M_COL[1], False)), all(x[2] == GEN_ONE for x in conditions_E(ET, 2, 8, M_ROW[0], M_ROW[1], False)), admitted_points(conditions_E(EE, 2, 8, M_COL[0], M_COL[1], False)) == frozenset([PT_MINUS]), admitted_points(conditions_E(ET, 2, 8, M_ROW[0], M_ROW[1], False)) == frozenset([PT_MINUS])), (False, False, True, True))",
+  "kind": "bugfix",
+  "reason": "census L21: label re-scoped; the vacuous first component any(... for x in []) and its expected False removed (owner decision)"
+ },
+ {
+  "id": "L22",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'the set of units at which H(u) admits any Diţă structure, of any shape, index map or orientation, strictly or up to diagonal equivalence, is exactly {1, -1}; every other unit is a realizable non-Diţă point'",
+  "new": "'at the sorted alignment, the set of units at which H(u) admits a Diţă structure, of any shape or orientation, strictly or up to diagonal equivalence, is exactly {1, -1}'",
+  "kind": "string",
+  "reason": "census L22: label re-scoped"
+ },
+ {
+  "id": "L23",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "at all twenty Gaussian-rational candidates, both forms'",
+  "new": "at all twenty Gaussian-rational candidates, both forms, both at the sorted alignment'",
+  "kind": "string",
+  "reason": "census L23: label re-scoped"
+ },
+ {
+  "id": "L24",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "'a genuine deformation inside each of the nine classes (one twist phase u5): unitary, off SIG, and found by the search in its own class'",
+  "new": "'a genuine deformation at each of the nine named index maps of the sorted-alignment census (one twist phase u5): unitary, off SIG, and found by the search at the sorted alignment at its own partition structure'",
+  "kind": "string",
+  "reason": "census L24: label names the nine index maps"
+ },
+ {
+  "id": "L25",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "# searched directly, as act 37's control does: two structures at u = -1 (one per orientation), none at u5",
+  "new": "# searched directly at the sorted alignment, as act 37's control does: two 2x8 partition structures at u = -1 (one per\n# orientation), none at u5",
+  "kind": "string",
+  "reason": "census L25: comment re-scoped (comment only, invisible to ast)"
+ },
+ {
+  "id": "L26",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "the transported matrices admit exactly two structures at u = -1 and none at u5'",
+  "new": "at the sorted alignment the transported matrices admit exactly two partition structures at u = -1 and none at u5'",
+  "kind": "string",
+  "reason": "census L26: label re-scoped"
+ },
+ {
+  "id": "L27",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "each admitting some census structure identically;",
+  "new": "each admitting some named index map of the sorted-alignment census identically;",
+  "kind": "string",
+  "reason": "census L27: label re-scoped"
+ },
+ {
+  "id": "L28",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "\"act 37's arc W is straight and identically in the frozen 2x8 class t1 in both orientations and in no other structure (control of the classifier)\"",
+  "new": "\"act 37's arc W is straight and identically admitted at the frozen 2x8 index map t1 in both orientations and at no other named index map of the sorted-alignment census (control of the classifier)\"",
+  "kind": "string",
+  "reason": "census L28: label re-scoped"
+ },
+ {
+  "id": "L29",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "lies in none of the eighteen subspaces, while the tangent space is the sum of all eighteen:",
+  "new": "lies in none of the eighteen subspaces of the named index maps, while the tangent space is the sum of those eighteen:",
+  "kind": "string",
+  "reason": "census L29: label names the eighteen index maps"
+ },
+ {
+  "id": "L31",
+  "path": "verification/lean/dita_local_escape_probe.py",
+  "old": "each of the eighteen census structures is admitted only at u = 1; at a generic u no index maps pass the proportionality test; the candidate exceptional set has forty points and the exhaustive search at each of them finds a Dita structure at u = 1 and u = -1 only, strictly and up to diagonal equivalence: for every unit u outside {1, -1}, H(u) admits no Dita structure of any shape, index map or orientation'",
+  "new": "each of the eighteen named index maps of the sorted-alignment census is admitted only at u = 1; at a generic u no index maps pass the proportionality test; the candidate exceptional set has forty points and the search at the sorted alignment at each of them finds a Dita structure at u = 1 and u = -1 only, strictly and up to diagonal equivalence: at the sorted alignment, for every unit u outside {1, -1}, H(u) admits no Dita structure of any shape or orientation'",
+  "kind": "string",
+  "reason": "census L31: success text re-scoped"
+ },
+ {
+  "id": "T1",
+  "path": "verification/lean/dita_torus_probe.py",
+  "old": "act 36's\nobjects and exhaustive structure search, act 36's stabilizer, act 37's monomial calculus, and act 38's pieces A, B, C and E.\n",
+  "new": "act 36's\nobjects and structure search (exhaustive over column blocks and row classes, each partition structure tested at the\nsorted alignment), act 36's stabilizer, act 37's monomial calculus, and act 38's pieces A, B, C and E.\n",
+  "kind": "docstring",
+  "reason": "census T1: module docstring re-scoped"
+ },
+ {
+  "id": "T4",
+  "path": "verification/lean/dita_torus_probe.py",
+  "old": "# structure (column blocks, row classes) is admitted at u iff",
+  "new": "# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at\n# u iff",
+  "kind": "string",
+  "reason": "mirror of census X31 in the verbatim head (comment only, invisible to ast)"
+ },
+ {
+  "id": "T2",
+  "path": "verification/lean/dita_torus_probe.py",
+  "old": "\"\"\"the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials:",
+  "new": "\"\"\"the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the\n    rank-one condition at the sorted alignment, on a matrix of monomials:",
+  "kind": "docstring",
+  "reason": "census T2: search docstring re-scoped"
+ },
+ {
+  "id": "Y1",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "act 36's objects, exhaustive structure search and stabilizer, act 37's monomial calculus and act 38's\npieces. It asserts the preregistered values and exits 1 on any mismatch; it certifies nothing beyond the arithmetic it replays.\n",
+  "new": "act 36's objects, structure search\n(exhaustive over column blocks and row classes, each partition structure tested at the sorted alignment) and\nstabilizer, act 37's monomial calculus and act 38's pieces. It asserts the preregistered values and exits 1 on any\nmismatch; it certifies nothing beyond the arithmetic it replays. The loci over every index map are act 41's probes\nverification/lean/dita_index_map_probe.py and verification/lean/dita_index_map_independent.py.\n",
+  "kind": "docstring",
+  "reason": "census Y1: module docstring re-scoped, with the pointer to act 41's probes"
+ },
+ {
+  "id": "Y20",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "# structure (column blocks, row classes) is admitted at u iff",
+  "new": "# structure (column blocks, row classes, and an alignment of the rows within row classes) is admitted at\n# u iff",
+  "kind": "string",
+  "reason": "mirror of census X31 in the verbatim head (comment only, invisible to ast)"
+ },
+ {
+  "id": "Y2",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "\"\"\"the exhaustive Dita structure search (act 36's, section 2) on a matrix of monomials:",
+  "new": "\"\"\"the Dita structure search (act 36's, section 2), exhaustive over column blocks and row classes and testing the\n    rank-one condition at the sorted alignment, on a matrix of monomials:",
+  "kind": "docstring",
+  "reason": "census Y2: search docstring re-scoped"
+ },
+ {
+  "id": "Y3",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "# ---- act 37's census of SIG's Dita structures and act 38's two exceptional index maps, verbatim from act 38's probe",
+  "new": "# ---- act 37's sorted-alignment census of SIG's Dita partition structures and act 38's two 2x8 exceptional index maps,\n# verbatim from act 38's probe",
+  "kind": "string",
+  "reason": "census Y3: comment re-scoped (comment only, invisible to ast)"
+ },
+ {
+  "id": "Y5",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "print('== 3. locus exactness: each candidate strictly and up to diagonal equivalence ==')",
+  "new": "print('== 3. locus exactness: each candidate at the sorted alignment, strictly and up to diagonal equivalence ==')",
+  "kind": "string",
+  "reason": "census Y5: section title re-scoped"
+ },
+ {
+  "id": "Y6",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'the relaxed locus equals the strict locus for every candidate'",
+  "new": "'the relaxed locus equals the strict locus for every candidate at the sorted alignment'",
+  "kind": "string",
+  "reason": "census Y6: label re-scoped"
+ },
+ {
+  "id": "Y7",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'empty and nonempty strict loci'",
+  "new": "'empty and nonempty strict loci at the sorted alignment'",
+  "kind": "string",
+  "reason": "census Y7: label re-scoped"
+ },
+ {
+  "id": "Y8",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'every nonempty locus is cut out by coordinate characters u_k = +-1 alone'",
+  "new": "'every nonempty sorted-alignment locus is cut out by coordinate characters u_k = +-1 alone'",
+  "kind": "string",
+  "reason": "census Y8: label re-scoped; the value holds only at the sorted alignment"
+ },
+ {
+  "id": "Y9",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "print('== 4. union reduction: the union of the loci is five coordinate 2-subtori ==')",
+  "new": "print('== 4. union reduction: the union of the sorted-alignment loci is five coordinate 2-subtori ==')",
+  "kind": "string",
+  "reason": "census Y9: section title re-scoped"
+ },
+ {
+  "id": "Y11",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'at (1, 1, 1): eighteen structures, exactly act 37 census in both orientations'",
+  "new": "'at (1, 1, 1) at the sorted alignment: eighteen partition structures, exactly act 37 census in both orientations'",
+  "kind": "string",
+  "reason": "census Y11: label re-scoped"
+ },
+ {
+  "id": "Y12",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'at (-1, -1, -1): one 2 x 8 structure per orientation, act 38 M_COL and M_ROW'",
+  "new": "'at (-1, -1, -1) at the sorted alignment: one 2 x 8 partition structure per orientation, act 38 M_COL and M_ROW'",
+  "kind": "string",
+  "reason": "census Y12: label re-scoped"
+ },
+ {
+  "id": "Y14",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'for each of the twenty named structures (the census in both orientations, M_COL, M_ROW),",
+  "new": "'for each of the twenty named index maps (the sorted-alignment census of act 37 in both orientations, M_COL, M_ROW),",
+  "kind": "string",
+  "reason": "census Y14: label names the twenty index maps"
+ },
+ {
+  "id": "Y15",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "print('== 7. an independent control: act 36\\'s exhaustive structure search, with factor unitarity, at exact points ==')",
+  "new": "print('== 7. a control: act 36\\'s structure search at the sorted alignment, with factor unitarity, at exact points ==')",
+  "kind": "string",
+  "reason": "census Y15: section title re-scoped; not independent of the loci in alignment"
+ },
+ {
+  "id": "Y16",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "the search finds exactly the predicted structures'",
+  "new": "the search at the sorted alignment finds exactly the predicted sorted-alignment partition structures'",
+  "kind": "string",
+  "reason": "census Y16: label re-scoped"
+ },
+ {
+  "id": "Y17",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "'the classifier applied to the perturbed pieces:",
+  "new": "'the classifier at the sorted alignment applied to the perturbed pieces:",
+  "kind": "string",
+  "reason": "census Y17: label re-scoped"
+ },
+ {
+  "id": "Y18",
+  "path": "verification/lean/dita_torus_locus_probe.py",
+  "old": "print('dita_torus_locus_probe: OK -- for H3(u1, u2, u3) = SIG o u1^A u2^B u3^C on the three-torus: every Dita structure admitted '\n      'anywhere is among 46 enumerated candidates; their strict and relaxed loci are computed exactly and agree; the union of the '\n      '30 nonempty loci is exactly the five coordinate 2-subtori u1 = 1, u1 = -1, u2 = 1, u3 = 1, u3 = -1; so H3 admits a Dita '\n      'structure of some shape, index map and orientation, including up to diagonal equivalence, exactly when u1 = +-1 or u2 = 1 '\n      'or u3 = +-1')",
+  "new": "print('dita_torus_locus_probe: OK -- for H3(u1, u2, u3) = SIG o u1^A u2^B u3^C on the three-torus: every Dita structure admitted '\n      'anywhere is among 46 enumerated candidates; their strict and relaxed loci at the sorted alignment are computed exactly and '\n      'agree; the union of the 30 nonempty sorted-alignment loci is exactly the five coordinate 2-subtori u1 = 1, u1 = -1, u2 = 1, '\n      'u3 = 1, u3 = -1; so at the sorted alignment H3 admits a Dita structure of some shape and orientation, including up to '\n      'diagonal equivalence, exactly when u1 = +-1 or u2 = 1 or u3 = +-1')",
+  "kind": "string",
+  "reason": "census Y18: success text re-scoped"
+ },
+ {
+  "id": "LH2",
+  "path": "verification/lean-mathlib/OIBridge/DitaHierarchy.lean",
+  "old": "The exact-computation layer shows that `P` admits no `4 × 4` Diţă factorization of either\norientation under any relabelling: the `4 × 4` hierarchy is locally insufficient at the stratum,\nand the first escaping family belongs to the `2 × 8` construction.",
+  "new": "[[Exact computation over every index map (act 41) shows that `P` admits no `4 × 4` Diţă\nfactorization of either orientation: the `4 × 4` hierarchy is locally insufficient at the stratum,\nand the first escaping family belongs to the `2 × 8` construction. | Exact computation over every index map\n(act 41) finds a `4 × 4` or `8 × 2` Diţă factorization at `P` or at the family's point `u = (3+4i)/5`,\nstrictly or up to diagonal equivalence, with {p.p44} `4 × 4` and {p.p82} `8 × 2` partition structures per\norientation at `P`, strictly. : p.no_44_82]]",
+  "kind": "docstring",
+  "reason": "census LH2: the verdict under the flag p.no_44_82, attributed to exact computation over every index map (act 41)"
+ },
+ {
+  "id": "LA1",
+  "path": "verification/lean-mathlib/OIBridge/DitaArcExclusivity.lean",
+  "old": "and, for each of the eight other factorization classes of `SIG` — four `4 × 4`, two `8 × 2` and two\n`2 × 8`, the complete census of the stratum point's Diţă structures modulo its stabilizer — that a\nDiţă form of `Pu u` at that class's index maps, in either orientation, forces `u = 1`.",
+  "new": "and, for each of eight other named factorization classes of `SIG` — four `4 × 4`, two `8 × 2` and two\n`2 × 8` — that a Diţă form of `Pu u` at its named index maps, in either orientation, forces `u = 1`.",
+  "kind": "docstring",
+  "reason": "census LA1: removes the completeness claim; the classes are named"
+ },
+ {
+  "id": "LA2",
+  "path": "verification/lean-mathlib/OIBridge/DitaArcExclusivity.lean",
+  "old": "The\nexact-computation layer carries the exhaustive complement: at every unit `u ≠ 1`, no index maps\nwhatever admit a Diţă form of `Pu u` but the frozen class's.",
+  "new": "[[Exact\ncomputation over every index map (act 41) carries the exhaustive complement: at every unit `u ≠ 1`, no\nindex maps whatever admit a Diţă form of `Pu u` but those of the frozen `2 × 8` partition structure. | Exact\ncomputation over every index map (act 41) finds the arc not exclusive to the frozen `2 × 8` partition\nstructure away from `u = 1`, strictly; its strict exceptional set is `{w.exc_strict}`. : w.exclusive]]",
+  "kind": "docstring",
+  "reason": "census LA2: the complement under the flag w.exclusive, attributed to act 41"
+ },
+ {
+  "id": "LE1",
+  "path": "verification/lean-mathlib/OIBridge/DitaLocalEscape.lean",
+  "old": "that for each of the nine Diţă factorization\nclasses of `SIG` — four `4 × 4`, two `8 × 2` and three `2 × 8`, the complete census of the stratum point's\nDiţă structures modulo its stabilizer — a Diţă form of `Hu u` at that class's index maps, in either\norientation, forces `u = 1`; and, as the corollary, that every neighbourhood of `SIG` contains a\nrealizable matrix admitting none of the eighteen forms.",
+  "new": "that for each of nine named Diţă factorization\nclasses of `SIG` — four `4 × 4`, two `8 × 2` and three `2 × 8` — a Diţă form of `Hu u` at its named index\nmaps, in either orientation, forces `u = 1`; and, as the corollary, that every neighbourhood of `SIG`\ncontains a realizable matrix admitting none of their eighteen forms.",
+  "kind": "docstring",
+  "reason": "census LE1: removes the completeness claim; the classes and forms are named"
+ },
+ {
+  "id": "LE2",
+  "path": "verification/lean-mathlib/OIBridge/DitaLocalEscape.lean",
+  "old": " The exact-computation layer carries the\nexhaustive complement: at every unit `u ∉ {1, −1}`, no index maps whatever admit a Diţă form of `Hu u`,",
+  "new": "\nExact computation over every index map (act 41) carries the exhaustive complement: at every unit\n`u ∉ {e.exc_strict}`, no index maps whatever admit a Diţă form of `Hu u`,",
+  "kind": "docstring",
+  "reason": "census LE2: the complement re-attributed to exact computation over every index map (act 41); the exceptional set from the measurement"
+ },
+ {
+  "id": "LE3",
+  "path": "verification/lean-mathlib/OIBridge/DitaLocalEscape.lean",
+  "old": "\nand at `u = −1` exactly one `2 × 8` structure per orientation does.",
+  "new": "\nand at `u = −1` exactly {e.m1} partition structures do, the two orientations together[[, among them in each\norientation a `4 × 4` partition structure, the image of the partition structure of act 37's `k4` under the row\nexchange `7 ↔ 15` and the column exchange `2 ↔ 8` | : e.m1_k4_exchanged]].",
+  "kind": "docstring",
+  "reason": "census LE3: the count at u = −1 from the measurement (one 2 × 8 per orientation is false under every index map)"
+ },
+ {
+  "id": "LL1",
+  "path": "verification/lean-mathlib/OIBridge/DitaTorusLocus.lean",
+  "old": "act\n37's nine classes in both orientations and act 38's two maps `M_COL`",
+  "new": "the nine\nnamed index maps of act 37's sorted-alignment census, in both orientations, and act 38's two\nmaps `M_COL`",
+  "kind": "docstring",
+  "reason": "census LL1 (c, edited by owner direction): act 37's nine classes named as the kernel's named index maps"
+ },
+ {
+  "id": "LL2",
+  "path": "verification/lean-mathlib/OIBridge/DitaTorusLocus.lean",
+  "old": "The module does not state that the five faces exhaust the\npoints admitting a Diţă structure: that converse, over every shape, index map and orientation and up to\ndiagonal equivalence, is certified by the round's exact-computation probe, not by the kernel.",
+  "new": "[[The module does not state that the five faces exhaust the\npoints admitting a Diţă structure: that converse, over every shape, index map and orientation and up to\ndiagonal equivalence, is certified by exact computation over every index map (acts 40 and 41), not by the\nkernel. | The module does not state which points outside the five faces admit a Diţă structure: exact\ncomputation over every index map (act 41), not the kernel, finds the union of the loci, over every shape,\nindex map and orientation and up to diagonal equivalence, to be the flats {h3.maximal}. : h3.five_faces]]",
+  "kind": "docstring",
+  "reason": "census LL2: the converse under the flag h3.five_faces, attributed to acts 40 and 41"
+ },
+ {
+  "id": "J2",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "the exhaustive block-structure searches, which find no 4 × 4 and no 8 × 2 Diţă factorization of either orientation at either point and exactly one 2 × 8 factorization of each orientation, while finding the known factorizations of the stratum point;",
+  "new": "the block-structure searches with the rows of each row class in sorted order, which find no 4 × 4 and no 8 × 2 Diţă factorization of either orientation at either point and exactly one 2 × 8 factorization of each orientation, while finding four 4 × 4 partition structures of the stratum point in each orientation, of the {sig.p44} that exact computation over every index map (act 41) admits;",
+  "kind": "registry",
+  "reason": "census J2: act 36's searches scoped to the sorted alignment; the stratum point's 4 × 4 count from act 41"
+ },
+ {
+  "id": "J3",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "the 492 4 × 4 Diţă hulls through the stratum point spanning its 49-dimensional defect at first order;",
+  "new": "the 492 4 × 4 Diţă hull parametrizations through the stratum point at the sorted alignment, whose tangents span its 49-dimensional defect at first order, while over every valid alignment exact computation over every index map (act 41) finds {hull.params} parametrizations, {hull.distinct_mat} distinct 4 × 4 hulls as matrix families and, counted separately, {hull.distinct_gauge} distinct 4 × 4 hulls modulo the gauge, with tangent dimensions modulo the gauge in {hull.dims}, [[every distinct hull inside the linearized and second-order unitarity conditions | not every distinct hull inside the linearized and second-order unitarity conditions : hull.dF_ok]], and their tangents spanning {hull.span} dimensions;",
+  "kind": "registry",
+  "reason": "census J3: act 36's count scoped as parametrizations at the sorted alignment; act 41's hull counts, matrix-family and modulo-gauge, stated separately"
+ },
+ {
+  "id": "J4",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "These are exact arithmetic replayed, not kernel-certified; by them the 4 × 4 Diţă hierarchy is locally insufficient at the certified stratum point, and the first escaping family belongs to the 2 × 8 construction.",
+  "new": "These are exact arithmetic replayed, not kernel-certified. [[By exact computation over every index map (act 41), both points admit no 4 × 4 and no 8 × 2 Diţă factorization of either orientation, strictly or up to diagonal equivalence, and, strictly, {p.partitions} partition structures each, all of shape 2 × 8, so the 4 × 4 Diţă hierarchy is locally insufficient at the certified stratum point, and the first escaping family belongs to the 2 × 8 construction. | Exact computation over every index map (act 41) finds a 4 × 4 or 8 × 2 Diţă factorization at one of the two points, strictly or up to diagonal equivalence, with {p.p44} 4 × 4 and {p.p82} 8 × 2 partition structures per orientation at the named point, strictly. : p.no_44_82]]",
+  "kind": "registry",
+  "reason": "census J4: the conclusion under the flag p.no_44_82, attributed to act 41"
+ },
+ {
+  "id": "J5",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "and each of the eight other factorization classes of the stratum point admitted only at the base point (act 37, Track B)",
+  "new": "and each of eight other named factorization classes of the stratum point admitted only at the base point (act 37, Track B)",
+  "kind": "registry",
+  "reason": "census J5: removes the completeness reading"
+ },
+ {
+  "id": "J6",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "and for each of the eight other factorization classes of the stratum point — four 4 × 4, two 8 × 2 and two 2 × 8, the complete census of its Diţă structures modulo its stabilizer — a Diţă form of Pu u at that class's index maps",
+  "new": "and for each of eight other named factorization classes of the stratum point — four 4 × 4, two 8 × 2 and two 2 × 8 — a Diţă form of Pu u at its named index maps",
+  "kind": "registry",
+  "reason": "census J6: removes the completeness claim"
+ },
+ {
+  "id": "J7",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "the census of eighteen Diţă structures of the stratum point in nine classes modulo the stabilizer of order 1024 with transposition;",
+  "new": "the census, at the sorted alignment, of eighteen Diţă partition structures of the stratum point in nine partition orbits under the stabilizer of order 1024 with transposition, where exact computation over every index map (act 41) finds {sig.partitions} partition structures, forming {sig.porbits_full} partition orbits and {sig.classes_full} factorization classes under that stabilizer;",
+  "kind": "registry",
+  "reason": "census J7: act 37's census scoped; act 41's counts from the measurement"
+ },
+ {
+  "id": "J8",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "the generic arc point admitting exactly the frozen class; each other class obstructed by monomial conditions u^k = 1, k = ±1; the candidate exceptional set of twenty exactly named points ζ z^s w^t;",
+  "new": "the generic arc point admitting exactly the frozen 2 × 8 partition structure; each of the eight other named index maps obstructed by monomial conditions u^k = 1, k = ±1; the candidate exceptional set of the sorted-alignment calculus, twenty exactly named points ζ z^s w^t;",
+  "kind": "registry",
+  "reason": "census J8: scoped; the eight are named"
+ },
+ {
+  "id": "J9",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "and the exhaustive search at each of them admitting only the frozen class away from u = 1, so that the exceptional set is exactly {1} and, for every unit u ≠ 1, the arc point is a Diţă matrix for the frozen 2 × 8 class and its transpose orientation and for no other index maps at all.",
+  "new": "and the search at the sorted alignment at each of them admitting only the frozen 2 × 8 partition structure away from u = 1. By exact computation over every index map (act 41) the strict exceptional set is exactly {w.exc_strict} and [[for every unit u ≠ 1 the arc point is a Diţă matrix for the frozen 2 × 8 partition structure in its two orientations and for no other index maps at all | the arc is not exclusive to the frozen 2 × 8 partition structure : w.exclusive]]; up to diagonal equivalence, as a separate statement, the exceptional set is {w.exc_relaxed}.",
+  "kind": "registry",
+  "reason": "census J9: act 37's search scoped; the exceptional sets from act 41's measurement"
+ },
+ {
+  "id": "J10",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "each of the nine factorization classes of the stratum point admitted along it only at the base point, and realizable matrices in none of the eighteen Diţă forms in every neighbourhood of SIG (act 38, Track B)",
+  "new": "each of nine named factorization classes of the stratum point admitted along it only at the base point, and realizable matrices in none of their eighteen Diţă forms in every neighbourhood of SIG (act 38, Track B)",
+  "kind": "registry",
+  "reason": "census J10: removes the completeness reading"
+ },
+ {
+  "id": "J11",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "for each of the nine Diţă factorization classes of the stratum point — four 4 × 4, two 8 × 2 and three 2 × 8, the complete census of its Diţă structures modulo its stabilizer — a Diţă form of Hu u at that class's index maps",
+  "new": "for each of nine named Diţă factorization classes of the stratum point — four 4 × 4, two 8 × 2 and three 2 × 8 — a Diţă form of Hu u at its named index maps",
+  "kind": "registry",
+  "reason": "census J11: removes the completeness claim"
+ },
+ {
+  "id": "J13",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "and the exhaustive search at each of them, finding a Diţă structure at u = 1 and at u = −1 only, strictly and up to diagonal equivalence, with the two structures at u = −1 certified by exact reconstruction; so that the exceptional set is exactly {1, −1} and, for every unit u outside it, the arc point admits no Diţă structure of any admissible shape, index map or orientation, including up to the allowed diagonal equivalences;",
+  "new": "and the search at the sorted alignment at each of them, finding a Diţă structure at u = 1 and at u = −1 only, strictly and up to diagonal equivalence, with the two 2 × 8 partition structures it finds at u = −1 certified by exact reconstruction; by exact computation over every index map (act 41) the arc point admits no Diţă structure of any admissible shape, index map or orientation at any unit [[outside {1, −1}, strictly or up to the allowed diagonal equivalences | outside {e.exc_strict} strictly, and none up to the allowed diagonal equivalences at any unit outside {e.exc_relaxed} : e.exc_is_pm1]], with {e.m1} partition structures at u = −1;",
+  "kind": "registry",
+  "reason": "census J13: act 38's search scoped; the exceptional set under the flag e.exc_is_pm1 and the count at u = −1 from act 41's measurement"
+ },
+ {
+  "id": "J14",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "spanned by the eighteen first-order Diţă subspaces,",
+  "new": "spanned by the first-order Diţă subspaces of the eighteen named index maps,",
+  "kind": "registry",
+  "reason": "census J14: the eighteen are named"
+ },
+ {
+  "id": "J17",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "are the five faces u₁ = ±1, u₂ = 1, u₃ = ±1: explicit factorizations on each whole face and exclusions at twenty named index maps in the kernel, the converse by exact computation (act 40, Track B)",
+  "new": "[[are the five faces u₁ = ±1, u₂ = 1, u₃ = ±1: explicit factorizations on each whole face and exclusions at twenty named index maps in the kernel, the converse by exact computation over every index map (acts 40 and 41) | include the five faces u₁ = ±1, u₂ = 1, u₃ = ±1, with explicit factorizations on each whole face and exclusions at twenty named index maps in the kernel, and by exact computation over every index map (act 41) form the union of the flats {h3.maximal} : h3.five_faces]] (act 40, Track B)",
+  "kind": "registry",
+  "reason": "census J17 (c, edited by owner direction): the converse attributed to acts 40 and 41, the verdict under the flag h3.five_faces"
+ },
+ {
+  "id": "J18",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "The converse — that no other point admits a Diţă structure of any shape, index map or orientation, strictly or up to diagonal equivalence — is certified by the round's exact-computation probe verification/lean/dita_torus_locus_probe.py, run in its own shard: 46 candidate structures contain every structure admitted anywhere, their strict and relaxed loci coincide, and the union of the 30 nonempty loci is exactly the five faces.",
+  "new": "The round's exact-computation probe verification/lean/dita_torus_locus_probe.py, run in its own shard, shows that 46 partition candidates contain every Diţă structure admitted anywhere and computes each candidate's strict and relaxed loci at the sorted alignment, which coincide and whose 30 nonempty members have the five faces as union. The converse — that no other point admits a Diţă structure of any shape, index map or orientation, strictly or up to diagonal equivalence — [[is certified by exact computation over every index map (acts 40 and 41), act 40's enumeration supplying the candidates and act 41 their loci under every alignment | fails under exact computation over every index map (act 41), which finds the flats {h3.maximal} as the union of the loci : h3.five_faces]]: {h3.candidates} partition candidates, {h3.nonempty} of them with nonempty loci, [[strict and relaxed loci equal for every candidate | strict and relaxed loci differing : h3.strict_eq_relaxed]], and {h3.noncoord} of the loci's {h3.flats} distinct flats off the coordinate characters.",
+  "kind": "registry",
+  "reason": "census J18: act 40's probe scoped to the sorted alignment; the converse under the flag h3.five_faces, attributed to acts 40 and 41"
+ },
+ {
+  "id": "J19",
+  "path": "verification/lean-manuscript-census.json",
+  "old": "act 37's nine classes in both orientations and act 38's M_COL and M_ROW",
+  "new": "the nine named index maps of act 37's sorted-alignment census, in both orientations, and act 38's M_COL and M_ROW",
+  "kind": "registry",
+  "reason": "census J19 (c, edited by owner direction): act 37's nine classes named as the kernel's named index maps"
+ },
+ {
+  "id": "R2",
+  "path": "verification/ROADMAP.md",
+  "old": "and, by the round's exact-computation probe, that point, of defect 37, admits no `4 × 4` Diţă factorization of either orientation at any block structure, so the `4 × 4` Diţă hierarchy is locally insufficient at the certified stratum point, act 35's open modulus being answered negatively for the `4 × 4` hulls and re-posed for the hierarchy;",
+  "new": "and, [[by exact computation over every index map (act 41), that point, of defect 37, admits no `4 × 4` Diţă factorization of either orientation at any block structure, so the `4 × 4` Diţă hierarchy is locally insufficient at the certified stratum point, act 35's open modulus being answered negatively for the `4 × 4` hulls and re-posed for the hierarchy | by exact computation over every index map (act 41), that point, of defect 37, or the family's point at `u₅ = (3+4i)/5` admits a `4 × 4` or `8 × 2` Diţă factorization, strictly or up to diagonal equivalence, with {p.p44} `4 × 4` and {p.p82} `8 × 2` partition structures per orientation at the named point, strictly : p.no_44_82]];",
+  "kind": "roadmap",
+  "reason": "census R2: the P0 verdict under the flag p.no_44_82, attributed to act 41"
+ },
+ {
+  "id": "R3",
+  "path": "verification/ROADMAP.md",
+  "old": "by the kernel for the eight other factorization classes of the stratum point and by the round's exact-computation probe for every other index map, no other Diţă factorization exists at any unit parameter other than the base point: the exceptional set of the arc is exactly `{1}`, and the arc is exclusive to its `2 × 8` class;",
+  "new": "by the kernel for eight other named factorization classes of the stratum point and by exact computation over every other index map (act 41), [[no other Diţă factorization exists at any unit parameter other than the base point: the exceptional set of the arc is exactly `{w.exc_strict}`, and the arc is exclusive to its `2 × 8` partition structure | the exceptional set of the arc is `{w.exc_strict}`, and the arc is not exclusive to its `2 × 8` partition structure : w.exclusive]];",
+  "kind": "roadmap",
+  "reason": "census R3: completeness reading removed; the exceptional set from act 41's measurement"
+ },
+ {
+  "id": "R4",
+  "path": "verification/ROADMAP.md",
+  "old": "each of the nine Diţă factorization classes of the stratum point is admitted along it only at the base point, in either orientation, by the kernel; and, by the round's exact-computation probe for every other index map, the arc point admits no Diţă structure of any shape, index map or orientation at any unit parameter outside `{1, −1}`, strictly or up to diagonal equivalence:",
+  "new": "each of nine named Diţă factorization classes of the stratum point is admitted along it only at the base point, in either orientation, by the kernel; and, by exact computation over every other index map (act 41), the arc point admits no Diţă structure of any shape, index map or orientation at any unit parameter [[outside `{1, −1}`, strictly or up to diagonal equivalence | outside `{e.exc_strict}` strictly, or outside `{e.exc_relaxed}` up to diagonal equivalence : e.exc_is_pm1]]:",
+  "kind": "roadmap",
+  "reason": "census R4: completeness reading removed; the exceptional set under the flag e.exc_is_pm1, from act 41's measurement"
+ },
+ {
+  "id": "R5",
+  "path": "verification/ROADMAP.md",
+  "old": "spanned by the eighteen Diţă tangent subspaces,",
+  "new": "spanned by the Diţă tangent subspaces of the eighteen named index maps,",
+  "kind": "roadmap",
+  "reason": "census R5: the eighteen are named"
+ },
+ {
+  "id": "R7",
+  "path": "verification/ROADMAP.md",
+  "old": "are exactly the five faces `u₁ = ±1`, `u₂ = 1`, `u₃ = ±1`: the explicit factorizations on the whole of each face and the exclusions at twenty named index maps by the kernel, and the converse over every index map by the round's exact-computation probe.",
+  "new": "[[are exactly the five faces `u₁ = ±1`, `u₂ = 1`, `u₃ = ±1`: the explicit factorizations on the whole of each face and the exclusions at twenty named index maps by the kernel, and the converse by exact computation over every index map (acts 40 and 41). | include the five faces `u₁ = ±1`, `u₂ = 1`, `u₃ = ±1`, with the explicit factorizations on the whole of each face and the exclusions at twenty named index maps by the kernel, and, by exact computation over every index map (act 41), form the union of the flats {h3.maximal}. : h3.five_faces]]",
+  "kind": "roadmap",
+  "reason": "census R7: the P0 verdict under the flag h3.five_faces; the converse attributed to acts 40 and 41"
+ },
+ {
+  "id": "R9",
+  "path": "verification/ROADMAP.md",
+  "old": "for the classification of each against the\neighteen Diţă structures of the point:",
+  "new": "for the classification of each against the\nDiţă structures of the point:",
+  "kind": "roadmap",
+  "reason": "census R9: removes the completeness reading"
+ },
+ {
+  "id": "R10",
+  "path": "verification/ROADMAP.md",
+  "old": "none of the eighteen Diţă structures can have smaller",
+  "new": "none of the Diţă structures of the point can have smaller",
+  "kind": "roadmap",
+  "reason": "census R10: removes the completeness reading"
+ },
+ {
+  "id": "R-A41",
+  "path": "verification/ROADMAP.md",
+  "old": "no family other than act 39's is classified, nothing here classifies the product normalized set or its isometries or establishes that any admissible law is covariant under any isometry or reaches any class, `P0`'s threading part is untouched, no hull, family, factorization or isometry is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle. |",
+  "new": "no family other than act 39's is classified, nothing here classifies the product normalized set or its isometries or establishes that any admissible law is covariant under any isometry or reaches any class, `P0`'s threading part is untouched, no hull, family, factorization or isometry is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle. Under the reading of an index map that acts 36 to 40 froze, a pair of bijections that fixes the alignment of the rows across row classes, act 41's exact computation in two independent paths gives: {sig.partitions} Diţă partition structures at the certified rational stratum point, forming {sig.porbits_full} partition orbits and {sig.classes_full} factorization classes under its stabilizer; act 37's arc [[exclusive to its `2 × 8` partition structure away from `u = 1`, strictly | not exclusive to its `2 × 8` partition structure : w.exclusive]]; act 38's exceptional set {e.exc_strict}, with {e.m1} partition structures at `u = −1`; and act 39's family admitting a Diţă structure [[exactly on act 40's five faces | on the flats {h3.maximal} : h3.five_faces]], through {h3.nonempty} nonempty candidate loci. The verdicts and kernels of acts 36 to 40 stand. The census of exponent matrices with entries in `{0, 1}` and the minimality of support 48 stay open, no family other than those of acts 36 to 40 is classified, nothing here classifies the product normalized set or its isometries or establishes that any admissible law is covariant under any isometry or reaches any realizable class, `P0`'s threading part is untouched, no hull, family, factorization or isometry is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle. |",
+  "kind": "append",
+  "reason": "this round's P0 sentence template and standing clause, appended once after act 40's standing clause"
+ }
+]

@@ -1,0 +1,3 @@
+  [sat_hr.py 39: exit 0, 481s]
+PASS sat_hr 39: 270792 clauses, UNSAT
+dita_support_minimality_probe sathr: OK -- 1 checks (481s)

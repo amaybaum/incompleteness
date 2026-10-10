@@ -1,0 +1,7 @@
+Kronecker quaternary classes: defects {'H4⊗H4': 105, 'H4⊗F4': 73, 'F4⊗H4': 73, 'F4⊗F4': 57} ; H4⊗F4 and F4⊗H4 same invariants: False
+400 quaternary twists -> 369 distinct (profile, Haagerup, exact defect) classes (370s)
+certified off the entire Kronecker locus: by exact defect alone 363, by the full triple 369, of 369; coinciding with a Kronecker class: 0
+defect values present: [23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51, 53, 55, 57, 59, 61, 63, 65, 67, 71, 73, 75, 77]
+A34 witness: exact defect 49; equals a Kronecker class triple: False
+second real class: exact defect 105 (Sylvester: 105); twist bits (1, 1, 1, 1, 1, 1, 1, 1, -1)
+done

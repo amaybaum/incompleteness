@@ -1,0 +1,2224 @@
+# ---- text helpers ------------------------------------------------------------------------------
+RTXT = "![" + ", ".join(f"({a}, {b})" for a, b in R9) + "]"
+MSGNZ = "(fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1)"
+VEC = lambda z: f"![![1, 1, 1, 1], ![1, {z}, -1, -{z}], ![1, -1, 1, -1], ![1, -{z}, -1, {z}]]"
+def SG_of(M, A, B):
+    return (f"({M} ({A} p.1.1) ({B} p.2.1) * {M} ({A} p.1.1) ({B} p.2.2.1) * ({M} ({A} p.1.2.1) ({B} p.2.2.1) * {M} ({A} p.1.2.1) ({B} p.2.2.2))\n"
+            f"      * ({M} ({A} p.1.2.2) ({B} p.2.2.2) * {M} ({A} p.1.2.2) ({B} p.2.1)))")
+def E1_of(A, B): return f"({MEXP} ({A} p.1.1) ({B} p.2.1) + {MEXP} ({A} p.1.2.1) ({B} p.2.2.1) + {MEXP} ({A} p.1.2.2) ({B} p.2.2.2))"
+def E2_of(A, B): return f"({MEXP} ({A} p.1.1) ({B} p.2.2.1) + {MEXP} ({A} p.1.2.1) ({B} p.2.2.2) + {MEXP} ({A} p.1.2.2) ({B} p.2.1))"
+def EZ_of(A, B): return f"(({E2_of(A, B)} : ℕ) : ℤ) - (({E1_of(A, B)} : ℕ) : ℤ)"
+def VARS(t):
+    for a, b in (('p.1.2.1', 'i₂'), ('p.1.2.2', 'i₃'), ('p.2.2.1', 'j₂'), ('p.2.2.2', 'j₃'), ('p.1.1', 'i₁'), ('p.2.1', 'j₁')):
+        t = t.replace(a, b)
+    return t
+SGC, SGZ = SG_of(MSGN, 'a', 'b'), SG_of(MSGNZ, 'a', 'b')
+E1, E2, EZ = E1_of('a', 'b'), E2_of('a', 'b'), EZ_of('a', 'b')
+ZF = "(fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z)"
+KSET = "({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ))"
+KLIST = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)]
+def NSUM(A, B, A2, B2, kl="kl"):
+    return (f"((Finset.univ.filter (fun p : {IDXT} => ({EZ_of(A, B)}, {EZ_of(A2, B2)}) = {kl})).sum "
+            f"(fun p : {IDXT} => {SG_of(MSGNZ, A, B)} * {SG_of(MSGNZ, A2, B2)}) : ℤ)")
+def CROSS_RHS(A, B, A2, B2):
+    return f"2 - 2 / 4096 * ∑ kl ∈ {KSET}, (({NSUM(A, B, A2, B2)} : ℝ) * (((starRingEnd ℂ) ({ZF} z kl.1) * {ZF} w kl.2).re))"
+CIRCT = lambda A, B, z: f"(fun i => ({FZ(z)} ({A} i)).submatrix {B} {B})"
+RFACTS = ", ".join(f"a33_shared_R1_{r}, a33_shared_R2_{r}" for r in range(9))
+NESTED_FORALL = "  simp only [Prod.forall]\n  decide +kernel\n"
+NESTED_SUM = "  rw [Finset.sum_filter]\n  simp only [Fintype.sum_prod_type]\n  decide +kernel\n"
+NAMESQ = "(\"fun z w hz hw => ?_\")"
+
+# ---- phase 1: foundations ----------------------------------------------------------------------
+thm('a33_shared_msgn_star', f"∀ x y : Fin 4, star ({MSGN} x y) = {MSGN} x y",
+    "  intro x y\n  simp only []\n  split_ifs <;> simp\n")
+thm('a33_shared_entry', f"∀ (z : ℂ) (x y : Fin 4), {VEC('z')} x y = {MSGN} x y * z ^ ({MEXP} x y)",
+    "  intro z x y\n  fin_cases x <;> fin_cases y <;> simp\n")
+thm('a33_shared_coord',
+    f"∀ (z : ℂ) (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n      mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * {SGC} * star z ^ {E1} * z ^ {E2}",
+    HX + """  intro z a b p
+  obtain ⟨⟨i₁, i₂, i₃⟩, ⟨j₁, j₂, j₃⟩⟩ := p
+  have hh : star (1 / 2 : ℂ) = 1 / 2 := by simp [Complex.star_def]
+  simp only [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Matrix.of_apply,
+    a33_shared_entry, star_mul', star_pow, a33_shared_msgn_star, hh]
+  ring
+""")
+thm('a33_shared_feature_ext', f"∀ G H : {T}, featureVec G = featureVec H ↔ ∀ p : {IDXT}, mixedTriple G p = mixedTriple H p",
+    """  intro G H
+  constructor
+  · intro h p
+    have := congrArg (fun x : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) => x.ofLp p) h
+    simpa [featureVec_ofLp] using this
+  · intro h
+    unfold featureVec
+    congr 1
+    funext p
+    exact h p
+""")
+for nm, key in (('a33_shared_order', 'ORDER'), ('a33_c_transitive_circles', 'TRANS_C'), ('a33_c_stabilizer_circle', 'STAB_C'),
+                ('a33_c_transitive_points', 'TRANS_V'), ('a33_c_stabilizer_point', 'STAB_V'), ('a33_shared_family_count', 'FAM_COUNT')):
+    thm(nm, P[key].replace('\n', '\n    '), "  decide +kernel\n")
+thm('a33_shared_dist_sq',
+    f"∀ G H : {T}, dist (featureVec G) (featureVec H) ^ 2 = ∑ p : {IDXT}, ‖mixedTriple G p - mixedTriple H p‖ ^ 2",
+    """  intro G H
+  rw [EuclideanSpace.dist_eq, Real.sq_sqrt (Finset.sum_nonneg (fun p _ => sq_nonneg _))]
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  rw [dist_eq_norm]
+  rfl
+""")
+thm('a33_shared_unit_pow', "∀ z : ℂ, star z * z = 1 → ∀ n : ℕ, star z ^ n * z ^ n = 1",
+    "  intro z hz n\n  rw [← mul_pow, hz, one_pow]\n")
+thm('a33_shared_msgn_cast', f"∀ x y : Fin 4, {MSGN} x y = (({MSGNZ} x y : ℤ) : ℂ)",
+    "  intro x y\n  simp only []\n  split_ifs <;> simp\n")
+thm('a33_shared_coord_int',
+    f"∀ (z : ℂ) (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n      mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * star z ^ {E1} * z ^ {E2}",
+    "  intro z a b p\n  rw [a33_shared_coord]\n  simp only [a33_shared_msgn_cast]\n  push_cast\n  ring\n")
+thm('a33_shared_exp_range', f"∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}), {EZ} = -1 ∨ {EZ} = 0 ∨ {EZ} = 1",
+    "  intro a b p\n  simp only [ite_and]\n  split_ifs <;> norm_num\n")
+AC = f"((1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ)"
+thm('a33_shared_coord_form',
+    f"∀ (z : ℂ), star z * z = 1 → ∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n"
+    f"      ({EZ} = 1 → mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * z)\n"
+    f"      ∧ ({EZ} = 0 → mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ))\n"
+    f"      ∧ ({EZ} = -1 → mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * star z)",
+    f"""  intro z hz a b p
+  rw [a33_shared_coord_int]
+  set m : ℕ := {E1} with hm
+  set n : ℕ := {E2} with hn
+  refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
+  · have hnm : n = m + 1 := by omega
+    rw [hnm]
+    linear_combination {AC} * z) * a33_shared_unit_pow z hz m
+  · have hnm : n = m := by omega
+    rw [hnm]
+    linear_combination {AC}) * a33_shared_unit_pow z hz m
+  · have hnm : m = n + 1 := by omega
+    rw [hnm]
+    linear_combination {AC} * star z) * a33_shared_unit_pow z hz n
+""")
+thm('a33_shared_sgz_unit', f"∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}), ({SGZ} : ℤ) = 1 ∨ ({SGZ} : ℤ) = -1",
+    "  intro a b p\n  simp only []\n  split_ifs <;> norm_num\n")
+thm('a33_shared_coord_Z',
+    f"∀ (z : ℂ), star z * z = 1 → ∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n"
+    f"      mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * {ZF} z ({EZ})",
+    """  intro z hz a b p
+  have hf := a33_shared_coord_form z hz a b p
+  rcases a33_shared_exp_range a b p with h | h | h
+  · rw [hf.2.2 h, h]
+    norm_num
+  · rw [hf.2.1 h, h]
+    norm_num
+  · rw [hf.1 h, h]
+    norm_num
+""")
+thm('a33_shared_Z_unit', f"∀ (z : ℂ) (k : ℤ), star z * z = 1 → star ({ZF} z k) * {ZF} z k = 1",
+    "  intro z k hz\n  simp only []\n  split_ifs\n  · exact hz\n  · simp\n  · rw [star_star, mul_comm]; exact hz\n")
+thm('a33_shared_term',
+    "∀ (σ σ' : ℤ) (Z Z' : ℂ), (σ = 1 ∨ σ = -1) → (σ' = 1 ∨ σ' = -1) → star Z * Z = 1 → star Z' * Z' = 1 →\n"
+    "      ‖(1 / 64 : ℂ) * (σ : ℂ) * Z - (1 / 64 : ℂ) * (σ' : ℂ) * Z'‖ ^ 2 = 2 / 4096 - 2 / 4096 * ((σ * σ' : ℤ) : ℝ) * (((starRingEnd ℂ) Z * Z').re)",
+    """  intro σ σ' Z Z' hσ hσ' hZ hZ'
+  have h1 : Z.re ^ 2 + Z.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have h2 : Z'.re ^ 2 + Z'.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ'
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have e : (1 / 64 : ℂ) * (σ : ℂ) * Z - (1 / 64 : ℂ) * (σ' : ℂ) * Z' = ((1 / 64 : ℝ) : ℂ) * ((σ : ℂ) * Z - (σ' : ℂ) * Z') := by
+    push_cast; ring
+  rw [e, norm_mul, Complex.norm_real, mul_pow, ← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+  rcases hσ with rfl | rfl <;> rcases hσ' with rfl | rfl <;>
+    simp [Complex.mul_re, Complex.mul_im, Real.norm_eq_abs] <;> nlinarith [h1, h2]
+""")
+thm('a33_shared_re_bound', "∀ Z Z' : ℂ, star Z * Z = 1 → star Z' * Z' = 1 → -1 ≤ ((starRingEnd ℂ) Z * Z').re ∧ ((starRingEnd ℂ) Z * Z').re ≤ 1",
+    """  intro Z Z' hZ hZ'
+  have h1 : Z.re ^ 2 + Z.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have h2 : Z'.re ^ 2 + Z'.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ'
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  simp only [Complex.mul_re, Complex.conj_re, Complex.conj_im]
+  constructor <;> nlinarith [sq_nonneg (Z.re - Z'.re), sq_nonneg (Z.im - Z'.im), sq_nonneg (Z.re + Z'.re), sq_nonneg (Z.im + Z'.im)]
+""")
+# the fibrewise regrouping of a 4096-term sum, generic in the key, sign and phase functions
+thm('a33_shared_fibre',
+    f"∀ (key : {IDXT} → ℤ × ℤ) (sg : {IDXT} → ℤ) (ρ : ℤ × ℤ → ℝ) (K : Finset (ℤ × ℤ)), (∀ p, key p ∈ K) →\n"
+    f"      ∑ p : {IDXT}, (2 / 4096 - 2 / 4096 * ((sg p : ℤ) : ℝ) * ρ (key p))\n"
+    f"        = 2 - 2 / 4096 * ∑ kl ∈ K, ((((Finset.univ.filter (fun p : {IDXT} => key p = kl)).sum sg : ℤ) : ℝ) * ρ kl)",
+    """  intro key sg ρ K hK
+  rw [Finset.sum_sub_distrib, Finset.sum_const, Finset.card_univ]
+  simp only [Fintype.card_prod, Fintype.card_fin, nsmul_eq_mul]
+  have hfib : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * ρ (key p)
+      = ∑ kl ∈ K, ((((Finset.univ.filter (fun p => key p = kl)).sum sg : ℤ) : ℝ) * ρ kl) := by
+    rw [← Finset.sum_fiberwise_of_maps_to (fun p _ => hK p)]
+    refine Finset.sum_congr rfl (fun kl _ => ?_)
+    rw [Finset.sum_filter, Finset.sum_filter]
+    push_cast
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl (fun p _ => ?_)
+    split_ifs with h
+    · rw [h]
+    · simp
+  have hL : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), 2 / 4096 * ((sg p : ℤ) : ℝ) * ρ (key p)
+      = 2 / 4096 * ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * ρ (key p) := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun p _ => by ring)
+  rw [hL, hfib]
+  norm_num
+""")
+# the exact cross-circle formula, generic in the two relabellings
+thm('a33_shared_cross',
+    f"∀ (a b a' b' : Equiv.Perm (Fin 4)) (z w : ℂ), star z * z = 1 → star w * w = 1 →\n"
+    f"      dist (featureVec {CIRCT('a', 'b', 'z')}) (featureVec {CIRCT(chr(97)+chr(39), chr(98)+chr(39), 'w')}) ^ 2\n"
+    f"        = {CROSS_RHS('a', 'b', chr(97)+chr(39), chr(98)+chr(39))}",
+    f"""  intro a b a' b' z w hz hw
+  rw [a33_shared_dist_sq]
+  have hterm : ∀ p : {IDXT},
+      ‖mixedTriple {CIRCT('a', 'b', 'z')} p - mixedTriple {CIRCT(chr(97)+chr(39), chr(98)+chr(39), 'w')} p‖ ^ 2
+      = 2 / 4096 - 2 / 4096 * (({SGZ} * {SG_of(MSGNZ, chr(97)+chr(39), chr(98)+chr(39))} : ℤ) : ℝ)
+          * (((starRingEnd ℂ) ({ZF} z ({EZ})) * {ZF} w ({EZ_of(chr(97)+chr(39), chr(98)+chr(39))})).re) := by
+    intro p
+    rw [a33_shared_coord_Z z hz a b p, a33_shared_coord_Z w hw a' b' p]
+    exact a33_shared_term _ _ _ _ (a33_shared_sgz_unit a b p) (a33_shared_sgz_unit a' b' p) (a33_shared_Z_unit z _ hz) (a33_shared_Z_unit w _ hw)
+  rw [Finset.sum_congr rfl (fun p _ => hterm p)]
+  have hmaps : ∀ p : {IDXT}, ({EZ}, {EZ_of(chr(97)+chr(39), chr(98)+chr(39))}) ∈ {KSET} := by
+    intro p
+    rcases a33_shared_exp_range a b p with h | h | h <;> rcases a33_shared_exp_range a' b' p with h' | h' | h' <;>
+      rw [h, h'] <;> first | decide | simp
+  exact a33_shared_fibre (fun p => ({EZ}, {EZ_of(chr(97)+chr(39), chr(98)+chr(39))}))
+    (fun p => {SGZ} * {SG_of(MSGNZ, chr(97)+chr(39), chr(98)+chr(39))})
+    (fun kl => (((starRingEnd ℂ) ({ZF} z kl.1) * {ZF} w kl.2).re)) {KSET} hmaps
+""")
+for r in range(9):
+    thm(f'a33_shared_R1_{r}', f"({RTXT} {r}).1 = {R9[r][0]}", "  decide\n")
+    thm(f'a33_shared_R2_{r}', f"({RTXT} {r}).2 = {R9[r][1]}", "  decide\n")
+
+# ---- phase 2: coordinate values, injectivity, incidences, census -------------------------------
+CV = {}
+def coordval(r, k):
+    key = (r, k)
+    if key in CV: return CV[key]
+    sg, e = circ.C[r][k]; p = IDX[k]; A, B = R9[r]
+    nm = f'a33_shared_cv_{r}_{k}'
+    val = {1: f"({sg} : ℂ) * z / 64", 0: f"({sg} : ℂ) / 64", -1: f"({sg} : ℂ) * star z / 64"}[e]
+    part = {1: 'hf.1', 0: 'hf.2.1', -1: 'hf.2.2'}[e]
+    thm(nm, f"∀ z : ℂ, star z * z = 1 → mixedTriple {CIRC(r, 'z')} {idx(p)} = {val}",
+        f"  intro z hz\n  have hf := a33_shared_coord_form z hz {A} {B} {idx(p)}\n  rw [{part} (by decide)]\n"
+        "  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring\n")
+    CV[key] = nm
+    return nm
+if PHASE >= 2:
+    thm('a33_shared_pt_inj',
+        f"∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}) (s : ℂ), s ≠ 0 →\n"
+        f"      (∀ z : ℂ, star z * z = 1 → mixedTriple {CIRCT('a', 'b', 'z')} p = s * z / 64) →\n"
+        f"      ∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRCT('a', 'b', 'z')} = featureVec {CIRCT('a', 'b', 'w')} → z = w",
+        """  intro a b p s hs hc z w hz hw h
+  have hp := (a33_shared_feature_ext _ _).1 h p
+  rw [hc z hz, hc w hw] at hp
+  have : s * z = s * w := by linear_combination 64 * hp
+  exact mul_left_cancel₀ hs this
+""")
+    for r in range(9):
+        k = tab['pr'][str(r)]; sg = circ.C[r][k][0]
+        thm(f'a33_shared_inj_{r}', f"∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRC(r, 'z')} = featureVec {CIRC(r, 'w')} → z = w",
+            f"  exact a33_shared_pt_inj {R9[r][0]} {R9[r][1]} {idx(IDX[k])} ({sg} : ℂ) (by norm_num) (fun z hz => {coordval(r, k)} z hz)\n")
+    for (r, s1, r2, s2) in tb['inc']:
+        z1 = '1' if s1 == 1 else '(-1)'; z2 = '1' if s2 == 1 else '(-1)'
+        A, B, A2, B2 = R9[r][0], R9[r][1], R9[r2][0], R9[r2][1]
+        keytxt = (f"({VARS(SG_of(MSGNZ, A, B))} : ℤ) * ((-1) ^ ({VARS(E1_of(A, B))} + {VARS(E2_of(A, B))})) ^ ({0 if s1 == 1 else 1}) =\n"
+                  f"      ({VARS(SG_of(MSGNZ, A2, B2))} : ℤ) * ((-1) ^ ({VARS(E1_of(A2, B2))} + {VARS(E2_of(A2, B2))})) ^ ({0 if s2 == 1 else 1})")
+        thm(f'a33_shared_inc_{r}_{"p" if s1 == 1 else "m"}_{r2}_{"p" if s2 == 1 else "m"}',
+            f"featureVec {CIRC(r, z1)} = featureVec {CIRC(r2, z2)}",
+            f"""  rw [a33_shared_feature_ext]
+  intro p
+  obtain ⟨⟨i₁, i₂, i₃⟩, ⟨j₁, j₂, j₃⟩⟩ := p
+  rw [a33_shared_coord_int, a33_shared_coord_int]
+  have key : ∀ i₁ i₂ i₃ j₁ j₂ j₃ : Fin 4, {keytxt} := by
+    decide +kernel
+  have hk := congrArg (Int.cast : ℤ → ℂ) (key i₁ i₂ i₃ j₁ j₂ j₃)
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
+  linear_combination (1 / 64 : ℂ) * hk
+""")
+    for r in range(9):
+        for s2 in range(9):
+            if r == s2: continue
+            clash, f10, f01 = tab['strat'][f'{r},{s2}']
+            if clash is not None:
+                cvr, cvs = coordval(r, clash), coordval(s2, clash)
+                thm(f'a33_shared_apart_{r}_{s2}', f"∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRC(r, 'z')} ≠ featureVec {CIRC(s2, 'w')}",
+                    f"  intro z w hz hw h\n  have hp := (a33_shared_feature_ext _ _).1 h {idx(IDX[clash])}\n  rw [{cvr} z hz, {cvs} w hw] at hp\n  norm_num at hp\n")
+            else:
+                cvr, cvs = coordval(r, f10), coordval(s2, f10)
+                sr, sr2 = circ.C[r][f10][0], circ.C[s2][f10][0]
+                thm(f'a33_shared_meet_{r}_{s2}', f"∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRC(r, 'z')} = featureVec {CIRC(s2, 'w')} → z = {sr * sr2}",
+                    f"  intro z w hz hw h\n  have hp := (a33_shared_feature_ext _ _).1 h {idx(IDX[f10])}\n  rw [{cvr} z hz, {cvs} w hw] at hp\n"
+                    f"  linear_combination (64 * ({sr} : ℂ)) * hp\n")
+
+# ---- phase 3: the tables, the chord, the two numeric controls ----------------------------------
+def table(r, s2):
+    from collections import Counter
+    Nn = Counter()
+    for (s1, e1), (t1, e2) in zip(circ.C[r], circ.C[s2]): Nn[(e1, e2)] += s1 * t1
+    return Nn
+def Nname(r, s2, k, l): return f'a33_shared_N_{r}_{s2}_{"m" if k < 0 else k}_{"m" if l < 0 else l}'
+def expand_K_at(r, s2, hyp, times=1):
+    names = [Nname(r, s2, k, l) for (k, l) in KLIST]
+    return ("  rw [Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),\n"
+            "    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),\n"
+            f"    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_singleton] at {hyp}\n") * times + (
+            f"  rw [" + ", ".join(names) + f"] at {hyp}\n")
+if PHASE >= 3:
+    for (r, s2) in ((0, 0), (0, 4), (0, 3)):
+        Nn = table(r, s2)
+        A, B, A2, B2 = R9[r][0], R9[r][1], R9[s2][0], R9[s2][1]
+        for (k, l) in KLIST:
+            thm(Nname(r, s2, k, l), f"{NSUM(A, B, A2, B2, f'(({k}, {l}) : ℤ × ℤ)')} = {Nn[(k, l)]}", NESTED_SUM)
+    UNITRE = """  have h1 : u.re ^ 2 + u.im ^ 2 = 1 := by
+    have := congrArg Complex.re hu
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have h2 : v.re ^ 2 + v.im ^ 2 = 1 := by
+    have := congrArg Complex.re hv
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+"""
+    thm('a33_shared_chord0',
+        f"∀ u v : ℂ, star u * u = 1 → star v * v = 1 →\n      dist (featureVec {CIRC(0, 'u')}) (featureVec {CIRC(0, 'v')}) ^ 2 = 3 / 8 * ‖u - v‖ ^ 2",
+        """  intro u v hu hv
+  have h := a33_shared_cross (1 : Equiv.Perm (Fin 4)) 1 1 1 u v hu hv
+  rw [h]
+""" + expand_K_at(0, 0, '⊢').replace(' at ⊢', '') + UNITRE + """  rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+  simp [Complex.star_def, Complex.mul_re, Complex.mul_im]
+  nlinarith [h1, h2]
+""")
+    thm('a33_shared_chord',
+        f"∀ (r : Fin 9) (u v : ℂ), star u * u = 1 → star v * v = 1 →\n      let R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) := {RTXT}\n"
+        f"      dist (featureVec {CIRCT('(R r).1', '(R r).2', 'u')}) (featureVec {CIRCT('(R r).1', '(R r).2', 'v')}) ^ 2 = 3 / 8 * ‖u - v‖ ^ 2",
+        f"""  intro r u v hu hv R
+  have hd : ∀ G H : {T}, dist (featureVec G) (featureVec H) = Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2) :=
+    fun G H => (dist_featureVec _ rfl G H).symm
+  rw [hd, relabel2_isometry _ rfl (R r).1 (R r).2, ← hd]
+  have := a33_shared_chord0 u v hu hv
+  simpa only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id] using this
+""")
+    thm('a33_control_phase', P['C_PHASE'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  simp only [{RFACTS}]
+  intro h
+  have hI : star Complex.I * Complex.I = 1 := by
+    rw [Complex.star_def, Complex.conj_I]; simp
+  have hII : star (Complex.I * Complex.I) * (Complex.I * Complex.I) = 1 := by
+    rw [Complex.I_mul_I]; simp
+  have h1 := a33_shared_cross {R9[0][0]} {R9[0][1]} {R9[4][0]} {R9[4][1]} (Complex.I * Complex.I) Complex.I hII hI
+  have h2 := a33_shared_cross {R9[0][0]} {R9[0][1]} {R9[4][0]} {R9[4][1]} Complex.I Complex.I hI hI
+  have hsq := congrArg (fun x : ℝ => x ^ 2) h
+  try simp only [] at hsq
+  rw [h1, h2] at hsq
+""" + expand_K_at(0, 4, 'hsq', 2) + """  simp [Complex.star_def, Complex.conj_I, Complex.I_mul_I] at hsq
+  norm_num at hsq
+""")
+    thm('a33_control_incidence', P['C_INCID'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  simp only [{RFACTS}]
+  have hb : ∀ z w : ℂ, star z * z = 1 → star w * w = 1 →
+      1 ≤ dist (featureVec {CIRC(0, 'z')}) (featureVec {CIRC(3, 'w')}) := by
+    intro z w hz hw
+    have h := a33_shared_cross {R9[0][0]} {R9[0][1]} {R9[3][0]} {R9[3][1]} z w hz hw
+""" + expand_K_at(0, 3, 'h').replace('\n  ', '\n    ').replace('  rw [Finset', '    rw [Finset', 1) + f"""    have h1 : z.re ^ 2 + z.im ^ 2 = 1 := by
+      have := congrArg Complex.re hz
+      simp [Complex.star_def, Complex.mul_re] at this
+      linarith
+    have h2 : w.re ^ 2 + w.im ^ 2 = 1 := by
+      have := congrArg Complex.re hw
+      simp [Complex.star_def, Complex.mul_re] at this
+      linarith
+    have hd0 : 0 ≤ dist (featureVec {CIRC(0, 'z')}) (featureVec {CIRC(3, 'w')}) := dist_nonneg
+    generalize dist (featureVec {CIRC(0, 'z')}) (featureVec {CIRC(3, 'w')}) = d at h hd0 ⊢
+    norm_num [Complex.mul_re, Complex.star_def, Complex.conj_re, Complex.conj_im] at h
+    have hsq : 1 ≤ d ^ 2 := by
+      rw [h]
+      nlinarith [h1, h2, sq_nonneg (z.re - w.re), sq_nonneg (z.re + w.re), sq_nonneg z.im, sq_nonneg w.im]
+    nlinarith [hsq, hd0]
+  refine ⟨hb, a33_shared_inc_1_p_3_p, ?_⟩
+  rintro ⟨f, hf, h01, h33⟩
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hv : featureVec {CIRC(1, '1')} ∈ f '' ((fun z : ℂ => featureVec {CIRC(0, 'z')}) '' {{z : ℂ | star z * z = 1}}) := by
+    rw [h01]; exact ⟨1, h1u, rfl⟩
+  obtain ⟨x, ⟨z, hz, rfl⟩, hx⟩ := hv
+  have hv' : featureVec {CIRC(3, '1')} ∈ f '' ((fun z : ℂ => featureVec {CIRC(3, 'z')}) '' {{z : ℂ | star z * z = 1}}) := by
+    rw [h33]; exact ⟨1, h1u, rfl⟩
+  obtain ⟨y, ⟨w, hw, rfl⟩, hy⟩ := hv'
+  have heq : f (featureVec {CIRC(0, 'z')}) = f (featureVec {CIRC(3, 'w')}) := by
+    rw [hx, hy]; exact a33_shared_inc_1_p_3_p
+  have hd := hf.2.2 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ {R9[0][0]} {R9[0][1]} z hz) _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ {R9[3][0]} {R9[3][1]} w hw)
+  rw [heq, dist_self] at hd
+  have := hb z w hz hw
+  linarith
+""")
+
+
+# ================= phase 4a: A33-1 circle preservation =================
+PTR = lambda r, z: f"featureVec {CIRCT(f'({RTXT} {r}).1', f'({RTXT} {r}).2', z)}"
+CIRCSET = lambda r: f"((fun z : ℂ => {PTR(r, 'z')}) '' {{z : ℂ | star z * z = 1}})"
+if PHASE >= 4:
+    thm('a33_shared_mem',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ x : {E},\n"
+        f"      x ∈ normalizedSet Γ₀ ↔ ∃ (r : Fin 9) (z : ℂ), star z * z = 1 ∧ x = {PTR('r', 'z')}",
+        """  intro Γ₀ hΓ₀ x
+  constructor
+  · intro hx
+    rw [normalizedSet_eq_iUnion Γ₀ hΓ₀] at hx
+    simp only [Set.mem_iUnion, Set.mem_setOf_eq] at hx
+    obtain ⟨π, τ, z, hz, rfl⟩ := hx
+    have hc := a26_1_circle_count
+    dsimp only at hc
+    obtain ⟨-, -, -, h3⟩ := hc
+    obtain ⟨r, hr, hfw, -⟩ := h3 π τ
+    obtain ⟨z', hz', h⟩ := hfw z hz
+    simp only [List.mem_cons, List.mem_nil_iff, or_false] at hr
+    rcases hr with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+""" + "".join(f"    · exact ⟨{k}, z', hz', by simp only [a33_shared_R1_{k}, a33_shared_R2_{k}]; exact featureVec_gauge h⟩\n" for k in range(9)) +
+        """  · rintro ⟨r, z, hz, rfl⟩
+    exact relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz
+""")
+    thm('a33_shared_ext_pt', f"∀ (y : {E}) (G : {T}), (∀ p : {IDXT}, y.ofLp p = mixedTriple G p) → y = featureVec G",
+        "  intro y G h\n  ext p\n  rw [featureVec_ofLp]\n  exact h p\n")
+    thm('a33_shared_readq', f"∀ s : Fin 9, ∃ q : {IDXT}, {EZ_of(f'({RTXT} s).1', f'({RTXT} s).2').replace(' p.', ' q.')} = 1",
+        "  intro s\n  fin_cases s\n" + "".join(f"  · exact ⟨{idx(IDX[tab['pr'][str(r)]])}, by decide⟩\n" for r in range(9)))
+    thm('a33_shared_fin9', "∀ r : Fin 9, r = 0 ∨ r = 1 ∨ r = 2 ∨ r = 3 ∨ r = 4 ∨ r = 5 ∨ r = 6 ∨ r = 7 ∨ r = 8", "  decide\n")
+    thm('a33_shared_census',
+        f"∀ r s : Fin 9, r ≠ s → ∀ z w : ℂ, star z * z = 1 → star w * w = 1 → {PTR('r', 'z')} = {PTR('s', 'w')} → z = 1 ∨ z = -1",
+        "  intro r s hrs z w hz hw h\n  rcases a33_shared_fin9 r with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>\n"
+        "    rcases a33_shared_fin9 s with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> (try exact absurd rfl hrs) <;>\n"
+        "    simp only [" + RFACTS + "] at h\n" +
+        "".join((f"  · exact absurd h (a33_shared_apart_{r}_{s2} z w hz hw)\n" if tab['strat'][f'{r},{s2}'][0] is not None else
+                 f"  · exact {'Or.inl' if circ.C[r][tab['strat'][f'{r},{s2}'][1]][0] * circ.C[s2][tab['strat'][f'{r},{s2}'][1]][0] == 1 else 'Or.inr'} (a33_shared_meet_{r}_{s2} z w hz hw h)\n")
+                for r in range(9) for s2 in range(9) if r != s2))
+    thm('a33_shared_conj_eq', "∀ z : ℂ, (starRingEnd ℂ) z = (z.re : ℂ) - (z.im : ℂ) * Complex.I",
+        "  intro z\n  apply Complex.ext <;> simp\n")
+    # the coordinates of an affine image of a circle are real-affine in (re z, im z)
+    thm('a33_shared_affine_coord',
+        f"∀ (g : {E} ≃ᵃⁱ[ℝ] {E}) (a b : Equiv.Perm (Fin 4)), ∃ α β γ : {IDXT} → ℂ,\n"
+        f"      ∀ z : ℂ, star z * z = 1 → ∀ p : {IDXT}, (g (featureVec {CIRCT('a', 'b', 'z')})).ofLp p = α p + β p * (z.re : ℂ) + γ p * (z.im : ℂ)",
+        f"""  intro g a b
+  let X₀ : {E} := WithLp.toLp 2 (fun p => (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * (if {EZ} = 0 then 1 else 0))
+  let X₁ : {E} := WithLp.toLp 2 (fun p => (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * (if {EZ} = 0 then 0 else 1))
+  let X₂ : {E} := WithLp.toLp 2 (fun p => (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * (if {EZ} = 1 then Complex.I else if {EZ} = 0 then 0 else -Complex.I))
+  have hpt : ∀ z : ℂ, star z * z = 1 → featureVec {CIRCT('a', 'b', 'z')} = (z.re • X₁ + z.im • X₂) +ᵥ X₀ := by
+    intro z hz
+    ext p
+    rw [featureVec_ofLp, a33_shared_coord_Z z hz a b p]
+    simp only [vadd_eq_add, PiLp.add_apply, PiLp.smul_apply, X₀, X₁, X₂, WithLp.ofLp_toLp, Complex.real_smul]
+    have hr := a33_shared_exp_range a b p
+    generalize ({SGZ} : ℤ) = σ
+    generalize {EZ} = e at hr ⊢
+    rcases hr with rfl | rfl | rfl
+    · norm_num
+      try simp only [Complex.star_def]
+      linear_combination (1 / 64 * (σ : ℂ)) * a33_shared_conj_eq z
+    · norm_num
+    · norm_num
+      linear_combination (-(1 / 64) * (σ : ℂ)) * Complex.re_add_im z
+  refine ⟨fun p => (g X₀).ofLp p, fun p => (g.linearIsometryEquiv X₁).ofLp p, fun p => (g.linearIsometryEquiv X₂).ofLp p, ?_⟩
+  intro z hz p
+  rw [hpt z hz, AffineIsometryEquiv.map_vadd, map_add, map_smul, map_smul]
+  simp only [vadd_eq_add, PiLp.add_apply, PiLp.smul_apply, Complex.real_smul]
+  ring
+""")
+    # the vanishing lemma: a quadratic trigonometric polynomial with five distinct unit zeros vanishes on the circle
+    thm('a33_shared_vanish',
+        "∀ (A B C D E F : ℂ) (Z : Finset ℂ), 5 ≤ Z.card → (∀ z ∈ Z, star z * z = 1) →\n"
+        "      (∀ z ∈ Z, A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2 + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2 = 0) →\n"
+        "      ∀ z : ℂ, star z * z = 1 → A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2 + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2 = 0",
+        """  intro A B C D E F Z hcard hunit hzero
+  have hre : ∀ z : ℂ, star z * z = 1 → (z.re : ℂ) = (z + z⁻¹) / 2 := by
+    intro z hz
+    have hw : star z = z⁻¹ := eq_inv_of_mul_eq_one_left hz
+    rw [← hw, Complex.star_def]
+    have := Complex.add_conj z
+    rw [this]; push_cast; ring
+  have him : ∀ z : ℂ, star z * z = 1 → (z.im : ℂ) = -(Complex.I * (z - z⁻¹)) / 2 := by
+    intro z hz
+    have hw : star z = z⁻¹ := eq_inv_of_mul_eq_one_left hz
+    rw [← hw, Complex.star_def]
+    have := Complex.sub_conj z
+    rw [this]
+    push_cast
+    linear_combination (z.im : ℂ) * Complex.I_sq
+  let P : Polynomial ℂ := Polynomial.C A * Polynomial.X ^ 2 + Polynomial.C (B / 2) * (Polynomial.X ^ 3 + Polynomial.X)
+    + Polynomial.C (-(C * Complex.I) / 2) * (Polynomial.X ^ 3 - Polynomial.X) + Polynomial.C (D / 4) * (Polynomial.X ^ 4 + 2 * Polynomial.X ^ 2 + 1)
+    + Polynomial.C (-(E * Complex.I) / 4) * (Polynomial.X ^ 4 - 1) - Polynomial.C (F / 4) * (Polynomial.X ^ 4 - 2 * Polynomial.X ^ 2 + 1)
+  have hev : ∀ z : ℂ, star z * z = 1 → P.eval z = z ^ 2 * (A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2
+      + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2) := by
+    intro z hz
+    have hz0 : z ≠ 0 := by rintro rfl; simp at hz
+    have hzw : z * z⁻¹ = 1 := mul_inv_cancel₀ hz0
+    rw [hre z hz, him z hz]
+    simp only [P, Polynomial.eval_add, Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_pow,
+      Polynomial.eval_X, Polynomial.eval_one, Polynomial.eval_ofNat]
+    generalize z⁻¹ = w at hzw ⊢
+    linear_combination (-(B / 2) * z - (C * Complex.I / 2) * z - (D / 4) * (z * w + 1 + 2 * z ^ 2)
+      - (E * Complex.I / 4) * (z * w + 1) - (F / 4) * (2 * z ^ 2 - z * w - 1)) * hzw
+      - (F / 4) * z ^ 2 * (z - w) ^ 2 * Complex.I_sq
+  have hdeg : P.natDegree ≤ 4 := by
+    simp only [P]
+    compute_degree!
+  have hP : P = 0 := by
+    by_contra hP0
+    have hsub : Z.val ⊆ P.roots := by
+      intro z hz
+      rw [Polynomial.mem_roots hP0, Polynomial.IsRoot.def, hev z (hunit z hz), hzero z hz, mul_zero]
+    have := Polynomial.card_le_degree_of_subset_roots hsub
+    omega
+  intro z hz
+  have hz0 : z ≠ 0 := by rintro rfl; simp at hz
+  have := hev z hz
+  rw [hP, Polynomial.eval_zero] at this
+  rcases mul_eq_zero.1 this.symm with h | h
+  · exact absurd (pow_eq_zero_iff (by norm_num) |>.1 h) hz0
+  · exact h
+""")
+
+# ================= phase 4b: into, equality, A33-1 =================
+def SUB(t, A, B): return t.replace('(a ', f'({A} ').replace('(b ', f'({B} ')
+def AT(txt, A, B, var):
+    return SUB(txt, A, B).replace(' p.', f' {var}.')
+TA, TB = f"({RTXT} t).1", f"({RTXT} t).2"
+if PHASE >= 4:
+    thm('a33_shared_unit_I', "star Complex.I * Complex.I = 1", "  rw [Complex.star_def, Complex.conj_I]\n  simp\n")
+    thm('a33_shared_ZF_m1', f"∀ w : ℂ, {ZF} w (-1) = star w", "  intro w\n  simp\n")
+    thm('a33_shared_ZF_0', f"∀ w : ℂ, {ZF} w 0 = 1", "  intro w\n  simp\n")
+    thm('a33_shared_ZF_1', f"∀ w : ℂ, {ZF} w 1 = w", "  intro w\n  simp\n")
+    # the quadratic-form identities behind the extension argument, on opaque coefficients
+    thm('a33_shared_unit_form',
+        "∀ (a b c : ℂ) (z : ℂ), star (a + b * (z.re : ℂ) + c * (z.im : ℂ)) * (a + b * (z.re : ℂ) + c * (z.im : ℂ)) - 1\n"
+        "      = ((starRingEnd ℂ) a * a - 1) + ((starRingEnd ℂ) a * b + (starRingEnd ℂ) b * a) * (z.re : ℂ)\n"
+        "        + ((starRingEnd ℂ) a * c + (starRingEnd ℂ) c * a) * (z.im : ℂ) + ((starRingEnd ℂ) b * b) * (z.re : ℂ) ^ 2\n"
+        "        + ((starRingEnd ℂ) b * c + (starRingEnd ℂ) c * b) * ((z.re : ℂ) * (z.im : ℂ)) + ((starRingEnd ℂ) c * c) * (z.im : ℂ) ^ 2",
+        "  intro a b c z\n  simp only [Complex.star_def, map_add, map_mul, Complex.conj_ofReal]\n  ring\n")
+    thm('a33_shared_star_form',
+        "∀ (a b c : ℂ) (z : ℂ), star (a + b * (z.re : ℂ) + c * (z.im : ℂ)) = (starRingEnd ℂ) a + (starRingEnd ℂ) b * (z.re : ℂ) + (starRingEnd ℂ) c * (z.im : ℂ)",
+        "  intro a b c z\n  simp only [Complex.star_def, map_add, map_mul, Complex.conj_ofReal]\n")
+    # a real-affine function of (re z, im z) that agrees with a unit-modulus target on five unit points, and the target's coordinate form
+    thm('a33_shared_unit_ext',
+        "∀ (a b c : ℂ) (Z : Finset ℂ), 5 ≤ Z.card → (∀ z ∈ Z, star z * z = 1) →\n"
+        "      (∀ z ∈ Z, star (a + b * (z.re : ℂ) + c * (z.im : ℂ)) * (a + b * (z.re : ℂ) + c * (z.im : ℂ)) = 1) →\n"
+        "      ∀ z : ℂ, star z * z = 1 → star (a + b * (z.re : ℂ) + c * (z.im : ℂ)) * (a + b * (z.re : ℂ) + c * (z.im : ℂ)) = 1",
+        """  intro a b c Z hcard hunit hZ z hz
+  have key := a33_shared_vanish _ _ _ _ _ _ Z hcard hunit
+    (fun z hz => by rw [← a33_shared_unit_form, hZ z hz, sub_self]) z hz
+  rw [← a33_shared_unit_form] at key
+  linear_combination key
+""")
+    thm('a33_shared_affine_ext',
+        "∀ (A B C D : ℂ) (Z : Finset ℂ), 5 ≤ Z.card → (∀ z ∈ Z, star z * z = 1) →\n"
+        "      (∀ z ∈ Z, A + B * (z.re : ℂ) + C * (z.im : ℂ) = D) →\n"
+        "      ∀ z : ℂ, star z * z = 1 → A + B * (z.re : ℂ) + C * (z.im : ℂ) = D",
+        """  intro A B C D Z hcard hunit hZ z hz
+  have key := a33_shared_vanish (A - D) B C 0 0 0 Z hcard hunit
+    (fun z hz => by linear_combination hZ z hz) z hz
+  linear_combination key
+""")
+    thm('a33_shared_into',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∀ (g : {E} ≃ᵃⁱ[ℝ] {E}), g '' normalizedSet Γ₀ = normalizedSet Γ₀ →\n"
+        f"      ∀ r : Fin 9, ∃ t : Fin 9, ∀ z : ℂ, star z * z = 1 → ∃ w : ℂ, star w * w = 1 ∧ g ({PTR('r', 'z')}) = {PTR('t', 'w')}",
+        f"""  intro Γ₀ hΓ₀ g hg r
+  have hmem : ∀ z : ℂ, star z * z = 1 → ∃ (t : Fin 9) (w : ℂ), star w * w = 1 ∧ g ({PTR('r', 'z')}) = {PTR('t', 'w')} := by
+    intro z hz
+    have : g ({PTR('r', 'z')}) ∈ normalizedSet Γ₀ := by
+      rw [← hg]; exact ⟨_, relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz, rfl⟩
+    exact (a33_shared_mem Γ₀ hΓ₀ _).1 this
+  obtain ⟨α, β, γ, hαβγ⟩ := a33_shared_affine_coord g ({RTXT} r).1 ({RTXT} r).2
+  classical
+  choose s w hw using hmem
+  have hUinf : {{z : ℂ | star z * z = 1}}.Infinite := by
+    refine Set.infinite_of_injective_forall_mem
+      (f := fun n : ℕ => ((((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1) : ℝ) : ℂ) + ((2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1) : ℝ) : ℂ) * Complex.I) ?_ ?_
+    · intro n m hnm
+      have h := congrArg Complex.re hnm
+      simp only [Complex.add_re, Complex.ofReal_re, Complex.mul_re, Complex.I_re, Complex.I_im, Complex.ofReal_im,
+        mul_zero, zero_mul, sub_zero, add_zero, sub_self] at h
+      have hn : (0 : ℝ) < (n : ℝ) ^ 2 + 1 := by positivity
+      have hm : (0 : ℝ) < (m : ℝ) ^ 2 + 1 := by positivity
+      rw [div_eq_div_iff hn.ne' hm.ne'] at h
+      have h2 : (n : ℝ) ^ 2 = (m : ℝ) ^ 2 := by linarith
+      exact_mod_cast (pow_left_inj₀ (Nat.cast_nonneg n) (Nat.cast_nonneg m) two_ne_zero).1 h2
+    · intro n
+      have hn : (0 : ℝ) < (n : ℝ) ^ 2 + 1 := by positivity
+      have hn' : (n : ℝ) ^ 2 + 1 ≠ 0 := hn.ne'
+      have key : ∀ a b : ℝ, star ((a : ℂ) + (b : ℂ) * Complex.I) * ((a : ℂ) + (b : ℂ) * Complex.I) = ((a ^ 2 + b ^ 2 : ℝ) : ℂ) := by
+        intro a b
+        rw [Complex.star_def]
+        apply Complex.ext <;> simp [pow_two] <;> ring
+      show star _ * _ = 1
+      rw [key]
+      have : (((n : ℝ) ^ 2 - 1) / ((n : ℝ) ^ 2 + 1)) ^ 2 + (2 * (n : ℝ) / ((n : ℝ) ^ 2 + 1)) ^ 2 = 1 := by
+        field_simp
+        ring
+      rw [this]
+      simp
+  have hfib : ∃ t : Fin 9, {{z : ℂ | ∃ hz : star z * z = 1, s z hz = t}}.Infinite := by
+    by_contra hall
+    have hfin : ∀ t : Fin 9, {{z : ℂ | ∃ hz : star z * z = 1, s z hz = t}}.Finite :=
+      fun t => Set.not_infinite.1 (fun h => hall ⟨t, h⟩)
+    apply hUinf
+    refine (Set.finite_iUnion hfin).subset ?_
+    intro z hz
+    exact Set.mem_iUnion.2 ⟨s z hz, hz, rfl⟩
+  obtain ⟨t, ht⟩ := hfib
+  obtain ⟨Zs, hZsub, hZcard⟩ := ht.exists_subset_card_eq 5
+  have hZcard5 : 5 ≤ Zs.card := hZcard.symm.le
+  refine ⟨t, ?_⟩
+  obtain ⟨q, hq⟩ := a33_shared_readq t
+  obtain ⟨σq, hσq⟩ : ∃ σq : ℂ, σq = (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) := ⟨_, rfl⟩
+  have hsq : σq * σq = 1 := by
+    rw [hσq]
+    rcases a33_shared_sgz_unit ({RTXT} t).1 ({RTXT} t).2 q with h | h <;> rw [h] <;> norm_num
+  obtain ⟨W, hWdef⟩ : ∃ W : ℂ → ℂ, ∀ z : ℂ, W z = (64 * σq * α q) + (64 * σq * β q) * (z.re : ℂ) + (64 * σq * γ q) * (z.im : ℂ) :=
+    ⟨_, fun z => rfl⟩
+  -- on a point sent to circle t, W reads the parameter and the coordinate identities hold
+  have hread : ∀ z : ℂ, star z * z = 1 → ∀ w' : ℂ, star w' * w' = 1 → g ({PTR('r', 'z')}) = {PTR('t', "w'")} →
+      W z = w' ∧ ∀ p : {IDXT}, (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} w' ({AT(EZ, TA, TB, 'p')}) := by
+    intro z hz w' hw' hgw
+    have hcoord : ∀ p : {IDXT}, (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} w' ({AT(EZ, TA, TB, 'p')}) := by
+      intro p
+      rw [hgw, featureVec_ofLp, a33_shared_coord_Z w' hw' _ _ p]
+    refine ⟨?_, hcoord⟩
+    have h1 := hcoord q
+    rw [hαβγ z hz q, hq, a33_shared_ZF_1, ← hσq] at h1
+    rw [hWdef]
+    linear_combination (64 * σq) * h1 + w' * hsq
+  -- the five points of the fibre
+  have hZunit : ∀ z ∈ Zs, star z * z = 1 := by
+    intro z hz
+    obtain ⟨hz', -⟩ := hZsub (Finset.mem_coe.2 hz)
+    exact hz'
+  have hZread : ∀ z ∈ Zs, ∃ w' : ℂ, star w' * w' = 1 ∧ g ({PTR('r', 'z')}) = {PTR('t', "w'")} := by
+    intro z hz
+    obtain ⟨hz', hst⟩ := hZsub (Finset.mem_coe.2 hz)
+    refine ⟨w z hz', (hw z hz').1, ?_⟩
+    have := (hw z hz').2
+    rw [hst] at this
+    exact this
+  -- the unit identity for W holds on Zs, hence everywhere
+  have hWunit : ∀ z : ℂ, star z * z = 1 → star (W z) * W z = 1 := by
+    intro z hz
+    rw [hWdef]
+    refine a33_shared_unit_ext _ _ _ Zs hZcard5 hZunit (fun z hz => ?_) z hz
+    obtain ⟨w', hw', hgw⟩ := hZread z hz
+    rw [← hWdef, (hread z (hZunit z hz) w' hw' hgw).1]
+    exact hw'
+  -- every coordinate identity holds on Zs, hence everywhere
+  have hcoords : ∀ p : {IDXT}, ∀ z : ℂ, star z * z = 1 →
+      (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} (W z) ({AT(EZ, TA, TB, 'p')}) := by
+    intro p
+    have hr := a33_shared_exp_range ({RTXT} t).1 ({RTXT} t).2 p
+    have hZp : ∀ z ∈ Zs, ∃ w' : ℂ, star w' * w' = 1 ∧ W z = w' ∧
+        (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} w' ({AT(EZ, TA, TB, 'p')}) := by
+      intro z hz
+      obtain ⟨w', hw', hgw⟩ := hZread z hz
+      exact ⟨w', hw', (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p⟩
+    generalize hσp : (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) = σp at hZp ⊢
+    generalize hep : ({AT(EZ, TA, TB, 'p')}) = e at hr hZp ⊢
+    intro z hz
+    rw [hαβγ z hz p]
+    rcases hr with rfl | rfl | rfl
+    · rw [a33_shared_ZF_m1, hWdef, a33_shared_star_form]
+      have hZ : ∀ z ∈ Zs, (α p - (1 / 64 : ℂ) * σp * (starRingEnd ℂ) (64 * σq * α q))
+          + (β p - (1 / 64 : ℂ) * σp * (starRingEnd ℂ) (64 * σq * β q)) * (z.re : ℂ)
+          + (γ p - (1 / 64 : ℂ) * σp * (starRingEnd ℂ) (64 * σq * γ q)) * (z.im : ℂ) = 0 := by
+        intro z hz
+        obtain ⟨w', hw', hWz, hcoord⟩ := hZp z hz
+        rw [hαβγ z (hZunit z hz) p, a33_shared_ZF_m1, ← hWz, hWdef, a33_shared_star_form] at hcoord
+        linear_combination hcoord
+      have key := a33_shared_affine_ext _ _ _ 0 Zs hZcard5 hZunit hZ z hz
+      linear_combination key
+    · rw [a33_shared_ZF_0]
+      have hZ : ∀ z ∈ Zs, (α p - (1 / 64 : ℂ) * σp) + β p * (z.re : ℂ) + γ p * (z.im : ℂ) = 0 := by
+        intro z hz
+        obtain ⟨w', hw', hWz, hcoord⟩ := hZp z hz
+        rw [hαβγ z (hZunit z hz) p, a33_shared_ZF_0] at hcoord
+        linear_combination hcoord
+      have key := a33_shared_affine_ext _ _ _ 0 Zs hZcard5 hZunit hZ z hz
+      linear_combination key
+    · rw [a33_shared_ZF_1, hWdef]
+      have hZ : ∀ z ∈ Zs, (α p - (1 / 64 : ℂ) * σp * (64 * σq * α q))
+          + (β p - (1 / 64 : ℂ) * σp * (64 * σq * β q)) * (z.re : ℂ)
+          + (γ p - (1 / 64 : ℂ) * σp * (64 * σq * γ q)) * (z.im : ℂ) = 0 := by
+        intro z hz
+        obtain ⟨w', hw', hWz, hcoord⟩ := hZp z hz
+        rw [hαβγ z (hZunit z hz) p, a33_shared_ZF_1, ← hWz, hWdef] at hcoord
+        linear_combination hcoord
+      have key := a33_shared_affine_ext _ _ _ 0 Zs hZcard5 hZunit hZ z hz
+      linear_combination key
+  intro z hz
+  refine ⟨W z, hWunit z hz, ?_⟩
+  apply a33_shared_ext_pt
+  intro p
+  rw [hcoords p z hz, a33_shared_coord_Z (W z) (hWunit z hz) _ _ p]
+""")
+    thm('a33_shared_circle_eq',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∀ (g : {E} ≃ᵃⁱ[ℝ] {E}), g '' normalizedSet Γ₀ = normalizedSet Γ₀ →\n"
+        f"      ∀ r : Fin 9, ∃ s : Fin 9, g '' {CIRCSET('r')} = {CIRCSET('s')}",
+        f"""  intro Γ₀ hΓ₀ g hg r
+  obtain ⟨s, hs⟩ := a33_shared_into Γ₀ hΓ₀ g hg r
+  have hg' : g.symm '' normalizedSet Γ₀ = normalizedSet Γ₀ := by
+    conv_lhs => rw [← hg]
+    exact g.toEquiv.symm_image_image _
+  obtain ⟨s', hs'⟩ := a33_shared_into Γ₀ hΓ₀ g.symm hg' s
+  have hsr : s' = r := by
+    by_contra hne
+    obtain ⟨w, hw, hgw⟩ := hs Complex.I a33_shared_unit_I
+    obtain ⟨w', hw', hgw'⟩ := hs' w hw
+    have hpt : {PTR('r', 'Complex.I')} = {PTR("s'", "w'")} := by
+      rw [← hgw', ← hgw, g.symm_apply_apply]
+    rcases a33_shared_census r s' (Ne.symm hne) Complex.I w' a33_shared_unit_I hw' hpt with h | h
+    · exact absurd (congrArg Complex.im h) (by simp)
+    · exact absurd (congrArg Complex.im h) (by simp)
+  subst hsr
+  refine ⟨s, Set.ext fun y => ⟨?_, ?_⟩⟩
+  · rintro ⟨x, ⟨z, hz, rfl⟩, rfl⟩
+    obtain ⟨w, hw, h⟩ := hs z hz
+    exact ⟨w, hw, h.symm⟩
+  · rintro ⟨w, hw, rfl⟩
+    obtain ⟨z, hz, h⟩ := hs' w hw
+    exact ⟨_, ⟨z, hz, rfl⟩, by beta_reduce; rw [← h, g.apply_symm_apply]⟩
+""")
+    thm('a33_shared_circles', P['B1'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf r
+  obtain ⟨g, hgf, hgS⟩ := a26_0_affine_extension.2.2 Γ₀ hΓ₀ f hf
+  obtain ⟨s, hs⟩ := a33_shared_circle_eq Γ₀ hΓ₀ g hgS r
+  refine ⟨s, ?_⟩
+  rw [← hs]
+  apply Set.image_congr
+  rintro x ⟨z, hz, rfl⟩
+  exact (hgf _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)).symm
+""")
+
+
+# ================= phase 5: A33-2 normal form (B2) and the endpoint signs (B3) =================
+def CIRCZ(r, z):
+    return f"(fun i => ({FZ(z)} ({R9[r][0]} i)).submatrix {R9[r][1]} {R9[r][1]})"
+if PHASE >= 5:
+    thm('a33_shared_unit_mul', "∀ a b : ℂ, star a * a = 1 → star b * b = 1 → star (a * b) * (a * b) = 1",
+        "  intro a b ha hb\n  rw [star_mul]\n  linear_combination (star b * b) * ha + hb\n")
+    thm('a33_shared_unit_if', "∀ (b : Bool) (z : ℂ), star z * z = 1 → star (if b then z else star z) * (if b then z else star z) = 1",
+        "  intro b z hz\n  cases b\n  · simp only [Bool.false_eq_true, if_false, star_star]\n    rw [mul_comm]; exact hz\n  · simpa using hz\n")
+    thm('a33_shared_if_pm', "∀ (b : Bool) (c : ℂ), star c = c → (if b then c else star c) = c",
+        "  intro b c h\n  cases b <;> simp [h]\n")
+    thm('a33_shared_circle_map',
+        "∀ (w : (z : ℂ) → star z * z = 1 → ℂ), (∀ z hz, star (w z hz) * w z hz = 1) →\n"
+        "      (∀ z z' hz hz', ‖w z hz - w z' hz'‖ ^ 2 = ‖z - z'‖ ^ 2) →\n"
+        "      ∃ (l : ℂ) (ε : Bool), star l * l = 1 ∧ ∀ z hz, w z hz = l * (if ε then z else star z)",
+        """  intro w hu hc
+  have h1 : star (1 : ℂ) * 1 = 1 := by simp
+  have hI : star Complex.I * Complex.I = 1 := by rw [Complex.star_def, Complex.conj_I]; simp
+  have hre : ∀ z : ℂ, star z * z = 1 → z.re ^ 2 + z.im ^ 2 = 1 := by
+    intro z hz
+    have := congrArg Complex.re hz
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have hn : ∀ x y : ℂ, ‖x - y‖ ^ 2 = (x.re - y.re) ^ 2 + (x.im - y.im) ^ 2 := by
+    intro x y
+    rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply, Complex.sub_re, Complex.sub_im]
+    ring
+  set l := w 1 h1 with hldef
+  set m := w Complex.I hI with hmdef
+  have hl := hre _ (hu 1 h1)
+  have hm := hre _ (hu Complex.I hI)
+  have hml := hc Complex.I 1 hI h1
+  rw [hn, hn] at hml
+  simp only [Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im] at hml
+  have hP : l.re * m.re + l.im * m.im = 0 := by
+    linear_combination (-1 / 2 : ℝ) * hml + (1 / 2 : ℝ) * hm + (1 / 2 : ℝ) * hl
+  set s := l.re * m.im - l.im * m.re with hsdef
+  have hs : s * s = 1 := by
+    linear_combination (m.re ^ 2 + m.im ^ 2) * hl + hm - (l.re * m.re + l.im * m.im) * hP
+  refine ⟨l, decide (0 < s), hu 1 h1, ?_⟩
+  intro z hz
+  have hz1 := hre z hz
+  have hwz := hre _ (hu z hz)
+  have hzl := hc z 1 hz h1
+  have hzm := hc z Complex.I hz hI
+  rw [hn, hn] at hzl hzm
+  simp only [Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im] at hzl hzm
+  have hA : l.re * (w z hz).re + l.im * (w z hz).im = z.re := by
+    linear_combination (-1 / 2 : ℝ) * hzl + (1 / 2 : ℝ) * hwz + (1 / 2 : ℝ) * hl - (1 / 2 : ℝ) * hz1
+  have hC : (w z hz).re * m.re + (w z hz).im * m.im = z.im := by
+    linear_combination (-1 / 2 : ℝ) * hzm + (1 / 2 : ℝ) * hwz + (1 / 2 : ℝ) * hm - (1 / 2 : ℝ) * hz1
+  have hBs : (l.re * (w z hz).im - l.im * (w z hz).re) * s = z.im := by
+    linear_combination ((w z hz).re * m.re + (w z hz).im * m.im) * hl + hC
+      - (l.re * (w z hz).re + l.im * (w z hz).im) * hP
+  rcases mul_self_eq_one_iff.1 hs with hs1 | hs1
+  · have hB : l.re * (w z hz).im - l.im * (w z hz).re = z.im := by rw [hs1] at hBs; linear_combination hBs
+    rw [if_pos (decide_eq_true (by rw [hs1]; norm_num : (0 : ℝ) < s))]
+    apply Complex.ext
+    · simp only [Complex.mul_re]
+      linear_combination l.re * hA - l.im * hB - (w z hz).re * hl
+    · simp only [Complex.mul_im]
+      linear_combination l.re * hB + l.im * hA - (w z hz).im * hl
+  · have hB : l.re * (w z hz).im - l.im * (w z hz).re = -z.im := by rw [hs1] at hBs; linear_combination -hBs
+    rw [if_neg (by rw [decide_eq_true_iff, hs1]; norm_num)]
+    apply Complex.ext
+    · simp only [Complex.mul_re, Complex.star_def, Complex.conj_re, Complex.conj_im]
+      linear_combination l.re * hA - l.im * hB - (w z hz).re * hl
+    · simp only [Complex.mul_im, Complex.star_def, Complex.conj_re, Complex.conj_im]
+      linear_combination l.re * hB + l.im * hA - (w z hz).im * hl
+""")
+    thm('a33_shared_form', P['B2'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf r s hrs
+  have hw : ∀ z : ℂ, star z * z = 1 → ∃ w : ℂ, star w * w = 1 ∧ f ({PTR('r', 'z')}) = {PTR('s', 'w')} := by
+    intro z hz
+    have hx : f ({PTR('r', 'z')}) ∈ f '' {CIRCSET('r')} := ⟨_, ⟨z, hz, rfl⟩, rfl⟩
+    rw [hrs] at hx
+    obtain ⟨w, hw, hfw⟩ := hx
+    exact ⟨w, hw, hfw.symm⟩
+  choose w hw using hw
+  have hchord : ∀ (z z' : ℂ) (hz : star z * z = 1) (hz' : star z' * z' = 1), ‖w z hz - w z' hz'‖ ^ 2 = ‖z - z'‖ ^ 2 := by
+    intro z z' hz hz'
+    have hd := hf.2.2 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} r).1 ({RTXT} r).2 z hz)
+      _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} r).1 ({RTXT} r).2 z' hz')
+    rw [(hw z hz).2, (hw z' hz').2] at hd
+    have c1 := a33_shared_chord s (w z hz) (w z' hz') (hw z hz).1 (hw z' hz').1
+    have c2 := a33_shared_chord r z z' hz hz'
+    dsimp only at c1 c2
+    have hsq := congrArg (fun x : ℝ => x ^ 2) hd
+    try simp only [] at hsq
+    rw [c1, c2] at hsq
+    linarith
+  obtain ⟨l, ε, hl, hform⟩ := a33_shared_circle_map w (fun z hz => (hw z hz).1) hchord
+  exact ⟨l, ε, hl, fun z hz => by rw [(hw z hz).2, hform z hz]⟩
+""")
+    # the endpoint signs: an incidence partner for every circle, chosen from the frozen incidence table
+    def partner(r):
+        for (a, sa, b, sb) in tb['inc']:
+            if a == r: return (sa, b, sb, f'a33_shared_inc_{a}_{"p" if sa == 1 else "m"}_{b}_{"p" if sb == 1 else "m"}', False)
+            if b == r: return (sb, a, sa, f'a33_shared_inc_{a}_{"p" if sa == 1 else "m"}_{b}_{"p" if sb == 1 else "m"}', True)
+        raise KeyError(r)
+    ZT = {1: '1', -1: '(-1)'}; HZ = {1: 'h1u', -1: 'hm1'}; HS = {1: 'star_one ℂ', -1: 'hsm1'}
+    cases = []
+    for r in range(9):
+        sr, q, sq, inc, rev = partner(r)
+        cases.append(f"""  · have e1 := hform {r} {ZT[sr]} {HZ[sr]}
+    have e2 := hform {q} {ZT[sq]} {HZ[sq]}
+    simp only [a33_shared_R1_{r}, a33_shared_R2_{r}] at e1
+    simp only [a33_shared_R1_{q}, a33_shared_R2_{q}] at e2
+    rw [{'← ' if rev else ''}{inc}] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l {r}) _ (hl {r}) (a33_shared_unit_if (ε {r}) {ZT[sr]} {HZ[sr]})
+    have hu2 := a33_shared_unit_mul (l {q}) _ (hl {q}) (a33_shared_unit_if (ε {q}) {ZT[sq]} {HZ[sq]})
+    have hc := a33_shared_census (σ {r}) (σ {q}) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε {r}) {ZT[sr]} ({HS[sr]})] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+""")
+    thm('a33_shared_signs', P['B3'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf σ l ε hl hform
+  have hI : star Complex.I * Complex.I = 1 := by rw [Complex.star_def, Complex.conj_I]; simp
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hm1 : star (-1 : ℂ) * (-1) = 1 := by simp
+  have hsm1 : star (-1 : ℂ) = -1 := by simp
+  have hinj : Function.Injective σ := by
+    rw [Finite.injective_iff_surjective]
+    intro t
+    by_contra ht
+    obtain ⟨x, hx, hfx⟩ := hf.2.1 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} t).1 ({RTXT} t).2 Complex.I hI)
+    obtain ⟨r', z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
+    rw [hform r' z hz] at hfx
+    have hne : t ≠ σ r' := fun h => ht ⟨r', h.symm⟩
+    have hu := a33_shared_unit_mul (l r') _ (hl r') (a33_shared_unit_if (ε r') z hz)
+    rcases a33_shared_census t (σ r') hne Complex.I _ hI hu hfx.symm with h | h
+    · have := congrArg Complex.im h; norm_num at this
+    · have := congrArg Complex.im h; norm_num at this
+  intro r
+  rcases a33_shared_fin9 r with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+""" + "".join(cases))
+
+
+# ================= phase 6: composition, identity, generators, words, kernel, realization =================
+gen = json.load(open(S + 'gen33.json'))
+V1T = "(![0, 2, 4, 2, 0, 3, 4, 5, 0] : Fin 9 → Fin 6)"
+V2T = "(![1, 3, 5, 5, 4, 1, 3, 1, 2] : Fin 9 → Fin 6)"
+def COND(nu, r, s):
+    return f"(({nu} ({V1T} {r}) = {V1T} {s} ∧ {nu} ({V2T} {r}) = {V2T} {s}) ∨ ({nu} ({V1T} {r}) = {V2T} {s} ∧ {nu} ({V2T} {r}) = {V1T} {s}))"
+def NF(f, nu, eps):
+    return (f"((∀ r : Fin 9, ∃ s : Fin 9, {COND(nu, 'r', 's')})\n"
+            f"      ∧ (∀ r s : Fin 9, {nu} ({V1T} r) = {V1T} s → {nu} ({V2T} r) = {V2T} s → ∀ z : ℂ, star z * z = 1 →\n"
+            f"          {f} ({PTR('r', 'z')}) = {PTR('s', f'(if {eps} r then z else star z)')})\n"
+            f"      ∧ (∀ r s : Fin 9, {nu} ({V1T} r) = {V2T} s → {nu} ({V2T} r) = {V1T} s → ∀ z : ℂ, star z * z = 1 →\n"
+            f"          {f} ({PTR('r', 'z')}) = {PTR('s', f'(-(if {eps} r then z else star z))')}))")
+ISO = lambda f: f"IsSurjIsometryOn (normalizedSet Γ₀) {f}"
+NU1 = "(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5)"
+NU2 = "(Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3)"
+NUT = "(Equiv.swap (3 : Fin 6) 5)"
+GENS = f"(![{NU1}, {NU2}, {NUT}] : Fin 3 → Equiv.Perm (Fin 6))"
+RELAB = lambda A, B, G: f"(fun i => ({G} ({A} i)).submatrix {B} {B})"
+FIN9 = "rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl"
+MEM = lambda r, z, hz: f"(relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} {r}).1 ({RTXT} {r}).2 {z} {hz})"
+if PHASE >= 6:
+    thm('a33_shared_bit', "∀ (b b' : Bool) (z : ℂ), (if b then (if b' then z else star z) else star (if b' then z else star z)) = (if decide (b' = b) then z else star z)",
+        "  intro b b' z\n  cases b <;> cases b' <;> simp\n")
+    thm('a33_shared_bit_neg', "∀ (b : Bool) (y : ℂ), (if b then -y else star (-y)) = -(if b then y else star y)",
+        "  intro b y\n  cases b <;> simp\n")
+    thm('a33_shared_unit_neg', "∀ y : ℂ, star y * y = 1 → star (-y) * (-y) = 1",
+        "  intro y h\n  rw [star_neg, neg_mul_neg]\n  exact h\n")
+    thm('a33_shared_unit_star', "∀ y : ℂ, star y * y = 1 → star (star y) * star y = 1",
+        "  intro y h\n  rw [star_star, mul_comm]\n  exact h\n")
+    thm('a33_shared_bool_xnor', "∀ a b : Bool, decide (decide (a = b) = b) = a", "  decide\n")
+    thm('a33_shared_fin3', "∀ g : Fin 3, g = 0 ∨ g = 1 ∨ g = 2", "  decide\n")
+    thm('a33_shared_edge_inj', f"∀ r s : Fin 9, {V1T} r = {V1T} s → {V2T} r = {V2T} s → r = s", "  decide\n")
+    thm('a33_shared_edge_rev', f"∀ r s : Fin 9, ¬ ({V1T} r = {V2T} s ∧ {V2T} r = {V1T} s)", "  decide\n")
+    thm('a33_shared_edge_unique', f"∀ (ν : Equiv.Perm (Fin 6)) (r s s' : Fin 9), {COND('ν', 'r', 's')} → {COND('ν', 'r', chr(115)+chr(39))} → s = s'",
+        """  intro ν r s s' h h'
+  rcases h with ⟨h1, h2⟩ | ⟨h1, h2⟩ <;> rcases h' with ⟨h3, h4⟩ | ⟨h3, h4⟩
+  · exact a33_shared_edge_inj s s' (h1.symm.trans h3) (h2.symm.trans h4)
+  · exact absurd ⟨h1.symm.trans h3, h2.symm.trans h4⟩ (a33_shared_edge_rev s s')
+  · exact absurd ⟨h3.symm.trans h1, h4.symm.trans h2⟩ (a33_shared_edge_rev s' s)
+  · exact a33_shared_edge_inj s s' (h2.symm.trans h4) (h1.symm.trans h3)
+""")
+    thm('a33_shared_iso_comp', f"∀ (S : Set ({E})) (f f' : {E} → {E}), IsSurjIsometryOn S f → IsSurjIsometryOn S f' → IsSurjIsometryOn S (f ∘ f')",
+        """  intro S f f' ⟨h1, h2, h3⟩ ⟨h1', h2', h3'⟩
+  refine ⟨fun x hx => h1 _ (h1' x hx), fun y hy => ?_, fun x hx y hy => ?_⟩
+  · obtain ⟨x, hx, rfl⟩ := h2 y hy
+    obtain ⟨x', hx', rfl⟩ := h2' x hx
+    exact ⟨x', hx', rfl⟩
+  · show dist (f (f' x)) (f (f' y)) = dist x y
+    rw [h3 _ (h1' x hx) _ (h1' y hy), h3' x hx y hy]
+""")
+    thm('a33_shared_identity', P['C_ID'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  dsimp only
+  refine ⟨fun r => ⟨r, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
+  · intro r s h1 h2 z hz
+    simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
+    obtain rfl := a33_shared_edge_inj r s h1 h2
+    rfl
+  · intro r s h1 h2 z hz
+    simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
+    exact absurd ⟨h1, h2⟩ (a33_shared_edge_rev r s)
+""")
+    thm('a33_shared_composition', P['COMP'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  dsimp only
+  intro ν ν' ε ε' f f' _ _ ⟨hA, hP, hM⟩ ⟨hA', hP', hM'⟩ ε'' hε''
+  refine ⟨?_, ?_, ?_⟩
+  · intro r
+    obtain ⟨s, hs⟩ := hA' r
+    obtain ⟨u, hu⟩ := hA s
+    refine ⟨u, ?_⟩
+    simp only [Equiv.Perm.mul_apply]
+    rcases hs with ⟨h1, h2⟩ | ⟨h1, h2⟩ <;> rcases hu with ⟨h3, h4⟩ | ⟨h3, h4⟩
+    · exact Or.inl ⟨by rw [h1, h3], by rw [h2, h4]⟩
+    · exact Or.inr ⟨by rw [h1, h3], by rw [h2, h4]⟩
+    · exact Or.inr ⟨by rw [h1, h4], by rw [h2, h3]⟩
+    · exact Or.inl ⟨by rw [h1, h4], by rw [h2, h3]⟩
+  · intro r u h1 h2 z hz
+    simp only [Equiv.Perm.mul_apply] at h1 h2
+    obtain ⟨s, hs⟩ := hA' r
+    rcases hs with ⟨h3, h4⟩ | ⟨h3, h4⟩
+    · rw [h3] at h1; rw [h4] at h2
+      show f (f' _) = _
+      rw [hP' r s h3 h4 z hz, hP s u h1 h2 _ (a33_shared_unit_if (ε' r) z hz), a33_shared_bit, ← hε'' r s (Or.inl ⟨h3, h4⟩)]
+    · rw [h3] at h1; rw [h4] at h2
+      show f (f' _) = _
+      rw [hM' r s h3 h4 z hz, hM s u h2 h1 _ (a33_shared_unit_neg _ (a33_shared_unit_if (ε' r) z hz)), a33_shared_bit_neg, neg_neg,
+        a33_shared_bit, ← hε'' r s (Or.inr ⟨h3, h4⟩)]
+  · intro r u h1 h2 z hz
+    simp only [Equiv.Perm.mul_apply] at h1 h2
+    obtain ⟨s, hs⟩ := hA' r
+    rcases hs with ⟨h3, h4⟩ | ⟨h3, h4⟩
+    · rw [h3] at h1; rw [h4] at h2
+      show f (f' _) = _
+      rw [hP' r s h3 h4 z hz, hM s u h1 h2 _ (a33_shared_unit_if (ε' r) z hz), a33_shared_bit, ← hε'' r s (Or.inl ⟨h3, h4⟩)]
+    · rw [h3] at h1; rw [h4] at h2
+      show f (f' _) = _
+      rw [hM' r s h3 h4 z hz, hP s u h2 h1 _ (a33_shared_unit_neg _ (a33_shared_unit_if (ε' r) z hz)), a33_shared_bit_neg,
+        a33_shared_bit, ← hε'' r s (Or.inr ⟨h3, h4⟩)]
+""")
+    # ---- the relabelling and transpose isometries of the normalized set ----
+    thm('a33_shared_relabel_iso',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ π τ : Equiv.Perm (Fin 4),\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ ∀ G : {T}, RealizableGram (Fin 1) Γ₀ G → f (featureVec G) = featureVec (fun i => (G (π i)).submatrix τ τ)",
+        """  intro Γ₀ hΓ₀ π τ
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  refine bridge_of_tuple_isometry Γ₀ hΓ₀ _ rfl (fun G => fun i => (G (π i)).submatrix τ τ)
+    (fun G hG => relabel2_realizable Γ₀ hΓ π τ G hG) (fun H hH => ?_) (fun G H _ _ => relabel2_isometry _ rfl π τ G H)
+  refine ⟨fun i => (H (π.symm i)).submatrix τ.symm τ.symm, relabel2_realizable Γ₀ hΓ π.symm τ.symm H hH, ?_⟩
+  have e : (fun i => ((fun i => (H (π.symm i)).submatrix τ.symm τ.symm) (π i)).submatrix τ τ) = H := by
+    funext i; ext j k
+    simp only [Matrix.submatrix_apply, Equiv.symm_apply_apply]
+  rw [e]
+  exact gramPhaseEquiv_refl H
+""")
+    thm('a33_shared_relabel_invol',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (π τ : Equiv.Perm (Fin 4)) (f : {E} → {E}),\n"
+        f"      (∀ G : {T}, RealizableGram (Fin 1) Γ₀ G → f (featureVec G) = featureVec (fun i => (G (π i)).submatrix τ τ)) →\n"
+        f"      (∀ i, π (π i) = i) → (∀ j, τ (τ j) = j) → ∀ x ∈ normalizedSet Γ₀, f (f x) = x",
+        """  intro Γ₀ hΓ₀ π τ f hf hπ hτ x hx
+  obtain ⟨G, hG, rfl⟩ := hx
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  rw [hf G hG, hf _ (relabel2_realizable Γ₀ hΓ π τ G hG)]
+  congr 1
+  funext i; ext j k
+  simp only [Matrix.submatrix_apply, hπ, hτ]
+""")
+    thm('a33_shared_U0_symm',
+        f"∀ z : ℂ, (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * {MAT('z')} p.1 q.1))ᵀ = Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * {MAT('z')} p.1 q.1)",
+        """  intro z
+  ext ⟨i, a⟩ ⟨j, b⟩
+  simp only [Matrix.transpose_apply, Matrix.of_apply]
+  fin_cases i <;> fin_cases j <;> simp
+""")
+    thm('a33_shared_U0_conj',
+        f"∀ z : ℂ, (Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * {MAT('z')} p.1 q.1)).map star = Matrix.of (fun p q : Fin 4 × Fin 1 => (1 / 2 : ℂ) * {MAT('star z')} p.1 q.1)",
+        """  intro z
+  ext ⟨i, a⟩ ⟨j, b⟩
+  simp only [Matrix.map_apply, Matrix.of_apply]
+  fin_cases i <;> fin_cases j <;> simp [Complex.star_def]
+""")
+    ADM = "AdmissibleDilationAt Γ₀ (0 : Fin 1)"
+    TACT = lambda f: (f"∀ G : {T}, RealizableGram (Fin 1) Γ₀ G → ∀ U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ, {ADM} U → FibreGram (0 : Fin 1) U = G →\n"
+                      f"        {f} (featureVec G) = featureVec (FibreGram (0 : Fin 1) Uᵀ)")
+    CACT = lambda f: f"∀ G : {T}, RealizableGram (Fin 1) Γ₀ G → {f} (featureVec G) = featureVec (fun i => Matrix.of fun j k => star (G i j k))"
+    RACT = lambda f, A, B: f"∀ G : {T}, RealizableGram (Fin 1) Γ₀ G → {f} (featureVec G) = featureVec (fun i => (G ({A} i)).submatrix {B} {B})"
+    thm('a33_shared_T_iso',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {TACT('f')}",
+        """  intro Γ₀ hΓ₀
+  classical
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hΓs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => hΓ i j j i
+  have hΓne : ∀ i j, Γ₀ i j ≠ 0 := fun i j => by rw [hΓ₀]; simp
+  obtain ⟨-, -, -, -, -, -, -, -, -, -, -, hTT, -, -, -, -⟩ := iso1_family_acts
+  have hU : ∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G →
+      ∃ U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ, AdmissibleDilationAt Γ₀ (0 : Fin 1) U ∧ FibreGram (0 : Fin 1) U = G :=
+    fun G hG => sh1_sufficiency (0 : Fin 1) hG
+  choose! U hU using hU
+  have h1 : ∀ G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ (FibreGram (0 : Fin 1) (U G)ᵀ) :=
+    fun G hG => sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) _ (hU G hG).1)
+  have h2 : ∀ H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ H →
+      ∃ G, RealizableGram (Fin 1) Γ₀ G ∧ GramPhaseEquiv (FibreGram (0 : Fin 1) (U G)ᵀ) H := by
+    intro H hH
+    refine ⟨_, h1 H hH, ?_⟩
+    have := hTT (Fin 4) (Fin 1) (by simp) Γ₀ hΓs hΓne (0 : Fin 1) (U H) (hU H hH).1 (U _) (hU _ (h1 H hH)).1 (hU _ (h1 H hH)).2
+    rw [(hU H hH).2] at this
+    exact this
+  have h3 : ∀ G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ, RealizableGram (Fin 1) Γ₀ G → RealizableGram (Fin 1) Γ₀ H →
+      (fun G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2))
+        (FibreGram (0 : Fin 1) (U G)ᵀ) (FibreGram (0 : Fin 1) (U H)ᵀ)
+      = (fun G H : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ => Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2)) G H := by
+    intro G H hG hH
+    have := transpose_isometry (0 : Fin 1) hx (0 : Fin 1) _ rfl (U G) (U H)
+    rw [(hU G hG).2, (hU H hH).2] at this
+    exact this
+  obtain ⟨f, hf, hfG⟩ := bridge_of_tuple_isometry Γ₀ hΓ₀ _ rfl (fun G => FibreGram (0 : Fin 1) (U G)ᵀ) h1 h2 h3
+  refine ⟨f, hf, fun G hG U' hU' hU'G => ?_⟩
+  rw [hfG G hG]
+  exact featureVec_gauge (transpose_single_valued (0 : Fin 1) hx Γ₀ hΓne (0 : Fin 1) _ _ (hU G hG).1 hU' ((hU G hG).2.trans hU'G.symm))
+""")
+    thm('a33_shared_T_circle',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ f : {E} → {E}, ({TACT('f')}) →\n"
+        f"      ∀ (π τ : Equiv.Perm (Fin 4)) (z : ℂ), star z * z = 1 → f (featureVec {RELAB('π', 'τ', FZ('z'))}) = featureVec {RELAB('τ', 'π', FZ('z'))}",
+        """  intro Γ₀ hΓ₀ f hf π τ z hz
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  obtain ⟨hadm, hdil, hT⟩ := relabel2_dilation (0 : Fin 1) hx Γ₀ hΓ (0 : Fin 1) π τ _ (hadamard_z_admissible Γ₀ hΓ₀ z hz)
+  rw [hf _ ((iso2_classes_single Γ₀ hΓ₀).2 π τ z hz) _ hadm hdil, hT, a33_shared_U0_symm]
+""")
+    thm('a33_shared_T_invol',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ f : {E} → {E}, ({TACT('f')}) →\n"
+        f"      ∀ x ∈ normalizedSet Γ₀, f (f x) = x",
+        """  intro Γ₀ hΓ₀ f hf x hx
+  have hx1 : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => by rw [hΓ₀]; rfl
+  obtain ⟨G, hG, rfl⟩ := hx
+  obtain ⟨U, hU, hUG⟩ := sh1_sufficiency (0 : Fin 1) hG
+  have hUt := transpose_admissible (0 : Fin 1) hx1 Γ₀ hΓs (0 : Fin 1) U hU
+  rw [hf G hG U hU hUG, hf _ (sh1_necessity hUt) Uᵀ hUt rfl, Matrix.transpose_transpose, hUG]
+""")
+    thm('a33_shared_C_iso',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {CACT('f')}",
+        """  intro Γ₀ hΓ₀
+  refine bridge_of_tuple_isometry Γ₀ hΓ₀ _ rfl (fun G => fun i => Matrix.of fun j k => star (G i j k))
+    (fun G hG => realizable_conj Γ₀ G hG) (fun H hH => ?_) (fun G H _ _ => conj_isometry _ rfl G H)
+  refine ⟨fun i => Matrix.of fun j k => star (H i j k), realizable_conj Γ₀ H hH, ?_⟩
+  have e : (fun i => Matrix.of fun j k => star ((fun i => Matrix.of fun j k => star (H i j k)) i j k)) = H := by
+    funext i; ext j k
+    simp only [Matrix.of_apply, star_star]
+  rw [e]
+  exact gramPhaseEquiv_refl H
+""")
+    thm('a33_shared_conj_F',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ z : ℂ, star z * z = 1 →\n"
+        f"      (fun i => Matrix.of fun j k => star ({FZ('z')} i j k)) = {FZ('star z')}",
+        """  intro Γ₀ hΓ₀ z hz
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  obtain ⟨-, h, -⟩ := conj_dilation (0 : Fin 1) hx Γ₀ (0 : Fin 1) _ (hadamard_z_admissible Γ₀ hΓ₀ z hz)
+  rw [← h, a33_shared_U0_conj]
+""")
+    # ---- the stabilizer actions on the Fourier circle, as phase equivalences ----
+    ONE = "(1 : Equiv.Perm (Fin 4))"; S13 = "(Equiv.swap (1 : Fin 4) 3)"; DBL = "((Equiv.swap (0 : Fin 4) 1).trans (Equiv.swap 2 3))"
+    DSD = f"({DBL}.trans ({S13}.trans {DBL}))"
+    PTEXT = {'one': ONE, 's13': S13, 'dbl': DBL, 'dsd': DSD}
+    MZ = {'one': 'z', 's13': '(-z)', 'dbl': '(star z)', 'dsd': '(-z)'}
+    ROWREL = lambda p, z: f"(fun i => ({FZ(z)} ({p} i)).submatrix {ONE} {ONE})"
+    COLREL = lambda q, z: f"(fun i => ({FZ(z)} ({ONE} i)).submatrix {q} {q})"
+    thm('a33_shared_stab_one_one', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv (fun i => ({FZ('z')} ({ONE} i)).submatrix {ONE} {ONE}) ({FZ('z')})",
+        "  intro z hz\n  have e : (fun i => (" + FZ('z') + f" ({ONE} i)).submatrix {ONE} {ONE}) = {FZ('z')} := by\n"
+        "    funext i\n    simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id]\n  rw [e]\n  exact gramPhaseEquiv_refl _\n")
+    thm('a33_shared_stab_s13_one', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv {ROWREL(S13, 'z')} ({FZ('(-z)')})",
+        "  intro z hz\n  rw [stab_row_swap13]\n  exact gramPhaseEquiv_refl _\n")
+    thm('a33_shared_stab_one_s13', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv {COLREL(S13, 'z')} ({FZ('(-z)')})",
+        "  intro z hz\n  rw [stab_col_swap13]\n  exact gramPhaseEquiv_refl _\n")
+    thm('a33_shared_stab_dbl_one', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv {ROWREL(DBL, 'z')} ({FZ('star z')})",
+        "  intro z hz\n  exact stab_row_double z hz\n")
+    thm('a33_shared_stab_one_dbl', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv {COLREL(DBL, 'z')} ({FZ('star z')})",
+        "  intro z hz\n  exact stab_col_double z hz\n")
+    thm('a33_shared_stab_dsd_one', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv {ROWREL(DSD, 'z')} ({FZ('(-z)')})",
+        f"""  intro z hz
+  have h2 := relabel2_gramPhaseEquiv {S13} {ONE} (stab_row_double z hz)
+  rw [stab_row_swap13 (star z)] at h2
+  have h3 := relabel2_gramPhaseEquiv {DBL} {ONE} h2
+  have h4 := gramPhaseEquiv_trans h3 (stab_row_double (-star z) (a33_shared_unit_neg _ (a33_shared_unit_star z hz)))
+  simp only [Matrix.submatrix_submatrix, Equiv.Perm.coe_one, Function.comp_id, Matrix.submatrix_id_id, star_neg, star_star] at h4
+  simp only [Equiv.Perm.coe_one, Matrix.submatrix_id_id, Equiv.trans_apply]
+  exact h4
+""")
+    thm('a33_shared_stab_one_dsd', f"∀ z : ℂ, star z * z = 1 → GramPhaseEquiv {COLREL(DSD, 'z')} ({FZ('(-z)')})",
+        f"""  intro z hz
+  have h2 := relabel2_gramPhaseEquiv {ONE} {S13} (stab_col_double z hz)
+  rw [stab_col_swap13 (star z)] at h2
+  have h3 := relabel2_gramPhaseEquiv {ONE} {DBL} h2
+  have h4 := gramPhaseEquiv_trans h3 (stab_col_double (-star z) (a33_shared_unit_neg _ (a33_shared_unit_star z hz)))
+  simp only [Matrix.submatrix_submatrix, Equiv.Perm.coe_one, id_eq, star_neg, star_star] at h4
+  simp only [Equiv.Perm.coe_one, id_eq, Equiv.coe_trans]
+  exact h4
+""")
+    # ---- the eight family generators with their normal forms, actions and involutions ----
+    g8 = json.load(open(S + 'gen8.json'))
+    PERM6 = {(2, 3, 0, 1, 5, 4): "(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (4 : Fin 6) 5)",
+             (4, 5, 3, 2, 0, 1): "(Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (2 : Fin 6) 3)",
+             (0, 1, 2, 5, 4, 3): "(Equiv.swap (3 : Fin 6) 5)",
+             (2, 5, 0, 4, 3, 1): "(Equiv.swap (0 : Fin 6) 2 * Equiv.swap (1 : Fin 6) 5 * Equiv.swap (3 : Fin 6) 4)",
+             (4, 3, 5, 1, 0, 2): "(Equiv.swap (0 : Fin 6) 4 * Equiv.swap (1 : Fin 6) 3 * Equiv.swap (2 : Fin 6) 5)",
+             (0, 1, 2, 3, 4, 5): "(1 : Equiv.Perm (Fin 6))"}
+    GD = {int(k): v for k, v in g8['gens'].items()}
+    GN8 = "(![" + ", ".join(PERM6[tuple(GD[k]['nu'])] for k in range(8)) + "] : Fin 8 → Equiv.Perm (Fin 6))"
+    GS8 = "(![" + ", ".join("![" + ", ".join(str(x) for x in GD[k]['sigma']) + "]" for k in range(8)) + "] : Fin 8 → Fin 9 → Fin 9)"
+    GE8 = "(![" + ", ".join("![" + ", ".join('true' if x else 'false' for x in GD[k]['eps']) + "]" for k in range(8)) + "] : Fin 8 → Fin 9 → Bool)"
+    PAIRT = lambda pr: (R9[R9.index(pr)] if pr in R9 else pr)
+    def pair_text(k):
+        name = GD[k]['name']
+        if name in ('T', 'C'): return (ONE, ONE)
+        pi, tau = GD[k]['pair']
+        P4 = {(0, 1, 2, 3): ONE, (0, 1, 3, 2): "(Equiv.swap (2 : Fin 4) 3)", (0, 2, 1, 3): "(Equiv.swap (1 : Fin 4) 2)", (1, 0, 2, 3): "(Equiv.swap (0 : Fin 4) 1)"}
+        return (P4[tuple(pi)], P4[tuple(tau)])
+    GP8 = "(![" + ", ".join("(%s, %s)" % pair_text(k) for k in range(8)) + "] : Fin 8 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4))"
+    def ACT(k, f):
+        name = GD[k]['name']
+        if name == 'T': return TACT(f)
+        if name == 'C': return CACT(f)
+        A, B = pair_text(k)
+        return RACT(f, A, B)
+    def gen_stmt(k):
+        return (f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+                f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', f'({GN8} {k})', f'({GE8} {k})')}\n"
+                f"      ∧ (∀ r : Fin 9, {COND(f'({GN8} {k})', 'r', f'({GS8} {k} r)')}) ∧ (∀ x ∈ normalizedSet Γ₀, f (f x) = x) ∧ ({ACT(k, 'f')})")
+    def gen_case8(k, t, case):
+        NU = f"({GN8} {k})"; EPS = f"({GE8} {k})"
+        S_, lam, eps = GD[k]['sigma'][t], GD[k]['lam'][t], GD[k]['eps'][t]
+        want = 1 if case == 'p' else -1
+        c1, c2 = (f"{V1T} s", f"{V2T} s") if case == 'p' else (f"{V2T} s", f"{V1T} s")
+        if lam != want:
+            return f"    · exact absurd ⟨h1, h2⟩ ((by decide : ∀ s : Fin 9, ¬ ({NU} ({V1T} {t}) = {c1} ∧ {NU} ({V2T} {t}) = {c2})) s)\n"
+        head = (f"    · have hs := (by decide : ∀ s : Fin 9, {NU} ({V1T} {t}) = {c1} → {NU} ({V2T} {t}) = {c2} → s = {S_}) s h1 h2\n"
+                f"      subst hs\n" + (f"      rw [if_pos (by decide)]\n" if eps else f"      rw [if_neg (by decide)]\n"))
+        name = GD[k]['name']
+        if name == 'T':
+            return head + f"      rw [hfT _ _ z hz]\n      simp only [a33_shared_R1_{t}, a33_shared_R2_{t}, a33_shared_R1_{S_}, a33_shared_R2_{S_}]\n"
+        if name == 'C':
+            return head + (f"      rw [hfG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ z hz), conj_relabel2, a33_shared_conj_F Γ₀ hΓ₀ z hz]\n")
+        A, B = R9[t]; ar, pn, bc, qn = g8['dec'][f'{k},{t}']
+        REPT = [P1, S23, S12]; Ap, Bp = REPT[ar], REPT[bc]
+        assert R9.index((Ap, Bp)) == S_
+        Pg, Qg = pair_text(k); P, Q = PTEXT[pn], PTEXT[qn]
+        return head + (f"      rw [hfG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ z hz)]\n"
+                       f"      simp only [a33_shared_R1_{t}, a33_shared_R2_{t}, a33_shared_R1_{S_}, a33_shared_R2_{S_}]\n"
+                       f"      have er : ∀ i : Fin 4, {A} ({Pg} i) = {P} ({Ap} i) := by decide\n"
+                       f"      have ec : ⇑{B} ∘ ⇑{Qg} = ⇑{Q} ∘ ⇑{Bp} := by\n"
+                       f"        funext i\n        revert i\n        decide\n"
+                       f"      have e : (fun i => (({FZ('z')} ({A} ({Pg} i))).submatrix {B} {B}).submatrix {Qg} {Qg})\n"
+                       f"          = (fun i => ((fun i => ({FZ('z')} ({P} i)).submatrix {Q} {Q}) ({Ap} i)).submatrix {Bp} {Bp}) := by\n"
+                       f"        funext i\n        rw [Matrix.submatrix_submatrix, er, ec, ← Matrix.submatrix_submatrix]\n"
+                       f"      rw [e, featureVec_gauge (relabel2_gramPhaseEquiv {Ap} {Bp} (a33_shared_stab_{pn}_{qn} z hz))]\n")
+    for k in range(8):
+        name = GD[k]['name']
+        if name == 'T':
+            setup = ("  obtain ⟨f, hf, hfU⟩ := a33_shared_T_iso Γ₀ hΓ₀\n  have hfT := a33_shared_T_circle Γ₀ hΓ₀ f hfU\n")
+            inv = "a33_shared_T_invol Γ₀ hΓ₀ f hfU"; act = "hfU"
+        elif name == 'C':
+            setup = "  obtain ⟨f, hf, hfG⟩ := a33_shared_C_iso Γ₀ hΓ₀\n"
+            inv = ("(fun x hx => by\n    obtain ⟨G, hG, rfl⟩ := hx\n    rw [hfG G hG, hfG _ (realizable_conj Γ₀ G hG)]\n"
+                   "    congr 1\n    funext i; ext j k\n    simp only [Matrix.of_apply, star_star])")
+            act = "hfG"
+        else:
+            A, B = pair_text(k)
+            setup = f"  obtain ⟨f, hf, hfG⟩ := a33_shared_relabel_iso Γ₀ hΓ₀ {A} {B}\n"
+            inv = f"a33_shared_relabel_invol Γ₀ hΓ₀ {A} {B} f hfG (by decide) (by decide)"; act = "hfG"
+        body = f"  intro Γ₀ hΓ₀\n{setup}  refine ⟨f, hf, ⟨by decide, ?_, ?_⟩, by decide, {inv}, {act}⟩\n"
+        for case in ('p', 'm'):
+            body += f"  · intro r s h1 h2 z hz\n    rcases a33_shared_fin9 r with {FIN9}\n"
+            for t in range(9):
+                body += gen_case8(k, t, case)
+        thm(f'a33_shared_gen_{k}', gen_stmt(k), body)
+    thm('a33_shared_fin8', "∀ g : Fin 8, g = 0 ∨ g = 1 ∨ g = 2 ∨ g = 3 ∨ g = 4 ∨ g = 5 ∨ g = 6 ∨ g = 7", "  decide\n")
+    ACT8 = lambda f: (f"((g = 7 → {CACT(f)}) ∧ (g = 2 → {TACT(f)}) ∧ (g ≠ 2 → g ≠ 7 → {RACT(f, f'({GP8} g).1', f'({GP8} g).2')}))")
+    thm('a33_shared_gen8',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ g : Fin 8,\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', f'({GN8} g)', f'({GE8} g)')}\n"
+        f"      ∧ (∀ r : Fin 9, {COND(f'({GN8} g)', 'r', f'({GS8} g r)')}) ∧ (∀ x ∈ normalizedSet Γ₀, f (f x) = x) ∧ {ACT8('f')}",
+        "  intro Γ₀ hΓ₀ g\n  rcases a33_shared_fin8 g with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl\n" +
+        "".join(f"  · obtain ⟨f, hf, hnf, hc, hi, ha⟩ := a33_shared_gen_{k} Γ₀ hΓ₀\n"
+                f"    exact ⟨f, hf, hnf, hc, hi, fun h => absurd h (by decide), fun h => absurd h (by decide), fun _ _ => ha⟩\n"
+                if GD[k]['name'] not in ('T', 'C') else
+                (f"  · obtain ⟨f, hf, hnf, hc, hi, ha⟩ := a33_shared_gen_{k} Γ₀ hΓ₀\n"
+                 f"    exact ⟨f, hf, hnf, hc, hi, fun h => absurd h (by decide), fun _ => ha, fun h => absurd rfl h⟩\n" if GD[k]['name'] == 'T' else
+                 f"  · obtain ⟨f, hf, hnf, hc, hi, ha⟩ := a33_shared_gen_{k} Γ₀ hΓ₀\n"
+                 f"    exact ⟨f, hf, hnf, hc, hi, fun _ => ha, fun h => absurd h (by decide), fun _ h => absurd rfl h⟩\n")
+                for k in range(8)))
+    # ---- words in the eight generators: the fold of normal forms, and the word isometries ----
+    FOLD = (f"(w.foldr (fun g (acc : Equiv.Perm (Fin 6) × (Fin 9 → Fin 9) × (Fin 9 → Bool)) =>\n"
+            f"        ({GN8} g * acc.1, {GS8} g ∘ acc.2.1, fun r => decide (acc.2.2 r = {GE8} g (acc.2.1 r))))\n"
+            f"        ((1 : Equiv.Perm (Fin 6)), id, fun _ => true))")
+    NUP = chr(957) + chr(39); SGP = chr(963) + chr(39)
+    thm('a33_shared_cond_comp',
+        f"∀ (ν ν' : Equiv.Perm (Fin 6)) (σ σ' : Fin 9 → Fin 9), (∀ r, {COND('ν', 'r', '(σ r)')}) → (∀ r, {COND(NUP, 'r', '(' + SGP + ' r)')}) →\n"
+        f"      ∀ r, {COND('(ν * ' + NUP + ')', 'r', '(σ (' + SGP + ' r))')}",
+        """  intro ν ν' σ σ' h h' r
+  simp only [Equiv.Perm.mul_apply]
+  rcases h' r with ⟨h1, h2⟩ | ⟨h1, h2⟩ <;> rcases h (σ' r) with ⟨h3, h4⟩ | ⟨h3, h4⟩
+  · exact Or.inl ⟨by rw [h1, h3], by rw [h2, h4]⟩
+  · exact Or.inr ⟨by rw [h1, h3], by rw [h2, h4]⟩
+  · exact Or.inr ⟨by rw [h1, h4], by rw [h2, h3]⟩
+  · exact Or.inl ⟨by rw [h1, h4], by rw [h2, h3]⟩
+""")
+    thm('a33_shared_foldr_comp',
+        f"∀ (l : List ({E} → {E})) (h : {E} → {E}) (x : {E}), l.foldr (· ∘ ·) h x = l.foldr (· ∘ ·) id (h x)",
+        "  intro l h x\n  induction l with\n  | nil => rfl\n  | cons a l ih => simp only [List.foldr_cons, Function.comp_apply, ih]\n")
+    thm('a33_shared_wordf_append',
+        f"∀ (FG : Fin 8 → ({E} → {E})) (u v : List (Fin 8)) (x : {E}), ((u ++ v).map FG).foldr (· ∘ ·) id x = (u.map FG).foldr (· ∘ ·) id ((v.map FG).foldr (· ∘ ·) id x)",
+        "  intro FG u v x\n  rw [List.map_append, List.foldr_append, a33_shared_foldr_comp]\n")
+    thm('a33_shared_word8',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (FG : Fin 8 → ({E} → {E})),\n"
+        f"      (∀ g : Fin 8, {ISO('(FG g)')} ∧ {NF('(FG g)', f'({GN8} g)', f'({GE8} g)')}\n"
+        f"        ∧ (∀ r : Fin 9, {COND(f'({GN8} g)', 'r', f'({GS8} g r)')}) ∧ (∀ x ∈ normalizedSet Γ₀, FG g (FG g x) = x)) →\n"
+        f"      ∀ w : List (Fin 8), {ISO('((w.map FG).foldr (· ∘ ·) id)')}\n"
+        f"        ∧ {NF('((w.map FG).foldr (· ∘ ·) id)', f'{FOLD}.1', f'{FOLD}.2.2')}\n"
+        f"        ∧ (∀ r : Fin 9, {COND(f'{FOLD}.1', 'r', f'({FOLD}.2.1 r)')})\n"
+        f"        ∧ (∀ x ∈ normalizedSet Γ₀, (w.map FG).foldr (· ∘ ·) id ((w.reverse.map FG).foldr (· ∘ ·) id x) = x)",
+        f"""  intro Γ₀ hΓ₀ FG hFG w
+  have hc := a33_shared_composition Γ₀ hΓ₀
+  dsimp only at hc
+  induction w with
+  | nil =>
+    have h := a33_shared_identity Γ₀ hΓ₀
+    dsimp only at h
+    refine ⟨⟨fun x hx => hx, fun y hy => ⟨y, hy, rfl⟩, fun x _ y _ => rfl⟩, ?_, fun r => Or.inl ⟨rfl, rfl⟩, fun x _ => rfl⟩
+    simpa only [List.map_nil, List.foldr_nil] using h
+  | cons g w ih =>
+    obtain ⟨hiso, hnf, hcond, hinv⟩ := ih
+    obtain ⟨hg, hgnf, hgcond, hginv⟩ := hFG g
+    simp only [List.map_cons, List.foldr_cons, List.reverse_cons, List.map_append, List.foldr_append, List.map_nil, List.foldr_nil]
+    refine ⟨a33_shared_iso_comp _ _ _ hg hiso, ?_, a33_shared_cond_comp ({GN8} g) {FOLD}.1 ({GS8} g) {FOLD}.2.1 hgcond hcond, ?_⟩
+    · exact hc _ _ _ _ _ _ hg hiso hgnf hnf _ (fun r s hrs => by
+        obtain rfl := a33_shared_edge_unique _ r s _ hrs (hcond r)
+        rfl)
+    · intro x hx
+      rw [a33_shared_foldr_comp]
+      simp only [Function.comp_apply, id_eq]
+      rw [hinv _ (hg.1 x hx), hginv x hx]
+""")
+    WORDS8 = "[" + ", ".join("[" + ", ".join(str(g) for g in w) + "]" for w in gen['words']) + "]"
+    thm('a33_shared_aut_words',
+        f"∀ ν : Equiv.Perm (Fin 6), (∀ r : Fin 9, ∃ s : Fin 9, {COND('ν', 'r', 's')}) →\n"
+        f"      ∃ w ∈ ({WORDS8} : List (List (Fin 8))), ν = {FOLD}.1",
+        "  decide +kernel\n")
+    thm('a33_shared_nu_real',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ ν : Equiv.Perm (Fin 6),\n"
+        f"      (∀ r : Fin 9, ∃ s : Fin 9, {COND('ν', 'r', 's')}) → ∃ (f : {E} → {E}) (ε : Fin 9 → Bool), {ISO('f')} ∧ {NF('f', 'ν', 'ε')}",
+        """  intro Γ₀ hΓ₀ ν hν
+  classical
+  choose FG hFG using a33_shared_gen8 Γ₀ hΓ₀
+  obtain ⟨w, -, rfl⟩ := a33_shared_aut_words ν hν
+  obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) w
+  exact ⟨_, _, hiso, hnf⟩
+""")
+
+# ================= phase 7: the kernel, the realization, uniqueness, the classification =================
+def IFB(b, z): return f"(if {b} then {z} else star {z})"
+if PHASE >= 7:
+    thm('a33_shared_pt_inj_gen',
+        f"∀ (s : Fin 9) (z w : ℂ), star z * z = 1 → star w * w = 1 → {PTR('s', 'z')} = {PTR('s', 'w')} → z = w",
+        f"  intro s z w hz hw h\n  rcases a33_shared_fin9 s with {FIN9} <;> simp only [{RFACTS}] at h\n" +
+        "".join(f"  · exact a33_shared_inj_{r} z w hz hw h\n" for r in range(9)))
+    thm('a33_shared_dist_of_sq',
+        f"∀ a b c d : {E}, dist a b ^ 2 = dist c d ^ 2 → dist a b = dist c d",
+        """  intro a b c d h
+  have ha : 0 ≤ dist a b := dist_nonneg
+  have hc : 0 ≤ dist c d := dist_nonneg
+  rw [← Real.sqrt_sq ha, ← Real.sqrt_sq hc, h]
+""")
+    thm('a33_shared_conj_dist',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ s : Fin 9, s ≠ 0 → ∀ z w : ℂ, star z * z = 1 → star w * w = 1 →\n"
+        f"      dist ({PTR('0', '(star z)')}) ({PTR('s', 'w')}) = dist ({PTR('0', 'z')}) ({PTR('s', 'w')})",
+        f"""  intro Γ₀ hΓ₀ s hs z w hz hw
+  classical
+  choose FG hFG using a33_shared_gen8 Γ₀ hΓ₀
+  rcases a33_shared_fin9 s with {FIN9}
+  · exact absurd rfl hs
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [1, 0, 6, 1, 7]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 1 1 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(1), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [0, 6]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 2 2 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(2), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [4, 3, 5, 4, 7]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 3 3 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(3), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [1, 0, 6, 1, 7]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 4 4 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(4), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [0, 6]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 5 5 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(5), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [3, 5]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 6 6 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(6), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [3, 5]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 7 7 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(7), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+  · obtain ⟨hiso, hnf, -, -⟩ := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩) [0, 6]
+    have h0 := hnf.2.1 0 0 (by decide +kernel) (by decide +kernel) z hz
+    have h1 := hnf.2.1 8 8 (by decide +kernel) (by decide +kernel) w hw
+    rw [if_neg (by decide +kernel)] at h0
+    rw [if_pos (by decide +kernel)] at h1
+    have hd := hiso.2.2 _ {MEM('0', 'z', 'hz')} _ {MEM(str(8), 'w', 'hw')}
+    rw [h0, h1] at hd
+    exact hd
+""")
+    thm('a33_shared_c0',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', '(1 : Equiv.Perm (Fin 6))', '(fun r : Fin 9 => decide (r ≠ 0))')}",
+        f"""  intro Γ₀ hΓ₀
+  classical
+  have hon : ∀ z : ℂ, star z * z = 1 → (if h : ∃ z' : ℂ, star z' * z' = 1 ∧ {PTR('0', 'z')} = {PTR('0', "z'")} then {PTR('0', '(star (Classical.choose h))')} else {PTR('0', 'z')}) = {PTR('0', '(star z)')} := by
+    intro z hz
+    have hex : ∃ z' : ℂ, star z' * z' = 1 ∧ {PTR('0', 'z')} = {PTR('0', "z'")} := ⟨z, hz, rfl⟩
+    rw [dif_pos hex]
+    obtain ⟨hz', heq⟩ := Classical.choose_spec hex
+    rw [← a33_shared_pt_inj_gen 0 z _ hz hz' heq]
+  have hoff : ∀ x : {E}, (¬ ∃ z : ℂ, star z * z = 1 ∧ x = {PTR('0', 'z')}) → (if h : ∃ z : ℂ, star z * z = 1 ∧ x = {PTR('0', 'z')} then {PTR('0', '(star (Classical.choose h))')} else x) = x := by
+    intro x hx
+    rw [dif_neg hx]
+  refine ⟨fun x => if h : ∃ z : ℂ, star z * z = 1 ∧ x = {PTR('0', 'z')} then {PTR('0', '(star (Classical.choose h))')} else x, ?_, ?_⟩
+  · refine ⟨fun x hx => ?_, fun y hy => ?_, fun x hx y hy => ?_⟩
+    · beta_reduce
+      by_cases h : ∃ z : ℂ, star z * z = 1 ∧ x = {PTR('0', 'z')}
+      · obtain ⟨z, hz, rfl⟩ := h
+        rw [hon z hz]
+        exact {MEM('0', '(star z)', '(a33_shared_unit_star z hz)')}
+      · rw [hoff x h]
+        exact hx
+    · by_cases h : ∃ z : ℂ, star z * z = 1 ∧ y = {PTR('0', 'z')}
+      · obtain ⟨z, hz, rfl⟩ := h
+        refine ⟨{PTR('0', '(star z)')}, {MEM('0', '(star z)', '(a33_shared_unit_star z hz)')}, ?_⟩
+        beta_reduce
+        rw [hon (star z) (a33_shared_unit_star z hz), star_star]
+      · exact ⟨y, hy, by beta_reduce; rw [hoff y h]⟩
+    · beta_reduce
+      by_cases h1 : ∃ z : ℂ, star z * z = 1 ∧ x = {PTR('0', 'z')} <;> by_cases h2 : ∃ z : ℂ, star z * z = 1 ∧ y = {PTR('0', 'z')}
+      · obtain ⟨z, hz, rfl⟩ := h1
+        obtain ⟨w, hw, rfl⟩ := h2
+        rw [hon z hz, hon w hw]
+        refine a33_shared_dist_of_sq _ _ _ _ ?_
+        simp only [a33_shared_R1_0, a33_shared_R2_0]
+        rw [a33_shared_chord0 _ _ (a33_shared_unit_star z hz) (a33_shared_unit_star w hw), a33_shared_chord0 _ _ hz hw, ← star_sub, norm_star]
+      · obtain ⟨z, hz, rfl⟩ := h1
+        rw [hon z hz, hoff y h2]
+        obtain ⟨s, w, hw, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ y).1 hy
+        have hs : s ≠ 0 := fun hs => h2 ⟨w, hw, by subst hs; rfl⟩
+        exact a33_shared_conj_dist Γ₀ hΓ₀ s hs z w hz hw
+      · obtain ⟨w, hw, rfl⟩ := h2
+        rw [hoff x h1, hon w hw]
+        obtain ⟨s, z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
+        have hs : s ≠ 0 := fun hs => h1 ⟨z, hz, by subst hs; rfl⟩
+        rw [dist_comm, a33_shared_conj_dist Γ₀ hΓ₀ s hs w z hw hz, dist_comm]
+      · rw [hoff x h1, hoff y h2]
+  · refine ⟨fun r => ⟨r, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
+    · intro r s h1 h2 z hz
+      simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
+      obtain rfl := a33_shared_edge_inj r s h1 h2
+      beta_reduce
+      by_cases h0 : r = 0
+      · subst h0
+        rw [if_neg (by decide), hon z hz]
+      · rw [if_pos (decide_eq_true h0)]
+        split_ifs with h
+        · obtain ⟨hw, heq⟩ := Classical.choose_spec h
+          have hc : star (Classical.choose h) = Classical.choose h := by
+            rcases a33_shared_census 0 r (Ne.symm h0) _ z hw hz heq.symm with h1 | h1
+            · rw [h1, star_one]
+            · rw [h1, star_neg, star_one]
+          rw [hc]
+          exact heq.symm
+        · rfl
+    · intro r s h1 h2 z hz
+      simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
+      exact absurd ⟨h1, h2⟩ (a33_shared_edge_rev r s)
+""")
+    conj_cases = "  · exact ⟨c, hc, hnc⟩\n"
+    for r in range(1, 9):
+        A, B = R9[r]
+        conj_cases += f"""  · obtain ⟨g, hg, hgG⟩ := a33_shared_relabel_iso Γ₀ hΓ₀ {A} {B}
+    have hinv := a33_shared_relabel_invol Γ₀ hΓ₀ {A} {B} g hgG (by decide) (by decide)
+    have hg0 : ∀ w : ℂ, star w * w = 1 → g ({PTR('0', 'w')}) = {PTR(str(r), 'w')} := by
+      intro w hw
+      simp only [a33_shared_R1_0, a33_shared_R2_0, a33_shared_R1_{r}, a33_shared_R2_{r}]
+      refine (hgG _ ((iso2_classes_single Γ₀ hΓ₀).2 _ _ w hw)).trans ?_
+      first | rfl | (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
+    refine ⟨g ∘ c ∘ g, a33_shared_iso_comp _ _ _ hg (a33_shared_iso_comp _ _ _ hc hg), fun t => ⟨t, Or.inl ⟨rfl, rfl⟩⟩, ?_, ?_⟩
+    · intro t s h1 h2 z hz
+      simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
+      obtain rfl := a33_shared_edge_inj t s h1 h2
+      show g (c (g _)) = _
+      by_cases ht : t = {r}
+      · subst ht
+        rw [if_neg (by decide)]
+        have e1 : g ({PTR(str(r), 'z')}) = {PTR('0', 'z')} := by
+          rw [← hg0 z hz]
+          exact hinv _ {MEM('0', 'z', 'hz')}
+        rw [e1, hc0 z hz, hg0 _ (a33_shared_unit_star z hz)]
+      · rw [if_pos (decide_eq_true ht)]
+        obtain ⟨s, w, hw, hgw⟩ := (a33_shared_mem Γ₀ hΓ₀ _).1 (hg.1 _ {MEM('t', 'z', 'hz')})
+        rw [hgw]
+        by_cases hs : s = 0
+        · subst hs
+          have hpt : {PTR('t', 'z')} = {PTR(str(r), 'w')} := by
+            rw [← hinv _ {MEM('t', 'z', 'hz')}, hgw, hg0 w hw]
+          rcases a33_shared_census {r} t (Ne.symm ht) w z hw hz hpt.symm with rfl | rfl
+          · rw [hc0 1 h1u, star_one, ← hgw, hinv _ {MEM('t', 'z', 'hz')}]
+          · rw [hc0 (-1) hm1, hsm1, ← hgw, hinv _ {MEM('t', 'z', 'hz')}]
+        · rw [hcs s hs w hw, ← hgw, hinv _ {MEM('t', 'z', 'hz')}]
+    · intro t s h1 h2 z hz
+      simp only [Equiv.Perm.coe_one, id_eq] at h1 h2
+      exact absurd ⟨h1, h2⟩ (a33_shared_edge_rev t s)
+"""
+    thm('a33_shared_conj_real',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ r₀ : Fin 9,\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', '(1 : Equiv.Perm (Fin 6))', '(fun t : Fin 9 => decide (t ≠ r₀))')}",
+        f"""  intro Γ₀ hΓ₀ r₀
+  obtain ⟨c, hc, hnc⟩ := a33_shared_c0 Γ₀ hΓ₀
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hm1 : star (-1 : ℂ) * (-1) = 1 := by simp
+  have hsm1 : star (-1 : ℂ) = -1 := by simp
+  have hc0 : ∀ z : ℂ, star z * z = 1 → c ({PTR('0', 'z')}) = {PTR('0', '(star z)')} := by
+    intro z hz
+    have := hnc.2.1 0 0 rfl rfl z hz
+    rwa [if_neg (by decide)] at this
+  have hcs : ∀ s : Fin 9, s ≠ 0 → ∀ w : ℂ, star w * w = 1 → c ({PTR('s', 'w')}) = {PTR('s', 'w')} := by
+    intro s hs w hw
+    have := hnc.2.1 s s rfl rfl w hw
+    rwa [if_pos (decide_eq_true hs)] at this
+  rcases a33_shared_fin9 r₀ with {FIN9}
+""" + conj_cases)
+    # every conjugation pattern, by a nine-step induction
+    EPSK = "(fun r : Fin 9 => if r.val < k then ε r else true)"
+    EPSK1 = "(fun r : Fin 9 => if r.val < k + 1 then ε r else true)"
+    thm('a33_shared_kernel_real',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ ε : Fin 9 → Bool,\n"
+        f"      ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', '(1 : Equiv.Perm (Fin 6))', 'ε')}",
+        f"""  intro Γ₀ hΓ₀ ε
+  have hc := a33_shared_composition Γ₀ hΓ₀
+  dsimp only at hc
+  have key : ∀ k : ℕ, k ≤ 9 → ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', '(1 : Equiv.Perm (Fin 6))', EPSK)} := by
+    intro k
+    induction k with
+    | zero =>
+      intro _
+      have h := a33_shared_identity Γ₀ hΓ₀
+      dsimp only at h
+      refine ⟨id, ⟨fun x hx => hx, fun y hy => ⟨y, hy, rfl⟩, fun x _ y _ => rfl⟩, ?_⟩
+      simpa only [Nat.not_lt_zero, if_false] using h
+    | succ k ih =>
+      intro hk
+      obtain ⟨f, hf, hnf⟩ := ih (by omega)
+      by_cases hε : ε ⟨k, hk⟩ = true
+      · refine ⟨f, hf, ?_⟩
+        have e : {EPSK1} = {EPSK} := by
+          funext r
+          by_cases h1 : r.val < k
+          · simp [h1, show r.val < k + 1 by omega]
+          · by_cases h2 : r.val = k
+            · have : r = ⟨k, hk⟩ := Fin.ext h2
+              subst this
+              simp [hε]
+            · simp [h1, show ¬ r.val < k + 1 by omega]
+        rw [e]
+        exact hnf
+      · obtain ⟨c, hc', hnc⟩ := a33_shared_conj_real Γ₀ hΓ₀ ⟨k, hk⟩
+        refine ⟨f ∘ c, a33_shared_iso_comp _ _ _ hf hc', ?_⟩
+        have hε' : ε ⟨k, hk⟩ = false := by simpa using hε
+        have := hc _ _ _ _ f c hf hc' hnf hnc {EPSK1} (fun r s hrs => by
+          obtain rfl := a33_shared_edge_unique 1 r r s (Or.inl ⟨rfl, rfl⟩) hrs
+          by_cases h2 : r = ⟨k, hk⟩
+          · subst h2
+            simp [hε']
+          · have h3 : r.val ≠ k := fun h => h2 (Fin.ext h)
+            by_cases h1 : r.val < k
+            · simp [h2, h1, show r.val < k + 1 by omega]
+            · simp [h2, h1, show ¬ r.val < k + 1 by omega])
+        simpa only [mul_one] using this
+  obtain ⟨f, hf, hnf⟩ := key 9 le_rfl
+  refine ⟨f, hf, ?_⟩
+  have e : (fun r : Fin 9 => if r.val < 9 then ε r else true) = ε := funext fun r => by simp [r.isLt]
+  rw [e] at hnf
+  exact hnf
+""")
+    thm('a33_shared_real',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool),\n"
+        f"      (∀ r : Fin 9, ∃ s : Fin 9, {COND('ν', 'r', 's')}) → ∃ f : {E} → {E}, {ISO('f')} ∧ {NF('f', 'ν', 'ε')}",
+        """  intro Γ₀ hΓ₀ ν ε hν
+  obtain ⟨f₁, ε₁, hf₁, hnf₁⟩ := a33_shared_nu_real Γ₀ hΓ₀ ν hν
+  obtain ⟨f₂, hf₂, hnf₂⟩ := a33_shared_kernel_real Γ₀ hΓ₀ (fun r => decide (ε r = ε₁ r))
+  have hc := a33_shared_composition Γ₀ hΓ₀
+  dsimp only at hc
+  have := hc _ _ _ _ f₁ f₂ hf₁ hf₂ hnf₁ hnf₂ ε (fun r s hrs => by
+    obtain rfl := a33_shared_edge_unique 1 r r s (Or.inl ⟨rfl, rfl⟩) hrs
+    exact (a33_shared_bool_xnor (ε r) (ε₁ r)).symm)
+  exact ⟨f₁ ∘ f₂, a33_shared_iso_comp _ _ _ hf₁ hf₂, by simpa only [mul_one] using this⟩
+""")
+    # ---- uniqueness of the normal form ----
+    thm('a33_shared_if_I', "∀ b : Bool, (if b then Complex.I else star Complex.I) = Complex.I ∨ (if b then Complex.I else star Complex.I) = -Complex.I",
+        "  intro b\n  cases b\n  · right\n    simp [Complex.star_def, Complex.conj_I]\n  · left\n    simp\n")
+    thm('a33_shared_if_I_inj', "∀ b b' : Bool, (if b then Complex.I else star Complex.I) = (if b' then Complex.I else star Complex.I) → b = b'",
+        """  intro b b' h
+  cases b <;> cases b' <;> simp [Complex.star_def, Complex.conj_I] at h ⊢
+  · exact absurd (congrArg Complex.im h) (by norm_num)
+  · exact absurd (congrArg Complex.im h) (by norm_num)
+""")
+    thm('a33_shared_pmI_not_pm1', "∀ x : ℂ, (x = Complex.I ∨ x = -Complex.I) → ¬ (x = 1 ∨ x = -1)",
+        """  rintro x (rfl | rfl) (h | h) <;> exact absurd (congrArg Complex.im h) (by simp)
+""")
+    thm('a33_shared_two_points',
+        f"∀ (s s' : Fin 9) (a b a' b' : ℂ), star a * a = 1 → star b * b = 1 → star a' * a' = 1 → star b' * b' = 1 →\n"
+        f"      {PTR('s', 'a')} = {PTR(chr(115)+chr(39), chr(97)+chr(39))} → {PTR('s', 'b')} = {PTR(chr(115)+chr(39), chr(98)+chr(39))} →\n"
+        f"      (b = Complex.I ∨ b = -Complex.I) → s = s' ∧ a = a' ∧ b = b'",
+        """  intro s s' a b a' b' ha hb ha' hb' hA hB hbI
+  have hss : s = s' := by
+    by_contra hne
+    exact a33_shared_pmI_not_pm1 b hbI (a33_shared_census s s' hne b b' hb hb' hB)
+  subst hss
+  exact ⟨rfl, a33_shared_pt_inj_gen s a a' ha ha' hA, a33_shared_pt_inj_gen s b b' hb hb' hB⟩
+""")
+    thm('a33_shared_all_vertices', f"∀ v : Fin 6, ∃ r : Fin 9, {V1T} r = v ∨ {V2T} r = v", "  decide\n")
+    thm('a33_shared_nf_unique',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (f : {E} → {E}) (ν ν' : Equiv.Perm (Fin 6)) (ε ε' : Fin 9 → Bool),\n"
+        f"      {NF('f', 'ν', 'ε')} → {NF('f', chr(957)+chr(39), chr(949)+chr(39))} → ν = ν' ∧ ε = ε'",
+        f"""  intro Γ₀ hΓ₀ f ν ν' ε ε' ⟨hA, hP, hM⟩ ⟨hA', hP', hM'⟩
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hI : star Complex.I * Complex.I = 1 := a33_shared_unit_I
+  have hm1 : star (-1 : ℂ) * (-1) = 1 := by simp
+  have hr : ∀ r : Fin 9, ε r = ε' r ∧ ν ({V1T} r) = ν' ({V1T} r) ∧ ν ({V2T} r) = ν' ({V2T} r) := by
+    intro r
+    obtain ⟨s, hs⟩ := hA r
+    obtain ⟨s', hs'⟩ := hA' r
+    have hu := a33_shared_unit_if (ε r) Complex.I hI
+    have hu' := a33_shared_unit_if (ε' r) Complex.I hI
+    rcases hs with ⟨h1, h2⟩ | ⟨h1, h2⟩ <;> rcases hs' with ⟨h3, h4⟩ | ⟨h3, h4⟩
+    · have e1 := (hP r s h1 h2 1 h1u).symm.trans (hP' r s' h3 h4 1 h1u)
+      have e2 := (hP r s h1 h2 Complex.I hI).symm.trans (hP' r s' h3 h4 Complex.I hI)
+      rw [a33_shared_if_pm _ _ (star_one ℂ), a33_shared_if_pm _ _ (star_one ℂ)] at e1
+      obtain ⟨rfl, -, hb⟩ := a33_shared_two_points s s' 1 _ 1 _ h1u hu h1u hu' e1 e2 (a33_shared_if_I (ε r))
+      exact ⟨a33_shared_if_I_inj _ _ hb, h1.trans h3.symm, h2.trans h4.symm⟩
+    · have e1 := (hP r s h1 h2 1 h1u).symm.trans (hM' r s' h3 h4 1 h1u)
+      have e2 := (hP r s h1 h2 Complex.I hI).symm.trans (hM' r s' h3 h4 Complex.I hI)
+      rw [a33_shared_if_pm _ _ (star_one ℂ), a33_shared_if_pm _ _ (star_one ℂ)] at e1
+      obtain ⟨rfl, ha, -⟩ := a33_shared_two_points s s' 1 _ (-1) _ h1u hu hm1 (a33_shared_unit_neg _ hu') e1 e2 (a33_shared_if_I (ε r))
+      exact absurd (congrArg Complex.re ha) (by norm_num)
+    · have e1 := (hM r s h1 h2 1 h1u).symm.trans (hP' r s' h3 h4 1 h1u)
+      have e2 := (hM r s h1 h2 Complex.I hI).symm.trans (hP' r s' h3 h4 Complex.I hI)
+      rw [a33_shared_if_pm _ _ (star_one ℂ), a33_shared_if_pm _ _ (star_one ℂ)] at e1
+      obtain ⟨rfl, ha, -⟩ := a33_shared_two_points s s' (-1) _ 1 _ hm1 (a33_shared_unit_neg _ hu) h1u hu' e1 e2
+        (by rcases a33_shared_if_I (ε r) with h | h <;> rw [h] <;> simp)
+      exact absurd (congrArg Complex.re ha) (by norm_num)
+    · have e1 := (hM r s h1 h2 1 h1u).symm.trans (hM' r s' h3 h4 1 h1u)
+      have e2 := (hM r s h1 h2 Complex.I hI).symm.trans (hM' r s' h3 h4 Complex.I hI)
+      rw [a33_shared_if_pm _ _ (star_one ℂ), a33_shared_if_pm _ _ (star_one ℂ)] at e1
+      obtain ⟨rfl, -, hb⟩ := a33_shared_two_points s s' (-1) _ (-1) _ hm1 (a33_shared_unit_neg _ hu) hm1 (a33_shared_unit_neg _ hu') e1 e2
+        (by rcases a33_shared_if_I (ε r) with h | h <;> rw [h] <;> simp)
+      exact ⟨a33_shared_if_I_inj _ _ (neg_inj.1 hb), h1.trans h3.symm, h2.trans h4.symm⟩
+  refine ⟨Equiv.ext fun v => ?_, funext fun r => (hr r).1⟩
+  obtain ⟨r, h | h⟩ := a33_shared_all_vertices v
+  · rw [← h]; exact (hr r).2.1
+  · rw [← h]; exact (hr r).2.2
+""")
+    # ---- the vertex reading: a coincidence of endpoint points identifies the vertices ----
+    def vcase(a, b):
+        clash, f10, f01 = tab['strat'][f'{a},{b}']
+        if clash is not None:
+            return f"  · exact absurd h (a33_shared_apart_{a}_{b} _ _ (by cases x <;> simp) (by cases y <;> simp))\n"
+        c1 = circ.C[a][f10][0] * circ.C[b][f10][0]
+        clash2, f10b, _ = tab['strat'][f'{b},{a}']
+        c2 = circ.C[b][f10b][0] * circ.C[a][f10b][0]
+        bx, by_ = (c1 == 1), (c2 == 1)
+        return (f"  · have hz := a33_shared_meet_{a}_{b} _ _ (by cases x <;> simp) (by cases y <;> simp) h\n"
+                f"    have hw := a33_shared_meet_{b}_{a} _ _ (by cases y <;> simp) (by cases x <;> simp) h.symm\n"
+                f"    cases x <;> cases y <;> first | (norm_num at hz; done) | (norm_num at hw; done) | decide\n")
+    thm('a33_shared_vertex',
+        f"∀ (a b : Fin 9), a ≠ b → ∀ (x y : Bool), {PTR('a', '(if x then 1 else -1)')} = {PTR('b', '(if y then 1 else -1)')} →\n"
+        f"      (if x then {V1T} a else {V2T} a) = (if y then {V1T} b else {V2T} b)",
+        f"  intro a b hab x y h\n  rcases a33_shared_fin9 a with {FIN9} <;> rcases a33_shared_fin9 b with {FIN9} <;> (try exact absurd rfl hab) <;>\n"
+        f"    simp only [{RFACTS}] at h\n" + "".join(vcase(a, b) for a in range(9) for b in range(9) if a != b))
+    # ---- σ is injective (extracted from the endpoint-sign argument) ----
+    thm('a33_shared_sigma_inj',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (f : {E} → {E}), {ISO('f')} →\n"
+        f"      ∀ (σ : Fin 9 → Fin 9) (l : Fin 9 → ℂ) (ε : Fin 9 → Bool), (∀ r, star (l r) * l r = 1) →\n"
+        f"      (∀ r, ∀ z : ℂ, star z * z = 1 → f ({PTR('r', 'z')}) = {PTR('(σ r)', '(l r * (if ε r then z else star z))')}) → Function.Injective σ",
+        f"""  intro Γ₀ hΓ₀ f hf σ l ε hl hform
+  have hI : star Complex.I * Complex.I = 1 := a33_shared_unit_I
+  rw [Finite.injective_iff_surjective]
+  intro t
+  by_contra ht
+  obtain ⟨x, hx, hfx⟩ := hf.2.1 _ {MEM('t', 'Complex.I', 'hI')}
+  obtain ⟨r', z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
+  rw [hform r' z hz] at hfx
+  have hne : t ≠ σ r' := fun h => ht ⟨r', h.symm⟩
+  have hu := a33_shared_unit_mul (l r') _ (hl r') (a33_shared_unit_if (ε r') z hz)
+  rcases a33_shared_census t (σ r') hne Complex.I _ hI hu hfx.symm with h | h
+  · have := congrArg Complex.im h; norm_num at this
+  · have := congrArg Complex.im h; norm_num at this
+""")
+
+
+# ================= phase 8: the normal form of every isometry, and the classification =================
+V1L = [0, 2, 4, 2, 0, 3, 4, 5, 0]; V2L = [1, 3, 5, 5, 4, 1, 3, 1, 2]
+if PHASE >= 8:
+    thm('a33_shared_sgn_mul_p', "∀ b : Bool, (if b then (1 : ℂ) else -1) * 1 = if b then 1 else -1", "  intro b\n  rw [mul_one]\n")
+    thm('a33_shared_sgn_mul_m', "∀ b : Bool, (if b then (1 : ℂ) else -1) * -1 = if !b then 1 else -1", "  intro b\n  cases b <;> simp\n")
+    BQ = lambda q: f"decide (l {q} = 1)"
+    IMG = lambda q, b: f"(if {b} then {V1T} (σ {q}) else {V2T} (σ {q}))"
+    NU0 = "![" + ", ".join(f"{IMG(q, BQ(q))}, {IMG(q, '!' + BQ(q))}" for q in range(3)) + "]"
+    def entry(r, sr):
+        for (a, sa, b, sb) in tb['inc']:
+            if b == r and sb == sr: return (a, sa)
+        raise KeyError((r, sr))
+    HZ = {1: 'h1u', -1: 'hm1'}; HS = {1: '(star_one ℂ)', -1: 'hsm1'}; ZT = {1: '1', -1: '(-1)'}; PM = {1: 'p', -1: 'm'}
+    def cons_case(r, sr):
+        a, sa = entry(r, sr)
+        va = V1L[a] if sa == 1 else V2L[a]
+        q, qb = (va // 2, BQ(va // 2)) if va % 2 == 0 else ((va - 1) // 2, '!' + BQ((va - 1) // 2))
+        xa = BQ(a) if sa == 1 else '!' + BQ(a)
+        xr = BQ(r) if sr == 1 else '!' + BQ(r)
+        return (f"      have hinc : {PTR(str(a), ZT[sa])} = {PTR(str(r), ZT[sr])} := by\n"
+                f"        simp only [a33_shared_R1_{a}, a33_shared_R2_{a}, a33_shared_R1_{r}, a33_shared_R2_{r}]\n"
+                f"        exact a33_shared_inc_{a}_{PM[sa]}_{r}_{PM[sr]}\n"
+                f"      have h := congrArg f hinc\n"
+                f"      rw [hform {a} _ {HZ[sa]}, hform {r} _ {HZ[sr]}, a33_shared_if_pm _ _ {HS[sa]}, a33_shared_if_pm _ _ {HS[sr]}, hlb {a}, hlb {r},\n"
+                f"        a33_shared_sgn_mul_{PM[sa]}, a33_shared_sgn_mul_{PM[sr]}] at h\n"
+                f"      have hv := a33_shared_vertex (σ {a}) (σ {r}) (hinj.ne (by decide)) _ _ h\n"
+                f"      rw [hν₀]\n      show {IMG(q, qb)} = {IMG(r, xr)}\n      exact hv\n")
+    cons = ""
+    for r in range(9):
+        if r < 3:
+            cons += "  · exact ⟨by rw [hν₀]; rfl, by rw [hν₀]; rfl⟩\n"
+        else:
+            cons += "  · refine ⟨?_, ?_⟩\n    · " + cons_case(r, 1)[6:] + "    · " + cons_case(r, -1)[6:]
+    thm('a33_shared_exists_nf',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ f : {E} → {E}, {ISO('f')} →\n"
+        f"      ∃ (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool), {NF('f', 'ν', 'ε')}",
+        f"""  intro Γ₀ hΓ₀ f hf
+  classical
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hm1 : star (-1 : ℂ) * (-1) = 1 := by simp
+  have hsm1 : star (-1 : ℂ) = -1 := by simp
+  have hB1 := a33_shared_circles Γ₀ hΓ₀
+  dsimp only at hB1
+  have hB2 := a33_shared_form Γ₀ hΓ₀
+  dsimp only at hB2
+  have hB3 := a33_shared_signs Γ₀ hΓ₀
+  dsimp only at hB3
+  choose σ hσ using hB1 f hf
+  choose l ε hl hform using fun r => hB2 f hf r (σ r) (hσ r)
+  have hl2 := hB3 f hf σ l ε hl hform
+  have hinj := a33_shared_sigma_inj Γ₀ hΓ₀ f hf σ l ε hl hform
+  have hσsurj := Finite.injective_iff_surjective.1 hinj
+  have hlb : ∀ r, l r = (if decide (l r = 1) then 1 else -1) := by
+    intro r
+    rcases hl2 r with h | h <;> norm_num [h]
+  obtain ⟨ν₀, hν₀⟩ : ∃ ν₀ : Fin 6 → Fin 6, ν₀ = {NU0} := ⟨_, rfl⟩
+  have hcons : ∀ r : Fin 9, ν₀ ({V1T} r) = {IMG('r', BQ('r'))} ∧ ν₀ ({V2T} r) = {IMG('r', '!' + BQ('r'))} := by
+    intro r
+    rcases a33_shared_fin9 r with {FIN9}
+""" + "".join("  " + ln + "\n" for ln in cons.rstrip("\n").split("\n")) + f"""  have hsurj : Function.Surjective ν₀ := by
+    intro u
+    obtain ⟨s, hs⟩ := a33_shared_all_vertices u
+    obtain ⟨r, rfl⟩ := hσsurj s
+    rcases hs with rfl | rfl
+    · cases hb : decide (l r = 1)
+      · exact ⟨{V2T} r, by simp [(hcons r).2, hb]⟩
+      · exact ⟨{V1T} r, by simp [(hcons r).1, hb]⟩
+    · cases hb : decide (l r = 1)
+      · exact ⟨{V1T} r, by simp [(hcons r).1, hb]⟩
+      · exact ⟨{V2T} r, by simp [(hcons r).2, hb]⟩
+  refine ⟨Equiv.ofBijective ν₀ ⟨Finite.injective_iff_surjective.2 hsurj, hsurj⟩, ε, fun r => ⟨σ r, ?_⟩, ?_, ?_⟩
+  · cases hb : decide (l r = 1)
+    · right
+      refine ⟨?_, ?_⟩
+      · show ν₀ _ = _
+        simp [(hcons r).1, hb]
+      · show ν₀ _ = _
+        simp [(hcons r).2, hb]
+    · left
+      refine ⟨?_, ?_⟩
+      · show ν₀ _ = _
+        simp [(hcons r).1, hb]
+      · show ν₀ _ = _
+        simp [(hcons r).2, hb]
+  · intro r s h1 h2 z hz
+    change ν₀ _ = _ at h1
+    change ν₀ _ = _ at h2
+    rw [(hcons r).1] at h1
+    rw [(hcons r).2] at h2
+    cases hb : decide (l r = 1) <;> rw [hb] at h1 h2 <;>
+      simp only [Bool.not_false, Bool.not_true, Bool.false_eq_true, eq_self_iff_true, ↓reduceIte] at h1 h2
+    · exact absurd ⟨h2, h1⟩ (a33_shared_edge_rev (σ r) s)
+    · obtain rfl := a33_shared_edge_inj _ _ h1 h2
+      rw [hform r z hz, (decide_eq_true_iff.1 hb : l r = 1), one_mul]
+  · intro r s h1 h2 z hz
+    change ν₀ _ = _ at h1
+    change ν₀ _ = _ at h2
+    rw [(hcons r).1] at h1
+    rw [(hcons r).2] at h2
+    cases hb : decide (l r = 1) <;> rw [hb] at h1 h2 <;>
+      simp only [Bool.not_false, Bool.not_true, Bool.false_eq_true, eq_self_iff_true, ↓reduceIte] at h1 h2
+    · obtain rfl := a33_shared_edge_inj _ _ h2 h1
+      have hl' : l r = -1 := (hl2 r).resolve_left (by simpa using hb)
+      rw [hform r z hz, hl', neg_one_mul]
+    · exact absurd ⟨h1, h2⟩ (a33_shared_edge_rev (σ r) s)
+""")
+    thm('a33_classified', P['P_R'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  dsimp only
+  refine ⟨fun f hf => ?_, fun ν ε hν => a33_shared_real Γ₀ hΓ₀ ν ε hν⟩
+  obtain ⟨ν, ε, hnf⟩ := a33_shared_exists_nf Γ₀ hΓ₀ f hf
+  refine ⟨(ν, ε), hnf, ?_⟩
+  rintro ⟨ν', ε'⟩ h'
+  obtain ⟨h1, h2⟩ := a33_shared_nf_unique Γ₀ hΓ₀ f ν' ν ε' ε h' hnf
+  rw [h1, h2]
+""")
+    thm('a33_c_exclusive', ("(" + P['P_N'] + ") → ¬ (" + P['P_R'] + ")").replace('\n', '\n    '),
+        """  intro hN hR
+  have hN' := hN _ rfl
+  have hR' := hR _ rfl
+  dsimp only at hN' hR'
+  rcases hN' with ⟨f, hf, hnu⟩ | ⟨ν, ε, hν, hnr⟩
+  · exact hnu (hR'.1 f hf)
+  · obtain ⟨g, hg, hnf⟩ := hR'.2 ν ε hν
+    exact hnr g hg hnf
+""")
+
+
+# ================= phase 10: the act-25 family (A33-4) and the two remaining controls =================
+sh = json.load(open(S + 'shape33.json'))
+FAMTXT = open(S + 'famtext33.txt', encoding='utf-8').read()
+def FAM(f): return FAMTXT.replace('f (featureVec G)', f'{f} (featureVec G)')
+def PAR(eps): return (f"(∀ v w : Fin 6, ((Finset.univ.filter (fun r : Fin 9 => ({V1T} r = v ∨ {V2T} r = v) ∧ {eps} r = false)).card % 2)"
+                      f" = ((Finset.univ.filter (fun r : Fin 9 => ({V1T} r = w ∨ {V2T} r = w) ∧ {eps} r = false)).card % 2))")
+LST = lambda w: "[" + ", ".join(str(g) for g in w) + "]"
+RW24 = "[" + ", ".join(LST(w) for w in sh['RW']) + "]"
+CW24 = "[" + ", ".join(LST(w) for w in sh['CW']) + "]"
+def QT(q): return f"({'true' if q[0] else 'false'}, {LST(q[1])}, {LST(q[2])}, {'true' if q[3] else 'false'})"
+KQ32 = "[" + ", ".join(QT(q) for q in sh['KQ']) + "]"
+Q72 = "[" + ", ".join(QT(q) for q in sh['Q72']) + "]"
+QTY = "Bool × List (Fin 8) × List (Fin 8) × Bool"
+SW = lambda q: f"((if {q}.1 then [(7 : Fin 8)] else []) ++ {q}.2.1 ++ {q}.2.2.1 ++ (if {q}.2.2.2 then [(2 : Fin 8)] else []))"
+FOLDW = lambda w: FOLD.replace("(w.foldr", f"({w}.foldr")
+WORDF = lambda w: f"(({w}.map FG).foldr (· ∘ ·) id)"
+ROWP = lambda w: f"({w}.foldr (fun g acc => ({GP8} g).1.trans acc) (1 : Equiv.Perm (Fin 4)))"
+COLP = lambda w: f"({w}.foldr (fun g acc => ({GP8} g).2.trans acc) (1 : Equiv.Perm (Fin 4)))"
+SHAPE = lambda pi, tau, c, t, x: f"(if {c} then FG 7 (FR ({pi}, {tau}) (if {t} then FG 2 {x} else {x})) else FR ({pi}, {tau}) (if {t} then FG 2 {x} else {x}))"
+HFG = (f"∀ g : Fin 8, {ISO('(FG g)')} ∧ {NF('(FG g)', f'({GN8} g)', f'({GE8} g)')}\n"
+       f"        ∧ (∀ r : Fin 9, {COND(f'({GN8} g)', 'r', f'({GS8} g r)')}) ∧ (∀ x ∈ normalizedSet Γ₀, FG g (FG g x) = x) ∧ {ACT8('(FG g)')}")
+HFR = f"∀ pr : Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4), {ISO('(FR pr)')} ∧ {RACT('(FR pr)', '(pr.1)', '(pr.2)')}"
+CTX = (f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (FG : Fin 8 → ({E} → {E})) (FR : Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) → ({E} → {E})),\n"
+       f"      ({HFG}) → ({HFR}) →")
+if PHASE >= 10:
+    thm('a33_shared_nf_congr',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (f g : {E} → {E}) (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool), {NF('g', 'ν', 'ε')} →\n"
+        f"      (∀ x ∈ normalizedSet Γ₀, f x = g x) → {NF('f', 'ν', 'ε')}",
+        f"""  intro Γ₀ hΓ₀ f g ν ε ⟨hA, hP, hM⟩ hfg
+  refine ⟨hA, fun r s h1 h2 z hz => ?_, fun r s h1 h2 z hz => ?_⟩
+  · rw [hfg _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)]
+    exact hP r s h1 h2 z hz
+  · rw [hfg _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)]
+    exact hM r s h1 h2 z hz
+""")
+    thm('a33_shared_nf_agree',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ (f g : {E} → {E}) (ν : Equiv.Perm (Fin 6)) (ε : Fin 9 → Bool),\n"
+        f"      {NF('f', 'ν', 'ε')} → {NF('g', 'ν', 'ε')} → ∀ x ∈ normalizedSet Γ₀, f x = g x",
+        """  intro Γ₀ hΓ₀ f g ν ε ⟨hA, hP, hM⟩ ⟨_, hP', hM'⟩ x hx
+  obtain ⟨r, z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
+  obtain ⟨s, (⟨h1, h2⟩ | ⟨h1, h2⟩)⟩ := hA r
+  · rw [hP r s h1 h2 z hz, hP' r s h1 h2 z hz]
+  · rw [hM r s h1 h2 z hz, hM' r s h1 h2 z hz]
+""")
+    thm('a33_shared_family_congr',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), ∀ (f g : {E} → {E}), (∀ x ∈ normalizedSet Γ₀, f x = g x) → {FAM('g')} → {FAM('f')}",
+        """  intro Γ₀ f g hfg ⟨π, τ, h⟩
+  refine ⟨π, τ, ?_⟩
+  rcases h with h | h | h | h
+  · exact Or.inl fun G hG => by rw [hfg _ (featureVec_mem_normalizedSet hG)]; exact h G hG
+  · exact Or.inr (Or.inl fun G hG => by rw [hfg _ (featureVec_mem_normalizedSet hG)]; exact h G hG)
+  · exact Or.inr (Or.inr (Or.inl fun G hG U hU hUG => by rw [hfg _ (featureVec_mem_normalizedSet hG)]; exact h G hG U hU hUG))
+  · exact Or.inr (Or.inr (Or.inr fun G hG U hU hUG => by rw [hfg _ (featureVec_mem_normalizedSet hG)]; exact h G hG U hU hUG))
+""")
+    # the shape isometries are family elements, and every family element is a shape on the set
+    thm('a33_shared_shape_family',
+        CTX + f"\n      ∀ (π₀ τ₀ : Equiv.Perm (Fin 4)) (c t : Bool), {FAM('(fun x => ' + SHAPE('π₀', 'τ₀', 'c', 't', 'x') + ')')}",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR π₀ τ₀ c t
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hΓs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => hΓ i j j i
+  have hC := (hFG 7).2.2.2.2.1 rfl
+  have hT := (hFG 2).2.2.2.2.2.1 rfl
+  refine ⟨π₀, τ₀, ?_⟩
+  cases c <;> cases t
+  · refine Or.inl fun G hG => ?_
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    exact (hFR (π₀, τ₀)).2 G hG
+  · refine Or.inr (Or.inr (Or.inl fun G hG U hU hUG => ?_))
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    rw [hT G hG U hU hUG, (hFR (π₀, τ₀)).2 _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) U hU))]
+  · refine Or.inr (Or.inl fun G hG => ?_)
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    rw [(hFR (π₀, τ₀)).2 G hG, hC _ (relabel2_realizable Γ₀ hΓ π₀ τ₀ G hG)]
+  · refine Or.inr (Or.inr (Or.inr fun G hG U hU hUG => ?_))
+    simp only [↓reduceIte]
+    rw [hT G hG U hU hUG, (hFR (π₀, τ₀)).2 _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) U hU)),
+      hC _ (relabel2_realizable Γ₀ hΓ π₀ τ₀ _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) U hU)))]
+""")
+    thm('a33_shared_family_shape',
+        CTX + f"\n      ∀ f : {E} → {E}, {FAM('f')} → ∃ (π τ : Equiv.Perm (Fin 4)) (c t : Bool), ∀ x ∈ normalizedSet Γ₀, f x = {SHAPE('π', 'τ', 'c', 't', 'x')}",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR f ⟨π, τ, h⟩
+  have hx : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hΓs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => hΓ i j j i
+  have hC := (hFG 7).2.2.2.2.1 rfl
+  have hT := (hFG 2).2.2.2.2.2.1 rfl
+  rcases h with h | h | h | h
+  · refine ⟨π, τ, false, false, ?_⟩
+    rintro x ⟨G, hG, rfl⟩
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    rw [h G hG, (hFR (π, τ)).2 G hG]
+  · refine ⟨π, τ, true, false, ?_⟩
+    rintro x ⟨G, hG, rfl⟩
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    rw [h G hG, (hFR (π, τ)).2 G hG, hC _ (relabel2_realizable Γ₀ hΓ π τ G hG)]
+  · refine ⟨π, τ, false, true, ?_⟩
+    rintro x ⟨G, hG, rfl⟩
+    simp only [Bool.false_eq_true, ↓reduceIte]
+    obtain ⟨U, hU, hUG⟩ := sh1_sufficiency (0 : Fin 1) hG
+    rw [h G hG U hU hUG, hT G hG U hU hUG, (hFR (π, τ)).2 _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) U hU))]
+  · refine ⟨π, τ, true, true, ?_⟩
+    rintro x ⟨G, hG, rfl⟩
+    simp only [↓reduceIte]
+    obtain ⟨U, hU, hUG⟩ := sh1_sufficiency (0 : Fin 1) hG
+    rw [h G hG U hU hUG, hT G hG U hU hUG, (hFR (π, τ)).2 _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) U hU)),
+      hC _ (relabel2_realizable Γ₀ hΓ π τ _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx Γ₀ hΓs (0 : Fin 1) U hU)))]
+""")
+    # the relations on the set
+    thm('a33_shared_rel_TR',
+        CTX + f"\n      ∀ (π τ : Equiv.Perm (Fin 4)), ∀ x ∈ normalizedSet Γ₀, FG 2 (FR (π, τ) x) = FR (τ, π) (FG 2 x)",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR π τ x hx
+  have hx1 : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hΓs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => hΓ i j j i
+  have hΓne : ∀ i j, Γ₀ i j ≠ 0 := fun i j => by rw [hΓ₀]; simp
+  obtain ⟨-, -, -, -, -, -, -, -, -, hTR, -, -, -, -, -, -⟩ := iso1_family_acts
+  have hT := (hFG 2).2.2.2.2.2.1 rfl
+  obtain ⟨G, hG, rfl⟩ := hx
+  obtain ⟨U, hU, hUG⟩ := sh1_sufficiency (0 : Fin 1) hG
+  have hG' := relabel2_realizable Γ₀ hΓ π τ G hG
+  obtain ⟨U'', hU'', hU''G⟩ := sh1_sufficiency (0 : Fin 1) hG'
+  rw [(hFR (π, τ)).2 G hG, hT _ hG' U'' hU'' hU''G, hT G hG U hU hUG,
+    (hFR (τ, π)).2 _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx1 Γ₀ hΓs (0 : Fin 1) U hU))]
+  refine featureVec_gauge (hTR (Fin 4) (Fin 1) (by simp) Γ₀ hΓ hΓne (0 : Fin 1) π τ U hU U'' hU'' ?_)
+  rw [hU''G, hUG]
+""")
+    thm('a33_shared_rel_TC',
+        CTX + f"\n      ∀ x ∈ normalizedSet Γ₀, FG 2 (FG 7 x) = FG 7 (FG 2 x)",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR x hx
+  have hx1 : ∀ y : Fin 1, y = 0 := fun y => Subsingleton.elim y 0
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hΓs : ∀ i j, Γ₀ i j = Γ₀ j i := fun i j => hΓ i j j i
+  have hΓne : ∀ i j, Γ₀ i j ≠ 0 := fun i j => by rw [hΓ₀]; simp
+  obtain ⟨-, -, -, -, -, -, -, -, -, -, hTC, -, -, -, -, -⟩ := iso1_family_acts
+  have hT := (hFG 2).2.2.2.2.2.1 rfl
+  have hC := (hFG 7).2.2.2.2.1 rfl
+  obtain ⟨G, hG, rfl⟩ := hx
+  obtain ⟨U, hU, hUG⟩ := sh1_sufficiency (0 : Fin 1) hG
+  have hG' := realizable_conj Γ₀ G hG
+  obtain ⟨U'', hU'', hU''G⟩ := sh1_sufficiency (0 : Fin 1) hG'
+  rw [hC G hG, hT _ hG' U'' hU'' hU''G, hT G hG U hU hUG,
+    hC _ (sh1_necessity (transpose_admissible (0 : Fin 1) hx1 Γ₀ hΓs (0 : Fin 1) U hU))]
+  refine featureVec_gauge (hTC (Fin 4) (Fin 1) (by simp) Γ₀ hΓne (0 : Fin 1) U hU U'' hU'' ?_)
+  rw [hU''G, hUG]
+""")
+    thm('a33_shared_rel_CR',
+        CTX + f"\n      ∀ (π τ : Equiv.Perm (Fin 4)), ∀ x ∈ normalizedSet Γ₀, FG 7 (FR (π, τ) x) = FR (π, τ) (FG 7 x)",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR π τ x hx
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  have hC := (hFG 7).2.2.2.2.1 rfl
+  obtain ⟨G, hG, rfl⟩ := hx
+  rw [(hFR (π, τ)).2 G hG, hC _ (relabel2_realizable Γ₀ hΓ π τ G hG), hC G hG, (hFR (π, τ)).2 _ (realizable_conj Γ₀ G hG), conj_relabel2]
+""")
+    thm('a33_shared_rel_RR',
+        CTX + f"\n      ∀ (π τ π' τ' : Equiv.Perm (Fin 4)), ∀ x ∈ normalizedSet Γ₀, FR (π, τ) (FR (π', τ') x) = FR (π.trans π', τ.trans τ') x",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR π τ π' τ' x hx
+  have hΓ : ∀ i j i' j', Γ₀ i j = Γ₀ i' j' := fun i j i' j' => by rw [hΓ₀]; rfl
+  obtain ⟨G, hG, rfl⟩ := hx
+  rw [(hFR (π', τ')).2 G hG, (hFR (π, τ)).2 _ (relabel2_realizable Γ₀ hΓ π' τ' G hG), (hFR (π.trans π', τ.trans τ')).2 G hG, relabel2_relabel2]
+""")
+    thm('a33_shared_rel_R1',
+        CTX + f"\n      ∀ x ∈ normalizedSet Γ₀, FR ((1 : Equiv.Perm (Fin 4)), (1 : Equiv.Perm (Fin 4))) x = x",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR x hx
+  obtain ⟨G, hG, rfl⟩ := hx
+  refine ((hFR (1, 1)).2 G hG).trans ?_
+  first | rfl | (congr 1; funext i; simp only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id])
+""")
+    thm('a33_shared_rel_G',
+        CTX + f"\n      ∀ g : Fin 8, g ≠ 2 → g ≠ 7 → ∀ x ∈ normalizedSet Γ₀, FG g x = FR ({GP8} g) x",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR g h2 h7 x hx
+  obtain ⟨G, hG, rfl⟩ := hx
+  rw [(hFG g).2.2.2.2.2.2 h2 h7 G hG, (hFR _).2 G hG]
+""")
+    # normalization of every word to a shape
+    thm('a33_shared_word_shape',
+        CTX + f"\n      ∀ w : List (Fin 8), ∃ (π τ : Equiv.Perm (Fin 4)) (c t : Bool), ∀ x ∈ normalizedSet Γ₀, {WORDF('w')} x = {SHAPE('π', 'τ', 'c', 't', 'x')}",
+        f"""  intro Γ₀ hΓ₀ FG FR hFG hFR w
+  have hTR := a33_shared_rel_TR Γ₀ hΓ₀ FG FR hFG hFR
+  have hTC := a33_shared_rel_TC Γ₀ hΓ₀ FG FR hFG hFR
+  have hCR := a33_shared_rel_CR Γ₀ hΓ₀ FG FR hFG hFR
+  have hRR := a33_shared_rel_RR Γ₀ hΓ₀ FG FR hFG hFR
+  have hRG := a33_shared_rel_G Γ₀ hΓ₀ FG FR hFG hFR
+  have hTT := (hFG 2).2.2.2.1
+  have hCC := (hFG 7).2.2.2.1
+  have hS : ∀ (π τ : Equiv.Perm (Fin 4)) (t : Bool), ∀ x ∈ normalizedSet Γ₀, FR (π, τ) (if t then FG 2 x else x) ∈ normalizedSet Γ₀ := by
+    intro π τ t x hx
+    cases t
+    · exact (hFR _).1.1 x hx
+    · exact (hFR _).1.1 _ ((hFG 2).1.1 x hx)
+  induction w with
+  | nil =>
+    refine ⟨1, 1, false, false, fun x hx => ?_⟩
+    simp only [List.map_nil, List.foldr_nil, id_eq, Bool.false_eq_true, ↓reduceIte, ite_false]
+    exact (a33_shared_rel_R1 Γ₀ hΓ₀ FG FR hFG hFR x hx).symm
+  | cons g w ih =>
+    obtain ⟨π, τ, c, t, hw⟩ := ih
+    simp only [List.map_cons, List.foldr_cons]
+    by_cases h7 : g = 7
+    · subst h7
+      refine ⟨π, τ, !c, t, fun x hx => ?_⟩
+      show FG 7 ({WORDF('w')} x) = _
+      rw [hw x hx]
+      cases c
+      · rfl
+      · simp only [↓reduceIte, Bool.not_true, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
+        exact hCC _ (hS π τ t x hx)
+    by_cases h2 : g = 2
+    · subst h2
+      refine ⟨τ, π, c, !t, fun x hx => ?_⟩
+      show FG 2 ({WORDF('w')} x) = _
+      rw [hw x hx]
+      cases c <;> cases t <;> simp only [↓reduceIte, Bool.not_true, Bool.not_false, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
+      · exact hTR π τ x hx
+      · rw [hTR π τ _ ((hFG 2).1.1 x hx), hTT x hx]
+      · rw [hTC _ ((hFR _).1.1 x hx), hTR π τ x hx]
+      · rw [hTC _ ((hFR _).1.1 _ ((hFG 2).1.1 x hx)), hTR π τ _ ((hFG 2).1.1 x hx), hTT x hx]
+    · refine ⟨({GP8} g).1.trans π, ({GP8} g).2.trans τ, c, t, fun x hx => ?_⟩
+      show FG g ({WORDF('w')} x) = _
+      rw [hw x hx, hRG g h2 h7 _ (by cases c <;> [exact hS π τ t x hx; exact (hFG 7).1.1 _ (hS π τ t x hx)])]
+      cases c <;> simp only [↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
+      · exact hRR _ _ π τ _ (by cases t <;> [exact hx; exact (hFG 2).1.1 x hx])
+      · rw [← hCR _ _ _ (hS π τ t x hx), hRR _ _ π τ _ (by cases t <;> [exact hx; exact (hFG 2).1.1 x hx])]
+""")
+    # a relabelling word acts as its product
+    thm('a33_shared_rowcol_word',
+        CTX + f"\n      ∀ (rw cw : List (Fin 8)), (∀ g ∈ rw, g = 3 ∨ g = 4 ∨ g = 5) → (∀ g ∈ cw, g = 0 ∨ g = 1 ∨ g = 6) →\n"
+        f"      ∀ x ∈ normalizedSet Γ₀, {WORDF('(rw ++ cw)')} x = FR ({ROWP('rw')}, {COLP('cw')}) x",
+        f"""  intro Γ₀ hΓ₀ FG FR hFG hFR rw cw hrw hcw
+  have hRR := a33_shared_rel_RR Γ₀ hΓ₀ FG FR hFG hFR
+  have hRG := a33_shared_rel_G Γ₀ hΓ₀ FG FR hFG hFR
+  have hR1 := a33_shared_rel_R1 Γ₀ hΓ₀ FG FR hFG hFR
+  have hcol : ∀ x ∈ normalizedSet Γ₀, {WORDF('cw')} x = FR ((1 : Equiv.Perm (Fin 4)), {COLP('cw')}) x := by
+    induction cw with
+    | nil =>
+      intro x hx
+      simp only [List.map_nil, List.foldr_nil, id_eq]
+      exact (hR1 x hx).symm
+    | cons g w ih =>
+      intro x hx
+      have hg := hcw g (List.mem_cons.2 (Or.inl rfl))
+      have ih' := ih (fun g' hg' => hcw g' (List.mem_cons.2 (Or.inr hg')))
+      simp only [List.map_cons, List.foldr_cons]
+      show FG g ({WORDF('w')} x) = _
+      rw [ih' x hx, hRG g (by rcases hg with rfl | rfl | rfl <;> decide) (by rcases hg with rfl | rfl | rfl <;> decide) _ ((hFR _).1.1 x hx),
+        hRR _ _ _ _ x hx]
+      rcases hg with rfl | rfl | rfl <;> rfl
+  have hrow : ∀ x ∈ normalizedSet Γ₀, {WORDF('rw')} x = FR ({ROWP('rw')}, (1 : Equiv.Perm (Fin 4))) x := by
+    induction rw with
+    | nil =>
+      intro x hx
+      simp only [List.map_nil, List.foldr_nil, id_eq]
+      exact (hR1 x hx).symm
+    | cons g w ih =>
+      intro x hx
+      have hg := hrw g (List.mem_cons.2 (Or.inl rfl))
+      have ih' := ih (fun g' hg' => hrw g' (List.mem_cons.2 (Or.inr hg')))
+      simp only [List.map_cons, List.foldr_cons]
+      show FG g ({WORDF('w')} x) = _
+      rw [ih' x hx, hRG g (by rcases hg with rfl | rfl | rfl <;> decide) (by rcases hg with rfl | rfl | rfl <;> decide) _ ((hFR _).1.1 x hx),
+        hRR _ _ _ _ x hx]
+      rcases hg with rfl | rfl | rfl <;> rfl
+  intro x hx
+  rw [a33_shared_wordf_append, hcol x hx, hrow _ ((hFR _).1.1 x hx), hRR _ _ _ _ x hx]
+  rfl
+""")
+    thm('a33_shared_row_words', f"∀ π : Equiv.Perm (Fin 4), ∃ w ∈ ({RW24} : List (List (Fin 8))), (∀ g ∈ w, g = 3 ∨ g = 4 ∨ g = 5) ∧ π = {ROWP('w')}", "  decide +kernel\n")
+    thm('a33_shared_col_words', f"∀ τ : Equiv.Perm (Fin 4), ∃ w ∈ ({CW24} : List (List (Fin 8))), (∀ g ∈ w, g = 0 ∨ g = 1 ∨ g = 6) ∧ τ = {COLP('w')}", "  decide +kernel\n")
+    # a shape word acts as its shape
+    thm('a33_shared_shape_word',
+        CTX + f"\n      ∀ q : {QTY}, (∀ g ∈ q.2.1, g = 3 ∨ g = 4 ∨ g = 5) → (∀ g ∈ q.2.2.1, g = 0 ∨ g = 1 ∨ g = 6) →\n"
+        f"      ∀ x ∈ normalizedSet Γ₀, {WORDF(SW('q'))} x = {SHAPE(ROWP('q.2.1'), COLP('q.2.2.1'), 'q.1', 'q.2.2.2', 'x')}",
+        f"""  intro Γ₀ hΓ₀ FG FR hFG hFR q hrw hcw x hx
+  obtain ⟨c, rw, cw, t⟩ := q
+  have hmid := a33_shared_rowcol_word Γ₀ hΓ₀ FG FR hFG hFR rw cw hrw hcw
+  simp only [a33_shared_wordf_append] at hmid
+  cases c <;> cases t <;> simp only [a33_shared_wordf_append, List.map_nil, List.foldr_nil, List.map_cons, List.foldr_cons, Function.comp_apply, id_eq, ↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_true, ite_false]
+  · rw [hmid x hx]
+  · rw [hmid _ ((hFG 2).1.1 x hx)]
+  · rw [hmid x hx]
+  · rw [hmid _ ((hFG 2).1.1 x hx)]
+""")
+    # the decided facts about shape folds
+    thm('a33_shared_shape_parity',
+        f"∀ rw ∈ ({RW24} : List (List (Fin 8))), ∀ cw ∈ ({CW24} : List (List (Fin 8))), ∀ c t : Bool,\n"
+        f"      {FOLDW(SW('(c, rw, cw, t)'))}.1 = 1 → {PAR(FOLDW(SW('(c, rw, cw, t)')) + '.2.2')}",
+        "  decide +kernel\n")
+    thm('a33_shared_kernel_shapes',
+        f"∀ ε : Fin 9 → Bool, {PAR('ε')} → ∃ q ∈ ({KQ32} : List ({QTY})), (∀ g ∈ q.2.1, g = 3 ∨ g = 4 ∨ g = 5) ∧ (∀ g ∈ q.2.2.1, g = 0 ∨ g = 1 ∨ g = 6)\n"
+        f"      ∧ {FOLDW(SW('q'))}.1 = 1 ∧ {FOLDW(SW('q'))}.2.2 = ε",
+        "  decide +kernel\n")
+    thm('a33_shared_aut_shapes',
+        f"∀ ν : Equiv.Perm (Fin 6), (∀ r : Fin 9, ∃ s : Fin 9, {COND('ν', 'r', 's')}) → ∃ q ∈ ({Q72} : List ({QTY})), (∀ g ∈ q.2.1, g = 3 ∨ g = 4 ∨ g = 5) ∧ (∀ g ∈ q.2.2.1, g = 0 ∨ g = 1 ∨ g = 6)\n"
+        f"      ∧ {FOLDW(SW('q'))}.1 = ν",
+        "  decide +kernel\n")
+    thm('a33_shared_not_parity_0', f"¬ {PAR('(fun r : Fin 9 => decide (r ≠ 0))')}", "  decide\n")
+    thm('a33_shared_bool_swap', "∀ a b : Bool, decide (decide (a = b) = a) = b", "  decide\n")
+    thm('a33_shared_bool_comm', "∀ a b : Bool, decide (a = b) = decide (b = a)", "  decide\n")
+
+
+if PHASE >= 10:
+    PRELUDE = f"""  classical
+  choose FG hFG using a33_shared_gen8 Γ₀ hΓ₀
+  choose FR hFR using fun pr : Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) => a33_shared_relabel_iso Γ₀ hΓ₀ pr.1 pr.2
+  have hW := a33_shared_word8 Γ₀ hΓ₀ FG (fun g => ⟨(hFG g).1, (hFG g).2.1, (hFG g).2.2.1, (hFG g).2.2.2.1⟩)
+"""
+    thm('a33_shared_bool_swap2', "∀ a x : Bool, decide (a = decide (x = a)) = x", "  decide\n")
+    thm('a33_shared_word_family',
+        CTX + f"\n      ∀ w : List (Fin 8), {FAM(WORDF('w'))}",
+        """  intro Γ₀ hΓ₀ FG FR hFG hFR w
+  obtain ⟨π, τ, c, t, h⟩ := a33_shared_word_shape Γ₀ hΓ₀ FG FR hFG hFR w
+  exact a33_shared_family_congr Γ₀ _ _ h (a33_shared_shape_family Γ₀ hΓ₀ FG FR hFG hFR π τ c t)
+""")
+    thm('a33_shared_word_parity',
+        CTX + f"\n      (∀ w : List (Fin 8), {ISO(WORDF('w'))} ∧ {NF(WORDF('w'), f'{FOLD}.1', f'{FOLD}.2.2')}) →\n"
+        f"      ∀ (w : List (Fin 8)) (ε₀ : Fin 9 → Bool), {NF(WORDF('w'), '(1 : Equiv.Perm (Fin 6))', 'ε₀')} → {PAR('ε₀')}",
+        f"""  intro Γ₀ hΓ₀ FG FR hFG hFR hW w ε₀ hnf
+  obtain ⟨π, τ, c, t, hsh⟩ := a33_shared_word_shape Γ₀ hΓ₀ FG FR hFG hFR w
+  obtain ⟨rw, hrw, hrwg, hπ⟩ := a33_shared_row_words π
+  obtain ⟨cw, hcw, hcwg, hτ⟩ := a33_shared_col_words τ
+  have hsw := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c, rw, cw, t) hrwg hcwg
+  obtain ⟨-, hnfw⟩ := hW {SW('(c, rw, cw, t)')}
+  have hnf' := a33_shared_nf_congr Γ₀ hΓ₀ {WORDF(SW('(c, rw, cw, t)'))} _ _ _ hnf (fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ])
+  obtain ⟨h1, h2⟩ := a33_shared_nf_unique Γ₀ hΓ₀ _ _ _ _ _ hnfw hnf'
+  have := a33_shared_shape_parity rw hrw cw hcw c t h1
+  rw [h2] at this
+  exact this
+""")
+    thm('a33_shared_family_kernel', P['FAM_K'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf ε hnf
+""" + PRELUDE + f"""  have hWp : ∀ w : List (Fin 8), {ISO(WORDF('w'))} ∧ {NF(WORDF('w'), f'{FOLD}.1', f'{FOLD}.2.2')} := fun w => ⟨(hW w).1, (hW w).2.1⟩
+  constructor
+  · intro hfam
+    obtain ⟨π, τ, c, t, hsh⟩ := a33_shared_family_shape Γ₀ hΓ₀ FG FR hFG hFR f hfam
+    obtain ⟨rw, hrw, hrwg, hπ⟩ := a33_shared_row_words π
+    obtain ⟨cw, hcw, hcwg, hτ⟩ := a33_shared_col_words τ
+    have hsw := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c, rw, cw, t) hrwg hcwg
+    have hnf' := a33_shared_nf_congr Γ₀ hΓ₀ {WORDF(SW('(c, rw, cw, t)'))} f _ _ hnf (fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ])
+    exact a33_shared_word_parity Γ₀ hΓ₀ FG FR hFG hFR hWp _ ε hnf'
+  · intro hpar
+    obtain ⟨q, -, hrwg, hcwg, h1, h2⟩ := a33_shared_kernel_shapes ε hpar
+    obtain ⟨-, hnfw, -, -⟩ := hW {SW('q')}
+    rw [h1, h2] at hnfw
+    have hag := a33_shared_nf_agree Γ₀ hΓ₀ f _ _ _ hnf hnfw
+    exact a33_shared_family_congr Γ₀ f _ hag (a33_shared_word_family Γ₀ hΓ₀ FG FR hFG hFR _)
+""")
+    thm('a33_shared_family_coset', P['FAM_COSET'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro ν ε ε' f f' hf hf' hnf hnf' hfam
+""" + PRELUDE + f"""  have hWp : ∀ w : List (Fin 8), {ISO(WORDF('w'))} ∧ {NF(WORDF('w'), f'{FOLD}.1', f'{FOLD}.2.2')} := fun w => ⟨(hW w).1, (hW w).2.1⟩
+  have hc := a33_shared_composition Γ₀ hΓ₀
+  dsimp only at hc
+  -- the word of f
+  obtain ⟨π, τ, c, t, hsh⟩ := a33_shared_family_shape Γ₀ hΓ₀ FG FR hFG hFR f hfam
+  obtain ⟨rw, hrw, hrwg, hπ⟩ := a33_shared_row_words π
+  obtain ⟨cw, hcw, hcwg, hτ⟩ := a33_shared_col_words τ
+  have hsw := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c, rw, cw, t) hrwg hcwg
+  have hfw : ∀ x ∈ normalizedSet Γ₀, f x = {WORDF(SW('(c, rw, cw, t)'))} x := fun x hx => by rw [hsw x hx, hsh x hx, ← hπ, ← hτ]
+  obtain ⟨hwiso, hwnf, -, hwinv⟩ := hW {SW('(c, rw, cw, t)')}
+  have hnfw := a33_shared_nf_congr Γ₀ hΓ₀ _ f _ _ hnf (fun x hx => (hfw x hx).symm)
+  obtain ⟨hν, hε⟩ := a33_shared_nf_unique Γ₀ hΓ₀ _ _ _ _ _ hwnf hnfw
+  rw [hν, hε] at hwnf
+  constructor
+  · intro hfam'
+    obtain ⟨π', τ', c', t', hsh'⟩ := a33_shared_family_shape Γ₀ hΓ₀ FG FR hFG hFR f' hfam'
+    obtain ⟨rw', hrw', hrwg', hπ'⟩ := a33_shared_row_words π'
+    obtain ⟨cw', hcw', hcwg', hτ'⟩ := a33_shared_col_words τ'
+    have hsw' := a33_shared_shape_word Γ₀ hΓ₀ FG FR hFG hFR (c', rw', cw', t') hrwg' hcwg'
+    have hfw' : ∀ x ∈ normalizedSet Γ₀, f' x = {WORDF(SW("(c', rw', cw', t')"))} x := fun x hx => by rw [hsw' x hx, hsh' x hx, ← hπ', ← hτ']
+    have hnfw' := a33_shared_nf_congr Γ₀ hΓ₀ _ f' _ _ hnf' (fun x hx => (hfw' x hx).symm)
+    -- the kernel word k := reverse of the word of f, then the word of f'
+    obtain ⟨hkiso, hknf, hkcond, -⟩ := hW ({SW('(c, rw, cw, t)')}.reverse ++ {SW("(c', rw', cw', t')")})
+    have hkw : ∀ x ∈ normalizedSet Γ₀, {WORDF('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')} x
+        = {WORDF('(' + SW('(c, rw, cw, t)') + '.reverse)')} ({WORDF(SW("(c', rw', cw', t')"))} x) := by
+      intro x hx
+      exact a33_shared_wordf_append FG _ _ x
+    -- f ∘ k agrees with f' on the set
+    have hcomp := hc _ _ _ _ _ _ hwiso hkiso hwnf hknf
+      (fun r => decide ({FOLDW('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')}.2.2 r
+        = ε ({FOLDW('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')}.2.1 r)))
+      (fun r s hrs => by
+        obtain rfl := a33_shared_edge_unique _ r s _ hrs (hkcond r)
+        rfl)
+    have hagree : ∀ x ∈ normalizedSet Γ₀, ({WORDF(SW('(c, rw, cw, t)'))} ∘ {WORDF('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')}) x
+        = {WORDF(SW("(c', rw', cw', t')"))} x := by
+      intro x hx
+      show {WORDF(SW('(c, rw, cw, t)'))} ({WORDF('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')} x) = _
+      rw [hkw x hx, hwinv _ ((hW _).1.1 x hx)]
+    have hnf2 := a33_shared_nf_congr Γ₀ hΓ₀ _ _ _ _ hnfw' hagree
+    obtain ⟨h1, h2⟩ := a33_shared_nf_unique Γ₀ hΓ₀ _ _ _ _ _ hnf2 hcomp
+    have hk1 : {FOLDW('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')}.1 = 1 := mul_left_cancel (h1.symm.trans (mul_one ν).symm)
+    have hkε : {FOLDW('(' + SW('(c, rw, cw, t)') + '.reverse ++ ' + SW("(c', rw', cw', t')") + ')')}.2.2 = fun r => decide (ε r = ε' r) := by
+      funext r
+      have h2r := congrFun h2 r
+      simp only at h2r
+      have hσ := a33_shared_edge_unique 1 r r _ (Or.inl ⟨rfl, rfl⟩) (hk1 ▸ hkcond r)
+      rw [← hσ] at h2r
+      rw [h2r]
+      exact (a33_shared_bool_swap2 (ε r) _).symm
+    rw [hk1, hkε] at hknf
+    exact a33_shared_word_parity Γ₀ hΓ₀ FG FR hFG hFR hWp _ _ hknf
+  · intro hpar
+    obtain ⟨q, -, hrwg, hcwg, h1, h2⟩ := a33_shared_kernel_shapes _ hpar
+    obtain ⟨hkiso, hknf, -, -⟩ := hW {SW('q')}
+    rw [h1, h2] at hknf
+    have hcomp := hc _ _ _ _ _ _ hwiso hkiso hwnf hknf ε' (fun r s hrs => by
+      obtain rfl := a33_shared_edge_unique 1 r r s (Or.inl ⟨rfl, rfl⟩) hrs
+      exact (a33_shared_bool_swap (ε r) (ε' r)).symm)
+    rw [mul_one] at hcomp
+    have hag := a33_shared_nf_agree Γ₀ hΓ₀ f' _ _ _ hnf' hcomp
+    have hword : ∀ x ∈ normalizedSet Γ₀, ({WORDF(SW('(c, rw, cw, t)'))} ∘ {WORDF(SW('q'))}) x = {WORDF('(' + SW('(c, rw, cw, t)') + ' ++ ' + SW('q') + ')')} x := by
+      intro x hx
+      exact (a33_shared_wordf_append FG _ _ x).symm
+    exact a33_shared_family_congr Γ₀ f' _ hag (a33_shared_family_congr Γ₀ _ _ hword (a33_shared_word_family Γ₀ hΓ₀ FG FR hFG hFR _))
+""")
+    thm('a33_shared_family_onto', P['FAM_ONTO'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro ν hν
+""" + PRELUDE + f"""  obtain ⟨q, -, hrwg, hcwg, hnu⟩ := a33_shared_aut_shapes ν hν
+  obtain ⟨hiso, hnf, -, -⟩ := hW {SW('q')}
+  rw [hnu] at hnf
+  exact ⟨_, _, hiso, a33_shared_word_family Γ₀ hΓ₀ FG FR hFG hFR _, hnf⟩
+""")
+    thm('a33_control_conjugation', P['C_CONJ'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  dsimp only
+  obtain ⟨f, hf, hnf⟩ := a33_shared_kernel_real Γ₀ hΓ₀ (fun _ => false)
+  exact ⟨f, hf, hnf⟩
+""")
+    thm('a33_control_a32', P['C_A32'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  have hK := a33_shared_family_kernel Γ₀ hΓ₀
+  dsimp only at hK ⊢
+  obtain ⟨f, hf, hnf⟩ := a33_shared_conj_real Γ₀ hΓ₀ 0
+  refine ⟨f, hf, fun hfam => a33_shared_not_parity_0 ((hK f hf _ hnf).1 hfam), hnf⟩
+""")
+
+out += ['end OrbitIsometryGroup', 'end OIBridge', '']
+open(OUT, 'w', encoding='utf-8').write('\n'.join(out))
+print(len(names), 'theorems')

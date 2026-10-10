@@ -1,0 +1,5 @@
+PASS S-C3 control, order 3 about (5,1,1): R in SO(3) of order 3; axes of R, R' non-parallel: True; cos(angle of R R') = 127/162 (not in {0, +-1/2, +-1}); a member moves E0 and a defect of Z_F out of their cones: True
+PASS S-C4 control, order 4 about (1,2,2): R in SO(3) of order 4; axes of R, R' non-parallel: True; cos(angle of R R') = -31/81 (not in {0, +-1/2, +-1}); a member moves E0 and a defect of Z_F out of their cones: True
+PASS S-T3 target, order 3 about (5,1,1): R in SO(3) of order 3; axes of R, R' non-parallel: True; cos(angle of R R') = -113/162 (not in {0, +-1/2, +-1}); a member moves E0 and a defect of Z_F out of their cones: True
+PASS cc-cyc3 countercontrol, the corpus's J (cyc3, order 3): <cyc3, Rz(pi)> is finite of order 12, cos(angle of cyc3 cyc3') = -1/2: the criterion does not fire (cyc3 is a local Clifford, covered by y5)
+VERDICT Y7-SINGLE-EXACT

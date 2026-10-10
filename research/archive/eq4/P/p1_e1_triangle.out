@@ -1,0 +1,28 @@
+PASS K0 transcription control: parsed kernel objects equal the hand transcriptions
+PASS K1 the hand kernel cnot equals Ad(CNOT) in the Pauli dictionary on all 16 unit tables
+PASS K2 kernel cnot(prodState xplus z3) = phiW = coords(Phi+), and idW = coords(SWAP/2) = coords(PT_2 Phi+)
+PASS K3 the one-qubit transpose acts on coords1 as homMap(reflY) (4 units)
+PASS K4 pairVal(sharpVec x, sharpVec y, T) = <coords(E_x (x) E_y)/4, T> (3 rational x, y; 16 unit tables)
+PASS K5 the gate's dual image of the product effect |+><+| (x) |0><0| is |Phi+><Phi+| (the Bell effect)
+PASS L1 c = 0: Bell-state conditional = (1/8) T(Pi_pi f) on all 64 units, all 6 matchings, on A|B, B|C, A|C
+PASS L2 c = 0: Bell-effect value = (1/8) tr(x T(Pi_pi y)) on all 64 x 64 unit pairs, all 6 matchings, three subfamilies
+PASS L3 T preserves the trace pairing and commutes with every Pi_pi (all units)
+PASS L4 countercontrols: two matchings give different maps on some unit; the transpose is not the identity
+PASS C1/C2 c = 1 (twin links SWAP/2): conditional = (1/8) Pi_pi f and value = (1/8) tr(x Pi_pi y), all units, all matchings, three subfamilies; countercontrol: c = 0 and c = 1 conditionals differ
+PASS P1 GHZ is invariant under the 6 token permutations; Cauchy-Schwarz SOS identity (symbolic) and the overlap formula (3 exact instances): W3 = 1/2 - GHZ is in BS*
+PASS P2 GHZ is PSD (exact elimination), hence in BS* (BS is inside PSD)
+PASS P3 W3 |GHZ> = -1/2 |GHZ> (exact), so W3 is not PSD, hence not in BS
+PASS P4 T(W3) = W3 and T(GHZ) = GHZ
+PASS P5 (BS, BS): tr[(W3_A (x) GHZ_B)(Phi+)^3] = ['-1/16'] < 0 for all 6 matchings: (I3) fails
+PASS P6 (BS*, BS*): tr[(Phi+)^3 (W3_A (x) GHZ_B)] = ['-1/16'] < 0 for all 6 matchings: (II3) fails
+PASS P7 all 8 assignments of {BS, BS*} to (A, B, C) put equal cones on some linked pair
+PASS P8 controls: biseparable |0><0| (x) Phi+ in place of GHZ gives 1/32, 1/32 >= 0; PSD on both sides (GHZ, GHZ) gives 1/8, 1/8 >= 0
+PASS T1 F, G commute with the 6 token permutations; for every third token k, symbolic phi and PT on either remaining token, PT_j(<phi|M|phi>_k) is diag(|b|^2, |phi|^2, |phi|^2, |a|^2)/2 plus a single coherence of modulus |a||b| on |01><10|, block determinant (|a|^2 - |b|^2)^2/4 (symbolic): F, G in B_tw*
+PASS T2 tr(F G) = -1/2 < 0
+PASS T3 (B_tw*, B_tw*) with twin links: states F (A), G (B), twin Bell effects: value ['-1/16'] < 0 (all matchings)
+PASS T4 (B_tw, B_tw): the twin-link conditional of the effect G is G/8 and tr(F G/8) = ['-1/16'] < 0 (all matchings)
+PASS T5 control: W3 = sum_k p_k PT_1(sigma_k (x) rho_k) with 6 explicit PSD products (W3 in B_tw); tr(W3 F) = 1/2, tr(W3 G) = 5/2 >= 0
+PASS T6 countercontrol: F2 (coherence 2) pairs to -1/2 < 0 with the B_tw generator PT_1(Psi-) (x) |+><+| (F itself gives 0 >= 0)
+PASS K' general k = 1..4: Bell conditional 2^-k T(Pi f), twin conditional 2^-k Pi f on all units (all matchings for k <= 3, three for k = 4)
+--- p1_e1_triangle: 26/26 checks pass
+VERDICT P1-E1-TRIANGLE-EXACT

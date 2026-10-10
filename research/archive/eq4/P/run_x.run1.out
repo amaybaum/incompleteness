@@ -1,0 +1,7 @@
+x3_sector_search     script 5b487f04a24a1ee8  recorded 8cde8d761f48f259  replay 8cde8d761f48f259  exit 0  stderr empty  identical True
+x4_sector_dfs        script 0184400cb6153e8a  recorded ec5d70e45a718ebe  replay ec5d70e45a718ebe  exit 0  stderr empty  identical True
+x6_sector_family     script 17f283384f8c6727  recorded 84adf8fbc4940511  replay 84adf8fbc4940511  exit 0  stderr empty  identical True
+x8_sector_limit      script d4dd7d026cd846e8  recorded c80ada7505ebc04e  replay c80ada7505ebc04e  exit 0  stderr empty  identical True
+x10_e2_contraction   script bb2662048b071ae1  recorded 61cfc8a1af8eb564  replay 61cfc8a1af8eb564  exit 0  stderr empty  identical True
+x11_KA_networks      script 73b7259d86272d44  recorded 27782abde8b401a7  replay 27782abde8b401a7  exit 0  stderr empty  identical True
+VERDICT RUN-X-OK

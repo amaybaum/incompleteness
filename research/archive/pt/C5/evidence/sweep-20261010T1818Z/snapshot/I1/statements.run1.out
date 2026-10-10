@@ -1,0 +1,869 @@
+[S:Core] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:93-94
+    /-- The core state `((v,h),b)`: the carrier is `ℋ_vh ⊗ ℋ_b`. -/
+    abbrev Core := VH × Bool
+[S:vis] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:96-97
+    /-- The observer reads `(v,b)`; the middle bit `h` is hidden. -/
+    def vis (p : Core) : Bool × Bool := (p.1.1, p.2)
+[S:swapFn] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:99-100
+    /-- The passive step `σ(v,h,b) = (h,v,b)`. -/
+    def swapFn : Core → Core := fun p => ((p.1.2, p.1.1), p.2)
+[S:flipFn] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:102-103
+    /-- The control `τ(v,h,b) = (v,h,b⊕1)`. -/
+    def flipFn : Core → Core := fun p => (p.1, !p.2)
+[S:core_hidden_drives_visible] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:135-138
+    /-- **C1, literally.** The hidden bit drives the visible future: two states with the
+    same visible readout are separated after a single passive step. -/
+    theorem core_hidden_drives_visible :
+        ∃ p q : Core, vis p = vis q ∧ p ≠ q ∧ vis (swapFn p) ≠ vis (swapFn q) := by
+[S:core_visible_period_two] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:141-143
+    /-- **C2, structurally.** The visible stream carries a genuine one-bit memory:
+    `v_{t+2} = v_t`, while `v_{t+1}` is the hidden bit. -/
+    theorem core_visible_period_two (p : Core) : vis (swapFn (swapFn p)) = vis p := rfl
+[S:core_observer_minimal] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:148-150
+    /-- **The core is already observer-minimal**: the two-step visible itinerary separates
+    all eight states, so no observational quotient collapses it. -/
+    theorem core_observer_minimal : ∀ p q : Core, itin p = itin q → p = q := by decide
+[S:core_capacity_saturates] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:152-162
+    /-- **C3 — sufficient hidden memory capacity.** For every current visible readout there
+    are exactly two states carrying it; they are separated precisely by the hidden bit, and
+    their visible futures differ. So the one-bit hidden sector has exactly the capacity the
+    conditional past-to-future distinction demands — the framework realization saturates the
+    capacity bound rather than merely exceeding it. -/
+    theorem core_capacity_saturates :
+        Fintype.card Bool = 2
+          ∧ ∀ r : Bool × Bool,
+              (Finset.univ.filter (fun p : Core => vis p = r)).card = 2
+              ∧ ∀ p q : Core, vis p = r → vis q = r → p ≠ q →
+                  vis (swapFn p) ≠ vis (swapFn q) := by
+[S:core_history_readback] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:172-179
+    /-- **C4 — history readback.** The present visible readout determines neither the visible
+    past nor the visible future: two states with the SAME present `(v,b)` carry the histories
+    `0 → 0 → 0` and `1 → 0 → 1`. The hidden bit is exactly the record that separates them, so
+    the past is readable from, and the future predicted by, the hidden state alone. -/
+    theorem core_history_readback :
+        ∃ p q : Core, vis p = vis q ∧ p ≠ q
+          ∧ histTriple p = (false, false, false)
+          ∧ histTriple q = (true, false, true) := by decide
+[S:CoreC1C4] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:181-187
+    /-- **THE FOUR OI CONDITIONS ON THE SHARED CORE**, as one predicate, in canonical order:
+    C1 (non-trivial coupling — the hidden state drives the visible future), C2 (memory
+    persistence — the visible stream carries structural memory), C3 (sufficient hidden memory
+    capacity — exactly saturated here), and C4 (history readback — the present determines
+    neither past nor future, the hidden state does). Bundled so that the census capstone
+    carries the core conditions inside its own statement rather than in its prose. -/
+    def CoreC1C4 : Prop :=
+[S:core_isC1C4] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:199-200
+    /-- The swap-memory core satisfies all four OI conditions. -/
+    theorem core_isC1C4 : CoreC1C4 :=
+[S:IsLocalOnB] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:548-549
+    /-- A control lift is tensor-local on the `b` factor when it acts as `I_vh ⊗ M_b`. -/
+    def IsLocalOnB (U : Matrix Core Core ℂ) : Prop :=
+[S:IsLocalOnVH] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:553-554
+    /-- A passive lift is tensor-local on the `vh` factor when it acts as `M_vh ⊗ I_b`. -/
+    def IsLocalOnVH (U : Matrix Core Core ℂ) : Prop :=
+[S:oi_core_underdetermines_completion] verification/lean-mathlib/OIBridge/IndependenceCensus.lean:798-824
+    /-- **THE INDEPENDENCE CENSUS.** One and the same controlled-minimal, memory-bearing
+    C1–C4 OI core (Section A), on which every completion below reproduces the identical
+    classical comb (`threeCompletions_same_classical_comb`), carries:
+    
+      1. a CPTP, classically exact, NON-FUNCTORIAL coherent completion;
+      2. a strict unitary — hence functorial — completion that is NOT tensor-local;
+      3. a functorial AND tensor-local completion whose reachable control Lie algebra is a
+         proper subalgebra of `su(D)`.
+    
+    So C1–C4 do not select the unrestricted operational completion. Case 3 is ordinary
+    quantum kinematics with a restricted reachable-control subgroup, not a non-quantum
+    theory: `S ⇔ D ⇔ Q_fb` is untouched, and what fails is the UNRESTRICTED finite
+    operational package. -/
+    theorem oi_core_underdetermines_completion :
+        (CoreC1C4 ∧ ∀ p q : Core, itin p = itin q → p = q)
+          ∧ ((∀ g, IsCPTP (member nonFunctorialC g))
+            ∧ (∀ g, ClassicallyRealizes (member nonFunctorialC g) (genPerm g))
+            ∧ (member nonFunctorialC .ctrl).comp (member nonFunctorialC .ctrl)
+                ≠ LinearMap.id)
+          ∧ (Usigma * Usigmaᴴ = 1 ∧ Utau * Utauᴴ = 1
+            ∧ Usigma * Usigma = 1 ∧ Utau * Utau = 1
+            ∧ Usigma * Utau = Utau * Usigma
+            ∧ ¬IsLocalOnB Utau)
+          ∧ (IsLocalOnVH Usigma ∧ IsLocalOnB Vtau
+            ∧ (∀ w, restrictedU w * coreH * (restrictedU w)ᴴ = coreH)
+            ∧ outsideGenᴴ = -outsideGen ∧ outsideGen.trace = 0
+            ∧ outsideGen ∉ controlLie coreH restrictedU) :=
+[S:coreIdx] verification/lean-mathlib/OIBridge/OIRealization.lean:90-92
+    /-- **THE EMBEDDING** `((v,h),b) ↦ (h, pack (v,b))`: the hidden bit on the system qubit, the
+    visible pair on the ancilla. -/
+    def coreIdx : Core ≃ Fin 2 × Fin 4 where
+[S:readVisible] verification/lean-mathlib/OIBridge/OIRealization.lean:112-115
+    /-- **THE EMBEDDED OBSERVER'S READOUT**: keep the states whose visible pair is `r` — both
+    hidden values survive. This is the OI readout of the `(v,b)` register, not a full-basis
+    probe. -/
+    def readVisible (r : Bool × Bool) : Matrix Core Core ℂ →ₗ[ℂ] Matrix Core Core ℂ where
+[S:RealizesSealedOICore] verification/lean-mathlib/OIBridge/OIRealization.lean:229-234
+    /-- **THE SEALED OI CORE, REALIZED IN A THEORY**: the core satisfies C1–C4; the passive
+    step and the control are available as the transported permutation channels at level four;
+    the actual visible readout is the native ancilla readout and is available as a family; and
+    the realized visible comb agrees with the classical OI comb on every classical preparation
+    and every finite word. -/
+    def RealizesSealedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+[S:realizesSealedOICore_of_control] verification/lean-mathlib/OIBridge/OIRealization.lean:251-253
+    /-- **CONTROL REALIZES THE SEALED CORE.** -/
+    theorem realizesSealedOICore_of_control (T : FiniteOperationalTheory (Fin 2))
+        (hctrl : HasCompositeUnitaryControl T) : RealizesSealedOICore T := by
+[S:SealedCoreIsFiniteOI] verification/lean-mathlib/OIBridge/OIRealization.lean:282-291
+    /-- **THE FINITE-OI INGREDIENTS OF THE SEALED CORE**, each as the manuscript states it: a
+    finite total system (Lemma 1); a proper finite visible subsystem with a hidden complement
+    of more than one state (Lemma 2); the explicit product partition visible × hidden
+    (Lemma 2); the dynamics deterministic and injective, hence a bijection with a predecessor
+    map (Lemma 3); the counting measure invariant under the passive step and the control
+    (Lemma 3); recurrence — every state returns (Axiom 2, here with period two); registered
+    differentiation — the visible readout distinguishes states (Axiom 1); coupling through the
+    dynamics across the partition (the definition's third feature, which is C1); and the four
+    diagnostics C1–C4. -/
+    def SealedCoreIsFiniteOI : Prop :=
+[S:sealedCore_is_finiteOI] verification/lean-mathlib/OIBridge/OIRealization.lean:304-305
+    /-- **THE AUDIT PASSES**: the sealed core is a finite OI process in the manuscript's sense. -/
+    theorem sealedCore_is_finiteOI : SealedCoreIsFiniteOI :=
+[S:sameCore_both_sides] verification/lean-mathlib/OIBridge/OIRealization.lean:340-353
+    /-- **THE CAPSTONE.** One and the same finite, reversible, C1–C4 Observation-Incompleteness
+    process — audited as a finite OI process in the manuscript's sense — admits operational
+    completions on either side of the compositional independence matrix, and one with both. -/
+    theorem sameCore_both_sides :
+        SealedCoreIsFiniteOI
+          ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T
+              ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T
+              ∧ ¬ InertSpectatorCompositionality T)
+          ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T
+              ∧ HasCompositeUnitaryControl T ∧ InertSpectatorCompositionality T
+              ∧ ¬ IteratedAncillaClosure T)
+          ∧ (∃ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T ∧ ExactFiniteEndomorphicQuantumOps T
+              ∧ HasCompositeUnitaryControl T ∧ InertSpectatorCompositionality T
+              ∧ IteratedAncillaClosure T) :=
+[S:finiteOI_not_implies_inert] verification/lean-mathlib/OIBridge/OIRealization.lean:357-362
+    /-- **BARE FINITE OI DOES NOT IMPLY EITHER COMPOSITIONAL PRINCIPLE**: realizing the audited
+    core, with EXACT system quantum mechanics and full composite unitary control, forces neither
+    inert-spectator compositionality nor iterated ancilla closure. -/
+    theorem finiteOI_not_implies_inert :
+        ¬ ∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T → ExactFiniteEndomorphicQuantumOps T
+          → HasCompositeUnitaryControl T → InertSpectatorCompositionality T :=
+[S:finiteOI_not_implies_closure] verification/lean-mathlib/OIBridge/OIRealization.lean:366-368
+    theorem finiteOI_not_implies_closure :
+        ¬ ∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T → ExactFiniteEndomorphicQuantumOps T
+          → HasCompositeUnitaryControl T → IteratedAncillaClosure T :=
+[S:OICore] verification/lean-mathlib/OIBridge/CompletedOI.lean:95-96
+    /-- **BARE OI**: the original observation-incompleteness principle, unchanged. -/
+    def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop := RealizesSealedOICore T
+[S:oiCore_not_completedOI] verification/lean-mathlib/OIBridge/CompletedOI.lean:114-116
+    /-- **BARE OI IS NOT COMPLETED OI.** -/
+    theorem oiCore_not_completedOI :
+        ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ ¬ CompletedOI T :=
+[S:qm_implies_oiCore] verification/lean-mathlib/OIBridge/CompletedOI.lean:546-550
+    /-- **QUANTUM MECHANICS REALIZES THE SEALED OI CORE.** The forward implication, on its own and
+    findable. Containment only: the route is through full composite unitary control, so this says the
+    quantum class is rich enough to build the core's gadget, not that observation explains it. -/
+    theorem qm_implies_oiCore (T : FiniteOperationalTheory (Fin 2))
+        (h : ExactAllFiniteEndomorphicQuantumOps T) : OICore T :=
+[S:oiCore_forward_redundancy] verification/lean-mathlib/OIBridge/CompletedOI.lean:553-562
+    /-- **THE FORWARD-REDUNDANCY AUDIT ENTRY**, in one place: containment holds, the core is redundant
+    in the forward direction, and the converse fails. The three together are the whole of what the
+    formalization supports about "QM and OI", and they are exactly what rules out reading the
+    containment as an explanatory necessity. -/
+    theorem oiCore_forward_redundancy :
+        (∀ T : FiniteOperationalTheory (Fin 2), ExactAllFiniteEndomorphicQuantumOps T → OICore T)
+        ∧ (∀ T : FiniteOperationalTheory (Fin 2),
+            CompletedOI T ↔ PhysicalCompletionConditions T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+            OICore T ∧ ¬ ExactAllFiniteEndomorphicQuantumOps T) :=
+[S:DerivedOI] verification/lean-mathlib/OIBridge/RouteB.lean:137-141
+    /-- **THE CONSEQUENCE CLOSURE, `DerivedOI`**: every theory-level predicate the kernel derives
+    from the substratum, in the strongest form it derives it — reversible implementation locality
+    (the substratum class is dagger-stable), embedded observation, and the availability at every
+    level of the exchanges, the phases and the read-write operators. -/
+    def DerivedOI (T : FiniteOperationalTheory A) : Prop :=
+[S:DerivedOICore] verification/lean-mathlib/OIBridge/RouteB.lean:145-146
+    /-- **THE CONSEQUENCE CLOSURE ON THE TWO-STATE CARRIER** adds the sealed OI core. -/
+    def DerivedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+[S:ExchangesAvailable] verification/lean-mathlib/OIBridge/RouteB.lean:122-123
+    /-- **THE EXCHANGES ARE AVAILABLE**: at every level, the exchange of any two states. -/
+    def ExchangesAvailable (T : FiniteOperationalTheory A) : Prop :=
+[S:PhasesAvailable] verification/lean-mathlib/OIBridge/RouteB.lean:127-128
+    /-- **THE PHASES ARE AVAILABLE**: at every level, the quarter phase on any state. -/
+    def PhasesAvailable (T : FiniteOperationalTheory A) : Prop :=
+[S:ReadWriteAvailable] verification/lean-mathlib/OIBridge/RouteB.lean:131-133
+    /-- **THE READ-WRITE OPERATORS ARE AVAILABLE**: at every level, every operator of every
+    read-write family at every coupling value. -/
+    def ReadWriteAvailable (T : FiniteOperationalTheory A) : Prop :=
+[S:FalsifierUnavailable] verification/lean-mathlib/OIBridge/RouteB.lean:172-174
+    /-- **THE FALSIFIER IS UNAVAILABLE**: the rotation `rot` of the two-state carrier at level one
+    is not a one-outcome available operation. -/
+    def FalsifierUnavailable (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+[S:RouteBTarget] verification/lean-mathlib/OIBridge/RouteB.lean:246-252
+    /-- **THE ROUTE B TARGET**: a two-state finite operational theory satisfying the consequence
+    closure with the core, in which the falsifier is unavailable. By
+    `not_phaseFree_of_falsifier_unavailable` such a theory fails phase-free richness, and by
+    `carrier_general_oiPlusMin` it is not exact finite operational quantum mechanics. Its proof is
+    `routeB_target` in Section F, through `target_of_substratum_core` and the sealed core for the
+    substratum theory. -/
+    def RouteBTarget : Prop :=
+[S:derivedOICore_of_qm] verification/lean-mathlib/OIBridge/RouteB.lean:230-232
+    /-- **AND THE TWO-STATE CLOSURE WITH THE CORE.** -/
+    theorem derivedOICore_of_qm (T : FiniteOperationalTheory (Fin 2))
+        (h : ExactAllFiniteEndomorphicQuantumOps T) : DerivedOICore T :=
+[S:substratumTheory_realizesSealedOICore] verification/lean-mathlib/OIBridge/RouteB.lean:374-375
+    /-- **THE SUBSTRATUM THEORY REALIZES THE SEALED OI CORE.** All four clauses close. -/
+    theorem substratumTheory_realizesSealedOICore : RealizesSealedOICore (substratumTheory (Fin 2)) :=
+[S:routeB_target] verification/lean-mathlib/OIBridge/RouteB.lean:383-384
+    /-- **THE ROUTE B TARGET**: the substratum theory on the two-state carrier is a witness. -/
+    theorem routeB_target : RouteBTarget :=
+[S:derivedOICore_not_phaseFree] verification/lean-mathlib/OIBridge/RouteB.lean:392-396
+    /-- **THE CLOSURE WITH THE CORE DOES NOT ENTAIL PHASE-FREE RICHNESS** on the two-state carrier:
+    a theory satisfying every consequence the kernel derives from the substratum and the sealed core,
+    and failing the one conjunct of `OIPlusMin` the substratum does not supply. -/
+    theorem derivedOICore_not_phaseFree :
+        ∃ T : FiniteOperationalTheory (Fin 2), DerivedOICore T ∧ ¬ PhaseFreeRichness T :=
+[S:A1Realized] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:72-76
+    /-- **THE REALIZED-CORE IMAGE OF A1**: the configuration space of the realized core is finite.
+    The core has eight states, and every level of the theory is a finite type of `2 n` states. The
+    predicate does not depend on the theory: it is carried by the interface's types. It is an image
+    of A1, not A1: nothing identifies the core with a manuscript substratum's `S`. -/
+    def A1Realized (_T : FiniteOperationalTheory (Fin 2)) : Prop :=
+[S:A2Realized] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:79-83
+    /-- **THE REALIZED-CORE IMAGE OF A2**: the realized dynamics `sigmaPerm` is a bijection of the
+    core, realized as a one-outcome (deterministic) transported permutation channel at level four,
+    and its inverse is realized likewise (reversible). An image of A2, not A2: nothing identifies the
+    core's dynamics with a manuscript substratum's `φ`. -/
+    def A2Realized (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+[S:A1A2Realized] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:88-90
+    /-- The conjunction of the two realized-core images. Not the manuscript OI: no manuscript-level
+    conjunct of A1–A6 has a faithful form in this interface. -/
+    def A1A2Realized (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+[S:a1_every_theory] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:93-94
+    /-- **THE A1 IMAGE HOLDS FOR EVERY THEORY**, by the interface's types. -/
+    theorem a1_every_theory (T : FiniteOperationalTheory (Fin 2)) : A1Realized T :=
+[S:a2_of_control] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:110-113
+    /-- **THE A2 IMAGE HOLDS FOR EVERY THEORY WITH COMPOSITE UNITARY CONTROL**, so for quantum
+    mechanics: the image does not separate the witness from quantum mechanics. -/
+    theorem a2_of_control (T : FiniteOperationalTheory (Fin 2)) (hctrl : HasCompositeUnitaryControl T) :
+        A2Realized T :=
+[S:ConfigurationLevel] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:122-125
+    /-- **A CONFIGURATION-LEVEL ARCHITECTURE**: every admissible implementation operator is monomial,
+    a permutation of the configurations composed with a phase — the operator shape the interface
+    assigns to a substratum's direct interventions. -/
+    def ConfigurationLevel (𝓘 : ImplementationClass) : Prop :=
+[S:configurationLevel_not_phaseFree] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:164-170
+    /-- **NO CONFIGURATION-LEVEL CLASS GENERATES PHASE-FREE RICHNESS** on the two-state carrier,
+    when configuration relabelling is gauge (the class is label-invariant, so the generated theory
+    has embedded observation and the falsifier reduction applies). Hence any class supplying
+    phase-free richness is not configuration-level: necessity of a non-configuration-level source,
+    with no claim about which one. -/
+    theorem configurationLevel_not_phaseFree (h : ConfigurationLevel 𝓘) (hl : LabelInvariant 𝓘) :
+        ¬ PhaseFreeRichness (genTheory 𝓘 arch (Fin 2)) :=
+[S:configurationLevel_not_qm] verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:174-176
+    /-- **NO CONFIGURATION-LEVEL CLASS GENERATES QUANTUM MECHANICS** on the two-state carrier. -/
+    theorem configurationLevel_not_qm (h : ConfigurationLevel 𝓘) :
+        ¬ ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2)) :=
+[S:Substratum] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:56-60
+    /-- **A SUBSTRATUM**: a site type with lattice translations, an additive alphabet, and a
+    finite-range second-order rule. The configuration space is the phase-space form `ι → V × V`
+    and the dynamics is the kernel's phase-space map `leapEquiv`. The structure carries no
+    operational notion. -/
+    structure Substratum where
+[S:A1] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:83-84
+    /-- **(A1) FINITENESS**: the configuration space is finite. -/
+    def A1 : Prop := Finite 𝒮.Conf
+[S:A2] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:86-87
+    /-- **(A2) DETERMINISM**: the dynamics is a bijection. -/
+    def A2 : Prop := Function.Bijective 𝒮.φ
+[S:A3] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:89-91
+    /-- **(A3) BOUNDED COUPLING DEGREE**, with the degree as a parameter: every site reads at most
+    `D` sites. -/
+    def A3 (D : ℕ) : Prop := ∀ i, (𝒮.R.N i).card ≤ D
+[S:A4Exact] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:93-94
+    /-- **(A4) CENTER INDEPENDENCE, EXACT FORM**: the rule commutes with every translation. -/
+    def A4Exact : Prop := ∀ (v : 𝒮.ι) (c : 𝒮.ι → 𝒮.V), 𝒮.R.F (shiftBy v c) = shiftBy v (𝒮.R.F c)
+[S:A4] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:96-98
+    /-- **(A4) CENTER INDEPENDENCE UP TO GAUGE**, with the gauge as a parameter: the dynamics
+    commutes with every translation up to an element of `G`. -/
+    def A4 (G : Subgroup (Equiv.Perm 𝒮.Conf)) : Prop :=
+[S:A5] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:101-102
+    /-- **(A5) LINEARITY**: the rule is additive over the alphabet. -/
+    def A5 : Prop := ∀ c c' : 𝒮.ι → 𝒮.V, 𝒮.R.F (c + c') = 𝒮.R.F c + 𝒮.R.F c'
+[S:A3Family] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:130-131
+    /-- **A3 IN FAMILY FORM**: one degree bounds every member of a family of substrata. -/
+    def A3Family (𝒮 : ℕ → Substratum) : Prop := ∃ D, ∀ L, (𝒮 L).A3 D
+[S:waveSubstratum_A1] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:184-185
+    /-- **THE WAVE SUBSTRATUM SATISFIES A1** for a finite torus and alphabet. -/
+    theorem waveSubstratum_A1 [NeZero L] [NeZero q] : (waveSubstratum d L q α).A1 := by
+[S:SourcedOI] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:616-619
+    /-- **THE SOURCED CLOSURE, `SourcedOI`**: the conjuncts of `DerivedOI` other than the phases —
+    reversible implementation locality, embedded observation, and the availability at every level
+    of the exchanges and the read-write operators. -/
+    def SourcedOI (T : FiniteOperationalTheory A) : Prop :=
+[S:permTheory_realizesSealedOICore] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:737-740
+    /-- **THE SOURCED THEORY REALIZES THE SEALED OI CORE**: the passive step and the control are
+    transported permutations, the readout is the native readout, and the comb is the classical comb.
+    No phase is used. -/
+    theorem permTheory_realizesSealedOICore : RealizesSealedOICore (permTheory (Fin 2)) :=
+[S:permTheory_twoState] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:751-755
+    /-- **THE SOURCED TWO-STATE THEORY**: the sourced closure with the sealed core, the falsifier
+    unavailable, and no quarter phase. -/
+    theorem permTheory_twoState :
+        SourcedOI (permTheory (Fin 2)) ∧ RealizesSealedOICore (permTheory (Fin 2))
+          ∧ FalsifierUnavailable (permTheory (Fin 2)) ∧ ¬ PhasesAvailable (permTheory (Fin 2)) :=
+[S:obsTheory] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:767-769
+    /-- **THE OBSERVER THEORY OF A SUBSTRATUM**: the sourced theory on its configuration space,
+    under the finiteness A1 supplies. -/
+    noncomputable abbrev obsTheory : FiniteOperationalTheory 𝒮.Conf :=
+[S:obsTheory_rule_independent] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:776-781
+    /-- **THE OBSERVER THEORY DOES NOT DEPEND ON THE RULE**: two substrata on the same sites and
+    alphabet have the same observer theory, whatever their rules. Configuration-level sourcing
+    consumes nothing of A3–A6. -/
+    theorem obsTheory_rule_independent (ι V : Type) [DecidableEq ι] [AddCommGroup ι] [AddCommGroup V]
+        [Fintype ι] [Fintype V] [DecidableEq V] (R R' : Rule ι V) :
+        obsTheory { ι := ι, V := V, R := R } = obsTheory { ι := ι, V := V, R := R' } := rfl
+[S:obs_embeddedObservation] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:818-819
+    /-- **SOURCING — EMBEDDED OBSERVATION**, from label invariance. -/
+    theorem obs_embeddedObservation : EmbeddedObservation (obsTheory 𝒮) :=
+[S:obs_not_qm] verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:859-860
+    /-- **THE OBSERVER THEORY IS NOT QUANTUM MECHANICS.** -/
+    theorem obs_not_qm : ¬ ExactAllFiniteEndomorphicQuantumOps (obsTheory 𝒮) := permTheory_not_qm
+[S:A6Inv] verification/lean-mathlib/OIBridge/BackgroundIndependence.lean:99-104
+    /-- **`A6-inv`** (slot 3) — invariance of a fixed rule under site-dependent transformations
+    preserving `M`: the coupling is **fixed**, `F` does not change, `M` does not change, and the
+    transformation acts on the configuration alone. The literal first sentence of `Substratum.md:102`.
+    Stated on a bare `F` so that `D2` reads it on `(waveSubstratum d L q α).R.F` with no new
+    definition. -/
+    def A6Inv (F : (ι → V) → (ι → V)) (M : V →+ V) : Prop :=
+[S:A6Glob] verification/lean-mathlib/OIBridge/BackgroundIndependence.lean:107-111
+    /-- **`A6-glob`** (slot 4) — the global commutant symmetry: the special case of `A6-inv` with `g`
+    constant (`a6glob_of_a6inv`). It is what the second sentence of `Substratum.md:102` names as what
+    A6 yields before promotion, and it is a reading in its own right because on the manuscripts' own
+    rule `A6-inv` is predicted to have no content beyond it (`D4`). -/
+    def A6Glob (F : (ι → V) → (ι → V)) (M : V →+ V) : Prop :=
+[S:A6Cov] verification/lean-mathlib/OIBridge/BackgroundIndependence.lean:127-131
+    /-- **`A6-cov`** (slot 7) — covariance: the coupling transforms with the configuration. No
+    pointwise-preservation hypothesis, because the coupling is transported and nothing needs
+    preserving. **Not a predicate of a `Substratum`**: a predicate of a neighbourhood function and a
+    link coupling, which is the first reason it must not be identified with `A6-inv`. -/
+    def A6Cov (N : ι → Finset ι) (M : ι → ι → (V →+ V)) : Prop :=
+[S:a6cov_all] verification/lean-mathlib/OIBridge/BackgroundIndependence.lean:154-161
+    /-- **`D3-a` — `A6-cov` IS AN IDENTITY**: for every neighbourhood function and link coupling,
+    `linkF N (gaugeLink g M) (g · c) i = ∑_j g i (M i j ((g j)⁻¹ (g j (c j)))) = g i (∑_j M i j (c j))`.
+    
+    **Bounded reading:** `A6-cov` restricts no link-coupled rule; its content is the interface, not a
+    constraint. This is a statement about the frozen `A6Cov` on link-coupled rules over a finite
+    alphabet, **not** "local gauge invariance is trivial" and not a statement about `SM.md:114`'s
+    derivation on the complex lift, which is outside the interface. -/
+    theorem a6cov_all (N : ι → Finset ι) (M : ι → ι → (V →+ V)) : A6Cov N M := by
+[S:d3b_not_a6inv] verification/lean-mathlib/OIBridge/BackgroundIndependence.lean:209-215
+    /-- **`D3-b` — A LINK-COUPLED RULE FAILING `A6-inv`**, on the frozen carrier. Together with
+    `a6cov_all`, the two readings are provably distinct, **in the one direction available**: on
+    link-coupled rules `A6-cov` always holds and `A6-inv` sometimes fails, so `A6-inv` is the strictly
+    stronger condition there, and no rule satisfies `A6-inv` and fails `A6-cov`. -/
+    theorem d3b_not_a6inv :
+        ¬ A6Inv (linkF (![{1}, {0}] : Fin 2 → Finset (Fin 2))
+            (fun _ _ => AddMonoidHom.id (Fin 2 → ZMod 2))) (AddMonoidHom.id _) := by
+[S:pk2a_bridge] verification/lean-mathlib/OIBridge/A6Instantiation.lean:251-261
+    /-- **`PK2-a` — THE BRIDGE EQUATION**, at the manuscripts' data: the packaged carrier's update map
+    is the interface's link-coupled map for the very link coupling the packaging carries, read on the
+    carrier's own neighbourhood function.
+    
+    **This is the content of `PK2`**: the identification of the manuscripts' carrier with the
+    interface's. -/
+    theorem pk2a_bridge :
+        (linkSubstratum (Fin d → ZMod L) (Fin 6 → ZMod q) (nbrs d L) M
+            (fun _ _ h => mem_nbrs_symm d L h)).R.F
+          = linkF (linkSubstratum (Fin d → ZMod L) (Fin 6 → ZMod q) (nbrs d L) M
+              (fun _ _ h => mem_nbrs_symm d L h)).R.N M :=
+[S:cx3b_complex_not_A1] verification/lean-mathlib/OIBridge/A6Instantiation.lean:498-515
+    /-- **`CX3-b` — THE COMPLEX CARRIER IS NOT A SUBSTRATUM SATISFYING A1, AND THIS IS THE PROOF.**
+    `Substratum.A1` is `Finite (ι → V × V)` and `Fin 6 → ℂ` is infinite, so the configuration space of
+    the complex carrier is infinite: the constant families exhibit an injection from `ℂ`. **A proved
+    negative, computed in the kernel, not a failed proof search.**
+    
+    **Bounded reading, frozen, and it is this round's most load-bearing distinction:** "bringing the
+    complex lift inside the interface" can mean two different things, and they come apart here. The
+    **covariance statement** comes inside (`CX1`, `CX2`). The **complex carrier does not come inside
+    as a substratum in the kernel's sense**, because finiteness is the first of the interface's axioms
+    and the complex carrier is infinite. That is **not a defect of the interface and not a defect of the
+    manuscripts**: the manuscripts' substratum is the finite object of `SM.md:306` and the complex
+    carrier is the object on which the derivation of `SM.md:114` and Theorem 5 is conducted. **`A1` is
+    not weakened**, no finiteness parameter is added, and no second substratum structure is
+    introduced. -/
+    theorem cx3b_complex_not_A1 (d L : ℕ)
+        (M : (Fin d → ZMod L) → (Fin d → ZMod L) → ((Fin 6 → ℂ) →+ (Fin 6 → ℂ))) :
+        ¬ (linkSubstratum (Fin d → ZMod L) (Fin 6 → ℂ) (nbrs d L) M
+          (fun _ _ h => mem_nbrs_symm d L h)).A1 := by
+[S:c3_necessity] verification/lean-mathlib/OIBridge/C3Necessity.lean:75-81
+    /-- **Theorem (C3 necessity), [Main] §3.3.** `I(X_<t ; X_>t | X_t) ≤ log₂ m`, at every horizon.
+    
+    The whole visible future is a function of `(X_t, H_t)`, so conditioning on `X_t` makes
+    `X_<t → H_t → X_>t` a Markov chain; data processing and `I ≤ log₂|C_H|` finish it. Both steps are
+    `HiddenMemory.capacity_floor_of_fun`, instantiated at the future readout. -/
+    theorem c3_necessity [Nonempty H] (R : Realization Hist V H) (L : ℕ) :
+        cmiBits R.w (varHist) (varNow) (varFuture R L) ≤ Real.logb 2 (Fintype.card H) := by
+[S:card_hidden_ge_two_pow_Istar] verification/lean-mathlib/OIBridge/C3Necessity.lean:112-119
+    /-- **Corollary (per-process capacity bound), [Main] §3.3.** `m ≥ 2^{I*}`.
+    
+    The hidden sector must be at least as large as the backflow it carries. Note what this is NOT: it
+    is not `m ≥ n`, and it is not a bound growing with the number of coupling events — the manuscript
+    is explicit that the latter needs an independence hypothesis P-indivisibility does not supply. -/
+    theorem card_hidden_ge_two_pow_Istar [Nonempty H] {ι : Type*} {F : Finset ι} (hF : F.Nonempty)
+        (R : ι → Realization Hist V H) (L : ι → ℕ) :
+        (2 : ℝ) ^ (Istar hF R L) ≤ (Fintype.card H : ℝ) := by
+[S:C4e] verification/lean-mathlib/OIBridge/CausalReadback.lean:60-62
+    /-- **C4e, THE CANDIDATE EXACT MARGINAL-REVIVAL FORM**: two distinct rooted preparations whose one-time visible
+    marginals coincide at some time and differ at a later time within the horizon. -/
+    def C4e (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
+[S:C4r] verification/lean-mathlib/OIBridge/CausalReadback.lean:65-67
+    /-- **C4r, QUANTITATIVE ROOTED REVIVAL**: visible distinguishability of two rooted preparations
+    strictly increases across some pair of times within the horizon. -/
+    def C4r (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop :=
+[S:PIndivisibleWithin] verification/lean-mathlib/OIBridge/CausalReadback.lean:57-58
+    /-- **P-INDIVISIBILITY WITHIN A HORIZON**: the negation. Some pair admits no such propagator. -/
+    def PIndivisibleWithin (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop := ¬ PDivisible K Γ
+[S:causal_readback_verdict] verification/lean-mathlib/OIBridge/CausalReadback.lean:309-316
+    /-- **THE MATHEMATICAL VERDICT**: the frozen chain, with the two routes to the endpoint kept apart.
+    
+    Nothing here says that either candidate is necessary for P-indivisibility, that either is implied by
+    or implies the manuscript's history-level condition, that the architecture supplies either, or that
+    marginal revival by itself exhibits a causal hidden write-then-read mechanism. -/
+    theorem causal_readback_verdict (K : ℕ) (Γ : ℕ → Matrix V V ℝ) :
+        (C4e K Γ → C4r K Γ) ∧ (C4r K Γ → PIndivisibleWithin K Γ) ∧
+          (C4e K Γ → PIndivisibleWithin K Γ) :=
+[S:control_separation] verification/lean-mathlib/OIBridge/CausalReadback.lean:292-297
+    /-- **THE WEAK/STRONG SEPARATION AT THE MARGINAL LEVEL**: one family is P-divisible and exhibits
+    neither candidate, the other exhibits the marginal collision–revival pattern and is P-indivisible. The history-level memory
+    of the first is certified by the exact probe and is not restated here. -/
+    theorem control_separation :
+        (PDivisible 3 pdFamily ∧ ¬ C4e 3 pdFamily ∧ ¬ C4r 3 pdFamily) ∧
+          (C4e 3 peFamily ∧ PIndivisibleWithin 3 peFamily) :=
+[S:RoutedReadback] verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:60-68
+    /-- **ROUTED READBACK WITHIN A WINDOW** — the manuscripts' realization clause on the merged rooted
+    interface, transcribed from the Track I discovery round's frozen parent.
+    
+    W, write: the same hidden seed under two roots reaches different hidden states after `w` steps.
+    S, store: a visible value carries positive probability under both roots while the root-conditioned
+    hidden weights at that value differ. R(1), causal read: those two weights, propagated with the
+    visible value held fixed, give different visible laws at `t`. R(2), rooted reappearance: the rooted
+    rows at `t` differ. Timing: `0 < w ≤ s < t ≤ K`. -/
+    def RoutedReadback (K : ℕ) (R : RootedRealization V H) : Prop :=
+[S:core_not_routedReadback] verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:240-244
+    /-- **`RD1-a`, THE OUTCOME.** Under the frozen spelling the sealed core carries **no** routed
+    witness at any window: at even storage times both roots are pinned to their own visible value, and
+    at odd storage times the root-conditioned seed weights coincide, so the store clause fails
+    everywhere. The negative is a computed certificate, not a failed search. -/
+    theorem core_not_routedReadback (K : ℕ) : ¬ RoutedReadback K R := by
+[S:routed_forces_return_indivisibility] verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:105-112
+    /-- **`RD4-a`.** A routed witness binds its own storage time `s`, strictly inside the window, and
+    every identity return of the rooted map strictly after `s` carries the recurrence-horizon
+    conclusion. `RecurrenceHorizon.horizon_verdict` is reused and not reproved. Nothing is claimed for
+    any horizon below the return. -/
+    theorem routed_forces_return_indivisibility {K : ℕ} {R : RootedRealization V H}
+        (h : RoutedReadback K R) :
+        ∃ s, s < K ∧ ∀ n, s < n → rootedMap R n = 1 →
+          C4r n (rootedMap R) ∧ PIndivisibleWithin n (rootedMap R) := by
+[S:routed_forces_indivisible_somewhere] verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:117-123
+    /-- **`RD4-b`.** Finite reversibility supplies a visible period and root time is the identity, so
+    some multiple of the period is an identity return beyond the storage time: a routed witness forces
+    P-indivisibility somewhere in the full recurrence cycle. This is `[Main]` §2.3's theorem at the
+    rooted interface with the routed form as hypothesis; its scope remark is the statement's own — the
+    horizon reached is the return, not the accessible window. -/
+    theorem routed_forces_indivisible_somewhere {K : ℕ} {R : RootedRealization V H}
+        (h : RoutedReadback K R) : ∃ n, PIndivisibleWithin n (rootedMap R) := by
+[S:LatticeCutReadback] verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:627-635
+    /-- **`RD5-b`, THE LATTICE CUT'S RESIDUAL AS A NAMED PREDICATE.** `[SM]` Theorem 22's fourth
+    clause — history readback, "the record surviving to a readback the coupling performs" — on exactly
+    the data the manuscripts leave as parameters: the region, the prior and the window. This is the
+    manuscripts' own hypothesis named, not a new condition. The three instance arguments are the wave
+    substratum's own, `Fin d → ZMod L` and `ZMod q`; they are carried explicitly because the
+    substratum's carriers are projections of a structure and are not found by instance search. -/
+    def LatticeCutReadback (Vs : Finset (waveSubstratum d L q α).ι)
+        (μ : ({i // i ∉ Vs} → (waveSubstratum d L q α).V × (waveSubstratum d L q α).V) → ℝ)
+        (hμ0 : ∀ h, 0 ≤ μ h) (hμ1 : ∑ h, μ h = 1) (K : ℕ) : Prop :=
+[S:latticeCutReadback_iff] verification/lean-mathlib/OIBridge/PhysicalC4Discharge.lean:638-644
+    /-- **`RD5-b`, pinned.** The named residual is exactly routed readback of the cut realization of
+    the wave substratum: the abbreviation adds nothing beyond the name. -/
+    theorem latticeCutReadback_iff (Vs : Finset (waveSubstratum d L q α).ι)
+        (μ : ({i // i ∉ Vs} → (waveSubstratum d L q α).V × (waveSubstratum d L q α).V) → ℝ)
+        (hμ0 : ∀ h, 0 ≤ μ h) (hμ1 : ∑ h, μ h = 1) (K : ℕ) :
+        LatticeCutReadback d L q α Vs μ hμ0 hμ1 K
+          ↔ RoutedReadback K (cutRealization (waveSubstratum d L q α) Vs μ hμ0 hμ1) :=
+[S:RoutedReadbackAtStorage] verification/lean-mathlib/OIBridge/PhysicalC4StorageReadback.lean:62-69
+    /-- **`CS1-a`, ROUTED READBACK AT THE STORAGE SURFACE, WITHIN A WINDOW.**
+    
+    W, write: the same hidden seed under two roots reaches different hidden states after `w` steps.
+    S, store: a visible value carries positive probability under both roots while the **storage-time**
+    root-conditioned hidden laws at that value differ. R(1), causal read: those two storage-time laws,
+    propagated with the visible value held fixed, give different visible laws at `t`. R(2), rooted
+    reappearance: the rooted rows at `t` differ. Timing: `0 < w ≤ s < t ≤ K`. -/
+    def RoutedReadbackAtStorage (K : ℕ) (R : RootedRealization V H) : Prop :=
+[S:core_routedReadbackAtStorage_two] verification/lean-mathlib/OIBridge/PhysicalC4StorageReadback.lean:339-342
+    /-- **`CS2-a`.** Under the storage-time reading the sealed C1–C4 core carries a routed witness at
+    window `2`, on **round 1's own frozen witness tuple** `a = (false, false)`, `b = (true, false)`,
+    `(w, s, t) = (1, 1, 2)`, `x = (h₀, false)` for either `h₀`. -/
+    theorem core_routedReadbackAtStorage_two (h₀ : Bool) : RoutedReadbackAtStorage 2 R := by
+[S:storageReadback_not_implies_routedReadback] verification/lean-mathlib/OIBridge/PhysicalC4StorageReadback.lean:485-490
+    /-- **`CS5-a`.** The storage-time reading does **not** imply round 1's, as a general implication
+    over every rooted realization on the sealed core's carrier type and every window. The certificate is
+    the exhibited carrier above. -/
+    theorem storageReadback_not_implies_routedReadback :
+        ¬ ∀ (K : ℕ) (R : RootedRealization (Bool × Bool) Bool),
+            RoutedReadbackAtStorage K R → RoutedReadback K R := by
+[S:routedReadback_not_implies_storageReadback] verification/lean-mathlib/OIBridge/PhysicalC4StorageReadback.lean:682-691
+    /-- **`CS5-b`.** Round 1's reading does **not** imply the storage-time reading, as a general
+    implication over every rooted realization on `Bool` with hidden carrier `Bool × Bool` and every
+    window. The certificate is the exhibited carrier of the previous section, at window `2`.
+    
+    Together with `storageReadback_not_implies_routedReadback` this says the two readings are
+    **incomparable as predicates**, by two exhibited carriers with exact certificates. No ordering of
+    them is asserted and neither is called stronger than the other. -/
+    theorem routedReadback_not_implies_storageReadback :
+        ¬ ∀ (K : ℕ) (R : RootedRealization Bool (Bool × Bool)),
+            RoutedReadback K R → RoutedReadbackAtStorage K R := by
+[S:Records] verification/lean-mathlib/OIBridge/InternalObserver.lean:61-63
+    /-- **Records**: on every block-diagonal input, the output of branch `o` lies in record block
+    `o`. The outcome is readable from the record. -/
+    def Records (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+[S:IsInternalObserver] verification/lean-mathlib/OIBridge/InternalObserver.lean:66-68
+    /-- **An internal observer**: a recording instrument that is passive on the record-block
+    algebra. -/
+    def IsInternalObserver (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+[S:internal_complete_iff] verification/lean-mathlib/OIBridge/InternalObserver.lean:165-171
+    /-- **OI-N5.2, the boundary.** Some internal observer observes the algebra completely if and only
+    if each record block contains at most one carrier state, equivalently if and only if the record
+    map is injective. Every nonempty record block is then one-dimensional; empty record values are
+    allowed. -/
+    theorem internal_complete_iff :
+        (∃ F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ,
+          IsInternalObserver blk F ∧ SeparatesBlockStates blk F) ↔ Function.Injective blk := by
+[S:no_complete_internal_observer] verification/lean-mathlib/OIBridge/InternalObserver.lean:204-208
+    /-- **OI-N5.2, the register form.** A separate register cannot passively and completely observe
+    a system with more than one state, whatever function of the register is the record. -/
+    theorem no_complete_internal_observer (rec : B → O) (hA : 1 < Fintype.card A) [Nonempty B] :
+        ¬ ∃ F : O → Matrix (A × B) (A × B) ℂ →ₗ[ℂ] Matrix (A × B) (A × B) ℂ,
+          IsInternalObserver (recBlk rec) F ∧ SeparatesBlockStates (recBlk rec) F :=
+[S:ensemble_underdetermined] verification/lean-mathlib/OIBridge/StochasticInterface.lean:113-119
+    /-- **THE ENSEMBLE LEG FAILS FOR EVERY SUBSTRATUM WITH A LINEAR RULE AND MORE THAN ONE
+    CONFIGURATION.** The zero configuration is fixed, so it and the orbit of any other configuration
+    are disjoint nonempty invariant sets, and invariance leaves the law undetermined. The architecture
+    states A5 and states no ensemble beyond invariance, so nothing here selects a law and nothing is
+    added. -/
+    theorem ensemble_underdetermined (h5 : 𝒮.A5) {y : 𝒮.Conf} (hy : y ≠ 0) :
+        ¬ EnsembleDetermined 𝒮.φ :=
+[S:waveSubstratum_stochastic_interface_gap] verification/lean-mathlib/OIBridge/StochasticInterface.lean:188-195
+    /-- **THE SAME VERDICT FOR THE MANUSCRIPTS' OWN SUBSTRATUM**, on every torus whose alphabet has
+    more than one letter. The wave rule satisfies A5, so both legs of the gap hold of it and the
+    single-orbit route of the scope amendment is closed for it too. -/
+    theorem waveSubstratum_stochastic_interface_gap (d L q : ℕ) [NeZero L] [NeZero q] [Fact (1 < q)]
+        (α : ZMod q) :
+        ¬ EnsembleDetermined (waveSubstratum d L q α).φ ∧
+          ¬ ∃ s : (waveSubstratum d L q α).Conf,
+            ∀ t : (waveSubstratum d L q α).Conf, t ∈ orbit (waveSubstratum d L q α).φ s := by
+[S:passive_not_implies_oiCore] verification/lean-mathlib/OIBridge/PassiveIndependence.lean:259-261
+    /-- **The converse implication fails.** -/
+    theorem passive_not_implies_oiCore :
+        ¬ ∀ T : FiniteOperationalTheory (Fin 2), PassivelyIncomplete T → OICore T := by
+[S:control_independent] verification/lean-mathlib/OIBridge/DiagonalTheory.lean:397-402
+    /-- **CONTROL IS INDEPENDENT** of the other four conditions and of OI realization. -/
+    theorem control_independent :
+        ∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ HasCompositeUnitaryControl T :=
+[S:five_way_minimality] verification/lean-mathlib/OIBridge/RankGapTheory.lean:696-722
+    /-- **FIVE-WAY MINIMALITY.** For each of the five physical completion conditions, the same
+    finite OI framework admits a theory satisfying the other four, realizing the sealed OI core,
+    and failing exactly that one: validity (`everywhereAvailable`), inert spectators (the
+    round-34 countermodel), full control (`diagTheory`), iterated ancilla closure (`gapTheory`),
+    system-to-level-one (`systemLoose`). With `exactAll_iff_physical`, the characterization of
+    exact finite operational QM by the five conditions is minimal in every cell. -/
+    theorem five_way_minimality :
+        (∃ T : FiniteOperationalTheory (Fin 2),
+          InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ CompositeOperationalValidity T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ HasCompositeUnitaryControl T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ InertSpectatorCompositionality T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ HasCompositeUnitaryControl T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ HasCompositeUnitaryControl T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ IteratedAncillaClosure T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T ∧ RealizesSealedOICore T
+            ∧ ¬ SystemToLevelOne T) :=
+[S:substantive_census] verification/lean-mathlib/OIBridge/SubstantiveCensus.lean:984-990
+    /-- **THE CENSUS**: every failure pattern of the three substantive principles is realized by a
+    well-formed theory carrying the sealed OI core. `gI`, `gC`, `gK` say which principles HOLD. -/
+    theorem substantive_census (gI gC gK : Bool) :
+        ∃ T : FiniteOperationalTheory (Fin 2), WellFormed T ∧ RealizesSealedOICore T
+          ∧ (InertSpectatorCompositionality T ↔ gI = true)
+          ∧ (HasCompositeUnitaryControl T ↔ gC = true)
+          ∧ (IteratedAncillaClosure T ↔ gK = true) := by
+[S:levelOne_independent] verification/lean-mathlib/OIBridge/LevelOneSeam.lean:349-360
+    /-- **SYSTEM-TO-LEVEL-ONE IS INDEPENDENT OF EVERY ROUND-41 CONDITION.** The loose theory has
+    valid probabilities, inert spectators, every composite unitary, iterated ancilla closure,
+    exact composite operations (against item 2), and realizes the sealed OI core — and is not
+    exactly quantum on the system, hence fails the principle. -/
+    theorem levelOne_independent :
+        ∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T
+            ∧ RealizesSealedOICore T
+            ∧ ((∀ k : ℕ, FiniteIsometryExtensionSF (Fin 2 × Fin (k + 1)))
+                → ExactCompositeQuantumOps T)
+            ∧ ¬ ExactFiniteEndomorphicQuantumOps T ∧ ¬ SystemToLevelOne T :=
+[S:levelOne_independent_of_recursion] verification/lean-mathlib/OIBridge/LevelOneRecursion.lean:43-50
+    /-- **The level-one seam is independent of observer recursion.** A theory with composite
+    operational validity, inert spectators, composite unitary control, iterated ancilla closure,
+    observer recursion and the sealed OI core, and no system-to-level-one seam. -/
+    theorem levelOne_independent_of_recursion :
+        ∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T ∧ ObserverRecursion T
+            ∧ RealizesSealedOICore T ∧ ¬ SystemToLevelOne T :=
+[S:inert_independent] verification/lean-mathlib/OIBridge/PhysicalCharacterization.lean:363-368
+    /-- **INERT SPECTATORS ARE INDEPENDENT** of the other four conditions and of OI realization. -/
+    theorem inert_independent :
+        ∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ HasCompositeUnitaryControl T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ InertSpectatorCompositionality T :=
+[S:operational_classification] verification/lean-mathlib/OIBridge/IsometryExtension.lean:255-280
+    /-- **THE OPERATIONAL CLASSIFICATION, FROZEN AND UNCONDITIONAL**: the characterization iff,
+    the five-way minimality audit, and joint satisfiability, with no boundary item anywhere. -/
+    theorem operational_classification :
+        (∀ T : FiniteOperationalTheory (Fin 2),
+          ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2), PhysicalCompletionConditions T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ CompositeOperationalValidity T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ HasCompositeUnitaryControl T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ InertSpectatorCompositionality T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ HasCompositeUnitaryControl T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ HasCompositeUnitaryControl T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+            ∧ ¬ IteratedAncillaClosure T)
+        ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+          CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+            ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T ∧ RealizesSealedOICore T
+            ∧ ¬ SystemToLevelOne T) :=
+[S:InertSpectatorCompositionality] verification/lean-mathlib/OIBridge/SpectatorBridge.lean:216-223
+    /-- **INERT-SPECTATOR COMPOSITIONALITY**, in physical words: an intervention performable on
+    a system remains performable when an independent finite spectator is adjoined, and acts
+    identically on that spectator. Formally: every available family at level `n` has, for
+    every finite spectator `R` and every relabelling `e` of the joint carrier into the
+    theory's carrier at level `m`, an AVAILABLE family at level `m` whose branches are
+    spectator extensions (in the sense of `IsSpectatorExtension`) of the original branches.
+    The definition asserts EXISTENCE of an available extension; its FORM is then forced. -/
+    def InertSpectatorCompositionality (T : FiniteOperationalTheory A) : Prop :=
+[S:IteratedAncillaClosure] verification/lean-mathlib/OIBridge/AncillaClosure.lean:241-247
+    /-- **THE MISSING RULE: ITERATED ANCILLA CLOSURE.** Attach a fresh uniformly mixed finite
+    ancilla to the composite carrier `A × Fin n`, run any intervention available on the enlarged
+    carrier (transported along `shiftIdx` into the theory's own carrier at level `n·(m+1)`),
+    discard the fresh ancilla: the result is available on `A × Fin n`. In physical words, any
+    subsystem may itself be used as the working system in a larger experiment. This is the
+    structure's uniform-attach-then-discard pair, relative to a composite base. -/
+    def IteratedAncillaClosure (T : FiniteOperationalTheory A) : Prop :=
+[S:HasCompositeUnitaryControl] verification/lean-mathlib/OIBridge/OperationalAssembly.lean:662-665
+    /-- **COMPOSITE-DIMENSION CONTROL.** Universal unitary control on EVERY finite ancilla
+    extension, not merely on the system: a control premise on `A` says nothing whatever about
+    unitaries on `A × Fin n`, so the assembly's control hypothesis must be family-level. -/
+    def HasCompositeUnitaryControl (T : FiniteOperationalTheory A) : Prop :=
+[S:ExactFiniteEndomorphicQuantumOps] verification/lean-mathlib/OIBridge/KrausSoundness.lean:132-134
+    /-- **THE EXACT ENDPOINT.** Available ⟺ Kraus-representable: not merely that every finite
+    endomorphic quantum instrument is available, but that EXACTLY those are. -/
+    def ExactFiniteEndomorphicQuantumOps (T : FiniteOperationalTheory A) : Prop :=
+[S:Main.md:22] papers/Main.md:22
+    For spatial OI systems, the coupling graph defined by one-step dynamical dependence supplies exact causal cones: influence propagates at most one graph edge per update. Bell accounting is correspondingly sharp: a deterministic completion that keeps the pointwise cone and a setting-independent pre-setting ensemble is a local hidden-variable model, so $|S_{\mathrm{CHSH}}|\le2$ and quantum correlations are unreachable. Reproducing them requires ontic parameter dependence — realized in the specific SM/GR branch through preparation-indexed state-dependent adjacency or an equivalent Bell-nonlocal response structure, with no operational signal — or else setting-dependent ontic ensembles, for which $S_{\mathrm{CHSH}}\le2+4\sqrt{2\ln2\,I_{\mathrm{ont}}}$ gives the model-independent necessary lower bound $I_{\mathrm{ont}}\ge0.0309$ bits for the quantum value. Conversely, every finite stochastic law, and therefore every finite quantum record, admits a finite reversible realization; for fixed finite dimension, instrument menu, horizon, and accuracy $\varepsilon$, one finite OI construction reproduces the whole corresponding quantum experimental envelope to that accuracy. In this precise sense the stochastic description of embedded observation and its quantum representation are mathematically equivalent. Two logically separate completion questions remain beyond that finite-law result: whether the complete family of coherent interventions and composites is represented simultaneously by the standard quantum instrument theory (§3.4), and whether preparation-indexed Bell adjacency in the state-dependent cubic SM/GR graph preserves the metric/Ollivier--Ricci continuum limit needed by the gravitational reconstruction (H-Bell, [Substratum §3.3]). Accordingly, the exact equivalence claim is at the finite observable-law level; universal Hilbert-space representability is not promoted into a uniqueness theorem for operational quantum mechanics entire. In particular one visible family can admit distinct coherent unitary lifts whose relating evolutions differ, so representability together with ordinary coherence does not by itself select the unitary evolution relating two times (§3.4 Remark). The specific nearest-neighbor cubic representative used for the Standard-Model sector is not by itself a Bell-violating completion under measurement independence; compatibility of preparation-indexed Bell adjacency with the continuum-curvature limit is the separate H-Bell hypothesis of [Substratum §3.3].
+[S:Main.md:36] papers/Main.md:36
+    The axiom has structural content beyond contingent occurrence. Substrata that do not admit embedded observers exist as mathematical objects with dynamics; they do not produce physics in the present framework's sense. Applied to our universe, the starting point thus carries a further commitment: that our universe lies in the observer-admitting subset of substrata — substrata whose bijection structure satisfies the conditions C1–C4 below for some partition. This is the C1–C4 selection condition, not a consequence of the first axiom: a momentary registering with no persistent record satisfies the first axiom and fails C2. This is a structural commitment about the framework's domain, not a contingent fact about whether someone happens to be looking.
+[S:Main.md:38] papers/Main.md:38
+    The phrase "observation occurs" can be stated with more precision than a single undifferentiated axiom. Distilled, it is *two axioms*. **Axiom 1** is the evidential floor: tokened differentiation occurs — concrete differentiated content is *registered*, a this-not-that tokened from a locus against a remainder; equivalently, *embedded representation occurs*. It is indubitable, since to doubt it is itself to register a distinction from a locus — the cogito made precise, which is irreducibly perspectival: a registering from a locus, not a free-floating fact, and not a thinking subject — the primitive asserts no *I* (companion methodology paper, §2.3). Read this way, the primitive already contains three things that therefore need no separate derivation: a differentiation (the this-not-that), a locus that registers it (the observer of the Definition below), and the remainder it is registered against. The indubitability is the warrant available to whatever locus raises the doubt; the Definition covers every registering locus, and for a detector or a horizon that a registering occurs is a physical fact, not an indubitable one. The proper-part decomposition $V \subsetneq S$ — the observer embedded in a whole it does not exhaust — is accordingly constitutive of the primitive rather than a downstream posit: a registering that left no remainder would be the whole representing itself, not an observation. From Axiom 1, by analysis of the words "occurs" and "registered," the relational structure, the existence of a dynamics, determinism and finiteness per moment follow as lemmas; the bijective (reversible) representative is a reconstruction choice motivated by observed near-unitarity, and total finiteness of the substratum is a physical posit (status Remark, §1.4; ledger §4.5) — the package is not a set of independent assumptions, and it is not all theorems. One thing does not follow: that the differentiation *recurs* — that there is more than one moment for the dynamics to act across. This is **Axiom 2**: differentiation recurs, the temporal domain being the minimal such recurrence. Axiom 2 presupposes Axiom 1 (there is no recurrence of differentiation without differentiation) but is not derivable from it: a structure containing a single tokened differentiation and nothing further satisfies Axiom 1 while containing no recurrence, so no analysis of Axiom 1 alone can yield Axiom 2 — non-derivability by countermodel. The framework's foundation is therefore most honestly described not as a single axiom but as a *two-axiom observation base*: one indubitable claim, and one substantive posit that the first does not yield. The two invoke a single principle — tokened differentiation — and are thematically one; they are numerically two. The Definition and Lemmas below unpack this structure.
+[S:Main.md:40] papers/Main.md:40
+    The perspectival reading of the primitive is a commitment, and it is worth stating what the alternative would cost. One could instead read the evidential floor *thinly* — as bare differentiated content with no locus occupying a side — in which case the embeddedness $V \subsetneq S$ does not follow and would have to be added as a third, independent axiom. The framework adopts the perspectival reading: the floor the cogito secures is already a registering, not a free-standing fact, so embeddedness belongs to the primitive rather than being posited beside it. This choice has a payoff beyond economy of axioms. On the perspectival reading the foundation's incompleteness is an *internal* consequence of the primitive, not an external import: an embedded representation cannot close over the whole that contains it, since a complete self-inclusive representation would have to represent its own representing without remainder, collapsing the locus into the whole. This is the same form of diagonal that limits formal systems (Gödel [49]) and embedded inference devices (Wolpert [50]); those results corroborate the internal statement rather than supply it. The choice between the perspectival primitive and the thin-plus-third-axiom formulation is presentational — it bears only on how the foundation's commitments are counted and changes no result downstream of the structure $(S, \varphi, V)$ — but the perspectival statement is the more faithful to the indubitable floor the cogito secures, which is why it is adopted here.
+[S:Main.md:44] papers/Main.md:44
+    **Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
+[S:Main.md:46] papers/Main.md:46
+    This definition formalizes three features implicit in the concept of observation: there is a whole ($S$), the observer is not the whole ($V \subsetneq S$), and the observer registers changes (coupling through $\varphi$). From this definition, three structural properties follow. The dynamics $\varphi$ itself is nothing exotic, and its form need not be posited: it follows from a single innocuous premise, that evolution *composes* — advancing the state by $t$ and then by $s$ equals advancing it by $t+s$. This composition (semigroup) law is Cauchy's functional equation, and it forces the evolution to be a one-parameter family generated by a fixed rule [45]; in the continuous case this is the *phase flow* foundational to classical mechanics [44], and in the discrete case relevant here it collapses to iteration of a single transition map, $x_t = \varphi^t(x_0)$. Thus the state-transition structure is not an assumption particular to this framework but a consequence of consistency of time evolution — the same structure standard physics rests on. What distinguishes the present setting is not the existence of such a map but that it acts on a *finite* $S$ (Lemma 1); finiteness, not the dynamics, is the load-bearing commitment, and it is what renders energy and its conservation well defined downstream.
+[S:Main.md:48] papers/Main.md:48
+    **Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.* Any observer bounded by a finite-area surface can couple to only finitely many modes across that boundary; independent support comes from holographic entropy bounds [2].
+[S:Main.md:50] papers/Main.md:50
+    **Lemma 2** (Causal partition). *The observer is a proper subsystem: $V \subsetneq S$. The complement $H = S \setminus V$ is the hidden sector.* This partition is not a modeling choice but the definition of embedded observation: an observer that could access all of $S$ would have nothing external to observe. The product decomposition
+[S:Main.md:54] papers/Main.md:54
+    follows, with cross-partition correlations entering only through $H_{\text{int}}$. The product decomposition is idealized; §4.5 addresses approximation quality.
+[S:Main.md:56] papers/Main.md:56
+    **Lemma 3** (Determinism, reversibility, and the selected measure). *$\varphi$ is a function with a unique successor for every state (determinism) and, as the reversible representative of §1.2, a bijection: distinct states have distinct successors and predecessors (injectivity — reversibility). On each accessible orbit the invariant measure is unique (uniform on the cycle); globally, the counting measure is selected among invariant measures as the maximal-entropy one — a selection principle, not uniqueness from invariance alone.*
+[S:Main.md:60] papers/Main.md:60
+    *Remark (the measure as a realization datum).* Lemma 3 fixes the canonical measure — invariant, maximal-entropy — and the framework's baseline transition matrices (§2.3) and the physical realization use it. It does not preclude structured preparations: a realization in the sense of §3.4 carries its own fixed hidden prior $\mu_H$ as part of the realization datum, and the emergent law is a function of $(\varphi, \text{partition}, \mu_H)$ — the same bijection and partition under different priors generally yield different visible laws (trivially: the two-state swap under uniform versus point-mass hidden priors). Partition-relativity statements are therefore relative to the declared measure; the counting measure is the default, not a constraint on representations.
+[S:Main.md:62] papers/Main.md:62
+    *Remark (status of the early commitments).* Of the structure above, only finite visible resolution is a theorem (Lemma 1). The bijective substratum is a representation choice — the minimal recurrent bijective representative of the hidden dynamics; total finiteness of that representative is a physical posit, carried in the posit ledger (§4.5); observed near-unitarity is the empirical input motivating the choice. The physical reading of the characterization theorem — the identification of nature with a finite reversible substratum — is accordingly conditional on that representation choice, an empirically motivated reconstruction rather than a pure derivation; the law-level equivalence of §3.4 itself holds for every finite-horizon law. Determinism (injectivity) holds by a two-pronged argument. For states differing in registered content, injectivity is the requirement that the dynamics preserve the observer's records — merging them would erase a distinction that has occurred. For states differing only in the hidden sector, a merge is either statistically observable or removable: a merge whose successor configurations differ visibly breaks the double stochasticity of the marginalized process at some step order (the marginal of a bijection under the uniform prior is doubly stochastic by Birkhoff–von Neumann, §3.2, and unitary emergent statistics are unistochastic), so it is excluded wherever the observed statistics are of that doubly stochastic class under the uniform prior; a merge that leaves no statistical trace is removable, since any map on a finite set restricts to a bijection on its *eventual image*, where any recurrent registered history lives — the non-injective description is then equivalent, for all registered history, to a bijective one. Either horn delivers a bijective substratum for the dynamics governing registered history; the two prongs use different inputs — the first empirical (the observed statistics, in the uniform-prior doubly stochastic scope), the second structural (finiteness and recurrence). On a finite set, injectivity implies surjectivity, so $\varphi$ is a bijection. As for the measure: on the orbit of the actual microstate, the uniform measure is the unique $\varphi$-invariant measure; the selection among orbits is fixed by maximal entropy compatible with the observer's records — and the atypical short orbits of the idealized linear dynamics (fixed points, low-period cycles) are precisely observer-lacking substrata — an orbit of period $p$ makes at most $p$ states dynamically accessible, so for small $p$ no partition of it can satisfy the high-capacity condition C3 — admitting no C1–C4 partition, hence outside the scope of every theorem below. The invariant counting measure, in the continuum limit, becomes the Liouville measure on $\Gamma$:
+[S:Main.md:66] papers/Main.md:66
+    **Remark (reversibility as the conservative assumption).** The bijectivity of $\varphi$ — equivalently, that the substratum conserves information — is not an exotic commitment peculiar to this framework but the orthodox assumption of mainstream physics, imported here rather than invented. Unitary evolution in quantum mechanics *is* information conservation: a pure state evolves from a unique pure state, so the dynamics is reversible and the past is in principle recoverable from the present [42]. The classical counterpart is Liouville's theorem, the conservation of phase-space volume recovered above. That the physics community treats information conservation as effectively non-negotiable is shown by the black-hole information paradox, in which the *apparent* violation of unitarity by Hawking evaporation is regarded as a paradox to be resolved rather than a discovery to be accepted [43, 42]; the no-hiding theorem [42] makes the underlying conservation statement rigorous. The framework therefore assumes no more than standard physics already does — and it is worth noting that the literature independently records the same information$\leftrightarrow$energy link that the companion Explainer draws via Noether's theorem: a violation of unitarity would also violate energy conservation. What is non-standard here is not the assumption of reversibility but the claim to *recover* it, below, from the two-pronged argument of Lemma 3; a reader unwilling to grant that recovery may simply take reversibility as the standard postulate it is elsewhere, with no cost to the emergence results.
+[S:Main.md:72] papers/Main.md:72
+    **Companions and independence.** The four conditions below are diagnostics of a realization rather than hypotheses of the characterization: the equivalence of §3.4 quantifies over none of them (Remark, *the conditions are diagnostics, not hypotheses*), (C1) and (C3) follow from (C4) in any faithful realization, and (C2) is a physical-regime premise. They are stated and used because they are what one can check of a candidate partition — a cosmological horizon, a laboratory apparatus, an equilibrium fluctuation — where the bare existence claim cannot be checked directly. Every result uses only these, the two axioms, and the one external correspondence of §3.1. Their cosmological realization — the horizon as the hidden sector, with its capacity, its timescales, and its bidirectional read-write coupling — is developed in companion work and is nowhere consumed by a proof here; the realization clauses below are physical statements of that picture, not premises.
+[S:Main.md:74] papers/Main.md:74
+    **(C1) Non-zero coupling.** $H_{\text{int}} \neq 0$: hidden degrees of freedom affect the visible evolution at some accessible step — the conditional law of some visible transition depends on the hidden state. A non-permutation one-step matrix $T$ is the cheapest sufficient *witness* (§2.3), not an equivalent: influence can hide at step one and surface later (the delayed-revival family, realized by the §3.4 construction; `review4_probes.py`). (Status: doubly anchored. Necessity — observed non-Markovian dynamics force C1: with no hidden influence at any accessible step, every visible transition is a fixed function of the visible present and the process is Markov (§3.4); directly observed memory effects in open-system dynamics certify the antecedent. Bell violation supplies a separate spatial-composite anchor only on the adopted ontic-parameter-dependent branch of §3.3; it does **not** by itself imply temporal P-indivisibility. Realization — at the cosmological horizon the ADM boundary Hamiltonian and the constraint structure supply a *bidirectional* coupling stronger than $H_{\text{int}} \neq 0$. Bidirectionality is a property of the physical realization, not part of C1's defining content: a one-way influenced process can be P-indivisible — see the Remark at the non-permutation-witness lemma, §3.4. Dependency — C1 is *not independent of C4*: a readback gap requires hidden mediation, so any realization satisfying C4 satisfies C1, and zero-coupling realizations exhibit no gap at any order, certified by exhaustive enumeration at $(n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)$ in `primitive_probes.py`. C1 is retained as a separately checkable condition — the adopted Bell branch independently requires Bell-relevant cross-wing coupling, while C4 already forces hidden mediation — not as an independent postulate.)
+[S:Main.md:76] papers/Main.md:76
+    **(C2) Memory persistence.** Stated in two named forms, because the corpus needs both and they are not equivalent. **(C2-structural):** a hidden record of visible history, once written, persists to the readback that uses it — the retention that clause (b) of the universal hidden-memory theorem shows every memory-bearing completion must contain (§3.4). **(C2-slow):** the timescale mechanism — the hidden sector's *coarse-grained mixing time* $\tau_B$, the timescale on which the effective channel degrades a stored record of visible history, is long compared to the accessible window: $\tau_S \ll \tau_B$, the *inverse* of the Markovian regime. (C2-slow) implies (C2-structural) under the uniform-erosion estimate of §2.3 — a record eroding at rate $1/\tau_B$ survives windows $k\tau_S \ll \tau_B$ essentially intact — but not conversely: what is required is that records persist, not that the hidden sector evolve slowly. Slow evolution is one *sufficient mechanism* for persistence (a record that stays put survives), but fast autonomous hidden dynamics with conserved structure serve equally — a shift-register bath rotating five cells per visible step produces a maximal order-2 readback gap, because its circulation forgets nothing and routes the record back within the window, satisfying (C2-structural) while violating (C2-slow) (`fastbath_probes.py`). Unqualified "(C2)" in this paper means the persistence requirement, with the form named wherever the distinction bites. The same probe certifies the complementary boundary: persistence alone does not supply (C4) — with the return time pushed outside the accessible window the identical non-forgetting register yields an exactly i.i.d. visible process. (C4)'s operative demand on the hidden sector is thus persistence *together with in-window routing*; (C2) names the persistence half. (Status: **a physical-regime premise, not a structural condition** — and the distinction is load-bearing. C1, C3 and C4 are the structural conditions: the characterization's equivalence runs over those three (§3.4), and the existential realization satisfies C2 trivially with a static bath. What C2 supplies is physical: it is the mechanism by which a stored record survives to be read in realistic models, so that C4 holds rather than failing by erasure (§2.3); and in the other direction it is *derived* — observed conditional memory forces a lower bound on bath persistence, conditional on the hidden-sector mixing hypothesis, which is the physical-memory theorem of §3.4 rather than an assumption. Note also that C2 does not imply C4: a slow bath can store without reading, certified by a C1–C3 realization with identically zero backflow on arbitrarily long horizons (`review3_probes.py`), which is why C4 is a separate condition and not a consequence. ETH, C2's physical motivation — a well-supported conjecture rather than a theorem — is discussed at the remark in §3.4. Realization — $\tau_S/\tau_B \sim 10^{-32}$ at the horizon.)
+[S:Main.md:78] papers/Main.md:78
+    **(C3) Sufficient memory capacity.** The hidden sector has enough distinguishable states to encode the observed conditional past–future information: $\log_2 |\mathcal{C}_H| \geq I^*$, the per-process bound of §3.4. (Status: necessity — the data-processing bound, $m \geq 2^{I^*}$, for any realization. Realization — at the horizon the margin is astronomical: $A/\epsilon^2 \sim 10^{122}$ hidden modes against $\sim 10^{80}$ baryons, a hierarchy $N_H \gg N_V$ with the bath imperturbable on laboratory timescales; the hierarchy and the imperturbability belong to this realization clause, not to the condition. Dependency — like C1, C3 follows from C4 within any faithful realization: the observed conditional information must pass through the hidden sector, so data processing gives $\log_2|\mathcal{C}_H| \geq I^*$ automatically. Exhaustive enumeration confirms it and finds the bound SATURATED — realizations attaining $I^* = \log_2|\mathcal{C}_H|$ exist at $(2,2)$ and $(3,2)$ (`primitive_probes.py`) — so C3 is tight rather than slack, and is retained as a separately checkable condition.)
+[S:Main.md:80] papers/Main.md:80
+    **(C4) History readback.** History-sensitive hidden mediation: on accessible windows, hidden degrees of freedom carry information about the visible past into future visible conditionals — at some order, two visible histories with the same current state induce different next-step laws, mediated through the hidden state. The condition is operational; it does not by itself assert a causal write-then-read cycle — a pre-sampled hidden variable revealed by the history satisfies it (the response-table construction, §3.4). (Status: necessity — immediate given observed non-Markovianity, since any realization of a non-Markov process carries differing past-conditionals. Realization — in the cosmological realization the mediation *is* a causal read-write cycle: the interaction reads the same boundary degrees it writes, a property to be independently demonstrated there; this is what C1's redefinition relocated here. Separation — (C1)–(C3) alone do not imply (C4): a tape-and-ledger realization of the fair coin satisfies all three with identically zero backflow on arbitrarily long accessible horizons (`review3_probes.py`; §2.3).)
+[S:Main.md:82] papers/Main.md:82
+    **Theorem statement.** The claims divide into three exact layers and one explicitly conditional extension. **(1) Representation equivalence:** on every finite accessible horizon, the stochastic laws $S$, their finite reversible deterministic realizations $D$, and fixed-basis unitary/Born representations $Q_{\mathrm{fb}}$ are the same class, $S\iff D\iff Q_{\mathrm{fb}}$ (§3.4). **(2) Readback content:** C4 is not needed for the existence of a quantum representation; it is what makes the OI sector nontrivial. C4 forces conditional memory in the visible law, readout-relevant hidden predictive memory in every faithful completion, and — for a fixed finite reversible representative — global indivisibility somewhere in the recurrence cycle (§2.3). C1 and C3 follow as necessary diagnostics of the mediation and its capacity; C2-structural supplies persistence to readback, with C2-slow one physical mechanism. **(3) Reverse finite realization:** every finite stochastic law, including every finite quantum record, has a finite reversible OI realization; bounded quantum instrument families are uniformly realizable to arbitrary finite accuracy (§3.4). **(4) Full operational extension:** identifying one common *standard local quantum instrument/composite theory* for all coherent interventions requires the additional operational-lifting and composition hypotheses stated in §3.4. Bell is a separate constraint rather than one of those lifting hypotheses: for a response-complete deterministic completion, measurement independence plus ontic parameter independence would force $|S_{\rm CHSH}|\le2$, so the Bell-violating branch adopted in §3.3 retains measurement independence and relinquishes ontic parameter independence while preserving operational no-signaling.
+[S:Main.md:86] papers/Main.md:86
+    **Lemma (partition-relativity under the canonical invariant measure).** *Under the canonical measure of Lemma 3, the emergent description is uniquely determined by the partition; any parameters of the emergent theory depend only on the geometric and thermodynamic properties of the partition boundary. For the abstract representation theorems the prior is a third datum: canonically $T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})$, in general $T = T(\varphi, \mathcal{P}, \mu_H)$ (§1.3 Remark).*
+[S:Main.md:99] papers/Main.md:99
+    the paper's core. **Layer 2 — memory and capacity** (§2.3): (C4) forces positive conditional memory; the (C3) information bound; the physical-memory theorem ((C2), conditional on mixing). **Layer 3 — quantum representation** (§3.1, §3.4): the imported correspondence (Q1) and the in-house uncompressed form (Q2), scopes separated. **Layer 4 — physical and operational realization** (§3.2, §4, companions): interventions (classical comb closed, §3.4; quantum instruments open), coherent preparation, Bell and free-choice structure, H-spin' and H-χ', the cosmological realization — where the named hypotheses live. A Layer-1 result does not by itself establish any Layer-4 claim.
+[S:Main.md:137] papers/Main.md:137
+    **Theorem (history readback + finite recurrence implies indivisibility).** *For a fixed finite reversible OI representative, genuine C4 history readback implies that the rooted visible stochastic process is indivisible somewhere in its full recurrence cycle.*
+[S:Main.md:141] papers/Main.md:141
+    *Scope.* This is a global recurrence-cycle result. It does **not** say that C4 forces P-indivisibility on every accessible short-time window; the XOR control remains a counterexample to that stronger statement. What C4 buys exactly is hidden predictive readback and global indivisibility of the fixed finite recurrent law.
+[S:Main.md:159] papers/Main.md:159
+    **Lemma (fast bath erases readback).** *Suppose the coarse-grained channel mixes fast relative to the visible step, $\tau_B \ll \tau_S$, and erodes the stored record uniformly, by $e^{-\tau_S/\tau_B}$ per step, across the history pairs at issue. Then for any $k \geq 2$ the order-$k$ readback gap obeys*
+[S:Main.md:167] papers/Main.md:167
+    **Lemma (accessible backflow from readback).** *Under (C1)–(C3), suppose (C4) holds with a gap at order $k$ in the accessible window: two visible histories $p \neq p'$ of length $k$ with a common endpoint, each of probability at least $p_0$, induce next-step laws at total-variation distance at least $\delta$. Then*
+[S:Main.md:286] papers/Main.md:286
+    *Remark (failure of (C1)).* Condition (C1) does not suffice. For $|V| = |H| = 2$ and $\varphi(x,h) = (h,x)$ one has $T_{ij} = 1/2$ for all $i,j$, yet $\Phi(\rho) = I/2$ identically: a constant channel, hence measure-and-prepare. Exhaustive enumeration gives the same verdict for every (C1)-satisfying bijection at $|V| = |H| = 2$, and for 612 of 648 at $|V| = 2$, $|H| = 3$ (verification code: `papers/oi_lattice_code/coherence/`). The obstruction is structural: (C1) constrains the diagonal of $\Phi$, whereas entanglement-breaking is a property of $\mathrm{id} \otimes \Phi$ and is not fixed by the action on single-system inputs.
+[S:Main.md:433] papers/Main.md:433
+    **Theorem (C2 necessity, quantitative mixing form).** *Model one coupling step as the uniform-prior bijection marginal of §3.2's construction, and between coupling events let the hidden sector evolve by any map on the hidden conditional. Suppose the mixing hypothesis holds: with $\pi_H$ the *reference prior defining $T$* — the uniform hidden prior of the model above — every realized post-relaxation hidden conditional, given the visible record to date, lies within $\varepsilon$ of $\pi_H$ in total variation. Then the $k$-step visible marginal satisfies*
+[S:Main.md:447] papers/Main.md:447
+    **Theorem (physical memory: C2, process form).** *Under the conditional-mixing hypothesis — every realized hidden conditional lies within $\varepsilon$ of $\pi_H$ in total variation at the coupling time — every history-conditional next-step law satisfies $\|P(X_{k+1} \mid X_{\leq k}) - \bar{K}_{x_k}\|_{\mathrm{TV}} \leq \varepsilon$ with $\bar{K}_{x_k} := \sum_h \pi_H(h)\, K(x_k, h; \cdot)$; hence the departure $\|P(X_{k+1} \mid X_{\leq k}) - P(X_{k+1} \mid X_k)\|_{\mathrm{TV}} \leq 2\varepsilon$ uniformly in the history, and for $\varepsilon \leq 1 - 1/n_V$,*
+[S:Main.md:456] papers/Main.md:456
+    *Remark ((C2)'s role: two theorems).* The characterization's realization clause needs (C2) only in its limit form — the canonical dilation's bath is static, $\tau_B = \infty$ — so the structural equivalence is carried by (C1), (C3), (C4), with (C2) automatic in that limit. The physical content of (C2) is the memory theorem above: under the conditional-mixing hypothesis, observed conditional memory $I^*$ lower-bounds the bath's mixing time. The structural equivalence and the physical-memory bound are distinct results with distinct hypotheses; (C1)–(C4) are not four necessities of equal standing — (C2)'s necessity is the conditional bound above.
+[S:Main.md:484] papers/Main.md:484
+    **Theorem (C3 necessity).** *Let $m = |\mathcal{C}_H|$. The non-Markovian mutual information satisfies:*
+[S:Main.md:486] papers/Main.md:486
+    $$I(X_{<t} ; X_{>t} \mid X_t) \leq \log_2 m$$
+[S:Main.md:492] papers/Main.md:492
+    **Corollary (per-process capacity bound).** Any deterministic-bijection realization of a process whose conditional past–future information reaches $I^* = \sup_t I(X_{<t} ; X_{>t} \mid X_t)$ requires $m \geq 2^{I^*}$: the hidden sector must be at least as large as the backflow it carries. The bound is process-quantitative and does not reduce to the visible count — P-indivisibility alone does not force $m \geq n$: a two-hidden-state, three-visible-state bijection already exhibits full distinguishability revival ($m = 2 < n = 3$), so the necessity content of (C3) is the capacity to hold the *observed* backflow, not a bound set by $n$. Sustained backflow at rate $I_0 > 0$ per coupling event over $K$ events requires $m \gtrsim 2^{K I_0}$ *under the additional hypothesis* that the per-event contributions accumulate without hidden-state reuse or compression; that independence hypothesis is not a consequence of P-indivisibility, and without it only the per-process bound above is forced. The framework's qualitative (C3) ("hidden sector large enough") is the conservative restatement of the per-process bound. $\square$
+[S:Main.md:594] papers/Main.md:594
+    *Remark (the conditions are diagnostics, not hypotheses).* The reduction extends one step further. (C4) is not an independent condition on the realization either: it asserts a readback gap *mediated through the hidden state*, and in a faithful realization every correlation is so mediated, so the mediation clause is automatic and (C4) coincides with clause (ii) itself. Exhaustive enumeration confirms it — the (C4) gap and $I(X_{<k}; X_{k+1} \mid X_k) > 0$ agree on all 24, 720 and 720 realizations at $(n_V, |\mathcal{C}_H|) = (2,2), (2,3), (3,2)$, with no disagreement (`primitive_probes.py`). Taken together with the dependencies above, this does NOT license dropping readback from the right-hand side. The bare form
+[S:Main.md:602] papers/Main.md:602
+    *Remark (which condition is primitive).* Of the three structural conditions, only (C4) is logically independent. (C1) follows from it — a readback gap requires hidden mediation, and zero-coupling realizations exhibit no gap at any order — and (C3) follows by data processing, with the bound $\log_2|\mathcal{C}_H| \geq I^*$ saturated by realizations that attain it; both are certified by exhaustive enumeration in `primitive_probes.py`. The equivalence could therefore be stated with (C4) alone. It is not, deliberately: (C1) and (C3) are independently *checkable* — Bell-class dynamics force (C1) directly, capacity arguments use (C3) directly — and a characterization that lists checkable consequences alongside its primitive is more useful than a minimal one, in the way that axiom lists for groups are conventionally redundant. The dependency is recorded at each condition's definition (§1.3).*
+[S:Main.md:612] papers/Main.md:612
+    *Remark (existential and universal readings).* The equivalence is existential: (ii) holds iff *some* per-horizon (C1)–(C4) realization exists. The necessity analysis is universal and per-condition: any deterministic realization of a non-Markovian process has hidden influence at some step (C1), memory capacity $m \geq 2^{I^*}$ (C3), and read-back differing past-conditionals (C4); C2's necessity holds within the conditional-mixing class. The two readings are logically independent.
+[S:Main.md:614] papers/Main.md:614
+    *Remark (representation, not explanation).* The equivalence is a representation theorem: every accessible non-Markovian law *admits* a per-horizon C1–C4 realization. It does not, by itself, explain why the physical universe exhibits such a law; that explanatory burden — the specific substratum satisfying C4 quantitatively, with the horizon's capacity and timescales — is carried by the cosmological construction and tested there.
+[S:Methodology.md:160] papers/Methodology.md:160
+    ### 4.6 Rung 8 — the hidden-sector conditions
+[S:Methodology.md:162] papers/Methodology.md:162
+    Rungs C1–C4 are conditions on the relationship between the locus $V$ and its complement. C1, non-zero coupling, follows conditionally: a distinction with content *about* the complement requires coupling to the complement, on pain of that content being unregisterable. C2 (record persistence — slow-bath separation one route) and C3 (sufficient capacity) are not lemmas — they are substantive conditions satisfied by some partitions and not others. The framework does not claim them as lemmas: it presents C1–C4 as the conditions defining *which* embeddings carry the memory-bearing sector — hidden predictive memory unavoidable in every completion, the quantum representation itself universal ([Main] §3.4) and as a structural selection rule on where observers can exist ([Main] §4.6). Rung 8 is correctly treated by the framework as a selection condition, not a derivation, and no overclaim is present.
+[S:Methodology.md:225] papers/Methodology.md:225
+    
+[S:Methodology.md:226] papers/Methodology.md:226
+    - **Axiom 1.** *Tokened differentiation occurs.* Concrete differentiated content is instantiated; there is some this-not-that. This is the evidence of Section 2. It is indubitable — its denial is itself a tokened differentiation — and it is conceptually primitive: even the vocabulary needed to state the second axiom presupposes it.
+[S:Methodology.md:243] papers/Methodology.md:243
+    The foundation of the framework, distilled, is two axioms:
+[S:Methodology.md:245] papers/Methodology.md:245
+    > **Axiom 1.** *Tokened differentiation occurs.* — Concrete differentiated content is instantiated: there is some this-not-that. Indubitable; conceptually primitive.
+[S:Methodology.md:247] papers/Methodology.md:247
+    > **Axiom 2.** *Differentiation recurs.* — The principle of Axiom 1 is instantiated more than once over, across a further axis. The temporal domain is the minimal such recurrence; configurational and temporal instances are the two minimum witnesses, the actual count of axes being settled downstream by derivation.
+[S:Methodology.md:249] papers/Methodology.md:249
+    We call this two-part foundation the **two-axiom observation base**. The two axioms are ordered: Axiom 2 presupposes Axiom 1 (recurrence of differentiation requires differentiation, and the very notion of an axis along which recurrence runs is a differentiation-structure), but Axiom 2 is not derivable from Axiom 1 (Section 5.5, the no-go). The relationship is one-directional presupposition without entailment.
+[S:Methodology.md:251] papers/Methodology.md:251
+    The foundation comprises two axioms, not one axiom plus a domain-multiplicity *parameter*: a posit that can be neither derived nor eliminated, and must be asserted, is an axiom, so the count is two. The two axioms invoke a *single principle* (tokened differentiation), Axiom 2 being that principle asserted to recur. The unity is thematic, not numerical — one principle, two axioms — and is recorded as the relationship between the axioms, not as a reduction of their count.
+[S:Methodology.md:235] papers/Methodology.md:235
+    The content of Sections 4 and 5 can be stated as a single result. *Given Axiom 1, "tokened differentiation occurs," the rungs relationality, proper-part, dynamics-existence, determinism, finiteness-per-moment, and bijectivity follow as lemmas; the recurrence of differentiation — Axiom 2, equivalently the existence of more than one moment for the dynamics to act across — does not, and cannot, follow.* The negative half is a no-go theorem of modest scope but real content: it identifies, exactly, the one place where the framework's foundation makes a second commitment, and it shows that the second commitment cannot be discharged by any derivation from the first — it must be asserted as an independent axiom. The no-go is specifically about the *recurrence* of differentiation (the existence of the temporal domain), not about the *ordering* of moments within that domain; the latter is a separate and possibly tractable question (Section 5.3), and the framework takes no position on it here.
+[S:Substratum.md:92] papers/Substratum.md:92
+    (A1) **Finiteness.** The configuration space $S$ is finite. (Two-part status. E3, with the holographic bound read as a Hilbert-space dimension cutoff $\dim \mathcal{H} \leq e^{A/4}$, bounds what observation reaches: the visible sector and its boundary layer, $\mathcal{C}_V \times \mathcal{C}_B$ — which is also all that the emergent observables depend on, by the boundary-only dependence lemma [GR §3.2]. The extension to all of $S$ is then a gauge choice rather than a further fact: by the deep-sector enlargement freedom (Theorem 24(iii)), the deep hidden sector may be finite of any size, or infinite, without changing the emergent description, and A1 selects the minimal — finite — representative of the equivalence class (made precise in the corollary following Theorem 24). The substrate's total cardinality beyond the boundary layer is not an observable question, in the same sense that the uniform vacuum offset is not.)
+[S:Substratum.md:94] papers/Substratum.md:94
+    (A2) **Determinism.** $\varphi: S \to S$ is a bijection (deterministic, reversible dynamics). (Two-part status, per the dilemma argument of [Main §2.2]: a non-injective descent either leaves a statistical trace — excluded where the observed statistics are of the doubly stochastic class that the uniform-prior marginal of a bijection produces — or leaves none, in which case it is removable, every map on a finite set restricting to a bijection on its eventual image, where all recurrent registered history lives. Bijectivity for the dynamics governing registered history is thus partly structural and partly anchored by one empirical input, the observed statistics in that scope; Main's honest-accounting ledger records the same division.) The anchor is empirically live: its current frontier is nanoparticle matter-wave interference at macroscopicity $\mu = 15.5$ — sodium clusters above $1.7 \times 10^5$ amu held in 133-nm path superpositions [4] — an order of magnitude beyond the prior benchmark, and the direct one-sided test against the intrinsic-collapse alternatives that would break it.
+[S:Substratum.md:96] papers/Substratum.md:96
+    (A3) **Bounded coupling degree.** Each site is coupled to a bounded number of neighbors in $\varphi$'s action. (Required for locality and the emergence of a coupling graph with well-defined dimension. The physical content is boundedness itself; the specific degree is gauge — any bounded-degree graph in the quasi-isometry class produces the same emergent quantum-mechanical, dimensional, and gravitational content, Theorem 24(iv).)
+[S:Substratum.md:98] papers/Substratum.md:98
+    (A4) **Center independence.** The dynamics $\varphi$ does not depend on a choice of "center" site, in two senses used below: $\varphi$ commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value ([SM §4.1]). (The second sense is what the wave-equation derivation of Stage 2 uses. Its observational anchor is the homogeneity of physical law — no experiment has found a preferred location in the laws — the cosmological principle's complement to E4's isotropy; whether it is independently warranted by the observer architecture remains the question flagged in §1.)
+[S:Substratum.md:100] papers/Substratum.md:100
+    (A5) **Linearity.** The wave equation for $\varphi$ is linear. (Equivalent to amplitude-scale gauge invariance — that the field-value scale is unphysical — via the linearity-equivalence lemma of [SM §4.1]; hence necessary *given* that gauge principle and "partly derived" in exactly that sense. Whether the $q$-size gauge freedom of [SM §2.7] entails amplitude-scale gauge is an identified open step; pending it, nonlinear alternatives are excluded precisely to the extent amplitude-scale gauge is assumed, and would otherwise require a separate derivation.)
+[S:Substratum.md:102] papers/Substratum.md:102
+    (A6) **Background independence.** The dynamics is covariant under spatially-varying internal-index transformations: a site-dependent transformation $G(\mathbf{n})$ of the internal index is a symmetry of the dynamics provided the coupling data carried on the links are transformed with it, $M(\mathbf{n}, \hat{e}_j) \to G(\mathbf{n})\,M(\mathbf{n}, \hat{e}_j)\,G(\mathbf{n}+\hat{e}_j)^{-1}$ ([SM §3.1]). The content of the assumption is this covariant interface — the coupling is link-valued data on which the transformations act — and once it is in place the local transformation law imposes no further condition on the rule. A6 is not the stronger fixed-background condition that the same transformations leave the dynamics invariant with the coupling held fixed and preserved pointwise: for an invertible constant coupling that condition forces the transformation to agree across every coupled pair of sites, and at the symmetric point of the coupling matrix it fails for every transformation that differs across a coupled pair. The global commutant symmetry — the transformations constant across the lattice that leave the coupling itself unchanged, the specialization of A6 in which nothing needs transporting — is what the local gauge reading of [SM §3.1] proceeds from. The state-dependent coupling graph of [SM §3.1], under which the graph itself evolves with the state, is a separate principle that shares the name and is not A6.
+[S:Substratum.md:104] papers/Substratum.md:104
+    The theorem's uniqueness claim holds under E1–E7 **and** A1–A6 jointly; removing any of A3–A6 either requires new derivations or weakens the uniqueness. The set A1–A6 is sufficient for the reconstruction but is not proved to be minimal: A4 (center independence) and A6 (background independence) overlap in physical content (A6 promotes the symmetry that A4 constrains), and A5 (linearity) is equivalent to amplitude-scale gauge invariance via the linearity-equivalence lemma of [SM §4.1], hence partly derived — necessary *given* amplitude-scale gauge, with whether [SM §2.7]'s $q$-size gauge entails it left as an identified open step. A tighter axiomatization may be possible but is not pursued here; the reconstruction's validity depends on the sufficiency of A1–A6 and E1–E7, not on their independence. The empirical inputs E5, E6, E7 (propagating gravity, stable matter, boundary-entropy concordance) provide explicit forward filters for $d = 3$ — see Stage 2(a) below.
+[S:Substratum.md:122] papers/Substratum.md:122
+    **Inputs:** E1 (unitary QM), E2 (Bell violations), E3 (finite boundary entropy), A1 (finiteness), A2 (determinism), and M1, now explicitly two-clause: **M1-T**, the observed temporal quantum data used in Stage 1 lie in the accessible history-readback/P-indivisible sector of [Main §2.3–§3.4]; and **M1-B**, Bell-violating composites take [Main §3.3]'s measurement-independent, ontically parameter-dependent branch with operational no-signaling. M1-T and M1-B are logically distinct; Bell violation is not taken to imply temporal P-indivisibility.
+[S:Substratum.md:126] papers/Substratum.md:126
+    - The triple satisfies C1 (non-trivial coupling), C2 (record persistence — the slow bath one realization), C3 (sufficient hidden memory capacity), and C4 (history readback) for the M1-T temporal sector: [Main §3.4]'s universal hidden-memory theorem — accessible non-Markovianity ⟺ C1/C3/C4 realization per horizon, with $M_t > 0$ forcing unavoidable hidden predictive memory — makes readback-relevant hidden memory unavoidable in every faithful deterministic realization. M1-B separately requires Bell-relevant cross-wing coupling/parameter dependence and does not supply C4.
+[S:Substratum.md:128] papers/Substratum.md:128
+    **Conditional structure.** C1, C3, and C4 for the memory-bearing temporal sector are derived from E1–E3, A1–A2 together with **M1-T** — C4 via the hidden-memory theorem applied to the stipulated accessible temporal memory/P-indivisibility; conditional on M1-T, they hold without further hypothesis. **M1-B** is separate: it maps E2 to the ontically parameter-dependent Bell composite and supplies an independent cross-wing-coupling requirement, not C4. C2 is conditional on the quantitative mixing hypothesis of [Main §3.4] — uniform total-variation closeness of the hidden sector's post-relaxation conditionals to a single bath distribution, under which the divisibility deficit obeys an explicit bound $(k-1)\varepsilon$; without it, the necessity direction (P-indivisibility on accessible timescales forces $\tau_S \ll \tau_B$) cannot be established. ETH is the physical case for the hypothesis, as discussed in [Main §3.4]'s "Remark (Status of ETH)." ETH is a well-supported conjecture for generic chaotic many-body Hamiltonians and is the standard assumption for the cosmological-horizon complement; relaxations or failures of ETH would require a separate argument. The framework's gauge-group derivation through Stage 2 inherits this conditional.
+[S:Explainer.md:65] papers/Explainer.md:65
+    **C1: Non-zero coupling (H_int ≠ 0).** The visible and hidden sectors interact. Information flows between them. Without this, the observer's room is perfectly isolated — nothing interesting happens.
+[S:Explainer.md:67] papers/Explainer.md:67
+    **C2: Memory persistence (τ_S ≪ τ_B).** The hidden sector's *coarse-grained mixing time* — the rate at which a stored record of visible history degrades — is long compared with the accessible window. This is persistence, not slowness: fast hidden dynamics that conserve the record serve equally well, and a shift-register bath rotating five cells per visible step supports a maximal readback gap ([Main §1.3]). τ_S is the timescale of visible-sector processes; τ_B is the timescale of hidden-sector processes. This is the *opposite* of the usual assumption in physics. Normally, people assume the environment is fast and chaotic (a "heat bath" that quickly forgets everything). Here, the environment is slow and has a long memory. This is what makes the dynamics non-Markovian.
+[S:Explainer.md:69] papers/Explainer.md:69
+    **C3: Sufficient capacity (log₂|C_H| ≥ I\*).** The hidden sector has enough distinguishable states to encode the conditional past-future information the observer actually sees — the per-process bound, not a crude "many more degrees of freedom" comparison. It follows from readback by data processing in any faithful realization, and framework realizations saturate it ([Main §1.3]).
+[S:Explainer.md:905] papers/Explainer.md:905
+    The framework's results all have a clean interpretation in this language. The conditions C1–C4 are access conditions on the memory: C1 means the readable and unreadable parts are dynamically linked (read-write coupling is active), and C4 means the visible past is re-expressed through the hidden sector — in the physical realization, what is written is read back. C2 means the unreadable part retains its contents between reads. C3 means the unreadable part is large enough to store the full interaction history without overflow.
+[S:ch01-observation.md:22] book/ch01-observation.md:22
+    That starting point, examined closely, is two things. What genuinely cannot be doubted is thin: there is differentiated content — some this-rather-than-that. Call this the first axiom. It is genuinely indubitable, because to doubt it is already to tell one thing from another, which is an instance of it. But notice what a single such fact does *not* contain: time. A single differentiated content is like a photograph — a frozen frame can be full of difference, light here and dark there, without anything in it being before or after anything else. To get from the photograph to a *movie* — to a world with succession, change, one moment after another — something must be added: that the differentiation *recurs*, that it is instantiated more than once. Call this the second axiom. It cannot be squeezed out of the first; a frozen frame, however rich, never amounts to a sequence of frames. The framework therefore rests not on one fact but on two: one that cannot be doubted, and one that must be assumed. This is a strength, not a hedge. A foundation that can point to its single assumed ingredient — and that comes with a theorem showing the assumed ingredient genuinely cannot be derived from the indubitable one — is sturdier than a foundation whose assumptions are scattered, unnamed, through a definition.
+[S:ch01-observation.md:24] book/ch01-observation.md:24
+    One qualification, stated here and developed in the companion paper. Counting the framework's foundational commitments is partly a matter of how the foundation is *presented* rather than a fact about the world: the same theory can be axiomatized in inter-derivable ways, and which structural feature is named an "axiom" and which is derived as a consequence is, within limits, a presentational choice — a notational variance, in Quine's sense, that leaves all observable physics untouched. In particular, whether the embedded observer's status as a *proper part* of a larger whole follows from the first axiom or is a further foundational posit in its own right turns on how the first axiom is read. The framework adopts the reading on which the registering occurs from a locus against a remainder, so that embeddedness follows; on a thinner reading it would be a third posit. The choice bears on how the framework counts its assumptions, not on any prediction it makes. The technical development of the foundational structure, and the no-go theorem behind it, is given in Part I of the companion paper *Physics Modulo Gauge*; the chapters that follow build on the structure without further reference to it.
+[S:ch01-observation.md:26] book/ch01-observation.md:26
+    **Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a deterministic dynamics $\varphi: S \to S$, and an observer $V \subsetneq S$ — a proper subsystem with finitely many distinguishable internal states, coupled to the complement $H = S \setminus V$ through $\varphi$.
+[S:ch01-observation.md:30] book/ch01-observation.md:30
+    **Lemma 1 (Finiteness).** *The visible configuration space $\mathcal{C}_V$ is finite, with a discreteness scale $\epsilon$ providing a finite minimal cell volume.*
+[S:ch01-observation.md:34] book/ch01-observation.md:34
+    **Lemma 2 (Causal partition).** *The phase space decomposes as $\Gamma = \Gamma_V \times \Gamma_H$, with $H_{\text{tot}} = H_V + H_H + H_{\text{int}}$. Cross-partition correlations enter only through $H_{\text{int}}$.*
+[S:ch01-observation.md:38] book/ch01-observation.md:38
+    **Lemma 3 (Determinism and selected measure).** *$\varphi$ is a bijection on $S$. On each accessible orbit the invariant measure is unique and uniform; globally the counting measure is selected among the invariant measures as the one of maximal entropy, becoming the Liouville measure on $\Gamma$ in the continuum limit:*
+[S:ch01-observation.md:51] book/ch01-observation.md:51
+    In the Markovian regime — fast bath, system slow relative to environment — each transition is independent of the last. This is the standard setting of open quantum systems and produces classical noise. The cosmological hidden sector differs in four specific ways, and the framework's central theorem is that their conjunction forces non-Markovian visible dynamics — with a fixed-basis unitary quantum representation internal and universal ([Main §3.4]), the compressed form supplied across the correspondence's class under (T), nontrivially where the dynamics is P-indivisible.
+[S:ch01-observation.md:53] book/ch01-observation.md:53
+    **Condition C1 (Non-zero coupling).** $H_{\text{int}} \neq 0$: hidden degrees of freedom affect the visible evolution at some accessible step — a non-permutation one-step matrix is the cheapest witness, though influence can also hide at step one and surface later. The horizon is not a static wall — stress-energy conservation enforces dynamical correlations across it, and in the physical realization information flows in both directions. The defining content of C1, and what the necessity argument delivers, is the hidden-to-visible influence; bidirectionality belongs to the realization ([Main §3.4], Remark at the non-permutation-witness lemma).
+[S:ch01-observation.md:55] book/ch01-observation.md:55
+    **Condition C2 (Slow-bath timescale separation).** $\tau_S \ll \tau_B$. The hidden sector evolves much more slowly than the visible sector. Its correlation time is set by the Hubble timescale, $\tau_B \sim H^{-1} \sim 10^{17}$ s. A laboratory experiment operates on $\tau_S \sim 10^{-15}$ s or shorter; the ratio is $\tau_S/\tau_B \sim 10^{-32}$. This is the *inverse* of the Markovian regime: the environment cannot reset between measurements. Every correlation it picks up from one experiment is still there when the next begins.
+[S:ch01-observation.md:57] book/ch01-observation.md:57
+    **Condition C3 (Sufficient memory capacity).** The hidden sector has enough distinguishable states to encode the observed conditional past–future information — $\log_2 |\mathcal{C}_H| \geq I^*$, the bound the necessity theorem actually proves. The hierarchy is the realization, not the condition: the cosmological horizon has roughly $10^{122}$ independent degrees of freedom, the Bekenstein-Hawking entropy, against a laboratory apparatus's $10^{30}$ to $10^{50}$ — so $N_H \gg N_V$ there, no experiment appreciably disturbs the hidden sector, and its memory never saturates.
+[S:ch01-observation.md:59] book/ch01-observation.md:59
+    **Condition C4 (History readback).** History-sensitive hidden mediation: hidden degrees of freedom carry information about the visible past into later visible steps — an operational condition, satisfiable even by a pre-sampled hidden variable revealed by the history. In the cosmological realization the mediation is a causal read-write cycle — the interaction reads what it writes — a property to be demonstrated there rather than assumed: the horizon coupling is bidirectional, acting on the same boundary degrees in both directions, but bidirectionality is a strengthened form of C1 and does not by itself supply the routing that readback asserts (Chapter 7 §7.2). Without it, influence plus storage is mere noise: a hidden sector that records history on one set of components while a disjoint set drives the visible dynamics produces exactly Markovian statistics for as long as one cares to look.
+[S:ch01-observation.md:69] book/ch01-observation.md:69
+    For other partitions, however, C2 and C3 can be tuned independently. In biological systems (Chapter 13), the protein conformational landscape has a hidden sector substantially smaller than cosmological ($N_H \sim 10^{10}$ conformational states), with slow dynamics set by folding-landscape physics rather than horizon thermodynamics. Each condition has a different source: C3 from the configurational entropy of the conformational space; C2 from the kinetic barriers separating metastable conformations. In engineered quantum systems (Chapter 15), C2 and C3 can be tuned independently by choosing the substrate material (which controls $N_H$ through the TLS bath density) and the operating temperature (which controls $\tau_B$ through bath equilibration rates). The BEC analogue-gravity experimental program (Chapter 15 §15.8) specifically tests the framework's predictions in the regime where C3 is marginal while C2 remains satisfied — an experimental design that depends on the independence of the two conditions.
+[S:ROADMAP.md:47] verification/ROADMAP.md:47
+    quantum evolution from the observationally compatible lifts; Physical C4 asks whether the abstract
+[S:ROADMAP.md:48] verification/ROADMAP.md:48
+    observational structure is discharged at the physical cuts; and the continuum/infinite and
+[S:ROADMAP.md:65] verification/ROADMAP.md:65
+    | **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled rule of the least interface (`a6cov_all`), so its content is the covariant interface and not a constraint; the `K = 6` link-coupled rule is packaged as a `Substratum` with no field added, the packaged carrier's update map is the interface's link-coupled map, `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling, and the covariance statement of `[SM §3.1]` is proved at the complex six-component carrier with the manuscripts' site-dependent transformation an instance of the interface's transformation class (`pk1_packaging`, `pk2a_bridge`, `pk3a_A1`–`pk3e_A5`, `cx1_complex_covariance`, `cx2_unitary_gaugeLink`); the named hypothesis is that the manuscripts' physical substratum is that packaged carrier, and that identification is the whole of what this row tracks; separately, and outside `A6Cov` rather than a condition on it, the part of the gauge derivation that consumes the inner product, unitarity as a constraint, the condensate `Σ`, the stabilizer in `U(6)` or the cubic decomposition stands outside the interface, as does the complex carrier itself, proved not to satisfy `A1` (`cx3b_complex_not_A1`); `A6-inv` is a separate, stronger fixed-background condition, refuted on the frozen two-site carrier and at the symmetric point `M = μ I_6` (`d3b_not_a6inv`, `d4b_mu_id`); `A6-glob` its global specialization (`a6glob_of_a6inv`); `A6-sd` a different principle under a shared name | the complete A1–A6 formal package |
+[S:ROADMAP.md:66] verification/ROADMAP.md:66
+    | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN**, and now EXACT: round C4-1 put the manuscripts' realization clause in the kernel as `RoutedReadback`, bounded what a discharge would need and what it would buy, and made the residual exact **per cut** — at the cosmological cut the finite realization datum itself, which the manuscripts describe and do not supply, and then a routed witness within the window; at the lattice cut `[SM]` Theorem 22's readback genericity lemma in the form `LatticeCutReadback` over admissible regions at the return window | the actual physical realization |
+[S:ROADMAP.md:69] verification/ROADMAP.md:69
+    | **P1** | Stochastic observer interface — source `(Obs, μ)` from the stated architecture | Foundations / physical realization | **OPEN**, with the present architecture bounded negatively: `StochasticInterface` proves the invariant ensemble is not uniquely determined on the wave substratum under its stated hypotheses (`ensemble_underdetermined`, `waveSubstratum_stochastic_interface_gap`), while the observation-map leg is not supplied on `Substratum.Conf`. The remaining obligation is to supply independently motivated structure selecting the physical observation map and ensemble, or prove that the claims consuming an induced stochastic law are invariant under that residual choice. This is distinct from C4: C4 asks whether hidden history is routed back; this row asks which `(Obs, μ)` defines the observed stochastic law in the first place. | a fully sourced physical stochastic law `(φ, Obs, μ)` |
+[S:ROADMAP.md:1455] verification/ROADMAP.md:1455
+    The manuscripts explicitly carry several substantive premises whose current role is to condition a
+[S:ROADMAP.md:1456] verification/ROADMAP.md:1456
+    claim, not to sit in the proof queue: recurrence; the minimal finite representative/total-state
+[S:ROADMAP.md:1457] verification/ROADMAP.md:1457
+    finiteness choice where consumed; the empirical unitarity input used in the determinism-recovery
+[S:ROADMAP.md:1458] verification/ROADMAP.md:1458
+    margin; maximal-entropy invariant-measure selection; hidden-sector/effective mixing hypotheses;
+[S:ROADMAP.md:1459] verification/ROADMAP.md:1459
+    spatial isotropy; and A5 linearity. Their downstream uses must remain visibly conditional unless a
+[S:ROADMAP.md:1460] verification/ROADMAP.md:1460
+    future programme elects to derive or replace them. Their absence from the active queue therefore
+[S:ROADMAP.md:1461] verification/ROADMAP.md:1461
+    means “declared input, not currently targeted,” not “Lean proved.”
+[S:README.md:636] verification/README.md:636
+    mechanics is coherent controllability. **No ontological necessity**: `OICore` is an existential
+[S:README.md:637] verification/README.md:637
+    realizability condition about a particular four-state gadget, so a containment theorem about it is
+[S:README.md:638] verification/README.md:638
+    not an explanatory one, and nothing shows a hidden sub-quantum level is required — with density
+[S:README.md:639] verification/README.md:639
+    matrices as states, informationally complete measurements exist, so the universally quantified form
+[S:README.md:640] verification/README.md:640
+    of observational incompleteness is false at the quantum-state level. `oiCore_forward_redundancy`
+COUNT declarations=104 missing=0 manuscript_lines=89

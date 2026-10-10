@@ -1,0 +1,562 @@
+== PART A: whole-module census, I1 module set (12 modules)
+-- OIRealization.lean : 2 census entries, 22 theorems/lemmas, 34 declarations scanned
+  OIRealization.lean:234  CEN  def  RealizesSealedOICore  | def RealizesSealedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop
+  OIRealization.lean:291  CEN  def  SealedCoreIsFiniteOI  | def SealedCoreIsFiniteOI : Prop
+  OIRealization.lean:98  THM  theorem  coreIdx_apply
+  OIRealization.lean:101  THM  theorem  vis_coreIdx_symm_iff
+  OIRealization.lean:124  THM  theorem  readVisible_apply
+  OIRealization.lean:129  THM  theorem  readVisible_eq_localLuders
+  OIRealization.lean:140  THM  theorem  readVisible_family_eq
+  OIRealization.lean:146  THM  theorem  readout_relabel_available
+  OIRealization.lean:190  THM  theorem  readVisible_diagonal
+  OIRealization.lean:203  THM  theorem  vstepMap_diagonal
+  OIRealization.lean:213  THM  theorem  realizedFold_diagonal
+  OIRealization.lean:245  THM  theorem  relabel_available
+  OIRealization.lean:252  THM  theorem  realizesSealedOICore_of_control
+  OIRealization.lean:260  THM  theorem  countermodel_realizesSealedOICore
+  OIRealization.lean:263  THM  theorem  admissible_realizesSealedOICore
+  OIRealization.lean:266  THM  theorem  fullQuantum_realizesSealedOICore
+  OIRealization.lean:280  THM  theorem  partIdx_fst
+  OIRealization.lean:305  THM  theorem  sealedCore_is_finiteOI
+  OIRealization.lean:316  THM  theorem  sameCore_closure_not_inert
+  OIRealization.lean:324  THM  theorem  sameCore_inert_not_closure
+  OIRealization.lean:333  THM  theorem  sameCore_both
+  OIRealization.lean:343  THM  theorem  sameCore_both_sides
+  OIRealization.lean:360  THM  theorem  finiteOI_not_implies_inert
+  OIRealization.lean:366  THM  theorem  finiteOI_not_implies_closure
+-- IndependenceCensus.lean : 3 census entries, 81 theorems/lemmas, 121 declarations scanned
+  IndependenceCensus.lean:187  CEN  def  CoreC1C4  | def CoreC1C4 : Prop
+  IndependenceCensus.lean:549  CEN  def  IsLocalOnB  | def IsLocalOnB (U : Matrix Core Core ℂ) : Prop
+  IndependenceCensus.lean:554  CEN  def  IsLocalOnVH  | def IsLocalOnVH (U : Matrix Core Core ℂ) : Prop
+  IndependenceCensus.lean:105  THM  theorem  swapFn_involutive
+  IndependenceCensus.lean:107  THM  theorem  flipFn_involutive
+  IndependenceCensus.lean:118  THM  theorem  sigmaPerm_apply
+  IndependenceCensus.lean:119  THM  theorem  tauPerm_apply
+  IndependenceCensus.lean:120  THM  theorem  sigmaPerm_symm_apply
+  IndependenceCensus.lean:121  THM  theorem  tauPerm_symm_apply
+  IndependenceCensus.lean:124  THM  theorem  sigmaPerm_sq
+  IndependenceCensus.lean:128  THM  theorem  tauPerm_sq
+  IndependenceCensus.lean:132  THM  theorem  sigma_tau_commute
+  IndependenceCensus.lean:137  THM  theorem  core_hidden_drives_visible
+  IndependenceCensus.lean:143  THM  theorem  core_visible_period_two
+  IndependenceCensus.lean:150  THM  theorem  core_observer_minimal
+  IndependenceCensus.lean:157  THM  theorem  core_capacity_saturates
+  IndependenceCensus.lean:176  THM  theorem  core_history_readback
+  IndependenceCensus.lean:200  THM  theorem  core_isC1C4
+  IndependenceCensus.lean:216  THM  theorem  rankOneC_apply
+  IndependenceCensus.lean:220  THM  theorem  rankOneC_posSemidef
+  IndependenceCensus.lean:228  THM  theorem  rankOneC_diag
+  IndependenceCensus.lean:231  THM  theorem  allOnes_diag
+  IndependenceCensus.lean:235  THM  theorem  allOnes_posSemidef
+  IndependenceCensus.lean:237  THM  theorem  dephaseC_eq_one
+  IndependenceCensus.lean:242  THM  theorem  dephaseC_diag
+  IndependenceCensus.lean:244  THM  theorem  dephaseC_posSemidef
+  IndependenceCensus.lean:264  THM  theorem  nlPhase_unimodular
+  IndependenceCensus.lean:269  THM  theorem  nlPhase_swap_invariant
+  IndependenceCensus.lean:288  THM  theorem  nonFunctorialC_diag
+  IndependenceCensus.lean:292  THM  theorem  nonTensorC_diag
+  IndependenceCensus.lean:296  THM  theorem  restrictedC_diag
+  IndependenceCensus.lean:326  THM  theorem  ludersLift_diagonal
+  IndependenceCensus.lean:344  THM  theorem  stateFold_diagonal
+  IndependenceCensus.lean:368  THM  theorem  threeCompletions_same_classical_comb
+  IndependenceCensus.lean:386  THM  theorem  monoU_apply
+  IndependenceCensus.lean:389  THM  theorem  perm_inv_apply
+  IndependenceCensus.lean:392  THM  theorem  monoU_eq_diagonal_permMatrix
+  IndependenceCensus.lean:403  THM  theorem  monoU_conj
+  IndependenceCensus.lean:409  THM  theorem  monoU_mul
+  IndependenceCensus.lean:425  THM  theorem  monoU_one
+  IndependenceCensus.lean:430  THM  theorem  monoU_conjTranspose
+  IndependenceCensus.lean:442  THM  theorem  monoU_unitary
+  IndependenceCensus.lean:463  THM  theorem  pt0_ne_pt1
+  IndependenceCensus.lean:465  THM  theorem  dephaseC_apply
+  IndependenceCensus.lean:468  THM  theorem  nonFunctorial_cptp
+  IndependenceCensus.lean:473  THM  theorem  nonFunctorial_classical
+  IndependenceCensus.lean:482  THM  theorem  nonFunctorial_not_functorial
+  IndependenceCensus.lean:502  THM  theorem  one_unimodular
+  IndependenceCensus.lean:505  THM  theorem  Usigma_unitary
+  IndependenceCensus.lean:507  THM  theorem  Vtau_unitary
+  IndependenceCensus.lean:509  THM  theorem  Utau_unitary
+  IndependenceCensus.lean:511  THM  theorem  Usigma_involution
+  IndependenceCensus.lean:517  THM  theorem  Vtau_involution
+  IndependenceCensus.lean:524  THM  theorem  nlPhase_flip_prod
+  IndependenceCensus.lean:529  THM  theorem  Utau_involution
+  IndependenceCensus.lean:541  THM  theorem  Usigma_Utau_commute
+  IndependenceCensus.lean:558  THM  theorem  Utau_flip
+  IndependenceCensus.lean:562  THM  theorem  local_flip_entry
+  IndependenceCensus.lean:571  THM  theorem  nonTensor_not_local
+  IndependenceCensus.lean:598  THM  theorem  Usigma_local
+  IndependenceCensus.lean:614  THM  theorem  Vtau_local
+  IndependenceCensus.lean:629  THM  theorem  Usigma_hermitian
+  IndependenceCensus.lean:636  THM  theorem  Vtau_hermitian
+  IndependenceCensus.lean:643  THM  theorem  Usigma_Vtau_commute
+  IndependenceCensus.lean:654  THM  theorem  passiveProj_idempotent
+  IndependenceCensus.lean:667  THM  theorem  one_sub_two_passiveProj
+  IndependenceCensus.lean:673  THM  theorem  conj_fixes_coreH
+  IndependenceCensus.lean:682  THM  theorem  genLift_fixes_coreH
+  IndependenceCensus.lean:687  THM  theorem  restrictedU_fixes_coreH
+  IndependenceCensus.lean:704  THM  theorem  restricted_controlLie_line
+  IndependenceCensus.lean:712  THM  theorem  single_diag_hermitian
+  IndependenceCensus.lean:720  THM  theorem  trace_single_diag
+  IndependenceCensus.lean:728  THM  theorem  outsideGen_skewHermitian
+  IndependenceCensus.lean:735  THM  theorem  outsideGen_traceless
+  IndependenceCensus.lean:744  THM  theorem  qy_eq_swap
+  IndependenceCensus.lean:746  THM  theorem  qy_ne_qx
+  IndependenceCensus.lean:748  THM  theorem  pt0_ne_qy
+  IndependenceCensus.lean:750  THM  theorem  pt1_ne_qy
+  IndependenceCensus.lean:752  THM  theorem  outsideGen_apply_qy
+  IndependenceCensus.lean:757  THM  theorem  Usigma_apply_qy
+  IndependenceCensus.lean:761  THM  theorem  coreH_apply_qy
+  IndependenceCensus.lean:766  THM  theorem  outsideGen_apply_pt0
+  IndependenceCensus.lean:774  THM  theorem  outsideGen_not_mem
+  IndependenceCensus.lean:811  THM  theorem  oi_core_underdetermines_completion
+-- ManuscriptAxioms.lean : 4 census entries, 11 theorems/lemmas, 15 declarations scanned
+  ManuscriptAxioms.lean:76  CEN  def  A1Realized  | def A1Realized (_T : FiniteOperationalTheory (Fin 2)) : Prop
+  ManuscriptAxioms.lean:83  CEN  def  A2Realized  | def A2Realized (T : FiniteOperationalTheory (Fin 2)) : Prop
+  ManuscriptAxioms.lean:90  CEN  def  A1A2Realized  | def A1A2Realized (T : FiniteOperationalTheory (Fin 2)) : Prop
+  ManuscriptAxioms.lean:125  CEN  def  ConfigurationLevel  | def ConfigurationLevel (𝓘 : ImplementationClass) : Prop
+  ManuscriptAxioms.lean:94  THM  theorem  a1_every_theory
+  ManuscriptAxioms.lean:98  THM  theorem  substratumTheory_A1
+  ManuscriptAxioms.lean:103  THM  theorem  substratumTheory_A2
+  ManuscriptAxioms.lean:107  THM  theorem  substratumTheory_A1A2
+  ManuscriptAxioms.lean:112  THM  theorem  a2_of_control
+  ManuscriptAxioms.lean:129  THM  theorem  substratumClass_configurationLevel
+  ManuscriptAxioms.lean:134  THM  theorem  configurationLevel_iff_le_substratum
+  ManuscriptAxioms.lean:147  THM  theorem  configurationLevel_availExt_le
+  ManuscriptAxioms.lean:155  THM  theorem  configurationLevel_falsifierUnavailable
+  ManuscriptAxioms.lean:169  THM  theorem  configurationLevel_not_phaseFree
+  ManuscriptAxioms.lean:175  THM  theorem  configurationLevel_not_qm
+-- RouteB.lean : 7 census entries, 31 theorems/lemmas, 39 declarations scanned
+  RouteB.lean:123  CEN  def  ExchangesAvailable  | def ExchangesAvailable (T : FiniteOperationalTheory A) : Prop
+  RouteB.lean:128  CEN  def  PhasesAvailable  | def PhasesAvailable (T : FiniteOperationalTheory A) : Prop
+  RouteB.lean:133  CEN  def  ReadWriteAvailable  | def ReadWriteAvailable (T : FiniteOperationalTheory A) : Prop
+  RouteB.lean:141  CEN  def  DerivedOI  | def DerivedOI (T : FiniteOperationalTheory A) : Prop
+  RouteB.lean:146  CEN  def  DerivedOICore  | def DerivedOICore (T : FiniteOperationalTheory (Fin 2)) : Prop
+  RouteB.lean:174  CEN  def  FalsifierUnavailable  | def FalsifierUnavailable (T : FiniteOperationalTheory (Fin 2)) : Prop
+  RouteB.lean:252  CEN  def  RouteBTarget  | def RouteBTarget : Prop
+  RouteB.lean:149  THM  theorem  DerivedOI.implementationLocality
+  RouteB.lean:153  THM  theorem  DerivedOI.closure
+  RouteB.lean:161  THM  theorem  derivedOI_qm_iff_phaseFree
+  RouteB.lean:178  THM  theorem  falsifier_available_of_control
+  RouteB.lean:184  THM  theorem  falsifier_available_of_phaseFree
+  RouteB.lean:191  THM  theorem  not_phaseFree_of_falsifier_unavailable
+  RouteB.lean:197  THM  theorem  falsifier_not_monomial_not_diag
+  RouteB.lean:209  THM  theorem  exchangesAvailable_of_control
+  RouteB.lean:213  THM  theorem  phasesAvailable_of_control
+  RouteB.lean:217  THM  theorem  readWriteAvailable_of_control
+  RouteB.lean:223  THM  theorem  derivedOI_of_qm
+  RouteB.lean:231  THM  theorem  derivedOICore_of_qm
+  RouteB.lean:236  THM  theorem  qm_not_falsifierUnavailable
+  RouteB.lean:257  THM  theorem  target_separates
+  RouteB.lean:263  THM  theorem  target_not_qm
+  RouteB.lean:284  THM  theorem  substratumTheory_avail_conj
+  RouteB.lean:290  THM  theorem  substratumTheory_derivedOI
+  RouteB.lean:302  THM  theorem  substratumTheory_falsifierUnavailable
+  RouteB.lean:312  THM  theorem  substratumTheory_candidate
+  RouteB.lean:318  THM  theorem  target_of_substratum_core
+  RouteB.lean:334  THM  theorem  substratumTheory_relabel
+  RouteB.lean:343  THM  theorem  substratumTheory_passiveStep
+  RouteB.lean:349  THM  theorem  substratumTheory_controlStep
+  RouteB.lean:356  THM  theorem  substratumTheory_readout
+  RouteB.lean:362  THM  theorem  substratumTheory_readoutFamily
+  RouteB.lean:369  THM  theorem  substratumTheory_comb
+  RouteB.lean:375  THM  theorem  substratumTheory_realizesSealedOICore
+  RouteB.lean:380  THM  theorem  substratumTheory_derivedOICore
+  RouteB.lean:384  THM  theorem  routeB_target
+  RouteB.lean:388  THM  theorem  substratumTheory_not_phaseFree
+  RouteB.lean:395  THM  theorem  derivedOICore_not_phaseFree
+-- SubstratumInterfaceAudit.lean : 11 census entries, 82 theorems/lemmas, 106 declarations scanned
+  SubstratumInterfaceAudit.lean:84  CEN  def  A1  | def A1 : Prop
+  SubstratumInterfaceAudit.lean:87  CEN  def  A2  | def A2 : Prop
+  SubstratumInterfaceAudit.lean:91  CEN  def  A3  | def A3 (D : ℕ) : Prop
+  SubstratumInterfaceAudit.lean:94  CEN  def  A4Exact  | def A4Exact : Prop
+  SubstratumInterfaceAudit.lean:98  CEN  def  A4  | def A4 (G : Subgroup (Equiv.Perm 𝒮.Conf)) : Prop
+  SubstratumInterfaceAudit.lean:102  CEN  def  A5  | def A5 : Prop
+  SubstratumInterfaceAudit.lean:131  CEN  def  A3Family  | def A3Family (𝒮 : ℕ → Substratum) : Prop
+  SubstratumInterfaceAudit.lean:231  CEN  def  IsScaledPartialPerm  | def IsScaledPartialPerm (K : Matrix S S ℂ) : Prop
+  SubstratumInterfaceAudit.lean:485  CEN  def  BijectionLevel  | def BijectionLevel (𝓘 : ImplementationClass) : Prop
+  SubstratumInterfaceAudit.lean:505  CEN  def  PreservesNonneg  | def PreservesNonneg (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+  SubstratumInterfaceAudit.lean:619  CEN  def  SourcedOI  | def SourcedOI (T : FiniteOperationalTheory A) : Prop
+  SubstratumInterfaceAudit.lean:106  THM  theorem  a2_every_substratum
+  SubstratumInterfaceAudit.lean:109  THM  theorem  a1_of_finite
+  SubstratumInterfaceAudit.lean:115  THM  theorem  a3_of_fintype
+  SubstratumInterfaceAudit.lean:118  THM  theorem  a4_of_exact
+  SubstratumInterfaceAudit.lean:145  THM  theorem  dir_flip
+  SubstratumInterfaceAudit.lean:153  THM  theorem  mem_nbrs_symm
+  SubstratumInterfaceAudit.lean:185  THM  theorem  waveSubstratum_A1
+  SubstratumInterfaceAudit.lean:190  THM  theorem  waveSubstratum_A2
+  SubstratumInterfaceAudit.lean:194  THM  theorem  waveSubstratum_A3
+  SubstratumInterfaceAudit.lean:202  THM  theorem  waveSubstratum_A4Exact
+  SubstratumInterfaceAudit.lean:211  THM  theorem  waveSubstratum_A5
+  SubstratumInterfaceAudit.lean:242  THM  theorem  scaledPartialPerm_iff
+  SubstratumInterfaceAudit.lean:274  THM  theorem  scaled_one_aux
+  SubstratumInterfaceAudit.lean:288  THM  theorem  scaled_mul
+  SubstratumInterfaceAudit.lean:304  THM  theorem  scaled_smul
+  SubstratumInterfaceAudit.lean:312  THM  theorem  scaled_diagonal_indicator
+  SubstratumInterfaceAudit.lean:321  THM  theorem  scaled_block
+  SubstratumInterfaceAudit.lean:326  THM  theorem  scaled_tensor_one
+  SubstratumInterfaceAudit.lean:334  THM  theorem  scaled_reindex
+  SubstratumInterfaceAudit.lean:342  THM  theorem  scaled_conjTranspose
+  SubstratumInterfaceAudit.lean:350  THM  theorem  permClass_arch
+  SubstratumInterfaceAudit.lean:358  THM  theorem  permClass_contextStable
+  SubstratumInterfaceAudit.lean:362  THM  theorem  permClass_labelInvariant
+  SubstratumInterfaceAudit.lean:366  THM  theorem  permClass_daggerStable
+  SubstratumInterfaceAudit.lean:371  THM  theorem  permClass_unitaryRaySaturated
+  SubstratumInterfaceAudit.lean:406  THM  theorem  permClass_permMatrix
+  SubstratumInterfaceAudit.lean:412  THM  theorem  permClass_readWrite
+  SubstratumInterfaceAudit.lean:418  THM  theorem  permClass_le_substratum
+  SubstratumInterfaceAudit.lean:440  THM  theorem  ancBlock_flipOn
+  SubstratumInterfaceAudit.lean:464  THM  theorem  permClass_le_of_exchanges
+  SubstratumInterfaceAudit.lean:488  THM  theorem  permClass_bijectionLevel
+  SubstratumInterfaceAudit.lean:491  THM  theorem  bijectionLevel_configurationLevel
+  SubstratumInterfaceAudit.lean:510  THM  theorem  preservesNonneg_conj_of_scaled
+  SubstratumInterfaceAudit.lean:529  THM  theorem  preservesNonneg_sum
+  SubstratumInterfaceAudit.lean:536  THM  theorem  preservesNonneg_of_realized
+  SubstratumInterfaceAudit.lean:543  THM  theorem  diagonal_nonneg_of_preservesNonneg
+  SubstratumInterfaceAudit.lean:559  THM  theorem  phaseGate_not_preservesNonneg
+  SubstratumInterfaceAudit.lean:570  THM  theorem  sign_not_preservesNonneg
+  SubstratumInterfaceAudit.lean:581  THM  theorem  bijectionLevel_not_phasesAvailable
+  SubstratumInterfaceAudit.lean:590  THM  theorem  bijectionLevel_diagonal_only_scalar
+  SubstratumInterfaceAudit.lean:611  THM  theorem  permTheory_avail_conj
+  SubstratumInterfaceAudit.lean:624  THM  theorem  derivedOI_iff_sourcedOI_phases
+  SubstratumInterfaceAudit.lean:632  THM  theorem  sourcedOI_of_derivedOI
+  SubstratumInterfaceAudit.lean:636  THM  theorem  sourcedOI_of_qm
+  SubstratumInterfaceAudit.lean:642  THM  theorem  exchanges_of_readWrite
+  SubstratumInterfaceAudit.lean:654  THM  theorem  sourcedOI_qm_iff_phaseFree
+  SubstratumInterfaceAudit.lean:660  THM  theorem  permTheory_sourcedOI
+  SubstratumInterfaceAudit.lean:669  THM  theorem  permTheory_not_phasesAvailable
+  SubstratumInterfaceAudit.lean:674  THM  theorem  permTheory_diagonal_only_scalar
+  SubstratumInterfaceAudit.lean:680  THM  theorem  permTheory_no_sign
+  SubstratumInterfaceAudit.lean:686  THM  theorem  permTheory_not_derivedOI
+  SubstratumInterfaceAudit.lean:690  THM  theorem  substratumAvail_phasesAvailable
+  SubstratumInterfaceAudit.lean:695  THM  theorem  permTheory_not_substratumAvail
+  SubstratumInterfaceAudit.lean:700  THM  theorem  permTheory_availExt_le_substratum
+  SubstratumInterfaceAudit.lean:707  THM  theorem  permTheory_not_control
+  SubstratumInterfaceAudit.lean:711  THM  theorem  permTheory_not_phaseFree
+  SubstratumInterfaceAudit.lean:716  THM  theorem  permTheory_not_qm
+  SubstratumInterfaceAudit.lean:729  THM  theorem  permTheory_relabel
+  SubstratumInterfaceAudit.lean:740  THM  theorem  permTheory_realizesSealedOICore
+  SubstratumInterfaceAudit.lean:748  THM  theorem  permTheory_falsifierUnavailable
+  SubstratumInterfaceAudit.lean:753  THM  theorem  permTheory_twoState
+  SubstratumInterfaceAudit.lean:774  THM  theorem  obsTheory_eq_permTheory
+  SubstratumInterfaceAudit.lean:779  THM  theorem  obsTheory_rule_independent
+  SubstratumInterfaceAudit.lean:785  THM  theorem  obs_a1
+  SubstratumInterfaceAudit.lean:789  THM  theorem  obs_dynamics_avail
+  SubstratumInterfaceAudit.lean:794  THM  theorem  obs_dynamics_inv_avail
+  SubstratumInterfaceAudit.lean:799  THM  theorem  obs_shear_avail
+  SubstratumInterfaceAudit.lean:805  THM  theorem  obs_swap_avail
+  SubstratumInterfaceAudit.lean:811  THM  theorem  obs_readWriteAvailable
+  SubstratumInterfaceAudit.lean:815  THM  theorem  obs_exchangesAvailable
+  SubstratumInterfaceAudit.lean:819  THM  theorem  obs_embeddedObservation
+  SubstratumInterfaceAudit.lean:823  THM  theorem  obs_reversibleImplementationLocality
+  SubstratumInterfaceAudit.lean:827  THM  theorem  obs_sourcedOI
+  SubstratumInterfaceAudit.lean:830  THM  theorem  obs_diagonal_avail_only_scalar
+  SubstratumInterfaceAudit.lean:836  THM  theorem  obs_availExt_le_substratum
+  SubstratumInterfaceAudit.lean:844  THM  theorem  obs_not_phasesAvailable
+  SubstratumInterfaceAudit.lean:848  THM  theorem  obs_not_derivedOI
+  SubstratumInterfaceAudit.lean:851  THM  theorem  obs_not_substratumAvail
+  SubstratumInterfaceAudit.lean:854  THM  theorem  obs_not_control
+  SubstratumInterfaceAudit.lean:857  THM  theorem  obs_not_phaseFree
+  SubstratumInterfaceAudit.lean:860  THM  theorem  obs_not_qm
+  SubstratumInterfaceAudit.lean:864  THM  theorem  obs_qm_iff_phaseFree
+-- BackgroundIndependence.lean : 4 census entries, 16 theorems/lemmas, 23 declarations scanned
+  BackgroundIndependence.lean:96  CEN  def  PreservesPointwise  | def PreservesPointwise (g : ι → AddAut V) (M : V →+ V) : Prop
+  BackgroundIndependence.lean:104  CEN  def  A6Inv  | def A6Inv (F : (ι → V) → (ι → V)) (M : V →+ V) : Prop
+  BackgroundIndependence.lean:111  CEN  def  A6Glob  | def A6Glob (F : (ι → V) → (ι → V)) (M : V →+ V) : Prop
+  BackgroundIndependence.lean:131  CEN  def  A6Cov  | def A6Cov (N : ι → Finset ι) (M : ι → ι → (V →+ V)) : Prop
+  BackgroundIndependence.lean:138  THM  theorem  a6glob_of_a6inv
+  BackgroundIndependence.lean:144  THM  theorem  leap_siteAct
+  BackgroundIndependence.lean:161  THM  theorem  a6cov_all
+  BackgroundIndependence.lean:174  THM  theorem  d3b_witness
+  BackgroundIndependence.lean:213  THM  theorem  d3b_not_a6inv
+  BackgroundIndependence.lean:229  THM  theorem  d4a_single_edge
+  BackgroundIndependence.lean:245  THM  theorem  d4b_edge_rigidity
+  BackgroundIndependence.lean:254  THM  theorem  d4b_not_a6inv_of_nonconstant
+  BackgroundIndependence.lean:261  THM  theorem  a6glob_constLink
+  BackgroundIndependence.lean:279  THM  theorem  d4b_symmetric_point
+  BackgroundIndependence.lean:291  THM  theorem  addAut_nontrivial_of_ne_neg
+  BackgroundIndependence.lean:300  THM  theorem  addAut_zmod_smul
+  BackgroundIndependence.lean:309  THM  theorem  d4b_mu_id
+  BackgroundIndependence.lean:327  THM  theorem  d2i_wave_witness
+  BackgroundIndependence.lean:377  THM  theorem  d2i_wave_not_a6inv
+  BackgroundIndependence.lean:388  THM  theorem  d2ii_wave_a6glob
+-- A6Instantiation.lean : 0 census entries, 25 theorems/lemmas, 27 declarations scanned
+  A6Instantiation.lean:132  THM  theorem  linkSubstratum_bridge
+  A6Instantiation.lean:140  THM  theorem  linkSubstratum_A2
+  A6Instantiation.lean:147  THM  theorem  linkSubstratum_A5
+  A6Instantiation.lean:170  THM  theorem  linkSubstratum_A3
+  A6Instantiation.lean:182  THM  theorem  nbrs_sub
+  A6Instantiation.lean:199  THM  theorem  linkSubstratum_A4Exact
+  A6Instantiation.lean:242  THM  theorem  pk1_packaging
+  A6Instantiation.lean:257  THM  theorem  pk2a_bridge
+  A6Instantiation.lean:272  THM  theorem  pk2b_covariance
+  A6Instantiation.lean:276  THM  theorem  pk3a_A1
+  A6Instantiation.lean:283  THM  theorem  pk3b_A2
+  A6Instantiation.lean:289  THM  theorem  pk3c_A3
+  A6Instantiation.lean:300  THM  theorem  pk3d_A4Exact
+  A6Instantiation.lean:306  THM  theorem  pk3e_A5
+  A6Instantiation.lean:326  THM  theorem  pk4_shift_not_scalar
+  A6Instantiation.lean:366  THM  theorem  pk5_symmetric_point
+  A6Instantiation.lean:411  THM  theorem  cx1_complex_covariance
+  A6Instantiation.lean:424  THM  theorem  cx2_clinear_forgets
+  A6Instantiation.lean:440  THM  theorem  cx2_manuscript_law
+  A6Instantiation.lean:459  THM  theorem  cx2_unitary_gaugeLink
+  A6Instantiation.lean:484  THM  theorem  cx3a_complex_axioms
+  A6Instantiation.lean:512  THM  theorem  cx3b_complex_not_A1
+  A6Instantiation.lean:541  THM  theorem  as1_leap_covariant
+  A6Instantiation.lean:553  THM  theorem  as1_finite
+  A6Instantiation.lean:565  THM  theorem  as1_complex
+-- C3Necessity.lean : 0 census entries, 6 theorems/lemmas, 9 declarations scanned
+  C3Necessity.lean:69  THM  theorem  varFuture_zero
+  C3Necessity.lean:80  THM  theorem  c3_necessity
+  C3Necessity.lean:88  THM  theorem  c3_necessity_via_hidden
+  C3Necessity.lean:107  THM  theorem  Istar_le_log_card
+  C3Necessity.lean:117  THM  theorem  card_hidden_ge_two_pow_Istar
+  C3Necessity.lean:130  THM  theorem  c3_necessity_and_capacity
+-- CausalReadback.lean : 5 census entries, 21 theorems/lemmas, 31 declarations scanned
+  CausalReadback.lean:48  CEN  def  IsRowStochastic  | def IsRowStochastic (M : Matrix V V ℝ) : Prop
+  CausalReadback.lean:54  CEN  def  PDivisible  | def PDivisible (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop
+  CausalReadback.lean:58  CEN  def  PIndivisibleWithin  | def PIndivisibleWithin (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop
+  CausalReadback.lean:62  CEN  def  C4e  | def C4e (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop
+  CausalReadback.lean:67  CEN  def  C4r  | def C4r (K : ℕ) (Γ : ℕ → Matrix V V ℝ) : Prop
+  CausalReadback.lean:71  THM  theorem  tv_nonneg
+  CausalReadback.lean:76  THM  theorem  tv_eq_zero_iff
+  CausalReadback.lean:91  THM  theorem  tv_pos_of_ne
+  CausalReadback.lean:96  THM  theorem  tv_mul_le
+  CausalReadback.lean:118  THM  theorem  rows_eq_of_factor
+  CausalReadback.lean:126  THM  theorem  c4e_implies_c4r
+  CausalReadback.lean:134  THM  theorem  c4r_implies_pIndivisible
+  CausalReadback.lean:148  THM  theorem  c4e_implies_pIndivisible
+  CausalReadback.lean:157  THM  theorem  c4e_implies_pIndivisible_via_c4r
+  CausalReadback.lean:162  THM  theorem  not_c4e_and_not_c4r_of_pDivisible
+  CausalReadback.lean:196  THM  theorem  rootedMap_isRowStochastic
+  CausalReadback.lean:232  THM  theorem  j2_isRowStochastic
+  CausalReadback.lean:236  THM  theorem  one_isRowStochastic
+  CausalReadback.lean:244  THM  theorem  j2_rows_eq
+  CausalReadback.lean:247  THM  theorem  one_rows_ne
+  CausalReadback.lean:256  THM  theorem  pdFamily_pDivisible
+  CausalReadback.lean:276  THM  theorem  pdFamily_not_c4e_not_c4r
+  CausalReadback.lean:281  THM  theorem  peFamily_c4e
+  CausalReadback.lean:289  THM  theorem  peFamily_pIndivisible
+  CausalReadback.lean:295  THM  theorem  control_separation
+  CausalReadback.lean:314  THM  theorem  causal_readback_verdict
+-- PhysicalC4Discharge.lean : 2 census entries, 35 theorems/lemmas, 39 declarations scanned
+  PhysicalC4Discharge.lean:68  CEN  def  RoutedReadback  | def RoutedReadback (K : ℕ) (R : RootedRealization V H) : Prop
+  PhysicalC4Discharge.lean:633  CEN  def  LatticeCutReadback  | def LatticeCutReadback (Vs : Finset (waveSubstratum d L q α).ι) (μ : ({i // i ∉ Vs} → (waveSubstratum d L q α).V × (waveSubstratum d L q α).V) → ℝ) (h
+  PhysicalC4Discharge.lean:80  THM  theorem  routedReadback_mono
+  PhysicalC4Discharge.lean:88  THM  theorem  routedReadback_overlap
+  PhysicalC4Discharge.lean:109  THM  theorem  routed_forces_return_indivisibility
+  PhysicalC4Discharge.lean:122  THM  theorem  routed_forces_indivisible_somewhere
+  PhysicalC4Discharge.lean:158  THM  theorem  core_realization_exists
+  PhysicalC4Discharge.lean:170  THM  theorem  core_involutive
+  PhysicalC4Discharge.lean:176  THM  theorem  core_rootedMap_even
+  PhysicalC4Discharge.lean:185  THM  theorem  core_rootedMap_odd
+  PhysicalC4Discharge.lean:196  THM  theorem  core_posterior_odd
+  PhysicalC4Discharge.lean:218  THM  theorem  core_store_gap
+  PhysicalC4Discharge.lean:244  THM  theorem  core_not_routedReadback
+  PhysicalC4Discharge.lean:273  THM  theorem  core_c4e_two
+  PhysicalC4Discharge.lean:287  THM  theorem  core_pIndivisible_two
+  PhysicalC4Discharge.lean:305  THM  theorem  product_realization_exists
+  PhysicalC4Discharge.lean:317  THM  theorem  product_iterate
+  PhysicalC4Discharge.lean:328  THM  theorem  product_rootedMap
+  PhysicalC4Discharge.lean:338  THM  theorem  product_not_routedReadback
+  PhysicalC4Discharge.lean:345  THM  theorem  product_rootedMap_twelve
+  PhysicalC4Discharge.lean:353  THM  theorem  product_pDivisible
+  PhysicalC4Discharge.lean:396  THM  theorem  tapeLedger_realization_exists
+  PhysicalC4Discharge.lean:417  THM  theorem  tapeLedger_step_eq
+  PhysicalC4Discharge.lean:427  THM  theorem  tapeLedger_rootedMap_mid
+  PhysicalC4Discharge.lean:439  THM  theorem  tapeLedger_rootedMap_four
+  PhysicalC4Discharge.lean:452  THM  theorem  tapeLedger_write_store
+  PhysicalC4Discharge.lean:473  THM  theorem  tapeLedger_not_routedReadback_three
+  PhysicalC4Discharge.lean:482  THM  theorem  tapeLedger_pDivisible_three
+  PhysicalC4Discharge.lean:495  THM  theorem  tapeLedger_history_identity
+  PhysicalC4Discharge.lean:510  THM  theorem  tapeLedger_routedReadback_four
+  PhysicalC4Discharge.lean:538  THM  theorem  tapeLedger_c4e_four
+  PhysicalC4Discharge.lean:553  THM  theorem  tapeLedger_pIndivisible_four
+  PhysicalC4Discharge.lean:594  THM  theorem  cutRealization_step
+  PhysicalC4Discharge.lean:604  THM  theorem  cutRealization_rootedMap_isRowStochastic
+  PhysicalC4Discharge.lean:611  THM  theorem  cutRealization_rootedMap_periodic
+  PhysicalC4Discharge.lean:640  THM  theorem  latticeCutReadback_iff
+  PhysicalC4Discharge.lean:650  THM  theorem  latticeCut_rootedMap_stochastic_periodic
+-- PhysicalC4StorageReadback.lean : 1 census entries, 25 theorems/lemmas, 27 declarations scanned
+  PhysicalC4StorageReadback.lean:69  CEN  def  RoutedReadbackAtStorage  | def RoutedReadbackAtStorage (K : ℕ) (R : RootedRealization V H) : Prop
+  PhysicalC4StorageReadback.lean:81  THM  theorem  routedReadbackAtStorage_mono
+  PhysicalC4StorageReadback.lean:91  THM  theorem  routedReadbackAtStorage_overlap
+  PhysicalC4StorageReadback.lean:100  THM  theorem  storageWeight_sum
+  PhysicalC4StorageReadback.lean:119  THM  theorem  storageWeight_eq_zero_of_root_ne
+  PhysicalC4StorageReadback.lean:141  THM  theorem  rootedStatePosterior_ne
+  PhysicalC4StorageReadback.lean:165  THM  theorem  rootedStatePosterior_marg_eq
+  PhysicalC4StorageReadback.lean:244  THM  theorem  routedAtStorage_forces_return_indivisibility
+  PhysicalC4StorageReadback.lean:256  THM  theorem  routedAtStorage_forces_indivisible_somewhere
+  PhysicalC4StorageReadback.lean:295  THM  theorem  core_statePosterior_odd
+  PhysicalC4StorageReadback.lean:314  THM  theorem  core_storage_contrast
+  PhysicalC4StorageReadback.lean:342  THM  theorem  core_routedReadbackAtStorage_two
+  PhysicalC4StorageReadback.lean:392  THM  theorem  product_not_routedReadbackAtStorage
+  PhysicalC4StorageReadback.lean:416  THM  theorem  tapeLedger_not_routedReadbackAtStorage_three
+  PhysicalC4StorageReadback.lean:425  THM  theorem  tapeLedger_statePosterior_one
+  PhysicalC4StorageReadback.lean:439  THM  theorem  tapeLedger_routedReadbackAtStorage_four
+  PhysicalC4StorageReadback.lean:477  THM  theorem  core_storageReadback_and_not_routedReadback
+  PhysicalC4StorageReadback.lean:488  THM  theorem  storageReadback_not_implies_routedReadback
+  PhysicalC4StorageReadback.lean:522  THM  theorem  sep_realization_exists
+  PhysicalC4StorageReadback.lean:561  THM  theorem  sep_rootedMap
+  PhysicalC4StorageReadback.lean:573  THM  theorem  sep_statePosterior
+  PhysicalC4StorageReadback.lean:591  THM  theorem  sep_seedPosterior
+  PhysicalC4StorageReadback.lean:609  THM  theorem  sep_read_collapse
+  PhysicalC4StorageReadback.lean:622  THM  theorem  sep_routedReadback_two
+  PhysicalC4StorageReadback.lean:652  THM  theorem  sep_not_routedReadbackAtStorage_two
+  PhysicalC4StorageReadback.lean:689  THM  theorem  routedReadback_not_implies_storageReadback
+-- InternalObserver.lean : 2 census entries, 21 theorems/lemmas, 25 declarations scanned
+  InternalObserver.lean:63  CEN  def  Records  | def Records (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+  InternalObserver.lean:68  CEN  def  IsInternalObserver  | def IsInternalObserver (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+  InternalObserver.lean:73  THM  theorem  eq_zero_of_inBlock_ne
+  InternalObserver.lean:82  THM  theorem  blockPassive_of_passive
+  InternalObserver.lean:92  THM  theorem  no_full_passive_self_record
+  InternalObserver.lean:116  THM  theorem  branch_kills_other_block
+  InternalObserver.lean:124  THM  theorem  branch_fixes_own_block
+  InternalObserver.lean:137  THM  theorem  internal_branch_eq_blockPart
+  InternalObserver.lean:150  THM  theorem  internal_outcome_law
+  InternalObserver.lean:157  THM  theorem  blockPinch_records
+  InternalObserver.lean:162  THM  theorem  blockPinch_internal
+  InternalObserver.lean:169  THM  theorem  internal_complete_iff
+  InternalObserver.lean:193  THM  theorem  recBlk_apply
+  InternalObserver.lean:197  THM  theorem  recBlk_not_injective
+  InternalObserver.lean:206  THM  theorem  no_complete_internal_observer
+  InternalObserver.lean:222  THM  theorem  classical_control
+  InternalObserver.lean:228  THM  theorem  conjChannel_single_apply
+  InternalObserver.lean:252  THM  theorem  recordInstr_apply
+  InternalObserver.lean:257  THM  theorem  recordInstr_cp
+  InternalObserver.lean:261  THM  theorem  recordInstr_records
+  InternalObserver.lean:272  THM  theorem  recordInstr_writes
+  InternalObserver.lean:290  THM  theorem  recordInstr_not_passive
+  InternalObserver.lean:315  THM  theorem  recordInstr_not_internal
+PART A totals: census entries (axiom/opaque/class/structure:Prop/def:Prop) = 41; extension entries (abbrev/inductive :Prop) = 0
+
+== PART A': OICore in CompletedOI.lean
+  CompletedOI.lean:96  CEN  def  OICore  | def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop
+
+== PART B: cross-tree core-token census, tokens = OICore,RealizesSealedOICore,CoreC1C4,SealedCoreIsFiniteOI,DerivedOICore,IsInternalObserver,A1Realized,A2Realized,A1A2Realized
+  CompletedOI.lean:96  def  OICore  [OICore]
+  CompletedOI.lean:115  theorem  oiCore_not_completedOI  [OICore]
+  CompletedOI.lean:475  theorem  independence_independent  [OICore]
+  CompletedOI.lean:487  theorem  richness_independent  [OICore]
+  CompletedOI.lean:496  theorem  recursion_independent  [OICore]
+  CompletedOI.lean:506  theorem  oiPlus_independence  [OICore]
+  CompletedOI.lean:549  theorem  qm_implies_oiCore  [OICore]
+  CompletedOI.lean:557  theorem  oiCore_forward_redundancy  [OICore]
+  DiagonalTheory.lean:358  theorem  diag_realizesSealedOICore  [RealizesSealedOICore]
+  DiagonalTheory.lean:398  theorem  control_independent  [RealizesSealedOICore]
+  DiagonalTheory.lean:415  theorem  minimality_audit  [RealizesSealedOICore]
+  EmbeddedObservation.lean:343  theorem  embeddedObservation_independent  [OICore]
+  EmbeddedObservation.lean:351  theorem  core_not_embeddedObservation  [OICore]
+  GeneralCarrier.lean:160  theorem  oi_alone_not_qm  [RealizesSealedOICore]
+  GeneralCarrier.lean:168  theorem  oi_compatible_classification  [RealizesSealedOICore]
+  GeneralCarrier.lean:177  theorem  oi_compatible_iff  [RealizesSealedOICore]
+  GeneralCarrier.lean:188  theorem  main_result  [RealizesSealedOICore]
+  ImplementationLocality.lean:207  theorem  redundancy_fails  [OICore]
+  ImplementationLocality.lean:1035  theorem  implementationLocality_independent  [OICore]
+  IndependenceCensus.lean:187  def  CoreC1C4  [CoreC1C4]
+  IndependenceCensus.lean:200  theorem  core_isC1C4  [CoreC1C4]
+  IndependenceCensus.lean:811  theorem  oi_core_underdetermines_completion  [CoreC1C4]
+  InternalObserver.lean:68  def  IsInternalObserver  [IsInternalObserver]
+  InternalObserver.lean:116  theorem  branch_kills_other_block  [IsInternalObserver]
+  InternalObserver.lean:124  theorem  branch_fixes_own_block  [IsInternalObserver]
+  InternalObserver.lean:137  theorem  internal_branch_eq_blockPart  [IsInternalObserver]
+  InternalObserver.lean:150  theorem  internal_outcome_law  [IsInternalObserver]
+  InternalObserver.lean:162  theorem  blockPinch_internal  [IsInternalObserver]
+  InternalObserver.lean:169  theorem  internal_complete_iff  [IsInternalObserver]
+  InternalObserver.lean:206  theorem  no_complete_internal_observer  [IsInternalObserver]
+  InternalObserver.lean:222  theorem  classical_control  [IsInternalObserver]
+  InternalObserver.lean:315  theorem  recordInstr_not_internal  [IsInternalObserver]
+  IsometryExtension.lean:257  theorem  operational_classification  [RealizesSealedOICore]
+  LevelOneRecursion.lean:46  theorem  levelOne_independent_of_recursion  [RealizesSealedOICore]
+  LevelOneSeam.lean:320  theorem  systemLoose_realizesSealedOICore  [RealizesSealedOICore]
+  LevelOneSeam.lean:353  theorem  levelOne_independent  [RealizesSealedOICore]
+  ManuscriptAxioms.lean:76  def  A1Realized  [A1Realized]
+  ManuscriptAxioms.lean:83  def  A2Realized  [A2Realized]
+  ManuscriptAxioms.lean:90  def  A1A2Realized  [A1A2Realized]
+  ManuscriptAxioms.lean:94  theorem  a1_every_theory  [A1Realized]
+  ManuscriptAxioms.lean:98  theorem  substratumTheory_A1  [A1Realized]
+  ManuscriptAxioms.lean:103  theorem  substratumTheory_A2  [A2Realized]
+  ManuscriptAxioms.lean:107  theorem  substratumTheory_A1A2  [A1A2Realized]
+  ManuscriptAxioms.lean:112  theorem  a2_of_control  [A2Realized]
+  OIRealization.lean:234  def  RealizesSealedOICore  [RealizesSealedOICore]
+  OIRealization.lean:252  theorem  realizesSealedOICore_of_control  [RealizesSealedOICore]
+  OIRealization.lean:260  theorem  countermodel_realizesSealedOICore  [RealizesSealedOICore]
+  OIRealization.lean:263  theorem  admissible_realizesSealedOICore  [RealizesSealedOICore]
+  OIRealization.lean:266  theorem  fullQuantum_realizesSealedOICore  [RealizesSealedOICore]
+  OIRealization.lean:291  def  SealedCoreIsFiniteOI  [SealedCoreIsFiniteOI]
+  OIRealization.lean:305  theorem  sealedCore_is_finiteOI  [SealedCoreIsFiniteOI]
+  OIRealization.lean:316  theorem  sameCore_closure_not_inert  [RealizesSealedOICore]
+  OIRealization.lean:324  theorem  sameCore_inert_not_closure  [RealizesSealedOICore]
+  OIRealization.lean:333  theorem  sameCore_both  [RealizesSealedOICore]
+  OIRealization.lean:343  theorem  sameCore_both_sides  [RealizesSealedOICore,SealedCoreIsFiniteOI]
+  OIRealization.lean:360  theorem  finiteOI_not_implies_inert  [RealizesSealedOICore]
+  OIRealization.lean:366  theorem  finiteOI_not_implies_closure  [RealizesSealedOICore]
+  PassiveIndependence.lean:237  theorem  label_not_oiCore  [OICore]
+  PassiveIndependence.lean:248  theorem  oiCore_to_passive_vacuous  [OICore]
+  PassiveIndependence.lean:255  theorem  passivelyIncomplete_without_oiCore  [OICore]
+  PassiveIndependence.lean:260  theorem  passive_not_implies_oiCore  [OICore]
+  PassiveIndependence.lean:269  theorem  passive_nondiscriminating  [OICore]
+  PassiveIndependence.lean:335  theorem  sector_diagram  [OICore]
+  PhysicalCharacterization.lean:343  theorem  validity_independent  [RealizesSealedOICore]
+  PhysicalCharacterization.lean:364  theorem  inert_independent  [RealizesSealedOICore]
+  PhysicalCharacterization.lean:375  theorem  levelOne_independent'  [RealizesSealedOICore]
+  RankGapTheory.lean:338  theorem  gap_realizesSealedOICore  [RealizesSealedOICore]
+  RankGapTheory.lean:688  theorem  closure_cell_closed  [RealizesSealedOICore]
+  RankGapTheory.lean:702  theorem  five_way_minimality  [RealizesSealedOICore]
+  RouteB.lean:146  def  DerivedOICore  [DerivedOICore]
+  RouteB.lean:231  theorem  derivedOICore_of_qm  [DerivedOICore]
+  RouteB.lean:257  theorem  target_separates  [DerivedOICore]
+  RouteB.lean:263  theorem  target_not_qm  [DerivedOICore]
+  RouteB.lean:318  theorem  target_of_substratum_core  [RealizesSealedOICore]
+  RouteB.lean:375  theorem  substratumTheory_realizesSealedOICore  [RealizesSealedOICore]
+  RouteB.lean:380  theorem  substratumTheory_derivedOICore  [DerivedOICore]
+  RouteB.lean:395  theorem  derivedOICore_not_phaseFree  [DerivedOICore]
+  SubstantiveCensus.lean:394  theorem  classTheory_realizes  [RealizesSealedOICore]
+  SubstantiveCensus.lean:776  theorem  diagGap_realizes  [RealizesSealedOICore]
+  SubstantiveCensus.lean:828  theorem  diagTwoPos_realizes  [RealizesSealedOICore]
+  SubstantiveCensus.lean:862  theorem  capped_realizes  [RealizesSealedOICore]
+  SubstantiveCensus.lean:891  theorem  cappedDiag_realizes  [RealizesSealedOICore]
+  SubstantiveCensus.lean:927  theorem  cell_none  [RealizesSealedOICore]
+  SubstantiveCensus.lean:935  theorem  cell_I  [RealizesSealedOICore]
+  SubstantiveCensus.lean:943  theorem  cell_C  [RealizesSealedOICore]
+  SubstantiveCensus.lean:950  theorem  cell_K  [RealizesSealedOICore]
+  SubstantiveCensus.lean:957  theorem  cell_IC  [RealizesSealedOICore]
+  SubstantiveCensus.lean:964  theorem  cell_IK  [RealizesSealedOICore]
+  SubstantiveCensus.lean:971  theorem  cell_CK  [RealizesSealedOICore]
+  SubstantiveCensus.lean:978  theorem  cell_ICK  [RealizesSealedOICore]
+  SubstantiveCensus.lean:986  theorem  substantive_census  [RealizesSealedOICore]
+  SubstantiveCensus.lean:1012  theorem  no_boolean_relation  [RealizesSealedOICore]
+  SubstratumInterfaceAudit.lean:740  theorem  permTheory_realizesSealedOICore  [RealizesSealedOICore]
+  SubstratumInterfaceAudit.lean:753  theorem  permTheory_twoState  [RealizesSealedOICore]
+PART B total: 94 declarations in 18 modules
+  per-module CompletedOI.lean 8
+  per-module DiagonalTheory.lean 3
+  per-module EmbeddedObservation.lean 2
+  per-module GeneralCarrier.lean 4
+  per-module ImplementationLocality.lean 2
+  per-module IndependenceCensus.lean 3
+  per-module InternalObserver.lean 10
+  per-module IsometryExtension.lean 1
+  per-module LevelOneRecursion.lean 1
+  per-module LevelOneSeam.lean 2
+  per-module ManuscriptAxioms.lean 8
+  per-module OIRealization.lean 13
+  per-module PassiveIndependence.lean 6
+  per-module PhysicalCharacterization.lean 3
+  per-module RankGapTheory.lean 3
+  per-module RouteB.lean 8
+  per-module SubstantiveCensus.lean 15
+  per-module SubstratumInterfaceAudit.lean 2
+
+== PART C: non-Mathlib kernel verification/lean/*.lean, axiom/opaque/class/structure heads
+  lean/OI_Gauge_Certificates.lean:27  class  Grp
+  lean/OI_Gauge_Certificates.lean:74  class  AddCommGrp
+  lean/OI_Gauge_Certificates.lean:135  structure  Ch
+  lean/OI_Gauge_Certificates.lean:322  structure  El
+  lean/OI_Staggered_Relations.lean:30  class  Rng
+  lean/OI_Staggered_Relations.lean:123  structure  Gens
+  lean/OI_Structural_Chain.lean:48  class  CMon
+  lean/OI_Structural_Core.lean:22  class  Rng
+  lean/OI_Structural_Core.lean:485  class  CRng
+  lean/OI_Time_Reversal.lean:42  class  AbGrp
+PART C total: 10

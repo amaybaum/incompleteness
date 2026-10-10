@@ -1,0 +1,13 @@
+CONFIRMED G1 G6 node set = the 633 baseline inventory ids
+CONFIRMED G2 class counts a 109, b 15, c 172, d 36, e 301 -- {'a': 109, 'e': 301, 'd': 36, 'b': 15, 'c': 172}
+CONFIRMED G3 edge kinds R 801, RA 31, RN 70, KC 152, Y 495 -- {'R': 801, 'RA': 31, 'RN': 70, 'KC': 152, 'Y': 495}
+CONFIRMED G4 every baseline depends_on id-edge (538) is an R/RA edge of G6, or a yields edge the baseline parser misread -- absent from R/RA: 62, of which not yields either: []
+CONFIRMED G5 Anc(P) from the pair seeds lies at levels P and O only, at most 25 inventory nodes -- size 18, levels {'P (O for `isNot_nflip`)': 1, 'O': 3, 'P': 13, 'P (`cnot`, `phiW`), O (`z3`, `nflip`, `xplus`)': 1}
+CONFIRMED G6 Desc(AX) lies at the manuscript levels H/X, never O or P (nodes whose span also names M are listed) -- size 31, levels {'H': 27, 'H (a deterministic permutation `φ` of a carrier with a visib': 1, 'H/X': 1, 'H→M (single-system vs `id ⊗ Φ`)': 1, 'H→M/X': 1}, span-M nodes ['I1.17', 'I1.34']
+CONFIRMED G7 Anc(P) and Desc(AX) are disjoint, with and without the yields edges
+CONFIRMED G7c countercontrol: a synthetic edge I3.1 -> I1.1 makes the two sets meet -- meet size 7
+CONFIRMED G8 the only nontrivial SCCs are {I2.6, I2.10} and {I2.42, I2.56} -- [['I2.10', 'I2.6'], ['I2.42', 'I2.56']]
+CONFIRMED G9 a1 = {I1.3}; a2 = {I1.7, I1.8, I2.11}; b = C1-C4 + the ten derived H items -- a1 ['I1.3'] a2 ['I1.7', 'I1.8', 'I2.11'] b-diff []
+CONFIRMED G10 no kernel-proved node at a kernel level (O, P, M, G) is in a1, a2 or b -- kernel-proved offenders []; manuscript records in b whose span names M/X: ['I1.17', 'I1.34', 'I2.61']
+SUMMARY 11/11 CONFIRMED
+CHECK-G-FIXED

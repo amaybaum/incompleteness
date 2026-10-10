@@ -1,0 +1,9 @@
+target ctrl mode full: d = [1. 1. 1. 1.], rho = 1.0000, phi_A = 2.000000, min(u0, 3u1) = 1.000000
+  round 0: LP value 2.00000000, upper bracket 2.82213973 (eps 1.03e-01)
+  round 10: LP value 2.00000000, upper bracket 2.00369171 (eps 4.61e-04)
+  round 20: LP value 2.00000000, upper bracket 2.00000902 (eps 1.13e-06)
+  round 28: LP value 2.00000000, upper bracket 2.00000005 (eps 6.10e-09)
+  final: LP value 2.00000000, verified upper bracket 2.00000005 (eps 6.10e-09), phi_A 2.00000000, psi_diag 2.00000000
+  support: [(np.float64(8.0), [0.125, 0.125, 0.125, 0.125], np.float64(0.25))]
+  duals y (full precision): [0.4928982878638844, 0.23999666921723137, 1.0416810379961934, 0.22542400492269093]
+  reading: no-gap lead

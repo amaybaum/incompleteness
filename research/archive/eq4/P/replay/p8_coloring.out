@@ -1,0 +1,13 @@
+PASS K0 transcription control
+PASS Z1 W3 is in Z (PT on each single token PSD), W3 is not PSD, its pair marginals are PSD
+PASS Z2 PT_1 o Ad(A (x) B (x) C) = Ad(conj A (x) B (x) C) o PT_1 on all units, and Ad(k) W3 is in Z (3 random rational product filters)
+PASS Z3 PT_j of a GHZ-diagonal operator is block-diagonal with blocks [[P_b, C_pi_j(b)],[C_pi_j(b), P_b]]/2, pi_1 = complement, pi_2, pi_3 = single bit flips (symbolic): Z^GD = { |C_b'| <= P_b, b != b' }
+PASS C1 colourings exist and certify positivity: theta0 = 749467/41472, theta1 = 359355571058521/2176782336, ring = 7/4, K4-0 = 1394907415678810985375677/406239826673664, K4-1 = 2734856520616375/69657034752, Latin = 10392407196857/967458816
+PASS C2 countercontrol: theta with a GHZ node and a W3 node admits no colouring; value -1/16 < 0
+PASS M1 nu = I - 2 GHZ+ + 4 GHZ- (lambda = (-1,5,1,1,1,1,1,1)); nu - 4 GHZ- = 2 W3 (in BS*, p1 P1) and GHZ- PSD: nu is in BS*
+PASS M2 2<nu, z> = 4 P_00 + 2 sum_{b != 00}(P_b - C_00) (symbolic): a nonnegative combination of the Z^GD inequalities P_00 >= 0, P_b >= C_00
+PASS M3 Z nu (Pauli Z on token 0) is GHZ-diagonal with lambda = (5,-1,1,...); <nu, Z nu> = -4 < 0
+NOTE P kappa = 1/2 + |000><111| + h.c.: kappa - G+ = 1/2 - G- (a W3-type element of BS*); PSD after some partial transpose: False; <kappa, nu> = -1; Bell theta(kappa, W3) = 1/16
+PASS P record is exact: kappa - GHZ+ = 1/2 - GHZ- and kappa is not PSD after any partial transpose
+--- p8_coloring: 10/10 checks pass
+VERDICT P8-COLORING-EXACT

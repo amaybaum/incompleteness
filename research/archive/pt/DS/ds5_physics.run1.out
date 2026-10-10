@@ -1,0 +1,35 @@
+F1 | |a+b|^2 == |a|^2+|b|^2+2Re(conj(a)b), a,b symbolic complex | PASS
+CC-F1a | interference term at a=b=1 is 2 (must be nonzero) | PASS
+CC-F1b | sign-flipped cross term misses by 4 at a=b=1 (must be nonzero) | PASS
+VERDICT F1: formula 1 is an exact identity; its cross term is the only interference term
+F2-general | P(x) == |pL|^2||dL||^2+|pR|^2||dR||^2+2Re(conj(pL)pR<dL|dR>), all symbolic | PASS
+F2-norm | P - input formula == |pL|^2(||dL||^2-1)+|pR|^2(||dR||^2-1) identically | PASS
+F2-unitary | UL,UR unitary: True; ||dL||^2=1, ||dR||^2=1, gamma=3*I/5; P(x)=[1/4, 1/10, 1/4, 2/5]; formula=[1/4, 1/10, 1/4, 2/5]; sum=1 | PASS
+CC-F2a | unnormalized dL=(1,1): P - formula at x=0 is 1/8 (must be nonzero) | PASS
+CC-F2b | <dR|dL>=-3*I/5 in place of <dL|dR>: formula - P at x=1 is 3/10 (must be nonzero) | PASS
+CC-F2c | kicked R branch: P(1)=2/5; undisturbed formula misses by -3/10 (must be nonzero) | PASS
+CC-F2d | conditioned on detector k=0: P(1,k=0)=1/50; differs from formula by -2/25 (must be nonzero) | PASS
+VERDICT F2: formula 2 is exact for a path-conditioned record that leaves the propagation unchanged, with normalized detector states and the detector unread
+F3-mixed | tr(sum psi_a conj(psi_b) U_a rho0 U_b^dag) == mixed-detector formula, all symbolic | PASS
+F3-pure | for rho0 = d0 d0^dag: tr(UL^dag UR rho0) == <UL d0|UR d0>, all symbolic | PASS
+VERDICT F3: for a mixed detector the overlap is replaced by gamma = tr(UL^dag UR rho0); the pure case is <dL|dR>
+F4-i | dL = dR = u: formula 2 - formula 1 == 2Re(conj(pL)pR)(||u||^2 - 1), so equal when ||u||=1 | PASS
+F4-ii | orthogonal records: cross term == 0 | PASS
+F4-iii | dR = i dL: gamma = I, |gamma|^2 = 1 | PASS
+VERDICT F4: identical records leave formula 1; orthogonal records remove the cross term; records equal up to a phase keep |gamma| = 1 and shift the fringes
+F5-V | V = 2*aL*aR*g/(aL**2 + aR**2) | PASS
+F5-bal | balanced amplitudes: V = g | PASS
+CC-F5 | aL=1, aR=2, g=1: V = 4/5 (must differ from g = 1) | PASS
+VERDICT F5: V = V0 |gamma| with V0 = 2 aL aR/(aL^2+aR^2); V = |gamma| only for balanced amplitudes
+F6-charpoly | charpoly(a a^dag - b b^dag) == t^2 - (|a|^2-|b|^2)t - (|a|^2|b|^2 - |<a|b>|^2) | PASS
+F6-lagrange | |a|^2|b|^2 - |<a|b>|^2 == |a0 b1 - a1 b0|^2 (so |gamma| <= 1 for unit vectors) | PASS
+F6-compl | balanced amplitudes, pure records: V^2 + D^2 == 1 with V = g, D = sqrt(1-g^2) | PASS
+CC-F6 | rho0 = 1/2, UR = X: gamma = 0 (V = 0) and the conditional detector states are equal: True (D = 0); V^2 + D^2 = 0 (must differ from 1) | PASS
+VERDICT F6: for pure records D = sqrt(1-|gamma|^2) and V^2 + D^2 = 1 at balanced amplitudes; for mixed records the detector's own distinguishability does not fix V
+F7-plus | P(x,+) == (1/2)|pL+pR|^2 | PASS
+F7-minus | P(x,-) == (1/2)|pL-pR|^2 | PASS
+F7-sum | P(x,+) + P(x,-) == |pL|^2 + |pR|^2 | PASS
+F7-record | record basis: P(x,0) == |pL|^2 and P(x,1) == |pR|^2 | PASS
+CC-F7 | x=0: P(0,+) = 1/4 vs the unconditioned record pattern 1/4 (must differ) | FAIL
+VERDICT F7: VOID (a control failed)
+SUMMARY: 27 checks; blocks green 6/7

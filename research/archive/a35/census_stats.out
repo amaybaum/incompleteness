@@ -1,0 +1,4 @@
+Kronecker triples distinct: 3
+400 samples: distinct (profile pair, Haagerup, defect) triples 174; samples with defect outside {57,73,105}: 394; triples coinciding with a Kronecker triple: 0
+Hw profile pair != F4⊗F4: True ; values Hw [np.float64(0.0), np.float64(8.0), np.float64(16.0)] F4⊗F4 [np.float64(0.0), np.float64(16.0)]
+done

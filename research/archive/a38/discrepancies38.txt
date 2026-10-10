@@ -1,0 +1,23 @@
+- **Two helper names at stage 1.** Stage 1 (`64418a8a…`) carried two shared helpers whose names end in a
+  prime, `a38_shared_conj_half'` and `a38_shared_conj_two'`; `controls.py`'s module check admits only
+  names matching `a38_shared_[A-Za-z0-9_]+` beside the frozen ones and reported both. The design runs
+  before `F` compiled the module but did not run `controls.py check` against a design head, so the name
+  pattern was first applied at stage 1. The repair commit `cde1c98d…` renames them to
+  `a38_shared_conj_half_ring` and `a38_shared_conj_two_ring` at their definitions, their `#print axioms`
+  lines and their uses, 196 occurrences, and changes nothing else; it is a proof-implementation repair
+  by a later linear commit, as the frozen status rule provides. No frozen statement is touched, and the
+  compiled module is the design pass's green module with exactly that rename.
+- **The realizability route's granularity.** The route names sixteen row lemmas, one per `(a, b)`,
+  assembled into the unitarity by a sixteen-case split on the row. On the second design pass recorded in
+  the preregistration's runs table, fifteen of those sixteen row lemmas compiled but the lemma for row
+  `(1, 3)` and the sixteen-way assembly timed out at `whnf`; the proof as executed splits each row identity into four lemmas by column block
+  (`a38_shared_row_core_ab_c`), assembles the rows from them, the row blocks from the rows
+  (`a38_shared_rowblock_core_a`) and all entries from the row blocks (`a38_shared_rows_core`). The
+  frozen statement `REAL` is unchanged.
+- **The frozen class's index maps.** The exclusion core of `t1` evaluates act 36's `Fin.divNat`,
+  `Fin.modNat` and `finProdFinEquiv` on the concrete witness indices with act 36's `a36_shared_div` and
+  `a36_shared_mod`, which the route does not name; both lie in act 36's module, authorized whole.
+- **The probe's time.** The preregistration gives about 6 to 8 minutes; in CI the probe runs in 349
+  seconds of probe time at `E`'s predecessor, and in 485 seconds on the executor's container.
+
+None otherwise against the freeze.

@@ -1,0 +1,18 @@
+[2026-10-04T11:08:20Z] sequencer started; waiting for S2-CHAIN-4 exit
+[2026-10-04T11:16:20Z] S2-CHAIN-4 exit 0
+[2026-10-04T11:16:20Z] wave 1: R_LL H1, R_LL H2, R_LS H1, R_LS H2
+[2026-10-04T11:39:12Z] sequencer stopped by hand before wave 2 (H2 cells of wave 1 finished in ~2 min; two cores idle); replaced by s2_tail2.sh launching the H1 cells of R_NL and R_5 now
+[2026-10-04T11:39:28Z] sequencer 2 started; launching R_NL H1, R_5 H1
+[2026-10-04T11:39:28Z] V11 R_LL_H2: V11-R_LL-H2 exit 0 [2026-10-04T11:18:09Z]
+[2026-10-04T11:39:28Z] V11 R_LS_H2: V11-R_LS-H2 exit 0 [2026-10-04T11:18:11Z]
+[2026-10-04T13:41:29Z] V11 R_LL_H1: V11-R_LL-H1 exit 0 [2026-10-04T13:41:15Z]
+[2026-10-04T13:45:29Z] V11 R_LS_H1: V11-R_LS-H1 exit 0 [2026-10-04T13:45:20Z]
+[2026-10-04T14:06:29Z] V11 R_NL_H1: V11-R_NL-H1 exit 0 [2026-10-04T14:05:56Z]
+[2026-10-04T14:06:29Z] V11 R_5_H1: V11-R_5-H1 exit 0 [2026-10-04T14:05:49Z]
+[2026-10-04T14:06:29Z] launching R_NL H2, R_5 H2
+[2026-10-04T14:08:18Z] V11 R_NL_H2: V11-R_NL-H2 exit 0 [2026-10-04T14:08:18Z]
+[2026-10-04T14:08:18Z] V11 R_5_H2: V11-R_5-H2 exit 0 [2026-10-04T14:08:18Z]
+[2026-10-04T14:08:18Z] V11 complete: 8 exit markers, non-zero exits: 0
+[2026-10-04T14:08:18Z] launching V12
+[2026-10-04T14:12:16Z] V12 done: GATE V12 OK
+[2026-10-04T14:12:16Z] sequencer 2 finished

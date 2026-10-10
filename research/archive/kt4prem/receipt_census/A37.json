@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A37",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "d014bafef404b991b4544e6d2041edcfab1ac765",
+ "f": "8104323300a5d159cd16317d2fed3c43d44b4970",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md",
+   "blob": "1e9e67701c3bb38e0290d13ab2ec4cbf7b733283"
+  }
+ ],
+ "governed_paths_digest": "463069557d89472077bb8efe5116bc90cf55f202a73944acb09b8ac70673e885",
+ "e": "09c621e978822e0ee0b559ad16a249885020a998",
+ "tree_e": "92e9e8d35b476870e37124029e29d864e8fc1540",
+ "execution_delta_digest": "3f023e3c7e2b3ea16751f74f31be714090f1d921eed1e89b1cce132477f737d8",
+ "candidates": [],
+ "landing": {
+  "base": "d014bafef404b991b4544e6d2041edcfab1ac765",
+  "object": "c0f91d0e5f40c82107d12155a37166c0da9597ca",
+  "reconciliations": [
+   "c0f91d0e5f40c82107d12155a37166c0da9597ca"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "41e2becc0e589c99024410e6fd49203fed80004fffc98977a323e1df39756039"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "8104323300a5d159cd16317d2fed3c43d44b4970",
+   "record": "https://github.com/amaybaum/incompleteness/pull/764#issuecomment-5864083003"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "8104323300a5d159cd16317d2fed3c43d44b4970",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36379070237"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "09c621e978822e0ee0b559ad16a249885020a998",
+   "record": "https://github.com/amaybaum/incompleteness/pull/764#issuecomment-5864156368"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "09c621e978822e0ee0b559ad16a249885020a998",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36382415012"
+  }
+ ]
+}

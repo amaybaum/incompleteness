@@ -1,0 +1,6 @@
+PASS H1 H = <cnot, actC nflip, actT nflip> has order 8, every element fixes the unit entry, and cnot is in H  [8]
+PASS H2 each generator is Ad of a unitary in the Pauli dictionary (symbolic): cnot = Ad CNOT, actC nflip = Ad(X (x) 1), actT nflip = Ad(1 (x) X); hence C_H <= Q3, and Delta = cnot(prodState xplus z3) is in C_H
+PASS H3 the H-orbit of psi psi^dag (8 elements) has max marginal Bloch norm^2 = 45/49 <= 576/625 (so w is in C_H*), and the four-copy value <w, Delta.f.Delta> = -1/200 < 0: C_H violates KT(4; 01|23, 02|13)  [max = 45/49, value = -1/200]
+PASS M1 six-copy exclusion of BS (own code): <w3, T3 g3> = tr((1/2 - GHZ) GHZ^T)/8 = -1/16 < 0 with w3 in BS* and g3 = GHZ in BS*; control: a biseparable state in place of GHZ gives >= 0  [value -1/16, control 0]
+--- p6_cheap_foils: 4/4 checks pass
+VERDICT P6-CHEAP-FOILS-EXACT

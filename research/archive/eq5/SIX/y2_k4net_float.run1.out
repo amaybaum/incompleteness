@@ -1,0 +1,5 @@
+control PSD nodes: cross 87.1451 same 293.3072
+control GHZ states, W3 effects: cross 0.0625 same 0.0625
+control W3 everywhere: cross 0.3125 same 0.4375
+kappa everywhere: cross 1.5000 same 1.5000
+unfiltered random 20000 generator quadruples: min cross value 0.0000 at (np.int64(71), np.int64(71), np.int64(71), np.int64(89))

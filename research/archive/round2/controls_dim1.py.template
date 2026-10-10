@@ -1,0 +1,745 @@
+#!/usr/bin/env python3
+"""controls.py -- round DIM-1's own contracts, FROZEN with the preregistration beside it.
+
+Imports nothing from the repository and changes nothing. Reads D and the commit under check through git, and embeds
+every frozen text it compares against.
+
+  controls.py check <commit> [--freeze F]   the execution at <commit> against D (and, with F, the preregistration
+                                            unchanged from F, and F = D plus the preregistration alone)
+  controls.py --self-test                   the frozen surfaces against the reference module; mutation controls that
+                                            must fail with their named codes
+
+Checks (each prints PASS or FAIL with its code):
+  P   paths       delta(D, commit) is exactly the governed execution paths plus the record directory
+  N1  decls       the module declares exactly the frozen declarations, in order, with their kinds
+  N2  statements  every theorem statement (signature up to `:=` or `where`) is the frozen text; every definition and
+                  structure is the frozen text whole; the preamble and every context block is the frozen text, in
+                  order -- a proof may change, a statement, definition, structure or binder context may not
+  N3  hygiene     no sorry, admit, axiom declaration or native_decide; every frozen `#print axioms` line present
+  S1  selectors   the public selectors carry exactly the frozen binders and conclusions; none of them, nor the verdict,
+                  contains `BlockData` or `2 ≤ d`; `Entangling` is a hypothesis of `three_of_nativeGate` and not of
+                  `dim_of_nativeGate`
+  S2  internal    `2 ≤ d` occurs only in the statements of the three block-reduction theorems; `BlockData` occurs only
+                  in its structure and the three theorems that build or consume it; `BlockData` is the frozen text
+  S3  hypotheses  `IsNot` and `NativeGate` carry exactly their frozen binders and fields, both relations with the one
+                  bound `N`; `Entangling`, `maxCone`, `jointStates`, `W`, `prodState`, `actT`, `actC` are the frozen
+                  texts whole, and `maxCone` quantifies over every `IsEffectOn` effect of the body
+  S4  premises    no theorem or definition concludes `IsNot`, `NativeGate` or `Entangling`, other than the five named
+                  witness and control theorems and the verdict's two instance clauses
+  S5  reuse       no declaration shares a name with `NativeGateBall`, `eball`, `mem_eball` or `IsEffectOn`; the proofs
+                  cite `NativeGateBall.parity`, `NativeGateBall.p_le_one` and `NativeGateBall.dim_of_bounds`
+  S6  neutral     no complex, tensor-product, Kronecker, unitary-group, Hilbert or Bell token in the module; every
+                  import is `OIBridge.TransitiveBody`, `OIBridge.NativeGateBall` or a Mathlib module; no statement
+                  with `↔` carries an equation in `d`
+  S7  phrases     the module header (and, at a commit carrying it, the result note) contains none of the frozen phrases
+  S8  dimension   outside the witness and control sections and the verdict, a numeral 3, 4, 5 or 7 occurs only as the
+                  conclusion `d = 1 ∨ d = 3`, `d = 3`, `d ≠ 4`, `d ≠ 5` or `d ≠ 7`, or in one of the three named
+                  coordinate helpers; no `ball3` or `eball_three` token
+  S9  count       exactly the 87 frozen `#print axioms` lines, in order, distinct, each naming a declaration of the
+                  module
+  S10 premise map the carrier `W` carries its local-tomography sentence; no hypothesis or cone definition mentions
+                  `Lor`; the three cone theorems are theorems with their frozen conclusions and prints
+  I   imports     OIBridge.lean is D's with exactly the frozen import line after `import OIBridge.CompositeInterface`
+  C   census      the census is D's with exactly the frozen family inserted after the COMP-1 family and exactly the
+                  frozen sentence of the NB-1 family note replaced, byte for byte
+  R   roadmap     verification/ROADMAP.md is D's with exactly the two frozen replacements: the K1 parenthetical of the
+                  P1 "K" row and the K1 bullet
+  F   freeze      (with --freeze) the preregistration at the commit equals F's, and delta(D, F) is the preregistration
+"""
+import io, json, re, subprocess, sys
+
+D = '@@D@@'
+RDIR = 'verification/programmes/oi-qm/reconstruction/round-dim-1-dimension-selector/'
+PREREG = RDIR + 'preregistration.md'
+RESULT = RDIR + 'result.md'
+MOD = 'verification/lean-mathlib/OIBridge/CompositeDimension.lean'
+IMPORTS = 'verification/lean-mathlib/OIBridge.lean'
+CENSUS = 'verification/lean-manuscript-census.json'
+ROADMAP = 'verification/ROADMAP.md'
+GOVERNED = {MOD: 'A', IMPORTS: 'M', CENSUS: 'M', ROADMAP: 'M'}
+RECORD_FILES = {RDIR + 'preregistration.md', RDIR + 'controls.py', RDIR + 'result.md'}
+MOD_REFERENCE_BLOB = '@@BLOB@@'
+ANCHOR_IMPORT = 'import OIBridge.CompositeInterface\n'
+NEW_IMPORT = 'import OIBridge.CompositeDimension\n'
+PREV_FAMILY_MODULES = ['CompositeInterface']
+NB1_FAMILY_MODULES = ['NativeGateBall']
+CENSUS_FAMILY = json.loads(r'''@@CENSUS_FAMILY@@''')
+NB1_OLD = json.loads(r'''@@NB1_OLD@@''')
+NB1_NEW = json.loads(r'''@@NB1_NEW@@''')
+ROADMAP_EDITS = json.loads(r'''@@ROADMAP_EDITS@@''')
+NGB_NAMES = json.loads(r'''@@NGB_NAMES@@''')
+DECLS = json.loads(r'''@@DECLS@@''')
+TEXTS = json.loads(r'''@@TEXTS@@''')
+PRINTS = json.loads(r'''@@PRINTS@@''')
+PREAMBLE = json.loads(r'''@@PREAMBLE@@''')
+CONTEXT = json.loads(r'''@@CONTEXT@@''')
+N_PRINTS = 87
+
+DECL = re.compile(r'^(?:@\[[^\]\n]*\]\s+)?(theorem|lemma|def|noncomputable def|abbrev|noncomputable abbrev|structure'
+                  r'|instance)\s+(\S+)', re.M)
+CTX = re.compile(r'^(variable|open|namespace|section|end|attribute|universe|set_option|noncomputable section)\b.*$',
+                 re.M)
+FAILS, COUNT = [], [0]
+
+
+def check(code, name, cond):
+    COUNT[0] += 1
+    print(('  PASS  ' if cond else '  FAIL  ') + code + ' ' + name, flush=True)
+    if not cond:
+        FAILS.append(code)
+
+
+def git(*a):
+    return subprocess.run(['git'] + list(a), capture_output=True, text=True)
+
+
+def show(commit, path):
+    r = git('show', '%s:%s' % (commit, path))
+    return r.stdout if r.returncode == 0 else None
+
+
+def header(text):
+    i = text.find('\nimport ')
+    return text[:i] if i != -1 else text
+
+
+def preamble(text):
+    i = text.index('\nimport ') + 1
+    j = text.index('\n/-! ### §A')
+    return text[i:j]
+
+
+def context_lines(text):
+    """Each context line with its indented continuation lines (a `variable` block spanning several lines)."""
+    lines = text.split('\n')
+    out = []
+    for k, line in enumerate(lines):
+        if CTX.match(line):
+            block = [line]
+            j = k + 1
+            while j < len(lines) and lines[j].startswith('  ') and line.startswith('variable'):
+                block.append(lines[j])
+                j += 1
+            out.append('\n'.join(block))
+    return out
+
+
+def decls(text):
+    return [(m.group(1), m.group(2)) for m in DECL.finditer(text)]
+
+
+def stmt_end(chunk):
+    """End of a theorem's statement: the first ` :=`, or a ` where` closing a line, whichever is earlier."""
+    ends = [j for j in (chunk.find(' :='),) if j != -1]
+    m = re.search(r' where\n', chunk)
+    if m:
+        ends.append(m.start())
+    return min(ends) if ends else -1
+
+
+def spans(text):
+    """[(kind, name, start, statement end or -1, end)] for every declaration, in order."""
+    out = []
+    ms = list(DECL.finditer(text))
+    for k, m in enumerate(ms):
+        start = m.start()
+        nxt = ms[k + 1].start() if k + 1 < len(ms) else len(text)
+        chunk = text[start:nxt]
+        for stop in ('\n/--', '\n/-!', '\n#print', '\nend ', '\nvariable', '\nopen ', '\nattribute'):
+            j = chunk.find(stop)
+            if j != -1:
+                chunk = chunk[:j]
+        chunk = chunk.rstrip()
+        se = -1
+        if m.group(1) in ('theorem', 'lemma'):
+            j = stmt_end(chunk)
+            if j != -1:
+                se = start + j
+        out.append((m.group(1), m.group(2), start, se if se != -1 else start + len(chunk), nxt, start + len(chunk)))
+    return out
+
+
+def decl_chunks(text):
+    """name -> (kind, statement or whole text, proof text after the statement for theorems)."""
+    out = {}
+    for kind, name, start, se, nxt, cend in spans(text):
+        if kind in ('theorem', 'lemma'):
+            out[name] = (kind, text[start:se], text[se:nxt])
+        else:
+            out[name] = (kind, text[start:cend], '')
+    return out
+
+
+def colon_index(stmt):
+    """Index of the colon separating binders from the conclusion: the first at bracket depth 0 after the name."""
+    m = DECL.match(stmt)
+    i = m.end() if m else 0
+    depth = 0
+    for j in range(i, len(stmt)):
+        c = stmt[j]
+        if c in '({[⦃':
+            depth += 1
+        elif c in ')}]⦄':
+            depth -= 1
+        elif c == ':' and depth == 0 and stmt[j:j + 2] != ':=':
+            return j
+    return -1
+
+
+def split_statement(stmt):
+    """(binders, conclusion) of a declaration header."""
+    m = DECL.match(stmt)
+    i = m.end() if m else 0
+    j = colon_index(stmt)
+    if j == -1:
+        return stmt[i:], ''
+    return stmt[i:j], stmt[j + 1:]
+
+
+def def_header(text):
+    """A definition's header: up to ` :=` or a ` where` closing a line."""
+    j = stmt_end(text)
+    return text[:j] if j != -1 else text
+
+
+def code_only(text):
+    text = re.sub(r'/-.*?-/', ' ', text, flags=re.S)
+    return re.sub(r'--[^\n]*', ' ', text)
+
+
+def norm(s):
+    return ' '.join(s.split())
+
+
+def fields(structure_text):
+    """The field names of a structure chunk: the two-space-indented `name :` lines after `where`."""
+    body = structure_text.split(' where', 1)[1] if ' where' in structure_text else ''
+    return [m.group(1) for m in re.finditer(r'^  ([A-Za-zΩ_][\w\']*) :', body, re.M)]
+
+
+def field_line(structure_text, name):
+    body = structure_text.split(' where', 1)[1] if ' where' in structure_text else ''
+    ms = list(re.finditer(r'^  ([A-Za-zΩ_][\w\']*) :', body, re.M))
+    for k, m in enumerate(ms):
+        if m.group(1) == name:
+            return norm(body[m.start():ms[k + 1].start() if k + 1 < len(ms) else len(body)])
+    return None
+
+
+def token(name, text):
+    return re.search(r'(?<![\w.\'])%s(?![\w\'])' % re.escape(name), text) is not None
+
+
+def sections(text):
+    """[(position, label)] of the section markers, label `§A` ... or `verdict`."""
+    out = []
+    for m in re.finditer(r'^/-! ### (§[A-Z]|The verdict)', text, re.M):
+        out.append((m.start(), 'verdict' if m.group(1) == 'The verdict' else m.group(1)))
+    return out
+
+
+def section_at(secs, pos):
+    lab = None
+    for p, l in secs:
+        if p <= pos:
+            lab = l
+    return lab
+
+
+PREFIX = 'OIBridge.CompositeDimension.'
+# S1 -- the public selector boundary
+SEL_BINDERS = ('{z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} '
+               '(hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)')
+SELECTORS = {
+    'dim_of_nativeGate': (SEL_BINDERS, 'd = 1 ∨ d = 3'),
+    'three_of_nativeGate': (SEL_BINDERS + ' (hE : Entangling (eball d) G)', 'd = 3'),
+    'ne_five_of_nativeGate': (SEL_BINDERS, 'd ≠ 5'),
+    'ne_seven_of_nativeGate': (SEL_BINDERS, 'd ≠ 7'),
+}
+CORE_CLAUSES = ('IsNot (eball d) z N → NativeGate (eball d) z N G → d = 1 ∨ d = 3)',
+                'IsNot (eball d) z N → NativeGate (eball d) z N G → Entangling (eball d) G → d = 3)')
+TWO_LE_D = re.compile(r'2\s*≤\s*d(?![\w\'])|(?<![\w\'])d\s*≥\s*2|1\s*<\s*d(?![\w\'])|(?<![\w\'])d\s*>\s*1')
+# S2 -- the internal block-reduction chain
+TWO_LE_D_ONLY = ['blockData_of_nativeGate', 'blockData_of_orthonormal', 'exists_tperp_ne_zero']
+BLOCKDATA_ONLY = ['BlockData', 'blockData_of_nativeGate', 'blockData_of_orthonormal', 'p_le_one_of_blockData']
+# S3 -- the frozen hypotheses
+ISNOT_BINDERS = '(Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))'
+ISNOT_FIELDS = ['unit', 'invol', 'preserves', 'flips']
+GATE_BINDERS = ('(Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) '
+                '(G : W d ≃ₗ[ℝ] W d)')
+GATE_FIELDS = ['frame', 'posFwd', 'posInv', 'relT', 'relC']
+REL_T = 'relT : ∀ ω, actT N (G (actT N ω)) = G ω'
+REL_C = 'relC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)'
+POS_FWD = 'posFwd : ∀ x ∈ Ω, ∀ y ∈ Ω, G (prodState x y) ∈ maxCone Ω'
+POS_INV = 'posInv : ∀ x ∈ Ω, ∀ y ∈ Ω, G.symm (prodState x y) ∈ maxCone Ω'
+MAXCONE_BODY = '{ω | ∀ e f, IsEffectOn Ω e → IsEffectOn Ω f → 0 ≤ prodEffVal e f ω}'
+FROZEN_WHOLE = ['IsNot', 'NativeGate', 'Entangling', 'maxCone', 'jointStates', 'W', 'prodState', 'actT', 'actC']
+# S4 -- premises concluded only by the named witnesses
+PREMISES = ('IsNot', 'NativeGate', 'Entangling')
+WITNESSES = {
+    'isNot_nflip': 'IsNot (eball 3) z3 nflip',
+    'nativeGate_cnot': 'NativeGate (eball 3) z3 nflip cnot',
+    'entangling_cnot': 'Entangling (eball 3) cnot',
+    'isNot_neg1': 'IsNot (eball 1) z1 neg1',
+    'nativeGate_cnot1': 'NativeGate (eball 1) z1 neg1 cnot1',
+}
+CORE_INSTANCES = ('IsNot (eball 3) z3 nflip ∧ NativeGate (eball 3) z3 nflip cnot ∧ Entangling (eball 3) cnot',
+                  'IsNot (eball 1) z1 neg1 ∧ NativeGate (eball 1) z1 neg1 cnot1 ∧')
+CORE_ANTECEDENTS = ('IsNot (eball d) z N → NativeGate (eball d) z N G →', 'Entangling (eball d) G →')
+NEGATED = ('¬ Entangling (eball 1) G', '¬ Entangling (eball 1) cnot1',
+           '¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ)) (G : W 4 ≃ₗ[ℝ] W 4), '
+           'IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G')
+# S5 -- reuse, not re-proof
+REUSED = ('eball', 'mem_eball', 'IsEffectOn')
+CITED = ('NativeGateBall.parity', 'NativeGateBall.p_le_one', 'NativeGateBall.dim_of_bounds')
+# S6 -- field-neutral
+NEUTRAL_TOKENS = ('ℂ', 'Complex', 'TensorProduct', '⊗ₜ', 'kronecker', 'Kronecker', 'unitaryGroup', 'Hilbert', 'Bell')
+IMPORT_OK = re.compile(r'^import (OIBridge\.TransitiveBody|OIBridge\.NativeGateBall|Mathlib\.[\w.]+)$')
+D_EQUATION = re.compile(r'(?<![\w\'])d\s*[=≠<>≤≥]\s*\d|\d\s*[=≠<>≤≥]\s*d(?![\w\'])|\b(Even|Odd)\s+d(?![\w\'])')
+# S7 -- phrases
+PHRASES = ('OI selects', 'OI implies d', 'OI forces d', 'copy covariance derived', 'local tomography derived')
+# S8 -- dimension
+WITNESS_SECTIONS = ('§K', '§M', '§N', '§O', '§P', 'verdict')
+COORD_HELPERS = ("sum_univ_four'", 'lor_three', 'lor_of_three')
+SELECTOR_CONCLUSIONS = ('d = 1 ∨ d = 3', 'd = 3', 'd ≠ 4', 'd ≠ 5', 'd ≠ 7')
+NUMERAL = re.compile(r'(?<![\w\'.])(\d+)(?![\w\'])')
+DIM_TOKENS = ('ball3', 'eball_three')
+# S10 -- the premise correspondence
+W_SENTENCE = ('/-- The joint bilinear carrier of two copies: a real function of a control index and a target index.\n'
+              'Local tomography is the premise this carrier encodes. -/\nabbrev W (d : ℕ)')
+CONE_THEOREMS = {
+    'lor_ehom': 'Lor (ehom e)',
+    'isEffectOn_affOf': 'IsEffectOn (eball d) (affOf v)',
+    'lor_toOp_of_maxCone': 'Lor (toOp ω f)',
+}
+NO_LOR = ['IsNot', 'NativeGate', 'Entangling', 'maxCone', 'jointStates']
+
+
+def numerals(text):
+    return [n for n in NUMERAL.findall(code_only(text)) if int(n) in (3, 4, 5, 7)]
+
+
+def dimension_violations(mod):
+    """Outside the witness and control sections and the verdict: every numeral 3, 4, 5 or 7, except in a selector
+    conclusion of the frozen list or in a named coordinate helper."""
+    secs = sections(mod)
+    sp = spans(mod)
+    bad = []
+    first = sp[0][2] if sp else len(mod)
+    if numerals(mod[:first]):
+        bad.append('preamble')
+    for kind, name, start, se, nxt, cend in sp:
+        if section_at(secs, start) in WITNESS_SECTIONS or name in COORD_HELPERS:
+            continue
+        if kind in ('theorem', 'lemma'):
+            stmt = mod[start:se]
+            c = colon_index(stmt)
+            binders, concl = stmt[:c + 1], stmt[c + 1:]
+            if numerals(binders) or numerals(mod[se:nxt]):
+                bad.append(name)
+            elif numerals(concl) and norm(concl) not in SELECTOR_CONCLUSIONS:
+                bad.append(name)
+        elif numerals(mod[start:nxt]):
+            bad.append(name)
+    return bad
+
+
+def semantic_checks(mod, chunks, prints, tag):
+    kinds = {n: k for n, (k, _, _) in chunks.items()}
+    texts = {n: c for n, (_, c, _) in chunks.items()}
+    proofs = {n: p for n, (_, _, p) in chunks.items()}
+    code = code_only(mod)
+    # S1
+    bad1 = []
+    for n, (b, c) in SELECTORS.items():
+        bb, cc = split_statement(texts.get(n, ''))
+        if kinds.get(n) != 'theorem' or norm(bb) != b or norm(cc) != c or PREFIX + n not in prints:
+            bad1.append(n)
+    core = norm(texts.get('dim1_core', ''))
+    for n in list(SELECTORS) + ['dim1_core']:
+        if 'BlockData' in texts.get(n, '') or TWO_LE_D.search(texts.get(n, '')):
+            bad1.append(n)
+    check('S1', 'the selectors carry exactly the frozen binders and conclusions, free of BlockData and 2 ≤ d; '
+                'Entangling only in three_of_nativeGate%s%s' % (tag, (' %s' % bad1[:3]) if bad1 else ''),
+          not bad1 and 'Entangling' not in texts.get('dim_of_nativeGate', 'Entangling')
+          and 'Entangling (eball d) G' in texts.get('three_of_nativeGate', '')
+          and all(c in core for c in CORE_CLAUSES) and PREFIX + 'dim1_core' in prints)
+    # S2
+    two = sorted(n for n, t in texts.items() if TWO_LE_D.search(code_only(t)))
+    bd = sorted(n for n in texts if token('BlockData', code_only(texts[n] + proofs[n])))
+    bd_total = len(re.findall(r'(?<![\w.\'])BlockData(?![\w\'])', code))
+    bd_listed = sum(len(re.findall(r'(?<![\w.\'])BlockData(?![\w\'])', code_only(texts[n] + proofs[n])))
+                    for n in bd)
+    check('S2', '`2 ≤ d` only in the three block-reduction statements; BlockData only in its four declarations and '
+                'frozen whole%s%s' % (tag, (' %s %s' % (two, bd)) if two != TWO_LE_D_ONLY
+                                      or bd != BLOCKDATA_ONLY else ''),
+          two == TWO_LE_D_ONLY and bd == BLOCKDATA_ONLY and bd_total == bd_listed
+          and kinds.get('BlockData') == 'structure' and texts.get('BlockData') == TEXTS['BlockData'])
+    # S3
+    isnot, gate = texts.get('IsNot', ''), texts.get('NativeGate', '')
+    lin = [n for n in re.findall(r'\((\w+) : \(Fin d → ℝ\) →ₗ\[ℝ\]', def_header(gate))]
+    check('S3', 'IsNot and NativeGate with their frozen binders and fields and one bound N; the frozen definitions '
+                'whole; maxCone over every effect' + tag,
+          kinds.get('IsNot') == 'structure' and kinds.get('NativeGate') == 'structure'
+          and norm(split_statement(def_header(isnot))[0]) == ISNOT_BINDERS and fields(isnot) == ISNOT_FIELDS
+          and norm(split_statement(def_header(gate))[0]) == GATE_BINDERS and fields(gate) == GATE_FIELDS
+          and lin == ['N'] and field_line(gate, 'relT') == REL_T and field_line(gate, 'relC') == REL_C
+          and field_line(gate, 'posFwd') == POS_FWD and field_line(gate, 'posInv') == POS_INV
+          and all(texts.get(n) == TEXTS[n] for n in FROZEN_WHOLE)
+          and norm(texts.get('maxCone', '')).endswith(':= ' + MAXCONE_BODY))
+    # S4
+    bad4 = []
+    for n, (k, t, _) in chunks.items():
+        if k == 'structure':
+            continue
+        if k in ('theorem', 'lemma'):
+            concl = norm(split_statement(t)[1])
+        else:
+            concl = norm(split_statement(def_header(t))[1])
+        if n in WITNESSES:
+            if concl != WITNESSES[n] or kinds.get(n) != 'theorem' or PREFIX + n not in prints:
+                bad4.append(n)
+            continue
+        if n == 'dim1_core':
+            if not all(c in concl for c in CORE_INSTANCES):
+                bad4.append(n)
+            for c in CORE_INSTANCES + CORE_ANTECEDENTS:
+                concl = concl.replace(c, '')
+        for c in NEGATED:
+            concl = concl.replace(c, '')
+        if any(token(p, concl) for p in PREMISES):
+            bad4.append(n)
+    check('S4', 'IsNot, NativeGate and Entangling concluded only by the five named witnesses and the verdict\'s '
+                'instance clauses%s%s' % (tag, (' %s' % bad4[:3]) if bad4 else ''), not bad4)
+    # S5
+    local = {n for _, n in decls(mod)}
+    clash = sorted(local & (set(NGB_NAMES) | set(REUSED)))
+    check('S5', 'NativeGateBall reused, not re-proved: no local name of NativeGateBall, eball, mem_eball or '
+                'IsEffectOn; parity, p_le_one and dim_of_bounds cited%s%s' % (tag, (' %s' % clash) if clash else ''),
+          not clash and all(c in code for c in CITED) and 'import OIBridge.NativeGateBall' in mod)
+    # S6
+    hits = [t for t in NEUTRAL_TOKENS if t in mod]
+    imports = re.findall(r'^import .*$', mod, re.M)
+    bad_imp = [l for l in imports if not IMPORT_OK.match(l)]
+    iff = [n for n, t in texts.items() if '↔' in t and D_EQUATION.search(code_only(t))]
+    check('S6', 'field-neutral: no complex, tensor, Kronecker, unitary-group, Hilbert or Bell token; imports '
+                'whitelisted; no ↔ with an equation in d%s%s' % (tag, (' %s' % (hits + bad_imp + iff)[:3])
+                                                               if hits or bad_imp or iff else ''),
+          not hits and not bad_imp and bool(imports) and not iff)
+    # S7
+    ph = phrase_hits(header(mod))
+    check('S7', 'the header carries none of the frozen phrases%s%s' % (tag, (' %s' % ph) if ph else ''), not ph)
+    # S8
+    bad8 = dimension_violations(mod)
+    dt = [t for t in DIM_TOKENS if token(t, code)]
+    check('S8', 'outside the witness and control sections a numeral 3, 4, 5 or 7 only in a selector conclusion or a '
+                'named coordinate helper; no ball3 token%s%s' % (tag, (' %s' % (bad8 + dt)[:3]) if bad8 or dt else ''),
+          not bad8 and not dt)
+    # S9
+    names = [p[len(PREFIX):] for p in prints if p.startswith(PREFIX)]
+    check('S9', 'exactly the %d frozen #print axioms lines, distinct, each naming a declaration of the module%s'
+          % (N_PRINTS, tag),
+          len(PRINTS) == N_PRINTS and prints == PRINTS and len(set(prints)) == N_PRINTS and len(names) == N_PRINTS
+          and all(n in local for n in names))
+    # S10
+    lor = [n for n in NO_LOR if token('Lor', texts.get(n, 'Lor'))]
+    check('S10', 'the carrier names local tomography as its premise; no hypothesis or cone definition mentions Lor; '
+                 'the cone theorems proved with prints%s%s' % (tag, (' %s' % lor) if lor else ''),
+          W_SENTENCE in mod and not lor and not token('lt', code) and not token('LocallyTomographic', code)
+          and all(kinds.get(n) == 'theorem' and norm(split_statement(texts.get(n, ''))[1]) == c
+                  and PREFIX + n in prints for n, c in CONE_THEOREMS.items()))
+
+
+def phrase_hits(text):
+    t = norm(text).lower()
+    return [p for p in PHRASES if p.lower() in t]
+
+
+def module_checks(mod, tag=''):
+    if mod is None:
+        check('N1', 'module present' + tag, False)
+        return
+    check('N1', 'the module declares exactly the frozen declarations' + tag, [list(x) for x in decls(mod)] == DECLS)
+    check('N2', 'the preamble unchanged' + tag,
+          '\n/-! ### §A' in mod and '\nimport ' in mod and preamble(mod) == PREAMBLE)
+    check('N2', 'every context block unchanged and in order' + tag, context_lines(mod) == CONTEXT)
+    chunks = decl_chunks(mod)
+    texts = {n: c for n, (_, c, _) in chunks.items()}
+    bad = sorted(n for n in TEXTS if texts.get(n) != TEXTS[n])
+    check('N2', 'every frozen statement, definition and structure unchanged%s%s'
+          % (tag, (' (changed: %s)' % ', '.join(bad[:4])) if bad else ''), not bad)
+    c = code_only(mod)
+    check('N3', 'no sorry, admit, axiom or native_decide' + tag,
+          not re.search(r'\bsorry\b|\badmit\b|^\s*axiom\b|native_decide', c, re.M))
+    prints = re.findall(r'^#print axioms (\S+)', mod, re.M)
+    check('N3', 'every frozen #print axioms line present' + tag, all(p in prints for p in PRINTS))
+    semantic_checks(mod, chunks, prints, tag)
+
+
+def imports_ok(d_text, e_text):
+    return d_text is not None and e_text is not None and d_text.count(ANCHOR_IMPORT) == 1 and \
+        e_text == d_text.replace(ANCHOR_IMPORT, ANCHOR_IMPORT + NEW_IMPORT, 1)
+
+
+def census_want(d_text):
+    d = json.loads(d_text)
+    fam = d['families']
+    k = [i for i, f in enumerate(fam) if f['modules'] == PREV_FAMILY_MODULES]
+    nb = [i for i, f in enumerate(fam) if f['modules'] == NB1_FAMILY_MODULES]
+    if len(k) != 1 or len(nb) != 1 or fam[nb[0]]['note'].count(NB1_OLD) != 1:
+        return None
+    fam = [dict(f) for f in fam]
+    fam[nb[0]]['note'] = fam[nb[0]]['note'].replace(NB1_OLD, NB1_NEW, 1)
+    want = dict(d)
+    want['families'] = fam[:k[0] + 1] + [CENSUS_FAMILY] + fam[k[0] + 1:]
+    return json.dumps(want, indent=2, ensure_ascii=False) + '\n'
+
+
+def census_ok(d_text, e_text):
+    try:
+        want = census_want(d_text)
+    except Exception:
+        return False
+    return want is not None and e_text == want
+
+
+def roadmap_want(d_text):
+    if d_text is None or any(d_text.count(old) != 1 for old, _ in ROADMAP_EDITS):
+        return None
+    out = d_text
+    for old, new in ROADMAP_EDITS:
+        out = out.replace(old, new, 1)
+    return out
+
+
+def roadmap_ok(d_text, e_text):
+    want = roadmap_want(d_text)
+    return want is not None and e_text == want
+
+
+def run_check(commit, freeze):
+    r = git('diff', '--name-status', '--no-renames', D, commit)
+    rows = [l.split('\t') for l in r.stdout.splitlines() if l]
+    exec_rows = {p: s for s, p in rows if not p.startswith(RDIR)}
+    rec = {p for s, p in rows if p.startswith(RDIR)}
+    check('P', 'delta(D, commit) is exactly the governed execution paths plus the record directory',
+          r.returncode == 0 and exec_rows == GOVERNED and rec <= RECORD_FILES and PREREG in rec)
+    module_checks(show(commit, MOD))
+    note = show(commit, RESULT)
+    if note is not None:
+        ph = phrase_hits(note)
+        check('S7', 'the result note carries none of the frozen phrases%s' % ((' %s' % ph) if ph else ''), not ph)
+    check('I', 'OIBridge.lean is D\'s with exactly the frozen import line', imports_ok(show(D, IMPORTS),
+                                                                                    show(commit, IMPORTS)))
+    check('C', 'the census is D\'s with exactly the frozen family and the frozen NB-1 sentence',
+          census_ok(show(D, CENSUS), show(commit, CENSUS)))
+    check('R', 'ROADMAP is D\'s with exactly the two frozen K1 replacements',
+          roadmap_ok(show(D, ROADMAP), show(commit, ROADMAP)))
+    if freeze:
+        check('F', 'the preregistration is unchanged from F', show(commit, PREREG) == show(freeze, PREREG))
+        r = git('diff', '--name-only', D, freeze)
+        check('F', 'delta(D, F) is the preregistration alone', r.stdout.split() == [PREREG])
+
+
+def must_fail(code, label, mod2):
+    before, count = list(FAILS), COUNT[0]
+    saved = sys.stdout
+    sys.stdout = io.StringIO()
+    try:
+        module_checks(mod2)
+    finally:
+        sys.stdout = saved
+    new = FAILS[len(before):]
+    del FAILS[len(before):]
+    COUNT[0] = count
+    check('M', 'mutation %s fails with %s' % (label, code), code in new)
+
+
+def replace_once(text, a, b):
+    assert text.count(a) == 1, a
+    return text.replace(a, b, 1)
+
+
+def append_decl(text, decl):
+    """Insert a declaration just before the verdict section (inside §P)."""
+    i = text.index('\n/-! ### The verdict')
+    return text[:i] + '\n' + decl + '\n' + text[i:]
+
+
+def insert_before(text, anchor, decl):
+    i = text.index(anchor)
+    return text[:i] + decl + '\n\n' + text[i:]
+
+
+SEL_HEAD = ('theorem dim_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}\n'
+            '    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :\n'
+            '    d = 1 ∨ d = 3 := by')
+THREE_HEAD = ('    (hE : Entangling (eball d) G) : d = 3 := by')
+
+
+def self_test():
+    mod = git('cat-file', '-p', MOD_REFERENCE_BLOB).stdout
+    check('T', 'the reference module blob is readable', bool(mod))
+    module_checks(mod, ' [reference]')
+    # N1-N3
+    must_fail('N1', 'a renamed declaration',
+              replace_once(mod, '\ntheorem dim1_core :', '\ntheorem dim1_core\' :'))
+    must_fail('N2', 'a changed binder context',
+              replace_once(mod, '\nvariable {d : ℕ}\n', '\nvariable {d : ℕ} {Ω : Set (Fin d → ℝ)}\n'))
+    must_fail('N2', 'a changed preamble',
+              replace_once(mod, 'open KInfFoundations TransitiveBody NativeGateBall Finset',
+                           'open KInfFoundations TransitiveBody NativeGateBall'))
+    must_fail('N2', 'a changed statement',
+              replace_once(mod, 'theorem tangent_vanish (F : HVec d →ₗ[ℝ] ℝ) (hpos : ∀ X, Lor X → 0 ≤ F X)',
+                           'theorem tangent_vanish (F : HVec d →ₗ[ℝ] ℝ) (hpos : ∀ X, 0 ≤ F X)'))
+    must_fail('N3', 'a sorry', append_decl(mod, 'theorem extra_sorry : (1 : ℕ) = 1 := sorry'))
+    must_fail('N3', 'a print removed',
+              replace_once(mod, '#print axioms OIBridge.CompositeDimension.gt_sphere\n', ''))
+    # S1
+    must_fail('S1', '`2 ≤ d` added to the selector',
+              replace_once(mod, SEL_HEAD, SEL_HEAD.replace('(hG : NativeGate (eball d) z N G) :',
+                                                           '(hG : NativeGate (eball d) z N G) (hd : 2 ≤ d) :')))
+    must_fail('S1', 'a BlockData hypothesis on the entangling selector',
+              replace_once(mod, THREE_HEAD,
+                           '    (hE : Entangling (eball d) G) (hB : BlockData (tangentPlus N)) : d = 3 := by'))
+    must_fail('S1', 'the entangling clause added to the selector',
+              replace_once(mod, SEL_HEAD, SEL_HEAD.replace('(hG : NativeGate (eball d) z N G) :',
+                                                           '(hG : NativeGate (eball d) z N G)\n'
+                                                           '    (hE : Entangling (eball d) G) :')))
+    must_fail('S1', 'the entangling clause dropped from three_of_nativeGate',
+              replace_once(mod, '(hG : NativeGate (eball d) z N G)\n' + THREE_HEAD,
+                           '(hG : NativeGate (eball d) z N G) :\n    d = 3 := by'))
+    # S2
+    must_fail('S2', '`2 ≤ d` in a sphere identity',
+              replace_once(mod, 'theorem gt_sphere {z : Fin d → ℝ}', 'theorem gt_sphere (hd : 2 ≤ d) {z : Fin d → ℝ}'))
+    must_fail('S2', 'BlockData used outside its four declarations',
+              append_decl(mod, 'theorem blockData_zero : BlockData 0 → True := fun _ => trivial'))
+    must_fail('S2', 'the nonzero entry dropped from BlockData',
+              replace_once(mod, '          + ∑ j, b j * (A j k l + s * ((if j = i then (1:ℝ) else 0) + B j i k l))) ∧\n'
+                                '    (∃ r k l, A r k l ≠ 0)',
+                           '          + ∑ j, b j * (A j k l + s * ((if j = i then (1:ℝ) else 0) + B j i k l))) ∧\n'
+                           '    True'))
+    # S3
+    must_fail('S3', 'inverse positivity removed',
+              replace_once(mod, '  posInv : ∀ x ∈ Ω, ∀ y ∈ Ω, G.symm (prodState x y) ∈ maxCone Ω\n', ''))
+    must_fail('S3', 'a second NOT in the control relation',
+              replace_once(mod, '    (G : W d ≃ₗ[ℝ] W d) : Prop where\n  frame',
+                           '    (N\' : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop where\n  frame'))
+    must_fail('S3', 'the maximal cone restricted to normalized effects',
+              replace_once(mod, '  {ω | ∀ e f, IsEffectOn Ω e → IsEffectOn Ω f → 0 ≤ prodEffVal e f ω}',
+                           '  {ω | ∀ e f, IsEffectOn Ω e → IsEffectOn Ω f → e 0 = 1 → 0 ≤ prodEffVal e f ω}'))
+    must_fail('S3', 'the entangling clause without extremality of the image',
+              replace_once(mod, '    G (prodState x y) ∈ (jointStates Ω).extremePoints ℝ ∧ ¬ IsProduct Ω',
+                           '    G (prodState x y) ∈ jointStates Ω ∧ ¬ IsProduct Ω'))
+    # S4
+    must_fail('S4', 'a gate concluded for a general NOT',
+              append_decl(mod, 'theorem exists_gate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}\n'
+                               '    (hN : IsNot (eball d) z N) : ∃ G : W d ≃ₗ[ℝ] W d, NativeGate (eball d) z N G := '
+                               'by\n  exact absurd hN (by simp)'))
+    must_fail('S4', 'the entangling clause concluded from the gate',
+              append_decl(mod, 'theorem entangling_of_gate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}\n'
+                               '    {G : W d ≃ₗ[ℝ] W d} (hG : NativeGate (eball d) z N G) : Entangling (eball d) G '
+                               ':= by\n  exact absurd hG (by simp)'))
+    must_fail('S4', 'a witness concluding a different gate',
+              replace_once(mod, 'theorem nativeGate_cnot : NativeGate (eball 3) z3 nflip cnot where',
+                           'theorem nativeGate_cnot : NativeGate (eball 3) z3 nflip cnot ∧ True where'))
+    # S5
+    must_fail('S5', 'parity re-declared locally',
+              insert_before(mod, '/-- **Parity (S5) from the frozen hypotheses.**',
+                            'theorem parity : True := trivial'))
+    must_fail('S5', 'the NativeGateBall citation of p_le_one replaced',
+              replace_once(mod, '  exact NativeGateBall.p_le_one p m A B hB hpos hne',
+                           '  exact p_le_one\' p m A B hB hpos hne'))
+    # S6
+    must_fail('S6', 'a complex-number import',
+              replace_once(mod, 'import OIBridge.NativeGateBall\n',
+                           'import OIBridge.NativeGateBall\nimport Mathlib.Analysis.Complex.Basic\n'))
+    must_fail('S6', 'a complex scalar',
+              replace_once(mod, 'def hom (x : Fin d → ℝ)',
+                           'def homC (x : Fin d → ℂ) : Fin d → ℂ := x\n\ndef hom (x : Fin d → ℝ)'))
+    must_fail('S6', 'the selector stated as an equivalence',
+              append_decl(mod, 'theorem dim_iff {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}\n'
+                               '    {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) :\n'
+                               '    NativeGate (eball d) z N G ↔ d = 3 := by\n  exact absurd hN (by simp)'))
+    # S7
+    must_fail('S7', 'a forbidden phrase in the header',
+              replace_once(mod, '  Proved here:\n', '  OI selects the dimension.\n\n  Proved here:\n'))
+    check('M', 'the result-note phrase test passes a neutral note and fails one with a forbidden phrase',
+          not phrase_hits('Two identical copies of the ball with a native gate have d = 1 or d = 3.')
+          and phrase_hits('The round shows that OI forces\nd = 3.') == ['OI forces d'])
+    # S8
+    must_fail('S8', 'a dimension hypothesis in a block-reduction lemma',
+              replace_once(mod, 'theorem tangent_vanish (F : HVec d →ₗ[ℝ] ℝ)',
+                           'theorem tangent_vanish (h3 : d = 3) (F : HVec d →ₗ[ℝ] ℝ)'))
+    must_fail('S8', 'a coordinate index type in the eigenspace adapter',
+              replace_once(mod, 'theorem not_even_of_balanced {a b : ℕ} (hsum : a + b = d + 1) (hbal : a = b) '
+                                ': ¬ Even d',
+                           'theorem not_even_of_balanced {a b : ℕ} (hsum : a + b = d + 1) (hbal : a = b) '
+                           '(f : Fin 4 → ℝ) : ¬ Even d'))
+    must_fail('S8', 'a widened selector conclusion',
+              replace_once(mod, SEL_HEAD, SEL_HEAD.replace('d = 1 ∨ d = 3 := by', 'd = 1 ∨ d = 3 ∨ d = 5 := by')))
+    # S9
+    must_fail('S9', 'an extra print',
+              replace_once(mod, '#print axioms OIBridge.CompositeDimension.dim1_core\n',
+                           '#print axioms OIBridge.CompositeDimension.dim1_core\n'
+                           '#print axioms OIBridge.CompositeDimension.hom_zero\n'))
+    must_fail('S9', 'a duplicated print',
+              replace_once(mod, '#print axioms OIBridge.CompositeDimension.three_of_nativeGate',
+                           '#print axioms OIBridge.CompositeDimension.three_of_nativeGate\n'
+                           '#print axioms OIBridge.CompositeDimension.three_of_nativeGate'))
+    # S10
+    must_fail('S10', 'the carrier\'s local-tomography sentence removed',
+              replace_once(mod, 'Local tomography is the premise this carrier encodes. -/\nabbrev W',
+                           '-/\nabbrev W'))
+    must_fail('S10', 'the effect cone assumed in place of the full effects',
+              replace_once(mod, '  {ω | ∀ e f, IsEffectOn Ω e → IsEffectOn Ω f → 0 ≤ prodEffVal e f ω}',
+                           '  {ω | ∀ a b : HVec d, Lor a → Lor b → 0 ≤ pairVal a b ω}'))
+    # I, C, R
+    d_imp = show(D, IMPORTS)
+    good_imp = d_imp.replace(ANCHOR_IMPORT, ANCHOR_IMPORT + NEW_IMPORT, 1)
+    check('M', 'imports: the frozen edit passes and a dropped line fails',
+          imports_ok(d_imp, good_imp) and not imports_ok(d_imp, d_imp))
+    d_cen = show(D, CENSUS)
+    good = census_want(d_cen)
+    dd = json.loads(d_cen)
+    k = [i for i, f in enumerate(dd['families']) if f['modules'] == PREV_FAMILY_MODULES][0]
+    fam_only = dict(dd)
+    fam_only['families'] = dd['families'][:k + 1] + [CENSUS_FAMILY] + dd['families'][k + 1:]
+    fam_only = json.dumps(fam_only, indent=2, ensure_ascii=False) + '\n'
+    bad_status = json.loads(good)
+    bad_status['families'][k + 1]['status'] = 'carried'
+    bad_status = json.dumps(bad_status, indent=2, ensure_ascii=False) + '\n'
+    moved = json.loads(good)
+    moved['families'].insert(k, moved['families'].pop(k + 1))
+    moved = json.dumps(moved, indent=2, ensure_ascii=False) + '\n'
+    check('M', 'census: the frozen edit passes; the family without the NB-1 sentence, a changed status and a moved '
+               'family fail',
+          census_ok(d_cen, good) and not census_ok(d_cen, fam_only) and not census_ok(d_cen, bad_status)
+          and moved != good and not census_ok(d_cen, moved) and not census_ok(d_cen, good.replace('\n', '\n ', 1)))
+    d_rm = show(D, ROADMAP)
+    good_rm = roadmap_want(d_rm)
+    one_only = d_rm.replace(ROADMAP_EDITS[0][0], ROADMAP_EDITS[0][1], 1)
+    extra = good_rm.replace('- **K2 — the composite. OPEN.**', '- **K2 — the composite. CONDITIONAL.**', 1)
+    check('M', 'roadmap: the frozen edit passes; one replacement alone and an extra edited row fail',
+          good_rm is not None and roadmap_ok(d_rm, good_rm) and not roadmap_ok(d_rm, one_only)
+          and extra != good_rm and not roadmap_ok(d_rm, extra) and not roadmap_ok(d_rm, d_rm))
+
+
+def main(argv):
+    if argv == ['--self-test']:
+        self_test()
+    elif len(argv) >= 2 and argv[0] == 'check':
+        freeze = argv[3] if len(argv) == 4 and argv[2] == '--freeze' else None
+        run_check(argv[1], freeze)
+    else:
+        print(__doc__)
+        return 2
+    if FAILS:
+        print('controls: FAILED (%d of %d): %s' % (len(FAILS), COUNT[0], ' '.join(FAILS)))
+        return 1
+    print('controls: OK -- %d checks' % COUNT[0])
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

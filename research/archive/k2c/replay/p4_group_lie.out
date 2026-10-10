@@ -1,0 +1,24 @@
+PASS 4.0 A local + cnot: generators antisymmetric, kill e00; conjugators orthogonal fixing e00 (so dim <= 105)
+     GF(p) closure dimension (lower bound) for A local + cnot = 15
+PASS 4.0 B local only: generators antisymmetric, kill e00; conjugators orthogonal fixing e00 (so dim <= 105)
+     GF(p) closure dimension (lower bound) for B local only = 6
+PASS 4.0 C local + actT nflip: generators antisymmetric, kill e00; conjugators orthogonal fixing e00 (so dim <= 105)
+     GF(p) closure dimension (lower bound) for C local + actT nflip = 6
+PASS 4.0 D local + cnot + actT reflY: generators antisymmetric, kill e00; conjugators orthogonal fixing e00 (so dim <= 105)
+     GF(p) closure dimension (lower bound) for D local + cnot + actT reflY = 105
+PASS 4.0 E local + T_refl: generators antisymmetric, kill e00; conjugators orthogonal fixing e00 (so dim <= 105)
+     GF(p) closure dimension (lower bound) for E local + T_refl = 105
+PASS 4.0 F local + cnot': generators antisymmetric, kill e00; conjugators orthogonal fixing e00 (so dim <= 105)
+     GF(p) closure dimension (lower bound) for F local + cnot' = 15
+PASS 4.1a [M] the 15 transfer generators of ad(i su(4)) are linearly independent (exact)
+PASS 4.1b the six local generators lie in that span (exact)
+PASS 4.1c the span is stable under Ad(cnot) (exact)
+PASS 4.1d the span is closed under brackets (exact, 105 brackets)
+PASS 4.1e case A rendered: lower bound 15 = exact upper bound 15
+PASS 4.2a case F: PT_B-conjugate span contains the local generators, is Ad(cnot')-stable and bracket-closed
+PASS 4.2b case F rendered: 15, and its span differs from A's (A + F spans more than 15) :: 24
+PASS 4.3 countercontrols B, C rendered at 6 (local algebra so(3)+so(3); a finite local gate adds nothing)
+PASS 4.4 cases D, E rendered at 105 = so(15) (lower bound meets the antisymmetry bound)
+PASS 4.5 [M] det CNOT = -1 and det(e^{i pi/4} CNOT) = e^{i pi} (-1) = 1, so Ad(CNOT) is in Ad(SU(4))
+SUMMARY: 16 checks, 0 failures
+VERDICT P4: LIE-DIMENSIONS-RENDERED

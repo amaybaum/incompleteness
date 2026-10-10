@@ -1,0 +1,10 @@
+PASS  L1 Lean RHS of pairVal_gSq_prodState == model pairVal (polynomial identity)
+PASS  L2 gSq_core conclusion == pairVal_gSq_prodState RHS
+PASS  L2' gSq_core conclusion text == RHS text up to `a i -> ai` (so `exact` matches syntactically)
+PASS  L3 rsq_assemble instantiation has 8 parenthesised args
+PASS  L3' rsq_assemble conclusion, instantiated as in gSq_core, == gSq_core conclusion
+PASS  L4 rsq_key third conjunct == (Se^2+So^2)/50 <= A*B for gSq_core's A, B, Se, So
+PASS  L5 rsq_s text: RHS - LHS == nonnegative certificate
+PASS  L6 rsq_ab text: AB - goal == certificate
+
+0 failed

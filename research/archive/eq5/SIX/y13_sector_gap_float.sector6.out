@@ -1,0 +1,6 @@
+sector6 trial 0: gen(V) = 2.12134727  dual(V) = 2.12134727  gap = -1.78e-15  (rounds 3, last pricing 0.0e+00)
+sector6 trial 1: gen(V) = 1.47271953  dual(V) = 1.47271953  gap = -2.44e-15  (rounds 2, last pricing 0.0e+00)
+sector6 trial 2: gen(V) = 1.53752784  dual(V) = 1.53752784  gap = -8.88e-16  (rounds 6, last pricing 0.0e+00)
+sector6 trial 3: gen(V) = 1.69528088  dual(V) = 1.69528088  gap = -2.44e-15  (rounds 7, last pricing -2.6e-16)
+sector6 trial 4: gen(V) = 1.19212641  dual(V) = 1.19212641  gap = -1.55e-15  (rounds 7, last pricing -1.9e-16)
+sector6 trial 5: gen(V) = 0.89892042  dual(V) = 0.89892042  gap = -1.44e-15  (rounds 3, last pricing 0.0e+00)

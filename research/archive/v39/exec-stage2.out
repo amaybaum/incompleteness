@@ -1,0 +1,9 @@
+stage 2 AGENTS.md blob 864494c1a9696a3b08330da64cf9d265d6d8b92f, architecture.md blob f699471b34d4f332c557f6b5452c952db49a0306
+PASS  C5 AGENTS.md is its B bytes followed by the frozen text
+PASS  C5 one "## §A.39 " heading and no §A.38
+PASS  C5 architecture.md differs from B by the frozen sentence alone
+PASS  C5 no "is not operative"
+PASS  C4 tools/v3_verifier.py has its D blob
+PASS  C4 CORPUS  135 vector(s), exact and as expected
+PASS  C4 v3_verifier: self-test OK
+STAGE 2 CHECKPOINT PASS

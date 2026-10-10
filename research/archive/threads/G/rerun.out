@@ -1,0 +1,85 @@
+
+== ONT  Resp(p) is closed under ontically implemented operations (c -> M^T c)
+  [ok  ] sequential instrument (sub-stochastic M_k, responses c_k): sum_k M_k^T c_k in [0,1]^N, 200 trials (enumerate)
+  [ok  ] attach ancilla, joint stochastic map, joint readout, discard: vector in [0,1]^N, 200 trials (enumerate)
+  [ok  ] mixing and complement of response vectors stay in [0,1]^N, 200 trials            (enumerate)
+  [ok  ] coarse-graining two outcomes of a test stays in [0,1]^N, 200 trials              (enumerate)
+  [note] Resp(p) = {q -> c.q : c in [0,1]^N} is compact and convex, so limits and convex closure add nothing; with the four checks, every operation implemented by stochastic maps on the N ontic states returns a response vector  (written step, not a check)
+
+== DOM  the domination certificate
+  [ok  ] 1 - h(z) <= (1/delta)(1 - h(x)) for random response h, ontic z, delta = min_i p_i(x) > 0 (300 trials) (enumerate)
+  [note] the inequality delta (1 - h(z)) <= 1 - h(x) is affine in h, so it holds on the closed convex hull of any family satisfying it; if it holds and h(x) = 1 then h = 1 on the body, so h is not proper  (written step, not a check)
+  [ok  ] mutation: at a tangency point (p_0 = 0) the effect 1 - p_0 is certain and proper (mutation)
+
+== SIC  tight (t = 1) and loose (t = 1/2) realizations of the same Bloch ball
+  [ok  ] s_i . s_j = 3 delta_ij - (1 - delta_ij)                                          (enumerate)
+  [ok  ] sum_i a_i = 0 and sum_i a_i a_i^T = (4/3) I                                      (identity)
+  [ok  ] t = 1: p is affine, sums to 1, linear part rank 3 (injective on the ball)        (identity)
+  [ok  ] t = 1: min_ball p_i = (1 - t)/4, attained at r = -a_i                            (identity)
+  [ok  ] t = 1/2: p is affine, sums to 1, linear part rank 3 (injective on the ball)      (identity)
+  [ok  ] t = 1/2: min_ball p_i = (1 - t)/4, attained at r = -a_i                          (identity)
+  [note] Cauchy-Schwarz: a_i . r >= -|r| >= -1 on the ball with equality only at r = -a_i, so p_i >= (1 - t)/4 with the tangency set T = {-a_i} for t = 1 (Main.md:540 SIC) and T empty for t = 1/2  (written step, not a check)
+  [ok  ] loose (t = 1/2): delta = min_i min_ball p_i = 1/8 > 0 at EVERY state (a global minimum, so rotation-invariant) (deduce)
+  [ok  ] mutation: tight (t = 1): the same minimum is 0, attained (tangency points exist) (mutation)
+  [note] so by DOM, in the loose realization no closure of Resp(p) under mixing, limits, ontic operations or pullback by any rotation group contains a proper effect certain anywhere: SEC fails at every boundary state; the tight realization of the same ball has 4 tangency points  (written step, not a check)
+  [ok  ] sharp effect (1+z)/2 = sum_i c_i p_i (tight) with c_i = (1 + 3 n.a_i)/2          (identity)
+  [ok  ] c_1 = 1/2 + sqrt(3)/2 > 1 (Main.md:540) and c_2 = 1/2 - sqrt(3)/2 < 0            (witness)
+  [ok  ] tight, no drive: at the pure state b = (3/5, 0, 4/5) every p_i > 0 (min 1/4 - 7*sqrt(3)/60), so DOM excludes support at b (witness)
+  [ok  ] R = H_u H_w is a rotation (R^T R = I, det R = 1) with R(-a_1) = b                (identity)
+  [ok  ] tight: the pulled-back response 1 - p_1 o R^{-1} is certain at b and proper (value 1/2 at -b) (witness)
+  [note] ball3Drive (KF:449) has flow = rotations about the third axis and J = cyc3 (KF:425); conjugating by cyc3 gives the rotations about the other two axes, so the group generated is SO(3) (Euler angles): in the tight realization the drive group carries the 4 tangency points onto the whole sphere, so the G-closed response family is SEC-complete  (written step, not a check)
+
+== ONTD  the ball drive is not ontically implementable in the tight SIC realization
+  [ok  ] control: the half-turn about z (a tetrahedral symmetry) induces a permutation matrix (stochastic) (witness)
+  [ok  ] rotation about z with (cos, sin) = (3/5, 4/5): columns sum to 1, min entry -2/5 < 0 (not stochastic) (witness)
+  [ok  ] rotation about z with (cos, sin) = (12/13, 5/13): columns sum to 1, min entry -5/26 < 0 (not stochastic) (witness)
+  [ok  ] rotation about z with (cos, sin) = (99/101, 20/101): columns sum to 1, min entry -10/101 < 0 (not stochastic) (witness)
+  [note] the affine extension of a drive member to the simplex hyperplane is unique (p(ball) spans it), so a drive member is implementable by a stochastic map of the 4 ontic states only if this matrix is stochastic: small rotations are not; at a fixed finite realization both effects (Main.md:540) and the drive fail, as design note §9 states  (written step, not a check)
+
+== BID  the bidisk D x D with two simplex realizations
+  [ok  ] R1: sum_i p_i = 1, linear part rank 4 (affine injective into the simplex Delta_4) (identity)
+  [ok  ] R1: c_i = |u_i| + |v_i|, so min_bidisk p_i = 0 (tangent facets)                  (identity)
+  [ok  ] R1: every facet touches the bidisk at one torus point (u_i, v_i both nonzero)    (enumerate)
+  [ok  ] R1: min over the orbit {(w,0),(0,w): |w|=1} of (e1,0) of p_i is min(|v_i|,|u_i|)/C; delta = 1/22 > 0 (identity)
+  [ok  ] R1: exact spot check of p_i >= delta at 10 rational orbit points of (e1, 0)      (enumerate)
+  [ok  ] (e1,0) is a boundary state: (e1,0) + eps((e1,0) - (-e1,0)) has |x|^2 = (1 + 2 eps)^2 > 1, eps = 1/k, k < 50 (witness)
+  [note] (e1,0) + eps((e1,0) - y) for y = (-e1, 0) in D x D leaves D x D for every eps > 0, so (e1,0) is an IsBoundaryState (KF:130) of the bidisk, and it is not a torus point  (written step, not a check)
+  [note] R1 verdict: by DOM with delta = 2/C uniform over the orbit, no member of the closure of Resp(R1) under the full automorphism group O(2) x O(2) x swap, mixing, ontic operations and limits is a proper effect certain at (e1, 0); the same holds at every point of the flat faces off the torus; the bidisk is drivable (Thread F CM-RSC), so the G-closed response family fails SEC on a drivable body  (written step, not a check)
+  [ok  ] R2: sum_i p_i = 1, linear part rank 4 (affine injective into the simplex Delta_4) (identity)
+  [ok  ] R2: c_i = |u_i| + |v_i|, so min_bidisk p_i = 0 (tangent facets)                  (identity)
+  [ok  ] R2: p_1 vanishes on the whole flat face {e1} x D (facet on the face)             (identity)
+  [ok  ] R2: 1 - p_1 o g is certain at the flat-face point ((3/5,4/5),(1/3,-1/2)) and proper (value 3/4 at -w) (witness)
+  [note] R2 verdict: rotations carry {e1} x D onto every face {w} x D and the swap onto D x {w}; these cover the relative boundary of D x D, so the G-closed Resp(R2) is SEC-complete. R1 and R2 realize the same body with the same automorphism group: the candidate depends on the realization  (written step, not a check)
+
+== STG  a finite stage (triangle) with the operational closure conv{0, 1, a, 1-a, b, 1-b}
+  [ok  ] stage table in [0,1]: every generator takes values in [0,1] at the three preparations (enumerate)
+  [ok  ] m = (3/4, 1/2) is the midpoint of the edge from (1,0) to (1/2,1): a boundary state of the triangle (witness)
+  [ok  ] delta = min over non-unit generators of (1 - h(m)) / max_vertices (1 - h) = 1/4 > 0 (enumerate)
+  [note] the domination inequality holds for each generator with delta = 1/4 and the unit satisfies it trivially, so it holds on the convex hull (which is compact): no proper effect of the closure is certain at m  (written step, not a check)
+  [ok  ] mutation: the no-restriction effect (2a + b)/2 is in [0,1] on the stage, certain at m, proper (mutation)
+  [ok  ] (2a + b)/2 violates the domination inequality (1/4)(1 - f(z)) <= 1 - f(m) at z = (0,0), so it is not in the closure (deduce)
+  [note] the triangle is a polytope, so no drive exists on it (Thread F B5) and KInf1 is vacuous there; the control shows that the GPT-standard closure of a finite stage table is not SEC-complete even on its own body  (written step, not a check)
+
+== MAT  matrix regime on the qubit: substratum (monomial) operations and the Naimark circuit
+  [ok  ] monomial unitaries (phases, swap, products) map the Bloch z-axis to +-z-axis (4 instances) (enumerate)
+  [ok  ] swap conjugates the z-rotation flow to its inverse: R_X R_z(t) R_X^-1 = R_z(-t)  (identity)
+  [note] every monomial unitary normalizes the z-rotation group on the Bloch ball, so no monomial J satisfies J_off_axis (KF:276): the substratum class does not drive the Bloch ball in KF terms, matching substratum_residual (SC:383)  (written step, not a check)
+  [ok  ] a monomial Kraus operator K gives the diagonal effect K^dagger K                 (witness)
+  [note] realized_of_instAvail (IL:530) writes every branch of a substratum-generated family as a sum of conjugations by monomials (block and product closures: StructuralClosure); its effect sum K^dagger K is diagonal, i.e. a response function on the two configurations; on the ball it is (a+b)/2 + (a-b) z/2, certain only at the poles  (written step, not a check)
+  [ok  ] V (Cayley transform of a Hermitian Gaussian-rational matrix) is unitary          (identity)
+  [ok  ] Naimark circuit (attach |0>, CNOT (V^dag x 1), read ancilla k, discard): effect = V|k><k|V^dag, k = 0, 1 (identity)
+  [ok  ] V|0><0|V^dag is a rank-one projector with nonzero off-diagonal (a non-pole sharp effect) (identity)
+  [ok  ] mutation: with a monomial V the same circuit yields a diagonal effect (a pole)   (mutation)
+  [note] the sharpness is supplied by the postulated native register readout (FiniteOperationalTheory.readout_avail, OA:594; form derived by readout_is_localLuders OA:658) and transported to the system by a non-monomial (driving) operation: in the matrix regime P2 is generated from K-infinity-R, not independent of it  (written step, not a check)
+  [ok  ] measure-and-prepare Kraus {|0><+|, |0><-|} is trace preserving: sum K^dag K = I  (identity)
+  [ok  ] each branch maps diagonal inputs to diagonal outputs (PreservesDiag, DiagonalTheory.lean:68) (identity)
+  [ok  ] its first effect is the sharp non-diagonal |+><+| (certain at the Bloch point (1,0,0)) (identity)
+  [note] diagTheory realizes the sealed OI core (diag_realizesSealedOICore, DiagonalTheory.lean:358) and has no composite control (diag_not_control :390), yet carries sharp effects in every direction; substratumTheory = genTheory substratumClass (RouteB.lean:279) realizes the same core (RouteB.lean:375) with diagonal effects only: the OI core does not determine the effect family, and full effects do not need a drive  (written step, not a check)
+
+== NR  the no-restriction closure on the SIC realization
+  [ok  ] the four tight-SIC responses span all affine functionals on R^3 (rank 4)         (identity)
+  [ok  ] the sharp effect certain at a_1 (antipode of the tangency point -a_1) is 2 p_1: coefficients [2, 0, 0, 0], c_1 = 2 > 1 (identity)
+  [note] c_i = (1 + sqrt(3) n.s_i)/2 ranges over [-1, 2] as n runs over the unit sphere; the response box is [0,1]  (written step, not a check)
+  [note] no-restriction (all affine maps in [0,1] on the body) gives fullEffects in the operational embedding, hence (SEC) by Thread F B8; it contains effects that are not response functions of the realization (Main.md:540), so it is not the closure of anything the realization implements (ONT)  (written step, not a check)
+
+g_controls: OK -- 50 checks, 17 written notes

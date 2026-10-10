@@ -1,0 +1,1187 @@
+### [K] CompositeDimension.lean:97 W
+doc CompositeDimension.lean:95-96:
+  | /-- The joint bilinear carrier of two copies: a real function of a control index and a target index.
+  | Local tomography is the premise this carrier encodes. -/
+  > abbrev W (d : ℕ) :=
+
+### [K] CompositeDimension.lean:100 hom
+doc CompositeDimension.lean:99-99:
+  | /-- Homogenization `x ↦ (1, x)`. -/
+  > def hom (x : Fin d → ℝ) : HVec d :=
+
+### [K] CompositeDimension.lean:161 prodState
+doc CompositeDimension.lean:160-160:
+  | /-- The product state of two copies. -/
+  > def prodState (x y : Fin d → ℝ) : W d :=
+
+### [K] CompositeDimension.lean:164 pairVal
+doc CompositeDimension.lean:163-163:
+  | /-- The pairing of two homogenized functionals with a joint vector. -/
+  > def pairVal (a b : HVec d) (ω : W d) : ℝ :=
+
+### [K] CompositeDimension.lean:182 prodEffVal
+doc CompositeDimension.lean:181-181:
+  | /-- The value of the product effect `e ⊗ f` on a joint vector. -/
+  > noncomputable def prodEffVal (e f : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (ω : W d) : ℝ :=
+
+### [K] CompositeDimension.lean:186 maxCone
+doc CompositeDimension.lean:185-185:
+  | /-- The maximal cone of two copies of `Ω`: nonnegative on every product of effects on `Ω`. -/
+  > def maxCone (Ω : Set (Fin d → ℝ)) : Set (W d) :=
+
+### [K] CompositeDimension.lean:190 jointStates
+doc CompositeDimension.lean:189-189:
+  | /-- The joint states: the normalized vectors of the maximal cone. -/
+  > def jointStates (Ω : Set (Fin d → ℝ)) : Set (W d) :=
+
+### [K] CompositeDimension.lean:198 actT
+doc CompositeDimension.lean:197-197:
+  | /-- `N` acting on the target index. -/
+  > def actT (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) : W d :=
+
+### [K] CompositeDimension.lean:201 actC
+doc CompositeDimension.lean:200-200:
+  | /-- `N` acting on the control index. -/
+  > def actC (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) : W d :=
+
+### [K] CompositeDimension.lean:205 corner
+doc CompositeDimension.lean:204-204:
+  | /-- The corners `corner z 0 = z`, `corner z 1 = −z`. -/
+  > def corner (z : Fin d → ℝ) : Fin 2 → (Fin d → ℝ) :=
+
+### [K] CompositeDimension.lean:210 IsNot
+doc CompositeDimension.lean:209-209:
+  | /-- The NOT of one copy: a linear involution preserving the body and inverting the corner axis. -/
+  > structure IsNot (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) :
+  >     Prop where
+
+### [K] CompositeDimension.lean:218 NativeGate
+doc CompositeDimension.lean:217-217:
+  | /-- The native-gate hypotheses on two identical copies of `Ω`, with one `N` in both relations. -/
+  > structure NativeGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+  >     (G : W d ≃ₗ[ℝ] W d) : Prop where
+
+### [K] CompositeDimension.lean:229 Entangling
+doc CompositeDimension.lean:227-228:
+  | /-- The entangling clause: some pure product input has an image that is an extreme joint state
+  | and is not a product state. -/
+  > def Entangling (Ω : Set (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop :=
+
+### [K] CompositeDimension.lean:741 sgn
+doc CompositeDimension.lean:740-740:
+  | /-- The sign of the `d = 3` gate on the homogenized index pair: `−1` at `(1, 3)` and `(2, 2)`. -/
+  > def sgn (μ ν : Fin 4) : ℝ :=
+
+### [K] CompositeDimension.lean:744 pc
+doc CompositeDimension.lean:743-743:
+  | /-- The control index read by the `d = 3` gate at an index pair. -/
+  > def pc : Fin 4 → Fin 4 → Fin 4
+  >   | 0, 0 => 0 | 0, 1 => 0 | 0, 2 => 3 | 0, 3 => 3
+  >   | 1, 0 => 1 | 1, 1 => 1 | 1, 2 => 2 | 1, 3 => 2
+  >   | 2, 0 => 2 | 2, 1 => 2 | 2, 2 => 1 | 2, 3 => 1
+  >   | 3, 0 => 3 | 3, 1 => 3 | 3, 2 => 0 | 3, 3 => 0
+  > 
+  > /-- The target index read by the `d = 3` gate at an index pair. -/
+  > def pt : Fin 4 → Fin 4 → Fin 4
+  >   | 0, 0 => 0 | 0, 1 => 1 | 0, 2 => 2 | 0, 3 => 3
+  >   | 1, 0 => 1 | 1, 1 => 0 | 1, 2 => 3 | 1, 3 => 2
+  >   | 2, 0 => 1 | 2, 1 => 0 | 2, 2 => 3 | 2, 3 => 2
+  >   | 3, 0 => 0 | 3, 1 => 1 | 3, 2 => 2 | 3, 3 => 3
+  > 
+  > /-- The `d = 3` gate as a function: a signed permutation of the sixteen entries. -/
+  > def cnotFun (ω : W 3) : W 3 :=
+
+### [K] CompositeDimension.lean:751 pt
+doc CompositeDimension.lean:750-750:
+  | /-- The target index read by the `d = 3` gate at an index pair. -/
+  > def pt : Fin 4 → Fin 4 → Fin 4
+  >   | 0, 0 => 0 | 0, 1 => 1 | 0, 2 => 2 | 0, 3 => 3
+  >   | 1, 0 => 1 | 1, 1 => 0 | 1, 2 => 3 | 1, 3 => 2
+  >   | 2, 0 => 1 | 2, 1 => 0 | 2, 2 => 3 | 2, 3 => 2
+  >   | 3, 0 => 0 | 3, 1 => 1 | 3, 2 => 2 | 3, 3 => 3
+  > 
+  > /-- The `d = 3` gate as a function: a signed permutation of the sixteen entries. -/
+  > def cnotFun (ω : W 3) : W 3 :=
+
+### [K] CompositeDimension.lean:775 cnot
+doc CompositeDimension.lean:774-774:
+  | /-- The `d = 3` gate as a linear equivalence of the joint carrier. -/
+  > def cnot : W 3 ≃ₗ[ℝ] W 3 where
+
+### [K] CompositeDimension.lean:793 z3
+doc CompositeDimension.lean:792-792:
+  | /-- The corner axis of the `d = 3` witness. -/
+  > def z3 : Fin 3 → ℝ :=
+
+### [K] CompositeDimension.lean:797 nflip
+doc CompositeDimension.lean:795-796:
+  | /-- The common NOT of the `d = 3` witness: the reflection fixing the first coordinate and
+  | inverting the other two. -/
+  > def nflip : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ) where
+
+### [K] CompositeDimension.lean:1213 xplus
+doc CompositeDimension.lean:1212-1212:
+  | /-- The pure input of the entangling witness: the unit vector of the first coordinate. -/
+  > def xplus : Fin 3 → ℝ :=
+
+### [K] CompositeDimension.lean:1220 phiW
+doc CompositeDimension.lean:1219-1219:
+  | /-- The entangled image: the diagonal joint vector with entries `1, 1, −1, 1`. -/
+  > def phiW : W 3 :=
+
+### [K] CompositeDimension.lean:838 isNot_nflip
+doc CompositeDimension.lean:837-837:
+  | /-- `nflip` is a NOT of the ball with axis `z3`. -/
+  > theorem isNot_nflip : IsNot (eball 3) z3 nflip where
+
+### [K] CompositeDimension.lean:848 cnot_frame
+doc CompositeDimension.lean:847-847:
+  | /-- The frame condition of the `d = 3` gate. -/
+  > theorem cnot_frame (a b : Fin 2) :
+  >     cnot (prodState (corner z3 a) (corner z3 b)) = prodState (corner z3 a) (corner z3 (a + b)) :=
+
+### [K] CompositeDimension.lean:854 cnot_relT
+doc CompositeDimension.lean:853-853:
+  | /-- The target relation of the `d = 3` gate. -/
+  > theorem cnot_relT (ω : W 3) : actT nflip (cnot (actT nflip ω)) = cnot ω :=
+
+### [K] CompositeDimension.lean:860 cnot_relC
+doc CompositeDimension.lean:859-859:
+  | /-- The control relation of the `d = 3` gate. -/
+  > theorem cnot_relC (ω : W 3) : actC nflip (cnot (actC nflip ω)) = actT nflip (cnot ω) :=
+
+### [K] CompositeDimension.lean:1160 nativeGate_cnot
+doc CompositeDimension.lean:1159-1159:
+  | /-- The `d = 3` gate satisfies every native-gate hypothesis. -/
+  > theorem nativeGate_cnot : NativeGate (eball 3) z3 nflip cnot where
+
+### [K] CompositeDimension.lean:1380 entangling_cnot
+doc CompositeDimension.lean:1378-1379:
+  | /-- The `d = 3` gate is entangling: the pure product input `(xplus, z3)` has an extreme joint
+  | image that is not a product state. -/
+  > theorem entangling_cnot : Entangling (eball 3) cnot :=
+
+### [K] CompositeDimension.lean:682 finrank_plus_eq_finrank_minus
+doc CompositeDimension.lean:680-681:
+  | /-- **Parity (S5) from the frozen hypotheses.** The `+1` and `−1` eigenspaces of the homogenized
+  | common NOT on the control space have the same dimension. -/
+  > theorem finrank_plus_eq_finrank_minus {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+  >     Module.finrank ℝ (plusSpace N) = Module.finrank ℝ (minusSpace N) :=
+
+### [K] CompositeDimension.lean:693 not_even_of_nativeGate
+doc CompositeDimension.lean:692-692:
+  | /-- No even dimension carries a native gate. -/
+  > theorem not_even_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+  >     ¬ Even d :=
+
+### [K] CompositeDimension.lean:2703 blockData_of_nativeGate
+doc CompositeDimension.lean:2700-2702:
+  | /-- **The block reduction (S1, S2, S4).** Two identical copies of the Euclidean ball of
+  | dimension at least two with a native gate carry the block data of the `+1` eigenspace's tangent
+  | dimension. -/
+  > theorem blockData_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hd : 2 ≤ d) (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+  >     BlockData (tangentPlus N) :=
+
+### [K] CompositeDimension.lean:2723 dim_of_nativeGate
+doc CompositeDimension.lean:2721-2722:
+  | /-- **The selector.** Two identical copies of the Euclidean ball with a native gate have
+  | dimension one or three. -/
+  > theorem dim_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+  >     d = 1 ∨ d = 3 :=
+
+### [K] CompositeDimension.lean:2748 three_of_nativeGate
+doc CompositeDimension.lean:2746-2747:
+  | /-- **The selector under the entangling clause.** Two identical copies of the Euclidean ball with
+  | an entangling native gate have dimension three. -/
+  > theorem three_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+  >     (hE : Entangling (eball d) G) : d = 3 :=
+
+### [K] CompositeDimension.lean:1436 not_entangling_one
+doc CompositeDimension.lean:1434-1435:
+  | /-- No gate of two intervals is entangling: the frame carries every pure product input to a
+  | product state. -/
+  > theorem not_entangling_one {z : Fin 1 → ℝ} {N : (Fin 1 → ℝ) →ₗ[ℝ] (Fin 1 → ℝ)}
+  >     {G : W 1 ≃ₗ[ℝ] W 1} (hN : IsNot (eball 1) z N) (hG : NativeGate (eball 1) z N G) :
+  >     ¬ Entangling (eball 1) G :=
+
+### [K] CompositeDimension.lean:2861 nativeGate_cnot1
+doc CompositeDimension.lean:2860-2860:
+  | /-- The classical gate satisfies every native-gate hypothesis. -/
+  > theorem nativeGate_cnot1 : NativeGate (eball 1) z1 neg1 cnot1 where
+
+### [K] CompositeDimension.lean:2869 not_entangling_cnot1
+doc CompositeDimension.lean:2868-2868:
+  | /-- The classical gate is not entangling. -/
+  > theorem not_entangling_cnot1 : ¬ Entangling (eball 1) cnot1 :=
+
+### [K] CompositeDimension.lean:2888 no_gate_four
+doc CompositeDimension.lean:2887-2887:
+  | /-- `eball 4` carries no native gate. -/
+  > theorem no_gate_four : ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ))
+  >     (G : W 4 ≃ₗ[ℝ] W 4), IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G :=
+
+### [K] CompositeDimension.lean:2897 dim1_core
+doc CompositeDimension.lean:2895-2896:
+  | /-- The kernel layer's verdict: the parity exclusion, the selector, the selector under the
+  | entangling clause, the `d = 3` witness, the classical controls and the `eball 4` exclusion. -/
+  > theorem dim1_core :
+  >     (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+  >       IsNot (eball d) z N → NativeGate (eball d) z N G → ¬ Even d) ∧
+  >     (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+  >       IsNot (eball d) z N → NativeGate (eball d) z N G → d = 1 ∨ d = 3) ∧
+  >     (∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+  >       IsNot (eball d) z N → NativeGate (eball d) z N G → Entangling (eball d) G → d = 3) ∧
+  >     (IsNot (eball 3) z3 nflip ∧ NativeGate (eball 3) z3 nflip cnot ∧ Entangling (eball 3) cnot) ∧
+  >     (IsNot (eball 1) z1 neg1 ∧ NativeGate (eball 1) z1 neg1 cnot1 ∧
+  >       ¬ Entangling (eball 1) cnot1 ∧ ¬ IsProduct (eball 1) (cnot1 (prodState 0 z1))) ∧
+  >     ¬ ∃ (z : Fin 4 → ℝ) (N : (Fin 4 → ℝ) →ₗ[ℝ] (Fin 4 → ℝ)) (G : W 4 ≃ₗ[ℝ] W 4),
+  >       IsNot (eball 4) z N ∧ NativeGate (eball 4) z N G :=
+
+### [K] CompositeDimension.lean:930 lor_ehom
+doc CompositeDimension.lean:929-929:
+  | /-- The homogenized coefficients of an effect of the ball lie in the cone. -/
+  > theorem lor_ehom {e : (Fin d → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffectOn (eball d) e) : Lor (ehom e) :=
+
+### [K] CompositeDimension.lean:916 isEffectOn_affOf
+doc CompositeDimension.lean:915-915:
+  | /-- A cone vector with head at most one half is the coefficient vector of an effect of the ball. -/
+  > theorem isEffectOn_affOf {v : HVec d} (hv : Lor v) (hv0 : v 0 ≤ 1 / 2) :
+  >     IsEffectOn (eball d) (affOf v) :=
+
+### [K] CompositeDimension.lean:1049 lor_toOp_of_maxCone
+doc CompositeDimension.lean:1048-1048:
+  | /-- A maximal-cone vector, read as an operator, carries the cone into itself. -/
+  > theorem lor_toOp_of_maxCone {ω : W d} (hω : ω ∈ maxCone (eball d)) {f : HVec d} (hf : Lor f) :
+  >     Lor (toOp ω f) :=
+
+### [K] KInfFoundations.lean:63 FiniteStage
+doc KInfFoundations.lean:61-62:
+  | /-- A finite observer stage: finitely many preparations `P`, finitely many effects `E`, a
+  | probability table `p e x ∈ [0, 1]`, and a unit effect certain on every preparation. -/
+  > structure FiniteStage where
+
+### [K] KInfFoundations.lean:116 IsEffectOn
+doc KInfFoundations.lean:115-115:
+  | /-- An affine functional is an effect on `Ω` when it takes values in `[0, 1]` on `Ω`. -/
+  > def IsEffectOn (Ω : Set V) (e : V →ᵃ[ℝ] ℝ) : Prop :=
+
+### [K] KInfFoundations.lean:264 ElementaryDrivability
+doc KInfFoundations.lean:260-263:
+  | /-- Elementary drivability of a body `Ω`, stated without a field: a continuous one-parameter
+  | group of affine automorphisms of `V` preserving `Ω`, on which a distinguished involution of `Ω`
+  | (the NOT) lies, together with an automorphism `J` of `Ω` whose conjugate of some flow member
+  | agrees on `Ω` with no flow member. -/
+  > structure ElementaryDrivability (Ω : Set V) where
+
+### [K] KInfFoundations.lean:284 CopyNatural
+doc KInfFoundations.lean:282-283:
+  | /-- Copy naturality: under the identification `e` of copy `A` with copy `B`, the NOT of `B`
+  | is the conjugate of the NOT of `A`. -/
+  > def CopyNatural (N_A N_B : V ≃ᵃ[ℝ] V) (e : V ≃ᵃ[ℝ] V) : Prop :=
+
+### [K] KInfFoundations.lean:311 ball3
+doc KInfFoundations.lean:310-310:
+  | /-- The Euclidean unit ball of `ℝ³`, cut out by its quadratic form. -/
+  > def ball3 : Set (Fin 3 → ℝ) :=
+
+### [K] KInfFoundations.lean:411 rot3
+doc KInfFoundations.lean:410-410:
+  | /-- The rotation by `t`, as an affine automorphism of `ℝ³`. -/
+  > noncomputable def rot3 (t : ℝ) : (Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ) :=
+
+### [K] KInfFoundations.lean:425 cyc3
+doc KInfFoundations.lean:424-424:
+  | /-- The cyclic permutation, as an affine automorphism of `ℝ³`. -/
+  > noncomputable def cyc3 : (Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ) :=
+
+### [K] KInfFoundations.lean:449 ball3Drive
+doc KInfFoundations.lean:446-448:
+  | /-- **Positive control for drivability.** The ball is drivable: the rotations about the third
+  | axis form the flow, the half-turn is the NOT, and the cyclic permutation of the axes carries the
+  | flow off itself on the ball. -/
+  > noncomputable def ball3Drive : ElementaryDrivability ball3 where
+
+### [K] KInfFoundations.lean:490 ball3_drivable
+doc KInfFoundations.lean:489-489:
+  | /-- The ball is drivable. -/
+  > theorem ball3_drivable : Nonempty (ElementaryDrivability ball3) :=
+
+### [K] KInfFoundations.lean:529 not_drivable_Icc
+doc KInfFoundations.lean:526-528:
+  | /-- **Negative control for drivability.** The classical bit `[-1, 1]` is not drivable: the flow
+  | member at half the NOT's parameter is `±` the identity on the line, so the NOT, its square, is
+  | the identity and moves nothing. -/
+  > theorem not_drivable_Icc : IsEmpty (ElementaryDrivability (Set.Icc (-1 : ℝ) 1)) :=
+
+### [K] KInfFoundations.lean:1013 KInf1
+doc KInfFoundations.lean:1008-1012:
+  | /-- **Hypothesis K∞-1**, stated and not proved: a compact convex body admitting an elementary
+  | drive has supporting-effect completeness relative to the available effects. This is the
+  | field-neutral Naimark step. Compactness enters because an open body has no boundary state
+  | (`supportingEffectComplete_of_isOpen`). The module proves K∞-1 for no physical family; it is an
+  | open target. -/
+  > def KInf1 (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+
+### [K] KInfFoundations.lean:139 SingletonFaces
+doc KInfFoundations.lean:138-138:
+  | /-- Singleton faces (SF): every proper available effect is certain on at most one state. -/
+  > def SingletonFaces (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+
+### [K] KInfFoundations.lean:135 SupportingEffectComplete
+doc KInfFoundations.lean:133-134:
+  | /-- Supporting-effect completeness (SEC) relative to a family `avail` of available functionals:
+  | every boundary state of `Ω` is certain for some proper available effect. -/
+  > def SupportingEffectComplete (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+
+### [K] KInfFoundations.lean:144 RelStrictConvex
+doc KInfFoundations.lean:142-143:
+  | /-- Relative strict convexity: every point strictly between two distinct states is a state and
+  | is not a boundary state. -/
+  > def RelStrictConvex (Ω : Set V) : Prop :=
+
+### [K] KInfFoundations.lean:1101 kinf2_kernel_core
+doc KInfFoundations.lean:1098-1100:
+  | /-- The round's verdict: Lemma C and its converse, the inertness of non-proper effects, the
+  | semantic controls for (SEC), (SF), drivability and K∞-1, Lemma D, Lemma B, the
+  | finite-preparation bound and Theorem F2, together. -/
+  > theorem kinf2_kernel_core :
+  >     (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)), Convex ℝ Ω →
+  >       SupportingEffectComplete Ω avail → SingletonFaces Ω avail → RelStrictConvex Ω) ∧
+  >     (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)), RelStrictConvex Ω → SingletonFaces Ω avail) ∧
+  >     (∀ (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) (u : V →ᵃ[ℝ] ℝ), ¬ IsProperOn Ω u →
+  >       (SupportingEffectComplete Ω (insert u avail) ↔ SupportingEffectComplete Ω avail) ∧
+  >       (SingletonFaces Ω (insert u avail) ↔ SingletonFaces Ω avail)) ∧
+  >     SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) (fullEffects (Set.Icc (-1 : ℝ) 1)) ∧
+  >     ¬ SupportingEffectComplete (Set.Icc (-1 : ℝ) 1) {AffineMap.const ℝ ℝ (1 : ℝ)} ∧
+  >     ¬ SingletonFaces (Metric.closedBall (0 : Fin 2 → ℝ) 1)
+  >       (fullEffects (Metric.closedBall (0 : Fin 2 → ℝ) 1)) ∧
+  >     Nonempty (ElementaryDrivability ball3) ∧
+  >     IsEmpty (ElementaryDrivability (Set.Icc (-1 : ℝ) 1)) ∧
+  >     KInf1 ball3 (fullEffects ball3) ∧
+  >     ¬ KInf1 ball3 {AffineMap.const ℝ (Fin 3 → ℝ) (1 : ℝ)} ∧
+  >     (∀ (Ω : Set V) (c : V), CentrallySymmetric Ω c → c ∈ Ω →
+  >       ∀ (ι : Type) [Fintype ι] (x : ι → V) (e : ι → V →ᵃ[ℝ] ℝ),
+  >         PerfectlyDistinguishable Ω x e → Fintype.card ι ≤ 2) ∧
+  >     (∀ Ω : Set V, Convex ℝ Ω → IsCompact Ω → (0 : V) ∈ interior Ω →
+  >       frontier Ω ⊆ Metric.sphere (0 : V) 1 → Ω = Metric.closedBall (0 : V) 1) ∧
+  >     (∀ (ι : Type) [Fintype ι] (v : ι → V) (avail : Set (V →ᵃ[ℝ] ℝ)),
+  >       (exposedPoints (convexHull ℝ (Set.range v)) avail).ncard ≤ Fintype.card ι) ∧
+  >     (∀ (N : ℕ) (Ω : Set (Fin N → ℝ)), Ω ⊆ simplex N →
+  >       (∀ i, (Ω ∩ {p | p i = 0}).Subsingleton) → {x | ClassicallyExposed Ω x}.ncard ≤ N) :=
+
+### [K] OrbitGeneration.lean:65 SharpSeed
+doc OrbitGeneration.lean:63-64:
+  | /-- **P1, the sharp seed**: an effect on `Ω` with the value one at a state and the value zero at a
+  | state. -/
+  > def SharpSeed (Ω : Set V) (r : V →ᵃ[ℝ] ℝ) : Prop :=
+
+### [K] OrbitGeneration.lean:69 PreservesBody
+doc OrbitGeneration.lean:68-68:
+  | /-- Every member of `G` is an automorphism of `Ω`: it and its inverse map `Ω` into `Ω`. -/
+  > def PreservesBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### [K] OrbitGeneration.lean:74 SeedOrbitAvailable
+doc OrbitGeneration.lean:72-73:
+  | /-- **V4′, seed-orbit availability**: every transport of the seed along a member of `G` is
+  | available. -/
+  > def SeedOrbitAvailable (G : Set (V ≃ᵃ[ℝ] V)) (r : V →ᵃ[ℝ] ℝ) (avail : Set (V →ᵃ[ℝ] ℝ)) :
+  >     Prop :=
+
+### [K] OrbitGeneration.lean:79 BoundaryTransitive
+doc OrbitGeneration.lean:78-78:
+  | /-- **K∞-R, boundary transitivity**: a member of `G` carries any boundary state to any other. -/
+  > def BoundaryTransitive (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### [K] OrbitGeneration.lean:161 preservesBody_drive
+doc OrbitGeneration.lean:160-160:
+  | /-- The flow members and `J` of an elementary drive are automorphisms of `Ω`. -/
+  > theorem preservesBody_drive {Ω : Set V} (D : ElementaryDrivability Ω) :
+  >     PreservesBody Ω (Set.range D.flow ∪ {D.J}) :=
+
+### [K] OrbitGeneration.lean:348 seedOrbit_ball3_eq
+doc OrbitGeneration.lean:346-347:
+  | /-- **The reduced orbit-generation theorem.** Under `PreservesBody`, P1 and K∞-R, the transports
+  | of the seed are exactly the directional effects `(1 + b · x)/2`, `|b|² = 1`. -/
+  > theorem seedOrbit_ball3_eq {G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ))}
+  >     {r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ} (hG : PreservesBody ball3 G) (hP1 : SharpSeed ball3 r)
+  >     (hK : BoundaryTransitive ball3 G) : seedOrbit G r = directionalFamily :=
+
+### [K] OrbitGeneration.lean:521 fullAut3
+doc OrbitGeneration.lean:520-520:
+  | /-- All affine automorphisms of the ball. -/
+  > def fullAut3 : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ)) :=
+
+### [K] OrbitGeneration.lean:537 boundaryTransitive_fullAut3
+doc OrbitGeneration.lean:535-536:
+  | /-- **Positive control for K∞-R.** The affine automorphisms of the ball act transitively on its
+  | boundary. -/
+  > theorem boundaryTransitive_fullAut3 : BoundaryTransitive ball3 fullAut3 :=
+
+### [K] OrbitGeneration.lean:620 not_boundaryTransitive_flow
+doc OrbitGeneration.lean:618-619:
+  | /-- K∞-R is not implied by P1 and `PreservesBody`: the flow of `ball3Drive` satisfies both with
+  | the seed `(1 + z)/2`, and is not boundary transitive. -/
+  > theorem not_boundaryTransitive_flow : ¬ BoundaryTransitive ball3 (Set.range rot3) :=
+
+### [K] OrbitGeneration.lean:715 orbit_generation_core
+doc OrbitGeneration.lean:714-714:
+  | /-- The reduced orbit-generation theorem with its consumers and controls, together. -/
+  > theorem orbit_generation_core :
+  >     (∀ (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) (r : V →ᵃ[ℝ] ℝ) (avail : Set (V →ᵃ[ℝ] ℝ)) (x₀ : V),
+  >       PreservesBody Ω G → IsEffectOn Ω r → IsProperOn Ω r → r x₀ = 1 →
+  >       CoversBoundaryFrom Ω G x₀ → SeedOrbitAvailable G r avail →
+  >       SupportingEffectComplete Ω avail) ∧
+  >     (∀ (G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ))) (r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ),
+  >       PreservesBody ball3 G → SharpSeed ball3 r → BoundaryTransitive ball3 G →
+  >       seedOrbit G r = directionalFamily) ∧
+  >     (∀ (G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ))) (r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ)
+  >       (avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)),
+  >       PreservesBody ball3 G → SharpSeed ball3 r → BoundaryTransitive ball3 G →
+  >       SeedOrbitAvailable G r avail →
+  >       ∀ b : Fin 3 → ℝ, (∑ j, b j ^ 2) = 1 → ballEffect b ∈ avail) ∧
+  >     (∀ (G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ))) (r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ)
+  >       (avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)),
+  >       PreservesBody ball3 G → SharpSeed ball3 r → BoundaryTransitive ball3 G →
+  >       SeedOrbitAvailable G r avail → ∀ (x0 : ℝ) (v : Fin 3 → ℝ),
+  >       (∀ e ∈ avail, 0 ≤ conePair e x0 v) → 0 ≤ x0 ∧ (∑ j, v j ^ 2) ≤ x0 ^ 2) ∧
+  >     seedOrbit fullAut3 (ballEffect ![0, 0, 1]) = directionalFamily ∧
+  >     ¬ BoundaryTransitive ball3 (Set.range rot3) ∧
+  >     (∀ G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ)), PreservesBody ball3 G →
+  >       seedOrbit G unsharpSeed ≠ directionalFamily) ∧
+  >     SupportingEffectComplete ball3 (seedOrbit fullAut3 unsharpSeed) ∧
+  >     ¬ IsEffectOn ball3 (ballEffect ![1, 1, 1]) :=
+
+### [K] OrbitNormalization.lean:571 driveWords3
+doc OrbitNormalization.lean:569-570:
+  | /-- The words of the landed control drive: rotations about the third axis and the cyclic
+  | permutation of the axes. -/
+  > def driveWords3 : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ)) :=
+
+### [K] OrbitNormalization.lean:667 boundaryTransitive_ball3Drive
+doc OrbitNormalization.lean:665-666:
+  | /-- **`ball3Drive` is boundary-transitive.** The words of the landed control drive carry any
+  | boundary state of `ball3` to any other. -/
+  > theorem boundaryTransitive_ball3Drive : BoundaryTransitive ball3 driveWords3 :=
+
+### [K] OrbitNormalization.lean:124 isEmpty_drivability_of_finite_orbits
+doc OrbitNormalization.lean:122-123:
+  | /-- **B5.** A body every point of which has a finite orbit under the automorphisms of the body
+  | admits no elementary drive: a continuous flow cannot move a point inside a finite set. -/
+  > theorem isEmpty_drivability_of_finite_orbits {Ω : Set V}
+  >     (hfin : ∀ x ∈ Ω,
+  >       {y | ∃ g : V ≃ᵃ[ℝ] V, (∀ z ∈ Ω, g z ∈ Ω ∧ g.symm z ∈ Ω) ∧ g x = y}.Finite) :
+  >     IsEmpty (ElementaryDrivability Ω) :=
+
+### [K] OrbitNormalization.lean:735 boundaryTransitive_ball4
+doc OrbitNormalization.lean:733-734:
+  | /-- **The countercontrol.** The isometries of `E4` act transitively on the boundary of its unit
+  | ball: boundary transitivity holds in dimension four. -/
+  > theorem boundaryTransitive_ball4 : BoundaryTransitive ball4 isom4 :=
+
+### [K] OrbitNormalization.lean:114 flow_zero_of_add
+doc OrbitNormalization.lean:113-113:
+  | /-- **B1.** The group law of a flow forces `flow 0` to be the identity. -/
+  > theorem flow_zero_of_add (flow : ℝ → V ≃ᵃ[ℝ] V)
+  >     (h : ∀ s t, flow (s + t) = (flow t).trans (flow s)) : flow 0 = AffineEquiv.refl ℝ V :=
+
+### [K] TransitiveBody.lean:223 IsBodyGroup
+doc TransitiveBody.lean:221-222:
+  | /-- **TRANS, the group clause.** `G` contains the identity, is closed under composition and
+  | inversion, and every member maps `Ω` into `Ω`. -/
+  > structure IsBodyGroup (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop where
+
+### [K] TransitiveBody.lean:235 TransBody
+doc TransitiveBody.lean:234-234:
+  | /-- **TRANS.** A body group acting transitively on every boundary state of `Ω`. -/
+  > def TransBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### [K] TransitiveBody.lean:518 eball
+doc TransitiveBody.lean:517-517:
+  | /-- The coordinate Euclidean ball of dimension `d` (the `d`-dimensional form of `ball3`). -/
+  > def eball (d : ℕ) : Set (Fin d → ℝ) :=
+
+### [K] TransitiveBody.lean:457 eq_qBall_of_boundaryTransitive
+doc TransitiveBody.lean:455-456:
+  | /-- **The body is the closed `Q`-ball about its centroid.** Only body preservation, all-boundary
+  | transitivity and the invariant inner product enter; no composition closure. -/
+  > theorem eq_qBall_of_boundaryTransitive (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+  >     (hconv : Convex ℝ Ω) (hi : (interior Ω).Nonempty) {G : Set ((Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ))}
+  >     (hG : PreservesBody Ω G) (hT : BoundaryTransitive Ω G) : ∃ R : ℝ, 0 < R ∧ Ω = qBall Ω R :=
+
+### [K] TransitiveBody.lean:602 exists_affine_image_eq_eball
+doc TransitiveBody.lean:600-601:
+  | /-- **The coordinate Euclidean ball.** A compact convex body with interior that is boundary transitive
+  | under a body-preserving family is an affine image of the coordinate Euclidean ball of its dimension. -/
+  > theorem exists_affine_image_eq_eball (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+  >     (hconv : Convex ℝ Ω) (hi : (interior Ω).Nonempty) {G : Set ((Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ))}
+  >     (hG : PreservesBody Ω G) (hT : BoundaryTransitive Ω G) :
+  >     ∃ A : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ), A '' Ω = eball d :=
+
+### [K] TransitiveBody.lean:290 extreme_of_isBoundaryState_of_transitive
+doc TransitiveBody.lean:288-289:
+  | /-- **Boundary purity.** Under a body-preserving boundary-transitive family, every boundary state of a
+  | compact convex body with interior is an extreme point. -/
+  > theorem extreme_of_isBoundaryState_of_transitive [Nontrivial V] {Ω : Set V} (hc : IsCompact Ω)
+  >     (hconv : Convex ℝ Ω) (hi : (interior Ω).Nonempty) {G : Set (V ≃ᵃ[ℝ] V)}
+  >     (hG : PreservesBody Ω G) (hT : BoundaryTransitive Ω G) {x : V} (hx : IsBoundaryState Ω x) :
+  >     x ∈ Ω.extremePoints ℝ :=
+
+### [K] StageCompletion.lean:63 DirectedStages
+doc StageCompletion.lean:62-62:
+  | /-- A directed system of finite stages with functorial forward maps. -/
+  > structure DirectedStages where
+
+### [K] StageCompletion.lean:78 SCInf
+doc StageCompletion.lean:77-77:
+  | /-- **SC∞, stage consistency**: every forward map carries the probability table. -/
+  > def SCInf (D : DirectedStages) : Prop :=
+
+### [K] StageCompletion.lean:244 BinaryVisible
+doc StageCompletion.lean:240-243:
+  | /-- **ELEM-bin, the binary-visible condition**: every stage carries a binary visible test, and the
+  | forward maps carry the visible outcomes to the visible outcomes. It is the binary-visible part of
+  | the elementary-system scope — necessary, not sufficient; it says nothing about reading the body on
+  | the visible factor alone. -/
+  > structure BinaryVisible where
+
+### [K] StageCompletion.lean:299 FiniteRank
+doc StageCompletion.lean:298-298:
+  | /-- **Finite rank**: the affine span of the body is finite-dimensional. -/
+  > def FiniteRank (Ω : Set V) : Prop :=
+
+### [K] StageCompletion.lean:141 body
+doc StageCompletion.lean:140-140:
+  | /-- **The completion body**: the closed convex hull of the preparation vectors. -/
+  > def body : Set (CSpace D) :=
+
+### [K] StageCompletion.lean body_isClosed: NOT FOUND
+
+### [K] StageCompletion.lean:224 sharpSeed_completion
+doc StageCompletion.lean:222-223:
+  | /-- **The sharp seed survives the completion under SC∞.** A stage effect certain at one stage
+  | preparation and zero at another is a sharp seed on the completion body. -/
+  > theorem sharpSeed_completion (hSC : SCInf D) {i : D.ι} {e : (D.stage i).E}
+  >     {x1 x0 : (D.stage i).P} (h1 : (D.stage i).p e x1 = 1) (h0 : (D.stage i).p e x0 = 0) :
+  >     SharpSeed (body D) (coord D ⟨i, e⟩) :=
+
+### [K] StageCompletion.lean:304 exists_chart_of_finiteRank
+doc StageCompletion.lean:302-303:
+  | /-- A nonempty body of finite rank admits an injective affine chart `w ↦ L w + p0` from
+  | coordinates whose range is its affine span. -/
+  > theorem exists_chart_of_finiteRank {Ω : Set V} (hne : Ω.Nonempty) (hfr : FiniteRank Ω) :
+  >     ∃ (d : ℕ) (L : (Fin d → ℝ) →ₗ[ℝ] V) (p0 : V), LinearMap.ker L = ⊥ ∧
+  >       ∀ x, x ∈ affineSpan ℝ Ω ↔ x ∈ Set.range (chart L p0) :=
+
+### [K] CompletionAction.lean:46 OpDatum
+doc CompletionAction.lean:44-45:
+  | /-- A completion-valued operation datum: the completed state each stage preparation is carried
+  | to. -/
+  > structure OpDatum (D : DirectedStages) where
+
+### [K] CompletionAction.lean:58 AffineRespect
+doc CompletionAction.lean:56-57:
+  | /-- **AffineRespect**: every finite affine relation among preparation vectors holds among the
+  | images. -/
+  > def AffineRespect (T : OpDatum D) : Prop :=
+
+### [K] CompletionAction.lean:53 StateRespect
+doc CompletionAction.lean:52-52:
+  | /-- **StateRespect**: preparations with the same preparation vector have the same image. -/
+  > def StateRespect (T : OpDatum D) : Prop :=
+
+### [K] CompletionAction.lean:352 preservesBody_inducedEquiv
+doc CompletionAction.lean:351-351:
+  | /-- **The induced equivalence preserves the completed body**, in the sense of `OrbitGeneration`. -/
+  > theorem preservesBody_inducedEquiv {S T : OpDatum D} (hS : AffineRespect S)
+  >     (hT : AffineRespect T) (hST : Undoes C S T hS) (hTS : Undoes C T S hT) :
+  >     PreservesBody (chartBody C) {inducedEquiv C hS hT hST hTS} :=
+
+### [K] CompositionOrder.lean:60 OrdInf
+doc CompositionOrder.lean:58-59:
+  | /-- **ORD∞**: some member of `G` has infinite order on `Ω`. A predicate on a set of affine
+  | automorphisms; nothing about closure. -/
+  > def OrdInf (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### [K] CompositionOrder.lean:348 finiteOrderOn_of_stagePreserving
+doc CompositionOrder.lean:345-347:
+  | /-- **Finite order from stage preservation.** A reversible datum that respects affine relations
+  | and carries each stage's preparations to preparation vectors of the same stage induces an
+  | automorphism of finite order on the chart body. -/
+  > theorem finiteOrderOn_of_stagePreserving {S T : OpDatum D} (hS : AffineRespect S)
+  >     (hT : AffineRespect T) (hST : Undoes C S T hS) (hTS : Undoes C T S hT)
+  >     (hsp : StagePreserving T) :
+  >     FiniteOrderOn (chartBody C) (inducedEquiv C hS hT hST hTS) :=
+
+### [K] CompositionOrder.lean:109 not_ordInf_of_finite_of_mulClosed
+doc CompositionOrder.lean:106-108:
+  | /-- **Closure control.** A finite composition-closed set of affine automorphisms has no member of
+  | infinite order on any set: the composites of a member with itself stay in the set, two of them
+  | coincide, and cancellation gives a positive power fixing everything. -/
+  > theorem not_ordInf_of_finite_of_mulClosed {Ω : Set V} {G : Set (V ≃ᵃ[ℝ] V)} (hG : G.Finite)
+  >     (hcl : MulClosed G) : ¬ OrdInf Ω G :=
+
+### [K] CompositionOrder.lean:456 ord1_core
+doc CompositionOrder.lean:452-455:
+  | /-- **Round ORD-1.** A reversible stage-preserving datum induces an automorphism of finite order
+  | on the chart body; a reversible datum of infinite order has every positive power nontrivial; the
+  | rotation by one radian has infinite order on the ball; the Householder set has no member of
+  | infinite order; the singleton of the rotation has one; a finite composition-closed set has none. -/
+  > theorem ord1_core :
+  >     (∀ (D : DirectedStages) (C : CompletionChart D) (S T : OpDatum D) (hS : AffineRespect S)
+  >       (hT : AffineRespect T) (hST : Undoes C S T hS) (hTS : Undoes C T S hT),
+  >         StagePreserving T → FiniteOrderOn (chartBody C) (inducedEquiv C hS hT hST hTS)) ∧
+  >     (∀ (D : DirectedStages) (C : CompletionChart D) (S T : OpDatum D) (hS : AffineRespect S)
+  >       (hT : AffineRespect T) (hST : Undoes C S T hS) (hTS : Undoes C T S hT),
+  >         InfiniteOrderOn (chartBody C) (inducedEquiv C hS hT hST hTS) →
+  >           ∀ m : ℕ, 1 ≤ m → ∃ x, (iterAfter C T hT m).τ x ≠ prepVec D x) ∧
+  >     InfiniteOrderOn ball3 (rot3 1) ∧ ¬ OrdInf ball3 householder3 ∧ OrdInf ball3 {rot3 1} ∧
+  >     (∀ (V : Type) [AddCommGroup V] [Module ℝ V] (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)),
+  >       G.Finite → MulClosed G → ¬ OrdInf Ω G) :=
+
+### [K] InvariantInnerProduct.lean:336 invariant_inner_product
+doc InvariantInnerProduct.lean:332-335:
+  | /-- **The invariant inner product.** On a compact body with nonempty interior, `invMatrix Ω` is
+  | symmetric and positive definite, and every affine automorphism preserving the body fixes its
+  | centroid and preserves the inner product `⟨u, v⟩ = u ⬝ᵥ (invMatrix Ω *ᵥ v)` through its linear
+  | part. -/
+  > theorem invariant_inner_product {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω)
+  >     (hi : (interior Ω).Nonempty) :
+  >     (invMatrix Ω)ᵀ = invMatrix Ω ∧ (∀ u, u ≠ 0 → 0 < u ⬝ᵥ (invMatrix Ω *ᵥ u)) ∧
+  >       ∀ g : (Fin n → ℝ) ≃ᵃ[ℝ] (Fin n → ℝ), g '' Ω = Ω →
+  >         g (centroid Ω) = centroid Ω ∧
+  >           ∀ u v, (linMatrix g *ᵥ u) ⬝ᵥ (invMatrix Ω *ᵥ (linMatrix g *ᵥ v)) =
+  >             u ⬝ᵥ (invMatrix Ω *ᵥ v) :=
+
+### [K] InvariantInnerProduct.lean:152 centroid_fixed
+doc InvariantInnerProduct.lean:150-151:
+  | /-- **The centroid is fixed** by every affine automorphism preserving a compact body of positive
+  | volume. -/
+  > theorem centroid_fixed {Ω : Set (Fin n → ℝ)} (hc : IsCompact Ω) (hpos : 0 < volume.real Ω)
+  >     (g : (Fin n → ℝ) ≃ᵃ[ℝ] (Fin n → ℝ)) (hg : g '' Ω = Ω) :
+  >     g (centroid Ω) = centroid Ω :=
+
+### [K] CompositeInterface.lean:210 ProductData
+doc CompositeInterface.lean:208-209:
+  | /-- Product-state and product-effect data on a real carrier `V`: a bi-affine product-state map and a
+  | bilinear product-effect pairing with the evaluation law `prodEff e f (prodState x y) = e x * f y`. -/
+  > structure ProductData (dA dB : ℕ) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V] where
+
+### [K] CompositeInterface.lean:223 PreComposite
+doc CompositeInterface.lean:220-222:
+  | /-- A pre-composite: product data together with a convex body `Ω` of the carrier that contains the
+  | product states, on which every product of effects is an effect and the unit pairing is one. These are
+  | the eight fields of the interface other than local tomography. -/
+  > structure PreComposite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ)) (V : Type)
+  >     [NormedAddCommGroup V] [NormedSpace ℝ V] extends ProductData dA dB V where
+
+### [K] CompositeInterface.lean:235 LocallyTomographic
+doc CompositeInterface.lean:232-234:
+  | /-- Local tomography of a pre-composite: two states of the body that agree on every product of
+  | effects are equal. Stated as a predicate so that it can be asserted of a structure as a field and
+  | refuted of another as a control. -/
+  > def LocallyTomographic {ΩA : Set (Fin dA → ℝ)} {ΩB : Set (Fin dB → ℝ)} {V : Type}
+  >     [NormedAddCommGroup V] [NormedSpace ℝ V] (P : PreComposite ΩA ΩB V) : Prop :=
+
+### [K] CompositeInterface.lean:243 Composite
+doc CompositeInterface.lean:240-242:
+  | /-- **The weak composite interface.** A pre-composite with local tomography as a field. The field
+  | `lt` is a premise of the structure; it is not derived from the other eight fields anywhere in this
+  | module, and §G exhibits a pre-composite for which it fails. -/
+  > structure Composite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ)) (V : Type)
+  >     [NormedAddCommGroup V] [NormedSpace ℝ V] extends PreComposite ΩA ΩB V where
+
+### [K] CompositeInterface.lean:445 JointReversible
+doc CompositeInterface.lean:444-444:
+  | /-- Joint reversible action: a family of affine automorphisms of the carrier preserving the body. -/
+  > abbrev JointReversible (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### [K] CompositeInterface.lean:332 condA_prodState
+doc CompositeInterface.lean:331-331:
+  | /-- **L9.** No signalling on products: the conditional state of a product is its first factor. -/
+  > theorem condA_prodState (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ) {y : Fin dB → ℝ} (hy : f y ≠ 0)
+  >     (x : Fin dA → ℝ) : D.condA f (D.prodState x y) = x :=
+
+### [K] CompositeInterface.lean:885 not_locallyTomographic_paddedPre
+doc CompositeInterface.lean:883-884:
+  | /-- **Local tomography fails for the padded pre-composite.** The two points of the body over one
+  | state of `P` at heights `0` and `1` agree on every product of effects and differ. -/
+  > theorem not_locallyTomographic_paddedPre (hne : P.Ω.Nonempty) :
+  >     ¬ LocallyTomographic (paddedPre P) :=
+
+### [K] CompositeInterface.lean:895 no_composite_over_paddedPre
+doc CompositeInterface.lean:893-894:
+  | /-- **No composite extends the padded pre-composite.** The eight fields other than `lt` do not
+  | determine `lt`. -/
+  > theorem no_composite_over_paddedPre (hne : P.Ω.Nonempty) :
+  >     ¬ ∃ C : Composite ΩA ΩB (V × ℝ), C.toPreComposite = paddedPre P :=
+
+### [K] EffectSpace.lean:567 EffectsOn
+doc EffectSpace.lean:566-566:
+  | /-- Every member of the family is an effect on `Ω`. -/
+  > def EffectsOn (Ω : Set (Fin d → ℝ)) (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Prop :=
+
+### [K] EffectSpace.lean:591 MixingClosed
+doc EffectSpace.lean:590-590:
+  | /-- The mixing closure, a named premise: closure under sub-convex binary combinations. -/
+  > def MixingClosed (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Prop :=
+
+### [K] EffectSpace.lean:411 maxConeOf
+doc EffectSpace.lean:410-410:
+  | /-- The cone of joint vectors nonnegative on every product of two members of `A`. -/
+  > def maxConeOf (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Set (W d) :=
+
+### [K] EffectSpace.lean:374 sharpFamily_subset_avail
+doc EffectSpace.lean:372-373:
+  | /-- **Generation of the sharp family.** Under OG-1's four named hypotheses on `eball d`, every sharp
+  | directional effect is available. No mixing closure and no unit premise is used. -/
+  > theorem sharpFamily_subset_avail (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+  >     (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail) :
+  >     sharpFamily d ⊆ avail :=
+
+### [K] EffectSpace.lean:572 maxConeOf_avail_eq
+doc EffectSpace.lean:570-571:
+  | /-- The available family determines DIM-1's maximal cone once every available functional is an
+  | effect. -/
+  > theorem maxConeOf_avail_eq (hd : 0 < d) (hG : PreservesBody (eball d) G)
+  >     (hP1 : SharpSeed (eball d) r) (hK : BoundaryTransitive (eball d) G)
+  >     (hV4 : SeedOrbitAvailable G r avail) (hE : EffectsOn (eball d) avail) :
+  >     maxConeOf avail = maxCone (eball d) :=
+
+### [K] EffectSpace.lean:718 fullEffects_subset_avail
+doc EffectSpace.lean:716-717:
+  | /-- **Q-SET, conditional on the mixing closure.** For `0 < d`, OG-1's four named hypotheses with the
+  | unit available and the named mixing closure make every effect on `eball d` available. -/
+  > theorem fullEffects_subset_avail (hd : 0 < d) (hG : PreservesBody (eball d) G)
+  >     (hP1 : SharpSeed (eball d) r) (hK : BoundaryTransitive (eball d) G)
+  >     (hV4 : SeedOrbitAvailable G r avail) (hU : unitEff d ∈ avail) (hM : MixingClosed avail) :
+  >     fullEffects (eball d) ⊆ avail :=
+
+### [K] EffectSpace.lean:762 not_fullEffects_of_orbit
+doc EffectSpace.lean:758-761:
+  | /-- **Q-SET without the mixing closure.** For every `0 < d`, the sharp family with the unit
+  | satisfies OG-1's four named hypotheses under the full automorphism family, contains the unit and
+  | consists of effects, and it is neither mixing closed nor the full effect set: the four hypotheses
+  | with the unit do not imply that every effect is available. -/
+  > theorem not_fullEffects_of_orbit (hd : 0 < d) :
+  >     PreservesBody (eball d) (fullAut d) ∧ SharpSeed (eball d) (sharpEff (axisVec hd)) ∧
+  >       BoundaryTransitive (eball d) (fullAut d) ∧
+  >       SeedOrbitAvailable (fullAut d) (sharpEff (axisVec hd)) (sharpUnitFamily d) ∧
+  >       unitEff d ∈ sharpUnitFamily d ∧ EffectsOn (eball d) (sharpUnitFamily d) ∧
+  >       ¬ MixingClosed (sharpUnitFamily d) ∧ ¬ fullEffects (eball d) ⊆ sharpUnitFamily d :=
+
+### [K] K1Bridge.lean:49 NativeGateOf
+doc K1Bridge.lean:46-48:
+  | /-- DIM-1's native-gate hypotheses relative to a family `avail` of available test functionals: the
+  | frame, the two NOT relations and, in place of `maxCone Ω`, two-sided positivity on the cone of the
+  | products of the family. -/
+  > structure NativeGateOf (Ω : Set (Fin d → ℝ)) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) (z : Fin d → ℝ)
+  >     (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (T : W d ≃ₗ[ℝ] W d) : Prop where
+
+### [K] K1Bridge.lean:64 EntanglingOf
+doc K1Bridge.lean:62-63:
+  | /-- DIM-1's entangling clause relative to the family: some pure product input has an image that is
+  | an extreme joint state of the family's cone and is not a product state. -/
+  > def EntanglingOf (Ω : Set (Fin d → ℝ)) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ))
+  >     (T : W d ≃ₗ[ℝ] W d) : Prop :=
+
+### [K] K1Bridge.lean:128 dim_of_nativeGateOf
+doc K1Bridge.lean:125-127:
+  | /-- **The dimension, relative to the available family.** `0 < d`, effect soundness, body
+  | preservation, K∞-Seed, K∞-Trans, K∞-V4, DIM-1's NOT and the relative native-gate hypotheses give
+  | `d ∈ {1, 3}`: EFF-1's cone equality, the transport of §B and DIM-1's `dim_of_nativeGate`. -/
+  > theorem dim_of_nativeGateOf (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+  >     (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+  >     (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+  >     {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+  >     (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T) : d = 1 ∨ d = 3 :=
+
+### [K] K1Bridge.lean:138 three_of_nativeGateOf
+doc K1Bridge.lean:135-137:
+  | /-- **Three, relative to the available family.** The hypotheses of `dim_of_nativeGateOf` with the
+  | relative entangling clause give `d = 3`: EFF-1's cone equality, the transport of §B and DIM-1's
+  | `three_of_nativeGate`. -/
+  > theorem three_of_nativeGateOf (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+  >     (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+  >     (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+  >     {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+  >     (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T)
+  >     (hEnt : EntanglingOf (eball d) avail T) : d = 3 :=
+
+### [K] SharpTests.lean:41 HasTwoSharpTests
+doc SharpTests.lean:39-40:
+  | /-- Two sharp binary tests of `Ω`, separated on `Ω` from each other and from each other's
+  | complement. -/
+  > def HasTwoSharpTests (Ω : Set V) : Prop :=
+
+### [K] SharpTests.lean:155 hasTwoSharpTests_iff
+doc SharpTests.lean:152-154:
+  | /-- **The equivalence.** On `eball d`, two sharp binary tests distinct modulo complementation exist
+  | exactly when `2 ≤ d`: the forward direction from the cases `d = 0` and `d = 1`, the converse from the
+  | axis witness. -/
+  > theorem hasTwoSharpTests_iff : HasTwoSharpTests (eball d) ↔ 2 ≤ d :=
+
+### [K] SharpTests.lean:197 two_le_not_implied
+doc SharpTests.lean:196-196:
+  | /-- The selector's hypotheses other than `2 ≤ d` do not imply `2 ≤ d`. -/
+  > theorem two_le_not_implied :
+  >     ¬ (∀ (d : ℕ) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) (G : Set ((Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ)))
+  >         (r : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+  >         (T : W d ≃ₗ[ℝ] W d),
+  >         EffectsOn (eball d) avail → PreservesBody (eball d) G → SharpSeed (eball d) r →
+  >           BoundaryTransitive (eball d) G → SeedOrbitAvailable G r avail → IsNot (eball d) z N →
+  >           NativeGateOf (eball d) avail z N T → 2 ≤ d) :=
+
+### [K] K2Guard.lean:95 CandidateCone
+doc K2Guard.lean:93-94:
+  | /-- The candidate-cone family of two copies of `eball 3`: the sets of joint vectors containing
+  | every product state of the ball and contained in DIM-1's maximal cone. -/
+  > def CandidateCone (K : Set (W 3)) : Prop :=
+
+### [K] K2Guard.lean:46 reflY
+doc K2Guard.lean:45-45:
+  | /-- The reflection of one copy of `eball 3` inverting the second coordinate. -/
+  > def reflY : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ) where
+
+### [K] K2Guard.lean:165 prodState_mem_maxCone
+doc K2Guard.lean:164-164:
+  | /-- Product states of `Ω` lie in the maximal cone of `Ω`. -/
+  > theorem prodState_mem_maxCone {Ω : Set (Fin d → ℝ)} {x y : Fin d → ℝ} (hx : x ∈ Ω) (hy : y ∈ Ω) :
+  >     prodState x y ∈ maxCone Ω :=
+
+### [K] K2Guard.lean:143 no_candidateCone_cnot_reflY
+doc K2Guard.lean:142-142:
+  | /-- **No candidate cone is invariant under `cnot` and the one-copy reflection.** -/
+  > theorem no_candidateCone_cnot_reflY {K : Set (W 3)} (hK : CandidateCone K)
+  >     (hC : ∀ ω ∈ K, cnot ω ∈ K) (hR : ∀ ω ∈ K, actT reflY ω ∈ K) : False :=
+
+### [K] K2Guard.lean:234 three_of_nativeGate_of_two_le
+doc K2Guard.lean:233-233:
+  | /-- **`2 ≤ d` in place of the entangling clause.** DIM-1's `dim_of_nativeGate` and `2 ≤ d`. -/
+  > theorem three_of_nativeGate_of_two_le {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hd : 2 ≤ d) (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+  >     d = 3 :=
+
+### [K] K2Guard.lean:240 two_le_of_entangling
+doc K2Guard.lean:239-239:
+  | /-- Under DIM-1's hypotheses the entangling clause gives `2 ≤ d`. -/
+  > theorem two_le_of_entangling {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+  >     (hE : Entangling (eball d) G) : 2 ≤ d :=
+
+### [K] K2Guard.lean:253 three_of_nativeGateOf_of_two_le
+doc K2Guard.lean:251-252:
+  | /-- **`2 ≤ d` in place of the entangling clause, relative to the available family.**
+  | K1-BRIDGE-1's `dim_of_nativeGateOf` and `2 ≤ d`. -/
+  > theorem three_of_nativeGateOf_of_two_le (hd : 2 ≤ d) (hE : EffectsOn (eball d) avail)
+  >     (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+  >     (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+  >     {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+  >     (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T) : d = 3 :=
+
+### [K] DenseOrbit.lean:53 DenseBoundaryOrbit
+doc DenseOrbit.lean:52-52:
+  | /-- Every boundary state lies in the closure of the orbit of every boundary state. -/
+  > def DenseBoundaryOrbit {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] (Ω : Set V)
+  >     (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### [K] DenseOrbit.lean:57 denseBoundaryOrbit_of_boundaryTransitive
+  > theorem denseBoundaryOrbit_of_boundaryTransitive {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
+  >     {Ω : Set V} {G : Set (V ≃ᵃ[ℝ] V)} (hT : BoundaryTransitive Ω G) : DenseBoundaryOrbit Ω G :=
+
+### [K] DenseOrbit.lean:243 maxConeOf_avail_eq_of_dense
+doc DenseOrbit.lean:242-242:
+  | /-- **The available family determines DIM-1's maximal cone** under a dense boundary orbit. -/
+  > theorem maxConeOf_avail_eq_of_dense (hd : 0 < d) (hG : PreservesBody (eball d) G)
+  >     (hP1 : SharpSeed (eball d) r) (hK : DenseBoundaryOrbit (eball d) G)
+  >     (hV4 : SeedOrbitAvailable G r avail) (hE : EffectsOn (eball d) avail) :
+  >     maxConeOf avail = maxCone (eball d) :=
+
+### [K] NativeGateBall.lean:194 parity
+doc NativeGateBall.lean:192-193:
+  | /-- **S5.** An injective linear map anticommuting with `P` maps the `+1` eigenspace of `P` injectively
+  | into the `−1` eigenspace and back, so the two have equal dimension. -/
+  > theorem parity {V : Type*} [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V]
+  >     (P L : V →ₗ[ℝ] V) (hL : Function.Injective L)
+  >     (hanti : ∀ v, L (P v) = - P (L v)) :
+  >     Module.finrank ℝ (LinearMap.ker (P - LinearMap.id))
+  >       = Module.finrank ℝ (LinearMap.ker (P + LinearMap.id)) :=
+
+### [K] NativeGateBall.lean:176 p_le_one
+doc NativeGateBall.lean:174-175:
+  | /-- **S4, conclusion.** If some entry of the E₊ block is nonzero (as invertibility requires), then
+  | `p ≤ 1`. -/
+  > theorem p_le_one (p m : ℕ)
+  >     (A : Fin p → Matrix (Fin m) (Fin m) ℝ) (B : Fin p → Fin p → Matrix (Fin m) (Fin m) ℝ)
+  >     (hB : ∀ r s, B r s = - B s r)
+  >     (hpos : ∀ k l : Fin m, ∀ i : Fin p, ∀ s : ℝ, (s = 1 ∨ s = -1) →
+  >       ∀ b : Fin p → ℝ, (∑ j, b j ^ 2) = 1 →
+  >         0 ≤ (1 + s * A i k l)
+  >           + ∑ j, b j * (A j k l + s * ((if j = i then (1:ℝ) else 0) + B j i k l)))
+  >     (hne : ∃ r k l, A r k l ≠ 0) : p ≤ 1 :=
+
+### [K] NativeGateBall.lean:248 dim_of_bounds
+  > theorem dim_of_bounds (p q d : ℕ) (hp : p ≤ 1) (hpq : p = q) (hd : p + q + 1 = d) :
+  >     d = 1 ∨ d = 3 :=
+
+### [K] NativeGateBall.lean:105 lorentz_of_effects
+doc NativeGateBall.lean:104-104:
+  | /-- If every unit effect direction `b` keeps `x₀ + b·v ≥ 0`, then `x₀ ≥ 0` and `|v|² ≤ x₀²`. -/
+  > theorem lorentz_of_effects (p : ℕ) (hp : 1 ≤ p) (x0 : ℝ) (v : Fin p → ℝ)
+  >     (h : ∀ b : Fin p → ℝ, (∑ j, b j ^ 2) = 1 → 0 ≤ x0 + ∑ j, b j * v j) :
+  >     0 ≤ x0 ∧ (∑ j, v j ^ 2) ≤ x0 ^ 2 :=
+
+### [K] NativeGateBall.lean:255 nb1_kernel_core
+doc NativeGateBall.lean:254-254:
+  | /-- The kernel layer's verdict: `p_le_one`, `parity` and `dim_of_bounds` together. -/
+  > theorem nb1_kernel_core :
+  >     (∀ (p m : ℕ) (A : Fin p → Matrix (Fin m) (Fin m) ℝ)
+  >       (B : Fin p → Fin p → Matrix (Fin m) (Fin m) ℝ),
+  >       (∀ r s, B r s = - B s r) →
+  >       (∀ k l : Fin m, ∀ i : Fin p, ∀ s : ℝ, (s = 1 ∨ s = -1) →
+  >         ∀ b : Fin p → ℝ, (∑ j, b j ^ 2) = 1 →
+  >           0 ≤ (1 + s * A i k l)
+  >             + ∑ j, b j * (A j k l + s * ((if j = i then (1:ℝ) else 0) + B j i k l))) →
+  >       (∃ r k l, A r k l ≠ 0) → p ≤ 1) ∧
+  >     (∀ (V : Type) [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V] (P L : V →ₗ[ℝ] V),
+  >       Function.Injective L → (∀ v, L (P v) = - P (L v)) →
+  >       Module.finrank ℝ (LinearMap.ker (P - LinearMap.id))
+  >         = Module.finrank ℝ (LinearMap.ker (P + LinearMap.id))) ∧
+  >     (∀ p q d : ℕ, p ≤ 1 → p = q → p + q + 1 = d → d = 1 ∨ d = 3) :=
+
+### [K] ParityNot.lean:42 GateRel
+doc ParityNot.lean:41-41:
+  | /-- The target relation and the control relation of `NativeGate`, and nothing else. -/
+  > structure GateRel (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop where
+
+### [K] ParityNot.lean:137 not_even_of_gateRel
+doc ParityNot.lean:136-136:
+  | /-- No even dimension carries the two relations. -/
+  > theorem not_even_of_gateRel {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hR : GateRel N G) : ¬ Even d :=
+
+### [K] ParityNot.lean:161 piRotation_three
+doc ParityNot.lean:159-160:
+  | /-- **The NOT at `d = 3` is a rotation by `π`.** There is a unit axis `u` with
+  | `N x = 2 (u · x) u − x`. -/
+  > theorem piRotation_three {z : Fin 3 → ℝ} {N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)}
+  >     {G : W 3 ≃ₗ[ℝ] W 3} (hN : IsNot (eball 3) z N) (hR : GateRel N G) :
+  >     ∃ u : Fin 3 → ℝ, ∑ j, u j ^ 2 = 1 ∧ ∀ x, N x = (2 * ∑ j, u j * x j) • u - x :=
+
+### [K] ParityNot.lean:389 not_gateRel_refl3
+doc ParityNot.lean:388-388:
+  | /-- The reflection `diag(1, 1, −1)` carries no pair of relations. -/
+  > theorem not_gateRel_refl3 (G : W 3 ≃ₗ[ℝ] W 3) : ¬ GateRel refl3 G :=
+
+### [K] ParityNot.lean:547 not_posFwd_gJ3
+doc ParityNot.lean:546-546:
+  | /-- **At `d = 3` the frame and the relations hold and forward positivity fails.** -/
+  > theorem not_posFwd_gJ3 :
+  >     ¬ ∀ x ∈ eball 3, ∀ y ∈ eball 3, gJ3 (prodState x y) ∈ maxCone (eball 3) :=
+
+### [K] ParityNot.lean:704 not_posFwd_gJ5
+doc ParityNot.lean:703-703:
+  | /-- **At `d = 5` the frame and the relations hold and forward positivity fails.** -/
+  > theorem not_posFwd_gJ5 :
+  >     ¬ ∀ x ∈ eball 5, ∀ y ∈ eball 5, gJ5 (prodState x y) ∈ maxCone (eball 5) :=
+
+### [K] OddChar.lean:184 exists_frame_gateRel_iff_odd
+doc OddChar.lean:182-183:
+  | /-- **The odd dimensions.** A NOT, the frame and the two relations exist on `eball d` exactly when
+  | `d` is odd. -/
+  > theorem exists_frame_gateRel_iff_odd (d : ℕ) :
+  >     (∃ (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+  >       IsNot (eball d) z N ∧
+  >         (∀ a b : Fin 2,
+  >           G (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b))) ∧
+  >         GateRel N G) ↔ Odd d :=
+
+### [K] OddChar.lean:287 not_posFwd_gRev
+doc OddChar.lean:285-286:
+  | /-- **At every odd dimension at least three, the frame and the relations hold and forward
+  | positivity fails.** -/
+  > theorem not_posFwd_gRev (k : ℕ) (hk : 1 ≤ k) :
+  >     ¬ ∀ x ∈ eball (2 * k + 1), ∀ y ∈ eball (2 * k + 1),
+  >       gRev k (prodState x y) ∈ maxCone (eball (2 * k + 1)) :=
+
+### [K] RelcSelectParity.lean:354 not_even_of_relC
+doc RelcSelectParity.lean:352-353:
+  | /-- No even dimension carries a NOT of the ball and an invertible gate with the control
+  | relation. -/
+  > theorem not_even_of_relC {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N)
+  >     (hC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)) : ¬ Even d :=
+
+### [K] RelcSelectBlock.lean:45 CtrlGate
+doc RelcSelectBlock.lean:44-44:
+  | /-- `NativeGate` without the target relation `relT`. -/
+  > structure CtrlGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+  >     (G : W d ≃ₗ[ℝ] W d) : Prop where
+
+### [K] RelcSelectBlock.lean:53 ctrlGate_of_nativeGate
+  > theorem ctrlGate_of_nativeGate {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ}
+  >     {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hG : NativeGate Ω z N G) :
+  >     CtrlGate Ω z N G :=
+
+### [K] RelcSelectBlock.lean:739 dim_of_ctrlGate
+doc RelcSelectBlock.lean:736-738:
+  | /-- **The selector without the target relation.** Two identical copies of the Euclidean ball with
+  | a gate satisfying the frame, two-sided positivity and the control relation have dimension one or
+  | three. -/
+  > theorem dim_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) :
+  >     d = 1 ∨ d = 3 :=
+
+### [K] RelcSelectBlock.lean:753 three_of_ctrlGate
+doc RelcSelectBlock.lean:752-752:
+  | /-- **The selector under the entangling clause, without the target relation.** -/
+  > theorem three_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+  >     {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G)
+  >     (hE : Entangling (eball d) G) : d = 3 :=
+
+### [K] RelcSelectSqueeze.lean:465 gSq_sep
+doc RelcSelectSqueeze.lean:463-464:
+  | /-- **Forward positivity does not imply inverse positivity** under the NOT, the frame and the two
+  | relations at `d = 5`. -/
+  > theorem gSq_sep :
+  >     IsNot (eball 5) z5 n5
+  >       ∧ (∀ a b : Fin 2,
+  >           gSq (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b)))
+  >       ∧ GateRel n5 gSq
+  >       ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq (prodState x y) ∈ maxCone (eball 5))
+  >       ∧ ¬ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5)) :=
+
+### [K] RelcSelectSqueeze.lean:476 gSqInv_sep
+doc RelcSelectSqueeze.lean:474-475:
+  | /-- **Inverse positivity does not imply forward positivity** under the NOT, the frame and the two
+  | relations at `d = 5`: the inverse of the squeezed gate. -/
+  > theorem gSqInv_sep :
+  >     IsNot (eball 5) z5 n5
+  >       ∧ (∀ a b : Fin 2,
+  >           gSq.symm (prodState (corner z5 a) (corner z5 b))
+  >             = prodState (corner z5 a) (corner z5 (a + b)))
+  >       ∧ GateRel n5 gSq.symm
+  >       ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq (prodState x y) ∈ maxCone (eball 5))
+  >       ∧ ¬ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5)) :=
+
+### [K] RelcSelectC5.lean:393 relT_not_dimension_selecting
+doc RelcSelectC5.lean:391-392:
+  | /-- **Without the control relation the selector fails**: `IsNot`, the frame, two-sided
+  | positivity and the target relation do not force `d = 1 ∨ d = 3`. -/
+  > theorem relT_not_dimension_selecting :
+  >     ¬ ∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d),
+  >       IsNot (eball d) z N →
+  >       (∀ a b : Fin 2,
+  >         G (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b))) →
+  >       (∀ x ∈ eball d, ∀ y ∈ eball d, G (prodState x y) ∈ maxCone (eball d)) →
+  >       (∀ x ∈ eball d, ∀ y ∈ eball d, G.symm (prodState x y) ∈ maxCone (eball d)) →
+  >       (∀ ω, actT N (G (actT N ω)) = G ω) →
+  >       d = 1 ∨ d = 3 :=
+
+### [D] FourCopyDefs.lean:31 ipW
+doc FourCopyDefs.lean:30-30:
+  | /-- The Euclidean pairing of an effect table with a state table. -/
+  > def ipW (E X : W 3) : ℝ :=
+
+### [D] FourCopyDefs.lean:34 dualW
+doc FourCopyDefs.lean:33-33:
+  | /-- The Euclidean dual cone: the tables nonnegative on `K`. -/
+  > def dualW (K : Set (W 3)) : Set (W 3) :=
+
+### [D] FourCopyDefs.lean:43 PairAdm
+doc FourCopyDefs.lean:42-42:
+  | /-- Admissibility of one pair cone: a candidate cone of K2-GUARD-1 that is a convex cone. -/
+  > def PairAdm (K : Set (W 3)) : Prop :=
+
+### [D] FourCopyDefs.lean:56 FourCopyCoherent
+doc FourCopyDefs.lean:53-55:
+  | /-- The cone-level four-copy interface. `famI`: products of states across `01|23` against
+  | products of effects across `02|13`; `famII`: products of states across `02|13` against products of
+  | effects across `01|23`. The effect factors range over the full Euclidean dual cones. -/
+  > structure FourCopyCoherent (K01 K23 K02 K13 : Set (W 3)) : Prop where
+
+### [D] FourCopyCore.lean:132 NClass
+doc FourCopyCore.lean:130-131:
+  | /-- **N-CLASS**: the gate is `cnot` between orthogonal local maps, post-locals `(A, B)` and
+  | pre-locals `(A', B')`. -/
+  > def NClass (N : W 3 ≃ₗ[ℝ] W 3) (A B A' B' : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
+
+### [D] FourCopyCore.lean:156 IE1
+doc FourCopyCore.lean:155-155:
+  | /-- **IE₁** for one pair cone: invariance under every local rotation of either token. -/
+  > def IE1 (K : Set (W 3)) : Prop :=
+
+### [D] FourCopyCore.lean:99 KT4Core
+doc FourCopyCore.lean:94-98:
+  | /-- **The core of KT(4) that Lemma B1 reads.** Product states of each grouping in one carrier,
+  | bilinear product effects with their evaluation laws, positivity of each grouping's product
+  | effects on the other grouping's product states, and token coherence on the product states of
+  | each grouping. Each field is a consequence of the corresponding `KT4` fields (`KT4.toCore`); no
+  | body, convexity, normalization, combination law or local tomography is a field. -/
+  > structure KT4Core (K01 K23 K02 K13 : Set (W 3)) (V : Type) [NormedAddCommGroup V]
+  >     [NormedSpace ℝ V] where
+
+### [D] FourCopyCore.lean:64 TokenCoherent
+doc FourCopyCore.lean:61-63:
+  | /-- **The four-token coherence clause.** On the common body, the product of the coordinate
+  | effects `(a, b)` on pair `01` and `(c, d)` on pair `23` equals the product of the coordinate
+  | effects `(a, c)` on pair `02` and `(b, d)` on pair `13`. -/
+  > def TokenCoherent {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
+  >     {Ω01 Ω23 Ω02 Ω13 : Set (Fin 16 → ℝ)} (PA : PreComposite Ω01 Ω23 V)
+  >     (PB : PreComposite Ω02 Ω13 V) : Prop :=
+
+### [D] FourCopyCore.lean:180 EvenCycle
+doc FourCopyCore.lean:179-179:
+  | /-- Twist parity of the four-cycle. -/
+  > def EvenCycle (τ : Pr → Bool) : Prop :=
+
+### [D] FourCopyPackage.lean:180 Q3
+doc FourCopyPackage.lean:179-179:
+  | /-- The quantum pair cone. -/
+  > def Q3 : Set (W 3) :=
+
+### [D] FourCopyPackage.lean:183 twin
+doc FourCopyPackage.lean:182-182:
+  | /-- The twin cone `actT reflY '' Q3`. -/
+  > def twin : Set (W 3) :=
+
+### [D] FourCopyPackage.lean:279 IE1Drive
+doc FourCopyPackage.lean:278-278:
+  | /-- IE₁ in the drive form: invariance under the local lifts of the landed drive words. -/
+  > def IE1Drive (K : Set (W 3)) : Prop :=
+
+### [D] FourCopyPackage.lean:292 ie1Drive_of_ie1
+doc FourCopyPackage.lean:291-291:
+  | /-- The drive words are rotations, so IE₁ gives the drive form. Open. -/
+  > theorem ie1Drive_of_ie1 {K : Set (W 3)} (h : IE1 K) : IE1Drive K :=
+
+### [D] FourCopyHeadline.lean:120 kt4_forward_ie1
+doc FourCopyHeadline.lean:118-119:
+  | /-- **Theorem A′ (headline, Pauli-free).** The core of KT(4), admissible closed pair cones and
+  | N-CLASS gates preserving them give IE₁ for every pair and even orientation parity. -/
+  > theorem kt4_forward_ie1 (K : Pr → Set (W 3)) (N : Pr → W 3 ≃ₗ[ℝ] W 3) (A B A' B' : Pr → E3)
+  >     (hcls : ∀ p, NClass (N p) (A p) (B p) (A' p) (B' p)) (hadm : ∀ p, PairAdm (K p))
+  >     (hcl : ∀ p, IsClosed (K p)) (hgate : ∀ p, ∀ ω ∈ K p, N p ω ∈ K p)
+  >     {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
+  >     (H : KT4Core (K .p01) (K .p23) (K .p02) (K .p13) V) :
+  >     (∀ p, IE1 (K p)) ∧ EvenCycle (fun p => orient (A p) (B p)) :=
+
+### [D] FourCopyBridge.lean:269 fourCopyCoherent_of_kt4Core
+doc FourCopyBridge.lean:267-268:
+  | /-- **Lemma B1 over the consumed core.** The maximal-cone bound and nonnegative scaling of each
+  | pair cone, with the fields of `KT4Core`, give the four-copy interface. -/
+  > theorem fourCopyCoherent_of_kt4Core
+  >     (m01 : K01 ⊆ maxCone (eball 3)) (m23 : K23 ⊆ maxCone (eball 3))
+  >     (m02 : K02 ⊆ maxCone (eball 3)) (m13 : K13 ⊆ maxCone (eball 3))
+  >     (s01 : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ K01, c • ω ∈ K01)
+  >     (s23 : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ K23, c • ω ∈ K23)
+  >     (s02 : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ K02, c • ω ∈ K02)
+  >     (s13 : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ K13, c • ω ∈ K13)
+  >     (H : KT4Core K01 K23 K02 K13 V) : FourCopyCoherent K01 K23 K02 K13 where
+
+found = 161, not found = 1
+END

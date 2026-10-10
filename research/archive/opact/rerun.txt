@@ -1,0 +1,37 @@
+E1  stage-natural table-dual pairs => completion duality, with SC∞ FAILING (classical Z3 model)
+  OK    E1a the tower is NOT SC∞ (scale 1, 1/2, 1/3 on carried effects)
+  OK    E1b stage duality p_i(e, T x) = p_i(T* e, x) at every stage
+  OK    E1c naturality: forward maps commute with T and T*
+  OK    E1d completion duality val(a, T x) = val(T* a, x) for every label and preparation
+  OK    E1e hence prepVec(T x) = prepVec(x) ∘ T* (the induced linear map acts on generators)
+E2  RESPECT omitted: a preparation map with no affine extension and no dual
+  OK    E2a affine relation prepVec xm = (prepVec x0 + prepVec x1)/2 holds
+  OK    E2b the swap x0<->xm breaks it: (T x0 + T x1)/2 = (1, 3/4) but T xm = (1, 0)
+  OK    E2c no affine functional of the state realizes x ↦ val(e, T x) (no dual effect)
+E3  naturality omitted: stage-wise dual pairs that do not commute with the forward maps
+  OK    E3a the bit tower is SC∞
+  OK    E3b each stage is table-dual on its own
+  OK    E3c prepVec <0,f> = prepVec <1,f>: the same completed state
+  OK    E3d but their images differ: T is not well defined on the body
+  OK    E3e and completion duality fails for some label and preparation
+E4  the dual on labels is not unique, the action on the body is
+  OK    E4a both label maps are duals: val(a, T x) = val(T*a, x)
+  OK    E4b the two induced maps differ on the indicator vector of <1,v1> (off the body)
+  OK    E4c and agree on every preparation vector
+E5  FiniteRank (or a continuity premise) omitted: RESPECT holds, no continuous extension
+  OK    E5a the tower is SC∞
+  OK    E5b ‖prepVec z_n − prepVec w‖ = 1/n for n ≤ 40
+  OK    E5c the vectors prepVec z_n − prepVec w are linearly independent (rank 40): no affine relation
+  OK    E5d τ(w) = w, τ(z_n) = z_1 respects all relations, yet ‖τ z_n − τ w‖ = 1 for every n
+E6  a continuous flow moves a stage effect off any countable family (ball3, rot3)
+  OK    E6a the transported seed at a fixed state is (1 + cos t)/2, non-constant in t
+E7  reversibility omitted: a reset respects relations and is not an automorphism
+  OK    E7a the reset sends two distinct body points to one
+E8  positive control: the natural dual NOT on the bit tower
+  OK    E8a completion duality holds
+  OK    E8b the induced map swaps the two pure points and is an involution on the generators
+E9  divisibility: a one-parameter group acting by permutations of a finite set is trivial
+  OK    E9.3 in Sym(3) every |G|-th power is the identity
+  OK    E9.4 in Sym(4) every |G|-th power is the identity
+
+opact_checks: OK -- 26 checks, 0 failed

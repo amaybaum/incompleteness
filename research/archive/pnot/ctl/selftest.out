@@ -1,0 +1,69 @@
+  PASS  T the reference module blob is readable
+  PASS  T the landed texts read from D are the frozen ones
+  PASS  N1 the module declares exactly the frozen declarations [reference]
+  PASS  N2 the preamble unchanged [reference]
+  PASS  N2 every context block unchanged and in order [reference]
+  PASS  N2 every frozen statement and definition unchanged [reference]
+  PASS  N3 no sorry, admit, axiom or native_decide [reference]
+  PASS  N3 every frozen #print axioms line present [reference]
+  PASS  S1 GateRel is the landed relT and relC and nothing else [reference]
+  PASS  S2 each parity theorem is its landed partner with NativeGate replaced by GateRel; §A free of the gate conditions [reference]
+  PASS  S3 the d = 3 theorems on IsNot and GateRel alone; §B free of the gate conditions [reference]
+  PASS  S4 the reflection and -id carry no relations; cnot with nflip does [reference]
+  PASS  S5 gJ3 and gJ5: landed frame, GateRel, value -1 / 10, landed posFwd negated [reference]
+  PASS  S6 no complex field, d = 1 object or dimension selector; no conclusion on d [reference]
+  PASS  S7 no declaration shares a name with a visible OIBridge declaration; the only import is OIBridge.EffectSpace [reference]
+  PASS  S8 the header carries none of the frozen phrases [reference]
+  PASS  S9 exactly the 24 frozen #print axioms lines, distinct, each naming a declaration of the module [reference]
+  PASS  V one outcome per cell by the frozen rules: ['PARITY-FROM-RELATIONS-PROVED'], ['D3-NOT-PI-ROTATION-PROVED'], ['POSITIVITY-SEPARATION-PROVED'] [reference]
+  PASS  T the reference module reads ['PARITY-FROM-RELATIONS-PROVED'], ['D3-NOT-PI-ROTATION-PROVED'] and ['POSITIVITY-SEPARATION-PROVED']
+  PASS  M mutation a renamed declaration fails with N1
+  PASS  M mutation a changed binder context fails with N2
+  PASS  M mutation a changed open line fails with N2
+  PASS  M mutation a sorry fails with N3
+  PASS  M mutation a print removed fails with N3
+  PASS  M mutation the frame added to GateRel fails with S1
+  PASS  M mutation the control relation changed fails with S1
+  PASS  M relations: a landed relC that differs fails S1 and all three cells
+  PASS  M mutation the parity theorem with the native gate kept fails with S2
+  PASS  M mutation the parity theorem with positivity added fails with S2
+  PASS  M mutation the parity conclusion weakened to an inequality fails with S2
+  PASS  M mutation the oddness theorem with the frame added fails with S2
+  PASS  M mutation a §A proof reading positivity fails with S2
+  PASS  M mutation a local declaration shadowing a landed object of a paired statement (eball) fails with S2
+  PASS  M pairing: a landed parity statement that differs fails the pair and only the relation cell
+  PASS  M mutation the π-rotation with the native gate in place of GateRel fails with S3
+  PASS  M mutation the π-rotation with the frame added fails with S3
+  PASS  M mutation the π-rotation conclusion weakened (unit axis dropped) fails with S3
+  PASS  M mutation the determinant conclusion changed to ±1 fails with S3
+  PASS  M mutation a §B proof reading positivity fails with S3
+  PASS  M mutation a corollary proved without gateRel_of_nativeGate fails with S3
+  PASS  M decision rule: a broken π-rotation reads D3-NOT-PI-ROTATION-NOT-ESTABLISHED and leaves the other cells unchanged
+  PASS  M mutation the reflection control replaced by a rotation fails with S4
+  PASS  M mutation the positive control proved without the landed cnot relations fails with S4
+  PASS  M controls: a different landed cnot relation fails only the NOT cell
+  PASS  M mutation the d = 5 witness replaced by the landed dimension exclusion fails with S5
+  PASS  M mutation the d = 5 value changed fails with S5
+  PASS  M mutation the d = 3 value changed fails with S5
+  PASS  M mutation the d = 5 witness direction changed fails with S5
+  PASS  M mutation the d = 5 positivity failure weakened to one input fails with S5
+  PASS  M mutation the d = 5 frame changed fails with S5
+  PASS  M mutation the d = 5 gate changed fails with S5
+  PASS  M separation: a landed posFwd that differs fails only the separation cell
+  PASS  M decision rule: a broken d = 5 witness reads POSITIVITY-SEPARATION-NOT-ESTABLISHED and leaves the other cells unchanged
+  PASS  M decision rule: GateRel broken reads NOT-ESTABLISHED in all three cells
+  PASS  M mutation a dimension conclusion fails with S6
+  PASS  M mutation a complex field fails with S6
+  PASS  M mutation the landed d = 1 gate fails with S6
+  PASS  M mutation a landed definition re-declared fails with S7
+  PASS  M mutation a second import fails with S7
+  PASS  M mutation a forbidden phrase in the header fails with S8
+  PASS  M mutation the design header fails with S8
+  PASS  M the result-note phrase test passes a neutral note and fails one with a forbidden phrase
+  PASS  M mutation an extra print fails with S9
+  PASS  M mutation a duplicated print fails with S9
+  PASS  M decision rule: a broken parity pair reads PARITY-FROM-RELATIONS-NOT-ESTABLISHED and leaves the other cells unchanged
+  PASS  M note tokens: exactly the stated tokens are found
+  PASS  M imports: the frozen edit passes and a dropped line fails
+  PASS  M census: the frozen edit passes; a changed status, a moved family, a whitespace change and the unchanged file fail
+controls: OK -- 68 checks

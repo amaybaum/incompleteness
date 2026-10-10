@@ -1,0 +1,36 @@
+
+== S0  transcription of the cited statements
+PASS S0.B1  [source] design Lemma B1: fourCopyCoherent_of_kt4Core takes the maxCone bound and nonnegative scaling of each cone and H : KT4Core, and gives FourCopyCoherent
+PASS S0.core  [source] design KT4Core fields: stA, stB, effA, effB, effA_apply, effB_apply, posBA, posAB, tokA, tokB
+PASS S0.resc  [source] landed exists_effect_rescale: an affine functional bounded on Omega is a e' + c unitEff with e' an effect (used by the vanishing step of the IP1 variant)
+
+== S1  the extension step is exact linear algebra
+PASS E1  [identity] on H00 x H00 the general bi-affine map alpha + beta.u + gamma.w + u^T D w equals u^T C w with C = D + alpha e0 e0^T + beta e0^T + e0 gamma^T (symbolic, 289 coefficients)
+PASS E2  [witness] the 16 x 16 matrix of token products (rows tp s t, s, t in S) is invertible, and each row lies in H00 -- det 256
+NOTE [written] E.W  -- by E1, a bi-affine map Phi on Q^16 x Q^16 (affine in each argument in the combo sense of the landed ProductData laws, hence of the form alpha + beta.u + gamma.w + u^T D w) agrees on H00 x H00 with the bilinear form u^T C_Phi w. Two such maps that agree at the 256 pairs (tp s t, tp s' t') have TPm C TPm^T equal, hence by E2 C equal, hence agree on all of H00 x H00, which contains pairBody K x pairBody K' for any cones (pairBody points have coordinate (0,0) equal to 1). This is the step tokB (and tokA) of the route takes from TPS.
+PASS E2c  [countercontrol] countercontrol: the 9 token products of {e_x, e_y, e_z} leave a nonzero linear functional vanishing on them (agreement there would not determine the map) -- kernel dimension 7
+
+== S2  the IP1 variant: purity and positivity
+PASS U1  [identity] purity core: |cvec - c0 x|^2 = |cvec|^2 - c0^2 + c0^2 (|x|^2 - 1) - 2 c0 (cvec.x - c0), so with |x| = 1 and c0 = cvec.x it is |cvec|^2 - c0^2, which is <= 0 for c in the Lorentz cone L (symbolic)
+NOTE [written] U.W  -- purity lemma (written; core U1): let T be an n-token table with T(u,...,u) = 1, T(v1,...,vn) >= 0 for all v_i in L, and pure single-token marginals hom x_t. For w = (1, -x_1) in L, T(w, u, ..., u) = 1 - |x_1|^2 = 0, and a linear functional >= 0 on L that vanishes at the interior point u vanishes identically; slot by slot this gives T(w, v2, ..., vn) = 0 for all v_i in L. Then c := T(., v2, ..., vn) lies in L* = L with c.w = 0, so by U1 c = c_0 hom x_1: T = hom x_1 (x) T(u, ., ..., .). Induct on n. Every v in L is a nonnegative multiple of the coefficient vector of an effect of the ball, so positivity on products of ball effects is positivity on L^n.
+PASS U2  [countercontrol] countercontrol (purity load-bearing): T = (hom z hom z^T + hom -z hom -z^T)/2 has mixed marginals (1,0,0,0), is a nonnegative combination of products (so >= 0 on L x L), and is not a product (rank 2)
+PASS U3  [countercontrol] countercontrol (positivity load-bearing): T = hom z hom z^T + 2 e1 e1^T has pure marginals hom z, is not a product (rank 2), and takes -1 at v = (1,1,0,0), w = (1,-1,0,0) in L
+PASS U4  [identity] CORR: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points, and both product maps bi-affine (degree <= 1 in each argument), symbolic
+PASS U5  [witness] CORR: IP1 holds in both directions (symbolic), while T_A(p_B(x)) = H(x) + 2 C0 and T_B(p_A(x)) = H(x) - 2 C0 (C0 the x-x correlation of tokens 0, 1, zero marginals): the token clauses fail and TPS fails -- deviations {(1, 1, 0, 0): 2} and {(1, 1, 0, 0): -2}
+PASS U6  [witness] CORR: A's product of the token effects (x-up on token 0, x-down on token 1, unit on 2, 3) takes -1/4 at B's token product of (e_z, e_z, e_z, e_z): A's product effects are not effects on any body containing B's products, so one body (with COMP-1 positivity) fails -- value -1/4
+NOTE [written] U.R  -- CORR shows the positivity input of the purity step is load-bearing in four tokens: first-order independent preparation in both directions without the positivity that one body supplies does not give the token clauses. In the route, that positivity is PA.prodEff_effect on PB's products, available because PB.Omega = PA.Omega.
+
+== S3  the converse: in MSIG the cross values are the FCC forms
+PASS V1  [identity] MSIG: PB.prodEff e f (PA.prodState x y) = fourVal X Y Et Ft for normalized x, y and all affine e, f (symbolic; Et the table of e on the normalized slice)
+PASS V2  [identity] MSIG: PA.prodEff e f (PB.prodState l l') = g2 Et Ft L L' for normalized l, l' (symbolic)
+PASS V2c  [countercontrol] countercontrol: without the regrouping (reading B's product array in A order) the value is not g2
+NOTE [written] V.W  -- converse (written, ingredients V1, V2 and c2 M.MSIG): given FCC for admissible cones, take the MSIG maps and Omega = conv(A products u B products). An effect of a pair body has its table in the dual cone (landed note H.W), so by V1, V2 and FCC every cross value is >= 0, and <= 1 by the complement identity; own-grouping values are e(x) f(y); so both groupings are COMP-1 pre-composites with one body, and TPS holds (c2). Hence, relative to hadm, the existence of a carrier with KT4- and TPS is equivalent to FCC: this direction, and the route for the other.
+
+== S4  relabelling covariance in the anchor sum
+PASS L1  [identity] anchor sum on uniform cones: the swap of the two carrier components maps PA.prodState to PB.prodState and PB.prodEff o swap = PA.prodEff (symbolic): relabelling covariance holds
+PASS L1c  [countercontrol] countercontrol: the identity map does not carry PA.prodState to PB.prodState in the anchor sum
+NOTE [written] L.W  -- the swap maps Omega = conv(A products u B products) onto itself when the pair bodies coincide (uniform cones). With uniform K_c (c1 K7: FCC fails at -1) the anchor sum is KT4- with relabelling covariance, so relabelling covariance with KT4- does not imply FCC.
+
+kinds: identity 6, witness 3, source 3, countercontrol 5
+17/17 checks
+VERDICT C3-ROUTE-INGREDIENTS-EXACT

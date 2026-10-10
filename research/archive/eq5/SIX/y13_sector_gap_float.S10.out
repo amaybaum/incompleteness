@@ -1,0 +1,5 @@
+S10 trial 0: gen(V) = 2.35057579  dual(V) = 2.35057597  gap = 1.80e-07  (rounds 299, last pricing -4.7e-08)
+S10 trial 1: gen(V) = 1.57610775  dual(V) = 1.57658433  gap = 4.77e-04  (rounds 27, last pricing -2.8e-10)
+S10 trial 2: gen(V) = 1.83074983  dual(V) = 1.83075021  gap = 3.79e-07  (rounds 299, last pricing -7.1e-08)
+S10 trial 3: gen(V) = 2.56584958  dual(V) = 2.56584958  gap = -2.66e-15  (rounds 2, last pricing 0.0e+00)
+S10 trial 4: gen(V) = 1.23580932  dual(V) = 1.23580937  gap = 4.97e-08  (rounds 299, last pricing -4.0e-08)

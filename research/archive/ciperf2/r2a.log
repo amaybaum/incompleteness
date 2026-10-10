@@ -1,0 +1,8 @@
+C0 landed production probe: ['dita_index_map_probe: OK -- REPLAYED: 42 named test cases; H3 46 partition candidates, 43 nonempty loci'] exit 0 (326s)
+R1 {'support': 40, 'entries': [-1, 0, 1], 'sum': -16, 'formula_equals_-P+Q-T': True, 'pieces_support': [16, 16, 16], 'QT_overlap_cells': [(9, 4), (9, 12), (11, 4), (11, 12)], 'straight_levels': True, 'straight_points': True} C5 {'straight_levels': False, 'straight_points': False} (327s)
+R2A E40: {'strict': ([], ['u1 = 1'], [20, 976]), 'relaxed': ([], ['u1 = -1', 'u1 = 1'], [20, 976])} candidates 28 (22s)
+C1b act 38 arc reproduces L41: True {'strict': ['u1 = -1', 'u1 = 1'], 'relaxed': ['u1 = -1', 'u1 = 1']}
+C2 {'A': {'support': 16, 'identically_strict': 8, 'identically_relaxed': 8}, 'P': {'support': 16, 'identically_strict': 4, 'identically_relaxed': 4}, 'Q': {'support': 16, 'identically_strict': 8, 'identically_relaxed': 8}, 'T': {'support': 16, 'identically_strict': 8, 'identically_relaxed': 8}}
+C3 True True
+pairs {'-P+Q': (True, 1, 1), '-P-T': (True, 1, 1), 'Q-T': (True, 2, 2)}
+done (519s)

@@ -1,0 +1,13 @@
+[N] R^1 E0: <R E0, E0> = 1.4444; max_lam min-eig(rho(R E0) - lam rho(E0)) = -0.2500
+[N] R^1 E0: most negative <v|rho(R E0)|v> over the fixed family with <v|rho(E0)|v> >= 0: -0.2500
+[N] R^1 z_0: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^1 z_1: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^1 z_2: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^1 z_3: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^2 E0: <R E0, E0> = 1.4444; max_lam min-eig(rho(R E0) - lam rho(E0)) = -0.2500
+[N] R^2 E0: most negative <v|rho(R E0)|v> over the fixed family with <v|rho(E0)|v> >= 0: -0.2500
+[N] R^2 z_0: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^2 z_1: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^2 z_2: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] R^2 z_3: min <R z, z_t> = 0.0069; max over grid of min-eig(rho(R z) - sum lam rho(z_t)) = -0.1152
+[N] guidance only; no verdict.

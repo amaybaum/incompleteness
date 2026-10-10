@@ -1,0 +1,34 @@
+S0 | pauli(cnotFun w) == CNOT pauli(w) CNOT^dag for symbolic w (control = path token) | PASS
+CC-S0a | with Y and Z interchanged in the dictionary the equality fails | PASS
+CC-S0b | with the control on the detector token the equality fails | PASS
+VERDICT S0: the landed cnot is conjugation by CNOT with the path token as control (Pauli dictionary)
+S1 | cnotFun(prodState xplus z3) == phiW: True | PASS
+CC-S1 | detector on the flip axis: cnotFun(prodState xplus xplus) == prodState xplus xplus: True; equals phiW: False | PASS
+VERDICT S1: a perfect which-path record made by the landed gate on (path |+>, detector on the corner axis) is phiW
+S2-marginal | path marginal of cnot(prodState x n) = [1, n1*x1, n1*x2, x3] | PASS
+INFO | detector marginal of cnot(prodState x n) = [1, n1, n2*x3, n3*x3]
+S2-gamma | tr(X rho_n) = n1 (the coherence factor of the cnot record) | PASS
+S2-two-system | x = xplus: path marginal with n = z3 is [1, 0, 0, 0], with n = xplus is [1, 1, 0, 0] | PASS
+CC-S2 | no gate: path marginal of prodState x n = [1, x1, x2, x3] (independent of n) | PASS
+VERDICT S2: on the path alone the unread cnot record is the dephasing r -> (n1 r1, n1 r2, r3); its strength n1 is the detector's state component on the flip axis, a second-system quantity
+S3-a | path marginals [1, 0, 0, 0] / [1, 0, 0, 0]; detector marginals [1, 0, 0, 0] / [1, 0, 0, 0]; ZZ entries 1 / 1 | PASS
+S3-b | X-readout conditionals: phiW ([1/2, 1/2, 0, 0], [1/2, -1/2, 0, 0]); omegaB ([1/2, 0, 0, 0], [1/2, 0, 0, 0]) | PASS
+S3-c | phiW - omegaB nonzero exactly at [(1, 1), (2, 2)] | PASS
+CC-S3 | Z-readout conditionals equal: phiW [1/2, 0, 0, 1/2],[1/2, 0, 0, -1/2]; omegaB [1/2, 0, 0, 1/2],[1/2, 0, 0, -1/2] | PASS
+VERDICT S3: the screen pattern with the detector unread and the which-path statistics cannot tell the coherent record phiW from the separable record omegaB; only a detector readout complementary to the record can
+S4-tsirelson | S(phiW) = 2*sqrt(2) | PASS
+S4-local | max over 16 deterministic local assignments = 2 | PASS
+CC-S4 | S(omegaB) = 0; S(prodState xplus z3) = 0 | PASS
+VERDICT S4: with two path settings (a controllable relative phase) and two detector readouts, the cnot record reaches 2 sqrt2 > 2
+S5-table | table(CZ|++>) == actT(R_H, phiW): True; == landed T_psi: True | PASS
+S5-a | tr(F rho_x⊗rho_y) == (1/4)(1 - x^T M y), M = [[0, 0, 1], [0, 1, 0], [1, 0, 0]], M^T M = 1, SOS identity | PASS
+S5-b | tr(F CNOT rho_x⊗rho_y CNOT^dag) == (1/4)(1 - x^T M' y), M' = [[0, 0, -1], [0, -1, 0], [1, 0, 0]], orthogonal, SOS | PASS
+S5-c | tr(F psi psi^dag) = -1/2 | PASS
+S5-stats | path marginals: CZ record [1, 0, 0, 0], phiW [1, 0, 0, 0] | PASS
+CC-S5 | tr(F pauli(phiW)) = 1/2 (must be >= 0: phiW generates K_gen) | PASS
+VERDICT S5: the phase-kick record CZ|++> = actT R_H phiW = T_psi lies outside K_gen, with the same path statistics as the cnot record
+S6 | hMat (1,1) = [sqrt(2), 0]; solutions z of hMat(1,1) == z(1,1): [] | PASS
+CC-S6 | swap (1,1) = [1, 1] | PASS
+VERDICT S6: the balanced mixer of AncillaInterference moves the all-ones ray
+SUMMARY: 24 checks; blocks green 7/7
+ALL BLOCKS GREEN

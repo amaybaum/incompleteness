@@ -1,0 +1,8 @@
+grid classes: 60 (72 pairs less 12 shared-vertex identifications = 60)
+matrix-induced subgroup of A33 on the grid: relabellings 576, +conj 1152, +transpose 2304
+automorphisms of K3,3 on the six vertices: 72
+distinct grid permutations among 72*512 pairs: 36864 ; duplicates: 0
+first duplicate pairs: []
+pairs acting trivially on the grid: [((0, 1, 2, 3, 4, 5), (True, True, True, True, True, True, True, True, True))]
+stabilizer elements of a generic Diţă point (swap, conj, transpose, pi1, pi2, tau1, tau2): [(False, False, False, (0, 1, 2, 3), (0, 1, 2, 3), (0, 1, 2, 3), (0, 1, 2, 3)), (False, False, False, (0, 1, 2, 3), (0, 1, 2, 3), (0, 1, 2, 3), (2, 3, 0, 1))]
+done

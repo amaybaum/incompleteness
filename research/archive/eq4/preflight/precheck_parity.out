@@ -1,0 +1,24 @@
+PASS T0 cnot (prodState xplus z3) = phiW (base lemma, control)
+PASS T1 phiW = dg 1 1 (-1) 1
+PASS T2 actT reflY phiW = idW (base lemma, control)
+PASS T3 reflY z3 = z3
+PASS T4 cnotTw (prodState xplus z3) = idW
+PASS T5 cnot (prodState (-xplus) (-z3)) = dg 1 (-1) (-1) (-1)
+PASS T6 actT reflY (dg p q r s) = dg p q (-r) s
+PASS T7 cnotTw (prodState (-xplus) (-z3)) = dg 1 (-1) 1 (-1)
+PASS T8 tens (sharpVec b) (sharpVec c) = (1/4) prodState b c
+PASS T9 k * dg p q r s = dg (k p) (k q) (k r) (k s)
+PASS T10 ipW_dg: diagonal contraction formula
+PASS T11 ipW (cnot E) X = ipW E (cnot X)
+PASS T12 ipW (actT reflY E) X = ipW E (actT reflY X)
+PASS T13 ipW (cnotTw E) X = ipW E (cnotTw X)
+PASS T14 ipW (tens a b) w = pairVal a b w (definitional reordering)
+PASS T15 phiW . f . phiW^T = transposeW f
+PASS T16 transposeW is an involution
+PASS T17 ipW (transposeW E) X = ipW E (transposeW X)
+PASS T18 ipW (tabT E) (tabT X) = ipW E X
+PASS T19 actT reflY is an involution and actT reflY . cnot . actT reflY is an involution
+PASS P  family-(i) value = (1/16)(s01 s02 s23 s13 - 1), nonnegative exactly at the even patterns  [0000:0 0001:-1/8 0010:-1/8 0011:0 0100:-1/8 0101:0 0110:0 0111:-1/8 1000:-1/8 1001:0 1010:0 1011:-1/8 1100:0 1101:-1/8 1110:-1/8 1111:0]
+PASS PC countercontrol: with F from (xplus, z3) every pattern gives a nonnegative value (witness choice load-bearing)
+--- precheck_parity: 22/22
+VERDICT PREFLIGHT-PRECHECK-EXACT

@@ -1,0 +1,20 @@
+known tangent span rank (incl. gauge 31): 57
+null space dim (defect + 31): 80
+dimension of defect directions beyond the known span: 23
+obstruction, Σ tangent:            0.0e+00
+obstruction, a column-Diţă phase:  0.0e+00
+obstruction, a row-Diţă phase:     5.1e-01
+obstruction, two column-Diţă phases: 3.5e-01
+obstruction, column + row Diţă phase: 6.7e-01 (expected nonzero: the two constructions do not combine)
+extra directions: 23
+obstruction of 5 random extra directions: [0.7328 0.6857 0.6558 0.6604 0.6672]
+obstruction of 5 random directions in the whole defect space: [0.5989 0.7034 0.7696 0.7189 0.846 ]
+minimal obstruction found over the extra-direction sphere (6 restarts): [0.1166 0.1834 0.1471 0.1491 0.1106 0.1799]
+minimal obstruction over mixed directions (value, extra-component fraction): [(np.float64(0.1685), np.float64(0.123)), (np.float64(0.0904), np.float64(0.135)), (np.float64(0.1372), np.float64(0.1)), (np.float64(0.1347), np.float64(0.126))]
+alt-proj from extra direction ε=0.3: unitary False flat True | feature-dist to base 0.0398 | Σ-res 0.038 colDiţă 0.179 rowDiţă 0.217 | defect -1
+alt-proj from extra direction ε=0.1: unitary False flat True | feature-dist to base 0.0145 | Σ-res 0.014 colDiţă 0.068 rowDiţă 0.082 | defect 3
+alt-proj from extra direction ε=0.3: unitary False flat True | feature-dist to base 0.0374 | Σ-res 0.039 colDiţă 0.213 rowDiţă 0.216 | defect 0
+alt-proj from extra direction ε=0.1: unitary False flat True | feature-dist to base 0.0141 | Σ-res 0.014 colDiţă 0.086 rowDiţă 0.088 | defect 2
+alt-proj from extra direction ε=0.3: unitary False flat True | feature-dist to base 0.0382 | Σ-res 0.036 colDiţă 0.175 rowDiţă 0.157 | defect 0
+alt-proj from extra direction ε=0.1: unitary False flat True | feature-dist to base 0.0143 | Σ-res 0.013 colDiţă 0.069 rowDiţă 0.063 | defect 2
+done

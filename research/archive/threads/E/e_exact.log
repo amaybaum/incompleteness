@@ -1,0 +1,113 @@
+PASS single-qubit Pauli table: XY = iZ, YX = -iZ
+PASS own CNOT transfer matrix is a unitary Wigner symmetry (U)
+PASS countercontrol: T.CNOT is antiunitary (A), PT_B is neither
+PASS countercontrol: T (full transpose) is A, identity is U, N(x)I and I(x)N are U
+PASS countercontrol: a non-invertible unital map is not Wigner
+PASS A: 32 candidate gates
+PASS A: builder at (M0=I, A=I, K=J) equals the own CNOT transfer matrix
+PASS A: every gate unital (column u(x)u = e0) and trace-preserving (row u(x)u = e0)
+PASS A: every gate is a signed permutation matrix
+PASS A: closed under inverse
+PASS A: exactly 8 involutions
+PASS A: 8 O-classes of size 4, 16 SO-classes of size 2
+   SO-class  0 rep ((1, 1), (-1, -1, -1, 1)) : PTB.U.PTB
+   SO-class  1 rep ((1, 1), (-1, -1, 1, -1)) : U
+   SO-class  2 rep ((1, 1), (-1, 1, -1, -1)) : -
+   SO-class  3 rep ((1, 1), (-1, 1, 1, 1)) : -
+   SO-class  4 rep ((1, -1), (-1, -1, -1, 1)) : PTB after U
+   SO-class  5 rep ((1, -1), (-1, -1, 1, -1)) : U after PTB
+   SO-class  6 rep ((1, -1), (-1, 1, -1, -1)) : A
+   SO-class  7 rep ((1, -1), (-1, 1, 1, 1)) : PTB.A.PTB
+   SO-class  8 rep ((-1, 1), (-1, -1, -1, 1)) : PTB after U
+   SO-class  9 rep ((-1, 1), (-1, -1, 1, -1)) : U after PTB
+   SO-class 10 rep ((-1, 1), (-1, 1, -1, -1)) : A
+   SO-class 11 rep ((-1, 1), (-1, 1, 1, 1)) : PTB.A.PTB
+   SO-class 12 rep ((-1, -1), (-1, -1, -1, 1)) : PTB.U.PTB
+   SO-class 13 rep ((-1, -1), (-1, -1, 1, -1)) : U
+   SO-class 14 rep ((-1, -1), (-1, 1, -1, -1)) : -
+   SO-class 15 rep ((-1, -1), (-1, 1, 1, 1)) : -
+PASS B: own Pauli-algebra tags equal the K2 Choi-rank tags for all 16 SO-classes
+PASS B: tags constant on each SO-class
+PASS B: exactly 4 of 32 gates are unitary
+PASS C: every one of the 32 gates factors as (D1 (x) D2) CNOT (D3 (x) D4) with local sign relabellings
+   SO-class  0 (PTB.U.PTB) determinant patterns (D1,D2,D3,D4): [(-1, 1, -1, 1), (1, -1, 1, -1)]
+   SO-class  1 (U) determinant patterns (D1,D2,D3,D4): [(-1, -1, -1, -1), (1, 1, 1, 1)]
+   SO-class  2 (-) determinant patterns (D1,D2,D3,D4): [(-1, -1, 1, -1), (1, 1, -1, 1)]
+   SO-class  3 (-) determinant patterns (D1,D2,D3,D4): [(-1, 1, 1, 1), (1, -1, -1, -1)]
+   SO-class  4 (PTB after U) determinant patterns (D1,D2,D3,D4): [(-1, 1, -1, -1), (1, -1, 1, 1)]
+   SO-class  5 (U after PTB) determinant patterns (D1,D2,D3,D4): [(-1, -1, -1, 1), (1, 1, 1, -1)]
+   SO-class  6 (A) determinant patterns (D1,D2,D3,D4): [(-1, -1, 1, 1), (1, 1, -1, -1)]
+   SO-class  7 (PTB.A.PTB) determinant patterns (D1,D2,D3,D4): [(-1, 1, 1, -1), (1, -1, -1, 1)]
+   SO-class  8 (PTB after U) determinant patterns (D1,D2,D3,D4): [(-1, 1, -1, -1), (1, -1, 1, 1)]
+   SO-class  9 (U after PTB) determinant patterns (D1,D2,D3,D4): [(-1, -1, -1, 1), (1, 1, 1, -1)]
+   SO-class 10 (A) determinant patterns (D1,D2,D3,D4): [(-1, -1, 1, 1), (1, 1, -1, -1)]
+   SO-class 11 (PTB.A.PTB) determinant patterns (D1,D2,D3,D4): [(-1, 1, 1, -1), (1, -1, -1, 1)]
+   SO-class 12 (PTB.U.PTB) determinant patterns (D1,D2,D3,D4): [(-1, 1, -1, 1), (1, -1, 1, -1)]
+   SO-class 13 (U) determinant patterns (D1,D2,D3,D4): [(-1, -1, -1, -1), (1, 1, 1, 1)]
+   SO-class 14 (-) determinant patterns (D1,D2,D3,D4): [(-1, -1, 1, -1), (1, 1, -1, 1)]
+   SO-class 15 (-) determinant patterns (D1,D2,D3,D4): [(-1, 1, 1, 1), (1, -1, -1, -1)]
+PASS C countercontrol: none of the 32 unit-modulus sign members with a1 k1 + a2 k2 != 0 factors
+PASS C: survivors <=> o_A^i_A = o_B^i_B (even reflection parity); type U/A = o_A^i_A; branch Q/PT_B(Q) = o_A^o_B
+PASS C countercontrol: a non-unit-modulus member (a1 = 2) admits no factorization
+   SO-class  0 survives: |group| =  8, exact axis minimum 0, every element a Wigner symmetry of PT_B(Q): True
+   SO-class  1 survives: |group| =  8, exact axis minimum 0, every element a Wigner symmetry of Q: True
+   SO-class  2 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+   SO-class  3 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+   SO-class  4 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+   SO-class  5 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+   SO-class  6 survives: |group| =  8, exact axis minimum 0, every element a Wigner symmetry of Q: True
+   SO-class  7 survives: |group| =  8, exact axis minimum 0, every element a Wigner symmetry of PT_B(Q): True
+   SO-class  8 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+   SO-class  9 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+   SO-class 10 survives: |group| = 16, exact axis minimum 0, every element a Wigner symmetry of Q: True
+   SO-class 11 survives: |group| = 16, exact axis minimum 0, every element a Wigner symmetry of PT_B(Q): True
+   SO-class 12 survives: |group| = 16, exact axis minimum 0, every element a Wigner symmetry of PT_B(Q): True
+   SO-class 13 survives: |group| = 16, exact axis minimum 0, every element a Wigner symmetry of Q: True
+   SO-class 14 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+   SO-class 15 fails:    |group| = 16, exact axis minimum -2 at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+PASS D: the 8 survivors: every group element is a Wigner symmetry of Q or of PT_B(Q) (exact certificate)
+PASS D: the 8 failures: an exact integer witness at value -2 on pure axis states
+PASS D: group orders are 8 or 16
+   group orders: {0: 8, 1: 8, 2: 16, 3: 16, 4: 16, 5: 16, 6: 8, 7: 8, 8: 16, 9: 16, 10: 16, 11: 16, 12: 16, 13: 16, 14: 16, 15: 16}
+PASS E: su(4) image has dimension 15 (own construction, all coefficients real)
+PASS E countercontrol: su(4) image and its PT_B conjugate are different 15-dim spans (union dim > 15)
+PASS E: local so(3)+so(3) lies in the su(4) image
+   SO-class  0: order 2, Lie dim 15, equals PT_B su(4) PT_B: True
+   SO-class  1: order 2, Lie dim 15, equals su(4) image: True
+   SO-class  6: order 2, Lie dim 15, equals su(4) image: True
+   SO-class  7: order 2, Lie dim 15, equals PT_B su(4) PT_B: True
+   SO-class 10: order 4, Lie dim 15, equals su(4) image: True
+   SO-class 11: order 4, Lie dim 15, equals PT_B su(4) PT_B: True
+   SO-class 12: order 4, Lie dim 15, equals PT_B su(4) PT_B: True
+   SO-class 13: order 4, Lie dim 15, equals su(4) image: True
+PASS E: all 8 survivors generate exactly the 15-dim su(4) image (or its PT_B conjugate)
+PASS E negative control identity: Lie dim 6
+PASS E negative control N(x)N: Lie dim 6
+PASS F: pair branch = [det L_A != det L_B] on all 64 pairs (own Wigner test)
+PASS F: 512 triples: realised assignments are exactly the 4 even ones
+PASS F: no odd assignment realised
+PASS F control: CNOT (x) id preserves Q_ABC (L = I)
+PASS F countercontrol: T_AB (x) id_C is not a Wigner symmetry of Q_ABC
+PASS F control: T_ABC is an antiunitary symmetry of Q_ABC
+   SO-class  0 (PTB.U.PTB): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): [(-1, 1, -1, 'U'), (-1, 1, 1, 'U'), (1, -1, -1, 'U'), (1, -1, 1, 'U')]
+   SO-class  1 (U): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): [(-1, -1, -1, 'U'), (-1, -1, 1, 'U'), (1, 1, -1, 'U'), (1, 1, 1, 'U')]
+   SO-class  2 (-): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  3 (-): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  4 (PTB after U): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  5 (U after PTB): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  6 (A): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  7 (PTB.A.PTB): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  8 (PTB after U): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class  9 (U after PTB): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class 10 (A): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class 11 (PTB.A.PTB): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class 12 (PTB.U.PTB): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): [(-1, 1, -1, 'U'), (-1, 1, 1, 'U'), (1, -1, -1, 'U'), (1, -1, 1, 'U')]
+   SO-class 13 (U): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): [(-1, -1, -1, 'U'), (-1, -1, 1, 'U'), (1, 1, -1, 'U'), (1, 1, 1, 'U')]
+   SO-class 14 (-): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+   SO-class 15 (-): relabelled 3-copy cones invariant under G (x) id_C, by (det L_A, det L_B, det L_C, type): none
+PASS F: unitary and PT_B-conjugated unitary survivors (1, 13, 0, 12) have an invariant relabelled cone
+PASS F: antiunitary survivors (6, 10) and PT_B-conjugated antiunitary survivors (7, 11) have none
+PASS F: no failing class has one
+
+e_exact: OK -- 0 failures
+exit 0 time 125s

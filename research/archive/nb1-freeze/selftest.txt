@@ -1,0 +1,4 @@
+controls: the frozen constants match the preregistration beside this file
+controls: 2 rows hold as frozen
+controls: 31 mutation controls fail as required
+controls: self-test OK

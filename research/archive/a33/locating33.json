@@ -1,0 +1,226 @@
+{
+ "loc": {
+  "featureVec": [
+   "OrbitGeometryRigidity",
+   99
+  ],
+  "normalizedSet": [
+   "OrbitGeometryRigidity",
+   105
+  ],
+  "IsSurjIsometryOn": [
+   "OrbitGeometryRigidity",
+   111
+  ],
+  "featureVec_gauge": [
+   "OrbitGeometryRigidity",
+   133
+  ],
+  "gramPhaseEquiv_of_featureVec_eq": [
+   "OrbitGeometryRigidity",
+   139
+  ],
+  "featureVec_mem_normalizedSet": [
+   "OrbitGeometryRigidity",
+   147
+  ],
+  "relabelled_fourier_mem_normalizedSet": [
+   "OrbitGeometryRigidity",
+   154
+  ],
+  "normalizedSet_eq_iUnion": [
+   "OrbitGeometryRigidity",
+   165
+  ],
+  "bridge_of_tuple_isometry": [
+   "OrbitGeometryRigidity",
+   213
+  ],
+  "tuple_isometry_of_bridge": [
+   "OrbitGeometryRigidity",
+   251
+  ],
+  "eqOn_affineSpan_of_agree": [
+   "OrbitGeometryRigidity",
+   408
+  ],
+  "exists_affineIsometryEquiv_of_isSurjIsometryOn": [
+   "OrbitGeometryRigidity",
+   415
+  ],
+  "a26_0_affine_extension": [
+   "OrbitGeometryRigidity",
+   444
+  ],
+  "a26_1_circle_count": [
+   "OrbitGeometryRigidity",
+   2160
+  ],
+  "rigid_motion_of_tuple_isometry": [
+   "OrbitGeometryRigidity",
+   2309
+  ],
+  "iso1_single_carrier": [
+   "OrbitGeometryIsometries",
+   770
+  ],
+  "iso2_classes_single": [
+   "OrbitGeometryIsometries",
+   1081
+  ],
+  "mixedTriple_relabel2": [
+   "OrbitGeometryIsometries",
+   72
+  ],
+  "fibreGram_unique": [
+   "OrbitGeometryIsometries",
+   82
+  ],
+  "mixedTriple_transpose": [
+   "OrbitGeometryIsometries",
+   94
+  ],
+  "relabel2_realizable": [
+   "OrbitGeometryIsometries",
+   273
+  ],
+  "relabel2_isometry": [
+   "OrbitGeometryIsometries",
+   300
+  ],
+  "conj_isometry": [
+   "OrbitGeometryIsometries",
+   313
+  ],
+  "mixedTriple": [
+   "OrbitGeometrySelector",
+   79
+  ],
+  "mixedTriple_gauge": [
+   "OrbitGeometrySelector",
+   88
+  ],
+  "mixedTriple_star": [
+   "OrbitGeometrySelector",
+   114
+  ],
+  "coord_le_dist": [
+   "OrbitGeometrySelector",
+   123
+  ],
+  "geo1_class_invariant": [
+   "OrbitGeometrySelector",
+   471
+  ],
+  "fourier_dist_le": [
+   "OrbitGeometrySelector",
+   727
+  ],
+  "dist_eq_norm_toLp": [
+   "OrbitGeometrySelector",
+   439
+  ],
+  "geo1_equiv_of_zero_single": [
+   "OrbitGeometrySelector",
+   497
+  ],
+  "a32_shared_fourier_star": [
+   "OrbitIsometryClassification",
+   416
+  ],
+  "a32_shared_coord_inj": [
+   "OrbitIsometryClassification",
+   427
+  ],
+  "a32_shared_fourier_inj": [
+   "OrbitIsometryClassification",
+   435
+  ],
+  "a32_shared_pair": [
+   "OrbitIsometryClassification",
+   648
+  ],
+  "a32_shared_classify": [
+   "OrbitIsometryClassification",
+   667
+  ],
+  "a32_control_overlap": [
+   "OrbitIsometryClassification",
+   692
+  ],
+  "a32_shared_exists": [
+   "OrbitIsometryClassification",
+   768
+  ],
+  "a32_shared_isometry": [
+   "OrbitIsometryClassification",
+   804
+  ],
+  "a32_shared_separation": [
+   "OrbitIsometryClassification",
+   347
+  ],
+  "a32_shared_relabel": [
+   "OrbitIsometryClassification",
+   406
+  ],
+  "a32_shared_star_mul_self": [
+   "OrbitIsometryClassification",
+   397
+  ],
+  "a32_not_rigid": [
+   "OrbitIsometryClassification",
+   1049
+  ],
+  "hadamard_z_admissible": [
+   "OrbitLawGaps",
+   116
+  ],
+  "realizable_of_gramPhaseEquiv": [
+   "OrbitLawRigidityTwisted",
+   355
+  ],
+  "gramPhaseEquiv_refl": [
+   "GramTrajectorySelection",
+   141
+  ],
+  "gramPhaseEquiv_symm": [
+   "GramTrajectorySelection",
+   146
+  ],
+  "gramPhaseEquiv_trans": [
+   "GramTrajectorySelection",
+   162
+  ],
+  "sh1_necessity": [
+   "TwoSidedGauge",
+   168
+  ],
+  "FibreGram": [
+   "TwoSidedGauge",
+   95
+  ],
+  "GramPhaseEquiv": [
+   "TwoSidedGauge",
+   102
+  ],
+  "RealizableGram": [
+   "TwoSidedGauge",
+   108
+  ]
+ },
+ "blobs": {
+  "verification/lean-mathlib/OIBridge/OrbitGeometryRigidity.lean": "3e15384196203939d348f2a313a873818ec4b684",
+  "verification/lean-mathlib/OIBridge/OrbitGeometryIsometries.lean": "954fbddaa7511713a26c316b3b2e0f29497e81d2",
+  "verification/lean-mathlib/OIBridge/OrbitGeometrySelector.lean": "ce9d1aa05dfdedfb5cac171cfe6379681942195f",
+  "verification/lean-mathlib/OIBridge/OrbitIsometryClassification.lean": "98ed25c5b5c355d7c3929a32d656c729d2f678ea",
+  "verification/lean-mathlib/OIBridge/OrbitLawGaps.lean": "5ed0dad78d87314dfd9e1a8ec241f479ded1e3e1",
+  "verification/lean-mathlib/OIBridge/OrbitLawRigidityTwisted.lean": "860daac4eb20dbe92c35c2b3ca7aaa1ed798e7b8",
+  "verification/lean-mathlib/OIBridge/GramTrajectorySelection.lean": "afc22cfc93b244c80e1c55a273dcfda1ddebb121",
+  "verification/lean-mathlib/OIBridge/TwoSidedGauge.lean": "4bba2040c33424fafbc6d31c0d63b86dff33691a",
+  "verification/lean-mathlib/OIBridge.lean": "4a6ff5d03fa4ec01b60fd8d3e014804cdd89f48b",
+  "verification/lean-manuscript-census.json": "40deafe0a4fed772c4824eba852b827e7179001f",
+  "verification/ROADMAP.md": "b1f6f9f728d07c0361302ed1994d43e848522372",
+  "verification/lean/edge_rigidity_probe.py": "d28e9b3cf2093984a1c453892204b9932a685b2e"
+ }
+}

@@ -1,0 +1,9 @@
+PASS K0 transcription control
+PASS R1 ring factorization: tr[(e (x) f)(x (x) y)] = tr(M N) with M the P-contraction of (x, e) and N the U-contraction of (y, f) (4 random exact instances)
+PASS R2 five-token analogue: with the pair effect Phi+ on (P', Q), M~ = (1/2) PT_Q(x~ renamed) on all 16 units: the five-token constraint confines N to the twin cone
+PASS R3 QM consistency: for PSD x, e the contraction M has PSD partial transposes (5 random instances)
+PASS G the (1,2,1,2) Choi-closure crossing with y = Glue(x1, x2; e) equals the K4-network value (3 random exact instances per split, both splits)
+PASS W exact Bell-link network values for W3: theta = 1/4, ring = 7/4, K4 split 0 = 5/16, split 1 = 5/16 (all >= 0)
+PASS S stabilizer slice: L = {a, b >= 0, gamma^2 <= 2 sqrt3 a b} is self-positive (exact sum-of-squares pairings of boundary rays), has a boundary ray orthogonal to its mirror (self-dual Lorentz cone), contains the averaged S points and the negative-defect point (1/4, 1, 2/sqrt3), and lies in |gamma| <= a + b
+--- p7_wall_reduction: 7/7 checks pass
+VERDICT P7-WALL-REDUCTION-EXACT

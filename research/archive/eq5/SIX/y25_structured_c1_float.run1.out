@@ -1,0 +1,5 @@
+|G| = 192
+K_tw generators: 36
+(i) countercontrol (k0, GHZ+): -2.5000e-01
+(i) min over filters of tr(g' Ad(k) k0)/norms, g' over the k0 orbit (8): -6.9778e-17
+(ii) countercontrol (GHZ+, k0; (1/2) (x) SWAP/2 effects): -1.5625e-02

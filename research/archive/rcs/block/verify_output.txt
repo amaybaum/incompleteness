@@ -1,0 +1,33 @@
+V1 ok   gate_corner_ctrl                   = gate_corner (9 lines, 0 allowed edit(s))
+V1 ok   gate_corner_symm_ctrl              = gate_corner_symm (10 lines, 0 allowed edit(s))
+V1 ok   Mfwd_Minv_ctrl                     = Mfwd_Minv (5 lines, 0 allowed edit(s))
+V1 ok   lor_Minv_ctrl                      = lor_Minv (4 lines, 0 allowed edit(s))
+V1 ok   gate_actC_ctrl                     = gate_actC (5 lines, 0 allowed edit(s))
+V1 ok   gate_corner_neg_ctrl               = gate_corner_neg (6 lines, 0 allowed edit(s))
+V1 ok   gt_corner_ctrl                     = gt_corner (4 lines, 0 allowed edit(s))
+V1 ok   gt_corner_neg_ctrl                 = gt_corner_neg (4 lines, 0 allowed edit(s))
+V1 ok   gt_center_ctrl                     = gt_center (7 lines, 0 allowed edit(s))
+V1 ok   gt_tangent_corners_ctrl            = gt_tangent_corners (31 lines, 0 allowed edit(s))
+V1 ok   gt_sphere_ctrl                     = gt_sphere (28 lines, 0 allowed edit(s))
+V1 ok   gt_sphere_corner_ctrl              = gt_sphere_corner (34 lines, 0 allowed edit(s))
+V1 ok   Phi_sphere_ctrl                    = Phi_sphere (13 lines, 0 allowed edit(s))
+V1 ok   Phi_center_ctrl                    = Phi_center (15 lines, 0 allowed edit(s))
+V1 ok   Phi_center_all_ctrl                = Phi_center_all (9 lines, 0 allowed edit(s))
+V1 ok   Phi_hom_zero_eq_zero_ctrl          = Phi_hom_zero_eq_zero (16 lines, 0 allowed edit(s))
+V1 ok   Phi_lift_z_eq_zero_ctrl            = Phi_lift_z_eq_zero (16 lines, 0 allowed edit(s))
+V1 ok   blockData_of_orthonormal_ctrl      = blockData_of_orthonormal (208 lines, 1 allowed edit(s))
+V1 ok   blockData_of_ctrlGate              = blockData_of_nativeGate (7 lines, 0 allowed edit(s))
+V1 ok   not_entangling_one_ctrl            = not_entangling_one (10 lines, 0 allowed edit(s))
+V1 ok   dim_of_ctrlGate                    = dim_of_nativeGate (12 lines, 1 allowed edit(s))
+V1 ok   three_of_ctrlGate                  = three_of_nativeGate (8 lines, 0 allowed edit(s))
+V2 ok   declarations: 30 = 22 copies + 8 new; extra=[] missing=[]
+V3 ok   forbidden refs=[] .relT projections=0 NativeGate in copies=[]
+V4 ok   no landed NativeGate-taking lemma is referenced un-renamed
+V4 ok   all 30 declarations reachable from ['ctrlGate_of_nativeGate', 'blockData_of_ctrlGate', 'dim_of_ctrlGate', 'three_of_ctrlGate']
+V5 ok   new names already declared in OIBridge: []
+V6 ok   ambiguous/shadowed identifiers: []
+V7 ok   sorry/admit count = 0
+C1 mutated proof token: verifier REJECTS (control PASS)
+C2 un-renamed reference: verifier REJECTS (control PASS)
+C3 relT step restored: verifier REJECTS (control PASS)
+VERDICT: PASS

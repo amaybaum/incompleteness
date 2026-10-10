@@ -1,0 +1,17 @@
+PASS S1 M_C parametrizes S_3: dim S_3 = 9 and M_{E_ij} in S_3, linearly independent
+PASS S1 covariance (Q1 (x) Q2) M_C (Q1 (x) Q2)^T = M_{det Q1 det Q2 Q2 C Q1^T} (rational orthogonal, incl. det -1)
+   det M_diag(c) = -2*c1**3*c2**3*c3**3
+PASS S2 m=3 diag: M_C invertible iff c1 c2 c3 != 0 (det is a monomial multiple)
+PASS S2 m=3: M_diag(c) M_{C'} = I has NO solution C' (generic invertible diagonal c)
+PASS S2 m=3: specializations c in {(1,1,1),(1,-1,1),(2,3,-5),(1/2,7,-3/4)}: invertible, inverse not in S_3
+PASS S2 m=3: random rational non-diagonal C: inverse not in S_3 (corroboration of the SVD reduction)
+PASS S2 m=3: explicit inverse of M_diag(c) violates T1-antisymmetry
+PASS S3 control m=2: J (x) J in S_2, invertible, inverse in S_2 (solver finds it)
+PASS S3 control m=4: J (x) K in S_4, invertible, inverse in S_4 (solver finds it)
+PASS S4 d=4 sigma = rot(m) (+) 1 (generic angle): dim Lsig = 1, every L kills lift of the rotation plane
+PASS S4 d=4 sigma = rot(m) (+) -1 (generic angle): dim Lsig = 1, every L kills lift of the rotation plane
+PASS S4 d=4 R = I: every L in Lsig kills lift z
+PASS S4 d=4 R = -I: every L in Lsig kills e0
+PASS S4 d=4 R = diag(1,1,-1): Lsig = so(1,2)-block on E+ (+) rotation generator on V-
+PASS S4 d=4 p_sigma=2: f^T Gamma u = -sin(phi)(a.Jv -+ c) + (1-cos phi) a.v exactly, with f^T u = 1 - cos(phi)
+relt_S_exact: 15/15 checks pass

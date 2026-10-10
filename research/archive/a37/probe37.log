@@ -1,0 +1,48 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+== 1. the census: every Diţă structure of the stratum point, and its classes modulo the stabilizer ==
+  PASS  symbolic SIG equals the numeric SIG entrywise (i^p z^q w^r)            True
+  PASS  SIG is symmetric; W is symmetric                                       (True, True)
+  PASS  exact structures of SIG by shape and form: 4x4, 8x2, 2x8, each column and row (4, 4, 2, 2, 3, 3)
+  PASS  every structure reconstructs SIG exactly from its factors, with trivial twist True
+  PASS  the column-form and row-form structures coincide as index sets (SIG symmetric) True
+  PASS  the stabilizer (order 1024, with transposition) permutes the 18 structures; orbit count and sizes (9, [2, 2, 2, 2, 2, 2, 2, 2, 2])
+  PASS  each orbit pairs a structure with its own transpose and identifies nothing else True
+  PASS  the frozen 2x8 class is one orbit: column and row forms of the frozen blocks and classes True
+  PASS  the other classes: four 4x4, two 8x2, two 2x8                          [(4, 4), (4, 4), (4, 4), (4, 4), (8, 2), (8, 2), (2, 8), (2, 8)]
+  (9s)
+== 2. the arc: symmetric, and the frozen class persistent; the named point and the second point ==
+  PASS  Pu(1) = SIG; P = Pu(u60); both P and Pu(u5) unitary and symmetric      (True, True, True, True, True, True)
+  PASS  P admits exactly the frozen class (column form; the row form is the same by symmetry) {(4, 4): [], (8, 2): [], (2, 8): [(((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), ((0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)))]}
+  PASS  Pu(u5) admits exactly the frozen class                                 {(4, 4): [], (8, 2): [], (2, 8): [(((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), ((0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)))]}
+  (15s)
+== 3. the generic arc point, and the obstruction monomial of each other class ==
+  PASS  structures at a generic u (u a free symbol): (candidates, exact) by shape ((1, 0), (1, 0), (1, 1))
+  PASS  the one exact generic structure is the frozen 2x8 class                {((2, 8), ((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), ((0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)))}
+  PASS  each other class imposes non-identity conditions, all of the form u^k = 1 with k in {-1, 1} True
+  PASS  their counts of non-identity conditions                                [20, 4, 36, 24, 40, 8, 20, 20]
+  PASS  the frozen class imposes no non-identity condition (persistence, replayed) 0
+  PASS  the kernel witness identity of each other class is forced by its Diţă form, has rational entries and exponent sums {0, 1} True
+  (15s)
+== 4. the candidate exceptional set: every point where an extra proportionality or the rank-one condition of a generic candidate appears ==
+  PASS  the generic 4x4 and 8x2 candidates satisfy the rank-one condition at u = 1 only {(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))}
+  PASS  the candidate exceptional set, exactly (twenty points)                 ['zeta(0) z^-1 w^-1', 'zeta(1/2) z^-1 w^-1', 'zeta(0) z^-1 w^0', 'zeta(1/2) z^-1 w^0', 'zeta(0) z^-1 w^1', 'zeta(1/2) z^-1 w^1', 'zeta(0) z^-1/2 w^-1/2', 'zeta(1/4) z^-1/2 w^-1/2', 'zeta(1/2) z^-1/2 w^-1/2', 'zeta(3/4) z^-1/2 w^-1/2', 'zeta(0) z^-1/2 w^0', 'zeta(1/4) z^-1/2 w^0', 'zeta(1/2) z^-1/2 w^0', 'zeta(3/4) z^-1/2 w^0', 'zeta(0) z^0 w^-1', 'zeta(1/2) z^0 w^-1', 'zeta(0) z^0 w^0', 'zeta(1/2) z^0 w^0', 'zeta(0) z^0 w^1', 'zeta(1/2) z^0 w^1']
+  PASS  twelve of the candidates are Gaussian rational, eight are square roots outside Q(i) 12
+  (29s)
+== 5. the exhaustive search at every candidate point: the exact exceptional set ==
+  PASS  at u = 1 the search returns the eighteen structures: (candidates, exact) by shape ((5, 4), (3, 2), (3, 3))
+  PASS  at u = -1 the proportionality candidates are those of u = 1, but only the frozen class is exact (((5, 0), (3, 0), (3, 1)), True)
+  PASS  at every candidate point other than u = 1, exactly the frozen class is admitted ['zeta(0) z^0 w^0']
+  PASS  THE EXACT EXCEPTIONAL SET IS {1}: outside the candidates the structure is the generic one, at the candidates the search decides [(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))]
+  (83s)
+== 6. controls ==
+  PASS  the numeric exhaustive search (with factor unitarity) agrees with the symbolic one at all twelve Gaussian-rational candidates []
+  PASS  a genuine deformation inside each other class (one twist phase u5): unitary, off SIG, and found by the search in its own class [(True, True, True), (True, True, True), (True, True, True), (True, True, True), (True, True, True), (True, True, True), (True, True, True), (True, True, True)]
+  PASS  the row-form search on P^T = P returns the column-form result (transpose invariance) True
+  PASS  the membership classifier commutes with three stabilizer elements (product, transposed, conjugating): the transported frozen class is the one structure found [(1, True), (1, True), (1, True)]
+  PASS  a perturbed index map (columns 11 and 12 exchanged between the frozen blocks) is admitted neither at generic u nor at P (False, False)
+  PASS  the frozen index maps themselves are admitted at generic u (control of the control) True
+  (136s)
+
+dita_arc_exclusivity_probe: OK -- at the certified stratum point SIG the eighteen Diţă structures form nine classes modulo the stabilizer with transposition; along the symmetric arc Pu(u) = SIG∘u^W the frozen 2x8 class persists identically, each of the eight other classes is admitted only where u = 1, the candidate exceptional set of the monomial calculus has twenty points, and the exhaustive search at each of them finds only the frozen class away from u = 1: the exact exceptional set is {1}

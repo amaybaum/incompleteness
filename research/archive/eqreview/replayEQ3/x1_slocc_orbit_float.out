@@ -1,0 +1,8 @@
+c=1  x = F + 0.1 1: min phi over 60 starts = 1.000000e-02
+c=1  x = F + 0.15 1: min phi over 60 starts = 2.250000e-02
+c=1  x = F + 0.2 1: min phi over 60 starts = 4.000000e-02
+c=1  x = F + 0.3 1: min phi over 60 starts = 9.000000e-02
+c=0  W = 1 - 1.5 GHZ: min phi over 60 starts = 6.250000e-02
+c=0  W = 1 - 1.9 GHZ: min phi over 60 starts = 2.500000e-03
+c=0  W = 1 - 2.0 GHZ: min phi over 60 starts = 3.525499e-17
+x1 done (exploration only)

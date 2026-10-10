@@ -1,0 +1,5 @@
+gradient check: max |analytic - finite difference| = 5.85e-11
+control PSD nodes: 20 trials; worst normalized min -9.4992e-18 at ('psd', 'psd', 'psd', 'psd')
+countercontrol: GHZ states, Lift(K_A) effects: 40 trials; worst normalized min -1.0039e-18 at ('GHZ', 'GHZ', 'n14', 'm4')
+countercontrol: GHZ and Lift(K_A) mixed: 40 trials; worst normalized min -5.3840e-19 at ('GHZ', 'n36', 'GHZ', 'n21')
+Lift(K_A) nodes (states and effects): 300 trials; worst normalized min -3.4372e-18 at ('n56', 'n16', 'n46', 'n15')

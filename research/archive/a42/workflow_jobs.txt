@@ -1,0 +1,62 @@
+  # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
+  # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
+  # On any other event the matrix job is skipped and the aggregate below requires exactly that.
+  probes_a42_witness:
+    name: Numerical probes / A42 witness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 witness, class supports, controls, lemmas and case-split ingredients
+        working-directory: verification/lean
+        run: |
+          python3 dita_support_minimality_probe.py --part witness
+          python3 dita_support_minimality_probe.py --part wlog
+
+  probes_a42_census01:
+    name: Numerical probes / A42 census01
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 {0,1} census and the zero-row span lemma
+        working-directory: verification/lean
+        run: python3 dita_support_minimality_probe.py --part d01span
+
+  probes_a42_exclusion:
+    name: Numerical probes / A42 exclusion (${{ matrix.part }})
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        part: ['paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2', 'dfs:3', 'dfs:4', 'dfs:5',
+               'sathr', 'cubes:0', 'cubes:1', 'cubes:2']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 exclusion shard
+        working-directory: verification/lean
+        run: python3 dita_support_minimality_probe.py --part '${{ matrix.part }}'
+

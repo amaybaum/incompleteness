@@ -1,0 +1,16 @@
+PASS R1 selective branch maps the unit sphere to the unit sphere (|x'|^2 = 1 on x^2+y^2+z^2 = 1)  |x'|^2 on sphere = 1
+PASS R1 selective branch violates AffineRespect (centre = midpoint of poles)  image of centre ('0', '0', '3/5') vs midpoint of images ('0', '0', '0')
+PASS R2 non-selective map informative: P(+) differs on the poles  P(+|N) = 4/5, P(+|S) = 1/5
+PASS R2 non-selective map is not a body automorphism: its inverse sends (1,0,0) outside the ball  |M^-1 (1,0,0)|^2 = 25/16
+PASS R3 unnormalised branches are linear and sum to the non-selective map
+PASS R3 normalising branch + reproduces R1's selective map (at (2,3,6)/7)
+PASS R4 the five homogenised sphere points are in general position (all 4-subsets independent)
+PASS R4 matrices with five general-position eigenvectors: solution space dimension 1 (scalars only)  nullity = 1
+PASS R5 countercontrol: tetrahedron (simplex) vertices: solution space dimension 4 (diagonal in vertex basis)  nullity = 4
+PASS R6 square vertices (general position in d = 2): solution space dimension 1  nullity = 1
+PASS R7 f is not injective
+PASS R7 every preparation vector lies on the segment [pure v=0, pure v=1]  57 preparations, 40 effects
+PASS R7 induced idle map is the affine swap of the segment (x -> pure0 + pure1 - x)
+PASS R7 induced idle map is an involution on the body (reversible) although f is not injective
+SUMMARY 14/14 PASS
+VERDICT record-writing-constraints-hold

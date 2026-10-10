@@ -1,0 +1,20 @@
+SETUP nonlinear: passive effects <= 7 on pasts <= 8: rank = 89
+WELLDEF nonlinear: True (76 relations)
+ITER nonlinear 1: dim U = 51 -> 30
+ITER nonlinear 2: dim U = 30 -> 19
+ITER nonlinear 3: dim U = 19 -> 13
+ITER nonlinear 4: dim U = 13 -> 8
+ITER nonlinear 5: dim U = 8 -> 4
+ITER nonlinear 6: dim U = 4 -> 2
+ITER nonlinear 7: dim U = 2 -> 2
+INV nonlinear: largest W-invariant subspace of passive effects(<= 6) on pasts<=8: dim = 2; unit in U: True
+SETUP majority: passive effects <= 7 on pasts <= 8: rank = 120
+WELLDEF majority: True (63 relations)
+ITER majority 1: dim U = 64 -> 36
+ITER majority 2: dim U = 36 -> 20
+ITER majority 3: dim U = 20 -> 12
+ITER majority 4: dim U = 12 -> 8
+ITER majority 5: dim U = 8 -> 6
+ITER majority 6: dim U = 6 -> 5
+ITER majority 7: dim U = 5 -> 5
+INV majority: largest W-invariant subspace of passive effects(<= 6) on pasts<=8: dim = 5; unit in U: True

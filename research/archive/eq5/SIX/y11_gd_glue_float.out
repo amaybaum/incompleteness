@@ -1,0 +1,8 @@
+tau nonzero entries: 256 values: [0, 4]
+S* x S* x S* x S*: (-4, (np.int64(0), np.int64(0), np.int64(0), np.int64(8)))
+e,e,m,m: (0, (np.int64(0), np.int64(0), np.int64(0), np.int64(1)))  m,m,e,e: (0, (np.int64(0), np.int64(0), np.int64(0), np.int64(1)))  e,m,e,m: (0, (np.int64(0), np.int64(0), np.int64(0), np.int64(1)))
+nu orbit (same-fibre partner) all four: (0, (np.int64(0), np.int64(0), np.int64(0), np.int64(1)))
+nu states, S* effects: (-32, (np.int64(0), np.int64(0), np.int64(0), np.int64(1)))
+support size 256
+number of Z_2-linear relations satisfied on the support: 15
+first relations: [(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 1, 0), (0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1), (0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1), (0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0), (0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0), (0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 1), (0, 1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 1), (1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0), (1, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0), (1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1), (1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1), (1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0)]

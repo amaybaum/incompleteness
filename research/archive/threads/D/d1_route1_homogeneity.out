@@ -1,0 +1,9 @@
+(A) exact upper bound on dim Lie(Aut K); homogeneity needs bound >= dim K
+   torus orbitope cone (R^5)              dim Lie(Aut K) <=  3   dim K = 5   -> NOT homogeneous
+   Stiefel orbitope cone (R^7)            dim Lie(Aut K) <=  5   dim K = 7   -> NOT homogeneous
+   Caratheodory orbitope cone (R^5)       dim Lie(Aut K) <=  4   dim K = 5   -> NOT homogeneous
+   Lorentz cone L^4 = 3-ball (control)    dim Lie(Aut K) <=  7   dim K = 4   -> not excluded
+   square gbit cone (R^3)                 dim Lie(Aut K) <=  1   dim K = 3   -> NOT homogeneous
+(B) square cone: ray bijections admitting a symmetric positive-definite G with G K = K* : 0 of 24  -> self-dual for some inner product: False
+(C) A^T A = [[a**2 + b**2, 0], [0, a**2 + b**2]] ; det = (-a**2 - b**2 + x1*x2)**2 -> PSD iff x1,x2 >= 0 and x1 x2 >= a^2+b^2: Lorentz cone L^4, base = 3-ball
+    Vinberg cone {[[x1,x4,x5],[x4,x2,0],[x5,0,x3]] >= 0}: tr(E_i E_j) = [[1, 0, 0], [0, 1, 0], [0, 0, 1]] with sum E_i = I -> capacity >= 3 (not a bit)

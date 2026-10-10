@@ -1,0 +1,6 @@
+target t3: X_t = (d = [1. 1. 2. 2.], c = 2.8284271247)
+(i)  min over filters of <X_t, Ad(k) W3>/tr = 4.3281e-01
+(i)  min over filters of <X_t, Ad(k) kappa>/tr = 2.0340e-02
+(i)  min over filters of <X_t, Ad(k) omega>/tr = 6.2515e-01
+(ii) min over filters of <X_t, Ad(k) X_t>/tr = -4.7203e-16
+countercontrol (coherence x 1.05): -4.7328e-02

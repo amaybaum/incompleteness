@@ -1,0 +1,23 @@
+PASS  kernel cnot (CD:741-786) equals the Pauli transfer matrix of the quantum CNOT
+PASS  countercontrol: the CNOT with control and target exchanged does NOT match the kernel cnot
+PASS  countercontrol: the kernel table with the sign at (1,3) flipped does NOT match
+PASS  ptm(X) = homMap nflip (the kernel NOT is the quantum NOT Ad_X)
+PASS  ptm(Y) = homMap diag(-1,1,-1)
+PASS  ptm(Z) = homMap diag(-1,-1,1)  (the NOT of the kernel's control drive ball3Drive, rot3 pi)
+PASS  Bloch(|0>) = z3 and Bloch(|+>) = xplus
+PASS  coeffs(CNOT (|+><+| x |0><0|) CNOT^dag) = phiW (CD:1220), the Bell state Phi+
+PASS  kernel cnot (prodState xplus z3) = phiW
+PASS  prodState x y = coefficient matrix of rho(x) (x) rho(y)  (symbolic)
+PASS  sharpEff b x = tr(rho(x) (I + b.sigma)/2)  (symbolic, EffectSpace:65)
+PASS  prodEffVal e f omega = tr(rho_omega (E_e (x) E_f))  (symbolic, CD:182)
+PASS  charpoly(rho(x)) = lam^2 - lam + (1 - |x|^2)/4: eigenvalues (1 +- |x|)/2, so PSD iff x in eball 3
+PASS  charpoly(a0 I + v.sigma) = (lam - a0)^2 - |v|^2: 0 <= E <= I iff |v| <= min(a0, 1 - a0) (EFF-1 effect_eq_affine)
+PASS  ptm(phase (3+4i)/5) = diag(1, R) with R in SO(3)
+PASS  ptm(Hadamard) = diag(1, R) with R in SO(3)
+PASS  ptm(S) = diag(1, R) with R in SO(3)
+PASS  the transpose rho -> rho^T acts as homMap diag(1,-1,1) = homMap reflY (det -1): antiunitary, not an operation
+PASS  relT: actT nflip . cnot . actT nflip = cnot  (exact 16x16)
+PASS  relC: actC nflip . cnot . actC nflip = actT nflip . cnot  (exact 16x16)
+PASS  unitary form: (I x X) CNOT (I x X) = CNOT and (X x I) CNOT (X x I) = (I x X) CNOT
+PASS  phiW pairs nonnegatively with all 36 products of axis sharp effects; minimum 0  -- min=0
+s5_pauli_adapter: OK -- 22 checks, 0 failed

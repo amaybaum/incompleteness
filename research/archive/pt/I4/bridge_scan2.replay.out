@@ -1,0 +1,14 @@
+## CONTROLS
+PASS: C1 quotient_itinerarySeparating in HNAMES
+PASS: C2 whole-word matcher
+PASS: C3 CompositeDimension in PMODS
+PASS: C4 PassiveQuotient in closure(CompositeDimension)
+
+HMODS: PassiveQuotient ControlledQuotient ObservabilityQuotient ; HNAMES: 85
+PMODS (12): CompositeDimension DenseOrbit EffectSpace K1Bridge K2Guard OddChar ParityNot RelcSelectBlock RelcSelectC5 RelcSelectParity RelcSelectSqueeze SharpTests
+import chain CompositeDimension -> PassiveQuotient: CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient
+
+## HNAME USES IN PMODS (E3)
+
+candidate H-P link lines: 0
+VERDICT: NO PAIR-LEVEL MODULE USES A NAME DECLARED IN THE PASSIVE HIDDEN-DYNAMICS MODULES

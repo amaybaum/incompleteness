@@ -1,0 +1,7 @@
+VERDICT  PAR  RELC-PARITY-PROVED
+VERDICT  SEL  CTRL-SELECTOR-PROVED
+VERDICT  POS  POSITIVITY-SEPARATION-PROVED
+VERDICT  REL  RELT-NOT-DIMENSION-SELECTING-PROVED
+  PASS  V the landed texts read from D are the frozen ones
+  PASS  V exactly one outcome per cell
+controls: OK -- 2 checks

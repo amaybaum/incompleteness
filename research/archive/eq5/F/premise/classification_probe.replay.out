@@ -1,0 +1,6 @@
+PASS  C1 full transpose commutes with cnot  
+PASS  C2 every N0 is a signed permutation of finite order  orders [2, 4]
+PASS  C3 mixed patterns (a+a' != b+b'): orbit leaves maxCone  
+PASS  C4 matched patterns: orbit stays in T_S(Q3) and in maxCone  
+4/4
+VERDICT CLASSIFICATION-PROBE-PASS

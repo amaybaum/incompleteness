@@ -1,0 +1,12 @@
+== X1 flow law for a symbolic unit axis
+CONFIRMED X1 ipW(act(R_n(t)) z_s, act(R_n(pi/2)) P_s) = -sin(t)/2 and ipW(z_s, act(R_n(u)) P_s) = -cos(u)/2 for every unit axis, both tokens, all s -- sample: -sin(t)/2 ; -cos(u)/2
+== X2 the witness lies in Z_F* for every unit axis
+CONFIRMED X2 every pairing of the witness with a defect is d + sum a_i n_i^2 with d + min a_i >= 0 (>= 0 on the sphere): the witness is in Z_F*, hence in K(Z_F) -- token C, s=(1,1): ['0', 'n2**2/2 + n3**2/2', '1/2 - n2**2/2', '1/2 - n3**2/2']
+== X3 cyc3 and its inverse
+CONFIRMED X3 cyc3 and cyc3^-1 on either token move a defect out of K(Z_F); witness -1/2 -- {'cyc3@C': -1/2, 'cyc3@T': -1/2, 'cyc3^-1@C': -1/2, 'cyc3^-1@T': -1/2}
+== X4 mixed placement
+CONFIRMED X4 flow on C with J on T, and flow on T with J on C: each operation separately moves K(Z_F) out (witness -1/2) -- {'flow@C': -1/2, 'J@T': -1/2, 'flow@T': -1/2, 'J@C': -1/2}
+== X5 controls
+CONFIRMED X5 u = 0: pairing -1/2 but P_s is not in Z_F* (not a witness); u = pi: +1/2; nflip and rot3 pi on either token permute Z_F -- u0 -1/2 in_K False upi 1/2 perm True
+SUMMARY 5/5 CONFIRMED
+INDEP-T-FIXED

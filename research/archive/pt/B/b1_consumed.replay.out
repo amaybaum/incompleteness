@@ -1,0 +1,48 @@
+
+== S0  transcription of the landed tables and of the design rotation matrices
+PASS S0.sgn  [source] landed sgn is -1 exactly at (1,3) and (2,2)
+PASS S0.pc  [source] landed pc table
+PASS S0.pt  [source] landed pt table
+PASS S0.phiW  [source] landed phiW = diag(1,1,-1,1)
+PASS S0.idW  [source] landed idW = identity table
+PASS S0.chainW  [source] landed chainW
+PASS S0.reflY  [source] landed reflY = diag(1,-1,1)
+PASS S0.Rz  [source] design Rz t = [[cos,-sin,0],[sin,cos,0],[0,0,1]]
+PASS S0.Rx  [source] design Rx t = [[1,0,0],[0,cos,-sin],[0,sin,cos]]
+PASS S0.sharp  [source] landed sharpVec convention: sharpVec ![-1,0,0] = ![1/2,-1/2,0,0]
+
+== S1  every use of hgate / hinv on the proof path of kt4_forward_ie1
+PASS S1.uses  [source] the hgate/hinv occurrence counts per declaration on the path equal the frozen expected list -- FourCopyBipolar.inv_mem_of_orth=(2, 0); FourCopyHeadline.ie1_all=(2, 0); FourCopyHeadline.kt4_forward_ie1=(2, 0); FourCopyHeadline.kt4_forward_ie1_kt4=(2, 0); FourCopyHeadline.kt4_forward_ie1_lt=(2, 0); FourCopyHeadline.kt4_general_ie1=(5, 3); FourCopyHeadline.parity_all=(5, 5); FourCopyIE1.link_mem=(2, 0); FourCopyIE1.parity_witnesses=(2, 2); FourCopyLocal.bell_mem=(2, 0); FourCopyLocal.bell_mem_dual=(0, 2); FourCopyParity.dualW_of_inv=(0, 2)
+PASS S1.offpath  [source] FourCopyHeadline imports FourCopyIE1, Bridge, Local, Bipolar and not FourCopyPackage -- OIBridge.FourCopyIE1, OIBridge.FourCopyBridge, OIBridge.FourCopyLocal, OIBridge.FourCopyBipolar
+PASS S1.L  [source] kt4_general_ie1 / ie1_all contain the consuming call `link_mem (hcls p) (hprod p) (hgate p) a b`
+PASS S1.R  [source] kt4_general_ie1 / ie1_all contain the consuming call `inv_mem_of_orth (hcls p).ipW_map (hcl p) (hgate p)`
+PASS S1.BS  [source] kt4_general_ie1 / ie1_all contain the consuming call `bell_mem (hcls p) (hadm p).1.1 (hgate p)`
+PASS S1.BD  [source] kt4_general_ie1 / ie1_all contain the consuming call `bell_mem_dual (hcls p) (hadm p).1.2 (hinv p)`
+PASS S1.PW  [source] parity_witnesses reads hgate only through bell_mem and hinv only through bell_mem_dual
+PASS S1.LM  [source] link_mem applies hgate to the product state prodState (trn A' (rot3 a xplus)) (trn B' (rotX b z3))
+PASS S1.BM  [source] bell_mem applies hgate to the product state given by NClass.bell_state
+PASS S1.BDM  [source] bell_mem_dual reads hinv only to put the gate image of a sharp product in dualW K (dualW_of_inv)
+
+== S2  the consumed instances, rewritten as statements about tables
+PASS S2.rot  [identity] Rz(m1), Rx(m2) (rational parametrization of the angles) are rotations: R^T R = I, det R = 1
+PASS S2.G7ii  [identity] cnot (prodState (Rz xplus) (Rx z3)) = actC (Rz Rx) phiW (design G7(ii)), symbolic angles
+PASS S2.G7iii  [identity] actC (Rz Rx) phiW = actT (Rx Rz) phiW (design G7(iii)), symbolic angles
+PASS S2.loc  [identity] actC M (prodState u v) = prodState (M u) v and actT M (prodState u v) = prodState u (M v), symbolic
+PASS S2.L  [identity] (L): N (prodState u v) = actC A actT B cnot (prodState (A' u) (B' v)) for N-CLASS N, symbolic; with u = A'^T Rz xplus, v = B'^T Rx z3 and A' A'^T = B' B'^T = I this is actC (A Rz Rx) (actT B phiW)
+PASS S2.BS  [identity] (BS): at m1 = m2 = 0 the link table is bellOf A B = actC A (actT B phiW)
+PASS S2.BE  [identity] (BD): tens (sharpVec u) (sharpVec v) = 1/4 prodState u v, symbolic, so the gate image of the sharp product consumed by bell_mem_dual is 1/4 bellOf A B
+PASS S2.Bc  [countercontrol] countercontrol: with phiW replaced by idW, (BS) at the M_D post-local B = reflY is not the M_Q Bell table (the post-local is read: actT reflY phiW = idW differs from phiW)
+
+== S3  identities behind SECT => OQ1 => CONS (effect side through the inverse gate)
+PASS S3.adjC  [identity] ipW E (actC M X) = ipW (actC M^T E) X, symbolic M (design G3a)
+PASS S3.adjT  [identity] ipW E (actT M X) = ipW (actT M^T E) X, symbolic M (design G3b)
+PASS S3.adjN  [identity] ipW (cnot E) X = ipW E (cnot X) and cnot (cnot X) = X, symbolic (cnot is ipW-self-adjoint)
+PASS S3.pv  [identity] pairVal a b w = ipW (a b^T) w, symbolic (a product effect is the table a b^T)
+PASS S3.cc  [countercontrol] countercontrol: ipW E (actC M X) = ipW (actC M E) X fails for a non-symmetric M
+
+kinds: identity 11, source 20, countercontrol 2
+VERDICT B1-CONSUMED: on the proof path of kt4_forward_ie1, hgate and hinv are consumed only at:
+VERDICT B1-CONSUMED:   (L) actC (A_p o rotWord a b) (actT B_p phiW) in K_p for all a, b [link_mem]
+VERDICT B1-CONSUMED:   (BS) bellOf A_p B_p in K_p [bell_mem; the instance a = b = 0 of (L)]
+VERDICT B1-CONSUMED:   (BD) bellOf A_p B_p in dualW K_p [bell_mem_dual; hinv enters only here, via Lemma R]
+b1_consumed: OK -- 33 checks

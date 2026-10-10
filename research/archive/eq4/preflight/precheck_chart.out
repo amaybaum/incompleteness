@@ -1,0 +1,7 @@
+PASS X1 actC reflY . cnot . actC reflY = cnotTw
+PASS B3 transposeW . cnot = cnot . transposeW
+PASS T  actC reflY . actT reflY = transposeW
+PASS C  chartR ei ej (gateOf (ei != ej) (chartR ei ej w)) = cnot w for all four (ei, ej)
+PASS CC countercontrol: with the untwisted gate at (true, false) the identity fails
+--- precheck_chart: 5/5
+VERDICT PREFLIGHT-CHART-EXACT

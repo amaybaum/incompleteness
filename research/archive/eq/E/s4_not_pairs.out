@@ -1,0 +1,25 @@
+PASS  relT (linearised) + N_B z3 = -z3 has a unique-shape solution family
+NOTE  general N_B from the linear conditions: [[1, 0, 0], [0, -1, 0], [0, 0, -1]]
+PASS  involutive, ball-preserving N_B: exactly one, nflip = Ad_X  -- found [[[1, 0, 0], [0, -1, 0], [0, 0, -1]]]
+PASS  relC (linearised, N_B = nflip) + N_A z3 = -z3 is solvable
+NOTE  general N_A from the linear conditions: [[-a11, a10, 0], [a10, a11, 0], [0, 0, -1]]
+NOTE  free parameters: [a10, a11]
+NOTE  involutive orthogonal N_A solutions (parametrised): [{a10: -sqrt(1 - a11**2)}, {a10: sqrt(1 - a11**2)}]
+PASS  every solution N_A is a pi-rotation about a horizontal axis: [[c,s,0],[s,-c,0],[0,0,-1]], c^2+s^2=1  -- families: [[[-a11, -sqrt(1 - a11**2), 0], [-sqrt(1 - a11**2), a11, 0], [0, 0, -1]], [[-a11, sqrt(1 - a11**2), 0], [sqrt(1 - a11**2), a11, 0], [0, 0, -1]]]
+PASS  two-NOT pair (N_A = Ad_X (c,s)=(1,0), N_B = Ad_X) meets IsNot, relT and relC exactly
+PASS  two-NOT pair (N_A = Ad_Y (c,s)=(-1,0), N_B = Ad_X) meets IsNot, relT and relC exactly
+PASS  two-NOT pair (N_A = (c,s)=(3/5,4/5), N_B = Ad_X) meets IsNot, relT and relC exactly
+PASS  two-NOT pair (N_A = (c,s)=(0,1), N_B = Ad_X) meets IsNot, relT and relC exactly
+PASS  WITNESS: (N_A, N_B) = (Ad_Y, Ad_X) satisfies both relations of the quantum CNOT and N_A != N_B
+PASS  control: common N = nflip (= Ad_X) satisfies relT and relC
+PASS  countercontrol: N_A = z-reflection diag(1,1,-1) fails relC with the quantum CNOT
+PASS  countercontrol: N_A = -id fails relC with the quantum CNOT
+PASS  R_z(phi) Ad_X R_z(phi)^-1 = [[cos2phi, sin2phi, 0],[sin2phi, -cos2phi, 0],[0,0,-1]] (symbolic): every solution N_A is conjugate to N_B by a z-fixing rotation (a unitary, frame-preserving)
+PASS  g = R_z(pi/2) (= ptm(S) block) fixes z3 and g N_A g^-1 = N_B for (Ad_Y, Ad_X)
+PASS  reduction instance: T~ = (I x g^-1) cnot (I x g) meets the frame and both relations with the common NOT Ad_Y
+PASS  (I x S^dag) CNOT (I x S) = |0><0| x I - |1><1| x Y (a quantum gate)
+PASS  T~ is the Pauli transfer matrix of that quantum gate
+PASS  countercontrol: T~ is NOT the transfer matrix of |0><0| x I + |1><1| x Y (they differ by Z x I)
+PASS  foil C2N (d = 5): homogenized +1 multiplicities 3 vs 2 -> no conjugating g; type covariance FAILS there
+PASS  foil d = 7 (K-inf §6): splits (3,3) vs (1,5) -> +1 multiplicities 4 vs 2; type covariance FAILS there
+s4_not_pairs: OK -- 20 checks, 0 failed

@@ -1,0 +1,5 @@
+PASS obs-only effects: AffineRespect(cflip) FAILS (expected) -- rank R_obs 2, relations 22, violated 20; witness relation [1/5, -1/5, -1/5, 1/5]
+PASS prefix-closed effects: AffineRespect(cflip) holds -- rank R 4, relations 20, violated 0
+PASS obs-only effects: AffineRespect(idle) holds -- relations 22, violated 0
+PASS Undoes(cflip, cflip): posteriors equal
+ALL-PASS

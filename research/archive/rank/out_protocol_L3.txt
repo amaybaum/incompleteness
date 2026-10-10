@@ -1,0 +1,11 @@
+PROTOCOL linear L=3 passive: preparations=15 rank_Fp=1,1
+PROTOCOL linear L=3 obs+idle: preparations=40 rank_Fp=1,1
+PROTOCOL linear L=3 obs+swap: preparations=38 rank_Fp=3,3
+PROTOCOL linear L=3 obs+flip: preparations=40 rank_Fp=1,1
+PROTOCOL linear L=3 full: preparations=154 rank_Fp=3,3
+PROTOCOL nonlinear L=3 passive: preparations=15 rank_Fp=6,6
+PROTOCOL nonlinear L=3 obs+idle: preparations=40 rank_Fp=6,6
+PROTOCOL nonlinear L=3 obs+swap: preparations=38 rank_Fp=7,7
+PROTOCOL nonlinear L=3 obs+flip: preparations=40 rank_Fp=6,6
+PROTOCOL nonlinear L=3 full: preparations=154 rank_Fp=7,7
+DONE

@@ -1,0 +1,63 @@
+
+== CM-RSC  bidisk D x D: drivable + (SEC, full effects) and not RelStrictConvex
+  [ok  ] flow preserves |u|^2 and |v|^2 (so preserves D x D)        (identity)
+  [ok  ] flow_add: flow s (flow t p) = flow (s+t) p                 (identity)
+  [ok  ] flow_zero: flow 0 = id                                     (identity)
+  [ok  ] N = flow pi is an involution on R^4                        (identity)
+  [ok  ] N moves the state (e1, e1)                                 (witness)
+  [ok  ] J = swap and its inverse (itself) preserve D x D           (identity)
+  [ok  ] J_off_axis on Om: (J flow(pi/2) J^-1)(e1,e1) has v = e2, flow s keeps v = e1 for every s (identity)
+  [ok  ] SOS: (|u|^2+|x|^2)/2 - u.x = |u-x|^2/2                     (identity)
+  [ok  ] SOS: (|u|^2+|x|^2)/2 + u.x = |u+x|^2/2                     (identity)
+  [ok  ] (SEC, full effects) at 290 boundary states (|u| = 1): (1+u.x)/2 proper, certain (witness)
+  [ok  ] midpoint (e1,0) of (e1,e1),(e1,-e1) is a boundary state (witness y = (-e1, 0)) (witness)
+  [ok  ] (SF, full) fails: (1+x0)/2 proper and certain at (e1,e1) and (e1,-e1) (witness)
+  [ok  ] mutation: ball3 (1+x0)/2 = 1 forces x = e1 (|x-e1|^2 = |x|^2 + 1 - 2x0) (identity)
+
+== CM-ORB  bidisk, family = orbit of a point-exposing seed under the drive group: (SEC) fails
+  [ok  ] orbit closure under the flow: e_{u,v} o flow(-t) = e_{R_t u, v} (identity)
+  [ok  ] orbit closure under J: e_{u,v} o swap = e_{v,u}            (identity)
+  [note] the group acts transitively on the extreme points S^1 x S^1 (flow on each factor via J)  (written step, not a check)
+  [ok  ] every orbit effect is <= 3/4 at the boundary state (e1, 0): (2 + u0)/4 <= 3/4 (witness)
+  [ok  ] symbolic: e_{u,v}(e1,0) = (2+u0)/4 and u0 <= |u| = 1       (identity)
+  [note] the unit is not proper, so (SEC) for orbit + unit fails at (e1, 0)  (written step, not a check)
+  [ok  ] control: the seed is certain at the extreme state (e1, e1) (witness)
+  [ok  ] mutation: seed (1+x.e1)/2 -> orbit {(1+u.x)/2, (1+v.y)/2} certain at every boundary state (witness)
+
+== CM-CPT  ball3 x [0, oo): drivable, closed, convex, NOT compact; (SEC) fails with full effects
+  [ok  ] rot3 x id preserves |u|^2 and fixes the 4th coordinate s   (identity)
+  [ok  ] J_off_axis inherited: (cyc3 rot3(pi) cyc3^-1)(e3, 0) = (-e3, 0), rot3(s)(e3) = e3 (witness)
+  [ok  ] z = 0 is a boundary state: z + eps(z - (0,0,0,1)) = (0,0,0,-eps) not in Om (witness)
+  [ok  ] deduce d = 0: for d = +-dp != 0, s = 2/dp gives |e(0,s) - e(0,0)| = |d s| = 2 > 1 (deduce)
+  [note] deduce a = 0 from 1 + a_i <= 1 and 1 - a_i <= 1, so e is identically 1 (not proper)  (written step, not a check)
+  [ok  ] control: ball3 x [0, 1] (compact) has the proper effect 1 - s certain at z = 0 (witness)
+
+== BR-FIN  finite automorphism group => no drive (no continuity used)
+  [ok  ] square gbit: |Aff(Om)| = 8 (enumerated on vertices)        (enumerate)
+  [ok  ] square gbit: g^8 = id for every automorphism g             (enumerate)
+  [ok  ] triangle (classical trit): |Aff(Om)| = 6 (enumerated on vertices) (enumerate)
+  [ok  ] triangle (classical trit): g^6 = id for every automorphism g (enumerate)
+  [note] deduce: N = flow(t0) = flow(t0/m)^m restricts to g^m = id on Om, contradicting N_moves  (written step, not a check)
+  [ok  ] mutation: the disk rotation (3/5, 4/5) has R^k != I for k = 1..200 (finiteness is load-bearing) (enumerate)
+
+== BR-DISK  the rebit disk: J_off_axis fails for every candidate drive (no continuity used)
+  [ok  ] a reflection squares to I                                  (identity)
+  [ok  ] a rotation squares to the rotation by 2 theta              (identity)
+  [ok  ] rotation conjugated by a rotation is itself                (identity)
+  [ok  ] rotation conjugated by a reflection is its inverse         (identity)
+  [note] deduce: flow t = flow(t/2)^2 is a rotation; J flow t J^-1 = flow(+-t) on the disk  (written step, not a check)
+  [note] generalization (written): every compact convex body of affine dimension 2 has a compact automorphism group, orthogonal for an invariant inner product, so the same three identities exclude a drive on every planar body (polygons, disk); with not_drivable_Icc and not_drivable_singleton, no body of affine dimension <= 2 is drivable  (written step, not a check)
+  [ok  ] mutation: a shear (not a disk automorphism) conjugates R to neither R nor R^-1 (O(2) step load-bearing) (witness)
+  [ok  ] control: cyc3 R_z(pi) cyc3^-1 sends e3 to -e3, every R_z(s) fixes e3 (witness)
+
+== CM-INF  Hilbert cube K x ball3, continuous effects (written argument; exact truncation checks)
+  [ok  ] for eps = 1/k (k < 60) some coordinate n <= 2k+1 leaves K: x is a boundary state (witness)
+  [ok  ] termwise slack >= |f_n| 2^-n / n, zero iff f_n = 0 (n < 40, sample f_n) (witness)
+  [note] deduce: certainty forces f = 0 and g = 0, so e is constant 1 on Om: no proper continuous effect  (written step, not a check)
+
+== CM-SIC  the SIC ball in the simplex with response effects: a drivable body on which KInf1 is false
+  [ok  ] p(e3) = (1 + a_i.e3)/4 sums to 1 and has every coordinate > 0 (full support) (identity)
+  [ok  ] tangency control: r = -a_1 gives p_1 = 0 (a facet point, exposable by 1 - p_1) (identity)
+  [note] deduce (kernel response_eq_one_forces, KInfFoundations.lean:899): a response effect certain at a full-support state has c = 1, hence equals sum p_i = 1 on the body and is not proper; so (SEC) with response effects fails at p(e3), while the ball is drivable (ball3Drive transported along the affine embedding): KInf1 is false there  (written step, not a check)
+
+f_countermodels: OK -- 39 checks, 8 written notes

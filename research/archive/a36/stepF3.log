@@ -1,0 +1,49 @@
+column ((0, 1, 2, 3), (4, 5, 6, 7)): X real False ker4 8 circles 1 | Y_c real [False, False, False, False] ker4 [8, 8, 8, 8] circles [1, 1, 1, 1]
+column ((0, 2, 8, 10), (1, 3, 9, 11)): X real True ker4 10 circles 3 | Y_c real [True, False, False, False] ker4 [10, 10, 10, 10] circles [3, 3, 3, 3]
+column ((0, 2, 9, 11), (1, 3, 8, 10)): X real False ker4 8 circles 1 | Y_c real [False, False, False, False] ker4 [8, 8, 8, 8] circles [1, 1, 1, 1]
+column ((0, 4, 8, 12), (1, 5, 9, 13)): X real False ker4 8 circles 1 | Y_c real [False, False, False, False] ker4 [8, 8, 8, 8] circles [1, 1, 1, 1]
+row ((0, 1, 2, 3), (4, 5, 6, 7)): X real False ker4 8 circles 1 | Y_c real [False, False, False, False] ker4 [8, 8, 8, 8] circles [1, 1, 1, 1]
+row ((0, 2, 8, 10), (1, 3, 9, 11)): X real True ker4 10 circles 3 | Y_c real [True, False, False, False] ker4 [10, 10, 10, 10] circles [3, 3, 3, 3]
+row ((0, 2, 9, 11), (1, 3, 8, 10)): X real False ker4 8 circles 1 | Y_c real [False, False, False, False] ker4 [8, 8, 8, 8] circles [1, 1, 1, 1]
+row ((0, 4, 8, 12), (1, 5, 9, 13)): X real False ker4 8 circles 1 | Y_c real [False, False, False, False] ker4 [8, 8, 8, 8] circles [1, 1, 1, 1]
+hulls: 492 (70s)
+hull images in R computed (251s)
+image dims in R by orientation: Counter({('column ((0, 2, 8, 10), (1, 3, 9, 11))', 6): 91, ('row ((0, 2, 8, 10), (1, 3, 9, 11))', 6): 91, ('column ((0, 2, 8, 10), (1, 3, 9, 11))', 5): 72, ('row ((0, 2, 8, 10), (1, 3, 9, 11))', 5): 72, ('column ((0, 2, 8, 10), (1, 3, 9, 11))', 7): 48, ('row ((0, 2, 8, 10), (1, 3, 9, 11))', 7): 48, ('column ((0, 2, 8, 10), (1, 3, 9, 11))', 4): 21, ('row ((0, 2, 8, 10), (1, 3, 9, 11))', 4): 21, ('column ((0, 2, 8, 10), (1, 3, 9, 11))', 8): 9, ('row ((0, 2, 8, 10), (1, 3, 9, 11))', 8): 9, ('column ((0, 2, 8, 10), (1, 3, 9, 11))', 3): 2, ('row ((0, 2, 8, 10), (1, 3, 9, 11))', 3): 2, ('column ((0, 1, 2, 3), (4, 5, 6, 7))', 0): 1, ('column ((0, 2, 9, 11), (1, 3, 8, 10))', 6): 1, ('column ((0, 4, 8, 12), (1, 5, 9, 13))', 3): 1, ('row ((0, 1, 2, 3), (4, 5, 6, 7))', 0): 1, ('row ((0, 2, 9, 11), (1, 3, 8, 10))', 6): 1, ('row ((0, 4, 8, 12), (1, 5, 9, 13))', 3): 1})
+span of all hull images in R: 23 of 23
+distinct absorbed subspaces of R: 200
+  sector 0 (dim 8): absorbed entirely by 0 hulls [] | largest overlap with a single hull: 4 (column ((0, 2, 9, 11), (1, 3, 8, 10)))
+      overlap with the span of column ((0, 4, 8, 12) hulls (dim 3): 0
+      overlap with the span of row ((0, 4, 8, 12) hulls (dim 3): 0
+      overlap with the span of column ((0, 2, 9, 11) hulls (dim 6): 4
+      overlap with the span of row ((0, 2, 9, 11) hulls (dim 6): 4
+      overlap with the span of column ((0, 2, 8, 10) hulls (dim 10): 0
+      overlap with the span of row ((0, 2, 8, 10) hulls (dim 10): 0
+  sector 1 (dim 8): absorbed entirely by 0 hulls [] | largest overlap with a single hull: 5 (column ((0, 2, 8, 10), (1, 3, 9, 11)))
+      overlap with the span of column ((0, 4, 8, 12) hulls (dim 3): 0
+      overlap with the span of row ((0, 4, 8, 12) hulls (dim 3): 0
+      overlap with the span of column ((0, 2, 9, 11) hulls (dim 6): 0
+      overlap with the span of row ((0, 2, 9, 11) hulls (dim 6): 0
+      overlap with the span of column ((0, 2, 8, 10) hulls (dim 10): 5
+      overlap with the span of row ((0, 2, 8, 10) hulls (dim 10): 5
+  sector 2 (dim 4): absorbed entirely by 0 hulls [] | largest overlap with a single hull: 2 (column ((0, 2, 8, 10), (1, 3, 9, 11)))
+      overlap with the span of column ((0, 4, 8, 12) hulls (dim 3): 2
+      overlap with the span of row ((0, 4, 8, 12) hulls (dim 3): 2
+      overlap with the span of column ((0, 2, 9, 11) hulls (dim 6): 2
+      overlap with the span of row ((0, 2, 9, 11) hulls (dim 6): 2
+      overlap with the span of column ((0, 2, 8, 10) hulls (dim 10): 2
+      overlap with the span of row ((0, 2, 8, 10) hulls (dim 10): 2
+  sector 3 (dim 2): absorbed entirely by 486 hulls ['column ((0, 2, 8, 10), (1, 3, 9, 11))', 'row ((0, 2, 8, 10), (1, 3, 9, 11))'] | largest overlap with a single hull: 2 (column ((0, 2, 8, 10), (1, 3, 9, 11)))
+      overlap with the span of column ((0, 4, 8, 12) hulls (dim 3): 1
+      overlap with the span of row ((0, 4, 8, 12) hulls (dim 3): 1
+      overlap with the span of column ((0, 2, 9, 11) hulls (dim 6): 0
+      overlap with the span of row ((0, 2, 9, 11) hulls (dim 6): 0
+      overlap with the span of column ((0, 2, 8, 10) hulls (dim 10): 2
+      overlap with the span of row ((0, 2, 8, 10) hulls (dim 10): 2
+  sector 4 (dim 1): absorbed entirely by 486 hulls ['column ((0, 2, 8, 10), (1, 3, 9, 11))', 'row ((0, 2, 8, 10), (1, 3, 9, 11))'] | largest overlap with a single hull: 1 (column ((0, 2, 8, 10), (1, 3, 9, 11)))
+      overlap with the span of column ((0, 4, 8, 12) hulls (dim 3): 0
+      overlap with the span of row ((0, 4, 8, 12) hulls (dim 3): 0
+      overlap with the span of column ((0, 2, 9, 11) hulls (dim 6): 0
+      overlap with the span of row ((0, 2, 9, 11) hulls (dim 6): 0
+      overlap with the span of column ((0, 2, 8, 10) hulls (dim 10): 1
+      overlap with the span of row ((0, 2, 8, 10) hulls (dim 10): 1
+done (266s)

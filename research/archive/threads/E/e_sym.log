@@ -1,0 +1,17 @@
+   M0 = (1, 1) inverse in family as ['e1 A^-1, -e2 K^-1']
+PASS S1 M0=(1, 1): G^-1 = G(M0, e1 A^-1, -e2 K^-1) -- same family, reciprocal moduli
+   M0 = (1, -1) inverse in family as ['e1 A^-1, -e2 K^-1']
+PASS S1 M0=(1, -1): G^-1 = G(M0, e1 A^-1, -e2 K^-1) -- same family, reciprocal moduli
+   M0 = (-1, 1) inverse in family as ['e1 A^-1, -e2 K^-1']
+PASS S1 M0=(-1, 1): G^-1 = G(M0, e1 A^-1, -e2 K^-1) -- same family, reciprocal moduli
+   M0 = (-1, -1) inverse in family as ['e1 A^-1, -e2 K^-1']
+PASS S1 M0=(-1, -1): G^-1 = G(M0, e1 A^-1, -e2 K^-1) -- same family, reciprocal moduli
+PASS S2 W^T W = [[a1^2 s1^2 + a2^2 s2^2, s1 s2 (a1 k1 + a2 k2)], [., k2^2 s1^2 + k1^2 s2^2]]
+PASS S2 at unit moduli: W^T W - |s|^2 I is s1 s2 (a1 k1 + a2 k2) times the swap
+PASS S2 sign solutions: 8
+PASS S3 worst value = (1+|b|) c^2 + 2 a c + (1-|b|)
+PASS S3 discriminant/4 = a^2 + b^2 - 1
+PASS S4 all 32: value_G(s,t,f,g) = value_CNOT(A s, R^c M0 t, f, R^c g) with c = k2 a1 (R^-1 = y-reflection)
+PASS S4 countercontrol: tuple (1,1,1,1) satisfies the identity for neither c
+e_sym: OK -- 0 failures
+exit 0

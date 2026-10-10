@@ -1,0 +1,10 @@
+PASS S3 p=2: E[(1+A.t)^2] - E|A+(I+B)t|^2 = -(|A|^2 (1-1/p) + |B|^2/p)
+PASS S3 p=3: E[(1+A.t)^2] - E|A+(I+B)t|^2 = -(|A|^2 (1-1/p) + |B|^2/p)
+PASS S3 p=4: E[(1+A.t)^2] - E|A+(I+B)t|^2 = -(|A|^2 (1-1/p) + |B|^2/p)
+PASS S3 p=5: E[(1+A.t)^2] - E|A+(I+B)t|^2 = -(|A|^2 (1-1/p) + |B|^2/p)
+PASS S3 form: J/K (d=5) Gamma_ac has symmetric u-coupling and antisymmetric V+ block for all basis a, c
+PASS S3 form: complex CNOT (d=3) likewise
+PASS control d=3 (p=1): (1,b)[[1,1],[1,1]](1,t) = (1+b)(1+t) >= 0 on [-1,1]^2
+PASS d=7 candidate witness: (f(x)g)(G(s(x)t)) = w0 - |w| = 1 - sqrt(3) < 0 (exact, g = (1, -w/|w|))
+
+SUMMARY: 8 PASS, 0 FAIL

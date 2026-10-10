@@ -1,0 +1,13 @@
+  m=3 start 0: residual 1.732e+00
+  m=3 start 1: residual 1.732e+00
+  m=3 start 2: residual 1.732e+00
+  m=3 start 3: residual 1.732e+00
+  m=3 start 4: residual 1.732e+00
+  m=3 start 5: residual 1.732e+00
+m=3: best 1.732e+00
+  m=4 start 0: residual 4.612e-16
+  m=4 start 1: residual 3.414e-16
+  m=4 start 2: residual 4.171e-16
+m=4: best 3.414e-16
+  m=5 start 0: residual 2.236e+00
+  m=5 start 1: residual 2.236e+00

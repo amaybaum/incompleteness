@@ -1,0 +1,10 @@
+SETUP linear: effects <= 3 (156), preparations <= 3 (154 with positive weight), generators ifs
+GREEDY linear: 3 columns kept (rank over F_p of the full table = 3)
+CERTIFY linear: rank_Q(full table) == rank_Q(reduced) == 3: True (ok)
+REDUCED linear: selected preparations = ()/0 o/0 os/0
+WELLDEF linear: every generator dual map preserves all 28 relations among the 31 domain effects on the reduced columns: True
+ITER linear 1: dim U = 3 -> 3
+INV linear: largest {i,f,s}-invariant subspace of span(effects <= 2): dim = 3; unit in U: True
+UBASIS linear 0: (1)*[()/0]
+UBASIS linear 1: (1)*[o/0]
+UBASIS linear 2: (1)*[so/0]

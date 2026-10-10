@@ -1,0 +1,7 @@
+STAGE C: 3 kappa [((0, 1), (0, 1)), ((0, 1), (0, 2)), ((0, 1), (0, 3))]
+DRIVER C: 3 jobs, 0 checkpointed, 3 to run, 2 procs
+[14:21:11] 1/3 ((0, 1), (0, 1)) 1993s C-CONSISTENT(dims [2, 3, 4, 4, 4])
+[14:21:31] 2/3 ((0, 1), (0, 2)) 2013s C-CONSISTENT(dims [2, 3, 4, 4, 4])
+[14:54:16] 3/3 ((0, 1), (0, 3)) 1984s C-CONSISTENT(dims [2, 3, 4, 4, 4])
+STAGE C linear: 3 runs; sha256 ceb33dc909f3897af1d67a3616e7b823e592cf82e7361730bf4465566a411bde
+TALLY C linear: C-CONSISTENT(dims [2, 3, 4, 4, 4]): 3

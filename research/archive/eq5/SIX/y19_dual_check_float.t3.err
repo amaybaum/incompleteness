@@ -1,0 +1,12 @@
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y19_dual_check_float.py:60: RuntimeWarning: overflow encountered in matmul
+  X = k @ g @ k.conj().T
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y19_dual_check_float.py:60: RuntimeWarning: invalid value encountered in matmul
+  X = k @ g @ k.conj().T
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y19_dual_check_float.py:61: RuntimeWarning: invalid value encountered in matmul
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y19_dual_check_float.py:61: RuntimeWarning: invalid value encountered in scalar divide
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/usr/local/lib/python3.11/dist-packages/numpy/_core/fromnumeric.py:1870: RuntimeWarning: overflow encountered in reduce
+  return asanyarray(a).trace(
+done
+exit 0

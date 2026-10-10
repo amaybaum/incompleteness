@@ -1,0 +1,5 @@
+random-search minimum (float64): 1.6667e-01
+condition numbers of the three one-token filters: [1.0, 1.0, 1.0]
+exact value at the rationalized minimizer: numerator sign 1, trace sign 1, ratio = 1.666667e-01
+float64 value at the same rationalized filter: 1.666667e-01
+structured-start minimum: 1.6667e-01

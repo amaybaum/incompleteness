@@ -1,0 +1,2 @@
+det cnot(prodState x y) = -(x0**2 + x1**2)*(x2 - 1)*(x2 + 1)*(y0 - 1)*(y0 + 1)*(y1**2 + y2**2)
+difference to -(x0^2+x1^2)^2 (y1^2+y2^2)^2 at unit x,y (substituting x2^2, y0^2): 0

@@ -1,0 +1,7 @@
+target t3: Y has u0 = 0.3333333159, u1 = 0.1666666667, |c| = 0.5, rho = 5.593123e-03; phi_A(u_Y) = 0.4166666579
+  <Y, X_t> = y.d_t - phi_A(u(d_t)) = -0.2229628625
+  min over filters of <Y, Ad(k) W3>/tr = -1.664e-16
+  min over filters of <Y, Ad(k) kappa>/tr = -5.164e-09
+  min over filters of <Y, Ad(k) omega>/tr = 2.726e-02
+  min over biseparable pure states of <phi|Y|phi> = -7.211e-09
+  countercontrol (coherence x 1.05): min over the generator orbits = -1.209e-02

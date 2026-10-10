@@ -1,0 +1,32 @@
+modules scanned: 207
+PASS a.ProductData :: CompositeInterface.lean:210 fields ['prodState', 'prodState_combo_left', 'prodState_combo_right', 'prodEff', 'prodEff_apply']
+PASS a.PreComposite :: CompositeInterface.lean:223 fields ['Ω', 'convex', 'prod_mem', 'prodEff_effect', 'prodEff_unit']
+PASS a.Composite :: CompositeInterface.lean:243 fields ['lt']
+PASS b.no-consumer :: 0 hits outside CompositeInterface.lean []
+     modules that `open CompositeInterface` (namespace only): [('EffectSpace.lean', 50), ('K1Bridge.lean', 39), ('K2Guard.lean', 38), ('SharpTests.lean', 34)]
+PASS b.ci-disclaimer :: CompositeInterface.lean:[54, 55]
+PASS c.no-joint-tower :: 0 hits []
+     modules naming DirectedStages: ['CompletionAction.lean', 'CompositeInterface.lean', 'CompositionOrder.lean', 'StageCompletion.lean', 'TransitiveBody.lean']
+PASS d.SC-body :: StageCompletion.lean:142 body; :128 CSpace = lp ... ∞ (sup-norm)
+PASS d.CA_body_isClosed :: CompletionAction.lean:[202]
+PASS d.CA_mapsTo_chartBody :: CompletionAction.lean:[286]
+PASS d.CA_closedness_used_for_invariance :: CompletionAction.lean:[295]
+PASS d.TB_chartBody_isCompact :: TransitiveBody.lean:[109]
+PASS d.TB_chartBody_isClosed :: TransitiveBody.lean:[84]
+PASS d.SC_body_subset_(closed_convex_extension) :: StageCompletion.lean:[171]
+     modules with topological closure / IsClosed of a set: ['CompletedOI.lean', 'CompletionAction.lean', 'CompositeInterface.lean', 'DiagonalTheory.lean', 'DiscreteCompletion.lean', 'EmbeddedObservation.lean', 'HydroSourceAudit.lean', 'OrbitNormalization.lean', 'OrbitReachability.lean', 'PhysicalCharacterization.lean', 'PositiveReachability.lean', 'QuasilocalAlgebra.lean', 'QuasilocalCharacterization.lean', 'RankGapTheory.lean', 'ReachabilitySeam.lean', 'SecondOrderLayer.lean', 'StageCompletion.lean', 'SwapLayer.lean', 'TransitiveBody.lean']
+FAIL d.closure-scope :: outside expected set: ['CompletedOI.lean', 'DiagonalTheory.lean', 'DiscreteCompletion.lean', 'EmbeddedObservation.lean', 'HydroSourceAudit.lean', 'OrbitReachability.lean', 'PhysicalCharacterization.lean', 'PositiveReachability.lean', 'QuasilocalCharacterization.lean', 'RankGapTheory.lean', 'ReachabilitySeam.lean', 'SecondOrderLayer.lean', 'SwapLayer.lean']
+PASS d.only-completion-is-quasilocal :: UniformSpace.Completion at [('QuasilocalAlgebra.lean', 626)]
+PASS d.quasilocal-is-matrix-level :: QuasilocalAlgebra.lean complex-matrix lines e.g. :165
+     CompositeInterface IsClosed mentions (all inside proofs about factor simplex / separation): [174, 775, 776, 781, 782, 783, 795]
+PASS e.CandidateCone :: K2Guard.lean:95 def CandidateCone (K : Set (W 3)) : Prop := (∀ x ∈ eball 3, ∀ y ∈ eball 3, prodState x y ∈ K) ∧ K ⊆ maxCone (eball 3) 
+PASS e.def-maxCone :: CompositeDimension.lean:186
+PASS e.no-IsClosed-maxCone :: []
+PASS e.def-jointStates :: CompositeDimension.lean:190
+PASS e.no-IsClosed-jointStates :: []
+PASS f.ORD1-sequential :: CompositionOrder.lean:[2, 5] header; :63 MulClosed (algebraic composition closure)
+     SharpTests.lean lines naming closure/IsClosed/Composite/DirectedStages: [34]
+PASS g.SharpTests-no-composite-completion
+---
+P1 inventory: 23 checks, 1 failures
+VERDICT INVENTORY-CONTRADICTS-PREMISE

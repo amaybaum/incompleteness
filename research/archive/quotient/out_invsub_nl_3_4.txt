@@ -1,0 +1,13 @@
+SETUP nonlinear: Le=3 (oifs), Lp=4 (oifs), gens=ifs: 156 effects, 755 preparations
+RANK nonlinear: effect span dim on these preparations = 8
+WELLDEF nonlinear: a* well defined on span(effects <= 2) for gens ifs: True  (26 relations checked)
+ITER nonlinear 1: dim U = 5 -> 3
+ITER nonlinear 2: dim U = 3 -> 2
+ITER nonlinear 3: dim U = 2 -> 1
+ITER nonlinear 4: dim U = 1 -> 1
+INV nonlinear: largest invariant subspace of effects(<= 2) under ifs: dim = 1; unit in U: True
+SEED nonlinear: effect ()/0 in U; span(unit, words<= 2 . seed) dim = 1
+SEED nonlinear: effect i/0 in U; span(unit, words<= 1 . seed) dim = 1
+SEED nonlinear: effect f/0 in U; span(unit, words<= 1 . seed) dim = 1
+SEED nonlinear: effect s/0 in U; span(unit, words<= 1 . seed) dim = 1
+DONE

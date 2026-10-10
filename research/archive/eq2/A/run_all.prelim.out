@@ -1,0 +1,8 @@
+a1_pauli_twin: exit 0, script bb4a827fde78107e, output 580798dbb1fd7c76, replay identical
+a2_universality: exit 0, script 5abcfdf59694bb07, output c121cf3e677cd0fa, replay identical
+a3_bridge: exit 0, script 9fa6147eee64b324, output effa2f1d34b4a95b, replay identical
+a4_coupling: exit 0, script edb3e25136dd79f1, output ce1490eb2875aca9, replay identical
+a4b_twisted_hull: exit 0, script 9a243919c37727a3, output f31bb3b8bda7c782, replay identical
+a5_pertype: exit 0, script 6b7350f6f0c096cc, output 6a4af4b5d93039b4, replay identical
+review_pass2 (prior, coordinator): exit 0, script 24316e9c3f28ec7e, replay identical to the recorded output
+run_all: OK

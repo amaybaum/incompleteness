@@ -1,0 +1,23 @@
+modules: 214
+control graph (IndependenceCensus in closure(OIRealization)): True
+control search (CompositeDimension declarations with a PAIR token): 159
+
+== PAIR (level P): modules importing (or being) a CORE module and a PAIR module: 0
+VERDICT PAIR (level P): NO-MODULE
+
+== OPER (level O): modules importing (or being) a CORE module and a OPER module: 0
+VERDICT OPER (level O): NO-MODULE
+
+== reverse direction: modules importing a PAIR module, listed with their CORE imports
+  CompositeDimension  core-imports=-
+  DenseOrbit  core-imports=-
+  EffectSpace  core-imports=-
+  K1Bridge  core-imports=-
+  K2Guard  core-imports=-
+  OddChar  core-imports=-
+  ParityNot  core-imports=-
+  RelcSelectBlock  core-imports=-
+  RelcSelectC5  core-imports=-
+  RelcSelectParity  core-imports=-
+  RelcSelectSqueeze  core-imports=-
+  SharpTests  core-imports=-

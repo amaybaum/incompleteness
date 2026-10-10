@@ -1,0 +1,64 @@
+  PASS  T the reference module blob is readable
+  PASS  T the landed statements read from D are the frozen ones
+  PASS  N1 the module declares exactly the frozen declarations [reference]
+  PASS  N2 the preamble unchanged [reference]
+  PASS  N2 every context block unchanged and in order [reference]
+  PASS  N2 every frozen statement and definition unchanged [reference]
+  PASS  N3 no sorry, admit, axiom or native_decide [reference]
+  PASS  N3 every frozen #print axioms line present [reference]
+  PASS  S1 DenseBoundaryOrbit is the landed BoundaryTransitive with its last clause replaced by orbit-closure membership [reference]
+  PASS  S2 each of the 11 frozen pairs is its landed theorem with BoundaryTransitive replaced and nothing else [reference]
+  PASS  S3 every OIBridge identifier of every pair resolves to the same unique declaration in both contexts [reference]
+  PASS  S4 the weakening and the strictness witness with their frozen statements, through EFF-1's countable no-go [reference]
+  PASS  S5 no exact-existence or uncovered object; ratRefl only in §D [reference]
+  PASS  S6 no declaration shares a name with a visible OIBridge declaration; the only import is OIBridge.K2Guard [reference]
+  PASS  S7 the header carries none of the frozen phrases [reference]
+  PASS  S8 no cone or selector object in §B; ratRefl in no consumer section [reference]
+  PASS  S9 exactly the 15 frozen #print axioms lines, distinct, each naming a declaration of the module [reference]
+  PASS  V one outcome per cell by the frozen rules: ['KTRANS-DENSE-BALL-PROVED'], ['KTRANS-DENSE-CONE-PROVED'], ['KTRANS-DENSE-STRICTLY-WEAKER'] [reference]
+  PASS  T the reference module reads ['KTRANS-DENSE-BALL-PROVED'], ['KTRANS-DENSE-CONE-PROVED'] and ['KTRANS-DENSE-STRICTLY-WEAKER']
+  PASS  M mutation a renamed declaration fails with N1
+  PASS  M mutation a changed binder context fails with N2
+  PASS  M mutation a changed open line fails with N2
+  PASS  M mutation a sorry fails with N3
+  PASS  M mutation a print removed fails with N3
+  PASS  M mutation the orbit closure replaced by the orbit itself fails with S1
+  PASS  M mutation the orbit closure replaced by the orbit's interior fails with S1
+  PASS  M mutation a ball hypothesis strengthened (0 ≤ R to 0 < R in the conclusion) fails with S2
+  PASS  M mutation a ball hypothesis added fails with S2
+  PASS  M mutation a dense theorem keeping exact transitivity fails with S2
+  PASS  M mutation both hypotheses carried fails with S2
+  PASS  M mutation a cone hypothesis dropped fails with S2
+  PASS  M mutation a cone conclusion weakened to an inclusion fails with S2
+  PASS  M mutation a selector conclusion changed fails with S2
+  PASS  M mutation a section variable changed under the cone theorems fails with S2
+  PASS  M mutation the chart theorem's completion data made implicit fails with S2
+  PASS  M pairing: a landed statement that differs from the dense one fails the pair and only the cone cell
+  PASS  M pairing: a landed statement differing outside the hypothesis fails the pair
+  PASS  M mutation an opened namespace dropped (qnorm, centroid and qBall no longer resolve as in TRB-1) fails with S3
+  PASS  M mutation a local declaration shadowing a landed object of a paired statement fails with S3
+  PASS  M mutation the weakening reversed fails with S4
+  PASS  M mutation the non-transitivity proved without EFF-1's countable no-go fails with S4
+  PASS  M mutation the family enlarged to all reflections fails with S4
+  PASS  M mutation the strictness witness moved to d = 2 fails with S4
+  PASS  M strictness: a different landed no-go fails only the strictness cell
+  PASS  M mutation an exact-existence object stated fails with S5
+  PASS  M mutation the Lorentz bridge restated fails with S5
+  PASS  M mutation the control family in a consumer section fails with S5
+  PASS  M mutation a landed definition re-declared fails with S6
+  PASS  M mutation a second import fails with S6
+  PASS  M mutation a forbidden phrase in the header fails with S7
+  PASS  M mutation the design header fails with S7
+  PASS  M the result-note phrase test passes a neutral note and fails one with a forbidden phrase
+  PASS  M mutation a cone object in the ball section fails with S8
+  PASS  M mutation an extra print fails with S9
+  PASS  M mutation a duplicated print fails with S9
+  PASS  M decision rule: a broken ball pair reads BALL-NOT-ESTABLISHED and leaves the other cells unchanged
+  PASS  M decision rule: a broken cone pair reads CONE-NOT-ESTABLISHED and leaves the other cells unchanged
+  PASS  M decision rule: a broken strictness witness reads STRICTLY-WEAKER-NOT-ESTABLISHED and leaves the other cells unchanged
+  PASS  M decision rule: the weakening broken reads NOT-ESTABLISHED in the two cells that read it, and leaves the cone cell unchanged
+  PASS  M decision rule: the definition broken reads NOT-ESTABLISHED in all three cells
+  PASS  M note tokens: exactly the stated tokens are found
+  PASS  M imports: the frozen edit passes and a dropped line fails
+  PASS  M census: the frozen edit passes; a changed status, a moved family, a whitespace change and the unchanged file fail
+controls: OK -- 63 checks

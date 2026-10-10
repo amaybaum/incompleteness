@@ -1,0 +1,18 @@
+== G  the generated group
+G1    PASS  CNOT XI CNOT = XX; [XI, XX] = 0; G16 generators send XI, XX to +-XI, +-XX; real
+G2    PASS  torus = diag(e^{-i(a+b)/2}, e^{-i(a-b)/2}, e^{i(a+b)/2}, e^{i(a-b)/2}) in V
+G3    PASS  CNOT permutes (+-) <-> (--) in V; CNOT = I(x)P+ + Z(x)P- (erratum); != I(x)P+ + X(x)P-
+G4    PASS  unitary part of G16: 8 mod phase, 1 in T2 (identity); X(x)I, I(x)X in T2
+== R  reachable set, the unreachable psi, the seed
+R1    PASS  torus: (A,B) -> (e^{-ib}A, e^{ib}B), (A',B') -> (e^{-ia}A', e^{ia}B'); det(CNOT chi) = A'-B'; products A = B; CNOT products A' = B'
+R2    PASS  largest eigenvalue of M M* = (1 + sqrt(1 - 4|det|^2))/2 = (5/18 + sqrt(137)/18)**2
+R3    PASS  psi unreachable (|A| != |B|, |A'| != |B'|); f(psi) = 5*sqrt(137)/162 + 1/2 <= 7/8
+R4    PASS  rho(e) psi = -psi/32; <e, T_phi> = 7/8 - |<psi|phi>|^2 >= 0 on instances [13/72, 293/648, 83/648]; alpha^2 - alpha/2 = 21/64
+R5    PASS  the two maximally entangled circles with ||A|-|B|| = 1/2 are sent to products by CNOT
+== CC countercontrols (each must be REJECTED)
+CC1   REJECTED  product: |A| = |B| = 144/845 (not certified unreachable)
+CC2   REJECTED  CNOT product: |A'| = |B'| = 144/845
+CC3   REJECTED  I(x)P+ + X(x)P- is not CNOT
+CC4   REJECTED  axis (3,0,4)/5: generator and its CNOT conjugate do not commute
+SUMMARY checks 9/9 PASS; countercontrols rejected 4/4
+VERDICT S3-EXOTIC-EXISTENCE seed (7/8) E00 - T_psi/4, psi = (15,-1,7,7)/18, f(psi) <= 7/8; no Bell-type defect

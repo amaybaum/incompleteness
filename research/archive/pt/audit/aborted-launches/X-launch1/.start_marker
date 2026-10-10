@@ -1,0 +1,38 @@
+# pt/X/.start_marker — thread X (EXOT), stage 3
+MARKER_WRITE_UTC=2026-10-10T10:25:42Z
+pt/X/ state before this write: did not exist; created empty immediately before this marker; this is the first file written.
+Checks run from pt/ at the START_UTC below (all read-only):
+START_UTC=2026-10-10T10:25:23Z
+X_DIR_BEFORE: ABSENT
+MANIFEST inputs.manifest.sha256: OK (rc 0, 41 entries)
+MANIFEST stage1.manifest.sha256: OK (rc 0, 209 entries)
+MANIFEST inputs2.manifest.sha256: OK (rc 0, 3 entries)
+MANIFEST inputs3.manifest.sha256: OK (rc 0, 1 entries)
+MANIFEST stage2.manifest.sha256: OK (rc 0, 173 entries)
+MANIFEST inputs4.manifest.sha256: OK (rc 0, 1 entries)
+BASE_HEAD=9f9f8257a980a1819fbbc1dc0019917cf8678626
+BASE_STATUS_LINES=0
+BASE_BYTECODE=0
+PROTOCOL_HASHES:
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+RECORDED (.sha256 files):
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL.md
+b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-1.md
+2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-2.md
+386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+EXPECTED (task statement):
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+VERDICT: all start checks pass (6 manifests OK; base HEAD = 9f9f8257a980a1819fbbc1dc0019917cf8678626; status empty; no bytecode; 6 protocol hashes + PROTOCOL-STAGE3 match the recorded and expected values).
+PROCESS NOTE: the check output above was first captured in a temporary file scratchpad/X_start_checks.txt (outside pt/, written 10:25:23Z by this thread in error); its content is reproduced here verbatim and the temporary file is removed immediately after this marker is written. No other write outside pt/X/ was made.

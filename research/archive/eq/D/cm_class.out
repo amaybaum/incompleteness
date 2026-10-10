@@ -1,0 +1,14 @@
+PASS ARCH arithmetic lemma: card S * m = 2^j with m >= 1 forces card S = 2^i (exhaustive, card S, m <= 64)
+PASS ARCH/LABEL/DAGGER control: products, adjoints, scalings, relabellings and ancilla blocks of exact random monomials are monomial
+PASS witness is flow (transition 0 1) (pi/4) exactly (sympy matrix exponential)
+PASS K2: the witness is admissible at Fin 2 (power-of-2 carrier: every operator admissible)
+PASS NOT-CTX: 1_3 (x) K on the 6-element carrier is not monomial, and 6 is not a power of 2
+PASS flow (transition 0 1) (pi/4) on Fin 3 equals exp(-i pi/4 (E01 + E10)) exactly
+PASS NOT-DRIVE: flow (transition 0 1) (pi/4) on Fin 3 is not monomial; 3 is not a power of 2
+PASS NOT-QM2: every carrier Fin 2 x Fin 3 x Fin m (m >= 1, checked m < 200) has size divisible by 3, never a power of 2
+PASS NOT-QM2: rot (x) 1_3 is unitary and not monomial
+PASS NOT-QM2: conjugation by rot (x) 1_3 does not preserve the diagonal (exact witness)
+PASS NOT-QM2 control: monomial conjugations preserve the diagonal (exact random instances)
+PASS countercontrol: the lift run on 1_3 (x) rot (the operator I_cm refuses) extracts flow (transition 0 1) (pi/2) on Fin 3
+
+VERDICT  I_cm: K2 holds at every power-of-2 carrier, Architecture/LabelInvariant/DaggerStable hold; ContextStable fails, DrivesElementary fails at Fin 3, and genTheory I_cm (Fin 2) has no level-3 control

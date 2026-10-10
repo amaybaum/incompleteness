@@ -1,0 +1,25 @@
+PASS DIM-1 cnot, d = 3, nflip: normal form with p_sigma = 1 on a coordinate axis
+PASS DIM-1 cnot, d = 3, nflip: (a) blocks [[0, alpha u0^T], [alpha u0, A]] with A u0 = 0
+PASS DIM-1 cnot, d = 3, nflip: (b) alpha orthogonal
+     DIM-1 cnot, d = 3, nflip: block V empty
+PASS DIM-1 cnot, d = 3, nflip: (c) block F (dim 2): S_B in so(T)(x)so(B), invertible, S_B^-1 in so(T)(x)so(B)
+PASS landed gC5, d = 5, nC5: normal form with p_sigma = 1 on a coordinate axis
+PASS landed gC5, d = 5, nC5: (a) blocks [[0, alpha u0^T], [alpha u0, A]] with A u0 = 0
+PASS landed gC5, d = 5, nC5: (b) alpha orthogonal
+     landed gC5, d = 5, nC5: block V empty
+PASS landed gC5, d = 5, nC5: (c) block F (dim 4): S_B in so(T)(x)so(B), invertible, S_B^-1 in so(T)(x)so(B)
+PASS P3, d = 5, dim Fix N = 3: normal form with p_sigma = 1 on a coordinate axis
+PASS P3, d = 5, dim Fix N = 3: (a) blocks [[0, alpha u0^T], [alpha u0, A]] with A u0 = 0
+PASS P3, d = 5, dim Fix N = 3: (b) alpha orthogonal
+PASS P3, d = 5, dim Fix N = 3: (c) block V (dim 2): S_B in so(T)(x)so(B), invertible, S_B^-1 in so(T)(x)so(B)
+PASS P3, d = 5, dim Fix N = 3: (c) block F (dim 2): S_B in so(T)(x)so(B), invertible, S_B^-1 in so(T)(x)so(B)
+PASS C7b, d = 7, balanced N7b: normal form with p_sigma = 1 on a coordinate axis
+PASS C7b, d = 7, balanced N7b: (a) blocks [[0, alpha u0^T], [alpha u0, A]] with A u0 = 0
+PASS C7b, d = 7, balanced N7b: (b) alpha orthogonal
+PASS C7b, d = 7, balanced N7b: (c) block V (dim 2): S_B in so(T)(x)so(B), invertible, S_B^-1 in so(T)(x)so(B)
+PASS C7b, d = 7, balanced N7b: (c) block F (dim 4): S_B in so(T)(x)so(B), invertible, S_B^-1 in so(T)(x)so(B)
+== countercontrols (not positive): must fail the normal form or (a)-(c)
+PASS CC controlled-n5 gate (frame + relT, not positive): fails
+PASS CC gJ5 (frame + relT + relC with n5, not positive): fails
+bal_scond: 20/20 checks pass
+exit 0

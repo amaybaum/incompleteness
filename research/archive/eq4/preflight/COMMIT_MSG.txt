@@ -1,0 +1,23 @@
+EQ4-F preflight (design only, not for merge): four-copy package statement layer
+
+Three modules under verification/lean-mathlib/OIBridge/, imported from OIBridge.lean:
+
+- FourCopyDefs (definitions): the table calculus on W 3, the cone-level
+  interface predicate FourCopyCoherent, the aligned gates and the twist
+  parity. No open obligations.
+- FourCopyParity (completed cheap layer): gate-supplied effects, the
+  inverse-gate dual action, inclusions (I) and (II), and Lemma P
+  (kt4_parity_aligned). Imports FourCopyDefs only. No open obligations.
+- FourCopyPackage (statement layer): 48 open obligations, each the whole
+  proof of its theorem. The minimal headline kt4_forward is stated over
+  COMP-1 pre-composites, which carry no local-tomography field, with the
+  four-token coherence clause explicit (TokenCoherent). The convenience
+  form kt4_forward_lt takes COMP-1 composites and follows from
+  kt4_forward by forgetting lt.
+
+Not adopted; no F, no PR, no ROADMAP or manuscript change. The release
+gate is expected to fail at lean-axioms (sorryAx in the statement
+layer's axiom reports) and lean-manuscript (three unregistered modules).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

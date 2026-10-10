@@ -1,0 +1,8 @@
+c = 1 target ctrl mode full: d = [1. 1. 1. 1.], rho = 1.0000, phi_tw = 2.000000, (3/2) u1 = 1.500000
+  round 0: LP value 2.00000000, upper bracket 2.82842712 (eps 1.04e-01)
+  round 10: LP value 2.00000000, upper bracket 2.00010864 (eps 1.36e-05)
+  round 19: LP value 2.00000000, upper bracket 2.00000003 (eps 3.34e-09)
+  final: LP value 2.00000000, verified upper bracket 2.00000003 (eps 3.34e-09), phi_tw 2.00000000, psi_tw 2.00000000
+  support: [(np.float64(8.0), [0.125, 0.125, 0.125, 0.125], np.float64(0.25))]
+  duals y (full precision): [0.0, 1.2804737729617885, 0.439290522591657, 0.28023570444655443]
+  reading: no-gap lead

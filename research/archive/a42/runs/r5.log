@@ -1,0 +1,4 @@
+  [r5_family.py: exit 0, 724s]
+PASS R5: 128 members, all straight, all exact, all in 0 triples
+PASS R5: class supports 40 for 16 and 44 for 48 members of each family
+dita_support_minimality_probe r5: OK -- 2 checks (724s)

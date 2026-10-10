@@ -1,0 +1,7 @@
+PASS K0 transcription control
+PASS N1 the CNOT Choi vector has Schmidt ranks [2, 4, 4, 2, 2, 2, 2] >= 2 across the 2|2 and 1|3 cuts: C is not in PN_4
+PASS N2 GHZ and psi3 have Schmidt ranks [2, 2, 2, 2, 2, 2] across the 1|2 cuts (not in BS); control: a product vector has rank 1 across its cut
+PASS C conditionals of pair-network states on pair-network effects (5 per type) and effect conditionals (2 per type) are pair-network products over the predicted partition with PSD blocks, five crossing types
+PASS C' countercontrol: with the GHZ-class psi3 as the state y the conditional on a 3-token A is not a product over any partition into blocks of size <= 2 (some instance)
+--- p5_generation: 5/5 checks pass
+VERDICT P5-GENERATION-EXACT

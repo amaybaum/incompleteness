@@ -1,0 +1,13 @@
+PASS O1 BIG = <Ht(x)I, I(x)Ht, Sg(x)I, I(x)Sg, CNOT, T> (two-qubit Clifford group with the transpose): order 23040
+PASS O-S0 S0 = G16: order 16; generators in BIG: True
+PASS O-S1 S1 = G16 + SWAP: order 48; generators in BIG: True
+PASS O-LPT LPT = G16 + local Paulis (X Gbig): order 64; generators in BIG: True
+PASS O-LPT LPT + SWAP: order 192; generators in BIG: True
+PASS O-G16 G16 + control Clifford: order 1536; generators in BIG: True
+PASS O-G16 G16 + target Clifford: order 768; generators in BIG: True
+PASS W1 witness phi0 = ((1, 0), (2, 0), (0, 3), (-1, 1)): every image under BIG is entangled; d_min = 5/256
+PASS C1 cap parameter c = 517/512: (2/c - 1)^2 >= 1 - 4 d_min exactly, so c * (max product overlap) <= 1 on the whole orbit
+PASS C2 S2: min over G16 of the normalized |det|^2 is 5/256 >= d_min (S2's reachable set is G16.SEP)
+PASS cc-|00> countercontrol |00>: min over BIG of the normalized |det|^2 = 0 (the certificate fails)
+PASS cc-Bell countercontrol Bell: min over BIG of the normalized |det|^2 = 0 (the certificate fails)
+VERDICT Y5-FINITE-EXACT

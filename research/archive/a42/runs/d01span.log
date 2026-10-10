@@ -1,0 +1,10 @@
+  [dfs01.py 47 zero d01_zero.pkl: exit 0, 225s]
+PASS D01 zero, budget 47: 12520 leaves, supports 16 (176) and 32 (12344), all in N18
+  [dfs01.py 32 two d01_two.pkl: exit 0, 7s]
+PASS D01 two, budget 32: 288 leaves, support 32, all in N18
+  [lemmas42.py d01_two.pkl d01_zero.pkl: exit 0, 39s]
+PASS Lemma P on all 12808 D01 leaves (288 + 12520): ALL PASS
+  [spanAll.py 77: exit 0, 131s]
+PASS spanAll 77: 65390 row sets, 13922 dead, least live LB 24
+PASS spanAll 77: every row set with LB < 24 dead (dead by LB starts (16, 50); alive by LB starts (24, 140))
+dita_support_minimality_probe d01span: OK -- 5 checks (401s)

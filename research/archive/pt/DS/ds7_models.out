@@ -1,0 +1,31 @@
+B1 | CL1: phi1, phi2, phi3, phi bijective on 5184 states: [True, True, True, True] | PASS
+VERDICT B1: CL1 is one finite reversible deterministic map
+B2-control | Q_LR[1] = (1/2, 1/4, 0, 1/4) satisfies the quantum two-path bound at every x: [True, True, True, True] | PASS
+B2 | P(x|LR,off) = (1/2, 1/4, 0, 1/4) vs Q_LR[1]; P(x|L,off) = (1/4, 1/4, 1/4, 1/4) vs Q_L = (1/4, 1/4, 1/4, 1/4); P(x|R,off) = (1/4, 1/4, 1/4, 1/4) vs Q_R = (1/4, 1/4, 1/4, 1/4) | PASS
+VERDICT B2: requirement 1 is met by CL1 exactly
+B3-laws | P(x|LR,half) = (3/8, 1/4, 1/8, 1/4) vs Q_LR[1/2] = (3/8, 1/4, 1/8, 1/4); P(x|LR,on) = (1/4, 1/4, 1/4, 1/4) vs Q_LR[0] = (1/4, 1/4, 1/4, 1/4) | PASS
+B3-derived | visibilities ['1', '1/2', '0'] == 1 - r = ['1', '1/2', '0'] | PASS
+VERDICT B3: requirement 2 is met by CL1 exactly, with the amount derived from the record's registration rate
+B4 | distinct maps used for all settings: 1 | PASS
+VERDICT B4: requirement 3 is met by CL1: one map, settings as initial conditions
+B5 | k=half: V = 1/2, D_cl = 1/2, V^2 + D_cl^2 = 1/2 (< 1 required) | PASS
+VERDICT B5: CL1 meets requirements 1-3 and violates the quantum pure-record equality V^2 + D^2 = 1
+CC-B6 | CL0 bijective: True; P(x|LR,off) = (1, 0, 0, 0); bound holds at x=0: False (must be False) | PASS
+VERDICT B6: the same architecture yields a non-quantum two-slit law: requirement 1 is not implied by it
+CC-B7 | CLfree bijective: True; k=on: D_cl = 1; P(x|LR,on) = (1/2, 1/4, 0, 1/4); equals Q_LR[1]: True; V = 1 | PASS
+VERDICT B7: a perfect classical record need not suppress anything: suppression is not implied by having a record
+B8-a | three-step law sums to 1 | PASS
+B8-b | screen marginal (3/4, 0, 1/4, 0); bound holds at x=0: False (must be False) | PASS
+B8-c | C4 witness: P(x | t=0,*) = (1, 0, 0, 0), P(x | t=1,*) = (1/2, 0, 1/2, 0) | PASS
+B8-d | C1 witness: given (t=1,*), the next visible value over hidden hl takes values [0, 2] | PASS
+VERDICT B8: a memory-bearing (C4) embedded-observer law with a record of its past can carry a non-quantum two-slit pattern
+B9-perm | S_imp_D carrier step is a permutation of 250 states: True | PASS
+B9-law | Born chain law with |U|^p equals the law for p=1,2,3: [True, True, True]; U has one entry 1 per column: True | PASS
+B9-nocross | initial law is a diagonal (classical) weight on basis states and the chain collapses at every step, so no term of the form conj(c_a) c_b with a != b enters | PASS
+CC-B9 | quantum two-slit representation: cross term at x=0 is 1/4 (must be nonzero) | PASS
+VERDICT B9: the certified S->D->Q_fb constructions represent the double-slit law with a permutation unitary and no interference term; the exponent p is not selected
+B10 | I3(2) == 0 identically (symbolic complex a, b, c) | PASS
+CC-B10 | I3(4) at a=b=c=1 is 36 (must be nonzero) | PASS
+VERDICT B10: no third-order interference holds for the quadratic exponent and fails for p = 4
+SUMMARY: 19 checks; blocks green 10/10
+ALL BLOCKS GREEN

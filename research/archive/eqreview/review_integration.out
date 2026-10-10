@@ -1,0 +1,13 @@
+PASS Pauli coordinates round-trip on Phi+
+PASS U1 uniform adapter phi = I: image of the twin's Bell point has spectrum [-1/2, 1/2, 1/2, 1/2], min -1/2
+PASS U1 uniform adapter phi = R: image of the twin's Bell point has spectrum [-1/2, 1/2, 1/2, 1/2], min -1/2
+PASS U2 per-token adapter (I, R) maps the twin's Bell point back to Phi+ exactly
+PASS U2 global transpose R(x)R: image of Phi+ is its transpose and has the same spectrum
+PASS U2 global transpose R(x)R: image of psi is its transpose and has the same spectrum
+PASS U2 countercontrol: one-copy reflection (I(x)R) on the entangled psi is not PSD (det -2809/130321 < 0)
+PASS P path on 3 copies: 2-local strings generate 63 = 4^3 - 1 (su(2^3))
+PASS P path on 4 copies: 2-local strings generate 255 = 4^4 - 1 (su(2^4))
+PASS P path on 5 copies: 2-local strings generate 1023 = 4^5 - 1 (su(2^5))
+PASS P countercontrol: two disjoint edges at n = 4 close at 30 = 30
+PASS P countercontrol: one edge plus local strings on the third copy close at 18 = 18
+review_integration: 12/12 checks pass

@@ -1,0 +1,29 @@
+PASS C1 one token: sigma_y rho^T sigma_y = (I - r.sigma)/2
+PASS C2 theta o actT reflY = actT diag(-1,1,-1) is Ad(I(x)sigma_y); actT reflY is the token-2 partial transpose  [Ad True, PT True]
+PASS C3 base cnotFun = standard CNOT conjugation (control token 1); transcribed lines match the base  [equal True, lines True]
+PASS C4 cnot(prodState xplus z3) = phiW = diag(1,1,-1,1); pauliW(phiW) = |Phi+><Phi+|  [gate True, Bell True]
+PASS C5 actT reflY phiW = idW; pauliW(idW) = SWAP/2 with v^T pauliW(idW) v = -1; actT reflY fixes prodState xplus z3  [True True value -1 eig {1/2: 3, -1/2: 1} True]
+PASS C6 MAX: idW pairs as the Euclidean product; generator values 1, 1/2, 1/2, (1+b.c)/4; cnot(idW) at sharp (-x, -z) is -1/2  [value -1/2, chainW [[1, 0, 0, 1], [1, 0, 0, -1], [0, 0, 0, 0], [0, 0, 0, 0]]]
+PASS C7 MIN: F(prodState x y) = 1 - x.(reflY y), certificate |x-w|^2/2 + (1-|x|^2)/2 + (1-|w|^2)/2 with |w| = |y|; F(phiW) = -2
+PASS C8 CC2: pure marginals (z, z), g and f sharp, T(g, f) = -1/40, T is not hom z (x) hom z  [T(g,f) = -1/40]
+PASS C9 purity core: T(g_z, f) = -(1/2) z^T C f and |cvec_f|^2 - c_f0^2 = 2 f(y) z^T C f + |C f|^2 modulo z.z = 1  [True True]
+PASS C10 homogenized e_x, e_y, e_z, -e_z are linearly independent  [det = -2]
+PASS C11 -I commutes with every 3x3 matrix
+PASS C12 fourVal factorizes on product generators
+PASS C13 cited base lines carry the attributed names  [16 citations]
+INFO CompositeDimension.lean:838: theorem isNot_nflip : IsNot (eball 3) z3 nflip where
+INFO CompositeDimension.lean:1160: theorem nativeGate_cnot : NativeGate (eball 3) z3 nflip cnot where
+INFO CompositeDimension.lean:1380: theorem entangling_cnot : Entangling (eball 3) cnot :=
+INFO CompositeInterface.lean:226: convex : Convex ℝ Ω
+INFO OrbitGeneration.lean:74: def SeedOrbitAvailable (G : Set (V ≃ᵃ[ℝ] V)) (r : V →ᵃ[ℝ] ℝ) (avail : Set (V →ᵃ[ℝ] ℝ)) :
+INFO StageCompletion.lean:141: def body : Set (CSpace D) :=
+INFO StageCompletion.lean:142: closure (convexHull ℝ (Set.range (prepVec D)))
+INFO CompletionAction.lean:46: structure OpDatum (D : DirectedStages) where
+INFO CompletionAction.lean:352: theorem preservesBody_inducedEquiv {S T : OpDatum D} (hS : AffineRespect S)
+INFO CarrierGeneralOIPlus.lean:73: def ObservationalIndependence : Prop := HasParallelReferenceExtension T
+INFO ReferenceExtension.lean:447: def HasParallelReferenceExtension (T : FiniteOperationalTheory A) : Prop :=
+INFO SpectatorBridge.lean:223: def InertSpectatorCompositionality (T : FiniteOperationalTheory A) : Prop :=
+INFO EffectSpace.lean:415: theorem maxConeOf_fullEffects (Ω : Set (Fin d → ℝ)) : maxConeOf (fullEffects Ω) = maxCone Ω := by
+PASS C14 no float in the checked quantities
+--- audit_prem: 14/14 checks pass
+VERDICT PREM-AUDIT-CHECKS-PASS

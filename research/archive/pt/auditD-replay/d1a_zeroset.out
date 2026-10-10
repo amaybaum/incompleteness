@@ -1,0 +1,37 @@
+== CC4  the criterion W0 on two control polynomials
+PASS CC4a  [countercontrol] countercontrol: W0 rejects f = n1 (does not vanish on the sphere)
+PASS CC4b  [identity] control: W0 accepts f = |n|^2 - 1
+
+== R-Z1  forms vanishing on Z1
+PASS Z1.a  [identity] every normal-form matrix [[a, c^T], [c, aI + K]] (symbolic a, c, K) vanishes on Z1 (W0)
+PASS Z1.b  [enumerate] the Z1 solution space has dimension 7 and coincides with the 7-dimensional normal-form space
+
+== R-Z2  proper case R1 = nflip
+PASS Z2.a  [identity] S and T vanish on Z1 and on Z2(nflip) (W0, symbolic n)
+PASS Z2.b  [enumerate] the Z1 + Z2(nflip) solution space has dimension 2 = 2 and equals span{S, T}
+PASS Z2.s  [sample] sample: S and T vanish at 120 rational points of Z1 and Z2(nflip)
+PASS CC1  [countercontrol] countercontrol: the span{S,T} forms do not all kill Y3 and do not all kill Y0 (improper exclusion does not apply)
+PASS CC2  [countercontrol] countercontrol: dropping Z2 leaves a space of dimension 7 > 2
+PASS CC3  [countercontrol] countercontrol: S does not vanish at ((1,1,0,0), (1,1,0,0)) (off Z1, Z2): value 2
+
+== R-Z3  improper case R1 = diag(Rot(cc, ss), -1), symbolic cc, ss
+PASS Z3.0  [identity] R1 = diag(Rot, -1) is orthogonal modulo cc^2 + ss^2 = 1, has determinant -(cc^2 + ss^2), maps z3 to -z3
+   odd coefficient of n3: 2*c3
+   even (homogenized) coefficient of n3^2: 2*a_
+   even coefficient of n1 n3: cc*kxz + kxz - kyz*ss
+   even coefficient of n2 n3: cc*kyz + kxz*ss + kyz
+PASS Z3.a  [identity] the odd n3-coefficient of the Z2 condition is a nonzero constant multiple of c3 (forces c3 = 0)
+PASS Z3.b  [identity] the even n3^2-coefficient is a nonzero constant multiple of a (forces a = 0)
+   the (A[1,3], A[2,3]) system matrix: [[cc + 1, -ss], [ss, cc + 1]], determinant cc**2 + 2*cc + ss**2 + 1
+PASS Z3.c  [identity] the n1n3 and n2n3 coefficients involve only A[1,3] = kxz and A[2,3] = kyz, and their system determinant is congruent to 2(1 + cc) modulo cc^2 + ss^2 - 1
+PASS Z3.d  [identity] column 3 of the normal form is (c3, kxz, kyz, a): with Z3.a-c every solution has zero column 3 when cc != -1
+PASS Z3.e  [enumerate] instances: R1 = diag(Rot(3/5, 4/5), -1) has solution dimension 0; R1 = diag(1, 1, -1) has dimension 3; every solution of both kills Y3
+PASS Z3.s  [sample] sample: the diag(1, 1, -1) solutions vanish at 120 rational points of Z1 and Z2
+PASS CC5  [countercontrol] countercontrol: proper rotation by pi about (3/5, 4/5, 0): dimension 2, and its forms do NOT all kill Y3
+
+== R-Z4  improper case R1 = -I (cc = -1)
+PASS Z4.a  [enumerate] R1 = -I: solution dimension 3; every solution has zero column 0 (kills Y0)
+PASS Z4.s  [sample] sample: the R1 = -I solutions vanish at 120 rational points of Z1 and Z2
+
+d1a_zeroset: 20 checks, 0 failed
+VERDICT ZEROSET-LEMMA-EXACT: proper M1 = nflip gives exactly span{S, T}; every improper M1 gives forms that kill Y3 (cc != -1) or Y0 (R1 = -I)

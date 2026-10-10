@@ -1,0 +1,9 @@
+4-column sets on which rows fall into classes of size a multiple of 4: 20 of 1820; class-size profiles: [(4, 4, 4, 4)]
+column partitions into four admissible blocks: 17
+column partitions admitting a common row partition into classes of size a multiple of 4: 5
+  blocks ((0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)) | common row classes (4, 4, 4, 4)
+  blocks ((0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)) | common row classes (4, 4, 4, 4)
+  blocks ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)) | common row classes (4, 4, 4, 4)
+  blocks ((0, 4, 8, 12), (1, 5, 9, 13), (2, 6, 10, 14), (3, 7, 11, 15)) | common row classes (4, 4, 4, 4)
+  blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) | common row classes (4, 4, 4, 4)
+(2s)

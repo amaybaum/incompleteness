@@ -1,0 +1,21 @@
+NOTE  qubit tower uses 30 rational unit Bloch vectors (Pythagorean quadruples, d <= 3)
+PASS  every stage table entry is an exact rational in [0,1]; unit = 1 (FiniteStage axioms)
+PASS  SCInf: every forward map (inclusion) carries the probability table (StageCompletion:78)
+PASS  BinaryVisible: the pair (I+Z)/2, (I-Z)/2 is a test at every stage and is carried forward (SC:244)
+PASS  prepVec = const + M x with rank M = 3: the completion chart is 3-dimensional and prepVec is injective (FiniteRank)
+PASS  affine rank of the top stage's preparation vectors = 3 (exact)
+FAIL  sharpSeed_completion's hypothesis: (I+Z)/2 has value 1 at z3 and 0 at -z3, both stage preparations
+NOTE  top stage: 30 preparations, 26 independent affine relations among their Bloch vectors
+PASS  control: the computed relations are relations among the preparation vectors themselves
+PASS  AffineRespect for the rational rotation (3+4i)/5 phase gate (CompletionAction:58)
+PASS  AffineRespect for the Hadamard rotation
+PASS  inverse datum: R^T R = I for both (Undoes), images in the Bloch ball (|Rx| = 1)
+PASS  note: the transpose (reflY, det -1, antiunitary) is ALSO AffineRespect data on the IC tower -- K-inf-Act alone does not exclude antiunitary maps
+PASS  COUNTERCONTROL: on the Z-only (non-IC) tower |+> and |+i> have equal preparation vectors but their Hadamard images do not -- StateRespect (hence AffineRespect) FAILS for a unitary
+PASS  qutrit tower (9 rational pure states, IC projector effects): every entry in [0,1], exact
+PASS  qutrit: BinaryVisible with (|0><0|, I - |0><0|)
+PASS  qutrit: FiniteRank with affine rank 8 (= dim of the qutrit state space)
+PASS  qutrit capacity >= 3: |0>,|1>,|2> perfectly distinguishable by projectors summing to I
+PASS  Bloch ball centrally symmetric about 0 (x -> -x keeps |x| <= 1): Lemma D gives qubit capacity <= 2
+NOTE  so SCInf, BinaryVisible and FiniteRank hold for the qubit AND the qutrit: the formalized part of K-inf-Stage does not delimit the elementary scope; capacity two does (qubit 2, qutrit 3)
+s1_stage_act: FAILED -- 17 checks, 1 failed

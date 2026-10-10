@@ -1,0 +1,9 @@
+SETUP majority: effects <= 4 (781), preparations <= 5 (3682 with positive weight), generators ifs
+GREEDY majority: 33 columns kept (rank over F_p of the full table = 33)
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/quotient/rankbasis.py:146: RuntimeWarning: overflow encountered in scalar multiply
+  D = D * c.denominator // np.gcd(D, c.denominator)
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/quotient/rankbasis.py:149: RuntimeWarning: overflow encountered in scalar multiply
+  if sum(ic[a] * Kcols[a][i] for a in range(r)) != D * col[i]:
+CERTIFY majority: rank_Q(full table) == rank_Q(reduced) == 33: False (column 759 not in the span of the kept columns)
+INCONCLUSIVE: full effect rank not certified
+DONE

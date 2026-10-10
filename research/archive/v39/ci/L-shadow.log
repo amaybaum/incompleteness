@@ -1,0 +1,757 @@
+﻿2026-09-25T04:52:45.3038240Z Current runner version: '2.337.0'
+2026-09-25T04:52:45.3065564Z ##[group]Runner Image Provisioner
+2026-09-25T04:52:45.3066428Z Hosted Compute Agent
+2026-09-25T04:52:45.3067168Z Version: 20260828.587
+2026-09-25T04:52:45.3067832Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-25T04:52:45.3068568Z Build Date: 2026-08-28T16:44:25Z
+2026-09-25T04:52:45.3069653Z Worker ID: {8a017456-527a-40e8-a36c-b26170c38a5c}
+2026-09-25T04:52:45.3070396Z Azure Region: centralus
+2026-09-25T04:52:45.3071034Z ##[endgroup]
+2026-09-25T04:52:45.3072522Z ##[group]Operating System
+2026-09-25T04:52:45.3073197Z Ubuntu
+2026-09-25T04:52:45.3073840Z 24.04.5
+2026-09-25T04:52:45.3074549Z LTS
+2026-09-25T04:52:45.3075137Z ##[endgroup]
+2026-09-25T04:52:45.3075782Z ##[group]Runner Image
+2026-09-25T04:52:45.3076401Z Image: ubuntu-24.04
+2026-09-25T04:52:45.3077088Z Version: 20260920.314.1
+2026-09-25T04:52:45.3078462Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-25T04:52:45.3080170Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-25T04:52:45.3081184Z ##[endgroup]
+2026-09-25T04:52:45.3082483Z ##[group]GITHUB_TOKEN Permissions
+2026-09-25T04:52:45.3085108Z Contents: read
+2026-09-25T04:52:45.3085887Z Metadata: read
+2026-09-25T04:52:45.3086482Z Packages: read
+2026-09-25T04:52:45.3087138Z ##[endgroup]
+2026-09-25T04:52:45.3089401Z Secret source: Actions
+2026-09-25T04:52:45.3090355Z Cache mode: write
+2026-09-25T04:52:45.3091425Z Prepare workflow directory
+2026-09-25T04:52:45.3445685Z Prepare all required actions
+2026-09-25T04:52:45.3495248Z Getting action download info
+2026-09-25T04:52:45.6293296Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-25T04:52:45.7486569Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-09-25T04:52:45.9366322Z Complete job name: V3 shadow verifier
+2026-09-25T04:52:46.0155748Z ##[group]Run actions/checkout@v4
+2026-09-25T04:52:46.0156623Z with:
+2026-09-25T04:52:46.0157060Z   fetch-depth: 0
+2026-09-25T04:52:46.0157558Z   repository: amaybaum/incompleteness
+2026-09-25T04:52:46.0161459Z   token: ***
+2026-09-25T04:52:46.0161904Z   ssh-strict: true
+2026-09-25T04:52:46.0162348Z   ssh-user: git
+2026-09-25T04:52:46.0162798Z   persist-credentials: true
+2026-09-25T04:52:46.0163284Z   clean: true
+2026-09-25T04:52:46.0163733Z   sparse-checkout-cone-mode: true
+2026-09-25T04:52:46.0164421Z   fetch-tags: false
+2026-09-25T04:52:46.0165115Z   show-progress: true
+2026-09-25T04:52:46.0165713Z   lfs: false
+2026-09-25T04:52:46.0166270Z   submodules: false
+2026-09-25T04:52:46.0166728Z   set-safe-directory: true
+2026-09-25T04:52:46.0167241Z   allow-unsafe-pr-checkout: false
+2026-09-25T04:52:46.0168080Z ##[endgroup]
+2026-09-25T04:52:46.1214335Z Syncing repository: amaybaum/incompleteness
+2026-09-25T04:52:46.1216533Z ##[group]Getting Git version info
+2026-09-25T04:52:46.1217625Z Working directory is '/home/runner/work/incompleteness/incompleteness'
+2026-09-25T04:52:46.1219102Z [command]/usr/bin/git version
+2026-09-25T04:52:46.1277135Z git version 2.55.0
+2026-09-25T04:52:46.1298757Z ##[endgroup]
+2026-09-25T04:52:46.1316014Z Temporarily overriding HOME='/home/runner/work/_temp/ec54ea8f-38e9-4b13-9511-7f6836c1742d' before making global git config changes
+2026-09-25T04:52:46.1318254Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-25T04:52:46.1323099Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-09-25T04:52:46.1380521Z Deleting the contents of '/home/runner/work/incompleteness/incompleteness'
+2026-09-25T04:52:46.1386794Z ##[group]Initializing the repository
+2026-09-25T04:52:46.1391719Z [command]/usr/bin/git init /home/runner/work/incompleteness/incompleteness
+2026-09-25T04:52:46.1496600Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-25T04:52:46.1498582Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-25T04:52:46.1500751Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-25T04:52:46.1502100Z hint: call:
+2026-09-25T04:52:46.1502901Z hint:
+2026-09-25T04:52:46.1504143Z hint: 	git config --global init.defaultBranch <name>
+2026-09-25T04:52:46.1505343Z hint:
+2026-09-25T04:52:46.1506436Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-25T04:52:46.1508084Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-25T04:52:46.1510727Z hint:
+2026-09-25T04:52:46.1511571Z hint: 	git branch -m <name>
+2026-09-25T04:52:46.1512484Z hint:
+2026-09-25T04:52:46.1513640Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-25T04:52:46.1515427Z Initialized empty Git repository in /home/runner/work/incompleteness/incompleteness/.git/
+2026-09-25T04:52:46.1518761Z [command]/usr/bin/git remote add origin https://github.com/amaybaum/incompleteness
+2026-09-25T04:52:46.1566882Z ##[endgroup]
+2026-09-25T04:52:46.1568080Z ##[group]Disabling automatic garbage collection
+2026-09-25T04:52:46.1571559Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-25T04:52:46.1614628Z ##[endgroup]
+2026-09-25T04:52:46.1615368Z ##[group]Setting up auth
+2026-09-25T04:52:46.1623346Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-25T04:52:46.1666436Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-25T04:52:46.2054893Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-25T04:52:46.2102131Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-25T04:52:46.2355723Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-25T04:52:46.2397456Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-25T04:52:46.2647962Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-25T04:52:46.2695203Z ##[endgroup]
+2026-09-25T04:52:46.2696512Z ##[group]Fetching the repository
+2026-09-25T04:52:46.2707855Z [command]/usr/bin/git -c protocol.version=2 fetch --prune --no-recurse-submodules origin +refs/heads/*:refs/remotes/origin/* +refs/tags/*:refs/tags/* +d1c43233ad8bae487e4ed3c67d48ad6db88f8cc4:refs/remotes/pull/740/merge
+2026-09-25T04:52:59.2555861Z From https://github.com/amaybaum/incompleteness
+2026-09-25T04:52:59.2558248Z  * [new branch]        claude/ci-1-control-plane                -> origin/claude/ci-1-control-plane
+2026-09-25T04:52:59.2560740Z  * [new branch]        claude/v3-7-control-plane                -> origin/claude/v3-7-control-plane
+2026-09-25T04:52:59.2563132Z  * [new branch]        claude/v3-9-execution                    -> origin/claude/v3-9-execution
+2026-09-25T04:52:59.2565392Z  * [new branch]        dev                                      -> origin/dev
+2026-09-25T04:52:59.2567280Z  * [new branch]        main                                     -> origin/main
+2026-09-25T04:52:59.2569113Z  * [new tag]           1.0.0                                    -> 1.0.0
+2026-09-25T04:52:59.2570898Z  * [new tag]           1.0.1                                    -> 1.0.1
+2026-09-25T04:52:59.2572883Z  * [new tag]           1.0.2                                    -> 1.0.2
+2026-09-25T04:52:59.2575081Z  * [new tag]           1.0.3                                    -> 1.0.3
+2026-09-25T04:52:59.2576921Z  * [new tag]           1.0.4                                    -> 1.0.4
+2026-09-25T04:52:59.2578975Z  * [new tag]           1.0.5                                    -> 1.0.5
+2026-09-25T04:52:59.2581414Z  * [new tag]           1.0.6                                    -> 1.0.6
+2026-09-25T04:52:59.2583261Z  * [new tag]           1.0.7                                    -> 1.0.7
+2026-09-25T04:52:59.2584834Z  * [new tag]           1.0.8                                    -> 1.0.8
+2026-09-25T04:52:59.2586234Z  * [new tag]           1.0.9                                    -> 1.0.9
+2026-09-25T04:52:59.2587774Z  * [new tag]           1.1.0                                    -> 1.1.0
+2026-09-25T04:52:59.2589173Z  * [new tag]           1.1.1                                    -> 1.1.1
+2026-09-25T04:52:59.2590541Z  * [new tag]           1.1.2                                    -> 1.1.2
+2026-09-25T04:52:59.2591936Z  * [new tag]           1.1.3                                    -> 1.1.3
+2026-09-25T04:52:59.2593381Z  * [new tag]           1.1.4                                    -> 1.1.4
+2026-09-25T04:52:59.2595133Z  * [new tag]           1.1.5                                    -> 1.1.5
+2026-09-25T04:52:59.2597197Z  * [new tag]           1.1.6                                    -> 1.1.6
+2026-09-25T04:52:59.2598989Z  * [new tag]           1.1.7                                    -> 1.1.7
+2026-09-25T04:52:59.2600725Z  * [new tag]           1.1.8                                    -> 1.1.8
+2026-09-25T04:52:59.2610716Z  * [new tag]           1.1.9                                    -> 1.1.9
+2026-09-25T04:52:59.2612609Z  * [new tag]           1.2.0                                    -> 1.2.0
+2026-09-25T04:52:59.2614747Z  * [new tag]           1.2.1                                    -> 1.2.1
+2026-09-25T04:52:59.2616568Z  * [new tag]           1.2.2                                    -> 1.2.2
+2026-09-25T04:52:59.2618516Z  * [new tag]           1.2.3                                    -> 1.2.3
+2026-09-25T04:52:59.2620346Z  * [new tag]           1.2.4                                    -> 1.2.4
+2026-09-25T04:52:59.2622411Z  * [new tag]           1.2.5                                    -> 1.2.5
+2026-09-25T04:52:59.2624396Z  * [new tag]           1.2.6                                    -> 1.2.6
+2026-09-25T04:52:59.2626285Z  * [new tag]           1.2.7                                    -> 1.2.7
+2026-09-25T04:52:59.2628051Z  * [new tag]           1.2.8                                    -> 1.2.8
+2026-09-25T04:52:59.2629896Z  * [new tag]           1.2.9                                    -> 1.2.9
+2026-09-25T04:52:59.2631792Z  * [new tag]           1.3.0                                    -> 1.3.0
+2026-09-25T04:52:59.2633602Z  * [new tag]           1.3.1                                    -> 1.3.1
+2026-09-25T04:52:59.2635746Z  * [new tag]           1.3.2                                    -> 1.3.2
+2026-09-25T04:52:59.2638105Z  * [new tag]           1.3.3                                    -> 1.3.3
+2026-09-25T04:52:59.2640601Z  * [new tag]           1.3.4                                    -> 1.3.4
+2026-09-25T04:52:59.2643019Z  * [new tag]           1.3.5                                    -> 1.3.5
+2026-09-25T04:52:59.2645632Z  * [new tag]           1.3.6                                    -> 1.3.6
+2026-09-25T04:52:59.2647553Z  * [new tag]           1.3.7                                    -> 1.3.7
+2026-09-25T04:52:59.2649352Z  * [new tag]           1.3.8                                    -> 1.3.8
+2026-09-25T04:52:59.2651278Z  * [new tag]           1.3.9                                    -> 1.3.9
+2026-09-25T04:52:59.2653019Z  * [new tag]           1.4.0                                    -> 1.4.0
+2026-09-25T04:52:59.2655070Z  * [new tag]           1.4.1                                    -> 1.4.1
+2026-09-25T04:52:59.2656834Z  * [new tag]           1.4.2                                    -> 1.4.2
+2026-09-25T04:52:59.2658551Z  * [new tag]           1.4.3                                    -> 1.4.3
+2026-09-25T04:52:59.2660258Z  * [new tag]           1.4.4                                    -> 1.4.4
+2026-09-25T04:52:59.2661956Z  * [new tag]           1.4.5                                    -> 1.4.5
+2026-09-25T04:52:59.2663683Z  * [new tag]           1.4.6                                    -> 1.4.6
+2026-09-25T04:52:59.2665897Z  * [new tag]           1.4.7                                    -> 1.4.7
+2026-09-25T04:52:59.2667594Z  * [new tag]           1.4.8                                    -> 1.4.8
+2026-09-25T04:52:59.2669612Z  * [new tag]           1.4.9                                    -> 1.4.9
+2026-09-25T04:52:59.2671544Z  * [new tag]           1.5.0                                    -> 1.5.0
+2026-09-25T04:52:59.2673334Z  * [new tag]           1.5.1                                    -> 1.5.1
+2026-09-25T04:52:59.2675133Z  * [new tag]           1.5.2                                    -> 1.5.2
+2026-09-25T04:52:59.2676809Z  * [new tag]           1.5.3                                    -> 1.5.3
+2026-09-25T04:52:59.2678933Z  * [new tag]           1.5.4                                    -> 1.5.4
+2026-09-25T04:52:59.2680631Z  * [new tag]           1.5.5                                    -> 1.5.5
+2026-09-25T04:52:59.2682372Z  * [new tag]           1.5.6                                    -> 1.5.6
+2026-09-25T04:52:59.2684502Z  * [new tag]           1.5.7                                    -> 1.5.7
+2026-09-25T04:52:59.2686163Z  * [new tag]           1.5.8                                    -> 1.5.8
+2026-09-25T04:52:59.2687844Z  * [new tag]           1.5.9                                    -> 1.5.9
+2026-09-25T04:52:59.2689524Z  * [new tag]           1.6.0                                    -> 1.6.0
+2026-09-25T04:52:59.2691347Z  * [new tag]           1.6.1                                    -> 1.6.1
+2026-09-25T04:52:59.2692985Z  * [new tag]           1.6.2                                    -> 1.6.2
+2026-09-25T04:52:59.2694857Z  * [new tag]           1.6.3                                    -> 1.6.3
+2026-09-25T04:52:59.2696499Z  * [new tag]           1.6.4                                    -> 1.6.4
+2026-09-25T04:52:59.2698141Z  * [new tag]           1.6.5                                    -> 1.6.5
+2026-09-25T04:52:59.2700081Z  * [new tag]           1.6.6                                    -> 1.6.6
+2026-09-25T04:52:59.2701717Z  * [new tag]           1.6.7                                    -> 1.6.7
+2026-09-25T04:52:59.2703345Z  * [new tag]           1.6.8                                    -> 1.6.8
+2026-09-25T04:52:59.2705185Z  * [new tag]           1.6.9                                    -> 1.6.9
+2026-09-25T04:52:59.2706813Z  * [new tag]           1.7.0                                    -> 1.7.0
+2026-09-25T04:52:59.2708459Z  * [new tag]           1.7.1                                    -> 1.7.1
+2026-09-25T04:52:59.2710100Z  * [new tag]           1.7.2                                    -> 1.7.2
+2026-09-25T04:52:59.2711920Z  * [new tag]           1.7.3                                    -> 1.7.3
+2026-09-25T04:52:59.2713933Z  * [new tag]           1.7.4                                    -> 1.7.4
+2026-09-25T04:52:59.2715697Z  * [new tag]           1.7.5                                    -> 1.7.5
+2026-09-25T04:52:59.2717353Z  * [new tag]           1.7.6                                    -> 1.7.6
+2026-09-25T04:52:59.2718987Z  * [new tag]           1.7.7                                    -> 1.7.7
+2026-09-25T04:52:59.2720598Z  * [new tag]           1.7.8                                    -> 1.7.8
+2026-09-25T04:52:59.2722216Z  * [new tag]           1.7.9                                    -> 1.7.9
+2026-09-25T04:52:59.2723830Z  * [new tag]           1.8.0                                    -> 1.8.0
+2026-09-25T04:52:59.2725530Z  * [new tag]           1.8.1                                    -> 1.8.1
+2026-09-25T04:52:59.2727133Z  * [new tag]           1.8.2                                    -> 1.8.2
+2026-09-25T04:52:59.2728724Z  * [new tag]           1.8.3                                    -> 1.8.3
+2026-09-25T04:52:59.2730325Z  * [new tag]           1.8.4                                    -> 1.8.4
+2026-09-25T04:52:59.2731925Z  * [new tag]           1.8.5                                    -> 1.8.5
+2026-09-25T04:52:59.2733532Z  * [new tag]           1.8.6                                    -> 1.8.6
+2026-09-25T04:52:59.2735554Z  * [new tag]           1.8.7                                    -> 1.8.7
+2026-09-25T04:52:59.2737156Z  * [new tag]           1.8.8                                    -> 1.8.8
+2026-09-25T04:52:59.2738776Z  * [new tag]           1.8.9                                    -> 1.8.9
+2026-09-25T04:52:59.2740375Z  * [new tag]           1.9.0                                    -> 1.9.0
+2026-09-25T04:52:59.2741977Z  * [new tag]           1.9.1                                    -> 1.9.1
+2026-09-25T04:52:59.2743582Z  * [new tag]           1.9.2                                    -> 1.9.2
+2026-09-25T04:52:59.2745404Z  * [new tag]           1.9.3                                    -> 1.9.3
+2026-09-25T04:52:59.2746987Z  * [new tag]           1.9.4                                    -> 1.9.4
+2026-09-25T04:52:59.2748569Z  * [new tag]           1.9.5                                    -> 1.9.5
+2026-09-25T04:52:59.2750160Z  * [new tag]           1.9.6                                    -> 1.9.6
+2026-09-25T04:52:59.2751752Z  * [new tag]           1.9.7                                    -> 1.9.7
+2026-09-25T04:52:59.2753339Z  * [new tag]           1.9.8                                    -> 1.9.8
+2026-09-25T04:52:59.2755042Z  * [new tag]           1.9.9                                    -> 1.9.9
+2026-09-25T04:52:59.2756619Z  * [new tag]           2.0.0                                    -> 2.0.0
+2026-09-25T04:52:59.2758211Z  * [new tag]           2.0.1                                    -> 2.0.1
+2026-09-25T04:52:59.2759793Z  * [new tag]           2.0.2                                    -> 2.0.2
+2026-09-25T04:52:59.2761373Z  * [new tag]           2.0.3                                    -> 2.0.3
+2026-09-25T04:52:59.2763044Z  * [new tag]           2.0.4                                    -> 2.0.4
+2026-09-25T04:52:59.2764740Z  * [new tag]           2.0.5                                    -> 2.0.5
+2026-09-25T04:52:59.2766521Z  * [new tag]           2.0.6                                    -> 2.0.6
+2026-09-25T04:52:59.2768140Z  * [new tag]           2.0.7                                    -> 2.0.7
+2026-09-25T04:52:59.2769733Z  * [new tag]           2.0.8                                    -> 2.0.8
+2026-09-25T04:52:59.2771319Z  * [new tag]           2.0.9                                    -> 2.0.9
+2026-09-25T04:52:59.2772896Z  * [new tag]           2.1.0                                    -> 2.1.0
+2026-09-25T04:52:59.2774693Z  * [new tag]           2.1.1                                    -> 2.1.1
+2026-09-25T04:52:59.2776300Z  * [new tag]           2.1.2                                    -> 2.1.2
+2026-09-25T04:52:59.2777888Z  * [new tag]           2.1.3                                    -> 2.1.3
+2026-09-25T04:52:59.2779483Z  * [new tag]           2.1.4                                    -> 2.1.4
+2026-09-25T04:52:59.2781066Z  * [new tag]           2.1.5                                    -> 2.1.5
+2026-09-25T04:52:59.2782658Z  * [new tag]           2.1.6                                    -> 2.1.6
+2026-09-25T04:52:59.2784457Z  * [new tag]           2.1.7                                    -> 2.1.7
+2026-09-25T04:52:59.2786066Z  * [new tag]           2.1.8                                    -> 2.1.8
+2026-09-25T04:52:59.2787644Z  * [new tag]           2.1.9                                    -> 2.1.9
+2026-09-25T04:52:59.2789541Z  * [new tag]           2.2.0                                    -> 2.2.0
+2026-09-25T04:52:59.2791312Z  * [new tag]           2.2.1                                    -> 2.2.1
+2026-09-25T04:52:59.2792888Z  * [new tag]           2.2.2                                    -> 2.2.2
+2026-09-25T04:52:59.2794603Z  * [new tag]           2.2.3                                    -> 2.2.3
+2026-09-25T04:52:59.2796189Z  * [new tag]           2.2.4                                    -> 2.2.4
+2026-09-25T04:52:59.2797786Z  * [new tag]           2.2.5                                    -> 2.2.5
+2026-09-25T04:52:59.2799409Z  * [new tag]           2.2.6                                    -> 2.2.6
+2026-09-25T04:52:59.2801207Z  * [new tag]           2.2.7                                    -> 2.2.7
+2026-09-25T04:52:59.2802796Z  * [new tag]           2.2.8                                    -> 2.2.8
+2026-09-25T04:52:59.2878883Z  * [new tag]           2.2.9                                    -> 2.2.9
+2026-09-25T04:52:59.2881152Z  * [new tag]           2.3.0                                    -> 2.3.0
+2026-09-25T04:52:59.2883272Z  * [new tag]           2.3.1                                    -> 2.3.1
+2026-09-25T04:52:59.2885751Z  * [new tag]           2.3.2                                    -> 2.3.2
+2026-09-25T04:52:59.2888101Z  * [new tag]           2.3.3                                    -> 2.3.3
+2026-09-25T04:52:59.2890444Z  * [new tag]           2.3.4                                    -> 2.3.4
+2026-09-25T04:52:59.2892752Z  * [new tag]           2.3.5                                    -> 2.3.5
+2026-09-25T04:52:59.2895340Z  * [new tag]           2.3.6                                    -> 2.3.6
+2026-09-25T04:52:59.2897332Z  * [new tag]           2.3.7                                    -> 2.3.7
+2026-09-25T04:52:59.2898942Z  * [new tag]           2.3.8                                    -> 2.3.8
+2026-09-25T04:52:59.2900543Z  * [new tag]           2.3.9                                    -> 2.3.9
+2026-09-25T04:52:59.2902118Z  * [new tag]           2.4.0                                    -> 2.4.0
+2026-09-25T04:52:59.2903688Z  * [new tag]           2.4.1                                    -> 2.4.1
+2026-09-25T04:52:59.2905520Z  * [new tag]           2.4.2                                    -> 2.4.2
+2026-09-25T04:52:59.2907097Z  * [new tag]           2.4.3                                    -> 2.4.3
+2026-09-25T04:52:59.2908656Z  * [new tag]           2.4.4                                    -> 2.4.4
+2026-09-25T04:52:59.2910210Z  * [new tag]           2.4.5                                    -> 2.4.5
+2026-09-25T04:52:59.2912043Z  * [new tag]           2.4.6                                    -> 2.4.6
+2026-09-25T04:52:59.2913611Z  * [new tag]           2.4.7                                    -> 2.4.7
+2026-09-25T04:52:59.2915356Z  * [new tag]           2.4.8                                    -> 2.4.8
+2026-09-25T04:52:59.2916892Z  * [new tag]           2.4.9                                    -> 2.4.9
+2026-09-25T04:52:59.2918447Z  * [new tag]           2.5.0                                    -> 2.5.0
+2026-09-25T04:52:59.2919986Z  * [new tag]           2.5.1                                    -> 2.5.1
+2026-09-25T04:52:59.2921526Z  * [new tag]           2.5.2                                    -> 2.5.2
+2026-09-25T04:52:59.2923077Z  * [new tag]           2.5.3                                    -> 2.5.3
+2026-09-25T04:52:59.2924781Z  * [new tag]           2.5.4                                    -> 2.5.4
+2026-09-25T04:52:59.2926320Z  * [new tag]           2.5.5                                    -> 2.5.5
+2026-09-25T04:52:59.2927903Z  * [new tag]           2.5.6                                    -> 2.5.6
+2026-09-25T04:52:59.2929449Z  * [new tag]           2.5.7                                    -> 2.5.7
+2026-09-25T04:52:59.2930998Z  * [new tag]           2.5.8                                    -> 2.5.8
+2026-09-25T04:52:59.2932544Z  * [new tag]           2.5.9                                    -> 2.5.9
+2026-09-25T04:52:59.2934241Z  * [new tag]           2.6.0                                    -> 2.6.0
+2026-09-25T04:52:59.2935814Z  * [new tag]           2.6.1                                    -> 2.6.1
+2026-09-25T04:52:59.2937411Z  * [new tag]           2.6.2                                    -> 2.6.2
+2026-09-25T04:52:59.2939067Z  * [new tag]           2.6.3                                    -> 2.6.3
+2026-09-25T04:52:59.2940635Z  * [new tag]           2.6.4                                    -> 2.6.4
+2026-09-25T04:52:59.2942224Z  * [new tag]           2.6.5                                    -> 2.6.5
+2026-09-25T04:52:59.2943821Z  * [new tag]           2.6.6                                    -> 2.6.6
+2026-09-25T04:52:59.2945991Z  * [new tag]           2.6.7                                    -> 2.6.7
+2026-09-25T04:52:59.2947564Z  * [new tag]           2.6.8                                    -> 2.6.8
+2026-09-25T04:52:59.2949126Z  * [new tag]           2.6.9                                    -> 2.6.9
+2026-09-25T04:52:59.2950668Z  * [new tag]           2.7.0                                    -> 2.7.0
+2026-09-25T04:52:59.2952240Z  * [new tag]           2.7.1                                    -> 2.7.1
+2026-09-25T04:52:59.2953814Z  * [new tag]           2.7.2                                    -> 2.7.2
+2026-09-25T04:52:59.2955634Z  * [new tag]           2.7.3                                    -> 2.7.3
+2026-09-25T04:52:59.2957202Z  * [new tag]           2.7.4                                    -> 2.7.4
+2026-09-25T04:52:59.2958746Z  * [new tag]           2.7.5                                    -> 2.7.5
+2026-09-25T04:52:59.2960336Z  * [new tag]           2.7.6                                    -> 2.7.6
+2026-09-25T04:52:59.2961890Z  * [new tag]           2.7.7                                    -> 2.7.7
+2026-09-25T04:52:59.2963444Z  * [new tag]           2.7.8                                    -> 2.7.8
+2026-09-25T04:52:59.2965087Z  * [new tag]           2.7.9                                    -> 2.7.9
+2026-09-25T04:52:59.2966624Z  * [new tag]           2.8.0                                    -> 2.8.0
+2026-09-25T04:52:59.2968160Z  * [new tag]           2.8.1                                    -> 2.8.1
+2026-09-25T04:52:59.2969706Z  * [new tag]           2.8.2                                    -> 2.8.2
+2026-09-25T04:52:59.2971234Z  * [new tag]           2.8.3                                    -> 2.8.3
+2026-09-25T04:52:59.2972763Z  * [new tag]           2.8.4                                    -> 2.8.4
+2026-09-25T04:52:59.2974390Z  * [new tag]           2.8.5                                    -> 2.8.5
+2026-09-25T04:52:59.2976098Z  * [new tag]           2.8.6                                    -> 2.8.6
+2026-09-25T04:52:59.2977682Z  * [new tag]           2.8.7                                    -> 2.8.7
+2026-09-25T04:52:59.2979224Z  * [new tag]           2.8.8                                    -> 2.8.8
+2026-09-25T04:52:59.2980788Z  * [new tag]           2.8.9                                    -> 2.8.9
+2026-09-25T04:52:59.2982321Z  * [new tag]           2.9.0                                    -> 2.9.0
+2026-09-25T04:52:59.2983863Z  * [new tag]           2.9.1                                    -> 2.9.1
+2026-09-25T04:52:59.2985631Z  * [new tag]           2.9.2                                    -> 2.9.2
+2026-09-25T04:52:59.2987180Z  * [new tag]           2.9.3                                    -> 2.9.3
+2026-09-25T04:52:59.2988741Z  * [new tag]           2.9.4                                    -> 2.9.4
+2026-09-25T04:52:59.2990288Z  * [new tag]           2.9.5                                    -> 2.9.5
+2026-09-25T04:52:59.2991846Z  * [new tag]           2.9.6                                    -> 2.9.6
+2026-09-25T04:52:59.2993368Z  * [new tag]           2.9.7                                    -> 2.9.7
+2026-09-25T04:52:59.2995008Z  * [new tag]           2.9.8                                    -> 2.9.8
+2026-09-25T04:52:59.2996542Z  * [new tag]           2.9.9                                    -> 2.9.9
+2026-09-25T04:52:59.2998084Z  * [new tag]           3.0.0                                    -> 3.0.0
+2026-09-25T04:52:59.2999611Z  * [new tag]           3.0.1                                    -> 3.0.1
+2026-09-25T04:52:59.3001125Z  * [new tag]           3.0.2                                    -> 3.0.2
+2026-09-25T04:52:59.3002638Z  * [new tag]           3.0.3                                    -> 3.0.3
+2026-09-25T04:52:59.3004249Z  * [new tag]           3.0.4                                    -> 3.0.4
+2026-09-25T04:52:59.3005773Z  * [new tag]           3.0.5                                    -> 3.0.5
+2026-09-25T04:52:59.3007307Z  * [new tag]           3.0.6                                    -> 3.0.6
+2026-09-25T04:52:59.3008985Z  * [new tag]           3.0.7                                    -> 3.0.7
+2026-09-25T04:52:59.3010729Z  * [new ref]           d1c43233ad8bae487e4ed3c67d48ad6db88f8cc4 -> pull/740/merge
+2026-09-25T04:52:59.3014439Z ##[endgroup]
+2026-09-25T04:52:59.3015890Z ##[group]Determining the checkout info
+2026-09-25T04:52:59.3017529Z ##[endgroup]
+2026-09-25T04:52:59.3018458Z [command]/usr/bin/git sparse-checkout disable
+2026-09-25T04:52:59.3021393Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-25T04:52:59.3025078Z ##[group]Checking out the ref
+2026-09-25T04:52:59.3026578Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/740/merge
+2026-09-25T04:52:59.4861589Z Note: switching to 'refs/remotes/pull/740/merge'.
+2026-09-25T04:52:59.4884866Z 
+2026-09-25T04:52:59.4885841Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-09-25T04:52:59.4887264Z changes and commit them, and you can discard any commits you make in this
+2026-09-25T04:52:59.4888418Z state without impacting any branches by switching back to a branch.
+2026-09-25T04:52:59.4889189Z 
+2026-09-25T04:52:59.4889535Z If you want to create a new branch to retain commits you create, you may
+2026-09-25T04:52:59.4890409Z do so (now or later) by using -c with the switch command. Example:
+2026-09-25T04:52:59.4891000Z 
+2026-09-25T04:52:59.4891213Z   git switch -c <new-branch-name>
+2026-09-25T04:52:59.4891650Z 
+2026-09-25T04:52:59.4891867Z Or undo this operation with:
+2026-09-25T04:52:59.4892242Z 
+2026-09-25T04:52:59.4892417Z   git switch -
+2026-09-25T04:52:59.4892744Z 
+2026-09-25T04:52:59.4893121Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-09-25T04:52:59.4893744Z 
+2026-09-25T04:52:59.4894544Z HEAD is now at d1c43233 Merge 2db3437e02306f4a287fc9713cc585e18e8f6d43 into d27daf20abc92450a925c64e98040b9b15f5ca05
+2026-09-25T04:52:59.4896888Z ##[endgroup]
+2026-09-25T04:52:59.4964325Z [command]/usr/bin/git log -1 --format=%H
+2026-09-25T04:52:59.5000684Z d1c43233ad8bae487e4ed3c67d48ad6db88f8cc4
+2026-09-25T04:52:59.5270906Z ##[group]Run actions/setup-python@v5
+2026-09-25T04:52:59.5271289Z with:
+2026-09-25T04:52:59.5271556Z   python-version: 3.11
+2026-09-25T04:52:59.5271859Z   check-latest: false
+2026-09-25T04:52:59.5274774Z   token: ***
+2026-09-25T04:52:59.5275067Z   update-environment: true
+2026-09-25T04:52:59.5275388Z   allow-prereleases: false
+2026-09-25T04:52:59.5275692Z   freethreaded: false
+2026-09-25T04:52:59.5275975Z ##[endgroup]
+2026-09-25T04:52:59.6644449Z ##[group]Installed versions
+2026-09-25T04:52:59.6731305Z (node:2247) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-25T04:52:59.6732165Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-25T04:52:59.6732822Z Successfully set up CPython (3.11.16)
+2026-09-25T04:52:59.6733691Z ##[endgroup]
+2026-09-25T04:52:59.6930194Z ##[group]Run python3 tools/v3_verifier.py --self-test
+2026-09-25T04:52:59.6930846Z [36;1mpython3 tools/v3_verifier.py --self-test[0m
+2026-09-25T04:52:59.7222879Z shell: /usr/bin/bash -e {0}
+2026-09-25T04:52:59.7223292Z env:
+2026-09-25T04:52:59.7223671Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.7224384Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-25T04:52:59.7224918Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.7225381Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.7225836Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.7226292Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-25T04:52:59.7226688Z ##[endgroup]
+2026-09-25T04:52:59.8474232Z v3_verifier: self-test OK
+2026-09-25T04:52:59.8583047Z ##[group]Run python3 tools/v3_verifier.py --corpus
+2026-09-25T04:52:59.8583558Z [36;1mpython3 tools/v3_verifier.py --corpus[0m
+2026-09-25T04:52:59.8655774Z shell: /usr/bin/bash -e {0}
+2026-09-25T04:52:59.8656297Z env:
+2026-09-25T04:52:59.8656659Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.8657188Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-25T04:52:59.8657691Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.8658154Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.8658613Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:52:59.8659070Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-25T04:52:59.8659473Z ##[endgroup]
+2026-09-25T04:53:22.6227647Z VECTOR  g10-admit-blocks-inside-other-fence  AS-EXPECTED
+2026-09-25T04:53:22.6228422Z VECTOR  g10-reject-indented-opener  AS-EXPECTED
+2026-09-25T04:53:22.6229303Z VECTOR  g10-reject-longer-backtick-fence  AS-EXPECTED
+2026-09-25T04:53:22.6229962Z VECTOR  g10-reject-near-miss-in-amendment  AS-EXPECTED
+2026-09-25T04:53:22.6230575Z VECTOR  g10-reject-opener-with-cr  AS-EXPECTED
+2026-09-25T04:53:22.6231253Z VECTOR  g10-reject-opener-with-trailing-text  AS-EXPECTED
+2026-09-25T04:53:22.6232001Z VECTOR  g10-reject-quoted-example-block-counts  AS-EXPECTED
+2026-09-25T04:53:22.6232788Z VECTOR  g10-reject-tilde-fence-as-only-governed-block  AS-EXPECTED
+2026-09-25T04:53:22.6233504Z VECTOR  g10-reject-tilde-fence  AS-EXPECTED
+2026-09-25T04:53:22.6234236Z VECTOR  g10-reject-unclosed-opener  AS-EXPECTED
+2026-09-25T04:53:22.6234876Z VECTOR  g11-admit-abandoned-attempt-off-chain  AS-EXPECTED
+2026-09-25T04:53:22.6235636Z VECTOR  g11-admit-rebuild-from-e-after-failed-publication  AS-EXPECTED
+2026-09-25T04:53:22.6236470Z VECTOR  g11-reject-receipt-lists-abandoned-reconciliation  AS-EXPECTED
+2026-09-25T04:53:22.6237414Z VECTOR  g12-reject-execution-changes-another-rounds-receipt  AS-EXPECTED
+2026-09-25T04:53:22.6238443Z VECTOR  g12-reject-execution-changes-another-rounds-seal-record  AS-EXPECTED
+2026-09-25T04:53:22.6239383Z VECTOR  g12-reject-execution-changes-legacy-seal-namespace  AS-EXPECTED
+2026-09-25T04:53:22.6240230Z VECTOR  g12-reject-receipt-names-second-seal-record  AS-EXPECTED
+2026-09-25T04:53:22.6240967Z VECTOR  g12-reject-receipt-seal-path-not-fixed  AS-EXPECTED
+2026-09-25T04:53:22.6241691Z VECTOR  g12-reject-seal-entry-in-legacy-namespace  AS-EXPECTED
+2026-09-25T04:53:22.6242480Z VECTOR  g12-reject-seal-entry-names-another-rounds-receipt  AS-EXPECTED
+2026-09-25T04:53:22.6243228Z VECTOR  g12-reject-seal-entry-not-add-only  AS-EXPECTED
+2026-09-25T04:53:22.6243900Z VECTOR  g12-reject-seal-entry-not-at-fixed-path  AS-EXPECTED
+2026-09-25T04:53:22.6244920Z VECTOR  g12-reject-seal-record-path-already-present  AS-EXPECTED
+2026-09-25T04:53:22.6245682Z VECTOR  g12-reject-sealing-round-without-seal-entry  AS-EXPECTED
+2026-09-25T04:53:22.6246513Z VECTOR  g5-admit-halted-execution-with-unauthorized-change  AS-EXPECTED
+2026-09-25T04:53:22.6247312Z VECTOR  g5-reject-halted-execution-not-linear  AS-EXPECTED
+2026-09-25T04:53:22.6248112Z VECTOR  g6-reject-execution-entry-within-record-directory  AS-EXPECTED
+2026-09-25T04:53:22.6249112Z VECTOR  g6-reject-halted-landing-publishes-unnamed-seal-record  AS-EXPECTED
+2026-09-25T04:53:22.6250124Z VECTOR  g6-reject-halted-record-commit-writes-unnamed-seal-record  AS-EXPECTED
+2026-09-25T04:53:22.6251188Z VECTOR  g6-reject-receipt-shadowed-by-execution-entry  AS-EXPECTED
+2026-09-25T04:53:22.6252044Z VECTOR  g6-reject-record-class-by-broader-entry  AS-EXPECTED
+2026-09-25T04:53:22.6252780Z VECTOR  g6-reject-record-entry-outside-own-record  AS-EXPECTED
+2026-09-25T04:53:22.6253633Z VECTOR  g6-reject-record-file-entry-in-non-sealing-round  AS-EXPECTED
+2026-09-25T04:53:22.6255617Z VECTOR  g7-reject-reconciliation-adds-amendment  AS-EXPECTED
+2026-09-25T04:53:22.6256487Z VECTOR  g7-reject-reconciliation-changes-preregistration  AS-EXPECTED
+2026-09-25T04:53:22.6258055Z VECTOR  g7-reject-superseded-receipt-commit-changes-preregistration  AS-EXPECTED
+2026-09-25T04:53:22.6259092Z VECTOR  g8-admit-ownership-declaration-inert  AS-EXPECTED
+2026-09-25T04:53:22.6259824Z VECTOR  g9-admit-amendment-deleted-before-f  AS-EXPECTED
+2026-09-25T04:53:22.6260738Z VECTOR  g9-admit-amendment-revised-before-f  AS-EXPECTED
+2026-09-25T04:53:22.6261421Z VECTOR  g9-admit-preregistration-revised-before-f  AS-EXPECTED
+2026-09-25T04:53:22.6262088Z VECTOR  input-refuses-abbreviated-id  AS-EXPECTED
+2026-09-25T04:53:22.6262645Z VECTOR  input-refuses-head  AS-EXPECTED
+2026-09-25T04:53:22.6263177Z VECTOR  input-refuses-ref-name  AS-EXPECTED
+2026-09-25T04:53:22.6263807Z VECTOR  k1-admit-amendment-named-preregistration  AS-EXPECTED
+2026-09-25T04:53:22.6264717Z VECTOR  k1-admit-record-directory-name-free  AS-EXPECTED
+2026-09-25T04:53:22.6265371Z VECTOR  k1-admit-round-block-any-order  AS-EXPECTED
+2026-09-25T04:53:22.6266077Z VECTOR  k1-reject-declaration-inside-governed-block  AS-EXPECTED
+2026-09-25T04:53:22.6266971Z VECTOR  k1-reject-receipt-kind-disagrees-with-declaration  AS-EXPECTED
+2026-09-25T04:53:22.6267753Z VECTOR  k1-reject-round-block-incomplete  AS-EXPECTED
+2026-09-25T04:53:22.6268408Z VECTOR  k2-admit-blocks-only-in-preregistration  AS-EXPECTED
+2026-09-25T04:53:22.6269129Z VECTOR  k2-reject-amendment-adds-governed-entries  AS-EXPECTED
+2026-09-25T04:53:22.6269849Z VECTOR  k2-reject-amendment-repeats-governed-block  AS-EXPECTED
+2026-09-25T04:53:22.6270573Z VECTOR  k2-reject-governed-block-only-in-amendment  AS-EXPECTED
+2026-09-25T04:53:22.6271247Z VECTOR  k2-reject-round-block-only-in-amendment  AS-EXPECTED
+2026-09-25T04:53:22.6271928Z VECTOR  k3-admit-reconciliation-on-unmoved-base  AS-EXPECTED
+2026-09-25T04:53:22.6272544Z VECTOR  k3-admit-two-reconciliations  AS-EXPECTED
+2026-09-25T04:53:22.6273124Z VECTOR  k3-reject-first-parent-regressed  AS-EXPECTED
+2026-09-25T04:53:22.6273731Z VECTOR  k3-reject-intermediate-regression  AS-EXPECTED
+2026-09-25T04:53:22.6274630Z VECTOR  k4-admit-sealing-superseded-receipt-commit  AS-EXPECTED
+2026-09-25T04:53:22.6275317Z VECTOR  k4-admit-superseded-receipt-commit  AS-EXPECTED
+2026-09-25T04:53:22.6276030Z VECTOR  k4-admit-superseded-receipt-not-a-valid-receipt  AS-EXPECTED
+2026-09-25T04:53:22.6276810Z VECTOR  k4-admit-superseded-receipt-unreadable  AS-EXPECTED
+2026-09-25T04:53:22.6277678Z VECTOR  k4-reject-superseded-receipt-authorizes-own-extra-path  AS-EXPECTED
+2026-09-25T04:53:22.6278587Z VECTOR  k4-reject-superseded-receipt-commit-changes-more  AS-EXPECTED
+2026-09-25T04:53:22.6279348Z VECTOR  mc1-counter-branch-tip-refused  AS-EXPECTED
+2026-09-25T04:53:22.6279932Z VECTOR  mc1-pass-ref-churn  AS-EXPECTED
+2026-09-25T04:53:22.6280717Z VECTOR  mc2-counter-first-parent-off-main  AS-EXPECTED
+2026-09-25T04:53:22.6281306Z VECTOR  mc2-pass-base-drift  AS-EXPECTED
+2026-09-25T04:53:22.6281812Z VECTOR  mc3-counter-ungoverned-path  AS-EXPECTED
+2026-09-25T04:53:22.6282377Z VECTOR  mc3-counter-unlisted-change  AS-EXPECTED
+2026-09-25T04:53:22.6282977Z VECTOR  mc3-pass-resolved-governed-path  AS-EXPECTED
+2026-09-25T04:53:22.6283633Z VECTOR  mc4-counter-merge-inside-governed-only  AS-EXPECTED
+2026-09-25T04:53:22.6284574Z VECTOR  mc4-counter-merge-inside  AS-EXPECTED
+2026-09-25T04:53:22.6285100Z VECTOR  mc4-counter-not-from-f  AS-EXPECTED
+2026-09-25T04:53:22.6285591Z VECTOR  mc4-pass-linear  AS-EXPECTED
+2026-09-25T04:53:22.6286180Z VECTOR  mc5-counter-recorded-blob-disagrees  AS-EXPECTED
+2026-09-25T04:53:22.6286836Z VECTOR  mc5-pass-historical-subject  AS-EXPECTED
+2026-09-25T04:53:22.6287472Z VECTOR  mc6-counter-halted-receipt-carries-e  AS-EXPECTED
+2026-09-25T04:53:22.6288257Z VECTOR  mc6-counter-landing-publishes-execution-path  AS-EXPECTED
+2026-09-25T04:53:22.6289001Z VECTOR  mc6-counter-withdrawal-leaves-added-file  AS-EXPECTED
+2026-09-25T04:53:22.6289722Z VECTOR  mc6-counter-withdrawal-without-result-note  AS-EXPECTED
+2026-09-25T04:53:22.6290455Z VECTOR  mc6-extra-halted-without-execution-commits  AS-EXPECTED
+2026-09-25T04:53:22.6291469Z VECTOR  mc6-pass-halted-with-withdrawal  AS-EXPECTED
+2026-09-25T04:53:22.6292152Z VECTOR  mc7-counter-seal-record-missing-from-q  AS-EXPECTED
+2026-09-25T04:53:22.6292776Z VECTOR  mc7-pass-non-sealing  AS-EXPECTED
+2026-09-25T04:53:22.6293277Z VECTOR  mc7-pass-sealing  AS-EXPECTED
+2026-09-25T04:53:22.6294308Z VECTOR  mc8-counter-control-plane-change-after-f  AS-EXPECTED
+2026-09-25T04:53:22.6295013Z VECTOR  mc8-counter-execution-not-from-f  AS-EXPECTED
+2026-09-25T04:53:22.6295615Z VECTOR  mc8-pass-amendments-before-f  AS-EXPECTED
+2026-09-25T04:53:22.6296176Z VECTOR  reach-false-moved-base-lacks-q  AS-EXPECTED
+2026-09-25T04:53:22.6296779Z VECTOR  reach-true-host-merge-contains-q  AS-EXPECTED
+2026-09-25T04:53:22.6297426Z VECTOR  reach-undecidable-shallow-history  AS-EXPECTED
+2026-09-25T04:53:22.6298102Z VECTOR  s10-counter-receipt-commit-changes-more  AS-EXPECTED
+2026-09-25T04:53:22.6298919Z VECTOR  s12-counter-withdrawal-invariant-only  AS-EXPECTED
+2026-09-25T04:53:22.6299582Z VECTOR  s3-counter-unauthorized-execution-change  AS-EXPECTED
+2026-09-25T04:53:22.6300293Z VECTOR  s4-absent-field-present-with-reason  AS-EXPECTED
+2026-09-25T04:53:22.6300890Z VECTOR  s4-absent-without-reason  AS-EXPECTED
+2026-09-25T04:53:22.6301373Z VECTOR  s4-canonical-ex-1  AS-EXPECTED
+2026-09-25T04:53:22.6301807Z VECTOR  s4-canonical-ex-2  AS-EXPECTED
+2026-09-25T04:53:22.6302233Z VECTOR  s4-canonical-ex-3  AS-EXPECTED
+2026-09-25T04:53:22.6302698Z VECTOR  s4-canonical-ex-4  AS-EXPECTED
+2026-09-25T04:53:22.6303169Z VECTOR  s4-delta-digest-without-e  AS-EXPECTED
+2026-09-25T04:53:22.6303671Z VECTOR  s4-duplicate-key  AS-EXPECTED
+2026-09-25T04:53:22.6304305Z VECTOR  s4-forbidden-present  AS-EXPECTED
+2026-09-25T04:53:22.6304812Z VECTOR  s4-object-id-width  AS-EXPECTED
+2026-09-25T04:53:22.6305309Z VECTOR  s4-required-missing  AS-EXPECTED
+2026-09-25T04:53:22.6305788Z VECTOR  s4-seal-in-non-sealing  AS-EXPECTED
+2026-09-25T04:53:22.6306314Z VECTOR  s4-seal-missing-from-sealing  AS-EXPECTED
+2026-09-25T04:53:22.6306823Z VECTOR  s4-unknown-key  AS-EXPECTED
+2026-09-25T04:53:22.6307320Z VECTOR  s4-unknown-reason-code  AS-EXPECTED
+2026-09-25T04:53:22.6307788Z VECTOR  s7-g1-order-a  AS-EXPECTED
+2026-09-25T04:53:22.6308211Z VECTOR  s7-g1-order-b  AS-EXPECTED
+2026-09-25T04:53:22.6308631Z VECTOR  s7-g2-nested  AS-EXPECTED
+2026-09-25T04:53:22.6309087Z VECTOR  s7-reject-dot-segment  AS-EXPECTED
+2026-09-25T04:53:22.6309594Z VECTOR  s7-reject-dotdot-segment  AS-EXPECTED
+2026-09-25T04:53:22.6310107Z VECTOR  s7-reject-double-slash  AS-EXPECTED
+2026-09-25T04:53:22.6310589Z VECTOR  s7-reject-empty-ops  AS-EXPECTED
+2026-09-25T04:53:22.6311080Z VECTOR  s7-reject-empty-path  AS-EXPECTED
+2026-09-25T04:53:22.6311572Z VECTOR  s7-reject-leading-slash  AS-EXPECTED
+2026-09-25T04:53:22.6312155Z VECTOR  s7-reject-no-block  AS-EXPECTED
+2026-09-25T04:53:22.6312662Z VECTOR  s7-reject-ops-order  AS-EXPECTED
+2026-09-25T04:53:22.6313136Z VECTOR  s7-reject-path-cr  AS-EXPECTED
+2026-09-25T04:53:22.6313610Z VECTOR  s7-reject-path-tab  AS-EXPECTED
+2026-09-25T04:53:22.6314398Z VECTOR  s7-reject-path-twice  AS-EXPECTED
+2026-09-25T04:53:22.6314970Z VECTOR  s7-reject-record-class-omits  AS-EXPECTED
+2026-09-25T04:53:22.6315543Z VECTOR  s7-reject-two-blocks  AS-EXPECTED
+2026-09-25T04:53:22.6316052Z VECTOR  s7-reject-two-fields  AS-EXPECTED
+2026-09-25T04:53:22.6316584Z VECTOR  s7-reject-unknown-class  AS-EXPECTED
+2026-09-25T04:53:22.6317142Z VECTOR  s8-landed-2c6a4373-56b25397  AS-EXPECTED
+2026-09-25T04:53:22.6317683Z VECTOR  s8-landed-d3212b0e-50938dff  AS-EXPECTED
+2026-09-25T04:53:22.6318235Z VECTOR  s8-landed-f9a99fdf-14b9d991  AS-EXPECTED
+2026-09-25T04:53:22.6318773Z VECTOR  s8-scratch-lf-eacute  AS-EXPECTED
+2026-09-25T04:53:22.6319367Z VECTOR  s9-counter-execution-change-dropped  AS-EXPECTED
+2026-09-25T04:53:22.6320082Z VECTOR  s9-counter-landing-adds-governed-path  AS-EXPECTED
+2026-09-25T04:53:22.6320772Z VECTOR  s9-counter-landing-status-unauthorized  AS-EXPECTED
+2026-09-25T04:53:22.6321359Z CORPUS  135 vector(s), exact and as expected
+2026-09-25T04:53:22.6373467Z ##[group]Run python3 tools/v3_verifier.py --mode shadow --subject "$(git rev-parse HEAD)"
+2026-09-25T04:53:22.6374332Z [36;1mpython3 tools/v3_verifier.py --mode shadow --subject "$(git rev-parse HEAD)"[0m
+2026-09-25T04:53:22.6448442Z shell: /usr/bin/bash -e {0}
+2026-09-25T04:53:22.6448716Z env:
+2026-09-25T04:53:22.6449187Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:53:22.6472573Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib/pkgconfig
+2026-09-25T04:53:22.6473082Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:53:22.6473527Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:53:22.6473937Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.16/x64
+2026-09-25T04:53:22.6474586Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.16/x64/lib
+2026-09-25T04:53:22.6474928Z ##[endgroup]
+2026-09-25T04:53:44.9779637Z v3_verifier shadow report -- SHADOW ONLY: this report gates nothing; V1 and V2 remain authoritative
+2026-09-25T04:53:44.9780665Z settled rules (verification/infrastructure/v3/architecture.md):
+2026-09-25T04:53:44.9782494Z   K1  the preregistration at F carries one `v3-round` block: round <id>, kind <sealing|non-sealing>, record-directory <path>/, the one directory holding every control-plane path of delta(D, F); the receipt must agree with it
+2026-09-25T04:53:44.9784716Z   K2  at F the preregistration carries exactly one `v3-governed-paths` block and exactly one `v3-round` block, and no amendment carries either
+2026-09-25T04:53:44.9786341Z   K3  for every reconciliation, D lies on the first-parent chain of its first parent; for i>1, the previous first parent lies on the first-parent chain of this one
+2026-09-25T04:53:44.9788377Z   K4  every receipt commit, superseded or final, is a single-parent child of the reconciliation before it, changing exactly the receipt path plus the seal records the final receipt names; a superseded receipt is not read
+2026-09-25T04:53:44.9790267Z   G5  the execution commits of a halted round are linear from F and change no control-plane file; their delta from F need not be authorized
+2026-09-25T04:53:44.9792373Z   G6  the governed-path block at F has literal record entries for the record directory and the receipt path, no execution entry within the record directory, and no other record entry outside it but a sealing round's `record A` of its seal record path
+2026-09-25T04:53:44.9794618Z   G7  at every commit of the round after F, superseded or final, the control-plane files are exactly those at F, each with its state at F
+2026-09-25T04:53:44.9795864Z   G8  no ref, branch or host state is a predicate input; a control plane that names one changes no predicate
+2026-09-25T04:53:44.9797150Z   G9  before F the control plane is a draft: its commits may add, modify or delete control-plane files, and only the declarations at F are read
+2026-09-25T04:53:44.9799052Z   G10 declaration blocks are recognized by exact lines: an opener is three backticks and the info string, a closer three backticks; a near miss of a reserved info string in any control-plane file at F makes the control plane invalid
+2026-09-25T04:53:44.9800223Z   G11 the reconciliations and receipt commits of the round are exactly the chain Q reaches; an abandoned attempt is not an object of the round
+2026-09-25T04:53:44.9801403Z   G12 a sealing round has one seal record, verification/v3-seals/<round>.json, declared `record A` and named alone by its receipt; no round changes another round's receipt or V3 seal record, or any path under verification/seals/
+2026-09-25T04:53:44.9802322Z VECTOR  g10-admit-blocks-inside-other-fence  AS-EXPECTED
+2026-09-25T04:53:44.9802702Z VECTOR  g10-reject-indented-opener  AS-EXPECTED
+2026-09-25T04:53:44.9803060Z VECTOR  g10-reject-longer-backtick-fence  AS-EXPECTED
+2026-09-25T04:53:44.9803430Z VECTOR  g10-reject-near-miss-in-amendment  AS-EXPECTED
+2026-09-25T04:53:44.9803776Z VECTOR  g10-reject-opener-with-cr  AS-EXPECTED
+2026-09-25T04:53:44.9805322Z VECTOR  g10-reject-opener-with-trailing-text  AS-EXPECTED
+2026-09-25T04:53:44.9805956Z VECTOR  g10-reject-quoted-example-block-counts  AS-EXPECTED
+2026-09-25T04:53:44.9806649Z VECTOR  g10-reject-tilde-fence-as-only-governed-block  AS-EXPECTED
+2026-09-25T04:53:44.9807261Z VECTOR  g10-reject-tilde-fence  AS-EXPECTED
+2026-09-25T04:53:44.9807736Z VECTOR  g10-reject-unclosed-opener  AS-EXPECTED
+2026-09-25T04:53:44.9808526Z VECTOR  g11-admit-abandoned-attempt-off-chain  AS-EXPECTED
+2026-09-25T04:53:44.9809236Z VECTOR  g11-admit-rebuild-from-e-after-failed-publication  AS-EXPECTED
+2026-09-25T04:53:44.9809998Z VECTOR  g11-reject-receipt-lists-abandoned-reconciliation  AS-EXPECTED
+2026-09-25T04:53:44.9810857Z VECTOR  g12-reject-execution-changes-another-rounds-receipt  AS-EXPECTED
+2026-09-25T04:53:44.9811792Z VECTOR  g12-reject-execution-changes-another-rounds-seal-record  AS-EXPECTED
+2026-09-25T04:53:44.9812745Z VECTOR  g12-reject-execution-changes-legacy-seal-namespace  AS-EXPECTED
+2026-09-25T04:53:44.9813566Z VECTOR  g12-reject-receipt-names-second-seal-record  AS-EXPECTED
+2026-09-25T04:53:44.9814499Z VECTOR  g12-reject-receipt-seal-path-not-fixed  AS-EXPECTED
+2026-09-25T04:53:44.9815199Z VECTOR  g12-reject-seal-entry-in-legacy-namespace  AS-EXPECTED
+2026-09-25T04:53:44.9815982Z VECTOR  g12-reject-seal-entry-names-another-rounds-receipt  AS-EXPECTED
+2026-09-25T04:53:44.9816748Z VECTOR  g12-reject-seal-entry-not-add-only  AS-EXPECTED
+2026-09-25T04:53:44.9817405Z VECTOR  g12-reject-seal-entry-not-at-fixed-path  AS-EXPECTED
+2026-09-25T04:53:44.9818130Z VECTOR  g12-reject-seal-record-path-already-present  AS-EXPECTED
+2026-09-25T04:53:44.9818889Z VECTOR  g12-reject-sealing-round-without-seal-entry  AS-EXPECTED
+2026-09-25T04:53:44.9819703Z VECTOR  g5-admit-halted-execution-with-unauthorized-change  AS-EXPECTED
+2026-09-25T04:53:44.9820484Z VECTOR  g5-reject-halted-execution-not-linear  AS-EXPECTED
+2026-09-25T04:53:44.9821264Z VECTOR  g6-reject-execution-entry-within-record-directory  AS-EXPECTED
+2026-09-25T04:53:44.9822248Z VECTOR  g6-reject-halted-landing-publishes-unnamed-seal-record  AS-EXPECTED
+2026-09-25T04:53:44.9823209Z VECTOR  g6-reject-halted-record-commit-writes-unnamed-seal-record  AS-EXPECTED
+2026-09-25T04:53:44.9824711Z VECTOR  g6-reject-receipt-shadowed-by-execution-entry  AS-EXPECTED
+2026-09-25T04:53:44.9825477Z VECTOR  g6-reject-record-class-by-broader-entry  AS-EXPECTED
+2026-09-25T04:53:44.9826200Z VECTOR  g6-reject-record-entry-outside-own-record  AS-EXPECTED
+2026-09-25T04:53:44.9826996Z VECTOR  g6-reject-record-file-entry-in-non-sealing-round  AS-EXPECTED
+2026-09-25T04:53:44.9827783Z VECTOR  g7-reject-reconciliation-adds-amendment  AS-EXPECTED
+2026-09-25T04:53:44.9828565Z VECTOR  g7-reject-reconciliation-changes-preregistration  AS-EXPECTED
+2026-09-25T04:53:44.9829439Z VECTOR  g7-reject-superseded-receipt-commit-changes-preregistration  AS-EXPECTED
+2026-09-25T04:53:44.9829959Z VECTOR  g8-admit-ownership-declaration-inert  AS-EXPECTED
+2026-09-25T04:53:44.9830359Z VECTOR  g9-admit-amendment-deleted-before-f  AS-EXPECTED
+2026-09-25T04:53:44.9830759Z VECTOR  g9-admit-amendment-revised-before-f  AS-EXPECTED
+2026-09-25T04:53:44.9831161Z VECTOR  g9-admit-preregistration-revised-before-f  AS-EXPECTED
+2026-09-25T04:53:44.9831554Z VECTOR  input-refuses-abbreviated-id  AS-EXPECTED
+2026-09-25T04:53:44.9831890Z VECTOR  input-refuses-head  AS-EXPECTED
+2026-09-25T04:53:44.9832192Z VECTOR  input-refuses-ref-name  AS-EXPECTED
+2026-09-25T04:53:44.9832567Z VECTOR  k1-admit-amendment-named-preregistration  AS-EXPECTED
+2026-09-25T04:53:44.9832973Z VECTOR  k1-admit-record-directory-name-free  AS-EXPECTED
+2026-09-25T04:53:44.9833336Z VECTOR  k1-admit-round-block-any-order  AS-EXPECTED
+2026-09-25T04:53:44.9833733Z VECTOR  k1-reject-declaration-inside-governed-block  AS-EXPECTED
+2026-09-25T04:53:44.9835027Z VECTOR  k1-reject-receipt-kind-disagrees-with-declaration  AS-EXPECTED
+2026-09-25T04:53:44.9835517Z VECTOR  k1-reject-round-block-incomplete  AS-EXPECTED
+2026-09-25T04:53:44.9835947Z VECTOR  k2-admit-blocks-only-in-preregistration  AS-EXPECTED
+2026-09-25T04:53:44.9836689Z VECTOR  k2-reject-amendment-adds-governed-entries  AS-EXPECTED
+2026-09-25T04:53:44.9837160Z VECTOR  k2-reject-amendment-repeats-governed-block  AS-EXPECTED
+2026-09-25T04:53:44.9837619Z VECTOR  k2-reject-governed-block-only-in-amendment  AS-EXPECTED
+2026-09-25T04:53:44.9838036Z VECTOR  k2-reject-round-block-only-in-amendment  AS-EXPECTED
+2026-09-25T04:53:44.9838602Z VECTOR  k3-admit-reconciliation-on-unmoved-base  AS-EXPECTED
+2026-09-25T04:53:44.9838981Z VECTOR  k3-admit-two-reconciliations  AS-EXPECTED
+2026-09-25T04:53:44.9839422Z VECTOR  k3-reject-first-parent-regressed  AS-EXPECTED
+2026-09-25T04:53:44.9840056Z VECTOR  k3-reject-intermediate-regression  AS-EXPECTED
+2026-09-25T04:53:44.9840756Z VECTOR  k4-admit-sealing-superseded-receipt-commit  AS-EXPECTED
+2026-09-25T04:53:44.9841362Z VECTOR  k4-admit-superseded-receipt-commit  AS-EXPECTED
+2026-09-25T04:53:44.9841806Z VECTOR  k4-admit-superseded-receipt-not-a-valid-receipt  AS-EXPECTED
+2026-09-25T04:53:44.9842415Z VECTOR  k4-admit-superseded-receipt-unreadable  AS-EXPECTED
+2026-09-25T04:53:44.9843056Z VECTOR  k4-reject-superseded-receipt-authorizes-own-extra-path  AS-EXPECTED
+2026-09-25T04:53:44.9843591Z VECTOR  k4-reject-superseded-receipt-commit-changes-more  AS-EXPECTED
+2026-09-25T04:53:44.9844377Z VECTOR  mc1-counter-branch-tip-refused  AS-EXPECTED
+2026-09-25T04:53:44.9844854Z VECTOR  mc1-pass-ref-churn  AS-EXPECTED
+2026-09-25T04:53:44.9845198Z VECTOR  mc2-counter-first-parent-off-main  AS-EXPECTED
+2026-09-25T04:53:44.9845666Z VECTOR  mc2-pass-base-drift  AS-EXPECTED
+2026-09-25T04:53:44.9845981Z VECTOR  mc3-counter-ungoverned-path  AS-EXPECTED
+2026-09-25T04:53:44.9846422Z VECTOR  mc3-counter-unlisted-change  AS-EXPECTED
+2026-09-25T04:53:44.9846768Z VECTOR  mc3-pass-resolved-governed-path  AS-EXPECTED
+2026-09-25T04:53:44.9847264Z VECTOR  mc4-counter-merge-inside-governed-only  AS-EXPECTED
+2026-09-25T04:53:44.9847632Z VECTOR  mc4-counter-merge-inside  AS-EXPECTED
+2026-09-25T04:53:44.9848057Z VECTOR  mc4-counter-not-from-f  AS-EXPECTED
+2026-09-25T04:53:44.9848359Z VECTOR  mc4-pass-linear  AS-EXPECTED
+2026-09-25T04:53:44.9848798Z VECTOR  mc5-counter-recorded-blob-disagrees  AS-EXPECTED
+2026-09-25T04:53:44.9849179Z VECTOR  mc5-pass-historical-subject  AS-EXPECTED
+2026-09-25T04:53:44.9849656Z VECTOR  mc6-counter-halted-receipt-carries-e  AS-EXPECTED
+2026-09-25T04:53:44.9850093Z VECTOR  mc6-counter-landing-publishes-execution-path  AS-EXPECTED
+2026-09-25T04:53:44.9850673Z VECTOR  mc6-counter-withdrawal-leaves-added-file  AS-EXPECTED
+2026-09-25T04:53:44.9851182Z VECTOR  mc6-counter-withdrawal-without-result-note  AS-EXPECTED
+2026-09-25T04:53:44.9851641Z VECTOR  mc6-extra-halted-without-execution-commits  AS-EXPECTED
+2026-09-25T04:53:44.9852141Z VECTOR  mc6-pass-halted-with-withdrawal  AS-EXPECTED
+2026-09-25T04:53:44.9852524Z VECTOR  mc7-counter-seal-record-missing-from-q  AS-EXPECTED
+2026-09-25T04:53:44.9852992Z VECTOR  mc7-pass-non-sealing  AS-EXPECTED
+2026-09-25T04:53:44.9853290Z VECTOR  mc7-pass-sealing  AS-EXPECTED
+2026-09-25T04:53:44.9853773Z VECTOR  mc8-counter-control-plane-change-after-f  AS-EXPECTED
+2026-09-25T04:53:44.9854376Z VECTOR  mc8-counter-execution-not-from-f  AS-EXPECTED
+2026-09-25T04:53:44.9854729Z VECTOR  mc8-pass-amendments-before-f  AS-EXPECTED
+2026-09-25T04:53:44.9855187Z VECTOR  reach-false-moved-base-lacks-q  AS-EXPECTED
+2026-09-25T04:53:44.9855545Z VECTOR  reach-true-host-merge-contains-q  AS-EXPECTED
+2026-09-25T04:53:44.9856028Z VECTOR  reach-undecidable-shallow-history  AS-EXPECTED
+2026-09-25T04:53:44.9856426Z VECTOR  s10-counter-receipt-commit-changes-more  AS-EXPECTED
+2026-09-25T04:53:44.9856956Z VECTOR  s12-counter-withdrawal-invariant-only  AS-EXPECTED
+2026-09-25T04:53:44.9857459Z VECTOR  s3-counter-unauthorized-execution-change  AS-EXPECTED
+2026-09-25T04:53:44.9857880Z VECTOR  s4-absent-field-present-with-reason  AS-EXPECTED
+2026-09-25T04:53:44.9858343Z VECTOR  s4-absent-without-reason  AS-EXPECTED
+2026-09-25T04:53:44.9858661Z VECTOR  s4-canonical-ex-1  AS-EXPECTED
+2026-09-25T04:53:44.9858979Z VECTOR  s4-canonical-ex-2  AS-EXPECTED
+2026-09-25T04:53:44.9859526Z VECTOR  s4-canonical-ex-3  AS-EXPECTED
+2026-09-25T04:53:44.9859865Z VECTOR  s4-canonical-ex-4  AS-EXPECTED
+2026-09-25T04:53:44.9860216Z VECTOR  s4-delta-digest-without-e  AS-EXPECTED
+2026-09-25T04:53:44.9860521Z VECTOR  s4-duplicate-key  AS-EXPECTED
+2026-09-25T04:53:44.9860937Z VECTOR  s4-forbidden-present  AS-EXPECTED
+2026-09-25T04:53:44.9861368Z VECTOR  s4-object-id-width  AS-EXPECTED
+2026-09-25T04:53:44.9861782Z VECTOR  s4-required-missing  AS-EXPECTED
+2026-09-25T04:53:44.9862076Z VECTOR  s4-seal-in-non-sealing  AS-EXPECTED
+2026-09-25T04:53:44.9862526Z VECTOR  s4-seal-missing-from-sealing  AS-EXPECTED
+2026-09-25T04:53:44.9862848Z VECTOR  s4-unknown-key  AS-EXPECTED
+2026-09-25T04:53:44.9863233Z VECTOR  s4-unknown-reason-code  AS-EXPECTED
+2026-09-25T04:53:44.9863527Z VECTOR  s7-g1-order-a  AS-EXPECTED
+2026-09-25T04:53:44.9863785Z VECTOR  s7-g1-order-b  AS-EXPECTED
+2026-09-25T04:53:44.9864319Z VECTOR  s7-g2-nested  AS-EXPECTED
+2026-09-25T04:53:44.9864610Z VECTOR  s7-reject-dot-segment  AS-EXPECTED
+2026-09-25T04:53:44.9865051Z VECTOR  s7-reject-dotdot-segment  AS-EXPECTED
+2026-09-25T04:53:44.9865359Z VECTOR  s7-reject-double-slash  AS-EXPECTED
+2026-09-25T04:53:44.9865780Z VECTOR  s7-reject-empty-ops  AS-EXPECTED
+2026-09-25T04:53:44.9866086Z VECTOR  s7-reject-empty-path  AS-EXPECTED
+2026-09-25T04:53:44.9866446Z VECTOR  s7-reject-leading-slash  AS-EXPECTED
+2026-09-25T04:53:44.9866813Z VECTOR  s7-reject-no-block  AS-EXPECTED
+2026-09-25T04:53:44.9867090Z VECTOR  s7-reject-ops-order  AS-EXPECTED
+2026-09-25T04:53:44.9867501Z VECTOR  s7-reject-path-cr  AS-EXPECTED
+2026-09-25T04:53:44.9867781Z VECTOR  s7-reject-path-tab  AS-EXPECTED
+2026-09-25T04:53:44.9868135Z VECTOR  s7-reject-path-twice  AS-EXPECTED
+2026-09-25T04:53:44.9868508Z VECTOR  s7-reject-record-class-omits  AS-EXPECTED
+2026-09-25T04:53:44.9868813Z VECTOR  s7-reject-two-blocks  AS-EXPECTED
+2026-09-25T04:53:44.9869237Z VECTOR  s7-reject-two-fields  AS-EXPECTED
+2026-09-25T04:53:44.9869542Z VECTOR  s7-reject-unknown-class  AS-EXPECTED
+2026-09-25T04:53:44.9869983Z VECTOR  s8-landed-2c6a4373-56b25397  AS-EXPECTED
+2026-09-25T04:53:44.9870312Z VECTOR  s8-landed-d3212b0e-50938dff  AS-EXPECTED
+2026-09-25T04:53:44.9870713Z VECTOR  s8-landed-f9a99fdf-14b9d991  AS-EXPECTED
+2026-09-25T04:53:44.9871047Z VECTOR  s8-scratch-lf-eacute  AS-EXPECTED
+2026-09-25T04:53:44.9871439Z VECTOR  s9-counter-execution-change-dropped  AS-EXPECTED
+2026-09-25T04:53:44.9871927Z VECTOR  s9-counter-landing-adds-governed-path  AS-EXPECTED
+2026-09-25T04:53:44.9872471Z VECTOR  s9-counter-landing-status-unauthorized  AS-EXPECTED
+2026-09-25T04:53:48.1343324Z CORPUS  135 vector(s), exact and as expected
+2026-09-25T04:53:48.1343948Z PROJECTION  subject d1c43233ad8bae487e4ed3c67d48ad6db88f8cc4  rows 36
+2026-09-25T04:53:48.1344727Z ROW  A12P   landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1345374Z V3ONLY  A12P   linear base-on-first-parent-chain delta=4f7e44f96c0216c1e76bae23513b3a1bf19840d2da9d141abfc14d30adef71c8
+2026-09-25T04:53:48.1346032Z ROW  A6D    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1346633Z V3ONLY  A6D    linear base-on-first-parent-chain delta=ee76b2cb997ce95127ca2f498c010311dd4f714123aff2ab94d73f9ef1bccc6e
+2026-09-25T04:53:48.1347255Z ROW  A6I    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1347858Z V3ONLY  A6I    linear base-on-first-parent-chain delta=891762f756e1e66d767caeb4953a784db6d53b22df3ecc846577f90207cb2d4b
+2026-09-25T04:53:48.1348456Z ROW  A6P    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1349025Z V3ONLY  A6P    linear base-on-first-parent-chain delta=4eaba3f643e700011423829de9697a10cdbf3fa831de3eb6f7cd303a3645a50d
+2026-09-25T04:53:48.1349576Z ROW  ABR    base-only X0=HOLDS
+2026-09-25T04:53:48.1349870Z ROW  CGR    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1350486Z V3ONLY  CGR    linear base-on-first-parent-chain delta=b5a32f824a6affb248547f64e1d2960fd3e35d5b4e34c5cec00e09243f7172b7
+2026-09-25T04:53:48.1351485Z ROW  CLG    base-only X0=HOLDS
+2026-09-25T04:53:48.1351775Z ROW  CTI    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1352360Z V3ONLY  CTI    linear base-on-first-parent-chain delta=e24260e04dcdb3f972b5f75e20d327113bc67f6952b602e7c825b850eb195984
+2026-09-25T04:53:48.1352943Z ROW  CV1    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1353660Z V3ONLY  CV1    linear base-on-first-parent-chain delta=93d1f048c57dd0fe477568a77561778824c768f953ce413ca3068d9078db4c40
+2026-09-25T04:53:48.1354428Z ROW  GR1    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1354991Z V3ONLY  GR1    linear base-on-first-parent-chain delta=60c5fe2d793d4e0b29ed04f5ef3809f04a26830270c6c575f6cac3927d7edad3
+2026-09-25T04:53:48.1355553Z ROW  GR2    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1356108Z V3ONLY  GR2    linear base-on-first-parent-chain delta=2264d34d77b551b58d0e84fcdd01ba285eb50bece57e81ca5a57af24c35fa212
+2026-09-25T04:53:48.1356678Z ROW  HYA    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1357219Z V3ONLY  HYA    linear base-on-first-parent-chain delta=27bb6ef6fa34092581f48e44b7e98528b452a0e7c3d16f39277767d0d515e8b0
+2026-09-25T04:53:48.1357775Z ROW  HYB    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1358324Z V3ONLY  HYB    linear base-on-first-parent-chain delta=fbf5fa1db9bfe2eadd80461ee84da10d079fb1d891675fa55f73240b76862c2a
+2026-09-25T04:53:48.1358891Z ROW  HYE    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1359425Z V3ONLY  HYE    linear base-on-first-parent-chain delta=eae0343e599177764c611ae228a44e4159c9c63759fd4fa7a0ab952ec4479d30
+2026-09-25T04:53:48.1359961Z ROW  NLV    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1360502Z V3ONLY  NLV    linear base-on-first-parent-chain delta=b4cb4268669de80aa71f7bb9fb67962b53196f8544969dbcbd4a46d0abf025c6
+2026-09-25T04:53:48.1361045Z ROW  OGC    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1361593Z V3ONLY  OGC    linear base-on-first-parent-chain delta=f00b9951400f777a0e31d96045e7477ddc899cd845cc858bed4dffb8e946f532
+2026-09-25T04:53:48.1362142Z ROW  OGS    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1362696Z V3ONLY  OGS    linear base-on-first-parent-chain delta=25d86adeeb4dbb18711430bb51b0e0dcfc7b4d24981fea0a63e497df08bf2248
+2026-09-25T04:53:48.1363262Z ROW  OLG    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1363802Z V3ONLY  OLG    linear base-on-first-parent-chain delta=9dc683d612a971544053bd73221a230b4bd157114d4599f35eee9ffd7e587b3d
+2026-09-25T04:53:48.1364611Z ROW  OLN    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1365227Z V3ONLY  OLN    linear base-on-first-parent-chain delta=3afed22d8313192ca1ae0b56e013db35c7838040549d5089c01c3146e32dd02c
+2026-09-25T04:53:48.1365826Z ROW  OLT    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1366397Z V3ONLY  OLT    linear base-on-first-parent-chain delta=37b192d9f1b4f7337b21938d68d268f09e86d332e9583ae033cf5bb0b3a6364b
+2026-09-25T04:53:48.1366972Z ROW  PC4    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1367534Z V3ONLY  PC4    linear base-on-first-parent-chain delta=c704452295b834b7e8d653861881874199a3a472db30691a2e9900e4ed0d8ff2
+2026-09-25T04:53:48.1368091Z ROW  PC4S   landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1368642Z V3ONLY  PC4S   linear base-on-first-parent-chain delta=3358c9d49148a40d22281e27406520071f558e36a1ef20a1805375e144c9460a
+2026-09-25T04:53:48.1369195Z ROW  PFR    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1369750Z V3ONLY  PFR    linear base-on-first-parent-chain delta=9f0d8399a8866e4bb0f739321e08a46a401397f0d8bacee4157eb9e26aca3c38
+2026-09-25T04:53:48.1370343Z ROW  PQT    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1370921Z V3ONLY  PQT    linear base-on-first-parent-chain delta=86a0f1f4e1ae9c4246a04434096720b7452bc05e16950187c50ca5c68999460d
+2026-09-25T04:53:48.1371622Z ROW  RBR    base-only X0=HOLDS
+2026-09-25T04:53:48.1371926Z ROW  RNC    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1372493Z V3ONLY  RNC    linear base-on-first-parent-chain delta=c0afe3172e2c0630825440cd2fdad56a7970b47eaaf8ee6f3fc2e1c10cc5dd12
+2026-09-25T04:53:48.1373055Z ROW  RNT    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1373744Z V3ONLY  RNT    linear base-on-first-parent-chain delta=fa155afac0ec7e6a5e89c4132ef82a271a62b9f31e5d309cfa0718269153aff9
+2026-09-25T04:53:48.1374497Z ROW  SGT    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1375044Z V3ONLY  SGT    linear base-on-first-parent-chain delta=a9f4fa632f1566e2a069c6d0c3fc35348558b109b26e0f78a9e922f004112878
+2026-09-25T04:53:48.1375567Z ROW  SI1    base-only X0=HOLDS
+2026-09-25T04:53:48.1375810Z ROW  SI2    base-only X0=HOLDS
+2026-09-25T04:53:48.1376089Z ROW  SI3    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1376640Z V3ONLY  SI3    linear base-on-first-parent-chain delta=8fc91d817b59579f0ba3b19a8e30c0153b519cbeb5cb9dcb8efc46c297b79c6b
+2026-09-25T04:53:48.1377192Z ROW  TCF    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1377733Z V3ONLY  TCF    linear base-on-first-parent-chain delta=bf15b40b6f5c363d83d2e22e684199126de068473dcfd4066a519485cabeaab5
+2026-09-25T04:53:48.1378294Z ROW  TRJ    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1378839Z V3ONLY  TRJ    linear base-on-first-parent-chain delta=ac166e075021647820c910227871d3641dcbc415f5f991feee60d9de8258d043
+2026-09-25T04:53:48.1379379Z ROW  TSG    base-only X0=HOLDS
+2026-09-25T04:53:48.1379658Z ROW  WTS    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1380195Z V3ONLY  WTS    linear base-on-first-parent-chain delta=da8808ede849478ee8ec741b475a6311334957ac6a164f89128fc38e631c8765
+2026-09-25T04:53:48.1380736Z ROW  XTS    landed    X1=HOLDS  X2=HOLDS  X3=HOLDS  X4=HOLDS
+2026-09-25T04:53:48.1381281Z V3ONLY  XTS    linear base-on-first-parent-chain delta=114990c72c9bf5aba0d21fb85c809a5f77d4ab8f6e9d614307e725f8253c73e6
+2026-09-25T04:53:48.1381793Z PROJECTION  cells 126
+2026-09-25T04:53:48.1382091Z v3_verifier: shadow report complete (corpus as expected)
+2026-09-25T04:53:48.1521998Z Post job cleanup.
+2026-09-25T04:53:48.2775024Z (node:34811) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-25T04:53:48.2775837Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-25T04:53:48.2981442Z Post job cleanup.
+2026-09-25T04:53:48.3902222Z [command]/usr/bin/git version
+2026-09-25T04:53:48.3956949Z git version 2.55.0
+2026-09-25T04:53:48.3997949Z Temporarily overriding HOME='/home/runner/work/_temp/06513bbf-3a59-414a-a1bf-172c0a6c7cf4' before making global git config changes
+2026-09-25T04:53:48.3999649Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-25T04:53:48.4004662Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-09-25T04:53:48.4052387Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-25T04:53:48.4095823Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-25T04:53:48.4407809Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-25T04:53:48.4422042Z http.https://github.com/.extraheader
+2026-09-25T04:53:48.4425565Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-25T04:53:48.4479583Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-25T04:53:48.4810157Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-25T04:53:48.4857258Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-25T04:53:48.5302311Z Cleaning up orphan processes
+2026-09-25T04:53:48.5688890Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

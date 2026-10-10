@@ -1,0 +1,5 @@
+SETUP nonlinear: Le=4 (oifs), Lp=3 (oifs), gens=ifs: 781 effects, 154 preparations
+RANK nonlinear: effect span dim on these preparations = 8
+WELLDEF nonlinear: a* well defined on span(effects <= 3) for gens ifs: False  (149 relations checked)
+STOP: preparations too shallow for this effect horizon
+DONE

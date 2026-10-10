@@ -1,0 +1,7 @@
+K4 split 0             instances  150  minimum 15/2            negative or complex: 0
+K4 split 0 filtered    instances   60  minimum 5362870858502725551355/6347497291776  negative or complex: 0
+K4 split 1             instances  150  minimum 15/2            negative or complex: 0
+Latin                  instances   60  minimum 198             negative or complex: 0
+ring                   instances  400  minimum 24              negative or complex: 0
+ring filtered          instances   60  minimum 128551003261567286212723/203119913336832  negative or complex: 0
+ring mixed             instances  400  minimum 0               negative or complex: 0

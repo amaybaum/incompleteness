@@ -1,0 +1,33 @@
+parsed nflip = [1, -1, -1]  reflY = [1, -1, 1]  sgn negatives = [(1, 3), (2, 2)]
+PASS 1.1a q(rho_of(w)) = w (symbolic, 16 real coordinates)
+PASS 1.1b rho_of(q(H)) = H for a general Hermitian H (16 real parameters)
+PASS 1.1c q(H) is real for Hermitian H
+PASS 1.2 q(rho(x) (x) rho(y)) = prodState x y
+PASS 1.3a Tr(E_a rho(x)) = sum a_mu hom x mu  (so ehom e = a)
+PASS 1.3b Tr((E_a (x) F_b) rho_of(w)) = pairVal a b w
+PASS 1.4 charpoly(E_a) = lam^2 - 2 a0 lam + (a0^2 - a1^2 - a2^2 - a3^2)  [so E_a >= 0 iff Lor a; written step: 2x2 PSD iff tr,det >= 0]
+PASS 1.5a literal cnotFun = matrix form
+PASS 1.5b kernel cnot (parsed) = transfer matrix of Ad(CNOT_{A->B})
+PASS 1.5c countercontrol: kernel cnot != Ad(CNOT_{B->A})
+PASS 1.5d countercontrol: kernel cnot != Ad(CZ)
+PASS 1.5e countercontrol: kernel cnot != cnot' := actT reflY . cnot . actT reflY
+PASS 1.5f cross-check: identical to k2d k2lib.kernel_cnot_matrix (independent parser)
+PASS 1.6a literal actT N w = matrix form (symbolic N, w)
+PASS 1.6b literal actC N w = matrix form (symbolic N, w)
+PASS 1.6c actT N (prodState x y) = prodState x (N y)
+PASS 1.6d actC N (prodState x y) = prodState (N x) y
+PASS 1.7a R(q) R(q)^T = I (rational functions of q)
+PASS 1.7b det R(q) = 1
+PASS 1.7c U~ U~^H = |q|^2 I
+PASS 1.7d U~ (x.s) U~^H = |q|^2 (R(q) x).s  (R is the Bloch action of U~)
+PASS 1.7e actT R(q) = transfer matrix of Ad(I (x) U~)/|q|^2  (all of SU(2), symbolic)
+PASS 1.7f actC R(q) = transfer matrix of Ad(U~ (x) I)/|q|^2  (all of SU(2), symbolic)
+PASS 1.8a actT nflip = Ad(I (x) X)
+PASS 1.8b actC nflip = Ad(X (x) I)
+PASS 1.8c nflip = R(q) at q = (0,1,0,0)  (U~ = -iX)
+PASS 1.9a actT reflY w = q(rho(w)^{T_B})  (one-copy reflection = partial transpose on copy B)
+PASS 1.9b actC reflY w = q(rho(w)^{T_A})
+PASS 1.9c actC reflY . actT reflY w = q(rho(w)^T)  (both copies = global transpose)
+PASS 1.10 rho(z3) = |0><0|, rho(-z3) = |1><1|
+SUMMARY: 30 checks, 0 failures
+VERDICT P1: DICTIONARY-EXACT

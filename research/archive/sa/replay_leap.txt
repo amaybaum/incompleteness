@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/oistage/leap_rank.py", line 16, in <module>
+    from oistage_checks import rank  # noqa: E402  (exact rank; importing runs the checks once)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'oistage_checks'

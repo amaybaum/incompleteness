@@ -1,0 +1,10 @@
+s5_pauli_adapter   exit=0 replay=EXACT
+s4_not_pairs       exit=0 replay=EXACT
+s6_gate_class      exit=0 replay=EXACT
+s1_stage_act       exit=0 replay=EXACT
+s3_scope_qutrit    exit=0 replay=EXACT
+s7_k2_composite    exit=0 replay=EXACT
+s8_one_model       exit=0 replay=EXACT
+qe2_graph          exit=0 replay=EXACT
+run_all: OK
+exit 0

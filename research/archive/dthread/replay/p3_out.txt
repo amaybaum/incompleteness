@@ -1,0 +1,24 @@
+PASS 3.1 kernel direction in dir aff K => explicit collision p != q in K :: 40 instances (79 draws)
+     [W] general form: v = sum a_j (b_j - b_j'), a_j >= 0 after swapping; v = A(p - q) with p, q convex
+         combinations; R v = 0 and R injective on K give p = q, v = 0.  So injective on K <=> on dir aff K.
+PASS 3.2 finite set {0,e1,e2}: R=(1,2) injective on it (values [0, 1, 2]) but not on its hull
+PASS 3.3a max of f_N on [-1,1]^N is 1 - 2^-N (N=1..24), attained only at all-ones
+     3.3b [W] sup over the c0 ball is 1, never attained: value 1 needs sum 2^-n (1 - x_n) = 0, i.e. x = all-ones
+     3.3c [tautological, not counted] sup-distance(all-ones, vector supported in [1,s]) >= 1 at coordinate s+1: True
+     3.3d [tautological, not counted] 1_[1,N] -> all-ones coordinatewise, sup-distance stays 1: True
+     [W] realisation: preparations = rescaled graph points ((1+f(x))/2, ((1+x_n)/2)_n) for finitely supported
+         rational x in the cube; labels = the coordinates + a unit; stage N = first N of each; SC-inf holds
+         trivially; CMP-1 body = norm closure = rescaled graph of the c0 ball (closed, convex, bounded); the
+         reading through the single label f has image the open interval (0,1): not closed.  FiniteRank fails.
+         Pointwise (Tychonoff) closure would add the all-ones point and make every finite reading compact.
+PASS 3.4 padded points (om0,0), (om0,1): all 49 sampled product-effect values equal, points differ :: definitional instance of padEff_apply :843; [K] :885
+     [W] so in the initial topology of the product-effect values the padded body P.Om x [0,1] (norm-closed when
+         P.Om is) is not closed: its probability-closure is P.Om x R.  Norm-closed and probability-closed differ
+         exactly where local tomography fails.
+PASS 3.5a four sign-choice product values sum to omega_00 and their signed sum is omega_ij
+     [W] nonnegative values summing to omega_00 = 1 give |omega_ij| <= 1; likewise |omega_i0|, |omega_0j| <= 1.
+         So the joint-state slice of two balls is bounded; closed cone <=> closed slice (base compact, 0 not in it).
+PASS 3.5b countercontrol: (om0, 10^6) passes every sampled clause of the padded maximal body :: definitional (height unread); [W] so the padded maximal body is unbounded
+---
+P3 bridge steps: 6 checks, 0 failures
+VERDICT BRIDGE-STEPS-EXACT

@@ -1,0 +1,14 @@
+F=classical bit          d=1 homogenized split (+1, -1) = (1, 1), p_tan = 0, balanced True, block p_tan<=1 True
+PASS P3 classical bit: M involutive
+F=R (rebit)              d=2 homogenized split (+1, -1) = (2, 1), p_tan = 1, balanced False, block p_tan<=1 True
+PASS P3 R (rebit): M involutive
+F=C (qubit)              d=3 homogenized split (+1, -1) = (2, 2), p_tan = 1, balanced True, block p_tan<=1 True
+PASS P3 C (qubit): M involutive
+F=H (quaternionic bit)   d=5 homogenized split (+1, -1) = (2, 4), p_tan = 1, balanced False, block p_tan<=1 True
+PASS P3 H (quaternionic bit): M involutive
+F=O (octonionic bit)     d=9 homogenized split (+1, -1) = (2, 8), p_tan = 1, balanced False, block p_tan<=1 True
+PASS P3 O (octonionic bit): M involutive
+PASS P3a the level-exchange NOT is balanced exactly for the classical bit and C
+PASS P3b the balanced cases are d = 1 and d = 3, DIM-1's output set
+SUMMARY 7 checks, 0 failed
+VERDICT RENDERED: for the level-exchange NOT, DIM-1's parity balance holds exactly over the classical bit and C

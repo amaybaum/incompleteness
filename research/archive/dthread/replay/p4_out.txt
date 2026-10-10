@@ -1,0 +1,28 @@
+PASS 4.1a pairVal a b idW = sum a_mu b_mu
+PASS 4.1b value of sharp(x) (x) sharp(-x) on idW is (1-|x|^2)/4; at the centre it is 1/4
+PASS 4.1c singlet functional: (1 - x.y)/4 on products, -1/2 on idW
+     [W] Lor a, b (a0 >= |a vec|) give a0 b0 + a.b >= 0 (Cauchy-Schwarz), so idW in maxCone; idW 0 0 = 1.
+PASS 4.1d segment from idW to the centre: entries affine in t, equal to idW at t = 0
+     [W]+[L] centre in relint(jointStates) (pairVal a b (e00 + delta) >= a0 b0 (1 - 2|delta|) on Lor pairs);
+         line-segment principle: (1-t) idW + t e00 in relint for t in (0,1].  So idW in cl(Om') \ Om'.
+         Om' is convex (segment principle), contains the products, lies in maxBody: a PreComposite; on the
+         coordinate model its lt field is modelData_ext (CompositeInterface.lean:740) -- a Composite on two
+         compact balls whose body is not closed.
+PASS 4.2 f = 1 - x1y1 + x2y2 - x3y3 on products, f(phiW) = -2
+     [W] completion of the product tower (preparations P_A x P_B, effects E_A x E_B, product table) is
+         cl conv prodState(chartBody_A x chartBody_B) = minBody of the completed factors: compact (bilinear
+         image of compacts, Caratheodory), closed, and by 4.2 not invariant under the gate.
+PASS 4.3a no reduced word of length <= 8 sends e_z to -e_z :: 13120 words
+PASS 4.3b some word sends e_z within squared distance 1/25 of -e_z :: best xxzXZxx = 16/78125 (display 0.00020)
+PASS 4.3c sharp(-e_z) (x) sharp(e_z) on prodState u v = (1 - u3)(1 + v3)/4 (= 1 on balls iff u = -e_z, v = e_z)
+     [W] values <= 1 on products of balls; a convex combination equal to 1 forces every component to have
+         u = -e_z.  So prodState(-e_z, e_z) is in conv{prodState(W e_z, W' e_z)} only if -e_z is in the orbit.
+     [P] AC N2.1-N2.3: the group is free, so torsion-free, and a rotation sending e_z to -e_z is an involution;
+         so -e_z is never in the orbit, but is in its closure (density).  prodState(-e_z, e_z) is a pure
+         product (4.3c), hence absent from conv{prodState(W e_z, W' e_z)}, present in its
+         closure: prod_mem over the completed factor ball holds for the closed hull only.
+PASS 4.4 rho_of maps the 16 basis vectors of W 3 to R-independent Hermitian matrices
+     [L] the PSD cone is closed; Q3 = rho_of^-1(PSD) is closed; QM states = closure of Gaussian-rational states.
+---
+P4 transfer: 9 checks, 0 failures
+VERDICT TRANSFER-FAILS-EXACT

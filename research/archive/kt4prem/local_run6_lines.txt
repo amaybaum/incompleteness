@@ -1,0 +1,128 @@
+== S0  transcription of the landed tables
+PASS S0.sgn  [source] sgn: the landed sign is -1 exactly at (1, 3) and (2, 2)
+PASS S0.pc  [source] pc: the landed control-index table
+PASS S0.pt  [source] pt: the landed target-index table
+PASS S0.phiW  [source] phiW: the landed definition is diag(1, 1, -1, 1)
+PASS S0.idW  [source] idW: the landed table is the identity
+PASS S0.chainW  [source] chainW: the landed table
+PASS S0.reflY  [source] reflY: the landed map is diag(1, -1, 1)
+== S1  the quantum dictionary
+PASS D1  [identity] pauliW (cnot w) = CNOT pauliW(w) CNOT^dagger for a symbolic table w (cnot is conjugation by CNOT)
+PASS D2  [identity] cnot . cnot = id on a symbolic table
+PASS D3  [identity] ipW E X = tr(opW(E) pauliW(X)) for symbolic E, X (the Euclidean pairing is the trace pairing)
+PASS D4  [identity] pairVal a b w = tr((opV a (x) opV b) pauliW(w)) for symbolic a, b, w
+PASS D5  [identity] pauliW (prodState x y) = rho(x) (x) rho(y), rho(x) = (I + x.s)/2, for symbolic x, y
+PASS D6  [identity] opV a is Hermitian with trace 2 a0 and determinant a0^2 - |a|^2 (opV a >= 0 iff a in L)
+PASS D7  [identity] for a symbolic quaternion q, U = q0 I - i q.s gives U s_k U^dagger = sum_i M_ik s_i with M^T M = |q|^4 I, det M = |q|^6, and pauliW(diag(|q|^2, M) w) = (U (x) I) pauliW(w) (U (x) I)^dagger (and on the second token)
+NOTE [written] D7.W  -- at |q| = 1, M is a rotation and actC M = Ad(U (x) I), actT M = Ad(I (x) U); every U in SU(2) is of this form, and every rotation is M for some unit quaternion (the standard double cover SU(2) -> SO(3)). So actC R and actT R for rotations R are exactly the conjugations by local unitaries, and Q3, int Q3 are invariant under them.
+NOTE [written] D.W  -- by D3 and the self-duality of the positive semidefinite cone under the trace pairing, dualW Q3 = {E : opW E >= 0}; by D4 and D6, Q3 lies in maxCone (opV a (x) opV b >= 0 for a, b in L); by D5 and D6, every prodState x y with x, y in eball 3 lies in Q3; by D1, cnot maps Q3 onto Q3 and int Q3 onto int Q3.
+== S2  an explicit carrier for KT4Core
+NOTE [written] S2.def  -- V = R^{17x17} x R^{17x17}. For x in R^16 let xh = (1, x) and X the table X_ab = x_{4a+b}; for an affine e(x) = e0 + E.x let eh = (e0, E) and Et the table Et_ab = E_{4a+b} + e0 [a = b = 0]. stA x y = (xh yh^T, 0), stB x y = (0, xh yh^T); effA e f (P, Q) = eh^T P fh + sum_abcd Et_ab Ft_cd Q[1 + (4a+c), 1 + (4b+d)]; effB e f (P, Q) = eh^T Q fh + sum_abcd Et_ac Ft_bd P[1 + (4a+b), 1 + (4c+d)]. Both are linear in (P, Q) and bilinear in (e, f). The index map (a, b) -> 4a + b stands for the bijection flatW and tabCoord use; the identities below hold for any fixed bijection used consistently.
+PASS H1  [identity] effA e f (stA x y) = e(x) f(y) for symbolic affine e, f and symbolic x, y in R^16
+PASS H2  [identity] effB e f (stB x y) = e(x) f(y) for symbolic affine e, f and symbolic x, y in R^16
+PASS H3  [identity] effA and effB are linear in each effect argument, on a symbolic element of V
+PASS H4  [identity] tokA: effA (tabCoord a b) (tabCoord c d) (stA x y) = effB (tabCoord a c) (tabCoord b d) (stA x y), all 256 index quadruples, symbolic x, y -- 256/256
+PASS H5  [identity] tokB: the same with stB x y, all 256 index quadruples, symbolic x, y -- 256/256
+PASS H6  [identity] effB e f (stA x y) = fourVal X Y Et Ft (the cross value of grouping 02|13 effects on 01|23 states)
+PASS H7  [identity] effA e f (stB x y) = sum Et_ab Ft_cd X_ac Y_bd (the cross value of 01|23 effects on 02|13 states)
+PASS H8  [identity] fourVal X Y E F = ipW X (tabMul (tabMul E Y) (tabT F)) = ipW E (X F Y^T) for symbolic tables (famI is the positivity of this value)
+PASS H9  [identity] sum e_ab f_cd L_ac L'_bd = ipW e (tabMul (tabMul L f) (tabT L')) for symbolic tables (the famII form)
+PASS H10  [identity] e(flat X) = ipW Et X when X_00 = 1, symbolic e and X (an effect on a pair body is its table on the slice)
+NOTE [written] H.W  -- let K02, K13 lie in maxCone and be closed under nonnegative scaling. If e is an effect on pairBody K02 then Et lies in dualW K02: a nonzero w in K02 has w_00 > 0 (in maxCone, w_00 >= 0, and w_00 = 0 forces w = 0, from a^T w b at a = (1, u), b = (1, v)), and ipW Et w = w_00 e(flat(w / w_00)) >= 0 by H10. Then posBA is famI at (X, Y, Et, Ft) by H6 and H8, and posAB is famII by H7 and H9. Together with H1, H2, H4, H5 and H3: FCC, the maxCone bound and nonnegative scaling of the four cones give KT4Core on this V. Conversely Lemma B1 (fourCopyCoherent_of_kt4Core, kernel-checked in the design module FourCopyBridge) gives FCC from KT4Core and the same two clauses. Under hadm the hypothesis H is therefore equivalent to FCC, by separately named arguments in each direction.
+== S3  FCC for uniform Q3 and for uniform maxCone
+PASS F0  [identity] Pi is a permutation matrix (Pi Pi^T = I)
+PASS F1  [enumerate] tr(s_m s_n) = 2 delta_mn for the four Pauli matrices -- 16 pairs
+PASS F2  [identity] fourVal X Y E F = tr( Pi (opW E (x) opW F) Pi^T (pauliW X (x) pauliW Y) ), symbolic X, Y, E, F (E on tokens 0, 2; F on 1, 3; X on 0, 1; Y on 2, 3)
+PASS F3  [identity] sum e_ab f_cd L_ac L'_bd = tr( (opW e (x) opW f) Pi (pauliW L (x) pauliW L') Pi^T ), symbolic (the famII form, L on tokens 0, 2 and L' on 1, 3)
+PASS F2v  [sample] sample inputs: pauliW of each of phiW, T_psi, diag(1,-1,-1,-1), E00 and opW of each of phiW/4, diag(1,-1,-1,-1)/4, E00, T_psi/4 are positive semidefinite (exact eigenvalues)
+PASS F2s  [sample] sample: fourVal X Y E F >= 0 at the 256 quadruples of these entangled and product states of Q3 and entangled and product effects of dualW Q3 -- minimum 0
+NOTE [written] F.Q3  -- FCC for uniform Q3: for X, Y in Q3 and E, F in dualW Q3, opW E, opW F, pauliW X, pauliW Y are positive semidefinite (S1); the Kronecker product of positive semidefinite matrices is positive semidefinite (Mathlib Matrix.PosSemidef.kronecker), conjugation by the permutation Pi preserves this, and the trace of a product of two positive semidefinite matrices is nonnegative. By F2 famI holds, by F3 famII holds.
+PASS F4  [identity] pairVal a b (X F Y^T) = ipW F ((X^T a)(Y^T b)^T), symbolic
+PASS F5  [identity] pairVal a b (u v^T) = (a.u)(b.v), symbolic
+PASS F6  [identity] Lagrange: |a|^2 |u|^2 - (a.u)^2 = sum_{i<j} (a_i u_j - a_j u_i)^2 in R^3 (Cauchy-Schwarz)
+NOTE [written] F.max  -- FCC for uniform maxCone: the homogeneous coefficient vector of an effect on eball 3 lies in L, and every vector of L is a positive multiple of one, so maxCone = {w : a^T w b >= 0 for a, b in L}. L is self-dual for the Euclidean pairing (F6). For X, Y in maxCone and a, b in L: u = X^T a and v = Y^T b lie in L, so u v^T lies in maxCone (F5) and a^T (X F Y^T) b = ipW F (u v^T) >= 0 for F in dualW maxCone (F4). So X F Y^T lies in maxCone, and fourVal X Y E F = ipW E (X F Y^T) >= 0 for E in dualW maxCone (H8): famI. famII is the same argument for (L, F, L') (H9).
+PASS F7  [witness] opW(phiW/4) is a rank-one projector, so phiW/4 lies in dualW Q3
+PASS F8  [witness] ipW F (actT reflY w) = ipW (actT reflY F) w (symbolic), and opW(actT reflY F) is a rank-one projector for F = diag(1, -1, 1, -1)/4, so F lies in dualW twin
+PASS F9  [witness] pauliW phiW is a rank-one projector (phiW in Q3)
+PASS F10  [countercontrol] famI fails for the cones (Q3, Q3, Q3, twin): fourVal phiW phiW (phiW/4) F = -1/8 -- value -1/8
+== S4  model M_cl: K_p = int Q3 u cone(SEP u cnot SEP), N_p = cnot, every local the identity
+NOTE [written] M_cl.def  -- SEP is the convex cone generated by the product states prodState x y (x, y in eball 3); K_cl = int Q3 u (SEP + cnot SEP), the same cone at all four pairs.
+PASS M_cl.1  [identity] hcls: actC I = actT I = id, so cnot = actC I . actT I . cnot . actC I . actT I, I orthogonal
+NOTE [written] M_cl.2  -- hadm: every product state lies in SEP; K_cl lies in Q3 (int Q3 does; SEP does by D5, D6; cnot SEP does by D1) and Q3 lies in maxCone (S1). K_cl is a convex cone: SEP + cnot SEP is one; a positive definite plus a positive semidefinite matrix is positive definite, so int Q3 + Q3 lies in int Q3; positive scaling preserves each part and 0 lies in SEP.
+NOTE [written] M_cl.3  -- hgate: cnot is conjugation by a unitary (D1), so it maps int Q3 onto int Q3; it is an involution (D2), so it maps SEP + cnot SEP onto cnot SEP + SEP. Since cnot is an involution the inverse gate also preserves K_cl: two-sided gate invariance holds.
+NOTE [written] M_cl.4  -- H: Q3 is a closed convex cone whose interior contains E00 (pauliW E00 = I/4), so Q3 = cl int Q3 and cl K_cl = Q3. A dual cone is unchanged by closure, so dualW K_cl = dualW Q3, and FCC for K_cl follows from FCC for Q3 (S3) because K_cl lies in Q3. With M_cl.2, S2 gives KT4Core on the carrier V of S2.
+PASS M_cl.5  [witness] R_H = [[0,0,1],[0,-1,0],[1,0,0]] is a rotation
+PASS M_cl.6  [witness] T_psi = actT R_H phiW = [[1,0,0,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]]
+PASS M_cl.7  [witness] pauliW T_psi = psi psi^dagger with psi = (1, 1, 1, -1)/2: a rank-one state, in Q3 and not in int Q3
+PASS M_cl.8  [witness] charpoly of pauliW(T_psi + t E00) is (lam - 1 - t/4)(lam - t/4)^3: positive definite for t > 0, so T_psi lies in the closure of int Q3
+PASS M_cl.9  [witness] T_psi has table rank 4 and cnot T_psi has table rank 4; T_psi_00 = 1 (it is normalized) -- ranks 4, 4
+NOTE [written] M_cl.9W  -- a pure state is an extreme ray of the positive semidefinite cone: if pauliW T_psi = sum of positive semidefinite terms, each is a nonnegative multiple of it. The terms of an element of SEP + cnot SEP are pauliW of product states and their cnot images. So T_psi in SEP + cnot SEP would make T_psi or cnot T_psi a positive multiple of a product table, of table rank 1 (M_cl.9 excludes both). With M_cl.7, T_psi is not in K_cl; with M_cl.8 it lies in cl K_cl. hcl fails.
+PASS M_cl.10  [countercontrol] rank test control: for the rotation R0 about the third axis, cnot (actC R0 phiW) = prodState (R0 xplus) z3 has table rank 1, so actC R0 phiW lies in cnot SEP
+PASS M_cl.11  [witness] phiW = cnot (prodState xplus z3) lies in cnot SEP, so in K_cl (landed cnot_prodState_xplus_z3)
+NOTE [written] M_cl.11W  -- IE1 fails at every pair: phiW lies in K_cl and its image T_psi under actT R_H does not, so actT R_H maps K_cl onto a set different from K_cl.
+PASS M_cl.12  [identity] EvenCycle holds: det I * det I = 1, so every orientation bit is false
+NOTE [written] M_cl.R  -- M_cl satisfies hcls, hadm, hgate and H, and fails hcl and IE1. It refutes "hcls, hadm, hgate and H imply C": hcl cannot be dropped from the theorem. Two-sided gate invariance also holds in M_cl, so closedness is not replaceable by the inverse-gate clause.
+== S5  model M_max: K_p = maxCone (eball 3), N_p = cnot, every local the identity
+NOTE [written] M_max.1  -- hcls as M_cl.1.
+PASS M_max.2  [identity] pairVal a b (prodState x y) = (a.hom x)(b.hom y), symbolic (products lie in maxCone; landed prodState_mem_maxCone)
+NOTE [written] M_max.2W  -- hadm: products lie in maxCone; maxCone is a convex cone, the pairing being bilinear. hcl: maxCone is an intersection of closed half-spaces.
+PASS M_max.3  [identity] pairVal a b idW = a0 b0 + a1 b1 + a2 b2 + a3 b3, symbolic (with F6, idW lies in maxCone)
+PASS M_max.4  [witness] cnot idW = chainW (landed cnot_idW), and pairVal at the sharp effects of -e1, -e3 is -1/2 (landed chain_value): chainW is not in maxCone
+NOTE [written] M_max.4W  -- hgate fails at every pair: idW lies in maxCone and cnot idW does not.
+NOTE [written] M_max.5  -- H: FCC for maxCone (S3), the maxCone bound and scaling give KT4Core on the carrier of S2.
+PASS M_max.6  [identity] pairVal a b (actC R w) = pairVal (homMap R^T a) b w and pairVal a b (actT R w) = pairVal a (homMap R^T b) w, symbolic R, a, b, w
+NOTE [written] M_max.6W  -- IE1: for a rotation R, homMap R^T preserves L, so actC R and actT R map maxCone into itself, and R^-1 = R^T is a rotation, so the images are equal. EvenCycle as M_cl.12.
+NOTE [written] M_max.R  -- M_max satisfies hcls, hadm, hcl, H and C, and fails hgate. It refutes "hcls, hadm, hcl, H and C imply hgate": hgate is not necessary relative to the other four hypotheses and the conclusion. It does not show that hcls, hadm, hcl and H imply C; M_D below refutes that implication.
+== S6  the other models
+NOTE [written] M_Q  -- uniform Q3, N_p = cnot, every local the identity: hcls (M_cl.1), hadm (S1), hcl, hgate (D1), H (S3, S2) and C (D7, M_cl.12) all hold. The hypothesis set is satisfiable with its conclusion.
+PASS M_D.1  [witness] M_D: N_13 = actT reflY . cnot is the N-CLASS form with B_13 = reflY (orthogonal) and the other locals I; N_13 maps prodState xplus z3 (in Q3) to actT reflY phiW = idW (landed actT_reflY_phiW), and pauliW idW takes -1 on the unnormalized singlet (0, 1, -1, 0), so idW is not in Q3
+PASS M_D.2  [witness] M_D: orient(I, reflY) is true and every other orientation bit false: EvenCycle fails
+NOTE [written] M_D.R  -- M_D (uniform Q3, N = cnot at 01, 23, 02 and actT reflY . cnot at 13) satisfies hcls, hadm, hcl and H, fails hgate at 13, and fails EvenCycle. It refutes "hcls, hadm, hcl and H imply C": hgate cannot be dropped.
+PASS M_refl.1  [witness] M_refl: with A_13 = reflY and N_13 = cnot, the N-CLASS identity fails at prodState xplus z3 (cnot gives phiW, actC reflY (cnot .) gives idW)
+NOTE [written] M_refl.R  -- M_refl (uniform Q3, N = cnot, A_13 = reflY, other locals I) satisfies hadm, hcl, hgate and H, fails hcls at 13 and fails EvenCycle (orient(reflY, I) true at 13 only). It refutes "hadm, hcl, hgate and H imply C": hcls cannot be dropped.
+PASS M_id.1  [identity] det (actC A (actT B phiW)) = -det A det B, symbolic A, B (nonzero for orthogonal A, B)
+NOTE [written] M_id.1W  -- an N-CLASS gate with orthogonal locals maps the product state prodState (A'^T xplus) (B'^T z3) to actC A (actT B phiW), of table rank 4 (M_id.1, M_cl.11); the identity maps every product state to a table of rank 1. So N = id is N-CLASS for no choice of locals.
+NOTE [written] M_id.R  -- M_id (uniform Q3, N = id, every local I) satisfies hadm, hcl, hgate, H and C, and fails hcls. It refutes "hadm, hcl, hgate, H and C imply hcls": hcls is not necessary.
+PASS M_class.1  [witness] M_class: cnot permutes the four classical products prodState (s z3) (t z3), s, t = +-1
+PASS M_class.2  [identity] M_class: at every pair of generators X, Y, fourVal X Y E F and the famII value factor as ipW E (generator) * ipW F (generator), symbolic E, F (16 sign choices)
+NOTE [written] M_class.2W  -- with E, F in dualW K_class both factors are nonnegative, and bilinearity extends FCC from the generators to K_class. K_class lies in maxCone and is a closed convex cone, so S2 gives KT4Core.
+PASS M_class.3  [witness] M_class: prodState xplus xplus has entry (1, 1) = 1 while every element of K_class vanishes off the entries {0, 3} x {0, 3}: hadm fails
+PASS M_class.4  [witness] M_class: actT R_H (prodState z3 z3) = prodState z3 xplus, with entry (3, 1) = 1: IE1 fails
+NOTE [written] M_class.R  -- M_class (K = the cone of the four classical products, N = cnot, locals I) satisfies hcls, hcl, hgate and H, fails the product clause of hadm, and fails IE1. It refutes "hcls, hcl, hgate and H imply C": hadm cannot be dropped.
+PASS M_mix.1  [identity] M_mix: cnot E00 = E00, actC R E00 = actT R E00 = E00 for symbolic R, and fourVal E00 E00 E F = E_00 F_00 (symbolic E, F)
+NOTE [written] M_mix.R  -- M_mix (K = the ray of E00, N = cnot, locals I) satisfies hcls, hcl, hgate, H (dualW K = {E : E_00 >= 0}) and C, and fails hadm (prodState xplus xplus is not on the ray). It refutes "hcls, hcl, hgate, H and C imply hadm": hadm is not necessary. (K = {0} is a degenerate model of the same kind.)
+PASS M_int.1  [witness] M_int: pairVal (1,1,0,0) (1,-1,0,0) idW = 0 (idW is on the boundary of maxCone) and idW is not in Q3 (singlet value -1)
+PASS M_int.2  [witness] M_int: pairVal a b (idW + E00) = 2 a0 b0 + a1 b1 + a2 b2 + a3 b3 (symbolic), cnot E00 = E00, and cnot (idW + E00) takes -1/4 at the sharp pair of M_max.4
+NOTE [written] M_int.R  -- M_int (K = int maxCone u Q3, N = cnot, locals I): idW + E00 lies in int maxCone (a^T w b >= a0 b0 > 0 on nonzero a, b in L, M_int.2 and F6) and cnot maps it out of maxCone, so hgate fails; idW lies in cl K = maxCone and not in K (M_int.1), so hcl fails; hcls, hadm, H (cl K = maxCone, S3) and C (both parts are rotation invariant) hold. It refutes "hcls, hadm, H and C imply hcl": a proof that hcl is necessary must use hgate.
+== S7  the token clauses: an anchor carrier
+NOTE [written] T.def  -- the anchor carrier: V and stA, stB as in S2; effA_anc e f (P, Q) = eh^T P fh + e(l0) f(l1) Q[0, 0]; effB_anc e f (P, Q) = eh^T Q fh + e(x0) f(y0) P[0, 0], with every anchor the flattened product state prodState z3 z3, which lies in every pair body considered here.
+PASS T1  [identity] anchor carrier: evaluation laws effA_anc e f (stA x y) = e(x) f(y), effB_anc e f (stB x y) = e(x) f(y), symbolic
+PASS T2  [identity] anchor carrier: the cross values are e(anchor) f(anchor), independent of x and y, symbolic
+NOTE [written] T2W  -- so posBA and posAB hold on the anchor carrier for any cones whose pair bodies contain the anchor: effects take values in [0, 1] at the anchor.
+PASS T3  [witness] anchor carrier: tokA fails at (a, b, c, d) = (0, 0, 0, 3) and x = y = flat E00 (values 0 and 1) -- 0 vs 1
+PASS T4  [identity] M_tok: cnotTw = actT reflY . cnot . actT reflY is N-CLASS with B = B' = reflY, maps actT reflY w to actT reflY (cnot w), and orient(I, reflY) is true (EvenCycle fails with the bit at 13 alone)
+NOTE [written] M_tok.R  -- M_tok (cones Q3, Q3, Q3, twin; gates cnot, cnot, cnot, cnotTw; B_13 = B'_13 = reflY) on the anchor carrier satisfies hcls, hadm, hcl, hgate (twin = actT reflY Q3 and T4) and every field of KT4Core except tokA and tokB, and fails EvenCycle. It refutes "hcls, hadm, hcl, hgate and KT4Core without its token clauses imply C": the token clauses cannot be dropped. F10 shows FCC fails for these cones, so by Lemma B1 no carrier carries KT4Core for them.
+NOTE [written] M_tokC.R  -- M_tokC (uniform Q3, cnot, locals I) on the anchor carrier satisfies hcls, hadm, hcl, hgate, every other field of KT4Core and C, and fails tokA (T3). It refutes "the other hypotheses and C imply the token clauses of the given data". By S2 and Lemma B1, under hadm the existence of a carrier with KT4Core is equivalent to FCC: the cone-level content of the token clauses together with posBA and posAB is FCC.
+== S8  the finite steps of the classification argument
+PASS C1  [identity] the full reflection T = actC reflY . actT reflY commutes with cnot, symbolic
+PASS C2  [enumerate] each of the 16 reflection-pattern gates actC refl^a actT refl^b cnot actC refl^a' actT refl^b' is a signed permutation of the 16 entries of finite order -- orders [2, 4]
+PASS C3  [witness] mixed patterns: M = actC refl^a actT refl^b . cnot with a + b = 1 sends prodState xplus z3 to idW and idW to chainW (outside maxCone, M_max.4): no admissible cone is invariant
+PASS C4  [identity] pauliW (T w) = pauliW(w)^T and pauliW (actT reflY w) = (pauliW w)^{T_2}, symbolic: T maps Q3 onto Q3, and the twin is the partial-transpose image of Q3
+PASS C5  [identity] CNOT (I (x) Z) CNOT^dagger = Z (x) Z
+PASS C6  [enumerate] the real Lie algebra generated by i s_k (x) I, i I (x) s_k and i Z (x) Z has dimension 15 = dim su(4) -- dimension 15
+NOTE [written] C.W  -- the classification argument (written; it uses no H and no hcl). Write each local as a rotation times reflY^k. IE1 absorbs the rotations, so hgate gives N0 K in K for a reflection-pattern gate N0, and by C2 N0 K = K. Conjugating by the pre-local reflections reduces N0 to M = actC refl^a actT refl^b . cnot on a cone K' that still satisfies hadm and IE1. Mixed patterns are impossible (C3). In the matched patterns K' is invariant under Ad(U (x) V) for U, V in SU(2) (D7) and under M, hence under the conjugates of Ad(I (x) exp(-i t Z/2)) by M, which are Ad(exp(-+ i t Z (x) Z/2)) (C5, and C4 for the full reflection T, which conjugates Ad(V) to Ad(conj V)). The group generated by these one-parameter groups is SU(4), since their generators span a Lie algebra of dimension 15 (C6; the subgroup generated by one-parameter subgroups is the connected Lie subgroup of the generated Lie algebra, a standard result of Lie theory). So K' is unitarily invariant; it contains the product states, hence every pure state and Q3; and it lies in maxCone, so it lies in Q3 (a non-positive direction phi would be rotated to |00>, where the pairing with the sharp effects of e3, e3 is negative, D4). So K' = Q3 and K is Q3 or the twin (C4), both closed. Hence hcls, hadm, hgate and IE1 imply hcl: relative to the other hypotheses and the conclusion, hcl is necessary. This is a written proof with one standard input from Lie theory; it is not kernel-checked, and C1-C6 check its finite steps only.
+== S9  the composite interface (COMP-1) and the completion route
+PASS I1  [identity] for w with w_00 = 1 the four product-effect values of e, 1 - e and f, 1 - f sum to 1, and the unit pairing is w_00, symbolic
+NOTE [written] I1W  -- so on a normalized subset of maxCone every product of effects takes values in [0, 1]. The normalized slice of K_cl is convex, contains the product states, lies in maxCone, and has unit pairing 1: it satisfies every field of PreComposite over the coordinate model data of COMP-1, and the field lt holds by the argument of the landed minComposite and maxComposite (prodEff_eq_of_eff_eq with modelData_ext). It is a Composite whose body is not closed (M_cl.7-M_cl.9) and not invariant under local rotations (M_cl.11W), while cnot preserves it.
+PASS I2  [witness] F(w) = w00 - w11 + w22 - w33 satisfies F(prodState x y) = |x - D y|^2/2 + (1 - |x|^2)/2 + (1 - |y|^2)/2 with D = diag(1, -1, 1), symbolic, and F(phiW) = -2
+NOTE [written] I2W  -- F is nonnegative on every product of ball points, hence on the minimal body, and negative at phiW = cnot (prodState xplus z3): cnot does not preserve the body of the landed ball3MinComposite. By M_max.3, M_max.4 and F6, idW lies in the body of the landed ball3MaxComposite (idW_00 = 1) and cnot idW does not: cnot does not preserve that body either. The landed no_candidateCone_cnot_reflY shows that no candidate cone is invariant under both cnot and actT reflY.
+NOTE [written] Q2.W  -- the landed completion layer is typed for one directed system of stages: StageCompletion.body is the closed convex hull of the preparation vectors (CompletionAction.body_isClosed), and an operation datum with an inverse datum induces a body-preserving affine equivalence of the chart (preservesBody_inducedEquiv). No landed declaration constructs a directed system for a pair of systems, an operation datum for a pair gate, or a map from the table carrier W 3 to a completion chart. A pair-level route therefore needs (P-STAGE2) the pair system as a directed system whose completion chart is W 3 with chart body the normalized slice of K, which gives hcl, and (P-ACT2) the gate N as an operation datum on it with an inverse datum, inducing N on the chart, which gives hgate. P-ACT2 states gate preservation on the preparations (OpDatum.mem_body). Building the datum for N = actC A . actT B . cnot . actC A' . actT B' from one-copy data needs idle extension of the local maps to the pair; for local rotations idle extension is IE1 itself, and for reflY it is refuted on cnot-invariant candidate cones by no_candidateCone_cnot_reflY.
+== S10 countercontrols
+PASS X1  [countercontrol] a cnot with the sign at (2, 2) flipped is not conjugation by CNOT (D1 fails for it)
+PASS X2  [countercontrol] a carrier whose cross term reads the 02|13 state in the 01|23 order fails tokB -- 192 of 256 quadruples fail
+PASS X3  [countercontrol] the rotation covariance with homMap R in place of homMap R^T fails for a non-symmetric rotation
+PASS X4  [countercontrol] without the normalization w_00 = 1 the four product-effect values sum to w_00, not 1
+PASS X5  [countercontrol] F10 with F replaced by phiW/4 (in dualW Q3): the value at the same states is 1/4 >= 0, so the sign of F10 comes from the twin effect
+PASS X6  [countercontrol] maxCone with an effect outside its dual: idW and diag(1,-1,-1,-1) lie in maxCone, phiW is not in dualW maxCone (ipW phiW diag(1,-1,1,-1) = -2 with diag(1,-1,1,-1) = actT reflY diag(1,-1,-1,-1) in maxCone), and fourVal idW diag(1,-1,-1,-1) phiW phiW = -2: the product form of dualW maxCone is load-bearing in F.max
+kinds: identity 38, witness 21, enumerate 3, source 7, sample 2, countercontrol 8
+kt4_prem1_probe: OK -- 79 checks

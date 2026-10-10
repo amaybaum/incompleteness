@@ -1,0 +1,24 @@
+RANK nonlinear n=1: rank_Fp=1,1 rank_Q=1
+RANK nonlinear n=2: rank_Fp=4,4 rank_Q=4
+RANK nonlinear n=3: rank_Fp=6,6 rank_Q=6
+RANK nonlinear n=4: rank_Fp=11,11 rank_Q=11
+RANK nonlinear n=5: rank_Fp=21,21
+RANK nonlinear n=6: rank_Fp=50,50
+SCALAR nonlinear P(0^m)*2^(2W), m=0..12: [4194304, 2097152, 1048576, 786432, 589824, 458752, 458752, 458752, 458752, 458752, 458752, 458752, 458752]
+SCALAR nonlinear Hankel rank of (s_(i+j)), i,j<=6: Fp=6 Q=6
+RANK majority n=1: rank_Fp=1,1 rank_Q=1
+RANK majority n=2: rank_Fp=4,4 rank_Q=4
+RANK majority n=3: rank_Fp=8,8 rank_Q=8
+RANK majority n=4: rank_Fp=16,16 rank_Q=16
+RANK majority n=5: rank_Fp=32,32
+RANK majority n=6: rank_Fp=64,64
+SCALAR majority P(0^m)*2^(2W), m=0..12: [4194304, 2097152, 1048576, 786432, 589824, 524288, 491520, 483328, 477184, 474112, 471552, 470272, 469120]
+SCALAR majority Hankel rank of (s_(i+j)), i,j<=6: Fp=7 Q=7
+RANK linear n=1: rank_Fp=1,1 rank_Q=1
+RANK linear n=2: rank_Fp=1,1 rank_Q=1
+RANK linear n=3: rank_Fp=1,1 rank_Q=1
+RANK linear n=4: rank_Fp=1,1 rank_Q=1
+RANK linear n=5: rank_Fp=1,1
+RANK linear n=6: rank_Fp=1,1
+SCALAR linear P(0^m)*2^(2W), m=0..12: [4194304, 2097152, 1048576, 524288, 262144, 131072, 65536, 32768, 16384, 8192, 4096, 2048, 1024]
+SCALAR linear Hankel rank of (s_(i+j)), i,j<=6: Fp=1 Q=1

@@ -1,0 +1,55 @@
+=== K
+K d=2 dim ker J01 = 0
+K d=3 dim ker J01 = 1
+K d=4 dim ker J01 = 2
+K d=5 dim ker J01 = 3
+K d=6 dim ker J01 = 4
+K d=7 dim ker J01 = 5
+K d=8 dim ker J01 = 6
+K d=9 dim ker J01 = 7
+PASS K1 dim ker J01 = d - 2 for d = 2..9
+PASS K2 one-dimensional kernel for the single-plane generator exactly at d = 3 (d = 2..9)
+=== L
+PASS L1 d=2 no nonzero u with Rot(pi/2)^T u = u (solution [{u0: 0, u1: 0}]): no conserved sharp test
+PASS L2 d=3 sharpEff e2 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=4 sharpEff e2 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=4 sharpEff e3 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L3 d=4 conserved tests e2, e3 separated mod complement at x = e2: (1, 1/2, 0)
+PASS L2 d=5 sharpEff e2 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=5 sharpEff e3 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=5 sharpEff e4 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L3 d=5 conserved tests e2, e3 separated mod complement at x = e2: (1, 1/2, 0)
+PASS L2 d=7 sharpEff e2 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=7 sharpEff e3 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=7 sharpEff e4 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=7 sharpEff e5 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L2 d=7 sharpEff e6 conserved by the plane-(0,1) rotation flow (symbolic t)
+PASS L3 d=7 conserved tests e2, e3 separated mod complement at x = e2: (1, 1/2, 0)
+=== M
+PASS M1 hat(w) w = 0
+PASS M2 sum of squared 2x2 minors of hat(w) = (w.w)^2 ((w0**2 + w1**2 + w2**2)**2): rank 2 iff w != 0
+PASS M3 every X in so(3) is hat(w) (3 free entries) -- parametrization
+NOTE M: so for every nonzero X in so(3) the conserved sharp tests are exactly sharpEff(+-w/|w|): UE_full(3) at generator level; the flow-level statement (every nontrivial continuous flow of SO(3) is exp(t hat w)) is written, not computed
+=== P
+PASS P1 g = diag(1,1,1,-1,-1) orthogonal with det +1
+PASS P2 dim ker X1 = 1 and dim ker X2 = 1 (generic flows: one conserved test each)
+PASS P3 X2 = J01 - sqrt2 J23 and [X1, X2] = 0
+PASS P4 the commuting product flow exp(t X1) exp(t X2) = exp(t (X1 + X2)) has generator 2 J01 with dim ker 3
+NOTE P: the conjugation class of exp(t X1) under SO(5) generates a dense (normal) subgroup of the simple group SO(5), so its closure is transitive on S^4 (written). UE stated only for an available family closed under conjugation passes at d = 5; closure under commuting products, or all flows (FNR), is load-bearing.
+=== O
+PASS O1 sigma = diag(1,1,-1): det -1, commutes with the flow about e2, and carries sharpEff e2 to its complement
+PASS O1 -I: det -1, commutes with the flow about e2, and carries sharpEff e2 to its complement
+PASS O2 proper rotation (3/5,4/5) about e2: g hat(v) g^T = det(g) hat(g v)
+PASS O2 sigma: g hat(v) g^T = det(g) hat(g v)
+PASS O2 -I: g hat(v) g^T = det(g) hat(g v)
+PASS O2 reflY = diag(1,-1,1): g hat(v) g^T = det(g) hat(g v)
+=== S
+S d=2 stabilizer algebra of e0: dim 0, abelian True
+S d=3 stabilizer algebra of e0: dim 1, abelian True
+S d=4 stabilizer algebra of e0: dim 3, abelian False
+S d=5 stabilizer algebra of e0: dim 6, abelian False
+S d=6 stabilizer algebra of e0: dim 10, abelian False
+S d=7 stabilizer algebra of e0: dim 15, abelian False
+PASS S1 stabilizer algebra so(d-1) of a pure state is nonzero and abelian exactly at d = 3 (d = 2..7)
+SUMMARY 31 checks, 0 failed
+VERDICT RENDERED: at generator level UE_full holds at d = 3 and fails at d = 2 and d = 4..9; FNR load-bearing (P); improper symmetries act on conserved tests by complementation (O)

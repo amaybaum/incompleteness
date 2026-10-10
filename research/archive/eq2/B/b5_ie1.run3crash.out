@@ -1,0 +1,1 @@
+PASS A.1 cyc3 has determinant +1 and cyc3 R_z(t) cyc3^-1 = R_x(t) as a polynomial identity in (cos t, sin t) (the kernel's rotX, ON:581, is this word)

@@ -1,0 +1,7 @@
+PASS K0 transcription control
+PASS A product effect nodes: glue value = tr[z (rho (x) rho')] * theta(x, y; w, eta, zeta) (3 random exact instances)
+PASS B Bell links and maximally mixed single effects: glue value = (1/4)(1/8) tr(x T(y)) (3 random exact instances); countercontrol without T differs
+PASS C product state nodes: glue value = tr[w (rho (x) rho')] * theta(e, f; z, sigma, tau) (3 random exact instances)
+PASS P PN control: product states (1/2 (x) Phi+) with effects GHZ and W3 (both in BS* = K3* of PN) give -1/64 < 0: PN violates (A4); W3, W3 give 1/16 >= 0; QM GHZ, GHZ give 1/32 >= 0
+--- s3_glue_theta: 5/5 checks pass
+VERDICT S3-GLUE-THETA-EXACT

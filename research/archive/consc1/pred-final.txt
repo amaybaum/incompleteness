@@ -1,0 +1,40 @@
+
+### The predicted execution tree
+
+- **`cd273c0949b90459ee2fdbd5c45523232fe10b55`** (`claude/consc2-predicted`, a single-parent child of `D`) is the
+  execution tree less the result note. It is prediction evidence: it is a sibling of `F` on `D`, not an ancestor of
+  `F`, and no execution commit descends from it. `delta(D, cd273c09)` is exactly eighteen paths, each modified or
+  added: the sixteen governed execution paths and the record directory's two files. Their blobs:
+
+  | path | blob |
+  |---|---|
+  | `papers/Main.md` | `82ff483e666315a1d5c6f93d74c498d56f9aa948` |
+  | `papers/Main.tex` | `7209e49a46f3b6db16155b85596fc9cfb8bfe5bc` |
+  | `papers/GR.md` | `a4a2e53e9c7c0c725122ba4927c903ac73ea9bdc` |
+  | `papers/GR.tex` | `98bde4cc7a3542e179c36222c1a0c83157a5ad9b` |
+  | `papers/Structure.md` | `7d571eea27389c0acc56f8921a4b95f3fe0330be` |
+  | `papers/Structure.tex` | `5d84b24a050b42d789adb928473f8d9d2891d66b` |
+  | `book/ch01-observation.md` | `9e64606ff0c9a65130cf58165eb1bfa69159c7b6` |
+  | `book/ch03-structural-realism.md` | `2eba44b5b1d640a3c4533639fce6772de3d34df1` |
+  | `book/ch18-beyond.md` | `8227ef0b20983c4e7854b872a7dbee579c76d330` |
+  | `book/glossary.md` | `32d0b6dc1173b2841be3fad0b6c00f7131bfe6ee` |
+  | `book/The-Incompleteness-of-Observation-FULL.md` | `2c0203551bf492299ef4b0e20cd6b03bf43f029b` |
+  | `book/The-Incompleteness-of-Observation-FULL.tex` | `61eae937f54b08781f159e15d761767a4792f94d` |
+  | `controls.py` (record directory) | `57ec7db0d288146461ce663308ee888cc3de93ee` |
+  | `preregistration.md` (record directory, drafting revision) | `3be55616b0b3d31f58eb2c65c9f5a26d6c131da1` |
+
+  The four `.pdf` files there (`papers/Main.pdf` `44269fd2`, `papers/GR.pdf` `adb6bd31`, `papers/Structure.pdf`
+  `31b028ca`, the book's `e720efc1`) are that build's PDFs; by control B their bytes are not frozen, and the PDFs of
+  stage S1 are expected to differ from them in embedded timestamps.
+- The eight source blobs and the four `.tex` blobs above are the frozen blobs `controls.py` requires at S1 and `E`.
+- The drafting revision of this preregistration differs from the revision at `F` only in this section, in the
+  scope-arithmetic paragraph of §3, in the last three sentences of owner decision (5) in §1, and in the wording of
+  row B of §5. No control, substitution, blob, count or stage differs.
+- At that commit `controls.py check cd273c09`, run from the tree's own frozen `controls.py`, prints `controls: OK --
+  21 checks` (the `F` checks do not apply to it), and `controls.py --self-test` prints `controls: OK -- 20 checks`.
+- **Run 37334884651** (`workflow_dispatch` on `cd273c09`, attempt 1) completed with conclusion success; every one of
+  its 32 jobs succeeded: the Mathlib bridge (job 111847037191), the Lean kernel check (job 111847037541), the 29
+  numerical-probe shards and the probe aggregate (job 111854214991). Its release gate passed every step: `staleness`
+  13 matched, 0 unstamped; `voice`; `claims`; `duplicate`; `mirror` 0 chapter lines absent; `citation` 112, 0 broken;
+  `architecture` 259 invariants, 0 violations; `dependency-label`; `coverage` 129 canonical statements;
+  `lean-axioms` 5702 named results, no `sorryAx`; `lean-manuscript`; 303 legacy records intact; 33 receipts hold.

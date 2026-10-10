@@ -1,0 +1,7 @@
+p1_four_copy_links.py: exit 0, stderr 0 bytes, identical True, sha bfdcd0e7010815e4
+p2_audit_twists_foils.py: exit 0, stderr 0 bytes, identical True, sha 401efe5ca778a00a
+p3_general_links.py: exit 0, stderr 0 bytes, identical True, sha 9c82d156b5cf0754
+p4_cone_ladder.py: exit 0, stderr 0 bytes, identical True, sha 8a0ac009bee1bd28
+p5_six_copy.py: exit 0, stderr 0 bytes, identical True, sha df2f92aed390ac61
+p6_cheap_foils.py: exit 0, stderr 0 bytes, identical True, sha d6263e18beb054f6
+run_all: OK

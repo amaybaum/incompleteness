@@ -1,0 +1,45 @@
+PASS Q0.pc/pt transcription
+PASS Q0.cnot involution
+PASS Q0.cnot pxz = phiW
+PASS Q1.SWAP = Ad(swap unitary)
+INFO order of <cnot, SWAP> on W 3 = 6
+PASS Q1.s_w pure
+PASS Q1.s_w outside K_gen (rank s_w > 1 and rank cnot s_w > 1)  [ranks 4, 4]
+PASS countercontrol Q1.cnot(prodState u v) outside K_gen fails as required  [ranks 4, 1]
+PASS Q2.psi_w table rational
+PASS Q2.psi_w pure
+PASS Q2.psi_w in Q3
+INFO psi_w modulus pattern (|c00|^2,|c01|^2,|c10|^2,|c11|^2) = [9/50, 8/25, 0, 1/2]
+PASS Q2.no arrangement of the psi_w pattern is rank one (24 permutations)
+PASS countercontrol Q2.a pure product pattern has no rank-one arrangement fails as required
+PASS Q2.Schmidt spectrum of psi_w = that of cnot(prodState((3/5,0,4/5), z3))  [16/25 vs 16/25]
+PASS Q2.psi_w outside every g(SEP), g in <cnot, SWAP> (finite rank test)
+PASS Q3.G_t frame
+PASS Q3.G_t relC
+PASS countercontrol Q3.G_t relT fails as required
+PASS Q3.cnot o G_t = actT Rz (local, acts on every table)
+PASS Q3.Ad(I (x) Uz) = actT M_Z  [M_Z = [[-7/25, -24/25, 0], [24/25, -7/25, 0], [0, 0, 1]]]
+PASS Q3.M_Z is a rotation about x2, not the identity
+PASS Q3.G' frame and relC
+PASS countercontrol Q3.G' relT fails as required
+PASS Q3.G' = Ad(CNOT (I (x) Uz))
+PASS Q3.that unitary is monomial in the computational basis
+PASS Q4.cnot o Ad(ZZ) o cnot = actT M (local)  [M = [[-7/25, -24/25, 0], [24/25, -7/25, 0], [0, 0, 1]]]
+PASS Q4.M is a rotation about x2 and not the identity
+PASS Q4.U_ZZ is diagonal (monomial)
+PASS Q5.W_A = actC M_A at (3/5,4/5)  [M_A = [[1, 0, 0], [Fraction(0, 1), Fraction(-7, 25), Fraction(24, 25)], [Fraction(0, 1), Fraction(-24, 25), Fraction(-7, 25)]]]
+PASS Q5.M_A rotation about x0, not identity
+PASS Q5.W_B = actT M_B at (3/5,4/5)  [M_B = [[Fraction(-7, 25), Fraction(24, 25), Fraction(0, 1)], [Fraction(-24, 25), Fraction(-7, 25), Fraction(0, 1)], [0, 0, 1]]]
+PASS Q5.M_B rotation about x2, not identity
+PASS countercontrol Q5.cnot o C(Rx,I) is local fails as required
+PASS Q5.W_A = actC M_A symbolically (mod c^2+s^2-1)  [M_A = [[1, 0, 0], [0, 2*c**2 - 1, 2*c*s], [0, -2*c*s, 2*c**2 - 1]]]
+PASS Q5.M_A orthogonal symbolically
+PASS Q5.W_B = actT M_B symbolically (mod c^2+s^2-1)  [M_B = [[2*c**2 - 1, 2*c*s, 0], [-2*c*s, 2*c**2 - 1, 0], [0, 0, 1]]]
+PASS Q6.T_psi pure
+PASS Q6.T_psi in Q3
+PASS Q6.T_psi outside K_gen (table ranks of T_psi and cnot T_psi > 1)  [4, 4]
+SUMMARY checks passed=38 all_ok=True
+VERDICT SWAP: token exchange with cnot generates a finite group (order 6); its cone strictly contains K_gen (exact pure witness) and excludes psi_w (exact): more than K_gen, not Q3, not IE1
+VERDICT MONOMIAL-OBSTRUCTION: psi_w (pure, in Q3, Schmidt-equivalent to a cnot image of a product) has a modulus pattern with no rank-one arrangement; with the written Milman step, no construction whose operations are frame-monomial unitary conjugations (or the global transpose) generates Q3 or an IE1 cone
+VERDICT CTRLGATE: the fixed-frame CtrlGate family is continuous (target pre-rotations about z3), consists of monomial gates, and generates local target rotations acting on every table; it stays in the monomial class
+VERDICT FRAME-COVARIANCE: four local-rotation conjugates of cnot compose to a local rotation on either token (exact, symbolic); with all frames the local rotation group acts, i.e. IE1-type invariance

@@ -1,0 +1,17 @@
+PASS  seed = corners: sharpEff z3 is 1 at z3 and 0 at -z3 (K-inf-Seed's certain/zero states are DIM-1's corners)
+PASS  the NOT complements the seed: sharpEff z3 (N x) = 1 - sharpEff z3 (x) (symbolic)
+PASS  K-inf-Drive's NOT = DIM-1's NOT: R_x(pi) = nflip, and nflip is in G (orthogonal, det +1 = Ad_X)
+PASS  K-inf-Trans's G contains no reflection (det +1 throughout), so K2Guard's obstruction never applies in M_Q
+NOTE  COMP-1's coordinate carrier `Carrier dA dB` (CompositeInterface:579) is `Fin (dA+1) -> Fin (dB+1) -> R`, definitionally DIM-1's `W d` (CompositeDimension:97) at dA = dB = d; its `pState` (CI:633) and DIM-1's `prodState` (CD:161) are both hom x mu * hom y nu. The two-qubit state set on it has convexity, products, product-effect positivity, normalisation (written) and local tomography (s7, rank 16): a `Composite`.
+PASS  normalisation: the (0,0) coordinate of every product state is tr(rho) = 1 (prodEff unit unit = 1)
+PASS  global orientation change (transpose on both copies) maps cnot to cnot (CNOT is real): M_Q is closed under the global antiunitary gauge, as `operational_orientation_noGo` requires
+PASS  T'' = (I x reflY) cnot (I x reflY) meets DIM-1's frame and both relations with the same z3 and nflip
+NOTE  T'' is also two-sided positive on maxCone and entangling (local ball automorphisms preserve maxCone, jointStates and its extreme points -- written), so T'' satisfies every K1 premise.
+PASS  but T'' (prodState xplus z3) is the partial transpose of Phi+, eigenvalue -1/2: T'' is not a quantum operation in M_Q's chart
+PASS  INCOMPATIBILITY (outside M_Q): cnot and T'' -- two gates each satisfying every K1 premise with the same z, N -- admit no common K2Guard candidate cone: T'' (cnot (prodState xplus z3)) pairs -1/2 with sharp(-e1) (x) sharp(-e3), so it is outside maxCone
+PASS  embedding: the face state of Bloch vector x has qutrit value tr(P01 rho) = 1 for every x -- the qutrit's certain effect diag(1,1,0) restricts to the UNIT of the face (not proper), so SingletonFaces on the face holds
+PASS  restriction of a qutrit effect to the face is a qubit effect: E restricted = (I + X)/2 block gives sharpEff e1
+PASS  the qutrit unitary X (+) 1 acts on the face as nflip (Ad_X): G of the face is inherited
+PASS  dense form: a rational rotation transports the seed to sharpEff(2/3,1/3,2/3), a rational stage effect of the d <= 3 tower (s1) -- K-inf-V4 holds with avail = the countable stage effects and G = rational rotations
+NOTE  exact form: K-inf-Trans + K-inf-Seed + PreservesBody give seedOrbit G r = sharpFamily 3 (EffectSpace:401), and K-inf-V4 puts it inside avail (EffectSpace:374); sharpFamily 3 is uncountable (one effect per unit vector), so avail cannot be the stage effects of a countably indexed tower (written). M_Q takes avail = all effects for the exact form and the rational family for the dense form (DenseOrbit:299).
+s8_one_model: OK -- 13 checks, 0 failed

@@ -1,0 +1,7 @@
+zoo: ['GHZ', 'W', 'W3', 'Wwit', 'kappa', 'nu', 'psd0', 'psd1', 'psd2', 'psd3', 'wit0', 'wit1', 'wit2', 'wit3']; min value on random biproducts 4.314e-05 (BS* membership sanity)
+after 40 trials: worst normalized glue-network min -1.5625e-02 at ('kappa', 'psd0', 'psd3', 'W')
+after 80 trials: worst normalized glue-network min -2.2097e-02 at ('psd2', 'psd3', 'W', 'W3')
+after 120 trials: worst normalized glue-network min -2.2097e-02 at ('psd2', 'psd3', 'W', 'W3')
+after 160 trials: worst normalized glue-network min -2.2097e-02 at ('psd2', 'psd3', 'W', 'W3')
+after 200 trials: worst normalized glue-network min -2.2097e-02 at ('psd2', 'psd3', 'W', 'W3')
+after 240 trials: worst normalized glue-network min -2.2097e-02 at ('psd2', 'psd3', 'W', 'W3')

@@ -1,0 +1,17 @@
+SO-class  0 rep ((1, 1), (-1, -1, -1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 8  min over group of product value ~ -0.0000
+SO-class  1 rep ((1, 1), (-1, -1, 1, -1)) unitary=True |<G,N(x)I,I(x)N>| = 8  min over group of product value ~ -0.0000
+SO-class  2 rep ((1, 1), (-1, 1, -1, -1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class  3 rep ((1, 1), (-1, 1, 1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class  4 rep ((1, -1), (-1, -1, -1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class  5 rep ((1, -1), (-1, -1, 1, -1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class  6 rep ((1, -1), (-1, 1, -1, -1)) unitary=False |<G,N(x)I,I(x)N>| = 8  min over group of product value ~ -0.0000
+SO-class  7 rep ((1, -1), (-1, 1, 1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 8  min over group of product value ~ -0.0000
+SO-class  8 rep ((-1, 1), (-1, -1, -1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class  9 rep ((-1, 1), (-1, -1, 1, -1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class 10 rep ((-1, 1), (-1, 1, -1, -1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -0.0000
+SO-class 11 rep ((-1, 1), (-1, 1, 1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -0.0000
+SO-class 12 rep ((-1, -1), (-1, -1, -1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -0.0000
+SO-class 13 rep ((-1, -1), (-1, -1, 1, -1)) unitary=True |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -0.0000
+SO-class 14 rep ((-1, -1), (-1, 1, -1, -1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+SO-class 15 rep ((-1, -1), (-1, 1, 1, 1)) unitary=False |<G,N(x)I,I(x)N>| = 16  min over group of product value ~ -2.0000
+exit 0 time 18s

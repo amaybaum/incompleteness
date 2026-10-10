@@ -1,0 +1,19 @@
+== C1 control: pair {0, delta}, c = 1/4, y = P_0 + d_delta/(4c)
+C1  margin = -1.43e-01
+== C2 control: antipodal pair {0, pi} (SD2)
+C2  samples 60; worst margin = -9.77e-15
+== C3 control: constructed members of K'
+C3  samples 40; worst margin = 3.80e-03
+== N1  K': random y in K'* (seed 20261011)
+N1  samples 150 ; worst margin = -3.51e-02
+== N2  K': adversarial y = z + s d_beta, z near the cap centre phi_alpha (seed 20261012)
+N2  samples 160; worst margin = -1.74e-03 ; at beta - alpha = 1.172
+== N3  K': adversarial y with V1-V2 coupling (seed 20261013)
+N3  samples 160; worst margin = -1.02e-02
+== N4  finite subset of the circle: square (seed 20261014)
+N4  square: adversarial pairs (j, k): worst margin = -6.07e-02
+N4  square: random/biased samples 24: worst margin = -4.38e-02
+== N4  finite subset of the circle: triangle (seed 20261014)
+N4  triangle: adversarial pairs (j, k): worst margin = -1.43e-01
+N4  triangle: random/biased samples 24: worst margin = -1.41e-01
+SUMMARY [N, numerical] controls C1, C2, C3 behaved as stated; nothing above is a certificate

@@ -1,0 +1,7 @@
+a = 0.0: min phi_a / min(u0, 3u1) over 2000 random d = 1.0000 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.9943 (<= 1 needed)
+a = 0.1: min phi_a / min(u0, 3u1) over 2000 random d = 1.1139 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.8048 (<= 1 needed)
+a = 0.2: min phi_a / min(u0, 3u1) over 2000 random d = 1.1507 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.7110 (<= 1 needed)
+a = 0.3: min phi_a / min(u0, 3u1) over 2000 random d = 1.1524 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.6911 (<= 1 needed)
+a = 0.4: min phi_a / min(u0, 3u1) over 2000 random d = 1.1246 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.5833 (<= 1 needed)
+a = 0.5: min phi_a / min(u0, 3u1) over 2000 random d = 1.0748 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.6039 (<= 1 needed)
+a = 0.6: min phi_a / min(u0, 3u1) over 2000 random d = 1.0098 (>= 1 needed); max |c'|/phi_a(d') over 4000 random boundary points and filters = 0.5574 (<= 1 needed)

@@ -1,0 +1,26 @@
+
+== S  where the design proof consumes hgate / hinv (independent text scan of the design modules)
+CONFIRMED S1: declarations naming hgate/hinv outside the package module: 12 = the twelve of thread B's frozen list (['bell_mem', 'bell_mem_dual', 'dualW_of_inv', 'ie1_all', 'inv_mem_of_orth', 'kt4_forward_ie1', 'kt4_forward_ie1_kt4', 'kt4_forward_ie1_lt', 'kt4_general_ie1', 'link_mem', 'parity_all', 'parity_witnesses'])
+CONFIRMED S2: link_mem and bell_mem apply hgate only to a product state (hgate _ (hprod ...)); bell_mem_dual reads hinv only through dualW_of_inv: the consumed instances are (L), (BS) and (BD)
+CONFIRMED S3: Lemma R (inv_mem_of_orth) uses hgate on general cone elements (an induction), not at a product: CONS deletes it and supplies (BD) directly instead of hinv
+CONFIRMED S1c: countercontrol: the scanner detects a planted declaration that names hgate
+
+== M  M_max = (maxCone, cnot) and M_D13 = (Q3, g_D)
+CONFIRMED M1: pairing of idW with effect vectors e, f is e0 f0 + e.f >= e0 f0 - |e||f| >= 0 on the Lorentz cone (Cauchy-Schwarz): idW is in maxCone
+CONFIRMED M2: cnot idW = chainW (landed cnot_idW) and chainW pairs to -1/2 with the sharp effects of -e1, -e3: chainW is not in maxCone, so hgate fails in M_max
+CONFIRMED M3: prodState xplus z3 is in Q3, g_D sends it to idW, and idW is not in Q3: hgate fails in M_D13
+CONFIRMED M4: g_D meets NativeGate's frame at the four corner pairs of z3, relT and relC with nflip (symbolic), and has the two-sided inverse cnot . actT reflY; posFwd/posInv follow from cnot's (landed cnot_prodState_mem_maxCone) since homMap reflY preserves the Lorentz cone, so maxCone is actT reflY-invariant [written]
+CONFIRMED M4c: countercontrol: the same frame check rejects the identity map (it fails at the corner pair (-z3, -z3))
+
+== C  the consumed clause CONS: strictly weaker than hgate, and failing where hgate does
+CONFIRMED C1: M_pre (uniform Q3, N_13 = g_pre = cnot . actT reflY, post-locals I): hgate fails (phiW in Q3 goes to chainW, outside maxCone) while its post-local Bell table bellOf I I = phiW is that of M_Q, so CONS holds as in M_Q [written for (L): local rotations keep Q3]
+CONFIRMED C2: M_DD: idW = actT reflY phiW lies in twin and g_D sends it to chainW (outside maxCone, which contains twin), so hgate fails at a twin pair with g_D; the pre-corrected gate g_D . actT reflY = g_Tw satisfies g_Tw (actT reflY w) = actT reflY (cnot w) (symbolic), so it preserves twin (PREC holds)
+CONFIRMED C3: F = diag(1,-1,1,-1): ipW F (prodState x y) = |x - D y|^2/2 + (1-|x|^2)/2 + (1-|y|^2)/2 (symbolic), >= 0 on products; F pairs effect vectors as e0 f0 - e1 f1 + e2 f2 - e3 f3 >= 0 (so F in maxCone); ipW F phiW = -2: phiW is not in dualW maxCone = SEP, so (BD) fails in M_max and no product-only pair system carries cnot
+CONFIRMED C4: (BS) fails in M_D: bellOf I reflY = idW is not in Q3
+
+== O  Lemma O (orientation obstruction) ingredients
+CONFIRMED O1: actT reflY . actT B = actT (reflY B) and actT commutes with actC (symbolic), so sigma_q keeps N-CLASS form with post-local reflY B; det(reflY B) = -det B flips orient
+CONFIRMED O2: homMap reflY fixes e0 and preserves the Lorentz form, so it maps the Lorentz cone onto itself: maxCone and SEP are actT reflY-invariant, and sigma_q changes no cone there
+CONFIRMED O3: on uniform maxCone (or SEP) the 16 gate patterns in {cnot, g_D}^4 share every cone-reading hypothesis; EvenCycle holds exactly on the 8 with an even number of g_D (orientation = det of the post-local B)
+
+AUDIT-B ALL CONFIRMED

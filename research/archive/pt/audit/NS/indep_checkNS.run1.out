@@ -1,0 +1,34 @@
+== A  the scaling family u_eps(x) = eps^(-3/2) f((x - x0)/eps)
+CONFIRMED A1 [identity] f = curl(0,0,e^{-|x|^2}) is divergence-free
+CONFIRMED A2 [identity] div u_eps = 0: the scaling preserves incompressibility
+CONFIRMED A3 [identity] ||u_eps||_2^2 = ||f||_2^2 for every eps > 0 (exact Gaussian integrals) -- ||f||_2^2 = sqrt(2)*pi**(3/2)/2
+CONFIRMED A4 [identity] ||eps^(-a) f(./eps)||_2^2 = eps^(3-2a)||f||_2^2: a = 3/2 is the unique L2-preserving exponent (the Navier-Stokes scaling a = 1 is not)
+MISMATCH A5 [identity] ||f||_inf^2 = max_s 4 s e^{-2s} = 2/e, attained at |x|^2+|y|^2 = 1/2 -- sup|f| = sqrt(2*exp(-2*z**2 - 1))
+CONFIRMED A6 [identity] ||u_eps||_inf = eps^(-3/2)||f||_inf -> infinity as eps -> 0: finite energy, unbounded peak (the input's kinematic claim)
+CONFIRMED A7 [identity] ||grad u_eps||_2^2 = eps^(-2)||grad f||_2^2: the enstrophy diverges, so the family leaves every bounded-enstrophy class (not a Leray-Hopf obstruction, a kinematic fact)
+CONFIRMED A8c [countercontrol] countercontrol: the Navier-Stokes self-similar exponent a = 1 sends the energy to 0, so the L2 invariance is specific to a = 3/2
+
+== B  finite state space: bounded at fixed resolution; the non-uniformity is the normalisation
+CONFIRMED B1 [enumerate] at each fixed eps = 1/n the observed values form a finite set with an exact finite bound; the bounds grow like eps^(-3/2) across n -- {2: '2*sqrt(2)', 4: '8', 8: '16*sqrt(2)'}
+CONFIRMED B2c [countercontrol] countercontrol: with the eps-independent normalisation (occupied fraction) the same finite systems are bounded by 1 UNIFORMLY in eps: the boxed non-uniformity comes from the continuum normalisation P_eps, not from finiteness
+
+== C  null model: inviscid Burgers, u(x,0) = -sin x: exact blow-up at t = 1; Galerkin truncations globally regular
+CONFIRMED C1 [identity] u(x,t) = -sin(xi), x = xi - t sin(xi) solves u_t + u u_x = 0 (characteristics)
+CONFIRMED C2 [identity] u_x(0,t) = -1/(1-t): the gradient blows up at t = 1 while |u| <= 1 stays bounded (gradient catastrophe, finite energy)
+CONFIRMED C3 [identity] x_xi = 1 - t cos(xi) >= 1 - t > 0 for t < 1: the characteristic map is a diffeomorphism and u is smooth before t = 1
+CONFIRMED C4 [identity] energy int u^2 dx = int sin^2(xi) (1 - t cos xi) dxi = pi for every t < 1 (conserved up to the shock)
+CONFIRMED C5 [identity] N = 1 truncation of u = -sin x: b1' = 0 (the single mode is frozen; trivially global)
+CONFIRMED C6 [identity] N = 2 odd Galerkin truncation: d/dt (b1^2 + b2^2) = 0 exactly (energy conserved: the projected nonlinearity is skew) -- b1' = b1*b2/2, b2' = -b1**2/2
+CONFIRMED C7 [identity] N = 3 likewise: energy exactly conserved, hence bounded orbits, hence global existence for the polynomial ODE [W]
+CONFIRMED C8 [identity] |u_N'(0)| <= sqrt(N(N+1)(2N+1)/6) ||b||: bounded for all time at fixed N, with a bound that diverges with N - the same shape as the input's eps-family, with no hidden sector
+CONFIRMED C9c [countercontrol] countercontrol: with b2 = 0 at t = 0 (the data -sin x), b2' = -b1^2/2 != 0, so the N = 2 truncation does transfer energy to mode 2 (a genuine projected dynamics, not the frozen N = 1 case) -- b2'|_(b2=0) = -b1**2/2
+
+== D  HB3-a (HexLatticeGas.lean:935-981): the recorded configurations' block charges, recomputed
+CONFIRMED D1 [identity] for symbolic channel weights w: block charges of c and c' agree on every block at t (w0+w3 on (0,0)) and at t-1 (w3 on (0,0), w0 on (1,0))
+CONFIRMED D2 [witness] at t+1 the momentum P1 on block (0,0) is 1 for c and 0 for c': equal two-time coarse states, different next coarse state (the input's paraphrase of H-B's closure failure is accurate)
+CONFIRMED D3 [witness] the mass on block (1,0) at t+1 also differs (1 vs 0): the non-closure is not specific to momentum
+CONFIRMED D4c [countercontrol] countercontrol: the mass on block (0,0) at t+1 agrees (1 = 1), so a single well-chosen coarse variable can look closed on this pair; the witness needs the right block and weight
+CONFIRMED D5 [identity] the recorded images conserve total mass and both momentum components (HB1), a consistency check on the transcription -- P(c) = (0,0), P(c') = (0,0)
+
+checks: 24, confirmed: 23
+VERDICT INDEP-NS-MISMATCH

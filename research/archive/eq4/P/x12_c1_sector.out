@@ -1,0 +1,12 @@
+PT_j maps GD into GD: True
+PT_1 on P_0: ['1/2', '1/2', '0', '0', '0', '0', '1/2', '-1/2']
+PT_2 on P_0: ['1/2', '1/2', '0', '0', '1/2', '-1/2', '0', '0']
+PT_3 on P_0: ['1/2', '1/2', '1/2', '-1/2', '0', '0', '0', '0']
+PT images of the two twirls (tokens 1, 2): [(1, 1, 0, 0, 0, 0, 0, 0), (1, 1, 1, 1, 1, -1, 1, -1)]
+S' has 28 generators; self-positive: True
+min <W3-type, S' generator> = 0
+ext(S'*): 36 rays; S'* self-positive: False; W3-type in cone(S'): True
+ext(S'*) orbit reps: [(-2, 2, 1, 1, 1, 1, 1, 1), (-1, 1, -1, 1, 1, 1, 1, 1), (0, 0, 0, 0, 0, 0, 1, 1)]
+=== root: S' alone
+STUCK  reps=[]  ext(K*)=36; outside reps [(-2, 2, 1, 1, 1, 1, 1, 1)]
+visited 1 nodes; FOUND 0: []

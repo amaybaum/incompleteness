@@ -1,0 +1,32 @@
+PASS C1 prodState3 x y z = (prodState x y) placed on (0,1) times hom z on copy 2 (symbolic)
+PASS C1 actT reflY (prodState x y) = prodState x (reflY y): products lie in Tw as well as in Q (symbolic)
+PASS C2 triple product effect on a generator = (pair value) x (single value), all three pair types (symbolic)
+PASS C3 marginals: matching pair returns sigma; mismatched pairs return rank-one (product) tables (symbolic)
+PASS C4 conditionals on any f: matching pair gives sigma * <f, hom z>; mismatched gives rank-one tables (symbolic)
+PASS C3 spot check (12 random exact generators, both twists): mismatched marginals are products of Lor vectors
+PASS C5 on mismatched generators (E (x) f)(g) = <E hom y, sigma f> (Euclidean pairing of two Lor vectors) (symbolic)
+PASS C5 spot check: 120 random exact (pair effect (x) single effect, generator) values are >= 0 across all 8 K_tau
+PASS C6 cnot and cnot' fix the unit entry (normalization) (symbolic)
+PASS C6 cnot (prodState xplus z3) = phiW and cnot' (prodState xplus z3) = idW (non-products)
+PASS C6 pauliW (cnot w) = CNOT pauliW(w) CNOT, so cnot maps Q onto Q (symbolic)
+PASS C7 swapW (actT reflY w) = transposeW (actT reflY (swapW w)) (symbolic): Tw is swap-invariant since transposeW fixes Q and commutes with actT reflY
+PASS C8 M_odd: for all 8 eps in {I,R}^3 some pair Bell table is sent to idW (singlet value < 0): no per-token chart presents the three pair composites
+PASS C8 M_tw: for all 8 eps in {I,R}^3 some pair Bell table is sent to idW (singlet value < 0): no per-token chart presents the three pair composites
+PASS C8 countercontrol: for M_bs (all untwisted) eps = (I,I,I) sends every pair Bell table to phiW (in Q)
+PASS C9 omega0 = |+><+|_0 (x) Phi+_12 is the generator gen3(phiW on (1,2), xplus on 0) of M_odd
+PASS C9 (cnot on (0,1)) (x) id_2 sends omega0 to GHZ' = (|000>+|011>+|101>+|110>)/2
+PASS C9 tr(W GHZ') = -1/2 for W = 1/2 - |GHZ'><GHZ'|
+PASS C9 every single-copy marginal of GHZ' is 1/2 (the input of the written bound <= 1/2)
+PASS C9 spot check: tr(W g) >= 0 on 48 random exact generators of all eight K_tau (written proof covers all)
+PASS C10 tr(W_GHZ GHZ) = -1/2 for W_GHZ = 1/2 - |GHZ><GHZ|
+PASS C10 spot check: tr(W_GHZ g) >= 0 on 24 random exact generators of all eight K_tau
+PASS C11 U_t is unitary for symbolic real t; U_0 = 1; U_1 = -i SWAP
+PASS D1 over Bell-type candidates: a negative 2|2 value exists IFF the 4-cycle twist parity is odd (16 assignments)
+     D1 minima: 0000:0, 0001:-2, 0010:-2, 0011:0, 0100:-2, 0101:0, 0110:0, 0111:-2, 1000:-2, 1001:0, 1010:0, 1011:-2, 1100:0, 1101:-2, 1110:-2, 1111:0
+PASS D2 K_4: assignments with every 4-cycle even = {delta eps + c} exactly (16 of 64)
+PASS D2 K_5: assignments with every 4-cycle even = {delta eps + c} exactly (32 of 1024)
+PASS D3 even parity (incl. all-twisted c = 1 and QM tau = 0): 12 random exact 2|2 values >= 0
+PASS D4 <W_GHZ (x) GHZ, Phi+_03 Phi+_14 Phi+_25> = -1/16 < 0: the six-copy pairwise hull violates COMP-1 on 012|345
+PASS D4 control: GHZ is nonnegative on random untwisted generators (it is PSD, hence in B_3*)
+a4_coupling: 29/29 checks pass
+VERDICT A4-COUNTERMODELS-EXACT

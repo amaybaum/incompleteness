@@ -1,0 +1,17 @@
+PASS P7 CNOT is a 0/1 permutation matrix
+PASS P7 CNOT (X(x)Z) CNOT^T = -(Y(x)Y)
+PASS P7 Y(x)Y is Hilbert-Schmidt orthogonal to the whole local span L
+PASS P7 L is not CNOT-invariant (an element of L acquires a Y(x)Y component)  components: [0, 0, 0, 0, 0, -1, 0, 0, 0]
+PASS P7 control: over C, products of {I,X,Y,Z} span all 16 dimensions
+PASS P8 D=2: |+> and |-> distinct, identical under every permutation + fixed-basis readout
+PASS P8 D=3: coherent uniform superposition vs maximally mixed: identical native statistics
+PASS P8 control: a non-permutation local operation (Hadamard) separates |+> and |->
+PASS P9a classical: attach-uniform / stochastic / discard stays stochastic (C-type closure, 50 random rational maps)
+PASS P9a classical: every pure joint state has a pure marginal => the uniform state has no pure dilation
+PASS P9b diagonal class closed under uniform attach, diagonal-preserving channel, partial trace (20 random)
+PASS P9b every pure diagonal joint state has a pure marginal => maximally mixed qubit has no reachable purification
+PASS P9 control: the Bell state (real, non-diagonal) purifies I/2
+PASS P10 local rotations act reversibly on the min tensor product of two discs, products -> pure products (256 cases)
+PASS P10 the min tensor product of discs spans R^3 (x) R^3 (9-dim): locally tomographic by construction
+
+SUMMARY: 15 PASS, 0 FAIL

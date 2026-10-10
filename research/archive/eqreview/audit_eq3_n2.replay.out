@@ -1,0 +1,16 @@
+PASS S1 the index-sum six-copy conditional equals the explicit 64 x 64 partial trace tr_345[(1 (x) F)(L03 (x) L14 (x) L25)] (exact Gaussian-rational instance)
+PASS S2 rank-one links with coefficients C, C', C'' give (C (x) C' (x) C'') F^T (C (x) C' (x) C'')^dag (symbolic F, exact C's), and a filter diag(1,u) on copy 0 with Bell links on copies 1, 2 gives Ad(diag(1,u) (x) 1 (x) 1)(F^T) (symbolic F, u)
+PASS S3 Bell links |Omega><Omega| on (0,3), (1,4), (2,5) give the conditional F^T (symbolic F): T3(K345*) <= K012 with closedness
+PASS S4 Bell effects on (0,3), (1,4), (2,5) give tr[(Omega Omega Omega)(X012 (x) Y345)] = tr(X Y^T) (symbolic X, Y; the 64 nonzero entries of the effect are those with equal link indices): K012 <= T3(K345*)
+PASS B1 GHZ is invariant under the six qubit permutations, and for A|BC-biseparable a (x) chi: (1/2)|a|^2|chi|^2 - |<GHZ|a chi>|^2 = (1/2)|a|^2(|chi01|^2 + |chi10|^2) + (1/2)|a0 conj(chi11) - a1 conj(chi00)|^2 (symbolic), so W3 = 1/2 - GHZ is in BS*
+PASS B2 six-copy value tr[(W3 (x) GHZ)(Phi+03 Phi+14 Phi+25)] = tr(W3 GHZ^T)/8 = -1/16 < 0: with BS on both triples the instance fails
+PASS B3 control: a biseparable state |0><0| (x) Phi+ in place of GHZ gives 1/32 >= 0
+PASS U1 W3 = 1/2 - GHZ has eigenvalue -1/2, so W3 is not in BS (BS <= PSD8): with BS* on (0,1,2) and BS on (3,4,5), the B2 witness is not an effect of (0,1,2)  [eigenvalues {-1/2: 1, 1/2: 7}]
+PASS U2 the four-token effect Omega03 (x) Ad(CNOT_12)(Omega14 (x) Omega25) pairs as tr[E (x012 (x) y345)] = tr(x Ad(CNOT)(y^T)) (3 exact instances), and with x = W3 (in BS*), y = Phi+34 (x) |0><0|5 (in BS) the value is -1/2 < 0
+NOTE U2 reading: the six-copy families of the thread use only product effects of the link pairs; the full effect set of the four-token group (1,4,2,5) would add E = Ad(CNOT_12)(Omega14 Omega25) IF it is an effect of that group (true when its cone lies in PSD16). With it, KT(6) excludes the non-uniform (BS*, BS) and forces Ad(CNOT) invariance of K345 on (4,5), i.e. IE2 for cnot; sourcing that effect is an effect-level idle extension at four tokens, so the wall moves up one level and is not closed
+PASS H1 Ad(CNOT), Ad(X (x) 1), Ad(1 (x) X) act on tables as the kernel cnot, actC nflip, actT nflip; the group they generate has order 8
+PASS H2 over the 8-element orbit of psi psi^dag the largest marginal Bloch norm^2 is 45/49 < (24/25)^2, so w = (49/50) 1 - psi psi^dag is in C_H*; countercontrol: a product state's orbit reaches 1
+PASS H3 the four-copy value tr[(w01 (x) f23)(Phi+02 (x) Phi+13)] = -1/200 < 0 with f = psi psi^dag (PSD, so in C_H* since C_H <= PSD) and Phi+ = Ad(CNOT)(|+><+| (x) |0><0|) in C_H
+PASS Y my Cayley hyperdeterminant: Det(|000> + |111>) = 1 != 0, Det(W) = 0, Det(|0>(|00> + |11>)) = 0, and Det((C0 (x) C1 (x) C2) psi) = (det C0 det C1 det C2)^2 Det(psi) (2 exact random instances)
+--- audit_eq3_n2: 13/13 checks pass
+VERDICT AUDIT-EQ3-N2-EXACT

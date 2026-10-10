@@ -1,0 +1,6 @@
+CONFIRMED R1 t4 carries 199 ROW lines with exactly the A2 ids -- rows 199, extra [], missing []
+CONFIRMED R2 T6's quoted R6 verdict equals my recount's A2 verdict on every row -- []
+CONFIRMED R3 T6's verdicts: non-hypothesis rows SATISFIES/NOT REACHED; FAILS = the 13 hypothesis ids; NOT REACHED set = mine -- bad []; fails-diff []; nr-diff []
+CONFIRMED R4 tallies SATISFIES 118 (3 vacuous), NOT REACHED 68, FAILS 13 -- {'FAILS': 13, 'NOT REACHED': 68, 'SATISFIES': 118} vacuous 3
+SUMMARY 4/4 CONFIRMED
+CHECK-T6-ROWS-FIXED

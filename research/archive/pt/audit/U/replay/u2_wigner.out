@@ -1,0 +1,18 @@
+== W  qubit lemmas
+PASS W1  [identity] |<u|v>|^2/(|u|^2|v|^2) = (1 + n_u . n_v)/2 (Bloch dictionary)
+PASS W2  [identity] complex conjugation acts on Bloch vectors as reflY = diag(1,-1,1) (antiunitary <-> det -1)
+PASS W3  [identity] Ad(cI - isZ) = rotation about z by 2t, Ad(cI - isY) = rotation about y by 2t (c = cos t, s = sin t); Euler angles then give every rotation as Ad of a unitary
+== W4  cross-ratio constancy (diagonal slice maps, phases p0, p1)
+PASS W4  [exact] k(b) = p1/p0 is constant when both slices are unitary or both antiunitary; with mixed types k(1,1) != k(1,i), so a constant cross ratio forces equal types
+== W5  the Segre step
+PASS W5  [identity] det coeff(lam u(x)v + mu u'(x)v') = lam mu det[u u'] det[v v']: a combination of two product vectors with non-parallel factors is entangled
+== W6  an instance of the conclusion, and the countercontrol
+PASS W6  [instance] psi_ab = CNOT(conj(a) (x) H b) preserves all 256 transition probabilities
+PASS W6c  [countercontrol] psi_ab = a (x) Z^[|a0|<|a1|] b preserves each slice but not the global identity (defect -16/25): the all-pairs hypothesis is load-bearing
+== O  U2(c): from transition probabilities to the cone
+PASS O1  [exact] the 36 axis products span W 3 (rank 16): linear maps agreeing on pure products agree everywhere
+PASS O2  [identity] actT reflY = partial transpose on token 1 (so twin = PT(Q3); actC reflY = PT on token 0 = T o actT reflY)
+PASS O3  [exact] idW = actT reflY phiW ∈ twin (phiW pure), cnot idW = chainW [K K2Guard:101-104], and chainW pairs to -2 with the product a = -e1, b = -e3: twin is not cnot-invariant
+
+checks: 10, failed: 0
+VERDICT U2-LEMMAS-EXACT -- 10 checks

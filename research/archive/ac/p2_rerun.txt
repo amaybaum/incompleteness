@@ -1,0 +1,11 @@
+PASS T1 FiniteStage laws (0 <= p <= 1, unit = 1) at stages 0..3
+PASS T2 SC-infinity (inclusion maps, one global table) n = 0..2 [VACUOUS by construction: label inclusion only; recorded, not evidence]
+PASS T3 FiniteRank: rank of stage-3 table = 4  rank = 4, |P_3| = 85, |E_3| = 171
+PASS T4 label dual p(e_{u,s} | a.w) = p(e_{a^-1 u, s} | w)  3612 instances
+PASS T5 AffineRespect of tau_a (all four letters) on every stage-3 affine relation  81 basis relations x 4 letters, 0 violated
+PASS T6 tau_x not StagePreserving: some stage-3 prep goes outside the stage-3 prepVecs  13 of 85 preparations leave stage 3
+PASS T7 label map w -> X.x.w injective, not the identity on labels, identity on prepVecs
+PASS T8 R_z^k p(x) != p(x) for k = 1..200  returns at []
+PASS T9 countercontrol: a swap of two images (not affine) violates a relation
+SUMMARY 9/9 PASS
+VERDICT tower-mechanisms-hold

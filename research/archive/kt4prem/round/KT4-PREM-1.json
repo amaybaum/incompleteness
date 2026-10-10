@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "KT4-PREM-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "bcbc516fe78eb7aa303a41e7bc9cc106dd63bd58",
+ "f": "7ae032174699190086f1e54b7adb7aeb1a80a726",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-kt4-prem-1-premise-audit/preregistration.md",
+   "blob": "708feac05e7f0176472e9f381367df9d71bf872a"
+  }
+ ],
+ "governed_paths_digest": "69e8ca29ab2d80dd4ae18e5320782ba7492e76bc0bf066e111662269a3319cf3",
+ "e": "86f26c87c750601583f382ed00baeb8fee32ef26",
+ "tree_e": "c08a50d1ea74aa1b3dd9424838238dc6ab3481fc",
+ "execution_delta_digest": "1c325ac10edeaa2c7f0117263e212583b540d8cefa88af35bd0c8a30ede91dd3",
+ "candidates": [],
+ "landing": {
+  "base": "bcbc516fe78eb7aa303a41e7bc9cc106dd63bd58",
+  "object": "dccdc434e5401961375eee7466577e56bc5a333b",
+  "reconciliations": [
+   "dccdc434e5401961375eee7466577e56bc5a333b"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "3e9f796c471d0f446c604b0ddb156147efc96c1387df238aeaabeca0c626a73f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "7ae032174699190086f1e54b7adb7aeb1a80a726",
+   "record": "https://github.com/amaybaum/incompleteness/pull/806#issuecomment-6087571713"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "7ae032174699190086f1e54b7adb7aeb1a80a726",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37975083454"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "86f26c87c750601583f382ed00baeb8fee32ef26",
+   "record": "https://github.com/amaybaum/incompleteness/pull/806#issuecomment-6088471219"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "86f26c87c750601583f382ed00baeb8fee32ef26",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37982199559"
+  }
+ ]
+}

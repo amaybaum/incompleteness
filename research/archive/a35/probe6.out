@@ -1,0 +1,20 @@
+grid classes: 60 (72 pairs less 12 shared-vertex identifications = 60)
+matrix-induced subgroup of A33 on the grid: relabellings 576, +conj 1152, +transpose 2304
+automorphisms of K3,3 on the six vertices: 72
+(a) BFS closure of the 81 generators on the grid: 36864 elements (8s)
+(a) parametrized pairs: 36864; all inside the BFS closure: True; closure inside the pairs: True
+(b) signature of a Σ point: H 3, H^T 3; of a column-Diţă point: H 1, H^T 1; of the A34 witness: 2 / 2
+    ε=0.6 converged: feature-dist 0.079  Σ-res 0.043  col-res 0.008  row-res 0.046  signature H 1 H^T 0  defect 17
+    ε=0.6 converged: feature-dist 0.067  Σ-res 0.038  col-res 0.010  row-res 0.012  signature H 0 H^T 1  defect 17
+    ε=0.3 converged: feature-dist 0.035  Σ-res 0.021  col-res 0.073  row-res 0.001  signature H 0 H^T 1  defect 17
+    ε=0.6 converged: feature-dist 0.046  Σ-res 0.022  col-res 0.010  row-res 0.005  signature H 0 H^T 0  defect 17
+    ε=0.3 converged: feature-dist 0.169  Σ-res 0.098  col-res 0.390  row-res 0.278  signature H 0 H^T 0  defect 17
+    ε=0.6 converged: feature-dist 0.077  Σ-res 0.045  col-res 0.000  row-res 0.075  signature H 0 H^T 0  defect 17
+    ε=0.6 converged: feature-dist 0.184  Σ-res 0.013  col-res 0.045  row-res 0.006  signature H 1 H^T 1  defect 17
+    ε=0.3 converged: feature-dist 0.084  Σ-res 0.042  col-res 0.170  row-res 0.170  signature H 0 H^T 0  defect 19
+    ε=0.3 converged: feature-dist 0.086  Σ-res 0.033  col-res 0.000  row-res 0.089  signature H 1 H^T 0  defect 17
+    ε=0.6 converged: feature-dist 1.181  Σ-res 0.494  col-res 1.984  row-res 1.974  signature H 0 H^T 1  defect 17
+    ε=0.6 converged: feature-dist 0.046  Σ-res 0.025  col-res 0.046  row-res 0.008  signature H 0 H^T 0  defect 16
+(b) converged points: 11; certified in no Diţă hull for any pairing (both signatures 0): 5
+(22s)
+done

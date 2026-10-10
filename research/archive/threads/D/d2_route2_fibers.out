@@ -1,0 +1,3 @@
+grid=2x2  instances=48  laws=14  witness_groups=2  witness_groups_where_injective_members_disagree=0  every_witness_group_has_noninjective_member=True  injective_same_law_pairs=32  pairs_isomorphic=32  pairs_related_by_one_hidden_permutation=8
+grid=2x3  instances=1440  laws=97  witness_groups=6  witness_groups_where_injective_members_disagree=0  every_witness_group_has_noninjective_member=True  injective_same_law_pairs=13104  pairs_isomorphic=13104  pairs_related_by_one_hidden_permutation=1512
+grid=3x2  instances=1440  laws=149  witness_groups=5  witness_groups_where_injective_members_disagree=0  every_witness_group_has_noninjective_member=True  injective_same_law_pairs=6656  pairs_isomorphic=6656  pairs_related_by_one_hidden_permutation=1520

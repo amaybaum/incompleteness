@@ -1,0 +1,13 @@
+PASS (1a) witness u = e0(x)e0: <u|J(conj P01)|u> = 0 and <u|J(id)|u> = 1
+PASS (1b) hence J(conj P01) - lam*J(id) has <u|.|u> = -lam, negative for every lam > 0
+PASS (1c) the partial transpose of J(conj P01) has eigenvalue -1 (exact spectrum)
+     spectrum of J(conj P01)^{T_out}: {-1: 3, 1: 6}
+PASS control: a measure-and-prepare map has a PPT Choi matrix (all partial-transpose eigenvalues >= 0)
+PASS control: J(id) is also NPT, so the witness step (lambda = 0) is load-bearing
+PASS (2a) U4 = P01 (+) 1 is unitary on C^4 and maps the 3-face into itself (U4 P U4^dag = P)
+PASS (2b) its restriction to the face is exactly conj(P01) on D_3 (generic exact test matrix)
+PASS control: conj(X) on Q_1 is a K2 transformation (unitary, CP); the obstruction is specific to T systems
+PASS (3a) P01 is invertible (det = -1) and not a scalar multiple of 1
+PASS (3b) control: proper projectors on C^3 (exact, random frames) are idempotent and singular, so any product containing one is singular and cannot be a nonzero multiple of P01
+
+VERDICT  in M1 (K2 + FP-S + FP-E + sequential composition) the swap of the capacity-3 system is not a transformation; the restriction clause FP-T is exactly what fails

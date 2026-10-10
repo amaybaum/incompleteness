@@ -1,0 +1,10 @@
+PASS K0 transcription control
+PASS B1 PT_j maps GD into GD and commutes with the twirl (j = 1, 2, 3; all 64 units)
+PASS B2 twirl(PT_2(Phi+) (x) |+><+| + PT_2(Phi-) (x) |-><-|) = t/2, t = (1, 1, 1, 1, 1, -1, 1, -1); twirl(|000><000|) = (e_0 + e_1)/2
+PASS B3 30 random B_tw generators PT_j(sigma_ij) (x) rho_k: twirls lie in cone(S_tw) (pair >= 0 with all 36 extreme rays of S_tw*)
+PASS T1 36 generators (4 p_b, 24 t, 8 k_j); G-invariant set True; pairwise >= 0 True
+PASS T2 exact double description: 36 rays, two orders agree True, all in K_tw* True, all extreme True, ray set = generator set True
+PASS T3 independent cross-check: 300 random exact points of K_tw* (212 with a negative entry) are nonnegative combinations of the generators (exact phase-I simplex, reconstruction verified)
+PASS T4 S_tw <= K_tw (generators) True; W3 in cone(S_tw) True; GHZ+ = e_0 not in K_tw True; F not in K_tw True
+--- p13_c1_sector: 8/8 checks pass
+VERDICT P13-C1-SECTOR-EXACT

@@ -1,0 +1,11 @@
+PASS V1a upper bound: rank of exact constraints at 60 rational sphere pairs = 207; dim V1 <= 33
+PASS V1a sampled null space has dim 33
+PASS V1b every sampled null vector satisfies the constraints identically on the sphere: dim V1 = 33 exactly
+PASS V1c su(4) generators are real
+PASS V1c the 15 su(4) generators and their R_B conjugates satisfy the sampled constraints and fix omega_00
+PASS V1c span(su(4) image + R_B conjugate) has dim 24 (= 15 + 15 - 6 local)
+PASS V1c su(4) image + conjugate lie inside the 33-dim V1 (rank of union 33)
+PASS V1d a direction of V1 outside the 24 is not Euclidean-skew (compactness must remove it)
+PASS CX R_B SWAP R_B == T SWAP (T = R_A R_B, the global transpose in Pauli coordinates)
+PASS CX Choi rank: Ad(SWAP) = 1 (unitary), transpose . Ad(SWAP) = 16
+review_eqC_fast: 10/10 checks pass

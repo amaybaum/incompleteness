@@ -1,0 +1,11 @@
+PASS T1 teleportation identity on all 64 units (scaled Bell factors 2x2 = 4 = 1/(1/4))
+PASS T2 countercontrol: a product link does not teleport -- 64/64 units fail
+PASS U1 three five-token steps carry y on (0,1,2) to y on (3,4,5) (0->3, 1->4, 2->5), factor (1/4)^3 -- labels after: ('5', '4', '3')
+PASS U2 five-token pairing = (1/4) tr(W3 GHZ) < 0 -- value -1/8
+PASS U3 single-token marginals of 2GHZ are I (GHZ marginals I/2: W3 in BS*); <GHZ|W3|GHZ> < 0 (W3 not in BS) -- tr(W3 GHZ) = -1/2
+PASS U4 control: with GHZ as the effect the value is positive -- value 1/4
+PASS P1 3|3 Bell-link value of W3 (x) GHZ is negative -- value -1/16
+PASS P2 control: GHZ (x) GHZ gives a positive value -- value 1/8
+PASS N1 contraction of a PSD 2-token effect with two PSD pair blocks is PSD (24 random exact instances)
+PASS N2 countercontrol: SWAP (not PSD) gives a non-PSD contraction
+PASS S1 <XXX, ZZ1, 1ZZ> has 8 elements; its average is the GHZ-basis pinching on all 64 units

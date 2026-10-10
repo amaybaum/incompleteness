@@ -1,0 +1,2 @@
+LEAP linear Hankel ranks n = 1, 2, 3: [1, 1, 1]
+LEAP nonlinear Hankel ranks n = 1, 2, 3: [1, 4, 6]

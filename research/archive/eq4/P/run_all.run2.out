@@ -1,0 +1,14 @@
+p1_e1_triangle         script 8e7d701fc4b5ea3f  recorded 14ba9e6cfab7924d  replay 14ba9e6cfab7924d  exit 0  stderr empty  identical True
+p2_teleport            script ca6ec9111fdddf31  recorded 658c3c3bf3b6bc4e  replay 658c3c3bf3b6bc4e  exit 0  stderr empty  identical True
+p3_crossing_calculus   script 2250f6fb65113148  recorded 650e2945f0678ac5  replay 650e2945f0678ac5  exit 0  stderr empty  identical True
+p4_e3_directions       script bfdb1c1f8624f018  recorded 37c59c5366bb2747  replay 37c59c5366bb2747  exit 0  stderr empty  identical True
+p5_generation          script cb73c052ba0e1994  recorded bbf6fcbf20f0acfa  replay bbf6fcbf20f0acfa  exit 0  stderr empty  identical True
+p6_five_token_model    script 2983706025fe7966  recorded 7c563f65161a7cf0  replay 7c563f65161a7cf0  exit 0  stderr empty  identical True
+p7_wall_reduction      script da018fbebd67a5f6  recorded a1f7d3242234c2b9  replay a1f7d3242234c2b9  exit 0  stderr empty  identical True
+p8_coloring            script ad1c3a6223febb4f  recorded 68f03717d57ff60f  replay 68f03717d57ff60f  exit 0  stderr empty  identical True
+p9_purification        script 39e26888d1b15936  recorded d6214a8c255207ea  replay d6214a8c255207ea  exit 0  stderr empty  identical True
+p10_c1_maximality      script ce76aaf573f3a918  recorded 6b332a3197881cc1  replay 6b332a3197881cc1  exit 0  stderr empty  identical True
+p11_sector_reduction   script cac1d35e0838b198  recorded 8c246bf96c570713  replay 8c246bf96c570713  exit 0  stderr empty  identical True
+p12_sector_selfdual    script cf549d138c825579  recorded 27776d481e2eba78  replay 27776d481e2eba78  exit 0  stderr empty  identical True
+library eq4_lib.py cc2c6aca94007ac8
+VERDICT RUN-ALL-OK

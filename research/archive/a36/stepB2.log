@@ -1,0 +1,14 @@
+rank mod gauge: T_c 14 T_r 14 T_c+T_r 26 T_c ∩ T_r (mod gauge) 2
+control: D²F(T_c, T_c) == 0 exactly: True
+control: D²F(T_r, T_r) == 0 exactly: True
+control: D²F(gauge, gauge) == 0 in coker: True
+cross terms D²F(T_c, T_r): nonzero exactly 320 of 441 | nonzero in coker 320
+control: DF . T_c^sw == 0: True  DF . T_r^sw == 0: True
+control: D²F(T_c^sw, T_c^sw) == 0 exactly: True  D²F(T_r^sw, T_r^sw) == 0 exactly: True
+rank mod gauge of T_c^sw: 14
+rank mod gauge of T_r^sw: 14
+rank mod gauge of T_c+T_r+T_c^sw: 29
+rank mod gauge of T_c+T_r+T_r^sw: 29
+rank mod gauge of all four: 32
+residual after the four orientations: 17
+done (23s)

@@ -1,0 +1,11 @@
+witness
+d01span
+paths
+r5
+n18:0
+n18:1
+n18:2
+sathr
+cubes:0
+cubes:1
+cubes:2

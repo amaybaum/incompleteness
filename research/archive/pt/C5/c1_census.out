@@ -1,0 +1,111 @@
+PASS T0 CNOT, UJ(x)I, X(x)I, Z(x)I exact unitaries; 2I-iZ, 2I-iX unitary up to scale 5
+PASS T1 Lean cnotFun (sgn/pc/pt) = Ad(CNOT), CNOT = P0(x)I + P1(x)X, all 16 basis tables
+PASS T2 actC nflip = Ad(X(x)I), actT nflip = Ad(I(x)X)
+PASS T3 actC cyc3 = Ad(UJ(x)I), actT cyc3 = Ad(I(x)UJ), UJ = (I - i(X+Y+Z))/2
+PASS T4 actC/actT rot3(t) = Ad(Rz(t)) at cos t = 3/5, sin t = 4/5 (ball3Drive flow, axis z)
+PASS T5 cyc3 . rot3 t . cyc3^-1 = Ad(Rx(t)) (the flow through nflip); at t = pi it is nflip; rot3 pi = diag(-1,-1,1) is not nflip
+PASS T6 transposeW = complex conjugation T on tables
+PASS T7 cyc3 has order 3 and CYC3INV is its inverse
+PASS G1 |G16| = 16, |Loc8| = 8, G16 = Loc8 u cnot.Loc8 (signed permutations of the 16 entries)
+NODE flow@C [{flow} control]: dim L(i)=2 abelian, dim L(ii)=2 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=(1, 1), orbit 16, d_low=1/2304, A2<=575/576, alpha=499783/500000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE flow@T [{flow} target]: dim L(i)=1 abelian, dim L(ii)=1 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=None, orbit 16, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE flow@CT [{flow on both tokens}]: dim L(i)=3 abelian, dim L(ii)=3 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 2, N=(1, 1), orbit 16, d_low=1/2304, A2<=575/576, alpha=499783/500000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE flowNOT@C [{flow, NOT} control]: dim L(i)=2 abelian, dim L(ii)=2 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=(1, 1), orbit 64, d_low=1/2304, A2<=575/576, alpha=499783/500000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE flowNOT@T [{flow, NOT} target]: dim L(i)=1 abelian, dim L(ii)=1 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=None, orbit 32, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE J@C [{J} control]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 768, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE J@T [{J} target]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 384, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE NOTJ@C [{NOT, J} control]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 768, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE NOTJ@T [{NOT, J} target]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 384, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE flowJ@C [{flow, J} control]: dim L(i)=6 non-abelian, dim L(ii)=6 non-abelian, criterion(i)=('C', 1, 1), criterion(ii)=('C', 1, 1) => UNIQUE at (i) and (ii)
+NODE flowJ@T [{flow, J} target]: dim L(i)=6 non-abelian, dim L(ii)=6 non-abelian, criterion(i)=('T', 3, 1), criterion(ii)=('T', 3, 1) => UNIQUE at (i) and (ii)
+NODE flow@C+J@T [record: flow control, J target]: dim L(i)=15 non-abelian, dim L(ii)=15 non-abelian, criterion(i)=('T', 1, 1), criterion(ii)=('T', 1, 1) => UNIQUE at (i) and (ii)
+NODE flow@T+J@C [record: flow target, J control]: dim L(i)=1 abelian, dim L(ii)=1 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=None, orbit 768, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE flow@C+NOT@T [record: flow control, NOT target]: dim L(i)=2 abelian, dim L(ii)=2 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=(1, 1), orbit 32, d_low=1/2304, A2<=575/576, alpha=499783/500000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE NOT@C [record: {NOT} control]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 64, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE NOT@T [record: {NOT} target]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 32, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE NOT@CT [record: {NOT} both tokens]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 64, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE J@CT [record: {J} both tokens]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 11520, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE NOTJ@CT [record: {NOT, J} both tokens]: dim L(i)=0 abelian, dim L(ii)=0 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 0, N=None, orbit 11520, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE zflow@C [record: ball3Drive flow (axis z) control]: dim L(i)=1 abelian, dim L(ii)=1 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=None, orbit 16, d_low=5/256, A2<=59/64, alpha=122509/125000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE zflow@T [record: ball3Drive flow (axis z) target]: dim L(i)=2 abelian, dim L(ii)=2 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 1, N=(3, 3), orbit 16, d_low=1/8704, A2<=2175/2176, alpha=1999771/2000000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE zflow@CT [record: ball3Drive flow both tokens]: dim L(i)=3 abelian, dim L(ii)=3 abelian, criterion(i)=None, criterion(ii)=None, seed@(ii): local gens 2, N=(3, 3), orbit 16, d_low=1/8704, A2<=2175/2176, alpha=1999771/2000000, form identity ok => EXOTIC-E at (i) and (ii)
+NODE zflowJ@C [record: {ball3Drive flow, J} control]: dim L(i)=6 non-abelian, dim L(ii)=6 non-abelian, criterion(i)=('C', 1, 1), criterion(ii)=('C', 1, 1) => UNIQUE at (i) and (ii)
+NODE zflowJ@T [record: {ball3Drive flow, J} target]: dim L(i)=6 non-abelian, dim L(ii)=6 non-abelian, criterion(i)=('T', 3, 1), criterion(ii)=('T', 3, 1) => UNIQUE at (i) and (ii)
+PASS c5 Q3 retention: CNOT, X(x)I, I(x)X, Z(x)I, I(x)Z, UJ(x)I, I(x)UJ exact unitaries (flows are exp(-itP), P a Pauli product)
+PASS c4 countercontrol: the reachability criterion fails on {flow} control (the stage-4 S3 instance)
+PASS c1-flow@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flow@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-flow@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flow@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-flow@CT countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flow@CT countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-flowNOT@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flowNOT@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-flowNOT@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flowNOT@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-J@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-J@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-J@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-J@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-NOTJ@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-NOTJ@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-NOTJ@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-NOTJ@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS R5-flowJ@C no seed is certified on a UNIQUE node (L(i) non-abelian or no bound)
+PASS c3-flowJ@C reachability witness at level (i), side C, p = eigenvector of sigma_1 with eigenvalue 1: phi0 reached, psi_a reached (exact radicals)
+PASS R5-flowJ@T no seed is certified on a UNIQUE node (L(i) non-abelian or no bound)
+PASS c3-flowJ@T reachability witness at level (i), side T, p = eigenvector of sigma_3 with eigenvalue 1: phi0 reached, psi_a reached (exact radicals)
+PASS R5-flow@C+J@T no seed is certified on a UNIQUE node (L(i) non-abelian or no bound)
+PASS c3-flow@C+J@T reachability witness at level (i), side T, p = eigenvector of sigma_1 with eigenvalue 1: phi0 reached, psi_a reached (exact radicals)
+PASS c1-flow@T+J@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flow@T+J@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-flow@C+NOT@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-flow@C+NOT@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-NOT@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-NOT@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-NOT@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-NOT@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-NOT@CT countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-NOT@CT countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-J@CT countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-J@CT countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-NOTJ@CT countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-NOTJ@CT countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-zflow@C countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-zflow@C countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-zflow@T countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-zflow@T countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS c1-zflow@CT countercontrol: the product |00> gives A2 = 1, no seed
+PASS c2-zflow@CT countercontrol: the reachable Bell state CNOT|+0> gives d_low = 0, no seed
+PASS R5-zflowJ@C no seed is certified on a UNIQUE node (L(i) non-abelian or no bound)
+PASS c3-zflowJ@C reachability witness at level (i), side C, p = eigenvector of sigma_1 with eigenvalue 1: phi0 reached, psi_a reached (exact radicals)
+PASS R5-zflowJ@T no seed is certified on a UNIQUE node (L(i) non-abelian or no bound)
+PASS c3-zflowJ@T reachability witness at level (i), side T, p = eigenvector of sigma_3 with eigenvalue 1: phi0 reached, psi_a reached (exact radicals)
+PASS S1 seed identities at psi = phi0/4, alpha = 499783/500000: pauliW(e)psi = (alpha-1)/4 psi; <e,T_phi> = alpha - |<psi|phi>|^2 (4 states); <e, cnot e> = alpha^2 - alpha/2 + |<psi|CNOT psi>|^2/4; <e, T_psi> = alpha - 1 < 0
+SUMMARY census (protocol subsets):
+  CENSUS flow@C: EXOTIC-E at (i) and (ii) seed alpha=499783/500000 at level (ii)
+  CENSUS flow@T: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  CENSUS flow@CT: EXOTIC-E at (i) and (ii) seed alpha=499783/500000 at level (ii)
+  CENSUS flowNOT@C: EXOTIC-E at (i) and (ii) seed alpha=499783/500000 at level (ii)
+  CENSUS flowNOT@T: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  CENSUS J@C: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  CENSUS J@T: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  CENSUS NOTJ@C: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  CENSUS NOTJ@T: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  CENSUS flowJ@C: UNIQUE at (i) and (ii)
+  CENSUS flowJ@T: UNIQUE at (i) and (ii)
+  RECORD flow@C+J@T: UNIQUE at (i) and (ii)
+  RECORD flow@T+J@C: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD flow@C+NOT@T: EXOTIC-E at (i) and (ii) seed alpha=499783/500000 at level (ii)
+  RECORD NOT@C: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD NOT@T: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD NOT@CT: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD J@CT: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD NOTJ@CT: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD zflow@C: EXOTIC-E at (i) and (ii) seed alpha=122509/125000 at level (ii)
+  RECORD zflow@T: EXOTIC-E at (i) and (ii) seed alpha=1999771/2000000 at level (ii)
+  RECORD zflow@CT: EXOTIC-E at (i) and (ii) seed alpha=1999771/2000000 at level (ii)
+  RECORD zflowJ@C: UNIQUE at (i) and (ii)
+  RECORD zflowJ@T: UNIQUE at (i) and (ii)
+CHECKS: 60 PASS, 0 FAIL
+VERDICT C1-CENSUS-EXACT (undecided nodes: none)

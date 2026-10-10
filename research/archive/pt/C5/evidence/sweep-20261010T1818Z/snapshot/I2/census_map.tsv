@@ -1,0 +1,136 @@
+# census_map.tsv — I2's mapping of census entries (file, first line, last line, mapping). First match wins.
+# OOS:Ik = out of scope, belongs to thread Ik (protocol partition); XREF = sentence restates/cites items, mapped to the records named.
+papers/Main.md	20	20	I2.69,I2.44,I2.50 (C1–C4 clauses OOS:I1 conditions)
+papers/Main.md	22	22	I2.1,I2.5,I2.6,I2.8,I2.12,I2.102,I2.69
+papers/Main.md	82	82	I2.69 (C1–C4 clauses OOS:I1 conditions)
+papers/Main.md	99	99	I2.69
+papers/Main.md	109	109	OOS:I1 (slow-bath regime of C1/C2)
+papers/Main.md	113	131	I2.48 (total-finiteness posit OOS:I1)
+papers/Main.md	133	133	I2.49
+papers/Main.md	137	141	I2.50
+papers/Main.md	143	147	I2.51
+papers/Main.md	151	151	I2.52
+papers/Main.md	153	157	OOS:I1 (C2 storage mechanism and its failure)
+papers/Main.md	159	165	I2.53
+papers/Main.md	167	170	I2.54
+papers/Main.md	172	176	OOS:I1 (C1–C4 separation and roles)
+papers/Main.md	184	184	I2.48 (minimal model, folded witness; C1–C4 claim OOS:I1)
+papers/Main.md	204	210	I2.55,I2.56,I2.42
+papers/Main.md	212	212	I2.56,I2.4,I2.81
+papers/Main.md	216	218	OOS:I1 (Lemma 1 finiteness commitment)
+papers/Main.md	224	256	I2.57
+papers/Main.md	262	274	I2.58
+papers/Main.md	276	282	I2.59
+papers/Main.md	286	286	I2.22
+papers/Main.md	288	320	I2.21 (320 also I2.22)
+papers/Main.md	322	334	I2.60
+papers/Main.md	336	336	I2.61
+papers/Main.md	348	348	I2.19,I2.62
+papers/Main.md	352	352	I2.63
+papers/Main.md	360	364	I2.5
+papers/Main.md	394	394	I2.7
+papers/Main.md	398	398	I2.8
+papers/Main.md	409	411	I2.41,I2.69
+papers/Main.md	415	415	I2.48 (C1 clause OOS:I1)
+papers/Main.md	419	421	OOS:I1 (C1 witness and one-way coupling remarks)
+papers/Main.md	423	453	OOS:I1 (ETH motivation; C2 necessity theorems)
+papers/Main.md	456	456	OOS:I1 (role of C2)
+papers/Main.md	460	464	I2.64
+papers/Main.md	466	476	I2.65
+papers/Main.md	478	482	OOS:I1 (ETH and C2 status remarks)
+papers/Main.md	484	494	OOS:I1 (C3 necessity, capacity corollary)
+papers/Main.md	496	500	I2.40
+papers/Main.md	508	514	I2.42,I2.43
+papers/Main.md	516	522	I2.41
+papers/Main.md	526	534	I2.39
+papers/Main.md	536	536	I2.64,I2.65
+papers/Main.md	538	538	I2.17
+papers/Main.md	542	542	I2.3
+papers/Main.md	544	558	I2.12
+papers/Main.md	560	560	I2.15
+papers/Main.md	572	576	I2.16
+papers/Main.md	578	578	I2.18
+papers/Main.md	580	590	I2.44
+papers/Main.md	594	596	I2.47
+papers/Main.md	598	598	I2.45
+papers/Main.md	602	602	OOS:I1 (which condition is primitive: C1–C4 dependencies)
+papers/Main.md	604	604	I2.67
+papers/Main.md	606	606	I2.41
+papers/Main.md	608	618	I2.67
+papers/Main.md	626	626	I2.19
+papers/Main.md	628	628	I2.2
+papers/Main.md	630	632	I2.68
+papers/Main.md	634	634	I2.56
+papers/Main.md	642	656	I2.71
+papers/Main.md	666	671	I2.11
+papers/Main.md	678	678	I2.73
+papers/Main.md	698	702	I2.73
+papers/Main.md	706	706	OOS:I1 (posit ledger: Axiom 2, A1, A5, finiteness, measure selection, mixing hypothesis)
+papers/Main.md	708	715	I2.70,I2.41,I2.43,I2.54
+papers/Main.md	716	716	I2.70,I2.60
+papers/Main.md	717	720	OOS:I1 (C1–C4 necessity rows)
+papers/Main.md	724	740	I2.72
+papers/Main.md	746	750	I2.69
+papers/GR.md	168	186	I2.27
+papers/GR.md	194	208	I2.26
+papers/GR.md	212	216	I2.29
+papers/GR.md	218	224	I2.30
+papers/GR.md	226	240	I2.31
+papers/GR.md	252	254	I2.32
+papers/GR.md	256	260	I2.33
+papers/GR.md	264	268	I2.34
+papers/GR.md	274	274	I2.35
+papers/GR.md	282	282	I2.36
+papers/GR.md	296	296	I2.27
+papers/GR.md	725	749	I2.20
+papers/SM.md	12	12	I2.77,I2.80
+papers/SM.md	14	14	I2.75,I2.77,I2.82
+papers/SM.md	48	48	I2.76
+papers/SM.md	52	52	I2.82
+papers/SM.md	60	60	I2.76,I2.75
+papers/SM.md	70	74	I2.77
+papers/SM.md	100	100	I2.105
+papers/SM.md	104	110	I2.105 (A6 clauses OOS:I1)
+papers/SM.md	114	114	I2.105 (A6 clause OOS:I1)
+papers/SM.md	118	118	I2.79
+papers/SM.md	152	152	I2.102,I2.105
+papers/SM.md	122	156	I2.106
+papers/SM.md	218	274	I2.80
+papers/SM.md	537	565	I2.81
+papers/SM.md	1356	1368	I2.82
+papers/SM.md	1584	1622	I2.83
+papers/Substratum.md	16	38	I2.84,I2.89 (C1/C4 and Lemma 24.1 clauses: OOS:I1 / I2.89 dependency)
+papers/Substratum.md	44	44	I2.85
+papers/Substratum.md	48	48	I2.85
+papers/Substratum.md	54	54	OOS:I1 (effective finiteness, A1)
+papers/Substratum.md	56	56	I2.72
+papers/Substratum.md	92	104	OOS:I1 (axioms A1–A6)
+papers/Substratum.md	106	118	I2.89 (critical dependencies)
+papers/Substratum.md	120	140	I2.87 (C1–C4, A1, A2 clauses OOS:I1)
+papers/Substratum.md	144	166	I2.88 (A3–A6 clauses OOS:I1)
+papers/Substratum.md	170	172	I2.88
+papers/Substratum.md	188	194	I2.89
+verification/ROADMAP.md	63	63	I2.90
+verification/ROADMAP.md	67	67	I2.102
+verification/ROADMAP.md	70	70	I2.103
+verification/ROADMAP.md	75	75	I2.104
+verification/ROADMAP.md	79	89	I2.91
+verification/ROADMAP.md	91	121	I2.92
+verification/ROADMAP.md	123	127	I2.93
+verification/ROADMAP.md	129	188	I2.94 (180–186 also I2.93)
+verification/ROADMAP.md	189	244	I2.95
+verification/ROADMAP.md	245	304	I2.96
+verification/ROADMAP.md	305	384	I2.97
+verification/ROADMAP.md	385	471	I2.98
+verification/ROADMAP.md	472	540	I2.99
+verification/ROADMAP.md	541	629	I2.100
+verification/ROADMAP.md	630	664	I2.101
+verification/ROADMAP.md	936	952	I2.103
+verification/ROADMAP.md	953	970	I2.102
+verification/ROADMAP.md	1148	1157	I2.104
+papers/GR.md	326	326	I2.107
+papers/GR.md	328	330	I2.108
+papers/GR.md	753	866	I2.109
+papers/Substratum.md	430	430	I2.111
+papers/Substratum.md	414	416	I2.111,I2.5,I2.6
+papers/Substratum.md	236	242	I2.110

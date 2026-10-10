@@ -1,0 +1,12 @@
+PASS K0 transcription control
+PASS E1 Choi(Lam_x) = PT_R(x) on all input units (|P|,|R|) = (1,1), (2,1), (1,2), random exact x
+PASS E2 conditional = (Lam_x (x) Lam_y)(f) via the Choi matrix PT_R(x) (x) PT_U(y), all units f, crossing types (1,1,1,2), (1,1,1,3), (1,1,2,2), (2,1,1,2), (1,2,1,2)
+PASS E3 value = tr[e (Lam_x (x) Lam_y)(f)] (2 random exact (e, f) per type); countercontrol: the Choi matrix without partial transposes gives a different map
+PASS M one empty intersection (Q empty): tr[(e (x) f)(x (x) y)] = tr[f (cond_A(e; x) (x) y)] (3 random exact)
+PASS U1 Choi(Lam_y o T_U) = y on all input units (random exact y; |U| = 1, 2)
+PASS U2 c = 0: Bell links and f = T(g): cond = 2^-m (rename (x) Phi_y)(g), Choi(Phi_y) = y, all units g; (n,a,b) = (3,2,2), (4,1,2), (2,2,1), (3,1,2)
+PASS U3 c = 1: twin links and f = g: cond = 2^-m (rename (x) Lam_y)(g), Choi(Lam_y) = PT_U(y), same cases; countercontrol: the c = 0 and c = 1 maps differ
+PASS G general-chart 3|3 links: conditional = (1/8)(M_R0 (x) M_R1 (x) M_R2)(f renamed) on all 64 units, two mixed-determinant triples of rational O(3) matrices
+PASS T teleportation for k = 2 (4 tokens) and k = 4 (6 tokens): conditional = (1/4) y(p -> q), all units
+--- p3_crossing_calculus: 10/10 checks pass
+VERDICT P3-CROSSING-CALCULUS-EXACT

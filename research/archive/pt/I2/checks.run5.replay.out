@@ -1,0 +1,6 @@
+Q: fragments checked 250, mismatches 0
+Q-neg countercontrol (altered fragment must not match): behaves
+X: records 112 (max id 112), references 112, dangling none, duplicates none, gaps none
+B: I2 modules scanned 32, pair-cone hits 0 
+B-neg countercontrol (CompositeDimension.lean must hit): 247 hits -> behaves
+VERDICT Q PASS; X PASS; B PASS

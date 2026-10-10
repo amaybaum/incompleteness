@@ -1,0 +1,6 @@
+PASS K transcription: sgn, pc, pt, phiW, reflY as transcribed; cnot(prodState xplus z3) = phiW (CD:1222)
+PASS X1 first-token reflection chart: actC reflY . cnot . actC reflY = cnot' (symbolic); countercontrol: with the rotation nflip in place of reflY the identity fails (symbolic)
+PASS X2 every even pattern is a coboundary tau_ij = eps_i + eps_j and the per-token reflection chart eps conjugates every aligned gate cnot^tau_ij to cnot (symbolic); no eps exists for odd patterns  [0000:eps=0000 0011:eps=0011 0101:eps=0001 0110:eps=0010 1001:eps=0100 1010:eps=0111 1100:eps=0101 1111:eps=0110]
+PASS X3 explicit gate-supplied witnesses for every odd pattern in both families, none for even patterns  [0001:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 0010:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 0100:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 0111:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 1000:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 1011:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 1101:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8 1110:(i)X0Y0E0F3=-1/8,(ii)e0f0L0L'3=-1/8]
+--- f2_parity_witnesses: 4/4 checks pass
+VERDICT F2-PARITY-WITNESSES-EXACT

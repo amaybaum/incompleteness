@@ -1,0 +1,8 @@
+PASS n18:1 covers 6 of the 18 subspaces
+PASS N18 k1 row: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 k3 column: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 k4 row: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 e2 column: rank 161, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 t1 row: rank 119, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 t3 column: rank 119, equal to exactly one realizing triple, at its sorted alignment
+dita_support_minimality_probe n18:1: OK -- 7 checks (1355s)

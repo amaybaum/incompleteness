@@ -1,0 +1,822 @@
+# ---- text helpers ------------------------------------------------------------------------------
+RTXT = "![" + ", ".join(f"({a}, {b})" for a, b in R9) + "]"
+MSGNZ = "(fun x y : Fin 4 => if 1 ≤ x.val ∧ 1 ≤ y.val ∧ x ≠ y then (-1 : ℤ) else 1)"
+VEC = lambda z: f"![![1, 1, 1, 1], ![1, {z}, -1, -{z}], ![1, -1, 1, -1], ![1, -{z}, -1, {z}]]"
+def SG_of(M, A, B):
+    return (f"({M} ({A} p.1.1) ({B} p.2.1) * {M} ({A} p.1.1) ({B} p.2.2.1) * ({M} ({A} p.1.2.1) ({B} p.2.2.1) * {M} ({A} p.1.2.1) ({B} p.2.2.2))\n"
+            f"      * ({M} ({A} p.1.2.2) ({B} p.2.2.2) * {M} ({A} p.1.2.2) ({B} p.2.1)))")
+def E1_of(A, B): return f"({MEXP} ({A} p.1.1) ({B} p.2.1) + {MEXP} ({A} p.1.2.1) ({B} p.2.2.1) + {MEXP} ({A} p.1.2.2) ({B} p.2.2.2))"
+def E2_of(A, B): return f"({MEXP} ({A} p.1.1) ({B} p.2.2.1) + {MEXP} ({A} p.1.2.1) ({B} p.2.2.2) + {MEXP} ({A} p.1.2.2) ({B} p.2.1))"
+def EZ_of(A, B): return f"(({E2_of(A, B)} : ℕ) : ℤ) - (({E1_of(A, B)} : ℕ) : ℤ)"
+def VARS(t):
+    for a, b in (('p.1.2.1', 'i₂'), ('p.1.2.2', 'i₃'), ('p.2.2.1', 'j₂'), ('p.2.2.2', 'j₃'), ('p.1.1', 'i₁'), ('p.2.1', 'j₁')):
+        t = t.replace(a, b)
+    return t
+SGC, SGZ = SG_of(MSGN, 'a', 'b'), SG_of(MSGNZ, 'a', 'b')
+E1, E2, EZ = E1_of('a', 'b'), E2_of('a', 'b'), EZ_of('a', 'b')
+ZF = "(fun (z : ℂ) (k : ℤ) => if k = 1 then z else if k = 0 then (1 : ℂ) else star z)"
+KSET = "({(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)} : Finset (ℤ × ℤ))"
+KLIST = [(-1, -1), (-1, 0), (-1, 1), (0, -1), (0, 0), (0, 1), (1, -1), (1, 0), (1, 1)]
+def NSUM(A, B, A2, B2, kl="kl"):
+    return (f"((Finset.univ.filter (fun p : {IDXT} => ({EZ_of(A, B)}, {EZ_of(A2, B2)}) = {kl})).sum "
+            f"(fun p : {IDXT} => {SG_of(MSGNZ, A, B)} * {SG_of(MSGNZ, A2, B2)}) : ℤ)")
+def CROSS_RHS(A, B, A2, B2):
+    return f"2 - 2 / 4096 * ∑ kl ∈ {KSET}, (({NSUM(A, B, A2, B2)} : ℝ) * (((starRingEnd ℂ) ({ZF} z kl.1) * {ZF} w kl.2).re))"
+CIRCT = lambda A, B, z: f"(fun i => ({FZ(z)} ({A} i)).submatrix {B} {B})"
+RFACTS = ", ".join(f"a33_shared_R1_{r}, a33_shared_R2_{r}" for r in range(9))
+NESTED_FORALL = "  simp only [Prod.forall]\n  decide +kernel\n"
+NESTED_SUM = "  rw [Finset.sum_filter]\n  simp only [Fintype.sum_prod_type]\n  decide +kernel\n"
+NAMESQ = "(\"fun z w hz hw => ?_\")"
+
+# ---- phase 1: foundations ----------------------------------------------------------------------
+thm('a33_shared_msgn_star', f"∀ x y : Fin 4, star ({MSGN} x y) = {MSGN} x y",
+    "  intro x y\n  simp only []\n  split_ifs <;> simp\n")
+thm('a33_shared_entry', f"∀ (z : ℂ) (x y : Fin 4), {VEC('z')} x y = {MSGN} x y * z ^ ({MEXP} x y)",
+    "  intro z x y\n  fin_cases x <;> fin_cases y <;> simp\n")
+thm('a33_shared_coord',
+    f"∀ (z : ℂ) (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n      mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * {SGC} * star z ^ {E1} * z ^ {E2}",
+    HX + """  intro z a b p
+  obtain ⟨⟨i₁, i₂, i₃⟩, ⟨j₁, j₂, j₃⟩⟩ := p
+  have hh : star (1 / 2 : ℂ) = 1 / 2 := by simp [Complex.star_def]
+  simp only [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx, Matrix.of_apply,
+    a33_shared_entry, star_mul', star_pow, a33_shared_msgn_star, hh]
+  ring
+""")
+thm('a33_shared_feature_ext', f"∀ G H : {T}, featureVec G = featureVec H ↔ ∀ p : {IDXT}, mixedTriple G p = mixedTriple H p",
+    """  intro G H
+  constructor
+  · intro h p
+    have := congrArg (fun x : EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4)) => x.ofLp p) h
+    simpa [featureVec_ofLp] using this
+  · intro h
+    unfold featureVec
+    congr 1
+    funext p
+    exact h p
+""")
+for nm, key in (('a33_shared_order', 'ORDER'), ('a33_c_transitive_circles', 'TRANS_C'), ('a33_c_stabilizer_circle', 'STAB_C'),
+                ('a33_c_transitive_points', 'TRANS_V'), ('a33_c_stabilizer_point', 'STAB_V'), ('a33_shared_family_count', 'FAM_COUNT')):
+    thm(nm, P[key].replace('\n', '\n    '), "  decide +kernel\n")
+thm('a33_shared_dist_sq',
+    f"∀ G H : {T}, dist (featureVec G) (featureVec H) ^ 2 = ∑ p : {IDXT}, ‖mixedTriple G p - mixedTriple H p‖ ^ 2",
+    """  intro G H
+  rw [EuclideanSpace.dist_eq, Real.sq_sqrt (Finset.sum_nonneg (fun p _ => sq_nonneg _))]
+  refine Finset.sum_congr rfl (fun p _ => ?_)
+  rw [dist_eq_norm]
+  rfl
+""")
+thm('a33_shared_unit_pow', "∀ z : ℂ, star z * z = 1 → ∀ n : ℕ, star z ^ n * z ^ n = 1",
+    "  intro z hz n\n  rw [← mul_pow, hz, one_pow]\n")
+thm('a33_shared_msgn_cast', f"∀ x y : Fin 4, {MSGN} x y = (({MSGNZ} x y : ℤ) : ℂ)",
+    "  intro x y\n  simp only []\n  split_ifs <;> simp\n")
+thm('a33_shared_coord_int',
+    f"∀ (z : ℂ) (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n      mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * star z ^ {E1} * z ^ {E2}",
+    "  intro z a b p\n  rw [a33_shared_coord]\n  simp only [a33_shared_msgn_cast]\n  push_cast\n  ring\n")
+thm('a33_shared_exp_range', f"∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}), {EZ} = -1 ∨ {EZ} = 0 ∨ {EZ} = 1",
+    "  intro a b p\n  simp only [ite_and]\n  split_ifs <;> norm_num\n")
+AC = f"((1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ)"
+thm('a33_shared_coord_form',
+    f"∀ (z : ℂ), star z * z = 1 → ∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n"
+    f"      ({EZ} = 1 → mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * z)\n"
+    f"      ∧ ({EZ} = 0 → mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ))\n"
+    f"      ∧ ({EZ} = -1 → mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * star z)",
+    f"""  intro z hz a b p
+  rw [a33_shared_coord_int]
+  set m : ℕ := {E1} with hm
+  set n : ℕ := {E2} with hn
+  refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
+  · have hnm : n = m + 1 := by omega
+    rw [hnm]
+    linear_combination {AC} * z) * a33_shared_unit_pow z hz m
+  · have hnm : n = m := by omega
+    rw [hnm]
+    linear_combination {AC}) * a33_shared_unit_pow z hz m
+  · have hnm : m = n + 1 := by omega
+    rw [hnm]
+    linear_combination {AC} * star z) * a33_shared_unit_pow z hz n
+""")
+thm('a33_shared_sgz_unit', f"∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}), ({SGZ} : ℤ) = 1 ∨ ({SGZ} : ℤ) = -1",
+    "  intro a b p\n  simp only []\n  split_ifs <;> norm_num\n")
+thm('a33_shared_coord_Z',
+    f"∀ (z : ℂ), star z * z = 1 → ∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}),\n"
+    f"      mixedTriple {CIRCT('a', 'b', 'z')} p = (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * {ZF} z ({EZ})",
+    """  intro z hz a b p
+  have hf := a33_shared_coord_form z hz a b p
+  rcases a33_shared_exp_range a b p with h | h | h
+  · rw [hf.2.2 h, h]
+    norm_num
+  · rw [hf.2.1 h, h]
+    norm_num
+  · rw [hf.1 h, h]
+    norm_num
+""")
+thm('a33_shared_Z_unit', f"∀ (z : ℂ) (k : ℤ), star z * z = 1 → star ({ZF} z k) * {ZF} z k = 1",
+    "  intro z k hz\n  simp only []\n  split_ifs\n  · exact hz\n  · simp\n  · rw [star_star, mul_comm]; exact hz\n")
+thm('a33_shared_term',
+    "∀ (σ σ' : ℤ) (Z Z' : ℂ), (σ = 1 ∨ σ = -1) → (σ' = 1 ∨ σ' = -1) → star Z * Z = 1 → star Z' * Z' = 1 →\n"
+    "      ‖(1 / 64 : ℂ) * (σ : ℂ) * Z - (1 / 64 : ℂ) * (σ' : ℂ) * Z'‖ ^ 2 = 2 / 4096 - 2 / 4096 * ((σ * σ' : ℤ) : ℝ) * (((starRingEnd ℂ) Z * Z').re)",
+    """  intro σ σ' Z Z' hσ hσ' hZ hZ'
+  have h1 : Z.re ^ 2 + Z.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have h2 : Z'.re ^ 2 + Z'.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ'
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have e : (1 / 64 : ℂ) * (σ : ℂ) * Z - (1 / 64 : ℂ) * (σ' : ℂ) * Z' = ((1 / 64 : ℝ) : ℂ) * ((σ : ℂ) * Z - (σ' : ℂ) * Z') := by
+    push_cast; ring
+  rw [e, norm_mul, Complex.norm_real, mul_pow, ← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+  rcases hσ with rfl | rfl <;> rcases hσ' with rfl | rfl <;>
+    simp [Complex.mul_re, Complex.mul_im, Real.norm_eq_abs] <;> nlinarith [h1, h2]
+""")
+thm('a33_shared_re_bound', "∀ Z Z' : ℂ, star Z * Z = 1 → star Z' * Z' = 1 → -1 ≤ ((starRingEnd ℂ) Z * Z').re ∧ ((starRingEnd ℂ) Z * Z').re ≤ 1",
+    """  intro Z Z' hZ hZ'
+  have h1 : Z.re ^ 2 + Z.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have h2 : Z'.re ^ 2 + Z'.im ^ 2 = 1 := by
+    have := congrArg Complex.re hZ'
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  simp only [Complex.mul_re, Complex.conj_re, Complex.conj_im]
+  constructor <;> nlinarith [sq_nonneg (Z.re - Z'.re), sq_nonneg (Z.im - Z'.im), sq_nonneg (Z.re + Z'.re), sq_nonneg (Z.im + Z'.im)]
+""")
+# the fibrewise regrouping of a 4096-term sum, generic in the key, sign and phase functions
+thm('a33_shared_fibre',
+    f"∀ (key : {IDXT} → ℤ × ℤ) (sg : {IDXT} → ℤ) (ρ : ℤ × ℤ → ℝ) (K : Finset (ℤ × ℤ)), (∀ p, key p ∈ K) →\n"
+    f"      ∑ p : {IDXT}, (2 / 4096 - 2 / 4096 * ((sg p : ℤ) : ℝ) * ρ (key p))\n"
+    f"        = 2 - 2 / 4096 * ∑ kl ∈ K, ((((Finset.univ.filter (fun p : {IDXT} => key p = kl)).sum sg : ℤ) : ℝ) * ρ kl)",
+    """  intro key sg ρ K hK
+  rw [Finset.sum_sub_distrib, Finset.sum_const, Finset.card_univ]
+  simp only [Fintype.card_prod, Fintype.card_fin, nsmul_eq_mul]
+  have hfib : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * ρ (key p)
+      = ∑ kl ∈ K, ((((Finset.univ.filter (fun p => key p = kl)).sum sg : ℤ) : ℝ) * ρ kl) := by
+    rw [← Finset.sum_fiberwise_of_maps_to (fun p _ => hK p)]
+    refine Finset.sum_congr rfl (fun kl _ => ?_)
+    push_cast
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl (fun p hp => ?_)
+    rw [Finset.mem_filter] at hp
+    rw [hp.2]
+  have hL : ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), 2 / 4096 * ((sg p : ℤ) : ℝ) * ρ (key p)
+      = 2 / 4096 * ∑ p : (Fin 4 × Fin 4 × Fin 4) × (Fin 4 × Fin 4 × Fin 4), ((sg p : ℤ) : ℝ) * ρ (key p) := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl (fun p _ => by ring)
+  rw [hL, hfib]
+  norm_num
+""")
+# the exact cross-circle formula, generic in the two relabellings
+thm('a33_shared_cross',
+    f"∀ (a b a' b' : Equiv.Perm (Fin 4)) (z w : ℂ), star z * z = 1 → star w * w = 1 →\n"
+    f"      dist (featureVec {CIRCT('a', 'b', 'z')}) (featureVec {CIRCT(chr(97)+chr(39), chr(98)+chr(39), 'w')}) ^ 2\n"
+    f"        = {CROSS_RHS('a', 'b', chr(97)+chr(39), chr(98)+chr(39))}",
+    f"""  intro a b a' b' z w hz hw
+  rw [a33_shared_dist_sq]
+  have hterm : ∀ p : {IDXT},
+      ‖mixedTriple {CIRCT('a', 'b', 'z')} p - mixedTriple {CIRCT(chr(97)+chr(39), chr(98)+chr(39), 'w')} p‖ ^ 2
+      = 2 / 4096 - 2 / 4096 * (({SGZ} * {SG_of(MSGNZ, chr(97)+chr(39), chr(98)+chr(39))} : ℤ) : ℝ)
+          * (((starRingEnd ℂ) ({ZF} z ({EZ})) * {ZF} w ({EZ_of(chr(97)+chr(39), chr(98)+chr(39))})).re) := by
+    intro p
+    rw [a33_shared_coord_Z z hz a b p, a33_shared_coord_Z w hw a' b' p]
+    exact a33_shared_term _ _ _ _ (a33_shared_sgz_unit a b p) (a33_shared_sgz_unit a' b' p) (a33_shared_Z_unit z _ hz) (a33_shared_Z_unit w _ hw)
+  rw [Finset.sum_congr rfl (fun p _ => hterm p)]
+  have hmaps : ∀ p : {IDXT}, ({EZ}, {EZ_of(chr(97)+chr(39), chr(98)+chr(39))}) ∈ {KSET} := by
+    intro p
+    rcases a33_shared_exp_range a b p with h | h | h <;> rcases a33_shared_exp_range a' b' p with h' | h' | h' <;>
+      rw [h, h'] <;> first | decide | simp
+  exact a33_shared_fibre (fun p => ({EZ}, {EZ_of(chr(97)+chr(39), chr(98)+chr(39))}))
+    (fun p => {SGZ} * {SG_of(MSGNZ, chr(97)+chr(39), chr(98)+chr(39))})
+    (fun kl => (((starRingEnd ℂ) ({ZF} z kl.1) * {ZF} w kl.2).re)) {KSET} hmaps
+""")
+for r in range(9):
+    thm(f'a33_shared_R1_{r}', f"({RTXT} {r}).1 = {R9[r][0]}", "  decide\n")
+    thm(f'a33_shared_R2_{r}', f"({RTXT} {r}).2 = {R9[r][1]}", "  decide\n")
+
+# ---- phase 2: coordinate values, injectivity, incidences, census -------------------------------
+CV = {}
+def coordval(r, k):
+    key = (r, k)
+    if key in CV: return CV[key]
+    sg, e = circ.C[r][k]; p = IDX[k]; A, B = R9[r]
+    nm = f'a33_shared_cv_{r}_{k}'
+    val = {1: f"({sg} : ℂ) * z / 64", 0: f"({sg} : ℂ) / 64", -1: f"({sg} : ℂ) * star z / 64"}[e]
+    part = {1: 'hf.1', 0: 'hf.2.1', -1: 'hf.2.2'}[e]
+    thm(nm, f"∀ z : ℂ, star z * z = 1 → mixedTriple {CIRC(r, 'z')} {idx(p)} = {val}",
+        f"  intro z hz\n  have hf := a33_shared_coord_form z hz {A} {B} {idx(p)}\n  rw [{part} (by decide)]\n"
+        "  simp [Equiv.swap_apply_def, Fin.ext_iff] <;> ring\n")
+    CV[key] = nm
+    return nm
+if PHASE >= 2:
+    thm('a33_shared_pt_inj',
+        f"∀ (a b : Equiv.Perm (Fin 4)) (p : {IDXT}) (s : ℂ), s ≠ 0 →\n"
+        f"      (∀ z : ℂ, star z * z = 1 → mixedTriple {CIRCT('a', 'b', 'z')} p = s * z / 64) →\n"
+        f"      ∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRCT('a', 'b', 'z')} = featureVec {CIRCT('a', 'b', 'w')} → z = w",
+        """  intro a b p s hs hc z w hz hw h
+  have hp := (a33_shared_feature_ext _ _).1 h p
+  rw [hc z hz, hc w hw] at hp
+  have : s * z = s * w := by linear_combination 64 * hp
+  exact mul_left_cancel₀ hs this
+""")
+    for r in range(9):
+        k = tab['pr'][str(r)]; sg = circ.C[r][k][0]
+        thm(f'a33_shared_inj_{r}', f"∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRC(r, 'z')} = featureVec {CIRC(r, 'w')} → z = w",
+            f"  exact a33_shared_pt_inj {R9[r][0]} {R9[r][1]} {idx(IDX[k])} ({sg} : ℂ) (by norm_num) (fun z hz => {coordval(r, k)} z hz)\n")
+    for (r, s1, r2, s2) in tb['inc']:
+        z1 = '1' if s1 == 1 else '(-1)'; z2 = '1' if s2 == 1 else '(-1)'
+        A, B, A2, B2 = R9[r][0], R9[r][1], R9[r2][0], R9[r2][1]
+        keytxt = (f"({VARS(SG_of(MSGNZ, A, B))} : ℤ) * ((-1) ^ ({VARS(E1_of(A, B))} + {VARS(E2_of(A, B))})) ^ ({0 if s1 == 1 else 1}) =\n"
+                  f"      ({VARS(SG_of(MSGNZ, A2, B2))} : ℤ) * ((-1) ^ ({VARS(E1_of(A2, B2))} + {VARS(E2_of(A2, B2))})) ^ ({0 if s2 == 1 else 1})")
+        thm(f'a33_shared_inc_{r}_{"p" if s1 == 1 else "m"}_{r2}_{"p" if s2 == 1 else "m"}',
+            f"featureVec {CIRC(r, z1)} = featureVec {CIRC(r2, z2)}",
+            f"""  rw [a33_shared_feature_ext]
+  intro p
+  obtain ⟨⟨i₁, i₂, i₃⟩, ⟨j₁, j₂, j₃⟩⟩ := p
+  rw [a33_shared_coord_int, a33_shared_coord_int]
+  have key : ∀ i₁ i₂ i₃ j₁ j₂ j₃ : Fin 4, {keytxt} := by
+    decide +kernel
+  have hk := congrArg (Int.cast : ℤ → ℂ) (key i₁ i₂ i₃ j₁ j₂ j₃)
+  push_cast at hk ⊢
+  simp only [star_one, star_neg, one_pow]
+  linear_combination (1 / 64 : ℂ) * hk
+""")
+    for r in range(9):
+        for s2 in range(9):
+            if r == s2: continue
+            clash, f10, f01 = tab['strat'][f'{r},{s2}']
+            if clash is not None:
+                cvr, cvs = coordval(r, clash), coordval(s2, clash)
+                thm(f'a33_shared_apart_{r}_{s2}', f"∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRC(r, 'z')} ≠ featureVec {CIRC(s2, 'w')}",
+                    f"  intro z w hz hw h\n  have hp := (a33_shared_feature_ext _ _).1 h {idx(IDX[clash])}\n  rw [{cvr} z hz, {cvs} w hw] at hp\n  norm_num at hp\n")
+            else:
+                cvr, cvs = coordval(r, f10), coordval(s2, f10)
+                sr, sr2 = circ.C[r][f10][0], circ.C[s2][f10][0]
+                thm(f'a33_shared_meet_{r}_{s2}', f"∀ z w : ℂ, star z * z = 1 → star w * w = 1 → featureVec {CIRC(r, 'z')} = featureVec {CIRC(s2, 'w')} → z = {sr * sr2}",
+                    f"  intro z w hz hw h\n  have hp := (a33_shared_feature_ext _ _).1 h {idx(IDX[f10])}\n  rw [{cvr} z hz, {cvs} w hw] at hp\n"
+                    f"  linear_combination (64 * ({sr} : ℂ)) * hp\n")
+
+# ---- phase 3: the tables, the chord, the two numeric controls ----------------------------------
+def table(r, s2):
+    from collections import Counter
+    Nn = Counter()
+    for (s1, e1), (t1, e2) in zip(circ.C[r], circ.C[s2]): Nn[(e1, e2)] += s1 * t1
+    return Nn
+def Nname(r, s2, k, l): return f'a33_shared_N_{r}_{s2}_{"m" if k < 0 else k}_{"m" if l < 0 else l}'
+def expand_K_at(r, s2, hyp):
+    names = [Nname(r, s2, k, l) for (k, l) in KLIST]
+    return ("  rw [Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),\n"
+            "    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),\n"
+            f"    Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_singleton] at {hyp}\n"
+            f"  rw [" + ", ".join(names) + f"] at {hyp}\n")
+if PHASE >= 3:
+    for (r, s2) in ((0, 0), (0, 4), (0, 3)):
+        Nn = table(r, s2)
+        A, B, A2, B2 = R9[r][0], R9[r][1], R9[s2][0], R9[s2][1]
+        for (k, l) in KLIST:
+            thm(Nname(r, s2, k, l), f"{NSUM(A, B, A2, B2, f'(({k}, {l}) : ℤ × ℤ)')} = {Nn[(k, l)]}", NESTED_SUM)
+    UNITRE = """  have h1 : u.re ^ 2 + u.im ^ 2 = 1 := by
+    have := congrArg Complex.re hu
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have h2 : v.re ^ 2 + v.im ^ 2 = 1 := by
+    have := congrArg Complex.re hv
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+"""
+    thm('a33_shared_chord0',
+        f"∀ u v : ℂ, star u * u = 1 → star v * v = 1 →\n      dist (featureVec {CIRC(0, 'u')}) (featureVec {CIRC(0, 'v')}) ^ 2 = 3 / 8 * ‖u - v‖ ^ 2",
+        """  intro u v hu hv
+  have h := a33_shared_cross (1 : Equiv.Perm (Fin 4)) 1 1 1 u v hu hv
+  rw [h]
+""" + expand_K_at(0, 0, '⊢').replace(' at ⊢', '') + UNITRE + """  rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply]
+  simp [Complex.star_def, Complex.mul_re, Complex.mul_im]
+  nlinarith [h1, h2]
+""")
+    thm('a33_shared_chord',
+        f"∀ (r : Fin 9) (u v : ℂ), star u * u = 1 → star v * v = 1 →\n      let R : Fin 9 → Equiv.Perm (Fin 4) × Equiv.Perm (Fin 4) := {RTXT}\n"
+        f"      dist (featureVec {CIRCT('(R r).1', '(R r).2', 'u')}) (featureVec {CIRCT('(R r).1', '(R r).2', 'v')}) ^ 2 = 3 / 8 * ‖u - v‖ ^ 2",
+        f"""  intro r u v hu hv R
+  have hd : ∀ G H : {T}, dist (featureVec G) (featureVec H) = Real.sqrt (∑ p, ‖mixedTriple G p - mixedTriple H p‖ ^ 2) :=
+    fun G H => (dist_featureVec _ rfl G H).symm
+  rw [hd, relabel2_isometry _ rfl (R r).1 (R r).2, ← hd]
+  have := a33_shared_chord0 u v hu hv
+  simpa only [Equiv.Perm.coe_one, id_eq, Matrix.submatrix_id_id] using this
+""")
+    thm('a33_control_phase', P['C_PHASE'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  simp only [{RFACTS}]
+  intro h
+  have hI : star Complex.I * Complex.I = 1 := by
+    rw [Complex.star_def, Complex.conj_I]; simp
+  have hII : star (Complex.I * Complex.I) * (Complex.I * Complex.I) = 1 := by
+    rw [Complex.I_mul_I]; simp
+  have h1 := a33_shared_cross {R9[0][0]} {R9[0][1]} {R9[4][0]} {R9[4][1]} (Complex.I * Complex.I) Complex.I hII hI
+  have h2 := a33_shared_cross {R9[0][0]} {R9[0][1]} {R9[4][0]} {R9[4][1]} Complex.I Complex.I hI hI
+  have hsq := congrArg (fun x : ℝ => x ^ 2) h
+  try simp only [] at hsq
+  rw [h1, h2] at hsq
+""" + expand_K_at(0, 4, 'hsq') + """  simp [Complex.star_def, Complex.conj_I, Complex.I_mul_I] at hsq
+  norm_num at hsq
+""")
+    thm('a33_control_incidence', P['C_INCID'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  simp only [{RFACTS}]
+  have hb : ∀ z w : ℂ, star z * z = 1 → star w * w = 1 →
+      1 ≤ dist (featureVec {CIRC(0, 'z')}) (featureVec {CIRC(3, 'w')}) := by
+    intro z w hz hw
+    have h := a33_shared_cross {R9[0][0]} {R9[0][1]} {R9[3][0]} {R9[3][1]} z w hz hw
+""" + expand_K_at(0, 3, 'h').replace('\n  ', '\n    ').replace('  rw [Finset', '    rw [Finset', 1) + f"""    have h1 : z.re ^ 2 + z.im ^ 2 = 1 := by
+      have := congrArg Complex.re hz
+      simp [Complex.star_def, Complex.mul_re] at this
+      linarith
+    have h2 : w.re ^ 2 + w.im ^ 2 = 1 := by
+      have := congrArg Complex.re hw
+      simp [Complex.star_def, Complex.mul_re] at this
+      linarith
+    have hd0 : 0 ≤ dist (featureVec {CIRC(0, 'z')}) (featureVec {CIRC(3, 'w')}) := dist_nonneg
+    generalize dist (featureVec {CIRC(0, 'z')}) (featureVec {CIRC(3, 'w')}) = d at h hd0 ⊢
+    norm_num [Complex.mul_re, Complex.star_def, Complex.conj_re, Complex.conj_im] at h
+    have hsq : 1 ≤ d ^ 2 := by
+      rw [h]
+      nlinarith [h1, h2, sq_nonneg (z.re - w.re), sq_nonneg (z.re + w.re), sq_nonneg z.im, sq_nonneg w.im]
+    nlinarith [hsq, hd0]
+  refine ⟨hb, a33_shared_inc_1_p_3_p, ?_⟩
+  rintro ⟨f, hf, h01, h33⟩
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hv : featureVec {CIRC(1, '1')} ∈ f '' ((fun z : ℂ => featureVec {CIRC(0, 'z')}) '' {{z : ℂ | star z * z = 1}}) := by
+    rw [h01]; exact ⟨1, h1u, rfl⟩
+  obtain ⟨x, ⟨z, hz, rfl⟩, hx⟩ := hv
+  have hv' : featureVec {CIRC(3, '1')} ∈ f '' ((fun z : ℂ => featureVec {CIRC(3, 'z')}) '' {{z : ℂ | star z * z = 1}}) := by
+    rw [h33]; exact ⟨1, h1u, rfl⟩
+  obtain ⟨y, ⟨w, hw, rfl⟩, hy⟩ := hv'
+  have heq : f (featureVec {CIRC(0, 'z')}) = f (featureVec {CIRC(3, 'w')}) := by
+    rw [hx, hy]; exact a33_shared_inc_1_p_3_p
+  have hd := hf.2.2 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ {R9[0][0]} {R9[0][1]} z hz) _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ {R9[3][0]} {R9[3][1]} w hw)
+  rw [heq, dist_self] at hd
+  have := hb z w hz hw
+  linarith
+""")
+
+
+# ================= phase 4a: A33-1 circle preservation =================
+PTR = lambda r, z: f"featureVec {CIRCT(f'({RTXT} {r}).1', f'({RTXT} {r}).2', z)}"
+CIRCSET = lambda r: f"((fun z : ℂ => {PTR(r, 'z')}) '' {{z : ℂ | star z * z = 1}})"
+if PHASE >= 4:
+    thm('a33_shared_mem',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) → ∀ x : {E},\n"
+        f"      x ∈ normalizedSet Γ₀ ↔ ∃ (r : Fin 9) (z : ℂ), star z * z = 1 ∧ x = {PTR('r', 'z')}",
+        """  intro Γ₀ hΓ₀ x
+  constructor
+  · intro hx
+    rw [normalizedSet_eq_iUnion Γ₀ hΓ₀] at hx
+    simp only [Set.mem_iUnion, Set.mem_setOf_eq] at hx
+    obtain ⟨π, τ, z, hz, rfl⟩ := hx
+    have hc := a26_1_circle_count
+    dsimp only at hc
+    obtain ⟨-, -, -, h3⟩ := hc
+    obtain ⟨r, hr, hfw, -⟩ := h3 π τ
+    obtain ⟨z', hz', h⟩ := hfw z hz
+    simp only [List.mem_cons, List.mem_nil_iff, or_false] at hr
+    rcases hr with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+""" + "".join(f"    · exact ⟨{k}, z', hz', by simp only [a33_shared_R1_{k}, a33_shared_R2_{k}]; exact featureVec_gauge h⟩\n" for k in range(9)) +
+        """  · rintro ⟨r, z, hz, rfl⟩
+    exact relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz
+""")
+    thm('a33_shared_ext_pt', f"∀ (y : {E}) (G : {T}), (∀ p : {IDXT}, y.ofLp p = mixedTriple G p) → y = featureVec G",
+        "  intro y G h\n  ext p\n  rw [featureVec_ofLp]\n  exact h p\n")
+    thm('a33_shared_readq', f"∀ s : Fin 9, ∃ q : {IDXT}, {EZ_of(f'({RTXT} s).1', f'({RTXT} s).2').replace(' p.', ' q.')} = 1",
+        "  intro s\n  fin_cases s\n" + "".join(f"  · exact ⟨{idx(IDX[tab['pr'][str(r)]])}, by decide⟩\n" for r in range(9)))
+    thm('a33_shared_fin9', "∀ r : Fin 9, r = 0 ∨ r = 1 ∨ r = 2 ∨ r = 3 ∨ r = 4 ∨ r = 5 ∨ r = 6 ∨ r = 7 ∨ r = 8", "  decide\n")
+    thm('a33_shared_census',
+        f"∀ r s : Fin 9, r ≠ s → ∀ z w : ℂ, star z * z = 1 → star w * w = 1 → {PTR('r', 'z')} = {PTR('s', 'w')} → z = 1 ∨ z = -1",
+        "  intro r s hrs z w hz hw h\n  rcases a33_shared_fin9 r with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;>\n"
+        "    rcases a33_shared_fin9 s with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> (try exact absurd rfl hrs) <;>\n"
+        "    simp only [" + RFACTS + "] at h\n" +
+        "".join((f"  · exact absurd h (a33_shared_apart_{r}_{s2} z w hz hw)\n" if tab['strat'][f'{r},{s2}'][0] is not None else
+                 f"  · exact {'Or.inl' if circ.C[r][tab['strat'][f'{r},{s2}'][1]][0] * circ.C[s2][tab['strat'][f'{r},{s2}'][1]][0] == 1 else 'Or.inr'} (a33_shared_meet_{r}_{s2} z w hz hw h)\n")
+                for r in range(9) for s2 in range(9) if r != s2))
+    # the coordinates of an affine image of a circle are real-affine in (re z, im z)
+    thm('a33_shared_affine_coord',
+        f"∀ (g : {E} ≃ᵃⁱ[ℝ] {E}) (a b : Equiv.Perm (Fin 4)), ∃ α β γ : {IDXT} → ℂ,\n"
+        f"      ∀ z : ℂ, star z * z = 1 → ∀ p : {IDXT}, (g (featureVec {CIRCT('a', 'b', 'z')})).ofLp p = α p + β p * (z.re : ℂ) + γ p * (z.im : ℂ)",
+        f"""  intro g a b
+  let X₀ : {E} := WithLp.toLp 2 (fun p => (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * (if {EZ} = 0 then 1 else 0))
+  let X₁ : {E} := WithLp.toLp 2 (fun p => (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * (if {EZ} = 0 then 0 else 1))
+  let X₂ : {E} := WithLp.toLp 2 (fun p => (1 / 64 : ℂ) * (({SGZ} : ℤ) : ℂ) * (if {EZ} = 1 then Complex.I else if {EZ} = 0 then 0 else -Complex.I))
+  have hpt : ∀ z : ℂ, star z * z = 1 → featureVec {CIRCT('a', 'b', 'z')} = (z.re • X₁ + z.im • X₂) +ᵥ X₀ := by
+    intro z hz
+    ext p
+    rw [featureVec_ofLp, a33_shared_coord_Z z hz a b p]
+    simp only [vadd_eq_add, PiLp.add_apply, PiLp.smul_apply, X₀, X₁, X₂, WithLp.ofLp_toLp, Complex.real_smul]
+    rcases a33_shared_exp_range a b p with h | h | h <;> simp only [h] <;> norm_num
+    · rw [Complex.ext_iff]; simp
+    · rw [Complex.ext_iff]; simp
+  refine ⟨fun p => (g X₀).ofLp p, fun p => (g.linearIsometryEquiv X₁).ofLp p, fun p => (g.linearIsometryEquiv X₂).ofLp p, ?_⟩
+  intro z hz p
+  rw [hpt z hz, AffineIsometryEquiv.map_vadd, map_add, map_smul, map_smul]
+  simp only [vadd_eq_add, PiLp.add_apply, PiLp.smul_apply, Complex.real_smul]
+  ring
+""")
+    # the vanishing lemma: a quadratic trigonometric polynomial with five distinct unit zeros vanishes on the circle
+    thm('a33_shared_vanish',
+        "∀ (A B C D E F : ℂ) (Z : Finset ℂ), 5 ≤ Z.card → (∀ z ∈ Z, star z * z = 1) →\n"
+        "      (∀ z ∈ Z, A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2 + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2 = 0) →\n"
+        "      ∀ z : ℂ, star z * z = 1 → A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2 + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2 = 0",
+        """  intro A B C D E F Z hcard hunit hzero
+  have hre : ∀ z : ℂ, star z * z = 1 → (z.re : ℂ) = (z + z⁻¹) / 2 := by
+    intro z hz
+    have hw : star z = z⁻¹ := eq_inv_of_mul_eq_one_left hz
+    rw [← hw, Complex.star_def]
+    have := Complex.add_conj z
+    rw [this]; push_cast; ring
+  have him : ∀ z : ℂ, star z * z = 1 → (z.im : ℂ) = (z - z⁻¹) / (2 * Complex.I) := by
+    intro z hz
+    have hw : star z = z⁻¹ := eq_inv_of_mul_eq_one_left hz
+    rw [← hw, Complex.star_def]
+    have := Complex.sub_conj z
+    rw [this]
+    field_simp [Complex.I_ne_zero]
+    ring
+  let P : Polynomial ℂ := Polynomial.C A * Polynomial.X ^ 2 + Polynomial.C (B / 2) * (Polynomial.X ^ 3 + Polynomial.X)
+    + Polynomial.C (C / (2 * Complex.I)) * (Polynomial.X ^ 3 - Polynomial.X) + Polynomial.C (D / 4) * (Polynomial.X ^ 4 + 2 * Polynomial.X ^ 2 + 1)
+    + Polynomial.C (E / (4 * Complex.I)) * (Polynomial.X ^ 4 - 1) - Polynomial.C (F / 4) * (Polynomial.X ^ 4 - 2 * Polynomial.X ^ 2 + 1)
+  have hev : ∀ z : ℂ, star z * z = 1 → P.eval z = z ^ 2 * (A + B * (z.re : ℂ) + C * (z.im : ℂ) + D * (z.re : ℂ) ^ 2
+      + E * ((z.re : ℂ) * (z.im : ℂ)) + F * (z.im : ℂ) ^ 2) := by
+    intro z hz
+    have hz0 : z ≠ 0 := by rintro rfl; simp at hz
+    rw [hre z hz, him z hz]
+    simp only [P, Polynomial.eval_add, Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_C, Polynomial.eval_pow,
+      Polynomial.eval_X, Polynomial.eval_one, Polynomial.eval_ofNat]
+    field_simp [Complex.I_ne_zero]
+    ring
+  have hdeg : P.natDegree ≤ 4 := by
+    simp only [P]
+    compute_degree!
+  have hP : P = 0 := by
+    by_contra hP0
+    have hsub : Z.val ⊆ P.roots := by
+      intro z hz
+      rw [Polynomial.mem_roots hP0, Polynomial.IsRoot.def, hev z (hunit z hz), hzero z hz, mul_zero]
+    have := Polynomial.card_le_degree_of_subset_roots hsub
+    omega
+  intro z hz
+  have hz0 : z ≠ 0 := by rintro rfl; simp at hz
+  have := hev z hz
+  rw [hP, Polynomial.eval_zero] at this
+  rcases mul_eq_zero.1 this.symm with h | h
+  · exact absurd (pow_eq_zero_iff (by norm_num) |>.1 h) hz0
+  · exact h
+""")
+
+# ================= phase 4b: into, equality, A33-1 =================
+def SUB(t, A, B): return t.replace('(a ', f'({A} ').replace('(b ', f'({B} ')
+def AT(txt, A, B, var):
+    return SUB(txt, A, B).replace(' p.', f' {var}.')
+TA, TB = f"({RTXT} t).1", f"({RTXT} t).2"
+if PHASE >= 4:
+    thm('a33_shared_unit_I', "star Complex.I * Complex.I = 1", "  rw [Complex.star_def, Complex.conj_I]\n  simp\n")
+    thm('a33_shared_into',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∀ (g : {E} ≃ᵃⁱ[ℝ] {E}), g '' normalizedSet Γ₀ = normalizedSet Γ₀ →\n"
+        f"      ∀ r : Fin 9, ∃ t : Fin 9, ∀ z : ℂ, star z * z = 1 → ∃ w : ℂ, star w * w = 1 ∧ g ({PTR('r', 'z')}) = {PTR('t', 'w')}",
+        f"""  intro Γ₀ hΓ₀ g hg r
+  have hmem : ∀ z : ℂ, star z * z = 1 → ∃ (t : Fin 9) (w : ℂ), star w * w = 1 ∧ g ({PTR('r', 'z')}) = {PTR('t', 'w')} := by
+    intro z hz
+    have : g ({PTR('r', 'z')}) ∈ normalizedSet Γ₀ := by
+      rw [← hg]; exact ⟨_, relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz, rfl⟩
+    exact (a33_shared_mem Γ₀ hΓ₀ _).1 this
+  obtain ⟨α, β, γ, hαβγ⟩ := a33_shared_affine_coord g ({RTXT} r).1 ({RTXT} r).2
+  have hζ := Complex.isPrimitiveRoot_exp 37 (by norm_num)
+  have hζu : ∀ k : ℕ, star (Complex.exp (2 * Real.pi * Complex.I / 37) ^ k) * Complex.exp (2 * Real.pi * Complex.I / 37) ^ k = 1 := by
+    intro k
+    have h37 := hζ.pow_eq_one
+    have hn : ‖Complex.exp (2 * Real.pi * Complex.I / 37)‖ = 1 := by
+      have := congrArg norm h37
+      rw [norm_pow, norm_one] at this
+      exact (pow_eq_one_iff_of_nonneg (norm_nonneg _) (by norm_num)).1 this
+    rw [a32_shared_star_mul_self, norm_pow, hn, one_pow]; simp
+  classical
+  choose s w hw using hmem
+  obtain ⟨t, ht⟩ := Fintype.exists_lt_card_fiber_of_mul_lt_card (fun k : Fin 37 => s _ (hζu (k : ℕ)))
+    (by simp : Fintype.card (Fin 9) * 4 < Fintype.card (Fin 37))
+  refine ⟨t, ?_⟩
+  obtain ⟨q, hq⟩ := a33_shared_readq t
+  have hsq : (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) = 1 := by
+    rcases a33_shared_sgz_unit ({RTXT} t).1 ({RTXT} t).2 q with h | h <;> rw [h] <;> norm_num
+  set W : ℂ → ℂ := fun z => 64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * (α q + β q * (z.re : ℂ) + γ q * (z.im : ℂ)) with hWdef
+  -- on a point sent to circle t, W reads the parameter and the coordinate identities hold
+  have hread : ∀ z : ℂ, star z * z = 1 → ∀ w' : ℂ, star w' * w' = 1 → g ({PTR('r', 'z')}) = {PTR('t', "w'")} →
+      W z = w' ∧ ∀ p : {IDXT}, (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} w' ({AT(EZ, TA, TB, 'p')}) := by
+    intro z hz w' hw' hgw
+    have hcoord : ∀ p : {IDXT}, (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} w' ({AT(EZ, TA, TB, 'p')}) := by
+      intro p
+      rw [hgw, featureVec_ofLp, a33_shared_coord_Z w' hw' _ _ p]
+    refine ⟨?_, hcoord⟩
+    have h1 := hcoord q
+    rw [hαβγ z hz q] at h1
+    rw [hq] at h1
+    simp only [hWdef]
+    rw [h1]
+    simp only [show ((1 : ℤ) = 1) = True from eq_self_iff_true 1, if_true]
+    linear_combination (w' : ℂ) * hsq
+  -- the five points of the fibre
+  set Fb := Finset.univ.filter (fun k : Fin 37 => s _ (hζu (k : ℕ)) = t) with hFb
+  set Zs := Fb.image (fun k : Fin 37 => Complex.exp (2 * Real.pi * Complex.I / 37) ^ (k : ℕ)) with hZs
+  have hZcard : 5 ≤ Zs.card := by
+    rw [hZs, Finset.card_image_of_injOn]
+    · omega
+    · intro k _ l _ hkl
+      exact Fin.ext (hζ.pow_inj k.2 l.2 hkl)
+  have hZunit : ∀ z ∈ Zs, star z * z = 1 := by
+    intro z hz
+    rw [hZs, Finset.mem_image] at hz
+    obtain ⟨k, -, rfl⟩ := hz
+    exact hζu k
+  have hZread : ∀ z ∈ Zs, ∃ w' : ℂ, star w' * w' = 1 ∧ g ({PTR('r', 'z')}) = {PTR('t', "w'")} := by
+    intro z hz
+    rw [hZs, Finset.mem_image] at hz
+    obtain ⟨k, hk, rfl⟩ := hz
+    rw [hFb, Finset.mem_filter] at hk
+    refine ⟨w _ (hζu (k : ℕ)), (hw _ (hζu (k : ℕ))).1, ?_⟩
+    have := (hw _ (hζu (k : ℕ))).2
+    rw [hk.2] at this
+    exact this
+  -- the unit identity for W holds on Zs, hence everywhere
+  have hWunit : ∀ z : ℂ, star z * z = 1 → star (W z) * W z = 1 := by
+    have key := a33_shared_vanish
+      ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) - 1)
+      ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q)
+        + (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q))
+      ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)
+        + (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q))
+      ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q))
+      ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)
+        + (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q))
+      ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)) Zs hZcard hZunit
+    have hform : ∀ z : ℂ, star (W z) * W z - 1 =
+        ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) - 1)
+        + ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q)
+          + (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q)) * (z.re : ℂ)
+        + ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)
+          + (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q)) * (z.im : ℂ)
+        + ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q)) * (z.re : ℂ) ^ 2
+        + ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)
+          + (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q)) * ((z.re : ℂ) * (z.im : ℂ))
+        + ((starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)) * (z.im : ℂ) ^ 2 := by
+      intro z
+      simp only [hWdef, Complex.star_def, map_add, map_mul, Complex.conj_ofReal]
+      ring
+    intro z hz
+    have := key (fun z hz => by
+      obtain ⟨w', hw', hgw⟩ := hZread z hz
+      rw [← hform, (hread z (hZunit z hz) w' hw' hgw).1, hw', sub_self]) z hz
+    rw [← hform] at this
+    linear_combination this
+  -- every coordinate identity holds on Zs, hence everywhere
+  have hcoords : ∀ p : {IDXT}, ∀ z : ℂ, star z * z = 1 →
+      (g ({PTR('r', 'z')})).ofLp p = (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} (W z) ({AT(EZ, TA, TB, 'p')}) := by
+    intro p
+    rcases a33_shared_exp_range ({RTXT} t).1 ({RTXT} t).2 p with he | he | he
+    · -- e = -1: the conjugate of W
+      have hform : ∀ z : ℂ, star z * z = 1 → (g ({PTR('r', 'z')})).ofLp p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} (W z) ({AT(EZ, TA, TB, 'p')})
+          = (α p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q))
+            + (β p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q)) * (z.re : ℂ)
+            + (γ p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * (starRingEnd ℂ) (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)) * (z.im : ℂ)
+            + 0 * (z.re : ℂ) ^ 2 + 0 * ((z.re : ℂ) * (z.im : ℂ)) + 0 * (z.im : ℂ) ^ 2 := by
+        intro z hz
+        rw [hαβγ z hz p, he]
+        simp only [hWdef, Complex.star_def, map_add, map_mul, Complex.conj_ofReal]
+        norm_num
+        ring
+      intro z hz
+      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard hZunit (fun z hz => by
+        obtain ⟨w', hw', hgw⟩ := hZread z hz
+        rw [← hform z (hZunit z hz), (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p, sub_self]) z hz
+      rw [← hform z hz] at key
+      linear_combination key
+    · -- e = 0: constant
+      have hform : ∀ z : ℂ, star z * z = 1 → (g ({PTR('r', 'z')})).ofLp p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} (W z) ({AT(EZ, TA, TB, 'p')})
+          = (α p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ)) + β p * (z.re : ℂ) + γ p * (z.im : ℂ)
+            + 0 * (z.re : ℂ) ^ 2 + 0 * ((z.re : ℂ) * (z.im : ℂ)) + 0 * (z.im : ℂ) ^ 2 := by
+        intro z hz
+        rw [hαβγ z hz p, he]
+        norm_num
+        ring
+      intro z hz
+      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard hZunit (fun z hz => by
+        obtain ⟨w', hw', hgw⟩ := hZread z hz
+        rw [← hform z (hZunit z hz), (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p, sub_self]) z hz
+      rw [← hform z hz] at key
+      linear_combination key
+    · -- e = 1: W itself
+      have hform : ∀ z : ℂ, star z * z = 1 → (g ({PTR('r', 'z')})).ofLp p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * {ZF} (W z) ({AT(EZ, TA, TB, 'p')})
+          = (α p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * α q))
+            + (β p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * β q)) * (z.re : ℂ)
+            + (γ p - (1 / 64 : ℂ) * (({AT(SGZ, TA, TB, 'p')} : ℤ) : ℂ) * (64 * (({AT(SGZ, TA, TB, 'q')} : ℤ) : ℂ) * γ q)) * (z.im : ℂ)
+            + 0 * (z.re : ℂ) ^ 2 + 0 * ((z.re : ℂ) * (z.im : ℂ)) + 0 * (z.im : ℂ) ^ 2 := by
+        intro z hz
+        rw [hαβγ z hz p, he]
+        simp only [hWdef]
+        norm_num
+        ring
+      intro z hz
+      have key := a33_shared_vanish _ _ _ _ _ _ Zs hZcard hZunit (fun z hz => by
+        obtain ⟨w', hw', hgw⟩ := hZread z hz
+        rw [← hform z (hZunit z hz), (hread z (hZunit z hz) w' hw' hgw).1, (hread z (hZunit z hz) w' hw' hgw).2 p, sub_self]) z hz
+      rw [← hform z hz] at key
+      linear_combination key
+  intro z hz
+  refine ⟨W z, hWunit z hz, ?_⟩
+  apply a33_shared_ext_pt
+  intro p
+  rw [hcoords p z hz, a33_shared_coord_Z (W z) (hWunit z hz) _ _ p]
+""")
+    thm('a33_shared_circle_eq',
+        f"∀ (Γ₀ : Matrix (Fin 4) (Fin 4) ℝ), Γ₀ = Matrix.of (fun _ _ => (1 / 4 : ℝ)) →\n"
+        f"      ∀ (g : {E} ≃ᵃⁱ[ℝ] {E}), g '' normalizedSet Γ₀ = normalizedSet Γ₀ →\n"
+        f"      ∀ r : Fin 9, ∃ s : Fin 9, g '' {CIRCSET('r')} = {CIRCSET('s')}",
+        f"""  intro Γ₀ hΓ₀ g hg r
+  obtain ⟨s, hs⟩ := a33_shared_into Γ₀ hΓ₀ g hg r
+  have hg' : g.symm '' normalizedSet Γ₀ = normalizedSet Γ₀ := by
+    conv_lhs => rw [← hg]
+    exact g.toEquiv.symm_image_image _
+  obtain ⟨s', hs'⟩ := a33_shared_into Γ₀ hΓ₀ g.symm hg' s
+  have hsr : s' = r := by
+    by_contra hne
+    obtain ⟨w, hw, hgw⟩ := hs Complex.I a33_shared_unit_I
+    obtain ⟨w', hw', hgw'⟩ := hs' w hw
+    have hpt : {PTR('r', 'Complex.I')} = {PTR("s'", "w'")} := by
+      rw [← hgw', ← hgw, g.symm_apply_apply]
+    rcases a33_shared_census r s' (Ne.symm hne) Complex.I w' a33_shared_unit_I hw' hpt with h | h
+    · exact absurd (congrArg Complex.im h) (by simp)
+    · exact absurd (congrArg Complex.im h) (by simp)
+  subst hsr
+  refine ⟨s, Set.ext fun y => ⟨?_, ?_⟩⟩
+  · rintro ⟨x, ⟨z, hz, rfl⟩, rfl⟩
+    obtain ⟨w, hw, h⟩ := hs z hz
+    exact ⟨w, hw, h.symm⟩
+  · rintro ⟨w, hw, rfl⟩
+    obtain ⟨z, hz, h⟩ := hs' w hw
+    exact ⟨_, ⟨z, hz, rfl⟩, by rw [← h, g.apply_symm_apply]⟩
+""")
+    thm('a33_shared_circles', P['B1'].replace('\n', '\n    '),
+        """  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf r
+  obtain ⟨g, hgf, hgS⟩ := a26_0_affine_extension.2.2 Γ₀ hΓ₀ f hf
+  obtain ⟨s, hs⟩ := a33_shared_circle_eq Γ₀ hΓ₀ g hgS r
+  refine ⟨s, ?_⟩
+  rw [← hs]
+  apply Set.image_congr
+  rintro x ⟨z, hz, rfl⟩
+  exact (hgf _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ _ _ z hz)).symm
+""")
+
+
+# ================= phase 5: A33-2 normal form (B2) and the endpoint signs (B3) =================
+def CIRCZ(r, z):
+    return f"(fun i => ({FZ(z)} ({R9[r][0]} i)).submatrix {R9[r][1]} {R9[r][1]})"
+if PHASE >= 5:
+    thm('a33_shared_unit_mul', "∀ a b : ℂ, star a * a = 1 → star b * b = 1 → star (a * b) * (a * b) = 1",
+        "  intro a b ha hb\n  rw [star_mul]\n  linear_combination (star b * b) * ha + hb\n")
+    thm('a33_shared_unit_if', "∀ (b : Bool) (z : ℂ), star z * z = 1 → star (if b then z else star z) * (if b then z else star z) = 1",
+        "  intro b z hz\n  cases b\n  · simp only [Bool.false_eq_true, if_false, star_star]\n    rw [mul_comm]; exact hz\n  · simpa using hz\n")
+    thm('a33_shared_if_pm', "∀ (b : Bool) (c : ℂ), star c = c → (if b then c else star c) = c",
+        "  intro b c h\n  cases b <;> simp [h]\n")
+    thm('a33_shared_circle_map',
+        "∀ (w : (z : ℂ) → star z * z = 1 → ℂ), (∀ z hz, star (w z hz) * w z hz = 1) →\n"
+        "      (∀ z z' hz hz', ‖w z hz - w z' hz'‖ ^ 2 = ‖z - z'‖ ^ 2) →\n"
+        "      ∃ (l : ℂ) (ε : Bool), star l * l = 1 ∧ ∀ z hz, w z hz = l * (if ε then z else star z)",
+        """  intro w hu hc
+  have h1 : star (1 : ℂ) * 1 = 1 := by simp
+  have hI : star Complex.I * Complex.I = 1 := by rw [Complex.star_def, Complex.conj_I]; simp
+  have hre : ∀ z : ℂ, star z * z = 1 → z.re ^ 2 + z.im ^ 2 = 1 := by
+    intro z hz
+    have := congrArg Complex.re hz
+    simp [Complex.star_def, Complex.mul_re] at this
+    linarith
+  have hn : ∀ x y : ℂ, ‖x - y‖ ^ 2 = (x.re - y.re) ^ 2 + (x.im - y.im) ^ 2 := by
+    intro x y
+    rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply, Complex.sub_re, Complex.sub_im]
+    ring
+  set l := w 1 h1 with hldef
+  set m := w Complex.I hI with hmdef
+  have hl := hre _ (hu 1 h1)
+  have hm := hre _ (hu Complex.I hI)
+  have hml := hc Complex.I 1 hI h1
+  rw [hn, hn] at hml
+  simp only [Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im] at hml
+  have hP : l.re * m.re + l.im * m.im = 0 := by
+    linear_combination (-1 / 2 : ℝ) * hml + (1 / 2 : ℝ) * hm + (1 / 2 : ℝ) * hl
+  set s := l.re * m.im - l.im * m.re with hsdef
+  have hs : s * s = 1 := by
+    linear_combination (m.re ^ 2 + m.im ^ 2) * hl + hm - (l.re * m.re + l.im * m.im) * hP
+  refine ⟨l, decide (0 < s), hu 1 h1, ?_⟩
+  intro z hz
+  have hz1 := hre z hz
+  have hwz := hre _ (hu z hz)
+  have hzl := hc z 1 hz h1
+  have hzm := hc z Complex.I hz hI
+  rw [hn, hn] at hzl hzm
+  simp only [Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im] at hzl hzm
+  have hA : l.re * (w z hz).re + l.im * (w z hz).im = z.re := by
+    linear_combination (-1 / 2 : ℝ) * hzl + (1 / 2 : ℝ) * hwz + (1 / 2 : ℝ) * hl - (1 / 2 : ℝ) * hz1
+  have hC : (w z hz).re * m.re + (w z hz).im * m.im = z.im := by
+    linear_combination (-1 / 2 : ℝ) * hzm + (1 / 2 : ℝ) * hwz + (1 / 2 : ℝ) * hm - (1 / 2 : ℝ) * hz1
+  have hBs : (l.re * (w z hz).im - l.im * (w z hz).re) * s = z.im := by
+    linear_combination ((w z hz).re * m.re + (w z hz).im * m.im) * hl + hC
+      - (l.re * (w z hz).re + l.im * (w z hz).im) * hP
+  rcases mul_self_eq_one_iff.1 hs with hs1 | hs1
+  · have hB : l.re * (w z hz).im - l.im * (w z hz).re = z.im := by rw [hs1] at hBs; linear_combination hBs
+    rw [if_pos (decide_eq_true (by rw [hs1]; norm_num : (0 : ℝ) < s))]
+    apply Complex.ext
+    · simp only [Complex.mul_re]
+      linear_combination l.re * hA - l.im * hB - (w z hz).re * hl
+    · simp only [Complex.mul_im]
+      linear_combination l.re * hB + l.im * hA - (w z hz).im * hl
+  · have hB : l.re * (w z hz).im - l.im * (w z hz).re = -z.im := by rw [hs1] at hBs; linear_combination -hBs
+    rw [if_neg (by rw [decide_eq_true_iff, hs1]; norm_num)]
+    apply Complex.ext
+    · simp only [Complex.mul_re, Complex.star_def, Complex.conj_re, Complex.conj_im]
+      linear_combination l.re * hA - l.im * hB - (w z hz).re * hl
+    · simp only [Complex.mul_im, Complex.star_def, Complex.conj_re, Complex.conj_im]
+      linear_combination l.re * hB + l.im * hA - (w z hz).im * hl
+""")
+    thm('a33_shared_form', P['B2'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf r s hrs
+  have hw : ∀ z : ℂ, star z * z = 1 → ∃ w : ℂ, star w * w = 1 ∧ f ({PTR('r', 'z')}) = {PTR('s', 'w')} := by
+    intro z hz
+    have hx : f ({PTR('r', 'z')}) ∈ f '' {CIRCSET('r')} := ⟨_, ⟨z, hz, rfl⟩, rfl⟩
+    rw [hrs] at hx
+    obtain ⟨w, hw, hfw⟩ := hx
+    exact ⟨w, hw, hfw.symm⟩
+  choose w hw using hw
+  have hchord : ∀ (z z' : ℂ) (hz : star z * z = 1) (hz' : star z' * z' = 1), ‖w z hz - w z' hz'‖ ^ 2 = ‖z - z'‖ ^ 2 := by
+    intro z z' hz hz'
+    have hd := hf.2.2 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} r).1 ({RTXT} r).2 z hz)
+      _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} r).1 ({RTXT} r).2 z' hz')
+    rw [(hw z hz).2, (hw z' hz').2] at hd
+    have c1 := a33_shared_chord s (w z hz) (w z' hz') (hw z hz).1 (hw z' hz').1
+    have c2 := a33_shared_chord r z z' hz hz'
+    dsimp only at c1 c2
+    have hsq := congrArg (fun x : ℝ => x ^ 2) hd
+    try simp only [] at hsq
+    rw [c1, c2] at hsq
+    linarith
+  obtain ⟨l, ε, hl, hform⟩ := a33_shared_circle_map w (fun z hz => (hw z hz).1) hchord
+  exact ⟨l, ε, hl, fun z hz => by rw [(hw z hz).2, hform z hz]⟩
+""")
+    # the endpoint signs: an incidence partner for every circle, chosen from the frozen incidence table
+    def partner(r):
+        for (a, sa, b, sb) in tb['inc']:
+            if a == r: return (sa, b, sb, f'a33_shared_inc_{a}_{"p" if sa == 1 else "m"}_{b}_{"p" if sb == 1 else "m"}', False)
+            if b == r: return (sb, a, sa, f'a33_shared_inc_{a}_{"p" if sa == 1 else "m"}_{b}_{"p" if sb == 1 else "m"}', True)
+        raise KeyError(r)
+    ZT = {1: '1', -1: '(-1)'}; HZ = {1: 'h1u', -1: 'hm1'}; HS = {1: 'star_one ℂ', -1: 'hsm1'}
+    cases = []
+    for r in range(9):
+        sr, q, sq, inc, rev = partner(r)
+        cases.append(f"""  · have e1 := hform {r} {ZT[sr]} {HZ[sr]}
+    have e2 := hform {q} {ZT[sq]} {HZ[sq]}
+    simp only [a33_shared_R1_{r}, a33_shared_R2_{r}] at e1
+    simp only [a33_shared_R1_{q}, a33_shared_R2_{q}] at e2
+    rw [{'← ' if rev else ''}{inc}] at e1
+    have e := e1.symm.trans e2
+    have hu1 := a33_shared_unit_mul (l {r}) _ (hl {r}) (a33_shared_unit_if (ε {r}) {ZT[sr]} {HZ[sr]})
+    have hu2 := a33_shared_unit_mul (l {q}) _ (hl {q}) (a33_shared_unit_if (ε {q}) {ZT[sq]} {HZ[sq]})
+    have hc := a33_shared_census (σ {r}) (σ {q}) (hinj.ne (by decide)) _ _ hu1 hu2 e
+    rw [a33_shared_if_pm (ε {r}) {ZT[sr]} ({HS[sr]})] at hc
+    rcases hc with hc | hc <;> first | exact Or.inl (by linear_combination hc) | exact Or.inr (by linear_combination hc) | exact Or.inl (by linear_combination -hc) | exact Or.inr (by linear_combination -hc)
+""")
+    thm('a33_shared_signs', P['B3'].replace('\n', '\n    '),
+        f"""  intro Γ₀ hΓ₀
+  dsimp only
+  intro f hf σ l ε hl hform
+  have hI : star Complex.I * Complex.I = 1 := by rw [Complex.star_def, Complex.conj_I]; simp
+  have h1u : star (1 : ℂ) * 1 = 1 := by simp
+  have hm1 : star (-1 : ℂ) * (-1) = 1 := by simp
+  have hsm1 : star (-1 : ℂ) = -1 := by simp
+  have hinj : Function.Injective σ := by
+    rw [Finite.injective_iff_surjective]
+    intro t
+    by_contra ht
+    obtain ⟨x, hx, hfx⟩ := hf.2.1 _ (relabelled_fourier_mem_normalizedSet Γ₀ hΓ₀ ({RTXT} t).1 ({RTXT} t).2 Complex.I hI)
+    obtain ⟨r', z, hz, rfl⟩ := (a33_shared_mem Γ₀ hΓ₀ x).1 hx
+    rw [hform r' z hz] at hfx
+    have hne : t ≠ σ r' := fun h => ht ⟨r', h.symm⟩
+    have hu := a33_shared_unit_mul (l r') _ (hl r') (a33_shared_unit_if (ε r') z hz)
+    rcases a33_shared_census t (σ r') hne Complex.I _ hI hu hfx.symm with h | h
+    · have := congrArg Complex.im h; norm_num at this
+    · have := congrArg Complex.im h; norm_num at this
+  intro r
+  rcases a33_shared_fin9 r with rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl | rfl
+""" + "".join(cases))
+
+out += ['end OrbitIsometryGroup', 'end OIBridge', '']
+open(OUT, 'w', encoding='utf-8').write('\n'.join(out))
+print(len(names), 'theorems')

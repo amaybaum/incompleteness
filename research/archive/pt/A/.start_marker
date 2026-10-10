@@ -1,0 +1,12 @@
+# Thread A start integrity checks
+protocol_sha256: 239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23
+$ sha256sum -c --quiet inputs.manifest.sha256
+rc=0
+$ git -C base rev-parse HEAD
+9f9f8257a980a1819fbbc1dc0019917cf8678626
+$ git -C base status --porcelain
+rc=0 (empty output above = clean)
+$ ls -la A (before marker)
+drwxr-xr-x 2 root root 4096 Oct 10 04:33 .
+drwxr-xr-x 8 root root 4096 Oct 10 04:32 ..
+-rw-r--r-- 1 root root  331 Oct 10 04:33 .start_marker

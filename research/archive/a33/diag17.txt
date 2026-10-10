@@ -1,0 +1,700 @@
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6589:122: This simp argument is unused:
+  ite_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [↓reduceIte, Bool.not_true, Bool.not_false, Bool.false_eq_true, eq_self_iff_true, ite_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6589:132: This simp argument is unused:
+  ite_false
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [↓reduceIte, Bool.not_true, Bool.not_false, Bool.false_eq_true, eq_self_iff_true, ite_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6597:61: This simp argument is unused:
+  eq_self_iff_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [↓reduceIte, Bool.false_eq_true, ite_true, ite_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6597:79: This simp argument is unused:
+  ite_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6597:89: This simp argument is unused:
+  ite_false
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:6600:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_shape' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6654:0: 'OIBridge.OrbitIsometryGroup.a33_shared_rowcol_word' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6659:0: 'OIBridge.OrbitIsometryGroup.a33_shared_row_words' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6664:0: 'OIBridge.OrbitIsometryGroup.a33_shared_col_words' depends on axioms: [propext, Classical.choice, Quot.sound]
+warning: OIBridge/OrbitIsometryGroup.lean:6685:184: This simp argument is unused:
+  eq_self_iff_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a33_shared_wordf_append, List.map_nil, List.foldr_nil, List.map_cons, List.foldr_cons,
+    Function.comp_apply, id_eq, ↓reduceIte, Bool.false_eq_true, ite_true, ite_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6685:202: This simp argument is unused:
+  ite_true
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a33_shared_wordf_append, List.map_nil, List.foldr_nil, List.map_cons, List.foldr_cons,
+    Function.comp_apply, id_eq, ↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_false]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: OIBridge/OrbitIsometryGroup.lean:6685:212: This simp argument is unused:
+  ite_false
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [a33_shared_wordf_append, List.map_nil, List.foldr_nil, List.map_cons, List.foldr_cons,
+    Function.comp_apply, id_eq, ↓reduceIte, Bool.false_eq_true, eq_self_iff_true, ite_true]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+info: OIBridge/OrbitIsometryGroup.lean:6690:0: 'OIBridge.OrbitIsometryGroup.a33_shared_shape_word' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6702:0: 'OIBridge.OrbitIsometryGroup.a33_shared_shape_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6712:0: 'OIBridge.OrbitIsometryGroup.a33_shared_kernel_shapes' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6720:0: 'OIBridge.OrbitIsometryGroup.a33_shared_aut_shapes' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6725:0: 'OIBridge.OrbitIsometryGroup.a33_shared_not_parity_0' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6730:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_swap' does not depend on any axioms
+info: OIBridge/OrbitIsometryGroup.lean:6735:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_comm' does not depend on any axioms
+info: OIBridge/OrbitIsometryGroup.lean:6740:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_swap2' does not depend on any axioms
+info: OIBridge/OrbitIsometryGroup.lean:6767:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_family' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6843:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_parity' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6930:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_kernel' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7089:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_coset' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7124:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_onto' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7144:0: 'OIBridge.OrbitIsometryGroup.a33_control_conjugation' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7173:0: 'OIBridge.OrbitIsometryGroup.a33_control_a32' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- OIBridge.OrbitIsometryGroup
+error: build failed
+##[error]Process completed with exit code 1.
+##[group]Run echo "=== ERRORS ==="; grep -n "^error: " /tmp/oibridge-build.log | cut -c1-240 || true
+[36;1mecho "=== ERRORS ==="; grep -n "^error: " /tmp/oibridge-build.log | cut -c1-240 || true[0m
+[36;1mecho "=== SORRY ==="; grep "depends on axioms" /tmp/oibridge-build.log | grep sorryAx | cut -c1-200 || true[0m
+[36;1mecho "=== AXIOM LINES ==="; grep -c "depends on axioms" /tmp/oibridge-build.log || true[0m
+[36;1mecho "=== NONSTANDARD AXIOMS ==="; grep "depends on axioms" /tmp/oibridge-build.log | grep -v "\[propext, Classical.choice, Quot.sound\]" | cut -c1-200 || true[0m
+shell: /usr/bin/bash -e {0}
+##[endgroup]
+=== ERRORS ===
+9092:error: OIBridge/OrbitIsometryGroup.lean:5168:14: Tactic `rewrite` failed: motive is not type correct:
+9462:error: OIBridge/OrbitIsometryGroup.lean:5212:1662: unsolved goals
+9667:error: OIBridge/OrbitIsometryGroup.lean:5251:1662: unsolved goals
+9872:error: OIBridge/OrbitIsometryGroup.lean:5290:1662: unsolved goals
+10076:error: OIBridge/OrbitIsometryGroup.lean:5329:1662: unsolved goals
+10281:error: OIBridge/OrbitIsometryGroup.lean:5368:1662: unsolved goals
+10486:error: OIBridge/OrbitIsometryGroup.lean:5407:1662: unsolved goals
+10690:error: OIBridge/OrbitIsometryGroup.lean:5446:1662: unsolved goals
+10895:error: OIBridge/OrbitIsometryGroup.lean:5485:1662: unsolved goals
+11145:error: OIBridge/OrbitIsometryGroup.lean:6268:38: unexpected token ','; expected term
+11146:error: OIBridge/OrbitIsometryGroup.lean:6268:37: Invalid pattern
+11155:error: OIBridge/OrbitIsometryGroup.lean:6514:95: unsolved goals
+11654:error: Lean exited with code 1
+11657:error: build failed
+=== SORRY ===
+info: OIBridge/OrbitIsometryGroup.lean:5176:0: 'OIBridge.OrbitIsometryGroup.a33_shared_c0' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5520:0: 'OIBridge.OrbitIsometryGroup.a33_shared_conj_real' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5587:0: 'OIBridge.OrbitIsometryGroup.a33_shared_kernel_real' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5609:0: 'OIBridge.OrbitIsometryGroup.a33_shared_real' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6166:0: 'OIBridge.OrbitIsometryGroup.a33_classified' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6273:0: 'OIBridge.OrbitIsometryGroup.a33_shared_nf_agree' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6519:0: 'OIBridge.OrbitIsometryGroup.a33_shared_rel_R1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6600:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_shape' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6654:0: 'OIBridge.OrbitIsometryGroup.a33_shared_rowcol_word' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6690:0: 'OIBridge.OrbitIsometryGroup.a33_shared_shape_word' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6767:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_family' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6843:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_parity' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7124:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_onto' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7173:0: 'OIBridge.OrbitIsometryGroup.a33_control_a32' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+=== AXIOM LINES ===
+4630
+=== NONSTANDARD AXIOMS ===
+info: OIBridge/EquivalenceChain.lean:390:0: 'OIBridge.EquivalenceChain.isPermMatrix_of_stochastic_inverse' depends on axioms: [propext,
+info: OIBridge/CanonicalMeasure.lean:300:0: 'OIBridge.CanonicalMeasure.determinism_reversibility_selected_measure' depends on axioms: [propext,
+info: OIBridge/HomometricSix.lean:277:0: 'OIBridge.HomometricSix.golomb_r1' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:278:0: 'OIBridge.HomometricSix.golomb_r2' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:279:0: 'OIBridge.HomometricSix.mu_gap' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:280:0: 'OIBridge.HomometricSix.mu_forced' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:281:0: 'OIBridge.HomometricSix.muInv_mu' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:282:0: 'OIBridge.HomometricSix.mu_muInv' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:285:0: 'OIBridge.HomometricSix.linkage' depends on axioms: [propext]
+info: OIBridge/HomometricSix.lean:286:0: 'OIBridge.HomometricSix.maskV_factor' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HomometricSix.lean:287:0: 'OIBridge.HomometricSix.maskW_factor' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HomometricSix.lean:290:0: 'OIBridge.HomometricSix.linkage'' depends on axioms: [propext]
+info: OIBridge/CongruentReconstruction.lean:808:0: 'OIBridge.CongruentReconstruction.reconstruction_translation_of_moduli' depends on axioms: [propext,
+info: OIBridge/CongruentReconstruction.lean:810:0: 'OIBridge.CongruentReconstruction.reconstruction_reflection_of_moduli' depends on axioms: [propext,
+info: OIBridge/CongruentReconstruction.lean:818:0: 'OIBridge.CongruentReconstruction.twoBranch_of_PiccardClassification' depends on axioms: [propext,
+info: OIBridge/CongruentReconstruction.lean:819:0: 'OIBridge.CongruentReconstruction.twoBranch_of_spectral_classification' depends on axioms: [propext,
+info: OIBridge/ThermalOrientation.lean:506:0: 'OIBridge.ThermalOrientation.reflection_excluded_of_transition_identification' depends on axioms: [propext,
+info: OIBridge/CoherentLift.lean:1584:0: 'OIBridge.CoherentLift.projector_shell_representation_from_comb' depends on axioms: [propext,
+info: OIBridge/CoherentLift.lean:1585:0: 'OIBridge.CoherentLift.comb_mixture_of_projector_shell_representation' depends on axioms: [propext,
+info: OIBridge/ObservabilityQuotient.lean:458:0: 'OIBridge.ObservabilityQuotient.classIndicator_eq_itiIndicator' depends on axioms: [propext,
+info: OIBridge/ObservabilityQuotient.lean:461:0: 'OIBridge.ObservabilityQuotient.invariant_le_span_classIndicators' depends on axioms: [propext,
+info: OIBridge/ObservabilityQuotient.lean:462:0: 'OIBridge.ObservabilityQuotient.branchDomain_span_eq_itineraryInvariant' depends on axioms: [propext,
+info: OIBridge/ObservabilityQuotient.lean:463:0: 'OIBridge.ObservabilityQuotient.classicalBranchDomain_iff_horizon' depends on axioms: [propext,
+info: OIBridge/ObservabilityQuotient.lean:465:0: 'OIBridge.ObservabilityQuotient.classicalBranch_span_eq_invariant' depends on axioms: [propext,
+info: OIBridge/ObservabilityQuotient.lean:467:0: 'OIBridge.ObservabilityQuotient.domainGlue_classification_mod_itineraryFibres' depends on axioms: [propext,
+info: OIBridge/PassiveQuotient.lean:649:0: 'OIBridge.PassiveQuotient.passiveMinimal_iff_itinerarySeparating' depends on axioms: [propext,
+info: OIBridge/PassiveQuotient.lean:662:0: 'OIBridge.PassiveQuotient.passiveQuotient_glue_forces_monomial' depends on axioms: [propext,
+info: OIBridge/PassiveQuotient.lean:663:0: 'OIBridge.PassiveQuotient.ergodicShell_SRC_of_passiveQuotient' depends on axioms: [propext,
+info: OIBridge/PassiveQuotient.lean:672:0: 'OIBridge.PassiveQuotient.linear_separating_iff_observability' depends on axioms: [propext,
+info: OIBridge/ControlledQuotient.lean:254:0: 'OIBridge.ControlledQuotient.ctrlRel_evolve' depends on axioms: [Quot.sound]
+info: OIBridge/ControlledQuotient.lean:258:0: 'OIBridge.ControlledQuotient.ctrlRel_greatest_congruence' depends on axioms: [Quot.sound]
+info: OIBridge/ControlledQuotient.lean:262:0: 'OIBridge.ControlledQuotient.controlledMinimal_iff_actionSeparating' depends on axioms: [Quot.sound]
+info: OIBridge/ControlledQuotient.lean:264:0: 'OIBridge.ControlledQuotient.intervention_separates_passive_fibre' depends on axioms: [propext, Quot.sound]
+info: OIBridge/CoherentExtension.lean:841:0: 'OIBridge.CoherentExtension.correlationExtension_completelyPositive' depends on axioms: [propext,
+info: OIBridge/CoherentExtension.lean:844:0: 'OIBridge.CoherentExtension.cptp_classical_forces_correlation' depends on axioms: [propext,
+info: OIBridge/CoherentExtension.lean:845:0: 'OIBridge.CoherentExtension.cptpExtension_iff_correlationMatrix' depends on axioms: [propext,
+info: OIBridge/CoherentExtension.lean:847:0: 'OIBridge.CoherentExtension.correlationExtension_one_eq_id_iff' depends on axioms: [propext,
+info: OIBridge/CoherentExtension.lean:855:0: 'OIBridge.CoherentExtension.classicalComb_blind_to_correlation' depends on axioms: [propext,
+info: OIBridge/ProjectiveAction.lean:283:0: 'OIBridge.ProjectiveAction.coherentFunctoriality_iff_projectiveMonomial' depends on axioms: [propext,
+info: OIBridge/InstrumentDilation.lean:466:0: 'OIBridge.InstrumentDilation.finiteInstrument_of_ancillaControl' depends on axioms: [propext,
+info: OIBridge/InstrumentDilation.lean:475:0: 'OIBridge.InstrumentDilation.productMatrixUnit_local_separating' depends on axioms: [propext,
+info: OIBridge/IndependenceCensus.lean:838:0: 'OIBridge.IndependenceCensus.sigma_tau_commute' depends on axioms: [Quot.sound]
+info: OIBridge/IndependenceCensus.lean:841:0: 'OIBridge.IndependenceCensus.threeCompletions_same_classical_comb' depends on axioms: [propext,
+info: OIBridge/IndependenceCensus.lean:860:0: 'OIBridge.IndependenceCensus.oi_core_underdetermines_completion' depends on axioms: [propext,
+info: OIBridge/MonoidalCompletion.lean:804:0: 'OIBridge.MonoidalCompletion.implementationExtensionality_descends' depends on axioms: [propext,
+info: OIBridge/MonoidalCompletion.lean:808:0: 'OIBridge.MonoidalCompletion.implementationExtensionality_iff_functorial' depends on axioms: [propext,
+info: OIBridge/MonoidalCompletion.lean:815:0: 'OIBridge.MonoidalCompletion.parityPerm_injective' depends on axioms: [Quot.sound]
+info: OIBridge/MonoidalCompletion.lean:816:0: 'OIBridge.MonoidalCompletion.implementationExtensionality_of_involutive' depends on axioms: [propext,
+info: OIBridge/MonoidalCompletion.lean:817:0: 'OIBridge.MonoidalCompletion.nonTensor_implementationExtensional' depends on axioms: [propext,
+info: OIBridge/MonoidalCompletion.lean:818:0: 'OIBridge.MonoidalCompletion.restricted_implementationExtensional' depends on axioms: [propext,
+info: OIBridge/MonoidalCompletion.lean:819:0: 'OIBridge.MonoidalCompletion.nonFunctorial_not_implementationExtensional' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:803:0: 'OIBridge.OperationalAssembly.spectatorIndependent_iff_mapLevel' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:806:0: 'OIBridge.OperationalAssembly.localLuders_mapSpectatorIndependent' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:808:0: 'OIBridge.OperationalAssembly.mapSpectatorIndependent_iff_localLuders' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:816:0: 'OIBridge.OperationalAssembly.blockDephase_not_mapSpectatorIndependent' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:818:0: 'OIBridge.OperationalAssembly.hasFullInstruments_hasUniversalControl' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:825:0: 'OIBridge.OperationalAssembly.compositeControl_hasSwapControl' depends on axioms: [propext,
+info: OIBridge/OperationalAssembly.lean:827:0: 'OIBridge.OperationalAssembly.pureSeedPrep_available_of_swapControl' depends on axioms: [propext,
+info: OIBridge/CompositeSoundness.lean:387:0: 'OIBridge.CompositeSoundness.krausSoundExtAllLevels_unsatisfiable' depends on axioms: [propext,
+info: OIBridge/CompositeSoundness.lean:393:0: 'OIBridge.CompositeSoundness.traceWitness_exposed_on_reachable' depends on axioms: [propext,
+info: OIBridge/HiddenCoherence.lean:594:0: 'OIBridge.HiddenCoherence.krausSound_not_implies_krausSoundExt' depends on axioms: [propext,
+info: OIBridge/HiddenCoherence.lean:595:0: 'OIBridge.HiddenCoherence.hiddenCoherenceFull_not_krausSoundExt' depends on axioms: [propext,
+info: OIBridge/AncillaInterference.lean:400:0: 'OIBridge.AncillaInterference.compositeControl_hasInterference' depends on axioms: [propext,
+info: OIBridge/AncillaInterference.lean:401:0: 'OIBridge.AncillaInterference.interferenceControl_hasInterference' depends on axioms: [propext,
+info: OIBridge/AncillaInterference.lean:402:0: 'OIBridge.AncillaInterference.interferenceControl_exposes_badOp' depends on axioms: [propext,
+info: OIBridge/AncillaInterference.lean:403:0: 'OIBridge.AncillaInterference.compositeControl_hasInterferenceControl' depends on axioms: [propext,
+info: OIBridge/PartialTranspose.lean:241:0: 'OIBridge.PartialTranspose.ancTranspose_survives_interference' depends on axioms: [propext,
+info: OIBridge/FactorExchange.lean:176:0: 'OIBridge.FactorExchange.compositeControl_exposes_ancTranspose' depends on axioms: [propext,
+info: OIBridge/DimensionalObstruction.lean:545:0: 'OIBridge.DimensionalObstruction.qubit_tests_do_not_characterize_cp' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:667:0: 'OIBridge.DimensionalCountermodel.amplR_ptraceAncL_posSemidef' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:668:0: 'OIBridge.DimensionalCountermodel.amplR_uniformAttach_posSemidef' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:673:0: 'OIBridge.DimensionalCountermodel.sum_conjTranspose_mul_eq_one_of_trace' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:674:0: 'OIBridge.DimensionalCountermodel.isKrausFamily_of_cp_of_factorization' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:675:0: 'OIBridge.DimensionalCountermodel.psdFactorization_of_spectral' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:678:0: 'OIBridge.DimensionalCountermodel.countermodelOf_reduction2_available' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:679:0: 'OIBridge.DimensionalCountermodel.countermodelOf_not_krausSoundExt' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:680:0: 'OIBridge.DimensionalCountermodel.countermodel_of_factorization' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:683:0: 'OIBridge.DimensionalCountermodel.countermodel_reduction2_available' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:684:0: 'OIBridge.DimensionalCountermodel.countermodel_not_krausSoundExt' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:685:0: 'OIBridge.DimensionalCountermodel.countermodel_hasFactorExchange' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:686:0: 'OIBridge.DimensionalCountermodel.countermodel_hasInterferenceControl' depends on axioms: [propext,
+info: OIBridge/DimensionalCountermodel.lean:687:0: 'OIBridge.DimensionalCountermodel.exactControl_not_implies_krausSoundExt' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:520:0: 'OIBridge.ReferenceExtension.isTwoPositive_iff_referencePositive' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:528:0: 'OIBridge.ReferenceExtension.isCompletelyPositive_iff_referencePositive_self' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:535:0: 'OIBridge.ReferenceExtension.amplRef_reduction2_maxEnt3_not_posSemidef' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:546:0: 'OIBridge.ReferenceExtension.countermodel_not_qutritReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:547:0: 'OIBridge.ReferenceExtension.countermodel_not_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:548:0: 'OIBridge.ReferenceExtension.control_not_implies_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ReferenceExtension.lean:549:0: 'OIBridge.ReferenceExtension.exactControl_not_implies_qutritReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:817:0: 'OIBridge.ReferenceSufficiency.unitVectorRotation_of_isometryExtension' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:823:0: 'OIBridge.ReferenceSufficiency.linear_functional_zero_of_dyads' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:829:0: 'OIBridge.ReferenceSufficiency.krausSoundExt_of_sound_control_refext' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:830:0: 'OIBridge.ReferenceSufficiency.krausSoundExt_of_exact_control_refext' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:831:0: 'OIBridge.ReferenceSufficiency.countermodel_witness_level_two' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:839:0: 'OIBridge.ReferenceSufficiency.fullQuantum_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ReferenceSufficiency.lean:840:0: 'OIBridge.ReferenceSufficiency.parallelReferenceExtension_satisfiable' depends on axioms: [propext,
+info: OIBridge/SpectatorBridge.lean:482:0: 'OIBridge.SpectatorBridge.mapSpectatorIndependent_iff_amplRef' depends on axioms: [propext,
+info: OIBridge/SpectatorBridge.lean:488:0: 'OIBridge.SpectatorBridge.inertSpectator_iff_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/SpectatorBridge.lean:489:0: 'OIBridge.SpectatorBridge.krausSoundExt_of_sound_control_inert' depends on axioms: [propext,
+info: OIBridge/SpectatorBridge.lean:493:0: 'OIBridge.SpectatorBridge.correlationExtension_ones_eq_conjChannel' depends on axioms: [propext,
+info: OIBridge/SpectatorBridge.lean:508:0: 'OIBridge.SpectatorBridge.hcompRealized_not_implies_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/SpectatorBridge.lean:509:0: 'OIBridge.SpectatorBridge.hcompRealized_consistent_with_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ClosureObstruction.lean:753:0: 'OIBridge.ClosureObstruction.admissible_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/ClosureObstruction.lean:779:0: 'OIBridge.ClosureObstruction.admissible_not_iteratedAncillaClosure' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:300:0: 'OIBridge.CompositionalIndependence.amplR_uniformAttach_eq_sum' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:301:0: 'OIBridge.CompositionalIndependence.discardWith_uniform_twoPositive' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:302:0: 'OIBridge.CompositionalIndependence.countermodel_iteratedAncillaClosure' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:305:0: 'OIBridge.CompositionalIndependence.countermodel_reduction2_available_fin1' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:306:0: 'OIBridge.CompositionalIndependence.countermodel_not_exactComposite' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:307:0: 'OIBridge.CompositionalIndependence.closure_not_implies_inert' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:308:0: 'OIBridge.CompositionalIndependence.inert_not_implies_closure' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:311:0: 'OIBridge.CompositionalIndependence.hcompRealized_inert_not_implies_closure' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:312:0: 'OIBridge.CompositionalIndependence.hcompRealized_closure_not_implies_inert' depends on axioms: [propext,
+info: OIBridge/CompositionalIndependence.lean:315:0: 'OIBridge.CompositionalIndependence.conditional_classification' depends on axioms: [propext,
+info: OIBridge/OperationalValidity.lean:242:0: 'OIBridge.OperationalValidity.krausSoundExt_of_validity_inert' depends on axioms: [propext,
+info: OIBridge/OperationalValidity.lean:244:0: 'OIBridge.OperationalValidity.krausSoundExt_iff_validity_of_inert' depends on axioms: [propext,
+info: OIBridge/OperationalValidity.lean:248:0: 'OIBridge.OperationalValidity.validity_not_implies_krausSoundExt' depends on axioms: [propext,
+info: OIBridge/LevelOneSeam.lean:415:0: 'OIBridge.LevelOneSeam.systemLoose_parallelReferenceExtension' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:587:0: 'OIBridge.PhysicalCharacterization.krausFamily_of_exactComposite' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:589:0: 'OIBridge.PhysicalCharacterization.krausFamily_of_exactSystem' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:591:0: 'OIBridge.PhysicalCharacterization.krausSoundExt_of_exactComposite' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:592:0: 'OIBridge.PhysicalCharacterization.validity_of_exactComposite' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:600:0: 'OIBridge.PhysicalCharacterization.everywhereAvailable_not_validity' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:601:0: 'OIBridge.PhysicalCharacterization.everywhereAvailable_control' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:603:0: 'OIBridge.PhysicalCharacterization.countermodel_systemToLevelOne' depends on axioms: [propext,
+info: OIBridge/PhysicalCharacterization.lean:608:0: 'OIBridge.PhysicalCharacterization.levelOne_eq' depends on axioms: [propext]
+info: OIBridge/PhysicalCharacterization.lean:621:0: 'OIBridge.PhysicalCharacterization.admissible_not_systemToLevelOne' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:288:0: 'OIBridge.IsometryExtension.finiteIsometryExtensionSF_discharged' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:292:0: 'OIBridge.IsometryExtension.fullInstruments_of_control_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:293:0: 'OIBridge.IsometryExtension.exact_of_sound_control_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:294:0: 'OIBridge.IsometryExtension.compositeCompleteness_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:296:0: 'OIBridge.IsometryExtension.krausSoundExt_of_sound_control_inert_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:297:0: 'OIBridge.IsometryExtension.exactComposite_of_conditions_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:298:0: 'OIBridge.IsometryExtension.exactComposite_of_validity_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:299:0: 'OIBridge.IsometryExtension.exactAll_of_conditions_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:300:0: 'OIBridge.IsometryExtension.exactAll_of_physical_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:301:0: 'OIBridge.IsometryExtension.exactAll_iff_physical_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:302:0: 'OIBridge.IsometryExtension.fullQuantum_exactComposite_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:304:0: 'OIBridge.IsometryExtension.systemLoose_exactComposite_unconditional' depends on axioms: [propext,
+info: OIBridge/IsometryExtension.lean:305:0: 'OIBridge.IsometryExtension.final_classification_unconditional' depends on axioms: [propext,
+info: OIBridge/GeneralCarrier.lean:223:0: 'OIBridge.GeneralCarrier.exactAll_iff_physical_unconditional_of_general' depends on axioms: [propext,
+info: OIBridge/UhlmannUniqueness.lean:383:0: 'OIBridge.UhlmannUniqueness.mul_conjTranspose_of_conjTranspose_mul' depends on axioms: [propext,
+info: OIBridge/ReachabilitySeam.lean:460:0: 'OIBridge.ReachabilitySeam.noControls_central_scalar_of_mem_closure' depends on axioms: [propext,
+info: OIBridge/ReachabilitySeam.lean:461:0: 'OIBridge.ReachabilitySeam.noControls_central_reachable_scalar' depends on axioms: [propext,
+info: OIBridge/OrbitReachability.lean:654:0: 'OIBridge.OrbitReachability.norm_eq_one_of_smul_one_mem_unitary' depends on axioms: [propext,
+info: OIBridge/OrbitReachability.lean:664:0: 'OIBridge.OrbitReachability.controlGenerators_subset_orbitDirs' depends on axioms: [propext,
+info: OIBridge/OrbitReachability.lean:682:0: 'OIBridge.OrbitReachability.universalReachability_of_lieRank_unconditional' depends on axioms: [propext,
+info: OIBridge/PositiveReachability.lean:1034:0: 'OIBridge.PositiveReachability.universalReachability_of_lieRank_positive' depends on axioms: [propext,
+info: OIBridge/SubstantiveCensus.lean:1047:0: 'OIBridge.SubstantiveCensus.amplRef_redMap_ent3_not_posSemidef' depends on axioms: [propext,
+info: OIBridge/SubstantiveCensus.lean:1067:0: 'OIBridge.SubstantiveCensus.discardWith_uniform_spectatorLast' depends on axioms: [propext,
+info: OIBridge/SubstantiveCensus.lean:1068:0: 'OIBridge.SubstantiveCensus.preservesDiag_conjChannel_of_colMonomial' depends on axioms: [propext,
+info: OIBridge/CarrierGeneralOIPlus.lean:243:0: 'OIBridge.OIHierarchyGeneral.observationalIndependence_iff_inert' depends on axioms: [propext,
+info: OIBridge/CarrierGeneralOIPlus.lean:244:0: 'OIBridge.OIHierarchyGeneral.parallel_of_observationalIndependence' depends on axioms: [propext,
+info: OIBridge/EmbeddedObservation.lean:406:0: 'OIBridge.PrimitiveSource.observerRecursion_of_embeddedObservation' depends on axioms: [propext,
+info: OIBridge/EmbeddedObservation.lean:407:0: 'OIBridge.PrimitiveSource.systemToLevelOne_of_embeddedObservation' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1087:0: 'OIBridge.InterventionLocality.countermodel_embeddedObservation' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1088:0: 'OIBridge.InterventionLocality.countermodel_reversibleRichness' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1135:0: 'OIBridge.InterventionLocality.refBlockR_reindex_uniformAttach' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1148:0: 'OIBridge.InterventionLocality.genTheory_implementationLocality' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1149:0: 'OIBridge.InterventionLocality.parallel_of_implementationLocal' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1150:0: 'OIBridge.InterventionLocality.observationalIndependence_of_implementationLocality' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1151:0: 'OIBridge.InterventionLocality.krausSoundExt_of_implementationGenerated' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1152:0: 'OIBridge.InterventionLocality.validity_of_implementationLocality' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1153:0: 'OIBridge.InterventionLocality.instAvail_fullClass_of_krausFamily' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1156:0: 'OIBridge.InterventionLocality.countermodel_not_implementationGenerated' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1157:0: 'OIBridge.InterventionLocality.countermodel_not_implementationLocality' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1158:0: 'OIBridge.InterventionLocality.implementationLocality_independent' depends on axioms: [propext,
+info: OIBridge/ImplementationLocality.lean:1163:0: 'OIBridge.InterventionLocality.oiPlusLocal_iff_oiPlusEmbedded' depends on axioms: [propext,
+info: OIBridge/MicroscopicReversibility.lean:377:0: 'OIBridge.MicroReversibility.implementationLocality_of_reversible' depends on axioms: [propext,
+info: OIBridge/MicroscopicReversibility.lean:379:0: 'OIBridge.MicroReversibility.exists_scaled_mem_of_instAvail_unitary' depends on axioms: [propext,
+info: OIBridge/MicroscopicReversibility.lean:380:0: 'OIBridge.MicroReversibility.inverseAccessibility_of_generated_daggerStable' depends on axioms: [propext,
+info: OIBridge/MicroscopicReversibility.lean:381:0: 'OIBridge.MicroReversibility.inverseAccessibility_of_reversibleImplementationLocality' depends on axioms: [propext,
+info: OIBridge/MicroscopicReversibility.lean:382:0: 'OIBridge.MicroReversibility.genTheory_reversibleImplementationLocality' depends on axioms: [propext,
+info: OIBridge/MicroscopicReversibility.lean:385:0: 'OIBridge.MicroReversibility.reversibleImplementationLocality_of_qm' depends on axioms: [propext,
+info: OIBridge/SubstratumSource.lean:199:0: 'OIBridge.SubstratumSource.genTheory_qm_of_quantumArchitecture' depends on axioms: [propext,
+info: OIBridge/SubstratumSource.lean:202:0: 'OIBridge.SubstratumSource.qm_generated_by_quantumArchitecture' depends on axioms: [propext,
+info: OIBridge/SubstratumSource.lean:204:0: 'OIBridge.SubstratumSource.diagGen_not_quantumArchitectureGenerated' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:451:0: 'OIBridge.StructuralClosure.substratumClass_unitaryRaySaturated' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:454:0: 'OIBridge.StructuralClosure.substratumClass_structurallyClosed' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:460:0: 'OIBridge.StructuralClosure.quantumArchitecture_iff_drives_of_closed' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:461:0: 'OIBridge.StructuralClosure.substratumClass_not_drivesElementary' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:462:0: 'OIBridge.StructuralClosure.substratumClass_not_quantumArchitecture' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:464:0: 'OIBridge.StructuralClosure.substratum_extension_quantum_iff_drives' depends on axioms: [propext,
+info: OIBridge/StructuralClosure.lean:467:0: 'OIBridge.StructuralClosure.qm_generated_by_substratum_extension' depends on axioms: [propext,
+info: OIBridge/ManuscriptAxioms.lean:186:0: 'OIBridge.ManuscriptAxioms.substratumClass_configurationLevel' depends on axioms: [propext,
+info: OIBridge/ManuscriptAxioms.lean:187:0: 'OIBridge.ManuscriptAxioms.configurationLevel_iff_le_substratum' depends on axioms: [propext,
+info: OIBridge/ManuscriptAxioms.lean:189:0: 'OIBridge.ManuscriptAxioms.configurationLevel_falsifierUnavailable' depends on axioms: [propext,
+info: OIBridge/TypedCompletion.lean:295:0: 'OIBridge.TypedCompletion.TypedOperationalTheory.availT_equiv' depends on axioms: [propext,
+info: OIBridge/TypedCompletion.lean:296:0: 'OIBridge.TypedCompletion.TypedOperationalTheory.shadow_regroupingInvariant' depends on axioms: [propext,
+info: OIBridge/TypedCompletion.lean:297:0: 'OIBridge.TypedCompletion.TypedOperationalTheory.shadow_relabellingInvariant' depends on axioms: [propext,
+info: OIBridge/TypedCompletion.lean:298:0: 'OIBridge.TypedCompletion.TypedOperationalTheory.shadow_isAmbientMember' depends on axioms: [propext,
+info: OIBridge/TypedCompletion.lean:299:0: 'OIBridge.TypedCompletion.TypedOperationalTheory.shadow_embeddedObservation' depends on axioms: [propext,
+info: OIBridge/SecondOrderCircuit.lean:815:0: 'OIBridge.SecondOrderCircuit.shear_shear' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:818:0: 'OIBridge.SecondOrderCircuit.leapEquiv' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:819:0: 'OIBridge.SecondOrderCircuit.leap_leap_symm' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:820:0: 'OIBridge.SecondOrderCircuit.leap_symm_leap' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:822:0: 'OIBridge.SecondOrderCircuit.curOf_gate' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:823:0: 'OIBridge.SecondOrderCircuit.gate_gate' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:824:0: 'OIBridge.SecondOrderCircuit.swapGate_swapGate' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:825:0: 'OIBridge.SecondOrderCircuit.gate_comm' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SecondOrderCircuit.lean:826:0: 'OIBridge.SecondOrderCircuit.swapGate_comm' depends on axioms: [propext, Quot.sound]
+info: OIBridge/QuasilocalCharacterization.lean:878:0: 'OIBridge.QuasilocalCharacterization.agreeOffG_patch_iff_of_disjoint' depends on axioms: [propext,
+info: OIBridge/QuasilocalCharacterization.lean:880:0: 'OIBridge.QuasilocalCharacterization.kerOf_emb_mul_emb_of_disjoint' depends on axioms: [propext,
+info: OIBridge/QuasilocalCharacterization.lean:930:0: 'OIBridge.QuasilocalCharacterization.phaseU_mul_conjTranspose' depends on axioms: [propext,
+info: OIBridge/QuasilocalCharacterization.lean:931:0: 'OIBridge.QuasilocalCharacterization.conjTranspose_mul_phaseU' depends on axioms: [propext,
+info: OIBridge/QuasilocalCharacterization.lean:959:0: 'OIBridge.QuasilocalCharacterization.phase_localityPreserving' depends on axioms: [propext,
+info: OIBridge/QuasilocalCharacterization.lean:963:0: 'OIBridge.QuasilocalCharacterization.quasilocal_characterization' depends on axioms: [propext,
+info: OIBridge/SecondOrderLayer.lean:1009:0: 'OIBridge.SecondOrderLayer.disjoint_gateRegion_of_notMem_affected' depends on axioms: [propext,
+info: OIBridge/LiftAudit.lean:870:0: 'OIBridge.LiftAudit.levelPerm_apply' depends on axioms: [propext, Quot.sound]
+info: OIBridge/LiftAudit.lean:871:0: 'OIBridge.LiftAudit.levelPerm_involutive' depends on axioms: [propext, Quot.sound]
+info: OIBridge/LiftAudit.lean:885:0: 'OIBridge.LiftAudit.configurationLevel_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/LiftAudit.lean:923:0: 'OIBridge.LiftAudit.substratumTheory_not_layerFlowExecutable_swap' depends on axioms: [propext,
+info: OIBridge/LiftAudit.lean:925:0: 'OIBridge.LiftAudit.derivedOI_qm_iff_layerFlowExecutable_swap' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:870:0: 'OIBridge.SubstratumInterfaceAudit.Substratum.a2_every_substratum' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:874:0: 'OIBridge.SubstratumInterfaceAudit.dir_flip' depends on axioms: [propext, Quot.sound]
+info: OIBridge/SubstratumInterfaceAudit.lean:894:0: 'OIBridge.SubstratumInterfaceAudit.permClass_unitaryRaySaturated' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:901:0: 'OIBridge.SubstratumInterfaceAudit.bijectionLevel_configurationLevel' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:902:0: 'OIBridge.SubstratumInterfaceAudit.preservesNonneg_conj_of_scaled' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:904:0: 'OIBridge.SubstratumInterfaceAudit.preservesNonneg_of_realized' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:905:0: 'OIBridge.SubstratumInterfaceAudit.diagonal_nonneg_of_preservesNonneg' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:906:0: 'OIBridge.SubstratumInterfaceAudit.phaseGate_not_preservesNonneg' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:908:0: 'OIBridge.SubstratumInterfaceAudit.bijectionLevel_not_phasesAvailable' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:909:0: 'OIBridge.SubstratumInterfaceAudit.bijectionLevel_diagonal_only_scalar' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:911:0: 'OIBridge.SubstratumInterfaceAudit.derivedOI_iff_sourcedOI_phases' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:915:0: 'OIBridge.SubstratumInterfaceAudit.sourcedOI_qm_iff_phaseFree' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:917:0: 'OIBridge.SubstratumInterfaceAudit.permTheory_not_phasesAvailable' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:918:0: 'OIBridge.SubstratumInterfaceAudit.permTheory_diagonal_only_scalar' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:921:0: 'OIBridge.SubstratumInterfaceAudit.substratumAvail_phasesAvailable' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:922:0: 'OIBridge.SubstratumInterfaceAudit.permTheory_not_substratumAvail' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:923:0: 'OIBridge.SubstratumInterfaceAudit.permTheory_availExt_le_substratum' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:928:0: 'OIBridge.SubstratumInterfaceAudit.permTheory_realizesSealedOICore' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:929:0: 'OIBridge.SubstratumInterfaceAudit.permTheory_falsifierUnavailable' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:932:0: 'OIBridge.SubstratumInterfaceAudit.obsTheory_rule_independent' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:941:0: 'OIBridge.SubstratumInterfaceAudit.obs_reversibleImplementationLocality' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:944:0: 'OIBridge.SubstratumInterfaceAudit.obs_diagonal_avail_only_scalar' depends on axioms: [propext,
+info: OIBridge/SubstratumInterfaceAudit.lean:947:0: 'OIBridge.SubstratumInterfaceAudit.obs_availExt_le_substratum' depends on axioms: [propext,
+info: OIBridge/HydroSourceAudit.lean:908:0: 'OIBridge.HydroSourceAudit.map_zero_of_additive' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HydroSourceAudit.lean:914:0: 'OIBridge.HydroSourceAudit.wave_coarseCloses_additive_on_range' depends on axioms: [propext,
+info: OIBridge/HydroSourceAudit.lean:933:0: 'OIBridge.HydroSourceAudit.dir_eq_intCast' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HexLatticeGas.lean:1143:0: 'OIBridge.HexLatticeGas.hexDir_add_three' depends on axioms: [propext]
+info: OIBridge/HexLatticeGas.lean:1144:0: 'OIBridge.HexLatticeGas.hexDir_cast_add_three' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HexLatticeGas.lean:1145:0: 'OIBridge.HexLatticeGas.hexDir_add_one' depends on axioms: [propext]
+info: OIBridge/HexLatticeGas.lean:1146:0: 'OIBridge.HexLatticeGas.hexDir_sub_one' depends on axioms: [propext]
+info: OIBridge/HexLatticeGas.lean:1147:0: 'OIBridge.HexLatticeGas.hexDir_conditions' depends on axioms: [propext]
+info: OIBridge/HexLatticeGas.lean:1152:0: 'OIBridge.HexLatticeGas.hexCollide_moved_support' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HexLatticeGas.lean:1158:0: 'OIBridge.HexLatticeGas.hexStream_apply' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HexLatticeGas.lean:1188:0: 'OIBridge.HexLatticeGas.single_channel_zero' depends on axioms: [propext, Quot.sound]
+info: OIBridge/HexLatticeGas.lean:1196:0: 'OIBridge.HexLatticeGas.hexSubstratum_mass_not_conserved_off_sector' depends on axioms: [propext,
+info: OIBridge/FactorUniqueness.lean:266:0: 'OIBridge.FactorUniqueness.factor_not_unique_of_not_injective' depends on axioms: [propext,
+info: OIBridge/FactorUniqueness.lean:267:0: 'OIBridge.FactorUniqueness.factor_not_injective_of_not_injective' depends on axioms: [propext,
+info: OIBridge/IdempotentTrace.lean:176:0: 'OIBridge.IdempotentTrace.mapsTo_ker' depends on axioms: [propext, Quot.sound]
+info: OIBridge/Irreducibility.lean:179:0: 'OIBridge.Irreducibility.isIrreducible_of_finrank_intertwiners_eq_one' depends on axioms: [propext,
+info: OIBridge/KrausUniqueness.lean:272:0: 'OIBridge.KrausUniqueness.synth_injective_of_linearIndependent' depends on axioms: [propext,
+info: OIBridge/StinespringUniqueness.lean:500:0: 'OIBridge.StinespringUniqueness.minimal_iff_linearIndependent' depends on axioms: [propext,
+info: OIBridge/Reciprocity.lean:149:0: 'OIBridge.Reciprocity.Tm_involutive' depends on axioms: [propext]
+info: OIBridge/Reciprocity.lean:150:0: 'OIBridge.Reciprocity.key' depends on axioms: [propext, Quot.sound]
+info: OIBridge/PiccardBridge.lean:164:0: 'OIBridge.HomometricSix.piccardX_at_printed' depends on axioms: [propext]
+info: OIBridge/PiccardBridge.lean:165:0: 'OIBridge.HomometricSix.piccardY_at_printed' depends on axioms: [propext]
+info: OIBridge/PiccardBridge.lean:166:0: 'OIBridge.HomometricSix.piccard_factor_r' depends on axioms: [propext, Quot.sound]
+info: OIBridge/PiccardBridge.lean:167:0: 'OIBridge.HomometricSix.piccard_factor_s' depends on axioms: [propext, Quot.sound]
+info: OIBridge/QuarterTurn.lean:694:0: 'OIBridge.QuarterTurn.antiPerm_not_isRot' depends on axioms: [propext, Quot.sound]
+info: OIBridge/TurnpikeScopeTransfer.lean:850:0: 'OIBridge.ScopeTransfer.integer_realization_of_real_realization' depends on axioms: [propext,
+info: OIBridge/JordanClassification.lean:1136:0: 'OIBridge.JordanClassification.orthogonal_resolution_rank_one' depends on axioms: [propext,
+info: OIBridge/JordanClassification.lean:1142:0: 'OIBridge.JordanClassification.matrixJordan_unitary_or_transpose' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:409:0: 'OIBridge.OrientationSelection.transpose_completion_admissible' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:410:0: 'OIBridge.OrientationSelection.transpose_realizes_second_branch' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:412:0: 'OIBridge.OrientationSelection.orientedReference_excludes_transpose' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:413:0: 'OIBridge.OrientationSelection.oriented_functional_not_data_definable' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:414:0: 'OIBridge.OrientationSelection.sameData_unitary_of_orientedReference' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:415:0: 'OIBridge.OrientationSelection.shellRepresentation_stationary_profile' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:416:0: 'OIBridge.OrientationSelection.sameData_unitary_of_transitionIdentification' depends on axioms: [propext,
+info: OIBridge/OrientationSelection.lean:417:0: 'OIBridge.OrientationSelection.sameData_unitary_of_shellRepresentation' depends on axioms: [propext,
+info: OIBridge/OrientationClosure.lean:293:0: 'OIBridge.OrientationClosure.shellRepresentation_transpose_stable' depends on axioms: [propext,
+info: OIBridge/OrientationClosure.lean:294:0: 'OIBridge.OrientationClosure.transitionIdentification_orientation_sensitive' depends on axioms: [propext,
+info: OIBridge/OrientationClosure.lean:296:0: 'OIBridge.OrientationClosure.orientedShellRepresentation_orientation_sensitive' depends on axioms: [propext,
+info: OIBridge/OrientationClosure.lean:298:0: 'OIBridge.OrientationClosure.no_symmetric_condition_forces_transitionIdentification' depends on axioms: [propext,
+info: OIBridge/OrientationClosure.lean:299:0: 'OIBridge.OrientationClosure.no_symmetric_condition_forces_orientedShell' depends on axioms: [propext,
+info: OIBridge/PassiveObservation.lean:356:0: 'OIBridge.PassiveObservation.passive_outcome_state_independent' depends on axioms: [propext,
+info: OIBridge/CentralObservation.lean:640:0: 'OIBridge.CentralObservation.complete_passive_iff_commutative' depends on axioms: [propext,
+info: OIBridge/PassiveIndependence.lean:351:0: 'OIBridge.PassiveIndependence.passivelyIncomplete_without_oiCore' depends on axioms: [propext,
+info: OIBridge/PassiveIndependence.lean:356:0: 'OIBridge.PassiveIndependence.diag_passivelyCompleteOnDiagonal' depends on axioms: [propext,
+info: OIBridge/PassiveIndependence.lean:357:0: 'OIBridge.PassiveIndependence.label_passivelyCompleteOnDiagonal' depends on axioms: [propext,
+info: OIBridge/LevelOneRecursion.lean:64:0: 'OIBridge.LevelOneRecursion.levelOne_independent_of_recursion' depends on axioms: [propext,
+info: OIBridge/BackgroundIndependence.lean:403:0: 'OIBridge.BackgroundIndependence.a6glob_of_a6inv' depends on axioms: [Quot.sound]
+info: OIBridge/BackgroundIndependence.lean:405:0: 'OIBridge.BackgroundIndependence.a6cov_all' depends on axioms: [propext, Quot.sound]
+info: OIBridge/BackgroundIndependence.lean:410:0: 'OIBridge.BackgroundIndependence.d4b_not_a6inv_of_nonconstant' depends on axioms: [propext,
+info: OIBridge/BackgroundIndependence.lean:413:0: 'OIBridge.BackgroundIndependence.addAut_nontrivial_of_ne_neg' depends on axioms: [propext, Quot.sound]
+info: OIBridge/BackgroundIndependence.lean:414:0: 'OIBridge.BackgroundIndependence.addAut_zmod_smul' depends on axioms: [propext, Quot.sound]
+info: OIBridge/A6Instantiation.lean:593:0: 'OIBridge.A6Instantiation.pk4_shift_not_scalar' depends on axioms: [propext, Quot.sound]
+info: OIBridge/InstrumentRealization.lean:1226:0: 'OIBridge.InstrumentRealization.conjTranspose_mulVec_ones_of_eigen' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1232:0: 'OIBridge.InstrumentRealization.ancBlock_conjTranspose_mulVec_ones' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1252:0: 'OIBridge.InstrumentRealization.onesCompatible_fromRows_right' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1259:0: 'OIBridge.InstrumentRealization.onesCompatible_tensorRect_one' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1261:0: 'OIBridge.InstrumentRealization.reindex_left_conjTranspose_mulVec' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1281:0: 'OIBridge.InstrumentRealization.secEmb_conjTranspose_mul_tensorOf' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1284:0: 'OIBridge.InstrumentRealization.transition_scaled_mem_onesClass' depends on axioms: [propext,
+info: OIBridge/InstrumentRealization.lean:1286:0: 'OIBridge.InstrumentRealization.flow_realized_not_instrumentRealized' depends on axioms: [propext,
+info: OIBridge/FlowEndpoint.lean:212:0: 'OIBridge.FlowEndpoint.levelPerm_involutive' depends on axioms: [propext, Quot.sound]
+info: OIBridge/PhaseSource.lean:205:0: 'OIBridge.PhaseSource.permTheory_not_phasesAvailable_onesFixing' depends on axioms: [propext,
+info: OIBridge/DerivedQ3.lean:308:0: 'OIBridge.DerivedQ3.phaseFree_of_derivedOI_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/DerivedQ3.lean:312:0: 'OIBridge.DerivedQ3.phaseFree_of_derivedOI_layerFlowExecutable_swap' depends on axioms: [propext,
+info: OIBridge/DerivedQ3.lean:313:0: 'OIBridge.DerivedQ3.derivedOI_qm_iff_layerFlowExecutable_swap'' depends on axioms: [propext,
+info: OIBridge/DerivedQ3.lean:315:0: 'OIBridge.DerivedQ3.levelPerm_one' depends on axioms: [propext, Quot.sound]
+info: OIBridge/DerivedQ3.lean:318:0: 'OIBridge.DerivedQ3.derivedOI_layerFlowExecutable_one_not_phaseFree' depends on axioms: [propext,
+info: OIBridge/ExecSource.lean:208:0: 'OIBridge.ExecSource.exists_nonMonomial_of_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/ExecSource.lean:209:0: 'OIBridge.ExecSource.not_configurationLevel_of_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/ExecSource.lean:211:0: 'OIBridge.ExecSource.configurationLevel_not_avail_gateFlow_half' depends on axioms: [propext,
+info: OIBridge/ExecSource.lean:212:0: 'OIBridge.ExecSource.substratumTheory_not_avail_gateFlow_half' depends on axioms: [propext,
+info: OIBridge/ExecSource.lean:217:0: 'OIBridge.ExecSource.waveSubstratum_not_layerFlowExecutable_swap' depends on axioms: [propext,
+info: OIBridge/LiftSource.lean:313:0: 'OIBridge.LiftSource.not_layerFlowExecutable_of_preservesDiag' depends on axioms: [propext,
+info: OIBridge/LiftSource.lean:322:0: 'OIBridge.LiftSource.coherentLiftClass_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/LiftSource.lean:324:0: 'OIBridge.LiftSource.waveSubstratum_coherentLift_not_layerFlowExecutable_swap' depends on axioms: [propext,
+info: OIBridge/LiftSource.lean:330:0: 'OIBridge.LiftSource.obs_swap_avail_one_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/SemigroupTransfer.lean:1131:0: 'OIBridge.SemigroupTransfer.mul_hiddenKron_conjTranspose_apply' depends on axioms: [propext,
+info: OIBridge/SemigroupTransfer.lean:1153:0: 'OIBridge.SemigroupTransfer.trace_visibleBlock_hiddenConjugate' depends on axioms: [propext,
+info: OIBridge/WordTraceSufficiency.lean:724:0: 'OIBridge.WordTraceSufficiency.linearCombination_mem_wordSpan' depends on axioms: [propext,
+info: OIBridge/WordTraceSufficiency.lean:727:0: 'OIBridge.WordTraceSufficiency.linearCombination_eq_zero_of_wordTracesEqual' depends on axioms: [propext,
+info: OIBridge/WordTraceSufficiency.lean:745:0: 'OIBridge.WordTraceSufficiency.blockSpanning_of_wordTracesEqual' depends on axioms: [propext,
+info: OIBridge/WordTraceSufficiency.lean:749:0: 'OIBridge.WordTraceSufficiency.WT0b_pairC_not_wordTracesEqual' depends on axioms: [propext,
+info: OIBridge/HydroClosureBridge.lean:564:0: 'OIBridge.HydroClosureBridge.hexStream_clauses_and_six_invariants' depends on axioms: [propext,
+info: OIBridge/HydroClosureBridge.lean:566:0: 'OIBridge.HydroClosureBridge.hexConfWeight_site_dependent_not_invariant' depends on axioms: [propext,
+info: OIBridge/PolarizationClosure.lean:739:0: 'OIBridge.PolarizationClosure.countable_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/PolarizationClosure.lean:740:0: 'OIBridge.PolarizationClosure.uncountable_of_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/PolarizationClosure.lean:749:0: 'OIBridge.PolarizationClosure.polarizedTheoryC_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/PolarizationClosure.lean:750:0: 'OIBridge.PolarizationClosure.polarizedTheory_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/PolarizationClosure.lean:753:0: 'OIBridge.PolarizationClosure.polarizedTheoryC_phasesAvailable' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:352:0: 'OIBridge.CoherentContinuumSource.gateFlow_not_countablyCovered' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:353:0: 'OIBridge.CoherentContinuumSource.nonMonomialCountablyCovered_of_countable' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:354:0: 'OIBridge.CoherentContinuumSource.uncountableNonMonomialRays_of_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:355:0: 'OIBridge.CoherentContinuumSource.not_layerFlowExecutable_of_nonMonomialCountablyCovered' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:356:0: 'OIBridge.CoherentContinuumSource.uncountableNonMonomialRays_of_qm' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:358:0: 'OIBridge.CoherentContinuumSource.weightGate_not_proportional' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:359:0: 'OIBridge.CoherentContinuumSource.substratumClass_not_countablyCovered' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:360:0: 'OIBridge.CoherentContinuumSource.polC_nonMonomialCountablyCovered' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:362:0: 'OIBridge.CoherentContinuumSource.readWriteOperator_range_finite' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:363:0: 'OIBridge.CoherentContinuumSource.readWrite_parameter_uncountable_image_finite' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:364:0: 'OIBridge.CoherentContinuumSource.gateFlow_path_coherent_continuum' depends on axioms: [propext,
+info: OIBridge/CoherentContinuumSource.lean:365:0: 'OIBridge.CoherentContinuumSource.coherent_continuum_not_sourced' depends on axioms: [propext,
+info: OIBridge/StateMixingCoupling.lean:713:0: 'OIBridge.StateMixingCoupling.mixC_uncountableNonMonomialRays' depends on axioms: [propext,
+info: OIBridge/StateMixingCoupling.lean:717:0: 'OIBridge.StateMixingCoupling.layerFlowExecutable_of_mixSourced' depends on axioms: [propext,
+info: OIBridge/StateMixingCoupling.lean:728:0: 'OIBridge.StateMixingCoupling.mixTheoryR_not_layerFlowExecutable' depends on axioms: [propext,
+info: OIBridge/PairFlowEquivalence.lean:262:0: 'OIBridge.PairFlowEquivalence.derivedOI_pairFlowSourced_of_qm' depends on axioms: [propext,
+info: OIBridge/PairFlowEquivalence.lean:264:0: 'OIBridge.PairFlowEquivalence.identity_avail_of_pairFlowSourced' depends on axioms: [propext,
+info: OIBridge/PairFlowEquivalence.lean:268:0: 'OIBridge.PairFlowEquivalence.layerFlowExecutable_of_derivedOI_pairFlowSourced' depends on axioms: [propext,
+info: OIBridge/PairFlowEquivalence.lean:269:0: 'OIBridge.PairFlowEquivalence.qm_of_derivedOI_pairFlowSourced' depends on axioms: [propext,
+info: OIBridge/PairFlowEquivalence.lean:270:0: 'OIBridge.PairFlowEquivalence.qm_iff_derivedOI_pairFlowSourced' depends on axioms: [propext,
+info: OIBridge/PairFlowEquivalence.lean:271:0: 'OIBridge.PairFlowEquivalence.polarizedTheoryC_not_pairFlowSourced' depends on axioms: [propext,
+info: OIBridge/DiscreteCompletion.lean:1997:0: 'OIBridge.DiscreteCompletion.denseUnitaryControl_of_fixedGate' depends on axioms: [propext,
+info: OIBridge/DiscreteCompletion.lean:2001:0: 'OIBridge.DiscreteCompletion.gen2_pi_div_four_finite_upToScalar' depends on axioms: [propext,
+info: OIBridge/DiscreteCompletion.lean:2006:0: 'OIBridge.DiscreteCompletion.fixedGateTheory_fixedGateSourced' depends on axioms: [propext,
+info: OIBridge/DiscreteCompletion.lean:2008:0: 'OIBridge.DiscreteCompletion.fixedGateTheory_denseUnitaryControl' depends on axioms: [propext,
+info: OIBridge/DiscreteCompletion.lean:2010:0: 'OIBridge.DiscreteCompletion.fixedGateTheory_one_denseUnitaryControl' depends on axioms: [propext,
+info: OIBridge/DenseInstrumentBridge.lean:561:0: 'OIBridge.DenseInstrumentBridge.denseFiniteQM_of_denseControl' depends on axioms: [propext,
+info: OIBridge/DenseInstrumentBridge.lean:564:0: 'OIBridge.DenseInstrumentBridge.fixedGateTheory_denseFiniteQM' depends on axioms: [propext,
+info: OIBridge/DenseInstrumentBridge.lean:565:0: 'OIBridge.DenseInstrumentBridge.fixedGateTheory_one_denseFiniteQM' depends on axioms: [propext,
+info: OIBridge/FrozenSourcing.lean:355:0: 'OIBridge.FrozenSourcing.nonnegBounded_not_denseUnitaryControl' depends on axioms: [propext,
+info: OIBridge/FrozenSourcing.lean:358:0: 'OIBridge.FrozenSourcing.nonnegBounded_not_denseUnitaryControl_rot' depends on axioms: [propext,
+info: OIBridge/StochasticInterface.lean:206:0: 'OIBridge.StochasticInterface.ensembleDetermined_of_transitive' depends on axioms: [propext,
+info: OIBridge/StochasticInterface.lean:207:0: 'OIBridge.StochasticInterface.not_ensembleDetermined_of_disjoint' depends on axioms: [propext,
+info: OIBridge/StochasticInterface.lean:208:0: 'OIBridge.StochasticInterface.not_ensembleDetermined_of_fixedPoint' depends on axioms: [propext,
+info: OIBridge/StochasticInterface.lean:212:0: 'OIBridge.StochasticInterface.waveSubstratum_ensemble_underdetermined' depends on axioms: [propext,
+info: OIBridge/StochasticInterface.lean:217:0: 'OIBridge.StochasticInterface.waveSubstratum_stochastic_interface_gap' depends on axioms: [propext,
+info: OIBridge/TransposeBridge.lean:205:0: 'OIBridge.TransposeBridge.isRowStochastic_iff_transpose_isColStochastic' depends on axioms: [propext,
+info: OIBridge/TransposeBridge.lean:206:0: 'OIBridge.TransposeBridge.isColStochastic_iff_transpose_isRowStochastic' depends on axioms: [propext,
+info: OIBridge/TransposeBridge.lean:208:0: 'OIBridge.TransposeBridge.pDivisible_iff_pDivisibleCol_transpose' depends on axioms: [propext,
+info: OIBridge/TransposeBridge.lean:209:0: 'OIBridge.TransposeBridge.pIndivisibleWithin_iff_pIndivisibleColWithin_transpose' depends on axioms: [propext,
+info: OIBridge/RootedClassification.lean:364:0: 'OIBridge.RootedClassification.pper_of_finiteRootedRealizable' depends on axioms: [propext,
+info: OIBridge/RootedClassificationT2.lean:95:0: 'OIBridge.RootedClassification.finRotate_iterate_phaseZero_of_lt' depends on axioms: [propext,
+info: OIBridge/RootedClassificationT2.lean:96:0: 'OIBridge.RootedClassification.cyclePerm_iterate_phaseZero_of_lt' depends on axioms: [propext,
+info: OIBridge/RootedClassificationT2.lean:97:0: 'OIBridge.RootedClassification.responseStep_iterate_phaseZero_of_lt' depends on axioms: [propext,
+info: OIBridge/RootedClassificationT2.lean:98:0: 'OIBridge.RootedClassification.responseStep_visible_of_pos_lt' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:252:0: 'OIBridge.RootedClassification.finRotate_iterate_phaseZero_period' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:253:0: 'OIBridge.RootedClassification.cyclePerm_iterate_phaseZero_period' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:254:0: 'OIBridge.RootedClassification.responseStep_iterate_phaseZero_period' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:257:0: 'OIBridge.RootedClassification.rootedMap_responseRealization_of_pos_lt' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:258:0: 'OIBridge.RootedClassification.rootedMap_responseRealization_first_period' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:259:0: 'OIBridge.RootedClassification.rootedMap_responseRealization_add_period' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:260:0: 'OIBridge.RootedClassification.responseRealization_agrees_all' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:262:0: 'OIBridge.RootedClassification.finiteRootedRealizable_iff_pper' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:263:0: 'OIBridge.RootedClassification.finiteRootedRealizable_of_realization' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:266:0: 'OIBridge.RootedClassification.pdFamily_not_finiteRootedRealizable' depends on axioms: [propext,
+info: OIBridge/RootedClassificationAllTime.lean:267:0: 'OIBridge.RootedClassification.peFamily_not_finiteRootedRealizable' depends on axioms: [propext,
+info: OIBridge/QuantumRepresentationT2.lean:192:0: 'OIBridge.QuantumRepresentation.qStar_not_subset_finiteRootedRealizable' depends on axioms: [propext,
+info: OIBridge/QuantumRepresentationT3.lean:238:0: 'OIBridge.QuantumRepresentation.qStar_of_finiteRootedRealizable' depends on axioms: [propext,
+info: OIBridge/OperationalSourcing.lean:952:0: 'OIBridge.OperationalSourcing.availExt_unavailable_stable_under_arcC' depends on axioms: [propext,
+info: OIBridge/OperationalSourcing.lean:953:0: 'OIBridge.OperationalSourcing.phasesUnavailable_stable_under_arcC' depends on axioms: [propext,
+info: OIBridge/OperationalSourcing.lean:996:0: 'OIBridge.OperationalSourcing.repAugmented_allUnitaries_nonempty' depends on axioms: [propext,
+info: OIBridge/OperationalSourcing.lean:1000:0: 'OIBridge.OperationalSourcing.repAugmented_everyUnitaryAvailable' depends on axioms: [propext,
+info: OIBridge/OperationalSourcing.lean:1001:0: 'OIBridge.OperationalSourcing.arcCWitness_not_phasesAvailable' depends on axioms: [propext,
+info: OIBridge/CandidateSelection.lean:464:0: 'OIBridge.CandidateSelection.candidateOf_initWeight_eq_rooted' depends on axioms: [propext,
+info: OIBridge/CandidateSelection.lean:465:0: 'OIBridge.CandidateSelection.candidateOf_uniformWeight_padData_eq' depends on axioms: [propext,
+info: OIBridge/BarandesTuple.lean:572:0: 'OIBridge.BarandesTupleRound.singletonDivisible_independent_of_pdivisible' depends on axioms: [propext,
+info: OIBridge/BarandesTuple.lean:576:0: 'OIBridge.BarandesTupleRound.decl_T0_singleton_containing_init' depends on axioms: [propext,
+info: OIBridge/BarandesTuple.lean:579:0: 'OIBridge.BarandesTupleRound.unistochastic_isRowStochastic_and_isColStochastic' depends on axioms: [propext,
+info: OIBridge/BarandesTuple.lean:580:0: 'OIBridge.BarandesTupleRound.collapsed_slice_not_unistochastic' depends on axioms: [propext,
+info: OIBridge/ContinuousExtension.lean:563:0: 'OIBridge.ContinuousExtension.regionLimit_analogue_has_equal_visible_shadows' depends on axioms: [propext,
+info: OIBridge/ContinuousExtension.lean:564:0: 'OIBridge.ContinuousExtension.collapsingSlice_isRowStochastic' depends on axioms: [propext,
+info: OIBridge/ContinuousExtension.lean:567:0: 'OIBridge.ContinuousExtension.screening_extension_nonunistochastic_slice' depends on axioms: [propext,
+info: OIBridge/ContinuousExtension.lean:570:0: 'OIBridge.ContinuousExtension.fn11_not_applicable_to_frozen_witness' depends on axioms: [propext,
+info: OIBridge/ContinuousExtension.lean:572:0: 'OIBridge.ContinuousExtension.admissible_offDirect_continuous_extension' depends on axioms: [propext,
+info: OIBridge/DilationChoice.lean:695:0: 'OIBridge.DilationChoice.kronecker_admissible_isUnistochastic' depends on axioms: [propext,
+info: OIBridge/DilationChoice.lean:698:0: 'OIBridge.DilationChoice.not_isUnistochastic_of_not_isColStochastic' depends on axioms: [propext,
+info: OIBridge/DilationChoice.lean:707:0: 'OIBridge.DilationChoice.not_isUnistochastic_of_not_isRowStochastic' depends on axioms: [propext,
+info: OIBridge/DilationChoice.lean:710:0: 'OIBridge.DilationChoice.witnessBSlice_transpose_not_isUnistochastic' depends on axioms: [propext,
+info: OIBridge/DilationChoice.lean:712:0: 'OIBridge.DilationChoice.witnessB_admissible_continuous_extension' depends on axioms: [propext,
+info: OIBridge/ReadbackRobustness.lean:299:0: 'OIBridge.ReadbackRobustness.mul_conjTranspose_mem_unitaryGroup' depends on axioms: [propext,
+info: OIBridge/ReadbackRobustness.lean:300:0: 'OIBridge.ReadbackRobustness.rb3_forced_on_modulusSquared_unitary' depends on axioms: [propext,
+info: OIBridge/ReadbackRobustness.lean:302:0: 'OIBridge.ReadbackRobustness.preservesDivergence_of_movesVisibleCandidate' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:557:0: 'OIBridge.AnchorRobustness.ab2_iff_not_anchorInvariantDivergence' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:560:0: 'OIBridge.AnchorRobustness.jointlyReproducing_iff_anchor_zero_witnessA' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:561:0: 'OIBridge.AnchorRobustness.no_second_jointlyReproducing_anchor_witnessA' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:562:0: 'OIBridge.AnchorRobustness.anchorInvariantDivergence_trivial_witnessA' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:564:0: 'OIBridge.AnchorRobustness.jointlyReproducing_iff_anchor_zero_witnessB' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:565:0: 'OIBridge.AnchorRobustness.no_second_jointlyReproducing_anchor_witnessB' depends on axioms: [propext,
+info: OIBridge/AnchorRobustness.lean:566:0: 'OIBridge.AnchorRobustness.anchorInvariantDivergence_trivial_witnessB' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:745:0: 'OIBridge.CoherentLiftGauge.strong_eq_one_of_ancilla_subsingleton' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:747:0: 'OIBridge.CoherentLiftGauge.conjTranspose_mul_mem_unitaryGroup' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:748:0: 'OIBridge.CoherentLiftGauge.gaugeRelated_strong_iff_agree_on_anchor' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:751:0: 'OIBridge.CoherentLiftGauge.weak_of_preserves_every_admissible' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:752:0: 'OIBridge.CoherentLiftGauge.visible_marginal_eq_one_of_visible_subsingleton' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:753:0: 'OIBridge.CoherentLiftGauge.all_preserve_admissible_of_visible_subsingleton' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:754:0: 'OIBridge.CoherentLiftGauge.gl3_constant_gauge_preserves_relative' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:758:0: 'OIBridge.CoherentLiftGauge.gl2_strong_gauge_moves_relative_candidate' depends on axioms: [propext,
+info: OIBridge/CoherentLiftGauge.lean:759:0: 'OIBridge.CoherentLiftGauge.gi2_lifts_not_weakly_gauge_related' depends on axioms: [propext,
+info: OIBridge/TwoSidedGauge.lean:1164:0: 'OIBridge.TwoSidedGauge.twoSidedRelated_of_gaugeRelated_strong' depends on axioms: [propext,
+info: OIBridge/TwoSidedGauge.lean:1166:0: 'OIBridge.TwoSidedGauge.anchored_entry_eq_zero_of_visible_zero' depends on axioms: [propext,
+info: OIBridge/TwoSidedGauge.lean:1168:0: 'OIBridge.TwoSidedGauge.posSemidef_apply_eq_zero_of_diag_eq_zero' depends on axioms: [propext,
+info: OIBridge/CrossTimeInvariants.lean:1060:0: 'OIBridge.CrossTimeInvariants.fibreCrossGram_apply_dotProduct' depends on axioms: [propext,
+info: OIBridge/CrossTimeInvariants.lean:1069:0: 'OIBridge.CrossTimeInvariants.ct3g_fibreCrossGram_strong_right' depends on axioms: [propext,
+info: OIBridge/CrossTimeInvariants.lean:1071:0: 'OIBridge.CrossTimeInvariants.ct3g_anchored_block_strong_right' depends on axioms: [propext,
+info: OIBridge/CrossTimeInvariants.lean:1087:0: 'OIBridge.CrossTimeInvariants.ct3a_gl2_pair_separated_by_crossGram' depends on axioms: [propext,
+info: OIBridge/CrossTimeInvariants.lean:1088:0: 'OIBridge.CrossTimeInvariants.ct3b_hadamard_trajectory_control' depends on axioms: [propext,
+info: OIBridge/CrossTimeInvariants.lean:1091:0: 'OIBridge.CrossTimeInvariants.cl1_constant_left_moves_relative_candidate' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:938:0: 'OIBridge.ThreadingObservability.pq0a_readback_is_diagonal_action' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:939:0: 'OIBridge.ThreadingObservability.pq0b_anchoredChannel_diagonal_is_visible' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:941:0: 'OIBridge.ThreadingObservability.pq0c_anchoredChannel_mul_strong' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:942:0: 'OIBridge.ThreadingObservability.pq0c_crossFibreGram_mul_strong' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:943:0: 'OIBridge.ThreadingObservability.pq0c_crossFibreGram_left_mul' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:944:0: 'OIBridge.ThreadingObservability.pq0c_crossFibreGram_left_mul_diag' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:945:0: 'OIBridge.ThreadingObservability.pq0d_anchoredChannel_trace_preserving' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:946:0: 'OIBridge.ThreadingObservability.threadingRelated_iff_fibreCrossGram' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:947:0: 'OIBridge.ThreadingObservability.threadingRelated_of_constLeft' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:948:0: 'OIBridge.ThreadingObservability.threadingRelated_of_strongRight' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:949:0: 'OIBridge.ThreadingObservability.pq1a_constant_left_redundant_visible' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:950:0: 'OIBridge.ThreadingObservability.pq1b_constant_left_physical_anchoredChannel' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:951:0: 'OIBridge.ThreadingObservability.pq1c_constant_left_physical_relative_candidate' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:953:0: 'OIBridge.ThreadingObservability.pq1d_plus_uniform_left_redundant_anchoredChannel' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:954:0: 'OIBridge.ThreadingObservability.nonuniform_left_block_witness' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:955:0: 'OIBridge.ThreadingObservability.crossFibreGram_mul_permMatrix' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:956:0: 'OIBridge.ThreadingObservability.pq1d_minus_nonuniform_left_physical_anchoredChannel' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:957:0: 'OIBridge.ThreadingObservability.pq2a_strong_right_redundant_visible' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:958:0: 'OIBridge.ThreadingObservability.pq2b_anchored_column_identity' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:959:0: 'OIBridge.ThreadingObservability.pq2b_every_single_time_anchored_carrier' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:960:0: 'OIBridge.ThreadingObservability.pq2b_strong_right_redundant_anchoredChannel' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:961:0: 'OIBridge.ThreadingObservability.pq2b_strong_right_crossFibreGram' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:962:0: 'OIBridge.ThreadingObservability.pq2c_strong_right_physical_relative_candidate' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:964:0: 'OIBridge.ThreadingObservability.pq3b_pair_factors_through_left' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:965:0: 'OIBridge.ThreadingObservability.pq3b_no_cancellation_on_anchoredChannel' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:966:0: 'OIBridge.ThreadingObservability.pq3c_pair_physical_relative_candidate' depends on axioms: [propext,
+info: OIBridge/ThreadingObservability.lean:967:0: 'OIBridge.ThreadingObservability.pq4b_within_fibre_carrier_blind_to_constant_left' depends on axioms: [propext,
+info: OIBridge/CancellationFork.lean:557:0: 'OIBridge.CancellationFork.cf2_constant_strong_family_redundant' depends on axioms: [propext,
+info: OIBridge/CancellationFork.lean:558:0: 'OIBridge.CancellationFork.relativeCandidate_eq_one_of_visible_subsingleton' depends on axioms: [propext,
+info: OIBridge/CancellationFork.lean:563:0: 'OIBridge.CancellationFork.cf5_not_no_cancelling_on_relativeCandidate' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:646:0: 'OIBridge.ReanchoredChannelScope.anchoredChannel_congr_crossFibreGram' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:647:0: 'OIBridge.ReanchoredChannelScope.rn1_reanchored_refines_relative' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:648:0: 'OIBridge.ReanchoredChannelScope.rn1_reanchored_refines_relative_family' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:650:0: 'OIBridge.ReanchoredChannelScope.rn2c_act15_triple_nontrivial_on_reanchored' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:653:0: 'OIBridge.ReanchoredChannelScope.rn3a_act15_triple_cancels_on_reanchoredChannel' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:654:0: 'OIBridge.ReanchoredChannelScope.rn3_plus_cancelling_triple_on_reanchoredChannel' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:655:0: 'OIBridge.ReanchoredChannelScope.rn3_not_no_cancelling_on_reanchoredChannel' depends on axioms: [propext,
+info: OIBridge/ReanchoredChannelScope.lean:656:0: 'OIBridge.ReanchoredChannelScope.rn4_redundancy_does_not_factor_on_relativeCandidate' depends on axioms: [propext,
+info: OIBridge/GramTrajectorySelection.lean:657:0: 'OIBridge.GramTrajectorySelection.tj1_no_universal_cross_time_constraint' depends on axioms: [propext,
+info: OIBridge/GramTrajectorySelection.lean:669:0: 'OIBridge.GramTrajectorySelection.tj3_imp_class_level_selection_impossibility' depends on axioms: [propext,
+info: OIBridge/IntermediateCrossTimeStructure.lean:1090:0: 'OIBridge.IntermediateCrossTimeStructure.xs1_pointwise_factors' depends on axioms: [propext,
+info: OIBridge/IntermediateCrossTimeStructure.lean:1092:0: 'OIBridge.IntermediateCrossTimeStructure.xs1_pointwise_not_propagates' depends on axioms: [propext,
+info: OIBridge/IntermediateCrossTimeStructure.lean:1093:0: 'OIBridge.IntermediateCrossTimeStructure.xs2_readback_factors_through_level2' depends on axioms: [propext,
+info: OIBridge/IntermediateCrossTimeStructure.lean:1094:0: 'OIBridge.IntermediateCrossTimeStructure.readback_of_coherentLift' depends on axioms: [propext,
+info: OIBridge/IntermediateCrossTimeStructure.lean:1098:0: 'OIBridge.IntermediateCrossTimeStructure.df2_below_level2_and_resid' depends on axioms: [propext,
+info: OIBridge/IntermediateCrossTimeStructure.lean:1104:0: 'OIBridge.IntermediateCrossTimeStructure.prod_mem_unitaryGroup' depends on axioms: [propext,
+info: OIBridge/RepresentativeNaturality.lean:747:0: 'OIBridge.RepresentativeNaturality.eq_zero_of_left_mul_eq_zero' depends on axioms: [propext,
+info: OIBridge/RepresentativeNaturality.lean:748:0: 'OIBridge.RepresentativeNaturality.eq_zero_of_mul_right_eq_zero' depends on axioms: [propext,
+info: OIBridge/OrbitLawRigidityTwisted.lean:1573:0: 'OIBridge.OrbitLawRigidityTwisted.realizable_of_gramPhaseEquiv' depends on axioms: [propext,
+info: OIBridge/OrbitLawNaturalityFactorization.lean:398:0: 'OIBridge.OrbitLawNaturalityFactorization.gramPhaseEquiv_diag' depends on axioms: [propext,
+info: OIBridge/OrbitLawNaturalityFactorization.lean:399:0: 'OIBridge.OrbitLawNaturalityFactorization.phiCTRL_l4n_restricts' depends on axioms: [propext,
+info: OIBridge/OrbitLawNaturalityFactorization.lean:400:0: 'OIBridge.OrbitLawNaturalityFactorization.phiSwap_l5_restricts' depends on axioms: [propext,
+info: OIBridge/OrbitLawNaturalityFactorization.lean:401:0: 'OIBridge.OrbitLawNaturalityFactorization.prefix_not_implies_l5' depends on axioms: [propext,
+info: OIBridge/OrbitGeometryRigidity.lean:2332:0: 'OIBridge.OrbitGeometryRigidity.gramPhaseEquiv_of_featureVec_eq' depends on axioms: [propext,
+info: OIBridge/OrbitGeometryRigidity.lean:2334:0: 'OIBridge.OrbitGeometryRigidity.relabelled_fourier_mem_normalizedSet' depends on axioms: [propext,
+info: OIBridge/OrbitGeometryRigidity.lean:2340:0: 'OIBridge.OrbitGeometryRigidity.exists_linearIsometryEquiv_of_inner_eq' depends on axioms: [propext,
+info: OIBridge/OrbitGeometryRigidity.lean:2341:0: 'OIBridge.OrbitGeometryRigidity.exists_affineIsometryEquiv_of_dist_eq' depends on axioms: [propext,
+info: OIBridge/OrbitGeometryRigidity.lean:2343:0: 'OIBridge.OrbitGeometryRigidity.exists_affineIsometryEquiv_of_isSurjIsometryOn' depends on axioms: [propext,
+info: OIBridge/OrbitGeometryRigidity.lean:2486:0: 'OIBridge.OrbitGeometryRigidity.rigid_motion_of_tuple_isometry' depends on axioms: [propext,
+info: OIBridge/StrictNaturalLift.lean:305:0: 'OIBridge.StrictNaturalLift.a27_shared_admissible_entry_ne_zero' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryClassification.lean:116:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_relabel' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryClassification.lean:124:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_relabel' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryClassification.lean:132:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_star_relabel' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryClassification.lean:404:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_mul_self' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryClassification.lean:425:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_star' depends on axioms: [propext,
+info: OIBridge/RecurrenceHorizon.lean:187:0: 'OIBridge.RecurrenceHorizon.c4r_of_identity_return_of_overlap' depends on axioms: [propext,
+info: OIBridge/RecurrenceHorizon.lean:188:0: 'OIBridge.RecurrenceHorizon.pIndivisible_of_identity_return_of_overlap' depends on axioms: [propext,
+info: OIBridge/RecurrenceHorizon.lean:189:0: 'OIBridge.RecurrenceHorizon.c4r_of_rooted_identity_return_of_overlap' depends on axioms: [propext,
+info: OIBridge/RecurrenceHorizon.lean:190:0: 'OIBridge.RecurrenceHorizon.pIndivisible_of_rooted_identity_return_of_overlap' depends on axioms: [propext,
+info: OIBridge/PhysicalC4Discharge.lean:667:0: 'OIBridge.PhysicalC4Discharge.routed_forces_return_indivisibility' depends on axioms: [propext,
+info: OIBridge/PhysicalC4Discharge.lean:668:0: 'OIBridge.PhysicalC4Discharge.routed_forces_indivisible_somewhere' depends on axioms: [propext,
+info: OIBridge/PhysicalC4Discharge.lean:689:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_not_routedReadback_three' depends on axioms: [propext,
+info: OIBridge/PhysicalC4Discharge.lean:696:0: 'OIBridge.PhysicalC4Discharge.cutRealization_rootedMap_isRowStochastic' depends on axioms: [propext,
+info: OIBridge/PhysicalC4Discharge.lean:697:0: 'OIBridge.PhysicalC4Discharge.cutRealization_rootedMap_periodic' depends on axioms: [propext,
+info: OIBridge/PhysicalC4Discharge.lean:699:0: 'OIBridge.PhysicalC4Discharge.latticeCut_rootedMap_stochastic_periodic' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:702:0: 'OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_mono' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:703:0: 'OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_overlap' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:705:0: 'OIBridge.PhysicalC4StorageReadback.storageWeight_eq_zero_of_root_ne' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:707:0: 'OIBridge.PhysicalC4StorageReadback.rootedStatePosterior_marg_eq' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:708:0: 'OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_return_indivisibility' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:709:0: 'OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_indivisible_somewhere' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:712:0: 'OIBridge.PhysicalC4StorageReadback.core_routedReadbackAtStorage_two' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:713:0: 'OIBridge.PhysicalC4StorageReadback.product_not_routedReadbackAtStorage' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:714:0: 'OIBridge.PhysicalC4StorageReadback.tapeLedger_not_routedReadbackAtStorage_three' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:715:0: 'OIBridge.PhysicalC4StorageReadback.tapeLedger_statePosterior_one' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:716:0: 'OIBridge.PhysicalC4StorageReadback.tapeLedger_routedReadbackAtStorage_four' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:717:0: 'OIBridge.PhysicalC4StorageReadback.core_storageReadback_and_not_routedReadback' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:718:0: 'OIBridge.PhysicalC4StorageReadback.storageReadback_not_implies_routedReadback' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:725:0: 'OIBridge.PhysicalC4StorageReadback.sep_not_routedReadbackAtStorage_two' depends on axioms: [propext,
+info: OIBridge/PhysicalC4StorageReadback.lean:726:0: 'OIBridge.PhysicalC4StorageReadback.routedReadback_not_implies_storageReadback' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryGroup.lean:135:0: 'OIBridge.OrbitIsometryGroup.a33_shared_exp_range' depends on axioms: [propext, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:174:0: 'OIBridge.OrbitIsometryGroup.a33_shared_sgz_unit' depends on axioms: [propext, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:2469:0: 'OIBridge.OrbitIsometryGroup.a33_shared_fin9' depends on axioms: [propext]
+info: OIBridge/OrbitIsometryGroup.lean:3211:0: 'OIBridge.OrbitIsometryGroup.a33_shared_fin3' depends on axioms: [propext]
+info: OIBridge/OrbitIsometryGroup.lean:3216:0: 'OIBridge.OrbitIsometryGroup.a33_shared_edge_inj' depends on axioms: [propext]
+info: OIBridge/OrbitIsometryGroup.lean:3221:0: 'OIBridge.OrbitIsometryGroup.a33_shared_edge_rev' depends on axioms: [propext]
+info: OIBridge/OrbitIsometryGroup.lean:3231:0: 'OIBridge.OrbitIsometryGroup.a33_shared_edge_unique' depends on axioms: [propext, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:4791:0: 'OIBridge.OrbitIsometryGroup.a33_shared_fin8' depends on axioms: [propext]
+info: OIBridge/OrbitIsometryGroup.lean:4836:0: 'OIBridge.OrbitIsometryGroup.a33_shared_cond_comp' depends on axioms: [propext, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5176:0: 'OIBridge.OrbitIsometryGroup.a33_shared_c0' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5520:0: 'OIBridge.OrbitIsometryGroup.a33_shared_conj_real' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5587:0: 'OIBridge.OrbitIsometryGroup.a33_shared_kernel_real' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5609:0: 'OIBridge.OrbitIsometryGroup.a33_shared_real' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:5653:0: 'OIBridge.OrbitIsometryGroup.a33_shared_all_vertices' depends on axioms: [propext, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6166:0: 'OIBridge.OrbitIsometryGroup.a33_classified' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6273:0: 'OIBridge.OrbitIsometryGroup.a33_shared_nf_agree' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6519:0: 'OIBridge.OrbitIsometryGroup.a33_shared_rel_R1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6600:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_shape' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6654:0: 'OIBridge.OrbitIsometryGroup.a33_shared_rowcol_word' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6690:0: 'OIBridge.OrbitIsometryGroup.a33_shared_shape_word' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6767:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_family' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6843:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_parity' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:6930:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_kernel' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryGroup.lean:7089:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_coset' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryGroup.lean:7124:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_onto' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:7144:0: 'OIBridge.OrbitIsometryGroup.a33_control_conjugation' depends on axioms: [propext,
+info: OIBridge/OrbitIsometryGroup.lean:7173:0: 'OIBridge.OrbitIsometryGroup.a33_control_a32' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/a260b594-0a81-4bee-9357-63d6c6e1f3a9' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+[command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

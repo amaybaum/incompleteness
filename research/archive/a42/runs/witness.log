@@ -1,0 +1,16 @@
+  [r3_run.py: exit 0, 6s]
+PASS R3 exact class support: E40 40, act 38 witness 44, A 16
+PASS R3 representatives: E40 entries {-1,0,1} support 40; act 38 entries {-2..1} support 44
+  [r2b_independent.py: exit 0, 97s]
+PASS C1c independent enumeration: 20 partition structures, 976 triples, equal to L41 strict and relaxed
+PASS C5 sorted alignment: 18
+PASS C3 gauge annihilated; zero in every triple
+PASS R2 B(i): E40, gauged E40 and act 38 witness in 0 triples
+PASS C2 B(i): A 596, B 272, C 576, P 272, Q 596, T 596, -P+Q 128, -P-T 128, Q-T 256 triples
+  [c6_control.py: exit 0, 211s]
+PASS C6: 150 instances, 146 equal at box 4, 4 gaps all closed at box 8, exact never above brute force
+  [lemmas42.py: exit 0, 15s]
+PASS lemmas L1-L4 on A, B, C and the act 38 witness: ALL PASS
+  [ctrl16.py: exit 0, 8s]
+PASS ctrl16: 896 leaves at budget 16, all in N18; A, B, C, -A present
+dita_support_minimality_probe witness: OK -- 10 checks (337s)

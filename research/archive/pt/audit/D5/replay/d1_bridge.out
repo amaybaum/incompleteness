@@ -1,0 +1,28 @@
+PASS A1 cnot (parsed CompositeDimension.lean:741-758) = Ad(CNOT control-first) on 16 basis tables
+PASS A1c target-first CNOT disagrees on some basis table
+PASS A2 nflip (parsed :798) = rotation of Ad(X) = R_x(pi), diag[1, -1, -1]
+PASS A2c nflip differs from the rotation of Ad(Z)
+PASS A3 cyc3 (parsed KInfFoundations.lean:417) proper, order 3, J e_x = e_y, J L_x J^-1 = L_y
+PASS A4 actC R(U) = Ad(U x I), actT R(U) = Ad(I x U) on 16 basis tables, two exact unitaries
+PASS A4c actT R(U) differs from Ad(U x I) somewhere
+PASS A5 relT and relC (CompositeDimension.lean:224-225) hold for (cnot, nflip) on all basis tables
+PASS B1 Lie closure {drive_C, J drive_C J^-1, cnot-conjugates}: dim 6, contains ad(s_k x P+-): True
+PASS B1c drive on the control alone with cnot: dim 2 (< 6)
+PASS B2c drive on the target alone with cnot: dim 1 (< 6)
+PASS B3a <actC(R_x(pi) R_y(pi)) E0, E0> = -1 < 0: K(E0) fails (b_DJ)
+PASS B3b actC J e_(1, 1) leaves K(Z_F): witness overlaps [1/4, 1/4, 1/4, 1/4], pairing -1/2
+PASS B4 retention: actC R(U) preserves the spectrum of a pure table (Ad(U x I), A4)
+PASS C1 monomials diag(1,i), X -> R_z(pi/2), nflip: the class is O(2) about the corner axis z
+PASS C2 phi0 = (1,2,3,4)/sqrt30: min over 24 arrangements |det| = 1/15 > 0 (unreachable)
+PASS C2c product magnitudes (1,2,2,4)/5: min |det| = 0 (reachable)
+PASS C3 c = 513/512: 1 < c <= 2 and c*m <= 1, m = (1+sqrt(1-4 d0^2))/2 = (1+sqrt(221/225))/2
+PASS D uniform K(E0): min family-(i) value over 1296 gate-supplied effect pairs = -1; at (e2e3, e1e2): -1
+PASS Dc uniform Q3 control (X = Y = phiW): min over the same pairs = 0 >= 0
+PASS E actC nflip E0 = E00+E13+E22 leaves K(E0): <phi|pW(E0)|phi> = 1 >= 0, <phi|pW(image)|phi> = -1 < 0
+PASS E0c control: actC nflip permutes the defects of Z_F (K(Z_F) is not moved by the NOT)
+PASS F1 Bell-type basis orthonormal; the flow U(w), |w| = 1 (symbolic u), fixes every defect of Z_F
+PASS F2 N = U(-1) is an involution moving the pure state of K(Z_F) on (psi0+psi1)
+PASS F3 J = Ad(X x I) permutes Z_F; J N J^-1 moves a point of K(Z_F) that every flow member fixes
+PASS F6c control: a Householder member off the Bell basis moves a defect out of K(Z_F)
+SUMMARY 26 lines, 0 FAIL
+VERDICT D1-BRIDGE-EXACT: transcription exact; (b_DJ) Lie closure = su(2)+su(2) (dim 6); drive alone and target drive < 6; K(E0), K(Z_F) fail (b_DJ); monomial class + cnot + T leaves phi0 unreachable (seed c = 513/512); lambda fails on uniform K(E0), holds on the Q3 control; native relations do not give (b) for the NOT; K(Z_F) carries a drivable pair body

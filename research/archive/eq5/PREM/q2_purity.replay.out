@@ -1,0 +1,14 @@
+PASS K the Lorentz cone Lor (CD:869) and the effect-cone lemmas lor_ehom (CD:930), isEffectOn_affOf (CD:916) present
+PASS L1 two-token core modulo z.z = 1: (i) T(g_z, u) = 0; (ii) T(g_z, f) = -(1/2) z^T C f; (iii) c_f = (f(y), z f(y) + C f); (iv) |cvec_f|^2 - c_f0^2 = 2 f(y) z^T C f + |C f|^2 (symbolic)  [(i) True, (ii) True, (iii) True, (iv) True]
+PASS L2 extreme-ray identity: (alpha^2 - |v|^2) + ((1 - alpha)^2 - |x - v|^2) = -2(alpha(1 - alpha) - v.(x - v)) modulo x.x = 1 (symbolic)
+PASS L3 factorization step: for T = hom x (x) T', T(g, f, f') = g(x) T'(f, f') (symbolic)
+PASS L4 the homogenized e_x, e_y, e_z, -e_z are linearly independent (det != 0); their four-fold products form a basis of W4  [det = -2]
+PASS CC1 purity load-bearing: T_cl(g, f) = (g(z)f(z) + g(-z)f(-z))/2 (nonnegative on product effects), marginals 0, and T_cl != hom 0 (x) hom 0 (its zz entry is 1)
+PASS CC2 positivity load-bearing: T = hom z (x) hom z + E_xx/2 has pure marginals (z, z); g = (1,(3/5,0,-4/5))/2 and f = (1,(-1,0,0))/2 are effects (Lor, head 1/2); T(g, f) < 0  [T(g, f) = -1/40]
+PASS F no float in the checked quantities
+--- q2_purity: 8/8 checks pass
+VERDICT Q2-PURITY-LEMMA-INGREDIENTS-EXACT
+LEAD Psi_mf (e1's twist): preserves single-token entries True, differs from the product True, minimum over axis effects -1/2 at (0, 0, 6, 4) -> WITNESS-FOUND
+LEAD Psi_4 (sign of 4-body entries): preserves single-token entries True, differs from the product True, minimum over axis effects -1/8 at (5, 5, 6, 4) -> WITNESS-FOUND
+LEAD Psi_2 (sign of 01 correlations): preserves single-token entries True, differs from the product True, minimum over axis effects -1/2 at (6, 6, 0, 0) -> WITNESS-FOUND
+LEAD Psi_half (correlations halved): preserves single-token entries True, differs from the product True, minimum over axis effects -1/8 at (0, 0, 6, 4) -> WITNESS-FOUND

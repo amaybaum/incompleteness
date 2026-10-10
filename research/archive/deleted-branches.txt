@@ -1,0 +1,9 @@
+claude/a31-elaboration 867bf901037d2fba895d8fbfdd14d949f6e82ee2
+claude/a31-elaboration-counter 743caf402767cb2df213b122498a93646641d53a
+claude/a31-dev a176ed9567d7548f701d190456fae9066ecfe5de
+claude/a32-elaboration ea8f9edd73ca9fc8076c0978983babcd94969961
+claude/a32-elaboration-counter f521d8d4f6cc851a5872d2f474242e7e5710294c
+claude/a32-sep-rehearsal bcf6ee799b42e0b0c49ffeeb3370dd0723b6a2f0
+claude/a32-surfaces-notrigid 55c72286ab31641a4a5908c7946794318cbb8e03
+claude/a32-surfaces-rigid 120e6de20271ed67cf12b90cf0ab3e55124078a7
+claude/a32-dev bcb851ad48e245f32c6221404f67ddeec5484443

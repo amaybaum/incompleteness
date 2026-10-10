@@ -1,0 +1,25 @@
+== (a) exact defects, pure Python ==
+  H4⊗H4                        defect 105  (0.1s)
+  F4⊗F4                        defect  57  (0.1s)
+  H4⊗F4                        defect  73  (0.1s)
+  A34 witness (Y_c = F4(±i))   defect  57  (0.1s)
+  Σ rational point             defect  49  (0.1s)
+  Diţă, nine rational phases   defect  17  (0.7s)
+  Diţă, twists (3+4i)^k/5^k    defect  23  (0.3s)
+  second real class            defect 105  (0.1s)
+== (b) RELAB ==
+  relabelled F4⊗F4 (rows+cols swap 1<->4): first violating (a,b,b',c,c',d) and 256*value: (0, 0, 1, 0, 1, 2, np.complex128(-1j))
+  sigma_residual of the relabelled point: 0.500; of the point: 0.0e+00
+== (c) REAL2 ==
+  first 4-row subset of the second real class with |sum| = 8 (scaled entries ±1): (0, 1, 2, 3, 8)
+  Sylvester 4-row |sums| take the values [0, 16] ; second class: [0, 8, 16]
+  second real class: first violating cross indices and 256*value: (0, 0, 3, 0, 3, 0, np.complex128(-1-0j))
+== (d) witness ==
+  A34 H == dita(F4(i), Y_c = F4(±i), D = 1): True ; 256 * cross value at (0,1,0,0,1,1): (-1-0j)
+== (e) census list ==
+  20 distinct census points in 20 tries; defects [41, 51, 55, 39, 59, 33, 27, 53, 67, 47, 47, 45, 53, 63, 59, 53, 37, 51, 37, 33]
+  Kronecker fourth-root classes: {'H4⊗H4': 105, 'H4⊗F4': 73, 'F4⊗H4': 73, 'F4⊗F4': 57} (8s)
+== (f) exact hull tangent rank at the rational Σ point ==
+  rank of gauge + Σ + both hulls: 57; gauge alone: 31; hull tangent rank modulo phases: 26
+(8s)
+done

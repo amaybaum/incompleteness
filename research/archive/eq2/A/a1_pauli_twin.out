@@ -1,0 +1,50 @@
+PASS T0 parsed sgn/pc/pt == hand transcription
+PASS T0 parsed idW, chainW, phiW, reflY == hand transcription
+PASS K1 actT reflY phiW = idW (K2Guard:106)
+PASS K2 cnot (prodState xplus z3) = phiW (CompositeDimension:1222)
+PASS K3 cnot idW = chainW (K2Guard:110)
+PASS K4 chain value = -1/2 (K2Guard:134)
+PASS K5 rotation chain value = 0 (K2Guard:223)
+PASS K6 cnot involutive (symbolic)
+PASS K6 relT: actT nflip (cnot (actT nflip w)) = cnot w (symbolic)
+PASS K6 relC: actC nflip (cnot (actC nflip w)) = actT nflip (cnot w) (symbolic)
+PASS K6 frame: cnot (prod (corner a) (corner b)) = prod (corner a) (corner (a+b))
+PASS A1.1 pauliW (prodState x y) = rho x (x) rho y (symbolic)
+PASS A1.2 pairVal a b w = tr((A (x) B) pauliW w) (symbolic; imaginary part identically 0)
+PASS A1.3 tr(P_s P_t) = 2^n delta_st for all Pauli strings, n = 1, 2, 3
+PASS A1.4 pauliW w is Hermitian for real symbolic w
+PASS A1.4 the 16 kron(P_mu, P_nu) are R-linearly independent (rank 16 as real 32-vectors)
+PASS A1.5 pauliW (actT reflY w) = PT_B (pauliW w)
+PASS A1.5 pauliW (actC reflY w) = PT_A (pauliW w)
+PASS A1.5 transposeW = actC reflY . actT reflY
+PASS A1.5 pauliW (transposeW w) = (pauliW w)^T
+PASS A1.5 pauliW (swapW w) = SWAP pauliW(w) SWAP
+PASS A1.5 pauliW (actT nflip w) = (1 (x) X) pauliW(w) (1 (x) X)
+PASS A1.5 pauliW (cnot w) = CNOT pauliW(w) CNOT (control = first copy)
+PASS A1.6 chart2 a a idW = diag(1, a a^T) (symbolic a)
+PASS A1.6 four exact orthogonal a with determinants [-1, -1, 1, 1]
+PASS A1.6 chart2 a a idW = idW for each of the four
+PASS A1.6 control: a = diag(2,1,1) (not orthogonal) does NOT fix idW
+PASS A1.6 IsOrth id and IsOrth reflY (a a^T = 1)
+PASS A1.7 pauliW idW = SWAP/2
+PASS A1.7 singlet witness: v^H pauliW(idW) v = -1, v^H v = 2
+PASS A1.8 pauliW phiW = (1/2) w w^H, w = (1,0,0,1)
+PASS A1.9 chart2 id reflY = actT reflY (symbolic)
+PASS A1.9 actT reflY is an involution (symbolic)
+PASS A1.10 derived: idW in twin, idW fixed by every uniform orthogonal chart, idW not in Q3
+PASS A1.11 chi . swapW . chi = transposeW . swapW (symbolic)
+PASS A1.11 Pauli image of the presented exchange = (SWAP X SWAP)^T
+PASS A1.12 round trip pauli3(coords3 rho) = rho
+PASS A1.12 rho = (1/2) u u^H with u = e_000 + e_011 (rho in Q_ABC, rank one)
+PASS A1.12 idle extension of transposeW.swapW on (A,B): v^H M v = -1 at v = e_001 - e_100 (|v|^2 = 2)
+PASS A1.12 control: idle extension of swapW = (1/2) u'u'^H with u' = e_000 + e_101 (PSD)
+PASS A1.12 countercontrol: idle extension of transposeW alone: v^H M v = -1 at v = e_001 - e_010
+PASS A1.13 swapW . actT reflY = actC reflY . swapW (symbolic)
+PASS A1.13 actC reflY = transposeW . actT reflY (symbolic)
+PASS A1.14 chart2 R R = transposeW (symbolic)
+PASS A1.14 chart2 I R phiW = idW and chart2 R I phiW = idW
+PASS A1.14 transposeW phiW = phiW (the global transpose keeps the Bell table)
+PASS A1.15 cnot'(prodState xplus z3) = idW (non-product image of a pure product)
+PASS A1.15 cnot' involutive (symbolic)
+a1_pauli_twin: 48/48 checks pass
+VERDICT A1-IDENTITIES-EXACT

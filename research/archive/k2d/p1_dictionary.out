@@ -1,0 +1,10 @@
+PASS P1.1 Phi(rho(x)(x)rho(y)) = prodState x y (symbolic)
+PASS P1.2 Tr(E rho(x)) = a . hom x
+PASS P1.3 Tr((E(x)F) rho_of_W(omega)) = pairVal a b omega (symbolic)
+PASS P1.4 W_of(rho_of_W(omega)) = omega (the Pauli map is a bijection Herm(4) <-> W 3)
+PASS P1.5 kernel cnot (parsed pc/pt/sgn) = Pauli transfer matrix of Ad(CNOT)
+PASS P1.6 actT nflip = Pauli transfer of Ad(I (x) X)
+PASS P1.7 actC nflip = Pauli transfer of Ad(X (x) I)
+PASS P1.8 countercontrol: (I(x)R_y) cnot != cnot
+PASS P1.9 cnot(prodState xplus z3) = phiW (kernel :1222) and phiW = W(Phi+)
+SUMMARY: 9 checks, 0 failures

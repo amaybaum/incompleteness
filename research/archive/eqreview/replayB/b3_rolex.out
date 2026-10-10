@@ -1,0 +1,15 @@
+     cnot1: 0 signed-permutation h with SWAP G SWAP = (h(x)h) G (h(x)h)^-1
+PASS B3 control: the classical gate cnot1 has NO role-exchange symmetry (its corners are the whole ball; the classical CNOT is not symmetric)
+     cnot: 2 signed-permutation h with SWAP G SWAP = (h(x)h) G (h(x)h)^-1
+        h = [[0, 0, 1], [0, 1, 0], [1, 0, 0]]  h z = ['1', '0', '0']
+        h = [[0, 0, 1], [0, -1, 0], [1, 0, 0]]  h z = ['1', '0', '0']
+PASS B3 control: cnot (QT CNOT) has a role-exchange symmetry (Hadamard-type signed permutation)
+     gC5: 8 signed-permutation h with SWAP G SWAP = (h(x)h) G (h(x)h)^-1
+        h = [[0, 0, 0, 0, 1], [0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, -1, 0], [1, 0, 0, 0, 0]]  h z = ['1', '0', '0', '0', '0']
+        h = [[0, 0, 0, 0, 1], [0, 1, 0, 0, 0], [0, 0, -1, 0, 0], [0, 0, 0, 1, 0], [1, 0, 0, 0, 0]]  h z = ['1', '0', '0', '0', '0']
+        h = [[0, 0, 0, 0, 1], [0, -1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [1, 0, 0, 0, 0]]  h z = ['1', '0', '0', '0', '0']
+        h = [[0, 0, 0, 0, 1], [0, -1, 0, 0, 0], [0, 0, -1, 0, 0], [0, 0, 0, -1, 0], [1, 0, 0, 0, 0]]  h z = ['1', '0', '0', '0', '0']
+PASS B3 gC5 (d = 5, fails relC) HAS a role-exchange symmetry among signed permutations
+PASS B3 gC5 has the reversed frame on the corners +-e_x (copy B controls copy A)
+b3_rolex: 4/4 checks PASS
+VERDICT B3-GREEN

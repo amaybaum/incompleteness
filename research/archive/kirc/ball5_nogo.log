@@ -1,0 +1,24 @@
+mu = (1, 1)  diagonal:  [-1 - P**2 - Q**2, -1 - P**2 - R**2, -1 - Q**2 - R**2]  off-diagonal: {(0, 1): -Q*R, (0, 2): P*R, (1, 2): -P*Q}
+PASS L3 mu=(1, 1): squares forced to (-1/2, -1/2, -1/2); an off-diagonal entry is a product of two invertible blocks (must vanish)
+mu = (-1, -1)  diagonal:  [-1 - P**2 + Q**2, -1 - P**2 + R**2, -1 + Q**2 + R**2]  off-diagonal: {(0, 1): Q*R, (0, 2): -P*R, (1, 2): P*Q}
+PASS L3 mu=(-1, -1): squares forced to (-1/2, 1/2, 1/2); an off-diagonal entry is a product of two invertible blocks (must vanish)
+mu = (1, -1)  diagonal:  [-1 + P**2 - Q**2, -1 + P**2 + R**2, -1 - Q**2 + R**2]  off-diagonal: {(0, 1): Q*R, (0, 2): -P*R, (1, 2): -P*Q}
+PASS L3 mu=(1, -1): squares forced to (1/2, -1/2, 1/2); an off-diagonal entry is a product of two invertible blocks (must vanish)
+mu = (-1, 1)  diagonal:  [-1 + P**2 + Q**2, -1 + P**2 - R**2, -1 + Q**2 - R**2]  off-diagonal: {(0, 1): -Q*R, (0, 2): P*R, (1, 2): P*Q}
+PASS L3 mu=(-1, 1): squares forced to (1/2, 1/2, -1/2); an off-diagonal entry is a product of two invertible blocks (must vanish)
+PASS L2 d=5, N flips z + 0 transverse: p=4 q=0; involution anticommuting with N_A(x)I needs p = q, then dim V- = 1
+PASS L2 d=5, N flips z + 1 transverse: p=3 q=1; involution anticommuting with N_A(x)I needs p = q, then dim V- = 2
+PASS L2 d=5, N flips z + 2 transverse: p=2 q=2; involution anticommuting with N_A(x)I needs p = q, then dim V- = 3
+PASS L2 d=5, N flips z + 3 transverse: p=1 q=3; involution anticommuting with N_A(x)I needs p = q, then dim V- = 4
+PASS L2 d=5, N flips z + 4 transverse: p=0 q=4; involution anticommuting with N_A(x)I needs p = q, then dim V- = 5
+frame: True  involution: True  normalization: True
+d=5 JK construction: min (f(x)g)(G(s(x)t)) over unit vectors ~ -1.121e-15
+target relation (I(x)N)G(I(x)N) == G: True
+control relation (N(x)I)G(N(x)I) == (I(x)N)G: False
+|<G, N(x)I, I(x)N>| = 16
+worst element min value ~ -2.000
+PASS control d=5 J/K: G maps T_A(x)V- into itself, antisymmetric in V-, involution; p=1 q=3
+PASS control d=5 J/K: the block does not anticommute with N_A(x)I (the control relation fails, as L2 predicts)
+PASS control d=3 complex CNOT: T_A(x)V- block closed, antisymmetric in V-, involution, anticommutes with N_A(x)I (p=q=1)
+
+SUMMARY: 12 PASS, 0 FAIL

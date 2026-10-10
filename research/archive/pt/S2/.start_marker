@@ -1,0 +1,22 @@
+S2 PAIR-CONS launch 2 start marker
+utc: 2026-10-10T07:26:56Z
+S2 dir was empty before this file (ls -la showed only . and ..)
+--- inputs.manifest
+inputs.manifest: OK
+--- stage1.manifest
+stage1.manifest: OK
+--- inputs2.manifest
+inputs2.manifest: OK
+--- base HEAD
+9f9f8257a980a1819fbbc1dc0019917cf8678626
+--- base status porcelain line count (0 expected)
+0
+--- protocol hashes (recorded / actual)
+PROTOCOL recorded: 239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23
+PROTOCOL actual:   239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23
+PROTOCOL-AMENDMENT-1 recorded: b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83
+PROTOCOL-AMENDMENT-1 actual:   b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83
+PROTOCOL-AMENDMENT-2 recorded: 2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a
+PROTOCOL-AMENDMENT-2 actual:   2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a
+PROTOCOL-STAGE2 recorded: 386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da
+PROTOCOL-STAGE2 actual:   386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da

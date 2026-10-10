@@ -1,0 +1,5 @@
+x1_twisted_selfdual_float: exit 0, script 73407316c3608194, recorded output 6cbefc5e2a485739, replay identical
+x2_twisted_cutting_plane_float: exit 0, script e681cfc57f1d1a1c, recorded output e6280f98f2fd9fad, replay identical
+x2_twisted_cutting_plane_float.run1: exit 0, script 71a00322222cc0d8, recorded output a5a652b2692affcc, replay identical
+x3_twisted_selfdual_twirled_float: exit 0, script 25a93b70abc5a50c, recorded output 835c362b8c2a31e0, replay identical
+run_explorations: OK

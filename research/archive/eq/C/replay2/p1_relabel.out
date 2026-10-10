@@ -1,0 +1,25 @@
+NOTE parsed kernel cnot: sgn = -1 at [(1, 3), (2, 2)]
+PASS 1.1 kernel cnot == Ad(CNOT, control = copy A) in Pauli coordinates
+PASS 1.1c countercontrol: kernel cnot != Ad(CNOT, control = copy B)
+PASS 1.2 R_B (prodState x y) = prodState x (reflY y) (pure and mixed instances)
+PASS 1.3 pairVal a b (R_B w) = pairVal a (homMap reflY^T b) w on 20 rational instances (the identity is linear in w, a, b; homMap reflY is the diagonal (1,1,-1,1))
+PASS 1.3b homMap reflY is diagonal (so the identity holds for all a, b, w by linearity)
+PASS 1.4 R_B actT R R_B = actT (reflY R reflY) with det +1; R_B commutes with actC R (4 rotations)
+PASS 1.5 R_B commutes with actT nflip and actC nflip
+PASS 1.5b R_B fixes the four corner products prodState (+-z) (+-z)
+PASS 1.6a cnot' frame: cnot'(z_a (x) z_b) = z_a (x) z_{a+b}
+PASS 1.6b cnot' relT: actT N cnot' actT N = cnot'
+PASS 1.6c cnot' relC: actC N cnot' actC N = actT N cnot'
+PASS 1.6d cnot' is an involution and cnot' != cnot
+PASS 1.6e cnot (prodState xplus z3) = phiW (CD:1222) and cnot'(prodState xplus z3) = idW = R_B phiW
+NOTE 1.6f cnot' carries the CtrlGate data (frame 1.6a, relC 1.6c); its two-sided positivity on products is transported from nativeGate_cnot by 1.2-1.3 (written: R_B preserves products and maxCone); its entangling image idW is extreme in jointStates because R_B is a linear automorphism of jointStates and phiW is extreme (entangling_cnot, CD:1380) (written)
+PASS 1.7a rho(phiW) is a projector of trace 1 (so phiW in Q3)
+PASS 1.7b rho(idW) = SWAP/2 has singlet value v^dag rho v = -1 for |v|^2 = 2 (eigenvalue -1/2)  [(-1+0i)]
+PASS 1.8a SWAP R_B SWAP = R_A and R_A != R_B (R_B does not commute with SWAP)
+PASS 1.8b SWAP16 = Ad(SWAP unitary) in the dictionary (so SWAP preserves Q3)
+PASS 1.8c R_A R_B = T, the global transpose rho -> rho^T in the dictionary (preserves PSD)
+PASS 1.8d hence SWAP(R_B Q3) = R_A Q3 = R_B (R_B R_A) Q3 = R_B T Q3 = R_B Q3: identity R_B R_A = T
+PASS 1.9a Pi_B = R_B actT(R_y(pi)) with R_y(pi) = diag(-1,1,-1) a rotation
+PASS 1.9b Pi_B SWAP Pi_B = (Pi_A Pi_B) SWAP
+--- P1 relabelling: 21 checks, 0 failures
+VERDICT RELABELLING-TRANSPORT-EXACT: R_B is a one-copy affine relabelling that preserves products, maxCone, normalization, the local SO(3)^2, the corners and both NOT lifts, carries cnot to the native/control gate cnot' and Q3 to R_B(Q3) != Q3; it fails to commute only with SWAP, and R_B(Q3) is nevertheless SWAP-invariant

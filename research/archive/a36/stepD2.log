@@ -1,0 +1,15 @@
+column-Diţă candidate orientations through the point: 5
+  blocks ((0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)) rows [(0, 4, 8, 12), (1, 5, 9, 13), (2, 6, 10, 14), (3, 7, 11, 15)] | factorization OK (True, True, True, True) | tangent rank mod gauge 14 | in ker DF True
+  blocks ((0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)) rows [(0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)] | factorization OK (True, True, True, True) | tangent rank mod gauge 24 | in ker DF True
+  blocks ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)) rows [(0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)] | factorization OK (True, True, True, True) | tangent rank mod gauge 14 | in ker DF True
+  blocks ((0, 4, 8, 12), (1, 5, 9, 13), (2, 6, 10, 14), (3, 7, 11, 15)) rows [(0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)] | factorization OK (True, True, True, True) | tangent rank mod gauge 14 | in ker DF True
+  blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) rows [(0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)] | factorization FAILS (False, True, True, False) | tangent rank mod gauge 14 | in ker DF True
+row-Diţă candidate orientations through the point: 5
+  blocks ((0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)) rows [(0, 4, 8, 12), (1, 5, 9, 13), (2, 6, 10, 14), (3, 7, 11, 15)] | factorization OK (True, True, True, True) | tangent rank mod gauge 14 | in ker DF True
+  blocks ((0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)) rows [(0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)] | factorization OK (True, True, True, True) | tangent rank mod gauge 24 | in ker DF True
+  blocks ((0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)) rows [(0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)] | factorization OK (True, True, True, True) | tangent rank mod gauge 14 | in ker DF True
+  blocks ((0, 4, 8, 12), (1, 5, 9, 13), (2, 6, 10, 14), (3, 7, 11, 15)) rows [(0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)] | factorization OK (True, True, True, True) | tangent rank mod gauge 14 | in ker DF True
+  blocks ((0, 6, 8, 14), (1, 7, 9, 15), (2, 4, 10, 12), (3, 5, 11, 13)) rows [(0, 2, 9, 11), (1, 3, 8, 10), (4, 6, 13, 15), (5, 7, 12, 14)] | factorization FAILS (False, True, True, False) | tangent rank mod gauge 14 | in ker DF True
+standard column orientation reproduces T_c: True
+span of all verified orientations mod gauge: 49 of 49; residual beyond all known Diţă orientations through the point: 0
+done (20s)

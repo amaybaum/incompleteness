@@ -1,0 +1,16 @@
+PASS  K1 R_H in SO(3)  
+PASS  K1 actT R_H phiW = T_psi with pauliW(T_psi) = |psi><psi|  T_psi=[[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]]
+PASS  K2 phiW = cnot(prodState xplus z3)  
+PASS  K3 pauliW(T_psi) Hermitian, rank 1, trace 1  
+PASS  K3 table rank T_psi = 4, table rank cnot(T_psi) >= 2  ranks 4, 4
+PASS  K4 countercontrol: R0 in SO(3) and cnot(actC R0 phiW) has table rank 1 = prodState (R0 xplus) z3  
+PASS  M1 cnot idW = chainW  
+PASS  M1 chainW = -1/2 and idW = 1/4 at the sharp pair  (-1/2, 1/4)
+PASS  M2 famI factorizes on product effect tables (3 random rational instances)  
+PASS  M3 countercontrol: entangled effects give famI value < 0 on maxCone tables  value -2
+PASS  M4 maxCone rotation covariance (Cayley rotation, exact)  
+PASS  O1 actT reflY (cnot idW) = chainW = actC reflY (cnot idW)  
+PASS  O1 actT reflY phiW = idW = actC reflY phiW  
+PASS  O2 rank phiW = 4; prodState has rank 1  
+14/14
+VERDICT PREMISE-PROBE-PASS

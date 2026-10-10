@@ -1,0 +1,45 @@
+== T0 controls: the table rule reproduces the landed gC5 and BAL's C7b
+PASS T0.1 the table rule at d = 5 with gC5's J, K equals the landed RelcSelectC5 tables (RC5:111-131) entry for entry (pcC5, ptC5, sgnC5)
+PASS T0.2 ... and as a 36 x 36 matrix equals BAL's transcription of the landed gC5
+PASS T0.3 the C7b tables equal BAL's builder C7b as a 64 x 64 matrix
+== T1 the NOT nK 3 from OddChar's definitions
+PASS T1.1 nK 3 = diagSign(cK 3) = diag(1, 1, 1, -1, -1, -1, -1) and zK 3 = e_7
+PASS T1.2 IsNot (eball 7) (zK 3) (nK 3): unit axis, involution, orthogonal (so ball-preserving), flips z
+PASS T1.3 homogenized eigenspaces (4, 4): balanced, as the kernel's finrank_plus_eq_finrank_minus_nK 3
+== T2 frame, relT, involution
+PASS T2.1 frame on the corners +-zK 3
+PASS T2.2 relT with nK 3
+PASS T2.3 G^2 = I (pc, pt an involution of index pairs, sgn(m,v) sgn(pc,pt) = 1)
+== T3 the control relation and its two halves fail
+PASS T3.1 relC fails at entW 0 2, entry (7,2): actC side -1, actT side 1
+PASS T3.2 the corner identity G(hom(-z) (x) Y) = hom(-z) (x) homMap(nK 3)(M0 Y) fails at Y = e_2 (M0 = I; G acts there by homMap(sigma), sigma != nK 3): the two sides differ by sign
+PASS T3.3 the tangent relation TR (relC on lift(z^perp) (x) H) fails, first at the tangent input entW (1, 4)
+== T4 positivity: the value identity (Lean statement) and BAL's certificate identities
+PASS T4.1 prodEffVal_gC7b_prodState (symbolic in x, y in R^7 and the homogenized effect vectors e, f): (e0 + x6 e7)(f0 + f1 y0) + (e7 + x6 e0)(f2 y1 + ... + f7 y6) + (e1 x0 + ... + e6 x5)(f0 y0 + f1) + (e2 x0 - e1 x1 + e4 x2 - e3 x3 + e6 x4 - e5 x5)(f3 y1 - f2 y2 + f5 y3 - f4 y4 + f7 y5 - f6 y6)
+PASS T4.2 BAL's certificate identities I1-I6 and the orthogonal complex structures hold at d = 7 (7/7)
+PASS T4.3 tightness and countercontrol: at the witness (x = e1, y = e2, e = (1, -J e1), f = (1, K e2)) C7b's value is 0 and the 2J variant's (frame and relT intact) is -1
+== T5 countercontrol on the tables
+PASS T5.1 flipping any one of four sampled signs breaks G^2 = I or relT (4/4)
+== Lean-ready tables (for the UNBUILT module; homogeneous indices 0..7)
+def pcC7b : Fin 8 -> Fin 8 -> Fin 8
+  | 0, 0 => 0 | 0, 1 => 0 | 0, 2 => 7 | 0, 3 => 7 | 0, 4 => 7 | 0, 5 => 7 | 0, 6 => 7 | 0, 7 => 7
+  | 1, 0 => 1 | 1, 1 => 1 | 1, 2 => 2 | 1, 3 => 2 | 1, 4 => 2 | 1, 5 => 2 | 1, 6 => 2 | 1, 7 => 2
+  | 2, 0 => 2 | 2, 1 => 2 | 2, 2 => 1 | 2, 3 => 1 | 2, 4 => 1 | 2, 5 => 1 | 2, 6 => 1 | 2, 7 => 1
+  | 3, 0 => 3 | 3, 1 => 3 | 3, 2 => 4 | 3, 3 => 4 | 3, 4 => 4 | 3, 5 => 4 | 3, 6 => 4 | 3, 7 => 4
+  | 4, 0 => 4 | 4, 1 => 4 | 4, 2 => 3 | 4, 3 => 3 | 4, 4 => 3 | 4, 5 => 3 | 4, 6 => 3 | 4, 7 => 3
+  | 5, 0 => 5 | 5, 1 => 5 | 5, 2 => 6 | 5, 3 => 6 | 5, 4 => 6 | 5, 5 => 6 | 5, 6 => 6 | 5, 7 => 6
+  | 6, 0 => 6 | 6, 1 => 6 | 6, 2 => 5 | 6, 3 => 5 | 6, 4 => 5 | 6, 5 => 5 | 6, 6 => 5 | 6, 7 => 5
+  | 7, 0 => 7 | 7, 1 => 7 | 7, 2 => 0 | 7, 3 => 0 | 7, 4 => 0 | 7, 5 => 0 | 7, 6 => 0 | 7, 7 => 0
+def ptC7b : Fin 8 -> Fin 8 -> Fin 8
+  | 0, 0 => 0 | 0, 1 => 1 | 0, 2 => 2 | 0, 3 => 3 | 0, 4 => 4 | 0, 5 => 5 | 0, 6 => 6 | 0, 7 => 7
+  | 1, 0 => 1 | 1, 1 => 0 | 1, 2 => 3 | 1, 3 => 2 | 1, 4 => 5 | 1, 5 => 4 | 1, 6 => 7 | 1, 7 => 6
+  | 2, 0 => 1 | 2, 1 => 0 | 2, 2 => 3 | 2, 3 => 2 | 2, 4 => 5 | 2, 5 => 4 | 2, 6 => 7 | 2, 7 => 6
+  | 3, 0 => 1 | 3, 1 => 0 | 3, 2 => 3 | 3, 3 => 2 | 3, 4 => 5 | 3, 5 => 4 | 3, 6 => 7 | 3, 7 => 6
+  | 4, 0 => 1 | 4, 1 => 0 | 4, 2 => 3 | 4, 3 => 2 | 4, 4 => 5 | 4, 5 => 4 | 4, 6 => 7 | 4, 7 => 6
+  | 5, 0 => 1 | 5, 1 => 0 | 5, 2 => 3 | 5, 3 => 2 | 5, 4 => 5 | 5, 5 => 4 | 5, 6 => 7 | 5, 7 => 6
+  | 6, 0 => 1 | 6, 1 => 0 | 6, 2 => 3 | 6, 3 => 2 | 6, 4 => 5 | 6, 5 => 4 | 6, 6 => 7 | 6, 7 => 6
+  | 7, 0 => 0 | 7, 1 => 1 | 7, 2 => 2 | 7, 3 => 3 | 7, 4 => 4 | 7, 5 => 5 | 7, 6 => 6 | 7, 7 => 7
+sgnC7b mu nu = -1 exactly at (1,3), (1,5), (1,7), (2,2), (2,4), (2,6), (3,3), (3,5), (3,7), (4,2), (4,4), (4,6), (5,3), (5,5), (5,7), (6,2), (6,4), (6,6)
+PASS T5.2 the sign pattern is -1 exactly on {1,3,5} x {3,5,7} and {2,4,6} x {2,4,6}
+c2a_c7b: 17/17 checks pass
+VERDICT C7B-LEAN-READY: C7b is the signed permutation (pcC7b, ptC7b, sgnC7b) of the 64 entries of W 7; with the landed nK 3 / zK 3 it satisfies IsNot, balance (4,4), the frame, relT, G^2 = I and two-sided positivity (value identity + I1-I6), and fails relC, CI and TR

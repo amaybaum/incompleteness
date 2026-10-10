@@ -1,0 +1,10 @@
+PASS S3 U is an exact unitary over Q(i)
+PASS S3a T . Ad_U . T = Ad_conj(U) (symbolic input)
+PASS S3b PT_A . Ad_U . PT_A = PT_B . Ad_conj(U) . PT_B (symbolic input)
+PASS S3c countercontrol: PT_B . Ad_CNOT . PT_B is not multiplicative on matrix units (so not Ad of any unitary)
+PASS S3d every tau on every labelled tree (n = 2..6; 43614 (tree, tau) cases) admits eps with eps_i^eps_j = tau_ij
+PASS S3d countercontrol: on the triangle with tau = (0,0,1) no eps exists
+PASS S0a cond_f((g (x) id) w) = g(cond_f w) (symbolic g, w, f)
+PASS S0b cond_f(chi_eps w) = (eps_0 (x) eps_1)(cond_{f . eps_2} w) (symbolic)
+a2b_chart_steps: 8/8 checks pass
+VERDICT A2b-CHART-STEPS-EXACT

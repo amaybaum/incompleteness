@@ -1,0 +1,5 @@
+(a) |H| = 8 ; all permutation matrices: True
+(b) min |a00 a11 - a01 a10| over all 24 permutations = 1
+(c) G': frame True ; G'^2=I True ; Rt True ; Rc True
+(c) eigenvalues of G'(|+0><+0|): [-1/2, 1/2]
+exit 0 time 1s

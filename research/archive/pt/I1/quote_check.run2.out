@@ -1,0 +1,125 @@
+PASS  papers/Main.md:38  | **Axiom 1** is the evidential floor: tokened differentiation occurs — concrete differentiated content is *regi
+PASS  papers/Methodology.md:245  | > **Axiom 1.** *Tokened differentiation occurs.* — Concrete differentiated content is instantiated: there is s
+PASS  papers/Main.md:38  | From Axiom 1, by analysis of the words
+PASS  papers/Main.md:38  | This is **Axiom 2**: differentiation recurs, the temporal domain being the minimal such recurrence. Axiom 2 pr
+PASS  papers/Main.md:38  | but is not derivable from it
+PASS  papers/Methodology.md:247  | > **Axiom 2.** *Differentiation recurs.* — The principle of Axiom 1 is instantiated more than once over, acros
+PASS  papers/Methodology.md:235  | *Given Axiom 1,
+PASS  papers/Main.md:38  | a structure containing a single tokened differentiation and nothing further satisfies Axiom 1 while containing
+PASS  papers/Main.md:38  | The proper-part decomposition $V \subsetneq S$ — the observer embedded in a whole it does not exhaust — is acc
+PASS  papers/Main.md:40  | One could instead read the evidential floor *thinly*
+PASS  papers/Main.md:40  | in which case the embeddedness $V \subsetneq S$ does not follow and would have to be added as a third, indepen
+PASS  papers/Main.md:36  | that our universe lies in the observer-admitting subset of substrata — substrata whose bijection structure sat
+PASS  papers/Main.md:44  | **Definition.** An *observation* is a triple $(S, \varphi, V)$: a total system $S$, a dynamics $\varphi: S \to
+PASS  book/ch01-observation.md:26  | a total system $S$, a deterministic dynamics $\varphi: S \to S$, and an observer
+PASS  papers/Main.md:46  | it follows from a single innocuous premise, that evolution *composes* — advancing the state by $t$ and then by
+PASS  papers/Main.md:46  | in the discrete case relevant here it collapses to iteration of a single transition map, $x_t = \varphi^t(x_0)
+PASS  papers/Main.md:48  | **Lemma 1** (Finiteness). *The observer has finitely many distinguishable internal states, so the visible conf
+PASS  papers/Main.md:50  | **Lemma 2** (Causal partition). *The observer is a proper subsystem: $V \subsetneq S$. The complement $H = S \
+PASS  papers/Main.md:52  | $$\Gamma = \Gamma_V \times \Gamma_H, \qquad H_{\text{tot}} = H_V + H_H + H_{\text{int}}$$
+PASS  papers/Main.md:54  | follows, with cross-partition correlations entering only through $H_{\text{int}}$. The product decomposition i
+PASS  papers/Main.md:62  | The bijective substratum is a representation choice — the minimal recurrent bijective representative of the hi
+PASS  papers/Main.md:62  | observed near-unitarity is the empirical input motivating the choice
+PASS  papers/Main.md:56  | **Lemma 3** (Determinism, reversibility, and the selected measure). *$\varphi$ is a function with a unique suc
+PASS  book/ch01-observation.md:38  | *$\varphi$ is a bijection on $S$.
+PASS  papers/Methodology.md:251  | Everything else in the foundational layer is a lemma:
+PASS  papers/Methodology.md:251  | determinism, finiteness-per-moment, and bijectivity
+PASS  papers/Main.md:38  | total finiteness of the substratum is a physical posit (status Remark, §1.4; ledger §4.5)
+PASS  papers/Main.md:62  | total finiteness of that representative is a physical posit, carried in the posit ledger (§4.5)
+PASS  papers/Main.md:56  | On each accessible orbit the invariant measure is unique (uniform on the cycle); globally, the counting measur
+PASS  papers/Main.md:60  | a realization in the sense of §3.4 carries its own fixed hidden prior $\mu_H$ as part of the realization datum
+PASS  papers/Main.md:66  | a reader unwilling to grant that recovery may simply take reversibility as the standard postulate it is elsewh
+PASS  papers/Main.md:86  | **Lemma (partition-relativity under the canonical invariant measure).** *Under the canonical measure of Lemma 
+PASS  papers/Main.md:86  | canonically $T = T(\varphi, \mathcal{P}, \mu_{\text{inv}})$, in general $T = T(\varphi, \mathcal{P}, \mu_H)$ (
+PASS  papers/Main.md:99  | **Layer 4 — physical and operational realization** (§3.2, §4, companions): interventions (classical comb close
+PASS  papers/Main.md:82  | **(2) Readback content:** C4 is not needed for the existence of a quantum representation; it is what makes the
+PASS  papers/Main.md:82  | **(4) Full operational extension:** identifying one common *standard local quantum instrument/composite theory
+PASS  papers/Main.md:22  | Two logically separate completion questions remain beyond that finite-law result: whether the complete family 
+PASS  papers/Methodology.md:162  | C1, non-zero coupling, follows conditionally: a distinction with content *about* the complement requires coupl
+PASS  papers/Main.md:72  | The four conditions below are diagnostics of a realization rather than hypotheses of the characterization: the
+PASS  papers/Main.md:594  | (C4) is not an independent condition on the realization either: it asserts a readback gap *mediated through th
+PASS  papers/Main.md:74  | **(C1) Non-zero coupling.** $H_{\text{int}} \neq 0$: hidden degrees of freedom affect the visible evolution at
+PASS  book/ch01-observation.md:53  | **Condition C1 (Non-zero coupling).** $H_{\text{int}} \neq 0$: hidden degrees of freedom affect the visible ev
+PASS  papers/Explainer.md:65  | **C1: Non-zero coupling (H_int ≠ 0).** The visible and hidden sectors interact.
+PASS  papers/Substratum.md:126  | C1 (non-trivial coupling)
+PASS  papers/Main.md:76  | **(C2-structural):** a hidden record of visible history, once written, persists to the readback that uses it —
+PASS  papers/Main.md:76  | **(C2-slow):** the timescale mechanism — the hidden sector's *coarse-grained mixing time* $\tau_B$, the timesc
+PASS  papers/Main.md:76  | but not conversely
+PASS  book/ch01-observation.md:55  | **Condition C2 (Slow-bath timescale separation).** $\tau_S \ll \tau_B$.
+PASS  papers/Explainer.md:67  | **C2: Memory persistence (τ_S ≪ τ_B).**
+PASS  papers/Main.md:78  | **(C3) Sufficient memory capacity.** The hidden sector has enough distinguishable states to encode the observe
+PASS  papers/Explainer.md:69  | **C3: Sufficient capacity (log₂|C_H| ≥ I\*).**
+PASS  papers/Main.md:80  | **(C4) History readback.** History-sensitive hidden mediation: on accessible windows, hidden degrees of freedo
+PASS  book/ch01-observation.md:59  | **Condition C4 (History readback).** History-sensitive hidden mediation: hidden degrees of freedom carry infor
+PASS  papers/Main.md:602  | *Remark (which condition is primitive).* Of the three structural conditions, only (C4) is logically independen
+PASS  papers/Main.md:602  | The equivalence could therefore be stated with (C4) alone.
+PASS  book/ch01-observation.md:71  | The framework's four conditions are therefore *logically* independent — each can fail without forcing the othe
+PASS  book/ch01-observation.md:61  | The conditions are independent in statement but coupled in content.
+PASS  papers/Main.md:137  | **Theorem (history readback + finite recurrence implies indivisibility).** *For a fixed finite reversible OI r
+PASS  papers/Main.md:141  | It does **not** say that C4 forces P-indivisibility on every accessible short-time window
+PASS  papers/Main.md:159  | **Lemma (fast bath erases readback).** *Suppose the coarse-grained channel mixes fast relative to the visible 
+PASS  papers/Main.md:167  | **Lemma (accessible backflow from readback).** *Under (C1)–(C3), suppose (C4) holds with a gap at order $k$ in
+PASS  papers/Main.md:433  | **Theorem (C2 necessity, quantitative mixing form).** *Model one coupling step as the uniform-prior bijection 
+PASS  papers/Main.md:433  | every realized post-relaxation hidden conditional, given the visible record to date, lies within $\varepsilon$
+PASS  papers/Main.md:447  | **Theorem (physical memory: C2, process form).** *Under the conditional-mixing hypothesis — every realized hid
+PASS  papers/Main.md:447  | uniformly in the history
+PASS  papers/Main.md:456  | The characterization's realization clause needs (C2) only in its limit form — the canonical dilation's bath is
+PASS  papers/Main.md:456  | (C1)–(C4) are not four necessities of equal standing — (C2)'s necessity is the conditional bound above.
+PASS  papers/Main.md:612  | The equivalence is existential: (ii) holds iff *some* per-horizon (C1)–(C4) realization exists. The necessity 
+PASS  papers/Main.md:614  | The equivalence is a representation theorem: every accessible non-Markovian law *admits* a per-horizon C1–C4 r
+PASS  papers/Main.md:286  | *Remark (failure of (C1)).* Condition (C1) does not suffice. For $|V| = |H| = 2$ and $\varphi(x,h) = (h,x)$ on
+PASS  papers/Main.md:286  | The obstruction is structural: (C1) constrains the diagonal of $\Phi$, whereas entanglement-breaking is a prop
+PASS  papers/Substratum.md:128  | **Conditional structure.** C1, C3, and C4 for the memory-bearing temporal sector are derived from E1–E3, A1–A2
+PASS  papers/Substratum.md:128  | C2 is conditional on the quantitative mixing hypothesis of [Main §3.4]
+PASS  papers/Substratum.md:124-126  | There exists a triple $(S, \varphi, V)$ with $S$ finite, $\varphi$ a bijection on $S$, and $V \subset S$ a dis
+PASS  papers/Substratum.md:124-126  | The triple satisfies C1
+PASS  papers/Substratum.md:124-126  | , and C4 (history readback) for the M1-T temporal sector
+PASS  papers/Substratum.md:122  | **M1-T**, the observed temporal quantum data used in Stage 1 lie in the accessible history-readback/P-indivisi
+PASS  papers/Explainer.md:905  | The framework's results all have a clean interpretation in this language. The conditions C1–C4 are access cond
+PASS  verification/lean-mathlib/OIBridge/OIRealization.lean:90  | **THE EMBEDDING** `((v,h),b) ↦ (h, pack (v,b))`: the hidden bit on the system qubit, the visible pair on the a
+PASS  verification/lean-mathlib/OIBridge/IndependenceCensus.lean:181-186  | **THE FOUR OI CONDITIONS ON THE SHARED CORE**, as one predicate, in canonical order: C1 (non-trivial coupling 
+PASS  verification/lean-mathlib/OIBridge/IndependenceCensus.lean:148-150  | **The core is already observer-minimal**: the two-step visible itinerary separates all eight states, so no obs
+PASS  verification/lean-mathlib/OIBridge/OIRealization.lean:282-290  | **THE FINITE-OI INGREDIENTS OF THE SEALED CORE**, each as the manuscript states it: a finite total system (Lem
+PASS  verification/lean-mathlib/OIBridge/OIRealization.lean:229-233  | **THE SEALED OI CORE, REALIZED IN A THEORY**: the core satisfies C1–C4; the passive step and the control are a
+PASS  verification/README.md:636-640  | **No ontological necessity**: `OICore` is an existential realizability condition about a particular four-state
+PASS  verification/lean-mathlib/OIBridge/CompletedOI.lean:95-96  | **BARE OI**: the original observation-incompleteness principle, unchanged.
+PASS  verification/lean-mathlib/OIBridge/RouteB.lean:137-140  | **THE CONSEQUENCE CLOSURE, `DerivedOI`**: every theory-level predicate the kernel derives from the substratum,
+PASS  verification/lean-mathlib/OIBridge/RouteB.lean:145-147  | **THE CONSEQUENCE CLOSURE ON THE TWO-STATE CARRIER** adds the sealed OI core.
+PASS  verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:18-21  | nothing in the interface identifies that core with a manuscript substratum's `S` and `φ`. So no manuscript-lev
+PASS  verification/ROADMAP.md:65  | **CONDITIONAL** — the adopted meaning is covariance, `A6Cov`, which holds identically on every link-coupled ru
+PASS  verification/ROADMAP.md:738-741  | the manuscripts' physical substratum is the packaged carrier
+PASS  verification/ROADMAP.md:738-741  | that identification is the whole of what this row tracks. It is a premise no round of this programme discharge
+PASS  verification/ROADMAP.md:65  | `A1`–`A5` hold of it with `A4Exact` under the translation-invariance hypothesis on the link coupling
+PASS  verification/ROADMAP.md:65  | the complex carrier itself, proved not to satisfy `A1` (`cx3b_complex_not_A1`)
+PASS  papers/Substratum.md:92  | (A1) **Finiteness.** The configuration space $S$ is finite. (Two-part status. E3, with the holographic bound r
+PASS  papers/Substratum.md:92  | bounds what observation reaches
+PASS  papers/Substratum.md:92  | The extension to all of $S$ is then a gauge choice rather than a further fact
+PASS  papers/Substratum.md:94  | (A2) **Determinism.** $\varphi: S \to S$ is a bijection (deterministic, reversible dynamics). (Two-part status
+PASS  papers/Substratum.md:94  | Bijectivity for the dynamics governing registered history is thus partly structural and partly anchored by one
+PASS  papers/Substratum.md:96  | (A3) **Bounded coupling degree.** Each site is coupled to a bounded number of neighbors in $\varphi$'s action.
+PASS  papers/Substratum.md:98  | (A4) **Center independence.** The dynamics $\varphi$ does not depend on a choice of
+PASS  papers/Substratum.md:100  | (A5) **Linearity.** The wave equation for $\varphi$ is linear. (Equivalent to amplitude-scale gauge invariance
+PASS  papers/Substratum.md:102  | (A6) **Background independence.** The dynamics is covariant under spatially-varying internal-index transformat
+PASS  papers/Substratum.md:102  | The content of the assumption is this covariant interface — the coupling is link-valued data on which the tran
+PASS  papers/Substratum.md:104  | The theorem's uniqueness claim holds under E1–E7 **and** A1–A6 jointly; removing any of A3–A6 either requires 
+PASS  papers/Substratum.md:204  | The structural assumptions A1–A6 exclude several broad classes of theory from the outset:
+PASS  verification/ROADMAP.md:888-890  | **The two readings are incomparable as predicates**, by two exhibited carriers with exact certificates and in 
+PASS  verification/ROADMAP.md:66  | at the lattice cut `[SM]` Theorem 22's readback genericity lemma in the form `LatticeCutReadback` over admissi
+PASS  verification/ROADMAP.md:903-907  | At the **lattice cut** the datum is already a kernel object — `cutRealization (waveSubstratum d L q α) Vs μ` —
+PASS  verification/ROADMAP.md:66  | **OPEN**, and now EXACT
+PASS  verification/ROADMAP.md:66  | | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN**, and n
+PASS  verification/ROADMAP.md:840-842  | at the cosmological cut C4 is open, and at the lattice cut C2 and C4 both remain hypotheses.
+PASS  verification/ROADMAP.md:69  | **OPEN**, with the present architecture bounded negatively: `StochasticInterface` proves the invariant ensembl
+PASS  verification/ROADMAP.md:69  | This is distinct from C4: C4 asks whether hidden history is routed back; this row asks which `(Obs, μ)` define
+PASS  verification/ROADMAP.md:1455-1461  | The manuscripts explicitly carry several substantive premises whose current role is to condition a claim, not 
+PASS  verification/ROADMAP.md:44-49  | This statement is deliberately narrower than “all of physical quantum mechanics follows from bare OI.” The rem
+PASS  verification/ROADMAP.md:44-49  | Physical C4 asks whether the abstract observational structure is discharged at the physical cuts
+PASS  verification/README.md:747-749  | So `OICore T → PassivelyIncomplete T` holds for every
+PASS  verification/README.md:747-749  | `PassivelyIncomplete T → OICore T` fails
+PASS  verification/lean-mathlib/OIBridge/RankGapTheory.lean:696-701  | **FIVE-WAY MINIMALITY.** For each of the five physical completion conditions, the same finite OI framework adm
+PASS  verification/README.md:77-79  | Bare finite OI therefore does not select quantum mechanics (`oi_alone_not_qm`); the theorem classifies the OI-
+PASS  verification/lean-mathlib/OIBridge/PhysicalCharacterization.lean:363  | **INERT SPECTATORS ARE INDEPENDENT** of the other four conditions and of OI realization.
+PASS  verification/lean-mathlib/OIBridge/LevelOneRecursion.lean:43-45  | **The level-one seam is independent of observer recursion.** A theory with composite operational validity, ine
+countercontrol (altered fragment fails): True
+checks 122  failures 0
+VERDICT ALL-EXACT

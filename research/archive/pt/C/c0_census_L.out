@@ -1,0 +1,12 @@
+c0_census_L: read-only git and grep at the base (L), for thread C's ledger
+== git -C base rev-parse HEAD
+9f9f8257a980a1819fbbc1dc0019917cf8678626
+== git -C base log --first-parent --oneline bcbc516fe78eb7aa303a41e7bc9cc106dd63bd58..HEAD
+9f9f8257 KT4-PREM-1: land (#806)
+== git -C base diff --stat bcbc516fe78eb7aa303a41e7bc9cc106dd63bd58 HEAD -- verification/lean-mathlib (empty = no Lean change)
+== grep -rln 'TokenCoherent|FourCopyCoherent|KT4Core|TokProdState|FourCopy' base/verification/lean-mathlib (empty = absent)
+== files declaring PreComposite
+base/verification/lean-mathlib/OIBridge/CompositeInterface.lean
+== ROADMAP anchors (K1, K2, Kn rows)
+1001:- **K2 — the composite. OPEN.** Read-only research has mapped a candidate `d = 3` composition
+1058:- **Kₙ — elementary-to-arbitrary-carrier lift. OPEN.** DIM-1 reaches only the elementary `d = 3`

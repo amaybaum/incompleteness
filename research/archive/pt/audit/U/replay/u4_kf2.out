@@ -1,0 +1,8 @@
+PASS K1  [exact] <F, cnot F> = 0; both have eigenvalue -1/8; both in maxCone (no local part, bilinear part (1/4) x orthogonal)
+PASS K2  [exact] pauliW F = (I - 2|t><t|)/8, pauliW cnot F = (I - 2|Ut><Ut|)/8, <t|Ut> = 0
+PASS K3  [exact] P+F = (F + cnot F)/2 has spectrum [0, 1/8] (PSD): P+(K_F2) ⊆ Q3+
+PASS K4  [instance] P+ of pure states (t, |00>, |++>, a Gaussian-rational v) pair >= 0 with F and cnot F
+PASS K4c  [countercontrol] the non-V+ state |t><t| itself violates F (<., F> = -1/2): the V+ restriction is load-bearing
+
+checks: 5, failed: 0
+VERDICT U4-KF2-EXACT -- 5 checks

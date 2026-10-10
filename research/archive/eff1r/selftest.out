@@ -1,0 +1,56 @@
+  PASS  T the reference module blob is readable
+  PASS  N1 the module declares exactly the frozen declarations [reference]
+  PASS  N2 the preamble unchanged [reference]
+  PASS  N2 every context block unchanged and in order [reference]
+  PASS  N2 every frozen statement and definition unchanged [reference]
+  PASS  N3 no sorry, admit, axiom or native_decide [reference]
+  PASS  N3 every frozen #print axioms line present [reference]
+  PASS  S1 Q-CONE: both inclusions with their frozen statements, the equality from both by name, the cone theorem and the generation theorem on OG-1's four hypotheses alone [reference]
+  PASS  S2 Q-SET: the upper bound and the decomposition in both directions, the equality from both by name, the conditional generation on the four hypotheses, the unit and MixingClosed, and the countermodel [reference]
+  PASS  S3 the frozen definitions whole; maxConeOf over the given family; MixingClosed sub-convex [reference]
+  PASS  S4 the named premises concluded only of the named witnesses by the named control theorems [reference]
+  PASS  S5 landed objects reused, not re-declared; imports whitelisted [reference]
+  PASS  S6 field-neutral; no drive, flow or limit-closure token [reference]
+  PASS  S7 the header carries none of the frozen phrases [reference]
+  PASS  S8 `0 < d` in exactly the frozen statements; no dimension-three object outside the controls and the verdict [reference]
+  PASS  S9 exactly the 31 frozen #print axioms lines, distinct, each naming a declaration of the module [reference]
+  PASS  V exactly one outcome per question by the frozen rule: Q-SET CONDITIONAL-FULL-EFFECTS, Q-CONE CONE-DERIVED [reference]
+  PASS  T the reference module reads Q-SET ['CONDITIONAL-FULL-EFFECTS'] and Q-CONE ['CONE-DERIVED']
+  PASS  M mutation a renamed declaration fails with N1
+  PASS  M mutation a changed binder context fails with N2
+  PASS  M mutation a changed preamble fails with N2
+  PASS  M mutation a changed statement fails with N2
+  PASS  M mutation a sorry fails with N3
+  PASS  M mutation a print removed fails with N3
+  PASS  M mutation the mixing closure added to the cone theorem fails with S1
+  PASS  M mutation one inclusion of the cone equality dropped from its proof fails with S1
+  PASS  M mutation an effect premise on the generation theorem fails with S1
+  PASS  M mutation `0 < d` added to the free inclusion fails with S1
+  PASS  M mutation the mixing closure dropped from the set generation fails with S2
+  PASS  M mutation the countermodel weakened to keep the mixing closure open fails with S2
+  PASS  M mutation the upper bound with a weaker radius fails with S2
+  PASS  M mutation the cone restricted to normalized effects fails with S3
+  PASS  M mutation the mixing closure made convex fails with S3
+  PASS  M mutation the mixing closure concluded from the seed orbit fails with S4
+  PASS  M mutation seed-orbit availability concluded for a hypothesis-bound family fails with S4
+  PASS  M mutation a landed definition re-declared fails with S5
+  PASS  M mutation an import outside the whitelist fails with S5
+  PASS  M mutation a complex scalar fails with S6
+  PASS  M mutation a limit closure fails with S6
+  PASS  M mutation a forbidden phrase in the header fails with S7
+  PASS  M the result-note phrase test passes a neutral note and fails one with a forbidden phrase
+  PASS  M mutation `0 < d` added to the generation theorem fails with S8
+  PASS  M mutation a dimension-three object in the generation section fails with S8
+  PASS  M mutation an extra print fails with S9
+  PASS  M mutation a duplicated print fails with S9
+  PASS  M decision rule: the cone theorem with the mixing closure reads CONE-CONDITIONAL
+  PASS  M decision rule: the set theorem without the unit and the mixing closure reads DERIVED-FULL-EFFECTS
+  PASS  M decision rule: without the frozen countermodel Q-SET has no verdict
+  PASS  M decision rule: a countermodel with the mixing closure reads INSUFFICIENT-EVEN-WITH-MIXING, and two outcomes fail V
+  PASS  M mutation two Q-SET outcomes at once fails with V
+  PASS  M decision rule: a cone countermodel with the mixing closure reads CONE-INSUFFICIENT
+  PASS  M mutation a derived set theorem beside the conditional one fails with V
+  PASS  M note tokens: exactly the stated verdicts are found
+  PASS  M imports: the frozen edit passes and a dropped line fails
+  PASS  M census: the frozen edit passes; a changed status, a moved family, a whitespace change and the unchanged file fail
+controls: OK -- 55 checks

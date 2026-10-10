@@ -1,0 +1,219 @@
+R1 applicable-item list (exact parse of the frozen step-1 inventories)
+UNCLASSIFIED I3 bearings: none
+I3 tally: {'direct': 80, 'inherits': 25, 'notread': 22, 'bridge': 15, 'none': 45} | r0lists: {'direct': 80, 'inherits': 25, 'notread': 20, 'bridge': 17, 'none': 45}
+I4 non-none bearing: ['I4.236'] | I4 do-not-assume: 44
+I2 non-none bearing: [] | I2 records without a parsed bearing field: 0 | I2 do-not-assume: ['I2.3', 'I2.29', 'I2.30', 'I2.31', 'I2.32', 'I2.33', 'I2.34', 'I2.35', 'I2.62', 'I2.63', 'I2.69']
+I1 records naming a bridge in the bearing field: ['I1.17']
+APPL I3.1 | direct | P | assumed — the premise the carrier encodes (local tomography… | — | `W d`
+APPL I3.2 | direct | P | proved [K] (definition); the clause "products in `K`" is a … | — | `prodState`
+APPL I3.3 | direct | P | proved [K] (definition); it encodes the full affine effect … | — | `maxCone`
+APPL I3.4 | direct | P | proved [K] (definition) | — | `jointStates`
+APPL I3.5 | direct | P | proved [K] (definition) | — | `IsProduct`
+APPL I3.6 | direct | P | proved [K] (definition) | the invariance of `K` under `actT g` fo… | `actT`
+APPL I3.7 | direct | P | proved [K] (definition) | the invariance of `K` under `actC g` fo… | `actC`
+APPL I3.8 | inherits | O | assumed (hypothesis of every selector: `dim_of_nativeGate`,… | — | `IsNot`
+APPL I3.9 | direct | P | assumed (hypothesis of `dim_of_nativeGate`, `three_of_nativ… | — | `NativeGate`
+APPL I3.10 | direct | P | assumed (hypothesis of `three_of_nativeGate` alone, DIM-1);… | — | `Entangling`
+APPL I3.11 | direct | P (`cnot`, `phiW`… | proved [K] (definitions) | — | `cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (the `d = 3…
+APPL I3.12 | direct | P (O for `isNot_n… | proved [K] (DIM-1 ledger row "`d = 3` witness": proved) | — | `isNot_nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC`
+APPL I3.13 | direct | P | proved [K] | — | `nativeGate_cnot`
+APPL I3.14 | direct | P | proved [K] | — | `entangling_cnot`
+APPL I3.15 | direct | P | proved [K] | — | parity: `finrank_plus_eq_finrank_minus`, `not_even_of_nativeGate`
+APPL I3.16 | direct | P | proved [K] | — | `blockData_of_nativeGate` (with `BlockData`)
+APPL I3.17 | direct | P | proved [K] | — | `not_entangling_one`
+APPL I3.18 | inherits | P | proved [K]; its premises are unsourced (ROADMAP.md:984–1000… | — | `dim_of_nativeGate` (the selector)
+APPL I3.19 | inherits | P | proved [K]; premises unsourced (ROADMAP.md:984–1000) | — | `three_of_nativeGate`
+APPL I3.20 | direct | P | proved [K] | — | DIM-1 controls: `nativeGate_cnot1`, `not_entangling_cnot1`, `no_gate_…
+APPL I3.21 | inherits | P | proved [K] | — | `dim1_core` (DIM-1 verdict)
+APPL I3.22 | direct | P | proved [K] (PARITY-NOT-1 `PARITY-FROM-RELATIONS-PROVED`) | — | `not_even_of_gateRel` (with `finrank_plus_eq_finrank_minus_rel`)
+APPL I3.23 | direct | P | assumed (hypothesis of I3.22, I3.24, I3.25, I3.27); instanc… | — | `GateRel`
+APPL I3.24 | inherits | O (conclusion abo… | proved [K] | — | `piRotation_three` (with `tangentPlus_three`, `det_three`)
+APPL I3.25 | direct | P | proved [K] | — | `not_gateRel_refl3`, `not_gateRel_negId3`
+APPL I3.26 | direct | P | proved [K] (PARITY-NOT-1 `POSITIVITY-SEPARATION-PROVED`) | — | `not_posFwd_gJ3`, `not_posFwd_gJ5`
+APPL I3.27 | direct | P | proved [K] (ODD-CHAR-1 `ODD-CHARACTERIZATION-PROVED`; direc… | — | `exists_frame_gateRel_iff_odd`
+APPL I3.28 | direct | P | proved [K] | — | `not_posFwd_gRev`
+APPL I3.29 | direct | P | assumed (hypothesis of I3.31); `ctrlGate_of_nativeGate` (I3… | — | `CtrlGate`
+APPL I3.30 | direct | P | proved [K] (RELC-SELECT-1 `RELC-PARITY-PROVED`) | — | `not_even_of_relC`
+APPL I3.31 | inherits | P | proved [K] (`CTRL-SELECTOR-PROVED`) | — | `dim_of_ctrlGate`, `three_of_ctrlGate`
+APPL I3.32 | direct | P | proved [K] | — | `ctrlGate_of_nativeGate`
+APPL I3.33 | direct | P | proved [K] (`POSITIVITY-SEPARATION-PROVED`) | — | `gSq_sep`, `gSqInv_sep`
+APPL I3.34 | direct | P | proved [K] (`RELT-NOT-DIMENSION-SELECTING-PROVED`) | — | `relT_not_dimension_selecting`
+APPL I3.35 | direct | P | assumed (hypothesis of I3.37, I3.38, I3.47; ROADMAP.md:995–… | — | `NativeGateOf`
+APPL I3.36 | direct | P | assumed (hypothesis of I3.38) | — | `EntanglingOf`
+APPL I3.37 | inherits | P (hypotheses at … | proved [K]; premises unsourced (ROADMAP.md:995–996) | — | `dim_of_nativeGateOf`
+APPL I3.38 | inherits | P | proved [K]; premises unsourced | — | `three_of_nativeGateOf`
+APPL I3.39 | inherits | O | assumed (the reading of the selector premise `2 ≤ d`; K1-SH… | — | `HasTwoSharpTests`
+APPL I3.40 | inherits | O | proved [K] (`K1-SHARP-TEST-MULTIPLICITY-CLASSIFIED`) | — | `hasTwoSharpTests_iff`
+APPL I3.41 | direct | P | proved [K] (`K1-TWO-LE-NOT-IMPLIED`) | — | `two_le_not_implied`
+APPL I3.42 | direct | P (from O data) | proved [K] | — | `prodState_mem_maxCone`
+APPL I3.43 | direct | P | assumed (hypothesis of I3.44; it is `hadm` (a)–(b), i.e. [D… | — | `CandidateCone`
+APPL I3.44 | direct | P | proved [K] (`K2-ORIENTATION-OBSTRUCTION-PROVED`) | — (it concerns a determinant −1 reflect… | `no_candidateCone_cnot_reflY`
+APPL I3.45 | inherits | P | proved [K] (`K1-ENTANGLING-WEAKENED`) | — | `three_of_nativeGate_of_two_le`
+APPL I3.46 | direct | P | proved [K]; "no converse is stated" (K2-GUARD-1) | — | `two_le_of_entangling`
+APPL I3.47 | inherits | P | proved [K] | — | `three_of_nativeGateOf_of_two_le`
+APPL I3.48 | bridge | O | assumed ("effect soundness", hypothesis of I3.37, I3.38, I3… | — | `EffectsOn`
+APPL I3.49 | direct | P | proved [K] (definition) | — | `maxConeOf`
+APPL I3.50 | notread | O | assumed / open — EFF-1: "The unit and `MixingClosed` are an… | — | `MixingClosed`
+APPL I3.51 | bridge | P (hypotheses at … | proved [K] (EFF-1 `CONE-DERIVED`, "DERIVED is relative to t… | — | `maxConeOf_avail_eq` (with `sharpFamily_subset_avail`, `maxConeOf_sha…
+APPL I3.52 | notread | O | proved [K] (EFF-1 `CONDITIONAL-FULL-EFFECTS`) | — | `fullEffects_subset_avail`
+APPL I3.53 | notread | O | proved [K] | — | `not_fullEffects_of_orbit`
+APPL I3.54 | bridge | O | assumed (hypothesis of the dense variants; "Nothing here so… | — | `DenseBoundaryOrbit`
+APPL I3.55 | bridge | O | proved [K]; the converse fails (`not_boundaryTransitive_rat… | — | `denseBoundaryOrbit_of_boundaryTransitive`
+APPL I3.56 | bridge | P (hypotheses at … | proved [K] (`KTRANS-DENSE-CONE-PROVED`, `-BALL-PROVED`) | — | `maxConeOf_avail_eq_of_dense` (with the dense ball and selector varia…
+APPL I3.57 | notread | O | proved [K] (definition); instances at L only the controls (… | — | `FiniteStage`
+APPL I3.58 | bridge | O | proved [K] (definition) | — | `IsEffectOn`
+APPL I3.60 | bridge | O | proved [K] (definition) | — | `IsBoundaryState`
+APPL I3.69 | inherits | O (two copies, co… | assumed / open — ROADMAP.md:1027–1030 (K∞-Copy, unsourced);… | — | `CopyNatural` (K∞-Copy)
+APPL I3.73 | bridge | O | assumed / open — ROADMAP.md:1023–1024 (K∞-Seed, unsourced; … | — | `SharpSeed` (K∞-Seed, P1)
+APPL I3.74 | bridge | O (also the joint… | assumed (OG-1: "the premise on `G` that the statements belo… | — | `PreservesBody`
+APPL I3.75 | bridge | O | assumed / open — ROADMAP.md:1025–1026 ("Body preservation o… | — | `SeedOrbitAvailable` (K∞-V4, V4′)
+APPL I3.76 | inherits | O | assumed / open — ROADMAP.md:1018–1022 ("K∞-Drive does not g… | — | `BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record)
+APPL I3.78 | notread | O | proved [K] | — | `preservesBody_drive`
+APPL I3.79 | notread | O | proved [K] (OG-1) | — | `seedOrbit_ball3_eq` (the reduced orbit-generation theorem)
+APPL I3.80 | notread | O | proved [K] | its pair-level action is (b) (do not as… | `boundaryTransitive_fullAut3`
+APPL I3.82 | notread | O | proved [K] (`OG-1-INFRASTRUCTURE-PROVED` with `og1_infrastr… | — | `orbit_generation_core` (OG-1 verdict)
+APPL I3.83 | notread | O | proved [K] | its pair-level action is (b_DJ)-type (d… | `boundaryTransitive_ball3Drive` (with `driveWords3`)
+APPL I3.87 | inherits | O | assumed (TRB-1: "a source of a body-preserving boundary-tra… | — | `TransBody` (TRANS)
+APPL I3.88 | inherits | O | proved [K] (`TRB-1-BALL-PROVED`) | — | `eq_qBall_of_boundaryTransitive`
+APPL I3.89 | inherits | O | proved [K] | — | `exists_affine_image_eq_eball`
+APPL I3.92 | notread | O | proved [K] (definition); only control instances at L (`badD… | — | `DirectedStages` (with `StageMap`)
+APPL I3.94 | notread | O | assumed / open — ROADMAP.md:1010–1013 (K∞-Stage "`SCInf`, `… | — | `SCInf` (SC∞, K∞-Stage)
+APPL I3.95 | notread | O | assumed / open (K∞-Stage; "the binary-visible part of the e… | — | `BinaryVisible` (ELEM-bin)
+APPL I3.96 | notread | O | assumed / open (ROADMAP.md:1010–1012: "Finite rank gives th… | — | `FiniteRank` (K∞-Stage)
+APPL I3.97 | notread | O | proved [K] | — | `sharpSeed_completion`
+APPL I3.98 | notread | O | proved [K] | — | `exists_chart_of_finiteRank`
+APPL I3.99 | notread | O | assumed / open — ROADMAP.md:1014–1016 (K∞-Act "reversible o… | — | `OpDatum` (K∞-Act)
+APPL I3.101 | notread | O | assumed (K∞-Act; hypothesis of I3.105, I3.111) | — | `AffineRespect`
+APPL I3.104 | bridge | O | proved [K] | — | `body_isClosed`
+APPL I3.105 | bridge | O | proved [K] | — | `preservesBody_inducedEquiv`
+APPL I3.111 | notread | O | proved [K] (`ORD-1-COMPOSITION-ORDER-PROVED`) | — | `finiteOrderOn_of_stagePreserving`
+APPL I3.113 | direct | P | proved [K] (definition; the coordinate model `Fin (dA+1) → … | — | `ProductData`
+APPL I3.114 | direct | P | assumed (the eight interface fields; KT4-PREM-1 row `hadm`:… | — | `PreComposite`
+APPL I3.115 | direct | P | assumed / open (K2: "local tomography, which DIM-1's carrie… | — | `LocallyTomographic`
+APPL I3.116 | direct | P | assumed (`lt` "is a premise of the structure; it is not der… | — | `Composite`
+APPL I3.118 | direct | P | assumed (a predicate; no OI source; KT4-PREM-1 / PT stage 1… | an instance with idle-extended rotation… | `JointReversible`
+APPL I3.120 | direct | P | proved [K] | — | `condA_prodState` (L9, no signalling on products)
+APPL I3.121 | direct | P | proved [K] | — | `not_locallyTomographic_paddedPre`, `no_composite_over_paddedPre` (wi…
+APPL I3.122 | direct | P | proved [K] (`COMP-1-INTERFACE-PROVED`) | — | `comp1_core` (COMP-1 verdict)
+APPL I3.124 | inherits | O (`lor_ehom`, `i… | proved [K] | — | the effect cone of the ball: `lor_ehom`, `isEffectOn_affOf`, `lor_toO…
+APPL I3.125 | inherits | P (general vector… | proved [K] (`NB-1-CORE-PROVED`) | — | `NativeGateBall.parity`
+APPL I3.126 | inherits | P (matrix/arithme… | proved [K] | — | `p_le_one`, `dim_of_bounds`
+APPL I3.127 | notread | O | proved [K] | — | `lorentz_of_effects`
+APPL I3.128 | inherits | P (premise-free; … | proved [K]; NB-1: "That theorem [the finite native-gate bal… | — | `nb1_kernel_core` (NB-1 verdict)
+APPL I3.129 | direct | P | not at L — [D] FourCopyCore.lean:130–134; as a premise: ass… | — | `hcls` — N-CLASS gates (`NClass`)
+APPL I3.130 | direct | P | not at L — [D] FourCopyDefs.lean:42–43; as a premise: assum… | — | `hadm` — pair admissibility (`PairAdm`, with `IsConvexCone`)
+APPL I3.131 | direct | P | assumed; KT4-PREM-1: "P-STAGE2" needed (result.md:181), can… | — | `hcl` — closedness of each pair cone
+APPL I3.132 | direct | P | assumed; KT4-PREM-1: "P-ACT2, which restates gate preservat… | — | `hgate` — gate preservation (H2 of stage 3 is this clause for `cnot`)
+APPL I3.133 | direct | P (four tokens) | not at L — [D] FourCopyCore.lean:70–115; as a premise: assu… | — | `H` — the four-copy core (`KT4Core`, with `KT4`, `KT4LT`)
+APPL I3.134 | direct | P (four tokens) | not at L — [D]; as a premise: assumed; cannot be dropped (`… | — | token clauses `tokA`, `tokB` (`TokenCoherent`)
+APPL I3.135 | direct | P (four tokens) | not at L — [D]; PT stage 1: CONDITIONAL on N0 ∧ N1 ∧ N2 (re… | — | FCC — the cone-level four-copy interface (`FourCopyCoherent`, `FCC`)
+APPL I3.136 | direct | P | not at L — [D] · statement (FourCopyCore.lean:32–37): "/-- … | — | `PairLinked` (Lemma R's interface form)
+APPL I3.137 | direct | P | not at L — [D] FourCopyCore.lean:155–157; conclusion of I3.… | **do not assume** (IE1) | IE1 (`IE1`, with `IsRot3`, `IsOrth3`)
+APPL I3.138 | direct | P (four tokens) | not at L — [D]; conclusion of I3.139 | — | `EvenCycle` (with `EvenCycle4`)
+APPL I3.139 | direct | P (four tokens) | not at L — [D] "kernel-checked in a design run, not certifi… | conclusion is IE1 (do not assume) | `kt4_forward_ie1` (Theorem A′, the audited theorem)
+APPL I3.140 | direct | P | not at L — [D] | — | `fourCopyCoherent_of_kt4Core` (Lemma B1)
+APPL I3.141 | direct | P (four tokens) | not at L — [D] in FourCopyPackage.lean, a preflight whose t… | — | `KT4Cone`
+APPL I3.142 | direct | P | not at L — [D]; `ie1Drive_of_ie1` is "Open." with proof `so… | **do not assume** (IE1 in drive form; (… | `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the drive …
+APPL I3.143 | direct | P | not at L — [D] (FourCopyDefs.lean:30–34); at L no kernel de… | — | `ipW`, `dualW` (the Euclidean pairing and dual cone of tables)
+APPL I3.144 | direct | P | not at L — [D] in the `sorry` preflight FourCopyPackage.lea… | **do not assume** (`Q3`/PSD/pure-state … | `Q3`, `twin`, `pauliW`, `twistQ3`
+APPL I3.145 | direct | P | assumed (named premise of the landed KT4-PREM-1 record; a p… | — (PT stage 1: "assuming either for the… | P-STAGE2 (named premise of KT4-PREM-1)
+APPL I3.146 | direct | P | assumed (named premise of the landed KT4-PREM-1 record; a p… | the idle-extension reading is IE1 (do n… | P-ACT2 (named premise of KT4-PREM-1)
+APPL I3.147 | direct | P | PT-record: assumed (hypothesis of Q-SD, Q-EX, Q-EX-BRIDGE);… | — | H1 — products in `K`
+APPL I3.148 | direct | P | PT-record: assumed; "the certified native gate; hgate — hin… | — | H2 — `cnot`-invariance (level (i)); `G16`-invariance (level (ii))
+APPL I3.149 | direct | P | PT-record: assumed, unsourced at L — the dual cone `dualW` … | — | H3 — trace self-duality `K = dualW K`
+APPL I3.150 | direct | P | PT-record: open — "INDEPENDENT of H1–H3 plus the certified … | **do not assume** ((b)) | (b_S4) — the full rotation group of one token acts on the pair preser…
+APPL I3.151 | direct | P | PT-record: open; stage 4 record S3[n]: "UNIQUE iff n is off… | **do not assume** ((b)) | (b_n) — one rotation subgroup of one token about an off-frame axis
+APPL I3.152 | direct | P | PT-record: open; stage 4 record R1: "UNIQUE [W + X]; its on… | **do not assume** ((b)) | (b_R1) — one order-3 rotation of one token about (5,1,1)
+APPL I3.153 | direct | P | PT-record: open; stage 4: "The drive the corpus attaches to… | **do not assume** | (b_DJ) — the native drive with the native `J` acting on one token
+APPL I3.154 | direct | P (three or more … | PT-record: open ("IE₂ open", INTEGRATION-REVIEW.md:187, :21… | **do not assume** (IE2) | IE2 — idle extension of the pair interaction groups
+APPL I3.155 | direct | P | PT-record: flagged; "FC ⟺ IE1 given hgate, with exact words… | **do not assume** (frame covariance) | frame covariance (FC) of the native gate
+APPL I3.156 | direct | P | PT-record: "INV2 and SDC are named principles, not results.… | — | INV2 — the native gate is an operational involution on the pair system
+APPL I3.157 | direct | P (four tokens) | PT-record: FCC is CONDITIONAL on SDC; "Its observer-native … | — | SDC = P3 ∧ OVL4 ∧ CSD2 — self-duality under composition
+APPL I3.158 | direct | P (four tokens) | PT-record: "independently motivated equivalent. L has no st… | — | N0 ∧ N1 ∧ N2 — regrouping invariance of a four-token composite (stage…
+APPL I3.159 | direct | P | PT-record: "restating sources only. The non-restating route… | — | S2 Pair — a compact, gate-reversible COMP-1 pre-composite (stage-1 pr…
+APPL I3.160 | direct | P | PT-record: "UNIQUE [W + X + K + L]; CONDITIONAL on H and on… | — (not a do-not-assume item by the stag… | H — pair-level homogeneity of `K`
+APPL I3.161 | direct | P | PT-record: "EXCLUDES-KNOWN (invariant c = 15 on defects, 9 … | — (OI⁺ "reversible richness" is on the … | T — pair-level reversible richness (transitivity on extreme rays)
+APPL I3.164 | inherits | P | conditional (ROADMAP.md:984 "**K1 — the dimension. CONDITIO… | — | K1 — the dimension
+APPL I3.165 | direct | P | open (ROADMAP.md:1001 "**K2 — the composite. OPEN.**") | its "local actions compatible with the … | K2 — the composite
+APPL I3.166 | inherits | O | open (ROADMAP.md:1007 "**K∞ — the field-neutral premises. O… | — | K∞ — the field-neutral premises
+APPL I3.167 | notread | O | open, unsourced (seams audit:35 "no; CMP-1 states each as a… | — | K∞-Stage
+APPL I3.168 | notread | O | open, unsourced (seams audit:36 "no; OPACT-1 sources no ope… | — | K∞-Act
+APPL I3.169 | notread | O | open, unsourced (seams audit:37 "no") | — | K∞-Drive
+APPL I3.170 | bridge | O | open, unsourced (seams audit:38 "no; not implied by K∞-Driv… | — | K∞-Trans
+APPL I3.171 | bridge | O | open, unsourced (seams audit:39 "no") | — | K∞-Seed
+APPL I3.172 | bridge | O | open, unsourced (seams audit:40 "no; body preservation of a… | — | K∞-V4
+APPL I3.173 | inherits | O (two copies) | open, unsourced (seams audit:41 "the one `N` of DIM-1's `Is… | — | K∞-Copy
+APPL I3.185 | direct | P (from O data) | proved [K] | — | carrier-map identities for every one-copy linear map: `actT_prodState…
+APPL I3.186 | inherits | O | proved [K] | — | `eball_three`
+APPL I3.187 | direct | P | conditional-on IE1, `hcls`, `hadm`, `hgate`; "a written arg… | uses IE1 (do not assume) | the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ IE1 ⇒ K…
+APPL I4.236 | inherits | O | refuted (by kn-elementary-carrier-census.md:47-50) for the … | - | Kₙ census §4 — scope of K∞'s geometric branch
+APPL I1.17 | HMG-bridge-none | H | conditional-on (I1 record) | - | layered theorem statement (Main.md:82)
+APPL I4.3 | HMG-dna | M | assumed (never discharged for a general theory at L). Satis… | DNA ;; (OI⁺ completion condition: obser… | HasParallelReferenceExtension
+APPL I4.4 | HMG-dna | M | assumed; implied by HasParallelReferenceExtension (qutrit_o… | DNA ;; (an instance of the observationa… | HasQutritReferenceExtension
+APPL I4.14 | HMG-dna | M | assumed (hypothesis of krausSoundExt_of_sound_control_inert… | DNA ;; (OI⁺ completion condition (iii)) | InertSpectatorCompositionality
+APPL I4.29 | HMG-dna | M | assumed in general; discharged for the substratum class (su… | DNA ;; (implementation locality's spect… | ContextStable
+APPL I4.31 | HMG-dna | M | assumed; satisfied by exact finite QM (implementationLocali… | DNA ;; (OI⁺-type implementation princip… | ImplementationLocality
+APPL I4.42 | HMG-dna | M | assumed; equivalent to exact finite operational QM on every… | DNA ;; (OI⁺ completion package) | OIPlusLocal
+APPL I4.45 | HMG-dna | M | assumed for an extension (hypothesis of quantumArchitecture… | DNA ;; (structural closure of an extens… | StructurallyClosed
+APPL I4.56 | HMG-dna | M | assumed; holds under composite unitary control (layerFlowEx… | DNA ;; (`LayerFlowExecutable`, ∀ n) | LayerFlowExecutable
+APPL I4.65 | HMG-dna | M | assumed; necessary for exact finite QM (physical_of_exactAl… | DNA ;; (OI⁺ completion conditions (i)-(… | PhysicalCompletionConditions
+APPL I4.66 | HMG-dna | M | assumed; derived from ImplementationLocality (validity_of_i… | DNA ;; (completion condition (i)) | CompositeOperationalValidity
+APPL I4.67 | HMG-dna | M | assumed; derived from ReversibleRichness (control_of_revers… | DNA ;; (completion condition (iv); name… | HasCompositeUnitaryControl
+APPL I4.68 | HMG-dna | M | assumed; derived from EmbeddedObservation (closure_of_embed… | DNA ;; (completion condition (v)) | IteratedAncillaClosure
+APPL I4.69 | HMG-dna | M | assumed; derived from EmbeddedObservation (systemToLevelOne… | DNA ;; (completion condition (ii)) | SystemToLevelOne
+APPL I4.70 | HMG-dna | M | assumed where it is a hypothesis (the necessity directions:… | DNA ;; (the quantum endpoint; a target,… | ExactAllFiniteEndomorphicQuantumOps
+APPL I4.73 | HMG-dna | M | assumed (hypothesis of exactAll_iff_substantive, reversible… | DNA ;; (part of (i)-(v)) | WellFormed
+APPL I4.74 | HMG-dna | M | assumed | DNA ;; (part of (i)-(v)) | SubstantiveCompletion
+APPL I4.80 | HMG-dna | M | assumed; equivalent to PhysicalCompletionConditions (comple… | DNA ;; (OI core plus (i)-(v)) | CompletedOI
+APPL I4.82 | HMG-dna | M | assumed; by definition HasParallelReferenceExtension T; equ… | DNA ;; (observational independence) | ObservationalIndependence
+APPL I4.85 | HMG-dna | M | assumed; independent of the other OI⁺ principles (richness_… | DNA ;; (reversible richness) | ReversibleRichness
+APPL I4.87 | HMG-dna | M | assumed; derived from EmbeddedObservation (observerRecursio… | DNA ;; (observer recursion) | ObserverRecursion
+APPL I4.88 | HMG-dna | M | assumed; equivalent to exact finite operational QM on the q… | DNA ;; (OI⁺ package) | OIPlus
+APPL I4.96 | HMG-dna | M | assumed; by definition HasParallelReferenceExtension T; imp… | DNA ;; (observational independence) | ObservationalIndependence
+APPL I4.99 | HMG-dna | M | assumed; gives HasCompositeUnitaryControl (control_of_rever… | DNA ;; (reversible richness) | ReversibleRichness
+APPL I4.102 | HMG-dna | M | assumed; equivalent to exact finite operational QM on every… | DNA ;; (OI⁺ package) | OIPlus
+APPL I4.110 | HMG-dna | M | assumed; implies ObserverRecursion (:217), IteratedAncillaC… | DNA ;; (OI⁺ completion condition: embed… | EmbeddedObservation
+APPL I4.115 | HMG-dna | M | assumed; ⟺ OIHierarchyGeneral.OIPlus (oiPlusEmbedded_iff_oi… | DNA ;; (OI⁺ package) | OIPlusEmbedded
+APPL I4.118 | HMG-dna | M | assumed; implied by LayerFlowExecutable under SubstratumAva… | DNA ;; (a form of reversible richness) | PhaseFreeRichness
+APPL I4.120 | HMG-dna | M | assumed; ⟺ exact finite operational QM (oiPlusMin_iff_qm, :… | DNA ;; (OI⁺ package, minimal repertoire) | OIPlusMin
+APPL I4.123 | HMG-dna | M | assumed; implies PhaseFreeRichness (phaseFree_of_cyclic) [K] | DNA ;; (a form of reversible richness) | CyclicRichness
+APPL I4.124 | HMG-dna | M | assumed; ⟺ exact finite operational QM (oiPlusPos_iff_qm, :… | DNA ;; (OI⁺ package, positive form) | OIPlusPos
+APPL I4.127 | HMG-dna | M | assumed; derived from LieRankRichness on a well-formed theo… | DNA ;; (clause of reversible richness) | InverseAccessibility
+APPL I4.128 | HMG-dna | M | assumed | DNA ;; (clause of reversible richness) | LieRankRichness
+APPL I4.133 | HMG-dna | M | assumed; holds for exact QM (reversibleImplementationLocali… | DNA ;; (implementation locality with it… | ReversibleImplementationLocality
+APPL I4.137 | HMG-dna | M | assumed; ⟺ exact finite operational QM (oiPlusMicro_iff_qm,… | DNA ;; (OI⁺ package, microscopic form) | OIPlusMicro
+APPL I4.143 | HMG-dna | M | assumed for an extension; refuted for substratumClass (subs… | DNA ;; (the controllability resource th… | DrivesElementary
+APPL I4.144 | HMG-dna | M | assumed; for a structurally closed class ⟺ DrivesElementary… | DNA ;; (structural closure plus control… | QuantumArchitecture
+APPL I4.179 | HMG-dna | M | assumed; ⟺ (with DerivedOI) exact QM on the qubit (qm_iff_d… | DNA ;; (a form of reversible richness /… | PairFlowSourced
+APPL I4.187 | HMG-dna | G | assumed; ⟺ the typed Kraus determination (typed_determined_… | DNA ;; (the quantum endpoint on every c… | ShadowQuantum
+APPL I4.210 | HMG-dna | M | K | DNA ;; (Q3/PSD: comparison object only) | psd_iff_trace_nonneg
+APPL I4.215 | HMG-dna | M | K | DNA ;; (Q3/PSD: comparison object only) | psd_trace_mul_nonneg
+APPL I4.216 | HMG-dna | M | K | DNA ;; (Q3/PSD: comparison object only) | accessible_cone_full
+APPL I4.241 | HMG-dna | M | assumed (hypothesis of derivedOI_qm_iff_layerFlowExecutable… | DNA ;; (contains ReversibleImplementati… | DerivedOI
+APPL I4.244 | HMG-dna | M | assumed (conjunct of OIPlusPos) | DNA ;; (a form of reversible richness) | ElementaryTransitionRichness
+APPL I4.245 | HMG-dna | M | assumed (hypothesis of typed_determined_of_oiPlusElem) | DNA ;; (OI⁺ package, elementary form) | OIPlusElem
+APPL I2.3 | HMG-dna | G (operational co… | scope statement (components: I2.39 proved [K]; I2.12 proved… | do not assume (it names the five comple… | The operational-extension boundary
+APPL I2.29 | HMG-dna | G (every nonempty… | proved [K] per the manuscript's kernel citation (`exactAll_… | do not assume (conditions (i)–(v)) | The operational-completion characterization (manuscript statement; ke…
+APPL I2.30 | HMG-dna | G | proved [K] per manuscript citation (`main_result`, `oi_comp… | do not assume ((i)–(v)) | Bare finite OI does not imply QM; OI-compatible theory plus (i)–(v) i…
+APPL I2.31 | HMG-dna | G | equivalence proved [K] per manuscript citation (`carrier_ge… | do not assume (observational independen… | Quantum-complete OI (OI⁺): observational independence, reversible ric…
+APPL I2.32 | HMG-dna | G | equivalence proved [K] per manuscript citation (`carrier_ge… | do not assume (implementation locality'… | Primitive-source form: implementation locality, phase-free richness, …
+APPL I2.33 | HMG-dna | G/H | proved [K] per manuscript citation (`substratum_plus_contro… | do not assume (structural closure of an… | Substratum-source form
+APPL I2.34 | HMG-dna | G | proved [K] per manuscript citation (`derivedOI_qm_iff_layer… | do not assume (`LayerFlowExecutable`) | Layer-flow form
+APPL I2.35 | HMG-dna | G | proved [K] per manuscript citation (`typed_determined_iff`,… | do not assume (inherits I2.33's resourc… | Typed form
+APPL I2.62 | HMG-dna | M/G | scope statement (components I2.39, I2.44, I2.56, I2.29) | do not assume (it names the five comple… | Comparison of routes and dependency scope: in-house, imported, additi…
+APPL I2.63 | HMG-dna | G/O | scope statement | do not assume (five completion conditio… | Operational-reconstruction route: target conditions and the outstandi…
+APPL I2.69 | HMG-dna | H/M/G | scope statement (layers 1–3 proved; layer 4 / part (4) requ… | do not assume (operational-lifting and … | The claim structure: the four layers, the four-part theorem statement…
+applicable items: 199 = I3 142 + I4.236 + I1.17 + 44 I4 dna + 11 I2 dna
+CHECK C1-I1 PASS
+CHECK C1-I2 PASS
+CHECK C1-I3 PASS
+CHECK C1-I4 PASS
+CHECK C2-sets FAIL
+CHECK C2-tally FAIL
+CHECK C3-bearing PASS
+CHECK C3-dna44 PASS
+CHECK C4-bearing PASS
+CHECK C4-dna PASS
+CHECK C5-I1.17 PASS
+CHECK C6-countercontrol PASS
+NO VERDICT (a control failed)

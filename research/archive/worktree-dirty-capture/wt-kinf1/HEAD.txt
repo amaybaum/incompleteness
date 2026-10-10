@@ -1,0 +1,2 @@
+2811b7ef4ec2ad5f93496d4fb710239965cf53c1
+claude/kinf1-dev

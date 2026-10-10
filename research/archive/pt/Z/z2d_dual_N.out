@@ -1,0 +1,9 @@
+C1  member y0: best normalized <y0, w> = 1.22e+00 (must be >= -1e-9)
+N1  candidate y: best normalized <y, w> = -3.199e-15
+N1  best w (trace-normalized, rounded):
+      [0j, (-0.5+0j), -0j, (-0-0j)]
+      [(-0.5-0j), 0j, (-0+0j), 0j]
+      [0j, (-0-0j), (0.5+0j), -0j]
+      [(-0+0j), -0j, 0j, (0.5+0j)]
+N1  eigenvalues of w (rounded): [-0.5, 0.5, 0.5, 0.5]
+SUMMARY [N, numerical] search only; an exact dual witness, if any, is certified in z2c

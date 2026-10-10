@@ -1,0 +1,16 @@
+PASS C1 control M_sig: lift(Res_{t,s}) is A- and B-covariant for every token and every listed s (symbolic pair tables)
+PASS C2 forcing: in every C-carrier model the A-products of normalized pair tables are iota of their four-token tables (symbolic)
+PASS C3 anchor sum: at the common point (c, c) the A- and B-forced values of Gamma differ for some (t, s), in both members ANCc and ANCz (exact)
+PASS D the composite of the four resets maps iota(Z) to Z_0000 iota(H(s)) (symbolic Z, s = (3/5, 0, 4/5)): constant on the normalized slice
+RESULT M_sig OLTIres HOLDS  (A- and B-covariance hold for every token and every listed s)
+RESULT ANCc  OLTIres FAILS  (token 0, s = [0, 0, 1]: Res(c) != c, so the two forced values of Gamma(c, c) differ)
+RESULT ANCz  OLTIres FAILS  (token 0, s = [1, 0, 0]: Res(c) != c, so the two forced values of Gamma(c, c) differ)
+RESULT M_rho OLTIres FAILS  (B-covariance fails at token 1, s = [0, 0, 1] (Gamma forced by A-covariance))
+RESULT M_tw  OLTIres FAILS  (B-covariance fails at token 3, s = [0, 1, 0] (Gamma forced by A-covariance))
+RESULT M_id  OLTIres FAILS  (B-covariance fails at token 1, s = [0, 0, 1] (Gamma forced by A-covariance))
+RESULT M_T   OLTIres FAILS  (B-covariance fails at token 0, s = [0, 0, 1] (Gamma forced by A-covariance))
+RESULT M_th  OLTIres FAILS  (B-covariance fails at token 3, s = [0, 0, 1] (Gamma forced by A-covariance))
+REFUTATION OLTIres => tok : SURVIVES
+REFUTATION OLTIres => TPS : SURVIVES
+--- q5_resets: 4/4 checks pass
+VERDICT Q5-RESETS-EXACT

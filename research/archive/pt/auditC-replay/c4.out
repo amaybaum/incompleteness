@@ -1,0 +1,17 @@
+
+== S1  K_c is not IE1
+PASS N1  [witness] R = [[0,0,-1],[0,-1,0],[-1,0,0]] is a rotation (R^T R = I, det R = 1)
+PASS N2  [witness] actC R phiW = G, the table of c1 (c1 K5: pauliW G = psi psi^T)
+PASS N3  [witness] ipW E0 G = -1 (E0 in dualW K_c by c1 K1-K3 and note K.W): G is not in K_c, while phiW is (c1 K6)
+PASS N3c  [countercontrol] countercontrol: G lies in Q3 (pauliW G has eigenvalues 1, 0, 0, 0): the same rotation keeps phiW inside Q3, so the failure is a property of K_c -- eigenvalues {1: 1, 0: 3}
+NOTE [written] N.R  -- IE1 fails for K_c (phiW in K_c, actC R phiW not in K_c). With cnot gates and identity locals every orientation bit is false, so EvenCycle holds and C fails through IE1 for uniform K_c, for (Q3, Q3, K_c, K_c) and for (K_c, K_c, Q3, Q3).
+
+== S2  where the design proof consumes FCC (source checks; the reading is written)
+PASS U1  [source] FourCopyHeadline: the FCC hypothesis h enters ie1_all through target01 h and target02 h, and parity_all through kt4_parity_of_witnesses -- 4 distinct use patterns
+PASS U2  [source] FourCopyIE1: PairLinked is read only as h.upper at (X, Y, Bell effect ea, Bell effect eb), h.lower at (Bell state sa, Bell state sb, e, f), h.lower at (rotated link hL, Bell table hb or ha, e, f), and famI at the four parity witnesses -- occurrences [1, 1, 2, 2, 1]
+PASS U2c  [countercontrol] countercontrol: the pattern search is not vacuous (a mutated pattern is absent)
+NOTE [written] U.W  -- reading (written): every use of FCC in FourCopyHeadline and FourCopyIE1 (the headline path; FourCopyParity's incl_I and incl_II are likewise stated at link tables) fixes the two link-pair arguments to tables supplied by the gates (gate images of product states, the Bell tables and their rotated forms, and the gate images of sharp product effects) and leaves the target-pair arguments free. So, relative to hcls, hadm, hcl and hgate, the proof needs FCC only at these link instances. Not kernel-checked in that restricted form (UNBUILT).
+
+kinds: witness 3, source 2, countercontrol 2
+7/7 checks
+VERDICT C4-SUPPLEMENTS-EXACT

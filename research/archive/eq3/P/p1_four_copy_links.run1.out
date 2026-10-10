@@ -1,0 +1,32 @@
+PASS T0 parsed cnot tables (sgn, pc, pt) equal the hand transcription
+PASS T0 parsed phiW, idW, chainW, reflY equal the hand transcriptions
+PASS T0 homMap reflY = diag(1,1,-1,1) = Delta = phiW (as tables)
+PASS A1 family (i): sum E[m0,m2] F[m1,m3] X[m0,m1] Y[m2,m3] = <X, E.Y.F^T> (symbolic, 64 symbols)
+PASS A2 family (ii): conditioning L(02) L'(13) on the effect f(23) leaves L.f.L'^T on (0,1) (symbolic)
+PASS A3 operator cross-check: explicit 4-qubit trace = <X, E.Y.F^T> with state tables coordsW(rho) and effect tables coordsW(E_op)/4 (3 random exact Hermitian instances)
+PASS B1 landed control: cnot(prodState xplus z3) = phiW (CD:1222) and cnot(idW) = chainW (K2G:110)
+PASS B2 cnot is an involution and self-adjoint for the Euclidean pairing (symbolic): K* is cnot-invariant
+PASS B3 transposeW . cnot = cnot . transposeW (symbolic)
+PASS B4 Delta.f.Delta = transposeW f (symbolic)
+PASS B5 <prodState x y, w> = pairVal (hom x) (hom y) w (symbolic): product tables are the product-effect tables
+PASS B6 Pauli dictionary: pauliW(Delta) = Phi+ and pauliW(transposeW w) = pauliW(w)^T (symbolic w)
+PASS C1 L_a = cnot(coords(|a><a|) (x) hom z3) = coordsW(CNOT(|a><a| (x) |0><0|)CNOT), and that operator is |psi><psi| with psi = |00> + u|11> (symbolic u)
+PASS C1 the Bloch vector of |a> = (1, u) is pure: (2 ur)^2 + (2 ui)^2 + (1 - |u|^2)^2 = (1 + |u|^2)^2, and coords(|a><a|) = (1 + |u|^2) hom(x(u)) with x(u) = (2ur, 2ui, 1 - |u|^2)/(1 + |u|^2)
+PASS C2 L_a.f.L_a'^T = 4 coordsW(Ad(D (x) D')(pauliW(transposeW f))), D = diag(1,u), D' = diag(1,u') (symbolic f, u, u')
+PASS C3 countercontrol: without the transpose the formula fails (symbolic difference nonzero)
+FAIL C3 countercontrol: L_a.f.L_a' (second link not transposed) differs from L_a.f.L_a'^T (symbolic)
+PASS C4 the link acts on copy 0 as M_D (L_a = 2 M_D Delta, symbolic) and M_D is a Lorentz boost: at u = 2, M_D[0,3] = -3/2 != 0 (it mixes the unit index, so it is not homMap of any N; a filter, not a rotation)
+PASS D1 D.Circ(w,1).D' = [[p, q], [r, w^2 q r / p]] with d1 = 1, d2' = q, d1' = p/w, d2 = r w / p (symbolic): every coefficient matrix with p, q, r, s nonzero is of this form (w^2 = p s / (q r) has a complex root)
+PASS D2 (D (x) D').CNOT.(|+> (x) |b>) has coefficient matrix D.Circ(b).D', Circ(b) = [[b0, b1], [b1, b0]] (symbolic)
+PASS D3 control: g = cnot(coords|+><+| (x) coords|b><b|) is the table of CNOT(|+><+| (x) |b><b|)CNOT (symbolic b)
+PASS D3 L_a.(transposeW g).L_a'^T = 4 coordsW(|chi><chi|), chi = (D (x) D') CNOT (|+>|b>) (symbolic u, u', b): the filtered link conditional of an effect in transposeW(cnot SEP) is a pure state with coefficient D.Circ(b).D'
+PASS E1 actT reflY w = w.Delta (symbolic)
+PASS E1 cnot' = actT reflY . cnot . actT reflY sends prodState xplus z3 to idW (twin Bell table)
+PASS E2 twin filter links: cnot'(P_a) = L_a.Delta (symbolic u)
+PASS E2 L_a.Delta.f.(L_a'.Delta)^T = 4 coordsW(Ad(D (x) D')(pauliW f)) -- no transpose (symbolic f, u, u')
+PASS E2 pauliW(actT reflY w) = PT_2(pauliW w) (partial transpose on the second copy; symbolic w)
+PASS E2 twin Bell link and effect: idW.f.idW^T = f and <X, idW.Y.idW^T> = <X, Y> (so the twin instance gives K* <= K and K <= K*)
+PASS F1 converse control: family-(i) value >= 0 for PSD states and PSD effects (6 random exact instances)
+PASS F1 converse control: for K = Q3 the filter-link conditional of a PSD effect is PSD (2 exact instances, all principal minors)
+--- p1_four_copy_links: 29/30 checks pass
+VERDICT NOT RENDERED

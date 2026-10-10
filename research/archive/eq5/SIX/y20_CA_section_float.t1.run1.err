@@ -1,0 +1,13 @@
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:57: RuntimeWarning: invalid value encountered in scalar divide
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:56: RuntimeWarning: overflow encountered in matmul
+  X = k @ g @ k.conj().T
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:56: RuntimeWarning: invalid value encountered in matmul
+  X = k @ g @ k.conj().T
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:57: RuntimeWarning: overflow encountered in matmul
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:57: RuntimeWarning: invalid value encountered in matmul
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/usr/local/lib/python3.11/dist-packages/numpy/_core/fromnumeric.py:1870: RuntimeWarning: overflow encountered in reduce
+  return asanyarray(a).trace(
+stopped by hand (TaskStop) during its countercontrol, after y28 showed that this search code admits overflow artifacts (its W3 value -0.333 is one); superseded by y29

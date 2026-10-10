@@ -1,0 +1,24 @@
+control (signature hits inside PassiveQuotient.lean): 43
+LEVEL_OP modules: 21
+  CompletionAction  signature-hits=0  source-mentions=-
+  CompositeDimension  signature-hits=0  source-mentions=-
+  CompositeInterface  signature-hits=0  source-mentions=-
+  CompositionOrder  signature-hits=0  source-mentions=-
+  DenseOrbit  signature-hits=0  source-mentions=-
+  EffectSpace  signature-hits=0  source-mentions=-
+  InvariantInnerProduct  signature-hits=0  source-mentions=-
+  K1Bridge  signature-hits=0  source-mentions=-
+  K2Guard  signature-hits=0  source-mentions=-
+  KInfFoundations  signature-hits=0  source-mentions=-
+  OddChar  signature-hits=0  source-mentions=-
+  OrbitGeneration  signature-hits=0  source-mentions=-
+  OrbitNormalization  signature-hits=0  source-mentions=-
+  ParityNot  signature-hits=0  source-mentions=-
+  RelcSelectBlock  signature-hits=0  source-mentions=-
+  RelcSelectC5  signature-hits=0  source-mentions=-
+  RelcSelectParity  signature-hits=0  source-mentions=-
+  RelcSelectSqueeze  signature-hits=0  source-mentions=-
+  SharpTests  signature-hits=0  source-mentions=-
+  StageCompletion  signature-hits=0  source-mentions=-
+  TransitiveBody  signature-hits=0  source-mentions=-
+VERDICT NONE-FOUND

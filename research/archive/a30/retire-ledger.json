@@ -1,0 +1,90 @@
+[
+ {
+  "id": "pfr-road-standing",
+  "old_sha256": "03e8d3b67661e06f9118b34feef2f9aee7a83a16a6d8bfa32f54cff7c49f4f2d",
+  "old": "_PFR_ROAD_STANDING = \"`P0`'s threading part is untouched, no carrier is adopted as the physical one, no surviving law is adopted as the physical one, and nothing here names, endorses or excludes a selection principle.\"\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PFR's ROADMAP standing-clause constant, read only by its ROADMAP leg"
+ },
+ {
+  "id": "pfr-p0",
+  "old_sha256": "9d310604c24ec728b826debf548a7417c3e6032f1067de77e1c0dca9910a4719",
+  "old": "_PFR_P0 = 'At the product configuration, whether factorization restricts which pair of local class bijections can occur is undecided, with the obstruction named.'\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PFR's frozen P0 sentence constant, read only by its ROADMAP leg"
+ },
+ {
+  "id": "pfr-p0-cell-and-road-ok",
+  "old_sha256": "168273af4647dfc1eb88fc1e30503e1ef0e8fc838f937e9676a4aef926a4fac1",
+  "old": "def _pfr_p0_cell(road):\n    \"\"\"The ACTUAL P0 status cell -- the fourth field of the one row whose first field is P0.\n\n    Content is checked inside this cell, never against the document, so a frozen sentence moved\n    out of P0 into an appendix is not accepted for sitting somewhere in the file.\n    \"\"\"\n    rows = [l for l in road.split('\\n') if l.strip().startswith('| **P0** |')]\n    if len(rows) != 1:\n        return None\n    cells = rows[0].strip().split('|')[1:-1]\n    return cells[3] if len(cells) == 5 else None\n\n\ndef _pfr_road_ok(road):\n    \"\"\"THE PREDICATE THAT GATES act 28's ROADMAP entry, read as a BOUNDED ENTRY.\n\n    Act 28's entry is its unique frozen sentence, inside the ACTUAL P0 cell, after act 27's anchor,\n    with the complete standing clause following it. The predicate validates that entry and counts\n    nothing beyond it: a successor round's entry, which necessarily reuses the standing clause, is\n    outside the bound and is neither counted nor accepted in its place.\n    \"\"\"\n    cell = _pfr_p0_cell(road)\n    if cell is None:\n        return False\n    c = _pfr_n(cell)\n    p0 = _pfr_n(_PFR_P0)\n    if c.count(p0) != 1:\n        return False\n    anchor = _pfr_n('with its selecting power left open.')\n    if anchor not in c or c.index(p0) < c.index(anchor):\n        return False\n    # this round's standing clause is not merely present: it follows the frozen sentence it scopes.\n    if not c[c.index(p0) + len(p0):].lstrip().startswith(_pfr_n(_PFR_ROAD_STANDING)):\n        return False\n    n = _pfr_n(road)\n    return n.count(p0) == 1\n\n\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "the P0-cell reader (read only by R7-PFR's and R7-PRA's ROADMAP legs) and R7-PFR's ROADMAP gating predicate"
+ },
+ {
+  "id": "pfr-road-read",
+  "old_sha256": "259a9c3b5c444b37900d69162460b2c938bf93887f6b7cb9b888221f287aa479",
+  "old": "_PFRROAD = _bb_read('ROADMAP.md').decode('utf-8')\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PFR's read of verification/ROADMAP.md"
+ },
+ {
+  "id": "pfr-road-leg",
+  "old_sha256": "784284350863547227b87cd0bb2c4539717a69b221ff90b745190710d13970e7",
+  "old": "_pfr_checks['roadmap'] = _pfr_road_ok(_PFRROAD)\nfor _nm, _fn in (\n        ('p0-deleted', lambda r: r.replace(_PFR_P0, '', 1)),\n        ('p0-duplicated', lambda r: r + '\\n' + _PFR_P0 + '\\n'),\n        ('standing-clause-removed', lambda r: r.replace(_PFR_ROAD_STANDING, '', 1)),\n        ('standing-clause-detached',\n         lambda r: r.replace(_PFR_P0 + ' ' + _PFR_ROAD_STANDING,\n                             _PFR_P0 + ' Something else entirely. ' + _PFR_ROAD_STANDING, 1)),\n        ('p0-before-act27',\n         lambda r: _PFR_P0 + ' ' + _PFR_ROAD_STANDING + '\\n'\n                   + r.replace(_PFR_P0 + ' ' + _PFR_ROAD_STANDING, '', 1)),\n        ('p0-block-moved-out-of-the-cell',\n         lambda r: r.replace(' ' + _PFR_P0 + ' ' + _PFR_ROAD_STANDING, '', 1)\n                   + '\\n\\n## Appendix\\n\\n' + _PFR_P0 + ' ' + _PFR_ROAD_STANDING + '\\n'),\n        ('p0-row-removed',\n         lambda r: '\\n'.join(l for l in r.split('\\n')\n                             if not l.strip().startswith('| **P0** |')))):\n    _pfr_checks['road-mut:' + _nm] = not _pfr_road_ok(_fn(_PFRROAD))\n    _pfr_mutations += 1\n\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PFR's ROADMAP check entry and its seven road-mut mutation controls"
+ },
+ {
+  "id": "pfr-description",
+  "old_sha256": "95d909f415335263827d2f80bd4c4800088dc8db6e3cdfa9d7ea6428744f4e2c",
+  "old": "check('R7-PFR', not _pfr_bad,\n      'Act 28: the DECODED census entry and the ROADMAP cell each read through ONE gating '\n      'predicate that every mutation is passed through. Each frozen requirement is pinned to its '\n      'COMPLETE content, not a heading: ten census records and the census clause in full. '\n      'Mutations: a module that gains a definition, each record deleted, the census clause '\n      'truncated or duplicated, the census note re-escaped or its entry removed, and the ROADMAP '\n      'standing clause removed or detached. PLACEMENT AND COUNT, not only presence: exactly one '\n      'mention of the census clause with that mention opening the COMPLETE clause, and the frozen '\n      'sentence read out of the ACTUAL P0 cell rather than the document -- with the census clause '\n      'duplicated or given an incomplete second copy, and the P0 block moved to an appendix or its '\n      'row removed, all failing closed. Twelve pinned statements each mutation-tested, the frozen '\n      'configuration and act 21 predicate verbatim.')\n",
+  "new": "check('R7-PFR', not _pfr_bad,\n      'Act 28: the DECODED census entry read through ONE gating predicate that every '\n      'mutation is passed through. Each frozen requirement is pinned to its COMPLETE content, '\n      'not a heading: ten census records and the census clause in full. Mutations: a module '\n      'that gains a definition, each record deleted, the census clause truncated or '\n      'duplicated, and the census note re-escaped or its entry removed. PLACEMENT AND COUNT, '\n      'not only presence: exactly one mention of the census clause with that mention opening '\n      'the COMPLETE clause, with the census clause duplicated or given an incomplete second '\n      'copy failing closed. Twelve pinned statements each mutation-tested, the frozen '\n      'configuration and act 21 predicate verbatim.')\n",
+  "new_sha256": "d37022ced1c9c5f47a997bfd31250c20bf2a5ef8818cfc6e5f57d3d20c583c83",
+  "reason": "R7-PFR's check description, less its statements that the ROADMAP cell is read"
+ },
+ {
+  "id": "pra-road-constants",
+  "old_sha256": "677dc5e71329bdc5431f0d0d910bc8ed6c4d8e6782ee543fc513712d033af964",
+  "old": "_PRA_P0 = \"At the product configuration, whether the ladder's conditions through factorization admit every pair of local class bijections is undecided, with the conjunct that is missing named.\"\n_PRA_ROAD_STANDING = \"`P0`'s threading part is untouched, no carrier is adopted as the physical one, no surviving law is adopted as the physical one, and nothing here names, endorses or excludes a selection principle.\"\n_PRA_ROAD_ANCHOR = 'with the obstruction named.'\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PRA's frozen P0 sentence, standing-clause and anchor constants, read only by its ROADMAP leg"
+ },
+ {
+  "id": "pra-road-ok",
+  "old_sha256": "6ae97784f6c16ae28550c80868207be7a7dc2c27e7ff76efa9be0fb8e037f301",
+  "old": "def _pra_road_ok(road):\n    \"\"\"THE PREDICATE THAT GATES act 29's ROADMAP entry, read as a BOUNDED ENTRY out of the ACTUAL cell.\"\"\"\n    cell = _pfr_p0_cell(road)\n    if cell is None:\n        return False\n    c = _pra_n(cell)\n    p0 = _pra_n(_PRA_P0)\n    if c.count(p0) != 1:\n        return False\n    anchor = _pra_n(_PRA_ROAD_ANCHOR)\n    if anchor not in c or c.index(p0) < c.index(anchor):\n        return False\n    # THE BOUNDED ENTRY: the standing clause attached immediately and complete, once. Nothing\n    # beyond the entry is counted, so a successor's entry -- which reuses the clause -- is\n    # outside what this contract reads, and act 28's document-wide count is not repeated here.\n    if c.count(p0 + ' ' + _pra_n(_PRA_ROAD_STANDING)) != 1:\n        return False\n    return _pra_n(road).count(p0) == 1\n\n\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PRA's ROADMAP gating predicate"
+ },
+ {
+  "id": "pra-road-read",
+  "old_sha256": "531b9485cfe1b7d0f15bd31805b12e2aa771b8a797799f2e88b67f09c4484d26",
+  "old": "_PRAROAD = _bb_read('ROADMAP.md').decode('utf-8')\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PRA's read of verification/ROADMAP.md"
+ },
+ {
+  "id": "pra-road-leg",
+  "old_sha256": "60f9fe69fd72f5b2f36805da80e3091761a29841293655ed359f3b009ef23725",
+  "old": "_pra_checks['roadmap'] = _pra_road_ok(_PRAROAD)\nfor _nm, _fn in (\n        ('p0-deleted', lambda r: r.replace(_PRA_P0, '', 1)),\n        ('p0-duplicated', lambda r: r + '\\n' + _PRA_P0 + '\\n'),\n        ('standing-clause-removed', lambda r: r.replace(\n            _PRA_P0 + ' ' + _PRA_ROAD_STANDING, _PRA_P0, 1)),\n        ('standing-clause-detached',\n         lambda r: r.replace(_PRA_P0 + ' ' + _PRA_ROAD_STANDING,\n                             _PRA_P0 + ' Something else entirely. ' + _PRA_ROAD_STANDING, 1)),\n        ('p0-before-act28',\n         lambda r: r.replace(' ' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING, '', 1).replace(\n             _PRA_ROAD_ANCHOR, _PRA_P0 + ' ' + _PRA_ROAD_STANDING + ' ' + _PRA_ROAD_ANCHOR, 1)),\n        ('p0-block-moved-out-of-the-cell',\n         lambda r: r.replace(' ' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING, '', 1)\n                   + '\\n\\n## Appendix\\n\\n' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING + '\\n'),\n        ('standing-clause-truncated', lambda r: r.replace(\n            _PRA_P0 + ' ' + _PRA_ROAD_STANDING, _PRA_P0 + ' ' + _PRA_ROAD_STANDING[:60], 1)),\n        ('p0-duplicated-in-cell', lambda r: r.replace(\n            _PRA_P0 + ' ' + _PRA_ROAD_STANDING,\n            _PRA_P0 + ' ' + _PRA_ROAD_STANDING + ' ' + _PRA_P0 + ' ' + _PRA_ROAD_STANDING, 1)),\n        ('p0-row-removed',\n         lambda r: '\\n'.join(l for l in r.split('\\n')\n                             if not l.strip().startswith('| **P0** |')))):\n    _pra_checks['road-mut:' + _nm] = not _pra_road_ok(_fn(_PRAROAD))\n    _pra_mutations += 1\n# POSITIVE CONTROL: a successor round's entry after this one, reusing the standing clause, is\n# tolerated -- the defect RD2 records in act 28's contract is not repeated in this one.\n_pra_checks['road-successor-tolerated'] = _pra_road_ok(_PRAROAD.replace(\n    _PRA_P0 + ' ' + _PRA_ROAD_STANDING,\n    _PRA_P0 + ' ' + _PRA_ROAD_STANDING + ' A successor sentence. ' + _PRA_ROAD_STANDING, 1))\n_pra_mutations += 1\n\n",
+  "new": "",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "reason": "R7-PRA's ROADMAP check entry, its nine road-mut mutation controls and its road-successor-tolerated positive control"
+ },
+ {
+  "id": "pra-description",
+  "old_sha256": "18985af9c22a7632dd230828bc781737903532e9a99b359d5a4d548667079b0d",
+  "old": "check('R7-PRA', not _pra_bad,\n      'Act 29: the DECODED census entry and the ROADMAP cell each read through ONE gating '\n      'predicate that every mutation is passed through. Each frozen requirement is pinned to its '\n      'COMPLETE content, the census prose pinned WHOLE and not as fragments. EVERY complete '\n      'outcome-vector occurrence is counted, valid or not, before membership and the corollaries '\n      'are asked, so an impossible vector appended beside the correct one, or the correct one '\n      \"duplicated, fails in the census. The ROADMAP contract reads this round's BOUNDED ENTRY and \"\n      'tolerates a successor, with a positive control proving it. Each frozen requirement is '\n      'pinned to its COMPLETE content, not a heading: twelve census records, plus the census '\n      \"clause in full. THE GATES AND THE TWO ASSEMBLY COROLLARIES ARE READ OFF THE ARTIFACT'S BARE \"\n      'OUTCOME VECTOR: the vector must be one of the eleven admissible rows, A29-0-ADMITS must '\n      'accompany A29-P-HOLD with A29-N-LIFTS and no other combination, and A29-N-NO-LIFT must '\n      'carry A29-0-RESTRICTS -- so an off-table row and a corollary-contradicting row both fail '\n      'closed. A29-P is checked for ITS SHAPE AND SCOPE: the five hypothesis conjuncts and the two '\n      'conclusions present, and no FactorizesOnProduct hypothesis and no prescribed pair in the '\n      'statement. The UNDECIDED and NOT-EXECUTED labels forbid a theorem named for their targets. '\n      'Mutations: a module that gains a definition or a gated name, each record deleted, the '\n      'census clause truncated or duplicated or given an incomplete second copy, the census note '\n      're-escaped or its entry removed, and the ROADMAP standing clause removed or detached. '\n      'PLACEMENT AND COUNT, not only presence: exactly one mention of the census clause with that '\n      'mention opening the COMPLETE clause, and the frozen sentence read out of the ACTUAL P0 cell '\n      \"after act 28's. Six pinned statements each mutation-tested.\")\n",
+  "new": "check('R7-PRA', not _pra_bad,\n      'Act 29: the DECODED census entry read through ONE gating '\n      'predicate that every mutation is passed through. Each frozen requirement is pinned to its '\n      'COMPLETE content, the census prose pinned WHOLE and not as fragments. EVERY complete '\n      'outcome-vector occurrence is counted, valid or not, before membership and the corollaries '\n      'are asked, so an impossible vector appended beside the correct one, or the correct one '\n      'duplicated, fails in the census. Each frozen requirement is '\n      'pinned to its COMPLETE content, not a heading: twelve census records, plus the census '\n      \"clause in full. THE GATES AND THE TWO ASSEMBLY COROLLARIES ARE READ OFF THE ARTIFACT'S BARE \"\n      'OUTCOME VECTOR: the vector must be one of the eleven admissible rows, A29-0-ADMITS must '\n      'accompany A29-P-HOLD with A29-N-LIFTS and no other combination, and A29-N-NO-LIFT must '\n      'carry A29-0-RESTRICTS -- so an off-table row and a corollary-contradicting row both fail '\n      'closed. A29-P is checked for ITS SHAPE AND SCOPE: the five hypothesis conjuncts and the two '\n      'conclusions present, and no FactorizesOnProduct hypothesis and no prescribed pair in the '\n      'statement. The UNDECIDED and NOT-EXECUTED labels forbid a theorem named for their targets. '\n      'Mutations: a module that gains a definition or a gated name, each record deleted, the '\n      'census clause truncated or duplicated or given an incomplete second copy, the census note '\n      're-escaped or its entry removed. '\n      'PLACEMENT AND COUNT, not only presence: exactly one mention of the census clause with that '\n      'mention opening the COMPLETE clause. Six pinned statements each mutation-tested.')\n",
+  "new_sha256": "88214942affb2f072410e1a73aaeb0250a4616b1cdd1cae4a6d3187045d32be8",
+  "reason": "R7-PRA's check description, less its statements that the ROADMAP cell is read"
+ }
+]

@@ -1,0 +1,38 @@
+CHECK S0 phi0 data                   PASS CNOT phi0 = (1, 2, -1+i, 3i)
+CHECK R-a identity+posdef [1, 2, 3*I, -1 + I] PASS det Q/tr Q = 1/9
+CHECK R-a identity+posdef [1, 2, -1 + I, 3*I] PASS det Q/tr Q = 121/42
+CHECK R-a d_low = 1/2304             PASS AUDIT-Y C1-C6: 1/9, 121/42
+CHECK R-a seeds                      PASS c = 4609/4608; r^2 >= 1 - 4 d_low
+ORBIT G16       phi0-rays   16  min|det|^2 5/256
+ORBIT G16+SWAP  phi0-rays   48  min|det|^2 5/256
+ORBIT J@C       phi0-rays  768  min|det|^2 5/256
+ORBIT J@T       phi0-rays  384  min|det|^2 5/256
+ORBIT NOT,J@C   phi0-rays  768  min|det|^2 5/256
+ORBIT NOT,J@T   phi0-rays  384  min|det|^2 5/256
+CHECK R-b d_min = 5/256              PASS every listed orbit
+CHECK R-b orbit sizes (ii)           PASS C5 level-(ii) 768 / 384
+CHECK R-c d_low = 1/8704             PASS min_beta |det|^2 = (|ad|-|bc|)^2 >= 1/8704 at phi0, CNOT phi0; and < 1/8600 at CNOT phi0 (sharpness)
+CHECK R-d min|det| = 1/15            PASS countercontrol (1,2,2,4): 0
+CHECK R-e V-coefficients             PASS [7/9, 4/9, 0, 4/9]
+CHECK R-e f <= 7/8                   PASS f = 1/2 + sqrt(3425)/162 = 1/2 + 5 sqrt(137)/162
+CHECK R-f G_H m = 4160/6561          PASS rays 32
+CHECK R-f G_Cl window                PASS m = 6272/6561 [A] Z z4 (not recomputed)
+CHECK R-g circles invariant          PASS U(w), CNOT, Z(x)I, I(x)Z, conj, actC Rz o actT Rx (symbolic)
+CHECK R-g maximally entangled        PASS |det|^2 = 1/4 on both circles
+CHECK R-g F = z_(-1,-1)              PASS Bell seed at C1(1)
+CHECK R-g cc (H(x)I)C1(1) leaves     PASS non-vacuity
+CHECK R-h G_S orbit                  PASS 8 rays, maximally entangled, overlaps [0, 1/2] (pairings in {0, 1/8})
+CHECK S A3a Y4 c=4609/4608 (S3, drive) PASS neg eig -1/36864; <e,T_v> = -1/9216; window c=4609/4608; 216 reachable instances (S3); R-a [X]; reduction [A] Y4
+CHECK S A4a C5 d_low=1/2304 (flow@C) PASS neg eig -217/2000000; <e,T_v> = -217/500000; window c=500000/499783; 216 reachable instances (S3); R-a [X]; reduction [A] C5
+CHECK S A3b Y5 c=517/512 (S1, finite) PASS neg eig -5/4096; <e,T_v> = -5/1024; window c=517/512; 144 reachable instances (G16cl); R-b G16 orbit [X]; Clifford census [A] Y5
+CHECK S A4a C5 d_low=5/256 (J, NOT+J, flow@T) PASS neg eig -2491/500000; <e,T_v> = -2491/125000; window c=125000/122509; 216 reachable instances (J); R-b [X]
+CHECK S A4a C5 d_low=1/8704 (ball3Drive@T) PASS neg eig -1/139264; <e,T_v> = -1/34816; window c=17409/17408; 144 reachable instances (ZZ); R-c [X]; reduction [A]
+CHECK S A4c D5 c=513/512 (monomial class) PASS neg eig -1/4096; <e,T_v> = -1/1024; window c=513/512; 288 reachable instances (mono); R-d [X]; [W] arrangement bound [A] D5
+CHECK S A3c Z alpha=7/8 (S3)         PASS neg eig -1/32; <e,T_v> = -1/8; window c=8/7; 216 reachable instances (S3); R-e [X]; reachable-set formula [A] Z z3
+CHECK S A5 G_H alpha=9/10            PASS neg eig -1/40; <e,T_v> = -1/10; window c=10/9; 144 reachable instances (GH); R-f [X]
+CHECK S A5 G_Cl alpha=99/100         PASS neg eig -1/400; <e,T_v> = -1/100; window c=100/99; 144 reachable instances (G16cl); [A] Z z4
+CHECK S A4b kappa / A5 S2 Bell seed F PASS neg eig -1/8; <e,T_v> = -1/2; window c=2; 180 reachable instances (kappa); R-g [X]; EBF [A]
+CHECK CC reachable |00> no seed      PASS d = 0: m = 1, the window (1, 1] is empty
+CHECK CC c = 5/2 breaks orbit        PASS orthogonal seeds pair (4 - 2c)/16: -1/16 at c = 5/2, 0 at c = 2
+summary: 30 checks, 0 failed
+VERDICT R3-SEEDS-EXACT: every listed seed has one negative eigenvalue, excludes its own pure state, lies in its window for the recomputed or recorded overlap bound, and pairs >= 0 with the listed reachable instances; recomputed: X(x)X form 1/9 and 121/42, G16 and J-orbit minima 5/256 (768 / 384), Z(x)Z bound 1/8704, monomial 1/15, psi_a f-bound, G_H m = 4160/6561, the invariant circles, G_S orbit 8; controls green

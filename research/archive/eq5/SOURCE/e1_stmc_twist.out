@@ -1,0 +1,5 @@
+CONTROL c1 v(rho3) = fourVal(X, Y, E, actT reflY F) = 0, nonnegative: True
+CONTROL c2 v(id) at Lemma P's witnesses = -1/8, negative: True
+CONTROL c3 Psi_mf fixes every entry with at most one nonzero index (STMC): True
+VALUE v(Psi_mf) at the witnesses = -1/4
+LEAD STMC-TWIST-EXCLUDED

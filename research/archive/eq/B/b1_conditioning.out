@@ -1,0 +1,45 @@
+PASS C0 cnot1: frame
+PASS C0 cnot1: involution G^2 = I
+PASS C0 cnot1: relT
+PASS C0 cnot1: relC
+PASS C1 cnot1: COND slice +z: G(hom z (x) Y) = hom z (x) Y  (M0 = I)
+PASS C1 cnot1: COND slice -z: G(hom -z (x) Y) = hom -z (x) Ntil Y  (M1 = Ntil)
+PASS C2 cnot1: relC defect vanishes on the classical sector (CI)
+PASS C2 cnot1: relC defect vanishes on the tangent sector (TR)
+     cnot1: (P, Q) = (1, 1), tangentPlus p = 0
+PASS C4 cnot1/neg1: balanced (P,Q) = (1,1), p = 0
+PASS C0 cnot: frame
+PASS C0 cnot: involution G^2 = I
+PASS C0 cnot: relT
+PASS C0 cnot: relC
+PASS C1 cnot: COND slice +z: G(hom z (x) Y) = hom z (x) Y  (M0 = I)
+PASS C1 cnot: COND slice -z: G(hom -z (x) Y) = hom -z (x) Ntil Y  (M1 = Ntil)
+PASS C2 cnot: relC defect vanishes on the classical sector (CI)
+PASS C2 cnot: relC defect vanishes on the tangent sector (TR)
+     cnot: (P, Q) = (2, 2), tangentPlus p = 1
+PASS C4 cnot/nflip: balanced (P,Q) = (2,2), p = 1
+PASS C0 gC5: frame
+PASS C0 gC5: involution G^2 = I
+PASS C0 gC5: relT
+PASS C0 gC5: relC FAILS (landed gC5_not_relC)
+PASS C0 gC5: landed values gC5_relC_lhs = 1, gC5_relC_rhs = -1
+PASS C1 gC5: COND slice +z: G(hom z (x) Y) = hom z (x) Y  (M0 = I)
+PASS C1 gC5: COND slice -z: G(hom -z (x) Y) = hom -z (x) Ntil Y  (M1 = Ntil)
+PASS C2 gC5: relC defect vanishes on the classical sector (CI holds)
+PASS C2 gC5: relC defect NONZERO on the tangent sector (TR fails)
+     gC5: (P, Q) = (2, 4), tangentPlus p = 1
+PASS C4 gC5/nC5: unbalanced (P,Q) = (2,4), p = 1
+     C3 gC5 TR witness: input lift(e_w1) (x) e_3; entries where G(Nc(x)Y) != (N(x)N)G(c(x)Y): [(4, 4, Fraction(-1, 1), Fraction(1, 1))]
+PASS C3 gC5: TR fails at the tangent input lift(e_w1) (x) e_3 (entry (4,4): -1 vs +1)
+PASS C5 N_A = diag(1,-1,1,-1,-1) is a NOT of eball 5 with axis z5 (orthogonal involution, N_A z5 = -z5)
+PASS C5 N_A balanced: (P,Q) = (3,3)
+PASS C5 gC5 satisfies the two-NOT control relation Rc(N_A, nC5) exactly
+PASS C5 gC5 fails Rc(nC5, nC5) (common-N relC)
+PASS C6(i)  gC5 assignment with Slice+Cov_N+Post_N, Rel fails
+PASS C6(ii) gC5 assignment with Slice+Rel+Post_N, Cov_N fails
+PASS C6(iii) gC5 assignment with Slice+Rel+Cov_N, Post_N fails
+PASS C6 cnot: Cov_N∘Rel∘Post_N chain closes: (N(x)I)G(N(x)I) = (I(x)N)G  (relC)
+PASS C8 gC5: natural conditioning with token-level groups (Cov over {I,N_A}, actions {I,nC5}) holds: Slice, Cov, Rel, Post all exact at d = 5
+PASS C7 countercontrol: TR holds (tangent sector) and CI fails (classical sector), rank 16
+b1_conditioning: 39/39 checks PASS
+VERDICT B1-CHECKS-GREEN

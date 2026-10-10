@@ -1,0 +1,47 @@
+
+== S0  transcription (read-only)
+PASS S0.sgn  [source] landed sgn is -1 exactly at (1,3) and (2,2)
+PASS S0.phiW  [source] landed phiW = diag(1,1,-1,1)
+PASS D1  [identity] pauliW (cnot w) = CNOT pauliW(w) CNOT^dagger, symbolic w (cnot is conjugation by CNOT)
+PASS D2  [identity] cnot is an ipW-orthogonal involution: cnot(cnot w) = w and ipW(cnot w)(cnot v) = ipW w v, symbolic
+PASS D3  [identity] pauliW (prodState x y) = rho(x) (x) rho(y), symbolic x, y
+PASS D4  [identity] ipW E X = 4 tr(pauliW E pauliW X), symbolic (the Euclidean pairing is the trace pairing)
+NOTE [written] D.W  -- by D4 and the self-duality of the PSD cone (landed JordanClassification psd_iff_trace_nonneg, for complex matrices; Mathlib PosSemidef), dualW Q3 = Q3. By D3 every product lies in Q3; by D1 cnot maps Q3 onto Q3. Hence K_gen <= Q3 = dualW Q3 <= dualW K_gen = K_gen*.
+
+== S1  the single-pair chart obstruction (per-pair principles cannot exclude the mixed assignment)
+PASS C1  [identity] actT reflY is ipW-orthogonal and an involution, symbolic
+PASS C2  [identity] actT reflY (prodState x y) = prodState x (reflY y), symbolic: it maps SEP onto SEP
+FAIL C3  [identity] a^T (actT reflY w) b = a^T w (homMap reflY b), symbolic, and homMap reflY preserves the Lorentz form: actT reflY maps maxCone onto maxCone
+PASS C4  [identity] cnotTw = actT reflY . cnot . actT reflY is the N-CLASS gate with locals (I, reflY, I, reflY), symbolic
+PASS C5  [identity] ipW F (actT reflY w) = ipW (actT reflY F) w, symbolic: dualW twin = actT reflY (dualW Q3) = twin
+NOTE [written] C.W  -- let P be any predicate of the data of ONE pair (its cone, its gate, its four locals) that is invariant under transport by the ipW-orthogonal, SEP- and maxCone-preserving involution actT reflY (cone K -> its image, gate N -> actT reflY . N . actT reflY, locals transformed by the chart rule). Self-duality K = dualW K, its two halves, homogeneity, symmetric-cone (Jordan) structure, closedness, admissibility and gate invariance are all such predicates (C1-C5). Then P(Q3, cnot, I, I, I, I) iff P(twin, cnotTw, I, reflY, I, reflY). The model M_tok = (Q3, Q3, Q3, twin) with gates (cnot, cnot, cnot, cnotTw) therefore satisfies every conjunction of such predicates that the quantum data M_Q satisfy, while FCC fails there at -1/8 (s1 A3). No conjunction of chart-invariant single-pair predicates implies FCC. This complements AUDIT-C's narrowed B3 (three-pair conditions on cones and gate maps): for one pair, conditions may read the locals as well.
+
+== S2  uniform K_gen: K_gen <= K_gen* (one half of self-duality), and FCC fails
+PASS G1  [identity] hom x^T E0 hom y = 1 + x1 y3 - x2 y2, symbolic (x = (x1, x2, x3), y = (y1, y2, y3))
+PASS G2  [identity] Lagrange: (x1^2 + x2^2)(y3^2 + y2^2) - (x1 y3 - x2 y2)^2 = (x1 y2 + x2 y3)^2, symbolic
+PASS G3  [witness] cnot E0 = E0
+NOTE [written] G.W  -- by G1, G2 |x1 y3 - x2 y2| <= |x||y| <= 1 on the ball, so E0 is nonnegative on every product (E0 in dualW SEP); by D2 and G3, ipW E0 (cnot p) = ipW (cnot E0) p = ipW E0 p >= 0; hence E0 lies in K_gen*.
+PASS G4  [witness] pauliW G = psi psi^T for psi = (1,-1,-1,-1)/2 (G in Q3, rank one) and ipW E0 G = -1 (E0 not in Q3) -- G = [[1, 0, 0, 0], [0, 0, 0, -1], [0, 0, 1, 0], [0, -1, 0, 0]]
+PASS G5  [witness] famI for uniform K_gen: fourVal phiW phiW E0 G = -1 (phiW = cnot(prodState xplus z3) in K_gen; E0, G in K_gen*) -- value -1
+PASS G5c  [countercontrol] countercontrol: with E00 in place of E0 the value is > 0 -- value 1
+NOTE [written] G5.W  -- uniform K_gen with cnot gates and identity locals satisfies hcls (cnot is its own N-CLASS form), hadm (products in SEP; K_gen <= Q3 <= maxCone; a convex cone), hcl (thread A, audited: K_gen closed) and hgate (cnot K_gen = K_gen by D2); it satisfies K_gen <= K_gen* (D.W) and fails FCC (G5). So "uniformity + K <= dualW K + the pair hypotheses" does not imply FCC: route refuted (this is thread C's K7, recomputed here with independent code).
+
+== S3  uniform K_gen* (the dual foil): dualW(K_gen*) <= K_gen* (the other half), and FCC fails
+PASS H1  [witness] famI for uniform K_gen*: fourVal E0 G phiW phiW = -1 (E0 in K_gen* and G in Q3 <= K_gen* as STATES; phiW in K_gen <= dualW(K_gen*) as effects) -- value -1
+PASS H1c  [countercontrol] countercontrol: with E00 in place of E0 the value is > 0 -- value 1
+PASS H2  [identity] phiW G phiW^T = G (G is invariant under the full reflection; so fourVal X G phiW phiW = ipW X G)
+NOTE [written] H.W  -- K_gen* = dualW K_gen is a closed convex cone; it contains Q3 (D.W) hence every product; it lies in dualW SEP = maxCone since SEP <= K_gen; cnot maps it onto itself (D2 and cnot K_gen = K_gen). So uniform K_gen* with cnot gates and identity locals satisfies hcls, hadm, hcl, hgate. dualW(K_gen*) = closure(K_gen) <= Q3 <= K_gen* (Q3 closed): K_gen* satisfies the half "every effect is a state". FCC fails (H1). So "uniformity + dualW K <= K + the pair hypotheses" does not imply FCC: route refuted. NEW foil (from above).
+PASS H3  [enumerate] the octahedral rotation group has 24 elements, each a rotation (orthogonal, det 1)
+PASS H4  [witness] IE1 fails for K_gen*: for an octahedral rotation R, act R E0 (E0 in K_gen*) pairs negatively with the K_gen element cnot(prodState x y): ipW (act R E0) (cnot p) = hom x^T cnot(act R E0) hom y < 0 -- side C, R = [[1, 0, 0], [0, 0, 1], [0, -1, 0]], x = [0, -1, 0], y = [0, -1, 0], value -1
+PASS H4c  [countercontrol] countercontrol: the identity rotation gives no negative value on the scanned list (E0 itself is in K_gen*)
+
+== S4  incomparability: state-state cross positivity, the effect-state half, and FCC
+PASS M1  [witness] uniform maxCone: fourVal idW idW phiW L' = ipW phiW L' = -2 with idW, phiW, L' in maxCone (states of four pairs whose A- and B-products have negative overlap) -- value -2
+PASS M2  [identity] membership in maxCone: a^T idW b = a.b, a^T L' b = a0 b0 - a1 b1 + a2 b2 - a3 b3, a^T phiW b = a0 b0 + a1 b1 - a2 b2 + a3 b3, symbolic (each >= 0 on Lor x Lor by Cauchy-Schwarz on the tails)
+NOTE [written] M.W  -- uniform maxCone satisfies FCC (landed KT4-PREM-1 F4-F6 and note F.max: the dual of maxCone is SEP and L is self-dual) and the half dualW K <= K (dualW maxCone = SEP <= maxCone), but no four-token cone containing both groupings' products has nonnegative overlaps (M1). So state-state cross positivity (SSCP) is not implied by FCC; uniform K_gen (S2) satisfies SSCP (K_gen <= Q3 and FCC for uniform Q3 with Q3 = dualW Q3) and fails FCC. SSCP and FCC are incomparable on admissible closed cones.
+PASS M3  [identity] fourVal (prodState x0 x1) (prodState x2 x3) E F = ipW E (prodState x0 x2) * ipW F (prodState x1 x3), and the famII analogue, symbolic (FCC for uniform SEP: both factors >= 0 for E, F in dualW SEP)
+PASS M4  [witness] idW is not in SEP: ipW sing4 idW = -2 with sing4 in maxCone = dualW SEP (s1 I3); idW in maxCone (M2)
+NOTE [written] M4.W  -- uniform SEP satisfies FCC (M3, bilinear extension over the generators) and fails "dualW K <= K" (M4). The M_tok cones satisfy "dualW K <= K" at every pair (Q3, twin self-dual) and fail FCC (s1 A3). So the half "every effect is a state" and FCC are incomparable on admissible closed cones. SSCP together with it implies FCC directly: for E in dualW K02 <= K02 and F in dualW K13 <= K13, famI is the overlap of an A-product with the B-product prodB E F (s1 B2.7).
+
+kinds: identity 14, witness 7, enumerate 1, source 2, countercontrol 3
+S2-FOILS: FAILED -- 1 of 27: C3

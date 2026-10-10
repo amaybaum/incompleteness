@@ -1,0 +1,42 @@
+== A  transcription from the Lean source at L
+CONFIRMED A1 Lean sgn/pc/pt = Ad(CNOT control-first) on all 16 basis tables -- NEG=[(1, 3), (2, 2)]
+CONFIRMED A1c target-first CNOT disagrees somewhere
+CONFIRMED A2 nflip = rotation of Ad(X) = R_x(pi) = diag(1,-1,-1)
+CONFIRMED A3 cycEquiv = rotation of U_J = (I - i(X+Y+Z))/2: x -> y -> z -> x, proper, order 3
+CONFIRMED A4 actC R(U) = Ad(U x I), actT = Ad(I x U) on 16 tables; actC fixes row 0 (no-signalling identity)
+== B  Lie closures in u(4): Pauli-string commutators (real coefficients of i*P)
+CONFIRMED B1 drive_C (X x I) + J-conjugate (Y x I) + CNOT conjugates: dim 6, contains all ad(s_k x P+-) -- dim=6
+CONFIRMED B1c drive on the control alone with CNOT: dim 2 (abelian {X x I, X x X})
+CONFIRMED B2c drive on the target alone with CNOT: dim 1 (I x X commutes with CNOT)
+CONFIRMED B5 W1: drive (x) + phase flow (z) on the control with CNOT: dim 6
+CONFIRMED B5c W1c: phase flow alone on the control: dim 1
+CONFIRMED B6c W3c: phase flows on both tokens: dim 3 (abelian {ZI, IZ, ZZ})
+CONFIRMED B7 W4: drive + phase flow on the target with CNOT: dim 6
+MISMATCH B8 record (C5 census): flow on control + J-conjugate flow on target: dim 15 = su(4)
+== C  the monomial (substratum) class transcribed: orbit structure and the seed
+CONFIRMED C1 the native permutations {X x I, I x X, CNOT, SWAP} generate S4 on the four basis labels -- order=24
+CONFIRMED C2 phase torus: exponent vectors (0,0,1,1), (0,1,0,1), (0,1,1,0) have rank 3; with the global phase rank 4 (full torus mod global phase)
+CONFIRMED C3 phi0 = (1,2,3,4)/sqrt30: min |ad - bc| over 24 arrangements = 2/30 = 1/15 > 0 (not rank 1: unreachable) -- dets=[2, 5, 10] /30
+CONFIRMED C3c product magnitudes (1,2,2,4)/5: some arrangement has det 0
+CONFIRMED C4 m = max sigma_max^2 over the 24 arrangements = (15 + sqrt221)/30 exactly -- m=sqrt(221)/30 + 1/2 ~ 0.995536
+CONFIRMED C5 c = 513/512: 1 < c <= 2 and c*m < 1 exactly (seed admissible on the whole monomial orbit of SEP) -- 1/m ~ 1.004484, c ~ 1.001953
+CONFIRMED C6 FLOAT sanity: 4000 random monomial-orbit product states have overlap^2 with phi0 <= m -- max=0.995474, m=0.995536
+== D  lambda countercontrol replicated (family-(i) value on uniform cones)
+CONFIRMED D1 uniform K(E0): family-(i) value at (cnot p(e2,e3), cnot p(e1,e2)) = -1; min over 1296 pairs = -1 -- v=-1
+CONFIRMED D2 Q3 control: X = Y = cnot p(e_x, e_z) (a pure Bell table, rank 1): min over the 1296 pairs >= 0
+== E  K(E0) is not invariant under the NOT on the control
+CONFIRMED E1 actC nflip E0 = E00 + E13 + E22
+CONFIRMED E2 a pure state in Q3 ∩ {E0}* (so in K(E0)) pairs < 0 with the image: the image leaves K(E0) = K(E0)* -- <rho,E0>=1, <rho,image>=-1
+CONFIRMED E2c control: the same state pairs >= 0 with E0 itself
+== F  K(Z_F): drivable pair body; J moves it
+CONFIRMED F0 stage-3 defects z_s = tab((I - 2 psi psi^†)/8) with psi the (-1/8)-eigenvector; D5 psi(s) rays = the same set; orthonormal
+CONFIRMED F1 U(w) = I + (w - 1) psi0 psi0^†, |w| = 1 symbolic: unitary, fixes every defect of Z_F (so preserves K(Z_F))
+CONFIRMED F2 N = U(-1) is an involution; it moves the pure state (psi0 + psi1)/sqrt2 of K(Z_F) to a different ray (still in K(Z_F))
+CONFIRMED F3 actC J z_(1, 1) leaves K(Z_F): witness (U_J x I) psi_s in K(Z_F), pairing < 0 -- overlaps=[1/4, 1/4, 1/4, 1/4] pairing=-1/2
+CONFIRMED F3c control: actC nflip permutes Z_F (K(Z_F) is NOT-invariant on the control)
+== G  level identity (d2): spectator extension of the level-1 layer flow = level-n layer flow
+CONFIRMED G1 reindex e_n (1_n x permMat(levelPerm s 1)) = permMat(levelPerm s n) for |S| = 2,3,4 (transposition, 3-cycle) and n = 1..4
+CONFIRMED G1c the wrong reindexing (spectator in the system slot) fails at |S| = 2, n = 2
+CONFIRMED G2 affine step: 1_n x gateFlow(level 1) = 1 + lam (1 - 1_n x P)/2 for symbolic lam = exp(i pi t) - 1
+SUMMARY 32/33 CONFIRMED
+INDEP-D-MISMATCH

@@ -1,0 +1,84 @@
+K cluster naming the pair carrier (12): CompositeDimension, DenseOrbit, EffectSpace, K1Bridge, K2Guard, OddChar, ParityNot, RelcSelectBlock, RelcSelectC5, RelcSelectParity, RelcSelectSqueeze, SharpTests
+(a) CONE-BINDERS (9):
+  CompositeDimension.lean:186 def maxCone
+  CompositeDimension.lean:190 def jointStates
+  EffectSpace.lean:411 def maxConeOf
+  K1Bridge.lean:59 def jointStatesOf
+  K2Guard.lean:95 def CandidateCone
+  K2Guard.lean:143 theorem no_candidateCone_cnot_reflY
+  K2Guard.lean:179 def productSet
+  K2Guard.lean:182 def cnotOrbit
+  K2Guard.lean:277 theorem k2guard_orientation
+(b) ACT-THEOREMS (39): EQ 33, FALSE 1, MEM 4, OTHER 1
+  EQ    - CompositeDimension.lean:451 toOp_actC :: toOp (actC N ω) = homMap N ∘ₗ toOp ω
+  EQ    - CompositeDimension.lean:464 toOp_actT :: toOp (actT N ω) = toOp ω ∘ₗ homMap N
+  EQ    - CompositeDimension.lean:471 actT_actT :: actT N (actT N ω) = ω
+  EQ    - CompositeDimension.lean:476 actC_actC :: actC N (actC N ω) = ω
+  EQ    - CompositeDimension.lean:828 actT_apply :: actT N ω μ ν = homMap N (ω μ) ν
+  EQ    - CompositeDimension.lean:831 actC_apply :: actC N ω μ ν = homMap N (fun κ => ω κ ν) μ
+  EQ    - CompositeDimension.lean:854 cnot_relT :: actT nflip (cnot (actT nflip ω)) = cnot ω
+  EQ    - CompositeDimension.lean:860 cnot_relC :: actC nflip (cnot (actC nflip ω)) = actT nflip (cnot ω)
+  EQ    - CompositeDimension.lean:1923 actT_tens :: actT N (tens X Y) = tens X (homMap N Y)
+  EQ    - CompositeDimension.lean:1930 actC_tens :: actC N (tens X Y) = tens (homMap N X) Y
+  EQ    - CompositeDimension.lean:1938 gate_actT :: G (actT N ω) = actT N (G ω)
+  EQ    - CompositeDimension.lean:1945 gate_actC :: G (actC N ω) = actC N (actT N (G ω))
+  EQ    - CompositeDimension.lean:2807 cnot1_relT :: actT neg1 (cnot1 (actT neg1 ω)) = cnot1 ω
+  EQ    - CompositeDimension.lean:2811 cnot1_relC :: actC neg1 (cnot1 (actC neg1 ω)) = actT neg1 (cnot1 ω)
+  EQ    - K2Guard.lean:106 actT_reflY_phiW :: actT reflY phiW = idW
+  EQ    - K2Guard.lean:116 chain_eq :: cnot (actT reflY (cnot (prodState xplus z3))) = chainW
+  FALSE - K2Guard.lean:143 no_candidateCone_cnot_reflY :: False
+  EQ    - K2Guard.lean:173 actT_prodState :: actT N (prodState x y) = prodState x (N y)
+  MEM   ACT-MEM K2Guard.lean:190 reflY_mem_productSet :: actT reflY ω ∈ productSet
+  EQ    - K2Guard.lean:212 actT_nflip_phiW :: actT nflip phiW = rotW
+  EQ    - K2Guard.lean:223 rotation_chain_value :: prodEffVal (sharpEff ![-1, 0, 0]) (sharpEff ![0, 0, -1]) (cnot (actT nflip (cnot (prodState xplus z3)))) = 0
+  MEM   ACT-MEM K2Guard.lean:277 k2guard_orientation :: (∀ K : Set (W 3), CandidateCone K → (∀ ω ∈ K, cnot ω ∈ K) → (∀ ω ∈ K, actT reflY ω ∈ K) → False) ∧ NativeGate (eball 3) z3 nflip cnot ∧ (∀ x ∈ eball 3, reflY x ∈ eball 3) ∧ LinearMap.det reflY = -1 ∧ LinearMap.det nflip 
+  EQ    - ParityNot.lean:456 sgate_relT :: actT N (sgate odd p (actT N ω)) = sgate odd p ω
+  EQ    - ParityNot.lean:465 sgate_relC :: actC N (sgate odd p (actC N ω)) = actT N (sgate odd p ω)
+  EQ    - RelcSelectBlock.lean:92 gate_actC_ctrl :: G (actC N ω) = actC N (actT N (G ω))
+  EQ    - RelcSelectBlock.lean:492 actT_slice_ctrl :: actT N (G (tens (lift c) (Minv z G (hom 0)))) = G (tens (lift c) (Minv z G (hom 0)))
+  EQ    - RelcSelectC5.lean:161 gC5_relT :: actT nC5 (gC5 (actT nC5 ω)) = gC5 ω
+  EQ    - RelcSelectC5.lean:169 gC5_relC_lhs :: actC nC5 (gC5 (actC nC5 (OddChar.entW 3 3))) 4 4 = 1
+  EQ    - RelcSelectC5.lean:174 gC5_relC_rhs :: actT nC5 (gC5 (OddChar.entW 3 3)) 4 4 = -1
+  EQ    - RelcSelectC5.lean:179 gC5_not_relC :: ¬ ∀ ω, actC nC5 (gC5 (actC nC5 ω)) = actT nC5 (gC5 ω)
+  MEM   ACT-MEM RelcSelectC5.lean:378 c5_sep :: IsNot (eball 5) z5 nC5 ∧ (∀ a b : Fin 2, gC5 (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b))) ∧ (∀ ω, actT nC5 (gC5 (actT nC5 ω)) = gC5 ω) ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gC5 (prodS
+  MEM   - RelcSelectC5.lean:393 relT_not_dimension_selecting :: ¬ ∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d), IsNot (eball d) z N → (∀ a b : Fin 2, G (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b))) → (∀ x ∈ eba
+  EQ    - RelcSelectParity.lean:75 opGate_homMap_comp_relC :: opGate G (homMap N ∘ₗ F) = homMap N ∘ₗ opGate G F ∘ₗ homMap N
+  EQ    - RelcSelectParity.lean:329 finrank_plus_eq_finrank_minus_relC :: Module.finrank ℝ (plusSpace N) = Module.finrank ℝ (minusSpace N)
+  OTHER - RelcSelectParity.lean:354 not_even_of_relC :: ¬ Even d
+  EQ    - RelcSelectSqueeze.lean:52 relT_symm :: ∀ ω, actT N (G.symm (actT N ω)) = G.symm ω
+  EQ    - RelcSelectSqueeze.lean:64 relC_symm_of_relT :: ∀ ω, actC N (G.symm (actC N ω)) = actT N (G.symm ω)
+  EQ    - RelcSelectSqueeze.lean:196 gSq_relT :: ∀ ω, actT n5 (gSq (actT n5 ω)) = gSq ω
+  EQ    - RelcSelectSqueeze.lean:203 gSq_relC :: ∀ ω, actC n5 (gSq (actC n5 ω)) = actT n5 (gSq ω)
+(b) ACT-MEM count: 3
+(c) Anc(P): 25 nodes (21 inventory records, 4 kernel declarations without a record)
+(c) levels of the records: O | P | P (O for `isNot_nflip`) | P (`cnot`, `phiW`), O (`z3`, `nflip`, `xplus`)
+(c) records: I3.1, I3.11, I3.12, I3.13, I3.143, I3.147, I3.148, I3.149, I3.150, I3.151, I3.152, I3.153, I3.2, I3.3, I3.43, I3.58, I3.6, I3.66, I3.67, I3.7, I3.80
+(c) non-record members: K:cnot_prodEffVal_nonneg, K:hom, K:homMap, K:prodEffVal
+(c) KC edges with source in Anc(P) (1): I3.12->I3.1
+(c) ANC-PO: True
+CC3 synthetic edge I3.1 -> I1.1: Anc(P) 26 nodes, H-level member present: True
+(d) StructuralClosure.lean:261 substratumClass_contextStable | reaches CompositeDimension: False | carrier tokens: substratumClass
+      theorem substratumClass_contextStable : ContextStable substratumClass
+(d) StateMixingCoupling.lean:442 mixC_contextStable | reaches CompositeDimension: False | carrier tokens: MixC
+      theorem mixC_contextStable : ContextStable MixC
+(d) StructuralClosure.lean:316 substratumClass_structurallyClosed | reaches CompositeDimension: False | carrier tokens: substratumClass
+      theorem substratumClass_structurallyClosed : StructurallyClosed substratumClass where arch
+(d) SpectatorBridge.lean:472 hcompRealized_consistent_with_parallelReferenceExtension | reaches CompositeDimension: False | carrier tokens: FiniteOperationalTheory
+      theorem hcompRealized_consistent_with_parallelReferenceExtension : ∃ T : FiniteOperationalTheory (Fin 2), HCompRealized T qutritIdx (id : Equiv.Perm (Fin 3 × (Fin 2 × Fin 2)) → _) (fun _ => onesCorr _) (fun _ => onesCorr _) (fun _ => onesCorr _) ∧ HasParallelReferenceExtension T ∧ InertSpectatorComp
+(d) LiftAudit.lean:117 layerFlowExecutable_of_control | reaches CompositeDimension: False | carrier tokens: FiniteOperationalTheory, HasCompositeUnitaryControl
+      theorem layerFlowExecutable_of_control (T : FiniteOperationalTheory S) (hctrl : HasCompositeUnitaryControl T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) : LayerFlowExecutable T σ
+(d) ImplementationLocality.lean:1017 implementationLocality_of_qm | reaches CompositeDimension: False | carrier tokens: ExactAllFiniteEndomorphicQuantumOps, FiniteOperationalTheory
+      theorem implementationLocality_of_qm [Nonempty A] (T : FiniteOperationalTheory A) (h : ExactAllFiniteEndomorphicQuantumOps T) : ImplementationLocality T
+(d) MicroscopicReversibility.lean:329 reversibleImplementationLocality_of_qm | reaches CompositeDimension: False | carrier tokens: ExactAllFiniteEndomorphicQuantumOps
+      theorem reversibleImplementationLocality_of_qm [Nonempty A] (h : ExactAllFiniteEndomorphicQuantumOps T) : ReversibleImplementationLocality T
+(d) EmbeddedObservation.lean:327 embeddedObservation_of_qm | reaches CompositeDimension: False | carrier tokens: ExactAllFiniteEndomorphicQuantumOps, FiniteOperationalTheory
+      theorem embeddedObservation_of_qm [Nonempty A] (T : FiniteOperationalTheory A) (h : ExactAllFiniteEndomorphicQuantumOps T) : EmbeddedObservation T
+(d) ImplementationLocality.lean:904 genTheory_embeddedObservation | reaches CompositeDimension: False | carrier tokens: LabelInvariant
+      theorem genTheory_embeddedObservation (hl : LabelInvariant 𝓘) : EmbeddedObservation (genTheory 𝓘 arch A)
+(d) RouteB.lean:290 substratumTheory_derivedOI | reaches CompositeDimension: False | carrier tokens: substratumTheory
+      theorem substratumTheory_derivedOI : DerivedOI (substratumTheory A)
+(d) DISCHARGE-OFF-P: True
+CC1 cone-binder scan finds CandidateCone and no_candidateCone_cnot_reflY: True
+CC2 act scan finds actT_prodState tagged EQ: True
+CC3 detector live: True
+VERDICT D2-D3-SCAN: cone-binders 9, act-theorems 39 (ACT-MEM 3), Anc(P) 25 nodes ANC-PO True, DISCHARGE-OFF-P True

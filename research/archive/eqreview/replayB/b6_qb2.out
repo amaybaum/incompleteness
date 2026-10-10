@@ -1,0 +1,12 @@
+PASS Q1 qutrit: rho = diag(1,1,0)/2 has trace 1 and tr(E2 rho) = 0 for the nonzero effect E2 = |2><2| (a boundary state)
+PASS Q1 qutrit: rho = (|0><0| + |1><1|)/2, the midpoint of two distinct pure states (not extreme)
+PASS Q2(a) the SO(2) action rot(p)+rot(2p) maps g(t) to g(t+p) (exact at rational angles)
+PASS Q2(b) every curve point lies on the sphere |v|^2 = 2 (hence is extreme)
+PASS Q2(c) five rational curve points are affinely independent (C has interior in R^4)
+PASS Q2(d) m = (g(0)+g(pi))/2 = (0,0,1,0); v3 = cos 2t <= 1 on the curve with v3(m) = 1 (boundary, not extreme)
+PASS Q2(e) identity 3 + 4cos a + 2cos 2a = |1 + e^{ia} + e^{2ia}|^2 (so the Fejer effects are >= 0 on C)
+PASS Q2(e) the three Fejer effects sum to the unit functional
+PASS Q2(e) e_i(g(2 pi j/3)) = delta_ij: three perfectly distinguishable states (capacity >= 3)
+PASS Q2(e) e_0 on the curve equals (3 + 4cos t + 2cos 2t)/9
+b6_qb2: 10/10 checks PASS
+VERDICT B6-GREEN

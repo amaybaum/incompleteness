@@ -1,0 +1,112 @@
+HEADER = '''"""Track B act 40 -- the round's own static controls, frozen with the control plane.
+
+Written before F; its blob is frozen in the preregistration beside it, and the execution adds it
+with that exact blob. It reads nothing but the repository at D and at the commit under check, and
+it certifies nothing on its own: the Lean kernel, the axiom audit and the release gate establish
+the mathematics, the exact-computation probe replays the exact arithmetic, and the V3 verifier the
+protocol. What it checks is that the execution carries the frozen statements, the frozen probe, the
+frozen outcome grammar and the frozen surface edits, and nothing else.
+
+    python3 controls.py --self-test     the duality of the two verdict propositions, the single
+                                        source of every shared text, the mutation controls on
+                                        synthetic inputs, and the agreement of the constants
+                                        below with the preregistration beside this file
+    python3 controls.py check <commit>  every control against the tree at <commit>, read from git
+
+Exit 1 on any failure.
+"""
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+
+D = 'b271b1dfe5a145d360c7c9433c81bfdf24ba0743'
+RDIR = 'verification/programmes/oi-qm/track-b/act-40-dita-locus/'
+MODULE = 'verification/lean-mathlib/OIBridge/DitaTorusLocus.lean'
+PROBE = 'verification/lean/dita_torus_locus_probe.py'
+WORKFLOW = '.github/workflows/verify.yml'
+ROOT = 'verification/lean-mathlib/OIBridge.lean'
+GUARD = 'verification/lean/edge_rigidity_probe.py'
+CENSUS = 'verification/lean-manuscript-census.json'
+ROADMAP = 'verification/ROADMAP.md'
+ROADMAP_BLOB_D = 'f282da132c49711b2ac48127b74be66994f5382c'
+GUARD_BLOB_D = 'd28e9b3cf2093984a1c453892204b9932a685b2e'
+WORKFLOW_BLOB_D = '6c62b6574fc9db4c2be1cf38a690d3a6e425bd3d'
+PROBE_BLOB = %s
+# the reference implementation of the module, blob 829146f6 in the preregistration: evidence, not a frozen surface
+MODULE_BLOB = %s
+# the workflow at E is D's with this round's probe in a shard of its own, which the aggregate
+# `Numerical probes` job requires: the job inserted before the foundations shard, and the aggregate's
+# needs, environment, echo and test each extended by one entry
+SHARD_ANCHOR = '  probes_foundations:\n'
+SHARD = (
+    '  probes_a40:\n'
+    '    name: Numerical probes / A40 locus\n'
+    '    runs-on: ubuntu-latest\n'
+    '    steps:\n'
+    '      - uses: actions/checkout@v4\n'
+    '\n'
+    '      - uses: actions/setup-python@v5\n'
+    '        with:\n'
+    "          python-version: '3.11'\n"
+    '\n'
+    '      - name: A40 Dita-locus probe\n'
+    '        working-directory: verification/lean\n'
+    '        run: |\n'
+    '          echo "=== dita_torus_locus_probe.py ==="\n'
+    '          python3 dita_torus_locus_probe.py\n'
+    '\n')
+WORKFLOW_EDITS = (
+    (SHARD_ANCHOR, SHARD + SHARD_ANCHOR),
+    ('    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_foundations]\n',
+     '    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_foundations]\n'),
+    ('          A38_RESULT: ${{ needs.probes_a38.result }}\n',
+     '          A38_RESULT: ${{ needs.probes_a38.result }}\n          A40_RESULT: ${{ needs.probes_a40.result }}\n'),
+    ('          echo "a38=${A38_RESULT}"\n', '          echo "a38=${A38_RESULT}"\n          echo "a40=${A40_RESULT}"\n'),
+    ('          test "${A38_RESULT}" = success\n',
+     '          test "${A38_RESULT}" = success\n          test "${A40_RESULT}" = success\n'))
+
+IMPORT = 'import OIBridge.DitaTorus\n'
+WIRE_AFTER = 'import OIBridge.DitaTorus\n'
+WIRE = 'import OIBridge.DitaTorusLocus\n'
+OPEN = %s
+NAMESPACE = 'DitaTorusLocus'
+
+# ---- act 39's frozen head (act 38's head and act 39's pieces and family), which every statement of this round carries verbatim as its first part
+A39_HEAD = %s
+
+# ---- the frozen propositions, verbatim
+PROPS = %s
+
+# ---- the shared components the propositions are built from
+COMPONENTS = %s
+
+# ---- the theorems: (role, name, proposition key)
+THEOREMS = %s
+LABELS = [(role, nm, key) for role, nm, key in THEOREMS if role.startswith('A40-LOCUS-')]
+PARTS = tuple(%s)
+COROLLARY = ('a40_c_exclusive', ['P_N'], 'P_R')
+SHARED = re.compile(r'^a40_shared_[A-Za-z0-9_]+$')
+UNDECIDED = 'A40-UNDECIDED'
+PROVED, FAILS = 'A40-LOCUS-CLASSIFIED', 'A40-LOCUS-FAILS'
+ROWS = (PROVED, FAILS, UNDECIDED)
+STRUCTURAL = [(nm, key) for role, nm, key in THEOREMS if role in ('A40-1', 'A40-2')]
+ALWAYS = [(nm, key) for role, nm, key in THEOREMS if role == 'control']
+REQUIRED = {PROVED: STRUCTURAL + ALWAYS, FAILS: ALWAYS, UNDECIDED: []}
+OUTCOME_RE = re.compile(r'\*\*Outcome:\*\* `(A40-[A-Z-]+)`')
+LABEL_RE = re.compile(r'A40-(?:LOCUS-CLASSIFIED|LOCUS-FAILS|UNDECIDED)')
+
+SENTENCES = %s
+CLAUSE = %s
+MENTION = 'THE CLAUSE, carried at this mention'
+
+# ---- the `P0` cell: the end of the cell at D, and the sentence appended per decided case
+P0_END_D = %s
+P0_CASE = %s
+P0_STANDING_40 = %s
+
+CENSUS_MODULES = ['DitaTorusLocus']
+'''
+

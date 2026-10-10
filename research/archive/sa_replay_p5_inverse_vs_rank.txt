@@ -1,0 +1,5 @@
+(i) W(A) = A/2 + D/2 on effects e_0..e_11: exact
+(i) rank of {A, D} on e_0..e_7 = 2 (affine dim 1: FiniteRank holds)
+(i) forced S(A) on e_0..e_3 = ['1', '0', '-1/2', '-3/4'] -> value on e_2 is -1/2 < 0: S(A) is not a state
+(ii) rank of [P_{u^j}(o^m reads 0^m)]_{j,m<N}, N = 1..10: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+OK

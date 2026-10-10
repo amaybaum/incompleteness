@@ -1,0 +1,11 @@
+PASS F G_pi (rebuilt from EQ-B's block formulas) == landed gC5 (my transcription of RelcSelectC5 tables)
+PASS F G_0 == identity
+PASS F group law G_t1 G_t2 == G_(t1+t2) at (3/5, 4/5), (5/13, 12/13)
+PASS F inverse G_t G_-t == I
+PASS F normalization: (G_t w)_00 == w_00 for all w (row 0 of the operator is e_00)
+PASS W5 witness vectors are exact unit vectors
+PASS W5 gC5 alone is nonnegative at the witness (0.996409)
+     planes (homogeneous indices, e_i -> e_j) reproducing EQ-B's exact value: [(3, 5)]
+PASS W5 EQ-B's exact negative value is reproduced by gC5 (I(x)L) gC5 for a quarter turn of a homogeneous plane
+review_eqB: 8/8 checks pass
+exit 0

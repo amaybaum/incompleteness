@@ -1,0 +1,32 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+    dim 2, 1 component(s), equations ['u^(0, 0, 1) = 1']
+    dim 2, 1 component(s), equations ['u^(0, 0, 1) = i^2']
+    dim 2, 1 component(s), equations ['u^(0, 1, 0) = 1']
+    dim 2, 1 component(s), equations ['u^(1, 0, 0) = 1']
+    dim 2, 1 component(s), equations ['u^(1, 0, 0) = i^2']
+  PASS strict and relaxed loci coincide for every candidate: True
+  PASS every nonempty locus lies in one of the 2-dimensional ones: True
+  PASS restricted to the diagonal u1 = u2 = u3, the loci are the points u = 1 and u = -1 (act 38): ["dim 0, 1 component(s), equations ['u^(1, 0, 0) = 1', 'u^(0, 1, 0) = 1', 'u^(0, 0, 1) = 1']", "dim 0, 1 component(s), equations ['u^(1, 0, 0) = i^2', 'u^(0, 1, 0) = i^2', 'u^(0, 0, 1) = i^2']"]
+  PASS structures at (1, 1, 1) (act 38: 18, the census): 18
+  PASS structures at (-1, -1, -1) (act 38: one 2 x 8 in each orientation): [('column', (2, 8)), ('row', (2, 8))]
+    generic                    numeric  0  predicted  0  agree  (6s)
+    generic2                   numeric  0  predicted  0  agree  (12s)
+    u1=1                       numeric  1  predicted  1  agree  (17s)
+    u1=-1                      numeric  1  predicted  1  agree  (22s)
+    u2=1                       numeric  2  predicted  2  agree  (27s)
+    u2=-1 (not in the locus)   numeric  0  predicted  0  agree  (32s)
+    u3=1                       numeric  1  predicted  1  agree  (38s)
+    u3=-1                      numeric  1  predicted  1  agree  (43s)
+    u1=i (not)                 numeric  0  predicted  0  agree  (49s)
+    u1=1,u3=-1                 numeric  3  predicted  3  agree  (54s)
+    u2=1,u3=1                  numeric  7  predicted  7  agree  (59s)
+    u1=-1,u2=1                 numeric  4  predicted  4  agree  (65s)
+    (1,1,1)                    numeric 18  predicted 18  agree  (71s)
+    (-1,-1,-1)                 numeric  2  predicted  2  agree  (76s)
+    (-1,1,1)                   numeric 12  predicted 12  agree  (81s)
+    (1,1,-1)                   numeric 12  predicted 12  agree  (87s)
+    (1,-1,1)                   numeric  4  predicted  4  agree  (92s)
+  PASS the numeric exhaustive search agrees with the flat calculus at every test point: []
+locus39_controls: OK

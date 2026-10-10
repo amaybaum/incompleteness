@@ -1,0 +1,5 @@
+P   fourVal(phiW, phiW, E0, G) = -1
+QC  uniform Q3, 77 elements: min fourVal = 0 at (X, Y, E, F) = ('p(1, 0, 0)(1, 0, 0)', 'p(1, 0, 0)(1, 0, 0)', 'p(1, 0, 0)(-1, 0, 0)', 'p(1, 0, 0)(1, 0, 0)')
+K1  uniform K1, 76 elements: min fourVal = -1 at (X, Y, E, F) = ('E0', 'E0', 'cnot p(0, 1, 0)(0, 0, 1)', 'cnot p(1, 0, 0)(0, 1, 0)')  FCC-VIOLATION
+K4  uniform K4, 76 elements (e_s scaled by 4): min fourVal = -2 at (X, Y, E, F) = ('4e(1, 1)', 'cnot p(0, 1, 0)(0, 1, 0)', 'cnot p(0, -1, 0)(0, 1, 0)', 'cnot p(1, 0, 0)(0, 1, 0)')  FCC-VIOLATION
+SUMMARY controls P and QC green; values are exact integers (scaled); see RESULT section 4 cross-notes

@@ -1,0 +1,14 @@
+Exception ignored in: <_io.FileIO name='/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/wt-perf1/verification/lean/dita_arc_exclusivity_probe.py' mode='rb' closefd=True>
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/wt-perf1/verification/lean/a42/lib42.py", line 13, in <module>
+    _src = open(os.path.join(REPO, 'verification', 'lean', 'dita_arc_exclusivity_probe.py')).read()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/wt-perf1/verification/lean/dita_arc_exclusivity_probe.py' mode='r' encoding='utf-8'>
+PASS n18:2 covers 6 of the 18 subspaces
+PASS N18 k2 column: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 k3 row: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 e1 column: rank 161, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 e2 row: rank 161, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 t2 column: rank 119, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 t3 row: rank 119, equal to exactly one realizing triple, at its sorted alignment
+dita_support_minimality_probe n18:2: OK -- 7 checks (74s)

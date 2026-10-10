@@ -1,0 +1,10 @@
+The exact-head `workflow_dispatch` runs at the stage commits, each on exactly the commit named:
+
+| stage | commit | run | outcome |
+| --- | --- | --- | --- |
+| 1 — the module, the controls and the probe | `3a16021639a49a5eb32bd8c5466cdf458f4e3ee6` | 36416531599 | seven of eight jobs green; the `Mathlib bridge` build compiles the module's ninety-nine theorems and the release gate's `lean-axioms` step reports 5050 named results with no sorry; the gate is red only at `lean-manuscript`, the new module having no census family until stage 3, as the freeze orders; the probe reports its `OK` line |
+| 2 — the verdict and the corollary | `e37cad3bf990b23f1e1615e2862a2ca57503b567` | 36417464997 | as at stage 1, with the one hundred and one theorems compiled and `lean-axioms` at 5052 named results with no sorry; red only at `lean-manuscript`, for the same reason |
+| 3 — the surfaces | `a68dd1e1b658be5b66bfc2eb4662316f1d71a781` | 36418280236 | all eight jobs green; the release gate passes, `lean-manuscript` included, with fourteen receipts holding and `legacy-records` at 303; the probe reports its `OK` line |
+
+Design evidence before the freeze is recorded in the preregistration; no disposable branch is part of
+the execution.

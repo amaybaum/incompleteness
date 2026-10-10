@@ -1,0 +1,25 @@
+PASS K0 sgn, pc, pt transcription
+PASS K1 pauli1, pauliW, pureTab (package) and tensorOf (base) transcription
+PASS K2 rotFun, cycEquiv, rotX transcription
+PASS K3 nflip, reflY transcription
+PASS N1 right link, control side: Bell02 . g . L'^T = actT (A13 R A13^T) (Theta g); other order fails -- 48 unit failures for the countercontrol
+PASS N2 right link, target side: Bell02 . g . L'^T = Theta (actT (B13 R^T B13^T) g)
+PASS N3 actT R phiW = actC (reflY R^T reflY) phiW
+PASS N4 cnot (prodState (rot3 a xplus) (rotX b z3)) = actC (rot3 a . rotX b) phiW, 36 pairs
+PASS N5 actT (rotX b . rot3 a) phiW = actC (rot3 a . rotX b) phiW, 36 pairs
+PASS N6 actC and actT adjoints for ipW (6 random non-orthogonal M)
+PASS N7 actC reflY . cnot = cnotTw . actC reflY and actC reflY . actT reflY . cnot = cnot . actC reflY . actT reflY
+PASS N8 witness reduction: actC eA (actT eB (cnot P)) = gateOf (eA != eB) P on the Lemma P witnesses
+PASS S0 pauliW (cnot w) = CNOT pauliW(w) CNOT^H on all units
+PASS S1 pureTab (diag (a, b e^{i phi})) = cnot (prodState (2ab cos, 2ab sin, a^2 - b^2) z3); conjugate phase fails
+PASS S2 pauliW (pureTab C) = v v^H, v = (C00, C01, C10, C11)
+PASS S3 ipW E X = 4 Re tr (pauliW E pauliW X)
+PASS S4a five rational SU(2) elements: det 1, unitary; R_U in SO(3)
+PASS S4b U^H sigma_j U = sum_k R_U[j][k] sigma_k
+PASS S4c pureTab (U C V^T) = actC R_U (actT R_V (pureTab C)), 25 pairs; with R_U^T it fails -- 20 pair failures for the countercontrol
+PASS S5 pauliW . transposeW = transpose . pauliW; actC reflY . actT reflY = transposeW; commutation
+PASS S6 pauliW phiW = v v^H, v = (1,0,0,1)/sqrt2; singlet expectation of pauliW idW < 0 -- singlet value -1
+PASS F1 convexity foil: rho' = actT R_H (cnot sigma) is PSD, rank 2, and neither rho' nor cnot rho' is PPT; control sigma is PPT -- dets -135/4096, -135/4096; control 0
+PASS F2 psi1 = actT R_H phiW is pure; every g(psi1), g in H (|H| = 8), has marginal norm^2 < 1; control product = 1 -- |H| = 8, norms ['0']
+--- precheck_core: 23/23 checks pass
+VERDICT IE1FIRST-CORE-EXACT

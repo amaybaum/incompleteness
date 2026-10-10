@@ -1,0 +1,9 @@
+target t3 mode full: d = [1. 1. 2. 2.], rho = 4.0000, phi_A = 2.828427, min(u0, 3u1) = 1.414214
+  round 0: LP value 2.00000000, upper bracket 3.23320959 (eps 1.03e-01)
+  round 10: LP value 2.60447502, upper bracket 2.60715274 (eps 2.23e-04)
+  round 20: LP value 2.60546185, upper bracket 2.60546621 (eps 3.64e-07)
+  round 26: LP value 2.60546426, upper bracket 2.60546435 (eps 7.21e-09)
+  final: LP value 2.60546426, verified upper bracket 2.60546435 (eps 7.21e-09), phi_A 2.82842712, psi_diag 2.82842712
+  support: [(np.float64(1.656174), [0.1931, 0.0284, 0.167, 0.2207], np.float64(0.206461)), (np.float64(8.279677), [0.0764, 0.1036, 0.1406, 0.1908], np.float64(0.241452)), (np.float64(0.247197), [0.1932, 0.0284, 0.167, 0.2206], np.float64(0.206482)), (np.float64(1.816951), [0.0, 0.0484, 0.2849, 0.0], np.float64(0.117419))]
+  duals y (full precision): [0.35628263794720455, 1.2133877116503091, 0.20603472212519652, 0.31186223417779774]
+  reading: gap lead

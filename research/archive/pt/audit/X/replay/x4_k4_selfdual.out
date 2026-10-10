@@ -1,0 +1,22 @@
+INFO family sizes: E1=6560 E2=3160 E3=1770
+
+== E  lemma SD2 on exact families (instance-scoped; the universal step is the written lemma)
+INFO E1: members with some tr(z e_s) < 0: 2784; decomposition valid on 2784
+PASS E1  [enumerate] q = z + sum t_s e_s is PSD with tr(q e_s) >= 0 on every member with a negative pairing: Gaussian pure states (all v in {a+bi: a,b in {-1,0,1}}^4)
+INFO E2: members with some tr(z e_s) < 0: 1332; decomposition valid on 1332
+PASS E2  [enumerate] q = z + sum t_s e_s is PSD with tr(q e_s) >= 0 on every member with a negative pairing: rank-2 real mixtures (all pairs of the 80 nonzero vectors of {-1,0,1}^4)
+INFO E3: members with some tr(z e_s) < 0: 330; decomposition valid on 330
+PASS E3  [enumerate] q = z + sum t_s e_s is PSD with tr(q e_s) >= 0 on every member with a negative pairing: rank-2 complex mixtures (all pairs of 60 Gaussian representatives)
+INFO E4 defect s=(1, 1): members with tr(z e_s) < 0: 696; (GL) holds on 696
+INFO E4 defect s=(1, -1): members with tr(z e_s) < 0: 696; (GL) holds on 696
+INFO E4 defect s=(-1, 1): members with tr(z e_s) < 0: 696; (GL) holds on 696
+INFO E4 defect s=(-1, -1): members with tr(z e_s) < 0: 696; (GL) holds on 696
+PASS E4  [enumerate] (GL) holds for each single defect e_s on every Gaussian pure state with tr(z e_s) < 0
+PASS E5  [witness] the procedure accepts K4: tr(e_s e_t) = (1/16)[s = t] (subdual defect set; generators of Q3 n X^* pair nonnegatively with X by definition and with each other as PSD tables), and every dual probe q from E1-E3 is PSD
+
+== Ec  countercontrol: defects violating the SD1 hypothesis
+INFO Ec: members with a negative pairing: 5792; decomposition valid on 480; first failure: v v^*, v=(-1-1i, -1-1i, -1-1i, -1+0i)
+PASS Ec  [countercontrol] the decomposition test rejects X' = {e'_s = (I - 3 P_s)/8}: it fails on the E1 family, and X' is not subdual (tr(e'_s e'_t) = -1/32 < 0 for s != t)
+
+kinds: enumerate 4, witness 1, countercontrol 1
+VERDICT X4-K4-SELFDUAL-INSTANCES -- 6 checks (instance-scoped; universal step = lemma SD2 [W])

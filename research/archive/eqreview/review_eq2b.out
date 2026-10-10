@@ -1,0 +1,58 @@
+PASS K kernel cnot (typed in) is an involution
+PASS K kernel cnot == closed form F(1, 1, -1, 1)
+PASS N1 all constraint rows are homogeneous in the unknowns (corner slices consistent)
+PASS N1 exact rank of C1 + C2 + C3/C4 (24 sphere points) = 124 = 124 (null dim 4)
+PASS N1 the closed-form directions dF/da, dF/da', dF/db, dF/db' lie in the null space
+PASS N1 they span it: rank(dirs) = 4, rank(dirs + null) = 4
+PASS N1 the closed form is affine in (a, a', b, b'): F = F(0) + a dF/da + ...
+PASS N2 closed form satisfies relC exactly (symbolic)
+PASS N2 closed form: tangent control output orthogonal to both corners (symbolic)
+PASS N2 closed form: C3 and C4 hold as polynomial identities modulo |y|^2 = 1
+PASS N2 closed form: corner slices are the identity and I (x) N (frame: z3 (x) +-z3 fixed / flipped)
+PASS N2 closed form preserves u = om_00 (row 0 of the matrix is e_0)
+PASS N3 countercontrol: without C3 + C4 the null space has dim 32 > 4
+PASS N3 countercontrol: without C1 the null space has dim 8 > 4
+PASS P1 F(a, a', b, b')^-1 == F(1/a, 1/a', -1/b', -1/b) (symbolic)
+PASS P2 a = 3/2: posFwd value -1/2 < 0 at x = [1, 0, 0], y = [0, 0, 0], effects [-1, 0, 0], [1, 0, 0]
+PASS P2 a' = 3/2: posFwd value -1/2 < 0 at x = [0, 1, 0], y = [0, 0, 0], effects [0, -1, 0], [1, 0, 0]
+PASS P2 b = 3/2: posFwd value -1/2 < 0 at x = [1, 0, 0], y = [0, 1, 0], effects [0, 1, 0], [0, 0, 1]
+PASS P2 b' = 3/2: posFwd value -1/2 < 0 at x = [0, 1, 0], y = [0, 1, 0], effects [1, 0, 0], [0, 0, 1]
+PASS P3 pattern (1, 1, 1, 1) (a b + a' b' = 2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (1, 1, 1, -1) (a b + a' b' = 0) == actC D0 actT D1 cnot actC D0 actT D1 (exact)
+PASS P3 pattern (1, 1, -1, 1) (a b + a' b' = 0) == actC D0 actT D0 cnot actC D0 actT D0 (exact)
+PASS P3 pattern (1, 1, -1, -1) (a b + a' b' = -2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (1, -1, 1, 1) (a b + a' b' = 0) == actC D0 actT D1 cnot actC D2 actT D1 (exact)
+PASS P3 pattern (1, -1, 1, -1) (a b + a' b' = 2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (1, -1, -1, 1) (a b + a' b' = -2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (1, -1, -1, -1) (a b + a' b' = 0) == actC D0 actT D0 cnot actC D2 actT D0 (exact)
+PASS P3 pattern (-1, 1, 1, 1) (a b + a' b' = 0) == actC D0 actT D0 cnot actC D4 actT D0 (exact)
+PASS P3 pattern (-1, 1, 1, -1) (a b + a' b' = -2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (-1, 1, -1, 1) (a b + a' b' = 2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (-1, 1, -1, -1) (a b + a' b' = 0) == actC D0 actT D1 cnot actC D4 actT D1 (exact)
+PASS P3 pattern (-1, -1, 1, 1) (a b + a' b' = -2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 pattern (-1, -1, 1, -1) (a b + a' b' = 0) == actC D0 actT D0 cnot actC D6 actT D0 (exact)
+PASS P3 pattern (-1, -1, -1, 1) (a b + a' b' = 0) == actC D0 actT D1 cnot actC D6 actT D1 (exact)
+PASS P3 pattern (-1, -1, -1, -1) (a b + a' b' = 2) violates posFwd: value -238/625 at x = [-4/5, -3/5, 0], y = [-4/5, -3/5, 0]
+PASS P3 split: 8 patterns are local.cnot.local, 8 violate posFwd
+PASS O0 dictionary: kernel cnot is a unitary conjugation (rank-one PSD Choi)
+PASS O0 dictionary: actC reflY . actT reflY is the transpose M -> M^T (generic complex M), and not Ad U
+PASS O0 dictionary: actT reflY is the partial transpose on copy B (generic complex M)
+PASS O1 representative (1, 1, 1, -1), O = I: preserves twin (Ad U or Ad U . T after the chart)
+PASS O2 representative (1, 1, 1, -1), O = reflY: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O1 representative (1, 1, -1, 1), O = I: preserves Q3 (Ad U or Ad U . T after the chart)
+PASS O2 representative (1, 1, -1, 1), O = reflY: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O2 representative (1, -1, 1, 1), O = I: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O1 representative (1, -1, 1, 1), O = reflY: preserves twin (Ad U or Ad U . T after the chart)
+PASS O2 representative (1, -1, -1, -1), O = I: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O1 representative (1, -1, -1, -1), O = reflY: preserves Q3 (Ad U or Ad U . T after the chart)
+PASS O2 representative (-1, 1, 1, 1), O = I: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O1 representative (-1, 1, 1, 1), O = reflY: preserves Q3 (Ad U or Ad U . T after the chart)
+PASS O2 representative (-1, 1, -1, -1), O = I: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O1 representative (-1, 1, -1, -1), O = reflY: preserves twin (Ad U or Ad U . T after the chart)
+PASS O1 representative (-1, -1, 1, -1), O = I: preserves Q3 (Ad U or Ad U . T after the chart)
+PASS O2 representative (-1, -1, 1, -1), O = reflY: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O1 representative (-1, -1, -1, 1), O = I: preserves twin (Ad U or Ad U . T after the chart)
+PASS O2 representative (-1, -1, -1, 1), O = reflY: neither Q3 nor twin, and G^2 sends a product outside maxCone (value -2)
+PASS O3 orientation split: 4 preserve Q3, 4 the twin, 8 admit no candidate cone
+review_eq2b: 56/56 checks pass
+VERDICT N-CLASS-CONFIRMED: the normalized tangent block is the 4-parameter family; posFwd/posInv force +-1 with a b + a' b' = 0; the 8 survivors are sign-diagonal local . cnot . local

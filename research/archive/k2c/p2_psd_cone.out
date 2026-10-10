@@ -1,0 +1,31 @@
+PASS 2.1a v^H rho(w) v = [u;v]^T S(w) [u;v]  (symbolic in w, u, v)
+PASS 2.1b S(w) symmetric with real entries linear in w
+4*S(w) =
+    [w00 + w03 + w30 + w33, w01 + w31, w10 + w13, w11 - w22, 0, w02 + w32, w20 + w23, w12 + w21]
+    [w01 + w31, w00 - w03 + w30 - w33, w11 + w22, w10 - w13, -w02 - w32, 0, -w12 + w21, w20 - w23]
+    [w10 + w13, w11 + w22, w00 + w03 - w30 - w33, w01 - w31, -w20 - w23, w12 - w21, 0, w02 - w32]
+    [w11 - w22, w10 - w13, w01 - w31, w00 - w03 - w30 + w33, -w12 - w21, -w20 + w23, -w02 + w32, 0]
+    [0, -w02 - w32, -w20 - w23, -w12 - w21, w00 + w03 + w30 + w33, w01 + w31, w10 + w13, w11 - w22]
+    [w02 + w32, 0, w12 - w21, -w20 + w23, w01 + w31, w00 - w03 + w30 - w33, w11 + w22, w10 - w13]
+    [w20 + w23, -w12 + w21, 0, -w02 + w32, w10 + w13, w11 + w22, w00 + w03 - w30 - w33, w01 - w31]
+    [w12 + w21, w20 - w23, w02 - w32, 0, w11 - w22, w10 - w13, w01 - w31, w00 - w03 - w30 + w33]
+PASS 2.2a charpoly rho(x) = lam^2 - lam + (1 - |x|^2)/4  [so rho(x) >= 0 iff |x| <= 1]
+PASS 2.2b S(prodState x y) PSD (exact principal minors) on 49 rational pairs incl. sphere points
+PASS 2.3 pairVal a b w >= 0 for 40 random rational PSD rho and Lor a, b (instances only)
+PASS 2.4a S(cnot w) = O_C S(w) O_C^T, O_C = realify(CNOT) a permutation matrix
+PASS 2.4b |q|^2 S(actT R(q) w) = O_q S(w) O_q^T, O_q = realify(I (x) U~)  (polynomial identity in q, w)
+PASS 2.4c |q|^2 S(actC R(q) w) = O_q S(w) O_q^T, O_q = realify(U~ (x) I)
+PASS 2.4d S(actC reflY (actT reflY w)) = J S(w) J, J = diag(I,-I)  (global transpose preserves Q3)
+PASS 2.4e O_q^T O_q = |q|^2 I (O_q invertible for q != 0)
+PASS 2.4f the global transpose commutes with cnot
+PASS 2.5a cnot (prodState xplus z3) = phiW = diag(1,1,-1,1)
+PASS 2.5b phiW in Q3 (exact principal minors)
+PASS 2.5c actT reflY phiW = idW = identity table
+PASS 2.5d idW not in Q3: singlet expectation of rho(idW) = -1/2 :: -1/2
+PASS 2.5e actC reflY phiW = idW as well (the control-copy reflection gives the same point)
+PASS 2.6a f(prodState x y) = 1 - x . reflY(y)  (>= 0 on the ball by Cauchy-Schwarz [W])
+PASS 2.6b f(phiW) = -2  (phiW in Q3, not in the separable cone)
+PASS 2.6c pairVal a b idW = a0 b0 + a.b  (>= 0 for Lor a, b by Cauchy-Schwarz [W]: idW in maxCone)
+PASS 2.7 sum_{mu nu} w xi = 4 Tr(rho(w) rho(xi))  (so Q3 is self-dual for the W pairing [L: PSD self-dual])
+SUMMARY: 20 checks, 0 failures
+VERDICT P2: POSITIVE-WITNESS-EXACT

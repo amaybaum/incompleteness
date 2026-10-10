@@ -1,0 +1,92 @@
+HEADER = '''"""Track B act 38 -- the round's own static controls, frozen with the control plane.
+
+Written before F; its blob is frozen in the preregistration beside it, and the execution adds it
+with that exact blob. It reads nothing but the repository at D and at the commit under check, and
+it certifies nothing on its own: the Lean kernel, the axiom audit and the release gate establish
+the mathematics, the exact-computation probe replays the exact arithmetic, and the V3 verifier the
+protocol. What it checks is that the execution carries the frozen statements, the frozen probe, the
+frozen outcome grammar and the frozen surface edits, and nothing else.
+
+    python3 controls.py --self-test     the duality of the two verdict propositions, the single
+                                        source of every shared text, the mutation controls on
+                                        synthetic inputs, and the agreement of the constants
+                                        below with the preregistration beside this file
+    python3 controls.py check <commit>  every control against the tree at <commit>, read from git
+
+Exit 1 on any failure.
+"""
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+
+D = '5949740297034d0ddc522aff9577bd1fa36fe42f'
+RDIR = 'verification/programmes/oi-qm/track-b/act-38-local-escape/'
+MODULE = 'verification/lean-mathlib/OIBridge/DitaLocalEscape.lean'
+PROBE = 'verification/lean/dita_local_escape_probe.py'
+WORKFLOW = '.github/workflows/verify.yml'
+ROOT = 'verification/lean-mathlib/OIBridge.lean'
+GUARD = 'verification/lean/edge_rigidity_probe.py'
+CENSUS = 'verification/lean-manuscript-census.json'
+ROADMAP = 'verification/ROADMAP.md'
+ROADMAP_BLOB_D = '24056ab42b1bc4d265342b805b97bb92d429cc18'
+GUARD_BLOB_D = 'd28e9b3cf2093984a1c453892204b9932a685b2e'
+WORKFLOW_BLOB_D = 'a510861786fd33f50ab30058b417cbb0c0896b39'
+PROBE_BLOB = %s
+# the workflow at E is D's with the round's shard inserted before the foundations shard and required by the aggregate job
+SHARD_ANCHOR = '  probes_foundations:\n'
+SHARD = ('  probes_a38:\n    name: Numerical probes / A38 escape\n    runs-on: ubuntu-latest\n    steps:\n'
+         '      - uses: actions/checkout@v4\n\n      - uses: actions/setup-python@v5\n        with:\n'
+         "          python-version: '3.11'\n\n      - name: Install dependencies\n        run: pip install numpy scipy\n\n"
+         '      - name: A38 local-escape probe\n        working-directory: verification/lean\n        run: |\n'
+         '          echo "=== dita_local_escape_probe.py ==="\n          python3 dita_local_escape_probe.py\n\n')
+WORKFLOW_EDITS = (
+    (SHARD_ANCHOR, SHARD + SHARD_ANCHOR),
+    ('    needs: [probes_core_a, probes_core_b, probes_a36, probes_foundations]\n', '    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_foundations]\n'),
+    ('          A36_RESULT: ${{ needs.probes_a36.result }}\n', '          A36_RESULT: ${{ needs.probes_a36.result }}\n          A38_RESULT: ${{ needs.probes_a38.result }}\n'),
+    ('          echo "a36=${A36_RESULT}"\n', '          echo "a36=${A36_RESULT}"\n          echo "a38=${A38_RESULT}"\n'),
+    ('          test "${A36_RESULT}" = success\n', '          test "${A36_RESULT}" = success\n          test "${A38_RESULT}" = success\n'))
+
+IMPORT = 'import OIBridge.DitaArcExclusivity\n'
+WIRE_AFTER = 'import OIBridge.DitaArcExclusivity\n'
+WIRE = 'import OIBridge.DitaLocalEscape\n'
+OPEN = %s
+NAMESPACE = 'DitaLocalEscape'
+
+# ---- act 37's frozen head (act 36's head and act 37's tables), which every statement of this round carries verbatim as its first part
+A37_HEAD = %s
+
+# ---- the frozen propositions, verbatim
+PROPS = %s
+
+# ---- the shared components the propositions are built from
+COMPONENTS = %s
+
+# ---- the theorems: (role, name, proposition key)
+THEOREMS = %s
+LABELS = [(role, nm, key) for role, nm, key in THEOREMS if role.startswith('A38-') and role[4:5].isalpha()]
+COROLLARY = ('a38_c_exclusive', ['P_N'], 'P_R')
+SHARED = re.compile(r'^a38_shared_[A-Za-z0-9_]+$')
+UNDECIDED = 'A38-UNDECIDED'
+PROVED, FAILS = 'A38-NON-DITA-WITNESS-PROVED', 'A38-WITNESS-FAILS'
+ROWS = (PROVED, FAILS, UNDECIDED)
+STRUCTURAL = [(nm, key) for role, nm, key in THEOREMS if role in ('A38-1', 'A38-2', 'A38-3')]
+ALWAYS = [(nm, key) for role, nm, key in THEOREMS if role == 'control']
+REQUIRED = {PROVED: STRUCTURAL + ALWAYS, FAILS: ALWAYS, UNDECIDED: []}
+OUTCOME_RE = re.compile(r'\*\*Outcome:\*\* `(A38-[A-Z-]+)`')
+LABEL_RE = re.compile(r'A38-(?:NON-DITA-WITNESS-PROVED|WITNESS-FAILS|UNDECIDED)')
+
+SENTENCES = %s
+CLAUSE = %s
+MENTION = 'THE CLAUSE, carried at this mention'
+
+# ---- the `P0` cell: the end of the cell at D, and the sentence appended per decided case
+P0_END_D = %s
+P0_CASE = %s
+P0_STANDING_38 = %s
+
+CENSUS_MODULES = ['DitaLocalEscape']
+'''
+

@@ -1,0 +1,8 @@
+KT4-PREM-1: reconciliation R₁ (Λ)
+
+Reconciliation merge with first parent D bcbc516f and second parent the
+designated E 86f26c87; its tree is E's. It is built with --no-ff because
+its base is D itself (S9 of verification/infrastructure/v3/architecture.md).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

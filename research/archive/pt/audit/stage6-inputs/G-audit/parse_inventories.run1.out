@@ -1,0 +1,13 @@
+MISMATCH N-I1 I1: 79 records parsed, no duplicate ids -- first I1.1 last I1.83
+CONFIRMED N-I2 I2: 113 records parsed, no duplicate ids -- first I2.1 last I2.113
+CONFIRMED N-I3 I3: 187 records parsed, no duplicate ids -- first I3.1 last I3.187
+CONFIRMED N-I4 I4: 248 records parsed, no duplicate ids -- first I4.1 last I4.248
+MISMATCH D-dep every inventory id mentioned in a depends_on field exists -- dangling: ['I1.17', 'I1.27', 'I1.46', 'I1.55', 'I1.81']
+CONFIRMED D-yld every inventory id mentioned in a yields field exists -- dangling: []
+nodes 627; depends_on id-edges 278 (cross-thread 0); yields id-edges 65
+I1 status: {'proved [k]': 24, 'assumed': 22, 'definition': 8, 'proved [manuscript': 7, '?': 5, 'conditional': 4, 'proved': 3, 'open': 3} | level: {'H': 48, 'M': 10, 'H/X': 6, 'H→M': 4, 'H→X (a level-separat': 1, 'H→M (single-system v': 1, 'H→M (one core, three': 1, 'M carrying an H-leve': 1}
+I2 status: {'?': 109, 'ledger': 1, 'table)': 1, 'line)': 1, 'record)': 1} | level: {'': 98, 'operational purifica': 2, 'as well; but a later': 1, 'experiment': 1, 'one)': 1, 'two of the compariso': 1, 'are exactly the norm': 1, 'and every intermedia': 1}
+I3 status: {'?': 186, 'change;': 1} | level: {'': 162, 'P). The adapter "fro': 1, 'P). Note: positivity': 1, 'product-test cone `m': 1, 'stage system; "no': 1, 'three or more", ROAD': 1, 'invariance under the': 1, 'action is': 1}
+I4 status: {'proved [k]': 141, 'assumed': 82, '-': 18, 'open': 4, 'refuted': 2, 'conditional': 1} | level: {'M': 165, 'H': 44, 'G': 38, 'O': 1}
+SUMMARY 4/6 CONFIRMED
+BASELINE-MISMATCH

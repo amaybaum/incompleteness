@@ -1,0 +1,32 @@
+PASS M0 adjoint of H is the x<->z swap with y -> -y
+PASS M0 adjoint of the phase diag(1,e^{i theta}) is the z-rotation by theta
+PASS M1 diagonal effects: the phase datum respects affine relations (symbolic theta)
+PASS M1 diagonal effects: the Clifford datum H does NOT respect affine relations
+PASS M1 witness: rho_+ ~ rho_{+i} on diagonal effects, H rho_+ H !~ H rho_{+i} H
+PASS M2 diagonal effects: VIS fails, every phase acts trivially on the read-out (symbolic theta)
+PASS M3 full effects: phase and H both respect affine relations
+PASS M4 R_z(pi/2) is the integer quarter-turn
+PASS M4 char poly of R_z(pi/2) = -(lam-1)(lam^2+1): the xy-plane is irreducible over R
+PASS M4 the only subspaces invariant under both R_z(pi/2) and R_H are 0 and R^3
+PASS M5 H conjugates the phase flow to the x-rotation flow: R_H R_z(theta) R_H = R_x(theta)
+PASS M5 R_z(phi) R_x(theta) e_z = (sin th sin ph, -sin th cos ph, cos th): the orbit is the sphere
+PASS M6 inverse data: Rz(theta) Rz(-theta) = 1 and H H = 1
+PASS M7 H diag(1,e^{i pi t}) H = unit(X) t (the gate flow of the exchange)
+PASS C1 the chart matrix of the flow member is a fixed affine combination of 12 probabilities
+PASS C2 datum-level group law: p(a, R(s+t) x) = p(a, R(s) R(t) x) for the 12 probabilities
+PASS N1 the NOT (rotation by pi) maps no preparation of stages |k| <= 50 to a preparation
+PASS N2 the generator g = R_z(1) maps stage n into stage n+1 (Prep-valued, not stage-preserving)
+PASS G1 g^355 = R_z(pi + delta), 0 < delta < 1e-4 (113 odd): powers approach the NOT
+PASS G1 g^710 = R_z(delta), 0 < delta < 1e-4: powers approach the identity
+PASS G2 OFF-Gamma' on the control: J g^m J^-1 = R_x(m) does not commute with g^m = R_z(m), m = 1..40
+PASS G3 finite order gives no flow: R_z(2pi/3)^3 = 1 and R_H^2 = 1
+PASS X-CONT branch tower: g_{n+1}^2 = g_n, g_0 = 1, g_1 = NOT, and every g_n (n>=1) stays at angle in [pi/2, 3pi/2]: no continuous extension
+PASS X-CONT control: the regular tower alpha_n = pi/2^(n-1) is a square-root tower tending to 1
+PASS X-LAW the family R_z(theta^2) is not additive: R_z(4) != R_z(1)R_z(1)... at s=t=1 (cos 4 != cos 2)
+PASS X-OFF disk: J R(t) J^-1 = R(t) for rotations J, = R(-t) for reflections J
+PASS X-FR infinite rank: at t = pi/N block N is displaced by 2, so sup-norm continuity fails at 0
+PASS X-INV reset to the centre: affine (linear part 0), maps the body in, not injective
+expected-false OK CC1 claim H respects affine relations on diagonal effects
+expected-false OK CC2 claim z-axis invariant under R_H
+expected-false OK CC3 claim the branch tower tends to 1
+OK -- 28/28 checks, 3 countercontrols expected-false

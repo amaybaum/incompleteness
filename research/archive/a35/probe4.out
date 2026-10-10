@@ -1,0 +1,16 @@
+(a) Σ point under 20 random row relabellings of V: sigma_residual min 0.500 max 0.500 (isometry class unchanged)
+(a) under the swap relabelling (a product-compatible one): residual 0.00e+00
+(b) distinct dephased real 4x4 vertices: 6
+(b) 512 real twists of H4⊗H4: distinct profiles 2 (Sylvester profile present: True) [512]
+(b) with mixed vertex factors (300 samples): distinct profiles 2
+    profile #7080: multiset of |4-row sums| values [np.float64(0.0), np.float64(16.0)] ... count 416, Sylvester? True
+    profile #4583: multiset of |4-row sums| values [np.float64(0.0), np.float64(8.0), np.float64(16.0)] ... count 396, Sylvester? False
+(b) profile of H^T equals profile of H for the sampled twists: skipped
+(12s)
+(c) 400 quaternary Diţă twists: distinct (profile, Haagerup set, defect) triples: 372
+    classes per defect value: {23: 7, 25: 9, 27: 26, 29: 11, 31: 16, 33: 29, 35: 19, 37: 56, 39: 31, 41: 23, 43: 7, 45: 22, 47: 16, 49: 13, 51: 15, 53: 12, 55: 19, 57: 7, 59: 7, 61: 5, 63: 11, 67: 5, 71: 1, 73: 1, 75: 1, 77: 2, 87: 1}
+    certified off the whole Kronecker locus by the row-ratio degree: 0 of 372; real: 0; on Σ (fixed pairing): 0
+    row-ratio degrees of a Σ point: [15] ; of F16 (Diţă with D[c,b]=ω^{bc}): [3]  defect 17  unitary True
+    Haagerup set of the Diţă F16 == cyclic F16: True ; profiles equal: True
+(138s)
+done

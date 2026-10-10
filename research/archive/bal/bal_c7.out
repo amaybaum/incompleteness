@@ -1,0 +1,42 @@
+== P1 landed gC5 (RelcSelectC5.lean) reproduced by the builder
+PASS P1 builder(d=5, u=1, J=(1,2)(3,4), K=(2,5)(3,4)) == landed gC5 as 36x36 matrices
+PASS P1 c5_sep entries reproduced: lhs = 1 (kernel 1), rhs = -1 (kernel -1)
+PASS P1 gC5: frame, relT(nC5), G^2 = I, relC fails
+PASS P1 gC5 sigma == nC5 (the -z corner identity holds: M1 M0^-1 = homMap nC5)
+== B1 the balanced NOT N7b at d = 7 and the gate C7b
+PASS B1 IsNot (eball 7) z7 N7b
+PASS B1 homogenized eigenspaces of N7b: (4, 4) (balanced)
+PASS B1 frame
+PASS B1 relT for N7b
+PASS B1 G^2 = I (so G is invertible and G^-1 = G)
+PASS B1 relC for N7b FAILS
+     relC witness: entW 0 2, entry (7,2): actC side -1, actT side 1
+PASS B1 relC witness entry found with distinct sides
+PASS B1 normal form: M0 = I, M1 = homMap sigma, sigma orthogonal with sigma z = -z
+PASS B1 sigma != N7b: the -z corner identity G(hom(-z) (x) Y) = hom(-z) (x) homMap(N7b) M0 Y FAILS
+PASS B1 tangent outputs in T, blocks in Lsig(sigma) and commuting with homMap N7b, tangent block invertible
+PASS B1 certificate I1 value = A + B + C
+PASS B1 certificate I2 PQ - alpha^2 - beta^2 decomposition
+PASS B1 certificate I3 |y-|^2 Bes_K = |g_K|^2
+PASS B1 certificate I4 |x_T|^2 Bes_J = |g_J|^2
+PASS B1 certificate I5 4AB - C^2 decomposition
+PASS B1 certificate I6 Cauchy-Schwarz/Bessel bracket
+PASS B1 certificate J, K orthogonal complex structures on their blocks
+PASS B1 exact rational sampling (sanity, not a certificate): min value 3594510117850084/3722483735799297 >= 0
+== P2 d = 3, nflip: the builder gives a native gate
+PASS P2 frame, relT(nflip), relC(nflip), G^2 = I
+PASS P2 certificate identities
+== P3 d = 5 with dim Fix N = 3
+PASS P3 IsNot, eigenspaces (4, 2)
+PASS P3 frame, relT, G^2 = I, relC fails
+PASS P3 certificate identities
+== countercontrols
+PASS C1 relT checker: K not commuting with N7b -> relT(N7b) fails (and relT(sigma) holds)
+PASS C2a 2J variant keeps frame and relT(N7b)
+PASS C2 witness effects lie in the cone (e, f null) and x, y are unit
+PASS C2b C7b is tight at the witness (value 0 == 0); the 2J variant is negative there (value -1 == -1)
+     info: random rational sampling found 0/200 negative values for the 2J variant (sampling is a sanity check only, not a positivity test)
+PASS C3 gJ5_value = -1/10 reproduced
+PASS C4 eigenspaces: nC5 (2, 4) unbalanced, n5 (3, 3) balanced
+bal_c7: 33/33 checks pass
+exit 0

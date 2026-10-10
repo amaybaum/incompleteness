@@ -1,0 +1,15 @@
+  ok     Bioinformatics     stamp matches source
+  ok     Complexity         stamp matches source
+  ok     Computation        stamp matches source
+  ok     Explainer          stamp matches source
+  ok     GR                 stamp matches source
+  ok     Juno               stamp matches source
+  ok     Main               stamp matches source
+  ok     Medicine           stamp matches source
+  ok     Methodology        stamp matches source
+  ok     SM                 stamp matches source
+  ok     Structure          stamp matches source
+  ok     Substratum         stamp matches source
+  ok     book               stamp matches source
+
+staleness_check: OK (13 matched, 0 unstamped)

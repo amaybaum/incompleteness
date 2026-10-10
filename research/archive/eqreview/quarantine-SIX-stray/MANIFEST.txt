@@ -1,0 +1,7 @@
+ddc51debb9d097f0eb5f42612c5a6a734ad2e69c3eabd251a5fe0d8e5677585c  2026-10-09 10:10:19.155444769 +0000  y13_sector_gap_float.Z3.err
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  2026-10-09 10:10:19.135444769 +0000  y13_sector_gap_float.Z3.out
+
+Source: the EQ4-SIX thread (agent af02dde5f1350ee09). It ran its y13 script once with cwd = repo root, at 10:10:19 UTC.
+The run failed: python3 could not open /home/user/incompleteness/y13_sector_gap_float.py, exit 2. It left these two
+files in the repo's working tree. Its correct run is in eq5/SIX/ (same stem, same minute).
+Moved here with mv (mtime kept), content untouched. They are not data. Record them in the SIX audit's integrity section.

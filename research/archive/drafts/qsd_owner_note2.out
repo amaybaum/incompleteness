@@ -1,0 +1,7 @@
+CONFIRMED G1 [witness] a Gaussian-rational v (not an eigenvector) with v^dagger rho(F) v < 0 exists; P_v = v v^dagger / v^dagger v has Gaussian-rational entries -- v^dagger rho(F) v = -36251/78400, eigenvector: False
+CONFIRMED G2 [witness] the Pauli table of P_v is rational and ipW(F, P_v) = 4 tr(rho(F) P_v) < 0 exactly: if F were in a self-dual K, P_v would not be -- -36251/73396
+CONFIRMED G3 [witness] P_v is entangled (Schmidt rank 2) and so is CNOT P_v: the missed pure state is neither a product nor a CNOT image of one, as the corridor requires
+CONFIRMED G4 [countercontrol] a table passing all 36 axis-product checks and the cube bound can still lie outside maxCone: w = E00 + (9/10)(E11 + E12 + E21 - E22) has value 1 - (9/10) sqrt 2 < 0 at the unit vectors x = e1, y = -(e1 + e2)/sqrt 2 (the owner's point 1, instance) -- continuous value 1 - 9*sqrt(2)/10
+
+checks: 4, confirmed: 4
+VERDICT QSD-OWNER-NOTE2-CONFIRMED

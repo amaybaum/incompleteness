@@ -1,0 +1,60 @@
+[
+ [
+  "papers/Main.md",
+  [
+   [
+    "can lie in different two-sided classes and differ in their relating evolution. A",
+    "t one time that residue is not seen by the fixed-basis layer. Take a lift with trivial ancilla at one time and form the fixed-basis datum whose evolution is the lift's unitary, with uniform initial law and identity readout: its finite-horizon trajectory laws are determined by the visible law alone, and remain so after the unitary is composed on either side with contractively scaled partial permutations; two such data have equal trajectory laws exactly when their visible laws are equal; and each such law is fixed-basis realizable and stochastic, hence inside $S \\iff D \\iff Q_{\\mathrm{fb}}$ (kernel: `bridge_traj`, `rooted_eq_iff_slice_eq`, `realData_traj_stochastic`). The fixed-basis correspondence therefore acts on the quotient by visible equality, and two lifts of one visible law in different two-sided classes are not separated by it. The trivial ancilla is part of the statement: an ancilla attached as a tensor factor with its own unitary leaves the rooted family unchanged (kernel: `padData_rooted`), whereas an ancilla carried between steps as hidden basis states, in a lift that is not a tensor product, can separate two lifts of one visible law that share every column entering the visible law, already in the two-step law (exact computation). A"
+   ]
+  ]
+ ],
+ [
+  "papers/Explainer.md",
+  [
+   [
+    "two lifts of one visible law can differ in it and differ in relating evolution. ",
+    "That residue does not reach the fixed-basis layer. With a trivial ancilla, the fixed-basis datum built from a lift's unitary at one time, with uniform initial law and identity readout, has finite-horizon trajectory laws fixed by the visible law alone, also after contractively scaled partial permutations on either side, and two such data have equal laws exactly when their visible laws are equal (kernel: `bridge_traj`, `rooted_eq_iff_slice_eq`); the fixed-basis correspondence acts on the quotient by visible equality. The trivial ancilla is part of that statement: an ancilla attached as a tensor factor with its own unitary leaves the rooted family unchanged, while an ancilla carried between steps as hidden basis states can separate two lifts that share every column entering the visible law, already in the two-step law. "
+   ]
+  ]
+ ],
+ [
+  "book/ch01-observation.md",
+  [
+   [
+    "two lifts of one visible law can differ in it and differ in relating evolution. ",
+    "That residue does not reach the fixed-basis layer. With a trivial ancilla, the fixed-basis datum built from a lift's unitary at one time, with uniform initial law and identity readout, has finite-horizon trajectory laws fixed by the visible law alone, also after contractively scaled partial permutations on either side, and two such data have equal laws exactly when their visible laws are equal; the fixed-basis correspondence acts on the quotient by visible equality. The trivial ancilla is part of that statement: an ancilla attached as a tensor factor with its own unitary leaves the rooted family unchanged, while an ancilla carried between steps as hidden basis states can separate two lifts that share every column entering the visible law, already in the two-step law. "
+   ]
+  ]
+ ],
+ [
+  "book/ch19-open-problems.md",
+  [
+   [
+    "aw leaves at one time is exactly the off-diagonal fibre-Gram\ndata modulo phases.",
+    " At one time that freedom does not reach the fixed-basis layer. With a trivial\nancilla, the fixed-basis datum built from a lift's unitary, with uniform initial law and identity\nreadout, has finite-horizon trajectory laws fixed by the visible law alone, also after contractively\nscaled partial permutations on either side, and two such data have equal laws exactly when their\nvisible laws are equal ([Main §3.4]). The trivial ancilla is part of the statement: an ancilla\ncarried between steps as hidden basis states can separate two lifts of one visible law already in\nthe two-step law, while an ancilla attached as a tensor factor with its own unitary cannot."
+   ]
+  ]
+ ],
+ [
+  "book/The-Incompleteness-of-Observation-FULL.md",
+  [
+   [
+    "two lifts of one visible law can differ in it and differ in relating evolution. ",
+    "That residue does not reach the fixed-basis layer. With a trivial ancilla, the fixed-basis datum built from a lift's unitary at one time, with uniform initial law and identity readout, has finite-horizon trajectory laws fixed by the visible law alone, also after contractively scaled partial permutations on either side, and two such data have equal laws exactly when their visible laws are equal; the fixed-basis correspondence acts on the quotient by visible equality. The trivial ancilla is part of that statement: an ancilla attached as a tensor factor with its own unitary leaves the rooted family unchanged, while an ancilla carried between steps as hidden basis states can separate two lifts that share every column entering the visible law, already in the two-step law. "
+   ],
+   [
+    "aw leaves at one time is exactly the off-diagonal fibre-Gram\ndata modulo phases.",
+    " At one time that freedom does not reach the fixed-basis layer. With a trivial\nancilla, the fixed-basis datum built from a lift's unitary, with uniform initial law and identity\nreadout, has finite-horizon trajectory laws fixed by the visible law alone, also after contractively\nscaled partial permutations on either side, and two such data have equal laws exactly when their\nvisible laws are equal ([Main §3.4]). The trivial ancilla is part of the statement: an ancilla\ncarried between steps as hidden basis states can separate two lifts of one visible law already in\nthe two-step law, while an ancilla attached as a tensor factor with its own unitary cannot."
+   ]
+  ]
+ ],
+ [
+  "verification/ROADMAP.md",
+  [
+   [
+    "ts 36 to 40 is classified, nothing here classifies the product normalized set or its isometries or establishes that any admissible law is covariant under any isometry or reaches any realizable class, `P0`'s threading part is untouched, no hull, family, factorization or isometry is adopted as a physical symmetry, principle or law, and nothing here names, endorses or excludes a selection principle. ",
+    "The single-time residue does not reach the fixed-basis layer: for a trivial-ancilla lift at one time, the fixed-basis datum with the lift's unitary, uniform initial law and identity readout has finite-horizon trajectory laws determined by the visible law, also under `permClass` interventions on either side, two such data have equal laws exactly when their visible laws are equal, and each law lies inside `S ⇔ D ⇔ Q_fb` (act 45's kernel); a tensor-factor ancilla leaves the rooted family unchanged, and an ancilla carried between steps as hidden basis states separates lifts of one visible law at two steps; `P0`'s cross-time parts are untouched, no relation is adopted as the physical one, and nothing here names, endorses or excludes a selection principle. "
+   ]
+  ]
+ ]
+]

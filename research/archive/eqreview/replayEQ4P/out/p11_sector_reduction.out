@@ -1,0 +1,10 @@
+PASS K0 transcription control
+PASS H1 the twirl over <XXX, ZZ1, 1ZZ> equals the GHZ-basis pinching on all 64 units
+PASS H2 the seven generators permute the P_j (Z_1 (1, 0, 3, 2, 5, 4, 7, 6), X_1 (6, 7, 4, 5, 2, 3, 0, 1), X_2 (4, 5, 6, 7, 0, 1, 2, 3), X_3 (2, 3, 0, 1, 6, 7, 4, 5), S_1 S_2 (1, 0, 3, 2, 4, 5, 6, 7), SWAP_12 (0, 1, 2, 3, 6, 7, 4, 5), SWAP_23 (0, 1, 4, 5, 2, 3, 6, 7)); generated group of order 192 equal to G (order 192); transitive True; orbits on unordered pairs: 2
+PASS H3 T(P_j) = P_j for all j
+PASS S1 twirl(|0 b1 b2><0 b1 b2|) = (P_2b + P_2b+1)/2 for all b; P_0 + P_2 = Phi+_12 (x) |+><+| + Phi-_12 (x) |-><-| (biseparable): with H2, S <= twirl(BS)
+PASS F single-token filters on each token (3 random exact complex A each): M = c_1 I + c_s Sig + c_p Pi + c_ps Pi Sig with the stated nonnegative coefficients; first instances (53/72, 449/72, 1/8, 25/8), (37/4, 9/4, 10/9, 1/9), (1/4, 13/4, 1/2, 1/2)
+PASS Y W3 branch: mu is 2 W3 in the P_j basis True; nu in K_mu* True; y in K_mu* True; <y, nu> = -6 < 0 (y outside K_mu); G-orbit of y self-positive True; <nu, Sig nu> = -4 < 0; tie-in tr(Y N) = <y, nu> True
+PASS N Bell-link values: theta(kappa, W3) = 1/16; K4 kWWW = 11/32; K4 WWkk = 11/16; K4 kkWW = 11/16; K4 kWkW = 11/16; Latin rows kappa, cols W3 = 25/8; Latin rows W3, cols kappa = 25/8; Latin mixed = 43/16; Latin rows W3, cols W3 = 13/8; Latin rows W3, cols GHZ = 1/16; Latin rows GHZ, cols W3 = 1/16; Latin rows GHZ, cols GHZ = 1/16; countercontrol theta(GHZ, W3) = -1/16 < 0
+--- p11_sector_reduction: 8/8 checks pass
+VERDICT P11-SECTOR-REDUCTION-EXACT

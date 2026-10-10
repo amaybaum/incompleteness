@@ -1,0 +1,24 @@
+PASS 1a d=3: Rt-, Rc- and F-defects of G~ are the g-conjugates of those of G (random rational G, every p, g fixing and g flipping z); g orthogonal, g u = u
+PASS 1a d=5: Rt-, Rc- and F-defects of G~ are the g-conjugates of those of G (random rational G, every p, g fixing and g flipping z); g orthogonal, g u = u
+PASS 1a d=7: Rt-, Rc- and F-defects of G~ are the g-conjugates of those of G (random rational G, every p, g fixing and g flipping z); g orthogonal, g u = u
+PASS 1a countercontrol: conjugating the CONTROL copy by a corner-swapping g breaks F (complex CNOT)
+PASS 1b d=3 (g fixing z): G = (I(x)g) CNOT (I(x)g^-1) meets F, G^2 = I, Rt(N_B), Rc(N_A, N_B); N_B != N_A, same split (1, 1); Rt(N_A) and Rc(N_A, N_A) FAIL (a genuine two-NOT model)
+PASS 1b d=3 (g fixing z): the reduction G~ = (I(x)g^-1) G (I(x)g) is the complex CNOT, which meets F, Rt(N_A), Rc(N_A, N_A) with ONE N
+PASS 1b d=3 (g flipping z): G = (I(x)g) CNOT (I(x)g^-1) meets F, G^2 = I, Rt(N_B), Rc(N_A, N_B); N_B != N_A, same split (1, 1); Rt(N_A) and Rc(N_A, N_A) FAIL (a genuine two-NOT model)
+PASS 1b d=3 (g flipping z): the reduction G~ = (I(x)g^-1) G (I(x)g) is the complex CNOT, which meets F, Rt(N_A), Rc(N_A, N_A) with ONE N
+     NB_d3 (fixing z) = [['1', '0', '0', '0'], ['0', '-7/25', '24/25', '0'], ['0', '24/25', '7/25', '0'], ['0', '0', '0', '-1']]
+PASS 1b d=5 algebraic one-N model G0 (N split (2,2)): F, Rt(N), Rc(N, N), invertible (rank 36), N J N = -J
+PASS 1b d=5 G0 fails P exactly: pure product state (u + 3/5 z + 4/5 x1) (x) (u + y1), product effect (u + 3/5 z - 4/5 x1) (x) (u - y1), value -12/25
+PASS 1b d=5 (g fixing z): conjugate pair (N_A, N_B = g N_A g^-1), split (2, 2) both: G meets F, Rt(N_B), Rc(N_A, N_B) and fails Rc(N_A, N_A); the reduction returns G0 (one N)
+PASS 1b d=5 (g flipping z): conjugate pair (N_A, N_B = g N_A g^-1), split (2, 2) both: G meets F, Rt(N_B), Rc(N_A, N_B) and fails Rc(N_A, N_A); the reduction returns G0 (one N)
+PASS 1b' d=5 J/K two-NOT model: F, G^2 = I, Rt(N_B), Rc(N_A, N_B); split(N_A) = (2, 2), split(N_B) = (1, 3)
+PASS 1b' d=5: dim ker(N - I), dim ker(N + I) on R^n: N_A (3, 3) vs N_B (2, 4) -- different similarity invariants, so N_B != g N_A g^-1 for EVERY invertible g (in particular every frame-preserving g)
+PASS 1b' d=5: conjugating copy B gives a new valid two-NOT model with N_B' = g N_B g^-1 of the SAME split (1, 3); the reduction returns the original J/K map (with its mismatched N_A)
+PASS 1b' d=5: exhaustive scan of the 256 coordinate-diagonal NOT pairs: 4 pairs meet Rt and Rc with the J/K map, splits (N_A, N_B) = [((2, 2), (1, 3))]; none matched
+PASS 1b' d=7 J/K two-NOT model: F, G^2 = I, Rt(N_B), Rc(N_A, N_B); split(N_A) = (3, 3), split(N_B) = (1, 5)
+PASS 1b' d=7: dim ker(N - I), dim ker(N + I) on R^n: N_A (4, 4) vs N_B (2, 6) -- different similarity invariants, so N_B != g N_A g^-1 for EVERY invertible g (in particular every frame-preserving g)
+PASS 1b' d=7: conjugating copy B gives a new valid two-NOT model with N_B' = g N_B g^-1 of the SAME split (1, 5); the reduction returns the original J/K map (with its mismatched N_A)
+PASS 1b' d=7: exhaustive scan of the 4096 coordinate-diagonal NOT pairs: 8 pairs meet Rt and Rc with the J/K map, splits (N_A, N_B) = [((3, 3), (1, 5))]; none matched
+PASS 1c every d = 2..7 and every p: an explicit g in H (orthogonal, g u = u, g z = z, det g = +1) conjugates the coordinate NOT of split (p, q) to the NOT whose +1 space is spanned by w_i = e_i + (i+1) e_last (non-orthonormal for p >= 2; exact sympy, 27 cases, 20 of them with an irrational conjugator)
+PASS 1c countercontrol: d = 3, N_T = reflection fixing x + y (split (1,1)) is NOT conjugate to diag(1,-1) under the 8 signed coordinate permutations (orbit [(-1, 0, 0, 1), (1, 0, 0, -1)]); completeness needs the full O(T)
+part1: OK -- 22 checks

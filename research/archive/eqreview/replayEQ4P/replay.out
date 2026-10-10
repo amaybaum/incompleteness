@@ -1,0 +1,25 @@
+eq4_lib.py copy identical True  sha cc2c6aca94007ac8
+p1_e1_triangle         src 8e7d701fc4b5ea3f (copy==thread True)  recorded 14ba9e6cfab7924d  replay 14ba9e6cfab7924d  exit 0  stderr empty  identical True
+p2_teleport            src ca6ec9111fdddf31 (copy==thread True)  recorded 658c3c3bf3b6bc4e  replay 658c3c3bf3b6bc4e  exit 0  stderr empty  identical True
+p3_crossing_calculus   src 2250f6fb65113148 (copy==thread True)  recorded 650e2945f0678ac5  replay 650e2945f0678ac5  exit 0  stderr empty  identical True
+p4_e3_directions       src bfdb1c1f8624f018 (copy==thread True)  recorded 37c59c5366bb2747  replay 37c59c5366bb2747  exit 0  stderr empty  identical True
+p5_generation          src cb73c052ba0e1994 (copy==thread True)  recorded bbf6fcbf20f0acfa  replay bbf6fcbf20f0acfa  exit 0  stderr empty  identical True
+p6_five_token_model    src 2983706025fe7966 (copy==thread True)  recorded 7c563f65161a7cf0  replay 7c563f65161a7cf0  exit 0  stderr empty  identical True
+p7_wall_reduction      src da018fbebd67a5f6 (copy==thread True)  recorded a1f7d3242234c2b9  replay a1f7d3242234c2b9  exit 0  stderr empty  identical True
+p8_coloring            src ad1c3a6223febb4f (copy==thread True)  recorded 68f03717d57ff60f  replay 68f03717d57ff60f  exit 0  stderr empty  identical True
+p9_purification        src 39e26888d1b15936 (copy==thread True)  recorded d6214a8c255207ea  replay d6214a8c255207ea  exit 0  stderr empty  identical True
+p10_c1_maximality      src ce76aaf573f3a918 (copy==thread True)  recorded 6b332a3197881cc1  replay 6b332a3197881cc1  exit 0  stderr empty  identical True
+p11_sector_reduction   src cac1d35e0838b198 (copy==thread True)  recorded 8c246bf96c570713  replay 8c246bf96c570713  exit 0  stderr empty  identical True
+p12_sector_selfdual    src cf549d138c825579 (copy==thread True)  recorded 27776d481e2eba78  replay 27776d481e2eba78  exit 0  stderr empty  identical True
+p13_c1_sector          src 0e3dbec81d2ba7a8 (copy==thread True)  recorded 6345758fd01285aa  replay 6345758fd01285aa  exit 0  stderr empty  identical True
+x3_sector_search       src 5b487f04a24a1ee8 (copy==thread True)  recorded 8cde8d761f48f259  replay 8cde8d761f48f259  exit 0  stderr empty  identical True
+x4_sector_dfs          src 0184400cb6153e8a (copy==thread True)  recorded ec5d70e45a718ebe  replay ec5d70e45a718ebe  exit 0  stderr empty  identical True
+x6_sector_family       src 17f283384f8c6727 (copy==thread True)  recorded 84adf8fbc4940511  replay 84adf8fbc4940511  exit 0  stderr empty  identical True
+x8_sector_limit        src d4dd7d026cd846e8 (copy==thread True)  recorded c80ada7505ebc04e  replay c80ada7505ebc04e  exit 0  stderr empty  identical True
+x10_e2_contraction     src bb2662048b071ae1 (copy==thread True)  recorded 61cfc8a1af8eb564  replay 61cfc8a1af8eb564  exit 0  stderr empty  identical True
+x11_KA_networks        src 73b7259d86272d44 (copy==thread True)  recorded 27782abde8b401a7  replay 27782abde8b401a7  exit 0  stderr empty  identical True
+x12_c1_sector          src 934f6a9519ea1035 (copy==thread True)  recorded 2459eb7ccae290b3  replay 2459eb7ccae290b3  exit 0  stderr empty  identical True
+x13_c1_greedy          src 766a48606dae60bc (copy==thread True)  recorded 7649eabc1477a9a5  replay cb9e1680bfdd2af2  exit 0  stderr empty  identical False
+x14_c1_dfs             src ba3ca08625c4d52a (copy==thread True)  recorded b180ff52b3cf011d  replay b180ff52b3cf011d  exit 0  stderr empty  identical True
+x15_Ktw_tests          src f48eee4df9eb5c08 (copy==thread True)  recorded 1bf7368dcfd0bcc9  replay 1bf7368dcfd0bcc9  exit 0  stderr empty  identical True
+VERDICT NOT RENDERED

@@ -1,0 +1,87 @@
+print('== A41-I1. the named test cases, and their coincidences ==')
+A41_MATS = [(role, a41_matrix(fam, par)) for role, fam, par in A41_CASES]
+a41_groups = {}
+for role, H in A41_MATS: a41_groups.setdefault(a41_key(H), []).append(role)
+A41_COINCIDE = sorted(sorted(v) for v in a41_groups.values() if len(v) > 1)
+print('  %d named test cases, %d distinct matrices' % (len(A41_MATS), len(a41_groups)))
+
+print('== A41-I2. the independent computation: act 36\'s partition search, then every alignment by matching ==')
+def a41_matchings(allowed):
+    m = len(allowed); cnt = 0
+    def rec(a, used):
+        nonlocal cnt
+        if a == m: cnt += 1; return
+        for r in allowed[a]:
+            if r not in used: used.add(r); rec(a + 1, used); used.discard(r)
+    rec(0, set()); return cnt
+def a41_valid_alignments(H, m, n, cp, rows, relaxed):
+    col0 = [cp[c][0] for c in range(m)]
+    lam0 = [[H[rows[0][a]][col0[c]] * H[rows[0][0]][col0[c]].conj() for c in range(m)] for a in range(m)]
+    if not relaxed and not is_unitary_s(lam0, m): return 0
+    per_b = []
+    for b in range(1, n):
+        d = {}
+        for r0 in rows[b]:
+            allowed = [[r0]]
+            for a in range(1, m):
+                ok = []
+                for r in rows[b]:
+                    lb = [H[r][col0[c]] * H[r0][col0[c]].conj() for c in range(m)]
+                    good = all(lb[c] == lam0[a][c] for c in range(m)) if not relaxed else all(lb[c] * lam0[a][0] == lam0[a][c] * lb[0] for c in range(1, m))
+                    if good: ok.append(r)
+                allowed.append(ok)
+            k = a41_matchings(allowed)
+            if k: d[r0] = k
+        per_b.append(d)
+    if any(not d for d in per_b): return 0
+    total = 0
+    for combo in itertools.product(*[sorted(d) for d in per_b]):
+        refs = [rows[0][0]] + list(combo)
+        if not relaxed and not all(is_unitary_s([[H[r][cp[c][dd]] for dd in range(n)] for r in refs], n) for c in range(m)): continue
+        k = 1
+        for b, r0 in enumerate(combo): k *= per_b[b][r0]
+        total += k
+    return total
+def a41_census(H):
+    out = {}; HT = [list(c) for c in zip(*H)]
+    for relaxed in (False, True):
+        res = []
+        for form, M in (('column', H), ('row', HT)):
+            for (m, n) in ((4, 4), (8, 2), (2, 8)):
+                for cp, rws, ok, _, _ in dita_orientations(M, m, n):
+                    k = a41_valid_alignments(M, m, n, cp, rws, relaxed)
+                    if k: res.append([form, [m, n], sorted(map(sorted, cp)), sorted(map(sorted, rws)), k])
+        out['relaxed' if relaxed else 'strict'] = sorted(res)
+    return out
+A41_RES = {}; a41_done = {}
+for role, H in A41_MATS:
+    k = a41_key(H)
+    if k not in a41_done: a41_done[k] = a41_census(H)
+    A41_RES[role] = a41_done[k]
+    r = A41_RES[role]
+    print('  %-34s strict %2d (alignments %4d)  relaxed %2d (alignments %4d)' % (role, len(r['strict']), sum(x[4] for x in r['strict']), len(r['relaxed']), sum(x[4] for x in r['relaxed'])))
+# control: the census at a coinciding case computed afresh equals the shared one
+a41_recheck = all(a41_census(dict(A41_MATS)[g[1]]) == A41_RES[g[0]] for g in A41_COINCIDE)
+check('control: at every coincidence of named test cases, a fresh computation at the second role equals the first', a41_recheck, True)
+# control: at the sorted alignment alone this path reproduces act 40's sorted counts at its seventeen points
+a41_sorted17 = []
+for i, (nm, u) in enumerate(PTS):
+    H = H3(*u); HT = [list(c) for c in zip(*H)]; n_ = 0
+    for form, M in (('column', H), ('row', HT)):
+        for mn in ((4, 4), (8, 2), (2, 8)): n_ += sum(1 for o in dita_orientations(M, *mn) if o[2])
+    a41_sorted17.append(n_)
+check('the sorted control: act 36\'s search at the sorted alignment reproduces act 40\'s seventeen recorded counts', a41_sorted17, [0, 0, 1, 1, 2, 0, 1, 1, 0, 3, 7, 4, 18, 2, 12, 12, 4])
+print('  (%.0fs)' % (time.time() - t0))
+A41_OBJ = {'cases': A41_RES, 'coincidences': A41_COINCIDE, 'distinct_matrices': len(a41_groups), 'n_cases': len(A41_MATS)}
+A41_JSON = json.dumps(A41_OBJ, sort_keys=True, separators=(',', ':'))
+print('A41-MEASUREMENTS independent ' + A41_JSON)
+print('A41-SHA256 independent ' + hashlib.sha256(A41_JSON.encode()).hexdigest())
+a41_mode = 'MEASURED'
+if os.path.exists(A41_RECORD):
+    rec = json.load(open(A41_RECORD, encoding='utf-8'))
+    check('replay: the measurement equals the committed measurements.json, elementwise', json.loads(A41_JSON) == rec.get('independent'), True)
+    a41_mode = 'REPLAYED'
+print()
+if fails:
+    print('dita_index_map_independent: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
+print('dita_index_map_independent: OK -- %s: %d named test cases, %d distinct matrices' % (a41_mode, len(A41_MATS), len(a41_groups)))

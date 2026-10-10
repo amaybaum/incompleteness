@@ -1,0 +1,19 @@
+PASS B1.a presentN (idleExt R S g) = amplRef (presentN g), |R| = 1, |S| = 1, generic complex input
+PASS B1.a presentN (idleExt R S g) = amplRef (presentN g), |R| = 1, |S| = 2, generic complex input
+PASS B1.b presentN (g . h) = presentN g . presentN h (|S| = 2)
+PASS B1.c chartN (epsR + epsS) . idleExt g . chartN^-1 = idleExt (chartN epsS . g . chartN epsS^-1)
+PASS B1.d g |-> presentN g is injective on the 16-dim space of real 4x4 table maps (rank 16)
+PASS B2 presentN h = amplRef (presentN g) has the unique solution h = idleExt g = 1 (x) g
+PASS B3.a control: qutritIdx is a bijection Fin 3 x (Fin 2 x Fin 2) -> Fin 2 x Fin 6
+PASS B3.a withSpectator (Fin 3) qutritIdx Phi (reindex e e (XR (x) X)) = reindex e e (XR (x) Phi X) (symbolic)
+PASS B3.a control: reindex e.symm e.symm is inverse to reindex e e (symbolic)
+PASS B3.b random Phi on dim 2: PreservesDiag Phi and PreservesDiag (amplRef (dim 2) Phi) (symbolic w)
+PASS B3.b random Phi on dim 4: PreservesDiag Phi and PreservesDiag (amplRef (dim 2) Phi) (symbolic w)
+PASS B3.b transpose (non-CP) Phi on dim 2: PreservesDiag Phi and PreservesDiag (amplRef (dim 3) Phi) (symbolic w)
+PASS B3.c countercontrol: conj(Hadamard) does not preserve diagonals
+PASS B3.c countercontrol: nor does its amplification
+PASS B3.d instance: the transpose of one Bloch state is PSD (general fact: Mathlib PosSemidef.transpose)
+PASS B3.d amplRef (Fin 2) transpose (|Phi+><Phi+|) = SWAP/2, singlet value -1 (|v|^2 = 2): not positive
+PASS B3.e amplRef (conj K1 + conj K2) = conj (1 (x) K1) + conj (1 (x) K2) (kernel amplRef_conjChannel RE:170)
+a3_bridge: 17/17 checks pass
+VERDICT A3-BRIDGE-INSTANCES-EXACT

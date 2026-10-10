@@ -1,0 +1,2 @@
+candidates in K_E (sample test): ['CR0(E00)', 'CR0(Fw)', 'CR0(TfullFw)', 'CR0(cnotFw)', 'CR0(phiW)', 'CR1(E00)', 'CR1(phiW)', 'E00', 'Fw', 'TR0(E00)', 'TR0(phiW)', 'TR1(E00)', 'TR1(Fw)', 'TR1(TfullFw)', 'TR1(cnotFw)', 'TR1(phiW)', 'TfullFw', 'cnotFw', 'phiW']
+min famI value found: (-2/5, 'Fw', 'CR1(phiW)')

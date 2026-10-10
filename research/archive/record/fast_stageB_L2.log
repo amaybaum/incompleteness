@@ -1,0 +1,5 @@
+STAGE B L2: 76 advancing (rule, interface) pairs
+STAGE B L2: 76 runs; sha256 339f68b509e58945998c2c5b994c19b6c7afeb33c26f2c35bf85dd943f61eb04
+TALLY B L2 linear: FAIL(dimC=3): 76
+TALLY B L2 nonlinear: 
+TALLY B L2 majority: 

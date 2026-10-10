@@ -1,0 +1,6 @@
+ctrl-theta starts=4  min normalized value = 1.647172e-17
+ctrl-K4    starts=4  min normalized value = 1.559643e-16
+theta      starts=12  min normalized value = 4.493362e-18
+ring       starts=12  min normalized value = 1.539127e-17
+K4-split0  starts=12  min normalized value = 8.051813e-18
+K4-split1  starts=12  min normalized value = 1.188093e-18

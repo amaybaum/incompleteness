@@ -1,0 +1,7 @@
+b1_native_class exit=0 replay=identical script=03c2417273d6097e out=a9ccaf0ad1130dd0 err=0
+b2_orientation exit=0 replay=identical script=1e57511951376075 out=59fa7d710a249895 err=0
+b3_compact exit=0 replay=identical script=2f518d420afb64f0 out=8edf936cfa1aa91f err=0
+b4_lie_light exit=0 replay=identical script=b822bc35d0ad6c5a out=abccec56f54ae6a2 err=0
+b5_ie1 exit=0 replay=identical script=8063f77658a91c21 out=c4e429f438ce871f err=0
+b6_foils exit=0 replay=identical script=991fe849c955dbff out=a77a43002ec95efa err=0
+b7_certificates exit=0 replay=identical script=50916f3ca8cbf326 out=e3a07ef55ec56439 err=0

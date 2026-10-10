@@ -1,0 +1,10 @@
+run 36482059365 conclusion success
+  Numerical probes / core A        success 109129850313
+  Numerical probes / core B        success 109129850486
+  Numerical probes / A36 hierarchy success 109129850673
+  Numerical probes / A38 escape    success 109129850744
+  Mathlib bridge                   success 109129850818
+  Numerical probes / foundations   success 109129850826
+  Numerical probes / A40 locus     success 109129850877
+  Lean kernel check                success 109129850899
+  Numerical probes                 success 109132183531

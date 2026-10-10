@@ -1,0 +1,65 @@
+== (A1) Lsig equals the formula space
+PASS A1 d2 diag(1,-1): Lsig dim 1 matches [[0,a^T],[a,A]] formula
+PASS A1 d2 -id: Lsig dim 1 matches [[0,a^T],[a,A]] formula
+PASS A1 d3 diag(1,-1,-1) [nflip]: Lsig dim 2 matches [[0,a^T],[a,A]] formula
+PASS A1 d3 diag(1,1,-1): Lsig dim 3 matches [[0,a^T],[a,A]] formula
+PASS A1 d3 -id: Lsig dim 3 matches [[0,a^T],[a,A]] formula
+PASS A1 d3 rot(1/2)(+)(-1): Lsig dim 0 matches [[0,a^T],[a,A]] formula
+PASS A1 d4 diag(1,-1,-1,-1): Lsig dim 4 matches [[0,a^T],[a,A]] formula
+PASS A1 d4 diag(1,1,-1,-1): Lsig dim 4 matches [[0,a^T],[a,A]] formula
+== (A2) d = 2: every element of Lsig is singular (all sigma with sigma z = -z)
+PASS A2 d2 diag(1,-1): det(generic L) == 0 identically
+PASS A2 d2 -id: det(generic L) == 0 identically
+PASS A2-countercontrol d3 nflip: det(generic L) not identically 0
+== (A3) d = 3 under relT: refl3 / negId3 force a common kernel
+PASS A3 sigma=rot(m): Lsig = 0 (every tangent block vanishes; excluded for every N)
+PASS A3 sigma=refl diag(1,-1) N=refl3: every L in Lsig cap comm(N) kills lift z
+PASS A3 sigma=refl diag(1,-1) N=negId3: every L in Lsig cap comm(N) kills e0
+PASS A3 sigma=id N=refl3: every L in Lsig cap comm(N) kills lift z
+PASS A3 sigma=id N=negId3: every L in Lsig cap comm(N) kills e0
+PASS A3 sigma=-id N=refl3: every L in Lsig cap comm(N) kills lift z
+PASS A3 sigma=-id N=negId3: every L in Lsig cap comm(N) kills e0
+PASS A3-countercontrol N=nflip: some L kills neither lift z nor e0
+== (B) the J/K family
+PASS B C3: IsNot
+PASS B C3: frame
+PASS B C3: relT
+PASS B C3: G^2 = I
+PASS B C3: relC holds (d=3: complex CNOT)
+PASS B C3: eigenspaces of homMap N = (2,2), balanced iff d = 3
+PASS B C3: J, K orthogonal complex structures
+PASS A4 C3 (positive control): S = 1(+)orthogonal, tangent outputs in T, all blocks in Lsig, tangent block invertible
+PASS B C3: value = 1/2(1+x_z)(e0+e_z)P + 1/2(1-x_z)(e0-e_z)Q + (e_T.x_T) alpha + (e_T.J x_T) beta
+PASS B C3: PQ - alpha^2 - beta^2 identity (cone slack + Bessel bracket + sphere term)
+PASS B C3: y.Ky = 0 and |Ky|^2 = |y|^2 identically
+PASS B C3: sampled exact values over rational pure products/boundary effects >= 0 (min 244059642/15777207445)
+PASS B C5: IsNot
+PASS B C5: frame
+PASS B C5: relT
+PASS B C5: G^2 = I
+PASS B C5: relC FAILS
+PASS B C5: eigenspaces of homMap N = (2,4), balanced iff d = 3
+PASS B C5: J, K orthogonal complex structures
+PASS A4 C5 (positive control): S = 1(+)orthogonal, tangent outputs in T, all blocks in Lsig, tangent block invertible
+PASS B C5: value = 1/2(1+x_z)(e0+e_z)P + 1/2(1-x_z)(e0-e_z)Q + (e_T.x_T) alpha + (e_T.J x_T) beta
+PASS B C5: PQ - alpha^2 - beta^2 identity (cone slack + Bessel bracket + sphere term)
+PASS B C5: y.Ky = 0 and |Ky|^2 = |y|^2 identically
+PASS B C5: sampled exact values over rational pure products/boundary effects >= 0 (min 3469721936/10149027273)
+PASS B C7: IsNot
+PASS B C7: frame
+PASS B C7: relT
+PASS B C7: G^2 = I
+PASS B C7: relC FAILS
+PASS B C7: eigenspaces of homMap N = (2,6), balanced iff d = 3
+PASS B C7: J, K orthogonal complex structures
+PASS A4 C7 (positive control): S = 1(+)orthogonal, tangent outputs in T, all blocks in Lsig, tangent block invertible
+PASS B C7: value = 1/2(1+x_z)(e0+e_z)P + 1/2(1-x_z)(e0-e_z)Q + (e_T.x_T) alpha + (e_T.J x_T) beta
+PASS B C7: PQ - alpha^2 - beta^2 identity (cone slack + Bessel bracket + sphere term)
+PASS B C7: y.Ky = 0 and |Ky|^2 = |y|^2 identically
+PASS B C7: sampled exact values over rational pure products/boundary effects >= 0 (min 26224962815949749/22888812948149225)
+PASS CC gJ5_value = -1/10 reproduced by the evaluator
+PASS A4 gJ5 (countercontrol): violates the tangent-vanishing/Lsig necessary conditions (countercontrol)
+PASS A4 gJ3 (countercontrol): violates the tangent-vanishing/Lsig necessary conditions (countercontrol)
+PASS A4 controlled-N d=2 (countercontrol): violates the tangent-vanishing/Lsig necessary conditions (countercontrol)
+PASS A4 DIM-1 cnot (positive control): S = 1(+)orthogonal, tangent outputs in T, all blocks in Lsig, tangent block invertible
+relt_pos_exact: 60/60 checks pass

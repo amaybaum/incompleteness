@@ -1,0 +1,7 @@
+C0 landed independent probe: ['dita_index_map_independent: OK -- REPLAYED: 42 named test cases, 38 distinct matrices'] exit 0 (146s)
+  u = 1            strict 20 ( 976)  relaxed 20 ( 976)  (11s)
+  u = -1           strict  0 (   0)  relaxed  4 ( 272)  (1s)
+  u = (3+4i)/5     strict  0 (   0)  relaxed  0 (   0)  (1s)
+  u = (5+12i)/13   strict  0 (   0)  relaxed  0 (   0)  (1s)
+  u = (8+15i)/17   strict  0 (   0)  relaxed  0 (   0)  (1s)
+  u = i            strict  0 (   0)  relaxed  0 (   0)  (1s)

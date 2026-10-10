@@ -1,0 +1,162 @@
+# I2 kernel census — candidate module set
+modules in OIBridge: 214
+MODULE AncillaClosure                     owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+MODULE AntiunitaryInvariance              owner=I2 cited_at=papers/GR.md:182;papers/GR.md:747
+MODULE C3Necessity                        owner=I1 (C1-C4 / realization modules) cited_at=papers/Main.md:494
+MODULE CarrierGeneralOIPlus               owner=I4 (protocol module list) cited_at=papers/GR.md:226;papers/GR.md:228;papers/GR.md:230;papers/GR.md:238;papers/GR.md:240;papers/Main.md:568
+MODULE CentralObservation                 owner=I2 cited_at=papers/Main.md:570
+MODULE CoherentContinuumSource            owner=I2 cited_at=verification/ROADMAP.md:950
+MODULE CoherentLift                       owner=I2 cited_at=papers/GR.md:190
+MODULE CoherentLiftGauge                  owner=I2 cited_at=verification/ROADMAP.md:225
+MODULE CompletedOI                        owner=I4 (protocol module list) cited_at=papers/GR.md:226;papers/GR.md:228;papers/GR.md:230;papers/GR.md:232;papers/GR.md:238;papers/GR.md:240;+2 more
+MODULE CompositeDimension                 owner=I3 (K programme modules) cited_at=papers/GR.md:194
+MODULE CrossTimeInvariants                owner=I2 cited_at=verification/ROADMAP.md:396
+MODULE CubicIsotropy                      owner=I2 cited_at=papers/SM.md:262
+MODULE DerivedQ3                          owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+MODULE DiagonalTheory                     owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+MODULE DilationChoice                     owner=I2 cited_at=papers/Main.md:530
+MODULE DimensionalCountermodel            owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+MODULE EmbeddedObservation                owner=I4 (protocol module list) cited_at=papers/GR.md:248
+MODULE Equivalence                        owner=I2 cited_at=papers/Main.md:500;papers/Main.md:530
+MODULE EquivalenceChain                   owner=I2 cited_at=papers/Main.md:530
+MODULE ExecSource                         owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+MODULE GeneralCarrier                     owner=I4 (protocol module list) cited_at=papers/GR.md:214;papers/GR.md:216;papers/GR.md:224
+MODULE GramTrajectorySelection            owner=I2 cited_at=verification/ROADMAP.md:548
+MODULE HiddenMemory                       owner=I2 cited_at=papers/Main.md:586
+MODULE ImplementationLocality             owner=I4 (protocol module list) cited_at=papers/GR.md:244;papers/GR.md:254
+MODULE InternalObserver                   owner=I2 cited_at=papers/Main.md:570
+MODULE IsometryExtension                  owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+MODULE JordanClassification               owner=I4 (protocol module list) cited_at=papers/GR.md:192;papers/GR.md:194
+MODULE KInfFoundations                    owner=I3 (K programme modules) cited_at=verification/ROADMAP.md:411;verification/ROADMAP.md:412;verification/ROADMAP.md:413;verification/ROADMAP.md:467;verification/ROADMAP.md:469
+MODULE KrausSoundness                     owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+MODULE LevelOneSeam                       owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214;papers/GR.md:216
+MODULE LieRankSource                      owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:246;papers/GR.md:254
+MODULE LiftAudit                          owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+MODULE LiftSource                         owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+MODULE LinkDecomposition                  owner=I2 cited_at=verification/ROADMAP.md:63
+MODULE MicroscopicReversibility           owner=I4 (protocol module list) cited_at=papers/GR.md:230;papers/GR.md:244;papers/GR.md:246;papers/GR.md:254;papers/Main.md:568
+MODULE MinimalRepertoire                  owner=I4 (protocol module list) cited_at=papers/GR.md:242;papers/GR.md:246;papers/GR.md:254;papers/Main.md:568
+MODULE OIRealization                      owner=I1 (C1-C4 / realization modules) cited_at=papers/GR.md:224;papers/GR.md:226;papers/Main.md:570
+MODULE OperationalRigidity                owner=I4 (protocol module list) cited_at=papers/GR.md:192;papers/GR.md:194
+MODULE OperationalSourcing                owner=I2 cited_at=papers/Main.md:622
+MODULE OperationalValidity                owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+MODULE OrientationClosure                 owner=I2 cited_at=papers/GR.md:200;papers/GR.md:202
+MODULE OrientationSelection               owner=I2 cited_at=papers/GR.md:200;papers/GR.md:202
+MODULE PassiveIndependence                owner=I2 cited_at=papers/Main.md:570
+MODULE PassiveObservation                 owner=I2 cited_at=papers/Main.md:570
+MODULE PhaseSource                        owner=I4 (protocol module list) cited_at=papers/GR.md:256
+MODULE PhysicalCharacterization           owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+MODULE PositivePackage                    owner=I4 (protocol module list) cited_at=papers/GR.md:242;papers/GR.md:254;papers/Main.md:568
+MODULE PositiveReachability               owner=I4 (protocol module list) cited_at=papers/GR.md:230;papers/GR.md:244
+MODULE QuasilocalAlgebra                  owner=I4 (protocol module list) cited_at=papers/GR.md:278;papers/Main.md:568
+MODULE QuasilocalCharacterization         owner=I4 (protocol module list) cited_at=papers/GR.md:278;papers/GR.md:280;papers/GR.md:286;papers/Main.md:568
+MODULE RankGapTheory                      owner=I2 cited_at=papers/GR.md:216;verification/ROADMAP.md:107;verification/ROADMAP.md:115;verification/ROADMAP.md:123;verification/ROADMAP.md:180
+MODULE ReadWriteControl                   owner=I4 (protocol module list) cited_at=papers/GR.md:256;papers/Main.md:568
+MODULE Reciprocity                        owner=I2 cited_at=verification/ROADMAP.md:411;verification/ROADMAP.md:412;verification/ROADMAP.md:413;verification/ROADMAP.md:467;verification/ROADMAP.md:469
+MODULE RegionLimit                        owner=I2 cited_at=papers/GR.md:288;verification/ROADMAP.md:949
+MODULE RegionTower                        owner=I2 cited_at=papers/GR.md:290
+MODULE SecondOrderCircuit                 owner=I2 cited_at=papers/GR.md:288
+MODULE SecondOrderDrive                   owner=I4 (protocol module list) cited_at=papers/GR.md:288;papers/Main.md:268;papers/Main.md:568
+MODULE SecondOrderLayer                   owner=I2 cited_at=papers/GR.md:288
+MODULE Separability                       owner=I2 cited_at=papers/Main.md:310
+MODULE ShellAssignment                    owner=I2 cited_at=papers/GR.md:190;papers/GR.md:202
+MODULE StructuralClosure                  owner=I4 (protocol module list) cited_at=papers/GR.md:256;papers/Main.md:568
+MODULE SubstratumInterface                owner=I4 (protocol module list) cited_at=papers/GR.md:256
+MODULE SubstratumInterfaceAudit           owner=I2 cited_at=verification/ROADMAP.md:63
+MODULE SubstratumSource                   owner=I4 (protocol module list) cited_at=papers/GR.md:256
+MODULE SwapLayer                          owner=I2 cited_at=papers/GR.md:288
+MODULE ThermalOrientation                 owner=I2 cited_at=papers/GR.md:186;papers/GR.md:202;papers/GR.md:206;papers/GR.md:210
+MODULE TrackBQfbBridge                    owner=I2 cited_at=papers/Main.md:622
+MODULE TurnpikeScopeTransfer              owner=I2 cited_at=papers/GR.md:178
+MODULE TwoByTwoNoGo                       owner=I2 cited_at=papers/GR.md:190
+MODULE TypedCompletion                    owner=I4 (protocol module list) cited_at=papers/GR.md:272;papers/Main.md:568
+MODULE TypedPositive                      owner=I4 (protocol module list) cited_at=papers/GR.md:272;papers/Main.md:568
+MODULE WeylLift                           owner=I2 cited_at=papers/Main.md:310
+MODULE WeylTwirl                          owner=I2 cited_at=papers/Main.md:310
+unresolved backticked identifiers (no Lean declaration found): 3
+UNRESOLVED CoherentContinuumSource
+UNRESOLVED RegionLimit
+UNRESOLVED fiber_freedom
+
+# census of axiom / opaque / class / Prop-valued structure, def, abbrev, inductive in I2 modules
+DECL CentralObservation:67 def BlockDiag lit=P prop=True hyp_uses=9
+DECL CentralObservation:71 def InBlock lit=P prop=True hyp_uses=15
+DECL CentralObservation:164 def IsBlockPassiveInstrument lit=P prop=True hyp_uses=11
+DECL CentralObservation:509 def SeparatesBlockStates lit=P prop=True hyp_uses=7
+DECL CoherentContinuumSource:135 def NonMonomialCountablyCovered lit=P prop=True hyp_uses=4
+DECL CoherentContinuumSource:143 def UncountableNonMonomialRays lit=P prop=True hyp_uses=2
+DECL CoherentContinuumSource:269 class has lit=P prop=False hyp_uses=0
+DECL CoherentLift:489 def ProjectorShellRepresentation lit=P prop=True hyp_uses=4
+DECL CoherentLift:1211 def TwoTimeCoherentLift lit=P prop=True hyp_uses=1
+DECL CoherentLift:1504 def ActionIntertwining lit=P prop=True hyp_uses=2
+DECL CoherentLift:1512 def ReadoutIntertwining lit=P prop=True hyp_uses=2
+DECL CoherentLiftGauge:101 def StrongAnchorStabilizer lit=P prop=True hyp_uses=20
+DECL CoherentLiftGauge:114 def WeakAnchorStabilizer lit=P prop=True hyp_uses=4
+DECL CoherentLiftGauge:124 def CoherentLift lit=P prop=True hyp_uses=26
+DECL CoherentLiftGauge:135 def GaugeRelated lit=P prop=True hyp_uses=5
+DECL CrossTimeInvariants:118 def ConstRightRelated lit=P prop=True hyp_uses=1
+DECL CrossTimeInvariants:123 def ConstLeftRelated lit=P prop=True hyp_uses=2
+DECL CubicIsotropy:61 def IsSign lit=P prop=True hyp_uses=2
+DECL CubicIsotropy:65 def OhInvariant lit=P prop=True hyp_uses=5
+DECL CubicIsotropy:218 def KernelOh lit=P prop=True hyp_uses=7
+DECL DilationChoice:134 def AdmissibleDilationAt lit=P prop=True hyp_uses=15
+DECL DilationChoice:271 def MovesVisibleCandidate lit=P prop=True hyp_uses=4
+DECL DilationChoice:284 def VisibleInvariance lit=P prop=True hyp_uses=3
+DECL Equivalence:147 def Stochastic lit=P prop=True hyp_uses=3
+DECL Equivalence:168 def RevReal.IsLaw lit=P prop=True hyp_uses=0
+DECL Equivalence:182 def RevRealizable lit=P prop=True hyp_uses=3
+DECL Equivalence:201 def QfbReal.IsLaw lit=P prop=True hyp_uses=0
+DECL Equivalence:216 def QfbRealizable lit=P prop=True hyp_uses=3
+DECL EquivalenceChain:197 def IsDiag lit=P prop=True hyp_uses=1
+DECL GramTrajectorySelection:61 class is lit=P prop=False hyp_uses=2
+DECL GramTrajectorySelection:121 def GramTrajEquiv lit=P prop=True hyp_uses=7
+DECL GramTrajectorySelection:131 def SelectsAt lit=P prop=True hyp_uses=4
+DECL InternalObserver:63 def Records lit=P prop=True hyp_uses=3
+DECL InternalObserver:68 def IsInternalObserver lit=P prop=True hyp_uses=9
+DECL LinkDecomposition:339 def Sym lit=P prop=True hyp_uses=6
+DECL OperationalSourcing:819 def RepUnitary lit=P prop=True hyp_uses=0
+DECL OrientationClosure:151 def OrientedShellRepresentation lit=P prop=True hyp_uses=2
+DECL OrientationClosure:165 def ReadoutSeparating lit=P prop=True hyp_uses=2
+DECL OrientationSelection:206 class as lit=P prop=False hyp_uses=1
+DECL PassiveIndependence:74 def PassivelyIncomplete lit=P prop=True hyp_uses=7
+DECL PassiveIndependence:98 def SuppAnc lit=P prop=True hyp_uses=1
+DECL PassiveIndependence:103 def KeepsLabels lit=P prop=True hyp_uses=7
+DECL PassiveIndependence:288 def PassivelyCompleteOnDiagonal lit=P prop=True hyp_uses=3
+DECL PassiveObservation:203 def IsPassiveInstrument lit=P prop=True hyp_uses=7
+DECL PassiveObservation:208 def SeparatesStates lit=P prop=True hyp_uses=1
+DECL PassiveObservation:288 def IsDiagonal lit=P prop=True hyp_uses=3
+DECL RankGapTheory:84 def GapOp lit=P prop=True hyp_uses=5
+DECL RankGapTheory:90 def Gap lit=P prop=True hyp_uses=9
+DECL RankGapTheory:97 def IsGapInstrument lit=P prop=True hyp_uses=0
+DECL RegionTower:93 def AgreeOff lit=P prop=True hyp_uses=6
+DECL RegionTower:249 def DependsOnlyOn lit=P prop=True hyp_uses=4
+DECL RegionTower:319 def Consistent lit=P prop=True hyp_uses=3
+DECL SecondOrderCircuit:518 structure IsGateList lit=P prop=True hyp_uses=9
+DECL Separability:83 def PosSemidefOn lit=P prop=True hyp_uses=4
+DECL Separability:130 def Separable lit=P prop=True hyp_uses=5
+DECL Separability:254 def EntanglementBreaking lit=P prop=True hyp_uses=2
+DECL ShellAssignment:149 def ShellRepresentationConsistency lit=P prop=True hyp_uses=1
+DECL SubstratumInterfaceAudit:84 def A1 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:87 def A2 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:91 def A3 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:94 def A4Exact lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:98 def A4 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:102 def A5 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:131 def A3Family lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:231 def IsScaledPartialPerm lit=P prop=True hyp_uses=11
+DECL SubstratumInterfaceAudit:370 class is lit=P prop=False hyp_uses=2
+DECL SubstratumInterfaceAudit:485 def BijectionLevel lit=P prop=True hyp_uses=5
+DECL SubstratumInterfaceAudit:505 def PreservesNonneg lit=P prop=True hyp_uses=6
+DECL SubstratumInterfaceAudit:619 def SourcedOI lit=P prop=True hyp_uses=7
+DECL ThermalOrientation:192 def StrictlyPassive lit=P prop=True hyp_uses=3
+DECL ThermalOrientation:195 def Passive lit=P prop=True hyp_uses=10
+DECL ThermalOrientation:318 def OperationalTransitionIdentification lit=P prop=True hyp_uses=6
+DECL TrackBQfbBridge:297 def IsFlatHadamard lit=P prop=True hyp_uses=6
+DECL TurnpikeScopeTransfer:542 def BGIntegerClassification lit=P prop=True hyp_uses=2
+DECL WeylLift:246 def Indep lit=P prop=True hyp_uses=9
+DECL WeylTwirl:244 def Isotropic lit=P prop=True hyp_uses=9
+
+I2 modules: 35
+census entries: 76 (literal-pattern matches: 76)
+by kind: class=4, def=71, structure=1
+out-of-scope modules: 38

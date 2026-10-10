@@ -1,0 +1,18 @@
+PASS P3.a phiW separated from min: F = diag(1,-1,1,-1) has F(phiW) = -2 [F >= 0 on products: 1 + x.Dy with D = diag(-1,1,-1) orthogonal, written] :: -2
+PASS P3.a' control: F >= 0 on the 36x36 rational product grid
+PASS P3.b0 omega = I4 is W(SWAP/2) (= PT_B of Phi+, not PSD)
+PASS P3.b cnot(I4) leaves max: exact negative product-effect value :: (-1/2, Matrix([[1/2, -1/2, 0, 0]]), Matrix([[1/2, 0, 0, -1/2]]))
+PASS P3.b' countercontrol: cnot(phiW) = prodState xplus z3 stays nonneg on the family :: 0
+PASS P3.c0 |H| = 8 (exact BFS over signed permutations) :: 8
+PASS P3.c psi has operator-Schmidt rank > 1 after every h^{-1}, h in H (psi not in C_H) :: [4, 4, 4, 4, 4, 4, 4, 4]
+PASS P3.c' countercontrol: the same test finds Phi+ = cnot(product) inside C_H (some rank 1)
+PASS P3.c1 the unitary lift group <CNOT, X(x)I, I(x)X> has 8 elements and its Pauli transfer set equals H
+FAIL P3.c2 every smax^2 <= 19/20 < 1 (exact surds compared exactly) :: [3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2, 3*sqrt(5)/14 + 1/2]
+PASS P3.c3 X = Id - (20/19) psi psi^T is not PSD (<psi|X|psi> = 1 - 20/19 < 0): X not in Q
+PASS P3.c4 X in M_H = C_H^*: <h(phi phi^*), X> = 1 - (20/19)|<psi|h phi>|^2 >= 1 - (20/19)(19/20) = 0 [written from P3.c2]
+FAIL P3.c5 control: W(X) is nonneg on the finite product-effect family (consistent with X in max) :: -11/665
+PASS P3.d cnot(R_B(cnot(prodState xplus z3))) leaves max: exact negative product-effect value :: (-1/2, Matrix([[1/2, -1/2, 0, 0]]), Matrix([[1/2, 0, 0, -1/2]]))
+PASS P3.d' control: with the rotation actT nflip in place of R_B the chain stays nonneg :: 0
+PASS P3.d'' R_B is a body automorphism of eball 3 (orthogonal, det -1)
+VERDICT: NOT RENDERED (a check failed)
+SUMMARY: 16 checks, 2 failures

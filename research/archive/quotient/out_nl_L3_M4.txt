@@ -1,0 +1,17 @@
+V0 nonlinear: midpoint seeding == start seeding on 8 protocols: True
+PREPS nonlinear Lp=3 alphabet=oifs: 154 preparations
+DELAY nonlinear: span(unit, W^k r, k<=0) dim = 2
+DELAY nonlinear: span(unit, W^k r, k<=1) dim = 3
+DELAY nonlinear: span(unit, W^k r, k<=2) dim = 4
+DELAY nonlinear: span(unit, W^k r, k<=3) dim = 5
+DELAY nonlinear: span(unit, W^k r, k<=4) dim = 6
+ORBIT nonlinear: span(unit, w.r, |w|<=0) dim = 2
+ORBIT nonlinear: span(unit, w.r, |w|<=1) dim = 4
+ORBIT nonlinear: span(unit, w.r, |w|<=2) dim = 5
+ORBIT nonlinear: span(unit, w.r, |w|<=3) dim = 7
+ORBIT nonlinear: span(unit, w.r, |w|<=4) dim = 10
+ORBIT nonlinear: generators <W,F>, |w|<=4: dim = 8
+ORBIT nonlinear: generators <W,S>, |w|<=4: dim = 10
+ORBIT nonlinear: generators <F,S>, |w|<=4: dim = 3
+TOTAL nonlinear: rank of [unit | all w.r, |w|<=4] on 154 preps = 10
+DONE

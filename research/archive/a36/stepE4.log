@@ -1,0 +1,15 @@
+after 1 hulls: vanishing quadrics (mod p) = 1120 (3s)
+after 51 hulls: vanishing quadrics (mod p) = 944 (469s)
+after 101 hulls: vanishing quadrics (mod p) = 904 (890s)
+after 151 hulls: vanishing quadrics (mod p) = 902 (1286s)
+after 201 hulls: vanishing quadrics (mod p) = 881 (1665s)
+after 251 hulls: vanishing quadrics (mod p) = 667 (2015s)
+after 301 hulls: vanishing quadrics (mod p) = 614 (2137s)
+after 351 hulls: vanishing quadrics (mod p) = 599 (2315s)
+after 401 hulls: vanishing quadrics (mod p) = 599 (2471s)
+after 451 hulls: vanishing quadrics (mod p) = 593 (2637s)
+after 492 hulls: vanishing quadrics (mod p) = 527 (2717s)
+quadrics vanishing on every hull tangent (mod p, upper bound over Q): 527
+rank of B-quadrics mod p: 47
+rank(V) = 527, rank([V; B]) = 527 -> B-quadrics inside the vanishing space: True
+done (2719s)

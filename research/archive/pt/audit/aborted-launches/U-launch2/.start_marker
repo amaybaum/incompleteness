@@ -1,0 +1,27 @@
+Thread U (UNIQ) — launch 2 — start marker
+Written: 2026-10-10T11:19:29Z (UTC), first file in pt/U/.
+Directory state before this write: pt/U/ did not exist at 11:19:21Z ("ls: cannot access 'U'"); created empty at 11:19:29Z.
+
+Start integrity checks, run from pt/ at 2026-10-10T11:19:21Z, all read-only:
+  sha256sum -c --quiet inputs.manifest.sha256   : OK
+  sha256sum -c --quiet stage1.manifest.sha256   : OK
+  sha256sum -c --quiet inputs2.manifest.sha256  : OK
+  sha256sum -c --quiet inputs3.manifest.sha256  : OK
+  sha256sum -c --quiet stage2.manifest.sha256   : OK
+  sha256sum -c --quiet inputs4.manifest.sha256  : OK
+  git -C base rev-parse HEAD                    : 9f9f8257a980a1819fbbc1dc0019917cf8678626 (expected, OK)
+  git -C base status --porcelain | wc -l        : 0 (empty, OK)
+  bytecode under base/ (__pycache__, *.pyc)     : 0 (OK)
+  protocol hashes (sha256sum, all match the recorded values):
+    239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+    b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+    2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+    386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+    086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+    1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+  base/AGENTS.md sha256 959c43331a4bd0d97e75d15c85d90cdfb2139ad99f9ee61e97ea1f8e04331355 (identical to the copy loaded in context).
+
+Result: ALL START CHECKS GREEN. Substantive work begins.
+Rules acknowledged: write only inside pt/U/; never read pt/X/, pt/audit/U/, pt/audit/X/, pt/audit/aborted-launches/, pt/audit*-replay/;
+no git writes, no network, no agents; scripts python3 -I -B from pt/U/, exact arithmetic, decision rule in header before first run,
+countercontrols, .out/.err with exit line, byte-identical replays; files written in parts of <= ~250 lines (tooling constraint of launch 2).

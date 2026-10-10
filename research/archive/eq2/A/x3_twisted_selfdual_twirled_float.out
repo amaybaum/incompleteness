@@ -1,0 +1,13 @@
+h(1/sqrt7) = -1.1338934190276817  vs  y.(-1/3) = -0.8819171036881969
+trial  0: |f| = 0.9073, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  1: |f| = 0.7977, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  2: |f| = 0.6520, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  3: |f| = 0.8921, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  4: |f| = 0.9698, min_z (z.f - h(z)) on the ball = -4.046e-08
+trial  5: |f| = 0.7168, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  6: |f| = 0.8589, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  7: |f| = 0.8792, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  8: |f| = 0.8111, min_z (z.f - h(z)) on the ball = 0.000e+00
+trial  9: |f| = 0.8982, min_z (z.f - h(z)) on the ball = 0.000e+00
+summary: 0 of 10 boundary points of the twirled dual base lie robustly outside B8
+exit=0

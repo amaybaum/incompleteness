@@ -1,0 +1,29 @@
+== S1  cnot is CNOT conjugation (control on token 0)
+PASS C1  [identity] landed signed permutation = Ad(CNOT) on a generic symbolic table
+PASS C1c  [countercontrol] Ad(CNOT with control on token 1) differs from the landed gate
+PASS C2  [identity] ipW w v = 4 tr(pauliW w pauliW v), generic
+== S2  cnot as a 16x16 matrix: orthogonal involution, eigenspace dimensions
+PASS C3a  [exact] cnot^2 = I and cnot^T cnot = I
+PASS C3b  [exact] dim V+ = rank(C+I) = 10, dim V- = rank(C-I) = 6, trace = 4
+PASS C3c  [exact] P+ = (I + cnot)/2 is the orthogonal projector onto V+, P+ P- = 0
+== S3  V+ is the Pauli image of the Hermitian commutant of CNOT (independent route)
+PASS C4a  [exact] real dimension of {M Hermitian : M CNOT = CNOT M} = 10
+PASS C4b  [exact] the 10 commutant tables lie in V+ and span it (rank 10)
+PASS C4c  [countercontrol] |00><11| + h.c. (not in the commutant) is not in V+
+== S4  block form in the CNOT eigenbasis |00>, |01>, |1+>, |1->
+PASS C5a  [exact] B unitary; B^H CNOT B = diag(1,1,1,-1)
+PASS C5b  [exact] every V+ element is block diagonal Herm(3) + R in this basis (generic symbolic)
+PASS C5c  [exact] every V- element is purely off-diagonal (beta in C^3, 6 real dims) in this basis
+PASS C5d  [exact] the V+ blocks are Hermitian 3x3 and a real scalar (Herm(3) + R, 9 + 1 = 10)
+== S5  the overlap identity <w, cnot w> = |w+|^2 - |w-|^2 and its value on pure products
+PASS C6a  [identity] <w, cnot w> = |P+ w|^2 - |P- w|^2, generic
+PASS C6b  [identity] <w, cnot w> = 4 tr(rho U rho U), U = CNOT, generic
+PASS C7a  [identity] |p|^2 = 4 for every pure product (unit x, y)
+PASS C7b  [identity] <p, cnot p> = (1 + x3 + y1 - x3*y1)^2 = 4 <ab|CNOT|ab>^2 for unit x, y (exact rational identity)
+PASS C7c  [countercontrol] the C7b formula is not a polynomial identity off the unit spheres (unit length is load-bearing)
+PASS C8a  [enumerate] 36 axis products: <p, cnot p> in [0, 1, 4]; zeros (|p-| = |p+|): 8
+PASS C8b  [enumerate] the average of P+ p over the 36 axis products is E00 (so is the average of p)
+PASS C8c  [identity] |P+ p|^2 = (4 + <p, cnot p>)/2 >= 2 on the 36 axis products
+
+checks: 21, failed: 0
+VERDICT U1-STRUCT-EXACT -- 21 checks

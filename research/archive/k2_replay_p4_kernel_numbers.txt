@@ -1,0 +1,17 @@
+PASS P4.T5 chain value prodEffVal (sharpEff -e1) (sharpEff -e3) (cnot (actT reflY (cnot (prodState xplus z3)))) = -1/2 :: (Matrix([
+[1, 0,  0, 0],
+[0, 1,  0, 0],
+[0, 0, -1, 0],
+[0, 0,  0, 1]]), Matrix([
+[1, 0, 0, 0],
+[0, 1, 0, 0],
+[0, 0, 1, 0],
+[0, 0, 0, 1]]), Matrix([
+[1, 0, 0,  1],
+[1, 0, 0, -1],
+[0, 0, 0,  0],
+[0, 0, 0,  0]]))
+PASS P4.T5' countercontrol (nflip instead of reflY): same effect pair gives >= 0 :: 0
+PASS P4.T5'' the intermediate actT reflY (phiW) is the identity array (W(SWAP/2))
+PASS P4.T8 sharpEff z3 (x) unit: values 1, 1 on prodState z3 z3 != prodState z3 (-z3), and 0 on prodState (-z3) z3 :: [1, 1, 0]
+SUMMARY: 4 checks, 0 failures

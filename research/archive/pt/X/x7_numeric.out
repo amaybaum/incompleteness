@@ -1,0 +1,21 @@
+== N1  [N, numerical] K1 membership of sampled K1^* elements, by definition (seed 2026101001)
+N1  samples 3000, with <z,E0> < 0: 367; worst margin max_lam lambda_min(y - lam E0) = -2.12e-16
+SUMMARY [N, numerical] N1: no violation found (tolerance 1e-9)
+K1c samples 3000 with e_c (c = 3/2): with <z,e> < 0: 822; worst margin = -1.22e-02
+
+== N2  [N, numerical] K4: the SD2 candidate on random states (seed 2026101002)
+N2  samples 5000, with a negative pairing: 1774; worst lambda_min(q) = -3.79e-16
+SUMMARY [N, numerical] N2: no violation found (tolerance 1e-9)
+
+== N3  [N, numerical] the spectral characterization of self-dual single-defect cones (seed 2026101003)
+N3  e with lambda_2 >= -lambda_1: 730, of which with a (GL) violation found: 0
+N3  e with lambda_2 < -lambda_1: 770; constructive witness violates (GL): 770; random z found one: 457
+SUMMARY [N, numerical] N3: consistent with the characterization
+
+== N4  [N, numerical] guidance: two non-orthogonal Bell-type defects (seed 2026101004)
+N4  |<psi|phi>|^2 = 0.00: samples 120; worst membership margin = -2.08e-16
+N4  |<psi|phi>|^2 = 0.25: samples 120; worst membership margin = -1.95e-16
+N4  |<psi|phi>|^2 = 0.50: samples 120; worst membership margin = -2.12e-16
+N4  |<psi|phi>|^2 = 0.75: samples 120; worst membership margin = -3.18e-16
+
+SUMMARY [N, numerical] controls K1c, N3c, N4c behaved as stated; nothing above is a certificate

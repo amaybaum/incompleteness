@@ -1,0 +1,143 @@
+== SIG = H3(1,1,1) (696s)
+  strict  partition structures 20  by (form, shape) {('column', (2, 8)): 3, ('column', (4, 4)): 5, ('column', (8, 2)): 2, ('row', (2, 8)): 3, ('row', (4, 4)): 5, ('row', (8, 2)): 2}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+  relaxed partition structures 20  by (form, shape) {('column', (2, 8)): 3, ('column', (4, 4)): 5, ('column', (8, 2)): 2, ('row', (2, 8)): 3, ('row', (4, 4)): 5, ('row', (8, 2)): 2}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+== H3(-1,-1,-1) = act 38 arc at u = -1 (0s)
+  strict  partition structures 4  by (form, shape) {('column', (2, 8)): 1, ('column', (4, 4)): 1, ('row', (2, 8)): 1, ('row', (4, 4)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+  relaxed partition structures 4  by (form, shape) {('column', (2, 8)): 1, ('column', (4, 4)): 1, ('row', (2, 8)): 1, ('row', (4, 4)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+== W-arc u = 1 (650s)
+  strict  partition structures 20  by (form, shape) {('column', (2, 8)): 3, ('column', (4, 4)): 5, ('column', (8, 2)): 2, ('row', (2, 8)): 3, ('row', (4, 4)): 5, ('row', (8, 2)): 2}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+  relaxed partition structures 20  by (form, shape) {('column', (2, 8)): 3, ('column', (4, 4)): 5, ('column', (8, 2)): 2, ('row', (2, 8)): 3, ('row', (4, 4)): 5, ('row', (8, 2)): 2}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+== W-arc u = -1 (0s)
+  strict  partition structures 2  by (form, shape) {('column', (2, 8)): 1, ('row', (2, 8)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+  relaxed partition structures 20  by (form, shape) {('column', (2, 8)): 3, ('column', (4, 4)): 5, ('column', (8, 2)): 2, ('row', (2, 8)): 3, ('row', (4, 4)): 5, ('row', (8, 2)): 2}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     column (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments     64  of    13824   realizing index maps 293534171136
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (4, 4)  valid alignments      8  of    13824   realizing index maps 36691771392
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+     row    (8, 2)  valid alignments      4  of    40320   realizing index maps 3329438515200
+== W-arc P = Pu(u60) (0s)
+  strict  partition structures 2  by (form, shape) {('column', (2, 8)): 1, ('row', (2, 8)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+  relaxed partition structures 2  by (form, shape) {('column', (2, 8)): 1, ('row', (2, 8)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+== W-arc Pu(u5) (0s)
+  strict  partition structures 2  by (form, shape) {('column', (2, 8)): 1, ('row', (2, 8)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+  relaxed partition structures 2  by (form, shape) {('column', (2, 8)): 1, ('row', (2, 8)): 1}
+     column (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+     row    (2, 8)  valid alignments    128  of      128   realizing index maps 33560740233216000
+stabilizer elements decomposed 1024 transposing 512
+SIG strict: realizing (partition, alignment) pairs 976, closed under the stabilizer True, factorization classes 70; partition structures 20 in 10 stabilizer orbits
+   class sizes [2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 64, 64]
+   under the transpose-free subgroup (order 512): factorization classes 140, partition-structure orbits 20
+SIG relaxed: realizing (partition, alignment) pairs 976, closed under the stabilizer True, factorization classes 70; partition structures 20 in 10 stabilizer orbits
+   class sizes [2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 64, 64]
+   under the transpose-free subgroup (order 512): factorization classes 140, partition-structure orbits 20

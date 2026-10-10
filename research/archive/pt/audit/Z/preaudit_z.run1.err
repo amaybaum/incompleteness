@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/audit/Z/preaudit_z.py", line 77, in <module>
+    ret = is_psd(pauliW(w_rho)) and is_psd(pauliW(Ad(SWAPU, w_rho))) and is_psd(sp.simplify(pauliW(actC(Rz(sp.Rational(2,7)), w_rho)))) and is_psd(sp.simplify(pauliW(actT(Rx(sp.Rational(3,5)), w_rho))))
+                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/audit/Z/preaudit_z.py", line 40, in is_psd
+    return all(sp.simplify((-1)**k * cs[k]) >= 0 for k in range(len(cs)))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/core/relational.py", line 519, in __bool__
+    raise TypeError(
+TypeError: cannot determine truth value of Relational: -3*cos(4/7)/2 - 3*sin(2/7)**2 + 15/2 - I*exp(2*I/7) - exp(2*I/7)*sin(2/7) - 2*I*exp(-2*I/7)*sin(1/7)**2 + 2*I*exp(2*I/7)*sin(1/7)**2 - exp(-2*I/7)*sin(2/7) + I*exp(-2*I/7) >= 0
+exit=1

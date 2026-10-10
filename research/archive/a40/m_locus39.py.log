@@ -1,0 +1,10 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+step 1: 320 distinct proper pair-block loci (75595 cached systems)  14s
+        by dimension: {0: 80, 1: 172, 2: 68}
+        closure size 3816 (+3496)  15s
+        closure size 9944 (+6128)  33s
+        closure size 9944 (+0)  61s
+step 2: closure 9944 flats, by dimension {0: 8480, 1: 1396, 2: 68}  61s
+WALL 65.3s  MAXRSS 34 MB

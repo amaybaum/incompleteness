@@ -1,0 +1,52 @@
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/drafts/qsd_owner_consequences.py:15: SymPyDeprecationWarning: 
+
+non-Expr objects in a Matrix is deprecated. Matrix represents
+a mathematical matrix. To represent a container of non-numeric
+entities, Use a list of lists, TableForm, NumPy array, or some
+other data structure instead.
+
+See https://docs.sympy.org/latest/explanation/active-deprecations.html#deprecated-non-expr-in-matrix
+for details.
+
+This has been deprecated since SymPy version 1.9. It
+will be removed in a future version of SymPy.
+
+  hom=lambda x: sp.Matrix([1,*x]); prod=lambda x,y: hom(x)*hom(y).T
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/drafts/qsd_owner_consequences.py", line 30, in <module>
+    okB = okB and sp.expand(ipW(w, prod(tuple((k==i-1) for k in range(3)),(0,0,0)))+ipW(w, prod(tuple(-(k==i-1) for k in range(3)),(0,0,0)))-2)==0
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/drafts/qsd_owner_consequences.py", line 15, in <lambda>
+    hom=lambda x: sp.Matrix([1,*x]); prod=lambda x,y: hom(x)*hom(y).T
+                                                      ~~~~~~^~~~~~~~~
+  File "/usr/local/lib/python3.11/dist-packages/sympy/core/decorators.py", line 118, in binary_op_wrapper
+    return func(self, other)
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 2819, in __mul__
+    return self.multiply(other)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/matrixbase.py", line 2848, in multiply
+    m = self._eval_matrix_mul(other)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/matrices/repmatrix.py", line 352, in _eval_matrix_mul
+    return classof(self, other)._fromrep(self._rep * other._rep)
+                                         ~~~~~~~~~~^~~~~~~~~~~~
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/domainmatrix.py", line 1353, in __mul__
+    return A.matmul(B)
+           ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/domainmatrix.py", line 1601, in matmul
+    return A.from_rep(A.rep.matmul(B.rep))
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/sdm.py", line 820, in matmul
+    C = sdm_matmul(A, B, A.domain, m, o)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/sdm.py", line 1502, in sdm_matmul
+    return sdm_matmul_exraw(A, B, K, m, o)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/matrices/sdm.py", line 1545, in sdm_matmul_exraw
+    if zero * Aik == zero:
+       ~~~~~^~~~~
+  File "/usr/local/lib/python3.11/dist-packages/sympy/logic/boolalg.py", line 249, in _noop
+    raise TypeError('BooleanAtom not allowed in this context.')
+TypeError: BooleanAtom not allowed in this context.
+exit=1

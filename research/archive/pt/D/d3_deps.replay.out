@@ -1,0 +1,35 @@
+== D-1 .. D-3  cited declarations
+PASS D2:corner_form  [source] CompositeDimension.lean:corner_form [D1 step 2: corner slices] -- statement free of forbidden tokens
+PASS D2:lor_cornerMap  [source] CompositeDimension.lean:lor_cornerMap [D1 step 2: corner maps carry L into L] -- statement free of forbidden tokens
+PASS D2:tens_hom_inj  [source] CompositeDimension.lean:tens_hom_inj [D1 step 2: corner maps from the frame] -- statement free of forbidden tokens
+PASS D2:pairVal_nonneg_of_maxCone  [source] CompositeDimension.lean:pairVal_nonneg_of_maxCone [D1 steps 5-6: positivity of the pairing] -- statement free of forbidden tokens
+PASS D2:lor_of_forall_pair  [source] CompositeDimension.lean:lor_of_forall_pair [D1 step 3: self-duality of L] -- statement free of forbidden tokens
+PASS D2:cnot_frame  [source] CompositeDimension.lean:cnot_frame [D1 converse: cnot has the frame] -- statement free of forbidden tokens
+PASS D2:cnot_prodState_mem_maxCone  [source] CompositeDimension.lean:cnot_prodState_mem_maxCone [D1: N-CLASS implies posFwd, posInv] -- statement free of forbidden tokens
+PASS D2:nativeGate_cnot  [source] CompositeDimension.lean:nativeGate_cnot [countermodels: cnot meets the K1 gate premises] -- statement free of forbidden tokens
+PASS D2:entangling_cnot  [source] CompositeDimension.lean:entangling_cnot [countermodels: cnot is entangling] -- statement free of forbidden tokens
+PASS D2:isNot_nflip  [source] CompositeDimension.lean:isNot_nflip [countermodels: nflip is a NOT] -- statement free of forbidden tokens
+PASS D2:ctrlGate_of_nativeGate  [source] RelcSelectBlock.lean:ctrlGate_of_nativeGate [D1 corollary: NativeGate gives CtrlGate] -- statement free of forbidden tokens
+PASS D2:gate_corner_ctrl  [source] RelcSelectBlock.lean:gate_corner_ctrl [D1 corollary under CtrlGate] -- statement free of forbidden tokens
+PASS D2:gate_corner_neg_ctrl  [source] RelcSelectBlock.lean:gate_corner_neg_ctrl [D1 corollary under CtrlGate] -- statement free of forbidden tokens
+PASS D2:gt_tangent_corners_ctrl  [source] RelcSelectBlock.lean:gt_tangent_corners_ctrl [D1 step 5 under CtrlGate] -- statement free of forbidden tokens
+PASS D2:actT_prodState  [source] K2Guard.lean:actT_prodState [D1 steps 1-2: local maps on products] -- statement free of forbidden tokens
+PASS D2:prodState_mem_maxCone  [source] K2Guard.lean:prodState_mem_maxCone [D2 (b) at products; countermodels] -- statement free of forbidden tokens
+PASS D2:candidateCone_cnotOrbit  [source] K2Guard.lean:candidateCone_cnotOrbit [D2 (c) countermodel] -- statement free of forbidden tokens
+PASS D2:cnot_mem_cnotOrbit  [source] K2Guard.lean:cnot_mem_cnotOrbit [D2 (c) countermodel] -- statement free of forbidden tokens
+PASS D2:subset_maxBody  [source] CompositeInterface.lean:subset_maxBody [D2 (b) through the chart] -- statement free of forbidden tokens
+PASS D2:prodEff_expand  [source] CompositeInterface.lean:prodEff_expand [D2 chart: expansion in the first slot] -- statement free of forbidden tokens
+PASS D2:affine_expand  [source] CompositeInterface.lean:affine_expand [D2 chart: affine expansion] -- statement free of forbidden tokens
+PASS D2:pEff_basisEff  [source] CompositeInterface.lean:pEff_basisEff [D2 chart: q is the identity on the model] -- statement free of forbidden tokens
+PASS D2:isEffectOn_maxBody  [source] CompositeInterface.lean:isEffectOn_maxBody [D2 converse: product effects are effects] -- statement free of forbidden tokens
+PASS D2:not_locallyTomographic_paddedBall3  [source] CompositeInterface.lean:not_locallyTomographic_paddedBall3 [D2: lt not needed (control)] -- statement free of forbidden tokens
+PASS D3:NClass.ipW_map  [source] FourCopyLocal.lean:NClass.ipW_map [D1 minimality: N-CLASS gates are orthogonal] -- TARGET-STATING: mentions only the target predicate
+PASS D3:NClass.bell_state  [source] FourCopyLocal.lean:NClass.bell_state [D1 minimality: N-CLASS maps a product to bellOf] -- TARGET-STATING: mentions only the target predicate
+PASS D4:bidual_of_adm  [source] FourCopyBipolar.lean:bidual_of_adm [D2 USES of the convex-cone clause] -- USES: a consumer of the clause in the design proof, found once (tokens present: ['IsClosed', 'PairAdm'])
+PASS D4:fourCopyCoherent_of_kt4Core  [source] FourCopyBridge.lean:fourCopyCoherent_of_kt4Core [D2 USES of (b) and scaling] -- USES: a consumer of the clause in the design proof, found once (tokens present: ['FourCopyCoherent'])
+
+== CC  countercontrol on the design headline
+PASS CC  [countercontrol] countercontrol: the scan finds IsClosed, EvenCycle, NClass in kt4_forward_ie1 (found ['IsClosed', 'EvenCycle', 'NClass'])
+
+d3_deps: 29 checks, 0 failed
+VERDICT D3-NO-FORBIDDEN-DEPENDENCY: no cited route declaration states closedness, IE1, the parity, a cone-preservation clause, four-copy data, a quantum or complex structure, or the target; the target-stating citations are confined to the converse and minimality steps

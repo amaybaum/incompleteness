@@ -1,0 +1,9 @@
+?? verification/lean/a42/d01_two.pkl
+?? verification/lean/a42/d01_zero.pkl
+?? verification/lean/a42/msize.npy
+?? verification/lean/a42/r2a.json
+?? verification/lean/a42/r2b.json
+?? verification/lean/a42/r2b2.json
+?? verification/lean/a42/r3.json
+?? verification/lean/a42/r5.json
+?? verification/lean/a42/spanAll_77.pkl

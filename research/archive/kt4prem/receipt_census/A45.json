@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A45",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "fa6ddf77703a8ce7f9eaf573ef48355194d72541",
+ "f": "524e16ad74f378b5903e30514f95c218668b6709",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md",
+   "blob": "626c6cb23897dcc3585089b59b10906b0e826277"
+  }
+ ],
+ "governed_paths_digest": "610a36f9bfa33d2b15a5a9f6c6b12dbfb017ab4e6536654562b03e3cbac8e159",
+ "e": "a5696e37aad5368a2348a5ffeff79197d00ba2c5",
+ "tree_e": "2c3f7fa183eb21ddf878ac77abaca3015c915459",
+ "execution_delta_digest": "abec0f305e4bff56d3d4ba21f6300c6b0c72d695262b194a16e06a848a07244e",
+ "candidates": [],
+ "landing": {
+  "base": "fa6ddf77703a8ce7f9eaf573ef48355194d72541",
+  "object": "026199bff5096c5fdcba7bd0f2d041703a869e9a",
+  "reconciliations": [
+   "026199bff5096c5fdcba7bd0f2d041703a869e9a"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "7ca59416d6ae699ec149160cd3152d29afafe699f9fee6001e86d995c9227bbb"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "524e16ad74f378b5903e30514f95c218668b6709",
+   "record": "https://github.com/amaybaum/incompleteness/pull/770#issuecomment-5896847922"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "524e16ad74f378b5903e30514f95c218668b6709",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36615421546"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "a5696e37aad5368a2348a5ffeff79197d00ba2c5",
+   "record": "https://github.com/amaybaum/incompleteness/pull/770#issuecomment-5897913831"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "a5696e37aad5368a2348a5ffeff79197d00ba2c5",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36621973188"
+  }
+ ]
+}

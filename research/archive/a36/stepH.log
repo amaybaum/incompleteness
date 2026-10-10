@@ -1,0 +1,8 @@
+transpose-free subgroup order: 512
+control: im DF preserved by the transpose-free stabilizer (8 elements, full basis): yes
+subgroup conjugacy classes: 104 (29s)
+character of coker: trivial-isotypic dim 1 | commutant dim 45
+rank of im B: 47
+im B invariant under the subgroup (spot-check): True
+character of im B: trivial-isotypic dim 1 | commutant dim 27
+done (907s)

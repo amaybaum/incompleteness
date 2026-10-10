@@ -1,0 +1,3 @@
+Sym({0,1}^2) transitive on the 6 vertices: True (orbit size 6 )
+every image of a vertex under every g is again a vertex (octahedron invariant, boundary preserved): True
+|G| = 24 ; automorphism group of a polytope is finite (permutes vertices): no infinite-order reversible operation exists on a finite exposed sector

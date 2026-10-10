@@ -1,0 +1,11 @@
+PASS S.0 cnot' keeps the frame (sigma' maps +-z to -+z) and agrees with cnot on hom z (x) H and on T (x) H
+PASS S.1 cnot (d=3, nflip): corner form at z (M0 exists), sectors preserved by homMap N
+PASS S.2 cnot (d=3, nflip): CI = True, TR = True, relC = True; expected (True, True, True); relC == (CI and TR); relC on C (x) H = True == CI
+PASS S.1 gC5 (d=5, nC5): corner form at z (M0 exists), sectors preserved by homMap N
+PASS S.2 gC5 (d=5, nC5): CI = True, TR = False, relC = False; expected (True, False, False); relC == (CI and TR); relC on C (x) H = True == CI
+PASS S.1 C7b (d=7, nK 3): corner form at z (M0 exists), sectors preserved by homMap N
+PASS S.2 C7b (d=7, nK 3): CI = False, TR = False, relC = False; expected (False, False, False); relC == (CI and TR); relC on C (x) H = False == CI
+PASS S.1 cnot' (d=3, -z slice by sigma'): corner form at z (M0 exists), sectors preserved by homMap N
+PASS S.2 cnot' (d=3, -z slice by sigma'): CI = False, TR = True, relC = False; expected (False, True, False); relC == (CI and TR); relC on C (x) H = False == CI
+c2d_relc_split: 9/9 checks pass
+VERDICT RELC-SPLIT: on four instances realizing all four truth patterns, relC holds exactly when CI and TR both hold, and relC on the classical control sector is CI (EQ-B T1 confirmed against the kernel reading RSB:95/:103/:746)

@@ -1,0 +1,38 @@
+== N  the fixed-frame native family under the landed NativeGate predicates (z3, nflip)
+CONFIRMED N1 [enumerate] of the 4096 signed-diagonal dressings of cnot, those meeting frame, relT and relC give exactly 32 distinct gates, cnot among them -- 32 gates
+CONFIRMED N2 [enumerate] each gate has one orientation pair (pre, post) over all its dressings; 8 gates per pair; cnot is (even, even) -- [('(False, False)', 8), ('(False, True)', 8), ('(True, False)', 8), ('(True, True)', 8)]
+CONFIRMED N3 [enumerate] absorption: cnot . L . cnot is a signed-diagonal local exactly for the 32 orientation-even locals L among the 64
+CONFIRMED N4 [enumerate] over all 1024 ordered pairs, G_i . G_j has a negative product-effect value on axis data exactly when orient_pre(G_i) != orient_post(G_j) -- odd pairs 512
+CONFIRMED N5 [enumerate] the even class generates a group of order 16, each element a local or cnot . local, so the generated cone is SEP + cnot SEP = K_gen -- order 16
+CONFIRMED N6 [enumerate] sigma = actT reflY conjugates the (even, even) class onto the (odd, odd) class
+
+== R  carrier models for local tomography and finite rank
+CONFIRMED R1 [identity] register model N = [[cnot, I - cnot], [cnot, -cnot]]: N^2 = cnot (+) cnot, N^4 = I, N^2 != I
+CONFIRMED R2 [witness] register model: product action holds; every generated table is p or cnot p (valid); s = N(pxz,0) and s' = N^2(pxz,0) have equal tables but N separates them: not LT
+CONFIRMED R3 [identity] block lemma (one hidden coordinate, symbolic B, C, D): on span(products u N.products) the table defect of N is exactly B C v, and the W3 block of N.N is I + B C
+CONFIRMED R4 [witness] hidden-parameter model N = [[cnot, Delta], [0, 1]] with Delta = E11 - E10 (cnot Delta = -Delta): N^2 = I; the ungenerated (E00, +-1/4) share a table and N separates them; images E00 +- Delta/4 are valid (|x1 y1 - x1| <= 2)
+CONFIRMED R5 [witness] rebit control: Ad(CNOT) sends X(x)Z to -Y(x)Y, so its action on product tables kills X(x)Z (C.C != I); (I + Y(x)Y)/4 = CNOT image of a product mixture and I/4 share tables, CNOT tests separate them
+CONFIRMED R6 [witness] order-type model N = cnot (+) D with D^3 = I on a hidden plane and generated preparations with zero hidden part: hidden part stays 0 (LT on the generated system) while N^2 != I on the carrier
+CONFIRMED R7 [enumerate] clock model (cnot at square clock times): the parity sequence has run lengths 1, 3, 5, ... from j = 1, and its L x L Hankel sections have strictly increasing rank over L = 8, 16, 32, 48, 64 (unboundedness is the written Kronecker/pigeonhole step) -- ranks {8: 8, 16: 16, 32: 32, 48: 48, 64: 64}
+CONFIRMED R7c [countercontrol] a periodic clock (period 4) gives a bounded Hankel rank (predicted) -- rank 3
+
+== M  the monomial and finite-group witnesses
+CONFIRMED M1 [enumerate] psi_w = (3|00> + 4|01> + 5|11>)/sqrt 50: no arrangement of its modulus pattern (9,16,0,25)/50 is a rank-one 2x2 pattern
+CONFIRMED M2 [witness] psi_w is normalized with reduced Bloch length^2 16/25, equal to that of CNOT(|a>|0>) with Bloch(a) = (3/5, 0, 4/5): Schmidt-equivalent (Schmidt [L]) -- 16/25, 16/25
+CONFIRMED M3 [witness] <CNOT, SWAP> has order 6 and no element maps psi_w to a product vector: psi_w lies in no g(SEP) as a pure state -- order 6
+
+== E  generated versus full effects, and the dual witness F
+CONFIRMED E1 [identity] cnot is a symmetric orthogonal involution on W3: the table of 'cnot then e(x)f' is cnot of the effect table, so generated effects = generated states (E_gen = K_gen)
+CONFIRMED E2 [witness] T_psi = actT R_H phiW = [[1,0,0,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]] is a pure state (pauliW a rank-one projector)
+CONFIRMED E3 [identity] F = E00/2 - T_psi/4: on products and on cnot images of products its value is 1/4 + x^T M y with |M| <= 1/4, so F is in dualW K_gen -- M^T M eigenvalues {1/16: 3}, {1/16: 3}
+CONFIRMED E4 [witness] tr(rho(F) rho(T_psi)) = -1/8: F is not in Q3, so F is a non-generated effect -- -1/8
+CONFIRMED E5 [witness] uniform K_gen: famI(phiW, phiW, T_psi/4, F) = -1/8 with two non-generated effects (T_psi in Q3 is not in K_gen; F not in Q3) -- -1/8
+CONFIRMED E5c [countercontrol] with the generated effects phiW/4 in both slots the value is nonnegative (predicted) -- 1/4
+
+== C  frame-covariance words
+CONFIRMED C1 [identity] cnot . C(Rx,I) . C(I,Zpi) . C(Rx,Zpi) = actC(rotation about x by 2*sgn*phi), symbolic modulo c^2 + s^2 = 1 -- sgn -1
+CONFIRMED C2 [identity] cnot . C(I,Rz) . C(Xpi,I) . C(Xpi,Rz) = actT(rotation about z by 2*sgn*phi), symbolic modulo c^2 + s^2 = 1 -- sgn -1
+CONFIRMED C1c [countercontrol] cnot . C(Rx,I) alone sends some axis product to a table of rank > 1 at phi = atan(4/3): it is not local (predicted) -- first entangled input ((0, 1, 0), (0, 1, 0)), 16 of 36
+
+checks: 26, confirmed: 26
+VERDICT INDEP-S2-CONFIRMED

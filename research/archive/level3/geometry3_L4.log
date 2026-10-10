@@ -1,0 +1,16 @@
+GEOMETRY3 ((0, 1), (0, 1)) Lp=4: states 1523, distinct points 7, all inside octahedron True, vertices reached 6/6
+   ('0', '1/2', '1/2') e.g. 'os' record 0
+   ('1/2', '0', '1/2') e.g. 'o' record 0
+   ('1/2', '1/2', '0') e.g. 'oc' record 0
+   ('1/2', '1/2', '1/2') e.g. '' record 0
+   ('1/2', '1/2', '1') e.g. 'ocf' record 0
+   ('1/2', '1', '1/2') e.g. 'osfi' record 0
+   ('1', '1/2', '1/2') e.g. 'osf' record 0
+GEOMETRY3 ((1, 0), (0, 2)) Lp=4: states 1538, distinct points 7, all inside octahedron True, vertices reached 6/6
+   ('0', '1/2', '1/2') e.g. 'os' record 0
+   ('1/2', '0', '1/2') e.g. 'o' record 0
+   ('1/2', '1/2', '0') e.g. 'oc' record 0
+   ('1/2', '1/2', '1/2') e.g. '' record 0
+   ('1/2', '1/2', '1') e.g. 'ocf' record 0
+   ('1/2', '1', '1/2') e.g. 'oco' record 1
+   ('1', '1/2', '1/2') e.g. 'osf' record 0

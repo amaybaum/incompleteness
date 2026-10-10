@@ -1,0 +1,8 @@
+control R8+: ext(K*) = 8 rays, self-positive True
+control S: ext(S*) = 16 rays, self-positive False
+step 0: 36 generators (reps [(3, -1, 1, 1, 1, 1, 1, 1)]), ext(K*) 96 rays, K* self-positive False  [0.0s]
+   outside-K ext orbit reps: 3; with self-positive orbit: 2  [(-1, 1, 1, 1, 1, 1, 1, 1), (0, 0, 0, 0, 0, 0, 1, 3)]
+step 1: 44 generators (reps [(3, -1, 1, 1, 1, 1, 1, 1), (-1, 1, 1, 1, 1, 1, 1, 1)]), ext(K*) 92 rays, K* self-positive False  [0.0s]
+   outside-K ext orbit reps: 1; with self-positive orbit: 0  []
+STUCK: no extreme ray of K* outside K has a self-positive orbit
+  outside reps: [(-1, 1, 1, 1, 1, 1, 1, 5)]

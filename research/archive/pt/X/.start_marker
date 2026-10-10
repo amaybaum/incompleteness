@@ -1,0 +1,21 @@
+thread X (EXOT), launch 2 -- start marker
+written: 2026-10-10T11:21:46Z (UTC; directory created at this time, marker is the first file written)
+directory state before the write: pt/X/ did not exist (ls: cannot access 'X'); created by mkdir, 0 entries
+start checks (run from pt/ at 2026-10-10T11:21:34Z):
+  sha256sum -c --quiet inputs.manifest.sha256   OK
+  sha256sum -c --quiet stage1.manifest.sha256   OK
+  sha256sum -c --quiet inputs2.manifest.sha256  OK
+  sha256sum -c --quiet inputs3.manifest.sha256  OK
+  sha256sum -c --quiet stage2.manifest.sha256   OK
+  sha256sum -c --quiet inputs4.manifest.sha256  OK
+  git -C base rev-parse HEAD = 9f9f8257a980a1819fbbc1dc0019917cf8678626 (expected value)
+  git -C base status --porcelain: empty (0 lines)
+  bytecode under base/: 0 (*.pyc, __pycache__)
+  protocol hashes (sha256):
+    239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md               expected, match
+    b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md   expected, match
+    2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md   expected, match
+    386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md        expected, match
+    086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md     expected, match
+    1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md        expected, match (= PROTOCOL-STAGE3.sha256)
+result: all start checks green; work proceeds.

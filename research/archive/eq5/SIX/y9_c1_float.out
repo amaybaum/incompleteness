@@ -1,0 +1,7 @@
+|G| = 192
+K_tw generators: 36
+(1) Lift(K_tw) self-positivity: worst normalized min tr(g' Ad(k) g) = -4.299e-17 at ('t', (-1, 3, 1, 1, 1, 1, 1, 1))
+(2) after 40 trials: worst normalized twin glue network min 2.047e-09
+(2) after 80 trials: worst normalized twin glue network min 2.047e-09
+(2) after 120 trials: worst normalized twin glue network min 2.047e-09
+(2) worst configuration: ((1, 1, 1, -1, 1, 1, -1, 1), (0, 0, 0, 0, 1, 1, 0, 0), (1, 1, 1, 1, 1, 1, -1, 3), (1, 1, 1, 1, 1, -1, 1, -1))

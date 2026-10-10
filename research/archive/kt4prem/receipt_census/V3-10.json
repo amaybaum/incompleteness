@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "V3-10",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "92683262a67190d7468a31a0c2f1dfdbc391778e",
+ "f": "19ab627b3c464935751332afe622a6c081eb774c",
+ "control_plane_blobs": [
+  {
+   "path": "verification/infrastructure/round-v3-10-native-pilot/preregistration.md",
+   "blob": "01c6d6c35a627d79760a25f55b3a108856fda566"
+  }
+ ],
+ "governed_paths_digest": "afdabce1b41ce12b028589b776df5aa74a3adcd475721d63de231689507c4a79",
+ "e": "c6e0a7c6b99eb4a6a97e2beb5d08e68a5226c214",
+ "tree_e": "f66c34ccc2d6d2b7983317e523e9bb8a9fc8077b",
+ "execution_delta_digest": "f276f031e866b62c8274316e39e857c32377111512c6768628395161ba8de2b8",
+ "candidates": [],
+ "landing": {
+  "base": "92683262a67190d7468a31a0c2f1dfdbc391778e",
+  "object": "66e91ab20a1d74db0e3e1d6a39d489ba8128358b",
+  "reconciliations": [
+   "66e91ab20a1d74db0e3e1d6a39d489ba8128358b"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "8160f44491cb47b4c102370a628458f166aaf53193fdc3a3109926fce1afa821"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "19ab627b3c464935751332afe622a6c081eb774c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/741#issuecomment-5828013851"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "19ab627b3c464935751332afe622a6c081eb774c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36101255630"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "c6e0a7c6b99eb4a6a97e2beb5d08e68a5226c214",
+   "record": "https://github.com/amaybaum/incompleteness/pull/741#issuecomment-5828519107"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "c6e0a7c6b99eb4a6a97e2beb5d08e68a5226c214",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36104170673"
+  }
+ ]
+}

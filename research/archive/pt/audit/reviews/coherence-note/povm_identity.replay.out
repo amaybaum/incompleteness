@@ -1,0 +1,7 @@
+CONFIRMED I1 [identity] p(x) = tr(rho M(x)) = rho_LL M_LL + rho_RR M_RR + 2 Re(rho_LR M_RL) for Hermitian rho, M (symbolic)
+CONFIRMED I2 [identity] the cross term vanishes if the path coherence rho_LR = 0 OR the effect's off-diagonal element M_RL = 0 (either suffices)
+CONFIRMED I3 [identity] an effect diagonal in the path basis (fixed-basis readout) gives the classical sum for EVERY coherence: coherence alone is not detectable without a basis-changing effect
+CONFIRMED I4 [identity] with a path record (detector unread), the path's reduced coherence is rho_LR <d_R|d_L>, so the cross term is scaled by the record overlap; orthogonal records kill it
+
+checks: 4, confirmed: 4
+VERDICT COHERENCE-NOTE-IDENTITIES-CONFIRMED

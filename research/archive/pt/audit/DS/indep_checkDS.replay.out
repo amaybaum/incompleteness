@@ -1,0 +1,16 @@
+CONFIRMED P1 [identity] |psiL + psiR|^2 = |psiL|^2 + |psiR|^2 + 2 Re(psiL* psiR), symbolic complex
+CONFIRMED P2 [identity] screen density with a path record (detector unread): |psiL|^2<dL|dL> + |psiR|^2<dR|dR> + 2 Re(psiL* psiR <dL|dR>), symbolic; the input's form is the normalized case
+CONFIRMED P3 [identity] pure records, real overlap cos t: visibility^2 + distinguishability^2 = 1 (trace distance of the two record states) -- D = Abs(sin(t))
+CONFIRMED F1 [identity] certified cnot table: after the record, the path's reduced Bloch vector is (a1 b1, a2 b1, a3) -- coherence multiplied by b1, populations unchanged (symbolic, every product preparation)
+CONFIRMED F2 [identity] for a detector prepared at Bloch vector b with records d_L = d0, d_R = X d0, the overlap <d_L|d_R> = <d0|X|d0> = b1 (tr X rho(b) = b1): the cnot table reproduces V = |<d_L|d_R>| for this record family
+CONFIRMED F1c [countercontrol] without the record (no gate) the path keeps its full Bloch vector (predicted)
+CONFIRMED B1 [identity] with real record overlap g the screen law is the mixture (1-g) Q[0] + g Q[1] (symbolic): any classical device recording with probability r = 1 - g reproduces R1-R3 exactly, so R1-R3 do not discriminate -- Q[1] = [1/2, 1/4, 0, 1/4], Q[1/2] = [3/8, 1/4, 1/8, 1/4]
+CONFIRMED B2 [witness] two-path bound P_LR(x) <= (|psiL| + |psiR|)^2 = 1/2: the law (1,0,0,0) is not a quantum two-path law (CL0-type countercontrol)
+CONFIRMED B3 [witness] a classical record made with probability r has V = 1 - r and D = r (total variation of the conditional records): V^2 + D^2 = 1/2 at r = 1/2, while pure quantum records give 1 (P3)
+CONFIRMED S1 [witness] the coherent record phiW = cnot(prodState xplus z3) and the separable record omega_B share both marginals and the Z(x)Z entry; they differ only in X(x)X and Y(x)Y, which only a complementary (eraser) readout sees -- [(1, 1), (2, 2)]
+CONFIRMED S2 [witness] with path readouts x, z and detector readouts (x +- z)/sqrt 2, CHSH(phiW) = 2 sqrt 2 > 2, while the separable record stays <= 2: path phase control plus an eraser readout is a Bell scenario -- S(phiW) = 2*sqrt(2), S(omega_B) = sqrt(2)
+CONFIRMED S3 [witness] the phase-kick record CZ|+>|+> is the landed T_psi = actT R_H phiW, and the K_gen-positive witness F = E00/2 - T_psi/4 (audited in AUDIT-S2 E3) is negative on it: a detector family with both markings leaves K_gen
+CONFIRMED S4 [witness] the balanced mixer sends (1,1) to (sqrt 2, 0), not a multiple of (1,1): it does not fix the all-ones ray (the ones-fixing access cannot make it available, per the landed instAvail_unitary_fixes_ones)
+
+checks: 13, confirmed: 13
+VERDICT INDEP-DS-CONFIRMED

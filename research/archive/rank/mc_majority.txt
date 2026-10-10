@@ -1,0 +1,16 @@
+MC majority S(4) = 0.031269   S(m)-S(150) = 0.031269
+MC majority S(6) = 0.003922   S(m)-S(150) = 0.003922
+MC majority S(8) = 0.001471   S(m)-S(150) = 0.001471
+MC majority S(10) = 0.000614   S(m)-S(150) = 0.000614
+MC majority S(12) = 0.000413   S(m)-S(150) = 0.000413
+MC majority S(15) = 0.000268   S(m)-S(150) = 0.000268
+MC majority S(20) = 0.000091   S(m)-S(150) = 0.000091
+MC majority S(25) = 0.000062   S(m)-S(150) = 0.000062
+MC majority S(30) = 0.000022   S(m)-S(150) = 0.000022
+MC majority S(40) = 0.000006   S(m)-S(150) = 0.000006
+MC majority S(50) = 0.000003   S(m)-S(150) = 0.000003
+MC majority S(60) = 0.000001   S(m)-S(150) = 0.000001
+MC majority S(80) = 0.000000   S(m)-S(150) = 0.000000
+MC majority S(100) = 0.000000   S(m)-S(150) = 0.000000
+MC majority S(120) = 0.000000   S(m)-S(150) = 0.000000
+MC majority S(150) = 0.000000   S(m)-S(150) = 0.000000

@@ -1,0 +1,43 @@
+## DEFINING SITES (B2)
+FOUND P CompositeDimension.lean:97 'abbrev W (d : ℕ) := Fin (d + 1) → Fin (d + 1) → ℝ'
+FOUND P CompositeDimension.lean:198 'def actT (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) : W d := fun μ => homMap N (ω μ)'
+FOUND P CompositeDimension.lean:201 'def actC (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) : W d :='
+FOUND P CompositeDimension.lean:775 'def cnot : W 3 ≃ₗ[ℝ] W 3 where'
+FOUND P K2Guard.lean:95 'def CandidateCone (K : Set (W 3)) : Prop :='
+FOUND M OperationalAssembly.lean:594 'structure FiniteOperationalTheory (A : Type*) [Fintype A] [DecidableEq A] where'
+FOUND H RouteB.lean:279 'noncomputable abbrev substratumTheory (A : Type) [Fintype A] [DecidableEq A] :'
+FOUND H StructuralClosure.lean:180 'def substratumClass : ImplementationClass := fun _ _ _ K => IsMonomial K'
+FOUND G TypedCompletion.lean:165 'structure TypedOperationalTheory where'
+FOUND G QuasilocalCharacterization.lean:168 'structure QuasilocalSystem where'
+
+## CONTROLS
+PASS: sites found (B2)
+PASS: C1 K2Guard reaches CompositeDimension
+PASS: C2 ReferenceExtension reaches OperationalAssembly
+PASS: C3 acyclic
+PASS: C4 co-occurrence detector
+
+## MODULE COUNTS
+modules scanned: 215 (OIBridge/*.lean 214 + root)
+modules reaching P definitions: 13
+modules reaching M definitions: 136
+modules reaching H definitions: 88
+modules reaching G definitions: 85
+
+## P-DEFINING MODULES: their own OIBridge imports (closure)
+CompositeDimension imports (transitively, 25): AntiunitaryInvariance BohrFrequency CoherentExtension CoherentLift CompletionAction CongruentReconstruction ControlledQuotient CycleFibreHull DomainGlue DynamicsGlue EdgeRigidity FrequencyMatching HomometricKill HomometricSix InvariantInnerProduct KInfFoundations NativeGateBall ObservabilityQuotient OrbitGeneration OrbitNormalization PassiveQuotient ShellAssignment StageCompletion ThermalOrientation TransitiveBody
+K2Guard imports (transitively, 29): AntiunitaryInvariance BohrFrequency CoherentExtension CoherentLift CompletionAction CompositeDimension CompositeInterface CongruentReconstruction ControlledQuotient CycleFibreHull DomainGlue DynamicsGlue EdgeRigidity EffectSpace FrequencyMatching HomometricKill HomometricSix InvariantInnerProduct K1Bridge KInfFoundations NativeGateBall ObservabilityQuotient OrbitGeneration OrbitNormalization PassiveQuotient ShellAssignment StageCompletion ThermalOrientation TransitiveBody
+
+## MODULES THAT CAN STATE A M-P BRIDGE (B3): 1
+  (root)OIBridge
+
+## MODULES THAT CAN STATE A H-P BRIDGE (B3): 1
+  (root)OIBridge
+
+## MODULES THAT CAN STATE A G-P BRIDGE (B3): 1
+  (root)OIBridge
+
+## P-TOKEN LINES IN MODULES THAT CAN STATE ANY BRIDGE (B4), with co-occurrence in the same block
+
+bridge-candidate lines: 0
+VERDICT: NO MODULE STATES A DECLARATION MENTIONING BOTH A P TOKEN AND AN M/H/G TOKEN

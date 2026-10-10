@@ -1,0 +1,39 @@
+PASS |R|=3 (a,b)=(0,1): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=3 (a,b)=(0,1): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=3 (a,b)=(0,2): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=3 (a,b)=(0,2): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=3 (a,b)=(1,0): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=3 (a,b)=(1,0): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=3 (a,b)=(1,2): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=3 (a,b)=(1,2): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=3 (a,b)=(2,0): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=3 (a,b)=(2,0): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=3 (a,b)=(2,1): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=3 (a,b)=(2,1): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(0,1): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(0,1): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(0,2): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(0,2): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(0,3): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(0,3): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(1,0): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(1,0): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(1,2): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(1,2): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(1,3): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(1,3): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(2,0): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(2,0): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(2,1): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(2,1): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(2,3): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(2,3): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(3,0): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(3,0): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(3,1): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(3,1): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS |R|=4 (a,b)=(3,2): M D M D = flow(transition a b)(2s) (x) 1, block (0,0) extracts it
+PASS |R|=4 (a,b)=(3,2): phaseGate a * phaseGate b * flow(transition a b)(pi/2) = swap
+PASS countercontrol: M*M (no sign conjugation) is not flow(transition a b)(2s) (x) 1 at |R| = 3
+review_eqD: 37/37 checks pass
+exit 0

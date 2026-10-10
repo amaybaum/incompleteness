@@ -1,0 +1,7 @@
+phiW = [[Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(-1, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)]]
+actT reflY phiW = [[Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)]]
+cnot(actT reflY phiW) = [[Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)], [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1), Fraction(-1, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)]]
+sharpVec(-e1) = [Fraction(1, 2), Fraction(-1, 2), Fraction(0, 1), Fraction(0, 1)]  sharpVec(-e3) = [Fraction(1, 2), Fraction(0, 1), Fraction(0, 1), Fraction(-1, 2)]
+chain value (reflY) = -1/2
+chain value (nflip, rotation control) = 0
+OK

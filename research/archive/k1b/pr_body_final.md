@@ -1,0 +1,35 @@
+Native round under `AGENTS.md` §A.39, from `D = 20aa54803df5d74e6c67a1341ca022dee340a65b` (the certified head after #797).
+
+**Merge-held.** This pull request carries the control plane for owner review. Candidate `F` is the head commit, which adds the preregistration alone; no `F` is designated yet, and nothing is landed from here without the owner's instruction.
+
+## The round
+
+K1-BRIDGE-1 restates DIM-1's native-gate and entangling hypotheses relative to a family of available test functionals (`NativeGateOf`, `EntanglingOf`: the two positivity clauses on `maxConeOf avail`, the entangling clause on the joint states of that cone, nothing else changed) and proves the relative selectors
+
+- `dim_of_nativeGateOf`: `0 < d`, effect soundness, body preservation, K∞-Seed, K∞-Trans, K∞-V4, `IsNot` and `NativeGateOf` give `d = 1 ∨ d = 3`;
+- `three_of_nativeGateOf`: the same with `EntanglingOf` gives `d = 3`;
+
+each as EFF-1's `maxConeOf_avail_eq`, a transport of the relative hypotheses, and DIM-1's landed selector, with no new dimension argument. The two EFF-1 controls are carried (`cone_eq_fails_zero`, `cone_eq_fails_axis`). The frozen decision rule reads one outcome from the statements: `K1-EFFECT-AVAILABILITY-DISCHARGED` or `K1-BRIDGE-NOT-ESTABLISHED`.
+
+Frozen non-inferences: `0 < d` and effect soundness stay explicit; the four K∞ hypotheses stay unsourced; no `MixingClosed` and no unit premise; nothing derives local tomography or any K2 composite structure; nothing attributes a hypothesis to OI; the DIM-1 and EFF-1 records are untouched; `verification/ROADMAP.md` is not edited by the round (the K1 wording update is a separate change after landing).
+
+## Design evidence
+
+| run | commit | result |
+|---|---|---|
+| design run 1, 37434227020 | `claude/k1b-dev` 300fcb83 | 32/32 green; repair history (the module's `open` line was later split); not cited for the frozen implementation |
+| design run 2, 37434770553 (authoritative) | `claude/k1b-dev` 7577e5eb, module blob `835e801d` | 32/32 green; Mathlib bridge job 112173790986: ten `#print axioms` lines within `[propext, Classical.choice, Quot.sound]`, no error, no warning; release gate PASS, `lean-axioms` 5743, 303 legacy records, 35 receipts |
+| predicted execution tree, 37437438347 | `claude/k1b-predicted` cf432cfb = D + preregistration (drafting revision) + `controls.py` (`5cbb445e`) + module + import + census, no result note | 32/32 green; bridge job 112182618820 same facts; `controls.py check` 19/19, `controls.py verdict` prints `K1-EFFECT-AVAILABILITY-DISCHARGED` |
+
+`controls.py --self-test` passes 57 checks (16 reference checks, the DIM-1 texts against `D`, 30 mutation controls, the decision-rule and note-token controls, import and census controls).
+
+## Candidate F
+
+- head `7c18bcaf457e45771c175197ea86d5e1856a9b31`, single parent `D`; `delta(D, F)` is `verification/programmes/oi-qm/reconstruction/round-k1-bridge-1-effect-availability/preregistration.md`, blob `07f8f656e373964e9501e8323c21411c09b06397`;
+- exact-head `workflow_dispatch` run on `7c18bcaf`: dispatched, result to be posted as a comment when complete.
+
+Stages after `F`, per the preregistration: C1 (`controls.py`, blob `5cbb445e`), S1 (module, import, census family), S2 (result note) as candidate `E`.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

@@ -1,0 +1,6 @@
+hulls used for the vanishing conditions: 30 (6 unique orientations + 24 parity hulls)
+constraint rows 6930 (14s)
+rank of the conditions mod p: 665 -> quadrics vanishing on these hulls: at most 560 (exactly, over F_p, for this subset) (25s)
+rank of the B-quadrics mod p: 47
+rank of conditions + B-quadrics mod p (equal to the conditions rank iff every B-quadric vanishes on the hulls): 712
+done (35s)

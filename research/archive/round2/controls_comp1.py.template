@@ -1,0 +1,465 @@
+#!/usr/bin/env python3
+"""controls.py -- round COMP-1's own contracts, FROZEN with the preregistration beside it.
+
+Imports nothing from the repository and changes nothing. Reads D and the commit under check through git, and embeds
+every frozen text it compares against.
+
+  controls.py check <commit> [--freeze F]   the execution at <commit> against D (and, with F, the preregistration
+                                            unchanged from F, and F = D plus the preregistration alone)
+  controls.py --self-test                   the frozen surfaces against the reference module; mutation controls that
+                                            must fail with their named codes
+
+Checks (each prints PASS or FAIL with its code):
+  P   paths       delta(D, commit) is exactly the governed execution paths plus the record directory
+  N1  decls       the module declares exactly the frozen declarations, in order, with their kinds
+  N2  statements  every theorem statement (signature up to `:=`) is the frozen text; every definition and structure is
+                  the frozen text whole; the preamble and every context block is the frozen text, in order -- a proof
+                  may change, a statement, definition, structure or binder context may not
+  N3  hygiene     no sorry, admit, axiom declaration or native_decide; every frozen `#print axioms` line present
+  S1  neutral     no complex, tensor-product, Kronecker, matrix, Hilbert or inner-product token in the module; every
+                  import is `OIBridge.CompletionAction` or a Mathlib module; the header states that local tomography is
+                  a premise field, not a theorem
+  S2  premise     no theorem concludes local tomography or the existence of a composite, other than the verdict's two
+                  named-instance clauses; the field `lt` is assigned only in the two coordinate-model composites
+  S3  carrier     `Composite` is a structure over an arbitrary carrier `V`; the minimal body is a convex hull of product
+                  states and the maximal body a set-builder over the pairing; `prodState` and `prodEff` are assigned only
+                  in the coordinate model and the padding control
+  S4  scope       outside the model, instance and padding sections no statement names the coordinate model, `Fin 3`,
+                  `ball3` or `simplex`; no gate, dimension-selector, transitivity, order, drive or availability token
+  S5  operations  attachment, discard, the conditional state, readout and the two extremal bodies are definitions, not
+                  structure fields; every law is a kernel theorem with its print
+  S6  fields      the three structures carry exactly their frozen fields; `LocallyTomographic` is the body of `lt`
+  S7  layering    every law other than the separation clause is stated over `ProductData` or `PreComposite`, never over
+                  `Composite`
+  S8  conditions  the marginal and conditional-state laws carry compactness and convexity of the factor body; the
+                  readout test law takes a `SharpReadout` whose two effects sum to the unit functional
+  S9  padding     the padding control is the frozen construction on `V × ℝ`; its two negative theorems and the three
+                  instances' nonemptiness theorems are kernel theorems with prints
+  I   imports     OIBridge.lean is D's with exactly the frozen import line after `import OIBridge.CompositionOrder`
+  C   census      the census is D's with exactly the frozen family inserted after the ORD-1 family
+  F   freeze      (with --freeze) the preregistration at the commit equals F's, and delta(D, F) is the preregistration
+"""
+import io, json, re, subprocess, sys
+
+D = '@@D@@'
+RDIR = 'verification/programmes/oi-qm/reconstruction/round-comp-1-composite-interface/'
+PREREG = RDIR + 'preregistration.md'
+MOD = 'verification/lean-mathlib/OIBridge/CompositeInterface.lean'
+IMPORTS = 'verification/lean-mathlib/OIBridge.lean'
+CENSUS = 'verification/lean-manuscript-census.json'
+GOVERNED = {MOD: 'A', IMPORTS: 'M', CENSUS: 'M'}
+RECORD_FILES = {RDIR + 'preregistration.md', RDIR + 'controls.py', RDIR + 'result.md'}
+MOD_REFERENCE_BLOB = '@@BLOB@@'
+ANCHOR_IMPORT = 'import OIBridge.CompositionOrder\n'
+NEW_IMPORT = 'import OIBridge.CompositeInterface\n'
+PREV_FAMILY_PREFIX = '@@PREV_FAMILY_PREFIX@@'
+CENSUS_FAMILY = json.loads(r'''@@CENSUS_FAMILY@@''')
+DECLS = json.loads(r'''@@DECLS@@''')
+TEXTS = json.loads(r'''@@TEXTS@@''')
+PRINTS = json.loads(r'''@@PRINTS@@''')
+PREAMBLE = json.loads(r'''@@PREAMBLE@@''')
+CONTEXT = json.loads(r'''@@CONTEXT@@''')
+
+DECL = re.compile(r'^(theorem|lemma|def|noncomputable def|abbrev|noncomputable abbrev|structure|instance)\s+(\S+)',
+                  re.M)
+CTX = re.compile(r'^(variable|open|namespace|section|end|attribute|universe|set_option|noncomputable section)\b.*$',
+                 re.M)
+FAILS, COUNT = [], [0]
+
+
+def check(code, name, cond):
+    COUNT[0] += 1
+    print(('  PASS  ' if cond else '  FAIL  ') + code + ' ' + name, flush=True)
+    if not cond:
+        FAILS.append(code)
+
+
+def git(*a):
+    return subprocess.run(['git'] + list(a), capture_output=True, text=True)
+
+
+def show(commit, path):
+    r = git('show', '%s:%s' % (commit, path))
+    return r.stdout if r.returncode == 0 else None
+
+
+def preamble(text):
+    i = text.index('\nimport ') + 1
+    j = text.index('\n/-! ### §A')
+    return text[i:j]
+
+
+def context_lines(text):
+    """Each context line with its indented continuation lines (a `variable` block spanning several lines)."""
+    lines = text.split('\n')
+    out = []
+    for k, line in enumerate(lines):
+        if CTX.match(line):
+            block = [line]
+            j = k + 1
+            while j < len(lines) and lines[j].startswith('  ') and line.startswith('variable'):
+                block.append(lines[j])
+                j += 1
+            out.append('\n'.join(block))
+    return out
+
+
+def decls(text):
+    return [(m.group(1), m.group(2)) for m in DECL.finditer(text)]
+
+
+def decl_chunks(text):
+    """name -> (kind, chunk up to the next declaration or stop marker, proof text after ' :=' for theorems)."""
+    out = {}
+    ms = list(DECL.finditer(text))
+    for k, m in enumerate(ms):
+        start = m.start()
+        nxt = ms[k + 1].start() if k + 1 < len(ms) else len(text)
+        chunk = text[start:nxt]
+        for stop in ('\n/--', '\n/-!', '\n#print', '\nend ', '\nvariable', '\nopen ', '\nattribute'):
+            j = chunk.find(stop)
+            if j != -1:
+                chunk = chunk[:j]
+        chunk = chunk.rstrip()
+        proof = ''
+        if m.group(1) in ('theorem', 'lemma'):
+            j = chunk.find(' :=')
+            if j != -1:
+                proof = text[start + j:nxt]
+                chunk = chunk[:j]
+        out[m.group(2)] = (m.group(1), chunk, proof)
+    return out
+
+
+def split_statement(stmt):
+    """(binders, conclusion) at the first colon at bracket depth 0 after the name."""
+    parts = stmt.split(None, 2)
+    i = len(parts[0]) + 1 + len(parts[1])
+    depth = 0
+    for j in range(i, len(stmt)):
+        c = stmt[j]
+        if c in '({[⦃':
+            depth += 1
+        elif c in ')}]⦄':
+            depth -= 1
+        elif c == ':' and depth == 0 and stmt[j:j + 2] != ':=':
+            return stmt[i:j], stmt[j + 1:]
+    return stmt[i:], ''
+
+
+def code_only(text):
+    text = re.sub(r'/-.*?-/', ' ', text, flags=re.S)
+    return re.sub(r'--[^\n]*', ' ', text)
+
+
+def norm(s):
+    return ' '.join(s.split())
+
+
+def fields(structure_text):
+    """The field names of a structure chunk: the two-space-indented `name :` lines after `where`."""
+    body = structure_text.split(' where', 1)[1] if ' where' in structure_text else ''
+    return [m.group(1) for m in re.finditer(r'^  ([A-Za-zΩ_][\w\']*) :', body, re.M)]
+
+
+PREFIX = 'OIBridge.CompositeInterface.'
+LAWS = {  # law theorem -> its namespace inside the module
+    'margA_prodState': 'ProductData', 'margA_attach': 'ProductData', 'eff_margA': 'PreComposite',
+    'margA_mem': 'PreComposite', 'readout_sum': 'PreComposite', 'isEffectOn_readout': 'PreComposite',
+    'readout_prodState': 'ProductData', 'readout_attach': 'PreComposite', 'condA_mem': 'PreComposite',
+    'condA_prodState': 'ProductData', 'jointReversible_words': 'PreComposite', 'minBody_subset': 'PreComposite',
+    'subset_maxBody': 'PreComposite', 'pairing_injective': 'Composite',
+}
+OPS = ('attach', 'margA', 'condA', 'readout', 'minBody', 'maxBody')
+INSTANCES = ('bitComposite', 'ball3MinComposite', 'ball3MaxComposite')
+PAD_THMS = ('not_locallyTomographic_paddedPre', 'no_composite_over_paddedPre', 'not_locallyTomographic_paddedBall3',
+            'no_composite_over_paddedBall3', 'bitComposite_nonempty', 'ball3MinComposite_nonempty')
+NEUTRAL_TOKENS = ('ℂ', 'Complex', 'TensorProduct', '⊗', 'kronecker', 'Kronecker', 'Matrix', 'Hilbert',
+                  'InnerProductSpace', 'Bell')
+SCOPE_TOKENS = ('CNOT', 'NativeGate', 'Entangling', 'BlockData', 'BoundaryTransitive', 'TransBody', 'OrdInf',
+                'InfiniteOrderOn', 'FiniteOrderOn', 'invMatrix', 'ElementaryDrivability', 'CopyNatural', 'finrank',
+                'SCInf', 'FiniteRank', 'LocalExt', 'Drive', 'avail', 'CompletionChart', 'chartBody', 'OpDatum')
+IMPORT_OK = re.compile(r'^import (OIBridge\.CompletionAction|Mathlib\.[\w.]+)$')
+DISCLAIMER = 'Local tomography is a premise field of the structure, not a theorem'
+MODEL_TOKENS = re.compile(r'\bCarrier\b|\bpState\b|\bpEff\b|\bpEffLin\b|\bhom\b|\bcoeff\b|\bmodelData\b|\bbasisEff\b'
+                          r'|Fin 3|\bball3\b|\bsimplex\b|\bpaddedBall3\b')
+PRODUCTDATA_FIELDS = ['prodState', 'prodState_combo_left', 'prodState_combo_right', 'prodEff', 'prodEff_apply']
+PRECOMPOSITE_FIELDS = ['Ω', 'convex', 'prod_mem', 'prodEff_effect', 'prodEff_unit']
+COMPOSITE_FIELDS = ['lt']
+LT_BODY = ('∀ ω ∈ Ω, ∀ ω\' ∈ Ω, (∀ (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ), IsEffectOn ΩA e → '
+           'IsEffectOn ΩB f → prodEff e f ω = prodEff e f ω\') → ω = ω\'')
+MINBODY_TEXT = 'convexHull ℝ (Set.image2 D.prodState ΩA ΩB)'
+MAXBODY_TEXTS = ('{ω | D.prodEff (unitEff dA) (unitEff dB) ω = 1 ∧', '0 ≤ D.prodEff e f ω}')
+PAD_TEXTS = ('prodState x y := (P.prodState x y, 0)', 'Ω := P.Ω ×ˢ Set.Icc (0 : ℝ) 1')
+PAD1_CONCL = '¬ LocallyTomographic (paddedPre P)'
+PAD2_CONCL = '¬ ∃ C : Composite ΩA ΩB (V × ℝ), C.toPreComposite = paddedPre P'
+VERDICT_INSTANCES = ('Nonempty (Composite (simplex 2) (simplex 2) (Carrier 2 2))',
+                     'Nonempty (Composite ball3 ball3 (Carrier 3 3))')
+
+
+def model_section(mod):
+    i = mod.find('\n/-! ### §E')
+    j = mod.find('\n/-! ### The verdict')
+    return (i, j) if i != -1 and j != -1 else (None, None)
+
+
+def model_names(mod):
+    i, j = model_section(mod)
+    return {n for _, n in decls(mod[i:j])} if i is not None else set()
+
+
+def semantic_checks(mod, chunks, prints, tag):
+    kinds = {n: k for n, (k, _, _) in chunks.items()}
+    texts = {n: c for n, (_, c, _) in chunks.items()}
+    code = code_only(mod)
+    # S1
+    hits = [t for t in NEUTRAL_TOKENS if t in mod]
+    imports = re.findall(r'^import .*$', mod, re.M)
+    bad_imp = [l for l in imports if not IMPORT_OK.match(l)]
+    check('S1', 'field-neutral: no complex, tensor, Kronecker, matrix or Hilbert token; imports whitelisted; '
+                'disclaimer present%s%s' % (tag, (' %s' % (hits + bad_imp)[:3]) if hits or bad_imp else ''),
+          not hits and not bad_imp and bool(imports) and DISCLAIMER in norm(mod))
+    # S2
+    bad2 = []
+    for n, (k, t, _) in chunks.items():
+        if k not in ('theorem', 'lemma'):
+            continue
+        concl = norm(split_statement(t)[1])
+        if n == 'comp1_core':
+            if concl.count('Nonempty (Composite') != 2 or not all(v in concl for v in VERDICT_INSTANCES):
+                bad2.append(n)
+            concl = concl.replace(VERDICT_INSTANCES[0], '').replace(VERDICT_INSTANCES[1], '')
+        stripped = concl.replace('¬ LocallyTomographic', '').replace('¬ ∃ C : Composite', '')
+        if 'LocallyTomographic' in stripped or 'Nonempty (Composite' in stripped \
+                or re.search(r'∃ [^,]*: Composite', stripped):
+            bad2.append(n)
+    lt_assign = [n for n, (k, t, _) in chunks.items() if re.search(r'^\s*lt\b[^:]*:=', t, re.M)]
+    check('S2', 'local tomography and composite existence are never concluded; `lt` assigned only in the two model '
+                'composites%s%s' % (tag, (' %s' % bad2[:3]) if bad2 else ''),
+          not bad2 and sorted(lt_assign) == ['maxComposite', 'minComposite'])
+    # S3
+    comp = texts.get('Composite', '')
+    assign = [n for n, (k, t, _) in chunks.items()
+              if re.search(r'^\s*prodState\b[^:]*:=|^\s*prodEff\b[^:]*:=', t, re.M)]
+    check('S3', 'abstract carrier; extremal bodies defined from the fields; product data assigned only in the model '
+                'and the padding control' + tag,
+          kinds.get('Composite') == 'structure' and '(V : Type)' in norm(comp)
+          and 'extends PreComposite ΩA ΩB V' in norm(comp) and 'Carrier' not in comp
+          and MINBODY_TEXT in norm(texts.get('minBody', '')) and kinds.get('minBody') == 'def'
+          and all(s in norm(texts.get('maxBody', '')) for s in MAXBODY_TEXTS) and kinds.get('maxBody') == 'def'
+          and sorted(assign) == ['modelData', 'paddedPre'])
+    # S4
+    mn = model_names(mod)
+    bad4 = [n for n, t in texts.items() if n not in mn and n != 'comp1_core' and MODEL_TOKENS.search(t)]
+    shits = [t for t in SCOPE_TOKENS if re.search(r'(?<![\w.])%s(?!\w)' % re.escape(t), code)]
+    vt = norm(texts.get('comp1_core', ''))
+    check('S4', 'the coordinate model confined to its sections; no gate, selector, transitivity, order, drive or '
+                'availability token%s%s' % (tag, (' %s' % (bad4 + shits)[:3]) if bad4 or shits else ''),
+          not bad4 and not shits and 'D.margA (D.prodState x y) = x) ∧' in vt)
+    # S5
+    structs = [texts.get(s, '') for s in ('ProductData', 'PreComposite', 'Composite')]
+    op_fields = [o for o in OPS if any(o in fields(s) for s in structs)]
+    check('S5', 'the operations are definitions, not fields; every law is a kernel theorem with its print' + tag,
+          all(kinds.get(o) == 'def' for o in OPS) and kinds.get('JointReversible') == 'abbrev' and not op_fields
+          and all(kinds.get(l) == 'theorem' and PREFIX + ns + '.' + l in prints for l, ns in LAWS.items()))
+    # S6
+    ltdef = norm(texts.get('LocallyTomographic', ''))
+    check('S6', 'the three structures carry exactly their frozen fields; `LocallyTomographic` is the body of `lt`' + tag,
+          fields(texts.get('ProductData', '')) == PRODUCTDATA_FIELDS
+          and fields(texts.get('PreComposite', '')) == PRECOMPOSITE_FIELDS
+          and 'extends ProductData dA dB V' in norm(texts.get('PreComposite', ''))
+          and fields(comp) == COMPOSITE_FIELDS and LT_BODY in norm(comp)
+          and kinds.get('LocallyTomographic') == 'def'
+          and LT_BODY.replace('∀ ω ∈ Ω, ∀ ω\' ∈ Ω', '∀ ω ∈ P.Ω, ∀ ω\' ∈ P.Ω').replace('prodEff e f', 'P.prodEff e f')
+          in ltdef)
+    # S7
+    bad7 = [l for l, ns in LAWS.items() if ns != 'Composite'
+            and re.search(r'(?<!Pre)Composite', texts.get(l, '') + ' ' + ns)]
+    check('S7', 'every law other than the separation clause is stated over ProductData or PreComposite%s%s'
+          % (tag, (' %s' % bad7[:3]) if bad7 else ''), not bad7)
+    # S8
+    mm, cm = norm(texts.get('margA_mem', '')), norm(texts.get('condA_mem', ''))
+    rs = norm(texts.get('readout_sum', ''))
+    sr = texts.get('SharpReadout', '')
+    check('S8', 'the marginal and conditional-state laws carry compactness and convexity; the readout test takes a '
+                'SharpReadout with `sum_eq`' + tag,
+          '(hcA : IsCompact ΩA) (hconvA : Convex ℝ ΩA)' in mm and norm(split_statement(mm)[1]) == 'P.margA ω ∈ ΩA'
+          and '(hcA : IsCompact ΩA) (hconvA : Convex ℝ ΩA)' in cm and '(hf : IsEffectOn ΩB f)' in cm
+          and '(hne : P.prodEff (unitEff dA) f ω ≠ 0)' in cm and norm(split_statement(cm)[1]) == 'P.condA f ω ∈ ΩA'
+          and '(R : SharpReadout ΩB)' in rs and kinds.get('SharpReadout') == 'structure'
+          and 'sum_eq : f 0 + f 1 = unitEff dB' in norm(sr) and fields(sr) == ['y', 'f', 'pd', 'sum_eq'])
+    # S9
+    pp = norm(texts.get('paddedPre', ''))
+    p1, p2 = texts.get('not_locallyTomographic_paddedPre', ''), texts.get('no_composite_over_paddedPre', '')
+    check('S9', 'the padding control is the frozen construction with its two negative theorems; the instances are '
+                'definitions with nonemptiness theorems, all printed' + tag,
+          kinds.get('paddedPre') == 'def' and all(s in pp for s in PAD_TEXTS)
+          and '(hne : P.Ω.Nonempty)' in norm(p1) and norm(split_statement(p1)[1]) == PAD1_CONCL
+          and '(hne : P.Ω.Nonempty)' in norm(p2) and norm(split_statement(p2)[1]) == PAD2_CONCL
+          and all(kinds.get(i) == 'def' for i in INSTANCES)
+          and all(kinds.get(t) == 'theorem' and PREFIX + t in prints for t in PAD_THMS))
+
+
+def module_checks(mod, tag=''):
+    if mod is None:
+        check('N1', 'module present' + tag, False)
+        return
+    check('N1', 'the module declares exactly the frozen declarations' + tag, [list(x) for x in decls(mod)] == DECLS)
+    check('N2', 'the preamble unchanged' + tag,
+          '\n/-! ### §A' in mod and '\nimport ' in mod and preamble(mod) == PREAMBLE)
+    check('N2', 'every context block unchanged and in order' + tag, context_lines(mod) == CONTEXT)
+    chunks = decl_chunks(mod)
+    texts = {n: c for n, (_, c, _) in chunks.items()}
+    bad = sorted(n for n in TEXTS if texts.get(n) != TEXTS[n])
+    check('N2', 'every frozen statement, definition and structure unchanged%s%s'
+          % (tag, (' (changed: %s)' % ', '.join(bad[:4])) if bad else ''), not bad)
+    c = code_only(mod)
+    check('N3', 'no sorry, admit, axiom or native_decide' + tag,
+          not re.search(r'\bsorry\b|\badmit\b|^\s*axiom\b|native_decide', c, re.M))
+    prints = re.findall(r'^#print axioms (\S+)', mod, re.M)
+    check('N3', 'every frozen #print axioms line present' + tag, all(p in prints for p in PRINTS))
+    semantic_checks(mod, chunks, prints, tag)
+
+
+def imports_ok(d_text, e_text):
+    return d_text is not None and e_text is not None and d_text.count(ANCHOR_IMPORT) == 1 and \
+        e_text == d_text.replace(ANCHOR_IMPORT, ANCHOR_IMPORT + NEW_IMPORT, 1)
+
+
+def census_ok(d_text, e_text):
+    try:
+        d, e = json.loads(d_text), json.loads(e_text)
+    except Exception:
+        return False
+    fam = d['families']
+    k = [i for i, f in enumerate(fam) if f['name'].startswith(PREV_FAMILY_PREFIX)]
+    if len(k) != 1:
+        return False
+    want = dict(d)
+    want['families'] = fam[:k[0] + 1] + [CENSUS_FAMILY] + fam[k[0] + 1:]
+    return e == want
+
+
+def run_check(commit, freeze):
+    r = git('diff', '--name-status', '--no-renames', D, commit)
+    rows = [l.split('\t') for l in r.stdout.splitlines() if l]
+    exec_rows = {p: s for s, p in rows if not p.startswith(RDIR)}
+    rec = {p for s, p in rows if p.startswith(RDIR)}
+    check('P', 'delta(D, commit) is exactly the governed execution paths plus the record directory',
+          exec_rows == GOVERNED and rec <= RECORD_FILES and PREREG in rec)
+    module_checks(show(commit, MOD))
+    check('I', 'OIBridge.lean is D\'s with exactly the frozen import line', imports_ok(show(D, IMPORTS),
+                                                                                    show(commit, IMPORTS)))
+    check('C', 'the census is D\'s with exactly the frozen family', census_ok(show(D, CENSUS), show(commit, CENSUS)))
+    if freeze:
+        check('F', 'the preregistration is unchanged from F', show(commit, PREREG) == show(freeze, PREREG))
+        r = git('diff', '--name-only', D, freeze)
+        check('F', 'delta(D, F) is the preregistration alone', r.stdout.split() == [PREREG])
+
+
+def must_fail(code, label, mod2):
+    before, count = list(FAILS), COUNT[0]
+    saved = sys.stdout
+    sys.stdout = io.StringIO()
+    try:
+        module_checks(mod2)
+    finally:
+        sys.stdout = saved
+    new = FAILS[len(before):]
+    del FAILS[len(before):]
+    COUNT[0] = count
+    check('M', 'mutation %s fails with %s' % (label, code), code in new)
+
+
+def replace_once(text, a, b):
+    assert text.count(a) >= 1, a
+    return text.replace(a, b, 1)
+
+
+def append_decl(text, decl):
+    i = text.rindex('\nend ')
+    i = text.rindex('\nend ', 0, i)
+    return text[:i] + '\n' + decl + '\n' + text[i:]
+
+
+def self_test():
+    mod = git('cat-file', '-p', MOD_REFERENCE_BLOB).stdout
+    check('T', 'the reference module blob is readable', bool(mod))
+    module_checks(mod, ' [reference]')
+    must_fail('N1', 'a removed declaration', replace_once(mod, '\n' + DECLS[-1][0] + ' ' + DECLS[-1][1],
+                                                          '\n' + DECLS[-1][0] + ' ' + DECLS[-1][1] + 'X'))
+    must_fail('N2', 'a changed binder context', replace_once(mod, 'variable {d dA dB : ℕ}', 'variable {d dA dB : ℕ} {V : Type}'))
+    must_fail('N2', 'a changed continuation line of a variable block',
+              replace_once(mod, '  [NormedSpace ℝ V] (P : PreComposite ΩA ΩB V)\n\n/-- The body is nonempty',
+                           '  [NormedSpace ℝ V] (P : PreComposite ΩA ΩB V) (hP : P.Ω.Nonempty)\n\n/-- The body is nonempty'))
+    must_fail('N2', 'a changed statement',
+              replace_once(mod, 'theorem margA_prodState (x : Fin dA → ℝ) (y : Fin dB → ℝ) : D.margA (D.prodState x y) = x',
+                           'theorem margA_prodState (x : Fin dA → ℝ) (y : Fin dB → ℝ) (hy : y ∈ ΩB) : D.margA (D.prodState x y) = x'))
+    must_fail('N3', 'a sorry', append_decl(mod, 'theorem extra_sorry : (1 : ℕ) = 1 := sorry'))
+    must_fail('S1', 'a tensor-product import',
+              replace_once(mod, 'import OIBridge.CompletionAction\n',
+                           'import OIBridge.CompletionAction\nimport Mathlib.LinearAlgebra.TensorProduct.Basic\n'))
+    must_fail('S1', 'a complex scalar', replace_once(mod, 'def unitEff (d : ℕ)', 'def unitEffC (d : ℕ) : (Fin d → ℂ) → ℂ := fun _ => 1\n\ndef unitEff (d : ℕ)'))
+    must_fail('S2', 'local tomography concluded of a pre-composite',
+              append_decl(mod, 'theorem lt_of_pre {dA dB : ℕ} {ΩA : Set (Fin dA → ℝ)} {ΩB : Set (Fin dB → ℝ)} {V : Type}\n'
+                               '    [NormedAddCommGroup V] [NormedSpace ℝ V] (P : PreComposite ΩA ΩB V) :\n'
+                               '    LocallyTomographic P := by\n  intro ω _ ω\' _ _\n  sorry'))
+    must_fail('S2', '`lt` assigned outside the model composites',
+              replace_once(mod, 'def paddedPre : PreComposite ΩA ΩB (V × ℝ) where\n',
+                           'def paddedPre : PreComposite ΩA ΩB (V × ℝ) where\n  lt := sorry\n'))
+    must_fail('S3', 'the composite fixed to the coordinate carrier',
+              replace_once(mod, 'structure Composite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ)) (V : Type)\n    [NormedAddCommGroup V] [NormedSpace ℝ V] extends PreComposite ΩA ΩB V where',
+                           'structure Composite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ))\n    extends PreComposite ΩA ΩB (Fin (dA + 1) → Fin (dB + 1) → ℝ) where'))
+    must_fail('S4', 'the coordinate model in a law',
+              replace_once(mod, 'theorem margA_mem (hcA : IsCompact ΩA) (hconvA : Convex ℝ ΩA) {ω : V} (hω : ω ∈ P.Ω) :',
+                           'theorem margA_mem (hcA : IsCompact ΩA) (hconvA : Convex ℝ ΩA) {ω : V} (hω : ω ∈ P.Ω) (hd : dA = Fintype.card (Fin 3)) :'))
+    must_fail('S4', 'a dimension-selector token',
+              append_decl(mod, 'def NativeGate : Prop := True'))
+    must_fail('S5', 'discard made a structure field',
+              replace_once(mod, '  Ω : Set V\n  convex : Convex ℝ Ω\n', '  Ω : Set V\n  margA : V → Fin dA → ℝ\n  convex : Convex ℝ Ω\n'))
+    must_fail('S6', 'a second field beside `lt`',
+              replace_once(mod, 'IsEffectOn ΩA e → IsEffectOn ΩB f → prodEff e f ω = prodEff e f ω\') → ω = ω\'\n\nnamespace ProductData',
+                           'IsEffectOn ΩA e → IsEffectOn ΩB f → prodEff e f ω = prodEff e f ω\') → ω = ω\'\n  big : minBody ≠ Ω\n\nnamespace ProductData'))
+    must_fail('S7', 'a law restated over Composite',
+              replace_once(mod, 'theorem eff_margA {ω : V} (hω : ω ∈ P.Ω) (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) :',
+                           'theorem eff_margA (C : Composite ΩA ΩB V) {ω : V} (hω : ω ∈ P.Ω) (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) :'))
+    must_fail('S8', 'compactness dropped from the marginal law',
+              replace_once(mod, 'theorem margA_mem (hcA : IsCompact ΩA) (hconvA : Convex ℝ ΩA) {ω : V} (hω : ω ∈ P.Ω) :',
+                           'theorem margA_mem (hconvA : Convex ℝ ΩA) {ω : V} (hω : ω ∈ P.Ω) :'))
+    must_fail('S9', 'the padding print removed',
+              replace_once(mod, '#print axioms OIBridge.CompositeInterface.not_locallyTomographic_paddedPre\n', ''))
+    must_fail('S9', 'the padded body collapsed to height zero',
+              replace_once(mod, 'Ω := P.Ω ×ˢ Set.Icc (0 : ℝ) 1', 'Ω := P.Ω ×ˢ Set.Icc (0 : ℝ) 0'))
+    d_imp = show(D, IMPORTS)
+    good_imp = d_imp.replace(ANCHOR_IMPORT, ANCHOR_IMPORT + NEW_IMPORT, 1)
+    check('M', 'imports: the frozen edit passes and a dropped line fails',
+          imports_ok(d_imp, good_imp) and not imports_ok(d_imp, d_imp))
+    d_cen = show(D, CENSUS)
+    dd = json.loads(d_cen)
+    k = [i for i, f in enumerate(dd['families']) if f['name'].startswith(PREV_FAMILY_PREFIX)][0]
+    good = dict(dd)
+    good['families'] = dd['families'][:k + 1] + [CENSUS_FAMILY] + dd['families'][k + 1:]
+    bad = json.loads(json.dumps(good))
+    bad['families'][k + 1]['status'] = 'carried'
+    check('M', 'census: the frozen family passes and a changed status fails',
+          census_ok(d_cen, json.dumps(good)) and not census_ok(d_cen, json.dumps(bad)))
+
+
+def main(argv):
+    if argv == ['--self-test']:
+        self_test()
+    elif len(argv) >= 2 and argv[0] == 'check':
+        freeze = argv[3] if len(argv) == 4 and argv[2] == '--freeze' else None
+        run_check(argv[1], freeze)
+    else:
+        print(__doc__)
+        return 2
+    if FAILS:
+        print('controls: FAILED (%d of %d): %s' % (len(FAILS), COUNT[0], ' '.join(FAILS)))
+        return 1
+    print('controls: OK -- %d checks' % COUNT[0])
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))

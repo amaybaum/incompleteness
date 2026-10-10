@@ -1,0 +1,11 @@
+SETUP majority: effects <= 3 (156), preparations <= 4 (755 with positive weight), generators ifs
+GREEDY majority: 13 columns kept (rank over F_p of the full table = 13)
+CERTIFY majority: rank_Q(full table) == rank_Q(reduced) == 13: True (ok)
+REDUCED majority: selected preparations = ()/0 o/0 oo/0 oo/1 os/0 ooo/0 ooo/1 ooo/2 ooo/3 oos/0 oos/1 oooo/0 oooo/1
+WELLDEF majority: every generator dual map preserves all 26 relations among the 31 domain effects on the reduced columns: True
+ITER majority 1: dim U = 5 -> 3
+ITER majority 2: dim U = 3 -> 2
+ITER majority 3: dim U = 2 -> 1
+ITER majority 4: dim U = 1 -> 1
+INV majority: largest {i,f,s}-invariant subspace of span(effects <= 2): dim = 1; unit in U: True
+UBASIS majority 0: (1)*[()/0]

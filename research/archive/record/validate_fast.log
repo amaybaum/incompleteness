@@ -1,0 +1,16 @@
+V2 L1-full linear ((1, 0), (2, 3)): 418 protocols, mismatches 0, fast 0.8s
+V2 L1-full linear ((2, 3), (0, 1)): 418 protocols, mismatches 0, fast 0.7s
+V2 L1-full nonlinear ((1, 0), (2, 3)): 418 protocols, mismatches 0, fast 0.8s
+V2 L1-full nonlinear ((2, 3), (0, 1)): 418 protocols, mismatches 0, fast 0.8s
+V2 L1-full majority ((1, 0), (2, 3)): 418 protocols, mismatches 0, fast 0.9s
+V2 L1-full majority ((2, 3), (0, 1)): 418 protocols, mismatches 0, fast 0.9s
+V2 L2-random linear ((3, 1), (0, 2)): 282 protocols, mismatches 0, fast 2.0s
+V2 L2-random linear ((1, 3), (1, 0)): 282 protocols, mismatches 0, fast 1.9s
+V2 L2-random linear ((3, 1), (1, 2)): 282 protocols, mismatches 0, fast 1.9s
+V2 L2-random nonlinear ((3, 1), (0, 2)): 282 protocols, mismatches 0, fast 2.0s
+V2 L2-random nonlinear ((1, 3), (1, 0)): 282 protocols, mismatches 0, fast 2.2s
+V2 L2-random nonlinear ((3, 1), (1, 2)): 282 protocols, mismatches 0, fast 2.1s
+V2 L2-random majority ((3, 1), (0, 2)): 282 protocols, mismatches 0, fast 2.4s
+V2 L2-random majority ((1, 3), (1, 0)): 282 protocols, mismatches 0, fast 2.4s
+V2 L2-random majority ((3, 1), (1, 2)): 282 protocols, mismatches 0, fast 2.6s
+V2 OK

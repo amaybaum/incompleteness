@@ -1,0 +1,14 @@
+CHECK T1 HasTwoSharpTests        PASS [K] hasTwoSharpTests_iff SharpTests.lean:155 (2 <= 3)
+CHECK T1c complement fails       PASS f = 1 - e: f(x) = 1 - e(x) for every x, so the clause fails
+CHECK T2 SharpSeed               PASS r = (1 + x3)/2
+CHECK T3 nflip = pi-rotation     PASS about e1; flips z3
+CHECK T3 ball3Drive NOT != nflip PASS rot3 pi fixes z3
+CHECK T3c reflY not a rotation   PASS 
+CHECK T4 J_off_axis ball3Drive   PASS e3 fixed by every R_z(s), moved by cyc3 R_z(pi/2) cyc3^-1: [0, -1, 0]
+CHECK T4 J_off_axis drive about x PASS e1 fixed by every R_x(s), moved by cyc3 R_x(pi/2) cyc3^-1: [0, 0, -1]
+CHECK T4c flow alone (J = id)    PASS J = identity moves neither test point
+CHECK T5 CopyNatural             PASS SWAP o actC nflip o SWAP = actT nflip (16/16); identity: one N
+CHECK T6 boundary transport      PASS instances only; [K] boundaryTransitive_fullAut3 :537
+CHECK T7 singleton face          PASS with |b| = 1 and b.x = 1: |x - b|^2 = |x|^2 - 1 <= 0, so x = b
+summary: 12 checks, 0 failed
+VERDICT R6-SINGLE-EXACT: the shared token structure meets the checked single-token premises; controls green

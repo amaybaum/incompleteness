@@ -1,0 +1,13 @@
+  Substratum     ok  50 pages
+  Main           ok  87 pages
+  GR             ok  82 pages
+  SM             ok  145 pages
+  Structure      ok  98 pages
+  Explainer      ok  67 pages
+  Methodology    ok  54 pages
+
+build: OK
+  book           ok  540 pages
+
+build: OK
+build exit 0

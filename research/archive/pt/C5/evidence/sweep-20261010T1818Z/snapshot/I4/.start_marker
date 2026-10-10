@@ -1,0 +1,97 @@
+# pt/I4/.start_marker
+thread: I4 (inventory: generalization and completion), stage 6, Q-EX-FULL
+start_utc: 2026-10-10T16:52:52Z
+
+## check (1) manifests (from pt/: sha256sum -c --quiet; ns.manifest from its own dir: sha256sum -c)
+- inputs.manifest.sha256: rc=0 entries=41 output=[]
+- stage1.manifest.sha256: rc=0 entries=209 output=[]
+- inputs2.manifest.sha256: rc=0 entries=3 output=[]
+- inputs3.manifest.sha256: rc=0 entries=1 output=[]
+- stage2.manifest.sha256: rc=0 entries=173 output=[]
+- inputs4.manifest.sha256: rc=0 entries=1 output=[]
+- audit/stage3-inputs/ns.manifest.sha256: rc=0 output=[ns/NS-INPUT.md: OK]
+
+## check (2) base checkout
+- rev-parse HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626 (expected 9f9f8257a980a1819fbbc1dc0019917cf8678626)
+- status --porcelain line count: 0
+- __pycache__/.pyc under base/: 0
+
+## check (3) ten protocol files: sha256, expected prefix, sidecar verification
+- PROTOCOL.md sha256=239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23 expected_prefix=239dc123 prefix_ok=yes sidecar(from pt/) rc=0 [/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL.md: OK]
+- PROTOCOL-AMENDMENT-1.md sha256=b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83 expected_prefix=b41aa0e7 prefix_ok=yes sidecar(from pt/) rc=0 [/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-1.md: OK]
+- PROTOCOL-AMENDMENT-2.md sha256=2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a expected_prefix=2a2f78f3 prefix_ok=yes sidecar(from pt/) rc=0 [/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-2.md: OK]
+- PROTOCOL-STAGE2.md sha256=386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da expected_prefix=38603692 prefix_ok=yes sidecar(from pt/) rc=0 [PROTOCOL-STAGE2.md: OK]
+- PROTOCOL-STAGE2-DS.md sha256=086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5 expected_prefix=086a4cb8 prefix_ok=yes sidecar(from pt/) rc=0 [PROTOCOL-STAGE2-DS.md: OK]
+- PROTOCOL-STAGE3.md sha256=1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a expected_prefix=1a649168 prefix_ok=yes sidecar(from pt/) rc=0 [PROTOCOL-STAGE3.md: OK]
+- PROTOCOL-STAGE4.md sha256=d3da28116a5bcdd32fe8b8418d5bc83003918240ce4b0477d9f714518a717a74 expected_prefix=d3da2811 prefix_ok=yes sidecar(from SCRATCH) rc=0 [pt/PROTOCOL-STAGE4.md: OK]
+- PROTOCOL-STAGE5.md sha256=9e01f098cbe0a279d5f56bf7d40f295d8fdade465fe40ab5d1e4983ebcf0642c expected_prefix=9e01f098 prefix_ok=yes sidecar(from SCRATCH) rc=0 [pt/PROTOCOL-STAGE5.md: OK]
+- PROTOCOL-STAGE5-AMENDMENT-1.md sha256=1f639115d369de13c367a249735858818ce2a2323e848eaf28c595f4b96a5bce expected_prefix=1f639115 prefix_ok=yes sidecar(from SCRATCH) rc=0 [pt/PROTOCOL-STAGE5-AMENDMENT-1.md: OK]
+- PROTOCOL-STAGE6.md sha256=b277b7c1a7020c4e409fed602f7cb425ad028497471f15cae8191aae02d7972f expected_prefix=b277b7c1 prefix_ok=yes sidecar(from SCRATCH) rc=0 [pt/PROTOCOL-STAGE6.md: OK]
+
+## check (4) pt/ top-level names with mtimes (UTC)
+2026-10-10T05:29:45  d  A
+2026-10-10T05:59:26  d  B
+2026-10-10T05:41:17  d  C
+2026-10-10T16:45:11  d  C5
+2026-10-10T05:50:39  d  D
+2026-10-10T16:45:05  d  D5
+2026-10-10T09:31:14  d  DS
+2026-10-10T08:48:46  f  DS-LAUNCH-LOG.md
+2026-10-10T16:52:01  d  I1
+2026-10-10T16:52:21  d  I2
+2026-10-10T16:52:28  d  I3
+2026-10-10T16:52:52  d  I4
+2026-10-10T09:40:15  f  INTEGRATION-ADDENDUM-STAGE2.md
+2026-10-10T14:21:38  f  INTEGRATION-NOTE-STAGE3.md
+2026-10-10T16:16:17  f  INTEGRATION-NOTE-STAGE4.md
+2026-10-10T06:27:36  f  INTEGRATION-REVIEW.md
+2026-10-10T05:13:09  f  PROTOCOL-AMENDMENT-1.md
+2026-10-10T05:13:12  f  PROTOCOL-AMENDMENT-1.sha256
+2026-10-10T05:22:22  f  PROTOCOL-AMENDMENT-2.md
+2026-10-10T05:22:24  f  PROTOCOL-AMENDMENT-2.sha256
+2026-10-10T08:48:02  f  PROTOCOL-STAGE2-DS.md
+2026-10-10T08:48:09  f  PROTOCOL-STAGE2-DS.sha256
+2026-10-10T07:12:04  f  PROTOCOL-STAGE2.md
+2026-10-10T07:12:08  f  PROTOCOL-STAGE2.sha256
+2026-10-10T10:22:18  f  PROTOCOL-STAGE3.md
+2026-10-10T10:22:36  f  PROTOCOL-STAGE3.sha256
+2026-10-10T14:22:11  f  PROTOCOL-STAGE4.md
+2026-10-10T14:22:11  f  PROTOCOL-STAGE4.sha256
+2026-10-10T16:42:55  f  PROTOCOL-STAGE5-AMENDMENT-1.md
+2026-10-10T16:43:17  f  PROTOCOL-STAGE5-AMENDMENT-1.sha256
+2026-10-10T16:35:10  f  PROTOCOL-STAGE5.md
+2026-10-10T16:36:33  f  PROTOCOL-STAGE5.sha256
+2026-10-10T16:49:36  f  PROTOCOL-STAGE6.md
+2026-10-10T16:49:55  f  PROTOCOL-STAGE6.sha256
+2026-10-10T04:32:46  f  PROTOCOL.md
+2026-10-10T04:32:55  f  PROTOCOL.sha256
+2026-10-10T08:34:03  d  S2
+2026-10-10T08:32:34  d  S3
+2026-10-10T07:25:56  f  STAGE2-LAUNCH-LOG.md
+2026-10-10T10:22:36  f  STAGE3-LAUNCH-LOG.md
+2026-10-10T12:46:54  d  U
+2026-10-10T12:46:18  d  X
+2026-10-10T15:23:34  d  Y
+2026-10-10T16:00:18  d  Z
+2026-10-10T07:25:56  d  aborted-launch1
+2026-10-10T16:47:34  d  audit
+2026-10-10T05:32:05  d  auditA-replay
+2026-10-10T06:18:14  d  auditB-replay
+2026-10-10T05:44:31  d  auditC-replay
+2026-10-10T06:13:03  d  auditD-replay
+2026-10-10T09:37:02  d  auditDS-replay
+2026-10-10T09:04:33  d  auditS2-replay
+2026-10-10T08:49:23  d  auditS3-replay
+2026-10-10T04:30:52  d  base
+2026-10-10T04:30:52  d  inputs
+2026-10-10T04:30:54  f  inputs.manifest.sha256
+2026-10-10T07:10:16  d  inputs2
+2026-10-10T07:10:21  f  inputs2.manifest.sha256
+2026-10-10T08:47:33  d  inputs3
+2026-10-10T08:48:09  f  inputs3.manifest.sha256
+2026-10-10T10:22:27  d  inputs4
+2026-10-10T10:22:36  f  inputs4.manifest.sha256
+2026-10-10T07:10:01  f  stage1.manifest.sha256
+2026-10-10T10:21:01  f  stage2.manifest.sha256
+
+start checks: all passed (see above); checks recorded at 2026-10-10T16:53:28Z

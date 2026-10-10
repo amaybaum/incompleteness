@@ -1,0 +1,21 @@
+== A  generators as conjugations (exact, all 16 basis tables)
+A1    PASS  landed cnot = Ad(CNOT), control first
+A2    PASS  Ad(ZI), Ad(IZ), Ad(XI), Ad(IX), SWAP = Ad(SWAP), T = complex conjugation
+A2h   PASS  Ad(H(x)I) as a signed permutation (used in CC4)
+== B  groups (closure of signed permutations)
+B1    PASS  |G16| = 16
+B2    PASS  SWAP not in G16; |<G16, SWAP>| = 48
+B3    PASS  |Gbig| = 64; |<Gbig, SWAP>| = 192
+== C  the defect orbit Z_F and its stabilizer
+C1    PASS  pauliW(e_s) = (I - 2 psi psi*)/8; Gram I/4; ipW(e_t, T_s) = -1/2 (t = s), +1/2 (t != s)
+C2    PASS  4 ipW(e_s, prodState x y) = 1 - x.M_s y and 2(1 - x.M_s y) = SOS + (1-|x|^2) + (1-|y|^2)
+C3    PASS  SWAP permutes Z_F (index map {0: 0, 1: 3, 2: 2, 3: 1}); every element of <G16,SWAP> and <Gbig,SWAP> does
+C4    PASS  <G16,SWAP> -> S4: image order 24, kernel order 2
+C5    PASS  U_D unitary, fixes every e_s, operator Schmidt rank 4 (not local); T fixes each psi_s; transposition and 4-cycle unitaries permute Z_F
+== CC countercontrols (each must be REJECTED)
+CC1   REJECTED  ipW(P_v, E0) = 3/13, ipW(P_v, SWAP E0) = -5/13
+CC2   REJECTED  SWAP(cnot F) = e_(1,-1); ipW(T_(1,-1), e_(1,-1)) = -1/2
+CC3   REJECTED  singlet value on phiW = 0, on its control partial transpose = -1
+CC4   REJECTED  Ad(H(x)I) image of Z_F differs from Z_F
+SUMMARY checks 11/11 PASS; countercontrols rejected 4/4
+VERDICT S1-EXOTIC K(Z_F) invariant under <G16,SWAP> (order 48) and <Gbig,SWAP> (order 192)

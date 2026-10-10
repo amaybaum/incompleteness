@@ -1,0 +1,28 @@
+base Σ point: Σ residual 0.0e+00, col-Diţă residual 2.2e-16, row-Diţă residual 2.2e-16
+known tangent span rank (incl. gauge 31): 57
+null space dim (defect + 31): 80
+dimension of defect directions beyond the known span: 23
+direction 0:
+   ε=0.200  unitarity residual 2.8e+00  feature-dist to base 1.3985 (ratio to ε 6.993)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.100  unitarity residual 2.9e+00  feature-dist to base 1.4033 (ratio to ε 14.033)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.050  unitarity residual 2.6e+00  feature-dist to base 1.4017 (ratio to ε 28.034)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.025  unitarity residual 2.9e+00  feature-dist to base 1.4012 (ratio to ε 56.047)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+direction 1:
+   ε=0.200  unitarity residual 2.8e+00  feature-dist to base 1.4003 (ratio to ε 7.001)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.100  unitarity residual 2.6e+00  feature-dist to base 1.4016 (ratio to ε 14.016)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.050  unitarity residual 2.6e+00  feature-dist to base 1.4018 (ratio to ε 28.036)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.025  unitarity residual 2.6e+00  feature-dist to base 1.4020 (ratio to ε 56.082)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+direction 2:
+   ε=0.200  unitarity residual 3.0e+00  feature-dist to base 1.4014 (ratio to ε 7.007)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.100  unitarity residual 2.7e+00  feature-dist to base 1.4028 (ratio to ε 14.028)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.050  unitarity residual 2.7e+00  feature-dist to base 1.4007 (ratio to ε 28.013)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.025  unitarity residual 2.8e+00  feature-dist to base 1.4010 (ratio to ε 56.039)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+direction 3:
+   ε=0.200  unitarity residual 2.5e+00  feature-dist to base 1.4023 (ratio to ε 7.012)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.100  unitarity residual 2.6e+00  feature-dist to base 1.4009 (ratio to ε 14.009)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.050  unitarity residual 2.8e+00  feature-dist to base 1.4017 (ratio to ε 28.034)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+   ε=0.025  unitarity residual 3.1e+00  feature-dist to base 1.4019 (ratio to ε 56.076)  Σ-res 0.500  colDiţă-res 2.000  rowDiţă-res 2.000  defect -15
+control (column-Diţă direction, ε=0.3): unitarity residual 3.1e-16, Σ-res 0.075, colDiţă-res 6.2e-16, rowDiţă-res 0.000, defect 31
+control (row+column mixed, ε=0.3): unitarity residual 2.6e+00, Σ-res 0.500, colDiţă-res 2.000, rowDiţă-res 2.000, defect -15
+(77s)
+done

@@ -1,0 +1,5 @@
+(1) net(X_t, Y_t, BE, BE) = -0.00696759 ; (1/32) tr(X_t Y_t^T) = -0.00696759
+(1) PN control net(1/2 (x) Phi+, 1/2 (x) Phi+, GHZ, W3) = -0.01562500 (s3: -1/64 = -0.01562500)
+(2) normalized objective at identity filters: -2.094908e-03
+(2) BFGS from identity: -2.242571e-03
+(2) BFGS from 10 random starts: min -7.846780e-20, max 8.094411e-14

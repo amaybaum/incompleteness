@@ -1,0 +1,32 @@
+PASS closed form: flow (transition 0 1) s = [[cos s, -i sin s], [-i sin s, cos s]]
+PASS closed form: flow (transition 0 0) t = diag(exp(-2 i t), 1)
+PASS mul at Fin 2: phaseGate 0 * phaseGate 0 = diag(-1, 1)
+PASS double angle: rot_s^2 = flow (transition 0 1) (2s) (cos 2s = c^2 - sn^2, sin 2s = 2 c sn)
+PASS SELFTEST the comparison rejects a wrong pair, a wrong angle, a perturbed entry, a wrong phase site
+PASS lift at carrier Fin 1: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 1: C1 relabelling load-bearing
+PASS lift at carrier Fin 2: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 2: C1 relabelling load-bearing
+PASS control at Fin 2: C2 D-conjugation load-bearing
+PASS lift at carrier Fin 3: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 3: C1 relabelling load-bearing
+PASS control at Fin 3: C2 D-conjugation load-bearing
+PASS control at Fin 3: C3 one tensor insufficient
+PASS lift at carrier Fin 4: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 4: C1 relabelling load-bearing
+PASS control at Fin 4: C2 D-conjugation load-bearing
+PASS control at Fin 4: C3 one tensor insufficient
+PASS lift at carrier Fin 5: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 5: C1 relabelling load-bearing
+PASS control at Fin 5: C2 D-conjugation load-bearing
+PASS control at Fin 5: C3 one tensor insufficient
+PASS lift at carrier Fin 6: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 6: C1 relabelling load-bearing
+PASS control at Fin 6: C2 D-conjugation load-bearing
+PASS control at Fin 6: C3 one tensor insufficient
+PASS lift at carrier Fin 7: phases, a=a flows, a!=b flows, swaps (exact)
+PASS control at Fin 7: C1 relabelling load-bearing
+PASS control at Fin 7: C2 D-conjugation load-bearing
+PASS control at Fin 7: C3 one tensor insufficient
+
+VERDICT  the lift identities hold exactly at every carrier Fin 1 .. Fin 7; all controls green

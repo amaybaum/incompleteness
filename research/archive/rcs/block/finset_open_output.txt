@@ -1,0 +1,1 @@
+bare tokens that are BigOperators lemma names but not root/OIBridge-visible: ['Fin', 'map_sum']

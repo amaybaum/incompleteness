@@ -1,0 +1,1360 @@
+{
+ "commit": "81150851f84c8aa1df71dc69013a6ca6f6d71b51",
+ "classes": [
+  "retain-substantive",
+  "retain-historical",
+  "rebind",
+  "retire"
+ ],
+ "workflow": {
+  "file": ".github/workflows/verify.yml",
+  "triggers": {
+   "pull_request": "all branches, every synchronize (verify.yml:22)",
+   "push": "main only (verify.yml:23-24)",
+   "workflow_dispatch": "any branch (verify.yml:25); used by AGENTS.md \u00a7A.39 for F/E check-run attestations and \u00a7A.37 exact-head fallback"
+  },
+  "path_filters": "none, deliberately (verify.yml:9-14)",
+  "required_status_contexts": {
+   "value": [
+    "Lean kernel check",
+    "Mathlib bridge",
+    "Numerical probes"
+   ],
+   "source": "verification/infrastructure/round-cv-1-certificate-protocol/preregistration.md:567; verify.yml:9 and :264; release_gate.py:159-162",
+   "ambiguity": "live GitHub ruleset not inspectable from the repo; stated in-repo only. Note AGENTS.md \u00a7A.39 requires EVERY job green on the dispatched run at F/E for the check-run attestation, so non-required jobs still bind native V3 rounds."
+  },
+  "jobs": [
+   {
+    "job": "kernel",
+    "name": "Lean kernel check",
+    "required": true,
+    "checkout_depth": "default (1)",
+    "lines": "28-61",
+    "steps": [
+     {
+      "name": "checkout",
+      "where": "verify.yml:32",
+      "runs": "actions/checkout@v4, depth 1",
+      "can_fail_build": false,
+      "protects": "source tree",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "needed by the kernel check"
+     },
+     {
+      "name": "Install Lean",
+      "where": "verify.yml:34-39",
+      "runs": "elan-init, toolchain leanprover/lean4:stable (unpinned)",
+      "can_fail_build": true,
+      "protects": "toolchain presence",
+      "reads_protocol_state": "host network only",
+      "cls": "retain-substantive",
+      "reason": "kernel check prerequisite; note toolchain is 'stable', not pinned"
+     },
+     {
+      "name": "Report toolchain",
+      "where": "verify.yml:41-42",
+      "runs": "lean --version",
+      "can_fail_build": true,
+      "protects": "diagnostic",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "trivial diagnostic for kernel check"
+     },
+     {
+      "name": "Kernel check",
+      "where": "verify.yml:46-61",
+      "runs": "lean on 6 zero-import core files (OI_Gauge_Certificates, OI_Structural_Core, OI_Staggered_Relations, OI_Regulator_Symmetry, OI_Structural_Chain, OI_Time_Reversal); failures summed",
+      "can_fail_build": true,
+      "protects": "kernel certification of the core proofs",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "mathematical correctness; independent of any lifecycle"
+     }
+    ]
+   },
+   {
+    "job": "bridge",
+    "name": "Mathlib bridge",
+    "required": true,
+    "checkout_depth": "0 (verify.yml:73-74)",
+    "lines": "68-149",
+    "steps": [
+     {
+      "name": "checkout fetch-depth 0",
+      "where": "verify.yml:72-74",
+      "runs": "full history",
+      "can_fail_build": false,
+      "protects": "history for release-gate v3-receipts (verify.yml:65-67; release_gate.py:166-171)",
+      "reads_protocol_state": "yes (enables git history reads)",
+      "cls": "retain-substantive",
+      "reason": "load-bearing for the V3 authority step, which fails on a shallow repo"
+     },
+     {
+      "name": "Install elan",
+      "where": "verify.yml:76-81",
+      "runs": "elan with no default toolchain (lake reads lean-toolchain pin)",
+      "can_fail_build": true,
+      "protects": "toolchain",
+      "reads_protocol_state": "host network",
+      "cls": "retain-substantive",
+      "reason": "bridge build prerequisite"
+     },
+     {
+      "name": "Restore the OIBridge build cache",
+      "where": "verify.yml:96-104",
+      "runs": "actions/cache@v4 on .lake/build keyed by toolchain/manifest/lakefile + sources",
+      "can_fail_build": false,
+      "protects": "CI speed only; --rehash makes it safe",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "performance; correctness preserved by --rehash"
+     },
+     {
+      "name": "Build",
+      "where": "verify.yml:117-136",
+      "runs": "lake exe cache get; lake --rehash build",
+      "can_fail_build": true,
+      "protects": "Mathlib-bridge kernel certification (OIBridge modules)",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "mathematical correctness"
+     },
+     {
+      "name": "Release gate",
+      "where": "verify.yml:148-149",
+      "runs": "python3 tools/release_gate.py (20 steps, see release_gate section)",
+      "can_fail_build": true,
+      "protects": "all manuscript/repo checks + V2 authoritative + V3 receipts",
+      "reads_protocol_state": "yes, via certificate-verifier, control-plane-lint and v3-receipts steps",
+      "cls": "retain-substantive",
+      "reason": "single required carrier of the gate; ci_gate_presence_test.py requires it; individual steps classified separately"
+     }
+    ]
+   },
+   {
+    "job": "probes",
+    "name": "Numerical probes",
+    "required": true,
+    "checkout_depth": "0 (verify.yml:170-172)",
+    "lines": "151-218",
+    "steps": [
+     {
+      "name": "checkout fetch-depth 0",
+      "where": "verify.yml:155-172",
+      "runs": "full history + refs/remotes/origin/*",
+      "can_fail_build": false,
+      "protects": "V1 guard (edge_rigidity_probe.py R7-RBR/archive mode) needs refs/remotes/origin/<base ref>; comment verify.yml:155-169",
+      "reads_protocol_state": "yes (serves V1 guard only)",
+      "cls": "rebind",
+      "reason": "only the V1 guard needs depth/remote refs; no other probe reads git (scan below). Drop to default depth once the guard's chronology clauses are retired or moved"
+     },
+     {
+      "name": "setup-python 3.11",
+      "where": "verify.yml:174-176",
+      "runs": "python 3.11",
+      "can_fail_build": false,
+      "protects": "interpreter",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "probe prerequisite"
+     },
+     {
+      "name": "Install dependencies",
+      "where": "verify.yml:178-179",
+      "runs": "pip install numpy scipy",
+      "can_fail_build": true,
+      "protects": "probe deps",
+      "reads_protocol_state": "host network",
+      "cls": "retain-substantive",
+      "reason": "numerical probes need numpy/scipy (also comb_reachability_probes.py:63 imports numpy)"
+     },
+     {
+      "name": "Probes",
+      "where": "verify.yml:181-199",
+      "runs": "44 verification/lean/*_probe.py in a loop; no rc accumulation so GitHub's default bash -e stops at the first failure",
+      "can_fail_build": true,
+      "protects": "numerical/exact companion checks of Lean statements; plus V1 guard inside edge_rigidity_probe.py",
+      "reads_protocol_state": "yes, only edge_rigidity_probe.py (V1 guard: git ancestry, seals, GITHUB_EVENT)",
+      "cls": "rebind",
+      "reason": "43 probes + the math half of edge_rigidity_probe.py (R1..R6.., coverage LEDGER names it) are substantive; the V1 guard clauses fused into edge_rigidity_probe.py must be separated before V1 choreography can be retired. Also fail-fast loop hides later probes (unlike Foundations step)"
+     },
+     {
+      "name": "Foundations probes",
+      "where": "verify.yml:205-218",
+      "runs": "12 papers/oi_lattice_code/foundations/*_probes.py, rc accumulated",
+      "can_fail_build": true,
+      "protects": "exact certificates for manuscript lemmas",
+      "reads_protocol_state": "no",
+      "cls": "retain-substantive",
+      "reason": "mathematical content; none reads protocol state. Comment verify.yml:203-204 says all twelve are stdlib-only, but comb_reachability_probes.py:63 imports numpy (works only because of the pip step)"
+     }
+    ]
+   },
+   {
+    "job": "control-plane-base-check",
+    "name": "Control-plane base check",
+    "required": false,
+    "checkout_depth": "0 (verify.yml:240-241)",
+    "lines": "220-260",
+    "steps": [
+     {
+      "name": "checkout fetch-depth 0",
+      "where": "verify.yml:239-241",
+      "runs": "full history",
+      "can_fail_build": false,
+      "protects": "D-ancestry rows",
+      "reads_protocol_state": "yes",
+      "cls": "retire",
+      "reason": "serves only \u00a7A.37 D/B/M rows"
+     },
+     {
+      "name": "setup-python",
+      "where": "verify.yml:243-245",
+      "runs": "",
+      "can_fail_build": false,
+      "protects": "",
+      "reads_protocol_state": "no",
+      "cls": "retire",
+      "reason": "job scaffolding"
+     },
+     {
+      "name": "Self-test",
+      "where": "verify.yml:247-250",
+      "runs": "control_plane_base_check.py --self-test; control_plane_lint.py --self-test",
+      "can_fail_build": true,
+      "protects": "that the \u00a7A.37 tools can fail",
+      "reads_protocol_state": "no (temp repo)",
+      "cls": "retire",
+      "reason": "control for \u00a7A.37-only machinery"
+     },
+     {
+      "name": "Preconditions at M",
+      "where": "verify.yml:253-255",
+      "runs": "if event != push: control_plane_base_check.py --mode M --ref HEAD (synthetic merge on PR; branch tip on dispatch)",
+      "can_fail_build": true,
+      "protects": "\u00a7A.37 B-scoped rows at candidate merge",
+      "reads_protocol_state": "yes (git tree/ancestry of HEAD, first parent)",
+      "cls": "retire",
+      "reason": "\u00a7A.37 control-plane choreography; clean no-op for any blockless (V3-native) preregistration"
+     },
+     {
+      "name": "Preconditions at B",
+      "where": "verify.yml:258-260",
+      "runs": "if event == push: --mode B --ref github.sha",
+      "can_fail_build": true,
+      "protects": "\u00a7A.37 post-merge base certification",
+      "reads_protocol_state": "yes",
+      "cls": "retire",
+      "reason": "\u00a7A.37 choreography only"
+     }
+    ],
+    "note": "non-required, but a red here would block a \u00a7A.39 F/E check-run attestation (every job green)"
+   },
+   {
+    "job": "certificate-verifier",
+    "name": "Certificate verifier",
+    "required": false,
+    "checkout_depth": "0 (verify.yml:273-274)",
+    "lines": "262-284",
+    "steps": [
+     {
+      "name": "checkout fetch-depth 0",
+      "where": "verify.yml:272-274",
+      "runs": "",
+      "can_fail_build": false,
+      "protects": "",
+      "reads_protocol_state": "yes",
+      "cls": "retire",
+      "reason": "shadow job scaffolding"
+     },
+     {
+      "name": "setup-python",
+      "where": "verify.yml:276-278",
+      "runs": "",
+      "can_fail_build": false,
+      "protects": "",
+      "reads_protocol_state": "no",
+      "cls": "retire",
+      "reason": "scaffolding"
+     },
+     {
+      "name": "Self-test",
+      "where": "verify.yml:280-281",
+      "runs": "certificate_verifier.py --self-test",
+      "can_fail_build": true,
+      "protects": "V2 verifier can fail",
+      "reads_protocol_state": "no (temp repo)",
+      "cls": "rebind",
+      "reason": "the authoritative gate step runs the V2 corpus but not --self-test (certificate_verifier.py:1159-1160, 1172-1174); if V2 is kept for historical integrity its self-test belongs in the gate, else retire with V2. AMBIGUOUS pending V2 decision"
+     },
+     {
+      "name": "Verify (shadow)",
+      "where": "verify.yml:283-284",
+      "runs": "certificate_verifier.py --mode shadow (always exits 0)",
+      "can_fail_build": false,
+      "protects": "visibility only",
+      "reads_protocol_state": "yes (GITHUB_EVENT_NAME/PATH, refs/remotes/origin, git topology)",
+      "cls": "retire",
+      "reason": "duplicate of release-gate certificate-verifier step; gates nothing"
+     }
+    ]
+   },
+   {
+    "job": "v3-shadow-verifier",
+    "name": "V3 verifier diagnostics",
+    "required": false,
+    "checkout_depth": "0 (verify.yml:296-297)",
+    "lines": "286-310",
+    "steps": [
+     {
+      "name": "checkout fetch-depth 0",
+      "where": "verify.yml:295-297",
+      "runs": "",
+      "can_fail_build": false,
+      "protects": "",
+      "reads_protocol_state": "yes",
+      "cls": "rebind",
+      "reason": "needed if self-test/corpus move; projection needs history"
+     },
+     {
+      "name": "setup-python",
+      "where": "verify.yml:299-301",
+      "runs": "",
+      "can_fail_build": false,
+      "protects": "",
+      "reads_protocol_state": "no",
+      "cls": "rebind",
+      "reason": "scaffolding"
+     },
+     {
+      "name": "Self-test",
+      "where": "verify.yml:303-304",
+      "runs": "v3_verifier.py --self-test",
+      "can_fail_build": true,
+      "protects": "V3 verifier fixtures",
+      "reads_protocol_state": "no (temp repos)",
+      "cls": "rebind",
+      "reason": "control for the current authority; runs only in this non-required job, not in release_gate.py (which calls only --receipts, release_gate.py:170-171). Should gate"
+     },
+     {
+      "name": "Corpus",
+      "where": "verify.yml:306-307",
+      "runs": "v3_verifier.py --corpus (verification/infrastructure/v3/conformance)",
+      "can_fail_build": true,
+      "protects": "V3 conformance corpus as exact set",
+      "reads_protocol_state": "no (synthetic repos)",
+      "cls": "rebind",
+      "reason": "same: the authority's control is outside the required path"
+     },
+     {
+      "name": "Report (shadow)",
+      "where": "verify.yml:309-310",
+      "runs": "v3_verifier.py --mode shadow --subject HEAD: settled rules, corpus, projection of V2 attestation rows (verification/certificates/attestations/, v3_verifier.py:76,1058-1063); always exits 0",
+      "can_fail_build": false,
+      "protects": "V2->V3 comparison diagnostic",
+      "reads_protocol_state": "yes (V2 attestation rows, git)",
+      "cls": "retire",
+      "reason": "exists only for the V2/V3 comparison (V3-2 census)"
+     }
+    ]
+   }
+  ]
+ },
+ "control_plane_tools": {
+  "tools/control_plane_base_check.py": {
+   "checks": "For each control-plane file (verification/**/preregistration.md or amendments/amendment-*.md, CP_PATH :80-81) in the tree of --ref that carries a fenced ```control-plane-preconditions block (discover :224-235), and ONLY if its blob differs from --ref^1 (:266-286; unchanged = SKIP historical): parse headers d/b/merged/frozen-blob and JSON rows (:122-180); frozen-blob must equal blob at REF (:311-319); scope D rows: D recorded and ancestor of REF (:329-337); scope B and D->B rows: run shell `check` with REF=B=sha, D exported (:309, :338-351), judge empty/nonempty/exit0 (:248-253). Modes M and B share one code path.",
+   "selection": "block-bearing CP_PATH files in --ref's tree, changed vs first parent",
+   "failure_modes": [
+    "block error: >1 block, unterminated block, non-JSON row, non-object row, unknown header key, bad d:/b: SHA, bad merged:, bad frozen-blob (:101-180)",
+    "d: not 40-hex (:305-307)",
+    "frozen-blob path absent at REF / blob mismatch (:313-317)",
+    "row shape: missing id/scope/check/expect or bad values (:183-194)",
+    "scope D with no D / D not ancestor of REF (:330-333)",
+    "scope D->B with no D (:338-340)",
+    "check references $D with D unknown (:341-343)",
+    "check timeout 600s (:346-348)",
+    "check verdict false (:349-351)",
+    "RuntimeError from git (rev-parse of --ref fails) -> FAIL (:546-548)",
+    "usage error exit 2 (:541-543)",
+    "self-test failure (:531-534)"
+   ],
+   "run_from": [
+    "verify.yml:249 (self-test)",
+    "verify.yml:255 (--mode M --ref HEAD, non-push)",
+    "verify.yml:260 (--mode B --ref github.sha, push)"
+   ],
+   "not_in_release_gate": true,
+   "v3_native_round": "Preregistration without a block is never discovered -> 'nothing to evaluate', exit 0 (confirmed by V3-10 prereg :56-58 and by running --mode B at 81150851: 'OK (mode B, 0 row(s), no failure)'). Can still fail a V3-native round if (a) its delta edits any of the 24 historical block-bearing files (then re-evaluated; e.g. 'no execution object' B rows would now fail), or (b) its own preregistration/amendment contains a literal ```control-plane-preconditions fenced line (e.g. quoting the format) \u2014 it would be parsed as a block.",
+   "self_test_last_line": "control_plane_base_check: self-test OK",
+   "cls": "retire",
+   "reason": "Enforces only \u00a7A.37 D/B/M control-plane choreography; V3 rounds carry no block (\u00a7A.39). Caveat: retiring removes mechanics for any owner-designated \u00a7A.37 compatibility round; historical block-bearing rounds are already certified and SKIPped."
+  },
+  "tools/control_plane_lint.py": {
+   "checks": "D==B (same 40-hex assigned to D and B in prose ASSIGN regex :48-49 or d:/b: headers), B-literal (a B SHA in a file not marked merged: true), scope (malformed/unscoped rows via row_problems), grep-B (B-scoped `git grep -- <token>` expecting empty while token occurs in the round's control-plane files) (:79-124); also block parse errors (:84-85). Runs its own self-test first on every invocation (:266-269).",
+   "selection": "all block-bearing CP_PATH files on disk (block_bearing :147-159) UNION CP_PATH files added/modified in `git diff --name-only --diff-filter=AM origin/main...HEAD` (:136-144, :162-167), even if they carry no block",
+   "failure_modes": [
+    "self-test failure (:266-269)",
+    "block: parse errors",
+    "D==B",
+    "B-literal",
+    "scope: bad row",
+    "grep-B"
+   ],
+   "run_from": [
+    "release_gate.py:118-119 (step control-plane-lint)",
+    "verify.yml:250 (--self-test)"
+   ],
+   "reads_protocol_state": "yes: git diff origin/main...HEAD (:139-140)",
+   "v3_native_round": "A changed blockless V3 preregistration IS linted (diff selection). It passes unless its prose matches ASSIGN for B, e.g. `B = <40hex>` / `B is <40hex>` (B-literal, since no block => merged false) or gives one SHA to D and B. V3-10 and V3-11 preregistrations lint clean (prose D only). Latent: of 69 blockless control-plane files, act-21-orbit-law-rigidity-twisted/preregistration.md would fail B-literal if ever changed.",
+   "current_run_last_line": "control_plane_lint: OK (24 control-plane file(s) linted; block-bearing files plus origin/main...HEAD additions; self-test passed)",
+   "self_test_last_line": "control_plane_lint: self-test OK",
+   "cls": "retire",
+   "reason": "Lints \u00a7A.37 D/B vocabulary only; for native V3 rounds it adds a false-positive surface (B-literal on prose) and no protection. Same \u00a7A.37-compatibility caveat."
+  },
+  "block_bearing_files_count": 24,
+  "block_bearing_files": [
+   "verification/infrastructure/round-cv-1-certificate-protocol/preregistration.md",
+   "verification/infrastructure/round-cv-2-v1-retirement/amendments/amendment-1.md",
+   "verification/infrastructure/round-cv-2-v1-retirement/preregistration.md",
+   "verification/infrastructure/round-gh-1-ref-hygiene/preregistration.md",
+   "verification/infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-1.md",
+   "verification/infrastructure/round-gr-1-roadmap-entry-scoping/amendments/amendment-2.md",
+   "verification/infrastructure/round-gr-1-roadmap-entry-scoping/preregistration.md",
+   "verification/infrastructure/round-gr-2-post-landing-scoping/preregistration.md",
+   "verification/infrastructure/round-v3-1-architecture/preregistration.md",
+   "verification/infrastructure/round-v3-2-shadow-verifier/preregistration.md",
+   "verification/infrastructure/round-v3-3-specification-resolution/preregistration.md",
+   "verification/infrastructure/round-v3-4-implementation-conformance/preregistration.md",
+   "verification/infrastructure/round-v3-5-specification-completion/preregistration.md",
+   "verification/infrastructure/round-v3-6-final-conformance/preregistration.md",
+   "verification/infrastructure/round-v3-8-publication-removal/preregistration.md",
+   "verification/infrastructure/round-v3-9-operationalization/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-22-orbit-law-naturality-factorization/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-23-orbit-law-gaps/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-24-orbit-geometry-selector/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-25-orbit-geometry-isometries/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-26-orbit-geometry-rigidity/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-27-strict-natural-lift/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-28-product-locus-freedom/preregistration.md",
+   "verification/programmes/oi-qm/track-b/act-29-product-admission/preregistration.md"
+  ],
+  "mentions_without_block": [
+   "verification/infrastructure/round-v3-10-native-pilot/preregistration.md:56 (prose)",
+   "verification/infrastructure/round-v3-11-authority-cutover/preregistration.md:462,479 (prose)"
+  ]
+ },
+ "seals": {
+  "records": {
+   "count": 34,
+   "sealed": [
+    "A12P",
+    "A6D",
+    "A6I",
+    "A6P",
+    "CGR",
+    "CTI",
+    "HYA",
+    "HYB",
+    "HYE",
+    "NLV",
+    "OGC",
+    "OGS",
+    "OLG",
+    "OLN",
+    "OLT",
+    "PC4",
+    "PC4S",
+    "PFR",
+    "PQT",
+    "PRA",
+    "RNC",
+    "RNT",
+    "SGT",
+    "SI3",
+    "TCF",
+    "TRJ",
+    "WTS",
+    "XTS"
+   ],
+   "base-only": [
+    "ABR",
+    "CLG",
+    "RBR",
+    "SI1",
+    "SI2",
+    "TSG"
+   ]
+  },
+  "verification/v3-seals": "does not exist at 81150851 (V3 seal namespace, v3_verifier.py:384-386)",
+  "readers": [
+   {
+    "reader": "verification/lean/edge_rigidity_probe.py (V1 guard)",
+    "lines": "manifest accessor _seal_field :10134-10147 (36 call sites, e.g. 17775-17777, 23862, 24292, 24789, 25434, 26135, 26944, 27546, 28031, 28551, 29200, 30459-30499); _seal_triple :10150-10152; _SI1SEALSREL/_SI1SEALS :10159-10160; _si1_load :10217-10232 (working-tree read), calls at 10553, 10608, 10625, 24056, 24492, 25034, 25694, 26407, 27232, 27670, 29152, 29380, 29563, 30516, 30590, 30894, 31172; git ls-tree/show of seals at a base: 10594, 10601, 30481, 30485, 31137, 31144, 31158, 31165, 31235, 31239; tree/record blob pins: 24044, 24477-24479, 25018-25021, 25679-25681, 26391-26394, 27216-27219, 30415, 31126-31127, 31849-31865, 32013-32014, 32239, 32268, 32501, 32765, 33731, 33834-33835, 34097-34127; synthetic fixtures 34209, 34265, 34539-34611; forbidden-prefix 34770; 34899",
+    "uses": "V1 SI-1/SI-2/SI-3 validator: round classification (EXECUTION / LANDED-PENDING-PIN / ARCHIVED), re-deriving L from E, manifest integrity vs declared baseline, per-round seal-tree blob pins. Not analysed in depth per instructions."
+   },
+   {
+    "reader": "tools/certificate_verifier.py (V2) via certificate data",
+    "lines": "resolve_evidence :647-698 (reads evidence path from verification/certificates/<STEM>.json and blob-compares the working-tree file); Store :244-259",
+    "uses": "33 certificates carry an evidence entry pinning verification/seals/<STEM>.json by blob (all except PRA). Any edit/move/delete of those 33 records fails the authoritative release-gate step (evidence:missing / evidence:blob-mismatch) unless a relocation record is added. Path is data-driven: no literal 'seals' in the tool."
+   },
+   {
+    "reader": "tools/certificate_verifier.py legacy-owned set",
+    "lines": "verification/certificates/legacy-v1-owned.json; evaluate :771-792",
+    "uses": "PRA (seal record verification/seals/PRA.json) is V1-owned: V2 checks only its preregistration blob and base existence, not the seal record; PRA.json is thus verified by V1 alone."
+   },
+   {
+    "reader": "tools/v3_verifier.py (V3)",
+    "lines": "SETTLED G12 :105-107; seal_record_path :384-386; foreign :389-397; authorized :399-405, applied at :724, :789, :822, :965, :988",
+    "uses": "does not read record contents; treats any path under verification/seals/ as foreign: a native V3 round whose execution/receipt/reconciliation delta touches verification/seals/ is unauthorized (conformance vectors g12-reject-execution-changes-legacy-seal-namespace.json, g12-reject-seal-entry-in-legacy-namespace.json). CONSEQUENCE: a native V3 retirement round cannot modify or delete verification/seals/* without a spec change."
+   },
+   {
+    "reader": "tools/v3_receipt.py",
+    "lines": ":103, :138-139, :177-178",
+    "uses": "writes/reads V3 seal record (verification/v3-seals/) only; never verification/seals/"
+   }
+  ],
+  "no_reader_in": [
+   ".github/ (no hits)",
+   "tools/ other than the above",
+   "verification/**/*.py other than edge_rigidity_probe.py"
+  ],
+  "cls": "retain-historical",
+  "reason": "Landed historical seal records; blob-pinned as V2 evidence (33) and V1-only for PRA; V3 G12 forbids native rounds from changing them."
+ },
+ "probes": [
+  {
+   "probe": "verification/lean/gauge_certificates_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/structural_core_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/staggered_relations_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/structural_chain_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/representation_bridge_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/time_reversal_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/equivalence_chain_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/hidden_memory_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/finite_horizon_equivalence_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/c3_necessity_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/canonical_measure_probe.py",
+   "step": "Numerical probes",
+   "checks": "canonical measure checks; reads CanonicalMeasure.lean, OIBridge.lean, papers/Main.md",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/finiteness_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/cubic_isotropy_probe.py",
+   "step": "Numerical probes",
+   "checks": "cubic isotropy checks; reads Lean source + papers/SM.md",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/idempotent_trace_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/link_decomposition_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/stinespring_scope_probe.py",
+   "step": "Numerical probes",
+   "checks": "Stinespring-scope checks; also pins wording in papers/Structure.md, Main.md, book mirrors",
+   "reads_protocol_state": false,
+   "note": "manuscript text only",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/factor_uniqueness_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/kraus_uniqueness_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/stinespring_uniqueness_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/weyl_twirl_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/weyl_lift_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/separability_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/boundary_rank_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/reciprocity_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/gauge_dimension_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/bohr_frequency_probe.py",
+   "step": "Numerical probes",
+   "checks": "Bohr-frequency checks (10048 lines); reads OIBridge Lean sources and papers/GR.md",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/taste_branching_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/gap_correspondence_probe.py",
+   "step": "Numerical probes",
+   "checks": "gap correspondence; reads bohr_frequency_probe.py and papers/GR.md text",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/static_generator_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/spectral_logarithm_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/centralizer_basis_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/wave_period_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/partition_coupling_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/audit_census_probe.py",
+   "step": "Numerical probes",
+   "checks": "re-runs audit vocabularies over scoped corpus vs verification/audit-census.json",
+   "reads_protocol_state": false,
+   "note": "reads verification/audit-census.json and manuscript files only",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/repertoire_lie_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/edge_rigidity_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical companion of OIBridge/EdgeRigidity, HomometricSix, HomometricKill etc. (R1..) PLUS the V1 guard (35098 lines; SI1/SI2 marker regions :10164-10636; R7-* round clauses)",
+   "reads_protocol_state": true,
+   "note": "FLAG: reads git ancestry/topology, GITHUB_EVENT payload (e.g. :9835-10021, :10491, ... :34581), refs/remotes/origin, seals (see seals section), certificates, verify.yml (:2858, :33737)",
+   "cls": "rebind"
+  },
+  {
+   "probe": "verification/lean/causal_readback_discovery_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/causal_readback_bridge_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/causal_readback_t1_scope_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/recurrence_tightness_probe.py",
+   "step": "Numerical probes",
+   "checks": "numerical/exact companion checks for the corresponding Lean statement; reads only Lean source / manuscript text for correspondence",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/recurrence_tightness_guard_probe.py",
+   "step": "Numerical probes",
+   "checks": "pins text of track-i/recurrence-tightness/result.md and recurrence_tightness_probe.py (R7-RCH-T3) with 3 negative controls",
+   "reads_protocol_state": false,
+   "note": "reads a result note (content pin, not protocol state)",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/scaling_family_probe.py",
+   "step": "Numerical probes",
+   "checks": "scaling family table; 'preregistration' only in docstring (:9)",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/rooted_classification_t3_probe.py",
+   "step": "Numerical probes",
+   "checks": "rooted classification T3 exact checks; preregistration named only in docstring (:4)",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "verification/lean/physical_c4_toy_instance_probe.py",
+   "step": "Numerical probes",
+   "checks": "physical C4 toy instance; preregistration named only in docstring (:5-6)",
+   "reads_protocol_state": false,
+   "note": "no",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/comb_reachability_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "comb_reachability imports numpy (:63)",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/phaselock_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/source_lift_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/induced_source_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/gauge_support_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/bargmann_bridge_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/coherence_boundary_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/native_group_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/finite_horizon_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/recurrence_entropy_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/comb_dimension_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  },
+  {
+   "probe": "papers/oi_lattice_code/foundations/comb_realization_probes.py",
+   "step": "Foundations probes",
+   "checks": "exact (Fraction) certificates for foundations lemmas; file IO limited to sibling probe/Lean/manuscript text (induced_source :330, gauge_support :321,431, comb_realization :413-414)",
+   "reads_protocol_state": false,
+   "note": "",
+   "cls": "retain-substantive"
+  }
+ ],
+ "tools": [
+  {
+   "path": "tools/artifact_placement_check.py",
+   "checks": "\u00a7A.36: no unaccounted root-level verification/*.md (manifest as grandfather list); self-test",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/baseline_label_check.py",
+   "checks": "no doc names a superseded bNNN baseline archive; --verify-archive checksum",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/build_migration_manifest.py",
+   "checks": "renders migration-manifest.json + MIGRATION-MANIFEST.md from one mapping; --check drift",
+   "reads_protocol_state": false,
+   "cls": "retain-historical"
+  },
+  {
+   "path": "tools/certificate_verifier.py",
+   "checks": "V2: certificates, attestation rows, relocations, live policy, legacy-owned, evidence blob pins, conformance corpus",
+   "reads_protocol_state": true,
+   "cls": "retain-historical"
+  },
+  {
+   "path": "tools/ci_gate_presence_test.py",
+   "checks": "verify.yml invokes tools/release_gate.py through an interpreter in a live run: line",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/claims_check.py",
+   "checks": "withdrawn results not re-asserted locally",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/control_plane_base_check.py",
+   "checks": "\u00a7A.37 preconditions (see section 2)",
+   "reads_protocol_state": true,
+   "cls": "retire"
+  },
+  {
+   "path": "tools/control_plane_lint.py",
+   "checks": "\u00a7A.37 D/B lint (see section 2)",
+   "reads_protocol_state": true,
+   "cls": "retire"
+  },
+  {
+   "path": "tools/coverage_check.py",
+   "checks": "proof-coverage ledger vs manuscript/checkers; reads verify.yml (:59, :211) only to REPORT ungated probes (non-failing); calls proof_census.py (:73)",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/dependency_label_check.py",
+   "checks": "(derived)/Tier labels citing conditional sections; self-test",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/duplicate_check.py",
+   "checks": "repeated paragraphs within one document",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/lean_axiom_check.py",
+   "checks": "#print axioms / sorryAx via lake build; reads LAKE/PATH env (:54-59) for toolchain location only",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/lean_manuscript_census.py",
+   "checks": "\u00a7A.35 manuscript citations vs kernel registry",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/proof_census.py",
+   "checks": "enumerates canonical statements in papers/*.md (used by coverage_check)",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/release_gate.py",
+   "checks": "runner of 20 steps; git rev-parse HEAD (:87-88) for v3-receipts",
+   "reads_protocol_state": true,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/staleness_check.py",
+   "checks": ".tex is the build of its .md",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/toolchain_check.py",
+   "checks": "build.sh / unicode-fix.tex tooling present and single",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/v3_receipt.py",
+   "checks": "builds V3 receipts from exact object ids + attestation records; not run by CI",
+   "reads_protocol_state": true,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/v3_verifier.py",
+   "checks": "V3 verifier: --receipts (gate), --self-test/--corpus (diagnostics job), --project/--mode shadow (V2 projection)",
+   "reads_protocol_state": true,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/voice_check.py",
+   "checks": "manuscript does not narrate revision history",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "tools/voice_scope_test.py",
+   "checks": "voice_check scans manuscript and only manuscript (mutation test)",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "papers/oi_lattice_code/mirror_check.py",
+   "checks": "every chapter line appears in FULL.md (\u00a7A.14)",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "papers/oi_lattice_code/citation_check.py",
+   "checks": "cited *.py files exist",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  },
+  {
+   "path": "papers/oi_lattice_code/architecture_check.py",
+   "checks": "manuscript architectural invariants; OI_ARCH_FULL env only affects output length (:1154)",
+   "reads_protocol_state": false,
+   "cls": "retain-substantive"
+  }
+ ],
+ "release_gate": {
+  "steps": [
+   {
+    "order": 1,
+    "name": "toolchain",
+    "argv": "tools/toolchain_check.py",
+    "protects": "tree can be rebuilt (build.sh, single unicode-fix header)",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 2,
+    "name": "staleness",
+    "argv": "tools/staleness_check.py",
+    "protects": ".tex/.pdf match sources",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 3,
+    "name": "baseline-label",
+    "argv": "tools/baseline_label_check.py",
+    "protects": "no superseded baseline archive named (relative mode in CI; inserted at index 2, release_gate.py:175-180)",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 4,
+    "name": "voice",
+    "argv": "tools/voice_check.py",
+    "protects": "\u00a7A.27/\u00a7A.30 no revision narration",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 5,
+    "name": "voice-scope",
+    "argv": "tools/voice_scope_test.py",
+    "protects": "voice_check scope control",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 6,
+    "name": "ci-gate-presence",
+    "argv": "tools/ci_gate_presence_test.py",
+    "protects": "CI runs the gate",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 7,
+    "name": "artifact-placement",
+    "argv": "tools/artifact_placement_check.py",
+    "protects": "\u00a7A.36 placement",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 8,
+    "name": "manifest-drift",
+    "argv": "tools/build_migration_manifest.py --check",
+    "protects": "generated manifest forms not hand-edited",
+    "reads_protocol_state": false,
+    "cls": "retain-historical"
+   },
+   {
+    "order": 9,
+    "name": "control-plane-lint",
+    "argv": "tools/control_plane_lint.py",
+    "protects": "\u00a7A.37 D/B vocabulary in control planes",
+    "reads_protocol_state": true,
+    "cls": "retire"
+   },
+   {
+    "order": 10,
+    "name": "claims",
+    "argv": "tools/claims_check.py",
+    "protects": "withdrawn claims not asserted",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 11,
+    "name": "duplicate",
+    "argv": "tools/duplicate_check.py",
+    "protects": "no duplicated paragraphs",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 12,
+    "name": "mirror",
+    "argv": "papers/oi_lattice_code/mirror_check.py",
+    "protects": "chapter/FULL mirror",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 13,
+    "name": "citation",
+    "argv": "papers/oi_lattice_code/citation_check.py",
+    "protects": "probe citations resolve",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 14,
+    "name": "architecture",
+    "argv": "papers/oi_lattice_code/architecture_check.py",
+    "protects": "architectural invariants",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 15,
+    "name": "dependency-label",
+    "argv": "tools/dependency_label_check.py --strict",
+    "protects": "dependency labels vs conditional sections",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 16,
+    "name": "coverage",
+    "argv": "tools/coverage_check.py",
+    "protects": "proof-coverage ledger integrity",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 17,
+    "name": "lean-axioms",
+    "argv": "tools/lean_axiom_check.py --require-lake",
+    "protects": "no sorryAx; kernel axiom report",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 18,
+    "name": "lean-manuscript",
+    "argv": "tools/lean_manuscript_census.py",
+    "protects": "\u00a7A.35 manuscript/kernel sync",
+    "reads_protocol_state": false,
+    "cls": "retain-substantive"
+   },
+   {
+    "order": 19,
+    "name": "certificate-verifier",
+    "argv": "tools/certificate_verifier.py --mode authoritative",
+    "protects": "V2: landed-round certificates, attestation topology (sealed head/landing re-derived), 157 evidence blob pins (programmes 90, seals 33, infrastructure 26, audits 8), V2 corpus",
+    "reads_protocol_state": true,
+    "cls": "retain-historical"
+   },
+   {
+    "order": 20,
+    "name": "v3-receipts",
+    "argv": "tools/v3_verifier.py --receipts <HEAD>",
+    "protects": "V3 verdict: every receipt in tree holds (currently V3-10, V3-11 HOLD)",
+    "reads_protocol_state": true,
+    "cls": "retain-substantive"
+   }
+  ],
+  "notes": {
+   "count": 20,
+   "defined": "release_gate.py:89-172 (+ baseline-label inserted at :180)",
+   "runner": "each step's pass = exit 0; only last output line kept (:72-79)",
+   "certificate-verifier_detail": "reads GITHUB_EVENT_NAME/GITHUB_EVENT_PATH (certificate_verifier.py:518-531, env inherited by subprocess), refs/remotes/origin/<base ref> with fetch recovery (:121-136, :538-549), rev-list/merge-base (:156-186). Its topology derivations re-check V1/V2 choreography of landed rounds; its evidence rule (:647-698) is the historical-integrity core. Possible rebind to evidence/record integrity only: AMBIGUOUS, needs owner decision.",
+   "control-plane-lint_detail": "reads git diff origin/main...HEAD (control_plane_lint.py:139-140)",
+   "v3-receipts_detail": "commit-local: reads no ref/env beyond PATH (v3_verifier.py:26-29, 51-66); HEAD resolved by release_gate.py:87-88; UNDECIDABLE on shallow repo, hence bridge fetch-depth 0",
+   "run_at_81150851": {
+    "control_plane_lint": "OK (24 files)",
+    "v3_verifier --receipts": "RECEIPTS  2 receipt(s), all hold",
+    "control_plane_base_check --mode B": "OK (mode B, 0 row(s), no failure)"
+   }
+  }
+ },
+ "git_topology_readers_outside_guard": [
+  {
+   "where": "tools/certificate_verifier.py:155-186",
+   "what": "rev-list --parents, merge-base --is-ancestor, strong_ancestry (rev-list head ^base), merges_with_second_parent",
+   "purpose": "V2 derivation of B/E/L for landed rounds"
+  },
+  {
+   "where": "tools/certificate_verifier.py:516-553",
+   "what": "GITHUB_EVENT_NAME, GITHUB_EVENT_PATH payload pull_request.head.sha/base.ref, GITHUB_BASE_REF, refs/remotes/origin/<base ref>",
+   "purpose": "V2 visibility targets"
+  },
+  {
+   "where": "tools/certificate_verifier.py:121-153",
+   "what": "git fetch (unshallow/deepen) of origin base ref",
+   "purpose": "V2 recovery on shallow checkouts (network, additive)"
+  },
+  {
+   "where": "tools/control_plane_base_check.py:201-235, 271-281",
+   "what": "rev-parse, merge-base --is-ancestor, ls-tree/show at REF, first parent REF^1",
+   "purpose": "\u00a7A.37 D ancestry and changed-artifact scope"
+  },
+  {
+   "where": "tools/control_plane_lint.py:136-144",
+   "what": "git diff origin/main...HEAD",
+   "purpose": "select changed control planes"
+  },
+  {
+   "where": "tools/v3_verifier.py:181, 214, 219, 227, 1032",
+   "what": "rev-list --parents / head ^exclude / --first-parent, merge-base --is-ancestor, rev-list -n1 C -- receipt",
+   "purpose": "V3 lifecycle predicates, commit-local (no refs, no host env)"
+  },
+  {
+   "where": "tools/release_gate.py:87-88",
+   "what": "git rev-parse HEAD",
+   "purpose": "names commit for v3-receipts (synthetic merge on PR)"
+  },
+  {
+   "where": ".github/workflows/verify.yml:254, 259-260",
+   "what": "github.event_name, github.sha",
+   "purpose": "\u00a7A.37 M vs B mode selection"
+  },
+  {
+   "where": ".github/workflows/verify.yml:72-74, 170-172, 239-241, 272-274, 295-297",
+   "what": "fetch-depth: 0 on bridge, probes, control-plane, certificate-verifier, v3 diagnostics",
+   "purpose": "history/remote refs for protocol checks"
+  },
+  {
+   "where": "verification/lean/edge_rigidity_probe.py (V1 guard)",
+   "what": "GITHUB_EVENT*/pull_request.head/refs/remotes/origin at lines 9835-10021, 10491, 10872-11010, 11331, ... 34581 (79 lines)",
+   "purpose": "V1 execution/archive-mode ancestry; excluded from in-depth analysis"
+  }
+ ],
+ "key_findings": [
+  "V3's own --self-test and --corpus run only in the non-required 'V3 verifier diagnostics' job; the required path (release gate) runs only --receipts.",
+  "V2 authoritative step blob-pins 33 of 34 verification/seals/*.json as certificate evidence; PRA.json is V1-only (legacy-v1-owned).",
+  "V3 G12 (v3_verifier.py:389-397) makes verification/seals/ foreign to every native round: a native V3 round cannot edit or delete legacy seal records.",
+  "The V1 guard is fused into verification/lean/edge_rigidity_probe.py, a substantive numerical probe named by the coverage LEDGER and run in the required 'Numerical probes' step; retiring V1 needs a split, not a deletion.",
+  "Probes job fetch-depth: 0 exists only for the V1 guard.",
+  "Per AGENTS.md \u00a7A.39, F/E check-run attestations need every job green, so non-required jobs (control-plane, certificate-verifier, v3 diagnostics) still bind native rounds.",
+  "control_plane_lint lints any changed preregistration even without a block; prose `B = <sha>` in a V3 preregistration would fail B-literal.",
+  "Numerical probes loop is fail-fast (default bash -e), Foundations loop accumulates rc; verify.yml:203-204 claims stdlib-only foundations probes but comb_reachability_probes.py:63 imports numpy."
+ ]
+}

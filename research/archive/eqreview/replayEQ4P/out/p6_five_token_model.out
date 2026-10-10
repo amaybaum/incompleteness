@@ -1,0 +1,9 @@
+PASS K0 transcription control
+PASS K1 gate premise: Phi+ in PSD_4; Ad(CNOT) maps PSD_4 into PSD_4 (3 random exact instances)
+PASS W Ad(k) W3 (3 random rational product filters) is >= 0 on random pure products across every cut, by the exact identity with W3 on the pulled-back product (W3 in BS*: p1 P1); w = 1/16 - C/32 is in PN_4* (largest Schmidt weight of c/2 <= 1/2 across every cut)
+PASS F1 five-token crossing: the conditional on B is (Psi (x) id)(y) with Psi: p -> q a CP map (its Choi matrix is PSD, computed exactly), on all 64 units y, 3 random (x, e)
+PASS F2 five-token values tr[(e (x) f)(x (x) y)] >= 0 for y in BS, f in {W3, Ad(k)W3 (3), GHZ}: 60 exact instances
+PASS N non-crossing and 1|4, 2|3 pairings with full duals (W3 images, the PN_4* witness w): 30 exact instances >= 0
+PASS S six-token control: PN_6 contains the Bell-link product and GHZ (x) W3 is a product of BS* effects; value -1/16 < 0: the pair-network hierarchy violates KT at six tokens
+--- p6_five_token_model: 7/7 checks pass
+VERDICT P6-FIVE-TOKEN-MODEL-EXACT

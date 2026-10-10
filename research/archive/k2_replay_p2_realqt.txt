@@ -1,0 +1,23 @@
+PASS P2.0 Y(x)Y is real symmetric
+PASS P2.1 dim Sym(4) = 10, rank q = 9 (LT fails) :: 9
+PASS P2.2 q(Y(x)Y) = 0 (the locally invisible direction)
+PASS P2.3 Ad(X) acts on rebit Bloch coordinates as diag(1,-1)
+PASS P2.4 IsNot fields: unit, invol, isometry (preserves disk), flips
+PASS P2.5 frame: C (z_a (x) z_b) C^T = z_a (x) z_{a+b}
+PASS P2.6 relT as operator identity: (I(x)X) C (I(x)X) = C
+PASS P2.7 relC as operator identity: (X(x)I) C (X(x)I) = (I(x)X) C
+PASS P2.8 C real orthogonal (Ad C preserves the real PSD body both ways)
+PASS P2.9 entangling: C (|+><+| (x) |0><0|) C^T = |Phi+><Phi+| (rank 1, real)
+PASS P2.10 its product-test table has operator-Schmidt rank 3 > 1 (not a product) :: Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+PASS P2.11 rho, rho' are PSD, trace 1, real symmetric :: (None, None)
+PASS P2.12 q(rho) = q(rho') (indistinguishable by every product test)
+PASS P2.13 q(C rho' C^T) != q(C rho C^T) (PTQ fails for the real CNOT) :: Matrix([[0, 0, 0], [0, 0, -1/2], [0, 0, 0]])
+PASS P2.14 C maps the invisible direction Y(x)Y to a visible one: q(C YY C^T) != 0 :: Matrix([[0, 0, 0], [0, 0, -4], [0, 0, 0]])
+PASS P2.15 identity component of the PTQ normalizer: Lie algebra dim 2, spanned by local J(x)I, I(x)J :: (2, Matrix([
+[  0,  A5,  A4,  0],
+[-A5,   0,   0, A4],
+[-A4,   0,   0, A5],
+[  0, -A4, -A5,  0]]))
+PASS P2.16 the 8 component representatives are orthogonal, normalize span(YY), and map every real product vector to a product vector (coefficient determinant identically 0): no PTQ-respecting entangling gate
+VERDICT: real QT satisfies frame, relT, relC, IsNot, two-sided positivity and entangling on its own carrier with d = 2 even; LT fails and PTQ fails for its CNOT; every PTQ-respecting reversible gate there is non-entangling (identity component local, written component count)
+SUMMARY: 17 checks, 0 failures

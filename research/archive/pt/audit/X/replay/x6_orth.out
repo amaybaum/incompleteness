@@ -1,0 +1,14 @@
+
+== O  the Jordan / Clifford ingredients
+PASS O1  [identity] Herm(2) Jordan product is not associative: (sx o sx) o sz = sz but sx o (sx o sz) = 0
+INFO commutant complex dimensions: std 4, transposed 4, mixed 2
+PASS O2  [enumerate] commutant dimensions in M4(C): {s_i (x) I}: 4, {s_i^T (x) I}: 4, {s_i (+) s_i^T}: 2
+PASS O3  [identity] each model is a triple of anticommuting Hermitian involutions, with -i S1 S2 S3 = I, -I, diag(1,1,-1,-1) respectively
+PASS O4  [identity] pauliW(T_A w) = pauliW(T_B w)^T and pauliW(T_A T_B w) = pauliW(w)^T, symbolic: T_A(Q3) = T_B(Q3) = twin and the full transpose preserves Q3
+PASS O5  [identity] x = alpha u + beta l + g1 e1 + g2 e2 (u = (1,0,0,-1), l = (1,0,0,1)): x0^2 - |x'|^2 = 4 alpha beta - g1^2 - g2^2, symbolic
+
+== Oc  countercontrol: an orthogonal map with self-dual image that does not contain SEP
+PASS Oc  [countercontrol] the inverse-image test rejects the reflection R (R^-1 = R): pauliW(R(prodState(e1, e1))) has eigenvalue -1/2; it accepts cnot and actT reflY (inverse images of all 36 axis products are PSD)
+
+kinds: identity 4, enumerate 1, witness 0, countercontrol 1
+VERDICT X6-ORTH-EXACT -- 6 checks

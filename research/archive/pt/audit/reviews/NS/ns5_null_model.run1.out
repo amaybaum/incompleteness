@@ -1,0 +1,20 @@
+B1: PASS -- xi_x = -1/(t*cos(xi) - 1), xi_t = -sin(xi)/(t*cos(xi) - 1)
+B2: PASS -- t = 0: xi = x
+B3: PASS -- J = -t*cos(xi) + 1; u_x(0,t) = 1/(t - 1); t* = 1
+B4: PASS -- u = -sin(xi), |u| <= 1 while J > 0 (bijective chart)
+B5: PASS -- int u^2 dx = pi for all t < 1
+G1: PASS -- sum a_k a_k' = 0 identically, N = 1..5
+G2: FAIL -- divergence of the truncated field = 0, N = 1..5
+G3: PASS -- V(-a) = V(a), N = 1..5
+G4: PASS -- N=2 field: (a1*a2/2, -a1**2/2); residuals of the closed form: [0, 0]; N=1 field: [0]
+G5: PASS -- a1^2 + a2^2 = 1; a1 + 2 a2 at tau = 0, 2/sqrt5, 1: (-1, -sqrt(5), -2), so it stays in [-sqrt 5, -1] for all t >= 0
+G6: PASS -- y' = y^2 blows up at t = 1; w = -u_x(0,t) obeys the same law
+G7: PASS -- broken field: d/dt (a1^2 + a2^2)/2 = a1**2*a2/2
+C1: PASS -- rate of a1 = a1*a2/2 + a2*a3/2; at a1 = -1: 0 vs 1/4
+C2: PASS -- d(pi a1^2)/dt = pi*a1**2*a2 + pi*a1*a2*a3; N=1 truncation: 0
+M1: PASS -- exact projected identity holds for t = 0..11, two initial vectors
+CC-M: PASS -- the Markov part alone fails at some t
+F1: PASS -- N=4: states 2, energy 1, sup 8; N=16: states 3, energy 1, sup 64; N=64: states 4, energy 1, sup 512; N=256: states 5, energy 1, sup 4096
+CC-F: PASS -- unconcentrated cube: N=4: energy 1, sup 1; N=16: energy 1, sup 1; N=64: energy 1, sup 1; N=256: energy 1, sup 1
+VERDICT-NULL: NO VERDICT (control failed)
+checks: 17/18 PASS

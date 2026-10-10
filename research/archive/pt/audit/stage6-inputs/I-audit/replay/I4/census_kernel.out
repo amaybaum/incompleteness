@@ -1,0 +1,1471 @@
+# I4 kernel census (a) -- modules: 35
+# root: pt/base/verification/lean-mathlib/OIBridge (L = 9f9f8257)
+
+## CONTROLS
+PASS: C1 HasParallelReferenceExtension is a Prop census entry
+PASS: C2 withSpectator is a def and not a census entry
+PASS: C3 StructurallyClosed is a Prop structure census entry
+PASS: C4 every strict-grep hit outside comments is parsed (missing=0)
+PASS: C5 a theorem is not a census entry
+
+## PER-MODULE COUNTS (census = census (a) entries)
+module | census | theorems | nonprop_def | nonprop_structure | instance | other | strict_grep | strict_grep_in_comment
+GeneralCarrier | 2 | 13 | 0 | 0 | 0 | 0 | 2 | 0
+CompletedOI | 7 | 32 | 2 | 0 | 0 | 0 | 8 | 0
+CarrierGeneralOIPlus | 3 | 11 | 1 | 0 | 0 | 0 | 4 | 0
+ImplementationLocality | 8 | 81 | 7 | 0 | 0 | 0 | 9 | 0
+MinimalRepertoire | 5 | 45 | 2 | 0 | 0 | 0 | 7 | 0
+PositivePackage | 1 | 6 | 0 | 0 | 0 | 0 | 1 | 0
+MicroscopicReversibility | 6 | 21 | 0 | 0 | 0 | 0 | 6 | 0
+PositiveReachability | 0 | 47 | 14 | 0 | 0 | 0 | 5 | 0
+StructuralClosure | 3 | 35 | 1 | 0 | 0 | 0 | 4 | 0
+SubstratumSource | 2 | 9 | 0 | 0 | 0 | 0 | 2 | 0
+SubstratumInterface | 2 | 12 | 2 | 0 | 0 | 0 | 4 | 0
+PhaseSource | 0 | 10 | 0 | 0 | 0 | 0 | 0 | 0
+ReadWriteControl | 1 | 9 | 2 | 1 | 0 | 0 | 3 | 0
+DerivedQ3 | 0 | 17 | 1 | 0 | 0 | 0 | 1 | 0
+LiftAudit | 2 | 56 | 6 | 0 | 0 | 0 | 5 | 0
+ExecSource | 0 | 12 | 0 | 0 | 3 | 0 | 0 | 0
+LiftSource | 0 | 18 | 3 | 0 | 0 | 0 | 1 | 1
+FlowEndpoint | 0 | 15 | 1 | 0 | 0 | 0 | 0 | 1
+C5Discovery | 2 | 24 | 5 | 0 | 0 | 0 | 1 | 0
+StateMixingCoupling | 1 | 50 | 7 | 0 | 0 | 0 | 2 | 0
+PairFlowEquivalence | 1 | 16 | 1 | 0 | 0 | 0 | 1 | 0
+CoherentContinuumSource | 2 | 19 | 1 | 0 | 0 | 0 | 2 | 1
+EmbeddedObservation | 5 | 22 | 3 | 0 | 0 | 0 | 5 | 0
+ReferenceExtension | 4 | 47 | 9 | 0 | 0 | 0 | 13 | 0
+SpectatorBridge | 3 | 30 | 2 | 0 | 0 | 0 | 5 | 0
+TypedCompletion | 2 | 53 | 13 | 1 | 0 | 0 | 11 | 0
+TypedPositive | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0
+QuasilocalAlgebra | 2 | 141 | 34 | 2 | 14 | 0 | 11 | 0
+QuasilocalCharacterization | 2 | 87 | 18 | 2 | 0 | 0 | 4 | 0
+SecondOrderDrive | 0 | 59 | 16 | 0 | 0 | 0 | 13 | 0
+JordanClassification | 0 | 44 | 4 | 0 | 0 | 0 | 4 | 0
+OperationalRigidity | 1 | 43 | 1 | 0 | 0 | 0 | 2 | 0
+PassiveObservation | 3 | 25 | 3 | 0 | 0 | 0 | 6 | 0
+PassiveIndependence | 4 | 22 | 2 | 0 | 0 | 0 | 5 | 0
+PassiveQuotient | 2 | 31 | 8 | 0 | 5 | 0 | 7 | 0
+TOTAL | 76 | 1164 | 169 | 6 | 22 | 0 | 154 | 3
+
+## CENSUS (a) ENTRIES: module.lean:line | keyword | name | type-class | header
+GeneralCarrier.lean:125 | def | WellFormed | Prop | def WellFormed (T : FiniteOperationalTheory A) : Prop
+GeneralCarrier.lean:130 | def | SubstantiveCompletion | Prop | def SubstantiveCompletion (T : FiniteOperationalTheory A) : Prop
+CompletedOI.lean:96 | def | OICore | Prop | def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop
+CompletedOI.lean:99 | def | CompletedOI | Prop | def CompletedOI (T : FiniteOperationalTheory (Fin 2)) : Prop
+CompletedOI.lean:129 | def | ObservationalIndependence | Prop | def ObservationalIndependence : Prop
+CompletedOI.lean:171 | def | ReversibleRichness | Prop | def ReversibleRichness : Prop
+CompletedOI.lean:315 | def | IsShiftedTheory | Prop | def IsShiftedTheory (T : FiniteOperationalTheory A) (n : ℕ) (T' : FiniteOperationalTheory (A × Fin n)) : Prop
+CompletedOI.lean:327 | def | ObserverRecursion | Prop | def ObserverRecursion (T : FiniteOperationalTheory A) : Prop
+CompletedOI.lean:418 | def | OIPlus | Prop | def OIPlus : Prop
+CarrierGeneralOIPlus.lean:73 | def | ObservationalIndependence | Prop | def ObservationalIndependence : Prop
+CarrierGeneralOIPlus.lean:110 | def | ReversibleRichness | Prop | def ReversibleRichness : Prop
+CarrierGeneralOIPlus.lean:185 | def | OIPlus | Prop | def OIPlus : Prop
+ImplementationLocality.lean:250 | def | Realized | Prop | def Realized (𝓘 : ImplementationClass) (S : Type) [Fintype S] [DecidableEq S] (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+ImplementationLocality.lean:268 | inductive | InstAvail | predicate | inductive InstAvail (𝓘 : ImplementationClass) : ∀ (T : Type) [Fintype T] [DecidableEq T] (O : Type) [Fintype O] [DecidableEq O], (O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) → Prop
+ImplementationLocality.lean:352 | def | ImplementationGenerated | Prop | def ImplementationGenerated (T : FiniteOperationalTheory A) (𝓘 : ImplementationClass) : Prop
+ImplementationLocality.lean:359 | def | ContextStable | Prop | def ContextStable (𝓘 : ImplementationClass) : Prop
+ImplementationLocality.lean:364 | def | LabelInvariant | Prop | def LabelInvariant (𝓘 : ImplementationClass) : Prop
+ImplementationLocality.lean:370 | def | ImplementationLocality | Prop | def ImplementationLocality (T : FiniteOperationalTheory A) : Prop
+ImplementationLocality.lean:506 | structure | Architecture | Prop | structure Architecture (𝓘 : ImplementationClass) : Prop
+ImplementationLocality.lean:1053 | def | OIPlusLocal | Prop | def OIPlusLocal : Prop
+MinimalRepertoire.lean:208 | def | IsRealAntisym | Prop | def IsRealAntisym (N : Matrix S S ℂ) : Prop
+MinimalRepertoire.lean:311 | def | ColourCompatible | Prop | def ColourCompatible (c : S → Bool) (σ : Equiv.Perm S) : Prop
+MinimalRepertoire.lean:423 | def | PhaseFreeRichness | Prop | def PhaseFreeRichness : Prop
+MinimalRepertoire.lean:544 | def | OIPlusMin | Prop | def OIPlusMin : Prop
+MinimalRepertoire.lean:634 | def | CyclicRichness | Prop | def CyclicRichness : Prop
+PositivePackage.lean:35 | def | OIPlusPos | Prop | def OIPlusPos : Prop
+MicroscopicReversibility.lean:88 | def | InverseAccessibility | Prop | def InverseAccessibility : Prop
+MicroscopicReversibility.lean:93 | def | LieRankRichness | Prop | def LieRankRichness : Prop
+MicroscopicReversibility.lean:216 | def | DaggerStable | Prop | def DaggerStable (𝓘 : ImplementationClass) : Prop
+MicroscopicReversibility.lean:223 | def | ReversibleImplementationLocality | Prop | def ReversibleImplementationLocality (T : FiniteOperationalTheory A) : Prop
+MicroscopicReversibility.lean:238 | def | UnitaryRaySaturated | Prop | def UnitaryRaySaturated (𝓘 : ImplementationClass) : Prop
+MicroscopicReversibility.lean:336 | def | OIPlusMicro | Prop | def OIPlusMicro : Prop
+StructuralClosure.lean:98 | def | IsSubmonomial | Prop | def IsSubmonomial (K : Matrix S S ℂ) : Prop
+StructuralClosure.lean:183 | structure | StructurallyClosed | Prop | structure StructurallyClosed (𝓘 : ImplementationClass) : Prop
+StructuralClosure.lean:401 | def | ExtendsSubstratum | Prop | def ExtendsSubstratum (𝓘 : ImplementationClass) : Prop
+SubstratumSource.lean:77 | def | DrivesElementary | Prop | def DrivesElementary (𝓘 : ImplementationClass) : Prop
+SubstratumSource.lean:86 | structure | QuantumArchitecture | Prop | structure QuantumArchitecture (𝓘 : ImplementationClass) : Prop
+SubstratumInterface.lean:75 | def | IsMonomial | Prop | def IsMonomial (K : Matrix S S ℂ) : Prop
+SubstratumInterface.lean:180 | def | MonomialSource | Prop | def MonomialSource (T : FiniteOperationalTheory A) : Prop
+ReadWriteControl.lean:158 | def | ReadWriteSourced | Prop | def ReadWriteSourced (T : FiniteOperationalTheory A) : Prop
+LiftAudit.lean:112 | def | LayerFlowExecutable | Prop | def LayerFlowExecutable (T : FiniteOperationalTheory S) (σ : Equiv.Perm S) : Prop
+LiftAudit.lean:745 | def | SubstratumAvail | Prop | def SubstratumAvail (T : FiniteOperationalTheory S) : Prop
+C5Discovery.lean:71 | def | KillBattery | Prop | def KillBattery (T : FiniteOperationalTheory (Fin 2)) : Prop
+C5Discovery.lean:221 | inductive | PolGen | predicate | inductive PolGen : ∀ (T : Type) [Fintype T] [DecidableEq T], Matrix T T ℂ → Prop
+StateMixingCoupling.lean:56 | inductive | MixR | predicate | inductive MixR (D : Set ℝ) : ∀ (T : Type) [Fintype T] [DecidableEq T], Matrix T T ℂ → Prop
+PairFlowEquivalence.lean:48 | def | PairFlowSourced | Prop | def PairFlowSourced (T : FiniteOperationalTheory (Fin 2)) : Prop
+CoherentContinuumSource.lean:135 | def | NonMonomialCountablyCovered | Prop | def NonMonomialCountablyCovered (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] : Prop
+CoherentContinuumSource.lean:143 | def | UncountableNonMonomialRays | Prop | def UncountableNonMonomialRays (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] : Prop
+EmbeddedObservation.lean:98 | def | RegroupingInvariant | Prop | def RegroupingInvariant (𝒯 : TheoryFamily) : Prop
+EmbeddedObservation.lean:106 | def | RelabellingInvariant | Prop | def RelabellingInvariant (𝒯 : TheoryFamily) : Prop
+EmbeddedObservation.lean:114 | def | IsAmbientMember | Prop | def IsAmbientMember (T : FiniteOperationalTheory A) (𝒯 : TheoryFamily) : Prop
+EmbeddedObservation.lean:123 | def | EmbeddedObservation | Prop | def EmbeddedObservation (T : FiniteOperationalTheory A) : Prop
+EmbeddedObservation.lean:366 | def | OIPlusEmbedded | Prop | def OIPlusEmbedded : Prop
+ReferenceExtension.lean:98 | def | IsReferencePositive | Prop | def IsReferencePositive (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+ReferenceExtension.lean:106 | def | IsThreePositive | Prop | def IsThreePositive (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+ReferenceExtension.lean:447 | def | HasParallelReferenceExtension | Prop | def HasParallelReferenceExtension (T : FiniteOperationalTheory A) : Prop
+ReferenceExtension.lean:469 | def | HasQutritReferenceExtension | Prop | def HasQutritReferenceExtension (T : FiniteOperationalTheory (Fin 2)) : Prop
+SpectatorBridge.lean:180 | def | IsSpectatorExtension | Prop | def IsSpectatorExtension {n m : ℕ} (e : R × (A × Fin n) ≃ A × Fin m) (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) (G : Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ) : Prop
+SpectatorBridge.lean:223 | def | InertSpectatorCompositionality | Prop | def InertSpectatorCompositionality (T : FiniteOperationalTheory A) : Prop
+SpectatorBridge.lean:396 | def | HCompRealized | Prop | def HCompRealized (T : FiniteOperationalTheory (Fin 2)) (e : R × (Fin 2 × Fin n) ≃ Fin 2 × Fin m) (act : ι → Equiv.Perm (R × (Fin 2 × Fin n))) (corr : ι → Matrix (R × (Fin 2 × Fin n)) (R × (Fin 2 × Fin n)) ℂ) (CB : Equiv.Perm (Fin 2 × Fin n) → Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ) (C : Equiv....
+TypedCompletion.lean:291 | def | ShadowQuantum | Prop | def ShadowQuantum : Prop
+TypedCompletion.lean:448 | def | IsTypedKrausInstrument | Prop | def IsTypedKrausInstrument {m : ℕ} (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ) : Prop
+QuasilocalAlgebra.lean:104 | def | AgreeOffG | Prop | def AgreeOffG (Λ : Finset ι) (t s : ι → Q) : Prop
+QuasilocalAlgebra.lean:738 | structure | IsStateFamily | Prop | structure IsStateFamily (ρ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ) : Prop
+QuasilocalCharacterization.lean:196 | def | IsState | Prop | def IsState {A : Type} [CStarAlgebra A] (ω : A →L[ℂ] ℂ) : Prop
+QuasilocalCharacterization.lean:475 | def | LocalityPreserving | Prop | def LocalityPreserving (S : QuasilocalSystem ι Q) (α : S.A → S.A) : Prop
+OperationalRigidity.lean:647 | structure | OrderIsoHyp | Prop | structure OrderIsoHyp (Φ Ψ : Matrix n n ℂ → Matrix n n ℂ) : Prop
+PassiveObservation.lean:203 | def | IsPassiveInstrument | Prop | def IsPassiveInstrument (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+PassiveObservation.lean:208 | def | SeparatesStates | Prop | def SeparatesStates (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop
+PassiveObservation.lean:288 | def | IsDiagonal | Prop | def IsDiagonal (X : Matrix S S ℂ) : Prop
+PassiveIndependence.lean:74 | def | PassivelyIncomplete | Prop | def PassivelyIncomplete (T : FiniteOperationalTheory A) : Prop
+PassiveIndependence.lean:98 | def | SuppAnc | Prop | def SuppAnc (k l : B) (X : Matrix (A × B) (A × B) ℂ) : Prop
+PassiveIndependence.lean:103 | def | KeepsLabels | Prop | def KeepsLabels (Φ : Matrix (A × B) (A × B) ℂ →ₗ[ℂ] Matrix (A × B) (A × B) ℂ) : Prop
+PassiveIndependence.lean:288 | def | PassivelyCompleteOnDiagonal | Prop | def PassivelyCompleteOnDiagonal (T : FiniteOperationalTheory A) : Prop
+PassiveQuotient.lean:234 | def | ObservationCongruence | Prop | def ObservationCongruence (φ : Equiv.Perm S) (vis : S → I) (r : S → S → Prop) : Prop
+PassiveQuotient.lean:240 | def | PassivelyMinimal | Prop | def PassivelyMinimal (φ : Equiv.Perm S) (vis : S → I) : Prop
+
+## NON-CENSUS DEFINITIONS (def/abbrev/structure/inductive not Prop-valued): module.lean:line | keyword | name | declared type
+CompletedOI.lean:137 | def | parallelPair | O' × O → Matrix (Fin 2 × Fin m) (Fin 2 × Fin m) ℂ →ₗ[ℂ] Matrix (Fin 2 × Fin m) (Fin 2 × Fin m) ℂ
+CompletedOI.lean:343 | def | shiftOfClosure | FiniteOperationalTheory (A × Fin n)
+CarrierGeneralOIPlus.lean:80 | def | parallelPair | O' × O → Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ
+ImplementationLocality.lean:113 | def | twoPosTheory | FiniteOperationalTheory S
+ImplementationLocality.lean:175 | def | twoPosFamily | TheoryFamily
+ImplementationLocality.lean:244 | abbrev | ImplementationClass | (no type ascription)
+ImplementationLocality.lean:256 | def | readProj | Matrix (T × Fin m) (T × Fin m) ℂ
+ImplementationLocality.lean:374 | def | fullClass | ImplementationClass
+ImplementationLocality.lean:852 | def | genTheory | FiniteOperationalTheory S
+ImplementationLocality.lean:887 | def | genFamily | TheoryFamily
+MinimalRepertoire.lean:188 | def | colourPhase | Matrix S S ℂ
+MinimalRepertoire.lean:250 | def | colourAlg | LieSubalgebra ℝ (Matrix S S ℂ)
+PositiveReachability.lean:72 | def | posReach | Submonoid (unitary (Matrix S S ℂ))
+PositiveReachability.lean:172 | def | posDirs | Set (Matrix S S ℂ)
+PositiveReachability.lean:198 | def | posSpan | Submodule ℝ (Matrix S S ℂ)
+PositiveReachability.lean:290 | def | posLie | LieSubalgebra ℝ (Matrix S S ℂ)
+PositiveReachability.lean:362 | def | adEquiv | Matrix S S ℂ ≃ₗ[ℝ] Matrix S S ℂ
+PositiveReachability.lean:382 | def | posDirs₀ | Set (Matrix S S ℂ)
+PositiveReachability.lean:386 | def | posSpan₀ | Submodule ℝ (Matrix S S ℂ)
+PositiveReachability.lean:430 | def | prefixProd | (n : ℕ) → (Fin n → unitary (Matrix S S ℂ)) → Fin n → unitary (Matrix S S ℂ)
+PositiveReachability.lean:513 | def | wordMap | (n : ℕ) → (Fin n → unitary (Matrix S S ℂ)) → (Fin n → ℝ) → Matrix S S ℂ
+PositiveReachability.lean:521 | def | totalProd | (n : ℕ) → (Fin n → unitary (Matrix S S ℂ)) → unitary (Matrix S S ℂ)
+PositiveReachability.lean:567 | def | wordDirs | Fin n → Matrix S S ℂ
+PositiveReachability.lean:572 | def | dirMapR | (Fin n → ℝ) →L[ℝ] Matrix S S ℂ
+PositiveReachability.lean:680 | def | psiW | Matrix S S ℂ
+PositiveReachability.lean:695 | def | psiDerivW | ((Fin (n + 1) → ℝ) × (Fin (n + 1) → ℝ)) →L[ℝ] Matrix S S ℂ
+StructuralClosure.lean:180 | def | substratumClass | ImplementationClass
+SubstratumInterface.lean:80 | def | bijectiveOperator | Matrix S S ℂ
+SubstratumInterface.lean:83 | def | phaseOperator | Matrix S S ℂ
+ReadWriteControl.lean:86 | structure | ReadWriteFamily | (no type ascription)
+ReadWriteControl.lean:93 | def | readWriteOperator | Matrix S S ℂ
+ReadWriteControl.lean:188 | def | memorySwap | ReadWriteFamily a b
+DerivedQ3.lean:55 | def | flipAt | ℂ
+LiftAudit.lean:47 | def | gateFlow | Matrix S S ℂ
+LiftAudit.lean:51 | def | levelPerm | Equiv.Perm (S × Fin n)
+LiftAudit.lean:252 | def | pairProj | Matrix S S ℂ
+LiftAudit.lean:338 | def | orb | Matrix S S ℂ
+LiftAudit.lean:582 | def | signFun | ℂ
+LiftAudit.lean:586 | def | phaseFun | ℂ
+LiftSource.lean:143 | def | coherentLiftClass | ImplementationClass
+LiftSource.lean:175 | def | coherentLiftTheory | FiniteOperationalTheory S
+LiftSource.lean:247 | def | stochasticChannel | Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ
+FlowEndpoint.lean:51 | abbrev | onesTheory | FiniteOperationalTheory A
+C5Discovery.lean:134 | def | hc | ℂ
+C5Discovery.lean:156 | def | hadamard | Matrix (Fin 2) (Fin 2) ℂ
+C5Discovery.lean:192 | def | siteShearImage | Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ
+C5Discovery.lean:196 | def | siteSwapImage | Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ
+C5Discovery.lean:247 | def | polarizedTheory | FiniteOperationalTheory S
+StateMixingCoupling.lean:45 | def | rot | Matrix (Fin 2) (Fin 2) ℂ
+StateMixingCoupling.lean:50 | def | mixImage | Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ
+StateMixingCoupling.lean:72 | abbrev | MixC | ImplementationClass
+StateMixingCoupling.lean:103 | def | mixTheoryR | FiniteOperationalTheory S
+StateMixingCoupling.lean:108 | def | mixTheory | FiniteOperationalTheory S
+StateMixingCoupling.lean:522 | def | MixImagesAt | Set (Matrix T T ℂ)
+StateMixingCoupling.lean:529 | def | GenM | ℕ → (T : Type) → [Fintype T] → [DecidableEq T] → Set (Matrix T T ℂ)
+PairFlowEquivalence.lean:67 | def | rotFlow | PairFlow
+CoherentContinuumSource.lean:215 | def | weightGate | Matrix T T ℂ
+EmbeddedObservation.lean:93 | abbrev | TheoryFamily | (no type ascription)
+EmbeddedObservation.lean:237 | def | cpTheory | FiniteOperationalTheory S
+EmbeddedObservation.lean:299 | def | cpFamily | TheoryFamily
+ReferenceExtension.lean:86 | def | refBlockR | Matrix S S ℂ
+ReferenceExtension.lean:91 | def | amplRef | Matrix (R × S') (R × S') ℂ
+ReferenceExtension.lean:131 | def | amplRefL | Matrix (R × S) (R × S) ℂ →ₗ[ℂ] Matrix (R × S') (R × S') ℂ
+ReferenceExtension.lean:189 | def | refMarginalR | Matrix R R ℂ
+ReferenceExtension.lean:252 | def | emb3 | Fin 3 → Fin 2 × Fin 2
+ReferenceExtension.lean:257 | def | maxEnt3 | Fin 3 × (Fin 2 × Fin 2) → ℂ
+ReferenceExtension.lean:342 | def | padEmbed | Matrix (Fin 2 × S) S ℂ
+ReferenceExtension.lean:422 | def | withSpectator | Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ
+ReferenceExtension.lean:458 | def | qutritIdx | Fin 3 × (Fin 2 × Fin 2) ≃ Fin 2 × Fin 6
+SpectatorBridge.lean:272 | def | onesCorr | Matrix S S ℂ
+SpectatorBridge.lean:348 | def | transport | Matrix l' l' ℂ →ₗ[ℂ] Matrix l' l' ℂ
+TypedCompletion.lean:96 | def | transportT | Matrix T T ℂ →ₗ[ℂ] Matrix T' T' ℂ
+TypedCompletion.lean:113 | def | attachUniform | Matrix S S ℂ →ₗ[ℂ] Matrix (S × R) (S × R) ℂ
+TypedCompletion.lean:129 | def | discardR | Matrix (S × R) (S × R) ℂ →ₗ[ℂ] Matrix S S ℂ
+TypedCompletion.lean:165 | structure | TypedOperationalTheory | (no type ascription)
+TypedCompletion.lean:231 | def | shadow | FiniteOperationalTheory A
+TypedCompletion.lean:267 | def | shadowFamily | TheoryFamily
+TypedCompletion.lean:310 | def | embL | Matrix (X × Y) X ℂ
+TypedCompletion.lean:315 | def | embR | Matrix (X × Y) Y ℂ
+TypedCompletion.lean:438 | def | conjT | Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ
+TypedCompletion.lean:513 | def | wrap | Matrix (S × S') (S × S') ℂ →ₗ[ℂ] Matrix (S × S') (S × S') ℂ
+TypedCompletion.lean:647 | def | shuffle | (S × (S' × Fin (n + 1))) ≃ (S' × (S × Fin (n + 1)))
+TypedCompletion.lean:654 | def | emb2 | Matrix (S' × (S × Fin (n + 1))) S ℂ
+TypedCompletion.lean:707 | def | regOp | Matrix (S' × (S × Fin (n + 1))) (S' × (S × Fin (n + 1))) ℂ
+TypedCompletion.lean:916 | def | typedDiag | TypedOperationalTheory
+QuasilocalAlgebra.lean:97 | def | glob | Conf Λ Q
+QuasilocalAlgebra.lean:100 | def | patch | ι → Q
+QuasilocalAlgebra.lean:165 | def | kern | ℂ
+QuasilocalAlgebra.lean:234 | abbrev | Scaffold | Type
+QuasilocalAlgebra.lean:242 | def | emb | Module.End ℂ (Scaffold ι Q)
+QuasilocalAlgebra.lean:275 | def | kerOf | ℂ
+QuasilocalAlgebra.lean:418 | def | localAlg | Subalgebra ℂ (Module.End ℂ (Scaffold ι Q))
+QuasilocalAlgebra.lean:435 | def | ofM | localAlg ι Q
+QuasilocalAlgebra.lean:512 | def | inclHom | Matrix (Conf Λ Q) (Conf Λ Q) ℂ →⋆ₐ[ℂ] Matrix (Conf Λ' Q) (Conf Λ' Q) ℂ
+QuasilocalAlgebra.lean:535 | def | rep | Σ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ
+QuasilocalAlgebra.lean:553 | def | nrm | ℝ
+QuasilocalAlgebra.lean:563 | def | localNorm | AddGroupNorm (localAlg ι Q)
+QuasilocalAlgebra.lean:625 | abbrev | Quasilocal | (no type ascription)
+QuasilocalAlgebra.lean:684 | def | stage | Matrix (Conf Λ Q) (Conf Λ Q) ℂ →⋆ₐ[ℂ] Quasilocal ι Q
+QuasilocalAlgebra.lean:744 | def | evalLocal | ℂ
+QuasilocalAlgebra.lean:773 | def | localStateₗ | localAlg ι Q →ₗ[ℂ] ℂ
+QuasilocalAlgebra.lean:798 | def | stageFunctional | Matrix (Conf Λ Q) (Conf Λ Q) ℂ →ₚ[ℂ] ℂ
+QuasilocalAlgebra.lean:838 | def | localState | localAlg ι Q →L[ℂ] ℂ
+QuasilocalAlgebra.lean:847 | def | quasiState | Quasilocal ι Q →L[ℂ] ℂ
+QuasilocalAlgebra.lean:901 | def | referenceState | Quasilocal ι Q →L[ℂ] ℂ
+QuasilocalAlgebra.lean:919 | structure | FiniteRange | (no type ascription)
+QuasilocalAlgebra.lean:924 | def | bwd | Finset ι
+QuasilocalAlgebra.lean:928 | def | fwd | Finset ι
+QuasilocalAlgebra.lean:956 | structure | ReversibleDynamics | (no type ascription)
+QuasilocalAlgebra.lean:962 | def | ReversibleDynamics.inv | ReversibleDynamics ι Q
+QuasilocalAlgebra.lean:966 | def | permOp | Module.End ℂ (Scaffold ι Q)
+QuasilocalAlgebra.lean:970 | def | permOpInv | Module.End ℂ (Scaffold ι Q)
+QuasilocalAlgebra.lean:999 | def | heis | Module.End ℂ (Scaffold ι Q)
+QuasilocalAlgebra.lean:1040 | def | hat | Finset ι
+QuasilocalAlgebra.lean:1054 | def | target | Conf (hat Φ Λ) Q
+QuasilocalAlgebra.lean:1068 | def | ext | ι → Q
+QuasilocalAlgebra.lean:1109 | def | transported | Matrix (Conf (hat Φ Λ) Q) (Conf (hat Φ Λ) Q) ℂ
+QuasilocalAlgebra.lean:1194 | def | transportedHom | Matrix (Conf Λ Q) (Conf Λ Q) ℂ →⋆ₐ[ℂ] Matrix (Conf (hat Φ Λ) Q) (Conf (hat Φ Λ) Q) ℂ
+QuasilocalAlgebra.lean:1220 | def | heisLoc | localAlg ι Q
+QuasilocalAlgebra.lean:1264 | def | heisQ | Quasilocal ι Q → Quasilocal ι Q
+QuasilocalAlgebra.lean:1324 | def | hatIter | ℕ → Finset ι
+QuasilocalCharacterization.lean:168 | structure | QuasilocalSystem | (no type ascription)
+QuasilocalCharacterization.lean:187 | def | oiSystem | QuasilocalSystem ι Q
+QuasilocalCharacterization.lean:213 | def | localMap | S.A
+QuasilocalCharacterization.lean:227 | def | localHom | localAlg ι Q →⋆ₐ[ℂ] S.A
+QuasilocalCharacterization.lean:265 | def | canon | Quasilocal ι Q → S.A
+QuasilocalCharacterization.lean:313 | def | canonHom | Quasilocal ι Q →⋆ₐ[ℂ] S.A
+QuasilocalCharacterization.lean:350 | def | canonEquiv | Quasilocal ι Q ≃⋆ₐ[ℂ] S.A
+QuasilocalCharacterization.lean:369 | def | systemEquiv | S.A ≃⋆ₐ[ℂ] S'.A
+QuasilocalCharacterization.lean:396 | def | canonInvL | S.A →L[ℂ] Quasilocal ι Q
+QuasilocalCharacterization.lean:410 | def | systemState | S.A →L[ℂ] ℂ
+QuasilocalCharacterization.lean:448 | def | heisEquiv | Quasilocal ι Q ≃⋆ₐ[ℂ] Quasilocal ι Q
+QuasilocalCharacterization.lean:463 | structure | OISystem | (no type ascription)
+QuasilocalCharacterization.lean:471 | def | oiDynamical | OISystem ι Q
+QuasilocalCharacterization.lean:514 | def | phaseWt | ℂ
+QuasilocalCharacterization.lean:549 | def | phaseU | Matrix (Conf Λ Q) (Conf Λ Q) ℂ
+QuasilocalCharacterization.lean:553 | def | phaseConj | Matrix (Conf Λ Q) (Conf Λ Q) ℂ
+QuasilocalCharacterization.lean:622 | def | phaseHom | Matrix (Conf Λ Q) (Conf Λ Q) ℂ →⋆ₐ[ℂ] Matrix (Conf Λ Q) (Conf Λ Q) ℂ
+QuasilocalCharacterization.lean:648 | def | phaseLoc | localAlg ι Q
+QuasilocalCharacterization.lean:697 | def | phaseQ | Quasilocal ι Q → Quasilocal ι Q
+QuasilocalCharacterization.lean:756 | def | phaseEquiv | Quasilocal ι Q ≃⋆ₐ[ℂ] Quasilocal ι Q
+SecondOrderDrive.lean:135 | def | driveQ | Quasilocal ι (V × V)
+SecondOrderDrive.lean:248 | def | swapFiniteRange | FiniteRange (swapLayer : (ι → V × V) → (ι → V × V))
+SecondOrderDrive.lean:264 | def | swapDyn | ReversibleDynamics ι (V × V)
+SecondOrderDrive.lean:274 | def | stepInfl | Finset ι
+SecondOrderDrive.lean:285 | def | shearFiniteRange | FiniteRange (shear R.F : (ι → V × V) → (ι → V × V))
+SecondOrderDrive.lean:299 | def | shearDyn | ReversibleDynamics ι (V × V)
+SecondOrderDrive.lean:306 | def | leapFiniteRange | FiniteRange (leap R.F : (ι → V × V) → (ι → V × V))
+SecondOrderDrive.lean:321 | def | leapSymmFiniteRange | FiniteRange (fun x : ι → V × V => shear R.F (swapLayer x))
+SecondOrderDrive.lean:339 | def | ruleDynamics | ReversibleDynamics ι (V × V)
+SecondOrderDrive.lean:365 | def | localConf | ι → Q
+SecondOrderDrive.lean:392 | def | localEquiv | (ι → Q) ≃ (ι → Q)
+SecondOrderDrive.lean:402 | def | localFiniteRange | FiniteRange (localConf Λ σ)
+SecondOrderDrive.lean:426 | def | localDyn | ReversibleDynamics ι Q
+SecondOrderDrive.lean:502 | def | regionSwap | Conf Λ (V × V) ≃ Conf Λ (V × V)
+SecondOrderDrive.lean:620 | def | shearOnRegion | Conf S (V × V)
+SecondOrderDrive.lean:657 | def | shearPerm | Conf S (V × V) ≃ Conf S (V × V)
+JordanClassification.lean:96 | def | Eu | Matrix n n ℂ
+JordanClassification.lean:394 | def | qd | Matrix n n ℂ
+JordanClassification.lean:435 | def | cA | ℂ
+JordanClassification.lean:439 | def | cB | ℂ
+OperationalRigidity.lean:349 | def | edyad | Matrix n n ℂ
+PassiveObservation.lean:166 | def | vecId | S × S → ℂ
+PassiveObservation.lean:239 | def | pureState | Matrix S S ℂ
+PassiveObservation.lean:278 | def | pinching | Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ
+PassiveIndependence.lean:150 | def | labelTheory | FiniteOperationalTheory (Fin 2)
+PassiveIndependence.lean:206 | def | unit00 | Matrix (Fin 2 × Fin 4) (Fin 2 × Fin 4) ℂ
+PassiveQuotient.lean:127 | def | itiSetoid | Setoid S
+PassiveQuotient.lean:133 | abbrev | MinimalCarrier | Type _
+PassiveQuotient.lean:161 | def | quotVis | MinimalCarrier φ vis → I
+PassiveQuotient.lean:168 | def | quotPerm | Equiv.Perm (MinimalCarrier φ vis)
+PassiveQuotient.lean:273 | def | realizationMap | MinimalCarrier φ vis → S'
+PassiveQuotient.lean:339 | def | trajProb | ℝ
+PassiveQuotient.lean:344 | def | quotMeasure | MinimalCarrier φ vis → ℝ
+PassiveQuotient.lean:498 | def | hiddenExt | Equiv.Perm (S × A)
+
+## THEOREMS (auxiliary list): module.lean:line | name
+GeneralCarrier.lean:79 | exactComposite_of_validity_general
+GeneralCarrier.lean:87 | exactAll_of_conditions_general
+GeneralCarrier.lean:93 | exactAll_of_physical_general
+GeneralCarrier.lean:100 | exactAll_iff_physical_general
+GeneralCarrier.lean:107 | general_characterization
+GeneralCarrier.lean:113 | exactAll_iff_physical_unconditional_of_general
+GeneralCarrier.lean:135 | physical_iff_wellFormed_substantive
+GeneralCarrier.lean:144 | exactAll_iff_substantive
+GeneralCarrier.lean:149 | exactAll_iff_wellFormed_substantive
+GeneralCarrier.lean:160 | oi_alone_not_qm
+GeneralCarrier.lean:168 | oi_compatible_classification
+GeneralCarrier.lean:177 | oi_compatible_iff
+GeneralCarrier.lean:188 | main_result
+CompletedOI.lean:103 | completedOI_iff_qm
+CompletedOI.lean:110 | completedOI_iff_physical
+CompletedOI.lean:115 | oiCore_not_completedOI
+CompletedOI.lean:131 | observationalIndependence_iff_inert
+CompletedOI.lean:147 | parallel_of_observationalIndependence
+CompletedOI.lean:180 | flow_zero
+CompletedOI.lean:185 | flow_isometry
+CompletedOI.lean:190 | single_diag_hermitian'
+CompletedOI.lean:200 | control_of_reversibleRichness
+CompletedOI.lean:220 | perm_conj_single
+CompletedOI.lean:234 | edyad_eq_conj_single'
+CompletedOI.lean:241 | edyad_eq_conj_single
+CompletedOI.lean:249 | mul_permMatrix_unitary
+CompletedOI.lean:257 | hControl_single_all
+CompletedOI.lean:278 | reversibleRichness_of_control
+CompletedOI.lean:332 | closure_of_observerRecursion
+CompletedOI.lean:392 | observerRecursion_of_closure
+CompletedOI.lean:401 | observerRecursion_iff_closure
+CompletedOI.lean:423 | qm_of_oiPlus
+CompletedOI.lean:430 | oiPlus_of_qm
+CompletedOI.lean:440 | oiPlus_iff_qm
+CompletedOI.lean:444 | oiPlus_iff_completedOI
+CompletedOI.lean:453 | countermodel_hid
+CompletedOI.lean:456 | countermodel_hread
+CompletedOI.lean:462 | diag_hid
+CompletedOI.lean:466 | diag_hread
+CompletedOI.lean:475 | independence_independent
+CompletedOI.lean:487 | richness_independent
+CompletedOI.lean:496 | recursion_independent
+CompletedOI.lean:506 | oiPlus_independence
+CompletedOI.lean:549 | qm_implies_oiCore
+CompletedOI.lean:557 | oiCore_forward_redundancy
+CarrierGeneralOIPlus.lean:75 | observationalIndependence_iff_inert
+CarrierGeneralOIPlus.lean:87 | parallel_of_observationalIndependence
+CarrierGeneralOIPlus.lean:119 | conjChannel_mul_general
+CarrierGeneralOIPlus.lean:127 | control_of_reversibleRichness
+CarrierGeneralOIPlus.lean:148 | reversibleRichness_of_control
+CarrierGeneralOIPlus.lean:191 | qm_of_oiPlus
+CarrierGeneralOIPlus.lean:198 | oiPlus_of_qm
+CarrierGeneralOIPlus.lean:207 | oiPlus_iff_qm
+CarrierGeneralOIPlus.lean:213 | carrier_general_oiPlus
+CarrierGeneralOIPlus.lean:224 | oiPlus_qubit_iff
+CarrierGeneralOIPlus.lean:230 | oiPlus_independence
+ImplementationLocality.lean:177 | twoPosFamily_regrouping
+ImplementationLocality.lean:181 | twoPosFamily_relabelling
+ImplementationLocality.lean:190 | countermodel_ambient
+ImplementationLocality.lean:198 | countermodel_embeddedObservation
+ImplementationLocality.lean:201 | countermodel_reversibleRichness
+ImplementationLocality.lean:207 | redundancy_fails
+ImplementationLocality.lean:223 | form_fixed_existence_fails
+ImplementationLocality.lean:295 | conjChannel_trace_iff
+ImplementationLocality.lean:305 | instAvail_mono
+ImplementationLocality.lean:317 | instAvail_trace
+ImplementationLocality.lean:376 | fullClass_contextStable
+ImplementationLocality.lean:378 | fullClass_labelInvariant
+ImplementationLocality.lean:389 | cp_of_realized
+ImplementationLocality.lean:395 | conjChannel_smul
+ImplementationLocality.lean:402 | realized_conj
+ImplementationLocality.lean:405 | realized_zero
+ImplementationLocality.lean:408 | realized_add
+ImplementationLocality.lean:418 | realized_sum
+ImplementationLocality.lean:423 | sum_comp'
+ImplementationLocality.lean:430 | comp_sum'
+ImplementationLocality.lean:436 | realized_comp
+ImplementationLocality.lean:448 | realized_smul_nonneg
+ImplementationLocality.lean:464 | realized_transport
+ImplementationLocality.lean:472 | realized_id
+ImplementationLocality.lean:476 | realized_localLuders
+ImplementationLocality.lean:482 | realized_discard
+ImplementationLocality.lean:518 | fullClass_arch
+ImplementationLocality.lean:530 | realized_of_instAvail
+ImplementationLocality.lean:541 | cp_of_instAvail
+ImplementationLocality.lean:549 | instAvail_comp_one
+ImplementationLocality.lean:562 | instAvail_one_comp
+ImplementationLocality.lean:576 | instAvail_id
+ImplementationLocality.lean:587 | transport_refl
+ImplementationLocality.lean:592 | transport_trans
+ImplementationLocality.lean:600 | transport_comp
+ImplementationLocality.lean:607 | reindex_reindex
+ImplementationLocality.lean:612 | reindex_isometry'
+ImplementationLocality.lean:618 | uniformAttach_reindex
+ImplementationLocality.lean:627 | transport_discard
+ImplementationLocality.lean:644 | instAvail_transport
+ImplementationLocality.lean:678 | tensorOf_conjTranspose
+ImplementationLocality.lean:683 | tensorOf_mul'
+ImplementationLocality.lean:691 | tensorOf_one_isometry'
+ImplementationLocality.lean:697 | amplRefL_conjChannel
+ImplementationLocality.lean:702 | amplRefL_sum
+ImplementationLocality.lean:709 | amplRef_apply'
+ImplementationLocality.lean:713 | refBlockR_amplRef
+ImplementationLocality.lean:719 | amplRefL_comp
+ImplementationLocality.lean:728 | tensorOf_one_reindex
+ImplementationLocality.lean:736 | tensorOf_one_readProj
+ImplementationLocality.lean:747 | amplRefL_transport
+ImplementationLocality.lean:759 | refBlockR_reindex_uniformAttach
+ImplementationLocality.lean:769 | amplRefL_discard
+ImplementationLocality.lean:789 | instAvail_spectator
+ImplementationLocality.lean:820 | instAvail_withSpectator
+ImplementationLocality.lean:833 | realized_withSpectator
+ImplementationLocality.lean:889 | genFamily_regrouping
+ImplementationLocality.lean:893 | genFamily_relabelling
+ImplementationLocality.lean:900 | genTheory_ambient
+ImplementationLocality.lean:904 | genTheory_embeddedObservation
+ImplementationLocality.lean:909 | genTheory_availExt_iff
+ImplementationLocality.lean:915 | genTheory_fullClass_control
+ImplementationLocality.lean:919 | genTheory_mono
+ImplementationLocality.lean:926 | genTheory_generated
+ImplementationLocality.lean:929 | genTheory_implementationLocality
+ImplementationLocality.lean:943 | parallel_of_implementationLocal
+ImplementationLocality.lean:957 | observationalIndependence_of_implementationLocality
+ImplementationLocality.lean:963 | krausSoundExt_of_implementationGenerated
+ImplementationLocality.lean:971 | validity_of_implementationLocality
+ImplementationLocality.lean:988 | instAvail_fullClass_of_krausFamily
+ImplementationLocality.lean:1004 | generated_of_qm
+ImplementationLocality.lean:1017 | implementationLocality_of_qm
+ImplementationLocality.lean:1023 | countermodel_not_implementationGenerated
+ImplementationLocality.lean:1030 | countermodel_not_implementationLocality
+ImplementationLocality.lean:1035 | implementationLocality_independent
+ImplementationLocality.lean:1058 | oiPlusEmbedded_of_oiPlusLocal
+ImplementationLocality.lean:1062 | qm_of_oiPlusLocal
+ImplementationLocality.lean:1065 | oiPlusLocal_of_qm
+ImplementationLocality.lean:1070 | oiPlusLocal_iff_qm
+ImplementationLocality.lean:1073 | oiPlusLocal_iff_oiPlusEmbedded
+ImplementationLocality.lean:1079 | carrier_general_oiPlusLocal
+MinimalRepertoire.lean:56 | bracket_XX
+MinimalRepertoire.lean:79 | gen_X_perm
+MinimalRepertoire.lean:85 | exists_third
+MinimalRepertoire.lean:97 | hControl_of_XYZ
+MinimalRepertoire.lean:156 | hControl_perm
+MinimalRepertoire.lean:192 | colourPhase_conjTranspose
+MinimalRepertoire.lean:200 | conjTranspose_mul_colourPhase
+MinimalRepertoire.lean:211 | IsRealAntisym.zero
+MinimalRepertoire.lean:215 | IsRealAntisym.add
+MinimalRepertoire.lean:221 | IsRealAntisym.smul
+MinimalRepertoire.lean:227 | IsRealAntisym.bracket
+MinimalRepertoire.lean:236 | IsRealAntisym.diag_zero
+MinimalRepertoire.lean:241 | conj_mul_conj
+MinimalRepertoire.lean:269 | mem_colourAlg_iff
+MinimalRepertoire.lean:273 | single_transpose
+MinimalRepertoire.lean:282 | colour_conj_transition
+MinimalRepertoire.lean:301 | transition_mem_colourAlg
+MinimalRepertoire.lean:316 | controlLie_le_colourAlg
+MinimalRepertoire.lean:327 | diag_zero_of_mem_controlLie
+MinimalRepertoire.lean:337 | popDiff_notMem_controlLie
+MinimalRepertoire.lean:344 | popDiff_specialSkew
+MinimalRepertoire.lean:353 | not_hControl_of_colourCompatible
+MinimalRepertoire.lean:362 | not_hControl_two
+MinimalRepertoire.lean:372 | finRotate_parity
+MinimalRepertoire.lean:384 | colourCompatible_of_reverse
+MinimalRepertoire.lean:392 | colourCompatible_pow
+MinimalRepertoire.lean:401 | not_hControl_evenCycle
+MinimalRepertoire.lean:430 | phaseFree_of_elementary
+MinimalRepertoire.lean:438 | avail_perm_of_ne
+MinimalRepertoire.lean:452 | control_at_level
+MinimalRepertoire.lean:473 | tensorOf_one_isometry
+MinimalRepertoire.lean:481 | conjChannel_zero
+MinimalRepertoire.lean:488 | ancBlock_tensorOf_one
+MinimalRepertoire.lean:495 | discard_tensorOf_one
+MinimalRepertoire.lean:512 | descend
+MinimalRepertoire.lean:529 | control_of_phaseFree
+MinimalRepertoire.lean:547 | oiPlusMin_of_oiPlusPos
+MinimalRepertoire.lean:552 | qm_of_oiPlusMin
+MinimalRepertoire.lean:562 | oiPlusMin_of_qm
+MinimalRepertoire.lean:569 | oiPlusMin_iff_qm
+MinimalRepertoire.lean:572 | oiPlusMin_iff_oiPlusPos
+MinimalRepertoire.lean:578 | carrier_general_oiPlusMin
+MinimalRepertoire.lean:590 | perm_avail_pow
+MinimalRepertoire.lean:600 | perm_avail_of_cycle_swap
+MinimalRepertoire.lean:642 | phaseFree_of_cyclic
+PositivePackage.lean:40 | qm_of_oiPlusPos
+PositivePackage.lean:49 | oiPlusPos_of_qm
+PositivePackage.lean:55 | oiPlusPos_iff_qm
+PositivePackage.lean:59 | oiPlusPos_of_oiPlusElem
+PositivePackage.lean:62 | oiPlusPos_iff_oiPlusElem
+PositivePackage.lean:68 | carrier_general_oiPlusPos
+MicroscopicReversibility.lean:101 | reversibleRichness_iff
+MicroscopicReversibility.lean:107 | control_of_lieRank_inverse
+MicroscopicReversibility.lean:114 | control_of_lieRank
+MicroscopicReversibility.lean:132 | inverseAccessibility_of_lieRank
+MicroscopicReversibility.lean:145 | dyad_sum_span_single
+MicroscopicReversibility.lean:189 | kraus_of_conj_unitary
+MicroscopicReversibility.lean:227 | implementationLocality_of_reversible
+MicroscopicReversibility.lean:242 | conjChannel_zero'
+MicroscopicReversibility.lean:251 | exists_scaled_mem_of_instAvail_unitary
+MicroscopicReversibility.lean:283 | inverseAccessibility_of_generated_daggerStable
+MicroscopicReversibility.lean:301 | inverseAccessibility_of_reversibleImplementationLocality
+MicroscopicReversibility.lean:310 | genTheory_reversibleImplementationLocality
+MicroscopicReversibility.lean:321 | fullClass_daggerStable
+MicroscopicReversibility.lean:323 | fullClass_unitaryRaySaturated
+MicroscopicReversibility.lean:329 | reversibleImplementationLocality_of_qm
+MicroscopicReversibility.lean:343 | oiPlusLocal_of_oiPlusMicro
+MicroscopicReversibility.lean:349 | qm_of_oiPlusMicro
+MicroscopicReversibility.lean:352 | oiPlusMicro_of_qm
+MicroscopicReversibility.lean:357 | oiPlusMicro_iff_qm
+MicroscopicReversibility.lean:360 | oiPlusMicro_iff_oiPlusLocal
+MicroscopicReversibility.lean:366 | carrier_general_oiPlusMicro
+PositiveReachability.lean:76 | flow_mem_posReach
+PositiveReachability.lean:80 | control_mem_posReach
+PositiveReachability.lean:85 | phase_mem_posReach
+PositiveReachability.lean:91 | avail_of_mem_posReach
+PositiveReachability.lean:117 | coe_pow_mem_closedBall
+PositiveReachability.lean:124 | exists_pow_tendsto_one
+PositiveReachability.lean:150 | exists_pow_pred_tendsto_star
+PositiveReachability.lean:176 | posDirs_skew
+PositiveReachability.lean:185 | ad_posDirs
+PositiveReachability.lean:202 | ad_mem_posSpan
+PositiveReachability.lean:215 | posSpan_closed
+PositiveReachability.lean:221 | adStar_mem_posSpan
+PositiveReachability.lean:238 | exp_posDir_conj_mem_posSpan
+PositiveReachability.lean:269 | bracket_mem_posSpan
+PositiveReachability.lean:307 | mem_posLie_iff
+PositiveReachability.lean:311 | controlGenerators_subset_posDirs
+PositiveReachability.lean:318 | controlLie_le_posLie
+PositiveReachability.lean:324 | skew_mem_posSpan
+PositiveReachability.lean:378 | adEquiv_apply
+PositiveReachability.lean:390 | posSpan_eq_sup
+PositiveReachability.lean:395 | orbitDir_mul
+PositiveReachability.lean:399 | map_adEquiv_posSpan₀_le
+PositiveReachability.lean:410 | map_adEquiv_posSpan₀
+PositiveReachability.lean:417 | exists_dir_notMem
+PositiveReachability.lean:434 | prefixProd_zero
+PositiveReachability.lean:438 | prefixProd_succ
+PositiveReachability.lean:442 | prefixProd_mem
+PositiveReachability.lean:457 | exists_nested_spanning
+PositiveReachability.lean:525 | totalProd_mem
+PositiveReachability.lean:533 | wordMap_zero
+PositiveReachability.lean:548 | wordMap_mem_posReach
+PositiveReachability.lean:576 | dirMapR_apply
+PositiveReachability.lean:580 | coe_conjTranspose_mul_self_mul
+PositiveReachability.lean:585 | wordMap_hasStrictFDerivAt
+PositiveReachability.lean:650 | psiDeriv_surjective_of_skew
+PositiveReachability.lean:688 | psiW_zero
+PositiveReachability.lean:701 | exp_phase_hasStrictFDerivAt
+PositiveReachability.lean:715 | psiW_hasStrictFDerivAt
+PositiveReachability.lean:774 | psiDerivW_surjective
+PositiveReachability.lean:791 | exp_phase_norm
+PositiveReachability.lean:798 | phase_word_mem_posReach
+PositiveReachability.lean:812 | posReach_mem_nhds_totalProd
+PositiveReachability.lean:895 | continuous_unitary_inv
+PositiveReachability.lean:908 | nhds_one_of_nhds_mem
+PositiveReachability.lean:939 | eq_top_of_nhds_one
+PositiveReachability.lean:978 | posReach_eq_top
+PositiveReachability.lean:996 | universalReachability_of_lieRank_positive
+StructuralClosure.lean:102 | of_ite_ne_zero
+StructuralClosure.lean:111 | mul_entry_ne_zero
+StructuralClosure.lean:119 | monomial_submonomial
+StructuralClosure.lean:130 | submonomial_monomial
+StructuralClosure.lean:169 | monomial_iff_submonomial
+StructuralClosure.lean:191 | submonomial_one
+StructuralClosure.lean:197 | submonomial_mul
+StructuralClosure.lean:212 | submonomial_smul
+StructuralClosure.lean:220 | submonomial_diagonal
+StructuralClosure.lean:225 | submonomial_block
+StructuralClosure.lean:231 | substratumClass_arch
+StructuralClosure.lean:242 | tensor_one_entry_ne_zero
+StructuralClosure.lean:250 | submonomial_tensor_one
+StructuralClosure.lean:261 | substratumClass_contextStable
+StructuralClosure.lean:266 | submonomial_reindex
+StructuralClosure.lean:275 | substratumClass_labelInvariant
+StructuralClosure.lean:280 | submonomial_conjTranspose
+StructuralClosure.lean:289 | substratumClass_daggerStable
+StructuralClosure.lean:295 | substratumClass_unitaryRaySaturated
+StructuralClosure.lean:305 | bijectiveOperator_conjTranspose
+StructuralClosure.lean:312 | phaseOperator_conjTranspose
+StructuralClosure.lean:316 | substratumClass_structurallyClosed
+StructuralClosure.lean:330 | bijectiveOperator_supplied
+StructuralClosure.lean:333 | phaseOperator_supplied
+StructuralClosure.lean:336 | readWriteOperator_supplied
+StructuralClosure.lean:348 | substratumGen_not_control
+StructuralClosure.lean:359 | substratumGen_not_qm
+StructuralClosure.lean:364 | quantumArchitecture_iff_drives_of_closed
+StructuralClosure.lean:370 | substratumClass_not_drivesElementary
+StructuralClosure.lean:376 | substratumClass_not_quantumArchitecture
+StructuralClosure.lean:383 | substratum_residual
+StructuralClosure.lean:408 | substratum_extension_quantum_iff_drives
+StructuralClosure.lean:414 | substratum_plus_control_qm
+StructuralClosure.lean:419 | fullClass_extendsSubstratum
+StructuralClosure.lean:423 | qm_generated_by_substratum_extension
+SubstratumSource.lean:103 | genTheory_avail_conj
+SubstratumSource.lean:109 | genTheory_elementary
+SubstratumSource.lean:127 | quantumArchitecture_supplies_all
+SubstratumSource.lean:136 | genTheory_qm_of_quantumArchitecture
+SubstratumSource.lean:147 | fullClass_drivesElementary
+SubstratumSource.lean:151 | fullClass_quantumArchitecture
+SubstratumSource.lean:161 | qm_generated_by_quantumArchitecture
+SubstratumSource.lean:174 | diagClass_not_drivesElementary
+SubstratumSource.lean:186 | diagGen_not_quantumArchitectureGenerated
+SubstratumInterface.lean:85 | monomial_permMatrix
+SubstratumInterface.lean:88 | monomial_diagonal
+SubstratumInterface.lean:91 | bijectiveOperator_monomial
+SubstratumInterface.lean:94 | phaseOperator_monomial
+SubstratumInterface.lean:98 | exchange_monomial
+SubstratumInterface.lean:102 | phase_monomial
+SubstratumInterface.lean:106 | monomial_entry
+SubstratumInterface.lean:126 | preservesDiag_conj_of_monomial
+SubstratumInterface.lean:155 | rot_not_monomial
+SubstratumInterface.lean:186 | monomialSource_not_control
+SubstratumInterface.lean:192 | monomialSource_not_qm
+SubstratumInterface.lean:200 | elementary_split
+PhaseSource.lean:52 | onesFixing_not_phasesAvailable
+PhaseSource.lean:79 | permClass_onesFixing
+PhaseSource.lean:104 | permTheory_not_phasesAvailable_onesFixing
+PhaseSource.lean:109 | bijectiveOperator_mulVec_ones
+PhaseSource.lean:114 | readWriteOperator_mulVec_ones
+PhaseSource.lean:128 | phaseGate_not_scalar
+PhaseSource.lean:143 | conjChannel_phaseGate_ne_id
+PhaseSource.lean:159 | diagonal_conj_phaseGate
+PhaseSource.lean:180 | phaseGate_moves_ones
+PhaseSource.lean:196 | substratumClass_not_onesFixing
+ReadWriteControl.lean:96 | readWriteOperator_eq_perm
+ReadWriteControl.lean:100 | readWriteOperator_monomial
+ReadWriteControl.lean:115 | offDiagonal_interp_not_monomial
+ReadWriteControl.lean:162 | readWriteSourced_monomialSource
+ReadWriteControl.lean:169 | readWriteSourced_not_control
+ReadWriteControl.lean:174 | readWriteSourced_not_qm
+ReadWriteControl.lean:199 | memorySwap_nontrivial
+ReadWriteControl.lean:209 | memorySwap_operator_monomial
+ReadWriteControl.lean:216 | readWriteControl_independent
+DerivedQ3.lean:58 | flipAt_self
+DerivedQ3.lean:62 | flipAt_of_ne
+DerivedQ3.lean:66 | phaseGate_mul_self
+DerivedQ3.lean:81 | gateFlow_isolation_flip
+DerivedQ3.lean:171 | flip_avail
+DerivedQ3.lean:181 | phaseFree_of_phases_layerFlowExecutable
+DerivedQ3.lean:207 | phaseFree_of_derivedOI_layerFlowExecutable
+DerivedQ3.lean:214 | qm_of_derivedOI_layerFlowExecutable
+DerivedQ3.lean:222 | derivedOI_qm_iff_layerFlowExecutable'
+DerivedQ3.lean:229 | derivedOI_layerFlowExecutable_of_qm
+DerivedQ3.lean:246 | phaseFree_of_derivedOI_layerFlowExecutable_swap
+DerivedQ3.lean:253 | derivedOI_qm_iff_layerFlowExecutable_swap'
+DerivedQ3.lean:268 | gateFlow_one_eq_one
+DerivedQ3.lean:274 | levelPerm_one
+DerivedQ3.lean:278 | layerFlowExecutable_one
+DerivedQ3.lean:286 | substratumTheory_layerFlowExecutable_one
+DerivedQ3.lean:294 | derivedOI_layerFlowExecutable_one_not_phaseFree
+LiftAudit.lean:55 | levelPerm_apply
+LiftAudit.lean:59 | levelPerm_involutive
+LiftAudit.lean:63 | permMat_star
+LiftAudit.lean:69 | gateFlow_unitary
+LiftAudit.lean:75 | gateFlow_group
+LiftAudit.lean:80 | gateFlow_zero
+LiftAudit.lean:84 | gateFlow_one
+LiftAudit.lean:89 | gateFlow_trace
+LiftAudit.lean:95 | gateFlow_stage
+LiftAudit.lean:117 | layerFlowExecutable_of_control
+LiftAudit.lean:122 | exp_pi_I_half
+LiftAudit.lean:130 | permMat_apply_self
+LiftAudit.lean:133 | permMat_apply_moved
+LiftAudit.lean:138 | gateFlow_half_entries
+LiftAudit.lean:155 | gateFlow_half_not_preservesDiag
+LiftAudit.lean:183 | configurationLevel_not_layerFlowExecutable
+LiftAudit.lean:200 | substratumTheory_not_layerFlowExecutable
+LiftAudit.lean:219 | exp_smul_idempotent
+LiftAudit.lean:254 | transition_mul_transition
+LiftAudit.lean:259 | pairProj_mul_transition
+LiftAudit.lean:264 | transition_mul_pairProj
+LiftAudit.lean:269 | pairProj_mul_pairProj
+LiftAudit.lean:276 | flow_transition_closedForm
+LiftAudit.lean:342 | orb_apply
+LiftAudit.lean:346 | orb_ext
+LiftAudit.lean:354 | sum_mul_ite_eq
+LiftAudit.lean:363 | sum_mul_ite_and_eq
+LiftAudit.lean:378 | orb_mul
+LiftAudit.lean:412 | one_eq_orb
+LiftAudit.lean:420 | diagonal_eq_orb
+LiftAudit.lean:427 | permMat_eq_orb
+LiftAudit.lean:442 | orb_add
+LiftAudit.lean:449 | orb_sub
+LiftAudit.lean:456 | orb_smul
+LiftAudit.lean:464 | gateFlow_eq_orb
+LiftAudit.lean:478 | diagonal_mul_orb_mul_diagonal
+LiftAudit.lean:491 | diagonal_mul_orb
+LiftAudit.lean:504 | pairProj_eq_orb
+LiftAudit.lean:526 | transition_eq_orb
+LiftAudit.lean:559 | flow_transition_eq_orb
+LiftAudit.lean:591 | signFun_sq
+LiftAudit.lean:596 | signFun_star
+LiftAudit.lean:603 | signFun_mul
+LiftAudit.lean:646 | phaseFun_star
+LiftAudit.lean:660 | gateFlow_isolation
+LiftAudit.lean:750 | substratumTheory_substratumAvail
+LiftAudit.lean:754 | diagonal_avail
+LiftAudit.lean:763 | conjChannel_comp_conjChannel
+LiftAudit.lean:770 | avail_conj_mul
+LiftAudit.lean:783 | phaseFree_of_layerFlowExecutable
+LiftAudit.lean:812 | derivedOI_qm_iff_layerFlowExecutable
+LiftAudit.lean:830 | regionSwap_involutive'
+LiftAudit.lean:837 | regionSwap_moves
+LiftAudit.lean:848 | substratumTheory_not_layerFlowExecutable_swap
+LiftAudit.lean:855 | phaseFree_of_layerFlowExecutable_swap
+LiftAudit.lean:862 | derivedOI_qm_iff_layerFlowExecutable_swap
+ExecSource.lean:52 | exists_nonMonomial_of_layerFlowExecutable
+ExecSource.lean:73 | not_configurationLevel_of_layerFlowExecutable
+ExecSource.lean:89 | bijectionLevel_not_layerFlowExecutable
+ExecSource.lean:97 | configurationLevel_not_avail_gateFlow_half
+ExecSource.lean:113 | substratumTheory_not_avail_gateFlow_half
+ExecSource.lean:129 | obs_not_layerFlowExecutable
+ExecSource.lean:137 | obs_not_layerFlowExecutable_shear
+ExecSource.lean:142 | obs_not_layerFlowExecutable_swap
+ExecSource.lean:154 | waveSubstratum_swap_moves
+ExecSource.lean:166 | waveSubstratum_not_layerFlowExecutable_swap
+ExecSource.lean:183 | gateFlow_half_not_monomial
+ExecSource.lean:199 | onesClass_not_configurationLevel
+LiftSource.lean:70 | not_layerFlowExecutable_of_preservesDiag
+LiftSource.lean:91 | coherentLift_isMonomial
+LiftSource.lean:103 | reversibleExtension_conj_monomial
+LiftSource.lean:133 | correlationExtension_preservesDiag
+LiftSource.lean:150 | coherentLiftClass_contains_lift
+LiftSource.lean:156 | coherentLiftClass_configurationLevel
+LiftSource.lean:164 | coherentLiftClass_eq_substratumClass
+LiftSource.lean:169 | coherentLiftClass_arch
+LiftSource.lean:180 | coherentLiftTheory_eq_substratumTheory
+LiftSource.lean:187 | coherentLiftClass_not_layerFlowExecutable
+LiftSource.lean:200 | obs_availExt_le_coherentLift
+LiftSource.lean:215 | waveSubstratum_coherentLift_not_layerFlowExecutable_swap
+LiftSource.lean:231 | single_isMonomial
+LiftSource.lean:251 | stochasticChannel_kraus_monomial
+LiftSource.lean:256 | stochasticChannel_preservesDiag
+LiftSource.lean:262 | stochastic_not_layerFlowExecutable
+LiftSource.lean:283 | avail_one_not_layerFlowExecutable
+LiftSource.lean:300 | obs_swap_avail_one_not_layerFlowExecutable
+FlowEndpoint.lean:56 | onesTheory_avail_conj
+FlowEndpoint.lean:62 | onesTheory_sourcedOI
+FlowEndpoint.lean:81 | levelPerm_involutive
+FlowEndpoint.lean:87 | onesTheory_layerFlowExecutable
+FlowEndpoint.lean:99 | exists_third
+FlowEndpoint.lean:119 | onesTheory_no_quarter_flow
+FlowEndpoint.lean:128 | onesTheory_not_phaseFree_general
+FlowEndpoint.lean:142 | onesTheory_not_phaseFree
+FlowEndpoint.lean:147 | flow_endpoint_refuted
+FlowEndpoint.lean:155 | flow_endpoint_refuted_general
+FlowEndpoint.lean:171 | phaseGate_mulVec_ones
+FlowEndpoint.lean:177 | onesTheory_not_phasesAvailable
+FlowEndpoint.lean:194 | onesTheory_not_derivedOI
+FlowEndpoint.lean:200 | onesTheory_not_substratumAvail
+FlowEndpoint.lean:205 | onesTheory_not_qm
+C5Discovery.lean:59 | obligations_independent
+C5Discovery.lean:74 | killBattery_substratum
+C5Discovery.lean:76 | killBattery_ones
+C5Discovery.lean:78 | killBattery_perm
+C5Discovery.lean:81 | killBattery_not_qm
+C5Discovery.lean:90 | obligations_outside_battery
+C5Discovery.lean:109 | bijectionLevel_fails_obligations
+C5Discovery.lean:119 | updateLevel_symplectic_inert
+C5Discovery.lean:136 | hc_mul_hc
+C5Discovery.lean:142 | hc_ne_zero
+C5Discovery.lean:146 | conj_hc
+C5Discovery.lean:150 | star_hc
+C5Discovery.lean:159 | hadamard_apply
+C5Discovery.lean:162 | hadamard_not_monomial
+C5Discovery.lean:179 | hadamard_not_preservesDiag
+C5Discovery.lean:199 | siteSwapImage_apply
+C5Discovery.lean:203 | siteSwapImage_not_monomial
+C5Discovery.lean:234 | polGen_arch
+C5Discovery.lean:242 | polGen_not_configurationLevel
+C5Discovery.lean:252 | siteShearImage_one_eq_phaseGate
+C5Discovery.lean:269 | siteShearImage_unitary
+C5Discovery.lean:279 | polarizedTheory_phase_level_one
+C5Discovery.lean:287 | gateFlow_half_eq_hsh
+C5Discovery.lean:325 | polarizedTheory_swap_half_level_one
+StateMixingCoupling.lean:74 | mixR_arch
+StateMixingCoupling.lean:81 | mixR_labelInvariant
+StateMixingCoupling.lean:84 | mixC_arch
+StateMixingCoupling.lean:86 | mixC_mix
+StateMixingCoupling.lean:89 | mixR_le_mixC
+StateMixingCoupling.lean:111 | mixImage_apply
+StateMixingCoupling.lean:114 | rot_mul
+StateMixingCoupling.lean:119 | rot_zero
+StateMixingCoupling.lean:123 | rot_conjTranspose
+StateMixingCoupling.lean:129 | mixImage_eq_tensorOf
+StateMixingCoupling.lean:135 | mixImage_mul
+StateMixingCoupling.lean:139 | mixImage_zero
+StateMixingCoupling.lean:144 | mixImage_conjTranspose
+StateMixingCoupling.lean:152 | mixImage_unitary
+StateMixingCoupling.lean:161 | rot_apply_00
+StateMixingCoupling.lean:162 | rot_apply_10
+StateMixingCoupling.lean:166 | mixImage_not_monomial
+StateMixingCoupling.lean:183 | mixImage_not_proportional
+StateMixingCoupling.lean:218 | mixC_uncountableNonMonomialRays
+StateMixingCoupling.lean:256 | phaseIndicator_mem
+StateMixingCoupling.lean:284 | siteShear_mem
+StateMixingCoupling.lean:295 | siteShearImage_unitary
+StateMixingCoupling.lean:303 | gateFlow_apply'
+StateMixingCoupling.lean:313 | gateFlow_eq_shear_mix
+StateMixingCoupling.lean:350 | layerFlowExecutable_of_mixSourced
+StateMixingCoupling.lean:368 | mixTheory_layerFlowExecutable
+StateMixingCoupling.lean:371 | phaseGate_conjTranspose'
+StateMixingCoupling.lean:380 | mixC_daggerStable
+StateMixingCoupling.lean:404 | tensorOf_one_mixImage
+StateMixingCoupling.lean:424 | tensorOf_one_phaseGate_mem
+StateMixingCoupling.lean:442 | mixC_contextStable
+StateMixingCoupling.lean:463 | derivedOI_of_stated
+StateMixingCoupling.lean:479 | mixTheory_derivedOI
+StateMixingCoupling.lean:486 | qm_of_mixSourced
+StateMixingCoupling.lean:500 | mixTheory_phaseFree
+StateMixingCoupling.lean:506 | mixTheory_endpoint
+StateMixingCoupling.lean:511 | mixTheory_qm
+StateMixingCoupling.lean:536 | genM_succ
+StateMixingCoupling.lean:541 | genM_zero
+StateMixingCoupling.lean:544 | genM_mono_succ
+StateMixingCoupling.lean:548 | genM_mono
+StateMixingCoupling.lean:554 | mixImagesAt_countable
+StateMixingCoupling.lean:560 | genM_countable
+StateMixingCoupling.lean:574 | genM_reindex
+StateMixingCoupling.lean:609 | mixR_mem_genM
+StateMixingCoupling.lean:662 | mixR_countable_upToScalar
+StateMixingCoupling.lean:673 | mixTheoryR_not_layerFlowExecutable
+StateMixingCoupling.lean:679 | mixTheoryR_not_qm
+StateMixingCoupling.lean:689 | mixTheory_empty_not_qm
+StateMixingCoupling.lean:695 | comparison
+PairFlowEquivalence.lean:52 | rotR_orth
+PairFlowEquivalence.lean:57 | rotR_continuous
+PairFlowEquivalence.lean:61 | rotR_pi_ne_one
+PairFlowEquivalence.lean:75 | rotFlow_A
+PairFlowEquivalence.lean:85 | pairFlowSourced_of_qm
+PairFlowEquivalence.lean:93 | derivedOI_pairFlowSourced_of_qm
+PairFlowEquivalence.lean:107 | mixAvail_of_pairFlowSourced
+PairFlowEquivalence.lean:116 | identity_avail_of_pairFlowSourced
+PairFlowEquivalence.lean:125 | phaseIndicator_avail
+PairFlowEquivalence.lean:153 | siteShear_avail
+PairFlowEquivalence.lean:164 | conjChannel_unit_smul
+PairFlowEquivalence.lean:177 | layerFlowExecutable_of_derivedOI_pairFlowSourced
+PairFlowEquivalence.lean:190 | qm_of_derivedOI_pairFlowSourced
+PairFlowEquivalence.lean:199 | qm_iff_derivedOI_pairFlowSourced
+PairFlowEquivalence.lean:211 | polarizedTheoryC_not_pairFlowSourced
+PairFlowEquivalence.lean:218 | countable_not_pairFlowSourced
+CoherentContinuumSource.lean:50 | exp_im_pos_of_Ioo
+CoherentContinuumSource.lean:60 | gateFlow_entries_im
+CoherentContinuumSource.lean:74 | gateFlow_not_monomial
+CoherentContinuumSource.lean:86 | isMonomial_of_smul
+CoherentContinuumSource.lean:95 | gateFlow_not_countablyCovered
+CoherentContinuumSource.lean:149 | nonMonomialCountablyCovered_of_countable
+CoherentContinuumSource.lean:163 | uncountableNonMonomialRays_of_layerFlowExecutable
+CoherentContinuumSource.lean:187 | not_layerFlowExecutable_of_nonMonomialCountablyCovered
+CoherentContinuumSource.lean:195 | uncountableNonMonomialRays_of_qm
+CoherentContinuumSource.lean:212 | substratumClass_monomial
+CoherentContinuumSource.lean:218 | weightGate_mem
+CoherentContinuumSource.lean:223 | weightGate_not_proportional
+CoherentContinuumSource.lean:235 | substratumClass_not_countablyCovered
+CoherentContinuumSource.lean:264 | polC_nonMonomialCountablyCovered
+CoherentContinuumSource.lean:270 | known_failures_orthogonal
+CoherentContinuumSource.lean:292 | readWriteOperator_range_finite
+CoherentContinuumSource.lean:299 | readWrite_parameter_uncountable_image_finite
+CoherentContinuumSource.lean:318 | gateFlow_path_coherent_continuum
+CoherentContinuumSource.lean:328 | coherent_continuum_not_sourced
+EmbeddedObservation.lean:135 | availExt_of_eq_zero
+EmbeddedObservation.lean:144 | availExt_iff_embedded
+EmbeddedObservation.lean:152 | id_of_embedded
+EmbeddedObservation.lean:162 | read_of_embedded
+EmbeddedObservation.lean:184 | closure_of_embedded
+EmbeddedObservation.lean:203 | systemToLevelOne_of_embedded
+EmbeddedObservation.lean:211 | closure_of_embeddedObservation
+EmbeddedObservation.lean:217 | observerRecursion_of_embeddedObservation
+EmbeddedObservation.lean:223 | systemToLevelOne_of_embeddedObservation
+EmbeddedObservation.lean:302 | cpFamily_regrouping
+EmbeddedObservation.lean:307 | cpFamily_relabelling
+EmbeddedObservation.lean:317 | ambient_of_qm
+EmbeddedObservation.lean:327 | embeddedObservation_of_qm
+EmbeddedObservation.lean:338 | gap_not_embeddedObservation
+EmbeddedObservation.lean:343 | embeddedObservation_independent
+EmbeddedObservation.lean:351 | core_not_embeddedObservation
+EmbeddedObservation.lean:370 | oiPlus_of_oiPlusEmbedded
+EmbeddedObservation.lean:376 | qm_of_oiPlusEmbedded
+EmbeddedObservation.lean:379 | oiPlusEmbedded_of_qm
+EmbeddedObservation.lean:384 | oiPlusEmbedded_iff_qm
+EmbeddedObservation.lean:388 | oiPlusEmbedded_iff_oiPlus
+EmbeddedObservation.lean:394 | carrier_general_oiPlusEmbedded
+ReferenceExtension.lean:102 | isTwoPositive_iff_referencePositive
+ReferenceExtension.lean:109 | refBlockR_add
+ReferenceExtension.lean:114 | refBlockR_smul
+ReferenceExtension.lean:119 | amplRef_add
+ReferenceExtension.lean:124 | amplRef_smul
+ReferenceExtension.lean:137 | amplRefL_apply
+ReferenceExtension.lean:140 | amplRef_sum_map
+ReferenceExtension.lean:146 | tensor_one_mul_apply'
+ReferenceExtension.lean:157 | mul_tensor_one_conjTranspose_apply'
+ReferenceExtension.lean:170 | amplRef_conjChannel
+ReferenceExtension.lean:182 | conjChannel_referencePositive
+ReferenceExtension.lean:193 | amplRef_reduction2
+ReferenceExtension.lean:204 | refBlockR_maxEnt
+ReferenceExtension.lean:213 | choiMatrix_eq_amplRef
+ReferenceExtension.lean:222 | referencePositive_self_cp
+ReferenceExtension.lean:231 | cp_referencePositive
+ReferenceExtension.lean:241 | isCompletelyPositive_iff_referencePositive_self
+ReferenceExtension.lean:254 | emb3_injective
+ReferenceExtension.lean:259 | maxEnt3_star
+ReferenceExtension.lean:264 | maxEnt3_norm
+ReferenceExtension.lean:276 | refMarginalR_maxEnt3
+ReferenceExtension.lean:291 | tensorOf_one_one
+ReferenceExtension.lean:297 | amplRef_reduction2_maxEnt3
+ReferenceExtension.lean:304 | amplRef_reduction2_maxEnt3_form
+ReferenceExtension.lean:313 | amplRef_reduction2_maxEnt3_not_posSemidef
+ReferenceExtension.lean:324 | reduction2_not_threePositive
+ReferenceExtension.lean:329 | reduction2_threshold
+ReferenceExtension.lean:345 | padEmbed_apply
+ReferenceExtension.lean:348 | padEmbed_conjTranspose_apply
+ReferenceExtension.lean:352 | padEmbed_mul_apply
+ReferenceExtension.lean:359 | mul_padEmbed_conjTranspose_apply
+ReferenceExtension.lean:367 | sum_sum_ite_eq'
+ReferenceExtension.lean:382 | padEmbed_conjTranspose_mul_apply
+ReferenceExtension.lean:388 | mul_padEmbed_apply
+ReferenceExtension.lean:394 | refBlock_pad
+ReferenceExtension.lean:401 | apply_eq_pad_ampl2
+ReferenceExtension.lean:409 | positive_of_twoPositive
+ReferenceExtension.lean:429 | withSpectator_apply
+ReferenceExtension.lean:437 | withSpectator_reindex
+ReferenceExtension.lean:464 | qutritIdx_apply
+ReferenceExtension.lean:474 | qutrit_of_parallel
+ReferenceExtension.lean:478 | posSemidef_of_reindex
+ReferenceExtension.lean:484 | posSemidef_reindex
+ReferenceExtension.lean:492 | countermodel_not_qutritReferenceExtension
+ReferenceExtension.lean:501 | countermodel_not_parallelReferenceExtension
+ReferenceExtension.lean:507 | control_not_implies_parallelReferenceExtension
+ReferenceExtension.lean:513 | exactControl_not_implies_qutritReferenceExtension
+SpectatorBridge.lean:91 | refBlockR_tensorOf
+SpectatorBridge.lean:98 | amplRef_tensorOf
+SpectatorBridge.lean:108 | mapSpectatorIndependent_iff_amplRef
+SpectatorBridge.lean:122 | spectatorIndependent_form
+SpectatorBridge.lean:132 | hComp_spectator_form
+SpectatorBridge.lean:150 | ext_of_agree_on_reindexed_single
+SpectatorBridge.lean:188 | isSpectatorExtension_iff
+SpectatorBridge.lean:202 | spectatorExtension_unique
+SpectatorBridge.lean:233 | inertSpectator_iff_parallelReferenceExtension
+SpectatorBridge.lean:249 | krausSoundExt_of_sound_control_inert
+SpectatorBridge.lean:257 | countermodel_not_inert
+SpectatorBridge.lean:262 | fullQuantum_inert
+SpectatorBridge.lean:275 | correlationExtension_ones
+SpectatorBridge.lean:282 | correlationExtension_ones_eq_conjChannel
+SpectatorBridge.lean:291 | correlationExtension_ones_comp
+SpectatorBridge.lean:302 | wordMap_ones
+SpectatorBridge.lean:316 | implementationExtensionality_ones
+SpectatorBridge.lean:328 | spectatorIndependent_ones
+SpectatorBridge.lean:334 | hComp_ones
+SpectatorBridge.lean:353 | transport_apply
+SpectatorBridge.lean:357 | transport_conjChannel
+SpectatorBridge.lean:367 | reindex_isometry
+SpectatorBridge.lean:373 | permMatrix_isometry
+SpectatorBridge.lean:381 | withSpectator_eq_transport
+SpectatorBridge.lean:411 | hCompRealized_spectator_available
+SpectatorBridge.lean:424 | hCompRealized_ones_of_control
+SpectatorBridge.lean:440 | countermodel_hCompRealized_ones
+SpectatorBridge.lean:448 | fullQuantum_hCompRealized_ones
+SpectatorBridge.lean:460 | hcompRealized_not_implies_parallelReferenceExtension
+SpectatorBridge.lean:472 | hcompRealized_consistent_with_parallelReferenceExtension
+TypedCompletion.lean:103 | transportT_apply
+TypedCompletion.lean:109 | transportT_self
+TypedCompletion.lean:120 | attachUniform_apply
+TypedCompletion.lean:124 | attachUniform_fin
+TypedCompletion.lean:140 | discardR_apply
+TypedCompletion.lean:145 | discardR_fin
+TypedCompletion.lean:148 | discardR_attachUniform
+TypedCompletion.lean:211 | availT_equiv
+TypedCompletion.lean:257 | shadow_avail
+TypedCompletion.lean:261 | shadow_availExt
+TypedCompletion.lean:270 | shadow_regroupingInvariant
+TypedCompletion.lean:274 | shadow_relabellingInvariant
+TypedCompletion.lean:278 | shadow_isAmbientMember
+TypedCompletion.lean:284 | shadow_embeddedObservation
+TypedCompletion.lean:319 | embL_apply
+TypedCompletion.lean:322 | embR_apply
+TypedCompletion.lean:325 | embLH_apply
+TypedCompletion.lean:330 | embRH_apply
+TypedCompletion.lean:336 | embL_isometry
+TypedCompletion.lean:345 | embR_isometry
+TypedCompletion.lean:355 | sum_embL_proj
+TypedCompletion.lean:366 | sum_embR_proj
+TypedCompletion.lean:378 | embL_conj_apply
+TypedCompletion.lean:387 | embR_compress_apply
+TypedCompletion.lean:401 | discardR_embL_conj
+TypedCompletion.lean:409 | attachUniform_eq_sum
+TypedCompletion.lean:444 | conjT_apply
+TypedCompletion.lean:455 | isTypedKraus_of_family
+TypedCompletion.lean:479 | availT_of_krausFamily
+TypedCompletion.lean:519 | wrap_availT
+TypedCompletion.lean:537 | wrap_apply
+TypedCompletion.lean:548 | recover_of_wrap
+TypedCompletion.lean:559 | typedKraus_of_availT
+TypedCompletion.lean:658 | emb2_apply
+TypedCompletion.lean:661 | emb2H_apply
+TypedCompletion.lean:667 | sum_emb2_proj
+TypedCompletion.lean:684 | emb2_compress
+TypedCompletion.lean:713 | regOp_normalized
+TypedCompletion.lean:730 | discardR_regOp_conj
+TypedCompletion.lean:749 | availT_of_typedKraus
+TypedCompletion.lean:815 | typed_determined
+TypedCompletion.lean:823 | conjT_eq_conjChannel
+TypedCompletion.lean:827 | typedKraus_iff_endomorphic
+TypedCompletion.lean:838 | shadowQuantum_of_typed
+TypedCompletion.lean:850 | typed_determined_iff
+TypedCompletion.lean:859 | typed_determined_of_oiPlusElem
+TypedCompletion.lean:875 | preservesDiag_transportT
+TypedCompletion.lean:885 | preservesDiag_attachUniform
+TypedCompletion.lean:894 | preservesDiag_discardR
+TypedCompletion.lean:905 | preservesDiag_localLuders
+TypedCompletion.lean:932 | typedDiag_shadow_not_control
+TypedCompletion.lean:940 | typedDiag_shadow_not_qm
+TypedCompletion.lean:944 | typed_interface_not_quantum
+TypedPositive.lean:25 | typed_determined_of_oiPlusPos
+TypedPositive.lean:37 | typed_determined_of_oiPlusMin
+QuasilocalAlgebra.lean:106 | glob_patch
+QuasilocalAlgebra.lean:110 | patch_apply_of_not_mem
+QuasilocalAlgebra.lean:114 | patch_apply_of_mem
+QuasilocalAlgebra.lean:118 | agreeOffG_patch
+QuasilocalAlgebra.lean:121 | agreeOffG_refl
+QuasilocalAlgebra.lean:123 | agreeOffG_symm
+QuasilocalAlgebra.lean:126 | agreeOffG_trans
+QuasilocalAlgebra.lean:129 | eq_patch_of_agreeOffG
+QuasilocalAlgebra.lean:136 | patch_glob
+QuasilocalAlgebra.lean:139 | patch_eq_iff
+QuasilocalAlgebra.lean:149 | agreeOffG_iff
+QuasilocalAlgebra.lean:159 | confRestrict_glob
+QuasilocalAlgebra.lean:168 | kern_of_agree
+QuasilocalAlgebra.lean:173 | kern_of_not_agree
+QuasilocalAlgebra.lean:178 | kern_patch
+QuasilocalAlgebra.lean:184 | kern_inclObs
+QuasilocalAlgebra.lean:197 | kern_add
+QuasilocalAlgebra.lean:203 | kern_smul
+QuasilocalAlgebra.lean:209 | kern_conjTranspose
+QuasilocalAlgebra.lean:216 | kern_one
+QuasilocalAlgebra.lean:247 | emb_single
+QuasilocalAlgebra.lean:254 | emb_single_apply
+QuasilocalAlgebra.lean:278 | kerOf_emb
+QuasilocalAlgebra.lean:284 | ext_of_kerOf
+QuasilocalAlgebra.lean:294 | kerOf_add
+QuasilocalAlgebra.lean:297 | kerOf_smul
+QuasilocalAlgebra.lean:301 | kerOf_one
+QuasilocalAlgebra.lean:307 | emb_inclObs
+QuasilocalAlgebra.lean:311 | emb_add
+QuasilocalAlgebra.lean:317 | emb_smul
+QuasilocalAlgebra.lean:323 | emb_zero
+QuasilocalAlgebra.lean:327 | emb_one
+QuasilocalAlgebra.lean:333 | emb_mul
+QuasilocalAlgebra.lean:353 | emb_injective
+QuasilocalAlgebra.lean:364 | emb_eq_iff
+QuasilocalAlgebra.lean:377 | inclObs_mul
+QuasilocalAlgebra.lean:383 | inclObs_one
+QuasilocalAlgebra.lean:388 | inclObs_injective
+QuasilocalAlgebra.lean:394 | inclObs_add
+QuasilocalAlgebra.lean:400 | inclObs_smul
+QuasilocalAlgebra.lean:406 | inclObs_conjTranspose
+QuasilocalAlgebra.lean:438 | ofM_val
+QuasilocalAlgebra.lean:441 | ofM_inclObs
+QuasilocalAlgebra.lean:444 | ofM_add
+QuasilocalAlgebra.lean:447 | ofM_mul
+QuasilocalAlgebra.lean:450 | ofM_smul
+QuasilocalAlgebra.lean:453 | ofM_one
+QuasilocalAlgebra.lean:456 | ofM_zero
+QuasilocalAlgebra.lean:459 | ofM_neg
+QuasilocalAlgebra.lean:464 | ofM_sub
+QuasilocalAlgebra.lean:469 | ofM_injective
+QuasilocalAlgebra.lean:473 | ofM_eq_iff
+QuasilocalAlgebra.lean:481 | exists_ofM
+QuasilocalAlgebra.lean:487 | exists_ofM₂
+QuasilocalAlgebra.lean:495 | exists_ofM₃
+QuasilocalAlgebra.lean:525 | inclHom_apply
+QuasilocalAlgebra.lean:530 | norm_inclObs
+QuasilocalAlgebra.lean:538 | ofM_rep
+QuasilocalAlgebra.lean:545 | star_ofM
+QuasilocalAlgebra.lean:555 | nrm_ofM
+QuasilocalAlgebra.lean:581 | norm_ofM
+QuasilocalAlgebra.lean:621 | isometry_star_local
+QuasilocalAlgebra.lean:636 | star_coe
+QuasilocalAlgebra.lean:640 | continuous_star_q
+QuasilocalAlgebra.lean:696 | stage_apply
+QuasilocalAlgebra.lean:700 | stage_inclObs
+QuasilocalAlgebra.lean:705 | norm_stage
+QuasilocalAlgebra.lean:708 | stage_injective
+QuasilocalAlgebra.lean:712 | closure_iUnion_stage
+QuasilocalAlgebra.lean:750 | evalLocal_ofM
+QuasilocalAlgebra.lean:760 | evalLocal_add
+QuasilocalAlgebra.lean:766 | evalLocal_smul
+QuasilocalAlgebra.lean:779 | evalLocal_one
+QuasilocalAlgebra.lean:783 | trace_mul_nonneg_of_posSemidef
+QuasilocalAlgebra.lean:791 | evalLocal_nonneg
+QuasilocalAlgebra.lean:811 | norm_trace_mul_le
+QuasilocalAlgebra.lean:831 | norm_evalLocal_le
+QuasilocalAlgebra.lean:842 | localState_apply
+QuasilocalAlgebra.lean:851 | quasiState_coe
+QuasilocalAlgebra.lean:858 | quasiState_stage
+QuasilocalAlgebra.lean:863 | quasiState_one
+QuasilocalAlgebra.lean:869 | quasiState_nonneg
+QuasilocalAlgebra.lean:879 | quasiState_unique
+QuasilocalAlgebra.lean:887 | uniformFamily_isStateFamily
+QuasilocalAlgebra.lean:904 | referenceState_stage
+QuasilocalAlgebra.lean:933 | glob_map_eq
+QuasilocalAlgebra.lean:942 | agreeOffG_map
+QuasilocalAlgebra.lean:951 | agreeOffG_mono
+QuasilocalAlgebra.lean:973 | permOp_single
+QuasilocalAlgebra.lean:977 | permOpInv_single
+QuasilocalAlgebra.lean:981 | permOpInv_apply
+QuasilocalAlgebra.lean:985 | permOp_permOpInv
+QuasilocalAlgebra.lean:991 | permOpInv_permOp
+QuasilocalAlgebra.lean:1003 | heis_mul
+QuasilocalAlgebra.lean:1009 | heis_one
+QuasilocalAlgebra.lean:1012 | heis_add
+QuasilocalAlgebra.lean:1016 | heis_smul
+QuasilocalAlgebra.lean:1020 | heis_inv_heis
+QuasilocalAlgebra.lean:1029 | heis_injective
+QuasilocalAlgebra.lean:1033 | kerOf_heis
+QuasilocalAlgebra.lean:1043 | fwd_subset_hat
+QuasilocalAlgebra.lean:1046 | bwd_subset_hat
+QuasilocalAlgebra.lean:1049 | bwd_bwd_subset_hat
+QuasilocalAlgebra.lean:1059 | symm_patch_eq_patch
+QuasilocalAlgebra.lean:1071 | glob_ext
+QuasilocalAlgebra.lean:1074 | glob_map_of_glob_eq
+QuasilocalAlgebra.lean:1081 | target_of_glob_eq
+QuasilocalAlgebra.lean:1114 | heis_emb_single
+QuasilocalAlgebra.lean:1127 | heis_emb
+QuasilocalAlgebra.lean:1145 | emb_transported
+QuasilocalAlgebra.lean:1149 | transported_add
+QuasilocalAlgebra.lean:1155 | transported_smul
+QuasilocalAlgebra.lean:1161 | transported_mul
+QuasilocalAlgebra.lean:1167 | transported_one
+QuasilocalAlgebra.lean:1173 | transported_conjTranspose
+QuasilocalAlgebra.lean:1187 | transported_injective
+QuasilocalAlgebra.lean:1209 | norm_transported
+QuasilocalAlgebra.lean:1214 | heis_mem
+QuasilocalAlgebra.lean:1223 | heisLoc_ofM
+QuasilocalAlgebra.lean:1227 | heisLoc_mul
+QuasilocalAlgebra.lean:1230 | heisLoc_add
+QuasilocalAlgebra.lean:1233 | heisLoc_smul
+QuasilocalAlgebra.lean:1236 | heisLoc_one
+QuasilocalAlgebra.lean:1238 | heisLoc_sub
+QuasilocalAlgebra.lean:1243 | heisLoc_star
+QuasilocalAlgebra.lean:1249 | norm_heisLoc
+QuasilocalAlgebra.lean:1253 | heisLoc_inv_heisLoc
+QuasilocalAlgebra.lean:1256 | heisLoc_heisLoc_inv
+QuasilocalAlgebra.lean:1259 | isometry_heisLoc
+QuasilocalAlgebra.lean:1267 | heisQ_coe
+QuasilocalAlgebra.lean:1271 | continuous_heisQ
+QuasilocalAlgebra.lean:1274 | heisQ_stage
+QuasilocalAlgebra.lean:1279 | norm_heisQ
+QuasilocalAlgebra.lean:1285 | heisQ_mul
+QuasilocalAlgebra.lean:1293 | heisQ_add
+QuasilocalAlgebra.lean:1301 | heisQ_star
+QuasilocalAlgebra.lean:1308 | heisQ_one
+QuasilocalAlgebra.lean:1311 | heisQ_inv_heisQ
+QuasilocalAlgebra.lean:1317 | heisQ_heisQ_inv
+QuasilocalAlgebra.lean:1330 | heis_iterate_emb
+QuasilocalAlgebra.lean:1353 | quasilocal_completion
+QuasilocalCharacterization.lean:79 | kerOf_emb_mul_emb
+QuasilocalCharacterization.lean:87 | agreeOffG_patch_iff_of_disjoint
+QuasilocalCharacterization.lean:106 | glob_patch_of_disjoint
+QuasilocalCharacterization.lean:113 | kerOf_emb_mul_emb_of_disjoint
+QuasilocalCharacterization.lean:135 | emb_comm_of_disjoint
+QuasilocalCharacterization.lean:145 | ofM_comm_of_disjoint
+QuasilocalCharacterization.lean:149 | stage_comm_of_disjoint
+QuasilocalCharacterization.lean:199 | quasiState_isState
+QuasilocalCharacterization.lean:218 | localMap_ofM
+QuasilocalCharacterization.lean:244 | localHom_ofM
+QuasilocalCharacterization.lean:248 | localHom_unique
+QuasilocalCharacterization.lean:256 | norm_localHom
+QuasilocalCharacterization.lean:261 | isometry_localHom
+QuasilocalCharacterization.lean:267 | canon_coe
+QuasilocalCharacterization.lean:270 | continuous_canon
+QuasilocalCharacterization.lean:272 | canon_stage
+QuasilocalCharacterization.lean:276 | canon_mul
+QuasilocalCharacterization.lean:282 | canon_add
+QuasilocalCharacterization.lean:288 | canon_smul
+QuasilocalCharacterization.lean:294 | canon_star
+QuasilocalCharacterization.lean:300 | canon_one
+QuasilocalCharacterization.lean:303 | canon_zero
+QuasilocalCharacterization.lean:307 | norm_canon
+QuasilocalCharacterization.lean:323 | canonHom_apply
+QuasilocalCharacterization.lean:325 | isometry_canonHom
+QuasilocalCharacterization.lean:328 | canonHom_injective
+QuasilocalCharacterization.lean:332 | canonHom_surjective
+QuasilocalCharacterization.lean:345 | canonHom_bijective
+QuasilocalCharacterization.lean:353 | canonEquiv_apply
+QuasilocalCharacterization.lean:355 | canonEquiv_stage
+QuasilocalCharacterization.lean:359 | canon_unique
+QuasilocalCharacterization.lean:372 | systemEquiv_apply
+QuasilocalCharacterization.lean:375 | systemEquiv_stage
+QuasilocalCharacterization.lean:380 | systemEquiv_canon
+QuasilocalCharacterization.lean:385 | systemEquiv_unique
+QuasilocalCharacterization.lean:406 | canonInvL_apply
+QuasilocalCharacterization.lean:414 | systemState_apply
+QuasilocalCharacterization.lean:418 | systemState_stage
+QuasilocalCharacterization.lean:424 | systemState_isState
+QuasilocalCharacterization.lean:439 | heisQ_smul
+QuasilocalCharacterization.lean:458 | heisEquiv_apply
+QuasilocalCharacterization.lean:479 | oi_localityPreserving
+QuasilocalCharacterization.lean:483 | continuous_starAlgEquiv
+QuasilocalCharacterization.lean:487 | canon_dyn
+QuasilocalCharacterization.lean:497 | systemEquiv_dyn
+QuasilocalCharacterization.lean:517 | phaseWt_mul_star_self
+QuasilocalCharacterization.lean:522 | star_mul_self_phaseWt
+QuasilocalCharacterization.lean:526 | phaseWt_pow_four
+QuasilocalCharacterization.lean:530 | phaseWt_confRestrict
+QuasilocalCharacterization.lean:536 | phaseWt_of_not_mem
+QuasilocalCharacterization.lean:541 | phaseWt_eq_of_agree
+QuasilocalCharacterization.lean:557 | phaseConj_apply
+QuasilocalCharacterization.lean:564 | inclObs_phaseConj
+QuasilocalCharacterization.lean:577 | phaseU_mul_conjTranspose
+QuasilocalCharacterization.lean:584 | conjTranspose_mul_phaseU
+QuasilocalCharacterization.lean:591 | phaseConj_mul
+QuasilocalCharacterization.lean:597 | phaseConj_one
+QuasilocalCharacterization.lean:601 | phaseConj_add
+QuasilocalCharacterization.lean:605 | phaseConj_smul
+QuasilocalCharacterization.lean:609 | phaseConj_conjTranspose
+QuasilocalCharacterization.lean:613 | phaseConj_injective
+QuasilocalCharacterization.lean:634 | norm_phaseConj
+QuasilocalCharacterization.lean:639 | phaseConj_four
+QuasilocalCharacterization.lean:651 | phaseLoc_ofM
+QuasilocalCharacterization.lean:658 | phaseLoc_mul
+QuasilocalCharacterization.lean:663 | phaseLoc_add
+QuasilocalCharacterization.lean:668 | phaseLoc_smul
+QuasilocalCharacterization.lean:673 | phaseLoc_star
+QuasilocalCharacterization.lean:678 | phaseLoc_sub
+QuasilocalCharacterization.lean:683 | norm_phaseLoc
+QuasilocalCharacterization.lean:687 | phaseLoc_four
+QuasilocalCharacterization.lean:692 | isometry_phaseLoc
+QuasilocalCharacterization.lean:700 | phaseQ_coe
+QuasilocalCharacterization.lean:704 | continuous_phaseQ
+QuasilocalCharacterization.lean:708 | phaseQ_stage
+QuasilocalCharacterization.lean:712 | phaseQ_mul
+QuasilocalCharacterization.lean:720 | phaseQ_add
+QuasilocalCharacterization.lean:728 | phaseQ_smul
+QuasilocalCharacterization.lean:736 | phaseQ_star
+QuasilocalCharacterization.lean:742 | norm_phaseQ
+QuasilocalCharacterization.lean:748 | phaseQ_four
+QuasilocalCharacterization.lean:766 | phaseEquiv_apply
+QuasilocalCharacterization.lean:769 | phase_localityPreserving
+QuasilocalCharacterization.lean:774 | transported_im_zero
+QuasilocalCharacterization.lean:781 | inclObs_im_zero
+QuasilocalCharacterization.lean:792 | phaseQ_ne_heisQ
+QuasilocalCharacterization.lean:856 | quasilocal_characterization
+SecondOrderDrive.lean:88 | permOp_of_comp
+SecondOrderDrive.lean:96 | permOpInv_of_comp
+SecondOrderDrive.lean:106 | heis_of_comp
+SecondOrderDrive.lean:112 | heisLoc_of_comp
+SecondOrderDrive.lean:118 | heisQ_of_comp
+SecondOrderDrive.lean:138 | driveQ_apply
+SecondOrderDrive.lean:142 | driveQ_zero_time
+SecondOrderDrive.lean:145 | driveQ_mul
+SecondOrderDrive.lean:149 | driveQ_add
+SecondOrderDrive.lean:153 | driveQ_smul
+SecondOrderDrive.lean:157 | driveQ_star
+SecondOrderDrive.lean:161 | driveQ_sub
+SecondOrderDrive.lean:165 | driveQ_one
+SecondOrderDrive.lean:169 | norm_driveQ
+SecondOrderDrive.lean:172 | dist_driveQ
+SecondOrderDrive.lean:176 | continuous_driveQ
+SecondOrderDrive.lean:181 | driveQ_left_inverse
+SecondOrderDrive.lean:185 | driveQ_right_inverse
+SecondOrderDrive.lean:190 | driveQ_bijective
+SecondOrderDrive.lean:199 | continuous_driveQ_time
+SecondOrderDrive.lean:225 | driveQ_isContinuousPath
+SecondOrderDrive.lean:277 | mem_stepInfl_of_mem_gateRegion
+SecondOrderDrive.lean:345 | ruleDynamics_comp
+SecondOrderDrive.lean:351 | heisQ_ruleDynamics
+SecondOrderDrive.lean:369 | localConf_apply_of_mem
+SecondOrderDrive.lean:372 | localConf_apply_of_not_mem
+SecondOrderDrive.lean:376 | glob_localConf
+SecondOrderDrive.lean:379 | patch_patch
+SecondOrderDrive.lean:386 | localConf_localConf
+SecondOrderDrive.lean:435 | permOp_localDyn
+SecondOrderDrive.lean:446 | permOpInv_localDyn
+SecondOrderDrive.lean:458 | heis_localDyn
+SecondOrderDrive.lean:462 | heisLoc_localDyn
+SecondOrderDrive.lean:466 | heisQ_localDyn
+SecondOrderDrive.lean:480 | heis_eq_of_agree
+SecondOrderDrive.lean:509 | regionSwap_involutive
+SecondOrderDrive.lean:512 | regionSwap_symm
+SecondOrderDrive.lean:514 | swapEquivAt_eq_regionSwap
+SecondOrderDrive.lean:519 | qGate_regionSwap_union
+SecondOrderDrive.lean:545 | swapU_one_eq_qGate
+SecondOrderDrive.lean:560 | glob_swapLayer
+SecondOrderDrive.lean:563 | agreeOffG_swapLayer
+SecondOrderDrive.lean:574 | heis_swapDyn_emb
+SecondOrderDrive.lean:595 | swapQ_one_eq_heisQ
+SecondOrderDrive.lean:625 | shearOnRegion_apply
+SecondOrderDrive.lean:630 | curOn_shearOnRegion
+SecondOrderDrive.lean:641 | rhs_shearOnRegion
+SecondOrderDrive.lean:645 | shearOnRegion_involutive
+SecondOrderDrive.lean:665 | shearPerm_symm
+SecondOrderDrive.lean:667 | shearPerm_empty
+SecondOrderDrive.lean:674 | gateOn_shearOnRegion
+SecondOrderDrive.lean:690 | gateEquiv_trans_shearPerm
+SecondOrderDrive.lean:697 | layerU_one_eq_qGate
+SecondOrderDrive.lean:715 | rhs_glob
+SecondOrderDrive.lean:722 | localConf_shearPerm_of_mem
+SecondOrderDrive.lean:730 | localConf_shearPerm_of_not_mem
+SecondOrderDrive.lean:745 | heis_shearDyn_emb
+SecondOrderDrive.lean:804 | layerQ_one_eq_heisQ
+SecondOrderDrive.lean:829 | driveQ_one_eq_heisQ
+JordanClassification.lean:74 | trace_mul_vecMulVec
+JordanClassification.lean:84 | psd_iff_trace_nonneg
+JordanClassification.lean:99 | Eu_conjTranspose
+JordanClassification.lean:106 | Eu_mul_same
+JordanClassification.lean:110 | Eu_mul_of_ne
+JordanClassification.lean:113 | sum_Eu_diag
+JordanClassification.lean:128 | Eu_ne_zero
+JordanClassification.lean:136 | herm_decomp
+JordanClassification.lean:160 | jordan_complexify
+JordanClassification.lean:186 | jordan_sq
+JordanClassification.lean:198 | proj_anticommute
+JordanClassification.lean:217 | image_diag_proj
+JordanClassification.lean:227 | image_diag_orth
+JordanClassification.lean:240 | image_diag_sum
+JordanClassification.lean:246 | image_diag_ne
+JordanClassification.lean:254 | real_smul_matrix
+JordanClassification.lean:260 | col_dotProduct
+JordanClassification.lean:267 | trace_edyad
+JordanClassification.lean:275 | edyad_mulVec
+JordanClassification.lean:284 | dot_shift
+JordanClassification.lean:300 | proj_dyad_decomp
+JordanClassification.lean:336 | orthogonal_resolution_rank_one
+JordanClassification.lean:397 | qd_mul_qd
+JordanClassification.lean:403 | qd_conjTranspose
+JordanClassification.lean:409 | qd_mulVec
+JordanClassification.lean:415 | quad_qd
+JordanClassification.lean:422 | quad_two
+JordanClassification.lean:444 | corner_form
+JordanClassification.lean:565 | corner_mulVec
+JordanClassification.lean:589 | dot_conj
+JordanClassification.lean:603 | corner_conj
+JordanClassification.lean:613 | corner_nilpotent
+JordanClassification.lean:638 | corner_unimodular
+JordanClassification.lean:668 | corner_cocycle
+JordanClassification.lean:699 | orientation_dichotomy
+JordanClassification.lean:755 | Eu_transpose
+JordanClassification.lean:762 | matrix_eq_sum_units
+JordanClassification.lean:768 | W_col
+JordanClassification.lean:777 | W_row
+JordanClassification.lean:788 | conj_unit
+JordanClassification.lean:797 | W_unitary
+JordanClassification.lean:825 | matrixJordan_unitary_or_transpose
+JordanClassification.lean:951 | sameData_orderIso
+JordanClassification.lean:1109 | sameData_unitary_or_transpose
+OperationalRigidity.lean:89 | line_coefficient_vanish
+OperationalRigidity.lean:118 | diag_sandwich_apply
+OperationalRigidity.lean:129 | conj_context_entry
+OperationalRigidity.lean:170 | operational_separation
+OperationalRigidity.lean:256 | sameData_unique_state
+OperationalRigidity.lean:293 | sameData_combination_transfer
+OperationalRigidity.lean:314 | sameData_linear_extension
+OperationalRigidity.lean:353 | edyad_apply
+OperationalRigidity.lean:357 | edyad_isHermitian
+OperationalRigidity.lean:364 | edyad_mul_edyad
+OperationalRigidity.lean:374 | edyad_idem
+OperationalRigidity.lean:381 | edyad_orthogonal
+OperationalRigidity.lean:388 | conj_diagonal_eq_sum_edyad
+OperationalRigidity.lean:398 | eq_zero_of_mulVec_zero
+OperationalRigidity.lean:413 | psd_pair_kernel
+OperationalRigidity.lean:432 | unitary_conj_cancel
+OperationalRigidity.lean:438 | real_conj_diag_hermitian
+OperationalRigidity.lean:448 | conj_diag_psd
+OperationalRigidity.lean:454 | conj_diag_add
+OperationalRigidity.lean:465 | conj_diag_sub
+OperationalRigidity.lean:476 | one_eq_conj_diag
+OperationalRigidity.lean:484 | conj_diag_mul
+OperationalRigidity.lean:499 | conj_diag_eq_zero
+OperationalRigidity.lean:516 | projection_extreme
+OperationalRigidity.lean:545 | extreme_projection_aux
+OperationalRigidity.lean:602 | extreme_projection
+OperationalRigidity.lean:631 | proj_psd
+OperationalRigidity.lean:638 | compl_idem
+OperationalRigidity.lean:662 | zero
+OperationalRigidity.lean:671 | neg
+OperationalRigidity.lean:677 | sub
+OperationalRigidity.lean:681 | sum
+OperationalRigidity.lean:690 | symm
+OperationalRigidity.lean:715 | orderIso_maps_projections
+OperationalRigidity.lean:756 | orderIso_orthogonal
+OperationalRigidity.lean:796 | orderIso_square
+OperationalRigidity.lean:848 | orderIso_jordan
+OperationalRigidity.lean:875 | cx_mul_nonneg
+OperationalRigidity.lean:884 | hermitian_spectral_edyad
+OperationalRigidity.lean:904 | trace_edyad_mul
+OperationalRigidity.lean:917 | psd_trace_mul_nonneg
+OperationalRigidity.lean:928 | word_state
+OperationalRigidity.lean:956 | accessible_cone_full
+PassiveObservation.lean:59 | vecMulVec_star_mulVec
+PassiveObservation.lean:65 | vecMulVec_star_mulVec_orth
+PassiveObservation.lean:70 | star_dotProduct_comm_zero
+PassiveObservation.lean:78 | exists_smul_of_orth
+PassiveObservation.lean:98 | star_dotProduct_mulVec_hermitian
+PassiveObservation.lean:103 | eq_zero_of_add_eq_zero_of_nonneg
+PassiveObservation.lean:115 | psd_summand_of_rankOne
+PassiveObservation.lean:169 | vecId_apply
+PassiveObservation.lean:172 | conjChannel_one
+PassiveObservation.lean:179 | choiMatrix_id
+PassiveObservation.lean:186 | vecId_ne_zero
+PassiveObservation.lean:215 | passive_branch_scalar
+PassiveObservation.lean:231 | passive_outcome_state_independent
+PassiveObservation.lean:241 | pureState_apply
+PassiveObservation.lean:246 | pure_posSemidef
+PassiveObservation.lean:249 | pure_trace
+PassiveObservation.lean:252 | pure_ne
+PassiveObservation.lean:259 | no_complete_passive_observation
+PassiveObservation.lean:282 | pinching_cp
+PassiveObservation.lean:290 | pinching_apply
+PassiveObservation.lean:299 | pinching_passive_on_diagonal
+PassiveObservation.lean:313 | pinching_trace
+PassiveObservation.lean:318 | pinching_separates_diagonal
+PassiveObservation.lean:329 | pinching_sum_apply
+PassiveObservation.lean:342 | pinching_not_passive
+PassiveIndependence.lean:80 | passivelyIncomplete_of_card
+PassiveIndependence.lean:87 | passivelyIncomplete_qubit
+PassiveIndependence.lean:106 | keepsLabels_id
+PassiveIndependence.lean:109 | keepsLabels_zero
+PassiveIndependence.lean:112 | keepsLabels_add
+PassiveIndependence.lean:117 | keepsLabels_sum
+PassiveIndependence.lean:128 | keepsLabels_comp
+PassiveIndependence.lean:133 | keepsLabels_localLuders
+PassiveIndependence.lean:208 | unit00_suppAnc
+PassiveIndependence.lean:217 | coreIdx_tau_symm
+PassiveIndependence.lean:223 | tau_moves_label
+PassiveIndependence.lean:237 | label_not_oiCore
+PassiveIndependence.lean:248 | oiCore_to_passive_vacuous
+PassiveIndependence.lean:255 | passivelyIncomplete_without_oiCore
+PassiveIndependence.lean:260 | passive_not_implies_oiCore
+PassiveIndependence.lean:269 | passive_nondiscriminating
+PassiveIndependence.lean:295 | pinching_trace_sum
+PassiveIndependence.lean:300 | pinching_isKrausFamily
+PassiveIndependence.lean:305 | pinching_preservesDiag
+PassiveIndependence.lean:322 | diag_passivelyCompleteOnDiagonal
+PassiveIndependence.lean:328 | label_passivelyCompleteOnDiagonal
+PassiveIndependence.lean:335 | sector_diagram
+PassiveQuotient.lean:101 | itiRelInf_pow
+PassiveQuotient.lean:110 | itiRelInf_evolve
+PassiveQuotient.lean:118 | itiRelInf_symm_evolve
+PassiveQuotient.lean:184 | quotPerm_mk
+PassiveQuotient.lean:190 | quotPerm_pow_mk
+PassiveQuotient.lean:203 | itiRelInf_greatest_congruence
+PassiveQuotient.lean:222 | quotient_itinerarySeparating
+PassiveQuotient.lean:246 | passiveMinimal_iff_itinerarySeparating
+PassiveQuotient.lean:263 | realization_pow
+PassiveQuotient.lean:285 | minimal_realization_bijective
+PassiveQuotient.lean:302 | realizationMap_equivariant
+PassiveQuotient.lean:313 | realizationMap_vis
+PassiveQuotient.lean:323 | realization_factor_unique
+PassiveQuotient.lean:350 | quotMeasure_weighted_sum
+PassiveQuotient.lean:366 | itiIndicator_quotient_mk
+PassiveQuotient.lean:383 | trajProb_quotient
+PassiveQuotient.lean:393 | quotMeasure_evolve
+PassiveQuotient.lean:410 | quotMeasure_branch
+PassiveQuotient.lean:432 | quotient_transitive
+PassiveQuotient.lean:444 | passiveQuotient_glue_forces_G1
+PassiveQuotient.lean:456 | passiveQuotient_glue_forces_monomial
+PassiveQuotient.lean:470 | ergodicShell_SRC_of_passiveQuotient
+PassiveQuotient.lean:512 | hiddenExt_pow_fst
+PassiveQuotient.lean:523 | hiddenExt_itiRelInf_fibre
+PassiveQuotient.lean:534 | hiddenExt_not_separating
+PassiveQuotient.lean:545 | hiddenExt_itiIndicator
+PassiveQuotient.lean:563 | hiddenExt_same_law
+PassiveQuotient.lean:577 | hiddenExt_quotient_recovers_base
+PassiveQuotient.lean:596 | addEquiv_pow_sub
+PassiveQuotient.lean:611 | linear_itiRelInf_iff
+PassiveQuotient.lean:627 | linear_separating_iff_observability
+
+VERDICT: CENSUS VALID (all controls pass)

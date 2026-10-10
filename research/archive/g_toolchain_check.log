@@ -1,0 +1,2 @@
+  note: 3 identical copies of unicode-fix.tex (book/unicode-fix.tex, papers/unicode-fix.tex, tools/unicode-fix.tex); build.sh reads only the shared one
+toolchain_check: OK (build entry present, unicode-fix.tex consistent across 3 copy/copies, all named checks resolve)

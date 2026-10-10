@@ -1,0 +1,49 @@
+== 1. the certified point, the named point and the exact line ==
+  PASS  SIG is unitary (scaled)                                                True
+  PASS  u60 is a unit                                                          1
+  PASS  P = SIG ∘ u60^W is unitary (scaled)                                    True
+  PASS  rank DF at SIG                                                         176
+  PASS  defect of SIG                                                          49
+  PASS  defect of P                                                            37
+  PASS  W is an exact straight line at SIG (every level-set sum of the c_k vanishes, 120 pairs) True
+  PASS  a one-entry perturbation of W is not a straight line (control)         False
+  PASS  W lies in ker DF                                                       True
+  PASS  the family at u = 1 is SIG entrywise (control)                         True
+  PASS  u5 = (3+4i)/5 is a unit; the second frozen point Pu(u5) is unitary (scaled) (Fraction(1, 1), True)
+  PASS  defect of Pu(u5)                                                       37
+  PASS  cross-ratio violations of P over ordered (b,b'),(c,c') (identity value 1 scaled) 384
+  PASS  the value at (a,b,b',c,c',d) = (0,0,1,0,1,0) is u60 (scaled; u60/256 in the frozen normalization) True
+  (1s)
+== 2. Diţă factorizations by exhaustive search over block structures ==
+  (section 2 loop skipped)
+== 3. the first-order census at SIG: gauge, the fixed-pairing hulls, the residual, the cokernel ==
+  PASS  dim ker DF                                                             80
+  PASS  gauge rank                                                             31
+  PASS  T_c, T_r, T_c + T_r mod gauge                                          (14, 14, 26)
+  PASS  R = ker DF / (gauge + T): dim                                          23
+  PASS  coker DF: dim                                                          64
+  (15s)
+== 4. every 4x4 Diţă hull through SIG: orientations, factor circles, exact integrability, the span ==
+  [orientations at 1.8s]
+  [circles at 4.7s]
+  [orientations at 4.7s]
+  [circles at 12.5s]
+  [orientations at 12.6s]
+  [circles at 17.4s]
+  [orientations at 17.4s]
+  [circles at 17.4s]
+  [orientations at 19.1s]
+  [circles at 19.1s]
+  [orientations at 19.1s]
+  [circles at 19.1s]
+  [orientations at 19.4s]
+  [circles at 19.4s]
+  [orientations at 19.4s]
+  [circles at 19.4s]
+  PASS  4x4 Diţă hulls through SIG (orientations × circle choices)             492
+  [hulls 19.4s]
+  PASS  every hull tangent in ker DF and D²F vanishing exactly on every hull (failures) 0
+  [DF/Q 2.6s; distinct vectors 122, distinct pairs 1898, circle cache 9]
+  PASS  every hull tangent has dimension 14 mod gauge                          [14]
+  PASS  the span of all 4x4 hull tangents mod gauge equals the defect          49
+  [ranks 4.1s]

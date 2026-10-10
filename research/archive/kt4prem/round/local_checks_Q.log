@@ -1,0 +1,78 @@
+== HEAD d962ccde7190999365543eb0e3441862137060e9 (Q d962ccde7190999365543eb0e3441862137060e9)
+== v3_verifier --verify-round Q
+ATTESTATION  owner-designation F 7ae032174699  recorded, unverified: https://github.com/amaybaum/incompleteness/pull/806#issuecomment-6087571713
+ATTESTATION  check-run F 7ae032174699  recorded, unverified: https://github.com/amaybaum/incompleteness/actions/runs/37975083454
+ATTESTATION  owner-designation E 86f26c87c750  recorded, unverified: https://github.com/amaybaum/incompleteness/pull/806#issuecomment-6088471219
+ATTESTATION  check-run E 86f26c87c750  recorded, unverified: https://github.com/amaybaum/incompleteness/actions/runs/37982199559
+VERDICT  HOLDS
+exit 0
+== v3_verifier --receipts Q
+RECEIPT  verification/receipts/A30.json  Q d61c6c5409db201e3c25abbf3ec0ecce1f530684  HOLDS
+RECEIPT  verification/receipts/A31.json  Q 379e92f8f5f7ead462a653ec6fc1f90252d0d0d7  HOLDS
+RECEIPT  verification/receipts/A32.json  Q db82376dfc0e2ae561ec541fd0d3a915f082beda  HOLDS
+RECEIPT  verification/receipts/A33.json  Q 3c116e800815c8fa652e4ee2c6d646f320c344ab  HOLDS
+RECEIPT  verification/receipts/A34.json  Q 981145be9146b16bbc9c0830d0a33a0d28d8894a  HOLDS
+RECEIPT  verification/receipts/A35.json  Q cc8d2aed79eff09c60421f175ede8dec7b86715e  HOLDS
+RECEIPT  verification/receipts/A36.json  Q f8b671518a9bda6053d9577e1df2e3c185f0080e  HOLDS
+RECEIPT  verification/receipts/A37.json  Q d7a90d12de1c338750a9605af0c0db851c58d0a9  HOLDS
+RECEIPT  verification/receipts/A38.json  Q 20f51a01836c58450f746fea17896b264b3105bd  HOLDS
+RECEIPT  verification/receipts/A39.json  Q e0a9f12be3520e6c9668d3b34c7fae677cae02ec  HOLDS
+RECEIPT  verification/receipts/A40.json  Q d31306d6ed7571267828ad440c4551f020b9ef4c  HOLDS
+RECEIPT  verification/receipts/A41.json  Q f3eff7d371cc9dcf1d95b10029e1f6cd4dd9b3ac  HOLDS
+RECEIPT  verification/receipts/A42.json  Q 31b5bd7771c8e6f1267429ce8ce160239b238827  HOLDS
+RECEIPT  verification/receipts/A45.json  Q 3900f4864d0131f029d132282379f51cbcc75823  HOLDS
+RECEIPT  verification/receipts/CC-1.json  Q 213893b3c0869ae68e5f9fa76f24029ae124935e  HOLDS
+RECEIPT  verification/receipts/CC-2.json  Q d82455a1f9c971f6bf0a710fc6554c6f9cb51df1  HOLDS
+RECEIPT  verification/receipts/CMP-1.json  Q 295ebd9ed82efcc32bef66288f89d52b8a1393f1  HOLDS
+RECEIPT  verification/receipts/COMP-1.json  Q 8656b5fb8da58c3c3d5e214229c4f25bfb9037a6  HOLDS
+RECEIPT  verification/receipts/CONSC-2.json  Q ef91fefc1e0eb9a83356da3ed594361529ff5fcc  HOLDS
+RECEIPT  verification/receipts/DIM-1.json  Q 36bd04245d07fb1a18d306aad602b9278dfb664b  HOLDS
+RECEIPT  verification/receipts/EFF-1.json  Q f07f4f6d120f90558425b784229f3bdbf1aafec7  HOLDS
+RECEIPT  verification/receipts/IIP-1.json  Q 1b6c106f47332f654a9ade4b9f0b1e6fd5c859ed  HOLDS
+RECEIPT  verification/receipts/K1-BRIDGE-1.json  Q 2c359b441367f2bea928ee7acc79e76f3632a6aa  HOLDS
+RECEIPT  verification/receipts/K1-SHARP-TESTS-1.json  Q e0cf9151399bba1b8e1f95c851b77a56f692d3f7  HOLDS
+RECEIPT  verification/receipts/K2-GUARD-1.json  Q d8e8b900a46ed9b0f90296603f9ce28d11207f65  HOLDS
+RECEIPT  verification/receipts/KINF-1.json  Q 94b6b699c10e228acc77e0b7693f29d14d73dc30  HOLDS
+RECEIPT  verification/receipts/KINF-2.json  Q 685d174cfc3217068031bd3b8e878af205e1f437  HOLDS
+RECEIPT  verification/receipts/KT4-PREM-1.json  Q d962ccde7190999365543eb0e3441862137060e9  HOLDS
+RECEIPT  verification/receipts/KTRANS-DENSE-1.json  Q 3b966b5d8b0d4ac01c6a3dadaf1e86b88d2fdd4e  HOLDS
+RECEIPT  verification/receipts/L3B.json  Q 47d2288ba20b370020fd5ec935c16527bc56e84a  HOLDS
+RECEIPT  verification/receipts/NB-1.json  Q 0580cdf8ee5c22ac2af35c43fba86f5db7f4200c  HOLDS
+RECEIPT  verification/receipts/ODD-CHAR-1.json  Q 8e72b68e2b1011a138526960edee6166a7826e07  HOLDS
+RECEIPT  verification/receipts/OG-1.json  Q f75fad544fc914cd279848398c19f3d0e418baba  HOLDS
+RECEIPT  verification/receipts/OPACT-1.json  Q 6f68d130061febb2b8725cec10de00ebb635c887  HOLDS
+RECEIPT  verification/receipts/ORD-1.json  Q d6ac04a124144d16b21a34cd4c87994ab80d72ea  HOLDS
+RECEIPT  verification/receipts/PARITY-NOT-1.json  Q 15f044a2d08d67727db06400fadf68dbf7a2e7e7  HOLDS
+RECEIPT  verification/receipts/RELC-SELECT-1.json  Q eecdecdf42f30dc35326850490a56901eae7649b  HOLDS
+RECEIPT  verification/receipts/TRB-1.json  Q d2a1a574d14f5fac3f5a55b57b0d30aa3c4bea5a  HOLDS
+RECEIPT  verification/receipts/V3-10.json  Q 4a6e67e4cb097ae49d4e2d9f303b29c3b66ea952  HOLDS
+RECEIPT  verification/receipts/V3-11.json  Q 2ec45ce53ab0010600e09fcc070763a279edf4fd  HOLDS
+RECEIPT  verification/receipts/V3-12.json  Q cc4f7f289223198a0c3f3dfea63a7c7b2fffa35e  HOLDS
+RECEIPT  verification/receipts/V3-13.json  Q 52b8a1c0710e586509604fe7a0a4cd6bfd814cb5  HOLDS
+RECEIPT  verification/receipts/V3-14.json  Q 28b201cafe327ff15b2ecfe4cbae71f2cadbbf71  HOLDS
+RECEIPTS  43 receipt(s), all hold
+exit 0
+== legacy_records_check Q
+legacy_records_check: self-test OK
+LEGACY  303 record(s) in 75 closed namespace(s), all intact
+exit 0
+== v3_verifier --self-test
+v3_verifier: self-test OK
+exit 0
+== v3_verifier --corpus
+VECTOR  s8-scratch-lf-eacute  AS-EXPECTED
+VECTOR  s9-counter-execution-change-dropped  AS-EXPECTED
+VECTOR  s9-counter-landing-adds-governed-path  AS-EXPECTED
+VECTOR  s9-counter-landing-status-unauthorized  AS-EXPECTED
+CORPUS  140 vector(s), exact and as expected
+exit 0
+== v3_receipt --self-test
+corrupt  landing: base                        30/30 failing
+corrupt  landing: delta digest                30/30 failing
+corrupt  landing: reconciliations             30/30 failing
+corrupt  seal: blob                           2/2 failing
+corrupt  attestation: subject commit          30/30 failing
+corrupt  attestation: F designation missing   30/30 failing
+corrupt  schema: version                      30/30 failing
+v3_receipt: self-test OK
+exit 0

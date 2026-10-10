@@ -1,0 +1,15 @@
+b1_conditioning  script=ab09de74ec0a1937  out=80a8a7d12f25597e  replay=identical  VERDICT B1-CHECKS-GREEN
+b2_qt  script=06761077e024fdc9  out=af11b74f94eb4f91  replay=identical  VERDICT B2-QT-GREEN
+b3_rolex  script=e176e8ac128e9438  out=173566baef968c94  replay=identical  VERDICT B3-GREEN
+b4_jkflow  script=9ec554f658c656ab  out=c97e330d475e4a67  replay=identical  VERDICT B4-JKFLOW-GREEN
+b5_localwords  script=7a262140d25e3fe7  out=9fbbc1b46aa83b9c  replay=identical  VERDICT B5-GREEN
+b6_qb2  script=c1cab334ace59906  out=29a56563bf5deb19  replay=identical  VERDICT B6-GREEN
+x1_jk_flow_float  script=3e6fe9bb4bcfa64d  out=732643074df644ac  replay=identical  exploration
+x2_local_words_float  script=a307ebd217f0bbe9  out=038833f442f58ce5  replay=identical  exploration
+x3_simple_words_float  script=f7e67df9a770fb72  out=7d8de10fdea1e97a  replay=identical  exploration
+x4_d7_word_float  script=addb1a6a3328a550  out=fae08feca5f8f759  replay=identical  exploration
+blib.py  d39169125ea6ecc8
+qlib.py  0d0cd6054d3616f8
+jk.py  d1361a5a14ada61b
+EqBDraft.lean  1e80ed179c056187
+exit=0

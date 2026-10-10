@@ -1,0 +1,8 @@
+
+== S  where the design proof consumes hgate / hinv (independent text scan of the design modules)
+CONFIRMED S1: declarations naming hgate/hinv outside the package module: 12 = the twelve of thread B's frozen list (['bell_mem', 'bell_mem_dual', 'dualW_of_inv', 'ie1_all', 'inv_mem_of_orth', 'kt4_forward_ie1', 'kt4_forward_ie1_kt4', 'kt4_forward_ie1_lt', 'kt4_general_ie1', 'link_mem', 'parity_all', 'parity_witnesses'])
+CONFIRMED S2: link_mem and bell_mem apply hgate only to a product state (hgate _ (hprod ...)); bell_mem_dual reads hinv only through dualW_of_inv: the consumed instances are (L), (BS) and (BD)
+CONFIRMED S3: Lemma R (inv_mem_of_orth) uses hgate on general cone elements (an induction), not at a product: CONS deletes it and supplies (BD) directly instead of hinv
+CONFIRMED S1c: countercontrol: the scanner detects a planted declaration that names hgate
+
+== M  M_max = (maxCone, cnot) and M_D13 = (Q3, g_D)

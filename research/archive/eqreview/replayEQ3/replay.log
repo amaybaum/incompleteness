@@ -1,0 +1,12 @@
+p1_four_copy_links.py rc=0 stderr=0 identical sha=bfdcd0e7010815e4
+p2_audit_twists_foils.py rc=0 stderr=0 identical sha=401efe5ca778a00a
+p3_general_links.py rc=0 stderr=0 identical sha=9c82d156b5cf0754
+p4_cone_ladder.py rc=0 stderr=0 identical sha=8a0ac009bee1bd28
+p5_six_copy.py rc=0 stderr=0 identical sha=df2f92aed390ac61
+p6_cheap_foils.py rc=0 stderr=0 identical sha=d6263e18beb054f6
+x1_slocc_orbit_float.py rc=0 stderr=0 identical sha=ec61ade6b2aa4905
+x2_sector_float.py rc=0 stderr=0 identical sha=f9add1cd09540a84
+
+real	3m12.341s
+user	3m12.236s
+sys	0m2.255s

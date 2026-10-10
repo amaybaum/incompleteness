@@ -1,0 +1,23 @@
+PASS K0 parsed sgn, pc, pt, phiW, xplus, z3, nflip (CD), reflY, idW, chainW (K2G) equal the hand transcriptions
+PASS K1 the landed statements are present and reproduce: cnot(prodState xplus z3) = phiW (CD:1222), actT reflY phiW = idW (K2G:106), cnot idW = chainW (K2G:110)
+PASS R1 target 01: c(X,Y,E,F) = <X, E.Y.F^T> (symbolic; family (i) and, renamed, family (ii) <e, L.f.L'^T>)
+PASS R2 target 23: c(X,Y,E,F) = <Y, E^T.X.F> (symbolic; links read through the token exchange)
+PASS R3 target 02: c(X,Y,E,F) = <E, X.F.Y^T> (symbolic; the 01, 23 tables act as links)
+PASS R4 target 13: c(X,Y,E,F) = <F, X^T.E.Y> (symbolic)
+PASS R5 countercontrol: the target-23 form without transposes, <Y, E.X.F^T>, differs from c (symbolic)
+PASS W1 within a grouping, product effects on product states factor: effA(e,f)(prodA X Y) = <e,X><f,Y> and effB(E,F)(prodB L L') = <E,L><F,L'> (symbolic)
+PASS W2 across groupings the values are the contraction: effB(E,F)(prodA X Y) = c(X,Y,E,F) (family (i)) and effA(e,f)(prodB L L') = c(e,f,L,L') (family (ii)) (symbolic)
+PASS W3 token coherence of the W4 model: effA(a b^T, c d^T) = effB(a c^T, b d^T) on a generic 256-entry table (symbolic a, b, c, d)
+PASS W4 countercontrol: reading the 02 factor transposed (effB(E^T, F)) breaks token coherence (symbolic)
+PASS C1 cnot' is an involution (symbolic), orthogonal and symmetric as a 16 x 16 matrix, and fixes the unit entry
+PASS C2 cnot'(prodState xplus z3) = idW (twin Bell table) and cnot'(sharpVec xplus sharpVec z3^T) = idW/4
+PASS C3 cnot' satisfies the table identities of NativeGate with nflip and z3: frame on the four corner products, relT and relC (symbolic)
+PASS C4 cnot'(prodState x y) = actT reflY (cnot (prodState x (reflY y))) (symbolic x, y): positivity of cnot' on products reduces to cnot's (CD:1152) and the ball invariance of reflY (K2G:67)
+PASS B1 control: the gate-supplied states are four distinct tables per orientation and the effects are the states/4
+PASS B2 aligned charts: over gate-supplied Bell states and effects only, a negative family value exists iff the 4-cycle parity tau_01 + tau_13 + tau_23 + tau_02 is odd (16 assignments; order 01,23,02,13)  [0000:0/0 0001:-1/8/-1/8 0010:-1/8/-1/8 0011:0/0 0100:-1/8/-1/8 0101:0/0 0110:0/0 0111:-1/8/-1/8 1000:-1/8/-1/8 1001:0/0 1010:0/0 1011:-1/8/-1/8 1100:0/0 1101:-1/8/-1/8 1110:-1/8/-1/8 1111:0/0]
+PASS G0 controls: pauliW(phiW) = |Phi+><Phi+|, pauliW(prodState x y) = rho(x) (x) rho(y) (symbolic x, y); phiW is in Q3 and not in Tw; idW is in Tw and not in Q3
+PASS G1 the Bell state of a gate with post-locals (A, B) is in Q3 iff det A det B = 1 and in Tw iff det A det B = -1 (exact rational O(3), both determinants, two draws each)  [+1+1:Q- +1+1:Q- +1-1:-T +1-1:-T -1+1:-T -1+1:-T -1-1:Q- -1-1:Q-]
+PASS G2 general charts: Theta = actC R02 . actT R13 (R = A reflY B^T, post-locals) maps the Bell state of pair 23 into C01 and not into the other cone iff the 4-cycle parity of tau_p = [det A_p det B_p = -1] is even (16 assignments x 2 draws)  [0000:even 0001:odd 0010:odd 0011:even 0100:odd 0101:even 0110:even 0111:odd 1000:odd 1001:even 1010:even 1011:odd 1100:even 1101:odd 1110:odd 1111:even]
+PASS G3 countercontrol: with R' from pre-locals (N's own dual) whose determinant product is opposite on pair 02, the same test disagrees with the parity rule
+--- f1_package_identities: 21/21 checks pass
+VERDICT F1-PACKAGE-IDENTITIES-EXACT

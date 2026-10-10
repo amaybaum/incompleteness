@@ -1,0 +1,15 @@
+=== Thread D start integrity checks ===
+date_utc: 2026-10-10T04:34:03Z
+--- sha256sum -c --quiet inputs.manifest.sha256 (cwd pt)
+exit=0
+--- git -C pt/base rev-parse HEAD
+9f9f8257a980a1819fbbc1dc0019917cf8678626
+--- git -C pt/base status --porcelain (empty expected)
+status_exit=0
+--- PROTOCOL.md sha256
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23
+--- D directory listing before marker
+total 12
+drwxr-xr-x 2 root root 4096 Oct 10 04:34 .
+drwxr-xr-x 8 root root 4096 Oct 10 04:32 ..
+-rw-r--r-- 1 root root  405 Oct 10 04:34 .start_marker

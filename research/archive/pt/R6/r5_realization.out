@@ -1,0 +1,10 @@
+modules 214 + root; H-level modules present: ['CombRealization', 'InstrumentRealization', 'ManuscriptAxioms', 'OIRealization', 'RouteB', 'StructuralClosure', 'SubstratumInterface', 'SubstratumInterfaceAudit'] ; pair modules present: ['CompositeDimension', 'K2Guard', 'KInfFoundations']
+(a) modules reaching both a pair module and an H-level realization module: ['ROOT:OIBridge']
+(b) Lean modules whose text carries both kinds: 1
+  B CompositeInterface           P-lines 44 (first [19, 28, 33]) H-lines 1 (first [53])
+(c) text files scanned: 64 ; lines carrying both kinds: 0
+CHECK ctrl root in (a) PASS
+CHECK ctrl Main.md:562 H token PASS
+CHECK ctrl CompositeDimension P token PASS
+CHECK countercontrol absent token PASS
+VERDICT R5-SCAN-EXACT: (a) 1 module(s) reach both kinds: ['ROOT:OIBridge']; (b) 1 Lean module(s) and (c) 0 text line(s) carry both kinds of token (each read in NOTES); controls green

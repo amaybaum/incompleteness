@@ -1,0 +1,9 @@
+# Superseded pull-request runs are cancelled, and no other run is. Every pull_request run of one
+# pull request shares one group, so a push to its head cancels the run still in progress on the
+# head it replaces. Every other run -- a push to main, a workflow_dispatch -- is alone in a group
+# named by its own run id and is never cancelled, so the push run that certifies a commit on main
+# always completes.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.pull_request.number) || format('run-{0}', github.run_id) }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+

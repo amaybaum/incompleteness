@@ -1,0 +1,6 @@
+(1) branch = [det L_A != det L_B] for all 64 pairs of sign relabellings: True
+(2) eigenvalues of PT(Bell): [(-1/2, 1), (1/2, 3)]
+(3) PT_A = T . PT_B in Bloch coordinates: True ; T antiunitary symmetry of Q: True
+(4) all 512 triples have even triangle parity; realised assignments: [(0, 0, 0), (0, 1, 1), (1, 0, 1), (1, 1, 0)]
+    odd assignments (e.g. all three pairs mirrored) realised: none
+exit 0 time 33s

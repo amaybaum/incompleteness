@@ -1,0 +1,4292 @@
+[
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+1
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": false,
+"kappa": [
+[
+0,
+1
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 4)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+2
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+2
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+0,
+3
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+0,
+3
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": false,
+"kappa": [
+[
+1,
+0
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 4)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+0
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": false,
+"kappa": [
+[
+1,
+0
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 4)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+2
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+2
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+1,
+3
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+1,
+3
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+0
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+0
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+2,
+1
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+1
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+2,
+3
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+0
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+0
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+1,
+1,
+1
+],
+"effects": 400,
+"equal_last": true,
+"invasive": false,
+"kappa": [
+[
+3,
+1
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 259,
+"rank": 1,
+"rule": "linear",
+"stage": "A",
+"verdict": "NOT-INVASIVE(rank 1)",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+1
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+0,
+1
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+0,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+0,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+1,
+0
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+1,
+2
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+1,
+3
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+2,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+2,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+2,
+3
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+0
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+1
+]
+],
+"over_rank": false,
+"preps": 258,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+},
+{
+"Le": 3,
+"Lp": 3,
+"certified": true,
+"dimC": [
+2,
+3,
+4
+],
+"effects": 400,
+"equal_last": false,
+"invasive": true,
+"kappa": [
+[
+3,
+2
+],
+[
+3,
+2
+]
+],
+"over_rank": false,
+"preps": 257,
+"rank": 4,
+"rule": "linear",
+"stage": "A",
+"verdict": "ADVANCE(dims [2, 3, 4])",
+"welldef": true
+}
+]

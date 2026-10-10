@@ -1,0 +1,8 @@
+PASS T1 (BS, BS): states of A conditioned through Bell links on the effect GHZ of C (GHZ in BS*), paired with the effect w3 = 1/2 - GHZ of A (in BS*): value -1/16 < 0, so (I3) fails
+PASS T2 (BS*, BS*): states w3 (in BS*) on A and GHZ (in BS*) on C, Bell effects on the three links: value -1/16 < 0, so (II3) fails
+PASS T3 w3 is not PSD (eigenvalue -1/2), GHZ is PSD: both lie in BS*, w3 is not in BS
+PASS C1 CNOT Choi (CNOT_12 (x) 1)(Omega_14 Omega_25) = (V (x) id)(psi3), V the copy isometry onto (1,4), psi3 = sum_ij |i>|i+j>|j> on (x, 2, 5)
+PASS C2 the Choi vector of the copy isometry is |000> + |111> (unnormalized GHZ)
+PASS C3 the map with Kraus |00><00| + |11><11| on tokens (1,2) sends |Phi+>_01|+>_2 to |000> + |111>
+--- eq4_precheck: 6/6
+VERDICT EQ4-PRECHECK-EXACT

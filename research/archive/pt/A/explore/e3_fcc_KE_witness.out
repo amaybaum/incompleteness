@@ -1,0 +1,4 @@
+best famI value -1/2
+E generator ('C', [0, 1, 0], [0, Fraction(3, 5), Fraction(4, 5)])
+F generator ('C', [0, 1, 0], [0, 0, -1])
+with Y = phiW: (Fraction(-1, 2), ('C', [0, 1, 0], [0, 0, -1]), ('C', [0, 1, 0], [0, 1, 0]))

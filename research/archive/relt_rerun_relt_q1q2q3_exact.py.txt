@@ -1,0 +1,78 @@
+PASS PC cnot: IsNot nflip
+PASS PC cnot: frame (cnot_frame)
+PASS PC cnot: relT (cnot_relT)
+PASS PC cnot: relC (cnot_relC)
+PASS PC cnot: invertible
+PASS PC cnot: eigen dims (2,2)
+PASS PC cnot: Lop injective and anticommuting
+PASS PC cnot: ker(Pop-1) = ker(Pop+1)
+PASS PC gJ3_value = -1/10 reproduced
+PASS PC gJ3 relT and relC (gateRel_gJ3)
+PASS CM2r d=2 N=diag(1,-1): IsNot
+PASS CM2r d=2 N=diag(1,-1): frame
+PASS CM2r d=2 N=diag(1,-1): relT
+PASS CM2r d=2 N=diag(1,-1): G^2 = I (invertible)
+PASS CM2r d=2 N=diag(1,-1): relC FAILS (countercontrol)
+PASS CM2r d=2 N=diag(1,-1): eigenspaces unbalanced (2,1), d even
+PASS CM2r d=2 N=diag(1,-1): parity map Lop injective (relT step survives)
+PASS CM2r d=2 N=diag(1,-1): parity map Lop NOT anticommuting (relC step lost)
+PASS CM2r d=2 N=diag(1,-1): posFwd fails, value -1 < 0 with Lor effects
+PASS CM2n d=2 N=-id: IsNot
+PASS CM2n d=2 N=-id: frame
+PASS CM2n d=2 N=-id: relT
+PASS CM2n d=2 N=-id: G^2 = I (invertible)
+PASS CM2n d=2 N=-id: relC FAILS (countercontrol)
+PASS CM2n d=2 N=-id: eigenspaces unbalanced (1,2), d even
+PASS CM2n d=2 N=-id: parity map Lop injective (relT step survives)
+PASS CM2n d=2 N=-id: parity map Lop NOT anticommuting (relC step lost)
+PASS CM2n d=2 N=-id: posFwd fails, value -1 < 0 with Lor effects
+PASS CM4r d=4 N=diag(1,1,1,-1): IsNot
+PASS CM4r d=4 N=diag(1,1,1,-1): frame
+PASS CM4r d=4 N=diag(1,1,1,-1): relT
+PASS CM4r d=4 N=diag(1,1,1,-1): G^2 = I (invertible)
+PASS CM4r d=4 N=diag(1,1,1,-1): relC FAILS (countercontrol)
+PASS CM4r d=4 N=diag(1,1,1,-1): eigenspaces unbalanced (4,1), d even
+PASS CM4r d=4 N=diag(1,1,1,-1): parity map Lop injective (relT step survives)
+PASS CM4r d=4 N=diag(1,1,1,-1): parity map Lop NOT anticommuting (relC step lost)
+PASS CM4r d=4 N=diag(1,1,1,-1): posFwd fails, value -1 < 0 with Lor effects
+PASS CM4m d=4 N=diag(1,-1,-1,-1): IsNot
+PASS CM4m d=4 N=diag(1,-1,-1,-1): frame
+PASS CM4m d=4 N=diag(1,-1,-1,-1): relT
+PASS CM4m d=4 N=diag(1,-1,-1,-1): G^2 = I (invertible)
+PASS CM4m d=4 N=diag(1,-1,-1,-1): relC FAILS (countercontrol)
+PASS CM4m d=4 N=diag(1,-1,-1,-1): eigenspaces unbalanced (2,3), d even
+PASS CM4m d=4 N=diag(1,-1,-1,-1): parity map Lop injective (relT step survives)
+PASS CM4m d=4 N=diag(1,-1,-1,-1): parity map Lop NOT anticommuting (relC step lost)
+PASS CM4m d=4 N=diag(1,-1,-1,-1): posFwd fails, value -1 < 0 with Lor effects
+PASS CM4n d=4 N=-id: IsNot
+PASS CM4n d=4 N=-id: frame
+PASS CM4n d=4 N=-id: relT
+PASS CM4n d=4 N=-id: G^2 = I (invertible)
+PASS CM4n d=4 N=-id: relC FAILS (countercontrol)
+PASS CM4n d=4 N=-id: eigenspaces unbalanced (1,4), d even
+PASS CM4n d=4 N=-id: parity map Lop injective (relT step survives)
+PASS CM4n d=4 N=-id: parity map Lop NOT anticommuting (relC step lost)
+PASS CM4n d=4 N=-id: posFwd fails, value -1 < 0 with Lor effects
+PASS CM2r d=2 N=diag(1,-1): relC <-> (N Pi_a N = Pi_b) agrees
+PASS CM2n d=2 N=-id: relC <-> (N Pi_a N = Pi_b) agrees
+PASS CM4r d=4 N=diag(1,1,1,-1): relC <-> (N Pi_a N = Pi_b) agrees
+PASS CM4m d=4 N=diag(1,-1,-1,-1): relC <-> (N Pi_a N = Pi_b) agrees
+PASS CM4n d=4 N=-id: relC <-> (N Pi_a N = Pi_b) agrees
+PASS Q3 refl3: IsNot
+PASS Q3 refl3: det = -1
+PASS Q3 refl3: controlled-N gate frame
+PASS Q3 refl3: controlled-N gate relT
+PASS Q3 refl3: controlled-N gate invertible (G^2=I)
+PASS Q3 refl3: relC fails (consistent with not_gateRel_refl3)
+PASS Q3 refl3: DIM-1 cnot does not satisfy relT with refl3
+PASS Q3 negId3: IsNot
+PASS Q3 negId3: det = -1
+PASS Q3 negId3: controlled-N gate frame
+PASS Q3 negId3: controlled-N gate relT
+PASS Q3 negId3: controlled-N gate invertible (G^2=I)
+PASS Q3 negId3: relC fails (consistent with not_gateRel_negId3)
+PASS Q3 negId3: DIM-1 cnot does not satisfy relT with negId3
+PASS Q3 nflip: controlled-N gate relT, frame; relC fails (rank 1 vs 3)
+PASS CC identity gate: relT holds, frame FAILS (frame is what the even-d positivity exclusions read)
+PASS CC controlled-N gate with the wrong corner projector: relT holds, frame FAILS
+relt_q1q2q3_exact: 77/77 checks pass

@@ -1,0 +1,65 @@
+
+== S0  transcription
+PASS S0.sgn  [source] landed sgn is -1 exactly at (1, 3) and (2, 2)
+PASS S0.pcpt  [source] landed pc and pt tables
+PASS S0.phiW  [source] landed phiW = diag(1, 1, -1, 1)
+PASS S0.reflY  [source] landed reflY = diag(1, -1, 1)
+PASS S0.fourVal  [source] design fourVal = sum X a b * Y c d * E a c * F b d (FourCopyCore)
+PASS S0.fcc  [source] design FCC: famI 0 <= ipW X (tabMul (tabMul E Y) (tabT F)), famII 0 <= ipW e (tabMul (tabMul L f) (tabT L'))
+PASS S0.head  [source] design headline kt4_forward_ie1 takes H : KT4Core (K .p01) (K .p23) (K .p02) (K .p13) V
+
+== S1  identities
+PASS I1  [identity] fourVal X Y E F = ipW X (E Y F^T) = ipW E (X F Y^T), symbolic
+PASS I2  [identity] g2 e f L L' = ipW e (L f L'^T), symbolic
+PASS I3  [identity] ipW E (D^a W D^b) = ipW (D^a E D^b) W for a, b in {0, 1} (the sign charts are ipW-isometric involutions)
+PASS I4  [identity] pauliW (W D) = (pauliW W)^{T_2}, pauliW (D W) = (pauliW W)^{T_1}, pauliW (D W D) = (pauliW W)^T, symbolic
+NOTE [written] I4W  -- by I4 the twin actT reflY Q3 is the partial-transpose image (token 2 of the pair) of Q3, actC reflY Q3 is the partial-transpose image on token 1, and since rho^{T_1} = (rho^{T_2})^T and transposition preserves PSD, actC reflY Q3 = twin; D Q3 D = Q3; by I3 dualW (D^a K D^b) = D^a (dualW K) D^b, so dualW twin = actT reflY (dualW Q3).
+PASS I5  [identity] cnot is an involution and ipW-isometric: cnot (cnot W) = W and ipW E (cnot W) = ipW (cnot E) W, symbolic
+PASS I6  [identity] reflection conjugates of cnot: D cnot(D W D) D = cnot W, and D cnot(D W) = cnot(W D) D = cnotTw W, symbolic
+PASS I6c  [countercontrol] countercontrol: D cnot(W) is not cnot(D W) (a one-sided reflection does not commute with cnot)
+
+== S2  the mixed assignment (Q3, Q3, Q3, twin)
+PASS W1  [witness] memberships: phiW in Q3; phiW/4 in dualW Q3; L' = diag(1,-1,1,-1) = actT reflY sing4 in twin; L'/4 = actT reflY (sing4/4) in dualW twin (rank-one projectors)
+PASS W2  [witness] famI fails: fourVal phiW phiW (phiW/4) (L'/4) = -1/8 (X in K01 = Q3, Y in K23 = Q3, E in dualW K02, F in dualW K13 = dualW twin) -- value -1/8
+PASS W3  [witness] famII fails: g2 (phiW/4) (phiW/4) phiW L' = -1/8 (L in K02 = Q3, L' in K13 = twin, e, f in dualW Q3) -- value -1/8
+PASS W2c  [countercontrol] countercontrol: famI at the same states with F = phiW/4 (in dualW Q3) is >= 0 -- value 1/4
+PASS W3c  [countercontrol] countercontrol: famII with L' = phiW (in Q3) is >= 0 -- value 1/4
+NOTE [written] W.R  -- both families of FCC fail on the mixed assignment at -1/8, so any premise that yields famI alone, or famII alone, already excludes it.
+
+== S3  the sixteen twist patterns of {Q3, twin}^4 (pairs in the order 01, 23, 02, 13)
+PASS T1  [identity] per-token transport: for all 16 s, fourVal and g2 are unchanged when the table of pair (i, j) is replaced by D^{s_i} . D^{s_j} (symbolic)
+PASS T1c  [countercontrol] countercontrol: a sign chart applied to X alone changes fourVal
+PASS T2  [enumerate] the coboundaries are exactly the 8 even patterns (enumeration over the 16 s)
+PASS T3  [enumerate] every odd pattern has transported witnesses at which famI and famII are negative -- values [(-1/8, -1/8)]
+NOTE [written] T.W  -- membership of the transported witnesses: D^a Q3 D^b is Q3 for a = b and twin for a != b (I4W), and the transported witnesses sit in the cones of the transported pattern t = (0,0,0,1) + cob(s). Even patterns: FCC holds by T1 and FCC for uniform Q3 (landed F2, F3 with the Kronecker product of PSD matrices, note F.Q3). So on {Q3, twin}^4, FCC holds exactly for the 8 coboundary patterns: there are per-token reflection charts in which all four cones are Q3 (this is the design package's open fourCopyCoherent_chart, here by T1).
+
+== S4  the tree obstruction (proper subsets of the 4-cycle)
+PASS R1  [enumerate] on each of the four 3-pair subsets, the twist pattern of (Q3, Q3, Q3, twin) agrees with a coboundary
+PASS R1c  [countercontrol] countercontrol: on all four pairs no coboundary agrees with it
+PASS R2  [identity] gate transport: chart(a,b) . cnot . chart(a,b) is cnot for a = b and cnotTw for a != b, symbolic
+NOTE [written] R.W  -- the obstruction (written). Let Pi be a conjunction of predicates Pi_k, each reading only the data (cones, gates, locals) of a proper subset S_k of the four pairs and each invariant under per-token reflection charts. If Pi holds at the quantum data (uniform Q3, cnot gates, identity locals), it holds at the data of M_tok (cones Q3, Q3, Q3, twin; gates cnot, cnot, cnot, cnotTw; B_13 = B'_13 = reflY): by R1 there is s with cob(s) = tau on S_k, and by I4W and R2 the chart (reflY^{s_t}) maps the quantum data on S_k onto the M_tok data on S_k. FCC fails for M_tok (S2). So no such Pi implies FCC: a principle that excludes the mixed assignment must couple all four pairs or depend on the charts.
+
+== S5  the entangled core: one separable argument makes famI and famII automatic
+PASS E1  [identity] famI with one rank-one argument: fourVal (p q^T) Y E F = p^T E (Y F^T q), fourVal X (p q^T) E F = (E p)^T X (F q), fourVal X Y (u v^T) F = (X^T u)^T F (Y^T v), fourVal X Y E (u v^T) = (X u)^T E (Y v), symbolic
+PASS E2  [identity] famII with one rank-one argument: the four analogous reductions of g2, symbolic
+PASS E1c  [countercontrol] countercontrol: without the transpose, fourVal (p q^T) Y E F is not p^T E (Y F q)
+NOTE [written] E.W  -- with every cone admissible (products in K, K in maxCone) every state table and every dual table lies in maxCone = {M : a^T M b >= 0 for a, b in L}, and a maxCone table maps L into L (b^T M a >= 0 for all b in L means M a in L* = L). So each reduced expression is a^T M b with a, b in L and M in maxCone, hence >= 0; SEP is the cone generated by such p q^T. FCC can fail only at configurations in which all four arguments are non-separable (S2 is one). A principle that constrains only configurations with a product state or a product effect is implied by hadm and does not imply FCC.
+
+== S6  the uniform foil K_c = cone(SEP u cnot SEP)
+PASS K1  [identity] hom x^T E0 hom y = 1 + x1 y3 - x2 y2, symbolic
+PASS K2  [identity] Lagrange: (x1^2 + x2^2)(y3^2 + y2^2) - (x1 y3 - x2 y2)^2 = (x1 y2 + x2 y3)^2, symbolic
+PASS K3  [witness] cnot E0 = E0
+NOTE [written] K.W  -- by K1, K2: |x1 y3 - x2 y2| <= |x||y| <= 1 on the ball, so E0 is >= 0 on every product (E0 in dualW SEP = maxCone); by I5 and K3, ipW E0 (cnot P) = ipW E0 P >= 0, so E0 in dualW (cnot SEP); hence E0 in dualW K_c. K_c is a convex cone generated by a compact base, so closed; it contains the products, lies in Q3 (products are PSD, cnot preserves Q3, landed D1, D5) hence in maxCone, and is cnot-invariant (I5).
+PASS K4  [witness] opW E0 psi = -psi for psi = (1,-1,-1,-1)/2, |psi| = 1: E0 is not in dualW Q3
+PASS K5  [witness] G = coords(psi psi^T): pauliW G = psi psi^T (G in Q3, so G in dualW K_c), and D G D = G -- G = [[1, 0, 0, 0], [0, 0, 0, -1], [0, 0, 1, 0], [0, -1, 0, 0]]
+PASS K6  [witness] phiW = cnot (prodState xplus z3): phiW lies in cnot SEP, so in K_c
+PASS K7  [witness] fourVal phiW phiW E0 G = -1: famI fails for uniform K_c and for (Q3, Q3, K_c, K_c) -- value -1
+PASS K8  [witness] g2 E0 G phiW phiW = -1: famII fails for (K_c, K_c, Q3, Q3) -- value -1
+PASS K9  [witness] ipW E0 G = -1 with E0 in dualW K_c: G in Q3 is not in K_c (K_c != Q3)
+PASS K7c  [countercontrol] countercontrol: with the unit effect E00 (opW = I) in place of E0 the value is > 0 -- value 1
+PASS K1c  [countercontrol] countercontrol: the product test of K1 detects a table outside maxCone (chainW at the sharp pair -e1, -e3 is -1/2)
+NOTE [written] K.R  -- uniform K_c with cnot gates and identity locals satisfies hcls, hadm, hcl and hgate and violates FCC (K7). (Q3, Q3, K_c, K_c) with cnot gates satisfies the same four and violates famI (K7) while famII holds there (L, L' in K_c lie in Q3 and e, f in dualW Q3: the uniform-Q3 argument); (K_c, K_c, Q3, Q3) violates famII (K8) while famI holds by the same argument.
+
+kinds: identity 12, witness 10, enumerate 3, source 7, countercontrol 8
+40/40 checks
+VERDICT C1-CONE-LEVEL-EXACT

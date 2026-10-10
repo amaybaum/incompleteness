@@ -1,0 +1,12 @@
+PASS H1 pauliW phiW is the projector onto (|00>+|11>)/sqrt2 (phiW in Q3, pure)
+PASS H2 idW is not in Q3 (pauliW idW has eigenvalue -1/2)
+PASS H3 idW = actT reflY phiW, so idW in twin; phiW not in twin (actT reflY phiW = idW is not PSD and actT reflY is an involution)
+PASS H4 pureTab of the Bell coefficient matrix diag(1,1)/sqrt2 is phiW
+PASS H5 pauliW (pureTab C) = vec(C) vec(C)^H for random exact C (pureTab_mem_Q3 statement, first token = row)
+PASS H6 link_conditional as stated: (cnot S(u)) . (cnot Eff(b)) . (cnot S(u'))^T = c pureTab(diag(1,u) conj(Circ b) diag(1,u')) with c > 0  [c = 0.000408921, 0.00227324, 0.00165960]
+PASS H6c countercontrol: dropping the conjugation breaks the identity for generic complex b
+PASS H7 coverage: every C with four nonzero entries is s diag(1,u) conj(Circ b) diag(1,u') (explicit solution)
+PASS H8 bellOf A B lies in twistQ3 (orient A B) for the four determinant classes (orient = det A det B = -1)
+PASS H9 ipW E X = 4 tr(pauliW E . pauliW X) (the Euclidean dual of Q3 is Q3)
+--- precheck_heavy: 10/10
+VERDICT PREFLIGHT-HEAVY-EXACT

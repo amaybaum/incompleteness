@@ -1,0 +1,12 @@
+PASS L1 y = diag(1,1,0,1): value on products 1 + x0 x0' + x2 x2' (symbolic; >= 0 on the ball, written)
+PASS L1 pauliW(y) has eigenvalue -1/4 on |01> - |10> (y not in Q3) and PT_2 pauliW(y) = pauliW(y) (y not in Tw)
+PASS L1 <y, y> = 3 > 0 (Euclidean self-pairing; C0 = SEP + R+ y is self-positive given y in max)
+PASS L2 the sector pairing is tr((a 1 + b Phi+)(a' 1 + b' Phi+)) = 4aa' + ab' + ba' + bb' (symbolic a, b, a', b')
+PASS L2 Q3 wedge [1 - Phi+, Phi+] and Tw wedge [1 + 2Phi+, 1 - 2Phi+] are right angles; SEP wedge [1 - Phi+, 1 + 2Phi+] has cos = 1/2 (60 deg)
+PASS L2 W_s = cone((s,1), (1, -(4s+1)/(s+1))) is a right angle for symbolic s, equals the Q3 wedge at s = 0 and the Tw wedge at s = 1/2, and contains the SEP wedge (nonnegative coefficients, exact at s = 0, 1/10, 1/4, 2/5, 1/2)
+NOTE L2 closed forms: 1 - Phi+ = (3*s/(s*(4*s + 1) + s + 1)) e1 + ((s + 1)**2/(s*(4*s + 1) + s + 1)) e2 ; 1 + 2Phi+ = (3*(2*s + 1)/(s*(4*s + 1) + s + 1)) e1 + ((-2*s**2 - s + 1)/(4*s**2 + 2*s + 1)) e2
+PASS L3 control: the T-signature on tables is (10, 6)
+PASS L3 every listed product with a Y-eigenstate factor is B-null (B(p,p) = 0), and these products span a 12-dimensional subspace of tables (exact rank)  [12]
+PASS L4 (1/16) sum over a, b in {0, 1, +, -} of |ab><ab| = 1/4 (exact)
+--- p4_cone_ladder: 9/9 checks pass
+VERDICT P4-LADDER-INGREDIENTS-EXACT

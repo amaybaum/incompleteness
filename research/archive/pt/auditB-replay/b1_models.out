@@ -1,0 +1,205 @@
+
+== S0  transcription of the landed tables
+PASS S0.tables  [source] landed sgn, pc, pt, phiW, idW, chainW, reflY match this script's transcription
+
+== S1  the dictionary facts the reductions use (re-derived here; the landed probe replay covers D1-D7, F0-F10)
+PASS D1  [identity] pauliW (cnot w) = CNOT pauliW(w) CNOT^dagger, symbolic w
+PASS D5  [identity] pauliW (prodState x y) = rho(x) (x) rho(y), symbolic
+PASS D6  [identity] rho(x) is Hermitian with trace 1 and det (1 - |x|^2)/4 (so PSD iff |x| <= 1)
+PASS Dpt  [identity] pauliW (actT reflY w) = partial transpose (second qubit) of pauliW(w), symbolic: twin = PT2(Q3)
+PASS Dtr  [identity] pauliW (actC reflY (actT reflY w)) = pauliW(w)^T, symbolic (full transpose; so actC reflY Q3 = transpose(actT reflY Q3) = twin)
+PASS Dmax  [identity] pairVal a b (actT R w) = pairVal a (homMap R^T b) w and pairVal a b (actC R w) = pairVal (homMap R^T a) b w, symbolic R (orthogonal R preserve the Lorentz cone L, so maxCone is invariant under actC R, actT R)
+PASS DL  [identity] homMap reflY preserves the Lorentz form b0^2 - |b|^2 and b0 (so it maps L onto L)
+PASS Dadj  [identity] ipW (actT reflY E) X = ipW E (actT reflY X), symbolic (so dualW (actT reflY K) = actT reflY (dualW K))
+PASS Dsep  [identity] actT reflY (prodState x y) = prodState x (reflY y) and |reflY y|^2 = |y|^2 (SEP is actT reflY-invariant; so is the ball)
+PASS Dloc  [identity] actC M (actT M' (prodState x y)) = prodState (M x) (M' y), symbolic M, M' (local maps send products to products; orthogonal ones keep the ball, so they preserve SEP)
+PASS Dorth  [identity] |R^T b|^2 = b^T (R R^T) b, symbolic R, b (so orthogonal R keep the Lorentz cone L; with Dmax every local orthogonal map preserves maxCone)
+PASS Dpv  [identity] pairVal a b w = ipW (a b^T) w, symbolic: SEP* = maxCone and maxCone* = SEP read through tables
+
+== S2  the four gates: N-CLASS form, inverse, orientation bit
+PASS G.g_cnot  [identity] g_cnot: N = actC A actT B cnot actC A' actT B' with orthogonal locals; the stated inverse is a two-sided inverse; orient(A, B) = False
+PASS G.g_D  [identity] g_D: N = actC A actT B cnot actC A' actT B' with orthogonal locals; the stated inverse is a two-sided inverse; orient(A, B) = True
+PASS G.g_pre  [identity] g_pre: N = actC A actT B cnot actC A' actT B' with orthogonal locals; the stated inverse is a two-sided inverse; orient(A, B) = False
+PASS G.g_Tw  [identity] g_Tw: N = actC A actT B cnot actC A' actT B' with orthogonal locals; the stated inverse is a two-sided inverse; orient(A, B) = True
+PASS G.orient  [enumerate] orientation bits: g_cnot false, g_D true, g_pre false, g_Tw true
+PASS G.cc  [countercontrol] countercontrol: actT reflY . cnot is not of N-CLASS form with B = I (the post-local is read)
+
+== S3  membership witnesses (decisive for every "fails" cell)
+PASS W1  [witness] phiW in Q3 (pauliW phiW is PSD: all principal minors >= 0)
+PASS W2  [witness] idW not in Q3: the singlet value of pauliW idW is -1
+PASS W2t  [witness] idW in twin: actT reflY idW = phiW in Q3
+PASS W3  [witness] phiW not in twin: actT reflY phiW = idW, not in Q3 (W2)
+PASS W4  [witness] chainW not in maxCone: pairVal at the sharp effects of -e1, -e3 (both in L) is -1/2
+PASS W5  [witness] dg(1,-1,1,-1) in maxCone (pairVal = a0 b0 - a1 b1 + a2 b2 - a3 b3 >= a0 b0 - |a||b| >= 0 by Cauchy-Schwarz) and ipW phiW dg(1,-1,1,-1) = -2: phiW not in dualW maxCone
+PASS W6  [witness] dg(1,-1,-1,-1) in Q3 (pauliW = singlet projector, PSD) and ipW idW dg(1,-1,-1,-1) = -2: idW not in dualW Q3
+PASS W7  [witness] phiW not in SEP: F = dg(1,-1,1,-1) has ipW F (prodState x y) = |x - D y|^2/2 + (1-|x|^2)/2 + (1-|y|^2)/2 (>= 0 on the ball; D = diag(1,-1,1)) and ipW F phiW = -2
+PASS W8  [witness] idW not in SEP: F' = dg(1,-1,-1,-1) has ipW F' (prodState x y) = |x - y|^2/2 + (1-|x|^2)/2 + (1-|y|^2)/2 and ipW F' idW = -2
+PASS W9  [identity] phiW and idW lie in maxCone = SEP*: pairVal a b phiW = a0b0 + a1b1 - a2b2 + a3b3 and pairVal a b idW = a0b0 + a.b, each >= a0 b0 - |a||b| >= 0 (Cauchy-Schwarz)
+PASS W10  [witness] dg(2,-1,1,-1) = E00 + dg(1,-1,1,-1) lies in int maxCone (pairVal >= a0 b0 > 0 on nonzero L x L) and ipW phiW dg(2,-1,1,-1) = -1: phiW not in dualW Kint
+PASS W11  [witness] prodState xplus z3 lies in twin: actT reflY fixes it (reflY z3 = z3) and it lies in Q3 (D5, D6)
+PASS W12  [witness] chains: cnot idW = chainW; actT reflY chainW = chainW; g_D: pxz -> idW -> chainW; g_pre: pxz -> phiW -> chainW; g_Tw: phiW -> chainW; g_D^-1 phiW = chainW; g_pre^-1 pxz = idW
+PASS W13  [witness] the M_D gate puts the M_Q Bell table off Q3: bellOf(I, reflY) = actT reflY phiW = idW (W2)
+PASS W14  [identity] pre-corrections: g_D . actT reflY = g_Tw and g_pre . actT reflY = cnot (symbolic); cnot pxz = phiW
+PASS W.cc  [countercontrol] countercontrol: the twin Bell table idW is in twin (W2t) while the Q3 Bell table phiW is not (W3): the cone and the post-local must match
+
+== S4  gate images of product states and the link family (reductions for the "holds" cells)
+PASS P1  [identity] g_D (prodState x y) = actT reflY (cnot (prodState x y)) and g_D^-1 (prodState x y) = cnot (prodState x (reflY y))
+PASS P2  [identity] g_pre (prodState x y) = cnot (prodState x (reflY y)) and g_pre^-1 = actT reflY . cnot
+PASS P3  [identity] g_Tw (prodState x y) = actT reflY (cnot (prodState x (reflY y))) and g_Tw is an involution
+PASS L1  [identity] link tables with post-locals (I, I): actC (Rz Rx) phiW = cnot (prodState (Rz xplus) (Rx z3)), symbolic angles (so they lie in Q3 by D1, D5, D6)
+PASS L2  [identity] link tables with post-locals (I, reflY): actC (Rz Rx) (actT reflY phiW) = actT reflY (actC (Rz Rx) phiW) (so they lie in twin)
+PASS L3  [sample] sample: at m1 = 1/2, m2 = 1/3 the (I, I) link table is in Q3 and its actT reflY image is in twin (exact PSD)
+PASS L.cc  [countercontrol] countercontrol: at the same sample the (I, reflY) link table is not in Q3 (it is in twin only)
+
+== S5  four-copy interface: transports and uniform SEP
+PASS F.t3  [identity] token-3 chart: fourVal X (actT r Y) E (actT r F) = fourVal X Y E F and famII e (actT r f) L (actT r L') = famII e f L L', symbolic (FCC(Q3,twin,Q3,twin) <=> FCC(Q3,Q3,Q3,Q3), with Dadj for the duals)
+PASS F.t12  [identity] tokens-1,2 chart: fourVal (actT r X) (actC r Y) (actT r E) (actC r F) = fourVal X Y E F and the famII form likewise, symbolic (uniform twin <=> uniform Q3, with Dtr: actC reflY Q3 = twin)
+PASS F.cc  [countercontrol] countercontrol: transporting Y but not F (token 3 read on one side only) breaks the identity
+PASS F.sep  [identity] uniform SEP: fourVal (prodState x x') (prodState y y') E F = (x^ E y^)(x'^ F y'^) and the famII value on products factors the same way, symbolic (with E, F in SEP* = maxCone both factors are >= 0)
+
+== S6  the orientation obstruction: sigma and tau, and the 16 patterns on orientation-blind cones
+PASS O1  [identity] sigma: actT reflY . N(A,B,A',B') = N(A, reflY B, A', B'), symbolic locals (post-composition stays N-CLASS)
+PASS O2  [identity] det(reflY B) = -det B, symbolic: sigma flips orient(A, B)
+PASS O3  [identity] tau: actT reflY . N(A,B,A',B') . actT reflY = N(A, reflY B, A', B' reflY), symbolic
+PASS O4  [identity] (L) and the Bell table under sigma: actC (A Rz Rx) (actT (reflY B) phiW) = actT reflY (actC (A Rz Rx) (actT B phiW)), symbolic (CONS, OQ1, SECT, PREC, hgate are sigma-invariant on actT reflY-invariant cones, with Dmax, Dsep, Dadj)
+PASS O.cc  [countercontrol] countercontrol: sigma on the control side (actC reflY) changes A, not B: actC reflY . N(A,B,..) differs from N(A, reflY B, ..)
+PASS O5  [enumerate] the 16 gate patterns in {g_cnot, g_D}^4 on uniform maxCone (or SEP): hcls, hadm, hcl, H and IE1 do not read the gates beyond N-CLASS, and EvenCycle holds for exactly the even patterns -- 8 even, 8 odd
+PASS O6  [witness] the obstruction does not reach Q3: phiW in Q3 and actT reflY phiW = idW not in Q3 (Q3 is not actT reflY-invariant)
+
+== S7  the matrix
+model    H0  C     hgate    PREC    SECT  SECTst  SECTef     OQ1    CONS      BS      BD     PRP     TBP   SECT'
+M_Q       Y  Y       Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W
+M_D       Y  n       n/X     n/W     n/X     n/X     n/X     n/X     n/X     n/X     n/X     n/X     n/X     Y/W
+M_max     Y  Y       n/X     n/W     n/X     Y/K     n/X     n/X     n/X     Y/X     n/X     Y/K     n/X     n/X
+M_SEP     Y  Y       n/X     n/X     n/X     n/X     Y/W     n/X     n/X     n/X     Y/X     n/X     Y/W     n/X
+M_maxD    Y  n       n/X       -     n/X    Y/KW       -     n/X     n/X     Y/X     n/X    Y/KW       -       -
+M_maxT    Y  n       n/X       -     n/X    Y/KW       -     n/X     n/X     Y/X     n/X    Y/KW       -       -
+M_SEPD    Y  n       n/X       -     n/X     n/X     Y/W     n/X     n/X     n/X     Y/X       -     Y/W       -
+M_pre     Y  Y       n/X     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     n/X     n/X     n/X
+M_DD      Y  Y       n/X     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W     Y/W       -       -       -
+TWIN      Y  Y       n/X     n/W     n/X     n/X       -     n/X     n/X     n/X       -       -       -       -
+M_int     n  Y       n/K       -     n/X       -       -     n/X     n/X       -     n/X       -       -       -
+legend: Y holds, n fails; basis X exact witness/identity, W written reduction over listed exact checks, K landed fact; - not evaluated.  H0 bases: Q3: W[landed D1-D7, F2, H1-H10 replayed; D5, D6]; maxCone: W[landed F4-F6, M_max.2, H1-H10 replayed]; SEP: W[F.sep; landed prodState_mem_maxCone; H1-H10 replayed]; twin-mix: W[F.t3 or F.t12, Dtr, Dpt, Dadj; uniform Q3]
+  cell (Kint, g_cnot) BD: fails [X: W10] phiW not in dualW Kint = dualW maxCone
+  cell (Kint, g_cnot) CONS: fails [X: W10] phiW not in dualW Kint = dualW maxCone
+  cell (Kint, g_cnot) OQ1: fails [X: W10] phiW not in dualW Kint = dualW maxCone
+  cell (Kint, g_cnot) SECT: fails [X: W10] phiW not in dualW Kint = dualW maxCone
+  cell (Kint, g_cnot) hgate: fails [K: landed:M_int.2] landed
+  cell (Q3, g_D) BD: fails [X: W6, W13] idW not in dualW Q3
+  cell (Q3, g_D) BS: fails [X: W12, W2, W13] g_D pxz = bellOf(I, reflY) = idW not in Q3
+  cell (Q3, g_D) CONS: fails [X: W12, W2, W13] g_D pxz = bellOf(I, reflY) = idW not in Q3
+  cell (Q3, g_D) OQ1: fails [X: W12, W2, W13] g_D pxz = bellOf(I, reflY) = idW not in Q3
+  cell (Q3, g_D) PREC: fails [W: W12, W2, W2t, W4, Dpt, Dtr, D1, landed:D7] N . L maps Q3 to actT reflY cnot (L Q3); L Q3 in {Q3, twin} (chart rule: D7, Dpt, Dtr): g_D Q3 contains idW not in Q3, and cnot twin contains chainW
+  cell (Q3, g_D) PRP: fails [X: W12, W2, W13] g_D pxz = bellOf(I, reflY) = idW not in Q3
+  cell (Q3, g_D) SECT: fails [X: W12, W2, W13] g_D pxz = bellOf(I, reflY) = idW not in Q3
+  cell (Q3, g_D) SECT': holds [W: P1, Dsep, D1, D5, D6, Dmax, DL, Dpt] g_D^-1 (products) = cnot (products) in Q3 = Q3*; g_D Q3 = twin in maxCone
+  cell (Q3, g_D) SECTef: fails [X: W1, W12, W4] phiW in Q3 and g_D^-1 phiW = chainW not in maxCone
+  cell (Q3, g_D) SECTst: fails [X: W12, W2, W13] g_D pxz = bellOf(I, reflY) = idW not in Q3
+  cell (Q3, g_D) TBP: fails [X: W1, W12, W4] phiW in Q3 and g_D^-1 phiW = chainW not in maxCone
+  cell (Q3, g_D) hgate: fails [X: W12, W2, W1] g_D pxz = idW not in Q3
+  cell (Q3, g_cnot) BD: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) BS: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) CONS: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) OQ1: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) PREC: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) PRP: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) SECT: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) SECT': holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) SECTef: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) SECTst: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) TBP: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_cnot) hgate: holds [W: D1, D5, D6, W1, L1] cnot is conjugation by CNOT; Q3 self-dual
+  cell (Q3, g_pre) BD: holds [W: W1, L1, D1, D5, D6, P2] post-locals (I, I): the same tables as M_Q
+  cell (Q3, g_pre) BS: holds [W: W1, L1, D1, D5, D6, P2] post-locals (I, I): the same tables as M_Q
+  cell (Q3, g_pre) CONS: holds [W: W1, L1, D1, D5, D6, P2] post-locals (I, I): the same tables as M_Q
+  cell (Q3, g_pre) OQ1: holds [W: W1, L1, D1, D5, D6, P2] post-locals (I, I): the same tables as M_Q
+  cell (Q3, g_pre) PREC: holds [W: W14, D1] g_pre . actT reflY = cnot preserves Q3
+  cell (Q3, g_pre) PRP: fails [X: W12, W2] g_pre^-1 pxz = idW not in Q3
+  cell (Q3, g_pre) SECT: holds [W: P2, D1, D5, D6, Dpt, Dmax, DL] both halves
+  cell (Q3, g_pre) SECT': fails [X: W12, W2] g_pre^-1 pxz = idW not in Q3
+  cell (Q3, g_pre) SECTef: holds [W: P2, D1, Dpt, Dmax, DL] g_pre^-1 Q3 = actT reflY cnot Q3 = twin
+  cell (Q3, g_pre) SECTst: holds [W: P2, Dsep, D1, D5, D6] g_pre(products) = cnot(products) in Q3
+  cell (Q3, g_pre) TBP: fails [X: W1, W12, W4] g_pre phiW = chainW
+  cell (Q3, g_pre) hgate: fails [X: W1, W12, W4] phiW in Q3, g_pre phiW = chainW not in maxCone
+  cell (SEP, g_D) BD: holds [X: W9, W13] bellOf(I, reflY) = idW in maxCone = SEP*
+  cell (SEP, g_D) BS: fails [X: W12, W8, W13] g_D pxz = idW not in SEP
+  cell (SEP, g_D) CONS: fails [X: W12, W8, W13] g_D pxz = idW not in SEP
+  cell (SEP, g_D) OQ1: fails [X: W12, W8, W13] g_D pxz = idW not in SEP
+  cell (SEP, g_D) SECT: fails [X: W12, W8, W13] g_D pxz = idW not in SEP
+  cell (SEP, g_D) SECTef: holds [W: P1, Dsep, D1, D5, D6] g_D^-1 SEP = cnot SEP in Q3 in maxCone
+  cell (SEP, g_D) SECTst: fails [X: W12, W8, W13] g_D pxz = idW not in SEP
+  cell (SEP, g_D) TBP: holds [W: P1, Dsep, Dpt, Dmax, DL, D1, D5, D6] g_D SEP in twin in maxCone; g_D^-1 SEP in Q3
+  cell (SEP, g_D) hgate: fails [X: W12, W8, W13] g_D pxz = idW not in SEP
+  cell (SEP, g_cnot) BD: holds [X: W9] phiW in maxCone = SEP*
+  cell (SEP, g_cnot) BS: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) CONS: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) OQ1: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) PREC: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) PRP: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) SECT: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) SECT': fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) SECTef: holds [W: D1, D5, D6, W9] cnot SEP in Q3 in maxCone
+  cell (SEP, g_cnot) SECTst: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (SEP, g_cnot) TBP: holds [W: D1, D5, D6] cnot^{+-1} SEP in Q3 in maxCone
+  cell (SEP, g_cnot) hgate: fails [X: W14, W7, Dsep, Dloc] cnot pxz = phiW not in SEP (L SEP = SEP for local orthogonal L)
+  cell (maxCone, g_D) BD: fails [X: W13, W8, Dpv] bellOf = idW not in SEP = maxCone*
+  cell (maxCone, g_D) BS: holds [X: W13, W9] bellOf = idW in maxCone
+  cell (maxCone, g_D) CONS: fails [X: W13, W8] BD fails
+  cell (maxCone, g_D) OQ1: fails [X: W13, W8] BD fails
+  cell (maxCone, g_D) PRP: holds [W: P1, P3, Dmax, DL, Dsep, landed:cnot_prodState_mem_maxCone] inverse images of products likewise
+  cell (maxCone, g_D) SECT: fails [X: W13, W8] BD fails
+  cell (maxCone, g_D) SECTst: holds [W: P1, P3, Dmax, DL, Dsep, landed:cnot_prodState_mem_maxCone] g(prodState x y) = actT reflY cnot(prodState x y'), maxCone actT reflY-invariant
+  cell (maxCone, g_D) hgate: fails [X: W9, W12, W4] g(idW) or g(phiW) = chainW
+  cell (maxCone, g_Tw) BD: fails [X: W13, W8, Dpv] bellOf = idW not in SEP = maxCone*
+  cell (maxCone, g_Tw) BS: holds [X: W13, W9] bellOf = idW in maxCone
+  cell (maxCone, g_Tw) CONS: fails [X: W13, W8] BD fails
+  cell (maxCone, g_Tw) OQ1: fails [X: W13, W8] BD fails
+  cell (maxCone, g_Tw) PRP: holds [W: P1, P3, Dmax, DL, Dsep, landed:cnot_prodState_mem_maxCone] inverse images of products likewise
+  cell (maxCone, g_Tw) SECT: fails [X: W13, W8] BD fails
+  cell (maxCone, g_Tw) SECTst: holds [W: P1, P3, Dmax, DL, Dsep, landed:cnot_prodState_mem_maxCone] g(prodState x y) = actT reflY cnot(prodState x y'), maxCone actT reflY-invariant
+  cell (maxCone, g_Tw) hgate: fails [X: W9, W12, W4] g(idW) or g(phiW) = chainW
+  cell (maxCone, g_cnot) BD: fails [X: W5] phiW not in dualW maxCone (landed X6)
+  cell (maxCone, g_cnot) BS: holds [X: W9] phiW in maxCone
+  cell (maxCone, g_cnot) CONS: fails [X: W5] phiW not in dualW maxCone (landed X6)
+  cell (maxCone, g_cnot) OQ1: fails [X: W5] phiW not in dualW maxCone (landed X6)
+  cell (maxCone, g_cnot) PREC: fails [W: W9, W12, W4, Dmax, Dorth] L maxCone = maxCone for local orthogonal L, so PREC = hgate here
+  cell (maxCone, g_cnot) PRP: holds [K: landed:cnot_prodState_mem_maxCone] cnot involution
+  cell (maxCone, g_cnot) SECT: fails [X: W5] phiW not in dualW maxCone (landed X6)
+  cell (maxCone, g_cnot) SECT': fails [X: W9, W12, W4] N maxCone not in maxCone
+  cell (maxCone, g_cnot) SECTef: fails [X: W9, W12, W4] cnot^-1 idW = chainW not in maxCone
+  cell (maxCone, g_cnot) SECTst: holds [K: landed:cnot_prodState_mem_maxCone] CD:1152
+  cell (maxCone, g_cnot) TBP: fails [X: W9, W12, W4] same witness
+  cell (maxCone, g_cnot) hgate: fails [X: W9, W12, W4] idW in maxCone, cnot idW = chainW
+  cell (twin, g_D) BD: holds [W: L2, W2t, Dadj, Dpt, D1, D5, D6] link tables actT reflY (Q3 link tables) in twin; bellOf = idW in twin = twin*
+  cell (twin, g_D) BS: holds [W: L2, W2t, Dadj, Dpt, D1, D5, D6] link tables actT reflY (Q3 link tables) in twin; bellOf = idW in twin = twin*
+  cell (twin, g_D) CONS: holds [W: L2, W2t, Dadj, Dpt, D1, D5, D6] link tables actT reflY (Q3 link tables) in twin; bellOf = idW in twin = twin*
+  cell (twin, g_D) OQ1: holds [W: L2, W2t, Dadj, Dpt, D1, D5, D6] link tables actT reflY (Q3 link tables) in twin; bellOf = idW in twin = twin*
+  cell (twin, g_D) PREC: holds [W: W14, G.g_Tw, D1, Dpt] g_D . actT reflY = g_Tw = actT reflY cnot actT reflY preserves twin = actT reflY Q3
+  cell (twin, g_D) SECT: holds [W: P1, Dsep, D1, D5, D6, Dpt, Dadj] g_D SEP = actT reflY cnot SEP in twin = twin*; g_D^-1 twin = cnot Q3 = Q3 in maxCone
+  cell (twin, g_D) SECTef: holds [W: P1, Dsep, D1, D5, D6, Dpt, Dadj] g_D SEP = actT reflY cnot SEP in twin = twin*; g_D^-1 twin = cnot Q3 = Q3 in maxCone
+  cell (twin, g_D) SECTst: holds [W: P1, Dsep, D1, D5, D6, Dpt, Dadj] g_D SEP = actT reflY cnot SEP in twin = twin*; g_D^-1 twin = cnot Q3 = Q3 in maxCone
+  cell (twin, g_D) hgate: fails [X: W12, W4, W2t] idW in twin, g_D idW = chainW
+  cell (twin, g_cnot) BS: fails [X: W14, W3, W11] phiW = cnot pxz not in twin
+  cell (twin, g_cnot) CONS: fails [X: W14, W3, W11] phiW = cnot pxz not in twin
+  cell (twin, g_cnot) OQ1: fails [X: W14, W3, W11] phiW = cnot pxz not in twin
+  cell (twin, g_cnot) PREC: fails [W: W11, W3, W12, W4, Dpt, Dtr, landed:D7] cnot L twin: L twin in {Q3, twin}; cnot Q3 = Q3 not in twin (phiW), cnot twin contains chainW
+  cell (twin, g_cnot) SECT: fails [X: W14, W3, W11] phiW = cnot pxz not in twin
+  cell (twin, g_cnot) SECTst: fails [X: W14, W3, W11] phiW = cnot pxz not in twin
+  cell (twin, g_cnot) hgate: fails [X: W14, W11, W3] pxz in twin, cnot pxz = phiW not in twin
+
+kinds: identity 30, witness 14, enumerate 2, sample 1, source 1, countercontrol 5
+VERDICT B1-hgate: countermodel to the theorem with hgate in place of hgate (H0 and hgate and not C): none in this matrix (survives these countermodels; sufficiency is not measured here); fails in every H0-and-not-C model of the matrix: True; at M_max: False; at M_D: False
+VERDICT B1-PREC: H0 and PREC and not hgate in: ['M_pre', 'M_DD']; countermodel to the theorem with PREC in place of hgate (H0 and PREC and not C): none in this matrix (survives these countermodels; sufficiency is not measured here); fails in every H0-and-not-C model of the matrix: True; at M_max: False; at M_D: False
+VERDICT B1-SECT: H0 and SECT and not hgate in: ['M_pre', 'M_DD']; countermodel to the theorem with SECT in place of hgate (H0 and SECT and not C): none in this matrix (survives these countermodels; sufficiency is not measured here); fails in every H0-and-not-C model of the matrix: True; at M_max: False; at M_D: False
+VERDICT B1-SECTst: H0 and SECTst and not hgate in: ['M_max', 'M_maxD', 'M_maxT', 'M_pre', 'M_DD']; countermodel to the theorem with SECTst in place of hgate (H0 and SECTst and not C): ['M_maxD', 'M_maxT']; fails in every H0-and-not-C model of the matrix: False; at M_max: True; at M_D: False
+VERDICT B1-SECTef: H0 and SECTef and not hgate in: ['M_SEP', 'M_SEPD', 'M_pre', 'M_DD']; countermodel to the theorem with SECTef in place of hgate (H0 and SECTef and not C): ['M_SEPD']; fails in every H0-and-not-C model of the matrix: False; at M_max: False; at M_D: False
+VERDICT B1-OQ1: H0 and OQ1 and not hgate in: ['M_pre', 'M_DD']; countermodel to the theorem with OQ1 in place of hgate (H0 and OQ1 and not C): none in this matrix (survives these countermodels; sufficiency is not measured here); fails in every H0-and-not-C model of the matrix: True; at M_max: False; at M_D: False
+VERDICT B1-CONS: H0 and CONS and not hgate in: ['M_pre', 'M_DD']; countermodel to the theorem with CONS in place of hgate (H0 and CONS and not C): none in this matrix (survives these countermodels; sufficiency is not measured here); fails in every H0-and-not-C model of the matrix: True; at M_max: False; at M_D: False
+VERDICT B1-BS: H0 and BS and not hgate in: ['M_max', 'M_maxD', 'M_maxT', 'M_pre', 'M_DD']; countermodel to the theorem with BS in place of hgate (H0 and BS and not C): ['M_maxD', 'M_maxT']; fails in every H0-and-not-C model of the matrix: False; at M_max: True; at M_D: False
+VERDICT B1-BD: H0 and BD and not hgate in: ['M_SEP', 'M_SEPD', 'M_pre', 'M_DD']; countermodel to the theorem with BD in place of hgate (H0 and BD and not C): ['M_SEPD']; fails in every H0-and-not-C model of the matrix: False; at M_max: False; at M_D: False
+VERDICT B1-PRP: H0 and PRP and not hgate in: ['M_max', 'M_maxD', 'M_maxT']; countermodel to the theorem with PRP in place of hgate (H0 and PRP and not C): ['M_maxD', 'M_maxT']; fails in every H0-and-not-C model of the matrix: False; at M_max: True; at M_D: False
+VERDICT B1-TBP: H0 and TBP and not hgate in: ['M_SEP', 'M_SEPD']; countermodel to the theorem with TBP in place of hgate (H0 and TBP and not C): ['M_SEPD']; fails in every H0-and-not-C model of the matrix: False; at M_max: False; at M_D: False
+VERDICT B1-SECT': H0 and SECT' and not hgate in: ['M_D']; countermodel to the theorem with SECT' in place of hgate (H0 and SECT' and not C): ['M_D']; fails in every H0-and-not-C model of the matrix: False; at M_max: False; at M_D: True
+VERDICT B1-NOTE: this script measures countermodels and separations only; sufficiency of hgate, PREC, SECT, OQ1 and CONS is the step-by-step written derivation of RESULT section 1 (b1_consumed S1-S3 and b1_steps), not a measurement of this script
+VERDICT B1-OBSTRUCTION: every clause derived sufficient (hgate, PREC, SECT, OQ1, CONS) fails on each orientation-blind family ['M_max', 'M_SEP', 'M_maxD', 'M_maxT', 'M_SEPD'], as sigma-invariance (O1-O4) and sufficiency require; EvenCycle splits the 16 patterns on such cones 8/8 (O5)
+b1_models: OK -- 53 checks

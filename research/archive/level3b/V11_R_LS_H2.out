@@ -1,0 +1,6 @@
+[2026-10-04T11:16:20Z] V11 launch: python3 replay3b.py H R_LS H2 
+REPLAY-H R_LS H2 ((0, 1), (0, 1)): trie-vs-single mismatches 0/40404; brute mismatches 0/40; H0 record MATCH
+REPLAY-H R_LS H2 ((2, 0), (0, 1)): trie-vs-single mismatches 0/40404; brute mismatches 0/40; H0 record MATCH
+REPLAY-H R_LS H2 ((3, 2), (3, 2)): trie-vs-single mismatches 0/40404; brute mismatches 0/40; H0 record MATCH
+GATE V11 (R_LS, H2) OK
+V11-R_LS-H2 exit 0 [2026-10-04T11:18:11Z]

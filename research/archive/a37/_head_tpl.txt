@@ -1,0 +1,81 @@
+HEADER = '''"""Track B act 37 -- the round's own static controls, frozen with the control plane.
+
+Written before F; its blob is frozen in the preregistration beside it, and the execution adds it
+with that exact blob. It reads nothing but the repository at D and at the commit under check, and
+it certifies nothing on its own: the Lean kernel, the axiom audit and the release gate establish
+the mathematics, the exact-computation probe replays the exact arithmetic, and the V3 verifier the
+protocol. What it checks is that the execution carries the frozen statements, the frozen probe, the
+frozen outcome grammar and the frozen surface edits, and nothing else.
+
+    python3 controls.py --self-test     the duality of the two verdict propositions, the single
+                                        source of every shared text, the mutation controls on
+                                        synthetic inputs, and the agreement of the constants
+                                        below with the preregistration beside this file
+    python3 controls.py check <commit>  every control against the tree at <commit>, read from git
+
+Exit 1 on any failure.
+"""
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+
+D = 'd014bafef404b991b4544e6d2041edcfab1ac765'
+RDIR = 'verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/'
+MODULE = 'verification/lean-mathlib/OIBridge/DitaArcExclusivity.lean'
+PROBE = 'verification/lean/dita_arc_exclusivity_probe.py'
+WORKFLOW = '.github/workflows/verify.yml'
+ROOT = 'verification/lean-mathlib/OIBridge.lean'
+GUARD = 'verification/lean/edge_rigidity_probe.py'
+CENSUS = 'verification/lean-manuscript-census.json'
+ROADMAP = 'verification/ROADMAP.md'
+ROADMAP_BLOB_D = 'a02be0964a982abe2b9fd5082e2844927d3ab690'
+GUARD_BLOB_D = 'd28e9b3cf2093984a1c453892204b9932a685b2e'
+WORKFLOW_BLOB_D = '44b7e14b61e77366e7edefb9e668c63538662dbf'
+PROBE_BLOB = %s
+PROBE_ANCHOR = '          echo "=== dita_hierarchy_probe.py ==="\n          python3 dita_hierarchy_probe.py\n'
+PROBE_WIRED = PROBE_ANCHOR + '          echo "=== dita_arc_exclusivity_probe.py ==="\n          python3 dita_arc_exclusivity_probe.py\n'
+
+IMPORT = 'import OIBridge.DitaHierarchy\n'
+WIRE_AFTER = 'import OIBridge.DitaHierarchy\n'
+WIRE = 'import OIBridge.DitaArcExclusivity\n'
+OPEN = %s
+NAMESPACE = 'DitaArcExclusivity'
+
+# ---- act 36's frozen head, which every statement of this round carries verbatim as its first part
+A36_HEAD = %s
+
+# ---- the frozen propositions, verbatim
+PROPS = %s
+
+# ---- the shared components the propositions are built from
+COMPONENTS = %s
+
+# ---- the theorems: (role, name, proposition key)
+THEOREMS = %s
+LABELS = [(role, nm, key) for role, nm, key in THEOREMS if role.startswith('A37-') and role[4:5].isalpha()]
+COROLLARY = ('a37_c_exclusive', ['P_N'], 'P_R')
+SHARED = re.compile(r'^a37_shared_[A-Za-z0-9_]+$')
+UNDECIDED = 'A37-UNDECIDED'
+PROVED, FAILS = 'A37-EXCLUSIVITY-PROVED', 'A37-EXCLUSIVITY-FAILS'
+ROWS = (PROVED, FAILS, UNDECIDED)
+STRUCTURAL = [(nm, key) for role, nm, key in THEOREMS if role in ('A37-1', 'A37-2', 'A37-3')]
+ALWAYS = [(nm, key) for role, nm, key in THEOREMS if role == 'control']
+REQUIRED = {PROVED: STRUCTURAL + ALWAYS, FAILS: ALWAYS, UNDECIDED: []}
+OUTCOME_RE = re.compile(r'\*\*Outcome:\*\* `(A37-[A-Z-]+)`')
+LABEL_RE = re.compile(r'A37-(?:EXCLUSIVITY-PROVED|EXCLUSIVITY-FAILS|UNDECIDED)')
+
+SENTENCES = %s
+CLAUSE = %s
+MENTION = 'THE CLAUSE, carried at this mention'
+
+# ---- the `P0` cell: the end of the cell at D, and the sentence appended per decided case
+P0_END_D = %s
+P0_CASE = %s
+P0_STANDING_37 = %s
+
+CENSUS_MODULES = ['DitaArcExclusivity']
+'''
+

@@ -1,0 +1,10 @@
+Wwit sector6 coordinates: [ 0.666667 -0.333333  0.666667  0.666667  0.666667  0.666667]
+round 0: LP value <Y, Wwit> = -4.229011e-01 ; pricing min -1.934e-01
+round 15: LP value <Y, Wwit> = -1.122288e-04 ; pricing min -1.316e-16
+converged: Y coords [ 0.254751  1.       -0.        0.17451   0.035285 -0.      ]
+final Y coords (full precision): [0.25475120314229, 1.0, -0.0, 0.174509928620329, 0.0352852625344713, -0.0]  tr Y = 1.49983165683
+<Y, Wwit> / tr Y = -7.482758e-05
+re-verification: min over 400 starts of <Y, Ad(k) W3>/tr(Ad(k) W3) = -6.864970e-05
+re-verification: min over biseparable pure states of <phi|Y|phi> = -1.416316e-16
+eigenvalues of Y: [-0.        0.        0.        0.035285  0.035285  0.17451   0.254751
+  1.      ]

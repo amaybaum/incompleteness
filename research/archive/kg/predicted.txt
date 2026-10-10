@@ -1,0 +1,22 @@
+- **`01d973717a35aa01733e11aad57f3fc661a2d7b2`** (`claude/k2g-predicted`, a single-parent child of `D`) is the execution tree less the result
+  note. Its files and blobs:
+  - this preregistration in its drafting revision, blob `ed565b45616f73f8a6e70f54aa4ba68e955065c8`, which differs from the revision at `F`
+    only in this section;
+  - `controls.py`, blob `d33086bb5560ed979f808ab2ec953f364dacd21d`;
+  - `K2Guard.lean`, blob `ec8ba57b178561c81b082404ceb02241ada1fe1e`;
+  - `OIBridge.lean`, blob `58d7ecaeb47dfe25992afeb3cea85f6faf92a05b`;
+  - the census, blob `05be8369fcb8e6578ac991a7b56ca6b492318f9e`.
+- `delta(D, 01d97371)` is exactly those five paths: the record directory's two files and the three execution
+  paths.
+- At that commit `controls.py check 01d97371`, run from the tree's own frozen `controls.py`, passes all 19
+  checks, and `controls.py verdict 01d97371` prints exactly `K2-ORIENTATION-OBSTRUCTION-PROVED` for the orientation
+  cell and `K1-ENTANGLING-WEAKENED` for the entangling cell.
+- **Run 37473592066** (`workflow_dispatch` on `01d97371`, attempt 1) completed with conclusion success; every one of
+  its 32 jobs succeeded. The Mathlib bridge (job 112303125909) built `OIBridge.K2Guard` with each of the 19 frozen
+  `#print axioms` lines within `[propext, Classical.choice, Quot.sound]` and no warning in the module, and its release
+  gate passed every step (`lean-axioms` 5762 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records
+  intact; 36 receipts hold); the Lean kernel check (job 112303126113) and the probe aggregate (job 112311051465)
+  succeeded. Its facts agree with design run 3 at `02537aef`.
+
+The predicted tree is a sibling of `F` on `D`, not an ancestor of `F`; it and these runs are design evidence, not
+attestations.

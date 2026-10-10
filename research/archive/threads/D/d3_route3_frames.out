@@ -1,0 +1,21 @@
+== square gbit
+  frames: adjacent ((1,1),(-1,1)) midpoint (0,1) on the boundary; diagonal ((1,1),(-1,-1)) midpoint (0,0) interior -> Aut not transitive on frames
+  adjacent frame: unique effect (1+x)/2; dim(lin cone F ∩ lin cone Z) = 1 -> no ideal test (Lemma I)
+  spectrality: (1/2,1/4) lies on no segment between two distinguishable vertices (edges x=±1, y=±1; diagonals y=±x) -> fails
+== torus orbitope D x D
+  frames: (p1,p2) = ((1,0;1,0),(-1,0;1,0)) midpoint (0,0;1,0) on the boundary (|y|=1); (p1,-p1) midpoint 0 interior -> Aut not transitive on frames
+  frame (p1,p2): unique effect (1+x_1)/2; dim(lin cone F ∩ lin cone Z) = 2 -> no ideal test (Lemma I)
+== Stiefel orbitope conv V_2(R^3)
+  frames: ([e1,e2],[e1,-e2]) midpoint M = [e1,0], M^T M = [['1', '0'], ['0', '0']] -> ||M||_op = 1 boundary; (V,-V) midpoint 0 interior -> Aut not transitive on frames
+  frame (V1,V2): unique effect (1+X_22)/2; dim(lin cone F ∩ lin cone Z) = 2 -> no ideal test (Lemma I)
+== 3-ball (control)
+  frame (n,-n): dim(lin cone F ∩ lin cone Z) = 0; T = e(.)(1,n) is an ideal test; SO(3) transitive on ordered antipodal pairs
+== pentagon gbit (countercontrol, exact Q(√5))
+  ordered distinguishable vertex pairs: [(0, 2), (0, 3), (1, 3), (1, 4), (2, 0), (2, 4), (3, 0), (3, 1), (4, 1), (4, 2)]
+  every frame's feasible effect interval has nonempty interior: True -> a distinguishing effect with singleton certain and zero faces exists; measure-and-prepare T(w) = e(w) v_i is then an ideal test (fixes F = {v_i})
+  affine automorphisms: 10 (dihedral D5)
+  orbit of the ordered frame (0,2) under Aut: 10 of 10 ordered frames -> strong symmetry on pairs holds: True; pure transitivity: True
+  spectrality at the maximally mixed state (centroid): lies on a frame segment for 0 of 10 frames -> fails
+  edge effect e = 1 on [v0,v1], 0 at v3: values [(1+0√5), (1+0√5), (3/2-1/2√5), (0+0√5), (3/2-1/2√5)] -> valid; certain face is an edge: SF fails
+  self-duality (G = diag((1+√5)/4,1,1), regular coords): M >= 0: True; adjacent-pair cover: True -> strongly self-dual: True
+  edge-effect ideal compression: T(1,v2) = (1/2-1/2√5)(1,v0)+(1+0√5)(1,v1), T(1,v4) = (1+0√5)(1,v0)+(1/2-1/2√5)(1,v1) -> positive: False

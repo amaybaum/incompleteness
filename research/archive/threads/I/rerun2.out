@@ -1,0 +1,36 @@
+PASS A1.order(phi)=5
+PASS A1.evolve^(ord-1)(branch shell) == r o phi^-1
+PASS A1.r o phi^-1 is [s==1]
+PASS A1.forall g in <phi>: r o g^-1 = evolve^((L-m) mod L)(r)
+PASS A1.mu is a law
+PASS A1.<r, phi_* mu> == <r o phi, mu>
+PASS A1.direction control: <r o phi, mu> != <r o phi^-1, mu>
+   A2 r o phi^-1 ~_K-invariant by K: {1: False, 2: False, 3: False, 4: True, 5: True, 6: True}
+PASS A2.not ~_2-invariant (so not in span BranchDomainK 2, by branchDomainK_invariant)
+   A2 least K with r o phi^-1 in span BranchDomainK K: 4 ; constructor-term horizon: 5
+PASS A2.span horizon (4) < constructor-term horizon (5) and > 2
+PASS A2.[s==1] is the ~_4 class indicator of 1
+PASS A2.forward r o phi (horizon 2) is ~_2-invariant
+PASS A3.orderOf phi4 = 4
+PASS A3.every r4 o g^-1, g in <phi4>, is ~inf-invariant
+PASS A3.r4 o swap(0,1) = [0,1,1,0]
+PASS A3.r4 o swap(0,1) NOT ~inf-invariant (outside span ClassicalBranchDomain, OQ:316)
+PASS A3.swap(0,1) not in <phi4>
+PASS A4.monomial id(1, 1) conj of |0><0| is diagonal
+PASS A4.monomial id(1, -1) conj of |0><0| is diagonal
+PASS A4.monomial X(1, 1) conj of |0><0| is diagonal
+PASS A4.monomial X(1, -1) conj of |0><0| is diagonal
+PASS B0.cyc3 orthogonal
+PASS B0.rot3(pi/2) orthogonal
+PASS B1.r o rot3(pi/2)^-1 == r (flow fixes the e2 seed)
+PASS B1.r o J^-1 == ballEffect(e0)
+PASS B1.r o J^-2 == ballEffect(e1)
+PASS B1.ballEffect(e0) o rot3(pi/2)^-1 == ballEffect(e1)
+PASS B2.pair are effects on grid ball points
+PASS B2.pair sums to 1
+PASS B2.pair certain at poles
+PASS B2.(r o J^-1)(1,0,0) = 1
+PASS B2.members of avail0 give 1/2 at (1,0,0) -> r o J^-1 not in avail0
+PASS B3.be(e1)(e1)=1 while be(e2)(e1)=be(e0)(e1)=1/2
+PASS B3.J has order 3 (J^-1 = J^2 is a monoid word)
+OK -- 33 checks, 0 failures

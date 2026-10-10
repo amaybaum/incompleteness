@@ -1,0 +1,9 @@
+t=0.5500  min eigenvalue of pauliW(hLh) and its partial transpose over samples: +0.051648 (Q3)
+t=0.6000  min eigenvalue of pauliW(hLh) and its partial transpose over samples: +0.041682 (Q3)
+t=0.6500  min eigenvalue of pauliW(hLh) and its partial transpose over samples: +0.032393 (Q3)
+t=0.7000  min eigenvalue of pauliW(hLh) and its partial transpose over samples: +0.011970 (Q3)
+t=0.7071  min eigenvalue of pauliW(hLh) and its partial transpose over samples: +0.004250 (Q3)
+t=0.7200  min eigenvalue of pauliW(hLh) and its partial transpose over samples: -0.004272 (Q3)
+t=0.7500  min eigenvalue of pauliW(hLh) and its partial transpose over samples: -0.026713 (Q3)
+t=0.8000  min eigenvalue of pauliW(hLh) and its partial transpose over samples: -0.068653 (Q3)
+t=0.6: <h,w>=+1.000 <h,w_rot>=-0.200

@@ -1,0 +1,11 @@
+PASS K0 transcription control
+PASS K1 the kernel cnot on the first two indices of a three-token table equals Ad(CNOT (x) 1) (64 unit tables)
+PASS IV2 (iv)=>(ii): Ad(CNOT_01)(|+><+| (x) Phi+_12) = |psi><psi|, psi = (|000>+|011>+|101>+|110>)/2, Det(psi) = 1/4 != 0 (input biseparable); controls Det(GHZ), Det(W), Det(|0>Phi+) = 1, 0, 0
+PASS II1a Det = discriminant of q(s,t) = det(s M0 + t M1) (symbolic); the library hyperdet agrees (2 instances)
+PASS II1b Det vanishes on vectors that are products across each of the three cuts (symbolic)
+PASS II1c constructive orbit lemma on 3 exact instances: the rational roots of q give rank-one slices and invertible A', B', C' with (A' (x) B' (x) C')(|000> + |111>) = psi
+PASS II1d filters from five tokens: pair state (1 (x) A)Phi+(1 (x) A)^dag on (z,q), Bell effect on (z,p): conditional = (1/4) Ad(A)_q(y(p -> q)) on all units (3 rational A, one singular); countercontrol Ad(A^T) differs
+PASS I4 (i)=>(iv) control: Ad(CNOT (x) 1) maps 3 random exact PSD operators to PSD operators
+PASS III4 (iii)=>(iv): six-token crossing (012|345, 03|1245): cond[T(g); Phi+_03 (x) C] = (1/2)(rename (x) Ad CNOT)(g) on all 64 units; countercontrol: the identity Choi state gives the rename only (differs)
+PASS I3 (i)=>(iii): seven-token crossing (0123|456, 0145|236): cond[T(g); links (x) Choi(V)] = (1/4)(rename (x) Ad V)(g) on all 64 units; psi3 is PSD with Det = 4 != 0; its conditional is (1/4) the CNOT Choi state; equal to the coordinator's (CNOT_12 (x) 1)(Omega_14 Omega_25) after relabelling
+PASS D1 C is PSD, C^2 = 4C (eigenvalues 0 and 4: tr(C rho)/4 in [0,1] on normalized PSD states), T(C) = C

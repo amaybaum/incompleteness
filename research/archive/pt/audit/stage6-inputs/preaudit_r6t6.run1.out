@@ -1,0 +1,19 @@
+== P1 the K2-guard no-go recomputed; the reflection moves every alternative and Q3
+CONFIRMED P1a cnot p(xplus, z3) = phiW; actT reflY phiW = idW; cnot idW = chainW; chainW at the sharp effects of -e1, -e3 = -1/2
+MISMATCH P1b K(Z_F) is not invariant under actT reflY: a pure state of K(Z_F) pairs < 0 with the reflected defect -- False
+MISMATCH P1c K(E0) is not invariant under actT reflY: |00><00| in Q3 n E0* pairs < 0 with actT reflY E0 -- 1, 1
+CONFIRMED P1d Q3 is not invariant under actT reflY: the Bell table is PSD, its partial transpose is not
+== P2 local tomography on W 3 for every K
+CONFIRMED P2 products of {unit, sharp +x, +y, +z} on the two tokens span the dual of W 3 (rank 16)
+== P3 maxCone membership of the alternatives' generators
+MISMATCH P3 4 prodEffVal(e, f, z_s) = e0 f0 + e.M_s f with M_s orthogonal (symbolic; also E0): >= 0 for ball effects (|e| <= e0), so K(Z_F), K(E0) lie in maxCone
+CONFIRMED P3c control: chainW = cnot idW is not in maxCone
+== P4 the gate on products
+CONFIRMED P4 cnot images of pure products pair >= 0 with sharp product effects on a grid (posFwd); cnot is an involution (posInv)
+== P5 what the alternatives fail at the pair level (hypotheses, not theorems)
+MISMATCH P5a K(Z_F): a defect has eigenvalue -1/8 (not Q3) and a non-PSD partial transpose (not twin); actC J moves z_(1,1) out (pairing -1/2): IE1 and (b_DJ) fail as hypotheses
+CONFIRMED P5b K(E0): not actC-nflip-invariant (pure witness) and not SWAP-invariant (3/13, -5/13): the NOT-only and exchange forms fail as hypotheses
+== P6 the single-token structure of the alternatives is Q3's
+MISMATCH P6 every product state pairs >= 0 with every defect of Z_F and with E0 (1 + a.M b, |M b| = |b| <= 1): products lie in both cones; the single-token slices are the ball (H1)
+SUMMARY 6/11 CONFIRMED
+PREAUDIT-R6T6-MISMATCH

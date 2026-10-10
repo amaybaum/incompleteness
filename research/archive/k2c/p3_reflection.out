@@ -1,0 +1,31 @@
+PASS 3.1a homMap A (homMap B v) = homMap (A.B) v
+PASS 3.1b actT A (actT B w) = actT (A.B) w
+PASS 3.1c actC A (actC B w) = actC (A.B) w
+PASS 3.1d actT A (actC B w) = actC B (actT A w)
+PASS 3.1e actT id = id, actC id = id
+PASS 3.2a S = -R(q): S^T S = I, det S = -1
+PASS 3.2b A := reflY S^T: A^T A = I, det A = 1
+PASS 3.2c A . S = reflY
+PASS 3.2d actT reflY w = actT A (actT S w)  (symbolic q, w)
+PASS 3.2e actC reflY w = actC A (actC S w)
+PASS 3.3a cnot (actT reflY (cnot (prodState xplus z3))) = chainW (K2Guard.lean:104)
+PASS 3.3b value on sharpEff(-e1) (x) sharpEff(-e3) = -1/2 :: -1/2
+PASS 3.3c control: with nflip the value is 0
+PASS 3.4 cnot (actC reflY (cnot (prodState xplus z3))) = chainW, value -1/2  (control-copy obstruction)
+PASS 3.5a cnot (tau (cnot p0)) = p0  (tau = actC reflY . actT reflY)
+PASS 3.5b tau commutes with cnot (symbolic w)
+PASS 3.6a chain value with actT (c reflY) = (1 - 3c)/4  (negative iff c > 1/3) :: 1/4 - 3*c/4
+PASS 3.6b [M] Choi state of the qubit map of c reflY has spectrum {(1+c)/4 x3, (1-3c)/4}  (CP iff -1 <= c <= 1/3) :: -(c - 4*lam + 1)**3*(3*c + 4*lam - 1)/256
+3.6c chain value with actT diag(d1,d2,d3) = -d1/4 + d2/4 - d3/4 + 1/4  ; Choi eigenvalues = [-d1/4 + d2/4 - d3/4 + 1/4, -d1/4 - d2/4 + d3/4 + 1/4, d1/4 + d2/4 + d3/4 + 1/4, d1/4 - d2/4 - d3/4 + 1/4]
+PASS 3.6c the chain value equals one Choi eigenvalue of diag(d1,d2,d3) (the chain is a Choi-eigenvector test)
+PASS 3.7a T_refl frame on the four corners
+PASS 3.7b T_refl relT: actT nflip (T (actT nflip w)) = T w
+PASS 3.7c T_refl relC: actC nflip (T (actC nflip w)) = actT nflip (T w)
+PASS 3.7d pairVal a b (actT N w) = pairVal a (H(N)^T b) w  (actT of a ball automorphism preserves maxCone [W])
+PASS 3.7e T_refl (T_refl p0) has value -1/2: no candidate cone is invariant under T_refl alone :: -1/2
+PASS 3.8a cnot' frame
+PASS 3.8b cnot' relT and relC
+PASS 3.8c cnot' != cnot (symbolic w) and cnot' p0 = idW
+PASS 3.8d reflY R(q) reflY = R(q0,-q1,q2,-q3) in SO(3)  (so actT reflY '' Q3 is invariant under cnot' and local SO(3))
+SUMMARY: 28 checks, 0 failures
+VERDICT P3: COROLLARY-ALGEBRA-EXACT

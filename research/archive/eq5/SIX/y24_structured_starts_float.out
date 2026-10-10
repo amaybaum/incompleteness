@@ -1,0 +1,11 @@
+one-qubit Cliffords (mod phase): 24
+(i) countercontrol (W3, GHZ): -3.5355e-01
+(i) control (W3, W3): 8.1477e-19
+(i) min over filters of tr(kappa Ad(k) kappa)/norms = -7.8533e-17
+(i) min over filters of tr(omega Ad(k) kappa)/norms = 1.7867e-19
+(i) min over filters of tr(kappa Ad(k) omega)/norms = 1.2500e-01
+(i) min over filters of tr(omega Ad(k) omega)/norms = -2.3261e-17
+(ii) countercontrol PN quadruple: -2.2097e-02
+(ii) countercontrol y23 quadruple: -2.2426e-03
+(ii) Lift(K_A) nodes, 40 random generator quadruples: worst normalized min -1.2469e-17 at ('n14', 'n37', 'n71', 'n04')
+countercontrols negative: True

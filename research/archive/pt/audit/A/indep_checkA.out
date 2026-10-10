@@ -1,0 +1,11 @@
+CONFIRMED C0: phiW = cnot(prodState xplus z3) (phiW in cnot SEP, hence in K_gen)
+CONFIRMED C1: T_psi = [1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0]; rho trace 1, eigenvalues {1: 1, 0: 3}, rank 1
+CONFIRMED C2: ipW(F, T_psi) = -1/2
+CONFIRMED C2': countercontrol ipW(E00/2 + T_psi/4, T_psi) = 3/2 (> 0)
+CONFIRMED C3: product: F-pairing = 1/2 - (1/4)(b00 + x^T M y), b00 = 1, linear parts zero = True, M^T M eigenvalues [1] so |x^T M y| <= 1 on the unit ball; max <= 2 <= 2, hence pairing >= 0 (Cauchy-Schwarz)
+CONFIRMED C3: cnot image: F-pairing = 1/2 - (1/4)(b00 + x^T M y), b00 = 1, linear parts zero = True, M^T M eigenvalues [1] so |x^T M y| <= 1 on the unit ball; max <= 2 <= 2, hence pairing >= 0 (Cauchy-Schwarz)
+CONFIRMED C4: famI(phiW, phiW, T_psi/4, F) = -1/8
+CONFIRMED C4': countercontrol famI(phiW, phiW, T_psi/4, phiW/4) = 0 (>= 0)
+CONFIRMED C5: N(prod xplus z3) = idW: True; N^2 = chainW: True; value at sharp(-e1),sharp(-e3) = -1/2
+CONFIRMED C6: ipW(actT R0 F, cnot prod(-e2,e2)) = -2/5; famI(F, phiW, cnot prod(e2,-e3), cnot prod(e2,e2)) = -1/2
+AUDIT-A ALL CONFIRMED

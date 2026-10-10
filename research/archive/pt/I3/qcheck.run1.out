@@ -1,0 +1,8 @@
+corpus files: 90; statement fields: 186
+NOT-FOUND I3.82: theorem orbit_generation_core : (∀ (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) (r : V →ᵃ[ℝ] ℝ) (avail : Set (V →ᵃ[ℝ] ℝ)) (x₀ : V), PreservesBody Ω G → IsEffectOn Ω r → IsProperOn Ω r → r x₀ = 1 → CoversBoundaryFrom Ω G x₀ → SeedOrbitAvailable G r avail → SupportingEffectComplete Ω avail) ∧ (∀ G r, PreservesBo
+NOT-FOUND I3.113: prodEff_apply : ∀ e f x y, prodEff e f (prodState x y) = e x * f y
+NOT-FOUND I3.116: ) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V] extends PreComposite ΩA ΩB V where lt : ∀ ω ∈ Ω, ∀ ω' ∈ Ω, (∀ e f, IsEffectOn ΩA e → IsEffectOn ΩB f → prodEff e f ω = prodEff e f ω') → ω = ω'
+NOT-FOUND I3.144: /-- The quantum pair cone. -/ def Q3 : Set (W 3) := {ω | (pauliW ω). PosSemidef}
+NOT-FOUND I3.182: **The finite route.** The order in which the present route consumes these obligations: K∞-Stage (stage consistency, elementary scope, finite rank) → finite-dimensional completed body
+fragments checked = 308; found = 303; not found = 5
+END

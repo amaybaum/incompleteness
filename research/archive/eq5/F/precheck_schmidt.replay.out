@@ -1,0 +1,6 @@
+PASS K0 sgn, pc, pt transcription
+PASS T1 eigenvector, SU(2) factors, diagonal D, exact reconstruction C = U D V^T (7 matrices) -- generic:ok, generic2:ok, rank one:ok, q=0, p>=r:ok, q=0, p<r:ok, real:ok, zero:ok
+PASS T2 pureTab C = actC R_U (actT R_V (pureTab D)) and pureTab D = n cnot (prodState x z3)
+PASS C1 countercontrol: V = W instead of conj W fails for some matrix
+--- precheck_schmidt: 4/4 checks pass
+VERDICT SCHMIDT-ROUTE-EXACT

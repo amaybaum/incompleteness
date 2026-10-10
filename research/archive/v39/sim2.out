@@ -1,0 +1,43 @@
+PASS  stage 1 changes only tools/v3_receipt.py
+      rebuilt  29 receipt commit(s), each identical to the committed receipt and holding
+      shape    complete-non-sealing   24 vector(s)
+      shape    complete-sealing       2 vector(s)
+      shape    halted-exec            2 vector(s)
+      shape    halted-none            1 vector(s)
+      shape    multi-reconciliation   7 vector(s)
+      corrupt  identity: d                          29/29 failing
+      corrupt  identity: f                          29/29 failing
+      corrupt  control plane: a blob                29/29 failing
+      corrupt  control plane: governed digest       29/29 failing
+      corrupt  execution: tree_e                    26/26 failing
+      corrupt  execution: delta digest              26/26 failing
+      corrupt  landing: base                        29/29 failing
+      corrupt  landing: delta digest                29/29 failing
+      corrupt  landing: reconciliations             29/29 failing
+      corrupt  seal: blob                           2/2 failing
+      corrupt  attestation: subject commit          29/29 failing
+      corrupt  attestation: F designation missing   29/29 failing
+      corrupt  schema: version                      29/29 failing
+      v3_receipt: self-test OK
+PASS  C1 self-test exit 0, last line 'v3_receipt: self-test OK'
+PASS  C2 variant execution delta from D                   self-test exit 1, 26 FAIL line(s)
+PASS  C2 variant landing base is the second parent        self-test exit 1, 29 FAIL line(s)
+PASS  C2 variant control-plane blobs in reverse order     self-test exit 1, 4 FAIL line(s)
+PASS  C2 variant no withdrawal reason when none exists    self-test exit 1, 1 FAIL line(s)
+PASS  C2 variant seal blob without the object header      self-test exit 1, 2 FAIL line(s)
+PASS  C2 variant every attestation on F                   self-test exit 1, 26 FAIL line(s)
+PASS  C3 a ref name refused: exit 2, 'v3_receipt: refused (input:not-an-object-id)'
+PASS  C3 no arguments: exit 2, usage
+PASS  C4 CORPUS  135 vector(s), exact and as expected
+PASS  C4 v3_verifier: self-test OK
+PASS  C4 tools/v3_verifier.py blob unchanged
+PASS  stage 2 changes only AGENTS.md and architecture.md
+PASS  C5 AGENTS.md at stage 2 is AGENTS.md at the base followed by the frozen text
+PASS  C5 AGENTS.md carries one §A.39 heading and no §A.38
+PASS  C5 architecture.md differs from the base by the preamble sentence alone
+PASS  C5 architecture.md no longer says the specification is not operative
+PASS  C4 stage 2 CORPUS  135 vector(s), exact and as expected
+blobs: {'builder': 'e08d15f6e301bec4d32f9dab34b5c7b40fb48d1f', 'agents': '864494c1a9696a3b08330da64cf9d265d6d8b92f', 'arch': 'f699471b34d4f332c557f6b5452c952db49a0306'}
+sha256 builder: ff0f41b350401fb9fe165465be8ed384f24f6473e1569d5c20bee7d22e449919
+stage-2 commit: be196aabe8166fe130700e0f1904583efa00d024
+ALL CONTROLS PASS

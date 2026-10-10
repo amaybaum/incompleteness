@@ -1,0 +1,11 @@
+PASS 7.1a SWAP_AB (x) I_C on three rebits has determinant +1 (so it lies in SO(8), connected)
+PASS 7.1b while SWAP_AB on two rebits has determinant -1 (P4.4): pair-level CX fails, ancilla-assisted CX holds
+PASS 7.2a the Klein-group average of actC(D) actT(D) is the orthogonal projection onto W_T = span{e00, e11, e22, e33}
+PASS 7.2b the Klein elements are rotations (det +1), so they lie in L
+PASS 7.2c the Bell state phiW has slice point (1,-1,1), a vertex of the tetrahedron {m1 m2 m3 = -1}
+PASS 7.2d the tetrahedron T1 is self-dual for the slice pairing (each vertex of T1 satisfies the facet inequalities 1 + m.m' >= 0 of T1, and T1's facets are exactly those inequalities)
+PASS 7.2e octahedron vertices have norm 1 (on the unit sphere) and the cube contains the unit ball (|m_i| <= |m| <= 1): the unit ball, self-dual for the slice pairing, lies between min's and max's slices
+NOTE 7.2f [written] -B° = B for the unit ball B (1 + m.m' >= 0 for all |m| <= 1 iff |m'| <= 1). Whether an L-invariant self-dual cone with this (or another non-tetrahedral) slice exists is not decided here.
+PASS 7.3 cyc3's matrix (v0,v1,v2) -> (v2,v0,v1) has determinant +1 (a rotation)
+--- P7 scope checks: 8 checks, 0 failures
+VERDICT SCOPE-CHECKS-EXACT

@@ -1,0 +1,10 @@
+PASS (0) D^3 = D^dagger and D^4 = 1 (so D^3 is in MixC by mul)
+PASS (1) rot t = exp(-i t Y)
+PASS (1b) closed form exp(-i s X) used for flow (transition 0 1) s
+PASS (2) D * rot t * D^3 = exp(-i t X) = flow (transition 0 1) t
+PASS (3) flow(pi/4) * rot t * flow(-pi/4) = exp(-i t Z)
+PASS (4) exp(-i t) * exp(-i t Z) = diag(exp(-2 i t), 1) = flow (transition 0 0) t, and |exp(-i t)| = 1
+PASS (4b) closed form: exp(-i t (2 E00)) = diag(exp(-2 i t), 1)
+PASS countercontrol: rot t is real for real t, while exp(-i t X) has the non-real entry -i sin t
+
+VERDICT  MixC contains phaseGate 0, flow (transition 0 1) t and flow (transition 0 0) t at Fin 2 for every t

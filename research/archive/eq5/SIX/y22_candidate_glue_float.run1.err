@@ -1,0 +1,1 @@
+stopped by hand (TaskStop): y23 showed that random-start BFGS on the normalized glue network misses negative values reachable from identity filters, so this run's minima are not informative; superseded by y24 (structured starts)

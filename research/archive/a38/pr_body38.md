@@ -1,0 +1,19 @@
+## A38 — a genuine non-Diţă local escape at the product-embedded stratum point: control plane (merge-held)
+
+A native round under `AGENTS.md` §A.39, drafted from `D = 5949740297034d0ddc522aff9577bd1fa36fe42f` (act 37's landing, `A37-EXCLUSIVITY-PROVED`). This pull request carries the preregistration alone until the owner designates `F`; execution follows as linear commits on this branch; the receipt commit `Q` closes it. Merge-held throughout: nothing lands without the owner's landing authorization naming the exact SHA.
+
+**Candidate `F`.** `@@F@@`, the child of `D` adding `verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md` alone (blob `@@PREREG_BLOB@@`); its exact-head `workflow_dispatch` run is @@F_RUN@@ (all seven jobs green at `D`'s workflow).
+
+**The round in one sentence.** For the explicit exponent matrix `E = A + B + C` on the sixteen-point carrier, the arc `Hu u = SIG ∘ u^E` through the certified rational stratum point is a complex Hadamard matrix at every unit `u`, and for every unit `u ∉ {1, −1}` it admits no Diţă structure of any admissible shape, index map or orientation, including up to the allowed diagonal equivalences — the kernel carries the realizability, the eighteen census exclusions and the local-escape corollary, the exact-computation layer the exhaustive complement, the exceptional set `{1, −1}` and its sharpness at `u = −1` — so the local Diţă hulls do not exhaust the realizable geometry near `SIG`, answering the question acts 36 and 37 recorded open.
+
+**What is frozen — the kernel layer.** Fourteen propositions and the corollary in `OIBridge/DitaLocalEscape.lean`, zero definitions: `REAL` (unitary, flat, realizable Gram, feature vector in the product normalized set, at every unit `u`); nine `EXCL_…` (a Diţă form at the class's index maps, in either orientation, forces `u = 1`); `ESCAPE` (for every `ε > 0` a unit `u ≠ 1` within `ε` of `1`, with `Hu u` within `ε` of `SIG` entrywise, realizable and admitting none of the eighteen forms); the control `BASE`; the verdict `P_R` and its dual `P_N`; outcomes `A38-NON-DITA-WITNESS-PROVED` / `A38-WITNESS-FAILS` / `A38-UNDECIDED`. Every statement carries act 37's head verbatim. Design runs on `claude/a38-elab` and `claude/a38-dev` (never landed): the fourteen `#check`s elaborate; the proof passes are recorded in the preregistration's runs table.
+
+**What is frozen — the exact-computation layer.** `verification/lean/dita_local_escape_probe.py`, blob `@@PROBE_BLOB@@`, in its own shard `Numerical probes / A38 escape` (about five minutes): the Laurent identity level set by level set and monomial by monomial; the eighteen exclusions with forced witness identities (seventeen rational, `t2`-column `(z/16) u = z/16`); no proportionality candidate at a generic `u` in either orientation; the forty candidate points and the exhaustive search at each, strictly and up to diagonal equivalence — the exact exceptional set `{1, −1}`; the two structures at `u = −1` certified by exact reconstruction; controls (numeric agreement at twenty Gaussian-rational points, deformations in all nine classes, three stabilizer transports, a perturbed matrix, the pieces `A`, `B`, `C` and act 37's `W`); and the tangent-space interpretation (dimension 80, spanned by the eighteen Diţă subspaces). @@NPASS@@ `PASS`, no `FAIL`.
+
+**Not frozen, by design.** No count of straight lines, no minimality of the support 48, no orbit classification, no three-parameter family, and the decomposition `E = A + B + C` only as a control.
+
+**Controls.** `controls.py` blob `@@CONTROLS_BLOB@@`, held in the scratchpad for stage 1; its self-test passes with 9 duality mutations and @@NMUTS@@ mutation controls. Rehearsed `ROADMAP.md` blobs at `D`: `@@ROAD_PV@@` (proved), `@@ROAD_FL@@` (fails); the guard reports `ALL CHECKS PASS` on both.
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

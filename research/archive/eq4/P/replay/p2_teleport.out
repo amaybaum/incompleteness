@@ -1,0 +1,16 @@
+PASS K0 transcription control
+PASS A1 Bell state on (z,q), Bell effect on (z,p): conditional = (1/4) y(p -> q) on all 64 units
+PASS A2 reverse roles: conditional = (1/4) y'(q -> p) on all 64 units
+PASS A3 twin links on both pairs: (1/4) y(p -> q); one twin and one Bell link (either way round): (1/4) PT_q(y(p -> q)), all units
+PASS A4 countercontrol: a product link state does not teleport (differs on some unit)
+PASS B1 each of the three steps satisfies A1 and A2 (all units); the composite maps every unit y on (0,1,2) to (1/64) y(0->3, 1->4, 2->5)
+PASS B2 (BS*, BS) excluded inside six tokens: GHZ PSD (in BS* = K012); W3 in BS* = K345* (SOS symbolic, GHZ permutation-invariant, overlap formula on 3 exact instances); after steps 1-2 the state is GHZ on (3,4,2); step-3 value tr[(Phi+_02 (x) W3_345)(Phi+_05 (x) GHZ_342)] = -1/8 < 0
+PASS B3 c = 1: (B_tw*, B_tw) excluded inside six tokens: twin teleportations carry G to (3,4,2) unchanged; step-3 value with the effect F on (3,4,5) = -1/8 < 0
+PASS B4 controls: GHZ teleported against the PSD effect GHZ gives 1/4 >= 0; the biseparable |0><0| (x) Phi+ teleported against W3 gives 1/16 >= 0
+PASS C five tokens {0,..,4}, z = 4: composites of three teleportations are the token swaps (0 1) and (1 2) on every unit: K012 is S_3-invariant from KT on five tokens
+PASS D1 Bell states H_R: PSD for every det -1 instance, not PSD for every det +1 instance (exact elimination)
+PASS D2 general charts: conditional = (1/4)(M (x) id)(y(p -> q)) with M = homMap(R1^T R2), all 64 units, 8 (R1, R2) pairs covering all four determinant patterns
+PASS D3 det R1 = det R2 = -1: homMap(R1^T R2) = Ad(U)/n for the explicit rational quaternion; mixed determinants: homMap(R1^T R2 reflY) = Ad(U)/n (transpose up to a local unitary)
+PASS D4 with tau_ij = e_i + e_j + c, tau_zq + tau_zp = e_p + e_q (mod 2) for all e, c
+--- p2_teleport: 14/14 checks pass
+VERDICT P2-TELEPORT-EXACT

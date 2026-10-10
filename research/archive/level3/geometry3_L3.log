@@ -1,0 +1,7 @@
+GEOMETRY3 ((0, 1), (0, 1)) Lp=3: states 257, distinct points 6, all inside octahedron True, vertices reached 5/6
+   ('0', '1/2', '1/2') e.g. 'os' record 0
+   ('1/2', '0', '1/2') e.g. 'o' record 0
+   ('1/2', '1/2', '0') e.g. 'oc' record 0
+   ('1/2', '1/2', '1/2') e.g. '' record 0
+   ('1/2', '1/2', '1') e.g. 'ocf' record 0
+   ('1', '1/2', '1/2') e.g. 'osf' record 0

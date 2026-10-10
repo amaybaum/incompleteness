@@ -1,0 +1,9 @@
+REPLAY-L2 linear ((0, 2), (0, 2)) NOT-INVASIVE rank 1 MATCH
+REPLAY-L2 linear ((3, 2), (3, 2)) FAIL(dimC=3) rank 3 MATCH
+REPLAY-L2 nonlinear ((0, 1), (0, 1)) INCONCLUSIVE(welldef) rank 7 MATCH
+REPLAY-L2 nonlinear ((1, 3), (1, 2)) FAIL(no stabilization; dims [2, 5, 11]) rank 15 MATCH
+REPLAY-L2 majority ((0, 1), (0, 1)) FAIL(no stabilization; dims [2, 5, 10]) rank 11 MATCH
+REPLAY-L2 majority ((3, 2), (3, 1)) FAIL(no stabilization; dims [2, 5, 14]) rank 20 MATCH
+REPLAY-L2 linear ((0, 1), (0, 1)) FAIL(dimC=3) rank 3 MATCH
+REPLAY-L2 majority ((0, 1), (0, 2)) FAIL(no stabilization; dims [2, 5, 14]) rank 18 MATCH
+REPLAY-L2 8 jobs, mismatches 0 OK

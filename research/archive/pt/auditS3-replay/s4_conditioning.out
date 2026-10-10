@@ -1,0 +1,26 @@
+
+== S1  token orientation coherence is the coboundary condition (exhaustive)
+PASS O1  [enumerate] the coboundaries of the 16 token-bit assignments are exactly the 8 even twist patterns of the cycle 0-1-3-2-0 (EvenCycle)
+PASS O1c  [countercontrol] countercontrol: the odd pattern (0,0,0,1) of M_tok is not a coboundary
+PASS O2  [enumerate] chart transport of aligned gates: chartR ei ej . gateOf tau . chartR ei ej = gateOf (tau xor ei xor ej), all 8 cases, symbolic (the package's open chartR_gateOf, generalized)
+PASS O3  [enumerate] chartR ei ej (prodState x y) = prodState (reflY^ei x) (reflY^ej y), symbolic: charts carry products to products, so (O2) charts carry Gen_tau onto Gen_(tau xor ei xor ej)
+PASS O4  [enumerate] per-token transport invariance of the four-copy contraction, all 16 token charts, symbolic
+
+== S2  all-generated conditioning (AG) is exactly orientation coherence on the aligned family
+PASS G1  [witness] M_tok pattern (0,0,0,1): the generated tables phiW, phiW, phiW (cnot images) and L' (a cnotTw image) give fourVal = -2 -- value -2
+PASS G2  [enumerate] for each of the 8 odd patterns (all 16 charts of the M_tok witness), the transported witness consists of gate images of products for that pattern's aligned gates and gives fourVal = -2 -- failures []
+NOTE [written] AG.W  -- even patterns: Gen_tau <= twistQ3(tau) (products are in Q3 n twin; cnot images in Q3 by s2 D1, D3; cnotTw images in twin by O2 with the chart), and for an even pattern tau = coboundary(eps) the cones (twistQ3 tau_p) are the chart images of uniform Q3 (O2, O3; chartR ei ej Q3 = twistQ3(ei xor ej)), where FCC holds (landed F2/F3 with Kronecker PSD), so FCC holds for them by O4 and AG holds a fortiori. Odd patterns: AG fails (G2). AG reads only the gates, not the cones: on the aligned family AG is exactly EvenCycle, i.e. token orientation coherence (O1). It holds for every uniform cone with cnot gates (K_gen, K_gen*, Q3).
+
+== S3  one-sided no-restriction: C1 fails on K_gen*, C2 fails on K_gen; ESC holds on K_gen* and fails on K_gen
+PASS S1  [witness] C1 fails on uniform K_gen*: states E0, G (full: E0 in K_gen*, G in Q3 <= K_gen*), effects phiW, phiW (generated: cnot images) give fourVal = -1
+PASS S2  [witness] C2 fails on uniform K_gen: states phiW, phiW (generated), effects E0, G (full: in K_gen*) give fourVal = -1
+NOTE [written] S.W  -- C1 holds on uniform K_gen (states in K_gen <= Q3, generated effects in Q3 = dualW Q3, FCC for uniform Q3); C2 holds on uniform K_gen* (generated states in Q3, effects in dualW K_gen* = closure K_gen <= Q3). Both foils satisfy hcls, hadm, hcl, hgate and fail FCC (s2 G5, H1). So each one-sided conditioning principle is refuted as a route: C1 by K_gen, C2 by K_gen*.
+PASS S3  [witness] ESC fails on uniform K_gen: generated X (01), Y (23), F (13) and the full effect E0 in K_gen* on the conditioned pair 02 give fourVal X Y E0 F = ipW E0 (X F Y^T) < 0 -- X = ('cnot', [1, 0, 0], [0, 1, 0]), F = ('cnot', [0, 1, 0], [0, 1, 0]), Y = ('cnot', [-1, 0, 0], [0, 0, 1]), value -1
+PASS S3c  [countercontrol] countercontrol: with the full effect E0 replaced by the generated effect phiW no scanned triple is negative (all-generated holds for cnot gates)
+NOTE [written] ESC.W  -- ESC holds on uniform K_gen*: the conditioned table X F Y^T of generated tables lies in Q3 (entanglement swapping of quantum states, Kronecker PSD and the partial trace) and the full effects dualW K_gen* = closure K_gen lie in Q3 = dualW Q3. With S3, ESC excludes K_gen and M_tok (G1 is an ESC instance) but not K_gen*: refuted as a route by K_gen*.
+
+== S4  the slot table (written)
+NOTE [written] SLOT  -- on the aligned family: AG = EvenCycle (gate parity only; holds on K_gen, K_gen*, Q3; fails on M_tok). C1 (full states, generated effects): fails on K_gen* and M_tok, holds on K_gen. C2 (generated states, full effects): fails on K_gen and M_tok, holds on K_gen*. ESC: fails on K_gen and M_tok, holds on K_gen*. C1 and C2 together contain every FCC instance the design proof reads (link instances: famI with full target states and Bell effects; famII with rotated-link and Bell states and full target effects; FourCopyIE1 cross_rel, inv_*), so relative to the pair hypotheses C1 & C2 gives IE1 (design proof, [D]), hence {Q3, twin} cones (classification, [W + L]), hence EvenCycle by AG <= C1 and FCC by B2. A conditioning principle sufficient for FCC must therefore let full (no-restriction) arguments enter on BOTH the state side and the effect side.
+
+kinds: identity 0, witness 4, enumerate 5, countercontrol 2
+VERDICT S4-CONDITIONING-EXACT -- 11 checks

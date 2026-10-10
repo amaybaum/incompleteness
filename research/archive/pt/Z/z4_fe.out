@@ -1,0 +1,25 @@
+== F1  new generators as conjugations
+F1    PASS  Ad(I(x)H), Ad(S(x)I), Ad(I(x)S), Ad(H(x)I) as signed permutations of tables
+== F2  group orders
+F2    PASS  |G16| = 16, |G_H| = 128, |G_S| = 32, |G_Cl| = 23040, |Stab_Cl(Z_F)| = 1536; <G16,SWAP> inside Stab_Cl(Z_F)
+== F3  the conjecture: G_H excludes every Bell-type defect
+F3    PASS  marginal entries of cnot T and cnot Ad(IH) T: ['-C32', '0', 'C11', 'C13', 'C21', 'C23', 'C31', 'C32', 'C33'] include the first column of C
+== F4  Bell seeds for G16 and G_S; non-orthogonal G_S orbit
+F4    PASS  m(psi_F) = 0 for G16 and G_S (Bell seed); G_S-orbit of e_F: 8 defects, off-diagonal ipW values [0, 1/8]
+== F5  general seeds (claim D) for G_H and G_Cl
+F5    G_H: m(psi_a) = 4160/6561
+F5    G_H: m(psi_b) = 221/225
+F5    G_H: m(psi_c) = 173/225
+F5    G_Cl: m(psi_a) = 6272/6561
+F5    G_Cl: m(psi_b) = 221/225
+F5    G_Cl: m(psi_c) = 224/225
+F5    PASS  chosen seeds (name, m, alpha): {'G_H': ('psi_a', 4160/6561, 9/10), 'G_Cl': ('psi_a', 6272/6561, 99/100)}; rho(e) psi = (alpha - 1)/4 psi < 0; alpha^2 - alpha/2 > 0
+== F6  K(Z_F) for the Clifford stabilizer of Z_F
+F6    PASS  every element of Stab_Cl(Z_F) (order 1536) permutes Z_F
+== CC countercontrols (each must be REJECTED)
+CC1   REJECTED  product state: m = 1 for every group
+CC2   REJECTED  psi_F under G_H: m = 1 > 0
+CC3   REJECTED  sign-flipped table map for Ad(S(x)I) fails the conjugation test
+CC4   REJECTED  alpha = 1/2 inadmissible for the G_H seed (0 < m)
+SUMMARY checks 6/6 PASS; countercontrols rejected 4/4
+VERDICT FE-CONJECTURE-REFUTED G_H (order 128) excludes all Bell-type defects; EXOTIC(existence) seeds {'G_H': ('psi_a', 4160/6561, 9/10), 'G_Cl': ('psi_a', 6272/6561, 99/100)}; K(Z_F) explicit for Stab_Cl(Z_F) (order 1536)

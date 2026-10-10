@@ -1,0 +1,17 @@
+S0: PASS -- f = (-2*y2*exp(-y1**2 - y2**2 - y3**2), 2*y1*exp(-y1**2 - y2**2 - y3**2), 0)
+S1: PASS -- div u_eps simplifies to 0
+S2: PASS -- ||f||_2^2 = sqrt(2)*pi**(3/2)/2; ||u_eps||_2^2 = sqrt(2)*pi**(3/2)/2
+S2t: FAIL -- shifted: sqrt(2)*pi**(3/2)*(-erf(2*sqrt(2)/epsilon) - erfc(2*sqrt(2)/epsilon) + 3)/4
+S3: PASS -- critical r = [1/2], g''(1/2) = -8*exp(-1), sup|f| = sqrt(2)*exp(-1/2), |u_eps(x0 + eps y*)| = eps^(-3/2) sup|f|
+S4: PASS -- eps^(-3/2) sqrt(2/e) -> oo
+S5: PASS -- ||grad f||^2 = 5*sqrt(2)*pi**(3/2)/2; ||grad u_eps||^2 = 5*sqrt(2)*pi**(3/2)/(2*epsilon**2)
+S6: PASS -- each of d_t u, (u.grad)u, nu Lap u, grad p scales by lam^3; ||lam f(lam x)||^2 = sqrt(2)*pi**(3/2)/(2*lambda)
+CC1: PASS -- exponent -1: sqrt(2)*pi**(3/2)*epsilon/2
+CC2: PASS -- d = 2: exponent -3/2 -> pi/epsilon; exponent -1 -> pi
+CC3: PASS -- div of rescaled grad G is not 0
+F1: PASS -- 256 maps (24 bijections): orbit max over 4 steps = over 64 steps, for every map and start
+F2: PASS -- N=4: energy=1, sup=4; N=16: energy=1, sup=32; N=64: energy=1, sup=256; N=256: energy=1, sup=2048; N=1024: energy=1, sup=16384
+CC4: PASS -- N=4: energy=1/2, sup=1; N=8: energy=1/2, sup=1; N=16: energy=1/2, sup=1
+VERDICT-SCALING: NO VERDICT (control failed)
+VERDICT-FINITE: bounded at each finite resolution for every map on a finite set; non-uniform in resolution only under concentration
+checks: 13/14 PASS

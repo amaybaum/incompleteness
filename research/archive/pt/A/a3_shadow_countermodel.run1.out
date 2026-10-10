@@ -1,0 +1,31 @@
+== S0 transcription
+PASS S0.tables  [source] sgn, pc, pt, phiW transcribed from the base
+
+== S1 the stages (R1)
+PASS A3.1  [enumerate] R1: stages n = 1..4 are valid (values in [0,1], unit reads 1)
+PASS A3.2  [enumerate] R1: labels and preparations of stage n are those of stage m >= n (inclusions; one global table, so SC-infinity holds)
+PASS A3.3  [enumerate] R1: the 16 basis product labels read back the table of every preparation of stage 4 (TAB read-out) -- 12 preparations
+
+== S2 rank growth (R2) and no convergent subsequence (R3)
+PASS A3.4  [witness] R2: the joint-label values of rho_1..rho_2n have rank 2n for n = 1..4 -- ranks [2, 4, 6, 8]
+PASS A3.5  [enumerate] R3: at stage 4 the value vectors of rho_J, rho_K (J != K) are at sup-distance >= 1 (label b_{J}) -- 56 ordered pairs
+PASS C3  [countercontrol] countercontrol: on product labels the sup-distance from tau_k to T_psi is t_k * D0 with D0 > 0 (so without joint labels T_psi is a limit point of the preparations) -- D0 = 1/4, distances [1/8, 1/12, 1/16, 1/20]
+PASS C4  [countercontrol] countercontrol: without the joint labels the value vectors of rho_1..rho_8 have rank < 8 (their rank on the joint labels, A3.4) -- rank 3 vs 8
+
+== S3 the shadow excludes T_psi (R4)
+PASS A3.6  [witness] R4(a): tau_k and cnot tau_k are positive definite for k = 1..4 (Sylvester)
+PASS A3.7  [witness] R4(b): det pauliW(T_psi) = 0 (T_psi is not in int Q3) -- det 0
+PASS A3.8  [witness] R4(c): F = E00/2 - T_psi/4 is >= 0 on both generator families of C (exact SOS identity) and ipW(F, T_psi) < 0, so T_psi is not in C -- value -1/2
+PASS A3.9  [sample] R4(d): sample mixtures (1 - s) c + s sum lambda_J rho_J (s > 0, c in C) are positive definite -- 4 mixtures
+
+== S4 the norming inequality (R5)
+PASS A3.10  [sample] R5: max over S of |sum_{J in S} c_J| >= (1/2) sum |c_J| on the listed vectors -- 5 vectors
+NOTE [written] A3.W1  -- the inequality holds for every finitely supported c (take S the support of its positive part or of its negative part) and passes to l^1 limits; it makes lambda -> (sum_{J in S} lambda_J)_S an isomorphic embedding of l^1 into the joint-label coordinates, so sup-norm Cauchy sequences of convex combinations have l^1-convergent rho-weights.
+
+== S5 the M_int variant (R6)
+PASS A3.11  [identity] R6: a^T tau'_t b = (1-t) a.b + t a0 b0 (symbolic); tau'_t is outside Q3 for t = 1/10, 1/3, 1/2, 13/20; pairVal a b idW = a.b and idW is outside Q3 (singlet value -1)
+NOTE [written] A3.W2  -- for a, b in the Lorentz cone L with a0, b0 > 0, a.b >= a0 b0 - |a||b| >= 0, so a^T tau'_t b >= t a0 b0 > 0: tau'_t lies in int maxCone for 0 < t, and tau'_t -> idW, which lies in maxCone and not in Q3. With C = the normalized slice of Q3 in place of SEP + cnot SEP and a rho-family dense in int maxCone, the written argument W-A3 realizes M_int's cone int maxCone u Q3 as the shadow of a completed body in the same way.
+
+kinds: countercontrol 2, enumerate 4, identity 1, sample 2, source 1, witness 4
+a3_shadow_countermodel: OK -- 14 checks
+VERDICT A3: the finite skeleton of D_cl is a valid system of finite stages with one global table and bi-affine product tables; its rank grows without bound; its rho-preparations are pairwise at sup-distance >= 1 while their product tables converge to T_psi, which lies outside C and outside int Q3. These are the exact inputs of the written argument W-A3 that the shadow of the completed body of D_cl is K_cl.

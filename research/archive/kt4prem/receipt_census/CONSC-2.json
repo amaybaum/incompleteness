@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "CONSC-2",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "1a5752d07057895dfa7d793d11a197691bf27a0d",
+ "f": "f34f01d227b79032bd0940387225ebbfd7ad708b",
+ "control_plane_blobs": [
+  {
+   "path": "verification/audits/manuscript/round-consc-2-observation-terminology/preregistration.md",
+   "blob": "46d4bfd8682d5b1d999d3c91cac16b14e940dba2"
+  }
+ ],
+ "governed_paths_digest": "f7f2ef122f7bddfd618a8d68d39fe879788684c2e54a034c6d532676c44525be",
+ "e": "e34e6d5044aee68a81dabc0a67248934a6370fb2",
+ "tree_e": "f4a8e4dee92c59f19442e7d334af032e389fc96c",
+ "execution_delta_digest": "6e07cd137e1497544a468770172607e4f2b3d36c55f7c661d0b680529c1aaaa1",
+ "candidates": [],
+ "landing": {
+  "base": "1a5752d07057895dfa7d793d11a197691bf27a0d",
+  "object": "409212da0b27f3a42bda8cf668c3e291113434c1",
+  "reconciliations": [
+   "409212da0b27f3a42bda8cf668c3e291113434c1"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "f04e3448da2916e51701aa5773a9b025e42cccfafd95639d26256c34965c93ce"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "f34f01d227b79032bd0940387225ebbfd7ad708b",
+   "record": "https://github.com/amaybaum/incompleteness/pull/792#issuecomment-5998740445"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "f34f01d227b79032bd0940387225ebbfd7ad708b",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37337331051"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "e34e6d5044aee68a81dabc0a67248934a6370fb2",
+   "record": "https://github.com/amaybaum/incompleteness/pull/792#issuecomment-5999333458"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "e34e6d5044aee68a81dabc0a67248934a6370fb2",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37343077256"
+  }
+ ]
+}

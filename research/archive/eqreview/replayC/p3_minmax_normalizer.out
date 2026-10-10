@@ -1,0 +1,17 @@
+PASS A.0 the local Lorentz generators and the identity span 13 dimensions
+NOTE A.0b [written] the 13 generators lie in Lie(Aut(min)): exp of each is a local cone automorphism g_A (x) g_B with g in R_{>0} x SO(3,1)^+, which maps pure products to pure products, so min to min
+  rank history: [(10, 55), (20, 110), (30, 165), (40, 220), (50, 239), (60, 240), (70, 241), (80, 242), (90, 243), (100, 243)]
+NOTE upper bound: dim Lie(Aut(min)) <= 13
+PASS A.1 the 13 lower-bound generators satisfy every tangency condition used (exact)
+PASS A.2 lower bound = upper bound: dim Lie(Aut(min)) = 13 (local Lorentz + scaling)
+PASS A.3 Lie(Aut_u(min)) = {X in Lie(Aut(min)) : u o X = 0} = l (dimension 6, equal span)
+PASS A.4 {Y in Lie(Aut(min)) : Y e00 = 0} = l, hence Lie(Aut_u(max)) = -l^T = l
+NOTE A.5 [written] Aut_u(min)_0 = Aut_u(max)_0 = L (connected Lie subgroups with Lie algebra l). SWAP is not in L: SWAP(prodState e1 e2) = prodState e2 e1 and SWAP(prodState e1 e3) = prodState e3 e1 would force R e1 = e2 and R e1 = e3 for the control rotation R.  dim Aut(min) = dim Aut(max) = 13 < 16, so neither cone is homogeneous (no transitive action on the 16-dimensional interior).
+PASS A.5b SWAP maps prodState e1 e2 to prodState e2 e1 and prodState e1 e3 to prodState e3 e1 (exact)
+PASS B.1 the commutant of l in gl(16) is exactly the block scalars (dimension 4)
+PASS B.2 pairs of corners sum to 2 +- 2cA, 2 +- 2cB, 2 +- 2cAB, so |cA|, |cB|, |cAB| <= 1 for D; the same identities for D^{-1} = diag(1, 1/cA, 1/cB, 1/cAB) give |1/c| <= 1; hence |cA| = |cB| = |cAB| = 1
+PASS B.3 among cA, cB, cAB in {+-1} exactly the four sign patterns with cAB = cA cB pass (D = D^{-1})
+PASS B.4 each surviving D is local: D = actC(cA I) actT(cB I)
+NOTE B.5 [written] If G is normalization-preserving, normalizes L and G, G^{-1} map products into maxCone, then conjugation by G is an automorphism of L = SO(3) x SO(3), inner or inner after the factor exchange; so G = l0 D or G = SWAP l0 D with l0 in L and D in the commutant (B.1), and D is local (B.2-B.4). Such G maps products to products. Hence an admissible gate that maps some product to a non-product (any CtrlGate with Entangling, any non-local continuous interaction) does not normalize L.
+--- P3 min/max automorphisms and normalizer: 10 checks, 0 failures
+VERDICT MINMAX-AND-NORMALIZER-EXACT: Lie(Aut(min)) and Lie(Aut(max)) have dimension 13 and their normalization-preserving parts are l; the admissible normalizer of L is local O(3)^2 x {1, SWAP}

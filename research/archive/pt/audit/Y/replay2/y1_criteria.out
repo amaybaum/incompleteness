@@ -1,0 +1,14 @@
+PASS A1 ipW = 4 tr(pauliW . pauliW) on all 256 basis pairs
+PASS A2 cnot = Ad(CNOT) on 16 basis tables; table o pauliW = id
+PASS B1 <e_phi(c), P_chi> = (|chi|^2 - c|<phi|chi>|^2)/2, symbolic
+PASS B2 <e_phi(c), e_chi(c)> = (4 - c|phi|^2 - c|chi|^2 + c^2|<phi|chi>|^2)/16, symbolic
+PASS B3 spec(I - c phi phi^H) = {1 - c|phi|^2, 1, 1, 1}
+PASS B4 charpoly(Psi Psi^H) = lam^2 - |psi|^2 lam + |det Psi|^2 (max product overlap = top root)
+PASS B5 <a(x)b|psi> (bilinear) = a^T Psi b, symbolic
+PASS C1 c = 5/2: orthogonal caps pair to -1/16 < 0 (orbit self-positivity fails above c = 2)
+PASS C2 c = 2: orthogonal caps pair to 0 >= 0 (boundary of the window)
+PASS C3 c = 1: I - phi phi^H has eigenvalues [0, 1] >= 0, so it is PSD: no defect
+PASS C4 Bell-type seed e_psi(2), psi=(2,0,0,1): <e, P_00> = -3/10 < 0 (needs max. entanglement)
+PASS C5 Bell (1,0,0,1): normalized |det Psi|^2 = 1/4, so lam_max = 1/2
+PASS D1 E00 fixed by cnot, by Ad(U(x)I), by the transpose: nonzero fixed vector for EBF
+VERDICT Y1-CRITERIA-EXACT

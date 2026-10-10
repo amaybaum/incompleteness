@@ -1,0 +1,29 @@
+PASS U1 the test matrix is an exact unitary over Q(i)
+PASS U1 after 6 two-level steps the remainder is diagonal (exact algebraic zero test)
+PASS U1 U = G_1^H ... G_m^H D exactly (each G_k two-level, D diagonal unitary)
+PASS U1 every factor is two-level and unitary
+PASS U3 V is an exact unitary over Q(i)
+PASS U3 Lemma 6.1: C^2(V^2) = C_{c2->t}(V) CNOT_{c1->c2} C_{c2->t}(V^H) CNOT_{c1->c2} C_{c1->t}(V)
+PASS U3 countercontrol: with V^H replaced by V in the middle factor the product is NOT C^2(V^2)
+PASS U3 note (run-1 harness error): the reversed five-factor product is ALSO C^2(V^2)
+PASS U3 Lemma 7.2 recursion at three controls: C^3(V^2) = C_{x3->t}(V) C^2(X) C_{x3->t}(V^H) C^2(X) C^2_{->t}(V)
+PASS U4 sqrt(X) = (1/2)[[1+i,1-i],[1-i,1+i]] is unitary and squares to X
+PASS U4 tr(V^2) + 2 det V = (tr V)^2 (so the radicand is a square)
+PASS U4 S = (U + d I)/tr(V), d = det V, is a square root of U = V^2 (Cayley-Hamilton)
+PASS U5 SWAP = CNOT_{0->1} CNOT_{1->0} CNOT_{0->1}
+PASS U5 routing: SWAP_(0,1) G_(1,2) SWAP_(0,1) = G_(0,2)
+PASS U5 countercontrol: without the conjugation G_(1,2) != G_(0,2)
+PASS U2 Gray code: two-level W on (000,111) = P^-1 C^2_{q1 q2 -> q0}(W) P
+PASS U3 time-ordered list for C^2 reproduces Lemma 6.1
+PASS E2E 53 gates, every gate acts on an edge of the path 0-1-2
+PASS E2E the edge-gate product equals the two-level unitary on (000,111) exactly over Q(i)
+PASS G n = 3: 1 unlabelled trees, every closure = 63
+PASS G n = 3 countercontrol: every one-edge-deleted forest closes at the component sum
+PASS G n = 4: 2 unlabelled trees, every closure = 255
+PASS G n = 4 countercontrol: every one-edge-deleted forest closes at the component sum
+PASS G n = 5: 3 unlabelled trees, every closure = 1023
+PASS G n = 5 countercontrol: every one-edge-deleted forest closes at the component sum
+PASS G n = 6: 6 unlabelled trees, every closure = 4095
+PASS G n = 6 countercontrol: every one-edge-deleted forest closes at the component sum
+a2_universality: 27/27 checks pass
+VERDICT A2-ROUTE-LEMMAS-EXACT

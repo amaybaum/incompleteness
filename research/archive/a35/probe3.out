@@ -1,0 +1,18 @@
+grid classes: 60 (72 pairs less 12 shared-vertex identifications = 60)
+matrix-induced subgroup of A33 on the grid: relabellings 576, +conj 1152, +transpose 2304
+automorphisms of K3,3 on the six vertices: 72
+A33 on the grid: order 3072 (expected 36864); matrix-induced subgroup contained: False; index 1
+single-circle bit in matrix-induced subgroup: False ; all-bits flip: True
+bit patterns in the matrix-induced kernel: 32 [(False, False, False, False, False, False, False, False, False), (False, False, False, False, False, False, True, True, True), (False, False, False, True, True, True, False, False, False), (False, False, False, True, True, True, True, True, True)] ...
+automorphisms of K3,3 realized by matrix operations (partial search over 65 bit patterns): 72
+(1s)
+Aut(K3,3) transitive on the nine circles: True ; stabilizer of a circle 8
+=> A33 ≀ S2 transitive on the 81 tori, stabilizer order 2*36864^2/81 = 33554432; on the 36 vertex pairs (36 = 6^2), 108 shared circles (9*6*2)
+  stabilizer in G_ext (order 2654208) of Σ generic (circle 0 × circle 0) :     64   orbit size 41472   (31s)
+  stabilizer in G_ext (order 2654208) of Σ generic (circle 2 × circle 5) :     64   orbit size 41472   (35s)
+  stabilizer in G_ext (order 2654208) of F4⊗F4                           :    512   orbit size 5184   (24s)
+  stabilizer in G_ext (order 2654208) of H4⊗H4 (vertex × vertex)         :   4608   orbit size 576   (20s)
+  stabilizer in G_ext (order 2654208) of Diţă witness                    :     16   orbit size 165888   (19s)
+  stabilizer in G_ext (order 2654208) of Diţă generic                    :      2   orbit size 1327104   (19s)
+(149s)
+done

@@ -1,0 +1,10 @@
+## tree L (certified base at L): .lean files 221 ; dictionary definitions 0 ; whole-word uses of pauliW/Q3 0
+## tree D (design modules ff9c3a35, not certified): .lean files 12 ; dictionary definitions 4 ; whole-word uses of pauliW/Q3 24
+  DEF FourCopyPackage.lean:172 pauli1  (file contains sorry)
+  DEF FourCopyPackage.lean:176 pauliW  (file contains sorry)
+  DEF FourCopyPackage.lean:180 Q3  (file contains sorry)
+  DEF FourCopyPackage.lean:183 twin  (file contains sorry)
+
+PASS: C1 design tree defines pauliW
+PASS: C2 matcher
+VERDICT: NO DICTIONARY DEFINITION AT L

@@ -1,0 +1,8 @@
+PASS W0 cnot (parsed) is an involution on the table space
+PASS W1 drive (about x) + substratum phase flow (about z), both on the control, with cnot: dim 6
+PASS W1c phase flow alone on the control with cnot: dim 1
+PASS W2c drive alone on the control with cnot: dim 2
+PASS W3c substratum phase flows on both tokens with cnot: dim 3
+PASS W4 drive + phase flow on the target with cnot: dim 6
+SUMMARY 6 lines, 0 FAIL
+VERDICT D3-WEAKEST-EXACT: (b) for the drive together with the substratum phase flow on one token generates su(2)+su(2) with cnot; each alone, and the phase flows on both tokens, do not

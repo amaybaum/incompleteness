@@ -1,0 +1,17 @@
+== C1  PL is load-bearing: z = (psi psi^H)^Gamma, psi = 2|00> + |11>
+PASS C1a  [exact] spectrum of (psi psi^H)^Gamma is {-2, 1, 2, 4}: one negative eigenvalue (like E0)
+PASS C1b  [identity] <prodState x y, z> = 4 <psi| rho(x) (x) rho(y)^T |psi> >= 0, so z ∈ maxCone (H1 holds for K_z)
+PASS C1c  [exact] cap state psi' = |01> - |10> + |11>: <psi'|W|psi'> = -3 < 0, det(projection) = -1296/390625 < 0 (not PSD)
+PASS C1d  [countercontrol] y := Pi(q) lies in (Q3 + R+ z) ∩ z-perp ⊆ K_z*, and <y, z> = 0 forces y ∈ K_z ⇒ y ∈ Q3; y ∉ Q3 (C1c), so K_z ≠ K_z*: the surgery is NOT self-dual without PL
+== C2  cnot-invariance of the surgery vector is load-bearing for H2
+PASS C2a  [exact] Y1 = E00 + E13 + E22 (E0 with the YY sign flipped): <Y1, cnot Y1> = -1 < 0, so the self-positive cone K_Y1 = (Q3 ∩ Y1*) + R+ Y1 contains Y1 but not cnot Y1
+PASS C2b  [exact] T_psi = E00+E13+E22+E31; P = |e3><e3| has <P, F> = 1/2 (P ∈ Q3 ∩ F* ⊆ K_F) and <P, cnot F> = -1/2, so cnot F ∉ K_F: K_F is not cnot-invariant
+PASS C2c  [exact] control: the actual surgery vector E0 is cnot-fixed (<E0, cnot E0> = 3 >= 0)
+== C3  the level-(ii) group: (even, even) native gates and their closure
+PASS G1  [exact] all 16 (even, even) dressings satisfy the landed frame, relT, relC clauses (N = nflip, z = z3); distinct gates: 8
+PASS G2  [exact] the even native class generates a group of order 16 containing cnot, Z_c = actC diag(-1,-1,1), Z_t = actT diag(-1,-1,1) and the global transpose
+PASS G3  [exact] <E0, Z_c E0> = -1: no level-(ii) cone contains E0 (it would contain Z_c E0 and pair negatively), and K* is not level-(ii) invariant
+PASS G4  [exact] the level-(ii) fixed space has dimension 3 and consists of computational-basis-diagonal tables, whose maxCone members are PSD: a single fixed surgery vector cannot leave Q3
+
+checks: 11, failed: 0
+VERDICT KSTAR-CONTROLS-EXACT -- 11 checks

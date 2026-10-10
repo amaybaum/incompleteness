@@ -1,0 +1,10 @@
+files scanned: 215
+CandidateCone  OIBridge/K2Guard.lean:95
+CtrlGate  OIBridge/RelcSelectBlock.lean:45
+Entangling  OIBridge/CompositeDimension.lean:229
+EntanglingOf  OIBridge/K1Bridge.lean:64
+GateRel  OIBridge/ParityNot.lean:42
+IsProduct  OIBridge/CompositeDimension.lean:194
+NativeGate  OIBridge/CompositeDimension.lean:218
+NativeGateOf  OIBridge/K1Bridge.lean:49
+count: 8

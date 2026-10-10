@@ -1,0 +1,9 @@
+# DIAGNOSTIC, NON-GATING: partial cProfile run of the landed n18:0 at d6b64580, terminated by design after 4528 s
+# (5 of 6 subspaces; no .prof written). Attribution only; never part of the n18 equivalence claim, which is ledger.md.
+
+PASS n18:0 covers 6 of the 18 subspaces
+PASS N18 k1 column: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 k2 row: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 k4 column: rank 171, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 e1 row: rank 161, equal to exactly one realizing triple, at its sorted alignment
+PASS N18 t1 column: rank 119, equal to exactly one realizing triple, at its sorted alignment

@@ -1,0 +1,4 @@
+STAGE A linear: 143 runs; sha256 9b88a7cc497bbfc2199a06955d69806d83ba88069770175532f3f15e51c656e0
+TALLY A linear: ADVANCE(dims [2, 3, 4]): 76
+TALLY A linear: NOT-INVASIVE(rank 1): 64
+TALLY A linear: NOT-INVASIVE(rank 4): 3

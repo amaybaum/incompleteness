@@ -1,0 +1,9 @@
+pair (g = W3, g' = W3): check |direct - via H| = 4.9e-16; Hermitian True; min eig -0.2500; #neg 14
+pair (g = W3, g' = kappa'): check |direct - via H| = 1.3e-15; Hermitian True; min eig -0.7500; #neg 14
+pair (g = W3, g' = omega): check |direct - via H| = 3.6e-15; Hermitian True; min eig -0.7500; #neg 14
+pair (g = kappa', g' = W3): check |direct - via H| = 7.2e-15; Hermitian True; min eig -0.7500; #neg 14
+pair (g = kappa', g' = kappa'): check |direct - via H| = 4.4e-16; Hermitian True; min eig -0.7500; #neg 14
+pair (g = kappa', g' = omega): check |direct - via H| = 8.9e-16; Hermitian True; min eig -0.7500; #neg 14
+pair (g = omega, g' = W3): check |direct - via H| = 7.8e-16; Hermitian True; min eig -0.7500; #neg 14
+pair (g = omega, g' = kappa'): check |direct - via H| = 1.4e-14; Hermitian True; min eig -0.7500; #neg 14
+pair (g = omega, g' = omega): check |direct - via H| = 2.9e-14; Hermitian True; min eig -0.7500; #neg 14

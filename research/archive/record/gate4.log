@@ -1,0 +1,2 @@
+GATE4 {'rule': 'linear', 'kappa': [[0, 1], [0, 1]], 'preps': 755, 'effects': 1555, 'rank': 3, 'certified': True, 'welldef': True, 'invasive': True, 'dimC': [2, 3, 3, 3], 'stabilized': True, 'verdict': 'FAIL(dimC=3)'} MATCH
+GATE4 OK

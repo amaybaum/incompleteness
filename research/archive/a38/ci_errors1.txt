@@ -1,0 +1,415 @@
+2026-09-28T08:09:02.5508564Z error: OIBridge/DitaLocalEscape.lean:76:1229: unsolved goals
+2026-09-28T08:09:02.5509021Z case «0».«1»
+2026-09-28T08:09:02.5509226Z z w u : ℂ
+2026-09-28T08:09:02.5509420Z hz : star z * z = 1
+2026-09-28T08:09:02.5509761Z hw : star w * w = 1
+2026-09-28T08:09:02.5509963Z hu : star u * u = 1
+2026-09-28T08:09:02.5510192Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5510417Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5510644Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5510894Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5511171Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5511442Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5539958Z error: OIBridge/DitaLocalEscape.lean:108:1229: unsolved goals
+2026-09-28T08:09:02.5540350Z case «0».«3»
+2026-09-28T08:09:02.5540552Z z w u : ℂ
+2026-09-28T08:09:02.5540737Z hz : star z * z = 1
+2026-09-28T08:09:02.5540952Z hw : star w * w = 1
+2026-09-28T08:09:02.5541149Z hu : star u * u = 1
+2026-09-28T08:09:02.5541376Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5541599Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5541818Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5542065Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5542353Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5542627Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5558563Z error: OIBridge/DitaLocalEscape.lean:124:1229: unsolved goals
+2026-09-28T08:09:02.5558930Z case «1».«0»
+2026-09-28T08:09:02.5559128Z z w u : ℂ
+2026-09-28T08:09:02.5559314Z hz : star z * z = 1
+2026-09-28T08:09:02.5559743Z hw : star w * w = 1
+2026-09-28T08:09:02.5560092Z hu : star u * u = 1
+2026-09-28T08:09:02.5560339Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5560563Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5560784Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5561031Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5561311Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5561595Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5589699Z error: OIBridge/DitaLocalEscape.lean:156:1229: unsolved goals
+2026-09-28T08:09:02.5590096Z case «1».«2»
+2026-09-28T08:09:02.5590294Z z w u : ℂ
+2026-09-28T08:09:02.5590484Z hz : star z * z = 1
+2026-09-28T08:09:02.5590687Z hw : star w * w = 1
+2026-09-28T08:09:02.5590882Z hu : star u * u = 1
+2026-09-28T08:09:02.5591110Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5591334Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5591555Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5591794Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5592084Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5592358Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5608938Z error: OIBridge/DitaLocalEscape.lean:172:1229: unsolved goals
+2026-09-28T08:09:02.5609346Z case «1».«3»
+2026-09-28T08:09:02.5609711Z z w u : ℂ
+2026-09-28T08:09:02.5609900Z hz : star z * z = 1
+2026-09-28T08:09:02.5610101Z hw : star w * w = 1
+2026-09-28T08:09:02.5610298Z hu : star u * u = 1
+2026-09-28T08:09:02.5610532Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5610753Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5610973Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5611212Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5611497Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5611781Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5627721Z error: OIBridge/DitaLocalEscape.lean:188:1229: unsolved goals
+2026-09-28T08:09:02.5628097Z case «2».«0»
+2026-09-28T08:09:02.5628292Z z w u : ℂ
+2026-09-28T08:09:02.5628486Z hz : star z * z = 1
+2026-09-28T08:09:02.5628688Z hw : star w * w = 1
+2026-09-28T08:09:02.5628884Z hu : star u * u = 1
+2026-09-28T08:09:02.5629111Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5629333Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5629683Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5629934Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5630217Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5630486Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5675039Z error: OIBridge/DitaLocalEscape.lean:220:1229: unsolved goals
+2026-09-28T08:09:02.5675479Z case «2».«2»
+2026-09-28T08:09:02.5675688Z z w u : ℂ
+2026-09-28T08:09:02.5675886Z hz : star z * z = 1
+2026-09-28T08:09:02.5676093Z hw : star w * w = 1
+2026-09-28T08:09:02.5676296Z hu : star u * u = 1
+2026-09-28T08:09:02.5676535Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5676772Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5676996Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5677244Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5677525Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5677798Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5706771Z error: OIBridge/DitaLocalEscape.lean:252:1229: unsolved goals
+2026-09-28T08:09:02.5707293Z case «3».«0»
+2026-09-28T08:09:02.5707708Z z w u : ℂ
+2026-09-28T08:09:02.5708005Z hz : star z * z = 1
+2026-09-28T08:09:02.5708321Z hw : star w * w = 1
+2026-09-28T08:09:02.5708524Z hu : star u * u = 1
+2026-09-28T08:09:02.5708762Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5708989Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5709217Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5709464Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5709888Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5710166Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5738073Z error: OIBridge/DitaLocalEscape.lean:284:1229: unsolved goals
+2026-09-28T08:09:02.5738461Z case «3».«2»
+2026-09-28T08:09:02.5738662Z z w u : ℂ
+2026-09-28T08:09:02.5738849Z hz : star z * z = 1
+2026-09-28T08:09:02.5739237Z hw : star w * w = 1
+2026-09-28T08:09:02.5739445Z hu : star u * u = 1
+2026-09-28T08:09:02.5739944Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5740181Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5740412Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5740657Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5740947Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5741222Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5757081Z error: OIBridge/DitaLocalEscape.lean:300:1229: unsolved goals
+2026-09-28T08:09:02.5757456Z case «3».«3»
+2026-09-28T08:09:02.5757658Z z w u : ℂ
+2026-09-28T08:09:02.5757845Z hz : star z * z = 1
+2026-09-28T08:09:02.5758054Z hw : star w * w = 1
+2026-09-28T08:09:02.5758383Z hu : star u * u = 1
+2026-09-28T08:09:02.5758619Z hsz : star z = z⁻¹
+2026-09-28T08:09:02.5758846Z hsw : star w = w⁻¹
+2026-09-28T08:09:02.5759068Z hsu : star u = u⁻¹
+2026-09-28T08:09:02.5759316Z hsz' : (starRingEnd ℂ) z = z⁻¹
+2026-09-28T08:09:02.5759827Z hsw' : (starRingEnd ℂ) w = w⁻¹
+2026-09-28T08:09:02.5760142Z hsu' : (starRingEnd ℂ) u = u⁻¹
+=====
+2026-09-28T08:09:02.5773996Z error: OIBridge/DitaLocalEscape.lean:315:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+2026-09-28T08:09:02.5774501Z 
+2026-09-28T08:09:02.5774659Z Note: Use `set_option maxHeartbeats \u003cnum\u003e` to set the limit.
+2026-09-28T08:09:02.5774909Z 
+2026-09-28T08:09:02.5775227Z Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+2026-09-28T08:09:02.5776019Z info: OIBridge/DitaLocalEscape.lean:340:0: 'OIBridge.DitaLocalEscape.a38_shared_unitary_core' does not depend on any axioms
+2026-09-28T08:09:02.5776961Z info: OIBridge/DitaLocalEscape.lean:350:0: 'OIBridge.DitaLocalEscape.a38_shared_flat_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5778045Z error: OIBridge/DitaLocalEscape.lean:352:8: (kernel) unknown constant 'OIBridge.DitaLocalEscape.a38_shared_unitary_core'
+2026-09-28T08:09:02.5778882Z info: OIBridge/DitaLocalEscape.lean:359:0: 'OIBridge.DitaLocalEscape.a38_shared_real_core' depends on axioms: [propext,
+2026-09-28T08:09:02.5779433Z  Classical.choice,
+2026-09-28T08:09:02.5779908Z  Quot.sound,
+2026-09-28T08:09:02.5780124Z  a38_shared_real_core]
+=====
+2026-09-28T08:09:02.5778045Z error: OIBridge/DitaLocalEscape.lean:352:8: (kernel) unknown constant 'OIBridge.DitaLocalEscape.a38_shared_unitary_core'
+2026-09-28T08:09:02.5778882Z info: OIBridge/DitaLocalEscape.lean:359:0: 'OIBridge.DitaLocalEscape.a38_shared_real_core' depends on axioms: [propext,
+2026-09-28T08:09:02.5779433Z  Classical.choice,
+2026-09-28T08:09:02.5779908Z  Quot.sound,
+2026-09-28T08:09:02.5780124Z  a38_shared_real_core]
+2026-09-28T08:09:02.5780501Z error: OIBridge/DitaLocalEscape.lean:375:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5780918Z   16
+2026-09-28T08:09:02.5781093Z has type
+2026-09-28T08:09:02.5781315Z   ℂ
+2026-09-28T08:09:02.5781510Z but is expected to have type
+2026-09-28T08:09:02.5781786Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5781995Z in the application
+=====
+2026-09-28T08:09:02.5780501Z error: OIBridge/DitaLocalEscape.lean:375:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5780918Z   16
+2026-09-28T08:09:02.5781093Z has type
+2026-09-28T08:09:02.5781315Z   ℂ
+2026-09-28T08:09:02.5781510Z but is expected to have type
+2026-09-28T08:09:02.5781786Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5781995Z in the application
+2026-09-28T08:09:02.5782285Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5782755Z error: OIBridge/DitaLocalEscape.lean:386:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5783293Z warning: OIBridge/DitaLocalEscape.lean:379:17: This simp argument is unused:
+2026-09-28T08:09:02.5783710Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5783864Z 
+=====
+2026-09-28T08:09:02.5782755Z error: OIBridge/DitaLocalEscape.lean:386:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5783293Z warning: OIBridge/DitaLocalEscape.lean:379:17: This simp argument is unused:
+2026-09-28T08:09:02.5783710Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5783864Z 
+2026-09-28T08:09:02.5783978Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5784277Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5784465Z 
+2026-09-28T08:09:02.5784688Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5785677Z info: OIBridge/DitaLocalEscape.lean:387:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_k1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5786536Z error: OIBridge/DitaLocalEscape.lean:403:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5786953Z   -16
+2026-09-28T08:09:02.5787150Z has type
+=====
+2026-09-28T08:09:02.5786536Z error: OIBridge/DitaLocalEscape.lean:403:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5786953Z   -16
+2026-09-28T08:09:02.5787150Z has type
+2026-09-28T08:09:02.5787344Z   ℂ
+2026-09-28T08:09:02.5787541Z but is expected to have type
+2026-09-28T08:09:02.5787813Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5788023Z in the application
+2026-09-28T08:09:02.5788312Z   Mathlib.Tactic.LinearCombination.mul_const_eq key (-16)
+2026-09-28T08:09:02.5788809Z error: OIBridge/DitaLocalEscape.lean:414:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5789345Z warning: OIBridge/DitaLocalEscape.lean:407:17: This simp argument is unused:
+2026-09-28T08:09:02.5789884Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5790035Z 
+=====
+2026-09-28T08:09:02.5788809Z error: OIBridge/DitaLocalEscape.lean:414:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5789345Z warning: OIBridge/DitaLocalEscape.lean:407:17: This simp argument is unused:
+2026-09-28T08:09:02.5789884Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5790035Z 
+2026-09-28T08:09:02.5790147Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5790449Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5790629Z 
+2026-09-28T08:09:02.5790847Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5791667Z info: OIBridge/DitaLocalEscape.lean:415:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_k2' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5792521Z error: OIBridge/DitaLocalEscape.lean:431:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5792941Z   16
+2026-09-28T08:09:02.5793117Z has type
+=====
+2026-09-28T08:09:02.5792521Z error: OIBridge/DitaLocalEscape.lean:431:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5792941Z   16
+2026-09-28T08:09:02.5793117Z has type
+2026-09-28T08:09:02.5793309Z   ℂ
+2026-09-28T08:09:02.5793504Z but is expected to have type
+2026-09-28T08:09:02.5793776Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5793983Z in the application
+2026-09-28T08:09:02.5794257Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5794723Z error: OIBridge/DitaLocalEscape.lean:442:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5795263Z warning: OIBridge/DitaLocalEscape.lean:435:17: This simp argument is unused:
+2026-09-28T08:09:02.5795673Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5795820Z 
+=====
+2026-09-28T08:09:02.5794723Z error: OIBridge/DitaLocalEscape.lean:442:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5795263Z warning: OIBridge/DitaLocalEscape.lean:435:17: This simp argument is unused:
+2026-09-28T08:09:02.5795673Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5795820Z 
+2026-09-28T08:09:02.5795933Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5796227Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5796409Z 
+2026-09-28T08:09:02.5796625Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5797440Z info: OIBridge/DitaLocalEscape.lean:443:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_k3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5798401Z error: OIBridge/DitaLocalEscape.lean:459:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5798819Z   16
+2026-09-28T08:09:02.5799003Z has type
+=====
+2026-09-28T08:09:02.5798401Z error: OIBridge/DitaLocalEscape.lean:459:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5798819Z   16
+2026-09-28T08:09:02.5799003Z has type
+2026-09-28T08:09:02.5799211Z   ℂ
+2026-09-28T08:09:02.5799438Z but is expected to have type
+2026-09-28T08:09:02.5799978Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5800201Z in the application
+2026-09-28T08:09:02.5800486Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5800957Z error: OIBridge/DitaLocalEscape.lean:470:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5801503Z warning: OIBridge/DitaLocalEscape.lean:463:17: This simp argument is unused:
+2026-09-28T08:09:02.5801916Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5802064Z 
+=====
+2026-09-28T08:09:02.5800957Z error: OIBridge/DitaLocalEscape.lean:470:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5801503Z warning: OIBridge/DitaLocalEscape.lean:463:17: This simp argument is unused:
+2026-09-28T08:09:02.5801916Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5802064Z 
+2026-09-28T08:09:02.5802176Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5802474Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5802659Z 
+2026-09-28T08:09:02.5802874Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5803707Z info: OIBridge/DitaLocalEscape.lean:471:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_k4' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5804550Z error: OIBridge/DitaLocalEscape.lean:487:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5804968Z   16
+2026-09-28T08:09:02.5805284Z has type
+=====
+2026-09-28T08:09:02.5804550Z error: OIBridge/DitaLocalEscape.lean:487:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5804968Z   16
+2026-09-28T08:09:02.5805284Z has type
+2026-09-28T08:09:02.5805482Z   ℂ
+2026-09-28T08:09:02.5805676Z but is expected to have type
+2026-09-28T08:09:02.5805942Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5806153Z in the application
+2026-09-28T08:09:02.5806439Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5806818Z info: OIBridge/DitaLocalEscape.lean:493:11: Try this:
+2026-09-28T08:09:02.5807124Z   [apply] ring_nf
+2026-09-28T08:09:02.5807318Z   
+2026-09-28T08:09:02.5807632Z   The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+=====
+2026-09-28T08:09:02.5809480Z error: OIBridge/DitaLocalEscape.lean:489:3148: unsolved goals
+2026-09-28T08:09:02.5809968Z u : ℂ
+2026-09-28T08:09:02.5810154Z hu : star u * u = 1
+2026-09-28T08:09:02.5810385Z X : Matrix (Fin 8) (Fin 8) ℂ
+2026-09-28T08:09:02.5810677Z Y : Fin 8 → Matrix (Fin 2) (Fin 2) ℂ
+2026-09-28T08:09:02.5810965Z D : Fin 8 → Fin 2 → ℂ
+2026-09-28T08:09:02.5811177Z h :
+2026-09-28T08:09:02.5811356Z   (of fun i j =\u003e
+2026-09-28T08:09:02.5811550Z       of
+2026-09-28T08:09:02.5811732Z           (fun i j =\u003e
+2026-09-28T08:09:02.5811938Z             of
+2026-09-28T08:09:02.5812135Z                 (fun a c =\u003e
+=====
+2026-09-28T08:09:02.5867639Z error: OIBridge/DitaLocalEscape.lean:498:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5868067Z   -16
+2026-09-28T08:09:02.5868247Z has type
+2026-09-28T08:09:02.5868438Z   ℂ
+2026-09-28T08:09:02.5868636Z but is expected to have type
+2026-09-28T08:09:02.5868915Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5869125Z in the application
+2026-09-28T08:09:02.5869416Z   Mathlib.Tactic.LinearCombination.mul_const_eq key (-16)
+2026-09-28T08:09:02.5870021Z warning: OIBridge/DitaLocalEscape.lean:491:17: This simp argument is unused:
+2026-09-28T08:09:02.5870429Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5870579Z 
+2026-09-28T08:09:02.5870693Z Hint: Omit it from the simp argument list.
+=====
+2026-09-28T08:09:02.5873092Z error: OIBridge/DitaLocalEscape.lean:515:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5873507Z   16
+2026-09-28T08:09:02.5873814Z has type
+2026-09-28T08:09:02.5874013Z   ℂ
+2026-09-28T08:09:02.5874206Z but is expected to have type
+2026-09-28T08:09:02.5874475Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5874685Z in the application
+2026-09-28T08:09:02.5874962Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5875442Z error: OIBridge/DitaLocalEscape.lean:526:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5875976Z warning: OIBridge/DitaLocalEscape.lean:519:17: This simp argument is unused:
+2026-09-28T08:09:02.5876380Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5876529Z 
+=====
+2026-09-28T08:09:02.5875442Z error: OIBridge/DitaLocalEscape.lean:526:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5875976Z warning: OIBridge/DitaLocalEscape.lean:519:17: This simp argument is unused:
+2026-09-28T08:09:02.5876380Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5876529Z 
+2026-09-28T08:09:02.5876642Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5876943Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5877123Z 
+2026-09-28T08:09:02.5877340Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5878166Z info: OIBridge/DitaLocalEscape.lean:527:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_e2' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5879021Z error: OIBridge/DitaLocalEscape.lean:543:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5879433Z   16
+2026-09-28T08:09:02.5879833Z has type
+=====
+2026-09-28T08:09:02.5879021Z error: OIBridge/DitaLocalEscape.lean:543:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5879433Z   16
+2026-09-28T08:09:02.5879833Z has type
+2026-09-28T08:09:02.5880035Z   ℂ
+2026-09-28T08:09:02.5880234Z but is expected to have type
+2026-09-28T08:09:02.5880498Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5880707Z in the application
+2026-09-28T08:09:02.5880984Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5881452Z error: OIBridge/DitaLocalEscape.lean:554:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5881988Z warning: OIBridge/DitaLocalEscape.lean:547:17: This simp argument is unused:
+2026-09-28T08:09:02.5882397Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5882549Z 
+=====
+2026-09-28T08:09:02.5881452Z error: OIBridge/DitaLocalEscape.lean:554:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5881988Z warning: OIBridge/DitaLocalEscape.lean:547:17: This simp argument is unused:
+2026-09-28T08:09:02.5882397Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5882549Z 
+2026-09-28T08:09:02.5882654Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5882949Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5883127Z 
+2026-09-28T08:09:02.5883341Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5884162Z info: OIBridge/DitaLocalEscape.lean:555:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_t1' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5885000Z error: OIBridge/DitaLocalEscape.lean:571:44: Application type mismatch: The argument
+2026-09-28T08:09:02.5885424Z   16
+2026-09-28T08:09:02.5885599Z has type
+=====
+2026-09-28T08:09:02.5885000Z error: OIBridge/DitaLocalEscape.lean:571:44: Application type mismatch: The argument
+2026-09-28T08:09:02.5885424Z   16
+2026-09-28T08:09:02.5885599Z has type
+2026-09-28T08:09:02.5885790Z   ℂ
+2026-09-28T08:09:02.5885983Z but is expected to have type
+2026-09-28T08:09:02.5886249Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5886460Z in the application
+2026-09-28T08:09:02.5886737Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5887379Z error: OIBridge/DitaLocalEscape.lean:589:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5887919Z warning: OIBridge/DitaLocalEscape.lean:582:17: This simp argument is unused:
+2026-09-28T08:09:02.5888326Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5888469Z 
+=====
+2026-09-28T08:09:02.5887379Z error: OIBridge/DitaLocalEscape.lean:589:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5887919Z warning: OIBridge/DitaLocalEscape.lean:582:17: This simp argument is unused:
+2026-09-28T08:09:02.5888326Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5888469Z 
+2026-09-28T08:09:02.5888587Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5889028Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5889280Z 
+2026-09-28T08:09:02.5889695Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5890772Z info: OIBridge/DitaLocalEscape.lean:590:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_t2' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5891774Z error: OIBridge/DitaLocalEscape.lean:606:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5892304Z   16
+2026-09-28T08:09:02.5892648Z has type
+=====
+2026-09-28T08:09:02.5891774Z error: OIBridge/DitaLocalEscape.lean:606:42: Application type mismatch: The argument
+2026-09-28T08:09:02.5892304Z   16
+2026-09-28T08:09:02.5892648Z has type
+2026-09-28T08:09:02.5892946Z   ℂ
+2026-09-28T08:09:02.5893319Z but is expected to have type
+2026-09-28T08:09:02.5893820Z   Fin 4 × Fin 4 → ℂ
+2026-09-28T08:09:02.5894138Z in the application
+2026-09-28T08:09:02.5894568Z   Mathlib.Tactic.LinearCombination.mul_const_eq key 16
+2026-09-28T08:09:02.5895165Z error: OIBridge/DitaLocalEscape.lean:617:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5895999Z warning: OIBridge/DitaLocalEscape.lean:610:17: This simp argument is unused:
+2026-09-28T08:09:02.5896891Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5897259Z 
+=====
+2026-09-28T08:09:02.5895165Z error: OIBridge/DitaLocalEscape.lean:617:7: `ring_nf` made no progress at `key`
+2026-09-28T08:09:02.5895999Z warning: OIBridge/DitaLocalEscape.lean:610:17: This simp argument is unused:
+2026-09-28T08:09:02.5896891Z   Matrix.transpose_apply
+2026-09-28T08:09:02.5897259Z 
+2026-09-28T08:09:02.5897597Z Hint: Omit it from the simp argument list.
+2026-09-28T08:09:02.5905401Z   [apply] simp only [Matrix.of_apply]
+2026-09-28T08:09:02.5905657Z 
+2026-09-28T08:09:02.5905905Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-28T08:09:02.5906786Z info: OIBridge/DitaLocalEscape.lean:618:0: 'OIBridge.DitaLocalEscape.a38_shared_excl_core_t3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5907715Z warning: OIBridge/DitaLocalEscape.lean:621:1874: Variable name `c` is not explicitly referenced.
+2026-09-28T08:09:02.5908109Z 
+2026-09-28T08:09:02.5908533Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+=====
+2026-09-28T08:09:02.5915271Z error: OIBridge/DitaLocalEscape.lean:674:2: unsolved goals
+2026-09-28T08:09:02.5915358Z case refine_1
+2026-09-28T08:09:02.5915496Z t : ℝ
+2026-09-28T08:09:02.5915583Z ht : 0 \u003c t
+2026-09-28T08:09:02.5915721Z h1 : 1 - ↑t * Complex.I ≠ 0
+2026-09-28T08:09:02.5915848Z h2 : 1 + ↑t * Complex.I ≠ 0
+2026-09-28T08:09:02.5916388Z ⊢ -(↑t ^ 2 * Complex.I ^ 2 * (1 + ↑t * Complex.I)⁻¹) + (1 + ↑t * Complex.I)⁻¹ = 1 - ↑t * Complex.I
+2026-09-28T08:09:02.5917118Z info: OIBridge/DitaLocalEscape.lean:704:0: 'OIBridge.DitaLocalEscape.a38_shared_cayley_core' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-09-28T08:09:02.5917529Z info: OIBridge/DitaLocalEscape.lean:723:0: 'OIBridge.DitaLocalEscape.a38_shared_escape_core' depends on axioms: [propext,
+2026-09-28T08:09:02.5917615Z  sorryAx,
+2026-09-28T08:09:02.5917710Z  Classical.choice,
+2026-09-28T08:09:02.5917799Z  Quot.sound,

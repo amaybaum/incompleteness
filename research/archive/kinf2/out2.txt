@@ -1,0 +1,224 @@
+== 1. identities: the exact algebraic identities behind the corrected lemmas ==
+PASS s1.line_extension  [identity] e(z + eps(z - w)) = e z + eps (e z - e w): a proper effect certain at z exceeds 1 on the extension, so (i) certain + proper => boundary state; (ii) certain at a non-boundary state => e = 1 on all of Om
+PASS s1.affine_combo  [identity] Lemma C step: e(a x + b y) = a e x + b e y, so e = 1 at an interior point of [x, y] forces e x = e y = 1
+PASS s1.extension_is_affine_combo  [identity] z + eps(z - w) = (1 + eps) z + (-eps) w, so the frozen affine_combo (any a + b = 1) suffices in Lean
+== 2. unit and non-proper effects: the unit and other non-proper or never-certain effects ==
+PASS s2.unit.not_proper.square  [identity] the unit is 1 on every vertex, hence on the hull: no y with unit y < 1, so it is not proper
+PASS s2.stage.unit_coordinate.const_on_Om  [identity] v -> v_unit is 1 on the stage body (hull of the four vectors)
+PASS s2.stage.unit_coordinate.nonconst_on_V  [witness] but it is NOT the constant 1 on V = R^5: a syntactic properness test (e != const 1) would call it proper, and it is certain on every state -> SEC trivial and SF impossible again.  Properness must be relative to Om
+PASS s2.stage.unit_coordinate.not_proper_relative  [identity] relative to Om it is not proper, as required
+PASS s2.const_half.proper_empty_face  [identity] proper with empty certain face: SF holds for it vacuously and it is certain at no boundary state
+== 3. square gbit [-1,1]^2: flat faces, capacity 2, frozen vs corrected drivability ==
+PASS s3.sq.facet0.effect  [identity] affine, so [0,1] on the vertices gives [0,1] on the hull
+PASS s3.sq.facet0.proper  [witness]
+PASS s3.sq.facet1.effect  [identity] affine, so [0,1] on the vertices gives [0,1] on the hull
+PASS s3.sq.facet1.proper  [witness]
+PASS s3.sq.facet2.effect  [identity] affine, so [0,1] on the vertices gives [0,1] on the hull
+PASS s3.sq.facet2.proper  [witness]
+PASS s3.sq.facet3.effect  [identity] affine, so [0,1] on the vertices gives [0,1] on the hull
+PASS s3.sq.facet3.proper  [witness]
+PASS s3.sq.SF_fails  [witness] SF'(full) and SF'(facet effects) fail: the proper facet effect (1+x)/2 is certain on two distinct states
+PASS s3.sq.SF_fails_with_unit_too  [witness] adding the unit changes nothing: it is not proper, so the verdict is the flat face, not the unit
+PASS s3.sq.RSC_fails  [witness] the midpoint (1,0) of two distinct states is a boundary state: not relatively strictly convex
+PASS s3.sq.boundary_states_counted  [enumerate] on the 9x9 grid: 32 boundary states (the perimeter), 49 relative-interior states
+PASS s3.sq.SEC_facets  [sample] SEC'(facet effects): every boundary grid state is certain for a proper facet effect (decisive for the square by the H-representation: every boundary state lies on a facet)
+PASS s3.sq.no_proper_certain_inside  [sample] no facet effect is certain at a relative-interior state (line-extension lemma, section 1)
+PASS s3.sq.old_SEC_trivial  [identity] old (KINF-1 frozen) SEC held at every point via the unit; the corrected SEC needs a proper effect
+PASS s3.sq.central_symmetry  [enumerate] vertex set closed under negation, so the square is centrally symmetric about 0: capacity <= 2 (Lemma D)
+PASS s3.sq.capacity_two_witness  [witness] perfectly distinguishable pair (1,1), (-1,-1) by g, 1 - g
+-- 3b. ElementaryDrivability as frozen in KINF-1 holds for the square gbit (defect) --
+PASS s3.sq.frozen.path_endpoints  [identity] flow: t<=0 -> I; [0,1] -> (1-t)I + tR90; [1,2] -> (2-t)R90 + (t-1)(-I); t>=2 -> -I: continuous, flow 0 = id
+PASS s3.sq.frozen.seg1.det_pos  [identity] det = 2(t - 1/2)^2 + 1/2 >= 1/2 > 0: every member is an affine equivalence of V
+PASS s3.sq.frozen.seg1.maps_into  [sample] max-row-sum norm 1 at t = 0, 1/10, ..., 1; decisive argument: each member is a convex combination of two square symmetries, so the image of a vertex is a convex combination of two vertices (into, not onto)
+PASS s3.sq.frozen.seg2.det_pos  [identity] det = 2(t - 1/2)^2 + 1/2 >= 1/2 > 0: every member is an affine equivalence of V
+PASS s3.sq.frozen.seg2.maps_into  [sample] max-row-sum norm 1 at t = 0, 1/10, ..., 1; decisive argument: each member is a convex combination of two square symmetries, so the image of a vertex is a convex combination of two vertices (into, not onto)
+PASS s3.sq.frozen.into_not_onto  [witness] at t = 1/2 the member has det 1/2 < 1: it maps the square INTO itself, strictly smaller (not an automorphism)
+PASS s3.sq.frozen.N  [witness] N = flow 2 = -I is an involution of V that moves the state (1,1)
+PASS s3.sq.frozen.J_into  [identity] J = x/2 + (1/2, 0) maps the square into itself
+PASS s3.sq.frozen.J_off_axis  [witness] J^-1 flow(1) J sends the state 0 to (-1,1); every flow member is linear and fixes 0: J_off_axis holds
+PASS s3.sq.aut_count  [enumerate] the affine automorphisms of the square are exactly 8 (dihedral D4): an Om-automorphism permutes the vertices
+NOTE [written] s3.sq.corrected.not_drivable  -- Drive': a group flow of Om-automorphisms is pointwise continuous with values in a finite set on each vertex, hence constant, hence the identity; N = id moves nothing.  The square is excluded
+== 4. torus orbitope conv(S^1 x S^1) in R^4 ==
+PASS s4.torus.effect  [identity] |x0| <= 1 on every generator, hence on the hull
+PASS s4.torus.proper  [witness]
+PASS s4.torus.SF_fails  [witness] SF'(full) fails: flat face
+PASS s4.torus.RSC_fails  [witness] the midpoint is certain for a proper effect, so it is a boundary state (section 1 (i)): not RSC
+PASS s4.torus.central_symmetry  [identity] u -> -1/u negates rational circle points: the generator set is centrally symmetric: capacity <= 2
+PASS s4.torus.flow_automorphism  [sample] R_t (+) I maps generators to generators (rotation of the first circle); group law and onto-ness are the rotation group
+PASS s4.torus.N  [witness] N = R_pi (+) I is an involution moving p1
+PASS s4.torus.J_automorphism  [enumerate] J = swap of the two circles permutes the sampled generators and is an involution: an Om-automorphism
+PASS s4.torus.J_off_axis_on_Om  [witness] J^-1 flow(pi/2) J moves the last two coordinates of p1; every flow member fixes them: off-axis ON Om
+NOTE [written] s4.torus.verdict  -- drivable (Drive'), capacity 2, full effects available, and SF' fails: SF is independent of all three
+== 5. Stiefel orbitope conv V_2(R^3) ==
+PASS s5.stiefel.frames  [enumerate]
+PASS s5.stiefel.effect  [sample] |A_11| <= |first column| = 1 on every frame (decisive argument), hence on the hull
+PASS s5.stiefel.proper  [witness]
+PASS s5.stiefel.SF_fails  [witness] SF'(full) fails: flat face
+PASS s5.stiefel.N  [witness] flow = left multiplication by R_z(t) (Om-automorphisms, a group); N = L_{R_z(pi)} is an involution moving S1
+PASS s5.stiefel.J_off_axis_on_Om  [witness] J = L_{R_x(pi/2)}: the conjugate changes the third row of S1, which every L_{R_z(s)} fixes
+== 6. 3-ball (Bloch ball): SF holds with full effects; the disk J clause ==
+PASS s6.ball.face_identity  [identity] 1 - u.x = |x - u|^2/2 + (1 - |x|^2)/2 + (|u|^2 - 1)/2; with |u| = 1 and |x| <= 1, u.x = 1 iff x = u
+NOTE [written] s6.ball.SF_full  -- every proper effect with a nonempty certain face is e = 1 - lam(1 - u.x), lam > 0, |u| = 1 (alpha + |beta| = 1, u = beta/|beta|), so by ball.face_identity its certain face is {u}: SF'(full) holds.  Kernel route: strictConvex_closedBall -> RSC -> SF for every family (L5, L7)
+PASS s6.ball.face.(3/5,4/5,0)  [sample]
+PASS s6.ball.face.(0,3/5,4/5)  [sample]
+PASS s6.ball.face.(1,0,0)  [sample]
+PASS s6.ball.face.(2/3,2/3,1/3)  [sample]
+PASS s6.ball.face.(2/7,3/7,6/7)  [sample]
+PASS s6.ball.face.(1/3,2/3,2/3)  [sample]
+PASS s6.ball.face.(12/13,3/13,4/13)  [sample]
+PASS s6.ball.face.(1/9,4/9,8/9)  [sample]
+PASS s6.ball.face.(-2/3,1/3,-2/3)  [sample]
+PASS s6.ball.face.(0,-1,0)  [sample]
+PASS s6.ball.face.(-4/9,-7/9,4/9)  [sample]
+PASS s6.ball.face.(6/7,-2/7,-3/7)  [sample]
+PASS s6.ball.boundary_is_sphere  [sample] for |x| = 1 the witness y = -x gives x + eps(2x) of norm 1 + 2eps > 1: sphere points are boundary states
+NOTE [written] s6.ball.SEC_full  -- at |x| = 1 the effect (1 + x.y)/2 is proper (0 at y = -x) and certain at x: SEC'(full) holds
+PASS s6.ball.old_SF_false  [witness] old (KINF-1 frozen) SF failed on the ball with full effects via the unit (two distinct certain states); corrected SF holds
+PASS s6.ball.N  [witness] flow = R_z(t) (a group of ball automorphisms), N = R_z(pi) involutive and moving (1,0,0)
+PASS s6.ball.J_off_axis_on_Om  [witness] J = R_x(pi/2): the conjugate of R_z(pi/2) moves the state e3, which every R_z(s) fixes: Drive'(ball) holds
+NOTE [written] s6.ball.verdict  -- SEC'(full), SF'(full), RSC and Drive' all hold: the hypotheses of the corrected Lemma C and of the corrected strictConvex_of_kInf1 are jointly satisfiable with full effects (non-vacuity; under KINF-1 they were not)
+-- 6b. the disk (rebit): the J clause, frozen vs corrected --
+PASS s6.disk.frozen.J_into  [sample] |x/2 + (1/2,0)| <= 1/2 + 1/2: the contraction J maps the disk into itself (decisive by the triangle inequality)
+PASS s6.disk.frozen.J_off_axis  [witness] J^-1 R90 J moves the centre; every rotation fixes it: the FROZEN clause holds for the rebit with a genuine rotation group as flow (defect D1b: J need only map Om into Om)
+PASS s6.disk.corrected.J_normalizes  [identity] for J in Aut(disk) = O(2) the conjugate of R_t is R_t or R_-t, on the flow: Drive'(disk) fails (rebit excluded)
+PASS s6.disk4.J_identity_on_Om  [sample] J = (p + Aq, q) is the identity on Om = disk x {0}
+PASS s6.disk4.frozen.J_off_axis_on_V  [witness] J^-1 (R90 (+) R90) J moves (0,0,1,0) off what any R_s (+) R_s gives there (first block 0): the V-level clause holds although J is trivial on Om (defect D3); the clause must compare on Om
+== 7. SIC ball on four ontic states (Main.md four-state model) ==
+PASS s7.sic.unit_response_is_unit  [sample] c = (1,1,1,1) is the unit on the ball (sum p_i = 1): old (KINF-1 frozen) SEC held at every frontier point via it
+PASS s7.sic.all_positive  [sample] at each rational sphere point every p_i > 0
+NOTE [written] s7.sic.SEC_response_fails  -- so a response effect certain there has c = (1,1,1,1) (response_eq_one_forces), i.e. it is the unit, not proper: SEC'(response) FAILS at every such pure state.  The ball is drivable (section 6), so KInf1'(ball, response) is FALSE, while the frozen KInf1(ball, response) was TRUE via the unit
+PASS s7.sic.tangency.0  [witness] the response effect 1 - p_0 is proper and certain at the tangency point -a_0: SEC' holds there
+PASS s7.sic.tangency.1  [witness] the response effect 1 - p_1 is proper and certain at the tangency point -a_1: SEC' holds there
+PASS s7.sic.tangency.2  [witness] the response effect 1 - p_2 is proper and certain at the tangency point -a_2: SEC' holds there
+PASS s7.sic.tangency.3  [witness] the response effect 1 - p_3 is proper and certain at the tangency point -a_3: SEC' holds there
+NOTE [written] s7.sic.SF_response  -- SF'(response) holds because the ball is RSC and RSC gives SF' for every family (L5); exposed points by proper response effects = the four tangency points (F2 attained)
+PASS s7.sic.R4.maximally_mixed_not_interior  [witness] in R^4 the body lies in the hyperplane sum p = 1, so its V-interior is empty and the maximally mixed state is a V-frontier point
+NOTE [written] s7.sic.R4.only_improper_certain  -- the maximally mixed state is not an algebraic boundary state (in Bloch coordinates 0 - eps y stays in the ball), so by section 1 (ii) every effect certain there is 1 on the whole body: a V-frontier SEC' FAILS for full effects and KInf1'(SIC body in R^4, full) would be FALSE, while KInf1'(ball in R^3, full) is TRUE.  The algebraic boundary removes this dependence on the ambient space
+== 8. Caratheodory orbitope C_2 = conv{(cos t, sin t, cos 2t, sin 2t)}: exact capacity-three triple in Q(sqrt3) ==
+PASS s8.c2.unit  [identity] sum_i e_i = 1 as affine functionals
+PASS s8.c2.delta.00  [witness]
+PASS s8.c2.delta.01  [witness]
+PASS s8.c2.delta.02  [witness]
+PASS s8.c2.delta.10  [witness]
+PASS s8.c2.delta.11  [witness]
+PASS s8.c2.delta.12  [witness]
+PASS s8.c2.delta.20  [witness]
+PASS s8.c2.delta.21  [witness]
+PASS s8.c2.delta.22  [witness]
+PASS s8.c2.product_identity.0.u=0  [sample]
+PASS s8.c2.nonneg.0.u=0  [sample]
+PASS s8.c2.product_identity.0.u=1  [sample]
+PASS s8.c2.nonneg.0.u=1  [sample]
+PASS s8.c2.product_identity.0.u=-1  [sample]
+PASS s8.c2.nonneg.0.u=-1  [sample]
+PASS s8.c2.product_identity.0.u=1/2  [sample]
+PASS s8.c2.nonneg.0.u=1/2  [sample]
+PASS s8.c2.product_identity.0.u=2  [sample]
+PASS s8.c2.nonneg.0.u=2  [sample]
+PASS s8.c2.product_identity.0.u=-3  [sample]
+PASS s8.c2.nonneg.0.u=-3  [sample]
+PASS s8.c2.product_identity.0.u=1/3  [sample]
+PASS s8.c2.nonneg.0.u=1/3  [sample]
+PASS s8.c2.product_identity.0.u=5/7  [sample]
+PASS s8.c2.nonneg.0.u=5/7  [sample]
+PASS s8.c2.product_identity.0.u=-7/4  [sample]
+PASS s8.c2.nonneg.0.u=-7/4  [sample]
+PASS s8.c2.product_identity.0.u=3  [sample]
+PASS s8.c2.nonneg.0.u=3  [sample]
+PASS s8.c2.product_identity.0.u=-2/9  [sample]
+PASS s8.c2.nonneg.0.u=-2/9  [sample]
+PASS s8.c2.product_identity.0.u=11/3  [sample]
+PASS s8.c2.nonneg.0.u=11/3  [sample]
+PASS s8.c2.product_identity.1.u=0  [sample]
+PASS s8.c2.nonneg.1.u=0  [sample]
+PASS s8.c2.product_identity.1.u=1  [sample]
+PASS s8.c2.nonneg.1.u=1  [sample]
+PASS s8.c2.product_identity.1.u=-1  [sample]
+PASS s8.c2.nonneg.1.u=-1  [sample]
+PASS s8.c2.product_identity.1.u=1/2  [sample]
+PASS s8.c2.nonneg.1.u=1/2  [sample]
+PASS s8.c2.product_identity.1.u=2  [sample]
+PASS s8.c2.nonneg.1.u=2  [sample]
+PASS s8.c2.product_identity.1.u=-3  [sample]
+PASS s8.c2.nonneg.1.u=-3  [sample]
+PASS s8.c2.product_identity.1.u=1/3  [sample]
+PASS s8.c2.nonneg.1.u=1/3  [sample]
+PASS s8.c2.product_identity.1.u=5/7  [sample]
+PASS s8.c2.nonneg.1.u=5/7  [sample]
+PASS s8.c2.product_identity.1.u=-7/4  [sample]
+PASS s8.c2.nonneg.1.u=-7/4  [sample]
+PASS s8.c2.product_identity.1.u=3  [sample]
+PASS s8.c2.nonneg.1.u=3  [sample]
+PASS s8.c2.product_identity.1.u=-2/9  [sample]
+PASS s8.c2.nonneg.1.u=-2/9  [sample]
+PASS s8.c2.product_identity.1.u=11/3  [sample]
+PASS s8.c2.nonneg.1.u=11/3  [sample]
+PASS s8.c2.product_identity.2.u=0  [sample]
+PASS s8.c2.nonneg.2.u=0  [sample]
+PASS s8.c2.product_identity.2.u=1  [sample]
+PASS s8.c2.nonneg.2.u=1  [sample]
+PASS s8.c2.product_identity.2.u=-1  [sample]
+PASS s8.c2.nonneg.2.u=-1  [sample]
+PASS s8.c2.product_identity.2.u=1/2  [sample]
+PASS s8.c2.nonneg.2.u=1/2  [sample]
+PASS s8.c2.product_identity.2.u=2  [sample]
+PASS s8.c2.nonneg.2.u=2  [sample]
+PASS s8.c2.product_identity.2.u=-3  [sample]
+PASS s8.c2.nonneg.2.u=-3  [sample]
+PASS s8.c2.product_identity.2.u=1/3  [sample]
+PASS s8.c2.nonneg.2.u=1/3  [sample]
+PASS s8.c2.product_identity.2.u=5/7  [sample]
+PASS s8.c2.nonneg.2.u=5/7  [sample]
+PASS s8.c2.product_identity.2.u=-7/4  [sample]
+PASS s8.c2.nonneg.2.u=-7/4  [sample]
+PASS s8.c2.product_identity.2.u=3  [sample]
+PASS s8.c2.nonneg.2.u=3  [sample]
+PASS s8.c2.product_identity.2.u=-2/9  [sample]
+PASS s8.c2.nonneg.2.u=-2/9  [sample]
+PASS s8.c2.product_identity.2.u=11/3  [sample]
+PASS s8.c2.nonneg.2.u=11/3  [sample]
+PASS s8.c2.product_identity.symbolic.0  [identity] e_0 = (4/9)(1 - cos(t - t_j))(1 - cos(t - t_k)) at every point of the circle (rational parametrization in u, and t = pi); each factor is >= 0 since |cos(t - s)| <= 1, so e_0 >= 0 on every generator
+PASS s8.c2.product_identity.symbolic.1  [identity] e_1 = (4/9)(1 - cos(t - t_j))(1 - cos(t - t_k)) at every point of the circle (rational parametrization in u, and t = pi); each factor is >= 0 since |cos(t - s)| <= 1, so e_1 >= 0 on every generator
+PASS s8.c2.product_identity.symbolic.2  [identity] e_2 = (4/9)(1 - cos(t - t_j))(1 - cos(t - t_k)) at every point of the circle (rational parametrization in u, and t = pi); each factor is >= 0 since |cos(t - s)| <= 1, so e_2 >= 0 on every generator
+PASS s8.c2.capacity3  [witness] three distinct extreme points x(0), x(2pi/3), x(4pi/3); e_i >= 0 on C_2 by the identity, sum_i e_i = 1, hence e_i <= 1; e_i(x(t_j)) = delta_ij: perfectly distinguishable with full effects
+PASS s8.c2.not_centrally_symmetric  [witness] e_0(-x(0)) = 2 alpha_0 - 1 = -1/3 < 0 while e_0 >= 0 on C_2: -x(0) is not in C_2, so C_2 is not centrally symmetric about 0
+NOTE [written] s8.c2.centre_is_0  -- a centre of symmetry c is unique (two point reflections compose to a translation by twice their difference, which preserves no bounded set unless trivial) and so is fixed by the automorphisms (x0,x1;x2,x3) -> (R_s(x0,x1); R_2s(x2,x3)), whose only common fixed point is 0; with c2.not_centrally_symmetric, C_2 is centrally symmetric about no point, and Lemma D does not apply: capacity three is consistent with full effects only because its central-symmetry hypothesis fails
+== 9. regular pentagon in Q(sqrt5): capacity 2, strongly self-dual, frame-transitive, not centrally symmetric, SF fails ==
+PASS s9.pent.affine_regular  [identity] centroid 0, P_{k+1} + P_{k-1} = 2 cos72 P_k for every k, P_0 and P_1 independent: P is a linear image of the regular pentagon, so every affine (and cone-linear) invariant below is the regular pentagon's
+PASS s9.pent.convex_position  [enumerate] every consecutive vertex triple turns the same way, strictly: five extreme points, no three collinear
+PASS s9.pent.frames  [enumerate] the ordered perfectly distinguishable vertex pairs (frames) are exactly the 10 distance-2 and distance-3 pairs; adjacent vertices are not distinguishable
+PASS s9.pent.capacity_ge_2  [witness] an affine e with 0 <= e <= 1 on the vertices, e(v0) = 1, e(v2) = 0: v0, v2 perfectly distinguishable by e, 1 - e
+PASS s9.pent.capacity_le_2  [enumerate] none of the 10 vertex triples is perfectly distinguishable with full effects: every triangle of vertices leaves a vertex with a negative barycentric coordinate
+NOTE [written] s9.pent.capacity_reduction  -- if states w_1, w_2, w_3 are perfectly distinguishable by e_1 + e_2 + e_3 = 1, each w_i is a mixture of vertices on which e_i = 1, hence e_j = 0 for j != i; one such vertex per i gives three perfectly distinguishable vertices.  So pent.capacity_le_2 bounds the capacity of the body, not only of its vertices
+PASS s9.pent.aut_count  [enumerate] of the 60 ordered vertex triples exactly 10 extend to affine automorphisms: Aut = D5
+PASS s9.pent.frame_transitive  [enumerate] the D5-orbit of the ordered frame (0,2) is all 10 ordered frames: Aut acts transitively on ordered frames
+PASS s9.pent.pure_transitive  [enumerate] Aut is transitive on the vertices
+PASS s9.pent.not_centrally_symmetric  [enumerate] a point reflection x -> 2c - x preserving the body is an affine automorphism with linear part -I; none of the 10 has it, so the pentagon is centrally symmetric about no point (Lemma D does not apply)
+PASS s9.pent.strongly_self_dual  [enumerate] G = diag((1+sqrt5)/4, 1, 1) is positive definite, every Gram entry a + cos(72(i-j)) is >= 0 (K in K^G), and every facet normal is a ray of K (K^G in K): K = K^G
+PASS s9.pent.edge_effect.valid  [witness] the affine e with e = 1 on v0, v1 and e(v3) = 0 lies in [0,1] at every vertex: an effect with full effects
+PASS s9.pent.edge_effect.proper  [witness] e(v3) = 0 < 1: proper on the body
+PASS s9.pent.SF_fails  [witness] e is certain on the two distinct states v0, v1, hence on the whole edge [v0, v1]: SF'(full) fails
+NOTE [written] s9.pent.verdict  -- capacity 2 with full effects, strongly self-dual and transitive on ordered frames, yet SF fails: these three premises together do not give SF
+== 10. degenerate bodies ==
+NOTE [written] s10.degenerate.empty  -- Om empty: no boundary state, no proper effect: SEC', SF', RSC vacuous; Drive' impossible (N_moves). Harmless
+NOTE [written] s10.degenerate.singleton  -- Om = {p}: p is not a boundary state (y = p only), no effect is proper: SEC', SF', RSC vacuous; Drive' impossible. Harmless (old SEC used the unit at p; old SF held)
+NOTE [written] s10.degenerate.open_body  -- Om = open square: no boundary states, and no proper effect is certain on any state (section 1 (ii)): SEC' and SF' hold VACUOUSLY and RSC holds.  Any premise must carry IsCompact (or closed and bounded); Mathlib likewise makes every open convex set StrictConvex (Convex.strictConvex_of_isOpen)
+PASS s10.degenerate.segment  [witness] classical bit [-1,1]: SEC'(full), SF'(full), RSC hold (a 1-dim body is strictly convex); excluded only by drivability (a path from 1 to -1 in the injective affine maps of a line crosses 0, frozen and corrected alike)
+PASS s10.degenerate.triangle  [witness] classical trit: SF'(full) fails (1 - y is proper and certain on the edge y = 0); not drivable in either version (its involutions reverse orientation on its span)
+== 11. route neutrality: self-duality and homogeneity do not give RSC without a rank-two premise ==
+PASS s11.rqutrit.SF_fails  [witness] the real qutrit (symmetric cone) has a proper effect certain on two distinct pure states: SF fails, not RSC; so a self-duality/homogeneity route reaches RSC only with capacity (rank) two -- the slot must be RSC itself
+NOTE [written] s11.trit.self_dual_homogeneous_not_RSC  -- the classical trit (orthant cone, homogeneous and self-dual) is not RSC either (section 10)
+-- 11b. Lean convention for the off-axis clause: (J.symm.trans (flow t)).trans J = J o flow t o J^-1 --
+PASS s11.lean_convention.square  [witness] J o R90 o J^-1 sends the state 0 to (1/2,-1/2): the frozen clause holds in the Lean composition order too
+PASS s11.lean_convention.ball  [witness] J o R_z(pi/2) o J^-1 moves e3 as well
+== 12. countercontrols: each mutated predicate, identity or enumeration must give the opposite verdict ==
+PASS s12.cc.syntactic_proper_defeats_SF  [witness] mutation: properness tested on V instead of Om reproduces the KINF-1 defect
+PASS s12.cc.ball_identity_needs_unit_u  [witness] dropping (|u|^2 - 1)/2 breaks the identity
+PASS s12.cc.boundary_direct  [witness] centre: every extension stays inside (not boundary); (1,0): the extension away from (-1,0) leaves
+PASS s12.cc.automorphism_J_normalizes_square  [witness] with J a square automorphism the conjugate of R90 is R(-90), a symmetry fixing 0 (no translation): the off-axis witness in 3b exists only because J may be a non-surjective contraction
+PASS s12.cc.sic_full_effect_certain  [sample] the full effect (1 + r.x)/2 is proper and certain at each rational sphere point where every response effect fails
+PASS s12.cc.kite_aut  [enumerate] the same enumeration on a kite finds 2 automorphisms (id and the mirror), not 8
+PASS s12.cc.pent_enumeration_finds_point_reflection  [enumerate] run on the square, the enumeration behind pent.aut_count and pent.not_centrally_symmetric finds 8 automorphisms, one of them x -> -x: the pentagon verdict is not an artifact of the enumeration
+PASS s12.cc.capacity_test_detects_simplex  [enumerate] run on a triangle listed with two edge midpoints, the test behind pent.capacity_le_2 finds the corner triple (the midpoints get nonnegative barycentric coordinates) and rejects every triple containing a midpoint
+kinds: identity 25, witness 55, enumerate 16, sample 96
+kinf2_foundations_probe: OK -- 192 checks

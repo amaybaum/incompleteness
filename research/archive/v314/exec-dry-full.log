@@ -1,0 +1,150 @@
+F 4e55215eafb12ab8f2e1ca3effccfe81bb0e2820; 21 frozen stage-file blobs read from the preregistration at F
+PASS  C1 retire.py has its frozen blob  f2e49fc6a39de15d3fd653502a4946f2406a5016
+PASS  C1 messages.json has its frozen blob  96e82a37fe24342a2022829ae78fbf1cd9f0e888
+PASS  C1 headers.json has its frozen blob  8c727cad183a54048064013b3805013d35ed9fc1
+PASS  C1 controls.py has its frozen blob  0282cbeedd18d67e4746427a9ded9c3b60b7a855
+PASS  C1 preserve.py has its frozen blob  e2e275aca4bc228228fd9e865047ad0fba0776d7
+PASS  C1 ledger.json has its frozen blob  79a1645d484b2d7ef71b871a612e8d36aafe8e60
+stage 1 = 6b7cafa463b0286b0756ba010ddc8e50d5624e82
+PASS  C1 controls.py --self-test  controls: self-test OK
+  retire: 1616 predicates retired, 1610 as the census classes them and 6 by the amendment; 2486 retained
+  retire: structural rows: 15 removed with the emptied checks, 85 kept
+  retire: 2 statement(s) kept inside surviving module-level blocks
+  retire: 3904 statements removed directly, 3 dead-code rounds, 35099 lines -> 14817 lines
+  retire: 91 checks remain; emptied: R7-ABR, R7-ARCH, R7-BRIDGE, R7-CV1, R7-DILCH, R7-DILMAP, R7-GR1, R7-GR2, R7-RBR, R7-SI1, R7-SI2, R7-SI3, R7-SRCA, R7-VIS
+  retire: retained predicates missing: 0
+PASS  C2 retire.py prints the five frozen lines
+PASS  C2 the ledger it writes is ledger.json byte for byte
+PASS  C2 the guard has its frozen blob  8dad60d0aac870fced7deeec44c0dbdfcb3d45de
+PASS  C2 the guard compiles
+stage 2 = d0c5ddea97744552e3ef24d14d0594731f693f1c
+  L1  holds  556 splice(s)
+  L2  holds  reconstruction from D and the ledger
+  S1  holds  1616 predicates retired, 2486 retained; 1631 rows in splices, 2571 outside
+  S2  holds  257 retained function(s) untouched
+  S3  holds  1635 control-flow statement(s), 1228 removed with their governing block
+  S4  holds  10 regression site(s) preserved
+  S5  holds  452 surviving module-level block(s), no dead code removed from them
+  S6  holds  49 removed in-place change(s), none to an object a survivor reads
+  preserve: all hold
+PASS  C2 preserve  preserve: all hold
+PASS  C2 preserve --self-test  preserve: self-test OK
+  CHECK  L1  holds  461 splice(s)
+  CHECK  L2  holds  reconstruction from D and the ledger
+  CHECK  S1  holds  1616 predicates retired, 2486 retained; 1631 rows in splices, 2571 outside
+  CHECK  S2  FAILS  257 retained function(s) untouched; rank edited, grow edited, _os_decl edited
+  CHECK  S3  FAILS  1635 control-flow statement(s), 1215 removed with their governing block; Return at 7324, Return at 28416, Return at 7330
+  CHECK  S4  FAILS  0 regression site(s) preserved; lines 180, 181, 193, 292, 232, 233, 304, 305, 25309, 25310, 26777, 26778, 14250, 14251, 14252, 16548, 16549, 16550, 16551, 19401, 19402, 19403, 19404
+  CHECK  S5  FAILS  449 surviving module-level block(s), no dead code removed from them; If at 180, Break at 193, Assign at 292, Assign at 2128
+  CHECK  S6  FAILS  52 removed in-place change(s), none to an object a survivor reads; Assign at 14252, Expr at 16550, Expr at 19403
+  v313: the checker rejects V3-13's guard, naming all ten sites
+PASS  C2 controls v313  v313: the checker rejects V3-13's guard, naming all ten sites
+PASS  C2 controls history d0c5ddea  history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  C2 controls history 378073fa  history: 56 file(s) run by the probes job (56 named), 213 history site(s)
+  PREDICATE  R7-PC4S line 17854  holds
+  PREDICATE  R7-PC4S line 17999  holds
+  PREDICATE  R7-PC4S line 18000  holds
+  PREDICATE  R7-PC4S line 18001  holds
+  READ  verification/migration-manifest.json  lookup
+  READ  verification/seals/A12P.json  legacy record
+  READ  verification/seals/A6D.json  legacy record
+  READ  verification/seals/A6I.json  legacy record
+  READ  verification/seals/A6P.json  legacy record
+  READ  verification/seals/ABR.json  legacy record
+  READ  verification/seals/CGR.json  legacy record
+  READ  verification/seals/CLG.json  legacy record
+  READ  verification/seals/CTI.json  legacy record
+  READ  verification/seals/HYA.json  legacy record
+  READ  verification/seals/HYB.json  legacy record
+  READ  verification/seals/HYE.json  legacy record
+  READ  verification/seals/NLV.json  legacy record
+  READ  verification/seals/OGC.json  legacy record
+  READ  verification/seals/OGS.json  legacy record
+  READ  verification/seals/OLG.json  legacy record
+  READ  verification/seals/OLN.json  legacy record
+  READ  verification/seals/OLT.json  legacy record
+  READ  verification/seals/PC4.json  legacy record
+  READ  verification/seals/PC4S.json  legacy record
+  READ  verification/seals/PFR.json  legacy record
+  READ  verification/seals/PQT.json  legacy record
+  READ  verification/seals/PRA.json  legacy record
+  READ  verification/seals/RBR.json  legacy record
+  READ  verification/seals/RNC.json  legacy record
+  READ  verification/seals/RNT.json  legacy record
+  READ  verification/seals/SGT.json  legacy record
+  READ  verification/seals/SI1.json  legacy record
+  READ  verification/seals/SI2.json  legacy record
+  READ  verification/seals/SI3.json  legacy record
+  READ  verification/seals/TCF.json  legacy record
+  READ  verification/seals/TRJ.json  legacy record
+  READ  verification/seals/TSG.json  legacy record
+  READ  verification/seals/WTS.json  legacy record
+  READ  verification/seals/XTS.json  legacy record
+  LISTED  verification/seals  closed namespace
+  COUNTERCONTROL  one byte of verification/seals/PC4.json changed: line 17854 FAILS
+  pc4s: 4 predicate(s) all hold; 35 file(s) read, 34 legacy record(s); 1 directory listing(s); legacy bytes only
+PASS  C2 controls pc4s 378073fa  pc4s: 4 predicate(s) all hold; 35 file(s) read, 34 legacy record(s); 1 directory listing(s); legacy bytes only
+  EVAL  1,610 _olt_supersessions on the guard: holds
+  EVAL  1,610 _olt_supersessions on the sought strings removed outside it: holds
+  EVAL  1,610 _olt_supersessions on its own definition alone: holds
+  COUNTERCONTROL  _olt_supersessions on a text without its strings: FAILS
+  EVAL  1,610 _olt_supersessions: 0 occurrence(s) of its strings outside its definition
+  EVAL  1,610 _oln_supersession on the guard: holds
+  EVAL  1,610 _oln_supersession on the sought strings removed outside it: holds
+  EVAL  1,610 _oln_supersession on its own definition alone: holds
+  COUNTERCONTROL  _oln_supersession on a text without its strings: FAILS
+  COUNTERCONTROL  _oln_supersession on the guard with the forbidden statement appended: FAILS
+  EVAL  1,610 _oln_supersession: 0 occurrence(s) of its strings outside its definition
+  NOTE  D     _olt_supersessions on the guard: holds
+  NOTE  D     _olt_supersessions on the sought strings removed outside it: holds
+  NOTE  D     _olt_supersessions on its own definition alone: holds
+  NOTE  D     _olt_supersessions: 10 occurrence(s) of its strings outside its definition
+  NOTE  D     _oln_supersession on the guard: holds
+  NOTE  D     _oln_supersession on the sought strings removed outside it: holds
+  NOTE  D     _oln_supersession on its own definition alone: holds
+  NOTE  D     _oln_supersession: 1 occurrence(s) of its strings outside its definition
+  vacuity: both predicates hold whatever the rest of the 1,610 guard says
+PASS  C2 controls vacuity d0c5ddea 378073fa  vacuity: both predicates hold whatever the rest of the 1,610 guard says
+PASS  C3 verification/infrastructure/legacy-records.json has its frozen blob  9e48bd31797e1673f03807e699a10ae4a0b960c7
+PASS  C3 tools/legacy_records_check.py has its frozen blob  cd1a56c4177a3272a28229df9ecf838b8b331f14
+PASS  C3 tools/release_gate.py has its frozen blob  bd1a58dd4ba607cb4ca762dadc4793a45a233ae7
+PASS  C3 .github/workflows/verify.yml has its frozen blob  ebef32b9fe565ebe2b17322a35b5e97bcc091b44
+stage 3 = 8f9e173b7bbb4be36499b4d57b03a269c5f72c3c
+PASS  C3 the manifest is byte-identical to V3-12's
+PASS  C3 legacy-records at stage 3  LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  C3 legacy-records at stage 2 fails, the manifest absent  LEGACY  FAILS  manifest-absent
+PASS  C3 callers at stage 3  callers: 0
+PASS  C3 v3_verifier --self-test  v3_verifier: self-test OK
+PASS  C3 v3_verifier --corpus  CORPUS  135 vector(s), exact and as expected
+PASS  C4 v3_verifier.py has its frozen blob  681c673734427cb9f316feee09b7c5ffba348004
+PASS  C4 architecture.md has its frozen blob  34bfabb339ca695e6857fa37c788a95a39e7de77
+PASS  C4 g12-admit-execution-changes-legacy-seal-namespace.json has its frozen blob  f0207794af2eaf6f2c43a7ecd932589aaab51d44
+PASS  C4 g13-admit-records-unchanged-after-later-commit.json has its frozen blob  3c8f396a5fe0db70519328cf31082225f0143e19
+PASS  C4 g13-reject-record-file-added-after-landing.json has its frozen blob  6a4a28fc793abe165b8c629465951643ad070231
+PASS  C4 g13-reject-record-file-deleted-after-landing.json has its frozen blob  311c119ee0c85345e7afcd1068617005d9f67ed6
+PASS  C4 g13-reject-record-file-modified-after-landing.json has its frozen blob  a474cb4792ab6ac72bea532f74bfcdf6efd615a9
+PASS  C4 g13-reject-seal-record-changed-after-landing.json has its frozen blob  7e55b7f3176b3707098e97e35b9204be12f996b4
+stage 4 = 9da017247303070e41ce6aeb5767fb2f0718b088
+PASS  C4 v3_verifier --self-test  v3_verifier: self-test OK
+PASS  C4 v3_verifier --corpus  CORPUS  140 vector(s), exact and as expected
+  callers: names removed from tools/v3_verifier.py: ATTESTATION_DIR, AXES, SETTLED, _axis, _strong, _v3only, project
+  callers: 0
+PASS  C4 callers at stage 4  callers: 0
+PASS  C5 AGENTS.md has its frozen blob  7931dc848133a19e0927dd1cd57b01002deeac07
+PASS  C5 verification/README.md has its frozen blob  1be9ab5b4242531025d438ca5db39427feeba859
+stage 5 = baea0a82e41617f0f27e07b1dc6b7cbcae90fa85
+PASS  C6 receipts at stage 1  RECEIPTS  4 receipt(s), all hold
+PASS  C6 receipts at stage 2  RECEIPTS  4 receipt(s), all hold
+PASS  C6 receipts at stage 3  RECEIPTS  4 receipt(s), all hold
+PASS  C6 legacy-records at stage 3  LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  C6 receipts at stage 4  RECEIPTS  4 receipt(s), all hold
+PASS  C6 legacy-records at stage 4  LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  C6 receipts at stage 5  RECEIPTS  4 receipt(s), all hold
+PASS  C6 legacy-records at stage 5  LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  stage 5 duplicate_check  duplicate_check: OK (no paragraph repeated within a file)
+PASS  stage 5 claims_check  claims_check: OK (no withdrawn result asserted unconditionally)
+PASS  stage 5 artifact_placement_check  artifact_placement_check: OK (no unaccounted root artifact; 95 name(s)
+PASS  stage 5 baseline_label_check  baseline_label_check: OK (no baseline archives named)
+PASS  stage 5 ci_gate_presence_test  ci_gate_presence_test: OK (CI runs the real release gate)
+PASS  stage 5 voice_scope_test  voice_scope_test: OK (6 scope case(s); the checker scans the manuscrip
+STAGES  6b7cafa463b0286b0756ba010ddc8e50d5624e82 d0c5ddea97744552e3ef24d14d0594731f693f1c 8f9e173b7bbb4be36499b4d57b03a269c5f72c3c 9da017247303070e41ce6aeb5767fb2f0718b088 baea0a82e41617f0f27e07b1dc6b7cbcae90fa85

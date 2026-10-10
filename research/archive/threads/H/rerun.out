@@ -1,0 +1,83 @@
+== BALL: what 'sharp normalization' means on the 3-ball (target of lorentz_of_effects NGB:105)
+  ok  BALL.x_on_sphere
+  ok  BALL.certain_at_x
+  ok  BALL.value_at_antipode_is_1-2beta
+  ok  BALL.sharp_iff_beta_half
+  ok  BALL.sharp_is_directional
+  NOTE SEC alone gives some beta in (0,1/2]; lorentz_of_effects consumes beta = 1/2 for every unit b. Field-neutrally, 'sharp' = the pair (e, u-e) perfectly distinguishes x from a second state (PerfectlyDistinguishable KF:154 with iota = Fin 2); on the ball the second state is forced to be -x.
+== CL: classical composite Delta_2 (x) Delta_2 = Delta_4 (min = max); U = all permutations
+  ok  CL.only_01_response_vectors
+  ok  CL.classical_sharp_effects_reached
+  NOTE Classical control passes: the classical composite manufactures nothing beyond 0/1 response effects (Resp of the ontic carrier), and does reach the simplex's own sharp vertex readouts. Landed typing: RevReal Equivalence.lean:157 (V x Hid, step bijection, init), marg FiniteEntropy.lean:130, RevReal.law Equivalence.lean:180, hiddenExt PassiveQuotient.lean:498.
+== HYB: ball (x) classical register = L3 (+) L3 (canonical: one factor a simplex)
+  ok  HYB.mixing_map_leaves_cone
+  ok  HYB.transport_constant_blockdiag
+  ok  HYB.transport_constant_blockswap
+  NOTE Written (cone-decomposition): extreme rays of L3 (+) L3 are those of the two blocks, two connected spheres; an automorphism permutes extreme rays homeomorphically, so maps each block onto a block. Hence every reversible U on ball (x) Delta_n is a block permutation of local automorphisms and r_k(D(U(A(s,delta_k0)))) is constant in s: transport through a classical register is vacuous on every body whose cone is indecomposable (ball, square, polygon, bidisk).
+== SIC: ontic-level Naimark on a fixed finite realization (realization dependence)
+  ok  SIC.tetrahedron
+  ok  SIC(t=1).seed_z_coefficients_identity
+  ok  SIC(t=1).seed_z_not_a_response
+  ok  SIC(t=1).seed_a1_coefficients_identity
+  ok  SIC(t=1).seed_a1_not_a_response
+  ok  SIC.matches_Main540_value
+  ok  SIC.tight.p0_vanishes_at_-a0
+  ok  SIC.tight.best_response_beta_quarter_0
+  ok  SIC.tight.p1_vanishes_at_-a1
+  ok  SIC.tight.best_response_beta_quarter_1
+  ok  SIC.tight.p2_vanishes_at_-a2
+  ok  SIC.tight.best_response_beta_quarter_2
+  ok  SIC.tight.p3_vanishes_at_-a3
+  ok  SIC.tight.best_response_beta_quarter_3
+  NOTE Tight SIC: only the 4 points -a_i are certain for a non-unit response; the best such effect 1 - p_i has beta = 1/4 (value 1/2 at the antipode), never 1/2: no sharp effect at ontic level.
+  ok  SIC(t=1/2).seed_z_coefficients_identity
+  ok  SIC(t=1/2).seed_z_not_a_response
+  ok  SIC(t=1/2).seed_a1_coefficients_identity
+  ok  SIC(t=1/2).seed_a1_not_a_response
+  ok  SIC.loose.min_p_is_1/8
+  NOTE Loose SIC (t=1/2): every p_i >= 1/8 on the ball, so by response_eq_one_forces (KF:899) no non-unit response effect is certain anywhere; ontic Naimark supports no boundary state.
+  NOTE Body-level transport (seed + Aut(ball)) gives the same family for both realizations; the ontic-level transport (classical composite) gives 4 unsharp supports (tight) or none (loose): realization-dependent.
+== MM: composite rules for two Bloch balls (min / QM / max), exact over Q(i)
+  ok  MM.Bell_in_QM
+  ok  MM.Bell_not_in_min(PPT)
+  ok  MM.SWAP/2_trace_one
+  ok  MM.SWAP/2_Pauli_coords_identity
+  NOTE SWAP/2 has Pauli coordinates T = I, so its product-effect values are (1 + u.v)/4 >= 0 for unit u, v (Cauchy-Schwarz): it lies in the max composite.
+  ok  MM.SWAP/2_not_in_QM
+  ok  MM.W2_trace_one_not_QM
+  ok  MM.CNOT_product_to_entangled(leaves_min)
+  ok  MM.CNOT_moves_max_element_outside_max
+  ok  MM.CNOT_maps_products_into_QM_subset_max
+  ok  MM.ZZ(pi/4)_product_to_entangled(leaves_min)
+  ok  MM.ZZ(pi/4)_moves_max_element_outside_max
+  ok  MM.ZZ(pi/4)_maps_products_into_QM_subset_max
+  ok  MM.SWAP_preserves_min_max_QM(products->products)
+  NOTE CNOT and the interacting ZZ member preserve neither the min nor the max composite of two Bloch balls; they preserve QM. NB-1's hypothesis (G, G^-1 send PRODUCT states into the max cone, NGB header) is weaker than preserving any composite and is met by CNOT. Literature (citation, theorem number unverified): de la Torre-Masanes-Short-Mueller PRL 109 090403 (2012): for locally tomographic d-ball composites a continuous interacting reversible dynamics forces d=3 and the QM composite.
+  ok  MM.SWAP_transport_relocates_seed
+  ok  MM.CNOT_Naimark_equals_seed
+  ok  MM.CNOT_after_local_g_equals_seed_o_g
+  NOTE Entangling Naimark transport of the sharp register readout yields exactly the seed composed with the local reversible map: the same family as SWAP-relocation + local orbit. The composite rule is irrelevant to the SHARP family; only the seed and the local group matter.
+== ORB: seed (1 + z.r)/2 transported by the ball's reversible maps (ball3Drive: rot about axis 2, cyc3)
+  ok  ORB.conjugate_is_rotation_about_other_axis
+  ok  ORB.g_orthogonal_det1
+  ok  ORB.g_maps_z_to_b
+  ok  ORB.transported_is_directional_b
+  ok  ORB.transported_sharp
+  ok  ORB.J_conjugate_axis_is_axis0
+  ok  ORB.word_orthogonal
+  ok  ORB.word_maps_z_to_b
+  ok  ORB.word_transport_directional
+  NOTE Written: rotations about axis 2 (flow) and their cyc3-conjugates generate SO(3) (Euler angles), transitive on the sphere, so the drive's generated group carries one sharp seed to every (1+b.r)/2. This is B9 (Thread F) with a singleton-face sharp seed; no composite is used.
+== SQ: gbit / square [-1,1]^2 control
+  ok  SQ.directional_family_not_effects
+  ok  SQ.Aut_is_D4_order8
+  ok  SQ.affine_Aut_order8_by_vertex_permutations
+  ok  SQ.vertex_seed_sharp_singleton
+  ok  SQ.vertex_seed_orbit_misses_edge_midpoint
+  ok  SQ.edge_seed_orbit_covers_boundary
+  ok  SQ.edge_seed_face_not_singleton
+  NOTE Square: Aut finite (D4) so no drive (F: B5) and every composite of squares (min: polytope with 16 product vertices; max: polyhedral) has finite Aut: no continuous U. A singleton-face sharp seed covers only the 4 vertices (edge midpoints get 3/4); an edge seed covers the boundary but with edge faces (SF fails, not_singletonFaces_square KF:726); the directional family is not even an effect family. The failing step is COVER: G x0 = extreme boundary fails (finite G; non-extreme boundary points). The ball passes it: all boundary points extreme, SO(3) from the drive transitive.
+== FUNCT: without pullback-closure the native seed alone does not give SEC on the ball
+  ok  FUNCT.seed_and_complement_half_at_(1,0,0)
+  NOTE {unit, seed, 1-seed} is closed under complement but not under pullback; at the boundary state (1,0,0) the only certain member is the unit, which is not proper: SEC fails (as not_kInf1_ball3_unit KF:1089). Closing under pullback by the drive's group restores every (1+b.r)/2 (ORB.word_*).
+OK -- 62 checks, 12 written notes

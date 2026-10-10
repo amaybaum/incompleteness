@@ -1,0 +1,9 @@
+PASS K0 transcription control
+FAIL T the finite twirl over S_3 x {zero-sum phases in (2 pi/4)Z} equals the Xi projection on all 64 units
+PASS A BS* cap Xi = {|c| <= u0 + u1}: explicit biproducts give 0 at |c| = u0 + u1 and < 0 at u0 + u1 + 1/10 (4 exact instances); symbolic: value - [two squares + 2xy(u0 + u1 - |c|)] = 0 under xy = zw (d = squares D^2)
+PASS B Tw(BS) = {|c| <= min(u0, 3 u1)}: dual formula exact at the vertices; twirled product |psi>^3 has |c| = u0 <= 3 u1 and twirled Phi+ (x) |+><+| has |c| = u0 = 3 u1 (both on the boundary)
+PASS C K_A restricted to GD cap Xi: the c-dependent inequalities reduce to |c| <= min(u0 + u1, 3 u1, u0/2 + 3u1/2) (minimal set [('0', '3'), ('1', '1'), ('1/2', '3/2')]; c-free forms 4); phi_A equals its dual on 35 exact sample points
+PASS D c = 1: B_tw* cap Xi bound |c| <= 2 u1 attained by explicit PT_3 biproducts (4 exact instances, countercontrol +1/10 negative); PT_2(Psi+) (x) |+><+| twirls to |c| = (3/2) u1 with u0 = 0; K_tw (36 generators) restricted to GD cap Xi gives |c| <= min(2 u1, u0/2 + 3 u1/2) (minimal set [('0', '2'), ('1/2', '3/2')]), self-dual on 35 exact sample points
+PASS E Maclaurin: e1 e2 - 9 e3 = sum_cyc mu_k (mu_i - mu_j)^2 (symbolic); so (e1/3)(e2/3) >= e3 and the twirled diagonal filters raise u1 at least by sqrt(mu1 mu2 mu3)
+--- s5_xi_sector: 6/7 checks pass
+VERDICT NOT RENDERED

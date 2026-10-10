@@ -1,0 +1,6 @@
+(a) G(1,1,-1,1) == cnot on a symbolic table: True
+(b) frame (symbolic s,t): True
+(b) relC (symbolic s,t): True
+(b) relT (symbolic s,t): True
+(c) F formula (pairVal(hom u, b, G prodState x y) = diag + coherence): True
+(d) G^-1 = G(1/s1, 1/s2, -1/t2, -1/t1): True True

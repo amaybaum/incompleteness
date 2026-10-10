@@ -1,0 +1,49 @@
+proof-coverage baseline
+====================================================================
+area                    K3    K2    K1     P   GAP   total
+computation              0     0     0     0     2       2
+equivalence-chain        4     0     0    10     0      14
+gr                       4     4     0     0    14      22
+locality-combs           2     0     0     0     4       6
+memory-conditions        2     0     0    10     0      12
+oi-foundations           3     0     0     1     5       9
+reconstruction           2     1     0     0     9      12
+sm                       6     2     0     7    25      40
+--------------------------------------------------------------------
+TOTAL                   23     7     0    28    59     117
+excluded from the denominator: DEF 8, SUM 1, MIRROR 3
+kernel coverage: 30/117 (25.6%)   machine coverage: 58/117 (49.6%)
+probes named by the ledger: 69, of which 29 are NOT run by CI
+kernel backlog: 1 ranked targets, tier 6 x1
+     1. GR:T-d-gauge-completeness-two-branch  (medium/high)
+    ungated: papers/oi_lattice_code/coherence/coherence_enumeration.py
+    ungated: papers/oi_lattice_code/coherence/coherence_theorem_tests.py
+    ungated: papers/oi_lattice_code/foundations/c1_cp_scope_probes.py
+    ungated: papers/oi_lattice_code/foundations/c2_mixing_probes.py
+    ungated: papers/oi_lattice_code/foundations/c3_dilation_probes.py
+    ungated: papers/oi_lattice_code/foundations/c4_backflow_probes.py
+    ungated: papers/oi_lattice_code/foundations/chirality_grading_probes.py
+    ungated: papers/oi_lattice_code/foundations/condensate_space_probes.py
+    ungated: papers/oi_lattice_code/foundations/equivalence_recovery_probes.py
+    ungated: papers/oi_lattice_code/foundations/fastbath_probes.py
+    ungated: papers/oi_lattice_code/foundations/hchi_selectivity_probes.py
+    ungated: papers/oi_lattice_code/foundations/hchiprime_probes.py
+    ungated: papers/oi_lattice_code/foundations/hspin4d_probes.py
+    ungated: papers/oi_lattice_code/foundations/hspin_kernel_probes.py
+    ungated: papers/oi_lattice_code/foundations/hspin_labels_probes.py
+    ungated: papers/oi_lattice_code/foundations/lg_comb_probes.py
+    ungated: papers/oi_lattice_code/foundations/memory_probes.py
+    ungated: papers/oi_lattice_code/foundations/nogo_probes.py
+    ungated: papers/oi_lattice_code/foundations/observer_isotropy_probes.py
+    ungated: papers/oi_lattice_code/foundations/opglue_probes.py
+    ungated: papers/oi_lattice_code/foundations/primitive_probes.py
+    ungated: papers/oi_lattice_code/foundations/process_dilation_probes.py
+    ungated: papers/oi_lattice_code/foundations/purification_probes.py
+    ungated: papers/oi_lattice_code/foundations/repconsistency_probes.py
+    ungated: papers/oi_lattice_code/foundations/review3_probes.py
+    ungated: papers/oi_lattice_code/foundations/review4_probes.py
+    ungated: papers/oi_lattice_code/foundations/sdq_probes.py
+    ungated: papers/oi_lattice_code/foundations/tdilate_probes.py
+    ungated: papers/oi_lattice_code/foundations/translation_probes.py
+
+coverage_check: OK (129 canonical statements, 19 unattached checkers)

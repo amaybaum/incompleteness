@@ -1,0 +1,400 @@
+2026-10-09T18:15:33.8751456Z From https://github.com/amaybaum/incompleteness
+2026-10-09T18:15:33.8753352Z  * [new ref]         abb9151655531e1ef66e1ea5e80a0d2db8a1316d -> origin/claude/kt4-prem-1-predicted
+2026-10-09T18:15:33.8757092Z ##[endgroup]
+2026-10-09T18:15:33.8758756Z ##[group]Determining the checkout info
+2026-10-09T18:15:33.8760412Z ##[endgroup]
+2026-10-09T18:15:33.8765786Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T18:15:33.8823175Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T18:15:33.8858661Z ##[group]Checking out the ref
+2026-10-09T18:15:33.8862556Z [command]/usr/bin/git checkout --progress --force -B claude/kt4-prem-1-predicted refs/remotes/origin/claude/kt4-prem-1-predicted
+2026-10-09T18:15:34.1109215Z Switched to a new branch 'claude/kt4-prem-1-predicted'
+2026-10-09T18:15:34.1113685Z branch 'claude/kt4-prem-1-predicted' set up to track 'origin/claude/kt4-prem-1-predicted'.
+2026-10-09T18:15:34.1126764Z ##[endgroup]
+2026-10-09T18:15:34.1172894Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T18:15:34.1199272Z abb9151655531e1ef66e1ea5e80a0d2db8a1316d
+2026-10-09T18:15:34.1472813Z ##[group]Run actions/setup-python@v5
+2026-10-09T18:15:34.1473206Z with:
+2026-10-09T18:15:34.1473653Z   python-version: 3.11
+2026-10-09T18:15:34.1473953Z   check-latest: false
+2026-10-09T18:15:34.1476363Z   token: ***
+2026-10-09T18:15:34.1476635Z   update-environment: true
+2026-10-09T18:15:34.1476931Z   allow-prereleases: false
+2026-10-09T18:15:34.1477211Z   freethreaded: false
+2026-10-09T18:15:34.1477468Z ##[endgroup]
+2026-10-09T18:15:34.2766848Z ##[group]Installed versions
+2026-10-09T18:15:34.2912601Z (node:2368) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-09T18:15:34.2913938Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-09T18:15:34.2914759Z Successfully set up CPython (3.11.17)
+2026-10-09T18:15:34.2915671Z ##[endgroup]
+2026-10-09T18:15:34.3089451Z ##[group]Run pip install sympy==1.14.0
+2026-10-09T18:15:34.3090158Z [36;1mpip install sympy==1.14.0[0m
+2026-10-09T18:15:34.3431859Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:15:34.3432345Z env:
+2026-10-09T18:15:34.3432781Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:34.3433462Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:15:34.3434096Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:34.3434657Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:34.3435272Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:34.3435846Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:15:34.3436330Z ##[endgroup]
+2026-10-09T18:15:35.3716223Z Collecting sympy==1.14.0
+2026-10-09T18:15:35.4655172Z   Downloading sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+2026-10-09T18:15:35.5008289Z Collecting mpmath<1.4,>=1.1.0 (from sympy==1.14.0)
+2026-10-09T18:15:35.5199102Z   Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+2026-10-09T18:15:35.5449577Z Downloading sympy-1.14.0-py3-none-any.whl (6.3 MB)
+2026-10-09T18:15:35.7439503Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.3/6.3 MB 42.1 MB/s  0:00:00
+2026-10-09T18:15:35.7630750Z Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+2026-10-09T18:15:35.7680591Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 101.5 MB/s  0:00:00
+2026-10-09T18:15:35.8455759Z Installing collected packages: mpmath, sympy
+2026-10-09T18:15:41.3726758Z 
+2026-10-09T18:15:41.3735204Z Successfully installed mpmath-1.3.0 sympy-1.14.0
+2026-10-09T18:15:41.4205872Z ##[group]Run echo "=== kt4_prem1_probe.py ==="
+2026-10-09T18:15:41.4206305Z [36;1mecho "=== kt4_prem1_probe.py ==="[0m
+2026-10-09T18:15:41.4206642Z [36;1mpython3 kt4_prem1_probe.py[0m
+2026-10-09T18:15:41.4274313Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:15:41.4274619Z env:
+2026-10-09T18:15:41.4274910Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:41.4275364Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:15:41.4275799Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:41.4276212Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:41.4276662Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:15:41.4277061Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:15:41.4277391Z ##[endgroup]
+2026-10-09T18:15:41.4362302Z === kt4_prem1_probe.py ===
+2026-10-09T18:15:41.7018474Z 
+2026-10-09T18:15:41.7019263Z == S0  transcription of the landed tables
+2026-10-09T18:15:41.7028586Z PASS S0.sgn  [source] sgn: the landed sign is -1 exactly at (1, 3) and (2, 2)
+2026-10-09T18:15:41.7033583Z PASS S0.pc  [source] pc: the landed control-index table
+2026-10-09T18:15:41.7037083Z PASS S0.pt  [source] pt: the landed target-index table
+2026-10-09T18:15:41.7038140Z PASS S0.phiW  [source] phiW: the landed definition is diag(1, 1, -1, 1)
+2026-10-09T18:15:41.7041057Z PASS S0.idW  [source] idW: the landed table is the identity
+2026-10-09T18:15:41.7044037Z PASS S0.chainW  [source] chainW: the landed table
+2026-10-09T18:15:41.7044850Z PASS S0.reflY  [source] reflY: the landed map is diag(1, -1, 1)
+2026-10-09T18:15:41.7045926Z 
+2026-10-09T18:15:41.7046128Z == S1  the quantum dictionary
+2026-10-09T18:15:41.7475615Z PASS D1  [identity] pauliW (cnot w) = CNOT pauliW(w) CNOT^dagger for a symbolic table w (cnot is conjugation by CNOT)
+2026-10-09T18:15:41.7487190Z PASS D2  [identity] cnot . cnot = id on a symbolic table
+2026-10-09T18:15:41.7874392Z PASS D3  [identity] ipW E X = tr(opW(E) pauliW(X)) for symbolic E, X (the Euclidean pairing is the trace pairing)
+2026-10-09T18:15:41.8304215Z PASS D4  [identity] pairVal a b w = tr((opV a (x) opV b) pauliW(w)) for symbolic a, b, w
+2026-10-09T18:15:41.8550826Z PASS D5  [identity] pauliW (prodState x y) = rho(x) (x) rho(y), rho(x) = (I + x.s)/2, for symbolic x, y
+2026-10-09T18:15:41.8581450Z PASS D6  [identity] opV a is Hermitian with trace 2 a0 and determinant a0^2 - |a|^2 (opV a >= 0 iff a in L)
+2026-10-09T18:15:42.4533493Z PASS D7  [identity] for a symbolic quaternion q, U = q0 I - i q.s gives U s_k U^dagger = sum_i M_ik s_i with M^T M = |q|^4 I, det M = |q|^6, and pauliW(diag(|q|^2, M) w) = (U (x) I) pauliW(w) (U (x) I)^dagger (and on the second token)
+2026-10-09T18:15:42.4536054Z NOTE [written] D7.W  -- at |q| = 1, M is a rotation and actC M = Ad(U (x) I), actT M = Ad(I (x) U); every U in SU(2) is of this form, and every rotation is M for some unit quaternion (the standard double cover SU(2) -> SO(3)). So actC R and actT R for rotations R are exactly the conjugations by local unitaries, and Q3, int Q3 are invariant under them.
+2026-10-09T18:15:42.4539216Z NOTE [written] D.W  -- by D3 and the self-duality of the positive semidefinite cone under the trace pairing, dualW Q3 = {E : opW E >= 0}; by D4 and D6, Q3 lies in maxCone (opV a (x) opV b >= 0 for a, b in L); by D5 and D6, every prodState x y with x, y in eball 3 lies in Q3; by D1, cnot maps Q3 onto Q3 and int Q3 onto int Q3.
+2026-10-09T18:15:42.4540670Z 
+2026-10-09T18:15:42.4540817Z == S2  an explicit carrier for KT4Core
+2026-10-09T18:15:42.4543639Z NOTE [written] S2.def  -- V = R^{17x17} x R^{17x17}. For x in R^16 let xh = (1, x) and X the table X_ab = x_{4a+b}; for an affine e(x) = e0 + E.x let eh = (e0, E) and Et the table Et_ab = E_{4a+b} + e0 [a = b = 0]. stA x y = (xh yh^T, 0), stB x y = (0, xh yh^T); effA e f (P, Q) = eh^T P fh + sum_abcd Et_ab Ft_cd Q[1 + (4a+c), 1 + (4b+d)]; effB e f (P, Q) = eh^T Q fh + sum_abcd Et_ac Ft_bd P[1 + (4a+b), 1 + (4c+d)]. Both are linear in (P, Q) and bilinear in (e, f). The index map (a, b) -> 4a + b stands for the bijection flatW and tabCoord use; the identities below hold for any fixed bijection used consistently.
+2026-10-09T18:15:42.6084199Z PASS H1  [identity] effA e f (stA x y) = e(x) f(y) for symbolic affine e, f and symbolic x, y in R^16
+2026-10-09T18:15:42.6830757Z PASS H2  [identity] effB e f (stB x y) = e(x) f(y) for symbolic affine e, f and symbolic x, y in R^16
+2026-10-09T18:15:46.8551937Z PASS H3  [identity] effA and effB are linear in each effect argument, on a symbolic element of V
+2026-10-09T18:15:48.1737463Z PASS H4  [identity] tokA: effA (tabCoord a b) (tabCoord c d) (stA x y) = effB (tabCoord a c) (tabCoord b d) (stA x y), all 256 index quadruples, symbolic x, y -- 256/256
+2026-10-09T18:15:49.5270997Z PASS H5  [identity] tokB: the same with stB x y, all 256 index quadruples, symbolic x, y -- 256/256
+2026-10-09T18:15:49.7885616Z PASS H6  [identity] effB e f (stA x y) = fourVal X Y Et Ft (the cross value of grouping 02|13 effects on 01|23 states)
+2026-10-09T18:15:50.0261904Z PASS H7  [identity] effA e f (stB x y) = sum Et_ab Ft_cd X_ac Y_bd (the cross value of 01|23 effects on 02|13 states)
+2026-10-09T18:15:50.5908470Z PASS H8  [identity] fourVal X Y E F = ipW X (tabMul (tabMul E Y) (tabT F)) = ipW E (X F Y^T) for symbolic tables (famI is the positivity of this value)
+2026-10-09T18:15:50.8089533Z PASS H9  [identity] sum e_ab f_cd L_ac L'_bd = ipW e (tabMul (tabMul L f) (tabT L')) for symbolic tables (the famII form)
+2026-10-09T18:15:50.8124267Z PASS H10  [identity] e(flat X) = ipW Et X when X_00 = 1, symbolic e and X (an effect on a pair body is its table on the slice)
+2026-10-09T18:15:50.8129464Z NOTE [written] H.W  -- let K02, K13 lie in maxCone and be closed under nonnegative scaling. If e is an effect on pairBody K02 then Et lies in dualW K02: a nonzero w in K02 has w_00 > 0 (in maxCone, w_00 >= 0, and w_00 = 0 forces w = 0, from a^T w b at a = (1, u), b = (1, v)), and ipW Et w = w_00 e(flat(w / w_00)) >= 0 by H10. Then posBA is famI at (X, Y, Et, Ft) by H6 and H8, and posAB is famII by H7 and H9. Together with H1, H2, H4, H5 and H3: FCC, the maxCone bound and nonnegative scaling of the four cones give KT4Core on this V. Conversely Lemma B1 (fourCopyCoherent_of_kt4Core, kernel-checked in the design module FourCopyBridge) gives FCC from KT4Core and the same two clauses. Under hadm the hypothesis H is therefore equivalent to FCC, by separately named arguments in each direction.
+2026-10-09T18:15:50.8132708Z 
+2026-10-09T18:15:50.8132867Z == S3  FCC for uniform Q3 and for uniform maxCone
+2026-10-09T18:15:50.8133345Z PASS F0  [identity] Pi is a permutation matrix (Pi Pi^T = I)
+2026-10-09T18:15:50.8138509Z PASS F1  [enumerate] tr(s_m s_n) = 2 delta_mn for the four Pauli matrices -- 16 pairs
+2026-10-09T18:15:58.9377420Z PASS F2  [identity] fourVal X Y E F = tr( Pi (opW E (x) opW F) Pi^T (pauliW X (x) pauliW Y) ), symbolic X, Y, E, F (E on tokens 0, 2; F on 1, 3; X on 0, 1; Y on 2, 3)
+2026-10-09T18:15:59.5239781Z PASS F3  [identity] sum e_ab f_cd L_ac L'_bd = tr( (opW e (x) opW f) Pi (pauliW L (x) pauliW L') Pi^T ), symbolic (the famII form, L on tokens 0, 2 and L' on 1, 3)
+2026-10-09T18:15:59.5367825Z PASS F2v  [sample] sample inputs: pauliW of each of phiW, T_psi, diag(1,-1,-1,-1), E00 and opW of each of phiW/4, diag(1,-1,-1,-1)/4, E00, T_psi/4 are positive semidefinite (exact eigenvalues)
+2026-10-09T18:16:00.1397276Z PASS F2s  [sample] sample: fourVal X Y E F >= 0 at the 256 quadruples of these entangled and product states of Q3 and entangled and product effects of dualW Q3 -- minimum 0
+2026-10-09T18:16:00.1401645Z NOTE [written] F.Q3  -- FCC for uniform Q3: for X, Y in Q3 and E, F in dualW Q3, opW E, opW F, pauliW X, pauliW Y are positive semidefinite (S1); the Kronecker product of positive semidefinite matrices is positive semidefinite (Mathlib Matrix.PosSemidef.kronecker), conjugation by the permutation Pi preserves this, and the trace of a product of two positive semidefinite matrices is nonnegative. By F2 famI holds, by F3 famII holds.
+2026-10-09T18:16:00.2977732Z PASS F4  [identity] pairVal a b (X F Y^T) = ipW F ((X^T a)(Y^T b)^T), symbolic
+2026-10-09T18:16:00.3069977Z PASS F5  [identity] pairVal a b (u v^T) = (a.u)(b.v), symbolic
+2026-10-09T18:16:00.3117820Z PASS F6  [identity] Lagrange: |a|^2 |u|^2 - (a.u)^2 = sum_{i<j} (a_i u_j - a_j u_i)^2 in R^3 (Cauchy-Schwarz)
+2026-10-09T18:16:00.3121772Z NOTE [written] F.max  -- FCC for uniform maxCone: the homogeneous coefficient vector of an effect on eball 3 lies in L, and every vector of L is a positive multiple of one, so maxCone = {w : a^T w b >= 0 for a, b in L}. L is self-dual for the Euclidean pairing (F6). For X, Y in maxCone and a, b in L: u = X^T a and v = Y^T b lie in L, so u v^T lies in maxCone (F5) and a^T (X F Y^T) b = ipW F (u v^T) >= 0 for F in dualW maxCone (F4). So X F Y^T lies in maxCone, and fourVal X Y E F = ipW E (X F Y^T) >= 0 for E in dualW maxCone (H8): famI. famII is the same argument for (L, F, L') (H9).
+2026-10-09T18:16:00.3144096Z PASS F7  [witness] opW(phiW/4) is a rank-one projector, so phiW/4 lies in dualW Q3
+2026-10-09T18:16:00.3210776Z PASS F8  [witness] ipW F (actT reflY w) = ipW (actT reflY F) w (symbolic), and opW(actT reflY F) is a rank-one projector for F = diag(1, -1, 1, -1)/4, so F lies in dualW twin
+2026-10-09T18:16:00.3227858Z PASS F9  [witness] pauliW phiW is a rank-one projector (phiW in Q3)
+2026-10-09T18:16:00.3254374Z PASS F10  [countercontrol] famI fails for the cones (Q3, Q3, Q3, twin): fourVal phiW phiW (phiW/4) F = -1/8 -- value -1/8
+2026-10-09T18:16:00.3255212Z 
+2026-10-09T18:16:00.3255635Z == S4  model M_cl: K_p = int Q3 u cone(SEP u cnot SEP), N_p = cnot, every local the identity
+2026-10-09T18:16:00.3257509Z NOTE [written] M_cl.def  -- SEP is the convex cone generated by the product states prodState x y (x, y in eball 3); K_cl = int Q3 u (SEP + cnot SEP), the same cone at all four pairs.
+2026-10-09T18:16:00.3290086Z PASS M_cl.1  [identity] hcls: actC I = actT I = id, so cnot = actC I . actT I . cnot . actC I . actT I, I orthogonal
+2026-10-09T18:16:00.3292873Z NOTE [written] M_cl.2  -- hadm: every product state lies in SEP; K_cl lies in Q3 (int Q3 does; SEP does by D5, D6; cnot SEP does by D1) and Q3 lies in maxCone (S1). K_cl is a convex cone: SEP + cnot SEP is one; a positive definite plus a positive semidefinite matrix is positive definite, so int Q3 + Q3 lies in int Q3; positive scaling preserves each part and 0 lies in SEP.
+2026-10-09T18:16:00.3296524Z NOTE [written] M_cl.3  -- hgate: cnot is conjugation by a unitary (D1), so it maps int Q3 onto int Q3; it is an involution (D2), so it maps SEP + cnot SEP onto cnot SEP + SEP. Since cnot is an involution the inverse gate also preserves K_cl: two-sided gate invariance holds.
+2026-10-09T18:16:00.3300117Z NOTE [written] M_cl.4  -- H: Q3 is a closed convex cone whose interior contains E00 (pauliW E00 = I/4), so Q3 = cl int Q3 and cl K_cl = Q3. A dual cone is unchanged by closure, so dualW K_cl = dualW Q3, and FCC for K_cl follows from FCC for Q3 (S3) because K_cl lies in Q3. With M_cl.2, S2 gives KT4Core on the carrier V of S2.
+2026-10-09T18:16:00.3302288Z PASS M_cl.5  [witness] R_H = [[0,0,1],[0,-1,0],[1,0,0]] is a rotation
+2026-10-09T18:16:00.3303130Z PASS M_cl.6  [witness] T_psi = actT R_H phiW = [[1,0,0,0],[0,0,0,1],[0,0,1,0],[0,1,0,0]]
+2026-10-09T18:16:00.3314740Z PASS M_cl.7  [witness] pauliW T_psi = psi psi^dagger with psi = (1, 1, 1, -1)/2: a rank-one state, in Q3 and not in int Q3
+2026-10-09T18:16:00.3418969Z PASS M_cl.8  [witness] charpoly of pauliW(T_psi + t E00) is (lam - 1 - t/4)(lam - t/4)^3: positive definite for t > 0, so T_psi lies in the closure of int Q3
+2026-10-09T18:16:00.3440156Z PASS M_cl.9  [witness] T_psi has table rank 4 and cnot T_psi has table rank 4; T_psi_00 = 1 (it is normalized) -- ranks 4, 4
+2026-10-09T18:16:00.3444045Z NOTE [written] M_cl.9W  -- a pure state is an extreme ray of the positive semidefinite cone: if pauliW T_psi = sum of positive semidefinite terms, each is a nonnegative multiple of it. The terms of an element of SEP + cnot SEP are pauliW of product states and their cnot images. So T_psi in SEP + cnot SEP would make T_psi or cnot T_psi a positive multiple of a product table, of table rank 1 (M_cl.9 excludes both). With M_cl.7, T_psi is not in K_cl; with M_cl.8 it lies in cl K_cl. hcl fails.
+2026-10-09T18:16:00.3457139Z PASS M_cl.10  [countercontrol] rank test control: for the rotation R0 about the third axis, cnot (actC R0 phiW) = prodState (R0 xplus) z3 has table rank 1, so actC R0 phiW lies in cnot SEP
+2026-10-09T18:16:00.3460845Z PASS M_cl.11  [witness] phiW = cnot (prodState xplus z3) lies in cnot SEP, so in K_cl (landed cnot_prodState_xplus_z3)
+2026-10-09T18:16:00.3462549Z NOTE [written] M_cl.11W  -- IE1 fails at every pair: phiW lies in K_cl and its image T_psi under actT R_H does not, so actT R_H maps K_cl onto a set different from K_cl.
+2026-10-09T18:16:00.3464086Z PASS M_cl.12  [identity] EvenCycle holds: det I * det I = 1, so every orientation bit is false
+2026-10-09T18:16:00.3466308Z NOTE [written] M_cl.R  -- M_cl satisfies hcls, hadm, hgate and H, and fails hcl and IE1. It refutes "hcls, hadm, hgate and H imply C": hcl cannot be dropped from the theorem. Two-sided gate invariance also holds in M_cl, so closedness is not replaceable by the inverse-gate clause.
+2026-10-09T18:16:00.3468313Z 
+2026-10-09T18:16:00.3468698Z == S5  model M_max: K_p = maxCone (eball 3), N_p = cnot, every local the identity
+2026-10-09T18:16:00.3469442Z NOTE [written] M_max.1  -- hcls as M_cl.1.
+2026-10-09T18:16:00.3547041Z PASS M_max.2  [identity] pairVal a b (prodState x y) = (a.hom x)(b.hom y), symbolic (products lie in maxCone; landed prodState_mem_maxCone)
+2026-10-09T18:16:00.3549127Z NOTE [written] M_max.2W  -- hadm: products lie in maxCone; maxCone is a convex cone, the pairing being bilinear. hcl: maxCone is an intersection of closed half-spaces.
+2026-10-09T18:16:00.3555485Z PASS M_max.3  [identity] pairVal a b idW = a0 b0 + a1 b1 + a2 b2 + a3 b3, symbolic (with F6, idW lies in maxCone)
+2026-10-09T18:16:00.3560844Z PASS M_max.4  [witness] cnot idW = chainW (landed cnot_idW), and pairVal at the sharp effects of -e1, -e3 is -1/2 (landed chain_value): chainW is not in maxCone
+2026-10-09T18:16:00.3562377Z NOTE [written] M_max.4W  -- hgate fails at every pair: idW lies in maxCone and cnot idW does not.
+2026-10-09T18:16:00.3564097Z NOTE [written] M_max.5  -- H: FCC for maxCone (S3), the maxCone bound and scaling give KT4Core on the carrier of S2.
+2026-10-09T18:16:00.4241174Z PASS M_max.6  [identity] pairVal a b (actC R w) = pairVal (homMap R^T a) b w and pairVal a b (actT R w) = pairVal a (homMap R^T b) w, symbolic R, a, b, w
+2026-10-09T18:16:00.4243402Z NOTE [written] M_max.6W  -- IE1: for a rotation R, homMap R^T preserves L, so actC R and actT R map maxCone into itself, and R^-1 = R^T is a rotation, so the images are equal. EvenCycle as M_cl.12.
+2026-10-09T18:16:00.4246589Z NOTE [written] M_max.R  -- M_max satisfies hcls, hadm, hcl, H and C, and fails hgate. It refutes "hcls, hadm, hcl, H and C imply hgate": hgate is not necessary relative to the other four hypotheses and the conclusion. It does not show that hcls, hadm, hcl and H imply C; M_D below refutes that implication.
+2026-10-09T18:16:00.4248879Z 
+2026-10-09T18:16:00.4249056Z == S6  the other models
+2026-10-09T18:16:00.4250277Z NOTE [written] M_Q  -- uniform Q3, N_p = cnot, every local the identity: hcls (M_cl.1), hadm (S1), hcl, hgate (D1), H (S3, S2) and C (D7, M_cl.12) all hold. The hypothesis set is satisfiable with its conclusion.
+2026-10-09T18:16:00.4285303Z PASS M_D.1  [witness] M_D: N_13 = actT reflY . cnot is the N-CLASS form with B_13 = reflY (orthogonal) and the other locals I; N_13 maps prodState xplus z3 (in Q3) to actT reflY phiW = idW (landed actT_reflY_phiW), and pauliW idW takes -1 on the unnormalized singlet (0, 1, -1, 0), so idW is not in Q3
+2026-10-09T18:16:00.4289325Z PASS M_D.2  [witness] M_D: orient(I, reflY) is true and every other orientation bit false: EvenCycle fails
+2026-10-09T18:16:00.4293078Z NOTE [written] M_D.R  -- M_D (uniform Q3, N = cnot at 01, 23, 02 and actT reflY . cnot at 13) satisfies hcls, hadm, hcl and H, fails hgate at 13, and fails EvenCycle. It refutes "hcls, hadm, hcl and H imply C": hgate cannot be dropped.
+2026-10-09T18:16:00.4297257Z PASS M_refl.1  [witness] M_refl: with A_13 = reflY and N_13 = cnot, the N-CLASS identity fails at prodState xplus z3 (cnot gives phiW, actC reflY (cnot .) gives idW)
+2026-10-09T18:16:00.4301282Z NOTE [written] M_refl.R  -- M_refl (uniform Q3, N = cnot, A_13 = reflY, other locals I) satisfies hadm, hcl, hgate and H, fails hcls at 13 and fails EvenCycle (orient(reflY, I) true at 13 only). It refutes "hadm, hcl, hgate and H imply C": hcls cannot be dropped.
+2026-10-09T18:16:00.7944795Z PASS M_id.1  [identity] det (actC A (actT B phiW)) = -det A det B, symbolic A, B (nonzero for orthogonal A, B)
+2026-10-09T18:16:00.7947459Z NOTE [written] M_id.1W  -- an N-CLASS gate with orthogonal locals maps the product state prodState (A'^T xplus) (B'^T z3) to actC A (actT B phiW), of table rank 4 (M_id.1, M_cl.11); the identity maps every product state to a table of rank 1. So N = id is N-CLASS for no choice of locals.
+2026-10-09T18:16:00.7950490Z NOTE [written] M_id.R  -- M_id (uniform Q3, N = id, every local I) satisfies hadm, hcl, hgate, H and C, and fails hcls. It refutes "hadm, hcl, hgate, H and C imply hcls": hcls is not necessary.
+2026-10-09T18:16:00.7971769Z PASS M_class.1  [witness] M_class: cnot permutes the four classical products prodState (s z3) (t z3), s, t = +-1
+2026-10-09T18:16:00.9666445Z PASS M_class.2  [identity] M_class: at every pair of generators X, Y, fourVal X Y E F and the famII value factor as ipW E (generator) * ipW F (generator), symbolic E, F (16 sign choices)
+2026-10-09T18:16:00.9670760Z NOTE [written] M_class.2W  -- with E, F in dualW K_class both factors are nonnegative, and bilinearity extends FCC from the generators to K_class. K_class lies in maxCone and is a closed convex cone, so S2 gives KT4Core.
+2026-10-09T18:16:00.9673559Z PASS M_class.3  [witness] M_class: prodState xplus xplus has entry (1, 1) = 1 while every element of K_class vanishes off the entries {0, 3} x {0, 3}: hadm fails
+2026-10-09T18:16:00.9675116Z PASS M_class.4  [witness] M_class: actT R_H (prodState z3 z3) = prodState z3 xplus, with entry (3, 1) = 1: IE1 fails
+2026-10-09T18:16:00.9676789Z NOTE [written] M_class.R  -- M_class (K = the cone of the four classical products, N = cnot, locals I) satisfies hcls, hcl, hgate and H, fails the product clause of hadm, and fails IE1. It refutes "hcls, hcl, hgate and H imply C": hadm cannot be dropped.
+2026-10-09T18:16:00.9742434Z PASS M_mix.1  [identity] M_mix: cnot E00 = E00, actC R E00 = actT R E00 = E00 for symbolic R, and fourVal E00 E00 E F = E_00 F_00 (symbolic E, F)
+2026-10-09T18:16:00.9744528Z NOTE [written] M_mix.R  -- M_mix (K = the ray of E00, N = cnot, locals I) satisfies hcls, hcl, hgate, H (dualW K = {E : E_00 >= 0}) and C, and fails hadm (prodState xplus xplus is not on the ray). It refutes "hcls, hcl, hgate, H and C imply hadm": hadm is not necessary. (K = {0} is a degenerate model of the same kind.)
+2026-10-09T18:16:00.9751171Z PASS M_int.1  [witness] M_int: pairVal (1,1,0,0) (1,-1,0,0) idW = 0 (idW is on the boundary of maxCone) and idW is not in Q3 (singlet value -1)
+2026-10-09T18:16:00.9767748Z PASS M_int.2  [witness] M_int: pairVal a b (idW + E00) = 2 a0 b0 + a1 b1 + a2 b2 + a3 b3 (symbolic), cnot E00 = E00, and cnot (idW + E00) takes -1/4 at the sharp pair of M_max.4
+2026-10-09T18:16:00.9770580Z NOTE [written] M_int.R  -- M_int (K = int maxCone u Q3, N = cnot, locals I): idW + E00 lies in int maxCone (a^T w b >= a0 b0 > 0 on nonzero a, b in L, M_int.2 and F6) and cnot maps it out of maxCone, so hgate fails; idW lies in cl K = maxCone and not in K (M_int.1), so hcl fails; hcls, hadm, H (cl K = maxCone, S3) and C (both parts are rotation invariant) hold. It refutes "hcls, hadm, H and C imply hcl": a proof that hcl is necessary must use hgate.
+2026-10-09T18:16:00.9772300Z 
+2026-10-09T18:16:00.9772442Z == S7  the token clauses: an anchor carrier
+2026-10-09T18:16:00.9773908Z NOTE [written] T.def  -- the anchor carrier: V and stA, stB as in S2; effA_anc e f (P, Q) = eh^T P fh + e(l0) f(l1) Q[0, 0]; effB_anc e f (P, Q) = eh^T Q fh + e(x0) f(y0) P[0, 0], with every anchor the flattened product state prodState z3 z3, which lies in every pair body considered here.
+2026-10-09T18:16:01.0248247Z PASS T1  [identity] anchor carrier: evaluation laws effA_anc e f (stA x y) = e(x) f(y), effB_anc e f (stB x y) = e(x) f(y), symbolic
+2026-10-09T18:16:01.0256928Z PASS T2  [identity] anchor carrier: the cross values are e(anchor) f(anchor), independent of x and y, symbolic
+2026-10-09T18:16:01.0258540Z NOTE [written] T2W  -- so posBA and posAB hold on the anchor carrier for any cones whose pair bodies contain the anchor: effects take values in [0, 1] at the anchor.
+2026-10-09T18:16:01.0264290Z PASS T3  [witness] anchor carrier: tokA fails at (a, b, c, d) = (0, 0, 0, 3) and x = y = flat E00 (values 0 and 1) -- 0 vs 1
+2026-10-09T18:16:01.0307883Z PASS T4  [identity] M_tok: cnotTw = actT reflY . cnot . actT reflY is N-CLASS with B = B' = reflY, maps actT reflY w to actT reflY (cnot w), and orient(I, reflY) is true (EvenCycle fails with the bit at 13 alone)
+2026-10-09T18:16:01.0311490Z NOTE [written] M_tok.R  -- M_tok (cones Q3, Q3, Q3, twin; gates cnot, cnot, cnot, cnotTw; B_13 = B'_13 = reflY) on the anchor carrier satisfies hcls, hadm, hcl, hgate (twin = actT reflY Q3 and T4) and every field of KT4Core except tokA and tokB, and fails EvenCycle. It refutes "hcls, hadm, hcl, hgate and KT4Core without its token clauses imply C": the token clauses cannot be dropped. F10 shows FCC fails for these cones, so by Lemma B1 no carrier carries KT4Core for them.
+2026-10-09T18:16:01.0315848Z NOTE [written] M_tokC.R  -- M_tokC (uniform Q3, cnot, locals I) on the anchor carrier satisfies hcls, hadm, hcl, hgate, every other field of KT4Core and C, and fails tokA (T3). It refutes "the other hypotheses and C imply the token clauses of the given data". By S2 and Lemma B1, under hadm the existence of a carrier with KT4Core is equivalent to FCC: the cone-level content of the token clauses together with posBA and posAB is FCC.
+2026-10-09T18:16:01.0318143Z 
+2026-10-09T18:16:01.0318342Z == S8  the finite steps of the classification argument
+2026-10-09T18:16:01.0326580Z PASS C1  [identity] the full reflection T = actC reflY . actT reflY commutes with cnot, symbolic
+2026-10-09T18:16:01.1112033Z PASS C2  [enumerate] each of the 16 reflection-pattern gates actC refl^a actT refl^b cnot actC refl^a' actT refl^b' is a signed permutation of the 16 entries of finite order -- orders [2, 4]
+2026-10-09T18:16:01.1130354Z PASS C3  [witness] mixed patterns: M = actC refl^a actT refl^b . cnot with a + b = 1 sends prodState xplus z3 to idW and idW to chainW (outside maxCone, M_max.4): no admissible cone is invariant
+2026-10-09T18:16:01.1246900Z PASS C4  [identity] pauliW (T w) = pauliW(w)^T and pauliW (actT reflY w) = (pauliW w)^{T_2}, symbolic: T maps Q3 onto Q3, and the twin is the partial-transpose image of Q3
+2026-10-09T18:16:01.1260806Z PASS C5  [identity] CNOT (I (x) Z) CNOT^dagger = Z (x) Z
+2026-10-09T18:16:02.4582486Z PASS C6  [enumerate] the real Lie algebra generated by i s_k (x) I, i I (x) s_k and i Z (x) Z has dimension 15 = dim su(4) -- dimension 15
+2026-10-09T18:16:02.4593402Z NOTE [written] C.W  -- the classification argument (written; it uses no H and no hcl). Write each local as a rotation times reflY^k. IE1 absorbs the rotations, so hgate gives N0 K in K for a reflection-pattern gate N0, and by C2 N0 K = K. Conjugating by the pre-local reflections reduces N0 to M = actC refl^a actT refl^b . cnot on a cone K' that still satisfies hadm and IE1. Mixed patterns are impossible (C3). In the matched patterns K' is invariant under Ad(U (x) V) for U, V in SU(2) (D7) and under M, hence under the conjugates of Ad(I (x) exp(-i t Z/2)) by M, which are Ad(exp(-+ i t Z (x) Z/2)) (C5, and C4 for the full reflection T, which conjugates Ad(V) to Ad(conj V)). The group generated by these one-parameter groups is SU(4), since their generators span a Lie algebra of dimension 15 (C6; the subgroup generated by one-parameter subgroups is the connected Lie subgroup of the generated Lie algebra, a standard result of Lie theory). So K' is unitarily invariant; it contains the product states, hence every pure state and Q3; and it lies in maxCone, so it lies in Q3 (a non-positive direction phi would be rotated to |00>, where the pairing with the sharp effects of e3, e3 is negative, D4). So K' = Q3 and K is Q3 or the twin (C4), both closed. Hence hcls, hadm, hgate and IE1 imply hcl: relative to the other hypotheses and the conclusion, hcl is necessary. This is a written proof with one standard input from Lie theory; it is not kernel-checked, and C1-C6 check its finite steps only.
+2026-10-09T18:16:02.4602681Z 
+2026-10-09T18:16:02.4603022Z == S9  the composite interface (COMP-1) and the completion route
+2026-10-09T18:16:02.4687547Z PASS I1  [identity] for w with w_00 = 1 the four product-effect values of e, 1 - e and f, 1 - f sum to 1, and the unit pairing is w_00, symbolic
+2026-10-09T18:16:02.4691978Z NOTE [written] I1W  -- so on a normalized subset of maxCone every product of effects takes values in [0, 1]. The normalized slice of K_cl is convex, contains the product states, lies in maxCone, and has unit pairing 1: it satisfies every field of PreComposite over the coordinate model data of COMP-1, and the field lt holds by the argument of the landed minComposite and maxComposite (prodEff_eq_of_eff_eq with modelData_ext). It is a Composite whose body is not closed (M_cl.7-M_cl.9) and not invariant under local rotations (M_cl.11W), while cnot preserves it.
+2026-10-09T18:16:02.4744743Z PASS I2  [witness] F(w) = w00 - w11 + w22 - w33 satisfies F(prodState x y) = |x - D y|^2/2 + (1 - |x|^2)/2 + (1 - |y|^2)/2 with D = diag(1, -1, 1), symbolic, and F(phiW) = -2
+2026-10-09T18:16:02.4749120Z NOTE [written] I2W  -- F is nonnegative on every product of ball points, hence on the minimal body, and negative at phiW = cnot (prodState xplus z3): cnot does not preserve the body of the landed ball3MinComposite. By M_max.3, M_max.4 and F6, idW lies in the body of the landed ball3MaxComposite (idW_00 = 1) and cnot idW does not: cnot does not preserve that body either. The landed no_candidateCone_cnot_reflY shows that no candidate cone is invariant under both cnot and actT reflY.
+2026-10-09T18:16:02.4759236Z NOTE [written] Q2.W  -- the landed completion layer is typed for one directed system of stages: StageCompletion.body is the closed convex hull of the preparation vectors (CompletionAction.body_isClosed), and an operation datum with an inverse datum induces a body-preserving affine equivalence of the chart (preservesBody_inducedEquiv). No landed declaration constructs a directed system for a pair of systems, an operation datum for a pair gate, or a map from the table carrier W 3 to a completion chart. A pair-level route therefore needs (P-STAGE2) the pair system as a directed system whose completion chart is W 3 with chart body the normalized slice of K, which gives hcl, and (P-ACT2) the gate N as an operation datum on it with an inverse datum, inducing N on the chart, which gives hgate. P-ACT2 states gate preservation on the preparations (OpDatum.mem_body). Building the datum for N = actC A . actT B . cnot . actC A' . actT B' from one-copy data needs idle extension of the local maps to the pair; for local rotations idle extension is IE1 itself, and for reflY it is refuted on cnot-invariant candidate cones by no_candidateCone_cnot_reflY.
+2026-10-09T18:16:02.4766491Z 
+2026-10-09T18:16:02.4766666Z == S10 countercontrols
+2026-10-09T18:16:02.4862632Z PASS X1  [countercontrol] a cnot with the sign at (2, 2) flipped is not conjugation by CNOT (D1 fails for it)
+2026-10-09T18:16:03.8536757Z PASS X2  [countercontrol] a carrier whose cross term reads the 02|13 state in the 01|23 order fails tokB -- 192 of 256 quadruples fail
+2026-10-09T18:16:03.8822953Z PASS X3  [countercontrol] the rotation covariance with homMap R in place of homMap R^T fails for a non-symmetric rotation
+2026-10-09T18:16:03.8919535Z PASS X4  [countercontrol] without the normalization w_00 = 1 the four product-effect values sum to w_00, not 1
+2026-10-09T18:16:03.8945282Z PASS X5  [countercontrol] F10 with F replaced by phiW/4 (in dualW Q3): the value at the same states is 1/4 >= 0, so the sign of F10 comes from the twin effect
+2026-10-09T18:16:03.8982685Z PASS X6  [countercontrol] maxCone with an effect outside its dual: idW and diag(1,-1,-1,-1) lie in maxCone, phiW is not in dualW maxCone (ipW phiW diag(1,-1,1,-1) = -2 with diag(1,-1,1,-1) = actT reflY diag(1,-1,-1,-1) in maxCone), and fourVal idW diag(1,-1,-1,-1) phiW phiW = -2: the product form of dualW maxCone is load-bearing in F.max
+2026-10-09T18:16:03.8984490Z 
+2026-10-09T18:16:03.8984847Z kinds: identity 38, witness 21, enumerate 3, source 7, sample 2, countercontrol 8
+2026-10-09T18:16:03.8985487Z kt4_prem1_probe: OK -- 79 checks
+2026-10-09T18:16:03.9850479Z ##[group]Run echo "=== kt4_prem1_indep_check.py ==="
+2026-10-09T18:16:03.9850895Z [36;1mecho "=== kt4_prem1_indep_check.py ==="[0m
+2026-10-09T18:16:03.9851207Z [36;1mpython3 kt4_prem1_indep_check.py[0m
+2026-10-09T18:16:03.9914845Z shell: /usr/bin/bash -e {0}
+2026-10-09T18:16:03.9915089Z env:
+2026-10-09T18:16:03.9915349Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:16:03.9915788Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib/pkgconfig
+2026-10-09T18:16:03.9916235Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:16:03.9916620Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:16:03.9917005Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.17/x64
+2026-10-09T18:16:03.9917394Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.17/x64/lib
+2026-10-09T18:16:03.9918207Z ##[endgroup]
+2026-10-09T18:16:03.9999630Z === kt4_prem1_indep_check.py ===
+2026-10-09T18:16:04.2563628Z 
+2026-10-09T18:16:04.2564919Z == §3 replay of kernel lemmas (transcription controls)  (t=0.0s)
+2026-10-09T18:16:04.2565868Z   ok   cnot_prodState_xplus_z3: cnot (prodState xplus z3) = phiW
+2026-10-09T18:16:04.2566692Z   ok   actT_reflY_phiW: actT reflY phiW = idW
+2026-10-09T18:16:04.2567417Z   ok   cnot_idW: cnot idW = chainW
+2026-10-09T18:16:04.2568492Z   ok   chain_eq: cnot (actT reflY (cnot (prodState xplus z3))) = chainW
+2026-10-09T18:16:04.2569258Z   ok   chain_value = -1/2  [-1/2]
+2026-10-09T18:16:04.2569899Z   ok   sharpVec_negX = [1/2,-1/2,0,0]
+2026-10-09T18:16:04.2570551Z   ok   sharpVec_negZ = [1/2,0,0,-1/2]
+2026-10-09T18:16:04.2571198Z   ok   actT_nflip_phiW = rotW
+2026-10-09T18:16:04.2571812Z   ok   cnot_rotW = rotChainW
+2026-10-09T18:16:04.2572179Z   ok   rotation_chain_value = 0
+2026-10-09T18:16:04.2572516Z   ok   pc_pc, pt_pt, sgn_mul_sgn (16 cases)
+2026-10-09T18:16:04.2572889Z   ok   cnot_frame (a,b in Fin 2)
+2026-10-09T18:16:04.2573207Z   ok   det_reflY = -1, det_nflip = 1
+2026-10-09T18:16:04.2573432Z 
+2026-10-09T18:16:04.2573830Z == §4 exhaustive exact identities of the Pauli map (basis enumeration)  (t=0.0s)
+2026-10-09T18:16:04.2834461Z   ok   E0 rho is injective onto Herm(4): wOf(rho(e_mn)) = e_mn for all 16 basis tables
+2026-10-09T18:16:04.3106493Z   ok   E1 ipW(E,X) = 4 Tr(rho E rho X) on all 256 basis pairs
+2026-10-09T18:16:04.3678733Z   ok   E2 pairVal(a,b,w) = Tr(rho(w) (A^ (x) B^)), A^ = sum a_mu sigma_mu, on 16x4x4 basis
+2026-10-09T18:16:04.3725801Z   ok   E3 rho(cnot w) = U rho(w) U^dag (U = CNOT, control = first index) on 16 basis tables
+2026-10-09T18:16:04.3744445Z   ok   E4 rho(actT reflY w) = partial transpose_B rho(w) on 16 basis tables
+2026-10-09T18:16:04.3786137Z   ok   E5 rho(tens(e_m, e_n)) = (sigma_m/2) (x) (sigma_n/2) on 16 basis pairs
+2026-10-09T18:16:04.3788737Z   ok   E6 Tr rho(w) = w_00 on 16 basis tables
+2026-10-09T18:16:08.1468653Z   ok   E7 fourVal(X,Y,E,F) = 16 Tr[(rho X (x) rho Y) Pi(rho E (x) rho F)Pi^dag] on all 65536 basis quadruples  [mismatches=0, 3.8s]
+2026-10-09T18:16:08.1469460Z 
+2026-10-09T18:16:08.1470014Z == §5 symbolic identities (sympy, generic symbols)  (t=3.9s)
+2026-10-09T18:16:08.4498434Z   ok   S1 famI literal form ipW X (E Y F^T) = fourVal X Y E F
+2026-10-09T18:16:08.6621306Z   ok   S2 famII literal form ipW e (L f L'^T) = fourVal e f L L'
+2026-10-09T18:16:08.7591247Z   ok   S3a famI on separable effect tables factorises: fourVal(X,Y,u1u2^T,v1v2^T) = pairVal(u1,v1,X) pairVal(u2,v2,Y)
+2026-10-09T18:16:08.8548306Z   ok   S3b famII on separable effect tables factorises: famII(L,L',u1u2^T,v1v2^T) = pairVal(u1,v1,L) pairVal(u2,v2,L')
+2026-10-09T18:16:08.8581225Z   ok   S4 ipW(prodState x y, w) = pairVal(hom x, hom y, w)
+2026-10-09T18:16:08.8641597Z   ok   S5 prodEffVal e f (prodState x y) = e x * f y
+2026-10-09T18:16:08.8648598Z   ok   S6 cnot is an involution (generic w)
+2026-10-09T18:16:08.8663929Z   ok   S7 NClass relation with A=B=A'=B'=id: cnot w = actC id (actT id (cnot (actC id (actT id w))))
+2026-10-09T18:16:08.8843903Z   ok   S8a pairVal(a,b,actC R w) = pairVal(homMap R^T a, b, w) (generic R)
+2026-10-09T18:16:08.9014033Z   ok   S8b pairVal(a,b,actT R w) = pairVal(a, homMap R^T b, w) (generic R)
+2026-10-09T18:16:08.9652759Z   ok   S8c actC R (actC S w) = actC (R S) w and actT R (actT S w) = actT (R S) w
+2026-10-09T18:16:08.9697005Z   ok   S8d ehom(e o R) = homMap R^T (ehom e): e(Rx) = e0 + (R^T E).x
+2026-10-09T18:16:08.9703092Z   ok   S9a prodEffVal(1,1,w) = w00
+2026-10-09T18:16:08.9818477Z   ok   S9b sum_{s,t=+-} prodEffVal(sharpEff(s b), sharpEff(t c), w) = w00
+2026-10-09T18:16:08.9851251Z   ok   S9c sum_{s,t} s t prodEffVal(sharpEff(s b), sharpEff(t c), w) = b^T w' c (w' = 3x3 block)
+2026-10-09T18:16:08.9883275Z   ok   S9d prodEffVal(sharpEff b,1,w) - prodEffVal(sharpEff(-b),1,w) = sum_j b_j w_{j+1,0}; same in the 2nd slot
+2026-10-09T18:16:08.9901020Z   ok   S10 actT reflY (prodState x y) = prodState x (reflY y)
+2026-10-09T18:16:08.9909854Z   ok   S11 prodEffVal e f idW = e0 f0 + E.F
+2026-10-09T18:16:08.9920063Z   ok   S12 sharpEff b x = 1/2 + b.x/2
+2026-10-09T18:16:08.9920487Z 
+2026-10-09T18:16:08.9920952Z == §6 the KT4Core carrier V = R^{17x17} x R^{17x17}  (t=4.7s)
+2026-10-09T18:16:09.2704505Z   ok   K1[fpf] effA_apply: effA e f (stA x y) = e x * f y
+2026-10-09T18:16:09.4844353Z   ok   K2[fpf] effB_apply: effB e f (stB x y) = e x * f y
+2026-10-09T18:16:09.5056819Z   ok   K3[fpf] tokA for all 256 (a,b,c,d)
+2026-10-09T18:16:09.5213603Z   ok   K4[fpf] tokB for all 256 (a,b,c,d)
+2026-10-09T18:16:09.7997248Z   ok   K5[fpf] effB e f (stA x y) = famI literal form at X=tab x, Y=tab y, E=Et e, F=Et f
+2026-10-09T18:16:10.0761625Z   ok   K6[fpf] effA e f (stB x y) = famII literal form at L=tab x, L'=tab y, e=Et e, f=Et f
+2026-10-09T18:16:10.0797452Z   ok   K7[fpf] e(x) = ipW(Et e, tab x) on the slice x_sig(0,0) = 1
+2026-10-09T18:16:10.0798533Z   ok   K7b[fpf] sig is a bijection and tab(flat_sig w) = w (chart consistency)
+2026-10-09T18:16:10.3012496Z   ok   K1[transposed] effA_apply: effA e f (stA x y) = e x * f y
+2026-10-09T18:16:10.3026013Z   ok   K2[transposed] effB_apply: effB e f (stB x y) = e x * f y
+2026-10-09T18:16:10.3241161Z   ok   K3[transposed] tokA for all 256 (a,b,c,d)
+2026-10-09T18:16:10.3403217Z   ok   K4[transposed] tokB for all 256 (a,b,c,d)
+2026-10-09T18:16:10.6143096Z   ok   K5[transposed] effB e f (stA x y) = famI literal form at X=tab x, Y=tab y, E=Et e, F=Et f
+2026-10-09T18:16:10.8885279Z   ok   K6[transposed] effA e f (stB x y) = famII literal form at L=tab x, L'=tab y, e=Et e, f=Et f
+2026-10-09T18:16:10.8918002Z   ok   K7[transposed] e(x) = ipW(Et e, tab x) on the slice x_sig(0,0) = 1
+2026-10-09T18:16:10.8919316Z   ok   K7b[transposed] sig is a bijection and tab(flat_sig w) = w (chart consistency)
+2026-10-09T18:16:11.1152458Z   ok   K1[randperm] effA_apply: effA e f (stA x y) = e x * f y
+2026-10-09T18:16:11.1165735Z   ok   K2[randperm] effB_apply: effB e f (stB x y) = e x * f y
+2026-10-09T18:16:11.1381213Z   ok   K3[randperm] tokA for all 256 (a,b,c,d)
+2026-10-09T18:16:11.1545095Z   ok   K4[randperm] tokB for all 256 (a,b,c,d)
+2026-10-09T18:16:11.4293605Z   ok   K5[randperm] effB e f (stA x y) = famI literal form at X=tab x, Y=tab y, E=Et e, F=Et f
+2026-10-09T18:16:11.6994000Z   ok   K6[randperm] effA e f (stB x y) = famII literal form at L=tab x, L'=tab y, e=Et e, f=Et f
+2026-10-09T18:16:11.7028850Z   ok   K7[randperm] e(x) = ipW(Et e, tab x) on the slice x_sig(0,0) = 1
+2026-10-09T18:16:11.7029662Z   ok   K7b[randperm] sig is a bijection and tab(flat_sig w) = w (chart consistency)
+2026-10-09T18:16:11.7045156Z   ok   K7c Lean chart: tab(flatW w) = w (fpf) and tabCoord m n (flatW w) = w m n
+2026-10-09T18:16:13.2671449Z   ok   K8[effA] linear in e (generic V)
+2026-10-09T18:16:14.8188931Z   ok   K8[effA] linear in f (generic V)
+2026-10-09T18:16:16.4070667Z   ok   K8[effA] linear (hence affine) in V
+2026-10-09T18:16:17.9471885Z   ok   K8[effB] linear in e (generic V)
+2026-10-09T18:16:19.4978599Z   ok   K8[effB] linear in f (generic V)
+2026-10-09T18:16:21.0877414Z   ok   K8[effB] linear (hence affine) in V
+2026-10-09T18:16:21.1731122Z   ok   CC-tok countercontrol: carrier with 4b+a against Lean tabCoord (4a+b) breaks tokA  [240/256 index tuples fail]
+2026-10-09T18:16:21.1731968Z 
+2026-10-09T18:16:21.1732447Z == §7 exact instance generators  (t=16.9s)
+2026-10-09T18:16:21.1735123Z   ok   cube rotation group: 24 elements, all IsRot3
+2026-10-09T18:16:21.2267965Z   ok   BELLS are rank-1 projectors, entangled (det PT_B < 0); BELLS_T outside Q3
+2026-10-09T18:16:21.2277243Z   ok   singlet table is a rank-1 projector
+2026-10-09T18:16:21.2277704Z 
+2026-10-09T18:16:21.2278423Z == §8 model M_cl : K = int(Q3) u (SEP + cnot SEP), N = cnot, locals = id  (t=17.0s)
+2026-10-09T18:16:21.2278983Z   ok   Mcl.hcls IsOrth3 id
+2026-10-09T18:16:21.5762414Z   ok   Mcl.hadm prodState in Q3 on 200 exact ball pairs (control of SEP subset Q3)
+2026-10-09T18:16:21.7494937Z   ok   Mcl.hadm SEP + cnot(SEP) elements are PSD (60 exact instances, control of SEP + cnot SEP subset Q3)
+2026-10-09T18:16:22.0769057Z   ok   Mcl.hadm sampled control: pairVal(hom u, hom v, w) >= 0 for w in Q3 (600 exact samples)
+2026-10-09T18:16:22.3189132Z   ok   Mcl.hgate cnot maps 40 exact PD states to PD states
+2026-10-09T18:16:22.3196698Z   ok   Mcl.hgate cnot(s + cnot s') = cnot s + s' (exact instance; S6 gives it generically)
+2026-10-09T18:16:22.3200634Z      w_H = actT R_H phiW = [[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]]
+2026-10-09T18:16:22.3201419Z      cnot w_H = [[1, 0, 0, 0], [0, 0, 0, -1], [0, 0, -1, 0], [0, 1, 0, 0]]
+2026-10-09T18:16:22.3202164Z   ok   Mcl.IE1 R_H is a rotation (IsRot3: orthogonal, det 1)  [det=1]
+2026-10-09T18:16:22.3210412Z   ok   Mcl.w_H cross-check: rho(w_H) = (I (x) H) rho(phiW) (I (x) H)^dag (Hadamard on token 2)
+2026-10-09T18:16:22.3219141Z   ok   Mcl.w_H rho(w_H) is a rank-1 projector (Hermitian, P^2 = P, Tr P = 1)
+2026-10-09T18:16:22.3221977Z   ok   Mcl.w_H not in int(Q3): det rho(w_H) = 0
+2026-10-09T18:16:22.5035153Z   ok   Mcl.w_H NPT: exact v with v^dag PT_B(rho w_H) v < 0 (no positive multiple of w_H is in SEP)  [value -2 at v=[1, -1, -1, -1]]
+2026-10-09T18:16:22.6872298Z   ok   Mcl.w_H cnot(w_H) is a rank-1 projector and NPT (no positive multiple of cnot w_H is in SEP)  [value -2]
+2026-10-09T18:16:22.8674124Z   ok   Mcl.control PPT test does not flag product states (100 exact instances: PT_B rho(prodState) PSD)
+2026-10-09T18:16:22.9733551Z   ok   Mcl.control PPT test does not flag SEP elements (40 exact mixtures)
+2026-10-09T18:16:23.0167005Z   ok   Mcl.hcl w_H + t*e00 in int(Q3) for every t > 0 (leading minors = nonzero polys in t with coefficients >= 0)  [t/4 + 1/4; t**2/16 + t/8; t**3/64 + 3*t**2/64; t**4/256 + t**3/64]
+2026-10-09T18:16:23.0170507Z   ok   Mcl.hcl rho(w + t e00) = rho(w) + (t/4) I (exact, t = 1/1000)
+2026-10-09T18:16:23.0171900Z   ok   Mcl.IE1 phiW in K_cl: phiW = cnot(prodState xplus z3) in cnot(SEP)
+2026-10-09T18:16:23.0173787Z   ok   Mcl.IE1 phiW rank-1 (also not in int Q3; its membership is via cnot SEP)
+2026-10-09T18:16:23.0174811Z 
+2026-10-09T18:16:23.0175634Z == §9 model M_max : K = maxCone (eball 3), N = cnot, locals = id  (t=18.8s)
+2026-10-09T18:16:23.0182263Z   ok   Mmax.hgate idW in maxCone: idW = actT reflY phiW with rho(phiW) PSD (partial transpose of a PSD table is block-positive)
+2026-10-09T18:16:23.0186330Z   ok   Mmax.hgate idW not PSD (so idW is in maxCone \ Q3)
+2026-10-09T18:16:23.0781617Z   ok   Mmax.hgate sampled control: prodEffVal(sharpEff b, sharpEff c, idW) >= 0 (400 exact samples)
+2026-10-09T18:16:23.0783291Z   ok   Mmax.hgate cnot idW = chainW and prodEffVal(sharpEff(-e1), sharpEff(-e3), chainW) = -1/2 < 0
+2026-10-09T18:16:23.0784984Z   ok   Mmax.hgate sharpEff(-e1), sharpEff(-e3) take values 0 and 1 at -+b (unit b; effects by Cauchy-Schwarz)
+2026-10-09T18:16:23.1032781Z   ok   Mmax.hadm product states in maxCone: prodEffVal e f (prodState x y) = e x f y (S5) - instance
+2026-10-09T18:16:23.1034070Z 
+2026-10-09T18:16:23.1035172Z == §10 FourCopyCoherent at exact instances (famI, famII literal forms)  (t=18.8s)
+2026-10-09T18:16:23.5088913Z   ok   inst Q3 family: all PSD, 37 of 40 certified entangled (det PT_B < 0)
+2026-10-09T18:16:23.8690306Z   ok   inst maxCone family: 40 of 40 certified outside Q3 (negative principal minor)
+2026-10-09T18:16:24.0473916Z   ok   inst K_cl family: every element PSD (PD ones certified by Sylvester)
+2026-10-09T18:16:24.4961449Z   ok   inst uniform Q3 (states, effects in Q3 = dualW Q3) famI >= 0 on 600 exact tuples  [min 0]
+2026-10-09T18:16:24.4963179Z   ok   inst uniform Q3 (states, effects in Q3 = dualW Q3) famII >= 0 on 600 exact tuples  [min 0]
+2026-10-09T18:16:24.9655231Z   ok   inst uniform K_cl (states in K_cl, effects in Q3 = dualW K_cl) famI >= 0 on 600 exact tuples  [min 0]
+2026-10-09T18:16:24.9656616Z   ok   inst uniform K_cl (states in K_cl, effects in Q3 = dualW K_cl) famII >= 0 on 600 exact tuples  [min 0]
+2026-10-09T18:16:25.4798163Z   ok   inst uniform maxCone (states in maxCone incl. non-PSD, effects in SEP = dualW maxCone) famI >= 0 on 600 exact tuples  [min 1277230462799777/40404521746373400]
+2026-10-09T18:16:25.4800624Z   ok   inst uniform maxCone (states in maxCone incl. non-PSD, effects in SEP = dualW maxCone) famII >= 0 on 600 exact tuples  [min 1277230462799777/40404521746373400]
+2026-10-09T18:16:25.4824232Z      instance families done in 2.4s
+2026-10-09T18:16:25.4824878Z   ok   fast form ipW(E, X F Y^T) = famI literal (exact spot checks)
+2026-10-09T18:16:26.3056003Z   ok   exh uniform Q3: famI >= 0 on all 24^4 Bell-variant tuples (X,Y,E,F all maximally entangled)  [n=331776 min=0 0.8s]
+2026-10-09T18:16:26.7653668Z   ok   exh uniform Q3: famI >= 0 on 24x18x24x18 Bell/product tuples  [n=186624 min=0 0.5s]
+2026-10-09T18:16:28.3715710Z   ok   exh uniform maxCone: famI >= 0 for X,Y in PT_B(Bells) (non-PSD), E,F in 36 product stabilizers  [n=746496 min=0 1.6s]
+2026-10-09T18:16:30.1941033Z   ok   exh uniform maxCone: famII >= 0 for L,L' in PT_B(Bells), e,f in 36 product stabilizers  [n=746496 min=0 1.8s]
+2026-10-09T18:16:31.0165472Z   ok   CC-Q3: X outside Q3 (PT_B Bells) with Y,E,F in Q3 gives negative famI values  [13824/331776 negative, min -2]
+2026-10-09T18:16:31.8357633Z   ok   CC-max design note: X,Y both PT_B(Bells), E,F Bells gives no negatives (double transpose cancels)  [0/331776 negative, min 0]
+2026-10-09T18:16:33.4742329Z   ok   CC-max: effects outside SEP (Bells) with X,Y in maxCone gives negative famI values  [13824/663552 negative, min -2]
+2026-10-09T18:16:33.4743774Z   ok   CC-explicit: famI_val(idW, singlet, phiW, phiW) = -2 (idW in maxCone\Q3, phiW in Q3\SEP)  [-2]
+2026-10-09T18:16:33.4744408Z 
+2026-10-09T18:16:33.4745127Z == §11 KT4Core posBA / posAB end-to-end through the carrier (exact instances)  (t=29.2s)
+2026-10-09T18:16:33.8522769Z   ok   e2e M_cl posBA: effB e f (stA x y) >= 0 (150 exact tuples)  [min 13/2160]
+2026-10-09T18:16:33.8523693Z   ok   e2e M_cl posAB: effA e f (stB x y) >= 0 (150 exact tuples)  [min 44651/2351250]
+2026-10-09T18:16:34.3744329Z   ok   e2e M_max posBA: effB e f (stA x y) >= 0 (150 exact tuples)  [min 13324136213/7116100992000]
+2026-10-09T18:16:34.3745412Z   ok   e2e M_max posAB: effA e f (stB x y) >= 0 (150 exact tuples)  [min 16410580387/5593828838400]
+2026-10-09T18:16:34.3746026Z 
+2026-10-09T18:16:34.3746684Z == §12 conclusion: orient / EvenCycle  (t=30.1s)
+2026-10-09T18:16:34.3747317Z   ok   orient id id = false (det id * det id = 1 /= -1)
+2026-10-09T18:16:34.3748320Z   ok   EvenCycle (fun p => orient (A p) (B p)) holds with A = B = id
+2026-10-09T18:16:34.3749141Z   ok   CC-parity: one reflected post-local (det -1) makes the cycle odd
+2026-10-09T18:16:34.3749659Z 
+2026-10-09T18:16:34.3750053Z == §13 verdicts (generated from the checks above)  (t=30.1s)
+2026-10-09T18:16:34.3783934Z   M_cl   hcls         holds  exact symbolic identity (S7) + exact matrix check
+2026-10-09T18:16:34.3784978Z   M_cl   hadm         holds  written argument (Q3 subset maxCone via E2; PD+PSD is PD) + exact identities + instance controls
+2026-10-09T18:16:34.3786222Z   M_cl   hcl          FAILS  exact witness w_H (rank-1, NPT, cnot w_H NPT) + written extreme-ray argument; closure via exact t-polynomials
+2026-10-09T18:16:34.3787646Z   M_cl   hgate        holds  exact identity rho(cnot w)=U rho U^dag on basis + written
+2026-10-09T18:16:34.3788930Z   M_cl   H (KT4Core)  holds  exact symbolic identities (carrier) + exhaustive 4-qubit identity + written PSD argument
+2026-10-09T18:16:34.3789864Z   M_cl   IE1          FAILS  exact witness: phiW in K, actT R_H phiW not in K
+2026-10-09T18:16:34.3790458Z   M_cl   EvenCycle    holds  exact evaluation
+2026-10-09T18:16:34.3790952Z   M_max  hcls         holds  exact symbolic identity (S7)
+2026-10-09T18:16:34.3791595Z   M_max  hadm         holds  exact identity S5 + written (intersection of half-spaces)
+2026-10-09T18:16:34.3792305Z   M_max  hcl          holds  written: intersection of closed half-spaces
+2026-10-09T18:16:34.3792954Z   M_max  hgate        FAILS  exact witness idW -> chainW, value -1/2
+2026-10-09T18:16:34.3793781Z   M_max  H (KT4Core)  holds  exact symbolic identities + written bipolar argument (dualW maxCone = SEP)
+2026-10-09T18:16:34.3794879Z   M_max  IE1          holds  exact symbolic adjoint identities + written
+2026-10-09T18:16:34.3795460Z   M_max  EvenCycle    holds  exact evaluation
+2026-10-09T18:16:34.3795770Z 
+2026-10-09T18:16:34.3795974Z FINAL: 124 exact checks, 0 failed; claims AGREE; 30.1s
+2026-10-09T18:16:34.4729657Z Post job cleanup.
+2026-10-09T18:16:34.5966161Z (node:2419) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-09T18:16:34.5967183Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-09T18:16:34.6176183Z Post job cleanup.
+2026-10-09T18:16:34.7086104Z [command]/usr/bin/git version
+2026-10-09T18:16:34.7131040Z git version 2.55.0
+2026-10-09T18:16:34.7174053Z Temporarily overriding HOME='/home/runner/work/_temp/caa1f91c-b447-46f1-86f5-59f1c9eafa64' before making global git config changes
+2026-10-09T18:16:34.7175624Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T18:16:34.7180817Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-10-09T18:16:34.7222672Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T18:16:34.7259886Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T18:16:34.7512800Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T18:16:34.7542092Z http.https://github.com/.extraheader
+2026-10-09T18:16:34.7553946Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T18:16:34.7595952Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T18:16:34.7861191Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T18:16:34.7902078Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T18:16:34.8297154Z Cleaning up orphan processes
+2026-10-09T18:16:34.8584648Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

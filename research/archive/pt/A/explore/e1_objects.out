@@ -1,0 +1,11 @@
+Tpsi [[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]]
+cnot Tpsi [[1, 0, 0, 0], [0, 0, 0, -1], [0, 0, -1, 0], [0, 1, 0, 0]]
+fourVal(phiW, phiW, E, F) = -1/8
+ipW(F, Tpsi) = -1/2
+ipW(Tpsi, x(x)y) = x1*y3 + x2*y2 + x3*y1 + 1
+ipW(Tpsi, cnot x(x)y) = -x1*y3 - x2*y2 + x3*y1 + 1
+ipW(cnot Tpsi, x(x)y) = -x1*y3 - x2*y2 + x3*y1 + 1
+cnot self-adjoint for ipW: True
+phiW F phiW^T == Tfull F: True
+Tfull Tpsi == Tpsi: True
+min ipW(actT R F, cnot(x(x)y)) over samples: (-2/5, 'R0', [0, -1, 0], [0, 1, 0])

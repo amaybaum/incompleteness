@@ -1,0 +1,352 @@
+BODY = r'''
+_BAD_CMD = re.compile(r'(?m)^[ \t]*(?:@\[[^\]\n]*\][ \t]*)?(?:private[ \t]+|protected[ \t]+|noncomputable[ \t]+|'
+                      r'unsafe[ \t]+|partial[ \t]+)*(?:def|abbrev|structure|class|instance|inductive|axiom|opaque|'
+                      r'example|variable|include|omit|section|macro|syntax|elab|notation|infix|prefix|postfix|'
+                      r'set_option|import|attribute|local|scoped|universe|initialize|deriving|mutual|declare_syntax_cat)\b')
+_BAD_TOKEN = re.compile(r'\b(?:sorry|native_decide|admit|unsafe|implemented_by|extern)\b')
+
+
+def norm(t):
+    t = ' '.join(t.split())
+    t = re.sub(r'\( ', '(', t)
+    return re.sub(r' \)', ')', t)
+
+
+def qnorm(t):
+    return ' '.join(re.sub(r'(?m)^[ \t]*>[ \t]?', '', t).split())
+
+
+def sha(t):
+    return hashlib.sha256(t.encode('utf-8')).hexdigest()
+
+
+PARTS = ('SYM', 'PERSIST', 'EXCL_k1', 'EXCL_k2', 'EXCL_k3', 'EXCL_k4', 'EXCL_e1', 'EXCL_e2', 'EXCL_t2', 'EXCL_t3')
+
+
+def dual_texts(c):
+    """The two verdict propositions, rebuilt from their shared components."""
+    r = c['HEAD'] + '  ' + '\n  ∧ '.join('(' + c[k] + ')' for k in PARTS)
+    n = c['HEAD'] + '  ' + '\n  ∨ '.join('¬ (' + c[k] + ')' for k in PARTS)
+    return r, n
+
+
+SOURCE_TABLE = tuple(
+    [(k, 'HEAD', 1) for k in ('SYM', 'PERSIST', 'EXCL_k1', 'EXCL_k2', 'EXCL_k3', 'EXCL_k4', 'EXCL_e1', 'EXCL_e2', 'EXCL_t2', 'EXCL_t3', 'BASE', 'P_R', 'P_N')]
+    + [(k, k, 1) for k in ('SYM', 'PERSIST', 'EXCL_k1', 'EXCL_k2', 'EXCL_k3', 'EXCL_k4', 'EXCL_e1', 'EXCL_e2', 'EXCL_t2', 'EXCL_t3', 'BASE')]
+    + [('P_R', 'PKG', 1)] + [('P_R', k, 1) for k in PARTS] + [('P_N', k, 1) for k in PARTS]
+    + [('SYM', 'PERSIST', 0), ('PERSIST', 'SYM', 0), ('EXCL_k1', 'EXCL_k2', 0), ('P_R', 'BASE', 0), ('P_N', 'BASE', 0)])
+
+
+def duality_ok(props, comps):
+    """P_R is the conjunction of the ten package statements over one head and P_N the disjunction of
+    their negations, so each verdict is the other's negation; every other statement carries the one
+    head; the head is act 36's frozen head followed by this round's objects."""
+    f = []
+    r, n = dual_texts(comps)
+    if norm(props['P_R']) != norm(r):
+        f.append('duality:P_R-is-not-the-frozen-conjunction')
+    if norm(props['P_N']) != norm(n):
+        f.append('duality:P_N-is-not-the-frozen-disjunction')
+    if norm(comps['PKG']) != norm('\n  ∧ '.join('(' + comps[k] + ')' for k in PARTS)):
+        f.append('duality:PKG-is-not-the-conjunction-of-the-ten')
+    if comps['HEAD36'] != A36_HEAD or comps['HEAD'] != comps['HEAD36'] + comps['HEAD37']:
+        f.append('source:head-is-not-act-36s-head-followed-by-this-rounds-objects')
+    for key, comp, k in SOURCE_TABLE:
+        if norm(props[key]).count(norm(comps[comp])) != k:
+            f.append('source:%s-does-not-carry-%s-%d-times' % (key, comp, k))
+    return f
+
+
+def strip_comments(src):
+    out, i, depth, n = [], 0, 0, len(src)
+    while i < n:
+        if src.startswith('/-', i):
+            depth += 1
+            i += 2
+        elif depth and src.startswith('-/', i):
+            depth -= 1
+            i += 2
+        elif depth:
+            out.append('\n' if src[i] == '\n' else ' ')
+            i += 1
+        elif src.startswith('--', i):
+            j = src.find('\n', i)
+            i = n if j < 0 else j
+        else:
+            out.append(src[i])
+            i += 1
+    return ''.join(out)
+
+
+_THM = re.compile(r'(?m)^[ \t]*(?:@\[[^\]\n]*\][ \t]*)?(?:private[ \t]+|protected[ \t]+)?'
+                  r'(?:theorem|lemma)[ \t]+(\S+)')
+
+
+_END = re.compile(r':=[ \t]*(?:by\b|\n)')
+
+
+def theorems(code):
+    """name -> the text between the name and the `:=` that opens the proof: the first `:=` followed
+    by `by` or by the end of its line, so that a `let x := v` inside a statement does not end it."""
+    out = {}
+    for m in _THM.finditer(code):
+        nm = m.group(1)
+        rest = code[m.end():]
+        e = _END.search(rest)
+        out[nm] = None if nm in out else (rest if e is None else rest[:e.start()])
+    return out
+
+
+def statement(key):
+    return norm(': ' + PROPS[key])
+
+
+def corollary_statement():
+    nm, prem, concl = COROLLARY
+    return norm(': ' + ' → '.join('(' + PROPS[p] + ')' for p in prem) + ' → ¬ (' + PROPS[concl] + ')')
+
+
+# ---- the module -------------------------------------------------------------------------------
+def module_label(src):
+    f = []
+    if not src.startswith(IMPORT):
+        f.append('module:first-line-is-not-the-frozen-import')
+    code = strip_comments(src)
+    body = code[len(IMPORT):] if code.startswith(IMPORT) else code
+    if _BAD_CMD.search(body):
+        f.append('module:forbidden-command:' + _BAD_CMD.search(body).group(0).strip())
+    if _BAD_TOKEN.search(code):
+        f.append('module:forbidden-token:' + _BAD_TOKEN.search(code).group(0))
+    opens = [m.start() for m in re.finditer(r'(?m)^[ \t]*open\b', code)]
+    if len(opens) != 1 or not code[opens[0]:].startswith(OPEN):
+        f.append('module:open-is-not-exactly-the-frozen-one')
+    if 'namespace OIBridge\nnamespace %s\n' % NAMESPACE not in code or \
+            not code.rstrip().endswith('end %s\nend OIBridge' % NAMESPACE):
+        f.append('module:namespace')
+    th = theorems(code)
+    if any(v is None for v in th.values()):
+        f.append('module:theorem-declared-twice')
+    if opens and th and min(m.start() for m in _THM.finditer(code)) < opens[0]:
+        f.append('module:theorem-before-open')
+    printed = re.findall(r'(?m)^[ \t]*#print[ \t]+axioms[ \t]+(\S+)[ \t]*$', code)
+    if sorted(printed) != sorted(set(printed)):
+        f.append('module:axioms-printed-twice')
+    for nm in th:
+        if nm not in printed:
+            f.append('module:no-print-axioms:' + nm)
+    for nm in printed:
+        if nm not in th:
+            f.append('module:print-axioms-of-no-theorem:' + nm)
+    names = {x[1] for x in LABELS} | {COROLLARY[0]} | {x[0] for x in STRUCTURAL + ALWAYS}
+    for nm in th:
+        if nm not in names and not SHARED.match(nm):
+            f.append('module:theorem-name-outside-the-frozen-set:' + nm)
+    earned = []
+    for lab, nm, key in LABELS:
+        if nm in th and th[nm] is not None:
+            if norm(th[nm]) != statement(key):
+                f.append('module:statement-not-frozen:' + nm)
+            earned.append(lab)
+    if len(earned) > 1:
+        f.append('module:both-labels')
+        return None, f
+    label = earned[0] if earned else UNDECIDED
+    if COROLLARY[0] not in th:
+        f.append('module:required-corollary-absent:' + COROLLARY[0])
+    elif th[COROLLARY[0]] is not None and norm(th[COROLLARY[0]]) != corollary_statement():
+        f.append('module:statement-not-frozen:' + COROLLARY[0])
+    for nm, key in STRUCTURAL + ALWAYS:
+        if nm in th and th[nm] is not None and norm(th[nm]) != statement(key):
+            f.append('module:statement-not-frozen:' + nm)
+    for nm, key in REQUIRED[label]:
+        if nm not in th:
+            f.append('module:required-statement-absent:' + nm)
+    return label, f
+
+
+# ---- the result note ---------------------------------------------------------------------------
+def note_ok(note, label):
+    f = []
+    found = OUTCOME_RE.findall(note)
+    if found != [label]:
+        f.append('note:outcome-line:%s' % found)
+    q = qnorm(note)
+    if q.count(qnorm(SENTENCES[label])) != 1:
+        f.append('note:frozen-sentence:' + label)
+    for lab in SENTENCES:
+        if lab != label and qnorm(SENTENCES[lab]) in q:
+            f.append('note:sentence-of-a-label-not-earned:' + lab)
+    body = qnorm(CLAUSE)
+    if note.count(MENTION) != 1 or q.count(body) != 1 or \
+            not 0 <= q.index(body) - q.index(MENTION) <= 80:
+        f.append('note:the-clause')
+    for nm, _ in REQUIRED[label]:
+        if '`%s`' % nm not in note:
+            f.append('note:required-statement-not-named:' + nm)
+    if 'dita_arc_exclusivity_probe: OK' not in note:
+        f.append('note:probe-summary-line-absent')
+    return f
+
+
+# ---- the surfaces ------------------------------------------------------------------------------
+def expected_roadmap(road_d, label):
+    if label == UNDECIDED:
+        return road_d
+    old = ' ' + P0_END_D + ' |'
+    if road_d.count(old) != 1:
+        return None
+    return road_d.replace(old, ' ' + P0_END_D + ' ' + P0_CASE[label] + ' ' + P0_STANDING_37 + ' |', 1)
+
+
+def census_ok(cen_d, cen_e, label):
+    f = []
+    try:
+        d, e = json.loads(cen_d), json.loads(cen_e)
+    except ValueError:
+        return ['census:not-json']
+    if cen_e != json.dumps(e, indent=2, ensure_ascii=False) + '\n':
+        f.append('census:not-in-the-registry-format')
+    fams = e.get('families', [])
+    mine = [x for x in fams if CENSUS_MODULES[0] in x.get('modules', [])]
+    if len(mine) != 1 or fams[-1:] != mine:
+        return f + ['census:family-count-or-place']
+    m = mine[0]
+    if m.get('modules') != CENSUS_MODULES or m.get('status') != 'kernel-only' or \
+            m.get('manuscript') != []:
+        f.append('census:family-disposition')
+    if LABEL_RE.findall(m.get('note', '')) != [label]:
+        f.append('census:outcome')
+    if dict(e, families=fams[:-1]) != d:
+        f.append('census:another-entry-changed')
+    return f
+
+
+def wire_ok(root_d, root_e):
+    if root_d.count(WIRE_AFTER) != 1:
+        return ['wire:anchor']
+    return [] if root_e == root_d.replace(WIRE_AFTER, WIRE_AFTER + WIRE, 1) else ['wire:root']
+
+
+def workflow_ok(wf_d, wf_e):
+    if wf_d.count(PROBE_ANCHOR) != 1:
+        return ['workflow:anchor']
+    return [] if wf_e == wf_d.replace(PROBE_ANCHOR, PROBE_WIRED, 1) else ['workflow:not-D-with-the-probe-wired']
+
+
+def expected_paths(label):
+    p = {RDIR + 'preregistration.md': 'A', RDIR + 'controls.py': 'A', RDIR + 'result.md': 'A',
+         MODULE: 'A', PROBE: 'A', ROOT: 'M', CENSUS: 'M', WORKFLOW: 'M'}
+    if label != UNDECIDED:
+        p[ROADMAP] = 'M'
+    return p
+
+
+EXPECTED_PROBE_BLOB = [PROBE_BLOB]
+
+
+def check_all(files_d, files_e, delta):
+    f = duality_ok(PROPS, COMPONENTS)
+    label, g = module_label(files_e.get(MODULE, ''))
+    f += g
+    if label is None:
+        return f
+    f += note_ok(files_e.get(RDIR + 'result.md', ''), label)
+    road = expected_roadmap(files_d[ROADMAP], label)
+    if road is None or files_e.get(ROADMAP) != road:
+        f.append('roadmap:not-as-frozen-for-the-case')
+    if files_e.get(GUARD) != files_d[GUARD]:
+        f.append('guard:not-byte-identical-to-D')
+    f += census_ok(files_d[CENSUS], files_e.get(CENSUS, ''), label)
+    f += wire_ok(files_d[ROOT], files_e.get(ROOT, ''))
+    f += workflow_ok(files_d[WORKFLOW], files_e.get(WORKFLOW, ''))
+    if blob_id(files_e.get(PROBE, '')) != EXPECTED_PROBE_BLOB[0]:
+        f.append('probe:not-the-frozen-blob')
+    if delta != expected_paths(label):
+        f.append('paths:delta-is-not-the-frozen-set')
+    return f
+
+
+# ---- git ---------------------------------------------------------------------------------------
+def git(*a):
+    return subprocess.run(('git',) + a, capture_output=True, check=True).stdout
+
+
+def blob_id(text):
+    b = text.encode('utf-8')
+    return hashlib.sha1(b'blob %d\0' % len(b) + b).hexdigest()
+
+
+def cmd_check(commit):
+    paths = (MODULE, ROOT, GUARD, CENSUS, ROADMAP, WORKFLOW, PROBE, RDIR + 'result.md')
+    fd, fe = {}, {}
+    for p in paths:
+        for ref, dst in ((D, fd), (commit, fe)):
+            try:
+                dst[p] = git('show', '%s:%s' % (ref, p)).decode('utf-8')
+            except subprocess.CalledProcessError:
+                pass
+    f = []
+    if blob_id(fd[ROADMAP]) != ROADMAP_BLOB_D or blob_id(fd[GUARD]) != GUARD_BLOB_D or blob_id(fd[WORKFLOW]) != WORKFLOW_BLOB_D:
+        f.append('base:D-is-not-the-frozen-base')
+    delta = {}
+    for ln in git('diff', '--no-renames', '--name-status', D, commit).decode().splitlines():
+        st, p = ln.split('\t', 1)
+        delta[p] = st
+    f += check_all(fd, fe, delta)
+    label, _ = module_label(fe.get(MODULE, ''))
+    print('controls: label read off the module:', label)
+    print('controls: %d path(s) changed from D' % len(delta))
+    return f
+
+
+# ---- the self-test -----------------------------------------------------------------------------
+def _module(label, extra='', drop=(), stmt=None):
+    parts = [IMPORT, '/-! synthetic -/\n', 'namespace OIBridge\nnamespace %s\n\n' % NAMESPACE,
+             OPEN, '\n']
+
+    def th(nm, s):
+        parts.append('theorem %s :\n    %s := by\n  exact test\n#print axioms %s\n\n' % (nm, s, nm))
+    th('a37_shared_x', 'True')
+    for nm, key in REQUIRED[label]:
+        if nm not in drop:
+            th(nm, (stmt or {}).get(nm, PROPS[key]))
+    for lab, nm, key in LABELS:
+        if lab == label and nm not in drop:
+            th(nm, (stmt or {}).get(nm, PROPS[key]))
+    if COROLLARY[0] not in drop:
+        th(COROLLARY[0], (stmt or {}).get(COROLLARY[0], corollary_statement()[2:]))
+    parts.append(extra)
+    parts.append('end %s\nend OIBridge\n' % NAMESPACE)
+    return ''.join(parts)
+
+
+def _note(label):
+    parts = ['# result\n\n**Outcome:** `%s`\n\n' % label, '> ' + SENTENCES[label] + '\n\n']
+    parts.append('> **' + MENTION + ' — the result note.**\n'
+                 + '\n'.join('> ' + l for l in CLAUSE.split('\n')) + '\n\n')
+    parts.append(' '.join('`%s`' % nm for nm, _ in REQUIRED[label]) + '\n\ndita_arc_exclusivity_probe: OK -- x\n')
+    return ''.join(parts)
+
+
+def _synthetic_d():
+    road = '| **P0** | q | x | Act 25 a. Act 34 b. ' + P0_END_D + ' | y |\n'
+    cen = json.dumps({'families': [{'name': 'x', 'modules': ['X'], 'status': 'kernel-only',
+                                    'manuscript': [], 'note': 'n'}]},
+                     indent=2, ensure_ascii=False) + '\n'
+    return {ROADMAP: road, CENSUS: cen, ROOT: 'import A\n' + WIRE_AFTER + 'import B\n', GUARD: '# guard\n',
+            WORKFLOW: 'jobs:\n  a36:\n' + PROBE_ANCHOR + '  foundations:\n'}
+
+
+def _synthetic_e(fd, label):
+    fe = {MODULE: _module(label), RDIR + 'result.md': _note(label),
+          ROADMAP: expected_roadmap(fd[ROADMAP], label), GUARD: fd[GUARD], PROBE: '# synthetic probe\n'}
+    c = json.loads(fd[CENSUS])
+    c['families'].append({'name': 'act 37', 'modules': CENSUS_MODULES,
+                          'status': 'kernel-only', 'manuscript': [],
+                          'note': 'Outcome: ' + label + '.'})
+    fe[CENSUS] = json.dumps(c, indent=2, ensure_ascii=False) + '\n'
+    fe[ROOT] = fd[ROOT].replace(WIRE_AFTER, WIRE_AFTER + WIRE, 1)
+    fe[WORKFLOW] = fd[WORKFLOW].replace(PROBE_ANCHOR, PROBE_WIRED, 1)
+    return fe, expected_paths(label)
+
+

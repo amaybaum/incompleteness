@@ -1,0 +1,55 @@
+== P  primitives (own implementation)
+CONFIRMED P1 [identity] cnot as conjugation by CNOT (control on the first qubit) equals the landed sign/permutation tables, symbolic w
+CONFIRMED P2 [identity] cnot is an involution and ipW-orthogonal, symbolic
+CONFIRMED P3 [identity] ipW w v = 4 tr(pauliW w pauliW v), symbolic (Euclidean pairing = trace pairing; with PSD self-duality, dualW Q3 = Q3)
+CONFIRMED P4 [identity] pauliW (prodState x y) = rho(x) (x) rho(y), symbolic: every product lies in Q3
+CONFIRMED P5 [witness] phiW = cnot(prodState e1 e3) = diag(1,1,-1,1); idW = actT reflY phiW = I; pauliW sing4 = |Psi-><Psi-|; L' = actT reflY sing4 = diag(1,-1,1,-1)
+CONFIRMED P6 [identity] actT reflY is an ipW-orthogonal involution, symbolic: twin = actT reflY Q3 is self-dual
+
+== X  the cross-pairing identity and the Lemma-B2 sub-identities (generic symbolic tables)
+CONFIRMED X1 [identity] <prodA X Y, prodB E F> = fourVal X Y E F (A-states against B-states)
+CONFIRMED X2 [identity] <prodA e f, prodB L L'> = famII value sum e_ab f_cd L_ac L'_bd
+CONFIRMED X3 [identity] effB E F (prodA X Y) = fourVal; effA e f (prodB L L') = famII; effA on prodA and effB on prodB factorize
+CONFIRMED X4 [identity] the exchange of tokens 1 and 2 carries prodA L L' to prodB L L'
+CONFIRMED X4c [countercontrol] without the exchange, prodA and prodB differ on an instance (predicted failure occurs)
+CONFIRMED X5 [identity] fourVal X Y E F = fourVal E F X Y, symbolic (state and effect slots exchange; famI = famII for uniform cones)
+
+== O  orders and the token cycle (exhaustive)
+CONFIRMED O1 [enumerate] each of the 24 linear orders has exactly one 2|2 split, so none makes both A and B contiguous
+CONFIRMED O2 [enumerate] every linear order leaves at least one KT4 pair non-adjacent (3 adjacencies, 4 pairs)
+CONFIRMED O3 [enumerate] 3 cyclic orders; A and B are both non-crossing only in 0-1-3-2; its edges are the four KT4 pairs -- {(0, 1, 2, 3): ['A', 'C'], (0, 1, 3, 2): ['A', 'B'], (0, 2, 1, 3): ['B', 'C']}
+CONFIRMED O4 [enumerate] the coboundaries of the 16 token-bit assignments are exactly the 8 even edge patterns (EvenCycle)
+CONFIRMED O4c [countercontrol] the single-twin pattern (0,0,0,1) is not a coboundary (predicted failure occurs)
+
+== K  the two foils from below and above: uniform K_gen and uniform K_gen* = dualW K_gen
+CONFIRMED K1 [witness] cnot E0 = E0 (E0 = E00 + E13 - E22)
+CONFIRMED K2 [identity] hom(x)^T E0 hom(y) = 1 + x^T M y with M^T M eigenvalues {0, 1, 1}: |x^T M y| <= |x||y| <= 1, so E0 is in maxCone; with K1 it lies in maxCone n cnot(maxCone) = K_gen* -- M^T M eigenvalues {0: 1, 1: 2}
+CONFIRMED K3 [witness] pauliW E0 has the eigenvalue -1/4: E0 is not in Q3, so not in K_gen (K_gen <= Q3) -- {-1/4: 1, 1/4: 2, 3/4: 1}
+CONFIRMED K4 [witness] pauliW G = psi psi^T, psi = (1,-1,-1,-1)/2: G is a pure state in Q3 <= dualW K_gen; ipW E0 G = -1
+CONFIRMED K5 [witness] uniform K_gen, famI: fourVal phiW phiW E0 G = -1 (states phiW in K_gen; effects E0, G in dualW K_gen) -- -1
+CONFIRMED K5c [countercontrol] with E00 in place of E0 the value is nonnegative (predicted failure of the witness occurs) -- 1
+CONFIRMED K6 [witness] uniform K_gen*, famI: fourVal E0 G phiW phiW = -1 (states E0, G in K_gen*; effects phiW in K_gen <= dualW K_gen*) -- -1
+CONFIRMED K7 [witness] IE1 fails for K_gen*: some octahedral rotation R moves E0 (in K_gen*) to a table that pairs negatively with cnot(prodState a b) in K_gen -- side C, R = [1, 0, 0, 0, 0, 1, 0, -1, 0], a = [0, -1, 0], b = [0, -1, 0], value -1
+CONFIRMED K7c [countercontrol] the identity rotation gives no negative value on the same 36 generated tables (predicted)
+
+== M  maxCone memberships, the maxCone strictness witness, M_tok and the induced pairs
+CONFIRMED M1 [identity] idW, sing4, phiW, L' are diag(1, d) with |d_i| <= 1: hom(x)^T D hom(y) = 1 + sum d_i x_i y_i >= 1 - |x||y| >= 0, so all lie in maxCone
+CONFIRMED M2 [witness] induced pairs of an A-composite: fourVal phiW phiW idW sing4 = -2 -- -2
+CONFIRMED M2c [countercontrol] with the product prodState e3 e3 in place of sing4 the value is nonnegative (predicted) -- 2
+CONFIRMED M3 [witness] uniform maxCone: <prodA idW idW, prodB phiW L'> = -2 with all four in maxCone; FCC and CSD2 hold there (landed F.max; dualW maxCone = SEP), so P3 and OVL4 cannot both hold: SDC is strictly stronger than FCC on admissible closed cones -- -2
+CONFIRMED M4 [witness] M_tok (Q3, Q3, Q3, twin): fourVal phiW phiW (phiW/4) (L'/4) = -1/8 with phiW in Q3 and L' in twin (actT reflY L' = sing4, PSD) -- -1/8
+CONFIRMED M4c [countercontrol] with phiW/4 in place of L'/4 the value is nonnegative (predicted) -- 1/4
+CONFIRMED M5 [witness] drop OVL4 (M_tok cones): <prodA phiW phiW, prodB phiW L'> = -2 -- -2
+CONFIRMED M6 [witness] drop P3 (K4 = PSD16): prodB phiW L' is not in PSD16, since <v| pauli4(prodB phiW L') |v> = -1/2 for v = Phi+ on qubits (0,2) times Phi+ on (1,3), computed from the definition of pauli4 -- -1/2
+CONFIRMED M6c [countercontrol] with phiW in place of L' the same vector gives a nonnegative value (predicted) -- 1
+
+== S  entanglement-swapping witness on uniform K_gen
+CONFIRMED S1 [identity] fourVal X Y E F = ipW E (X F Y^T), symbolic (the conditioned 02 table)
+CONFIRMED S2 [witness] ESC fails on uniform K_gen: generated X, Y, F (cnot images of products, all in Q3) with the full effect E0 give -1 -- -1
+
+== L  Lorentz exclusion and the abstract-carrier identities
+CONFIRMED L1 [enumerate] the 36 axis products have |p| = 2 and average E00 (|E00| = 1): a 45-degree cone {<u, v> >= |v|/sqrt 2} cannot contain them, since <u, p> >= sqrt 2 for all would give <u, E00> >= sqrt 2 > 1
+CONFIRMED L2 [enumerate] each axis product lies outside the 45-degree cone about E00 (<E00, p>^2 = 1 < |p|^2/2 = 2)
+CONFIRMED C1 [identity] fourVal X Y (prodState x0 x2) (prodState x1 x3) = ipW X (prodState x0 x1) * ipW Y (prodState x2 x3), symbolic
+CONFIRMED C2 [witness] the 16 token products prodState s t, s, t in {e1, e2, e3, -e3}, span R^16 -- |det| = 256
+CONFIRMED T1 [enumerate] transpose acts on the Pauli basis by the signs (1,1,-1,1), and for all 16 token charts the four-token chart carries prodA and prodB of charted pair tables

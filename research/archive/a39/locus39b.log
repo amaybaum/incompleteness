@@ -1,0 +1,17 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+table built: 320 base loci  17s
+patterns: 9945 distinct over 9945 flats (with T^3)  32s
+  chunks 1/100, candidates so far 10  39s
+  chunks 11/100, candidates so far 36  57s
+  chunks 21/100, candidates so far 40  77s
+  chunks 31/100, candidates so far 42  102s
+  chunks 41/100, candidates so far 42  122s
+  chunks 51/100, candidates so far 42  142s
+  chunks 61/100, candidates so far 44  164s
+  chunks 71/100, candidates so far 46  185s
+  chunks 81/100, candidates so far 46  206s
+  chunks 91/100, candidates so far 46  228s
+candidates: 46 distinct structures over all patterns  244s
+loci computed for 46 candidates  244s

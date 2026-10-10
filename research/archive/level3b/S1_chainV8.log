@@ -1,0 +1,27 @@
+REPLAY-A R_LS ((0, 1), (0, 1)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_LS ((0, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_LS ((1, 0), (0, 2)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_LS ((1, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_LS ((2, 0), (0, 2)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_LS ((2, 1), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_LS ((3, 0), (0, 2)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_LS ((3, 1), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_LS ((3, 2), (3, 2)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_LS ((0, 1), (3, 2)) NOT-INVASIVE(rank 4) rank 4 MATCH
+REPLAY-A R_LS 10 jobs, mismatches 0; GATE V8 OK
+REPLAY-A R_NL ((0, 1), (0, 1)) OVER-RANK(dims [2, 4, 7]) rank 9 MATCH
+REPLAY-A R_NL ((0, 2), (2, 1)) OVER-RANK(dims [2, 5, 12]) rank 17 MATCH
+REPLAY-A R_NL ((1, 0), (0, 2)) OVER-RANK(dims [2, 5, 12]) rank 14 MATCH
+REPLAY-A R_NL ((1, 2), (2, 1)) OVER-RANK(dims [2, 5, 11]) rank 13 MATCH
+REPLAY-A R_NL ((2, 0), (0, 2)) OVER-RANK(dims [2, 5, 12]) rank 17 MATCH
+REPLAY-A R_NL ((2, 1), (2, 1)) OVER-RANK(dims [2, 4, 9]) rank 13 MATCH
+REPLAY-A R_NL ((3, 0), (0, 2)) OVER-RANK(dims [2, 5, 12]) rank 17 MATCH
+REPLAY-A R_NL ((3, 1), (2, 1)) OVER-RANK(dims [2, 5, 12]) rank 16 MATCH
+REPLAY-A R_NL ((3, 2), (3, 2)) OVER-RANK(dims [2, 4, 7]) rank 8 MATCH
+REPLAY-A R_NL ((0, 1), (1, 0)) OVER-RANK(dims [2, 5, 9]) rank 9 MATCH
+REPLAY-A R_NL ((0, 1), (3, 2)) OVER-RANK(dims [2, 5, 8]) rank 8 MATCH
+REPLAY-A R_NL 11 jobs, mismatches 0; GATE V8 OK
+REPLAY-A R_5 ((0, 1), (0, 1)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((0, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH
+REPLAY-A R_5 ((1, 0), (0, 2)) ADVANCE(dims [2, 3, 4]) rank 4 MATCH
+REPLAY-A R_5 ((1, 2), (2, 1)) NOT-INVASIVE(rank 1) rank 1 MATCH

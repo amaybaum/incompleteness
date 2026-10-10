@@ -1,0 +1,7 @@
+run=37721238035
+completed cancelled attempt=1 sha=5a8fd4619da02b3dae9b6998c03f688877154589 event=workflow_dispatch
+jobs=32
+cancelled:23 failure:1 success:8
+  113129110071 Lean kernel check success
+  113129110093 Mathlib bridge cancelled
+  113130072756 Numerical probes failure

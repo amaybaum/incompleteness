@@ -1,0 +1,56 @@
+PASS [complex QT] n=2 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=2 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=3 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=3 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=3 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=4 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=4 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=4 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=4 k=4: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=5 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=5 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=5 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=5 k=4: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=5 k=5: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=6 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=6 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=6 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=6 k=4: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=6 k=5: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] n=6 k=6: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [complex QT] FP-C span test k=2, m=2: products span all of Herm(4), dimension 16
+PASS [complex QT] FP-C span test k=2, m=3: products span all of Herm(6), dimension 36
+PASS [complex QT] FP-C span test k=3, m=2: products span all of Herm(6), dimension 36
+PASS [complex QT] FP-C span test k=3, m=3: products span all of Herm(9), dimension 81
+PASS [real QT] n=2 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=2 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=3 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=3 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=3 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=4 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=4 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=4 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=4 k=4: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=5 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=5 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=5 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=5 k=4: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=5 k=5: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=6 k=1: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=6 k=2: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=6 k=3: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=6 k=4: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=6 k=5: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] n=6 k=6: frame; face = D_k (affine iso); exposed by P; restricted effects; FP-O encode/decode; FP-T extend/restrict; certain face not a point (k>=2)
+PASS [real QT] FP-C span test k=2, m=2: products span 9 < dim Sym(4) = 10 (local tomography of faces fails)
+PASS [real QT] FP-C span test k=2, m=3: products span 18 < dim Sym(6) = 21 (local tomography of faces fails)
+PASS [real QT] FP-C span test k=3, m=2: products span 18 < dim Sym(6) = 21 (local tomography of faces fails)
+PASS [real QT] FP-C span test k=3, m=3: products span 36 < dim Sym(9) = 45 (local tomography of faces fails)
+PASS [quaternionic QT] the complex model of Herm_n(H) is Hermitian, J-invariant, of real dimension n(2n-1) (n=2,3)
+PASS [quaternionic QT] the face on the quaternionic span of two orthonormal vectors spans the corner Herm_2(H): real dimension 6, a 5-dimensional state ball of capacity 2: FP-S holds in HQT
+PASS [classical] the face generated by k vertices of a simplex is a (k-1)-simplex (capacity k): FP-S, FP-O hold
+PASS [square gbit] the states with zero last outcome of a complete measurement form an edge of capacity 2 (MM requires 1); the edge (dim 1) and the square (dim 2) have equal capacity 2 and are not affinely isomorphic: the subspace axiom (FP-S with FP-E) fails
+PASS [K2-only theory] capacity 3 is not a power of 2: the 3-face of Q_2 is carried by no system, FP-S fails
+PASS [real QT] phaseGate 0 = diag(i, 1) has non-real entry i: DrivesElementary at Fin 2 fails in RQT
+
+VERDICT  complex QT satisfies FP-S, FP-O, FP-T and FP-C on every tested frame (n <= 6); real QT satisfies FP-S, FP-O, FP-T and fails the span form of FP-C; HQT and classical theory satisfy FP-S; the square gbit and the K2-only theory fail FP-S/FP-E

@@ -1,0 +1,67 @@
+X1.0  OK  Cayley rotation is in SO(3)
+X1.1  OK  A S A^T = S (the interface identity)
+X1.2  OK  equivalently A preserves <u,v> = u^T S^-1 v
+X1.3  OK  normalization M^-1 A M is orthogonal (IIP -> IIP-N)
+X1.4  OK  LDL factorization with positive pivots
+X1.5  OK  the LDL factor also normalizes A to an orthogonal matrix
+X2.1  OK  det(Q^2) = det(Q)^2: a flow member is a square, so det = +1
+X3.1  OK  the commutant of a non-half-turn about e_z preserves e_z and acts as a rotation-scaling on e_z-perp
+X3.2  OK  countercheck: half-turns about orthogonal axes commute and move each other's axis (Klein four-group)
+X3.3  OK  a half-turn squares to the identity
+X4.rotation abo  OK  B e_z = +-e_z (rotation about e_z): B Rz(th) B^-1 = Rz(+th), a flow member A(+-t)
+X4.reflection i  OK  B e_z = +-e_z (reflection in a plane containing e_z): B Rz(th) B^-1 = Rz(-th), a flow member A(+-t)
+X4.half-turn ab  OK  B e_z = +-e_z (half-turn about an axis in e_z-perp): B Rz(th) B^-1 = Rz(-th), a flow member A(+-t)
+X4.rotoreflecti  OK  B e_z = +-e_z (rotoreflection (Rz(phi) composed with z -> -z)): B Rz(th) B^-1 = Rz(+th), a flow member A(+-t)
+X5.1  OK  cyc3 Rz(th) cyc3^-1 = Rx(th): axis e_x
+X5.2  OK  Rz(s) e_x - e_x = (cos s - 1, sin s, 0)
+X5.3  OK  a generic rational J moves e_z off +-e_z
+X5.4  OK  its conjugate fixes B e_z and moves e_z, so it is no member of the e_z circle
+X5.5  OK  a reflection J (det -1) moving e_z: J Rz(th) J^-1 = Rx(-th); J_off_axis holds and the words contain det -1 maps (closure O(3), not SO(3))
+X6.1  OK  O(2): rotations conjugate R(th) to R(th)
+X6.2  OK  O(2): reflections conjugate R(th) to R(-th); J_off_axis fails in dim 2
+X6.3  OK  dim 2: flow members are squares, so lie in SO(2), which is abelian
+X6.4  OK  dim 1: every flow member is a square in O(1) = {+-1}, hence 1: flow trivial
+X7.0  OK  rational target rotation
+X7.1  OK  alpha = pi/2: a rational rotation is an exact 3-factor word Rz Rx Rz (exact radicals)
+X7.2  OK  b is a unit vector at angle pi/3 to a
+X7.3  OK  R_b(pi) a . a = 2(a.b)^2 - 1 = cos(2 alpha)
+X7.4  OK  half-turn about a x b: a -> -a, b -> -b (unreachable by a..a / b..b words when 2k alpha < pi)
+X7.5  OK  half-turn about a - b: b -> -a, a -> -b (unreachable by (ab)^k / (ba)^k when (2k-1) alpha < pi)
+X7.6  OK  residual R_b(pi)^-1 R_a(pi)^-1 Hev fixes a
+X7.7  OK  residual = R_a with cos = -1, sin = 0: Hev = R_a(pi) R_b(pi) R_a(.) (3 factors; padded to 4 with R_b(0))
+X7.8  OK  angle(a, Hev a) = 2pi/3 = 2 alpha: on the cap boundary
+X7.9  OK  Hodd: both 3-factor orders excluded at alpha = pi/3 (needs 2 alpha >= pi)
+X7.10  OK  with th4 = pi, angle(a, W a) = pi/3 <= 2 alpha: W lies in the cap reached by a b a
+X7.11  OK  Hodd = R_a R_b R_a R_b(pi) exactly at alpha = pi/3 (cos p2 = 1/3); 4 factors, while 3 do not suffice (X7.9)
+X7.14  OK  for every alpha: half-turn about a x b sends a,b to -a,-b; half-turn about a - b sends b -> -a, a -> -b
+X7.L2  OK  Lowenthal's interval form (pi/3 <= alpha < pi/2 gives order 4) agrees with ceil(pi/alpha)+1 at the interval ends
+X7.L3  OK  Lowenthal's interval form (pi/4 <= alpha < pi/3 gives order 5) agrees with ceil(pi/alpha)+1 at the interval ends
+X7.L4  OK  Lowenthal's interval form (pi/5 <= alpha < pi/4 gives order 6) agrees with ceil(pi/alpha)+1 at the interval ends
+X7.L5  OK  Lowenthal's interval form (pi/6 <= alpha < pi/5 gives order 7) agrees with ceil(pi/alpha)+1 at the interval ends
+X7.L6  OK  Lowenthal's interval form (pi/7 <= alpha < pi/6 gives order 8) agrees with ceil(pi/alpha)+1 at the interval ends
+X7.N(pi/2)  OK  N(pi/2) = 3: (N-1) alpha >= pi > (N-2) alpha
+X7.N(pi/3)  OK  N(pi/3) = 4: (N-1) alpha >= pi > (N-2) alpha
+X7.N(pi/4)  OK  N(pi/4) = 5: (N-1) alpha >= pi > (N-2) alpha
+X7.N(2*pi/5)  OK  N(2*pi/5) = 4: (N-1) alpha >= pi > (N-2) alpha
+X7.N(pi/7)  OK  N(pi/7) = 8: (N-1) alpha >= pi > (N-2) alpha
+X7.12  OK  doubling identity for x -> 2x^2 - 1
+X7.13  OK  z-component of R_b(pi) e_z is 2 b_z^2 - 1
+X8.1  OK  B4/bidisk: swap conjugates R(t)+I to I+R(t)
+X8.2  OK  J_off_axis witness at t = pi/2: I+R(pi/2) moves (0,0,1,0), every R(s)+I fixes it
+X8.3.R+I  OK  invariant m = |x12|^2 |x34|^2 preserved by R+I
+X8.3.I+R  OK  invariant m = |x12|^2 |x34|^2 preserved by I+R
+X8.3.swap  OK  invariant m = |x12|^2 |x34|^2 preserved by swap
+X8.4  OK  e1 and (e1+e3)/sqrt2 are unit vectors with m = 0 and 1/4: the generated group and its closure are not transitive on S^3
+X8.5  OK  bidisk: (1,0,0,s) + eps((1,0,0,s) - (-1,0,0,s)) has |x12| = 1 + 2 eps > 1: boundary states along a segment, so not an ellipsoid
+X8.6  OK  B4 with Rz+1, cyc3+1: x4 = <x, e4> is invariant, so e1 and e4 are in different orbits
+X9.1  OK  Hamel model (t0 = 1, phi(1) = pi): Rx(pi) e_z = -e_z while every Rz(s) fixes e_z
+X11.1  OK  rotations and cyc3 preserve |x|^2, so the shell 1 <= |x| <= 2 is preserved by the ball3Drive maps
+X11.2  OK  shell: the midpoint of e_z and -e_z is 0, outside the shell; the shell is SO(3)-invariant and not a ball
+X12.1  OK  J is unipotent and not the identity: orthogonal for no inner product
+X12.2  OK  J Rz(pi/2) J^-1 moves (1,0,0) off the plane z = 0; no Rz(s) does: J_off_axis holds
+X12.3  OK  the conjugate Rz(ph) J Rz(-ph) shifts z by cos(ph) at (1,0,0): every height is reached, the lateral surface is one orbit
+X12.4  OK  J keeps (x,y): it preserves the cylinder x^2 + y^2 <= 1 in both directions
+X13.1  OK  the sheared flow is a one-parameter group on R^4
+X13.2  OK  on Omega (w = 0), J flow(t) J^-1 = flow(t): the landed J_off_axis fails
+X13.3  OK  on V the two differ (in the w-column): an off-axis clause read on V would hold with J acting as the identity on Omega
+OK -- 66 checks

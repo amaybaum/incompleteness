@@ -1,0 +1,8 @@
+PASS 6.1a su(4)_AB + su(4)_BC generate all 63 non-identity Pauli strings (su(8), dim 63): the idle extensions of PU(4) on two overlapping pairs generate PU(8) [commutator of anticommuting strings = 2 x product]
+PASS 6.1b control: su(4)_AB with local su(2)_C only closes at dimension 18 (no interaction with C)
+PASS 6.2a (T_AB (x) id_C)(|0><0| (x) Phi+_BC) has expectation -1 on |0>(|01> - |10>) (norm^2 2): eigenvalue -1/2, so the idle extension of the antiunitary pair map leaves the three-copy PSD cone  [(-1+0i)]
+PASS 6.2b control: the global transpose T_ABC fixes this real symmetric state (it preserves positivity)
+PASS 6.2c control: rho itself has expectation 0 on that vector (rho is PSD; the sign comes from T_AB (x) id_C)
+NOTE 6.3 [written] in quantum theory with n >= 3 copies, (U_XY (x) 1) rho (U_XY (x) 1)^dag is PSD for PSD rho, so idle extension holds for every unitary pair map; by 6.2 it fails for the antiunitary pair symmetries T_XY o Ad U, which preserve the two-copy cone Q3 but are not quantum operations. Idle extension is therefore satisfied by quantum theory exactly when it is stated for the physical (completely positive) reversible maps, not for all symmetries of the pair's state space.
+--- P6 three copies: 5 checks, 0 failures
+VERDICT THREE-COPY-INGREDIENTS-EXACT: overlapping pair dynamics generate PU(8); the antiunitary pair map has no idle extension; quantum theory satisfies idle extension for its unitary pair maps

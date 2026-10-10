@@ -1,0 +1,7 @@
+  [cvsize.py: exit 0, 15s]
+PASS msize tables (cvsize.py) replay: sha256 5ac7c84aa750
+PASS dfs:4: 915 of the 5494 row sets
+  nodes 722178 pruned 72305 leaves 0 nonDita 0
+PASS dfs:4: 0 leaves outside N18 (leaves 0, non-Dita 0)
+PASS dfs:4: node and pruning counts as frozen
+dita_support_minimality_probe dfs:4: OK -- 4 checks (1086s)

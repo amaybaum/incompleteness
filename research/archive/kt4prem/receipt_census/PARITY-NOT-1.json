@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "PARITY-NOT-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "e26493394f388a891c2dd03be2696286a89293f7",
+ "f": "3398a071c83c58897bd59ce9a7a22ee5f72dce4c",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-parity-not-1/preregistration.md",
+   "blob": "b9b7c5f0294deaed18af0c6f750ee934a2ad4e15"
+  }
+ ],
+ "governed_paths_digest": "4b4b6e0c8ec754ad07ae7e5474395a92810245a4b90f777c079c498d92892dfa",
+ "e": "3ec8f5acc900a2a9aa3d8f7001980b1bfb0557d2",
+ "tree_e": "2d298148676c40e174d842b69c6616fb353c65d1",
+ "execution_delta_digest": "3ca2016fec700741fdd9f595d333581dd30d569820f772ccb874a79c685b08fe",
+ "candidates": [],
+ "landing": {
+  "base": "e26493394f388a891c2dd03be2696286a89293f7",
+  "object": "395c374d14e40df38b0b9a2594328f2bd05c303a",
+  "reconciliations": [
+   "395c374d14e40df38b0b9a2594328f2bd05c303a"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "384c91e131056c3497efb61f8f0c374ae6d4c8e61451c590961fa74f08750323"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "3398a071c83c58897bd59ce9a7a22ee5f72dce4c",
+   "record": "https://github.com/amaybaum/incompleteness/pull/803#issuecomment-6037665955"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "3398a071c83c58897bd59ce9a7a22ee5f72dce4c",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37610937637"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "3ec8f5acc900a2a9aa3d8f7001980b1bfb0557d2",
+   "record": "https://github.com/amaybaum/incompleteness/pull/803#issuecomment-6038436639"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "3ec8f5acc900a2a9aa3d8f7001980b1bfb0557d2",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37621575692"
+  }
+ ]
+}

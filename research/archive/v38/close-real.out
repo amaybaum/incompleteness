@@ -1,0 +1,27 @@
+PASS  C1 at the stage-3 tool: 135 vectors, all as expected
+PASS  C3 always true : its 2 vector(s) not as expected, the other 133 as expected
+PASS  C3 always false: its 3 vector(s) not as expected, the other 132 as expected
+PASS  C3 reversed    : its 2 vector(s) not as expected, the other 133 as expected
+PASS  C4 --project over B: identical to the tool at B (68 lines, sha256 fb92b600d3ca0779bec64c31bbafd31f97c3fda01f02fccc7847513961f21d92)
+PASS  C5 shadow exit 0
+PASS  C5 banner
+PASS  C5 rules K1 K2 K3 K4 G5 G6 G7 G8 G9 G10 G11 G12
+PASS  C5 corpus line
+PASS  C5 projection line
+PASS  C5 last line
+PASS  C5 --reachable <B> <B^1>: 'REACHABLE true' exit 0
+PASS  C5 --reachable <B^1> <B>: 'REACHABLE false' exit 0
+PASS  C5 --publication refused: exit 2, no verdict
+PASS  C5 no --publication or not-q-itself in the tool or the README
+PASS  C5 README paragraph is the frozen text
+PASS  C6 v3_verifier: self-test OK
+PASS  chronology: 3 commits after B, each one parent, the oldest on B
+PASS  unchanged from B: .github/workflows/verify.yml
+PASS  unchanged from B: tools/release_gate.py
+PASS  unchanged from B: tools/certificate_verifier.py
+PASS  unchanged from B: verification/lean/edge_rigidity_probe.py
+PASS  unchanged from B: AGENTS.md
+PASS  unchanged from B: verification/infrastructure/round-v3-8-publication-removal/preregistration.md
+PASS  no verification/receipts/ or verification/v3-seals/; verification/seals/ unchanged
+PASS  scope: delta(B, stage 3) is the budget less result.md (8 paths)
+ALL CLOSING CONTROLS PASS

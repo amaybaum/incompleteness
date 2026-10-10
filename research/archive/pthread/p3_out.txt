@@ -1,0 +1,13 @@
+PASS Q1 tr(rho(r) P(n)) = 1/2 + n.r/2 (sharpEff on eball 3)
+PASS Q1 rho(r) has eigenvalues (1 +- |r|)/2: char poly
+PASS Q2 Choi(id) on M_2 has rank 1 (passive CP branches are scalar: kernel passive_branch_scalar)
+PASS Q2 Choi(id) on M_3 has rank 1 (passive CP branches are scalar: kernel passive_branch_scalar)
+PASS Q3 measure-and-prepare along Z sends |+><+| to I/2 (record does not reconstruct)
+PASS Q4 forced joint element has eigenvalues (1 +- sqrt 2)/4
+PASS Q4 (1 - sqrt 2)/4 < 0 (sympy exact relational)
+PASS Q4 tr(G11 rho(r)) = 1/4 + (r1 + r3)/4
+PASS Q5 E gives rho(w) and rho(-w) the same probability for w orthogonal to b
+PASS Q5 (degenerate b1 = b2 = 0 handled by w = e1): equal probabilities
+PASS Q6 pinching readout is passive on diagonal states
+PASS Q6 pinching outcome law (p, 1-p) separates diagonal states
+ALL-PASS 12/12

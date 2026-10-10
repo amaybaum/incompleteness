@@ -1,0 +1,12 @@
+  [r2a_landed.py: exit 0, 211s]
+PASS C0 path A: the landed production probe replayed OK
+PASS R1: E40 = -P+Q-T, entries {-1,0,1}, support 40, straight by levels and at exact points
+PASS C5: one entry changed fails both straightness methods
+PASS R2 A: 28 candidates; no structure holds identically; exceptional sets {1} strict, {1, -1} relaxed
+PASS R2 A: at u = 1, 20 structures and 976 alignments (strict and relaxed); at u = -1, relaxed only, 4 structures, 272
+PASS C1b: act 38 arc reproduces L41
+PASS C3: gauged E40 straight with the same exceptional sets
+  [r2b2_census.py: exit 0, 457s]
+PASS C0 path B(ii): the landed independent probe replayed OK
+PASS R2 B(ii): census empty at the four generic points, nonempty exactly at u = 1 (20/976) and u = -1 (relaxed 4/272)
+dita_support_minimality_probe paths: OK -- 9 checks (668s)

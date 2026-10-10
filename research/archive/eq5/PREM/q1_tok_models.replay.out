@@ -1,0 +1,163 @@
+PASS K transcription: COMP-1 hom, coeff, pState, pEffLin (CI:582, 602-603, 633, 637); reflY signs (K2G:47); package flatW, tabCoord, TokenCoherent (:240-241, :247, :256-257); Mathlib finProdFinEquiv = x.2 + n * x.1  [reflY = (1,-1,1)]
+PASS V1 prodEff_apply for PA and PB in every model (symbolic chart points, symbolic affine functionals)  [M_sig:ok, M_rho:ok, M_tw:ok, M_th:ok, M_id:ok, M_T:ok, SEPB:ok, ANC:ok, ANCc:ok, ANCz:ok, PAD1:ok, PAD2:ok, PAD3:ok]
+PASS V2 sigma and Psi_c are involutions on all 289 basis vectors; sigma o iota = iota o R (symbolic); rho, theta, tau are involutions
+PASS V3 cross values: M_sig fourVal X Y Et Ft; M_tw fourVal X Y Et (rho Ft); M_th fourVal X Y Et (theta Ft) and fourVal et ft L (theta L'); M_T fourVal X Y (tabT Et) Ft; anchor sum e(x0) f(y0), E(L0) F(L0') (symbolic)  [M_sig:ok, M_tw:ok, M_th:ok, M_T:ok, M_th(A):ok, ANC:ok]
+PASS V4 Pauli facts: sigma_y sigma_mu^T sigma_y = t_mu sigma_mu, t = (1,-1,-1,-1) (theta = Ad(sigma_y) o transpose, so actT(-id) maps twin = PT_2(Q3) onto Q3); Ad(diag(1,i)) = Rz90 and Ad(sigma_x) = Rx180 on (X, Y, Z)
+RESULT M_sig ONE   HOLDS  (by construction)
+RESULT M_sig RIL   HOLDS  (Phi = sigma; body preservation: sigma(iota B4) = iota(R B4) = iota B4 [W: R permutes tensor factors])
+RESULT M_sig OLTI  HOLDS  (A- and B-covariance hold for every token and every listed rotation)
+RESULT M_sig STMC  HOLDS  (holds on every generator)
+RESULT M_sig IP1BA HOLDS  (tokens failing: [])
+RESULT M_sig IP1AB HOLDS  (tokens failing: [])
+RESULT M_sig IPBA  HOLDS
+RESULT M_sig IPAB  HOLDS
+RESULT M_sig TPS   HOLDS
+RESULT M_sig tok   HOLDS  (holds on every generator)
+RESULT M_sig LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT M_sig LTB   HOLDS  (TB is a signed permutation on iota(W4))
+RESULT ANCc  ONE   HOLDS  (by construction)
+RESULT ANCc  RIL   HOLDS  (Phi = swap of the components; body preservation: the swap exchanges the two generating sets (a0 = b0))
+RESULT ANCc  OLTI  HOLDS  (A- and B-covariance hold for every token and every listed rotation)
+RESULT ANCc  STMC  FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 1)
+RESULT ANCc  IP1BA FAILS  (tokens failing: [0, 1, 2, 3])
+RESULT ANCc  IP1AB FAILS  (tokens failing: [0, 1, 2, 3])
+RESULT ANCc  IPBA  FAILS
+RESULT ANCc  IPAB  FAILS
+RESULT ANCc  TPS   FAILS
+RESULT ANCc  tok   FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 1)
+RESULT ANCc  LTA   FAILS  (two B-products with equal A-readings and different points)
+RESULT ANCz  ONE   HOLDS  (by construction)
+RESULT ANCz  RIL   HOLDS  (Phi = swap of the components; body preservation: the swap exchanges the two generating sets (a0 = b0))
+RESULT ANCz  OLTI  FAILS  (A-covariance fails (token 0))
+RESULT ANCz  STMC  FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 1)
+RESULT ANCz  IP1BA FAILS  (tokens failing: [0, 1, 2, 3])
+RESULT ANCz  IP1AB FAILS  (tokens failing: [0, 1, 2, 3])
+RESULT ANCz  IPBA  FAILS
+RESULT ANCz  IPAB  FAILS
+RESULT ANCz  TPS   FAILS
+RESULT ANCz  tok   FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 1)
+RESULT ANCz  LTA   FAILS  (two B-products with equal A-readings and different points)
+RESULT M_rho ONE   HOLDS  (by construction)
+RESULT M_rho RIL   N/A    (N/A as stated: pairBody K23 = Q3 differs from pairBody K13 = twin (q3 t4))
+RESULT M_rho OLTI  FAILS  (B-covariance fails at token 1 for R = [[0, -1, 0], [1, 0, 0], [0, 0, 1]])
+RESULT M_rho STMC  FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 2)
+RESULT M_rho IP1BA FAILS  (tokens failing: [1, 2, 3])
+RESULT M_rho IP1AB FAILS  (tokens failing: [1, 2, 3])
+RESULT M_rho IPBA  FAILS
+RESULT M_rho IPAB  FAILS
+RESULT M_rho TPS   FAILS
+RESULT M_rho tok   FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 2)
+RESULT M_rho LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT M_rho LTB   HOLDS  (TB is a signed permutation on iota(W4))
+RESULT M_tw  ONE   HOLDS  (by construction)
+RESULT M_tw  RIL   N/A    (N/A as stated: pairBody K23 = Q3 differs from pairBody K13 = twin (q3 t4))
+RESULT M_tw  OLTI  FAILS  (B-covariance fails at token 3 for R = [[0, -1, 0], [1, 0, 0], [0, 0, 1]])
+RESULT M_tw  STMC  FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 2)
+RESULT M_tw  IP1BA FAILS  (tokens failing: [3])
+RESULT M_tw  IP1AB FAILS  (tokens failing: [3])
+RESULT M_tw  IPBA  FAILS
+RESULT M_tw  IPAB  FAILS
+RESULT M_tw  TPS   FAILS
+RESULT M_tw  tok   FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 2)
+RESULT M_tw  LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT M_tw  LTB   HOLDS  (TB is a signed permutation on iota(W4))
+RESULT M_id  ONE   HOLDS  (by construction)
+RESULT M_id  RIL   HOLDS  (Phi = id; body preservation: trivial)
+RESULT M_id  OLTI  FAILS  (B-covariance fails at token 1 for R = [[0, -1, 0], [1, 0, 0], [0, 0, 1]])
+RESULT M_id  STMC  FAILS  (pure A-product 1, index (0, 0, 2, 0), difference -1)
+RESULT M_id  IP1BA FAILS  (tokens failing: [1, 2])
+RESULT M_id  IP1AB FAILS  (tokens failing: [1, 2])
+RESULT M_id  IPBA  FAILS
+RESULT M_id  IPAB  FAILS
+RESULT M_id  TPS   FAILS
+RESULT M_id  tok   FAILS  (pure A-product 1, index (0, 0, 2, 0), difference -1)
+RESULT M_id  LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT M_id  LTB   HOLDS  (TB is a signed permutation on iota(W4))
+RESULT M_T   ONE   HOLDS  (by construction)
+RESULT M_T   RIL   HOLDS  (Phi = sigma o tau_1; body preservation: tau_1 and sigma permute tensor factors of iota B4 [W])
+RESULT M_T   OLTI  FAILS  (B-covariance fails at token 0 for R = [[0, -1, 0], [1, 0, 0], [0, 0, 1]])
+RESULT M_T   STMC  FAILS  (pure A-product 1, index (0, 0, 1, 0), difference -1)
+RESULT M_T   IP1BA FAILS  (tokens failing: [0, 2])
+RESULT M_T   IP1AB FAILS  (tokens failing: [0, 2])
+RESULT M_T   IPBA  FAILS
+RESULT M_T   IPAB  FAILS
+RESULT M_T   TPS   FAILS
+RESULT M_T   tok   FAILS  (pure A-product 1, index (0, 0, 1, 0), difference -1)
+RESULT M_T   LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT M_T   LTB   HOLDS  (TB is a signed permutation on iota(W4))
+RESULT M_th  ONE   HOLDS  (by construction)
+RESULT M_th  RIL   N/A    (N/A as stated: pairBody K23 = Q3 differs from pairBody K13 = twin (q3 t4))
+RESULT M_th  OLTI  HOLDS  (A- and B-covariance hold for every token and every listed rotation)
+RESULT M_th  STMC  FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 2)
+RESULT M_th  IP1BA FAILS  (tokens failing: [3])
+RESULT M_th  IP1AB FAILS  (tokens failing: [3])
+RESULT M_th  IPBA  FAILS
+RESULT M_th  IPAB  FAILS
+RESULT M_th  TPS   FAILS
+RESULT M_th  tok   FAILS  (pure A-product 0, index (0, 0, 0, 2), difference 2)
+RESULT M_th  LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT M_th  LTB   HOLDS  (TB is a signed permutation on iota(W4))
+RESULT PAD1  ONE   HOLDS  (by construction)
+RESULT PAD1  STMC  FAILS  (failing generators: [('(w0, 1)', [(0, 0, 0, 1), (0, 0, 0, 3)])])
+RESULT PAD1  IP1BA HOLDS  (tokens failing: [])
+RESULT PAD1  IP1AB HOLDS  (tokens failing: [])
+RESULT PAD1  IPBA  HOLDS
+RESULT PAD1  IPAB  HOLDS
+RESULT PAD1  TPS   HOLDS
+RESULT PAD1  tok   FAILS  (failing generators: [('(w0, 1)', [(0, 0, 0, 1), (0, 0, 0, 3)])])
+RESULT PAD1  LTA   FAILS  ((w0, 0) and (w0, 1) are body points with equal A-readings)
+RESULT PAD2  ONE   HOLDS  (by construction)
+RESULT PAD2  STMC  HOLDS  (holds on every generator)
+RESULT PAD2  IP1BA HOLDS  (tokens failing: [])
+RESULT PAD2  IP1AB HOLDS  (tokens failing: [])
+RESULT PAD2  IPBA  HOLDS
+RESULT PAD2  IPAB  HOLDS
+RESULT PAD2  TPS   FAILS
+RESULT PAD2  tok   HOLDS  (holds on every generator)
+RESULT PAD2  LTA   FAILS  (pA(z,z,z,z) and pB(z,z,z,z) differ and have equal A-readings)
+RESULT PAD3  ONE   HOLDS  (by construction)
+RESULT PAD3  STMC  HOLDS  (holds on every generator)
+RESULT PAD3  IP1BA HOLDS  (tokens failing: [])
+RESULT PAD3  IP1AB HOLDS  (tokens failing: [])
+RESULT PAD3  IPBA  HOLDS
+RESULT PAD3  IPAB  HOLDS
+RESULT PAD3  TPS   HOLDS
+RESULT PAD3  tok   FAILS  (failing generators: [('(w0, 1)', [(1, 1, 0, 0), (2, 2, 0, 0)])])
+RESULT PAD3  LTA   FAILS  ((w0, 0) and (w0, 1) are body points with equal A-readings)
+RESULT SEPB  ONE   FAILS  (separate bodies (one_body dropped))
+RESULT SEPB  STMC  HOLDS  (holds on every generator)
+RESULT SEPB  IP1BA HOLDS  (tokens failing: [])
+RESULT SEPB  IP1AB HOLDS  (tokens failing: [])
+RESULT SEPB  IPBA  FAILS
+RESULT SEPB  IPAB  FAILS
+RESULT SEPB  TPS   FAILS
+RESULT SEPB  tok   FAILS  (pure A-product 0, index (0, 0, 3, 2), difference 2)
+RESULT SEPB  LTA   HOLDS  (TA is the identity on iota(W4); body in iota(W4): True)
+RESULT SEPB  LTB   HOLDS  (TB is a signed permutation on iota(W4))
+PASS C1 control M_sig: every predicate HOLDS
+PASS C2 every SOURCE countermodel and M_th: tok FAILS and TPS FAILS  [ANCc:tok=FAILS,TPS=FAILS, ANCz:tok=FAILS,TPS=FAILS, M_rho:tok=FAILS,TPS=FAILS, M_tw:tok=FAILS,TPS=FAILS, M_id:tok=FAILS,TPS=FAILS, M_T:tok=FAILS,TPS=FAILS, M_th:tok=FAILS,TPS=FAILS]
+PASS S1 PAD1: IP1BA, IPBA, TPS HOLD; tok FAILS; LTA FAILS
+PASS S2 PAD2: tok HOLDS; TPS FAILS; LTA FAILS
+PASS S3 PAD3: STMC HOLDS; IP1BA HOLDS; tok FAILS; LTA FAILS
+PASS S4 SEPB: IP1BA HOLDS, LTA HOLDS, tok FAILS, and PA.prodEff (t(z-, u)) (t(u, y-)) at pB(z, z, z, y) is negative (no common body)  [value = -1/2]
+PASS S5 M_tw and M_th: IP1BA holds at tokens 0, 1, 2 and fails at token 3
+PASS F no float entered any checked quantity
+REFUTATION ONE   => tok : REFUTED by ANC, M_rho, M_tw, M_id, M_T, M_th
+REFUTATION ONE   => TPS : REFUTED by ANC, M_rho, M_tw, M_id, M_T, M_th
+REFUTATION RIL   => tok : REFUTED by ANC, M_id, M_T
+REFUTATION RIL   => TPS : REFUTED by ANC, M_id, M_T
+REFUTATION OLTI  => tok : REFUTED by ANC, M_th
+REFUTATION OLTI  => TPS : REFUTED by ANC, M_th
+REFUTATION STMC  => tok : SURVIVES
+REFUTATION STMC  => TPS : SURVIVES
+REFUTATION IP1BA => tok : SURVIVES
+REFUTATION IP1BA => TPS : SURVIVES
+REFUTATION IP1AB => tok : SURVIVES
+REFUTATION IP1AB => TPS : SURVIVES
+REFUTATION IPBA  => tok : SURVIVES
+REFUTATION IPBA  => TPS : SURVIVES
+REFUTATION IPAB  => tok : SURVIVES
+REFUTATION IPAB  => TPS : SURVIVES
+REFUTATION TPS   => tok : SURVIVES
+--- q1_tok_models: 13/13 checks pass
+VERDICT Q1-PART-A-MODELS-EXACT

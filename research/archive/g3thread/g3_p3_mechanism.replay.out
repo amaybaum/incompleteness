@@ -1,0 +1,24 @@
+PASS M1 relT: (I(x)X) CNOT (I(x)X) = CNOT
+PASS M1 relC: (X(x)I) CNOT (X(x)I) = (I(x)X) CNOT
+PASS M1 ((X(x)I) CNOT)^2 = I(x)X  (hence J^2 = -1 on every target-odd sector)
+PASS M1 CNOT is real, so it acts on Sym(4) as well as on Herm(4)
+PASS M2 CNOT (A(x)B) CNOT = (Z o A)(x)B + (1/4)[A,Z](x)[X,B] for all A in M_2(C), B in {Z, Y, R}
+     C: IY -> [('1', 'ZY')]
+     C: IZ -> [('1', 'ZZ')]
+     C: XY -> [('1', 'YZ')]
+     C: XZ -> [('-1', 'YY')]
+     C: YY -> [('-1', 'XZ')]
+     C: YZ -> [('1', 'XY')]
+     C: ZY -> [('1', 'IY')]
+     C: ZZ -> [('1', 'IZ')]
+PASS M3 Herm(4) is spanned by the 16 Pauli products (LT); target-odd sector 8 = 4 control-even + 4 control-odd; Ad CNOT maps it into Herm(4) with real Pauli coefficients and swaps control parity
+PASS M3 [X,Z] = -2iY and (1/4)[X,Z](x)[X,Z] = -Y(x)Y: the two anti-Hermitian factors carry one i each
+PASS M3 CNOT (X(x)Z) CNOT = -Y(x)Y
+PASS M4 Sym(4) = LT span (rank 9) + R(x)R (total 10); CNOT (X(x)Z) CNOT = +(R(x)R) = -(Y(x)Y), outside the LT span
+PASS M4 full real target-odd sector: control split (2,2); J = Ad((X(x)I)CNOT) has J^2 = -1; LT sub-carrier split (2,1)  [J = [[0, 0, 1, 0], [0, 0, 0, 1], [-1, 0, 0, 0], [0, -1, 0, 0]]]
+     R: K_A^2 = 9, K_AB = 10 (not LT)
+     C: K_A^2 = 16, K_AB = 16 (LT)
+     H: K_A^2 = 36, K_AB = 28 (not LT)
+PASS M5 K_AB = K_A^2 only for C (R: 10 > 9; H: 28 < 36, H_4(H) composite flagged [L])
+SUMMARY 11 checks, 0 failed
+VERDICT RENDERED: the target-odd action of CNOT is (Z o A)(x)B + (1/4)[A,Z](x)[X,B] over any field; over C the anti-Hermitian product lands in Herm(x)Herm (balance (4,4) on the LT carrier); over R it lands on R(x)R outside the LT span (balance (2,2) only on the 10-dim carrier, (2,1) on LT); J^2 = -1 holds over both

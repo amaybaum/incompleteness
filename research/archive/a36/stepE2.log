@@ -1,0 +1,18 @@
+  column ((0, 1, 2, 3), (4, 5, 6, 7))      trial 0: rank of B(u,.) on Def = 30 -> dim T_u Q = 19, dim T_o = 14: T_u Q exceeds T_o by 5
+  column ((0, 1, 2, 3), (4, 5, 6, 7))      trial 1: rank of B(u,.) on Def = 32 -> dim T_u Q = 17, dim T_o = 14: T_u Q exceeds T_o by 3
+  column ((0, 2, 8, 10), (1, 3, 9, 11))    trial 0: rank of B(u,.) on Def = 33 -> dim T_u Q = 16, dim T_o = 24: T_u Q exceeds T_o by -8
+  column ((0, 2, 8, 10), (1, 3, 9, 11))    trial 1: rank of B(u,.) on Def = 36 -> dim T_u Q = 13, dim T_o = 24: T_u Q exceeds T_o by -11
+  column ((0, 2, 9, 11), (1, 3, 8, 10))    trial 0: rank of B(u,.) on Def = 32 -> dim T_u Q = 17, dim T_o = 14: T_u Q exceeds T_o by 3
+  column ((0, 2, 9, 11), (1, 3, 8, 10))    trial 1: rank of B(u,.) on Def = 32 -> dim T_u Q = 17, dim T_o = 14: T_u Q exceeds T_o by 3
+  column ((0, 4, 8, 12), (1, 5, 9, 13))    trial 0: rank of B(u,.) on Def = 32 -> dim T_u Q = 17, dim T_o = 14: T_u Q exceeds T_o by 3
+  column ((0, 4, 8, 12), (1, 5, 9, 13))    trial 1: rank of B(u,.) on Def = 28 -> dim T_u Q = 21, dim T_o = 14: T_u Q exceeds T_o by 7
+  row ((0, 1, 2, 3), (4, 5, 6, 7))         trial 0: rank of B(u,.) on Def = 30 -> dim T_u Q = 19, dim T_o = 14: T_u Q exceeds T_o by 5
+  row ((0, 1, 2, 3), (4, 5, 6, 7))         trial 1: rank of B(u,.) on Def = 28 -> dim T_u Q = 21, dim T_o = 14: T_u Q exceeds T_o by 7
+  row ((0, 2, 8, 10), (1, 3, 9, 11))       trial 0: rank of B(u,.) on Def = 39 -> dim T_u Q = 10, dim T_o = 24: T_u Q exceeds T_o by -14
+  row ((0, 2, 8, 10), (1, 3, 9, 11))       trial 1: rank of B(u,.) on Def = 37 -> dim T_u Q = 12, dim T_o = 24: T_u Q exceeds T_o by -12
+  row ((0, 2, 9, 11), (1, 3, 8, 10))       trial 0: rank of B(u,.) on Def = 32 -> dim T_u Q = 17, dim T_o = 14: T_u Q exceeds T_o by 3
+  row ((0, 2, 9, 11), (1, 3, 8, 10))       trial 1: rank of B(u,.) on Def = 28 -> dim T_u Q = 21, dim T_o = 14: T_u Q exceeds T_o by 7
+  row ((0, 4, 8, 12), (1, 5, 9, 13))       trial 0: rank of B(u,.) on Def = 32 -> dim T_u Q = 17, dim T_o = 14: T_u Q exceeds T_o by 3
+  row ((0, 4, 8, 12), (1, 5, 9, 13))       trial 1: rank of B(u,.) on Def = 30 -> dim T_u Q = 19, dim T_o = 14: T_u Q exceeds T_o by 5
+generic u in Def: rank of B(u,.) = 45
+done (6s)

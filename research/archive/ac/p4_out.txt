@@ -1,0 +1,16 @@
+PASS C1 invariant symmetric forms under the raw pair {R_x(theta), R_z(theta)}: dimension 1  dim = 1
+PASS C2 countercontrol: under R_z(theta) alone, dimension 2  dim = 2
+PASS C2 countercontrol: under the finite group <R_x(pi), R_z(pi)>, dimension 3  dim = 3
+PASS C2b countercontrol: finite octahedral rotations <R_x(pi/2), R_z(pi/2)> also give dimension 1  dim = 1
+PASS C2b ... and they permute the cube vertices (preserve the cube, not a ball)
+PASS C3 cylinder symmetries R_z(theta), z -> -z: invariant forms have dimension 2  dim = 2
+PASS C3 diag(1,1,0) is invariant
+PASS C3 diag(0,0,1) is invariant
+PASS C3 Q(1,0,1) - Q(1,0,0) = b > 0 on two boundary states of the cylinder
+PASS C4 kernel witness reproduced: value at (-e1, -e3) is -1/2
+PASS C4 some raw pair of orbit directions separates chainW from maxCone (value < 0)  min value -36502/78125 (~-0.4672, display only) at words 'zXzX', 'xxx'; 243 directions
+PASS C5 control: on product states every raw-direction value is a product of effect values (>= 0)  3200 instances
+PASS C6 no raw seed transport sharpEff(W e_z) is certain at -e_z (enumerated words)
+PASS C6 sharpEff b is certain at a sphere point x iff x = b (rational sphere points)
+SUMMARY 14/14 PASS
+VERDICT consumer-classification-holds

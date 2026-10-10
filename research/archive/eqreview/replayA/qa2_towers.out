@@ -1,0 +1,32 @@
+
+=== A. SIC coordinates: an exact rational chart of the Bloch ball ===
+PASS [identity] gram  -- a_i . a_j = b_i . b_j / 3 = 1 (i = j), -1/3 (i != j)
+PASS [identity] frame_sum  -- sum_i b_i b_i^T = 4 I and sum_i b_i = 0: sum_i a_i a_i^T = (4/3) I, sum_i a_i = 0
+PASS [identity] chart_identity  -- s_i = a_i . r satisfies sum s = 0 and (3/4) sum s_i^2 = |r|^2: the s-chart carries the unit ball onto the body
+NOTE [written] A.ball  -- so the completed body of either tower is affinely the Euclidean 3-ball: ELEM2 (centrally symmetric about s = 0) and GEOM2 (strictly convex) hold; it carries the landed transitive families fullAut 3 (boundaryTransitive_fullAut, EffectSpace.lean:337) and ratRefl 3 (denseBoundaryOrbit_ratRefl, DenseOrbit.lean:359)
+
+=== B. SIC tower: no available effect is a sharp seed (K-inf-Seed with an available seed fails) ===
+PASS [identity] sharp_identity  -- (sum c)^2 - |sum c_i a_i|^2 = (8/3) sum_{i<j} c_i c_j
+NOTE [written] B.no_sharp  -- on the ball, e_c = sum c/4 + (sum c_i a_i).r/4 has max (sum c + |sum c a|)/4 and min (sum c - |sum c a|)/4.  A sharp seed needs max = 1 and min = 0, i.e. sum c = 2 and |sum c a| = 2; by the identity sum_{i<j} c_i c_j = 0, so with c >= 0 at most one c_i is nonzero and sum c <= 1 < 2.  No response effect, and so no available effect of the SIC tower or of its pointwise closure (the response set is closed), is a sharp seed.
+PASS [enumerate] sic.stage2  -- 19 preparations x 81 effects: table in [0,1], unit row 1, BinaryVisible test (p1+p2, p3+p4) sums to 1, no stage effect is certain at one stage preparation and impossible at another, table rank 4 (affine dim 3)
+PASS [enumerate] sic.stage3  -- 207 preparations x 81 effects: table in [0,1], unit row 1, BinaryVisible test (p1+p2, p3+p4) sums to 1, no stage effect is certain at one stage preparation and impossible at another, table rank 4 (affine dim 3)
+PASS [enumerate] sic.stage6  -- 5811 preparations x 81 effects: table in [0,1], unit row 1, BinaryVisible test (p1+p2, p3+p4) sums to 1, no stage effect is certain at one stage preparation and impossible at another, table rank 4 (affine dim 3)
+PASS [enumerate] sic.nested_SCinf  -- stage n is contained in stage m for n <= m and every table entry is the one global formula: the forward maps are inclusions and SC-inf holds by construction
+PASS [witness] sic.tangency_certain_not_sharp  -- e_(1110) = 1 - p_4 is certain at the tangency point -a_4 (a stage preparation) but never below 1/2: certain, not sharp
+
+=== C. SIC+axis tower: an available sharp seed (ElemVis holds), V4 fails for every transitive or dense G ===
+PASS [witness] axis.stage_sharp_pair  -- s+ = a_1 and s- = -a_1 are stage preparations (n = 3) on the sphere with r = 1, 0: SC-inf + this stage pair give K-inf-Seed on the completion (sharpSeed_completion, StageCompletion.lean:224); s+, s- are pure with midpoint 0 interior: ElemVis holds with the visible test (r, 1 - r)
+PASS [enumerate] axis.r_effect  -- r is an effect on every preparation
+PASS [identity] tangency_affinely_independent  -- the four tangency points are affinely independent in the 3-dim body: an affine functional on the body is fixed by its four values there
+PASS [witness] axis.transport_unavailable  -- the transport of r along the tetrahedral reflection that swaps a_1 and a_2 is 2 p_2 = (1 + s_2)/2, value vector (Fraction(2, 3), Fraction(0, 1), Fraction(2, 3), Fraction(2, 3)): not a response effect (forced c_2 = 2 > 1) and not r, 1 - r: V4 fails
+NOTE [written] C.V4_fails_dense  -- the sharp seeds available in the SIC+axis tower are exactly r and 1 - r (section B plus the two additions); on the ball a sharp seed is fixed by its certain point (sharp_eq_of_certain, EFF-1), and the transport of r along g is certain at g(a_1).  Any G with a dense (a fortiori transitive) boundary orbit has g with g(a_1) not in {a_1, -a_1}, so SeedOrbitAvailable fails for every such G, while SC-inf, BinaryVisible with a sharp pair, FiniteRank, ElemVis, GEOM2, K-inf-Seed, K-inf-Trans (fullAut 3) and the dense form (ratRefl 3) hold.
+PASS [enumerate] tet_reflection_swaps  -- the reflection in the plane orthogonal to b_1 - b_2 acts on every stage-3 preparation as s_1 <-> s_2 (a symmetry of the tetrahedron)
+PASS [enumerate] ratrefl_rational_action  -- a rational reflection (normal (1,0,0), not a tetrahedral symmetry) acts on s by a rational matrix preserving the body: the landed ratRefl family is Prep-valued on this tower (maps rational preparations to rational points)
+PASS [witness] ratrefl_not_label_dual  -- the pullback of p_1 along that reflection is not a response effect (value vector (Fraction(1, 6), Fraction(1, 2), Fraction(1, 6), Fraction(1, 6))): the ratRefl operations carry no label dual on the SIC family, which is why V4 can fail with a dense G
+
+=== D. Positive control for "label-dual inverses => V4": the tetrahedral group on the all-axes tower ===
+PASS [enumerate] tet.label_dual  -- each of the 24 tetrahedral symmetries maps every sampled available effect to an available effect (pullback = a permutation of the labels): a label dual
+PASS [enumerate] tet.V4  -- hence every transport of r = 2 p_1 is available: V4 holds for this G (finite, so neither transitive nor dense on the boundary: consistent with not_boundaryTransitive_of_countable)
+
+summary: witness 4, identity 5, enumerate 9, sample 0
+qa2_towers: OK -- 18 exact checks

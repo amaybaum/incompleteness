@@ -1,0 +1,42 @@
+F 08fc61d3fe0b8a723901c3c0022470f3f3aab66a
+C1 e5f423d62ef3a4f960d10901de773bf1d7007f58
+S1 20c0b2efab419a1a207ed4769e6e573547acf195
+S2 39a53f90e6f0cb02fddc974e7d03f7de39fc8b9a
+prereg blob e7dff990faa22d5567983c42902edde47a0de636  controls blob 7a691bca95232e1dbe289f57d8b9e458b9732b76  result blob 86b789e90aed02f13ffb5a2b4e5a0ece7656efa7  indep blob 94159768a66248bbe5733e0ebde83b4c1dfe40ca  workflow blob 6207ec57b53ce2f0844397fd84e29aab77dd90be
+C1: controls blob is the frozen blob recorded in the preregistration
+F: single parent D
+== check S1
+controls: OK -- 12 checks
+== self-test
+controls: OK -- self-test 47 checks
+== check S2
+controls: OK -- 14 checks
+== verdict S2
+Q1-CL   CLOSEDNESS-FOIL-VERIFIED
+Q1-MAX  MAXCONE-MODEL-VERIFIED
+Q1-IND  INDEPENDENT-REPLICATION-VERIFIED
+Q1-MAP  COUNTERMODEL-MATRIX-VERIFIED
+Q1-NEC  CLASSIFICATION-STEPS-VERIFIED
+Q2      PAIR-ROUTE-GAP-VERIFIED
+Q3      SOURCE-MAP-CITATIONS-VERIFIED
+kt4_prem1_probe: OK -- 79 checks
+FINAL: 124 exact checks, 0 failed; claims AGREE
+PASS countercontrol extra-token -> FAILED V1
+PASS countercontrol earned-altered -> FAILED V2
+PASS countercontrol rule-missing -> FAILED V3
+PASS countercontrol summary-missing -> FAILED V4
+PASS countercontrol phrase-PH -> FAILED PH
+PASS countercontrol prereg-after-F -> FAILED F
+PASS countercontrol roadmap-touched -> FAILED G
+PASS countercontrol workflow-test-line -> FAILED W
+PASS countercontrol probe-witness -> FAILED P
+PASS countercontrol extra-record-file -> FAILED R
+PASS countercontrol indep-witness -> FAILED P
+PASS countercontrol final-missing -> FAILED V4
+PASS countercontrol ind-token-negated -> FAILED V1
+PASS countercontrol lean-source-changed -> FAILED G
+exit 0
+control_plane: b'verification/programmes/oi-qm/reconstruction/round-kt4-prem-1-premise-audit/' KT4-PREM-1 non-sealing codes []
+governed entries: [('record', 'AM', 'verification/programmes/oi-qm/reconstruction/round-kt4-prem-1-premise-audit/'), ('record', 'AM', 'verification/receipts/KT4-PREM-1.json'), ('execution', 'A', 'verification/lean/kt4_prem1_probe.py'), ('execution', 'A', 'verification/lean/kt4_prem1_indep_check.py'), ('execution', 'M', '.github/workflows/verify.yml')]
+t1: []
+execution F..E: []

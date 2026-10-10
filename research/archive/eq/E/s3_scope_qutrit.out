@@ -1,0 +1,19 @@
+PASS  x = diag(1/2,1/2,0) and y = |2><2| are states
+PASS  IsBoundaryState (KF:130): x + eps (x - y) = diag((1+eps)/2,(1+eps)/2,-eps) has the eigenvalue -eps < 0 for every eps > 0, so it leaves the body
+PASS  x is NOT extreme: x = (|0><0| + |1><1|)/2 with |0><0| != |1><1| both states
+NOTE  TransitiveBody:301 `not_boundaryTransitive_of_nonextreme_boundary` (compact, convex, interior nonempty in the 8-dimensional chart of traceless Hermitian coordinates, a boundary state that is not extreme) then gives: NO body-preserving family G is boundary transitive on the qutrit body -- K-inf-Trans fails for every G.
+NOTE  the dense form fails as well: DenseOrbit:125 `eq_qBall_of_dense` would make the body a Q-ball, all of whose boundary points are extreme, contradicting the witness above.
+PASS  SingletonFaces fails at the qutrit: P = diag(1,1,0) is proper (0 on |2><2|) and certain on |0><0| and |1><1|
+PASS  U(t) = exp(-itH) closed form: dU/dt = -i H U and U(0) = I (symbolic)
+PASS  flow_add: U(s) U(t) = U(s+t) (symbolic trig identity)
+PASS  flow_preserves: U(t) unitary, so Ad_U(t) preserves the body
+PASS  t0 = pi: U(pi) = diag(-1,-1,1), U(pi)^2 = I, so the member at t0 is an involution of the body
+PASS  N_moves: Ad_U(pi) moves (|0>+|2>)/sqrt2 to (-|0>+|2>)/sqrt2
+PASS  J_off_axis: J F(pi/2) J^-1 |0><0| = |2><2|, while F(s)|0><0| has (2,2) entry 0 for every s
+NOTE  so ElementaryDrivability holds on the qutrit body: K-inf-Drive is NOT elementary-scoped (continuity of the flow: entries are polynomials in cos t, sin t).
+PASS  qubit drive about the first axis: R_x(pi) = nflip (DIM-1's NOT = Ad_X), R_x a flow of ball automorphisms
+PASS  J = cyc3 is off-axis for R_x: J R_x(pi/2) J^-1 e1 != e1 = R_x(s) e1 for all s  -- J R J^-1 e1 = Matrix([[0, 0, -1]])
+PASS  the kernel's control drive ball3Drive (flow rot3 about the third axis) has NOT diag(-1,-1,1) = Ad_Z, which FIXES z3: the landed drive and DIM-1's NOT are different maps in the same chart
+PASS  a product of two rational Householder reflections is a rational ROTATION (det +1) mapping z3 to (2/3,1/3,2/3)
+NOTE  so the rational rotation group (countable, orientation-preserving, = rational unitary conjugations) carries a rational unit vector to every rational unit vector: a dense boundary orbit on the Bloch sphere. The kernel's dense witness `ratRefl` (DenseOrbit:342) is a family of REFLECTIONS (antiunitary in QM), which K2Guard shows incompatible with cnot on a candidate cone; the rotation family is the QM-compatible choice.
+s3_scope_qutrit: OK -- 14 checks, 0 failed

@@ -1,0 +1,75 @@
+PASS A a=0: u + s_a cos(th) z = cos^2(th/2) k_a + sin^2(th/2) k_abar
+PASS A a=1: u + s_a cos(th) z = cos^2(th/2) k_a + sin^2(th/2) k_abar
+PASS A: d/dth cos^2(th/2) and sin^2(th/2) vanish at th = 0 and th = pi (so W'(0) = G(c(x)t), W'(pi) = -G(c(x)t))
+PASS S1 d=2 a=0: Z_a(t) in span{k_a} (x) T exactly (dim 1)
+PASS S1 d=2 a=1: Z_a(t) in span{k_a} (x) T exactly (dim 1)
+PASS S2 d=2 p=0 q=1: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 1); identities exact
+PASS S2 d=2 p=1 q=0: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 1); identities exact
+PASS S2 d=2 p=1: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S1 d=3 a=0: Z_a(t) in span{k_a} (x) T exactly (dim 2)
+PASS S1 d=3 a=1: Z_a(t) in span{k_a} (x) T exactly (dim 2)
+PASS S2 d=3 p=0 q=2: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 3); identities exact
+PASS S2 d=3 p=1 q=1: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 2); identities exact
+PASS S2 d=3 p=1: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=3 p=2 q=0: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 3); identities exact
+PASS S2 d=3 p=2: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S1 d=4 a=0: Z_a(t) in span{k_a} (x) T exactly (dim 3)
+PASS S1 d=4 a=1: Z_a(t) in span{k_a} (x) T exactly (dim 3)
+PASS S2 d=4 p=0 q=3: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 6); identities exact
+PASS S2 d=4 p=1 q=2: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 4); identities exact
+PASS S2 d=4 p=1: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=4 p=2 q=1: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 4); identities exact
+PASS S2 d=4 p=2: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=4 p=3 q=0: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 6); identities exact
+PASS S2 d=4 p=3: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S1 d=5 a=0: Z_a(t) in span{k_a} (x) T exactly (dim 4)
+PASS S1 d=5 a=1: Z_a(t) in span{k_a} (x) T exactly (dim 4)
+PASS S2 d=5 p=0 q=4: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 10); identities exact
+PASS S2 d=5 p=1 q=3: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 7); identities exact
+PASS S2 d=5 p=1: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=5 p=2 q=2: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 6); identities exact
+PASS S2 d=5 p=2: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=5 p=3 q=1: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 7); identities exact
+PASS S2 d=5 p=3: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=5 p=4 q=0: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 10); identities exact
+PASS S2 d=5 p=4: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S1 d=6 a=0: Z_a(t) in span{k_a} (x) T exactly (dim 5)
+PASS S1 d=6 a=1: Z_a(t) in span{k_a} (x) T exactly (dim 5)
+PASS S2 d=6 p=0 q=5: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 15); identities exact
+PASS S2 d=6 p=1 q=4: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 11); identities exact
+PASS S2 d=6 p=1: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=6 p=2 q=3: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 9); identities exact
+PASS S2 d=6 p=2: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=6 p=3 q=2: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 9); identities exact
+PASS S2 d=6 p=3: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=6 p=4 q=1: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 11); identities exact
+PASS S2 d=6 p=4: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=6 p=5 q=0: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 15); identities exact
+PASS S2 d=6 p=5: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S1 d=7 a=0: Z_a(t) in span{k_a} (x) T exactly (dim 6)
+PASS S1 d=7 a=1: Z_a(t) in span{k_a} (x) T exactly (dim 6)
+PASS S2 d=7 p=0 q=6: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 21); identities exact
+PASS S2 d=7 p=1 q=5: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 16); identities exact
+PASS S2 d=7 p=1: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=7 p=2 q=4: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 13); identities exact
+PASS S2 d=7 p=2: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=7 p=3 q=3: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 12); identities exact
+PASS S2 d=7 p=3: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=7 p=4 q=2: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 13); identities exact
+PASS S2 d=7 p=4: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=7 p=5 q=1: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 16); identities exact
+PASS S2 d=7 p=5: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S2 d=7 p=6 q=0: solution space == [alpha_r at (r,u) AND (u,r)] + so(V+) + so(V-) (dim 21); identities exact
+PASS S2 d=7 p=6: the transposed form (u,r) = -(r,u) violates the constraint
+PASS S3 p=1: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=2: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=3: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=4: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=5: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=6: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=7: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S3 p=8: sum over t = +-e_i of [(1+g.t)^2 - |g+(I+K)t|^2] = -2((p-1)|g|^2 + |K|_F^2)
+PASS S4 d=5 p=2: (f(x)g)(G(s(x)t)) = (1,b)(I + Gamma_ac)(1,t) with Gamma = [[0,g^T],[g,K]], K antisymmetric
+PASS S4 d=7 p=3: (f(x)g)(G(s(x)t)) = (1,b)(I + Gamma_ac)(1,t) with Gamma = [[0,g^T],[g,K]], K antisymmetric
+
+SUMMARY: 73 PASS, 0 FAIL

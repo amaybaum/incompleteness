@@ -1,0 +1,11 @@
+PASS cubes: row-0 stabilizer 32; 26 cubes (m = 1: 2, m = 2: 24)
+PASS cube 0 (m 1, y0 (1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 3 (m 2, y0 (1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 6 (m 2, y0 (1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 9 (m 2, y0 (1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 12 (m 2, y0 (1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 15 (m 2, y0 (1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 18 (m 2, y0 (0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 21 (m 2, y0 (0, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)): UNSAT
+PASS cube 24 (m 2, y0 (0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)): UNSAT
+dita_support_minimality_probe cubes:0: OK -- 10 checks (1311s)

@@ -1,0 +1,29 @@
+== exact defects at fourth-root points of Σ (X = circle r at z, Y = circle s at w) ==
+  H4⊗H4 (vertex,vertex) z=w=1      defect 105
+  F4⊗F4  z=w=i                     defect  57
+  H4⊗F4  z=1,w=i                   defect  73
+  circles 2,5 z=w=i                defect  57
+  circles 2,5 z=1,w=i              defect  73
+  (2s)
+== numeric defects at generic points ==
+  Σ generic (r=4,s=7)      defect  49   (singular gap 7.7e-02 / 2.4e-16)
+  Σ generic (r=0,s=3)      defect  49   (singular gap 7.1e-02 / 2.5e-16)
+  Σ generic (r=5,s=0)      defect  49   (singular gap 2.5e-02 / 2.5e-16)
+  Diţă witness (fourth roots)  exact defect  49   sigma_residual 0.354
+  Diţă generic (4 distinct Ys) defect  17   unitary True sigma_residual 0.500
+  Diţă generic (equal Ys)      defect  17
+  Diţă generic (4 distinct Ys) defect  17   unitary True sigma_residual 0.500
+  Diţă generic (equal Ys)      defect  17
+  Diţă generic (4 distinct Ys) defect  17   unitary True sigma_residual 0.500
+  Diţă generic (equal Ys)      defect  17
+== tangent rank of the Diţă constructions modulo phases ==
+  column construction (X, Y_c, D):     rank 14
+  row construction    (X, Y_a, E):     rank 14
+  both together at the Σ point:         rank 26
+  Σ itself (X, Y):                      rank 2
+  defect at this Σ point:                49
+  at F4⊗F4: both constructions rank 26  exact defect 57
+  at H4⊗H4: both constructions rank 26  exact defect 105
+  generic Diţă point: own tangent rank 14  numeric defect 17
+(4s)
+done

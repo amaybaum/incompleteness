@@ -1,0 +1,3 @@
+REPLAY d1_bridge stdout=IDENTICAL stderr=IDENTICAL 17:16:54
+REPLAY d2_levels stdout=IDENTICAL stderr=IDENTICAL 17:16:55
+REPLAY d3_weakest stdout=IDENTICAL stderr=IDENTICAL 17:16:58

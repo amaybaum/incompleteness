@@ -1,0 +1,24 @@
+release gate
+====================================================================
+  PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+  PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+  PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+  PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+  PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+  PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+  PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+  PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+  PASS  control-plane-lint control_plane_lint: OK (25 control-plane file(s) linted; blo
+  PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+  PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+  PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+  PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+  PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+  PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+  PASS  coverage         coverage_check: OK (130 canonical statements, 19 unattached 
+  PASS  lean-axioms      lean_axiom_check: OK (4187 named result(s) reported, no sorr
+  PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+  PASS  certificate-verifier certificate_verifier: authoritative OK (0 failure(s))
+  PASS  v3-receipts      RECEIPTS  4 receipt(s), all hold
+====================================================================
+release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

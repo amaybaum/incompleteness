@@ -1,0 +1,37 @@
+== S  spectral structure of the surgery vectors
+CONFIRMED S1 [identity] pauliW(E0) has eigenvalues -1/4, 1/4, 1/4, 3/4: one negative eigenvalue a = 1/4 and every other eigenvalue >= a (boundary case) -- {3/4: 1, -1/4: 1, 1/4: 2}
+CONFIRMED S2 [identity] each orbit vector e_s has pauliW(e_s) = (I - 2 f_s f_s^H)/8: eigenvalues -1/8, 1/8, 1/8, 1/8 (a = 1/8 = every other eigenvalue)
+CONFIRMED S3 [identity] the f_s are an orthonormal basis of C^4 and ipW(e_s, e_t) = delta_st/4
+CONFIRMED S4 [identity] F = E00/2 - T_psi/4 is the orbit vector e_(-1,-1), cnot F = e_(1,1); cnot fixes E0 and permutes the orbit
+
+== H1  products lie in K: sum-of-squares identities over the whole ball
+CONFIRMED H1a [identity] 2 ipW(E0, prodState x y) = (1-|x|^2) + (1-|y|^2) + (x1+y3)^2 + (x2-y2)^2 + x3^2 + y1^2, symbolic: >= 0 on the closed ball
+CONFIRMED H1b [identity] for each orbit vector, 4 ipW(e_s, prodState x y) = 1 + x^T M_s y with M_s = 4 e_s[1:,1:] a signed permutation, and 2(1 + x^T M_s y) = |x + M_s y|^2 + (1-|x|^2) + (1-|y|^2), symbolic (run 1 had the sign of M_s reversed: harness)
+CONFIRMED H1c [identity] pauliW(prodState x y) = rho(x) (x) rho(y): products are in Q3; with H1a/H1b they lie in Q3 cap Z*, hence in K(Z)
+
+== H2  invariance: cnot, and the even native class (level ii) for the orbit cone
+CONFIRMED H2a [identity] the landed sign/permutation tables of cnot equal conjugation by CNOT on every basis table
+CONFIRMED H2b [enumerate] the landed NativeGate predicates select 32 gates; the (even, even) class has 8, generating a group of order 16 (as AUDIT-S2 N1/N5) -- 32, 8, 16
+CONFIRMED H2c [enumerate] every element of the order-16 even class permutes the orbit {e_s}: K(Z_F) is level-(ii) invariant
+CONFIRMED H2d [enumerate] that group equals <cnot, Ad(Z(x)I), Ad(I(x)Z), transpose>, each a Q3-preserving ipW-orthogonal map (U's description), so g(K(Z_F)) = K(Z_F)
+CONFIRMED H2e [witness] Ad(Z(x)I) E0 pairs with E0 at -1: a cone containing E0 and invariant under the even class would violate K subset K*; so K(E0) is level (i) only, and no level-(ii) cone contains E0 -- -1
+CONFIRMED H2e-ie1 [witness] the same value shows IE1 fails for uniform K(E0): the local rotation Ad(Z(x)I) carries E0 in K out of K = K*
+
+== H3  self-duality: the lemma's exact ingredients, and instance batteries
+CONFIRMED H3a [identity] 2x2 block identity for vv^H + s(I - 2 f1 f1^H) on span(f1, g): det = s(|v1|^2 - |v+|^2 - s) when |b|^2 = AC (rank one)
+CONFIRMED H3b [identity] for every Hermitian q: ipW(q, e_s) = tr(q)/2 - <f_s|q|f_s>; since sum_s <f_s|q|f_s> = tr q, at most one s can have ipW(q, e_s) < 0 (the orbit surgery reduces to a single defect)
+CONFIRMED H3c [witness] E0: for every tested rank-one q = vv^H with ipW(q,E0) <= 0, the surgery Pi(q) = q - (ipW(q,E0)/ipW(E0,E0)) E0 is PSD (exact charpoly test) -- tested 51, failures 0
+CONFIRMED H3d [witness] e_(-1,-1) = F: the same surgery is PSD on every tested rank-one q with ipW(q,F) <= 0 -- tested 11, failures 0
+MISMATCH H3e [countercontrol] e_(3/2) = E00 + (3/2)(E13 - E22) has eigenvalues -1/2, 1/4, 1/4, 1 (second eigenvalue below the negative one's modulus): the surgery FAILS on rank-one q = vv^H, v = g + (k/10) f, exactly for k >= 8 as the lemma predicts (run 1 used unnormalized eigenvectors, so its k-range missed the failing region: harness) -- eigenvalues {1: 1, -1/2: 1, 1/4: 2}; failures 8 of 14 at k = [7, 8, 9, 10, 11, 12, 13, 14]
+CONFIRMED H3f [witness] a rank-two q in Q3 with ipW(q,E0) < 0: Pi(q) is PSD and E0-orthogonal, so q + lam E0 in K(E0)* decomposes inside K(E0) (the Pataki rank-one reduction is not needed on this instance)
+CONFIRMED H3g [identity] ipW(E0,E0) = 3 > 0 (so K(E0) subset K(E0)*) and -E0 is not PSD (so Q3 + R+ E0 is closed and the dual of Q3 cap E0* is Q3 + R+ E0)
+
+== W  distinctness and the witness pairs; downstream FCC and V+ facts
+CONFIRMED W1 [witness] ipW(E0, G) = -1 and ipW(F, T_psi) = -1/2 with G, T_psi pure: E0 in K(E0) and F in K(Z_F) are not PSD, and self-duality excludes G from K(E0) and T_psi from K(Z_F)
+CONFIRMED W2 [witness] uniform K(E0): fourVal(E0, E0, cnot p(e2,e3), cnot p(e1,e2)) = -1 with the effects in K_gen subset K(E0) = dualW K(E0): FCC fails (X's witness) -- -1
+CONFIRMED W3 [witness] uniform K(Z_F): fourVal(F, cnot p(e2,e2), cnot p(-e2,e2), cnot p(e1,e2)) = -1/2 with F = X's e_(1,1) = U's z_(-1,-1): FCC fails at level (ii) (run 1 used cnot F, which gives +1/2: harness) -- F: -1/2; cnot F: 1/2
+CONFIRMED W4 [witness] Y1 = E0^Gamma (partial transpose) has ipW(Y1, cnot Y1) = -1: no cone with K subset K* and cnot K = K contains Y1 (U's necessary condition) -- -1
+CONFIRMED W5 [identity] F + cnot F = (E00 - E31)/2 is PSD, so every q in Q3 cap V+ has ipW(q,F) = ipW(q,(F + cnot F)/2) >= 0: K({F, cnot F}) cap V+ = Q3 cap V+ (U's K_F2), while K(E0) cap V+ contains the non-PSD E0 (E0 is cnot-fixed)
+
+checks: 25, confirmed: 24
+VERDICT INDEP-QSD-MISMATCH

@@ -1,0 +1,4 @@
+Wwit sector6 coordinates: [ 0.666667 -0.333333  0.666667  0.666667  0.666667  0.666667]
+round 0: LP value <Y, Wwit> = -4.229011e-01 ; pricing min -1.934e-01
+round 15: LP value <Y, Wwit> = -1.122288e-04 ; pricing min -1.316e-16
+converged: Y coords [ 0.254751  1.       -0.        0.17451   0.035285 -0.      ]

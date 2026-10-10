@@ -1,0 +1,18 @@
+      L(control x) has dimension 2 (predicted 2)
+      L(control z) has dimension 1 (predicted 1)
+      L(control (3,0,4)/5) has dimension 4 (predicted 4)
+      L(target x) has dimension 1 (predicted 1)
+      L(target z) has dimension 2 (predicted 2)
+      L(target (3,4,0)/5) has dimension 4 (predicted 4)
+L1    PASS  Lie algebra dimensions as predicted
+L2    PASS  su(2)(x)P- in L(control generic); |1><1|(x)su(2) in L(target generic)
+L3    PASS  U = exp(i pi/4 Y(x)P-) maps |+>(x)b to psi_a = (15,-1,7,7)/18 (reachable here, not at S3)
+== T  target axis z with G16
+T1    PASS  torus phases on (A,B), (A',B'); det = A-B, det(CNOT chi) = A'-B'; products A = B, CNOT products A' = B'; G16 n T2_z = {I, ZI, IZ, ZZ} (diagonal G16 unitaries), CNOT and CNOT ZI not in T2_z
+T2    PASS  psi_t unreachable; f = max((5/18 + sqrt(137)/18)**2, (7/18 + sqrt(113)/18)**2) <= 24/25
+== CC countercontrols (each must be REJECTED)
+CC1   REJECTED  control x: Y(x)P- not in L
+CC2   REJECTED  target x: dim L = 1 (commutes with CNOT)
+CC3   REJECTED  target z: product has |A| = |B|
+SUMMARY checks 5/5 PASS; countercontrols rejected 3/3
+VERDICT AXES-CLASSIFIED equatorial/commuting axes give tori (EXOTIC(existence)); generic axes give su(2) on a sector (UNIQUE by criterion 1)

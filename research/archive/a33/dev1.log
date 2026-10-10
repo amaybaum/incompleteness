@@ -1,0 +1,1500 @@
+              1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+            -1 / 64
+          else 1 / 64) =
+    z * (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:131:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:139:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+error: OIBridge/OrbitIsometryGroup.lean:135:231: unsolved goals
+z : ℂ
+⊢ ((((((if
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) =
+                              if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                    -1
+                  else 1) *
+                  if
+                      1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) =
+                              if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                    -1
+                  else 1) *
+                (starRingEnd ℂ) z ^
+                  if
+                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                    1
+                  else 0) *
+              (starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+            (starRingEnd ℂ) z ^
+              if
+                  ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                1
+              else 0) *
+          z ^ ((if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) * 2) *
+        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+      (1 / 64) =
+    z * (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:140:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_4' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:148:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+error: OIBridge/OrbitIsometryGroup.lean:144:231: unsolved goals
+z : ℂ
+⊢ (if 1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧ ¬(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) = 1 then
+      -if
+            1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+              1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                ¬(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) = if 0 = 2 then 1 else 0 then
+          -if
+                1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                  1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                    ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+              -if
+                    1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                            ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                      -if
+                            1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                              ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                          (((((starRingEnd ℂ) z ^
+                                      if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                    (starRingEnd ℂ) z ^
+                                      if
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                            ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                        1
+                                      else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                z ^
+                                  ((if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                    2) *
+                              z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                            (-1 / 64)
+                        else
+                          (((((starRingEnd ℂ) z ^
+                                      if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                    (starRingEnd ℂ) z ^
+                                      if
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                            ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                        1
+                                      else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                z ^
+                                  ((if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                    2) *
+                              z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                            (1 / 64)
+                    else
+                      if
+                          1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                            ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                else
+                  if
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                    -if
+                          1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                            ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                  else
+                    if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+            else
+              if
+                  1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                    1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                      ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                -if
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                    -if
+                          1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                            ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                  else
+                    if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+              else
+                if
+                    1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+                else
+                  if
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                    (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if
+                                  ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (-1 / 64)
+                  else
+                    (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if
+                                  ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (1 / 64)
+        else
+          if
+              1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                  ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+            -if
+                  1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                    1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                      ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                -if
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                    -if
+                          1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                            ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                  else
+                    if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+              else
+                if
+                    1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+                else
+                  if
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                    (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if
+                                  ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (-1 / 64)
+                  else
+                    (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if
+                                  ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (1 / 64)
+          else
+            if
+                1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                  1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                    ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+              -if
+                    1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = if 0 = 2 then 1 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) = 1 then
+                      (((((starRingEnd ℂ) z ^ if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑⋯ % ⋯ = ⋯ then ⋯ else ⋯) *
+                        ⋯
+                    else ⋯
+                else ⋯
+            else ⋯
+    else ⋯) =
+    ⋯
+info: OIBridge/OrbitIsometryGroup.lean:149:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_5' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:157:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+error: OIBridge/OrbitIsometryGroup.lean:153:227: unsolved goals
+z : ℂ
+⊢ (if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then
+      if 1 ≤ ↑(if 0 = 2 then 1 else 0) ∧ ¬0 = 2 then (starRingEnd ℂ) z * z * (-1 / 64)
+      else (starRingEnd ℂ) z * z * (1 / 64)
+    else if 1 ≤ ↑(if 0 = 2 then 1 else 0) ∧ ¬0 = 2 then z * (-1 / 64) else z * (1 / 64)) =
+    z * (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:158:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_6' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:166:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+error: OIBridge/OrbitIsometryGroup.lean:162:231: unsolved goals
+z : ℂ
+⊢ (if 1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧ ¬1 = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+      -if 1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧ ¬1 = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+          -if
+                1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                  1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                    ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+              -if
+                    1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                            ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                      -if
+                            1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                              1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                                ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                          (((((starRingEnd ℂ) z ^
+                                      if
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                            ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                        1
+                                      else 0) *
+                                    (starRingEnd ℂ) z ^
+                                      if
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                            ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                        1
+                                      else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                z ^
+                                  ((if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                    2) *
+                              z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                            (-1 / 64)
+                        else
+                          (((((starRingEnd ℂ) z ^
+                                      if
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                            ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                        1
+                                      else 0) *
+                                    (starRingEnd ℂ) z ^
+                                      if
+                                          ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                            ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                        1
+                                      else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                                z ^
+                                  ((if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                    2) *
+                              z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                            (1 / 64)
+                    else
+                      if
+                          1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                            1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                              ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                else
+                  if
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                    -if
+                          1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                            1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                              ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                  else
+                    if
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                            ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+            else
+              if
+                  1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                    1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                      ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                -if
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                    -if
+                          1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                            1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                              ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                  else
+                    if
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                            ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+              else
+                if
+                    1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                            ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+                else
+                  if
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                          ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                    (((((starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                  1
+                                else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (-1 / 64)
+                  else
+                    (((((starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                  1
+                                else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (1 / 64)
+        else
+          if
+              1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                  ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+            -if
+                  1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                    1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                      ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                -if
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                          ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                    -if
+                          1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                            1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                              ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (-1 / 64)
+                      else
+                        (((((starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                  (starRingEnd ℂ) z ^
+                                    if
+                                        ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                          ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                      1
+                                    else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                              z ^
+                                ((if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                  2) *
+                            z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                          (1 / 64)
+                  else
+                    if
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                            ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+              else
+                if
+                    1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                  -if
+                        1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                          1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                            ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (-1 / 64)
+                    else
+                      (((((starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                    1
+                                  else 0) *
+                                (starRingEnd ℂ) z ^
+                                  if
+                                      ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                        ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                    1
+                                  else 0) *
+                              (starRingEnd ℂ) z ^
+                                if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                            z ^
+                              ((if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                                2) *
+                          z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                        (1 / 64)
+                else
+                  if
+                      1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                        1 ≤ ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) ∧
+                          ¬(if 0 = 2 then 1 else 0) = if 1 = 2 then 3 else if 1 = 3 then 2 else 1 then
+                    (((((starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                  1
+                                else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (-1 / 64)
+                  else
+                    (((((starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then
+                                  1
+                                else 0) *
+                              (starRingEnd ℂ) z ^
+                                if
+                                    ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                      ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                  1
+                                else 0) *
+                            (starRingEnd ℂ) z ^
+                              if ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then 1 else 0) *
+                          z ^
+                            ((if
+                                  ↑(if 0 = 2 then 1 else 0) % 2 = 1 ∧
+                                    ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) % 2 = 1 then
+                                1
+                              else 0) *
+                              2) *
+                        z ^ if ↑(if 1 = 2 then 3 else if 1 = 3 then 2 else 1) % 2 = 1 then 1 else 0) *
+                      (1 / 64)
+          else
+            if
+                1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                  1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                    ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+              -if
+                    1 ≤ ↑(if 0 = 2 then 1 else 0) ∧
+                      1 ≤ ↑(if 0 = 2 then 3 else if 0 = 3 then 2 else 0) ∧
+                        ¬(if 0 = 2 then 1 else 0) = if 0 = 2 then 3 else if 0 = 3 then 2 else 0 then
+                  -if 1 ≤ ↑(if ⋯ = ⋯ then ⋯ else ⋯) ∧ ⋯ then ⋯ else ⋯
+                else ⋯
+            else ⋯
+    else ⋯) =
+    ⋯
+info: OIBridge/OrbitIsometryGroup.lean:167:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_7' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:175:2: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+error: OIBridge/OrbitIsometryGroup.lean:171:231: unsolved goals
+z : ℂ
+⊢ (if 1 ≤ ↑(if 0 = 2 then 1 else 0) ∧ ¬0 = 2 then
+      -if 1 ≤ ↑(if 0 = 2 then 1 else 0) ∧ ¬0 = 2 then
+          (starRingEnd ℂ) z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 3) * z *
+              z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 2) *
+            (-1 / 64)
+        else
+          (starRingEnd ℂ) z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 3) * z *
+              z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 2) *
+            (1 / 64)
+    else
+      if 1 ≤ ↑(if 0 = 2 then 1 else 0) ∧ ¬0 = 2 then
+        (starRingEnd ℂ) z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 3) * z *
+            z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 2) *
+          (-1 / 64)
+      else
+        (starRingEnd ℂ) z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 3) * z *
+            z ^ ((if ↑(if 0 = 2 then 1 else 0) % 2 = 1 then 1 else 0) * 2) *
+          (1 / 64)) =
+    z * (1 / 64)
+info: OIBridge/OrbitIsometryGroup.lean:176:0: 'OIBridge.OrbitIsometryGroup.a33_shared_coord1_8' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+info: OIBridge/OrbitIsometryGroup.lean:190:0: 'OIBridge.OrbitIsometryGroup.a33_shared_pt_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+error: OIBridge/OrbitIsometryGroup.lean:196:53: maximum recursion depth has been reached
+use `set_option maxRecDepth <num>` to increase limit
+use `set_option diagnostics true` to get diagnostic information
+info: OIBridge/OrbitIsometryGroup.lean:197:0: 'OIBridge.OrbitIsometryGroup.a33_shared_dist_sq' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+error: Lean exited with code 1
+Some required targets logged failures:
+- OIBridge.OrbitIsometryGroup
+error: build failed
+##[error]Process completed with exit code 1.
+Post job cleanup.
+[command]/usr/bin/git version
+git version 2.55.0
+Temporarily overriding HOME='/home/runner/work/_temp/fa372356-cda7-4878-a184-10a81a29ca73' before making global git config changes
+Adding repository directory to the temporary git global config as a safe directory
+[command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+[command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+http.https://github.com/.extraheader
+[command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+[command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+[command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+[command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Cleaning up orphan processes
+##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

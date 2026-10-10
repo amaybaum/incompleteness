@@ -1,0 +1,4933 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% unicode-fix.tex — render raw-Unicode symbols that the Latin Modern *text* font
+% lacks, using Computer Modern math/text equivalents. This keeps the established
+% Computer Modern look while filling the glyphs xelatex would otherwise drop.
+% Included via: pandoc ... --include-in-header=unicode-fix.tex
+\usepackage{newunicodechar}
+\usepackage{pifont}
+% --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
+\newunicodechar{α}{\ensuremath{\alpha}}
+\newunicodechar{β}{\ensuremath{\beta}}
+\newunicodechar{γ}{\ensuremath{\gamma}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{θ}{\ensuremath{\theta}}
+\newunicodechar{μ}{\ensuremath{\mu}}
+\newunicodechar{ν}{\ensuremath{\nu}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{σ}{\ensuremath{\sigma}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{φ}{\ensuremath{\varphi}}
+\newunicodechar{χ}{\ensuremath{\chi}}
+\newunicodechar{ψ}{\ensuremath{\psi}}
+\newunicodechar{η}{\ensuremath{\eta}}
+\newunicodechar{κ}{\ensuremath{\kappa}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{ω}{\ensuremath{\omega}}
+\newunicodechar{Ḣ}{\ensuremath{\dot H}}
+\newunicodechar{≪}{\ensuremath{\ll}}
+\newunicodechar{≫}{\ensuremath{\gg}}
+\newunicodechar{⟺}{\ensuremath{\Longleftrightarrow}}
+\newunicodechar{⟹}{\ensuremath{\Longrightarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{⟨}{\ensuremath{\langle}}
+\newunicodechar{⟩}{\ensuremath{\rangle}}
+\newunicodechar{⁰}{\textsuperscript{0}}
+\newunicodechar{¹}{\textsuperscript{1}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{³}{\textsuperscript{3}}
+\newunicodechar{⁴}{\textsuperscript{4}}
+\newunicodechar{⁵}{\textsuperscript{5}}
+\newunicodechar{⁶}{\textsuperscript{6}}
+\newunicodechar{⁷}{\textsuperscript{7}}
+\newunicodechar{⁸}{\textsuperscript{8}}
+\newunicodechar{⁹}{\textsuperscript{9}}
+% --- Relations / operators -> math ---
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{∂}{\ensuremath{\partial}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∼}{\ensuremath{\sim}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{≤}{\ensuremath{\leq}}
+\newunicodechar{≥}{\ensuremath{\geq}}
+\newunicodechar{⊂}{\ensuremath{\subset}}
+\newunicodechar{⊃}{\ensuremath{\supset}}
+% --- Special ---
+\newunicodechar{ℏ}{\ensuremath{\hbar}}
+\newunicodechar{ℤ}{\ensuremath{\mathbb{Z}}}
+% --- Superscript modifier letters (footnote-style markers) -> text superscript ---
+\newunicodechar{ʰ}{\textsuperscript{h}}
+\newunicodechar{ʲ}{\textsuperscript{j}}
+\newunicodechar{ᵃ}{\textsuperscript{a}}
+\newunicodechar{ᵇ}{\textsuperscript{b}}
+\newunicodechar{ᵈ}{\textsuperscript{d}}
+\newunicodechar{ᵉ}{\textsuperscript{e}}
+\newunicodechar{ᵍ}{\textsuperscript{g}}
+\newunicodechar{ᶠ}{\textsuperscript{f}}
+\newunicodechar{⁻}{\textsuperscript{\ensuremath{-}}}
+% --- Subscript digits -> text subscript ---
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{₄}{\textsubscript{4}}
+\newunicodechar{₈}{\textsubscript{8}}
+% --- Checkmarks ---
+\newunicodechar{✓}{\ding{51}}
+\newunicodechar{✗}{\ding{55}}
+
+% --- added 2026-08-02 after an independent glyph audit ---
+\newunicodechar{ℓ}{\ensuremath{\ell}}
+\newunicodechar{⊕}{\ensuremath{\oplus}}
+\newunicodechar{⊗}{\ensuremath{\otimes}}
+\newunicodechar{∠}{\ensuremath{\angle}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{∝}{\ensuremath{\propto}}
+\newunicodechar{ℝ}{\ensuremath{\mathbb{R}}}
+\newunicodechar{₅}{\ensuremath{_5}}
+\newunicodechar{₋}{\ensuremath{_-}}
+\newunicodechar{⁺}{\ensuremath{^+}}
+\newunicodechar{⁽}{\ensuremath{^(}}
+\newunicodechar{⁾}{\ensuremath{^)}}
+% U+239B..U+23A0: multi-line parenthesis assembly pieces emitted by some
+% converters. There is no sane inline equivalent; map to ordinary delimiters so
+% the notation survives rather than vanishing silently.
+\newunicodechar{⎛}{\ensuremath{\big(}}
+\newunicodechar{⎜}{\ensuremath{\big\vert}}
+\newunicodechar{⎝}{\ensuremath{\big(}}
+\newunicodechar{⎞}{\ensuremath{\big)}}
+\newunicodechar{⎟}{\ensuremath{\big\vert}}
+\newunicodechar{⎠}{\ensuremath{\big)}}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\hypertarget{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}{%
+\section{ℏ, the Bekenstein-Hawking Entropy, and the Running-Vacuum Form
+of Dark Energy from the Cosmological
+Horizon}\label{ux210f-the-bekenstein-hawking-entropy-and-the-running-vacuum-form-of-dark-energy-from-the-cosmological-horizon}}
+
+\textbf{Author:} Alex Maybaum\\
+\textbf{Date:} April 2026\\
+\textbf{Status:} DRAFT PRE-PRINT\\
+\textbf{Classification:} Theoretical Physics / Gravitation / Cosmology
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{abstract}{%
+\subsection{Abstract}\label{abstract}}
+
+Applied to the cosmological horizon as a causal partition, the
+embedded-observation framework of {[}Main{]} determines the emergent
+action scale \(\hbar = c^3 \epsilon^2 / (4G)\) from classical horizon
+temperature and thermal self-consistency, fixes the discreteness scale
+\(\epsilon = 2\,l_p\) as the unique simultaneous solution, and obtains
+the Bekenstein-Hawking entropy \(S = A/(4 l_p^2)\) including the \(1/4\)
+coefficient by direct boundary-mode counting --- the three conditional
+on the infrared detailed-balance condition H-slope (§3.2) together with
+the horizon and frame conditions of §2 and §8.5, the counting
+\(S = A/\epsilon^2\) itself unconditional --- and addresses the
+cosmological constant problem at Level G1 --- this paper's register:
+horizon-normalization identities and conditional thermodynamic relations
+--- by identifying the quantum vacuum energy and the effective
+cosmological constant as properties of logically distinct descriptions
+rather than commensurable quantities whose \(10^{122}\) ratio requires
+cancellation; the decisive Level-G3 target, open, is a covariant
+equation --- the dependency ladder in full: G1, horizon and mode-count
+identities (this paper's register); G2, weak-field and Newtonian
+consistency; G3, covariant field equations with conservation/Bianchi
+structure and the continuum limit, open; G4, the cosmological
+implications (cosmological constant, dark sector, Page curve, MOND and
+the Bullet Cluster), conditional on G3 and their listed assumptions ---
+namely
+\(E_{\mu\nu}[g, \text{OI}] = 8\pi G\,(T_{\mu\nu} - \mathcal{F}[g,T]\, g_{\mu\nu})\)
+under which the distinct-descriptions argument becomes a theorem of the
+dynamics --- field equations, stress-energy coupling, Bianchi structure,
+and the continuum limit being the named G3 opens. The recent
+LIGO/Virgo/KAGRA observation GW250114 (September 2025) confirms the
+black-hole area theorem at \(99.999\%\) confidence --- a test of
+classical horizon dynamics, which the framework preserves; the \(1/4\)
+entropy coefficient itself has no direct empirical test. The framework
+carries dark energy in running-vacuum form, the functional form being
+the local expansion shared by every smooth model (§7.1) and the
+falsifiable content the Type II channel --- a structural reading, not a
+derived law; matter conserved, compensation through running \(G\) ---
+the exclusion of phantom crossing, and the magnitude
+\(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\) (conditional on the §7.3
+split and not established at theorem level, indistinguishable from zero)
+--- consistent with the Bertini et al.~(2025) RG-corrected
+\(\Lambda\)CDM fit to DESI DR2 + DES-Y5 + Planck 2018, which reports
+\(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) (consistent with zero at
+\(2\sigma\)); a \textasciitilde{}\(95\%\) dark sector corollary in which
+the apparent invisible matter is a structural feature of the embedded
+observer's description rather than a new particle species; and a
+MOND-like acceleration scale \(a_0 = cH/6\) from entropy displacement at
+the cosmological boundary (the dimensional factor imported from
+Verlinde), reproducing the baryonic Tully-Fisher relation and predicting
+Keplerian decline of galactic rotation curves at radii exceeding
+\(r_M = \sqrt{6 G M_B/(cH)}\) --- the last confirmed by Jiao et
+al.~(2023) in the Milky Way at \(\sim 17\) kpc. The \(H(z)\) dependence
+of \(a_0\) predicts systematically more baryon-dominated rotation curves
+at high redshift, consistent with Genzel et al.'s detection of declining
+outer velocities at \(z = 0.9\)--\(2.4\). The results follow from
+partition geometry under the conditions named at each step and are
+independent of the specific substratum dynamics, treated in a separate
+companion paper {[}SM{]}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{introduction}{%
+\subsection{1. Introduction}\label{introduction}}
+
+The cosmological observables that most resist explanation within
+standard physics --- the value of \(\hbar\), the Bekenstein-Hawking area
+law, the \(10^{122}\) cosmological constant problem, the accelerated
+expansion, the \textasciitilde95\% dark sector, and the MOND-like
+behavior of galactic rotation curves --- are treated here as
+consequences of a single structural fact: the cosmological horizon
+partitions the degrees of freedom of any sub-\(c\) observer into a
+visible sector and a causally inaccessible hidden sector.
+
+\textbf{Prerequisites.} This paper takes as established the following
+results from a companion work {[}Main{]}: (i) an observer embedded in a
+deterministic bijection on a finite configuration space, coupled to a
+hidden sector that is non-trivial (C1), record-persistent (C2 ---
+realized in our universe by the slow horizon, \(\tau_S \ll \tau_B\)), of
+sufficient memory capacity (C3 --- with \(N_H \gg N_V\) the comfortable
+regime), and read back (C4), has a reduced visible-sector description
+that is --- in the memory-bearing sector those conditions characterize
+--- non-Markovian, and that universally admits a unitarily evolving
+fixed-basis quantum representation --- the representation universal over
+finite laws (\(S \iff D \iff Q_{\mathrm{fb}}\)), the necessity holding
+in the memory currency, with C1--C4 necessary as well as sufficient for
+accessible non-Markovianity --- the framework's finite-horizon
+visible-law memory/backflow notion, not generic quantum non-Markovianity
+--- (conditional on the eigenstate thermalization hypothesis for the C2
+\(\Leftarrow\) direction), and full operational quantum theory
+approached at every finite test with its unique selection open; (ii) the
+emergent description is uniquely determined by the partition, with any
+parameters of the emergent theory depending only on the partition
+boundary's geometric and thermodynamic properties
+(partition-relativity); (iii) the emergent transition probabilities
+\(T_{ij}(t)\) determine the emergent Hamiltonian up to a
+diagonal-unitary D-gauge, an energy origin, and one global antiunitary
+conjugation --- the two-branch form proved in §3.3 --- via the
+phase-locking lemma applied to continuous-time sampling. The technical
+bridge from P-indivisible classical stochastic processes on finite
+configuration spaces to unitary quantum evolution on finite Hilbert
+spaces is Barandes' stochastic-quantum correspondence {[}35, 36{]}, used
+by the companion paper for compression and interpretation --- the
+fixed-basis representation itself is supplied internally there
+(\(S \iff D \iff Q_{\mathrm{fb}}\)). We treat these results as inputs
+and apply them to the cosmological horizon. The cosmological horizon
+independently verifies C1--C3: causal coupling via the Einstein
+constraint equations (C1), a slow-bath timescale of order the Hubble
+time \(\tau_B \sim 10^{17}\) s (C2), and a hidden-sector capacity of
+order \(S_{\text{dS}} \sim 10^{122}\) modes (C3). C4, history readback,
+is a named realization condition at the cosmological cut but is not
+presently discharged (§2.2). Accordingly, application of the C1--C4
+memory-bearing equivalence to our universe remains conditional on C4;
+the ETH condition for C2 necessity holds for the horizon complement (a
+generic chaotic many-body system).
+
+The present paper reproves none of {[}Main{]}'s foundational results.
+Where a theorem below invokes a specific input --- partition-relativity
+(§3.1), the emergent-description determination by transition
+probabilities (§3.2--§3.3), or the P-indivisibility/recurrence argument
+(§3.2 deep-sector lemma; §8 theorem requirements) --- the invocation is
+stated as a known result and the reader is directed to {[}Main{]} for
+the proof.
+
+The results are as follows. The emergent action scale
+\(\hbar = c^3 \epsilon^2 / (4G)\) is determined by thermal
+self-consistency between the classical horizon temperature (computed
+from the Jacobson thermodynamic argument with no quantum input) and the
+Euclidean KMS period of the emergent QFT on the same horizon (§3). The
+discreteness scale \(\epsilon = 2\,l_p\) is then fixed as the unique
+simultaneous solution of the action-scale relation and the definition of
+the Planck length (§4). The Bekenstein-Hawking entropy follows by mode
+counting, with the \(1/4\) coefficient fixed as the ratio \(2\pi/8\pi\)
+between the Euclidean KMS period and the Jacobson prefactor (§5); the
+action scale, the discreteness scale and the coefficient share the
+conditions of the calibration --- H-slope (§3.2) with the horizon and
+frame conditions of §2 and §8.5 --- while the counting
+\(S = A/\epsilon^2\) is unconditional. The recent LIGO/Virgo/KAGRA
+observation GW250114 confirms the area theorem at \(99.999\%\)
+confidence (the \(1/4\) coefficient itself has no direct test). The
+cosmological constant problem is dissolved by identifying the emergent
+quantum vacuum energy of order \(M_{\text{Pl}}^4\) and the effective
+cosmological constant of order \(H^2/G\) as properties of logically
+distinct objects rather than commensurable quantities whose \(10^{122}\)
+ratio requires cancellation (§6); the descriptive distinction is
+established and the dynamical form of the dissolution is conditional on
+the G3 coupling theorem (§6.2).
+
+The framework's empirical content is developed in §7. Dark energy
+appears in running-vacuum form, the functional form being the local
+expansion shared by every smooth model (§7.1) and the content the Type
+II channel with matter conserved and compensation through running \(G\)
+--- a structural reading of the boundary bookkeeping, not a derived law
+(§7.1); the magnitude of the \(H^2\) coefficient is bounded at the
+emergent-QFT scale
+\(|\nu| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\) ---
+indistinguishable from zero --- on either reading of the emergent
+layer's gravitational status (§7.1). This is consistent with the Bertini
+et al.~(2025) direct RG-corrected \(\Lambda\)CDM fit to DESI DR2 +
+DES-Y5 + Planck 2018, which reports \(\nu\) consistent with zero at
+\(2\sigma\). The dark-sector corollary predicts that \textasciitilde95\%
+of the gravitational budget of the universe is invisible to the emergent
+QFT without requiring new fundamental particles --- a concordance rather
+than a puzzle. The acceleration scale \(a_0 = cH/6\) emerges from
+entropy displacement at the cosmological boundary, with the dimensional
+factor \(1/6\) taken from Verlinde's emergent-gravity analysis,
+reproducing the MOND phenomenology in the deep-modified regime and
+predicting Keplerian decline at radii exceeding
+\(r_M = \sqrt{6 G M_B/(cH)}\); the latter is confirmed by the Jiao et
+al.~(2023) detection of a Keplerian decline in the Milky Way rotation
+curve at \(\sim 17\) kpc. The \(H(z)\) dependence of \(a_0\) predicts
+systematically more baryon-dominated rotation curves at high redshift,
+consistent with the declining outer velocities observed at
+\(z = 0.9\)--\(2.4\) by Genzel et al.
+
+Three epistemic tiers are worth distinguishing before the technical
+development begins. \textbf{Tier 1} comprises what follows from
+partition geometry alone, for any finite deterministic system meeting
+the four conditions at its cosmological horizon: the energy-shell
+horizon temperature, the finite horizon counting, and the structural
+two-level distinction between the emergent vacuum energy and the
+effective cosmological constant. The results built on these carry named
+conditions and are stated with them throughout: \(\hbar\),
+\(\epsilon = 2\,l_p\) and the \(1/4\) coefficient are conditional on
+H-slope together with the horizon and frame conditions (§§2, 5); the
+descriptive-level distinction behind the cosmological-constant
+dissolution is established while the dynamical dissolution is
+conditional on the G3 coupling theorem (§6.2); and the Type II
+running-vacuum functional form is not presently derived, its local
+expansion being shared by every smooth model (§7.1). \textbf{Tier 2}
+comprises the dark-sector phenomenology: the \textasciitilde95\%
+invisible matter fraction, the MOND acceleration scale, and the
+rotation-curve crossover. These follow from the thermodynamic Clausius
+relation applied to the boundary reservoir and the geometric factor from
+spherical redistribution in de Sitter space; they inherit the conditions
+on the de Sitter temperature of §3.2, and the dimensional factor that
+sets the acceleration scale is imported from Verlinde's emergent-gravity
+analysis (§7.3). \textbf{Tier 3} comprises solution-specific quantities
+--- the transition steepness between the MOND and Keplerian regimes, the
+greybody factor for Hawking radiation, and the specific microscopic
+realization of the substratum --- which depend on the particular
+bijection \(\varphi\) and are addressed in the companion paper {[}SM{]}.
+
+The tier system maps to the framework's broader hierarchical structure
+articulated in {[}Structure §2{]}. \emph{Tier 1} --- the energy-shell
+horizon temperature, the finite horizon counting, and the two-level
+distinction --- operates at Level C × Level G4: these results hold for
+any partial-trace observational system on a horizon-like causal
+partition, not specifically for OI's cubic-lattice substratum. They are
+universality-class-level structural results, and the conditional results
+built on them (\(\hbar\), \(\epsilon = 2\,l_p\), the \(1/4\)
+coefficient) are universality-class-level in the same sense once their
+named conditions are granted, since those conditions concern the horizon
+and the emergent dynamics rather than the lattice (§8.5). \emph{Tier 2}
+--- the dark-sector phenomenology --- sits at Level D × Levels G1--G2,
+deriving from the thermodynamic Clausius relation applied to the
+specific boundary reservoir of OI's universality-class representative.
+\emph{Tier 3} --- solution-specific quantities --- is at the
+bijection-specific level below Level D, depending on the particular
+\(\varphi\) within \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\). This
+stratification clarifies what a conditional universality-class result
+claims: not ``OI predicts \(\hbar\) uniquely'' but ``any horizon-bounded
+embedded-observer system meeting the named conditions gets this
+\(\hbar\), and OI provides one specific realization.''
+
+The paper is organized as follows. §2 identifies the cosmological
+horizon as a causal partition and verifies the structural conditions. §3
+derives the emergent action scale \(\hbar\) in four steps: the classical
+horizon temperature, boundary-only dependence, dimensional
+determination, and thermal self-consistency. §4 fixes the discreteness
+scale \(\epsilon = 2\,l_p\). §5 derives the Bekenstein-Hawking entropy
+and discusses the GW250114 confirmation. §6 dissolves the cosmological
+constant problem. §7 presents the quantitative predictions for dark
+energy, the dark sector, and dark matter, with a summary table in §7.4.
+§8 discusses scope, the status of the discreteness scale, vacuum energy
+and the Higgs potential, and the framework's falsifiability conditions.
+§9 concludes. The cubic-lattice realization of the substratum --- which
+fixes the Standard Model gauge structure via the wave equation --- is
+developed in a companion paper {[}SM{]} and is independent of the GR
+results presented here. The reconstruction theorem and the synthesis
+claim that quantum mechanics, general relativity, and the arrow of time
+descend as three projections of the same \((S, \varphi)\) are developed
+in {[}Substratum{]}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-cosmological-horizon-as-causal-partition}{%
+\subsection{2. The Cosmological Horizon as Causal
+Partition}\label{the-cosmological-horizon-as-causal-partition}}
+
+\hypertarget{the-partition}{%
+\subsubsection{2.1 The partition}\label{the-partition}}
+
+The cosmological horizon --- the boundary beyond which no signal
+propagating at or below \(c\) can reach the observer --- implements the
+causal partition of Lemma 2: \(\Gamma_V\) is the interior, \(\Gamma_H\)
+everything beyond. This is a consequence of GR's causal structure, not a
+modeling choice. The universality of the observed quantum mechanics
+follows from all sub-\(c\) observers sharing the same causal structure.
+
+Different observers have different horizon areas (hence different
+\(S_{\text{dS}}\)), but \(\hbar = c^3 \epsilon^2/(4G)\) depends only on
+local geometric quantities --- not on the observer's worldline or
+horizon area --- so all observers share the same emergent action scale.
+
+\hypertarget{verification-of-the-conditions}{%
+\subsubsection{2.2 Verification of the
+conditions}\label{verification-of-the-conditions}}
+
+\textbf{(C1)} In the ADM formulation, the bulk Hamiltonian is a sum of
+constraints that vanish on-shell; physical time evolution is generated
+by the boundary term at the horizon, which depends on data from both
+sides. The Hamiltonian and momentum constraints further correlate
+interior and exterior initial data on any Cauchy surface, so the
+physical phase space is a constraint surface within the kinematic
+product \(\Gamma_V \times \Gamma_H\) (see §8.4 for implications). This
+is \emph{stronger} than the \(H_{\text{int}} \neq 0\) required by Lemma
+2: constraints enforce correlations that persist on all timescales and
+cannot be perturbatively removed. \textbf{Satisfied.}
+
+\textbf{(C2)} \(\tau_B \gtrsim 1/H \sim 10^{17}\) s; for laboratory
+processes, \(\tau_S \sim 10^{-15}\) s. Ratio:
+\(\tau_S / \tau_B \sim 10^{-32}\). \textbf{Satisfied.}
+
+\textbf{(C3)} Hidden sector has \(A/\epsilon^2\) modes with
+\(A \sim 10^{52}\) m\(^2\); visible sector has \(\sim 10^{80}\) baryons.
+No laboratory process saturates the hidden sector. \textbf{Satisfied.}
+
+\textbf{(C4)} The horizon construction establishes bidirectional
+coupling (the constraint structure above), persistence (C2) and ample
+capacity (C3), but the present paper does not independently demonstrate
+that a visible-history record written into hidden boundary degrees is
+routed back into future visible conditionals within the accessible
+window --- the read-write cycle that {[}Main §1.3{]} names as the
+property to be demonstrated in the cosmological realization.
+Bidirectional coupling is a strengthened form of (C1) and persistence is
+(C2); neither, nor their conjunction, supplies the routing that (C4)
+asserts, and since {[}Main §3.4{]} derives (C1) and (C3) from (C4),
+verifying those two does not supply it either. (C4) is therefore a named
+realization condition at the cosmological cut. \textbf{Not presently
+discharged.} Nothing in §3 consumes it: the \(\hbar\) calibration is
+carried by H-slope together with the horizon and frame conditions.
+
+\hypertarget{application}{%
+\subsubsection{2.3 Application}\label{application}}
+
+\textbf{Which horizon, and why the calibration is stated on exact de
+Sitter.} Two distinct surfaces are in play and they coincide only in
+exact de Sitter. The causal definition above is the cosmological event
+horizon, \(R_{\rm event}=a(t)\int_t^\infty c\,dt'/a(t')\); the area
+\(A=4\pi c^2/H^2\) used below is that of the Hubble/apparent horizon
+\(R_A=c/H\). Generic FLRW has \(\dot H\neq0\), no timelike Killing
+vector and hence no bifurcate Killing horizon, so exact Euclidean KMS
+periodicity --- a stationary result --- is not available there. For the
+flat-FLRW apparent horizon the Hayward--Kodama surface gravity gives
+\(T_A=\frac{\hbar H}{2\pi k_B}\big|1+\dot H/(2H^2)\big|\), and for flat
+\(\Lambda\)CDM with \(\dot H/H^2=-\tfrac32\Omega_m\) this is
+\(\approx0.775\,\hbar H/(2\pi k_B)\) today --- a \(22\%\) effect, not
+Planck suppressed, and larger than the lattice-dispersion correction
+\(O((\epsilon H/c)^2)\sim10^{-122}\) by 121 orders of magnitude. The two
+must not be conflated. The gap equation below is therefore stated as a
+calibration on an exact de Sitter horizon, where
+\(R_{\rm event}=R_A=c/H\), the Killing structure exists, and the
+comoving frame is freely falling. Because \(\kappa\) cancels between
+\(c^2\epsilon^2\kappa/(8\pi G)\) and \(\hbar\kappa/(2\pi c)\), the
+resulting \(\hbar=c^3\epsilon^2/(4G)\) does not depend on which de
+Sitter \(H\) calibrates it. Extending the argument to a genuinely
+dynamical FLRW horizon would require a Kodama--Hayward treatment showing
+the same factor enters both the classical and emergent thermal
+descriptions and cancels; that is not established here.
+
+\textbf{The classical horizon temperature is a counting derivative, not
+an assumption.} Restrict the finite total system to a conserved energy
+shell and let visible configuration \(i\) carry energy \(e_i\). If the
+boundary interaction is negligible at the shell scale, uniform counting
+gives \(P(i)=\Omega_H(E-e_i)/\sum_j\Omega_H(E-e_j)\), so with
+\(s_H=\ln\Omega_H\) and \(\beta=s_H'(E)\),
+\(P(i)\propto\exp[-\beta e_i+\tfrac12 s_H''(E)e_i^2+O(e_i^3)]\). Gibbs
+is the leading finite-bath marginal of uniform counting, classically.
+Feeding in this paper's own relations \(s_H=A/\epsilon^2\) and
+\(dE=c^2\kappa\,dA/(8\pi G)\) gives
+\(\partial s_H/\partial E=8\pi G/(c^2\kappa\epsilon^2)\) and hence
+\(k_BT_{\rm micro}=(\partial s_H/\partial E)^{-1}=c^2\kappa\epsilon^2/(8\pi G)=k_BT_{\rm cl}\)
+--- with no quantum mechanics, no KMS condition, no vacuum choice and no
+infinite bath. On the exact de Sitter calibration \(E=c^4R/G\) and
+\(s_H=4\pi G^2E^2/(c^8\epsilon^2)\), so \(s_H''=\beta/E\) and the shell
+marginal is \(P(i)\propto\exp[-\beta e_i+\beta e_i^2/(2E)]\): not
+exactly canonical, carrying the finite-reservoir correction
+\(\delta_{\rm bath}\sim1/(4s_H)\sim10^{-123}\) at \(s_H\sim10^{122}\).
+This is a second correction of the same spectacular smallness as the
+lattice-dispersion term \((\epsilon H/c)^2\), arising for an unrelated
+reason; the two should not be conflated.
+
+\textbf{What this leaves.} The chain above is classical and gives a
+Gibbs marginal in the classical subsystem energy. The horizon statement
+needs \(\rho_{\rm obs}\propto e^{-\beta\hat H_{\rm eff}}\) in the
+emergent time-translation generator, which {[}Main{]} distinguishes from
+\(H_{\rm tot}\) and does not prove survives the trace-out. H-state
+therefore splits into three narrower conditions: \textbf{H-shell} (the
+finite microcanonical factorization --- \(P(i)\propto\Omega_H(E-e_i)\)
+assumes weak boundary coupling, whereas C1 requires nonzero
+cross-boundary coupling and strong coupling would instead give a
+Hamiltonian of mean force), \textbf{H-energy} (the thermodynamic energy
+intertwines with \(\hat H_{\rm eff}\)), and \textbf{H-spectrum}
+(freely-falling UV regularity across the horizon). Only the third is a
+genuinely spectral condition.
+
+\textbf{H-balance: the minimal load-bearing state condition.} Full
+H-spectrum is stronger than the calibration needs. For an accessible
+horizon probe with positive frequency gap \(\omega\), require only \[
+\frac{\Gamma_\uparrow(\omega)}{\Gamma_\downarrow(\omega)}=e^{-\tau_K\omega},\qquad \tau_K=\frac{2\pi c}{\kappa},
+\] over the finite frequency window the observer can probe. KMS implies
+this; conversely, on a finite system, detailed balance across a
+transition graph connecting the relevant levels fixes the stationary
+populations to Gibbs form: from \(W_{m\to n}/W_{n\to m}=p_m/p_n\) and
+\(p_m/p_n=e^{-\tau(\omega_m-\omega_n)}\) on every accessible edge,
+\(p_n=Ce^{-\tau\omega_n}\) on each connected component, and
+\(\rho=Z^{-1}e^{-\tau\Omega}\) if the graph is connected. The
+finite-observer version tolerates a budget: edgewise error \(\eta\)
+integrates to \(L\eta\) along a path of \(L\) accessible transitions, so
+no limitless observation is required. So the hierarchy is H-spectrum
+\(\Rightarrow\) H-balance \(\Rightarrow\) gap equation, with only the
+second arrow load-bearing.
+
+\textbf{Precision on microreversibility.} With time-reversal involution
+\(\Theta\), \(\Theta\varphi\Theta=\varphi^{-1}\) and
+\(\Theta M_i=M_{\theta i}\), the exact trajectory-reversal map
+\(x\mapsto\Theta\varphi(x)\) gives \(N_{ij}=N_{\theta j,\theta i}\), the
+time-reversed detailed-balance relation. It reduces to
+\(N_{ij}=N_{ji}\), and hence \(N_iP_{ij}=N_jP_{ji}\), only when the
+coarse states are time-reversal even (\(\theta i=i\)). ``Spatial
+partition'' must therefore not be read as merely ``\(\Theta\) maps
+visible variables to visible variables'': if visible configurations
+carry T-odd data such as momenta, only the \((\theta j,\theta i)\) form
+holds, and the symmetric form used downstream is unavailable.
+
+\textbf{Classical microreversibility already gives the classical half.}
+With \(M_i\) the shell microstates compatible with visible macrostate
+\(i\), \(N_i=|M_i|\) and \(N_{ij}=|\{x\in M_i:\varphi(x)\in M_j\}|\),
+time-reversal invariance gives a bijection between \(i\to j\) and
+\(j\to i\) trajectories, so \(N_{ij}=N_{ji}\) and hence
+\(N_iP_{ij}=N_jP_{ji}\) exactly. With \(N_i=\Omega_H(E-e_i)\) this
+yields
+\(\ln(P_{ij}/P_{ji})=-\beta_E(e_j-e_i)+\tfrac12 s_H''(E)(e_j^2-e_i^2)+\cdots\)
+--- the thermal rate ratio from finite deterministic reversible
+counting, with no quantum mechanics. Equating the two descriptions of
+the same observable rate ratio gives
+\(\beta_E\Delta E=\tau_K\Delta\omega\) up to the two controlled
+corrections, hence \(dE/d\omega=\tau_K/\beta_E\) in the infrared, and on
+a connected accessible sector \(E_n=\hbar\omega_n+E_0\). The relation
+naive H-energy tried to assume emerges instead from thermal rate
+consistency. The remaining qualification is an identification of
+observables --- that the classical shell transitions and the
+frequency-resolved detector transitions are the same operational
+transitions --- which, if it requires arbitrary detector couplings,
+touches the open coherent operational lift.
+
+\textbf{The infrared limit does not remove state dependence.} Dispersive
+corrections vanish as \(k\to0\), but de Sitter admits non-Bunch-Davies
+\(\alpha\)-vacua that are de Sitter invariant while failing detector
+detailed balance. With \(r=e^\alpha\), the reverse/forward ratio
+\(R_\alpha(\omega)=e^{-2\pi\omega/H}\big((1+re^{\pi\omega/H})/(1+re^{-\pi\omega/H})\big)^2\)
+has zero-frequency slope
+\(-d\ln R_\alpha/d\omega|_0=(2\pi/H)(1-r)/(1+r)\), which returns
+\(2\pi/H\) only as \(r\to0\). So H-balance cannot be discharged by
+taking \(\omega\to0\).
+
+\textbf{H-slope: the minimal condition the calibration needs, and its
+status.} Only the infrared slope is load-bearing. Writing the classical
+shell rate ratio \(R_E\) and the observer frequency response
+\(R_\omega\) for the same operational transition with
+\(\Delta E=E(\omega)\), \(E(0)=0\), and
+\(-\partial_{\Delta E}\ln R_E|_0=\beta_E\), the single requirement is
+\(-\partial_\omega\ln R_\omega|_0=\tau_K\) (\textbf{H-slope}), whence
+\(E'(0)=\tau_K/\beta_E=c^3\epsilon^2/(4G)=\hbar\). Expanding
+\(\ln R_E=-\beta_EE+BE^2+\cdots\),
+\(\ln R_\omega=-\tau_K\omega+C\omega^2+\cdots\) and
+\(E(\omega)=a\omega+d\omega^2+\cdots\) gives \(\beta_Ea=\tau_K\) at
+first order exactly: the finite-bath and lattice-dispersion corrections
+alter \(d\) and higher coefficients, not the linear IR action scale.
+Full H-balance is still required for the global statement
+\(E_n=\hbar\omega_n+E_0\) across a connected spectrum.
+
+\textbf{H-balance is a selection condition, not a representation
+theorem.} {[}Main{]}'s intervention-dilation theorem realizes any finite
+action-labelled conditional family with one finite reversible dynamics,
+a fixed prior and permutation interventions. Take a two-gap probe with
+\(\omega_2=2\omega_1\) and \(R(\omega_1)=R(\omega_2)=\tfrac12\):
+thermality at gap one forces \(\tau=\ln2/\omega_1\) and hence
+\(R(\omega_2)=\tfrac14\), so the family is nonthermal for every common
+inverse temperature --- yet it is OI-realizable. So finite realization,
+reversibility and finite intervention statistics do not give H-balance,
+and by the \(\alpha\)-vacuum slope above the failure already occurs at
+H-slope. Note also that a bare visible-space transition law read off a
+closed unitary would be bistochastic --- for two levels the forward and
+reverse moduli coincide, giving ratio \(1\), the infinite-temperature
+value --- which is one more reason that form is unavailable in general
+(Main §3.1); so H-slope requires the ancilla-carrying \(Q_{\rm fb}\)
+form together with a detector gap, an interaction and an identification
+of excitation and de-excitation channels. Those are exactly the
+structures the composite and coherent instrument lift leaves open.
+\textbf{H-slope is therefore not an independent bridge to gravity; it is
+a horizon-specific selection test on that open lift.} Complete passivity
+is the natural candidate selector --- it forces every transition to
+carry one common temperature and singles out Gibbs/KMS states --- but it
+quantifies over composites, so invoking it relocates H-slope into the
+same open layer rather than discharging it.
+
+\textbf{The gap equation in its cleanest form:
+\(\hbar=\tau_K/\beta_E\).} Write the emergent evolution as
+\(U_t=e^{-it\Omega_{\rm eff}}\) with
+\([\Omega_{\rm eff}]=\text{time}^{-1}\). Before the action scale is
+fixed the physical energy generator can only be
+\(H_{\rm phys}=a_*\Omega_{\rm eff}\) for some universal \(a_*\) with
+units of action; determining \(a_*\) is what this section does, so it
+must not be set to \(\hbar\) in advance. Classical horizon counting
+supplies an inverse energy,
+\(\beta_E=\partial s_H/\partial E=8\pi G/(c^2\kappa\epsilon^2)\). The
+emergent horizon state, conditional on H-spectrum, supplies an inverse
+time, \(\tau_K=2\pi c/\kappa\). For a finite system a KMS state for
+evolution generated by \(\Omega\) is Gibbs with exponent
+\(-\tau_K\Omega\), so
+\(e^{-\tau_K\Omega_{\rm eff}}=e^{-\beta_Ea_*\Omega_{\rm eff}}\) up to
+normalization, giving \(\tau_K=\beta_Ea_*\) and \[
+ a_*=\frac{\tau_K}{\beta_E}=\frac{2\pi c/\kappa}{8\pi G/(c^2\kappa\epsilon^2)}=\frac{c^3\epsilon^2}{4G}=\hbar .
+\] The action scale is exactly the conversion between an independently
+derived inverse-energy temperature and an independently derived
+inverse-time KMS period. No quantum mechanics enters the classical side
+and no \(\hbar\) is inserted into \(\tau_K\) beforehand.
+
+\textbf{Why the classical shell state must not be identified with
+\(e^{-\beta\hat H_{\rm eff}}\).} Suppose the configuration-diagonal
+shell state \(\rho_{\rm shell}=\sum_ip_i|i\rangle\langle i|\) were
+required to be Gibbs for the emergent generator. Since
+\(\rho_{\rm shell}>0\) the matrix logarithm is unique, so
+\(\Omega_{\rm eff}=-\tau^{-1}\log\rho_{\rm shell}+\text{const}\,I\) is
+diagonal in the configuration basis, whence
+\(|\langle j|e^{-it\Omega_{\rm eff}}|i\rangle|^2=\delta_{ij}\) --- no
+configuration dynamics at all. That contradicts the generic
+phase-locking sector of {[}Main §3.2{]}, where the energy eigenbasis
+overlaps every configuration state and \(V=I\) is recorded as a
+nongeneric degeneracy. The diagonal embedding
+\(p(x)\mapsto\sum_xp(x)|x\rangle\langle x|\) is an embedding of
+classical probability, not a quantization map \(E(x)\mapsto\hat H\), and
+using it as one is a no-go rather than an unproved bridge. A second,
+independent obstruction: \(U_\varphi=e^{-i\Omega}\) has a non-unique
+Hermitian logarithm, \(\omega_a=\theta_a+2\pi n_a\) with \(n_a\)
+selectable per eigenmode, so the bare permutation does not determine
+continuous frequency gaps, while a conserved classical energy is merely
+constant on cycles.
+
+\textbf{Consequences for the named conditions.} H-shell is therefore not
+load-bearing here: the calibration needs only the scalar
+\(\beta_E=\partial s_H/\partial E\), which follows from the horizon
+density of states and the first law, not a visible/hidden product Gibbs
+marginal. That matters independently, since the shell conditional
+\(\mu_H(h\mid i)\propto\mathbf 1[E_H(h)=E-e_i]\) depends on \(i\),
+whereas {[}Main{]}'s channel uses a fixed hidden prior \(\mu_H(h)\);
+substituting one for the other would replace a product preparation by a
+correlated ensemble and a different projection theorem. H-shell is
+retained as an auxiliary result on classical probe equilibration and
+finite-bath corrections. H-energy in its naive form --- configuration
+energies as eigenvalues of \(\hat H_{\rm eff}\) --- is false by the
+no-go above; its meaningful form is modular, that the static
+thermodynamic generator (the Hamiltonian of mean force at non-negligible
+coupling) agrees with the observer's dynamical generator in the infrared
+up to one universal action scale and an additive constant. That relation
+follows automatically once H-spectrum supplies the KMS property, so
+H-energy is redundant rather than open. \textbf{H-slope is the one
+load-bearing state condition: H-spectrum \(\Rightarrow\) H-balance
+\(\Rightarrow\) H-slope, and only the last is needed for the
+calibration.}
+
+\textbf{Status of \(\hbar\) and the \(1/4\).} Both are conditional, not
+unconditional consequences of S1--S4: they require H-frame (the
+substrate preferred foliation is the cosmological comoving foliation,
+which S1--S4 do not supply and {[}SM{]} states is not derived) and
+H-state (the emergent cutoff-scale modes lie in the freely falling
+adiabatic/de Sitter vacuum class). H-state is not derivable from
+partition geometry: {[}Main{]}'s realization theorem admits different
+fixed hidden priors \(\mu_H\) over the same
+\((\varphi,\text{partition})\), so vacuum-like and excited laws are both
+realizable, and the canonical uniform invariant measure is an
+equilibrium/typicality principle rather than an energy-minimization one.
+An additional state principle is therefore logically necessary.
+
+Lemma 1 is now a consequence of partition geometry: the horizon has
+finite area \(A = 4\pi c^2/H^2\), bounding coupled modes to
+\(A/\epsilon^2 < \infty\). The Part I theorem applies: the observer's
+reduced description is P-indivisible and, by either route of {[}Main,
+§3{]}, equivalent to unitary QM with \(\hbar\) determined by the
+partition boundary.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-emergent-action-scale-hbar}{%
+\subsection{\texorpdfstring{3. The Emergent Action Scale
+\(\hbar\)}{3. The Emergent Action Scale \textbackslash hbar}}\label{the-emergent-action-scale-hbar}}
+
+\hypertarget{the-classical-horizon-temperature}{%
+\subsubsection{3.1 The classical horizon
+temperature}\label{the-classical-horizon-temperature}}
+
+Jacobson {[}1{]} showed \(dE = T\,dS\) applied to local causal horizons
+yields Einstein's equations, with \(dE = (c^2 \kappa / 8\pi G)\,dA\),
+where \(\kappa\) is the surface gravity of the horizon. The entropy
+density is \(\eta = 1/\epsilon^2\) --- one coupled mode per minimal
+cell. This is not an assumption about the number of states per cell but
+a consequence of two results: \(\epsilon\) is defined as the minimal
+distinguishable scale (Lemma 1), so each cell of area \(\epsilon^2\)
+contributes exactly one boundary mode that couples across the partition;
+the number of internal states per mode (the alphabet size \(q\)) is a
+gauge freedom with no observable consequences (the \(q\)-gauge theorem:
+two systems with different \(q\) produce identical transition
+probabilities if they share the same coupling structure). Thus
+\(dS = dA/\epsilon^2\). Equating:
+
+\[T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}\]
+
+For de Sitter (\(\kappa = cH\)):
+\(k_B T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G)\). No \(\hbar\)
+appears.
+
+\emph{Reconciliation with the internal component count.} The counting
+\(\eta = 1/\epsilon^2\) is one boundary mode per cell, whereas the
+substratum carries \(K = 2d = 6\) internal components per site ({[}SM
+§4.5{]}). These are consistent, and the consistency is forced rather
+than assumed, once the components are read as what {[}SM §4.5{]} now
+conditionally identifies them as, under H-link: the \(K = 2d\)
+components are the \(2d\) link directions from a cell, with component
+\(a\) assigned to link direction
+\(\hat e_a \in \{\pm\hat e_1, \ldots, \pm\hat e_d\}\) and coupling only
+across that one link (the minimal-coupling factorization
+\(\delta = 1\)). A boundary cell on the horizon has exactly one
+outward-normal link crossing the partition; the other \(2d - 1 = 5\)
+link directions are tangential to the boundary surface or inward, and
+carry no cross-partition coupling. The number of components whose
+coupling crosses the horizon per cell is therefore exactly one --- the
+normal link --- so \(\kappa_m = 1\) and \(\eta = 1/\epsilon^2\) follows
+from the link-direction structure, not from a separate mode-counting
+postulate. (The \(q\)-gauge argument settles the orthogonal question of
+states per mode; the component count is settled here by which links are
+normal.) This also confirms \(\epsilon = 2\,l_p\) directly: with
+\(\kappa_m = 1\) the relation \(\epsilon = 2\sqrt{\kappa_m}\,l_p\) gives
+\(\epsilon = 2\,l_p\), and the {[}SM §6{]} cutoff identification is
+unaffected. The Bekenstein-Hawking coefficient is independent of
+\(\kappa_m\) in any case --- writing \(\eta = \kappa_m/\epsilon^2\), the
+gap equation gives \(\hbar = c^3/(4G\eta)\) and
+\(S = \eta A = A/(4l_p^2)\) with \(\kappa_m\) cancelling --- so the
+entropy law is a fixed point of the construction regardless, and the
+component count enters only the discreteness scale, where the
+link-direction structure fixes it at unity.
+
+\hypertarget{the-emergent-action-scale}{%
+\subsubsection{3.2 The emergent action
+scale}\label{the-emergent-action-scale}}
+
+\textbf{Step 1: Uniqueness.} By partition-relativity (Prerequisites),
+\(\hbar\) is derived, not free.
+
+\textbf{Step 2: \(\hbar\) is structural, not volumetric.}
+
+\textbf{Lemma (Boundary-only dependence).} \emph{Decompose the hidden
+sector as \(\mathcal{C}_H = \mathcal{C}_B \times \mathcal{C}_D\), where
+\(\mathcal{C}_B\) denotes boundary modes (within the interaction range
+of \(H_{\text{int}}\)) and \(\mathcal{C}_D\) denotes deep modes (the
+remainder of the hidden sector). If the classical Hamiltonian is
+spatially local, then on timescales \(t \ll \tau_B\):}
+
+\[T_{ij}(t) = T^{(B)}_{ij}(t) + \mathcal{O}(t/\tau_B)\]
+
+\emph{where \(T^{(B)}_{ij}\) depends only on the \(V\)-\(B\) dynamics.}
+
+\emph{Proof.} (i) \emph{Coupling structure.} Spatial locality of the
+classical Hamiltonian implies the interaction decomposes as
+\(H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}\), with no direct
+\(V\)-\(D\) coupling: a deep hidden-sector mode must propagate through
+the boundary layer before influencing the visible sector. The coupling
+chain is \(V \leftrightarrow B \leftrightarrow D\), not
+\(V \leftrightarrow D\).
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\item
+  \emph{Frozen deep sector.} Let \(\Delta_D\) be the spectral gap of
+  \(H_D + H_{BD}\) restricted to the deep sector conditioned on a fixed
+  boundary configuration. The deep-sector evolution over time \(t\)
+  displaces any initial configuration by \(\mathcal{O}(\Delta_D \, t)\)
+  in phase space. The spectral gap gives the inverse relaxation time of
+  the slowest mode, so \(\Delta_D \leq 1/\tau_B\) (with equality when
+  the slowest mode dominates the relaxation). For
+  \(t \ll 1/\Delta_D \leq \tau_B\):
+  \(\|\varphi_t^D - \text{id}\| = \mathcal{O}(\Delta_D \, t) = \mathcal{O}(t/\tau_B)\).
+\item
+  \emph{Factorization of the Liouville integral.} The transition
+  probability is:
+\end{enumerate}
+
+\[T_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]\]
+
+By (i), \(\pi_V(\varphi_t(x_i, b, d))\) depends on \(d\) only through
+the back-reaction \(B \leftarrow D\), which by (ii) shifts \(b\) by
+\(\mathcal{O}(t/\tau_B)\). Expanding:
+
+\[\pi_V(\varphi_t(x_i, b, d)) = \pi_V(\varphi_t^{VB}(x_i, b)) + \mathcal{O}(t/\tau_B)\]
+
+where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
+\(D\) frozen. The \(d\)-sum then contributes \(|\mathcal{C}_D|\)
+identical terms at leading order:
+
+\[T_{ij}(t) = \underbrace{\frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))]}_{T^{(B)}_{ij}(t)} + \mathcal{O}(t/\tau_B) \qquad \square\]
+
+The correction is \(\mathcal{O}(t/\tau_B) \sim 10^{-32}\) for laboratory
+processes. Since \(T_{ij}(t)\) determines the emergent quantum
+description (Prerequisites; Barandes correspondence {[}35, 36{]}), and
+\(T^{(B)}_{ij}(t)\) depends only on the \(V\)-\(B\) dynamics --- which
+are characterized by the boundary geometry (\(A\), \(\epsilon\),
+\(\kappa\)) and the constants \(c\), \(G\) appearing in the classical
+Hamiltonian --- the emergent action scale \(\hbar\) inherits
+boundary-only dependence.
+
+\textbf{Corollary (deep-sector cardinality is gauge).} \emph{No
+observable of the emergent description --- no transition probability,
+emergent Hamiltonian eigenvalue, or scattering amplitude --- depends on
+the cardinality \(|\mathcal{C}_D|\) of the deep hidden sector. Systems
+with the same \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce
+the same emergent physics to within \(\mathcal{O}(\tau_S/\tau_B)\),
+whether \(|\mathcal{C}_D|\) is finite, countably infinite, or
+uncountably infinite.}
+
+\emph{Proof.} \(T^{(B)}_{ij}(t)\) is defined by a sum over
+\(\mathcal{C}_B\) alone. The \(\mathcal{C}_D\)-dependent terms enter
+only through the \(\mathcal{O}(t/\tau_B)\) back-reaction. Since the
+emergent Hamiltonian \(\hat{H}_{\text{eff}}\) is uniquely determined by
+\(\{T_{ij}(t)\}\) (phase-locking lemma, {[}Main, §3.1{]}; D-gauge
+theorem, §3.3), it inherits \(\mathcal{C}_D\)-independence at leading
+order. All observables --- eigenvalues, transition amplitudes,
+scattering cross-sections --- are functions of \(\hat{H}_{\text{eff}}\)
+and therefore \(\mathcal{C}_D\)-independent. \(\square\)
+
+The cardinality of the deep hidden sector is gauge in the same technical
+sense as the alphabet size \(q\): just as two systems with different
+\(q\) are physically equivalent if they share the same coupling
+structure, two systems with different \(|\mathcal{C}_D|\) are physically
+equivalent if they share the same \(\mathcal{C}_V \times \mathcal{C}_B\)
+dynamics. Lemma 1 requires \(S\) finite for the recurrence proof
+({[}Main, §2.3{]}); the corollary establishes that the deep sector's
+contribution to this finiteness has no observable consequences. The
+question ``is the universe finite or infinite?'' has no empirical
+content within the framework --- it is identified as gauge.
+
+\textbf{Step 3: Dimensional determination.} Step 2 excludes volumetric
+(deep-sector) quantities, leaving boundary quantities. The boundary
+carries both \emph{local} geometric data (\(\epsilon\), \(\kappa\), and
+the constants \(c\), \(G\) of the classical Hamiltonian) and a
+\emph{global} quantity: the total area \(A\), which forms the
+dimensionless ratio \(A/\epsilon^2 = S_{\text{dS}}\). If \(\hbar\)
+depended on \(S_{\text{dS}}\), it would be observer-dependent ---
+different observers have different horizon areas (§2.1) ---
+contradicting the universality of the emergent action scale. (All
+sub-\(c\) observers share the same local physics and hence the same
+\(\hbar\); §2.1.) This excludes \(A\), leaving the local boundary
+quantities \(c\), \(G\), \(\epsilon\), and \(\kappa\). The surface
+gravity \(\kappa\) is excluded because it varies between observers and
+epochs while \(\hbar\) is observed to be universal across observers and
+constant in time: a laboratory experiment measures the same \(\hbar\)
+regardless of the observer's local cosmological-horizon parameters, and
+for the cosmological horizon \(\kappa = cH\) is itself time-dependent
+(\(\dot{H} \neq 0\)). The unique combination of \(c\), \(G\),
+\(\epsilon\) with dimensions of action:
+
+\[\hbar = \beta \frac{c^3 \epsilon^2}{G}\]
+
+\textbf{Step 4: Thermal self-consistency.} The classical substratum
+assigns the partition boundary a temperature
+\(k_B T_{\text{cl}} = c^2 \epsilon^2 \kappa / (8\pi G)\) (§3.1),
+containing no \(\hbar\). The emergent QFT of Part I lives on this
+classical background. On the exact de Sitter calibration of §2 that
+background has a bifurcate Killing horizon with surface gravity
+\(\kappa\), and regularity of the Wick-rotated metric requires Euclidean
+period \(\beta = 2\pi c/\kappa\), giving a KMS state at
+\(T_Q = \hbar\kappa/(2\pi c k_B)\) with \(\hbar\) unknown. Two scope
+limits apply and are load-bearing. First, periodicity is not inherited
+by every QFT on this background: a preferred-frame dispersive lattice
+theory satisfies it only under the H-Hawking conditions of §8.5, and the
+dispersive-Hawking literature supplies counterexamples where they fail,
+so periodicity does not hold for every QFT on this background. Second,
+the KMS temperature parameter is fixed kinematically by \(\kappa\);
+whether the emergent state belongs to that KMS class is state-dependent,
+and which class it occupies is H-spectrum, which §2 records as
+underivable from S1--S4. The equality below is therefore a conditional
+infrared calibration, not a theorem within the derived QFT. The two
+temperatures are computed independently --- \(T_{\text{cl}}\) from the
+classical substratum alone (no QM), \(T_Q\) from the emergent QFT alone
+(no classical substratum details) --- but they refer to the \textbf{same
+physical degrees of freedom}: the boundary modes \(V \times B\) across
+which \(H_{\text{int}}\) couples the visible and hidden sectors. Step
+2's boundary-only dependence shows that the emergent QFT is uniquely
+determined (at leading order in \(\tau_S/\tau_B\)) by these same
+\(V \times B\) dynamics. Temperature is a state property; two complete
+descriptions of the same modes cannot assign different temperatures
+without logical contradiction. The matching \(T_{\text{cl}} = T_Q\) is
+therefore not an additional assumption but a consequence of the boundary
+modes being the same physical objects in both descriptions, with
+corrections at \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
+
+\[\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}\]
+
+\(\kappa\) cancels --- a non-trivial cross-check on Step 3, which
+excluded \(\kappa\) from \(\hbar\) on observer-universality grounds. The
+thermal matching here recovers that exclusion from independent physics:
+\(\kappa\) enters both sides of the consistency equation, and only the
+combinations of \(c\), \(G\), \(\epsilon\) predicted by Step 3 survive.
+Solving:
+
+\[\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}\]
+
+The derivation is a gap equation: \(\epsilon\) is the free geometric
+input, \(\hbar\) is the output. The match is non-trivial:
+\(T_{\text{cl}}\) could have depended on volumetric hidden-sector data
+(excluded by Step 2), or \(T_Q\) could have depended on the state (it
+does not --- the KMS temperature is kinematic in its parameter,
+conditional on H-balance in its class). That neither pathology obtains
+makes the gap equation a genuine determination. The non-circularity is
+structural: Part I establishes that a QFT emerges with \emph{some}
+action scale \(\hbar\); §3 determines \emph{which} \(\hbar\), using the
+independent classical temperature that Part I neither requires nor
+produces.
+
+\textbf{The counting \(\eta = 1/\epsilon^2\) is definitional.} Given
+that \(\epsilon\) is the minimal distinguishable scale (Lemma 1), ``one
+boundary mode per cell of area \(\epsilon^2\)'' is what ``minimal''
+means: a cell finer than \(\epsilon\) would subdivide the minimal scale,
+while counting fewer modes would require a distinction below
+\(\epsilon\) to group them. The \(q\)-gauge theorem (alphabet size is
+observationally irrelevant) settles that what counts is the number of
+\emph{cells}, not the number of internal states per cell.
+\(\eta = 1/\epsilon^2\) is therefore not an independent physical ansatz
+about mode density but a consequence of the definition of \(\epsilon\)
+combined with the irrelevance of sub-cell structure.
+
+The predictive content lies not in the gap equation alone but in its
+consequences. The specific relationship \(\hbar = c^3\epsilon^2/(4G)\)
+--- rather than any other function of \(c\), \(G\), \(\epsilon\) ---
+produces: the Bekenstein-Hawking formula with the exact factor \(1/4\)
+(§5), the CC dissolution with \(S_{\text{dS}}\) as the compression ratio
+(§6.3), and the Type II running-vacuum form of the dark energy (§7.1).
+Any alternative \(\hbar(\epsilon)\) would fail at least one of these
+checks. The situation is analogous to deriving the Schwarzschild metric
+with \(M\) as a free parameter: the derivation has genuine content (the
+functional form) even though one input is not determined from within.
+
+Jacobson's original derivation {[}1{]} uses \(\hbar\)-containing forms;
+this paper does not --- it uses the classical identity
+\(dE = (c^2 \kappa / 8\pi G)\,dA\) and the classical entropy density
+\(\eta = 1/\epsilon^2\). The logical ordering differs from Jacobson's:
+his argument derives \(G\) from \(\eta\) and \(\hbar\); the present
+argument takes \(G\) as a parameter of the classical Hamiltonian (Lemma
+3) and derives \(\hbar\) from \(G\) and \(\epsilon\). The two are
+consistent --- substituting \(\eta = 1/\epsilon^2\) and
+\(\hbar = c^3\epsilon^2/(4G)\) into Jacobson's formula
+\(G_{\text{eff}} = c^4/(8\pi \eta \cdot \hbar c)\) recovers
+\(G_{\text{eff}} = G\) --- but the roles of input and output are
+reversed. The Gibbons-Hawking temperature {[}2{]}
+\(k_B T_{\text{GH}} = \hbar \kappa / (2\pi c)\) is recovered as a
+prediction, not used as an input. The KMS condition used above is
+derived for continuum QFT on bifurcate Killing horizons; for the
+lattice-regularized theory emerging from Part I, the relevant result is
+that thermal periodicity of the Euclidean Green's functions is robust
+against UV modifications of the dispersion relation, with corrections at
+\(\mathcal{O}((\epsilon\kappa/c^2)^2)\) {[}3, 4{]}. For the cosmological
+horizon, \(\epsilon\kappa/c^2 = \epsilon H / c \sim 10^{-61}\), so
+lattice corrections are \(\sim 10^{-122}\).
+
+\textbf{An independent necessity statement.} The same conclusion is
+forced by an external theorem with a disjoint axiom base. For matter
+field equations whose principal polynomial is that of standard-model
+fields on a Lorentzian metric --- the class in which the emergent sector
+of Part I falls, the single-cone structure being supported by the
+rotational-protection results of {[}SM §3.1{]} and by the
+symmetric-point universality of the block cones under H-blind ({[}SM
+§4.4{]}) --- the gravitational closure theorem of Düll, Schuller,
+Stritzelberger and Wolz {[}Phys. Rev.~D 97, 084036 (2018){]} determines
+the gravitational action to be Einstein--Hilbert with cosmological
+constant, from canonical co-evolution and diffeomorphism invariance
+alone, with no thermodynamic input. The derivation above and the closure
+theorem therefore force the same dynamics from disjoint axiom bases; the
+closure route leaves \(G\) and \(\Lambda\) as undetermined constants,
+which is precisely where the present relation
+\(\hbar = c^3\epsilon^2/(4G)\) and the analysis of §6--7 take over. The
+closure theorem, moreover, is one member of a family of independent
+necessity statements the emergent sector inherits once its inputs stand:
+Lovelock's uniqueness theorem {[}J. Math. Phys. 12, 498 (1971){]} ---
+second-order, metric-only, generally covariant dynamics in four
+dimensions is Einstein--Hilbert with cosmological constant --- and the
+spin-2 self-coupling and soft-graviton results {[}Weinberg, Phys.
+Rev.~138, B988 (1965); Deser, Gen.~Rel. Grav. 1, 9 (1970){]}, by which a
+massless spin-two mode with a complete matter sector is forced into
+universal coupling and the Einstein--Hilbert form at low energy. Four
+routes --- thermodynamic, closure, Lovelock, spin-2 bootstrap --- with
+disjoint axiom bases converge on the same dynamics; this is also the
+structural answer to the standard analog-gravity objection that emergent
+spacetimes deliver kinematics but not Einstein dynamics: given the
+emergent cone, matter content, and spin-2 mode, the dynamics is
+over-determined rather than underived. Each route's hypotheses name an
+internal obligation the framework must independently meet (the single
+cone, the massless spin-2 bound state, the absence of extra light
+gravitational modes), and the perturbative members of the family carry
+their own known subtleties in the literature. The finite-\(\epsilon\)
+deformation of the principal polynomial, and its comparison against the
+closure of weakly birefringent electrodynamics {[}arXiv:1708.03870{]},
+is an open consistency check.
+
+\hypertarget{gauge-fixing-and-the-dimensional-obstruction}{%
+\subsubsection{3.3 Gauge-fixing and the dimensional
+obstruction}\label{gauge-fixing-and-the-dimensional-obstruction}}
+
+Steps 1--2 establish that \(\hbar\) depends only on boundary quantities;
+Step 4 will fix its value via thermal matching. A prior question must be
+addressed: does the transition-probability data \(\{T_{ij}(t)\}\)
+determine the emergent Hamiltonian uniquely, or does residual gauge
+freedom leave \(\hbar\) underdetermined? The following theorem settles
+what the argument needs: the transition data determine the full
+dynamical frequency content, and the dimensional obstruction then makes
+the determination of \(\hbar\) a question no amount of such data can
+settle. The sharper question --- how far the data pin the Hamiltonian
+itself --- is settled by the two-branch theorem below.
+
+\textbf{Theorem (Bohr-frequency completeness).} \emph{Let
+\(U(t) = e^{-iHt}\) with non-degenerate eigenvalues and non-vanishing
+configuration-basis overlaps. Then the transition probabilities
+determine the Bohr-frequency set \(\{E_a - E_b\}\): each return
+probability expands as
+\(|U_{ii}(t)|^2 = \sum_{a,b} |V_{ia}|^2 |V_{ib}|^2\, e^{-i(E_a - E_b)t}\),
+in which every gap value carries a strictly positive coefficient; every
+\(|U_{ij}(t)|^2\) is a combination of the same frequencies; and
+consequently any \(U'\) of the same form with
+\(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\) has
+\(\{E'_a - E'_b\} = \{E_a - E_b\}\).}
+
+\emph{Proof.} Expanding
+\(U_{ij}(t) = \sum_a V_{ia}\, e^{-iE_a t}\, V_{ja}^*\) gives
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_a - E_b)t}\);
+at \(i = j\) the coefficients are \(|V_{ia}|^2 |V_{ib}|^2 > 0\), and
+grouping terms by frequency value only adds positive quantities ---
+degenerate gaps merge coefficients but cannot cancel them. Distinct
+characters \(t \mapsto e^{-i\omega t}\) of \((\mathbb{R}, +)\) are
+linearly independent (Dedekind), so equality of two probability families
+forces equality of the per-frequency coefficients over the union of the
+two gap sets, and positivity makes the supports --- the gap sets ---
+coincide. \(\square\)
+
+\textbf{The dimensional obstruction.} This is what §3's argument
+consumes, and it is deliberately less than a reconstruction of \(H\).
+The transition probabilities are dimensionless functions of \(t\) and
+determine temporal frequencies; converting a frequency to an energy
+requires the action scale \(\hbar\) itself, so no amount of transition
+data fixes it. The residual ambiguities in passing from frequencies to a
+Hamiltonian carry no scale either: the energy origin
+\(H \mapsto H + E_0\) contributes only the global phase \(e^{-iE_0 t}\),
+the antiunitary reflection \(H \mapsto -\bar{H}\) satisfies
+\(e^{-i(-\bar{H})t} = \overline{e^{-iHt}}\) entrywise and so preserves
+every \(|U_{ij}(t)|^2\) exactly, and the two-branch theorem below shows
+that nothing beyond these survives the coefficient matching. Step 4's
+thermal matching is therefore the mathematically obligatory entry point
+for the dimensionful input.
+
+\textbf{Theorem (D-gauge completeness, two-branch form).} \emph{Let
+\(U(t) = e^{-iHt}\) with all energy gaps \(E_a - E_b\) (\(a \neq b\))
+distinct and all configuration-basis overlaps non-vanishing. If
+\(|U'_{ij}(t)|^2 = |U_{ij}(t)|^2\) for all \(i, j, t\), then
+\(H' = DHD^\dagger + E_0\) or \(H' = -D\bar{H}D^\dagger + E_0\), for a
+time-independent diagonal unitary \(D\) and a real \(E_0\).}
+
+\emph{Proof.} Equality of the probability families forces, by the
+character independence above, equality of every per-frequency
+coefficient of
+\(|U_{ij}(t)|^2 = \sum_{a,b} V_{ia} V_{ja}^* V_{ib}^* V_{jb}\, e^{-i(E_b - E_a)t}\)
+over the union of the two gap sets; the gap sets coincide, and with all
+gaps distinct each frequency is carried by exactly one ordered mode pair
+on each side, so the matching forces a bijection \(\nu\) of ordered
+pairs preserving gap values and, pair by pair, equality of the
+coefficient tensors \(C^{ab}_{ij} = V_{ia} V_{ja}^* V_{ib}^* V_{jb}\)
+along \(\nu\). The classification of \(\nu\) concerns the spectra alone,
+and it reduces to integer spectra: the realization constraints of a
+fixed correspondence --- gap identities, orderings, distinctness of
+differences, failure of translation- and reflection-congruence --- are
+homogeneous rational-linear equalities, strict inequalities, and
+inequations, so a real spectrum pair realizing a nontrivial
+correspondence yields an integer pair realizing the same one: the
+entries span a finite-dimensional \(\mathbb{Q}\)-subspace of
+\(\mathbb{R}\), each basis-coordinate slice of the pair is itself a
+rational solution of the equality subsystem, rational combination
+coefficients near the real ones preserve the finitely many strict
+conditions, and a common denominator clears. For integer spectra the
+classification is the completed Piccard theorem: two rulers with all
+internal differences distinct and the same difference set are identical
+or mirror images, except for a single two-parameter six-mark family
+{[}A. Bekir and S. W. Golomb, IEEE Trans. Inform. Theory 53 (2007)
+2864--2867{]}. In the congruent cases the coefficient lines give the
+multiplicative rigidity \(W_{i,\tau a} = d_i \beta_a V_{ia}\) with
+\(d, \beta\) unimodular --- the moduli by diagonal-line rigidity at
+\(m \ge 3\), while at \(m = 2\) the diagonal line factors as
+\((q - p)(1 - p - q) = 0\) and the apparent hyperbola is exactly the
+reflection branch; the phases by the coboundary splitting on the pair
+lattice, the general solution of
+\(\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0\) being
+\(\delta_{ia} = \alpha_i + \beta_a\) --- and the \(\beta\)'s cancel in
+\(H' = W \operatorname{diag}(E') W^\dagger\), giving the first branch;
+reflection congruence is the first branch applied to \((\bar{V}, -E)\),
+giving the second. The exceptional six-mark family induces, up to
+relabeling, the single frequency-preserving correspondence \(\mu\) of
+the homometric pair \(\{0,1,4,10,12,17\}\) / \(\{0,1,8,11,13,17\}\) ---
+the two-parameter family satisfies all fifteen gap identities of \(\mu\)
+identically in its parameters --- and \(\mu\) admits no realization by
+unitary eigenbases with non-vanishing overlaps: its pulled-back
+four-cycle identities force flat moduli, the surviving monomial phase
+family confines the row parameters to the eight common roots-of-unity
+zeros of two mask polynomials, and the graph these eight generate has
+maximum clique three, short of the six mutually orthogonal rows
+required. The two printed branches are all that remains. \(\square\)
+
+The proof is kernel-verified end to end
+(\texttt{verification/lean-mathlib/OIBridge/}, composed statement
+\texttt{twoBranch\_of\_BGClassification}), with a single exception
+consumed as a cited external theorem: the integer classification of
+Bekir--Golomb, stated in the kernel as the explicit premise
+\texttt{BGIntegerClassification} --- in the integer scope the cited text
+uses, the passage from integer to real spectra being proved, not
+assumed. The hypotheses are sharp: each relaxation fails on an explicit
+example. Omitting \(E_0\) fails on \(H + E_0\). Omitting the second
+branch fails on \(-\bar{H}\), whose spectrum \(\{-E_a\}\) is not a shift
+of \(\{E_a\}\) for generic \(H\); the second branch is an antiunitary
+ambiguity --- time reversal composed with energy reflection --- not a
+gauge transformation. Weakening the gap condition to eigenvalue
+non-degeneracy fails on the \(C_4\) ring of {[}SM{]} Proposition 20: its
+spectrum \(\{\pm 2a, \pm 2b\}\) has distinct eigenvalues but degenerate
+gaps, its overlaps are uniform Fourier moduli, its reflection symmetry
+gives \(|U_{ij}(t)|^2 = |U_{ji}(t)|^2\) so that \(\bar{H}\) reproduces
+every transition probability, and \(\bar{H}\) is not diagonal-conjugate
+to \(H\) because conjugation preserves the loop product \(z^4\), which
+is not real there --- the same example that keeps weak-CP phases viable
+under reciprocity marks the exact boundary of Hamiltonian
+reconstruction. And the frequency set alone could not have decided the
+classification: the homometric pair above shares its fifteen pairwise
+differences without the rulers being translates or reflections of one
+another, which is why the proof runs on the coefficient-labelled
+frequency data, where the multiplicative relations
+\(z^{ab} z^{bc} = |V_{\cdot b}|^2 z^{ac}\) of the vectors
+\(z^{ab}_i = V_{ia} V_{ib}^*\) are available, and not on the difference
+set.
+
+\textbf{Corollary (operational antiunitary invariance).}
+\emph{Transposing the preparation, every operation, and the effect
+simultaneously --- \(\rho \mapsto \rho^T\),
+\(\mathcal{G} \mapsto T \circ \mathcal{G} \circ T\), \(E \mapsto E^T\)
+--- preserves every finite circuit probability, for arbitrary operations
+and arbitrary finite sequences, hence for every fixed outcome branch of
+any adaptive instrument strategy; the transformation carries Kraus
+operations to Kraus operations with conjugated operators, preserves the
+trace normalization, and on unitary evolution is exactly the branch map
+\(H \mapsto -\bar{H}\).}
+
+Enlarging the data from transition probabilities to arbitrary
+preparations, instruments, adaptive finite circuits, and effects
+therefore cannot remove the second branch: at the purely operational
+level the two branches are not two empirically distinguishable theories
+but two antiunitarily related reconstructions of the same complete
+circuit statistics, and they become physically distinct only once an
+oriented structure is fixed. (Kernel: \texttt{circuit\_invariance},
+\texttt{string\_invariance}, \texttt{transposeMap\_kraus},
+\texttt{kraus\_normalization}, \texttt{unitary\_channel\_transpose} in
+\texttt{OIBridge/AntiunitaryInvariance.lean}.)
+
+\textbf{Corollary (thermodynamic orientation).} \emph{Under the
+theorem's hypotheses, the reflection branch inverts thermal orientation:
+the antiunitary image of the positive-temperature Gibbs state of \(H\)
+is the negative-temperature Gibbs state of
+\(H' = -D\bar{H}D^\dagger + E_0\), and no population profile that is
+non-increasing in the energies without being uniform remains so under
+the reflected spectrum. One passive, non-maximally-mixed state fixed
+with respect to the emergent generator therefore excludes the
+antiunitary branch; positive-temperature Gibbs/KMS states are strictly
+passive, hence sufficient.}
+
+The reconstruction's status is thus exactly split: circuit structure
+alone determines the dynamics up to ordinary gauge and one global
+antiunitary orientation; circuit structure together with one passive
+oriented state determines it up to ordinary gauge only, the excluded
+alternative collapsing the theorem's disjunction to
+\(H' = DHD^\dagger + E_0\). Whether the substratum \emph{derives} such a
+state is not claimed here; it is the H-orientation transport question,
+and it is narrower than the H-balance/KMS conditions of §3.2 ---
+single-state passivity, not complete passivity and not the Gibbs law.
+Its classical layer is settled: exact finite-bath counting with
+\(\beta_E = \partial S_H/\partial E > 0\) makes the counting-selected
+profile passive for the classical configuration energies, with no Gibbs
+approximation and no thermodynamic limit (kernel:
+\texttt{counting\_passive}). The open steps are the stationarity of that
+state under the reconstructed evolution and the transport of the
+classical energy ordering to one of the two orientations of the
+reconstructed Bohr spectrum --- a sign correspondence only, far weaker
+than H-spectrum. (Kernel: \texttt{transported\_gibbs},
+\texttt{gibbs\_orientation}, \texttt{passivity\_selector\_nonuniform},
+\texttt{orientation\_excludes\_reflection},
+\texttt{gibbs\_strictlyPassive} in
+\texttt{OIBridge/ThermalOrientation.lean}.)
+
+\textbf{The coherent-completion classification.} The completion problem
+separates into three logically distinct questions --- existence,
+classification, orientation --- with three different statuses, recorded
+here exactly.
+
+\emph{Existence.} The classical fixed-basis operational theory admits a
+conservative quantum realization, but extension to a coherent,
+visible-local, multi-time representation is not automatic. For a
+stationary preparation, feasibility reduces to a convex condition
+determined by the reconstructed eigenvectors and the visible readout:
+\texttt{ShellRepresentationConsistency} holds precisely when the
+classical marginal is a mixture of the eigenvector population columns
+(kernel: \texttt{shell\_representation\_from\_comb},
+\texttt{comb\_mixture\_of\_shell\_representation}, with
+\texttt{uniform\_overlap\_obstruction} an explicit failure).
+Visible-local interventions impose further invariants and
+complete-positivity constraints, and an explicit finite carrier ---
+preparation-feasible, with a globally reachable intervention table ---
+admits no visible-local CPTP coherent lift at all (kernel:
+\texttt{twoByTwo\_affine\_rigidity}, \texttt{twoByTwo\_nonCP},
+\texttt{twoByTwo\_no\_local\_lift}). Not every nominal carrier belongs
+to the coherent-completion class, and every statement below is about the
+completions that exist.
+
+\emph{Classification.} Conditional on existence, the remaining freedom
+is rigid. Two-slot operational contexts separate operators --- one-slot
+contexts do not, even where the accessible algebra is already the full
+matrix algebra (kernel: \texttt{operational\_separation},
+\texttt{sameData\_unique\_state}) --- so identical complete operational
+data induce a well-defined correspondence between two completions'
+accessible algebras, and the correspondence is bijective, unital,
+star-preserving, and positive in both directions by construction from
+the data, positivity transferring both ways through the self-duality of
+the positive cone (kernel: \texttt{sameData\_orderIso},
+\texttt{psd\_iff\_trace\_nonneg}). It is consequently a Jordan
+\(*\)-isomorphism (kernel: \texttt{orderIso\_jordan}, proved
+internally), and the finite-dimensional matrix-unit classification
+leaves exactly two possibilities.
+
+\textbf{Theorem (coherent-completion classification).} \emph{Let two
+OI-compatible coherent completions on the same finite visible dimension
+carry Hermitian accessible menus \(\{G^{(1)}_i\}\), \(\{G^{(2)}_i\}\),
+each spanning the full matrix algebra and containing the unit at a
+common index, and positive-semidefinite state families
+\(\{\sigma^{(1)}_k\}\), \(\{\sigma^{(2)}_k\}\), each separating
+(\(\mathrm{Tr}(M\sigma_k) = 0\) for all \(k\) forces \(M = 0\)) and each
+generating the full positive cone by nonnegative finite combinations. If
+the two completions carry the same complete operational data,
+\(\mathrm{Tr}(G^{(1)}_i\,\sigma^{(1)}_k) = \mathrm{Tr}(G^{(2)}_i\,\sigma^{(2)}_k)\)
+for all \(i, k\), then there are a linear map \(\Phi\) with
+\(\Phi(G^{(1)}_i) = G^{(2)}_i\) for every \(i\) and a unitary \(W\) with
+\(\Phi(X) = W X W^\dagger\) for all \(X\), or
+\(\Phi(X) = W X^T W^\dagger\) for all \(X\).} (Kernel:
+\texttt{sameData\_unitary\_or\_transpose} in
+\texttt{OIBridge/JordanClassification.lean}, chaining
+\texttt{sameData\_orderIso}, \texttt{orderIso\_jordan}, and
+\texttt{matrixJordan\_unitary\_or\_transpose}; the matrix-unit chain
+\texttt{orthogonal\_resolution\_rank\_one}, \texttt{corner\_form},
+\texttt{corner\_nilpotent}, \texttt{corner\_unimodular},
+\texttt{corner\_cocycle}, \texttt{orientation\_dichotomy} runs the same
+local-freedom, triple-consistency, phase-coboundary architecture as the
+Hamiltonian reconstruction of the theorem above.)
+
+Every two existing OI-compatible coherent completions with identical
+complete operational data are therefore equivalent either by ordinary
+unitary gauge or by one global antiunitary orientation reversal. No
+larger coherent fibre survives these conditions.
+
+\emph{Orientation.} The residual transpose branch cannot be selected by
+the unoriented operational data themselves.
+
+\textbf{Theorem (operational orientation no-go).} \emph{Transposition
+carries every admissible completion to an admissible completion ---
+Hermiticity, positivity, span, separation, the unit, and the full cone
+all transport --- with exactly the same complete operational data, and
+realizes the transpose branch of the classification with
+\(W = \mathbb{1}\) while being the conjugation action of no unitary.
+Consequently every selector that factors only through the operational
+data assigns the same value to the two members of an orientation pair;
+and, in general, no inhabited class of completions closed under
+transposition satisfies throughout a property \(P\) with
+\(P(R) \Rightarrow \neg P(\Theta R)\).} (Kernel:
+\texttt{transpose\_data\_eq},
+\texttt{transpose\_completion\_admissible},
+\texttt{transpose\_realizes\_second\_branch},
+\texttt{transpose\_not\_inner}, \texttt{operational\_orientation\_noGo}
+in \texttt{OIBridge/OrientationSelection.lean};
+\texttt{no\_universal\_oriented\_property} in
+\texttt{OIBridge/OrientationClosure.lean}.)
+
+The two named premises are accordingly not symmetric obligations.
+\texttt{ShellRepresentationConsistency} is an existence condition: it
+holds for a model precisely when it holds for the reflected partner
+\((\bar V, -E)\) (kernel:
+\texttt{shellRepresentation\_transpose\_stable}), so it cannot select an
+orientation. Orientation requires additional alignment ---
+\texttt{OperationalTransitionIdentification}, or an
+\texttt{OrientedShellRepresentation} in which the represented spectral
+populations are non-uniform and passive with respect to the derived
+classical energy ordering. Those conditions are orientation-sensitive
+(kernel: \texttt{transitionIdentification\_orientation\_sensitive},
+\texttt{orientedShellRepresentation\_orientation\_sensitive}), by the
+no-go they are not consequences of transpose-symmetric operational data
+alone, and either one, combined with the classification, excludes the
+transpose branch (kernel:
+\texttt{sameData\_unitary\_of\_orientedReference},
+\texttt{sameData\_unitary\_of\_transitionIdentification},
+\texttt{sameData\_unitary\_of\_shellRepresentation}). The boundary is
+therefore
+
+\[\boxed{\;\mathrm{OI} \;+\; \text{OI-compatible coherent-completion conditions} \;\Longrightarrow\; \mathrm{QM}/\mathbb{Z}_2^{\mathrm{anti}}\;}\]
+
+for the coherent completions that exist, subject to the stated carrier,
+locality, genericity, and operational-completeness hypotheses; and if
+the positive classical thermodynamic orientation is additionally
+identified with the coherent energy ordering --- through
+\texttt{OperationalTransitionIdentification} or the oriented shell
+condition ---
+
+\[\boxed{\;\mathrm{OI} \;+\; \text{coherent completion} \;+\; \text{positive thermodynamic orientation} \;\Longrightarrow\; \mathrm{QM}\;}\]
+
+up to ordinary unitary gauge. Two substantive questions accordingly
+remain: whether the actual OI substratum lies in the class admitting an
+OI-compatible coherent completion, and whether its derived classical
+thermodynamic arrow --- \(\beta_E = \partial S_H/\partial E > 0\),
+settled classically by exact counting (kernel:
+\texttt{counting\_passive}) --- enters that completion through an
+orientation-sensitive bridge. The classification of alternative coherent
+theories is otherwise closed: existing completions are ordinary complex
+quantum mechanics modulo one global antiunitary \(\mathbb{Z}_2\), while
+some nominal carriers admit no coherent completion at all.
+
+\textbf{The operational-completion characterization.} The classification
+above is a uniqueness statement conditional on existence. The existence
+side --- which operational theories generated on a finite carrier are
+exactly quantum mechanics at the level of instruments and composites ---
+is settled by a characterization with no external premise. Fix a
+nonempty finite visible system and an operational theory on it: a
+specification, for the system and for every finite ancilla level, of
+which finite outcome families of linear maps are available, closed under
+coarse-graining and outcome-conditioned composition, with a
+spectator-independent local readout of the ancilla. Five conditions are
+in play. (i) \emph{Valid probabilities}: every available family sends
+positive states to positive states and its outcomes' traces sum to the
+input trace. (ii) \emph{Trivial-ancilla consistency}: an operation
+available on the system is available on the system with a one-state
+ancilla adjoined. (iii) \emph{Inert spectators}: an untouched
+independent system can be adjoined without changing an intervention.
+(iv) \emph{Full reversible control}: every finite unitary on every
+composite is available. (v) \emph{Iterated composition}: a composite may
+itself serve as the working system of a larger experiment --- an
+operation obtained by attaching a fresh uniformly prepared ancilla to a
+composite, acting on the enlarged carrier, and discarding the ancilla is
+available on the composite.
+
+\textbf{Theorem (operational-completion characterization).} \emph{For
+every nonempty finite visible system, the available outcome families on
+the system and on every positive ancilla level are exactly the
+normalized finite Kraus instruments if and only if conditions (i)--(v)
+hold.} (Kernel: \texttt{exactAll\_iff\_physical\_general} and
+\texttt{general\_characterization} in
+\texttt{OIBridge/GeneralCarrier.lean}; necessity
+\texttt{physical\_of\_exactAll}; sufficiency through
+\texttt{krausSoundExt\_of\_validity\_inert},
+\texttt{compositeCompleteness}, and \texttt{exactAll\_of\_levelOne}. The
+one extension fact the sufficiency direction uses --- every isometry
+into a composite extends to a unitary agreeing with it on the seed ---
+is proved for every finite carrier from Mathlib's orthonormal-basis
+extension theorem, \texttt{finiteIsometryExtensionSF\_discharged} in
+\texttt{OIBridge/IsometryExtension.lean}, so no external premise enters
+either direction.)
+
+Conditions (i) and (ii) are well-formedness requirements of any
+operational theory; (iii)--(v) are the substantive selection principles,
+and for well-formed theories the characterization is by those three
+alone (kernel: \texttt{exactAll\_iff\_substantive}). Each of the five is
+independent of the other four and of the observation process itself: for
+each condition there is a qubit theory that realizes the sealed OI core
+--- a finite C1--C4 embedded-observation process together with its
+actual visible readout --- satisfies the other four, and fails that one
+(kernel: \texttt{five\_way\_minimality} in
+\texttt{OIBridge/RankGapTheory.lean}, with the witnesses
+\texttt{everywhereAvailable}, \texttt{countermodel},
+\texttt{diagTheory}, \texttt{gapTheory}, \texttt{systemLoose}). In
+particular a theory that never creates coherence realizes the OI core
+and is not quantum (kernel: \texttt{oi\_alone\_not\_qm}). Hence
+
+\[\boxed{\;\text{bare finite OI} \;\not\Rightarrow\; \mathrm{QM}\;}\]
+
+while
+
+\[\boxed{\;\text{OI-compatible operational theory} \;+\; \text{(i)–(v)} \;\iff\; \text{finite operational QM}\;}\]
+
+for every nonempty finite system (kernel: \texttt{main\_result},
+\texttt{oi\_compatible\_classification} in
+\texttt{OIBridge/GeneralCarrier.lean}). The OI clause is not what does
+the work --- every theory with full reversible control realizes the
+sealed core (kernel: \texttt{realizesSealedOICore\_of\_control}) --- so
+the theorem is a classification of the completions compatible with
+embedded observation, not a derivation of quantum mechanics from it. The
+substantive physical question it isolates is whether the OI substratum
+supplies (iii)--(v); the determination of \(\hbar\) in this section uses
+only the fixed-basis representation and does not wait on that question.
+
+\textbf{Quantum-complete OI (OI⁺).} The characterization suggests a
+layered extension rather than a redefinition of observation
+incompleteness. Let the OI core denote the original sealed finite
+observation-incompleteness condition, unchanged (kernel:
+\texttt{OICore}, which is \texttt{RealizesSealedOICore}, in
+\texttt{OIBridge/CompletedOI.lean}). Define OI⁺ on a nonempty finite
+carrier by adjoining well-formedness --- valid probabilities and
+consistency under a trivial ancilla, conditions (i) and (ii) ---
+together with three substantive physical principles (kernel:
+\texttt{OIPlus} in \texttt{OIBridge/CarrierGeneralOIPlus.lean}; on the
+qubit carrier the OI-core conjunct is retained for its genealogical
+role, \texttt{OIHierarchy.OIPlus}, and the two definitions agree there,
+\texttt{oiPlus\_qubit\_iff}):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \emph{Observational independence}: an available operation remains the
+  same operation when an untouched system is adjoined. Equivalently,
+  inert spectators do not change the operational possibilities; in
+  particular, independently available operations on disjoint factors can
+  be performed jointly (kernel:
+  \texttt{observationalIndependence\_iff\_inert},
+  \texttt{parallel\_of\_observationalIndependence}).
+\item
+  \emph{Reversible richness}: available reversible transformations admit
+  operational inverses, and at every finite composite level there exists
+  a passive drift and a finitely generated control family whose
+  dynamical Lie algebra contains the special-unitary algebra. The finite
+  reachability theorem then supplies exact unitary control (kernel:
+  \texttt{control\_of\_reversibleRichness}; converse
+  \texttt{reversibleRichness\_of\_control}), and the Lie-rank clause
+  alone already does so, with no inverse of a control consumed (kernel:
+  \texttt{control\_of\_lieRank} in
+  \texttt{OIBridge/MicroscopicReversibility.lean}, from
+  \texttt{universalReachability\_of\_lieRank\_positive} in
+  \texttt{OIBridge/PositiveReachability.lean}). Thus this is a
+  certificate of sufficient reversible richness, rather than a direct
+  postulate that every unitary transformation is available.
+\item
+  \emph{Observer recursion}: a composite observable system is itself an
+  admissible observable system, with its operational families inherited
+  from the corresponding composite level. Equivalently, under the
+  identity and relative-readout operations used by the construction,
+  composites may themselves be used as systems in still larger
+  experiments (kernel: \texttt{closure\_of\_observerRecursion},
+  \texttt{observerRecursion\_of\_closure}).
+\end{enumerate}
+
+With these definitions, the kernel proves
+
+\[\boxed{\;\mathrm{OI}^{+} \;\iff\; \text{exact finite endomorphic operational QM}\;}\]
+
+on every nonempty finite carrier (kernel:
+\texttt{carrier\_general\_oiPlus}). Equivalently, OI⁺ is the physically
+rephrased form of completed OI, the core together with (i)--(v) (kernel:
+\texttt{CompletedOI}, \texttt{oiPlus\_iff\_completedOI}): observational
+independence corresponds to inert-spectator compositionality, reversible
+richness to sufficient composite unitary control, and observer recursion
+to iterated composition.
+
+This equivalence is an axiomatic completion theorem, not a derivation of
+the additional principles from bare OI. It also does not prove that bare
+OI selects a unique relative quantum evolution: it characterizes the
+completed theory, while which unitary evolution relates two times, given
+a visible family admitting several coherent lifts, is a separate
+question that the completion principles do not address and that remains
+open ({[}Main §3.4{]}). None of observational independence, reversible
+richness, or observer recursion follows from the OI core: each can fail
+while the core, well-formedness, and the other two remain satisfied
+(kernel: \texttt{oiPlus\_independence}). Nor is it claimed that these
+are the unique natural principles from which quantum mechanics may be
+selected. Indeed, because sufficient reversible control already realizes
+the sealed OI core, the OI-core conjunct is logically redundant once the
+full OI⁺ conditions hold (kernel: \texttt{completedOI\_iff\_physical}).
+Its role in the definition is conceptual and genealogical: OI⁺
+identifies a quantum-complete extension of the original OI framework
+while preserving the distinction between what observation incompleteness
+itself entails and what additional physical structure selects the
+quantum sector. The five-condition characterization above and the OI⁺
+equivalence hold at the same scope, every nonempty finite system. The
+sealed OI core itself is a qubit process, so on a general carrier OI⁺
+consists of well-formedness and the three principles, and by the
+redundancy just noted nothing is lost by omitting the core conjunct
+there.
+
+\textbf{Primitive-source form of OI⁺.} The three physical principles of
+OI⁺ admit a formulation one level deeper, in terms of physical
+implementations and embedded observers rather than of the available
+operations directly. On every nonempty finite carrier, exact finite
+endomorphic operational quantum mechanics is equivalent to three such
+principles (kernel: \texttt{carrier\_general\_oiPlusMin},
+\texttt{oiPlusMin\_iff\_qm} in \texttt{OIBridge/MinimalRepertoire.lean};
+with the elementary repertoire in place of the second principle,
+\texttt{carrier\_general\_oiPlusPos}, \texttt{oiPlusPos\_iff\_qm} in
+\texttt{OIBridge/PositivePackage.lean}):
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \emph{Implementation locality.} Operational interventions are those
+  realized by one protocol built from admissible implementation
+  operators: an admissible isometric step, the readout of a register of
+  the carrier whose projectors are admissible, classical coarse-graining
+  of the outcome, sequential composition with outcome-dependent
+  continuation, and the discard of a uniformly attached ancilla; the
+  branches of an intervention arise together as the outcomes of one
+  protocol, and admissibility is invariant under relabelling and under
+  adjoining an uncoupled spectator. Probability normalization in
+  aggregate is a consequence of that realization rather than a clause of
+  it, and the structure supplies complete positivity and observational
+  independence (kernel: \texttt{instAvail\_trace},
+  \texttt{observationalIndependence\_of\_implementationLocality},
+  \texttt{validity\_of\_implementationLocality} in
+  \texttt{OIBridge/ImplementationLocality.lean}). No closure of the
+  implementations under the adjoint is assumed, and no inverse of a
+  control is assumed available: the Lie-rank condition supplied by the
+  second principle gives full composite unitary control on its own,
+  every unitary being, up to a global scalar phase that acts trivially
+  on its conjugation channel, a positive word in the flows and the
+  controls (kernel: \texttt{control\_of\_lieRank} in
+  \texttt{OIBridge/MicroscopicReversibility.lean},
+  \texttt{universalReachability\_of\_lieRank\_positive} in
+  \texttt{OIBridge/PositiveReachability.lean}; the scalar phases are
+  factors of the positive monoid there, not an operation of the
+  repertoire), and on a well-formed theory full control yields
+  operational inverse accessibility (kernel:
+  \texttt{inverseAccessibility\_of\_lieRank}).
+\item
+  \emph{Phase-free richness.} At every finite composite level with two
+  or more states, some pair of distinguishable states is continuously
+  drivable, and every exchange of two distinguishable states is
+  available. No phase operation enters. On three or more states one
+  driven transition and the permutations generate the full
+  special-unitary Lie algebra --- permutation conjugation transports the
+  drive to every pair, two drives sharing a state bracket to the
+  imaginary transition on the third pair, and the real and imaginary
+  transitions on a pair bracket to the population difference (kernel:
+  \texttt{bracket\_XX}, \texttt{hControl\_perm} in
+  \texttt{OIBridge/MinimalRepertoire.lean}) --- and thereby yield the
+  Lie-rank condition and hence exact finite unitary reachability at that
+  level (kernel: \texttt{control\_at\_level}, through
+  \texttt{control\_of\_lieRank}). On a two-state carrier the drive and
+  the exchange commute and the generated algebra reaches no population
+  difference (kernel: \texttt{not\_hControl\_two}); the levels with two
+  or fewer states inherit control instead from the level with three
+  times as many states, through the ancilla attachment and discard that
+  embedded observation supplies (kernel: \texttt{descend},
+  \texttt{control\_of\_phaseFree}). The exchanges themselves are
+  generated by one full cycle and one adjacent exchange (kernel:
+  \texttt{phaseFree\_of\_cyclic}). Elementary transition richness ---
+  every pair of distinguishable states continuously drivable, every
+  exchange available, and a quarter phase on every state, the quarter
+  phase supplying the imaginary partner of a transition directly --- is
+  a stronger form of the same principle (kernel:
+  \texttt{phaseFree\_of\_elementary}; \texttt{lieRank\_of\_elementary},
+  \texttt{hControl\_star}, \texttt{bracket\_XY}), and the two forms
+  characterize the same theory (kernel:
+  \texttt{oiPlusMin\_iff\_oiPlusPos}).
+\item
+  \emph{Embedded observation.} One relabelling- and regrouping-invariant
+  family of finite operational theories on all finite carriers has the
+  given theory as its ambient member. This principle supplies observer
+  recursion, iterated composition, and consistency under a trivial
+  ancilla (kernel: \texttt{observerRecursion\_of\_embeddedObservation},
+  \texttt{systemToLevelOne\_of\_embeddedObservation} in
+  \texttt{OIBridge/EmbeddedObservation.lean}).
+\end{enumerate}
+
+The equivalence
+
+\[\boxed{\begin{aligned}&\text{implementation locality} + \text{phase-free richness}\\ &\qquad + \text{embedded observation} \;\iff\; \text{exact finite endomorphic operational QM}\end{aligned}}\]
+
+holds on every nonempty finite carrier. It refines the OI⁺
+characterization, and it is not a claim that bare observation
+incompleteness entails these principles: the normalization half of
+operational validity is a consequence of implementation generation, an
+intervention realized by one protocol preserving probability in
+aggregate, and neither principle is supplied by the others, the
+witnesses being stated for the Lie-rank condition that phase-free
+richness supplies (kernel: \texttt{redundancy\_fails},
+\texttt{lieRank\_not\_redundant}). The nonclassical repertoire the
+equivalence consumes is one continuously driven transition together with
+the exchanges of distinguishable states; the quarter phase is
+dispensable at every level. The exchange clause is not reducible to the
+powers of a single cyclic permutation: on an even carrier one driven
+transition with one full cycle generates a conjugate of the real
+antisymmetric matrices, which reaches no population difference (kernel:
+\texttt{not\_hControl\_evenCycle}), so one full cycle together with one
+adjacent exchange is the two-element discrete form the kernel
+formalizes, sufficient for every exchange (kernel:
+\texttt{phaseFree\_of\_cyclic}), with no claim that a smaller discrete
+resource is excluded, and no stronger minimality of the one driven
+transition is claimed. Whether that driven transition can be supplied by
+a discrete resource is the question of the substratum-source form below.
+Inverse accessibility is not a hypothesis of the equivalence: Lie-rank
+richness gives full composite unitary control unconditionally, and on a
+well-formed theory full control yields inverse accessibility,
+well-formedness being supplied by implementation locality with embedded
+observation (kernel: \texttt{inverseAccessibility\_of\_lieRank}). An
+implementation class closed under the adjoint remains a property of
+exact quantum mechanics (kernel:
+\texttt{reversibleImplementationLocality\_of\_qm} in
+\texttt{OIBridge/MicroscopicReversibility.lean}), and, with the other
+two principles, the class with that closure and the class without it
+characterize the same theory (kernel:
+\texttt{oiPlusPos\_iff\_oiPlusElem}).
+
+\textbf{Substratum-source form.} The three primitive-source principles
+are jointly supplied by one object: an implementation architecture --- a
+class of admissible implementation operators closed under the operations
+of a finite operational theory --- that is stable under an uncoupled
+spectator, invariant under relabelling of the carrier, closed under the
+adjoint, and drives the elementary transitions. A theory generated by
+such an architecture is exact finite endomorphic operational quantum
+mechanics on every nonempty finite carrier, and that quantum mechanics
+is generated by one (kernel:
+\texttt{genTheory\_qm\_of\_quantumArchitecture},
+\texttt{qm\_generated\_by\_quantumArchitecture} in
+\texttt{OIBridge/SubstratumSource.lean}). The concrete OI substratum ---
+finite states and bijective microscopic dynamics (Axiom 2) --- together
+with one further intervention principle, that a relative phase on a
+single state is a selectable intervention at every level, supplies the
+structural part in full. The phase intervention enters as an assumption
+on the substratum class, not as a consequence of the finite states with
+the bijective read-write dynamics: every isometry that dynamics and the
+stated observer access supply carries the all-ones vector to a multiple
+of itself, no class whose isometries do so realizes a quarter phase at
+any level with two or more states, and the quarter phase carries that
+vector off its ray (kernel: \texttt{permClass\_onesFixing},
+\texttt{onesFixing\_not\_phasesAvailable},
+\texttt{substratumClass\_not\_onesFixing} in
+\texttt{OIBridge/PhaseSource.lean}). An operator carrying the all-ones
+vector off its ray is therefore necessary to any access that supplies
+the phases, and is not shown sufficient; the access assumed is the
+quarter-phase intervention itself, a member of the class as stated
+(kernel: \texttt{phase\_monomial} in
+\texttt{OIBridge/SubstratumInterface.lean}). The interventions of the
+substratum so stated have monomial observable operators, a permutation
+of a diagonal (kernel: \texttt{bijectiveOperator\_monomial},
+\texttt{phaseOperator\_monomial} in
+\texttt{OIBridge/SubstratumInterface.lean}), and that class, with
+nothing added, is closed under composition, coarse-graining, and ancilla
+blocks, stable under an uncoupled spectator, invariant under
+relabelling, and closed under the adjoint --- the reversal of a
+bijective intervention is the inverse bijection and the reversal of a
+phase is its conjugate --- with the exchanges of distinguishable states
+and the phases among its members (kernel:
+\texttt{substratumClass\_structurallyClosed},
+\texttt{bijectiveOperator\_conjTranspose},
+\texttt{phaseOperator\_conjTranspose} in
+\texttt{OIBridge/StructuralClosure.lean}). What it does not supply,
+under finite bijective read-write dynamics, is the continuously tunable
+state-mixing operation: a monomial conjugation preserves diagonal
+states, whereas a continuously driven transition between two
+distinguishable states passes through operators with two nonzero entries
+in one row, which no bijection realizes. Finite reversible read-write
+dynamics, even with genuine hidden-memory and readback behavior, does
+not itself generate quantum state mixing: a selectable local coupling
+that is a bijection at every parameter value induces only permutation
+operators, a strict interpolation toward the exchange is not a
+bijection, and the memory-swap coupling moves information
+bidirectionally while remaining monomial (kernel:
+\texttt{readWriteSourced\_not\_qm},
+\texttt{offDiagonal\_interp\_not\_monomial},
+\texttt{readWriteControl\_independent} in
+\texttt{OIBridge/ReadWriteControl.lean}; \texttt{substratum\_residual}
+in \texttt{OIBridge/StructuralClosure.lean}). Adding that one operation
+as an empirical controllability resource completes the quantum
+architecture: a structurally closed extension of the substratum class is
+a quantum architecture exactly when it drives the elementary
+transitions, it generates exact finite endomorphic operational quantum
+mechanics on every nonempty finite carrier when it does, and quantum
+mechanics is generated by such an extension (kernel:
+\texttt{substratum\_extension\_quantum\_iff\_drives},
+\texttt{substratum\_plus\_control\_qm},
+\texttt{qm\_generated\_by\_substratum\_extension}):
+
+\[\boxed{\begin{aligned}&\text{current OI substratum} + \text{continuous off-diagonal controllability}\\ &\qquad \iff\; \text{exact finite endomorphic operational QM}\end{aligned}}\]
+
+on every nonempty finite carrier. This is not a derivation of quantum
+mechanics from bare observation incompleteness. The controllability
+resource is not entailed by A1--A6; it is an empirical extension of the
+current substratum, entering as a hypothesis on the extended
+architecture, and the phase intervention enters as an assumption on the
+substratum class itself, the left side of the box being that class with
+the phase intervention stated. The scope is finite and endomorphic, on
+nonempty finite carriers, and the elementary control repertoire that
+enters is the one stated above, with no claim that it is mathematically
+minimal. Observation incompleteness alone admits many theories; the
+concrete substratum supplies every structural requirement of quantum
+mechanics but not continuous state-mixing controllability, and quantum
+mechanics is obtained exactly when that one physical resource is added.
+
+\textbf{Layer-flow form.} The controllability resource of the
+substratum-source form can be taken smaller. Grant the structural
+architecture the substratum supplies with the phase intervention stated:
+an implementation class closed under the adjoint generating the
+interventions, embedded observation, and at every level the exchanges of
+distinguishable states, the quarter phases and the read-write operators.
+Within that closure, exact finite endomorphic operational quantum
+mechanics holds exactly when the continuous layer flow of one involution
+of the configuration space that moves some configuration, the ancilla a
+spectator, is an available operation at every level and every
+intermediate time:
+
+\[\boxed{\begin{aligned}&\text{within the substratum's closure with the phase intervention stated,}\\ &\qquad \text{exact finite endomorphic operational QM} \;\iff\; \text{one nontrivial layer flow executable}\end{aligned}}\]
+
+for each such involution (kernel:
+\texttt{derivedOI\_qm\_iff\_layerFlowExecutable\textquotesingle{}} in
+\texttt{OIBridge/DerivedQ3.lean}). The executability is necessary
+because full unitary control makes every unitary available, the layer
+flow included (kernel: \texttt{layerFlowExecutable\_of\_control} in
+\texttt{OIBridge/LiftAudit.lean}). It is sufficient because the square
+of the quarter phase on the image of a moved configuration is a sign
+flip, and the layer flow, times its time reversal conjugated by that
+sign flip, is the continuous transition flow on the moved pair at every
+angle; with the exchanges, that is phase-free richness, and phase-free
+richness within the closure is quantum mechanics (kernel:
+\texttt{phaseGate\_mul\_self}, \texttt{gateFlow\_isolation\_flip},
+\texttt{phaseFree\_of\_derivedOI\_layerFlowExecutable},
+\texttt{qm\_of\_derivedOI\_layerFlowExecutable}). For the concrete
+substratum factorization, the swap-layer flow on a nonempty region with
+a nontrivial alphabet is the one-parameter unitary group of one of its
+gates and is an instance of this equivalence (kernel:
+\texttt{derivedOI\_qm\_iff\_layerFlowExecutable\_swap\textquotesingle{}});
+the equivalence itself is stated for each involution with a moved
+configuration, whether or not it is a gate of that factorization. The
+layer flow reaches the driven elementary transitions of the
+substratum-source form through the closure, so the two boxes have the
+same right side and the resource named here is the smaller one. Two
+qualifications are part of the statement. The phase intervention is an
+assumption on the substratum class, as stated above, and not a
+consequence of the finite states with the bijective read-write dynamics.
+The executability of the layer flow at intermediate times is likewise
+not derived: the theory generated by any class of monomial operators,
+the substratum's included, makes no layer flow of an involution with a
+moved configuration available at time one half, where the flow does not
+preserve diagonal states (kernel:
+\texttt{gateFlow\_half\_not\_preservesDiag},
+\texttt{configurationLevel\_not\_layerFlowExecutable},
+\texttt{substratumTheory\_not\_layerFlowExecutable} in
+\texttt{OIBridge/LiftAudit.lean}). Nor is that executability sourced by
+the substratum's own dynamics with the observer's stated access: the
+theory the read and write access generates on the configuration space
+executes no layer flow of an involution with a moved configuration, its
+own shear and swap layers included, the layers being available at time
+one and not at intermediate times, and any access that does execute one
+supplies a non-monomial admissible operator at level one (kernel:
+\texttt{obs\_not\_layerFlowExecutable},
+\texttt{waveSubstratum\_not\_layerFlowExecutable\_swap},
+\texttt{exists\_nonMonomial\_of\_layerFlowExecutable} in
+\texttt{OIBridge/ExecSource.lean}). The observer-level lift of {[}SM
+§4.1{]}, in every formulation stated that lands in the operational
+interface, derives neither such an operator nor the layer flow: the
+reversible coherent lift of a permutation is monomial, every coherent
+completion, reversible or not, preserves diagonal states, the explicit
+Kraus realization of the projected observer operator is
+configuration-level, and a generator whose time-one exponential is
+available does not make the exponential available at intermediate times
+(kernel: \texttt{reversibleExtension\_conj\_monomial},
+\texttt{correlationExtension\_preservesDiag},
+\texttt{coherentLiftClass\_eq\_substratumClass},
+\texttt{stochasticChannel\_kraus\_monomial},
+\texttt{avail\_one\_not\_layerFlowExecutable} in
+\texttt{OIBridge/LiftSource.lean}); whether every realization of those
+channels is configuration-level is not decided, and the site-space
+wave-operator formulation is unresolved rather than excluded, no
+operational map from it to the configuration carrier being stated.
+Fractional-time access to one layer flow is therefore an additional
+physical intervention assumption, as the phase intervention is:
+
+\[\boxed{\text{stated substratum dynamics with observer access} \;\not\Rightarrow\; \text{one nontrivial layer flow executable}}\]
+
+The equivalence displayed above is exact; the physical sourcing of this
+one of its hypotheses is not. No uniqueness or minimality is claimed for
+the pair of assumptions; a different pair could be sufficient as well.
+
+\textbf{Typed form.} The statements above are endomorphic: every
+operation acts from a finite carrier back to the same carrier, the
+levels being \(A \times \mathrm{Fin}\,n\). Finite-dimensional quantum
+mechanics also has operations between different carriers ---
+preparations, isometric embeddings, partial traces, and instruments
+whose input and output dimensions differ. A typed finite operational
+theory has an availability predicate on finite outcome families of maps
+\(M_S \to M_{S'}\) between any two finite carriers, with the closure
+rules already used above stated at their carrier-general type: identity,
+classical coarse-graining, feed-forward composition across carriers,
+relabelling along carrier bijections, attachment of a uniformly mixed
+fresh factor, discard of a factor, and a spectator-independent factor
+readout whose form is derived; no clause asserts a dilation (kernel:
+\texttt{TypedOperationalTheory} in
+\texttt{OIBridge/TypedCompletion.lean}). Restricting a typed theory to
+maps from a carrier to itself yields a finite operational theory on
+every carrier, its endomorphic shadow, which is an embedded-observation
+family without further assumption (kernel:
+\texttt{shadow\_embeddedObservation}). The shadow is exact finite
+endomorphic operational quantum mechanics on every nonempty finite
+carrier --- the conclusion above, carrier by carrier --- exactly when,
+between any two nonempty finite carriers, an outcome family is
+typed-available precisely if it is a finite typed Kraus instrument,
+rectangular Kraus operators normalized on the input carrier (kernel:
+\texttt{typed\_determined\_iff},
+\texttt{typed\_determined\_of\_oiPlusMin},
+\texttt{typed\_determined\_of\_oiPlusPos} in
+\texttt{OIBridge/TypedPositive.lean}). Soundness wraps a typed operation
+into the register formed by the input and output carriers and compresses
+the square Kraus operators supplied by exactness; completeness realizes
+a typed Kraus instrument by attaching a uniform ancilla, relabelling,
+running a register instrument that places each Kraus operator on the
+output factor and records its index on the ancilla, and discarding; the
+converse restricts to one carrier. The interface itself carries no
+quantum content: the typed theory whose branches preserve diagonal
+matrices satisfies every rule and is not quantum mechanics (kernel:
+\texttt{typed\_interface\_not\_quantum}). Hence
+
+\[\boxed{\begin{aligned}&\text{under the carrier-general typed operational interface,}\\ &\text{current OI substratum} + \text{continuous off-diagonal controllability}\\ &\qquad \iff\; \text{exact finite-dimensional typed operational QM}\end{aligned}}\]
+
+for nonempty finite input and output carriers. Within the natural
+carrier-general extension of the operational rules already used above,
+``endomorphic'' is a typing artifact rather than an additional physical
+restriction. The qualification stands beside the statement: uniform
+attachment and discard are not derived from the endomorphic formulation,
+which cannot express a map between different carriers; they are the
+carrier-general counterparts of the ancilla attachment and discard rules
+already present in the finite operational framework, and the
+determination theorem shows that adding them introduces no specifically
+quantum content. No pure-state preparation, no carrier-coherence
+condition, and no availability of all completely positive maps is
+assumed; the quantum content lies entirely in the endomorphic conclusion
+above. The scope of this statement is finite-dimensional.
+
+\textbf{Infinite-region completion.} The finite theory admits a
+canonical infinite-region completion without a continuum limit and
+without a Hilbert-space representation. The substratum holds its
+fixed-spacing lattice fundamental, so the infinite-system construction
+it supplies is the directed system of finite spatial regions. For a
+finite region \(\Lambda\) the observable algebra is the full matrix
+algebra on the region's finite configuration space; inclusion of regions
+gives compatible injective unital \(*\)-homomorphisms, and observables
+supported on disjoint regions commute (kernel: \texttt{inclObs\_mul},
+\texttt{inclObs\_injective} in \texttt{OIBridge/QuasilocalAlgebra.lean},
+\texttt{emb\_comm\_of\_disjoint} in
+\texttt{OIBridge/QuasilocalCharacterization.lean}). The local algebra is
+the algebra of equivalence classes of finite-region observables, two of
+them agreeing exactly when they agree after inclusion into a common
+region (kernel: \texttt{emb\_eq\_iff}); the inclusions are isometric for
+the operator norm, and the norm completion of the local algebra is a
+quasilocal \(C^{*}\)-algebra that is the closure of the union of the
+finite stages (kernel: \texttt{norm\_inclObs},
+\texttt{instCStarAlgebraQuasilocal}, \texttt{closure\_iUnion\_stage}).
+Every consistent family of finite-region density matrices extends
+uniquely to a state of that algebra, and the reversible finite-range
+substratum update extends uniquely to an isometric \(*\)-automorphism
+under which an observable of a region is an observable of an explicit
+finite region after each step (kernel: \texttt{quasiState\_unique},
+\texttt{quasiState\_nonneg}, \texttt{heisQ\_mul}, \texttt{norm\_heisQ},
+\texttt{heis\_iterate\_emb}).
+
+The completion is characterized independently of the construction. A
+quasilocal system is a \(C^{*}\)-algebra carrying the same finite-region
+matrix algebras through compatible injective unital \(*\)-embeddings,
+with disjoint-region commutation and dense local stages; the definition
+names no completion, no state, and no representation (kernel:
+\texttt{QuasilocalSystem} in
+\texttt{OIBridge/QuasilocalCharacterization.lean}). Any such system is
+canonically and uniquely \(*\)-isomorphic to the region completion, by
+the universal property of the local algebra and of its completion, and a
+system carrying the same substratum-induced discrete dynamics receives a
+canonical isomorphism intertwining the automorphisms (kernel:
+\texttt{canonEquiv}, \texttt{canon\_unique},
+\texttt{systemEquiv\_unique}, \texttt{canon\_dyn},
+\texttt{systemEquiv\_dyn}). Hence
+
+\[\boxed{\begin{aligned}&\text{the canonical infinite-region completion of } \mathrm{OI}_Q\\ &\qquad \cong\; \text{the unique quasilocal fixed-lattice } C^{*}\text{-system carrying}\\ &\qquad\quad\; \text{the substratum's local stages and OI-induced discrete dynamics}\end{aligned}}\]
+
+where \(\mathrm{OI}_Q\) denotes the quantum-completed substratum of the
+statements above --- the current OI substratum together with continuous
+off-diagonal controllability --- and not bare observation
+incompleteness. The statement removes the finite-region cutoff for the
+algebra, the state space, and the OI-induced discrete dynamics; it is
+not a characterization of all infinite-dimensional quantum instruments,
+nor of all locality-preserving quantum dynamics.
+
+The restriction to the substratum-induced dynamics is a theorem rather
+than a convention. General locality-preserving automorphisms form a
+strictly larger class: conjugation by a phase unitary at one site
+preserves locality and is induced by no reversible finite-range
+substratum bijection, multiplying a single-site matrix unit by \(i\)
+where every transported observable carries entries that are sums of
+entries of the original (kernel: \texttt{phase\_localityPreserving},
+\texttt{phaseQ\_ne\_heisQ}).
+
+Continuous time is separate. The discrete substratum dynamics does not
+determine a continuous one-parameter interpolation: two Hermitian
+generators give flows agreeing at every integer time and differing at
+\(t = 1/2\) (kernel: \texttt{continuous\_extension\_not\_unique} in
+\texttt{OIBridge/RegionLimit.lean}). What the substratum does determine
+is a path. The second-order update, in its phase-space form on the pair
+of the previous and current slices, factors exactly as a depth-two local
+circuit, a shear layer followed by a swap layer, each a product of
+commuting involutive gates, one per site, its reversibility a
+consequence of the factorization (kernel:
+\texttt{leap\_eq\_swap\_shear}, \texttt{gate\_comm},
+\texttt{depth\_two\_circuit}, \texttt{leap\_leap\_symm} in
+\texttt{OIBridge/SecondOrderCircuit.lean}). Each layer is the time-one
+map of a strongly continuous one-parameter group of isometric
+\(*\)-automorphisms of the quasilocal algebra, driven gate by gate
+(kernel: \texttt{layerQ\_add\_time} in
+\texttt{OIBridge/SecondOrderLayer.lean}, \texttt{swapQ\_add\_time} in
+\texttt{OIBridge/SwapLayer.lean}, \texttt{layerQ\_one\_eq\_heisQ},
+\texttt{swapQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}), and the two flows, run in the
+order the Heisenberg picture forces, the swap first, give a
+norm-continuous path of isometric \(*\)-automorphisms from the identity
+to the update's own Heisenberg action (kernel: \texttt{heisQ\_of\_comp},
+\texttt{driveQ\_isContinuousPath}, \texttt{driveQ\_one\_eq\_heisQ} in
+\texttt{OIBridge/SecondOrderDrive.lean}). For the composite path no
+one-parameter-group law is established and no generator is exhibited:
+whether the path satisfies a one-parameter-group law, and whether one
+time-independent finite-range interaction has the update as its
+unit-time map, are open, and nothing here decides either. A
+continuous-time Hamiltonian law is additional structure where that
+formulation is wanted, and the equivalence above does not use it.
+
+The lattice spacing stays fundamental. Nothing above asserts a spatial
+continuum limit or a refinement of the spacing; the continuum
+description used elsewhere in the framework is an effective
+calculational approximation rather than the object completed here. The
+uniqueness is among systems built from the substratum's finite-region
+matrix algebras rather than among all \(C^{*}\)-algebras, and no
+Hilbert-space representation and no superselection sector is selected at
+the level of the laws, a sector choice being an input of the
+initial-condition kind (kernel: \texttt{state\_selection\_audit} in
+\texttt{OIBridge/RegionTower.lean}).
+
+Every member of the residual family is invisible to the transition data
+for a stated reason --- diagonal rephasing moves no modulus, the energy
+origin is a global phase, the antiunitary reflection conjugates \(U(t)\)
+entrywise --- and none carries a scale, so §3.4's determination of
+\(\hbar\) does not wait on the theorem. Cross-interval transition
+probabilities fix the relative gauge up to a single global phase; in the
+continuum limit this becomes an unobservable smooth function
+\(e^{i\theta(t)}\).
+
+\textbf{Dimensional obstruction.} The unitary \(U(t)\) is dimensionless;
+\(\hbar\) enters only via
+\(\hat{H} = i\hbar \, \partial_t U \cdot U^\dagger\). No dimensionless
+data can fix a dimensionful constant --- Step 4's thermal
+self-consistency provides the necessary dimensionful input.
+
+\textbf{Remark (phase recovery under discrete sampling).} The spatial
+lattice discreteness does not discretize time: the continuous-time
+extension ({[}Main, §2.3{]}) provides \(T_{ij}(t)\) as a genuinely
+continuous function of \(t\) via the Liouville marginalization of the
+Hamiltonian flow (Lemma 3). The D-gauge theorem therefore applies to the
+continuous object without aliasing corrections. Aliasing would arise
+only if the observer sampled \(T_{ij}\) at discrete intervals, in which
+case trans-Planckian frequencies could be misidentified --- but these
+lie outside the emergent QFT's domain. The phase-recovery error is
+controlled by the same \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\)
+suppression that governs the boundary-only dependence of §3.2.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{self-consistency-and-the-discreteness-scale}{%
+\subsection{4. Self-Consistency and the Discreteness
+Scale}\label{self-consistency-and-the-discreteness-scale}}
+
+Rearranging \(\hbar = c^3 \epsilon^2 / (4G)\):
+
+\[\epsilon^2 = \frac{4\hbar G}{c^3} = 4\,l_p^2\]
+
+The framework yields \(\epsilon = 2\,l_p\) exactly. This is
+algebraically equivalent to the formula for \(\hbar\): the framework
+contains one free geometric parameter (\(\epsilon\)), and thermal
+self-consistency establishes its relationship to \(\hbar\). The result
+is a self-consistency condition constraining \(\epsilon\) to the Planck
+regime, not an independent determination. If \(\epsilon^2 \ll l_p^2\),
+sub-Planckian subcells would create a second trace-out, breaking the
+single-valuedness of \(\hbar\). If \(\epsilon^2 \gg l_p^2\), the
+emergent description would assign distinct quantum states to physically
+identical configurations. The framework's predictive content comes from
+the relationship \(\hbar = c^3 \epsilon^2/(4G)\), the Bekenstein-Hawking
+formula, and the consequences that follow.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{the-bekenstein-hawking-entropy}{%
+\subsection{5. The Bekenstein-Hawking
+Entropy}\label{the-bekenstein-hawking-entropy}}
+
+With \(\epsilon = 2\,l_p\), the number of independent modes on the
+cosmological horizon is:
+
+\[N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\,l_p^2} = S_{\text{dS}}\]
+
+where \(S_{\text{dS}} = A/(4\,l_p^2)\) is the Bekenstein-Hawking entropy
+of the de Sitter horizon. The factor of \(1/4\) in the
+Bekenstein-Hawking formula --- historically introduced as a
+proportionality constant --- is here fixed, under the conditions of the
+§3 calibration: each minimal cell of area \(\epsilon^2 = 4\,l_p^2\) on
+the horizon contributes one unit of entropy, and
+\(A / (4\,l_p^2) = A / \epsilon^2\) recovers the standard formula
+exactly. The factor of \(4\) in \(\epsilon^2 = 4 l_p^2\) traces directly
+to §3 Step 4's thermal matching: the ratio \(2\pi/8\pi = 1/4\) between
+the Euclidean KMS period (numerator: thermal periodicity of QFT on a
+Killing horizon) and Jacobson's Einstein-equation prefactor
+(denominator: gravity's coupling in \(dE = (c^2\kappa/8\pi G)dA\)). The
+Bekenstein-Hawking \(1/4\) is therefore not an arbitrary constant but
+the consistency condition between gravitational and quantum thermal
+physics, conditional on H-slope (§3.2) and the H-Hawking conditions of
+§8.5. The same minimal-cell counting argument applies to any horizon
+with area \(A\), giving \(S = A/(4 l_p^2)\) for black-hole horizons as
+well; the recent observational confirmation of the area law on GW250114
+{[}5{]} is consistent with this extension.
+
+\textbf{Observational confirmation: GW250114.} The Bekenstein-Hawking
+area law \(dA \geq 0\) has long been regarded as a theoretical
+prediction of black-hole thermodynamics, but until 2025 the empirical
+evidence came primarily from agreement between classical horizon
+dynamics and semiclassical Hawking radiation predictions --- none of it
+testing the \(1/4\) coefficient directly. The LIGO/Virgo/KAGRA
+observation of GW250114 (September 2025) provides the first direct test
+of the area law at the percent level: comparing the remnant horizon area
+inferred from the ringdown to the sum of initial horizon areas inferred
+from the inspiral, the area increase is consistent with the theorem at
+\(99.999\%\) confidence. The scope of this test is important to state
+precisely: GW250114 compares horizon areas and does not measure entropy,
+so it tests Hawking's area theorem --- classical horizon dynamics, which
+the framework preserves --- and not the \(1/4\) entropy coefficient. The
+coefficient, fixed here as the exact ratio \(2\pi/8\pi\) between
+Euclidean KMS periodicity (thermal physics) and Jacobson's
+Einstein-equation prefactor (gravitational coupling), is a derived
+structural constant with no direct empirical test at present; any
+framework retaining classical general relativity passes the GW250114
+test identically, so the observation is consistent with, but
+non-discriminating for, the framework. Untested is not untestable: the
+coefficient is equivalent to the Hawking-temperature normalization
+(\(T = \hbar\kappa/2\pi c k_B\) plus the first law fixes it), so any
+measurement of a horizon's radiation would fix it directly. No known
+astrophysical source is accessible --- a solar-mass black hole radiates
+at \(\sim 60\) nK against the 2.7 K CMB --- but one physically
+contingent channel exists: the final evaporation burst of a primordial
+black hole (\(M_i \sim 5 \times 10^{14}\) g expiring today), whose burst
+light curve would measure \(T(M)\) and hence the coefficient. Dedicated
+all-sky burst searches are active --- Fermi-LAT {[}45{]}, HAWC {[}46{]},
+and most recently LHAASO's all-sky search {[}47{]} --- with only
+rate-density limits so far, and next-generation sensitivity projected
+for CTAO {[}48{]}; detection is contingent on PBHs existing in the
+relevant mass window. Analogue-gravity horizon experiments measure the
+kinematic (\(2\pi\)/KMS) side of the ratio but not the gravitational
+(\(8\pi G\)) side. The ongoing LVK observing runs will accumulate
+additional events testing the area theorem across a range of progenitor
+masses and spins.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{dissolution-of-the-cosmological-constant-problem}{%
+\subsection{6. Dissolution of the Cosmological Constant
+Problem}\label{dissolution-of-the-cosmological-constant-problem}}
+
+\hypertarget{the-two-levels-of-description}{%
+\subsubsection{6.1 The two levels of
+description}\label{the-two-levels-of-description}}
+
+\textbf{From finite-dimensional QM to QFT.} Part I delivers QM on a
+finite-dimensional Hilbert space. The \(N = A/\epsilon^2\) cells
+discretize the visible sector; spatial locality of the classical
+substratum restricts which cells interact on any given timescale. The
+emergent Hilbert space decomposes as
+\(\mathcal{H} = \bigotimes_k \mathcal{H}_k\) --- a lattice-regularized
+QFT with UV cutoff at \(\epsilon = 2\,l_p\). The tensor product
+structure follows from the spatial product structure of the classical
+configuration space
+\(\mathcal{C}_V = \mathcal{C}_1 \times \cdots \times \mathcal{C}_N\)
+(one factor per cell), which is not required by Lemma 1 but is a
+consequence of spatial locality in the classical substratum: each cell's
+configuration is a local degree of freedom.
+
+\textbf{Locality preservation --- conditional (H-local-lift).} A
+radius-1 reversible discrete map does not by itself fix a local
+continuous generator. Take four binary sites on a ring with the one-site
+shift \(\varphi(x_1,x_2,x_3,x_4)=(x_4,x_1,x_2,x_3)\) --- maximally
+local, each output site reading one nearest neighbour --- and restrict
+\(U_\varphi\) to the one-particle orbit, where it is the \(4\)-cycle.
+Writing \(U_\varphi=e^{-iH}\), every Hermitian branch has
+\(\lambda_k=\pi k/2+2\pi n_k\), so
+\(H_{0,2}=\tfrac14(\lambda_0-\lambda_1+\lambda_2-\lambda_3)=-\pi/4+(\pi/2)m\),
+which never vanishes (\(m\) would have to be \(\tfrac12\)); the minimum
+modulus is \(\pi/4\). But \(|1000\rangle\) and \(|0010\rangle\) differ
+at opposite sites, and a Hamiltonian of onsite and nearest-neighbour
+terms has zero matrix element between them. So no branch of the
+logarithm is nearest-neighbour. The infinitesimal argument
+\(T_{xx'}(dt)=|H_{x'x}|^2dt^2+\cdots\) presupposes observer-level
+locality rather than deriving it from locality of \(\varphi\); {[}Main
+§3.2{]} already records that a finite permutation does not determine a
+continuous flow. The theorem below therefore holds under
+\textbf{H-local-lift}: the selected continuous observer generator is
+local or quasi-local. The normalized wave/Laplacian branch of {[}SM
+§4.1{]} supplies a plausible such generator, so this is a missing
+hypothesis, not an impossibility. Under H-local-lift: \emph{If the
+classical Hamiltonian is spatially local (couples only neighbors), then
+the emergent quantum Hamiltonian inherits spatial locality.}
+
+\emph{Proof.} For infinitesimal \(dt\) and \(x' \neq x\):
+\(T_{x,x'}(dt) = |\langle x'|\hat{H}|x\rangle|^2\,dt^2 + O(dt^3)\). If
+\(x, x'\) differ at non-neighboring sites, spatial locality of the
+classical dynamics gives \(T_{x,x'}(dt) = 0\) at leading order, hence
+\(|\langle x'|\hat{H}|x\rangle|^2 = 0\). By the D-gauge theorem (§3.3),
+the residual freedom is a diagonal unitary \(D\) together with the
+global antiunitary conjugation, both of which preserve the vanishing of
+off-diagonal moduli, so \(\langle x'|\hat{H}|x\rangle = 0\) in any
+gauge. The emergent Hamiltonian has the form
+\(\hat{H} = \sum_k \hat{h}_k + \sum_{\langle k,l\rangle} \hat{h}_{kl}\).
+\(\square\)
+
+\textbf{Scope of the emergent QFT.} The CC dissolution requires only
+that the emergent description assigns zero-point energy
+\(\sim \hbar\omega/2\) per mode with UV cutoff at \(\epsilon^{-1}\) ---
+a property shared by any lattice QFT with local couplings, regardless of
+gauge group or matter content. The framework's predictions in Part II
+(\(\hbar\), \(S_{\text{dS}}\), the Type II RVM form of the dark energy)
+depend on partition geometry, not on the emergent field content.
+
+\textbf{Classical substratum} (what geometric measurements probe): The
+horizon has classical thermal equilibrium. By the Friedmann equation,
+\(\rho_{\text{crit}} = 3H^2 c^2/(8\pi G)\). No zero-point energy, no
+discrepancy. Total vacuum energy density:
+\(\rho \sim H^2/G \sim 10^{-9}\) J/m\(^3\) --- precisely observed.
+
+\textbf{Emergent QFT} (what local quantum measurements probe):
+Zero-point energy \(\frac{1}{2}\hbar\omega\) per mode summed to the
+Planck cutoff gives \(\rho_{\text{QFT}} \sim 10^{113}\) J/m\(^3\) --- a
+\(\sim 10^{122}\) discrepancy with the observed value {[}6, 7, 8{]}.
+
+\hypertarget{why-gravity-sees-the-classical-value}{%
+\subsubsection{6.2 Why gravity sees the classical
+value}\label{why-gravity-sees-the-classical-value}}
+
+Spacetime geometry is part of the classical substratum (Lemma 2): the
+metric evolves via Einstein's equations \emph{before} the trace-out. The
+stress-energy sourcing gravity is the classical stress-energy of the
+total microstate, not the expectation value of an emergent quantum
+operator. The semiclassical equation
+\(G_{\mu\nu} = 8\pi G \langle \hat{T}_{\mu\nu} \rangle\) is itself an
+emergent approximation; at the classical level, the gravitational field
+equations never encounter the zero-point sum.
+
+\textbf{Ontological commitment.} Classical spacetime is logically prior
+to QM; QM is emergent. This ordering is not a claim that spacetime is a
+substance-level primitive of the framework --- the framework has no
+substance-level primitives, and under the reconstruction theorem,
+spacetime emerges from \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) given
+the framework's irreducible starting commitments (the empirical fact
+that observation occurs, the empirical inputs E1--E4, and the structural
+assumptions A1--A6). It is a claim about the direction of the derivation
+chain --- that the trace-out producing QM presupposes the classical
+geometric structure, not the reverse. This ordering is forced by the
+logical structure of the derivation through three independent
+requirements:
+
+\emph{(i) Definiteness.} The trace-out that produces the
+quantum-representable reduced description is defined by a
+\emph{specific} partition \(\Gamma = \Gamma_V \times \Gamma_H\). The
+partition must be definite --- not in superposition, not subject to
+quantum uncertainty --- for the marginalization integral ({[}Main,
+§1.4{]}) to be well-defined. A partition in superposition would yield an
+incoherent mixture of inequivalent quantum theories, not a single QM.
+The metric at the partition boundary must therefore be classical.
+
+\emph{(ii) Non-circularity.} The partition is defined by the causal
+structure: \(\Gamma_H\) is the set of degrees of freedom beyond the
+observer's causal reach (§2.1). Causal structure is determined by null
+geodesics of the metric. If the metric were derived from QM, then the
+derivation would require: QM \(\to\) metric \(\to\) causal structure
+\(\to\) partition \(\to\) QM --- a circular dependency with no entry
+point. The circle breaks only if the metric exists prior to the
+partition.
+
+\emph{(iii) Uniqueness of \(\hbar\).} The emergent action scale is
+determined by the boundary geometry (§3.2). If the geometry were itself
+quantum-mechanical, \(\hbar\) would depend on a quantum state --- but
+\(\hbar\) is observed to be kinematic in its parameter and
+state-dependent in its class. The geometry-first ordering is the only
+one consistent with a universal \(\hbar\).
+
+\textbf{Descriptive distinction established; dynamical decoupling
+conditional on G3.} That the zero-point sum belongs to the emergent
+description does not entail that it cannot source geometry: the two are
+different claims. Quantum transition data are invariant under
+\(\Omega_{\rm eff}\to\Omega_{\rm eff}+CI\) (a global phase), so no
+ordinary observer statistic detects \(C\); yet two gravitational
+completions, \(\mathcal G_{\mu\nu}=8\pi G T^{\rm cl}_{\mu\nu}\) and
+\(\mathcal G_{\mu\nu}=8\pi G(T^{\rm cl}_{\mu\nu}-\rho_Cg_{\mu\nu})\),
+can share the same substratum, partition, reduced transition law,
+fixed-basis representation and action-scale calibration while differing
+in exactly that offset. Invisibility to quantum mechanics is not
+decoupling from gravity; the latter is a coupling theorem and is what G3
+names as open. Accordingly the descriptive-level distinction is
+established and the dissolution is conditional. With that scope: any
+framework in which QM is logically prior to the metric must either (a)
+treat the zero-point sum as a gravitational source --- producing the
+\(10^{122}\) discrepancy requiring cancellation or fine-tuning --- or
+(b) invoke an independent mechanism to decouple quantum vacuum energy
+from gravity. In the present framework, the zero-point sum is an
+artifact of the emergent description and never enters the stress-energy
+tensor; no decoupling mechanism is needed.
+
+\textbf{Cumulative evidence for the ordering.} The geometry-first
+ordering produces a set of consequences that match observation, none of
+which were designed into the starting point. They are listed with their
+dependencies stated: items (2) and (3) are one algebraic fact, item (4)
+is partly definitional, and item (7) is a one-parameter derivation plus
+a three-parameter match, so eight of the entries are mutually
+independent: (1) the CC dissolution --- the observed vacuum energy sits
+at \(\rho \sim H^2/G\), the classical baseline, without fine-tuning
+(§6.3); (2)--(3) the relation \(\hbar = c^3\epsilon^2/(4G)\) with its
+\(1/4\) coefficient and the Bekenstein-Hawking formula
+\(S = A/(4 l_p^2)\) --- \emph{one} consequence, since
+\(\epsilon = 2\,l_p\) is algebraically equivalent to the gap equation
+(§4) and the entropy formula is its re-expression through the mode count
+\(S = A/\epsilon^2\); the independent content is the single functional
+form and the KMS/Jacobson ratio behind the \(1/4\) (§5); (4) the
+dark-sector concordance --- \textasciitilde95\% of
+\(\rho_{\text{crit}}\) is invisible to QFT; the \emph{fraction} is
+\(1-\Omega_B\) by construction (from
+\(S_{\text{struct}}/S_{\text{total}} = \Omega_B\), §7.3), so it is
+partly definitional rather than an independent match --- the non-trivial
+content is the matter-like vs dark-energy-like \emph{split} within that
+95\%, tested separately (§7.1--7.3); (5) dark energy in running-vacuum
+form --- the functional form is the local expansion shared by every
+smooth model (§7.1); the content is the Type II channel (a structural
+reading, not a derived law), the exclusion of phantom crossing, and the
+magnitude \(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\) (conditional
+on the §7.3 split, not yet established at theorem level --- §7.1;
+observationally indistinguishable from \(\Lambda\)CDM), consistent at
+\(2\sigma\) with the Bertini et al.~(2025) RG-corrected \(\Lambda\)CDM
+fit (itself consistent with zero); DESI DR2's preference for evolving
+dark energy favours the running-vacuum \emph{form} over plain
+\(\Lambda\)CDM at the qualitative level, but its phantom-crossing
+\emph{magnitude} is in mild tension (3--4\(\sigma\)) with the
+framework's \(\nu \approx 0\) prediction (\S7.1) {[}15{]}; (6) the MOND
+acceleration scale \(a_0 = cH/6\) and the baryonic Tully-Fisher
+relation, derived from entropy displacement (§7.3); (7) the SM gauge
+group (a discrete structural output), together with the coupling
+sector's derived content --- the induced \(1/\alpha_0 = 23.25\) and the
+universality of the threshold (the coupling ambient for hypercharge
+pending H-observer-bundle and H-Y-vertex, {[}SM §6.5{]}) --- the three
+coupling values at \(M_Z\) being reproduced through three matched
+parameters (\(\delta_0\), \(A\), \(B\)), so that the \(< 0.1\%\) figures
+are fits rather than consequences {[}SM §6{]}; (8) declining rotation
+curves at high redshift, confirmed by Genzel et al.~(§7.3); (9)
+deep-MOND cluster dynamics (e.g.~Coma at the virial radius) matched by
+the simple interpolation function --- though rich-cluster cores retain
+an open \(1.0\)--\(1.5\times\) residual not closable by baryons or by
+the framework's predicted light neutrinos (§7.3); (11) the Bullet
+Cluster lensing morphology reproduced by frozen boundary entropy (§7.3).
+Quantum-first orderings produce the \(10^{122}\) discrepancy, have no
+natural account of the dark sector, and treat \(\hbar\) and the \(1/4\)
+factor as unexplained inputs. The cumulative case is not a single
+tiebreaker but a pattern: the quantitative outputs of the geometry-first
+ordering are consistent with observation --- with the DESI
+phantom-crossing magnitude (item 5) carried as the one live
+\(3\)--\(4\sigma\) tension on its own dated schedule --- while the
+central quantitative output of the quantum-first ordering is the worst
+prediction in physics.
+
+\textbf{The classical vacuum energy scale.} The framework does not
+explain \emph{why} \(\rho \sim H^2/G\); this is set by initial
+conditions via the Friedmann equation. What it does is reclassify the CC
+puzzle: from quantum vacuum cancellation to classical initial
+conditions. The two problems are not equivalent. The QFT CC problem
+requires a cancellation between independent contributions --- the bare
+cosmological constant and the zero-point energies of every field ---
+accurate to 122 decimal places, re-tuned at each order in perturbation
+theory. The initial-conditions question asks why a single parameter
+(\(\Lambda\), or equivalently \(H\)) takes its observed value; the scale
+\(\rho \sim H^2/G\) is the natural energy density of classical
+cosmology, not a fine-tuned cancellation between unrelated quantities.
+The framework eliminates the 122-digit cancellation entirely; the
+remaining question --- why \(H\) takes its value --- is a standard
+cosmological problem addressable by inflationary dynamics or other
+initial-conditions mechanisms.
+
+\textbf{Quantum corrections to gravity.} The emergent quantum
+description does feed back into gravitational dynamics through
+state-level quantities: §7.1 derives dark energy evolution because the
+emergent vacuum energy depends on \(H\) through the hidden sector's
+volume. What the framework excludes is the zero-point sum as a
+gravitational source. The zero-point energy is the ground-state
+eigenvalue of the emergent Hamiltonian \(\hat{H}_{\text{eff}}\), which
+acts on \(\mathcal{H}_V\). But gravity is sourced by the classical
+Hamiltonian \(H_{\text{tot}}\), which acts on the full phase space
+\(\Gamma\) --- and \(\hat{H}_{\text{eff}}\) and \(H_{\text{tot}}\) are
+not the same operator. The eigenvalues of \(\hat{H}_{\text{eff}}\)
+(including the zero-point energy) are properties of the \emph{emergent
+description}; the energy that \(H_{\text{tot}}\) assigns to the
+corresponding classical microstates is the \emph{classical vacuum
+energy} \(\rho \sim H^2/G\). The Equivalence Principle applies to
+\(H_{\text{tot}}\): everything that contributes to \(H_{\text{tot}}\)
+gravitates. The zero-point sum does not contribute to
+\(H_{\text{tot}}\); it appears when the classical transition
+probabilities are reorganized into the Hilbert space formalism ({[}Main,
+§3.1{]}), not when the classical dynamics is evolved. The
+structural/volumetric distinction of §3.2 captures this: \(\hbar\)
+(structural, a property of the correspondence) does not gravitate; the
+vacuum energy (volumetric, state-dependent, a property of
+\(H_{\text{tot}}\)) does, but at the classical scale \(\rho \sim H^2/G\)
+rather than \(\rho \sim M_{\text{Pl}}^4\).
+
+\hypertarget{the-structural-origin-of-the-10122-discrepancy}{%
+\subsubsection{\texorpdfstring{6.3 The structural origin of the
+\(10^{122}\)
+discrepancy}{6.3 The structural origin of the 10\^{}\{122\} discrepancy}}\label{the-structural-origin-of-the-10122-discrepancy}}
+
+\(\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_{\text{dS}} = A/(4\,l_p^2)\)
+--- the Bekenstein-Hawking entropy, now identified as the information
+compression ratio of the trace-out. The ``worst prediction in physics''
+is the entropy of the observer's blind spot --- a category error, not a
+fine-tuning failure. This cannot be resolved from within, and not merely
+as a matter of present ignorance: any adjudication procedure available
+to an embedded observer is a function of its accessible data, and both
+descriptions are constructed from the same accessible data, so no
+criterion grounded in the accessible observations themselves can
+separate them --- non-adjudicability follows from the equivalence
+itself, not from limited resources. (Rankings by theoretical virtue are
+not blocked by this factoring; but they order presentations of the same
+observational content rather than track fundamentality, and the
+framework's own answer to the fundamentality question is supplied at the
+substratum level, not adjudicated from within either description.) A
+future observation could break the equivalence, but that is
+falsification of the equivalence, not adjudication between the
+descriptions. Nor is this factoring limitation an artifact of the
+framework's particular observer architecture: Wolpert's limits of
+inference {[}9{]} and T. Breuer's self-measurement theorem {[}55{]}
+establish barriers of the same type for any embedded inference device
+under far weaker assumptions, corroborating that the limitation is
+device-general rather than model-specific (their results, unlike the
+factoring argument, do assume free availability of the device's setups).
+This is not a prediction awaiting future data --- the observed vacuum
+energy sits at the classical geometric scale \(\rho \sim H^2/G\), the
+value the framework expects.
+
+\textbf{Convergence with Maldacena's de Sitter observer cancellation.}
+Maldacena {[}38{]} has recently shown that the unphysical phase of the
+de Sitter sphere partition function --- long understood to obstruct a
+clean dS thermodynamic interpretation --- cancels exactly when one
+incorporates an observer with a clock. The framework presented here
+arrives at the same cancellation by a different route: the
+substratum-count formulation makes the partition trace-out the
+\emph{defining} operation rather than an added ingredient, so the
+cancellation Maldacena requires an observer-with-clock to achieve is
+structurally forced. CLPW {[}39{]} establish that the von Neumann
+algebra of QFT observables in a gravitational subregion promotes from
+type III to type II once an observer is included, with the resulting
+entropy pinned to the substratum's \(\log|G_{\text{sub}}|\) in the
+present construction. HUZ {[}40{]} argue that the closed-universe
+Hilbert-space dimension is determined by the observer's degrees of
+freedom; the present framework provides a microscopic realization in
+which that dimension is computed directly from the partition geometry.
+The post-2022 mainstream observer-essentiality literature thus converges
+with the present construction on substantive content while differing in
+mechanism --- a triangulation that strengthens the empirical case for
+both programs.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{predictions-and-tests}{%
+\subsection{7. Predictions and Tests}\label{predictions-and-tests}}
+
+\textbf{What the classical tests test.} A scope observation frames this
+section. The classic precision tests of general relativity ---
+perihelion advance, light deflection, Shapiro delay, gravitational
+redshift, frame dragging --- test the vacuum Kerr and Schwarzschild
+geometries: Ricci-flat \emph{solutions}, not the field equations that
+select them. The tested solution set radically underdetermines the
+equations: any theory whose vacuum sector contains those geometries in
+the tested regimes passes identically, and theories with different field
+equations exploit exactly this freedom. The radiative sector
+(binary-pulsar decay, gravitational waveforms) probes the vacuum
+\emph{dynamics} and discriminates more; the \emph{sourced} sector ---
+cosmology, where the Friedmann geometry is nothing like Ricci-flat ---
+is where the equations themselves, their coupling structure and their
+response to sources, are tested directly. This framework's relationship
+to that division is specific on both sides. Because the emergent field
+equations \emph{are} the Einstein equations (§5), the framework inherits
+every vacuum-solution and radiative confirmation exactly --- its
+derivation route is invisible to Ricci-flat tests, as an emergence claim
+should be. And because the framework's distinctive content is at the
+\emph{equation level} --- the thermodynamic origin of the equations, the
+gauge status of the uniform vacuum offset (§6), the running-vacuum
+channel below --- its novel exposure concentrates precisely in the
+sourced sector, which is where the predictions of this section live. The
+classical record's silence about the equations is therefore not a
+loophole the framework hides in but the reason its forward tests are
+cosmological.
+
+\hypertarget{dark-energy-evolution-in-running-vacuum-form}{%
+\subsubsection{7.1 Dark energy evolution in running vacuum
+form}\label{dark-energy-evolution-in-running-vacuum-form}}
+
+\(\hbar\) is \(H\)-independent (§3.2), but the emergent vacuum energy is
+a state-level quantity depending on the hidden sector's volume.
+\textbf{Not a distinctive prediction.} The expansion below is correct
+but universal: for any smooth \(f(H)\), setting \(g(X)=f(\sqrt X)\) with
+\(X=H^2\) gives \(f=g(X_0)+g'(X_0)(H^2-H_0^2)+O((H^2-H_0^2)^2)\) around
+any \(H_0>0\). Every smooth dark-energy model has that local form, and
+the counterfamily \(\rho_\Lambda=\rho_0+A(H^2-H_0^2)+B(H^2-H_0^2)^2\)
+with arbitrary \(B\) satisfies the same boundary \(H\)-dependence with
+matter conserved and the Bianchi relation carried by running \(G\).
+Nothing in the architectural commitments forces \(B=0\), and the
+running-vacuum literature carries even powers of \(H\), \(H^4\) in other
+regimes, and \(\dot H\) terms. So: if ``Type II form'' means the first
+local Taylor term it is non-predictive; if it means a global
+\(c_0+\nu H^2\) law, it is not derived here. The defensible statement is
+that boundary architecture requires some state dependence on
+cosmological geometry, whose smooth late-time normal form contains an
+\(H^2-H_0^2\) term. With that said: any smooth \(\rho_\Lambda(H)\)
+admits the Taylor expansion
+
+\[\Lambda_{\text{eff}}(H) = \Lambda_0 + \frac{3\nu}{8\pi G}(H^2 - H_0^2) + \mathcal{O}((H^2 - H_0^2)^2)\]
+
+This is the Running Vacuum Model {[}10, 11{]}. The framework forces this
+structural form through three architectural commitments: (i) the
+boundary entropy \(S_{\text{dS}} = A/\epsilon^2\) depends on \(H\) via
+\(A = 4\pi c^2/H^2\), so the emergent vacuum energy inherits an
+\(H\)-dependence; (ii) matter is conserved in the trace-out ontology
+(§7.2), which forbids direct vacuum--matter energy exchange; (iii)
+Bianchi consistency with matter conservation then forces \(G(H)\) to run
+in tandem with \(\rho_\Lambda(H)\) {[}11{]}. The structural commitment
+is therefore the Type II channel --- matter conserved, compensation
+through running \(G\) --- while the functional form itself is the local
+expansion shared by every smooth model, as stated above. A consistency
+requirement accompanies the identification: the entropy-displacement
+dynamics of §7.3 redistributes boundary entropy between the uniform and
+structured budgets, and the Type II classification requires that this
+redistribution not constitute vacuum--matter energy exchange in the
+emergent conservation equations. This holds at the level of the budget
+identities used here; the demonstration at the level of the completed
+split is deferred to the §7.3 coefficient analysis.
+
+\textbf{Type II identification.} The architecture just described places
+the framework in the \emph{Type II} class of RVM implementations
+{[}11{]}. Matter is locally conserved, \(G(H)\) runs mildly with cosmic
+expansion, and the Bianchi identity is preserved by the combined running
+of \(\rho_{\rm vac}(H)\) and \(G(H)\). By contrast, \emph{Type I} RVM
+implementations assume \(G = G_N\) fixed and introduce a direct
+vacuum--DM exchange term \(Q = 3\nu H \rho_{\rm dm}\); these are
+physically distinct models sharing the same functional form for
+\(\rho_{\rm vac}(H)\).
+
+\textbf{What the framework determines about \(\nu\).} The architecture
+above fixes the functional form but not the coefficient. A rigorous
+derivation of \(\nu\) requires completing §7.3's dark-energy /
+dark-matter split analysis --- specifically, the \(H\)-dependence of the
+uniform-vs-structured partition of boundary entropy --- which has not
+been done at the level of a theorem. What the foundations \emph{do}
+determine are:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\rho_s(H) = 3c^2 H^2/(8\pi G) = \rho_{\rm crit}(H)\) exactly, from
+  the gap equation combined with classical-horizon thermodynamics
+  (§7.2). The total gravitating boundary energy tracks the critical
+  density at every \(H\) as an identity, not a prediction.
+\item
+  \(S_{\rm struct}/S_{\rm total} = \Omega_B(H)\), from the
+  Clausius-relation entropy-displacement argument of §7.3. The
+  structured (matter-associated) fraction of boundary entropy equals the
+  baryon fraction at each epoch.
+\item
+  What is \emph{not} fixed: how the non-baryonic \((1 - \Omega_B)\)
+  fraction further subdivides into the cosmological-constant-like
+  (uniform) and dark-matter-like (structured) components as a function
+  of \(H\). That subdivision determines \(\nu\).
+\end{itemize}
+
+\textbf{Magnitude from the emergent-QFT channel.} The self-consistent
+emergent-QFT calculation bounds the \(H^2\) coefficient directly. In OI
+the matter fields and the curved-spacetime background are both emergent
+from the classical discrete substratum; the Shapiro-Solà β-function
+formula {[}33, 34{]} for the vacuum-energy running coefficient
+
+\[\nu = \frac{1}{48\pi^2}\sum_i a_i \frac{M_i^2}{M_{\rm Pl}^2}\]
+
+is derived from one-loop QFT on a curved semiclassical background and
+applies rigorously within the emergent QFT sector, with \(M_i\) the
+physical masses of the emergent fields. Applied to SM content
+(\(M_i \leq m_t \approx 173\) GeV), the formula gives
+
+\[|\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\]
+
+--- observationally indistinguishable from zero.
+
+A potential additional contribution from the substratum mode count is
+constrained by the boundary architecture established in §3.1 and §5:
+boundary modes are catalogued by spatial location alone (one degree of
+freedom per cell of area \(\epsilon^2\)), with no inherent frequency
+assignment. Under the natural 2D dispersion
+\(dN/d\omega \propto \omega\), modes concentrate near the UV cutoff and
+contribute a fraction \((H\epsilon)^2 \sim 10^{-122}\) at horizon
+frequency, well below the emergent-QFT magnitude. Absent additional
+substratum structure giving log-uniform boundary-mode distribution at
+the cosmological horizon, the framework's prediction reduces to
+\(|\nu| \approx |\nu_{\rm QFT}|\) --- observationally indistinguishable
+from zero at all foreseeable precision, including DESI Year 5. That
+absence is now a computed result rather than a modeling assumption: the
+direct extraction of the boundary spectral measure from the substratum
+dynamics (the surface-Green's-function computation of §7.4, Remark)
+finds a power-suppressed local distribution ---
+\(dN/d\omega \propto \omega^{4}\), with the 2D \(\propto \omega\) used
+here an upper bound on the infrared weight --- and no log-uniform
+component, at any slow-bath ratio; the interacting kernel is the
+remaining residual.
+
+\textbf{Remark (gravitational status of the emergent running --- two
+readings, one forecast).} The magnitude assignment above imports the
+emergent-QFT running of \(\rho_{\rm vac}\), while §8.3 denies that the
+emergent zero-point sum gravitates absolutely and the emergent-QFT scope
+statement assigns the Part II predictions to partition geometry rather
+than emergent field content. These commitments are compatible under two
+readings, which we state explicitly rather than leave implicit.
+\emph{Reading 1 (curvature-response sources):} the substratum budget
+fixes the constant part of \(\rho_\Lambda\), while the emergent layer's
+curvature response --- the \(\sim m^2 H^2\) piece that survives
+adiabatic renormalization precisely because it is an epoch-differential
+(relative) effect in the sense of §8.3 --- feeds back as a source. On
+this reading \(\nu = \nu_{\rm QFT} + \nu_{\rm sub}\), and evaluating the
+adiabatic running of {[}34, 49{]} over the emergent SM spectrum gives a
+definite sign: \(\nu_{\rm QFT} \approx -(4\text{–}8)\times 10^{-33}\)
+--- negative for all natural curvature couplings
+(\(|\xi-1/6| \le 1/6\)), fermion-dominated (top-quark share
+\(\approx 99.9\%\)), with sign reversal requiring boson-sector couplings
+\(|\xi-1/6| \gtrsim 0.4\). Heavy states at \(M_X\), if they belong to
+the emergent QFT, would dominate the \(M^2\)-weighted sum and the sign
+would follow their statistics --- an input the present construction does
+not fix. \emph{Reading 2 (strict geometry-first):} only partition
+geometry sources gravity; the emergent running is the observer's
+effective attribution rather than a source, and \(\nu = \nu_{\rm sub}\)
+alone --- smaller still under the local spectral measure, with sign open
+pending the boundary-measure computation (see the locality remark of
+§7.4 and {[}SM §3.1{]}). The framework does not adjudicate between the
+readings here, and for observational purposes it does not need to: both
+give \(w(z) = -1\) to all achievable precision and a null at DESI Year
+5, differing only in the attribution and sign of a residual no
+foreseeable instrument resolves. (This non-adjudication is
+resource-relative, and thereby unlike the in-principle
+non-adjudicability of §6.3: the two readings are not observationally
+equivalent --- they assign different sign and attribution to a real
+residual --- so the factoring argument does not apply, and a
+sufficiently sensitive probe would in principle separate them. The §6.3
+limitation protects only pairs of descriptions faithful to the same
+accessible data.) What both readings exclude is an observable running in
+the DESI-favored quadrant (\(w_0 > -1\), \(w_a < 0\)) attributable to
+the emergent-QFT channel: under Reading 1 that channel is negative
+(phantom-side), and under Reading 2 it is not a source. Any detected
+positive-quadrant residual therefore requires the substratum channel on
+the non-local spectral measure, with its correlated Lorentz-violation
+signature.
+
+\textbf{Observational status.} DESI data {[}12, 13{]} report evolving
+dark energy at \(2.8\sigma\)--\(4.2\sigma\). The 2026 multi-variant
+analysis {[}14{]} of DESI DR2 + Planck PR4 + supernovae tests several
+Type I RVM variants (vacuum--DM exchange), finding the ``flipped RVM''
+and ``RVM with threshold'' variants preferred over \(\Lambda\)CDM at a
+level comparable to the more flexible \(w_0w_a\)CDM parameterization ---
+the running-vacuum functional form those variants instantiate is the
+local expansion the framework shares with every smooth model (§7.1), so
+the preference is qualitative support for the form, not for the
+framework, and the Type I variants tested are not a direct test of OI's
+Type II prediction.
+
+A direct Type-II-equivalent test is provided by Bertini, Novaes, von
+Marttens, and Shapiro (arXiv:2509.24026) {[}15{]}, who fit a
+renormalization-group-corrected \(\Lambda\)CDM model --- structurally
+equivalent to Type II RVM at leading order in \(\nu\), with both
+\(G(\mu)\) and \(\Lambda(\mu)\) running and matter conserved --- against
+Planck 2018 + DESI DR2 + DES-Y5, reporting
+
+\[\nu^{\rm Bertini} = -(2.5 \pm 1.3) \times 10^{-4}\]
+
+with the \(\Lambda\)CDM limit at the \(2\sigma\) boundary of the
+posterior. This is consistent at \(2\sigma\) with the framework's
+expectation (\(\nu \approx 0\), conditional on the Type II reading). An
+earlier pre-DESI canonical RVM fit by Gómez-Valent and Solà {[}16{]}
+returned \(\nu = (1.34 \pm 0.38) \times 10^{-3}\) with \(3.5\sigma\)
+preference over \(\Lambda\)CDM; the migration from this value to
+Bertini's as the data improved from pre-DESI to DESI DR2 is itself
+informative. DESI Year 5 (\(\sim 1\%\) precision on \(\nu\)) provides
+the decisive test: a null at that precision confirms the prediction; a
+high-confidence detection of \(|\nu|\) at the \(10^{-4}\) level would
+require additional substratum structure not currently derivable from
+§3-§5.
+
+\textbf{Coupled neutrino test.} The same dataset that constrains \(\nu\)
+also constrains the neutrino sector. The DESI DR2 + CMB analysis
+{[}17{]} finds \(\Sigma m_\nu < 0.0642\) eV (95\% CL) assuming
+\(\Lambda\)CDM, prefers normal mass ordering, and bounds the lightest
+neutrino mass at \(m_l < 0.023\) eV --- all three results match the OI
+predictions of normal ordering with \(\Sigma m_\nu\) near the
+oscillation minimum of 0.059 eV. The same analysis finds a \(3\sigma\)
+tension with the lower oscillation limit assuming \(\Lambda\)CDM,
+interpreted as ``a hint of new physics not necessarily related to
+neutrinos'' --- a mismatch the framework's RVM dark energy would
+\emph{relax}: an evolving-DE analysis loosens the \(\Lambda\)CDM
+\(\Sigma m_\nu\) bound, comfortably accommodating the framework's
+\(\sim 0.059\) eV prediction, though the RVM-corrected bound has not yet
+been computed. JUNO first results {[}18, 19{]} confirm the world-leading
+precision on \(\sin^2\theta_{12} = 0.3092 \pm 0.0087\) and
+\(\delta m^2 = (7.48 \pm 0.10) \times 10^{-5}\) eV\(^2\), with the
+solar/reactor 1.5\(\sigma\) tension persisting. The neutrino sector
+predictions and the RVM dark energy prediction are coupled in the
+framework --- both follow from the same lattice structure --- and the
+joint observational support is therefore not independent confirmation of
+separate effects but a single empirical pattern consistent with the
+framework's central mechanism.
+
+\textbf{Falsification gradient and decisive test structure.} On its Type
+II reading the framework expects \(w(z) \approx -1\) --- the running of
+the cosmological constant in Type II RVM is \(H^2\)-suppressed relative
+to the leading \(\Lambda\) contribution, so the effective equation of
+state stays at \(-1\) to within deviations of order \(\nu\). DESI DR2's
+mild preference for phantom crossing (\(w_0 > -1\) at present,
+\(w_a < 0\) with \(w(z>z_{\rm cross}) < -1\)) is therefore in mild
+tension (3-4\(\sigma\)) with that expectation. The Bertini et
+al.~{[}15{]} RG-corrected \(\Lambda\)CDM fit, which is the closest
+published Type II RVM equivalent, sits at the \(2\sigma\) boundary of
+the posterior --- consistent with the framework but not yet a
+confirmation. DESI Year 5 (\(\sim 1\%\) precision on \(\nu\), available
+2028-2029) provides the decisive three-way discrimination: (i) a null
+result at that precision supports the framework's expectation
+\(\nu \approx 0\) and disconfirms the DESI DR2 phantom-crossing
+preference; (ii) a high-confidence detection of \(|\nu| \sim 10^{-4}\)
+confirms running-vacuum dynamics consistent with both Type II RVM
+structure and DESI DR2 trends, but at a magnitude requiring substratum
+structure beyond §3-§5; (iii) a high-confidence detection of phantom
+crossing falsifies the framework's prediction at structural level. The
+emergent-channel sign computation (§7.1 remark) sharpens outcome (ii): a
+detected running in the DESI-favored quadrant cannot be attributed to
+the emergent-QFT channel on either reading of its gravitational status,
+leaving the non-local substratum branch --- with its correlated
+Lorentz-violation signature --- as the only in-framework attribution.
+The current mild tension with DESI DR2 is therefore the kind of healthy
+empirical exposure --- a falsification gradient with concrete decisive
+test scheduled --- that distinguishes a framework engaged with data from
+one tuned to fit it.
+
+\hypertarget{the-dark-sector-corollary}{%
+\subsubsection{7.2 The dark-sector
+corollary}\label{the-dark-sector-corollary}}
+
+The trace-out that produces the quantum-representable reduced
+description has an automatic gravitational consequence.
+
+\textbf{Corollary (Invisible gravitational budget).} \emph{Under Lemmas
+1--3 and conditions (C1)--(C4), the cosmological trace-out that produces
+the memory-bearing dynamics quantum mechanics represents simultaneously
+renders \textasciitilde95\% of the universe's gravitational budget
+invisible to the emergent QFT.}
+
+\emph{Proof.} Three steps, each using only results already established.
+
+\emph{(i) Total effective density.} The horizon carries
+\(S_{\text{dS}} = A/\epsilon^2\) modes (§5). The classical temperature
+is \(T_{\text{cl}} = c^3 \epsilon^2 H / (8\pi G k_B)\) (§3.1), computed
+entirely within the classical substratum with no reference to \(\hbar\)
+or the emergent quantum description. The total thermal energy is
+\(E_s = S_{\text{dS}} \cdot k_B T_{\text{cl}}\). By the shell theorem,
+distributing over \(V_H = 4\pi c^3/(3H^3)\):
+
+\[\rho_s = \frac{E_s}{V_H} = \frac{A}{\epsilon^2} \cdot \frac{c^3 \epsilon^2 H}{8\pi G} \cdot \frac{3H^3}{4\pi c^3} = \frac{3c^2 H^2}{8\pi G} = \rho_{\text{crit}}\]
+
+The identity \(\rho_s = \rho_{\text{crit}}\) is a consequence of
+Jacobson's Clausius relation applied to the de Sitter horizon. Verlinde
+{[}20{]} takes the identity as a premise; the present framework grounds
+it in the Clausius relation of the underlying classical substratum,
+using the boundary-mode counting fixed in §3.1. The factor
+\(\epsilon^2\) cancels between \(S_{\text{dS}} \propto 1/\epsilon^2\)
+and \(T_{\text{cl}} \propto \epsilon^2\), so the result is independent
+of the specific value of \(\epsilon\): what the identity actually uses
+is Jacobson's \(dE = (c^2\kappa/8\pi G)\,dA\) plus an area-law entropy
+plus the Friedmann volume.
+
+Three clarifications are essential for what follows.
+
+\emph{Classical, not emergent.} The calculation above uses only
+pre-trace-out quantities: the number of boundary modes
+(\(A/\epsilon^2\)), the classical temperature (\(T_{\text{cl}}\)), and
+the Hubble volume (\(V_H\)). No step invokes the emergent quantum
+description. This is what distinguishes \(\rho_s\) from the QFT
+zero-point energy \(\rho_{\text{QFT}} \sim M_{\text{Pl}}^4\): the latter
+is computed as \(\sum \frac{1}{2}\hbar\omega\) over modes of the
+\emph{emergent} quantum field theory --- a quantity that exists only
+after the trace-out. The framework denies that \(\rho_{\text{QFT}}\)
+gravitates (§6.2), because it is an artifact of the emergent
+description. The boundary entropy's thermal energy, by contrast, is a
+classical quantity that predates the trace-out and gravitates at the
+classical level. That both involve \(\hbar\) numerically (because
+\(T_{\text{cl}} = T_{\text{GH}}\)) is a consequence of the gap
+equation's self-consistency, not a dependence on QM. The ratio
+\(\rho_{\text{QFT}} / \rho_s \sim S_{\text{dS}} \sim 10^{122}\) --- the
+same compression ratio identified in §6.3 --- confirming that the two
+quantities occupy different levels of the framework's hierarchy.
+
+\emph{Physical locus.} The entropy modes are physically localized on the
+horizon --- they are the hidden-sector boundary degrees of freedom of
+§3.2. The uniform-medium description is a gravitational equivalence
+(shell theorem), not a claim about physical delocalization. No entropy
+occupies the bulk.
+
+\emph{Why the equivalence is useful.} When matter is present, it locally
+deforms the horizon geometry, redistributing the boundary entropy. The
+gravitational effect of this redistribution on bulk observers is most
+easily computed using the uniform-medium equivalence: the deformed
+boundary is equivalent to a non-uniform effective bulk source.
+
+\emph{General \(d\).} Running the same construction in \(d\) spatial
+dimensions: the horizon is a \((d-1)\)-sphere of area
+\(A_{d-1} = [2\pi^{d/2}/\Gamma(d/2)] r_H^{d-1}\); the Hubble volume is
+\(V_d = [\pi^{d/2}/\Gamma(d/2+1)] r_H^d = A_{d-1} r_H / d\); the
+classical horizon temperature \(T_{\rm cl} \propto H\) is
+dimension-independent (Gibbons--Hawking); and the Friedmann equation in
+\(d\) spatial dimensions is \(H^2 = [16\pi G_d/(d(d-1))]\rho\). The
+boundary entropy is \(S = A_{d-1}/\epsilon^{d-1}\) (one mode per
+\(\epsilon^{d-1}\) cell) and the gap equation fixes
+\(\hbar = c^3\epsilon^{d-1}/[2(d-1)G_d]\) by the same thermal
+self-consistency argument as at \(d=3\). Collecting the geometric
+factors in \(\rho_s = S\,k_B T_{\rm cl}/V_d\) and dividing by
+\(\rho_{\rm crit}\) gives
+
+\[\frac{\rho_s}{\rho_{\rm crit}} = \frac{2}{d-1}\]
+
+--- unity only at \(d=3\). This is the general-\(d\) formula cited in
+{[}SM §3.2{]} as the boundary-entropy filter selecting \(d=3\).
+
+This boundary-entropy filter is one of three independent \(d=3\)
+selectors in the framework: (i) substratum link counting under H-link
+(SM §4.5, \(K = 2dm\) with \(m=1\) giving \(K=6\); coupling-degree
+minimization does not establish it); (ii) Bravais-lattice uniqueness for
+the SM gauge group (SM Theorem 7b); (iii) the present boundary-entropy
+filter. The three derive \(d=3\) from very different physical
+considerations (substrate dynamics, crystallographic representation
+theory, cosmological boundary thermodynamics). The convergence is
+structurally significant.
+
+\emph{(ii) Invisibility.} The argument has two logically distinct
+components.
+
+\emph{(ii-a) Construction-level invisibility (from Part I alone).} The
+boundary modes comprising \(S_{\text{dS}}\) are hidden-sector degrees of
+freedom --- the variables traced out to produce the quantum description.
+By the trace-out structure, no hidden-sector degree of freedom maps to
+an operator on \(\mathcal{H}_V\). This is a theorem of Part I,
+independent of any gravitational content: the hidden sector is invisible
+to the emergent description by construction.
+
+\emph{(ii-b) Gravitational consequence (from the ontological ordering of
+§6.2).} The physical import --- that the boundary entropy's
+gravitational influence appears as additional gravity with no source in
+\(\langle \hat{T}_{\mu\nu} \rangle\) --- requires the geometry-first
+ordering established in §6.2: the metric exists at the pre-trace-out
+level, and the stress-energy sourcing gravity is the classical
+stress-energy, not the emergent quantum expectation value. Under this
+ordering, the gravitational interaction between bulk matter and boundary
+entropy is mediated by the metric at the classical level, modifying the
+geometry but contributing no term to the emergent
+\(\langle \hat{T}_{\mu\nu} \rangle\). To the embedded observer, this
+appears as additional gravity with no particle-sector source.
+
+The corollary's predictions are therefore conditional on the same
+geometry-first ordering that dissolves the CC problem in §6.2. This is
+not an additional assumption: the ordering is already required by Part
+II's logic (the partition is defined by null geodesics, so the metric
+must exist prior to the partition). What the corollary provides is a
+second, qualitatively distinct \emph{consequence} of that ordering.
+
+\emph{(iii) Budget.} The emergent QFT accounts for the baryonic sector
+(\textasciitilde5\% of \(\rho_{\text{crit}}\)). The remaining
+\textasciitilde95\% is boundary entropy --- gravitationally active
+(because \(\rho_s\) is a classical quantity computed before the
+trace-out, unlike \(\rho_{\text{QFT}} \sim M_{\text{Pl}}^4\) which is an
+artifact of the emergent description) but invisible to the emergent QFT.
+This matches the observed composition, in which \textasciitilde95\% of
+the gravitational content has no source in particle physics. \(\square\)
+
+\textbf{Observational status of particle dark matter searches.} The
+corollary's prediction is that no particle dark matter exists --- the
+dark sector is the trace-out, not a missing particle species. The
+strongest current constraint is the LZ Collaboration's 417-day analysis
+(December 2025) {[}21{]}, which is the most sensitive WIMP search ever
+conducted and reports null results across the 3--9 GeV range, extending
+world-leading constraints from XENONnT and PandaX-4T to lower mass. The
+continued failure to detect particle dark matter across multiple decades
+of increasingly sensitive experiments --- summarized in the literature
+as ``the waning of the WIMP'' --- is consistent with the corollary's
+prediction. Definitive falsification of the corollary requires positive
+detection of a particle species accounting for the structured dark
+sector, which has not occurred.
+
+\textbf{Memory effects and P-indivisibility.} Matter locally deforms the
+horizon geometry, redistributing the boundary entropy. This displacement
+persists because \(\tau_B \gtrsim 1/H\) (condition C2): the
+hidden-sector modes carrying the redistributed entropy do not thermalize
+back to the unperturbed configuration on sub-Hubble timescales. Verlinde
+{[}20{]} identifies this as a ``memory effect'' from the
+non-thermalization of de Sitter states at sub-Hubble scales. In the
+present framework, this non-thermalization is not assumed but derived:
+it is P-indivisibility operating in the gravitational sector, with (C2)
+ensuring that entropy displacements persist without thermal overwriting.
+
+The corollary is a consistency check for the total dark sector budget,
+not a derivation of its internal structure. The uniform component of the
+boundary entropy corresponds to dark energy (§6); the structured
+component --- the matter-induced redistribution of boundary entropy
+producing local gravitational effects resembling dark matter --- is
+derived in §7.3. The ratio
+\(\rho_{\text{QFT}} / \rho_s \sim S_{\text{dS}} \sim 10^{122}\) confirms
+the parallel with §6.3: the information compression ratio and the
+gravitational occlusion fraction are two aspects of a single phenomenon.
+
+\textbf{Falsifiability.} The corollary would be falsified by detection
+of dark matter particles accounting for the full \textasciitilde27\%
+structured dark sector, or by evidence that the dark sector's
+gravitational effects are unrelated to the boundary geometry.
+
+\hypertarget{dark-matter-from-entropy-displacement}{%
+\subsubsection{7.3 Dark matter from entropy
+displacement}\label{dark-matter-from-entropy-displacement}}
+
+The total dark sector budget is established by §7.2. This section
+derives the structured component from the entropy displacement induced
+by baryonic matter.
+
+\textbf{Inherited conditions.} The chain below rests on the de Sitter
+temperature of §3.2, which is conditional: \(T_{\rm dS}\) requires
+H-slope (the infrared detailed-balance slope), H-frame (the preferred
+foliation is the comoving one) and the H-Hawking conditions of §8.5, and
+the action-scale calibration is stated on an exact de Sitter horizon.
+Everything in §7.3 therefore carries those conditions. A second
+assumption is local to this section: writing \(Q=M_Bc^2\) takes the
+entire rest energy of a static configuration to be delivered as heat to
+the boundary. That is a statement about how the emergent sector couples
+to the boundary --- the same coupling map G3 names as open --- and does
+not follow from (C1)'s requirement of nonzero cross-boundary interaction
+alone. A third input is imported: the dimensional factor converting the
+Hubble acceleration \(cH\) into the critical acceleration is Verlinde's,
+not derived here (Step 2).
+
+\textbf{Step 1: Entropy displacement (conditional on the above).}
+Baryonic matter \(M_B\) is coupled to the boundary entropy through
+\(H_{VB}\) (condition C1). The boundary is a thermal reservoir at
+\(T_{\text{dS}} = \hbar H / (2\pi c k_B)\) (§3.2, conditional). For a
+static matter configuration in gravitational equilibrium --- a
+quasi-static process --- the Clausius relation gives the entropy
+displacement:
+
+\[\Delta S = \frac{M_B c^2}{k_B T_{\text{dS}}} = \frac{2\pi M_B c^3}{\hbar H}\]
+
+This follows from the generalized second law (Theorem A.6) applied to
+the matter-boundary system: the boundary's entropy reduction is \(Q/T\)
+for a reversible process, where \(Q = M_B c^2\) and
+\(T = T_{\text{dS}}\). For dynamic configurations, the Clausius
+inequality \(\Delta S \geq Q/T\) only strengthens the displacement.
+
+\textbf{Step 2: The critical acceleration (conditional; imported).} The
+displaced entropy redistributes over the volume between the matter and
+the horizon. The Jacobson mechanism converts the entropy gradient into
+additional radial acceleration. The conversion is dimensional: in \(d\)
+spacetime dimensions, the factor relating the natural Hubble
+acceleration scale \(cH\) to the empirical MOND acceleration is
+\((d-3)/[(d-2)(d-1)]\). This derivation is due to Verlinde {[}20{]} (eq.
+1.7), and follows from the interplay between volume-law entropy
+distributed over \((d-1)\) spatial dimensions and area-law entropy
+scaling with \((d-2)\) surface dimensions, together with the standard
+surface-density-to-acceleration relation via Gauss's law. In our
+universe (\(d = 4\)):
+
+\[a_0 = \frac{(d-3)}{(d-2)(d-1)} \cdot cH = \frac{1}{2 \cdot 3} \cdot cH = \frac{cH}{6} = 1.09 \times 10^{-10} \; \text{m/s}^2 \quad (H_0 = 67.4\ \text{km s}^{-1}\text{Mpc}^{-1})\]
+
+This is the MOND critical acceleration with no fitted parameter:
+\(cH/6\) runs from \(1.09 \times 10^{-10}\) m/s² at the Planck value of
+\(H_0\) to \(1.18 \times 10^{-10}\) m/s² at \(H_0 = 73\), against the
+radial-acceleration-relation fit
+\(g_\dagger = (1.20 \pm 0.02_{\rm rand} \pm 0.24_{\rm sys}) \times 10^{-10}\)
+m/s² {[}22{]}, a ratio of \(0.91\)--\(0.98\) that lies inside the
+stellar mass-to-light systematic. The factor 1/6 has dimensional origin
+--- it is fixed by \(d = 4\) together with the volume-vs-area entropy
+interplay --- and is taken over from Verlinde's analysis rather than
+rederived from the substratum.
+
+The OI framework's contribution beyond Verlinde's derivation is
+\emph{grounding the volume-law entropy mechanism in derivable structure
+rather than postulate}. In Verlinde's framework, the de Sitter states'
+non-thermalization (``memory effect'') is hypothesized; in OI, it is
+derived from condition C2 (\(\tau_B \gg \tau_S\)) operating in the
+gravitational sector. This addresses the consistency objection of
+{[}37{]} by replacing the postulated elasticity with a structural
+consequence of P-indivisibility at the cosmological boundary. The
+published Verlinde-MOND consistency debate is consequently relevant to
+the strength of the elasticity assumption in {[}20{]}, not to the OI
+derivation, where the relevant content is structurally grounded.
+
+\textbf{Step 3: The deep-MOND regime.} For baryonic acceleration
+\(\ll a_0\), the displaced entropy dominates. The Jacobson mechanism
+converts the entropy gradient into curvature, giving
+\(g_{\text{total}} = \sqrt{g_B \cdot a_0}\) and rotation velocity:
+
+\[v^2 = r \cdot g_{\text{total}} = \sqrt{GM_B \cdot cH/6} = \text{constant} \qquad \Longrightarrow \qquad v^4 = GM_B \cdot cH/6\]
+
+This is the baryonic Tully-Fisher relation. Flat rotation curves emerge
+with no dark matter particles and no free parameters beyond the baryonic
+mass.
+
+\textbf{Step 4: Interpolation constraints.} The full interpolation
+between the Newtonian regime (\(g_B \gg a_0\)) and the deep-MOND regime
+(\(g_B \ll a_0\)) is constrained by the framework but not uniquely
+determined. The entropy displacement defines a potential \(\Psi_D\) with
+\(g_D = -\nabla \Psi_D\), and the framework requires:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \emph{No free parameters.} \(g_D\) depends only on \(g_B\) and
+  \(a_0 = cH/6\) --- no halo-specific parameters, no fitting constants.
+\item
+  \emph{Conservative.} \(\nabla \times g_D = 0\), since \(g_D\) derives
+  from the entropy potential.
+\item
+  \emph{Monotonic.} \(\partial g_D / \partial g_B > 0\) --- more
+  baryonic mass produces more entropy displacement, hence more dark
+  matter effect.
+\item
+  \emph{Correct limits.} \(g_D \to 0\) for \(g_B \gg a_0\) (Newtonian);
+  \(g_D \to \sqrt{g_B \cdot a_0}\) for \(g_B \ll a_0\) (MOND).
+\item
+  \emph{Analytic.} The entropy redistribution is a smooth function of
+  the coupling structure --- no discontinuities or phase transitions in
+  the interpolation.
+\end{enumerate}
+
+These constraints narrow the interpolation to a one-parameter family
+indexed by the transition steepness --- a property of the particular
+bijection \(\varphi\), in the same category as fermion masses
+(solution-specific rather than structural). The simplest member
+satisfying all five constraints:
+
+\[g_D = \frac{g_B}{2}\left(\sqrt{1 + \frac{4a_0}{g_B}} - 1\right)\]
+
+which is equivalent to \(g_{\text{total}} = g_B \cdot \nu(g_B/a_0)\)
+with \(\nu(y) = (1 + \sqrt{1 + 4/y})/2\) --- the ``simple'' MOND
+interpolation function corresponding to \(\mu(x) = x/(1+x)\). This form
+matches the empirical radial acceleration relation (McGaugh et
+al.~{[}22{]}) to \(< 0.1\) dex across all galaxy-relevant accelerations.
+
+\textbf{Epistemic status.} Steps 1--3 are Tier 2 and conditional: the
+displacement formula follows from the Clausius relation applied to the
+boundary reservoir (§3.2, A.6) and therefore inherits the conditions on
+\(T_{\rm dS}\) together with the local assumption \(Q = M_Bc^2\); the
+dimensional factor is imported (Step 2); given these, \(a_0 = cH/6\) and
+\(v^4 = GM_B \cdot cH/6\) contain no fitted parameter. The interpolation
+constraints (i)--(v) are Tier 2 on the same conditions; the transition
+steepness is Tier 3 (solution-specific).
+
+\textbf{Redshift evolution.} Since \(a_0(z) = cH(z)/6\) and
+\(H(z) = H_0\sqrt{\Omega_m(1+z)^3 + \Omega_\Lambda}\), the critical
+acceleration increases with redshift: \(a_0(z=1) = 1.79\,a_0(0)\),
+\(a_0(z=2) = 3.03\,a_0(0)\), \(a_0(z=3) = 4.57\,a_0(0)\). The MOND
+crossover radius \(r_M = \sqrt{6GM_B/(cH)}\) correspondingly shrinks ---
+for a Milky-Way-like baryon budget
+(\(M_B \approx 6 \times 10^{10}\,M_\odot\) at the stellar-plus-cold-gas
+level), \(r_M = 9.0\) kpc at \(z = 0\) but \(5.2\) kpc at \(z = 2\) and
+\(3.1\) kpc at \(z = 5\). Galaxies with effective radii comparable to or
+exceeding \(r_M\) show flat rotation curves (the familiar local
+behavior); galaxies with \(r_{\text{eff}} < r_M\) show declining,
+Keplerian-like rotation curves. Since \(r_M\) shrinks with increasing
+\(z\), high-redshift galaxies are systematically more baryon-dominated
+--- their rotation curves decline at smaller radii.
+
+This prediction is borne out by the data. Genzel et al.~{[}23, 24{]}
+report stacked rotation curves for massive star-forming galaxies at
+\(z = 0.9\text{–}2.4\) showing a declining outer velocity at
+\(> 3\sigma\) significance relative to local spirals --- consistent with
+the OI prediction. In ΛCDM, flat rotation curves from NFW halos are
+expected at all redshifts; explaining the Genzel data requires
+anomalously low halo concentrations or baryon-dominated inner regions.
+The cleanest local test is Jiao et al.~{[}25{]}, who detect for the
+first time a Keplerian decline in the Milky Way's own rotation curve
+from \(\sim 19\) to \(\sim 26.5\) kpc using Gaia DR3 kinematics, with
+the flat rotation curve hypothesis rejected at \(3\sigma\). Our own
+galaxy is the strongest single piece of evidence for the
+\(H(z)\)-dependent crossover prediction at \(z = 0\), where the OI
+framework predicts the crossover at \(r_M \sim 17\) kpc for the Milky
+Way's full baryon budget including the hot circumgalactic gas halo
+(\(M_B \sim 2 \times 10^{11}\,M_\odot\)) --- essentially where Jiao et
+al.~observe the transition.
+
+\textbf{Tully-Fisher tension and resolution.} McGaugh et al.~(2024),
+analyzing Nestor Shachar et al.~(2023) JWST kinematics, report no
+evolution in the Tully-Fisher relation out to \(z \sim 2.5\), seemingly
+contradicting \(v^4 \propto H(z)\). However, this comparison uses
+\emph{stellar} mass \(M_*\), not baryonic mass
+\(M_B = M_*/(1-f_{\text{gas}})\). At high redshift, gas fractions are
+large (\(f_{\text{gas}} \sim 50\text{–}70\%\) at \(z \sim 2\); Tacconi
+et al.~2018). The OI-predicted shift in the baryonic TF
+(\(\Delta\log M_B = \log(H_0/H(z)) = -0.48\) dex at \(z = 2\)) is almost
+exactly compensated by the gas mass not included in \(M_*\): the
+cancellation requires \(f_{\text{gas}} = 1 - H_0/H(z)\), which gives
+44\% at \(z = 1\), 58\% at \(z = 1.5\), and 67\% at \(z = 2\) ---
+squarely in the observed range. The apparent ``no evolution'' in the
+stellar TF is therefore \emph{predicted} by the OI framework: the
+dynamical shift (higher \(a_0\)) and the compositional shift (higher gas
+fraction) cancel when only stellar mass is measured. The definitive test
+is the \emph{baryonic} TF at \(z > 1\) with reliable ALMA gas masses:
+the OI framework predicts a normalization shift of \(-0.48\) dex at
+\(z = 2\) at fixed \(v_{\text{flat}}\).
+
+\textbf{Observational predictions.} Three parameter-free, quantitative
+tests:
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\item
+  \emph{Rotation curve evolution.} The outer rotation curve evolves with
+  \(z\) through \(a_0(z) = cH(z)/6\). For a \(10^{10.8}\,M_\odot\)
+  exponential disk with \(r_{\text{eff}} = 5\) kpc, the outer slope
+  \(\Delta v / v\) between \(r_{\text{turn}}\) and \(2r_{\text{turn}}\)
+  is \(-0.08\) at \(z = 0\), evolving to \(-0.06\) at \(z = 2\) and
+  \(-0.05\) at \(z = 5\) --- flattening as the disk increasingly sits in
+  the deep-MOND regime, while the asymptotic
+  \(v_{\text{flat}}(z) = (GM_B \cdot cH(z)/6)^{1/4}\) shifts upward by
+  \(E(z)^{1/4}\) (\(+32\%\) at \(z = 2\)). The Genzel et al.~declining
+  \(z = 1\)--\(2\) rotation curves are consistent with this picture:
+  their observed declines reflect rotation curves entering MOND-flat
+  regimes at higher \(v_{\text{flat}}\) than at \(z = 0\), not steeper
+  Keplerian declines. Particle dark matter predicts no evolution in
+  either the outer slope or in \(v_{\text{flat}}\) at fixed \(M_B\).
+\item
+  \emph{Tully-Fisher evolution.} The baryonic Tully-Fisher relation
+  evolves: \(v_{\text{flat}}^4 = GM_B \cdot cH(z)/6\). At fixed baryonic
+  mass, \(v_{\text{flat}} \propto H(z)^{1/4}\): 7\% higher at
+  \(z = 0.5\), 16\% higher at \(z = 1\), 32\% higher at \(z = 2\).
+  Equivalently, at fixed \(v_{\text{flat}}\), the inferred baryonic mass
+  at \(z = 2\) is \(H_0/H(z=2) = 0.33\times\) the local value ---
+  galaxies appear to need less dark matter at high \(z\). Testable with
+  JWST and ALMA kinematics combined with photometric baryonic mass
+  estimates.
+\item
+  \emph{No halo-specific parameters.} In particle DM, each galaxy has a
+  dark matter halo characterized by at least two free parameters
+  (concentration and mass). In the OI framework, the dark matter effect
+  at radius \(r\) depends only on the enclosed baryonic mass \(M_B(<r)\)
+  and \(H(z)\) --- no halo-specific parameters. This predicts: the
+  radial acceleration relation (RAR) at fixed \(g_B\) has zero
+  \emph{intrinsic} scatter (at fixed \(z\)) --- observational scatter is
+  set by measurement uncertainties --- and the \emph{intrinsic} scatter
+  does not correlate with halo properties. Current SPARC data {[}22{]}
+  show remarkably small RAR scatter (\(\sim 0.13\) dex), consistent with
+  OI but requiring fine-tuning in ΛCDM.
+\end{enumerate}
+
+\textbf{Falsifiability.} The entropy displacement account would be
+falsified by: (a) detection of dark matter particles accounting for
+\(\sim 27\%\) of \(\rho_{\text{crit}}\); (b) high-redshift rotation
+curves inconsistent with the predicted \(H(z)\) dependence ---
+specifically, if galaxies at \(z > 2\) show flat rotation curves at
+\(r > r_M(z)\); (c) baryonic Tully-Fisher violations exceeding baryonic
+mass uncertainties; (d) RAR scatter correlating with halo properties at
+fixed \(g_B\) and \(z\).
+
+\textbf{Cluster-scale status.} Galaxy clusters present the most
+challenging regime for MOND-like theories. For the Coma cluster
+(\(M_B \approx 1.4 \times 10^{14}\,M_\odot\), \(R_{200} \approx 1.9\)
+Mpc), the acceleration at the virial radius is \(g_B/a_0 \approx 0.05\)
+--- deep in the MOND regime. With the simple interpolation function
+above, the predicted velocity is
+\(v = \sqrt{g_B \cdot \nu(g_B/a_0) \cdot R_{200}} \approx 1260\) km/s;
+the observed velocity dispersion implies \(\sim 1270\) km/s --- a match
+to better than \(1\%\). For other rich clusters (Perseus, A2029, A1689),
+the simple interpolation reduces the standard MOND mass shortfall from a
+factor \(\sim 2\) to \(\sim 1.0\)--\(1.5\); the residual is \textbf{not}
+closable by undetected cluster baryons. Modern censuses find massive
+clusters (\(M_{500} \gtrsim 2\times10^{14}\,M_\odot\)) baryon-complete
+to within \(\sim 7\%\) of the cosmic fraction inside \(r_{500}\) (Planck
+cosmology), and consistent with the cosmic value at the virial radius;
+the late-time missing baryons localized by FRB dispersion measures
+(Connor et al.~2025) reside in the diffuse IGM and cosmic filaments ---
+\emph{between} clusters, not inside them. The earlier appeal to WHIM
+adding 30--100\% conflated the \emph{cosmic} missing-baryon fraction
+(filamentary) with a cluster-internal reservoir that the data do not
+support. Nor is the residual absorbable by massive neutrinos: the
+framework predicts \(\Sigma m_\nu \approx 0.059\) eV (§ above), two
+orders of magnitude below the \(\sim 2\) eV that would be required. The
+rich-cluster residual is therefore an \textbf{open problem}. It most
+plausibly reflects the unresolved transition between the \emph{local}
+MOND-like interpolation used here (galaxies, cluster dynamics) and the
+\emph{CDM-like} linear behavior of the same entropy displacement
+established for the CMB and Bullet Cluster: a single field cannot be
+MOND-like in cluster cores and CDM-like in linear growth without a
+specified crossover, and deriving that crossover from the non-local
+relaxation kernel is deferred to the substratum-level analysis (the same
+uncomputed kernel as §7.3). The deep-MOND limit \(v^4 = GM_B \cdot a_0\)
+(Tier 2) is identical for all interpolation functions; only the
+intermediate-acceleration behavior (Tier 3) differs. Galaxy-scale
+predictions are unaffected: at \(g_B/a_0 = 0.5\) (typical outer disk),
+different interpolation functions agree to \(< 0.07\) dex --- well
+within the RAR scatter of \(0.13\) dex.
+
+\textbf{Colliding clusters (Bullet Cluster).} The Bullet Cluster (1E
+0657-56) presents the most-cited evidence for particle dark matter:
+after the collision, gravitational lensing peaks coincide with the
+galaxy concentrations (\(\sim 15\%\) of baryonic mass), not with the
+X-ray gas (\(\sim 85\%\) of baryonic mass) that was ram-pressure
+stripped to the center. In a local MOND picture where \(g_D\) tracks the
+instantaneous baryonic distribution, the lensing should peak where the
+gas is --- contradicting observations. The OI framework resolves this
+through the non-local character of entropy displacement. The dark
+gravity arises from boundary entropy redistribution at the cosmological
+horizon, and the horizon's response time is
+\(\tau_{\text{relax}} \sim H^{-1} \approx 14\) Gyr. The relaxation
+timescale identification (\(\tau_{\text{relax}} \sim 1/H\)) is itself a
+Tier 2 derived quantity from the de Sitter boundary's response to
+perturbations; specific calculations of mode-by-mode relaxation are
+deferred to a substratum-level analysis. The collision crossing time is
+\(t_{\text{cross}} \sim 720\,\text{kpc}/4700\,\text{km/s} \approx 0.15\)
+Gyr --- only \(1\%\) of the relaxation time. The entropy displacement is
+therefore \emph{frozen} at the pre-collision configuration, centered on
+the galaxy concentrations (which defined the gravitational potential
+wells for gigayears before the collision). The gas moved during the
+collision; the boundary entropy did not. This reproduces the observed
+morphology: lensing peaks at the galaxy positions, gas peak between them
+--- without invoking collisionless particles. The mechanism makes a
+testable prediction: for very old post-collision systems
+(\(t_{\text{since}} \gg 1\) Gyr), the dark gravity should gradually
+relax toward the gas distribution on timescale \(\sim H^{-1}\). Particle
+dark matter predicts no such relaxation.
+
+\textbf{CMB acoustic peaks.} The CMB power spectrum provides the most
+precise test of the dark matter paradigm: the odd/even peak height
+asymmetry requires a non-oscillating gravitational source (CDM in ΛCDM)
+that provides potential wells for the photon-baryon fluid to oscillate
+in. The entropy displacement satisfies this requirement through the same
+thermodynamic averaging that resolves the Bullet Cluster. The Clausius
+relation \(\Delta S = \delta Q / T_H\) involves the \emph{net} heat
+transfer to the horizon boundary. For an oscillating perturbation
+(compression then rarefaction), the net entropy displacement per
+acoustic cycle is zero --- the oscillating component averages out. Only
+the secular (growing) component produces net displacement. The entropy
+displacement perturbation therefore does not oscillate with the
+photon-baryon fluid; it tracks the growing mode exclusively.
+
+The entropy displacement perturbation then evolves identically to CDM in
+the linear regime: (i) it has the same effective density
+(\(\rho_E \approx \Omega_{\text{CDM}} \times \rho_{\text{crit}}\), from
+the dark-sector corollary §7.2); (ii) it does not couple to photons (it
+is a gravitational effect at the horizon, not a fluid component); (iii)
+it grows under its own gravity from adiabatic initial conditions set by
+inflation; (iv) its growth equation
+\(\ddot{\delta}_E + 2H\dot{\delta}_E = 4\pi G \rho_{\text{eff}} \delta_E\)
+has the same source term as CDM. The CMB power spectrum --- which
+depends on \(\Omega_b/\Omega_m\) (peak ratios), the growth of
+perturbations before recombination (peak heights), the sound horizon
+\(r_s\) (peak positions), and the damping scale (high-\(\ell\)
+suppression) --- is therefore predicted to match ΛCDM at linear order. A
+direct CLASS comparison (2026-04-26) confirms this: with the framework's
+Type II RVM at \(\nu = 10^{-4}\) (the Bertini 2025 1\(\sigma\) high end)
+encoded via CLASS's CLP fluid dark-energy module, the four acoustic peak
+amplitudes (TT) match \(\Lambda\)CDM to \(\lesssim 0.02\%\), full-range
+\(D_\ell^{TT}\) residuals have median \(0.006\%\) and maximum
+\(0.08\%\), and corresponding \(D_\ell^{EE}\) residuals are similar ---
+all 20--300\(\times\) below cosmic variance and 5--50\(\times\) below
+Planck 2018 binned precision at every \(\ell\) from 2 to 2500.
+\emph{Epistemic status: Tier 2, inheriting the conditions of §7.2--7.3.
+The CLASS run verifies the residual RVM dark-\textbf{energy} effect on
+the spectrum (the dark matter is modeled as standard CDM, the
+dark-energy sector as the CLP-fluid RVM); it does not by itself test the
+displacement\(\,\equiv\,\)CDM step, which is the analytic result
+(i)--(iv) above. The temporal half of that equivalence --- that a single
+relaxation kernel reproduces CDM-like growth at recombination while
+keeping the Bullet frozen --- is demonstrated below; a direct Boltzmann
+run implementing the displacement kernel explicitly, including its
+\(k\)-dependence, is the remaining numerical check.}
+
+\textbf{Relaxation kernel: Bullet--CMB consistency.} The
+frozen-displacement account of the Bullet Cluster (slow
+\(\tau_{\text{relax}}\)) and the growing-mode tracking the CMB requires
+(fast response at recombination) are reconciled by a single kernel once
+\(\tau_{\text{relax}}\) is read as the \emph{epoch-local} horizon time
+\(\tau_{\text{relax}}(z) \sim 1/H(z)\) --- the \(\approx 14\) Gyr quoted
+above is its \(z\!\approx\!0\) value, not a fixed constant. Because the
+linear growing mode also evolves on \(\sim 1/H(z)\), the displacement
+relaxation equation
+\(d\delta_E/dt = (\delta_m - \delta_E)/\tau_{\text{relax}}\) becomes, in
+scale-factor form, \(d\delta_E/da = (\delta_m - \delta_E)/a\) ---
+\emph{epoch-independent}, with solution
+\(\delta_E = \tfrac12\,\delta_m + \mathcal{O}(a_{\text{rec}}^2/a)\).
+Thus \(\delta_E \propto a\) tracks the CDM growing mode at every epoch
+with no lag at recombination and no temporal cutoff; the constant ratio
+is absorbed into the calibration
+\(\rho_E \approx \Omega_{\text{CDM}}\rho_{\text{crit}}\) (§7.2). A
+\emph{fixed} \(\tau_{\text{relax}} = 1/H_0\) would instead suppress the
+response by \(H_0/H(z) \sim 1/10\) at \(z = 100\) and distort the peaks
+--- confirming that the epoch-local reading is the correct one
+(numerically verified: \(\delta_E/\delta_m\) constant to \(<0.1\%\)
+across \(z = 1100\to0\) for \(\tau = 1/H(z)\), versus an
+order-of-magnitude lag for \(\tau = 1/H_0\)). The Bullet remains frozen
+for the independent reason that a cluster collision is anomalously fast
+on the cosmic clock:
+\(t_{\text{cross}}/\tau_{\text{relax}}(z\!=\!0.3) \approx 0.15/12 \approx 0.013 \ll 1\).
+The two regimes are therefore controlled by \emph{different} ratios ---
+\(\tau_{\text{relax}}/t_{\text{growth}} \sim \mathcal{O}(1)\) at all
+epochs (tracking) versus
+\(\tau_{\text{relax}}/t_{\text{collision}} \gg 1\) (freezing) --- and do
+not conflict. Since the Jacobson sourcing is spatially local, the
+non-locality is \emph{temporal} (a memory over \(\tau_{\text{relax}}\)),
+not spatial, and imposes no \(k\)-cutoff on the linear growth.
+\emph{Open computation (not an inconsistency):} the \(k\)-dependence of
+the relaxation rate, required for a full mode-by-mode kernel.
+\emph{Epistemic status: Tier 2, inheriting the conditions of §7.2--7.3
+(temporal reconciliation verified numerically,
+relaxation\_kernel\_check.py 2026-06-29; \(k\)-dependence deferred).}
+
+\hypertarget{summary-of-gr-side-predictions}{%
+\subsubsection{7.4 Summary of GR-side
+predictions}\label{summary-of-gr-side-predictions}}
+
+The GR-side quantitative predictions of the framework are collected in
+the table below. Each follows from partition geometry at the
+cosmological horizon; no predictions are fit to the quantities they
+predict.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Prediction
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Formula / value
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Observed / status
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Match
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Emergent action scale & \(\hbar = c^3 (2 l_p)^2 / (4G)\) &
+\(\hbar_{\text{obs}} = 1.055 \times 10^{-34}\) J·s & structural \\
+Discreteness scale & \(\epsilon = 2\,l_p\) & Planck length &
+structural \\
+BH entropy coefficient & \(S_{BH} = A / (4 l_p^2)\) & derived
+(\(2\pi/8\pi\)); no direct test --- GW250114 confirms the classical area
+theorem, which the framework preserves & consistent
+(non-discriminating) \\
+Cosmological constant & \(\rho_\Lambda \sim H^2/G\) & observed value &
+no discrepancy \\
+Dark energy form & Type II channel; functional form the local expansion
+shared by every smooth model (§7.1); magnitude
+\(\approx |\nu_{\rm QFT}| \sim 10^{-32}\), indistinguishable from zero &
+Bertini 2025 \(\nu = -(2.5\pm 1.3) \times 10^{-4}\) & consistent at
+\(2\sigma\) (Bertini consistent with zero) \\
+Dark sector fraction & \(\Omega_{\text{dark}} \approx 95\%\) &
+\(\Omega_{\text{CDM}} + \Omega_\Lambda \approx 95\%\) & consistent \\
+MOND acceleration scale &
+\(a_0 = cH/6 = 1.09\)--\(1.18 \times 10^{-10}\) m/s²
+(\(H_0 = 67.4\)--\(73\)) &
+\(g_\dagger = (1.20 \pm 0.02 \pm 0.24) \times 10^{-10}\) m/s² & within
+systematic; factor imported \\
+Baryonic Tully-Fisher & \(v^4 = G M_B \cdot cH/6\) & SPARC data & within
+\(0.13\) dex RAR scatter \\
+Rotation curve crossover & \(r_M = \sqrt{6 G M_B/(cH)}\) & Milky Way:
+\(9\)--\(17\) kpc depending on the baryon budget
+(\(6\times10^{10}\)--\(2\times10^{11}\,M_\odot\); §7.3 uses the former)
+& Jiao et al.~2023, \(3\sigma\) \\
+High-\(z\) rotation curves & More baryon-dominated with \(z\) & Genzel
+et al.~\(z = 0.9\)--\(2.4\) & consistent at \(> 3\sigma\) \\
+\end{longtable}
+
+The gravitational sector's dark-energy content is geometry-dependent
+bookkeeping whose smooth late-time expansion contains an \(H^2 - H_0^2\)
+term --- the local form shared by every smooth model (§7.1) --- read in
+the Type II running-vacuum channel; the framework does not presently
+derive a distinctive Type II law, the channel being selected by
+architectural commitments: the Planck-scale UV cutoff is forced by the
+gap equation (§3.2, §4), and matter conservation plus Bianchi
+consistency fixes the coupled running of \(G(H)\) and
+\(\rho_{\rm vac}(H)\). To state the distinctiveness precisely: a
+\(c_0 + \nu H^2\) expansion at low energy is generic for any covariant
+analytic \(\rho_{\rm vac}(H)\); the framework-specific content is the
+Type II channel (matter conserved, compensation through \(G\)), the
+coefficient class, and the exclusion of phantom crossing. The
+\emph{magnitude} of \(\nu\) is bounded by the self-consistent
+emergent-QFT calculation (Reading 1 of the §7.1 remark; smaller still on
+Reading 2):
+\(|\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\),
+indistinguishable from zero. Substratum contributions beyond this are
+constrained by the boundary mode count of §3.1 and §5, which catalogues
+modes by spatial location with no inherent frequency assignment; the
+natural 2D field-theoretic distribution concentrates modes near the UV
+cutoff and contributes \(|\nu|_{\rm substratum}\) well below
+\(|\nu_{\rm QFT}|\). The framework's commitment is therefore the Type II
+reading with magnitude \(|\nu| \approx |\nu_{\rm QFT}|\) --- the
+magnitude conditional on the §7.3 split and not yet established at
+theorem level (§7.1) --- observationally indistinguishable from zero.
+The Bertini et al.~(2025) measurement
+\(\nu = -(2.5 \pm 1.3) \times 10^{-4}\) is consistent with this
+expectation at \(2\sigma\), where Bertini is itself consistent with
+zero. DESI Year 5 (\(\sim 1\%\) precision on \(\nu\)) provides the
+decisive empirical test of the reading: a null supports the Type II
+reading and its near-null magnitude; a high-confidence detection at the
+\(10^{-4}\) level would require additional substratum structure
+(specifically, log-uniform mode-per-decade distribution at the
+cosmological horizon) not currently derivable from §3-§5.
+
+\emph{Remark (the magnitude question reduces to emergent locality).} The
+choice between the two boundary-mode spectral measures is not an
+independent free parameter: it is the same question as the radiative
+emergent-Lorentz problem ({[}SM §3.1, point iii{]}). The natural 2D
+field-theoretic measure (\(dN/d\omega \propto \omega\), giving
+\(|\nu| \approx |\nu_{\rm QFT}|\)) is the one induced when the
+coarse-grained boundary dynamics inherits the locality of the range-1
+substratum; the log-uniform measure (\(dN/d\ln\omega = {\rm const}\),
+giving \(|\nu| \sim 10^{-4}\)) is not the spectrum of a local field
+theory in any dimension, and would require the coarse-graining to
+generate scale-invariant (non-local) boundary dynamics --- precisely the
+failure mode that would also generate a relevant Lorentz-violating
+operator. The two open questions therefore share one premise: whether
+the substratum-to-observer coarse-graining preserves locality. A
+consequence is that the DESI Year 5 measurement is effectively a test of
+emergent horizon locality, with a built-in cross-check: a detection of
+\(|\nu|\) at the \(10^{-4}\) level would, under this analysis, require
+emergent non-locality, which must independently manifest as Lorentz
+violation --- so a positive \(\nu\) cannot be absorbed as a free
+parameter without a correlated Lorentz-violation signature. This reduces
+the framework's count of independent open questions; the magnitude of
+\(\nu\) is forced to \(\approx 0\) conditional on the same emergent
+locality the framework requires for Lorentz invariance, rather than
+being independently open. (The reduction is supported by a
+stretched-horizon Clausius computation on the de Sitter static patch:
+the near-horizon redshift generates a log-uniform \emph{observed}
+boundary spectrum ('t Hooft brick-wall kinematics), but the running
+coefficient is fixed by \(d\rho_\Lambda/dH^2\), whose integrand is
+near-wall-dominated, so the redshift band reconstructs the area-law
+baseline and contributes to the running only at \(O((H\epsilon)^2)\) ---
+the local value. A log-uniform \(\nu \sim 10^{-4}\) would instead
+require the \emph{intrinsic} boundary theory to be scale-invariant (an
+RG fixed point the range-1 blocking does not supply), not merely a
+redshifted local spectrum. This defeats the one mechanism that could
+generate log-uniform weighting from local dynamics. The direct
+boundary-lattice computation confirms this independently: the density of
+states of any bounded-range (range-1) 2D boundary theory is
+\(dN/d\omega \propto \omega\) (2D-local), with correlation length
+\(\xi \sim 1/\Delta\) finite off criticality; the log-uniform measure is
+the density of states of a scale-invariant (critical, \(\xi\to\infty\))
+theory only, reachable at the lattice level solely by tuning the gap to
+\(\Delta \sim H\epsilon \sim 10^{-61}\) --- the same horizon hierarchy
+the cosmological-constant dissolution removes, so a log-uniform \(\nu\)
+would be self-undermining. That terminal residual is now discharged at
+the linear-map level: an exact surface-Green's-function extraction of
+the boundary measure from the substratum dynamics itself --- the
+semi-infinite half-space trace-out of the reconstruction-selected wave
+equation, with no Gaussian effective model --- gives a
+boundary-projected spectral measure \(dN/d\omega \propto \omega^{4}\)
+(analytic edge count \(+4\); estimator validated on the known
+\(+1\)/\(+2\) controls), flat across thirty orders of magnitude in the
+slow-bath ratio \(\tau_S/\tau_B\) and stable under generic quenched
+deformation, with the log-uniform \(\omega^{-1}\) measure appearing
+nowhere. The effective one-degree-of-freedom-per-cell 2D measure used in
+the running-vacuum bookkeeping above (\(dN/d\omega \propto \omega\)) is
+therefore an upper bound on the infrared boundary weight of the
+microscopic trace-out, so \(|\nu| \approx |\nu_{\rm QFT}|\) holds a
+fortiori; which of the two local measures the \(\nu\) integral runs over
+affects the prefactor only, not the fork. The remaining residual is the
+interacting (condensate-dressed) kernel, shared with {[}SM §3.1{]}.)
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{discussion}{%
+\subsection{8. Discussion}\label{discussion}}
+
+The foundational emergent QM result is treated as established in
+{[}Main{]} and not re-derived here. The cubic-lattice realization of the
+substratum --- which determines the Standard Model gauge structure via
+the wave equation --- is independent of the present results and is
+developed in {[}SM{]}. The reconstruction theorem, the substratum gauge
+group, and the synthesis claim that quantum mechanics, general
+relativity, and the arrow of time descend as three projections of the
+same \((S, \varphi)\) are developed in {[}Substratum{]}.
+
+\hypertarget{scope}{%
+\subsubsection{8.1 Scope}\label{scope}}
+
+The characterization theorem's equivalence is (ii) \(\iff\) (iii) under
+(C1)--(C4) --- both directions proved in the foundational paper --- with
+the quantum representation following for the source's
+finite-configuration class, the C2 \(\Leftarrow\) direction conditional
+on the hidden sector's mixing hypothesis (ETH is its physical
+motivation; see {[}Main, §3.4{]}). The C1, C3, and C4 necessity
+directions are unconditional --- C4's is immediate from observed
+non-Markovianity. For the cosmological horizon application the mixing
+hypothesis holds for any generic chaotic hidden sector --- the horizon
+complement is such a system, and its coupling reads the boundary degrees
+it writes, which is (C4)'s realization --- so the equivalence applies in
+our universe. The theorem does not identify which physical systems
+satisfy the conditions (empirical) nor derive \(\hbar\) for specific
+systems (requires Part II). Universality in our universe follows from
+the shared causal partition defined by null geodesics.
+
+\hypertarget{the-status-of-the-discreteness-scale}{%
+\subsubsection{8.2 The status of the discreteness
+scale}\label{the-status-of-the-discreteness-scale}}
+
+\(\epsilon\) does not smuggle in a quantum assumption. Lemma 1 requires
+finite-dimensionality, motivated by the classical fact that finite-area
+boundaries admit finitely many modes. The result \(\epsilon = 2\,l_p\)
+is a \emph{consequence} of self-consistency (§4). Holographic entropy
+bounds {[}26{]} provide independent, non-quantum motivation.
+
+\hypertarget{vacuum-energy-relative-effects-and-the-higgs-potential}{%
+\subsubsection{8.3 Vacuum energy: relative effects and the Higgs
+potential}\label{vacuum-energy-relative-effects-and-the-higgs-potential}}
+
+\textbf{Relative effects.} Casimir forces and Lamb shifts are
+predictions \emph{within} the emergent QFT --- relative effects
+depending on energy differences between configurations. The framework
+denies that the \emph{absolute} zero-point sum gravitates, because
+gravity operates at the logically prior classical level (§6.2).
+
+\textbf{The Higgs potential.} The strongest CC objection is not the
+zero-point sum but the electroweak Higgs potential: symmetry breaking
+shifts \(V(\phi)\) by \(\sim (200\;\text{GeV})^4\), exceeding the
+observed \(\Lambda\) by \(\sim 55\) orders of magnitude. The framework's
+response follows from its ontological ordering and the
+structural/volumetric distinction of §3.2, applied as a precise
+principle:
+
+\emph{What gravitates:} Relative energy differences between
+configurations of the emergent fields. An electron at rest vs.~no
+electron differs by \(m_e c^2\) in the classical substratum --- there is
+a classical microstate difference corresponding to this energy
+difference. Relative differences appear in the classical stress-energy
+tensor and gravitate. Casimir forces, Lamb shifts, and particle masses
+all fall in this category.
+
+\emph{What does not gravitate:} Absolute energy levels assigned to
+configurations by the emergent description. The Higgs vacuum energy
+shift \(V(\phi_{\text{min}})\) is the energy the emergent QFT assigns to
+its ground state --- the configuration obtained after symmetry breaking.
+But the ``ground state'' in the emergent description corresponds to a
+class of classical microstates whose energy in the classical substratum
+is \(\rho \sim H^2/G\), not \(\rho \sim (200\;\text{GeV})^4\). The shift
+is a property of how the emergent description organizes the microstates
+(the correspondence), not a property of the microstates themselves (the
+classical dynamics).
+
+\emph{The reconstruction-gauge form of this claim.} The distinction
+between absolute and relative energy is not merely a characterization of
+the correspondence; it is a theorem of the reconstruction. The marginal
+phase-locking result ({[}Main §3.4{]}) determines the emergent
+Hamiltonian from the complete visible transition data only \emph{up to
+an additive energy shift}: the uniform offset of \(\hat H\) is a gauge
+parameter of the marginalization, present in no visible transition
+statistics at any precision. The embedded observer's data therefore
+contains no fact about the absolute zero-point offset --- the quantity
+whose Planck-scale magnitude constitutes the cosmological constant
+problem is, at the emergent level, unobservable in principle rather than
+merely unmeasured, and the problem's premise (that this offset is a
+physical energy awaiting gravitational response) attributes physical
+content to a gauge degree of freedom. The scope of this argument is
+exactly the scope of the split above: it covers the \emph{uniform}
+offset only; mode structure that produces relative differences ---
+Casimir forces, Lamb shifts, particle masses --- corresponds to
+classical microstate differences, is determined by the visible data, and
+gravitates.
+
+The principle is uniform: the zero-point sum, the Higgs vacuum energy,
+and the QCD condensate energy are all absolute properties of the
+emergent ground state. The dissolution applies to each for the same
+reason --- gravity operates at the classical level (§6.2), where none of
+these quantities appear.
+
+\textbf{Why QCD binding energy gravitates but the quantum vacuum does
+not.} The proton mass is \textasciitilde99\% QCD binding energy --- a
+purely quantum effect. If gravity couples to the classical substratum,
+how does it ``know'' about masses generated by emergent quantum
+dynamics? The answer is that QCD binding energy and vacuum zero-point
+energy occupy different categories in the structural/volumetric
+distinction of §3.2. Relative energies within the emergent QFT ---
+energy differences between configurations --- correspond to differences
+in the coupling structure of \(\varphi\), which the Jacobson derivation
+reads as curvature. A proton vs.~three free quarks corresponds to two
+distinct classes of classical microstates with different energies in the
+classical substratum; the binding energy \(\sim 938\) MeV is a
+\emph{relative} quantity that appears in \(H_{\text{tot}}\) and
+gravitates. The absolute baseline --- the zero-point energy summed over
+all modes --- corresponds to the total information capacity of the
+hidden sector (\(S_{\text{dS}}\)), which is a property of the partition
+geometry, not of the dynamics, and therefore does not source curvature.
+
+\hypertarget{assumptions-limitations-and-falsifiability}{%
+\subsubsection{8.4 Assumptions, limitations, and
+falsifiability}\label{assumptions-limitations-and-falsifiability}}
+
+\textbf{The theorem} requires Lemma 1 (independent in Part I;
+consequence of geometry in Part II), the stochastic-quantum bridge
+({[}Main, §3.1{]} and Appendix A; two routes reach its
+transition-statistics layer, neither reaching the operational instrument
+algebra), and genericity conditions (non-degenerate spectrum,
+non-vanishing overlaps), which hold for all but a measure-zero set. The
+P-indivisibility proof uses finiteness via the recurrence argument
+(\(\varphi^N = \text{id}\)). The deep-sector cardinality corollary
+(§3.2) establishes that only \(\mathcal{C}_V\) and \(\mathcal{C}_B\)
+need be finite --- both guaranteed by holographic entropy bounds
+{[}26{]} independently of the de Sitter finite-dimensionality conjecture
+--- while the deep sector \(\mathcal{C}_D\) may be infinite. The
+accessible-timescale backflow lemma ({[}Main, §2.3{]}) provides a second
+route to P-indivisibility that is independent of \(|\mathcal{C}_H|\).
+The characterization theorem becomes an equivalence on observable
+timescales (\(T_{\text{obs}} \ll \tau_B \sim 10^{17}\) s) --- physically
+indistinguishable from a timeless identity for all experiments within
+the age of the universe.
+
+\textbf{The sharp partition and constraint structure.} Lemma 2's product
+decomposition \(\Gamma = \Gamma_V \times \Gamma_H\) is the kinematic
+phase space. In GR, the Hamiltonian and momentum constraints restrict
+the physical phase space to a submanifold
+\(\Gamma_{\text{phys}} \subset \Gamma_V \times \Gamma_H\) on which
+interior and exterior data are correlated. P-indivisibility survives on
+a constraint surface because restoring P-divisibility would require
+decoupling the sectors entirely, violating the constraints; the
+constraint surface thus enforces (C1) non-perturbatively. For systems
+other than the cosmological horizon, the fidelity of the product
+approximation determines the fidelity of the emergent quantum
+description.
+
+\textbf{Planck-scale ordering.} The classical-prior ontology may break
+down at \(l_p\), where ``geometric'' and ``quantum'' lose operational
+distinction. If a deeper theory unifies both, this framework describes
+the effective macroscopic regime.
+
+\textbf{Falsifiability.} The \emph{theorem} would be falsified by a
+failure of both the stochastic-quantum correspondence and the
+Stinespring construction for the class of processes generated here --- a
+possibility excluded by the independent proofs in {[}Main, §3.1{]} and
+Appendix A. The \emph{cosmological application} (the Type II channel
+with magnitude \(|\nu| \approx |\nu_{\rm QFT}|\)) would be falsified by
+definitive observational demonstration that dark energy deviates from
+the \(\nu\)-parameterized Type II form --- e.g., a high-confidence
+detection of strong \(w(z)\) variation incompatible with
+\(w = -1 + \mathcal{O}(\nu)\). The magnitude prediction
+\(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\) (conditional on the §7.3
+split, not yet established at theorem level) admits a stratified
+falsification structure: a measurement \(|\nu| \gtrsim 10^{-4}\) at high
+significance would require log-uniform boundary-mode spectral structure
+beyond §3-§5; a measurement \(|\nu| > 10^{-3}\) at high significance
+would constitute a structural challenge to the magnitude prediction
+without falsifying the Type II functional form itself. The
+\emph{dark-sector concordance} (§7.2) would be falsified by detection of
+dark matter particles accounting for the full structured dark sector, or
+by evidence that the dark sector's gravitational effects are unrelated
+to the cosmological boundary geometry.
+
+The falsifiability content is stratified by hierarchy level (per
+{[}Structure §2.4{]}). The Type II running-vacuum functional form is not
+a discriminating prediction at any level: its local expansion is shared
+by every smooth \(\rho_\Lambda(H)\) (§7.1), so a measured departure from
+the Type II form would not by itself refute the universality-class
+claim. The dark-sector concordance is a Tier 2 / Level D × Levels G1--G2
+prediction, conditional on §3.2 --- falsification would refute OI's
+specific universality-class representative without necessarily refuting
+the Tier 1 partition-geometry results. The magnitude prediction
+\(|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}\), conditional on the §7.3
+split, is the falsifiable content of the dark-energy sector: a measured
+\(|\nu| \sim 10^{-3}\) would refute it at the specific-representative
+level.
+
+\textbf{A near-term mechanism-side test.} A more tractable falsification
+target is provided by the recently developed operational distinction
+between classical and quantum memory in non-Markovian processes {[}27,
+28{]}. Some non-Markovian quantum dynamics can be simulated using only
+classical stored information, while others require genuinely quantum
+memory in the environment, with the dividing line set by entanglement
+structure of the channel's Choi state. The framework predicts that all
+\emph{fundamental} non-Markovian dynamics in nature --- those arising
+from the cosmological trace-out rather than from engineered quantum
+baths --- should be classical-memory simulable, because the hidden
+sublattice is by construction a classical substrate. A physically
+realized fundamental open-system process whose memory provably exceeds
+the classical bound would falsify the framework's foundational ontology
+even without cosmological data. This is a near-term tractable test in a
+literature where the experimental and theoretical tools are advancing
+rapidly.
+
+\textbf{Black-hole horizons under partition-relativity.} The framework's
+mechanism is grounded in the cosmological horizon as the primary
+partition for any sub-\(c\) observer in this universe (§2.1). A
+black-hole horizon within the cosmological visible sector is a
+\emph{local} causal boundary: it prevents an external observer from
+probing the black-hole interior by direct geometric access, but it does
+not redefine that observer's epistemic partition in the sense of
+{[}Main, §1.4{]}. Matter falling into a distant black hole was already
+inside the external observer's \(\Gamma_V\) before the merger and
+remains inside it after; the trace-out that defines the external
+observer's emergent quantum description is over the cosmological
+horizon, not over the black-hole horizon. The framework therefore
+predicts that gravitational wave signatures from binary black-hole
+mergers follow standard general-relativistic ringdown morphology, with
+no OI-specific echo, comb, or wall-reflection features. A four-event
+coherent matched-filter stack on LVK O1--O4 strain data using a
+dedicated discreteness-scale echo template (with the predicted
+detector-frame delay \(\Delta t = (r_+/c)\ln(r_+/2 l_p)\) at the remnant
+mass and spin) returned a clean null: stacked statistic \(-0.45\),
+empirical \(p = 0.66\), with the previously hypothesized echo amplitude
+excluded at \(5.9\sigma\). The framework's BH physics for external
+observers is identical to standard GR plus the cosmological-scale
+dark-sector effects of §7.2--§7.3.
+
+\textbf{Nested and time-dependent partitions.} The primary partition for
+any sub-\(c\) observer in this universe is the cosmological horizon
+(§2.1). When additional causal boundaries are present --- most
+naturally, a black hole horizon within the cosmological patch --- the
+trace-out machinery extends to a nested formalism, addressed in Appendix
+A. The nested formalism is a self-consistency exercise: it shows that
+the framework's emergent description is well-defined when multiple
+boundaries coexist, and that quantities like the generalized second law
+and the Page curve emerge naturally. It is \emph{not} a claim that
+external observers' emergent quantum descriptions acquire
+BH-horizon-specific features; under partition-relativity (above), the
+cosmological horizon remains the primary partition. Appendix A resolves
+the formal nested-partition machinery in three layers.
+
+\emph{(i) Consistency of nested trace-outs (Appendix A, Theorems
+A.1--A.4).} Two procedures --- tracing out the trans-cosmological region
+and the black hole interior simultaneously (direct) or sequentially
+(first cosmological, then black hole) --- produce the same CPTP channel,
+the same emergent Hamiltonian (up to D-gauge), and the same \(\hbar\).
+The key result (Theorem A.2) is that the quantum partial trace within
+the emergent description agrees with the classical marginalization on
+the substratum: the emergent QM is self-consistent.
+
+\emph{(ii) The generalized second law (Appendix A, Theorem A.6).} The
+sum \(S_{\text{matter}} + S_{\text{BH}} + S_{\text{dS}}\) is
+non-decreasing, proved from strong subadditivity and CPTP monotonicity
+of the emergent quantum description. Any process that shrinks the black
+hole (decreasing \(S_{\text{BH}}\)) transfers information to the visible
+sector and cosmological boundary, compensating the decrease.
+
+\emph{(iii) The Page curve (Appendix A, Theorems A.7--A.9).} For an
+evaporating black hole, the entanglement entropy of the radiation
+follows \(S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q\) plus
+exponentially small corrections, where \(n_B(t)\) is the shrinking
+boundary mode count and \(n_R(t) = n_B(0) - n_B(t)\). Unitarity is
+preserved (bijectivity of \(\varphi\)), the turnover occurs at the Page
+time \(t_P \approx 0.646 \, t_{\text{evap}}\) (structural, independent
+of mass and greybody factors), and the Page value is recovered for all
+but an exponentially negligible fraction (\(\sim e^{-10^{77}}\) for
+\(30 M_\odot\)) of initial conditions --- from bijectivity (cycle
+decomposition on the finite energy shell) and Popescu-Short-Winter
+typicality {[}29{]}, conditional on the scrambling condition H-scramble
+of Appendix A, which is not established there: uniformity over classical
+microstates is not uniformity over quantum pure states. The greybody
+factor is solution-specific.
+
+Laboratory tests of the characterization theorem may be possible in
+analogue gravity systems where the hidden sector capacity is tunable.
+
+\hypertarget{universality-class-character-of-the-partition-geometry-results}{%
+\subsubsection{8.5 Universality-class character of the
+partition-geometry
+results}\label{universality-class-character-of-the-partition-geometry-results}}
+
+§1 separates what follows from partition geometry alone --- the
+energy-shell horizon temperature, the finite horizon counting, and the
+two-level distinction between the emergent vacuum energy and the
+effective cosmological constant --- from the results that additionally
+require a named condition: the action scale \(\hbar\), the discreteness
+scale \(\epsilon = 2\,l_p\) and the \(1/4\) coefficient (H-slope with
+the horizon and frame conditions of §§2--5), the dynamical dissolution
+of the cosmological-constant problem (the G3 coupling theorem, §6.2),
+and the running-vacuum form (not presently derived, §7.1). This section
+states which of these are universality-class results --- holding for any
+substratum meeting structural conditions S1--S4 below --- and in what
+form.
+
+\textbf{The universality claim, in three parts.} Let \(\mathcal{S}\) be
+any finite deterministic substratum (not necessarily OI's cubic lattice)
+admitting a partition into a visible sector \(V\) and hidden sector
+\(H\) at a cosmological-horizon-like causal boundary, satisfying
+{[}Main{]}'s structural conditions C1 (non-trivial coupling), C2 (record
+persistence --- slow bath \(\tau_S \ll \tau_B\) the realization), C3
+(sufficient memory capacity --- \(N_H \gg N_V\) the comfortable regime),
+and C4 (history readback).
+
+\emph{(a) Unconditional.} The following follow from partition geometry
+alone:
+
+(U1) \emph{Energy-shell horizon temperature.} The classical
+inverse-energy temperature \(\beta_E = \partial s_H/\partial E\) of the
+horizon, from the horizon density of states (§3.1).
+
+(U2) \emph{Finite horizon counting.} The boundary entropy is the finite
+mode count \(S = A/\epsilon^2\), one mode per cell of area
+\(\epsilon^2\) (§5).
+
+(U3) \emph{Two-level distinction.} The emergent quantum vacuum energy
+(\(\sim M_{\rm Pl}^4\)) and the effective cosmological constant
+(\(\sim H^2/G\)) refer to logically distinct objects across two levels
+of description; the \(10^{122}\) ratio is a compression ratio, not a
+failure of cancellation (§6.1).
+
+\emph{(b) Conditional universality.} If, in addition, H-slope, H-frame
+and the H-Hawking conditions hold at the horizon of \(\mathcal{S}\),
+then with the same numerical content as for OI's substratum:
+
+(C1\('\)) \emph{Emergent action scale.}
+\(\hbar = c^3 \epsilon^2 / (4G)\), where \(\epsilon\) is the partition's
+discreteness scale (§3.2).
+
+(C2\('\)) \emph{Discreteness scale.} \(\epsilon = 2\,l_p\), fixed by the
+simultaneous solution of the action-scale relation and the definition of
+the Planck length (§4).
+
+(C3\('\)) \emph{Area law.} \(S = A/(4\,l_p^2)\), with the \(1/4\)
+coefficient the ratio \(2\pi/8\pi\) between the Euclidean KMS period and
+Jacobson's Einstein-equation prefactor (§5).
+
+The conditions are statements about the horizon and the emergent
+dynamics, not about the cubic lattice, so the conditional is itself a
+universality-class statement: any substratum in the class that meets
+them obtains (C1\('\))--(C3\('\)).
+
+\emph{(c) Not universality-class results in the present state.} The
+dynamical dissolution of the cosmological-constant problem is
+conditional on the G3 coupling theorem, whose form S1--S4 do not fix
+(§6.2). The Type II running-vacuum functional form is not derived; its
+magnitude
+\(|\nu| \approx |\nu_{\rm QFT}| \sim (M_{\rm SM}/M_{\rm Pl})^2 \sim 10^{-32}\)
+is conditional on the §7.3 split (§7.1). The dark-sector phenomenology
+is Tier 2: it inherits the conditions of §3.2 and the dimensional factor
+imported in §7.3.
+
+\textbf{What the derivations actually depend on.} Reviewing §3--§7:
+
+\begin{itemize}
+\tightlist
+\item
+  The \emph{\(\hbar\) derivation} (§3) uses: the infrared
+  detailed-balance slope H-slope, which identifies the classical
+  inverse-energy temperature with the emergent KMS period (§3.2); the
+  classical horizon temperature from the Jacobson thermodynamic argument
+  (depends only on classical horizon geometry); the Euclidean KMS period
+  of the emergent QFT on the horizon (depends only on the partial-trace
+  structure of the channel and the horizon's discreteness scale);
+  thermal self-consistency requiring agreement between the two (depends
+  on the consistency of emergent QFT with classical thermodynamics at
+  the horizon). None of these depends on OI's specific cubic-lattice
+  structure; the calibration depends on the cosmological-horizon
+  partition, the partial-trace/Stinespring machinery {[}Main §3{]},
+  H-slope, and the stated horizon, frame and KMS conditions. C1--C4 are
+  realization diagnostics tracked at the concrete cut ({[}Main §1.3{]},
+  §2.2): C1--C3 are verified there, while C4 remains not presently
+  discharged and is not a hypothesis of the calibration. One further
+  dependency is carried by the KMS step of Step 4 and should be stated:
+  the Euclidean-regularity argument presupposes the emergent theory has
+  local boost structure at the horizon (a bifurcate Killing horizon with
+  a well-defined imaginary-time circle). That prerequisite is the
+  local-boost-invariance of the emergent description --- the same object
+  whose protection is the framework's Lorentz-sector item in the boost
+  channel ({[}Main §3.5{]}): the symmetric-point matching under H-blind
+  ({[}SM §4.4{]}) and, conditional on it, the custodial running, which
+  rests on a reported one-loop calculation that is not independently
+  verified ({[}SM §3.1{]}). The \(\hbar\) derivation is therefore not
+  parallel to the Lorentz-violation accounting but partially downstream
+  of its boost sector: a failure of emergent local boost invariance at
+  the horizon would propagate to the gap equation, whereas the
+  rotational sector does not enter here (spatial anisotropy does not
+  touch the imaginary-time periodicity). The UV-dispersion robustness
+  handled above (\(\mathcal{O}((\epsilon\kappa/c^2)^2)\) corrections) is
+  a separate and weaker condition; the boost-structure prerequisite is
+  the load-bearing one and is inherited, not established, in this paper.
+\end{itemize}
+
+\emph{Free-level status, and the narrowed form of the conditional.}
+Three results reduce what the boost prerequisite requires. First, the
+free-level cone is not exact per channel on the normalized \(d=3\)
+observer branch, and the direction dependence runs opposite to what an
+axis-based reading suggests. With
+\(\cos\omega=\tfrac13\sum_i\cos(ak_i)\) and the clock calibrated by
+\(\Delta t=a/(c\sqrt3)\), \[
+\frac{\Omega}{ck}=1+\frac{a^2k^2}{24}\Big(\tfrac13-\sum_i n_i^4\Big)+O(a^4k^4),\qquad n_i=k_i/k,
+\] and since \(\tfrac13\le\sum_i n_i^4\le1\) the leading deviation lies
+in \([-a^2k^2/36,\,0]\). It vanishes on the body diagonals, where all
+three arguments coincide and \(\cos\omega=\cos(ak/\sqrt3)\) exactly, and
+is maximal along the lattice axes. The \((1{+}1)\) reduction does not
+rescue it: zeroing the transverse momenta leaves their two \(+1\)
+contributions in the three-dimensional operator, giving
+\(\cos\omega=(2+\cos ak)/3\). So the KMS prerequisite is not met exactly
+along axes, and an exact all-momentum cone is available only on a
+measure-zero set of directions --- not on a generic horizon normal.
+
+What replaces it is dispersive robustness rather than exactness. Under
+the Schützhold--Unruh result the Hawking temperature depends on the
+product of the low-energy phase and group velocities; writing
+\(\Omega=ck[1+q(\hat n)a^2k^2+\cdots]\) gives
+\(v_{\rm ph}v_g/c^2=1+4q\,a^2k^2+O(a^4k^4)\) with
+\(q=\tfrac1{24}(\tfrac13-\sum_i n_i^4)\), hence
+\(-a^2k^2/9\le v_{\rm ph}v_g/c^2-1\le0\) and \[
+\Big|\frac{\Delta T_H}{T_H}\Big|\;\lesssim\;\frac19\Big(\frac{\epsilon\kappa}{c^2}\Big)^2 .
+\] This holds under named conditions, not universally --- call them
+\textbf{H-Hawking}: (i) the preferred microscopic frame becomes the
+local freely falling horizon frame; (ii) cutoff-scale outgoing modes are
+in their freely falling ground state; (iii) cutoff dynamics is adiabatic
+relative to \(\kappa\); (iv) the observer dispersion is the normalized
+stable infrared branch; (v) the horizon geometry varies smoothly on
+scales \(\gg\epsilon\). Conditions (iv) and (v) are discharged by §4.1
+and the scale separation; (i) and (ii) are open. The dispersive
+corrections vanish as \(k\to0\), so \(\hbar=c^3\epsilon^2/(4G)\) and the
+\(1/4\) coefficient survive as an infrared thermal-calibration
+statement, with Planck-suppressed departures at finite frequency --- not
+as an exact microscopic KMS theorem. Second, the off-axis and
+isotropization corrections belong to the
+\(\mathcal{O}((\epsilon\kappa/c^2)^2)\) class already carried above;
+numerically, \((\epsilon\kappa/c^2)^2 \approx 6 \times 10^{-122}\) at
+the cosmological horizon (the same dimensionless ratio \((H\,l_p)^2\)
+that constitutes the §6 discrepancy --- a scale identity, recorded as
+such) and \(\approx 3 \times 10^{-77}\) for a solar-mass horizon. Third,
+the conditional accordingly narrows to its interacting core: radiative
+velocity-splitting between emergent species --- the standard protection
+problem of emergent Lorentz invariance, in which loop corrections on a
+discrete substrate generically split species velocities at
+\(\mathcal{O}(\alpha)\) unless a mechanism forbids it. This core is
+\emph{identical} to the open Lorentz-sector boost item ({[}Main §3.5{]};
+{[}Substratum §6.4{]}) --- one open item, not two. The protection has a
+matching part and a running part. At the symmetric point the six carrier
+components are dynamically identical, so the substratum dynamics and a
+component-blind trace-out commute with the signed permutations of the
+components, whose six-dimensional representation is irreducible; under
+H-blind the complete quadratic response is custodially scalar and every
+massless block shares one cone at the matching scale ({[}SM §4.4{]},
+Proposition 4b). Conditional on that matching, the running is the
+custodial normalization of the Lorentz-sector accounting. The running
+part rests on a calculation reported in the companion paper ({[}SM
+§3.1{]}) whose driver and numerical output are not available for
+verification: a one-loop lattice calculation of the boost-projected
+self-energy curvature reported that, with the universal tree-level cone
+absorbed, the sector-differential coefficient obeys a
+quadratic-with-logarithm decoupling law
+\(\delta c \sim \Delta C_2\,(\alpha_0/4\pi)(M_X/M_{\text{Pl}})^2[\,c_L\ln(M_{\text{Pl}}/M_X)+c_0\,]\)
+in the cross-charged condensate mass \(M_X\), rather than the
+non-decoupling constant of the generic fine-tuning problem. What is
+certified is the symmetry statement --- the signed-permutation symmetry
+of the carrier components forbids a condensate-independent differential
+counterterm at the regulator level --- not the reported form. What
+remains of the conditional, under H-blind, is therefore not the
+existence of a protection but its quantitative closure: the reported
+decoupling form itself, pending an independent reproduction; the
+vertex-weighted one-loop point value of the normalization (structurally
+bounded, \(\Delta C_2 \in [0.58, 2.08]\)); the non-logarithmic constant
+of that loop (the substratum's own nonlinearity is component-local and
+contributes only to the universal cone, {[}SM §3.1{]}); and the
+condensate-gap determination of \(M_X\). On the reported form and
+constants the allowed window would be \(M_X \lesssim 10^{8}\) GeV on the
+worst-case \(\Delta C_2\), \(\sim 4\times10^{7}\) GeV with the reported
+kernel constants, against the tightest multi-species bounds, with a
+phenomenological floor at \(10^{3}\)--\(10^{6}\) GeV set by leptoquark
+bounds --- the cross-charged sector is baryon-safe at the gauge level,
+so proton decay does not close the window from below ({[}SM §3.1{]}) ---
+an illustrative one-and-a-half-to-four-and-a-half-decade window carrying
+the provenance of that calculation. The \(\hbar\) chain's boost
+conditional thus has the same two parts the Standard-Model sector
+carries: a certified matching theorem and a reported running
+calculation, the latter the one item shared across both papers and the
+one still to be verified.
+
+\begin{itemize}
+\item
+  The \emph{discreteness scale fixing} (§4) is purely algebraic given
+  the \(\hbar\) relation: rearranging it gives
+  \(\epsilon^2 = 4 \hbar G/c^3 = 4 l_p^2\). It inherits that relation's
+  conditions and nothing else.
+\item
+  The \emph{area law derivation} (§5) uses: the boundary mode count
+  \(N_{\rm modes} = A/\epsilon^2\) (depends only on the boundary's
+  geometric area and the discreteness scale; unconditional); the
+  identification of mode count with entropy via the partial-trace
+  structure; and, for the \(1/4\) normalization, the calibration of
+  §3.2, whose conditions it inherits.
+\item
+  The \emph{CC dissolution} (§6) uses: the structural distinction
+  between the emergent quantum vacuum energy (a property of the emergent
+  QFT description) and the effective cosmological constant (a property
+  of the classical substratum's gravitational dynamics). The distinction
+  is structural --- it follows from the two-level description
+  architecture of any embedded-observer system, not from OI's specific
+  substratum. The dynamical dissolution --- that the observer's
+  inability to see a vacuum offset entails its gravitational decoupling
+  --- is a coupling statement conditional on the G3 theorem (§6.2).
+\item
+  The \emph{running-vacuum form} (§7.1) uses: boundary entropy as
+  bookkeeping degree of freedom in the gap equation; the Clausius
+  relation \(\delta Q = T \delta S\) at the horizon; the fact that
+  boundary entropy is finite and depends on \(H\) via
+  \(A \propto H^{-2}\). What these yield is state dependence on
+  cosmological geometry whose smooth late-time normal form contains an
+  \(H^2 - H_0^2\) term; they do not single out the Type II law, whose
+  local expansion every smooth \(\rho_\Lambda(H)\) shares.
+\end{itemize}
+
+\textbf{Sufficient structural conditions.} The unconditional results
+(U1)--(U3) require the following structural conditions on the
+substratum:
+
+(\emph{S1}) \emph{Cosmological-horizon partition.} The substratum admits
+a partition \(V\) at a causal horizon with timescale
+\(\tau_B \sim H^{-1}\) and information capacity
+\(S_{\rm dS} \sim 10^{122}\).
+
+(\emph{S2}) \emph{C1--C3 satisfied.} The partition has substantial
+coupling (C1), slow-bath structure (C2), and high capacity (C3), per
+{[}Main §3{]}.
+
+(\emph{S3}) \emph{Finite discreteness.} The substratum has a finite
+discreteness scale \(\epsilon\) that admits identification with the
+boundary's mode-counting unit. {[}Main §3{]}'s Lemma 1 establishes
+finite-dimensionality from C1--C4; here we additionally require that the
+discreteness scale appears in the boundary mode count.
+
+(\emph{S4}) \emph{Stinespring/partial-trace structure.} The
+visible-sector dynamics is generated by partial trace of
+substratum-level dynamics over the hidden sector, with the trace
+producing a CPTP channel admitting Stinespring dilation {[}Main §3.2{]}.
+
+These conditions are weaker than OI's full structural conditions A1--A6:
+A1 (finiteness) implies S3 with finite \(\epsilon\); A6 (background
+independence) is required for the SM gauge-group derivation but not for
+the partition-geometry results; A2-A5 (determinism, bounded coupling,
+center independence, linearity) are required for OI's specific
+universality-class representative but not for the
+universality-class-level claims. A substratum satisfying S1-S4 but
+violating some of A2-A5 (e.g., a substratum with stochastic dynamics, or
+with nonlinear evolution) would still produce (U1)--(U3), and --- under
+H-slope, H-frame and H-Hawking at its horizon ---
+\(\hbar = c^3 \epsilon^2/(4G)\), \(\epsilon = 2\,l_p\) and the area law
+with its \(1/4\) coefficient, provided the partial-trace machinery and
+thermal self-consistency hold.
+
+\textbf{Theorem-level statement.} The universality claim can be stated
+at the level of the framework's hierarchical structure (per {[}Structure
+§2{]}):
+
+\emph{Theorem (universality of the partition-geometry results).} For any
+substratum \(\mathcal{S}\) satisfying S1--S4, (U1)--(U3) follow with the
+same content as derived in this paper for OI's specific substratum; if
+in addition H-slope, H-frame and the H-Hawking conditions hold at its
+horizon, so do (C1\('\))--(C3\('\)) with the same numerical content.
+
+The proof is the §3--§6 derivations themselves, with the observation
+that each step depends only on S1--S4 and the named conditions, not on
+OI's specific structural conditions A2--A5. A formal proof at the level
+of explicit theorem-style presentation has not been written out in this
+paper; the present section identifies the structural conditions required
+at each step, and the claim is established at that level.
+
+\textbf{Empirical implication.} The universality-class results have
+limited direct empirical content. GW250114 confirms Hawking's area
+theorem --- classical horizon dynamics that any framework retaining
+general relativity, at any hierarchy level, preserves; it does not
+measure entropy and therefore does not test the \(1/4\) coefficient at
+any level. Conversely, the dark-sector concordance (§7.2), the MOND-like
+phenomenology (§7.3), and the rotation-curve crossover (§7.3) depend on
+OI's specific gap-equation solution --- inheriting its conditions and
+the dimensional factor imported in §7.3 --- and are Level D × Levels
+G1--G2 predictions; their empirical confirmation would support OI's
+specific universality-class representative.
+
+The stratification clarifies what would falsify what: a measured
+violation of the area theorem would challenge the classical horizon
+dynamics the framework presupposes; a direct empirical test of the
+\(1/4\) coefficient, if one becomes available, would test the
+universality-class claim; a measured deviation from the dark-sector
+phenomenology would falsify OI's specific representative without
+necessarily refuting the universality class. The framework's empirical
+content thus operates at multiple hierarchy levels, with falsifiability
+stratified accordingly.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{relation-to-other-entropic-and-emergent-gravity-programs}{%
+\subsubsection{8.6 Relation to other entropic and emergent-gravity
+programs}\label{relation-to-other-entropic-and-emergent-gravity-programs}}
+
+The thermodynamic derivation of §3--§5 places this framework within a
+broader program that treats gravity as entropic or emergent rather than
+fundamental. Jacobson's equation-of-state derivation {[}1{]} is the
+direct antecedent used here; Verlinde's entropic-force account {[}50{]}
+and Padmanabhan's thermodynamic-aspects program {[}51{]} reach
+Einstein-level dynamics from horizon thermodynamics and holographic
+equipartition, sharing with this framework both the entropic premise and
+a holographic/boundary counting of degrees of freedom. More recently,
+Bianconi's \emph{gravity from entropy} {[}52{]} derives modified
+Einstein equations from an action built on the quantum relative entropy
+between the spacetime metric and a matter-induced metric, reproducing
+the low-energy Einstein equations and an emergent positive cosmological
+constant \emph{without} invoking horizon entropy or holography. The
+existence of this last route is worth stating plainly: ``gravity from
+entropy'' does not uniquely select the horizon/holographic architecture
+used here, so this framework's Jacobson--Bekenstein route is a specific
+commitment among alternatives rather than the only entropic path to
+Einstein dynamics. What this framework adds to the landscape is not the
+entropic premise --- which it shares --- but the discrete substratum
+beneath the thermodynamics ({[}Main{]}; {[}SM{]}) and the quantitative
+consequences specific to it (the fixed \(1/4\) coefficient,
+\(\epsilon = 2\,l_p\), and the running-vacuum coefficient of §7).
+
+A qualitative convergence is worth noting without overstating it:
+entropic and emergent-gravity programs generically yield a
+\emph{dynamical} dark-energy sector rather than a bare constant
+\(\Lambda\) --- the running vacuum of §7.1 here, and the always-positive
+G-field term of {[}52{]}. This convergence is at the level of the
+qualitative form (dark energy as a derived, non-constant feature) only;
+it does not transfer magnitude, sign, or mechanism between programs,
+which differ substantially. The sign and \(\sim 10^{-32}\) magnitude of
+the running-vacuum coefficient predicted here (§7.1) are specific to
+this construction --- not corroborated by, nor inherited from, the
+neighbouring programs.
+
+\hypertarget{kinematic-emergence-of-geometry-from-the-substratum}{%
+\subsubsection{8.7 Kinematic emergence of geometry from the
+substratum}\label{kinematic-emergence-of-geometry-from-the-substratum}}
+
+The derivations of §3--§5, and the four convergent necessity routes of
+§3.2 (\emph{An independent necessity statement}) (thermodynamic,
+gravitational closure, Lovelock, spin-2 bootstrap), all take a smooth
+Lorentzian metric as given and fix its \emph{dynamics}. A logically
+prior question is \emph{kinematic}: does the discrete substratum
+({[}SM{]}) actually yield a smooth pseudo-Riemannian geometry, with the
+right dimension and curvature, in the first place? §8.2 treats the
+continuum limit as a posit. This subsection reports a research program
+that makes that posit concrete at the weak-field level, by adapting
+standard discrete-geometry tools --- the spectral dimension {[}53{]} and
+the Ollivier--Ricci curvature {[}54{]} --- to the substratum graph. The
+results are consistency checks reproducing known Newtonian physics; they
+add no new empirical content, and the program's honest boundary is
+stated at the end.
+
+\emph{Dimension and curvature tool.} The cubic substratum has spectral
+dimension \(d_s \to 3\) (heat-kernel return probability), which with the
+emergent time direction is the target \(3+1\). Encoding a chosen
+emergent metric into the graph through the framework's own dispersion
+relation (bond weights fixed by the local light-cone speed) and
+computing curvature two independent ways --- combinatorially
+(Ollivier--Ricci) and analytically (the Riemannian curvature of that
+metric) --- the two agree (correlation \(\approx 0.97\);
+\(\kappa \approx \tfrac12 K\) as expected in two dimensions). So the
+discrete-curvature tool faithfully computes the framework's \emph{own}
+emergent-metric geometry rather than an unrelated combinatorial
+quantity.
+
+\emph{Weak-field gravity at the fixed \(G\).} In the weak field the
+Newtonian force is carried by the emergent-time-rate component
+\(g_{00}\) (the local substratum clock rate), not by spatial curvature;
+\(g_{00}\)-only geodesics reproduce closed Keplerian orbits obeying
+Kepler's third law. The Newtonian field itself follows from holographic
+equipartition using the framework's own constants
+(\(\eta = 1/\epsilon^2\); \(\hbar = c^3\epsilon^2/4G\)) together with
+the classical horizon temperature of §3.1: one obtains \(a = GM/r^2\)
+with the framework's \emph{fixed} \(G\) --- fixed through
+\(\epsilon = 2\,l_p\), so inheriting the conditions of §3.2 --- and the
+Poisson equation \(\nabla^2\Phi = 4\pi G\rho\) for extended sources. The
+two ingredients that are heuristic in the usual entropic-gravity
+argument are, here, consequences of the framework's structure:
+equipartition is the equipartition \emph{theorem} because the emergent
+boundary modes are harmonic (the {[}SM{]} wave equation), and the
+entropic force \(F = T\,dS/dx\) is a theorem of the reversible,
+energy-conserving microcanonical dynamics (Lemma 3). Notably the
+\emph{field} derivation requires no entropy-displacement (Bekenstein)
+input; the force on a test mass is field \(\times\) emergent inertia.
+
+\emph{Honest boundary.} These are weak-field, consistency-level results:
+they reproduce Newtonian gravity at the framework's own \(G\), not a new
+prediction. Three items remain genuinely open. (i) The equipartition
+degree-of-freedom normalization
+\(N_{\rm dof} = A/l_p^2 = 4\,S_{\rm BH}\) --- the standard relation in
+all entropic gravity --- is here \emph{adopted}, not derived from the
+substratum's microscopic component count (\(K = 2d = 6\) per site; one
+boundary-crossing component per cell); reconciling these counts is
+unsolved. (ii) The full nonlinear \(G_{\mu\nu} = 8\pi G\,T_{\mu\nu}\),
+and the Lorentzian/\(3{+}1\) generalization of the (Euclidean,
+conformal) curvature check, are not established. (iii) For the optional
+stronger claim that inertia itself is entropic, the
+entropy/Compton-phase identification remains an assumption. The
+program's value is thus (a) showing the discrete-curvature approach
+targets the framework's real geometry and (b) turning §8.2's posited
+continuum limit into a computation that reaches the Newtonian checkpoint
+with the remaining steps explicitly marked --- not a claim to have
+derived general relativity from the substratum.
+
+\hypertarget{conclusion}{%
+\subsection{9. Conclusion}\label{conclusion}}
+
+The cosmological horizon realizes the embedded-observation framework of
+{[}Main{]}, and the consequences for the gravitational sector are sharp.
+The emergent action scale \(\hbar = c^3 (2\,l_p)^2 / (4G)\) is
+determined by thermal self-consistency between the classical horizon
+temperature and the Euclidean periodicity of the emergent QFT, as a gap
+equation with \(\epsilon\) the one free geometric input (§4),
+conditional on H-slope (§3.2). The Bekenstein-Hawking entropy
+\(S = A/(4 l_p^2)\) follows by direct mode counting, with the \(1/4\)
+coefficient fixed as the ratio between the Euclidean KMS period and the
+Jacobson prefactor --- a structural constant rather than an empirical
+fit, carrying the same condition together with the horizon and frame
+conditions of §2 and §8.5. The GW250114 observation of September 2025
+confirms Hawking's area theorem at \(99.999\%\) confidence --- classical
+horizon dynamics the framework preserves; the \(1/4\) coefficient has no
+direct empirical test. The cosmological constant problem is addressed at
+Level G1 --- dissolved at the descriptive-levels register, with the
+covariant Level-G3 target equation (§7) the decisive open: the
+\(10^{122}\) ratio between the quantum vacuum energy and the effective
+\(\Lambda\) is the compression ratio between two levels of description
+that refer to incommensurable objects, not a failure of cancellation.
+
+The empirical payoff is the set of predictions in §7. The dark-energy
+content is geometry-dependent bookkeeping whose smooth late-time
+expansion contains an \(H^2 - H_0^2\) term shared by every smooth model,
+read in the Type II running-vacuum channel --- a structural reading, not
+a derived law (§7.1): consistent with the Bertini et al.~(2025) direct
+fit to DESI DR2 + DES-Y5 + Planck 2018 {[}15{]} (which reports \(\nu\)
+consistent with zero at \(2\sigma\)), and decisively testable by DESI
+Year 5 and subsequent stage-IV surveys. The coefficient's magnitude is
+the self-consistent emergent-QFT value \(|\nu_{\rm QFT}| \sim 10^{-32}\)
+(conditional on the §7.3 split, not yet established at theorem level),
+observationally indistinguishable from zero. Substratum contributions
+beyond this are constrained by the boundary mode count of §3.1 and §5
+--- spatial location alone, with no inherent frequency assignment --- to
+be well below \(|\nu_{\rm QFT}|\) under the natural 2D distribution. The
+framework's structural prediction is therefore the Type II channel with
+\(|\nu| \approx |\nu_{\rm QFT}|\) and \(w(z) \approx -1\). The
+dark-sector corollary explains \textasciitilde95\% of the gravitational
+budget of the universe without new fundamental particles, and the
+absence of direct dark-matter detection at the LZ and XENONnT
+experiments is interpreted within the framework as a structural
+consequence rather than a null result to be explained away. The MOND
+phenomenology emerges --- at the G1 register, with the covariant
+completion (§7) the standing conditional --- from entropy displacement
+at the cosmological boundary with \(a_0 = cH/6\) (the factor \(1/6\)
+imported from Verlinde), reproducing the baryonic Tully-Fisher relation
+and predicting Keplerian decline at \(r > r_M\) --- the latter confirmed
+by the Jiao et al.~(2023) detection of a Keplerian decline in the Milky
+Way's own rotation curve at \(\sim 17\) kpc. The \(H(z)\) scaling of
+\(a_0\) predicts systematically more baryon-dominated rotation curves at
+high redshift, consistent with Genzel et al.'s detection of declining
+outer velocities at \(z = 0.9\)--\(2.4\) and testable at higher
+precision by JWST and ELT kinematics.
+
+The foundational framework developed in {[}Main{]} and the cubic-lattice
+realization developed in {[}SM{]} are complementary to the present work:
+{[}Main{]} establishes the equivalence between embedded observation and
+quantum mechanics, the present paper applies it to the cosmological
+horizon, and the SM paper applies it to the microscopic lattice
+substratum. The reconstruction theorem and the synthesis claim --- that
+quantum mechanics, general relativity, and the arrow of time descend as
+three projections of the same deterministic \((S, \varphi)\) --- are
+developed in {[}Substratum{]}. Together, this four-paper synthesis
+({[}Main{]}, {[}SM{]}, {[}GR{]}, {[}Substratum{]}) establishes that the
+Standard Model, general relativity, and the arrow of time are three
+faces of a single finite deterministic construction, with quantum
+mechanics emerging as the unique self-consistent description for any
+observer bounded by a causal horizon. The framework's hierarchical
+structural realism and its relationship to other unification programs
+are developed in the fifth core paper {[}Structure{]}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{appendix-a-nested-partitions}{%
+\subsection{Appendix A: Nested
+Partitions}\label{appendix-a-nested-partitions}}
+
+This appendix develops the nested-partition formalism for the framework,
+establishing the self-consistency of multiple coexisting causal
+boundaries (typically a black hole horizon inside a cosmological
+horizon) and deriving the generalized second law and the Page curve as
+consequences.
+
+\hypertarget{a.1-setup}{%
+\subsubsection{A.1 Setup}\label{a.1-setup}}
+
+Let \(\mathcal{C}_V\), \(\mathcal{C}_B\), \(\mathcal{C}_D\) be finite
+configuration spaces with \(|\mathcal{C}_V|, |\mathcal{C}_B| \geq 2\),
+and let
+\(\varphi: \mathcal{C}_V \times \mathcal{C}_B \times \mathcal{C}_D \to \mathcal{C}_V \times \mathcal{C}_B \times \mathcal{C}_D\)
+be a bijection. The physical picture: \(V\) is the region between a
+black hole horizon and the cosmological horizon, \(B\) is the black hole
+interior, \(D\) is the trans-cosmological region. Define
+\(W = V \cup B\) (the cosmological interior).
+
+Two procedures produce a quantum description on \(V\):
+
+\emph{Direct:} Trace out \(B \cup D\) in one step, marginalizing over
+\(\mathcal{C}_B \times \mathcal{C}_D\).
+
+\emph{Sequential:} (Stage 1) Trace out \(D\), producing emergent QM on
+\(W\). (Stage 2) Within the emergent QM on \(W\), trace out \(B\),
+producing a further-reduced description on \(V\).
+
+\hypertarget{a.2-classical-associativity}{%
+\subsubsection{A.2 Classical
+Associativity}\label{a.2-classical-associativity}}
+
+\textbf{Theorem A.1.} \emph{The direct and sequential procedures produce
+the same transition probabilities on \(\mathcal{C}_V\).}
+
+\emph{Proof.} The direct transition matrix is:
+
+\[T^{\text{dir}}_{ij}(t) = \frac{1}{|\mathcal{C}_B||\mathcal{C}_D|} \sum_{b \in \mathcal{C}_B} \sum_{d \in \mathcal{C}_D} \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))]\]
+
+The sequential procedure marginalizes over \(D\) (Stage 1) then over
+\(B\) (Stage 2). Composing:
+
+\[T^{\text{seq}}_{ij}(t) = \frac{1}{|\mathcal{C}_B|} \sum_b \frac{1}{|\mathcal{C}_D|} \sum_d \delta_{x_j}[\pi_V(\varphi_t(x_i, b, d))] = T^{\text{dir}}_{ij}(t)\]
+
+The sums commute (Fubini on a finite product). \(\square\)
+
+\hypertarget{a.3-quantum-classical-consistency}{%
+\subsubsection{A.3 Quantum-Classical
+Consistency}\label{a.3-quantum-classical-consistency}}
+
+\textbf{Theorem A.2} (Quantum-classical consistency of nested
+trace-outs). \emph{Let \(\Phi_V^{\text{dir}}\) and
+\(\Phi_V^{\text{seq}}\) be the CPTP channels on \(\mathcal{H}_V\)
+produced by the direct and sequential procedures respectively. Then
+\(\Phi_V^{\text{dir}} = \Phi_V^{\text{seq}}\).}
+
+\emph{Proof.} By the Stinespring dilation theorem {[}30, 31{]},
+\(\varphi\) defines a unitary \(U_\varphi\) on
+\(\mathcal{H} = \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\).
+The direct channel is
+\(\Phi_V^{\text{dir}}(\rho_V) = \text{Tr}_{BD}[U_\varphi\,(\rho_V \otimes \rho_B \otimes \rho_D)\,U_\varphi^\dagger]\).
+The sequential channel is
+\(\Phi_V^{\text{seq}}(\rho_V) = \text{Tr}_B[\text{Tr}_D[U_\varphi\,(\rho_V \otimes \rho_B \otimes \rho_D)\,U_\varphi^\dagger]]\).
+On finite-dimensional tensor products,
+\(\text{Tr}_B \circ \text{Tr}_D = \text{Tr}_{BD}\), giving
+\(\Phi_V^{\text{seq}} = \Phi_V^{\text{dir}}\). \(\square\)
+
+\hypertarget{a.4-hamiltonian-and-hbar-consistency}{%
+\subsubsection{\texorpdfstring{A.4 Hamiltonian and \(\hbar\)
+Consistency}{A.4 Hamiltonian and \textbackslash hbar Consistency}}\label{a.4-hamiltonian-and-hbar-consistency}}
+
+\textbf{Corollary A.3} (Hamiltonian consistency). \emph{The direct and
+sequential procedures yield the same emergent dynamics in two regimes.
+At the reconstruction level, with no assumption beyond the §3.3
+hypotheses: Theorem A.2 gives equal transition data, so under the §3.3
+hypotheses
+\(\hat{H}_V^{\text{dir}} = D\,\hat{H}_V^{\text{seq}}\,D^\dagger + E_0\)
+or
+\(\hat{H}_V^{\text{dir}} = -D\,\bar{\hat{H}}_V^{\text{seq}}\,D^\dagger + E_0\),
+for a time-independent diagonal unitary \(D\) and a real \(E_0\). If
+moreover the common channel family of Theorem A.2 is exactly unitary,
+\(\Phi_t = \mathrm{Ad}_{U(t)}\) for both procedures, then
+\(\mathrm{Ad}_{U_{\text{dir}}(t)} = \mathrm{Ad}_{U_{\text{seq}}(t)}\)
+forces \(U_{\text{dir}}(t) = e^{i\theta(t)}\,U_{\text{seq}}(t)\) with
+\(\theta(t) = -E_0 t\), and
+\(\hat{H}_V^{\text{dir}} = \hat{H}_V^{\text{seq}} + E_0\) --- no
+antiunitary branch and no nontrivial \(D\).}
+
+\emph{Proof.} Theorem A.2 gives
+\(\Phi_V^{\text{dir}} = \Phi_V^{\text{seq}}\), hence
+\(T^{\text{dir}}_{ij}(t) = T^{\text{seq}}_{ij}(t)\) for all \(t\) (Born
+rule applied to diagonal elements), and the two-branch theorem (§3.3)
+gives the reconstructed form. In the exact-unitary regime, equality of
+the conjugation actions at each time makes
+\(U_{\text{seq}}(t)^\dagger U_{\text{dir}}(t)\) commute with every
+visible operator, hence a unimodular scalar (kernel:
+\texttt{ad\_eq\_scalar}); the resulting identity of spectral phase
+families \(e^{-iE_a t} = c(t)\,e^{-iE'_a t}\) forces the eigenvalue
+differences \(E_a - E'_a\) to be mode-independent (kernel:
+\texttt{phase\_families\_shift}), so \(\theta(t) = -E_0 t\) and the
+generators differ by the scalar shift alone. Exact channel equality in
+the same visible algebra carries the coherence information that
+transition probabilities discard, which is why the antiunitary branch
+and the diagonal gauge both disappear; a general CPTP reduced dynamics,
+by contrast, has no uniquely defined Hamiltonian part, and the
+reconstruction-level clause claims none. \(\square\)
+
+\textbf{Corollary A.4} (\(\hbar\) universality). \emph{Both procedures
+yield the same emergent action scale \(\hbar = c^3 \epsilon^2 / (4G)\).}
+
+\emph{Proof.} \(\hbar\) depends only on local boundary quantities \(c\),
+\(G\), \(\epsilon\) (§3.2, Steps 2--3), not on which horizon defines the
+partition or how many trace-outs are performed. \(\square\)
+
+\hypertarget{a.5-additive-dissipators}{%
+\subsubsection{A.5 Additive
+Dissipators}\label{a.5-additive-dissipators}}
+
+\textbf{Theorem A.5} (Additive dissipators). \emph{Let the classical
+Hamiltonian be spatially local with coupling chain
+\(V \leftrightarrow B \leftrightarrow D\) (no direct \(V\)-\(D\)
+coupling). Let \(\tau_B^D\) be the \(D\)-sector timescale and
+\(\tau_B^B\) the \(B\)-sector timescale. On observation timescales
+\(t \ll \min(\tau_B^D, \tau_B^B)\), the correction to the frozen-limit
+description on \(\mathcal{H}_V\) --- an absorbable Hermitian drift at
+first order in each timescale ratio, with genuine dissipation entering
+at second order ({[}Main, §3.2{]}) --- decomposes as:}
+
+\[\mathcal{D}_V = \mathcal{D}_V^{(B)} + \mathcal{D}_V^{(D)} + \mathcal{R}\]
+
+\emph{where
+\(\|\mathcal{D}_V^{(B)}\| = \mathcal{O}(\tau_S / \tau_B^B)\),
+\(\|\mathcal{D}_V^{(D)}\| = \mathcal{O}(\tau_S / \tau_B^D)\), and the
+cross term satisfies
+\(\|\mathcal{R}\| = \mathcal{O}(\tau_S^2 / (\tau_B^B \cdot \tau_B^D))\).}
+
+\emph{Proof.} The proof applies the boundary-only dependence lemma
+(§3.2) twice, tracking the cross term at each stage.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  \emph{First application: freeze \(D\).} Apply the boundary-only
+  dependence lemma to the partition \((W, D)\) where \(W = V \cup B\).
+  By spatial locality,
+  \(H_{\text{tot}} = H_V + H_B + H_D + H_{VB} + H_{BD}\) with no direct
+  \(V\)-\(D\) coupling. The \(D\)-sector is frozen on timescales
+  \(t \ll \tau_B^D\), giving:
+\end{enumerate}
+
+\[T^V_{ij}(t) = \frac{1}{|\mathcal{C}_B|} \sum_{b \in \mathcal{C}_B} \delta_{x_j}[\pi_V(\varphi_t^{VB}(x_i, b))] + \mathcal{O}(t / \tau_B^D)\]
+
+where \(\varphi_t^{VB}\) is the flow restricted to \(V \times B\) with
+\(D\) frozen. The \(\mathcal{O}(t / \tau_B^D)\) correction arises from
+\(D\)'s back-reaction on \(B\) through \(H_{BD}\).
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\item
+  \emph{Dissipator from the frozen-\(D\) dynamics.} The frozen-\(D\)
+  flow \(\varphi_t^{VB}\) is a bijection on
+  \(\mathcal{C}_V \times \mathcal{C}_B\) --- the standard Stinespring
+  setup with \(B\) as the hidden sector. The emergent dynamics on \(V\)
+  is approximately unitary, with total departure from the frozen-\(B\)
+  description
+  \(\mathcal{D}_V^{(B)} \sim \mathcal{O}(\tau_S / \tau_B^B)\), of which
+  the non-absorbable (dissipative) part enters at second order ({[}Main,
+  §3.2{]}).
+\item
+  \emph{Decomposition of the \(D\)-correction.} The
+  \(\mathcal{O}(t / \tau_B^D)\) correction from step (i) has two
+  components:
+\end{enumerate}
+
+\emph{Direct:} \(D\)'s back-reaction shifts the boundary modes of \(B\)
+by \(\delta b \sim \mathcal{O}(t / \tau_B^D)\). This propagates through
+\(H_{VB}\) to the visible sector, contributing
+\(\mathcal{D}_V^{(D)} \sim \mathcal{O}(\tau_S / \tau_B^D)\) to the total
+correction (same first-order/second-order split).
+
+\emph{Cross:} The shift \(\delta b\) also modifies the effective
+\(B\)-state against which \(\mathcal{D}_V^{(B)}\) is computed. The
+dissipator \(\mathcal{D}_V^{(B)}\) depends on the \(B\)-state through
+the Liouville average over \(b\). The \(D\)-induced shift changes this
+average by \(\mathcal{O}(t / \tau_B^D)\), so:
+
+\[\|\mathcal{R}\| = \left\|\frac{\partial \mathcal{D}_V^{(B)}}{\partial b}\right\| \cdot \|\delta b\| \leq \|\mathcal{D}_V^{(B)}\| \cdot \mathcal{O}(t / \tau_B^D) = \mathcal{O}\!\left(\frac{\tau_S}{\tau_B^B} \cdot \frac{\tau_S}{\tau_B^D}\right) = \mathcal{O}\!\left(\frac{\tau_S^2}{\tau_B^B \cdot \tau_B^D}\right)\]
+
+The inequality uses the fact that \(\mathcal{D}_V^{(B)}\) is a
+continuous function of the \(B\)-state distribution and the shift is
+first-order in \(t / \tau_B^D\). \(\square\)
+
+\textbf{Bound for the cosmological + stellar black hole case.} For a
+\(30 M_\odot\) black hole inside the cosmological horizon:
+\(\tau_S \sim 10^{-15}\) s,
+\(\tau_B^B \sim \tau_{\text{scr}} \sim \beta \log S_{\text{BH}} \sim 10^{-3}\)
+s, \(\tau_B^D \sim 1/H \sim 10^{17}\) s. The three terms:
+
+\[\|\mathcal{D}_V^{(B)}\| \sim 10^{-12}, \qquad \|\mathcal{D}_V^{(D)}\| \sim 10^{-32}, \qquad \|\mathcal{R}\| \sim 10^{-44}\]
+
+The cross term is negligible by 12 orders of magnitude relative to the
+smaller of the two primary corrections.
+
+\hypertarget{a.6-the-generalized-second-law}{%
+\subsubsection{A.6 The Generalized Second
+Law}\label{a.6-the-generalized-second-law}}
+
+The Bekenstein-Hawking entropy of a horizon is the information content
+of the corresponding partition boundary (§5):
+\(S_{\text{BH}} = A_{\text{BH}} / (4\,l_p^2)\) modes at the black hole
+horizon, \(S_{\text{dS}} = A_{\text{dS}} / (4\,l_p^2)\) modes at the
+cosmological horizon. The matter entropy is the von Neumann entropy of
+the visible-sector state:
+\(S_{\text{matter}} = -\text{Tr}[\rho_V \log \rho_V]\).
+
+\textbf{Theorem A.6} (Generalized second law). \emph{For any process
+described by the CPTP channel \(\Phi_V\) on \(\mathcal{H}_V\):}
+
+\[S_{\text{matter}}(t) + S_{\text{BH}}(t) + S_{\text{dS}}(t) \geq S_{\text{matter}}(0) + S_{\text{BH}}(0) + S_{\text{dS}}(0)\]
+
+\emph{Proof.} The total system \((S, \varphi)\) evolves unitarily at the
+fundamental level, so the total fine-grained entropy
+\(S_{\text{total}} = \log|S|\) is constant. The three terms
+\(S_{\text{matter}}\), \(S_{\text{BH}}\), \(S_{\text{dS}}\) are the
+observer's ignorance about three sectors: \(V\), \(B\), \(D\)
+respectively.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\tightlist
+\item
+  \emph{Subadditivity.} For the tripartite system
+  \(\mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\) in a
+  pure state \(|\Psi\rangle\) (the total state is deterministic, hence
+  pure conditioned on the initial state), the strong subadditivity of
+  von Neumann entropy {[}31{]} gives:
+\end{enumerate}
+
+\[S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B) + S(\rho_{VBD})\]
+
+Since \(\rho_{VBD} = |\Psi\rangle\langle\Psi|\) is pure,
+\(S(\rho_{VBD}) = 0\). Thus
+\(S(\rho_{VB}) + S(\rho_{BD}) \geq S(\rho_B)\).
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{1}
+\item
+  \emph{Identification.} The observer's matter entropy is
+  \(S_{\text{matter}} = S(\rho_V)\). By purification on the tripartite
+  system: \(S(\rho_V) = S(\rho_{BD})\). The black hole entropy is
+  \(S_{\text{BH}} = S(\rho_B)\) restricted to the boundary modes (the
+  number of \(B\)-modes coupled across the black hole horizon). The
+  cosmological entropy is \(S_{\text{dS}} = S(\rho_D)\) restricted to
+  the boundary modes.
+\item
+  \emph{Monotonicity and compensation.} The hidden-sector prior is
+  uniform (Liouville marginalization), so the marginal channel is
+  unital:
+  \(\Phi_V(I_V) = \text{Tr}_{BD}[U_\varphi\,(I_V \otimes \rho_B \otimes \rho_D)\,U_\varphi^\dagger] = I_V\)
+  for maximally mixed \(\rho_B, \rho_D\). Unital channels are
+  entropy-non-decreasing (their outputs are majorized by their inputs
+  {[}31{]}), so \(S(\rho_V)\) is non-decreasing under the emergent
+  dynamics. (Relative-entropy contraction alone would not suffice ---
+  general CPTP maps can decrease entropy; the uniform prior is
+  load-bearing here.) Any process that decreases \(S_{\text{BH}}\)
+  (shrinking the black hole) transfers information from \(B\) to
+  \(V \cup D\). By the unitarity of \(\varphi\), the total mutual
+  information \(I(V:B:D)\) is conserved, so the decrease in
+  \(S_{\text{BH}}\) is compensated by an increase in
+  \(S_{\text{matter}} + S_{\text{dS}}\). \(\square\)
+\end{enumerate}
+
+\hypertarget{a.7-the-page-curve}{%
+\subsubsection{A.7 The Page Curve}\label{a.7-the-page-curve}}
+
+\textbf{Setup.} A black hole with initial horizon area \(A_0\)
+evaporates. The partition boundary at the black hole horizon moves:
+modes transition from \(B\) (interior) to \(R\) (radiation, a subsystem
+of \(V\)) as the horizon shrinks. Define
+\(n_B(t) = A_{\text{BH}}(t) / (4\,l_p^2)\) (the number of boundary modes
+at the BH horizon) and \(n_R(t) = n_B(0) - n_B(t)\) (the number of
+emitted radiation modes). Conservation:
+\(n_B(t) + n_R(t) = n_B(0) = S_{\text{BH}}(0)\).
+
+The trans-cosmological sector \(D\) is frozen on evaporation timescales
+(\(\tau_{\text{evap}} \ll \tau_B^D\)), so by Theorem A.5 the relevant
+dynamics is the bipartite system \(B \cup R\) with \(D\) decoupled at
+leading order.
+
+\textbf{Theorem A.7} (Effective bipartite pure state). \emph{On
+timescales \(t \ll \tau_B^D\), the joint state of \(B\) and \(R\) is
+effectively pure:
+\(\rho_{BR} = |\psi(t)\rangle\langle\psi(t)| + \mathcal{O}(\tau_S / \tau_B^D)\),
+where
+\(|\psi(t)\rangle \in \mathcal{H}_B(t) \otimes \mathcal{H}_R(t)\).}
+
+\emph{Proof.} The total system evolves unitarily under \(U_\varphi\)
+(§A.3). The total state
+\(|\Psi\rangle \in \mathcal{H}_V \otimes \mathcal{H}_B \otimes \mathcal{H}_D\)
+is pure (deterministic evolution from a definite initial state). By the
+boundary-only dependence lemma, the \(D\)-sector is frozen: \(\rho_D\)
+is approximately constant, and
+\(|\Psi\rangle \approx |\psi_{VB}\rangle \otimes |\chi_D\rangle + \mathcal{O}(\tau_S / \tau_B^D)\).
+Restricting to the \(B \cup R\) subsystem (where \(R \subset V\) is the
+radiation): \(\rho_{BR} \approx |\psi\rangle\langle\psi|\) is pure at
+leading order. The correction is
+\(\mathcal{O}(\tau_S / \tau_B^D) \sim 10^{-32}\). \(\square\)
+
+\textbf{Theorem A.8} (Cycle typicality, conditional on H-scramble).
+\emph{For the dynamics \(\varphi\) on the energy shell
+\(\Sigma_E \subset \mathcal{H}_B \otimes \mathcal{H}_R\), the
+time-averaged entanglement entropy of the radiation equals the Page
+value {[}32{]}:}
+
+\[\overline{S(\rho_R)} = S_{\text{Page}}(d_B, d_R) + \mathcal{O}(\epsilon)\]
+
+\emph{for all initial conditions except a fraction
+\(\leq (\ln d_{\min}/\epsilon)\,e^{-c \, d_{\min} \, \epsilon^2}\),
+where \(d_B = |\mathcal{C}_B(t)|\), \(d_R = |\mathcal{C}_R(t)|\),
+\(d_{\min} = \min(d_B, d_R)\), and:}
+
+\[S_{\text{Page}}(d_B, d_R) = \ln(\min(d_B, d_R)) - \frac{\min(d_B, d_R)}{2\max(d_B, d_R)}\]
+
+\emph{Proof.} The bijection \(\varphi\) conserves energy (the wave
+equation is Hamiltonian), so \(\varphi\) restricts to a bijection on
+each energy shell \(\Sigma_E\). Since \(\Sigma_E\) is finite, this
+restricted bijection decomposes into disjoint cycles
+\(C_1, \ldots, C_k\) with lengths \(L_1, \ldots, L_k\) summing to
+\(|\Sigma_E|\). On each cycle \(C_j\), the time average of any
+observable \(f\) is exact:
+
+\[\overline{f}_{C_j} = \frac{1}{L_j} \sum_{s \in C_j} f(s)\]
+
+By Popescu-Short-Winter {[}29{]}, the set of atypical states --- those
+with
+\(|S(\text{Tr}_B |\psi\rangle\langle\psi|) - S_{\text{Page}}| > \epsilon\)
+--- has measure at most \(\eta = e^{-c \, d_{\min} \, \epsilon^2}\),
+where \(d_{\min} = \min(d_B, d_R)\) and \(c > 0\) is a universal
+constant.
+
+\textbf{The measures are different, and the step below requires a
+hypothesis (H-scramble).} {[}29{]} bounds a Haar fraction on the unit
+sphere of a constrained Hilbert subspace. It does not bound the fraction
+of an arbitrary discrete set of substratum configurations, nor of a
+permutation orbit, so ``the total number of atypical states is at most
+\(\eta|\Sigma_E|\)'' does not follow from {[}29{]} alone. The gap is not
+technical. Let the shell be the computational product basis
+\(\{|b\rangle\otimes|r\rangle\}\) at a common energy and let \(\varphi\)
+be one long cycle permuting it: \(\varphi\) is finite and bijective,
+conserves the shell, its orbit can contain every basis configuration,
+its counting measure is exactly uniform, and yet every visited state is
+a product state with \(S(\rho_R)=0\), while the Page value is
+\(\ln d_{\min}-d_{\min}/(2d_{\max})>0\) for \(d_B,d_R>1\) --- a gap of
+\(0.886\) nats already at \(d_B=d_R=4\). So finite bijectivity, energy
+conservation and uniform cycle counting together do not give Page
+typicality.
+
+What the argument needs is a separate condition, \textbf{H-scramble}:
+the orbit ensemble equidistributes over quantum pure states on the
+shell, in the sense of an approximate unitary design or comparable
+scrambling property. Under H-scramble the counting step below goes
+through with \(\eta|\Sigma_E|\) as written. H-scramble is not
+established here, and the lesson generalizes: uniformity over classical
+microstates is not uniformity over quantum pure states. The same
+distinction governs H-state in §2.
+
+Call a cycle \emph{bad} if its time-averaged entropy deviates from
+\(S_{\text{Page}}\) by more than \(2\epsilon\). Every state's deviation
+is bounded by \(\ln d_{\min}\), so a cycle with atypical fraction
+\(f_j\) satisfies
+\(|\overline{S}_{C_j} - S_{\text{Page}}| \leq \epsilon + f_j \ln d_{\min}\);
+a bad cycle therefore requires \(f_j \geq \epsilon/\ln d_{\min}\),
+i.e.~\(L_j \leq (\ln d_{\min}/\epsilon)\,|\{s \in C_j : s \text{ atypical}\}|\).
+Summing over all bad cycles:
+
+\[\sum_{j \,\text{bad}} L_j \leq \frac{\ln d_{\min}}{\epsilon}\,\eta\,|\Sigma_E|\]
+
+The fraction of initial conditions on \(\Sigma_E\) that land on a bad
+cycle is therefore at most
+\((\ln d_{\min}/\epsilon)\,\eta = (\ln d_{\min}/\epsilon)\,e^{-c \, d_{\min} \, \epsilon^2}\)
+--- the polynomial prefactor is negligible against the exponential
+concentration. For a \(30 M_\odot\) black hole,
+\(d_{\min} \sim e^{S_{\text{BH}}} \sim e^{10^{77}}\), so
+\(\eta \sim e^{-10^{77}}\). For all but an exponentially negligible
+fraction of initial conditions, the time-averaged entanglement entropy
+equals the Page value. \(\square\)
+
+\textbf{Theorem A.9} (conditional on A.8, hence on H-scramble) (The Page
+curve). \emph{The entanglement entropy of the radiation follows:}
+
+\[S_{\text{rad}}(t) = \begin{cases} n_R(t) \cdot \ln q - \frac{q^{n_R(t)}}{2\,q^{n_B(t)}} & \text{for } n_R(t) < n_B(t) \quad \text{(early: before Page time)} \\ n_B(t) \cdot \ln q - \frac{q^{n_B(t)}}{2\,q^{n_R(t)}} & \text{for } n_R(t) > n_B(t) \quad \text{(late: after Page time)} \end{cases}\]
+
+\emph{where \(q\) is the alphabet size (gauge --- it cancels in all
+ratios), \(n_B(t) + n_R(t) = n_B(0)\), and the Page time \(t_P\) is
+defined by \(n_R(t_P) = n_B(t_P) = n_B(0)/2\).}
+
+\emph{Proof.} Direct substitution of \(d_B = q^{n_B(t)}\) and
+\(d_R = q^{n_R(t)}\) into the Page entropy formula (Theorem A.8), using
+\(\ln(q^n) = n \ln q\) and the conservation law \(n_B + n_R = n_B(0)\).
+The turnover at \(n_R = n_B\) follows from \(\min(d_B, d_R)\) switching
+from \(d_R\) to \(d_B\). \(\square\)
+
+\textbf{The evaporation trajectory.} The Hawking temperature (§3.2, Step
+4) gives luminosity \(L \sim 1/M^2\), hence \(dM/dt = -\alpha/M^2\)
+where \(\alpha = \hbar c^4 \Gamma / (15360 \pi G^2)\) and \(\Gamma\) is
+the species-dependent greybody factor (solution-specific). Integrating:
+
+\[M(t) = M_0\!\left(1 - t/t_{\text{evap}}\right)^{1/3}, \qquad t_{\text{evap}} = \frac{M_0^3}{3\alpha}\]
+
+The boundary mode count
+\(n_B(t) = 4\pi G M(t)^2 / (\hbar c) = n_B(0) \cdot (1 - t/t_{\text{evap}})^{2/3}\)
+and \(n_R(t) = n_B(0) - n_B(t)\). The Page time \(t_P\) satisfies
+\(n_B(t_P) = n_B(0)/2\):
+
+\[t_P = t_{\text{evap}}\!\left(1 - 2^{-3/2}\right) \approx 0.646 \; t_{\text{evap}}\]
+
+The entropy of the radiation at the Page time is
+\(S_{\text{rad}}(t_P) = n_B(0) \ln q / 2 = S_{\text{BH}}(0) \ln q / 2\)
+--- half the initial black hole entropy, as expected.
+
+\textbf{Remark (Comparison with QES + islands).} The Page-curve
+derivation above quantitatively matches the prediction obtained via the
+quantum extremal surface formula and the entanglement-island
+construction {[}41, 42, 43, 44{]}. In the QES approach, the Page curve
+emerges through an extremization principle that selects the dominant
+saddle in a replica-trick computation, with the post-Page-time saddle
+including an ``island'' --- a region of bulk spacetime that contributes
+to the radiation's entanglement entropy despite being topologically
+disconnected. The replica wormhole geometries that connect the replicas
+in the gravitational path integral are essential to obtaining the
+saturating Page curve at late times.
+
+The framework here arrives at the same Page time
+\(t_P = (1 - 2^{-3/2}) t_{\rm evap}\) and the same Page entropy
+\(S_{\rm rad}(t_P) = S_{\rm BH}(0)\ln q/2\) through a structurally
+cleaner mechanism: the cycle-typicality argument of Theorem A.8 invokes
+only Popescu-Short-Winter {[}29{]} applied to the deterministic
+substratum dynamics on the energy shell, with no replica trick, no
+ergodicity assumption, and no gravitational path integral. The
+``island'' in the QES formulation corresponds, in the present
+construction, to the post-Page-time regime in which the BH boundary
+modes form the smaller subsystem; the ``replica wormhole'' geometries
+appear to correspond to the substratum's cycle structure on the energy
+shell. This suggested correspondence --- replica wormholes ↔ substratum
+cycles --- is conjectural at this stage; making it precise would require
+constructing the gravitational path integral as an effective description
+of the substratum dynamics in the appropriate limit. What the present
+derivation establishes --- under Theorem A.8's typicality and
+horizon-factorization hypotheses, at the G1 register --- is that the
+Page curve's quantitative content is reproducible from a finite
+deterministic substratum without invoking the replica machinery.
+
+The convergence is structural: both approaches require \emph{something}
+to play the role of typicality (PSW measure-concentration here, replica
+saddles in QES + islands), and both extract the same Page time and Page
+entropy from that ingredient. The framework here establishes that the
+typicality-providing ingredient need not be gravitational at all --- it
+can be combinatorial, on the substratum side of the trace-out --- which
+constitutes a microscopic realization of the entanglement-island
+construction.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{references}{%
+\subsection{References}\label{references}}
+
+\textbf{Companion papers (cited inline by short name):}
+
+{[}Main{]} A. Maybaum, ``The Incompleteness of Observation,'' (2026).
+
+{[}SM{]} A. Maybaum, ``The Standard Model from a Cubic Lattice,''
+(2026).
+
+{[}Substratum{]} A. Maybaum, ``The Substratum Construction:
+Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis,''
+(2026).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+{[}1{]} T. Jacobson, ``Thermodynamics of Spacetime: The Einstein
+Equation of State,'' \emph{Phys. Rev.~Lett.} \textbf{75}, 1260 (1995).
+
+{[}2{]} G. W. Gibbons and S. W. Hawking, ``Cosmological event horizons,
+thermodynamics, and particle creation,'' \emph{Phys. Rev.~D}
+\textbf{15}, 2738 (1977).
+
+{[}3{]} W. G. Unruh, ``Sonic analogue of black holes and the effects of
+high frequencies on black hole evaporation,'' \emph{Phys. Rev.~D}
+\textbf{51}, 2827 (1995).
+
+{[}4{]} K. Fredenhagen and R. Haag, ``On the derivation of Hawking
+radiation associated with the formation of a black hole,'' \emph{Commun.
+Math. Phys.} \textbf{127}, 273--284 (1990).
+
+{[}5{]} LIGO Scientific Collaboration, Virgo Collaboration, and KAGRA
+Collaboration: A. G. Abac et al., ``GW250114: Testing Hawking's Area Law
+and the Kerr Nature of Black Holes,'' \emph{Phys. Rev.~Lett.}
+\textbf{135}, 111403 (2025).
+
+{[}6{]} J. Martin, ``Everything you always wanted to know about the
+cosmological constant problem (but were afraid to ask),'' \emph{C. R.
+Phys.} \textbf{13}, 566--665 (2012).
+
+{[}7{]} S. Weinberg, ``The cosmological constant problem,''
+\emph{Rev.~Mod. Phys.} \textbf{61}, 1 (1989).
+
+{[}8{]} S. M. Carroll, ``The Cosmological Constant,'' \emph{Living
+Rev.~Relativ.} \textbf{4}, 1 (2001).
+
+{[}9{]} D. H. Wolpert, ``Physical limits of inference,'' \emph{Physica
+D} \textbf{237}, 1257--1281 (2008).
+
+{[}10{]} J. Solà Peracaula, ``The cosmological constant problem and
+running vacuum in the expanding universe,'' \emph{Phil. Trans. R. Soc.
+A} \textbf{380}, 20210182 (2022).
+
+{[}11{]} J. Solà Peracaula, A. Gómez-Valent, J. de Cruz Pérez, and C.
+Moreno-Pulido, ``Running Vacuum in the Universe: Phenomenological Status
+in Light of the Latest Observations, and Its Impact on the σ₈ and H₀
+Tensions,'' \emph{Universe} \textbf{9}, 262 (2023); arXiv:2304.11157.
+
+{[}12{]} DESI Collaboration, ``DESI 2024 VI: Cosmological Constraints
+from BAO,'' arXiv:2404.03002 (2024).
+
+{[}13{]} DESI Collaboration, ``DESI DR2 Results II: Measurements of
+Baryon Acoustic Oscillations and Cosmological Constraints,'' \emph{Phys.
+Rev.~D} \textbf{112}, 083515 (2025); arXiv:2503.14738.
+
+{[}14{]} J. de Cruz Pérez, A. Gómez-Valent, and J. Solà Peracaula,
+``Dynamical Dark Energy models in light of the latest observations,''
+arXiv:2512.20616 (2025).
+
+{[}15{]} N. R. Bertini, M. H. Novaes, R. von Marttens, and I. L.
+Shapiro, ``Renormalization group corrections to ΛCDM model and
+observational consequences for H₀ tension,'' arXiv:2509.24026 (2025).
+
+{[}16{]} A. Gómez-Valent and J. Solà Peracaula, ``Relaxing the
+σ₈-tension through running vacuum in the Universe,'' \emph{Mon. Not.
+Roy. Astron. Soc.} \textbf{478}, 126--145 (2018); arXiv:1801.08501.
+
+{[}17{]} DESI Collaboration: W. Elbers et al., ``Constraints on Neutrino
+Physics from DESI DR2 BAO and DR1 Full Shape,'' arXiv:2503.14744 (2025).
+
+{[}18{]} JUNO Collaboration: A. Abusleme et al., ``First measurement of
+reactor neutrino oscillations at JUNO,'' arXiv:2511.14593 (2025); Nature
+654, 343 (2026).
+
+{[}19{]} F. Capozzi et al., ``Updated bounds on the (1,2) neutrino
+oscillation parameters after first JUNO results,'' arXiv:2511.21650
+(2025).
+
+{[}20{]} E. P. Verlinde, ``Emergent Gravity and the Dark Universe,''
+\emph{SciPost Phys.} \textbf{2}, 016 (2017); arXiv:1611.02269.
+
+{[}21{]} LZ Collaboration: J. Aalbers et al., ``Dark matter search
+results from 4.2 tonne-years of exposure of the LUX-ZEPLIN (LZ)
+experiment,'' (2025); 417-day analysis presented at SURF, December 2025.
+
+{[}22{]} S. S. McGaugh, F. Lelli, and J. M. Schombert, ``Radial
+acceleration relation in rotationally supported galaxies,'' \emph{Phys.
+Rev.~Lett.} \textbf{117}, 201101 (2016).
+
+{[}23{]} R. Genzel et al., ``Strongly baryon-dominated disk galaxies at
+the peak of galaxy formation ten billion years ago,'' \emph{Nature}
+\textbf{543}, 397--401 (2017).
+
+{[}24{]} R. Genzel et al., ``Rotation curves in z \textasciitilde{} 1--2
+star-forming disks: evidence for cored dark matter distributions,''
+\emph{Astrophys. J.} \textbf{902}, 98 (2020).
+
+{[}25{]} Y. Jiao et al., ``Detection of the Keplerian decline in the
+Milky Way rotation curve,'' \emph{Astronomy \& Astrophysics}
+\textbf{678}, A208 (2023).
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+{[}26{]} N. Bao, S. M. Carroll, and A. Singh, ``The Hilbert space of
+quantum gravity is locally finite-dimensional,'' \emph{Int. J. Mod.
+Phys. D} \textbf{26}, 1743013 (2017).
+
+{[}27{]} C. Bäcker, K. Beyer, and W. T. Strunz, ``Local disclosure of
+quantum memory in non-Markovian dynamics,'' \emph{Phys. Rev.~Lett.}
+\textbf{132}, 060402 (2024); arXiv:2310.01205.
+
+{[}28{]} A. Yosifov, A. Iyer, V. Vedral, and J. Sun, ``On the emergence
+of quantum memory in non-Markovian dynamics,'' arXiv:2507.21907 (2025).
+
+{[}29{]} S. Popescu, A. J. Short, and A. Winter, ``Entanglement and the
+foundations of statistical mechanics,'' \emph{Nature Physics}
+\textbf{2}, 754--758 (2006).
+
+{[}30{]} W. F. Stinespring, ``Positive functions on C\emph{-algebras,''
+}Proc. Amer. Math. Soc.* \textbf{6}, 211--216 (1955).
+
+{[}31{]} M. A. Nielsen and I. L. Chuang, \emph{Quantum Computation and
+Quantum Information} (Cambridge University Press, 10th anniversary
+edition, 2010).
+
+{[}32{]} D. N. Page, ``Average entropy of a subsystem,'' \emph{Phys.
+Rev.~Lett.} \textbf{71}, 1291 (1993).
+
+{[}33{]} I. L. Shapiro and J. Solà, ``Scaling behavior of the
+cosmological constant: interface between quantum field theory and
+cosmology,'' \emph{JHEP} \textbf{02}, 006 (2002); arXiv:hep-th/0012227.
+
+{[}34{]} C. Moreno-Pulido and J. Solà Peracaula, ``Running vacuum in QFT
+in FLRW spacetime: the dynamics of ρ\_vac(H) from the quantized matter
+fields,'' \emph{Eur. Phys. J. C} \textbf{83}, 637 (2023);
+arXiv:2302.04807.
+
+{[}35{]} J. A. Barandes, ``The Stochastic-Quantum Correspondence,''
+\emph{Philosophy of Physics} \textbf{3}(1), 8 (2025), DOI
+10.31389/pop.186; arXiv:2302.10778.
+
+{[}36{]} J. A. Barandes, ``The Stochastic-Quantum Theorem,''
+arXiv:2309.03085 (2023).
+
+{[}37{]} D.-C. Dai and D. Stojkovic, ``Inconsistencies in Verlinde's
+emergent gravity,'' \emph{JHEP} \textbf{11}, 007 (2017);
+arXiv:1710.00946.
+
+{[}38{]} J. Maldacena, ``Real observers solving imaginary problems,''
+arXiv:2412.14014 (2024).
+
+{[}39{]} V. Chandrasekaran, R. Longo, G. Penington, E. Witten, ``An
+algebra of observables for de Sitter space,'' \emph{JHEP} \textbf{02}
+(2023) 082; arXiv:2206.10780.
+
+{[}40{]} D. Harlow, M. Usatyuk, Y. Zhao, ``Quantum mechanics and
+observers for gravity in a closed universe,'' \emph{JHEP} \textbf{02}
+(2026) 108; arXiv:2501.02359.
+
+{[}41{]} G. Penington, ``Entanglement Wedge Reconstruction and the
+Information Paradox,'' \emph{JHEP} \textbf{09} (2020) 002;
+arXiv:1905.08255.
+
+{[}42{]} A. Almheiri, N. Engelhardt, D. Marolf, H. Maxfield, ``The
+entropy of bulk quantum fields and the entanglement wedge of an
+evaporating black hole,'' \emph{JHEP} \textbf{12} (2019) 063;
+arXiv:1905.08762.
+
+{[}43{]} G. Penington, S. H. Shenker, D. Stanford, Z. Yang, ``Replica
+wormholes and the black hole interior,'' \emph{JHEP} \textbf{03} (2022)
+205; arXiv:1911.11977.
+
+{[}44{]} A. Almheiri, T. Hartman, J. Maldacena, E. Shaghoulian, A.
+Tajdini, ``Replica wormholes and the entropy of Hawking radiation,''
+\emph{JHEP} \textbf{05} (2020) 013; arXiv:1911.12333.
+
+{[}45{]} Fermi-LAT Collaboration, ``Search for Gamma-Ray Emission from
+Local Primordial Black Holes with the Fermi Large Area Telescope,''
+\emph{Astrophys. J.} \textbf{857}, 49 (2018); arXiv:1802.00100.
+
+{[}46{]} HAWC Collaboration, ``Constraining the Local Burst Rate Density
+of Primordial Black Holes with HAWC,'' \emph{JCAP} \textbf{04} (2020)
+026; arXiv:1911.04356.
+
+{[}47{]} Z. Cao et al.~(LHAASO Collaboration), ``All-Sky Search for
+Individual Primordial Black Hole Bursts with LHAASO,'' \emph{Phys.
+Rev.~Lett.} \textbf{135}, 181005 (2025); arXiv:2505.24586.
+
+{[}48{]} C. Yang, J.-D. Pan, X. Zhang, ``Prospective sensitivity of CTAO
+on detection of evaporating primordial black holes,'' \emph{JCAP}
+\textbf{09} (2025) 004; arXiv:2504.17478.
+
+{[}49{]} C. Moreno-Pulido, J. Solà Peracaula and S. Cheraghchi,
+``Running vacuum in QFT in FLRW spacetime: the dynamics of
+\(\rho_{\rm vac}(H)\) from the quantized matter fields,''
+arXiv:2301.05205.
+
+{[}50{]} E. P. Verlinde, ``On the Origin of Gravity and the Laws of
+Newton,'' \emph{JHEP} \textbf{04} (2011) 029; arXiv:1001.0785.
+
+{[}51{]} T. Padmanabhan, ``Thermodynamical Aspects of Gravity: New
+insights,'' \emph{Rep.~Prog. Phys.} \textbf{73} (2010) 046901;
+arXiv:0911.5004.
+
+{[}52{]} G. Bianconi, ``Gravity from entropy,'' \emph{Phys. Rev.~D}
+\textbf{111}, 066001 (2025); arXiv:2408.14391.
+
+{[}53{]} Y. Ollivier, ``Ricci curvature of Markov chains on metric
+spaces,'' \emph{J. Funct. Anal.} \textbf{256} (2009) 810--864.
+
+{[}54{]} J. Ambjørn, J. Jurkiewicz and R. Loll, ``Spectral dimension of
+the universe,'' \emph{Phys. Rev.~Lett.} \textbf{95}, 171301 (2005);
+arXiv:hep-th/0505113.
+
+{[}55{]} T. Breuer, ``The impossibility of accurate state
+self-measurements,'' \emph{Philosophy of Science} \textbf{62}, 197--214
+(1995).
+
+\end{document}
+% source-sha256: fbd2c410adadc09c125b7c72dc36557bffbaf197ac635333d8436eb8907a7a69

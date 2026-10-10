@@ -1,0 +1,18 @@
+run 36413005685 conclusion success
+  Numerical probes / A38 escape    success 108897425219
+  Lean kernel check                success 108897425422
+  Numerical probes / core A        success 108897425423
+  Numerical probes / foundations   success 108897425430
+  Numerical probes / core B        success 108897425437
+  Numerical probes / A36 hierarchy success 108897425447
+  Mathlib bridge                   success 108897425451
+  Numerical probes                 success 108899118547
+run 36413016990 conclusion success
+  Lean kernel check                success 108897461924
+  Numerical probes / core B        success 108897462178
+  Numerical probes / A36 hierarchy success 108897462195
+  Numerical probes / A38 escape    success 108897462241
+  Numerical probes / foundations   success 108897462321
+  Mathlib bridge                   success 108897462505
+  Numerical probes / core A        success 108897462820
+  Numerical probes                 success 108898931581

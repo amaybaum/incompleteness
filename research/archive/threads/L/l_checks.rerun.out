@@ -1,0 +1,42 @@
+OK   A1 ballEffect_self: 1/2+S/2-1 - (1/2)(S-1) == 0
+OK   A2 ballEffect_neg_self: 1/2-S/2-0 - (-1/2)(S-1) == 0
+OK   A3 conePair_ballEffect identity
+OK   B1 hhFun_dot: d.Hv + d.v - (-2 d.v) * (q k - 1) == 0
+OK   B2 hhFun_normSq: |Hv|^2 - |v|^2 - (4 k (d.v)^2) * (q k - 1) == 0
+OK   B3.0 hhFun_hhFun coordinate 0 (ring after rw key)
+OK   B3.1 hhFun_hhFun coordinate 1 (ring after rw key)
+OK   B3.2 hhFun_hhFun coordinate 2 (ring after rw key)
+OK   B4.0 hhFun_swap coordinate 0 certificate
+OK   B4.1 hhFun_swap coordinate 1 certificate
+OK   B4.2 hhFun_swap coordinate 2 certificate
+OK   B5 hhLin map_add and map_smul
+OK   C1 D^2 - 16A == (1 - 4A)^2
+OK   C2 |p|^2 == 16 A k^2 (A = |a|^2)
+OK   C3 r(p) == c + 4 k A
+OK   C4 (4 k A) * D == 4 A when D k = 1 : 4kA*D - 4A - 4A*(D k - 1) == 0
+OK   C5 |2a - u|^2 == 4A - 4 u.a + |u|^2
+OK   C6 c + v.a == ballEffect u v at c = 1/2, a = u/2
+OK   C7 linarith certificate for c = 1/2: 2c-1 == (c-u.a) - (1-(c+u.a)), 1-2c == (1-(c-w.a)) - (c+w.a)
+OK   C8 A=1/3 > 1/4: p in ball and r(p) = 15/14 > 1
+OK   C8 A=9/25 > 1/4: p in ball and r(p) = 133/122 > 1
+OK   C8 A=13/50 > 1/4: p in ball and r(p) = 103/102 > 1
+OK   C9 A = 1/4: r(p) == 1 exactly, p on the sphere
+OK   D1 ballEffect b o R^-1 == ballEffect (R b) for 4 rational rotations x 4 units x 3 points
+OK   D2 quaternion (1,1,1,1) is cyc3: (x,y,z) -> (z,x,y)
+OK   D3 normalisation (1+b.x)/2 = 1 at b and 0 at -b for rational unit b
+OK   E1 Householder maps u->w, preserves |.|^2, involutive (12 ordered unit pairs)
+OK   F1 N1 rotation about z (cos 3/5) fixes ballEffect e_z: orbit = {ballEffect e_z}
+OK   F1b N1 ballEffect e_x differs from ballEffect e_z at e_x: 1 vs 1/2
+OK   F1c N1 z-coordinate of R_z(-t) v is v2 (symbolic)
+OK   F2 N2 unsharp seed: effect on boundary samples, certain at e_z, >= 1/2 everywhere on ball (|z|<=1)
+OK   F2b N2 orbit member at -b >= 1/2 while ballEffect b (-b) = 0
+OK   F2c N2 consumer: min_b pairing = 1/4 > 0 (at b=-e_z: 1/4) but |v|^2=4 > x0^2=1
+OK   F2d N2 the directional family rejects the same vector: (1 + (-e_z).v)/2 = -1/2 < 0
+OK   F3 N3 g = (1/2)id: (r o g^-1)(e_z) = ballEffect e_z (2 e_z) = 3/2 > 1, not an effect
+OK   F4 N4 b=(1,1,1) has sup norm 1 but ballEffect b (3/5,4/5,0) = 6/5 > 1, (3/5,4/5,0) in ball3
+OK   F5 N5 <cyc3, N_z> is finite (order 12), moves the axis (cyc3 N cyc3^-1 != N, != I), orbit of e_z has 6 points
+OK   F6 N6 ellipsoid: seed (1+x/2)/2 sharp (1 at (2,0,0), 0 at (-2,0,0)); ballEffect e_x = 3/2 at (2,0,0)
+OK   F6b N6 A R A^-1 preserves the ellipsoid boundary on samples
+OK   F7 N7 square: D4-orbit of the vertex (1,1) is the 4 vertices; edge midpoint (1,0) not reached
+OK   G1 (5;3,4,0) boundary of Lorentz cone: x0 + b.v = 0 at b = -v/|v|; (4;3,4,0) gives -1 < 0
+OK -- 41 checks, 0 failed

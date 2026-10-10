@@ -1,0 +1,38 @@
+PASS 0.1 control: the rebuilt family gives the parsed kernel cnot at (1, 1, -1, 1)
+PASS A.1 [M] T = R_A R_B is the transpose rho -> rho^T, R_B is the partial transpose on copy B, and kernel cnot is Ad(CNOT): the dictionary identities are exact
+PASS A.2 cnot commutes with T; cnot' = R_B cnot R_B = R_A cnot R_A; T cnot' = R_B (T cnot) R_B
+PASS A.3 the four reference gates are CtrlGates at (z3, nflip) and preserve u
+NOTE A.4 [M + L] Q3 := {w : rho(w) PSD}. cnot = Ad(CNOT) and T = transpose preserve Q3 (U rho U^dag and rho^T are PSD for PSD rho); hence cnot and T cnot preserve Q3, and cnot', T cnot' preserve R_B Q3 = R_B(Q3).
+PASS A.5 [M] |q|^2 actT R(q) = Ad(I (x) U_q) and |q|^2 actC R(q) = Ad(U_q (x) I) at 13 quaternions whose quadratic monomials have rank 10: both sides are quadratic forms in q, so the identity holds for every q
+NOTE A.6 [L] every R in SO(3) is R(q) for some q (Euler-Rodrigues); so L = actC SO(3) o actT SO(3) preserves Q3 and R_B Q3 (R_B normalizes L).
+PASS B.0 the Pauli-sign group P has 16 distinct elements, each local with determinant +1 factors (inside L)
+PASS B.1 all 16 representatives are CtrlGates at (z3, nflip) with u o G = u
+PASS B.2 exactly 8 representatives are l1 o c o l2 with l1, l2 in P and c a reference gate (8 found)
+NOTE compatible: pattern (-1, -1, -1, 1), O = I: = p0 o cnot' o p12
+NOTE compatible: pattern (-1, -1, 1, -1), O = I: = p0 o cnot o p12
+NOTE compatible: pattern (-1, 1, -1, -1), O = reflY: = p0 o T cnot o p12
+NOTE compatible: pattern (-1, 1, 1, 1), O = reflY: = p0 o T cnot' o p12
+NOTE compatible: pattern (1, -1, -1, -1), O = reflY: = p0 o T cnot' o p0
+NOTE compatible: pattern (1, -1, 1, 1), O = reflY: = p0 o T cnot o p0
+NOTE compatible: pattern (1, 1, -1, 1), O = I: = p0 o cnot o p0
+NOTE compatible: pattern (1, 1, 1, -1), O = I: = p0 o cnot' o p0
+PASS B.3 each of the four reference gates represents exactly two of them (cnot, T cnot -> Q3; cnot', T cnot' -> R_B Q3)
+PASS B.4 each of the other 8 has an exact word in G^(+-1) and P sending a product outside maxCone (no candidate cone is invariant under G and L)
+NOTE excluded: pattern (-1, -1, -1, 1), O = reflY: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (-1, -1, 1, -1), O = reflY: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (-1, 1, -1, -1), O = I: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (-1, 1, 1, 1), O = I: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (1, -1, -1, -1), O = I: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (1, -1, 1, 1), O = I: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (1, 1, -1, 1), O = reflY: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+NOTE excluded: pattern (1, 1, 1, -1), O = reflY: word G G on product #0, effects ['1/2', '-1/2', '0', '0'] (x) ['1/2', '0', '0', '-1/2']: value -1/2
+FAIL B.5 the landed chain for both one-copy reflections: (R_A cnot)^2 and (R_B cnot)^2 send prodState xplus z3 to a vector with value -1/2 on sharp(-e1) (x) sharp(-e3) (K2Guard chain_value K2G:134 for R_B; R_A new)  [1/2, 1/2]
+PASS C.1 [M] the EQ-E gate CNOT diag(1, 1, u, conj u), u = (3+4i)/5, with its common NOT N_u (EQ-E s6) is a CtrlGate at (z3, N_u) with u o G = u
+PASS C.2 rotating N_u's axis (3/5, 4/5, 0) to e_x gives a CtrlGate at (z3, nflip) whose corner map is M0 = 1 (+) O, O orthogonal with O z = z, and Gt = G' o actT(O)^-1 is one of B1's 8 admissible patterns  [pattern [(1, 1, -1, 1)], O = [['1', '0', '0'], ['0', '1', '0'], ['0', '0', '1']]]
+PASS C.3 countercontrol (one-directional classification): (S (x) I) CNOT = actC(R_z(pi/2)) o cnot has the frame but fails relC for the five horizontal pi-rotations tried, so l1 o cnot o l2 need not be a CtrlGate (EQ-E s6 finds no NOT pair at all)
+PASS D.1 [M] cnot o actC(R_x(theta)) o cnot = Ad(exp(-i theta XX/2)) at cos(theta/2) = 4/5 (exact; CNOT (X (x) I) CNOT = X (x) X)
+PASS D.2 [M] the YY and ZZ factors are local-rotation conjugates of the XX factor: L_YY (lhs) L_YY^-1 = Ad(exp(-i theta YY/2)) with L_YY = actC R_z(pi/2) actT R_z(pi/2), and likewise ZZ with R_y(pi/2) (exact)
+PASS D.3 XX, YY, ZZ commute pairwise (so exp(-i(a XX + b YY + c ZZ)) factorizes)
+NOTE D.4 [L, unverified] KAK (Khaneja-Glaser 2001; Kraus-Cirac 2001): every U in SU(4) is (A (x) B) exp(-i(a XX + b YY + c ZZ)) (C (x) D). With D.1-D.3 every Ad U is a word in L and cnot L cnot, so <L, cnot L cnot> = Ad(SU(4)) exactly; the twisted case is its R_B conjugate.
+--- B2 orientation classes, cone compatibility, converse: 17 checks, 1 failures
+VERDICT NOT RENDERED (a check failed)

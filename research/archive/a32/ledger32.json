@@ -1,0 +1,66 @@
+[
+ {
+  "entry": "ogc-road-read",
+  "reason": "R7-OGC's read of verification/ROADMAP.md, read only by its ROADMAP conjuncts and mutation",
+  "old": "_OGCROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())\n",
+  "new": "",
+  "old_sha256": "3c7549bb4a6f4973d285ea607b705ce26ee199ce7c20bbda65ab44738d6efe8d",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ {
+  "entry": "ogc-p0-road-conjuncts",
+  "reason": "R7-OGC's P0 predicate, less its ROADMAP parameter and its four ROADMAP conjuncts; its result-note conjuncts unchanged",
+  "old": "def _ogc_p0(t=None, road=None):\n    \"\"\"N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note and in the ROADMAP's P0\n    row after act 24's sentence, the row's label staying OPEN.\"\"\"\n    t = _OGC1 if t is None else t\n    road = _OGCROAD if road is None else road\n    p0, p0_ogs = _ogc_frozen(1476, 1476), _ogs_frozen(1385, 1385)\n    return (p0.startswith('Act 25 tests, in one gated round with four separately frozen targets')\n            and p0 in t and p0 in road and p0_ogs in road and road.find(p0_ogs) < road.find(p0)\n            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road\n",
+  "new": "def _ogc_p0(t=None):\n    \"\"\"N10 -- the frozen P0 sentence for Case A, present VERBATIM in the note.\"\"\"\n    t = _OGC1 if t is None else t\n    p0 = _ogc_frozen(1476, 1476)\n    return (p0.startswith('Act 25 tests, in one gated round with four separately frozen targets')\n            and p0 in t\n",
+  "old_sha256": "860ae7d978c6be9cf83606a0638145ecfc2fe622d1b055cc9c44651a9132b54f",
+  "new_sha256": "203b6d9e59b093084ad400437c726c2b9a8c4d78c932ef4110960e184312331e"
+ },
+ {
+  "entry": "ogc-road-mut",
+  "reason": "R7-OGC's ROADMAP mutation control",
+  "old": "_ogc_m11 = _OGCROAD.replace(_ogc_frozen(1476, 1476), 'P0 is closed on its trajectory part.')\nok_ogc &= _ogc_m11 != _OGCROAD and not _ogc_p0(road=_ogc_m11)                   # the P0 sentence absent from the ROADMAP\n",
+  "new": "",
+  "old_sha256": "4315f96a0318a2a5508676ea60b7391c696fe25fcc89404648a47e068edda810",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ {
+  "entry": "ogc-description",
+  "reason": "R7-OGC's check description, with the ROADMAP reading replaced by the result-note reading it keeps",
+  "old": "      \"relation and four-shape conclusion, and the import wired after act 24's; and the frozen P0 \"\n      \"sentence VERBATIM in the ROADMAP after act 24's.\")\n",
+  "new": "      \"relation and four-shape conclusion, and the import wired after act 24's; and the frozen P0 \"\n      'sentence VERBATIM in the result note.')\n",
+  "old_sha256": "5320c62b5610e080fc28a6bac0d32c4a7da2113b5e42b8e138b18320bdd247e7",
+  "new_sha256": "e7a0faaae2f1efc7c63dc16bf6379c05d02f721e047187b6b7e82788c9a462b6"
+ },
+ {
+  "entry": "cgr-road-read",
+  "reason": "R7-CGR's read of verification/ROADMAP.md, read only by its ROADMAP conjuncts and mutation",
+  "old": "_CGRROAD = ' '.join(open(_artifact('ROADMAP.md'), encoding='utf-8').read().split())\n",
+  "new": "",
+  "old_sha256": "a6accd67df91aa2d87d10abee56ef9d3c18a9b8d584057e2a4990a3060f8bc3f",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ {
+  "entry": "cgr-p0-road-conjuncts",
+  "reason": "R7-CGR's P0 predicate, less its ROADMAP parameter and its four ROADMAP conjuncts; its result-note conjuncts unchanged",
+  "old": "def _cgr_p0(t=None, road=None):\n    \"\"\"N10 -- the frozen P0 sentence for Case A with its one substitution, present VERBATIM in the note\n    and in the ROADMAP's P0 row after act 25's sentence, the row's label staying OPEN.\"\"\"\n    t = _CGR1 if t is None else t\n    road = _CGRROAD if road is None else road\n    p0, p0_ogc = _cgr_p0_sentence(), _ogc_frozen(1476, 1476)\n    return (p0 is not None and p0.startswith('Act 26 tests, in one gated round with four separately frozen targets')\n            and p0 in t and p0 in road and p0_ogc in road and road.find(p0_ogc) < road.find(p0)\n            and '| **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track B | **OPEN**' in road\n",
+  "new": "def _cgr_p0(t=None):\n    \"\"\"N10 -- the frozen P0 sentence for Case A with its one substitution, present VERBATIM in the\n    note.\"\"\"\n    t = _CGR1 if t is None else t\n    p0 = _cgr_p0_sentence()\n    return (p0 is not None and p0.startswith('Act 26 tests, in one gated round with four separately frozen targets')\n            and p0 in t\n",
+  "old_sha256": "649c99cd0b5629fa484febb385e24f1c73041d5bee4b349b5443ed64a89f5fc7",
+  "new_sha256": "7b1c9f33ad8cb53511cda51903120602d3de30e5a5d8ba3e0c44be9510c861b4"
+ },
+ {
+  "entry": "cgr-road-mut",
+  "reason": "R7-CGR's ROADMAP mutation control",
+  "old": "_cgr_m11 = _CGRROAD.replace(_cgr_p0_sentence() or '\\0', 'P0 is closed on its trajectory part.')\nok_cgr &= _cgr_m11 != _CGRROAD and not _cgr_p0(road=_cgr_m11)                   # the P0 sentence absent from the ROADMAP\n",
+  "new": "",
+  "old_sha256": "6ce19663c1bf483978b3f91e262923bff85753d50e5abaae725b9150739a96f5",
+  "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ {
+  "entry": "cgr-description",
+  "reason": "R7-CGR's check description, with the ROADMAP reading replaced by the result-note reading it keeps",
+  "old": "      \"after act 25's; and the frozen P0 sentence with its one substitution VERBATIM in the \"\n      \"ROADMAP after act 25's.\")\n",
+  "new": "      \"after act 25's; and the frozen P0 sentence with its one substitution VERBATIM in the \"\n      'result note.')\n",
+  "old_sha256": "9d1f877ee780db43985f3868b28aa596a4868027d64acec06ebd90f5c6a2ca9a",
+  "new_sha256": "96c58a32c1cb17b79f2e5a7c2af20ee9757f594665beeacf208f36744d671aa2"
+ }
+]

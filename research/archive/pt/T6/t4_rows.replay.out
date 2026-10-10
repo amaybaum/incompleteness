@@ -1,0 +1,204 @@
+ROW id | R6 class | R6 verdict | T6 verdict | status at L (r1) | T6 re-check
+ROW I3.1 | def | SATISFIES [K-indep] | SATISFIES | assumed — the premise the carrier encodes (local | NO-DECL (R6: [K] CD:95-97; LT is encoded by the carrier (as for Q3))
+ROW I3.2 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition); the clause "products in | KBLIND-OK: prodState CompositeDimension.lean:161
+ROW I3.3 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition); it encodes the full aff | KBLIND-OK: maxCone CompositeDimension.lean:186
+ROW I3.4 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition) | KBLIND-OK: jointStates CompositeDimension.lean:190
+ROW I3.5 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition) | KBLIND-OK: IsProduct CompositeDimension.lean:194
+ROW I3.6 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition) | KBLIND-OK: actT CompositeDimension.lean:198
+ROW I3.7 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition) | KBLIND-OK: actC CompositeDimension.lean:201
+ROW I3.8 | inh | SATISFIES [inherit] | SATISFIES | assumed (hypothesis of every selector: `dim_of_n | KBLIND-OK: IsNot CompositeDimension.lean:210
+ROW I3.9 | gate | SATISFIES [K-indep] | SATISFIES | assumed (hypothesis of `dim_of_nativeGate`, `thr | KBLIND-OK: NativeGate CompositeDimension.lean:218
+ROW I3.10 | gate | SATISFIES [K-indep] | SATISFIES | assumed (hypothesis of `three_of_nativeGate` alo | KBLIND-OK: Entangling CompositeDimension.lean:229
+ROW I3.11 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definitions) | KBLIND-OK: cnot CompositeDimension.lean:775, nflip CompositeDimension.lean:797, pc CompositeDimension.lean:744
+ROW I3.12 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (DIM-1 ledger row "`d = 3` witness":  | KBLIND-OK: cnot_frame CompositeDimension.lean:848, cnot_relC CompositeDimension.lean:860, cnot_relT CompositeDimension.lean:854
+ROW I3.13 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: nativeGate_cnot CompositeDimension.lean:1160
+ROW I3.14 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: entangling_cnot CompositeDimension.lean:1380
+ROW I3.15 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: finrank_plus_eq_finrank_minus CompositeDimension.lean:682
+ROW I3.16 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: BlockData CompositeDimension.lean:712, blockData_of_nativeGate CompositeDimension.lean:2703
+ROW I3.17 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: not_entangling_one CompositeDimension.lean:1436
+ROW I3.18 | inh | SATISFIES [inherit] | SATISFIES | proved [K]; its premises are unsourced (ROADMAP. | KBLIND-OK: dim_of_nativeGate CompositeDimension.lean:2723
+ROW I3.19 | inh | SATISFIES [inherit] | SATISFIES | proved [K]; premises unsourced (ROADMAP.md:984–1 | KBLIND-OK: three_of_nativeGate CompositeDimension.lean:2748
+ROW I3.20 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: nativeGate_cnot1 CompositeDimension.lean:2861, not_entangling_cnot1 CompositeDimension.lean:2869
+ROW I3.21 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: dim1_core CompositeDimension.lean:2897
+ROW I3.22 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (PARITY-NOT-1 `PARITY-FROM-RELATIONS- | KBLIND-OK: finrank_plus_eq_finrank_minus_rel ParityNot.lean:128, not_even_of_gateRel ParityNot.lean:137
+ROW I3.23 | gate | SATISFIES [K-indep] | SATISFIES | assumed (hypothesis of I3.22, I3.24, I3.25, I3.2 | KBLIND-OK: GateRel ParityNot.lean:42
+ROW I3.24 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: det_three ParityNot.lean:269, piRotation_three ParityNot.lean:161, tangentPlus_three ParityNot.lean:153
+ROW I3.25 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: not_gateRel_negId3 ParityNot.lean:395, not_gateRel_refl3 ParityNot.lean:389
+ROW I3.26 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (PARITY-NOT-1 `POSITIVITY-SEPARATION- | KBLIND-OK: not_posFwd_gJ3 ParityNot.lean:547, not_posFwd_gJ5 ParityNot.lean:704
+ROW I3.27 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (ODD-CHAR-1 `ODD-CHARACTERIZATION-PRO | KBLIND-OK: exists_frame_gateRel_iff_odd OddChar.lean:184
+ROW I3.28 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: not_posFwd_gRev OddChar.lean:287
+ROW I3.29 | gate | SATISFIES [K-indep] | SATISFIES | assumed (hypothesis of I3.31); `ctrlGate_of_nati | KBLIND-OK: CtrlGate RelcSelectBlock.lean:45
+ROW I3.30 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (RELC-SELECT-1 `RELC-PARITY-PROVED`) | KBLIND-OK: not_even_of_relC RelcSelectParity.lean:354
+ROW I3.31 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`CTRL-SELECTOR-PROVED`) | KBLIND-OK: dim_of_ctrlGate RelcSelectBlock.lean:739, three_of_ctrlGate RelcSelectBlock.lean:753
+ROW I3.32 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: ctrlGate_of_nativeGate RelcSelectBlock.lean:53
+ROW I3.33 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (`POSITIVITY-SEPARATION-PROVED`) | KBLIND-OK: gSqInv_sep RelcSelectSqueeze.lean:476, gSq_sep RelcSelectSqueeze.lean:465
+ROW I3.34 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (`RELT-NOT-DIMENSION-SELECTING-PROVED | KBLIND-OK: relT_not_dimension_selecting RelcSelectC5.lean:393
+ROW I3.35 | gate | SATISFIES [K-indep] | SATISFIES | assumed (hypothesis of I3.37, I3.38, I3.47; ROAD | KBLIND-OK: NativeGateOf K1Bridge.lean:49
+ROW I3.36 | gate | SATISFIES [K-indep] | SATISFIES | assumed (hypothesis of I3.38) | KBLIND-OK: EntanglingOf K1Bridge.lean:64
+ROW I3.37 | inh | SATISFIES [inherit] | SATISFIES | proved [K]; premises unsourced (ROADMAP.md:995–9 | KBLIND-OK: dim_of_nativeGateOf K1Bridge.lean:128
+ROW I3.38 | inh | SATISFIES [inherit] | SATISFIES | proved [K]; premises unsourced | KBLIND-OK: three_of_nativeGateOf K1Bridge.lean:138
+ROW I3.39 | inh | SATISFIES [inherit] | SATISFIES | assumed (the reading of the selector premise `2  | KBLIND-OK: HasTwoSharpTests SharpTests.lean:41
+ROW I3.40 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`K1-SHARP-TEST-MULTIPLICITY-CLASSIFI | KBLIND-OK: hasTwoSharpTests_iff SharpTests.lean:155
+ROW I3.41 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (`K1-TWO-LE-NOT-IMPLIED`) | KBLIND-OK: two_le_not_implied SharpTests.lean:197
+ROW I3.42 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: prodState_mem_maxCone K2Guard.lean:165
+ROW I3.43 | cone | SATISFIES [cone] | SATISFIES | assumed (hypothesis of I3.44; it is `hadm` (a)–( | t3 Z3+Z1+Z2+Z4
+ROW I3.44 | kthm | SATISFIES [K] | SATISFIES | proved [K] (`K2-ORIENTATION-OBSTRUCTION-PROVED`) | t3 Z7
+ROW I3.45 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`K1-ENTANGLING-WEAKENED`) | KBLIND-OK: three_of_nativeGate_of_two_le K2Guard.lean:234
+ROW I3.46 | thm | SATISFIES [K-indep] | SATISFIES | proved [K]; "no converse is stated" (K2-GUARD-1) | KBLIND-OK: two_le_of_entangling K2Guard.lean:240
+ROW I3.47 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: three_of_nativeGateOf_of_two_le K2Guard.lean:253
+ROW I3.48 | b1 | SATISFIES [inherit] | SATISFIES | assumed ("effect soundness", hypothesis of I3.37 | KBLIND-OK: EffectsOn EffectSpace.lean:567
+ROW I3.49 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition) | KBLIND-OK: maxConeOf EffectSpace.lean:411
+ROW I3.50 | inh | SATISFIES [inherit] | SATISFIES | assumed / open — EFF-1: "The unit and `MixingClo | KBLIND-OK: MixingClosed EffectSpace.lean:591
+ROW I3.51 | b1 | SATISFIES [inherit] | SATISFIES | proved [K] (EFF-1 `CONE-DERIVED`, "DERIVED is re | KBLIND-OK: maxConeOf_avail_eq EffectSpace.lean:572, sharpFamily_subset_avail EffectSpace.lean:374
+ROW I3.52 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (EFF-1 `CONDITIONAL-FULL-EFFECTS`) | KBLIND-OK: fullEffects_subset_avail EffectSpace.lean:718
+ROW I3.53 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: not_fullEffects_of_orbit EffectSpace.lean:762
+ROW I3.54 | b1 | SATISFIES [inherit] | SATISFIES | assumed (hypothesis of the dense variants; "Noth | KBLIND-OK: DenseBoundaryOrbit DenseOrbit.lean:53
+ROW I3.55 | b1 | SATISFIES [inherit] | SATISFIES | proved [K]; the converse fails (`not_boundaryTra | KBLIND-OK: denseBoundaryOrbit_of_boundaryTransitive DenseOrbit.lean:57
+ROW I3.56 | b1 | SATISFIES [inherit] | SATISFIES | proved [K] (`KTRANS-DENSE-CONE-PROVED`, `-BALL-P | KBLIND-OK: maxConeOf_avail_eq_of_dense DenseOrbit.lean:243
+ROW I3.57 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (definition); instances at L only the | KBLIND-OK: FiniteStage KInfFoundations.lean:63
+ROW I3.58 | b1 | SATISFIES [inherit] | SATISFIES | proved [K] (definition) | KBLIND-OK: IsEffectOn KInfFoundations.lean:116
+ROW I3.60 | b1 | SATISFIES [inherit] | SATISFIES | proved [K] (definition) | KBLIND-OK: IsBoundaryState KInfFoundations.lean:130
+ROW I3.69 | inh | SATISFIES [inherit] | SATISFIES | assumed / open — ROADMAP.md:1027–1030 (K∞-Copy,  | KBLIND-OK: CopyNatural KInfFoundations.lean:284
+ROW I3.73 | b1 | SATISFIES [inherit] | SATISFIES | assumed / open — ROADMAP.md:1023–1024 (K∞-Seed,  | KBLIND-OK: SharpSeed OrbitGeneration.lean:65
+ROW I3.74 | b1 | SATISFIES [inherit] | SATISFIES | assumed (OG-1: "the premise on `G` that the stat | KBLIND-OK: PreservesBody OrbitGeneration.lean:69
+ROW I3.75 | b1 | SATISFIES [inherit] | SATISFIES | assumed / open — ROADMAP.md:1025–1026 ("Body pre | KBLIND-OK: SeedOrbitAvailable OrbitGeneration.lean:74
+ROW I3.76 | inh | SATISFIES [inherit] | SATISFIES | assumed / open — ROADMAP.md:1018–1022 ("K∞-Drive | KBLIND-OK: BoundaryTransitive OrbitGeneration.lean:79
+ROW I3.78 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: preservesBody_drive OrbitGeneration.lean:161
+ROW I3.79 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (OG-1) | KBLIND-OK: seedOrbit_ball3_eq OrbitGeneration.lean:348
+ROW I3.80 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: boundaryTransitive_fullAut3 OrbitGeneration.lean:537
+ROW I3.82 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`OG-1-INFRASTRUCTURE-PROVED` with `o | KBLIND-OK: orbit_generation_core OrbitGeneration.lean:715
+ROW I3.83 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: boundaryTransitive_ball3Drive OrbitNormalization.lean:667, driveWords3 OrbitNormalization.lean:571
+ROW I3.87 | inh | SATISFIES [inherit] | SATISFIES | assumed (TRB-1: "a source of a body-preserving b | KBLIND-OK: TransBody TransitiveBody.lean:235
+ROW I3.88 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`TRB-1-BALL-PROVED`) | KBLIND-OK: eq_qBall_of_boundaryTransitive TransitiveBody.lean:457
+ROW I3.89 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: exists_affine_image_eq_eball TransitiveBody.lean:602
+ROW I3.92 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (definition); only control instances  | KBLIND-OK: DirectedStages StageCompletion.lean:63, StageMap StageCompletion.lean:53
+ROW I3.94 | inh | SATISFIES [inherit] | SATISFIES | assumed / open — ROADMAP.md:1010–1013 (K∞-Stage  | KBLIND-OK: SCInf StageCompletion.lean:78
+ROW I3.95 | inh | SATISFIES [inherit] | SATISFIES | assumed / open (K∞-Stage; "the binary-visible pa | KBLIND-OK: BinaryVisible StageCompletion.lean:244
+ROW I3.96 | nr | NOT REACHED | NOT REACHED | assumed / open (ROADMAP.md:1010–1012: "Finite ra | R6: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field);; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.97 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: sharpSeed_completion StageCompletion.lean:224
+ROW I3.98 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: exists_chart_of_finiteRank StageCompletion.lean:304
+ROW I3.99 | nr | NOT REACHED | NOT REACHED | assumed / open — ROADMAP.md:1014–1016 (K∞-Act "r | R6: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field);; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.101 | inh | SATISFIES [inherit] | SATISFIES | assumed (K∞-Act; hypothesis of I3.105, I3.111) | KBLIND-OK: AffineRespect CompletionAction.lean:58
+ROW I3.104 | nr | NOT REACHED | NOT REACHED | proved [K] | R6: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field);; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.105 | nr | NOT REACHED | NOT REACHED | proved [K] | R6: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field);; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.111 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`ORD-1-COMPOSITION-ORDER-PROVED`) | KBLIND-OK: finiteOrderOn_of_stagePreserving CompositionOrder.lean:348
+ROW I3.113 | def | SATISFIES [K-indep] | SATISFIES | proved [K] (definition; the coordinate model `Fi | KBLIND-OK: ProductData CompositeInterface.lean:210
+ROW I3.114 | cone | SATISFIES [cone] | SATISFIES | assumed (the eight interface fields; KT4-PREM-1  | t3 Z3+Z1+Z2+Z4+Z5
+ROW I3.115 | def | SATISFIES [K-indep] | SATISFIES | assumed / open (K2: "local tomography, which DIM | KBLIND-OK: LocallyTomographic CompositeInterface.lean:235
+ROW I3.116 | cone | SATISFIES [cone] | SATISFIES | assumed (`lt` "is a premise of the structure; it | t3 Z3+Z1+Z2+Z4+Z5+Z8
+ROW I3.118 | cone | SATISFIES [cone] | SATISFIES | assumed (a predicate; no OI source; KT4-PREM-1 / | t3 Z5+D0a
+ROW I3.120 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: condA_prodState CompositeInterface.lean:332
+ROW I3.121 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | KBLIND-OK: not_locallyTomographic_paddedPre CompositeInterface.lean:885
+ROW I3.122 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] (`COMP-1-INTERFACE-PROVED`) | KBLIND-OK: comp1_core CompositeInterface.lean:926
+ROW I3.124 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: isEffectOn_affOf CompositeDimension.lean:916, lor_ehom CompositeDimension.lean:930
+ROW I3.125 | inh | SATISFIES [inherit] | SATISFIES | proved [K] (`NB-1-CORE-PROVED`) | NO-DECL (R6: [K] (d = 3 for eball 3 with nflip, cnot))
+ROW I3.126 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: dim_of_bounds NativeGateBall.lean:248, p_le_one NativeGateBall.lean:176
+ROW I3.127 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: lorentz_of_effects NativeGateBall.lean:105
+ROW I3.128 | inh | SATISFIES [inherit] | SATISFIES | proved [K]; NB-1: "That theorem [the finite nati | KBLIND-OK: nb1_kernel_core NativeGateBall.lean:255
+ROW I3.129 | gate | SATISFIES [K-indep] | SATISFIES | not at L — [D] FourCopyCore.lean:130–134; as a p | NO-DECL (R6: [D] NClass: cnot with identity locals (KT4-PREM-1 record, M_Q))
+ROW I3.130 | cone | SATISFIES [cone] | SATISFIES | not at L — [D] FourCopyDefs.lean:42–43; as a pre | t3 Z3+Z1+Z2+Z4
+ROW I3.131 | cone | SATISFIES [cone] | SATISFIES | assumed; KT4-PREM-1: "P-STAGE2" needed (result.m | t3 Z1+Z2+Z4
+ROW I3.132 | cone | SATISFIES [cone] | SATISFIES | assumed; KT4-PREM-1: "P-ACT2, which restates gat | t3 Z5+D0a
+ROW I3.133 | d4f | FAILS [hyp] | FAILS [hyp] | not at L — [D] FourCopyCore.lean:70–115; as a pr | R6 [A] (not used by the T6 verdict) | hypothesis status: yes
+ROW I3.134 | nr | NOT REACHED | NOT REACHED | not at L — [D]; as a premise: assumed; cannot be | R6: no structure with three or more tokens at L (EQ5-SOURCE §1; ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.135 | d4f | FAILS [hyp] | FAILS [hyp] | not at L — [D]; PT stage 1: CONDITIONAL on N0 ∧  | R6 [A] (not used by the T6 verdict) | hypothesis status: yes
+ROW I3.136 | nr | NOT REACHED | NOT REACHED | not at L — [D] · statement (FourCopyCore.lean:32 | R6: no structure with three or more tokens at L (EQ5-SOURCE §1; ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.137 | dna | FAILS [hyp] | FAILS [hyp] | not at L — [D] FourCopyCore.lean:155–157; conclu | t3 B (b)+B flow | hypothesis status: yes
+ROW I3.138 | d4s | SATISFIES | SATISFIES | not at L — [D]; conclusion of I3.139 | NO-DECL (R6: [W] cnot with identity locals: every twist bit false)
+ROW I3.139 | d4v | SATISFIES (vacuous) | SATISFIES (vacuous) | not at L — [D] "kernel-checked in a design run,  | its hypothesis fails: H fails, contrapositive of the [D] theorem with IE1 failing (t3 B) | hypothesis status: yes
+ROW I3.140 | d4v | SATISFIES (vacuous) | SATISFIES (vacuous) | not at L — [D] | its hypothesis fails: H fails, contrapositive of the [D] theorem with IE1 failing (t3 B) | hypothesis status: yes
+ROW I3.141 | nr | NOT REACHED | NOT REACHED | not at L — [D] in FourCopyPackage.lean, a prefli | R6: no structure with three or more tokens at L (EQ5-SOURCE §1; ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.142 | dna | FAILS [hyp] | FAILS [hyp] | not at L — [D]; `ie1Drive_of_ie1` is "Open." wit | t3 B (b) | hypothesis status: yes
+ROW I3.143 | def | SATISFIES [K-indep] | SATISFIES | not at L — [D] (FourCopyDefs.lean:30–34); at L n | NO-DECL (R6: [K] definitions (I3.143 [D]))
+ROW I3.144 | dna | FAILS [hyp] | FAILS [hyp] | not at L — [D] in the `sorry` preflight FourCopy | t3 Z6 | hypothesis status: yes
+ROW I3.145 | nr | NOT REACHED | NOT REACHED | assumed (named premise of the landed KT4-PREM-1  | R6: absent bridge A3 (P-STAGE2 not at L); its cone consequence h; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.146 | nr | NOT REACHED | NOT REACHED | assumed (named premise of the landed KT4-PREM-1  | R6: absent bridge A4 (P-ACT2 not at L); cone consequence hgate: ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.147 | cone | SATISFIES [cone] | SATISFIES | PT-record: assumed (hypothesis of Q-SD, Q-EX, Q- | t3 Z3
+ROW I3.148 | cone | SATISFIES [cone] | SATISFIES | PT-record: assumed; "the certified native gate;  | t3 Z5+D0a
+ROW I3.149 | cone | SATISFIES [cone] | SATISFIES | PT-record: assumed, unsourced at L — the dual co | t3 Z1+Z2+Z4
+ROW I3.150 | dna | FAILS [hyp] | FAILS [hyp] | PT-record: open — "INDEPENDENT of H1–H3 plus the | t3 B (b)+B flow | hypothesis status: yes
+ROW I3.151 | dna | FAILS [hyp] | FAILS [hyp] | PT-record: open; stage 4 record S3[n]: "UNIQUE i | R6 [A] (not used by the T6 verdict) | hypothesis status: yes
+ROW I3.152 | dna | FAILS [hyp] | FAILS [hyp] | PT-record: open; stage 4 record R1: "UNIQUE [W + | R6 [A] (not used by the T6 verdict) | hypothesis status: yes
+ROW I3.153 | dna | FAILS [hyp] | FAILS [hyp] | PT-record: open; stage 4: "The drive the corpus  | t3 B (b)+B flow | hypothesis status: yes
+ROW I3.154 | nr | NOT REACHED | NOT REACHED | PT-record: open ("IE₂ open", INTEGRATION-REVIEW. | R6: no structure with three or more tokens at L (EQ5-SOURCE §1; ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.155 | dna | FAILS [hyp] | FAILS [hyp] | PT-record: flagged; "FC ⟺ IE1 given hgate, with  | t3 B (b) | hypothesis status: yes
+ROW I3.156 | cone | SATISFIES [cone] | SATISFIES | PT-record: "INV2 and SDC are named principles, n | t3 Z5+D0a
+ROW I3.157 | nr | NOT REACHED | NOT REACHED | PT-record: FCC is CONDITIONAL on SDC; "Its obser | R6: no structure with three or more tokens at L (EQ5-SOURCE §1; ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.158 | nr | NOT REACHED | NOT REACHED | PT-record: "independently motivated equivalent.  | R6: no structure with three or more tokens at L (EQ5-SOURCE §1; ; no pair-cone theorem at L other than the reflY no-go (t2)
+ROW I3.159 | cone | SATISFIES [cone] | SATISFIES | PT-record: "restating sources only. The non-rest | t3 Z3+Z1+Z2+Z4+Z5+Z8
+ROW I3.160 | cand | FAILS [hyp] | FAILS [hyp] | PT-record: "UNIQUE [W + X + K + L]; CONDITIONAL  | R6 [A] (not used by the T6 verdict) | hypothesis status: yes
+ROW I3.161 | cand | FAILS [hyp] | FAILS [hyp] | PT-record: "EXCLUDES-KNOWN (invariant c = 15 on  | R6 [A] (not used by the T6 verdict) | hypothesis status: yes
+ROW I3.164 | inh | SATISFIES [inherit] | SATISFIES | conditional (ROADMAP.md:984 "**K1 — the dimensio | NO-DECL (R6: [K] dim1_core instance; K1 CONDITIONAL for Q3 likewise)
+ROW I3.165 | dna | FAILS [hyp] | FAILS [hyp] | open (ROADMAP.md:1001 "**K2 — the composite. OPE | t3 B (b)+B flow | hypothesis status: yes
+ROW I3.166 | inh | SATISFIES [inherit] | SATISFIES | open (ROADMAP.md:1007 "**K∞ — the field-neutral  | NO-DECL (R6: K∞ OPEN for Q3 likewise (pair-blind))
+ROW I3.167 | inh | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:35 "no; CMP-1 state | NO-DECL (R6: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L))
+ROW I3.168 | inh | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:36 "no; OPACT-1 sou | NO-DECL (R6: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L))
+ROW I3.169 | inh | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:37 "no") | NO-DECL (R6: [K] ball3Drive KIF:449; [X] r6 T4; operational availability open for Q)
+ROW I3.170 | b1 | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:38 "no; not implied | NO-DECL (R6: [K] B1 EffectSpace:572 / B2 DenseOrbit:243 fix maxCone (eball 3); K ⊆ )
+ROW I3.171 | b1 | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:39 "no") | NO-DECL (R6: [K] B1; [X] r6 T2 (sharp seed on the ball); K ⊆ maxCone [X] r2 C5)
+ROW I3.172 | b1 | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:40 "no; body preser | NO-DECL (R6: [K] B1 EffectSpace:572 / B2 DenseOrbit:243 fix maxCone (eball 3); K ⊆ )
+ROW I3.173 | inh | SATISFIES [inherit] | SATISFIES | open, unsourced (seams audit:41 "the one `N` of  | NO-DECL (R6: [X] r6 T5; K∞-Copy open for Q3 likewise (one N built into NativeGate))
+ROW I3.185 | thm | SATISFIES [K-indep] | SATISFIES | proved [K] | NO-DECL (R6: [K] CD:1923-1931, K2Guard:172 (products only))
+ROW I3.186 | inh | SATISFIES [inherit] | SATISFIES | proved [K] | KBLIND-OK: eball_three TransitiveBody.lean:671
+ROW I3.187 | d4v | SATISFIES (vacuous) | SATISFIES (vacuous) | conditional-on IE1, `hcls`, `hadm`, `hgate`; "a  | its hypothesis fails: IE1 fails (t3 B) | hypothesis status: yes
+ROW I4.236 | inh | SATISFIES [inherit] | SATISFIES | refuted (by kn-elementary-carrier-census.md:47-5 | NO-DECL (R6: [A] kn census §4; [X] r2 C10: the pair reading of SF fails for Q3 and )
+ROW I1.17 | hmg | NOT REACHED | NOT REACHED | conditional-on (I1 record) | manuscript level H; no bridge at L (t1)
+ROW I4.3 | hmg | NOT REACHED | NOT REACHED | assumed (never discharged for a general theory a | NR-OK: HasParallelReferenceExtension ReferenceExtension.lean:447
+ROW I4.4 | hmg | NOT REACHED | NOT REACHED | assumed; implied by HasParallelReferenceExtensio | NR-OK: HasQutritReferenceExtension ReferenceExtension.lean:469
+ROW I4.14 | hmg | NOT REACHED | NOT REACHED | assumed (hypothesis of krausSoundExt_of_sound_co | NR-OK: InertSpectatorCompositionality SpectatorBridge.lean:223
+ROW I4.29 | hmg | NOT REACHED | NOT REACHED | assumed in general; discharged for the substratu | NR-OK: ContextStable ImplementationLocality.lean:359
+ROW I4.31 | hmg | NOT REACHED | NOT REACHED | assumed; satisfied by exact finite QM (implement | NR-OK: ImplementationLocality ImplementationLocality.lean:370
+ROW I4.42 | hmg | NOT REACHED | NOT REACHED | assumed; equivalent to exact finite operational  | NR-OK: OIPlusLocal ImplementationLocality.lean:1053
+ROW I4.45 | hmg | NOT REACHED | NOT REACHED | assumed for an extension (hypothesis of quantumA | NR-OK: StructurallyClosed StructuralClosure.lean:183
+ROW I4.56 | hmg | NOT REACHED | NOT REACHED | assumed; holds under composite unitary control ( | NR-OK: LayerFlowExecutable LiftAudit.lean:112
+ROW I4.65 | hmg | NOT REACHED | NOT REACHED | assumed; necessary for exact finite QM (physical | NR-OK: PhysicalCompletionConditions PhysicalCharacterization.lean:295
+ROW I4.66 | hmg | NOT REACHED | NOT REACHED | assumed; derived from ImplementationLocality (va | NR-OK: CompositeOperationalValidity OperationalValidity.lean:88
+ROW I4.67 | hmg | NOT REACHED | NOT REACHED | assumed; derived from ReversibleRichness (contro | NR-OK: HasCompositeUnitaryControl OperationalAssembly.lean:665
+ROW I4.68 | hmg | NOT REACHED | NOT REACHED | assumed; derived from EmbeddedObservation (closu | NR-OK: IteratedAncillaClosure AncillaClosure.lean:247
+ROW I4.69 | hmg | NOT REACHED | NOT REACHED | assumed; derived from EmbeddedObservation (syste | NR-OK: SystemToLevelOne LevelOneSeam.lean:117
+ROW I4.70 | hmg | NOT REACHED | NOT REACHED | assumed where it is a hypothesis (the necessity  | NR-OK: ExactAllFiniteEndomorphicQuantumOps LevelOneSeam.lean:186
+ROW I4.73 | hmg | NOT REACHED | NOT REACHED | assumed (hypothesis of exactAll_iff_substantive, | NR-OK: WellFormed GeneralCarrier.lean:125
+ROW I4.74 | hmg | NOT REACHED | NOT REACHED | assumed | NR-OK: SubstantiveCompletion GeneralCarrier.lean:130
+ROW I4.80 | hmg | NOT REACHED | NOT REACHED | assumed; equivalent to PhysicalCompletionConditi | NR-OK: CompletedOI CompletedOI.lean:99
+ROW I4.82 | hmg | NOT REACHED | NOT REACHED | assumed; by definition HasParallelReferenceExten | NR-OK: ObservationalIndependence CarrierGeneralOIPlus.lean:73, ObservationalIndependence CompletedOI.lean:129
+ROW I4.85 | hmg | NOT REACHED | NOT REACHED | assumed; independent of the other OI⁺ principles | NR-OK: ReversibleRichness CarrierGeneralOIPlus.lean:110, ReversibleRichness CompletedOI.lean:171
+ROW I4.87 | hmg | NOT REACHED | NOT REACHED | assumed; derived from EmbeddedObservation (obser | NR-OK: ObserverRecursion CompletedOI.lean:327
+ROW I4.88 | hmg | NOT REACHED | NOT REACHED | assumed; equivalent to exact finite operational  | NR-OK: OIPlus CarrierGeneralOIPlus.lean:185, OIPlus CompletedOI.lean:418
+ROW I4.96 | hmg | NOT REACHED | NOT REACHED | assumed; by definition HasParallelReferenceExten | NR-OK: ObservationalIndependence CarrierGeneralOIPlus.lean:73, ObservationalIndependence CompletedOI.lean:129
+ROW I4.99 | hmg | NOT REACHED | NOT REACHED | assumed; gives HasCompositeUnitaryControl (contr | NR-OK: ReversibleRichness CarrierGeneralOIPlus.lean:110, ReversibleRichness CompletedOI.lean:171
+ROW I4.102 | hmg | NOT REACHED | NOT REACHED | assumed; equivalent to exact finite operational  | NR-OK: OIPlus CarrierGeneralOIPlus.lean:185, OIPlus CompletedOI.lean:418
+ROW I4.110 | hmg | NOT REACHED | NOT REACHED | assumed; implies ObserverRecursion (:217), Itera | NR-OK: EmbeddedObservation EmbeddedObservation.lean:123
+ROW I4.115 | hmg | NOT REACHED | NOT REACHED | assumed; ⟺ OIHierarchyGeneral.OIPlus (oiPlusEmbe | NR-OK: OIPlusEmbedded EmbeddedObservation.lean:366
+ROW I4.118 | hmg | NOT REACHED | NOT REACHED | assumed; implied by LayerFlowExecutable under Su | NR-OK: PhaseFreeRichness MinimalRepertoire.lean:423
+ROW I4.120 | hmg | NOT REACHED | NOT REACHED | assumed; ⟺ exact finite operational QM (oiPlusMi | NR-OK: OIPlusMin MinimalRepertoire.lean:544
+ROW I4.123 | hmg | NOT REACHED | NOT REACHED | assumed; implies PhaseFreeRichness (phaseFree_of | NR-OK: CyclicRichness MinimalRepertoire.lean:634
+ROW I4.124 | hmg | NOT REACHED | NOT REACHED | assumed; ⟺ exact finite operational QM (oiPlusPo | NR-OK: OIPlusPos PositivePackage.lean:35
+ROW I4.127 | hmg | NOT REACHED | NOT REACHED | assumed; derived from LieRankRichness on a well- | NR-OK: InverseAccessibility MicroscopicReversibility.lean:88
+ROW I4.128 | hmg | NOT REACHED | NOT REACHED | assumed | NR-OK: LieRankRichness MicroscopicReversibility.lean:93
+ROW I4.133 | hmg | NOT REACHED | NOT REACHED | assumed; holds for exact QM (reversibleImplement | NR-OK: ReversibleImplementationLocality MicroscopicReversibility.lean:223
+ROW I4.137 | hmg | NOT REACHED | NOT REACHED | assumed; ⟺ exact finite operational QM (oiPlusMi | NR-OK: OIPlusMicro MicroscopicReversibility.lean:336
+ROW I4.143 | hmg | NOT REACHED | NOT REACHED | assumed for an extension; refuted for substratum | NR-OK: DrivesElementary SubstratumSource.lean:77
+ROW I4.144 | hmg | NOT REACHED | NOT REACHED | assumed; for a structurally closed class ⟺ Drive | NR-OK: QuantumArchitecture SubstratumSource.lean:86
+ROW I4.179 | hmg | NOT REACHED | NOT REACHED | assumed; ⟺ (with DerivedOI) exact QM on the qubi | NR-OK: PairFlowSourced PairFlowEquivalence.lean:48
+ROW I4.187 | hmg | NOT REACHED | NOT REACHED | assumed; ⟺ the typed Kraus determination (typed_ | NR-OK: ShadowQuantum TypedCompletion.lean:291
+ROW I4.210 | hmg | NOT REACHED | NOT REACHED | K | NR-OK: psd_iff_trace_nonneg JordanClassification.lean:84
+ROW I4.215 | hmg | NOT REACHED | NOT REACHED | K | NR-OK: psd_trace_mul_nonneg OperationalRigidity.lean:917
+ROW I4.216 | hmg | NOT REACHED | NOT REACHED | K | NR-OK: accessible_cone_full OperationalRigidity.lean:956
+ROW I4.241 | hmg | NOT REACHED | NOT REACHED | assumed (hypothesis of derivedOI_qm_iff_layerFlo | NR-OK: DerivedOI RouteB.lean:141
+ROW I4.244 | hmg | NOT REACHED | NOT REACHED | assumed (conjunct of OIPlusPos) | NR-OK: ElementaryTransitionRichness LieRankSource.lean:436
+ROW I4.245 | hmg | NOT REACHED | NOT REACHED | assumed (hypothesis of typed_determined_of_oiPlu | NR-OK: OIPlusElem LieRankSource.lean:527
+ROW I2.3 | hmg | NOT REACHED | NOT REACHED | scope statement (components: I2.39 proved [K]; I | manuscript level G (operational co…; no bridge at L (t1)
+ROW I2.29 | hmg | NOT REACHED | NOT REACHED | proved [K] per the manuscript's kernel citation  | manuscript level G (every nonempty…; no bridge at L (t1)
+ROW I2.30 | hmg | NOT REACHED | NOT REACHED | proved [K] per manuscript citation (`main_result | manuscript level G; no bridge at L (t1)
+ROW I2.31 | hmg | NOT REACHED | NOT REACHED | equivalence proved [K] per manuscript citation ( | manuscript level G; no bridge at L (t1)
+ROW I2.32 | hmg | NOT REACHED | NOT REACHED | equivalence proved [K] per manuscript citation ( | manuscript level G; no bridge at L (t1)
+ROW I2.33 | hmg | NOT REACHED | NOT REACHED | proved [K] per manuscript citation (`substratum_ | manuscript level G/H; no bridge at L (t1)
+ROW I2.34 | hmg | NOT REACHED | NOT REACHED | proved [K] per manuscript citation (`derivedOI_q | manuscript level G; no bridge at L (t1)
+ROW I2.35 | hmg | NOT REACHED | NOT REACHED | proved [K] per manuscript citation (`typed_deter | manuscript level G; no bridge at L (t1)
+ROW I2.62 | hmg | NOT REACHED | NOT REACHED | scope statement (components I2.39, I2.44, I2.56, | manuscript level M/G; no bridge at L (t1)
+ROW I2.63 | hmg | NOT REACHED | NOT REACHED | scope statement | manuscript level G/O; no bridge at L (t1)
+ROW I2.69 | hmg | NOT REACHED | NOT REACHED | scope statement (layers 1–3 proved; layer 4 / pa | manuscript level H/M/G; no bridge at L (t1)
+TALLY FAILS [hyp] 13, NOT REACHED 68, SATISFIES 115, SATISFIES (vacuous) 3
+NO-DECL rows (16): I3.1, I3.125, I3.129, I3.138, I3.143, I3.164, I3.166, I3.167, I3.168, I3.169, I3.170, I3.171, I3.172, I3.173, I3.185, I4.236
+CC no_candidateCone_cnot_reflY carries a pair-cone binder: True
+VERDICT ROWS-OK: 199 rows; FAILS [hyp] 13, NOT REACHED 68, SATISFIES 115, SATISFIES (vacuous) 3; every cone row backed by a PASS of t3; every FAILS row a hypothesis

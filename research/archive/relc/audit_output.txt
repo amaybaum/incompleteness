@@ -1,0 +1,44 @@
+declarations parsed: 319
+opaque uses of a gate hypothesis (anonymous projections / destructuring): none
+direct consumers of .relT: ['gate_actT', 'opGate_comp_homMap']
+direct consumers of .relC: ['gate_actC', 'opGate_homMap_comp']
+
+declaration                  relT   relC    relT-tainted callees
+dim_of_nativeGate            True   True    ['blockData_of_nativeGate', 'finrank_plus_eq_finrank_minus']
+three_of_nativeGate          True   True    ['dim_of_nativeGate']
+blockData_of_nativeGate      True   True    ['blockData_of_orthonormal']
+blockData_of_orthonormal     True   True    ['Minv_homMap', 'gate_actT']
+finrank_plus_eq_finrank_minus True   True    ['Lop_injective']
+not_even_of_nativeGate       True   True    ['finrank_plus_eq_finrank_minus']
+not_entangling_one           False  False   []
+Lop_anti                     False  True    []
+Lop_eq_zero                  True   False   ['opGate_comp_homMap']
+Lop_injective                True   False   ['Lop_eq_zero']
+gate_corner                  False  False   []
+gate_corner_symm             False  False   []
+Mfwd_Minv                    False  False   []
+Minv_Mfwd                    False  False   []
+lor_Minv                     False  False   []
+gate_actC                    False  True    []
+gate_corner_neg              False  True    []
+gt_corner                    False  False   []
+gt_corner_neg                False  True    []
+gt_center                    False  True    []
+gt_tangent_corners           False  True    []
+gt_sphere                    False  False   []
+gt_sphere_corner             False  True    []
+Phi_sphere                   False  False   []
+Phi_center                   False  True    []
+Phi_center_all               False  True    []
+Phi_hom_zero_eq_zero         False  True    []
+Phi_lift_z_eq_zero           False  True    []
+gate_actT                    True   False   []
+Mfwd_homMap                  True   False   ['gate_actT']
+Minv_homMap                  True   False   ['Mfwd_homMap']
+opGate_comp_homMap           True   False   []
+opGate_homMap_comp           False  True    []
+
+lines of blockData_of_orthonormal that reference a relT-tainted declaration:
+  L2668: rw [hω, ← gate_actT hN hG, actT_tens, ← Minv_homMap hN hG, homMap_hom, map_zero]
+
+audit controls: PASS

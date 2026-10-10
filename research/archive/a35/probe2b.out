@@ -1,0 +1,18 @@
+exact defect at Σ point z=(3+4i)/5, w=(5+12i)/13: 49 (8s)
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/a35/probe2b.py", line 41, in <module>
+    print('exact defect at a Diţă point with nine distinct rational twist phases:', defect_exact_sym(Hd), '(%.0fs)' % (time.time() - t0))
+                                                                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/a35/probe2b.py", line 26, in defect_exact_sym
+    M = DomainMatrix([[QQ.from_sympy(sympy.nsimplify(x)) for x in r] for r in rows], (len(rows), n * n), QQ)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/a35/probe2b.py", line 26, in <listcomp>
+    M = DomainMatrix([[QQ.from_sympy(sympy.nsimplify(x)) for x in r] for r in rows], (len(rows), n * n), QQ)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/a35/probe2b.py", line 26, in <listcomp>
+    M = DomainMatrix([[QQ.from_sympy(sympy.nsimplify(x)) for x in r] for r in rows], (len(rows), n * n), QQ)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/dist-packages/sympy/polys/domains/rationalfield.py", line 76, in from_sympy
+    raise CoercionFailed("expected `Rational` object, got %s" % a)
+sympy.polys.polyerrors.CoercionFailed: expected `Rational` object, got -2**(134/251)*3**(108/251)*5**(545/753)*7**(65/251)/210
+done

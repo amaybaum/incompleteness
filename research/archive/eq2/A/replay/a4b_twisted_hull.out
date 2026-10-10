@@ -1,0 +1,12 @@
+     correlation matrix of Psi-_rot: [[0, -1, 0], [1, 0, 0], [0, 0, -1]]
+PASS K1 all nine generators have trace 1 and are PT_j(sigma) (x) rho with sigma, rho PSD
+PASS K2 the GHZ stabilizer group: 8 commuting involutions fixing GHZ
+PASS K2 control: twirl(GHZ) = GHZ
+PASS K3 twirl((1/9) sum_p (alpha_p + beta_p + delta_p)) = W/3 exactly  =>  W is in B_tw
+PASS K4 countercontrol: the twirl without the beta family is not a multiple of W
+     pair (0, 1): alpha [-1, 0, 0, -1, -1, 0, 0]  beta [-1, 0, 0, 0, 0, -1, -1]  delta [-1, 0, 0, 0, 0, 0, 0]
+     pair (0, 2): alpha [0, 0, -1, -1, 0, 0, -1]  beta [0, 0, -1, 0, -1, -1, 0]  delta [0, 0, -1, 0, 0, 0, 0]
+     pair (1, 2): alpha [0, -1, 0, -1, 0, -1, 0]  beta [0, -1, 0, 0, -1, 0, -1]  delta [0, -1, 0, 0, 0, 0, 0]
+PASS K5 stabilizer coordinates of the three families match the derivation
+a4b_twisted_hull: 6/6 checks pass
+VERDICT A4b-GHZ-WITNESS-IN-TWISTED-HULL

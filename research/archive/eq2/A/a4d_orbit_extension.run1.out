@@ -1,0 +1,13 @@
+PASS M1 every conditional of PT_j(x) = a4c sum of squares + t(|alpha|^2+|beta|^2) 1 (symbolic)  =>  x in B_tw*
+     tr(G x) = -1/5
+PASS M2 tr(G x) = -1/5 < 0 with G in B_tw*  =>  x is not in B_tw
+PASS M3 x = s 1 + (1/2)|G+><G+| - (3/2)|G-><G-| exactly (s = 3/5)
+     bound 8t^2 + 6t - 1/2 = 9/50
+     tr(x U x U^H) at U = S (x) S (x) 1: 9/50
+PASS M4 the bound equals 9/50 > 0 and is attained at U = S (x) S (x) 1 (tightness)
+PASS M4 control: 6 random exact global unitaries over Q(i) give tr(x U x U^H) >= 9/50
+PASS M4 control: 6 random exact local unitaries over Q(i) give tr(x U x U^H) >= 9/50
+     countercontrol: t = 1/20, tr(x U x U^H) at U = S (x) S (x) 1 = -9/50
+PASS M5 countercontrol: at t = 1/20 the value at U = S (x) S (x) 1 is -9/50 < 0
+a4d_orbit_extension: 7/7 checks pass
+VERDICT A4d-ORBIT-OBSTRUCTION-FAILS

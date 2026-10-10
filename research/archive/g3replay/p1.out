@@ -1,0 +1,47 @@
+PASS A R: associative=True (expected True), alternative, norm multiplicative
+PASS A C: associative=True (expected True), alternative, norm multiplicative
+PASS A H: associative=True (expected True), alternative, norm multiplicative
+PASS A O: associative=False (expected False), alternative, norm multiplicative
+PASS B R: H_2(R) is the spin factor V_2 (u_i o u_j = delta_ij I on 2 traceless units)
+PASS B R: level exchange theta(A) = XAX is an involutive Jordan automorphism of H_2(R) flipping z
+PASS B R: splits homogenized (2,1) tangent (1,1) equatorial (Re,Im)=(1,0), det_tan=-1
+PASS B C: H_2(C) is the spin factor V_3 (u_i o u_j = delta_ij I on 3 traceless units)
+PASS B C: level exchange theta(A) = XAX is an involutive Jordan automorphism of H_2(C) flipping z
+PASS B C: splits homogenized (2,2) tangent (1,2) equatorial (Re,Im)=(1,1), det_tan=1
+PASS B H: H_2(H) is the spin factor V_5 (u_i o u_j = delta_ij I on 5 traceless units)
+PASS B H: level exchange theta(A) = XAX is an involutive Jordan automorphism of H_2(H) flipping z
+PASS B H: splits homogenized (2,4) tangent (1,4) equatorial (Re,Im)=(1,3), det_tan=1
+PASS B O: H_2(O) is the spin factor V_9 (u_i o u_j = delta_ij I on 9 traceless units)
+PASS B O: level exchange theta(A) = XAX is an involutive Jordan automorphism of H_2(O) flipping z
+PASS B O: splits homogenized (2,8) tangent (1,8) equatorial (Re,Im)=(1,7), det_tan=1
+PASS B cl: classical bit, swap of levels, homogenized split (1,1), tangent (0,1)
+PASS C R: [X,Z]/2 is antisymmetric, not in H_2(R); no imaginary unit; anticommutant dim 1 < 2 = dim commutant
+PASS C C: each of the 1 imaginary units u gives Phi_u: commutant -> anticommutant (Hermitian, rank 2); anticommutant dim 2; Phi_u bijective: True
+PASS C H: each of the 3 imaginary units u gives Phi_u: commutant -> anticommutant (Hermitian, rank 2); anticommutant dim 4; Phi_u bijective: False
+PASS C O: each of the 7 imaginary units u gives Phi_u: commutant -> anticommutant (Hermitian, rank 2); anticommutant dim 8; Phi_u bijective: False
+     Ad X (unitary)                         automorphism=True antiautomorphism=False Jordan-aut=True flips z=True det_Bloch=1 split=(2, 2)
+PASS D Ad X (unitary): Jordan automorphism, flips z, exactly one of aut/antiaut
+     Ad Y (unitary)                         automorphism=True antiautomorphism=False Jordan-aut=True flips z=True det_Bloch=1 split=(2, 2)
+PASS D Ad Y (unitary): Jordan automorphism, flips z, exactly one of aut/antiaut
+     X A^T X (antiunitary)                  automorphism=False antiautomorphism=True Jordan-aut=True flips z=True det_Bloch=-1 split=(3, 1)
+PASS D X A^T X (antiunitary): Jordan automorphism, flips z, exactly one of aut/antiaut
+     Y A^T Y (antiunitary, universal NOT)   automorphism=False antiautomorphism=True Jordan-aut=True flips z=True det_Bloch=-1 split=(1, 3)
+PASS D Y A^T Y (antiunitary, universal NOT): Jordan automorphism, flips z, exactly one of aut/antiaut
+PASS D rule: over C a z-flipping NOT is balanced iff it is unitary (automorphism) iff det_Bloch = +1
+     PAR   = [1, 3, 5, 7, 9, 11, 13]
+     PAR+  = [3, 7, 11]
+     BLK   = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+     JOINT = [1, 3]
+PASS E PAR = odd d (parity alone is not field-selecting: it admits d = 5 (H), 9 (O), 7)
+PASS E PAR+ = d = 3 mod 4 (parity with an orientation-preserving NOT)
+PASS E BLK = every d (block bound alone selects no dimension, only the NOT type p_tan <= 1)
+PASS E JOINT = {1, 3} (DIM-1's count, same N)
+PASS E Hurwitz: PAR meets {1,2,3,5,9} in {1,3,5,9}; PAR+ in {3}; JOINT in {1,3}; level-exchange balance in {1,3}
+     per-field failure locus (tangent split (p_tan, m_tan): parity / block):
+       cl d=1  LE=(0,1)  (0,1):P/B
+       R  d=2  LE=(1,1)  (0,2):-/B+ (1,1):-/B
+       C  d=3  LE=(1,2)  (0,3):-/B (1,2):P/B+ (2,1):-/-
+       H  d=5  LE=(1,4)  (0,5):-/B (1,4):-/B+ (2,3):P/- (3,2):-/-+ (4,1):-/-
+       O  d=9  LE=(1,8)  (0,9):-/B (1,8):-/B+ (2,7):-/- (3,6):-/-+ (4,5):P/- (5,4):-/-+ (6,3):-/- (7,2):-/-+ (8,1):-/-
+SUMMARY 31 checks, 0 failed
+VERDICT RENDERED: level-exchange NOT balanced exactly for ['C', 'cl']; equatorial split (Re,Im) = (1,k-1) so balance <=> dim Im F = 1; over C balance <=> unitary NOT; parity alone admits [1, 3, 5, 7, 9, 11, 13], with det+1 [3, 7, 11]; block alone admits every d; jointly [1, 3]

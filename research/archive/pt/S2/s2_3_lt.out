@@ -1,0 +1,39 @@
+PASS L0.pc/pt transcription
+PASS L0.cnot involution
+PASS L0.cnot pxz = phiW
+PASS L1.16 product tables span W 3
+PASS L2.(i) pi N(cnot u, Cu) - cnot pi(cnot u, Cu) = B C u
+PASS L2.(ii) W3-block of N o N = I + B C
+PASS countercontrol L2.difference vanishes for B C != 0 at u = pxz fails as required
+PASS L3.cnot delta = delta
+PASS L3.ell o cnot = ell
+PASS L3.N_inv o N_inv = I
+PASS L3.hidden register excited: C pxz != 0
+PASS L3.every generated label value = prodEffVal of cnot^k(table) (LT through tables)
+PASS countercontrol L3.hidden coordinate is a function of the table on the generated span fails as required  [hidden [1, 0] vs [0, 0]]
+PASS L4.product action pi N(p,0) = cnot p
+PASS L4.N^2 = cnot (+) cnot
+PASS L4.N^4 = I
+PASS countercontrol L4.INV2 (N^2 = I) fails as required
+PASS L4.B C != 0
+PASS L4.equal tables pi s = pi s' (= cnot pxz)
+PASS L4.pi(N s) != pi(N s') (LT fails)  [pi(N s)=phiW:True pi(N s')=pxz:True]
+PASS L4.all generated label values in [0,1]
+PASS L4.unit label = 1 on the generated instance
+PASS L4.generated set closed under N (hence under N^-1 = N^3)
+PASS L5.R^3 = I
+PASS countercontrol L5.carrier INV2 (N_3^2 = I) fails as required
+PASS L5.LT through tables holds on the generated instance (B = 0)
+PASS L6.CNOT real
+PASS L6.Ad(CNOT) maps the real symmetric span to itself
+PASS L6.Ad(CNOT) involution
+PASS L6.CNOT (X(x)Z) CNOT = -Y(x)Y
+PASS L6.product action C has C(X(x)Z) = 0
+PASS L6.C o C != I
+PASS L6.rho1 = (I + Y(x)Y)/4
+PASS L6.pi(rho1) = pi(I/4)
+PASS L6.pi(Ad rho1) != pi(Ad(I/4)) (LT fails though N o N = I)
+SUMMARY checks passed=35 all_ok=True
+VERDICT BLOCK-LEMMA: for a pair system realizing the certified product action of cnot, PTQ of the gate on the generated span <=> B C = 0, and N o N = I forces B C = 0 (symbolic identities)
+VERDICT INV2: an involutive gate with an excited hidden register still gives LT through tables (positive control); the register model (N^4 = I, N^2 != I) satisfies product action, validity and reversibility and is not locally tomographic (exact witness)
+VERDICT STRENGTH: carrier-level INV2 is strictly stronger than LT (order-3 model: LT holds, N^2 != I); the rebit control shows the certified involutive table action is needed (N^2 = I, product action not involutive, LT fails)

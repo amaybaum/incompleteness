@@ -1,0 +1,126 @@
+ROADMAP.md:24  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **ACTIVE** | A round is running, or is **frozen and merged** and awaiting execution. A drafted or closed con
+ROADMAP.md:25  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **OPEN** | A named obligation not closed at the required scope: no closing construction or theorem, and no i
+ROADMAP.md:26  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **GAP** | The manuscript states the condition, and the formal interface has **no predicate for it at all** —
+ROADMAP.md:27  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **EXTERNAL** | A published result consumed as a cited premise. Formalizing it is an independent job; until t
+ROADMAP.md:28  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **CONDITIONAL** | Formally present, carrying a named hypothesis this programme has not discharged. The manus
+ROADMAP.md:29  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **DERIVED** | Kernel-proved and propagated to the manuscript. Rows reach this state and then leave the queue
+ROADMAP.md:30  row        OOS:none (vocabulary; fixes no premise)  | [Status vocabulary] | **INDEPENDENT** | The kernel has **settled it negatively**: the resource is not sourced by the stated archit
+ROADMAP.md:38  paragraph  I1.78  | [Programme interpretation boundary — what is alread] At the finite observable-law level, the quantum representation is already downstream of
+ROADMAP.md:63  row        OOS:I2 (P0: relative evolution inside the finite representation S<=>D<=>Q_fb, Track B)  | [The queue] | **P0** | What additional structure determines the relative quantum evolution OI leaves free | OI→QM / Track 
+ROADMAP.md:64  row        OOS:I2 (reconstruction: completeness of the substratum gauge group)  | [The queue] | **P1** | Substratum Lemma 24.1 — semigroup transfer | Reconstruction | **OPEN** — the semigroup-transfer rou
+ROADMAP.md:65  row        I1.61,I1.62,I1.68  | [The queue] | **P1** | A6 — background independence / local gauge covariance | Substratum | **CONDITIONAL** — the adopted 
+ROADMAP.md:66  row        I1.74  | [The queue] | **P1** | Physical C4 discharge at the cosmological and lattice cuts | Physical realization | **OPEN**, and n
+ROADMAP.md:67  row        OOS:I2 (Bell and composite closure)  | [The queue] | **P1** | H-Bell — composite and Bell closure | OI→QM / Bell | **OPEN** | Bell-inclusive completion |
+ROADMAP.md:68  row        OOS:I3/I4 (K programme: K1, K2, K-infinity; K_n)  | [The queue] | **P1** | K — pre-quantum kinematics: from field-neutral operational premises to the complex matrix kinematic
+ROADMAP.md:69  row        I1.76  | [The queue] | **P1** | Stochastic observer interface — source `(Obs, μ)` from the stated architecture | Foundations / phys
+ROADMAP.md:70  row        OOS:I2/I4 (continuum / Level III quasilocal completion)  | [The queue] | **P1** | H-∞ — finite operational theory → continuum / infinite-dimensional completion | OI→QM / continuum |
+ROADMAP.md:71  row        OOS:I2 (reconstruction premise, physical layer)  | [The queue] | **P2** | Bekir–Golomb integer classification | Reconstruction | **EXTERNAL** | removes the last reconstructi
+ROADMAP.md:72  row        OOS:I2 (SM physical layer)  | [The queue] | **P2** | H-link — physical-carrier identification | Standard Model | **CONDITIONAL** | the physical `K = 6` 
+ROADMAP.md:73  row        OOS:I2 (GR physical layer)  | [The queue] | **P2** | H-state / H-frame / H-slope | Gravity | **CONDITIONAL** | the `ℏ` and `1/4` calibration |
+ROADMAP.md:74  row        OOS:I2 (GR physical layer)  | [The queue] | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain
+ROADMAP.md:75  row        OOS:I2 (GR / Level III)  | [The queue] | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integ
+ROADMAP.md:77  heading    OOS:I2 (P0, Track B)  | [P0 — what fixes the relative evolution: act 11's n] ### P0 — what fixes the relative evolution: act 11's no-go, and what it leaves
+ROADMAP.md:140  bullet     OOS:I2 (P0, Track B acts)  | [Act 11 moved the question above the convention lay] - **`GL2`** — a **time-dependent** element of the anchored stabilizer carries a coherent lift to
+ROADMAP.md:145  bullet     OOS:I2 (P0, Track B acts)  | [Act 11 moved the question above the convention lay] - **`GL3`** — a **constant** gauge leaves every relative object unchanged, so time-dependence is
+ROADMAP.md:148  bullet     OOS:I2 (P0, Track B acts)  | [Act 11 moved the question above the convention lay] - **`GI2`** — and this the freeze predicted at **no strength on either side**: there are two
+ROADMAP.md:198  bullet     OOS:I2 (P0, Track B acts)  | [Act 12 classified the per-slice lift freedom exact] - **`LG1`** — `𝒢_L` is invisible universally, maximal among uniform **left** actions considered
+ROADMAP.md:201  bullet     OOS:I2 (P0, Track B acts)  | [Act 12 classified the per-slice lift freedom exact] - **`RO1`** — act 11's open target is **closed positively**: two coherent lifts of one visible family
+ROADMAP.md:206  bullet     OOS:I2 (P0, Track B acts)  | [Act 12 classified the per-slice lift freedom exact] - **`TG2`** — the fibre-Gram orbit theorem, both directions: two dilations are related by
+ROADMAP.md:210  bullet     OOS:I2 (P0, Track B acts)  | [Act 12 classified the per-slice lift freedom exact] - **`TG3`** — the quotient is nontrivial on a single law and dynamically distinct: at `|A| = 1`,
+ROADMAP.md:215  bullet     OOS:I2 (P0, Track B acts)  | [Act 12 classified the per-slice lift freedom exact] - **`SH1`** — the shape theorem, **both directions at kernel level**: a Gram tuple is realizable iff
+ROADMAP.md:256  bullet     OOS:I2 (P0, Track B acts)  | [Act 13 bounded the cross-time data, and localized ] - **`CT1`** — the relative evolution is exactly the lift modulo a constant right unitary, both
+ROADMAP.md:258  bullet     OOS:I2 (P0, Track B acts)  | [Act 13 bounded the cross-time data, and localized ] - **`CT2` (a)** — level 3 determines the lift up to one constant left unitary, both directions,
+ROADMAP.md:261  bullet     OOS:I2 (P0, Track B acts)  | [Act 13 bounded the cross-time data, and localized ] - **`CT2` (b)** — level 2 determines the lift up to one **constant** in-fibre left move and one
+ROADMAP.md:266  bullet     OOS:I2 (P0, Track B acts)  | [Act 13 bounded the cross-time data, and localized ] - **`CT3`** — levels 0–2 are blind to every strong-right threading, universally (G); `GL2`'s pair
+ROADMAP.md:272  bullet     OOS:I2 (P0, Track B acts)  | [Act 13 bounded the cross-time data, and localized ] - **`CT4`** with **`CL1`** — two coherent lifts of the identity family on `|A| = 2`, related by a
+ROADMAP.md:320  bullet     OOS:I2 (P0, Track B acts)  | [Act 14 asked what that residual freedom means, and] - **`PQ0`** — the anchored channel `𝔇_{a₀}` and the cross-fibre Gram `Y_{i i'}` are tied to merged
+ROADMAP.md:324  bullet     OOS:I2 (P0, Track B acts)  | [Act 14 asked what that residual freedom means, and] - **`PQ1`** — the constant in-fibre left move is **redundancy relative to the visible carrier**, and
+ROADMAP.md:331  bullet     OOS:I2 (P0, Track B acts)  | [Act 14 asked what that residual freedom means, and] - **`PQ2`** — the time-dependent strong right gauge leaves the anchored column family **identical**,
+ROADMAP.md:336  bullet     OOS:I2 (P0, Track B acts)  | [Act 14 asked what that residual freedom means, and] - **`PQ3`** — relative to the anchored-channel carrier the pair acts exactly as its left part, so
+ROADMAP.md:341  bullet     OOS:I2 (P0, Track B acts)  | [Act 14 asked what that residual freedom means, and] - **`PQ4`** — two reductions, each in the one direction it has and with its converse refused: a
+ROADMAP.md:391  bullet     OOS:I2 (P0, Track B acts)  | [Act 15 answered the cancellation fork `PQ3` (d) on] - **`CF0`** — type P, settled by the round's own named and bounded search over the freeze's file set
+ROADMAP.md:398  bullet     OOS:I2 (P0, Track B acts)  | [Act 15 answered the cancellation fork `PQ3` (d) on] - **`CF1`** — the composite's relative object is the constant left element's conjugation of
+ROADMAP.md:400  bullet     OOS:I2 (P0, Track B acts)  | [Act 15 answered the cancellation fork `PQ3` (d) on] - **`CF2`** — a cancelling triple's strong family **cannot be constant in time**, through act 11's
+ROADMAP.md:403  bullet     OOS:I2 (P0, Track B acts)  | [Act 15 answered the cancellation fork `PQ3` (d) on] - **`CF3`** — `|A| ≥ 2` and `|V| ≥ 2` are both necessary, each a conjunct of one theorem.
+ROADMAP.md:404  bullet     OOS:I2 (P0, Track B acts)  | [Act 15 answered the cancellation fork `PQ3` (d) on] - **`CF4`** — in any cancelling triple the strong family moves the relative **object** itself at some
+ROADMAP.md:408  bullet     OOS:I2 (P0, Track B acts)  | [Act 15 answered the cancellation fork `PQ3` (d) on] - **`CF5`** — **the fork is answered `PQ3-d⁺`**, at evidence level 2, by an exhibited cancelling
+ROADMAP.md:479  bullet     OOS:I2 (P0, Track B acts)  | [Act 16 answered the cancellation question on the r] - **`RN0`** — type P, settled by the round's own named and bounded search over 223 files and the
+ROADMAP.md:484  bullet     OOS:I2 (P0, Track B acts)  | [Act 16 answered the cancellation question on the r] - **`RN1`** — the refinement, universal at evidence level 2 through act 14's merged `PQ0` (a) at
+ROADMAP.md:489  bullet     OOS:I2 (P0, Track B acts)  | [Act 16 answered the cancellation question on the r] - **`RN2`** — the two contrapositives, universal at evidence level 2: a left part that moves `𝒪₂`
+ROADMAP.md:493  bullet     OOS:I2 (P0, Track B acts)  | [Act 16 answered the cancellation question on the r] - **`RN3` (a)** — **`RN3-a⁺`**, against the freeze's own recorded sign prediction: act 15's exhibited
+ROADMAP.md:497  bullet     OOS:I2 (P0, Track B acts)  | [Act 16 answered the cancellation question on the r] - **`RN3` (b)** — **the fork is answered `RN3⁺`, at line 1 of its four-outcome hierarchy**, at
+ROADMAP.md:502  bullet     OOS:I2 (P0, Track B acts)  | [Act 16 answered the cancellation question on the r] - **`RN4`** — relative to `𝒪₂`, the redundancy subrelation of the threading equivalence does **not**
+ROADMAP.md:555  bullet     OOS:I2 (P0, Track B acts)  | [Act 17 bounded `P0`'s trajectory part: no cross-ti] - **`TJ0`** — type P, settled by the round's own named and bounded search over 223 files and the
+ROADMAP.md:559  bullet     OOS:I2 (P0, Track B acts)  | [Act 17 bounded `P0`'s trajectory part: no cross-ti] - **`TJ1`, the first axis** — both directions at evidence level 2, through act 12's merged `SH1`
+ROADMAP.md:569  bullet     OOS:I2 (P0, Track B acts)  | [Act 17 bounded `P0`'s trajectory part: no cross-ti] - **`TJ2`, the per-candidate verdicts** — four candidate principles were frozen **before** the search
+ROADMAP.md:579  bullet     OOS:I2 (P0, Track B acts)  | [Act 17 bounded `P0`'s trajectory part: no cross-ti] - **`TJ3`, the second axis** — **line 4 of the five-line hierarchy, `TJ3-IMP`**, at evidence level 2:
+ROADMAP.md:665  heading    OOS:I2 (reconstruction: Lemma 24.1)  | [P1 — Substratum Lemma 24.1, the semigroup-transfer] ### P1 — Substratum Lemma 24.1, the semigroup-transfer step
+ROADMAP.md:667  executed   OOS:I2 (reconstruction: Lemma 24.1)  | [P1 — Substratum Lemma 24.1, the semigroup-transfer] **Executed** — `programmes/substratum/lemma-24-1-semigroup-transfer/` (preregistration blob
+ROADMAP.md:685  executed   OOS:I2 (reconstruction: Lemma 24.1)  | [P1 — Substratum Lemma 24.1, the semigroup-transfer] **Executed, 24.1A** — `programmes/substratum/lemma-24-1a-word-trace-sufficiency/`
+ROADMAP.md:722  heading    I1.61,I1.62,I1.68  | [P1 — A6, and what is and is not already represente] ### P1 — A6, and what is and is not already represented
+ROADMAP.md:838  heading    I1.71,I1.72,I1.73,I1.74  | [P1 — physical C4 discharge] ### P1 — physical C4 discharge
+ROADMAP.md:845  executed   I1.71,I1.72,I1.73,I1.74  | [P1 — physical C4 discharge] **Executed, round 1** — `programmes/physical-realization/round-c4-1-physical-discharge/`
+ROADMAP.md:870  executed   I1.71,I1.72,I1.73,I1.74  | [P1 — physical C4 discharge] **Executed, round 2** — `programmes/physical-realization/round-c4-2-storage-readback/`
+ROADMAP.md:918  heading    I1.76  | [P1 — stochastic observer interface] ### P1 — stochastic observer interface
+ROADMAP.md:936  heading    OOS:I2/I4 (continuum / Level III)  | [P1 — H-∞: finite to continuum / infinite-dimension] ### P1 — H-∞: finite to continuum / infinite-dimensional completion
+ROADMAP.md:953  heading    OOS:I2 (Bell and composite closure)  | [P1 — H-Bell and composite closure] ### P1 — H-Bell and composite closure
+ROADMAP.md:971  heading    OOS:I3/I4 (K programme)  | [P1 — K: pre-quantum kinematics] ### P1 — K: pre-quantum kinematics
+ROADMAP.md:978  bullet     OOS:I3/I4 (K programme)  | [P1 — K: pre-quantum kinematics] - **K3 — the operations. CONDITIONAL** on reaching complex matrix kinematics. A quantum
+ROADMAP.md:984  bullet     OOS:I3/I4 (K programme)  | [P1 — K: pre-quantum kinematics] - **K1 — the dimension. CONDITIONAL.** In the DIM-1 coordinate realization of two identical
+ROADMAP.md:1001  bullet     OOS:I3/I4 (K programme)  | [P1 — K: pre-quantum kinematics] - **K2 — the composite. OPEN.** Read-only research has mapped a candidate `d = 3` composition
+ROADMAP.md:1007  bullet     OOS:I3/I4 (K programme)  | [P1 — K: pre-quantum kinematics] - **K∞ — the field-neutral premises. OPEN.** The obligations are seams of the present route to the
+ROADMAP.md:1058  bullet     OOS:I3/I4 (K programme)  | [P1 — K: pre-quantum kinematics] - **Kₙ — elementary-to-arbitrary-carrier lift. OPEN.** DIM-1 reaches only the elementary `d = 3`
+ROADMAP.md:1104  heading    OOS:I2 (physical layer)  | [P2 — Bekir–Golomb integer classification] ### P2 — Bekir–Golomb integer classification
+ROADMAP.md:1113  heading    OOS:I2 (physical layer)  | [P2 — H-link] ### P2 — H-link
+ROADMAP.md:1132  heading    OOS:I2 (physical layer)  | [P2 — H-state, H-frame, H-slope] ### P2 — H-state, H-frame, H-slope
+ROADMAP.md:1140  heading    OOS:I2 (physical layer)  | [P2 — covariant matter→boundary coupling] ### P2 — covariant matter→boundary coupling
+ROADMAP.md:1148  heading    OOS:I2 (GR / Level III)  | [P3 — GR states to Level-III quasilocal states] ### P3 — GR states to Level-III quasilocal states
+ROADMAP.md:1158  heading    OOS:I2 (physical layer: hydrodynamics)  | [Hydrodynamics programme — round H-A executed] ### Hydrodynamics programme — round H-A executed
+ROADMAP.md:1175  heading    OOS:I2 (physical layer: hydrodynamics)  | [Hydrodynamics programme — round H-B: one candidate] ### Hydrodynamics programme — round H-B: one candidate executed
+ROADMAP.md:1199  heading    OOS:I2 (physical layer: hydrodynamics)  | [Hydrodynamics programme — round H-E: one candidate] ### Hydrodynamics programme — round H-E: one candidate bridge condition, tested
+ROADMAP.md:1239  heading    OOS:I2 (P0 geometry)  | [The 3×3 / K₃,₃ geometry as a structural invariant] ### The 3×3 / K₃,₃ geometry as a structural invariant
+ROADMAP.md:1282  heading    OOS:I2 (P0 geometry)  | [The residual deformation space at the product stra] ### The residual deformation space at the product stratum
+ROADMAP.md:1321  heading    OOS:I2 (P0 geometry)  | [The census of `{0, 1}` straight lines at the produ] ### The census of `{0, 1}` straight lines at the product stratum
+ROADMAP.md:1341  heading    OOS:I2 (P0 geometry)  | [Minimal support of a non-Diţă straight line at the] ### Minimal support of a non-Diţă straight line at the product stratum
+ROADMAP.md:1356  heading    OOS:I2 (P0 geometry)  | [The three-parameter family through the product str] ### The three-parameter family through the product stratum
+ROADMAP.md:1376  heading    OOS:I2 (physical layer: gauge/QFT)  | [Gauge/QFT extension and the Yang–Mills mass-gap qu] ### Gauge/QFT extension and the Yang–Mills mass-gap question
+ROADMAP.md:1399  row        OOS:I4 (sourcing results: phases, dense control, layer flow, observer-level lift)  | [Settled negatively — `INDEPENDENT`, and not queue ] | The source of phases | **INDEPENDENT** |
+ROADMAP.md:1400  row        OOS:I4 (sourcing results: phases, dense control, layer flow, observer-level lift)  | [Settled negatively — `INDEPENDENT`, and not queue ] | Dense/nonclassical operational control from the presently stated architecture | **INDEPENDENT** |
+ROADMAP.md:1401  row        OOS:I4 (sourcing results: phases, dense control, layer flow, observer-level lift)  | [Settled negatively — `INDEPENDENT`, and not queue ] | Executable intermediate layer flow | **INDEPENDENT** |
+ROADMAP.md:1402  row        OOS:I4 (sourcing results: phases, dense control, layer flow, observer-level lift)  | [Settled negatively — `INDEPENDENT`, and not queue ] | The presently stated observer-level lift | **INDEPENDENT** |
+ROADMAP.md:1426  bullet     OOS:I2 (not-prioritized items: instruments, representation, CT3, all-time, double slit)  | [Deliberately not prioritized] - **Infinite-support instruments** — the instrument audits show no live central prediction requires
+ROADMAP.md:1428  bullet     OOS:I2 (not-prioritized items: instruments, representation, CT3, all-time, double slit)  | [Deliberately not prioritized] - **Hilbert-space representation selection** — the representation/sector audit found no live
+ROADMAP.md:1431  bullet     OOS:I2 (not-prioritized items: instruments, representation, CT3, all-time, double slit)  | [Deliberately not prioritized] - **CT3's single static Hamiltonian generator** — continuous-time autonomous generation is explicitly
+ROADMAP.md:1436  bullet     OOS:I2 (not-prioritized items: instruments, representation, CT3, all-time, double slit)  | [Deliberately not prioritized] - **Finite-horizon → exact all-time finite realization** — the finite-horizon realization theorem is
+ROADMAP.md:1442  bullet     OOS:I2 (not-prioritized items: instruments, representation, CT3, all-time, double slit)  | [Deliberately not prioritized] - **Named double-slit / Born-interference benchmark** — the repository already formalizes the
+ROADMAP.md:1455  paragraph  I1.77  | [Declared inputs and conditional hypotheses — not s] The manuscripts explicitly carry several substantive premises whose current role is to condition a
+
+== COUNTS: items 96
+     2  I1.61,I1.62,I1.68
+     3  I1.71,I1.72,I1.73,I1.74
+     1  I1.74
+     2  I1.76
+     1  I1.77
+     1  I1.78
+     2  OOS:I2 (Bell and composite closure)
+     2  OOS:I2 (GR / Level III)
+     2  OOS:I2 (GR physical layer)
+     5  OOS:I2 (P0 geometry)
+    34  OOS:I2 (P0, Track B acts)
+     1  OOS:I2 (P0, Track B)
+     1  OOS:I2 (P0: relative evolution inside the finite representation S<=>D<=>Q_fb, Track B)
+     1  OOS:I2 (SM physical layer)
+     5  OOS:I2 (not-prioritized items: instruments, representation, CT3, all-time, double slit)
+     4  OOS:I2 (physical layer)
+     1  OOS:I2 (physical layer: gauge/QFT)
+     3  OOS:I2 (physical layer: hydrodynamics)
+     1  OOS:I2 (reconstruction premise, physical layer)
+     3  OOS:I2 (reconstruction: Lemma 24.1)
+     1  OOS:I2 (reconstruction: completeness of the substratum gauge group)
+     1  OOS:I2/I4 (continuum / Level III quasilocal completion)
+     1  OOS:I2/I4 (continuum / Level III)
+     6  OOS:I3/I4 (K programme)
+     1  OOS:I3/I4 (K programme: K1, K2, K-infinity; K_n)
+     4  OOS:I4 (sourcing results: phases, dense control, layer flow, observer-level lift)
+     7  OOS:none (vocabulary; fixes no premise)
+  UNMAPPED 0 

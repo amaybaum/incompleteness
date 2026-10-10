@@ -1,0 +1,6 @@
+PASS K kernel cnot (typed in) is an involution
+PASS K kernel cnot == closed form F(1, 1, -1, 1)
+PASS N1 all constraint rows are homogeneous in the unknowns (corner slices consistent)
+PASS N1 exact rank of C1 + C2 + C3/C4 (24 sphere points) = 124 = 124 (null dim 4)
+PASS N1 the closed-form directions dF/da, dF/da', dF/db, dF/db' lie in the null space
+PASS N1 they span it: rank(dirs) = 4, rank(dirs + null) = 4

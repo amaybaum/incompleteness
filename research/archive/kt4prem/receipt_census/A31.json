@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A31",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "d61c6c5409db201e3c25abbf3ec0ecce1f530684",
+ "f": "f5bf75e1b454ed2786fce0f689e93845f35637f6",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-31-off-locus-uniqueness/preregistration.md",
+   "blob": "f6064e59cad2f076d8a99cd95f628973987084f5"
+  }
+ ],
+ "governed_paths_digest": "cfb1ced1a79e129202a74f182ba47f7ee180fe1d34a9b6cd80c1692e73114f3d",
+ "e": "b1f27ea3c24b112a34407576245805e2e29c645d",
+ "tree_e": "9cfcda0d31a226619180ab604c709930b113521a",
+ "execution_delta_digest": "5987e9fd416fe6d44df1836678e352240fc5115d25330b77ee49b9a1f3ca9bd5",
+ "candidates": [],
+ "landing": {
+  "base": "d61c6c5409db201e3c25abbf3ec0ecce1f530684",
+  "object": "2c2d71df726846b2f2dc1b64bf987b9c5fa1c51a",
+  "reconciliations": [
+   "2c2d71df726846b2f2dc1b64bf987b9c5fa1c51a"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "f622db70a31ed69d5541dd33a4b108c13527a0ca0fe600e197feb82dc789d85f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "f5bf75e1b454ed2786fce0f689e93845f35637f6",
+   "record": "https://github.com/amaybaum/incompleteness/pull/750#issuecomment-5846660852"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "f5bf75e1b454ed2786fce0f689e93845f35637f6",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36241183166"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "b1f27ea3c24b112a34407576245805e2e29c645d",
+   "record": "https://github.com/amaybaum/incompleteness/pull/750#issuecomment-5846661059"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "b1f27ea3c24b112a34407576245805e2e29c645d",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36244031979"
+  }
+ ]
+}

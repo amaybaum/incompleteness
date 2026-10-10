@@ -1,0 +1,7 @@
+Mathlib root-level declarations parsed: 25438
+opened-namespace names used by the module: 92
+root-level clashes: none
+module's own names equal to a Mathlib root name: none
+control mul_comm: found
+control sq_nonneg: found
+control two_ne_zero: found

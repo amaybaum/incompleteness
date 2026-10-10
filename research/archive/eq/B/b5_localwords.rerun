@@ -1,0 +1,19 @@
+     witness x = ['-504000/1001741', '524000/1001741', '641000/1001741', '253000/1001741', '-1741/1001741']
+     witness y = ['-64000/12477097', '6292000/12477097', '-1692000/12477097', '1858000/12477097', '-10477097/12477097']
+     witness a = ['1004000/1983973', '-1046000/1983973', '-1252000/1983973', '-516000/1983973', '16027/1983973']
+     witness b = ['5600/392369', '-179800/392369', '-273400/392369', '99200/392369', '-192369/392369']
+     value = -13755583160854480616171902/9729699913814233289411449 ~ -1.413772601693943
+PASS W5 exact: all four witness vectors are exact rational unit vectors
+PASS W5 exact: pairVal((1,a),(1,b), gC5 (I(x)L) gC5 (prodState x y)) < 0  (not in maxCone eball 5)
+PASS W5 sanity: gC5 alone gives a nonnegative value at the witness (kernel gC5_posFwd)
+     control (w1,w2)-plane word value at the witness: 64156876505975791884/512089469148117541547971
+PASS W5 control: the word with L in the (w1, w2) plane is nonnegative at the witness
+PASS N1 note: gC5(prodState(e_x, z5)) = diag(1,1,-1,0,0,1), and adding +-E_{w1w1} keeps a block-diagonal contraction form (so the image is not an extreme joint state)
+PASS N2: gC5 maps the pure product (e_x, z5) to an entangled joint state (witness value -2; the witness is >= 0 on all products since its tail is a contraction)
+     W7 value = -1.4142129823328178
+PASS W7 exact (d = 7): G_pi (I(x)L) G_pi maps a pure product state outside maxCone (eball 7)
+PASS W7 sanity: G_pi alone is nonnegative at the witness
+PASS W3 control: Ad(I - iX)/2 is the 90-degree rotation of the Bloch (y, z) plane used in the word
+PASS W3 control: cnot (I(x)L3) cnot = Ad(CNOT (I(x)V) CNOT), a QT channel (hence positive)
+b5_localwords: 10/10 checks PASS
+VERDICT B5-GREEN

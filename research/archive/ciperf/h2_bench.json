@@ -1,0 +1,25 @@
+{
+ "distinct_new_mat_new_cls_old_mat_old_cls": [
+  3896,
+  3896,
+  3896,
+  3896
+ ],
+ "keys_equal_cls": true,
+ "keys_equal_mat": true,
+ "new_cls_s": 25.032238237,
+ "new_mat_s": 4.3355069499998535,
+ "old_h2_s": 610.1044011689999,
+ "reps": 3896,
+ "sorted_new": [
+  492,
+  492
+ ],
+ "sorted_old": [
+  492,
+  492
+ ],
+ "types": {
+  "int": 20953088
+ }
+}

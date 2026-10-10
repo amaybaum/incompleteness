@@ -1,0 +1,41 @@
+== 0. act 36's stabilizer of SIG in G_ext, replayed for the census ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+== 1. the flat calculus: exactness controls ==
+  PASS  random systems: canonical form idempotent, independent of generator order, every generator holds; meet symmetric and associative; the meet contained in both, and equal to F exactly when G contains F True
+  PASS  hand systems: u1^2 = z with u1^4 = z^3 empty, with u1^4 = z^2 satisfiable, u1 u2 = -1 with u1 u2 = 1 empty; two presentations of one flat equal; a derived character holds, a wrong one does not; u1^2 = 1 contains u1 = 1 and not conversely ['empty', 'sat', 'empty', True, True, False, True, False]
+  PASS  explicit points reconstructed on the unit-pivot flats among 3000 random systems satisfy every original equation exactly, and moving u1 off the flat is detected whenever the flat constrains u1 (True, True, True)
+  (5s)
+== 2. completeness: every Dita structure admitted anywhere is among the enumerated candidates ==
+  PASS  candidate structures (a common point of the proportionality loci on every block), by orientation and shape [('column', (2, 8), 5), ('column', (4, 4), 13), ('column', (8, 2), 5), ('row', (2, 8), 5), ('row', (4, 4), 13), ('row', (8, 2), 5)]
+  PASS  in all                                                                 46
+  (23s)
+== 3. locus exactness: each candidate strictly and up to diagonal equivalence ==
+  PASS  the relaxed locus equals the strict locus for every candidate          True
+  PASS  empty and nonempty strict loci                                         (16, 30)
+  PASS  every nonempty locus is cut out by coordinate characters u_k = +-1 alone True
+  (23s)
+== 4. union reduction: the union of the loci is five coordinate 2-subtori ==
+  PASS  the maximal loci                                                       ['u1 = -1', 'u1 = 1', 'u2 = 1', 'u3 = -1', 'u3 = 1']
+  PASS  every nonempty locus lies in one of them, and each of them is itself a locus (True, True)
+  (23s)
+== 5. controls ==
+  PASS  the union restricted to the diagonal u1 = u2 = u3 = u: the points u = 1 and u = -1, act 38's exceptional set ['u1 = -1, u2 = -1, u3 = -1', 'u1 = 1, u2 = 1, u3 = 1']
+  PASS  at (1, 1, 1): eighteen structures, exactly act 37 census in both orientations (18, True)
+  PASS  at (-1, -1, -1): one 2 x 8 structure per orientation, act 38 M_COL and M_ROW [('column', (2, 8), ((0, 2, 4, 6, 8, 10, 12, 14), (1, 3, 5, 7, 9, 11, 13, 15)), ((0, 2), (1, 3), (4, 6), (5, 15), (7, 13), (8, 10), (9, 11), (12, 14))), ('row', (2, 8), ((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), ((0, 2), (1, 9), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15), (8, 10)))]
+  PASS  the absent face u2 = -1 (negative control): contained in no locus, and its intersection with the union is the union of its intersections with the other four faces, of dimension 1 (False, [1, 1, 1, 1])
+  PASS  the three +1 faces are act 39's pair subfamilies (B, C), (A, C), (A, B), realizable with the joint level-set counts act 39 recorded [(480, 0), (440, 0), (424, 0)]
+  (23s)
+== 6. the kernel layer, replayed: named exclusions and whole-face factorizations ==
+  PASS  for each of the twenty named structures (the census in both orientations, M_COL, M_ROW), single four-position witnesses with coordinate characters generate its proportionality locus exactly, which contains its strict locus (20, True)
+  PASS  the whole-face factorizations: at three Gaussian-rational points of each of the five faces, H3 (or its transpose) equals dita(X, Y, D) at the face structure, with X and every Y_c flat unitary and |D| = 1 (15, True)
+  PASS  and the factor identities: (1+i)/2 * (1+i)/4 * 2/(1+i)^2 = 1/4, |(1+i)/2|^2 = 1/2, |(1+i)/4|^2 = 1/8, 2/(1+i)^2 = -i (True, Fraction(1, 2), Fraction(1, 8), True)
+  (24s)
+== 7. an independent control: the numeric exhaustive search with factor unitarity at exact points ==
+  PASS  at seventeen exact points (two generic, the five faces, two absent directions, three lines, five special points) the search finds exactly the predicted structures (True, [0, 0, 1, 1, 2, 0, 1, 1, 0, 3, 7, 4, 18, 2, 12, 12, 4])
+  (122s)
+== 8. a countercontrol: one entry of C cleared ==
+  PASS  the classifier applied to the perturbed exponent pieces returns a different union (the five faces are not recovered) True
+  (141s)
+
+dita_torus_locus_probe: OK -- for H3(u1, u2, u3) = SIG o u1^A u2^B u3^C on the three-torus: every Dita structure admitted anywhere is among 46 enumerated candidates; their strict and relaxed loci are computed exactly and agree; the union of the 30 nonempty loci is exactly the five coordinate 2-subtori u1 = 1, u1 = -1, u2 = 1, u3 = 1, u3 = -1; so H3 admits a Dita structure of some shape, index map and orientation, including up to diagonal equivalence, exactly when u1 = +-1 or u2 = 1 or u3 = +-1

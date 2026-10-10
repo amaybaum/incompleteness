@@ -1,0 +1,17 @@
+PASS F1 G16 enumerated: order 16; every element is local or CNOT.local
+PASS F2-S3:actC-Rx G16 normalizes span(L,N); CNOT exchanges a local generator with N; torus abelian
+PASS F2-actC-Ry G16 normalizes span(L,N); CNOT exchanges a local generator with N; torus abelian
+PASS F2-actT-Ry G16 normalizes span(L,N); CNOT exchanges a local generator with N; torus abelian
+PASS F2-actT-Rz G16 normalizes span(L,N); CNOT exchanges a local generator with N; torus abelian
+PASS F2-drive-both G16 normalizes span(L,N); CNOT exchanges a local generator with N; torus abelian
+PASS F3 det(cb Psi - i sb A Psi B^T) = (cb^2 - sb^2) det Psi - i cb sb M, symbolic, all five families
+PASS W1 witness phi0 = [1, 2, 3*I, -1 + I]: Q positive definite for phi0 and CNOT phi0, all five families
+PASS C-S3:actC-Rx cap seed: x = 4 lam_min/|phi0|^4 >= 1/576, c = 4609/4608; seed e = table((I - c P_phi0)/8), <e, P_phi0> = -1/9216 < 0; spot check over 16 x 6 members: True
+PASS C-actC-Ry cap seed: x = 4 lam_min/|phi0|^4 >= 5/192, c = 1541/1536; seed e = table((I - c P_phi0)/8), <e, P_phi0> = -5/3072 < 0; spot check over 16 x 6 members: True
+PASS C-actT-Ry cap seed: x = 4 lam_min/|phi0|^4 >= 45/704, c = 5677/5632; seed e = table((I - c P_phi0)/8), <e, P_phi0> = -45/11264 < 0; spot check over 16 x 6 members: True
+PASS C-actT-Rz cap seed: x = 4 lam_min/|phi0|^4 >= 1/2176, c = 17409/17408; seed e = table((I - c P_phi0)/8), <e, P_phi0> = -1/34816 < 0; spot check over 16 x 6 members: True
+PASS C-drive-both cap seed: x = 4 lam_min/|phi0|^4 >= 1/576, c = 4609/4608; seed e = table((I - c P_phi0)/8), <e, P_phi0> = -1/9216 < 0; spot check over 16 x 6 members: True
+PASS cc1 reachable state t0(a(x)b) (S3 instance): det Q = 0, the certificate fails as it must
+PASS cc2 Bell-type route for the S3 instance: |-+> + w|+->, |++> + w|--> go to products under CNOT; (1,1,1,-1) is max. entangled but its T-orbit has a member with product overlap > 1/2
+PASS cc3 phi0 is reachable for an oblique control axis: (I(x)P+ + V(x)P-)(a(x)b) = sqrt2 phi0, V in SU(2), exact
+VERDICT Y4-CERT-EXACT

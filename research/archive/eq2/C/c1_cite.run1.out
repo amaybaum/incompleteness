@@ -1,0 +1,4 @@
+PASS CITE every one of the 182 kernel citations is at its stated line (missing: [])
+PASS CITE countercontrol: deliberately wrong lines are not accepted (dim_of_ctrlGate at RSB:740, CtrlGate at RSB:46, nK at OC:57)
+c1_cite: 2/2 checks pass
+VERDICT CITATIONS-VERIFIED: 182 file:line citations at bcbc516f

@@ -1,0 +1,7 @@
+PASS K transcription: sgn, pc, pt, nflip, reflY, z3, xplus, phiW, idW; package cnotTw = actT reflY o cnot o actT reflY (FourCopyDefs :81-84)
+PASS N1 N-CLASS form: cnotTw = actC id o actT reflY o cnot o actC id o actT reflY (symbolic); reflY = diag(1,-1,1) is orthogonal
+PASS N2 NativeGate (eball 3) z3 nflip cnotTw: frame on the four corner products, relT, relC (symbolic); positivity reduces to cnot's: cnotTw(prodState x y) = actT reflY (cnot (prodState x (reflY y))), cnotTw involution, and the reflY pullback of product effects (symbolic)  [frame True relT True relC True reduction True involution True pullback True]
+PASS N3 Entangling: cnotTw(prodState xplus z3) = idW = actT reflY phiW (exact)
+PASS N4 K-infinity-Copy: the same NOT nflip in the relations of cnot (landed cnot_relT, cnot_relC) and of cnotTw (N2)
+--- q4_pair_gates: 5/5 checks pass
+VERDICT Q4-PAIR-GATES-EXACT

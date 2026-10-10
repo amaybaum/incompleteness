@@ -1,0 +1,16 @@
+== V1  K_gen+ = cone of pinched products
+PASS V1a  [identity] B^H pauliW(P+ p) B = (|v_ab><v_ab|, |<1-|ab>|^2) with (v_ab, <1-|ab>) = B^H |ab> (generic complex a, b)
+PASS V1b  [identity] v_ab = (a0 b0, a0 b1, a1 (b0 + b1)/sqrt2) and <1-|ab> = a1 (b0 - b1)/sqrt2
+PASS V1c  [exact] P+ p has no V- block (pinching)
+== V2  K_gen+ is strictly smaller than Q3+
+PASS V2  [exact] w = |00> + |1+> is CNOT-invariant, lies in the + space and is entangled (det = sqrt(2)/2): its pure state is an extreme ray of Q3+ = PSD(3) + R+ that no pinched product reaches (a pure element of K_gen+ is a product in the + space)
+== V3  E0 ∈ V+ and the V+ part of K*
+PASS V3  [exact] E0 = (A0, 1/4) ∈ V+ with spec A0 = {3/4, 1/4, -1/4}: K*+ = (Q3+ ∩ E0*) + R+ E0 contains E0 ∉ Q3+
+== V4  the cnot-fixed members of Z_F
+PASS V4  [exact] z_(1,-1), z_(-1,1) are cnot-fixed (∈ V+) with eigenvalue -1/8: K_F ∩ V+ ≠ Q3+ as well
+== V5  (U1) the excluded pure states are entangled, and so are their CNOT images
+PASS V5  [exact] coefficient determinants of g, CNOT g, t, CNOT t: [-1/2, -1/2, -1/2, 1/2] (all nonzero): P_g, P_t ∉ SEP ∪ cnot SEP
+PASS V5c  [countercontrol] a product vector has coefficient determinant 0 (the test detects products)
+
+checks: 8, failed: 0
+VERDICT U3-VPLUS-EXACT -- 8 checks

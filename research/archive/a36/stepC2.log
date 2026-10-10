@@ -1,0 +1,6 @@
+T (gauge+Diţă) is stabilizer-invariant: yes (no assertion failed); characters computed (142s)
+commutant dimension on Def  (sum m_i^2 over Q-irreducibles): 18
+commutant dimension on R: 5
+trivial-isotypic dimension on Def: 2 | on R: 0
+isotypic sectors of R (dims): [8, 8, 4, 2, 1] total 23
+done (534s)

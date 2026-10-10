@@ -1,0 +1,18 @@
+KT4-PREM-1: receipt (Q)
+
+Adds verification/receipts/KT4-PREM-1.json, built by tools/v3_receipt.py from
+D bcbc516f, F 7ae03217, E 86f26c87 and the reconciliation R₁ dccdc434, with
+the owner designations of F and E and their exact-head check runs
+(37975083454 at F, 37982199559 at E).
+
+The owner-designation records are PR #806 comments 6087571713 (F) and
+6088471219 (E). Each is an agent-posted record of the owner's explicit
+in-session designation, not a comment the owner posted personally. The
+owner explicitly decided that this receipt cites them, under the
+repository's V3 governance and established receipt practice. No personally
+posted confirmation of either designation exists and none is claimed: the
+separate seven-point check for personally posted confirmations has not
+passed.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

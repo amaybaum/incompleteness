@@ -1,0 +1,40 @@
+  SORRY  24 line(s) of Lean output mention `sorryAx`:
+         2026-10-09T12:14:57.1986146Z info: OIBridge/FourCopyIE1.lean:176:0: 'OIBridge.FourCopy.cross_rel' depends on axioms: [propext, sorryAx, Classical.choice, Quot.s
+         2026-10-09T12:14:57.1988042Z info: OIBridge/FourCopyIE1.lean:177:0: 'OIBridge.FourCopy.cross_rel_symm' depends on axioms: [propext, sorryAx, Classical.choice, Q
+         2026-10-09T12:14:57.1989430Z info: OIBridge/FourCopyIE1.lean:178:0: 'OIBridge.FourCopy.cnot_prodState_rot' depends on axioms: [propext, sorryAx, Classical.choic
+         2026-10-09T12:14:57.1990812Z info: OIBridge/FourCopyIE1.lean:179:0: 'OIBridge.FourCopy.actC_rotWord_phiW' depends on axioms: [propext, sorryAx, Classical.choice
+         2026-10-09T12:14:57.1992161Z info: OIBridge/FourCopyIE1.lean:180:0: 'OIBridge.FourCopy.link_mem' depends on axioms: [propext, sorryAx, Classical.choice, Quot.so
+         2026-10-09T12:14:57.1993485Z info: OIBridge/FourCopyIE1.lean:181:0: 'OIBridge.FourCopy.inv_left_ctrl' depends on axioms: [propext, sorryAx, Classical.choice, Qu
+         2026-10-09T12:14:57.1994805Z info: OIBridge/FourCopyIE1.lean:182:0: 'OIBridge.FourCopy.inv_right_ctrl' depends on axioms: [propext, sorryAx, Classical.choice, Q
+         2026-10-09T12:14:57.1996136Z info: OIBridge/FourCopyIE1.lean:183:0: 'OIBridge.FourCopy.inv_left_partner' depends on axioms: [propext, sorryAx, Classical.choice,
+         2026-10-09T12:14:57.1997838Z info: OIBridge/FourCopyIE1.lean:184:0: 'OIBridge.FourCopy.inv_right_partner' depends on axioms: [propext, sorryAx, Classical.choice
+         2026-10-09T12:14:57.1999213Z info: OIBridge/FourCopyIE1.lean:185:0: 'OIBridge.FourCopy.rot_of_words' depends on axioms: [propext, sorryAx, Classical.choice, Quo
+         2026-10-09T12:14:57.2000522Z info: OIBridge/FourCopyIE1.lean:186:0: 'OIBridge.FourCopy.rot_of_words'' depends on axioms: [propext, sorryAx, Classical.choice, Qu
+         2026-10-09T12:14:57.2001858Z info: OIBridge/FourCopyIE1.lean:187:0: 'OIBridge.FourCopy.image_eq_of_rot' depends on axioms: [propext, sorryAx, Classical.choice, 
+  AXIOM  cross_rel depends on ['sorryAx']
+  AXIOM  cross_rel_symm depends on ['sorryAx']
+  AXIOM  cnot_prodState_rot depends on ['sorryAx']
+  AXIOM  actC_rotWord_phiW depends on ['sorryAx']
+  AXIOM  link_mem depends on ['sorryAx']
+  AXIOM  inv_left_ctrl depends on ['sorryAx']
+  AXIOM  inv_right_ctrl depends on ['sorryAx']
+  AXIOM  inv_left_partner depends on ['sorryAx']
+  AXIOM  inv_right_partner depends on ['sorryAx']
+  AXIOM  rot_of_words depends on ['sorryAx']
+  AXIOM  rot_of_words' depends on ['sorryAx']
+  AXIOM  image_eq_of_rot depends on ['sorryAx']
+  AXIOM  ie1_dualW depends on ['sorryAx']
+  AXIOM  ie1_of_dualW depends on ['sorryAx']
+  AXIOM  parity_witnesses depends on ['sorryAx']
+  AXIOM  ie1_all depends on ['sorryAx']
+  AXIOM  parity_all depends on ['sorryAx']
+  AXIOM  kt4_general_ie1 depends on ['sorryAx']
+  AXIOM  kt4_forward_ie1 depends on ['sorryAx']
+  AXIOM  kt4_forward_ie1_kt4 depends on ['sorryAx']
+  AXIOM  kt4_forward_ie1_lt depends on ['sorryAx']
+  AXIOM  fourCopyCoherent_of_kt4Cone depends on ['sorryAx']
+  AXIOM  kt4_forward depends on ['sorryAx']
+  AXIOM  kt4_forward_lt depends on ['sorryAx']
+  SILENT 5744 declared `#print axioms` produced no report: ['Bmat_factor', 'Bmat_isRowStochastic', 'Bmat_mul', 'Bmat_one_eq', 'D3_colMonomial', 'D_imp_Qfb', 'E3_colMonomial', 'Esf_eq_seedEmbed']
+
+lean_axiom_check: FAILED (5792 problem(s))

@@ -1,0 +1,13 @@
+PASS K parsed tables and literals equal the hand transcriptions; cnot(prodState xplus z3) = phiW, actT reflY phiW = idW, cnot idW = chainW reproduce
+PASS D1 Model.hom = Fin.cons 1 x (CI:582), DIM-1 hom = Matrix.vecCons 1 x (CD:100), Matrix.vecCons = Fin.cons (Mathlib Data/Fin/VecNotation.lean:59-60)
+PASS D2 COMP-1 coeff (CI:602-603) and DIM-1 ehom (CD:167-168) are the same coefficient vector (indicator of i = j vs j = i)
+PASS D3 eball_three (TB:671), convex/prod_mem (CI:226-227), subset_maxBody (CI:467), maxBody (CI:271), CandidateCone (K2G:95-96), maxCone (CD:186), jointStates (CD:190), ball3Min/MaxComposite (CI:807, 811) present
+PASS G1 idW passes the Lorentz pairings (unit/unit 1; unit/sharp 1/2; sharp/sharp (1 + b.c)/4, symbolic) and chainW = cnot idW has a negative sharp-pair value: maxCone(eball 3) is not cnot-invariant  [chainW value = -1/2]
+PASS G2 F(prodState x y) = 1/2|x - Dy|^2 + 1/2(1 - |x|^2) + 1/2(1 - |y|^2) (symbolic), so F >= 0 on the minimal body, and F(phiW) < 0 with phiW = cnot(prodState xplus z3): the minimal body is not cnot-invariant  [F(phiW) = -2]
+PASS G-controls: F(prodState xplus z3) >= 0; the sharp pair of K2G:134 is nonnegative on cnot of the corner products and of prodState xplus z3 (spot values of the landed cnot_prodState_mem_maxCone); F(idW), F(chainW) reported  [F(idW) = 0, F(chainW) = 1, spot = [0, 1/2, 1/2, 0, 1/4]]
+PASS C1 T_psi is real and pauliW(T_psi) = |psi><psi| (rank one): a boundary element of Q3  [T_psi = [[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]]]
+PASS C2 det C(psi) != 0 (not a product) and C00 C10 - C01 C11 != 0 for psi, while the expression vanishes identically on CNOT(a (x) b) (symbolic): psi is neither a product nor a CNOT image of a product  [det = -1/2, invariant = 1/2]
+PASS C3 control: CNOT(|+> (x) |0>) has invariant 0 and table cnot(prodState xplus z3) = phiW
+PASS N the landed lemmas cited by EQ2-B's N-CLASS route are present at the cited lines, and no classification theorem (ctrlGate_classification, NClass) is present in the base
+--- s2_pair_premises: 11/11 checks pass
+VERDICT S2-PAIR-PREMISE-CORES-EXACT

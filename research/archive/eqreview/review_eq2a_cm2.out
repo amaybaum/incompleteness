@@ -1,0 +1,15 @@
+PASS F1 for each pair, PT_j(<phi|_k F |phi>_k) equals the stated sum of squares (symbolic phi): F is in B_tw*
+PASS F1 for each pair, PT_j(<phi|_k G |phi>_k) equals the stated sum of squares (symbolic phi): G is in B_tw*
+PASS F1 control: the identity contraction tr(X (PT_j(sigma) (x) |phi><phi|)) = tr(PT_j(<phi|X|phi>) sigma) (symbolic sigma, pair (0,1))
+PASS F2 G = Ad_{S (x) S (x) 1}(F) is a local-unitary image of F (S = diag(1, i) unitary)
+PASS F2 tr(F G) = -1/2
+PASS F3 x = F + 1/10 = (3/5) 1 + (1/2) P+ - (3/2) P-
+PASS F3 tr(G x) = -1/5, so x is not in B_tw (G is in B_tw*); x is in B_tw* (F is, and tr g >= 0 on generators)
+PASS F3 written orbit bound 8 s^2 + 2 s tr B - 3/2 = 9/50 = 9/50 (tr B = -1)
+PASS F3 tightness: tr(x U x U^dag) = 9/50 at U = S (x) S (x) 1
+PASS T control: T.cnot = (Ad CNOT)^T on two copies, so it maps Q onto Q (transpose and unitary conjugation preserve PSD) (symbolic)
+PASS T (pair (1,2) in Q) the idle extension of T.cnot sends |0><0| (x) Phi+ to an operator with (1,2) marginal PT_1(Phi+), which is not PSD (eigenvalue -1/2): not in Q
+PASS T (pair (1,2) in Tw) the idle extension of T.cnot sends |0><0| (x) PT_2(Phi+) to an operator with (1,2) marginal Phi+, and PT_2(Phi+) is not PSD, so Phi+ is not in Tw = PT_2(Q)
+PASS T control: plain cnot's idle extension keeps the (1,2) marginals of both inputs in their cones (Phi+ in Q, PT_2(Phi+) in Tw)
+review_eq2a_cm2: 13/13 checks pass
+VERDICT TWISTED-AND-GATE-CLASS-CONFIRMED: F, G lie in B_tw* with tr(FG) = -1/2 (B_tw not self-dual); the one-orbit bound for F + 1/10 is 9/50 and tight; IE2 with H0 excludes the transposed gate class T.cnot

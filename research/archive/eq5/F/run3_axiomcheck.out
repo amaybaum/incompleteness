@@ -1,0 +1,30 @@
+  SORRY  14 line(s) of Lean output mention `sorryAx`:
+         2026-10-09T12:37:48.3187753Z info: OIBridge/FourCopyIE1.lean:322:0: 'OIBridge.FourCopy.cross_rel_symm' depends on axioms: [propext, sorryAx, Classical.choice, Q
+         2026-10-09T12:37:48.3189039Z info: OIBridge/FourCopyIE1.lean:323:0: 'OIBridge.FourCopy.cnot_prodState_rot' depends on axioms: [propext, sorryAx, Classical.choic
+         2026-10-09T12:37:48.3190332Z info: OIBridge/FourCopyIE1.lean:324:0: 'OIBridge.FourCopy.actC_rotWord_phiW' depends on axioms: [propext, sorryAx, Classical.choice
+         2026-10-09T12:37:48.3191560Z info: OIBridge/FourCopyIE1.lean:325:0: 'OIBridge.FourCopy.link_mem' depends on axioms: [propext, sorryAx, Classical.choice, Quot.so
+         2026-10-09T12:37:48.3202976Z info: OIBridge/FourCopyIE1.lean:336:0: 'OIBridge.FourCopy.parity_witnesses' depends on axioms: [propext, sorryAx, Classical.choice,
+         2026-10-09T12:37:50.5198014Z info: OIBridge/FourCopyHeadline.lean:157:0: 'OIBridge.FourCopy.ie1_all' depends on axioms: [propext, sorryAx, Classical.choice, Quo
+         2026-10-09T12:37:50.5199714Z info: OIBridge/FourCopyHeadline.lean:158:0: 'OIBridge.FourCopy.parity_all' depends on axioms: [propext, sorryAx, Classical.choice, 
+         2026-10-09T12:37:50.5201571Z info: OIBridge/FourCopyHeadline.lean:159:0: 'OIBridge.FourCopy.kt4_general_ie1' depends on axioms: [propext, sorryAx, Classical.cho
+         2026-10-09T12:37:50.5203302Z info: OIBridge/FourCopyHeadline.lean:160:0: 'OIBridge.FourCopy.kt4_forward_ie1' depends on axioms: [propext, sorryAx, Classical.cho
+         2026-10-09T12:37:50.5205315Z info: OIBridge/FourCopyHeadline.lean:161:0: 'OIBridge.FourCopy.kt4_forward_ie1_kt4' depends on axioms: [propext, sorryAx, Classical
+         2026-10-09T12:37:50.5207077Z info: OIBridge/FourCopyHeadline.lean:162:0: 'OIBridge.FourCopy.kt4_forward_ie1_lt' depends on axioms: [propext, sorryAx, Classical.
+         2026-10-09T12:37:53.1304635Z info: OIBridge/FourCopyPackage.lean:383:0: 'OIBridge.FourCopy.fourCopyCoherent_of_kt4Cone' depends on axioms: [propext, sorryAx, Cl
+  AXIOM  cross_rel_symm depends on ['sorryAx']
+  AXIOM  cnot_prodState_rot depends on ['sorryAx']
+  AXIOM  actC_rotWord_phiW depends on ['sorryAx']
+  AXIOM  link_mem depends on ['sorryAx']
+  AXIOM  parity_witnesses depends on ['sorryAx']
+  AXIOM  ie1_all depends on ['sorryAx']
+  AXIOM  parity_all depends on ['sorryAx']
+  AXIOM  kt4_general_ie1 depends on ['sorryAx']
+  AXIOM  kt4_forward_ie1 depends on ['sorryAx']
+  AXIOM  kt4_forward_ie1_kt4 depends on ['sorryAx']
+  AXIOM  kt4_forward_ie1_lt depends on ['sorryAx']
+  AXIOM  fourCopyCoherent_of_kt4Cone depends on ['sorryAx']
+  AXIOM  kt4_forward depends on ['sorryAx']
+  AXIOM  kt4_forward_lt depends on ['sorryAx']
+  SILENT 5768 declared `#print axioms` produced no report: ['Bmat_factor', 'Bmat_isRowStochastic', 'Bmat_mul', 'Bmat_one_eq', 'D3_colMonomial', 'D_imp_Qfb', 'E3_colMonomial', 'Esf_eq_seedEmbed']
+
+lean_axiom_check: FAILED (5796 problem(s))

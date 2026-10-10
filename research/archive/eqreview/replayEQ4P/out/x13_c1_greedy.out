@@ -1,0 +1,17 @@
+step 0: ext(K) 28, ext(K*) 36, outside 8 (orbit reps [(-2, 2, 1, 1, 1, 1, 1, 1)]) [0.1s]
+   add orbit of (-18, 18, 11, 11, 11, 11, 11, 11) (cuts 8 outside rays)
+step 1: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-11, 11, 1, 7, 7, 7, 7, 7)]) [0.1s]
+   add orbit of (-63, 63, 38, 38, 38, 38, 38, 38) (cuts 48 outside rays)
+step 2: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-38, 38, 1, 25, 25, 25, 25, 25)]) [0.1s]
+   add orbit of (-114, 114, 67, 67, 67, 67, 67, 67) (cuts 48 outside rays)
+step 3: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-67, 67, -7, 47, 47, 47, 47, 47)]) [0.1s]
+   add orbit of (-201, 201, 118, 118, 118, 118, 118, 118) (cuts 48 outside rays)
+step 4: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-118, 118, -13, 83, 83, 83, 83, 83)]) [0.1s]
+   add orbit of (-354, 354, 205, 205, 205, 205, 205, 205) (cuts 48 outside rays)
+step 5: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-205, 205, -37, 149, 149, 149, 149, 149)]) [0.2s]
+   add orbit of (-1227, 1227, 710, 710, 710, 710, 710, 710) (cuts 48 outside rays)
+step 6: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-710, 710, -131, 517, 517, 517, 517, 517)]) [0.1s]
+   add orbit of (-2130, 2130, 1231, 1231, 1231, 1231, 1231, 1231) (cuts 48 outside rays)
+step 7: ext(K) 36, ext(K*) 76, outside 48 (orbit reps [(-1231, 1231, -235, 899, 899, 899, 899, 899)]) [0.1s]
+   add orbit of (-3693, 3693, 2134, 2134, 2134, 2134, 2134, 2134) (cuts 48 outside rays)
+step limit reached; reps: [(-18, 18, 11, 11, 11, 11, 11, 11), (-63, 63, 38, 38, 38, 38, 38, 38), (-114, 114, 67, 67, 67, 67, 67, 67), (-201, 201, 118, 118, 118, 118, 118, 118), (-354, 354, 205, 205, 205, 205, 205, 205), (-1227, 1227, 710, 710, 710, 710, 710, 710), (-2130, 2130, 1231, 1231, 1231, 1231, 1231, 1231), (-3693, 3693, 2134, 2134, 2134, 2134, 2134, 2134)]

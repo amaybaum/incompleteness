@@ -1,0 +1,172 @@
+"""Thread G3, probe P3 -- the mechanism of the parity step in matrix models: complex two-qubit vs real two-rebit.
+
+Read-only research against base 06b6f94e479bc19a28979c72316823cbdd0fb62b. Exact (sympy, integer/Gaussian entries).
+Matrix-model evidence about QM and real QT, not about the kernel (layer [M]).
+
+DECISION RULES (written before the first run):
+  M1 Operator identities (field-independent): with CNOT = P0 (x) I + P1 (x) X,
+     (I(x)X) CNOT (I(x)X) = CNOT and (X(x)I) CNOT (X(x)I) = (I(x)X) CNOT  (relT, relC as group identities), and
+     ((X(x)I) CNOT)^2 = I(x)X.
+  M2 The target-odd formula: for every A and every target-odd B (XBX = -B),
+        CNOT (A(x)B) CNOT = (Z o A) (x) B + (1/4) [A, Z] (x) [X, B],
+     checked on the full matrix-unit basis of M_2 for A and on the target-odd basis for B.
+  M3 Complex: Herm(4) = span of the 16 Pauli products (LT); on its target-odd sector (8) the control split under
+     Ad(X(x)I) is (4, 4); every image lies in Herm(4); the control-odd partner of X (x) Z is -Y (x) Y, and
+     (1/4)[X,Z](x)[X,Z] = -Y(x)Y with [X, Z] = -2iY  (the anti-Hermitian factors carry i each; i(x)i = -1(x)1).
+  M4 Real: Sym(4) (10) = LT span {I,X,Z}^(x)2 (9) + R (x) R, R = [[0,-1],[1,0]] antisymmetric; Ad CNOT does not
+     preserve the LT span (X (x) Z -> -(R (x) R)); on the full target-odd sector {IZ, XZ, ZZ, RR} the control split
+     is (2, 2) and J = Ad((X(x)I) CNOT) has J^2 = -1; on the LT sub-carrier the split is (2, 1).
+  M5 Hardy counting (arithmetic only): K_A^2 vs K_AB for R (3, 10), C (4, 16), H (6, 28); the H composite
+     H_4(H) is the conventional choice, flagged [L], not a theorem here.
+
+Run:  python3 -I g3_p3_mechanism.py
+"""
+import itertools
+import sympy as sp
+from sympy import Matrix, I, eye, zeros, kronecker_product as kp
+
+CHECKS = []
+
+
+def check(name, cond, detail=""):
+    cond = bool(cond)
+    CHECKS.append((name, cond))
+    print(("PASS " if cond else "FAIL ") + name + (("  [" + detail + "]") if detail else ""))
+
+
+Id = eye(2)
+X = Matrix([[0, 1], [1, 0]])
+Y = Matrix([[0, -I], [I, 0]])
+Z = Matrix([[1, 0], [0, -1]])
+R = Matrix([[0, -1], [1, 0]])            # real antisymmetric, R = -iY
+P0 = (Id + Z) / 2
+P1 = (Id - Z) / 2
+CNOT = kp(P0, Id) + kp(P1, X)
+IX, XI = kp(Id, X), kp(X, Id)
+
+# M1
+check("M1 relT: (I(x)X) CNOT (I(x)X) = CNOT", IX * CNOT * IX == CNOT)
+check("M1 relC: (X(x)I) CNOT (X(x)I) = (I(x)X) CNOT", XI * CNOT * XI == IX * CNOT)
+check("M1 ((X(x)I) CNOT)^2 = I(x)X  (hence J^2 = -1 on every target-odd sector)", (XI * CNOT) ** 2 == IX)
+check("M1 CNOT is real, so it acts on Sym(4) as well as on Herm(4)", all(t.is_real for t in CNOT))
+
+
+def jord(A, B):
+    return (A * B + B * A) / 2
+
+
+def comm(A, B):
+    return A * B - B * A
+
+
+# M2
+units = []
+for i, j in itertools.product(range(2), range(2)):
+    E = zeros(2, 2)
+    E[i, j] = 1
+    units.append(E)
+todd = [Z, Y, R]
+ok = True
+for A in units + [I * u for u in units]:
+    for B in todd:
+        assert X * B * X == -B
+        lhs = CNOT * kp(A, B) * CNOT
+        rhs = kp(jord(Z, A), B) + kp(comm(A, Z), comm(X, B)) / 4
+        if sp.simplify(lhs - rhs) != zeros(4, 4):
+            ok = False
+check("M2 CNOT (A(x)B) CNOT = (Z o A)(x)B + (1/4)[A,Z](x)[X,B] for all A in M_2(C), B in {Z, Y, R}", ok)
+
+
+def coords_in(basis, M):
+    """solve M = sum c_k basis_k over C (exact); returns list or None."""
+    n = len(basis)
+    cs = sp.symbols("c0:%d" % n)
+    expr = sum((c * b for c, b in zip(cs, basis)), zeros(4, 4)) - M
+    sol = sp.solve(list(expr), cs, dict=True)
+    if not sol:
+        return None
+    return [sp.nsimplify(sol[0].get(c, 0)) for c in cs]
+
+
+# M3 complex
+pauli = [Id, X, Y, Z]
+names = ["I", "X", "Y", "Z"]
+herm_basis = [kp(a, b) for a in pauli for b in pauli]
+herm_rank = Matrix([list(b) for b in herm_basis]).rank()
+odd = [(a, b) for a in range(4) for b in range(4) if X * pauli[b] * X == -pauli[b]]
+ctrl_even = [(a, b) for (a, b) in odd if X * pauli[a] * X == pauli[a]]
+ctrl_odd = [(a, b) for (a, b) in odd if X * pauli[a] * X == -pauli[a]]
+img_ok = True
+table = []
+for (a, b) in odd:
+    out = CNOT * kp(pauli[a], pauli[b]) * CNOT
+    c = coords_in(herm_basis, out)
+    if c is None or any(not sp.im(t) == 0 for t in c):
+        img_ok = False
+        continue
+    terms = [(str(t), names[k // 4] + names[k % 4]) for k, t in enumerate(c) if t != 0]
+    table.append((names[a] + names[b], terms))
+    src_even = (a, b) in ctrl_even
+    for t, nm in terms:
+        k = names.index(nm[0])
+        if (X * pauli[k] * X == pauli[k]) == src_even:
+            img_ok = False
+for row in table:
+    print("     C:", row[0], "->", row[1])
+check("M3 Herm(4) is spanned by the 16 Pauli products (LT); target-odd sector %d = %d control-even + %d control-odd; "
+      "Ad CNOT maps it into Herm(4) with real Pauli coefficients and swaps control parity"
+      % (len(odd), len(ctrl_even), len(ctrl_odd)),
+      herm_rank == 16 and len(ctrl_even) == len(ctrl_odd) == 4 and img_ok)
+check("M3 [X,Z] = -2iY and (1/4)[X,Z](x)[X,Z] = -Y(x)Y: the two anti-Hermitian factors carry one i each",
+      comm(X, Z) == -2 * I * Y and kp(comm(X, Z), comm(X, Z)) / 4 == -kp(Y, Y))
+check("M3 CNOT (X(x)Z) CNOT = -Y(x)Y", CNOT * kp(X, Z) * CNOT == -kp(Y, Y))
+
+# M4 real
+rp = [Id, X, Z]
+rnames = ["I", "X", "Z"]
+lt = [kp(a, b) for a in rp for b in rp]
+sym_basis = lt + [kp(R, R)]
+sym_ok = all(b.T == b for b in sym_basis) and Matrix([list(b) for b in sym_basis]).rank() == 10
+lt_rank = Matrix([list(b) for b in lt]).rank()
+out = CNOT * kp(X, Z) * CNOT
+check("M4 Sym(4) = LT span (rank %d) + R(x)R (total 10); CNOT (X(x)Z) CNOT = -(R(x)R), outside the LT span"
+      % lt_rank, sym_ok and lt_rank == 9 and out == -kp(R, R) and
+      Matrix([list(b) for b in lt + [out]]).rank() == 10)
+r_odd_full = [kp(Id, Z), kp(X, Z), kp(Z, Z), kp(R, R)]
+assert all(IX * B * IX == -B for B in r_odd_full)
+c_even = [B for B in r_odd_full if XI * B * XI == B]
+c_odd = [B for B in r_odd_full if XI * B * XI == -B]
+r_lt_odd = [kp(a, Z) for a in rp]
+lt_even = [B for B in r_lt_odd if XI * B * XI == B]
+lt_oddc = [B for B in r_lt_odd if XI * B * XI == -B]
+# J on the full real target-odd sector, in the basis r_odd_full
+M = XI * CNOT
+Jm = zeros(4, 4)
+for j, B in enumerate(r_odd_full):
+    img = M * B * M.T
+    c = coords_in(r_odd_full, img)
+    for i in range(4):
+        Jm[i, j] = c[i]
+check("M4 full real target-odd sector: control split (%d,%d); J = Ad((X(x)I)CNOT) has J^2 = -1; LT sub-carrier split "
+      "(%d,%d)" % (len(c_even), len(c_odd), len(lt_even), len(lt_oddc)),
+      len(c_even) == len(c_odd) == 2 and Jm * Jm == -eye(4) and (len(lt_even), len(lt_oddc)) == (2, 1),
+      "J = %s" % Jm.tolist())
+
+# M5 Hardy counting
+KA = {"R": 3, "C": 4, "H": 6}
+KAB = {"R": 10, "C": 16, "H": 4 + 6 * 4}
+for f in ("R", "C", "H"):
+    print("     %s: K_A^2 = %d, K_AB = %d (%s)" % (f, KA[f] ** 2, KAB[f],
+                                                   "LT" if KA[f] ** 2 == KAB[f] else "not LT"))
+check("M5 K_AB = K_A^2 only for C (R: 10 > 9; H: 28 < 36, H_4(H) composite flagged [L])",
+      [f for f in KA if KA[f] ** 2 == KAB[f]] == ["C"])
+
+fails = [nm for nm, c in CHECKS if not c]
+print("SUMMARY %d checks, %d failed" % (len(CHECKS), len(fails)))
+if fails:
+    print("VERDICT NOT RENDERED (a control failed)")
+else:
+    print("VERDICT RENDERED: the target-odd action of CNOT is (Z o A)(x)B + (1/4)[A,Z](x)[X,B] over any field; "
+          "over C the anti-Hermitian product lands in Herm(x)Herm (balance (4,4) on the LT carrier); over R it "
+          "lands on R(x)R outside the LT span (balance (2,2) only on the 10-dim carrier, (2,1) on LT); "
+          "J^2 = -1 holds over both")

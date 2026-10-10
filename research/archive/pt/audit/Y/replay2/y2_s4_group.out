@@ -1,0 +1,20 @@
+PASS G1 actC R(U) = Ad(U(x)I), actT R(U) = Ad(I(x)U) (scaled by N); R(U) in SO(3); symbolic
+PASS G2a CNOT = I(x)P+ + Z(x)P- = P0(x)I + P1(x)X
+PASS G2b countercontrol: I(x)P+ + X(x)P- != CNOT
+PASS G2c CNOT = [I(x)P+ + (-iZ)(x)P-][I(x)(P+ + iP-)], (P+ + iP-)^2 = X
+PASS G2d Ad(I(x)(P+ + iP-)) = actT Rx(pi/2) on all 16 basis tables
+PASS G3 delta(CNOT) = delta(I(x)(P+ + iP-)) = -1, delta(SU(2)(x)I) = +1; Ad(I(x)Rx(pi/2)) not in the connected part
+PASS G4 word = N[I(x)P+] + (N V^-1 Z V Z)(x)P-; tr(V^-1ZVZ Z) = 0 (rotation axis in the XY plane), symbolic
+PASS L1 Lie closure of su(2)(x)I and its CNOT conjugate: dim 6 = su(2)(x)P+ (+) su(2)(x)P-
+PASS L2 Lie closure of I(x)su(2) and its CNOT conjugate: dim 6 = P0(x)su(2) (+) P1(x)su(2)
+PASS L3 both closures are invariant under the level-(ii) generators Ad(I(x)Z), Ad(Z(x)I) and the transpose
+PASS L4 countercontrol: commuting generator iZ(x)I closes at dim 1
+PASS R-psi_a g(|0>(x)b) = sqrt2 * psi exactly, g = U(x)P+ + V(x)P-, U, V in SU(2)
+PASS R-bell g(|0>(x)b) = sqrt2 * psi exactly, g = U(x)P+ + V(x)P-, U, V in SU(2)
+PASS R-singlet g(|0>(x)b) = sqrt2 * psi exactly, g = U(x)P+ + V(x)P-, U, V in SU(2)
+PASS R-psi_d g(|0>(x)b) = sqrt2 * psi exactly, g = U(x)P+ + V(x)P-, U, V in SU(2)
+PASS R-T target side: (P0(x)U + P1(x)V)(a(x)|0>) = psi_a exactly
+PASS K1 <actC Rz(pi) E0, E0> = -1, <actT Rx(pi) E0, E0> = -1: both < 0, so K(E0) is not S4-invariant
+PASS K2 for each z in Z_F and each side, P = P_{g f_z} lies in K(Z_F) and <g z, P> < 0 (g = Ad of the order-3 rotation)
+PASS Q1 retention: Ad(U3(x)I) maps the pure state psi_a to a PSD table
+VERDICT Y2-S4-EXACT

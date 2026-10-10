@@ -1,0 +1,24 @@
+
+# ---- A41: the forty-two named test cases (role, matrix); the definition of H is shared, nothing else --------------
+import hashlib, os
+A41_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'programmes', 'oi-qm', 'track-b', 'act-41-index-map-semantics', 'measurements.json')
+def a41_Pu(u): return [[SIG[i][j] * gpow(u, W[i * 16 + j]) for j in range(16)] for i in range(16)]
+def a41_gval_pt(ang, s, t):
+    v = ONE
+    for _ in range(int(ang * 4) % 4): v = v * I_
+    for _ in range(abs(s)): v = v * (z if s > 0 else z.conj())
+    for _ in range(abs(t)): v = v * (w if t > 0 else w.conj())
+    return v
+A41_U60 = G(Fr(3599, 3601), Fr(120, 3601)); A41_U5 = G(Fr(3, 5), Fr(4, 5))
+A41_ACT38_PTS = [(Fr(0), -1, -1), (Fr(1, 2), -1, -1), (Fr(0), -1, 0), (Fr(1, 2), -1, 0), (Fr(0), -1, 1), (Fr(1, 2), -1, 1), (Fr(0), 0, -1),
+                 (Fr(1, 2), 0, -1), (Fr(0), 0, 0), (Fr(1, 4), 0, 0), (Fr(1, 2), 0, 0), (Fr(3, 4), 0, 0), (Fr(0), 0, 1), (Fr(1, 2), 0, 1),
+                 (Fr(0), 1, -1), (Fr(1, 2), 1, -1), (Fr(0), 1, 0), (Fr(1, 2), 1, 0), (Fr(0), 1, 1), (Fr(1, 2), 1, 1)]
+# each case: (role, family, parameter); family 'H3' (u1, u2, u3), 'Pu' (act 36's arc, u), 'Hu' (act 38's arc, u)
+A41_CASES = [('SIG', 'H3', (ONE, ONE, ONE)), ('Pu(-1)', 'Pu', G(-1)), ('P = Pu(u60)', 'Pu', A41_U60), ('Pu(u5)', 'Pu', A41_U5), ('Hu(-1)', 'Hu', G(-1))]
+A41_CASES += [('act40 %02d %s' % (i, nm), 'H3', u) for i, (nm, u) in enumerate(PTS)]
+A41_CASES += [('act38 zeta(%s) z^%d w^%d' % (a, s, t), 'Hu', a41_gval_pt(a, s, t)) for a, s, t in A41_ACT38_PTS]
+def a41_matrix(fam, par):
+    if fam == 'H3': return H3(*par)
+    if fam == 'Pu': return a41_Pu(par)
+    return H3(par, par, par)
+def a41_key(H): return tuple(x.key() for r in H for x in r)

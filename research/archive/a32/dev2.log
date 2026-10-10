@@ -1,0 +1,600 @@
+2026-09-26T14:18:06.7098082Z info: OIBridge/ScalingFamily.lean:163:0: 'OIBridge.ScalingFamily.tv_Bmat_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7098742Z info: OIBridge/ScalingFamily.lean:164:0: 'OIBridge.ScalingFamily.tv_Bmat_lt_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7099444Z info: OIBridge/ScalingFamily.lean:165:0: 'OIBridge.ScalingFamily.pDivisible_below' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7100098Z info: OIBridge/ScalingFamily.lean:166:0: 'OIBridge.ScalingFamily.c4r_at_return' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7100817Z info: OIBridge/ScalingFamily.lean:167:0: 'OIBridge.ScalingFamily.pIndivisible_at_return' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7101461Z info: OIBridge/ScalingFamily.lean:168:0: 'OIBridge.ScalingFamily.tight_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7101766Z ⚠ [3596/3600] Replayed OIBridge.PhysicalC4Discharge
+2026-09-26T14:18:06.7102580Z warning: OIBridge/PhysicalC4Discharge.lean:80:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4Discharge.routedReadback_mono`:
+2026-09-26T14:18:06.7102705Z   [Fintype V]
+2026-09-26T14:18:06.7102834Z   [DecidableEq H]
+2026-09-26T14:18:06.7103386Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7103591Z   omit [Fintype V] [DecidableEq H] in theorem ...
+2026-09-26T14:18:06.7103600Z 
+2026-09-26T14:18:06.7103955Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7104790Z warning: OIBridge/PhysicalC4Discharge.lean:88:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4Discharge.routedReadback_overlap`:
+2026-09-26T14:18:06.7104930Z   [Fintype V]
+2026-09-26T14:18:06.7105050Z   [DecidableEq H]
+2026-09-26T14:18:06.7105580Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7105780Z   omit [Fintype V] [DecidableEq H] in theorem ...
+2026-09-26T14:18:06.7105788Z 
+2026-09-26T14:18:06.7106137Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7106925Z warning: OIBridge/PhysicalC4Discharge.lean:594:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4Discharge.cutRealization_step`:
+2026-09-26T14:18:06.7107124Z   [DecidableEq 𝒮.V]
+2026-09-26T14:18:06.7107723Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7108071Z   omit [DecidableEq 𝒮.V] in theorem ...
+2026-09-26T14:18:06.7108080Z 
+2026-09-26T14:18:06.7108450Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7109250Z warning: OIBridge/PhysicalC4Discharge.lean:640:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4Discharge.latticeCutReadback_iff`:
+2026-09-26T14:18:06.7109378Z   [NeZero L]
+2026-09-26T14:18:06.7109506Z   [NeZero q]
+2026-09-26T14:18:06.7110017Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7110197Z   omit [NeZero L] [NeZero q] in theorem ...
+2026-09-26T14:18:06.7110204Z 
+2026-09-26T14:18:06.7110557Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7111478Z warning: OIBridge/PhysicalC4Discharge.lean:650:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4Discharge.latticeCut_rootedMap_stochastic_periodic`:
+2026-09-26T14:18:06.7111616Z   [NeZero L]
+2026-09-26T14:18:06.7111737Z   [NeZero q]
+2026-09-26T14:18:06.7112337Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7112521Z   omit [NeZero L] [NeZero q] in theorem ...
+2026-09-26T14:18:06.7112529Z 
+2026-09-26T14:18:06.7112882Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7113658Z info: OIBridge/PhysicalC4Discharge.lean:665:0: 'OIBridge.PhysicalC4Discharge.routedReadback_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7114471Z info: OIBridge/PhysicalC4Discharge.lean:666:0: 'OIBridge.PhysicalC4Discharge.routedReadback_overlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7115173Z info: OIBridge/PhysicalC4Discharge.lean:667:0: 'OIBridge.PhysicalC4Discharge.routed_forces_return_indivisibility' depends on axioms: [propext,
+2026-09-26T14:18:06.7115311Z  Classical.choice,
+2026-09-26T14:18:06.7115447Z  Quot.sound]
+2026-09-26T14:18:06.7116149Z info: OIBridge/PhysicalC4Discharge.lean:668:0: 'OIBridge.PhysicalC4Discharge.routed_forces_indivisible_somewhere' depends on axioms: [propext,
+2026-09-26T14:18:06.7116276Z  Classical.choice,
+2026-09-26T14:18:06.7116399Z  Quot.sound]
+2026-09-26T14:18:06.7117197Z info: OIBridge/PhysicalC4Discharge.lean:669:0: 'OIBridge.PhysicalC4Discharge.core_realization_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7118094Z info: OIBridge/PhysicalC4Discharge.lean:670:0: 'OIBridge.PhysicalC4Discharge.core_involutive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7118873Z info: OIBridge/PhysicalC4Discharge.lean:671:0: 'OIBridge.PhysicalC4Discharge.core_rootedMap_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7119625Z info: OIBridge/PhysicalC4Discharge.lean:672:0: 'OIBridge.PhysicalC4Discharge.core_rootedMap_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7120404Z info: OIBridge/PhysicalC4Discharge.lean:673:0: 'OIBridge.PhysicalC4Discharge.core_posterior_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7121146Z info: OIBridge/PhysicalC4Discharge.lean:674:0: 'OIBridge.PhysicalC4Discharge.core_store_gap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7121935Z info: OIBridge/PhysicalC4Discharge.lean:675:0: 'OIBridge.PhysicalC4Discharge.core_not_routedReadback' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7122654Z info: OIBridge/PhysicalC4Discharge.lean:676:0: 'OIBridge.PhysicalC4Discharge.core_c4e_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7123441Z info: OIBridge/PhysicalC4Discharge.lean:677:0: 'OIBridge.PhysicalC4Discharge.core_pIndivisible_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7124416Z info: OIBridge/PhysicalC4Discharge.lean:678:0: 'OIBridge.PhysicalC4Discharge.product_realization_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7125181Z info: OIBridge/PhysicalC4Discharge.lean:679:0: 'OIBridge.PhysicalC4Discharge.product_iterate' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7125946Z info: OIBridge/PhysicalC4Discharge.lean:680:0: 'OIBridge.PhysicalC4Discharge.product_rootedMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7126764Z info: OIBridge/PhysicalC4Discharge.lean:681:0: 'OIBridge.PhysicalC4Discharge.product_not_routedReadback' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7127567Z info: OIBridge/PhysicalC4Discharge.lean:682:0: 'OIBridge.PhysicalC4Discharge.product_rootedMap_twelve' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7128711Z info: OIBridge/PhysicalC4Discharge.lean:683:0: 'OIBridge.PhysicalC4Discharge.product_pDivisible' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7129539Z info: OIBridge/PhysicalC4Discharge.lean:684:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_realization_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7130008Z info: OIBridge/PhysicalC4Discharge.lean:685:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_step_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7130470Z info: OIBridge/PhysicalC4Discharge.lean:686:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_rootedMap_mid' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7130955Z info: OIBridge/PhysicalC4Discharge.lean:687:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_rootedMap_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7131433Z info: OIBridge/PhysicalC4Discharge.lean:688:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_write_store' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7131843Z info: OIBridge/PhysicalC4Discharge.lean:689:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_not_routedReadback_three' depends on axioms: [propext,
+2026-09-26T14:18:06.7131953Z  Classical.choice,
+2026-09-26T14:18:06.7132048Z  Quot.sound]
+2026-09-26T14:18:06.7132514Z info: OIBridge/PhysicalC4Discharge.lean:690:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_pDivisible_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7132999Z info: OIBridge/PhysicalC4Discharge.lean:691:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_history_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7133496Z info: OIBridge/PhysicalC4Discharge.lean:692:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_routedReadback_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7133931Z info: OIBridge/PhysicalC4Discharge.lean:693:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_c4e_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7134404Z info: OIBridge/PhysicalC4Discharge.lean:694:0: 'OIBridge.PhysicalC4Discharge.tapeLedger_pIndivisible_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7134854Z info: OIBridge/PhysicalC4Discharge.lean:695:0: 'OIBridge.PhysicalC4Discharge.cutRealization_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7135292Z info: OIBridge/PhysicalC4Discharge.lean:696:0: 'OIBridge.PhysicalC4Discharge.cutRealization_rootedMap_isRowStochastic' depends on axioms: [propext,
+2026-09-26T14:18:06.7135392Z  Classical.choice,
+2026-09-26T14:18:06.7135485Z  Quot.sound]
+2026-09-26T14:18:06.7135889Z info: OIBridge/PhysicalC4Discharge.lean:697:0: 'OIBridge.PhysicalC4Discharge.cutRealization_rootedMap_periodic' depends on axioms: [propext,
+2026-09-26T14:18:06.7136011Z  Classical.choice,
+2026-09-26T14:18:06.7223041Z  Quot.sound]
+2026-09-26T14:18:06.7223785Z info: OIBridge/PhysicalC4Discharge.lean:698:0: 'OIBridge.PhysicalC4Discharge.latticeCutReadback_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7224839Z info: OIBridge/PhysicalC4Discharge.lean:699:0: 'OIBridge.PhysicalC4Discharge.latticeCut_rootedMap_stochastic_periodic' depends on axioms: [propext,
+2026-09-26T14:18:06.7225016Z  Classical.choice,
+2026-09-26T14:18:06.7225172Z  Quot.sound]
+2026-09-26T14:18:06.7225600Z ⚠ [3597/3600] Replayed OIBridge.PhysicalC4StorageReadback
+2026-09-26T14:18:06.7226445Z warning: OIBridge/PhysicalC4StorageReadback.lean:81:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_mono`:
+2026-09-26T14:18:06.7226567Z   [Fintype V]
+2026-09-26T14:18:06.7227055Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7227164Z   omit [Fintype V] in theorem ...
+2026-09-26T14:18:06.7227171Z 
+2026-09-26T14:18:06.7227401Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7228336Z warning: OIBridge/PhysicalC4StorageReadback.lean:91:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_overlap`:
+2026-09-26T14:18:06.7228433Z   [Fintype V]
+2026-09-26T14:18:06.7228756Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7228868Z   omit [Fintype V] in theorem ...
+2026-09-26T14:18:06.7228873Z 
+2026-09-26T14:18:06.7229089Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7229630Z warning: OIBridge/PhysicalC4StorageReadback.lean:100:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4StorageReadback.storageWeight_sum`:
+2026-09-26T14:18:06.7229725Z   [Fintype V]
+2026-09-26T14:18:06.7230028Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7230143Z   omit [Fintype V] in theorem ...
+2026-09-26T14:18:06.7230148Z 
+2026-09-26T14:18:06.7230368Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7230930Z warning: OIBridge/PhysicalC4StorageReadback.lean:119:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4StorageReadback.storageWeight_eq_zero_of_root_ne`:
+2026-09-26T14:18:06.7231028Z   [Fintype V]
+2026-09-26T14:18:06.7231349Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7231447Z   omit [Fintype V] in theorem ...
+2026-09-26T14:18:06.7231451Z 
+2026-09-26T14:18:06.7231666Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7232254Z warning: OIBridge/PhysicalC4StorageReadback.lean:165:0: automatically included section variable(s) unused in theorem `OIBridge.PhysicalC4StorageReadback.rootedStatePosterior_marg_eq`:
+2026-09-26T14:18:06.7232340Z   [Fintype V]
+2026-09-26T14:18:06.7232657Z consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+2026-09-26T14:18:06.7232762Z   omit [Fintype V] in theorem ...
+2026-09-26T14:18:06.7232766Z 
+2026-09-26T14:18:06.7232970Z Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+2026-09-26T14:18:06.7233494Z info: OIBridge/PhysicalC4StorageReadback.lean:702:0: 'OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_mono' depends on axioms: [propext,
+2026-09-26T14:18:06.7233596Z  Classical.choice,
+2026-09-26T14:18:06.7233684Z  Quot.sound]
+2026-09-26T14:18:06.7234163Z info: OIBridge/PhysicalC4StorageReadback.lean:703:0: 'OIBridge.PhysicalC4StorageReadback.routedReadbackAtStorage_overlap' depends on axioms: [propext,
+2026-09-26T14:18:06.7234264Z  Classical.choice,
+2026-09-26T14:18:06.7234349Z  Quot.sound]
+2026-09-26T14:18:06.7234856Z info: OIBridge/PhysicalC4StorageReadback.lean:704:0: 'OIBridge.PhysicalC4StorageReadback.storageWeight_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7235414Z info: OIBridge/PhysicalC4StorageReadback.lean:705:0: 'OIBridge.PhysicalC4StorageReadback.storageWeight_eq_zero_of_root_ne' depends on axioms: [propext,
+2026-09-26T14:18:06.7235505Z  Classical.choice,
+2026-09-26T14:18:06.7235598Z  Quot.sound]
+2026-09-26T14:18:06.7236108Z info: OIBridge/PhysicalC4StorageReadback.lean:706:0: 'OIBridge.PhysicalC4StorageReadback.rootedStatePosterior_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7236583Z info: OIBridge/PhysicalC4StorageReadback.lean:707:0: 'OIBridge.PhysicalC4StorageReadback.rootedStatePosterior_marg_eq' depends on axioms: [propext,
+2026-09-26T14:18:06.7236679Z  Classical.choice,
+2026-09-26T14:18:06.7236763Z  Quot.sound]
+2026-09-26T14:18:06.7237262Z info: OIBridge/PhysicalC4StorageReadback.lean:708:0: 'OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_return_indivisibility' depends on axioms: [propext,
+2026-09-26T14:18:06.7237366Z  Classical.choice,
+2026-09-26T14:18:06.7237450Z  Quot.sound]
+2026-09-26T14:18:06.7238313Z info: OIBridge/PhysicalC4StorageReadback.lean:709:0: 'OIBridge.PhysicalC4StorageReadback.routedAtStorage_forces_indivisible_somewhere' depends on axioms: [propext,
+2026-09-26T14:18:06.7238421Z  Classical.choice,
+2026-09-26T14:18:06.7238505Z  Quot.sound]
+2026-09-26T14:18:06.7239009Z info: OIBridge/PhysicalC4StorageReadback.lean:710:0: 'OIBridge.PhysicalC4StorageReadback.core_statePosterior_odd' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7239497Z info: OIBridge/PhysicalC4StorageReadback.lean:711:0: 'OIBridge.PhysicalC4StorageReadback.core_storage_contrast' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7239946Z info: OIBridge/PhysicalC4StorageReadback.lean:712:0: 'OIBridge.PhysicalC4StorageReadback.core_routedReadbackAtStorage_two' depends on axioms: [propext,
+2026-09-26T14:18:06.7240047Z  Classical.choice,
+2026-09-26T14:18:06.7240145Z  Quot.sound]
+2026-09-26T14:18:06.7240605Z info: OIBridge/PhysicalC4StorageReadback.lean:713:0: 'OIBridge.PhysicalC4StorageReadback.product_not_routedReadbackAtStorage' depends on axioms: [propext,
+2026-09-26T14:18:06.7240705Z  Classical.choice,
+2026-09-26T14:18:06.7240797Z  Quot.sound]
+2026-09-26T14:18:06.7241279Z info: OIBridge/PhysicalC4StorageReadback.lean:714:0: 'OIBridge.PhysicalC4StorageReadback.tapeLedger_not_routedReadbackAtStorage_three' depends on axioms: [propext,
+2026-09-26T14:18:06.7241375Z  Classical.choice,
+2026-09-26T14:18:06.7241474Z  Quot.sound]
+2026-09-26T14:18:06.7241913Z info: OIBridge/PhysicalC4StorageReadback.lean:715:0: 'OIBridge.PhysicalC4StorageReadback.tapeLedger_statePosterior_one' depends on axioms: [propext,
+2026-09-26T14:18:06.7242005Z  Classical.choice,
+2026-09-26T14:18:06.7242086Z  Quot.sound]
+2026-09-26T14:18:06.7242558Z info: OIBridge/PhysicalC4StorageReadback.lean:716:0: 'OIBridge.PhysicalC4StorageReadback.tapeLedger_routedReadbackAtStorage_four' depends on axioms: [propext,
+2026-09-26T14:18:06.7242655Z  Classical.choice,
+2026-09-26T14:18:06.7242736Z  Quot.sound]
+2026-09-26T14:18:06.7243215Z info: OIBridge/PhysicalC4StorageReadback.lean:717:0: 'OIBridge.PhysicalC4StorageReadback.core_storageReadback_and_not_routedReadback' depends on axioms: [propext,
+2026-09-26T14:18:06.7243308Z  Classical.choice,
+2026-09-26T14:18:06.7243387Z  Quot.sound]
+2026-09-26T14:18:06.7243871Z info: OIBridge/PhysicalC4StorageReadback.lean:718:0: 'OIBridge.PhysicalC4StorageReadback.storageReadback_not_implies_routedReadback' depends on axioms: [propext,
+2026-09-26T14:18:06.7243963Z  Classical.choice,
+2026-09-26T14:18:06.7244043Z  Quot.sound]
+2026-09-26T14:18:06.7244524Z info: OIBridge/PhysicalC4StorageReadback.lean:719:0: 'OIBridge.PhysicalC4StorageReadback.sep_realization_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7245013Z info: OIBridge/PhysicalC4StorageReadback.lean:720:0: 'OIBridge.PhysicalC4StorageReadback.sep_rootedMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7245546Z info: OIBridge/PhysicalC4StorageReadback.lean:721:0: 'OIBridge.PhysicalC4StorageReadback.sep_statePosterior' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7246047Z info: OIBridge/PhysicalC4StorageReadback.lean:722:0: 'OIBridge.PhysicalC4StorageReadback.sep_seedPosterior' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7246521Z info: OIBridge/PhysicalC4StorageReadback.lean:723:0: 'OIBridge.PhysicalC4StorageReadback.sep_read_collapse' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7247001Z info: OIBridge/PhysicalC4StorageReadback.lean:724:0: 'OIBridge.PhysicalC4StorageReadback.sep_routedReadback_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:18:06.7247459Z info: OIBridge/PhysicalC4StorageReadback.lean:725:0: 'OIBridge.PhysicalC4StorageReadback.sep_not_routedReadbackAtStorage_two' depends on axioms: [propext,
+2026-09-26T14:18:06.7247664Z  Classical.choice,
+2026-09-26T14:18:06.7247754Z  Quot.sound]
+2026-09-26T14:18:06.7248317Z info: OIBridge/PhysicalC4StorageReadback.lean:726:0: 'OIBridge.PhysicalC4StorageReadback.routedReadback_not_implies_storageReadback' depends on axioms: [propext,
+2026-09-26T14:18:06.7248412Z  Classical.choice,
+2026-09-26T14:18:06.7248493Z  Quot.sound]
+2026-09-26T14:20:33.6004915Z ✖ [3598/3600] Building OIBridge.OrbitIsometryClassification (147s)
+2026-09-26T14:20:33.6020155Z trace: .> LEAN_PATH=/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.33.0/bin/lean /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/OIBridge/OrbitIsometryClassification.lean -o /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/OrbitIsometryClassification.olean -i /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/OrbitIsometryClassification.ilean -c /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/OrbitIsometryClassification.c --setup /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/OrbitIsometryClassification.setup.json --json
+2026-09-26T14:20:33.6028969Z error: build failed
+2026-09-26T14:20:33.6029799Z info: OIBridge/OrbitIsometryClassification.lean:35:0: 'OIBridge.OrbitIsometryClassification.a32_shared_entry_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6031197Z info: OIBridge/OrbitIsometryClassification.lean:45:0: 'OIBridge.OrbitIsometryClassification.a32_shared_entry_starI' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6032569Z info: OIBridge/OrbitIsometryClassification.lean:53:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6034283Z info: OIBridge/OrbitIsometryClassification.lean:61:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow3s' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6035660Z info: OIBridge/OrbitIsometryClassification.lean:70:0: 'OIBridge.OrbitIsometryClassification.a32_shared_value_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6037026Z info: OIBridge/OrbitIsometryClassification.lean:79:0: 'OIBridge.OrbitIsometryClassification.a32_shared_value_starI' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6038837Z info: OIBridge/OrbitIsometryClassification.lean:89:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6040378Z info: OIBridge/OrbitIsometryClassification.lean:108:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow_mod' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6041663Z info: OIBridge/OrbitIsometryClassification.lean:116:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_relabel' depends on axioms: [propext,
+2026-09-26T14:20:33.6042632Z  Classical.choice,
+2026-09-26T14:20:33.6042894Z  Quot.sound]
+2026-09-26T14:20:33.6043593Z info: OIBridge/OrbitIsometryClassification.lean:124:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_relabel' depends on axioms: [propext,
+2026-09-26T14:20:33.6044365Z  Classical.choice,
+2026-09-26T14:20:33.6044605Z  Quot.sound]
+2026-09-26T14:20:33.6045327Z info: OIBridge/OrbitIsometryClassification.lean:132:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_star_relabel' depends on axioms: [propext,
+2026-09-26T14:20:33.6046126Z  Classical.choice,
+2026-09-26T14:20:33.6046361Z  Quot.sound]
+2026-09-26T14:20:33.6047124Z info: OIBridge/OrbitIsometryClassification.lean:141:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6048627Z info: OIBridge/OrbitIsometryClassification.lean:150:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6050033Z info: OIBridge/OrbitIsometryClassification.lean:159:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6051382Z info: OIBridge/OrbitIsometryClassification.lean:168:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6052412Z warning: OIBridge/OrbitIsometryClassification.lean:181:57: This simp argument is unused:
+2026-09-26T14:20:33.6052931Z   a32_shared_star_pow
+2026-09-26T14:20:33.6053099Z 
+2026-09-26T14:20:33.6053226Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6053663Z   [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+2026-09-26T14:20:33.6053966Z 
+2026-09-26T14:20:33.6054232Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6055221Z info: OIBridge/OrbitIsometryClassification.lean:184:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_1d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6056313Z warning: OIBridge/OrbitIsometryClassification.lean:198:33: This simp argument is unused:
+2026-09-26T14:20:33.6056830Z   a32_shared_value_starI
+2026-09-26T14:20:33.6056996Z 
+2026-09-26T14:20:33.6057129Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6057545Z   [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+2026-09-26T14:20:33.6057974Z 
+2026-09-26T14:20:33.6058231Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6058878Z warning: OIBridge/OrbitIsometryClassification.lean:198:57: This simp argument is unused:
+2026-09-26T14:20:33.6059389Z   a32_shared_star_pow
+2026-09-26T14:20:33.6059547Z 
+2026-09-26T14:20:33.6059671Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6060274Z   [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+2026-09-26T14:20:33.6060567Z 
+2026-09-26T14:20:33.6060819Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6061802Z info: OIBridge/OrbitIsometryClassification.lean:201:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_1r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6063175Z info: OIBridge/OrbitIsometryClassification.lean:217:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_2d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6064204Z warning: OIBridge/OrbitIsometryClassification.lean:231:33: This simp argument is unused:
+2026-09-26T14:20:33.6064721Z   a32_shared_value_starI
+2026-09-26T14:20:33.6064895Z 
+2026-09-26T14:20:33.6065017Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6065430Z   [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+2026-09-26T14:20:33.6065721Z 
+2026-09-26T14:20:33.6065965Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6067067Z info: OIBridge/OrbitIsometryClassification.lean:234:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_2r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6068613Z info: OIBridge/OrbitIsometryClassification.lean:251:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_3d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6069749Z warning: OIBridge/OrbitIsometryClassification.lean:266:33: This simp argument is unused:
+2026-09-26T14:20:33.6070277Z   a32_shared_value_starI
+2026-09-26T14:20:33.6070451Z 
+2026-09-26T14:20:33.6070569Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6070980Z   [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+2026-09-26T14:20:33.6071266Z 
+2026-09-26T14:20:33.6071517Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6072516Z info: OIBridge/OrbitIsometryClassification.lean:269:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_3r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6073652Z warning: OIBridge/OrbitIsometryClassification.lean:283:57: This simp argument is unused:
+2026-09-26T14:20:33.6074170Z   a32_shared_star_pow
+2026-09-26T14:20:33.6074332Z 
+2026-09-26T14:20:33.6074452Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6074854Z   [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+2026-09-26T14:20:33.6075155Z 
+2026-09-26T14:20:33.6075397Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6076371Z info: OIBridge/OrbitIsometryClassification.lean:286:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_4d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6077393Z warning: OIBridge/OrbitIsometryClassification.lean:301:33: This simp argument is unused:
+2026-09-26T14:20:33.6078045Z   a32_shared_value_starI
+2026-09-26T14:20:33.6078209Z 
+2026-09-26T14:20:33.6078343Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6078760Z   [apply] simp only [a32_shared_value_I, a32_shared_star_pow] at m
+2026-09-26T14:20:33.6079054Z 
+2026-09-26T14:20:33.6079288Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6079941Z warning: OIBridge/OrbitIsometryClassification.lean:301:57: This simp argument is unused:
+2026-09-26T14:20:33.6080459Z   a32_shared_star_pow
+2026-09-26T14:20:33.6080608Z 
+2026-09-26T14:20:33.6080735Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6081140Z   [apply] simp only [a32_shared_value_I, a32_shared_value_starI] at m
+2026-09-26T14:20:33.6081442Z 
+2026-09-26T14:20:33.6081686Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6082671Z info: OIBridge/OrbitIsometryClassification.lean:304:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_4r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6084228Z info: OIBridge/OrbitIsometryClassification.lean:315:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6085611Z info: OIBridge/OrbitIsometryClassification.lean:327:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6086983Z info: OIBridge/OrbitIsometryClassification.lean:336:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6088484Z info: OIBridge/OrbitIsometryClassification.lean:345:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6089911Z info: OIBridge/OrbitIsometryClassification.lean:395:0: 'OIBridge.OrbitIsometryClassification.a32_shared_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6091256Z warning: OIBridge/OrbitIsometryClassification.lean:404:71: Unused tactic linter: `ring` does nothing
+2026-09-26T14:20:33.6091741Z 
+2026-09-26T14:20:33.6091982Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6092628Z warning: OIBridge/OrbitIsometryClassification.lean:404:71: this tactic is never executed
+2026-09-26T14:20:33.6093055Z 
+2026-09-26T14:20:33.6093318Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6094225Z info: OIBridge/OrbitIsometryClassification.lean:406:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_star' depends on axioms: [propext,
+2026-09-26T14:20:33.6094983Z  Classical.choice,
+2026-09-26T14:20:33.6095225Z  Quot.sound]
+2026-09-26T14:20:33.6095732Z warning: OIBridge/OrbitIsometryClassification.lean:412:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+2026-09-26T14:20:33.6096224Z 
+2026-09-26T14:20:33.6096508Z Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+2026-09-26T14:20:33.6098308Z info: OIBridge/OrbitIsometryClassification.lean:414:0: 'OIBridge.OrbitIsometryClassification.a32_shared_coord_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6099790Z info: OIBridge/OrbitIsometryClassification.lean:423:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6100880Z info: OIBridge/OrbitIsometryClassification.lean:440:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6101970Z info: OIBridge/OrbitIsometryClassification.lean:457:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6103039Z info: OIBridge/OrbitIsometryClassification.lean:474:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6104094Z info: OIBridge/OrbitIsometryClassification.lean:491:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_D' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6105054Z warning: OIBridge/OrbitIsometryClassification.lean:506:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6105482Z | ring1
+2026-09-26T14:20:33.6105693Z | field_simp` does nothing
+2026-09-26T14:20:33.6105848Z 
+2026-09-26T14:20:33.6106045Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6106560Z warning: OIBridge/OrbitIsometryClassification.lean:506:4: this tactic is never executed
+2026-09-26T14:20:33.6106906Z 
+2026-09-26T14:20:33.6107125Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6108111Z info: OIBridge/OrbitIsometryClassification.lean:508:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6109047Z warning: OIBridge/OrbitIsometryClassification.lean:523:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6109463Z | ring1
+2026-09-26T14:20:33.6109672Z | field_simp` does nothing
+2026-09-26T14:20:33.6109820Z 
+2026-09-26T14:20:33.6110019Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6110530Z warning: OIBridge/OrbitIsometryClassification.lean:523:4: this tactic is never executed
+2026-09-26T14:20:33.6110864Z 
+2026-09-26T14:20:33.6111077Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6111878Z info: OIBridge/OrbitIsometryClassification.lean:525:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6112733Z warning: OIBridge/OrbitIsometryClassification.lean:537:61: This simp argument is unused:
+2026-09-26T14:20:33.6113161Z   hzn
+2026-09-26T14:20:33.6113268Z 
+2026-09-26T14:20:33.6113386Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6113814Z   [apply] simp
+2026-09-26T14:20:33.6113943Z 
+2026-09-26T14:20:33.6114143Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6114671Z warning: OIBridge/OrbitIsometryClassification.lean:540:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6115080Z | ring1
+2026-09-26T14:20:33.6115284Z | field_simp` does nothing
+2026-09-26T14:20:33.6115438Z 
+2026-09-26T14:20:33.6115630Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6116165Z warning: OIBridge/OrbitIsometryClassification.lean:540:4: this tactic is never executed
+2026-09-26T14:20:33.6116485Z 
+2026-09-26T14:20:33.6116699Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6117515Z info: OIBridge/OrbitIsometryClassification.lean:542:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6118484Z warning: OIBridge/OrbitIsometryClassification.lean:557:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6118890Z | ring1
+2026-09-26T14:20:33.6119094Z | field_simp` does nothing
+2026-09-26T14:20:33.6119246Z 
+2026-09-26T14:20:33.6119434Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6119949Z warning: OIBridge/OrbitIsometryClassification.lean:557:4: this tactic is never executed
+2026-09-26T14:20:33.6120268Z 
+2026-09-26T14:20:33.6120481Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6121267Z info: OIBridge/OrbitIsometryClassification.lean:559:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6122064Z warning: OIBridge/OrbitIsometryClassification.lean:574:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6122473Z | ring1
+2026-09-26T14:20:33.6122674Z | field_simp` does nothing
+2026-09-26T14:20:33.6122825Z 
+2026-09-26T14:20:33.6123016Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6123538Z warning: OIBridge/OrbitIsometryClassification.lean:574:4: this tactic is never executed
+2026-09-26T14:20:33.6123860Z 
+2026-09-26T14:20:33.6124072Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6124846Z info: OIBridge/OrbitIsometryClassification.lean:576:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6125639Z warning: OIBridge/OrbitIsometryClassification.lean:588:61: This simp argument is unused:
+2026-09-26T14:20:33.6126050Z   hzn
+2026-09-26T14:20:33.6126157Z 
+2026-09-26T14:20:33.6126278Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6126546Z   [apply] simp
+2026-09-26T14:20:33.6126737Z 
+2026-09-26T14:20:33.6126934Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6127462Z warning: OIBridge/OrbitIsometryClassification.lean:591:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6128002Z | ring1
+2026-09-26T14:20:33.6128208Z | field_simp` does nothing
+2026-09-26T14:20:33.6128358Z 
+2026-09-26T14:20:33.6128550Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6129074Z warning: OIBridge/OrbitIsometryClassification.lean:591:4: this tactic is never executed
+2026-09-26T14:20:33.6129400Z 
+2026-09-26T14:20:33.6129614Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6130414Z info: OIBridge/OrbitIsometryClassification.lean:593:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6131297Z warning: OIBridge/OrbitIsometryClassification.lean:608:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6131709Z | ring1
+2026-09-26T14:20:33.6131907Z | field_simp` does nothing
+2026-09-26T14:20:33.6132054Z 
+2026-09-26T14:20:33.6132315Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6132837Z warning: OIBridge/OrbitIsometryClassification.lean:608:4: this tactic is never executed
+2026-09-26T14:20:33.6133162Z 
+2026-09-26T14:20:33.6133375Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6134151Z info: OIBridge/OrbitIsometryClassification.lean:610:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6134973Z warning: OIBridge/OrbitIsometryClassification.lean:625:4: Unused tactic linter: `first
+2026-09-26T14:20:33.6135370Z | ring1
+2026-09-26T14:20:33.6135570Z | field_simp` does nothing
+2026-09-26T14:20:33.6135719Z 
+2026-09-26T14:20:33.6135904Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-09-26T14:20:33.6136425Z warning: OIBridge/OrbitIsometryClassification.lean:625:4: this tactic is never executed
+2026-09-26T14:20:33.6136741Z 
+2026-09-26T14:20:33.6136955Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-09-26T14:20:33.6137975Z info: OIBridge/OrbitIsometryClassification.lean:627:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6139045Z info: OIBridge/OrbitIsometryClassification.lean:646:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6140160Z info: OIBridge/OrbitIsometryClassification.lean:671:0: 'OIBridge.OrbitIsometryClassification.a32_shared_classify' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6141056Z error: OIBridge/OrbitIsometryClassification.lean:690:116: Application type mismatch: The argument
+2026-09-26T14:20:33.6141495Z   hR
+2026-09-26T14:20:33.6141692Z has type
+2026-09-26T14:20:33.6141888Z   mixedTriple
+2026-09-26T14:20:33.6142091Z       (fun i =>
+2026-09-26T14:20:33.6142515Z         (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)
+2026-09-26T14:20:33.6142924Z               (1 i)).submatrix
+2026-09-26T14:20:33.6143384Z           ⇑(Equiv.swap 2 3) ⇑(Equiv.swap 2 3))
+2026-09-26T14:20:33.6143667Z       ((0, 0, 2), 0, 0, 2) =
+2026-09-26T14:20:33.6143900Z     -1 / 64
+2026-09-26T14:20:33.6144252Z but is expected to have type
+2026-09-26T14:20:33.6144663Z   mixedTriple (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+2026-09-26T14:20:33.6145083Z       ((0, 0, 2), 0, 0, 2) =
+2026-09-26T14:20:33.6145309Z     ?m.1251
+2026-09-26T14:20:33.6145519Z in the application
+2026-09-26T14:20:33.6145809Z   Eq.trans (congrFun (mixedTriple_gauge h) ((0, 0, 2), 0, 0, 2)) hR
+2026-09-26T14:20:33.6146415Z error: OIBridge/OrbitIsometryClassification.lean:696:116: Application type mismatch: The argument
+2026-09-26T14:20:33.6146875Z   hR
+2026-09-26T14:20:33.6147075Z has type
+2026-09-26T14:20:33.6147275Z   mixedTriple
+2026-09-26T14:20:33.6147488Z       (fun i =>
+2026-09-26T14:20:33.6147988Z         (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)
+2026-09-26T14:20:33.6148383Z               (1 i)).submatrix
+2026-09-26T14:20:33.6148722Z           ⇑(Equiv.swap 1 2) ⇑(Equiv.swap 1 2))
+2026-09-26T14:20:33.6149006Z       ((0, 0, 2), 0, 0, 1) =
+2026-09-26T14:20:33.6149236Z     1 / 64
+2026-09-26T14:20:33.6149446Z but is expected to have type
+2026-09-26T14:20:33.6149851Z   mixedTriple (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+2026-09-26T14:20:33.6150303Z       ((0, 0, 2), 0, 0, 1) =
+2026-09-26T14:20:33.6150545Z     ?m.1659
+2026-09-26T14:20:33.6150771Z in the application
+2026-09-26T14:20:33.6151066Z   Eq.trans (congrFun (mixedTriple_gauge h) ((0, 0, 2), 0, 0, 1)) hR
+2026-09-26T14:20:33.6151595Z error: OIBridge/OrbitIsometryClassification.lean:702:116: Application type mismatch: The argument
+2026-09-26T14:20:33.6152045Z   hR
+2026-09-26T14:20:33.6152306Z has type
+2026-09-26T14:20:33.6152513Z   mixedTriple
+2026-09-26T14:20:33.6152714Z       (fun i =>
+2026-09-26T14:20:33.6153044Z         (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)
+2026-09-26T14:20:33.6153449Z               ((Equiv.swap 2 3) i)).submatrix
+2026-09-26T14:20:33.6153766Z           ⇑1 ⇑1)
+2026-09-26T14:20:33.6153974Z       ((0, 0, 2), 0, 0, 2) =
+2026-09-26T14:20:33.6154197Z     -1 / 64
+2026-09-26T14:20:33.6154405Z but is expected to have type
+2026-09-26T14:20:33.6154796Z   mixedTriple (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+2026-09-26T14:20:33.6155219Z       ((0, 0, 2), 0, 0, 2) =
+2026-09-26T14:20:33.6155439Z     ?m.2063
+2026-09-26T14:20:33.6155640Z in the application
+2026-09-26T14:20:33.6155924Z   Eq.trans (congrFun (mixedTriple_gauge h) ((0, 0, 2), 0, 0, 2)) hR
+2026-09-26T14:20:33.6156469Z error: OIBridge/OrbitIsometryClassification.lean:726:116: Application type mismatch: The argument
+2026-09-26T14:20:33.6156910Z   hR
+2026-09-26T14:20:33.6157095Z has type
+2026-09-26T14:20:33.6157335Z   mixedTriple
+2026-09-26T14:20:33.6157546Z       (fun i =>
+2026-09-26T14:20:33.6158015Z         (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, w, -1, -w; 1, -1, 1, -1; 1, -w, -1, w] p.1 q.1)
+2026-09-26T14:20:33.6158414Z               ((Equiv.swap 1 2) i)).submatrix
+2026-09-26T14:20:33.6158719Z           ⇑1 ⇑1)
+2026-09-26T14:20:33.6158938Z       ((0, 0, 1), 0, 0, 2) =
+2026-09-26T14:20:33.6159161Z     1 / 64
+2026-09-26T14:20:33.6159368Z but is expected to have type
+2026-09-26T14:20:33.6159762Z   mixedTriple (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+2026-09-26T14:20:33.6160186Z       ((0, 0, 1), 0, 0, 2) =
+2026-09-26T14:20:33.6160415Z     ?m.2627
+2026-09-26T14:20:33.6160613Z in the application
+2026-09-26T14:20:33.6160899Z   Eq.trans (congrFun (mixedTriple_gauge h) ((0, 0, 1), 0, 0, 2)) hR
+2026-09-26T14:20:33.6161567Z error: OIBridge/OrbitIsometryClassification.lean:726:53: (deterministic) timeout at `isDefEq`, maximum number of heartbeats (200000) has been reached
+2026-09-26T14:20:33.6162064Z 
+2026-09-26T14:20:33.6162227Z Note: Use `set_option maxHeartbeats <num>` to set the limit.
+2026-09-26T14:20:33.6162453Z 
+2026-09-26T14:20:33.6162747Z Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+2026-09-26T14:20:33.6163529Z error: OIBridge/OrbitIsometryClassification.lean:673:0: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+2026-09-26T14:20:33.6164009Z 
+2026-09-26T14:20:33.6164164Z Note: Use `set_option maxHeartbeats <num>` to set the limit.
+2026-09-26T14:20:33.6164387Z 
+2026-09-26T14:20:33.6164688Z Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
+2026-09-26T14:20:33.6165430Z warning: OIBridge/OrbitIsometryClassification.lean:687:25: This simp argument is unused:
+2026-09-26T14:20:33.6165880Z   Matrix.submatrix_apply
+2026-09-26T14:20:33.6166025Z 
+2026-09-26T14:20:33.6166146Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6166545Z   [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+2026-09-26T14:20:33.6166841Z 
+2026-09-26T14:20:33.6167042Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6167681Z warning: OIBridge/OrbitIsometryClassification.lean:687:82: This simp argument is unused:
+2026-09-26T14:20:33.6168144Z   Equiv.swap_apply_def
+2026-09-26T14:20:33.6168294Z 
+2026-09-26T14:20:33.6168404Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6168803Z   [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+2026-09-26T14:20:33.6169114Z 
+2026-09-26T14:20:33.6169322Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6169916Z warning: OIBridge/OrbitIsometryClassification.lean:693:25: This simp argument is unused:
+2026-09-26T14:20:33.6170346Z   Matrix.submatrix_apply
+2026-09-26T14:20:33.6170497Z 
+2026-09-26T14:20:33.6170613Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6171008Z   [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+2026-09-26T14:20:33.6171311Z 
+2026-09-26T14:20:33.6171510Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6172030Z warning: OIBridge/OrbitIsometryClassification.lean:693:82: This simp argument is unused:
+2026-09-26T14:20:33.6172502Z   Equiv.swap_apply_def
+2026-09-26T14:20:33.6172645Z 
+2026-09-26T14:20:33.6172761Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6173148Z   [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+2026-09-26T14:20:33.6173455Z 
+2026-09-26T14:20:33.6173658Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6174181Z warning: OIBridge/OrbitIsometryClassification.lean:699:25: This simp argument is unused:
+2026-09-26T14:20:33.6174599Z   Matrix.submatrix_apply
+2026-09-26T14:20:33.6174750Z 
+2026-09-26T14:20:33.6174858Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6175249Z   [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+2026-09-26T14:20:33.6175530Z 
+2026-09-26T14:20:33.6175726Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6176243Z warning: OIBridge/OrbitIsometryClassification.lean:699:82: This simp argument is unused:
+2026-09-26T14:20:33.6176670Z   Equiv.swap_apply_def
+2026-09-26T14:20:33.6176812Z 
+2026-09-26T14:20:33.6176928Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6177320Z   [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+2026-09-26T14:20:33.6177800Z 
+2026-09-26T14:20:33.6178064Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6178602Z warning: OIBridge/OrbitIsometryClassification.lean:723:25: This simp argument is unused:
+2026-09-26T14:20:33.6179031Z   Matrix.submatrix_apply
+2026-09-26T14:20:33.6179174Z 
+2026-09-26T14:20:33.6179290Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6179718Z   [apply] simp [mixedTriple, fibreGram_unique (0 : Fin 1) hx, Equiv.swap_apply_def]
+2026-09-26T14:20:33.6180009Z 
+2026-09-26T14:20:33.6180212Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6180735Z warning: OIBridge/OrbitIsometryClassification.lean:723:82: This simp argument is unused:
+2026-09-26T14:20:33.6181146Z   Equiv.swap_apply_def
+2026-09-26T14:20:33.6181289Z 
+2026-09-26T14:20:33.6181399Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6181810Z   [apply] simp [mixedTriple, Matrix.submatrix_apply, fibreGram_unique (0 : Fin 1) hx]
+2026-09-26T14:20:33.6182173Z 
+2026-09-26T14:20:33.6182375Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6183095Z info: OIBridge/OrbitIsometryClassification.lean:747:0: 'OIBridge.OrbitIsometryClassification.a32_control_overlap' does not depend on any axioms
+2026-09-26T14:20:33.6184034Z error: OIBridge/OrbitIsometryClassification.lean:749:8: (kernel) unknown constant 'OIBridge.OrbitIsometryClassification.a32_control_overlap'
+2026-09-26T14:20:33.6184953Z info: OIBridge/OrbitIsometryClassification.lean:783:0: 'OIBridge.OrbitIsometryClassification.a32_shared_exists' depends on axioms: [propext,
+2026-09-26T14:20:33.6185540Z  Classical.choice,
+2026-09-26T14:20:33.6185759Z  Quot.sound,
+2026-09-26T14:20:33.6186010Z  a32_shared_exists]
+2026-09-26T14:20:33.6186652Z info: OIBridge/OrbitIsometryClassification.lean:855:0: 'OIBridge.OrbitIsometryClassification.a32_shared_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6188004Z info: OIBridge/OrbitIsometryClassification.lean:883:0: 'OIBridge.OrbitIsometryClassification.a32_control_moves' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6189135Z info: OIBridge/OrbitIsometryClassification.lean:912:0: 'OIBridge.OrbitIsometryClassification.a32_control_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6190244Z info: OIBridge/OrbitIsometryClassification.lean:939:0: 'OIBridge.OrbitIsometryClassification.a32_control_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6191156Z error: OIBridge/OrbitIsometryClassification.lean:1004:150: Application type mismatch: The argument
+2026-09-26T14:20:33.6191602Z   hB
+2026-09-26T14:20:33.6191795Z has type
+2026-09-26T14:20:33.6192149Z   mixedTriple (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1))
+2026-09-26T14:20:33.6192574Z       ((0, 0, 1), 2, 0, 0) =
+2026-09-26T14:20:33.6192811Z     -1 / 64
+2026-09-26T14:20:33.6193031Z but is expected to have type
+2026-09-26T14:20:33.6193314Z   mixedTriple
+2026-09-26T14:20:33.6193520Z       (fun i =>
+2026-09-26T14:20:33.6193739Z         (FibreGram 0
+2026-09-26T14:20:33.6193972Z               (of fun p q =>
+2026-09-26T14:20:33.6194207Z                 1 / 2 *
+2026-09-26T14:20:33.6194432Z                   !![1, 1, 1, 1;
+2026-09-26T14:20:33.6194808Z                       1, { re := 89999 / 90001, im := 600 / 90001 }, -1, -{ re := 89999 / 90001, im := 600 / 90001 };
+2026-09-26T14:20:33.6195215Z                       1, -1, 1, -1;
+2026-09-26T14:20:33.6195590Z                       1, -{ re := 89999 / 90001, im := 600 / 90001 }, -1, { re := 89999 / 90001, im := 600 / 90001 }]
+2026-09-26T14:20:33.6195973Z                     p.1 q.1)
+2026-09-26T14:20:33.6196228Z               ((Equiv.swap 2 3) i)).submatrix
+2026-09-26T14:20:33.6196636Z           ⇑(Equiv.swap 2 3) ⇑(Equiv.swap 2 3))
+2026-09-26T14:20:33.6196921Z       ((0, 0, 1), 2, 0, 0) =
+2026-09-26T14:20:33.6197148Z     ?m.13111
+2026-09-26T14:20:33.6197350Z in the application
+2026-09-26T14:20:33.6197772Z   Eq.trans (congrFun (mixedTriple_gauge h) ((0, 0, 1), 2, 0, 0)) hB
+2026-09-26T14:20:33.6198340Z warning: OIBridge/OrbitIsometryClassification.lean:989:66: This simp argument is unused:
+2026-09-26T14:20:33.6198757Z   Complex.star_def
+2026-09-26T14:20:33.6198889Z 
+2026-09-26T14:20:33.6198997Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6199301Z   [apply] simp [Complex.mul_re, Complex.mul_im]
+2026-09-26T14:20:33.6199508Z 
+2026-09-26T14:20:33.6199716Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6200288Z warning: OIBridge/OrbitIsometryClassification.lean:1020:12: This simp argument is unused:
+2026-09-26T14:20:33.6200722Z   Complex.div_re
+2026-09-26T14:20:33.6200857Z 
+2026-09-26T14:20:33.6200976Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6201273Z   [apply] simp [Complex.div_im]
+2026-09-26T14:20:33.6201508Z 
+2026-09-26T14:20:33.6201715Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6202248Z warning: OIBridge/OrbitIsometryClassification.lean:1020:28: This simp argument is unused:
+2026-09-26T14:20:33.6202699Z   Complex.div_im
+2026-09-26T14:20:33.6202827Z 
+2026-09-26T14:20:33.6202949Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6203243Z   [apply] simp [Complex.div_re]
+2026-09-26T14:20:33.6203409Z 
+2026-09-26T14:20:33.6203609Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6204149Z warning: OIBridge/OrbitIsometryClassification.lean:1023:12: This simp argument is unused:
+2026-09-26T14:20:33.6204592Z   Complex.div_re
+2026-09-26T14:20:33.6204726Z 
+2026-09-26T14:20:33.6204838Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6205126Z   [apply] simp [Complex.div_im]
+2026-09-26T14:20:33.6205291Z 
+2026-09-26T14:20:33.6205498Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6206045Z warning: OIBridge/OrbitIsometryClassification.lean:1023:28: This simp argument is unused:
+2026-09-26T14:20:33.6206489Z   Complex.div_im
+2026-09-26T14:20:33.6206728Z 
+2026-09-26T14:20:33.6206868Z Hint: Omit it from the simp argument list.
+2026-09-26T14:20:33.6207149Z   [apply] simp [Complex.div_re]
+2026-09-26T14:20:33.6207300Z 
+2026-09-26T14:20:33.6207501Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-09-26T14:20:33.6208333Z info: OIBridge/OrbitIsometryClassification.lean:1028:0: 'OIBridge.OrbitIsometryClassification.a32_control_quarter' depends on axioms: [propext,
+2026-09-26T14:20:33.6208955Z  sorryAx,
+2026-09-26T14:20:33.6209154Z  Classical.choice,
+2026-09-26T14:20:33.6209373Z  Quot.sound]
+2026-09-26T14:20:33.6209883Z info: OIBridge/OrbitIsometryClassification.lean:1054:0: 'OIBridge.OrbitIsometryClassification.a32_not_rigid' depends on axioms: [propext,
+2026-09-26T14:20:33.6210488Z  Classical.choice,
+2026-09-26T14:20:33.6210702Z  Quot.sound,
+2026-09-26T14:20:33.6210910Z  a32_shared_exists]
+2026-09-26T14:20:33.6211545Z info: OIBridge/OrbitIsometryClassification.lean:1099:0: 'OIBridge.OrbitIsometryClassification.a32_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:20:33.6212248Z error: Lean exited with code 1
+2026-09-26T14:20:33.6212522Z Some required targets logged failures:
+2026-09-26T14:20:33.6212819Z - OIBridge.OrbitIsometryClassification
+2026-09-26T14:20:33.6364459Z ##[error]Process completed with exit code 1.
+2026-09-26T14:20:33.6511550Z Post job cleanup.
+2026-09-26T14:20:34.0819865Z [command]/usr/bin/git version
+2026-09-26T14:20:34.0860092Z git version 2.55.0
+2026-09-26T14:20:34.0892384Z Temporarily overriding HOME='/home/runner/work/_temp/d77f780f-92bb-49fd-a4ca-15b4406f4294' before making global git config changes
+2026-09-26T14:20:34.0893989Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-26T14:20:34.0897877Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-09-26T14:20:34.0941698Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-26T14:20:34.0972738Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-26T14:20:34.1199420Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-26T14:20:34.1221823Z http.https://github.com/.extraheader
+2026-09-26T14:20:34.1230423Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-26T14:20:34.1259003Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-26T14:20:34.1534461Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-26T14:20:34.1583820Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-26T14:20:34.2019297Z Cleaning up orphan processes
+2026-09-26T14:20:34.2267293Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

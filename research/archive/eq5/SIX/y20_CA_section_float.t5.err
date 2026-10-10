@@ -1,0 +1,20 @@
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:56: RuntimeWarning: overflow encountered in matmul
+  X = k @ g @ k.conj().T
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:56: RuntimeWarning: invalid value encountered in matmul
+  X = k @ g @ k.conj().T
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:57: RuntimeWarning: invalid value encountered in matmul
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:57: RuntimeWarning: overflow encountered in matmul
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/eq5/SIX/y20_CA_section_float.py:57: RuntimeWarning: invalid value encountered in scalar divide
+  return np.real(np.trace(Y @ X)) / np.real(np.trace(X))
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_shape_base_impl.py:1187: RuntimeWarning: overflow encountered in multiply
+  result = _nx.multiply(a_arr, b_arr, subok=(not is_any_mat))
+/usr/local/lib/python3.11/dist-packages/scipy/linalg/_matfuncs.py:394: RuntimeWarning: overflow encountered in matmul
+  eAw = eAw @ eAw
+/usr/local/lib/python3.11/dist-packages/scipy/linalg/_matfuncs.py:394: RuntimeWarning: invalid value encountered in matmul
+  eAw = eAw @ eAw
+/usr/local/lib/python3.11/dist-packages/numpy/lib/_shape_base_impl.py:1187: RuntimeWarning: invalid value encountered in multiply
+  result = _nx.multiply(a_arr, b_arr, subok=(not is_any_mat))
+done
+exit 0

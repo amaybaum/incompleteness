@@ -1,0 +1,12 @@
+SETUP nonlinear: effects <= 4 (781), preparations <= 5 (3680 with positive weight), generators ifs
+GREEDY nonlinear: 23 columns kept (rank over F_p of the full table = 23)
+CERTIFY nonlinear: rank_Q(full table) == rank_Q(reduced) == 23: True (ok)
+REDUCED nonlinear: selected preparations = ()/0 o/0 oo/0 oo/1 os/0 ooo/0 ooo/2 oos/0 oooo/0 oooo/1 oooo/3 oooo/4 oooo/6 oooo/7 ooos/0 ooos/1 ooos/2 ooooo/0 ooooo/1 ooooo/6 ooooo/13 oooof/3 oooos/3
+WELLDEF nonlinear: every generator dual map preserves all 146 relations among the 156 domain effects on the reduced columns: True
+ITER nonlinear 1: dim U = 10 -> 6
+ITER nonlinear 2: dim U = 6 -> 3
+ITER nonlinear 3: dim U = 3 -> 2
+ITER nonlinear 4: dim U = 2 -> 1
+ITER nonlinear 5: dim U = 1 -> 1
+INV nonlinear: largest {i,f,s}-invariant subspace of span(effects <= 3): dim = 1; unit in U: True
+UBASIS nonlinear 0: (1)*[()/0]

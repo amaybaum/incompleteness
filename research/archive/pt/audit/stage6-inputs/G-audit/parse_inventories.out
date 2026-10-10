@@ -1,0 +1,13 @@
+CONFIRMED N-I1 I1: 85 records parsed, no duplicate ids -- first I1.1 last I1.83
+CONFIRMED N-I2 I2: 113 records parsed, no duplicate ids -- first I2.1 last I2.113
+CONFIRMED N-I3 I3: 187 records parsed, no duplicate ids -- first I3.1 last I3.187
+CONFIRMED N-I4 I4: 248 records parsed, no duplicate ids -- first I4.1 last I4.248
+CONFIRMED D-dep every inventory id mentioned in a depends_on field exists -- dangling: []
+CONFIRMED D-yld every inventory id mentioned in a yields field exists -- dangling: []
+nodes 633; depends_on id-edges 538 (cross-thread 0); yields id-edges 391
+I1 status: {'proved [k]': 28, 'assumed': 22, 'proved [manuscript': 9, 'definition': 9, 'conditional': 4, 'open': 3, 'empirically': 2, 'condition': 2} | level: {'H': 49, 'M': 14, 'H/X': 6, 'H→M': 4, 'H→X (a level-separat': 1, 'H→M/X': 1, 'H→M (single-system v': 1, 'H→M (one core, three': 1}
+I2 status: {'proved [m]': 40, 'proved [k]': 21, 'scope': 11, 'assumed': 9, 'conditional': 7, 'open': 7, 'equivalence': 2, 'empirically': 2} | level: {'M': 26, 'H': 24, 'X': 14, 'H/X': 8, 'G': 7, 'H/M': 6, 'H/O': 2, 'G/H': 2}
+I3 status: {'proved [k]': 92, 'assumed': 40, 'open': 22, 'pt-record': 15, 'not at l': 14, 'conditional': 3, 'refuted': 1} | level: {'O': 80, 'P': 71, 'P (four tokens)': 7, 'P (from O data)': 2, 'P (hypotheses at O)': 2, 'P (`cnot`, `phiW`), ': 1, 'P (O for `isNot_nfli': 1, 'O (conclusion about ': 1}
+I4 status: {'proved [k]': 141, 'assumed': 82, '-': 18, 'open': 4, 'refuted': 2, 'conditional': 1} | level: {'M': 165, 'H': 44, 'G': 38, 'O': 1}
+SUMMARY 6/6 CONFIRMED
+BASELINE-FIXED

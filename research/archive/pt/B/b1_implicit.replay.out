@@ -1,0 +1,36 @@
+== I1  the on-path design declarations
+PASS I1  [source] the twelve on-path declarations are found and each has an hgate or hinv binder -- 12/12 found; with binder 12
+
+== I2  context-reading tactics where hgate / hinv are in scope
+  design FourCopyHeadline.ie1_all: none
+  design FourCopyHeadline.parity_all: none
+  design FourCopyHeadline.kt4_general_ie1: none
+  design FourCopyHeadline.kt4_forward_ie1: none
+  design FourCopyHeadline.kt4_forward_ie1_kt4: none
+  design FourCopyHeadline.kt4_forward_ie1_lt: none
+  design FourCopyIE1.link_mem: none
+  design FourCopyIE1.parity_witnesses: ['linarith', 'linarith', 'linarith']
+  design FourCopyLocal.bell_mem: none
+  design FourCopyLocal.bell_mem_dual: none
+  design FourCopyBipolar.inv_mem_of_orth: ['linarith', 'linarith', 'omega', 'positivity']
+  design FourCopyParity.dualW_of_inv: none
+  UNBUILT parity_witnesses_cons: ['linarith', 'linarith', 'linarith']
+PASS I2  [source] every context-reading tactic in scope of hgate/hinv (design) and in the UNBUILT file reads only comparisons -- non-arithmetic hits: design [], UNBUILT []
+
+== I3  the binder types of hgate and hinv
+  binder type: ∀ p, ∀ ω ∈ K p, (N p).symm ω ∈ K p
+  binder type: ∀ p, ∀ ω ∈ K p, N p ω ∈ K p
+  binder type: ∀ ω ∈ K, N ω ∈ K
+  binder type: ∀ ω ∈ K, N.symm ω ∈ K
+PASS I3  [source] no hgate/hinv binder type is a comparison, so the arithmetic tactics drop them -- 14 binders; comparison-typed []
+
+== I4  positive control
+PASS I4  [control] the scanner finds the arithmetic tactics of the UNBUILT file (not blind) -- 3 hits: [('parity_witnesses_cons', 'linarith')]
+
+== I5  countercontrols
+PASS I5.i  [countercontrol] countercontrol: 'assumption' planted in bell_mem is detected by I2
+PASS I5.ii  [countercontrol] countercontrol: a comparison-typed hgate binder planted in link_mem is detected by I3
+PASS I5.iii  [countercontrol] countercontrol: 'simpa' without 'using' planted in the UNBUILT text is detected by I2
+
+VERDICT B1-IMPLICIT: where hgate or hinv is in scope on the design proof path, and anywhere in B1_UNBUILT.lean, the only context-reading tactics are arithmetic ones, which drop non-comparison hypotheses; hgate and hinv are not comparisons, so they are consumed only where named (b1_consumed S1)
+b1_implicit: OK -- 7 checks

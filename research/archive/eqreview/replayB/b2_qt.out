@@ -1,0 +1,30 @@
+     Q1 cnot == Ad(CNOT) exactly: True
+     Q1 relabelling (control signs, target signs) with cnot = L Ad(CNOT) L^-1: ((1, 1, 1), (1, 1, 1))
+PASS Q1 the kernel cnot is Ad(CNOT) up to a local signed-diagonal relabelling (a QT channel up to local orthogonal relabelling)
+PASS Q1 Ad(CNOT) satisfies relC with N = Ad(X)
+PASS Q1 Ad(CNOT) satisfies relT with N = Ad(X)
+PASS Q2 Cov_g with g = pi-rotation about (3/5,4/5,0) (a z-flipper in SO(3)): (g(x)I)G(g(x)I)^-1 = (I(x)N)G
+PASS Q2 Cov over the stabiliser: R_z(phi) (x) I commutes with G (cos phi = -7/25)
+PASS Q2 QT natural conditioning on {+z,-z} x {I,N}^2 (lift N -> X): Cov_N, Rel, Post_N all hold
+PASS Q2 countercontrol: with the SU(2) lift N -> iX, Rel holds but Post_N fails (the lift must square to I)
+PASS Q2 countercontrol: Ad(|0><0|(x)I + |1><1|(x)iX) = (S(x)I)CNOT has COND(N) but fails relC(N,N)
+PASS Q3 for all 16 phase choices: C(X)C(Z) != C(Z)C(X) and C(X)C(Z) = Ad(Z(x)I) C(Z)C(X)
+PASS Q3 while Ad(X) and Ad(Z) commute on one copy
+PASS Q4 the reflection r_y (x) I does not commute with the kernel cnot
+PASS Q4 the reflection r_y (x) I does not commute with Ad(CNOT)
+PASS Q5 group law: G_t G_t = G_2t (cos t = 3/5)
+PASS Q5 G_pi = Ad(CNOT)
+PASS Q5 G_t has COND(V_t): identity on the +z slice, Ad(V_t) on the -z slice
+     Q5 Ad(V_t) on one copy (cos t = 3/5): [['1', '0', '0', '0'], ['0', '1', '0', '0'], ['0', '0', '3/5', '-4/5'], ['0', '0', '4/5', '3/5']]
+PASS Q5 the J/K flow of jk.py at d = 3 equals this QT group exactly (cos t = 3/5 and cos t = -7/25)
+     Q5 tangent-sector action of G_t on lift(x), lift(y) controls (rows: output index mu*4+nu):
+        G_t(e_x (x) e_0) = [(1, 0, '4/5'), (1, 1, '1/5'), (2, 0, '2/5'), (2, 1, '-2/5')]
+        G_t(e_x (x) e_1) = [(1, 0, '1/5'), (1, 1, '4/5'), (2, 0, '-2/5'), (2, 1, '2/5')]
+        G_t(e_x (x) e_2) = [(1, 2, '4/5'), (1, 3, '2/5'), (2, 2, '2/5'), (2, 3, '1/5')]
+        G_t(e_x (x) e_3) = [(1, 2, '-2/5'), (1, 3, '4/5'), (2, 2, '-1/5'), (2, 3, '2/5')]
+        G_t(e_y (x) e_0) = [(1, 0, '-2/5'), (1, 1, '2/5'), (2, 0, '4/5'), (2, 1, '1/5')]
+        G_t(e_y (x) e_1) = [(1, 0, '2/5'), (1, 1, '-2/5'), (2, 0, '1/5'), (2, 1, '4/5')]
+        G_t(e_y (x) e_2) = [(1, 2, '-2/5'), (1, 3, '-1/5'), (2, 2, '4/5'), (2, 3, '2/5')]
+        G_t(e_y (x) e_3) = [(1, 2, '1/5'), (1, 3, '-2/5'), (2, 2, '-2/5'), (2, 3, '4/5')]
+b2_qt: 16/16 checks PASS
+VERDICT B2-QT-GREEN

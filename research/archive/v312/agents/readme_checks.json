@@ -1,0 +1,1592 @@
+[
+[
+2759,
+"_rd1",
+"required",
+[
+"Guard `R7-INV`"
+]
+],
+[
+2865,
+"_rd1",
+"required",
+[
+"Guard `R7-MIN`"
+]
+],
+[
+7029,
+"_rd1",
+"required",
+[
+"OI-ROOTED-CLASSIFICATION-AUDIT.md"
+]
+],
+[
+2487,
+"_rd",
+"required",
+[
+"candidate obstruction"
+]
+],
+[
+2603,
+"_rd",
+"required",
+[
+"OI-N-FREEZE.md"
+]
+],
+[
+2758,
+"_rd1",
+"required",
+[
+"carrier_general_oiPlusPos"
+]
+],
+[
+2758,
+"_rd1",
+"required",
+[
+"Twenty-four named results"
+]
+],
+[
+2864,
+"_rd1",
+"required",
+[
+"carrier_general_oiPlusMin"
+]
+],
+[
+2864,
+"_rd1",
+"required",
+[
+"Twenty-three named results"
+]
+],
+[
+3298,
+"_rd1",
+"required",
+[
+"`R7-RB0`"
+]
+],
+[
+3298,
+"_rd1",
+"required",
+[
+"`R7-RB1`"
+]
+],
+[
+3298,
+"_rd1",
+"required",
+[
+"RouteBTarget"
+]
+],
+[
+3298,
+"_rd1",
+"required",
+[
+"Thirty-one named results"
+]
+],
+[
+3299,
+"_rd1",
+"required",
+[
+"target_of_substratum_core"
+]
+],
+[
+3299,
+"_rd1",
+"required",
+[
+"routeB_target"
+]
+],
+[
+3388,
+"_rd1",
+"required",
+[
+"is proved (`routeB_target`, through `target_of_substratum_core`)",
+"substratumTheory_realizesSealedOICore",
+"substratumTheory_relabel",
+"derivedOICore_not_phaseFree",
+"derivedOI_qm_iff_phaseFree",
+"whose A1\u2013A6 are not `DerivedOI`",
+"which is a propagation round of its own"
+]
+],
+[
+3512,
+"_rd1",
+"required",
+[
+"`R7-MAX`",
+"MANUSCRIPT-AXIOM-AUDIT.md",
+"A1Realized",
+"A2Realized",
+"ConfigurationLevel",
+"configurationLevel_not_phaseFree",
+"formalization gap",
+"Eleven named results",
+"no manuscript-level A1\u2013A6 conjunct is presently a faithful predicate of the bare theory",
+"realized-core images",
+"requires some non-configuration-level sourcing",
+"specifically named open candidate",
+"not shown to be the only one",
+"asserts nothing about whether the witness satisfies any of A1\u2013A6 in the manuscript sense"
+]
+],
+[
+3631,
+"_rd1",
+"required",
+[
+"`R7-LIFT`",
+"LIFT-AUDIT.md",
+"LayerFlowExecutable",
+"gateFlow_isolation",
+"phaseFree_of_layerFlowExecutable",
+"derivedOI_qm_iff_layerFlowExecutable",
+"Fifty-six named results",
+"never the composite drive",
+"one non-monomial gate is not a result",
+"is open, not established by this pass",
+"strengthened Q3\u2032",
+"is not established as stated; the strengthened Q4\u2032 is proved",
+"relative to the baseline `DerivedOI` with the substratum's availability",
+"nor that this baseline is minimal",
+"that the observer-level lift is derivable or is not",
+"that the preregistered Q3 or Q4 holds as stated"
+]
+],
+[
+3777,
+"_rd1",
+"required",
+[
+"`R7-SUB`",
+"SUBSTRATUM-INTERFACE-AUDIT.md",
+"permClass",
+"SourcedOI",
+"obsTheory",
+"PreservesNonneg",
+"permClass_le_of_exchanges",
+"bijectionLevel_not_phasesAvailable",
+"permTheory_realizesSealedOICore",
+"obsTheory_rule_independent",
+"Eighty-two named results",
+"exact missing conjunct",
+"the full gap to `SubstratumAvail` is not characterized by the pass",
+"no executability question",
+"A6 is a gap",
+"owner decision",
+"third preregistered outcome"
+]
+],
+[
+3779,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+3779,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+3861,
+"_rd1",
+"required",
+[
+"`R7-SCAL`",
+"SCALAR-CLOSURE-AUDIT.md",
+"realized_scalarHull_iff",
+"permTheory_hull_availExt_iff",
+"instAvail_scalarHull_permClass",
+"Twelve named results",
+"modulus at most one",
+"Nothing weakens",
+"is not sufficient for the flow endpoint"
+]
+],
+[
+3961,
+"_rd1",
+"required",
+[
+"`R7-INST`",
+"INSTRUMENT-REALIZATION-AUDIT.md",
+"flow_realized_not_instrumentRealized",
+"instAvail_unitary_fixes_ones",
+"Sixty-nine named results",
+"provenance removes the replication",
+"genTheory_le_branchTheory",
+"neither asserted nor refuted"
+]
+],
+[
+4081,
+"_rd1",
+"required",
+[
+"`R7-MIG`",
+"INSTRUMENT-MIGRATION-AUDIT.md",
+"UnitaryRaySaturated",
+"genTheory_le_branchTheory",
+"inverseAccessibility_of_lieRank",
+"PositivePackage",
+"canonical implementation semantics"
+]
+],
+[
+4189,
+"_rd1",
+"required",
+[
+"`R7-FLOW`",
+"FLOW-ENDPOINT-AUDIT.md",
+"onesTheory",
+"flow_endpoint_refuted",
+"onesTheory_no_quarter_flow",
+"Fifteen named results",
+"preregistered at level two",
+"proved there and not elsewhere",
+"relative phase structure",
+"the absence of phases witnesses the failure",
+"unique or minimal missing resource",
+"from `DerivedOI`, is untouched and stays open",
+"not a minimal one",
+"Route A in either direction"
+]
+],
+[
+4190,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+4190,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+4299,
+"_rd1",
+"required",
+[
+"`R7-PHASE`",
+"PHASE-SOURCE-AUDIT.md",
+"onesFixing_not_phasesAvailable",
+"permClass_onesFixing",
+"substratumClass_not_onesFixing",
+"Ten named results",
+"a stipulation, and on nothing else",
+"current OI sourcing stops",
+"is underdetermined, and what it would have to supply is stated in two parts",
+"the necessary condition, an admissible operator selectable at every level",
+"the sufficient access tested",
+"moving the ray alone being no guarantee of a quarter phase",
+"an additional physical assumption on the route",
+"recorded for the propagation"
+]
+],
+[
+4395,
+"_rd1",
+"required",
+[
+"`R7-PROP`",
+"PHASE-PROPAGATION-AUDIT.md",
+"realization by one protocol",
+"as an assumption on the substratum class",
+"is necessary to any access that supplies the phases and is not shown sufficient",
+"the sufficient access assumed",
+"No theorem is added or changed"
+]
+],
+[
+4505,
+"_rd1",
+"required",
+[
+"`R7-Q3`",
+"DERIVED-Q3-AUDIT.md",
+"gateFlow_isolation_flip",
+"phaseFree_of_derivedOI_layerFlowExecutable",
+"derivedOI_qm_iff_layerFlowExecutable'",
+"derivedOI_layerFlowExecutable_one_not_phaseFree",
+"Seventeen named results",
+"time reversal replacing the continuous phase",
+"the step at which the phase hypothesis is consumed",
+"two named assumptions",
+"nor derived from the closure"
+]
+],
+[
+4506,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+4506,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+4615,
+"_rd1",
+"required",
+[
+"`R7-Q3P`",
+"Q3-PROPAGATION-AUDIT.md",
+"layer-flow form",
+"the witness of each direction",
+"superseded by the endpoint under the closure alone",
+"No theorem is added or changed"
+]
+],
+[
+4701,
+"_rd1",
+"forbidden",
+[
+"the missing access is named: a non-monomial",
+"any non-monomial operator supplies"
+]
+],
+[
+4725,
+"_rd1",
+"required",
+[
+"`R7-EXEC`",
+"EXEC-SOURCE-AUDIT.md",
+"exists_nonMonomial_of_layerFlowExecutable",
+"waveSubstratum_not_layerFlowExecutable_swap",
+"onesClass_not_configurationLevel",
+"Twelve named results",
+"negative for the stated access",
+"the sufficient access tested",
+"a non-monomial operator alone being no guarantee",
+"underdetermined for the observer-level lift",
+"an additional physical assumption on the route"
+]
+],
+[
+4726,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+4726,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+4869,
+"_rd1",
+"required",
+[
+"`R7-LSRC`",
+"LIFT-SOURCE-AUDIT.md",
+"not_layerFlowExecutable_of_preservesDiag",
+"coherentLiftClass_eq_substratumClass",
+"waveSubstratum_coherentLift_not_layerFlowExecutable_swap",
+"stochastic_not_layerFlowExecutable",
+"avail_one_not_layerFlowExecutable",
+"coherentLiftClass_contains_lift",
+"Eighteen named results",
+"no formulation that lands in the operational interface derives either target",
+"no exclusion of other realizations of those channels claimed",
+"underdetermined for the wave-operator lift",
+"The verdict of the executability-source audit stands unchanged"
+]
+],
+[
+4870,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+4870,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+4992,
+"_rd1",
+"required",
+[
+"`R7-SRCP`",
+"SOURCING-PROPAGATION-AUDIT.md",
+"the sourcing statement",
+"the equivalence exact and the sourcing of this one hypothesis not",
+"six occurrences",
+"the phase is not reopened; the lift is not reinterpreted; no uniqueness or minimality is claimed"
+]
+],
+[
+4993,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+4993,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+5113,
+"_rd1",
+"required",
+[
+"`R7-C5D`",
+"C5-DISCOVERY-AUDIT.md",
+"obligations_independent",
+"KillBattery",
+"bijectionLevel_fails_obligations",
+"updateLevel_symplectic_inert",
+"polGen_not_configurationLevel",
+"gateFlow_half_eq_hsh",
+"Seventeen named results",
+"Verdict: C, underdetermined",
+"Nothing is named C5 or adopted",
+"a continuous canonical structure on the partition",
+"whether the instrument closure synthesizes either is not decided"
+]
+],
+[
+5118,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+5118,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+5216,
+"_rd1",
+"forbidden",
+[
+"is equivalent to `c \u2022 U`",
+"the converse by `op`",
+"the converse being the constructor `op`"
+]
+],
+[
+5285,
+"_rd1",
+"required",
+[
+"`R7-PCL`",
+"POLARIZATION-CLOSURE-AUDIT.md",
+"polGen_le_polC",
+"gateFlow_not_proportional",
+"countable_not_layerFlowExecutable",
+"polC_countable_upToScalar",
+"uncountable_of_layerFlowExecutable",
+"phaseRelabel_block",
+"polarizedTheoryC_phasesAvailable",
+"polC_contextStable",
+"polarizedTheoryC_derivedOI",
+"polarizedTheoryC_not_qm",
+"KillBattery'",
+"levelThree_word_block",
+"levelThree_block_not_clifford",
+"Twenty-six named results",
+"Verdict: split",
+"O2 requires an uncountable projective image",
+"no finitely or countably projectively generated implementation structure",
+"continuity not being formalized",
+"not sourced by the corpus",
+"test 8 of the discovery audit is unchanged",
+"Nothing is named C5 or adopted",
+"the positive does not transfer to `PolGen` in the type-indexed formulation",
+"the unitary direction's availability not claimed",
+"nothing is inferred from the finiteness of the bare Clifford or Weil subgroup"
+]
+],
+[
+5295,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+5295,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+5424,
+"_rd1",
+"required",
+[
+"`R7-CCS`",
+"COHERENT-CONTINUUM-SOURCE-AUDIT.md",
+"gateFlow_not_monomial",
+"NonMonomialCountablyCovered",
+"UncountableNonMonomialRays",
+"uncountableNonMonomialRays_of_layerFlowExecutable",
+"not_layerFlowExecutable_of_nonMonomialCountablyCovered",
+"nonMonomialCountablyCovered_of_countable",
+"uncountableNonMonomialRays_of_qm",
+"substratumClass_not_countablyCovered",
+"polC_nonMonomialCountablyCovered",
+"known_failures_orthogonal",
+"readWriteOperator_range_finite",
+"gateFlow_path_coherent_continuum",
+"coherent_continuum_not_sourced",
+"The condition is necessary only",
+"continuum without coherent mixing, coherent mixing without a continuum",
+"an uncountable parameter domain is not an uncountable operational image",
+"the inference from the mathematical continuum to executability is rejected",
+"defined nowhere as an operation of the current theory",
+"Verdict: outcome 2, no current source, the empirical extension remaining",
+"the second alone is not sufficient",
+"Seventeen named results",
+"Nothing is named C5 or adopted; no coupling is defined; no definition changes"
+]
+],
+[
+5435,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+5435,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+5577,
+"_rd1",
+"required",
+[
+"`R7-SMC`",
+"STATE-MIXING-COUPLING-AUDIT.md",
+"rot",
+"mixImage",
+"MixR",
+"MixC",
+"mixTheory",
+"mixC_uncountableNonMonomialRays",
+"gateFlow_eq_shear_mix",
+"phaseIndicator_mem",
+"siteShear_mem",
+"layerFlowExecutable_of_mixSourced",
+"mixTheory_layerFlowExecutable",
+"mixC_daggerStable",
+"mixC_contextStable",
+"derivedOI_of_stated",
+"mixTheory_derivedOI",
+"mixTheory_phaseFree",
+"mixTheory_qm",
+"mixTheory_endpoint",
+"qm_of_mixSourced",
+"mixR_countable_upToScalar",
+"mixTheoryR_not_qm",
+"mixTheory_empty_not_qm",
+"comparison",
+"The datum is a postulate",
+"the manuscript status of the resource is unchanged",
+"Verdict: outcome 1, sufficient",
+"a comparison and not a global minimality or uniqueness theorem",
+"Twenty-five named results",
+"Nothing is named C5 or adopted"
+]
+],
+[
+5580,
+"_rd1",
+"forbidden",
+[
+"the minimal coupling",
+"minimal extension",
+"the datum is derived",
+"the datum is available",
+"the observer can execute the flow",
+"C5 holds",
+"C5 is the",
+"a C5 has been found"
+]
+],
+[
+5591,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+5591,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+5735,
+"_rd1",
+"required",
+[
+"`R7-RPF`",
+"REAL-PAIR-FLOW-AUDIT.md",
+"PairFlow",
+"transport",
+"PairFlow.pairFlow_det_one",
+"PairFlow.pairFlow_form",
+"PairFlow.pairFlow_ang_add",
+"PairFlow.pairFlow_ang_linear",
+"PairFlow.pairFlow_rate",
+"PairFlow.pairFlow_supplies_mixImage",
+"qm_of_pairFlowSourced",
+"flowR_eq_mixC",
+"pairFlowTheory_endpoint",
+"pairFlowTheory_qm",
+"shearFlow_all_but_orth",
+"shearFlow_ne_rotR",
+"boostFlow_all_but_orth",
+"boostFlow_ne_rotR",
+"constFlow_all_but_nontrivial",
+"constFlow_transport",
+"with none added",
+"without the rotation form",
+"Liouville preservation never read as norm preservation",
+"Verdict: outcome 2, reduction succeeds, sourcing fails",
+"Nothing says continuity or the principle is necessary",
+"Twenty named results",
+"Nothing is named C5 or adopted; no definition changes; no manuscript changes"
+]
+],
+[
+5737,
+"_rd1",
+"forbidden",
+[
+"continuity is necessary for",
+"the principle is C5",
+"the corpus sources the pair flow",
+"Outcome 1 is reached",
+"C5 holds"
+]
+],
+[
+5747,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+5747,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+5889,
+"_rd1",
+"required",
+[
+"`R7-PFE`",
+"PAIR-FLOW-EQUIVALENCE-AUDIT.md",
+"PairFlowSourced",
+"rotFlow",
+"rotFlow_A",
+"rotR_orth",
+"rotR_continuous",
+"rotR_pi_ne_one",
+"pairFlowSourced_of_qm",
+"derivedOI_pairFlowSourced_of_qm",
+"mixAvail_of_pairFlowSourced",
+"identity_avail_of_pairFlowSourced",
+"phaseIndicator_avail",
+"siteShear_avail",
+"conjChannel_unit_smul",
+"layerFlowExecutable_of_derivedOI_pairFlowSourced",
+"qm_of_derivedOI_pairFlowSourced",
+"qm_iff_derivedOI_pairFlowSourced",
+"polarizedTheoryC_not_pairFlowSourced",
+"countable_not_pairFlowSourced",
+"on availability and not on class membership",
+"with no reach back through any implementation class",
+"the scope amendment's base case",
+"Verdict: outcome 1, both directions close",
+"and not new physics",
+"a necessary condition only",
+"Fifteen named results",
+"Nothing is named C5 or adopted; nothing is generalized beyond `Fin 2`; the reverse reconstruction's generation semantics is deferred; no definition changes; no manuscript changes"
+]
+],
+[
+5892,
+"_rd1",
+"forbidden",
+[
+"the pair flow is C5",
+"C5 holds",
+"the corpus sources the pair flow",
+"Outcome 2 is reached",
+"Outcome 3 is reached",
+"coherent continuum is insufficient."
+]
+],
+[
+5905,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+5905,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6053,
+"_rd1",
+"required",
+[
+"`R7-DCA`",
+"DISCRETE-COMPLETION-AUDIT.md",
+"FixedGateSourced",
+"DenseUnitaryControl",
+"ChanWithin",
+"conj_within",
+"KrausDense",
+"DenseFiniteQM",
+"ClosureAvail",
+"denseUnitaryControl_of_fixedGate",
+"dense_angles",
+"euler_of_su2",
+"euler_of_unitary",
+"BlockRepertoire.dense_block_su2",
+"blockOnly_rot_sub_one_norm_le",
+"levelOne_dense",
+"echo_identity",
+"isolated_mem_availSet",
+"relocated_dense",
+"det_twoLevel",
+"su_mem_closure_twoLevel",
+"closure_approx",
+"su_dense",
+"Gen2.pauli_conj",
+"proportional_of_same_conj",
+"gen2_multiple_finite_upToScalar",
+"fixedGateTheory_derivedOI",
+"fixedGateTheory_fixedGateSourced",
+"fixedGateTheory_krausSoundExt",
+"fixedGateTheory_denseUnitaryControl",
+"fixedGateTheory_not_qm",
+"fixedGateTheory_one_denseUnitaryControl",
+"Verdict: outcome 2, unitary density succeeds, instrument density stalls",
+"`KrausDense` is not claimed",
+"`\u03c0/8` stays a prediction",
+"Fifty-one named results",
+"Nothing is named C5 or adopted; no continuous pair flow enters any constructive route; no irrationality condition is a physical principle; no definition changes; no manuscript changes"
+]
+],
+[
+6055,
+"_rd1",
+"forbidden",
+[
+"the fixed gate is C5",
+"C5 holds",
+"KrausDense is proved",
+"density is exactness",
+"Outcome 1 is reached",
+"Outcome 3 is reached"
+]
+],
+[
+6068,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6068,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6223,
+"_rd1",
+"required",
+[
+"`R7-DIB`",
+"DENSE-INSTRUMENT-BRIDGE-AUDIT.md",
+"branch_within",
+"esf_gram",
+"norm_pureAttach_le",
+"norm_localLuders_le",
+"ptraceAnc_eq_sum",
+"norm_ptraceAnc_le",
+"shiftId",
+"id_avail_of_derivedOI",
+"reindex_permMatrix",
+"shiftId_swap_avail",
+"circuit_available_of_avail",
+"reindex_eq_eqvMatrix_conj",
+"norm_reindex_le",
+"shiftId_approx",
+"inert_of_derivedOI",
+"DerivedOI.implementationLocality",
+"observationalIndependence_of_implementationLocality",
+"observationalIndependence_iff_inert",
+"krausDense_of_denseControl",
+"denseFiniteQM_of_denseControl",
+"krausDense_of_fixedGate",
+"fixedGateTheory_krausDense",
+"fixedGateTheory_denseFiniteQM",
+"fixedGateTheory_one_denseFiniteQM",
+"fixedGateTheory_not_qm",
+"Verdict: outcome 1, full dense-instrument success",
+"the stall was a formal gap",
+"a stated datum",
+"D3 and its two debts are untouched; `\u03c0/8` stays a prediction",
+"Thirty-two named results",
+"Nothing is named C5 or adopted; no continuous pair flow enters any constructive route; no definition changes; no manuscript changes"
+]
+],
+[
+6225,
+"_rd1",
+"forbidden",
+[
+"the fixed gate is C5",
+"C5 holds",
+"D3 is proved",
+"the completion is proved",
+"density is exactness",
+"OI supplies the"
+]
+],
+[
+6238,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6238,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6390,
+"_rd1",
+"required",
+[
+"`R7-FSS`",
+"FROZEN-SUBSTRATUM-SOURCING-AUDIT.md",
+"NonnegBounded",
+"nonnegBounded_of_bijectionLevel",
+"permTheory_nonnegBounded",
+"obsTheory_nonnegBounded",
+"permMatrix_preservesNonneg",
+"readWrite_preservesNonneg",
+"obs_dynamics_preservesNonneg",
+"phaseOperator_outside_ceiling",
+"nonnegBounded_not_phasesAvailable",
+"nonnegBounded_not_derivedOI",
+"permTheory_phase_ceiling",
+"norm_entry_le_l2_opNorm",
+"preservesNonneg_of_approx",
+"nonnegBounded_not_denseUnitaryControl",
+"permTheory_dense_ceiling",
+"mixImage_not_preservesNonneg",
+"nonnegBounded_not_denseUnitaryControl_rot",
+"sourcing_rule_independent",
+"phase_ceiling_rule_independent",
+"frozen_sourcing_verdict",
+"nonnegBounded_verdict",
+"fixedGateTheory_outside_ceiling",
+"Verdict: outcome 3, the no-go",
+"A6 a gap with no predicate and not filled",
+"an independent empirical datum relative to the presently stated architecture",
+"Twenty-three named results",
+"Nothing is named C5 or adopted; no continuous pair flow enters any route; no definition changes; no manuscript changes"
+]
+],
+[
+6392,
+"_rd1",
+"forbidden",
+[
+"the architecture is refuted",
+"OI supplies the",
+"A6 is filled",
+"two independent additions are needed"
+]
+],
+[
+6408,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6408,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6561,
+"_rd1",
+"required",
+[
+"`R7-SOI`",
+"STOCHASTIC-OBSERVER-INTERFACE-AUDIT.md",
+"EnsembleDetermined",
+"ensembleDetermined_of_transitive",
+"phi_fixes_zero",
+"waveSubstratum_phi_fixes_zero",
+"not_ensembleDetermined_of_disjoint",
+"not_ensembleDetermined_of_fixedPoint",
+"ensemble_underdetermined",
+"not_transitive_of_fixedPoint",
+"waveSubstratum_ensemble_underdetermined",
+"waveSubstratum_stochastic_interface_gap",
+"stochastic_interface_gap",
+"readWriteFamily_exists",
+"readWriteFamily_exists_two",
+"Verdict: outcome A, the interface gap",
+"A6 a gap with no predicate and not filled",
+"Twelve named results",
+"no divisibility predicate exists in the kernel"
+]
+],
+[
+6563,
+"_rd1",
+"forbidden",
+[
+"the architecture is refuted",
+"OI supplies the",
+"A6 is filled",
+"non-Markovian"
+]
+],
+[
+6575,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6575,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6716,
+"_rd1",
+"required",
+[
+"`R7-C4R`",
+"C4-CAUSAL-READBACK-AUDIT.md",
+"causal_readback_verdict",
+"tv_mul_le",
+"rows_eq_of_factor",
+"c4r_implies_pIndivisible",
+"c4e_implies_pIndivisible",
+"RootedRealization",
+"rootedMap_isRowStochastic",
+"pdFamily_pDivisible",
+"pdFamily_not_c4e_not_c4r",
+"peFamily_c4e",
+"peFamily_pIndivisible",
+"control_separation",
+"Twenty-one named results",
+"M-A on the mathematics, S-B on the sourcing",
+"\u0393 t = \u0393 s * \u039b",
+"right multiplication on the outcome index"
+]
+],
+[
+6721,
+"_rd1",
+"forbidden",
+[
+"the architecture is refuted",
+"OI supplies the",
+"A6 is filled",
+"non-Markovian",
+"a fifth condition is defined",
+"a fifth condition is named",
+"defines a fifth condition",
+"names a fifth condition"
+]
+],
+[
+6725,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6725,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6812,
+"_rd1",
+"required",
+[
+"`R7-RCH`",
+"RECURRENCE-TIGHTNESS-AUDIT.md",
+"RECURRENCE-TIGHTNESS-AUDIT-AMENDMENT-1.md",
+"c4r_of_identity_return_of_overlap",
+"pIndivisible_of_identity_return_of_overlap",
+"tv_eq_one_sub_sum_min",
+"tv_one_rows",
+"tv_lt_one_of_overlap",
+"horizon_verdict",
+"reused rather than reproved",
+"no stochastic-inverse rigidity lemma is introduced",
+"Nine named results",
+"the write clause and both read legs of the frozen readback parent play no part"
+]
+],
+[
+6818,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6818,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+6901,
+"_rd1",
+"required",
+[
+"`R7-SCF`",
+"RECURRENCE-SCALING-AUDIT.md",
+"Bmat_mul",
+"tv_Bmat",
+"Bmat_factor",
+"tight_at",
+"c4r_at_return",
+"pIndivisible_at_return",
+"constructive rather than existential",
+"is not reproved",
+"Eleven named results"
+]
+],
+[
+6906,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+6906,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+7056,
+"_rd1",
+"required",
+[
+"`R7-RCL`",
+"finiteRootedRealizable_iff_pper",
+"finiteRootedRealizable_of_realization",
+"The result is finite-visible only",
+"Forty named results",
+"pdFamily_not_finiteRootedRealizable",
+"C4-CAUSAL-READBACK-AUDIT-AMENDMENT-1.md"
+]
+],
+[
+7057,
+"_rd1",
+"required",
+[
+"145 modules"
+]
+],
+[
+7057,
+"_rd1",
+"required",
+[
+"3,135 named results"
+]
+],
+[
+16291,
+"readme",
+"count/find",
+[
+"The substratum A6 covariance propagation (`audits/foundations/"
+]
+],
+[
+16292,
+"readme",
+"count/find",
+[
+"`.github/workflows/verify.yml` runs"
+]
+],
+[
+18785,
+"readme",
+"count/find",
+[
+"The substratum A6 instantiation round 2 (`programmes/substratum/a6-instantiation/`"
+]
+],
+[
+18787,
+"readme",
+"count/find",
+[
+"`.github/workflows/verify.yml` runs"
+]
+],
+[
+2486,
+"_rd",
+"forbidden",
+[
+"obstruction of N1 is noncommutativity",
+"why a noncommutative algebra forbids"
+]
+],
+[
+3753,
+"_rd1",
+"forbidden",
+[
+"the first preregistered outcome is reached",
+"the sourced theory satisfies DerivedOI",
+"the sourced theory satisfies `DerivedOI`",
+"SubstratumAvail is the faithful image",
+"the baseline stands as the faithful image",
+"obs_derivedOI`",
+"obs_substratumAvail`",
+"the second preregistered outcome is reached"
+]
+],
+[
+4879,
+"_rd1",
+"forbidden",
+[
+"delivers configuration-level operations",
+"deliver configuration-level operations",
+"both targets negative for every formulation that lands",
+"lands only as configuration-level",
+"adding nothing to the stated access",
+"adds nothing to the stated access",
+"Both targets negative",
+"both targets, a non-monomial admissible operator and one executable layer flow, negative"
+]
+],
+[
+5094,
+"_rd1",
+"forbidden",
+[
+"C5 is the",
+"C5 := ",
+"define C5 as",
+"we adopt C5",
+"C5 holds",
+"C5 is satisfied",
+"a C5 has been found",
+"outcome A is reached",
+"Outcome A is reached",
+"the observer can execute the Weil"
+]
+],
+[
+5116,
+"_rd1",
+"forbidden",
+[
+"both obligations fail for a single reason",
+"fail for one and the same reason",
+"executes no layer flow at every time",
+"cut off from both obligations",
+"not kernel-proved",
+"Both obligations then fail"
+]
+],
+[
+5243,
+"_rd1",
+"forbidden",
+[
+"The verdict is **negative closure**",
+"The verdict is **positive escape**",
+"The verdict is **undecided**",
+"because the bare Weil subgroup is finite",
+"because the Weil subgroup is finite",
+"by finiteness of the Weil",
+"by the finiteness of the Weil",
+"since the Weil group is finite",
+"the finiteness of the bare Weil subgroup proves",
+"the finiteness of the bare Clifford subgroup proves",
+"finite, so no flow",
+"finite and therefore executes no"
+]
+],
+[
+5255,
+"_rd1",
+"forbidden",
+[
+"continuous parameter is necessary",
+"continuous parameter necessary",
+"requires a continuous parameter",
+"needs a continuous parameter",
+"a continuous parameter is required",
+"continuity is necessary",
+"continuity is required",
+"C5 is the",
+"C5 := ",
+"define C5 as",
+"we adopt C5",
+"C5 holds",
+"C5 is satisfied",
+"a C5 has been found",
+"is available to the observer",
+"is sourced by the corpus"
+]
+],
+[
+5397,
+"_rd1",
+"forbidden",
+[
+"is sufficient for a layer flow",
+"therefore the observer can execute",
+"the coupling is derived",
+"the coupling is defined",
+"C5 is the",
+"C5 := ",
+"define C5 as",
+"we adopt C5",
+"C5 holds",
+"C5 is satisfied",
+"a C5 has been found",
+"continuous parameter is necessary",
+"is available to the observer",
+"is sourced by the corpus",
+"Outcome 1 is reached",
+"outcome 1 is reached"
+]
+],
+[
+7062,
+"_rd1",
+"count/find",
+[
+"OIBridge/RootedClassification.lean"
+]
+],
+[
+16413,
+"_rd",
+"required",
+[
+"A6 is a gap and has no predicate, the alphabet carrying no internal index and the manuscript statement admitting two readings the round does not adjudicate"
+]
+],
+[
+16415,
+"_rd",
+"required",
+[
+"The architecture is frozen exactly as it stands, A6 a gap with no predicate and not filled"
+]
+],
+[
+16417,
+"_rd",
+"required",
+[
+"The architecture is frozen, A6 a gap with no predicate and not filled"
+]
+],
+[
+16418,
+"_rd",
+"required",
+[
+"that A6 holds or fails for any substratum"
+]
+],
+[
+16419,
+"_rd",
+"required",
+[
+"the `ROADMAP` carries A6 as a `GAP` because the manuscript wording admits an invariant and a covariant reading that must not be silently identified"
+]
+],
+[
+16421,
+"_rd",
+"required",
+[
+"No reading is adopted, the `ROADMAP` label is unchanged, and no manuscript is edited"
+]
+],
+[
+16947,
+"readme",
+"required",
+[
+"Guard `R7-WTS` pins the preregistration blob by content"
+]
+],
+[
+16948,
+"readme",
+"required",
+[
+"sufficiency on general pairs is UNDECIDED"
+]
+],
+[
+16949,
+"readme",
+"required",
+[
+"Lemma 24.1 is not repaired"
+]
+],
+[
+19123,
+"rd",
+"required",
+[
+"It adopts `A6-cov` as the publication meaning of the sixth structural assumption"
+]
+],
+[
+19125,
+"rd",
+"required",
+[
+"is a definition round, not a proof round, and is owner-called"
+]
+],
+[
+2536,
+"_rd",
+"forbidden-asserted",
+[
+"labelTheory satisfies",
+"labelTheory is physical",
+"evidence for a hidden ontology",
+"evidence for a hidden OI ontology"
+]
+],
+[
+2568,
+"_rd",
+"forbidden-asserted",
+[
+"the observer is conscious",
+"self-aware",
+"N5 shows OICore",
+"N5 implies OICore",
+"the observer requires a hidden ontology"
+]
+],
+[
+5082,
+"_rd1",
+"forbidden",
+[
+"both obligations fail for a single reason",
+"fail for one and the same reason",
+"executes no layer flow at every time",
+"cut off",
+"the controlled quarter phase is outside the polarized theory",
+"not kernel-proved",
+"fails at level two",
+"fail together for one reason"
+]
+],
+[
+5257,
+"_rd",
+"forbidden-asserted",
+[
+"the executability is derived",
+"the phases are derived"
+]
+],
+[
+7063,
+"_rd1",
+"count/find",
+[
+"OIBridge/RootedClassification.lean"
+]
+],
+[
+6816,
+"_rd1",
+"count/find",
+[
+"OIBridge/RecurrenceHorizon.lean"
+]
+],
+[
+6904,
+"_rd1",
+"count/find",
+[
+"OIBridge/ScalingFamily.lean"
+]
+],
+[
+6817,
+"_rd1",
+"count/find",
+[
+"OIBridge/RecurrenceHorizon.lean"
+]
+],
+[
+6905,
+"_rd1",
+"count/find",
+[
+"OIBridge/ScalingFamily.lean"
+]
+]
+]

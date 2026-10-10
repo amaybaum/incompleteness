@@ -1,0 +1,6 @@
+== P  pre-audit facts for Z (fixed before reading Z)
+CONFIRMED P1 [identity] SWAP acts on tables as the transpose and permutes the Bell-type defects z_s -> z_(-s1 s2, s2): K(Z_F) is SWAP-invariant (S1 EXOTIC-X with the stage-3 cone, given SWAP preserves Q3: P4) -- {(1, 1): (-1, 1), (1, -1): (1, -1), (-1, 1): (1, 1), (-1, -1): (-1, -1)}
+CONFIRMED P2 [identity] ipW(E0, actC Rz(theta) E0) = 1 + 2 cos theta, equal to -1 at theta = pi: no torus-invariant self-dual cone contains E0 (members of an invariant self-dual cone pair >= 0) -- 2*cos(theta) + 1
+MISMATCH P3a [identity] ipW(z_s, torus(theta, phi) z_s) = (1 + cos theta)(1 + cos phi)/16 >= 0: the P2 obstruction does not fire for the Bell-type defects -- cos(phi + theta)/8 + 1/8
+CONFIRMED P3b [identity] the half-turns actC Rz(pi) = Ad(Z(x)I) and actT Rx(pi) = Ad(I(x)X) permute Z_F -- Rz(pi): {(1, 1): (-1, -1), (1, -1): (-1, 1), (-1, 1): (1, -1), (-1, -1): (1, 1)}; Rx(pi): {(1, 1): (-1, -1), (1, -1): (-1, 1), (-1, 1): (1, -1), (-1, -1): (1, 1)}
+MISMATCH P3c [identity] a generic torus image of z_(1,1) lies outside Z_F and is not ipW-orthogonal to the other defects: the torus orbit of a Bell-type defect is a 2-torus, so stage 3's finite-orthogonal surgery does not apply to S2 directly -- 0

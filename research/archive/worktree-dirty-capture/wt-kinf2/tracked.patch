@@ -1,0 +1,15 @@
+diff --git a/verification/lean-mathlib/OIBridge/KInfFoundations.lean b/verification/lean-mathlib/OIBridge/KInfFoundations.lean
+index 76dfb95b..3b829083 100644
+--- a/verification/lean-mathlib/OIBridge/KInfFoundations.lean
++++ b/verification/lean-mathlib/OIBridge/KInfFoundations.lean
+@@ -878,8 +878,8 @@ probability simplex on `Fin N` and reads them out with response effects `p ↦ 
+ `0 ≤ cᵢ ≤ 1`. Such an effect is certain on a state only where the state has a zero coordinate,
+ unless the effect is the unit; and a body that meets each coordinate facet in at most one point
+ (a strictly convex body relative to its affine span does) has at most one exposed point per
+-facet. The response effects are stated as functions on `Fin N → ℝ`, without the affine-map
+-structure of §B, since the bound needs only the form `∑ cᵢ pᵢ`. -/
++facet. The response effects are stated as functions on `Fin N → ℝ`, without the
++affine-map structure of §B, since the bound needs only the form `∑ cᵢ pᵢ`. -/
+ 
+ section Classical
+ 

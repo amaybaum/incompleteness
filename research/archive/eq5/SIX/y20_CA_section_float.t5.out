@@ -1,0 +1,7 @@
+target t5: X_t = (d = [1. 2. 1. 1.], c = 2.4142135624), rho = 0.1250
+  (i)  min over filters of <X_t, Ad(k) W3>/tr = 5.526e-01
+  (i)  min over filters of <X_t, Ad(k) kappa>/tr = 1.441e-01
+  (i)  min over filters of <X_t, Ad(k) omega>/tr = 6.828e-01
+  (i)  min over biseparable pure states of <phi|X_t|phi> = -2.220e-16
+  (ii) min over filters of <X_t, Ad(k) X_t>/tr = 2.123e-01
+  countercontrol (coherence x 1.05): min over the generator orbits = -5.000e+00

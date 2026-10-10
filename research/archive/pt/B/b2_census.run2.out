@@ -1,0 +1,87 @@
+== R0  the scanned set
+PASS R0  [source] every landed OIBridge source at L, by glob, read -- 215 files, sha256 of the concatenation b91d1cd9cab47773c08a98bdff09300969c18d6a5d6656a0c9f2a01c2b6fec80
+
+== R1-R3  the selected declarations and their dispositions
+  CompletionAction.lean:46  structure OpDatum  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  CompletionAction.lean:53  def StateRespect  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  CompletionAction.lean:58  def AffineRespect  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  CompletionAction.lean:144  structure CompletionChart  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  CompletionAction.lean:325  def Undoes  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  CompositeDimension.lean:194  def IsProduct  [R2(a)]  ingredient: of Entangling and EntanglingOf (items 5, 6)
+  CompositeDimension.lean:210  structure IsNot  [R2(b)]  item: 1
+  CompositeDimension.lean:218  structure NativeGate  [R2(a)]  item: 2
+  CompositeDimension.lean:229  def Entangling  [R2(a)]  item: 5
+  CompositeDimension.lean:712  structure BlockData  [R2(b)]  derived: a consequence of NativeGate (blockData_of_nativeGate), not a premise
+  CompositeDimension.lean:869  def Lor  [R2(b)]  description: the Lorentz cone of homogenized effect vectors; a description
+  CompositeInterface.lean:139  def BoundedAffine  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  CompositeInterface.lean:210  structure ProductData  [R2(b)]  item: 10 (the product data of the coordinate model)
+  CompositeInterface.lean:223  structure PreComposite  [R2(b)]  item: 10
+  CompositeInterface.lean:235  def LocallyTomographic  [R2(b)]  item: 10 (the lt field of Composite)
+  CompositeInterface.lean:243  structure Composite  [R2(b)]  item: 10
+  CompositeInterface.lean:393  structure SharpReadout  [R2(b)]  description: register readout data of a composite; no constraint on N
+  CompositeInterface.lean:445  abbrev JointReversible  [R2(b)]  candidate source: asserted of no pair gate at L (S0.jr); as a premise for the native gate it restates hgate (S4.jr): RESULT section 3
+  DenseOrbit.lean:53  def DenseBoundaryOrbit  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  EffectSpace.lean:567  def EffectsOn  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  EffectSpace.lean:591  def MixingClosed  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  K1Bridge.lean:49  structure NativeGateOf  [R2(a)]  item: 6
+  K1Bridge.lean:64  def EntanglingOf  [R2(a)]  item: 6
+  K2Guard.lean:95  def CandidateCone  [R2(a)]  item: 8
+  KInfFoundations.lean:63  structure FiniteStage  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  KInfFoundations.lean:116  def IsEffectOn  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:125  def IsProperOn  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:130  def IsBoundaryState  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:135  def SupportingEffectComplete  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:139  def SingletonFaces  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:144  def RelStrictConvex  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:154  def PerfectlyDistinguishable  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:160  def CentrallySymmetric  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:264  structure ElementaryDrivability  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:284  def CopyNatural  [R2(b)]  item: 7 (copy naturality of the NOT; the identity identification)
+  KInfFoundations.lean:894  def ClassicallyExposed  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  KInfFoundations.lean:1013  def KInf1  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  OrbitGeneration.lean:65  def SharpSeed  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  OrbitGeneration.lean:69  def PreservesBody  [R2(b)]  candidate source: generic body preservation; for one copy single-copy, for the pair it is JointReversible (above)
+  OrbitGeneration.lean:74  def SeedOrbitAvailable  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  OrbitGeneration.lean:79  def BoundaryTransitive  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  OrbitGeneration.lean:83  def CoversBoundaryFrom  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  ParityNot.lean:42  structure GateRel  [R2(a)]  item: 4
+  RelcSelectBlock.lean:45  structure CtrlGate  [R2(a)]  item: 3
+  SharpTests.lean:41  def HasTwoSharpTests  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  StageCompletion.lean:53  structure StageMap  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  StageCompletion.lean:59  def StageMap.Consistent  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  StageCompletion.lean:63  structure DirectedStages  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  StageCompletion.lean:78  def SCInf  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  StageCompletion.lean:244  structure BinaryVisible  [R2(b)]  operation layer: a directed system / operation datum; no pair DirectedStages value exists at L (b2_sources S0.opd), so it asserts nothing of (K, N): checklist item 12
+  StageCompletion.lean:299  def FiniteRank  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  TransitiveBody.lean:223  structure IsBodyGroup  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+  TransitiveBody.lean:235  def TransBody  [R2(b)]  single-copy: reads one copy's body, effects or automorphisms only; M_Q, M_max and M_D13 share the copies (landed eball 3 with its landed families), so it takes the same value in all three and does not read (K, N)
+PASS R3  [source] every selected declaration is classified in COVER and every COVER entry is selected -- 53 selected; unclassified []; stale []
+PASS R4  [source] every declaration over the pair carrier (R2(a)) is covered by a checklist item -- 8 over the pair carrier: ['CompositeDimension.Entangling', 'CompositeDimension.IsProduct', 'CompositeDimension.NativeGate', 'K1Bridge.EntanglingOf', 'K1Bridge.NativeGateOf', 'K2Guard.CandidateCone', 'ParityNot.GateRel', 'RelcSelectBlock.CtrlGate']; not covered []
+
+== R5  the pair-touching modules
+  CompositeDimension: DIM-1: IsNot, NativeGate, Entangling, cnot, maxCone, phiW (items 1, 2, 5)
+  CompositeInterface: COMP-1: the composite interface and the landed min/max composites (item 10)
+  DenseOrbit: EFF-1 / K1-BRIDGE-1 under a dense boundary orbit: the same cone maxCone (item 6)
+  EffectSpace: EFF-1: the available family's cone equals maxCone (item 6)
+  K1Bridge: NativeGateOf, EntanglingOf (item 6)
+  K2Guard: CandidateCone and the orientation theorem (items 8, 11)
+  NativeGateBall: theorems of the dimension selector's core; no premise on (K, N) beyond NativeGate
+  OIBridge(root): the import list; it matches PAIR only through 'import OIBridge.NativeGateBall'
+  OddChar: odd dimensions d = 2k+1: theorems and witnesses at d >= 5; no premise at d = 3 beyond items 1, 2, 4
+  OrbitGeneration: PreservesBody (single-copy; JointReversible for the pair)
+  ParityNot: GateRel (item 4); gJ3, gJ5 are witnesses, not premises
+  RelcSelectBlock: CtrlGate (item 3)
+  RelcSelectC5: a d = 5 witness gate; no premise at d = 3
+  RelcSelectParity: theorems: parity counts from the control relation; no new premise
+  RelcSelectSqueeze: d = 5 witnesses for the positivity clauses; no premise at d = 3
+  SharpTests: a single-copy premise (two sharp tests) and a d = 1 witness
+PASS R5  [source] the modules whose text touches the pair carrier are exactly the classified list -- 16 modules; unclassified []; stale []
+
+== R6  countercontrols
+PASS R6.i  [countercontrol] countercontrol: a planted Prop over the pair carrier is selected by R2(a) and reported unclassified by R3
+PASS R6.ii  [countercontrol] countercontrol: a planted module touching cnot is reported by R5
+PASS R6.iii  [countercontrol] countercontrol: a planted Prop in an interface module is selected by R2(b) and reported unclassified by R3
+
+dispositions: candidate source 2, derived 1, description 2, ingredient 1, item 13, operation layer 11, single-copy 23
+VERDICT B2-CENSUS: every landed declaration at L selected by R2 is classified; every Prop over the pair carrier is covered by a checklist item (b2_sources S3); the pair-touching modules are exactly the classified list -- a text census relative to rules R1-R2, not a semantic proof of completeness
+b2_census: OK -- 7 checks

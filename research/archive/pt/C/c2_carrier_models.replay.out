@@ -1,0 +1,56 @@
+
+== S0  transcription of the statements used
+PASS S0.combo  [source] landed ProductData combo laws: for all chart points and all a + b = 1 (CompositeInterface.lean)
+PASS S0.pre  [source] landed PreComposite fields: Omega, convex, prod_mem, prodEff_effect (all IsEffectOn effects), prodEff_unit
+PASS S0.core  [source] design KT4Core: tokA quantified over x in pairBody K01, y in pairBody K23 at stA x y, and tokB over pairBody K02 x pairBody K13 at stB x y (product states only)
+PASS S0.tok  [source] design TokenCoherent (KT4.tok) is quantified over the whole body PA.Omega
+PASS S0.toCore  [source] design KT4.toCore: posBA from PB.prodEff_effect at PA.prod_mem via one_body; tokA from tok at PA.prod_mem
+
+== S1  the regrouping sigma and the spanning sets
+PASS G1  [enumerate] sigma is an involution of Q^{17x17} (on all 289 basis arrays)
+PASS G2  [identity] sigma iota = iota R and pi iota = id (symbolic 4-token table)
+PASS G3  [witness] hom e_x, hom e_y, hom e_z, hom -e_z are linearly independent (det != 0) -- det -2
+PASS G4  [witness] the 16 flat token products tp s t (s, t in S) are linearly independent in Q^16 and all have coordinate (0,0) equal to 1
+NOTE [written] G.W  -- by G4 the token products affinely span the hyperplane {v : v_(0,0) = 1}, which contains every pairBody. A bi-affine map on Q^16 x Q^16 (affine in each argument for every a + b = 1, as the landed combo laws state) is determined on that hyperplane by its values on the 16 x 16 token-product pairs.
+PASS G4c  [countercontrol] countercontrol: the 9 token products tp s t with s, t in {e_x, e_y, e_z} do not span (rank < 16)
+
+== S2  ProductData laws of every model
+PASS P.MSIG  [identity] MSIG: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.MTW  [identity] MTW: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.MTH  [identity] MTH: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.MRHO  [identity] MRHO: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.MT  [identity] MT: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.ANC  [identity] ANC: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.HBA  [identity] HBA: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.HAB  [identity] HAB: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+PASS P.PAD  [identity] PAD: evaluation laws N_A(stA x y) = hat x hat y^T and N_B(stB l l') = hat l hat l'^T for all chart points (symbolic), and both product maps bi-affine (degree <= 1 in each argument)
+
+== S3  regrouping invariance and the token clauses, model by model
+PASS M.MSIG  [identity] MSIG: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('holds', 'holds', 'holds', 'holds', 'holds') -- TPS holds; IP1_BA holds; IP1_AB holds; tokA holds; tokB holds
+PASS M.MTW  [witness] MTW: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'fails', 'fails', 'fails', 'fails') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); IP1_BA fails (symbolic failure at tokens [3]; witness tokens [3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); IP1_AB fails (symbolic failure at tokens [3]; witness tokens [3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); tokA fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); tokB fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]])
+PASS M.MTH  [witness] MTH: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'fails', 'fails', 'fails', 'fails') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_BA fails (symbolic failure at tokens [3]; witness tokens [3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_AB fails (symbolic failure at tokens [3]; witness tokens [3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); tokA fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); tokB fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]])
+PASS M.MRHO  [witness] MRHO: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'fails', 'fails', 'fails', 'fails') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); IP1_BA fails (symbolic failure at tokens [1, 2, 3]; witness tokens [3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); IP1_AB fails (symbolic failure at tokens [1, 2, 3]; witness tokens [3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); tokA fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]]); tokB fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [0, 1, 0]])
+PASS M.MT  [witness] MT: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'fails', 'fails', 'fails', 'fails') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [0, 1, 0], [1, 0, 0]]); IP1_BA fails (symbolic failure at tokens [0, 2]; witness tokens [0, 2] at x = [[1, 0, 0], [1, 0, 0], [0, 1, 0], [1, 0, 0]]); IP1_AB fails (symbolic failure at tokens [0, 2]; witness tokens [0, 2] at x = [[1, 0, 0], [1, 0, 0], [0, 1, 0], [1, 0, 0]]); tokA fails (fails at the token product [[1, 0, 0], [1, 0, 0], [0, 1, 0], [1, 0, 0]]); tokB fails (fails at the token product [[1, 0, 0], [1, 0, 0], [0, 1, 0], [1, 0, 0]])
+PASS M.ANC  [witness] ANC: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'fails', 'fails', 'fails', 'fails') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_BA fails (symbolic failure at tokens [0, 1, 2, 3]; witness tokens [0, 1, 2, 3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_AB fails (symbolic failure at tokens [0, 1, 2, 3]; witness tokens [0, 1, 2, 3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); tokA fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); tokB fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]])
+PASS M.HBA  [witness] HBA: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'holds', 'fails', 'fails', 'holds') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_BA holds; IP1_AB fails (symbolic failure at tokens [0, 1, 2, 3]; witness tokens [0, 1, 2, 3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); tokA fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); tokB holds
+PASS M.HAB  [witness] HAB: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('fails', 'fails', 'holds', 'holds', 'fails') -- TPS fails (differs at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_BA fails (symbolic failure at tokens [0, 1, 2, 3]; witness tokens [0, 1, 2, 3] at x = [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]]); IP1_AB holds; tokA holds; tokB fails (fails at the token product [[1, 0, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]])
+PASS M.PAD  [identity] PAD: (TPS, IP1_BA, IP1_AB, tokA, tokB) = ('holds', 'holds', 'holds', 'holds', 'holds') -- TPS holds; IP1_BA holds; IP1_AB holds; tokA holds; tokB holds
+PASS M.route  [enumerate] in every model in which TPS holds, tokA and tokB hold; in every model in which IP1_BA (IP1_AB) holds, tokB (tokA) holds
+PASS M.tw3  [witness] MTW and MTH: first-order token identity fails at token 3 only, in both directions (symbolic) -- {'MTW': ([3], [3]), 'MTH': ([3], [3])}
+
+== S4  what the premises do not force: local tomography and body-level token coherence (PAD)
+PASS L1  [witness] PAD: at the extra body point v* = (iota H(x*), 1), A reads H(x*) and B reads H(x') (x* = (e_z,e_z,e_z,e_z), x' = (-e_z,e_z,e_z,e_z)); so the readouts differ there: TokenCoherent and single-token marginal coherence fail at token 0
+PASS L2  [witness] PAD: LT(PA) fails (v* and p_A(x*) are distinct with equal N_A) and LT(PB) fails (v* and p_A(x') = p_B(x') are distinct with equal N_B)
+PASS L2c  [countercontrol] countercontrol: MSIG separates the same two points (N_A differs between iota H(x*) and iota H(x'))
+NOTE [written] L.W  -- PAD (uniform Q3): body Omega = conv(A products, B products, v*). Every readout of a body point is a readout of a valid state (products as in MSIG; at v*: A sees H(x*), B sees H(x')), so prodEff_effect, prodEff_unit and one body hold; TPS, tokA, tokB hold (S3) and FCC holds (uniform Q3). PAD satisfies the route's premises with neither local tomography of either grouping nor TokenCoherent on the body.
+
+== S5  cross values: positivity rests on the cones, not on the maps
+PASS X1  [witness] SEPH (the MSIG maps on (Q3, Q3, Q3, twin)): B's product effect of the dual tables phiW/4 (dualW Q3) and L'/4 (dualW twin) at A's product of phiW, phiW is -1/8: A's products are not in a body on which B's product effects are effects, so one body fails -- value -1/8
+PASS X2  [witness] ANC: the same cross value is the anchor value e(anchor) f(anchor) = 1/16 >= 0 (one body is vacuous there) -- value 1/16
+PASS X3  [identity] restricted effects: B's product of token-product effects t(g0,g2) x t(g1,g3) at A's product of normalized x, y equals (g0^T X g1)(g2^T Y g3), symbolic
+NOTE [written] X.W  -- by X3 each factor pairs Lorentz vectors through a maxCone table, so it is >= 0 for every admissible cone: a version of the composite structure whose effect quantifier ranges only over products of token effects, with one body and TPS (the MSIG maps with Omega = conv(A products u B products)), holds on (Q3, Q3, Q3, twin), where FCC fails. The full COMP-1 quantifier (all IsEffectOn effects of each pair body, entangled ones included) is what carries the entangled positivity.
+NOTE [written] X.B  -- body-level claims of the models (written, from c1 and the landed probe): MSIG on uniform Q3, HBA on (Q3, Q3, K_c, K_c) (A's readout of B's products is the famII form, which holds there since K_c lies in Q3), HAB on (K_c, K_c, Q3, Q3) (famI form), MTW and MTH on (Q3, Q3, Q3, twin) (B's readout composes with rho or theta, which maps twin onto Q3 at the level of the pair-13 slot), ANC on every quadruple, and PAD on uniform Q3 each have cross values in [0, 1] on their bodies (lower bound from the cone fact, upper bound from the complement identity), so with Omega the convex hull of their product states (and v* for PAD) both groupings are COMP-1 pre-composites with one body. FCC fails for HBA (c1 K7), HAB (c1 K8), MTW, MTH, ANC (c1 W2, W3); it holds for MSIG and PAD.
+
+kinds: identity 13, witness 14, enumerate 2, source 5, countercontrol 2
+36/36 checks
+VERDICT C2-CARRIER-MODELS-EXACT

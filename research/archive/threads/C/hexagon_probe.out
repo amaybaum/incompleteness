@@ -1,0 +1,4 @@
+e on vertices: [Fraction(1, 1), Fraction(1, 1), Fraction(1, 2), Fraction(0, 1), Fraction(0, 1), Fraction(1, 2)]
+F_e: [(1, 1, 0), (1, 1, 1)]  F_(u-e): [(1, -1, 0), (1, -1, -1)]  ranks: 2 2
+dim(span F_e ∩ span F_(u-e)) = 1
+ideal branch exists? False

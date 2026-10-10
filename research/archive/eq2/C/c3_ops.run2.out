@@ -1,0 +1,16 @@
+== O1 bidisk D x D
+PASS O1.1 SO(2) x SO(2) is transitive on S1 x S1: exact rational rotation pairs carry (e1, e1) to (u, v) for 16 rational unit pairs
+PASS O1.2 an antipodal frame (x, -x) is swapped by the automorphism w -> -w
+PASS O1.3 the non-antipodal frame (x, y), y = (-x1, v'), is swapped by (w1, w2) -> (-w1, H w2) with H the reflection exchanging x2 and v'; H is orthogonal, so the map is an automorphism of D x D
+PASS O1.4 (x, y) is a frame: the effect 1/2 + (1/2) x1.w1 is 1 on x and 0 on y; its midpoint is (0, (x2 + v')/2) != 0, so by the centroid argument (c3_bp BD.2) no automorphism maps it to (x, -x): SS fails although every frame has a swap and the pure states form one orbit of a connected group
+== O2 Stiefel orbitope conv V2(R^3)
+PASS O2.1 SO(3) is transitive on V2(R^3): an exact rational rotation (det +1) carries the standard 2-frame (e1, e2) to (n1, n2)
+PASS O2.2 the non-antipodal frame (A, B) of c3_bp ST.1 is swapped by X -> diag(-1,1,1) X, which preserves the operator norm; its midpoint is not the centroid, so SS fails (c3_bp ST.2)
+== O3 Bloch ball: SS holds
+PASS O3.1 a rational rotation maps the ordered frame (e3, -e3) to (n, -n)
+PASS O3.2 the pi-rotation about m (unit, orthogonal to n) is a rotation swapping n and -n: every frame has a swap
+== O4 the frame swap at capacity two as a NOT; type covariance
+PASS O4.1 Na, Nb are z-flipping involutions of the ball (orthogonal, N^2 = 1, N z = -z) and Nb = g Na g^-1 with g a rotation fixing z (type covariance, EQ-E T2's hypothesis, holds for SO(3)-related NOTs)
+PASS O4.2 countercontrol: N_A = diag(1,-1,1,-1,-1) (trace -1) and nC5 = diag(1,-1,-1,-1,-1) (trace -3) are not conjugate by any linear map (traces differ): type covariance excludes NB-1's C2N pair
+c3_ops: 10/10 checks pass
+VERDICT SS-INDEPENDENT: SS is not implied by a connected group transitive on pure states with a swap for every frame, Spec2, capacity two and full effects (bidisk: abelian; Stiefel: non-abelian); on the ball SS holds and its frame swaps are the NOTs, conjugate by rotations fixing z

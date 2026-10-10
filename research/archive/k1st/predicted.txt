@@ -1,0 +1,22 @@
+- **`2f386e5e5f56e76fb1320f7583ecbd3d9f371c07`** (`claude/k1st-predicted`, a single-parent child of `D`) is the execution tree less the result
+  note. Its files and blobs:
+  - this preregistration in its drafting revision, blob `4a1dd702583deccf9c313598b9823278bc4f681b`, which differs from the revision at `F`
+    only in this section;
+  - `controls.py`, blob `8e7b8e03b427445a316cb334437c29a1a336896b`;
+  - `SharpTests.lean`, blob `fd725b5e1a7296a4114a336419bf7e0d00f2d774`;
+  - `OIBridge.lean`, blob `42959e8f27978fe85c50fe93ae7401ee180956b9`;
+  - the census, blob `2349b962456b8decaef4870fb02889e859de97e0`.
+- `delta(D, 2f386e5e)` is exactly those five paths: the record directory's two files and the three execution
+  paths. The three execution paths are byte-identical to design run 1's commit `ece1aa89`.
+- At that commit `controls.py check 2f386e5e`, run from the tree's own frozen `controls.py`, passes all 20
+  checks, and `controls.py verdict 2f386e5e` prints exactly `K1-SHARP-TEST-MULTIPLICITY-CLASSIFIED` for the
+  classification cell and `K1-TWO-LE-NOT-IMPLIED` for the non-implication cell.
+- **Run 37501311098** (`workflow_dispatch` on `2f386e5e`, attempt 1) completed with conclusion success; every one of
+  its 32 jobs succeeded. The Mathlib bridge (job 112398743722) built `OIBridge.SharpTests` with each of the 13 frozen
+  `#print axioms` lines within `[propext, Classical.choice, Quot.sound]` and no warning in the module, and its release
+  gate passed every step (`lean-axioms` 5775 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records
+  intact; 37 receipts hold); the Lean kernel check (job 112398743261) and the probe aggregate (job 112405061418)
+  succeeded. Its facts agree with design run 1 at `ece1aa89`.
+
+The predicted tree is a sibling of `F` on `D`, not an ancestor of `F`; it and these runs are design evidence, not
+attestations.

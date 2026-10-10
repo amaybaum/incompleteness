@@ -1,0 +1,634 @@
+id	name	kind	level	status
+I1.1	Axiom 1 (tokened differentiation).	axiom	H	assumed
+I1.2	Axiom 2 (recurrence of differentiation).	axiom	H	assumed
+I1.3	The two-axiom observation base and the non-derivability of Axiom 2 (no-go).	manuscript-principle	H	proved [manuscript
+I1.4	The perspectival reading: embeddedness `V ⊊ S` belongs to the primitive.	manuscript-principle	H	assumed
+I1.5	The C1–C4 selection condition (domain commitment).	hypothesis	H	assumed
+I1.6	Definition of an observation `(S, φ, V)`.	definition-as-hypothesis	H	assumed
+I1.7	Dynamics from the composition (semigroup) law.	manuscript-principle	H	proved [manuscript
+I1.8	Lemma 1 (finiteness; finite visible resolution).	lemma (manuscript)	H	proved [manuscript
+I1.9	Lemma 2 (causal partition; product decomposition).	lemma (manuscript)	H	assumed
+I1.10	Lemma 3: determinism and reversibility (the bijective representative).	lemma (manuscript)	H	empirically
+I1.11	Total finiteness of the substratum (physical posit).	hypothesis	H	assumed
+I1.12	Lemma 3: the selected measure (maximal-entropy counting measure).	hypothesis	H	assumed
+I1.13	The measure as a realization datum (hidden prior `μ_H`).	manuscript-principle	H	assumed
+I1.14	Reversibility as the conservative (fallback) assumption.	manuscript-principle	H	assumed
+I1.15	Partition-relativity lemma.	lemma (manuscript)	H	proved [manuscript
+I1.16	The four layers; a Layer-1 result establishes no Layer-4 claim.	manuscript-principle	H→X (a level-separat	assumed
+I1.17	The layered theorem statement: readback content, and the full operational extens	manuscript-principle	H→M/X	layers
+I1.18	Methodology's rung analysis of the conditions (C1–C4 are selection conditions).	manuscript-principle	H	assumed
+I1.19	The conditions are diagnostics, not hypotheses.	manuscript-principle	H	assumed
+I1.20	(C1) Non-zero coupling.	condition	H	condition
+I1.21	(C2-structural) Memory persistence.	condition	H	"a
+I1.22	(C2-slow) Slow-bath timescale separation.	condition	H/X	assumed
+I1.23	(C3) Sufficient memory capacity.	condition	H	necessity
+I1.24	(C4) History readback.	condition	H	condition
+I1.25	Which condition is primitive: only C4 is logically independent.	manuscript-principle	H	proved [manuscript
+I1.26	Book variant: the four conditions "logically independent".	manuscript-principle	H	as
+I1.27	History readback with finite recurrence forces indivisibility somewhere in the c	theorem	H	proved [k]
+I1.28	Lemma (fast bath erases readback).	lemma (manuscript)	H	proved [manuscript
+I1.29	Lemma (accessible backflow from readback).	lemma (manuscript)	H	proved [manuscript
+I1.30	Theorem (C2 necessity, quantitative mixing form).	theorem (manuscript)	H	conditional
+I1.31	Theorem (physical memory: C2, process form) and C2's two roles.	theorem (manuscript)	H	conditional
+I1.32	Theorem (C3 necessity) and the per-process capacity corollary.	theorem	H	proved [k]
+I1.33	Existential and universal readings of the conditions.	manuscript-principle	H	proved [manuscript
+I1.34	(C1) does not fix the composite: entanglement-breaking is a property of `id ⊗ Φ`	manuscript-principle (remark with an enumeration)	H→M (single-system v	proved [manuscript
+I1.35	Substratum Stage 1: C1–C4 from E1–E3, A1–A2 and M1-T (conditional structure).	theorem (manuscript, Stage 1 of Theorem 23)	H/X	conditional
+I1.36	Hypothesis M1-T (the observed temporal data lie in the readback sector).	hypothesis	H/X	assumed
+I1.37	Explainer: the conditions as access conditions on a lossless memory.	manuscript-principle	H	assumed
+I1.38	The shared swap-memory core (carrier, readout, passive step, control).	definition-as-hypothesis (the carrier every core statement i	H	definition
+I1.39	CoreC1C4`: the four conditions on the shared core.	hypothesis-structure (`def … : Prop`)	H	proved [k]
+I1.40	The core is observer-minimal.	theorem	H	proved [k]
+I1.41	C1–C4 do not select the unrestricted operational completion (independence census	theorem	H→M (one core, three	proved [k]
+I1.42	SealedCoreIsFiniteOI`: the axiom-match audit.	hypothesis-structure (`def … : Prop`) with its theorem `seal	H	proved [k]
+I1.43	RealizesSealedOICore T`: the realization predicate.	hypothesis-structure (`def … : Prop`)	M carrying an H-leve	definition
+I1.44	Composite unitary control realizes the sealed core.	theorem	M	proved [k]
+I1.45	The capstone: one finite OI process on both sides of the compositional matrix.	theorem	M (carrying the H-le	proved [k]
+I1.46	Bare finite OI implies neither compositional principle (inert spectators, iterat	theorem	M	proved [k]
+I1.47	OICore` (bare OI).	hypothesis-structure (`def … : Prop`)	M (the core realized	definition
+I1.48	The forward-redundancy entry for `OICore`.	theorem (kernel, module CompletedOI — recorded here because 	M	proved [k]
+I1.49	DerivedOI`: the consequence closure of the substratum.	hypothesis-structure	M	definition
+I1.50	DerivedOICore`: the closure with the sealed core.	hypothesis-structure	M	definition
+I1.51	The falsifier and the Route B target.	hypothesis-structure (`FalsifierUnavailable` RouteB.lean:174	M	definition
+I1.52	The substratum theory realizes the sealed core.	theorem	H→M	proved [k]
+I1.53	Route B: the closure with the core does not entail phase-free richness.	theorem	M	proved [k]
+I1.54	Quantum mechanics satisfies the closure with the core.	theorem	M	proved [k]
+I1.55	Realized-core images of A1 and A2; A1–A6 have no faithful form in the operationa	hypothesis-structure (`A1Realized` ManuscriptAxioms.lean:76,	M	definition
+I1.56	The configuration-level sourcing bound.	hypothesis-structure (`ConfigurationLevel`, ManuscriptAxioms	sourcing bound.** ki	proved [k]
+I1.57	The kernel `Substratum` and the predicates A1–A5.	hypothesis-structure (`A1` SubstratumInterfaceAudit.lean:84,	H	definition
+I1.58	The manuscripts' wave rule satisfies A1–A5.	theorem	H	proved [k]
+I1.59	The observer theory of a substratum (the H→M sourcing arrow) and its limits.	definition-as-hypothesis (`obsTheory`, SubstratumInterfaceAu	H→M	proved [k]
+I1.60	The sourced theory: `SourcedOI`, and the core realized with no phase.	hypothesis-structure (`SourcedOI` SubstratumInterfaceAudit.l	H→M	proved [k]
+I1.61	A6: four readings, the adopted covariant one identically true on the interface.	hypothesis-structure (`PreservesPointwise` BackgroundIndepen	H	roadmap.md:65
+I1.62	A6 instantiation: the packaged K = 6 carrier; the named hypothesis.	theorem (`pk1_packaging` A6Instantiation.lean:242, `pk2a_bri	H/X	proved [k]
+I1.63	Substratum (A1) Finiteness.	axiom (structural assumption)	H	assumed
+I1.64	Substratum (A2) Determinism.	axiom	H	empirically
+I1.65	Substratum (A3) Bounded coupling degree.	axiom	H	assumed
+I1.66	Substratum (A4) Center independence.	axiom	H	assumed
+I1.67	Substratum (A5) Linearity.	axiom	H	assumed
+I1.68	Substratum (A6) Background independence.	axiom	H	conditional
+I1.69	A1–A6 jointly sufficient, not proved minimal; the classes they exclude.	manuscript-principle	H	assumed
+I1.70	Candidate readback forms `C4e`, `C4r` and the no-go chain to P-indivisibility.	hypothesis-structure (`IsRowStochastic` CausalReadback.lean:	H (rooted visible ma	proved [k]
+I1.71	RoutedReadback`: the manuscripts' realization clause for C4.	hypothesis-structure (PhysicalC4Discharge.lean:68) with theo	H	definition
+I1.72	RoutedReadbackAtStorage` and the incomparability of the two readings.	hypothesis-structure (PhysicalC4StorageReadback.lean:69) wit	H	proved [k]
+I1.73	The lattice cut: `LatticeCutReadback` (the named residual).	hypothesis-structure (PhysicalC4Discharge.lean:633) with `la	H (the wave substrat	open
+I1.74	ROADMAP P1: Physical C4 discharge at the cosmological and lattice cuts.	obligation (ROADMAP)	H/X	open
+I1.75	The internal observer: a passive self-record can only be read (OI-N5).	hypothesis-structure (`Records` InternalObserver.lean:63, `I	M (instruments on a 	proved [k]
+I1.76	ROADMAP P1: the stochastic observer interface — source `(Obs, μ)`.	obligation (ROADMAP) with kernel theorems `ensemble_underdet	H	open
+I1.77	ROADMAP: declared inputs and conditional hypotheses (status-fixing).	obligation (ROADMAP accounting section)	H/X	each
+I1.78	ROADMAP interpretation boundary (OI→QM emergence narrower than "all of QM").	manuscript-principle (ROADMAP framing)	H→M	assumed
+I1.79	Passive incompleteness does not diagnose `OICore`.	theorem	M	proved [k]
+I1.80	Control is independent of the other conditions and of OI realization.	theorem	M	proved [k]
+I1.81	Five-way minimality: each completion condition fails in some theory realizing th	theorem	M	proved [k]
+I1.82	The substantive census: every failure pattern of the three substantive principle	theorem	M	proved [k]
+I1.83	The level-one seam and inert spectators are independent of OI realization.	theorem	M	proved [k]
+I1.84	The finite-horizon observability quotient: OI resolves exactly the itinerary cla	theorem	H (a deterministic p	proved [k]
+I1.85	Bare OI does not make the ontic carrier observable; the minimal passive carrier.	theorem	H	proved [k]
+I2.1	Coupling-graph causal cone	theorem	H	proved [m]
+I2.2	Dynamical causal separation of visible regions	manuscript-principle	H	proved [m]
+I2.3	The operational-extension boundary	manuscript-principle	G (operational compl	scope
+I2.4	Composite systems "on a different footing" (scope condition (ii) of the correspo	manuscript-principle	H/M	scope
+I2.5	Bell ceiling for a screened local completion	theorem	H	proved [m]
+I2.6	The adopted Bell branch: ontic parameter dependence	hypothesis (adopted branch)	H/X	assumed
+I2.7	Bell–lattice obstruction and state-dependent escape	theorem (corollary)	H/X	proved [m]
+I2.8	Measurement-dependence bound (recorded, not adopted)	theorem	H	proved [m]
+I2.9	Unrestricted OI realizes PR-box behaviour (negative control)	theorem (statement of construction)	H	proved [m]
+I2.10	Operational no-signaling (scope of the no-signaling claim)	manuscript-principle	H/O	assumed
+I2.11	Observer covariance and the joint description of two disjoint observers	manuscript-principle (with a classical existence statement)	H	proved [m]
+I2.12	Finite operational realization and gluing (ε-form)	theorem	H realization of an 	proved [m]
+I2.13	Context-independent implementation (clause (3)) and contextual values	theorem clause	H	proved [m]
+I2.14	Kochen–Specker inheritance	manuscript-principle	M/H	conditional
+I2.15	Single controlled dynamics (corollary of the gluing theorem)	theorem (corollary)	H	proved [m]
+I2.16	Uniform continuum realization (mutual ε-density), the telescoping lemma, finite-	theorem (with lemma and corollary)	H/M	proved [m]
+I2.17	Finite-substratum operational obstruction (classical-dimension form) and the SIC	theorem (proposition)	H/O	proved [m]
+I2.18	What the gluing theorem does and does not deliver; the summary at maximum proved	manuscript-principle	G/H	scope
+I2.19	The visible–hidden tensor product (Stinespring route, level one)	theorem (construction)	one)	proved [m]
+I2.20	Nested partitions: classical associativity, quantum–classical consistency, Hamil	theorem (A.1, A.2) and corollary (A.3)	H/M	proved [m]
+I2.21	Separability threshold, boundary bound, channel normal form, Corollaries 1–2	theorem (with lemmas, corollaries)	M (visible channel o	proved [k]
+I2.22	(C1) does not suffice: entanglement-breaking is not fixed by single-system input	theorem (remark with exhaustive enumeration)	M	proved [m]
+I2.23	Passive observation, kept apart from the characterization (four statements)	theorem (four)	M	proved [k]
+I2.24	Coherent extension is not fixed by the equivalence	manuscript-principle	M	proved [m]
+I2.25	Representability is not selection of the relating evolution (Track B, manuscript	theorem (kernel-anchored remark)	M	proved [k]
+I2.26	Coherent-completion classification: existence, classification, orientation	theorem (three statuses)	M	classification
+I2.27	Bohr-frequency completeness, two-branch D-gauge theorem, antiunitary invariance,	theorem (with corollaries)	M	proved [k]
+I2.28	BGIntegerClassification` (the Bekir–Golomb premise)	hypothesis-structure (`def … : Prop`)	M (integer rulers)	assumed
+I2.29	The operational-completion characterization (manuscript statement; kernel side I	theorem (manuscript statement of a kernel result)	G (every nonempty fi	proved [k]
+I2.30	Bare finite OI does not imply QM; OI-compatible theory plus (i)–(v) iff finite o	theorem (boxed, manuscript statement; kernel side I4)	G	proved [k]
+I2.31	Quantum-complete OI (OI⁺): observational independence, reversible richness, obse	definition-as-hypothesis with an equivalence theorem (manusc	G	equivalence
+I2.32	Primitive-source form: implementation locality, phase-free richness, embedded ob	theorem (manuscript statement; kernel side I4) with three pr	G	equivalence
+I2.33	Substratum-source form	theorem (manuscript statement; kernel side I4)	G/H	proved [k]
+I2.34	Layer-flow form	theorem (manuscript statement; kernel side I4)	G	proved [k]
+I2.35	Typed form	theorem (manuscript statement; kernel side I4)	G	proved [k]
+I2.36	Level III: the canonical infinite-region (quasilocal) completion, as a manuscrip	theorem (boxed isomorphism; manuscript statement)	G (quasilocal C*-alg	proved [k]
+I2.37	Restriction to the substratum-induced dynamics; continuous time is separate	theorem (two statements)	G	proved [k]
+I2.38	Existence and orientation premises of the classification (hypothesis-structures)	hypothesis-structure (`def … : Prop`)	M	assumed
+I2.39	Finite-horizon stochastic–reversible–unitary equivalence, S ⟺ D ⟺ Q_fb	theorem	H/M (finite-horizon 	proved [k]
+I2.40	Finite-horizon process dilation (and the response-table extension)	theorem	H	proved [m]
+I2.41	The characterization theorem: (ii) ⟺ (iii); (i) under (T)	theorem	H	(ii)
+I2.42	Definition (unitarily evolving QM), (Q1)/(Q2), and translation hypothesis (T)	definition-as-hypothesis / hypothesis (T)	M	(t)
+I2.43	Fixed-Ĥ form for realized processes	lemma	M	proved [m]
+I2.44	Unavoidable hidden predictive memory (universal over faithful realizations)	theorem	H	proved [k]
+I2.45	Canonical predictive quotient (a purification ingredient, substratum form)	theorem	H	proved [m]
+I2.46	Variational identity (open; naive form false)	obligation (manuscript-stated open question)	H	open
+I2.47	The conditions are diagnostics; the bare non-Markovianity–realization form is fa	theorem (remark)	H	proved [m]
+I2.48	P-indivisibility from recurrence (non-permutation T on a finite bijection)	theorem (minimal model of §2.4 folded as its witness)	H	proved [m]
+I2.49	Stochastic inverse lemma	lemma	H	proved [m]
+I2.50	History readback plus finite recurrence implies indivisibility (global recurrenc	theorem	H	proved [m]
+I2.51	Genericity of the non-permutation precondition	theorem (counting)	H	proved [m]
+I2.52	Continuous-time extension (Poincaré recurrence)	theorem (sketch)	H	proved [m]
+I2.53	Fast bath erases readback	lemma	H	conditional
+I2.54	Accessible backflow from readback	lemma	H	proved [m]
+I2.55	One-step ancilla dilation	lemma	M	proved [m]
+I2.56	The imported stochastic–quantum correspondence and its scope conditions (i)–(iv)	hypothesis (external import, under (T))	M	assumed
+I2.57	Phase-locking (strict and ancilla-marginal forms)	lemma and theorem	M	lemma
+I2.58	Permutation unitarity and the reverse direction (scoped)	lemma (two)	H/M	permutation
+I2.59	The visible quantum channel and the Born-form representation theorem	theorem	M	proved [m]
+I2.60	Diagonal preservation and CP-indivisibility (framework scope); three notions kep	lemma and theorem	M	proved [m]
+I2.61	Approximate unitarity (frozen-bath and bath-motion contributions)	manuscript-principle (estimate)	M/X	conditional
+I2.62	Comparison of routes and dependency scope: in-house, imported, additional	manuscript-principle	M/G	scope
+I2.63	Operational-reconstruction route: target conditions and the outstanding bridge	manuscript-principle	G/O	scope
+I2.64	Intervention dilation: the finite classical action-labelled comb; passive scope	theorem	H	proved [m]
+I2.65	No uniform finite realization; no horizon-independent intervened representation;	theorem (two propositions) and obligation (three successor p	H/M	propositions
+I2.66	Consolidation: no exact all-time realization by one fixed finite substratum	theorem (remark) with obligations (a)–(b)	H	proved [m]
+I2.67	Remarks fixing the scope of the characterization	manuscript-principle (six remarks)	H/M	proved [m]
+I2.68	Scope of the equivalence, items (iii) state update and (iv) classical P-indivisi	manuscript-principle	M	scope
+I2.69	The claim structure: the four layers, the four-part theorem statement, the concl	manuscript-principle	H/M/G	scope
+I2.70	Status ledger of the foundational argument (Main §4.5)	manuscript-principle (status table)	H	table)
+I2.71	Rest-frame selection lemma, its converse, and the boost/rotation corollary	lemma (with converse, corollary)	X	proved [m]
+I2.72	Structural observer selection (conditional on (EM)) and its corollaries	theorem (with two corollaries)	H/X	conditional
+I2.73	What "the theorem" requires; falsifiability of the physical identification	manuscript-principle	X	empirically
+I2.74	Dimensional obstruction (ℏ is not fixed by transition data)	theorem (remark)	X	proved [m]
+I2.75	The nearest-neighbour reference lattice is Bell-local; the prepared-graph route 	manuscript-principle	X	bell-locality
+I2.76	Bounded coupling degree (locality) and the minimal object	manuscript-principle (structural requirement)	H/X	assumed
+I2.77	Factorization uniqueness for translation-invariant dynamics; H-link	theorem; hypothesis (H-link)	X	theorem
+I2.78	Space as coupling structure	manuscript-principle	X	scope
+I2.79	Area law for the mod-q wave equation (uniform state class)	lemma	X/H (bipartition V |	proved [m]
+I2.80	Observer-level propagation: equivariant finite projection; the form of the cente	theorem (Theorem 1a) and lemma	propagation: equivar	theorem
+I2.81	The trace-out grading and conditional chirality (bipartite structure under obser	theorem (Theorem 13, conditional identification)	X	conditional
+I2.82	Genericity of observers (Theorem 22) and corollary	theorem	H/X	proved [m]
+I2.83	The trace-out as a Jordan–Chevalley projection (SM Appendix A, Theorems A.1–A.4)	theorem (four)	X	proved [m]
+I2.84	Substratum: Theorem 23 reconstructs the local residue; Bell-inclusive existence 	manuscript-principle (abstract/introduction statements of I2	X	as
+I2.85	The domain of the local lattice dynamics (what observer access does and does not	manuscript-principle	H/X	scope
+I2.86	Empirical input E2 (Bell violations)	hypothesis (empirical input)	X	empirically
+I2.87	Stage-1 premises M1-T and M1-B	hypothesis	H/X	assumed
+I2.88	Stage 2: Bell compatibility of the local lattice sector	theorem (status line)	X	line)
+I2.89	Lemma 23.0 and Theorem 23 (layered local reconstruction with Bell compatibility)	theorem (with lemma)	X	conditional
+I2.90	P0 (Track B): what additional structure determines the relative quantum evolutio	obligation (ROADMAP)	M	open
+I2.91	P0a, the MAP axis (act 9)	obligation (closed)	M	proved [k]
+I2.92	P0b, the ANCHOR axis (act 10): collapsed and reclassified	obligation (reclassified)	M	open
+I2.93	Act 7's D3 gap (coherent time-indexed dilation family)	obligation	M	open
+I2.94	Act 11: GL2, GL3, GI2 (the visible family does not fix the relative evolution)	theorem (round result; ROADMAP record)	M	proved [k]
+I2.95	Act 12: LG1, RO1, TG2, TG3, SH1 (per-slice lift freedom classified)	theorem (round result)	M	proved [k]
+I2.96	Act 13: CT1–CT4, CL1 (cross-time data bounded; threading localized)	theorem (round result)	M	proved [k]
+I2.97	Act 14: PQ0–PQ4 (the residual freedom, carrier by carrier)	theorem (round result)	M	proved [k]
+I2.98	Act 15: CF0–CF5 (the cancellation fork answered `PQ3-d⁺`)	theorem (round result)	M	proved [k]
+I2.99	Act 16: RN0–RN4 (the re-anchored-channel carrier: `RN3⁺`)	theorem (round result)	M	proved [k]
+I2.100	Act 17: TJ0–TJ3 (no cross-time coupling; class-level selection impossibility)	theorem (round result)	selection impossibil	proved [k]
+I2.101	Act 7 records standing (DC1, D5, DC2a, CE1) and the chronology guard	obligation (status record)	M	record)
+I2.102	H-Bell: composite and Bell closure	obligation (ROADMAP)	X/H	open
+I2.103	H-∞: finite operational theory to continuum / infinite-dimensional completion	obligation (ROADMAP)	G	open
+I2.104	P3: GR states to Level-III quasilocal states	obligation (ROADMAP)	G/X	open
+I2.105	State-dependent coupling graph G(x) (background independence) and its locality c	manuscript-principle (with an explicit construction)	H/X	assumed
+I2.106	Lattice-physics lemmas of SM §3.1 (dispersion, lattice Bisognano–Wichmann, emerg	lemma (several)	X	proved [m]
+I2.107	Tensor-product structure of the emergent Hilbert space from the spatial product 	manuscript-principle (asserted consequence)	H → M (cells of the 	proved [m]
+I2.108	Locality preservation of the emergent Hamiltonian, conditional on H-local-lift	theorem (conditional) and hypothesis (H-local-lift)	H → M	conditional
+I2.109	Nested partitions beyond A.4: additive dissipators, generalized second law, effe	theorem (A.5–A.7) and conditional theorems (A.8–A.9)	M/X	a.5–a.7
+I2.110	Weak ER=EPR at the emergent level (entangled subsystems share boundary modes)	manuscript-principle	(entangled subsystem	scope
+I2.111	Bell/Tsirelson test: graph locality and bare C1–C4 do not enforce Tsirelson	manuscript-principle (pre-registered falsification condition	X/H	scope
+I2.112	H-blind: the component-blind reading of the observer's trace-out	hypothesis (named condition on the observer class)	X (physical carrier)	proved [m]
+I2.113	H-observer-bundle and H-Y-vertex (conditions on the observer's trace-out for the	hypothesis (two named conditions)	X	assumed
+I3.1	W d	definition-as-hypothesis	P	assumed
+I3.2	prodState	definition-as-hypothesis	P	proved [k]
+I3.3	maxCone	definition-as-hypothesis	P	proved [k]
+I3.4	jointStates	definition-as-hypothesis	P	proved [k]
+I3.5	IsProduct	definition-as-hypothesis	P	proved [k]
+I3.6	actT	definition-as-hypothesis (carrier map)	P	proved [k]
+I3.7	actC	definition-as-hypothesis (carrier map)	P	proved [k]
+I3.8	IsNot	hypothesis-structure	O	assumed
+I3.9	NativeGate	hypothesis-structure	P	assumed
+I3.10	Entangling	hypothesis-structure (def … : Prop)	P	assumed
+I3.11	cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (the `d = 3` witness da	definition-as-hypothesis (witness data; no hypothesis role o	P (`cnot`, `phiW`), 	proved [k]
+I3.12	isNot_nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC	theorem	P (O for `isNot_nfli	proved [k]
+I3.13	nativeGate_cnot	theorem	P	proved [k]
+I3.14	entangling_cnot	theorem	P	proved [k]
+I3.15	parity: `finrank_plus_eq_finrank_minus`, `not_even_of_nativeGate	theorem	P	proved [k]
+I3.16	blockData_of_nativeGate` (with `BlockData`)	theorem (with its theorem-internal auxiliary `BlockData`, Co	P	proved [k]
+I3.17	not_entangling_one	theorem	P	proved [k]
+I3.18	dim_of_nativeGate` (the selector)	theorem	P	proved [k]
+I3.19	three_of_nativeGate	theorem	P	proved [k]
+I3.20	DIM-1 controls: `nativeGate_cnot1`, `not_entangling_cnot1`, `no_gate_four	theorem	P	proved [k]
+I3.21	dim1_core` (DIM-1 verdict)	theorem	P	proved [k]
+I3.22	not_even_of_gateRel` (with `finrank_plus_eq_finrank_minus_rel`)	theorem	P	proved [k]
+I3.23	GateRel	hypothesis-structure	P	assumed
+I3.24	piRotation_three` (with `tangentPlus_three`, `det_three`)	theorem	O (conclusion about 	proved [k]
+I3.25	not_gateRel_refl3`, `not_gateRel_negId3	theorem	P	proved [k]
+I3.26	not_posFwd_gJ3`, `not_posFwd_gJ5	theorem	P	proved [k]
+I3.27	exists_frame_gateRel_iff_odd	theorem	P	proved [k]
+I3.28	not_posFwd_gRev	theorem	P	proved [k]
+I3.29	CtrlGate	hypothesis-structure	P	assumed
+I3.30	not_even_of_relC	theorem	P	proved [k]
+I3.31	dim_of_ctrlGate`, `three_of_ctrlGate	theorem	P	proved [k]
+I3.32	ctrlGate_of_nativeGate	lemma-folded (edge `NativeGate → CtrlGate`)	P	proved [k]
+I3.33	gSq_sep`, `gSqInv_sep	theorem	P	proved [k]
+I3.34	relT_not_dimension_selecting	theorem	P	proved [k]
+I3.35	NativeGateOf	hypothesis-structure	P	assumed
+I3.36	EntanglingOf	hypothesis-structure (def … : Prop)	P	assumed
+I3.37	dim_of_nativeGateOf	theorem	P (hypotheses at O a	proved [k]
+I3.38	three_of_nativeGateOf	theorem	P	proved [k]
+I3.39	HasTwoSharpTests	hypothesis-structure (def … : Prop)	O	assumed
+I3.40	hasTwoSharpTests_iff	theorem	O	proved [k]
+I3.41	two_le_not_implied	theorem	P	proved [k]
+I3.42	prodState_mem_maxCone	theorem	P (from O data)	proved [k]
+I3.43	CandidateCone	hypothesis-structure (def … : Prop)	P	assumed
+I3.44	no_candidateCone_cnot_reflY	theorem	P	proved [k]
+I3.45	three_of_nativeGate_of_two_le	theorem	P	proved [k]
+I3.46	two_le_of_entangling	lemma-folded (edge `Entangling → 2 ≤ d` under I3.8, I3.9)	P	proved [k]
+I3.47	three_of_nativeGateOf_of_two_le	theorem	P	proved [k]
+I3.48	EffectsOn	hypothesis-structure (def … : Prop)	O	assumed
+I3.49	maxConeOf	definition-as-hypothesis	P	proved [k]
+I3.50	MixingClosed	hypothesis-structure (def … : Prop)	O	assumed
+I3.51	maxConeOf_avail_eq` (with `sharpFamily_subset_avail`, `maxConeOf_sharpFamily`)	theorem	P (hypotheses at O)	proved [k]
+I3.52	fullEffects_subset_avail	theorem	O	proved [k]
+I3.53	not_fullEffects_of_orbit	theorem	O	proved [k]
+I3.54	DenseBoundaryOrbit	hypothesis-structure (def … : Prop)	O	assumed
+I3.55	denseBoundaryOrbit_of_boundaryTransitive	lemma-folded (edge K∞-Trans → dense orbit)	O	proved [k]
+I3.56	maxConeOf_avail_eq_of_dense` (with the dense ball and selector variants)	theorem	P (hypotheses at O)	proved [k]
+I3.57	FiniteStage	definition-as-hypothesis (data structure)	O	proved [k]
+I3.58	IsEffectOn	definition-as-hypothesis	O	proved [k]
+I3.59	IsProperOn	definition-as-hypothesis	O	proved [k]
+I3.60	IsBoundaryState	definition-as-hypothesis	O	proved [k]
+I3.61	SupportingEffectComplete` (SEC)	hypothesis-structure (def … : Prop)	O	assumed
+I3.62	SingletonFaces` (SF)	hypothesis-structure (def … : Prop)	O	assumed
+I3.63	RelStrictConvex	definition-as-hypothesis	O	proved [k]
+I3.64	PerfectlyDistinguishable	definition-as-hypothesis	O	proved [k]
+I3.65	CentrallySymmetric	definition-as-hypothesis	O	proved [k]
+I3.66	ElementaryDrivability` (K∞-Drive)	hypothesis-structure (data structure with Prop fields)	O	assumed
+I3.67	ball3Drive`, `ball3_drivable` (with `ball3`, `rot3`, `cyc3`)	theorem (positive control)	O	proved [k]
+I3.68	not_drivable_Icc`, `not_drivable_singleton	theorem (negative controls)	O	proved [k]
+I3.69	CopyNatural` (K∞-Copy)	hypothesis-structure (def … : Prop)	O (two copies, compa	assumed
+I3.70	ClassicallyExposed	definition-as-hypothesis	O	proved [k]
+I3.71	KInf1` (hypothesis K∞-1)	hypothesis-structure (def … : Prop)	O	open
+I3.72	kinf2_kernel_core` (KINF-2 verdict)	theorem	O	proved [k]
+I3.73	SharpSeed` (K∞-Seed, P1)	hypothesis-structure (def … : Prop)	O	assumed
+I3.74	PreservesBody	hypothesis-structure (def … : Prop)	O (also the joint re	assumed
+I3.75	SeedOrbitAvailable` (K∞-V4, V4′)	hypothesis-structure (def … : Prop)	O	assumed
+I3.76	BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record)	hypothesis-structure (def … : Prop)	O	assumed
+I3.77	CoversBoundaryFrom` (COVER)	hypothesis-structure (def … : Prop)	O	assumed
+I3.78	preservesBody_drive	theorem	O	proved [k]
+I3.79	seedOrbit_ball3_eq` (the reduced orbit-generation theorem)	theorem	O	proved [k]
+I3.80	boundaryTransitive_fullAut3	theorem (positive control)	O	proved [k]
+I3.81	not_boundaryTransitive_flow	theorem (negative control)	O	proved [k]
+I3.82	orbit_generation_core` (OG-1 verdict)	theorem	O	proved [k]
+I3.83	boundaryTransitive_ball3Drive` (with `driveWords3`)	theorem	O	proved [k]
+I3.84	isEmpty_drivability_of_finite_orbits	theorem	O	proved [k]
+I3.85	boundaryTransitive_ball4	theorem (countercontrol: transitivity does not fix dimension	O	proved [k]
+I3.86	IsBodyGroup` (TRANS, group clause)	hypothesis-structure	O	assumed
+I3.87	TransBody` (TRANS)	hypothesis-structure (def … : Prop)	O	assumed
+I3.88	eq_qBall_of_boundaryTransitive	theorem	O	proved [k]
+I3.89	exists_affine_image_eq_eball	theorem	O	proved [k]
+I3.90	extreme_of_isBoundaryState_of_transitive` (boundary purity)	theorem	O	proved [k]
+I3.91	invariant_inner_product` (with `centroid_fixed`)	theorem (premise-free)	O	proved [k]
+I3.92	DirectedStages` (with `StageMap`)	definition-as-hypothesis (data structure)	O	proved [k]
+I3.93	StageMap.Consistent	definition-as-hypothesis	O	proved [k]
+I3.94	SCInf` (SC∞, K∞-Stage)	hypothesis-structure (def … : Prop)	O	assumed
+I3.95	BinaryVisible` (ELEM-bin)	hypothesis-structure (data structure with Prop fields)	O	assumed
+I3.96	FiniteRank` (K∞-Stage)	hypothesis-structure (def … : Prop)	O	assumed
+I3.97	sharpSeed_completion	theorem	O	proved [k]
+I3.98	exists_chart_of_finiteRank	theorem	O	proved [k]
+I3.99	OpDatum` (K∞-Act)	hypothesis-structure (data structure with a Prop field)	O	assumed
+I3.100	StateRespect	hypothesis-structure (def … : Prop)	O	assumed
+I3.101	AffineRespect	hypothesis-structure (def … : Prop)	O	assumed
+I3.102	Undoes	hypothesis-structure (def … : Prop)	O	assumed
+I3.103	CompletionChart	definition-as-hypothesis (data structure)	O	proved [k]
+I3.104	body_isClosed	theorem	O	proved [k]
+I3.105	preservesBody_inducedEquiv	theorem	O	proved [k]
+I3.106	InfiniteOrderOn	definition-as-hypothesis	O	proved [k]
+I3.107	FiniteOrderOn	definition-as-hypothesis	O	proved [k]
+I3.108	OrdInf` (ORD∞)	hypothesis-structure (def … : Prop)	O	open
+I3.109	MulClosed	definition-as-hypothesis	O	proved [k]
+I3.110	StagePreserving	hypothesis-structure (def … : Prop)	O	assumed
+I3.111	finiteOrderOn_of_stagePreserving	theorem	O	proved [k]
+I3.112	not_ordInf_of_finite_of_mulClosed	theorem	O	proved [k]
+I3.113	ProductData	definition-as-hypothesis (data structure with Prop fields)	P	proved [k]
+I3.114	PreComposite	hypothesis-structure (data structure with Prop fields)	P	assumed
+I3.115	LocallyTomographic	hypothesis-structure (def … : Prop)	P	assumed
+I3.116	Composite	hypothesis-structure (data structure with Prop fields)	P	assumed
+I3.117	BoundedAffine	definition-as-hypothesis	O	proved [k]
+I3.118	JointReversible	hypothesis-structure (abbrev … : Prop)	P	assumed
+I3.119	SharpReadout	definition-as-hypothesis (data structure with Prop fields)	O (register)	proved [k]
+I3.120	condA_prodState` (L9, no signalling on products)	theorem	P	proved [k]
+I3.121	not_locallyTomographic_paddedPre`, `no_composite_over_paddedPre` (with `paddedBa	theorem (independence control)	P	proved [k]
+I3.122	comp1_core` (COMP-1 verdict)	theorem	P	proved [k]
+I3.123	Lor	definition-as-hypothesis (theorem-internal auxiliary: "`Lor`	O	proved [k]
+I3.124	the effect cone of the ball: `lor_ehom`, `isEffectOn_affOf`, `lor_toOp_of_maxCon	theorem	O (`lor_ehom`, `isEf	proved [k]
+I3.125	NativeGateBall.parity	theorem (premise-free linear algebra)	P (general vector sp	proved [k]
+I3.126	p_le_one`, `dim_of_bounds	theorem	P (matrix/arithmetic	proved [k]
+I3.127	lorentz_of_effects	theorem	O	proved [k]
+I3.128	nb1_kernel_core` (NB-1 verdict)	theorem	P (premise-free; use	proved [k]
+I3.129	hcls` — N-CLASS gates (`NClass`)	hypothesis-structure (def … : Prop, [D])	P	not at l
+I3.130	hadm` — pair admissibility (`PairAdm`, with `IsConvexCone`)	hypothesis-structure (def … : Prop, [D])	P	not at l
+I3.131	hcl` — closedness of each pair cone	hypothesis-structure (hypothesis `∀ p, IsClosed (K p)` of I3	P	assumed
+I3.132	hgate` — gate preservation (H2 of stage 3 is this clause for `cnot`)	hypothesis-structure (hypothesis `∀ p, ∀ ω ∈ K p, N p ω ∈ K 	P	assumed
+I3.133	H` — the four-copy core (`KT4Core`, with `KT4`, `KT4LT`)	hypothesis-structure (data structure, [D])	P (four tokens)	not at l
+I3.134	token clauses `tokA`, `tokB` (`TokenCoherent`)	hypothesis-structure (def … : Prop, [D])	P (four tokens)	not at l
+I3.135	FCC — the cone-level four-copy interface (`FourCopyCoherent`, `FCC`)	hypothesis-structure (structure … : Prop, [D])	four-copy interface 	not at l
+I3.136	PairLinked` (Lemma R's interface form)	hypothesis-structure (structure … : Prop, [D]; theorem-inter	P	not at l
+I3.137	IE1 (`IE1`, with `IsRot3`, `IsOrth3`)	definition-as-hypothesis ([D])	P	not at l
+I3.138	EvenCycle` (with `EvenCycle4`)	definition-as-hypothesis ([D])	P (four tokens)	not at l
+I3.139	kt4_forward_ie1` (Theorem A′, the audited theorem)	theorem ([D])	P (four tokens)	not at l
+I3.140	fourCopyCoherent_of_kt4Core` (Lemma B1)	theorem ([D])	P	not at l
+I3.141	KT4Cone	hypothesis-structure (structure … : Prop, [D] preflight)	P (four tokens)	not at l
+I3.142	IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the drive words, anywh	definition-as-hypothesis and theorem ([D] preflight)	lift of the drive wo	not at l
+I3.143	ipW`, `dualW` (the Euclidean pairing and dual cone of tables)	definition-as-hypothesis ([D])	P	not at l
+I3.144	Q3`, `twin`, `pauliW`, `twistQ3	definition-as-hypothesis ([D] preflight; comparison objects)	P	not at l
+I3.145	P-STAGE2 (named premise of KT4-PREM-1)	hypothesis-structure (named premise, prose)	P	assumed
+I3.146	P-ACT2 (named premise of KT4-PREM-1)	hypothesis-structure (named premise, prose)	P	assumed
+I3.147	H1 — products in `K	hypothesis-structure (PT-record)	P	pt-record
+I3.148	H2 — `cnot`-invariance (level (i)); `G16`-invariance (level (ii))	hypothesis-structure (PT-record)	(i)); `G16`-invarian	pt-record
+I3.149	H3 — trace self-duality `K = dualW K	hypothesis-structure (PT-record)	P	pt-record
+I3.150	(b_S4) — the full rotation group of one token acts on the pair preserving `K	hypothesis-structure (PT-record; the target principle)	P	pt-record
+I3.151	(b_n) — one rotation subgroup of one token about an off-frame axis	hypothesis-structure (PT-record)	P	pt-record
+I3.152	(b_R1) — one order-3 rotation of one token about (5,1,1)	hypothesis-structure (PT-record)	P	pt-record
+I3.153	(b_DJ) — the native drive with the native `J` acting on one token	hypothesis-structure (PT-record)	P	pt-record
+I3.154	IE2 — idle extension of the pair interaction groups	hypothesis-structure (PT-record / research record)	P (three or more tok	pt-record
+I3.155	frame covariance (FC) of the native gate	hypothesis-structure (PT-record)	P	pt-record
+I3.156	INV2 — the native gate is an operational involution on the pair system	hypothesis-structure (PT-record, named principle)	P	pt-record
+I3.157	SDC = P3 ∧ OVL4 ∧ CSD2 — self-duality under composition	hypothesis-structure (PT-record, named principle)	P (four tokens)	pt-record
+I3.158	N0 ∧ N1 ∧ N2 — regrouping invariance of a four-token composite (stage-1 principl	hypothesis-structure (PT-record, named principle)	P (four tokens)	pt-record
+I3.159	S2 Pair — a compact, gate-reversible COMP-1 pre-composite (stage-1 principle)	hypothesis-structure (PT-record, named principle)	P	pt-record
+I3.160	H — pair-level homogeneity of `K	hypothesis-structure (PT-record, candidate)	homogeneity of `K`	pt-record
+I3.161	T — pair-level reversible richness (transitivity on extreme rays)	hypothesis-structure (PT-record, candidate)	reversible richness 	pt-record
+I3.162	P1 — K: pre-quantum kinematics (the umbrella row)	obligation (ROADMAP)	O (the field-neutral	open
+I3.163	K section framing	obligation (ROADMAP)	O (framing of the K 	open
+I3.164	K1 — the dimension	obligation (ROADMAP)	P	conditional
+I3.165	K2 — the composite	obligation (ROADMAP)	P	open
+I3.166	K∞ — the field-neutral premises	obligation (ROADMAP)	O	open
+I3.167	K∞-Stage	obligation (ROADMAP)	O	open
+I3.168	K∞-Act	obligation (ROADMAP)	O	open
+I3.169	K∞-Drive	obligation (ROADMAP)	O	open
+I3.170	K∞-Trans	obligation (ROADMAP)	O	open
+I3.171	K∞-Seed	obligation (ROADMAP)	O	open
+I3.172	K∞-V4	obligation (ROADMAP)	O	open
+I3.173	K∞-Copy	obligation (ROADMAP)	O (two copies)	open
+I3.174	K∞-Geom	obligation (ROADMAP)	O	open
+I3.175	the K∞-R label note	obligation (ROADMAP, bookkeeping)	O	open
+I3.176	the geometric obligation is not committed to singleton faces	obligation (ROADMAP)	O	open
+I3.177	the geometric branch is elementary-scoped	obligation (ROADMAP)	O	open
+I3.178	matrix-level drivability, the region limit, and continuous NOTs	obligation (ROADMAP)	drivability, the reg	open
+I3.179	Kₙ — the elementary-to-arbitrary-carrier lift	obligation (ROADMAP)	O (a lift from the e	open
+I3.180	KINF-1 halted	obligation (ROADMAP, record)	O	refuted
+I3.181	the research direction (unproved)	obligation (ROADMAP)	O	open
+I3.182	the finite route	obligation (ROADMAP)	O (the route runs O 	open
+I3.183	orthogonality to P0	obligation (ROADMAP)	O (row framing)	open
+I3.184	the operational-reconstruction route: reconstruction axioms as hypotheses of a c	manuscript-principle	X (manuscript statem	conditional
+I3.185	carrier-map identities for every one-copy linear map: `actT_prodState`, `actT_te	lemma-folded (edges of the carrier maps I3.6–I3.7)	P (from O data)	proved [k]
+I3.186	eball_three	lemma-folded (edge identifying the K∞ ball with DIM-1's ball	O	proved [k]
+I3.187	the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ IE1 ⇒ K_p ∈ {Q3, t	theorem (written argument in a landed round record)	P	conditional
+I4.1	withSpectator	definition-as-hypothesis (operation constructor; enters ever	M	-
+I4.2	IsReferencePositive	definition-as-hypothesis	M	assumed
+I4.3	HasParallelReferenceExtension	hypothesis-structure	M	assumed
+I4.4	HasQutritReferenceExtension	hypothesis-structure	M	assumed
+I4.5	qutrit_of_parallel	theorem	M	proved [k]
+I4.6	isCompletelyPositive_iff_referencePositive_self	theorem	M	proved [k]
+I4.7	reduction2_threshold	theorem	M	proved [k]
+I4.8	countermodel_not_qutritReferenceExtension	theorem	M	proved [k]
+I4.9	countermodel_not_parallelReferenceExtension	theorem	M	proved [k]
+I4.10	control_not_implies_parallelReferenceExtension	theorem	M	proved [k]
+I4.11	exactControl_not_implies_qutritReferenceExtension	theorem	M	proved [k]
+I4.12	IsSpectatorExtension	definition-as-hypothesis (the locality form of an extension)	M	assumed
+I4.13	isSpectatorExtension_iff	theorem	M	proved [k]
+I4.14	InertSpectatorCompositionality	hypothesis-structure (condition (iii) 'inert spectators' in 	M	assumed
+I4.15	inertSpectator_iff_parallelReferenceExtension	theorem	M	proved [k]
+I4.16	krausSoundExt_of_sound_control_inert	theorem	M	proved [k]
+I4.17	hComp_spectator_form	theorem	M	proved [k]
+I4.18	HCompRealized	hypothesis-structure	M	assumed
+I4.19	hCompRealized_spectator_available	theorem	M	proved [k]
+I4.20	hCompRealized_ones_of_control	theorem	M	proved [k]
+I4.21	hcompRealized_not_implies_parallelReferenceExtension	theorem	M	proved [k]
+I4.22	hcompRealized_consistent_with_parallelReferenceExtension	theorem	M	proved [k]
+I4.23	IsThreePositive	definition-as-hypothesis	M	refuted
+I4.24	ImplementationClass	definition-as-hypothesis (the type of implementation classes	M	-
+I4.25	Realized	definition-as-hypothesis (branch-wise comparison notion)	M	assumed
+I4.26	InstAvail	definition-as-hypothesis (inductive predicate: instrument re	M	-
+I4.27	instAvail_trace	theorem	M	proved [k]
+I4.28	ImplementationGenerated	hypothesis-structure (clause (G))	M	assumed
+I4.29	ContextStable	hypothesis-structure (clause (C): the spectator clause of im	M	assumed
+I4.30	LabelInvariant	hypothesis-structure (clause (L))	M	assumed
+I4.31	ImplementationLocality	hypothesis-structure	M	assumed
+I4.32	Architecture	hypothesis-structure	M	assumed
+I4.33	redundancy_fails	theorem	M	proved [k]
+I4.34	form_fixed_existence_fails	theorem	M	proved [k]
+I4.35	instAvail_withSpectator	theorem	M	proved [k]
+I4.36	genTheory_embeddedObservation	theorem	M	proved [k]
+I4.37	observationalIndependence_of_implementationLocality	theorem	M	proved [k]
+I4.38	validity_of_implementationLocality	theorem	M	proved [k]
+I4.39	implementationLocality_of_qm	theorem	M	proved [k]
+I4.40	countermodel_not_implementationGenerated	theorem	M	proved [k]
+I4.41	implementationLocality_independent	theorem	M	proved [k]
+I4.42	OIPlusLocal	hypothesis-structure (compressed OI⁺ package)	M	assumed
+I4.43	carrier_general_oiPlusLocal	theorem	G	proved [k]
+I4.44	substratumClass	definition-as-hypothesis (the class the substratum supplies:	H	-
+I4.45	StructurallyClosed	hypothesis-structure	M	assumed
+I4.46	substratumClass_structurallyClosed	theorem	H	proved [k]
+I4.47	quantumArchitecture_iff_drives_of_closed	theorem	M	proved [k]
+I4.48	substratumGen_not_qm	theorem	H	proved [k]
+I4.49	substratum_residual	theorem	H	proved [k]
+I4.50	ExtendsSubstratum	hypothesis-structure	H	assumed
+I4.51	substratum_extension_quantum_iff_drives	theorem	M	proved [k]
+I4.52	substratum_plus_control_qm	theorem	M	proved [k]
+I4.53	qm_generated_by_substratum_extension	theorem	M	proved [k]
+I4.54	gateFlow	definition-as-hypothesis (the one-parameter unitary group of	M	-
+I4.55	levelPerm	definition-as-hypothesis (the layer involution read at level	M	-
+I4.56	LayerFlowExecutable	hypothesis-structure	M	assumed
+I4.57	layerFlowExecutable_of_control	theorem	M	proved [k]
+I4.58	configurationLevel_not_layerFlowExecutable	theorem	H	proved [k]
+I4.59	substratumTheory_not_layerFlowExecutable	theorem	H	proved [k]
+I4.60	SubstratumAvail	hypothesis-structure	H	assumed
+I4.61	phaseFree_of_layerFlowExecutable	theorem	M	proved [k]
+I4.62	derivedOI_qm_iff_layerFlowExecutable	theorem	M	proved [k]
+I4.63	substratumTheory_not_layerFlowExecutable_swap	theorem	H	proved [k]
+I4.64	FiniteOperationalTheory	hypothesis-structure (the matrix-level carrier: a structure 	M	assumed
+I4.65	PhysicalCompletionConditions	hypothesis-structure (conditions (i)-(v), bundled; the kerne	M	assumed
+I4.66	CompositeOperationalValidity	hypothesis-structure (condition (i) of GR.md:212; first conj	M	assumed
+I4.67	HasCompositeUnitaryControl	hypothesis-structure (condition (iv) of GR.md:212, 'full rev	M	assumed
+I4.68	IteratedAncillaClosure	hypothesis-structure (condition (v) of GR.md:212, 'iterated 	M	assumed
+I4.69	SystemToLevelOne	hypothesis-structure (condition (ii) of GR.md:212, 'trivial-	M	assumed
+I4.70	ExactAllFiniteEndomorphicQuantumOps	hypothesis-structure (the endpoint: exact finite endomorphic	M	assumed
+I4.71	exactAll_iff_physical_general	theorem	M	proved [k]
+I4.72	general_characterization	theorem	G	proved [k]
+I4.73	WellFormed	hypothesis-structure (conditions (i) and (ii) of GR.md:212)	M	assumed
+I4.74	SubstantiveCompletion	hypothesis-structure (conditions (iii)-(v) of GR.md:212)	M	assumed
+I4.75	exactAll_iff_substantive	theorem	M	proved [k]
+I4.76	oi_alone_not_qm	theorem	M	proved [k]
+I4.77	oi_compatible_classification	theorem	M	proved [k]
+I4.78	main_result	theorem	G	proved [k]
+I4.79	OICore	hypothesis-structure (bare OI on the qubit carrier)	M	assumed
+I4.80	CompletedOI	hypothesis-structure	M	assumed
+I4.81	completedOI_iff_physical	theorem	M	proved [k]
+I4.82	ObservationalIndependence	hypothesis-structure (OI⁺-1 on the qubit carrier)	M	assumed
+I4.83	observationalIndependence_iff_inert	theorem	M	proved [k]
+I4.84	parallel_of_observationalIndependence	theorem	M	proved [k]
+I4.85	ReversibleRichness	hypothesis-structure (OI⁺-2 on the qubit carrier)	M	assumed
+I4.86	IsShiftedTheory	definition-as-hypothesis	M	assumed
+I4.87	ObserverRecursion	hypothesis-structure (OI⁺-3)	M	assumed
+I4.88	OIPlus	hypothesis-structure (OI⁺ on the qubit carrier)	M	assumed
+I4.89	qm_of_oiPlus	theorem	M	proved [k]
+I4.90	oiPlus_iff_qm	theorem	M	proved [k]
+I4.91	oiPlus_iff_completedOI	theorem	M	proved [k]
+I4.92	independence_independent	theorem	M	proved [k]
+I4.93	richness_independent	theorem	M	proved [k]
+I4.94	recursion_independent	theorem	M	proved [k]
+I4.95	oiPlus_independence	theorem	M	proved [k]
+I4.96	ObservationalIndependence	hypothesis-structure (OI⁺-1 on a general carrier A)	M	assumed
+I4.97	observationalIndependence_iff_inert	theorem	M	proved [k]
+I4.98	parallel_of_observationalIndependence	theorem	M	proved [k]
+I4.99	ReversibleRichness	hypothesis-structure (OI⁺-2 on a general carrier)	M	assumed
+I4.100	control_of_reversibleRichness	theorem	M	proved [k]
+I4.101	reversibleRichness_of_control	theorem	M	proved [k]
+I4.102	OIPlus	hypothesis-structure (OI⁺ on a general carrier)	M	assumed
+I4.103	oiPlus_iff_qm	theorem	M	proved [k]
+I4.104	carrier_general_oiPlus	theorem	G	proved [k]
+I4.105	oiPlus_independence	theorem	M	proved [k]
+I4.106	TheoryFamily	definition-as-hypothesis (a family of finite operational the	G	-
+I4.107	RegroupingInvariant	hypothesis-structure	G	assumed
+I4.108	RelabellingInvariant	hypothesis-structure	G	assumed
+I4.109	IsAmbientMember	hypothesis-structure	M	assumed
+I4.110	EmbeddedObservation	hypothesis-structure (OI⁺-3 in the embedded form)	M	assumed
+I4.111	closure_of_embedded	theorem	M	proved [k]
+I4.112	systemToLevelOne_of_embedded	theorem	M	proved [k]
+I4.113	observerRecursion_of_embeddedObservation	theorem	M	proved [k]
+I4.114	embeddedObservation_independent	theorem	M	proved [k]
+I4.115	OIPlusEmbedded	hypothesis-structure	M	assumed
+I4.116	oiPlusEmbedded_iff_qm	theorem	M	proved [k]
+I4.117	carrier_general_oiPlusEmbedded	theorem	G	proved [k]
+I4.118	PhaseFreeRichness	hypothesis-structure (a form of reversible richness: one dri	M	assumed
+I4.119	control_of_phaseFree	theorem	M	proved [k]
+I4.120	OIPlusMin	hypothesis-structure	M	assumed
+I4.121	oiPlusMin_iff_qm	theorem	M	proved [k]
+I4.122	carrier_general_oiPlusMin	theorem	G	proved [k]
+I4.123	CyclicRichness	hypothesis-structure (one driven pair, one full cycle, one a	M	assumed
+I4.124	OIPlusPos	hypothesis-structure	M	assumed
+I4.125	oiPlusPos_iff_qm	theorem	M	proved [k]
+I4.126	carrier_general_oiPlusPos	theorem	G	proved [k]
+I4.127	InverseAccessibility	hypothesis-structure (first clause of reversible richness)	M	assumed
+I4.128	LieRankRichness	hypothesis-structure (second clause of reversible richness)	M	assumed
+I4.129	control_of_lieRank_inverse	theorem	M	proved [k]
+I4.130	control_of_lieRank	theorem	M	proved [k]
+I4.131	inverseAccessibility_of_lieRank	theorem	M	proved [k]
+I4.132	DaggerStable	hypothesis-structure	M	assumed
+I4.133	ReversibleImplementationLocality	hypothesis-structure	M	assumed
+I4.134	UnitaryRaySaturated	hypothesis-structure	M	assumed
+I4.135	inverseAccessibility_of_generated_daggerStable	theorem	M	proved [k]
+I4.136	reversibleImplementationLocality_of_qm	theorem	M	proved [k]
+I4.137	OIPlusMicro	hypothesis-structure	M	assumed
+I4.138	oiPlusMicro_iff_qm	theorem	M	proved [k]
+I4.139	carrier_general_oiPlusMicro	theorem	G	proved [k]
+I4.140	posReach	definition-as-hypothesis (the submonoid of unitaries reachab	M	-
+I4.141	posReach_eq_top	theorem	M	proved [k]
+I4.142	universalReachability_of_lieRank_positive	theorem	M	proved [k]
+I4.143	DrivesElementary	hypothesis-structure (the controllability clause: flows of e	M	assumed
+I4.144	QuantumArchitecture	hypothesis-structure	M	assumed
+I4.145	genTheory_qm_of_quantumArchitecture	theorem	M	proved [k]
+I4.146	qm_generated_by_quantumArchitecture	theorem	M	proved [k]
+I4.147	diagClass_not_drivesElementary	theorem	H	proved [k]
+I4.148	IsMonomial	definition-as-hypothesis (the operator shape of the substrat	H	-
+I4.149	MonomialSource	hypothesis-structure	H	assumed
+I4.150	monomialSource_not_control	theorem	H	proved [k]
+I4.151	monomialSource_not_qm	theorem	H	proved [k]
+I4.152	elementary_split	theorem	H	proved [k]
+I4.153	onesFixing_not_phasesAvailable	theorem	H	proved [k]
+I4.154	substratumClass_not_onesFixing	theorem	H	proved [k]
+I4.155	ReadWriteFamily	definition-as-hypothesis (structure of read-write couplings 	H	-
+I4.156	ReadWriteSourced	hypothesis-structure	H	assumed
+I4.157	readWriteSourced_not_control	theorem	H	proved [k]
+I4.158	readWriteSourced_not_qm	theorem	H	proved [k]
+I4.159	readWriteControl_independent	theorem	H	proved [k]
+I4.160	qm_of_derivedOI_layerFlowExecutable	theorem	M	proved [k]
+I4.161	derivedOI_qm_iff_layerFlowExecutable'	theorem	M	proved [k]
+I4.162	substratumTheory_layerFlowExecutable_one	theorem	H	proved [k]
+I4.163	derivedOI_layerFlowExecutable_one_not_phaseFree	theorem	M	proved [k]
+I4.164	not_configurationLevel_of_layerFlowExecutable	theorem	H	proved [k]
+I4.165	obs_not_layerFlowExecutable	theorem	H	proved [k]
+I4.166	coherentLiftClass_eq_substratumClass	theorem	H	proved [k]
+I4.167	coherentLiftClass_not_layerFlowExecutable	theorem	H	proved [k]
+I4.168	stochastic_not_layerFlowExecutable	theorem	H	proved [k]
+I4.169	flow_endpoint_refuted_general	theorem	M	proved [k]
+I4.170	onesTheory_not_qm	theorem	M	proved [k]
+I4.171	obligations_independent	theorem	H	proved [k]
+I4.172	KillBattery	definition-as-hypothesis (membership in the three-theory kil	M	-
+I4.173	killBattery_not_qm	theorem	M	proved [k]
+I4.174	PolGen	definition-as-hypothesis (inductive generation predicate of 	M	-
+I4.175	MixR	definition-as-hypothesis (inductive generation predicate wit	M	-
+I4.176	qm_of_mixSourced	theorem	M	proved [k]
+I4.177	mixTheory_endpoint	theorem	M	proved [k]
+I4.178	comparison	theorem	M	proved [k]
+I4.179	PairFlowSourced	hypothesis-structure	M	assumed
+I4.180	qm_iff_derivedOI_pairFlowSourced	theorem	M	proved [k]
+I4.181	countable_not_pairFlowSourced	theorem	M	proved [k]
+I4.182	NonMonomialCountablyCovered	hypothesis-structure	M	assumed
+I4.183	UncountableNonMonomialRays	hypothesis-structure	M	assumed
+I4.184	uncountableNonMonomialRays_of_layerFlowExecutable	theorem	M	proved [k]
+I4.185	coherent_continuum_not_sourced	theorem	H	proved [k]
+I4.186	TypedOperationalTheory	hypothesis-structure (the typed carrier: availability `avail	G	assumed
+I4.187	ShadowQuantum	hypothesis-structure	G	assumed
+I4.188	IsTypedKrausInstrument	definition-as-hypothesis (typed Kraus instruments between ca	G	-
+I4.189	typed_determined	theorem	G	proved [k]
+I4.190	typed_determined_iff	theorem	G	proved [k]
+I4.191	typed_determined_of_oiPlusElem	theorem	G	proved [k]
+I4.192	typedDiag_shadow_not_qm	theorem	G	proved [k]
+I4.193	typed_determined_of_oiPlusPos	theorem	G	proved [k]
+I4.194	typed_determined_of_oiPlusMin	theorem	G	proved [k]
+I4.195	Quasilocal	definition-as-hypothesis (the quasilocal algebra: completion	G	-
+I4.196	IsStateFamily	hypothesis-structure (a consistent family of local states)	G	assumed
+I4.197	FiniteRange	hypothesis-structure (Type-valued structure: finite-range lo	G	assumed
+I4.198	ReversibleDynamics	hypothesis-structure (Type-valued structure: a reversible fi	H	assumed
+I4.199	quasiState_unique	theorem	G	proved [k]
+I4.200	quasilocal_completion	theorem	G	proved [k]
+I4.201	QuasilocalSystem	hypothesis-structure (Type-valued structure carrying the Pro	G	assumed
+I4.202	IsState	definition-as-hypothesis (a state of a C*-algebra)	G	-
+I4.203	OISystem	hypothesis-structure (Type-valued structure: a quasilocal sy	G	assumed
+I4.204	LocalityPreserving	definition-as-hypothesis	G	assumed
+I4.205	canon_unique	theorem	G	proved [k]
+I4.206	quasilocal_characterization	theorem	G	proved [k]
+I4.207	phaseQ_ne_heisQ	theorem	G	proved [k]
+I4.208	driveQ_isContinuousPath	theorem	G	proved [k]
+I4.209	driveQ_one_eq_heisQ	theorem	G	proved [k]
+I4.210	psd_iff_trace_nonneg	theorem	M	proved [k]
+I4.211	matrixJordan_unitary_or_transpose	theorem	M	proved [k]
+I4.212	sameData_unitary_or_transpose	theorem	M	proved [k]
+I4.213	OrderIsoHyp	hypothesis-structure	M	assumed
+I4.214	operational_separation	theorem	M	proved [k]
+I4.215	psd_trace_mul_nonneg	theorem	M	proved [k]
+I4.216	accessible_cone_full	theorem	M	proved [k]
+I4.217	IsPassiveInstrument	definition-as-hypothesis	M	assumed
+I4.218	SeparatesStates	definition-as-hypothesis	M	assumed
+I4.219	no_complete_passive_observation	theorem	M	proved [k]
+I4.220	PassivelyIncomplete	hypothesis-structure	M	assumed
+I4.221	KeepsLabels	definition-as-hypothesis	M	assumed
+I4.222	PassivelyCompleteOnDiagonal	hypothesis-structure	M	assumed
+I4.223	passive_not_implies_oiCore	theorem	M	proved [k]
+I4.224	sector_diagram	theorem	M	proved [k]
+I4.225	MinimalCarrier	definition-as-hypothesis (the itinerary quotient S/∼_∞ of a 	H	-
+I4.226	ObservationCongruence	definition-as-hypothesis	H	assumed
+I4.227	PassivelyMinimal	hypothesis-structure	H	assumed
+I4.228	quotient_itinerarySeparating	theorem	H	proved [k]
+I4.229	passiveMinimal_iff_itinerarySeparating	theorem	H	proved [k]
+I4.230	passiveQuotient_glue_forces_G1	theorem	H	proved [k]
+I4.231	hiddenExt_not_separating	theorem	H	proved [k]
+I4.232	hiddenExt_same_law	theorem	H	proved [k]
+I4.233	Kₙ — elementary-to-arbitrary-carrier lift	obligation (ROADMAP)	G	open
+I4.234	Kₙ census — disposition and §1 (no theorem consumes the reconstructed ball)	obligation (ROADMAP) -- the landed classification audit of t	G	open
+I4.235	Kₙ census §3 — the K3 interfaces take every finite carrier as given	obligation (ROADMAP) -- audit finding	G	open
+I4.236	Kₙ census §4 — scope of K∞'s geometric branch	obligation (ROADMAP) -- audit finding (exact check on diagon	O	refuted
+I4.237	K3 — the operations	obligation (ROADMAP)	M	conditional
+I4.238	H-∞ — finite to continuum / infinite-dimensional completion	obligation (ROADMAP)	G	open
+I4.239	Settled negatively — INDEPENDENT (phases; dense control; executable intermediate	obligation (ROADMAP) -- settled findings	H	proved [k]
+I4.240	substratumTheory	definition-as-hypothesis (the theory generated by the monomi	H	-
+I4.241	DerivedOI	hypothesis-structure (the consequence closure of the substra	M	assumed
+I4.242	ConfigurationLevel	hypothesis-structure	H	assumed
+I4.243	HControl	hypothesis-structure (the drift/control Lie-rank certificate	M	assumed
+I4.244	ElementaryTransitionRichness	hypothesis-structure (a form of reversible richness: the ele	M	assumed
+I4.245	OIPlusElem	hypothesis-structure	M	assumed
+I4.246	HComp	hypothesis-structure (the round-24 compositional hypothesis 	M	assumed
+I4.247	OnesFixing	hypothesis-structure	H	assumed
+I4.248	SourcedOI	hypothesis-structure	H	assumed

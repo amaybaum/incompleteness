@@ -1,0 +1,94 @@
+  PASS  T the four reference module blobs are readable
+  PASS  T the landed texts read from D are the frozen ones
+  PASS  N1 RelcSelectParity declares exactly its frozen declarations [reference]
+  PASS  N2 RelcSelectParity: the preamble and every context block unchanged and in order [reference]
+  PASS  N2 RelcSelectParity: every frozen statement and definition unchanged [reference]
+  PASS  N3 RelcSelectParity: no sorry, admit, axiom or native_decide; every frozen #print axioms line present [reference]
+  PASS  N1 RelcSelectBlock declares exactly its frozen declarations [reference]
+  PASS  N2 RelcSelectBlock: the preamble and every context block unchanged and in order [reference]
+  PASS  N2 RelcSelectBlock: every frozen statement and definition unchanged [reference]
+  PASS  N3 RelcSelectBlock: no sorry, admit, axiom or native_decide; every frozen #print axioms line present [reference]
+  PASS  N1 RelcSelectSqueeze declares exactly its frozen declarations [reference]
+  PASS  N2 RelcSelectSqueeze: the preamble and every context block unchanged and in order [reference]
+  PASS  N2 RelcSelectSqueeze: every frozen statement and definition unchanged [reference]
+  PASS  N3 RelcSelectSqueeze: no sorry, admit, axiom or native_decide; every frozen #print axioms line present [reference]
+  PASS  N1 RelcSelectC5 declares exactly its frozen declarations [reference]
+  PASS  N2 RelcSelectC5: the preamble and every context block unchanged and in order [reference]
+  PASS  N2 RelcSelectC5: every frozen statement and definition unchanged [reference]
+  PASS  N3 RelcSelectC5: no sorry, admit, axiom or native_decide; every frozen #print axioms line present [reference]
+  PASS  S1 parity from IsNot and relC alone; the parity module free of relT, the frame and positivity [reference]
+  PASS  S2 CtrlGate is NativeGate without relT; IsNot and CtrlGate give d = 1 ∨ d = 3, Entangling d = 3; the copy is the landed proof; no relT read [reference]
+  PASS  S3 at d = 5, gSq fails posInv and gSq.symm fails posFwd with every other clause; the relC transfer takes relT [reference]
+  PASS  S4 at d = 5, gC5 with nC5 has the frame, relT and both positivity clauses and fails relC; the selector does not follow [reference]
+  PASS  S6 no complex field or landed dimension selector; only the frozen selector theorems conclude on d; no native gate concluded [reference]
+  PASS  S7 no declaration shares a name with a visible OIBridge declaration or another module of the round; the imports are the frozen ones [reference]
+  PASS  S8 the comments of the modules carry none of the frozen phrases [reference]
+  PASS  S9 exactly the frozen #print axioms lines of each module (2, 5, 15, 12), distinct, each naming a declaration of its module [reference]
+  PASS  V one outcome per cell by the frozen rules: RELC-PARITY-PROVED, CTRL-SELECTOR-PROVED, POSITIVITY-SEPARATION-PROVED, RELT-NOT-DIMENSION-SELECTING-PROVED [reference]
+  PASS  T the reference modules read RELC-PARITY-PROVED, CTRL-SELECTOR-PROVED, POSITIVITY-SEPARATION-PROVED, RELT-NOT-DIMENSION-SELECTING-PROVED
+  PASS  T the copy check passes on the reference block module
+  PASS  M mutation a renamed declaration fails with N1
+  PASS  M mutation a changed binder context fails with N2
+  PASS  M mutation a changed open line fails with N2
+  PASS  M mutation a restated conclusion fails with N2
+  PASS  M mutation a sorry fails with N3
+  PASS  M mutation a print removed fails with N3
+  PASS  M mutation the control relation replaced by GateRel fails with S1
+  PASS  M mutation the target relation added to the parity corollary fails with S1
+  PASS  M mutation the count weakened to an inequality fails with S1
+  PASS  M mutation a parity proof reading a landed relT lemma fails with S1
+  PASS  M decision rule: a broken parity theorem reads RELC-PARITY-NOT-ESTABLISHED and CTRL-SELECTOR-NOT-ESTABLISHED, whose parity step it is, and leaves the other two cells
+  PASS  M landed: a landed relC field that differs fails all four cells
+  PASS  M landed: a landed balance lemma that differs fails the parity cell alone
+  PASS  M landed: a landed relT field that differs fails the positivity and relation cells and leaves the parity and selector cells, which do not read relT
+  PASS  M mutation relT restored to CtrlGate fails with S2
+  PASS  M mutation posInv dropped from CtrlGate fails with S2
+  PASS  M mutation the selector strengthened to d = 3 fails with S2
+  PASS  M mutation the landed parity line restored fails with S2
+  PASS  M mutation the relT step restored in the block reduction fails with S2
+  PASS  M mutation a copied proof token changed fails with S2
+  PASS  M mutation a landed native-gate lemma referenced fails with S2
+  PASS  M mutation the entangling clause dropped fails with S2
+  PASS  M reuse: a relT reader named through its namespace is found
+  PASS  M reuse: a landed native-gate lemma named through its namespace is found
+  PASS  M decision rule: a broken selector reads CTRL-SELECTOR-NOT-ESTABLISHED and leaves the other cells
+  PASS  M landed: a landed selector that differs fails the selector cell alone
+  PASS  M landed: a landed d = 3 native gate that differs fails the selector cell alone
+  PASS  M landed: a landed copied declaration that differs fails the selector cell alone
+  PASS  M landed: a landed posInv field that differs fails every cell but parity
+  PASS  M mutation the failure of inverse positivity dropped from gSq_sep fails with S3
+  PASS  M mutation the inverse positivity of gSq.symm restated as its forward positivity fails with S3
+  PASS  M mutation the transfer of relC to the inverse without relT fails with S3
+  PASS  M mutation the value changed to a sign fails with S3
+  PASS  M mutation the squeeze removed fails with S3
+  PASS  M mutation GateRel weakened to the control relation in gSq_sep fails with S3
+  PASS  M decision rule: a broken positivity witness reads POSITIVITY-SEPARATION-NOT-ESTABLISHED and leaves the other cells
+  PASS  M landed: a landed n5 that differs fails the positivity cell alone
+  PASS  M landed: a landed GateRel that differs from the landed relations fails the positivity cell alone
+  PASS  M mutation the failure of relC dropped from c5_sep fails with S4
+  PASS  M mutation relC in place of relT in the non-selection statement fails with S4
+  PASS  M mutation inverse positivity dropped from the non-selection statement fails with S4
+  PASS  M mutation a sign of the gate changed fails with S4
+  PASS  M mutation the witness NOT replaced by the landed n5 fails with S4
+  PASS  M mutation the non-selection conclusion changed fails with S4
+  PASS  M decision rule: a broken relation witness reads RELT-NOT-DIMENSION-SELECTING-NOT-ESTABLISHED and leaves the other cells
+  PASS  M landed: a landed z5 that differs fails the positivity and relation cells
+  PASS  M mutation a complex field fails with S6
+  PASS  M mutation a positive native gate fails with S6
+  PASS  M mutation a conclusion on d outside the selector fails with S6
+  PASS  M mutation the landed selector read fails with S6
+  PASS  M mutation a landed definition re-declared fails with S7
+  PASS  M mutation a declaration of another module of the round re-declared fails with S7
+  PASS  M mutation a second import fails with S7
+  PASS  M mutation a global redundancy claim in a header fails with S8
+  PASS  M mutation an implication between the positivity clauses in a docstring fails with S8
+  PASS  M mutation the design header fails with S8
+  PASS  M phrases: the frozen earned reading and non-inference rule pass when stated; each passes nowhere else
+  PASS  M phrases: unqualified or global claims fail
+  PASS  M mutation an extra print fails with S9
+  PASS  M mutation a duplicated print fails with S9
+  PASS  M note tokens: exactly the stated tokens are found
+  PASS  M earned reading: found when quoted across lines, not found when one sentence is changed
+  PASS  M imports: the frozen edit passes; a dropped line and a reordered pair fail
+  PASS  M census: the frozen edit passes; a changed status, a moved family, a whitespace change and the unchanged file fail
+controls: OK -- 93 checks

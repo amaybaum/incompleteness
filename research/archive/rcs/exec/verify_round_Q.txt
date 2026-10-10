@@ -1,0 +1,5 @@
+ATTESTATION  owner-designation F 1003b029b494  recorded, unverified: https://github.com/amaybaum/incompleteness/pull/805#issuecomment-6052968158
+ATTESTATION  check-run F 1003b029b494  recorded, unverified: https://github.com/amaybaum/incompleteness/actions/runs/37727395526
+ATTESTATION  owner-designation E 7ba0461a47e7  recorded, unverified: https://github.com/amaybaum/incompleteness/pull/805#issuecomment-6054210214
+ATTESTATION  check-run E 7ba0461a47e7  recorded, unverified: https://github.com/amaybaum/incompleteness/actions/runs/37734381834
+VERDICT  HOLDS

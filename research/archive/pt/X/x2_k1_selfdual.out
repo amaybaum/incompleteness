@@ -1,0 +1,26 @@
+INFO family sizes: T1=6560 T2=3160 T3=9880 T4=1770
+
+== T  (GL) for e = pauliW(E0) on exact families (instance-scoped; the universal statement is lemma SD1 [W])
+INFO T1: members with tr(z e) < 0: 408; (GL) holds on 408
+PASS T1  [enumerate] (GL) holds on every member with tr(z e) < 0 of: pure states z = v v^*, v Gaussian-integer in {a+bi: a,b in {-1,0,1}}^4
+INFO T2: members with tr(z e) < 0: 189; (GL) holds on 189
+PASS T2  [enumerate] (GL) holds on every member with tr(z e) < 0 of: rank-2 real mixtures, all pairs of the 80 nonzero vectors of {-1,0,1}^4
+INFO T3: members with tr(z e) < 0: 294; (GL) holds on 294
+PASS T3  [enumerate] (GL) holds on every member with tr(z e) < 0 of: rank-3 real mixtures, all triples of 40 sign-representatives
+INFO T4: members with tr(z e) < 0: 9; (GL) holds on 9
+PASS T4  [enumerate] (GL) holds on every member with tr(z e) < 0 of: rank-2 complex mixtures, all pairs of 60 Gaussian representatives
+
+== C  countercontrols: the same test must reject defects that violate e >= beta(I - 2 g g^*)
+INFO C1: members with tr(z e) < 0: 824; (GL) holds on 456; first failure: v v^*, v=(-1-1i, -1+0i, 0+1i, 0+1i)
+PASS C1  [countercontrol] (GL) fails on T1 for e_c = (I + (3/2)(X(x)Z - Y(x)Y))/4 (not in maxCone; spectrum {1,4,-2,1}/4): K(e) is not self-dual (witness x = z + tau e in K(e)^* \ K(e))
+INFO C2: members with tr(z e) < 0: 296; (GL) holds on 120; first failure: v v^*, v=(0+0i, -1-1i, 0+1i, -1-1i)
+PASS C2  [countercontrol] (GL) fails on T1 for W = (|phi><phi|)^{T_B}, phi = (24|00> + 7|11>)/25 (block-positive; spectrum {576, 49, 168, -168}/625): K(e) is not self-dual (witness x = z + tau e in K(e)^* \ K(e))
+
+== P  the self-duality procedure: accept Q3 and K1, reject maxCone, K_E, SEP, K_gen
+PASS P1  [countercontrol] Q3 accepted: (S1) pairings tr(z z') >= 0 on the 80 real pure states; (S2) the dual probes (Q3^* = Q3 [K JordanClassification.lean:84]) are PSD
+PASS P2  [countercontrol] maxCone and K_E rejected by (S1): E0 (in K_E, x1_k1_core C2 + B1) and P_v (in Q3, contained in K_E) have ipW(E0, P_v) = -1 < 0
+PASS P3  [countercontrol] SEP and K_gen rejected by (S2): the dual probe E0 (in maxCone = SEP^* and K_E = K_gen^*) is not PSD, and SEP <= K_gen <= Q3
+PASS P4  [witness] K1 accepted: (S1) generators E0 and PSD z with tr(z e) >= 0 pair nonnegatively by construction, ipW(E0, E0) = 4 tr(e e) = 3; (S2) the dual probes z + tau E0 from T1-T4 are PSD on E0^perp (T1-T4)
+
+kinds: enumerate 4, witness 1, countercontrol 5
+VERDICT X2-K1-SELFDUAL-INSTANCES -- 10 checks (instance-scoped; universal step = lemma SD1 [W])

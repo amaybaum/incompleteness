@@ -1,0 +1,132 @@
+
+# ---- A41: the 4x4 hull census through SIG under every alignment ---------------------------------------------------
+# A 4x4 hull at a realizing index map and a choice of Fourier circle through X and through each Y_c is the family
+# SIG o prod_k t_k^{v_k} over its twenty-one generating exponent vectors; as a set of matrices it is determined by the
+# rational span of the v_k, and modulo the gauge by that span plus the gauge. Hulls are compared by those spans, exactly.
+import hashlib, os
+A41_RECORD = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'programmes', 'oi-qm', 'track-b', 'act-41-index-map-semantics', 'measurements.json')
+print('== A41-H1. every valid alignment of every 4x4 partition structure of SIG, in both orientations ==')
+def a41_exact_at(H, cp, rows, m, n):
+    col = {(c, d): cp[c][d] for c in range(m) for d in range(n)}; row = {(a, b): rows[b][a] for a in range(m) for b in range(n)}
+    lam = {}; Y = []
+    for c in range(m):
+        Yc = []
+        for b in range(n):
+            i0 = row[(0, b)]; base = [H[i0][col[(c, d)]] for d in range(n)]; Yc.append(base)
+            for a in range(m): lam[(a, b, c)] = H[row[(a, b)]][col[(c, 0)]] * base[0].conj()
+        Y.append(Yc)
+    if not all(lam[(a, b, c)] == lam[(a, 0, c)] * lam[(0, b, c)] for a in range(m) for b in range(n) for c in range(m)): return None
+    X = [[lam[(a, 0, c)] for c in range(m)] for a in range(m)]
+    if not (is_unitary_s(X, m) and all(is_unitary_s(Yc, n) for Yc in Y)): return None
+    return X, Y, row, col
+def a41_hull_vectors(kind, row, col, xi, etas):
+    vecs = []
+    v = [0] * 256
+    for a in range(4):
+        for b in range(4):
+            for c in range(4):
+                for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = xi[a * 4 + c]
+    vecs.append(v)
+    for c in range(4):
+        v = [0] * 256
+        for a in range(4):
+            for b in range(4):
+                for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = etas[c][b * 4 + d]
+        vecs.append(v)
+    for c in range(4):
+        for b in range(4):
+            v = [0] * 256
+            for a in range(4):
+                for d in range(4): v[row[(a, b)] * 16 + col[(c, d)]] = 1
+            vecs.append(v)
+    if kind == 'row': vecs = [[v[(mm % 16) * 16 + mm // 16] for mm in range(256)] for v in vecs]
+    return vecs
+A41_SORTED = tuple(range(4))
+a41_sorted_agree = True
+a41_params = 0; a41_sorted_params = 0; a41_gensets = {}; a41_per = []
+for kind, H in (('column', SIG), ('row', SIGT)):
+    for cp, rws, ok, _, _ in dita_orientations(H, 4, 4):
+        nal = 0; npar = 0; sorted_valid = False
+        for s in itertools.product(itertools.permutations(range(4)), repeat=3):
+            rows = [rws[0]] + [tuple(rws[b + 1][s[b][a]] for a in range(4)) for b in range(3)]
+            r = a41_exact_at(H, cp, rows, 4, 4)
+            if r is None: continue
+            nal += 1; is_sorted = all(x == A41_SORTED for x in s); sorted_valid = sorted_valid or is_sorted
+            X, Y, row, col = r
+            dX = circle_directions(X); dY = [circle_directions(Yc) for Yc in Y]
+            for choice in itertools.product(dX, *dY):
+                vecs = a41_hull_vectors(kind, row, col, choice[0], choice[1:])
+                a41_params += 1; npar += 1; a41_sorted_params += is_sorted
+                k = frozenset(tuple(v) for v in vecs)
+                if k not in a41_gensets: a41_gensets[k] = [vecs, False]
+                if is_sorted: a41_gensets[k][1] = True
+        a41_per.append([kind, sorted(map(sorted, cp)), sorted(map(sorted, rws)), nal, npar])
+        a41_sorted_agree = a41_sorted_agree and (sorted_valid == bool(ok))
+check('control: for every 4x4 partition candidate of SIG, the sorted alignment is valid here exactly when act 36\'s search reports it exact', a41_sorted_agree, True)
+print('  (%.0fs)' % (time.time() - t0))
+
+print('== A41-H2. distinct hulls, exactly: as matrix families and modulo the gauge ==')
+def a41_canon(rows_):
+    R_, P_ = rref([list(r) for r in rows_], 256)
+    return tuple(tuple(r) for r in R_ if any(r))
+a41_reps = list(a41_gensets.values())
+a41_kmat = [a41_canon(v) for v, s in a41_reps]
+a41_kcls = [a41_canon(GAUGE + v) for v, s in a41_reps]
+a41_mat = {}; a41_cls = {}
+for i, (km, kc) in enumerate(zip(a41_kmat, a41_kcls)):
+    a41_mat.setdefault(km, i); a41_cls.setdefault(kc, i)
+a41_map = {}
+for km, kc in zip(a41_kmat, a41_kcls): a41_map.setdefault(km, set()).add(kc)
+a41_bij = all(len(v) == 1 for v in a41_map.values()) and len({next(iter(v)) for v in a41_map.values()}) == len(a41_map) == len(a41_cls)
+a41_sorted_mat = len({a41_kmat[i] for i, (v, s) in enumerate(a41_reps) if s}); a41_sorted_cls = len({a41_kcls[i] for i, (v, s) in enumerate(a41_reps) if s})
+print('  (%.0fs)' % (time.time() - t0))
+print('== A41-H3. a second equality test: buckets by a reduction modulo a prime, equality within buckets by exact joint rank ==')
+A41_P = (1 << 61) - 1
+def a41_rref_p(rows_):
+    R_ = [[x % A41_P for x in r] for r in rows_]; out = []; col = 0; nr = len(R_)
+    piv_rows = []
+    for c in range(256):
+        pr = next((i for i in range(len(piv_rows), nr) if R_[i][c]), None)
+        if pr is None: continue
+        k = len(piv_rows); R_[k], R_[pr] = R_[pr], R_[k]
+        inv = pow(R_[k][c], A41_P - 2, A41_P); R_[k] = [(x * inv) % A41_P for x in R_[k]]
+        for i in range(nr):
+            if i != k and R_[i][c]:
+                f = R_[i][c]; R_[i] = [(x - f * y) % A41_P for x, y in zip(R_[i], R_[k])]
+        piv_rows.append(c)
+    return tuple(tuple(r) for r in R_[:len(piv_rows)])
+def a41_second_count(with_gauge):
+    buckets = {}
+    for i, (v, s) in enumerate(a41_reps): buckets.setdefault(a41_rref_p((GAUGE if with_gauge else []) + v), []).append(i)
+    n = 0
+    for idx in buckets.values():
+        reps = []
+        for i in idx:
+            base = (GAUGE if with_gauge else []) + a41_reps[i][0]; r_i = rank(base)
+            if not any(rank(base + a41_reps[j][0]) == r_i == rank((GAUGE if with_gauge else []) + a41_reps[j][0]) for j in reps): reps.append(i)
+        n += len(reps)
+    return n
+a41_second = (a41_second_count(False), a41_second_count(True))
+print('  (%.0fs)' % (time.time() - t0))
+print('== A41-H4. every distinct hull: tangent dimension, ker DF, the second-order form; the combined span; W ==')
+a41_dims = sorted(set(len(k) - 31 for k in a41_cls))
+a41_dF = all(all(in_ker_df(v) for v in a41_reps[i][0]) and all(q_zero(u, w) for u in a41_reps[i][0] for w in a41_reps[i][0]) for i in a41_mat.values())
+a41_span = rank(GAUGE + [v for i in a41_cls.values() for v in a41_reps[i][0]]) - 31
+a41_W = sum(1 for i in a41_cls.values() if rank(GAUGE + a41_reps[i][0] + [list(W)]) == rank(GAUGE + a41_reps[i][0]))
+check('the sorted control: the parametrizations at the sorted alignments are act 36\'s 492', a41_sorted_params, 492)
+print('  (%.0fs)' % (time.time() - t0))
+A41_OBJ = {'params': a41_params, 'sorted_params': a41_sorted_params, 'gensets': len(a41_reps), 'distinct_mat': len(a41_mat),
+           'distinct_gauge': len(a41_cls), 'bijection': a41_bij, 'sorted_distinct_mat': a41_sorted_mat, 'sorted_distinct_gauge': a41_sorted_cls,
+           'dims': a41_dims, 'dF_ok': a41_dF, 'span': a41_span, 'W_in': a41_W, 'second_test': list(a41_second), 'per_structure': a41_per}
+A41_JSON = json.dumps(A41_OBJ, sort_keys=True, separators=(',', ':'))
+print('A41-MEASUREMENTS hulls ' + A41_JSON)
+print('A41-SHA256 hulls ' + hashlib.sha256(A41_JSON.encode()).hexdigest())
+a41_mode = 'MEASURED'
+if os.path.exists(A41_RECORD):
+    rec = json.load(open(A41_RECORD, encoding='utf-8'))
+    check('replay: the measurement equals the committed measurements.json, elementwise', json.loads(A41_JSON) == rec.get('hulls'), True)
+    a41_mode = 'REPLAYED'
+print()
+if fails:
+    print('dita_index_map_hulls: FAILED (%d): %s' % (len(fails), fails)); sys.exit(1)
+print('dita_index_map_hulls: OK -- %s: %d parametrizations, %d distinct hulls as matrix families, %d modulo the gauge' % (a41_mode, a41_params, len(a41_mat), len(a41_cls)))

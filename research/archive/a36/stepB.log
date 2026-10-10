@@ -1,0 +1,31 @@
+adapted basis: gauge 31, Diţă 26, residual 23 (45s)
+control: B(gauge, ker) == 0 in coker: True
+control: B(T, T) == 0 in coker (Diţă directions integrate): False
+B computed (49s)
+rank of B on Sym^2(R): 30  rank of B on T x R: 44  rank of B on Sym^2(Def): 47
+r_ 0: self-obstruction no  | solvable with a Diţă correction: yes | couples to  6 Diţă directions (rank  3) | couples to  9 other residual directions
+r_ 1: self-obstruction yes | solvable with a Diţă correction: no  | couples to 12 Diţă directions (rank  4) | couples to 11 other residual directions
+r_ 2: self-obstruction no  | solvable with a Diţă correction: yes | couples to  8 Diţă directions (rank  3) | couples to  9 other residual directions
+r_ 3: self-obstruction yes | solvable with a Diţă correction: no  | couples to 11 Diţă directions (rank  4) | couples to  7 other residual directions
+r_ 4: self-obstruction no  | solvable with a Diţă correction: yes | couples to  8 Diţă directions (rank  2) | couples to  6 other residual directions
+r_ 5: self-obstruction no  | solvable with a Diţă correction: yes | couples to 10 Diţă directions (rank  4) | couples to 10 other residual directions
+r_ 6: self-obstruction yes | solvable with a Diţă correction: no  | couples to 13 Diţă directions (rank  5) | couples to 16 other residual directions
+r_ 7: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  5) | couples to 10 other residual directions
+r_ 8: self-obstruction no  | solvable with a Diţă correction: yes | couples to  6 Diţă directions (rank  3) | couples to  9 other residual directions
+r_ 9: self-obstruction no  | solvable with a Diţă correction: yes | couples to  8 Diţă directions (rank  3) | couples to  9 other residual directions
+r_10: self-obstruction no  | solvable with a Diţă correction: yes | couples to 10 Diţă directions (rank  4) | couples to 10 other residual directions
+r_11: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  9) | couples to 17 other residual directions
+r_12: self-obstruction yes | solvable with a Diţă correction: no  | couples to 13 Diţă directions (rank  5) | couples to 16 other residual directions
+r_13: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  9) | couples to 17 other residual directions
+r_14: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  9) | couples to 11 other residual directions
+r_15: self-obstruction yes | solvable with a Diţă correction: no  | couples to 14 Diţă directions (rank  5) | couples to 10 other residual directions
+r_16: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  9) | couples to 11 other residual directions
+r_17: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  9) | couples to 17 other residual directions
+r_18: self-obstruction yes | solvable with a Diţă correction: no  | couples to 16 Diţă directions (rank  9) | couples to 11 other residual directions
+r_19: self-obstruction yes | solvable with a Diţă correction: no  | couples to 12 Diţă directions (rank  4) | couples to 11 other residual directions
+r_20: self-obstruction yes | solvable with a Diţă correction: no  | couples to 11 Diţă directions (rank  4) | couples to  7 other residual directions
+r_21: self-obstruction yes | solvable with a Diţă correction: no  | couples to 15 Diţă directions (rank  9) | couples to 17 other residual directions
+r_22: self-obstruction yes | solvable with a Diţă correction: no  | couples to 16 Diţă directions (rank  9) | couples to 11 other residual directions
+summary: 7 of 23 basis directions self-unobstructed; 7 of 23 second-order extendable after a Diţă correction
+float control: rank DF 176 | rank gauge+T 57 | rank B on Sym^2(R) 30 | rank on Sym^2(Def) 47
+done (50s)

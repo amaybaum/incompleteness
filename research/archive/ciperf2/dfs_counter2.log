@@ -1,0 +1,8 @@
+{"shard": 4, "n": 0, "mode": "new", "agg": {"old": [0.0, 0, 0, 0], "new": [0.0, 0, 0, 0]}, "mismatches": 0}
+M1 0x2f2f landed (9621, 1032, 0) mutant (117, 24, 0)
+M2 0x2f2f landed (9621, 1032, 0) mutant (1941, 264, 0)
+M1 0x5e5e landed (9621, 1032, 0) mutant (117, 24, 0)
+M2 0x5e5e landed (9621, 1032, 0) mutant (1941, 264, 0)
+M1 0x7a7a landed (9621, 1032, 0) mutant (117, 24, 0)
+M2 0x7a7a landed (9621, 1032, 0) mutant (1941, 264, 0)
+row sets scanned 335; changed by M1 8, by M2 7 (296s)

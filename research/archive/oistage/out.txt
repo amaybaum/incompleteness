@@ -1,0 +1,31 @@
+PASS T0 phi, flipH, swapPH are bijections of Omega
+PASS T1 forward maps are inclusions: P_n subset P_{n+1}, E_n subset E_{n+1} (comp_E, comp_P by rfl)
+PASS T2 table entries lie in [0,1] (stage 2)
+PASS T3 unit effect reads 1 on every preparation (stage 3)
+PASS T4 SC-infinity: the table does not depend on the stage (same function p), so every forward map carries it
+PASS T5 every stage is finite (|P_3|, |E_3| finite)
+PASS A1 with prefix-closed effects every action and the time step respect affine relations (relations read on E_2, images read on E_1)
+PASS A2 inverse data: f.f = id, s.s = id, idle^4 = id on Omega (Undoes holds read on every effect)
+PASS A3 countermodel: with observation-only effects the hidden-bit swap breaks affine relations
+PASS A4 control: on the same preparations the hidden-bit flip respects them
+PASS A5 passivity: for every stage-2 preparation, observe-and-forget = idle on every stage-1 effect
+   trial 0 distinct posteriors to horizon 5: 273 all permuted restrictions of mu: True
+   trial 1 distinct posteriors to horizon 5: 353 all permuted restrictions of mu: True
+   trial 2 distinct posteriors to horizon 5: 289 all permuted restrictions of mu: True
+   trial 3 distinct posteriors to horizon 5: 335 all permuted restrictions of mu: True
+   trial 4 distinct posteriors to horizon 5: 171 all permuted restrictions of mu: True
+   trial 5 distinct posteriors to horizon 5: 105 all permuted restrictions of mu: True
+PASS P1 NG1: on six random finite substrata every hidden posterior (to horizon 5) is a normalized permuted restriction of mu -- a set of at most N!*2^N measures -- so the body is a polytope
+PASS P2 every natural operation of the toy has finite order (phi^4 = 1, f^2 = s^2 = 1)
+   Hankel ranks of the rotation model, n = 1..4: [2, 4, 6, 8]
+PASS R1 the hidden-rotation model has Hankel rank growing with the horizon (no FiniteRank)
+PASS Q1 the control tower has finite rank: its preparation-by-effect table has rank 3 (horizon 2)
+PASS Q2 its prepared states lie in the unit disk
+PASS Q3 idle is the Pythagorean rotation: an isometry of infinite order (40 distinct iterates of a state), so the body is invariant under an infinite-order automorphism and is not a polytope
+PASS Q4 the control is invasive: observe-and-forget = R diag(1,1,4/5) differs from idle = R
+PASS L1 four boundary rays of the disk cone (Pythagorean angles 0..3a) are in general position
+PASS L2 a linear map with those four rays as eigenvectors is scalar (l1 = l2 = l3 = l0)
+expected-false OK CC1 claim the swap respects relations with observation-only effects
+expected-false OK CC2 claim the rotation model has constant Hankel rank
+expected-false OK CC3 claim the control tower is passive
+OK -- 20/20 checks, 3 countercontrols expected-false

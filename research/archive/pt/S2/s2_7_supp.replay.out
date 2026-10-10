@@ -1,0 +1,15 @@
+PASS U0.pc/pt transcription
+PASS U0.cnot involution
+PASS U0.cnot pxz = phiW
+PASS U1.cnot o G_t = actT Rz
+PASS U1.s_c pure
+PASS U1.s_c outside K_gen (table ranks of s_c and cnot s_c > 1)  [4, 4]
+PASS countercontrol U1.with Rz = I the table lies outside K_gen fails as required  [4, 1]
+PASS U2.G_r frame
+PASS U2.G_r relC
+PASS U2.exact negative value of G_r(G_r(prodState x y)) (inconsistent)  [((1, 0, 0), (1, 0, 0), (-1, 0, 0), (0, 1, 0), Fraction(-11, 50))]
+PASS U3.g_Tw o sigma o cnot = sigma
+PASS U3.cnot(g_Tw(pxz)) = chainW
+PASS U3.value -1/2 at the sharp effects of -e1, -e3
+SUMMARY checks passed=13 all_ok=True
+VERDICT SUPPLEMENT: the CtrlGate family generates tables outside K_gen (exact pure witness); an improper target pre-local in the CtrlGate family is inconsistent; the odd class cone sigma K_gen is g_Tw-invariant and not cnot-invariant (chainW, -1/2)

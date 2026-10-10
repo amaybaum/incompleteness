@@ -1,0 +1,94 @@
+/-
+  CANDIDATE ONLY. Not compiled, not landed, not a kernel result. Thread P (wave 2), drafted against
+  L = f7f5c3b0. Every identifier not defined here is landed at L (file:line in RESULT.md).
+  Proof sketches are indicated; nothing below may be cited as "proved".
+-/
+import OIBridge.OrbitNormalization
+
+namespace OIBridge
+namespace SeedOrbitLicence
+
+open Set KInfFoundations OrbitGeneration OrbitNormalization
+
+variable {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
+
+/-! ### §A — the generic step: generator-closed families carry the whole word orbit -/
+
+/-- A family closed under precomposition with every generator and its inverse. -/
+def GenClosed (S : Set (V ≃ᵃ[ℝ] V)) (A : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+  ∀ e ∈ A, ∀ s ∈ S, e.comp s.toAffineMap ∈ A ∧ e.comp s.symm.toAffineMap ∈ A
+
+/-- P-1. A generator-closed family containing the seed contains its whole word orbit.
+Sketch: `Subgroup.closure_induction` on `P g := ∀ e ∈ A, e ∘ g⁻¹ ∈ A ∧ e ∘ g ∈ A`;
+mul uses `(g*k) x = g (k x)` (`mul_apply'`, ON:69): `e ∘ (gk)⁻¹ = (e ∘ k⁻¹) ∘ g⁻¹`, `e ∘ gk = (e ∘ g) ∘ k`. -/
+theorem seedOrbitAvailable_of_genClosed {S : Set (V ≃ᵃ[ℝ] V)} {r : V →ᵃ[ℝ] ℝ}
+    {A : Set (V →ᵃ[ℝ] ℝ)} (hr : r ∈ A) (hA : GenClosed S A) :
+    SeedOrbitAvailable (words S) r A := sorry
+
+/-- P-2, the circularity certificate. V4′ on the words is EXACTLY the existence of a
+generator-closed subfamily containing the seed (witness: `seedOrbit (words S) r`). -/
+theorem seedOrbitAvailable_words_iff {S : Set (V ≃ᵃ[ℝ] V)} {r : V →ᵃ[ℝ] ℝ}
+    {avail : Set (V →ᵃ[ℝ] ℝ)} :
+    SeedOrbitAvailable (words S) r avail ↔ ∃ A ⊆ avail, r ∈ A ∧ GenClosed S A := sorry
+
+/-! ### §B — the minimal operational extension: one system, no composite -/
+
+/-- An operational theory over a body: available effects and available transformations.
+The two consistency fields are not used by P-4; they make `SeqClosed` coherent (control E5). -/
+structure BodyOperationalTheory (Ω : Set V) where
+  eff : Set (V →ᵃ[ℝ] ℝ)
+  trans : Set (V ≃ᵃ[ℝ] V)
+  eff_effect : ∀ e ∈ eff, IsEffectOn Ω e
+  trans_maps : ∀ T ∈ trans, ∀ x ∈ Ω, T x ∈ Ω
+
+/-- SEQ (named hypothesis, NOT a field): a test performed after an available transformation is
+an available test. Schrödinger reading: the state is transformed first, then read. -/
+def SeqClosed {Ω : Set V} (Θ : BodyOperationalTheory Ω) : Prop :=
+  ∀ e ∈ Θ.eff, ∀ T ∈ Θ.trans, e.comp T.toAffineMap ∈ Θ.eff
+
+/-- TRANS± (named hypothesis): the drive's flow, `J` and `J⁻¹` are available transformations.
+Not contained in `ElementaryDrivability` (KF:264), which carries no availability. -/
+def DriveAvailable {Ω : Set V} (Θ : BodyOperationalTheory Ω) (D : ElementaryDrivability Ω) :
+    Prop :=
+  (∀ t, D.flow t ∈ Θ.trans) ∧ D.J ∈ Θ.trans ∧ D.J.symm ∈ Θ.trans
+
+/-- P-3. Consistency: SEQ never leaves the effects (uses `trans_maps`, `eff_effect`). -/
+theorem isEffectOn_comp_of_trans {Ω : Set V} (Θ : BodyOperationalTheory Ω) {e : V →ᵃ[ℝ] ℝ}
+    {T : V ≃ᵃ[ℝ] V} (he : e ∈ Θ.eff) (hT : T ∈ Θ.trans) :
+    IsEffectOn Ω (e.comp T.toAffineMap) := sorry
+
+/-- P-4, THE CANDIDATE LICENCE. SEED-AVAIL + SEQ + TRANS± ⟹ V4′ on the drive's words.
+Sketch: `GenClosed (range D.flow ∪ {D.J}) Θ.eff` from SEQ and TRANS±, with
+`(D.flow t).symm = D.flow (-t)` (AffineEquiv.ext of `drive_flow_symm_apply`, OG:150); then P-1. -/
+theorem seedOrbitAvailable_of_operational {Ω : Set V} (Θ : BodyOperationalTheory Ω)
+    (D : ElementaryDrivability Ω) {r : V →ᵃ[ℝ] ℝ}
+    (hseed : r ∈ Θ.eff) (hseq : SeqClosed Θ) (htrans : DriveAvailable Θ D) :
+    SeedOrbitAvailable (words (Set.range D.flow ∪ {D.J})) r Θ.eff := sorry
+
+/-- P-5. On `ball3Drive` the `J⁻¹` clause is redundant: `cyc3.symm = cyc3 * cyc3` (exact E1.2). -/
+theorem cyc3_symm_eq_sq : cyc3.symm = cyc3 * cyc3 := sorry
+
+/-- P-6, the ball corollary (all inputs named; OG-1's P1 and K∞-R are landed facts on ball3Drive
+except P1, which is a hypothesis). Chain: P-4 → `ballEffect_mem_avail` (OG:369) with
+`preservesBody_driveWords3` (ON:674) and `boundaryTransitive_ball3Drive` (ON:667). -/
+theorem directional_available_of_operational (Θ : BodyOperationalTheory ball3)
+    {r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ} (hP1 : SharpSeed ball3 r) (hseed : r ∈ Θ.eff)
+    (hseq : SeqClosed Θ) (hflow : ∀ t, rot3 t ∈ Θ.trans) (hJ : cyc3 ∈ Θ.trans) :
+    ∀ b : Fin 3 → ℝ, (∑ j, b j ^ 2) = 1 → ballEffect b ∈ Θ.eff := sorry
+
+/-! ### §C — controls (each exact in p_checks.py) -/
+
+-- C+  (fullEffects ball3, fullAut3): SeqClosed ∧ DriveAvailable _ ball3Drive ∧ ballEffect e2 ∈ eff.
+-- CM0 eff = {1, 0}, trans = driveWords3: SeqClosed ∧ DriveAvailable, seed ∉ eff, ¬V4′.   (E10.1-2)
+-- CM1 eff = {be e2, be(-e2)}, trans = driveWords3: DriveAvailable ∧ seed ∈ eff ∧ ¬SeqClosed ∧ ¬V4′. (E2)
+-- CM2 eff = {be e2, be(-e2), 1, 0}, trans = range rot3: SeqClosed ∧ seed ∈ eff ∧ cyc3 ∉ trans ∧ ¬V4′. (E3)
+-- CM2' eff = {be e0, be e1, be e2}, trans = {1, cyc3, cyc3⁻¹}: SeqClosed ∧ seed ∈ eff ∧ ¬V4′ on
+--      driveWords3 (word rot3(arccos 3/5) * cyc3). (E10.3-5)
+-- CM3 avail = directionalFamily ∪ {unsharpSeed}: V4′(driveWords3) ∧ ¬GenClosed _ avail. (E4)
+-- CN  words {rot3 (arccos (3/5)), cyc3}: ¬ BoundaryTransitive ball3 (rational orbit; witness
+--      (√2/2, √2/2, 0)). (E8)
+-- NEC V4′ without any available transformation: (fullEffects ball3, {1}) satisfies V4′ for every
+--      G with PreservesBody (isEffectOn_seedTransport, OG:94). SEQ+TRANS is sufficient, not necessary.
+
+end SeedOrbitLicence
+end OIBridge

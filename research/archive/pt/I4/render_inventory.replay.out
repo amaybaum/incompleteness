@@ -1,0 +1,6021 @@
+# I4 inventory — generalization and completion (stage 6, Q-EX-FULL, step 1)
+
+Thread I4 of `PROTOCOL-STAGE6.md` (`b277b7c1…`). Base L = `9f9f8257a980a1819fbbc1dc0019917cf8678626` at
+`pt/base/` (read-only). Scope: the matrix-level and general-carrier layer — the Kₙ census, `GeneralCarrier`,
+`CompletedOI` / `CarrierGeneralOIPlus` (OI⁺; namespaces `OIHierarchy`, `OIHierarchyGeneral`),
+`ImplementationLocality` (namespace `InterventionLocality`), `MinimalRepertoire`, `PositivePackage`,
+`MicroscopicReversibility`, `PositiveReachability`, `StructuralClosure`, `SubstratumSource`, `SubstratumInterface`,
+`PhaseSource`, `ReadWriteControl`, `DerivedQ3`, `LiftAudit`, `ExecSource`, `LiftSource`, `FlowEndpoint`, `C5Discovery`,
+`StateMixingCoupling`, `PairFlowEquivalence`, `CoherentContinuumSource`, `EmbeddedObservation` (namespace
+`PrimitiveSource`), `ReferenceExtension`, `SpectatorBridge`, `TypedCompletion`, `TypedPositive`, `QuasilocalAlgebra`,
+`QuasilocalCharacterization`, `SecondOrderDrive`, `JordanClassification`, `OperationalRigidity`, `PassiveObservation`
+with `PassiveIndependence` and `PassiveQuotient`. The manuscript side is cross-referenced only (`CENSUS.md` §b).
+
+## How this file is made
+
+`INVENTORY.md` is the byte copy of `render_inventory.out`: `render_inventory.py` reads `records.txt` (the manual
+fields, written in parts) and quotes every kernel statement verbatim from `pt/base` — the docstring that ends just
+above the declaration, and the declaration itself (for a theorem, the signature to its `:=`; for a definition or
+structure, the whole declaration) — and every Markdown statement verbatim by line range. Each record's source line
+is checked to hold the record's name; the render's control line and verdict close the file. Provenance paths are
+relative to `pt/base/` (kernel files under `verification/lean-mathlib/OIBridge/`).
+
+## Field conventions
+
+- **id** `I4.<n>`: issued once, never renumbered. Cross-references inside records use declaration names and
+  `file:line` (stable at L), not ids.
+- **kind**: as `PROTOCOL-STAGE6.md` lists. A data definition the protocol names (an operation constructor such as
+  `withSpectator`, a carrier type, a class such as `substratumClass`) is recorded as *definition-as-hypothesis*
+  with status "-": a definition has no truth value; the hypotheses stated with it carry theirs. Type-valued
+  structures whose fields are propositions assumed of every instance (`FiniteOperationalTheory`,
+  `TypedOperationalTheory`, `QuasilocalSystem`, `ReversibleDynamics`, …) are recorded as *hypothesis-structure*.
+- **status**: theorems of the certified build are *proved [K]*. A Prop-valued definition used as a hypothesis is
+  *assumed* unless a kernel theorem discharges it; where a theorem discharges it for a particular object (for
+  example `substratumClass_structurallyClosed` for the substratum class) the record names that theorem and the
+  object, and the general status stays *assumed*. ROADMAP items carry the ROADMAP's own label. No status is
+  upgraded by this thread.
+- **level**: M — stated over `FiniteOperationalTheory` at one (fixed or generic) finite carrier; G — the
+  carrier-general closures (`general_characterization`, `main_result`, the `carrier_general_*` theorems), the typed
+  carrier (`TypedOperationalTheory`) and the quasilocal algebra; H — substratum-class objects (`substratumClass`,
+  `substratumTheory`, `IsMonomial`, configuration-level classes, read-write families, the passive hidden
+  dynamics of `PassiveQuotient`, the substratum's reversible dynamics); O — the single-token level (one record,
+  the Kₙ census's scope finding about K∞). Kernel level-H objects are themselves matrix-level theories or
+  classes: `substratumTheory A` is a `FiniteOperationalTheory A`.
+- **depends_on**: every hypothesis of the declaration (binders and, for definitions, the conjuncts), by name.
+- **bridge**: for every record not at level P. The codes expand, verbatim, to the result of the import-level scans
+  (`bridge_scan.out`, `bridge_scan2.out`, `bridge_scan3.out`, `bridge_scan4.out`); where the protocol asks for
+  them, the nearest pair-level objects are named after the expansion.
+- **bearing**: "none at L" wherever no bridge theorem exists at L; the single exception is recorded at I4.236.
+- **flag**: "do not assume" for the OI⁺ completion conditions and packages ((i)–(v) and their bundles,
+  observational independence / parallel reference extension, reversible richness and its clauses and forms,
+  observer recursion / embedded observation, implementation locality and its spectator clause, structural
+  closure of an extension, `LayerFlowExecutable`, `HasCompositeUnitaryControl`), for the quantum endpoints used as
+  hypotheses (`ExactAllFiniteEndomorphicQuantumOps`, `ShadowQuantum`), and for the PSD-cone facts that serve
+  `Q3` as a comparison object.
+
+## Sections
+
+- **A** (I4.1–I4.63): the spectator / extension objects — `ReferenceExtension`, `SpectatorBridge`,
+  `ImplementationLocality`, `StructuralClosure`, `LiftAudit`.
+- **B** (I4.64–I4.142): the characterizations — the carrier `FiniteOperationalTheory`, conditions (i)–(v) and the
+  QM endpoint, `GeneralCarrier`, `CompletedOI`, `CarrierGeneralOIPlus`, `EmbeddedObservation`, `MinimalRepertoire`,
+  `PositivePackage`, `MicroscopicReversibility`, `PositiveReachability`, with their independence theorems.
+- **C** (I4.143–I4.185): the substratum-source chain — `SubstratumSource` through `CoherentContinuumSource`.
+- **D** (I4.186–I4.232): typed and quasilocal completions, `SecondOrderDrive`, `JordanClassification`,
+  `OperationalRigidity`, the passive modules.
+- **E** (I4.233–I4.239): the Kₙ census and the ROADMAP obligations in scope.
+- **F** (I4.240–I4.248): hypotheses of recorded I4 theorems that are defined in modules outside I4's list.
+
+The 35 modules carry 1164 theorems (listed by name and line in `census_kernel.out`). Those not recorded
+individually here are lemma-folded: each is an auxiliary of the recorded theorems of its module, and its
+statement is available verbatim in `decl_dump.out`. The census of hypothesis-type declarations (coverage control
+(a)) is complete: `census_map.out` maps all 76 entries.
+
+***
+
+### I4.1 — `withSpectator`
+
+- **kind:** definition-as-hypothesis (operation constructor; enters every spectator clause below)
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:422` (quoted lines 422-427)
+- **statement (verbatim):**
+
+```lean
+/-- **AN OPERATION WITH AN UNTOUCHED SPECTATOR APPENDED**, carried back to the theory's own
+carriers by an explicit reindexing `e`. -/
+def withSpectator (R : Type*) [Fintype R] [DecidableEq R] {n m : ℕ}
+    (e : R × (A × Fin n) ≃ A × Fin m)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) :
+    Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ :=
+  (Matrix.reindexLinearEquiv ℂ ℂ e e).toLinearMap ∘ₗ amplRefL R Φ
+    ∘ₗ (Matrix.reindexLinearEquiv ℂ ℂ e.symm e.symm).toLinearMap
+```
+
+- **status:** - (a definition carries no status; the hypotheses stated with it carry theirs)
+- **level:** M
+- **depends_on:** data only: a finite spectator type R, an explicit carrier equivalence e : R × (A × Fin n) ≃ A × Fin m, a linear map Φ on Matrix (A × Fin n); built from amplRefL (ReferenceExtension.lean:131)
+- **yields:** HasParallelReferenceExtension; IsSpectatorExtension / isSpectatorExtension_iff; instAvail_withSpectator; parallelPair (CompletedOI.lean:137, CarrierGeneralOIPlus.lean:80)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects: `actC`/`actT` (CompositeDimension.lean:201/:198) act on one token's coordinate of the real bilinear table `W d` by a real-linear map `N`; `withSpectator R e Φ` acts by `id_R ⊗ Φ` on complex matrices over `R × (A × Fin n)`. No theorem at L maps either to the other.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The spectator is appended by an explicit equivalence handed in as data (module header, ReferenceExtension.lean:25-32).
+
+### I4.2 — `IsReferencePositive`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:98` (quoted lines 98-99)
+- **statement (verbatim):**
+
+```lean
+/-- **REFERENCE POSITIVITY**: `id_R ⊗ Φ` carries positive semidefinite matrices to positive
+semidefinite matrices — every test whose untouched quantum reference is `R` passes. -/
+def IsReferencePositive (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+  ∀ M : Matrix (R × S) (R × S) ℂ, M.PosSemidef → (amplRef R Φ M).PosSemidef
+```
+
+- **status:** assumed where it is a hypothesis (referencePositive_self_cp, ReferenceExtension.lean:222); characterized: complete positivity iff reference-positivity against the carrier itself (isCompletelyPositive_iff_referencePositive_self, :241) [K]
+- **level:** M
+- **depends_on:** a linear map Φ on Matrix S S ℂ; a finite reference type R
+- **yields:** IsThreePositive; isTwoPositive_iff_referencePositive (:102); cp_referencePositive (:231)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.3 — `HasParallelReferenceExtension`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:447` (quoted lines 447-451)
+- **statement (verbatim):**
+
+```lean
+/-- **PARALLEL REFERENCE EXTENSION**, as a property of a theory and not a structure field:
+every available composite family stays available with any untouched finite spectator
+appended, after the explicit reindexing. -/
+def HasParallelReferenceExtension (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (R : Type) [Fintype R] [DecidableEq R] (n m : ℕ) (e : R × (A × Fin n) ≃ A × Fin m)
+    (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n O F → T.availExt m O (fun a => withSpectator R e (F a))
+```
+
+- **status:** assumed (never discharged for a general theory at L). Satisfiable: hcompRealized_consistent_with_parallelReferenceExtension (SpectatorBridge.lean:472) [K]; refuted for the round-34 `countermodel` (countermodel_not_parallelReferenceExtension, :501) [K]; not supplied by composite unitary control (control_not_implies_parallelReferenceExtension, :507) [K] nor by the other OI⁺ principles (oiPlus_independence, CompletedOI.lean:506) [K]; equivalent to InertSpectatorCompositionality (SpectatorBridge.lean:233) [K]; implied by ImplementationLocality (ImplementationLocality.lean:957) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A (OperationalAssembly.lean:594); withSpectator
+- **yields:** qutrit_of_parallel; inertSpectator_iff_parallelReferenceExtension; ObservationalIndependence by definition; parallel_of_observationalIndependence
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects: the stage-4/5 composite-action forms (b_min) are invariance of a cone `K ⊆ W 3` under `actC`/`actT` of rotations of one token (CompositeDimension.lean:198-201); the field-neutral K2 obligation 'local actions compatible with the composite cone' is OPEN (ROADMAP.md:1001-1005). No theorem at L relates `HasParallelReferenceExtension` (matrix maps on `A × Fin n` with a finite spectator) to `actC`/`actT` on `W d`.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ completion condition: observational independence / parallel reference extension)
+- **note:** The module itself says it is not shown satisfiable there (ReferenceExtension.lean:62-63); satisfiability is SpectatorBridge's theorem.
+
+### I4.4 — `HasQutritReferenceExtension`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:469` (quoted lines 469-472)
+- **statement (verbatim):**
+
+```lean
+/-- **QUTRIT REFERENCE EXTENSION** on the two-qubit operations: the one instance the
+countermodel test needs. -/
+def HasQutritReferenceExtension (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+  ∀ (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ →ₗ[ℂ] Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ),
+    T.availExt 2 O F → T.availExt 6 O (fun a => withSpectator (Fin 3) qutritIdx (F a))
+```
+
+- **status:** assumed; implied by HasParallelReferenceExtension (qutrit_of_parallel, :474) [K]; refuted for `countermodel` (countermodel_not_qutritReferenceExtension, :492) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory (Fin 2); withSpectator (Fin 3) qutritIdx
+- **yields:** countermodel_not_qutritReferenceExtension; exactControl_not_implies_qutritReferenceExtension
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (an instance of the observational-independence clause)
+
+### I4.23 — `IsThreePositive`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:106` (quoted lines 106-107)
+- **statement (verbatim):**
+
+```lean
+/-- 3-positivity: a qutrit reference. -/
+def IsThreePositive (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+  IsReferencePositive (Fin 3) Φ
+```
+
+- **status:** refuted for the two-qubit reduction map Φ₂: reduction2_not_threePositive (:324), reduction2_threshold (:329) [K]
+- **level:** M
+- **depends_on:** IsReferencePositive (Fin 3)
+- **yields:** reduction2_threshold
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.5 — `qutrit_of_parallel`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:474` (quoted lines 474-475)
+- **statement (verbatim):**
+
+```lean
+theorem qutrit_of_parallel (T : FiniteOperationalTheory (Fin 2))
+    (h : HasParallelReferenceExtension T) : HasQutritReferenceExtension T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** HasParallelReferenceExtension T
+- **yields:** countermodel_not_parallelReferenceExtension
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.6 — `isCompletelyPositive_iff_referencePositive_self`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:241` (quoted lines 241-242)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CHOI-SIZED TARGET, both directions.** -/
+theorem isCompletelyPositive_iff_referencePositive_self (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) :
+    IsCompletelyPositive Φ ↔ IsReferencePositive S Φ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond the carrier (∀ Φ on a finite carrier S); uses BoundaryAudit.psdFactorization_discharged (ReferenceExtension.lean:234)
+- **yields:** the Choi-sized reference test (module header §D, :49-57)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Both directions have separate witnesses: cp_referencePositive (:231), referencePositive_self_cp (:222).
+
+### I4.7 — `reduction2_threshold`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:329` (quoted lines 329-330)
+- **statement (verbatim):**
+
+```lean
+/-- **THE DIMENSIONAL THRESHOLD, AS A THEOREM**: 2-positive, not 3-positive. -/
+theorem reduction2_threshold :
+    IsTwoPositive (reduction2 (Fin 2 × Fin 2)) ∧ ¬ IsThreePositive (reduction2 (Fin 2 × Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed statement about reduction2 (Fin 2 × Fin 2))
+- **yields:** countermodel_not_qutritReferenceExtension
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.8 — `countermodel_not_qutritReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:492` (quoted lines 492-493)
+- **statement (verbatim):**
+
+```lean
+/-- **THE ROUND-34 COUNTERMODEL HAS NO QUTRIT REFERENCE EXTENSION.** Its available `Φ₂`,
+extended by an untouched qutrit, would have to be 2-positive, hence positive, on the larger
+carrier; on the reindexed rank-three input it is not. -/
+theorem countermodel_not_qutritReferenceExtension :
+    ¬ HasQutritReferenceExtension countermodel := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness `countermodel` of DimensionalCountermodel with countermodel_reduction2_available)
+- **yields:** countermodel_not_parallelReferenceExtension
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.9 — `countermodel_not_parallelReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:501` (quoted lines 501-502)
+- **statement (verbatim):**
+
+```lean
+theorem countermodel_not_parallelReferenceExtension :
+    ¬ HasParallelReferenceExtension countermodel :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed)
+- **yields:** control_not_implies_parallelReferenceExtension; independence_independent
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.10 — `control_not_implies_parallelReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:507` (quoted lines 507-509)
+- **statement (verbatim):**
+
+```lean
+/-- **CONTROL DOES NOT GIVE REFERENCE EXTENSION.** Arbitrary unitary control within a carrier
+is a different thing from the ability to append an untouched spectator. -/
+theorem control_not_implies_parallelReferenceExtension :
+    ∃ T : FiniteOperationalTheory (Fin 2),
+      HasCompositeUnitaryControl T ∧ ¬ HasParallelReferenceExtension T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness `countermodel` with countermodel_control)
+- **yields:** the matrix-level independence of the spectator clause from composite unitary control; cited by the stage-4 note (INTEGRATION-NOTE-STAGE4.md:120-121) and the stage-5 protocol (L2)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Scope: matrix carrier `Fin 2 × Fin n`, all available families (not reversible ones only); a pair-cone transcription would need a bridge that does not exist at L.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.11 — `exactControl_not_implies_qutritReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReferenceExtension.lean:513` (quoted lines 513-516)
+- **statement (verbatim):**
+
+```lean
+/-- The same with exactness on the system, for the qutrit instance. -/
+theorem exactControl_not_implies_qutritReferenceExtension :
+    ∃ T : FiniteOperationalTheory (Fin 2),
+      ExactFiniteEndomorphicQuantumOps T ∧ HasCompositeUnitaryControl T
+        ∧ ¬ HasQutritReferenceExtension T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness `countermodel` with countermodel_exact, countermodel_control)
+- **yields:** the same independence with system exactness
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.12 — `IsSpectatorExtension`
+
+- **kind:** definition-as-hypothesis (the locality form of an extension)
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:180` (quoted lines 180-184)
+- **statement (verbatim):**
+
+```lean
+/-- **A SPECTATOR EXTENSION, BY ITS ACTION.** `G` on the extended carrier is a spectator
+extension of `Φ` along `e` when, on every reindexed product input `X_R ⊗ X`, it acts as
+`X_R ⊗ Φ X`: it does what `Φ` does and leaves the spectator untouched. This is the
+LOCALITY of an extension — its form — stated without presupposing existence. -/
+def IsSpectatorExtension {n m : ℕ} (e : R × (A × Fin n) ≃ A × Fin m)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+    (G : Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ) : Prop :=
+  ∀ (XR : Matrix R R ℂ) (X : Matrix (A × Fin n) (A × Fin n) ℂ),
+    G (Matrix.reindex e e (tensorOf XR X)) = Matrix.reindex e e (tensorOf XR (Φ X))
+```
+
+- **status:** assumed where used; its form is fixed: isSpectatorExtension_iff (:188) [K]
+- **level:** M
+- **depends_on:** e : R × (A × Fin n) ≃ A × Fin m; Φ; G
+- **yields:** InertSpectatorCompositionality; form_fixed_existence_fails
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.13 — `isSpectatorExtension_iff`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:188` (quoted lines 188-191)
+- **statement (verbatim):**
+
+```lean
+/-- **LOCALITY FIXES THE FORM UNIQUELY.** A spectator extension of `Φ` along `e` is
+`withSpectator R e Φ`, and nothing else. -/
+theorem isSpectatorExtension_iff {n m : ℕ} (e : R × (A × Fin n) ≃ A × Fin m)
+    (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+    (G : Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ) :
+    IsSpectatorExtension e Φ G ↔ G = withSpectator R e Φ := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond the data (e, Φ, G)
+- **yields:** inertSpectator_iff_parallelReferenceExtension; form_fixed_existence_fails
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.14 — `InertSpectatorCompositionality`
+
+- **kind:** hypothesis-structure (condition (iii) 'inert spectators' in the numbering of GR.md:212; second conjunct of PhysicalCompletionConditions)
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:223` (quoted lines 223-229)
+- **statement (verbatim):**
+
+```lean
+/-- **INERT-SPECTATOR COMPOSITIONALITY**, in physical words: an intervention performable on
+a system remains performable when an independent finite spectator is adjoined, and acts
+identically on that spectator. Formally: every available family at level `n` has, for
+every finite spectator `R` and every relabelling `e` of the joint carrier into the
+theory's carrier at level `m`, an AVAILABLE family at level `m` whose branches are
+spectator extensions (in the sense of `IsSpectatorExtension`) of the original branches.
+The definition asserts EXISTENCE of an available extension; its FORM is then forced. -/
+def InertSpectatorCompositionality (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (R : Type) [Fintype R] [DecidableEq R] (n m : ℕ) (e : R × (A × Fin n) ≃ A × Fin m)
+    (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n O F →
+      ∃ G : O → Matrix (A × Fin m) (A × Fin m) ℂ →ₗ[ℂ] Matrix (A × Fin m) (A × Fin m) ℂ,
+        T.availExt m O G ∧ ∀ a, IsSpectatorExtension e (F a) (G a)
+```
+
+- **status:** assumed (hypothesis of krausSoundExt_of_sound_control_inert (:249), exactAll_iff_substantive (GeneralCarrier.lean:144) and, through PhysicalCompletionConditions, of exactAll_iff_physical_general (GeneralCarrier.lean:100)); equivalent to HasParallelReferenceExtension (:233) [K]; refuted for `countermodel` (:460) [K]; necessary for exact finite QM (physical_of_exactAll, PhysicalCharacterization.lean:301) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A; IsSpectatorExtension
+- **yields:** PhysicalCompletionConditions; SubstantiveCompletion; observationalIndependence_iff_inert
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ completion condition (iii))
+- **note:** Physical wording in the docstring (SpectatorBridge.lean:216-222).
+
+### I4.15 — `inertSpectator_iff_parallelReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:233` (quoted lines 233-234)
+- **statement (verbatim):**
+
+```lean
+/-- **INERT-SPECTATOR COMPOSITIONALITY IS PARALLEL REFERENCE EXTENSION.** The existence
+clause, once the form is forced, is exactly round thirty-five's property. -/
+theorem inertSpectator_iff_parallelReferenceExtension (T : FiniteOperationalTheory A) :
+    InertSpectatorCompositionality T ↔ HasParallelReferenceExtension T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T
+- **yields:** observationalIndependence_iff_inert
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.16 — `krausSoundExt_of_sound_control_inert`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:249` (quoted lines 249-252)
+- **statement (verbatim):**
+
+```lean
+/-- **COMPOSITE SOUNDNESS FROM INERT-SPECTATOR COMPOSITIONALITY**, with system soundness,
+full composite unitary control and boundary item 2. -/
+theorem krausSoundExt_of_sound_control_inert (T : FiniteOperationalTheory (Fin 2))
+    (hext : FiniteIsometryExtensionSF Unit) (hsound : KrausSound T)
+    (hctrl : HasCompositeUnitaryControl T) (hin : InertSpectatorCompositionality T) :
+    KrausSoundExt T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** FiniteIsometryExtensionSF Unit (StinespringAssembly.lean:155; boundary item 2, discharged per the module header SpectatorBridge.lean:61-62 in IsometryExtension.lean); KrausSound T (KrausSoundness.lean:128); HasCompositeUnitaryControl T; InertSpectatorCompositionality T
+- **yields:** KrausSoundExt T (CompositeSoundness.lean:123)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.17 — `hComp_spectator_form`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:132` (quoted lines 132-137)
+- **statement (verbatim):**
+
+```lean
+/-- **`H_comp` SUPPLIES THE FORM OF EVERY SPECTATOR EXTENSION IT NAMES** — the reversible
+specialization of parallel reference extension, with `id_R ⊗ Φ` read off explicitly. -/
+theorem hComp_spectator_form {ι : Type*} (act : ι → Equiv.Perm (R × S))
+    (corr : ι → Matrix (R × S) (R × S) ℂ) (CB : Equiv.Perm S → Matrix S S ℂ)
+    (C : Equiv.Perm (R × S) → Matrix (R × S) (R × S) ℂ) (h : HComp act corr CB C)
+    (g : Equiv.Perm S) :
+    correlationExtension (spectatorExt g) (C (spectatorExt g))
+      = amplRefL R (correlationExtension g (CB g)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** HComp act corr CB C (the round-24 compositional hypothesis; defined outside I4's module list)
+- **yields:** hCompRealized_spectator_available
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Form theorem only; existence is hcompRealized_not_implies_parallelReferenceExtension (:460).
+
+### I4.18 — `HCompRealized`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:396` (quoted lines 396-406)
+- **statement (verbatim):**
+
+```lean
+/-- **`H_comp` REALIZED IN A THEORY.** The completion satisfies `H_comp`, and every coherent
+map it names is an available one-outcome intervention: each letter on the composite
+`R × (Fin 2 × Fin n)`, transported along `e` into the carrier at level `m`; each `B`-side
+map at level `n`; each spectator-extended map at level `m`. -/
+def HCompRealized (T : FiniteOperationalTheory (Fin 2)) (e : R × (Fin 2 × Fin n) ≃ Fin 2 × Fin m)
+    (act : ι → Equiv.Perm (R × (Fin 2 × Fin n)))
+    (corr : ι → Matrix (R × (Fin 2 × Fin n)) (R × (Fin 2 × Fin n)) ℂ)
+    (CB : Equiv.Perm (Fin 2 × Fin n) → Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ)
+    (C : Equiv.Perm (R × (Fin 2 × Fin n)) → Matrix (R × (Fin 2 × Fin n)) (R × (Fin 2 × Fin n)) ℂ) :
+    Prop :=
+  HComp act corr CB C
+    ∧ (∀ i, T.availExt m Unit (fun _ => transport e (correlationExtension (act i) (corr i))))
+    ∧ (∀ g, T.availExt n Unit (fun _ => correlationExtension g (CB g)))
+    ∧ (∀ g, T.availExt m Unit
+        (fun _ => transport e (correlationExtension (spectatorExt g) (C (spectatorExt g)))))
+```
+
+- **status:** assumed; realized by every theory with composite unitary control for the trivial-correlation completion (hCompRealized_ones_of_control, :424) [K]
+- **level:** M
+- **depends_on:** HComp; FiniteOperationalTheory (Fin 2); transport (:348)
+- **yields:** hCompRealized_spectator_available (:411); hcompRealized_not_implies_parallelReferenceExtension (:460); hcompRealized_consistent_with_parallelReferenceExtension (:472)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.19 — `hCompRealized_spectator_available`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:411` (quoted lines 411-417)
+- **statement (verbatim):**
+
+```lean
+/-- **PARALLEL REFERENCE EXTENSION ON THE REVERSIBLE SECTOR.** In a realized `H_comp`, the
+spectator extension of every relabelling's coherent map is available, and it is exactly
+`withSpectator R e` of that map. -/
+theorem hCompRealized_spectator_available (T : FiniteOperationalTheory (Fin 2))
+    (e : R × (Fin 2 × Fin n) ≃ Fin 2 × Fin m) (act : ι → Equiv.Perm (R × (Fin 2 × Fin n)))
+    (corr : ι → Matrix (R × (Fin 2 × Fin n)) (R × (Fin 2 × Fin n)) ℂ)
+    (CB : Equiv.Perm (Fin 2 × Fin n) → Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ)
+    (C : Equiv.Perm (R × (Fin 2 × Fin n)) → Matrix (R × (Fin 2 × Fin n)) (R × (Fin 2 × Fin n)) ℂ)
+    (h : HCompRealized T e act corr CB C) (g : Equiv.Perm (Fin 2 × Fin n)) :
+    T.availExt m Unit (fun _ => withSpectator R e (correlationExtension g (CB g))) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** HCompRealized T e act corr CB C
+- **yields:** parallel reference extension on the reversible sector named by the completion (module header :49-52)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.20 — `hCompRealized_ones_of_control`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:424` (quoted lines 424-427)
+- **statement (verbatim):**
+
+```lean
+/-- **CONTROL REALIZES THE TRIVIAL-CORRELATION COMPLETION**, for every spectator, reindexing
+and alphabet: every relabelling is a permutation conjugation, hence a composite unitary. -/
+theorem hCompRealized_ones_of_control (T : FiniteOperationalTheory (Fin 2))
+    (hctrl : HasCompositeUnitaryControl T) (e : R × (Fin 2 × Fin n) ≃ Fin 2 × Fin m)
+    (act : ι → Equiv.Perm (R × (Fin 2 × Fin n))) :
+    HCompRealized T e act (fun _ => onesCorr _) (fun _ => onesCorr _) (fun _ => onesCorr _) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** HasCompositeUnitaryControl T
+- **yields:** hcompRealized_not_implies_parallelReferenceExtension (:460); hcompRealized_consistent_with_parallelReferenceExtension (:472)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.21 — `hcompRealized_not_implies_parallelReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:460` (quoted lines 460-465)
+- **statement (verbatim):**
+
+```lean
+/-- **`H_comp` REALIZED DOES NOT GIVE PARALLEL REFERENCE EXTENSION.** At the qutrit
+spectator and the explicit reindexing of round thirty-five, with the full alphabet of
+composite relabellings: `H_comp` holds, every coherent map it names is available, full
+composite unitary control holds — and the theory refutes parallel reference extension,
+hence inert-spectator compositionality. -/
+theorem hcompRealized_not_implies_parallelReferenceExtension :
+    ∃ T : FiniteOperationalTheory (Fin 2),
+      HCompRealized T qutritIdx (id : Equiv.Perm (Fin 3 × (Fin 2 × Fin 2)) → _)
+          (fun _ => onesCorr _) (fun _ => onesCorr _) (fun _ => onesCorr _)
+        ∧ HasCompositeUnitaryControl T
+        ∧ ¬ HasParallelReferenceExtension T ∧ ¬ InertSpectatorCompositionality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the round-34 countermodel)
+- **yields:** independence of InertSpectatorCompositionality / HasParallelReferenceExtension from a realized H_comp with full control
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.22 — `hcompRealized_consistent_with_parallelReferenceExtension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SpectatorBridge.lean:472` (quoted lines 472-476)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SAME REALIZATION IS CONSISTENT WITH THE EXTENSION.** The full theory realizes the
+same completion and has parallel reference extension: the realization decides neither way,
+which is what "existence is an independent condition" means. -/
+theorem hcompRealized_consistent_with_parallelReferenceExtension :
+    ∃ T : FiniteOperationalTheory (Fin 2),
+      HCompRealized T qutritIdx (id : Equiv.Perm (Fin 3 × (Fin 2 × Fin 2)) → _)
+          (fun _ => onesCorr _) (fun _ => onesCorr _) (fun _ => onesCorr _)
+        ∧ HasParallelReferenceExtension T ∧ InertSpectatorCompositionality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the full theory)
+- **yields:** satisfiability of HasParallelReferenceExtension and InertSpectatorCompositionality
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.24 — `ImplementationClass`
+
+- **kind:** definition-as-hypothesis (the type of implementation classes; a predicate on Matrix S S ℂ at every finite carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:244` (quoted lines 244-245)
+- **statement (verbatim):**
+
+```lean
+/-- An implementation class: at every finite carrier, which single operators are admissible
+physical implementations. -/
+abbrev ImplementationClass :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S], Matrix S S ℂ → Prop
+```
+
+- **status:** - (a type definition carries no status)
+- **level:** M
+- **depends_on:** -
+- **yields:** every implementation-class hypothesis below (ImplementationGenerated, ContextStable, LabelInvariant, Architecture, DaggerStable, DrivesElementary, StructurallyClosed, QuantumArchitecture)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The Kₙ census lists it as the first entry where 'every finite carrier' enters, at the type (inputs/ledgers/KN-CENSUS-RESULT.md:42; audits/foundations/kn-elementary-carrier-census.md:37).
+
+### I4.25 — `Realized`
+
+- **kind:** definition-as-hypothesis (branch-wise comparison notion)
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:250` (quoted lines 250-253)
+- **statement (verbatim):**
+
+```lean
+/-- An operation is BRANCH-REALIZED by a class when it is a finite sum of conjugations by
+admissible operators. This is the comparison notion; the availability of a theory is generated
+by `InstAvail` below. -/
+def Realized (𝓘 : ImplementationClass) (S : Type) [Fintype S] [DecidableEq S]
+    (Φ : Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+  ∃ (ι : Type) (_ : Fintype ι) (K : ι → Matrix S S ℂ),
+    Φ = ∑ i, conjChannel (K i) ∧ ∀ i, 𝓘 S (K i)
+```
+
+- **status:** assumed where used; every branch of an instrument-realized family over an architecture is branch-realized (realized_of_instAvail, per module header :45-48) [K]
+- **level:** M
+- **depends_on:** an implementation class 𝓘
+- **yields:** comparison object only
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.26 — `InstAvail`
+
+- **kind:** definition-as-hypothesis (inductive predicate: instrument realization by five constructors, no sum constructor)
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:268` (quoted lines 268-289)
+- **statement (verbatim):**
+
+```lean
+/-- **INSTRUMENT REALIZATION.** A family of operations on the carrier `T` with outcomes `O` is
+instrument-realized by the class `𝓘` when it is built from: one admissible isometric step;
+the native Lüders readout of a register `T' × Fin m ≃ T` of the carrier, its projectors
+admissible; classical coarse-graining of the outcome; sequential composition with
+outcome-dependent continuation; and the discard of a uniformly attached ancilla of positive
+size. There is no constructor taking a sum of admissible operators: the branches of a realized
+family arise together as the outcomes of one protocol, and the uniformly weighted preparation
+label is summed inside the discard and is never an outcome. -/
+inductive InstAvail (𝓘 : ImplementationClass) :
+    ∀ (T : Type) [Fintype T] [DecidableEq T] (O : Type) [Fintype O] [DecidableEq O],
+      (O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ) → Prop
+  | op {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (hK : 𝓘 T K)
+      (hiso : Kᴴ * K = 1) : InstAvail 𝓘 T Unit (fun _ => conjChannel K)
+  | readout {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T'] {m : ℕ}
+      (e : T' × Fin m ≃ T) (hP : ∀ k, 𝓘 T (Matrix.reindex e e (readProj T' m k))) :
+      InstAvail 𝓘 T (Fin m) (fun k => conjChannel (Matrix.reindex e e (readProj T' m k)))
+  | coarse {T : Type} [Fintype T] [DecidableEq T] {O O' : Type} [Fintype O] [DecidableEq O]
+      [Fintype O'] [DecidableEq O'] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (f : O → O')
+      (h : InstAvail 𝓘 T O F) :
+      InstAvail 𝓘 T O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
+  | bind {T : Type} [Fintype T] [DecidableEq T] {O O' : Type} [Fintype O] [DecidableEq O]
+      [Fintype O'] [DecidableEq O'] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ}
+      {G : O → O' → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (hF : InstAvail 𝓘 T O F)
+      (hG : ∀ a, InstAvail 𝓘 T O' (G a)) :
+      InstAvail 𝓘 T (O × O') (fun c => (G c.1 c.2).comp (F c.1))
+  | discard {T : Type} [Fintype T] [DecidableEq T] {m : ℕ} (hm : 0 < m) {O : Type} [Fintype O]
+      [DecidableEq O]
+      {F : O → Matrix (T × Fin m) (T × Fin m) ℂ →ₗ[ℂ] Matrix (T × Fin m) (T × Fin m) ℂ}
+      (h : InstAvail 𝓘 (T × Fin m) O F) :
+      InstAvail 𝓘 T O (fun a => discardWith (A := T) m (uniformAttach m) (F a))
+```
+
+- **status:** - (inductive definition)
+- **level:** M
+- **depends_on:** an implementation class 𝓘
+- **yields:** ImplementationGenerated; instAvail_trace; instAvail_spectator (:789); instAvail_withSpectator (:820)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.27 — `instAvail_trace`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:317` (quoted lines 317-319)
+- **statement (verbatim):**
+
+```lean
+/-- **T1, THE TRACE**: an instrument-realized family preserves the trace in aggregate. -/
+theorem instAvail_trace {T : Type} [Fintype T] [DecidableEq T] {O : Type} [Fintype O]
+    [DecidableEq O] {F : O → Matrix T T ℂ →ₗ[ℂ] Matrix T T ℂ} (h : InstAvail 𝓘 T O F) :
+    ∀ X, ∑ a, ((F a) X).trace = X.trace := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** InstAvail 𝓘 T O F
+- **yields:** validity_of_implementationLocality (:971): the normalization half of validity is a theorem of instrument realization
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.28 — `ImplementationGenerated`
+
+- **kind:** hypothesis-structure (clause (G))
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:352` (quoted lines 352-355)
+- **statement (verbatim):**
+
+```lean
+/-- **(G) IMPLEMENTATION GENERATION**: at every positive level, availability is instrument
+realization by the class. The normalization half of validity is a theorem of the predicate
+(`instAvail_trace`), not a clause. -/
+def ImplementationGenerated (T : FiniteOperationalTheory A) (𝓘 : ImplementationClass) : Prop :=
+  ∀ (N : ℕ), 0 < N → ∀ (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (A × Fin N) (A × Fin N) ℂ →ₗ[ℂ] Matrix (A × Fin N) (A × Fin N) ℂ),
+    T.availExt N O F ↔ InstAvail 𝓘 (A × Fin N) O F
+```
+
+- **status:** assumed; refuted for `countermodel` for every class (countermodel_not_implementationGenerated, :1023) [K]; holds for exact finite QM with the full class (implementationLocality_of_qm, :1017) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A; ImplementationClass; InstAvail
+- **yields:** ImplementationLocality (:370); ReversibleImplementationLocality (MicroscopicReversibility.lean:223); qm_generated_by_substratum_extension (StructuralClosure.lean:423)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.29 — `ContextStable`
+
+- **kind:** hypothesis-structure (clause (C): the spectator clause of implementation locality, stated on implementations: 𝓘 S K → 𝓘 (R × S) (1_R ⊗ K))
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:359` (quoted lines 359-361)
+- **statement (verbatim):**
+
+```lean
+/-- **(C) CONTEXT STABILITY**: adjoining uncoupled degrees of freedom leaves an admissible
+implementation admissible, unchanged on its original support. -/
+def ContextStable (𝓘 : ImplementationClass) : Prop :=
+  ∀ (R S : Type) [Fintype R] [DecidableEq R] [Fintype S] [DecidableEq S] (K : Matrix S S ℂ),
+    𝓘 S K → 𝓘 (R × S) (tensorOf (1 : Matrix R R ℂ) K)
+```
+
+- **status:** assumed in general; discharged for the substratum class (substratumClass_contextStable, StructuralClosure.lean:261) [K] and for StateMixingCoupling's class (mixC_contextStable, StateMixingCoupling.lean:442) [K]
+- **level:** M
+- **depends_on:** ImplementationClass
+- **yields:** ImplementationLocality (:370); instAvail_spectator (:789); instAvail_withSpectator (:820); StructurallyClosed (StructuralClosure.lean:183); QuantumArchitecture (SubstratumSource.lean:86)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects: `tensorOf (1 : Matrix R R ℂ) K` on `R × S` (matrix level); the pair-level analogue would be an operator `N` acting through `actC`/`actT` on `W 3` (CompositeDimension.lean:198-201). No theorem at L relates them.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (implementation locality's spectator clause)
+- **note:** The module notes that whether (C) is redundant given (G) is not settled (ImplementationLocality.lean:85-87).
+
+### I4.30 — `LabelInvariant`
+
+- **kind:** hypothesis-structure (clause (L))
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:364` (quoted lines 364-366)
+- **statement (verbatim):**
+
+```lean
+/-- **(L) LABEL INVARIANCE**: admissibility is transported along carrier bijections. -/
+def LabelInvariant (𝓘 : ImplementationClass) : Prop :=
+  ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] (e : S ≃ S')
+    (K : Matrix S S ℂ), 𝓘 S K → 𝓘 S' (Matrix.reindex e e K)
+```
+
+- **status:** assumed in general; discharged for substratumClass (substratumClass_labelInvariant, StructuralClosure.lean:275) [K]
+- **level:** M
+- **depends_on:** ImplementationClass
+- **yields:** ImplementationLocality; instAvail_transport; genTheory_embeddedObservation (:904); StructurallyClosed; QuantumArchitecture
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.31 — `ImplementationLocality`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:370` (quoted lines 370-371)
+- **statement (verbatim):**
+
+```lean
+/-- **IMPLEMENTATION LOCALITY**: availability is generated by a context-stable,
+label-invariant implementation class. -/
+def ImplementationLocality (T : FiniteOperationalTheory A) : Prop :=
+  ∃ 𝓘 : ImplementationClass, ImplementationGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘
+```
+
+- **status:** assumed; satisfied by exact finite QM (implementationLocality_of_qm, :1017) [K]; not supplied by the OI core, validity, reversible richness and embedded observation (implementationLocality_independent, :1035) [K]
+- **level:** M
+- **depends_on:** ∃ 𝓘: ImplementationGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘
+- **yields:** observationalIndependence_of_implementationLocality (:957); validity_of_implementationLocality (:971); OIPlusLocal (:1053); OIPlusMin (MinimalRepertoire.lean:544); OIPlusPos (PositivePackage.lean:35)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺-type implementation principle; carries the spectator clause ContextStable)
+
+### I4.32 — `Architecture`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:506` (quoted lines 506-516)
+- **statement (verbatim):**
+
+```lean
+/-- **AN ARCHITECTURE**: an implementation class closed under the operations every finite
+operational theory performs on implementations. -/
+structure Architecture (𝓘 : ImplementationClass) : Prop where
+  one : ∀ (S : Type) [Fintype S] [DecidableEq S], 𝓘 S 1
+  mul : ∀ (S : Type) [Fintype S] [DecidableEq S] (K L : Matrix S S ℂ),
+    𝓘 S K → 𝓘 S L → 𝓘 S (K * L)
+  smul : ∀ (S : Type) [Fintype S] [DecidableEq S] (a : ℂ) (K : Matrix S S ℂ),
+    ‖a‖ ≤ 1 → 𝓘 S K → 𝓘 S (a • K)
+  proj : ∀ (S : Type) [Fintype S] [DecidableEq S] (m : ℕ) (k : Fin m),
+    𝓘 (S × Fin m) (Matrix.diagonal fun r => if r.2 = k then 1 else 0)
+  block : ∀ (S : Type) [Fintype S] [DecidableEq S] (m : ℕ)
+    (K : Matrix (S × Fin m) (S × Fin m) ℂ) (f e : Fin m),
+    𝓘 (S × Fin m) K → 𝓘 S (ancBlock K f e)
+```
+
+- **status:** assumed in general; discharged for substratumClass (substratumClass_arch, StructuralClosure.lean:231) [K]
+- **level:** M
+- **depends_on:** ImplementationClass
+- **yields:** genTheory (:852); realized_of_instAvail; StructurallyClosed; QuantumArchitecture; configurationLevel_not_layerFlowExecutable (LiftAudit.lean:183)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.33 — `redundancy_fails`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:207` (quoted lines 207-209)
+- **statement (verbatim):**
+
+```lean
+/-- **THE REDUNDANCY TEST FAILS**: validity, reversible richness and embedded observation
+(with the OI core) do not imply observational independence. -/
+theorem redundancy_fails :
+    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ CompositeOperationalValidity T
+      ∧ ReversibleRichness T ∧ EmbeddedObservation T ∧ ¬ ObservationalIndependence T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the round-34 countermodel)
+- **yields:** the four-part package does not compress to three
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.34 — `form_fixed_existence_fails`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:223` (quoted lines 223-228)
+- **statement (verbatim):**
+
+```lean
+/-- **THE FORM IS FIXED AND THE EXTENSION IS NOT AVAILABLE**: the two-qubit reduction map is
+available in the countermodel, every spectator extension of it along the qutrit index is
+`withSpectator`, and that extension is not available. -/
+theorem form_fixed_existence_fails :
+    countermodel.availExt 2 Unit (fun _ => reduction2 (Fin 2 × Fin 2))
+    ∧ (∀ G, IsSpectatorExtension qutritIdx (reduction2 (Fin 2 × Fin 2)) G
+        ↔ G = withSpectator (Fin 3) qutritIdx (reduction2 (Fin 2 × Fin 2)))
+    ∧ ¬ countermodel.availExt 6 Unit
+        (fun _ => withSpectator (Fin 3) qutritIdx (reduction2 (Fin 2 × Fin 2))) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; `countermodel`, reduction2, qutritIdx)
+- **yields:** 'the missing physics is existence, not form' (module header :21-26)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.35 — `instAvail_withSpectator`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:820` (quoted lines 820-825)
+- **statement (verbatim):**
+
+```lean
+/-- **THE LOCAL FORM KEEPS INSTRUMENT REALIZATION**: the spectator extension of an
+instrument-realized family is instrument-realized. -/
+theorem instAvail_withSpectator (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘) {A : Type}
+    [Fintype A] [DecidableEq A] {R : Type} [Fintype R] [DecidableEq R] {n m : ℕ}
+    (e : R × (A × Fin n) ≃ A × Fin m) {O : Type} [Fintype O] [DecidableEq O]
+    {F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
+    (h : InstAvail 𝓘 (A × Fin n) O F) :
+    InstAvail 𝓘 (A × Fin m) O (fun a => withSpectator R e (F a)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** ContextStable 𝓘; LabelInvariant 𝓘; InstAvail 𝓘 (A × Fin n) O F
+- **yields:** observationalIndependence_of_implementationLocality (:957)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.36 — `genTheory_embeddedObservation`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:904` (quoted lines 904-905)
+- **statement (verbatim):**
+
+```lean
+/-- **GENERATED THEORIES CARRY EMBEDDED OBSERVATION** when the class is label-invariant. -/
+theorem genTheory_embeddedObservation (hl : LabelInvariant 𝓘) :
+    EmbeddedObservation (genTheory 𝓘 arch A) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** LabelInvariant 𝓘; an architecture `arch` (section variable)
+- **yields:** EmbeddedObservation of generated theories
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.37 — `observationalIndependence_of_implementationLocality`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:957` (quoted lines 957-958)
+- **statement (verbatim):**
+
+```lean
+theorem observationalIndependence_of_implementationLocality [Nonempty A]
+    {T : FiniteOperationalTheory A} (h : ImplementationLocality T) : OIHierarchyGeneral.ObservationalIndependence T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ImplementationLocality T
+- **yields:** OIHierarchyGeneral.ObservationalIndependence T (CarrierGeneralOIPlus.lean:73); carrier_general_oiPlusLocal (:1079)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The implication runs one way; the converse is not claimed outside the OI⁺ context (ImplementationLocality.lean:87-88). Cited by the stage-5 protocol (L2).
+
+### I4.38 — `validity_of_implementationLocality`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:971` (quoted lines 971-972)
+- **statement (verbatim):**
+
+```lean
+/-- **VALIDITY IS DERIVED** from implementation locality. -/
+theorem validity_of_implementationLocality [Nonempty A] {T : FiniteOperationalTheory A}
+    (h : ImplementationLocality T) : CompositeOperationalValidity T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ImplementationLocality T
+- **yields:** CompositeOperationalValidity T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.39 — `implementationLocality_of_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:1017` (quoted lines 1017-1018)
+- **statement (verbatim):**
+
+```lean
+/-- **EXACT FINITE OPERATIONAL QM IS IMPLEMENTATION-LOCAL.** -/
+theorem implementationLocality_of_qm [Nonempty A] (T : FiniteOperationalTheory A)
+    (h : ExactAllFiniteEndomorphicQuantumOps T) : ImplementationLocality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ExactAllFiniteEndomorphicQuantumOps T
+- **yields:** necessity half of carrier_general_oiPlusLocal
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.40 — `countermodel_not_implementationGenerated`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:1023` (quoted lines 1023-1024)
+- **statement (verbatim):**
+
+```lean
+/-- **THE DIAGNOSIS**: the countermodel is not generated by any implementation class — its
+available reduction map has no finite physical implementation. -/
+theorem countermodel_not_implementationGenerated :
+    ¬ ∃ 𝓘 : ImplementationClass, ImplementationGenerated countermodel 𝓘 := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed)
+- **yields:** diagnosis: the countermodel fails implementability, not context stability
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.41 — `implementationLocality_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:1035` (quoted lines 1035-1037)
+- **statement (verbatim):**
+
+```lean
+/-- **IMPLEMENTATION LOCALITY IS NOT SUPPLIED** by the core, validity, reversible richness
+and embedded observation. -/
+theorem implementationLocality_independent :
+    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ CompositeOperationalValidity T
+      ∧ ReversibleRichness T ∧ EmbeddedObservation T ∧ ¬ ImplementationLocality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the round-34 countermodel)
+- **yields:** independence of ImplementationLocality from OICore, CompositeOperationalValidity, ReversibleRichness, EmbeddedObservation
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.42 — `OIPlusLocal`
+
+- **kind:** hypothesis-structure (compressed OI⁺ package)
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:1053` (quoted lines 1053-1054)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPRESSED SET**: implementation locality, reversible richness, embedded
+observation. Validity is absent because it is derived; the normalization half of validity is
+a theorem of instrument realization. -/
+def OIPlusLocal : Prop :=
+  ImplementationLocality T ∧ OIHierarchyGeneral.ReversibleRichness T ∧ EmbeddedObservation T
+```
+
+- **status:** assumed; equivalent to exact finite operational QM on every nonempty finite carrier (carrier_general_oiPlusLocal, :1079) [K]
+- **level:** M
+- **depends_on:** ImplementationLocality T; OIHierarchyGeneral.ReversibleRichness T; EmbeddedObservation T
+- **yields:** carrier_general_oiPlusLocal
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ completion package)
+
+### I4.43 — `carrier_general_oiPlusLocal`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ImplementationLocality.lean:1079` (quoted lines 1079-1081)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
+theorem carrier_general_oiPlusLocal :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+      OIPlusLocal T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified carrier ([Nonempty A]); both sides are hypotheses on T
+- **yields:** the compressed characterization
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** An equivalence: the two directions are observationalIndependence_of_implementationLocality / validity_of_implementationLocality with qm_of_oiPlus (sufficiency) and implementationLocality_of_qm (necessity), per module header :58-83.
+
+### I4.44 — `substratumClass`
+
+- **kind:** definition-as-hypothesis (the class the substratum supplies: exactly the monomial operators)
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:180` (quoted lines 180-180)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SUBSTRATUM CLASS**: exactly the operators the round-62 interface records as supplied
+by the substratum's interventions — the monomials. Nothing is added to obtain closure. -/
+def substratumClass : ImplementationClass := fun _ _ _ K => IsMonomial K
+```
+
+- **status:** - (definition); its content as the substratum's supply is the round-62 interface record (SubstratumInterface.lean, `IsMonomial`)
+- **level:** H
+- **depends_on:** IsMonomial (SubstratumInterface.lean:75)
+- **yields:** substratumClass_structurallyClosed; substratum_residual; ExtendsSubstratum; substratumClass_not_drivesElementary (:370)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Kernel level-H objects are themselves matrix-level classes: `substratumTheory` (RouteB.lean:279) is a FiniteOperationalTheory.
+
+### I4.45 — `StructurallyClosed`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:183` (quoted lines 183-187)
+- **statement (verbatim):**
+
+```lean
+/-- **STRUCTURAL CLOSURE**: the four structural ingredients of a quantum architecture. -/
+structure StructurallyClosed (𝓘 : ImplementationClass) : Prop where
+  arch : Architecture 𝓘
+  context : ContextStable 𝓘
+  label : LabelInvariant 𝓘
+  dagger : DaggerStable 𝓘
+```
+
+- **status:** assumed for an extension (hypothesis of quantumArchitecture_iff_drives_of_closed, substratum_extension_quantum_iff_drives, substratum_plus_control_qm); discharged for substratumClass itself (substratumClass_structurallyClosed, :316) [K]
+- **level:** M
+- **depends_on:** Architecture 𝓘; ContextStable 𝓘; LabelInvariant 𝓘; DaggerStable 𝓘 (MicroscopicReversibility.lean:216)
+- **yields:** quantumArchitecture_iff_drives_of_closed (:364); substratum_extension_quantum_iff_drives (:408); substratum_plus_control_qm (:414); qm_generated_by_substratum_extension (:423)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Its spectator part is ContextStable on implementations (matrix level); no pair-level transcription at L.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (structural closure of an extension)
+- **note:** Theorem for the substratum class, hypothesis for an extension (stage-5 protocol L2, candidate γ).
+
+### I4.46 — `substratumClass_structurallyClosed`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:316` (quoted lines 316-317)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SUBSTRATUM CLASS IS STRUCTURALLY CLOSED**: all four closures hold. -/
+theorem substratumClass_structurallyClosed : StructurallyClosed substratumClass where
+  arch := substratumClass_arch
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed statement about substratumClass)
+- **yields:** substratum_residual (:383)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.47 — `quantumArchitecture_iff_drives_of_closed`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:364` (quoted lines 364-365)
+- **statement (verbatim):**
+
+```lean
+/-- **FOR A STRUCTURALLY CLOSED CLASS, QUANTUM IS EXACTLY DRIVING.** -/
+theorem quantumArchitecture_iff_drives_of_closed {𝓘 : ImplementationClass}
+    (hc : StructurallyClosed 𝓘) : QuantumArchitecture 𝓘 ↔ DrivesElementary 𝓘 :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** StructurallyClosed 𝓘
+- **yields:** substratum_extension_quantum_iff_drives (:408)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.48 — `substratumGen_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:359` (quoted lines 359-360)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SUBSTRATUM THEORY IS NOT FINITE OPERATIONAL QM.** -/
+theorem substratumGen_not_qm :
+    ¬ ExactAllFiniteEndomorphicQuantumOps (genTheory substratumClass substratumClass_arch (Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed; genTheory substratumClass substratumClass_arch (Fin 2))
+- **yields:** substratum_residual
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.49 — `substratum_residual`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:383` (quoted lines 383-389)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CLOSURE AUDIT**: four closures, one residual. The substratum class is an
+architecture, context-stable, label-invariant and dagger-stable; it does not drive the
+elementary transitions, is not a quantum architecture, and its generated theory is not finite
+operational quantum mechanics. -/
+theorem substratum_residual :
+    Architecture substratumClass ∧ ContextStable substratumClass
+      ∧ LabelInvariant substratumClass ∧ DaggerStable substratumClass
+      ∧ ¬ DrivesElementary substratumClass
+      ∧ ¬ QuantumArchitecture substratumClass
+      ∧ ¬ ExactAllFiniteEndomorphicQuantumOps
+          (genTheory substratumClass substratumClass_arch (Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** the residual is the off-diagonal controllability (DrivesElementary), which the current substratum class lacks
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.50 — `ExtendsSubstratum`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:401` (quoted lines 401-402)
+- **statement (verbatim):**
+
+```lean
+/-- An implementation class extends the substratum class. -/
+def ExtendsSubstratum (𝓘 : ImplementationClass) : Prop :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), substratumClass S K → 𝓘 S K
+```
+
+- **status:** assumed (hypothesis of substratum_extension_quantum_iff_drives, substratum_plus_control_qm)
+- **level:** H
+- **depends_on:** substratumClass
+- **yields:** substratum_extension_quantum_iff_drives; substratum_plus_control_qm; qm_generated_by_substratum_extension
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.51 — `substratum_extension_quantum_iff_drives`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:408` (quoted lines 408-410)
+- **statement (verbatim):**
+
+```lean
+/-- **A STRUCTURALLY CLOSED EXTENSION OF THE SUBSTRATUM IS QUANTUM EXACTLY WHEN IT DRIVES**
+the elementary transitions. -/
+theorem substratum_extension_quantum_iff_drives {𝓘 : ImplementationClass}
+    (_ : ExtendsSubstratum 𝓘) (hc : StructurallyClosed 𝓘) :
+    QuantumArchitecture 𝓘 ↔ DrivesElementary 𝓘 :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** ExtendsSubstratum 𝓘 (unused in the proof, binder `_`); StructurallyClosed 𝓘
+- **yields:** the boxed endpoint (module header :59-63)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Cited by the stage-5 protocol (L2).
+
+### I4.52 — `substratum_plus_control_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:414` (quoted lines 414-416)
+- **statement (verbatim):**
+
+```lean
+/-- **SUBSTRATUM PLUS CONTROLLABILITY GENERATES QUANTUM MECHANICS** on every nonempty carrier. -/
+theorem substratum_plus_control_qm [Nonempty A] {𝓘 : ImplementationClass}
+    (_ : ExtendsSubstratum 𝓘) (hc : StructurallyClosed 𝓘) (hd : DrivesElementary 𝓘) :
+    ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 hc.arch A) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ExtendsSubstratum 𝓘 (unused, `_`); StructurallyClosed 𝓘; DrivesElementary 𝓘
+- **yields:** ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 hc.arch A)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The controllability side is a hypothesis on an extension, not a property of the current substratum (StructuralClosure.lean:68-71).
+
+### I4.53 — `qm_generated_by_substratum_extension`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StructuralClosure.lean:423` (quoted lines 423-426)
+- **statement (verbatim):**
+
+```lean
+/-- **QUANTUM MECHANICS IS GENERATED BY A QUANTUM ARCHITECTURE EXTENDING THE SUBSTRATUM.** -/
+theorem qm_generated_by_substratum_extension [Nonempty A] (T : FiniteOperationalTheory A)
+    (h : ExactAllFiniteEndomorphicQuantumOps T) :
+    ∃ 𝓘 : ImplementationClass, ExtendsSubstratum 𝓘 ∧ StructurallyClosed 𝓘
+      ∧ DrivesElementary 𝓘 ∧ ImplementationGenerated T 𝓘 :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ExactAllFiniteEndomorphicQuantumOps T
+- **yields:** converse direction of the endpoint
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.54 — `gateFlow`
+
+- **kind:** definition-as-hypothesis (the one-parameter unitary group of a configuration involution, as a matrix)
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:47` (quoted lines 47-48)
+- **statement (verbatim):**
+
+```lean
+/-- **THE GATE FLOW OF AN INVOLUTION**, as a matrix on a finite configuration space. -/
+noncomputable def gateFlow (σ : Equiv.Perm S) (t : ℝ) : Matrix S S ℂ :=
+  unit (permMat σ) t
+```
+
+- **status:** - (definition)
+- **level:** M
+- **depends_on:** σ : Equiv.Perm S; `unit (permMat σ) t` of SecondOrderCircuit
+- **yields:** LayerFlowExecutable; gateFlow_unitary/_group/_zero/_one/_trace/_stage (:69-:95); gateFlow_isolation (:660)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** gateFlow_stage (:95) ties it to the quasilocal gate unitary of CT2 on a region (G); no pair-level reading.
+
+### I4.55 — `levelPerm`
+
+- **kind:** definition-as-hypothesis (the layer involution read at level n; the ancilla a spectator)
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:51` (quoted lines 51-52)
+- **statement (verbatim):**
+
+```lean
+/-- The layer involution read at level `n`: the ancilla is a spectator. -/
+def levelPerm (σ : Equiv.Perm S) (n : ℕ) : Equiv.Perm (S × Fin n) :=
+  σ.prodCongr (Equiv.refl (Fin n))
+```
+
+- **status:** - (definition)
+- **level:** M
+- **depends_on:** σ; n
+- **yields:** LayerFlowExecutable (the flow of a local involution extended by the identity, stage-5 candidate δ)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.56 — `LayerFlowExecutable`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:112` (quoted lines 112-113)
+- **statement (verbatim):**
+
+```lean
+/-- **EXECUTABILITY OF THE LAYER FLOW**: at every level and every time, the conjugation by the
+gate flow of the layer involution (the ancilla a spectator) is an available one-outcome
+operation. This is the only way `unit g t` enters a theory's availability in this file. -/
+def LayerFlowExecutable (T : FiniteOperationalTheory S) (σ : Equiv.Perm S) : Prop :=
+  ∀ (n : ℕ) (t : ℝ), T.availExt n Unit (fun _ => conjChannel (gateFlow (levelPerm σ n) t))
+```
+
+- **status:** assumed; holds under composite unitary control (layerFlowExecutable_of_control, :117) [K]; fails in the substratum theory for every involution moving a configuration (substratumTheory_not_layerFlowExecutable, :200) and in the theory of any configuration-level class (:183) [K]; the ROADMAP lists 'Executable intermediate layer flow' as INDEPENDENT (ROADMAP.md:1401)
+- **level:** M
+- **depends_on:** FiniteOperationalTheory S; σ; gateFlow; levelPerm; quantifies over every level n and every time t
+- **yields:** phaseFree_of_layerFlowExecutable (:783); derivedOI_qm_iff_layerFlowExecutable (:812); DerivedQ3 and StateMixingCoupling routes
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects: the conjugation by `gateFlow (levelPerm σ n) t` on `S × Fin n` (matrix level); the pair-level native drive is the flow through the NOT on one token of `W 3` (stage-5 protocol, (b_DJ)). No theorem at L relates them.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (`LayerFlowExecutable`, ∀ n)
+
+### I4.57 — `layerFlowExecutable_of_control`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:117` (quoted lines 117-119)
+- **statement (verbatim):**
+
+```lean
+/-- **EXECUTABILITY IS CONSISTENT**: it holds in every theory with composite unitary control, so
+in quantum mechanics. -/
+theorem layerFlowExecutable_of_control (T : FiniteOperationalTheory S)
+    (hctrl : HasCompositeUnitaryControl T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) :
+    LayerFlowExecutable T σ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** HasCompositeUnitaryControl T; σ an involution (hσ)
+- **yields:** consistency of LayerFlowExecutable with QM
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.58 — `configurationLevel_not_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:183` (quoted lines 183-185)
+- **statement (verbatim):**
+
+```lean
+/-- **Q2 — NO CONFIGURATION-LEVEL CLASS DERIVES EXECUTABILITY**: in the theory any architecture
+of monomial operators generates, the gate flow of an involution that moves a configuration is
+unavailable at time one half, already at level one. -/
+theorem configurationLevel_not_layerFlowExecutable {𝓘 : ImplementationClass}
+    (arch : Architecture 𝓘) (h : ConfigurationLevel 𝓘) {σ : Equiv.Perm S} {x : S}
+    (hx : σ x ≠ x) : ¬ LayerFlowExecutable (genTheory 𝓘 arch S) σ := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** Architecture 𝓘; ConfigurationLevel 𝓘 (ManuscriptAxioms.lean:125: every admissible operator monomial); σ x ≠ x
+- **yields:** substratumTheory_not_layerFlowExecutable (:200)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.59 — `substratumTheory_not_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:200` (quoted lines 200-201)
+- **statement (verbatim):**
+
+```lean
+/-- **Q2 — THE SUBSTRATUM THEORY DOES NOT DERIVE EXECUTABILITY** of any layer involution that
+moves a configuration. -/
+theorem substratumTheory_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) :
+    ¬ LayerFlowExecutable (substratumTheory S) σ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** σ x ≠ x
+- **yields:** the matrix-level statement that the substratum does not source the intermediate layer flow; cited by the stage-5 protocol (L1)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.60 — `SubstratumAvail`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:745` (quoted lines 745-748)
+- **statement (verbatim):**
+
+```lean
+/-- **WHAT THE SUBSTRATUM SUPPLIES**: a theory carries the substratum theory's availability. -/
+def SubstratumAvail (T : FiniteOperationalTheory S) : Prop :=
+  ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (S × Fin n) (S × Fin n) ℂ →ₗ[ℂ] Matrix (S × Fin n) (S × Fin n) ℂ),
+    (substratumTheory S).availExt n O F → T.availExt n O F
+```
+
+- **status:** assumed (hypothesis of phaseFree_of_layerFlowExecutable, derivedOI_qm_iff_layerFlowExecutable); holds for substratumTheory itself (substratumTheory_substratumAvail, :750) [K]
+- **level:** H
+- **depends_on:** substratumTheory S (RouteB.lean:279)
+- **yields:** phaseFree_of_layerFlowExecutable; derivedOI_qm_iff_layerFlowExecutable
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.61 — `phaseFree_of_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:783` (quoted lines 783-785)
+- **statement (verbatim):**
+
+```lean
+/-- **Q3′ — EXECUTABLE LAYER FLOWS GIVE PHASE-FREE RICHNESS UNDER THE SUBSTRATUM'S AVAILABILITY.**
+The strengthened form of the preregistered Q3, whose hypothesis `DerivedOI` is not used and is
+left open. In a theory that carries the substratum's availability, executability of the layer flow of an involution with a moved
+configuration supplies, at every level, every transition flow between a moved configuration and
+its image: the isolation identity writes that flow as a product of the phase, the gate flow, and
+the sign-conjugated gate flow, each available. -/
+theorem phaseFree_of_layerFlowExecutable (T : FiniteOperationalTheory S) (hsub : SubstratumAvail T)
+    {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x)
+    (hex : LayerFlowExecutable T σ) : PhaseFreeRichness T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** SubstratumAvail T; σ an involution; σ x ≠ x; LayerFlowExecutable T σ
+- **yields:** PhaseFreeRichness T (MinimalRepertoire.lean:423)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Q3′ of the lift audit; the preregistered Q3 (from DerivedOI) is left open (:778-779).
+
+### I4.62 — `derivedOI_qm_iff_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:812` (quoted lines 812-815)
+- **statement (verbatim):**
+
+```lean
+/-- **Q4′ — THE ENDPOINT, RELATIVE TO THE BASELINE**: under the closure together with the
+substratum's availability, exact quantum mechanics is exactly the executability of one layer flow
+that moves a configuration. The preregistered Q4, under the closure alone, is not established. -/
+theorem derivedOI_qm_iff_layerFlowExecutable [Nonempty S] (T : FiniteOperationalTheory S)
+    (hd : DerivedOI T) (hsub : SubstratumAvail T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x)
+    {x : S} (hx : σ x ≠ x) :
+    ExactAllFiniteEndomorphicQuantumOps T ↔ LayerFlowExecutable T σ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty S]; DerivedOI T (RouteB.lean:141); SubstratumAvail T; σ an involution; σ x ≠ x
+- **yields:** Q4′: under DerivedOI and SubstratumAvail, exact QM ⟺ executability of one layer flow
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The preregistered Q4 under DerivedOI alone is not established (:811).
+
+### I4.63 — `substratumTheory_not_layerFlowExecutable_swap`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftAudit.lean:848` (quoted lines 848-850)
+- **statement (verbatim):**
+
+```lean
+/-- **Q2 FOR THE SWAP LAYER**: the substratum theory on a nonempty region with a nontrivial
+alphabet does not derive the executability of its own swap layer. -/
+theorem substratumTheory_not_layerFlowExecutable_swap (Λ : Finset ι) (hΛ : Λ.Nonempty)
+    [Nontrivial V] :
+    ¬ LayerFlowExecutable (substratumTheory (Conf Λ (V × V))) (regionSwap V Λ) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** Λ nonempty; [Nontrivial V]
+- **yields:** the swap-layer instance of the Q2 failure
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.64 — `FiniteOperationalTheory`
+
+- **kind:** hypothesis-structure (the matrix-level carrier: a structure whose Prop fields are the closure rules every theory carries)
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalAssembly.lean:594` (quoted lines 594-653)
+- **statement (verbatim):**
+
+```lean
+/-- **A FINITE OPERATIONAL THEORY over a fixed system `A`.** A per-carrier availability
+notion cannot express the three cross-carrier joins the reconstruction actually consumes:
+that a native ancilla readout EXISTS, that independently prepared parts compose to a
+PRODUCT, and that a circuit on `A × Fin n` with the ancilla forgotten defines an operation
+on `A` alone. This structure carries an availability family for the system AND for every
+finite ancilla extension, together with the closure rules relating them.
+
+The readout is deliberately NOT postulated in the form `id_A ⊗ ℒ_k`. It is postulated only
+to exist and to be spectator-independent; `readout_is_localLuders` then DERIVES the form
+from `mapSpectatorIndependent_iff_localLuders`. That is the whole point of the round-25
+theorem: the local readout branch is earned, not assumed.
+
+DELIBERATELY ABSENT: parallel extension of a SYSTEM operation to the composite. The
+circuit below never lifts a system operation — its composite unitary comes from
+composite-dimension control — so the rule is not included rather than added unused. -/
+structure FiniteOperationalTheory (A : Type*) [Fintype A] [DecidableEq A] where
+  /-- Available finite outcome families of operations on the SYSTEM. -/
+  avail : ∀ (O : Type) [Fintype O] [DecidableEq O],
+    (O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ) → Prop
+  /-- Available finite outcome families on the system extended by an `n`-level ANCILLA. -/
+  availExt : ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O],
+    (O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) → Prop
+  /-- Doing nothing is available. -/
+  avail_id : avail Unit (fun _ => LinearMap.id)
+  /-- CLASSICAL COARSE-GRAINING of the outcome label, on the system. -/
+  avail_coarse : ∀ (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O'] [DecidableEq O']
+      (F : O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ) (f : O → O'), avail O F →
+    avail O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
+  /-- CLASSICAL COARSE-GRAINING on the extended carrier. -/
+  availExt_coarse : ∀ (n : ℕ) (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O']
+      [DecidableEq O']
+      (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (f : O → O'), availExt n O F →
+    availExt n O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
+  /-- GENERAL INSTRUMENT COMPOSITION (feed-forward): run `F`, then run an
+  outcome-dependent instrument `G a`. The joint outcome set is the product. This is the
+  standard closure rule, and it is what round twenty-one's measure-then-reset seed
+  derivation actually uses. -/
+  availExt_bind : ∀ (n : ℕ) (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O']
+      [DecidableEq O']
+      (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (G : O → O' → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ]
+        Matrix (A × Fin n) (A × Fin n) ℂ),
+    availExt n O F → (∀ a, availExt n O' (G a)) →
+      availExt n (O × O') (fun c => (G c.1 c.2).comp (F c.1))
+  /-- Which cross-carrier PREPARATIONS are available. Preparation is an availability
+  notion, NOT a postulate that a pure product can be made. -/
+  prepAvail : ∀ n : ℕ,
+    (Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ) → Prop
+  /-- The only preparation ASSUMED: attaching a MAXIMALLY MIXED ancilla. No pure seed is
+  postulated anywhere in this structure. -/
+  prepAvail_uniform : ∀ n : ℕ, prepAvail (n + 1) (uniformAttach (n + 1))
+  /-- An available composite deterministic operation may be POST-COMPOSED onto an
+  available preparation. -/
+  prepAvail_post : ∀ (n : ℕ)
+      (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (Φ : Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    prepAvail n P → availExt n Unit (fun _ => Φ) → prepAvail n (Φ.comp P)
+  /-- NATIVE FINITE BASIS READOUT of the ancilla: some outcome family is available whose
+  branches are spectator-independent over the rank-one Lüders selectors. Its FORM is not
+  postulated — see `readout_is_localLuders`. -/
+  readout : ∀ n : ℕ, Fin n →
+    Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ
+  readout_avail : ∀ n : ℕ, availExt n (Fin n) (readout n)
+  readout_local : ∀ (n : ℕ) (k : Fin n),
+    MapSpectatorIndependent (ludersLift k) (readout n k)
+  /-- ANCILLA DISCARD. An AVAILABLE preparation, followed by an available composite
+  instrument, followed by forgetting the ancilla, induces an available operation family on
+  the system alone. This is the cross-carrier rule the per-carrier structure could not
+  express, and it now consumes a preparation that has to be earned. -/
+  prepAvail_discard : ∀ (n : ℕ)
+      (P : Matrix A A ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ)
+      (O : Type) [Fintype O] [DecidableEq O]
+      (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    prepAvail n P → availExt n O F → avail O (fun a => discardWith n P (F a))
+```
+
+- **status:** assumed (its fields avail_id, avail_coarse, availExt_coarse, availExt_bind, prepAvail_uniform, prepAvail_post, readout, readout_avail, readout_local, ... are assumed of every T)
+- **level:** M
+- **depends_on:** a finite carrier A with DecidableEq
+- **yields:** every theorem of I4's matrix-level modules
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Defined outside I4's module list (OperationalAssembly.lean); recorded here because every I4 theorem at level M is stated over it. Parallel extension of a system operation to the composite is deliberately absent from the structure (OperationalAssembly.lean:591-593).
+
+### I4.65 — `PhysicalCompletionConditions`
+
+- **kind:** hypothesis-structure (conditions (i)-(v), bundled; the kernel's conjunct order is validity, inert spectators, control, iterated closure, level one, while GR.md:212 numbers them (i) valid probabilities, (ii) trivial-ancilla consistency, (iii) inert spectators, (iv) full reversible control, (v) iterated composition)
+- **provenance:** `verification/lean-mathlib/OIBridge/PhysicalCharacterization.lean:295` (quoted lines 295-297)
+- **statement (verbatim):**
+
+```lean
+/-- **THE FIVE PHYSICAL COMPLETION CONDITIONS**, bundled. -/
+def PhysicalCompletionConditions (T : FiniteOperationalTheory A) : Prop :=
+  CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+    ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T
+```
+
+- **status:** assumed; necessary for exact finite QM (physical_of_exactAll, PhysicalCharacterization.lean:301) [K]; jointly satisfiable (main_result clause (ii)) [K]; each of the five independent of the other four and of OI realization on the qubit (main_result clause (iii)) [K]
+- **level:** M
+- **depends_on:** CompositeOperationalValidity (i); InertSpectatorCompositionality (iii); HasCompositeUnitaryControl (iv); IteratedAncillaClosure (v); SystemToLevelOne (ii) -- numerals as in GR.md:212
+- **yields:** exactAll_iff_physical_general; general_characterization; oi_compatible_classification; main_result; CompletedOI; completedOI_iff_physical
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ completion conditions (i)-(v))
+- **note:** Defined in PhysicalCharacterization.lean (outside I4's list); recorded here as the (i)-(v) of GeneralCarrier.lean.
+
+### I4.66 — `CompositeOperationalValidity`
+
+- **kind:** hypothesis-structure (condition (i) of GR.md:212; first conjunct)
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalValidity.lean:88` (quoted lines 88-93)
+- **statement (verbatim):**
+
+```lean
+/-- **COMPOSITE OPERATIONAL VALIDITY**: every available family at every composite level
+produces valid probabilities — each branch carries positive semidefinite matrices to
+positive semidefinite matrices, and the outcomes sum to a trace-preserving map. (At level
+zero the carrier is empty and the clause is vacuous, so quantifying over every level costs
+nothing and spares a successor bookkeeping.) -/
+def CompositeOperationalValidity (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n O F →
+      (∀ a (X : Matrix (A × Fin n) (A × Fin n) ℂ), X.PosSemidef → ((F a) X).PosSemidef)
+        ∧ ∀ X, ∑ a, ((F a) X).trace = X.trace
+```
+
+- **status:** assumed; derived from ImplementationLocality (validity_of_implementationLocality, ImplementationLocality.lean:971) [K]; necessary for exact QM [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** PhysicalCompletionConditions; WellFormed; OIPlusEmbedded
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (completion condition (i))
+- **note:** Defined outside I4's list (OperationalValidity.lean).
+
+### I4.67 — `HasCompositeUnitaryControl`
+
+- **kind:** hypothesis-structure (condition (iv) of GR.md:212, 'full reversible control'; third conjunct)
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalAssembly.lean:665` (quoted lines 665-667)
+- **statement (verbatim):**
+
+```lean
+/-- **COMPOSITE-DIMENSION CONTROL.** Universal unitary control on EVERY finite ancilla
+extension, not merely on the system: a control premise on `A` says nothing whatever about
+unitaries on `A × Fin n`, so the assembly's control hypothesis must be family-level. -/
+def HasCompositeUnitaryControl (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (U : Matrix (A × Fin n) (A × Fin n) ℂ), Uᴴ * U = 1 →
+    T.availExt n Unit (fun _ => conjChannel U)
+```
+
+- **status:** assumed; derived from ReversibleRichness (control_of_reversibleRichness, CarrierGeneralOIPlus.lean:127) [K], from LieRankRichness (control_of_lieRank, MicroscopicReversibility.lean:114) [K], from PhaseFreeRichness with IteratedAncillaClosure (control_of_phaseFree, MinimalRepertoire.lean:529) [K]; refuted for the substratum's monomial sources (monomialSource_not_control, SubstratumInterface.lean:186; readWriteSourced_not_control, ReadWriteControl.lean:169) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A; quantifies over every ancilla level n and every unitary U
+- **yields:** PhysicalCompletionConditions; SubstantiveCompletion; layerFlowExecutable_of_control; hCompRealized_ones_of_control; krausSoundExt_of_sound_control_inert
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (completion condition (iv); named do-not-assume in the launch)
+- **note:** Defined outside I4's list (OperationalAssembly.lean).
+
+### I4.68 — `IteratedAncillaClosure`
+
+- **kind:** hypothesis-structure (condition (v) of GR.md:212, 'iterated composition'; fourth conjunct)
+- **provenance:** `verification/lean-mathlib/OIBridge/AncillaClosure.lean:247` (quoted lines 247-253)
+- **statement (verbatim):**
+
+```lean
+/-- **THE MISSING RULE: ITERATED ANCILLA CLOSURE.** Attach a fresh uniformly mixed finite
+ancilla to the composite carrier `A × Fin n`, run any intervention available on the enlarged
+carrier (transported along `shiftIdx` into the theory's own carrier at level `n·(m+1)`),
+discard the fresh ancilla: the result is available on `A × Fin n`. In physical words, any
+subsystem may itself be used as the working system in a larger experiment. This is the
+structure's uniform-attach-then-discard pair, relative to a composite base. -/
+def IteratedAncillaClosure (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n m : ℕ) (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix ((A × Fin n) × Fin (m + 1)) ((A × Fin n) × Fin (m + 1)) ℂ →ₗ[ℂ]
+      Matrix ((A × Fin n) × Fin (m + 1)) ((A × Fin n) × Fin (m + 1)) ℂ),
+    T.availExt (n * (m + 1)) O (fun a => transport (shiftIdx A n (m + 1)) (F a)) →
+      T.availExt n O
+        (fun a => discardWith (A := A × Fin n) (m + 1) (uniformAttach (m + 1)) (F a))
+```
+
+- **status:** assumed; derived from EmbeddedObservation (closure_of_embedded, EmbeddedObservation.lean:184) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** PhysicalCompletionConditions; SubstantiveCompletion; shiftOfClosure (CompletedOI.lean:343); control_of_phaseFree
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (completion condition (v))
+- **note:** Defined outside I4's list (AncillaClosure.lean).
+
+### I4.69 — `SystemToLevelOne`
+
+- **kind:** hypothesis-structure (condition (ii) of GR.md:212, 'trivial-ancilla consistency'; fifth conjunct)
+- **provenance:** `verification/lean-mathlib/OIBridge/LevelOneSeam.lean:117` (quoted lines 117-119)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PRINCIPLE**: an operation available on the system remains available after
+adjoining the one-state ancilla. -/
+def SystemToLevelOne (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (O : Type) [Fintype O] [DecidableEq O] (F : O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ),
+    T.avail O F → T.availExt 1 O (fun a => transport (levelOneIdx A).symm (F a))
+```
+
+- **status:** assumed; derived from EmbeddedObservation (systemToLevelOne_of_embedded, EmbeddedObservation.lean:203) [K]; necessary for exact QM (levelOne_of_exactAll, PhysicalCharacterization.lean:285) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** PhysicalCompletionConditions; WellFormed
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (completion condition (ii))
+- **note:** Defined outside I4's list (LevelOneSeam.lean).
+
+### I4.70 — `ExactAllFiniteEndomorphicQuantumOps`
+
+- **kind:** hypothesis-structure (the endpoint: exact finite endomorphic QM on the system and every positive composite)
+- **provenance:** `verification/lean-mathlib/OIBridge/LevelOneSeam.lean:186` (quoted lines 186-187)
+- **statement (verbatim):**
+
+```lean
+/-- **EXACT FINITE ENDOMORPHIC QM ON THE SYSTEM AND EVERY POSITIVE COMPOSITE.** -/
+def ExactAllFiniteEndomorphicQuantumOps (T : FiniteOperationalTheory A) : Prop :=
+  ExactFiniteEndomorphicQuantumOps T ∧ ExactCompositeQuantumOps T
+```
+
+- **status:** assumed where it is a hypothesis (the necessity directions: implementationLocality_of_qm, qm_generated_by_substratum_extension, oiPlus_of_qm, ...); never derived from the OI core alone (oi_alone_not_qm, GeneralCarrier.lean:160) [K]
+- **level:** M
+- **depends_on:** ExactFiniteEndomorphicQuantumOps T (KrausSoundness.lean:134); ExactCompositeQuantumOps T
+- **yields:** the right-hand side of every OI⁺ characterization
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (the quantum endpoint; a target, never a premise of a derivation)
+- **note:** Defined outside I4's list (LevelOneSeam.lean).
+
+### I4.71 — `exactAll_iff_physical_general`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:100` (quoted lines 100-101)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CHARACTERIZATION, FOR EVERY NONEMPTY FINITE SYSTEM.** Exact finite endomorphic
+quantum operations on the system and every positive composite hold if and only if the five
+physical completion conditions hold. No isometry hypothesis, no qubit restriction. -/
+theorem exactAll_iff_physical_general (T : FiniteOperationalTheory A) :
+    ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A] (section variable); both sides hypotheses on T
+- **yields:** general_characterization; main_result clause (i)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Directions (module header :8-12): sufficiency through krausSoundExt_of_validity_inert, compositeCompleteness, exactComposite_of_soundExt_full, exactAll_of_levelOne; necessity physical_of_exactAll.
+
+### I4.72 — `general_characterization`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:107` (quoted lines 107-109)
+- **statement (verbatim):**
+
+```lean
+/-- The characterization, closed over every nonempty finite carrier. -/
+theorem general_characterization :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+      ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified nonempty finite carrier
+- **yields:** main_result clause (i)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.73 — `WellFormed`
+
+- **kind:** hypothesis-structure (conditions (i) and (ii) of GR.md:212)
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:125` (quoted lines 125-126)
+- **statement (verbatim):**
+
+```lean
+/-- **WELL-FORMEDNESS**: valid probabilities and consistency under a trivial one-state
+ancilla — basic requirements of any operational theory, not selection principles. -/
+def WellFormed (T : FiniteOperationalTheory A) : Prop :=
+  CompositeOperationalValidity T ∧ SystemToLevelOne T
+```
+
+- **status:** assumed (hypothesis of exactAll_iff_substantive, reversibleRichness_of_control, inverseAccessibility_of_lieRank; conjunct of OIPlus)
+- **level:** M
+- **depends_on:** CompositeOperationalValidity T; SystemToLevelOne T
+- **yields:** exactAll_iff_substantive; OIPlus (CompletedOI.lean:418; CarrierGeneralOIPlus.lean:185)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (part of (i)-(v))
+- **note:** Docstring: 'basic requirements of any operational theory, not selection principles' (GeneralCarrier.lean:123-124).
+
+### I4.74 — `SubstantiveCompletion`
+
+- **kind:** hypothesis-structure (conditions (iii)-(v) of GR.md:212)
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:130` (quoted lines 130-131)
+- **statement (verbatim):**
+
+```lean
+/-- **THE THREE SUBSTANTIVE SELECTION PRINCIPLES**: inert spectators, sufficient reversible
+control, iterated composition. -/
+def SubstantiveCompletion (T : FiniteOperationalTheory A) : Prop :=
+  InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T
+```
+
+- **status:** assumed
+- **level:** M
+- **depends_on:** InertSpectatorCompositionality T; HasCompositeUnitaryControl T; IteratedAncillaClosure T
+- **yields:** exactAll_iff_substantive
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (part of (i)-(v))
+
+### I4.75 — `exactAll_iff_substantive`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:144` (quoted lines 144-145)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CHARACTERIZATION FOR WELL-FORMED THEORIES**: exact finite operational QM iff the
+three substantive principles. -/
+theorem exactAll_iff_substantive (T : FiniteOperationalTheory A) (hwf : WellFormed T) :
+    ExactAllFiniteEndomorphicQuantumOps T ↔ SubstantiveCompletion T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** WellFormed T; [Nonempty A]
+- **yields:** the three-principle form for well-formed theories
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.76 — `oi_alone_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:160` (quoted lines 160-162)
+- **statement (verbatim):**
+
+```lean
+/-- **OI ALONE ≠ QM**: a theory realizing the sealed OI core that is not exactly quantum
+(the diagonal-preserving theory; the round-34 countermodel and the rank-gap theory are
+further witnesses). -/
+theorem oi_alone_not_qm :
+    ∃ T : FiniteOperationalTheory (Fin 2),
+      RealizesSealedOICore T ∧ ¬ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the diagonal-preserving theory)
+- **yields:** main_result clause (iv)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.77 — `oi_compatible_classification`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:168` (quoted lines 168-172)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CLASSIFICATION OF OI-COMPATIBLE COMPLETIONS**: among theories realizing the sealed
+OI core, exact finite operational QM is exactly the five conditions; and OI realization is
+not what does the work — every theory with full composite control realizes the core. -/
+theorem oi_compatible_classification :
+    (∀ T : FiniteOperationalTheory (Fin 2), RealizesSealedOICore T →
+      (ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T))
+    ∧ (∀ T : FiniteOperationalTheory (Fin 2), HasCompositeUnitaryControl T →
+      RealizesSealedOICore T) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** RealizesSealedOICore T (OIRealization.lean:234; I1's scope) for the first clause; HasCompositeUnitaryControl T for the second
+- **yields:** classification of OI-compatible completions; 'not OI derives QM' (GeneralCarrier.lean:37-40)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.78 — `main_result`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/GeneralCarrier.lean:188` (quoted lines 188-213)
+- **statement (verbatim):**
+
+```lean
+/-- **THE MAIN RESULT.** (i) For every nonempty finite observable system, exact finite
+endomorphic quantum mechanics is characterized exactly by the five physical completion
+conditions; (ii) the conditions are jointly satisfiable; (iii) on the qubit, each condition
+is independent of the other four and of OI realization (the five-way audit); (iv) OI alone
+does not select QM. No external boundary item enters any clause. -/
+theorem main_result :
+    (∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+      ExactAllFiniteEndomorphicQuantumOps T ↔ PhysicalCompletionConditions T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2), PhysicalCompletionConditions T)
+    ∧ ((∃ T : FiniteOperationalTheory (Fin 2),
+      InertSpectatorCompositionality T ∧ HasCompositeUnitaryControl T
+        ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+        ∧ ¬ CompositeOperationalValidity T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+      CompositeOperationalValidity T ∧ HasCompositeUnitaryControl T
+        ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+        ∧ ¬ InertSpectatorCompositionality T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+      CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+        ∧ IteratedAncillaClosure T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+        ∧ ¬ HasCompositeUnitaryControl T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+      CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+        ∧ HasCompositeUnitaryControl T ∧ SystemToLevelOne T ∧ RealizesSealedOICore T
+        ∧ ¬ IteratedAncillaClosure T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+      CompositeOperationalValidity T ∧ InertSpectatorCompositionality T
+        ∧ HasCompositeUnitaryControl T ∧ IteratedAncillaClosure T ∧ RealizesSealedOICore T
+        ∧ ¬ SystemToLevelOne T))
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+      RealizesSealedOICore T ∧ ¬ ExactAllFiniteEndomorphicQuantumOps T) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none (closed conjunction; clause (i) quantified over nonempty finite carriers, clauses (ii)-(iv) on the qubit)
+- **yields:** the frozen main research result (module header :1-4)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Minimality of the five conditions is claimed on the qubit only (GeneralCarrier.lean:48-51).
+
+### I4.79 — `OICore`
+
+- **kind:** hypothesis-structure (bare OI on the qubit carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:96` (quoted lines 96-96)
+- **statement (verbatim):**
+
+```lean
+/-- **BARE OI**: the original observation-incompleteness principle, unchanged. -/
+def OICore (T : FiniteOperationalTheory (Fin 2)) : Prop := RealizesSealedOICore T
+```
+
+- **status:** assumed; realized by every theory with full composite control (realizesSealedOICore_of_control, OIRealization.lean:252) [K]
+- **level:** M
+- **depends_on:** RealizesSealedOICore T (OIRealization.lean:234)
+- **yields:** CompletedOI; OIPlus (CompletedOI.lean:418); the independence theorems
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Content out of scope: I1 (the sealed OI core and its realization, `RealizesSealedOICore`, OIRealization.lean); recorded here as the conjunct of CompletedOI/OIPlus.
+
+### I4.80 — `CompletedOI`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:99` (quoted lines 99-100)
+- **statement (verbatim):**
+
+```lean
+/-- **COMPLETED OI**: the core plus the five completion conditions. -/
+def CompletedOI (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+  OICore T ∧ PhysicalCompletionConditions T
+```
+
+- **status:** assumed; equivalent to PhysicalCompletionConditions (completedOI_iff_physical, :110) [K]
+- **level:** M
+- **depends_on:** OICore T; PhysicalCompletionConditions T
+- **yields:** completedOI_iff_physical; oiPlus_iff_completedOI (:444)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI core plus (i)-(v))
+
+### I4.81 — `completedOI_iff_physical`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:110` (quoted lines 110-111)
+- **statement (verbatim):**
+
+```lean
+/-- **THE REDUNDANCY, MADE EXPLICIT**: because full composite control realizes the sealed
+core, the OI clause of completed OI is implied by the five conditions. -/
+theorem completedOI_iff_physical (T : FiniteOperationalTheory (Fin 2)) :
+    CompletedOI T ↔ PhysicalCompletionConditions T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T
+- **yields:** the redundancy of the OI clause given the five conditions
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.82 — `ObservationalIndependence`
+
+- **kind:** hypothesis-structure (OI⁺-1 on the qubit carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:129` (quoted lines 129-129)
+- **statement (verbatim):**
+
+```lean
+/-- **OBSERVATIONAL INDEPENDENCE**: an available operation on a composite acts as itself when
+an untouched system is adjoined. -/
+def ObservationalIndependence : Prop := HasParallelReferenceExtension T
+```
+
+- **status:** assumed; by definition HasParallelReferenceExtension T; equivalent to InertSpectatorCompositionality (observationalIndependence_iff_inert, :131) [K]; independent of OICore, WellFormed, ReversibleRichness, ObserverRecursion (independence_independent, :475) [K]
+- **level:** M
+- **depends_on:** HasParallelReferenceExtension T (ReferenceExtension.lean:447)
+- **yields:** OIPlus; parallel_of_observationalIndependence (:147)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects as for HasParallelReferenceExtension: matrix maps with an appended spectator versus `actC`/`actT` on `W 3`; no theorem at L relates them.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (observational independence)
+- **note:** Docstring: 'an available operation on a composite acts as itself when an untouched system is adjoined' (CompletedOI.lean:127-128).
+
+### I4.83 — `observationalIndependence_iff_inert`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:131` (quoted lines 131-132)
+- **statement (verbatim):**
+
+```lean
+theorem observationalIndependence_iff_inert :
+    ObservationalIndependence T ↔ InertSpectatorCompositionality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.84 — `parallel_of_observationalIndependence`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:147` (quoted lines 147-153)
+- **statement (verbatim):**
+
+```lean
+/-- **INDEPENDENT OBSERVATIONS ARE JOINTLY PERFORMABLE**: under observational independence,
+two available operations on disjoint factors compose in parallel. -/
+theorem parallel_of_observationalIndependence (h : ObservationalIndependence T) {n k m : ℕ}
+    (e : (Fin 2 × Fin k) × (Fin 2 × Fin n) ≃ Fin 2 × Fin m) {O O' : Type} [Fintype O]
+    [DecidableEq O] [Fintype O'] [DecidableEq O']
+    {F : O → Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ →ₗ[ℂ] Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ}
+    {G : O' → Matrix (Fin 2 × Fin k) (Fin 2 × Fin k) ℂ →ₗ[ℂ] Matrix (Fin 2 × Fin k) (Fin 2 × Fin k) ℂ}
+    (hF : T.availExt n O F) (hG : T.availExt k O' G) :
+    T.availExt m (O' × O) (parallelPair e F G) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** ObservationalIndependence T; availability of F at level n and of G at level k; a reindexing e : (Fin 2 × Fin k) × (Fin 2 × Fin n) ≃ Fin 2 × Fin m
+- **yields:** joint availability of parallelPair e F G (CompletedOI.lean:137)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects: `parallelPair` composes two `withSpectator` maps on a matrix carrier; the pair-level product `prodState` (CompositeDimension.lean:161) and `actC`/`actT` are not connected to it by any theorem at L.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.85 — `ReversibleRichness`
+
+- **kind:** hypothesis-structure (OI⁺-2 on the qubit carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:171` (quoted lines 171-178)
+- **statement (verbatim):**
+
+```lean
+/-- **REVERSIBLE RICHNESS**: every available reversible transformation can be undone, and at
+every level a passive drift with finitely many controls generates `su(D)`. -/
+def ReversibleRichness : Prop :=
+  (∀ (n : ℕ) (V : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ),
+    T.availExt n Unit (fun _ => conjChannel V) → T.availExt n Unit (fun _ => conjChannel Vᴴ))
+  ∧ ∀ n : ℕ, ∃ (G : Type) (H : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ)
+      (U : G → Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ),
+      Hᴴ = H ∧ (∀ g, (U g)ᴴ * U g = 1) ∧ HControl H U
+        ∧ (∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow H t)))
+        ∧ (∀ g, T.availExt n Unit (fun _ => conjChannel (U g)))
+```
+
+- **status:** assumed; independent of the other OI⁺ principles (richness_independent, :487; oiPlus_independence, :506) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory (Fin 2); HControl (MonoidalCompletion.lean:349); flow
+- **yields:** OIPlus
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (reversible richness)
+- **note:** Two clauses: inverse accessibility and a drift with finitely many controls generating su(D) at every level (docstring :169-170).
+
+### I4.86 — `IsShiftedTheory`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:315` (quoted lines 315-323)
+- **statement (verbatim):**
+
+```lean
+/-- **A SHIFTED THEORY**: a finite operational theory on the level-`n` composite whose system
+families are `T`'s level-`n` families and whose ancilla families are `T`'s transported
+higher-level families. -/
+def IsShiftedTheory (T : FiniteOperationalTheory A) (n : ℕ)
+    (T' : FiniteOperationalTheory (A × Fin n)) : Prop :=
+  (∀ (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ),
+    T'.avail O F ↔ T.availExt n O F)
+  ∧ ∀ (m : ℕ) (O : Type) [Fintype O] [DecidableEq O]
+    (F : O → Matrix ((A × Fin n) × Fin m) ((A × Fin n) × Fin m) ℂ →ₗ[ℂ]
+      Matrix ((A × Fin n) × Fin m) ((A × Fin n) × Fin m) ℂ),
+    T'.availExt m O F ↔ T.availExt (n * m) O (fun a => transport (shiftIdx A n m) (F a))
+```
+
+- **status:** assumed where used (inside ObserverRecursion)
+- **level:** M
+- **depends_on:** T; n; T' : FiniteOperationalTheory (A × Fin n)
+- **yields:** ObserverRecursion
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.87 — `ObserverRecursion`
+
+- **kind:** hypothesis-structure (OI⁺-3)
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:327` (quoted lines 327-328)
+- **statement (verbatim):**
+
+```lean
+/-- **OBSERVER RECURSION**: a composite observable system is itself an admissible observable
+system, at every level. -/
+def ObserverRecursion (T : FiniteOperationalTheory A) : Prop :=
+  ∀ n : ℕ, ∃ T' : FiniteOperationalTheory (A × Fin n), IsShiftedTheory T n T'
+```
+
+- **status:** assumed; derived from EmbeddedObservation (observerRecursion_of_embeddedObservation, EmbeddedObservation.lean:217) [K]; independent of the other OI⁺ principles (recursion_independent, :496) [K]
+- **level:** M
+- **depends_on:** IsShiftedTheory
+- **yields:** OIPlus (CompletedOI.lean:418; CarrierGeneralOIPlus.lean:185)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Stage-5 candidate ζ (the pair as an admissible system with its own single-system structure) has no kernel transcription at L: ObserverRecursion is a statement about shifted matrix-level theories on `A × Fin n`.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (observer recursion)
+
+### I4.88 — `OIPlus`
+
+- **kind:** hypothesis-structure (OI⁺ on the qubit carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:418` (quoted lines 418-420)
+- **statement (verbatim):**
+
+```lean
+/-- **OI⁺**: the core, well-formedness, observational independence, reversible richness and
+observer recursion. -/
+def OIPlus : Prop :=
+  OICore T ∧ WellFormed T ∧ ObservationalIndependence T ∧ ReversibleRichness T
+    ∧ ObserverRecursion T
+```
+
+- **status:** assumed; equivalent to exact finite operational QM on the qubit (oiPlus_iff_qm, :440) [K]
+- **level:** M
+- **depends_on:** OICore T; WellFormed T; ObservationalIndependence T; ReversibleRichness T; ObserverRecursion T
+- **yields:** qm_of_oiPlus; oiPlus_iff_qm; oiPlus_iff_completedOI
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package)
+
+### I4.89 — `qm_of_oiPlus`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:423` (quoted lines 423-423)
+- **statement (verbatim):**
+
+```lean
+/-- **OI⁺ IMPLIES FINITE OPERATIONAL QM.** -/
+theorem qm_of_oiPlus (h : OIPlus T) : ExactAllFiniteEndomorphicQuantumOps T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** OIPlus T
+- **yields:** ExactAllFiniteEndomorphicQuantumOps T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Sufficiency direction; necessity is oiPlus_of_qm (:430).
+
+### I4.90 — `oiPlus_iff_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:440` (quoted lines 440-440)
+- **statement (verbatim):**
+
+```lean
+/-- **OI⁺ ⟺ FINITE OPERATIONAL QM**, on the qubit carrier. -/
+theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Directions: qm_of_oiPlus (:423), oiPlus_of_qm (:430).
+
+### I4.91 — `oiPlus_iff_completedOI`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:444` (quoted lines 444-444)
+- **statement (verbatim):**
+
+```lean
+/-- OI⁺ is completed OI. -/
+theorem oiPlus_iff_completedOI : OIPlus T ↔ CompletedOI T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.92 — `independence_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:475` (quoted lines 475-477)
+- **statement (verbatim):**
+
+```lean
+/-- **OBSERVATIONAL INDEPENDENCE IS INDEPENDENT** of the core, well-formedness, reversible
+richness and observer recursion: the round-34 countermodel. -/
+theorem independence_independent :
+    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ReversibleRichness T
+      ∧ ObserverRecursion T ∧ ¬ ObservationalIndependence T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the round-34 countermodel)
+- **yields:** oiPlus_independence
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.93 — `richness_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:487` (quoted lines 487-489)
+- **statement (verbatim):**
+
+```lean
+/-- **REVERSIBLE RICHNESS IS INDEPENDENT**: the diagonal theory. -/
+theorem richness_independent :
+    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ObservationalIndependence T
+      ∧ ObserverRecursion T ∧ ¬ ReversibleRichness T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed)
+- **yields:** oiPlus_independence
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.94 — `recursion_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:496` (quoted lines 496-498)
+- **statement (verbatim):**
+
+```lean
+/-- **OBSERVER RECURSION IS INDEPENDENT**: the rank-gap theory. -/
+theorem recursion_independent :
+    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ObservationalIndependence T
+      ∧ ReversibleRichness T ∧ ¬ ObserverRecursion T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; witness the rank-gap theory)
+- **yields:** oiPlus_independence
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.95 — `oiPlus_independence`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CompletedOI.lean:506` (quoted lines 506-512)
+- **statement (verbatim):**
+
+```lean
+/-- **THE THREE PRINCIPLES OF OI⁺ ARE INDEPENDENT**, each of the core, well-formedness and the
+other two. -/
+theorem oiPlus_independence :
+    (∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ReversibleRichness T
+      ∧ ObserverRecursion T ∧ ¬ ObservationalIndependence T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ObservationalIndependence T
+      ∧ ObserverRecursion T ∧ ¬ ReversibleRichness T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ObservationalIndependence T
+      ∧ ReversibleRichness T ∧ ¬ ObserverRecursion T) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed conjunction of three existence statements on the qubit)
+- **yields:** the matrix-level independence of the three OI⁺ principles; cited by the stage-4 note (INTEGRATION-NOTE-STAGE4.md:121-122) and the stage-5 protocol (L2)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Scope: `FiniteOperationalTheory (Fin 2)`; a pair-cone reading would need a bridge absent at L.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.96 — `ObservationalIndependence`
+
+- **kind:** hypothesis-structure (OI⁺-1 on a general carrier A)
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:73` (quoted lines 73-73)
+- **statement (verbatim):**
+
+```lean
+/-- **OBSERVATIONAL INDEPENDENCE** on a carrier `A`. -/
+def ObservationalIndependence : Prop := HasParallelReferenceExtension T
+```
+
+- **status:** assumed; by definition HasParallelReferenceExtension T; implied by ImplementationLocality (ImplementationLocality.lean:957) [K]
+- **level:** M
+- **depends_on:** HasParallelReferenceExtension T
+- **yields:** OIPlus (CarrierGeneralOIPlus.lean:185); OIPlusEmbedded (EmbeddedObservation.lean:366); parallel_of_observationalIndependence (:87)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (observational independence)
+- **note:** Namespace OIHierarchyGeneral.
+
+### I4.97 — `observationalIndependence_iff_inert`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:75` (quoted lines 75-76)
+- **statement (verbatim):**
+
+```lean
+theorem observationalIndependence_iff_inert :
+    ObservationalIndependence T ↔ InertSpectatorCompositionality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.98 — `parallel_of_observationalIndependence`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:87` (quoted lines 87-93)
+- **statement (verbatim):**
+
+```lean
+theorem parallel_of_observationalIndependence (h : ObservationalIndependence T) {n k m : ℕ}
+    (e : (A × Fin k) × (A × Fin n) ≃ A × Fin m) {O O' : Type} [Fintype O] [DecidableEq O]
+    [Fintype O'] [DecidableEq O']
+    {F : O → Matrix (A × Fin n) (A × Fin n) ℂ →ₗ[ℂ] Matrix (A × Fin n) (A × Fin n) ℂ}
+    {G : O' → Matrix (A × Fin k) (A × Fin k) ℂ →ₗ[ℂ] Matrix (A × Fin k) (A × Fin k) ℂ}
+    (hF : T.availExt n O F) (hG : T.availExt k O' G) :
+    T.availExt m (O' × O) (parallelPair e F G) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** ObservationalIndependence T; F available at level n; G available at level k; reindexing e
+- **yields:** joint availability of parallelPair e F G (CarrierGeneralOIPlus.lean:80)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.99 — `ReversibleRichness`
+
+- **kind:** hypothesis-structure (OI⁺-2 on a general carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:110` (quoted lines 110-117)
+- **statement (verbatim):**
+
+```lean
+/-- **REVERSIBLE RICHNESS** on a carrier `A`. -/
+def ReversibleRichness : Prop :=
+  (∀ (n : ℕ) (V : Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n Unit (fun _ => conjChannel V) → T.availExt n Unit (fun _ => conjChannel Vᴴ))
+  ∧ ∀ n : ℕ, ∃ (G : Type) (H : Matrix (A × Fin n) (A × Fin n) ℂ)
+      (U : G → Matrix (A × Fin n) (A × Fin n) ℂ),
+      Hᴴ = H ∧ (∀ g, (U g)ᴴ * U g = 1) ∧ HControl H U
+        ∧ (∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow H t)))
+        ∧ (∀ g, T.availExt n Unit (fun _ => conjChannel (U g)))
+```
+
+- **status:** assumed; gives HasCompositeUnitaryControl (control_of_reversibleRichness, :127) [K]; follows from control on a well-formed theory (reversibleRichness_of_control, :148) [K]; ⟺ InverseAccessibility ∧ LieRankRichness (reversibleRichness_iff, MicroscopicReversibility.lean:100) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A; HControl; flow
+- **yields:** OIPlus; OIPlusLocal; OIPlusEmbedded
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (reversible richness)
+
+### I4.100 — `control_of_reversibleRichness`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:127` (quoted lines 127-128)
+- **statement (verbatim):**
+
+```lean
+/-- **REVERSIBLE RICHNESS GIVES FULL COMPOSITE UNITARY CONTROL** on any carrier. -/
+theorem control_of_reversibleRichness (h : ReversibleRichness T) :
+    HasCompositeUnitaryControl T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** ReversibleRichness T
+- **yields:** HasCompositeUnitaryControl T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.101 — `reversibleRichness_of_control`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:148` (quoted lines 148-149)
+- **statement (verbatim):**
+
+```lean
+/-- **FULL CONTROL ON A WELL-FORMED THEORY IS REVERSIBLY RICH**, on any nonempty carrier: the
+rank-one matrix unit at a base point is the drift, all unitaries are the controls. -/
+theorem reversibleRichness_of_control [Nonempty A] (hwf : WellFormed T)
+    (hctrl : HasCompositeUnitaryControl T) : ReversibleRichness T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; WellFormed T; HasCompositeUnitaryControl T
+- **yields:** ReversibleRichness T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.102 — `OIPlus`
+
+- **kind:** hypothesis-structure (OI⁺ on a general carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:185` (quoted lines 185-186)
+- **statement (verbatim):**
+
+```lean
+/-- **OI⁺ ON A CARRIER**: well-formedness, observational independence, reversible richness,
+observer recursion. The sealed qubit core is not a statement about a general carrier; on the
+qubit its conjunct is redundant (`completedOI_iff_physical`) and `oiPlus_qubit_iff` below
+identifies this definition with the round-53 one. -/
+def OIPlus : Prop :=
+  WellFormed T ∧ ObservationalIndependence T ∧ ReversibleRichness T ∧ ObserverRecursion T
+```
+
+- **status:** assumed; equivalent to exact finite operational QM on every nonempty finite carrier (carrier_general_oiPlus, :213) [K]
+- **level:** M
+- **depends_on:** WellFormed T; ObservationalIndependence T; ReversibleRichness T; ObserverRecursion T
+- **yields:** qm_of_oiPlus (:191); oiPlus_iff_qm (:207); carrier_general_oiPlus; oiPlus_qubit_iff (:224)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package)
+- **note:** The sealed qubit core is not a conjunct here (docstring :181-184).
+
+### I4.103 — `oiPlus_iff_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:207` (quoted lines 207-207)
+- **statement (verbatim):**
+
+```lean
+/-- **OI⁺ ⟺ FINITE OPERATIONAL QM**, on any nonempty finite carrier. -/
+theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; both sides hypotheses on T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Directions: qm_of_oiPlus (:191), oiPlus_of_qm (:198). The Kₙ census lists it among the carrier-general K3 interfaces (KN-CENSUS-RESULT.md:52).
+
+### I4.104 — `carrier_general_oiPlus`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:213` (quoted lines 213-215)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
+theorem carrier_general_oiPlus :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+      OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified nonempty finite carrier
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.105 — `oiPlus_independence`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CarrierGeneralOIPlus.lean:230` (quoted lines 230-236)
+- **statement (verbatim):**
+
+```lean
+/-- **THE THREE PRINCIPLES OF CARRIER-GENERAL OI⁺ ARE INDEPENDENT**, witnessed on the qubit:
+each fails on a well-formed theory carrying the sealed core and the other two. -/
+theorem oiPlus_independence :
+    (∃ T : FiniteOperationalTheory (Fin 2), WellFormed T ∧ ReversibleRichness T
+      ∧ ObserverRecursion T ∧ ¬ ObservationalIndependence T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2), WellFormed T ∧ ObservationalIndependence T
+      ∧ ObserverRecursion T ∧ ¬ ReversibleRichness T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2), WellFormed T ∧ ObservationalIndependence T
+      ∧ ReversibleRichness T ∧ ¬ ObserverRecursion T) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; three qubit witnesses)
+- **yields:** the carrier-general OI⁺ principles are independent
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.106 — `TheoryFamily`
+
+- **kind:** definition-as-hypothesis (a family of finite operational theories, one per finite carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:93` (quoted lines 93-94)
+- **statement (verbatim):**
+
+```lean
+/-- A finite operational theory at every finite carrier. -/
+abbrev TheoryFamily :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S], FiniteOperationalTheory S
+```
+
+- **status:** - (type definition)
+- **level:** G
+- **depends_on:** FiniteOperationalTheory at every finite carrier
+- **yields:** RegroupingInvariant; RelabellingInvariant; IsAmbientMember; EmbeddedObservation
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.107 — `RegroupingInvariant`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:98` (quoted lines 98-102)
+- **statement (verbatim):**
+
+```lean
+/-- **(R) REGROUPING INVARIANCE**: the positive-level families of the observer at `S` are the
+system families of the observer at the regrouped carrier `S × Fin m`. -/
+def RegroupingInvariant (𝒯 : TheoryFamily) : Prop :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S] (m : ℕ), 0 < m →
+    ∀ (O : Type) [Fintype O] [DecidableEq O]
+      (F : O → Matrix (S × Fin m) (S × Fin m) ℂ →ₗ[ℂ] Matrix (S × Fin m) (S × Fin m) ℂ),
+      (𝒯 S).availExt m O F ↔ (𝒯 (S × Fin m)).avail O F
+```
+
+- **status:** assumed (inside EmbeddedObservation)
+- **level:** G
+- **depends_on:** TheoryFamily
+- **yields:** EmbeddedObservation; closure_of_embedded; systemToLevelOne_of_embedded
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.108 — `RelabellingInvariant`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:106` (quoted lines 106-109)
+- **statement (verbatim):**
+
+```lean
+/-- **(L) RELABELLING INVARIANCE**: availability is transported along every bijection of
+carriers. -/
+def RelabellingInvariant (𝒯 : TheoryFamily) : Prop :=
+  ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] (e : S ≃ S')
+    (O : Type) [Fintype O] [DecidableEq O] (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ),
+    (𝒯 S).avail O F → (𝒯 S').avail O (fun a => transport e (F a))
+```
+
+- **status:** assumed (inside EmbeddedObservation)
+- **level:** G
+- **depends_on:** TheoryFamily
+- **yields:** EmbeddedObservation
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.109 — `IsAmbientMember`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:114` (quoted lines 114-119)
+- **statement (verbatim):**
+
+```lean
+/-- **(M) AMBIENCE**: `T` is the family's member at its own carrier, on the system and at
+every positive level. Only the positive-level clause is consumed by the recursion derivation;
+the system clause is consumed by the level-one seam. -/
+def IsAmbientMember (T : FiniteOperationalTheory A) (𝒯 : TheoryFamily) : Prop :=
+  (∀ (O : Type) [Fintype O] [DecidableEq O] (F : O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ),
+    T.avail O F ↔ (𝒯 A).avail O F)
+  ∧ ∀ (N : ℕ), 0 < N → ∀ (O : Type) [Fintype O] [DecidableEq O]
+      (F : O → Matrix (A × Fin N) (A × Fin N) ℂ →ₗ[ℂ] Matrix (A × Fin N) (A × Fin N) ℂ),
+      T.availExt N O F ↔ (𝒯 A).availExt N O F
+```
+
+- **status:** assumed (inside EmbeddedObservation)
+- **level:** M
+- **depends_on:** T; TheoryFamily
+- **yields:** EmbeddedObservation
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.110 — `EmbeddedObservation`
+
+- **kind:** hypothesis-structure (OI⁺-3 in the embedded form)
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:123` (quoted lines 123-124)
+- **statement (verbatim):**
+
+```lean
+/-- **EMBEDDED OBSERVATION**: `T` is the ambient member of a regrouping- and
+relabelling-invariant family of finite operational theories on all finite carriers. -/
+def EmbeddedObservation (T : FiniteOperationalTheory A) : Prop :=
+  ∃ 𝒯 : TheoryFamily, RegroupingInvariant 𝒯 ∧ RelabellingInvariant 𝒯 ∧ IsAmbientMember T 𝒯
+```
+
+- **status:** assumed; implies ObserverRecursion (:217), IteratedAncillaClosure (:184) and SystemToLevelOne (:203) [K]; holds for exact QM (embeddedObservation_of_qm, :327) [K] and for every theory generated by a label-invariant architecture (genTheory_embeddedObservation, ImplementationLocality.lean:904) [K]; independent of OICore, WellFormed, ObservationalIndependence, ReversibleRichness (embeddedObservation_independent, :343) [K]
+- **level:** M
+- **depends_on:** ∃ 𝒯 : TheoryFamily, RegroupingInvariant 𝒯 ∧ RelabellingInvariant 𝒯 ∧ IsAmbientMember T 𝒯
+- **yields:** OIPlusEmbedded; OIPlusLocal; OIPlusMin; OIPlusPos; OIPlusMicro; DerivedOI (RouteB.lean:141)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Stage-5 candidate ζ: no kernel statement relates a theory family over matrix carriers to the pair cone.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ completion condition: embedded observation / observer recursion)
+- **note:** Namespace PrimitiveSource.
+
+### I4.111 — `closure_of_embedded`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:184` (quoted lines 184-186)
+- **statement (verbatim):**
+
+```lean
+/-- **ITERATED ANCILLA CLOSURE IS DERIVED**: the discard rule of the embedded observer at
+`A × Fin n`, with the hypothesis carried in by (M), (R), (L) along `shiftIdx⁻¹` and the
+conclusion carried out by (R), (M). -/
+theorem closure_of_embedded {T : FiniteOperationalTheory A} {𝒯 : TheoryFamily}
+    (hreg : RegroupingInvariant 𝒯) (hrel : RelabellingInvariant 𝒯)
+    (hamb : IsAmbientMember T 𝒯) : IteratedAncillaClosure T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** RegroupingInvariant 𝒯; RelabellingInvariant 𝒯; IsAmbientMember T 𝒯
+- **yields:** IteratedAncillaClosure T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.112 — `systemToLevelOne_of_embedded`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:203` (quoted lines 203-205)
+- **statement (verbatim):**
+
+```lean
+/-- **THE LEVEL-ONE SEAM IS DERIVED**: relabelling along `A ≃ A × Fin 1`. -/
+theorem systemToLevelOne_of_embedded {T : FiniteOperationalTheory A} {𝒯 : TheoryFamily}
+    (hreg : RegroupingInvariant 𝒯) (hrel : RelabellingInvariant 𝒯)
+    (hamb : IsAmbientMember T 𝒯) : SystemToLevelOne T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** RegroupingInvariant 𝒯; RelabellingInvariant 𝒯; IsAmbientMember T 𝒯
+- **yields:** SystemToLevelOne T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.113 — `observerRecursion_of_embeddedObservation`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:217` (quoted lines 217-218)
+- **statement (verbatim):**
+
+```lean
+/-- **OBSERVER RECURSION IS DERIVED** from embedded observation. -/
+theorem observerRecursion_of_embeddedObservation {T : FiniteOperationalTheory A}
+    (h : EmbeddedObservation T) : ObserverRecursion T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** EmbeddedObservation T
+- **yields:** ObserverRecursion T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.114 — `embeddedObservation_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:343` (quoted lines 343-345)
+- **statement (verbatim):**
+
+```lean
+/-- **BARE OI DOES NOT SUPPLY EMBEDDED OBSERVATION**, nor do the core, well-formedness,
+observational independence and reversible richness together. -/
+theorem embeddedObservation_independent :
+    ∃ T : FiniteOperationalTheory (Fin 2), OICore T ∧ WellFormed T ∧ ObservationalIndependence T
+      ∧ ReversibleRichness T ∧ ¬ EmbeddedObservation T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; qubit witness)
+- **yields:** independence of EmbeddedObservation
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.115 — `OIPlusEmbedded`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:366` (quoted lines 366-368)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPRESSED PRINCIPLE SET**: composite operational validity (admissibility),
+observational independence, reversible richness, embedded observation. The level-one seam is
+absent because it is derived. -/
+def OIPlusEmbedded : Prop :=
+  CompositeOperationalValidity T ∧ OIHierarchyGeneral.ObservationalIndependence T
+    ∧ OIHierarchyGeneral.ReversibleRichness T ∧ EmbeddedObservation T
+```
+
+- **status:** assumed; ⟺ OIHierarchyGeneral.OIPlus (oiPlusEmbedded_iff_oiPlus, :388) [K]; ⟺ exact finite operational QM (:384) [K]
+- **level:** M
+- **depends_on:** CompositeOperationalValidity T; ObservationalIndependence T; ReversibleRichness T; EmbeddedObservation T
+- **yields:** oiPlusEmbedded_iff_qm; carrier_general_oiPlusEmbedded
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package)
+
+### I4.116 — `oiPlusEmbedded_iff_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:384` (quoted lines 384-384)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPRESSED SET ⟺ FINITE OPERATIONAL QM**, on any nonempty finite carrier. -/
+theorem oiPlusEmbedded_iff_qm : OIPlusEmbedded T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; both sides hypotheses on T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.117 — `carrier_general_oiPlusEmbedded`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/EmbeddedObservation.lean:394` (quoted lines 394-396)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
+theorem carrier_general_oiPlusEmbedded :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+      OIPlusEmbedded T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified nonempty finite carrier
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.118 — `PhaseFreeRichness`
+
+- **kind:** hypothesis-structure (a form of reversible richness: one driven pair and every exchange at every level with two or more states)
+- **provenance:** `verification/lean-mathlib/OIBridge/MinimalRepertoire.lean:423` (quoted lines 423-428)
+- **statement (verbatim):**
+
+```lean
+/-- **PHASE-FREE RICHNESS**: at every level with two or more states some pair is continuously
+driven, and every exchange is available. No quarter phase, one driven pair. -/
+def PhaseFreeRichness : Prop :=
+  ∀ n : ℕ, 2 ≤ Fintype.card (A × Fin n) →
+    (∃ a b : A × Fin n, a ≠ b ∧
+      ∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow (transition a b) t)))
+    ∧ (∀ a b : A × Fin n, a ≠ b →
+      T.availExt n Unit (fun _ => conjChannel (permMatrix (Equiv.swap a b))))
+```
+
+- **status:** assumed; implied by LayerFlowExecutable under SubstratumAvail (phaseFree_of_layerFlowExecutable, LiftAudit.lean:783) [K] and by CyclicRichness (phaseFree_of_cyclic) [K]; gives control with IteratedAncillaClosure (control_of_phaseFree, :529) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A; flow (transition a b) t; permMatrix (Equiv.swap a b)
+- **yields:** OIPlusMin; control_of_phaseFree
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (a form of reversible richness)
+- **note:** Not claimed: that the OI substratum supplies it (MinimalRepertoire.lean:34-36).
+
+### I4.119 — `control_of_phaseFree`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MinimalRepertoire.lean:529` (quoted lines 529-530)
+- **statement (verbatim):**
+
+```lean
+/-- **PHASE-FREE RICHNESS AND CLOSURE GIVE FULL COMPOSITE UNITARY CONTROL** on every nonempty
+carrier: directly where there are three or more states, by descent from level `3n` otherwise. -/
+theorem control_of_phaseFree [Nonempty A] (hclos : IteratedAncillaClosure T)
+    (h : PhaseFreeRichness T) : HasCompositeUnitaryControl T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; IteratedAncillaClosure T; PhaseFreeRichness T
+- **yields:** HasCompositeUnitaryControl T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.120 — `OIPlusMin`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/MinimalRepertoire.lean:544` (quoted lines 544-545)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PACKAGE WITH THE MINIMAL REPERTOIRE**: implementation locality, phase-free richness,
+embedded observation. -/
+def OIPlusMin : Prop :=
+  ImplementationLocality T ∧ PhaseFreeRichness T ∧ EmbeddedObservation T
+```
+
+- **status:** assumed; ⟺ exact finite operational QM (oiPlusMin_iff_qm, :569) [K]
+- **level:** M
+- **depends_on:** ImplementationLocality T; PhaseFreeRichness T; EmbeddedObservation T
+- **yields:** oiPlusMin_iff_qm; carrier_general_oiPlusMin; typed_determined_of_oiPlusMin (TypedPositive.lean:37)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package, minimal repertoire)
+- **note:** The stage-3 note's Continuous Origin target names `oiPlusMin_iff_qm` (INTEGRATION-NOTE-STAGE3.md:139-140).
+
+### I4.121 — `oiPlusMin_iff_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MinimalRepertoire.lean:569` (quoted lines 569-569)
+- **statement (verbatim):**
+
+```lean
+/-- **THE MINIMAL-REPERTOIRE PACKAGE ⟺ FINITE OPERATIONAL QM**, on any nonempty finite
+carrier. -/
+theorem oiPlusMin_iff_qm : OIPlusMin T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; both sides hypotheses on T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.122 — `carrier_general_oiPlusMin`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MinimalRepertoire.lean:578` (quoted lines 578-581)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
+theorem carrier_general_oiPlusMin :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]
+      (T : OperationalAssembly.FiniteOperationalTheory A),
+      OIPlusMin T ↔ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified nonempty finite carrier
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.123 — `CyclicRichness`
+
+- **kind:** hypothesis-structure (one driven pair, one full cycle, one adjacent exchange)
+- **provenance:** `verification/lean-mathlib/OIBridge/MinimalRepertoire.lean:634` (quoted lines 634-640)
+- **statement (verbatim):**
+
+```lean
+/-- **CYCLIC RICHNESS**: at every level with two or more states, one driven pair, one full cycle
+and one adjacent exchange. -/
+def CyclicRichness : Prop :=
+  ∀ n : ℕ, 2 ≤ Fintype.card (A × Fin n) →
+    (∃ a b : A × Fin n, a ≠ b ∧
+      ∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow (transition a b) t)))
+    ∧ ∃ (σ : Equiv.Perm (A × Fin n)) (x : A × Fin n), σ.IsCycle ∧ σ.support = Finset.univ
+      ∧ T.availExt n Unit (fun _ => conjChannel (permMatrix σ))
+      ∧ T.availExt n Unit (fun _ => conjChannel (permMatrix (Equiv.swap x (σ x))))
+```
+
+- **status:** assumed; implies PhaseFreeRichness (phaseFree_of_cyclic) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** PhaseFreeRichness
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (a form of reversible richness)
+
+### I4.124 — `OIPlusPos`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/PositivePackage.lean:35` (quoted lines 35-36)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PACKAGE WITHOUT DAGGER STABILITY**: implementation locality, elementary transition
+richness, embedded observation. -/
+def OIPlusPos : Prop :=
+  ImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T
+```
+
+- **status:** assumed; ⟺ exact finite operational QM (oiPlusPos_iff_qm, :55) [K]
+- **level:** M
+- **depends_on:** ImplementationLocality T; ElementaryTransitionRichness T (LieRankSource.lean:436); EmbeddedObservation T
+- **yields:** oiPlusPos_iff_qm; carrier_general_oiPlusPos; typed_determined_of_oiPlusPos (TypedPositive.lean:25)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package, positive form)
+- **note:** ElementaryTransitionRichness is defined in LieRankSource.lean (outside I4's list).
+
+### I4.125 — `oiPlusPos_iff_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PositivePackage.lean:55` (quoted lines 55-55)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PACKAGE WITHOUT DAGGER STABILITY ⟺ FINITE OPERATIONAL QM**, on any nonempty finite
+carrier. -/
+theorem oiPlusPos_iff_qm : OIPlusPos T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; both sides hypotheses on T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.126 — `carrier_general_oiPlusPos`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PositivePackage.lean:68` (quoted lines 68-71)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
+theorem carrier_general_oiPlusPos :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A]
+      (T : OperationalAssembly.FiniteOperationalTheory A),
+      OIPlusPos T ↔ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified nonempty finite carrier
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.127 — `InverseAccessibility`
+
+- **kind:** hypothesis-structure (first clause of reversible richness)
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:88` (quoted lines 88-90)
+- **statement (verbatim):**
+
+```lean
+/-- **INVERSE ACCESSIBILITY**: every available conjugation channel has its adjoint channel
+available. -/
+def InverseAccessibility : Prop :=
+  ∀ (n : ℕ) (V : Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n Unit (fun _ => conjChannel V) → T.availExt n Unit (fun _ => conjChannel Vᴴ)
+```
+
+- **status:** assumed; derived from LieRankRichness on a well-formed theory (inverseAccessibility_of_lieRank, :132) [K] and from a dagger-stable, unitary-ray-saturated generating class (:283) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** reversibleRichness_iff (:100); control_of_lieRank_inverse (:107)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (clause of reversible richness)
+
+### I4.128 — `LieRankRichness`
+
+- **kind:** hypothesis-structure (second clause of reversible richness)
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:93` (quoted lines 93-98)
+- **statement (verbatim):**
+
+```lean
+/-- **LIE-RANK RICHNESS**: the drift/control certificate at every level. -/
+def LieRankRichness : Prop :=
+  ∀ n : ℕ, ∃ (G : Type) (H : Matrix (A × Fin n) (A × Fin n) ℂ)
+    (U : G → Matrix (A × Fin n) (A × Fin n) ℂ),
+    Hᴴ = H ∧ (∀ g, (U g)ᴴ * U g = 1) ∧ HControl H U
+      ∧ (∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow H t)))
+      ∧ (∀ g, T.availExt n Unit (fun _ => conjChannel (U g)))
+```
+
+- **status:** assumed
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A; HControl; flow
+- **yields:** control_of_lieRank (:114); inverseAccessibility_of_lieRank (:132); OIPlusMicro
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (clause of reversible richness)
+
+### I4.129 — `control_of_lieRank_inverse`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:107` (quoted lines 107-108)
+- **statement (verbatim):**
+
+```lean
+/-- **WHERE THE INVERSE CLAUSE IS CONSUMED**: with it, Lie-rank richness gives full composite
+unitary control through the round-50 reachability theorem. -/
+theorem control_of_lieRank_inverse (hinv : InverseAccessibility T) (hlie : LieRankRichness T) :
+    HasCompositeUnitaryControl T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** InverseAccessibility T; LieRankRichness T
+- **yields:** HasCompositeUnitaryControl T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.130 — `control_of_lieRank`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:114` (quoted lines 114-114)
+- **statement (verbatim):**
+
+```lean
+/-- **LIE-RANK RICHNESS ALONE GIVES FULL COMPOSITE UNITARY CONTROL**: the inverse clause of
+reversible richness is not consumed. Every unitary is a positive word in the flows, the controls
+and the phases (`universalReachability_of_lieRank_positive`). -/
+theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** LieRankRichness T
+- **yields:** HasCompositeUnitaryControl T; cited by ROADMAP K3 (ROADMAP.md:982)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The launch message places `control_of_lieRank` under PositiveReachability.lean; at L it is MicroscopicReversibility.lean:114 (it uses PositiveReachability's universalReachability_of_lieRank_positive).
+
+### I4.131 — `inverseAccessibility_of_lieRank`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:132` (quoted lines 132-133)
+- **statement (verbatim):**
+
+```lean
+/-- **INVERSE ACCESSIBILITY IS DERIVED** from Lie-rank richness on a well-formed theory. -/
+theorem inverseAccessibility_of_lieRank [Nonempty A] (hwf : WellFormed T) (h : LieRankRichness T) :
+    InverseAccessibility T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; WellFormed T; LieRankRichness T
+- **yields:** InverseAccessibility T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Located at MicroscopicReversibility.lean:132 (not PositiveReachability.lean).
+
+### I4.132 — `DaggerStable`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:216` (quoted lines 216-217)
+- **statement (verbatim):**
+
+```lean
+/-- **DAGGER STABILITY**: elementary implementation amplitudes are closed under reversal. -/
+def DaggerStable (𝓘 : ImplementationClass) : Prop :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → 𝓘 S Kᴴ
+```
+
+- **status:** assumed in general; discharged for substratumClass (substratumClass_daggerStable, StructuralClosure.lean:289) [K] and for MixC (mixC_daggerStable, StateMixingCoupling.lean:380) [K]
+- **level:** M
+- **depends_on:** ImplementationClass
+- **yields:** StructurallyClosed; QuantumArchitecture; ReversibleImplementationLocality
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.133 — `ReversibleImplementationLocality`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:223` (quoted lines 223-225)
+- **statement (verbatim):**
+
+```lean
+/-- **REVERSIBLE IMPLEMENTATION LOCALITY**: implementation locality with a dagger-stable
+class. -/
+def ReversibleImplementationLocality (T : FiniteOperationalTheory A) : Prop :=
+  ∃ 𝓘 : ImplementationClass, ImplementationGenerated T 𝓘 ∧ ContextStable 𝓘
+    ∧ LabelInvariant 𝓘 ∧ DaggerStable 𝓘
+```
+
+- **status:** assumed; holds for exact QM (reversibleImplementationLocality_of_qm, :329) [K]
+- **level:** M
+- **depends_on:** ∃ 𝓘: ImplementationGenerated T 𝓘 ∧ ContextStable 𝓘 ∧ LabelInvariant 𝓘 ∧ DaggerStable 𝓘
+- **yields:** OIPlusMicro; DerivedOI (RouteB.lean:141)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (implementation locality with its spectator clause ContextStable)
+
+### I4.134 — `UnitaryRaySaturated`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:238` (quoted lines 238-240)
+- **statement (verbatim):**
+
+```lean
+/-- **UNITARY-RAY SATURATION**: a class that contains a nonzero scalar multiple of a unitary
+contains the unitary. It is a statement about admissible operators, not about the phase
+resource of a theory; the four classes of the kernel have it, the closed-form class of the
+countercontrol (`InstrumentRealization`) does not. It enters at exactly one place, the
+derivation of inverse accessibility from dagger stability, and no equivalence package
+carries it. -/
+def UnitaryRaySaturated (𝓘 : ImplementationClass) : Prop :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S] (c : ℂ) (V : Matrix S S ℂ), c ≠ 0 → Vᴴ * V = 1 →
+    𝓘 S (c • V) → 𝓘 S V
+```
+
+- **status:** assumed (hypothesis of inverseAccessibility_of_generated_daggerStable)
+- **level:** M
+- **depends_on:** ImplementationClass
+- **yields:** inverseAccessibility_of_generated_daggerStable
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.135 — `inverseAccessibility_of_generated_daggerStable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:283` (quoted lines 283-286)
+- **statement (verbatim):**
+
+```lean
+/-- **INVERSE ACCESSIBILITY FROM DAGGER-STABLE GENERATION, UNDER UNITARY-RAY SATURATION.**
+The adjoint of a protocol is not a protocol, so the unitary itself has to be admissible:
+saturation supplies it from the nonzero branch, dagger stability supplies the adjoint, and one
+step realizes it. -/
+theorem inverseAccessibility_of_generated_daggerStable [Nonempty A]
+    {T : FiniteOperationalTheory A} {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
+    (hg : ImplementationGenerated T 𝓘) (hd : DaggerStable 𝓘) (hs : UnitaryRaySaturated 𝓘) :
+    InverseAccessibility T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; Architecture 𝓘; ImplementationGenerated T 𝓘; DaggerStable 𝓘; UnitaryRaySaturated 𝓘
+- **yields:** InverseAccessibility T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.136 — `reversibleImplementationLocality_of_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:329` (quoted lines 329-330)
+- **statement (verbatim):**
+
+```lean
+/-- **EXACT FINITE OPERATIONAL QM IS REVERSIBLY IMPLEMENTATION-LOCAL.** -/
+theorem reversibleImplementationLocality_of_qm [Nonempty A]
+    (h : ExactAllFiniteEndomorphicQuantumOps T) : ReversibleImplementationLocality T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ExactAllFiniteEndomorphicQuantumOps T
+- **yields:** ReversibleImplementationLocality T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.137 — `OIPlusMicro`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:336` (quoted lines 336-337)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPRESSED SET**: reversible implementation locality, Lie-rank richness, embedded
+observation. -/
+def OIPlusMicro : Prop :=
+  ReversibleImplementationLocality T ∧ LieRankRichness T ∧ EmbeddedObservation T
+```
+
+- **status:** assumed; ⟺ exact finite operational QM (oiPlusMicro_iff_qm, :357) [K]
+- **level:** M
+- **depends_on:** ReversibleImplementationLocality T; LieRankRichness T; EmbeddedObservation T
+- **yields:** oiPlusMicro_iff_qm; carrier_general_oiPlusMicro
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package, microscopic form)
+
+### I4.138 — `oiPlusMicro_iff_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:357` (quoted lines 357-357)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPRESSED SET ⟺ FINITE OPERATIONAL QM**, on any nonempty finite carrier. -/
+theorem oiPlusMicro_iff_qm : OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; both sides hypotheses on T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.139 — `carrier_general_oiPlusMicro`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/MicroscopicReversibility.lean:366` (quoted lines 366-368)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARRIER-GENERAL STATEMENT**, quantified over the carrier. -/
+theorem carrier_general_oiPlusMicro :
+    ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+      OIPlusMicro T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond the quantified nonempty finite carrier
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.140 — `posReach`
+
+- **kind:** definition-as-hypothesis (the submonoid of unitaries reachable by positive-time words)
+- **provenance:** `verification/lean-mathlib/OIBridge/PositiveReachability.lean:72` (quoted lines 72-74)
+- **statement (verbatim):**
+
+```lean
+/-- **THE POSITIVE REACHABLE MONOID**: finite words in the flows, the controls and the phases,
+with no inverses. -/
+noncomputable def posReach (H : Matrix S S ℂ) (U : G → Matrix S S ℂ) :
+    Submonoid (unitary (Matrix S S ℂ)) :=
+  Submonoid.closure (generators H U)
+```
+
+- **status:** - (definition)
+- **level:** M
+- **depends_on:** H; U
+- **yields:** posReach_eq_top
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.141 — `posReach_eq_top`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PositiveReachability.lean:978` (quoted lines 978-980)
+- **statement (verbatim):**
+
+```lean
+/-- **EVERY UNITARY IS A POSITIVE WORD** in the flows, the controls and the phases, when
+`𝔏 ⊇ su(D)`. -/
+theorem posReach_eq_top {H : Matrix S S ℂ} {U : G → Matrix S S ℂ} (hH : Hᴴ = H)
+    (hU : ∀ g, (U g)ᴴ * U g = 1) (hLie : HControl H U) :
+    ∀ u : unitary (Matrix S S ℂ), u ∈ posReach H U := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** Hᴴ = H; every U g unitary; HControl H U
+- **yields:** universalReachability_of_lieRank_positive
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Reachability of unitaries on a matrix carrier; not pure-state reachability on the pair cone.
+
+### I4.142 — `universalReachability_of_lieRank_positive`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PositiveReachability.lean:996` (quoted lines 996-1004)
+- **statement (verbatim):**
+
+```lean
+/-- **UNIVERSAL UNITARY REACHABILITY FROM THE LIE-RANK CONDITION, WITH NO INVERSE CLAUSE.** The
+round-fifty conclusion with the `hstar` hypothesis removed. -/
+theorem universalReachability_of_lieRank_positive (H : Matrix S S ℂ)
+    (U : G → Matrix S S ℂ) (hH : Hᴴ = H) (hU : ∀ g, (U g)ᴴ * U g = 1) (hLie : HControl H U)
+    (avail : ∀ m : ℕ, (Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) → Prop)
+    (hmul : ∀ V W : Matrix S S ℂ, avail 1 (fun _ => conjChannel V)
+      → avail 1 (fun _ => conjChannel W) → avail 1 (fun _ => conjChannel (V * W)))
+    (hone : avail 1 (fun _ => conjChannel (1 : Matrix S S ℂ)))
+    (hflow : ∀ t : ℝ, avail 1 (fun _ => conjChannel (flow H t)))
+    (hctrl : ∀ g : G, avail 1 (fun _ => conjChannel (U g))) :
+    UniversalUnitaryReachability avail := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** Hᴴ = H; unitary controls; HControl H U; an availability predicate closed under products (hmul) with the identity (hone), the drift flow at every time (hflow) and the controls (hctrl)
+- **yields:** UniversalUnitaryReachability avail (MonoidalCompletion.lean:377); control_of_lieRank
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.143 — `DrivesElementary`
+
+- **kind:** hypothesis-structure (the controllability clause: flows of every transition, every exchange and every phase gate admissible at every finite carrier)
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumSource.lean:77` (quoted lines 77-82)
+- **statement (verbatim):**
+
+```lean
+/-- **ELEMENTARY DRIVABILITY**: at every carrier the transition flows, the state exchanges,
+and the quarter phases are admissible implementations. -/
+def DrivesElementary (𝓘 : ImplementationClass) : Prop :=
+  (∀ (S : Type) [Fintype S] [DecidableEq S] (a b : S) (t : ℝ),
+    𝓘 S (flow (transition a b) t))
+  ∧ (∀ (S : Type) [Fintype S] [DecidableEq S] (a b : S),
+    𝓘 S (permMatrix (Equiv.swap a b)))
+  ∧ (∀ (S : Type) [Fintype S] [DecidableEq S] (a : S), 𝓘 S (phaseGate a))
+```
+
+- **status:** assumed for an extension; refuted for substratumClass (substratumClass_not_drivesElementary, StructuralClosure.lean:370) [K] and for the diagonal class (diagClass_not_drivesElementary, :174) [K]; holds for the full class (fullClass_quantumArchitecture, :151) [K]
+- **level:** M
+- **depends_on:** ImplementationClass
+- **yields:** QuantumArchitecture; quantumArchitecture_iff_drives_of_closed; substratum_plus_control_qm
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (the controllability resource that completes the substratum class; with structural closure it yields full composite unitary control)
+- **note:** The Kₙ census records it as a premise at every finite carrier (KN-CENSUS-RESULT.md:47; ROADMAP.md:1060-1062).
+
+### I4.144 — `QuantumArchitecture`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumSource.lean:86` (quoted lines 86-91)
+- **statement (verbatim):**
+
+```lean
+/-- **A QUANTUM ARCHITECTURE**: an implementation architecture that is context-, label- and
+dagger-stable and drives the elementary transitions. -/
+structure QuantumArchitecture (𝓘 : ImplementationClass) : Prop where
+  arch : Architecture 𝓘
+  context : ContextStable 𝓘
+  label : LabelInvariant 𝓘
+  dagger : DaggerStable 𝓘
+  drives : DrivesElementary 𝓘
+```
+
+- **status:** assumed; for a structurally closed class ⟺ DrivesElementary (StructuralClosure.lean:364) [K]; refuted for substratumClass (substratumClass_not_quantumArchitecture, StructuralClosure.lean:376) [K]
+- **level:** M
+- **depends_on:** Architecture; ContextStable; LabelInvariant; DaggerStable; DrivesElementary
+- **yields:** genTheory_qm_of_quantumArchitecture (:136); qm_generated_by_quantumArchitecture (:161)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (structural closure plus controllability; contains the spectator clause ContextStable)
+
+### I4.145 — `genTheory_qm_of_quantumArchitecture`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumSource.lean:136` (quoted lines 136-137)
+- **statement (verbatim):**
+
+```lean
+/-- **A THEORY GENERATED BY A QUANTUM ARCHITECTURE IS FINITE OPERATIONAL QM.** -/
+theorem genTheory_qm_of_quantumArchitecture [Nonempty A] (hq : QuantumArchitecture 𝓘) :
+    ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 hq.arch A) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; QuantumArchitecture 𝓘
+- **yields:** ExactAllFiniteEndomorphicQuantumOps of the generated theory; cited by ROADMAP K3 CONDITIONAL (ROADMAP.md:68, :981)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.146 — `qm_generated_by_quantumArchitecture`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumSource.lean:161` (quoted lines 161-163)
+- **statement (verbatim):**
+
+```lean
+/-- **FINITE OPERATIONAL QM IS GENERATED BY A QUANTUM ARCHITECTURE.** -/
+theorem qm_generated_by_quantumArchitecture [Nonempty A] (T : FiniteOperationalTheory A)
+    (h : ExactAllFiniteEndomorphicQuantumOps T) :
+    ∃ 𝓘 : ImplementationClass, QuantumArchitecture 𝓘 ∧ ImplementationGenerated T 𝓘 :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty A]; ExactAllFiniteEndomorphicQuantumOps T
+- **yields:** converse of genTheory_qm_of_quantumArchitecture
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.147 — `diagClass_not_drivesElementary`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumSource.lean:174` (quoted lines 174-174)
+- **statement (verbatim):**
+
+```lean
+/-- **THE DIAGONAL CLASS DOES NOT DRIVE THE ELEMENTARY TRANSITIONS**: the exchange of two
+distinguishable states is off-diagonal. -/
+theorem diagClass_not_drivesElementary : ¬ DrivesElementary diagClass := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** the diagonal class is not controllable
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.148 — `IsMonomial`
+
+- **kind:** definition-as-hypothesis (the operator shape of the substratum's direct interventions: a permutation times a diagonal)
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumInterface.lean:75` (quoted lines 75-76)
+- **statement (verbatim):**
+
+```lean
+/-- **A MONOMIAL OPERATOR**: a permutation of the states composed with a diagonal phase. This is
+the observable-operator shape of the substratum's two direct intervention kinds. -/
+def IsMonomial (K : Matrix S S ℂ) : Prop :=
+  ∃ (σ : Equiv.Perm S) (d : S → ℂ), K = permMatrix σ * Matrix.diagonal d
+```
+
+- **status:** - (definition); the interface's record that the substratum supplies exactly these is SubstratumInterface.lean's header and MonomialSource
+- **level:** H
+- **depends_on:** -
+- **yields:** substratumClass; MonomialSource; ConfigurationLevel (ManuscriptAxioms.lean:125)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.149 — `MonomialSource`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumInterface.lean:180` (quoted lines 180-182)
+- **statement (verbatim):**
+
+```lean
+/-- **A MONOMIAL SOURCE**: every available composite conjugation is monomial. -/
+def MonomialSource (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (V : Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n Unit (fun _ => conjChannel V) → IsMonomial V
+```
+
+- **status:** assumed; refutes control and QM on the qubit (monomialSource_not_control :186, monomialSource_not_qm :192) [K]
+- **level:** H
+- **depends_on:** FiniteOperationalTheory A; IsMonomial
+- **yields:** monomialSource_not_control; monomialSource_not_qm
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.150 — `monomialSource_not_control`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumInterface.lean:186` (quoted lines 186-187)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PERMUTATION-ONLY NO-GO, CONTROL**: a monomial source has no composite unitary control,
+because control would make the non-monomial rotation `rot` available. -/
+theorem monomialSource_not_control (T : FiniteOperationalTheory (Fin 2)) (h : MonomialSource T) :
+    ¬ HasCompositeUnitaryControl T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** MonomialSource T (T on Fin 2)
+- **yields:** ¬ HasCompositeUnitaryControl T
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.151 — `monomialSource_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumInterface.lean:192` (quoted lines 192-193)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PERMUTATION-ONLY NO-GO, QM**: a monomial source is not finite operational QM. -/
+theorem monomialSource_not_qm (T : FiniteOperationalTheory (Fin 2)) (h : MonomialSource T) :
+    ¬ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** MonomialSource T (T on Fin 2)
+- **yields:** ¬ ExactAllFiniteEndomorphicQuantumOps T
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.152 — `elementary_split`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumInterface.lean:200` (quoted lines 200-203)
+- **statement (verbatim):**
+
+```lean
+/-- **THE FLOW IS THE MISSING OPERATOR.** Bijective dynamics supplies the state exchanges and the
+phase structure supplies the phases — both monomial — but the continuously driven transition,
+whose nontrivial flow values are not monomial (`rot` as witness), is the operation neither
+supplies. -/
+theorem elementary_split :
+    (∀ (S : Type) [Fintype S] [DecidableEq S] (a b : S), IsMonomial (permMatrix (Equiv.swap a b)))
+      ∧ (∀ (S : Type) [Fintype S] [DecidableEq S] (a : S), IsMonomial (LieRankSource.phaseGate a))
+      ∧ ¬ IsMonomial rot :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** the exchanges and phases are monomial, the rotation `rot` is not
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.153 — `onesFixing_not_phasesAvailable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PhaseSource.lean:52` (quoted lines 52-53)
+- **statement (verbatim):**
+
+```lean
+/-- **T1 — NO ONES-FIXING ARCHITECTURE SOURCES A QUARTER PHASE**: every available unitary
+conjugation of its theory fixes the all-ones ray, and the quarter phase moves it. -/
+theorem onesFixing_not_phasesAvailable {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
+    (hf : OnesFixing 𝓘) (h2 : 2 ≤ Fintype.card A) : ¬ PhasesAvailable (genTheory 𝓘 arch A) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** Architecture 𝓘; OnesFixing 𝓘 (and the further binders of the signature)
+- **yields:** the phase source is not supplied by a ones-fixing class
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** `OnesFixing` is defined outside PhaseSource.lean (census: PhaseSource has no Prop definitions).
+
+### I4.154 — `substratumClass_not_onesFixing`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PhaseSource.lean:196` (quoted lines 196-196)
+- **statement (verbatim):**
+
+```lean
+/-- **T4 — THE MONOMIAL CLASS IS NOT ONES-FIXING**: the phase intervention of the round-62
+interface is admissible in it, unitary, and moves the all-ones ray. It is the one intervention
+kind of the interface that is not ones-fixing, and the one `PhasesAvailable` rests on. -/
+theorem substratumClass_not_onesFixing : ¬ OnesFixing substratumClass := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.155 — `ReadWriteFamily`
+
+- **kind:** definition-as-hypothesis (structure of read-write couplings between two memory states)
+- **provenance:** `verification/lean-mathlib/OIBridge/ReadWriteControl.lean:86` (quoted lines 86-89)
+- **statement (verbatim):**
+
+```lean
+/-- **A READ-WRITE FAMILY**: a selectable local coupling. For each external parameter value
+`λ`, a bijection of the finite state set (the reversible substratum evolution, A2); `λ = 0` is
+the reference interaction; the modification is local — every state outside the coupled pair
+`{a, b}` is left fixed. -/
+structure ReadWriteFamily (a b : S) where
+  couple : ℝ → Equiv.Perm S
+  reference : couple 0 = 1
+  local_support : ∀ (l : ℝ) (x : S), x ≠ a → x ≠ b → couple l x = x
+```
+
+- **status:** - (Type-valued structure)
+- **level:** H
+- **depends_on:** two states a b of S
+- **yields:** readWriteOperator (:93); readWriteControl_independent (:216)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.156 — `ReadWriteSourced`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/ReadWriteControl.lean:158` (quoted lines 158-160)
+- **statement (verbatim):**
+
+```lean
+/-- **A READ-WRITE-SOURCED THEORY**: every available composite conjugation is a bijective
+(permutation) read-write operator. -/
+def ReadWriteSourced (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (n : ℕ) (V : Matrix (A × Fin n) (A × Fin n) ℂ),
+    T.availExt n Unit (fun _ => conjChannel V) → ∃ σ : Equiv.Perm (A × Fin n), V = permMatrix σ
+```
+
+- **status:** assumed; refutes control and QM on the qubit (:169, :174) [K]
+- **level:** H
+- **depends_on:** FiniteOperationalTheory A (every available reversible conjugation is a permutation matrix)
+- **yields:** readWriteSourced_not_control; readWriteSourced_not_qm
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.157 — `readWriteSourced_not_control`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReadWriteControl.lean:169` (quoted lines 169-170)
+- **statement (verbatim):**
+
+```lean
+/-- **THE OUTCOME (C)**: a read-write-sourced theory has no composite unitary control. -/
+theorem readWriteSourced_not_control (T : FiniteOperationalTheory (Fin 2))
+    (h : ReadWriteSourced T) : ¬ HasCompositeUnitaryControl T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** ReadWriteSourced T (T on Fin 2)
+- **yields:** ¬ HasCompositeUnitaryControl T
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.158 — `readWriteSourced_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReadWriteControl.lean:174` (quoted lines 174-175)
+- **statement (verbatim):**
+
+```lean
+/-- **READ-WRITE CONTROL DOES NOT SUPPLY OPERATIONAL QM** under finite bijective dynamics. -/
+theorem readWriteSourced_not_qm (T : FiniteOperationalTheory (Fin 2))
+    (h : ReadWriteSourced T) : ¬ ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** ReadWriteSourced T (T on Fin 2)
+- **yields:** ¬ ExactAllFiniteEndomorphicQuantumOps T; cited by the stage-5 protocol (L1)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.159 — `readWriteControl_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ReadWriteControl.lean:216` (quoted lines 216-217)
+- **statement (verbatim):**
+
+```lean
+/-- **READ-WRITE INTERACTION IS NOT READ-WRITE CONTROLLABILITY**: a nontrivial reversible
+read-write family exists whose every induced operator is monomial, so bidirectional memory
+(C4/readback) does not by itself supply a tunable off-diagonal generator. -/
+theorem readWriteControl_independent (a b : S) (hab : a ≠ b) :
+    ∃ F : ReadWriteFamily a b, F.couple 1 ≠ 1 ∧ ∀ l : ℝ, IsMonomial (readWriteOperator F l) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** a ≠ b
+- **yields:** a nontrivial read-write family all of whose operators are monomial: read-write coupling does not supply the off-diagonal generator
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.160 — `qm_of_derivedOI_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/DerivedQ3.lean:214` (quoted lines 214-216)
+- **statement (verbatim):**
+
+```lean
+/-- **T4 — THE ENDPOINT, ONE WAY**: under the closure, one executable layer flow gives exact
+finite endomorphic operational quantum mechanics. -/
+theorem qm_of_derivedOI_layerFlowExecutable [Nonempty S] (T : FiniteOperationalTheory S)
+    (hd : DerivedOI T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x)
+    (hex : LayerFlowExecutable T σ) : ExactAllFiniteEndomorphicQuantumOps T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty S]; DerivedOI T (RouteB.lean:141); σ an involution; σ x ≠ x; LayerFlowExecutable T σ
+- **yields:** ExactAllFiniteEndomorphicQuantumOps T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.161 — `derivedOI_qm_iff_layerFlowExecutable'`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/DerivedQ3.lean:222` (quoted lines 222-224)
+- **statement (verbatim):**
+
+```lean
+/-- **T4 — THE ENDPOINT, UNDER THE CLOSURE ALONE**: the lift audit's preregistered Q4 at its own
+hypothesis. Under `DerivedOI`, exact finite endomorphic operational quantum mechanics is exactly
+the executability of one layer flow of an involution with a moved configuration. -/
+theorem derivedOI_qm_iff_layerFlowExecutable' [Nonempty S] (T : FiniteOperationalTheory S)
+    (hd : DerivedOI T) {σ : Equiv.Perm S} (hσ : ∀ x, σ (σ x) = x) {x : S} (hx : σ x ≠ x) :
+    ExactAllFiniteEndomorphicQuantumOps T ↔ LayerFlowExecutable T σ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** [Nonempty S]; DerivedOI T; σ an involution; σ x ≠ x
+- **yields:** the Q4 endpoint under DerivedOI alone; cited by the stage-5 protocol (L2, DerivedQ3.lean:222)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Directions: qm_of_derivedOI_layerFlowExecutable (:214) and derivedOI_layerFlowExecutable_of_qm (:229).
+
+### I4.162 — `substratumTheory_layerFlowExecutable_one`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/DerivedQ3.lean:286` (quoted lines 286-286)
+- **statement (verbatim):**
+
+```lean
+/-- The substratum theory executes the identity's layer flow. -/
+theorem substratumTheory_layerFlowExecutable_one : LayerFlowExecutable (substratumTheory S) 1 := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** the identity flow is executable in the substratum theory
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.163 — `derivedOI_layerFlowExecutable_one_not_phaseFree`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/DerivedQ3.lean:294` (quoted lines 294-296)
+- **statement (verbatim):**
+
+```lean
+/-- **C2 — THE MOVED-CONFIGURATION HYPOTHESIS IS NECESSARY**: a theory satisfying `DerivedOI`,
+executing the layer flow of the identity, and failing phase-free richness. -/
+theorem derivedOI_layerFlowExecutable_one_not_phaseFree :
+    ∃ T : FiniteOperationalTheory (Fin 2),
+      DerivedOI T ∧ LayerFlowExecutable T 1 ∧ ¬ PhaseFreeRichness T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; qubit witness)
+- **yields:** executability of the trivial involution's flow does not give PhaseFreeRichness
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.164 — `not_configurationLevel_of_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ExecSource.lean:73` (quoted lines 73-75)
+- **statement (verbatim):**
+
+```lean
+/-- **T1 — THE GENERATING CLASS IS NOT CONFIGURATION-LEVEL.** -/
+theorem not_configurationLevel_of_layerFlowExecutable {𝓘 : ImplementationClass}
+    (arch : Architecture 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x)
+    (hex : LayerFlowExecutable (genTheory 𝓘 arch S) σ) : ¬ ConfigurationLevel 𝓘 :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** Architecture 𝓘; σ x ≠ x; LayerFlowExecutable (genTheory 𝓘 arch S) σ
+- **yields:** ¬ ConfigurationLevel 𝓘
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.165 — `obs_not_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/ExecSource.lean:129` (quoted lines 129-130)
+- **statement (verbatim):**
+
+```lean
+/-- **T2 — THE OBSERVER THEORY EXECUTES NO LAYER FLOW** of an involution with a moved
+configuration: it lies inside the substratum theory, which executes none. -/
+theorem obs_not_layerFlowExecutable {g : Equiv.Perm 𝒮.Conf} {x : 𝒮.Conf} (hx : g x ≠ x) :
+    ¬ LayerFlowExecutable (obsTheory 𝒮) g := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** g x ≠ x (g a permutation of the substratum configurations 𝒮.Conf)
+- **yields:** the observer-level theory of the substratum does not execute the layer flow; cited by the stage-5 protocol (L1)
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.166 — `coherentLiftClass_eq_substratumClass`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftSource.lean:164` (quoted lines 164-164)
+- **statement (verbatim):**
+
+```lean
+/-- **T2(d) — ADJOINING THE COHERENT LIFTS ADDS NOTHING**: the lift-extended class is the
+substratum class. -/
+theorem coherentLiftClass_eq_substratumClass : coherentLiftClass = substratumClass := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** the coherent-lift class is the substratum class
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.167 — `coherentLiftClass_not_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftSource.lean:187` (quoted lines 187-188)
+- **statement (verbatim):**
+
+```lean
+/-- **T2(d) — THE LIFT-EXTENDED THEORY EXECUTES NO LAYER FLOW** of an involution with a moved
+configuration. -/
+theorem coherentLiftClass_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) :
+    ¬ LayerFlowExecutable (coherentLiftTheory S) σ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** σ x ≠ x
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.168 — `stochastic_not_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/LiftSource.lean:262` (quoted lines 262-265)
+- **statement (verbatim):**
+
+```lean
+/-- **T3(c) — A THEORY OF CLASSICAL MAPS OVER THE STATED ACCESS EXECUTES NO LAYER FLOW**: a
+class of monomials and scaled matrix units is configuration-level. -/
+theorem stochastic_not_layerFlowExecutable {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
+    (h : ∀ (T : Type) [Fintype T] [DecidableEq T] (K : Matrix T T ℂ), 𝓘 T K →
+      IsMonomial K ∨ ∃ (c : ℂ) (i k : T), K = c • Matrix.single i k 1)
+    {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) : ¬ LayerFlowExecutable (genTheory 𝓘 arch S) σ := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** Architecture 𝓘; every admissible operator monomial or a scaled matrix unit; σ x ≠ x (further binders in the signature)
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.169 — `flow_endpoint_refuted_general`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/FlowEndpoint.lean:155` (quoted lines 155-158)
+- **statement (verbatim):**
+
+```lean
+/-- **F4 — THE GENERAL FORM**: on every carrier with at least two states and for every layer
+involution. -/
+theorem flow_endpoint_refuted_general (h2 : 2 ≤ Fintype.card A) {σ : Equiv.Perm A}
+    (hσ : ∀ x, σ (σ x) = x) :
+    SourcedOI (onesTheory A) ∧ LayerFlowExecutable (onesTheory A) σ
+      ∧ ¬ PhaseFreeRichness (onesTheory A) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** 2 ≤ card A; σ an involution
+- **yields:** SourcedOI and LayerFlowExecutable hold for onesTheory while PhaseFreeRichness fails: the flow endpoint is refuted
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.170 — `onesTheory_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/FlowEndpoint.lean:205` (quoted lines 205-205)
+- **statement (verbatim):**
+
+```lean
+/-- **F5 — THE ONES-FIXING THEORY IS NOT QUANTUM MECHANICS** on the two-state carrier. -/
+theorem onesTheory_not_qm : ¬ ExactAllFiniteEndomorphicQuantumOps (onesTheory (Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed)
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.171 — `obligations_independent`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/C5Discovery.lean:59` (quoted lines 59-63)
+- **statement (verbatim):**
+
+```lean
+/-- **T0 — THE TWO OBLIGATIONS ARE INDEPENDENT**: the phase without the flow in the substratum
+theory, the flow without the phase in the ones-fixing theory. -/
+theorem obligations_independent :
+    (PhasesAvailable (substratumTheory (Fin 2))
+        ∧ ¬ LayerFlowExecutable (substratumTheory (Fin 2)) (Equiv.swap 0 1))
+      ∧ (LayerFlowExecutable (onesTheory (Fin 2)) (Equiv.swap 0 1)
+        ∧ ¬ PhasesAvailable (onesTheory (Fin 2))) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none (closed)
+- **yields:** phases without executability (substratum theory) and executability without phases (onesTheory): the two obligations are independent
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.172 — `KillBattery`
+
+- **kind:** definition-as-hypothesis (membership in the three-theory kill battery)
+- **provenance:** `verification/lean-mathlib/OIBridge/C5Discovery.lean:71` (quoted lines 71-72)
+- **statement (verbatim):**
+
+```lean
+/-- **T1 — THE KILL BATTERY**: the named non-quantum theories a candidate's sourced theory must
+differ from. -/
+def KillBattery (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+  T = substratumTheory (Fin 2) ∨ T = onesTheory (Fin 2) ∨ T = permTheory (Fin 2)
+```
+
+- **status:** - (definition)
+- **level:** M
+- **depends_on:** substratumTheory (Fin 2); onesTheory (Fin 2); permTheory (Fin 2)
+- **yields:** killBattery_not_qm
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.173 — `killBattery_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/C5Discovery.lean:81` (quoted lines 81-82)
+- **statement (verbatim):**
+
+```lean
+/-- **T1 — NOTHING IN THE BATTERY IS QUANTUM.** -/
+theorem killBattery_not_qm {T : FiniteOperationalTheory (Fin 2)} (h : KillBattery T) :
+    ¬ ExactAllFiniteEndomorphicQuantumOps T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** KillBattery T
+- **yields:** ¬ ExactAllFiniteEndomorphicQuantumOps T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.174 — `PolGen`
+
+- **kind:** definition-as-hypothesis (inductive generation predicate of the polarized class)
+- **provenance:** `verification/lean-mathlib/OIBridge/C5Discovery.lean:221` (quoted lines 221-232)
+- **statement (verbatim):**
+
+```lean
+/-- **THE POLARIZED CLASS**: the stated access, the scaled partial permutations, together with the
+two images at every level, closed under the operations of an architecture. -/
+inductive PolGen : ∀ (T : Type) [Fintype T] [DecidableEq T], Matrix T T ℂ → Prop
+  | perm {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (h : permClass T K) : PolGen T K
+  | shear (n : ℕ) : PolGen (Fin 2 × Fin n) (siteShearImage n)
+  | swap (n : ℕ) : PolGen (Fin 2 × Fin n) (siteSwapImage n)
+  | mul {T : Type} [Fintype T] [DecidableEq T] (K L : Matrix T T ℂ) :
+      PolGen T K → PolGen T L → PolGen T (K * L)
+  | smul {T : Type} [Fintype T] [DecidableEq T] (a : ℂ) (K : Matrix T T ℂ) (ha : ‖a‖ ≤ 1) :
+      PolGen T K → PolGen T (a • K)
+  | proj {T : Type} [Fintype T] [DecidableEq T] (m : ℕ) (k : Fin m) :
+      PolGen (T × Fin m) (Matrix.diagonal fun r => if r.2 = k then 1 else 0)
+  | block {T : Type} [Fintype T] [DecidableEq T] (m : ℕ) (K : Matrix (T × Fin m) (T × Fin m) ℂ)
+      (f e : Fin m) : PolGen (T × Fin m) K → PolGen T (ancBlock K f e)
+```
+
+- **status:** - (inductive definition)
+- **level:** M
+- **depends_on:** -
+- **yields:** polGen_not_configurationLevel (:242); polarizedTheory (:247)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.175 — `MixR`
+
+- **kind:** definition-as-hypothesis (inductive generation predicate with mixing angles restricted to D)
+- **provenance:** `verification/lean-mathlib/OIBridge/StateMixingCoupling.lean:56` (quoted lines 56-69)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CLASS**: the stated access, the scaled partial permutations and the quarter phase on
+any configuration at any level, together with the datum at the angles of `D`, closed under the
+architecture operations and relabelling. -/
+inductive MixR (D : Set ℝ) : ∀ (T : Type) [Fintype T] [DecidableEq T], Matrix T T ℂ → Prop
+  | perm {T : Type} [Fintype T] [DecidableEq T] (K : Matrix T T ℂ) (h : permClass T K) : MixR D T K
+  | phase (n : ℕ) (p : Fin 2 × Fin n) : MixR D (Fin 2 × Fin n) (phaseGate p)
+  | mix (n : ℕ) (θ : ℝ) (hθ : θ ∈ D) : MixR D (Fin 2 × Fin n) (mixImage n θ)
+  | mul {T : Type} [Fintype T] [DecidableEq T] (K L : Matrix T T ℂ) :
+      MixR D T K → MixR D T L → MixR D T (K * L)
+  | smul {T : Type} [Fintype T] [DecidableEq T] (a : ℂ) (K : Matrix T T ℂ) (ha : ‖a‖ ≤ 1) :
+      MixR D T K → MixR D T (a • K)
+  | proj {T : Type} [Fintype T] [DecidableEq T] (m : ℕ) (k : Fin m) :
+      MixR D (T × Fin m) (Matrix.diagonal fun r => if r.2 = k then 1 else 0)
+  | block {T : Type} [Fintype T] [DecidableEq T] (m : ℕ) (K : Matrix (T × Fin m) (T × Fin m) ℂ)
+      (f e : Fin m) : MixR D (T × Fin m) K → MixR D T (ancBlock K f e)
+  | relabel {T T' : Type} [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T'] (e : T ≃ T')
+      (K : Matrix T T ℂ) : MixR D T K → MixR D T' (Matrix.reindex e e K)
+```
+
+- **status:** - (inductive definition)
+- **level:** M
+- **depends_on:** D : Set ℝ
+- **yields:** mixTheoryR (:103); mixR_countable_upToScalar (:662); mixTheoryR_not_qm (:679)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.176 — `qm_of_mixSourced`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StateMixingCoupling.lean:486` (quoted lines 486-492)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CLASS-LEVEL ENDPOINT**, under the scope amendment: architecture, the three stabilities,
+the stated access, the phase gates and the datum at every level give the closure and exact finite
+operational quantum mechanics on the two-valued alphabet. -/
+theorem qm_of_mixSourced {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
+    (hl : LabelInvariant 𝓘) (hd : DaggerStable 𝓘) (hc : ContextStable 𝓘)
+    (hperm : ∀ (T : Type) [Fintype T] [DecidableEq T] (K : Matrix T T ℂ), permClass T K → 𝓘 T K)
+    (hph : ∀ (n : ℕ) (p : Fin 2 × Fin n), 𝓘 (Fin 2 × Fin n) (phaseGate p))
+    (hmix : ∀ (n : ℕ) (θ : ℝ), 𝓘 (Fin 2 × Fin n) (mixImage n θ)) :
+    DerivedOI (genTheory 𝓘 arch (Fin 2))
+      ∧ ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2)) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** Architecture 𝓘; LabelInvariant 𝓘; DaggerStable 𝓘; ContextStable 𝓘; the permutation class admissible; every phase gate admissible; every mixing image `mixImage n θ` admissible
+- **yields:** DerivedOI of the generated qubit theory (and, with mixTheory_endpoint, exact QM)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The continuous mixing coupling enters as a hypothesis (hmix) on the class.
+
+### I4.177 — `mixTheory_endpoint`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StateMixingCoupling.lean:506` (quoted lines 506-507)
+- **statement (verbatim):**
+
+```lean
+/-- **T3, T5 — THE ENDPOINT**: the theory of the stated access and one sourced pair coupling
+satisfies the closure and is exact finite operational quantum mechanics. -/
+theorem mixTheory_endpoint :
+    DerivedOI (mixTheory (Fin 2)) ∧ ExactAllFiniteEndomorphicQuantumOps (mixTheory (Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; mixTheory (Fin 2))
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.178 — `comparison`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/StateMixingCoupling.lean:695` (quoted lines 695-699)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPARISON, RECORDED**: one pair coupling with a continuum of angles gives the
+completion; the same closure with countably many angles, with no datum, and the polarization
+closure do not. Comparisons, not a minimality theorem. -/
+theorem comparison :
+    ExactAllFiniteEndomorphicQuantumOps (mixTheory (Fin 2))
+    ∧ (∀ D : Set ℝ, D.Countable → ¬ ExactAllFiniteEndomorphicQuantumOps (mixTheoryR D (Fin 2)))
+    ∧ ¬ ExactAllFiniteEndomorphicQuantumOps (mixTheoryR ∅ (Fin 2))
+    ∧ ¬ ExactAllFiniteEndomorphicQuantumOps (polarizedTheoryC (Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed)
+- **yields:** the continuum of mixing angles is what separates QM from its countable restrictions
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.179 — `PairFlowSourced`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/PairFlowEquivalence.lean:48` (quoted lines 48-50)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PREDICATE**: some real pair flow has the conjugation channel of its transport available
+in the theory at every level and time. It asserts availability in the theory, not membership of
+the matrices in an implementation class. -/
+def PairFlowSourced (T : FiniteOperationalTheory (Fin 2)) : Prop :=
+  ∃ F : PairFlow, ∀ (n : ℕ) (t : ℝ),
+    T.availExt n Unit (fun _ => conjChannel (transport n (F.A t)))
+```
+
+- **status:** assumed; ⟺ (with DerivedOI) exact QM on the qubit (qm_iff_derivedOI_pairFlowSourced, :199) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory (Fin 2); PairFlow (RealPairFlow.lean)
+- **yields:** qm_iff_derivedOI_pairFlowSourced
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). Nearest objects: 'pair' here is a pair of configurations on a matrix carrier (a two-level flow transported to every level), not the two-token pair `W 3`.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (a form of reversible richness / continuous controllability)
+
+### I4.180 — `qm_iff_derivedOI_pairFlowSourced`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PairFlowEquivalence.lean:199` (quoted lines 199-200)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CENTRAL THEOREM**: on the two-valued carrier, exact finite endomorphic operational
+quantum mechanics is exactly the consequence closure together with one sourced real pair flow. -/
+theorem qm_iff_derivedOI_pairFlowSourced (T : FiniteOperationalTheory (Fin 2)) :
+    ExactAllFiniteEndomorphicQuantumOps T ↔ DerivedOI T ∧ PairFlowSourced T :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none beyond T (qubit carrier)
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.181 — `countable_not_pairFlowSourced`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PairFlowEquivalence.lean:218` (quoted lines 218-223)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CARDINALITY NECESSITY AT THE THEORY LEVEL**: a theory whose available unit conjugations
+at level one are countable up to scalar carries no sourced pair flow, since the datum's images at
+distinct angles in `(0, π/2)` are pairwise non-proportional. A necessary condition; nothing here
+exhibits a non-quantum theory with a coherent continuum. -/
+theorem countable_not_pairFlowSourced (T : FiniteOperationalTheory (Fin 2))
+    (D : Set (Matrix (Fin 2 × Fin 1) (Fin 2 × Fin 1) ℂ)) (hD : D.Countable)
+    (hmem : ∀ V : Matrix (Fin 2 × Fin 1) (Fin 2 × Fin 1) ℂ,
+      T.availExt 1 Unit (fun _ => conjChannel V) →
+        ∃ (c : ℂ) (M : Matrix (Fin 2 × Fin 1) (Fin 2 × Fin 1) ℂ), M ∈ D ∧ V = c • M) :
+    ¬ PairFlowSourced T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** D countable; every available level-1 conjugation a scalar multiple of an element of D
+- **yields:** ¬ PairFlowSourced T
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.182 — `NonMonomialCountablyCovered`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/CoherentContinuumSource.lean:135` (quoted lines 135-139)
+- **statement (verbatim):**
+
+```lean
+/-- **COUNTABLE COVER OF THE NON-MONOMIAL SECTOR**: one countable set of representatives carries,
+up to scalar, every non-monomial operator of the class at the carrier. -/
+def NonMonomialCountablyCovered (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] :
+    Prop :=
+  ∃ D : Set (Matrix T T ℂ), D.Countable ∧
+    ∀ K : Matrix T T ℂ, 𝓘 T K → ¬ IsMonomial K →
+      ∃ (c : ℂ) (M : Matrix T T ℂ), M ∈ D ∧ K = c • M
+```
+
+- **status:** assumed; implies non-executability (not_layerFlowExecutable_of_nonMonomialCountablyCovered, :187) [K]
+- **level:** M
+- **depends_on:** ImplementationClass; carrier T
+- **yields:** :187; polC_nonMonomialCountablyCovered (:264)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.183 — `UncountableNonMonomialRays`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/CoherentContinuumSource.lean:143` (quoted lines 143-145)
+- **statement (verbatim):**
+
+```lean
+/-- **UNCOUNTABLY MANY NON-MONOMIAL RAYS**: the non-monomial sector of the class at the carrier is
+not countably covered up to scalar. -/
+def UncountableNonMonomialRays (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] :
+    Prop :=
+  ¬ NonMonomialCountablyCovered 𝓘 T
+```
+
+- **status:** assumed; necessary for executability (uncountableNonMonomialRays_of_layerFlowExecutable, :163) [K] and for QM (uncountableNonMonomialRays_of_qm, :195) [K]
+- **level:** M
+- **depends_on:** ImplementationClass; carrier T
+- **yields:** -
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.184 — `uncountableNonMonomialRays_of_layerFlowExecutable`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CoherentContinuumSource.lean:163` (quoted lines 163-166)
+- **statement (verbatim):**
+
+```lean
+/-- **T2 — LAYER-FLOW EXECUTABILITY FORCES UNCOUNTABLY MANY NON-MONOMIAL RAYS AT LEVEL ONE**: for
+a moved involution, the intermediate-time points of its flow are non-monomial (T1), pairwise
+non-proportional, and, by the one-way bridge, present in the class up to nonzero scalar; a
+countable cover of the non-monomial sector would then cover the path. -/
+theorem uncountableNonMonomialRays_of_layerFlowExecutable {𝓘 : ImplementationClass}
+    (arch : Architecture 𝓘) {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x)
+    (hex : LayerFlowExecutable (genTheory 𝓘 arch S) σ) :
+    UncountableNonMonomialRays 𝓘 (S × Fin 1) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** Architecture 𝓘; σ x ≠ x; LayerFlowExecutable (genTheory 𝓘 arch S) σ
+- **yields:** UncountableNonMonomialRays 𝓘 _
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.185 — `coherent_continuum_not_sourced`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/CoherentContinuumSource.lean:328` (quoted lines 328-336)
+- **statement (verbatim):**
+
+```lean
+/-- **T5 — THE CONTINUUM EXISTS AND IS NOT SOURCED**: the level-one path of a moved involution
+has the coherent continuum, the substratum theory executes no layer flow of it, and no
+configuration-level class makes even its half-time point available. -/
+theorem coherent_continuum_not_sourced {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) :
+    ((∀ t ∈ Ioo (0 : ℝ) 1, ¬ IsMonomial (gateFlow (levelPerm σ 1) t))
+      ∧ ¬ ∃ D : Set (Matrix (S × Fin 1) (S × Fin 1) ℂ), D.Countable ∧
+          ∀ t ∈ Ioo (0 : ℝ) 1, ∃ (c : ℂ) (M : Matrix (S × Fin 1) (S × Fin 1) ℂ),
+            M ∈ D ∧ gateFlow (levelPerm σ 1) t = c • M)
+    ∧ ¬ LayerFlowExecutable (substratumTheory S) σ
+    ∧ ∀ (𝓘 : ImplementationClass) (arch : Architecture 𝓘), ConfigurationLevel 𝓘 →
+        ¬ (genTheory 𝓘 arch S).availExt 1 Unit
+          (fun _ => conjChannel (gateFlow (levelPerm σ 1) (1 / 2 : ℝ))) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** σ x ≠ x
+- **yields:** the coherent continuum of the gate flow is not countably covered and not sourced by the substratum or any configuration-level class
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Linked from ROADMAP H-∞ (ROADMAP.md:70, :950).
+
+### I4.186 — `TypedOperationalTheory`
+
+- **kind:** hypothesis-structure (the typed carrier: availability `availT` over every pair of finite carriers S → S', with Prop-valued closure fields)
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:165` (quoted lines 165-200)
+- **statement (verbatim):**
+
+```lean
+/-- **A TYPED FINITE OPERATIONAL THEORY**: availability of finite outcome families of maps
+between any two finite carriers, with the closure rules of the endomorphic structure stated at
+their carrier-general type. No clause mentions a dilation. -/
+structure TypedOperationalTheory where
+  /-- Available finite outcome families of maps from carrier `S` to carrier `S'`. -/
+  availT : ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S']
+    (O : Type) [Fintype O] [DecidableEq O], (O → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ) → Prop
+  /-- Doing nothing is available. -/
+  id : ∀ (S : Type) [Fintype S] [DecidableEq S], availT S S Unit (fun _ => LinearMap.id)
+  /-- Classical coarse-graining of the outcome label. -/
+  coarse : ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S']
+    (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O'] [DecidableEq O']
+    (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ) (f : O → O'), availT S S' O F →
+    availT S S' O' (fun a => ∑ j ∈ Finset.univ.filter (fun j => f j = a), F j)
+  /-- Feed-forward composition across carriers. -/
+  bind : ∀ (S S' S'' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S']
+    [Fintype S''] [DecidableEq S''] (O O' : Type) [Fintype O] [DecidableEq O] [Fintype O']
+    [DecidableEq O'] (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ)
+    (G : O → O' → Matrix S' S' ℂ →ₗ[ℂ] Matrix S'' S'' ℂ),
+    availT S S' O F → (∀ a, availT S' S'' O' (G a)) →
+    availT S S'' (O × O') (fun c => (G c.1 c.2).comp (F c.1))
+  /-- Relabelling along carrier bijections. -/
+  relabel : ∀ (S S' T T' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S']
+    [Fintype T] [DecidableEq T] [Fintype T'] [DecidableEq T'] (e : S ≃ T) (e' : S' ≃ T')
+    (O : Type) [Fintype O] [DecidableEq O] (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+    availT S S' O F → availT T T' O (fun a => transportT e e' (F a))
+  /-- Attaching a uniformly mixed fresh factor: the only preparation assumed. -/
+  attach : ∀ (S R : Type) [Fintype S] [DecidableEq S] [Fintype R] [DecidableEq R] [Nonempty R],
+    availT S (S × R) Unit (fun _ => attachUniform R)
+  /-- Discarding a factor. -/
+  discard : ∀ (S R : Type) [Fintype S] [DecidableEq S] [Fintype R] [DecidableEq R],
+    availT (S × R) S Unit (fun _ => discardR R)
+  /-- A native readout of a factor exists and is spectator-independent; its form is derived. -/
+  readout : ∀ (S R : Type) [Fintype S] [DecidableEq S] [Fintype R] [DecidableEq R],
+    R → (Matrix (S × R) (S × R) ℂ →ₗ[ℂ] Matrix (S × R) (S × R) ℂ)
+  readout_avail : ∀ (S R : Type) [Fintype S] [DecidableEq S] [Fintype R] [DecidableEq R],
+    availT (S × R) (S × R) R (readout S R)
+  readout_local : ∀ (S R : Type) [Fintype S] [DecidableEq S] [Fintype R] [DecidableEq R]
+    (k : R), MapSpectatorIndependent (ludersLift k) (readout S R k)
+```
+
+- **status:** assumed (its fields are assumed of every typed theory)
+- **level:** G
+- **depends_on:** every pair of finite carriers (in the type)
+- **yields:** shadow (:231); ShadowQuantum (:291); typed_determined (:815); typed_determined_iff (:850)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Kₙ census: carrier generality 'at the type: availT over all carrier pairs' (KN-CENSUS-RESULT.md:50).
+
+### I4.187 — `ShadowQuantum`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:291` (quoted lines 291-293)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SHADOW HYPOTHESIS**: the endomorphic shadow is exact finite endomorphic quantum
+mechanics on every nonempty carrier — what Level I supplies. -/
+def ShadowQuantum : Prop :=
+  ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A],
+    ExactAllFiniteEndomorphicQuantumOps (𝒯.shadow A)
+```
+
+- **status:** assumed; ⟺ the typed Kraus determination (typed_determined_iff, :850) [K]; refuted for typedDiag (typedDiag_shadow_not_qm, :940) [K]
+- **level:** G
+- **depends_on:** ExactAllFiniteEndomorphicQuantumOps (𝒯.shadow A) on every nonempty finite carrier A
+- **yields:** typed_determined; typed_determined_iff
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (the quantum endpoint on every carrier; a target, never a premise)
+- **note:** Kₙ census: 'premise: exact finite QM on every nonempty carrier' (KN-CENSUS-RESULT.md:51).
+
+### I4.188 — `IsTypedKrausInstrument`
+
+- **kind:** definition-as-hypothesis (typed Kraus instruments between carriers)
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:448` (quoted lines 448-451)
+- **statement (verbatim):**
+
+```lean
+/-- **A TYPED KRAUS INSTRUMENT**: finitely many rectangular Kraus operators, normalized on
+the input carrier, grouped by outcome. -/
+def IsTypedKrausInstrument {m : ℕ} (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ) : Prop :=
+  ∃ (n : ℕ) (K : Fin (n + 1) → Matrix S' S ℂ) (out : Fin (n + 1) → Fin m),
+    (∑ k, (K k)ᴴ * K k = 1) ∧
+      ∀ a, F a = ∑ k ∈ Finset.univ.filter (fun k => out k = a), conjT (K k)
+```
+
+- **status:** - (definition)
+- **level:** G
+- **depends_on:** F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ
+- **yields:** typed_determined; typed_determined_iff
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.189 — `typed_determined`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:815` (quoted lines 815-818)
+- **statement (verbatim):**
+
+```lean
+/-- **THE TYPED THEORY IS DETERMINED BY ITS ENDOMORPHIC SHADOW**: under the shadow
+hypothesis, between nonempty finite carriers a family is typed-available exactly when it is a
+typed Kraus instrument. -/
+theorem typed_determined (hq : 𝒯.ShadowQuantum) :
+    ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+      [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+      𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** 𝒯.ShadowQuantum
+- **yields:** typed availability = typed Kraus instruments
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.190 — `typed_determined_iff`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:850` (quoted lines 850-854)
+- **statement (verbatim):**
+
+```lean
+/-- **THE DETERMINATION, BOTH WAYS**: the shadow is quantum on every nonempty carrier exactly
+when the typed theory is the finite typed quantum theory. -/
+theorem typed_determined_iff :
+    𝒯.ShadowQuantum ↔
+      ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+        [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+        𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none beyond 𝒯
+- **yields:** cited by ROADMAP K3 CONDITIONAL (ROADMAP.md:68, :973, :983)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.191 — `typed_determined_of_oiPlusElem`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:859` (quoted lines 859-863)
+- **statement (verbatim):**
+
+```lean
+/-- **IN THE LEVEL I VOCABULARY**: if every shadow satisfies OI⁺ in its primitive-source form,
+the typed theory is the finite typed quantum theory. -/
+theorem typed_determined_of_oiPlusElem
+    (h : ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A], OIPlusElem (𝒯.shadow A)) :
+    ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+      [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+      𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** OIPlusElem (𝒯.shadow A) on every nonempty finite carrier A
+- **yields:** typed Kraus determination
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** OIPlusElem is defined outside I4's module list.
+
+### I4.192 — `typedDiag_shadow_not_qm`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedCompletion.lean:940` (quoted lines 940-941)
+- **statement (verbatim):**
+
+```lean
+/-- **THE INTERFACE CARRIES NO QUANTUM CONTENT**: the typed diagonal theory satisfies every
+rule and its shadow is not quantum mechanics. -/
+theorem typedDiag_shadow_not_qm :
+    ¬ ExactAllFiniteEndomorphicQuantumOps (typedDiag.shadow (Fin 2)) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** none (closed)
+- **yields:** ShadowQuantum is not automatic
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.193 — `typed_determined_of_oiPlusPos`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedPositive.lean:25` (quoted lines 25-29)
+- **statement (verbatim):**
+
+```lean
+/-- **THE TYPED CHARACTERIZATION FROM THE PACKAGE WITHOUT DAGGER STABILITY**: if every shadow
+satisfies `OIPlusPos`, the typed theory is the finite typed quantum theory. -/
+theorem typed_determined_of_oiPlusPos (𝒯 : TypedOperationalTheory)
+    (h : ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A], OIPlusPos (𝒯.shadow A)) :
+    ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+      [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+      𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** OIPlusPos (𝒯.shadow A) on every nonempty finite carrier A
+- **yields:** typed Kraus determination
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.194 — `typed_determined_of_oiPlusMin`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/TypedPositive.lean:37` (quoted lines 37-41)
+- **statement (verbatim):**
+
+```lean
+/-- **THE TYPED CHARACTERIZATION FROM THE PHASE-FREE PACKAGE**: if every shadow satisfies
+`OIPlusMin`, the typed theory is the finite typed quantum theory. -/
+theorem typed_determined_of_oiPlusMin (𝒯 : TypedOperationalTheory)
+    (h : ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A], OIPlusMin (𝒯.shadow A)) :
+    ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+      [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+      𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** OIPlusMin (𝒯.shadow A) on every nonempty finite carrier A
+- **yields:** typed Kraus determination
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.195 — `Quasilocal`
+
+- **kind:** definition-as-hypothesis (the quasilocal algebra: completion of the local algebras of the region tower)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean:625` (quoted lines 625-626)
+- **statement (verbatim):**
+
+```lean
+/-- **THE QUASILOCAL ALGEBRA**: the norm completion of the local algebra. -/
+abbrev Quasilocal (ι Q : Type) [DecidableEq ι] [Fintype Q] [DecidableEq Q] [Nonempty Q] :=
+  UniformSpace.Completion (localAlg ι Q)
+```
+
+- **status:** - (type definition)
+- **level:** G
+- **depends_on:** region tower Conf Λ Q (RegionTower.lean)
+- **yields:** stage (:684); quasiState (:847); heisQ (:1264); quasilocal_completion (:1353)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Level III quasilocal completion; its manuscript statements are I2's.
+
+### I4.196 — `IsStateFamily`
+
+- **kind:** hypothesis-structure (a consistent family of local states)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean:738` (quoted lines 738-741)
+- **statement (verbatim):**
+
+```lean
+/-- **A STATE FAMILY**: a consistent family of density matrices, one on every region. -/
+structure IsStateFamily (ρ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ) : Prop where
+  consistent : Consistent ρ
+  posSemidef : ∀ Λ, (ρ Λ).PosSemidef
+  trace_one : ∀ Λ, (ρ Λ).trace = 1
+```
+
+- **status:** assumed (hypothesis of quasiState_unique, quasilocal_completion, quasilocal_characterization)
+- **level:** G
+- **depends_on:** ρ Λ for every finite region Λ
+- **yields:** quasiState (:847); quasiState_unique (:879)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.197 — `FiniteRange`
+
+- **kind:** hypothesis-structure (Type-valued structure: finite-range locality data of a configuration map)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean:919` (quoted lines 919-921)
+- **statement (verbatim):**
+
+```lean
+/-- A finite-range update: each site's next value depends on a finite neighbourhood (the
+coupling graph of the second entry), and each site influences only finitely many sites. -/
+structure FiniteRange (ψ : (ι → Q) → (ι → Q)) extends CouplingGraph ψ where
+  infl : ι → Finset ι
+  mem_infl : ∀ i j, i ∈ nbhd j → j ∈ infl i
+```
+
+- **status:** assumed where supplied (fields of ReversibleDynamics)
+- **level:** G
+- **depends_on:** a map on ι → Q
+- **yields:** ReversibleDynamics (:956); bwd/fwd (:924, :928)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Carries Prop fields; recorded because ReversibleDynamics requires it.
+
+### I4.198 — `ReversibleDynamics`
+
+- **kind:** hypothesis-structure (Type-valued structure: a reversible finite-range configuration dynamics)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean:956` (quoted lines 956-959)
+- **statement (verbatim):**
+
+```lean
+/-- **A REVERSIBLE FINITE-RANGE DYNAMICS**: a bijection of global configurations whose update
+and whose inverse are both of finite range. -/
+structure ReversibleDynamics (ι Q : Type) where
+  φ : (ι → Q) ≃ (ι → Q)
+  G : FiniteRange (φ : (ι → Q) → (ι → Q))
+  G' : FiniteRange (φ.symm : (ι → Q) → (ι → Q))
+```
+
+- **status:** assumed (hypothesis of quasilocal_completion and of the OISystem dynamics)
+- **level:** H
+- **depends_on:** FiniteRange of the map and of its inverse
+- **yields:** heis (:999); heisQ (:1264); quasilocal_completion; OISystem (QuasilocalCharacterization.lean:463)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The substratum's deterministic dynamics as data of the quasilocal construction.
+
+### I4.199 — `quasiState_unique`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean:879` (quoted lines 879-881)
+- **statement (verbatim):**
+
+```lean
+/-- **UNIQUENESS**: any continuous functional agreeing with the family on the local algebra is
+the extended state. -/
+theorem quasiState_unique {ρ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ}
+    (hρ : IsStateFamily ρ) (g : Quasilocal ι Q →L[ℂ] ℂ)
+    (hg : ∀ a : localAlg ι Q, g a = evalLocal ρ a) : g = quasiState hρ :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** IsStateFamily ρ; a continuous functional agreeing with evalLocal on local elements
+- **yields:** uniqueness of the quasilocal state
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.200 — `quasilocal_completion`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalAlgebra.lean:1353` (quoted lines 1353-1365)
+- **statement (verbatim):**
+
+```lean
+/-- **THE QUASILOCAL COMPLETION.** The finite stages embed compatibly and isometrically, the
+quasilocal algebra is the closure of their union, every consistent family of density matrices is
+a unital positive continuous functional on it, and every reversible finite-range dynamics acts on
+it by an isometric star automorphism. -/
+theorem quasilocal_completion (Φ : ReversibleDynamics ι Q) :
+    (∀ (Λ Λ' : Finset ι) (h : Λ ⊆ Λ') (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+      stage Λ' (inclObs h X) = stage Λ X)
+    ∧ (∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ), ‖stage Λ X‖ = ‖X‖)
+    ∧ closure (⋃ Λ : Finset ι, Set.range (stage Λ (Q := Q))) = (Set.univ : Set (Quasilocal ι Q))
+    ∧ (∀ (ρ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ) (hρ : IsStateFamily ρ),
+        quasiState hρ 1 = 1 ∧ (∀ x : Quasilocal ι Q, 0 ≤ quasiState hρ (star x * x))
+        ∧ ∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+          quasiState hρ (stage Λ X) = (X * ρ Λ).trace)
+    ∧ (∀ x y : Quasilocal ι Q, heisQ Φ (x * y) = heisQ Φ x * heisQ Φ y)
+    ∧ (∀ x : Quasilocal ι Q, heisQ Φ (star x) = star (heisQ Φ x))
+    ∧ (∀ x : Quasilocal ι Q, ‖heisQ Φ x‖ = ‖x‖)
+    ∧ (∀ x : Quasilocal ι Q, heisQ Φ.inv (heisQ Φ x) = x) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** Φ : ReversibleDynamics ι Q
+- **yields:** the Level III completion package (isometric stages, dense union, states, dynamics)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Manuscript statements of the Level III completion are out of scope: I2.
+
+### I4.201 — `QuasilocalSystem`
+
+- **kind:** hypothesis-structure (Type-valued structure carrying the Prop fields of a quasilocal system on the region tower)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:168` (quoted lines 168-180)
+- **statement (verbatim):**
+
+```lean
+/-- **THE TARGET CLASS**: a discrete quasilocal lattice C*-system with the given local stages.
+A C*-algebra with, for every finite region, a unital star homomorphism from the matrix algebra
+of the region's configurations, compatible along inclusions, injective, with observables of
+disjoint regions commuting, and with the union of the stages dense. Nothing here refers to the
+scaffold, the local algebra, or the completion of the third entry. -/
+structure QuasilocalSystem where
+  /-- The algebra. -/
+  A : Type
+  [inst : CStarAlgebra A]
+  /-- The stage embeddings. -/
+  st : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ →⋆ₐ[ℂ] A
+  compat : ∀ (Λ Λ' : Finset ι) (h : Λ ⊆ Λ') (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+    st Λ' (inclObs h X) = st Λ X
+  injective : ∀ Λ, Function.Injective (st Λ)
+  local_comm : ∀ (Λ Λ' : Finset ι), Disjoint Λ Λ' →
+    ∀ (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ) (Y : Matrix (Conf Λ' Q) (Conf Λ' Q) ℂ),
+      st Λ X * st Λ' Y = st Λ' Y * st Λ X
+  dense : closure (⋃ Λ : Finset ι, Set.range (st Λ)) = Set.univ
+```
+
+- **status:** assumed (fields assumed of every system S)
+- **level:** G
+- **depends_on:** a C*-algebra S.A with stage maps S.st Λ and their Prop fields
+- **yields:** canon (:265); canonEquiv (:350); canon_unique (:359); systemEquiv (:369); quasilocal_characterization (:856)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.202 — `IsState`
+
+- **kind:** definition-as-hypothesis (a state of a C*-algebra)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:196` (quoted lines 196-197)
+- **statement (verbatim):**
+
+```lean
+/-- A state of a C*-algebra: a unital positive continuous functional. -/
+def IsState {A : Type} [CStarAlgebra A] (ω : A →L[ℂ] ℂ) : Prop :=
+  ω 1 = 1 ∧ ∀ x, 0 ≤ ω (star x * x)
+```
+
+- **status:** - (definition)
+- **level:** G
+- **depends_on:** CStarAlgebra A
+- **yields:** quasilocal_characterization
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.203 — `OISystem`
+
+- **kind:** hypothesis-structure (Type-valued structure: a quasilocal system with a reversible dynamics)
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:463` (quoted lines 463-468)
+- **statement (verbatim):**
+
+```lean
+/-- **TARGET A**: a system of the target class carrying the OI-induced discrete dynamics: a star
+automorphism acting on every stage as the transport of the substratum update. -/
+structure OISystem (ι Q : Type) [DecidableEq ι] [Fintype Q] [DecidableEq Q] [Nonempty Q]
+    extends QuasilocalSystem ι Q where
+  Φ : ReversibleDynamics ι Q
+  α : A ≃⋆ₐ[ℂ] A
+  α_stage : ∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+    α (st Λ X) = st (hat Φ Λ) (transported Φ Λ X)
+```
+
+- **status:** assumed (fields)
+- **level:** G
+- **depends_on:** QuasilocalSystem; ReversibleDynamics
+- **yields:** quasilocal_characterization; canon_dyn (:487); systemEquiv_dyn (:497)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.204 — `LocalityPreserving`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:475` (quoted lines 475-477)
+- **statement (verbatim):**
+
+```lean
+/-- A locality-preserving automorphism: every stage is carried into some stage. -/
+def LocalityPreserving (S : QuasilocalSystem ι Q) (α : S.A → S.A) : Prop :=
+  ∀ Λ : Finset ι, ∃ Λ' : Finset ι, ∀ X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ,
+    α (S.st Λ X) ∈ Set.range (S.st Λ')
+```
+
+- **status:** assumed where used
+- **level:** G
+- **depends_on:** QuasilocalSystem; a map on S.A
+- **yields:** quasilocal_characterization
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.205 — `canon_unique`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:359` (quoted lines 359-361)
+- **statement (verbatim):**
+
+```lean
+/-- **UNIQUENESS**: any continuous map agreeing with the stages is the canonical map. -/
+theorem canon_unique (g : Quasilocal ι Q → S.A) (hg : Continuous g)
+    (hst : ∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ), g (stage Λ X) = S.st Λ X) :
+    g = canon S := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** a continuous g agreeing with S.st on every stage
+- **yields:** uniqueness of the canonical map
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** A uniqueness theorem, not an equivalence (AGENTS.md §A.34).
+
+### I4.206 — `quasilocal_characterization`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:856` (quoted lines 856-870)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CHARACTERIZATION.** Any two systems of the target class are canonically isomorphic
+compatibly with the stages, uniquely so; every consistent family of density matrices is a state
+of every system; the canonical map intertwines the OI-induced dynamics, which preserves locality;
+and the phase automorphism is a locality-preserving automorphism induced by no substratum
+dynamics. -/
+theorem quasilocal_characterization (S S' : QuasilocalSystem ι Q) (T : OISystem ι Q) :
+    (∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+      systemEquiv S S' (S.st Λ X) = S'.st Λ X)
+    ∧ (∀ g : S.A → S'.A, Continuous g →
+        (∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ), g (S.st Λ X) = S'.st Λ X) →
+        g = systemEquiv S S')
+    ∧ (∀ (ρ : ∀ Λ : Finset ι, Matrix (Conf Λ Q) (Conf Λ Q) ℂ) (hρ : IsStateFamily ρ),
+        IsState (systemState S hρ)
+        ∧ ∀ (Λ : Finset ι) (X : Matrix (Conf Λ Q) (Conf Λ Q) ℂ),
+          systemState S hρ (S.st Λ X) = (X * ρ Λ).trace)
+    ∧ (∀ x : Quasilocal ι Q,
+        canon T.toQuasilocalSystem (heisQ T.Φ x) = T.α (canon T.toQuasilocalSystem x))
+    ∧ LocalityPreserving T.toQuasilocalSystem T.α
+    ∧ (∀ i₀ : ι, LocalityPreserving (oiSystem (ι := ι) (Q := Q)) (phaseEquiv i₀))
+    ∧ (∀ (i₀ : ι) (Φ : ReversibleDynamics ι Q), phaseQ i₀ ≠ heisQ Φ) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** S, S' : QuasilocalSystem ι Q; T : OISystem ι Q
+- **yields:** the region completion is the unique quasilocal system carrying the stages and dynamics (uniqueness relative to fixed data)
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Per AGENTS.md §A.34 this is a uniqueness/canonical-isomorphism theorem relative to fixed data; it is not an 'OI_Q iff quasilocal QM' equivalence.
+
+### I4.207 — `phaseQ_ne_heisQ`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/QuasilocalCharacterization.lean:792` (quoted lines 792-793)
+- **statement (verbatim):**
+
+```lean
+/-- **TARGET B IS NOT REDUNDANT**: the phase automorphism is a locality-preserving star
+automorphism of the quasilocal algebra that is induced by no reversible finite-range substratum
+dynamics. On a single-site matrix unit it produces the factor `I`, whereas every transported
+matrix has real entries. -/
+theorem phaseQ_ne_heisQ [Nontrivial Q] (i₀ : ι) (Φ : ReversibleDynamics ι Q) :
+    phaseQ i₀ ≠ heisQ Φ := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** [Nontrivial Q]; i₀; Φ : ReversibleDynamics ι Q
+- **yields:** the phase automorphism is not a Heisenberg evolution of the dynamics
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.208 — `driveQ_isContinuousPath`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SecondOrderDrive.lean:225` (quoted lines 225-232)
+- **statement (verbatim):**
+
+```lean
+/-- **THE UPDATE IS JOINED TO THE IDENTITY BY A CONTINUOUS PATH OF `*`-AUTOMORPHISMS.** The three
+clauses are the whole claim: the path starts at the identity, every point of it is an isometric
+`*`-automorphism of the quasilocal algebra, and it is norm-continuous in the parameter. No group
+law and no generator are asserted. -/
+theorem driveQ_isContinuousPath :
+    driveQ R 0 = (id : Quasilocal ι (V × V) → Quasilocal ι (V × V)) ∧
+      (∀ t : ℝ, Function.Bijective (driveQ R t : Quasilocal ι (V × V) → Quasilocal ι (V × V)) ∧
+        (∀ x y, driveQ R t (x * y) = driveQ R t x * driveQ R t y) ∧
+        (∀ x y, driveQ R t (x + y) = driveQ R t x + driveQ R t y) ∧
+        (∀ x, driveQ R t (star x) = star (driveQ R t x)) ∧
+        (∀ x, ‖driveQ R t x‖ = ‖x‖)) ∧
+      (∀ x : Quasilocal ι (V × V), Continuous fun t : ℝ => driveQ R t x) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** the second-order rule R (section variable)
+- **yields:** driveQ is a norm-continuous path of *-automorphisms from the identity
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.209 — `driveQ_one_eq_heisQ`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/SecondOrderDrive.lean:829` (quoted lines 829-830)
+- **statement (verbatim):**
+
+```lean
+/-- **THE DRIVE ENDS AT THE UPDATE.** The two-piece path at time one is exactly the Heisenberg
+action of the update's own reversible dynamics on the quasilocal algebra. With `driveQ_zero_time`
+this says the update is joined to the identity by a norm-continuous path of `*`-automorphisms —
+still not a one-parameter group, and still with no generator exhibited. -/
+theorem driveQ_one_eq_heisQ (x : Quasilocal ι (V × V)) :
+    driveQ R 1 x = heisQ (ruleDynamics R) x := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** G
+- **depends_on:** the second-order rule R (section variable)
+- **yields:** the drive at time one is the Heisenberg evolution of the rule's dynamics
+- **bridge:** none at L. `bridge_scan.out` (B3, G = TypedCompletion.lean:165 `TypedOperationalTheory`, QuasilocalCharacterization.lean:168 `QuasilocalSystem`): only the root aggregator `OIBridge.lean` reaches both G and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no G-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The drive theorem CT2 that LiftAudit's gateFlow_stage reads on one region.
+
+### I4.210 — `psd_iff_trace_nonneg`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/JordanClassification.lean:84` (quoted lines 84-85)
+- **statement (verbatim):**
+
+```lean
+/-- **Self-duality of the PSD cone**: a Hermitian matrix pairing nonnegatively with
+every positive matrix is positive — test against the rank-one dyads. Together with
+`psd_trace_mul_nonneg` this is the exact two-sided duality the assembly consumes. -/
+theorem psd_iff_trace_nonneg {A : Matrix n n ℂ} (hAh : A.IsHermitian) :
+    A.PosSemidef ↔ ∀ X : Matrix n n ℂ, X.PosSemidef → 0 ≤ Matrix.trace (A * X) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** A Hermitian
+- **yields:** self-duality of the PSD cone; cited by the stage-3 protocol for `Q3 = dualW Q3` (PROTOCOL-STAGE3.md:66)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`). It is a statement on `Matrix n n ℂ`. The dictionary from `W 3` to `Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ` (`pauliW`) and the cone `Q3` are defined in no `.lean` file at L (`dictionary_scan.out`: 0 definitions, 0 uses in 221 files); they exist only in the design module inputs/fourcopy/FourCopyPackage.lean:176/:180 (ff9c3a35, not certified, file contains `sorry`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (Q3/PSD: comparison object only)
+
+### I4.211 — `matrixJordan_unitary_or_transpose`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/JordanClassification.lean:825` (quoted lines 825-831)
+- **statement (verbatim):**
+
+```lean
+/-- **THE MATRIX-UNIT CLASSIFICATION (C3b).** A ℂ-linear, unital, star-preserving,
+injective Jordan homomorphism of `M_D(ℂ)` is conjugation by a unitary, or transpose
+followed by conjugation by a unitary: `Φ(X) = WXW†` or `Φ(X) = WX^TW†`. The frame comes
+from the rank-one resolution of the diagonal images, the orientation from triple
+coherence, and the phases from the corner coboundary `α_ij = d_i · conj d_j` — the same
+local-freedom → triple-consistency → global-orientation → phase-coboundary architecture
+as the Hamiltonian reconstruction. -/
+theorem matrixJordan_unitary_or_transpose
+    (Φ : Matrix n n ℂ →ₗ[ℂ] Matrix n n ℂ)
+    (hstar : ∀ X : Matrix n n ℂ, Φ Xᴴ = (Φ X)ᴴ)
+    (hone : Φ 1 = 1) (hinj : Function.Injective Φ)
+    (hj : ∀ A B : Matrix n n ℂ, Φ (A * B + B * A) = Φ A * Φ B + Φ B * Φ A) :
+    ∃ W : Matrix n n ℂ, Wᴴ * W = 1 ∧
+      ((∀ X, Φ X = W * X * Wᴴ) ∨ (∀ X, Φ X = W * Xᵀ * Wᴴ)) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** Φ linear, *-preserving, unital, injective, Jordan
+- **yields:** Φ is a unitary conjugation or a transposed one
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.212 — `sameData_unitary_or_transpose`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/JordanClassification.lean:1109` (quoted lines 1109-1125)
+- **statement (verbatim):**
+
+```lean
+/-- **THE C3b CLASSIFICATION.** Any two existing OI-compatible coherent completions with
+the same complete operational data are unitary or antiunitary equivalent: the
+data-defined map exists, is a two-sided order isomorphism, hence Jordan (round six),
+hence — by the matrix-unit classification — conjugation by a unitary `W`, directly or
+through the transpose. Which branch is physical is C3c: phase two's oriented complex
+reference is the lever that removes the transpose. -/
+theorem sameData_unitary_or_transpose {ι κ : Type*}
+    (G₁ G₂ : ι → Matrix n n ℂ) (σ₁ σ₂ : κ → Matrix n n ℂ)
+    (hdata : ∀ i k, Matrix.trace (G₁ i * σ₁ k) = Matrix.trace (G₂ i * σ₂ k))
+    (hG₁h : ∀ i, (G₁ i).IsHermitian) (hG₂h : ∀ i, (G₂ i).IsHermitian)
+    (hσ₁p : ∀ k, (σ₁ k).PosSemidef) (hσ₂p : ∀ k, (σ₂ k).PosSemidef)
+    (hspan₁ : Submodule.span ℂ (Set.range G₁) = ⊤)
+    (hspan₂ : Submodule.span ℂ (Set.range G₂) = ⊤)
+    (hsep₁ : ∀ M : Matrix n n ℂ, (∀ k, Matrix.trace (M * σ₁ k) = 0) → M = 0)
+    (hsep₂ : ∀ M : Matrix n n ℂ, (∀ k, Matrix.trace (M * σ₂ k) = 0) → M = 0)
+    (i₀ : ι) (hone₁ : G₁ i₀ = 1) (hone₂ : G₂ i₀ = 1)
+    (hcone₁ : ∀ τ : Matrix n n ℂ, τ.PosSemidef → ∃ (s : Finset κ) (c : κ → ℝ),
+      (∀ k, 0 ≤ c k) ∧ τ = ∑ k ∈ s, c k • σ₁ k)
+    (hcone₂ : ∀ τ : Matrix n n ℂ, τ.PosSemidef → ∃ (s : Finset κ) (c : κ → ℝ),
+      (∀ k, 0 ≤ c k) ∧ τ = ∑ k ∈ s, c k • σ₂ k) :
+    ∃ (Φ : Matrix n n ℂ →ₗ[ℂ] Matrix n n ℂ) (W : Matrix n n ℂ),
+      (∀ i, Φ (G₁ i) = G₂ i) ∧ Wᴴ * W = 1 ∧
+      ((∀ X, Φ X = W * X * Wᴴ) ∨ (∀ X, Φ X = W * Xᵀ * Wᴴ)) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** equal trace data; Hermitian spanning effect families; PSD state families; separation (and further binders of the signature)
+- **yields:** operational rigidity: two representations with the same data differ by a unitary or a transposed unitary
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.213 — `OrderIsoHyp`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalRigidity.lean:647` (quoted lines 647-655)
+- **statement (verbatim):**
+
+```lean
+/-- **The order-isomorphism hypothesis package**: a unital ℝ-linear star-preserving
+bijection of the matrix algebra, positive in BOTH directions. The two-sided positivity
+is Kadison's `X ⪰ 0 ⟺ Φ(X) ⪰ 0`; probe F18's pinching countercontrol shows one-sided
+positivity does not suffice for the Jordan conclusion. -/
+structure OrderIsoHyp (Φ Ψ : Matrix n n ℂ → Matrix n n ℂ) : Prop where
+  add : ∀ X Y, Φ (X + Y) = Φ X + Φ Y
+  smul : ∀ (r : ℝ) (X : Matrix n n ℂ), Φ (r • X) = r • Φ X
+  star : ∀ X, Φ Xᴴ = (Φ X)ᴴ
+  one : Φ 1 = 1
+  pos : ∀ X, X.PosSemidef → (Φ X).PosSemidef
+  posInv : ∀ X, X.PosSemidef → (Ψ X).PosSemidef
+  left : ∀ X, Ψ (Φ X) = X
+  right : ∀ X, Φ (Ψ X) = X
+```
+
+- **status:** assumed (hypothesis of the orderIso_* theorems, :715-:848)
+- **level:** M
+- **depends_on:** two maps Φ Ψ on Matrix n n ℂ
+- **yields:** orderIso_maps_projections; orderIso_orthogonal; orderIso_square; orderIso_jordan
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Namespace OrderIsoHyp opens at OperationalRigidity.lean:657.
+
+### I4.214 — `operational_separation`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalRigidity.lean:170` (quoted lines 170-184)
+- **statement (verbatim):**
+
+```lean
+/-- **OPERATIONAL SEPARATION (C3b.1).** An operator invisible to the normalization
+datum, every one-slot context, and every two-slot context is ZERO. The one-slot layer
+kills the off-diagonal of `Y = V† X V` (round five's extraction); the two-slot layer
+reduces, through the same extraction, to a line of gap characters in the second time,
+whose coefficients kill the diagonal. Probe F18: one-slot data alone do NOT suffice —
+the census carrier admits two distinct exact states with identical one-slot data —
+so the two-slot hypothesis is load-bearing, not convenience. -/
+theorem operational_separation {n ι' : Type*} [Fintype n] [DecidableEq n]
+    (V : Matrix n (Fin Dm) ℂ) (E : Fin Dm → ℝ) (A : ι' → Matrix n n ℂ)
+    (X : Matrix n n ℂ) (hV : V * Vᴴ = 1) (hV' : Vᴴ * V = 1)
+    (hgap : ∀ a b c d : Fin Dm, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hcomplete : ∀ a b : Fin Dm, a ≠ b → ∃ j, (Vᴴ * A j * V) a b ≠ 0)
+    (htr : Matrix.trace X = 0)
+    (h1 : ∀ (j : ι') (t : ℝ),
+      Matrix.trace (Matrix.of (BohrFrequency.Umat V E t) * A j
+        * (Matrix.of (BohrFrequency.Umat V E t))ᴴ * X) = 0)
+    (h2 : ∀ (j k : ι') (t s : ℝ),
+      Matrix.trace (Matrix.of (BohrFrequency.Umat V E t) * A j
+        * (Matrix.of (BohrFrequency.Umat V E t))ᴴ
+        * (Matrix.of (BohrFrequency.Umat V E s) * A k
+          * (Matrix.of (BohrFrequency.Umat V E s))ᴴ * X)) = 0) :
+    X = 0 := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** unitary V; non-degenerate gaps (hgap); completeness of the probes (hcomplete); trace-zero X; vanishing time-resolved data (h1, further binders)
+- **yields:** operational separation by Bohr-frequency data
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.215 — `psd_trace_mul_nonneg`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalRigidity.lean:917` (quoted lines 917-918)
+- **statement (verbatim):**
+
+```lean
+/-- **The pairing positivity**: the trace of a product of positives is nonnegative. -/
+theorem psd_trace_mul_nonneg {A B : Matrix n n ℂ} (hA : A.PosSemidef) (hB : B.PosSemidef) :
+    0 ≤ Matrix.trace (A * B) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** A, B PosSemidef
+- **yields:** cited by the stage-3 protocol beside psd_iff_trace_nonneg (PROTOCOL-STAGE3.md:66)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (Q3/PSD: comparison object only)
+
+### I4.216 — `accessible_cone_full`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/OperationalRigidity.lean:956` (quoted lines 956-958)
+- **statement (verbatim):**
+
+```lean
+/-- **THE ACCESSIBLE STATE CONE IS FULL**: every positive matrix is a finite sum of
+selective-word images `M_i ρ M_i†` of ANY nonzero positive preparation. Combined with
+the two-slot span (probe F18; the dual of `operational_separation`), every state is
+operationally reachable, which is what makes positivity of the data-defined map an
+operational property rather than an assumption — the C3b.3 assembly consumes exactly
+this. -/
+theorem accessible_cone_full {ρ : Matrix n n ℂ} (hρ : ρ.PosSemidef) (hne : ρ ≠ 0)
+    (σ : Matrix n n ℂ) (hσ : σ.PosSemidef) :
+    ∃ M : n → Matrix n n ℂ, σ = ∑ i, M i * ρ * (M i)ᴴ := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** ρ PSD nonzero; σ PSD
+- **yields:** the accessible cone is the full PSD cone
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (Q3/PSD: comparison object only)
+
+### I4.217 — `IsPassiveInstrument`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveObservation.lean:203` (quoted lines 203-204)
+- **statement (verbatim):**
+
+```lean
+/-- **A passive instrument**: finitely many completely positive branches whose nonselective
+channel is the identity. Passive because, averaged over outcomes, no state is changed. -/
+def IsPassiveInstrument (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+  (∀ a, IsCompletelyPositive (F a)) ∧ ∑ a, F a = LinearMap.id
+```
+
+- **status:** assumed where used
+- **level:** M
+- **depends_on:** an instrument F
+- **yields:** no_complete_passive_observation (:259)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.218 — `SeparatesStates`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveObservation.lean:208` (quoted lines 208-210)
+- **statement (verbatim):**
+
+```lean
+/-- **State-separating** (informationally complete): distinct density matrices produce distinct
+outcome laws. -/
+def SeparatesStates (F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ) : Prop :=
+  ∀ ρ σ : Matrix S S ℂ, ρ.PosSemidef → σ.PosSemidef → ρ.trace = 1 → σ.trace = 1 →
+    (∀ a, ((F a) ρ).trace = ((F a) σ).trace) → ρ = σ
+```
+
+- **status:** assumed where used
+- **level:** M
+- **depends_on:** an instrument F
+- **yields:** no_complete_passive_observation
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.219 — `no_complete_passive_observation`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveObservation.lean:259` (quoted lines 259-260)
+- **statement (verbatim):**
+
+```lean
+/-- **OI-N1.** When the algebra has at least two states to tell apart, no passive instrument
+separates states: two distinct pure states receive the identical outcome law. -/
+theorem no_complete_passive_observation {F : O → Matrix S S ℂ →ₗ[ℂ] Matrix S S ℂ}
+    (h : IsPassiveInstrument F) (hS : 1 < Fintype.card S) : ¬ SeparatesStates F := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** IsPassiveInstrument F; SeparatesStates F (binders of the signature)
+- **yields:** no instrument is both passive and state-separating
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.220 — `PassivelyIncomplete`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveIndependence.lean:74` (quoted lines 74-76)
+- **statement (verbatim):**
+
+```lean
+/-- **Passive incompleteness of a theory**: no family of operations the theory makes available
+on the system is both passive (completely positive branches summing to the identity) and
+state-separating. -/
+def PassivelyIncomplete (T : FiniteOperationalTheory A) : Prop :=
+  ∀ (O : Type) [Fintype O] [DecidableEq O] (F : O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ),
+    T.avail O F → IsPassiveInstrument F → ¬ SeparatesStates F
+```
+
+- **status:** assumed; holds by cardinality (passivelyIncomplete_of_card, :80) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** sector_diagram; passive_not_implies_oiCore
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.221 — `KeepsLabels`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveIndependence.lean:103` (quoted lines 103-104)
+- **statement (verbatim):**
+
+```lean
+/-- **Keeps the ancilla label**: every ancilla block is mapped into itself. No such map moves
+information from one ancilla value to another. -/
+def KeepsLabels (Φ : Matrix (A × B) (A × B) ℂ →ₗ[ℂ] Matrix (A × B) (A × B) ℂ) : Prop :=
+  ∀ (k l : B) (X : Matrix (A × B) (A × B) ℂ), SuppAnc k l X → SuppAnc k l (Φ X)
+```
+
+- **status:** assumed where used
+- **level:** M
+- **depends_on:** a map on Matrix (A × B)
+- **yields:** labelTheory (:150)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.222 — `PassivelyCompleteOnDiagonal`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveIndependence.lean:288` (quoted lines 288-292)
+- **statement (verbatim):**
+
+```lean
+/-- **Passive completeness on the commutative sector**: some available family is completely
+positive, fixes every diagonal matrix nonselectively, and separates diagonal matrices by outcome
+law. -/
+def PassivelyCompleteOnDiagonal (T : FiniteOperationalTheory A) : Prop :=
+  ∃ (O : Type) (_ : Fintype O) (_ : DecidableEq O) (F : O → Matrix A A ℂ →ₗ[ℂ] Matrix A A ℂ),
+    T.avail O F ∧ (∀ a, IsCompletelyPositive (F a)) ∧ (∀ X, IsDiagonal X → ∑ a, (F a) X = X)
+    ∧ ∀ ρ σ : Matrix A A ℂ, IsDiagonal ρ → IsDiagonal σ →
+        (∀ a, ((F a) ρ).trace = ((F a) σ).trace) → ρ = σ
+```
+
+- **status:** assumed; holds for the diagonal and label theories (:322, :328) [K]
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** sector_diagram
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.223 — `passive_not_implies_oiCore`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveIndependence.lean:260` (quoted lines 260-261)
+- **statement (verbatim):**
+
+```lean
+/-- **The converse implication fails.** -/
+theorem passive_not_implies_oiCore :
+    ¬ ∀ T : FiniteOperationalTheory (Fin 2), PassivelyIncomplete T → OICore T := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed)
+- **yields:** passive completeness does not imply the OI core
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.224 — `sector_diagram`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveIndependence.lean:335` (quoted lines 335-339)
+- **statement (verbatim):**
+
+```lean
+/-- **OI-N4, the sector diagram.** On both sides of the OI-core line the same pattern holds:
+passively complete on the commutative sector, passively incomplete on the full algebra. What
+passive (in)completeness tracks is the sector, and the OI status does not move it. -/
+theorem sector_diagram :
+    (∃ T : FiniteOperationalTheory (Fin 2),
+        OICore T ∧ PassivelyCompleteOnDiagonal T ∧ PassivelyIncomplete T)
+    ∧ (∃ T : FiniteOperationalTheory (Fin 2),
+        ¬ OICore T ∧ PassivelyCompleteOnDiagonal T ∧ PassivelyIncomplete T) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** M
+- **depends_on:** none (closed; two qubit witnesses)
+- **yields:** OICore is independent of the passive sector properties
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.225 — `MinimalCarrier`
+
+- **kind:** definition-as-hypothesis (the itinerary quotient S/∼_∞ of a labelled hidden permutation)
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:133` (quoted lines 133-134)
+- **statement (verbatim):**
+
+```lean
+/-- **THE MINIMAL CARRIER**: the canonical passive quotient `S/∼_∞` — the state space
+of the complete passive observational law. -/
+abbrev MinimalCarrier (φ : Equiv.Perm S) (vis : S → I) : Type _ :=
+  Quotient (itiSetoid φ vis)
+```
+
+- **status:** - (definition)
+- **level:** H
+- **depends_on:** φ : Equiv.Perm S; vis : S → I
+- **yields:** quotPerm (:168); quotient_itinerarySeparating (:222); passiveQuotient_glue_forces_G1 (:444)
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** A hidden deterministic history object (level H); the quotient lives at the observational-equivalence level, not the substratum gauge group (PassiveQuotient.lean:63-67).
+
+### I4.226 — `ObservationCongruence`
+
+- **kind:** definition-as-hypothesis
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:234` (quoted lines 234-235)
+- **statement (verbatim):**
+
+```lean
+/-- An observation-preserving dynamical congruence: invisible to the labelling,
+respected by the dynamics. -/
+def ObservationCongruence (φ : Equiv.Perm S) (vis : S → I) (r : S → S → Prop) : Prop :=
+  (∀ s t, r s t → vis s = vis t) ∧ (∀ s t, r s t → r (φ s) (φ t))
+```
+
+- **status:** assumed where used
+- **level:** H
+- **depends_on:** φ; vis; a relation r
+- **yields:** PassivelyMinimal; itiRelInf_greatest_congruence (:203)
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.227 — `PassivelyMinimal`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:240` (quoted lines 240-241)
+- **statement (verbatim):**
+
+```lean
+/-- **Passive minimality**: no nontrivial quotient preserves the complete passive
+visible history — every observation-preserving congruence is trivial. This is
+minimality of the REPRESENTATION, not minimal ontic reality. -/
+def PassivelyMinimal (φ : Equiv.Perm S) (vis : S → I) : Prop :=
+  ∀ r : S → S → Prop, ObservationCongruence φ vis r → ∀ s t, r s t → s = t
+```
+
+- **status:** assumed; ⟺ itinerary separation (passiveMinimal_iff_itinerarySeparating, :246) [K]
+- **level:** H
+- **depends_on:** φ; vis; ObservationCongruence
+- **yields:** passiveMinimal_iff_itinerarySeparating
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.228 — `quotient_itinerarySeparating`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:222` (quoted lines 222-223)
+- **statement (verbatim):**
+
+```lean
+/-- **THE QUOTIENT IS SEPARATING BY CONSTRUCTION**: distinct classes of the minimal
+carrier have distinct visible itineraries. -/
+theorem quotient_itinerarySeparating (φ : Equiv.Perm S) (vis : S → I) :
+    ItinerarySeparating (quotPerm φ vis) (quotVis φ vis) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none beyond φ and vis
+- **yields:** -
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.229 — `passiveMinimal_iff_itinerarySeparating`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:246` (quoted lines 246-247)
+- **statement (verbatim):**
+
+```lean
+/-- **MINIMALITY IS SEPARATION.** A carrier is passively minimal exactly when its cut
+is itinerary-separating. -/
+theorem passiveMinimal_iff_itinerarySeparating (φ : Equiv.Perm S) (vis : S → I) :
+    PassivelyMinimal φ vis ↔ ItinerarySeparating φ vis := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** none beyond φ and vis
+- **yields:** -
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.230 — `passiveQuotient_glue_forces_G1`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:444` (quoted lines 444-449)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CAPSTONE, HALF ONE.** On the canonical minimal passive carrier, the
+domain-relative glue alone forces the full diagonal-sector glue — no separation
+hypothesis remains, because the carrier is separating by construction. -/
+theorem passiveQuotient_glue_forces_G1
+    (φ : Equiv.Perm S) (vis : S → I)
+    (U : Matrix (MinimalCarrier φ vis) (MinimalCarrier φ vis) ℂ)
+    (hglue : CompatibilityDomainGlue U (quotPerm φ vis)
+      {w | ClassicalBranchDomain (quotPerm φ vis) (quotVis φ vis) w}) :
+    DiagonalSectorGlue U (quotPerm φ vis) :=
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** CompatibilityDomainGlue U (quotPerm φ vis) on the classical branch domain
+- **yields:** DiagonalSectorGlue U (quotPerm φ vis)
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.231 — `hiddenExt_not_separating`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:534` (quoted lines 534-536)
+- **statement (verbatim):**
+
+```lean
+/-- **RAW-CARRIER SEPARATION IS NOT DERIVABLE.** Any carrier extends, by an
+observationally inert hidden fibre, to a carrier that is NOT itinerary-separating. -/
+theorem hiddenExt_not_separating [Nonempty S] (φ : Equiv.Perm S) (vis : S → I)
+    (σ : S → Equiv.Perm A) (hA : ∃ a b : A, a ≠ b) :
+    ¬ItinerarySeparating (hiddenExt φ σ) (fun p => vis p.1) := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** [Nonempty S]; a nontrivial hidden fibre A
+- **yields:** bare OI does not make the ontic carrier observable
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.232 — `hiddenExt_same_law`
+
+- **kind:** theorem
+- **provenance:** `verification/lean-mathlib/OIBridge/PassiveQuotient.lean:563` (quoted lines 563-566)
+- **statement (verbatim):**
+
+```lean
+/-- **THE PASSIVE LAW CANNOT SEE THE FIBRE.** For every prior on the extension with the
+right base marginal, every finite visible trajectory probability agrees with the base —
+the entire closed passive law is preserved while separation fails. -/
+theorem hiddenExt_same_law [Fintype A] (φ : Equiv.Perm S) (vis : S → I)
+    (σ : S → Equiv.Perm A) (ν : S × A → ℝ) (μ : S → ℝ)
+    (hmarg : ∀ s, ∑ a, ν (s, a) = μ s) (T : ℕ) (c : ℕ → I) :
+    trajProb (hiddenExt φ σ) (fun p => vis p.1) T c ν = trajProb φ vis T c μ := by
+```
+
+- **status:** proved [K] (kernel theorem of the certified build at L)
+- **level:** H
+- **depends_on:** [Fintype A]; a prior ν with marginal μ (hmarg)
+- **yields:** the hidden extension preserves the passive visible law
+- **bridge:** none at L. PassiveQuotient.lean is in the import closure of the pair carrier (CompositeDimension -> TransitiveBody -> CompletionAction -> StageCompletion -> OrbitNormalization -> OrbitGeneration -> KInfFoundations -> CoherentExtension -> ControlledQuotient -> PassiveQuotient, `bridge_scan2.out`), but no pair-level module (`bridge_scan2.out`, 12 modules) and no module of that single-token chain (`bridge_scan4.out`, 23 modules) uses any of the 85 names declared in PassiveQuotient, ControlledQuotient or ObservabilityQuotient, and none opens or qualifies those namespaces (NOTES N5).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+
+### I4.233 — `Kₙ — elementary-to-arbitrary-carrier lift`
+
+- **kind:** obligation (ROADMAP)
+- **provenance:** `verification/ROADMAP.md:1058-1069`
+- **statement (verbatim):**
+
+```text
+- **Kₙ — elementary-to-arbitrary-carrier lift. OPEN.** DIM-1 reaches only the elementary `d = 3`
+  ball, while the K3 interfaces quantify over every finite carrier: `FiniteOperationalTheory`,
+  `ImplementationClass`, `DrivesElementary` and `ShadowQuantum` take the complex matrix carriers of
+  every finite size, and their ancilla extensions, as given, together with the implementation
+  repertoire that `DrivesElementary` assumes at every carrier. Kₙ therefore lifts the operational
+  architecture, not only the state and effect spaces. No current theorem supplies the lift.
+  No theorem consumes the DIM-1 ball, and K2's candidate route composes elementary systems only.
+  Because K∞'s geometric branch is elementary-scoped, Kₙ is not a consequence of it. Kₙ may be
+  discharged either by K2 plus a suitable subsystem or subspace principle, relating higher-level
+  systems to elementary ones, or by another carrier-general construction. The classification is
+  recorded in
+  [`audits/foundations/kn-elementary-carrier-census.md`](audits/foundations/kn-elementary-carrier-census.md).
+```
+
+- **status:** open (ROADMAP entry: OPEN, ROADMAP.md:1058; also the K row, ROADMAP.md:68)
+- **level:** G
+- **depends_on:** the elementary d = 3 system of DIM-1 (I3's scope); a subspace / face principle or K2 plus a subsystem principle (not in the corpus at L, per the census)
+- **yields:** would supply the carriers that FiniteOperationalTheory, ImplementationClass, DrivesElementary and ShadowQuantum take as given (the K3 interfaces)
+- **bridge:** none at L: the obligation states 'No current theorem supplies the lift' (ROADMAP.md:1063); the kernel re-check at L (`bridge_scan.out`, `bridge_scan3.out`) finds no module but the root aggregator importing both the field-neutral side and the complex operational side.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Position in the finite route: ROADMAP.md:1091.
+
+### I4.234 — `Kₙ census — disposition and §1 (no theorem consumes the reconstructed ball)`
+
+- **kind:** obligation (ROADMAP) -- the landed classification audit of the Kₙ row
+- **provenance:** `verification/audits/foundations/kn-elementary-carrier-census.md:12-22`
+- **statement (verbatim):**
+
+```text
+**Disposition: a separate obligation, Kₙ.** No theorem supplies the lift.
+
+## 1. No theorem consumes the reconstructed ball
+
+At the base, the field-neutral modules (`KInfFoundations`, `OrbitGeneration`, `OrbitNormalization`,
+`InvariantInnerProduct`, `StageCompletion`, `TransitiveBody`, `NativeGateBall`, `CompositeDimension`,
+`CompositeInterface`, `CompositionOrder`) and the complex operational modules (`OperationalAssembly`,
+`ImplementationLocality`, `SubstratumSource`, `TypedCompletion`, `CarrierGeneralOIPlus`, `CompletedOI`,
+`LevelOneSeam`) share no import, direct or transitive, in either direction. `CompositeDimension` is imported by no
+module; its matrices are real. The one complex statement on the field-neutral side, `qubit_certain_face`, is a fixed
+`2 × 2` instance.
+```
+
+- **status:** open (disposition 'a separate obligation, Kₙ. No theorem supplies the lift.'); audit base 95cb01ff, not L
+- **level:** G
+- **depends_on:** -
+- **yields:** the Kₙ row (I4.233)
+- **bridge:** none at L. At L the §1 statement 'CompositeDimension is imported by no module' no longer holds verbatim (11 modules descend from it at L: `bridge_scan2.out` PMODS), but its operative content -- no shared import between the field-neutral and the complex operational modules -- holds at L for every module except the root aggregator (`bridge_scan.out`, `bridge_scan3.out`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The off-repo ledger version (inputs/ledgers/KN-CENSUS-RESULT.md:6-26, base 95cb01ff) states the same disposition.
+
+### I4.235 — `Kₙ census §3 — the K3 interfaces take every finite carrier as given`
+
+- **kind:** obligation (ROADMAP) -- audit finding
+- **provenance:** `verification/audits/foundations/kn-elementary-carrier-census.md:33-43`
+- **statement (verbatim):**
+
+```text
+## 3. The K3 interfaces take every finite carrier as given
+
+| object | how every finite carrier enters |
+|---|---|
+| `ImplementationClass` (`ImplementationLocality.lean`) | in the type: a predicate on `Matrix S S ℂ` at every finite carrier `S` |
+| `FiniteOperationalTheory A` (`OperationalAssembly.lean`) | in the type: operations on `Matrix A A ℂ`, and on `A × Fin n` for every `n` |
+| `Architecture`, `ContextStable`, `LabelInvariant`, `DaggerStable` | premises quantified over all finite carriers |
+| `DrivesElementary`, `QuantumArchitecture` (`SubstratumSource.lean`) | flows, exchanges and phases admissible at every finite carrier |
+| `TypedOperationalTheory`, `ShadowQuantum` (`TypedCompletion.lean`) | in the type, over all carrier pairs; exact finite QM on every nonempty carrier |
+
+So the condition "on reaching complex matrix kinematics" in K3 is a condition at every finite size.
+```
+
+- **status:** open (the condition 'on reaching complex matrix kinematics' in K3 is a condition at every finite size)
+- **level:** G
+- **depends_on:** ImplementationClass; FiniteOperationalTheory; Architecture; ContextStable; LabelInvariant; DaggerStable; DrivesElementary; QuantumArchitecture; TypedOperationalTheory; ShadowQuantum
+- **yields:** the K3 CONDITIONAL label (ROADMAP.md:978)
+- **bridge:** none at L
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Each object named is inventoried above at its file:line.
+
+### I4.236 — `Kₙ census §4 — scope of K∞'s geometric branch`
+
+- **kind:** obligation (ROADMAP) -- audit finding (exact check on diagonal qutrit states)
+- **provenance:** `verification/audits/foundations/kn-elementary-carrier-census.md:45-53`
+- **statement (verbatim):**
+
+```text
+## 4. Scope of K∞'s geometric branch
+
+On the qutrit state space with every effect available, the effect `ρ ↦ tr(Pρ)` with `P = diag(1, 1, 0)` is proper
+(its value on `|2⟩⟨2|` is `0`) and certain on the two distinct states `|0⟩⟨0|` and `|1⟩⟨1|`, so `SingletonFaces`
+fails; the midpoint of those two states is a boundary state, since moving beyond it away from `|2⟩⟨2|` leaves the
+positive cone, so `RelStrictConvex` fails. The check is exact (diagonal states, rational entries); on the qubit the
+rank-one test is certain on a single state. The geometric branch of K∞ — the singleton-face or relative strict
+convexity input and the ball it yields — is therefore a statement about an elementary system, not a requirement of
+finite quantum theory in general, and Kₙ is not a consequence of it.
+```
+
+- **status:** refuted (by kn-elementary-carrier-census.md:47-50) for the reading of SingletonFaces / RelStrictConvex as requirements of finite quantum theory at level ≥ 3; the premises remain open obligations for an elementary system (I3's K∞ rows)
+- **level:** O
+- **depends_on:** -
+- **yields:** the elementary scope of K∞'s geometric branch; Kₙ is not a consequence of it
+- **bridge:** not applicable (single-token level O; the statement concerns the scope of the single-token premises)
+- **bearing:** constrains the single-token structure the pair inherits (scope: the K∞ geometric premises are statements about an elementary, two-level system)
+- **flag:** -
+- **note:** The K∞ premises themselves are I3's scope; recorded here as the Kₙ census's finding. Scope as stated by the census: 'two K∞ geometric premises are false for complex quantum systems of level ≥ 3' (inputs/ledgers/KN-CENSUS-RESULT.md:10-11), a range that contains the two-token pair read as one four-level system; the landed audit's exact check is on the qutrit (kn-elementary-carrier-census.md:47-50).
+
+### I4.237 — `K3 — the operations`
+
+- **kind:** obligation (ROADMAP)
+- **provenance:** `verification/ROADMAP.md:978-983`
+- **statement (verbatim):**
+
+```text
+- **K3 — the operations. CONDITIONAL** on reaching complex matrix kinematics. A quantum
+  architecture — an architecture that is context-, label- and dagger-stable and drives the
+  elementary transitions (`DrivesElementary`) — generates a theory carrying every finite
+  endomorphic quantum operation (`genTheory_qm_of_quantumArchitecture`), through composite unitary
+  control (`control_of_lieRank`) and the full instruments (`fullInstruments_of_control`). The typed
+  characterization covers the finite rectangular Kraus endpoint (`typed_determined_iff`).
+```
+
+- **status:** conditional-on reaching complex matrix kinematics (ROADMAP: CONDITIONAL, ROADMAP.md:978); with Kₙ (I4.233) the kinematics is required at every finite carrier (I4.235)
+- **level:** M
+- **depends_on:** QuantumArchitecture (SubstratumSource.lean:86)
+- **yields:** genTheory_qm_of_quantumArchitecture; control_of_lieRank; typed_determined_iff (cited in the bullet)
+- **bridge:** none at L
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Links: ROADMAP.md:1100-1101 (SubstratumSource.lean, TypedCompletion.lean).
+
+### I4.238 — `H-∞ — finite to continuum / infinite-dimensional completion`
+
+- **kind:** obligation (ROADMAP)
+- **provenance:** `verification/ROADMAP.md:936-951`
+- **statement (verbatim):**
+
+```text
+### P1 — H-∞: finite to continuum / infinite-dimensional completion
+
+The strongest exact OI→QM results currently live on finite carriers. The repository has substantial
+continuum and quasilocal infrastructure — including region limits, continuum-source statements and
+state-layer audits — but no theorem promotes the **whole** finite operational characterization,
+including composites and the relevant dynamics/selection statements, to arbitrary
+infinite-dimensional Hilbert spaces or QFT-like systems. This is the continuum/infinite extension
+named in the scope paragraph at the top of this roadmap.
+
+This row is intentionally distinct from **infinite-support instruments**, which remain deliberately
+unprioritized below: allowing infinitely many outcomes is not the same as proving a continuum/QFT
+completion of the theory.
+
+→ [`RegionLimit.lean`](lean-mathlib/OIBridge/RegionLimit.lean)
+→ [`CoherentContinuumSource.lean`](lean-mathlib/OIBridge/CoherentContinuumSource.lean)
+→ [quasilocal-completion audit](audits/operational/quasilocal-completion-audit.md)
+```
+
+- **status:** open (ROADMAP.md:70: OPEN)
+- **level:** G
+- **depends_on:** -
+- **yields:** would promote the finite characterization beyond finite carriers; cites CoherentContinuumSource.lean and the quasilocal-completion audit
+- **bridge:** none at L
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** The quasilocal kernel modules (QuasilocalAlgebra, QuasilocalCharacterization) are inventoried above; the manuscript Level III statements are I2's.
+
+### I4.239 — `Settled negatively — INDEPENDENT (phases; dense control; executable intermediate layer flow; observer-level lift)`
+
+- **kind:** obligation (ROADMAP) -- settled findings
+- **provenance:** `verification/ROADMAP.md:1392-1416`
+- **statement (verbatim):**
+
+```text
+## Settled negatively — `INDEPENDENT`, and not queue items
+
+**These are findings. They do not belong on the list above and are recorded here so they are not
+re-added to it.**
+
+| Finding | Status |
+| --- | --- |
+| The source of phases | **INDEPENDENT** |
+| Dense/nonclassical operational control from the presently stated architecture | **INDEPENDENT** |
+| Executable intermediate layer flow | **INDEPENDENT** |
+| The presently stated observer-level lift | **INDEPENDENT** |
+
+The kernel result is negative and it is a result: the stated configuration-level observer access does
+**not** source the quarter phase or an executable intermediate layer flow, and none of the lift
+formulations that actually land in the operational interface repairs that. Under the current
+architecture these are identified independent resources — proofs nobody has neglected to write.
+
+The same accounting applies to dense/nonclassical control. `FrozenSourcing` proves that the
+present configuration-level architecture cannot source `DenseUnitaryControl` (independently of the
+phase ceiling), while `DenseInstrumentBridge` proves that dense unitary control would suffice for
+dense finite quantum instruments. The remaining fixed nonclassical gate/control resource is
+therefore an **independent empirical datum relative to the present architecture**, not an unproved
+lemma. This does not say an extended architecture cannot source it.
+
+→ [`PHASE-SOURCE-AUDIT.md`](audits/foundations/phase-source-audit.md),
+```
+
+- **status:** proved [K] as independence results relative to the present architecture (the table's label is INDEPENDENT; anchors: substratumTheory_not_layerFlowExecutable, obs_not_layerFlowExecutable, coherentLiftClass_not_layerFlowExecutable, onesFixing_not_phasesAvailable, and FrozenSourcing / DenseInstrumentBridge outside I4's list)
+- **level:** H
+- **depends_on:** the presently stated configuration-level architecture
+- **yields:** the layer-flow and phase resources are identified independent resources of the present architecture
+- **bridge:** none at L
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** ROADMAP.md:1414: 'This does not say an extended architecture cannot source it.'
+
+### I4.240 — `substratumTheory`
+
+- **kind:** definition-as-hypothesis (the theory generated by the monomial class)
+- **provenance:** `verification/lean-mathlib/OIBridge/RouteB.lean:279` (quoted lines 279-281)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SUBSTRATUM THEORY**: the theory generated by the monomial class. -/
+noncomputable abbrev substratumTheory (A : Type) [Fintype A] [DecidableEq A] :
+    FiniteOperationalTheory A :=
+  genTheory substratumClass substratumClass_arch A
+```
+
+- **status:** - (definition)
+- **level:** H
+- **depends_on:** genTheory substratumClass substratumClass_arch A
+- **yields:** substratumTheory_not_layerFlowExecutable; SubstratumAvail; obligations_independent; KillBattery; coherentLiftTheory_eq_substratumTheory
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Defined in RouteB.lean (outside I4's list). The kernel's level-H objects are matrix-level theories generated from the substratum's operator shape.
+
+### I4.241 — `DerivedOI`
+
+- **kind:** hypothesis-structure (the consequence closure of the substratum on an operational theory)
+- **provenance:** `verification/lean-mathlib/OIBridge/RouteB.lean:141` (quoted lines 141-143)
+- **statement (verbatim):**
+
+```lean
+/-- **THE CONSEQUENCE CLOSURE, `DerivedOI`**: every theory-level predicate the kernel derives
+from the substratum, in the strongest form it derives it — reversible implementation locality
+(the substratum class is dagger-stable), embedded observation, and the availability at every
+level of the exchanges, the phases and the read-write operators. -/
+def DerivedOI (T : FiniteOperationalTheory A) : Prop :=
+  ReversibleImplementationLocality T ∧ EmbeddedObservation T
+    ∧ ExchangesAvailable T ∧ PhasesAvailable T ∧ ReadWriteAvailable T
+```
+
+- **status:** assumed (hypothesis of derivedOI_qm_iff_layerFlowExecutable, qm_of_derivedOI_layerFlowExecutable, derivedOI_qm_iff_layerFlowExecutable', qm_iff_derivedOI_pairFlowSourced); holds for the substratum theory (substratumTheory_derivedOI, RouteB.lean:290) [K]
+- **level:** M
+- **depends_on:** ReversibleImplementationLocality T; EmbeddedObservation T; ExchangesAvailable T (RouteB.lean:123); PhasesAvailable T (:128); ReadWriteAvailable T (:133)
+- **yields:** the layer-flow endpoint theorems (LiftAudit, DerivedQ3, PairFlowEquivalence, StateMixingCoupling)
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (contains ReversibleImplementationLocality, whose ContextStable clause is implementation locality's spectator clause, and EmbeddedObservation)
+- **note:** Defined in RouteB.lean (outside I4's list).
+
+### I4.242 — `ConfigurationLevel`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/ManuscriptAxioms.lean:125` (quoted lines 125-126)
+- **statement (verbatim):**
+
+```lean
+/-- **A CONFIGURATION-LEVEL ARCHITECTURE**: every admissible implementation operator is monomial,
+a permutation of the configurations composed with a phase — the operator shape the interface
+assigns to a substratum's direct interventions. -/
+def ConfigurationLevel (𝓘 : ImplementationClass) : Prop :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → IsMonomial K
+```
+
+- **status:** assumed (hypothesis of configurationLevel_not_layerFlowExecutable and the ExecSource / CoherentContinuumSource no-go theorems); holds for substratumClass (substratumClass_configurationLevel, ManuscriptAxioms.lean:129) [K]
+- **level:** H
+- **depends_on:** ImplementationClass; IsMonomial
+- **yields:** configurationLevel_not_layerFlowExecutable; not_configurationLevel_of_layerFlowExecutable; coherent_continuum_not_sourced
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** ManuscriptAxioms.lean carries the manuscript axioms' kernel forms: content out of scope: I1 (axioms A1-A6 as far as they constrain observers); recorded here only as a hypothesis of I4 theorems.
+
+### I4.243 — `HControl`
+
+- **kind:** hypothesis-structure (the drift/control Lie-rank certificate su(D) ⊆ 𝔏(H,U))
+- **provenance:** `verification/lean-mathlib/OIBridge/MonoidalCompletion.lean:349` (quoted lines 349-350)
+- **statement (verbatim):**
+
+```lean
+/-- **`H_Lie`, the finite drift/control CERTIFICATE**: `su(D) ⊆ 𝔏(H,U)`. This is the
+round-nineteen Lie-rank condition at its infinitesimal level. It invokes no analytic
+passage whatsoever. -/
+def HControl {G : Type*} (H : Matrix S S ℂ) (U : G → Matrix S S ℂ) : Prop :=
+  ∀ A : Matrix S S ℂ, IsSpecialSkew A → A ∈ controlLie H U
+```
+
+- **status:** assumed (inside ReversibleRichness, LieRankRichness; hypothesis of posReach_eq_top, universalReachability_of_lieRank_positive)
+- **level:** M
+- **depends_on:** H; U on a finite carrier
+- **yields:** ReversibleRichness; LieRankRichness; posReach_eq_top; universalReachability_of_lieRank_positive
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Defined in MonoidalCompletion.lean (outside I4's list).
+
+### I4.244 — `ElementaryTransitionRichness`
+
+- **kind:** hypothesis-structure (a form of reversible richness: the elementary repertoire at every level)
+- **provenance:** `verification/lean-mathlib/OIBridge/LieRankSource.lean:436` (quoted lines 436-441)
+- **statement (verbatim):**
+
+```lean
+/-- **ELEMENTARY TRANSITION RICHNESS**: at every level, every real transition between two
+distinguishable states is continuously drivable, every exchange of two states is available,
+and a quarter phase on every state is available. -/
+def ElementaryTransitionRichness (T : FiniteOperationalTheory A) : Prop :=
+  ∀ n : ℕ,
+    (∀ a b : A × Fin n, a ≠ b →
+      ∀ t : ℝ, T.availExt n Unit (fun _ => conjChannel (flow (transition a b) t)))
+    ∧ (∀ a b : A × Fin n, T.availExt n Unit (fun _ => conjChannel (permMatrix (Equiv.swap a b))))
+    ∧ (∀ a : A × Fin n, T.availExt n Unit (fun _ => conjChannel (phaseGate a)))
+```
+
+- **status:** assumed (conjunct of OIPlusPos)
+- **level:** M
+- **depends_on:** FiniteOperationalTheory A
+- **yields:** OIPlusPos
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (a form of reversible richness)
+- **note:** Defined in LieRankSource.lean (outside I4's list).
+
+### I4.245 — `OIPlusElem`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/LieRankSource.lean:527` (quoted lines 527-528)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPRESSED SET**: reversible implementation locality, elementary transition richness,
+embedded observation. -/
+def OIPlusElem : Prop :=
+  ReversibleImplementationLocality T ∧ ElementaryTransitionRichness T ∧ EmbeddedObservation T
+```
+
+- **status:** assumed (hypothesis of typed_determined_of_oiPlusElem)
+- **level:** M
+- **depends_on:** as defined at LieRankSource.lean:527
+- **yields:** typed_determined_of_oiPlusElem
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** do not assume (OI⁺ package, elementary form)
+- **note:** Defined in LieRankSource.lean (outside I4's list).
+
+### I4.246 — `HComp`
+
+- **kind:** hypothesis-structure (the round-24 compositional hypothesis on coherent maps of relabellings)
+- **provenance:** `verification/lean-mathlib/OIBridge/MonoidalCompletion.lean:311` (quoted lines 311-314)
+- **statement (verbatim):**
+
+```lean
+/-- **THE COMPOSITIONAL PRINCIPLE `H_comp`.** Named only after both clauses are
+independently defined: a coherent completion respects the composition rules of the
+underlying physical interventions, SEQUENTIALLY (implementation extensionality) and in
+PARALLEL (spectator independence). -/
+def HComp (act : ι → Equiv.Perm (A × B)) (corr : ι → Matrix (A × B) (A × B) ℂ)
+    (CB : Equiv.Perm B → Matrix B B ℂ)
+    (C : Equiv.Perm (A × B) → Matrix (A × B) (A × B) ℂ) : Prop :=
+  ImplementationExtensionality act corr ∧ SpectatorIndependent CB C
+```
+
+- **status:** assumed (hypothesis of hComp_spectator_form; conjunct of HCompRealized); holds for the trivial-correlation completion (hComp_ones, SpectatorBridge.lean:334) [K]
+- **level:** M
+- **depends_on:** act; corr; CB; C
+- **yields:** hComp_spectator_form; HCompRealized
+- **bridge:** none at L. `bridge_scan.out` (rule B3): the only module that imports both the pair-level definitions (CompositeDimension.lean:97 `W`, :198 `actT`, :201 `actC`, :775 `cnot`; K2Guard.lean:95 `CandidateCone`) and the matrix-level carrier (OperationalAssembly.lean:594 `FiniteOperationalTheory`) is the root aggregator `OIBridge.lean`, which states no declaration mentioning a pair token (0 bridge-candidate lines); `bridge_scan3.out`: no module but the root reaches both M and the single-token level O (KInfFoundations.lean:264 `ElementaryDrivability`, :425 `cyc3`).
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Defined in MonoidalCompletion.lean (outside I4's list).
+
+### I4.247 — `OnesFixing`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/InstrumentRealization.lean:180` (quoted lines 180-182)
+- **statement (verbatim):**
+
+```lean
+/-- **ONES-FIXING CLASSES**: every admissible isometry fixes the all-ones vector up to a
+scalar. -/
+def OnesFixing (𝓘 : ImplementationClass) : Prop :=
+  ∀ (S : Type) [Fintype S] [DecidableEq S] (K : Matrix S S ℂ), 𝓘 S K → Kᴴ * K = 1 →
+    ∃ z : ℂ, K *ᵥ ones S = z • ones S
+```
+
+- **status:** assumed (hypothesis of onesFixing_not_phasesAvailable); fails for substratumClass (substratumClass_not_onesFixing, PhaseSource.lean:196) [K]
+- **level:** H
+- **depends_on:** ImplementationClass
+- **yields:** onesFixing_not_phasesAvailable
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** Defined in InstrumentRealization.lean (outside I4's list).
+
+### I4.248 — `SourcedOI`
+
+- **kind:** hypothesis-structure
+- **provenance:** `verification/lean-mathlib/OIBridge/SubstratumInterfaceAudit.lean:619` (quoted lines 619-621)
+- **statement (verbatim):**
+
+```lean
+/-- **THE SOURCED CLOSURE, `SourcedOI`**: the conjuncts of `DerivedOI` other than the phases —
+reversible implementation locality, embedded observation, and the availability at every level
+of the exchanges and the read-write operators. -/
+def SourcedOI (T : FiniteOperationalTheory A) : Prop :=
+  ReversibleImplementationLocality T ∧ EmbeddedObservation T
+    ∧ ExchangesAvailable T ∧ ReadWriteAvailable T
+```
+
+- **status:** assumed (conjunct of flow_endpoint_refuted_general's conclusion for onesTheory)
+- **level:** H
+- **depends_on:** as defined at SubstratumInterfaceAudit.lean:619
+- **yields:** flow_endpoint_refuted_general
+- **bridge:** none at L. `bridge_scan.out` (B3, H = RouteB.lean:279 `substratumTheory`, StructuralClosure.lean:180 `substratumClass`): only the root aggregator `OIBridge.lean` reaches both H and the pair carrier, and it states no pair-token declaration; `bridge_scan3.out`: no H-O link module but the root.
+- **bearing:** none at L (no bridge theorem at L; see `bridge`).
+- **flag:** -
+- **note:** SubstratumInterfaceAudit.lean carries the manuscript `Substratum` structure (ROADMAP.md:773): content out of scope: I1.
+
+***
+
+Render controls: records 248; ids unique and well-formed: yes; source checks failed: 0; countercontrol (wrong name at ReferenceExtension.lean:422 must fail): PASS.
+
+VERDICT: INVENTORY RENDERED (all controls pass)

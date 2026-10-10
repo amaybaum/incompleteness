@@ -1,0 +1,13 @@
+PASS A1 complex-side candidates present at the cited lines  [12 anchors; missing: none]
+PASS A2 field-neutral candidates (Part A and Part B) present at the cited lines  [37 anchors; missing: none]
+PASS A3 record lines present (ROADMAP K-rows, seams audit :44, COMP-1 open list, typed audit :60, Main.md :568, :706)  [11 anchors; missing: none]
+PASS T1 complex-side candidates are complex-typed (block contains ℂ, or names FiniteOperationalTheory / TheoryFamily)  [EmbeddedObservation:98:ℂ; EmbeddedObservation:106:ℂ; EmbeddedObservation:123:via theory type; ReferenceExtension:447:ℂ; SpectatorBridge:223:ℂ; MonoidalCompletion:311:ℂ; MonoidalCompletion:204:ℂ]
+PASS T2 field-neutral candidates are not complex-typed  [CompositeInterface:223, CompositeInterface:445, OrbitGeneration:69, CompletionAction:46, CompletionAction:58, StageCompletion:141, CompositeDimension:218, K1Bridge:49, K2Guard:95, KInfFoundations:264, KInfFoundations:284]
+PASS T-control FiniteOperationalTheory's structure block contains ℂ; PreComposite's does not
+PASS I1 no import path in either direction between the field-neutral core (14 modules) and the complex-side candidate modules (11)  [crossing paths: none]
+PASS I-control known edges EmbeddedObservation->CarrierGeneralOIPlus, CompositeInterface->CompletionAction->StageCompletion found
+PASS F no field-neutral core module contains regrouping / four-token / token-coherence vocabulary  [hits: none]
+PASS F-control the scan finds TokenCoherent and W4 in the inputs package and Regroup in EmbeddedObservation
+PASS R Main.md posit ledger: 'Seven items' and 'Axiom 2' present; no 'compos', 'tensor', 'token identity', 'regroup'
+--- q0_census: 11/11 checks pass
+VERDICT Q0-CENSUS-COMPLETE

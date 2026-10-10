@@ -1,0 +1,903 @@
+{
+ "RelcSelectParity.lean::relCLeft": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def relCLeft (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : (HVec d →ₗ[ℝ] HVec d) →ₗ[ℝ] (HVec d →ₗ[ℝ] HVec d) where toFun F := homMap N ∘ₗ F map_add' F₁ F₂ := LinearMap.ext fun v => by simp only [LinearMap.comp_apply, LinearMap.add_apply, map_add] map_smul' c F := LinearMap.ext fun v => by simp only [LinearMap.comp_apply, LinearMap.smul_apply, map_smul, RingHom.id_apply]",
+  "sha256": "35d28e3b4a4bd805005f0db4582ffb680734911dc8c7b5e963d84cf2c2d4bb0a"
+ },
+ "RelcSelectParity.lean::relCConj": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def relCConj (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : (HVec d →ₗ[ℝ] HVec d) →ₗ[ℝ] (HVec d →ₗ[ℝ] HVec d) where toFun F := homMap N ∘ₗ F ∘ₗ homMap N map_add' F₁ F₂ := LinearMap.ext fun v => by simp only [LinearMap.comp_apply, LinearMap.add_apply, map_add] map_smul' c F := LinearMap.ext fun v => by simp only [LinearMap.comp_apply, LinearMap.smul_apply, map_smul, RingHom.id_apply]",
+  "sha256": "85bd5ce34679fec52495c2a4104600e1115c261cccd4ae3406e1cf379d85fece"
+ },
+ "RelcSelectParity.lean::relCLeft_apply": {
+  "kind": "theorem",
+  "stmt": "theorem relCLeft_apply (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (F : HVec d →ₗ[ℝ] HVec d) (v : HVec d) : relCLeft N F v = homMap N (F v)",
+  "sha256": "55f3b0a4edc5fada10398f61aab061abfcdc33c9efca5015dddc89ba6934e039"
+ },
+ "RelcSelectParity.lean::relCConj_apply": {
+  "kind": "theorem",
+  "stmt": "theorem relCConj_apply (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (F : HVec d →ₗ[ℝ] HVec d) (v : HVec d) : relCConj N F v = homMap N (F (homMap N v))",
+  "sha256": "cecac31503a522bc867a556f77215dd856841ff2f1cfde44e410691d1225ffbb"
+ },
+ "RelcSelectParity.lean::relCLeft_eq": {
+  "kind": "theorem",
+  "stmt": "theorem relCLeft_eq (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (F : HVec d →ₗ[ℝ] HVec d) : relCLeft N F = homMap N ∘ₗ F",
+  "sha256": "8af0f2e762d16d02079068689e52d532b49db8bddf2617140bcb3e8616eb887f"
+ },
+ "RelcSelectParity.lean::relCConj_eq": {
+  "kind": "theorem",
+  "stmt": "theorem relCConj_eq (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (F : HVec d →ₗ[ℝ] HVec d) : relCConj N F = homMap N ∘ₗ F ∘ₗ homMap N",
+  "sha256": "b04e893b02437c2c437ad9f13199ce5aac92a99cbd9010b4f60b6b29945dab77"
+ },
+ "RelcSelectParity.lean::opGate_homMap_comp_relC": {
+  "kind": "theorem",
+  "stmt": "theorem opGate_homMap_comp_relC {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)) (F : HVec d →ₗ[ℝ] HVec d) : opGate G (homMap N ∘ₗ F) = homMap N ∘ₗ opGate G F ∘ₗ homMap N",
+  "sha256": "0ff51db80d13387d41c9bbd53ff2fa5e6e26bce2f63fe6626561b8c59c3fe775"
+ },
+ "RelcSelectParity.lean::opGate_injective_relC": {
+  "kind": "theorem",
+  "stmt": "theorem opGate_injective_relC (G : W d ≃ₗ[ℝ] W d) : Function.Injective (opGate G)",
+  "sha256": "c03bf8f99537c14704c39c32760999ee72b2e2607f899f76026604d21d7b9a56"
+ },
+ "RelcSelectParity.lean::finrank_ker_sub_le_relC": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_ker_sub_le_relC {V : Type*} [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V] (A L T : V →ₗ[ℝ] V) (hA : Function.Injective A) (hAL : ∀ v, A (L v) = T (A v)) : Module.finrank ℝ (LinearMap.ker (L - LinearMap.id)) ≤ Module.finrank ℝ (LinearMap.ker (T - LinearMap.id))",
+  "sha256": "56cd2dd8301fc148cd53a47954827754a2d24ffcf2b9926b1334ed1e9b9c2b23"
+ },
+ "RelcSelectParity.lean::finrank_ker_add_le_relC": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_ker_add_le_relC {V : Type*} [AddCommGroup V] [Module ℝ V] [FiniteDimensional ℝ V] (A L T : V →ₗ[ℝ] V) (hA : Function.Injective A) (hAL : ∀ v, A (L v) = T (A v)) : Module.finrank ℝ (LinearMap.ker (L + LinearMap.id)) ≤ Module.finrank ℝ (LinearMap.ker (T + LinearMap.id))",
+  "sha256": "841a84ddc5ffd9b1d00879ce60ad04b5bbca4671d2e165ca3113b353623c227b"
+ },
+ "RelcSelectParity.lean::finrank_ker_relCLeft_sub": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_ker_relCLeft_sub (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : Module.finrank ℝ (LinearMap.ker (relCLeft N - LinearMap.id)) = (d + 1) * Module.finrank ℝ (plusSpace N)",
+  "sha256": "21a7fe24179c4053258acf7efdd80bbf94a2740509fd825c9ca10f72a822de8b"
+ },
+ "RelcSelectParity.lean::finrank_ker_relCLeft_add": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_ker_relCLeft_add (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) : Module.finrank ℝ (LinearMap.ker (relCLeft N + LinearMap.id)) = (d + 1) * Module.finrank ℝ (minusSpace N)",
+  "sha256": "dba4e64966934cd535ec2471b0fa80dc3f2ed7f1915eff44abb5c5fa8eddbdc3"
+ },
+ "RelcSelectParity.lean::eq_zero_of_plus_minus_relC": {
+  "kind": "theorem",
+  "stmt": "theorem eq_zero_of_plus_minus_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) (F : HVec d →ₗ[ℝ] HVec d) (hp : ∀ u ∈ plusSpace N, F u = 0) (hm : ∀ u ∈ minusSpace N, F u = 0) : F = 0",
+  "sha256": "33f6bc106d9a4e3207b8187af4d6401690e9165642d309b6aa7b666481d12e8b"
+ },
+ "RelcSelectParity.lean::homMap_comm_relC": {
+  "kind": "theorem",
+  "stmt": "theorem homMap_comm_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) {F : HVec d →ₗ[ℝ] HVec d} (hF : F ∈ LinearMap.ker (relCConj N - LinearMap.id)) (v : HVec d) : homMap N (F v) = F (homMap N v)",
+  "sha256": "982b95711786d10a96be0f6369046c2844402818185c5df9d7b873010a813630"
+ },
+ "RelcSelectParity.lean::homMap_anticomm_relC": {
+  "kind": "theorem",
+  "stmt": "theorem homMap_anticomm_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) {F : HVec d →ₗ[ℝ] HVec d} (hF : F ∈ LinearMap.ker (relCConj N + LinearMap.id)) (v : HVec d) : homMap N (F v) = -F (homMap N v)",
+  "sha256": "ac1e292c68ff75c3a5dfbe8c0be71f7ad0e842d56ad4e39aee81602c97ef4f6f"
+ },
+ "RelcSelectParity.lean::mem_plusSpace_of_comm_relC": {
+  "kind": "theorem",
+  "stmt": "theorem mem_plusSpace_of_comm_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) {F : HVec d →ₗ[ℝ] HVec d} (hF : F ∈ LinearMap.ker (relCConj N - LinearMap.id)) (u : plusSpace N) : F (u : HVec d) ∈ plusSpace N",
+  "sha256": "aef64fbab78c17b5acbf964c3e11819f69325cb4df60f87eeff3bce733fe4ad8"
+ },
+ "RelcSelectParity.lean::mem_minusSpace_of_comm_relC": {
+  "kind": "theorem",
+  "stmt": "theorem mem_minusSpace_of_comm_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) {F : HVec d →ₗ[ℝ] HVec d} (hF : F ∈ LinearMap.ker (relCConj N - LinearMap.id)) (u : minusSpace N) : F (u : HVec d) ∈ minusSpace N",
+  "sha256": "df137ac0eef1a2f7c4471518d1e34032bfc8cb4392360987f24841ef797a698b"
+ },
+ "RelcSelectParity.lean::mem_minusSpace_of_anticomm_relC": {
+  "kind": "theorem",
+  "stmt": "theorem mem_minusSpace_of_anticomm_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) {F : HVec d →ₗ[ℝ] HVec d} (hF : F ∈ LinearMap.ker (relCConj N + LinearMap.id)) (u : plusSpace N) : F (u : HVec d) ∈ minusSpace N",
+  "sha256": "ee4d79e3f1177a3079e920aa39a467f06e14e5f8f8e59f5c656f2fbfc567c0f6"
+ },
+ "RelcSelectParity.lean::mem_plusSpace_of_anticomm_relC": {
+  "kind": "theorem",
+  "stmt": "theorem mem_plusSpace_of_anticomm_relC {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) {F : HVec d →ₗ[ℝ] HVec d} (hF : F ∈ LinearMap.ker (relCConj N + LinearMap.id)) (u : minusSpace N) : F (u : HVec d) ∈ plusSpace N",
+  "sha256": "67e77a4bbff8d7fe717f9a0af8e855da8c9f958e26b7497a572b2d685ac9b03d"
+ },
+ "RelcSelectParity.lean::relCSplitEven": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def relCSplitEven {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) : LinearMap.ker (relCConj N - LinearMap.id) →ₗ[ℝ] (plusSpace N →ₗ[ℝ] plusSpace N) × (minusSpace N →ₗ[ℝ] minusSpace N) where toFun F := (LinearMap.codRestrict (plusSpace N) (F.1 ∘ₗ (plusSpace N).subtype) (fun u => mem_plusSpace_of_comm_relC hN F.2 u), LinearMap.codRestrict (minusSpace N) (F.1 ∘ₗ (minusSpace N).subtype) (fun u => mem_minusSpace_of_comm_relC hN F.2 u)) map_add' F₁ F₂ := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl) map_smul' c F := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl)",
+  "sha256": "285122dd0846f8c317b8fc55155ecbcb9ff98ca29c6af9a57e45a6f4aca7f152"
+ },
+ "RelcSelectParity.lean::relCSplitOdd": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def relCSplitOdd {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) : LinearMap.ker (relCConj N + LinearMap.id) →ₗ[ℝ] (plusSpace N →ₗ[ℝ] minusSpace N) × (minusSpace N →ₗ[ℝ] plusSpace N) where toFun F := (LinearMap.codRestrict (minusSpace N) (F.1 ∘ₗ (plusSpace N).subtype) (fun u => mem_minusSpace_of_anticomm_relC hN F.2 u), LinearMap.codRestrict (plusSpace N) (F.1 ∘ₗ (minusSpace N).subtype) (fun u => mem_plusSpace_of_anticomm_relC hN F.2 u)) map_add' F₁ F₂ := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl) map_smul' c F := Prod.ext (LinearMap.ext fun u => rfl) (LinearMap.ext fun u => rfl)",
+  "sha256": "17eadc1b9aa6144e93dafad950879da4a240ee07821c16bfb09dd64b7efc56cd"
+ },
+ "RelcSelectParity.lean::relCSplitEven_injective": {
+  "kind": "theorem",
+  "stmt": "theorem relCSplitEven_injective {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) : Function.Injective (relCSplitEven hN)",
+  "sha256": "8fff1507f130f9ca5a85597884e1286c90cd95ab5920d1b919b74b5472d4eeef"
+ },
+ "RelcSelectParity.lean::relCSplitOdd_injective": {
+  "kind": "theorem",
+  "stmt": "theorem relCSplitOdd_injective {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) : Function.Injective (relCSplitOdd hN)",
+  "sha256": "a4b7225bff3670f69cb9d646f39775987ec5cfb2ec6166f4a509c834ce6063b1"
+ },
+ "RelcSelectParity.lean::finrank_ker_relCConj_sub_le": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_ker_relCConj_sub_le {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) : Module.finrank ℝ (LinearMap.ker (relCConj N - LinearMap.id)) ≤ Module.finrank ℝ (plusSpace N) * Module.finrank ℝ (plusSpace N) + Module.finrank ℝ (minusSpace N) * Module.finrank ℝ (minusSpace N)",
+  "sha256": "2e0ff203aea47b6cdc89af149227ccd3097579dc3b264f417cc00401de135c3d"
+ },
+ "RelcSelectParity.lean::finrank_ker_relCConj_add_le": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_ker_relCConj_add_le {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : ∀ x, N (N x) = x) : Module.finrank ℝ (LinearMap.ker (relCConj N + LinearMap.id)) ≤ Module.finrank ℝ (plusSpace N) * Module.finrank ℝ (minusSpace N) + Module.finrank ℝ (minusSpace N) * Module.finrank ℝ (plusSpace N)",
+  "sha256": "b86a6c0b3a5e2a7c62ff6204f96e3a80a01bc8b88b52705bdec6e77b92390449"
+ },
+ "RelcSelectParity.lean::balance_of_bounds_relC": {
+  "kind": "theorem",
+  "stmt": "theorem balance_of_bounds_relC {n P Q : ℕ} (hn : P + Q = n) (hQ : 1 ≤ Q) (h1 : n * P ≤ P * P + Q * Q) (h2 : n * Q ≤ P * Q + Q * P) : P = Q",
+  "sha256": "4e368dc1b141b7141d8313e76504413bce6eb3d0ae7db1a88afab43bd2b77b21"
+ },
+ "RelcSelectParity.lean::finrank_plus_eq_finrank_minus_relC": {
+  "kind": "theorem",
+  "stmt": "theorem finrank_plus_eq_finrank_minus_relC {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)) : Module.finrank ℝ (plusSpace N) = Module.finrank ℝ (minusSpace N)",
+  "sha256": "52ceeabb6c1b53a2000c0c59d4aeaab7b9216e80bda2918a0aa0cc36a66eb6b8"
+ },
+ "RelcSelectParity.lean::not_even_of_relC": {
+  "kind": "theorem",
+  "stmt": "theorem not_even_of_relC {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)) : ¬ Even d",
+  "sha256": "425bcca583a7bacbbbdf272cde42308007ebb90b5cf8327eaf155edcae1b4741"
+ },
+ "RelcSelectParity.lean::@file": {
+  "sha256": "6179547ebee49326335adc785e989036ee102e078dc26b8713ee6ac6e4c5077a",
+  "prints": [
+   "OIBridge.RelcSelect.finrank_plus_eq_finrank_minus_relC",
+   "OIBridge.RelcSelect.not_even_of_relC"
+  ],
+  "sorry": false,
+  "axiom": false
+ },
+ "RelcSelectBlock.lean::CtrlGate": {
+  "kind": "structure",
+  "stmt": "structure CtrlGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop where frame : ∀ a b : Fin 2, G (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b)) posFwd : ∀ x ∈ Ω, ∀ y ∈ Ω, G (prodState x y) ∈ maxCone Ω posInv : ∀ x ∈ Ω, ∀ y ∈ Ω, G.symm (prodState x y) ∈ maxCone Ω relC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)",
+  "sha256": "baea2b39857e993c4ac31301fee60366e86b24a5eee26062544b447119ad172f"
+ },
+ "RelcSelectBlock.lean::ctrlGate_of_nativeGate": {
+  "kind": "theorem",
+  "stmt": "theorem ctrlGate_of_nativeGate {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hG : NativeGate Ω z N G) : CtrlGate Ω z N G",
+  "sha256": "5f2b023aa3cfcda5d982cf4896399f8e2c4a34ea781b2214fc49aab0093f21bd"
+ },
+ "RelcSelectBlock.lean::gate_corner_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gate_corner_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (Y : HVec d) : G (tens (hom z) Y) = tens (hom z) (Mfwd z G Y)",
+  "sha256": "c2a572ed443f4e9a2531740f640894b316b685c60e3f7d5b72a9e44e250031bc"
+ },
+ "RelcSelectBlock.lean::gate_corner_symm_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gate_corner_symm_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (Y : HVec d) : G.symm (tens (hom z) Y) = tens (hom z) (Minv z G Y)",
+  "sha256": "1033f034a90348252d1703e7cbaf4de493881aab08b94d0ebcca6cc60ec38d15"
+ },
+ "RelcSelectBlock.lean::Mfwd_Minv_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem Mfwd_Minv_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (Y : HVec d) : Mfwd z G (Minv z G Y) = Y",
+  "sha256": "c74e1f0a100e76aab1ca19b8cb0eae83e9c824a324d87af06115f94e73dbb3b1"
+ },
+ "RelcSelectBlock.lean::lor_Minv_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem lor_Minv_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {Y : HVec d} (hY : Lor Y) : Lor (Minv z G Y)",
+  "sha256": "2be79a0a756478d2775cab97fb29ae608184543be2f94338cebd85d4f1b744db"
+ },
+ "RelcSelectBlock.lean::gate_actC_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gate_actC_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (ω : W d) : G (actC N ω) = actC N (actT N (G ω))",
+  "sha256": "0d5ffbe238c6b2043c5597a084b9ee9fcd41b6ec97ae8de4f4725cc3f372ddab"
+ },
+ "RelcSelectBlock.lean::gate_corner_neg_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gate_corner_neg_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (Y : HVec d) : G (tens (hom (-z)) Y) = tens (hom (-z)) (homMap N (Mfwd z G Y))",
+  "sha256": "ac9e50373fb541ff877aaca0ca5c212002da7cd1c1003f1b881b4de952accaf7"
+ },
+ "RelcSelectBlock.lean::gt_corner_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_corner_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (t : HVec d) : G (tens (hom z) (Minv z G t)) = tens (hom z) t",
+  "sha256": "c6b68e7fe3952c81cef27fbf87b7e64de7de0c96391c1c89ae5e2b820e0492d1"
+ },
+ "RelcSelectBlock.lean::gt_corner_neg_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_corner_neg_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (t : HVec d) : G (tens (hom (-z)) (Minv z G t)) = tens (hom (-z)) (homMap N t)",
+  "sha256": "b372ce90c1ebebe2ea0faa1c26ae2bd621ee8f6e5f075d941630718bec323bad"
+ },
+ "RelcSelectBlock.lean::gt_center_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_center_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {t : HVec d} (ht : homMap N t = t) : G (tens (hom 0) (Minv z G t)) = tens (hom 0) t",
+  "sha256": "c16fe6675fdeb12298bb30dc9c5316ae30c0e7cfc168543e1ce75163c173f8b6"
+ },
+ "RelcSelectBlock.lean::gt_tangent_corners_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_tangent_corners_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {f t : HVec d} (hf : Lor f) (ht : Lor t) : pairVal (hom (-z)) f (G (tens (lift c) (Minv z G t))) = 0 ∧ pairVal (hom z) f (G (tens (lift c) (Minv z G t))) = 0",
+  "sha256": "f791c912e15930e48cd3fc07f6feaa00a4eae41fb0521dc6ad4cb06992406c76"
+ },
+ "RelcSelectBlock.lean::gt_sphere_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_sphere_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) {u : HVec d} (hu0 : u 0 = 0) (hu : ∑ μ, u μ ^ 2 = 1) : pairVal a (hom 0 - u) (G (tens (lift c) (Minv z G (hom 0 + u)))) = 0",
+  "sha256": "0989efad24a1c57e3d3c69f82a210ba0e6f43f24fe1bd5ea3ef9be25ae711d5c"
+ },
+ "RelcSelectBlock.lean::gt_sphere_corner_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_sphere_corner_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) : pairVal a (hom z) (G (tens (lift c) (Minv z G (hom z)))) = 0 ∧ pairVal a (hom (-z)) (G (tens (lift c) (Minv z G (hom (-z))))) = 0",
+  "sha256": "8d0885884aa6d809c8957505f18250aaf905805d509795b947ade18d29e28b0c"
+ },
+ "RelcSelectBlock.lean::Phi_sphere_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem Phi_sphere_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) {u : HVec d} (hu0 : u 0 = 0) (hu : ∑ μ, u μ ^ 2 = 1) : Phi z G a c u u = Phi z G a c (hom 0) (hom 0) ∧ Phi z G a c (hom 0) u = Phi z G a c u (hom 0)",
+  "sha256": "05433d16d8edf605fcc1e2c31651cf0751609d1f874bd53026c259ae994ecd9f"
+ },
+ "RelcSelectBlock.lean::Phi_center_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem Phi_center_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {a : HVec d} (ha : Lor a) : Phi z G a c (hom 0) (hom 0) = 0",
+  "sha256": "5bb798d3b0f718106198cacf305bda74354dd2e9a71b1a68123e98a6af166936"
+ },
+ "RelcSelectBlock.lean::Phi_center_all_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem Phi_center_all_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) (a : HVec d) : Phi z G a c (hom 0) (hom 0) = 0",
+  "sha256": "97c6adffc4e85d1ce51bb2306aaf2151d4e156db2cd0eaacbc962b6916cebc95"
+ },
+ "RelcSelectBlock.lean::Phi_hom_zero_eq_zero_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem Phi_hom_zero_eq_zero_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) (f t : HVec d) : Phi z G (hom 0) c f t = 0",
+  "sha256": "b7daddb4c41c9482de0dd23e3bacbecaff19fad4d9bd3c088af10548d07504ac"
+ },
+ "RelcSelectBlock.lean::Phi_lift_z_eq_zero_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem Phi_lift_z_eq_zero_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) (f t : HVec d) : Phi z G (lift z) c f t = 0",
+  "sha256": "2fbf83ba44c46cb176a5c2bbe29388ead1e518b29def6674db44d25f06190aa9"
+ },
+ "RelcSelectBlock.lean::gt_center_two_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem gt_center_two_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (t : HVec d) : (2 : ℝ) • G (tens (hom 0) (Minv z G t)) = tens (hom z) t + tens (hom (-z)) (homMap N t)",
+  "sha256": "1cb267582cfffb7e392d300c2efb957e98254103bdb63fa50e19fcc04e400085"
+ },
+ "RelcSelectBlock.lean::phi_lift_minus_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem phi_lift_minus_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {u : HVec d} (hu0 : u 0 = 0) (hu : ∑ μ, u μ ^ 2 = 1) (hNu : homMap N u = -u) {c' : Fin d → ℝ} (hc' : ∑ j, c' j ^ 2 ≤ 1) (hzc' : ∑ j, z j * c' j = 0) : Phi z G (lift c') c u (hom 0) = 0",
+  "sha256": "00d321dd8eff85887feae090f7d623d0301d58e07bfe9501344ab764692f6156"
+ },
+ "RelcSelectBlock.lean::phi_bvec_minus_unit_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem phi_bvec_minus_unit_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {u : HVec d} (hu0 : u 0 = 0) (hu : ∑ μ, u μ ^ 2 = 1) (hNu : homMap N u = -u) (μ : Fin (d + 1)) : Phi z G (bvec μ) c u (hom 0) = 0",
+  "sha256": "e788815aa5af05b76fb2cd473470f28418292be1a0e3a88f9abe62c33b7c97eb"
+ },
+ "RelcSelectBlock.lean::phi_minusSpace_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem phi_minusSpace_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) {w : HVec d} (hw : w ∈ minusSpace N) (μ : Fin (d + 1)) : Phi z G (bvec μ) c w (hom 0) = 0",
+  "sha256": "fb4d6d662d3690d3db37166be3cbd56c0a95ed53f983655c42f4e0cc99b1e58c"
+ },
+ "RelcSelectBlock.lean::homMap_eq_self_of_orth_minusSpace": {
+  "kind": "theorem",
+  "stmt": "theorem homMap_eq_self_of_orth_minusSpace {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} (hN : IsNot (eball d) z N) {v : HVec d} (h : ∀ w ∈ minusSpace N, ∑ ν, v ν * w ν = 0) : homMap N v = v",
+  "sha256": "921a395f2e3d4956fa172ccb0a652d37385c03be10fe6051761da202136eb4cb"
+ },
+ "RelcSelectBlock.lean::actT_slice_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem actT_slice_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) {c : Fin d → ℝ} (hc : ∑ j, c j ^ 2 ≤ 1) (hzc : ∑ j, z j * c j = 0) : actT N (G (tens (lift c) (Minv z G (hom 0)))) = G (tens (lift c) (Minv z G (hom 0)))",
+  "sha256": "790b24b569f2a92321d3d5354b96d11d868b1459a23aca21332308b98e8611d6"
+ },
+ "RelcSelectBlock.lean::blockData_of_orthonormal_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem blockData_of_orthonormal_ctrl {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (hd : 2 ≤ d) {q : ℕ} (v : Fin q → HVec d) (hvS : ∀ r, v r ∈ tangentSpace N) (hvv : ∀ r s, ∑ μ, v r μ * v s μ = if r = s then 1 else 0) (hspan : ∀ u ∈ tangentSpace N, (∀ r, ∑ μ, v r μ * u μ = 0) → u = 0) : BlockData q",
+  "sha256": "637a899445610ebddc42711fa63fcd21b96d6ce28859b72cb76a4d09998f6bf0"
+ },
+ "RelcSelectBlock.lean::blockData_of_ctrlGate": {
+  "kind": "theorem",
+  "stmt": "theorem blockData_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hd : 2 ≤ d) (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) : BlockData (tangentPlus N)",
+  "sha256": "e4aa86a9567251f81a19fcb8ec7e930acd844268bd02b7604b8925a974197788"
+ },
+ "RelcSelectBlock.lean::not_entangling_one_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem not_entangling_one_ctrl {z : Fin 1 → ℝ} {N : (Fin 1 → ℝ) →ₗ[ℝ] (Fin 1 → ℝ)} {G : W 1 ≃ₗ[ℝ] W 1} (hN : IsNot (eball 1) z N) (hG : CtrlGate (eball 1) z N G) : ¬ Entangling (eball 1) G",
+  "sha256": "f765974520fd274fa026bf8b758d157d51366362b2599fd9781b6041d9d8d971"
+ },
+ "RelcSelectBlock.lean::dim_of_ctrlGate": {
+  "kind": "theorem",
+  "stmt": "theorem dim_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) : d = 1 ∨ d = 3",
+  "sha256": "477ac8923376e832572d3e15473842e405bf03fd6e174683fcc173acb1bb1c3f"
+ },
+ "RelcSelectBlock.lean::three_of_ctrlGate": {
+  "kind": "theorem",
+  "stmt": "theorem three_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) (hE : Entangling (eball d) G) : d = 3",
+  "sha256": "68819eff0c3866eff620aca6f3ed72441d95df98697319f4e9f467371907d585"
+ },
+ "RelcSelectBlock.lean::@file": {
+  "sha256": "cced762ff0f24486ea88a6c506e030540009b27b4583a7cdecd95e1fc6424760",
+  "prints": [
+   "OIBridge.RelcSelect.ctrlGate_of_nativeGate",
+   "OIBridge.RelcSelect.actT_slice_ctrl",
+   "OIBridge.RelcSelect.blockData_of_ctrlGate",
+   "OIBridge.RelcSelect.dim_of_ctrlGate",
+   "OIBridge.RelcSelect.three_of_ctrlGate"
+  ],
+  "sorry": false,
+  "axiom": false
+ },
+ "RelcSelectSqueeze.lean::add_add_fin2": {
+  "kind": "theorem",
+  "stmt": "theorem add_add_fin2 : ∀ a b : Fin 2, a + (a + b) = b",
+  "sha256": "d9ea4b4c14d9bf3c376b907800c947b1a5a7c982dde2d26ea3f7915eb0e43e49"
+ },
+ "RelcSelectSqueeze.lean::frame_symm": {
+  "kind": "theorem",
+  "stmt": "theorem frame_symm {z : Fin d → ℝ} {G : W d ≃ₗ[ℝ] W d} (hF : ∀ a b : Fin 2, G (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b))) : ∀ a b : Fin 2, G.symm (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b))",
+  "sha256": "8abeb02b60319b1b7325a00f4467a0da718017dff7e3cdbb0516430ce9290cb0"
+ },
+ "RelcSelectSqueeze.lean::relT_symm": {
+  "kind": "theorem",
+  "stmt": "theorem relT_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot Ω z N) (hT : ∀ ω, actT N (G (actT N ω)) = G ω) : ∀ ω, actT N (G.symm (actT N ω)) = G.symm ω",
+  "sha256": "19261b31c1dca91b4159256d88317f5600b518b5b42b28bece50e805f023b2d7"
+ },
+ "RelcSelectSqueeze.lean::relC_symm": {
+  "kind": "theorem",
+  "stmt": "theorem relC_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot Ω z N) (hT : ∀ ω, actT N (G (actT N ω)) = G ω) (hC : ∀ ω, actC N (G (actC N ω)) = actT N (G ω)) : ∀ ω, actC N (G.symm (actC N ω)) = actT N (G.symm ω)",
+  "sha256": "6873a13b0063375f70e87c297917438ca2eab60cad295afe6d8ea2aea796a066"
+ },
+ "RelcSelectSqueeze.lean::gateRel_symm": {
+  "kind": "theorem",
+  "stmt": "theorem gateRel_symm {Ω : Set (Fin d → ℝ)} {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {G : W d ≃ₗ[ℝ] W d} (hN : IsNot Ω z N) (hR : GateRel N G) : GateRel N G.symm",
+  "sha256": "15d8810cef142f6a4f8ece44c5f6b75765c80fb73658e34e6dd48b4867cdbaee"
+ },
+ "RelcSelectSqueeze.lean::sqCls": {
+  "kind": "def",
+  "stmt": "def sqCls : Fin 6 → Bool | 0 => true | 1 => false | 2 => false | 3 => false | 4 => false | 5 => true",
+  "sha256": "0a3de57274880c8848424063c3b65515c2ec30d9201a5d0e45a1e238a4fc6635"
+ },
+ "RelcSelectSqueeze.lean::sqSig": {
+  "kind": "def",
+  "stmt": "def sqSig : Fin 6 → Fin 6 | 0 => 1 | 1 => 0 | 2 => 2 | 3 => 5 | 4 => 4 | 5 => 3",
+  "sha256": "3bf920e50508562f2f0de38690ac21a016612551a5f041bd84b3a96729e3d2fc"
+ },
+ "RelcSelectSqueeze.lean::sqPc": {
+  "kind": "def",
+  "stmt": "def sqPc (m n : Fin 6) : Fin 6 := if odd5 n then perm5 m else m",
+  "sha256": "fd8a7a4b99ce851ce23842544aad2341700ea918c80fb32a567cb9fdf18d61a7"
+ },
+ "RelcSelectSqueeze.lean::sqPt": {
+  "kind": "def",
+  "stmt": "def sqPt (m n : Fin 6) : Fin 6 := if sqCls m then n else sqSig n",
+  "sha256": "e68ce64d05c6bd76611b793f7ad93e122e36f7ad9aa3508e0930f95edd42373e"
+ },
+ "RelcSelectSqueeze.lean::sqR": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def sqR (m : Fin 6) : ℝ := if sqCls m then 1 else 1 / 10",
+  "sha256": "7f62dc35b90a00cb04a300e1e3be75bccdcfde0634234b8d1674353d6c1b900a"
+ },
+ "RelcSelectSqueeze.lean::sqK": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def sqK (n : Fin 6) : ℝ := if sqCls n then 1 else 1 / 2",
+  "sha256": "3781ce8a92b3289f0bfdcd4873867a73518c7509dc82f9857e14ba78fa2b5a47"
+ },
+ "RelcSelectSqueeze.lean::sqW": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def sqW (m n : Fin 6) : ℝ := sqR m * sqK (sqPt m n)",
+  "sha256": "287ddf08897b87db3a9d8a0b41e1466be4cf568e2c4d119d10c35a88bc7a253b"
+ },
+ "RelcSelectSqueeze.lean::sqWi": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def sqWi (m n : Fin 6) : ℝ := (if sqCls m then 1 else 10) * (if sqCls n then 1 else 2)",
+  "sha256": "d27a251e31029bb6ef2071a758e5bc8438ae91a5b266981e5f70fb635aa1a542"
+ },
+ "RelcSelectSqueeze.lean::gSqFun": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def gSqFun (ω : W 5) : W 5 := fun m n => sqW m n * ω (sqPc m n) (sqPt m n)",
+  "sha256": "09636f7fd197562f8f7debac7b29ade86470c15c5df75f7eed44e891bcb04d9e"
+ },
+ "RelcSelectSqueeze.lean::gSqInvFun": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def gSqInvFun (ω : W 5) : W 5 := fun m n => sqWi m n * ω (sqPc m n) (sqPt m n)",
+  "sha256": "d8402b31a3499a3ab4000efeb0581f755cb894c32b78c503c258d63769f35595"
+ },
+ "RelcSelectSqueeze.lean::gSqFun_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gSqFun_apply (ω : W 5) (m n : Fin 6) : gSqFun ω m n = sqW m n * ω (sqPc m n) (sqPt m n)",
+  "sha256": "df59b5503d334c5cb6eab548a251988a50c794244e1184afa79c96fcd3fffbae"
+ },
+ "RelcSelectSqueeze.lean::gSqInvFun_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gSqInvFun_apply (ω : W 5) (m n : Fin 6) : gSqInvFun ω m n = sqWi m n * ω (sqPc m n) (sqPt m n)",
+  "sha256": "5002b53f68f110493d2ee7de34f2a1e3ffa2420cbbaecd20452f649d905b9395"
+ },
+ "RelcSelectSqueeze.lean::sqPc_sqPc": {
+  "kind": "theorem",
+  "stmt": "theorem sqPc_sqPc : ∀ m n : Fin 6, sqPc (sqPc m n) (sqPt m n) = m",
+  "sha256": "909e9af15a2e3c61387cee59c186a5c2b94ba190b6a29d1ddcf74246af944968"
+ },
+ "RelcSelectSqueeze.lean::sqPt_sqPt": {
+  "kind": "theorem",
+  "stmt": "theorem sqPt_sqPt : ∀ m n : Fin 6, sqPt (sqPc m n) (sqPt m n) = n",
+  "sha256": "bcd105d37ba0c50a25a39fc6f3e9c4d3af867a77817ab90bcd2e7214cba7683b"
+ },
+ "RelcSelectSqueeze.lean::sqCls_sqPc": {
+  "kind": "theorem",
+  "stmt": "theorem sqCls_sqPc : ∀ m n : Fin 6, sqCls (sqPc m n) = sqCls m",
+  "sha256": "4b67ae459426aa1cefb4c4a09479c3d9879a0ce736652fc3b7a1d53adfeb179a"
+ },
+ "RelcSelectSqueeze.lean::odd5_sqPt": {
+  "kind": "theorem",
+  "stmt": "theorem odd5_sqPt : ∀ m n : Fin 6, odd5 (sqPt m n) = odd5 n",
+  "sha256": "0229c97e84ad467c5dced835ae626bc8837063c5d9adccd2344ed7a407f1c45a"
+ },
+ "RelcSelectSqueeze.lean::odd5_sqPc": {
+  "kind": "theorem",
+  "stmt": "theorem odd5_sqPc : ∀ m n : Fin 6, odd5 (sqPc m n) = (if odd5 n then !odd5 m else odd5 m)",
+  "sha256": "73329b636210002869a222970ca51e3009774a60fe2b8167129e805a2f255e4d"
+ },
+ "RelcSelectSqueeze.lean::sqWi_sqW": {
+  "kind": "theorem",
+  "stmt": "theorem sqWi_sqW (m n : Fin 6) : sqWi m n * sqW (sqPc m n) (sqPt m n) = 1",
+  "sha256": "5d2c6686a36d7723f6a664d989fa0bdd2b643cdcbb728ee6147b9567055dc601"
+ },
+ "RelcSelectSqueeze.lean::sqW_sqWi": {
+  "kind": "theorem",
+  "stmt": "theorem sqW_sqWi (m n : Fin 6) : sqW m n * sqWi (sqPc m n) (sqPt m n) = 1",
+  "sha256": "d2922591250b6935c9ff5a5cf1b6bcb405c362aec2c8c155848662b0e3a46108"
+ },
+ "RelcSelectSqueeze.lean::gSqInvFun_gSqFun": {
+  "kind": "theorem",
+  "stmt": "theorem gSqInvFun_gSqFun (ω : W 5) : gSqInvFun (gSqFun ω) = ω",
+  "sha256": "7d89b5d8b330a7f92e907515e2693e9800c4ceefe32c2cb45cf159b206952acc"
+ },
+ "RelcSelectSqueeze.lean::gSqFun_gSqInvFun": {
+  "kind": "theorem",
+  "stmt": "theorem gSqFun_gSqInvFun (ω : W 5) : gSqFun (gSqInvFun ω) = ω",
+  "sha256": "a1373706af4d07e616d93b8911289c390ae7ce6b97befcf3e2270799ffa647f6"
+ },
+ "RelcSelectSqueeze.lean::gSq": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def gSq : W 5 ≃ₗ[ℝ] W 5 where toFun := gSqFun invFun := gSqInvFun map_add' ω₁ ω₂ := by funext m n simp only [gSqFun_apply, Pi.add_apply, mul_add] map_smul' c ω := by funext m n simp only [gSqFun_apply, Pi.smul_apply, smul_eq_mul, RingHom.id_apply] ring left_inv := gSqInvFun_gSqFun right_inv := gSqFun_gSqInvFun",
+  "sha256": "75dc83a1bf8653f706abff49b069c2afc39399adf3594579f50439163999cbc3"
+ },
+ "RelcSelectSqueeze.lean::gSq_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_apply (ω : W 5) : gSq ω = gSqFun ω",
+  "sha256": "817329dacb3778b01c3ed18465233d2ef53dfbcae8cf62b0d72eac2016516acb"
+ },
+ "RelcSelectSqueeze.lean::gSq_symm_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_symm_apply (ω : W 5) : gSq.symm ω = gSqInvFun ω",
+  "sha256": "d8b13d9a720b53e8ec67b23212076c8af1c84ffe7e34e184d75829d914173a3a"
+ },
+ "RelcSelectSqueeze.lean::gSq_frame": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_frame (a b : Fin 2) : gSq (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b))",
+  "sha256": "c59c521ffcedf3e0441d2c91ce9ddbe0dfec109a0234074e181837c344dcf933"
+ },
+ "RelcSelectSqueeze.lean::sqSg": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def sqSg (μ : Fin 6) : ℝ := if odd5 μ then -1 else 1",
+  "sha256": "c489f26e5726761d918e70919245f2d0277d257a8386606908cf274338455ace"
+ },
+ "RelcSelectSqueeze.lean::homMap_n5_sqSg": {
+  "kind": "theorem",
+  "stmt": "theorem homMap_n5_sqSg (v : HVec 5) (μ : Fin (5 + 1)) : homMap n5 v μ = sqSg μ * v μ",
+  "sha256": "2dbc783625918805d9bcd3664e21af9587391a17e1446df01cd53cb1d1670fa6"
+ },
+ "RelcSelectSqueeze.lean::sqSg_sq": {
+  "kind": "theorem",
+  "stmt": "theorem sqSg_sq (μ : Fin 6) : sqSg μ * sqSg μ = 1",
+  "sha256": "7aaab4d2661a1474b00b7232932feb1c6527d8693e1cdc88a45532d857b37e42"
+ },
+ "RelcSelectSqueeze.lean::sqSg_sqPt": {
+  "kind": "theorem",
+  "stmt": "theorem sqSg_sqPt (m n : Fin 6) : sqSg (sqPt m n) = sqSg n",
+  "sha256": "e0c89ad6f4da9f65bdf5adfd78174b995f2b047009f53ab9ea1cedf9bc06f266"
+ },
+ "RelcSelectSqueeze.lean::sqSg_sqPc": {
+  "kind": "theorem",
+  "stmt": "theorem sqSg_sqPc (m n : Fin 6) : sqSg (sqPc m n) = sqSg m * sqSg n",
+  "sha256": "50d944076d5d9985a14e90b4ee86f3120c84ce21c2ede376e90172187243bbf7"
+ },
+ "RelcSelectSqueeze.lean::gSq_relT": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_relT : ∀ ω, actT n5 (gSq (actT n5 ω)) = gSq ω",
+  "sha256": "42c8571e585caea5ac1cddfa66f2e62fa2ddfd32c5a4571d0a5592bfa0b72669"
+ },
+ "RelcSelectSqueeze.lean::gSq_relC": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_relC : ∀ ω, actC n5 (gSq (actC n5 ω)) = actT n5 (gSq ω)",
+  "sha256": "5a67673cfdb086c2f3156e056ba536cd4eeaf7c16248ff49239ce501a83dae8f"
+ },
+ "RelcSelectSqueeze.lean::gateRel_gSq": {
+  "kind": "theorem",
+  "stmt": "theorem gateRel_gSq : GateRel n5 gSq",
+  "sha256": "1ea64026dcb9fcfceffabcc6a0e6fa58c9d30d2024d31c4f1a0bfb5ee604660a"
+ },
+ "RelcSelectSqueeze.lean::rsq_cs4": {
+  "kind": "theorem",
+  "stmt": "theorem rsq_cs4 (p1 p2 p3 p4 q1 q2 q3 q4 : ℝ) : (p1 * q1 + p2 * q2 + p3 * q3 + p4 * q4) ^ 2 ≤ (p1 ^ 2 + p2 ^ 2 + p3 ^ 2 + p4 ^ 2) * (q1 ^ 2 + q2 ^ 2 + q3 ^ 2 + q4 ^ 2)",
+  "sha256": "418f3242213966512da05c5fc8463a8b60b8f9812d168521565c1685d776f7b7"
+ },
+ "RelcSelectSqueeze.lean::rsq_ab": {
+  "kind": "theorem",
+  "stmt": "theorem rsq_ab (f t s u A B : ℝ) (hf : 0 ≤ f) (ht : 0 ≤ t) (hs : 0 ≤ s) (htf : t ≤ f) (hs1 : s ≤ 1) (hu : u ^ 2 ≤ (f ^ 2 - t ^ 2) * (1 - s ^ 2)) (hA : f + u - t * s / 2 ≤ A) (hB : f - u - t * s / 2 ≤ B) : 0 ≤ A ∧ 0 ≤ B ∧ (t ^ 2 + f ^ 2 * s ^ 2) / 8 ≤ A * B",
+  "sha256": "48d79918112c3dcc58ccc1a443b14da77f1e2978281777b044b52363941384b6"
+ },
+ "RelcSelectSqueeze.lean::rsq_s": {
+  "kind": "theorem",
+  "stmt": "theorem rsq_s (f b1 b2 b3 b4 b5 y0 y1 y2 y3 y4 : ℝ) (hb : b1 ^ 2 + b2 ^ 2 + b3 ^ 2 + b4 ^ 2 + b5 ^ 2 ≤ f ^ 2) (hy : y0 ^ 2 + y1 ^ 2 + y2 ^ 2 + y3 ^ 2 + y4 ^ 2 ≤ 1) : (b1 + (f * y0 + b2 * y1) / 2) ^ 2 + (b3 * y4 + (b5 * y2 + b4 * y3) / 2) ^ 2 ≤ 2 * (b1 ^ 2 + b2 ^ 2 + b3 ^ 2 + b4 ^ 2) + f ^ 2 * (y0 ^ 2 + y1 ^ 2 + y2 ^ 2 + y3 ^ 2)",
+  "sha256": "954ccd4e95ff9c65d724d0993685e1555e8610cf679152fad91a80279828dc89"
+ },
+ "RelcSelectSqueeze.lean::rsq_key": {
+  "kind": "theorem",
+  "stmt": "theorem rsq_key (b0 b1 b2 b3 b4 b5 y0 y1 y2 y3 y4 : ℝ) (hb0 : 0 ≤ b0) (hb : b1 ^ 2 + b2 ^ 2 + b3 ^ 2 + b4 ^ 2 + b5 ^ 2 ≤ b0 ^ 2) (hy : y0 ^ 2 + y1 ^ 2 + y2 ^ 2 + y3 ^ 2 + y4 ^ 2 ≤ 1) : 0 ≤ b0 + b5 * y4 + (b1 * y0 + b2 * y1 + b3 * y2 + b4 * y3) / 2 ∧ 0 ≤ b0 - b5 * y4 + (b1 * y0 + b2 * y1 - b3 * y2 - b4 * y3) / 2 ∧ ((b1 + (b0 * y0 + b2 * y1) / 2) ^ 2 + (b3 * y4 + (b5 * y2 + b4 * y3) / 2) ^ 2) / 50 ≤ (b0 + b5 * y4 + (b1 * y0 + b2 * y1 + b3 * y2 + b4 * y3) / 2) * (b0 - b5 * y4 + (b1 * y0 + b2 * y1 - b3 * y2 - b4 * y3) / 2)",
+  "sha256": "bee909194ea8c70fc8f1bf006e677baad34c0aa17e032f34127a020daadbc281"
+ },
+ "RelcSelectSqueeze.lean::rsq_assemble": {
+  "kind": "theorem",
+  "stmt": "theorem rsq_assemble (α p q A B Se So Ce Co Tc Ta : ℝ) (h1 : 0 ≤ 1 + α) (h2 : 0 ≤ 1 - α) (hp : 0 ≤ p) (hq : 0 ≤ q) (hA : 0 ≤ A) (hB : 0 ≤ B) (hTc0 : 0 ≤ Tc) (hTa0 : 0 ≤ Ta) (hTc : Tc ≤ 1 - α ^ 2) (hTa : Ta ≤ p * q) (hCe : Ce ^ 2 ≤ Tc * Ta) (hCo : Co ^ 2 ≤ Tc * Ta) (hkey : (Se ^ 2 + So ^ 2) / 50 ≤ A * B) : 0 ≤ (1 + α) / 2 * (p * A) + (1 - α) / 2 * (q * B) + (Se * Ce + So * Co) / 10",
+  "sha256": "645baa8e7527a0bd629ed2d339676544293be7d79fe842b22eaa4b678ef73bc3"
+ },
+ "RelcSelectSqueeze.lean::gSq_core": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_core (a0 a1 a2 a3 a4 a5 b0 b1 b2 b3 b4 b5 x0 x1 x2 x3 x4 y0 y1 y2 y3 y4 : ℝ) (ha0 : 0 ≤ a0) (ha : a1 ^ 2 + a2 ^ 2 + a3 ^ 2 + a4 ^ 2 + a5 ^ 2 ≤ a0 ^ 2) (hb0 : 0 ≤ b0) (hb : b1 ^ 2 + b2 ^ 2 + b3 ^ 2 + b4 ^ 2 + b5 ^ 2 ≤ b0 ^ 2) (hx : x0 ^ 2 + x1 ^ 2 + x2 ^ 2 + x3 ^ 2 + x4 ^ 2 ≤ 1) (hy : y0 ^ 2 + y1 ^ 2 + y2 ^ 2 + y3 ^ 2 + y4 ^ 2 ≤ 1) : 0 ≤ (1 + x4) / 2 * ((a0 + a5) * (b0 + b5 * y4 + (b1 * y0 + b2 * y1 + b3 * y2 + b4 * y3) / 2)) + (1 - x4) / 2 * ((a0 - a5) * (b0 - b5 * y4 + (b1 * y0 + b2 * y1 - b3 * y2 - b4 * y3) / 2)) + ((b1 + (b0 * y0 + b2 * y1) / 2) * (x0 * a1 + x1 * a2 + x2 * a3 + x3 * a4) + (b3 * y4 + (b5 * y2 + b4 * y3) / 2) * (x0 * a3 + x1 * a4 + x2 * a1 + x3 * a2)) / 10",
+  "sha256": "cec2ddb32cc287150c2924e3d6d99eb06e45f0390bb3ea81d4020c423ee20631"
+ },
+ "RelcSelectSqueeze.lean::pairVal_gSq_prodState": {
+  "kind": "theorem",
+  "stmt": "theorem pairVal_gSq_prodState (a b : HVec 5) (x y : Fin 5 → ℝ) : pairVal a b (gSq (prodState x y)) = (1 + x 4) / 2 * ((a 0 + a 5) * (b 0 + b 5 * y 4 + (b 1 * y 0 + b 2 * y 1 + b 3 * y 2 + b 4 * y 3) / 2)) + (1 - x 4) / 2 * ((a 0 - a 5) * (b 0 - b 5 * y 4 + (b 1 * y 0 + b 2 * y 1 - b 3 * y 2 - b 4 * y 3) / 2)) + ((b 1 + (b 0 * y 0 + b 2 * y 1) / 2) * (x 0 * a 1 + x 1 * a 2 + x 2 * a 3 + x 3 * a 4) + (b 3 * y 4 + (b 5 * y 2 + b 4 * y 3) / 2) * (x 0 * a 3 + x 1 * a 4 + x 2 * a 1 + x 3 * a 2)) / 10",
+  "sha256": "262231302df0757ec690d3feb4bd9c07515a8a32f484dc40f37accfee327f822"
+ },
+ "RelcSelectSqueeze.lean::lor_five": {
+  "kind": "theorem",
+  "stmt": "theorem lor_five {v : HVec 5} (hv : Lor v) : 0 ≤ v 0 ∧ v 1 ^ 2 + v 2 ^ 2 + v 3 ^ 2 + v 4 ^ 2 + v 5 ^ 2 ≤ v 0 ^ 2",
+  "sha256": "7fd1bcb38b4a2d3e4db8ecd26728be879c70153862d2ecd6955d92f48fb9b9c7"
+ },
+ "RelcSelectSqueeze.lean::gSq_pairVal_nonneg": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_pairVal_nonneg {a b : HVec 5} (ha : Lor a) (hb : Lor b) {x y : Fin 5 → ℝ} (hx : x ∈ eball 5) (hy : y ∈ eball 5) : 0 ≤ pairVal a b (gSq (prodState x y))",
+  "sha256": "108d8d7b5fc2fc1c3c52a9673667dad4142cce8107dffa7626fa6c63e7827d6f"
+ },
+ "RelcSelectSqueeze.lean::gSq_posFwd": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_posFwd : ∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq (prodState x y) ∈ maxCone (eball 5)",
+  "sha256": "31a9c13e84d49819af3a86d29bf3e3adb0bdddfae3880315b94fadf0de197afa"
+ },
+ "RelcSelectSqueeze.lean::x5_unit": {
+  "kind": "theorem",
+  "stmt": "theorem x5_unit : ∑ j, x5 j ^ 2 = 1",
+  "sha256": "a73e0948600ef1041deeea3aaf1627e31eaa95bc13d8807c8d74d24c81a57211"
+ },
+ "RelcSelectSqueeze.lean::negx5_unit": {
+  "kind": "theorem",
+  "stmt": "theorem negx5_unit : ∑ j, (-x5) j ^ 2 = 1",
+  "sha256": "e2811f001ed8698d3ce0cdc08b52ded512680ce650e151aada650babc909ad5f"
+ },
+ "RelcSelectSqueeze.lean::sharpVec_negx5": {
+  "kind": "theorem",
+  "stmt": "theorem sharpVec_negx5 : sharpVec (-x5) = fun μ : Fin (5 + 1) => if μ = 0 then 1 / 2 else if μ = 1 then -1 / 2 else 0",
+  "sha256": "cb79f8f8f88717b4fd6fb20c4cd8a6f250e70fd3c1fb048e73302d1e64f320d8"
+ },
+ "RelcSelectSqueeze.lean::gSq_symm_value": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_symm_value : prodEffVal (sharpEff z5) (sharpEff (-x5)) (gSq.symm (prodState z5 x5)) = -1 / 2",
+  "sha256": "89dc8f78c7d9cff6c778d349de65faba59c6f8af3cda0332a616350fc80a930c"
+ },
+ "RelcSelectSqueeze.lean::gSq_symm_not_mem_maxCone": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_symm_not_mem_maxCone : gSq.symm (prodState z5 x5) ∉ maxCone (eball 5)",
+  "sha256": "7c4b75812895fc77b617d0c11a48aca332d5603fc3121bc8abb98e96662ada7b"
+ },
+ "RelcSelectSqueeze.lean::gSq_not_posInv": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_not_posInv : ¬ ∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5)",
+  "sha256": "ec4de920091b91875dfd5613f7bf69ba6d7def0140af292018742baf14d3433f"
+ },
+ "RelcSelectSqueeze.lean::not_nativeGate_gSq": {
+  "kind": "theorem",
+  "stmt": "theorem not_nativeGate_gSq : ¬ NativeGate (eball 5) z5 n5 gSq",
+  "sha256": "92305210690901d41928c5afa4a03ff8dfeefc99ba79407d188785a7422e9f68"
+ },
+ "RelcSelectSqueeze.lean::not_nativeGate_gSqInv": {
+  "kind": "theorem",
+  "stmt": "theorem not_nativeGate_gSqInv : ¬ NativeGate (eball 5) z5 n5 gSq.symm",
+  "sha256": "ef4fdcbcc7f735ba9adfe030fd7ef433a40f56ed5b6fa54610bfa01e0e1cf13f"
+ },
+ "RelcSelectSqueeze.lean::gSq_sep": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_sep : IsNot (eball 5) z5 n5 ∧ (∀ a b : Fin 2, gSq (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b))) ∧ GateRel n5 gSq ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq (prodState x y) ∈ maxCone (eball 5)) ∧ ¬ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5))",
+  "sha256": "7131ed1ae76f5a779865d68fbc19a70118315c4ac7ed9bdb345cf8db39393d47"
+ },
+ "RelcSelectSqueeze.lean::gSqInv_posInv": {
+  "kind": "theorem",
+  "stmt": "theorem gSqInv_posInv : ∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm.symm (prodState x y) ∈ maxCone (eball 5)",
+  "sha256": "b71fdcc19cc3a2ae786b2423ee3a787c4aa308aa11343085280563eb8639970a"
+ },
+ "RelcSelectSqueeze.lean::gSqInv_sep": {
+  "kind": "theorem",
+  "stmt": "theorem gSqInv_sep : IsNot (eball 5) z5 n5 ∧ (∀ a b : Fin 2, gSq.symm (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b))) ∧ GateRel n5 gSq.symm ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm.symm (prodState x y) ∈ maxCone (eball 5)) ∧ ¬ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gSq.symm (prodState x y) ∈ maxCone (eball 5))",
+  "sha256": "e875280fbd08af45a43ac911aa3e6aac5ea0bdf7e67e4c5b42bdbf1010f8ae36"
+ },
+ "RelcSelectSqueeze.lean::gCtlFun": {
+  "kind": "noncomputable def",
+  "stmt": "noncomputable def gCtlFun (ω : W 5) : W 5 := fun m n => sqR m * ω (sqPc m n) (sqPt m n)",
+  "sha256": "7daeb1fd148df327efb251967bf4f026fe432968c40df6d1ac4b269367aa8ee2"
+ },
+ "RelcSelectSqueeze.lean::gCtlFun_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gCtlFun_apply (ω : W 5) (m n : Fin 6) : gCtlFun ω m n = sqR m * ω (sqPc m n) (sqPt m n)",
+  "sha256": "ab25a5a29fffc77d1039ccfa2ae63131e1ec7f621a2c0e78354ed8a7551f0168"
+ },
+ "RelcSelectSqueeze.lean::e5b": {
+  "kind": "def",
+  "stmt": "def e5b : Fin 5 → ℝ := fun i => if i = 1 then 1 else 0",
+  "sha256": "72e881404d6ea5ae8ce286026d12c41cb2c277c12ddcce4ad37b1f0fc005374b"
+ },
+ "RelcSelectSqueeze.lean::e5b_unit": {
+  "kind": "theorem",
+  "stmt": "theorem e5b_unit : ∑ j, e5b j ^ 2 = 1",
+  "sha256": "2024ef7fac63e28b3c9614b41d35df88ecb3f248f301467e67dfe718800642e6"
+ },
+ "RelcSelectSqueeze.lean::nege5b_unit": {
+  "kind": "theorem",
+  "stmt": "theorem nege5b_unit : ∑ j, (-e5b) j ^ 2 = 1",
+  "sha256": "e3b1a3f93cb027d7e0eb25b25545d0abef72375e4885692ec1534be7ba55d6e3"
+ },
+ "RelcSelectSqueeze.lean::sharpVec_x5": {
+  "kind": "theorem",
+  "stmt": "theorem sharpVec_x5 : sharpVec x5 = fun μ : Fin (5 + 1) => if μ = 0 then 1 / 2 else if μ = 1 then 1 / 2 else 0",
+  "sha256": "3eccb87627585634f0ff50eea0f4fbe919c80842f5d084051f4da3b39062a452"
+ },
+ "RelcSelectSqueeze.lean::sharpVec_nege5b": {
+  "kind": "theorem",
+  "stmt": "theorem sharpVec_nege5b : sharpVec (-e5b) = fun μ : Fin (5 + 1) => if μ = 0 then 1 / 2 else if μ = 2 then -1 / 2 else 0",
+  "sha256": "237de24c5b8896ff2389fe2fcf4a1cf86795ca530938277eba368074c0a0826f"
+ },
+ "RelcSelectSqueeze.lean::gCtl_value": {
+  "kind": "theorem",
+  "stmt": "theorem gCtl_value : prodEffVal (sharpEff x5) (sharpEff (-e5b)) (gCtlFun (prodState x5 e5b)) = -1 / 40",
+  "sha256": "c4a24429d82b04317605b402fee1b6c47ab2433bb59fbd6f39a2706c941818ff"
+ },
+ "RelcSelectSqueeze.lean::gSq_ctl_test_value": {
+  "kind": "theorem",
+  "stmt": "theorem gSq_ctl_test_value : prodEffVal (sharpEff x5) (sharpEff (-e5b)) (gSq (prodState x5 e5b)) = 9 / 80",
+  "sha256": "3f1cb9137da0798bfd53b94dc86e313f1d31c423f405cb88d2b47ef3b8bf12db"
+ },
+ "RelcSelectSqueeze.lean::gCtl_not_posFwd": {
+  "kind": "theorem",
+  "stmt": "theorem gCtl_not_posFwd : ¬ ∀ x ∈ eball 5, ∀ y ∈ eball 5, gCtlFun (prodState x y) ∈ maxCone (eball 5)",
+  "sha256": "8976251a61570c0b01c0e10430681653199135d62834c0b6d6e4f54fa0aae9ec"
+ },
+ "RelcSelectSqueeze.lean::@file": {
+  "sha256": "bbbf278722c78ddb2d3f51747cf856e6b8d1d82a48dd64ce97e5f29ab2f4245b",
+  "prints": [
+   "OIBridge.RelcSelect.frame_symm",
+   "OIBridge.RelcSelect.relT_symm",
+   "OIBridge.RelcSelect.relC_symm",
+   "OIBridge.RelcSelect.gateRel_symm",
+   "OIBridge.RelcSelect.gSq_frame",
+   "OIBridge.RelcSelect.gateRel_gSq",
+   "OIBridge.RelcSelect.pairVal_gSq_prodState",
+   "OIBridge.RelcSelect.gSq_core",
+   "OIBridge.RelcSelect.gSq_posFwd",
+   "OIBridge.RelcSelect.gSq_symm_value",
+   "OIBridge.RelcSelect.gSq_not_posInv",
+   "OIBridge.RelcSelect.not_nativeGate_gSq",
+   "OIBridge.RelcSelect.not_nativeGate_gSqInv",
+   "OIBridge.RelcSelect.gSqInv_posInv",
+   "OIBridge.RelcSelect.gSq_sep",
+   "OIBridge.RelcSelect.gSqInv_sep",
+   "OIBridge.RelcSelect.gCtl_value",
+   "OIBridge.RelcSelect.gSq_ctl_test_value",
+   "OIBridge.RelcSelect.gCtl_not_posFwd"
+  ],
+  "sorry": false,
+  "axiom": false
+ },
+ "RelcSelectC5.lean::oddC5": {
+  "kind": "def",
+  "stmt": "def oddC5 : Fin 6 → Bool | 0 => false | 1 => false | 2 => true | 3 => true | 4 => true | 5 => true",
+  "sha256": "1bf95dab2759cd00c2809a89aec27a16df31966fbe32e3adeda8c441a45dbe4e"
+ },
+ "RelcSelectC5.lean::cC5": {
+  "kind": "def",
+  "stmt": "def cC5 (j : Fin 5) : ℝ := if oddC5 j.succ then -1 else 1",
+  "sha256": "29da47965ed38300eda452f325e430727caa76b58b36bf858bfc967d85abb18e"
+ },
+ "RelcSelectC5.lean::nC5": {
+  "kind": "def",
+  "stmt": "def nC5 : (Fin 5 → ℝ) →ₗ[ℝ] (Fin 5 → ℝ) := diagSign cC5",
+  "sha256": "49145e5a06e04f52ef4b52a32a6c15914f41fd39b523ce2990cc6b2f15b93f26"
+ },
+ "RelcSelectC5.lean::cC5_sq": {
+  "kind": "theorem",
+  "stmt": "theorem cC5_sq (j : Fin 5) : cC5 j ^ 2 = 1",
+  "sha256": "59421f0a5f958cd8b94018657ae6eb0595026c54c2c3d9bd4a937516fd3fe5ab"
+ },
+ "RelcSelectC5.lean::homMap_nC5_sign": {
+  "kind": "theorem",
+  "stmt": "theorem homMap_nC5_sign (v : HVec 5) (μ : Fin (5 + 1)) : homMap nC5 v μ = (if oddC5 μ then -1 else 1) * v μ",
+  "sha256": "e4a8f2fb1e42e138cb08e59da485ad5731b3bfcb8d27da31dacfd90f2e598715"
+ },
+ "RelcSelectC5.lean::isNot_nC5": {
+  "kind": "theorem",
+  "stmt": "theorem isNot_nC5 : IsNot (eball 5) z5 nC5",
+  "sha256": "e448466350f88485ca75e95f66324c4e3bc4bda3574a0407dd4afbe31deca537"
+ },
+ "RelcSelectC5.lean::sgnC5": {
+  "kind": "def",
+  "stmt": "def sgnC5 (μ ν : Fin 6) : ℝ := if ((μ = 1 ∨ μ = 3) ∧ (ν = 4 ∨ ν = 5)) ∨ ((μ = 2 ∨ μ = 4) ∧ (ν = 2 ∨ ν = 3)) then -1 else 1",
+  "sha256": "0df404bce4e2821cfa682f16446cb4208a60b3a0d6874160691230ff72c2c7b4"
+ },
+ "RelcSelectC5.lean::pcC5": {
+  "kind": "def",
+  "stmt": "def pcC5 : Fin 6 → Fin 6 → Fin 6 | 0, 0 => 0 | 0, 1 => 0 | 0, 2 => 5 | 0, 3 => 5 | 0, 4 => 5 | 0, 5 => 5 | 1, 0 => 1 | 1, 1 => 1 | 1, 2 => 2 | 1, 3 => 2 | 1, 4 => 2 | 1, 5 => 2 | 2, 0 => 2 | 2, 1 => 2 | 2, 2 => 1 | 2, 3 => 1 | 2, 4 => 1 | 2, 5 => 1 | 3, 0 => 3 | 3, 1 => 3 | 3, 2 => 4 | 3, 3 => 4 | 3, 4 => 4 | 3, 5 => 4 | 4, 0 => 4 | 4, 1 => 4 | 4, 2 => 3 | 4, 3 => 3 | 4, 4 => 3 | 4, 5 => 3 | 5, 0 => 5 | 5, 1 => 5 | 5, 2 => 0 | 5, 3 => 0 | 5, 4 => 0 | 5, 5 => 0",
+  "sha256": "a12ed23d1109fbd76e837eb477c4f5618304e12ff9b2cebd22cf32db4cd3191f"
+ },
+ "RelcSelectC5.lean::ptC5": {
+  "kind": "def",
+  "stmt": "def ptC5 : Fin 6 → Fin 6 → Fin 6 | 0, 0 => 0 | 0, 1 => 1 | 0, 2 => 2 | 0, 3 => 3 | 0, 4 => 4 | 0, 5 => 5 | 1, 0 => 1 | 1, 1 => 0 | 1, 2 => 5 | 1, 3 => 4 | 1, 4 => 3 | 1, 5 => 2 | 2, 0 => 1 | 2, 1 => 0 | 2, 2 => 5 | 2, 3 => 4 | 2, 4 => 3 | 2, 5 => 2 | 3, 0 => 1 | 3, 1 => 0 | 3, 2 => 5 | 3, 3 => 4 | 3, 4 => 3 | 3, 5 => 2 | 4, 0 => 1 | 4, 1 => 0 | 4, 2 => 5 | 4, 3 => 4 | 4, 4 => 3 | 4, 5 => 2 | 5, 0 => 0 | 5, 1 => 1 | 5, 2 => 2 | 5, 3 => 3 | 5, 4 => 4 | 5, 5 => 5",
+  "sha256": "813955adf01d3f06b29b5def0daae6e16b5874e9c7410ba9654a22e0c55495ec"
+ },
+ "RelcSelectC5.lean::gC5Fun": {
+  "kind": "def",
+  "stmt": "def gC5Fun (ω : W 5) : W 5 := fun μ ν => sgnC5 μ ν * ω (pcC5 μ ν) (ptC5 μ ν)",
+  "sha256": "60bc2db87588bf54ed03505312d2ee4450747161534ce8b8e5a521b7f70d20de"
+ },
+ "RelcSelectC5.lean::gC5Fun_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gC5Fun_apply (ω : W 5) (μ ν : Fin 6) : gC5Fun ω μ ν = sgnC5 μ ν * ω (pcC5 μ ν) (ptC5 μ ν)",
+  "sha256": "c80fc7aa59edeebdbc59545be5122c44182cf22b12cf9c75ca207e98046e7894"
+ },
+ "RelcSelectC5.lean::pcC5_pcC5": {
+  "kind": "theorem",
+  "stmt": "theorem pcC5_pcC5 : ∀ μ ν : Fin 6, pcC5 (pcC5 μ ν) (ptC5 μ ν) = μ",
+  "sha256": "7f91f7e4eda0a30354385c99adb53f02b02b94f8adcb8ae28e7b89e3c01a9b75"
+ },
+ "RelcSelectC5.lean::ptC5_ptC5": {
+  "kind": "theorem",
+  "stmt": "theorem ptC5_ptC5 : ∀ μ ν : Fin 6, ptC5 (pcC5 μ ν) (ptC5 μ ν) = ν",
+  "sha256": "81592972f40a591ec357a29df4d857a8da31acfe36f9f66a0d0c2e981192f6fd"
+ },
+ "RelcSelectC5.lean::sgnC5_mul_sgnC5": {
+  "kind": "theorem",
+  "stmt": "theorem sgnC5_mul_sgnC5 : ∀ μ ν : Fin 6, sgnC5 μ ν * sgnC5 (pcC5 μ ν) (ptC5 μ ν) = 1",
+  "sha256": "cf669efdc0438d7ee381e6dbb7095cde276def3ee93ae6d24b04ba0d715de20e"
+ },
+ "RelcSelectC5.lean::oddC5_ptC5": {
+  "kind": "theorem",
+  "stmt": "theorem oddC5_ptC5 : ∀ μ ν : Fin 6, oddC5 (ptC5 μ ν) = oddC5 ν",
+  "sha256": "96653475117916d061599afe81e7863d3897eefc462eb474ee5525ed519472cb"
+ },
+ "RelcSelectC5.lean::gC5Fun_gC5Fun": {
+  "kind": "theorem",
+  "stmt": "theorem gC5Fun_gC5Fun (ω : W 5) : gC5Fun (gC5Fun ω) = ω",
+  "sha256": "a507f6969184428eb6b3e565c771fb17c1f41477814ca8ba73f4ce7bf44ff680"
+ },
+ "RelcSelectC5.lean::gC5": {
+  "kind": "def",
+  "stmt": "def gC5 : W 5 ≃ₗ[ℝ] W 5 where toFun := gC5Fun invFun := gC5Fun map_add' ω₁ ω₂ := by funext μ ν simp only [gC5Fun_apply, Pi.add_apply, mul_add] map_smul' c ω := by funext μ ν simp only [gC5Fun_apply, Pi.smul_apply, smul_eq_mul, RingHom.id_apply] ring left_inv := gC5Fun_gC5Fun right_inv := gC5Fun_gC5Fun",
+  "sha256": "f154d16d5864ca0b0c355d3e493c71d9a238f251c6e3a34c390100ae65bcc5a7"
+ },
+ "RelcSelectC5.lean::gC5_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_apply (ω : W 5) : gC5 ω = gC5Fun ω",
+  "sha256": "9fddfc40e5b177e8388b1a2a86bed6380ff4fa667add125c594f30127bf3690f"
+ },
+ "RelcSelectC5.lean::gC5_symm_apply": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_symm_apply (ω : W 5) : gC5.symm ω = gC5Fun ω",
+  "sha256": "339059c60ba00a37f657f30c1482bb88e0a61a2c6ee400dbe0fdce79906a0089"
+ },
+ "RelcSelectC5.lean::gC5_frame": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_frame (a b : Fin 2) : gC5 (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b))",
+  "sha256": "3df4b3dc41cb17660cf772528aa2a9bed498dd344502bdee67cc14ee224c9026"
+ },
+ "RelcSelectC5.lean::gC5_relT": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_relT (ω : W 5) : actT nC5 (gC5 (actT nC5 ω)) = gC5 ω",
+  "sha256": "d12858380618602677f23487692b2b5bb65604c2f4d9b723325fcc585e8507ec"
+ },
+ "RelcSelectC5.lean::gC5_relC_lhs": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_relC_lhs : actC nC5 (gC5 (actC nC5 (OddChar.entW 3 3))) 4 4 = 1",
+  "sha256": "5f981d9cbc04e191ac76f551feb7e9751a3a66b8b190ba04570077e5e922af4c"
+ },
+ "RelcSelectC5.lean::gC5_relC_rhs": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_relC_rhs : actT nC5 (gC5 (OddChar.entW 3 3)) 4 4 = -1",
+  "sha256": "a0647e744c37da0e0799d411af4c43463d5e9d440ddd256ae981ed0e120886cd"
+ },
+ "RelcSelectC5.lean::gC5_not_relC": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_not_relC : ¬ ∀ ω, actC nC5 (gC5 (actC nC5 ω)) = actT nC5 (gC5 ω)",
+  "sha256": "598c1352eec778dc5bf06ef70ed537184356b30a47b456616cd0226c7e93cfec"
+ },
+ "RelcSelectC5.lean::selC5_cs": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_cs (a0 a1 a2 a3 a4 b0 b1 b2 b3 b4 : ℝ) : (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3 + a4 * b4) ^ 2 ≤ (a0 ^ 2 + a1 ^ 2 + a2 ^ 2 + a3 ^ 2 + a4 ^ 2) * (b0 ^ 2 + b1 ^ 2 + b2 ^ 2 + b3 ^ 2 + b4 ^ 2)",
+  "sha256": "04ce0ebbd9ebc3619916d1a833485e7ed379029c94603a1d1374ef1b478eba81"
+ },
+ "RelcSelectC5.lean::selC5_cauchy2": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_cauchy2 (s1 s2 a b : ℝ) : (s1 * a + s2 * b) ^ 2 ≤ (s1 ^ 2 + s2 ^ 2) * (a ^ 2 + b ^ 2)",
+  "sha256": "152e71dd0c54db0f08d338ef960954b8775a9fa723ff114f9048e0193a3be7f1"
+ },
+ "RelcSelectC5.lean::selC5_besselJ": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_besselJ (a0 a1 a2 a3 b0 b1 b2 b3 : ℝ) : (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3) ^ 2 + (a1 * b0 - a0 * b1 + a3 * b2 - a2 * b3) ^ 2 ≤ (a0 ^ 2 + a1 ^ 2 + a2 ^ 2 + a3 ^ 2) * (b0 ^ 2 + b1 ^ 2 + b2 ^ 2 + b3 ^ 2)",
+  "sha256": "ad8167666f6ca6c3e4fbfb6f750e091dc6fe1328bbda18a5db369af4732b8a0f"
+ },
+ "RelcSelectC5.lean::selC5_besselK": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_besselK (a0 a1 a2 a3 b0 b1 b2 b3 : ℝ) : (a0 * b0 + a1 * b1 + a2 * b2 + a3 * b3) ^ 2 + (a3 * b0 + a2 * b1 - a1 * b2 - a0 * b3) ^ 2 ≤ (a0 ^ 2 + a1 ^ 2 + a2 ^ 2 + a3 ^ 2) * (b0 ^ 2 + b1 ^ 2 + b2 ^ 2 + b3 ^ 2)",
+  "sha256": "dd4ee9c23a620c2a448c9b8ee5a6bf49a9b78926e72d66be6b7970af7bd0a08e"
+ },
+ "RelcSelectC5.lean::selC5_mix": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_mix (A B u : ℝ) (hA : 0 ≤ A) (hB : 0 ≤ B) (hu : u ^ 2 ≤ A * B) : 0 ≤ A + B + 2 * u",
+  "sha256": "f1f475f5a0a248c78935dbd00b87360c006fb6bb7f129a53b9458f279870d12e"
+ },
+ "RelcSelectC5.lean::selC5_target": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_target (f0 f1 f2 f3 f4 f5 y0 y1 y2 y3 y4 : ℝ) (hf0 : 0 ≤ f0) (hf : f1 ^ 2 + f2 ^ 2 + f3 ^ 2 + f4 ^ 2 + f5 ^ 2 ≤ f0 ^ 2) (hy : y0 ^ 2 + y1 ^ 2 + y2 ^ 2 + y3 ^ 2 + y4 ^ 2 ≤ 1) : 0 ≤ (f0 + f1 * y0) + (f2 * y1 + f3 * y2 + f4 * y3 + f5 * y4) ∧ 0 ≤ (f0 + f1 * y0) - (f2 * y1 + f3 * y2 + f4 * y3 + f5 * y4) ∧ (f0 * y0 + f1) ^ 2 + (f5 * y1 + f4 * y2 - f3 * y3 - f2 * y4) ^ 2 ≤ (f0 + f1 * y0) ^ 2 - (f2 * y1 + f3 * y2 + f4 * y3 + f5 * y4) ^ 2",
+  "sha256": "96db5776326d930a05dc4d9b9b44f642d1d89beb785bc4f02db51c900e2b79a9"
+ },
+ "RelcSelectC5.lean::selC5_ctrl": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_ctrl (e0 e5 x4 p m s1 s2 al be : ℝ) (he0 : 0 ≤ e0) (he5 : e5 ^ 2 ≤ e0 ^ 2) (hx4 : x4 ^ 2 ≤ 1) (hpm : 0 ≤ p + m) (hmp : 0 ≤ p - m) (hab : al ^ 2 + be ^ 2 ≤ p ^ 2 - m ^ 2) (hs : s1 ^ 2 + s2 ^ 2 ≤ (e0 ^ 2 - e5 ^ 2) * (1 - x4 ^ 2)) : 0 ≤ (e0 + x4 * e5) * p + (e5 + x4 * e0) * m + s1 * al + s2 * be",
+  "sha256": "395aa4050d7b007824ef9dac0fba5aa65fdf458886ded7b800f5028f2fb90790"
+ },
+ "RelcSelectC5.lean::selC5_core": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_core (e0 e1 e2 e3 e4 e5 x0 x1 x2 x3 x4 p m al be : ℝ) (he0 : 0 ≤ e0) (he : e1 ^ 2 + e2 ^ 2 + e3 ^ 2 + e4 ^ 2 + e5 ^ 2 ≤ e0 ^ 2) (hx : x0 ^ 2 + x1 ^ 2 + x2 ^ 2 + x3 ^ 2 + x4 ^ 2 ≤ 1) (hpm : 0 ≤ p + m) (hmp : 0 ≤ p - m) (hab : al ^ 2 + be ^ 2 ≤ p ^ 2 - m ^ 2) : 0 ≤ (e0 + x4 * e5) * p + (e5 + x4 * e0) * m + (e1 * x0 + e2 * x1 + e3 * x2 + e4 * x3) * al + (e2 * x0 - e1 * x1 + e4 * x2 - e3 * x3) * be",
+  "sha256": "bc738cd023ecc3e3f451ddecd26fcc8606024d1db77180e81431099b3ab19899"
+ },
+ "RelcSelectC5.lean::selC5_lor": {
+  "kind": "theorem",
+  "stmt": "theorem selC5_lor {v : HVec 5} (hv : Lor v) : 0 ≤ v 0 ∧ v 1 ^ 2 + v 2 ^ 2 + v 3 ^ 2 + v 4 ^ 2 + v 5 ^ 2 ≤ v 0 ^ 2",
+  "sha256": "d3e750b4874226ec122c97cf4e634d63ee689f7a3196b39501c07a6cc17ab395"
+ },
+ "RelcSelectC5.lean::prodEffVal_gC5_prodState": {
+  "kind": "theorem",
+  "stmt": "theorem prodEffVal_gC5_prodState (e f : (Fin 5 → ℝ) →ᵃ[ℝ] ℝ) (x y : Fin 5 → ℝ) : prodEffVal e f (gC5 (prodState x y)) = (ehom e 0 + x 4 * ehom e 5) * (ehom f 0 + ehom f 1 * y 0) + (ehom e 5 + x 4 * ehom e 0) * (ehom f 2 * y 1 + ehom f 3 * y 2 + ehom f 4 * y 3 + ehom f 5 * y 4) + (ehom e 1 * x 0 + ehom e 2 * x 1 + ehom e 3 * x 2 + ehom e 4 * x 3) * (ehom f 0 * y 0 + ehom f 1) + (ehom e 2 * x 0 - ehom e 1 * x 1 + ehom e 4 * x 2 - ehom e 3 * x 3) * (ehom f 5 * y 1 + ehom f 4 * y 2 - ehom f 3 * y 3 - ehom f 2 * y 4)",
+  "sha256": "a8e46cf8f009ca569ea9360f2d5867da780746b447fca2399505c5096cf4665d"
+ },
+ "RelcSelectC5.lean::gC5_prodEffVal_nonneg": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_prodEffVal_nonneg {e f : (Fin 5 → ℝ) →ᵃ[ℝ] ℝ} (he : IsEffectOn (eball 5) e) (hf : IsEffectOn (eball 5) f) {x y : Fin 5 → ℝ} (hx : x ∈ eball 5) (hy : y ∈ eball 5) : 0 ≤ prodEffVal e f (gC5 (prodState x y))",
+  "sha256": "6bd9fb81faa650a2e8a9a525f5c2e9c60d05b466094e39651de18bce37dd1054"
+ },
+ "RelcSelectC5.lean::gC5_posFwd": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_posFwd : ∀ x ∈ eball 5, ∀ y ∈ eball 5, gC5 (prodState x y) ∈ maxCone (eball 5)",
+  "sha256": "7d537947820e785385e6542bde53d68fe03b91efb1d576441453a9cfd6703db1"
+ },
+ "RelcSelectC5.lean::gC5_posInv": {
+  "kind": "theorem",
+  "stmt": "theorem gC5_posInv : ∀ x ∈ eball 5, ∀ y ∈ eball 5, gC5.symm (prodState x y) ∈ maxCone (eball 5)",
+  "sha256": "97b441e96f56098cc9e1bd0d3326dad03d55dbb01a9ea2ec9694d9dd3994368a"
+ },
+ "RelcSelectC5.lean::c5_sep": {
+  "kind": "theorem",
+  "stmt": "theorem c5_sep : IsNot (eball 5) z5 nC5 ∧ (∀ a b : Fin 2, gC5 (prodState (corner z5 a) (corner z5 b)) = prodState (corner z5 a) (corner z5 (a + b))) ∧ (∀ ω, actT nC5 (gC5 (actT nC5 ω)) = gC5 ω) ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gC5 (prodState x y) ∈ maxCone (eball 5)) ∧ (∀ x ∈ eball 5, ∀ y ∈ eball 5, gC5.symm (prodState x y) ∈ maxCone (eball 5)) ∧ ¬ (∀ ω, actC nC5 (gC5 (actC nC5 ω)) = actT nC5 (gC5 ω))",
+  "sha256": "07a7009d9463071d6a28eecc1b6847d1af7173fcdf26809db78fbc1682c341c7"
+ },
+ "RelcSelectC5.lean::not_nativeGate_gC5": {
+  "kind": "theorem",
+  "stmt": "theorem not_nativeGate_gC5 : ¬ NativeGate (eball 5) z5 nC5 gC5",
+  "sha256": "b6f6f98819119104895559d837d43ef21f0d4f4cd56203dc8ed0f9dd89554ba4"
+ },
+ "RelcSelectC5.lean::not_dim_of_relT": {
+  "kind": "theorem",
+  "stmt": "theorem not_dim_of_relT : ¬ ∀ (d : ℕ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d), IsNot (eball d) z N → (∀ a b : Fin 2, G (prodState (corner z a) (corner z b)) = prodState (corner z a) (corner z (a + b))) → (∀ x ∈ eball d, ∀ y ∈ eball d, G (prodState x y) ∈ maxCone (eball d)) → (∀ x ∈ eball d, ∀ y ∈ eball d, G.symm (prodState x y) ∈ maxCone (eball d)) → (∀ ω, actT N (G (actT N ω)) = G ω) → d = 1 ∨ d = 3",
+  "sha256": "a727c946d998dbec39ba9f215174f7282d99f21a7becd23a89b0d3093d9cb567"
+ },
+ "RelcSelectC5.lean::@file": {
+  "sha256": "fdb701eaccfa33266498cda41858924b0b75cfda7b9a6f732a28e3b53aa1f78d",
+  "prints": [
+   "OIBridge.RelcSelect.isNot_nC5",
+   "OIBridge.RelcSelect.gC5_frame",
+   "OIBridge.RelcSelect.gC5_relT",
+   "OIBridge.RelcSelect.gC5_not_relC",
+   "OIBridge.RelcSelect.selC5_target",
+   "OIBridge.RelcSelect.selC5_core",
+   "OIBridge.RelcSelect.prodEffVal_gC5_prodState",
+   "OIBridge.RelcSelect.gC5_posFwd",
+   "OIBridge.RelcSelect.gC5_posInv",
+   "OIBridge.RelcSelect.c5_sep",
+   "OIBridge.RelcSelect.not_nativeGate_gC5",
+   "OIBridge.RelcSelect.not_dim_of_relT"
+  ],
+  "sorry": false,
+  "axiom": false
+ }
+}

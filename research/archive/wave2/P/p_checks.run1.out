@@ -1,0 +1,49 @@
+== E1: the drive generator J = cyc3
+PASS E1.1 cyc3 * cyc3^T = I (orthogonal, J^{-1} = J^T)
+PASS E1.2 cyc3^3 = I (finite order: J^{-1} = J^2)
+PASS E1.3 cyc3 matches cyc3_apply: cyc3 (a,b,c) = (c,a,b)
+PASS E1.4 r o J^{-1} = ballEffect e0
+PASS E1.5 r o J^{-2} = ballEffect e1
+PASS E1.6 r o J o J = r o J^{-1} (SEQ with J alone reaches J^{-1}, given J^3 = 1)
+PASS E1.7 r o rot3(t)^{-1} = r for every t (symbolic c, s)
+PASS E1.8 ballEffect(-e2) o rot3(t)^{-1} = ballEffect(-e2)
+== E2: CM1 -- drive words available as transformations, SEQ fails, V4' fails
+PASS E2.1 SharpSeed values: r(e2) = 1, r(-e2) = 0
+PASS E2.2 avail0 is a perfectly distinguishing pair: sum = unit (symbolic)
+PASS E2.3 seedTransport r cyc3 = ballEffect e0 takes value 1 at e0 (a boundary state)
+PASS E2.4 every member of avail0 takes value 1/2 at e0, so seedTransport r cyc3 not in avail0
+PASS E2.5 hence SEQ fails on avail0 at (r, J^{-1}) and V4'(driveWords3, r, avail0) fails
+== E3: CM2 -- SEQ holds for trans = range rot3, J not an available transformation
+PASS E3.1 {be e2, be(-e2), 1, 0} is closed under precomposition by every rot3 t (symbolic)
+PASS E3.2 cyc3 is not a rotation about z (cyc3 e2 = e1 != e2), so cyc3 notin range rot3
+PASS E3.3 V4'(driveWords3) still fails: seedTransport r cyc3 notin effs
+== E4: CM3 -- V4' holds, generator closure of the whole family fails
+PASS E4.1 unsharpSeed o J^{-1} = 3/4 + v0/4
+PASS E4.2 3/4 + v0/4 has constant term 3/4 != 1/2, so it is not ballEffect b for any b
+PASS E4.3 3/4 + v0/4 != unsharpSeed (values at e0: 1 vs 3/4)
+== E5: SEQ needs transformations that map states to states
+PASS E5.1 r o (2 id) takes 3/2 at e2: not an effect on ball3
+== E6: closure induction, finite instance (S = {rot3(pi/2), cyc3}, forward precomposition only)
+PASS E6.1 |<S>| = 24 (rotation group of the cube)
+PASS E6.2 forward SEQ-closure of {r} = seed orbit {r o g^{-1} : g in <S>} (6 effects be(+-e_i))
+== E7: an infinite-order J whose inverse is reached through the flow
+PASS E7.1 Jx orthogonal
+PASS E7.2 Jx^n != I for n = 1..60 (infinite order: cos = 3/5 is not a root-of-unity cosine; Niven, written)
+PASS E7.3 Jx^{-1} = rot3(pi) Jx rot3(pi) (inverse is a forward word through the flow's half-turn)
+== E8: fixed-angle generators S = {rot3(arccos 3/5), cyc3}: words are rational, orbit misses the sphere
+PASS E8.1 the generators and their inverses are rational matrices
+PASS E8.2 all 5461 words of length <= 6 send e2 to rational points
+PASS E8.3 b = (sqrt2/2, sqrt2/2, 0) is on the unit sphere and is not rational
+PASS E8.4 so ballEffect b notin seedOrbit(words S) r: be(b) has an irrational coefficient, every orbit member r o g^{-1} = be(g e2) has rational ones
+PASS E8.5 rot3(arccos 3/5)^n != I for n = 1..60
+== E9: limit step -- |be(b)(v) - be(b')(v)| <= |b - b'|/2 on the ball (Cauchy-Schwarz), exact instance
+PASS E9.1 (119/169, 120/169, 0) is on the unit sphere
+PASS E9.2 |b' - b|^2 = 2 - 239 sqrt2/169 < 1/1000 (exact comparison)
+== E10: SEED-AVAIL and TRANS(flow) audits
+PASS E10.1 {1, 0} is closed under precomposition by every linear map (SEQ holds for any trans)
+PASS E10.2 r notin {1, 0}: V4' fails at g = 1 (SEED-AVAIL is load-bearing)
+PASS E10.3 {be e0, be e1, be e2} is closed under precomposition by cyc3 and cyc3^{-1}
+FAIL E10.4 seedTransport r (rot3(arccos 3/5) * cyc3) = be(-4/5, 3/5, 0)
+PASS E10.5 be(-4/5, 3/5, 0) notin {be e0, be e1, be e2}: without TRANS(flow), V4' fails
+
+FAILED -- 1 of 37

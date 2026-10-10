@@ -1,0 +1,10 @@
+PASS D0 T = transition a b (a != b): T^2 = E_aa + E_bb and T^3 = T on Fin 2..5 (basis of the closed form)
+PASS D1 M D M D = tensorOf (flow (transition a b) (2s)) 1 with D = tensorOf 1 ((phaseGate 0)^2) unrelabelled, and ancBlock 0 0 gives flow (transition a b) (2s): all 40 ordered pairs a != b in Fin 2..5
+PASS D2 phases: relabel (r,0) <-> (r,1) for r != a, then ancBlock 0 0 of tensorOf 1 (phaseGate 0) is phaseGate a (every a in Fin 1..5)
+PASS D3 a = b flows: the same relabelling turns diag(e^(-2it), 1) = flow (transition 0 0) t into diag(e^(-2it) at a) = flow (transition a a) t (every a in Fin 1..5)
+PASS D4 swaps: phaseGate a * phaseGate b * flow (transition a b) (pi/2) = permMatrix (swap a b) for a != b (Fin 2..5); a = b: permMatrix (swap a a) = permMatrix 1 = 1
+PASS D5 countercontrols: without D, M M is not the target (R = Fin 3); with sigma = id, M D M D = 1 (the relabelling is load-bearing)
+PASS K1 c * m = 2^j with m >= 1 forces c = 2^i (exhaustive for c * m <= 2^16); with m = 0, c * 0 = 0 is never 2^j
+PASS K2 cardSplit witnesses: tensorOf 1_(Fin 3) (flow X (pi/4)) on the 6-element carrier has a column with two nonzero entries (not monomial; not ContextStable); flow (transition 0 1) (pi/4) on Fin 3 is not monomial (does not drive); conj (rot (x) 1_3) sends a diagonal matrix to a non-diagonal one
+c2b_drive_lift: 8/8 checks pass
+VERDICT DRIVE-LIFT-REFINED: the Fin 2 data (phaseGate 0, flow of transition 0 0 and 0 1) with Architecture (one, mul, block), ContextStable and LabelInvariant reach every clause of DrivesElementary, a = b included; D needs no relabelling; cardSplitClass's witnesses are exact

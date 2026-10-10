@@ -1,0 +1,114 @@
+end_marker: thread I1 (inventory: foundations), stage 6, Q-EX-FULL
+UTC_end_checks: 2026-10-10T17:22:57Z
+
+== check 1: six manifests, from pt/, sha256sum -c --quiet
+inputs.manifest.sha256: exit=0 lines_of_complaint=0
+stage1.manifest.sha256: exit=0 lines_of_complaint=0
+inputs2.manifest.sha256: exit=0 lines_of_complaint=0
+inputs3.manifest.sha256: exit=0 lines_of_complaint=0
+stage2.manifest.sha256: exit=0 lines_of_complaint=0
+inputs4.manifest.sha256: exit=0 lines_of_complaint=0
+== check 1b: audit/stage3-inputs/ns.manifest.sha256, from its own directory, sha256sum -c
+ns/NS-INPUT.md: OK
+ns.manifest.sha256: exit=0
+
+== check 2: corpus checkout pt/base
+rev-parse HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626
+HEAD = L: OK
+status --porcelain lines: 0
+__pycache__/.pyc count under pt/base: 0
+
+== check 3: ten protocol files, sha256 prefixes, and sidecars
+PROTOCOL.md expected=239dc123 got=239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23 OK
+PROTOCOL-AMENDMENT-1.md expected=b41aa0e7 got=b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83 OK
+PROTOCOL-AMENDMENT-2.md expected=2a2f78f3 got=2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a OK
+PROTOCOL-STAGE2.md expected=38603692 got=386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da OK
+PROTOCOL-STAGE2-DS.md expected=086a4cb8 got=086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5 OK
+PROTOCOL-STAGE3.md expected=1a649168 got=1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a OK
+PROTOCOL-STAGE4.md expected=d3da2811 got=d3da28116a5bcdd32fe8b8418d5bc83003918240ce4b0477d9f714518a717a74 OK
+PROTOCOL-STAGE5.md expected=9e01f098 got=9e01f098cbe0a279d5f56bf7d40f295d8fdade465fe40ab5d1e4983ebcf0642c OK
+PROTOCOL-STAGE5-AMENDMENT-1.md expected=1f639115 got=1f639115d369de13c367a249735858818ce2a2323e848eaf28c595f4b96a5bce OK
+PROTOCOL-STAGE6.md expected=b277b7c1 got=b277b7c1a7020c4e409fed602f7cb425ad028497471f15cae8191aae02d7972f OK
+PROTOCOL.sha256 exit=0: PROTOCOL.md: OK
+PROTOCOL-AMENDMENT-1.sha256 exit=0: PROTOCOL-AMENDMENT-1.md: OK
+PROTOCOL-AMENDMENT-2.sha256 exit=0: PROTOCOL-AMENDMENT-2.md: OK
+PROTOCOL-STAGE2.sha256 exit=0: PROTOCOL-STAGE2.md: OK
+PROTOCOL-STAGE2-DS.sha256 exit=0: PROTOCOL-STAGE2-DS.md: OK
+PROTOCOL-STAGE3.sha256 exit=0: PROTOCOL-STAGE3.md: OK
+pt/PROTOCOL-STAGE4.sha256 exit=0: pt/PROTOCOL-STAGE4.md: OK
+pt/PROTOCOL-STAGE5.sha256 exit=0: pt/PROTOCOL-STAGE5.md: OK
+pt/PROTOCOL-STAGE5-AMENDMENT-1.sha256 exit=0: pt/PROTOCOL-STAGE5-AMENDMENT-1.md: OK
+pt/PROTOCOL-STAGE6.sha256 exit=0: pt/PROTOCOL-STAGE6.md: OK
+
+== check 4: pt/ top-level names with mtimes (UTC)
+2026-10-10T05:29:45.4704186620  d  A
+2026-10-10T05:59:26.4463779270  d  B
+2026-10-10T05:41:17.1544028410  d  C
+2026-10-10T17:20:02.9487312580  d  C5
+2026-10-10T05:50:39.1663899870  d  D
+2026-10-10T17:13:57.6043870730  d  D5
+2026-10-10T09:31:14.2478966600  d  DS
+2026-10-10T08:48:46.1547299750  f  DS-LAUNCH-LOG.md
+2026-10-10T17:22:05.0047284660  d  I1
+2026-10-10T17:22:53.3007273620  d  I2
+2026-10-10T17:22:46.9727275060  d  I3
+2026-10-10T17:22:54.8767273260  d  I4
+2026-10-10T09:40:15.4054489570  f  INTEGRATION-ADDENDUM-STAGE2.md
+2026-10-10T14:21:38.2890042520  f  INTEGRATION-NOTE-STAGE3.md
+2026-10-10T16:16:17.1288469160  f  INTEGRATION-NOTE-STAGE4.md
+2026-10-10T06:27:36.1663392790  f  INTEGRATION-REVIEW.md
+2026-10-10T05:13:09.9144414330  f  PROTOCOL-AMENDMENT-1.md
+2026-10-10T05:13:12.4984413730  f  PROTOCOL-AMENDMENT-1.sha256
+2026-10-10T05:22:22.1184288020  f  PROTOCOL-AMENDMENT-2.md
+2026-10-10T05:22:24.6704287440  f  PROTOCOL-AMENDMENT-2.sha256
+2026-10-10T08:48:02.4999559390  f  PROTOCOL-STAGE2-DS.md
+2026-10-10T08:48:09.3479557830  f  PROTOCOL-STAGE2-DS.sha256
+2026-10-10T07:12:04.3605050800  f  PROTOCOL-STAGE2.md
+2026-10-10T07:12:08.7925049790  f  PROTOCOL-STAGE2.sha256
+2026-10-10T10:22:18.3573326970  f  PROTOCOL-STAGE3.md
+2026-10-10T10:22:36.1053322910  f  PROTOCOL-STAGE3.sha256
+2026-10-10T14:22:11.2638613710  f  PROTOCOL-STAGE4.md
+2026-10-10T14:22:11.2650034970  f  PROTOCOL-STAGE4.sha256
+2026-10-10T16:42:55.0807822150  f  PROTOCOL-STAGE5-AMENDMENT-1.md
+2026-10-10T16:43:17.5207817010  f  PROTOCOL-STAGE5-AMENDMENT-1.sha256
+2026-10-10T16:35:10.8927928320  f  PROTOCOL-STAGE5.md
+2026-10-10T16:36:33.6247909390  f  PROTOCOL-STAGE5.sha256
+2026-10-10T16:49:36.0527730430  f  PROTOCOL-STAGE6.md
+2026-10-10T16:49:55.1407726070  f  PROTOCOL-STAGE6.sha256
+2026-10-10T04:32:46.2544968670  f  PROTOCOL.md
+2026-10-10T04:32:55.7664966500  f  PROTOCOL.sha256
+2026-10-10T08:34:03.2719751340  d  S2
+2026-10-10T08:32:34.8679771560  d  S3
+2026-10-10T07:25:56.7920686020  f  STAGE2-LAUNCH-LOG.md
+2026-10-10T10:22:36.1213322900  f  STAGE3-LAUNCH-LOG.md
+2026-10-10T12:46:54.2057918580  d  U
+2026-10-10T12:46:18.3691350790  d  X
+2026-10-10T15:23:34.7009192490  d  Y
+2026-10-10T16:00:18.5848688410  d  Z
+2026-10-10T07:25:56.7760686020  d  aborted-launch1
+2026-10-10T17:16:49.7607356770  d  audit
+2026-10-10T05:32:05.9024154500  d  auditA-replay
+2026-10-10T06:18:14.2263521320  d  auditB-replay
+2026-10-10T05:44:31.9783983850  d  auditC-replay
+2026-10-10T06:13:03.3383592430  d  auditD-replay
+2026-10-10T09:37:02.5398886940  d  auditDS-replay
+2026-10-10T09:04:33.8239332650  d  auditS2-replay
+2026-10-10T08:49:23.3679540900  d  auditS3-replay
+2026-10-10T04:30:52.3838554040  d  base
+2026-10-10T04:30:52.0904994780  d  inputs
+2026-10-10T04:30:54.1184994320  f  inputs.manifest.sha256
+2026-10-10T07:10:16.5325075460  d  inputs2
+2026-10-10T07:10:21.2725074380  f  inputs2.manifest.sha256
+2026-10-10T08:47:33.6999565980  d  inputs3
+2026-10-10T08:48:09.3458339620  f  inputs3.manifest.sha256
+2026-10-10T10:22:27.7293324820  d  inputs4
+2026-10-10T10:22:36.0973322910  f  inputs4.manifest.sha256
+2026-10-10T07:10:01.6045078880  f  stage1.manifest.sha256
+2026-10-10T10:21:01.3558083940  f  stage2.manifest.sha256
+
+== sweep: files under pt/ newer than pt/I1/.start_marker, outside pt/I1, pt/I2, pt/I3, pt/I4, pt/D5, pt/C5, pt/audit, pt/audit*-replay
+sweep count: 0
+== newer directories (names only, excluded areas omitted)
+.
+== I1 contents not written by this thread: check by listing (every name below was written by I1)
+.start_marker CENSUS.md INVENTORY.md NOTES.md bridge_check.err bridge_check.out bridge_check.py bridge_check.replay.err bridge_check.replay.out bridge_check2.err bridge_check2.out bridge_check2.py bridge_check2.replay.err bridge_check2.replay.out bridge_check3.err bridge_check3.out bridge_check3.py bridge_check3.replay.err bridge_check3.replay.out bridge_check4.err bridge_check4.out bridge_check4.py bridge_check4.replay.err bridge_check4.replay.out census_ms.err census_ms.out census_ms.py census_ms.replay.err census_ms.replay.out census_ms.run1.err census_ms.run1.out census_ms.run1.py census_rm.err census_rm.out census_rm.py census_rm.replay.err census_rm.replay.out census_rm.run1.err census_rm.run1.out census_rm.run1.py kernel_census.err kernel_census.out kernel_census.py kernel_census.replay.err kernel_census.replay.out quote_check.err quote_check.out quote_check.py quote_check.replay.err quote_check.replay.out quote_check.run1.err quote_check.run1.out quote_check.run2.err quote_check.run2.out quote_check.run2.py quote_check.run3.err quote_check.run3.out quote_check.run3.py quote_check.run4.err quote_check.run4.out quote_check.run5.err quote_check.run5.out quote_check.run6.err quote_check.run6.out quote_check.run6.py quote_check.run6.replay.err quote_check.run6.replay.out statements.err statements.out statements.py statements.replay.err statements.replay.out statements.run1.err statements.run1.out statements.run1.py 

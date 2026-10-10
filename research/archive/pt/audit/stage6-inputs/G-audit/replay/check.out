@@ -1,0 +1,60 @@
+C0 records=633 graph_nodes=633 edges=1549
+C2 first cycle: I2.10 -> I2.6
+C2 SCC (2 nodes): I2.6 I2.10
+C2 SCC (2 nodes): I2.42 I2.56
+C3 REPLACED I1.40 by I1.41 (no theorem named in its header is declared at L)
+C3 REPLACED I2.94 by I2.23 (no theorem named in its header is declared at L)
+C3 REPLACED I2.98 by I2.26 (no theorem named in its header is declared at L)
+C3 I1.27	INCOMPLETE-RECORDED	decls=PhysicalC4Discharge.lean:109,PhysicalC4Discharge.lean:122	sig=RootedRealization,RoutedReadback	missing_in_record=RootedRealization	missing_in_graph=-	extra=-	ms_links=-
+C3 I1.41	AGREE-RECORDED	decls=IndependenceCensus.lean:811	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I1.44	INCOMPLETE-RECORDED	decls=OIRealization.lean:252	sig=FiniteOperationalTheory,HasCompositeUnitaryControl	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=I4.67
+C3 I1.46	AGREE-RECORDED	decls=OIRealization.lean:360,OIRealization.lean:366	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I4.14,I4.68
+C3 I1.52	AGREE-RECORDED	decls=RouteB.lean:375,RouteB.lean:380	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I1.54	INCOMPLETE-RECORDED	decls=RouteB.lean:231,RouteB.lean:223	sig=FiniteOperationalTheory,ExactAllFiniteEndomorphicQuantumOps	missing_in_record=FiniteOperationalTheory,ExactAllFiniteEndomorphicQuantumOps	missing_in_graph=-	extra=-	ms_links=-
+C3 I1.62	AGREE-RECORDED	decls=A6Instantiation.lean:242,A6Instantiation.lean:257,A6Instantiation.lean:276,A6Instantiation.lean:306,A6Instantiation.lean:411,A6Instantiation.lean:512	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I1.61
+C3 I1.80	AGREE-RECORDED	decls=DiagonalTheory.lean:358,DiagonalTheory.lean:398,DiagonalTheory.lean:415,CompletedOI.lean:115	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I1.82	INCOMPLETE-RECORDED	decls=SubstantiveCensus.lean:986,SubstantiveCensus.lean:1012,SubstantiveCensus.lean:394,SubstantiveCensus.lean:776,SubstantiveCensus.lean:828,SubstantiveCensus.lean:862,SubstantiveCensus.lean:891,SubstantiveCensus.lean:927,SubstantiveCensus.lean:978	sig=ClassData	missing_in_record=ClassData	missing_in_graph=-	extra=-	ms_links=I4.73
+C3 I1.84	AGREE-RECORDED	decls=ObservabilityQuotient.lean:270	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I1.9,I1.10
+C3 I2.21	INCOMPLETE-RECORDED	decls=WeylLift.lean:652,WeylLift.lean:781,WeylLift.lean:361,WeylTwirl.lean:263,Separability.lean:199	sig=Isotropic,Separable	missing_in_record=Isotropic,Separable	missing_in_graph=-	extra=-	ms_links=-
+C3 I2.25	DISAGREE	decls=TrackBQfbBridge.lean:276,TrackBQfbBridge.lean:180,TrackBQfbBridge.lean:286,OperationalSourcing.lean:476	sig=AdmissibleDilationAt,QfbData	missing_in_record=AdmissibleDilationAt,QfbData	missing_in_graph=-	extra=I2.39	ms_links=-
+C3 I2.27	INCOMPLETE-RECORDED	decls=TurnpikeScopeTransfer.lean:826,AntiunitaryInvariance.lean:71,AntiunitaryInvariance.lean:119,AntiunitaryInvariance.lean:97,AntiunitaryInvariance.lean:107,AntiunitaryInvariance.lean:143,ThermalOrientation.lean:153,ThermalOrientation.lean:104,ThermalOrientation.lean:239,ThermalOrientation.lean:179,ThermalOrientation.lean:198,ThermalOrientation.lean:256	sig=BGIntegerClassification,Passive	missing_in_record=Passive	missing_in_graph=-	extra=-	ms_links=I2.28
+C3 I2.30	AGREE-RECORDED	decls=GeneralCarrier.lean:188,GeneralCarrier.lean:168,GeneralCarrier.lean:160,RankGapTheory.lean:702	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I2.33	INCOMPLETE-RECORDED	decls=StructuralClosure.lean:414,StructuralClosure.lean:408,ReadWriteControl.lean:174	sig=ImplementationClass,ExtendsSubstratum,StructurallyClosed,DrivesElementary,FiniteOperationalTheory,ReadWriteSourced	missing_in_record=ImplementationClass,ExtendsSubstratum,StructurallyClosed,DrivesElementary,FiniteOperationalTheory,ReadWriteSourced	missing_in_graph=-	extra=-	ms_links=-
+C3 I2.36	DISAGREE	decls=QuasilocalAlgebra.lean:712,QuasilocalAlgebra.lean:879,QuasilocalCharacterization.lean:359,QuasilocalCharacterization.lean:497,RegionTower.lean:539,RegionLimit.lean:296	sig=IsStateFamily,Quasilocal,QuasilocalSystem,OISystem	missing_in_record=IsStateFamily,Quasilocal,QuasilocalSystem,OISystem	missing_in_graph=-	extra=I2.33	ms_links=-
+C3 I2.39	INCOMPLETE-RECORDED	decls=Equivalence.lean:459,Equivalence.lean:419,DilationChoice.lean:213,EquivalenceChain.lean:178,EquivalenceChain.lean:252	sig=Stochastic,IsDiag	missing_in_record=Stochastic,IsDiag	missing_in_graph=-	extra=-	ms_links=-
+C3 I2.23	INCOMPLETE-RECORDED	decls=CentralObservation.lean:620,CentralObservation.lean:433,PassiveObservation.lean:259,PassiveIndependence.lean:80,PassiveIndependence.lean:248,PassiveIndependence.lean:255,PassiveIndependence.lean:269,InternalObserver.lean:137,InternalObserver.lean:150,InternalObserver.lean:272,InternalObserver.lean:290,InternalObserver.lean:92	sig=IsBlockPassiveInstrument,IsPassiveInstrument,FiniteOperationalTheory,IsInternalObserver,BlockDiag,Records	missing_in_record=IsBlockPassiveInstrument,IsPassiveInstrument,FiniteOperationalTheory,IsInternalObserver,BlockDiag,Records	missing_in_graph=-	extra=-	ms_links=-
+C3 I2.96	DISAGREE	decls=CrossTimeInvariants.lean:368	sig=-	missing_in_record=-	missing_in_graph=-	extra=I2.95	ms_links=-
+C3 I2.26	AGREE-RECORDED	decls=JordanClassification.lean:1109,TwoByTwoNoGo.lean:606,TwoByTwoNoGo.lean:590,TwoByTwoNoGo.lean:246,CoherentLift.lean:371,CoherentLift.lean:392,CoherentLift.lean:433,OrientationSelection.lean:139,OrientationSelection.lean:118,OrientationSelection.lean:207,OrientationSelection.lean:228,OrientationSelection.lean:239,OrientationClosure.lean:249	sig=ShellAssignment.ShellRepresentationConsistency	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I2.38
+C3 I3.12	INCOMPLETE-RECORDED	decls=CompositeDimension.lean:838,CompositeDimension.lean:848,CompositeDimension.lean:854,CompositeDimension.lean:860	sig=W	missing_in_record=W	missing_in_graph=-	extra=-	ms_links=-
+C3 I3.17	INCOMPLETE-RECORDED	decls=CompositeDimension.lean:1436	sig=W,IsNot,NativeGate	missing_in_record=W	missing_in_graph=-	extra=-	ms_links=I3.8,I3.9
+C3 I3.22	INCOMPLETE-RECORDED	decls=ParityNot.lean:137,ParityNot.lean:128	sig=W,IsNot,GateRel	missing_in_record=W	missing_in_graph=-	extra=-	ms_links=I3.8,I3.23
+C3 I3.28	AGREE-RECORDED	decls=OddChar.lean:287	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I3.37	INCOMPLETE-RECORDED	decls=K1Bridge.lean:128	sig=EffectsOn,PreservesBody,SharpSeed,BoundaryTransitive,SeedOrbitAvailable,W,IsNot,NativeGateOf	missing_in_record=W	missing_in_graph=-	extra=-	ms_links=I3.48,I3.74,I3.73,I3.76,I3.75,I3.8,I3.35
+C3 I3.44	AGREE-RECORDED	decls=K2Guard.lean:143	sig=CandidateCone	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I3.43
+C3 I3.53	AGREE-RECORDED	decls=EffectSpace.lean:762	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I3.78	AGREE-RECORDED	decls=OrbitGeneration.lean:161	sig=ElementaryDrivability	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I3.66
+C3 I3.83	AGREE-RECORDED	decls=OrbitNormalization.lean:667	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I3.90	INCOMPLETE-RECORDED	decls=TransitiveBody.lean:290	sig=PreservesBody,BoundaryTransitive,IsBoundaryState	missing_in_record=IsBoundaryState	missing_in_graph=-	extra=-	ms_links=I3.74,I3.76
+C3 I3.105	DISAGREE	decls=CompletionAction.lean:352	sig=DirectedStages,CompletionChart,OpDatum,AffineRespect,Undoes	missing_in_record=DirectedStages	missing_in_graph=-	extra=I3.103	ms_links=I3.99,I3.101,I3.102
+C3 I3.122	AGREE-RECORDED	decls=CompositeInterface.lean:926	sig=ProductData,PreComposite,Composite	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I3.114,I3.115,I3.116,I3.118
+C3 I4.5	INCOMPLETE-RECORDED	decls=ReferenceExtension.lean:474	sig=FiniteOperationalTheory,HasParallelReferenceExtension	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=I4.3
+C3 I4.19	INCOMPLETE-RECORDED	decls=SpectatorBridge.lean:411	sig=FiniteOperationalTheory,HCompRealized	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=I4.18
+C3 I4.40	AGREE-RECORDED	decls=ImplementationLocality.lean:1023	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I4.59	AGREE-RECORDED	decls=LiftAudit.lean:200	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I4.83	INCOMPLETE-RECORDED	decls=CompletedOI.lean:131	sig=FiniteOperationalTheory	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=-
+C3 I4.101	INCOMPLETE-RECORDED	decls=CarrierGeneralOIPlus.lean:148	sig=FiniteOperationalTheory,WellFormed,HasCompositeUnitaryControl	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=I4.73,I4.67
+C3 I4.122	INCOMPLETE-RECORDED	decls=MinimalRepertoire.lean:578	sig=FiniteOperationalTheory	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=-
+C3 I4.142	AGREE-RECORDED	decls=PositiveReachability.lean:996	sig=HControl	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=I4.243
+C3 I4.160	INCOMPLETE-RECORDED	decls=DerivedQ3.lean:214	sig=FiniteOperationalTheory,DerivedOI,LayerFlowExecutable	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=I4.56
+C3 I4.173	INCOMPLETE-RECORDED	decls=C5Discovery.lean:81	sig=FiniteOperationalTheory,KillBattery	missing_in_record=FiniteOperationalTheory	missing_in_graph=-	extra=-	ms_links=-
+C3 I4.192	AGREE-RECORDED	decls=TypedCompletion.lean:940	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 I4.212	AGREE-RECORDED	decls=JordanClassification.lean:1109	sig=-	missing_in_record=-	missing_in_graph=-	extra=-	ms_links=-
+C3 tally: AGREE-RECORDED=19 DISAGREE=4 INCOMPLETE-RECORDED=21; per inventory: I1=10 I2=10 I3=12 I4=12
+CC3 I1.27: removing the target of RootedRealization gives DISAGREE
+C0 PASS
+C1 PASS
+C2 FAIL
+C3 FAIL
+CC1 BEHAVES
+CC2 BEHAVES
+CC3 BEHAVES

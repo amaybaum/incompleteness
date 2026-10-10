@@ -1,0 +1,6 @@
+countercontrol x = y = P_0 (GHZ): PT_Q(M) PSD = True
+(a) generator pairs: 1296, failing: 0 []
+(a) random filter images: 96 trials, failing: 0 []
+(b) K4 split 0 (twin links)  minimum 0
+(b) K4 split 1 (twin links)  minimum 0
+(b) ring                     minimum 0

@@ -1,0 +1,7 @@
+LAYERS L2: 429 runs; sha256 fcf1df29cba521add3540cf7e17f83893da6ed29d157a37a95c4e1b2ed27efd3
+G L2 linear: G2 143/143, G3norm 143/143, G3idle 143/143
+G L2 nonlinear: G2 143/143, G3norm 143/143, G3idle 143/143
+G L2 majority: G2 143/143, G3norm 143/143, G3idle 143/143
+CC L2 linear {'rule': 'linear', 'kappa': [[1, 3], [0, 2]], 'G2': True, 'G3norm': True, 'G3idle': True}
+CC L2 nonlinear {'rule': 'nonlinear', 'kappa': [[1, 3], [0, 2]], 'G2': False, 'G3norm': True, 'G3idle': True}
+CC L2 majority {'rule': 'majority', 'kappa': [[1, 3], [0, 2]], 'G2': False, 'G3norm': True, 'G3idle': True}

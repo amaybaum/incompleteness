@@ -1,0 +1,14 @@
+== W0 the maps
+CONFIRMED W0 all listed maps are rational rotations; R1 has order 3; Rx(pi/2), R_n(pi/2) are quarter turns -- R1 = [[8/9, 1/9, 4/9], [4/9, -4/9, -7/9], [1/9, 8/9, -4/9]]
+== W1 K(Z_F) invariances
+CONFIRMED W1 K(Z_F): both NOTs, rot3(pi), the phase flips and SWAP permute the defects (invariant); Q3 control: PSD preserved, defect images not PSD -- {'actC nflip': True, 'actT nflip': True, 'actC rot3pi': True, 'Ad(Z x I)': True, 'Ad(I x Z)': True, 'SWAP': True}
+== W2 K(Z_F) leaves itself under the J/flow maps, witness -1/2
+CONFIRMED W2 K(Z_F): actC cyc3, actT cyc3, actC Rx(pi/2), actC R_n(pi/2) move a defect out; witness = image of its own eigenstate, pairing -1/2 -- {'actC cyc3': -1/2, 'actT cyc3': -1/2, 'actC Rx90': -1/2, 'actC Rn90': -1/2}
+== W3 K(Z_F) under R1: witness search
+CONFIRMED W3 K(Z_F): actC R1 moves a defect out of K(Z_F) (a witness in K pairs < 0 with the image) -- best candidate value -7/18 at (0, 8) (R6/AUDIT-Y R7 with their witnesses: -2383/5316); candidates 48
+== W4 K(E0) leaves itself under every listed map
+CONFIRMED W4 K(E0): every listed one-token map and SWAP move E0 out (a pure state of Q3 n E0* pairs < 0 with the image); SWAP value -5/13 -- {'actC nflip': -1, 'actT nflip': -1, 'actC rot3pi': -1, 'actC cyc3': -1, 'actT cyc3': -1, 'actC Rx90': -1, 'actC Rn90': -2/5, 'actC R1': -7/9, 'SWAP': -5/13}
+== W5 the weakest forms
+CONFIRMED W5 K(Z_F) violates (b) for {flow about x, J} and for {flow about x, phase flow about z} on the control token (the flow alone suffices), and satisfies the NOT-only, phase-only and SWAP forms
+SUMMARY 6/6 CONFIRMED
+PREAUDIT-T6-FIXED

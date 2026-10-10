@@ -1,0 +1,26 @@
+== S0 transcription
+PASS S0.tables  [source] sgn, pc, pt, phiW, idW, chainW transcribed from the base
+
+== S1 instances of D_K (R1)
+PASS A4.1  [sample] R1: K = Q3, 13 certified normalized members: label values in [0,1], unit 1, read-out exact
+PASS A4.2  [sample] R1: K = maxCone, idW (pairVal a b idW = a.b) and two mixtures: label values in [0,1], unit 1, read-out exact
+PASS A4.3  [sample] R1: K = K_gen, products, cnot images and a mixture: label values in [0,1], unit 1, read-out exact
+PASS C1  [countercontrol] countercontrol: chainW (outside maxCone) has a negative label value on the same list -- minimum -1/2
+NOTE [written] A4.W1  -- the general construction (written, W-A4.2): for a closed K that contains the products, lies in maxCone and is a convex cone, its normalized slice S is compact (landed design lemma abs_le_one_of_maxCone bounds it, closedness of K closes it) and convex; take a countable dense Q in S; stage n has preparations q_1..q_n and the product labels of finitely many effects including the four basis effects; values lie in [0,1] because S lies in the normalized maxCone (as R1 checks on instances). The completion body is Psi(cl conv Q) = Psi(S) (Psi is an injective linear map out of a finite-dimensional space, hence a closed embedding), so the system has finite rank, its read-out image is S, and the cone over S is K.
+
+== S2 the padded system D_pad (R2)
+PASS A4.4  [enumerate] R2(a): the padded stage is valid (values in [0,1], unit 1) -- 8 preparations
+PASS A4.5  [witness] R2(b): (q, 0) and (q, 1) agree on every product label and differ on the joint label: local tomography fails
+PASS A4.6  [witness] R2(c): rank of the padded value vectors = rank on product labels + 1 (finite rank) -- ranks 5 and 4
+PASS A4.7  [enumerate] R2(d): the read-out of each padded preparation is its product table
+PASS C2  [countercontrol] countercontrol: with the joint label removed the two preparations of A4.5 have equal value vectors
+NOTE [written] A4.W2  -- D_pad (with a dense set of product preparations in place of the four listed) has a completed body of finite rank whose read-out image is the normalized slice of SEP, which is compact: the shadow is closed. Local tomography fails (A4.5). So the closedness argument W-A3.1 (finite rank and a continuous read-out) does not use local tomography; local tomography is used only where the read-out is required to be injective, i.e. where the completed state space itself is identified with a subset of W 3.
+
+== S3 the landed I1 identity (R3)
+PASS A4.8  [identity] R3: on w with w_00 = 1 the four product-effect values of e, 1-e and f, 1-f sum to 1 (landed probe I1)
+PASS C3  [countercontrol] countercontrol: without w_00 = 1 the sum is w_00 (landed probe X4)
+NOTE [written] A4.W3  -- with the landed result note Q2 (I1W): the normalized slice of K_cl is convex, contains the products, lies in maxCone, so (A4.8) every product of effects takes values in [0,1] on it; with the coordinate-model data and the lt argument of the landed minComposite/maxComposite (prodEff_eq_of_eff_eq with modelData_ext) it is a COMP-1 Composite, local tomography included, whose body is not closed. So K2 in the form "the pair is a coordinate-model Composite in W 3" does not give hcl.
+
+kinds: countercontrol 3, enumerate 2, identity 1, sample 3, source 1, witness 2
+a4_identification: OK -- 12 checks
+VERDICT A4: on the instances checked, members of the closed admissible cones Q3, maxCone and K_gen are valid preparations of a product-label pair system whose read-out returns them (the exact layer of the converse half of ID <=> hcl); the padded system has finite rank, fails local tomography, and reads out product tables (the closedness argument does not consume local tomography); and the landed I1 identity holds.

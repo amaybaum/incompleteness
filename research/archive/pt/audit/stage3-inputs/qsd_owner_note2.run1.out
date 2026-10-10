@@ -1,0 +1,8 @@
+MISMATCH G1 [witness] a Gaussian-rational v (not an eigenvector) with v^dagger rho(F) v < 0 exists; P_v = v v^dagger / v^dagger v has Gaussian-rational entries -- v^dagger rho(F) v = 186841/705600, eigenvector: False
+MISMATCH G2 [witness] the Pauli table of P_v is rational and ipW(F, P_v) = 4 tr(rho(F) P_v) < 0 exactly: if F were in a self-dual K, P_v would not be -- 186841/377764
+CONFIRMED G3 [witness] P_v is entangled (Schmidt rank 2) and so is CNOT P_v: the missed pure state is neither a product nor a CNOT image of one, as the corridor requires
+CONFIRMED G4 [countercontrol] countercontrol of the owner's point 1 in the other direction: idW passes all 36 axis-product checks and the cube bound; it IS in maxCone (1 + x.y >= 0), so the finite test cannot tell it from a non-member; a non-member such as chainW = cnot idW fails continuous positivity (landed K2Guard) while still satisfying the cube bound -- |chainW entries| <= 1: True
+CONFIRMED G5 [witness] chainW = cnot idW already fails an axis-product check (it is outside maxCone), so the 36-point test is necessary but a finer continuous certificate is needed for membership -- first failure ((-1, 0, 0), (0, 0, -1), -2)
+
+checks: 5, confirmed: 3
+VERDICT MISMATCH

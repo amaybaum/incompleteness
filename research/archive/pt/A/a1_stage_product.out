@@ -1,0 +1,42 @@
+== S0 transcription of the landed tables (base at L, read-only)
+PASS S0.sgn  [source] sgn is -1 exactly at (1, 3) and (2, 2)
+PASS S0.pc  [source] pc table
+PASS S0.pt  [source] pt table
+PASS S0.phiW  [source] phiW = diag(1, 1, -1, 1)
+PASS S0.reflY  [source] reflY = diag(1, -1, 1)
+PASS S0.idW  [source] idW = identity table
+PASS S0.chainW  [source] chainW table
+PASS S0.cnotPS  [source] landed cnot_prodState_mem_maxCone and cnot_prodState_xplus_z3 are present
+
+== S1 the one-ball stages
+PASS A1.0a  [enumerate] the listed points lie in the closed unit ball -- 14 points
+PASS A1.0b  [enumerate] the listed affine functionals are effects of the ball (|a| <= min(a0, 1 - a0)); the first is the unit -- 11 effects
+PASS A1.0c  [enumerate] R1 for every one-ball stage i <= 3 (values in [0,1], unit reads 1)
+
+== S2 the narrow product D1 x D1 (product preparations, product labels, inclusions)
+PASS A1.1  [enumerate] R2(a): every product stage (i, j), i, j <= 3, is valid -- 16 stages
+PASS A1.2  [enumerate] R2(b): inclusions land in the larger stage and compose (comp_E, comp_P), all chains
+PASS A1.3  [enumerate] R2(c): unit_map
+PASS A1.4  [enumerate] R2(d): SC-infinity for every comparable pair of product stages
+PASS C2  [countercontrol] countercontrol: a stage map sending the label (1,0) to (4,0) breaks SC-infinity
+
+== S3 TAB on the narrow product
+PASS A1.5  [enumerate] R3: e(x) f(y) = pairVal(ehom e, ehom f, prodState x y) at every label and preparation of stage (3,3) -- 100 labels x 196 preparations
+PASS A1.6  [identity] R3: pairVal(a, b, prodState x y) = (a.hom x)(b.hom y), symbolic (landed prodEffVal_prodState)
+
+== S4 closing the product stages under the native gate cnot
+PASS A1.7  [enumerate] R4: the cnot images of the product preparations have valid tables at every stage -- 1444 gate images
+PASS A1.8  [identity] R4: cnot . cnot = id on a symbolic table (closure under cnot adds one image per product)
+
+== S5 closing under the N-CLASS gate N = actT reflY . cnot (M_D's N_13)
+PASS A1.9  [witness] R5: N(prodState xplus z3) = idW, N(idW) = chainW, and the sharp pair (-e1, -e3) reads -1/2 on N^2 -- value -1/2
+PASS C5  [countercontrol] countercontrol: on the cnot-orbit of the same product the same label reads >= 0 -- values ['0', '1/4', '0']
+
+== S6 the read-out of tables from product labels, and the rank of the completed body
+PASS A1.10  [witness] R6: the 16 product labels of {unit, (1+x_j)/2} have coefficient rank 16 -- rank 16
+PASS C6  [countercontrol] countercontrol: the labels of {unit, (1+x3)/2, (1-x3)/2} have rank < 16 -- rank 4
+PASS A1.11  [witness] R7: the product-state tables of stage (3,3) span 16 dimensions (affine dimension 15) -- rank 16
+
+kinds: countercontrol 3, enumerate 9, identity 2, source 8, witness 3
+a1_stage_product: OK -- 25 checks
+VERDICT A1: the narrow stage-level product of two one-ball directed systems is a directed system of finite stages with SC-infinity and bi-affine product tables (on the instance checked); closing it under cnot keeps the tables valid; closing it under the N-CLASS gate actT reflY . cnot does not (value -1/2); 16 product labels read out the table; the completed body has finite rank (15).

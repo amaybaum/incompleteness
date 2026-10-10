@@ -1,0 +1,7 @@
+None. The audit of every identifier consumed by the proofs against the Provenance list finds no landed
+declaration outside it: the one hundred and twenty-two theorems consume Mathlib, this round's own shared
+lemmas, and listed declarations of acts 35 and 36 only — `a35_shared_f4_flat`, `a35_shared_half`,
+`a35_shared_norm_of_unit` and `a35_shared_gram_realizable` from act 35's module, and `a36_shared_z_unit`,
+`a36_shared_w_unit`, `a36_shared_div` and `a36_shared_mod` from act 36's, both modules authorized whole.
+No theorem of act 37's module is consumed by a proof; its head and lookup tables are carried verbatim in
+the statements.

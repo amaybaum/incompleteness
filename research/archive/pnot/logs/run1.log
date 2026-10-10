@@ -1,0 +1,700 @@
+2026-10-07T08:34:11.8045311Z 
+2026-10-07T08:34:11.8045718Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8045799Z   [apply] _Hu
+2026-10-07T08:34:11.8045803Z 
+2026-10-07T08:34:11.8046018Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8046292Z warning: OIBridge/DitaTorusLocus.lean:4902:6: Variable name `ditamc` is not explicitly referenced.
+2026-10-07T08:34:11.8046296Z 
+2026-10-07T08:34:11.8046701Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8046846Z   [apply] _ditamc
+2026-10-07T08:34:11.8046849Z 
+2026-10-07T08:34:11.8047053Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8047329Z warning: OIBridge/DitaTorusLocus.lean:4905:6: Variable name `ditamr` is not explicitly referenced.
+2026-10-07T08:34:11.8047334Z 
+2026-10-07T08:34:11.8047734Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8047810Z   [apply] _ditamr
+2026-10-07T08:34:11.8047814Z 
+2026-10-07T08:34:11.8048022Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8048483Z info: OIBridge/DitaTorusLocus.lean:4912:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t3_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:11.8048751Z warning: OIBridge/DitaTorusLocus.lean:4920:6: Variable name `pt` is not explicitly referenced.
+2026-10-07T08:34:11.8048755Z 
+2026-10-07T08:34:11.8049171Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8049254Z   [apply] _pt
+2026-10-07T08:34:11.8049316Z 
+2026-10-07T08:34:11.8049531Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8049802Z warning: OIBridge/DitaTorusLocus.lean:4924:6: Variable name `S` is not explicitly referenced.
+2026-10-07T08:34:11.8049805Z 
+2026-10-07T08:34:11.8050211Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8050338Z   [apply] _S
+2026-10-07T08:34:11.8050343Z 
+2026-10-07T08:34:11.8050557Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8050830Z warning: OIBridge/DitaTorusLocus.lean:4925:6: Variable name `tor` is not explicitly referenced.
+2026-10-07T08:34:11.8050834Z 
+2026-10-07T08:34:11.8051230Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8051316Z   [apply] _tor
+2026-10-07T08:34:11.8051321Z 
+2026-10-07T08:34:11.8051531Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8051795Z warning: OIBridge/DitaTorusLocus.lean:4926:6: Variable name `adj` is not explicitly referenced.
+2026-10-07T08:34:11.8051806Z 
+2026-10-07T08:34:11.8052199Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8052282Z   [apply] _adj
+2026-10-07T08:34:11.8052287Z 
+2026-10-07T08:34:11.8052640Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8053053Z warning: OIBridge/DitaTorusLocus.lean:4927:6: Variable name `μ` is not explicitly referenced.
+2026-10-07T08:34:11.8053057Z 
+2026-10-07T08:34:11.8053464Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8053557Z   [apply] _μ
+2026-10-07T08:34:11.8053564Z 
+2026-10-07T08:34:11.8053766Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8054028Z warning: OIBridge/DitaTorusLocus.lean:4929:6: Variable name `N` is not explicitly referenced.
+2026-10-07T08:34:11.8054031Z 
+2026-10-07T08:34:11.8054432Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8054510Z   [apply] _N
+2026-10-07T08:34:11.8054513Z 
+2026-10-07T08:34:11.8054721Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8055057Z warning: OIBridge/DitaTorusLocus.lean:4934:6: Variable name `Δc` is not explicitly referenced.
+2026-10-07T08:34:11.8055061Z 
+2026-10-07T08:34:11.8055520Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8055623Z   [apply] _Δc
+2026-10-07T08:34:11.8055630Z 
+2026-10-07T08:34:11.8055838Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8056162Z warning: OIBridge/DitaTorusLocus.lean:4935:6: Variable name `Δr` is not explicitly referenced.
+2026-10-07T08:34:11.8056166Z 
+2026-10-07T08:34:11.8056565Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8056671Z   [apply] _Δr
+2026-10-07T08:34:11.8056675Z 
+2026-10-07T08:34:11.8056878Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8057147Z warning: OIBridge/DitaTorusLocus.lean:4938:6: Variable name `dgT` is not explicitly referenced.
+2026-10-07T08:34:11.8057151Z 
+2026-10-07T08:34:11.8057558Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8057634Z   [apply] _dgT
+2026-10-07T08:34:11.8057700Z 
+2026-10-07T08:34:11.8057912Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8058188Z warning: OIBridge/DitaTorusLocus.lean:4942:6: Variable name `dita28` is not explicitly referenced.
+2026-10-07T08:34:11.8058191Z 
+2026-10-07T08:34:11.8058586Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8058721Z   [apply] _dita28
+2026-10-07T08:34:11.8058726Z 
+2026-10-07T08:34:11.8058936Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8059210Z warning: OIBridge/DitaTorusLocus.lean:4945:6: Variable name `dita82` is not explicitly referenced.
+2026-10-07T08:34:11.8059213Z 
+2026-10-07T08:34:11.8059615Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8059699Z   [apply] _dita82
+2026-10-07T08:34:11.8059704Z 
+2026-10-07T08:34:11.8059906Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8060165Z warning: OIBridge/DitaTorusLocus.lean:4952:6: Variable name `P` is not explicitly referenced.
+2026-10-07T08:34:11.8060169Z 
+2026-10-07T08:34:11.8060578Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8060667Z   [apply] _P
+2026-10-07T08:34:11.8060670Z 
+2026-10-07T08:34:11.8060883Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8061207Z warning: OIBridge/DitaTorusLocus.lean:4955:6: Variable name `ditak1` is not explicitly referenced.
+2026-10-07T08:34:11.8061213Z 
+2026-10-07T08:34:11.8061622Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8061701Z   [apply] _ditak1
+2026-10-07T08:34:11.8061705Z 
+2026-10-07T08:34:11.8061917Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8062196Z warning: OIBridge/DitaTorusLocus.lean:4958:6: Variable name `ditak2` is not explicitly referenced.
+2026-10-07T08:34:11.8062199Z 
+2026-10-07T08:34:11.8062728Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8062818Z   [apply] _ditak2
+2026-10-07T08:34:11.8062822Z 
+2026-10-07T08:34:11.8063032Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8063301Z warning: OIBridge/DitaTorusLocus.lean:4961:6: Variable name `ditak3` is not explicitly referenced.
+2026-10-07T08:34:11.8063371Z 
+2026-10-07T08:34:11.8063777Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8063863Z   [apply] _ditak3
+2026-10-07T08:34:11.8063867Z 
+2026-10-07T08:34:11.8064071Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8064338Z warning: OIBridge/DitaTorusLocus.lean:4964:6: Variable name `ditak4` is not explicitly referenced.
+2026-10-07T08:34:11.8064342Z 
+2026-10-07T08:34:11.8064752Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8064837Z   [apply] _ditak4
+2026-10-07T08:34:11.8064844Z 
+2026-10-07T08:34:11.8065048Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8065326Z warning: OIBridge/DitaTorusLocus.lean:4967:6: Variable name `ditae1` is not explicitly referenced.
+2026-10-07T08:34:11.8065331Z 
+2026-10-07T08:34:11.8065733Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8065874Z   [apply] _ditae1
+2026-10-07T08:34:11.8065885Z 
+2026-10-07T08:34:11.8066089Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8066399Z warning: OIBridge/DitaTorusLocus.lean:4970:6: Variable name `ditae2` is not explicitly referenced.
+2026-10-07T08:34:11.8066403Z 
+2026-10-07T08:34:11.8066861Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8066941Z   [apply] _ditae2
+2026-10-07T08:34:11.8066944Z 
+2026-10-07T08:34:11.8067158Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8067430Z warning: OIBridge/DitaTorusLocus.lean:4973:6: Variable name `ditat2` is not explicitly referenced.
+2026-10-07T08:34:11.8067436Z 
+2026-10-07T08:34:11.8067833Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8067920Z   [apply] _ditat2
+2026-10-07T08:34:11.8067924Z 
+2026-10-07T08:34:11.8068132Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8068397Z warning: OIBridge/DitaTorusLocus.lean:4976:6: Variable name `ditat3` is not explicitly referenced.
+2026-10-07T08:34:11.8068401Z 
+2026-10-07T08:34:11.8068799Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8068882Z   [apply] _ditat3
+2026-10-07T08:34:11.8068885Z 
+2026-10-07T08:34:11.8069152Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8069421Z warning: OIBridge/DitaTorusLocus.lean:4978:6: Variable name `Hu` is not explicitly referenced.
+2026-10-07T08:34:11.8069427Z 
+2026-10-07T08:34:11.8069830Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8069908Z   [apply] _Hu
+2026-10-07T08:34:11.8069912Z 
+2026-10-07T08:34:11.8070121Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8070390Z warning: OIBridge/DitaTorusLocus.lean:4988:6: Variable name `ditamr` is not explicitly referenced.
+2026-10-07T08:34:11.8070394Z 
+2026-10-07T08:34:11.8070789Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8070873Z   [apply] _ditamr
+2026-10-07T08:34:11.8070876Z 
+2026-10-07T08:34:11.8071083Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8071535Z info: OIBridge/DitaTorusLocus.lean:4995:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_mc_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:11.8071846Z warning: OIBridge/DitaTorusLocus.lean:5003:6: Variable name `pt` is not explicitly referenced.
+2026-10-07T08:34:11.8071851Z 
+2026-10-07T08:34:11.8072257Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8072530Z   [apply] _pt
+2026-10-07T08:34:11.8072537Z 
+2026-10-07T08:34:11.8072768Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8073032Z warning: OIBridge/DitaTorusLocus.lean:5007:6: Variable name `S` is not explicitly referenced.
+2026-10-07T08:34:11.8073035Z 
+2026-10-07T08:34:11.8073431Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8073511Z   [apply] _S
+2026-10-07T08:34:11.8073514Z 
+2026-10-07T08:34:11.8073721Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8073986Z warning: OIBridge/DitaTorusLocus.lean:5008:6: Variable name `tor` is not explicitly referenced.
+2026-10-07T08:34:11.8074071Z 
+2026-10-07T08:34:11.8074470Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8074552Z   [apply] _tor
+2026-10-07T08:34:11.8074556Z 
+2026-10-07T08:34:11.8074760Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8075115Z warning: OIBridge/DitaTorusLocus.lean:5009:6: Variable name `adj` is not explicitly referenced.
+2026-10-07T08:34:11.8075119Z 
+2026-10-07T08:34:11.8075520Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8075602Z   [apply] _adj
+2026-10-07T08:34:11.8075605Z 
+2026-10-07T08:34:11.8075810Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8076157Z warning: OIBridge/DitaTorusLocus.lean:5010:6: Variable name `μ` is not explicitly referenced.
+2026-10-07T08:34:11.8076164Z 
+2026-10-07T08:34:11.8076563Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8076649Z   [apply] _μ
+2026-10-07T08:34:11.8076653Z 
+2026-10-07T08:34:11.8076861Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8077121Z warning: OIBridge/DitaTorusLocus.lean:5012:6: Variable name `N` is not explicitly referenced.
+2026-10-07T08:34:11.8077125Z 
+2026-10-07T08:34:11.8077580Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8077668Z   [apply] _N
+2026-10-07T08:34:11.8077671Z 
+2026-10-07T08:34:11.8077881Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8078212Z warning: OIBridge/DitaTorusLocus.lean:5017:6: Variable name `Δc` is not explicitly referenced.
+2026-10-07T08:34:11.8078219Z 
+2026-10-07T08:34:11.8078622Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8078726Z   [apply] _Δc
+2026-10-07T08:34:11.8078729Z 
+2026-10-07T08:34:11.8078932Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8079262Z warning: OIBridge/DitaTorusLocus.lean:5018:6: Variable name `Δr` is not explicitly referenced.
+2026-10-07T08:34:11.8079266Z 
+2026-10-07T08:34:11.8079668Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8079764Z   [apply] _Δr
+2026-10-07T08:34:11.8079767Z 
+2026-10-07T08:34:11.8079979Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8080310Z warning: OIBridge/DitaTorusLocus.lean:5021:6: Variable name `dgT` is not explicitly referenced.
+2026-10-07T08:34:11.8080318Z 
+2026-10-07T08:34:11.8080716Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8080798Z   [apply] _dgT
+2026-10-07T08:34:11.8080801Z 
+2026-10-07T08:34:11.8081014Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8081284Z warning: OIBridge/DitaTorusLocus.lean:5025:6: Variable name `dita28` is not explicitly referenced.
+2026-10-07T08:34:11.8081288Z 
+2026-10-07T08:34:11.8081693Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8081778Z   [apply] _dita28
+2026-10-07T08:34:11.8081782Z 
+2026-10-07T08:34:11.8081985Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8082255Z warning: OIBridge/DitaTorusLocus.lean:5028:6: Variable name `dita82` is not explicitly referenced.
+2026-10-07T08:34:11.8082303Z 
+2026-10-07T08:34:11.8083214Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8083306Z   [apply] _dita82
+2026-10-07T08:34:11.8083316Z 
+2026-10-07T08:34:11.8083532Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8083897Z warning: OIBridge/DitaTorusLocus.lean:5035:6: Variable name `P` is not explicitly referenced.
+2026-10-07T08:34:11.8083901Z 
+2026-10-07T08:34:11.8084313Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8084395Z   [apply] _P
+2026-10-07T08:34:11.8084399Z 
+2026-10-07T08:34:11.8084619Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8084899Z warning: OIBridge/DitaTorusLocus.lean:5038:6: Variable name `ditak1` is not explicitly referenced.
+2026-10-07T08:34:11.8084907Z 
+2026-10-07T08:34:11.8085305Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8085392Z   [apply] _ditak1
+2026-10-07T08:34:11.8085396Z 
+2026-10-07T08:34:11.8085607Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8085898Z warning: OIBridge/DitaTorusLocus.lean:5041:6: Variable name `ditak2` is not explicitly referenced.
+2026-10-07T08:34:11.8085902Z 
+2026-10-07T08:34:11.8086363Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8086450Z   [apply] _ditak2
+2026-10-07T08:34:11.8086454Z 
+2026-10-07T08:34:11.8086662Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8086938Z warning: OIBridge/DitaTorusLocus.lean:5044:6: Variable name `ditak3` is not explicitly referenced.
+2026-10-07T08:34:11.8086944Z 
+2026-10-07T08:34:11.8087347Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8087425Z   [apply] _ditak3
+2026-10-07T08:34:11.8087428Z 
+2026-10-07T08:34:11.8087640Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8087912Z warning: OIBridge/DitaTorusLocus.lean:5047:6: Variable name `ditak4` is not explicitly referenced.
+2026-10-07T08:34:11.8087915Z 
+2026-10-07T08:34:11.8088315Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8088398Z   [apply] _ditak4
+2026-10-07T08:34:11.8088458Z 
+2026-10-07T08:34:11.8088676Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8088942Z warning: OIBridge/DitaTorusLocus.lean:5050:6: Variable name `ditae1` is not explicitly referenced.
+2026-10-07T08:34:11.8088948Z 
+2026-10-07T08:34:11.8089350Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8089432Z   [apply] _ditae1
+2026-10-07T08:34:11.8089435Z 
+2026-10-07T08:34:11.8089639Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8089910Z warning: OIBridge/DitaTorusLocus.lean:5053:6: Variable name `ditae2` is not explicitly referenced.
+2026-10-07T08:34:11.8089914Z 
+2026-10-07T08:34:11.8090321Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8090399Z   [apply] _ditae2
+2026-10-07T08:34:11.8090405Z 
+2026-10-07T08:34:11.8090615Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8090893Z warning: OIBridge/DitaTorusLocus.lean:5056:6: Variable name `ditat2` is not explicitly referenced.
+2026-10-07T08:34:11.8090955Z 
+2026-10-07T08:34:11.8091355Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8091436Z   [apply] _ditat2
+2026-10-07T08:34:11.8091439Z 
+2026-10-07T08:34:11.8091648Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8091949Z warning: OIBridge/DitaTorusLocus.lean:5059:6: Variable name `ditat3` is not explicitly referenced.
+2026-10-07T08:34:11.8091959Z 
+2026-10-07T08:34:11.8092498Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8092587Z   [apply] _ditat3
+2026-10-07T08:34:11.8092592Z 
+2026-10-07T08:34:11.8092806Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8093065Z warning: OIBridge/DitaTorusLocus.lean:5061:6: Variable name `Hu` is not explicitly referenced.
+2026-10-07T08:34:11.8093071Z 
+2026-10-07T08:34:11.8093472Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8093551Z   [apply] _Hu
+2026-10-07T08:34:11.8093554Z 
+2026-10-07T08:34:11.8093757Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8094030Z warning: OIBridge/DitaTorusLocus.lean:5068:6: Variable name `ditamc` is not explicitly referenced.
+2026-10-07T08:34:11.8094034Z 
+2026-10-07T08:34:11.8094496Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8094576Z   [apply] _ditamc
+2026-10-07T08:34:11.8094581Z 
+2026-10-07T08:34:11.8094792Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8095250Z info: OIBridge/DitaTorusLocus.lean:5078:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_mr_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:11.8095512Z warning: OIBridge/DitaTorusLocus.lean:5086:6: Variable name `pt` is not explicitly referenced.
+2026-10-07T08:34:11.8095516Z 
+2026-10-07T08:34:11.8095921Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8096002Z   [apply] _pt
+2026-10-07T08:34:11.8096008Z 
+2026-10-07T08:34:11.8096210Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8096472Z warning: OIBridge/DitaTorusLocus.lean:5090:6: Variable name `S` is not explicitly referenced.
+2026-10-07T08:34:11.8096476Z 
+2026-10-07T08:34:11.8096878Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8097012Z   [apply] _S
+2026-10-07T08:34:11.8097016Z 
+2026-10-07T08:34:11.8097226Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8097498Z warning: OIBridge/DitaTorusLocus.lean:5091:6: Variable name `tor` is not explicitly referenced.
+2026-10-07T08:34:11.8097501Z 
+2026-10-07T08:34:11.8097892Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8097975Z   [apply] _tor
+2026-10-07T08:34:11.8097980Z 
+2026-10-07T08:34:11.8098191Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8098453Z warning: OIBridge/DitaTorusLocus.lean:5092:6: Variable name `adj` is not explicitly referenced.
+2026-10-07T08:34:11.8098456Z 
+2026-10-07T08:34:11.8098858Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8098941Z   [apply] _adj
+2026-10-07T08:34:11.8098945Z 
+2026-10-07T08:34:11.8099206Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8099584Z warning: OIBridge/DitaTorusLocus.lean:5093:6: Variable name `μ` is not explicitly referenced.
+2026-10-07T08:34:11.8099588Z 
+2026-10-07T08:34:11.8099988Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8100073Z   [apply] _μ
+2026-10-07T08:34:11.8100141Z 
+2026-10-07T08:34:11.8100348Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8100612Z warning: OIBridge/DitaTorusLocus.lean:5095:6: Variable name `N` is not explicitly referenced.
+2026-10-07T08:34:11.8100616Z 
+2026-10-07T08:34:11.8101015Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8101094Z   [apply] _N
+2026-10-07T08:34:11.8101097Z 
+2026-10-07T08:34:11.8101312Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8101646Z warning: OIBridge/DitaTorusLocus.lean:5100:6: Variable name `Δc` is not explicitly referenced.
+2026-10-07T08:34:11.8101650Z 
+2026-10-07T08:34:11.8102045Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8102146Z   [apply] _Δc
+2026-10-07T08:34:11.8102152Z 
+2026-10-07T08:34:11.8102503Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8102908Z warning: OIBridge/DitaTorusLocus.lean:5101:6: Variable name `Δr` is not explicitly referenced.
+2026-10-07T08:34:11.8102912Z 
+2026-10-07T08:34:11.8103321Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8103428Z   [apply] _Δr
+2026-10-07T08:34:11.8103432Z 
+2026-10-07T08:34:11.8103640Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8103909Z warning: OIBridge/DitaTorusLocus.lean:5104:6: Variable name `dgT` is not explicitly referenced.
+2026-10-07T08:34:11.8103913Z 
+2026-10-07T08:34:11.8104312Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8104389Z   [apply] _dgT
+2026-10-07T08:34:11.8104397Z 
+2026-10-07T08:34:11.8104606Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8104885Z warning: OIBridge/DitaTorusLocus.lean:5111:6: Variable name `dita82` is not explicitly referenced.
+2026-10-07T08:34:11.8104889Z 
+2026-10-07T08:34:11.8105282Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8105429Z   [apply] _dita82
+2026-10-07T08:34:11.8105432Z 
+2026-10-07T08:34:11.8105645Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8105904Z warning: OIBridge/DitaTorusLocus.lean:5118:6: Variable name `P` is not explicitly referenced.
+2026-10-07T08:34:11.8105907Z 
+2026-10-07T08:34:11.8106307Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8106388Z   [apply] _P
+2026-10-07T08:34:11.8106393Z 
+2026-10-07T08:34:11.8106593Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8106860Z warning: OIBridge/DitaTorusLocus.lean:5144:6: Variable name `Hu` is not explicitly referenced.
+2026-10-07T08:34:11.8106863Z 
+2026-10-07T08:34:11.8107262Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8107339Z   [apply] _Hu
+2026-10-07T08:34:11.8107343Z 
+2026-10-07T08:34:11.8107612Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8108058Z info: OIBridge/DitaTorusLocus.lean:5232:0: 'OIBridge.DitaTorusLocus.a40_locus_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:11.8108316Z warning: OIBridge/DitaTorusLocus.lean:5240:6: Variable name `pt` is not explicitly referenced.
+2026-10-07T08:34:11.8108326Z 
+2026-10-07T08:34:11.8108772Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8108858Z   [apply] _pt
+2026-10-07T08:34:11.8108863Z 
+2026-10-07T08:34:11.8109073Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8109331Z warning: OIBridge/DitaTorusLocus.lean:5244:6: Variable name `S` is not explicitly referenced.
+2026-10-07T08:34:11.8109335Z 
+2026-10-07T08:34:11.8109731Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8109811Z   [apply] _S
+2026-10-07T08:34:11.8109814Z 
+2026-10-07T08:34:11.8110014Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8110280Z warning: OIBridge/DitaTorusLocus.lean:5245:6: Variable name `tor` is not explicitly referenced.
+2026-10-07T08:34:11.8110283Z 
+2026-10-07T08:34:11.8110682Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8110761Z   [apply] _tor
+2026-10-07T08:34:11.8110805Z 
+2026-10-07T08:34:11.8111018Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8111284Z warning: OIBridge/DitaTorusLocus.lean:5246:6: Variable name `adj` is not explicitly referenced.
+2026-10-07T08:34:11.8111289Z 
+2026-10-07T08:34:11.8111681Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8111765Z   [apply] _adj
+2026-10-07T08:34:11.8111769Z 
+2026-10-07T08:34:11.8111977Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8112434Z warning: OIBridge/DitaTorusLocus.lean:5247:6: Variable name `μ` is not explicitly referenced.
+2026-10-07T08:34:11.8112438Z 
+2026-10-07T08:34:11.8112843Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8112937Z   [apply] _μ
+2026-10-07T08:34:11.8112941Z 
+2026-10-07T08:34:11.8113146Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8114254Z warning: OIBridge/DitaTorusLocus.lean:5249:6: Variable name `N` is not explicitly referenced.
+2026-10-07T08:34:11.8114258Z 
+2026-10-07T08:34:11.8114658Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8114735Z   [apply] _N
+2026-10-07T08:34:11.8114738Z 
+2026-10-07T08:34:11.8114947Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8115279Z warning: OIBridge/DitaTorusLocus.lean:5254:6: Variable name `Δc` is not explicitly referenced.
+2026-10-07T08:34:11.8115284Z 
+2026-10-07T08:34:11.8115679Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8115780Z   [apply] _Δc
+2026-10-07T08:34:11.8115783Z 
+2026-10-07T08:34:11.8115994Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8116320Z warning: OIBridge/DitaTorusLocus.lean:5255:6: Variable name `Δr` is not explicitly referenced.
+2026-10-07T08:34:11.8116323Z 
+2026-10-07T08:34:11.8116722Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8117262Z   [apply] _Δr
+2026-10-07T08:34:11.8117266Z 
+2026-10-07T08:34:11.8117472Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8117740Z warning: OIBridge/DitaTorusLocus.lean:5258:6: Variable name `dgT` is not explicitly referenced.
+2026-10-07T08:34:11.8117744Z 
+2026-10-07T08:34:11.8118206Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8118284Z   [apply] _dgT
+2026-10-07T08:34:11.8118292Z 
+2026-10-07T08:34:11.8118499Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8118777Z warning: OIBridge/DitaTorusLocus.lean:5265:6: Variable name `dita82` is not explicitly referenced.
+2026-10-07T08:34:11.8118781Z 
+2026-10-07T08:34:11.8119179Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8119259Z   [apply] _dita82
+2026-10-07T08:34:11.8119263Z 
+2026-10-07T08:34:11.8119473Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8119735Z warning: OIBridge/DitaTorusLocus.lean:5272:6: Variable name `P` is not explicitly referenced.
+2026-10-07T08:34:11.8119739Z 
+2026-10-07T08:34:11.8120136Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8120218Z   [apply] _P
+2026-10-07T08:34:11.8120221Z 
+2026-10-07T08:34:11.8120486Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8120749Z warning: OIBridge/DitaTorusLocus.lean:5298:6: Variable name `Hu` is not explicitly referenced.
+2026-10-07T08:34:11.8120753Z 
+2026-10-07T08:34:11.8121151Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8121235Z   [apply] _Hu
+2026-10-07T08:34:11.8121238Z 
+2026-10-07T08:34:11.8121439Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8121701Z warning: OIBridge/DitaTorusLocus.lean:5363:6: Variable name `pt` is not explicitly referenced.
+2026-10-07T08:34:11.8121705Z 
+2026-10-07T08:34:11.8122113Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8122188Z   [apply] _pt
+2026-10-07T08:34:11.8122191Z 
+2026-10-07T08:34:11.8122645Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8123005Z warning: OIBridge/DitaTorusLocus.lean:5367:6: Variable name `S` is not explicitly referenced.
+2026-10-07T08:34:11.8123009Z 
+2026-10-07T08:34:11.8123405Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8123489Z   [apply] _S
+2026-10-07T08:34:11.8123492Z 
+2026-10-07T08:34:11.8123705Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8123968Z warning: OIBridge/DitaTorusLocus.lean:5368:6: Variable name `tor` is not explicitly referenced.
+2026-10-07T08:34:11.8123971Z 
+2026-10-07T08:34:11.8124373Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8124454Z   [apply] _tor
+2026-10-07T08:34:11.8124458Z 
+2026-10-07T08:34:11.8124663Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8124932Z warning: OIBridge/DitaTorusLocus.lean:5369:6: Variable name `adj` is not explicitly referenced.
+2026-10-07T08:34:11.8124935Z 
+2026-10-07T08:34:11.8125333Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8125471Z   [apply] _adj
+2026-10-07T08:34:11.8125475Z 
+2026-10-07T08:34:11.8125685Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8126029Z warning: OIBridge/DitaTorusLocus.lean:5370:6: Variable name `μ` is not explicitly referenced.
+2026-10-07T08:34:11.8126033Z 
+2026-10-07T08:34:11.8126483Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8126581Z   [apply] _μ
+2026-10-07T08:34:11.8126585Z 
+2026-10-07T08:34:11.8126796Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8127052Z warning: OIBridge/DitaTorusLocus.lean:5372:6: Variable name `N` is not explicitly referenced.
+2026-10-07T08:34:11.8127065Z 
+2026-10-07T08:34:11.8127460Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8127545Z   [apply] _N
+2026-10-07T08:34:11.8127548Z 
+2026-10-07T08:34:11.8127758Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8128083Z warning: OIBridge/DitaTorusLocus.lean:5377:6: Variable name `Δc` is not explicitly referenced.
+2026-10-07T08:34:11.8128087Z 
+2026-10-07T08:34:11.8128489Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8128592Z   [apply] _Δc
+2026-10-07T08:34:11.8128596Z 
+2026-10-07T08:34:11.8128860Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8129190Z warning: OIBridge/DitaTorusLocus.lean:5378:6: Variable name `Δr` is not explicitly referenced.
+2026-10-07T08:34:11.8129198Z 
+2026-10-07T08:34:11.8129598Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8129696Z   [apply] _Δr
+2026-10-07T08:34:11.8129699Z 
+2026-10-07T08:34:11.8129908Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8130173Z warning: OIBridge/DitaTorusLocus.lean:5381:6: Variable name `dgT` is not explicitly referenced.
+2026-10-07T08:34:11.8130177Z 
+2026-10-07T08:34:11.8130572Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8130654Z   [apply] _dgT
+2026-10-07T08:34:11.8130657Z 
+2026-10-07T08:34:11.8130866Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8131133Z warning: OIBridge/DitaTorusLocus.lean:5388:6: Variable name `dita82` is not explicitly referenced.
+2026-10-07T08:34:11.8131181Z 
+2026-10-07T08:34:11.8131582Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8131667Z   [apply] _dita82
+2026-10-07T08:34:11.8131670Z 
+2026-10-07T08:34:11.8131873Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8132137Z warning: OIBridge/DitaTorusLocus.lean:5395:6: Variable name `P` is not explicitly referenced.
+2026-10-07T08:34:11.8132141Z 
+2026-10-07T08:34:11.8132681Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8132760Z   [apply] _P
+2026-10-07T08:34:11.8132764Z 
+2026-10-07T08:34:11.8132973Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8133236Z warning: OIBridge/DitaTorusLocus.lean:5421:6: Variable name `Hu` is not explicitly referenced.
+2026-10-07T08:34:11.8133242Z 
+2026-10-07T08:34:11.8133635Z Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+2026-10-07T08:34:11.8133785Z   [apply] _Hu
+2026-10-07T08:34:11.8133788Z 
+2026-10-07T08:34:11.8133996Z Note: This linter can be disabled with `set_option linter.unusedVariables false`
+2026-10-07T08:34:11.8134433Z info: OIBridge/DitaTorusLocus.lean:5512:0: 'OIBridge.DitaTorusLocus.a40_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7621570Z ✖ [3636/3638] Building OIBridge.ParityNot (6.7s)
+2026-10-07T08:34:17.7632927Z trace: .> LEAN_PATH=/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.33.0/bin/lean /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/OIBridge/ParityNot.lean -o /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/ParityNot.olean -i /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/ParityNot.ilean -c /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/ParityNot.c --setup /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/ParityNot.setup.json --json
+2026-10-07T08:34:17.7643128Z error: OIBridge/ParityNot.lean:258:2: ring failed, ring expressions not equal
+2026-10-07T08:34:17.7643786Z N : (Fin 3 → ℝ) →ₗ[ℝ] Fin 3 → ℝ
+2026-10-07T08:34:17.7644136Z u : Fin 3 → ℝ
+2026-10-07T08:34:17.7644444Z hu : ∑ j, u j ^ 2 = 1
+2026-10-07T08:34:17.7644871Z hN : ∀ (x : Fin 3 → ℝ), N x = (2 * ∑ j, u j * x j) • u - x
+2026-10-07T08:34:17.7645286Z hu3 : u 0 ^ 2 + u 1 ^ 2 + u 2 ^ 2 = 1
+2026-10-07T08:34:17.7645709Z ⊢ (((u 0 * if 2 = 0 then u 2 else 0) * 2 -
+2026-10-07T08:34:17.7646346Z                                                   (((u 0 * if 2 = 0 then u 2 else 0) * if 1 = 2 then 1 else 0) *
+2026-10-07T08:34:17.7646906Z                                                       if 2 = 1 then 1 else 0) *
+2026-10-07T08:34:17.7647358Z                                                     2 +
+2026-10-07T08:34:17.7647876Z                                                 ((u 0 * u 1 * if 1 = 2 then 1 else 0) * if 2 = 0 then 1 else 0) * 2 +
+2026-10-07T08:34:17.7648537Z                                               ((u 0 * u 1 * if 2 = 1 then 1 else 0) * if 0 = 2 then 1 else 0) * 2 +
+2026-10-07T08:34:17.7649174Z                                             (((u 0 * if 2 = 1 then u 2 else 0) * if 1 = 2 then 1 else 0) *
+2026-10-07T08:34:17.7649720Z                                                 if 2 = 0 then 1 else 0) *
+2026-10-07T08:34:17.7650156Z                                               2 -
+2026-10-07T08:34:17.7650651Z                                           ((u 0 * if 0 = 2 then u 0 else 0) * if 2 = 0 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7651273Z                                         ((u 0 * if 1 = 2 then u 1 else 0) * if 2 = 0 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7651943Z                                       (u 0 * u 2 * if 2 = 0 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7652672Z                                     (u 0 * u 2 * if 0 = 2 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7653489Z                                   ((u 0 ^ 2 * if 1 = 2 then 1 else 0) * if 2 = 1 then 1 else 0) * 2 +
+2026-10-07T08:34:17.7654623Z                                 (((if 2 = 0 then u 2 else 0) * u 1 * if 2 = 1 then 1 else 0) * if 0 = 2 then 1 else 0) *
+2026-10-07T08:34:17.7655604Z                                   2 -
+2026-10-07T08:34:17.7656292Z                               ((if 2 = 0 then u 2 else 0) * u 2 * if 0 = 2 then 1 else 0) * 2 +
+2026-10-07T08:34:17.7656919Z                             (u 1 * if 2 = 1 then u 2 else 0) * 2 -
+2026-10-07T08:34:17.7657519Z                           (((u 1 * if 2 = 1 then u 2 else 0) * if 2 = 0 then 1 else 0) * if 0 = 2 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7658180Z                         ((u 1 * if 0 = 2 then u 0 else 0) * if 2 = 1 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7658744Z                       ((u 1 * if 1 = 2 then u 1 else 0) * if 2 = 1 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7659245Z                     (u 1 * u 2 * if 1 = 2 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7659676Z                   (u 1 * u 2 * if 2 = 1 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7660159Z                 ((u 1 ^ 2 * if 2 = 0 then 1 else 0) * if 0 = 2 then 1 else 0) * 2 -
+2026-10-07T08:34:17.7660707Z               ((if 2 = 1 then u 2 else 0) * u 2 * if 1 = 2 then 1 else 0) * 2 +
+2026-10-07T08:34:17.7661182Z             (if 0 = 2 then u 0 else 0) * u 2 * 2 +
+2026-10-07T08:34:17.7661680Z           (if 1 = 2 then u 1 else 0) * u 2 * 2 +
+2026-10-07T08:34:17.7662117Z         (if 1 = 2 then 1 else 0) * if 2 = 1 then 1 else 0) +
+2026-10-07T08:34:17.7662790Z       (if 2 = 0 then 1 else 0) * if 0 = 2 then 1 else 0) =
+2026-10-07T08:34:17.7663179Z     0
+2026-10-07T08:34:17.7663610Z error: OIBridge/ParityNot.lean:336:45: linarith failed to find a contradiction
+2026-10-07T08:34:17.7664237Z case «2».h1
+2026-10-07T08:34:17.7664485Z v : HVec 3
+2026-10-07T08:34:17.7664757Z hv : (homMap refl3) v = -v
+2026-10-07T08:34:17.7665079Z h2 : ![1, 1, 1, -1] 2 * v 2 = -v 2
+2026-10-07T08:34:17.7665408Z h0 : v 0 = -v 0
+2026-10-07T08:34:17.7665674Z h1 : v 1 = -v 1
+2026-10-07T08:34:17.7665975Z a✝ : 0 < v 2
+2026-10-07T08:34:17.7666258Z ⊢ False
+2026-10-07T08:34:17.7666489Z failed
+2026-10-07T08:34:17.7666898Z warning: OIBridge/ParityNot.lean:336:24: This simp argument is unused:
+2026-10-07T08:34:17.7667415Z   Pi.single_apply
+2026-10-07T08:34:17.7667590Z 
+2026-10-07T08:34:17.7667733Z Hint: Omit it from the simp argument list.
+2026-10-07T08:34:17.7668110Z   [apply] simp
+2026-10-07T08:34:17.7668274Z 
+2026-10-07T08:34:17.7668568Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-10-07T08:34:17.7669386Z error: OIBridge/ParityNot.lean:350:45: linarith failed to find a contradiction
+2026-10-07T08:34:17.7669957Z case «2».h1
+2026-10-07T08:34:17.7670206Z v : HVec 3
+2026-10-07T08:34:17.7670479Z hv : (homMap negId3) v = v
+2026-10-07T08:34:17.7670797Z h2 : ![1, -1, -1, -1] 2 * v 2 = v 2
+2026-10-07T08:34:17.7671131Z h3 : ![1, -1, -1, -1] 3 * v 3 = v 3
+2026-10-07T08:34:17.7671455Z h1 : -v 1 = v 1
+2026-10-07T08:34:17.7671761Z a✝ : 0 < v 2
+2026-10-07T08:34:17.7672037Z ⊢ False
+2026-10-07T08:34:17.7672275Z failed
+2026-10-07T08:34:17.7672900Z error: OIBridge/ParityNot.lean:350:45: linarith failed to find a contradiction
+2026-10-07T08:34:17.7673478Z case «3».h1
+2026-10-07T08:34:17.7673729Z v : HVec 3
+2026-10-07T08:34:17.7673989Z hv : (homMap negId3) v = v
+2026-10-07T08:34:17.7674302Z h2 : ![1, -1, -1, -1] 2 * v 2 = v 2
+2026-10-07T08:34:17.7674633Z h3 : ![1, -1, -1, -1] 3 * v 3 = v 3
+2026-10-07T08:34:17.7674967Z h1 : -v 1 = v 1
+2026-10-07T08:34:17.7675261Z a✝ : 0 < v 3
+2026-10-07T08:34:17.7675546Z ⊢ False
+2026-10-07T08:34:17.7675779Z failed
+2026-10-07T08:34:17.7676169Z warning: OIBridge/ParityNot.lean:350:24: This simp argument is unused:
+2026-10-07T08:34:17.7676668Z   Pi.single_apply
+2026-10-07T08:34:17.7676934Z 
+2026-10-07T08:34:17.7677083Z Hint: Omit it from the simp argument list.
+2026-10-07T08:34:17.7677448Z   [apply] simp
+2026-10-07T08:34:17.7677607Z 
+2026-10-07T08:34:17.7677894Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-10-07T08:34:17.7678498Z error: OIBridge/ParityNot.lean:386:50: unsolved goals
+2026-10-07T08:34:17.7678994Z h : negId3 = Matrix.toLin' (Matrix.diagonal ![-1, -1, -1])
+2026-10-07T08:34:17.7679562Z ⊢ ![-1, -1, -1] 2 = -1
+2026-10-07T08:34:17.7680000Z warning: OIBridge/ParityNot.lean:475:36: This simp argument is unused:
+2026-10-07T08:34:17.7680491Z   odd3
+2026-10-07T08:34:17.7680629Z 
+2026-10-07T08:34:17.7680779Z Hint: Omit it from the simp argument list.
+2026-10-07T08:34:17.7681354Z   [apply] simp +decide [gJ3_apply, sgate, perm3, prodState_apply, corner_zero, corner_one]
+2026-10-07T08:34:17.7681832Z 
+2026-10-07T08:34:17.7682122Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-10-07T08:34:17.7683836Z error: OIBridge/ParityNot.lean:482:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'Real.instDivInvMonoid', which is 'noncomputable'
+2026-10-07T08:34:17.7684907Z error: OIBridge/ParityNot.lean:484:39: unsolved goals
+2026-10-07T08:34:17.7685437Z ⊢ 9 / 25 + ![0, -(3 / 5), -(4 / 5)] 2 ^ 2 = 1
+2026-10-07T08:34:17.7685868Z error: OIBridge/ParityNot.lean:496:2: unsolved goals
+2026-10-07T08:34:17.7686301Z case «3»
+2026-10-07T08:34:17.7686628Z ⊢ ![0, -(3 / 5), -(4 / 5)] 2 / 2 = -(2 / 5)
+2026-10-07T08:34:17.7687132Z warning: OIBridge/ParityNot.lean:586:38: This simp argument is unused:
+2026-10-07T08:34:17.7687734Z   odd5
+2026-10-07T08:34:17.7687879Z 
+2026-10-07T08:34:17.7688027Z Hint: Omit it from the simp argument list.
+2026-10-07T08:34:17.7688417Z   [apply] simp +decide [c5, z5]
+2026-10-07T08:34:17.7688638Z 
+2026-10-07T08:34:17.7688919Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-10-07T08:34:17.7689597Z warning: OIBridge/ParityNot.lean:610:36: This simp argument is unused:
+2026-10-07T08:34:17.7690090Z   odd5
+2026-10-07T08:34:17.7690231Z 
+2026-10-07T08:34:17.7690373Z Hint: Omit it from the simp argument list.
+2026-10-07T08:34:17.7690964Z   [apply] simp +decide [gJ5_apply, sgate, perm5, prodState_apply, corner_zero, corner_one, z5]
+2026-10-07T08:34:17.7691448Z 
+2026-10-07T08:34:17.7691735Z Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+2026-10-07T08:34:17.7693148Z error: OIBridge/ParityNot.lean:622:4: failed to compile definition, consider marking it as 'noncomputable' because it depends on 'Real.instDivInvMonoid', which is 'noncomputable'
+2026-10-07T08:34:17.7694221Z error: OIBridge/ParityNot.lean:624:39: unsolved goals
+2026-10-07T08:34:17.7694806Z ⊢ ((((if 0 = 2 then 9 / 25 else if 0 = 4 then 16 / 25 else 0) +
+2026-10-07T08:34:17.7695398Z             if 1 = 2 then 9 / 25 else if 1 = 4 then 16 / 25 else 0) +
+2026-10-07T08:34:17.7695815Z           9 / 25 +
+2026-10-07T08:34:17.7696156Z         if 3 = 2 then 9 / 25 else if 3 = 4 then 16 / 25 else 0) +
+2026-10-07T08:34:17.7696588Z       if 4 = 2 then 9 / 25 else 16 / 25) =
+2026-10-07T08:34:17.7696923Z     1
+2026-10-07T08:34:17.7697234Z error: OIBridge/ParityNot.lean:635:2: unsolved goals
+2026-10-07T08:34:17.7697674Z case «1»
+2026-10-07T08:34:17.7698095Z ⊢ (if 0 = 2 then -(3 / 5) else if 0 = 4 then -(4 / 5) else 0) / 2 =
+2026-10-07T08:34:17.7698621Z     if 1 = 3 then -(3 / 10) else if 1 = 5 then -(2 / 5) else 0
+2026-10-07T08:34:17.7699094Z error: OIBridge/ParityNot.lean:637:2: unsolved goals
+2026-10-07T08:34:17.7699524Z case «2»
+2026-10-07T08:34:17.7699936Z ⊢ (if 1 = 2 then -(3 / 5) else if 1 = 4 then -(4 / 5) else 0) / 2 =
+2026-10-07T08:34:17.7700543Z     if ⟨2, ⋯⟩ = 3 then -(3 / 10) else if ⟨2, ⋯⟩ = 5 then -(2 / 5) else 0
+2026-10-07T08:34:17.7701053Z error: OIBridge/ParityNot.lean:639:2: unsolved goals
+2026-10-07T08:34:17.7701480Z case «3»
+2026-10-07T08:34:17.7703957Z ⊢ ¬⟨3, ⋯⟩ = 3 → -(3 / 10) = if ⟨3, ⋯⟩ = 5 then -(2 / 5) else 0
+2026-10-07T08:34:17.7704623Z error: OIBridge/ParityNot.lean:641:2: unsolved goals
+2026-10-07T08:34:17.7705099Z case «4»
+2026-10-07T08:34:17.7705522Z ⊢ (if 3 = 2 then -(3 / 5) else if 3 = 4 then -(4 / 5) else 0) / 2 =
+2026-10-07T08:34:17.7706143Z     if ⟨4, ⋯⟩ = 3 then -(3 / 10) else if ⟨4, ⋯⟩ = 5 then -(2 / 5) else 0
+2026-10-07T08:34:17.7706655Z error: OIBridge/ParityNot.lean:643:2: unsolved goals
+2026-10-07T08:34:17.7707088Z case «5»
+2026-10-07T08:34:17.7707756Z ⊢ (if 4 = 2 then -(3 / 5) else -(4 / 5)) / 2 = if ⟨5, ⋯⟩ = 3 then -(3 / 10) else if ⟨5, ⋯⟩ = 5 then -(2 / 5) else 0
+2026-10-07T08:34:17.7708402Z error: OIBridge/ParityNot.lean:651:2: unsolved goals
+2026-10-07T08:34:17.7708843Z case «1»
+2026-10-07T08:34:17.7709219Z ⊢ (if 0 = 4 then 1 else 0) / 2 = if 1 = 5 then 1 / 2 else 0
+2026-10-07T08:34:17.7709695Z error: OIBridge/ParityNot.lean:653:2: unsolved goals
+2026-10-07T08:34:17.7710129Z case «2»
+2026-10-07T08:34:17.7710521Z ⊢ (if 1 = 4 then 1 else 0) / 2 = if ⟨2, ⋯⟩ = 5 then 1 / 2 else 0
+2026-10-07T08:34:17.7711009Z error: OIBridge/ParityNot.lean:655:2: unsolved goals
+2026-10-07T08:34:17.7711439Z case «3»
+2026-10-07T08:34:17.7711835Z ⊢ (if 2 = 4 then 1 else 0) / 2 = if ⟨3, ⋯⟩ = 5 then 1 / 2 else 0
+2026-10-07T08:34:17.7712538Z error: OIBridge/ParityNot.lean:657:2: unsolved goals
+2026-10-07T08:34:17.7712990Z case «4»
+2026-10-07T08:34:17.7713384Z ⊢ (if 3 = 4 then 1 else 0) / 2 = if ⟨4, ⋯⟩ = 5 then 1 / 2 else 0
+2026-10-07T08:34:17.7713871Z error: OIBridge/ParityNot.lean:659:2: unsolved goals
+2026-10-07T08:34:17.7714307Z case «5»
+2026-10-07T08:34:17.7714575Z ⊢ ⟨5, ⋯⟩ = 5
+2026-10-07T08:34:17.7715453Z info: OIBridge/ParityNot.lean:689:0: 'OIBridge.ParityNot.finrank_plus_eq_finrank_minus_rel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7716780Z info: OIBridge/ParityNot.lean:690:0: 'OIBridge.ParityNot.not_even_of_gateRel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7718069Z info: OIBridge/ParityNot.lean:691:0: 'OIBridge.ParityNot.finrank_plus_minus_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7719352Z info: OIBridge/ParityNot.lean:692:0: 'OIBridge.ParityNot.tangentPlus_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7720598Z info: OIBridge/ParityNot.lean:693:0: 'OIBridge.ParityNot.piRotation_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7721848Z info: OIBridge/ParityNot.lean:694:0: 'OIBridge.ParityNot.det_three' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7723432Z info: OIBridge/ParityNot.lean:695:0: 'OIBridge.ParityNot.piRotation_of_nativeGate_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7724806Z info: OIBridge/ParityNot.lean:696:0: 'OIBridge.ParityNot.det_of_nativeGate_three' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7726243Z info: OIBridge/ParityNot.lean:697:0: 'OIBridge.ParityNot.not_gateRel_refl3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7727551Z info: OIBridge/ParityNot.lean:698:0: 'OIBridge.ParityNot.not_gateRel_negId3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7728783Z info: OIBridge/ParityNot.lean:699:0: 'OIBridge.ParityNot.det_refl3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7729983Z info: OIBridge/ParityNot.lean:700:0: 'OIBridge.ParityNot.det_negId3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7731196Z info: OIBridge/ParityNot.lean:701:0: 'OIBridge.ParityNot.gateRel_cnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7732934Z info: OIBridge/ParityNot.lean:702:0: 'OIBridge.ParityNot.det_nflip_rel' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7734159Z info: OIBridge/ParityNot.lean:703:0: 'OIBridge.ParityNot.gJ3_frame' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7735443Z info: OIBridge/ParityNot.lean:704:0: 'OIBridge.ParityNot.gateRel_gJ3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7736645Z info: OIBridge/ParityNot.lean:705:0: 'OIBridge.ParityNot.gJ3_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7737970Z info: OIBridge/ParityNot.lean:706:0: 'OIBridge.ParityNot.not_posFwd_gJ3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7739185Z info: OIBridge/ParityNot.lean:707:0: 'OIBridge.ParityNot.isNot_n5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7740431Z info: OIBridge/ParityNot.lean:708:0: 'OIBridge.ParityNot.gJ5_frame' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7741436Z info: OIBridge/ParityNot.lean:709:0: 'OIBridge.ParityNot.gateRel_gJ5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7742735Z info: OIBridge/ParityNot.lean:710:0: 'OIBridge.ParityNot.finrank_plus_eq_finrank_minus_n5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7743717Z info: OIBridge/ParityNot.lean:711:0: 'OIBridge.ParityNot.gJ5_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7744630Z info: OIBridge/ParityNot.lean:712:0: 'OIBridge.ParityNot.not_posFwd_gJ5' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-07T08:34:17.7745245Z error: Lean exited with code 1
+2026-10-07T08:34:17.7745516Z Some required targets logged failures:
+2026-10-07T08:34:17.7745790Z - OIBridge.ParityNot
+2026-10-07T08:34:17.7746137Z error: build failed
+2026-10-07T08:34:17.8171978Z ##[error]Process completed with exit code 1.
+2026-10-07T08:34:17.8339768Z Post job cleanup.
+2026-10-07T08:34:17.9230938Z [command]/usr/bin/git version
+2026-10-07T08:34:17.9275285Z git version 2.55.0
+2026-10-07T08:34:17.9314920Z Temporarily overriding HOME='/home/runner/work/_temp/d7b67e17-8ec4-4346-910a-0121d312946a' before making global git config changes
+2026-10-07T08:34:17.9316376Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-07T08:34:17.9320247Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-10-07T08:34:18.0024824Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-07T08:34:18.0105860Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-07T08:34:18.0430821Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-07T08:34:18.0464605Z http.https://github.com/.extraheader
+2026-10-07T08:34:18.0476488Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-07T08:34:18.0514635Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-07T08:34:18.0770395Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-07T08:34:18.0840300Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-07T08:34:18.1244404Z Cleaning up orphan processes
+2026-10-07T08:34:18.1551645Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

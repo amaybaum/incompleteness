@@ -1,0 +1,21 @@
+PASS K0.pc/pt transcription
+PASS K0.cnot involution
+PASS K0.cnot pxz = phiW
+PASS K1.distinguishing product effect: v0 != v1  [v0=1, v1=1/4]
+PASS K1.every clock table (p or cnot p) has all axis product values in [0,1]
+INFO clock protocol ranks at L = 8,16,32,48,64: [8, 16, 32, 48, 64]
+PASS K1.clock ranks strictly increasing
+PASS K1.sigma run lengths are 1,3,5,... (first 15 runs, exact)  [[1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29]]
+PASS K1.LT failure: equal tables at n=0,2 and a separating test N^m  [m=1]
+PASS countercontrol K1.periodic clock rank grows from L=16 to L=64 fails as required  [ranks [4, 4]]
+INFO compact model: product rank 16
+PASS K2.rank = product rank + L for L = 4, 8, 16
+PASS K2.sup-distance prepVec(q_J) to prepVec(E00) = 2^-(J+1)
+PASS K2.all values in [0,1]
+PASS countercontrol K2.rank without reveal labels exceeds the product rank fails as required
+PASS K3.LT model: generated label matrix rank <= 16  [rank 16]
+PASS K3.register model: 16 < rank <= 32 (finite rank, not LT)  [rank 22]
+SUMMARY checks passed=15 all_ok=True
+VERDICT CLOCK: a reversible gate with the certified product action, test generation and valid tables, but of infinite order, gives protocol ranks [8, 16, 32, 48, 64] (strictly increasing); with the written pigeonhole step (finite Hankel rank => eventually periodic sigma) the pair completion has infinite rank, and it is not LT
+VERDICT COMPACT: a compact completion of infinite rank exists (exact finite sections); compactness does not give finite rank (it suffices for closedness of the read-out cone, written)
+VERDICT GROUP: finite operation group => finite rank (register model rank 22, not LT); LT => rank <= 16 (involutive model rank 16)

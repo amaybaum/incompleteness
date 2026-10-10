@@ -1,0 +1,16 @@
+S3 COMP-CONS stage-2 launch 2 start marker
+written: 2026-10-10T07:26:30Z (first file written in pt/S3/)
+S3 directory state before this write: empty (ls -la showed only . and ..)
+
+Start integrity (all run from pt/):
+  sha256sum -c --quiet inputs.manifest.sha256   -> rc=0 (OK)
+  sha256sum -c --quiet stage1.manifest.sha256   -> rc=0 (OK)
+  sha256sum -c --quiet inputs2.manifest.sha256  -> rc=0 (OK)
+  git -C base rev-parse HEAD -> 9f9f8257a980a1819fbbc1dc0019917cf8678626 (= L)
+  git -C base status --porcelain -> empty
+  protocol hashes (computed == recorded):
+    PROTOCOL.md              239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23
+    PROTOCOL-AMENDMENT-1.md  b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83
+    PROTOCOL-AMENDMENT-2.md  2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a
+    PROTOCOL-STAGE2.md       386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da
+STATUS: START INTEGRITY GREEN

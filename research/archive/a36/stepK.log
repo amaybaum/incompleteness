@@ -1,0 +1,26 @@
+== SIG (certified point) Hadamard: True
+   column-Diţă 2x8: admissible column 8-blocks 6 | orientations 3 | exact factorizations 3 []
+   row-Diţă 2x8: admissible column 8-blocks 6 | orientations 3 | exact factorizations 3 []
+   column-Diţă 8x2: admissible column 2-blocks 24 | orientations 3 | exact factorizations 2 [(False, True, True)]
+   row-Diţă 8x2: admissible column 2-blocks 24 | orientations 3 | exact factorizations 2 [(False, True, True)]
+   column-Diţă 4x4: admissible column 4-blocks 20 | orientations 5 | exact factorizations 4 [(False, True, True)]
+   row-Diţă 4x4: admissible column 4-blocks 20 | orientations 5 | exact factorizations 4 [(False, True, True)]
+   (57s)
+== P (near point, u=(60+i)/(60-i)) Hadamard: True
+   column-Diţă 2x8: admissible column 8-blocks 2 | orientations 1 | exact factorizations 1 []
+   row-Diţă 2x8: admissible column 8-blocks 2 | orientations 1 | exact factorizations 1 []
+   column-Diţă 8x2: admissible column 2-blocks 16 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   row-Diţă 8x2: admissible column 2-blocks 16 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   column-Diţă 4x4: admissible column 4-blocks 8 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   row-Diţă 4x4: admissible column 4-blocks 8 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   (125s)
+== P_1 (u=(3+4i)/5) Hadamard: True
+   column-Diţă 2x8: admissible column 8-blocks 2 | orientations 1 | exact factorizations 1 []
+   row-Diţă 2x8: admissible column 8-blocks 2 | orientations 1 | exact factorizations 1 []
+   column-Diţă 8x2: admissible column 2-blocks 16 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   row-Diţă 8x2: admissible column 2-blocks 16 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   column-Diţă 4x4: admissible column 4-blocks 8 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   row-Diţă 4x4: admissible column 4-blocks 8 | orientations 1 | exact factorizations 0 [(False, True, True)]
+   (182s)
+4x4 pattern M in the even-even blocks; rank(G4 + ex) = 8, rank(G4 + ex + M) = 8 -> M is gauge + circle direction: True
+done (182s)

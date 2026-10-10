@@ -1,0 +1,13 @@
+PASS D2 b=0 value identity (f(x)g)(G(u(x)|b>) + X(x)w) = 1 + s az cz + ax (g.w)
+PASS D2 b=0, c_x sign +1: the effect choice makes the constant part sin(p)^2
+PASS D2 b=0, c_x sign -1: the effect choice makes the constant part sin(p)^2
+PASS D2 b=1 value identity (f(x)g)(G(u(x)|b>) + X(x)w) = 1 + s az cz + ax (g.w)
+PASS D2 b=1, c_x sign +1: the effect choice makes the constant part sin(p)^2
+PASS D2 b=1, c_x sign -1: the effect choice makes the constant part sin(p)^2
+PASS D1 ker(<0|) cap ker(<1|) on the disc is span{X}
+PASS D1 control (ball): ker(<0|) cap ker(<1|) is 2-dimensional (span{X, Y})
+PASS C complex CNOT: Y_b = XX - (-1)^b YY (in span{X,Y}(x)R^4) and the two are independent
+PASS C measure-and-flip: Y_b = 0 for both b (singular, consistent with D3)
+PASS witness routine: a violated (product state, product effect) pair found for 40/40 random invertible G
+
+SUMMARY: 11 PASS, 0 FAIL

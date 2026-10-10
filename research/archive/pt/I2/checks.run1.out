@@ -1,0 +1,9 @@
+Q: fragments checked 233, mismatches 3
+Q-MISMATCH inventory:353 verification/lean-mathlib/OIBridge/Equivalence.lean:153 «visible prior × hidden prior`. That STRONGER form — a hidden prior independent o»
+Q-MISMATCH inventory:766 verification/ROADMAP.md:966 «the propagation/Laplacian geometry rather than on shortest-path counts. Bell-inc»
+Q-MISMATCH inventory:773 verification/ROADMAP.md:940 «continuum and quasilocal infrastructure — including region limits, continuum-sou»
+Q-neg countercontrol (altered fragment must not match): behaves
+X: records 104 (max id 104), references 104, dangling none, duplicates none, gaps none
+B: I2 modules scanned 32, pair-cone hits 0 
+B-neg countercontrol (CompositeDimension.lean must hit): 247 hits -> behaves
+VERDICT Q FAIL; X PASS; B PASS

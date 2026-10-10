@@ -1,0 +1,65 @@
+CHECK D0a cnot=Ad(CNOT)          PASS 16/16 basis tables, control first
+CHECK D0b R(U_J)=cyc3            PASS x->y->z->x
+CHECK D0b R(X)=nflip             PASS nflip = R_x(pi)
+CHECK D0c actC/actT=Ad           PASS U in {X, Z, U_J, U_x90}, 16 basis tables each
+CHECK D0d actT reflY=pT_B        PASS target partial transpose
+CHECK D0e transposeW=T           PASS global transpose
+CHECK D1a cnot invol/orth/sym    PASS signed permutation, symmetric
+CHECK D1b relT,relC nflip        PASS [K] cnot_relT :854, cnot_relC :860
+CHECK D1c cc relT,relC reflY     PASS countercontrol: both relations fail for reflY
+CHECK D1d frame                  PASS 
+CHECK D1e IsNot nflip            PASS 
+CHECK D1f entangling             PASS cnot(prodState xplus z3) = phiW, rank 4, pure
+CHECK D1g posFwd identity        PASS value = 4 tr(PSD.PSD) on the ball [X via D]; [K] nativeGate_cnot
+CHECK D1h pW(prod)=rho(x)rho     PASS symbolic
+== cone K(E0)
+CHECK C1 H1 K(E0)                PASS SOS identity over the whole ball, each defect
+CHECK C2 cnot Z=Z K(E0)          PASS 
+CHECK C2 record E0 level(ii)     PASS ipW(E0, Ad(Z(x)I)E0) = -1: K(E0) is level (i) only
+CHECK C3 H3 cert K(E0)           PASS one negative eigenvalue -a, others >= a; pairwise orthogonal
+CHECK C4 K!=Q3 K(E0)             PASS defect not PSD; its negative eigenvector T_g lies in Q3 and not in K
+CHECK C5 maxCone K(E0)           PASS pairing with Lorentz a(x)b = a0 b0 x (C1 value at a/a0, b/b0) >= 0
+CHECK C6 slice (0,0) K(E0)       PASS 
+CHECK C7 reflY moves K(E0)       PASS pairing -1; consistent with no_candidateCone_cnot_reflY [K]
+MAP actC rot3(pi)    K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actT nflip       K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actC nflip       K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actC cyc3        K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actT cyc3        K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actC Rx(pi/2)    K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actC R_n(pi/2)   K(E0): WITNESS pairing -1; Q3 control invariant
+MAP actC R1          K(E0): WITNESS pairing -1; Q3 control invariant
+MAP SWAP             K(E0): WITNESS pairing -5/13
+== cone K(Z_F)
+CHECK C1 H1 K(Z_F)               PASS SOS identity over the whole ball, each defect
+CHECK C2 cnot Z=Z K(Z_F)         PASS 
+CHECK C2 level(ii) G16           PASS Ad(Z(x)I), Ad(I(x)Z), transposeW permute Z_F
+CHECK C2 SWAP (iota) Z_F         PASS record: node S1
+CHECK C3 H3 cert K(Z_F)          PASS one negative eigenvalue -a, others >= a; pairwise orthogonal
+CHECK C4 K!=Q3 K(Z_F)            PASS defect not PSD; its negative eigenvector T_g lies in Q3 and not in K
+CHECK C5 maxCone K(Z_F)          PASS pairing with Lorentz a(x)b = a0 b0 x (C1 value at a/a0, b/b0) >= 0
+CHECK C6 slice (0,0) K(Z_F)      PASS 
+CHECK C7 reflY moves K(Z_F)      PASS pairing -1/8; consistent with no_candidateCone_cnot_reflY [K]
+MAP actC rot3(pi)    K(Z_F): permutes Z (invariant)
+MAP actT nflip       K(Z_F): permutes Z (invariant)
+MAP actC nflip       K(Z_F): permutes Z (invariant)
+MAP actC cyc3        K(Z_F): WITNESS pairing -1/2; Q3 control invariant
+MAP actT cyc3        K(Z_F): WITNESS pairing -1/2; Q3 control invariant
+MAP actC Rx(pi/2)    K(Z_F): WITNESS pairing -1/2; Q3 control invariant
+MAP actC R_n(pi/2)   K(Z_F): WITNESS pairing -1/2; Q3 control invariant
+MAP actC R1          K(Z_F): WITNESS pairing -2383/5316; Q3 control invariant
+CHECK C8 data R1                 PASS order 3 about (5,1,1), rational
+CHECK C8 data R_n                PASS quarter turn about (3,0,4)/5
+CHECK C9 FCC fails K(E0)         PASS uniform assignment: min famI value -1
+CHECK C9 FCC fails K(Z_F)        FAIL uniform assignment: min famI value 0
+CHECK C9 control Q3 FCC>=0       PASS instance control: min 0 over 9 x 5184 values
+CHECK C10 SF fails on K(E0)      PASS effect e_P, complement in K; values (1, 1, 0)
+CHECK C10 SF fails on K(Z_F)     PASS effect e_P, complement in K; values (1, 1, 0)
+CHECK C10 SF fails on Q3         PASS effect e_P, complement in K; values (1, 1, 0)
+CHECK CC e_{3/2} fails cert      PASS eigenvalues [-1/2, 1/4, 1]
+CHECK CC nonorth pair fails      PASS ipW = -1
+CHECK CC twin fails H2           PASS idW = actT reflY phiW in twin; cnot idW = chainW; prodEffVal = -1/2 ([K] chain_value :134)
+CHECK CC Q3 not reflY-inv        PASS actT reflY phiW = idW is not PSD (I3.44 holds for Q3)
+CHECK CC Q3 has no defect        PASS E00 is PSD (no negative eigenvalue)
+summary: 57 checks, 1 failed: C9 FCC fails K(Z_F)
+NO VERDICT

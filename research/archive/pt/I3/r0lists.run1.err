@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/I3/r0lists.py", line 37, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/I3/r0lists.py", line 21, in main
+    rows.append((parts[0], parts[1], parts[5].replace("bearing=", "")))
+                                     ~~~~~^^^
+IndexError: list index out of range
+exit 1

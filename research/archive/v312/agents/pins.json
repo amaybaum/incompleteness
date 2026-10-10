@@ -1,0 +1,382 @@
+{
+ "agents": [
+  [
+   "## §A.35 Registry contract for the Lean-to-manuscript census",
+   2933,
+   "required (R7-MSP)",
+   576,
+   576,
+   1
+  ],
+  [
+   "updates the registry in the same commit",
+   2934,
+   "required (R7-MSP)",
+   589,
+   589,
+   1
+  ],
+  [
+   "### Sealing through the manifest, from `SI-2`'s landing",
+   30664,
+   "required (R7-SI2 SI2-7, unflattened)",
+   959,
+   959,
+   1
+  ],
+  [
+   "writes **the round's own manifest record**",
+   30665,
+   "required (R7-SI2 SI2-7)",
+   979,
+   980,
+   1
+  ],
+  [
+   "`sealed_head` = `E` and `merge` = `L`",
+   30666,
+   "required (R7-SI2 SI2-7)",
+   867,
+   867,
+   2
+  ],
+  [
+   "It writes **no legacy constant**",
+   30667,
+   "required (R7-SI2 SI2-7)",
+   982,
+   982,
+   1
+  ],
+  [
+   "How a new `sealed` record is created",
+   30668,
+   "required (R7-SI2 SI2-7)",
+   985,
+   985,
+   1
+  ],
+  [
+   "How a completed non-sealing round's `base-only` record is created",
+   30669,
+   "required (R7-SI2 SI2-7)",
+   996,
+   996,
+   1
+  ],
+  [
+   "**cease to GATE**",
+   30670,
+   "required (R7-SI2 SI2-7; mutation at 30973)",
+   1008,
+   1008,
+   1
+  ],
+  [
+   "has recreated the representation `SI-2` retired",
+   30671,
+   "required (R7-SI2 SI2-7)",
+   1010,
+   1010,
+   1
+  ],
+  [
+   "**PROTECTED HISTORICAL SEAL STATE**",
+   30672,
+   "required (R7-SI2 SI2-7; mutation at 30974)",
+   1011,
+   1011,
+   1
+  ],
+  [
+   "makes the round that does it *sealing*",
+   30673,
+   "required (R7-SI2 SI2-7)",
+   1013,
+   1013,
+   1
+  ],
+  [
+   "**The retirement round is sealing.**",
+   30674,
+   "required (R7-SI2 SI2-7)",
+   1017,
+   1017,
+   1
+  ],
+  [
+   "`sealed_head` = its `E`, `merge` = its `L` — and writes no legacy constant",
+   30675,
+   "required (R7-SI2 SI2-7)",
+   1021,
+   1022,
+   1
+  ],
+  [
+   "governs **rounds begun after `SI-2`'s landing merge**",
+   30676,
+   "required (R7-SI2 SI2-7)",
+   961,
+   961,
+   1
+  ],
+  [
+   "`P` sets the constants it owns to `E` and to `L`",
+   30677,
+   "forbidden (R7-SI2 SI2-7; mutation at 30975)",
+   null,
+   null,
+   0
+  ],
+  [
+   "### The representation retired, from `SI-3`'s landing",
+   31366,
+   "required (R7-SI3 SI3-6, unflattened)",
+   1024,
+   1024,
+   1
+  ],
+  [
+   "**The legacy representation is retired.**",
+   31367,
+   "required (R7-SI3 SI3-6; mutation at 31690)",
+   1029,
+   1029,
+   1
+  ],
+  [
+   "**zero legacy assignment statements in the file**",
+   31368,
+   "required (R7-SI3 SI3-6)",
+   1036,
+   1036,
+   1
+  ],
+  [
+   "has recreated the representation that was retired",
+   31369,
+   "required (R7-SI3 SI3-6)",
+   1036,
+   1037,
+   1
+  ],
+  [
+   "**manifest accessor**",
+   31370,
+   "required (R7-SI3 SI3-6)",
+   1038,
+   1038,
+   1
+  ],
+  [
+   "**prospective declaration**",
+   31371,
+   "required (R7-SI3 SI3-6)",
+   1044,
+   1044,
+   1
+  ],
+  [
+   "**`P` removes the entry when it writes the record**",
+   31372,
+   "required (R7-SI3 SI3-6)",
+   1048,
+   1048,
+   1
+  ],
+  [
+   "**declared baseline**",
+   31373,
+   "required (R7-SI3 SI3-6)",
+   1053,
+   1053,
+   1
+  ],
+  [
+   "**A closed round's contracts are read over the records it manifested.**",
+   31374,
+   "required (R7-SI3 SI3-6; mutation at 31691)",
+   1060,
+   1060,
+   1
+  ],
+  [
+   "**The censuses are history.**",
+   31375,
+   "required (R7-SI3 SI3-6)",
+   1068,
+   1068,
+   1
+  ],
+  [
+   "never read as evidence about a later head",
+   31376,
+   "required (R7-SI3 SI3-6)",
+   1071,
+   1071,
+   1
+  ],
+  [
+   "both of which held until `SI-3`'s landing",
+   31377,
+   "required (R7-SI3 SI3-6)",
+   1006,
+   1007,
+   1
+  ],
+  [
+   "remained **PROTECTED HISTORICAL SEAL STATE**",
+   31378,
+   "required (R7-SI3 SI3-6; mutation at 31688)",
+   1011,
+   1011,
+   1
+  ],
+  [
+   "remain **PROTECTED HISTORICAL SEAL STATE**",
+   31379,
+   "forbidden (R7-SI3 SI3-6)",
+   null,
+   null,
+   0
+  ]
+ ],
+ "readme": [
+  [
+   "Guard `R7-INV`",
+   2759,
+   "required (R7-INV, _rd1)",
+   852,
+   852,
+   1
+  ],
+  [
+   "Guard `R7-MIN`",
+   2865,
+   "required (R7-MIN, _rd1)",
+   891,
+   891,
+   1
+  ],
+  [
+   "Guard `R7-A6P`",
+   16410,
+   "required in A6P paragraph (R7-A6P P9); mutation at 16542",
+   2342,
+   2342,
+   1
+  ],
+  [
+   "preregistration blob `e7cb701`, committed alone as `d24dc3c`",
+   16406,
+   "required in A6P paragraph (R7-A6P P9)",
+   2317,
+   2317,
+   1
+  ],
+  [
+   "The substratum A6 covariance propagation (`audits/foundations/",
+   16291,
+   "A6P paragraph start anchor",
+   2316,
+   2316,
+   1
+  ],
+  [
+   "`.github/workflows/verify.yml` runs",
+   16292,
+   "A6P/A6I paragraph END anchor (also 18787)",
+   2641,
+   2641,
+   1
+  ],
+  [
+   "The substratum A6 instantiation round 2 (`programmes/substratum/a6-instantiation/`",
+   18785,
+   "A6I paragraph start anchor",
+   2448,
+   2449,
+   1
+  ],
+  [
+   "preregistration blob `6f991c1`, merged alone by PR #623 as `3e5d6a8`, the mandated execution base",
+   19110,
+   "required in A6I paragraph (R7-A6I I23)",
+   2449,
+   2450,
+   1
+  ],
+  [
+   "Guard `R7-A6I`",
+   19119,
+   "required in A6I paragraph (R7-A6I I23)",
+   2485,
+   2485,
+   1
+  ],
+  [
+   "is a definition round, not a proof round, and is owner-called",
+   19125,
+   "required (R7-A6I I23)",
+   2044,
+   2044,
+   1
+  ],
+  [
+   "Guard `R7-WTS` pins the preregistration blob by content",
+   16947,
+   "required (R7-WTS W24)",
+   2376,
+   2377,
+   1
+  ],
+  [
+   "which is a propagation round of its own",
+   3388,
+   "required (R7-RB1 loop)",
+   919,
+   919,
+   1
+  ],
+  [
+   "owner decision",
+   3777,
+   "required (R7-SUB loop)",
+   1032,
+   1032,
+   6
+  ],
+  [
+   "third preregistered outcome",
+   3777,
+   "required (R7-SUB loop)",
+   1017,
+   1018,
+   1
+  ],
+  [
+   "preregistered at level two",
+   4189,
+   "required (R7-FLOW loop)",
+   1125,
+   1125,
+   1
+  ],
+  [
+   "realization by one protocol",
+   4395,
+   "required (R7-PROP loop)",
+   1183,
+   1183,
+   1
+  ],
+  [
+   "that the preregistered Q3 or Q4 holds as stated",
+   3631,
+   "required (R7-LIFT loop)",
+   989,
+   990,
+   1
+  ]
+ ]
+}

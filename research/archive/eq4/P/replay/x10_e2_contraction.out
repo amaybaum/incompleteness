@@ -1,0 +1,3 @@
+controls: PSD x, y give PSD M: True; without the partial transpose some PSD pair gives non-PSD M: True
+generator pairs: 8464, non-PSD M: 0 []
+random local-filter images (pairs of negative generators): 128 trials, non-PSD M: 0 []

@@ -1,0 +1,6 @@
+[N] level-(ii) orbit surgery: min normalised <y, h> over y, h in K_Z* (feasible starts only)
+[N] a = 1.00: Gram min a^2 - 2 = -1.0000; min <y,h>/|y||h| = -0.0956
+[N] a = 1.25: Gram min a^2 - 2 = -0.4375; min <y,h>/|y||h| = -0.0559
+[N] a = 1.50: Gram min a^2 - 2 = 0.2500; min <y,h>/|y||h| = 0.0588
+[N] a = 1.75: Gram min a^2 - 2 = 1.0625; min <y,h>/|y||h| = -0.0095
+[N] end of exploration (no VERDICT: numerical leads only)

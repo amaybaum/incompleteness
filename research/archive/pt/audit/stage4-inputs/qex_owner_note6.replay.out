@@ -1,0 +1,7 @@
+CONFIRMED N6-1 CNOT = (I(x)P+ + iZ(x)P-)(I(x)P+ - iI(x)P-)
+CONFIRMED N6-2 the first factor has U = I, V = iZ in SU(2): it lies in the connected group
+CONFIRMED N6-3 the discrete factor's sector blocks I and -iI have determinants 1 and -1: not in the connected group under any global phase
+CONFIRMED N6-4 the discrete factor is e^{-i pi/4} . (I + iX)/sqrt2 on the target, a target X-rotation up to a global phase
+CONFIRMED N6-5 its square is I(x)X = I(x)P+ + (-I)(x)P-, which is in the connected group (V = -I in SU(2)): the quotient has order 2
+checks: 5, confirmed: 5
+VERDICT NOTE6-CONFIRMED

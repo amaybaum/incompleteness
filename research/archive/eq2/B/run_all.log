@@ -1,0 +1,9 @@
+b1_native_class exit=0 replay=identical script=03c2417273d6097e output=a9ccaf0ad1130dd0
+b2_orientation exit=0 replay=identical script=1e57511951376075 output=59fa7d710a249895
+b3_compact exit=0 replay=identical script=2f518d420afb64f0 output=8edf936cfa1aa91f
+b4_lie_light exit=0 replay=identical script=b822bc35d0ad6c5a output=abccec56f54ae6a2
+b5_ie1 exit=0 replay=identical script=8063f77658a91c21 output=c4e429f438ce871f
+b6_foils exit=0 replay=identical script=991fe849c955dbff output=a77a43002ec95efa
+b7_certificates exit=0 replay=identical script=50916f3ca8cbf326 output=e3a07ef55ec56439
+eq2b_lib sha256=45a7510e3395279b
+run_all: OK

@@ -1,0 +1,27 @@
+pt/Z/.start_marker — thread Z (COUNTERMODELS), stage 4 (PROTOCOL-STAGE4.md d3da2811...)
+pt/Z/ created empty at (UTC): 2026-10-10T14:24:43Z; this file written first
+start checks:
+check time (UTC, before mkdir): 2026-10-10T14:24:43Z
+manifest inputs: exit 0 output=[]
+manifest stage1: exit 0 output=[]
+manifest inputs2: exit 0 output=[]
+manifest inputs3: exit 0 output=[]
+manifest stage2: exit 0 output=[]
+manifest inputs4: exit 0 output=[]
+manifest audit/stage3-inputs/ns (from its dir): exit 0 output=[]
+base HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626
+base status --porcelain: [] (len 0)
+bytecode under base/: []
+protocol hashes:
+d3da28116a5bcdd32fe8b8418d5bc83003918240ce4b0477d9f714518a717a74  PROTOCOL-STAGE4.md
+1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+4f61891f82a4bfe13a9d0ed74fd064c903c94d57ed8d29bf039633f72b2494e0  audit/stage3-inputs/PROTOCOL-NS.md
+PROTOCOL-NS.sha256 (from its dir): exit 0 output=[]
+sidecars STAGE2/DS/STAGE3 (from pt/): exit 0 output=[]
+sidecar STAGE4 (from scratchpad/): exit 0 output=[]
+sidecars PROTOCOL/AM1/AM2 (absolute paths): exit 0 output=[]

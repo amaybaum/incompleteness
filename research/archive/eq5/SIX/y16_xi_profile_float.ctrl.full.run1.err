@@ -1,0 +1,1 @@
+stopped by hand (TaskStop): the BFGS precision floor (eps ~5e-9) sits above the 1e-10 stopping threshold, so the loop would run its full 400 rounds; brackets at stop: ctrl [2.00000000, 2.00000004], t3 [2.60546427, 2.60546435]; t1.bisep completed (final line present)

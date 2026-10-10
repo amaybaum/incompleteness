@@ -1,0 +1,2 @@
+identifier. The specification is not operative: until a later round activates it, every round is
+governed by `AGENTS.md` §A.37, and no `V1` or `V2` state is changed or migrated by it.

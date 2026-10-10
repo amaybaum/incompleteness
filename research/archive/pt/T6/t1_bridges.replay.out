@@ -1,0 +1,45 @@
+modules: 215 (tree 214 + root)
+P-name W                defined in CompositeDimension
+P-name maxCone          defined in CompositeDimension
+P-name actT             defined in CompositeDimension
+P-name actC             defined in CompositeDimension
+P-name cnot             defined in CompositeDimension
+P-name CandidateCone    defined in K2Guard
+P-name prodState        defined in CompositeDimension
+P-name NativeGate       defined in CompositeDimension
+P-name IsNot            defined in CompositeDimension
+HMG-name FiniteOperationalTheory         defined in OperationalAssembly
+HMG-name HasParallelReferenceExtension   defined in ReferenceExtension
+HMG-name ImplementationLocality          defined in ImplementationLocality
+HMG-name StructurallyClosed              defined in StructuralClosure
+HMG-name ContextStable                   defined in ImplementationLocality
+HMG-name LayerFlowExecutable             defined in LiftAudit
+HMG-name DerivedOI                       defined in RouteB
+HMG-name EmbeddedObservation             defined in EmbeddedObservation
+HMG-name CompletedOI                     defined in CompletedOI
+HMG-name OIPlus                          defined in CarrierGeneralOIPlus, CompletedOI
+HMG-name ObservationalIndependence       defined in CarrierGeneralOIPlus, CompletedOI
+HMG-name substratumClass                 defined in StructuralClosure
+HMG-name RealizesSealedOICore            defined in OIRealization
+HMG-name OICore                          defined in CompletedOI
+HMG-name QuantumArchitecture             defined in SubstratumSource
+HMG-name HasCompositeUnitaryControl      defined in OperationalAssembly
+HMG-name PhysicalCompletionConditions    defined in PhysicalCharacterization
+HMG-name WellFormed                      defined in GeneralCarrier
+HMG-name ShadowQuantum                   defined in TypedCompletion
+HMG-name DrivesElementary                defined in SubstratumSource
+HMG-name PairFlowSourced                 defined in PairFlowEquivalence
+HMG-name InertSpectatorCompositionality  defined in SpectatorBridge
+P-anchors (2): CompositeDimension, K2Guard
+HMG-anchors (16): CarrierGeneralOIPlus, CompletedOI, EmbeddedObservation, GeneralCarrier, ImplementationLocality, LiftAudit, OIRealization, OperationalAssembly, PairFlowEquivalence, PhysicalCharacterization, ReferenceExtension, RouteB, SpectatorBridge, StructuralClosure, SubstratumSource, TypedCompletion
+B1 MEET (1): OIBridge
+B2 ROOT: 65 declarations; with P-token 0; with HMG-token 0; with both 0
+B3 MEET-DECL (modules other than the root): 0 declarations carrying both
+B4 SHARED (17): AntiunitaryInvariance[0], BohrFrequency[0], CoherentExtension[0], CoherentLift[0], CongruentReconstruction[0], ControlledQuotient[0], CycleFibreHull[0], DomainGlue[0], DynamicsGlue[0], EdgeRigidity[0], FrequencyMatching[0], HomometricKill[0], HomometricSix[0], ObservabilityQuotient[0], PassiveQuotient[0], ShellAssignment[0], ThermalOrientation[0]
+B4 closure(CompositeDimension) (26): AntiunitaryInvariance, BohrFrequency, CoherentExtension, CoherentLift, CompletionAction, CompositeDimension, CongruentReconstruction, ControlledQuotient, CycleFibreHull, DomainGlue, DynamicsGlue, EdgeRigidity, FrequencyMatching, HomometricKill, HomometricSix, InvariantInnerProduct, KInfFoundations, NativeGateBall, ObservabilityQuotient, OrbitGeneration, OrbitNormalization, PassiveQuotient, ShellAssignment, StageCompletion, ThermalOrientation, TransitiveBody
+B4 modules importing CompositeDimension transitively (12): DenseOrbit, EffectSpace, K1Bridge, K2Guard, OIBridge, OddChar, ParityNot, RelcSelectBlock, RelcSelectC5, RelcSelectParity, RelcSelectSqueeze, SharpTests
+B5 TEXT co-occurrence lines: 1
+  TEXT verification/ROADMAP.md:68: | **P1** | K — pre-quantum kinematics: from field-neutral operational premises to the complex matrix kinematics the finite characterization assumes | OI→QM / Re
+CC1 synthetic edge EffectSpace -> CarrierGeneralOIPlus: MEET size 12, contains EffectSpace: True
+CC2 synthetic declaration flagged: True
+VERDICT NO-BRIDGE-AT-L: no kernel module other than the root reaches both vocabularies; no root declaration mentions both; 1 manuscript/roadmap co-occurrence lines printed for reading

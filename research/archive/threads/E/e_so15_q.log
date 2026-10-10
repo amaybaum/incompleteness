@@ -1,0 +1,10 @@
+failing SO-class  2: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.4s)
+failing SO-class  3: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.5s)
+failing SO-class  4: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.4s)
+failing SO-class  5: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.5s)
+failing SO-class  8: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.6s)
+failing SO-class  9: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.4s)
+failing SO-class 14: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.2s)
+failing SO-class 15: G orthogonal fixing u(x)u: True; 105 integer brackets, rank over Q = 105; all antisymmetric with zero u(x)u row: True  (2.3s)
+e_so15_q: OK -- dim = 105 = dim so(15) for all 8 failing classes
+time 25s

@@ -1,0 +1,2040 @@
+E3 synthetic heads=['CandidateCone', 'Fin', 'Fintype'] CandidateCone->I3.43 rest=': True'
+#T edges	src	dst	kind	xlevel	supply	note
+G	I1.2	I1.1	R	0	MS	
+G	I1.3	I1.1	R	0	MS	
+G	I1.3	I1.2	R	0	MS	
+G	I1.4	I1.1	R	0	MS	
+G	I1.5	I1.20	R	0	MS	
+G	I1.5	I1.21	R	0	MS	
+G	I1.5	I1.22	R	0	MS	
+G	I1.5	I1.23	R	0	MS	
+G	I1.5	I1.24	R	0	MS	
+G	I1.6	I1.1	R	0	MS	
+G	I1.6	I1.4	R	0	MS	
+G	I1.7	I1.6	R	0	MS	
+G	I1.8	I1.1	R	0	MS	
+G	I1.8	I1.6	R	0	MS	
+G	I1.9	I1.4	R	0	MS	
+G	I1.9	I1.6	R	0	MS	
+G	I1.10	I1.1	R	0	MS	
+G	I1.10	I1.7	R	0	MS	
+G	I1.10	I1.8	R	0	MS	
+G	I1.10	I1.11	R	0	MS	
+G	I1.12	I1.10	R	0	MS	
+G	I1.13	I1.9	R	0	MS	
+G	I1.13	I1.12	R	0	MS	
+G	I1.15	I1.9	R	0	MS	
+G	I1.15	I1.10	R	0	MS	
+G	I1.15	I1.12	R	0	MS	
+G	I1.15	I1.13	R	0	MS	
+G	I1.17	I1.20	R	0	MS	
+G	I1.17	I1.21	R	0	MS	
+G	I1.17	I1.22	R	0	MS	
+G	I1.17	I1.23	R	0	MS	
+G	I1.17	I1.24	R	0	MS	
+G	I1.18	I1.1	R	0	MS	
+G	I1.19	I1.20	R	0	MS	
+G	I1.19	I1.21	R	0	MS	
+G	I1.19	I1.22	R	0	MS	
+G	I1.19	I1.23	R	0	MS	
+G	I1.19	I1.24	R	0	MS	
+G	I1.20	I1.9	R	0	K	
+G	I1.21	I1.9	R	0	MS	
+G	I1.23	I1.8	R	0	K	
+G	I1.24	I1.21	R	0	MS	
+G	I1.24	I1.20	R	0	MS	
+G	I1.25	I1.20	R	0	MS	
+G	I1.25	I1.23	R	0	MS	
+G	I1.25	I1.24	R	0	MS	
+G	I1.26	I1.20	R	0	MS	
+G	I1.26	I1.21	R	0	MS	
+G	I1.26	I1.22	R	0	MS	
+G	I1.26	I1.23	R	0	MS	
+G	I1.26	I1.24	R	0	MS	
+G	I1.27	I1.71	R	0	K	
+G	I1.28	I1.22	R	0	MS	
+G	I1.29	I1.20	R	0	MS	
+G	I1.29	I1.21	R	0	MS	
+G	I1.29	I1.23	R	0	MS	
+G	I1.29	I1.24	R	0	MS	
+G	I1.33	I1.20	R	0	MS	
+G	I1.33	I1.21	R	0	MS	
+G	I1.33	I1.22	R	0	MS	
+G	I1.33	I1.23	R	0	MS	
+G	I1.33	I1.24	R	0	MS	
+G	I1.34	I1.20	R	0	MS	
+G	I1.35	I1.63	R	0	MS	
+G	I1.35	I1.64	R	0	MS	
+G	I1.35	I1.36	R	0	MS	
+G	I1.37	I1.20	R	0	MS	
+G	I1.37	I1.21	R	0	MS	
+G	I1.37	I1.22	R	0	MS	
+G	I1.37	I1.23	R	0	MS	
+G	I1.37	I1.24	R	0	MS	
+G	I1.39	I1.38	R	0	K	
+G	I1.40	I1.38	R	0	K	
+G	I1.41	I1.39	R	0	K	
+G	I1.41	I1.40	R	0	K	
+G	I1.42	I1.38	R	0	K	
+G	I1.42	I1.39	R	0	K	
+G	I1.43	I1.39	R	0	K	
+G	I1.44	I1.43	R	0	K	
+G	I1.45	I1.42	R	1	K	
+G	I1.45	I1.44	R	0	K	
+G	I1.46	I1.45	R	0	K	
+G	I1.47	I1.43	R	0	K	
+G	I1.48	I1.44	R	0	K	
+G	I1.48	I1.47	R	0	K	
+G	I1.50	I1.43	R	0	K	
+G	I1.50	I1.49	R	0	K	
+G	I1.51	I1.50	R	0	K	
+G	I1.52	I1.43	R	0	K	
+G	I1.53	I1.51	R	0	K	
+G	I1.53	I1.52	R	0	K	
+G	I1.54	I1.44	R	0	K	
+G	I1.54	I1.50	R	0	K	
+G	I1.55	I1.38	R	1	K	
+G	I1.55	I1.42	R	1	K	
+G	I1.55	I1.44	R	0	K	
+G	I1.58	I1.57	R	0	K	
+G	I1.59	I1.57	R	0	K	
+G	I1.59	I1.60	R	0	K	
+G	I1.60	I1.43	R	0	K	
+G	I1.60	I1.49	R	0	K	
+G	I1.61	I1.57	R	0	MS	
+G	I1.62	I1.57	R	0	K	
+G	I1.62	I1.61	R	0	K	
+G	I1.64	I1.10	R	0	MS	
+G	I1.69	I1.63	R	0	MS	
+G	I1.69	I1.64	R	0	MS	
+G	I1.69	I1.65	R	0	MS	
+G	I1.69	I1.66	R	0	MS	
+G	I1.69	I1.67	R	0	MS	
+G	I1.69	I1.68	R	0	MS	
+G	I1.72	I1.71	R	0	K	
+G	I1.73	I1.58	R	0	MS	
+G	I1.73	I1.71	R	0	MS	
+G	I1.74	I1.71	R	0	MS	
+G	I1.74	I1.72	R	0	MS	
+G	I1.74	I1.73	R	0	MS	
+G	I1.76	I1.57	R	0	MS	
+G	I1.76	I1.67	R	0	MS	
+G	I1.84	I1.9	R	0	K	
+G	I1.84	I1.10	R	0	K	
+G	I1.85	I1.84	R	0	K	
+G	I1.79	I1.47	R	0	K	
+G	I1.80	I1.43	R	0	K	
+G	I1.81	I1.43	R	0	K	
+G	I1.81	I1.80	R	0	K	
+G	I1.82	I1.43	R	0	K	
+G	I1.83	I1.43	R	0	K	
+G	I2.2	I2.1	R	0	MS	
+G	I2.3	I2.39	R	1	K	
+G	I2.3	I2.12	R	1	K	
+G	I2.3	I2.16	R	1	K	
+G	I2.3	I2.17	R	1	K	
+G	I2.3	I2.29	R	0	K	
+G	I2.3	I2.6	R	1	K	
+G	I2.4	I2.1	R	0	MS	
+G	I2.5	I2.1	R	0	MS	
+G	I2.6	I2.5	R	0	MS	
+G	I2.6	I2.10	R	0	MS	
+G	I2.7	I2.5	R	0	MS	
+G	I2.9	I2.40	R	0	MS	
+G	I2.10	I2.1	R	0	MS	
+G	I2.10	I2.6	R	0	MS	
+G	I2.13	I2.12	R	0	MS	
+G	I2.14	I2.13	R	0	MS	
+G	I2.14	I2.69	R	0	MS	
+G	I2.15	I2.12	R	0	MS	
+G	I2.16	I2.12	R	0	MS	
+G	I2.16	I2.15	R	0	MS	
+G	I2.18	I2.12	R	0	MS	
+G	I2.18	I2.17	R	0	MS	
+G	I2.18	I2.26	R	1	MS	
+G	I2.18	I2.29	R	0	MS	
+G	I2.19	I2.58	R	0	MS	
+G	I2.19	I2.59	R	0	MS	
+G	I2.20	I2.27	R	0	MS	
+G	I2.22	I2.59	R	0	MS	
+G	I2.24	I2.39	R	0	MS	
+G	I2.25	I2.39	R	0	K	
+G	I2.26	I2.38	R	0	K	
+G	I2.27	I2.28	R	0	K	
+G	I2.30	I2.29	R	0	K	
+G	I2.34	I2.33	R	0	K	
+G	I2.35	I2.33	R	0	K	
+G	I2.36	I2.33	R	0	K	
+G	I2.37	I2.36	R	0	K	
+G	I2.41	I2.40	R	0	MS	
+G	I2.41	I2.54	R	0	MS	
+G	I2.41	I2.42	R	1	MS	
+G	I2.42	I2.56	R	0	MS	
+G	I2.43	I2.40	R	1	MS	
+G	I2.43	I2.58	R	0	MS	
+G	I2.45	I2.44	R	0	MS	
+G	I2.46	I2.44	R	0	MS	
+G	I2.46	I2.45	R	0	MS	
+G	I2.47	I2.40	R	0	MS	
+G	I2.47	I2.44	R	0	MS	
+G	I2.50	I2.49	R	0	MS	
+G	I2.51	I2.48	R	0	MS	
+G	I2.52	I2.48	R	0	MS	
+G	I2.56	I2.42	R	0	MS	
+G	I2.59	I2.58	R	0	MS	
+G	I2.60	I2.48	R	1	MS	
+G	I2.60	I2.59	R	0	MS	
+G	I2.61	I2.57	R	0	MS	
+G	I2.62	I2.19	R	0	MS	
+G	I2.62	I2.21	R	0	MS	
+G	I2.62	I2.39	R	0	MS	
+G	I2.62	I2.56	R	0	MS	
+G	I2.62	I2.29	R	0	MS	
+G	I2.63	I2.17	R	0	MS	
+G	I2.63	I2.29	R	0	MS	
+G	I2.63	I2.64	R	1	MS	
+G	I2.64	I2.40	R	0	MS	
+G	I2.65	I2.64	R	0	MS	
+G	I2.66	I2.48	R	0	MS	
+G	I2.67	I2.41	R	0	MS	
+G	I2.68	I2.29	R	1	MS	
+G	I2.68	I2.57	R	0	MS	
+G	I2.69	I2.39	R	0	MS	
+G	I2.69	I2.44	R	0	MS	
+G	I2.69	I2.50	R	0	MS	
+G	I2.69	I2.40	R	0	MS	
+G	I2.69	I2.12	R	0	MS	
+G	I2.69	I2.5	R	0	MS	
+G	I2.72	I2.1	R	0	MS	
+G	I2.72	I2.53	R	0	MS	
+G	I2.73	I2.41	R	1	MS	
+G	I2.74	I2.27	R	1	MS	
+G	I2.75	I2.5	R	1	MS	
+G	I2.75	I2.7	R	0	MS	
+G	I2.78	I2.76	R	0	MS	
+G	I2.80	I2.1	R	0	MS	
+G	I2.84	I2.89	R	0	MS	
+G	I2.85	I2.5	R	0	MS	
+G	I2.85	I2.20	R	0	MS	
+G	I2.87	I2.6	R	0	MS	
+G	I2.87	I2.10	R	0	MS	
+G	I2.87	I2.86	R	0	MS	
+G	I2.88	I2.87	R	0	MS	
+G	I2.88	I2.7	R	0	MS	
+G	I2.89	I2.87	R	0	MS	
+G	I2.90	I2.25	R	0	MS	
+G	I2.92	I2.91	R	0	MS	
+G	I2.94	I2.25	R	0	K	
+G	I2.95	I2.94	R	0	K	
+G	I2.96	I2.95	R	0	K	
+G	I2.97	I2.96	R	0	K	
+G	I2.98	I2.97	R	0	K	
+G	I2.99	I2.98	R	0	K	
+G	I2.100	I2.99	R	0	K	
+G	I2.102	I2.6	R	0	MS	
+G	I2.102	I2.7	R	0	MS	
+G	I2.102	I2.10	R	0	MS	
+G	I2.103	I2.36	R	0	MS	
+G	I2.104	I2.36	R	0	MS	
+G	I2.107	I2.77	R	1	MS	
+G	I2.107	I2.39	R	0	MS	
+G	I2.108	I2.27	R	0	MS	
+G	I2.108	I2.107	R	0	MS	
+G	I2.109	I2.20	R	0	MS	
+G	I2.110	I2.2	R	1	MS	
+G	I2.111	I2.5	R	0	MS	
+G	I2.111	I2.6	R	0	MS	
+G	I2.113	I2.59	R	1	MS	
+G	I3.3	I3.58	R	1	K	
+G	I3.4	I3.3	R	0	K	
+G	I3.5	I3.2	R	0	K	
+G	I3.9	I3.2	R	0	K	
+G	I3.9	I3.3	R	0	K	
+G	I3.9	I3.6	R	0	K	
+G	I3.9	I3.7	R	0	K	
+G	I3.10	I3.4	R	0	K	
+G	I3.10	I3.5	R	0	K	
+G	I3.13	I3.12	R	0	K	
+G	I3.15	I3.8	R	1	K	
+G	I3.15	I3.9	R	0	K	
+G	I3.15	I3.125	R	0	K	
+G	I3.16	I3.8	R	1	K	
+G	I3.16	I3.9	R	0	K	
+G	I3.17	I3.8	R	1	K	
+G	I3.17	I3.9	R	0	K	
+G	I3.18	I3.8	R	1	K	
+G	I3.18	I3.9	R	0	K	
+G	I3.18	I3.1	R	0	K	
+G	I3.19	I3.8	R	1	K	
+G	I3.19	I3.9	R	0	K	
+G	I3.19	I3.10	R	0	K	
+G	I3.21	I3.13	R	0	K	
+G	I3.21	I3.14	R	0	K	
+G	I3.21	I3.15	R	0	K	
+G	I3.21	I3.16	R	0	K	
+G	I3.21	I3.17	R	0	K	
+G	I3.21	I3.18	R	0	K	
+G	I3.21	I3.19	R	0	K	
+G	I3.21	I3.20	R	0	K	
+G	I3.22	I3.8	R	1	K	
+G	I3.22	I3.23	R	0	K	
+G	I3.23	I3.6	R	0	K	
+G	I3.23	I3.7	R	0	K	
+G	I3.24	I3.8	R	0	K	
+G	I3.24	I3.23	R	1	K	
+G	I3.25	I3.24	R	1	K	
+G	I3.27	I3.8	R	1	K	
+G	I3.27	I3.22	R	0	K	
+G	I3.27	I3.23	R	0	K	
+G	I3.29	I3.3	R	0	MS	
+G	I3.29	I3.6	R	0	MS	
+G	I3.29	I3.7	R	0	MS	
+G	I3.30	I3.8	R	1	K	
+G	I3.31	I3.8	R	1	K	
+G	I3.31	I3.29	R	0	K	
+G	I3.31	I3.10	R	0	K	
+G	I3.32	I3.9	R	0	K	
+G	I3.35	I3.49	R	0	K	
+G	I3.35	I3.6	R	0	K	
+G	I3.35	I3.7	R	0	K	
+G	I3.36	I3.49	R	0	MS	
+G	I3.36	I3.5	R	0	MS	
+G	I3.37	I3.48	R	1	K	
+G	I3.37	I3.74	R	1	K	
+G	I3.37	I3.73	R	1	K	
+G	I3.37	I3.76	R	1	K	
+G	I3.37	I3.75	R	1	K	
+G	I3.37	I3.8	R	1	K	
+G	I3.37	I3.35	R	0	K	
+G	I3.37	I3.51	R	0	K	
+G	I3.37	I3.18	R	0	K	
+G	I3.38	I3.37	RA	0	K	
+G	I3.38	I3.48	RA	1	K	inherited from I3.37
+G	I3.38	I3.74	RA	1	K	inherited from I3.37
+G	I3.38	I3.73	RA	1	K	inherited from I3.37
+G	I3.38	I3.76	RA	1	K	inherited from I3.37
+G	I3.38	I3.75	RA	1	K	inherited from I3.37
+G	I3.38	I3.8	RA	1	K	inherited from I3.37
+G	I3.38	I3.35	RA	0	K	inherited from I3.37
+G	I3.38	I3.51	RA	0	K	inherited from I3.37
+G	I3.38	I3.18	RA	0	K	inherited from I3.37
+G	I3.38	I3.36	RA	0	K	
+G	I3.38	I3.49	RA	0	K	inherited from I3.36
+G	I3.38	I3.5	RA	0	K	inherited from I3.36
+G	I3.39	I3.73	R	0	MS	
+G	I3.40	I3.39	R	0	K	
+G	I3.42	I3.2	R	0	K	
+G	I3.42	I3.3	R	0	K	
+G	I3.43	I3.2	R	0	MS	
+G	I3.43	I3.3	R	0	MS	
+G	I3.44	I3.43	R	0	K	
+G	I3.45	I3.8	R	1	K	
+G	I3.45	I3.9	R	0	K	
+G	I3.45	I3.18	R	0	K	
+G	I3.46	I3.10	R	0	K	
+G	I3.46	I3.17	R	0	K	
+G	I3.47	I3.37	RA	0	K	
+G	I3.47	I3.48	RA	1	K	inherited from I3.37
+G	I3.47	I3.74	RA	1	K	inherited from I3.37
+G	I3.47	I3.73	RA	1	K	inherited from I3.37
+G	I3.47	I3.76	RA	1	K	inherited from I3.37
+G	I3.47	I3.75	RA	1	K	inherited from I3.37
+G	I3.47	I3.8	RA	1	K	inherited from I3.37
+G	I3.47	I3.35	RA	0	K	inherited from I3.37
+G	I3.47	I3.51	RA	0	K	inherited from I3.37
+G	I3.47	I3.18	RA	0	K	inherited from I3.37
+G	I3.48	I3.58	R	0	MS	
+G	I3.51	I3.74	R	1	K	
+G	I3.51	I3.73	R	1	K	
+G	I3.51	I3.76	R	1	K	
+G	I3.51	I3.75	R	1	K	
+G	I3.51	I3.48	R	1	K	
+G	I3.52	I3.74	R	0	K	
+G	I3.52	I3.73	R	0	K	
+G	I3.52	I3.76	R	0	K	
+G	I3.52	I3.75	R	0	K	
+G	I3.52	I3.50	R	0	K	
+G	I3.54	I3.60	R	0	MS	
+G	I3.55	I3.76	R	0	K	
+G	I3.56	I3.73	R	1	K	
+G	I3.56	I3.74	R	1	K	
+G	I3.56	I3.75	R	1	K	
+G	I3.56	I3.54	R	1	K	
+G	I3.56	I3.48	R	1	K	
+G	I3.61	I3.58	R	0	MS	
+G	I3.61	I3.59	R	0	MS	
+G	I3.61	I3.60	R	0	MS	
+G	I3.62	I3.58	R	0	MS	
+G	I3.62	I3.59	R	0	MS	
+G	I3.63	I3.60	R	0	K	
+G	I3.64	I3.58	R	0	K	
+G	I3.71	I3.66	R	0	MS	
+G	I3.71	I3.61	R	0	MS	
+G	I3.72	I3.58	R	0	K	
+G	I3.72	I3.59	R	0	K	
+G	I3.72	I3.60	R	0	K	
+G	I3.72	I3.61	R	0	K	
+G	I3.72	I3.62	R	0	K	
+G	I3.72	I3.63	R	0	K	
+G	I3.72	I3.64	R	0	K	
+G	I3.72	I3.65	R	0	K	
+G	I3.72	I3.66	R	0	K	
+G	I3.72	I3.67	R	0	K	
+G	I3.72	I3.68	R	0	K	
+G	I3.72	I3.69	R	0	K	
+G	I3.72	I3.70	R	0	K	
+G	I3.72	I3.71	R	0	K	
+G	I3.73	I3.58	R	0	MS	
+G	I3.76	I3.60	R	0	K	
+G	I3.77	I3.60	R	0	MS	
+G	I3.78	I3.66	R	0	K	
+G	I3.79	I3.74	R	0	K	
+G	I3.79	I3.73	R	0	K	
+G	I3.79	I3.76	R	0	K	
+G	I3.81	I3.79	R	0	K	
+G	I3.82	I3.73	R	0	K	
+G	I3.82	I3.74	R	0	K	
+G	I3.82	I3.75	R	0	K	
+G	I3.82	I3.76	R	0	K	
+G	I3.82	I3.77	R	0	K	
+G	I3.83	I3.67	R	0	K	
+G	I3.84	I3.66	R	0	K	
+G	I3.87	I3.86	R	0	MS	
+G	I3.87	I3.76	R	0	MS	
+G	I3.88	I3.74	R	0	K	
+G	I3.88	I3.76	R	0	K	
+G	I3.88	I3.91	R	0	K	
+G	I3.89	I3.88	R	0	K	
+G	I3.90	I3.74	R	0	K	
+G	I3.90	I3.76	R	0	K	
+G	I3.92	I3.57	R	0	K	
+G	I3.93	I3.92	R	0	K	
+G	I3.94	I3.92	R	0	MS	
+G	I3.94	I3.93	R	0	MS	
+G	I3.95	I3.92	R	0	MS	
+G	I3.97	I3.94	R	0	K	
+G	I3.98	I3.96	R	0	K	
+G	I3.99	I3.92	R	0	MS	
+G	I3.100	I3.99	R	0	MS	
+G	I3.101	I3.99	R	0	MS	
+G	I3.102	I3.99	R	0	MS	
+G	I3.102	I3.101	R	0	MS	
+G	I3.102	I3.103	R	0	MS	
+G	I3.103	I3.92	R	0	K	
+G	I3.103	I3.98	R	0	K	
+G	I3.104	I3.92	R	0	K	
+G	I3.105	I3.99	R	0	K	
+G	I3.105	I3.101	R	0	K	
+G	I3.105	I3.102	R	0	K	
+G	I3.105	I3.103	R	0	K	
+G	I3.108	I3.106	R	0	MS	
+G	I3.110	I3.99	R	0	MS	
+G	I3.111	I3.99	R	0	K	
+G	I3.111	I3.100	R	0	K	
+G	I3.111	I3.101	R	0	K	
+G	I3.111	I3.102	R	0	K	
+G	I3.111	I3.103	R	0	K	
+G	I3.111	I3.110	R	0	K	
+G	I3.112	I3.108	R	0	K	
+G	I3.112	I3.109	R	0	K	
+G	I3.114	I3.113	R	0	MS	
+G	I3.114	I3.58	R	1	MS	
+G	I3.115	I3.114	R	0	MS	
+G	I3.116	I3.114	R	0	MS	
+G	I3.116	I3.115	R	0	MS	
+G	I3.118	I3.74	R	1	MS	
+G	I3.118	I3.114	R	0	MS	
+G	I3.119	I3.64	R	0	K	
+G	I3.120	I3.113	R	0	K	
+G	I3.121	I3.114	R	0	K	
+G	I3.122	I3.113	R	0	K	
+G	I3.122	I3.114	R	0	K	
+G	I3.122	I3.115	R	0	K	
+G	I3.122	I3.116	R	0	K	
+G	I3.122	I3.117	R	1	K	
+G	I3.122	I3.118	R	0	K	
+G	I3.122	I3.119	R	1	K	
+G	I3.122	I3.120	R	0	K	
+G	I3.122	I3.121	R	0	K	
+G	I3.124	I3.123	R	0	K	
+G	I3.124	I3.3	R	1	K	
+G	I3.129	I3.6	R	0	MS	
+G	I3.129	I3.7	R	0	MS	
+G	I3.129	I3.11	R	0	MS	
+G	I3.130	I3.43	R	0	MS	
+G	I3.133	I3.114	R	0	MS	
+G	I3.133	I3.134	R	0	MS	
+G	I3.134	I3.114	R	0	MS	
+G	I3.135	I3.143	R	0	MS	
+G	I3.136	I3.143	R	0	MS	
+G	I3.137	I3.6	R	0	MS	
+G	I3.137	I3.7	R	0	MS	
+G	I3.139	I3.129	R	0	MS	
+G	I3.139	I3.130	R	0	MS	
+G	I3.139	I3.131	R	0	MS	
+G	I3.139	I3.132	R	0	MS	
+G	I3.139	I3.133	R	0	MS	
+G	I3.140	I3.133	R	0	MS	
+G	I3.140	I3.3	R	0	MS	
+G	I3.141	I3.143	R	0	MS	
+G	I3.142	I3.83	R	1	MS	
+G	I3.142	I3.6	R	0	MS	
+G	I3.142	I3.7	R	0	MS	
+G	I3.143	I3.1	R	0	MS	
+G	I3.145	I3.92	R	1	MS	
+G	I3.145	I3.104	R	1	MS	
+G	I3.145	I3.1	R	0	MS	
+G	I3.146	I3.99	R	1	MS	
+G	I3.146	I3.105	R	1	MS	
+G	I3.146	I3.145	R	0	MS	
+G	I3.147	I3.2	R	0	MS	
+G	I3.148	I3.11	R	0	MS	
+G	I3.148	I3.13	R	0	MS	
+G	I3.149	I3.143	R	0	MS	
+G	I3.150	I3.6	R	0	MS	
+G	I3.150	I3.7	R	0	MS	
+G	I3.150	I3.80	R	1	MS	
+G	I3.151	I3.150	RA	0	MS	
+G	I3.151	I3.6	RA	0	MS	inherited from I3.150
+G	I3.151	I3.7	RA	0	MS	inherited from I3.150
+G	I3.151	I3.80	RA	1	MS	inherited from I3.150
+G	I3.152	I3.150	RA	0	MS	
+G	I3.152	I3.6	RA	0	MS	inherited from I3.150
+G	I3.152	I3.7	RA	0	MS	inherited from I3.150
+G	I3.152	I3.80	RA	1	MS	inherited from I3.150
+G	I3.153	I3.66	R	1	MS	
+G	I3.153	I3.67	R	1	MS	
+G	I3.153	I3.6	R	0	MS	
+G	I3.153	I3.7	R	0	MS	
+G	I3.155	I3.148	R	0	MS	
+G	I3.157	I3.143	R	0	MS	
+G	I3.158	I3.114	R	0	MS	
+G	I3.159	I3.114	R	0	MS	
+G	I3.159	I3.13	R	0	MS	
+G	I3.162	I3.164	R	1	MS	
+G	I3.162	I3.165	R	1	MS	
+G	I3.162	I3.166	R	0	MS	
+G	I3.162	I3.167	R	0	MS	
+G	I3.162	I3.168	R	0	MS	
+G	I3.162	I3.169	R	0	MS	
+G	I3.162	I3.170	R	0	MS	
+G	I3.162	I3.171	R	0	MS	
+G	I3.162	I3.172	R	0	MS	
+G	I3.162	I3.173	R	0	MS	
+G	I3.162	I3.174	R	0	MS	
+G	I3.162	I3.175	R	0	MS	
+G	I3.162	I3.176	R	0	MS	
+G	I3.162	I3.177	R	0	MS	
+G	I3.162	I3.178	R	0	MS	
+G	I3.162	I3.179	R	0	MS	
+G	I3.164	I3.73	R	1	MS	
+G	I3.164	I3.74	R	1	MS	
+G	I3.164	I3.75	R	1	MS	
+G	I3.164	I3.76	R	1	MS	
+G	I3.164	I3.18	R	0	MS	
+G	I3.164	I3.19	R	0	MS	
+G	I3.164	I3.37	R	0	MS	
+G	I3.164	I3.38	R	0	MS	
+G	I3.164	I3.8	R	1	MS	
+G	I3.164	I3.35	R	0	MS	
+G	I3.164	I3.36	R	0	MS	
+G	I3.164	I3.48	R	1	MS	
+G	I3.167	I3.94	R	0	MS	
+G	I3.167	I3.95	R	0	MS	
+G	I3.167	I3.96	R	0	MS	
+G	I3.168	I3.99	R	0	MS	
+G	I3.168	I3.101	R	0	MS	
+G	I3.168	I3.102	R	0	MS	
+G	I3.168	I3.105	R	0	MS	
+G	I3.169	I3.66	R	0	MS	
+G	I3.170	I3.76	R	0	MS	
+G	I3.171	I3.73	R	0	MS	
+G	I3.171	I3.97	R	0	MS	
+G	I3.172	I3.75	R	0	MS	
+G	I3.173	I3.69	R	0	MS	
+G	I3.173	I3.8	R	0	MS	
+G	I3.174	I3.62	R	0	MS	
+G	I3.174	I3.63	R	0	MS	
+G	I3.175	I3.76	R	0	MS	
+G	I3.175	I3.66	R	0	MS	
+G	I3.176	I3.174	R	0	MS	
+G	I3.177	I3.62	R	0	MS	
+G	I3.177	I3.63	R	0	MS	
+G	I3.178	I3.66	R	0	MS	
+G	I3.178	I3.73	R	0	MS	
+G	I3.178	I3.69	R	0	MS	
+G	I3.179	I3.164	R	1	MS	
+G	I3.179	I3.165	R	1	MS	
+G	I3.181	I3.174	R	0	MS	
+G	I3.181	I3.169	R	0	MS	
+G	I3.181	I3.173	R	0	MS	
+G	I3.182	I3.164	R	1	MS	
+G	I3.182	I3.165	R	1	MS	
+G	I3.182	I3.166	R	0	MS	
+G	I3.182	I3.167	R	0	MS	
+G	I3.182	I3.168	R	0	MS	
+G	I3.182	I3.169	R	0	MS	
+G	I3.182	I3.170	R	0	MS	
+G	I3.182	I3.171	R	0	MS	
+G	I3.182	I3.172	R	0	MS	
+G	I3.182	I3.173	R	0	MS	
+G	I3.182	I3.174	R	0	MS	
+G	I3.182	I3.175	R	0	MS	
+G	I3.182	I3.176	R	0	MS	
+G	I3.182	I3.177	R	0	MS	
+G	I3.182	I3.178	R	0	MS	
+G	I3.182	I3.179	R	0	MS	
+G	I3.185	I3.6	R	0	K	
+G	I3.185	I3.7	R	0	K	
+G	I3.185	I3.2	R	0	K	
+G	I3.187	I3.129	R	0	MS	
+G	I3.187	I3.130	R	0	MS	
+G	I3.187	I3.132	R	0	MS	
+G	I3.187	I3.137	R	0	MS	
+G	I1.27	K:rootedMap_periodic	RN	-	-	name rootedMap_periodic
+G	I1.32	K:HiddenMemory.Realization	RN	-	-	name HiddenMemory.Realization
+G	I1.32	K:capacity_floor_of_fun	RN	-	-	name capacity_floor_of_fun
+G	I1.43	I4.64	R	0	K	name FiniteOperationalTheory
+G	I1.44	I4.67	R	0	K	name HasCompositeUnitaryControl
+G	I1.45	K:countermodel	RN	-	-	name countermodel
+G	I1.45	K:admissibleTheory	RN	-	-	name admissibleTheory
+G	I1.45	K:fullQuantum	RN	-	-	name fullQuantum
+G	I1.46	I4.14	R	0	K	name InertSpectatorCompositionality
+G	I1.46	I4.68	R	0	K	name IteratedAncillaClosure
+G	I1.49	I4.133	R	0	K	name ReversibleImplementationLocality
+G	I1.49	I4.110	R	0	K	name EmbeddedObservation
+G	I1.52	I4.240	R	0	K	name substratumTheory
+G	I1.53	I4.118	R	0	K	name PhaseFreeRichness
+G	I1.56	I4.24	R	0	K	name ImplementationClass
+G	I1.56	K:genTheory	RN	-	-	name genTheory
+G	I1.56	I4.148	R	0	K	name IsMonomial
+G	I1.57	K:Rule	RN	-	-	name Rule
+G	I1.57	K:leapEquiv	RN	-	-	name leapEquiv
+G	I1.70	K:HiddenMemory.tv	RN	-	-	name HiddenMemory.tv
+G	I1.71	K:RootedRealization	RN	-	-	name RootedRealization
+G	I1.71	K:rootedMap	RN	-	-	name rootedMap
+G	I1.71	K:marg	RN	-	-	name marg
+G	I1.75	K:IsBlockPassiveInstrument	RN	-	-	name IsBlockPassiveInstrument
+G	I1.76	K:ensemble_underdetermined	RN	-	-	name ensemble_underdetermined
+G	I1.82	I4.73	R	0	K	name WellFormed
+G	I2.25	K:permClass	RN	-	-	name permClass
+G	I2.26	K:ShellRepresentationConsistency	RN	-	-	name ShellRepresentationConsistency
+G	I2.113	I1.57	R	1	MS	name Substratum
+G	I3.2	K:hom	RN	-	-	name hom
+G	I3.3	K:prodEffVal	RN	-	-	name prodEffVal
+G	I3.6	K:homMap	RN	-	-	name homMap
+G	I3.7	K:homMap	RN	-	-	name homMap
+G	I3.9	K:corner	RN	-	-	name corner
+G	I3.13	K:cnot_prodEffVal_nonneg	RN	-	-	name cnot_prodEffVal_nonneg
+G	I3.14	K:phiW_mem_jointStates	RN	-	-	name phiW_mem_jointStates
+G	I3.14	K:phiW_not_product	RN	-	-	name phiW_not_product
+G	I3.14	K:lor_ray	RN	-	-	name lor_ray
+G	I3.14	K:phiW_eq_of_segment	RN	-	-	name phiW_eq_of_segment
+G	I3.44	K:chain_eq	RN	-	-	name chain_eq
+G	I3.44	K:chain_value	RN	-	-	name chain_value
+G	I3.47	I3.1	R	0	K	name d
+G	I3.49	K:prodEffVal	RN	-	-	name prodEffVal
+G	I3.75	K:seedTransport	RN	-	-	name seedTransport
+G	I3.129	I3.137	R	0	MS	name IsOrth3
+G	I3.144	D:pauliW	RN	-	-	name pauliW
+G	I4.1	K:amplRefL	RN	-	-	name amplRefL
+G	I4.3	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.3	I4.1	R	0	MS	name withSpectator
+G	I4.4	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.4	I4.1	R	0	MS	name withSpectator
+G	I4.4	K:qutritIdx	RN	-	-	name qutritIdx
+G	I4.23	I4.2	R	0	MS	name IsReferencePositive
+G	I4.5	I4.3	R	0	K	name HasParallelReferenceExtension
+G	I4.6	K:BoundaryAudit.psdFactorization_discharged	RN	-	-	name BoundaryAudit.psdFactorization_discharged
+G	I4.8	K:countermodel	RN	-	-	name countermodel
+G	I4.8	K:countermodel_reduction2_available	RN	-	-	name countermodel_reduction2_available
+G	I4.10	K:countermodel	RN	-	-	name countermodel
+G	I4.10	K:countermodel_control	RN	-	-	name countermodel_control
+G	I4.11	K:countermodel	RN	-	-	name countermodel
+G	I4.11	K:countermodel_exact	RN	-	-	name countermodel_exact
+G	I4.11	K:countermodel_control	RN	-	-	name countermodel_control
+G	I4.14	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.14	I4.12	R	0	MS	name IsSpectatorExtension
+G	I4.16	K:FiniteIsometryExtensionSF	RN	-	-	name FiniteIsometryExtensionSF
+G	I4.16	K:KrausSound	RN	-	-	name KrausSound
+G	I4.16	I4.67	R	0	K	name HasCompositeUnitaryControl
+G	I4.16	I4.14	R	0	K	name InertSpectatorCompositionality
+G	I4.17	I4.246	R	0	K	name HComp
+G	I4.18	I4.246	R	0	MS	name HComp
+G	I4.18	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.19	I4.18	R	0	K	name HCompRealized
+G	I4.20	I4.67	R	0	K	name HasCompositeUnitaryControl
+G	I4.27	I4.26	R	0	K	name InstAvail
+G	I4.28	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.28	I4.24	R	0	MS	name ImplementationClass
+G	I4.28	I4.26	R	0	MS	name InstAvail
+G	I4.29	I4.24	R	0	MS	name ImplementationClass
+G	I4.30	I4.24	R	0	MS	name ImplementationClass
+G	I4.31	I4.28	R	0	MS	name ImplementationGenerated
+G	I4.31	I4.29	R	0	MS	name ContextStable
+G	I4.31	I4.30	R	0	MS	name LabelInvariant
+G	I4.32	I4.24	R	0	MS	name ImplementationClass
+G	I4.34	K:countermodel	RN	-	-	name countermodel
+G	I4.34	K:qutritIdx	RN	-	-	name qutritIdx
+G	I4.35	I4.29	R	0	K	name ContextStable
+G	I4.35	I4.30	R	0	K	name LabelInvariant
+G	I4.35	I4.26	R	0	K	name InstAvail
+G	I4.36	I4.30	R	0	K	name LabelInvariant
+G	I4.37	I4.31	R	0	K	name ImplementationLocality
+G	I4.38	I4.31	R	0	K	name ImplementationLocality
+G	I4.39	I4.70	R	0	K	name ExactAllFiniteEndomorphicQuantumOps
+G	I4.42	I4.31	R	0	MS	name ImplementationLocality
+G	I4.42	I4.85	R	0	MS	name OIHierarchyGeneral.ReversibleRichness
+G	I4.42	I4.110	R	0	MS	name EmbeddedObservation
+G	I4.44	I4.148	R	0	K	name IsMonomial
+G	I4.45	I4.32	R	0	MS	name Architecture
+G	I4.45	I4.29	R	0	MS	name ContextStable
+G	I4.45	I4.30	R	0	MS	name LabelInvariant
+G	I4.45	I4.132	R	0	MS	name DaggerStable
+G	I4.46	I4.44	R	0	K	name substratumClass
+G	I4.47	I4.45	R	0	K	name StructurallyClosed
+G	I4.48	K:genTheory	RN	-	-	name genTheory
+G	I4.48	I4.44	R	0	K	name substratumClass
+G	I4.48	K:substratumClass_arch	RN	-	-	name substratumClass_arch
+G	I4.50	I4.44	R	0	MS	name substratumClass
+G	I4.51	I4.50	R	1	K	name ExtendsSubstratum
+G	I4.51	I4.45	R	0	K	name StructurallyClosed
+G	I4.52	I4.50	R	1	K	name ExtendsSubstratum
+G	I4.52	I4.45	R	0	K	name StructurallyClosed
+G	I4.52	I4.143	R	0	K	name DrivesElementary
+G	I4.53	I4.70	R	0	K	name ExactAllFiniteEndomorphicQuantumOps
+G	I4.54	K:unit	RN	-	-	name unit
+G	I4.54	K:permMat	RN	-	-	name permMat
+G	I4.56	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.56	I4.54	R	0	MS	name gateFlow
+G	I4.56	I4.55	R	0	MS	name levelPerm
+G	I4.57	I4.67	R	0	K	name HasCompositeUnitaryControl
+G	I4.58	I4.32	R	1	K	name Architecture
+G	I4.58	I4.242	R	0	K	name ConfigurationLevel
+G	I4.60	I4.240	R	0	MS	name substratumTheory
+G	I4.61	I4.60	R	1	K	name SubstratumAvail
+G	I4.61	I4.56	R	0	K	name LayerFlowExecutable
+G	I4.62	I1.49	R	0	K	name DerivedOI
+G	I4.62	I4.60	R	1	K	name SubstratumAvail
+G	I4.65	I4.66	R	0	MS	name CompositeOperationalValidity
+G	I4.65	I4.14	R	0	MS	name InertSpectatorCompositionality
+G	I4.65	I4.67	R	0	MS	name HasCompositeUnitaryControl
+G	I4.65	I4.68	R	0	MS	name IteratedAncillaClosure
+G	I4.65	I4.69	R	0	MS	name SystemToLevelOne
+G	I4.66	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.67	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.68	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.69	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.70	K:ExactFiniteEndomorphicQuantumOps	RN	-	-	name ExactFiniteEndomorphicQuantumOps
+G	I4.70	K:ExactCompositeQuantumOps	RN	-	-	name ExactCompositeQuantumOps
+G	I4.73	I4.66	R	0	MS	name CompositeOperationalValidity
+G	I4.73	I4.69	R	0	MS	name SystemToLevelOne
+G	I4.74	I4.14	R	0	MS	name InertSpectatorCompositionality
+G	I4.74	I4.67	R	0	MS	name HasCompositeUnitaryControl
+G	I4.74	I4.68	R	0	MS	name IteratedAncillaClosure
+G	I4.75	I4.73	R	0	K	name WellFormed
+G	I4.77	I1.43	R	0	K	name RealizesSealedOICore
+G	I4.77	I4.67	R	0	K	name HasCompositeUnitaryControl
+G	I4.79	I1.43	R	0	MS	name RealizesSealedOICore
+G	I4.80	I4.79	R	0	MS	name OICore
+G	I4.80	I4.65	R	0	MS	name PhysicalCompletionConditions
+G	I4.82	I4.3	R	0	MS	name HasParallelReferenceExtension
+G	I4.84	I4.82	R	0	K	name ObservationalIndependence
+G	I4.85	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.85	I4.243	R	0	MS	name HControl
+G	I4.86	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.87	I4.86	R	0	MS	name IsShiftedTheory
+G	I4.88	I4.79	R	0	MS	name OICore
+G	I4.88	I4.73	R	0	MS	name WellFormed
+G	I4.88	I4.82	R	0	MS	name ObservationalIndependence
+G	I4.88	I4.85	R	0	MS	name ReversibleRichness
+G	I4.88	I4.87	R	0	MS	name ObserverRecursion
+G	I4.89	I4.88	R	0	K	name OIPlus
+G	I4.96	I4.3	R	0	MS	name HasParallelReferenceExtension
+G	I4.98	I4.96	R	0	K	name ObservationalIndependence
+G	I4.99	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.99	I4.243	R	0	MS	name HControl
+G	I4.100	I4.99	R	0	K	name ReversibleRichness
+G	I4.101	I4.73	R	0	K	name WellFormed
+G	I4.101	I4.67	R	0	K	name HasCompositeUnitaryControl
+G	I4.102	I4.73	R	0	MS	name WellFormed
+G	I4.102	I4.96	R	0	MS	name ObservationalIndependence
+G	I4.102	I4.99	R	0	MS	name ReversibleRichness
+G	I4.102	I4.87	R	0	MS	name ObserverRecursion
+G	I4.106	I4.64	R	1	K	name FiniteOperationalTheory
+G	I4.107	I4.106	R	0	MS	name TheoryFamily
+G	I4.108	I4.106	R	0	MS	name TheoryFamily
+G	I4.109	I4.106	R	1	MS	name TheoryFamily
+G	I4.110	I4.106	R	1	MS	name TheoryFamily
+G	I4.110	I4.107	R	1	MS	name RegroupingInvariant
+G	I4.110	I4.108	R	1	MS	name RelabellingInvariant
+G	I4.110	I4.109	R	0	MS	name IsAmbientMember
+G	I4.111	I4.107	R	1	K	name RegroupingInvariant
+G	I4.111	I4.108	R	1	K	name RelabellingInvariant
+G	I4.111	I4.109	R	0	K	name IsAmbientMember
+G	I4.112	I4.107	R	1	K	name RegroupingInvariant
+G	I4.112	I4.108	R	1	K	name RelabellingInvariant
+G	I4.112	I4.109	R	0	K	name IsAmbientMember
+G	I4.113	I4.110	R	0	K	name EmbeddedObservation
+G	I4.115	I4.66	R	0	MS	name CompositeOperationalValidity
+G	I4.115	I4.82	R	0	MS	name ObservationalIndependence
+G	I4.115	I4.85	R	0	MS	name ReversibleRichness
+G	I4.115	I4.110	R	0	MS	name EmbeddedObservation
+G	I4.118	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.118	K:permMatrix	RN	-	-	name permMatrix
+G	I4.119	I4.68	R	0	K	name IteratedAncillaClosure
+G	I4.119	I4.118	R	0	K	name PhaseFreeRichness
+G	I4.120	I4.31	R	0	MS	name ImplementationLocality
+G	I4.120	I4.118	R	0	MS	name PhaseFreeRichness
+G	I4.120	I4.110	R	0	MS	name EmbeddedObservation
+G	I4.123	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.124	I4.31	R	0	MS	name ImplementationLocality
+G	I4.124	I4.244	R	0	MS	name ElementaryTransitionRichness
+G	I4.124	I4.110	R	0	MS	name EmbeddedObservation
+G	I4.127	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.128	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.128	I4.243	R	0	MS	name HControl
+G	I4.129	I4.127	R	0	K	name InverseAccessibility
+G	I4.129	I4.128	R	0	K	name LieRankRichness
+G	I4.130	I4.128	R	0	K	name LieRankRichness
+G	I4.131	I4.73	R	0	K	name WellFormed
+G	I4.131	I4.128	R	0	K	name LieRankRichness
+G	I4.132	I4.24	R	0	MS	name ImplementationClass
+G	I4.133	I4.28	R	0	MS	name ImplementationGenerated
+G	I4.133	I4.29	R	0	MS	name ContextStable
+G	I4.133	I4.30	R	0	MS	name LabelInvariant
+G	I4.133	I4.132	R	0	MS	name DaggerStable
+G	I4.134	I4.24	R	0	MS	name ImplementationClass
+G	I4.135	I4.32	R	0	K	name Architecture
+G	I4.135	I4.28	R	0	K	name ImplementationGenerated
+G	I4.135	I4.132	R	0	K	name DaggerStable
+G	I4.135	I4.134	R	0	K	name UnitaryRaySaturated
+G	I4.136	I4.70	R	0	K	name ExactAllFiniteEndomorphicQuantumOps
+G	I4.137	I4.133	R	0	MS	name ReversibleImplementationLocality
+G	I4.137	I4.128	R	0	MS	name LieRankRichness
+G	I4.137	I4.110	R	0	MS	name EmbeddedObservation
+G	I4.141	I4.243	R	0	K	name HControl
+G	I4.142	I4.243	R	0	K	name HControl
+G	I4.143	I4.24	R	0	MS	name ImplementationClass
+G	I4.144	I4.32	R	0	MS	name Architecture
+G	I4.144	I4.29	R	0	MS	name ContextStable
+G	I4.144	I4.30	R	0	MS	name LabelInvariant
+G	I4.144	I4.132	R	0	MS	name DaggerStable
+G	I4.144	I4.143	R	0	MS	name DrivesElementary
+G	I4.145	I4.144	R	0	K	name QuantumArchitecture
+G	I4.146	I4.70	R	0	K	name ExactAllFiniteEndomorphicQuantumOps
+G	I4.149	I4.64	R	1	MS	name FiniteOperationalTheory
+G	I4.149	I4.148	R	0	MS	name IsMonomial
+G	I4.150	I4.149	R	0	K	name MonomialSource
+G	I4.151	I4.149	R	0	K	name MonomialSource
+G	I4.153	I4.32	R	1	K	name Architecture
+G	I4.153	I4.247	R	0	K	name OnesFixing
+G	I4.156	I4.64	R	1	MS	name FiniteOperationalTheory
+G	I4.157	I4.156	R	0	K	name ReadWriteSourced
+G	I4.158	I4.156	R	0	K	name ReadWriteSourced
+G	I4.160	I1.49	R	0	K	name DerivedOI
+G	I4.160	I4.56	R	0	K	name LayerFlowExecutable
+G	I4.161	I1.49	R	0	K	name DerivedOI
+G	I4.164	I4.32	R	1	K	name Architecture
+G	I4.164	I4.56	R	1	K	name LayerFlowExecutable
+G	I4.164	K:genTheory	RN	-	-	name genTheory
+G	I4.165	K:Conf	RN	-	-	name Conf
+G	I4.168	I4.32	R	1	K	name Architecture
+G	I4.172	I4.240	R	1	K	name substratumTheory
+G	I4.172	K:onesTheory	RN	-	-	name onesTheory
+G	I4.172	K:permTheory	RN	-	-	name permTheory
+G	I4.173	I4.172	R	0	K	name KillBattery
+G	I4.176	K:mixImage	RN	-	-	name mixImage
+G	I4.176	I4.32	R	0	K	name Architecture
+G	I4.176	I4.30	R	0	K	name LabelInvariant
+G	I4.176	I4.132	R	0	K	name DaggerStable
+G	I4.176	I4.29	R	0	K	name ContextStable
+G	I4.177	K:mixTheory	RN	-	-	name mixTheory
+G	I4.179	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.179	K:PairFlow	RN	-	-	name PairFlow
+G	I4.182	I4.24	R	0	MS	name ImplementationClass
+G	I4.183	I4.24	R	0	MS	name ImplementationClass
+G	I4.184	I4.32	R	0	K	name Architecture
+G	I4.184	I4.56	R	0	K	name LayerFlowExecutable
+G	I4.184	K:genTheory	RN	-	-	name genTheory
+G	I4.187	I4.70	R	1	MS	name ExactAllFiniteEndomorphicQuantumOps
+G	I4.189	I4.187	R	0	K	name ShadowQuantum
+G	I4.191	I4.245	R	1	K	name OIPlusElem
+G	I4.193	I4.124	R	1	K	name OIPlusPos
+G	I4.194	I4.120	R	1	K	name OIPlusMin
+G	I4.195	K:Conf	RN	-	-	name Conf
+G	I4.198	I4.197	R	1	MS	name FiniteRange
+G	I4.199	I4.196	R	0	K	name IsStateFamily
+G	I4.199	K:evalLocal	RN	-	-	name evalLocal
+G	I4.200	I4.198	R	1	K	name ReversibleDynamics
+G	I4.203	I4.201	R	0	MS	name QuasilocalSystem
+G	I4.203	I4.198	R	1	MS	name ReversibleDynamics
+G	I4.204	I4.201	R	0	MS	name QuasilocalSystem
+G	I4.206	I4.201	R	0	K	name QuasilocalSystem
+G	I4.206	I4.203	R	0	K	name OISystem
+G	I4.207	I4.198	R	1	K	name ReversibleDynamics
+G	I4.219	I4.217	R	0	K	name IsPassiveInstrument
+G	I4.219	I4.218	R	0	K	name SeparatesStates
+G	I4.220	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.222	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.227	I4.226	R	0	MS	name ObservationCongruence
+G	I4.230	K:CompatibilityDomainGlue	RN	-	-	name CompatibilityDomainGlue
+G	I4.230	K:quotPerm	RN	-	-	name quotPerm
+G	I4.235	I4.24	R	1	MS	name ImplementationClass
+G	I4.235	I4.64	R	1	MS	name FiniteOperationalTheory
+G	I4.235	I4.32	R	1	MS	name Architecture
+G	I4.235	I4.29	R	1	MS	name ContextStable
+G	I4.235	I4.30	R	1	MS	name LabelInvariant
+G	I4.235	I4.132	R	1	MS	name DaggerStable
+G	I4.235	I4.143	R	1	MS	name DrivesElementary
+G	I4.235	I4.144	R	1	MS	name QuantumArchitecture
+G	I4.235	I4.186	R	0	MS	name TypedOperationalTheory
+G	I4.235	I4.187	R	0	MS	name ShadowQuantum
+G	I4.237	I4.144	R	0	MS	name QuantumArchitecture
+G	I4.240	K:genTheory	RN	-	-	name genTheory
+G	I4.240	I4.44	R	0	K	name substratumClass
+G	I4.240	K:substratumClass_arch	RN	-	-	name substratumClass_arch
+G	I4.241	I4.133	R	0	MS	name ReversibleImplementationLocality
+G	I4.241	I4.110	R	0	MS	name EmbeddedObservation
+G	I4.241	K:ExchangesAvailable	RN	-	-	name ExchangesAvailable
+G	I4.241	K:PhasesAvailable	RN	-	-	name PhasesAvailable
+G	I4.241	K:ReadWriteAvailable	RN	-	-	name ReadWriteAvailable
+G	I4.242	I4.24	R	1	MS	name ImplementationClass
+G	I4.242	I4.148	R	0	MS	name IsMonomial
+G	I4.244	I4.64	R	0	MS	name FiniteOperationalTheory
+G	I4.247	I4.24	R	1	MS	name ImplementationClass
+G	I1.27	K:RootedRealization	KC	-	-	routed_forces_return_indivisibility PhysicalC4Discharge.lean:109 binder RootedRealization
+G	I1.32	K:Realization	KC	-	-	c3_necessity C3Necessity.lean:80 binder Realization
+G	I1.44	I4.64	KC	0	K	realizesSealedOICore_of_control OIRealization.lean:252 binder FiniteOperationalTheory
+G	I1.48	I4.64	KC	0	K	qm_implies_oiCore CompletedOI.lean:549 binder FiniteOperationalTheory
+G	I1.48	I4.70	KC	0	K	qm_implies_oiCore CompletedOI.lean:549 binder ExactAllFiniteEndomorphicQuantumOps
+G	I1.54	I4.64	KC	0	K	derivedOICore_of_qm RouteB.lean:231 binder FiniteOperationalTheory
+G	I1.54	I4.70	KC	0	K	derivedOICore_of_qm RouteB.lean:231 binder ExactAllFiniteEndomorphicQuantumOps
+G	I1.84	I1.4	KC	0	K	branchDomain_span_eq_itineraryInvariant ObservabilityQuotient.lean:270 binder S
+G	I1.85	I1.4	KC	0	K	quotient_itinerarySeparating PassiveQuotient.lean:222 binder S
+G	I1.85	K:CompatibilityDomainGlue	KC	-	-	passiveQuotient_glue_forces_G1 PassiveQuotient.lean:444 binder CompatibilityDomainGlue
+G	I1.79	I4.64	KC	0	K	oiCore_to_passive_vacuous PassiveIndependence.lean:248 binder FiniteOperationalTheory
+G	I1.82	K:ClassData	KC	-	-	classTheory_realizes SubstantiveCensus.lean:394 binder ClassData
+G	I2.21	K:Isotropic	KC	-	-	entanglementBreaking_twirl WeylLift.lean:652 binder Isotropic
+G	I2.21	K:Separable	KC	-	-	separable_imp_ppt Separability.lean:199 binder Separable
+G	I2.23	I1.4	KC	1	K	complete_passive_iff_commutative CentralObservation.lean:620 binder S
+G	I2.23	K:IsBlockPassiveInstrument	KC	-	-	central_classification CentralObservation.lean:433 binder IsBlockPassiveInstrument
+G	I2.23	I4.217	KC	0	K	no_complete_passive_observation PassiveObservation.lean:259 binder IsPassiveInstrument
+G	I2.23	I4.64	KC	0	K	passivelyIncomplete_of_card PassiveIndependence.lean:80 binder FiniteOperationalTheory
+G	I2.23	K:IsInternalObserver	KC	-	-	internal_branch_eq_blockPart InternalObserver.lean:137 binder IsInternalObserver
+G	I2.23	K:BlockDiag	KC	-	-	internal_branch_eq_blockPart InternalObserver.lean:137 binder BlockDiag
+G	I2.23	K:Records	KC	-	-	no_full_passive_self_record InternalObserver.lean:92 binder Records
+G	I2.25	K:AdmissibleDilationAt	KC	-	-	bridge_traj TrackBQfbBridge.lean:276 binder AdmissibleDilationAt
+G	I2.25	I1.4	KC	1	K	bridge_traj TrackBQfbBridge.lean:276 binder V
+G	I2.25	K:QfbData	KC	-	-	padData_rooted OperationalSourcing.lean:476 binder QfbData
+G	I2.25	I3.1	KC	1	K	padData_rooted OperationalSourcing.lean:476 binder W
+G	I2.26	I1.4	KC	1	K	shell_representation_from_comb CoherentLift.lean:371 binder V
+G	I2.26	K:ShellAssignment.ShellRepresentationConsistency	KC	-	-	comb_mixture_of_shell_representation CoherentLift.lean:392 binder ShellAssignment.ShellRepresentationConsistency
+G	I2.27	I1.4	KC	1	K	twoBranch_of_BGClassification TurnpikeScopeTransfer.lean:826 binder V
+G	I2.27	I3.1	KC	1	K	twoBranch_of_BGClassification TurnpikeScopeTransfer.lean:826 binder W
+G	I2.27	K:E	KC	-	-	gibbs_orientation ThermalOrientation.lean:104 binder E
+G	I2.27	K:Passive	KC	-	-	passivity_selector_nonuniform ThermalOrientation.lean:239 binder Passive
+G	I2.29	I4.64	KC	1	K	exactAll_iff_physical_general GeneralCarrier.lean:100 binder FiniteOperationalTheory
+G	I2.32	I4.64	KC	1	K	carrier_general_oiPlusMin MinimalRepertoire.lean:578 binder FiniteOperationalTheory
+G	I2.33	I4.24	KC	1	K	substratum_plus_control_qm StructuralClosure.lean:414 binder ImplementationClass
+G	I2.33	I4.50	KC	0	K	substratum_plus_control_qm StructuralClosure.lean:414 binder ExtendsSubstratum
+G	I2.33	I4.45	KC	1	K	substratum_plus_control_qm StructuralClosure.lean:414 binder StructurallyClosed
+G	I2.33	I4.143	KC	1	K	substratum_plus_control_qm StructuralClosure.lean:414 binder DrivesElementary
+G	I2.33	I4.64	KC	1	K	readWriteSourced_not_qm ReadWriteControl.lean:174 binder FiniteOperationalTheory
+G	I2.33	I4.156	KC	0	K	readWriteSourced_not_qm ReadWriteControl.lean:174 binder ReadWriteSourced
+G	I2.34	I4.64	KC	1	K	derivedOI_qm_iff_layerFlowExecutable' DerivedQ3.lean:222 binder FiniteOperationalTheory
+G	I2.34	I1.49	KC	1	K	derivedOI_qm_iff_layerFlowExecutable' DerivedQ3.lean:222 binder DerivedOI
+G	I2.34	I1.4	KC	1	K	derivedOI_qm_iff_layerFlowExecutable' DerivedQ3.lean:222 binder S
+G	I2.35	I4.186	KC	0	K	typed_determined_of_oiPlusMin TypedPositive.lean:37 binder TypedOperationalTheory
+G	I2.36	I4.196	KC	0	K	quasiState_unique QuasilocalAlgebra.lean:879 binder IsStateFamily
+G	I2.36	I4.195	KC	0	K	quasiState_unique QuasilocalAlgebra.lean:879 binder Quasilocal
+G	I2.36	I4.201	KC	0	K	canon_unique QuasilocalCharacterization.lean:359 binder QuasilocalSystem
+G	I2.36	I4.203	KC	0	K	systemEquiv_dyn QuasilocalCharacterization.lean:497 binder OISystem
+G	I2.36	K:T.	KC	-	-	systemEquiv_dyn QuasilocalCharacterization.lean:497 binder T.
+G	I2.37	I4.198	KC	1	K	phaseQ_ne_heisQ QuasilocalCharacterization.lean:792 binder ReversibleDynamics
+G	I2.37	K:Rule	KC	-	-	layerQ_add_time SecondOrderLayer.lean:966 binder Rule
+G	I2.37	I4.195	KC	0	K	layerQ_add_time SecondOrderLayer.lean:966 binder Quasilocal
+G	I2.39	K:Stochastic	KC	-	-	S_imp_D Equivalence.lean:419 binder Stochastic
+G	I2.39	I3.133	KC	1	K	isDiag_Phi EquivalenceChain.lean:252 binder H
+G	I2.39	K:IsDiag	KC	-	-	isDiag_Phi EquivalenceChain.lean:252 binder IsDiag
+G	I2.44	K:Realization	KC	-	-	unavoidable_hidden_predictive_memory HiddenMemory.lean:185 binder Realization
+G	I2.44	I1.4	KC	0	K	distinguishability_floor HiddenMemory.lean:114 binder V
+G	I3.12	I3.1	KC	0	K	cnot_relT CompositeDimension.lean:854 binder W
+G	I3.15	I3.1	KC	0	K	finrank_plus_eq_finrank_minus CompositeDimension.lean:682 binder W
+G	I3.16	I3.1	KC	0	K	blockData_of_nativeGate CompositeDimension.lean:2703 binder W
+G	I3.17	I3.1	KC	0	K	not_entangling_one CompositeDimension.lean:1436 binder W
+G	I3.19	I3.1	KC	0	K	three_of_nativeGate CompositeDimension.lean:2748 binder W
+G	I3.22	I3.1	KC	0	K	not_even_of_gateRel ParityNot.lean:137 binder W
+G	I3.24	I3.1	KC	1	K	piRotation_three ParityNot.lean:161 binder W
+G	I3.25	I3.1	KC	0	K	not_gateRel_refl3 ParityNot.lean:389 binder W
+G	I3.27	I3.1	KC	0	K	not_even_of_gateRel ParityNot.lean:137 binder W
+G	I3.30	I3.1	KC	0	K	not_even_of_relC RelcSelectParity.lean:354 binder W
+G	I3.31	I3.1	KC	0	K	dim_of_ctrlGate RelcSelectBlock.lean:739 binder W
+G	I3.32	I3.1	KC	0	K	ctrlGate_of_nativeGate RelcSelectBlock.lean:53 binder W
+G	I3.37	I3.1	KC	0	K	dim_of_nativeGateOf K1Bridge.lean:128 binder W
+G	I3.38	I3.1	KC	0	K	three_of_nativeGateOf K1Bridge.lean:138 binder W
+G	I3.45	I3.1	KC	0	K	three_of_nativeGate_of_two_le K2Guard.lean:234 binder W
+G	I3.46	I3.1	KC	0	K	two_le_of_entangling K2Guard.lean:240 binder W
+G	I3.46	I3.8	KC	1	K	two_le_of_entangling K2Guard.lean:240 binder IsNot
+G	I3.46	I3.9	KC	0	K	two_le_of_entangling K2Guard.lean:240 binder NativeGate
+G	I3.68	I1.4	KC	1	K	not_drivable_singleton KInfFoundations.lean:564 binder V
+G	I3.89	I3.74	KC	0	K	exists_affine_image_eq_eball TransitiveBody.lean:602 binder PreservesBody
+G	I3.89	I3.76	KC	0	K	exists_affine_image_eq_eball TransitiveBody.lean:602 binder BoundaryTransitive
+G	I3.90	I1.4	KC	1	K	extreme_of_isBoundaryState_of_transitive TransitiveBody.lean:290 binder V
+G	I3.90	I3.60	KC	0	K	extreme_of_isBoundaryState_of_transitive TransitiveBody.lean:290 binder IsBoundaryState
+G	I3.97	I3.92	KC	0	K	sharpSeed_completion StageCompletion.lean:224 binder DirectedStages
+G	I3.97	K:D.	KC	-	-	sharpSeed_completion StageCompletion.lean:224 binder D.
+G	I3.105	I3.92	KC	0	K	preservesBody_inducedEquiv CompletionAction.lean:352 binder DirectedStages
+G	I3.111	I3.92	KC	0	K	finiteOrderOn_of_stagePreserving CompositionOrder.lean:348 binder DirectedStages
+G	I3.121	K:P.	KC	-	-	not_locallyTomographic_paddedPre CompositeInterface.lean:885 binder P.
+G	I3.121	I3.116	KC	0	K	no_composite_over_paddedPre CompositeInterface.lean:895 binder Composite
+G	I3.124	I3.58	KC	0	K	lor_ehom CompositeDimension.lean:930 binder IsEffectOn
+G	I3.124	I3.1	KC	1	K	lor_toOp_of_maxCone CompositeDimension.lean:1049 binder W
+G	I3.185	I3.1	KC	0	K	toOp_actC CompositeDimension.lean:451 binder W
+G	I4.5	I4.64	KC	0	K	qutrit_of_parallel ReferenceExtension.lean:474 binder FiniteOperationalTheory
+G	I4.15	I4.64	KC	0	K	inertSpectator_iff_parallelReferenceExtension SpectatorBridge.lean:233 binder FiniteOperationalTheory
+G	I4.16	I4.64	KC	0	K	krausSoundExt_of_sound_control_inert SpectatorBridge.lean:249 binder FiniteOperationalTheory
+G	I4.19	I4.64	KC	0	K	hCompRealized_spectator_available SpectatorBridge.lean:411 binder FiniteOperationalTheory
+G	I4.20	I4.64	KC	0	K	hCompRealized_ones_of_control SpectatorBridge.lean:424 binder FiniteOperationalTheory
+G	I4.36	I4.32	KC	0	K	genTheory_embeddedObservation ImplementationLocality.lean:904 binder Architecture
+G	I4.37	I4.64	KC	0	K	observationalIndependence_of_implementationLocality ImplementationLocality.lean:957 binder FiniteOperationalTheory
+G	I4.38	I4.64	KC	0	K	validity_of_implementationLocality ImplementationLocality.lean:971 binder FiniteOperationalTheory
+G	I4.39	I4.64	KC	0	K	implementationLocality_of_qm ImplementationLocality.lean:1017 binder FiniteOperationalTheory
+G	I4.43	I4.64	KC	1	K	carrier_general_oiPlusLocal ImplementationLocality.lean:1079 binder FiniteOperationalTheory
+G	I4.47	I4.24	KC	0	K	quantumArchitecture_iff_drives_of_closed StructuralClosure.lean:364 binder ImplementationClass
+G	I4.51	I4.24	KC	0	K	substratum_extension_quantum_iff_drives StructuralClosure.lean:408 binder ImplementationClass
+G	I4.52	I4.24	KC	0	K	substratum_plus_control_qm StructuralClosure.lean:414 binder ImplementationClass
+G	I4.53	I4.64	KC	0	K	qm_generated_by_substratum_extension StructuralClosure.lean:423 binder FiniteOperationalTheory
+G	I4.57	I4.64	KC	0	K	layerFlowExecutable_of_control LiftAudit.lean:117 binder FiniteOperationalTheory
+G	I4.58	I4.24	KC	1	K	configurationLevel_not_layerFlowExecutable LiftAudit.lean:183 binder ImplementationClass
+G	I4.58	I1.4	KC	0	K	configurationLevel_not_layerFlowExecutable LiftAudit.lean:183 binder S
+G	I4.59	I1.4	KC	0	K	substratumTheory_not_layerFlowExecutable LiftAudit.lean:200 binder S
+G	I4.61	I4.64	KC	0	K	phaseFree_of_layerFlowExecutable LiftAudit.lean:783 binder FiniteOperationalTheory
+G	I4.61	I1.4	KC	1	K	phaseFree_of_layerFlowExecutable LiftAudit.lean:783 binder S
+G	I4.62	I4.64	KC	0	K	derivedOI_qm_iff_layerFlowExecutable LiftAudit.lean:812 binder FiniteOperationalTheory
+G	I4.62	I1.4	KC	1	K	derivedOI_qm_iff_layerFlowExecutable LiftAudit.lean:812 binder S
+G	I4.71	I4.64	KC	0	K	exactAll_iff_physical_general GeneralCarrier.lean:100 binder FiniteOperationalTheory
+G	I4.75	I4.64	KC	0	K	exactAll_iff_substantive GeneralCarrier.lean:144 binder FiniteOperationalTheory
+G	I4.81	I4.64	KC	0	K	completedOI_iff_physical CompletedOI.lean:110 binder FiniteOperationalTheory
+G	I4.83	I4.64	KC	0	K	observationalIndependence_iff_inert CompletedOI.lean:131 binder FiniteOperationalTheory
+G	I4.84	I4.64	KC	0	K	parallel_of_observationalIndependence CompletedOI.lean:147 binder FiniteOperationalTheory
+G	I4.89	I4.64	KC	0	K	qm_of_oiPlus CompletedOI.lean:423 binder FiniteOperationalTheory
+G	I4.90	I4.64	KC	0	K	oiPlus_iff_qm CompletedOI.lean:440 binder FiniteOperationalTheory
+G	I4.91	I4.64	KC	0	K	oiPlus_iff_completedOI CompletedOI.lean:444 binder FiniteOperationalTheory
+G	I4.92	I4.64	KC	0	K	independence_independent CompletedOI.lean:475 binder FiniteOperationalTheory
+G	I4.93	I4.64	KC	0	K	richness_independent CompletedOI.lean:487 binder FiniteOperationalTheory
+G	I4.94	I4.64	KC	0	K	recursion_independent CompletedOI.lean:496 binder FiniteOperationalTheory
+G	I4.95	I4.64	KC	0	K	oiPlus_independence CompletedOI.lean:506 binder FiniteOperationalTheory
+G	I4.97	I4.64	KC	0	K	observationalIndependence_iff_inert CarrierGeneralOIPlus.lean:75 binder FiniteOperationalTheory
+G	I4.98	I4.64	KC	0	K	parallel_of_observationalIndependence CarrierGeneralOIPlus.lean:87 binder FiniteOperationalTheory
+G	I4.100	I4.64	KC	0	K	control_of_reversibleRichness CarrierGeneralOIPlus.lean:127 binder FiniteOperationalTheory
+G	I4.101	I4.64	KC	0	K	reversibleRichness_of_control CarrierGeneralOIPlus.lean:148 binder FiniteOperationalTheory
+G	I4.103	I4.64	KC	0	K	oiPlus_iff_qm CarrierGeneralOIPlus.lean:207 binder FiniteOperationalTheory
+G	I4.104	I4.64	KC	1	K	carrier_general_oiPlus CarrierGeneralOIPlus.lean:213 binder FiniteOperationalTheory
+G	I4.105	I4.64	KC	0	K	oiPlus_independence CarrierGeneralOIPlus.lean:230 binder FiniteOperationalTheory
+G	I4.111	I4.64	KC	0	K	closure_of_embedded EmbeddedObservation.lean:184 binder FiniteOperationalTheory
+G	I4.111	I4.106	KC	1	K	closure_of_embedded EmbeddedObservation.lean:184 binder TheoryFamily
+G	I4.112	I4.64	KC	0	K	systemToLevelOne_of_embedded EmbeddedObservation.lean:203 binder FiniteOperationalTheory
+G	I4.112	I4.106	KC	1	K	systemToLevelOne_of_embedded EmbeddedObservation.lean:203 binder TheoryFamily
+G	I4.113	I4.64	KC	0	K	observerRecursion_of_embeddedObservation EmbeddedObservation.lean:217 binder FiniteOperationalTheory
+G	I4.116	I4.64	KC	0	K	oiPlusEmbedded_iff_qm EmbeddedObservation.lean:384 binder FiniteOperationalTheory
+G	I4.117	I4.64	KC	1	K	carrier_general_oiPlusEmbedded EmbeddedObservation.lean:394 binder FiniteOperationalTheory
+G	I4.119	I4.64	KC	0	K	control_of_phaseFree MinimalRepertoire.lean:529 binder FiniteOperationalTheory
+G	I4.121	I4.64	KC	0	K	oiPlusMin_iff_qm MinimalRepertoire.lean:569 binder FiniteOperationalTheory
+G	I4.122	I4.64	KC	1	K	carrier_general_oiPlusMin MinimalRepertoire.lean:578 binder FiniteOperationalTheory
+G	I4.125	I4.64	KC	0	K	oiPlusPos_iff_qm PositivePackage.lean:55 binder FiniteOperationalTheory
+G	I4.126	I4.64	KC	1	K	carrier_general_oiPlusPos PositivePackage.lean:68 binder FiniteOperationalTheory
+G	I4.129	I4.64	KC	0	K	control_of_lieRank_inverse MicroscopicReversibility.lean:107 binder FiniteOperationalTheory
+G	I4.130	I4.64	KC	0	K	control_of_lieRank MicroscopicReversibility.lean:114 binder FiniteOperationalTheory
+G	I4.131	I4.64	KC	0	K	inverseAccessibility_of_lieRank MicroscopicReversibility.lean:132 binder FiniteOperationalTheory
+G	I4.135	I4.64	KC	0	K	inverseAccessibility_of_generated_daggerStable MicroscopicReversibility.lean:283 binder FiniteOperationalTheory
+G	I4.135	I4.24	KC	0	K	inverseAccessibility_of_generated_daggerStable MicroscopicReversibility.lean:283 binder ImplementationClass
+G	I4.136	I4.64	KC	0	K	reversibleImplementationLocality_of_qm MicroscopicReversibility.lean:329 binder FiniteOperationalTheory
+G	I4.138	I4.64	KC	0	K	oiPlusMicro_iff_qm MicroscopicReversibility.lean:357 binder FiniteOperationalTheory
+G	I4.139	I4.64	KC	1	K	carrier_general_oiPlusMicro MicroscopicReversibility.lean:366 binder FiniteOperationalTheory
+G	I4.141	I3.133	KC	1	K	posReach_eq_top PositiveReachability.lean:978 binder H
+G	I4.142	I3.133	KC	1	K	universalReachability_of_lieRank_positive PositiveReachability.lean:996 binder H
+G	I4.146	I4.64	KC	0	K	qm_generated_by_quantumArchitecture SubstratumSource.lean:161 binder FiniteOperationalTheory
+G	I4.150	I4.64	KC	1	K	monomialSource_not_control SubstratumInterface.lean:186 binder FiniteOperationalTheory
+G	I4.151	I4.64	KC	1	K	monomialSource_not_qm SubstratumInterface.lean:192 binder FiniteOperationalTheory
+G	I4.153	I4.24	KC	1	K	onesFixing_not_phasesAvailable PhaseSource.lean:52 binder ImplementationClass
+G	I4.157	I4.64	KC	1	K	readWriteSourced_not_control ReadWriteControl.lean:169 binder FiniteOperationalTheory
+G	I4.158	I4.64	KC	1	K	readWriteSourced_not_qm ReadWriteControl.lean:174 binder FiniteOperationalTheory
+G	I4.159	I1.4	KC	0	K	readWriteControl_independent ReadWriteControl.lean:216 binder S
+G	I4.160	I4.64	KC	0	K	qm_of_derivedOI_layerFlowExecutable DerivedQ3.lean:214 binder FiniteOperationalTheory
+G	I4.160	I1.4	KC	1	K	qm_of_derivedOI_layerFlowExecutable DerivedQ3.lean:214 binder S
+G	I4.161	I4.64	KC	0	K	derivedOI_qm_iff_layerFlowExecutable' DerivedQ3.lean:222 binder FiniteOperationalTheory
+G	I4.161	I1.4	KC	1	K	derivedOI_qm_iff_layerFlowExecutable' DerivedQ3.lean:222 binder S
+G	I4.164	I4.24	KC	1	K	not_configurationLevel_of_layerFlowExecutable ExecSource.lean:73 binder ImplementationClass
+G	I4.164	I1.4	KC	0	K	not_configurationLevel_of_layerFlowExecutable ExecSource.lean:73 binder S
+G	I4.167	I1.4	KC	0	K	coherentLiftClass_not_layerFlowExecutable LiftSource.lean:187 binder S
+G	I4.168	I4.24	KC	1	K	stochastic_not_layerFlowExecutable LiftSource.lean:262 binder ImplementationClass
+G	I4.168	I1.4	KC	0	K	stochastic_not_layerFlowExecutable LiftSource.lean:262 binder S
+G	I4.173	I4.64	KC	0	K	killBattery_not_qm C5Discovery.lean:81 binder FiniteOperationalTheory
+G	I4.176	I4.24	KC	0	K	qm_of_mixSourced StateMixingCoupling.lean:486 binder ImplementationClass
+G	I4.180	I4.64	KC	0	K	qm_iff_derivedOI_pairFlowSourced PairFlowEquivalence.lean:199 binder FiniteOperationalTheory
+G	I4.181	I4.64	KC	0	K	countable_not_pairFlowSourced PairFlowEquivalence.lean:218 binder FiniteOperationalTheory
+G	I4.184	I4.24	KC	0	K	uncountableNonMonomialRays_of_layerFlowExecutable CoherentContinuumSource.lean:163 binder ImplementationClass
+G	I4.184	I1.4	KC	1	K	uncountableNonMonomialRays_of_layerFlowExecutable CoherentContinuumSource.lean:163 binder S
+G	I4.185	I1.4	KC	0	K	coherent_continuum_not_sourced CoherentContinuumSource.lean:328 binder S
+G	I4.193	I4.186	KC	0	K	typed_determined_of_oiPlusPos TypedPositive.lean:25 binder TypedOperationalTheory
+G	I4.194	I4.186	KC	0	K	typed_determined_of_oiPlusMin TypedPositive.lean:37 binder TypedOperationalTheory
+G	I4.199	I4.195	KC	0	K	quasiState_unique QuasilocalAlgebra.lean:879 binder Quasilocal
+G	I4.205	I4.201	KC	0	K	canon_unique QuasilocalCharacterization.lean:359 binder QuasilocalSystem
+G	I4.205	I4.195	KC	0	K	canon_unique QuasilocalCharacterization.lean:359 binder Quasilocal
+G	I4.208	K:Rule	KC	-	-	driveQ_isContinuousPath SecondOrderDrive.lean:225 binder Rule
+G	I4.209	K:Rule	KC	-	-	driveQ_one_eq_heisQ SecondOrderDrive.lean:829 binder Rule
+G	I4.209	I4.195	KC	0	K	driveQ_one_eq_heisQ SecondOrderDrive.lean:829 binder Quasilocal
+G	I4.214	I1.4	KC	1	K	operational_separation OperationalRigidity.lean:170 binder V
+G	I4.228	I1.4	KC	0	K	quotient_itinerarySeparating PassiveQuotient.lean:222 binder S
+G	I4.229	I1.4	KC	0	K	passiveMinimal_iff_itinerarySeparating PassiveQuotient.lean:246 binder S
+G	I4.230	I1.4	KC	0	K	passiveQuotient_glue_forces_G1 PassiveQuotient.lean:444 binder S
+G	I4.231	I1.4	KC	0	K	hiddenExt_not_separating PassiveQuotient.lean:534 binder S
+G	I4.232	I1.4	KC	0	K	hiddenExt_same_law PassiveQuotient.lean:563 binder S
+G	I1.10	I1.1	Y	-	-	from yields of I1.10
+G	I1.10	I1.11	Y	-	-	from yields of I1.10
+G	I1.10	I1.14	Y	-	-	from yields of I1.10
+G	I1.10	I1.6	Y	-	-	from yields of I1.10
+G	I1.10	I1.63	Y	-	-	from yields of I1.10
+G	I1.10	I1.7	Y	-	-	from yields of I1.10
+G	I1.10	I1.77	Y	-	-	from yields of I1.10
+G	I1.11	I1.6	Y	-	-	from yields of I1.11
+G	I1.11	I1.63	Y	-	-	from yields of I1.11
+G	I1.11	I1.77	Y	-	-	from yields of I1.11
+G	I1.12	I1.6	Y	-	-	from yields of I1.12
+G	I1.12	I1.77	Y	-	-	from yields of I1.12
+G	I1.13	I1.6	Y	-	-	from yields of I1.13
+G	I1.14	I1.6	Y	-	-	from yields of I1.14
+G	I1.15	I1.10	Y	-	-	from yields of I1.15
+G	I1.15	I1.12	Y	-	-	from yields of I1.15
+G	I1.15	I1.13	Y	-	-	from yields of I1.15
+G	I1.15	I1.6	Y	-	-	from yields of I1.15
+G	I1.15	I1.9	Y	-	-	from yields of I1.15
+G	I1.17	I1.16	Y	-	-	from yields of I1.17
+G	I1.17	I1.20	Y	-	-	from yields of I1.17
+G	I1.17	I1.24	Y	-	-	from yields of I1.17
+G	I1.18	I1.3	Y	-	-	from yields of I1.18
+G	I1.19	I1.25	Y	-	-	from yields of I1.19
+G	I1.2	I1.77	Y	-	-	from yields of I1.2
+G	I1.20	I1.15	Y	-	-	from yields of I1.20
+G	I1.20	I1.6	Y	-	-	from yields of I1.20
+G	I1.20	I1.9	Y	-	-	from yields of I1.20
+G	I1.21	I1.15	Y	-	-	from yields of I1.21
+G	I1.21	I1.22	Y	-	-	from yields of I1.21
+G	I1.21	I1.31	Y	-	-	from yields of I1.21
+G	I1.21	I1.6	Y	-	-	from yields of I1.21
+G	I1.22	I1.15	Y	-	-	from yields of I1.22
+G	I1.22	I1.28	Y	-	-	from yields of I1.22
+G	I1.22	I1.30	Y	-	-	from yields of I1.22
+G	I1.22	I1.31	Y	-	-	from yields of I1.22
+G	I1.22	I1.6	Y	-	-	from yields of I1.22
+G	I1.23	I1.15	Y	-	-	from yields of I1.23
+G	I1.23	I1.32	Y	-	-	from yields of I1.23
+G	I1.23	I1.6	Y	-	-	from yields of I1.23
+G	I1.23	I1.8	Y	-	-	from yields of I1.23
+G	I1.24	I1.15	Y	-	-	from yields of I1.24
+G	I1.24	I1.21	Y	-	-	from yields of I1.24
+G	I1.24	I1.6	Y	-	-	from yields of I1.24
+G	I1.25	I1.19	Y	-	-	from yields of I1.25
+G	I1.27	I1.24	Y	-	-	from yields of I1.27
+G	I1.27	I1.70	Y	-	-	from yields of I1.27
+G	I1.27	I1.71	Y	-	-	from yields of I1.27
+G	I1.29	I1.20	Y	-	-	from yields of I1.29
+G	I1.29	I1.24	Y	-	-	from yields of I1.29
+G	I1.3	I1.1	Y	-	-	from yields of I1.3
+G	I1.3	I1.2	Y	-	-	from yields of I1.3
+G	I1.30	I1.22	Y	-	-	from yields of I1.30
+G	I1.30	I1.77	Y	-	-	from yields of I1.30
+G	I1.31	I1.22	Y	-	-	from yields of I1.31
+G	I1.31	I1.77	Y	-	-	from yields of I1.31
+G	I1.32	I1.23	Y	-	-	from yields of I1.32
+G	I1.35	I1.20	Y	-	-	from yields of I1.35
+G	I1.35	I1.36	Y	-	-	from yields of I1.35
+G	I1.35	I1.63	Y	-	-	from yields of I1.35
+G	I1.35	I1.64	Y	-	-	from yields of I1.35
+G	I1.39	I1.38	Y	-	-	from yields of I1.39
+G	I1.40	I1.38	Y	-	-	from yields of I1.40
+G	I1.41	I1.38	Y	-	-	from yields of I1.41
+G	I1.41	I1.39	Y	-	-	from yields of I1.41
+G	I1.41	I1.40	Y	-	-	from yields of I1.41
+G	I1.42	I1.38	Y	-	-	from yields of I1.42
+G	I1.42	I1.39	Y	-	-	from yields of I1.42
+G	I1.43	I1.38	Y	-	-	from yields of I1.43
+G	I1.43	I1.39	Y	-	-	from yields of I1.43
+G	I1.44	I1.38	Y	-	-	from yields of I1.44
+G	I1.44	I1.43	Y	-	-	from yields of I1.44
+G	I1.45	I1.38	Y	-	-	from yields of I1.45
+G	I1.45	I1.42	Y	-	-	from yields of I1.45
+G	I1.45	I1.43	Y	-	-	from yields of I1.45
+G	I1.45	I1.44	Y	-	-	from yields of I1.45
+G	I1.46	I1.38	Y	-	-	from yields of I1.46
+G	I1.46	I1.43	Y	-	-	from yields of I1.46
+G	I1.46	I1.45	Y	-	-	from yields of I1.46
+G	I1.47	I1.43	Y	-	-	from yields of I1.47
+G	I1.48	I1.44	Y	-	-	from yields of I1.48
+G	I1.48	I1.47	Y	-	-	from yields of I1.48
+G	I1.5	I1.18	Y	-	-	from yields of I1.5
+G	I1.50	I1.43	Y	-	-	from yields of I1.50
+G	I1.50	I1.49	Y	-	-	from yields of I1.50
+G	I1.51	I1.50	Y	-	-	from yields of I1.51
+G	I1.51	I1.54	Y	-	-	from yields of I1.51
+G	I1.52	I1.43	Y	-	-	from yields of I1.52
+G	I1.52	I1.50	Y	-	-	from yields of I1.52
+G	I1.53	I1.50	Y	-	-	from yields of I1.53
+G	I1.53	I1.51	Y	-	-	from yields of I1.53
+G	I1.53	I1.52	Y	-	-	from yields of I1.53
+G	I1.54	I1.44	Y	-	-	from yields of I1.54
+G	I1.54	I1.50	Y	-	-	from yields of I1.54
+G	I1.55	I1.42	Y	-	-	from yields of I1.55
+G	I1.58	I1.57	Y	-	-	from yields of I1.58
+G	I1.59	I1.57	Y	-	-	from yields of I1.59
+G	I1.59	I1.58	Y	-	-	from yields of I1.59
+G	I1.59	I1.60	Y	-	-	from yields of I1.59
+G	I1.6	I1.1	Y	-	-	from yields of I1.6
+G	I1.6	I1.4	Y	-	-	from yields of I1.6
+G	I1.60	I1.43	Y	-	-	from yields of I1.60
+G	I1.60	I1.49	Y	-	-	from yields of I1.60
+G	I1.60	I1.57	Y	-	-	from yields of I1.60
+G	I1.62	I1.61	Y	-	-	from yields of I1.62
+G	I1.67	I1.77	Y	-	-	from yields of I1.67
+G	I1.7	I1.1	Y	-	-	from yields of I1.7
+G	I1.7	I1.6	Y	-	-	from yields of I1.7
+G	I1.71	I1.70	Y	-	-	from yields of I1.71
+G	I1.73	I1.58	Y	-	-	from yields of I1.73
+G	I1.73	I1.71	Y	-	-	from yields of I1.73
+G	I1.74	I1.27	Y	-	-	from yields of I1.74
+G	I1.74	I1.71	Y	-	-	from yields of I1.74
+G	I1.74	I1.72	Y	-	-	from yields of I1.74
+G	I1.74	I1.73	Y	-	-	from yields of I1.74
+G	I1.75	I1.79	Y	-	-	from yields of I1.75
+G	I1.76	I1.13	Y	-	-	from yields of I1.76
+G	I1.76	I1.67	Y	-	-	from yields of I1.76
+G	I1.79	I1.43	Y	-	-	from yields of I1.79
+G	I1.79	I1.47	Y	-	-	from yields of I1.79
+G	I1.8	I1.1	Y	-	-	from yields of I1.8
+G	I1.8	I1.6	Y	-	-	from yields of I1.8
+G	I1.80	I1.43	Y	-	-	from yields of I1.80
+G	I1.81	I1.43	Y	-	-	from yields of I1.81
+G	I1.81	I1.80	Y	-	-	from yields of I1.81
+G	I1.81	I1.83	Y	-	-	from yields of I1.81
+G	I1.82	I1.43	Y	-	-	from yields of I1.82
+G	I1.83	I1.43	Y	-	-	from yields of I1.83
+G	I1.85	I1.84	Y	-	-	from yields of I1.85
+G	I1.9	I1.1	Y	-	-	from yields of I1.9
+G	I1.9	I1.4	Y	-	-	from yields of I1.9
+G	I1.9	I1.6	Y	-	-	from yields of I1.9
+G	I2.1	I2.76	Y	-	-	from yields of I2.1
+G	I2.1	I2.77	Y	-	-	from yields of I2.1
+G	I2.1	I2.78	Y	-	-	from yields of I2.1
+G	I2.100	I2.25	Y	-	-	from yields of I2.100
+G	I2.100	I2.99	Y	-	-	from yields of I2.100
+G	I2.101	I2.25	Y	-	-	from yields of I2.101
+G	I2.102	I2.10	Y	-	-	from yields of I2.102
+G	I2.102	I2.105	Y	-	-	from yields of I2.102
+G	I2.102	I2.6	Y	-	-	from yields of I2.102
+G	I2.102	I2.7	Y	-	-	from yields of I2.102
+G	I2.102	I2.75	Y	-	-	from yields of I2.102
+G	I2.102	I2.85	Y	-	-	from yields of I2.102
+G	I2.103	I2.36	Y	-	-	from yields of I2.103
+G	I2.104	I2.36	Y	-	-	from yields of I2.104
+G	I2.108	I2.107	Y	-	-	from yields of I2.108
+G	I2.12	I2.40	Y	-	-	from yields of I2.12
+G	I2.12	I2.64	Y	-	-	from yields of I2.12
+G	I2.14	I2.13	Y	-	-	from yields of I2.14
+G	I2.15	I2.12	Y	-	-	from yields of I2.15
+G	I2.16	I2.12	Y	-	-	from yields of I2.16
+G	I2.16	I2.15	Y	-	-	from yields of I2.16
+G	I2.18	I2.12	Y	-	-	from yields of I2.18
+G	I2.18	I2.16	Y	-	-	from yields of I2.18
+G	I2.18	I2.17	Y	-	-	from yields of I2.18
+G	I2.18	I2.26	Y	-	-	from yields of I2.18
+G	I2.19	I2.58	Y	-	-	from yields of I2.19
+G	I2.19	I2.59	Y	-	-	from yields of I2.19
+G	I2.2	I2.1	Y	-	-	from yields of I2.2
+G	I2.20	I2.27	Y	-	-	from yields of I2.20
+G	I2.21	I2.19	Y	-	-	from yields of I2.21
+G	I2.21	I2.22	Y	-	-	from yields of I2.21
+G	I2.21	I2.59	Y	-	-	from yields of I2.21
+G	I2.22	I2.59	Y	-	-	from yields of I2.22
+G	I2.24	I2.39	Y	-	-	from yields of I2.24
+G	I2.25	I2.39	Y	-	-	from yields of I2.25
+G	I2.26	I2.24	Y	-	-	from yields of I2.26
+G	I2.26	I2.27	Y	-	-	from yields of I2.26
+G	I2.26	I2.38	Y	-	-	from yields of I2.26
+G	I2.27	I2.28	Y	-	-	from yields of I2.27
+G	I2.29	I2.2	Y	-	-	from yields of I2.29
+G	I2.3	I2.17	Y	-	-	from yields of I2.3
+G	I2.3	I2.39	Y	-	-	from yields of I2.3
+G	I2.3	I2.65	Y	-	-	from yields of I2.3
+G	I2.30	I2.29	Y	-	-	from yields of I2.30
+G	I2.31	I2.29	Y	-	-	from yields of I2.31
+G	I2.32	I2.31	Y	-	-	from yields of I2.32
+G	I2.33	I2.32	Y	-	-	from yields of I2.33
+G	I2.34	I2.33	Y	-	-	from yields of I2.34
+G	I2.34	I2.80	Y	-	-	from yields of I2.34
+G	I2.36	I2.35	Y	-	-	from yields of I2.36
+G	I2.37	I2.33	Y	-	-	from yields of I2.37
+G	I2.41	I2.39	Y	-	-	from yields of I2.41
+G	I2.41	I2.40	Y	-	-	from yields of I2.41
+G	I2.41	I2.42	Y	-	-	from yields of I2.41
+G	I2.41	I2.43	Y	-	-	from yields of I2.41
+G	I2.41	I2.54	Y	-	-	from yields of I2.41
+G	I2.41	I2.56	Y	-	-	from yields of I2.41
+G	I2.42	I2.43	Y	-	-	from yields of I2.42
+G	I2.42	I2.55	Y	-	-	from yields of I2.42
+G	I2.43	I2.39	Y	-	-	from yields of I2.43
+G	I2.43	I2.58	Y	-	-	from yields of I2.43
+G	I2.45	I2.44	Y	-	-	from yields of I2.45
+G	I2.47	I2.44	Y	-	-	from yields of I2.47
+G	I2.5	I2.1	Y	-	-	from yields of I2.5
+G	I2.5	I2.9	Y	-	-	from yields of I2.5
+G	I2.50	I2.48	Y	-	-	from yields of I2.50
+G	I2.50	I2.49	Y	-	-	from yields of I2.50
+G	I2.59	I2.58	Y	-	-	from yields of I2.59
+G	I2.6	I2.105	Y	-	-	from yields of I2.6
+G	I2.6	I2.5	Y	-	-	from yields of I2.6
+G	I2.60	I2.48	Y	-	-	from yields of I2.60
+G	I2.60	I2.59	Y	-	-	from yields of I2.60
+G	I2.61	I2.57	Y	-	-	from yields of I2.61
+G	I2.62	I2.21	Y	-	-	from yields of I2.62
+G	I2.65	I2.64	Y	-	-	from yields of I2.65
+G	I2.67	I2.41	Y	-	-	from yields of I2.67
+G	I2.69	I2.39	Y	-	-	from yields of I2.69
+G	I2.69	I2.41	Y	-	-	from yields of I2.69
+G	I2.69	I2.50	Y	-	-	from yields of I2.69
+G	I2.7	I2.1	Y	-	-	from yields of I2.7
+G	I2.7	I2.5	Y	-	-	from yields of I2.7
+G	I2.72	I2.1	Y	-	-	from yields of I2.72
+G	I2.72	I2.53	Y	-	-	from yields of I2.72
+G	I2.77	I2.76	Y	-	-	from yields of I2.77
+G	I2.79	I2.76	Y	-	-	from yields of I2.79
+G	I2.84	I2.89	Y	-	-	from yields of I2.84
+G	I2.87	I2.6	Y	-	-	from yields of I2.87
+G	I2.87	I2.86	Y	-	-	from yields of I2.87
+G	I2.88	I2.102	Y	-	-	from yields of I2.88
+G	I2.89	I2.102	Y	-	-	from yields of I2.89
+G	I2.89	I2.86	Y	-	-	from yields of I2.89
+G	I2.89	I2.87	Y	-	-	from yields of I2.89
+G	I2.89	I2.88	Y	-	-	from yields of I2.89
+G	I2.9	I2.40	Y	-	-	from yields of I2.9
+G	I2.90	I2.25	Y	-	-	from yields of I2.90
+G	I2.91	I2.25	Y	-	-	from yields of I2.91
+G	I2.92	I2.25	Y	-	-	from yields of I2.92
+G	I2.92	I2.91	Y	-	-	from yields of I2.92
+G	I2.93	I2.25	Y	-	-	from yields of I2.93
+G	I2.94	I2.25	Y	-	-	from yields of I2.94
+G	I2.94	I2.92	Y	-	-	from yields of I2.94
+G	I2.94	I2.93	Y	-	-	from yields of I2.94
+G	I2.95	I2.25	Y	-	-	from yields of I2.95
+G	I2.95	I2.94	Y	-	-	from yields of I2.95
+G	I2.96	I2.25	Y	-	-	from yields of I2.96
+G	I2.96	I2.95	Y	-	-	from yields of I2.96
+G	I2.97	I2.25	Y	-	-	from yields of I2.97
+G	I2.97	I2.96	Y	-	-	from yields of I2.97
+G	I2.98	I2.25	Y	-	-	from yields of I2.98
+G	I2.98	I2.97	Y	-	-	from yields of I2.98
+G	I2.99	I2.25	Y	-	-	from yields of I2.99
+G	I2.99	I2.98	Y	-	-	from yields of I2.99
+G	I3.1	I3.165	Y	-	-	from yields of I3.1
+G	I3.10	I3.4	Y	-	-	from yields of I3.10
+G	I3.100	I3.92	Y	-	-	from yields of I3.100
+G	I3.100	I3.99	Y	-	-	from yields of I3.100
+G	I3.101	I3.92	Y	-	-	from yields of I3.101
+G	I3.101	I3.99	Y	-	-	from yields of I3.101
+G	I3.102	I3.92	Y	-	-	from yields of I3.102
+G	I3.102	I3.99	Y	-	-	from yields of I3.102
+G	I3.103	I3.92	Y	-	-	from yields of I3.103
+G	I3.103	I3.96	Y	-	-	from yields of I3.103
+G	I3.103	I3.98	Y	-	-	from yields of I3.103
+G	I3.103	I3.99	Y	-	-	from yields of I3.103
+G	I3.104	I3.92	Y	-	-	from yields of I3.104
+G	I3.104	I3.99	Y	-	-	from yields of I3.104
+G	I3.105	I3.101	Y	-	-	from yields of I3.105
+G	I3.105	I3.102	Y	-	-	from yields of I3.105
+G	I3.105	I3.103	Y	-	-	from yields of I3.105
+G	I3.105	I3.92	Y	-	-	from yields of I3.105
+G	I3.105	I3.99	Y	-	-	from yields of I3.105
+G	I3.108	I3.106	Y	-	-	from yields of I3.108
+G	I3.110	I3.99	Y	-	-	from yields of I3.110
+G	I3.111	I3.103	Y	-	-	from yields of I3.111
+G	I3.111	I3.107	Y	-	-	from yields of I3.111
+G	I3.111	I3.110	Y	-	-	from yields of I3.111
+G	I3.112	I3.108	Y	-	-	from yields of I3.112
+G	I3.112	I3.109	Y	-	-	from yields of I3.112
+G	I3.114	I3.113	Y	-	-	from yields of I3.114
+G	I3.115	I3.114	Y	-	-	from yields of I3.115
+G	I3.115	I3.165	Y	-	-	from yields of I3.115
+G	I3.116	I3.114	Y	-	-	from yields of I3.116
+G	I3.116	I3.115	Y	-	-	from yields of I3.116
+G	I3.117	I3.114	Y	-	-	from yields of I3.117
+G	I3.118	I3.114	Y	-	-	from yields of I3.118
+G	I3.118	I3.74	Y	-	-	from yields of I3.118
+G	I3.119	I3.114	Y	-	-	from yields of I3.119
+G	I3.119	I3.64	Y	-	-	from yields of I3.119
+G	I3.12	I3.11	Y	-	-	from yields of I3.12
+G	I3.12	I3.8	Y	-	-	from yields of I3.12
+G	I3.12	I3.9	Y	-	-	from yields of I3.12
+G	I3.120	I3.114	Y	-	-	from yields of I3.120
+G	I3.121	I3.114	Y	-	-	from yields of I3.121
+G	I3.121	I3.115	Y	-	-	from yields of I3.121
+G	I3.122	I3.114	Y	-	-	from yields of I3.122
+G	I3.124	I3.123	Y	-	-	from yields of I3.124
+G	I3.13	I3.11	Y	-	-	from yields of I3.13
+G	I3.13	I3.12	Y	-	-	from yields of I3.13
+G	I3.13	I3.124	Y	-	-	from yields of I3.13
+G	I3.13	I3.8	Y	-	-	from yields of I3.13
+G	I3.13	I3.9	Y	-	-	from yields of I3.13
+G	I3.131	I3.104	Y	-	-	from yields of I3.131
+G	I3.131	I3.145	Y	-	-	from yields of I3.131
+G	I3.132	I3.105	Y	-	-	from yields of I3.132
+G	I3.132	I3.146	Y	-	-	from yields of I3.132
+G	I3.133	I3.134	Y	-	-	from yields of I3.133
+G	I3.135	I3.143	Y	-	-	from yields of I3.135
+G	I3.135	I3.157	Y	-	-	from yields of I3.135
+G	I3.137	I3.139	Y	-	-	from yields of I3.137
+G	I3.139	I3.129	Y	-	-	from yields of I3.139
+G	I3.139	I3.130	Y	-	-	from yields of I3.139
+G	I3.139	I3.131	Y	-	-	from yields of I3.139
+G	I3.139	I3.132	Y	-	-	from yields of I3.139
+G	I3.139	I3.133	Y	-	-	from yields of I3.139
+G	I3.139	I3.135	Y	-	-	from yields of I3.139
+G	I3.139	I3.137	Y	-	-	from yields of I3.139
+G	I3.139	I3.140	Y	-	-	from yields of I3.139
+G	I3.14	I3.11	Y	-	-	from yields of I3.14
+G	I3.14	I3.8	Y	-	-	from yields of I3.14
+G	I3.14	I3.9	Y	-	-	from yields of I3.14
+G	I3.140	I3.130	Y	-	-	from yields of I3.140
+G	I3.140	I3.133	Y	-	-	from yields of I3.140
+G	I3.140	I3.135	Y	-	-	from yields of I3.140
+G	I3.141	I3.143	Y	-	-	from yields of I3.141
+G	I3.142	I3.83	Y	-	-	from yields of I3.142
+G	I3.145	I3.104	Y	-	-	from yields of I3.145
+G	I3.146	I3.105	Y	-	-	from yields of I3.146
+G	I3.149	I3.143	Y	-	-	from yields of I3.149
+G	I3.15	I3.125	Y	-	-	from yields of I3.15
+G	I3.15	I3.8	Y	-	-	from yields of I3.15
+G	I3.15	I3.9	Y	-	-	from yields of I3.15
+G	I3.16	I3.126	Y	-	-	from yields of I3.16
+G	I3.16	I3.8	Y	-	-	from yields of I3.16
+G	I3.16	I3.9	Y	-	-	from yields of I3.16
+G	I3.164	I3.163	Y	-	-	from yields of I3.164
+G	I3.164	I3.18	Y	-	-	from yields of I3.164
+G	I3.164	I3.19	Y	-	-	from yields of I3.164
+G	I3.164	I3.21	Y	-	-	from yields of I3.164
+G	I3.164	I3.37	Y	-	-	from yields of I3.164
+G	I3.164	I3.38	Y	-	-	from yields of I3.164
+G	I3.164	I3.47	Y	-	-	from yields of I3.164
+G	I3.165	I3.163	Y	-	-	from yields of I3.165
+G	I3.166	I3.163	Y	-	-	from yields of I3.166
+G	I3.167	I3.163	Y	-	-	from yields of I3.167
+G	I3.167	I3.166	Y	-	-	from yields of I3.167
+G	I3.168	I3.163	Y	-	-	from yields of I3.168
+G	I3.168	I3.166	Y	-	-	from yields of I3.168
+G	I3.169	I3.163	Y	-	-	from yields of I3.169
+G	I3.169	I3.166	Y	-	-	from yields of I3.169
+G	I3.17	I3.10	Y	-	-	from yields of I3.17
+G	I3.17	I3.8	Y	-	-	from yields of I3.17
+G	I3.17	I3.9	Y	-	-	from yields of I3.17
+G	I3.170	I3.163	Y	-	-	from yields of I3.170
+G	I3.170	I3.166	Y	-	-	from yields of I3.170
+G	I3.171	I3.163	Y	-	-	from yields of I3.171
+G	I3.171	I3.166	Y	-	-	from yields of I3.171
+G	I3.172	I3.163	Y	-	-	from yields of I3.172
+G	I3.172	I3.166	Y	-	-	from yields of I3.172
+G	I3.173	I3.163	Y	-	-	from yields of I3.173
+G	I3.173	I3.166	Y	-	-	from yields of I3.173
+G	I3.174	I3.163	Y	-	-	from yields of I3.174
+G	I3.174	I3.166	Y	-	-	from yields of I3.174
+G	I3.175	I3.163	Y	-	-	from yields of I3.175
+G	I3.176	I3.163	Y	-	-	from yields of I3.176
+G	I3.177	I3.163	Y	-	-	from yields of I3.177
+G	I3.178	I3.163	Y	-	-	from yields of I3.178
+G	I3.179	I3.163	Y	-	-	from yields of I3.179
+G	I3.179	I3.177	Y	-	-	from yields of I3.179
+G	I3.18	I3.126	Y	-	-	from yields of I3.18
+G	I3.18	I3.15	Y	-	-	from yields of I3.18
+G	I3.18	I3.16	Y	-	-	from yields of I3.18
+G	I3.18	I3.8	Y	-	-	from yields of I3.18
+G	I3.18	I3.9	Y	-	-	from yields of I3.18
+G	I3.185	I3.7	Y	-	-	from yields of I3.185
+G	I3.19	I3.10	Y	-	-	from yields of I3.19
+G	I3.19	I3.13	Y	-	-	from yields of I3.19
+G	I3.19	I3.14	Y	-	-	from yields of I3.19
+G	I3.19	I3.17	Y	-	-	from yields of I3.19
+G	I3.19	I3.18	Y	-	-	from yields of I3.19
+G	I3.19	I3.8	Y	-	-	from yields of I3.19
+G	I3.19	I3.9	Y	-	-	from yields of I3.19
+G	I3.20	I3.8	Y	-	-	from yields of I3.20
+G	I3.21	I3.19	Y	-	-	from yields of I3.21
+G	I3.21	I3.20	Y	-	-	from yields of I3.21
+G	I3.22	I3.15	Y	-	-	from yields of I3.22
+G	I3.22	I3.23	Y	-	-	from yields of I3.22
+G	I3.24	I3.23	Y	-	-	from yields of I3.24
+G	I3.24	I3.8	Y	-	-	from yields of I3.24
+G	I3.25	I3.23	Y	-	-	from yields of I3.25
+G	I3.25	I3.24	Y	-	-	from yields of I3.25
+G	I3.26	I3.23	Y	-	-	from yields of I3.26
+G	I3.27	I3.22	Y	-	-	from yields of I3.27
+G	I3.27	I3.23	Y	-	-	from yields of I3.27
+G	I3.28	I3.23	Y	-	-	from yields of I3.28
+G	I3.28	I3.27	Y	-	-	from yields of I3.28
+G	I3.3	I3.2	Y	-	-	from yields of I3.3
+G	I3.3	I3.58	Y	-	-	from yields of I3.3
+G	I3.30	I3.15	Y	-	-	from yields of I3.30
+G	I3.31	I3.29	Y	-	-	from yields of I3.31
+G	I3.31	I3.30	Y	-	-	from yields of I3.31
+G	I3.31	I3.32	Y	-	-	from yields of I3.31
+G	I3.32	I3.9	Y	-	-	from yields of I3.32
+G	I3.33	I3.23	Y	-	-	from yields of I3.33
+G	I3.35	I3.49	Y	-	-	from yields of I3.35
+G	I3.36	I3.49	Y	-	-	from yields of I3.36
+G	I3.37	I3.18	Y	-	-	from yields of I3.37
+G	I3.37	I3.35	Y	-	-	from yields of I3.37
+G	I3.37	I3.51	Y	-	-	from yields of I3.37
+G	I3.37	I3.73	Y	-	-	from yields of I3.37
+G	I3.37	I3.75	Y	-	-	from yields of I3.37
+G	I3.38	I3.35	Y	-	-	from yields of I3.38
+G	I3.38	I3.36	Y	-	-	from yields of I3.38
+G	I3.38	I3.51	Y	-	-	from yields of I3.38
+G	I3.39	I3.73	Y	-	-	from yields of I3.39
+G	I3.4	I3.2	Y	-	-	from yields of I3.4
+G	I3.40	I3.39	Y	-	-	from yields of I3.40
+G	I3.41	I3.20	Y	-	-	from yields of I3.41
+G	I3.41	I3.35	Y	-	-	from yields of I3.41
+G	I3.44	I3.43	Y	-	-	from yields of I3.44
+G	I3.45	I3.18	Y	-	-	from yields of I3.45
+G	I3.45	I3.40	Y	-	-	from yields of I3.45
+G	I3.45	I3.46	Y	-	-	from yields of I3.45
+G	I3.46	I3.10	Y	-	-	from yields of I3.46
+G	I3.47	I3.35	Y	-	-	from yields of I3.47
+G	I3.47	I3.40	Y	-	-	from yields of I3.47
+G	I3.47	I3.51	Y	-	-	from yields of I3.47
+G	I3.48	I3.58	Y	-	-	from yields of I3.48
+G	I3.5	I3.2	Y	-	-	from yields of I3.5
+G	I3.51	I3.170	Y	-	-	from yields of I3.51
+G	I3.51	I3.171	Y	-	-	from yields of I3.51
+G	I3.51	I3.172	Y	-	-	from yields of I3.51
+G	I3.51	I3.48	Y	-	-	from yields of I3.51
+G	I3.51	I3.49	Y	-	-	from yields of I3.51
+G	I3.51	I3.73	Y	-	-	from yields of I3.51
+G	I3.51	I3.74	Y	-	-	from yields of I3.51
+G	I3.51	I3.75	Y	-	-	from yields of I3.51
+G	I3.51	I3.76	Y	-	-	from yields of I3.51
+G	I3.51	I3.79	Y	-	-	from yields of I3.51
+G	I3.52	I3.50	Y	-	-	from yields of I3.52
+G	I3.52	I3.75	Y	-	-	from yields of I3.52
+G	I3.54	I3.60	Y	-	-	from yields of I3.54
+G	I3.55	I3.76	Y	-	-	from yields of I3.55
+G	I3.56	I3.54	Y	-	-	from yields of I3.56
+G	I3.56	I3.55	Y	-	-	from yields of I3.56
+G	I3.59	I3.180	Y	-	-	from yields of I3.59
+G	I3.6	I3.2	Y	-	-	from yields of I3.6
+G	I3.60	I3.180	Y	-	-	from yields of I3.60
+G	I3.61	I3.180	Y	-	-	from yields of I3.61
+G	I3.61	I3.59	Y	-	-	from yields of I3.61
+G	I3.61	I3.60	Y	-	-	from yields of I3.61
+G	I3.62	I3.180	Y	-	-	from yields of I3.62
+G	I3.62	I3.59	Y	-	-	from yields of I3.62
+G	I3.7	I3.2	Y	-	-	from yields of I3.7
+G	I3.71	I3.61	Y	-	-	from yields of I3.71
+G	I3.71	I3.66	Y	-	-	from yields of I3.71
+G	I3.72	I3.61	Y	-	-	from yields of I3.72
+G	I3.72	I3.62	Y	-	-	from yields of I3.72
+G	I3.72	I3.63	Y	-	-	from yields of I3.72
+G	I3.72	I3.64	Y	-	-	from yields of I3.72
+G	I3.72	I3.65	Y	-	-	from yields of I3.72
+G	I3.72	I3.67	Y	-	-	from yields of I3.72
+G	I3.72	I3.68	Y	-	-	from yields of I3.72
+G	I3.72	I3.70	Y	-	-	from yields of I3.72
+G	I3.73	I3.58	Y	-	-	from yields of I3.73
+G	I3.73	I3.97	Y	-	-	from yields of I3.73
+G	I3.76	I3.60	Y	-	-	from yields of I3.76
+G	I3.78	I3.66	Y	-	-	from yields of I3.78
+G	I3.79	I3.170	Y	-	-	from yields of I3.79
+G	I3.79	I3.171	Y	-	-	from yields of I3.79
+G	I3.79	I3.73	Y	-	-	from yields of I3.79
+G	I3.79	I3.74	Y	-	-	from yields of I3.79
+G	I3.79	I3.76	Y	-	-	from yields of I3.79
+G	I3.8	I3.2	Y	-	-	from yields of I3.8
+G	I3.81	I3.66	Y	-	-	from yields of I3.81
+G	I3.81	I3.79	Y	-	-	from yields of I3.81
+G	I3.82	I3.77	Y	-	-	from yields of I3.82
+G	I3.82	I3.79	Y	-	-	from yields of I3.82
+G	I3.82	I3.80	Y	-	-	from yields of I3.82
+G	I3.83	I3.66	Y	-	-	from yields of I3.83
+G	I3.83	I3.67	Y	-	-	from yields of I3.83
+G	I3.84	I3.66	Y	-	-	from yields of I3.84
+G	I3.87	I3.86	Y	-	-	from yields of I3.87
+G	I3.88	I3.170	Y	-	-	from yields of I3.88
+G	I3.88	I3.74	Y	-	-	from yields of I3.88
+G	I3.88	I3.76	Y	-	-	from yields of I3.88
+G	I3.88	I3.91	Y	-	-	from yields of I3.88
+G	I3.89	I3.170	Y	-	-	from yields of I3.89
+G	I3.89	I3.74	Y	-	-	from yields of I3.89
+G	I3.89	I3.76	Y	-	-	from yields of I3.89
+G	I3.89	I3.88	Y	-	-	from yields of I3.89
+G	I3.9	I3.2	Y	-	-	from yields of I3.9
+G	I3.90	I3.76	Y	-	-	from yields of I3.90
+G	I3.92	I3.57	Y	-	-	from yields of I3.92
+G	I3.94	I3.92	Y	-	-	from yields of I3.94
+G	I3.94	I3.93	Y	-	-	from yields of I3.94
+G	I3.95	I3.92	Y	-	-	from yields of I3.95
+G	I3.96	I3.92	Y	-	-	from yields of I3.96
+G	I3.97	I3.92	Y	-	-	from yields of I3.97
+G	I3.97	I3.94	Y	-	-	from yields of I3.97
+G	I3.98	I3.92	Y	-	-	from yields of I3.98
+G	I3.98	I3.96	Y	-	-	from yields of I3.98
+G	I3.99	I3.92	Y	-	-	from yields of I3.99
+G	I4.233	I4.234	Y	-	-	from yields of I4.233
+#T prose	id	pieces
+P	I1.2	presupposition, Main.md:38
+P	I1.10	finiteness of the total space
+P	I1.24	persistence
+P	I1.27	recurrence ( , I2's RecurrenceHorizon
+P	I1.28	negated
+P	I1.30	mixing hypothesis (assumed ;; ETH its motivation, Main.md:480 ;; ROADMAP.md:1458 declared input "hidden-sector/effective mixing hypotheses"
+P	I1.31	mixing hypothesis
+P	I1.32	I2's HiddenMemory.lean
+P	I1.35	E1–E3 (I2: physical layer
+P	I1.43	OperationalAssembly.lean:594, I4
+P	I1.44	OperationalAssembly.lean:665, I4: "Universal unitary control on EVERY finite ancilla extension"
+P	I1.45	the witnesses , , (CompositionalIndependence and predecessors
+P	I1.46	SpectatorBridge.lean:223, I4 — a spectator clause ;; "observational independence … is inert-spectator compositionality restated", CompletedOI.lean:24–27), (AncillaClosure.lean:247, I4
+P	I1.49	MicroscopicReversibility.lean:223, I4), ( .lean:123, I4
+P	I1.52	the theory the monomial class generates ;; SubstratumInterface, I4
+P	I1.53	MinimalRepertoire.lean:423, I4
+P	I1.56	I4's StructuralClosure / SubstratumInterface
+P	I1.57	SecondOrderCircuit/SecondOrderLayer
+P	I1.63	E3 (physical layer, I2
+P	I1.71	RootedClassification, HiddenMemory
+P	I1.75	CentralObservation/PassiveObservation
+P	I1.76	A5 is a hypothesis of
+P	I1.82	GeneralCarrier, I4
+P	I2.1	site factorization of S ;; the coupling graph read from φ (the "full spatial OI constitution"
+P	I2.5	i) determinism ;; ii) setting operations are interventions supported in the respective regions ;; iii) readout before the post-setting cones meet ;; iv) one common pre-setting ensemble, p(Ω|a,b)=p(Ω
+P	I2.6	the alternative it rejects ;; operational no-signaling retained
+P	I2.7	nearest-neighbor cubic update with maximal speed c (SM
+P	I2.8	Z=(A,B) uniform ;; response-complete ontic variable Ω (Main.md:405
+P	I2.11	Lemma 3 counting measure (I1
+P	I2.12	a given quantum experiment (dimension d, finite instrument family 𝓕 of CP maps, horizon K, grid G) — the tensor product of clause (4) is part of the input experiment
+P	I2.14	the coherent operational lift (open, layer 4
+P	I2.17	factorization interface preparation → finite ontic system → measurement ;; [55] (imported
+P	I2.19	permutation unitarity), (channel
+P	I2.20	a bijection on C_V × C_B × C_D ;; two-branch theorem) for A.3
+P	I2.21	the q = 2 linear update u'_x = Σ u_z + v_x, v'_x = u_x (Main.md:290 ;; hidden sector uncorrelated and maximally mixed
+P	I2.23	block-diagonal observable algebra ;; passive instrument (branches fix the block projectors
+P	I2.25	trivial ancilla ;; interventions in
+P	I2.26	orientation conditions ;; "the stated carrier, locality, genericity, and operational-completeness hypotheses" (GR.md:206
+P	I2.27	non-degenerate gaps, non-vanishing overlaps
+P	I2.29	conditions (i) valid probabilities, (ii) trivial-ancilla consistency, (iii) inert spectators, (iv) full reversible control, (v) iterated composition
+P	I2.31	OI core (I1), well-formedness (i)–(ii), the three principles
+P	I2.32	the three principles
+P	I2.33	substratum class (monomial operators), phase intervention (assumed), continuous off-diagonal controllability (assumed
+P	I2.34	closure with the phase intervention stated
+P	I2.35	typed operational interface
+P	I2.36	OI_Q = substratum + controllability, assumed ;; fixed-spacing lattice ;; disjoint-region commutation
+P	I2.39	finite visible alphabet ;; finite horizon K ;; D) with an arbitrary initial law (kernel docstring Equivalence.lean:150–155
+P	I2.40	rational law (uniform tape) or the response-table product prior (arbitrary kernels
+P	I2.41	readback lemma ;; C1–C4 (I1
+P	I2.42	Barandes correspondence
+P	I2.44	a faithful deterministic realization (bijection with a hidden prior
+P	I2.48	finite C_V, C_H (total-finiteness posit, I1 ;; bijection φ ;; non-permutation T
+P	I2.50	finite order of φ
+P	I2.52	Liouville measure on compact energy surfaces
+P	I2.53	uniform erosion
+P	I2.54	a C4 gap at order k (I1
+P	I2.57	G1)–(G3) genericity
+P	I2.59	ρ_H = I_m/m
+P	I2.66	step 1
+P	I2.71	horizon partition fixes a simultaneity foliation (hypothesis
+P	I2.72	bounded coupling ( cone ;; canonical typicality [31] ([L]
+P	I2.77	a) translation invariance, (b) range-1 coupling, (c) bidirectional coupling
+P	I2.79	range-1 dynamics ;; uniform initial conditions
+P	I2.80	[U,R_g] = [P,R_g] = 0
+P	I2.81	staggered-to-Dirac reconstruction
+P	I2.82	connected bounded-degree coupling graph of diameter ≥ 4 ;; energy-conserving dynamics ;; C2, C4 (hypotheses
+P	I2.83	q prime, gcd(L, q) = 1
+P	I2.88	E4–E7, A3–A6 (A-axioms out of
+P	I2.89	E1–E7, M1-T, M1-B ( ), A1–A6 (I1), Lemma 24.1, mixing hypothesis
+P	I2.91	act 7 layer 2's merged theorems
+P	I2.106	linear wave equation on the lattice
+P	I2.107	site factorization C_V = C_1 × … × C_N ;; the fixed-basis Hilbert-space representation
+P	I2.108	H-local-lift (assumed
+P	I2.109	spatial locality of the classical Hamiltonian ;; H-scramble (A.8
+P	I2.110	the holographic dictionary (physical layer ;; the emergent QM description of composites (not supplied at L
+P	I2.112	signed-permutation-invariant counting measure ;; component-complete observer projection
+P	I2.113	the trace-out ( channel structure, physical layer ;; amplitude-scale gauge ( §4, out of
+P	I3.2	CompositeDimension.lean:100
+P	I3.3	CompositeDimension.lean:182
+P	I3.6	CompositeDimension.lean:112
+P	I3.12	exact evaluation
+P	I3.18	and the carrier
+P	I3.26	exact rational witness −1/10
+P	I3.30	relC
+P	I3.37	through and
+P	I3.44	K2Guard.lean:116, :134
+P	I3.47	plus `2 ≤ `
+P	I3.75	OrbitGeneration.lean:49
+P	I3.129	FourCopyCore.lean:118–120
+P	I3.150	/ , (the body symmetry, single token
+P	I4.1	data only: a finite spectator type R, an explicit carrier equivalence e : R × (A × Fin n) ≃ A × Fin m, a linear map Φ on Matrix (A × Fin n ;; built from (ReferenceExtension.lean:131
+P	I4.2	a linear map Φ on Matrix S S ℂ ;; a finite reference type R
+P	I4.3	A (OperationalAssembly.lean:594
+P	I4.4	Fin 2 ;; Fin 3
+P	I4.23	Fin 3
+P	I4.6	uses (ReferenceExtension.lean:234
+P	I4.8	witness of DimensionalCountermodel with
+P	I4.10	witness with
+P	I4.11	witness with
+P	I4.12	e : R × (A × Fin n) ≃ A × Fin m
+P	I4.16	Unit (StinespringAssembly.lean:155 ;; boundary item 2, discharged per the module header SpectatorBridge.lean:61-62 in IsometryExtension.lean ;; T ( ness.lean:128
+P	I4.17	act corr CB C (the round-24 compositional hypothesis ;; defined outside I4's module list
+P	I4.18	Fin 2 ;; transport (:348
+P	I4.19	T e act corr CB C
+P	I4.21	witness the round-34 countermodel
+P	I4.22	witness the full theory
+P	I4.25	an implementation class 𝓘
+P	I4.26	an implementation class 𝓘
+P	I4.27	𝓘 T O F
+P	I4.33	witness the round-34 countermodel
+P	I4.34	reduction2
+P	I4.35	𝓘 (A × Fin n) O F
+P	I4.36	an architecture `arch` (section variable
+P	I4.37	[Nonempty A]
+P	I4.38	[Nonempty A]
+P	I4.39	[Nonempty A]
+P	I4.41	witness the round-34 countermodel
+P	I4.43	both sides are hypotheses on T
+P	I4.44	SubstratumInterface.lean:75
+P	I4.45	𝓘 (MicroscopicReversibility.lean:216
+P	I4.48	Fin 2
+P	I4.51	𝓘 (unused in the proof, binder `_`
+P	I4.52	[Nonempty A] ;; 𝓘 (unused, `_`
+P	I4.53	[Nonempty A]
+P	I4.54	σ : Equiv.Perm S ;; ` ( σ) t` of SecondOrderCircuit
+P	I4.56	quantifies over every level n and every time t
+P	I4.57	σ an involution (hσ
+P	I4.58	𝓘 (ManuscriptAxioms.lean:125: every admissible operator monomial
+P	I4.60	S (RouteB.lean:279
+P	I4.61	σ an involution
+P	I4.62	[Nonempty S] ;; T (RouteB.lean:141 ;; σ an involution
+P	I4.63	Λ nonempty ;; [Nontrivial V]
+P	I4.64	a finite carrier A with DecidableEq
+P	I4.65	iii ;; ii) -- numerals as in GR.md:212
+P	I4.67	quantifies over every ancilla level n and every unitary U
+P	I4.70	T (KrausSoundness.lean:134
+P	I4.71	[Nonempty A] (section variable ;; both sides hypotheses on T
+P	I4.75	[Nonempty A]
+P	I4.76	witness the diagonal-preserving theory
+P	I4.77	T (OIRealization.lean:234 ;; I1's scope) for the first clause ;; T for the second
+P	I4.78	clause (i) quantified over nonempty finite carriers, clauses (ii)-(iv) on the qubit
+P	I4.79	T (OIRealization.lean:234
+P	I4.82	T (ReferenceExtension.lean:447
+P	I4.84	availability of F at level n and of G at level k ;; a reindexing e : (Fin 2 × Fin k) × (Fin 2 × Fin n) ≃ Fin 2 × Fin m
+P	I4.85	Fin 2 ;; MonoidalCompletion.lean:349 ;; flow
+P	I4.86	T' : (A × Fin n
+P	I4.92	witness the round-34 countermodel
+P	I4.94	witness the rank-gap theory
+P	I4.98	F available at level n ;; G available at level k ;; reindexing e
+P	I4.99	flow
+P	I4.101	[Nonempty A]
+P	I4.103	[Nonempty A] ;; both sides hypotheses on T
+P	I4.105	three qubit witnesses
+P	I4.106	at every finite carrier
+P	I4.114	qubit witness
+P	I4.116	[Nonempty A] ;; both sides hypotheses on T
+P	I4.118	flow (transition a b) t ;; Equiv.swap a b
+P	I4.119	[Nonempty A]
+P	I4.121	[Nonempty A] ;; both sides hypotheses on T
+P	I4.124	T (LieRankSource.lean:436
+P	I4.125	[Nonempty A] ;; both sides hypotheses on T
+P	I4.128	flow
+P	I4.131	[Nonempty A]
+P	I4.135	[Nonempty A]
+P	I4.136	[Nonempty A]
+P	I4.138	[Nonempty A] ;; both sides hypotheses on T
+P	I4.141	every U g unitary
+P	I4.142	unitary controls ;; an availability predicate closed under products (hmul) with the identity (hone), the drift flow at every time (hflow) and the controls (hctrl
+P	I4.145	[Nonempty A]
+P	I4.146	[Nonempty A]
+P	I4.150	T (T on Fin 2
+P	I4.151	T (T on Fin 2
+P	I4.153	𝓘 (and the further binders of the signature
+P	I4.155	two states a b of S
+P	I4.156	A (every available reversible conjugation is a permutation matrix
+P	I4.157	T (T on Fin 2
+P	I4.158	T (T on Fin 2
+P	I4.160	[Nonempty S] ;; T (RouteB.lean:141 ;; σ an involution
+P	I4.161	[Nonempty S] ;; σ an involution
+P	I4.163	qubit witness
+P	I4.164	𝓘 arch S) σ
+P	I4.165	g x ≠ x (g a permutation of the substratum configurations 𝒮
+P	I4.168	every admissible operator monomial or a scaled matrix unit ;; σ x ≠ x (further binders in the signature
+P	I4.169	2 ≤ card A ;; σ an involution
+P	I4.172	Fin 2 ;; Fin 2 ;; Fin 2
+P	I4.175	D : Set ℝ
+P	I4.176	the permutation class admissible ;; every phase gate admissible ;; every mixing image ` n θ` admissible
+P	I4.177	Fin 2
+P	I4.179	Fin 2 ;; Real .lean
+P	I4.181	D countable ;; every available level-1 conjugation a scalar multiple of an element of D
+P	I4.182	carrier T
+P	I4.183	carrier T
+P	I4.184	𝓘 arch S) σ
+P	I4.186	every pair of finite carriers (in the type
+P	I4.187	𝒯.shadow A) on every nonempty finite carrier A
+P	I4.188	F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ
+P	I4.191	𝒯.shadow A) on every nonempty finite carrier A
+P	I4.193	𝒯.shadow A) on every nonempty finite carrier A
+P	I4.194	𝒯.shadow A) on every nonempty finite carrier A
+P	I4.195	region tower Λ Q (RegionTower.lean
+P	I4.196	ρ Λ for every finite region Λ
+P	I4.197	a map on ι → Q
+P	I4.198	of the map and of its inverse
+P	I4.199	a continuous functional agreeing with on local elements
+P	I4.201	a C*-algebra S.A with stage maps S.st Λ and their Prop fields
+P	I4.202	CStarAlgebra A
+P	I4.204	a map on S.A
+P	I4.205	a continuous g agreeing with S.st on every stage
+P	I4.206	S, S' : ι Q
+P	I4.207	[Nontrivial Q]
+P	I4.208	the second-order rule R (section variable
+P	I4.209	the second-order rule R (section variable
+P	I4.210	A Hermitian
+P	I4.211	Φ linear, *-preserving, unital, injective, Jordan
+P	I4.212	equal trace data ;; Hermitian spanning effect families ;; PSD state families ;; separation (and further binders of the signature
+P	I4.213	two maps Φ Ψ on Matrix n n ℂ
+P	I4.214	unitary V ;; non-degenerate gaps (hgap ;; completeness of the probes (hcomplete ;; trace-zero X ;; vanishing time-resolved data (h1, further binders
+P	I4.215	A, B PosSemidef
+P	I4.216	ρ PSD nonzero ;; σ PSD
+P	I4.217	an instrument F
+P	I4.218	an instrument F
+P	I4.219	F (binders of the signature
+P	I4.221	a map on Matrix (A × B
+P	I4.224	two qubit witnesses
+P	I4.225	φ : Equiv.Perm S ;; vis : S → I
+P	I4.226	vis ;; a relation r
+P	I4.227	vis
+P	I4.230	U ( φ vis) on the classical branch domain
+P	I4.231	[Nonempty S] ;; a nontrivial hidden fibre A
+P	I4.232	[Fintype A] ;; a prior ν with marginal μ (hmarg
+P	I4.233	the elementary d = 3 system of DIM-1 (I3's scope ;; a subspace / face principle or K2 plus a subsystem principle (not in the corpus at L, per the census
+P	I4.237	SubstratumSource.lean:86
+P	I4.239	the presently stated configuration-level architecture
+P	I4.241	T (RouteB.lean:123
+P	I4.243	U on a finite carrier
+P	I4.245	as defined at LieRankSource.lean:527
+P	I4.246	act ;; corr
+P	I4.248	as defined at SubstratumInterfaceAudit.lean:619
+#T kc	id	target	decl	file:line	head	type
+C	I1.27	K:RootedRealization	routed_forces_return_indivisibility	PhysicalC4Discharge.lean:109	RootedRealization	RootedRealization V H
+C	I1.32	K:Realization	c3_necessity	C3Necessity.lean:80	Realization	Realization Hist V H
+C	I1.44	I4.64	realizesSealedOICore_of_control	OIRealization.lean:252	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I1.48	I4.64	qm_implies_oiCore	CompletedOI.lean:549	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I1.48	I4.70	qm_implies_oiCore	CompletedOI.lean:549	ExactAllFiniteEndomorphicQuantumOps	ExactAllFiniteEndomorphicQuantumOps T
+C	I1.54	I4.64	derivedOICore_of_qm	RouteB.lean:231	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I1.54	I4.70	derivedOICore_of_qm	RouteB.lean:231	ExactAllFiniteEndomorphicQuantumOps	ExactAllFiniteEndomorphicQuantumOps T
+C	I1.84	I1.4	branchDomain_span_eq_itineraryInvariant	ObservabilityQuotient.lean:270	S	S → I
+C	I1.85	I1.4	quotient_itinerarySeparating	PassiveQuotient.lean:222	S	S → I
+C	I1.85	K:CompatibilityDomainGlue	passiveQuotient_glue_forces_G1	PassiveQuotient.lean:444	CompatibilityDomainGlue	CompatibilityDomainGlue U (quotPerm φ vis)       {w | ClassicalBranchDomain (quo
+C	I1.79	I4.64	oiCore_to_passive_vacuous	PassiveIndependence.lean:248	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I1.82	K:ClassData	classTheory_realizes	SubstantiveCensus.lean:394	ClassData	ClassData
+C	I2.21	K:Isotropic	entanglementBreaking_twirl	WeylLift.lean:652	Isotropic	Isotropic G
+C	I2.21	K:Separable	separable_imp_ppt	Separability.lean:199	Separable	Separable M
+C	I2.23	I1.4	complete_passive_iff_commutative	CentralObservation.lean:620	S	S → I
+C	I2.23	K:IsBlockPassiveInstrument	central_classification	CentralObservation.lean:433	IsBlockPassiveInstrument	IsBlockPassiveInstrument blk F
+C	I2.23	I4.217	no_complete_passive_observation	PassiveObservation.lean:259	IsPassiveInstrument	IsPassiveInstrument F
+C	I2.23	I4.64	passivelyIncomplete_of_card	PassiveIndependence.lean:80	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I2.23	K:IsInternalObserver	internal_branch_eq_blockPart	InternalObserver.lean:137	IsInternalObserver	IsInternalObserver blk F
+C	I2.23	K:BlockDiag	internal_branch_eq_blockPart	InternalObserver.lean:137	BlockDiag	BlockDiag blk ρ
+C	I2.23	K:Records	no_full_passive_self_record	InternalObserver.lean:92	Records	Records blk F
+C	I2.25	K:AdmissibleDilationAt	bridge_traj	TrackBQfbBridge.lean:276	AdmissibleDilationAt	AdmissibleDilationAt G ((0 : Fin 1), (0 : Fin 1)) (pad U)
+C	I2.25	I1.4	bridge_traj	TrackBQfbBridge.lean:276	V	V
+C	I2.25	K:QfbData	padData_rooted	OperationalSourcing.lean:476	QfbData	QfbData V
+C	I2.25	I3.1	padData_rooted	OperationalSourcing.lean:476	W	W ∈ Matrix.unitaryGroup Anc ℂ
+C	I2.26	I1.4	shell_representation_from_comb	CoherentLift.lean:371	V	Vᴴ * V = 1
+C	I2.26	K:ShellAssignment.ShellRepresentationConsistency	comb_mixture_of_shell_representation	CoherentLift.lean:392	ShellAssignment.ShellRepresentationConsistency	ShellAssignment.ShellRepresentationConsistency V E p
+C	I2.27	I1.4	twoBranch_of_BGClassification	TurnpikeScopeTransfer.lean:826	V	V * Vᴴ = 1
+C	I2.27	I3.1	twoBranch_of_BGClassification	TurnpikeScopeTransfer.lean:826	W	W * Wᴴ = 1
+C	I2.27	K:E	gibbs_orientation	ThermalOrientation.lean:104	E	E a ≠ E b
+C	I2.27	K:Passive	passivity_selector_nonuniform	ThermalOrientation.lean:239	Passive	Passive E p
+C	I2.29	I4.64	exactAll_iff_physical_general	GeneralCarrier.lean:100	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I2.32	I4.64	carrier_general_oiPlusMin	MinimalRepertoire.lean:578	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I2.33	I4.24	substratum_plus_control_qm	StructuralClosure.lean:414	ImplementationClass	ImplementationClass
+C	I2.33	I4.50	substratum_plus_control_qm	StructuralClosure.lean:414	ExtendsSubstratum	ExtendsSubstratum 𝓘
+C	I2.33	I4.45	substratum_plus_control_qm	StructuralClosure.lean:414	StructurallyClosed	StructurallyClosed 𝓘
+C	I2.33	I4.143	substratum_plus_control_qm	StructuralClosure.lean:414	DrivesElementary	DrivesElementary 𝓘
+C	I2.33	I4.64	readWriteSourced_not_qm	ReadWriteControl.lean:174	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I2.33	I4.156	readWriteSourced_not_qm	ReadWriteControl.lean:174	ReadWriteSourced	ReadWriteSourced T
+C	I2.34	I4.64	derivedOI_qm_iff_layerFlowExecutable'	DerivedQ3.lean:222	FiniteOperationalTheory	FiniteOperationalTheory S
+C	I2.34	I1.49	derivedOI_qm_iff_layerFlowExecutable'	DerivedQ3.lean:222	DerivedOI	DerivedOI T
+C	I2.34	I1.4	derivedOI_qm_iff_layerFlowExecutable'	DerivedQ3.lean:222	S	S
+C	I2.35	I4.186	typed_determined_of_oiPlusMin	TypedPositive.lean:37	TypedOperationalTheory	TypedOperationalTheory
+C	I2.36	I4.196	quasiState_unique	QuasilocalAlgebra.lean:879	IsStateFamily	IsStateFamily ρ
+C	I2.36	I4.195	quasiState_unique	QuasilocalAlgebra.lean:879	Quasilocal	Quasilocal ι Q →L[ℂ] ℂ
+C	I2.36	I4.201	canon_unique	QuasilocalCharacterization.lean:359	QuasilocalSystem	QuasilocalSystem ι Q
+C	I2.36	I4.203	systemEquiv_dyn	QuasilocalCharacterization.lean:497	OISystem	OISystem ι Q
+C	I2.36	K:T.	systemEquiv_dyn	QuasilocalCharacterization.lean:497	T.	T.Φ = T'.Φ
+C	I2.37	I4.198	phaseQ_ne_heisQ	QuasilocalCharacterization.lean:792	ReversibleDynamics	ReversibleDynamics ι Q
+C	I2.37	K:Rule	layerQ_add_time	SecondOrderLayer.lean:966	Rule	Rule ι V
+C	I2.37	I4.195	layerQ_add_time	SecondOrderLayer.lean:966	Quasilocal	Quasilocal ι (V × V)
+C	I2.39	K:Stochastic	S_imp_D	Equivalence.lean:419	Stochastic	Stochastic P
+C	I2.39	I3.133	isDiag_Phi	EquivalenceChain.lean:252	H	H → ℂ
+C	I2.39	K:IsDiag	isDiag_Phi	EquivalenceChain.lean:252	IsDiag	IsDiag ρ
+C	I2.44	K:Realization	unavoidable_hidden_predictive_memory	HiddenMemory.lean:185	Realization	Realization Hist V H
+C	I2.44	I1.4	distinguishability_floor	HiddenMemory.lean:114	V	V
+C	I3.12	I3.1	cnot_relT	CompositeDimension.lean:854	W	W 3
+C	I3.15	I3.1	finrank_plus_eq_finrank_minus	CompositeDimension.lean:682	W	W d ≃ₗ[ℝ] W d
+C	I3.16	I3.1	blockData_of_nativeGate	CompositeDimension.lean:2703	W	W d ≃ₗ[ℝ] W d
+C	I3.17	I3.1	not_entangling_one	CompositeDimension.lean:1436	W	W 1 ≃ₗ[ℝ] W 1
+C	I3.19	I3.1	three_of_nativeGate	CompositeDimension.lean:2748	W	W d ≃ₗ[ℝ] W d
+C	I3.22	I3.1	not_even_of_gateRel	ParityNot.lean:137	W	W d ≃ₗ[ℝ] W d
+C	I3.24	I3.1	piRotation_three	ParityNot.lean:161	W	W 3 ≃ₗ[ℝ] W 3
+C	I3.25	I3.1	not_gateRel_refl3	ParityNot.lean:389	W	W 3 ≃ₗ[ℝ] W 3
+C	I3.27	I3.1	not_even_of_gateRel	ParityNot.lean:137	W	W d ≃ₗ[ℝ] W d
+C	I3.30	I3.1	not_even_of_relC	RelcSelectParity.lean:354	W	W d ≃ₗ[ℝ] W d
+C	I3.31	I3.1	dim_of_ctrlGate	RelcSelectBlock.lean:739	W	W d ≃ₗ[ℝ] W d
+C	I3.32	I3.1	ctrlGate_of_nativeGate	RelcSelectBlock.lean:53	W	W d ≃ₗ[ℝ] W d
+C	I3.37	I3.1	dim_of_nativeGateOf	K1Bridge.lean:128	W	W d ≃ₗ[ℝ] W d
+C	I3.38	I3.1	three_of_nativeGateOf	K1Bridge.lean:138	W	W d ≃ₗ[ℝ] W d
+C	I3.45	I3.1	three_of_nativeGate_of_two_le	K2Guard.lean:234	W	W d ≃ₗ[ℝ] W d
+C	I3.46	I3.1	two_le_of_entangling	K2Guard.lean:240	W	W d ≃ₗ[ℝ] W d
+C	I3.46	I3.8	two_le_of_entangling	K2Guard.lean:240	IsNot	IsNot (eball d) z N
+C	I3.46	I3.9	two_le_of_entangling	K2Guard.lean:240	NativeGate	NativeGate (eball d) z N G
+C	I3.68	I1.4	not_drivable_singleton	KInfFoundations.lean:564	V	V
+C	I3.89	I3.74	exists_affine_image_eq_eball	TransitiveBody.lean:602	PreservesBody	PreservesBody Ω G
+C	I3.89	I3.76	exists_affine_image_eq_eball	TransitiveBody.lean:602	BoundaryTransitive	BoundaryTransitive Ω G
+C	I3.90	I1.4	extreme_of_isBoundaryState_of_transitive	TransitiveBody.lean:290	V	V
+C	I3.90	I3.60	extreme_of_isBoundaryState_of_transitive	TransitiveBody.lean:290	IsBoundaryState	IsBoundaryState Ω x
+C	I3.97	I3.92	sharpSeed_completion	StageCompletion.lean:224	DirectedStages	DirectedStages
+C	I3.97	K:D.	sharpSeed_completion	StageCompletion.lean:224	D.	D.ι
+C	I3.105	I3.92	preservesBody_inducedEquiv	CompletionAction.lean:352	DirectedStages	DirectedStages
+C	I3.111	I3.92	finiteOrderOn_of_stagePreserving	CompositionOrder.lean:348	DirectedStages	DirectedStages
+C	I3.121	K:P.	not_locallyTomographic_paddedPre	CompositeInterface.lean:885	P.	P.Ω.Nonempty
+C	I3.121	I3.116	no_composite_over_paddedPre	CompositeInterface.lean:895	Composite	Composite ΩA ΩB V
+C	I3.124	I3.58	lor_ehom	CompositeDimension.lean:930	IsEffectOn	IsEffectOn (eball d) e
+C	I3.124	I3.1	lor_toOp_of_maxCone	CompositeDimension.lean:1049	W	W d
+C	I3.185	I3.1	toOp_actC	CompositeDimension.lean:451	W	W d
+C	I4.5	I4.64	qutrit_of_parallel	ReferenceExtension.lean:474	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.15	I4.64	inertSpectator_iff_parallelReferenceExtension	SpectatorBridge.lean:233	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.16	I4.64	krausSoundExt_of_sound_control_inert	SpectatorBridge.lean:249	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.19	I4.64	hCompRealized_spectator_available	SpectatorBridge.lean:411	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.20	I4.64	hCompRealized_ones_of_control	SpectatorBridge.lean:424	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.36	I4.32	genTheory_embeddedObservation	ImplementationLocality.lean:904	Architecture	Architecture 𝓘
+C	I4.37	I4.64	observationalIndependence_of_implementationLocality	ImplementationLocality.lean:957	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.38	I4.64	validity_of_implementationLocality	ImplementationLocality.lean:971	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.39	I4.64	implementationLocality_of_qm	ImplementationLocality.lean:1017	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.43	I4.64	carrier_general_oiPlusLocal	ImplementationLocality.lean:1079	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.47	I4.24	quantumArchitecture_iff_drives_of_closed	StructuralClosure.lean:364	ImplementationClass	ImplementationClass
+C	I4.51	I4.24	substratum_extension_quantum_iff_drives	StructuralClosure.lean:408	ImplementationClass	ImplementationClass
+C	I4.52	I4.24	substratum_plus_control_qm	StructuralClosure.lean:414	ImplementationClass	ImplementationClass
+C	I4.53	I4.64	qm_generated_by_substratum_extension	StructuralClosure.lean:423	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.57	I4.64	layerFlowExecutable_of_control	LiftAudit.lean:117	FiniteOperationalTheory	FiniteOperationalTheory S
+C	I4.58	I4.24	configurationLevel_not_layerFlowExecutable	LiftAudit.lean:183	ImplementationClass	ImplementationClass
+C	I4.58	I1.4	configurationLevel_not_layerFlowExecutable	LiftAudit.lean:183	S	S
+C	I4.59	I1.4	substratumTheory_not_layerFlowExecutable	LiftAudit.lean:200	S	S
+C	I4.61	I4.64	phaseFree_of_layerFlowExecutable	LiftAudit.lean:783	FiniteOperationalTheory	FiniteOperationalTheory S
+C	I4.61	I1.4	phaseFree_of_layerFlowExecutable	LiftAudit.lean:783	S	S
+C	I4.62	I4.64	derivedOI_qm_iff_layerFlowExecutable	LiftAudit.lean:812	FiniteOperationalTheory	FiniteOperationalTheory S
+C	I4.62	I1.4	derivedOI_qm_iff_layerFlowExecutable	LiftAudit.lean:812	S	S
+C	I4.71	I4.64	exactAll_iff_physical_general	GeneralCarrier.lean:100	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.75	I4.64	exactAll_iff_substantive	GeneralCarrier.lean:144	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.81	I4.64	completedOI_iff_physical	CompletedOI.lean:110	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.83	I4.64	observationalIndependence_iff_inert	CompletedOI.lean:131	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.84	I4.64	parallel_of_observationalIndependence	CompletedOI.lean:147	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.89	I4.64	qm_of_oiPlus	CompletedOI.lean:423	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.90	I4.64	oiPlus_iff_qm	CompletedOI.lean:440	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.91	I4.64	oiPlus_iff_completedOI	CompletedOI.lean:444	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.92	I4.64	independence_independent	CompletedOI.lean:475	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.93	I4.64	richness_independent	CompletedOI.lean:487	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.94	I4.64	recursion_independent	CompletedOI.lean:496	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.95	I4.64	oiPlus_independence	CompletedOI.lean:506	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.97	I4.64	observationalIndependence_iff_inert	CarrierGeneralOIPlus.lean:75	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.98	I4.64	parallel_of_observationalIndependence	CarrierGeneralOIPlus.lean:87	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.100	I4.64	control_of_reversibleRichness	CarrierGeneralOIPlus.lean:127	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.101	I4.64	reversibleRichness_of_control	CarrierGeneralOIPlus.lean:148	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.103	I4.64	oiPlus_iff_qm	CarrierGeneralOIPlus.lean:207	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.104	I4.64	carrier_general_oiPlus	CarrierGeneralOIPlus.lean:213	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.105	I4.64	oiPlus_independence	CarrierGeneralOIPlus.lean:230	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.111	I4.64	closure_of_embedded	EmbeddedObservation.lean:184	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.111	I4.106	closure_of_embedded	EmbeddedObservation.lean:184	TheoryFamily	TheoryFamily
+C	I4.112	I4.64	systemToLevelOne_of_embedded	EmbeddedObservation.lean:203	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.112	I4.106	systemToLevelOne_of_embedded	EmbeddedObservation.lean:203	TheoryFamily	TheoryFamily
+C	I4.113	I4.64	observerRecursion_of_embeddedObservation	EmbeddedObservation.lean:217	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.116	I4.64	oiPlusEmbedded_iff_qm	EmbeddedObservation.lean:384	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.117	I4.64	carrier_general_oiPlusEmbedded	EmbeddedObservation.lean:394	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.119	I4.64	control_of_phaseFree	MinimalRepertoire.lean:529	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.121	I4.64	oiPlusMin_iff_qm	MinimalRepertoire.lean:569	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.122	I4.64	carrier_general_oiPlusMin	MinimalRepertoire.lean:578	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.125	I4.64	oiPlusPos_iff_qm	PositivePackage.lean:55	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.126	I4.64	carrier_general_oiPlusPos	PositivePackage.lean:68	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.129	I4.64	control_of_lieRank_inverse	MicroscopicReversibility.lean:107	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.130	I4.64	control_of_lieRank	MicroscopicReversibility.lean:114	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.131	I4.64	inverseAccessibility_of_lieRank	MicroscopicReversibility.lean:132	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.135	I4.64	inverseAccessibility_of_generated_daggerStable	MicroscopicReversibility.lean:283	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.135	I4.24	inverseAccessibility_of_generated_daggerStable	MicroscopicReversibility.lean:283	ImplementationClass	ImplementationClass
+C	I4.136	I4.64	reversibleImplementationLocality_of_qm	MicroscopicReversibility.lean:329	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.138	I4.64	oiPlusMicro_iff_qm	MicroscopicReversibility.lean:357	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.139	I4.64	carrier_general_oiPlusMicro	MicroscopicReversibility.lean:366	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.141	I3.133	posReach_eq_top	PositiveReachability.lean:978	H	Hᴴ = H
+C	I4.142	I3.133	universalReachability_of_lieRank_positive	PositiveReachability.lean:996	H	Hᴴ = H
+C	I4.146	I4.64	qm_generated_by_quantumArchitecture	SubstratumSource.lean:161	FiniteOperationalTheory	FiniteOperationalTheory A
+C	I4.150	I4.64	monomialSource_not_control	SubstratumInterface.lean:186	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.151	I4.64	monomialSource_not_qm	SubstratumInterface.lean:192	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.153	I4.24	onesFixing_not_phasesAvailable	PhaseSource.lean:52	ImplementationClass	ImplementationClass
+C	I4.157	I4.64	readWriteSourced_not_control	ReadWriteControl.lean:169	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.158	I4.64	readWriteSourced_not_qm	ReadWriteControl.lean:174	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.159	I1.4	readWriteControl_independent	ReadWriteControl.lean:216	S	S
+C	I4.160	I4.64	qm_of_derivedOI_layerFlowExecutable	DerivedQ3.lean:214	FiniteOperationalTheory	FiniteOperationalTheory S
+C	I4.160	I1.4	qm_of_derivedOI_layerFlowExecutable	DerivedQ3.lean:214	S	S
+C	I4.161	I4.64	derivedOI_qm_iff_layerFlowExecutable'	DerivedQ3.lean:222	FiniteOperationalTheory	FiniteOperationalTheory S
+C	I4.161	I1.4	derivedOI_qm_iff_layerFlowExecutable'	DerivedQ3.lean:222	S	S
+C	I4.164	I4.24	not_configurationLevel_of_layerFlowExecutable	ExecSource.lean:73	ImplementationClass	ImplementationClass
+C	I4.164	I1.4	not_configurationLevel_of_layerFlowExecutable	ExecSource.lean:73	S	S
+C	I4.167	I1.4	coherentLiftClass_not_layerFlowExecutable	LiftSource.lean:187	S	S
+C	I4.168	I4.24	stochastic_not_layerFlowExecutable	LiftSource.lean:262	ImplementationClass	ImplementationClass
+C	I4.168	I1.4	stochastic_not_layerFlowExecutable	LiftSource.lean:262	S	S
+C	I4.173	I4.64	killBattery_not_qm	C5Discovery.lean:81	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.176	I4.24	qm_of_mixSourced	StateMixingCoupling.lean:486	ImplementationClass	ImplementationClass
+C	I4.180	I4.64	qm_iff_derivedOI_pairFlowSourced	PairFlowEquivalence.lean:199	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.181	I4.64	countable_not_pairFlowSourced	PairFlowEquivalence.lean:218	FiniteOperationalTheory	FiniteOperationalTheory (Fin 2)
+C	I4.184	I4.24	uncountableNonMonomialRays_of_layerFlowExecutable	CoherentContinuumSource.lean:163	ImplementationClass	ImplementationClass
+C	I4.184	I1.4	uncountableNonMonomialRays_of_layerFlowExecutable	CoherentContinuumSource.lean:163	S	S
+C	I4.185	I1.4	coherent_continuum_not_sourced	CoherentContinuumSource.lean:328	S	S
+C	I4.193	I4.186	typed_determined_of_oiPlusPos	TypedPositive.lean:25	TypedOperationalTheory	TypedOperationalTheory
+C	I4.194	I4.186	typed_determined_of_oiPlusMin	TypedPositive.lean:37	TypedOperationalTheory	TypedOperationalTheory
+C	I4.199	I4.195	quasiState_unique	QuasilocalAlgebra.lean:879	Quasilocal	Quasilocal ι Q →L[ℂ] ℂ
+C	I4.205	I4.201	canon_unique	QuasilocalCharacterization.lean:359	QuasilocalSystem	QuasilocalSystem ι Q
+C	I4.205	I4.195	canon_unique	QuasilocalCharacterization.lean:359	Quasilocal	Quasilocal ι Q → S.A
+C	I4.208	K:Rule	driveQ_isContinuousPath	SecondOrderDrive.lean:225	Rule	Rule ι V
+C	I4.209	K:Rule	driveQ_one_eq_heisQ	SecondOrderDrive.lean:829	Rule	Rule ι V
+C	I4.209	I4.195	driveQ_one_eq_heisQ	SecondOrderDrive.lean:829	Quasilocal	Quasilocal ι (V × V)
+C	I4.214	I1.4	operational_separation	OperationalRigidity.lean:170	V	V * Vᴴ = 1
+C	I4.228	I1.4	quotient_itinerarySeparating	PassiveQuotient.lean:222	S	S → I
+C	I4.229	I1.4	passiveMinimal_iff_itinerarySeparating	PassiveQuotient.lean:246	S	S → I
+C	I4.230	I1.4	passiveQuotient_glue_forces_G1	PassiveQuotient.lean:444	S	S → I
+C	I4.231	I1.4	hiddenExt_not_separating	PassiveQuotient.lean:534	S	S → I
+C	I4.232	I1.4	hiddenExt_same_law	PassiveQuotient.lean:563	S	S → I
+#T ambiguous	src	name	candidates	pick
+A	I2.34	DerivedOI	I1.49,I4.241	I1.49
+A	I3.47	d	I3.1,I3.11	I3.1
+A	I4.100	ReversibleRichness	I4.85,I4.99	I4.99
+A	I4.102	ObservationalIndependence	I4.82,I4.96	I4.96
+A	I4.102	ReversibleRichness	I4.85,I4.99	I4.99
+A	I4.115	ObservationalIndependence	I4.82,I4.96	I4.82
+A	I4.115	ReversibleRichness	I4.85,I4.99	I4.85
+A	I4.160	DerivedOI	I1.49,I4.241	I1.49
+A	I4.161	DerivedOI	I1.49,I4.241	I1.49
+A	I4.42	OIHierarchyGeneral.ReversibleRichness	I4.85,I4.99	I4.85
+A	I4.62	DerivedOI	I1.49,I4.241	I1.49
+A	I4.80	OICore	I1.47,I1.48,I1.79,I4.79	I4.79
+A	I4.84	ObservationalIndependence	I4.82,I4.96	I4.82
+A	I4.88	OICore	I1.47,I1.48,I1.79,I4.79	I4.79
+A	I4.88	ObservationalIndependence	I4.82,I4.96	I4.82
+A	I4.88	ReversibleRichness	I4.85,I4.99	I4.85
+A	I4.89	OIPlus	I4.88,I4.102	I4.88
+A	I4.98	ObservationalIndependence	I4.82,I4.96	I4.96
+counts: edges=1091 KC=188 R=802 RA=31 RN=70 yedges=495 kc=188 prose_nodes=238 ambiguous=18 derived=327
+E1 PASS
+E2 PASS
+E3 PASS
+VERDICT EDGES VALID

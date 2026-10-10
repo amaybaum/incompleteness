@@ -1,0 +1,12 @@
+PASS control d2 diag(1,-1): dim Lsig = 1, random block rank 2/3
+PASS control d2 -id: dim Lsig = 1, random block rank 2/3
+PASS control d3 nflip: dim Lsig = 2, random block rank 8/8
+PASS control d3 refl3-type sigma=diag(1,1,-1): dim Lsig = 3, random block rank 6/8
+PASS control d3 sigma=-id: dim Lsig = 3, random block rank 6/8
+d4 R=diag(1,-1,-1)  (p_s=1,q_s=2): dim Lsig = 4, random block rank 15/15
+d4 R=diag(1,1,-1)   (p_s=2,q_s=1): dim Lsig = 4, random block rank 15/15
+d4 R=I3             (p_s=3,q_s=0): dim Lsig = 6, random block rank 12/15
+d4 R=-I3            (p_s=0,q_s=3): dim Lsig = 6, random block rank 12/15
+d4 R=rot(1/2)(+)1: dim Lsig = 1, random block rank 6/15
+d4 R=rot(1/2)(+)-1: dim Lsig = 1, random block rank 6/15
+controls ok

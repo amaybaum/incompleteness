@@ -1,0 +1,92 @@
+
+=== A. Complex quantum theory: ELEM2 selects n <= 2; GEOM2 / SF2 hold at every n (the converse test) ===
+NOTE [written] A.ELEM2_fails_n_ge_3  -- for pure x = |v><v|, y = |w><w| in M_n(C), m = (x+y)/2 has rank <= 2 < n; a kernel vector chi of m gives the state z = |chi><chi|/<chi|chi> with <chi|(m + eps(m - z))|chi> = -eps<chi|chi> < 0 for every eps > 0, so m is a boundary state.  Hence ELEM2 fails for every n >= 3 and every pair; checked exactly on the instances below.
+NOTE [written] A.GEOM2_holds_all_n  -- genFace(D_n, m) = {states supported on K = span(v, w)}, dim K = 2; for an effect 0 <= E <= I and rho supported on K: tr(E rho) = 1 iff supp rho is in K cap ker(I - E).  dim(K cap ker(I-E)) is 0 or 1 (certain face empty or one pure state) or 2 (E identically 1 on the face, i.e. not proper on it).  So SF2 holds for every effect, every pair face, every n; and since a midpoint of two distinct states on a 2-dim space has rank 2 (full on K), every pair face is relatively strictly convex (GEOM2).  Checked exactly on the instances below.
+PASS [witness] qubit.ELEM2  -- m = (|0><0| + |1><1|)/2 >= 1/2 I: not a boundary state of the Bloch ball; |0>,|1> are pure
+PASS [sample] qubit.SF2  -- certain face of every sampled proper qubit effect is at most one pure state
+PASS [witness] qutrit0.ELEM2_fails  -- rank m = 2 < 3; <chi|m|chi> = 0, <chi|chi> = 1 > 0: <chi|(m + eps(m - z))|chi> = -eps*1 < 0
+PASS [witness] qutrit0.pairface_relint  -- m >= 1/2 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] qutrit0.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] qutrit1.ELEM2_fails  -- rank m = 2 < 3; <chi|m|chi> = 0, <chi|chi> = 2 > 0: <chi|(m + eps(m - z))|chi> = -eps*2 < 0
+PASS [witness] qutrit1.pairface_relint  -- m >= 1/8 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] qutrit1.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] qutrit2.ELEM2_fails  -- rank m = 2 < 3; <chi|m|chi> = 0, <chi|chi> = 3 > 0: <chi|(m + eps(m - z))|chi> = -eps*3 < 0
+PASS [witness] qutrit2.pairface_relint  -- m >= 1/4 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] qutrit2.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] qutrit3.ELEM2_fails  -- rank m = 2 < 3; <chi|m|chi> = 0, <chi|chi> = 6/5 > 0: <chi|(m + eps(m - z))|chi> = -eps*6/5 < 0
+PASS [witness] qutrit3.pairface_relint  -- m >= 1/2 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] qutrit3.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] qutrit4.ELEM2_fails  -- rank m = 2 < 3; <chi|m|chi> = 0, <chi|chi> = 25/9 > 0: <chi|(m + eps(m - z))|chi> = -eps*25/9 < 0
+PASS [witness] qutrit4.pairface_relint  -- m >= 1/2 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] qutrit4.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] qutrit5.ELEM2_fails  -- rank m = 2 < 3; <chi|m|chi> = 0, <chi|chi> = 5/2 > 0: <chi|(m + eps(m - z))|chi> = -eps*5/2 < 0
+PASS [witness] qutrit5.pairface_relint  -- m >= 1/8 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] qutrit5.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] ququart0.ELEM2_fails  -- rank m = 2 < 4; <chi|m|chi> = 0, <chi|chi> = 1 > 0: <chi|(m + eps(m - z))|chi> = -eps*1 < 0
+PASS [witness] ququart0.pairface_relint  -- m >= 1/2 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] ququart0.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] ququart1.ELEM2_fails  -- rank m = 2 < 4; <chi|m|chi> = 0, <chi|chi> = 2 > 0: <chi|(m + eps(m - z))|chi> = -eps*2 < 0
+PASS [witness] ququart1.pairface_relint  -- m >= 1/2 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] ququart1.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] ququart2.ELEM2_fails  -- rank m = 2 < 4; <chi|m|chi> = 0, <chi|chi> = 6 > 0: <chi|(m + eps(m - z))|chi> = -eps*6 < 0
+PASS [witness] ququart2.pairface_relint  -- m >= 1/8 P_K: the midpoint is not a boundary state of its pair face (the face is the Bloch ball of K)
+PASS [sample] ququart2.GEOM2_sampled  -- every midpoint of two distinct sampled states of the pair face dominates lam P_K, lam > 0: relatively interior
+PASS [witness] census.global_SF_fails  -- P certain on |0>,|1> and 0 at |2>: proper with a two-state certain face (kn-elementary-carrier-census section 4)
+PASS [witness] census.midpoint_boundary  -- <2|m|2> = 0, so with z = |2><2| the extension m + eps(m - z) has <2|.|2> = -eps < 0: m is a boundary state
+PASS [witness] census.SF2.F(0,1)  -- dim(K cap ker(I-P)) = 2: not proper on the face (identically 1)
+PASS [witness] census.SF2.F(0,2)  -- dim(K cap ker(I-P)) = 1: certain face = 1 pure state(s)
+PASS [witness] census.SF2.F(0,psi)  -- dim(K cap ker(I-P)) = 1: certain face = 1 pure state(s)
+PASS [witness] census.SF2.F(1,0+2i)  -- dim(K cap ker(I-P)) = 1: certain face = 1 pure state(s)
+PASS [witness] census.SF2.F01_not_proper  -- on the pair face of |0>,|1> the census effect is the unit: no SF2 obligation, the census counterexample is defused
+PASS [witness] census.SF2.F02_singleton  -- on the pair face of |0>,|2> the census effect is proper and certain on |0><0| only
+PASS [witness] rqutrit0.ELEM2_fails  -- a real kernel vector of the rank-2 midpoint exists: boundary state of the real qutrit
+PASS [witness] rqutrit1.ELEM2_fails  -- a real kernel vector of the rank-2 midpoint exists: boundary state of the real qutrit
+PASS [witness] rqutrit2.ELEM2_fails  -- a real kernel vector of the rank-2 midpoint exists: boundary state of the real qutrit
+NOTE [written] rqutrit.GEOM2  -- pair faces are the real 2x2 density matrices on span(v, w): a disk, strictly convex
+
+=== B. Foils: which bodies does ELEM2 & GEOM2 exclude? ===
+NOTE [written] B.CS_lemma  -- if Om is centrally symmetric about c in Om and x is an extreme point, x != c, then y = 2c - x is extreme and c = midpoint(x, y) is not a boundary state: for z in Om, c + 1*(c - z) = 2c - z is in Om by symmetry. So ELEM2 holds on every centrally symmetric body with two points (bit, square, hexagon, torus, Stiefel, disk, balls, the l2 ball).
+NOTE [written] B.polytope_lemma  -- a polytope of dimension >= 2 is not relatively strictly convex (an edge midpoint is a boundary state), so it violates GEOM2 as soon as it satisfies ELEM2; a segment satisfies both.
+PASS [witness] square.ELEM2  -- opposite vertices (1,1), (-1,-1): midpoint 0 strictly inside every facet, so not a boundary state
+PASS [witness] square.GEOM2_fails  -- the pair face of (1,1), (-1,-1) is the square; (1,1), (1,-1) are distinct and their midpoint (1,0) is a boundary state (facet x <= 1 tight at it, strict at 0): not relatively strictly convex
+PASS [witness] hexagon.ELEM2  -- opposite vertices: midpoint interior
+PASS [witness] hexagon.GEOM2_fails  -- edge midpoint is a boundary state of the (whole-body) pair face
+PASS [identity] pentagon.affine_regular  -- P_{k+1} + P_{k-1} = 2cos72 P_k: a linear image of the regular pentagon
+PASS [enumerate] pentagon.ccw_convex  -- every vertex on the boundary, none outside
+PASS [witness] pentagon.ELEM2  -- vertices 0 and 2 (non-adjacent): the midpoint of the diagonal is strictly inside every facet
+PASS [witness] pentagon.GEOM2_fails  -- edge midpoint of [v0, v1] is a boundary state (facet tight there, strict at the centroid)
+PASS [sample] bit.ELEM2  -- m = 0: 0 + eps(0 - z) = -eps z stays in [-1,1] for eps <= 1 (CS lemma); endpoints are extreme
+NOTE [written] bit.GEOM2  -- the segment is strictly convex (kernel: relStrictConvex_of_strictConvex KF:617 with strictConvex_Icc): ELEM2 and GEOM2 hold.  Exclusion needs a further premise: HasTwoSharpTests (SharpTests.lean:41; hasTwoSharpTests_iff :155 gives 2 <= d) or ElementaryDrivability (not_drivable_Icc KF:529).
+PASS [enumerate] trit.ELEM2_fails  -- every vertex pair is an edge; its midpoint has a zero coordinate and is a boundary state (witness the third vertex)
+NOTE [written] trit.GEOM2  -- the pair face of two vertices is their edge, a segment: GEOM2 holds; the trit is not elementary
+PASS [enumerate] bipyramid.vertices_in
+PASS [witness] bipyramid.ELEM2  -- midpoint of the apexes is the interior point 0
+PASS [witness] bipyramid.GEOM2_fails  -- midpoint of the edge [N, A] is a boundary state of the (whole-body) pair face of N, S
+PASS [witness] bipyramid.capacity3  -- the three equator barycentric effects are >= 0 on every vertex, sum to one and perfectly distinguish A, B, C: ELEM2 alone does not bound capacity; GEOM2 does (note B.capacity)
+NOTE [written] B.capacity  -- ELEM2 & GEOM2 => RelStrictConvex => capacity <= 2: if x1, x2, x3 were perfectly distinguishable by e1 + e2 + e3 = 1, then 1 - e1 is proper (0 at x1) and certain at x2 != x3, contradicting singleton faces (KF:590 from RelStrictConvex)
+PASS [witness] torus.ELEM2  -- x = (1,0,1,0) on S^1 x S^1 (extreme) and -x: the centre 0 is not a boundary state by the CS lemma
+PASS [witness] torus.GEOM2_fails  -- two extreme points with midpoint (1,0,0,0); with y = 0 the extension (1+eps)(1,0,0,0) has first-circle norm (1+eps)^2 > 1 for EVERY eps > 0 (exact sample shown; the inequality is linear in eps): flat face, not RSC
+PASS [witness] stiefel.ELEM2  -- S1 (a 2-frame, extreme) and -S1: the centre 0 is not a boundary state by the CS lemma
+PASS [witness] stiefel.GEOM2_fails  -- midpoint of the frames S1, S2 has first column e1 (norm 1); (1+eps) times it has spectral norm 1+eps > 1: flat face, not RSC
+PASS [sample] cone.ELEM2_fails_sampled  -- apex-rim midpoints lie on the lateral surface, rim-rim midpoints in the base: boundary states (written: every pair of extreme points lies in a proper face)
+NOTE [written] cone.GEOM2  -- pair faces are generating segments [apex, w] or the base disk: GEOM2 holds; the cone has capacity 3 (apex and two antipodal rim points) and is not elementary
+NOTE [written] disk.ELEM2_GEOM2  -- the rebit disk is centrally symmetric and strictly convex: ELEM2 and GEOM2 hold.  Exclusion needs a further premise: corrected ElementaryDrivability (J must normalize SO(2) = the only flow; written, thread A / KINF-2 record) or the native-gate selector dim_of_nativeGate / dim_of_nativeGateOf (d in {1,3}).  The same holds for every ball of dimension >= 4 (spin factors): they need the DIM-1 selector.
+
+=== C. Countercontrols (each must come out the other way) ===
+PASS [witness] C1.ELEMprime_admits_qutrit  -- x = |0><0| and the mixed y = (|1><1|+|2><2|)/2 are perfectly distinguishable (P0, 1-P0) and their midpoint dominates 1/4 I (interior): a non-pure ELEM would put the qutrit in scope, where SF fails (census): "pure" is load-bearing
+PASS [witness] C2.unlocalized_SF_code_path  -- ker(I - P) on C^3 has dimension 2: the same computation on the whole qutrit reports a non-singleton certain face
+PASS [enumerate] C3.square_aut_count  -- exactly 8 of the 24 vertex permutations are affine: D4
+PASS [enumerate] C3.square_auts_distinct  -- the 8 stored maps act as 8 distinct vertex permutations (guards against late binding of the coefficients)
+PASS [enumerate] C3.square_extreme_transitive  -- ExtremeTransitive holds for the full automorphism group of the square
+PASS [enumerate] C3.square_not_boundary_transitive  -- no automorphism carries the boundary state (1,0) to the vertex (1,1): BoundaryTransitive fails, so RelStrictConvex is load-bearing in Theorem A (kernel: not_boundaryTransitive_square2)
+NOTE [written] C3.flow  -- the one-axis rotation flow of ball3 is RelStrictConvex but not ExtremeTransitive (the poles are fixed); kernel not_boundaryTransitive_flow (OrbitGeneration.lean:620): ExtremeTransitive is load-bearing
+PASS [witness] C4.rectangle_vertices_pure  -- the four vertices (+-3/5, +-4/5, 0) are pure qubit states
+PASS [witness] C4.rectangle_ELEM2  -- opposite vertices: centre interior
+PASS [witness] C4.rectangle_GEOM2_fails  -- edge midpoint (3/5, 0) is a boundary state of the rectangle body: the geometric GEOM2 fails on this sub-body
+PASS [witness] C4.SF2_quantum_effects_hold  -- the edge midpoint is a full-rank qubit state (>= 1/8 I); a qubit effect certain there has tr((I-E) rho) = 0 with rho > 0, so E = I, not proper: the effect form SF2 with quantum effects holds, and SEC with quantum effects fails at this boundary state
+NOTE [written] C4.reading  -- the geometric principle (GEOM2, like SF with full effects, RelStrictConvex, K-inf-Trans) is not inherited by restricted-preparation sub-bodies of a quantum system; the effect form with quantum effects is.  Every geometric seam therefore presupposes that the completed body is the full state space of the system (state completeness), an unnamed reading of K-inf-Stage.
+PASS [enumerate] C5.operational_capacity_is_2  -- with avail = {unit, P, 1-P} the qutrit has a perfectly distinguishable pair and no perfectly distinguishing triple (no three available effects sum to the unit)
+PASS [witness] C5.SF_avail_fails  -- yet the available P is proper and certain on two states: "operational capacity 2 => SF(avail)" fails on a quantum model; the geometric ELEM2 excludes the qutrit body for every effect family (qutrit*.ELEM2_fails)
+
+summary: witness 50, identity 1, enumerate 8, sample 12
+qa1_controls: OK -- 71 exact checks

@@ -1,0 +1,31 @@
+
+== S1  the four-qubit dictionary (the quantum model of P3 and OVL4)
+PASS Q1  [enumerate] tr(s_m s_n) = 2 delta_mn for the four Pauli matrices (so Pauli strings on four qubits are trace-orthogonal with tr(s_s s_t) = 16 delta_st, by multiplicativity of the trace under Kronecker products) -- 16 pairs
+NOTE [written] Q1.W  -- hence for four-token tables tr(pauli4 Om pauli4 Om') = (1/256) sum_s,t Om_s Om'_t tr(s_s s_t) = (1/16) <Om, Om'>: the Euclidean W4 pairing is 16 times the trace pairing of the Pauli presentation.
+PASS Q2  [identity] pauli4 (prodA X Y) = pauliW X (x) pauliW Y, symbolic X, Y
+PASS Q3  [identity] pauli4 (prodB L L') = Pi (pauliW L (x) pauliW L') Pi^T, symbolic (Pi exchanges qubits 1 and 2)
+PASS Q3c  [countercontrol] countercontrol: without Pi the grouping-B product is not the Kronecker product
+NOTE [written] Q.W  -- with K4 = PSD16 := {Om : pauli4 Om PSD}: by Q2, Q3 and Mathlib Matrix.PosSemidef.kronecker (Analysis/Matrix/Order.lean:213) prodA Q3 Q3 and prodB Q3 Q3 lie in K4 (P3 for uniform Q3); by Q1.W and the self-duality of the PSD cone under the trace pairing (landed psd_iff_trace_nonneg, JordanClassification.lean:84; psd_trace_mul_nonneg, OperationalRigidity.lean:917) K4 = K4* for the W4 pairing (OVL4 and its converse); and dualW Q3 = Q3 (s2 D4 with the same fact; CSD2). So uniform Q3 satisfies P3, SD4 and SD2: the route is satisfiable with FCC.
+
+== S2  per-token charts on four tokens: the even twist patterns
+PASS T1  [enumerate] for all 16 token charts eps: chart4 eps (prodA X Y) = prodA (chartR e0 e1 X) (chartR e2 e3 Y) and chart4 eps (prodB L L') = prodB (chartR e0 e2 L) (chartR e1 e3 L'), symbolic
+PASS T2  [enumerate] transpose acts on the Pauli basis as reflY: s_m^T = SG_m s_m (so chart4 eps is the partial transpose on the qubits with eps_i = 1, an orthogonal involution of W4)
+NOTE [written] T.W  -- chart4 eps is a signed permutation of the 256 entries, hence W4-orthogonal; by T2 it is the partial transpose on the qubits with eps_i = 1, so K4_eps := chart4 eps (PSD16) is self-dual (orthogonal image of a self-dual cone). chartR ei ej Q3 = twistQ3(ei xor ej) (twin = actT reflY Q3; the full reflection preserves Q3, landed C4). By T1, K4_eps contains prodA and prodB of the cones twistQ3(ei xor ej): for every even twist pattern tau = coboundary(eps) the configuration (twistQ3 tau_p)_p satisfies P3, SD4 and SD2 with K4 = K4_eps.
+
+== S3  drop-one models (each shows that the remaining conjuncts do not suffice)
+PASS D1  [witness] drop OVL4: on the M_tok cones (Q3, Q3, Q3, twin), K4 = cone(prodA Q3 Q3 u prodB Q3 twin) satisfies P3 and CSD2 holds (Q3, twin self-dual); the overlap <prodA phiW phiW, prodB phiW L'> = fourVal phiW phiW phiW L' = -2: OVL4 fails for EVERY K4 containing both groupings' products, and FCC fails (-1/8, s1 A3) -- overlap -2
+PASS D2  [witness] drop P3: M_tok cones with K4 = PSD16 satisfy OVL4 and CSD2, but prodB phiW L' is not in PSD16: pauliW L' has the eigenvalue -1/2 and pauliW phiW is a rank-one projector, so their Kronecker product is not PSD -- eigenvalues of pauliW L': {-1/2: 1, 1/2: 3}
+PASS D3  [witness] drop CSD2: uniform K_gen with K4 = PSD16 satisfies P3 and OVL4 (K_gen <= Q3, Q.W); E0 lies in dualW K_gen (s2 G1-G3) but not in K_gen (ipW E0 G = -1 with G in Q3 = dualW Q3 >= K_gen), so CSD2 fails; FCC fails: fourVal phiW phiW E0 G = -1 -- value -1
+PASS D3c  [countercontrol] countercontrol: with E0 replaced by the Q3 table E00 + E33 the value is >= 0 -- value 1
+
+== S4  strictness: uniform maxCone satisfies FCC and CSD2 but no K4 gives P3 and OVL4
+PASS X1  [witness] uniform maxCone: <prodA idW idW, prodB phiW L'> = -2 (idW, phiW, L' in maxCone, s2 M2): P3 forces two states with negative overlap into K4, so P3 and OVL4 cannot hold together -- overlap -2
+NOTE [written] X.W  -- uniform maxCone satisfies FCC (landed F.max) and CSD2 (dualW maxCone = SEP <= maxCone) and fails P3 & OVL4 (X1). So P3 & OVL4 & CSD2 is strictly stronger than FCC on admissible closed cones (maxCone fails hgate: it is not a model of the full pair hypotheses).
+
+== S5  the abstract-carrier form (no four-copy local tomography): the cross inner product on token products
+PASS C1  [identity] fourVal X Y (prodState x0 x2) (prodState x1 x3) = ipW X (prodState x0 x1) * ipW Y (prodState x2 x3), symbolic X, Y, x0..x3
+PASS C2  [witness] the 16 token products prodState s t (s, t in {e_x, e_y, e_z, -e_z}) are linearly independent (they span R^16; every one has unit entry 1) -- det 256
+NOTE [written] C.W  -- abstract carrier V with an inner product <.,.>: suppose (i) each grouping's product state map is bi-affine on the pair chart (COMP-1 ProductData combo laws), (ii) TPS: PB.prodState (tp x0 x2) (tp x1 x3) = PA.prodState (tp x0 x1) (tp x2 x3) on token products, (iii) multiplicativity on grouping A: <PA.prodState x y, PA.prodState x' y'> = ipW x x' * ipW y y'. Writing l, l' in the hyperplane {u_00 = 1} as affine combinations of token products (C2), bi-affinity, TPS and (iii) give <PA.prodState x y, PB.prodState l l'> = sum of coefficient products times ipW X (tp x0 x1) ipW Y (tp x2 x3), which is fourVal X Y L L' by C1 and bilinearity of fourVal. So OVL4 for one body containing both groupings' products, with CSD2, gives famI in the abstract carrier with no four-copy local tomography; famII is symmetric. The COMP-1 effect field prodEff_effect (where the cross-positivity sits in thread C's N0) is not used.
+
+kinds: identity 3, witness 5, enumerate 3, countercontrol 2
+VERDICT S3-SELFDUAL-EXACT -- 13 checks

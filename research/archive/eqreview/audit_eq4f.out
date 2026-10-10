@@ -1,0 +1,6 @@
+PASS S cnot' is an involution and symmetric as a 16 x 16 table map
+PASS P Lemma P witnesses: family (i) value negative exactly at the odd patterns  [0000:0 0001:-1/8 0010:-1/8 0011:0 0100:-1/8 0101:0 0110:0 0111:-1/8 1000:-1/8 1001:0 1010:0 1011:-1/8 1100:0 1101:-1/8 1110:-1/8 1111:0]
+PASS P membership control: X and Y are pure states of Q3 (twist 0) or of Tw (twist 1) in my dictionary
+PASS O orientation rule: the Bell table H_R (R = A reflY B^T) is a pure state of Q3 iff det A det B = 1 and of Tw iff det A det B = -1 (8 exact random post-locals, determinant classes [(-1, -1), (-1, 1), (1, -1), (1, 1)])
+--- audit_eq4f: 4/4
+VERDICT AUDIT-EQ4F-EXACT

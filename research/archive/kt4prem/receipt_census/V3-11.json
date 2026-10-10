@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "V3-11",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "76a2c4dd82f0bf0dc8113256bf76bc02171e1337",
+ "f": "f5e316fedb9211f1973e8f5d9b2d40b145e68268",
+ "control_plane_blobs": [
+  {
+   "path": "verification/infrastructure/round-v3-11-authority-cutover/preregistration.md",
+   "blob": "eb51e0627a5dc1b37fa0b9d5cb8f9149806bcc3b"
+  }
+ ],
+ "governed_paths_digest": "756d2556b24ead570adb2679cd439440823294dc3e934f3fc58b016c5aa4889a",
+ "e": "ad20bf209d6b1b5eec609c47415ea7882dcabb8e",
+ "tree_e": "1902060d652c3db56e0c6a1d8899144868470470",
+ "execution_delta_digest": "f3a26bc3be575daba2450d485a068e0fb95ae0e3e7328318711cf70a723eae65",
+ "candidates": [],
+ "landing": {
+  "base": "76a2c4dd82f0bf0dc8113256bf76bc02171e1337",
+  "object": "70c384dcc42bda39f8ce60cebb11605ee8d9e8ff",
+  "reconciliations": [
+   "70c384dcc42bda39f8ce60cebb11605ee8d9e8ff"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "353242b7f642f5893bb1e1d7201c8c341b956547add8ce1b4b87d3a796aff1ef"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "f5e316fedb9211f1973e8f5d9b2d40b145e68268",
+   "record": "https://github.com/amaybaum/incompleteness/pull/742#issuecomment-5830667951"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "f5e316fedb9211f1973e8f5d9b2d40b145e68268",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36112231466"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "ad20bf209d6b1b5eec609c47415ea7882dcabb8e",
+   "record": "https://github.com/amaybaum/incompleteness/pull/742#issuecomment-5830695366"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "ad20bf209d6b1b5eec609c47415ea7882dcabb8e",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36121484718"
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+countercontrol PN quadruple: -2.2097e-02
+countercontrol (X_t, Y; (1/2) (x) Phi+ twice): -2.2426e-03
+(a) X_t in all four positions: -1.1998e-17
+(b) X_t in one random position: worst normalized min over 16 quadruples -2.4437e-18
+(c) X_t as both states: worst normalized min over 16 quadruples -1.6852e-18
+(d) X_t as both effects: worst normalized min over 16 quadruples -4.0188e-18
+(a) Y in all four positions: -9.1298e-18
+(b) Y in one random position: worst normalized min over 16 quadruples -2.7561e-18
+(c) Y as both states: worst normalized min over 16 quadruples -3.4211e-18
+(d) Y as both effects: worst normalized min over 16 quadruples -4.0315e-18

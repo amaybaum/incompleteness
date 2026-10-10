@@ -1,0 +1,11 @@
+PASS H1 dim 16: ['Lorentz L16', 'Herm4(C)']; controls dim 15: ['Lorentz L15', 'Herm3(H)', 'Sym5(R)']; dim 27: ['Lorentz L27', 'Herm3(O)']
+PASS H2 <P00 + P01, P11> = 0 with P00, P01 independent pure products; Lorentz control |u + v|^2 = 2 < 4
+PASS H3 idW = actT reflY phiW, phiW in Q3, cnot idW = chainW, product effect value on chainW = -1/2 < 0
+PASS H4 retention instance: Ad(M) carries I to the positive definite P exactly (Q3 homogeneous)
+PASS T1 K(E0): 15 independent pure states in Q3 with <P, E0> = 0 (members of K(E0)): c(E0) = 15
+PASS T2 K(E0): <P00, E0> = 1 > 0 so c(P00) <= 9 (written), and 9 members of K_gen orthogonal to P00 give c(P00) = 9 != 15 = c(E0): no automorphism of K(E0) maps P00 to E0
+PASS T3 K(Z_F): 15 independent members orthogonal to z_0 (c(z_0) = 15); <P00, z> > 0 for all z in Z_F, so c(P00) = 9: no automorphism of K(Z_F) maps P00 to z_0
+PASS T4 countercontrol: in Q3 the pure states |00>, Bell, phi0 all have c = [9, 9, 9] (span Herm(x^perp))
+PASS F1 K(E0) not perfect: y = P_f3 - E0 lies in E0^perp = span of the face, is not PSD (eigenvalues [-1/4, 1/4]) and pairs >= 0 with the face
+PASS F2 countercontrol: for Q3's face exposed by P00 the same construction (compression of P_f3 to 00^perp) is PSD, i.e. stays in the face
+VERDICT Y6-STRUCTURAL-EXACT

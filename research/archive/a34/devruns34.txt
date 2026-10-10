@@ -1,0 +1,8 @@
+The proofs were developed on a disposable branch from `F`, never landed: branch `claude/a34-dev`,
+dispatch runs 36299395269, 36299880442 and 36300473449 red at the `Mathlib bridge` build (the last
+of them on one open goal, the closing arithmetic of `a34_control_bits`); 36300803198 green there,
+every theorem printing `propext`, `Classical.choice` and `Quot.sound`, on the module that stage 2
+carries up to its docstring and the position of the verdict and corollary; and 36301205489 green
+there on that module byte for byte. The disposable branch's workflow also printed a compact list of
+the build's diagnostics after the build step, a change to that branch's workflow alone, and its
+census carried a disposable family for the module; neither is part of the freeze.

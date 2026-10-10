@@ -1,0 +1,55 @@
+CALIBRATION complex CNOT on Bloch-ball composite: in native family True, involution resid 0.0e+00, S-relation resid 0.0e+00, min slack -9.44e-16
+SEARCH n=3 native=False NOT=rot
+  restart  0: min slack -2.1272e+00  residual 8.48e-06
+  restart  1: min slack -2.1482e+00  residual 1.00e-05
+  restart  2: min slack -2.0568e+00  residual 7.33e-06
+  restart  3: min slack -2.0916e+00  residual 6.34e-06
+  restart  4: min slack -2.0477e+00  residual 1.57e-05
+  restart  5: min slack -2.0405e+00  residual 1.31e-05
+  restart  6: min slack -2.0976e+00  residual 9.12e-06
+  restart  7: min slack -2.0847e+00  residual 1.26e-05
+  restart  8: min slack -2.1340e+00  residual 1.28e-05
+  restart  9: min slack -2.1247e+00  residual 8.27e-06
+  restart 10: min slack -2.1215e+00  residual 1.61e-05
+  restart 11: min slack -2.0765e+00  residual 1.03e-05
+  restart 12: min slack -2.0834e+00  residual 1.08e-05
+  restart 13: min slack -2.0757e+00  residual 1.23e-05
+  restart 14: min slack -2.0868e+00  residual 8.19e-06
+  restart 15: min slack -2.0629e+00  residual 1.39e-05
+BEST n=3 native=False NOT=rot: min slack -2.0916e+00 residual 6.34e-06 (441s)
+SEARCH n=3 native=True NOT=refl
+  restart  0: min slack -1.9778e+00  residual 3.00e+00
+  restart  1: min slack -1.9364e+00  residual 4.83e+00
+  restart  2: min slack -1.9920e+00  residual 3.00e+00
+  restart  3: min slack -1.9811e+00  residual 4.83e+00
+  restart  4: min slack -9.9792e-01  residual 3.00e+00
+  restart  5: min slack -1.9870e+00  residual 3.00e+00
+  restart  6: min slack -1.9341e+00  residual 4.83e+00
+  restart  7: min slack -7.2362e-01  residual 4.83e+00
+  restart  8: min slack -9.9754e-01  residual 3.00e+00
+  restart  9: min slack -1.9946e+00  residual 3.00e+00
+  restart 10: min slack -1.9539e+00  residual 4.83e+00
+  restart 11: min slack -2.0082e+00  residual 3.00e+00
+  restart 12: min slack -1.9787e+00  residual 3.00e+00
+  restart 13: min slack -1.8210e+00  residual 4.83e+00
+  restart 14: min slack -2.0100e+00  residual 3.00e+00
+  restart 15: min slack -1.9945e+00  residual 3.00e+00
+BEST n=3 native=True NOT=refl: min slack -9.9792e-01 residual 3.00e+00 (484s)
+SEARCH n=3 native=True NOT=rot
+  restart  0: min slack -1.1515e+00  residual 4.00e+00
+  restart  1: min slack -1.3920e+00  residual 4.00e+00
+  restart  2: min slack -1.2042e+00  residual 4.00e+00
+  restart  3: min slack -1.1282e+00  residual 4.00e+00
+  restart  4: min slack -1.3926e+00  residual 4.00e+00
+  restart  5: min slack -1.1363e+00  residual 4.00e+00
+  restart  6: min slack -1.2040e+00  residual 4.00e+00
+  restart  7: min slack -1.0699e+00  residual 4.00e+00
+  restart  8: min slack -1.0696e+00  residual 4.00e+00
+  restart  9: min slack -1.0693e+00  residual 4.00e+00
+  restart 10: min slack -1.0704e+00  residual 4.00e+00
+  restart 11: min slack -1.2040e+00  residual 4.00e+00
+  restart 12: min slack -1.0700e+00  residual 4.00e+00
+  restart 13: min slack -1.2040e+00  residual 4.00e+00
+  restart 14: min slack -1.3925e+00  residual 4.00e+00
+  restart 15: min slack -1.2045e+00  residual 4.00e+00
+BEST n=3 native=True NOT=rot: min slack -1.1363e+00 residual 4.00e+00 (528s)

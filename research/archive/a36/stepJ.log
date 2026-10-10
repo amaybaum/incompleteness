@@ -1,0 +1,25 @@
+sector 2 trial 1: w outside every hull; straight line exact (all level-set sums vanish): True; max |entry| 10
+   affine family A_w through w: dim 36, mod gauge 5; contains the fixed-pairing tangents? T_c: False, T_r: False
+   exact point P_1 = SIG ∘ u^(1 W), u = (3+4i)/5: Hadamard True | defect 33
+      relabelled column-Diţă orientations through P_1: candidates 1, exact factorizations 0
+      relabelled row-Diţă orientations through P_1: candidates 1, exact factorizations 0
+   exact point P_2 = SIG ∘ u^(2 W), u = (3+4i)/5: Hadamard True | defect 33
+      relabelled column-Diţă orientations through P_2: candidates 1, exact factorizations 0
+      relabelled row-Diţă orientations through P_2: candidates 1, exact factorizations 0
+sector 2 trial 2: w outside every hull; straight line exact (all level-set sums vanish): True; max |entry| 11
+   affine family A_w through w: dim 36, mod gauge 5; contains the fixed-pairing tangents? T_c: False, T_r: False
+   exact point P_1 = SIG ∘ u^(1 W), u = (3+4i)/5: Hadamard True | defect 37
+      relabelled column-Diţă orientations through P_1: candidates 1, exact factorizations 0
+      relabelled row-Diţă orientations through P_1: candidates 1, exact factorizations 0
+   exact point P_2 = SIG ∘ u^(2 W), u = (3+4i)/5: Hadamard True | defect 37
+      relabelled column-Diţă orientations through P_2: candidates 1, exact factorizations 0
+      relabelled row-Diţă orientations through P_2: candidates 1, exact factorizations 0
+sector 2 trial 3: w outside every hull; straight line exact (all level-set sums vanish): True; max |entry| 8
+   affine family A_w through w: dim 36, mod gauge 5; contains the fixed-pairing tangents? T_c: False, T_r: False
+   exact point P_1 = SIG ∘ u^(1 W), u = (3+4i)/5: Hadamard True | defect 33
+      relabelled column-Diţă orientations through P_1: candidates 1, exact factorizations 0
+      relabelled row-Diţă orientations through P_1: candidates 1, exact factorizations 0
+   exact point P_2 = SIG ∘ u^(2 W), u = (3+4i)/5: Hadamard True | defect 33
+      relabelled column-Diţă orientations through P_2: candidates 1, exact factorizations 0
+      relabelled row-Diţă orientations through P_2: candidates 1, exact factorizations 0
+done (180s)

@@ -1,0 +1,15 @@
+== RT the stationary renewal process with gap law f(k) = 4/(k(k+1)(k+2))
+PASS RT.1 partial sums: sum_(k<=N) f = 1 - 2/((N+1)(N+2)) -> 1 and sum_(k<=N) k f = 2 - 4/(N+2) -> 2 (N = 1..59): a gap law with mean 2, so the stationary renewal process exists with P(1) = 1/2
+PASS RT.2 the joint table entries P(1 0^(i+j) 1) = P(1) f(i+j+1) (pasts 1 0^i, futures 0^j 1) form a nonsingular n x n Hankel matrix for n = 1..12 (12/12): stage ranks are unbounded (rank-thread R0: not FiniteRank)
+PASS RT.3 controls: geometric gaps (i.i.d. fair bits) give Hankel rank 1; a mixture of two geometrics gives rank 2 (the rank test is not vacuous)
+PASS RT.4a survival S(a) = P(gap > a) = 2/((a+1)(a+2)) equals 1 - sum_(k<=a) f(k) (a = 0..80)
+PASS RT.4b P(renewal within m | age a) = 1 - (a+1)(a+2)/((a+m+1)(a+m+2)) is strictly decreasing in the age a (m = 1..30, a = 0..60)
+PASS RT.5 the age states a_k = 16^k (k = 0..8) are pairwise separated by the stage effect 'renewal within a_k steps': minimum separation 15/38 >= 1/3; written for all k: ren(a,a) >= 1/2 and ren(a, b) <= 33/289 for b >= 16a, so the body is not totally bounded: UFR fails
+== EL the compact ellipsoid tower E = {sum_k k^2 x_k^2 <= 1} (EQ-A C2)
+PASS EL.1 (N) fails: for every kappa = 1/m (m = 1..39) the vector 2/m e_(m+2) has operational norm kappa and lies outside E - E = 2E
+     EL.2 (written, not a check) UFR holds: every x in E has tail |x_(>n)|_2 <= 1/(n+1) (since sum_(k>n) x_k^2 <= (n+1)^-2 sum_(k>n) k^2 x_k^2), so stage n fixes every effect value to within 2/(n+1) uniformly on E; E is compact (EQ-A C2)
+== L2 the l2 tower (EQ-A A, C)
+PASS L2.1 UFR fails: the stage effect along (3/5) e_j - (4/5) e_k separates e_j and e_k by 7/10, for every pair j != k (EQ-A's witness, re-derived)
+     L2.2 (written, not a check) (N) holds with kappa = 1: the operational norm of v is |v|_2 / 2 (rational unit directions are dense) and body - body = 2B contains {|v|_2 / 2 <= 1}
+c3_fr: 8/8 checks pass
+VERDICT FR-UFR-N: the renewal tower is an exact OI-shaped passive protocol tower with SC-inf, unbounded rank and no uniform finite resolution; the ellipsoid tower separates UFR from (N), the l2 tower (N) from UFR; with the written Theorem FR-R (Riesz both ways) FiniteRank <=> UFR and (N)

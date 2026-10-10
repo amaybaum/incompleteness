@@ -1,0 +1,166 @@
+T6 END MARKER (regenerated after the NOTES stamp correction; the first end marker, 19:22:18Z, had the same results: all checks green, empty sweep)
+date -u: Sat Oct 10 19:23:21 UTC 2026
+--- six manifests, sha256sum -c --quiet, run from pt/
+inputs.manifest.sha256: exit 0
+stage1.manifest.sha256: exit 0
+inputs2.manifest.sha256: exit 0
+inputs3.manifest.sha256: exit 0
+stage2.manifest.sha256: exit 0
+inputs4.manifest.sha256: exit 0
+--- ns.manifest.sha256, run from pt/audit/stage3-inputs/
+ns.manifest.sha256: exit 0
+--- base
+HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626
+HEAD == L: yes
+porcelain bytes: 0
+pycache/pyc under pt/base: 0
+pycache/pyc under pt/T6: 0
+--- protocol sidecars from pt/
+PROTOCOL.sha256: /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL.md: OK (exit 0) prefix 239dc123
+PROTOCOL-AMENDMENT-1.sha256: /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-1.md: OK (exit 0) prefix b41aa0e7
+PROTOCOL-AMENDMENT-2.sha256: /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-2.md: OK (exit 0) prefix 2a2f78f3
+PROTOCOL-STAGE2.sha256: PROTOCOL-STAGE2.md: OK (exit 0) prefix 38603692
+PROTOCOL-STAGE2-DS.sha256: PROTOCOL-STAGE2-DS.md: OK (exit 0) prefix 086a4cb8
+PROTOCOL-STAGE3.sha256: PROTOCOL-STAGE3.md: OK (exit 0) prefix 1a649168
+--- protocol sidecars from SCRATCH
+PROTOCOL-STAGE4.sha256: pt/PROTOCOL-STAGE4.md: OK (exit 0) prefix d3da2811
+PROTOCOL-STAGE5.sha256: pt/PROTOCOL-STAGE5.md: OK (exit 0) prefix 9e01f098
+PROTOCOL-STAGE5-AMENDMENT-1.sha256: pt/PROTOCOL-STAGE5-AMENDMENT-1.md: OK (exit 0) prefix 1f639115
+PROTOCOL-STAGE6.sha256: pt/PROTOCOL-STAGE6.md: OK (exit 0) prefix b277b7c1
+PROTOCOL-STAGE6-AMENDMENT-1.sha256: pt/PROTOCOL-STAGE6-AMENDMENT-1.md: OK (exit 0) prefix 59019538
+PROTOCOL-STAGE6-AMENDMENT-2.sha256: pt/PROTOCOL-STAGE6-AMENDMENT-2.md: OK (exit 0) prefix 748f1764
+--- prefixes of the twelve protocol files (computed)
+239dc123  PROTOCOL.md
+b41aa0e7  PROTOCOL-AMENDMENT-1.md
+2a2f78f3  PROTOCOL-AMENDMENT-2.md
+38603692  PROTOCOL-STAGE2.md
+086a4cb8  PROTOCOL-STAGE2-DS.md
+1a649168  PROTOCOL-STAGE3.md
+d3da2811  PROTOCOL-STAGE4.md
+9e01f098  PROTOCOL-STAGE5.md
+1f639115  PROTOCOL-STAGE5-AMENDMENT-1.md
+b277b7c1  PROTOCOL-STAGE6.md
+59019538  PROTOCOL-STAGE6-AMENDMENT-1.md
+748f1764  PROTOCOL-STAGE6-AMENDMENT-2.md
+--- the three stage-6 audits (prefixes)
+845bd662  pt/audit/stage6-inputs/I-audit/AUDIT-I.md
+3fd6763d  pt/audit/stage6-inputs/G-audit/AUDIT-G.md
+04308355  pt/audit/stage6-inputs/R-audit/AUDIT-R.md
+--- anomaly sweep: entries under pt/ newer than pt/T6/.start_marker outside the excluded areas
+(end of sweep list)
+--- files in pt/T6
+total 364
+drwxr-xr-x  2 root root  4096 Oct 10 19:23 .
+drwxr-xr-x 36 root root  4096 Oct 10 18:50 ..
+-rw-r--r--  1 root root  2736 Oct 10 19:23 .end_marker
+-rw-r--r--  1 root root  6667 Oct 10 18:50 .start_marker
+-rw-r--r--  1 root root 20463 Oct 10 19:23 NOTES.md
+-rw-r--r--  1 root root  8996 Oct 10 19:21 RESULT.md
+-rw-r--r--  1 root root 34626 Oct 10 19:20 TEST.md
+-rw-r--r--  1 root root     7 Oct 10 19:02 t1_bridges.err
+-rw-r--r--  1 root root  4204 Oct 10 19:02 t1_bridges.out
+-rw-r--r--  1 root root 10804 Oct 10 19:02 t1_bridges.py
+-rw-r--r--  1 root root     7 Oct 10 19:20 t1_bridges.replay.err
+-rw-r--r--  1 root root  4204 Oct 10 19:20 t1_bridges.replay.out
+-rw-r--r--  1 root root     7 Oct 10 19:02 t1_bridges.run1.err
+-rw-r--r--  1 root root  3515 Oct 10 19:02 t1_bridges.run1.out
+-rw-r--r--  1 root root  9660 Oct 10 19:02 t1_bridges.run1.py
+-rw-r--r--  1 root root     7 Oct 10 19:05 t2_pairthms.err
+-rw-r--r--  1 root root  8820 Oct 10 19:05 t2_pairthms.out
+-rw-r--r--  1 root root 10580 Oct 10 19:05 t2_pairthms.py
+-rw-r--r--  1 root root     7 Oct 10 19:20 t2_pairthms.replay.err
+-rw-r--r--  1 root root  8820 Oct 10 19:20 t2_pairthms.replay.out
+-rw-r--r--  1 root root     7 Oct 10 19:05 t2_pairthms.run1.err
+-rw-r--r--  1 root root  8822 Oct 10 19:05 t2_pairthms.run1.out
+-rw-r--r--  1 root root 10059 Oct 10 19:05 t2_pairthms.run1.py
+-rw-r--r--  1 root root     7 Oct 10 19:11 t3_countermodel.err
+-rw-r--r--  1 root root  3942 Oct 10 19:11 t3_countermodel.out
+-rw-r--r--  1 root root 21206 Oct 10 19:11 t3_countermodel.py
+-rw-r--r--  1 root root     7 Oct 10 19:20 t3_countermodel.replay.err
+-rw-r--r--  1 root root  3942 Oct 10 19:20 t3_countermodel.replay.out
+-rw-r--r--  1 root root     7 Oct 10 19:14 t4_rows.err
+-rw-r--r--  1 root root 30989 Oct 10 19:14 t4_rows.out
+-rw-r--r--  1 root root  9000 Oct 10 19:13 t4_rows.py
+-rw-r--r--  1 root root     7 Oct 10 19:20 t4_rows.replay.err
+-rw-r--r--  1 root root 30989 Oct 10 19:20 t4_rows.replay.out
+-rw-r--r--  1 root root     7 Oct 10 19:15 t5_axes.err
+-rw-r--r--  1 root root   430 Oct 10 19:15 t5_axes.out
+-rw-r--r--  1 root root  4814 Oct 10 19:15 t5_axes.py
+-rw-r--r--  1 root root     7 Oct 10 19:20 t5_axes.replay.err
+-rw-r--r--  1 root root   430 Oct 10 19:20 t5_axes.replay.out
+--- ls -la pt/
+total 496
+drwxr-xr-x  36 root root  4096 Oct 10 18:50 .
+drwx------ 277 root root 12288 Oct 10 17:27 ..
+drwxr-xr-x   4 root root  4096 Oct 10 05:29 A
+drwxr-xr-x   4 root root  4096 Oct 10 05:59 B
+drwxr-xr-x   2 root root  4096 Oct 10 05:41 C
+drwxr-xr-x   3 root root  4096 Oct 10 17:20 C5
+drwxr-xr-x   2 root root  4096 Oct 10 05:50 D
+drwxr-xr-x   3 root root  4096 Oct 10 17:13 D5
+drwxr-xr-x   2 root root  4096 Oct 10 09:31 DS
+-r--r--r--   1 root root   498 Oct 10 08:48 DS-LAUNCH-LOG.md
+drwxr-xr-x   2 root root  4096 Oct 10 18:32 G6
+drwxr-xr-x   2 root root  4096 Oct 10 17:24 I1
+drwxr-xr-x   2 root root  4096 Oct 10 17:22 I2
+drwxr-xr-x   2 root root  4096 Oct 10 17:27 I3
+drwxr-xr-x   2 root root  4096 Oct 10 17:26 I4
+-rw-r--r--   1 root root 20284 Oct 10 09:40 INTEGRATION-ADDENDUM-STAGE2.md
+-rw-r--r--   1 root root 18638 Oct 10 14:21 INTEGRATION-NOTE-STAGE3.md
+-rw-r--r--   1 root root 16556 Oct 10 16:16 INTEGRATION-NOTE-STAGE4.md
+-rw-r--r--   1 root root 12661 Oct 10 17:52 INTEGRATION-NOTE-STAGE5.md
+-rw-r--r--   1 root root 17866 Oct 10 06:27 INTEGRATION-REVIEW.md
+-r--r--r--   1 root root  3774 Oct 10 05:13 PROTOCOL-AMENDMENT-1.md
+-rw-r--r--   1 root root   181 Oct 10 05:13 PROTOCOL-AMENDMENT-1.sha256
+-r--r--r--   1 root root  3930 Oct 10 05:22 PROTOCOL-AMENDMENT-2.md
+-rw-r--r--   1 root root   181 Oct 10 05:22 PROTOCOL-AMENDMENT-2.sha256
+-r--r--r--   1 root root  8545 Oct 10 08:48 PROTOCOL-STAGE2-DS.md
+-r--r--r--   1 root root    88 Oct 10 08:48 PROTOCOL-STAGE2-DS.sha256
+-r--r--r--   1 root root 17623 Oct 10 07:12 PROTOCOL-STAGE2.md
+-r--r--r--   1 root root    85 Oct 10 07:12 PROTOCOL-STAGE2.sha256
+-r--r--r--   1 root root 12680 Oct 10 10:22 PROTOCOL-STAGE3.md
+-r--r--r--   1 root root    85 Oct 10 10:22 PROTOCOL-STAGE3.sha256
+-rw-r--r--   1 root root  8424 Oct 10 14:22 PROTOCOL-STAGE4.md
+-rw-r--r--   1 root root    88 Oct 10 14:22 PROTOCOL-STAGE4.sha256
+-rw-r--r--   1 root root  1474 Oct 10 16:42 PROTOCOL-STAGE5-AMENDMENT-1.md
+-rw-r--r--   1 root root   100 Oct 10 16:43 PROTOCOL-STAGE5-AMENDMENT-1.sha256
+-rw-r--r--   1 root root 12186 Oct 10 16:35 PROTOCOL-STAGE5.md
+-rw-r--r--   1 root root    88 Oct 10 16:36 PROTOCOL-STAGE5.sha256
+-rw-r--r--   1 root root  6740 Oct 10 17:54 PROTOCOL-STAGE6-AMENDMENT-1.md
+-rw-r--r--   1 root root   100 Oct 10 17:54 PROTOCOL-STAGE6-AMENDMENT-1.sha256
+-rw-r--r--   1 root root  5303 Oct 10 18:48 PROTOCOL-STAGE6-AMENDMENT-2.md
+-rw-r--r--   1 root root   100 Oct 10 18:48 PROTOCOL-STAGE6-AMENDMENT-2.sha256
+-rw-r--r--   1 root root 14708 Oct 10 16:49 PROTOCOL-STAGE6.md
+-rw-r--r--   1 root root    88 Oct 10 16:49 PROTOCOL-STAGE6.sha256
+-r--r--r--   1 root root 19714 Oct 10 04:32 PROTOCOL.md
+-rw-r--r--   1 root root   169 Oct 10 04:32 PROTOCOL.sha256
+drwxr-xr-x   2 root root  4096 Oct 10 18:35 R6
+drwxr-xr-x   2 root root  4096 Oct 10 08:34 S2
+drwxr-xr-x   2 root root  4096 Oct 10 08:32 S3
+-r--r--r--   1 root root  1401 Oct 10 07:25 STAGE2-LAUNCH-LOG.md
+-r--r--r--   1 root root   490 Oct 10 10:22 STAGE3-LAUNCH-LOG.md
+drwxr-xr-x   2 root root  4096 Oct 10 19:23 T6
+drwxr-xr-x   2 root root  4096 Oct 10 12:46 U
+drwxr-xr-x   2 root root  4096 Oct 10 12:46 X
+drwxr-xr-x   2 root root  4096 Oct 10 15:23 Y
+drwxr-xr-x   2 root root  4096 Oct 10 16:00 Z
+drwxr-xr-x   3 root root  4096 Oct 10 07:25 aborted-launch1
+drwxr-xr-x  22 root root  4096 Oct 10 17:48 audit
+drwxr-xr-x   2 root root  4096 Oct 10 05:32 auditA-replay
+drwxr-xr-x   3 root root  4096 Oct 10 06:18 auditB-replay
+drwxr-xr-x   2 root root  4096 Oct 10 05:44 auditC-replay
+drwxr-xr-x   2 root root  4096 Oct 10 06:13 auditD-replay
+drwxr-xr-x   2 root root  4096 Oct 10 09:37 auditDS-replay
+drwxr-xr-x   2 root root  4096 Oct 10 09:04 auditS2-replay
+drwxr-xr-x   2 root root  4096 Oct 10 08:49 auditS3-replay
+drwxr-xr-x   7 root root  4096 Oct 10 04:30 base
+dr-xr-xr-x   5 root root  4096 Oct 10 04:30 inputs
+-r--r--r--   1 root root  4066 Oct 10 04:30 inputs.manifest.sha256
+dr-xr-xr-x   3 root root  4096 Oct 10 07:10 inputs2
+-r--r--r--   1 root root   315 Oct 10 07:10 inputs2.manifest.sha256
+dr-xr-xr-x   2 root root  4096 Oct 10 08:47 inputs3
+-r--r--r--   1 root root    86 Oct 10 08:48 inputs3.manifest.sha256
+dr-xr-xr-x   2 root root  4096 Oct 10 10:22 inputs4
+-r--r--r--   1 root root   100 Oct 10 10:22 inputs4.manifest.sha256
+-r--r--r--   1 root root 18717 Oct 10 07:10 stage1.manifest.sha256
+-r--r--r--   1 root root 15695 Oct 10 10:21 stage2.manifest.sha256

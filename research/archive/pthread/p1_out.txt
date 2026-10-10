@@ -1,0 +1,21 @@
+-- seg: segment = eball 1 = classical bit (2-vertex simplex); affine dim 1
+PASS seg: dim<=1 and the witness search finds none
+-- tri: classical trit, simplex 3 of KInfFoundations; affine dim 2
+PASS tri: dim>=2 and an explicit HasTwoSharpTests witness exists
+   witness functionals w1=(-1, -1, 0) w2=(-1, 0, -1); e@verts=['0', '0', '1'] f@verts=['0', '1', '0']
+-- tet: classical 4-simplex; affine dim 3
+PASS tet: dim>=2 and an explicit HasTwoSharpTests witness exists
+   witness functionals w1=(-1, -1, -1, 0) w2=(-1, -1, 0, -1); e@verts=['0', '0', '0', '1'] f@verts=['0', '0', '1', '0']
+-- square: square (gbit); affine dim 2
+PASS square: dim>=2 and an explicit HasTwoSharpTests witness exists
+   witness functionals w1=(-1, -1) w2=(-1, 0); e@verts=['0', '1/2', '1/2', '1'] f@verts=['0', '0', '1', '1']
+-- spekkens_oct: Spekkens toy bit: conv of edge midpoints of simplex 4 (octahedron), a classical HV model; affine dim 3
+PASS spekkens_oct: dim>=2 and an explicit HasTwoSharpTests witness exists
+   witness functionals w1=(-1, -1, -1, 0) w2=(-1, -1, 0, -1); e@verts=['0', '0', '1', '0', '1', '1'] f@verts=['0', '1', '0', '1', '0', '1']
+-- pyramid: pyramid over square = free join square (+) point; affine dim 3
+PASS pyramid: dim>=2 and an explicit HasTwoSharpTests witness exists
+   witness functionals w1=(-1, -1, -1) w2=(-1, -1, 0); e@verts=['0', '1/2', '1/2', '1', '1/4'] f@verts=['0', '1/2', '1/2', '1', '1/2']
+PASS seg: every pair of sharp seeds equal or complementary (kernel eq_or_compl_one, d=1)
+PASS tri (classical trit, a simplex) satisfies HasTwoSharpTests
+PASS tet (classical 4-simplex) satisfies HasTwoSharpTests
+ALL-PASS 9/9

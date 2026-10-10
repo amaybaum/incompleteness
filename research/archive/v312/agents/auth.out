@@ -1,0 +1,191 @@
+certificate_verifier: mode authoritative, root /home/user/incompleteness
+  TARGETS  HEAD 81150851f84c
+  LEGACY-V1-OWNED  PRA  (a prior protocol certifies it; no validity claim is made here in either direction)
+  CERT  A11P     PASS       ok
+  CERT  A12P     PASS       ok
+  CERT  A6D      PASS       ok
+  CERT  A6I      PASS       ok
+  CERT  A6P      PASS       ok
+  CERT  ABR      PASS       ok
+  CERT  BRIDGE   PASS       ok
+  CERT  C4R      PASS       ok
+  CERT  CAND     PASS       ok
+  CERT  CGR      PASS       ok
+  CERT  CLG      PASS       ok
+  CERT  CTI      PASS       ok
+  CERT  CV1      PASS       ok
+  CERT  DILCH    PASS       ok
+  CERT  DILL2    PASS       ok
+  CERT  DILMAP   PASS       ok
+  CERT  GR1      PASS       ok
+  CERT  GR2      PASS       ok
+  CERT  HYA      PASS       ok
+  CERT  HYB      PASS       ok
+  CERT  HYE      PASS       ok
+  CERT  NLV      PASS       ok
+  CERT  OGC      PASS       ok
+  CERT  OGS      PASS       ok
+  CERT  OLG      PASS       ok
+  CERT  OLN      PASS       ok
+  CERT  OLT      PASS       ok
+  CERT  PC4      PASS       ok
+  CERT  PC4S     PASS       ok
+  CERT  PFR      PASS       ok
+  CERT  PQT      PASS       ok
+  CERT  QSTAR    PASS       ok
+  CERT  RBR      PASS       ok
+  CERT  RCH      PASS       ok
+  CERT  RCL      PASS       ok
+  CERT  RNC      PASS       ok
+  CERT  RNT      PASS       ok
+  CERT  SCF      PASS       ok
+  CERT  SGT      PASS       ok
+  CERT  SI1      PASS       ok
+  CERT  SI2      PASS       ok
+  CERT  SI3      PASS       ok
+  CERT  SOI      PASS       ok
+  CERT  SOURCE   PASS       ok
+  CERT  SRCA     PASS       ok
+  CERT  TBRIDGE  PASS       ok
+  CERT  TCF      PASS       ok
+  CERT  TRJ      PASS       ok
+  CERT  TSG      PASS       ok
+  CERT  TUPLE    PASS       ok
+  CERT  WTS      PASS       ok
+  CERT  XTS      PASS       ok
+  ROW   A12P     landed     PASS  ok
+  ROW   A6D      landed     PASS  ok
+  ROW   A6I      landed     PASS  ok
+  ROW   A6P      landed     PASS  ok
+  ROW   ABR      base-only  PASS  ok
+  ROW   CGR      landed     PASS  ok
+  ROW   CLG      base-only  PASS  ok
+  ROW   CTI      landed     PASS  ok
+  ROW   CV1      landed     PASS  ok
+  ROW   GR1      landed     PASS  ok
+  ROW   GR2      landed     PASS  ok
+  ROW   HYA      landed     PASS  ok
+  ROW   HYB      landed     PASS  ok
+  ROW   HYE      landed     PASS  ok
+  ROW   NLV      landed     PASS  ok
+  ROW   OGC      landed     PASS  ok
+  ROW   OGS      landed     PASS  ok
+  ROW   OLG      landed     PASS  ok
+  ROW   OLN      landed     PASS  ok
+  ROW   OLT      landed     PASS  ok
+  ROW   PC4      landed     PASS  ok
+  ROW   PC4S     landed     PASS  ok
+  ROW   PFR      landed     PASS  ok
+  ROW   PQT      landed     PASS  ok
+  ROW   RBR      base-only  PASS  ok
+  ROW   RNC      landed     PASS  ok
+  ROW   RNT      landed     PASS  ok
+  ROW   SGT      landed     PASS  ok
+  ROW   SI1      base-only  PASS  ok
+  ROW   SI2      base-only  PASS  ok
+  ROW   SI3      landed     PASS  ok
+  ROW   TCF      landed     PASS  ok
+  ROW   TRJ      landed     PASS  ok
+  ROW   TSG      base-only  PASS  ok
+  ROW   WTS      landed     PASS  ok
+  ROW   XTS      landed     PASS  ok
+  EVIDENCE  157 id(s) resolved to their certified blobs, 0 failure(s)
+  RELOCATIONS  0 record(s)
+  POLICIES  0 clause(s)
+  CERTIFICATES  52: 52 PASS, 0 UNATTESTED, 0 FAIL; records 36; legacy-owned 1
+  VECTOR  ambiguity-base-multiple-candidates                   FAIL  base:multiple-candidates                     MATCH
+  VECTOR  ambiguity-base-zero-candidates                       FAIL  base:zero-candidates                         MATCH
+  VECTOR  ambiguity-landing-multiple-candidates                FAIL  landing:multiple-candidates                  MATCH
+  VECTOR  ambiguity-landing-zero-candidates                    FAIL  landing:zero-candidates                      MATCH
+  VECTOR  ambiguity-sealed-head-multiple-candidates            FAIL  sealed-head:multiple-candidates              MATCH
+  VECTOR  ambiguity-sealed-head-zero-candidates                FAIL  sealed-head:zero-candidates                  MATCH
+  VECTOR  artifact-contribution-changed-passes                 PASS  ok                                           MATCH
+  VECTOR  artifact-evidence-blob-changed                       FAIL  evidence:blob-mismatch:ZZ/result.md          MATCH
+  VECTOR  artifact-evidence-moved-with-record                  PASS  ok                                           MATCH
+  VECTOR  artifact-evidence-moved-without-record               FAIL  evidence:missing:ZZ/result.md                MATCH
+  VECTOR  artifact-evidence-removed                            FAIL  evidence:missing:ZZ/result.md                MATCH
+  VECTOR  artifact-relocation-fork                             FAIL  relocation:fork:ZZ/result.md                 MATCH
+  VECTOR  artifact-relocation-seq-gap                          FAIL  relocation:seq                               MATCH
+  VECTOR  artifact-relocation-two-active-locations             FAIL  relocation:duplicate-active:ZZ/result.md     MATCH
+  VECTOR  dependency-failed-propagates                         FAIL  dependency:failed:YY                         MATCH
+  VECTOR  dependency-missing                                   FAIL  dependency:missing:QQ                        MATCH
+  VECTOR  dependency-protocol-1-on-2-fails                     FAIL  dependency:protocol-order:YY                 MATCH
+  VECTOR  dependency-protocol-2-on-1-passes                    PASS  ok                                           MATCH
+  VECTOR  divergence-C-S1                                      PASS  ok                                           MATCH
+  VECTOR  divergence-C-S2                                      PASS  ok                                           MATCH
+  VECTOR  divergence-C-S3                                      PASS  ok                                           MATCH
+  VECTOR  divergence-C-S4                                      PASS  ok                                           MATCH
+  VECTOR  historical-subject-01-declaration-scope              FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  historical-subject-02-pin-scope                      FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  historical-subject-03-budget-n12                     FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  historical-subject-04-seals-tree-first-repair        FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  historical-subject-05-seals-tree-second-repair       FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  historical-subject-06-fixture-positive-half          FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  ledger-base-only-row-positive                        PASS  ok                                           MATCH
+  VECTOR  ledger-certificate-blob-unequal                      FAIL  row:certificate-mismatch                     MATCH
+  VECTOR  ledger-landed-row-missing-topology-field             FAIL  row:schema:missing:landing                   MATCH
+  VECTOR  ledger-row-edited                                    FAIL  row:base-mismatch                            MATCH
+  VECTOR  ledger-row-removed                                   FAIL  ledger:row-missing                           MATCH
+  VECTOR  ledger-two-rows-for-one-round                        FAIL  row:schema:round-filename-mismatch           MATCH
+  VECTOR  legacy-owned-certificate-for-owned-stem              FAIL  legacy-owned:certificate-for-owned-stem      MATCH
+  VECTOR  legacy-owned-count-unequal                           FAIL  legacy-owned:count                           MATCH
+  VECTOR  legacy-owned-entry-with-certificate                  FAIL  legacy-owned:has-certificate:ZZ              MATCH
+  VECTOR  legacy-owned-positive                                PASS  ok                                           MATCH
+  VECTOR  legacy-owned-second-entry                            FAIL  legacy-owned:more-than-one                   MATCH
+  VECTOR  live-policy-clause-missing-activation                FAIL  live-policy:clause:p1:missing:activation     MATCH
+  VECTOR  live-policy-clause-missing-evidence                  FAIL  live-policy:clause:p1:missing:evidence       MATCH
+  VECTOR  live-policy-clause-missing-expiry                    FAIL  live-policy:clause:p1:missing:expiry         MATCH
+  VECTOR  live-policy-clause-missing-owner_round               FAIL  live-policy:clause:p1:missing:owner_round    MATCH
+  VECTOR  live-policy-clause-missing-protocol                  FAIL  live-policy:clause:p1:missing:protocol       MATCH
+  VECTOR  live-policy-clause-predicate-type-unknown            FAIL  live-policy:clause:p1:predicate-type         MATCH
+  VECTOR  live-policy-clause-violated                          FAIL  live-policy:violated:p1                      MATCH
+  VECTOR  live-policy-count-unequal                            FAIL  live-policy:count                            MATCH
+  VECTOR  live-policy-positive-one-clause                      PASS  ok                                           MATCH
+  VECTOR  provenance-native-certificate-with-translation       FAIL  schema:forbidden:translation                 MATCH
+  VECTOR  provenance-native-row-without-ci                     FAIL  row:schema:missing:ci                        MATCH
+  VECTOR  provenance-second-bootstrap                          FAIL  provenance:second-bootstrap                  MATCH
+  VECTOR  provenance-translated-certificate-without-translation FAIL  schema:missing:translation                   MATCH
+  VECTOR  provenance-translated-row-with-ci                    FAIL  row:schema:ci-forbidden                      MATCH
+  VECTOR  provenance-translated-row-without-snapshot           FAIL  row:schema:missing:migration_snapshot        MATCH
+  VECTOR  schema-00-positive-native                            PASS  ok                                           MATCH
+  VECTOR  schema-00-positive-translated                        PASS  ok                                           MATCH
+  VECTOR  schema-base-only-row-topology-null                   FAIL  row:schema:base-only-topology:sealed_head    MATCH
+  VECTOR  schema-base-only-row-topology-value                  FAIL  row:schema:base-only-topology:landing        MATCH
+  VECTOR  schema-content-only-carrying-topology                FAIL  schema:content-only-topology:base            MATCH
+  VECTOR  schema-malformed-hash                                FAIL  schema:hash:base                             MATCH
+  VECTOR  schema-missing-base                                  FAIL  schema:missing:base                          MATCH
+  VECTOR  schema-missing-contributions                         FAIL  schema:missing:contributions                 MATCH
+  VECTOR  schema-missing-control_plane                         FAIL  schema:missing:control_plane                 MATCH
+  VECTOR  schema-missing-dependencies                          FAIL  schema:missing:dependencies                  MATCH
+  VECTOR  schema-missing-directory                             FAIL  schema:missing:directory                     MATCH
+  VECTOR  schema-missing-evidence                              FAIL  schema:missing:evidence                      MATCH
+  VECTOR  schema-missing-origin                                FAIL  schema:missing:origin                        MATCH
+  VECTOR  schema-missing-protocol                              FAIL  schema:missing:protocol                      MATCH
+  VECTOR  schema-missing-round                                 FAIL  schema:missing:round                         MATCH
+  VECTOR  schema-missing-schema                                FAIL  schema:missing:schema                        MATCH
+  VECTOR  schema-missing-shape                                 FAIL  schema:missing:shape                         MATCH
+  VECTOR  schema-unknown-key                                   FAIL  schema:unknown-key:note                      MATCH
+  VECTOR  schema-unknown-protocol                              FAIL  schema:protocol                              MATCH
+  VECTOR  topology-landing-second-parent-not-e                 FAIL  landing:disagreement                         MATCH
+  VECTOR  topology-recorded-sealed-head-unequal-derived        FAIL  sealed-head:disagreement                     MATCH
+  VECTOR  topology-recorded-tree-unequal                       FAIL  topology:tree-mismatch                       MATCH
+  VECTOR  topology-rewritten-landing                           FAIL  landing:unrecoverable                        MATCH
+  VECTOR  topology-rewritten-sealed-head                       FAIL  sealed-head:unrecoverable                    MATCH
+  VECTOR  topology-tree-identical-different-parents            FAIL  sealed-head:disagreement                     MATCH
+  VECTOR  vacuity-fewer-vectors-than-corpus                    FAIL  vacuity:count                                MATCH
+  VECTOR  vacuity-one-id-substituted                           FAIL  vacuity:ids                                  MATCH
+  VECTOR  visibility-base-sha-refused                          FAIL  landing:zero-candidates                      MATCH
+  VECTOR  visibility-landing-on-base-tip-only                  PASS  ok                                           MATCH
+  VECTOR  visibility-landing-on-both-one-candidate             PASS  ok                                           MATCH
+  VECTOR  visibility-landing-on-both-two-candidates            FAIL  landing:multiple-candidates                  MATCH
+  VECTOR  visibility-landing-on-head-only                      PASS  ok                                           MATCH
+  VECTOR  visibility-local-branch-refused                      FAIL  visibility:base-ref-unresolvable             MATCH
+  VECTOR  visibility-synthetic-merge-refused                   FAIL  landing:zero-candidates                      MATCH
+  VECTOR  visibility-unresolvable-base-ref                     FAIL  visibility:base-ref-unresolvable             MATCH
+  VECTORS executed 89; corpus 89; families ambiguity=6 artifact-class=8 dependency=4 divergence=4 historical-subject=6 ledger=6 legacy-owned=5 live-policy=9 provenance=6 schema=19 topology=6 vacuity=2 visibility=8; mismatches 0; exact yes
+certificate_verifier: authoritative OK (0 failure(s))
+
+real	0m27.641s
+user	0m21.610s
+sys	0m6.414s
+exit=0

@@ -1,0 +1,3 @@
+matrices compared (row and column profiles each): 31 ; disagreements: 0 []
+non-fourth-root matrices refused by the fast path: ['Σ', 'DIT']
+Gaussian-rational path 214 s, exponent-count path 2.1 s over 62 profiles

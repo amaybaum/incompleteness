@@ -1,0 +1,26 @@
+iter 0: LP min y.target = -0.137017; continuous worst y.t(g) = -0.412; added 120
+iter 1: LP min y.target = -0.00801865; continuous worst y.t(g) = -0.0844; added 116
+iter 2: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.4e-08; added 86
+iter 3: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.54e-08; added 94
+iter 4: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.63e-08; added 93
+iter 5: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.62e-08; added 91
+iter 6: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.65e-08; added 102
+iter 7: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.35e-08; added 103
+iter 8: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.61e-08; added 98
+iter 9: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.36e-08; added 104
+iter 10: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.18e-08; added 95
+iter 11: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.75e-08; added 110
+iter 12: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.42e-08; added 105
+iter 13: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.22e-08; added 93
+iter 14: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.37e-08; added 103
+iter 15: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.61e-08; added 89
+iter 16: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.67e-08; added 104
+iter 17: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.71e-08; added 91
+iter 18: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.23e-08; added 103
+iter 19: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.59e-08; added 96
+iter 20: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.6e-08; added 100
+iter 21: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.61e-08; added 99
+iter 22: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.67e-08; added 98
+iter 23: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.2e-08; added 58
+iter 24: LP min y.target = -3.45837e-09; continuous worst y.t(g) = -1.11e-08; added 68
+final convex-combination LP status: 0 Optimization terminated successfully. (HiGHS Status 7: Optimal)

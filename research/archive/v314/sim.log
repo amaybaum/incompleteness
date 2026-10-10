@@ -1,0 +1,142 @@
+frozen: 21 stage-file blobs
+PASS  the preregistration has no unfilled placeholder
+PASS  F has one parent, D, and adds the preregistration alone
+PASS  C6 receipts at 592bf2a2: RECEIPTS  4 receipt(s), all hold
+PASS  C1 retire.py has its frozen blob
+PASS  C1 messages.json has its frozen blob
+PASS  C1 headers.json has its frozen blob
+PASS  C1 controls.py has its frozen blob
+PASS  C1 preserve.py has its frozen blob
+PASS  C1 ledger.json has its frozen blob
+PASS  C1 controls self-test: controls: self-test OK
+PASS  controls history eed469ab: history: 56 file(s) run by the probes job (56 named), 213 history site(s)
+PASS  controls callers eed469ab 378073fa: callers: 1
+  retire: 1616 predicates retired, 1610 as the census classes them and 6 by the amendment; 2486 retained
+  retire: structural rows: 15 removed with the emptied checks, 85 kept
+  retire: 2 statement(s) kept inside surviving module-level blocks
+  retire: 3904 statements removed directly, 3 dead-code rounds, 35099 lines -> 14817 lines
+  retire: 91 checks remain; emptied: R7-ABR, R7-ARCH, R7-BRIDGE, R7-CV1, R7-DILCH, R7-DILMAP, R7-GR1, R7-GR2, R7-RBR, R7-SI1, R7-SI2, R7-SI3, R7-SRCA, R7-VIS
+  retire: retained predicates missing: 0
+PASS  C2 retire.py exits 0 printing the five frozen lines
+PASS  C2 the ledger it writes is ledger.json byte for byte
+PASS  C2 the guard has its frozen blob: 8dad60d0aac870fced7deeec44c0dbdfcb3d45de
+PASS  C2 the guard compiles
+PASS  C2 stage 2 changes the guard alone
+  L1  holds  556 splice(s)
+  L2  holds  reconstruction from D and the ledger
+  S1  holds  1616 predicates retired, 2486 retained; 1631 rows in splices, 2571 outside
+  S2  holds  257 retained function(s) untouched
+  S3  holds  1635 control-flow statement(s), 1228 removed with their governing block
+  S4  holds  10 regression site(s) preserved
+  S5  holds  452 surviving module-level block(s), no dead code removed from them
+  S6  holds  49 removed in-place change(s), none to an object a survivor reads
+  S7  holds  2088 removed binding(s), none still resolved by surviving code
+  preserve: all hold
+PASS  C2 preserve: preserve: all hold
+PASS  C2 preserve --self-test: preserve: self-test OK (16 mutants as required)
+  CHECK  L1  holds  461 splice(s)
+  CHECK  L2  holds  reconstruction from D and the ledger
+  CHECK  S1  holds  1616 predicates retired, 2486 retained; 1631 rows in splices, 2571 outside
+  CHECK  S2  FAILS  257 retained function(s) untouched; rank edited, grow edited, _os_decl edited
+  CHECK  S3  FAILS  1635 control-flow statement(s), 1215 removed with their governing block; Return at 7324, Return at 28416, Return at 7330
+  CHECK  S4  FAILS  0 regression site(s) preserved; lines 180, 181, 193, 292, 232, 233, 304, 305, 25309, 25310, 26777, 26778, 14250, 14251, 14252, 16548, 16549, 16550, 16551, 19401, 19402, 19403, 19404
+  CHECK  S5  FAILS  449 surviving module-level block(s), no dead code removed from them; If at 180, Break at 193, Assign at 292, Assign at 2128
+  CHECK  S6  FAILS  52 removed in-place change(s), none to an object a survivor reads; Assign at 14252, Expr at 16550, Expr at 19403
+  CHECK  S7  holds  2091 removed binding(s), none still resolved by surviving code
+  v313: the checker rejects V3-13's guard, naming all ten sites
+PASS  C2 v313: v313: the checker rejects V3-13's guard, naming all ten sites
+PASS  controls history b909f916: history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  controls history 378073fa: history: 56 file(s) run by the probes job (56 named), 213 history site(s)
+PASS  C2 pc4s: pc4s: 4 predicate(s) all hold; 35 file(s) read, 34 legacy record(s); 1 directory listing(s); legacy bytes only
+  EVAL  1,610 _olt_supersessions on the guard: holds
+  EVAL  1,610 _olt_supersessions on the sought strings removed outside it: holds
+  EVAL  1,610 _olt_supersessions on its own definition alone: holds
+  COUNTERCONTROL  _olt_supersessions on a text without its strings: FAILS
+  EVAL  1,610 _olt_supersessions: 0 occurrence(s) of its strings outside its definition
+  EVAL  1,610 _oln_supersession on the guard: holds
+  EVAL  1,610 _oln_supersession on the sought strings removed outside it: holds
+  EVAL  1,610 _oln_supersession on its own definition alone: holds
+  COUNTERCONTROL  _oln_supersession on a text without its strings: FAILS
+  COUNTERCONTROL  _oln_supersession on the guard with the forbidden statement appended: FAILS
+  EVAL  1,610 _oln_supersession: 0 occurrence(s) of its strings outside its definition
+  NOTE  D     _olt_supersessions on the guard: holds
+  NOTE  D     _olt_supersessions on the sought strings removed outside it: holds
+  NOTE  D     _olt_supersessions on its own definition alone: holds
+  NOTE  D     _olt_supersessions: 10 occurrence(s) of its strings outside its definition
+  NOTE  D     _oln_supersession on the guard: holds
+  NOTE  D     _oln_supersession on the sought strings removed outside it: holds
+  NOTE  D     _oln_supersession on its own definition alone: holds
+  NOTE  D     _oln_supersession: 1 occurrence(s) of its strings outside its definition
+  vacuity: both predicates hold whatever the rest of the 1,610 guard says
+PASS  C2 vacuity: vacuity: both predicates hold whatever the rest of the 1,610 guard says
+PASS  C6 receipts at b909f916: RECEIPTS  4 receipt(s), all hold
+PASS  C3 verification/infrastructure/legacy-records.json has its frozen blob
+PASS  C3 tools/legacy_records_check.py has its frozen blob
+PASS  C3 tools/release_gate.py has its frozen blob
+PASS  C3 .github/workflows/verify.yml has its frozen blob
+PASS  C3 the manifest is byte-identical to V3-12's
+PASS  legacy-records at 1a49343c: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  legacy-records at b909f916: LEGACY  FAILS  manifest-absent
+PASS  controls callers 1a49343c 378073fa: callers: 0
+PASS  controls history 1a49343c: history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  C3 v3 --self-test: v3_verifier: self-test OK
+PASS  C3 v3 --corpus: CORPUS  135 vector(s), exact and as expected
+PASS  C6 receipts at 1a49343c: RECEIPTS  4 receipt(s), all hold
+PASS  S3 duplicate_check: exit 0  duplicate_check: OK (no paragraph repeated within a file)
+PASS  S3 claims_check: exit 0  claims_check: OK (no withdrawn result asserted unconditional
+PASS  S3 artifact_placement_check: exit 0  artifact_placement_check: OK (no unaccounted root artifact; 
+PASS  S3 baseline_label_check: exit 0  baseline_label_check: OK (no baseline archives named)
+PASS  S3 ci_gate_presence_test: exit 0  ci_gate_presence_test: OK (CI runs the real release gate)
+PASS  S3 voice_scope_test: exit 0  voice_scope_test: OK (6 scope case(s); the checker scans the
+PASS  C4 v3_verifier.py has its frozen blob
+PASS  C4 architecture.md has its frozen blob
+PASS  C4 g12-admit-execution-changes-legacy-seal-namespace.json has its frozen blob
+PASS  C4 g13-admit-records-unchanged-after-later-commit.json has its frozen blob
+PASS  C4 g13-reject-record-file-added-after-landing.json has its frozen blob
+PASS  C4 g13-reject-record-file-deleted-after-landing.json has its frozen blob
+PASS  C4 g13-reject-record-file-modified-after-landing.json has its frozen blob
+PASS  C4 g13-reject-seal-record-changed-after-landing.json has its frozen blob
+PASS  C4 v3 self-test: v3_verifier: self-test OK
+PASS  C4 v3 corpus: CORPUS  140 vector(s), exact and as expected
+PASS  S4 legacy self-test: legacy_records_check: self-test OK
+PASS  controls callers 62dd8028 378073fa: callers: 0
+PASS  C6 receipts at 62dd8028: RECEIPTS  4 receipt(s), all hold
+PASS  legacy-records at 62dd8028: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  C5 AGENTS.md has its frozen blob
+PASS  C5 verification/README.md has its frozen blob
+PASS  C9 the README surfaces the guard reads: D      A6P slice  28417 chars, affirms=False; A6I slice  16309 chars, affirms=False | edited A6P slice  28417 chars, affirms=False; A6I slice  16309 chars, affirms=False
+PASS  C6 receipts at adfd1130: RECEIPTS  4 receipt(s), all hold
+PASS  legacy-records at adfd1130: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  S5 duplicate_check: exit 0  duplicate_check: OK (no paragraph repeated within a file)
+PASS  S5 claims_check: exit 0  claims_check: OK (no withdrawn result asserted unconditional
+PASS  S5 artifact_placement_check: exit 0  artifact_placement_check: OK (no unaccounted root artifact; 
+PASS  S5 baseline_label_check: exit 0  baseline_label_check: OK (no baseline archives named)
+PASS  S5 ci_gate_presence_test: exit 0  ci_gate_presence_test: OK (CI runs the real release gate)
+PASS  S5 voice_scope_test: exit 0  voice_scope_test: OK (6 scope case(s); the checker scans the
+PASS  C9 README: 0 guard literals lost; anchor present
+PASS  C9 workflow: repertoire_lie, no lake build or lake env lean of an OIBridge module
+PASS  C9 AGENTS: the A.35 heading and the registry sentence
+PASS  C9 release gate: lean-manuscript
+PASS  linear: 378073fa is the one parent of 592bf2a2
+PASS  linear: 592bf2a2 is the one parent of eed469ab
+PASS  linear: eed469ab is the one parent of b909f916
+PASS  linear: b909f916 is the one parent of 1a49343c
+PASS  linear: 1a49343c is the one parent of 62dd8028
+PASS  linear: 62dd8028 is the one parent of adfd1130
+PASS  linear: adfd1130 is the one parent of b712029a
+PASS  controls history b712029a: history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  controls callers b712029a 378073fa: callers: 0
+PASS  legacy-records at b712029a: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  C6 receipts at b712029a: RECEIPTS  4 receipt(s), all hold
+PASS  C7 delta(D, E): 117 path(s), 0 ungoverned, 0 in the legacy population
+PASS  C11 tree(E) less the preregistration and the result note: a31642acd97065d990c28d2b5a01e30501da452b
+PASS  the builder exits 0
+PASS  C10 --verify-round Q: VERDICT  HOLDS
+PASS  C6 receipts at e5183923: RECEIPTS  5 receipt(s), all hold
+PASS  legacy-records at e5183923: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  countercontrol G13 (V3-13 record rewritten): RECEIPTS  5 receipt(s), NOT ALL HOLD
+PASS  legacy-records at b2e8b6aa: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  countercontrol legacy: receipts still hold: RECEIPTS  5 receipt(s), all hold
+PASS  legacy-records at b085b786: LEGACY  303 record(s) in 75 closed namespace(s), NOT INTACT
+PASS  countercontrol: a corrupted receipt does not hold: VERDICT  FAILS  s4:execution-delta-digest
+SIMULATION  all as predicted

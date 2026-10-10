@@ -1,0 +1,8 @@
+NOTE dim Hom_l(A, B) (rows A, columns B): l: l=2, M1=0, M2=0, N=0; M1: l=0, M1=1, M2=1, N=1; M2: l=0, M1=1, M2=1, N=1; N: l=0, M1=1, M2=1, N=1
+PASS M.1 controls: dim End_l(M1) = 1 and dim Hom_l(M1, M2) = 1 (EQ-C 2.5a-b reproduced)
+PASS M.2 Hom_l(M1, l) = Hom_l(M2, l) = 0 and Hom_l(l, M1) = 0: the su(4) part has no l-equivariant map to or from l (used in step e: an l-submodule strictly containing l inside l + M1 is l + M1)
+PASS M.3 N is isomorphic to M1 as an l-module (dim Hom_l(M1, N) = 1 = dim End_l(N)): V1's (3,3)-isotypic part has multiplicity 3, so N must be removed (by the invariant form) before the submodule analysis
+PASS C.1 V1 certificate: 51 rational sphere pairs (408 rows of length 240) already give the exact rank 207 of EQ-C P2 (dim V1 <= 33); row height 2645  [pairs [((0, 0), (0, 0)), ((0, 0), (1, 0)), ((0, 0), (0, 1)), ((0, 0), (2, 0))]...]
+PASS C.2 native-class certificate: relC + corner rows (rank 96) plus the tightness rows of 8 rational targets give rank 124 = 128 - 4 (B1's 4-parameter family)  [targets [(0, 0), (1, 0), (0, 1), (2, 0), (0, 3), (1, 1), (Fraction(1, 2), 2), (3, -1)]]
+--- B7 module facts and certificate sizes: 5 checks, 0 failures
+VERDICT MODULE-FACTS-AND-CERTIFICATES: Hom_l(M1, l) = 0, N ~ M1 as l-modules; V1's upper bound needs a few dozen rational sample pairs, the native class only a handful of targets

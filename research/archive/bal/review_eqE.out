@@ -1,0 +1,14 @@
+PASS R1 kernel cnot == Pauli transfer matrix of the quantum CNOT (control first)
+PASS R2 relT(nflip) for cnot
+PASS R2 two-NOT relC holds for N_A on the whole circle (symbolic m), N_B = nflip
+PASS R2 instance N_A = Ad_Y = diag(-1, 1, -1) (circle point c = -1, s = 0), N_A != N_B
+PASS R2 countercontrols: N_A = diag(1, 1, -1) and N_A = -id fail
+PASS R3 (S(x)I)CNOT: frame holds on the z-corners
+PASS R3 (S(x)I)CNOT: transfer matrix is real
+     relT: fixed members admissible: [] ; reflection family F(t): [0]
+     admissible (N_A, N_B) pairs among IsNot candidates: []
+PASS R3 (S(x)I)CNOT: no IsNot pair (N_A, N_B) satisfies relT(N_B) and the two-NOT relC (relT-admissible N_B: ['F(0)'])
+PASS R3 solver control: for CNOT with N_B = nflip the reflection family is admissible identically (identically)
+PASS R3 control: CNOT admits (nflip, nflip)
+review_eqE: 10/10 checks pass
+exit 0

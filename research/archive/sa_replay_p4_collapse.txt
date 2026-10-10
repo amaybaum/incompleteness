@@ -1,0 +1,15 @@
+PASS C1 table laws: 0<=p<=1, unit certain -- 315 preps x 85 effects
+PASS C2 SCInf definitional (one global p, inclusion forward maps) -- definitional; see ledger §2
+PASS C3 BinaryVisible test sums to one on every prep
+PASS C3b a sharp visible pair exists (hypotheses of perfectlyDistinguishable_visible)
+PASS C4 label dual p(e, x.a) = p(a.e, x), a in {idle, flip} -- 3486 instances
+PASS C6 FiniteRank: full-language response rank stabilises at #classes <= |Omega| -- ranks L=1..5 [2, 4, 6, 8, 8], classes 8
+PASS C6b body affine dimension finite -- dim aff body (preps <= 4) = 7
+PASS C5 AffineRespect(idle) with prefix-closed effects -- rank R 8, relations 76, violated 0
+PASS C5 AffineRespect(flip) with prefix-closed effects -- rank R 8, relations 76, violated 0
+FAIL C7 countercontrol: obs-only effects, AffineRespect(flip) FAILS (expected) -- rank R_obs 8, relations 76, violated 0
+PASS C7b control: obs-only effects, AffineRespect(idle) holds (idle is in the effect language) -- relations 76, violated 0
+PASS C8 Undoes(flip, flip): posterior(x.f.f) = posterior(x), hence equal prepVec on ALL labels
+PASS C8b Undoes(idle^(ord-1), idle): phi has finite order, inverse is a power -- ord(phi) = 8
+PASS C9 NG1: posteriors up to horizon 6 are finitely many (bound |Omega|! 2^|Omega|) -- 170 distinct posteriors at horizon <= 6
+SOME-FAIL

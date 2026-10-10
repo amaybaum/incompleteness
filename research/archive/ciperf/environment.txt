@@ -1,0 +1,21 @@
+python 3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]
+numpy 2.4.6
+platform Linux-6.18.44-fc-v50-x86_64-with-glibc2.39
+machine x86_64 cpus 4
+worktree 
+worktree HEAD d6b6458010a6d2812bd3215a8bb6f8a1bab37f00
+probe/tools identical at 88bb2641: yes
+
+CI resolution of the workflow's python-version '3.11' (E replay run 36862525395, job 110369965457, n18:0):
+  actions/setup-python@v5 "Successfully set up CPython (3.11.16)"; pip installed numpy-2.4.6, python-sat-1.9.dev15, six-1.17.0
+  so CI is 3.11.16 against the local 3.11.15: the selector resolves to the runner's latest 3.11 patch, not a semantic pin.
+
+Landed n18:0 in CI (same job), timestamps of its check lines from the probe start at 12:37:59:
+  census + setup   to 12:39:25   ~86 s
+  k1 column        12:40:41      ~76 s
+  k2 row           12:46:37      ~356 s
+  k4 column        12:47:41      ~64 s
+  e1 row           12:48:23      ~42 s
+  t1 column        12:57:21      ~538 s
+  t2 row           13:01:37      ~256 s
+  probe-reported total 1418 s

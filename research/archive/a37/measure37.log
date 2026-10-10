@@ -1,0 +1,85 @@
+symbolic SIG matches numeric SIG; W symmetric; W values [0, 1, 2]
+n=4: blocks 1820; generically proportional pairs on some block: 2976; E_cand so far 14 points (2s)
+n=2: blocks 120; generically proportional pairs on some block: 2624; E_cand so far 20 points (2s)
+n=8: blocks 12870; generically proportional pairs on some block: 40; E_cand so far 20 points (14s)
+candidate exceptional points (where some row pair becomes proportional on some block):
+   zeta(0 turn) z^-1 w^-1            from 64 (n, block, pair) triples
+   zeta(1/2 turn) z^-1 w^-1          from 64 (n, block, pair) triples
+   zeta(0 turn) z^-1 w^0             from 1328 (n, block, pair) triples
+   zeta(1/2 turn) z^-1 w^0           from 1328 (n, block, pair) triples
+   zeta(0 turn) z^-1 w^1             from 144 (n, block, pair) triples
+   zeta(1/2 turn) z^-1 w^1           from 144 (n, block, pair) triples
+   zeta(0 turn) z^-1/2 w^-1/2        from 32 (n, block, pair) triples
+   zeta(1/4 turn) z^-1/2 w^-1/2      from 32 (n, block, pair) triples
+   zeta(1/2 turn) z^-1/2 w^-1/2      from 32 (n, block, pair) triples
+   zeta(3/4 turn) z^-1/2 w^-1/2      from 32 (n, block, pair) triples
+   zeta(0 turn) z^-1/2 w^0           from 160 (n, block, pair) triples
+   zeta(1/4 turn) z^-1/2 w^0         from 160 (n, block, pair) triples
+   zeta(1/2 turn) z^-1/2 w^0         from 160 (n, block, pair) triples
+   zeta(3/4 turn) z^-1/2 w^0         from 160 (n, block, pair) triples
+   zeta(0 turn) z^0 w^-1             from 144 (n, block, pair) triples
+   zeta(1/2 turn) z^0 w^-1           from 144 (n, block, pair) triples
+   zeta(0 turn) z^0 w^0              from 1160 (n, block, pair) triples
+   zeta(1/2 turn) z^0 w^0            from 1160 (n, block, pair) triples
+   zeta(0 turn) z^0 w^1              from 144 (n, block, pair) triples
+   zeta(1/2 turn) z^0 w^1            from 144 (n, block, pair) triples
+
+structures admitted at generic u (u a free symbol):
+  4x4: candidates 1, exact 0
+     candidate blocks ((0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)) classes [(0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)]  exact: False
+  8x2: candidates 1, exact 0
+     candidate blocks ((0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)) classes [(0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)]  exact: False
+  2x8: candidates 1, exact 1
+     candidate blocks ((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)) classes [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)]  exact: True
+(15s)
+  generic candidate 4x4 blocks ((0, 2, 8, 10), (1, 3, 9, 11), (4, 6, 12, 14), (5, 7, 13, 15)): rank-one holds exactly at zeta(0 turn) z^0 w^0
+  generic candidate 8x2 blocks ((0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)): rank-one holds exactly at zeta(0 turn) z^0 w^0
+
+candidate exceptional set: 20 points
+  zeta(0 turn) z^-1 w^-1            candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^-1 w^-1          candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^-1 w^0             candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^-1 w^0           candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^-1 w^1             candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^-1 w^1           candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^-1/2 w^-1/2        candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/4 turn) z^-1/2 w^-1/2      candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^-1/2 w^-1/2      candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(3/4 turn) z^-1/2 w^-1/2      candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^-1/2 w^0           candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/4 turn) z^-1/2 w^0         candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^-1/2 w^0         candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(3/4 turn) z^-1/2 w^0         candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^0 w^-1             candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^0 w^-1           candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^0 w^0              candidates 4x4/8x2/2x8: 5/3/3  exact: 4/2/3  frozen 2x8 present: True  other structures: 8
+  zeta(1/2 turn) z^0 w^0            candidates 4x4/8x2/2x8: 5/3/3  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(0 turn) z^0 w^1              candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+  zeta(1/2 turn) z^0 w^1            candidates 4x4/8x2/2x8: 1/1/1  exact: 0/0/1  frozen 2x8 present: True  other structures: 0
+
+EXACT exceptional set (points where a structure other than the frozen 2x8 class is admitted): 1
+    zeta(0 turn) z^0 w^0 -> 8 other structures
+(948s)
+
+controls at Gaussian-rational candidate points (numeric exhaustive search of the certified probe):
+   zeta(0 turn) z^-1 w^-1            u = (Fraction(-33, 65), Fraction(-56, 65))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(1/2 turn) z^-1 w^-1          u = (Fraction(33, 65), Fraction(56, 65))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(0 turn) z^-1 w^0             u = (Fraction(3, 5), Fraction(-4, 5))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(1/2 turn) z^-1 w^0           u = (Fraction(-3, 5), Fraction(4, 5))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(0 turn) z^-1 w^1             u = (Fraction(63, 65), Fraction(16, 65))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(1/2 turn) z^-1 w^1           u = (Fraction(-63, 65), Fraction(-16, 65))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(0 turn) z^-1/2 w^-1/2        not Gaussian rational; symbolic only
+   zeta(1/4 turn) z^-1/2 w^-1/2      not Gaussian rational; symbolic only
+   zeta(1/2 turn) z^-1/2 w^-1/2      not Gaussian rational; symbolic only
+   zeta(3/4 turn) z^-1/2 w^-1/2      not Gaussian rational; symbolic only
+   zeta(0 turn) z^-1/2 w^0           not Gaussian rational; symbolic only
+   zeta(1/4 turn) z^-1/2 w^0         not Gaussian rational; symbolic only
+   zeta(1/2 turn) z^-1/2 w^0         not Gaussian rational; symbolic only
+   zeta(3/4 turn) z^-1/2 w^0         not Gaussian rational; symbolic only
+   zeta(0 turn) z^0 w^-1             u = (Fraction(5, 13), Fraction(-12, 13))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(1/2 turn) z^0 w^-1           u = (Fraction(-5, 13), Fraction(12, 13))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(0 turn) z^0 w^0              u = (Fraction(1, 1), Fraction(0, 1))  numeric (cand, exact) 4x4 (5, 4) 8x2 (3, 2) 2x8 (3, 3)  agrees with symbolic: True
+   zeta(1/2 turn) z^0 w^0            u = (Fraction(-1, 1), Fraction(0, 1))  numeric (cand, exact) 4x4 (5, 0) 8x2 (3, 0) 2x8 (3, 1)  agrees with symbolic: True
+   zeta(0 turn) z^0 w^1              u = (Fraction(5, 13), Fraction(12, 13))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+   zeta(1/2 turn) z^0 w^1            u = (Fraction(-5, 13), Fraction(-12, 13))  numeric (cand, exact) 4x4 (1, 0) 8x2 (1, 0) 2x8 (1, 1)  agrees with symbolic: True
+done (977s)

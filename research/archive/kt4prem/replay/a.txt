@@ -1,0 +1,147 @@
+
+  ok   cnot_prodState_xplus_z3: cnot (prodState xplus z3) = phiW
+  ok   actT_reflY_phiW: actT reflY phiW = idW
+  ok   cnot_idW: cnot idW = chainW
+  ok   chain_eq: cnot (actT reflY (cnot (prodState xplus z3))) = chainW
+  ok   chain_value = -1/2  [-1/2]
+  ok   sharpVec_negX = [1/2,-1/2,0,0]
+  ok   sharpVec_negZ = [1/2,0,0,-1/2]
+  ok   actT_nflip_phiW = rotW
+  ok   cnot_rotW = rotChainW
+  ok   rotation_chain_value = 0
+  ok   pc_pc, pt_pt, sgn_mul_sgn (16 cases)
+  ok   cnot_frame (a,b in Fin 2)
+  ok   det_reflY = -1, det_nflip = 1
+
+  ok   E0 rho is injective onto Herm(4): wOf(rho(e_mn)) = e_mn for all 16 basis tables
+  ok   E1 ipW(E,X) = 4 Tr(rho E rho X) on all 256 basis pairs
+  ok   E2 pairVal(a,b,w) = Tr(rho(w) (A^ (x) B^)), A^ = sum a_mu sigma_mu, on 16x4x4 basis
+  ok   E3 rho(cnot w) = U rho(w) U^dag (U = CNOT, control = first index) on 16 basis tables
+  ok   E4 rho(actT reflY w) = partial transpose_B rho(w) on 16 basis tables
+  ok   E5 rho(tens(e_m, e_n)) = (sigma_m/2) (x) (sigma_n/2) on 16 basis pairs
+  ok   E6 Tr rho(w) = w_00 on 16 basis tables
+
+  ok   S1 famI literal form ipW X (E Y F^T) = fourVal X Y E F
+  ok   S2 famII literal form ipW e (L f L'^T) = fourVal e f L L'
+  ok   S3a famI on separable effect tables factorises: fourVal(X,Y,u1u2^T,v1v2^T) = pairVal(u1,v1,X) pairVal(u2,v2,Y)
+  ok   S3b famII on separable effect tables factorises: famII(L,L',u1u2^T,v1v2^T) = pairVal(u1,v1,L) pairVal(u2,v2,L')
+  ok   S4 ipW(prodState x y, w) = pairVal(hom x, hom y, w)
+  ok   S5 prodEffVal e f (prodState x y) = e x * f y
+  ok   S6 cnot is an involution (generic w)
+  ok   S7 NClass relation with A=B=A'=B'=id: cnot w = actC id (actT id (cnot (actC id (actT id w))))
+  ok   S8a pairVal(a,b,actC R w) = pairVal(homMap R^T a, b, w) (generic R)
+  ok   S8b pairVal(a,b,actT R w) = pairVal(a, homMap R^T b, w) (generic R)
+  ok   S8c actC R (actC S w) = actC (R S) w and actT R (actT S w) = actT (R S) w
+  ok   S8d ehom(e o R) = homMap R^T (ehom e): e(Rx) = e0 + (R^T E).x
+  ok   S9a prodEffVal(1,1,w) = w00
+  ok   S9b sum_{s,t=+-} prodEffVal(sharpEff(s b), sharpEff(t c), w) = w00
+  ok   S9c sum_{s,t} s t prodEffVal(sharpEff(s b), sharpEff(t c), w) = b^T w' c (w' = 3x3 block)
+  ok   S9d prodEffVal(sharpEff b,1,w) - prodEffVal(sharpEff(-b),1,w) = sum_j b_j w_{j+1,0}; same in the 2nd slot
+  ok   S10 actT reflY (prodState x y) = prodState x (reflY y)
+  ok   S11 prodEffVal e f idW = e0 f0 + E.F
+  ok   S12 sharpEff b x = 1/2 + b.x/2
+
+  ok   K1[fpf] effA_apply: effA e f (stA x y) = e x * f y
+  ok   K2[fpf] effB_apply: effB e f (stB x y) = e x * f y
+  ok   K3[fpf] tokA for all 256 (a,b,c,d)
+  ok   K4[fpf] tokB for all 256 (a,b,c,d)
+  ok   K5[fpf] effB e f (stA x y) = famI literal form at X=tab x, Y=tab y, E=Et e, F=Et f
+  ok   K6[fpf] effA e f (stB x y) = famII literal form at L=tab x, L'=tab y, e=Et e, f=Et f
+  ok   K7[fpf] e(x) = ipW(Et e, tab x) on the slice x_sig(0,0) = 1
+  ok   K7b[fpf] sig is a bijection and tab(flat_sig w) = w (chart consistency)
+  ok   K1[transposed] effA_apply: effA e f (stA x y) = e x * f y
+  ok   K2[transposed] effB_apply: effB e f (stB x y) = e x * f y
+  ok   K3[transposed] tokA for all 256 (a,b,c,d)
+  ok   K4[transposed] tokB for all 256 (a,b,c,d)
+  ok   K5[transposed] effB e f (stA x y) = famI literal form at X=tab x, Y=tab y, E=Et e, F=Et f
+  ok   K6[transposed] effA e f (stB x y) = famII literal form at L=tab x, L'=tab y, e=Et e, f=Et f
+  ok   K7[transposed] e(x) = ipW(Et e, tab x) on the slice x_sig(0,0) = 1
+  ok   K7b[transposed] sig is a bijection and tab(flat_sig w) = w (chart consistency)
+  ok   K1[randperm] effA_apply: effA e f (stA x y) = e x * f y
+  ok   K2[randperm] effB_apply: effB e f (stB x y) = e x * f y
+  ok   K3[randperm] tokA for all 256 (a,b,c,d)
+  ok   K4[randperm] tokB for all 256 (a,b,c,d)
+  ok   K5[randperm] effB e f (stA x y) = famI literal form at X=tab x, Y=tab y, E=Et e, F=Et f
+  ok   K6[randperm] effA e f (stB x y) = famII literal form at L=tab x, L'=tab y, e=Et e, f=Et f
+  ok   K7[randperm] e(x) = ipW(Et e, tab x) on the slice x_sig(0,0) = 1
+  ok   K7b[randperm] sig is a bijection and tab(flat_sig w) = w (chart consistency)
+  ok   K7c Lean chart: tab(flatW w) = w (fpf) and tabCoord m n (flatW w) = w m n
+  ok   K8[effA] linear in e (generic V)
+  ok   K8[effA] linear in f (generic V)
+  ok   K8[effA] linear (hence affine) in V
+  ok   K8[effB] linear in e (generic V)
+  ok   K8[effB] linear in f (generic V)
+  ok   K8[effB] linear (hence affine) in V
+  ok   CC-tok countercontrol: carrier with 4b+a against Lean tabCoord (4a+b) breaks tokA  [240/256 index tuples fail]
+
+  ok   cube rotation group: 24 elements, all IsRot3
+  ok   BELLS are rank-1 projectors, entangled (det PT_B < 0); BELLS_T outside Q3
+  ok   singlet table is a rank-1 projector
+
+  ok   Mcl.hcls IsOrth3 id
+  ok   Mcl.hadm prodState in Q3 on 200 exact ball pairs (control of SEP subset Q3)
+  ok   Mcl.hadm SEP + cnot(SEP) elements are PSD (60 exact instances, control of SEP + cnot SEP subset Q3)
+  ok   Mcl.hadm sampled control: pairVal(hom u, hom v, w) >= 0 for w in Q3 (600 exact samples)
+  ok   Mcl.hgate cnot maps 40 exact PD states to PD states
+  ok   Mcl.hgate cnot(s + cnot s') = cnot s + s' (exact instance; S6 gives it generically)
+     w_H = actT R_H phiW = [[1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0]]
+     cnot w_H = [[1, 0, 0, 0], [0, 0, 0, -1], [0, 0, -1, 0], [0, 1, 0, 0]]
+  ok   Mcl.IE1 R_H is a rotation (IsRot3: orthogonal, det 1)  [det=1]
+  ok   Mcl.w_H cross-check: rho(w_H) = (I (x) H) rho(phiW) (I (x) H)^dag (Hadamard on token 2)
+  ok   Mcl.w_H rho(w_H) is a rank-1 projector (Hermitian, P^2 = P, Tr P = 1)
+  ok   Mcl.w_H not in int(Q3): det rho(w_H) = 0
+  ok   Mcl.w_H NPT: exact v with v^dag PT_B(rho w_H) v < 0 (no positive multiple of w_H is in SEP)  [value -2 at v=[1, -1, -1, -1]]
+  ok   Mcl.w_H cnot(w_H) is a rank-1 projector and NPT (no positive multiple of cnot w_H is in SEP)  [value -2]
+  ok   Mcl.control PPT test does not flag product states (100 exact instances: PT_B rho(prodState) PSD)
+  ok   Mcl.control PPT test does not flag SEP elements (40 exact mixtures)
+  ok   Mcl.hcl w_H + t*e00 in int(Q3) for every t > 0 (leading minors = nonzero polys in t with coefficients >= 0)  [t/4 + 1/4; t**2/16 + t/8; t**3/64 + 3*t**2/64; t**4/256 + t**3/64]
+  ok   Mcl.hcl rho(w + t e00) = rho(w) + (t/4) I (exact, t = 1/1000)
+  ok   Mcl.IE1 phiW in K_cl: phiW = cnot(prodState xplus z3) in cnot(SEP)
+  ok   Mcl.IE1 phiW rank-1 (also not in int Q3; its membership is via cnot SEP)
+
+  ok   Mmax.hgate idW in maxCone: idW = actT reflY phiW with rho(phiW) PSD (partial transpose of a PSD table is block-positive)
+  ok   Mmax.hgate idW not PSD (so idW is in maxCone \ Q3)
+  ok   Mmax.hgate sampled control: prodEffVal(sharpEff b, sharpEff c, idW) >= 0 (400 exact samples)
+  ok   Mmax.hgate cnot idW = chainW and prodEffVal(sharpEff(-e1), sharpEff(-e3), chainW) = -1/2 < 0
+  ok   Mmax.hgate sharpEff(-e1), sharpEff(-e3) take values 0 and 1 at -+b (unit b; effects by Cauchy-Schwarz)
+  ok   Mmax.hadm product states in maxCone: prodEffVal e f (prodState x y) = e x f y (S5) - instance
+
+  ok   inst Q3 family: all PSD, 37 of 40 certified entangled (det PT_B < 0)
+  ok   inst maxCone family: 40 of 40 certified outside Q3 (negative principal minor)
+  ok   inst K_cl family: every element PSD (PD ones certified by Sylvester)
+  ok   inst uniform Q3 (states, effects in Q3 = dualW Q3) famI >= 0 on 600 exact tuples  [min 0]
+  ok   inst uniform Q3 (states, effects in Q3 = dualW Q3) famII >= 0 on 600 exact tuples  [min 0]
+  ok   inst uniform K_cl (states in K_cl, effects in Q3 = dualW K_cl) famI >= 0 on 600 exact tuples  [min 0]
+  ok   inst uniform K_cl (states in K_cl, effects in Q3 = dualW K_cl) famII >= 0 on 600 exact tuples  [min 0]
+  ok   inst uniform maxCone (states in maxCone incl. non-PSD, effects in SEP = dualW maxCone) famI >= 0 on 600 exact tuples  [min 1277230462799777/40404521746373400]
+  ok   inst uniform maxCone (states in maxCone incl. non-PSD, effects in SEP = dualW maxCone) famII >= 0 on 600 exact tuples  [min 1277230462799777/40404521746373400]
+  ok   fast form ipW(E, X F Y^T) = famI literal (exact spot checks)
+  ok   CC-Q3: X outside Q3 (PT_B Bells) with Y,E,F in Q3 gives negative famI values  [13824/331776 negative, min -2]
+  ok   CC-max design note: X,Y both PT_B(Bells), E,F Bells gives no negatives (double transpose cancels)  [0/331776 negative, min 0]
+  ok   CC-max: effects outside SEP (Bells) with X,Y in maxCone gives negative famI values  [13824/663552 negative, min -2]
+  ok   CC-explicit: famI_val(idW, singlet, phiW, phiW) = -2 (idW in maxCone\Q3, phiW in Q3\SEP)  [-2]
+
+  ok   e2e M_cl posBA: effB e f (stA x y) >= 0 (150 exact tuples)  [min 13/2160]
+  ok   e2e M_cl posAB: effA e f (stB x y) >= 0 (150 exact tuples)  [min 44651/2351250]
+  ok   e2e M_max posBA: effB e f (stA x y) >= 0 (150 exact tuples)  [min 13324136213/7116100992000]
+  ok   e2e M_max posAB: effA e f (stB x y) >= 0 (150 exact tuples)  [min 16410580387/5593828838400]
+
+  ok   orient id id = false (det id * det id = 1 /= -1)
+  ok   EvenCycle (fun p => orient (A p) (B p)) holds with A = B = id
+  ok   CC-parity: one reflected post-local (det -1) makes the cycle odd
+
+  M_cl   hcls         holds  exact symbolic identity (S7) + exact matrix check
+  M_cl   hadm         holds  written argument (Q3 subset maxCone via E2; PD+PSD is PD) + exact identities + instance controls
+  M_cl   hcl          FAILS  exact witness w_H (rank-1, NPT, cnot w_H NPT) + written extreme-ray argument; closure via exact t-polynomials
+  M_cl   hgate        holds  exact identity rho(cnot w)=U rho U^dag on basis + written
+  M_cl   H (KT4Core)  holds  exact symbolic identities (carrier) + exhaustive 4-qubit identity + written PSD argument
+  M_cl   IE1          FAILS  exact witness: phiW in K, actT R_H phiW not in K
+  M_cl   EvenCycle    holds  exact evaluation
+  M_max  hcls         holds  exact symbolic identity (S7)
+  M_max  hadm         holds  exact identity S5 + written (intersection of half-spaces)
+  M_max  hcl          holds  written: intersection of closed half-spaces
+  M_max  hgate        FAILS  exact witness idW -> chainW, value -1/2
+  M_max  H (KT4Core)  holds  exact symbolic identities + written bipolar argument (dualW maxCone = SEP)
+  M_max  IE1          holds  exact symbolic adjoint identities + written
+  M_max  EvenCycle    holds  exact evaluation
+

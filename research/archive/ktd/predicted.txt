@@ -1,0 +1,20 @@
+- **`028e16765fc5c9912f28ce5df5237158f92546ed`** (`claude/ktd-predicted`, a single-parent child of `D`) is the execution
+  tree less the result note. Its files and blobs:
+  - this preregistration in its drafting revision, blob `10b651d296e84e06b5d84b6999481fc18fead928`, which differs from
+    the revision at `F` only in this section;
+  - `controls.py`, blob `62d66fd6bb08668b2389b682965bda9589575a10`;
+  - `DenseOrbit.lean`, blob `466a80f7ec2fa8089be59760f5c26e5d37a09973`;
+  - `OIBridge.lean`, blob `3a4fab90541281ba64797a42b25f16b5506f52f9`;
+  - the census, blob `d94feb1794729bbe9f5b85cd35bcd8d0477c5044`.
+- `delta(D, 028e1676)` is exactly those five paths: the record directory's two files and the three execution paths.
+  The module differs from design run 4's (`91f5aa50`) only in the header comment, and every frozen statement,
+  definition and context block is run 4's.
+- At that commit `controls.py check 028e1676`, run from the tree's own frozen `controls.py`, passes all 20 checks, and
+  `controls.py verdict 028e1676` prints exactly `KTRANS-DENSE-BALL-PROVED`, `KTRANS-DENSE-CONE-PROVED` and
+  `KTRANS-DENSE-STRICTLY-WEAKER`.
+- **Run 37569163013** (`workflow_dispatch` on `028e1676`, attempt 1) completed with conclusion success; every one of
+  its 32 jobs succeeded. The Mathlib bridge (job 112623659765) built `OIBridge.DenseOrbit` with each of the 15 frozen
+  `#print axioms` lines within `[propext, Classical.choice, Quot.sound]` and no warning in the module, and its release
+  gate passed every step (`lean-axioms` 5790 named results, no `sorryAx`; `lean-manuscript` OK; 303 legacy records
+  intact; 38 receipts hold); the Lean kernel check (job 112623659737) and the probe aggregate (job 112627768660)
+  succeeded. Its facts agree with design run 4 at `7d53f82b`.

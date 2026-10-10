@@ -1,0 +1,17 @@
+SO-class  0: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class  1: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class  2: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+SO-class  3: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+SO-class  4: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+SO-class  5: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, -1, 0, 0], [1, 0, -1, 0])
+SO-class  6: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class  7: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class  8: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+SO-class  9: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+SO-class 10: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class 11: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class 12: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class 13: G alone min ~ -0.0000; exact axis-state minimum over the group = 0
+SO-class 14: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+SO-class 15: G alone min ~ -0.0000; exact axis-state minimum over the group = -2  at s,t,f,g = ([1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 0, 0], [1, 0, -1, 0])
+exit 0 time 14s

@@ -1,0 +1,89 @@
+thread Y (EXCLUSION), stage 4 (Q-EX). Start marker, written first into a freshly created pt/Y/.
+pt/Y/ did not exist before this session's mkdir.
+UTC time of mkdir: 2026-10-10T14:24:15Z
+start checks (run immediately after mkdir, before this file was written):
+
+manifest inputs.manifest.sha256: rc=0 
+manifest stage1.manifest.sha256: rc=0 
+manifest inputs2.manifest.sha256: rc=0 
+manifest inputs3.manifest.sha256: rc=0 
+manifest stage2.manifest.sha256: rc=0 
+manifest inputs4.manifest.sha256: rc=0 
+manifest audit/stage3-inputs/ns.manifest.sha256 (from its own directory): rc=0 
+base HEAD (GIT_OPTIONAL_LOCKS=0 git -C pt/base rev-parse HEAD): 9f9f8257a980a1819fbbc1dc0019917cf8678626
+expected: 9f9f8257a980a1819fbbc1dc0019917cf8678626
+base status --porcelain (empty expected; rc line follows): rc=0 
+bytecode files/dirs under pt/base (*.pyc, *.pyo, __pycache__): 0
+protocol hashes (sha256sum):
+d3da28116a5bcdd32fe8b8418d5bc83003918240ce4b0477d9f714518a717a74  PROTOCOL-STAGE4.md
+1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+expected prefixes: STAGE4 d3da2811 (full d3da28116a5bcdd32fe8b8418d5bc83003918240ce4b0477d9f714518a717a74), STAGE3 1a649168, STAGE2 38603692, PROTOCOL 239dc123, AM1 b41aa0e7, AM2 2a2f78f3, STAGE2-DS 086a4cb8
+
+sidecar PROTOCOL-STAGE4.sha256 (checked from pt/): sha256sum: pt/PROTOCOL-STAGE4.md: No such file or directory pt/PROTOCOL-STAGE4.md: FAILED open or read sha256sum: WARNING: 1 listed file could not be read rc=1 
+sidecar PROTOCOL-STAGE3.sha256 (checked from pt/): rc=0 
+sidecar PROTOCOL-STAGE2.sha256 (checked from pt/): rc=0 
+sidecar PROTOCOL-STAGE2-DS.sha256 (checked from pt/): rc=0 
+sidecar PROTOCOL-AMENDMENT-1.sha256 (checked from pt/): rc=0 
+sidecar PROTOCOL-AMENDMENT-2.sha256 (checked from pt/): rc=0 
+sidecar PROTOCOL.sha256 (checked from pt/): rc=0 
+note: the launch message says "the eight protocol hashes" and lists seven files; all seven listed were checked, plus their sidecar .sha256 files.
+top-level listing of pt/ at start:
+total 352
+drwxr-xr-x  26 root root  4096 2026-10-10T14:24:15 .
+drwx------ 277 root root 12288 2026-10-10T12:51:39 ..
+drwxr-xr-x   4 root root  4096 2026-10-10T05:29:45 A
+drwxr-xr-x   4 root root  4096 2026-10-10T05:59:26 B
+drwxr-xr-x   2 root root  4096 2026-10-10T05:41:17 C
+drwxr-xr-x   2 root root  4096 2026-10-10T05:50:39 D
+drwxr-xr-x   2 root root  4096 2026-10-10T09:31:14 DS
+-r--r--r--   1 root root   498 2026-10-10T08:48:46 DS-LAUNCH-LOG.md
+-rw-r--r--   1 root root 20284 2026-10-10T09:40:15 INTEGRATION-ADDENDUM-STAGE2.md
+-rw-r--r--   1 root root 18638 2026-10-10T14:21:38 INTEGRATION-NOTE-STAGE3.md
+-rw-r--r--   1 root root 17866 2026-10-10T06:27:36 INTEGRATION-REVIEW.md
+-r--r--r--   1 root root  3774 2026-10-10T05:13:09 PROTOCOL-AMENDMENT-1.md
+-rw-r--r--   1 root root   181 2026-10-10T05:13:12 PROTOCOL-AMENDMENT-1.sha256
+-r--r--r--   1 root root  3930 2026-10-10T05:22:22 PROTOCOL-AMENDMENT-2.md
+-rw-r--r--   1 root root   181 2026-10-10T05:22:24 PROTOCOL-AMENDMENT-2.sha256
+-r--r--r--   1 root root  8545 2026-10-10T08:48:02 PROTOCOL-STAGE2-DS.md
+-r--r--r--   1 root root    88 2026-10-10T08:48:09 PROTOCOL-STAGE2-DS.sha256
+-r--r--r--   1 root root 17623 2026-10-10T07:12:04 PROTOCOL-STAGE2.md
+-r--r--r--   1 root root    85 2026-10-10T07:12:08 PROTOCOL-STAGE2.sha256
+-r--r--r--   1 root root 12680 2026-10-10T10:22:18 PROTOCOL-STAGE3.md
+-r--r--r--   1 root root    85 2026-10-10T10:22:36 PROTOCOL-STAGE3.sha256
+-rw-r--r--   1 root root  8424 2026-10-10T14:22:11 PROTOCOL-STAGE4.md
+-rw-r--r--   1 root root    88 2026-10-10T14:22:11 PROTOCOL-STAGE4.sha256
+-r--r--r--   1 root root 19714 2026-10-10T04:32:46 PROTOCOL.md
+-rw-r--r--   1 root root   169 2026-10-10T04:32:55 PROTOCOL.sha256
+drwxr-xr-x   2 root root  4096 2026-10-10T08:34:03 S2
+drwxr-xr-x   2 root root  4096 2026-10-10T08:32:34 S3
+-r--r--r--   1 root root  1401 2026-10-10T07:25:56 STAGE2-LAUNCH-LOG.md
+-r--r--r--   1 root root   490 2026-10-10T10:22:36 STAGE3-LAUNCH-LOG.md
+drwxr-xr-x   2 root root  4096 2026-10-10T12:46:54 U
+drwxr-xr-x   2 root root  4096 2026-10-10T12:46:18 X
+drwxr-xr-x   2 root root  4096 2026-10-10T14:24:15 Y
+drwxr-xr-x   3 root root  4096 2026-10-10T07:25:56 aborted-launch1
+drwxr-xr-x  15 root root  4096 2026-10-10T13:19:47 audit
+drwxr-xr-x   2 root root  4096 2026-10-10T05:32:05 auditA-replay
+drwxr-xr-x   3 root root  4096 2026-10-10T06:18:14 auditB-replay
+drwxr-xr-x   2 root root  4096 2026-10-10T05:44:31 auditC-replay
+drwxr-xr-x   2 root root  4096 2026-10-10T06:13:03 auditD-replay
+drwxr-xr-x   2 root root  4096 2026-10-10T09:37:02 auditDS-replay
+drwxr-xr-x   2 root root  4096 2026-10-10T09:04:33 auditS2-replay
+drwxr-xr-x   2 root root  4096 2026-10-10T08:49:23 auditS3-replay
+drwxr-xr-x   7 root root  4096 2026-10-10T04:30:52 base
+dr-xr-xr-x   5 root root  4096 2026-10-10T04:30:52 inputs
+-r--r--r--   1 root root  4066 2026-10-10T04:30:54 inputs.manifest.sha256
+dr-xr-xr-x   3 root root  4096 2026-10-10T07:10:16 inputs2
+-r--r--r--   1 root root   315 2026-10-10T07:10:21 inputs2.manifest.sha256
+dr-xr-xr-x   2 root root  4096 2026-10-10T08:47:33 inputs3
+-r--r--r--   1 root root    86 2026-10-10T08:48:09 inputs3.manifest.sha256
+dr-xr-xr-x   2 root root  4096 2026-10-10T10:22:27 inputs4
+-r--r--r--   1 root root   100 2026-10-10T10:22:36 inputs4.manifest.sha256
+-r--r--r--   1 root root 18717 2026-10-10T07:10:01 stage1.manifest.sha256
+-r--r--r--   1 root root 15695 2026-10-10T10:21:01 stage2.manifest.sha256
+addendum 2026-10-10T14:24:22Z: sidecar PROTOCOL-STAGE4.sha256 names the path pt/PROTOCOL-STAGE4.md, so it was re-checked from the scratchpad directory (parent of pt/): rc=0  -- the rc=1 above is a working-directory artifact of the sidecar's relative path, not a hash mismatch (the direct sha256sum of PROTOCOL-STAGE4.md above equals the stated d3da2811... value).

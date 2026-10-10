@@ -1,0 +1,437 @@
+== oiPlus_iff_qm  CarrierGeneralOIPlus.lean:207
+     theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+   used outside its module in: CompletedOI.lean, EmbeddedObservation.lean
+== oiPlus_iff_qm  CompletedOI.lean:440
+     theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+   used outside its module in: CarrierGeneralOIPlus.lean, EmbeddedObservation.lean
+== qm_of_oiPlus  CarrierGeneralOIPlus.lean:191
+     theorem qm_of_oiPlus (h : OIPlus T) : ExactAllFiniteEndomorphicQuantumOps T := by
+   used outside its module in: CompletedOI.lean, EmbeddedObservation.lean
+== qm_of_oiPlus  CompletedOI.lean:423
+     theorem qm_of_oiPlus (h : OIPlus T) : ExactAllFiniteEndomorphicQuantumOps T := by
+   used outside its module in: CarrierGeneralOIPlus.lean, EmbeddedObservation.lean
+== oiPlus_of_qm  CarrierGeneralOIPlus.lean:198
+     theorem oiPlus_of_qm (h : ExactAllFiniteEndomorphicQuantumOps T) : OIPlus T := by
+   used outside its module in: CompletedOI.lean, EmbeddedObservation.lean
+== oiPlus_of_qm  CompletedOI.lean:430
+     theorem oiPlus_of_qm (h : ExactAllFiniteEndomorphicQuantumOps T) : OIPlus T := by
+   used outside its module in: CarrierGeneralOIPlus.lean, EmbeddedObservation.lean
+== OIPlus  CarrierGeneralOIPlus.lean:185
+     def OIPlus : Prop :=
+   used outside its module in: CompletedOI.lean, EmbeddedObservation.lean
+== OIPlus  CompletedOI.lean:418
+     def OIPlus : Prop :=
+   used outside its module in: CarrierGeneralOIPlus.lean, EmbeddedObservation.lean
+== carrier_general_oiPlus  CarrierGeneralOIPlus.lean:213
+     theorem carrier_general_oiPlus :
+         ∀ (A : Type) [Fintype A] [DecidableEq A] [Nonempty A] (T : FiniteOperationalTheory A),
+           OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+   used outside its module in: (none)
+== typed_determined_iff  TypedCompletion.lean:850
+     theorem typed_determined_iff :
+         𝒯.ShadowQuantum ↔
+           ∀ (S S' : Type) [Fintype S] [DecidableEq S] [Fintype S'] [DecidableEq S'] [Nonempty S]
+             [Nonempty S'] (m : ℕ) (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ),
+             𝒯.availT S S' (Fin m) F ↔ IsTypedKrausInstrument F :=
+   used outside its module in: (none)
+== ShadowQuantum  TypedCompletion.lean:291
+     def ShadowQuantum : Prop :=
+   used outside its module in: (none)
+== TypedOperationalTheory  TypedCompletion.lean:165
+     structure TypedOperationalTheory where
+   used outside its module in: TypedPositive.lean
+== IsTypedKrausInstrument  TypedCompletion.lean:448
+     def IsTypedKrausInstrument {m : ℕ} (F : Fin m → Matrix S S ℂ →ₗ[ℂ] Matrix S' S' ℂ) : Prop :=
+   used outside its module in: TypedPositive.lean
+== genTheory_qm_of_quantumArchitecture  SubstratumSource.lean:136
+     theorem genTheory_qm_of_quantumArchitecture [Nonempty A] (hq : QuantumArchitecture 𝓘) :
+         ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 hq.arch A) := by
+   used outside its module in: StructuralClosure.lean
+== QuantumArchitecture  SubstratumSource.lean:86
+     structure QuantumArchitecture (𝓘 : ImplementationClass) : Prop where
+   used outside its module in: StructuralClosure.lean
+== DrivesElementary  SubstratumSource.lean:77
+     def DrivesElementary (𝓘 : ImplementationClass) : Prop :=
+   used outside its module in: ReadWriteControl.lean, StructuralClosure.lean
+== fullClass_quantumArchitecture  SubstratumSource.lean:151
+     theorem fullClass_quantumArchitecture : QuantumArchitecture fullClass where
+   used outside its module in: (none)
+== qm_generated_by_quantumArchitecture  SubstratumSource.lean:161
+     theorem qm_generated_by_quantumArchitecture [Nonempty A] (T : FiniteOperationalTheory A)
+         (h : ExactAllFiniteEndomorphicQuantumOps T) :
+         ∃ 𝓘 : ImplementationClass, QuantumArchitecture 𝓘 ∧ ImplementationGenerated T 𝓘 :=
+   used outside its module in: (none)
+== quantumArchitecture_supplies_all  SubstratumSource.lean:127
+     theorem quantumArchitecture_supplies_all (hq : QuantumArchitecture 𝓘) :
+         ReversibleImplementationLocality (genTheory 𝓘 hq.arch A)
+           ∧ ElementaryTransitionRichness (genTheory 𝓘 hq.arch A)
+           ∧ EmbeddedObservation (genTheory 𝓘 hq.arch A) :=
+   used outside its module in: (none)
+== qm_of_oiPlusElem  LieRankSource.lean:535
+     theorem qm_of_oiPlusElem (h : OIPlusElem T) : ExactAllFiniteEndomorphicQuantumOps T :=
+   used outside its module in: SubstratumSource.lean
+== control_of_lieRank  MicroscopicReversibility.lean:114
+     theorem control_of_lieRank (h : LieRankRichness T) : HasCompositeUnitaryControl T := by
+   used outside its module in: PositivePackage.lean, PositiveReachability.lean
+== LieRankRichness  MicroscopicReversibility.lean:93
+     def LieRankRichness : Prop :=
+   used outside its module in: LieRankSource.lean
+== lieRank_of_elementary  LieRankSource.lean:476
+     theorem lieRank_of_elementary [Nonempty A] (T : FiniteOperationalTheory A)
+         (h : ElementaryTransitionRichness T) : LieRankRichness T := by
+   used outside its module in: PositivePackage.lean
+== fullInstruments_of_control  StinespringAssembly.lean:197
+     theorem fullInstruments_of_control (T : FiniteOperationalTheory A)
+         (hext : FiniteIsometryExtensionSF A) (hctrl : HasCompositeUnitaryControl T) :
+         HasFullFiniteEndomorphicInstruments T := by
+   used outside its module in: AncillaClosure.lean, ImplementationLocality.lean, IsometryExtension.lean, KrausSoundness.lean, OperationalAssembly.lean
+== finiteIsometryExtensionSF_discharged  IsometryExtension.lean:116
+     theorem finiteIsometryExtensionSF_discharged (A : Type*) [Fintype A] [DecidableEq A] :
+         FiniteIsometryExtensionSF A := by
+   used outside its module in: AncillaClosure.lean, BoundaryAudit.lean, DenseInstrumentBridge.lean, ImplementationLocality.lean, ReferenceSufficiency.lean, StinespringAssembly.lean, UhlmannUniqueness.lean
+== W  CompositeDimension.lean:97
+     abbrev W (d : ℕ) := Fin (d + 1) → Fin (d + 1) → ℝ
+   used outside its module in: AccessibleAlgebra.lean, AntiunitaryInvariance.lean, Averaging.lean, BarandesTuple.lean, CancellationFork.lean, CandidateSelection.lean, CarrierGeneralOIPlus.lean, ClosureObstruction.lean, CoherentLift.lean, CompletedOI.lean, CongruentReconstruction.lean, ContinuousExtension.lean, ControlLie.lean, ControlledQuotient.lean, CrossTimeInvariants.lean, CycleFibreHull.lean, DenseInstrumentBridge.lean, DenseOrbit.lean, DilationChoice.lean, DiscreteCompletion.lean, DitaArcExclusivity.lean, DitaHierarchy.lean, EffectSpace.lean, EquivalenceChain.lean, FactorUniqueness.lean, FrequencyMatching.lean, FrozenSourcing.lean, GramTrajectorySelection.lean, HomometricKill.lean, InstrumentCompletion.lean, InstrumentRealization.lean, IntermediateCrossTimeStructure.lean, JordanClassification.lean, K1Bridge.lean, K2Guard.lean, KrausUniqueness.lean, LieRankSource.lean, LiftAudit.lean, LinkDecomposition.lean, MicroscopicReversibility.lean, MinimalRepertoire.lean, OddChar.lean, OperationalSourcing.lean, OrbitGeometryIsometries.lean, OrbitGeometryRigidity.lean, OrbitGeometrySelector.lean, OrbitIsometryGroup.lean, OrbitNormalization.lean, OrbitReachability.lean, OrientationClosure.lean, OrientationSelection.lean, ParityNot.lean, PassiveQuotient.lean, PhysicalC4Discharge.lean, PhysicalC4StorageReadback.lean, PositiveReachability.lean, ProductOffLocusUniqueness.lean, ProductStratum.lean, ProductStrictLift.lean, ReachabilitySeam.lean, ReadbackRobustness.lean, ReanchoredChannelScope.lean, ReferenceSufficiency.lean, RelcSelectBlock.lean, RelcSelectC5.lean, RelcSelectParity.lean, RelcSelectSqueeze.lean, SecondOrderDrive.lean, SecondOrderLayer.lean, SemigroupTransfer.lean, SharpTests.lean, StinespringUniqueness.lean, StrictNaturalLift.lean, SwapLayer.lean, ThermalOrientation.lean, ThreadingObservability.lean, TrackBQfbBridge.lean, TurnpikeScopeTransfer.lean, TwoSidedGauge.lean, UhlmannUniqueness.lean, WeylLift.lean, WeylTwirl.lean, WordTraceSufficiency.lean
+== W  WeylTwirl.lean:151
+     def W (u : PS s) : Matrix (Q s) (Q s) ℂ :=
+   used outside its module in: AccessibleAlgebra.lean, AntiunitaryInvariance.lean, Averaging.lean, BarandesTuple.lean, CancellationFork.lean, CandidateSelection.lean, CarrierGeneralOIPlus.lean, ClosureObstruction.lean, CoherentLift.lean, CompletedOI.lean, CompositeDimension.lean, CongruentReconstruction.lean, ContinuousExtension.lean, ControlLie.lean, ControlledQuotient.lean, CrossTimeInvariants.lean, CycleFibreHull.lean, DenseInstrumentBridge.lean, DenseOrbit.lean, DilationChoice.lean, DiscreteCompletion.lean, DitaArcExclusivity.lean, DitaHierarchy.lean, EffectSpace.lean, EquivalenceChain.lean, FactorUniqueness.lean, FrequencyMatching.lean, FrozenSourcing.lean, GramTrajectorySelection.lean, HomometricKill.lean, InstrumentCompletion.lean, InstrumentRealization.lean, IntermediateCrossTimeStructure.lean, JordanClassification.lean, K1Bridge.lean, K2Guard.lean, KrausUniqueness.lean, LieRankSource.lean, LiftAudit.lean, LinkDecomposition.lean, MicroscopicReversibility.lean, MinimalRepertoire.lean, OddChar.lean, OperationalSourcing.lean, OrbitGeometryIsometries.lean, OrbitGeometryRigidity.lean, OrbitGeometrySelector.lean, OrbitIsometryGroup.lean, OrbitNormalization.lean, OrbitReachability.lean, OrientationClosure.lean, OrientationSelection.lean, ParityNot.lean, PassiveQuotient.lean, PhysicalC4Discharge.lean, PhysicalC4StorageReadback.lean, PositiveReachability.lean, ProductOffLocusUniqueness.lean, ProductStratum.lean, ProductStrictLift.lean, ReachabilitySeam.lean, ReadbackRobustness.lean, ReanchoredChannelScope.lean, ReferenceSufficiency.lean, RelcSelectBlock.lean, RelcSelectC5.lean, RelcSelectParity.lean, RelcSelectSqueeze.lean, SecondOrderDrive.lean, SecondOrderLayer.lean, SemigroupTransfer.lean, SharpTests.lean, StinespringUniqueness.lean, StrictNaturalLift.lean, SwapLayer.lean, ThermalOrientation.lean, ThreadingObservability.lean, TrackBQfbBridge.lean, TurnpikeScopeTransfer.lean, TwoSidedGauge.lean, UhlmannUniqueness.lean, WeylLift.lean, WordTraceSufficiency.lean
+== IsNot  CompositeDimension.lean:210
+     structure IsNot (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) :
+         Prop where
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean, K2Guard.lean, OddChar.lean, ParityNot.lean, RelcSelectBlock.lean, RelcSelectC5.lean, RelcSelectParity.lean, RelcSelectSqueeze.lean, SharpTests.lean
+== NativeGate  CompositeDimension.lean:218
+     structure NativeGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+         (G : W d ≃ₗ[ℝ] W d) : Prop where
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean, K2Guard.lean, OddChar.lean, ParityNot.lean, RelcSelectBlock.lean, RelcSelectC5.lean, RelcSelectSqueeze.lean
+== Entangling  CompositeDimension.lean:229
+     def Entangling (Ω : Set (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop :=
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean, K2Guard.lean, RelcSelectBlock.lean
+== maxCone  CompositeDimension.lean:186
+     def maxCone (Ω : Set (Fin d → ℝ)) : Set (W d) :=
+   used outside its module in: DenseOrbit.lean, EffectSpace.lean, K1Bridge.lean, K2Guard.lean, OddChar.lean, ParityNot.lean, RelcSelectBlock.lean, RelcSelectC5.lean, RelcSelectSqueeze.lean
+== jointStates  CompositeDimension.lean:190
+     def jointStates (Ω : Set (Fin d → ℝ)) : Set (W d) :=
+   used outside its module in: K1Bridge.lean
+== dim_of_nativeGate  CompositeDimension.lean:2723
+     theorem dim_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+         {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G) :
+         d = 1 ∨ d = 3 := by
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean, K2Guard.lean, RelcSelectBlock.lean
+== three_of_nativeGate  CompositeDimension.lean:2748
+     theorem three_of_nativeGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+         {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+         (hE : Entangling (eball d) G) : d = 3 := by
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean, K2Guard.lean
+== isNot_nflip  CompositeDimension.lean:838
+     theorem isNot_nflip : IsNot (eball 3) z3 nflip where
+   used outside its module in: K2Guard.lean, ParityNot.lean
+== nativeGate_cnot  CompositeDimension.lean:1160
+     theorem nativeGate_cnot : NativeGate (eball 3) z3 nflip cnot where
+   used outside its module in: K2Guard.lean
+== entangling_cnot  CompositeDimension.lean:1380
+     theorem entangling_cnot : Entangling (eball 3) cnot :=
+   used outside its module in: (none)
+== CtrlGate  RelcSelectBlock.lean:45
+     structure CtrlGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+         (G : W d ≃ₗ[ℝ] W d) : Prop where
+   used outside its module in: (none)
+== dim_of_ctrlGate  RelcSelectBlock.lean:739
+     theorem dim_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+         {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G) :
+         d = 1 ∨ d = 3 := by
+   used outside its module in: (none)
+== three_of_ctrlGate  RelcSelectBlock.lean:753
+     theorem three_of_ctrlGate {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+         {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : CtrlGate (eball d) z N G)
+         (hE : Entangling (eball d) G) : d = 3 := by
+   used outside its module in: (none)
+== GateRel  ParityNot.lean:42
+     structure GateRel (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop where
+   used outside its module in: OddChar.lean, RelcSelectBlock.lean, RelcSelectSqueeze.lean
+== piRotation_three  ParityNot.lean:161
+     theorem piRotation_three {z : Fin 3 → ℝ} {N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)}
+         {G : W 3 ≃ₗ[ℝ] W 3} (hN : IsNot (eball 3) z N) (hR : GateRel N G) :
+         ∃ u : Fin 3 → ℝ, ∑ j, u j ^ 2 = 1 ∧ ∀ x, N x = (2 * ∑ j, u j * x j) • u - x := by
+   used outside its module in: (none)
+== EffectsOn  EffectSpace.lean:567
+     def EffectsOn (Ω : Set (Fin d → ℝ)) (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Prop :=
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean, K2Guard.lean, SharpTests.lean
+== maxConeOf  EffectSpace.lean:411
+     def maxConeOf (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Set (W d) :=
+   used outside its module in: DenseOrbit.lean, K1Bridge.lean
+== maxConeOf_avail_eq  EffectSpace.lean:572
+     theorem maxConeOf_avail_eq (hd : 0 < d) (hG : PreservesBody (eball d) G)
+         (hP1 : SharpSeed (eball d) r) (hK : BoundaryTransitive (eball d) G)
+         (hV4 : SeedOrbitAvailable G r avail) (hE : EffectsOn (eball d) avail) :
+         maxConeOf avail = maxCone (eball d) := by
+   used outside its module in: K1Bridge.lean
+== sharpFamily_subset_avail  EffectSpace.lean:374
+     theorem sharpFamily_subset_avail (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail) :
+         sharpFamily d ⊆ avail := by
+   used outside its module in: (none)
+== seedOrbit_eq_sharpFamily  EffectSpace.lean:401
+     theorem seedOrbit_eq_sharpFamily (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : BoundaryTransitive (eball d) G) : seedOrbit G r = sharpFamily d :=
+   used outside its module in: (none)
+== NativeGateOf  K1Bridge.lean:49
+     structure NativeGateOf (Ω : Set (Fin d → ℝ)) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) (z : Fin d → ℝ)
+         (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (T : W d ≃ₗ[ℝ] W d) : Prop where
+   used outside its module in: DenseOrbit.lean, K2Guard.lean, SharpTests.lean
+== EntanglingOf  K1Bridge.lean:64
+     def EntanglingOf (Ω : Set (Fin d → ℝ)) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ))
+         (T : W d ≃ₗ[ℝ] W d) : Prop :=
+   used outside its module in: DenseOrbit.lean
+== dim_of_nativeGateOf  K1Bridge.lean:128
+     theorem dim_of_nativeGateOf (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+         (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+         {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+         (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T) : d = 1 ∨ d = 3 :=
+   used outside its module in: K2Guard.lean
+== three_of_nativeGateOf  K1Bridge.lean:138
+     theorem three_of_nativeGateOf (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+         (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+         {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+         (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T)
+         (hEnt : EntanglingOf (eball d) avail T) : d = 3 :=
+   used outside its module in: (none)
+== HasTwoSharpTests  SharpTests.lean:41
+     def HasTwoSharpTests (Ω : Set V) : Prop :=
+   used outside its module in: (none)
+== hasTwoSharpTests_iff  SharpTests.lean:155
+     theorem hasTwoSharpTests_iff : HasTwoSharpTests (eball d) ↔ 2 ≤ d := by
+   used outside its module in: (none)
+== two_le_load_bearing_relative  SharpTests.lean:185
+     theorem two_le_load_bearing_relative :
+         EffectsOn (eball 1) (fullEffects (eball 1)) ∧ PreservesBody (eball 1) (fullAut 1) ∧
+           SharpSeed (eball 1) (sharpEff z1) ∧ BoundaryTransitive (eball 1) (fullAut 1) ∧
+           SeedOrbitAvailable (fullAut 1) (sharpEff z1) (fullEffects (eball 1)) ∧
+           IsNot (eball 1) z1 neg1 ∧ NativeGateOf (eball 1) (fullEffects (eball 1)) z1 neg1 cnot1 ∧
+           ¬ (2 ≤ 1) :=
+   used outside its module in: (none)
+== two_le_not_implied  SharpTests.lean:197
+     theorem two_le_not_implied :
+         ¬ (∀ (d : ℕ) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) (G : Set ((Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ)))
+             (r : (Fin d → ℝ) →ᵃ[ℝ] ℝ) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+             (T : W d ≃ₗ[ℝ] W d),
+             EffectsOn (eball d) avail → PreservesBody (eball d) G → SharpSeed (eball d) r →
+               BoundaryTransitive (eball d) G → SeedOrbitAvailable G r avail → IsNot (eball d) z N →
+               NativeGateOf (eball d) avail z N T → 2 ≤ d) := by
+   used outside its module in: (none)
+== three_of_nativeGateOf_of_two_le  K2Guard.lean:253
+     theorem three_of_nativeGateOf_of_two_le (hd : 2 ≤ d) (hE : EffectsOn (eball d) avail)
+         (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : BoundaryTransitive (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+         {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+         (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T) : d = 3 := by
+   used outside its module in: (none)
+== two_le_of_entangling  K2Guard.lean:240
+     theorem two_le_of_entangling {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)}
+         {G : W d ≃ₗ[ℝ] W d} (hN : IsNot (eball d) z N) (hG : NativeGate (eball d) z N G)
+         (hE : Entangling (eball d) G) : 2 ≤ d := by
+   used outside its module in: (none)
+== no_candidateCone_cnot_reflY  K2Guard.lean:143
+     theorem no_candidateCone_cnot_reflY {K : Set (W 3)} (hK : CandidateCone K)
+         (hC : ∀ ω ∈ K, cnot ω ∈ K) (hR : ∀ ω ∈ K, actT reflY ω ∈ K) : False := by
+   used outside its module in: (none)
+== CandidateCone  K2Guard.lean:95
+     def CandidateCone (K : Set (W 3)) : Prop :=
+   used outside its module in: (none)
+== DenseBoundaryOrbit  DenseOrbit.lean:53
+     def DenseBoundaryOrbit {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] (Ω : Set V)
+         (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+   used outside its module in: (none)
+== maxConeOf_avail_eq_of_dense  DenseOrbit.lean:243
+     theorem maxConeOf_avail_eq_of_dense (hd : 0 < d) (hG : PreservesBody (eball d) G)
+         (hP1 : SharpSeed (eball d) r) (hK : DenseBoundaryOrbit (eball d) G)
+         (hV4 : SeedOrbitAvailable G r avail) (hE : EffectsOn (eball d) avail) :
+         maxConeOf avail = maxCone (eball d) := by
+   used outside its module in: (none)
+== dim_of_nativeGateOf_dense  DenseOrbit.lean:299
+     theorem dim_of_nativeGateOf_dense (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+         (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : DenseBoundaryOrbit (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+         {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+         (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T) : d = 1 ∨ d = 3 :=
+   used outside its module in: (none)
+== three_of_nativeGateOf_dense  DenseOrbit.lean:307
+     theorem three_of_nativeGateOf_dense (hd : 0 < d) (hE : EffectsOn (eball d) avail)
+         (hG : PreservesBody (eball d) G) (hP1 : SharpSeed (eball d) r)
+         (hK : DenseBoundaryOrbit (eball d) G) (hV4 : SeedOrbitAvailable G r avail)
+         {z : Fin d → ℝ} {N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)} {T : W d ≃ₗ[ℝ] W d}
+         (hN : IsNot (eball d) z N) (hT : NativeGateOf (eball d) avail z N T)
+         (hEnt : EntanglingOf (eball d) avail T) : d = 3 :=
+   used outside its module in: (none)
+== chartBody_eq_eball_of_dense  DenseOrbit.lean:209
+     theorem chartBody_eq_eball_of_dense {D : DirectedStages} (C : CompletionChart D) (hd : 0 < C.d)
+         {G : Set ((Fin C.d → ℝ) ≃ᵃ[ℝ] (Fin C.d → ℝ))}
+         (hG : PreservesBody (chartBody C) G) (hT : DenseBoundaryOrbit (chartBody C) G) :
+         ∃ A : (Fin C.d → ℝ) ≃ᵃ[ℝ] (Fin C.d → ℝ), A '' chartBody C = eball C.d :=
+   used outside its module in: (none)
+== eball  TransitiveBody.lean:518
+     def eball (d : ℕ) : Set (Fin d → ℝ) := {x | ∑ j, x j ^ 2 ≤ 1}
+   used outside its module in: CompositeDimension.lean, DenseOrbit.lean, EffectSpace.lean, K1Bridge.lean, K2Guard.lean, OddChar.lean, ParityNot.lean, RelcSelectBlock.lean, RelcSelectC5.lean, RelcSelectParity.lean, RelcSelectSqueeze.lean, SharpTests.lean
+== exists_affine_image_eq_eball  TransitiveBody.lean:602
+     theorem exists_affine_image_eq_eball (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+         (hconv : Convex ℝ Ω) (hi : (interior Ω).Nonempty) {G : Set ((Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ))}
+         (hG : PreservesBody Ω G) (hT : BoundaryTransitive Ω G) :
+         ∃ A : (Fin d → ℝ) ≃ᵃ[ℝ] (Fin d → ℝ), A '' Ω = eball d := by
+   used outside its module in: (none)
+== chartBody_eq_eball  TransitiveBody.lean:651
+     theorem chartBody_eq_eball (hd : 0 < C.d) {G : Set ((Fin C.d → ℝ) ≃ᵃ[ℝ] (Fin C.d → ℝ))}
+         (hG : PreservesBody (chartBody C) G) (hT : BoundaryTransitive (chartBody C) G) :
+         ∃ A : (Fin C.d → ℝ) ≃ᵃ[ℝ] (Fin C.d → ℝ), A '' chartBody C = eball C.d :=
+   used outside its module in: (none)
+== eball_three  TransitiveBody.lean:671
+     theorem eball_three : eball 3 = ball3 := by
+   used outside its module in: (none)
+== not_boundaryTransitive_of_nonextreme_boundary  TransitiveBody.lean:301
+     theorem not_boundaryTransitive_of_nonextreme_boundary [Nontrivial V] {Ω : Set V} (hc : IsCompact Ω)
+         (hconv : Convex ℝ Ω) (hi : (interior Ω).Nonempty) {x : V} (hx : IsBoundaryState Ω x)
+         (hne : x ∉ Ω.extremePoints ℝ) (G : Set (V ≃ᵃ[ℝ] V)) (hG : PreservesBody Ω G) :
+         ¬ BoundaryTransitive Ω G :=
+   used outside its module in: (none)
+== SharpSeed  OrbitGeneration.lean:65
+     def SharpSeed (Ω : Set V) (r : V →ᵃ[ℝ] ℝ) : Prop :=
+   used outside its module in: DenseOrbit.lean, EffectSpace.lean, K1Bridge.lean, K2Guard.lean, OrbitNormalization.lean, SharpTests.lean, StageCompletion.lean
+== PreservesBody  OrbitGeneration.lean:69
+     def PreservesBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+   used outside its module in: CompletionAction.lean, CompositeInterface.lean, DenseOrbit.lean, EffectSpace.lean, K1Bridge.lean, K2Guard.lean, OrbitNormalization.lean, SharpTests.lean, TransitiveBody.lean
+== SeedOrbitAvailable  OrbitGeneration.lean:74
+     def SeedOrbitAvailable (G : Set (V ≃ᵃ[ℝ] V)) (r : V →ᵃ[ℝ] ℝ) (avail : Set (V →ᵃ[ℝ] ℝ)) :
+         Prop :=
+   used outside its module in: DenseOrbit.lean, EffectSpace.lean, K1Bridge.lean, K2Guard.lean, OrbitNormalization.lean, SharpTests.lean
+== BoundaryTransitive  OrbitGeneration.lean:79
+     def BoundaryTransitive (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+   used outside its module in: DenseOrbit.lean, EffectSpace.lean, K1Bridge.lean, K2Guard.lean, OrbitNormalization.lean, SharpTests.lean, TransitiveBody.lean
+== seedOrbit_ball3_eq  OrbitGeneration.lean:348
+     theorem seedOrbit_ball3_eq {G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ))}
+         {r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ} (hG : PreservesBody ball3 G) (hP1 : SharpSeed ball3 r)
+         (hK : BoundaryTransitive ball3 G) : seedOrbit G r = directionalFamily := by
+   used outside its module in: OrbitNormalization.lean
+== ballEffect_mem_avail  OrbitGeneration.lean:369
+     theorem ballEffect_mem_avail {G : Set ((Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ))}
+         {r : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ} {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)}
+         (hG : PreservesBody ball3 G) (hP1 : SharpSeed ball3 r) (hK : BoundaryTransitive ball3 G)
+         (hV4 : SeedOrbitAvailable G r avail) :
+         ∀ b : Fin 3 → ℝ, (∑ j, b j ^ 2) = 1 → ballEffect b ∈ avail := by
+   used outside its module in: (none)
+== hypotheses_tr  OrbitNormalization.lean:295
+     theorem hypotheses_tr (T : V ≃ᵃ[ℝ] W) {Ω : Set V} {G : Set (V ≃ᵃ[ℝ] V)} {r : V →ᵃ[ℝ] ℝ}
+         {avail : Set (V →ᵃ[ℝ] ℝ)} (hG : PreservesBody Ω G) (hP1 : SharpSeed Ω r)
+         (hK : BoundaryTransitive Ω G) (hV4 : SeedOrbitAvailable G r avail) :
+         PreservesBody (T '' Ω) (conjTr T '' G) ∧ SharpSeed (T '' Ω) (effTr T r) ∧
+           BoundaryTransitive (T '' Ω) (conjTr T '' G) ∧
+           SeedOrbitAvailable (conjTr T '' G) (effTr T r) (effTr T '' avail) :=
+   used outside its module in: (none)
+== hypotheses_restrict  OrbitNormalization.lean:529
+     theorem hypotheses_restrict {L : W →ₗ[ℝ] V} (hL : LinearMap.ker L = ⊥) {p0 : V} {Ω : Set V}
+         (hspan : ∀ x, x ∈ affineSpan ℝ Ω ↔ x ∈ Set.range (chart L p0)) {G : Set (V ≃ᵃ[ℝ] V)}
+         {r : V →ᵃ[ℝ] ℝ} {avail : Set (V →ᵃ[ℝ] ℝ)} (hG : PreservesBody Ω G) (hP1 : SharpSeed Ω r)
+         (hK : BoundaryTransitive Ω G) (hV4 : SeedOrbitAvailable G r avail) :
+         (∀ g ∈ G, ∃ g' ∈ autR L p0 G, ∀ w, chart L p0 (g' w) = g (chart L p0 w)) ∧
+           PreservesBody (bodyR L p0 Ω) (autR L p0 G) ∧ SharpSeed (bodyR L p0 Ω) (effR L p0 r) ∧
+           BoundaryTransitive (bodyR L p0 Ω) (autR L p0 G) ∧
+           SeedOrbitAvailable (autR L p0 G) (effR L p0 r) (effR L p0 '' avail) := by
+   used outside its module in: StageCompletion.lean
+== preservesBody_drive  OrbitGeneration.lean:161
+     theorem preservesBody_drive {Ω : Set V} (D : ElementaryDrivability Ω) :
+         PreservesBody Ω (Set.range D.flow ∪ {D.J}) := by
+   used outside its module in: OrbitNormalization.lean
+== preservesBody_driveWords  OrbitNormalization.lean:107
+     theorem preservesBody_driveWords {Ω : Set V} (D : ElementaryDrivability Ω) :
+         PreservesBody Ω (words (Set.range D.flow ∪ {D.J})) :=
+   used outside its module in: (none)
+== boundaryTransitive_ball3Drive  OrbitNormalization.lean:667
+     theorem boundaryTransitive_ball3Drive : BoundaryTransitive ball3 driveWords3 := by
+   used outside its module in: (none)
+== FiniteStage  KInfFoundations.lean:63
+     structure FiniteStage where
+   used outside its module in: CompletionAction.lean, StageCompletion.lean
+== DirectedStages  StageCompletion.lean:63
+     structure DirectedStages where
+   used outside its module in: CompletionAction.lean, CompositeInterface.lean, CompositionOrder.lean, DenseOrbit.lean, TransitiveBody.lean
+== SCInf  StageCompletion.lean:78
+     def SCInf (D : DirectedStages) : Prop :=
+   used outside its module in: (none)
+== BinaryVisible  StageCompletion.lean:244
+     structure BinaryVisible where
+   used outside its module in: (none)
+== FiniteRank  StageCompletion.lean:299
+     def FiniteRank (Ω : Set V) : Prop :=
+   used outside its module in: CompletionAction.lean
+== sharpSeed_completion  StageCompletion.lean:224
+     theorem sharpSeed_completion (hSC : SCInf D) {i : D.ι} {e : (D.stage i).E}
+         {x1 x0 : (D.stage i).P} (h1 : (D.stage i).p e x1 = 1) (h0 : (D.stage i).p e x0 = 0) :
+         SharpSeed (body D) (coord D ⟨i, e⟩) :=
+   used outside its module in: (none)
+== exists_chart_of_finiteRank  StageCompletion.lean:304
+     theorem exists_chart_of_finiteRank {Ω : Set V} (hne : Ω.Nonempty) (hfr : FiniteRank Ω) :
+         ∃ (d : ℕ) (L : (Fin d → ℝ) →ₗ[ℝ] V) (p0 : V), LinearMap.ker L = ⊥ ∧
+           ∀ x, x ∈ affineSpan ℝ Ω ↔ x ∈ Set.range (chart L p0) := by
+   used outside its module in: CompletionAction.lean
+== OpDatum  CompletionAction.lean:46
+     structure OpDatum (D : DirectedStages) where
+   used outside its module in: CompositionOrder.lean
+== AffineRespect  CompletionAction.lean:58
+     def AffineRespect (T : OpDatum D) : Prop :=
+   used outside its module in: CompositionOrder.lean
+== preservesBody_inducedEquiv  CompletionAction.lean:352
+     theorem preservesBody_inducedEquiv {S T : OpDatum D} (hS : AffineRespect S)
+         (hT : AffineRespect T) (hST : Undoes C S T hS) (hTS : Undoes C T S hT) :
+         PreservesBody (chartBody C) {inducedEquiv C hS hT hST hTS} := by
+   used outside its module in: (none)
+== CompletionChart  CompletionAction.lean:144
+     structure CompletionChart (D : DirectedStages) where
+   used outside its module in: CompositionOrder.lean, DenseOrbit.lean, TransitiveBody.lean
+== chartBody  CompletionAction.lean:166
+     def chartBody : Set (Fin C.d → ℝ) := bodyR C.L C.p0 (body D)
+   used outside its module in: CompositionOrder.lean, DenseOrbit.lean, TransitiveBody.lean
+== exists_completionChart  CompletionAction.lean:154
+     theorem exists_completionChart (hne : (body D).Nonempty) (hfr : FiniteRank (body D)) :
+         Nonempty (CompletionChart D) := by
+   used outside its module in: (none)
+== ElementaryDrivability  KInfFoundations.lean:264
+     structure ElementaryDrivability (Ω : Set V) where
+   used outside its module in: OrbitGeneration.lean, OrbitNormalization.lean
+== SingletonFaces  KInfFoundations.lean:139
+     def SingletonFaces (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+   used outside its module in: (none)
+== RelStrictConvex  KInfFoundations.lean:144
+     def RelStrictConvex (Ω : Set V) : Prop :=
+   used outside its module in: (none)
+== CopyNatural  KInfFoundations.lean:284
+     def CopyNatural (N_A N_B : V ≃ᵃ[ℝ] V) (e : V ≃ᵃ[ℝ] V) : Prop :=
+   used outside its module in: (none)
+== card_le_two_of_centrallySymmetric  KInfFoundations.lean:632
+     theorem card_le_two_of_centrallySymmetric {Ω : Set V} {c : V} (hΩ : CentrallySymmetric Ω c)
+         (hc : c ∈ Ω) {ι : Type} [Fintype ι] (x : ι → V) (e : ι → V →ᵃ[ℝ] ℝ)
+         (hpd : PerfectlyDistinguishable Ω x e) : Fintype.card ι ≤ 2 := by
+   used outside its module in: (none)
+== ball3Drive  KInfFoundations.lean:449
+     noncomputable def ball3Drive : ElementaryDrivability ball3 where
+   used outside its module in: OrbitGeneration.lean, OrbitNormalization.lean
+== Composite  CompositeInterface.lean:243
+     structure Composite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ)) (V : Type)
+         [NormedAddCommGroup V] [NormedSpace ℝ V] extends PreComposite ΩA ΩB V where
+   used outside its module in: AncillaInterference.lean, EmbeddedObservation.lean, FactorExchange.lean, HiddenCoherence.lean, OperationalAssembly.lean, OperationalValidity.lean, StinespringAssembly.lean
+== LocallyTomographic  CompositeInterface.lean:235
+     def LocallyTomographic {ΩA : Set (Fin dA → ℝ)} {ΩB : Set (Fin dB → ℝ)} {V : Type}
+         [NormedAddCommGroup V] [NormedSpace ℝ V] (P : PreComposite ΩA ΩB V) : Prop :=
+   used outside its module in: (none)
+== local_tomography_physical  InstrumentDilation.lean:440
+     theorem local_tomography_physical (ρ σ : Matrix (A × B) (A × B) ℂ)
+         (h : ∀ (u : A → ℂ) (v : B → ℂ),
+           Matrix.trace (prodProj u v * ρ) = Matrix.trace (prodProj u v * σ)) :
+         ρ = σ := by
+   used outside its module in: MonoidalCompletion.lean
+== qm_implies_oiCore  CompletedOI.lean:549
+     theorem qm_implies_oiCore (T : FiniteOperationalTheory (Fin 2))
+         (h : ExactAllFiniteEndomorphicQuantumOps T) : OICore T :=
+   used outside its module in: (none)
+== realizesSealedOICore_of_control  OIRealization.lean:252
+     theorem realizesSealedOICore_of_control (T : FiniteOperationalTheory (Fin 2))
+         (hctrl : HasCompositeUnitaryControl T) : RealizesSealedOICore T := by
+   used outside its module in: CompletedOI.lean, GeneralCarrier.lean, LevelOneSeam.lean, OperationalValidity.lean, PhysicalCharacterization.lean, RankGapTheory.lean, RouteB.lean, SubstantiveCensus.lean

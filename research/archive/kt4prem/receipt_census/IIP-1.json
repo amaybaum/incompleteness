@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "IIP-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "f7f5c3b0c621cc3e4b57e3709d11d9d580c81149",
+ "f": "722b3470d7cb7767e00331de455d5e2f90e10d26",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-iip-1-invariant-inner-product/preregistration.md",
+   "blob": "7bfc863974b3bad6123fa9bece4ac8f700f8452f"
+  }
+ ],
+ "governed_paths_digest": "f499a3c9bb743e3ff72372581c855754461f09a318736f1bbb65ee92c79f9aa3",
+ "e": "aa31c0eda56b5398e3bb7d3c269b3597dbda9790",
+ "tree_e": "7e943942befe1e6d23b8673cf27b74557357c27a",
+ "execution_delta_digest": "6440fc1b54bd9507cf626f6711d0392db46e42da4d202aea07210fbb0cc6bbe1",
+ "candidates": [],
+ "landing": {
+  "base": "f7f5c3b0c621cc3e4b57e3709d11d9d580c81149",
+  "object": "a2e4db4099fafece85522ef64d42165d4c69b400",
+  "reconciliations": [
+   "a2e4db4099fafece85522ef64d42165d4c69b400"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "3418ad040c82d936d2e409dd389835081c7967bac7f4d2186ec47f82c7f1b417"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "722b3470d7cb7767e00331de455d5e2f90e10d26",
+   "record": "https://github.com/amaybaum/incompleteness/pull/781#issuecomment-5950476570"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "722b3470d7cb7767e00331de455d5e2f90e10d26",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36983538236"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "aa31c0eda56b5398e3bb7d3c269b3597dbda9790",
+   "record": "https://github.com/amaybaum/incompleteness/pull/781#issuecomment-5950477066"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "aa31c0eda56b5398e3bb7d3c269b3597dbda9790",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36990216533"
+  }
+ ]
+}

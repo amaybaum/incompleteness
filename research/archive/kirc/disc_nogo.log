@@ -1,0 +1,19 @@
+PASS N2 first-order solution space (superset of the true one) has dimension 7
+PASS N2 local rotation generators T1, T2 lie in it
+PASS N3 {T1, T2, W10, W01, E4} is a basis of the first-order space
+PASS N3 W10 is a weight-(1,0) block: ad T1 rotates it, ad T2 kills it
+PASS N3 W01 is a weight-(0,1) block
+PASS N3 E4 has weight 0 (commutes with T1, T2)
+PASS N4 [W10_a, W10_b] is not in the first-order space
+PASS N4 [W01_a, W01_b] is not in the first-order space
+PASS N5 E4 v = v for a real vector v (real eigenvalue 1)
+PASS N5 T1, T2 are antisymmetric (exp(sT) orthogonal in the standard basis)
+PASS N6 frame forces G(u(x)z) = z(x)z
+PASS N6 z(x)z lies in neither the (1,1) nor the (1,-1) block
+PASS N6 u(x)z lies in the (0,1) block
+PASS C2 swap normalizes T (S T1 S = T2) and local reflection does (R T1 R = -T1)
+PASS C3 the four nonlocal real so(4) generators project into W10 + W01
+PASS C1 all 15 su(4) generators (Pauli coordinates) satisfy the n = 4 first-order conditions  dim Lam4 = 65
+PASS C1 complex CNOT (Bloch ball) acts as CNOT on the classical products and is an involution
+
+SUMMARY: 17 PASS, 0 FAIL

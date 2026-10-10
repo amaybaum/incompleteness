@@ -1,0 +1,22 @@
+PASS 5.1a q(|a00+b11><.|) = cnot (prodState (2ab, 0, a^2-b^2) z3), a = (1-t^2)/(1+t^2), b = 2t/(1+t^2)
+PASS 5.1b (2ab, 0, a^2-b^2) is a unit vector
+PASS 5.1c entangled instance: q(P_psi) = actC R_A (actT R_B (cnot (prodState (24/25,0,-7/25) z3))), rational R_A, R_B
+PASS 5.2a idW (in maxCone, not in Q3; P2.5d, P2.6c): cnot idW has value -1/2 on sharpEff(-e1) (x) sharpEff(-e3)
+PASS 5.2b q(alpha I - P_psi) = 4 alpha e00 - q(P_psi)  (q(I) = 4 e00)
+PASS 5.2c alpha I - P_psi (alpha = 16/25 = largest Schmidt coefficient^2) is not PSD: <psi|.|psi> = -9/25 :: -9/25
+PASS 5.2d R_y in SO(3) and R_y (24/25, 0, -7/25) = z3
+PASS 5.2e the word g = actC R_y . cnot . actC R_A^T . actT R_B^T maps P_psi to prodState z3 z3
+PASS 5.2f value of g(alpha I - P_psi) on sharpEff z3 (x) sharpEff z3 = 16/25 - 1 = -9/25 (outside maxCone) :: -9/25
+PASS 5.2g alpha I - P_psi nonnegative on 20 sharp product effects (instances; block-positivity is [L])
+PASS 5.3a (I - P00)/3 in Q3 with spectrum {1/3,1/3,1/3,0} (exactly one zero)
+PASS 5.3b scaled product spectra s(1+-|x|)(1+-|y|)/4: a zero forces |x| = 1 or |y| = 1, which forces two zeros
+PASS 5.3c product spectrum: charpoly rho(x) roots (1 +- |x|)/2 (so rho(x) (x) rho(y) has the spectrum above) [L Kronecker]
+PASS 5.4a nrm(prodState x y) = |x|^2 + |y|^2 + |x|^2|y|^2  (<= 3 on the ball, = 3 on pure products)
+PASS 5.4b cnot fixes w00 and preserves nrm (signed permutation)
+PASS 5.4c actT (+-R(q)) and actC (+-R(q)) preserve w00 and nrm (all of O(3), symbolic)
+PASS 5.4d w = 2 e00 - prodState z3 z3 (= q(I/2 - P00)) has w00 = 1, nrm = 3 (in B3) and value -1/2 on sharpEff z3 (x) sharpEff z3
+PASS 5.5 the separable witness f is -2 on cnot (prodState xplus z3)
+PASS 5.6a the chains cnot . actT (D . F) . cnot on p0, F in {id, pi-rotations}, give exactly the four Choi eigenvalues of D :: [-d1/4 + d2/4 - d3/4 + 1/4, -d1/4 - d2/4 + d3/4 + 1/4, d1/4 + d2/4 + d3/4 + 1/4, d1/4 - d2/4 - d3/4 + 1/4]
+PASS 5.6b the pi-rotation diag(1,-1,-1) is the kernel nflip; all three F are in SO(3)
+SUMMARY: 20 checks, 0 failures
+VERDICT P5: UNIQUENESS-INGREDIENTS-EXACT

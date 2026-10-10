@@ -1,0 +1,26 @@
+PASS Z1 pauliW(e_s) = (I - 2 psi_s psi_s^dag)/8 (eigenvalues -1/8 once, 1/8 thrice), psi_s orthonormal, ipW(e_s,e_t) = delta/4
+PASS Z2 H1 for K(Z_F): 4 ipW(e_s, prodState x y) = 1 + x.M_s y, M_s orthogonal, and 2(1 + x.M_s y) = |x + M_s y|^2 + (1-|x|^2) + (1-|y|^2) symbolically (products lie in Q3 n Z*)
+PASS Z3 H2: cnot, Ad(Z(x)I), Ad(I(x)Z) and T each permute the four defects (level (ii)); all are Q3-automorphisms
+PASS Z5 K(Z_F) != Q3: <e_s, T_psi_s> = -1/2, so e_s is not in Q3 = Q3* and the pure state T_psi_s is not in K(Z_F) = K(Z_F)*
+PASS Z6 K(E0): pauliW(E0) has eigenvalues -1/4, 1/4, 1/4, 3/4 (one negative, rest >= its modulus); cnot E0 = E0; <E0, Ad(Z(x)I)E0> = -1 (level (i) only)
+PASS ETA-a relT and relC hold for cnot on all 16 basis tables (gate identities; no condition on K)
+PASS ETA-b actC nflip and actT nflip permute the four defects: K(Z_F) is invariant under the NOT on either token
+PASS ETA-c CopyNatural under exchange: SWAP . actC nflip . SWAP = actT nflip; SWAP on tables = Ad(SWAP)
+PASS ETA-cc countercontrol: <E0, actT nflip E0> = -1, so K(E0) is not invariant under the NOT on the target
+PASS THETA every defect lies in maxCone: 4 pairVal(a,b,e_s) = a0 b0 + a.M_s b, M_s orthogonal (Cauchy-Schwarz on Lorentz vectors [W]); the conditional target state for any control effect has Bloch length |a|/a0 <= 1, pure for every sharp effect (maximal steering by the defect)
+PASS THETA-ns no-signalling: the two outcomes of any control test sum to the unit functional, so the target marginal is row 0
+PASS THETA-cc countercontrol: idW in maxCone (pairVal = a.b >= 0 on Lorentz vectors [W]) but cnot idW = chainW has pairVal -1/2 at the sharp effects of -e1, -e3: maxCone (theta) does not give H2
+PASS IOTA SWAP permutes the four defects: K(Z_F) is SWAP-invariant (with G16: order 48)
+PASS IOTA-cc countercontrol: a pure state of Q3 n E0* with <SWAP E0, T> < 0: [(Fraction(5, 1), Fraction(0, 1)), (Fraction(-5, 1), Fraction(0, 1)), (Fraction(-1, 1), Fraction(0, 1)), (Fraction(-1, 1), Fraction(0, 1))] pairings 3/13, -5/13
+PASS KAPPA gate flow U(w) = I + (w-1)|1-><1-|: U(-1) = CNOT, U(w) diagonal in (|0+>,|1->,|0->,|1+>); the circles C1 = |0+> + w|1->, C2 = |0-> + w|1+> are mapped into C1 u C2 by U(w), CNOT, Ad(Z(x)I), Ad(I(x)Z), T (symbolic in the rational circle parameter) and every point is maximally entangled (|det|^2/n^2 = 1/4): the Bell-type seed at C1(w=1) = (1,1,1,-1)/2 = psi_(-1,-1), i.e. the defect e_(-1,-1) = F, has overlap <= 1/2 with the whole reachable set -> EXOTIC-E for kappa
+PASS KAPPA-cc1 countercontrol: (H(x)I) C1(1) is not on C1 u C2 (the invariance check is not vacuous)
+PASS KAPPA-cc2 K(Z_F) is not invariant under the gate flow: at w = -i, phi = U psi_(1,1) has overlaps <= 1/2 with every defect vector (T_phi in Q3 n Z*) and <U e_(1,1) U^dag, T_phi> = -1/2
+PASS ZETA-1 pair-level drive on K(Z_F): D(w) = I + (w-1) psi psi^dag (psi = psi_(1,1)) is a unitary one-parameter group (D(w1)D(w2) = D(w1 w2), symbolic on the rational circle) whose conjugation fixes every defect and preserves Q3, hence K(Z_F); its half-turn D(-1) is an involution moving the body state T_chi, chi = psi_(1,1)+psi_(1,-1)
+PASS ZETA-2 J = Ad(P), P the monomial unitary swapping psi_(1,1) and psi_(1,-1), is an automorphism of K(Z_F) (permutes the defects); J D(-1) J^-1 moves the body state x = T_(psi_(1,-1)+psi_(-1,1)) while every flow member fixes x: J_off_axis holds; K(Z_F) is an ElementaryDrivability-type system at the pair level
+PASS ZETA-ret retention: Q3 carries the same pair-level drive (D(w), P unitary)
+PASS FORM-J block identities: CNOT = I(x)P+ + Z(x)P-; (UJ(x)I)CNOT(UJ(x)I)^dag = I(x)P+ + X(x)P- ; (I(x)UJ)CNOT(I(x)UJ)^dag = P0(x)I + P1(x)Y: with J on one token the group contains block pairs (I,Z),(I,X) resp. (I,X),(I,Y), which have no common eigenvector, so no maximally entangled state keeps a maximally entangled orbit: no Bell-type defect [W over these identities]; the census seed (EXOTIC-E) is a cap seed
+PASS LAMBDA-b K(Z_F) violates (b): for every s, phi = (UJ(x)I)psi_s has overlap <= 1/2 with every defect vector (T_phi in K(Z_F)) and <actC cyc3 e_s, T_phi> = -1/2; with the anchor sum (EQ5-SOURCE s3.1, audited) uniform K(Z_F) satisfies KT4 minus tok and every pair premise, so lambda-without-tok does not give (b_min)
+PASS LAMBDA-tw the twin is rotation-invariant on either token (reflY R reflY is a rotation; actC R commutes with actT reflY; exact at rot3(3/5,4/5) and cyc3): M_rho and M_tw, with cones in {Q3, twin}, satisfy (b) and refute only the parity part of the conclusion
+PASS CL1 K_gen = SEP + cnot SEP is not self-dual: cnot is ipW-self-adjoint, so <F, cnot p> = <cnot F, p> >= 0 with cnot F a defect (Z2 identity), F = e_(-1,-1) lies in dualW K_gen, and F is not PSD (Z5) while K_gen is in Q3 (stage 2, S2/RESULT.md:373-380, re-verified)
+CHECKS: 24 PASS, 0 FAIL
+VERDICT C3-COUNTERMODELS-EXACT: K(Z_F) (level (ii)) satisfies eta-a/b/c, theta, iota, zeta-drivability and the NOT-only form exactly and is not Q3; kappa EXOTIC-E (Bell seed); K(Z_F) violates (b)

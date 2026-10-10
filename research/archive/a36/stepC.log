@@ -1,0 +1,12 @@
+op (swap 0, conj 0, transpose 0): factor stabilizer counts 16 x 16
+op (swap 0, conj 0, transpose 1): factor stabilizer counts 16 x 16
+op (swap 0, conj 1, transpose 0): factor stabilizer counts 16 x 16
+op (swap 0, conj 1, transpose 1): factor stabilizer counts 16 x 16
+op (swap 1, conj 0, transpose 0): factor stabilizer counts 0 x 0
+op (swap 1, conj 0, transpose 1): factor stabilizer counts 0 x 0
+op (swap 1, conj 1, transpose 0): factor stabilizer counts 0 x 0
+op (swap 1, conj 1, transpose 1): factor stabilizer counts 0 x 0
+exact stabilizer order of the rational stratum point in G_ext: 1024 (4s)
+group closure spot-check passed
+conjugacy classes: 112 sizes [1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16, 16, 16, 16, 16, 16, 16, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
+done (9s)

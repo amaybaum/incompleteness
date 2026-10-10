@@ -1,0 +1,1 @@
+stopped by hand (TaskStop) during part (ii): L-BFGS-B with numerical gradients over 96 parameters made 20 quadruples x 15 starts too slow, and the script printed only a final value; rerun with per-quadruple output and 10 quadruples

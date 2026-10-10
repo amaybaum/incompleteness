@@ -1,0 +1,100 @@
+== section 0: objects
+PASS H3 at SIG(1,1,1) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at F1+(1,v2,v3) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at F1-(-1,v2,v3) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at F2(v1,1,v3) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at F3+(v1,v2,1) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at F3-(v1,v2,-1) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at D-(-1,-1,-1) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at O1(v1,v2,v3) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at O2 absent face (v1,-1,v3) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at O3 diag(i,i,i) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at O4 diag(v4,v4,v4) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at O5(v5,v6,v4) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS H3 at O6(-v1,v2,v3) is a flat unitary (scaled: |h|=1, H H* = 16 I)
+PASS act 40 membership of the test points
+== section 1: the full feature-vector exponent distribution
+PASS the exponent distribution covers all 16^6 coordinates
+PASS the full feature-vector lattice equals the 4-cycle lattice (cycle space of K16,16)
+   distinct exponents: 27; max |m_k| = (1, 1, 1)
+PASS psi_p(H3(u)) = psi_p(SIG) u^{m_p} on 1500 random full coordinates at three points
+== section 2: controls of the decision rule
+PASS C+1 indicator 1_L: images of L and of its complement are disjoint ({True} vs {False})
+   lattice C+2 (u1^2, u2, u3^2)                   basis [[2, 0, 0], [0, 1, 0], [0, 0, 2]]        rank 3 index 4  contains 2Z x Z x 2Z: True  Z^3: False
+PASS C+2 registers DETECTOR, not injective (specific)
+   lattice C-3 (u1^2, u2^2, u3^2)                 basis [[2, 0, 0], [0, 2, 0], [0, 0, 2]]        rank 3 index 8  contains 2Z x Z x 2Z: False  Z^3: False
+PASS C-3 registers BLIND
+PASS C-3 exhibited collision: (v1,1,v3) in L, (v1,-1,v3) not, same (u1^2,u2^2,u3^2)
+   lattice C-2 u1 u2 u3                           basis [[1, 1, 1]]                              rank 1 index None  contains 2Z x Z x 2Z: False  Z^3: False
+PASS C-2 registers BLIND with an exhibited collision (1,v2,v2bar) in L vs (v2,v2,v2bar^2) off L
+PASS C-1 realizability sum sum_i G_i = 16 I (scaled) is constant: equal at F1+ (in L) and O1 (off L)
+PASS C-1 feature norm: sum_p |psi_p|^2 = 16^6 * (16^-3)^2 = 1 at every point (every |psi_p| = 16^-3)
+== section 3: monomial carriers on the torus (exact lattice criterion)
+   lattice O0 (visible slice)                     basis []                                       rank 0 index None  contains 2Z x Z x 2Z: False  Z^3: False
+   lattice FibreGram raw                          basis [[1, 0, 0], [0, 1, -1], [0, 0, 1]]       rank 3 index 1  contains 2Z x Z x 2Z: True  Z^3: True
+   lattice featureVec (4-cycles)                  basis [[1, -1, 1], [0, 1, 1], [0, 0, 1]]       rank 3 index 1  contains 2Z x Z x 2Z: True  Z^3: True
+   lattice act-12 cross invariant                 basis [[1, 1, 0], [0, 1, 1], [0, 0, 1]]        rank 3 index 1  contains 2Z x Z x 2Z: True  Z^3: True
+   lattice act-35 cross coordinates               basis [[1, 0, 1], [0, 0, 1]]                   rank 2 index None  contains 2Z x Z x 2Z: False  Z^3: False
+   lattice O1 anchored channel                    basis [[1, 0, -1], [0, 1, -1], [0, 0, 1]]      rank 3 index 1  contains 2Z x Z x 2Z: True  Z^3: True
+   lattice single-fibre feature coords            basis []                                       rank 0 index None  contains 2Z x Z x 2Z: False  Z^3: False
+   lattice featureVec (all 16^6 coords)           basis [[1, -1, 1], [0, 1, 1], [0, 0, 1]]       rank 3 index 1  contains 2Z x Z x 2Z: True  Z^3: True
+PASS consistency control: (0,1,0) lies in the feature-vector lattice
+PASS featureVec detects L on the torus (lattice contains 2Z x Z x 2Z)
+   annihilator K of the feature lattice (turns): [(Fraction(0, 1), Fraction(0, 1), Fraction(0, 1))]
+PASS O0 is strongly blind (lattice 0: constant)
+PASS single-fibre feature coordinates are strongly blind (lattice 0)
+   act-12 cross invariant: lattice criterion says DETECTOR
+   act-35 cross coordinates: rank 2, circle direction (0, -3, 0) in K
+PASS act-35 cross coordinates: exhibited exact collision, u=((3/5 + 4/5i), 1, (8/17 + 15/17i)) in L, uk=((3/5 + 4/5i), (-11753/15625 + 10296/15625i), (8/17 + 15/17i)) off L, all 4096 values equal
+   act-35 identity holds at: ['SIG(1,1,1)']
+PASS act-35 Boolean identity: holds at SIG, fails at a face point (F1-) and an off-face point (O1) -> collision False/False
+== section 4: an explicit feature-vector detector on the torus
+   single 4-cycle coordinates found (index (a, a2, b, b2), exponent): {'u3': ((0, 1, 0, 2), (0, 0, -1)), 'u1': ((0, 7, 0, 4), (-1, 0, 0)), 'u2': ((0, 8, 0, 1), (0, -1, 0))}
+PASS three single 4-cycle coordinates carry exponents +-(1,0,0), +-(0,1,0), +-(0,0,1)
+PASS f(featureVec) = [psi_q1 = +-psi_q1(SIG)] or [psi_q2 = psi_q2(SIG)] or [psi_q3 = +-psi_q3(SIG)] equals 1_L at all 13 test points
+== section 5: behaviour under the two-sided invisible gauge (D1 H D2)
+PASS O0 unchanged by D1 . D2
+PASS featureVec 4-cycle coordinates unchanged by D1 . D2 (act 24 mixedTriple_gauge + act 12 left invariance)
+PASS act-12 cross invariant unchanged by D1 . D2
+PASS act-35 coordinates unchanged by D1 . D2
+PASS raw FibreGram: unchanged by D1 (left fibre group), moved by D2 (weak anchored phases)
+PASS O1 moved by D1 (act 14 PQ1b analogue) and by D2
+PASS O1(E_jk)_ii = G_i(k,j) for all i, j, k (the Gram data are output probabilities of O1 on coherent inputs)
+PASS O1 determines H up to one global phase (h_ij = O1(E_j0)_{i0} / conj(h_00), |h_00| = 1)
+== section 6: a continuous scalar carrier -- act 24/26 distance to the stratum point
+   16^6 d^2 at face points: {'SIG(1,1,1)': 0.0, 'F1-(-1,v2,v3)': 15881433.773755657, 'D-(-1,-1,-1)': 25583616.0, 'F2(v1,1,v3)': 5458185.035294117}
+PASS d(., SIG) is not constant on L: 0 at SIG, > 0 at (-1,-1,-1) -> not a detector by the topological lemma (collision exhibited in section 8)
+== section 7: act 35 hull membership and act 34 stratum membership (necessary conditions, exact)
+   column-hull necessary conditions hold at: ['SIG(1,1,1)']
+   row-hull necessary conditions hold at:    ['SIG(1,1,1)']
+PASS control: SIG satisfies the column-hull conditions (a product is a column construction with D = 1)
+PASS column-hull membership: exhibited collision, face point F1+(1,v2,v3) and off-face O1 both fail the necessary conditions
+PASS row-hull membership: exhibited collision, face point F1+(1,v2,v3) and off-face O1 both fail the necessary conditions
+PASS stratum membership: F1- (in L) and O1 (off L) both fail act 35 identity, hence both off the product stratum
+== section 8: the toy u1 and exact collisions of the distance to SIG
+PASS toy u1 separates a cross-boundary pair ((1,v2,v3) vs (v1,v2,v3)) but collides ((v1,1,v3) in L, (v1,v2,v3) off L)
+   signed axis permutations preserving the exponent distribution: [((0, 1, 2), (1, 1, 1)), ((0, 1, 2), (-1, -1, -1)), ((2, 1, 0), (1, 1, 1)), ((2, 1, 0), (-1, -1, -1))]
+PASS the exponent distribution is symmetric under m -> -m
+   Q(v1, v3) = (130530816/85 + 709632/85i); reflected u2 = conj(Q)/Q = (802395213/802442645 - 8724716/802442645i)
+PASS distance to SIG: exhibited exact collision (v1, 1, v3) in L and (v1, conj(Q)/Q, v3) off L, equal 16^6 d^2
+   16^6 d^2 at both points: 463945728/85
+== section 9: independent non-Dita certificates at the off-L points used in collisions
+PASS no Dita structure at O1(v1,v2,v3) (necessary condition fails for every shape and orientation)
+PASS no Dita structure at distance collision (v1,conj(Q)/Q,v3) (necessary condition fails for every shape and orientation)
+PASS no Dita structure at C-3 absent face (v1,-1,v3) (necessary condition fails for every shape and orientation)
+PASS no Dita structure at O5(v5,v6,v4) (necessary condition fails for every shape and orientation)
+PASS no Dita structure at act-35 cross coordinates collision partner (necessary condition fails for every shape and orientation)
+PASS control: the necessary condition holds at face point SIG(1,1,1)
+PASS control: the necessary condition holds at face point F1+(1,v2,v3)
+PASS control: the necessary condition holds at face point F1-(-1,v2,v3)
+PASS control: the necessary condition holds at face point F2(v1,1,v3)
+PASS control: the necessary condition holds at face point F3+(v1,v2,1)
+PASS control: the necessary condition holds at face point F3-(v1,v2,-1)
+PASS control: the necessary condition holds at face point D-(-1,-1,-1)
+== section 10: matrix-class predicates (LieRankSource.diagClass, permClass, IsMonomial, PreservesNonneg o conjChannel)
+PASS diagClass is False at all 13 points; collision F1+ (in L) vs O1 (off L)
+PASS submonomial (permClass, IsMonomial need it) is False at all 13 points; collision F1+ (in L) vs O1 (off L)
+PASS conjChannel preserves nonnegativity on E_11 is False at all 13 points; collision F1+ (in L) vs O1 (off L)
+PASS symbolically: h_01 conj(h_21) = SIG_01 conj(SIG_21) = -1 for every u (both exponents zero)
+== summary: 0 failures, 48.2 s
+bridge_probe: OK

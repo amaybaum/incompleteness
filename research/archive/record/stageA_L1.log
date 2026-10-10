@@ -1,0 +1,4 @@
+STAGE A L1: 429 runs; sha256 36ff602ac11e19023bba3f95443af9f8d33370ceccf9e4291e8dae102bfceba5
+TALLY A L1 linear: NOT-INVASIVE: 143
+TALLY A L1 nonlinear: FAIL(no stabilization; dims [2, 3, 4]): 7, FAIL(no stabilization; dims [2, 3, 5]): 24, FAIL(no stabilization; dims [2, 4, 6]): 8, FAIL(no stabilization; dims [2, 4, 7]): 12, FAIL(no stabilization; dims [2, 4, 8]): 92
+TALLY A L1 majority: FAIL(no stabilization; dims [2, 3, 5]): 1, FAIL(no stabilization; dims [2, 4, 6]): 2, FAIL(no stabilization; dims [2, 4, 8]): 140

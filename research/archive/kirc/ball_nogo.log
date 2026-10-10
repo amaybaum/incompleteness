@@ -1,0 +1,43 @@
+=== d = 5 ===
+PASS d=5 U1 family (220 elements, formula 220) satisfies every sampled constraint exactly
+PASS d=5 U1 sampled first-order space == family: nullity mod p 220 == family rank 220  (103s)
+PASS d=5 U2 ad-Casimir pairs {'lA': (-6, 0), 'lB': (0, -6), 'SA': (-6, -4), 'SB': (-4, -6), 'Z': (-6, -6)} pairwise distinct: True
+PASS d=5 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_A violates first order at an exact point  witness ([28, 0, -6, 6, 6, 26], [28, 0, -6, 6, 6, 26])
+PASS d=5 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_B violates first order at an exact point  witness ([28, 0, -6, 6, 6, 26], [28, 0, -6, 6, 6, 26])
+PASS d=5 U4 every Z basis element is a nonzero symmetric operator
+PASS d=5 U5 SO(d) elements span 25 of 25 dims of End(R^d) (rank mod p, a lower bound)
+PASS d=5 U6 total Casimir: u(x)z eigenvalue -4, z(x)z eigenvalue -8
+=== d = 4 ===
+PASS d=4 U1 family (96 elements, formula 96) satisfies every sampled constraint exactly
+PASS d=4 U1 sampled first-order space == family: nullity mod p 96 == family rank 96  (8s)
+PASS d=4 U2 ad-Casimir pairs {'lA': (-4, 0), 'lB': (0, -4), 'SA': (-4, -3), 'SB': (-3, -4), 'Z': (-4, -4)} pairwise distinct: True
+PASS d=4 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_A violates first order at an exact point  witness ([23, 4, -6, -6, 21], [23, 4, -6, -6, 21])
+PASS d=4 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_B violates first order at an exact point  witness ([23, 4, -6, -6, 21], [23, 4, -6, -6, 21])
+PASS d=4 U3 (self-dual Om) obstruction also holds
+PASS d=4 U3 (anti-self-dual Om) obstruction also holds
+PASS d=4 U4 every Z basis element is a nonzero symmetric operator
+PASS d=4 U5 SO(d) elements span 16 of 16 dims of End(R^d) (rank mod p, a lower bound)
+PASS d=4 U6 total Casimir: u(x)z eigenvalue -3, z(x)z eigenvalue -6
+=== d = 2 ===
+PASS d=2 U1 family (7 elements, formula 7) satisfies every sampled constraint exactly
+PASS d=2 U1 sampled first-order space == family: nullity mod p 7 == family rank 7  (0s)
+PASS d=2 U2 ad-Casimir pairs {'lA': (0, 0), 'lB': (0, 0), 'SA': (0, -1), 'SB': (-1, 0), 'Z': (0, 0)} pairwise distinct: False
+PASS d=2 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_A violates first order at an exact point  witness ([2, 2, 0], [2, 2, 0])
+PASS d=2 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_B violates first order at an exact point  witness ([2, 2, 0], [2, 2, 0])
+PASS d=2 U4 every Z basis element is a nonzero symmetric operator
+PASS d=2 U5 SO(d) elements span 2 of 4 dims of End(R^d) (rank mod p, a lower bound)
+PASS d=2 U6 total Casimir: u(x)z eigenvalue -1, z(x)z eigenvalue -2
+=== d = 3 ===
+PASS d=3 U1 family (33 elements, formula 33) satisfies every sampled constraint exactly
+PASS d=3 U1 sampled first-order space == family: nullity mod p 33 == family rank 33  (1s)
+PASS d=3 U2 ad-Casimir pairs {'lA': (-2, 0), 'lB': (0, -2), 'SA': (-2, -2), 'SB': (-2, -2), 'Z': (-2, -2)} pairwise distinct: False
+PASS d=3 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_A violates first order at an exact point  witness ([6, -2, -4, 4], [6, -2, -4, 4])
+PASS d=3 U3 [S(Om(x)f1), S(Om(x)f2)] in Sig_B violates first order at an exact point  witness ([6, -2, -4, 4], [6, -2, -4, 4])
+PASS d=3 U4 every Z basis element is a nonzero symmetric operator
+PASS d=3 U5 SO(d) elements span 9 of 9 dims of End(R^d) (rank mod p, a lower bound)
+PASS d=3 U6 total Casimir: u(x)z eigenvalue -2, z(x)z eigenvalue -4
+PASS C d=3: all 15 su(4) generators satisfy the exact sampled constraints
+PASS C d=3: all 225 brackets of su(4) generators satisfy them (obstruction method does not flag complex QM)
+PASS C d=3: the X(x)X generator couples both A<->AB and B<->AB (diagonal of Sig_A + Sig_B)
+
+SUMMARY: 37 PASS, 0 FAIL

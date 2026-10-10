@@ -1,0 +1,7 @@
+PASS K0 transcription control
+PASS A1 92 generators (28 pair sums, 8 m_j, 56 n_jp); invariant under the adjacent transpositions (hence S_8); pairwise >= 0: True
+PASS A2 exact double description: 92 rays (two orders agree: True); all in K_A* True, all extreme (tight rank 7) True; ray set = generator set True; control orthant True; countercontrol S* not self-positive True
+PASS A3 decomposition cross-check on 300 random exact points of K_A* (150 with a negative entry): nonnegative coefficients on generators reproduce every point exactly
+PASS A4 nonnegative rays of K_A* = the 28 pair sums True (K_A n R^8_+ = S); <e_0, m_0> = -1 < 0 (e_0 = GHZ+ not in K_A); m_0 = eigenvalues of 2 W3 and n_01 = eigenvalues of 2 kappa', kappa' = 1/2 + P_1 - P_0 (kappa = 1/2 + P_0 - P_1 True): True
+--- p12_sector_selfdual: 5/5 checks pass
+VERDICT P12-SECTOR-SELFDUAL-EXACT

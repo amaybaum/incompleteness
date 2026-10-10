@@ -1,0 +1,1172 @@
+== S1 partition
+class a: 109
+class b: 15
+class c: 172
+class d: 36
+class e: 301
+S1a/b I1.1	a/gen	H	needs: 	ext: 
+S1a/b I1.2	a/gen	H	needs: 	ext: 
+S1a/b I1.3	a/a1	H	needs: 	ext: 
+S1a/b I1.7	a/a2	H	needs: FOUND=I1.4,I1.6	ext: 
+S1a/b I1.8	a/a2	H	needs: FOUND=I1.4,I1.6	ext: 
+S1a/b I1.17	b/C1,C2,C3,C4	H→M/X	needs: C1=I1.20 ; C2=I1.21,I1.22,"persistence"@I1.24 ; C3=I1.23 ; C4=I1.24 ; FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.20	b/gen:C1	H	needs: FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.21	b/gen:C2	H	needs: FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.22	b/gen:C2	H/X	needs: 	ext: 
+S1a/b I1.23	b/gen:C3	H	needs: FOUND=I1.4,I1.6	ext: 
+S1a/b I1.24	b/gen:C4	H	needs: C1=I1.20 ; C2=I1.21,"persistence"@I1.24 ; FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.25	b/C1,C2,C3,C4	H	needs: C1=I1.20 ; C2=I1.21,"persistence"@I1.24 ; C3=I1.23 ; C4=I1.24 ; FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.27	b/C4	H	needs: C4=I1.71	ext: K:RootedRealization,K:marg,K:rootedMap,K:rootedMap_periodic
+S1a/b I1.28	b/C2	H	needs: C2=I1.22	ext: 
+S1a/b I1.29	b/C1,C2,C3,C4	H	needs: C1=I1.20 ; C2=I1.21,"persistence"@I1.24 ; C3=I1.23 ; C4=I1.24 ; FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.32	a/a0	H	needs: 	ext: K:HiddenMemory.Realization,K:Realization,K:capacity_floor_of_fun
+S1a/b I1.33	b/C1,C2,C3,C4	H	needs: C1=I1.20 ; C2=I1.21,I1.22,"persistence"@I1.24 ; C3=I1.23 ; C4=I1.24 ; FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.34	b/C1	H→M (single-system vs `id ⊗ Φ`	needs: C1=I1.20 ; FOUND=I1.4,I1.6,I1.9	ext: 
+S1a/b I1.40	a/a0	H	needs: 	ext: 
+S1a/b I1.41	a/a0	H→M (one core, three coherent 	needs: 	ext: 
+S1a/b I1.58	a/a0	H	needs: 	ext: K:Rule,K:leapEquiv
+S1a/b I2.8	a/a0	H	needs: 	ext: 
+S1a/b I2.9	a/a0	H	needs: 	ext: 
+S1a/b I2.11	a/a2	H	needs: FOUND="Lemma 3 counting measure (I1"@I2.11	ext: 
+S1a/b I2.21	a/a0	M (visible channel of one latt	needs: 	ext: K:Isotropic,K:Separable
+S1a/b I2.22	a/a0	M	needs: 	ext: 
+S1a/b I2.24	a/a0	M	needs: 	ext: K:IsDiag,K:Stochastic
+S1a/b I2.39	a/a0	H/M (finite-horizon observable	needs: 	ext: K:IsDiag,K:Stochastic
+S1a/b I2.40	a/a0	H	needs: 	ext: 
+S1a/b I2.43	a/a0	M	needs: 	ext: 
+S1a/b I2.44	a/a0	H	needs: 	ext: K:Realization
+S1a/b I2.45	a/a0	H	needs: 	ext: K:Realization
+S1a/b I2.47	a/a0	H	needs: 	ext: K:Realization
+S1a/b I2.49	a/a0	H	needs: 	ext: 
+S1a/b I2.50	a/a0	H	needs: 	ext: 
+S1a/b I2.53	b/C2	H	needs: C2="uniform erosion at rate e^{-τ_S/τ_B} (hypothesis of the lemm"@I2.53	ext: 
+S1a/b I2.54	b/C4	H	needs: C4="a C4 gap at order k (I1"@I2.54	ext: 
+S1a/b I2.55	a/a0	M	needs: 	ext: 
+S1a/b I2.57	a/a0	M	needs: 	ext: 
+S1a/b I2.58	a/a0	H/M	needs: 	ext: 
+S1a/b I2.59	a/a0	M	needs: 	ext: 
+S1a/b I2.61	b/C2	M/X	needs: C2="the slow-bath and weak-coupling conditions (stated)"@I2.61	ext: 
+S1a/b I2.64	a/a0	H	needs: 	ext: 
+S1a/b I2.65	a/a0	H/M	needs: 	ext: 
+S1a/b I2.83	a/a0	X	needs: 	ext: 
+S1a/b I2.91	a/a0	M	needs: 	ext: 
+S1a/b I2.105	a/a0	H/X	needs: 	ext: 
+S1a/b I3.14	a/a0	P	needs: 	ext: K:lor_ray,K:phiW_eq_of_segment,K:phiW_mem_jointStates,K:phiW_not_product
+S1a/b I3.20	a/a0	P	needs: 	ext: 
+S1a/b I3.26	a/a0	P	needs: 	ext: 
+S1a/b I3.28	a/a0	P	needs: 	ext: 
+S1a/b I3.33	a/a0	P	needs: 	ext: 
+S1a/b I3.34	a/a0	P	needs: 	ext: 
+S1a/b I3.41	a/a0	P	needs: 	ext: 
+S1a/b I3.42	a/a0	P (from O data)	needs: 	ext: K:hom,K:prodEffVal
+S1a/b I3.53	a/a0	O	needs: 	ext: 
+S1a/b I3.67	a/a0	O	needs: 	ext: 
+S1a/b I3.68	a/a0	O	needs: 	ext: 
+S1a/b I3.80	a/a0	O	needs: 	ext: 
+S1a/b I3.83	a/a0	O	needs: 	ext: 
+S1a/b I3.85	a/a0	O	needs: 	ext: 
+S1a/b I3.91	a/a0	O	needs: 	ext: 
+S1a/b I3.104	a/a0	O	needs: 	ext: 
+S1a/b I3.125	a/a0	P (general vector space; used 	needs: 	ext: 
+S1a/b I3.126	a/a0	P (matrix/arithmetic; used in 	needs: 	ext: 
+S1a/b I3.127	a/a0	O	needs: 	ext: 
+S1a/b I3.128	a/a0	P (premise-free; used in the p	needs: 	ext: 
+S1a/b I3.186	a/a0	O	needs: 	ext: 
+S1a/b I4.6	a/a0	M	needs: 	ext: K:BoundaryAudit.psdFactorization_discharged
+S1a/b I4.7	a/a0	M	needs: 	ext: 
+S1a/b I4.8	a/a0	M	needs: 	ext: K:countermodel,K:countermodel_reduction2_available
+S1a/b I4.9	a/a0	M	needs: 	ext: 
+S1a/b I4.10	a/a0	M	needs: 	ext: K:countermodel,K:countermodel_control
+S1a/b I4.11	a/a0	M	needs: 	ext: K:countermodel,K:countermodel_control,K:countermodel_exact
+S1a/b I4.13	a/a0	M	needs: 	ext: 
+S1a/b I4.21	a/a0	M	needs: 	ext: 
+S1a/b I4.22	a/a0	M	needs: 	ext: 
+S1a/b I4.27	a/a0	M	needs: 	ext: 
+S1a/b I4.33	a/a0	M	needs: 	ext: 
+S1a/b I4.34	a/a0	M	needs: 	ext: K:countermodel,K:qutritIdx
+S1a/b I4.40	a/a0	M	needs: 	ext: 
+S1a/b I4.41	a/a0	M	needs: 	ext: 
+S1a/b I4.46	a/a0	H	needs: 	ext: 
+S1a/b I4.48	a/a0	H	needs: 	ext: K:genTheory,K:substratumClass_arch
+S1a/b I4.49	a/a0	H	needs: 	ext: 
+S1a/b I4.59	a/a0	H	needs: 	ext: 
+S1a/b I4.63	a/a0	H	needs: 	ext: 
+S1a/b I4.72	a/a0	G	needs: 	ext: 
+S1a/b I4.76	a/a0	M	needs: 	ext: 
+S1a/b I4.78	a/a0	G	needs: 	ext: 
+S1a/b I4.114	a/a0	M	needs: 	ext: 
+S1a/b I4.147	a/a0	H	needs: 	ext: 
+S1a/b I4.152	a/a0	H	needs: 	ext: 
+S1a/b I4.154	a/a0	H	needs: 	ext: 
+S1a/b I4.159	a/a0	H	needs: 	ext: 
+S1a/b I4.162	a/a0	H	needs: 	ext: 
+S1a/b I4.163	a/a0	M	needs: 	ext: 
+S1a/b I4.165	a/a0	H	needs: 	ext: K:Conf
+S1a/b I4.166	a/a0	H	needs: 	ext: 
+S1a/b I4.167	a/a0	H	needs: 	ext: 
+S1a/b I4.169	a/a0	M	needs: 	ext: 
+S1a/b I4.170	a/a0	M	needs: 	ext: 
+S1a/b I4.171	a/a0	H	needs: 	ext: 
+S1a/b I4.177	a/a0	M	needs: 	ext: K:mixTheory
+S1a/b I4.178	a/a0	M	needs: 	ext: 
+S1a/b I4.185	a/a0	H	needs: 	ext: 
+S1a/b I4.190	a/a0	G	needs: 	ext: 
+S1a/b I4.192	a/a0	G	needs: 	ext: 
+S1a/b I4.208	a/a0	G	needs: 	ext: K:Rule
+S1a/b I4.209	a/a0	G	needs: 	ext: K:Conf,K:Rule
+S1a/b I4.210	a/a0	M	needs: 	ext: 
+S1a/b I4.211	a/a0	M	needs: 	ext: 
+S1a/b I4.212	a/a0	M	needs: 	ext: 
+S1a/b I4.214	a/a0	M	needs: 	ext: 
+S1a/b I4.215	a/a0	M	needs: 	ext: 
+S1a/b I4.216	a/a0	M	needs: 	ext: 
+S1a/b I4.223	a/a0	M	needs: 	ext: 
+S1a/b I4.224	a/a0	M	needs: 	ext: 
+S1a/b I4.228	a/a0	H	needs: 	ext: 
+S1a/b I4.229	a/a0	H	needs: 	ext: 
+S1a/b I4.230	a/a0	H	needs: 	ext: K:CompatibilityDomainGlue,K:quotPerm
+S1a/b I4.231	a/a0	H	needs: 	ext: 
+S1a/b I4.232	a/a0	H	needs: 	ext: 
+S1a/b I4.239	a/a0	H	needs: 	ext: 
+S1root	class c	OPER	I4.64	83 items	FiniteOperationalTheory
+S1root	class c	OPER	I3.1	23 items	`W d`
+S1root	class c	OPER	I4.30	20 items	LabelInvariant
+S1root	class c	OPER	I4.29	19 items	ContextStable
+S1root	class c	OPER	I3.8	18 items	`IsNot`
+S1root	class c	OPER	I4.32	16 items	Architecture
+S1root	class c	OPER	I4.132	15 items	DaggerStable
+S1root	class c	OPER	I3.74	14 items	`PreservesBody`
+S1root	class c	OPER	I3.76	13 items	`BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record)
+S1root	class c	OPER	I3.9	13 items	`NativeGate`
+S1root	class c	OPER	I3.73	11 items	`SharpSeed` (K∞-Seed, P1)
+S1root	class c	OPER	I4.107	11 items	RegroupingInvariant
+S1root	class c	OPER	I4.108	11 items	RelabellingInvariant
+S1root	class c	OPER	I4.109	11 items	IsAmbientMember
+S1root	class c	OPER	I4.28	11 items	ImplementationGenerated
+S1root	class c	OPER	I4.67	10 items	HasCompositeUnitaryControl
+S1root	class c	OPER	I4.110	9 items	EmbeddedObservation
+S1root	class c	OPER	I3.75	8 items	`SeedOrbitAvailable` (K∞-V4, V4′)
+S1root	class c	OPER	I4.243	7 items	HControl
+S1root	class c	OPER	I4.70	7 items	ExactAllFiniteEndomorphicQuantumOps
+S1root	class c	OPER	I3.48	6 items	`EffectsOn`
+S1root	class c	OPER	I4.133	6 items	ReversibleImplementationLocality
+S1root	class c	OPER	I4.143	6 items	DrivesElementary
+S1root	class c	OPER	I4.45	6 items	StructurallyClosed
+S1root	class c	OPER	I3.10	5 items	`Entangling`
+S1root	class c	OPER	I4.156	5 items	ReadWriteSourced
+S1root	class c	OPER	I4.50	5 items	ExtendsSubstratum
+S1root	class c	OPER	I4.66	5 items	CompositeOperationalValidity
+S1root	class c	OPER	I4.69	5 items	SystemToLevelOne
+S1root	class c	OPER	I4.73	5 items	WellFormed
+S1root	class d	PHYS	I1.10	5 items	Lemma 3: determinism and reversibility (the bijective representative).
+S1root	class d	PHYS	I1.11	5 items	Total finiteness of the substratum (physical posit).
+S1root	class c	OPER	I3.23	4 items	`GateRel`
+S1root	class c	OPER	I3.35	4 items	`NativeGateOf`
+S1root	class c	OPER	I4.3	4 items	HasParallelReferenceExtension
+S1root	class c	OPER	I4.31	4 items	ImplementationLocality
+S1root	class c	OPER	I4.56	4 items	LayerFlowExecutable
+S1root	class c	OPER	I2.28	3 items	`BGIntegerClassification` (the Bekir–Golomb premise)
+S1root	class c	OPER	I3.113	3 items	`ProductData`
+S1root	class c	OPER	I3.66	3 items	`ElementaryDrivability` (K∞-Drive)
+S1root	class c	OPER	I3.96	3 items	`FiniteRank` (K∞-Stage)
+S1root	class c	OPER	I4.118	3 items	PhaseFreeRichness
+S1root	class c	OPER	I4.128	3 items	LieRankRichness
+S1root	class c	OPER	I4.186	3 items	TypedOperationalTheory
+S1root	class c	OPER	I4.197	3 items	FiniteRange
+S1root	class c	OPER	I4.198	3 items	ReversibleDynamics
+S1c/d I1.15	d	H	PHYS=I1.10,I1.11 +1 named	
+S1c/d I1.30	d	H	PHYS= +2 named	
+S1c/d I1.31	d	H	PHYS= +2 named	
+S1c/d I1.35	d	H/X	PHYS=I1.10,I1.11,I1.36,I1.63,I1.64 +4 named	C1,C2,C3,C4
+S1c/d I1.44	c	M	OPER=I4.64,I4.67 +1 named	
+S1c/d I1.45	c	M (carrying the H-level c	OPER=I4.64,I4.67 +1 named	
+S1c/d I1.46	c	M	OPER=I4.12,I4.14,I4.64,I4.67,I4.68 +1 named	
+S1c/d I1.48	c	M	OPER=I4.64,I4.67,I4.70 +1 named	
+S1c/d I1.52	c	H→M	OPER=I4.64	
+S1c/d I1.53	c	M	OPER=I4.28,I4.29,I4.30,I4.64,I4.107,I4.108,I4.109,I4.110,I4.118,I4.132,I4.133	
+S1c/d I1.54	c	M	OPER=I4.28,I4.29,I4.30,I4.64,I4.67,I4.70,I4.107,I4.108,I4.109,I4.110,I4.132,I4.133 +1 named	
+S1c/d I1.62	d	H/X	PHYS=I1.61	
+S1c/d I1.69	d	H	PHYS=I1.10,I1.11,I1.63,I1.64,I1.65,I1.66,I1.67,I1.68 +3 named	
+S1c/d I1.84	d	H (a deterministic permut	PHYS=I1.10,I1.11 +1 named	
+S1c/d I1.85	d	H	PHYS=I1.10,I1.11 +1 named	
+S1c/d I1.79	c	M	OPER=I4.64	
+S1c/d I1.80	c	M	OPER=I4.64	
+S1c/d I1.81	c	M	OPER=I4.64	
+S1c/d I1.82	c	M	OPER=I4.64,I4.66,I4.69,I4.73	
+S1c/d I1.83	c	M	OPER=I4.64	
+S1c/d I2.1	d	H	PHYS= +2 named	
+S1c/d I2.2	d	H	PHYS= +2 named	
+S1c/d I2.5	d	H	OPER= +1 named ; PHYS= +7 named	
+S1c/d I2.7	d	H/X	OPER= +1 named ; PHYS= +8 named	
+S1c/d I2.12	c	H realization of an M-lev	OPER= +2 named	
+S1c/d I2.13	c	H	OPER= +2 named	
+S1c/d I2.14	d	M/H	OPER= +6 named ; PHYS= +7 named	
+S1c/d I2.15	c	H	OPER= +2 named	
+S1c/d I2.16	c	H/M	OPER= +2 named	
+S1c/d I2.17	c	H/O	OPER= +1 named	
+S1c/d I2.19	c	H → M (V ⊗ H split, not t	OPER= +2 named	
+S1c/d I2.20	c	H/M	OPER=I2.28 +1 named	
+S1c/d I2.23	c	M	OPER=I4.64,I4.217 +3 named	
+S1c/d I2.25	c	M	OPER= +2 named	
+S1c/d I2.26	c	M	OPER=I2.38 +1 named	
+S1c/d I2.27	c	M	OPER=I2.28	
+S1c/d I2.29	c	G (every nonempty finite 	OPER=I4.64 +2 named	
+S1c/d I2.30	c	G	OPER=I4.64 +2 named	
+S1c/d I2.32	c	G	OPER=I4.64 +1 named	
+S1c/d I2.33	c	G/H	OPER=I4.29,I4.30,I4.32,I4.45,I4.50,I4.64,I4.132,I4.143,I4.156 +2 named	
+S1c/d I2.34	c	G	OPER=I4.28,I4.29,I4.30,I4.32,I4.45,I4.50,I4.64,I4.107,I4.108,I4.109,I4.110,I4.132,I4.133,I4.143,I4.156 +3 named	
+S1c/d I2.35	c	G	OPER=I4.29,I4.30,I4.32,I4.45,I4.50,I4.64,I4.132,I4.143,I4.156,I4.186 +3 named	
+S1c/d I2.36	d	G (quasilocal C*-algebra)	OPER=I4.29,I4.30,I4.32,I4.45,I4.50,I4.64,I4.132,I4.143,I4.156,I4.196,I4.197,I4.198,I4.201,I4.203 +4 named ; PHYS= +2 named	
+S1c/d I2.37	d	G	OPER=I4.29,I4.30,I4.32,I4.45,I4.50,I4.64,I4.132,I4.143,I4.156,I4.196,I4.197,I4.198,I4.201,I4.203 +4 named ; PHYS= +2 named	
+S1c/d I2.41	d	H	OPER=I2.42,I2.56 ; PHYS= +1 named	C1,C2,C3,C4
+S1c/d I2.48	d	H	PHYS= +3 named	
+S1c/d I2.51	d	H	PHYS= +3 named	
+S1c/d I2.52	d	H	PHYS= +4 named	
+S1c/d I2.60	d	M	PHYS= +3 named	
+S1c/d I2.66	d	H	PHYS= +3 named	
+S1c/d I2.67	d	H/M	OPER=I2.42,I2.56 ; PHYS= +1 named	C1,C2,C3,C4
+S1c/d I2.71	d	X	PHYS= +1 named	
+S1c/d I2.72	d	H/X	PHYS= +6 named	C2
+S1c/d I2.74	c	X	OPER=I2.28	
+S1c/d I2.75	d	X	OPER= +1 named ; PHYS= +8 named	
+S1c/d I2.77	d	X	PHYS= +3 named	
+S1c/d I2.79	d	X/H (bipartition V | V^c 	PHYS= +1 named	
+S1c/d I2.80	d	H/X	PHYS= +2 named	
+S1c/d I2.81	d	X	PHYS= +3 named	
+S1c/d I2.82	d	H/X	PHYS= +2 named	C2,C4
+S1c/d I2.88	d	X	OPER=I2.10 +1 named ; PHYS=I2.6,I2.86,I2.87 +11 named	
+S1c/d I2.89	d	X	OPER=I2.10 +1 named ; PHYS=I2.6,I2.86,I2.87 +15 named	
+S1c/d I2.94	c	M	OPER= +2 named	
+S1c/d I2.95	c	M	OPER= +2 named	
+S1c/d I2.96	c	M	OPER= +2 named	
+S1c/d I2.97	c	M	OPER= +2 named	
+S1c/d I2.98	c	M	OPER= +2 named	
+S1c/d I2.99	c	M	OPER= +2 named	
+S1c/d I2.100	c	M	OPER= +2 named	
+S1c/d I2.106	d	X	PHYS= +1 named	
+S1c/d I2.107	d	H → M (cells of the visib	OPER= +1 named ; PHYS= +4 named	
+S1c/d I2.108	d	H → M	OPER=I2.28 +1 named ; PHYS= +7 named	
+S1c/d I2.109	d	M/X	OPER=I2.28 +1 named ; PHYS= +2 named	
+S1c/d I2.112	c	X (physical carrier)	OPER= +1 named	
+S1c/d I3.12	c	P (O for `isNot_nflip`)	OPER=I3.1	
+S1c/d I3.13	c	P	OPER=I3.1	
+S1c/d I3.15	c	P	OPER=I3.1,I3.8,I3.9	
+S1c/d I3.16	c	P	OPER=I3.1,I3.8,I3.9	
+S1c/d I3.17	c	P	OPER=I3.1,I3.8,I3.9	
+S1c/d I3.18	c	P	OPER=I3.1,I3.8,I3.9	
+S1c/d I3.19	c	P	OPER=I3.1,I3.8,I3.9,I3.10	
+S1c/d I3.21	c	P	OPER=I3.1,I3.8,I3.9,I3.10	
+S1c/d I3.22	c	P	OPER=I3.1,I3.8,I3.23	
+S1c/d I3.24	c	O (conclusion about the N	OPER=I3.1,I3.8,I3.23	
+S1c/d I3.25	c	P	OPER=I3.1,I3.8,I3.23	
+S1c/d I3.27	c	P	OPER=I3.1,I3.8,I3.23	
+S1c/d I3.30	c	P	OPER=I3.1,I3.8	
+S1c/d I3.31	c	P	OPER=I3.1,I3.8,I3.10,I3.29	
+S1c/d I3.32	c	P	OPER=I3.1,I3.9	
+S1c/d I3.37	c	P (hypotheses at O and P)	OPER=I3.1,I3.8,I3.9,I3.35,I3.48,I3.73,I3.74,I3.75,I3.76	
+S1c/d I3.38	c	P	OPER=I3.1,I3.8,I3.9,I3.35,I3.36,I3.48,I3.73,I3.74,I3.75,I3.76	
+S1c/d I3.40	c	O	OPER=I3.39,I3.73	
+S1c/d I3.44	c	P	OPER=I3.43	
+S1c/d I3.45	c	P	OPER=I3.1,I3.8,I3.9	
+S1c/d I3.46	c	P	OPER=I3.1,I3.8,I3.9,I3.10	
+S1c/d I3.47	c	P	OPER=I3.1,I3.8,I3.9,I3.35,I3.48,I3.73,I3.74,I3.75,I3.76	
+S1c/d I3.51	c	P (hypotheses at O)	OPER=I3.48,I3.73,I3.74,I3.75,I3.76	
+S1c/d I3.52	c	O	OPER=I3.50,I3.73,I3.74,I3.75,I3.76	
+S1c/d I3.55	c	O	OPER=I3.76	
+S1c/d I3.56	c	P (hypotheses at O)	OPER=I3.48,I3.54,I3.73,I3.74,I3.75	
+S1c/d I3.72	c	O	OPER=I3.61,I3.62,I3.65,I3.66,I3.69,I3.70,I3.71	
+S1c/d I3.78	c	O	OPER=I3.66	
+S1c/d I3.79	c	O	OPER=I3.73,I3.74,I3.76	
+S1c/d I3.81	c	O	OPER=I3.73,I3.74,I3.76	
+S1c/d I3.82	c	O	OPER=I3.73,I3.74,I3.75,I3.76,I3.77	
+S1c/d I3.84	c	O	OPER=I3.66	
+S1c/d I3.88	c	O	OPER=I3.74,I3.76	
+S1c/d I3.89	c	O	OPER=I3.74,I3.76	
+S1c/d I3.90	c	O	OPER=I3.74,I3.76	
+S1c/d I3.97	c	O	OPER=I3.93,I3.94	
+S1c/d I3.98	c	O	OPER=I3.96	
+S1c/d I3.105	c	O	OPER=I3.96,I3.99,I3.101,I3.102,I3.103	
+S1c/d I3.111	c	O	OPER=I3.96,I3.99,I3.100,I3.101,I3.102,I3.103,I3.110	
+S1c/d I3.112	c	O	OPER=I3.108,I3.109	
+S1c/d I3.120	c	P	OPER=I3.113	
+S1c/d I3.121	c	P	OPER=I3.113,I3.114,I3.115,I3.116	
+S1c/d I3.122	c	P	OPER=I3.74,I3.113,I3.114,I3.115,I3.116,I3.117,I3.118,I3.119	
+S1c/d I3.124	c	O (`lor_ehom`, `isEffectO	OPER=I3.1	
+S1c/d I3.164	c	P	OPER=I3.1,I3.8,I3.9,I3.10,I3.35,I3.36,I3.48,I3.73,I3.74,I3.75,I3.76 +2 named	
+S1c/d I3.184	c	X (manuscript statement a	OPER= +1 named	
+S1c/d I3.185	c	P (from O data)	OPER=I3.1	
+S1c/d I3.187	c	P	OPER=I3.43,I3.129,I3.130,I3.132,I3.137	C1
+S1c/d I4.5	c	M	OPER=I4.3,I4.64	
+S1c/d I4.15	c	M	OPER=I4.64	
+S1c/d I4.16	c	M	OPER=I4.12,I4.14,I4.64,I4.67 +1 named	
+S1c/d I4.17	c	M	OPER=I4.246	
+S1c/d I4.19	c	M	OPER=I4.18,I4.64,I4.246	
+S1c/d I4.20	c	M	OPER=I4.64,I4.67 +1 named	
+S1c/d I4.35	c	M	OPER=I4.29,I4.30	
+S1c/d I4.36	c	M	OPER=I4.30,I4.32	
+S1c/d I4.37	c	M	OPER=I4.28,I4.29,I4.30,I4.31,I4.64	
+S1c/d I4.38	c	M	OPER=I4.28,I4.29,I4.30,I4.31,I4.64	
+S1c/d I4.39	c	M	OPER=I4.64,I4.70	
+S1c/d I4.43	c	G	OPER=I4.64	
+S1c/d I4.47	c	M	OPER=I4.29,I4.30,I4.32,I4.45,I4.132	
+S1c/d I4.51	c	M	OPER=I4.29,I4.30,I4.32,I4.45,I4.50,I4.132	
+S1c/d I4.52	c	M	OPER=I4.29,I4.30,I4.32,I4.45,I4.50,I4.132,I4.143	
+S1c/d I4.53	c	M	OPER=I4.64,I4.70	
+S1c/d I4.57	c	M	OPER=I4.64,I4.67 +1 named	
+S1c/d I4.58	c	H	OPER=I4.32,I4.242	
+S1c/d I4.61	c	M	OPER=I4.56,I4.60,I4.64	
+S1c/d I4.62	c	M	OPER=I4.28,I4.29,I4.30,I4.60,I4.64,I4.107,I4.108,I4.109,I4.110,I4.132,I4.133	
+S1c/d I4.71	c	M	OPER=I4.64	
+S1c/d I4.75	c	M	OPER=I4.64,I4.66,I4.69,I4.73	
+S1c/d I4.77	c	M	OPER=I4.64,I4.67 +1 named	
+S1c/d I4.81	c	M	OPER=I4.64	
+S1c/d I4.83	c	M	OPER=I4.64	
+S1c/d I4.84	c	M	OPER=I4.3,I4.64,I4.82	
+S1c/d I4.89	c	M	OPER=I4.3,I4.64,I4.66,I4.69,I4.73,I4.82,I4.85,I4.86,I4.87,I4.88,I4.243	
+S1c/d I4.90	c	M	OPER=I4.64	
+S1c/d I4.91	c	M	OPER=I4.64	
+S1c/d I4.92	c	M	OPER=I4.64	
+S1c/d I4.93	c	M	OPER=I4.64	
+S1c/d I4.94	c	M	OPER=I4.64	
+S1c/d I4.95	c	M	OPER=I4.64	
+S1c/d I4.97	c	M	OPER=I4.64	
+S1c/d I4.98	c	M	OPER=I4.3,I4.64,I4.96	
+S1c/d I4.100	c	M	OPER=I4.64,I4.99,I4.243	
+S1c/d I4.101	c	M	OPER=I4.64,I4.66,I4.67,I4.69,I4.73 +1 named	
+S1c/d I4.103	c	M	OPER=I4.64	
+S1c/d I4.104	c	G	OPER=I4.64	
+S1c/d I4.105	c	M	OPER=I4.64	
+S1c/d I4.111	c	M	OPER=I4.64,I4.107,I4.108,I4.109	
+S1c/d I4.112	c	M	OPER=I4.64,I4.107,I4.108,I4.109	
+S1c/d I4.113	c	M	OPER=I4.64,I4.107,I4.108,I4.109,I4.110	
+S1c/d I4.116	c	M	OPER=I4.64	
+S1c/d I4.117	c	G	OPER=I4.64	
+S1c/d I4.119	c	M	OPER=I4.64,I4.68,I4.118	
+S1c/d I4.121	c	M	OPER=I4.64	
+S1c/d I4.122	c	G	OPER=I4.64	
+S1c/d I4.125	c	M	OPER=I4.64	
+S1c/d I4.126	c	G	OPER=I4.64	
+S1c/d I4.129	c	M	OPER=I4.64,I4.127,I4.128,I4.243	
+S1c/d I4.130	c	M	OPER=I4.64,I4.128,I4.243	
+S1c/d I4.131	c	M	OPER=I4.64,I4.66,I4.69,I4.73,I4.128,I4.243	
+S1c/d I4.135	c	M	OPER=I4.28,I4.32,I4.64,I4.132,I4.134	
+S1c/d I4.136	c	M	OPER=I4.64,I4.70	
+S1c/d I4.138	c	M	OPER=I4.64	
+S1c/d I4.139	c	G	OPER=I4.64	
+S1c/d I4.141	c	M	OPER=I4.243	
+S1c/d I4.142	c	M	OPER=I4.243	
+S1c/d I4.145	c	M	OPER=I4.29,I4.30,I4.32,I4.132,I4.143,I4.144	
+S1c/d I4.146	c	M	OPER=I4.64,I4.70	
+S1c/d I4.150	c	H	OPER=I4.64,I4.149	
+S1c/d I4.151	c	H	OPER=I4.64,I4.149	
+S1c/d I4.153	c	H	OPER=I4.32,I4.247	
+S1c/d I4.157	c	H	OPER=I4.64,I4.156	
+S1c/d I4.158	c	H	OPER=I4.64,I4.156	
+S1c/d I4.160	c	M	OPER=I4.28,I4.29,I4.30,I4.56,I4.64,I4.107,I4.108,I4.109,I4.110,I4.132,I4.133	
+S1c/d I4.161	c	M	OPER=I4.28,I4.29,I4.30,I4.64,I4.107,I4.108,I4.109,I4.110,I4.132,I4.133	
+S1c/d I4.164	c	H	OPER=I4.32,I4.56,I4.64	
+S1c/d I4.168	c	H	OPER=I4.32	
+S1c/d I4.173	c	M	OPER=I4.64	
+S1c/d I4.176	c	M	OPER=I4.29,I4.30,I4.32,I4.132	
+S1c/d I4.180	c	M	OPER=I4.64	
+S1c/d I4.181	c	M	OPER=I4.64	
+S1c/d I4.184	c	M	OPER=I4.32,I4.56,I4.64	
+S1c/d I4.189	c	G	OPER=I4.70,I4.187	
+S1c/d I4.191	c	G	OPER=I4.245	
+S1c/d I4.193	c	G	OPER=I4.28,I4.29,I4.30,I4.31,I4.64,I4.107,I4.108,I4.109,I4.110,I4.124,I4.186,I4.244	
+S1c/d I4.194	c	G	OPER=I4.28,I4.29,I4.30,I4.31,I4.64,I4.107,I4.108,I4.109,I4.110,I4.118,I4.120,I4.186	
+S1c/d I4.199	c	G	OPER=I4.196	
+S1c/d I4.200	c	G	OPER=I4.197,I4.198	
+S1c/d I4.205	c	G	OPER=I4.201	
+S1c/d I4.206	c	G	OPER=I4.197,I4.198,I4.201,I4.203	
+S1c/d I4.207	c	G	OPER=I4.197,I4.198	
+S1c/d I4.219	c	M	OPER=I4.217,I4.218 +2 named	
+S1c/d I4.237	c	M	OPER=I4.29,I4.30,I4.32,I4.132,I4.143,I4.144	
+S1e I1.4	FOUND/manuscript-principle	The perspectival reading: embeddedness `V ⊊ S` belongs to th
+S1e I1.5	PHYS/hypothesis	The C1–C4 selection condition (domain commitment).
+S1e I1.6	FOUND/definition-as-hypothesis	Definition of an observation `(S, φ, V)`.
+S1e I1.9	FOUND/lemma	Lemma 2 (causal partition; product decomposition).
+S1e I1.10	PHYS/lemma	Lemma 3: determinism and reversibility (the bijective repres
+S1e I1.11	PHYS/hypothesis	Total finiteness of the substratum (physical posit).
+S1e I1.12	FOUND/hypothesis	Lemma 3: the selected measure (maximal-entropy counting meas
+S1e I1.13	FOUND/manuscript-principle	The measure as a realization datum (hidden prior `μ_H`).
+S1e I1.14	FOUND/manuscript-principle	Reversibility as the conservative (fallback) assumption.
+S1e I1.16	NEUTRAL/manuscript-principle	The four layers; a Layer-1 result establishes no Layer-4 cla
+S1e I1.18	NEUTRAL/manuscript-principle	Methodology's rung analysis of the conditions (C1–C4 are sel
+S1e I1.19	NEUTRAL/manuscript-principle	The conditions are diagnostics, not hypotheses.
+S1e I1.26	NEUTRAL/manuscript-principle	Book variant: the four conditions "logically independent".
+S1e I1.36	PHYS/hypothesis	Hypothesis M1-T (the observed temporal data lie in the readb
+S1e I1.37	NEUTRAL/manuscript-principle	Explainer: the conditions as access conditions on a lossless
+S1e I1.38	DEF/definition-as-hypothesis	The shared swap-memory core (carrier, readout, passive step,
+S1e I1.39	DEF/hypothesis-structure	`CoreC1C4`: the four conditions on the shared core.
+S1e I1.42	DEF/hypothesis-structure	`SealedCoreIsFiniteOI`: the axiom-match audit.
+S1e I1.43	DEF/hypothesis-structure	`RealizesSealedOICore T`: the realization predicate.
+S1e I1.47	DEF/hypothesis-structure	`OICore` (bare OI).
+S1e I1.49	DEF/hypothesis-structure	`DerivedOI`: the consequence closure of the substratum.
+S1e I1.50	DEF/hypothesis-structure	`DerivedOICore`: the closure with the sealed core.
+S1e I1.51	DEF/hypothesis-structure	The falsifier and the Route B target.
+S1e I1.55	OPER/hypothesis-structure	Realized-core images of A1 and A2; A1–A6 have no faithful fo
+S1e I1.56	OPER/hypothesis-structure	The configuration-level sourcing bound.
+S1e I1.57	DEF/hypothesis-structure	The kernel `Substratum` and the predicates A1–A5.
+S1e I1.59	OPER/definition-as-hypothesis	The observer theory of a substratum (the H→M sourcing arrow)
+S1e I1.60	OPER/hypothesis-structure	The sourced theory: `SourcedOI`, and the core realized with 
+S1e I1.61	PHYS/hypothesis-structure	A6: four readings, the adopted covariant one identically tru
+S1e I1.63	PHYS/axiom	Substratum (A1) Finiteness.
+S1e I1.64	PHYS/axiom	Substratum (A2) Determinism.
+S1e I1.65	PHYS/axiom	Substratum (A3) Bounded coupling degree.
+S1e I1.66	PHYS/axiom	Substratum (A4) Center independence.
+S1e I1.67	PHYS/axiom	Substratum (A5) Linearity.
+S1e I1.68	PHYS/axiom	Substratum (A6) Background independence.
+S1e I1.70	C4/hypothesis-structure	Candidate readback forms `C4e`, `C4r` and the no-go chain to
+S1e I1.71	C4/hypothesis-structure	`RoutedReadback`: the manuscripts' realization clause for C4
+S1e I1.72	C4/hypothesis-structure	`RoutedReadbackAtStorage` and the incomparability of the two
+S1e I1.73	C4/hypothesis-structure	The lattice cut: `LatticeCutReadback` (the named residual).
+S1e I1.74	PHYS/obligation	ROADMAP P1: Physical C4 discharge at the cosmological and la
+S1e I1.75	OPER/hypothesis-structure	The internal observer: a passive self-record can only be rea
+S1e I1.76	NEUTRAL/obligation	ROADMAP P1: the stochastic observer interface — source `(Obs
+S1e I1.77	PHYS/obligation	ROADMAP: declared inputs and conditional hypotheses (status-
+S1e I1.78	NEUTRAL/manuscript-principle	ROADMAP interpretation boundary (OI→QM emergence narrower th
+S1e I2.3	NEUTRAL/manuscript-principle	The operational-extension boundary
+S1e I2.4	NEUTRAL/manuscript-principle	Composite systems "on a different footing" (scope condition 
+S1e I2.6	PHYS/hypothesis	The adopted Bell branch: ontic parameter dependence
+S1e I2.10	OPER/manuscript-principle	Operational no-signaling (scope of the no-signaling claim)
+S1e I2.18	NEUTRAL/manuscript-principle	What the gluing theorem does and does not deliver; the summa
+S1e I2.28	OPER/hypothesis-structure	`BGIntegerClassification` (the Bekir–Golomb premise)
+S1e I2.31	OPER/definition-as-hypothesis	Quantum-complete OI (OI⁺): observational independence, rever
+S1e I2.38	OPER/hypothesis-structure	Existence and orientation premises of the classification (hy
+S1e I2.42	OPER/definition-as-hypothesis	Definition (unitarily evolving QM), (Q1)/(Q2), and translati
+S1e I2.46	PHYS/obligation	Variational identity (open; naive form false)
+S1e I2.56	OPER/hypothesis	The imported stochastic–quantum correspondence and its scope
+S1e I2.62	NEUTRAL/manuscript-principle	Comparison of routes and dependency scope: in-house, importe
+S1e I2.63	NEUTRAL/manuscript-principle	Operational-reconstruction route: target conditions and the 
+S1e I2.68	NEUTRAL/manuscript-principle	Scope of the equivalence, items (iii) state update and (iv) 
+S1e I2.69	NEUTRAL/manuscript-principle	The claim structure: the four layers, the four-part theorem 
+S1e I2.70	NEUTRAL/manuscript-principle	Status ledger of the foundational argument (Main §4.5)
+S1e I2.73	PHYS/manuscript-principle	What "the theorem" requires; falsifiability of the physical 
+S1e I2.76	PHYS/manuscript-principle	Bounded coupling degree (locality) and the minimal object
+S1e I2.78	NEUTRAL/manuscript-principle	Space as coupling structure
+S1e I2.84	NEUTRAL/manuscript-principle	Substratum: Theorem 23 reconstructs the local residue; Bell-
+S1e I2.85	NEUTRAL/manuscript-principle	The domain of the local lattice dynamics (what observer acce
+S1e I2.86	PHYS/hypothesis	Empirical input E2 (Bell violations)
+S1e I2.87	PHYS/hypothesis	Stage-1 premises M1-T and M1-B
+S1e I2.90	OPER/obligation	P0 (Track B): what additional structure determines the relat
+S1e I2.92	OPER/obligation	P0b, the ANCHOR axis (act 10): collapsed and reclassified
+S1e I2.93	OPER/obligation	Act 7's D3 gap (coherent time-indexed dilation family)
+S1e I2.101	OPER/obligation	Act 7 records standing (DC1, D5, DC2a, CE1) and the chronolo
+S1e I2.102	PHYS/obligation	H-Bell: composite and Bell closure
+S1e I2.103	OPER/obligation	H-∞: finite operational theory to continuum / infinite-dimen
+S1e I2.104	OPER/obligation	P3: GR states to Level-III quasilocal states
+S1e I2.110	NEUTRAL/manuscript-principle	Weak ER=EPR at the emergent level (entangled subsystems shar
+S1e I2.111	NEUTRAL/manuscript-principle	Bell/Tsirelson test: graph locality and bare C1–C4 do not en
+S1e I2.113	PHYS/hypothesis	H-observer-bundle and H-Y-vertex (conditions on the observer
+S1e I3.1	OPER/definition-as-hypothesis	`W d`
+S1e I3.2	DEF/definition-as-hypothesis	`prodState`
+S1e I3.3	DEF/definition-as-hypothesis	`maxCone`
+S1e I3.4	DEF/definition-as-hypothesis	`jointStates`
+S1e I3.5	DEF/definition-as-hypothesis	`IsProduct`
+S1e I3.6	DEF/definition-as-hypothesis	`actT`
+S1e I3.7	DEF/definition-as-hypothesis	`actC`
+S1e I3.8	OPER/hypothesis-structure	`IsNot`
+S1e I3.9	OPER/hypothesis-structure	`NativeGate`
+S1e I3.10	OPER/hypothesis-structure	`Entangling`
+S1e I3.11	DEF/definition-as-hypothesis	`cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (t
+S1e I3.23	OPER/hypothesis-structure	`GateRel`
+S1e I3.29	OPER/hypothesis-structure	`CtrlGate`
+S1e I3.35	OPER/hypothesis-structure	`NativeGateOf`
+S1e I3.36	OPER/hypothesis-structure	`EntanglingOf`
+S1e I3.39	OPER/hypothesis-structure	`HasTwoSharpTests`
+S1e I3.43	OPER/hypothesis-structure	`CandidateCone`
+S1e I3.48	OPER/hypothesis-structure	`EffectsOn`
+S1e I3.49	DEF/definition-as-hypothesis	`maxConeOf`
+S1e I3.50	OPER/hypothesis-structure	`MixingClosed`
+S1e I3.54	OPER/hypothesis-structure	`DenseBoundaryOrbit`
+S1e I3.57	DEF/definition-as-hypothesis	`FiniteStage`
+S1e I3.58	DEF/definition-as-hypothesis	`IsEffectOn`
+S1e I3.59	DEF/definition-as-hypothesis	`IsProperOn`
+S1e I3.60	DEF/definition-as-hypothesis	`IsBoundaryState`
+S1e I3.61	OPER/hypothesis-structure	`SupportingEffectComplete` (SEC)
+S1e I3.62	OPER/hypothesis-structure	`SingletonFaces` (SF)
+S1e I3.63	DEF/definition-as-hypothesis	`RelStrictConvex`
+S1e I3.64	DEF/definition-as-hypothesis	`PerfectlyDistinguishable`
+S1e I3.65	OPER/definition-as-hypothesis	`CentrallySymmetric`
+S1e I3.66	OPER/hypothesis-structure	`ElementaryDrivability` (K∞-Drive)
+S1e I3.69	OPER/hypothesis-structure	`CopyNatural` (K∞-Copy)
+S1e I3.70	OPER/definition-as-hypothesis	`ClassicallyExposed`
+S1e I3.71	OPER/hypothesis-structure	`KInf1` (hypothesis K∞-1)
+S1e I3.73	OPER/hypothesis-structure	`SharpSeed` (K∞-Seed, P1)
+S1e I3.74	OPER/hypothesis-structure	`PreservesBody`
+S1e I3.75	OPER/hypothesis-structure	`SeedOrbitAvailable` (K∞-V4, V4′)
+S1e I3.76	OPER/hypothesis-structure	`BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record)
+S1e I3.77	OPER/hypothesis-structure	`CoversBoundaryFrom` (COVER)
+S1e I3.86	OPER/hypothesis-structure	`IsBodyGroup` (TRANS, group clause)
+S1e I3.87	OPER/hypothesis-structure	`TransBody` (TRANS)
+S1e I3.92	DEF/definition-as-hypothesis	`DirectedStages` (with `StageMap`)
+S1e I3.93	OPER/definition-as-hypothesis	`StageMap.Consistent`
+S1e I3.94	OPER/hypothesis-structure	`SCInf` (SC∞, K∞-Stage)
+S1e I3.95	OPER/hypothesis-structure	`BinaryVisible` (ELEM-bin)
+S1e I3.96	OPER/hypothesis-structure	`FiniteRank` (K∞-Stage)
+S1e I3.99	OPER/hypothesis-structure	`OpDatum` (K∞-Act)
+S1e I3.100	OPER/hypothesis-structure	`StateRespect`
+S1e I3.101	OPER/hypothesis-structure	`AffineRespect`
+S1e I3.102	OPER/hypothesis-structure	`Undoes`
+S1e I3.103	OPER/definition-as-hypothesis	`CompletionChart`
+S1e I3.106	DEF/definition-as-hypothesis	`InfiniteOrderOn`
+S1e I3.107	DEF/definition-as-hypothesis	`FiniteOrderOn`
+S1e I3.108	OPER/hypothesis-structure	`OrdInf` (ORD∞)
+S1e I3.109	OPER/definition-as-hypothesis	`MulClosed`
+S1e I3.110	OPER/hypothesis-structure	`StagePreserving`
+S1e I3.113	OPER/definition-as-hypothesis	`ProductData`
+S1e I3.114	OPER/hypothesis-structure	`PreComposite`
+S1e I3.115	OPER/hypothesis-structure	`LocallyTomographic`
+S1e I3.116	OPER/hypothesis-structure	`Composite`
+S1e I3.117	OPER/definition-as-hypothesis	`BoundedAffine`
+S1e I3.118	OPER/hypothesis-structure	`JointReversible`
+S1e I3.119	OPER/definition-as-hypothesis	`SharpReadout`
+S1e I3.123	DEF/definition-as-hypothesis	`Lor`
+S1e I3.129	OPER/hypothesis-structure	`hcls` — N-CLASS gates (`NClass`)
+S1e I3.130	OPER/hypothesis-structure	`hadm` — pair admissibility (`PairAdm`, with `IsConvexCone`)
+S1e I3.131	OPER/hypothesis-structure	`hcl` — closedness of each pair cone
+S1e I3.132	OPER/hypothesis-structure	`hgate` — gate preservation (H2 of stage 3 is this clause fo
+S1e I3.133	OPER/hypothesis-structure	`H` — the four-copy core (`KT4Core`, with `KT4`, `KT4LT`)
+S1e I3.134	OPER/hypothesis-structure	token clauses `tokA`, `tokB` (`TokenCoherent`)
+S1e I3.135	OPER/hypothesis-structure	FCC — the cone-level four-copy interface (`FourCopyCoherent`
+S1e I3.136	OPER/hypothesis-structure	`PairLinked` (Lemma R's interface form)
+S1e I3.137	OPER/definition-as-hypothesis	IE1 (`IE1`, with `IsRot3`, `IsOrth3`)
+S1e I3.138	OPER/definition-as-hypothesis	`EvenCycle` (with `EvenCycle4`)
+S1e I3.139	OPER/theorem	`kt4_forward_ie1` (Theorem A′, the audited theorem)
+S1e I3.140	OPER/theorem	`fourCopyCoherent_of_kt4Core` (Lemma B1)
+S1e I3.141	OPER/hypothesis-structure	`KT4Cone`
+S1e I3.142	OPER/definition-as-hypothesis	`IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of t
+S1e I3.143	OPER/definition-as-hypothesis	`ipW`, `dualW` (the Euclidean pairing and dual cone of table
+S1e I3.144	OPER/definition-as-hypothesis	`Q3`, `twin`, `pauliW`, `twistQ3`
+S1e I3.145	OPER/hypothesis-structure	P-STAGE2 (named premise of KT4-PREM-1)
+S1e I3.146	OPER/hypothesis-structure	P-ACT2 (named premise of KT4-PREM-1)
+S1e I3.147	OPER/hypothesis-structure	H1 — products in `K`
+S1e I3.148	OPER/hypothesis-structure	H2 — `cnot`-invariance (level (i)); `G16`-invariance (level 
+S1e I3.149	OPER/hypothesis-structure	H3 — trace self-duality `K = dualW K`
+S1e I3.150	OPER/hypothesis-structure	(b_S4) — the full rotation group of one token acts on the pa
+S1e I3.151	OPER/hypothesis-structure	(b_n) — one rotation subgroup of one token about an off-fram
+S1e I3.152	OPER/hypothesis-structure	(b_R1) — one order-3 rotation of one token about (5,1,1)
+S1e I3.153	OPER/hypothesis-structure	(b_DJ) — the native drive with the native `J` acting on one 
+S1e I3.154	OPER/hypothesis-structure	IE2 — idle extension of the pair interaction groups
+S1e I3.155	OPER/hypothesis-structure	frame covariance (FC) of the native gate
+S1e I3.156	OPER/hypothesis-structure	INV2 — the native gate is an operational involution on the p
+S1e I3.157	OPER/hypothesis-structure	SDC = P3 ∧ OVL4 ∧ CSD2 — self-duality under composition
+S1e I3.158	OPER/hypothesis-structure	N0 ∧ N1 ∧ N2 — regrouping invariance of a four-token composi
+S1e I3.159	OPER/hypothesis-structure	S2 Pair — a compact, gate-reversible COMP-1 pre-composite (s
+S1e I3.160	OPER/hypothesis-structure	H — pair-level homogeneity of `K`
+S1e I3.161	OPER/hypothesis-structure	T — pair-level reversible richness (transitivity on extreme 
+S1e I3.162	OPER/obligation	P1 — K: pre-quantum kinematics (the umbrella row)
+S1e I3.163	OPER/obligation	K section framing
+S1e I3.165	OPER/obligation	K2 — the composite
+S1e I3.166	OPER/obligation	K∞ — the field-neutral premises
+S1e I3.167	OPER/obligation	K∞-Stage
+S1e I3.168	OPER/obligation	K∞-Act
+S1e I3.169	OPER/obligation	K∞-Drive
+S1e I3.170	OPER/obligation	K∞-Trans
+S1e I3.171	OPER/obligation	K∞-Seed
+S1e I3.172	OPER/obligation	K∞-V4
+S1e I3.173	OPER/obligation	K∞-Copy
+S1e I3.174	OPER/obligation	K∞-Geom
+S1e I3.175	OPER/obligation	the K∞-R label note
+S1e I3.176	OPER/obligation	the geometric obligation is not committed to singleton faces
+S1e I3.177	OPER/obligation	the geometric branch is elementary-scoped
+S1e I3.178	OPER/obligation	matrix-level drivability, the region limit, and continuous N
+S1e I3.179	OPER/obligation	Kₙ — the elementary-to-arbitrary-carrier lift
+S1e I3.180	OPER/obligation	KINF-1 halted
+S1e I3.181	OPER/obligation	the research direction (unproved)
+S1e I3.182	OPER/obligation	the finite route
+S1e I3.183	OPER/obligation	orthogonality to P0
+S1e I4.1	DEF/definition-as-hypothesis	withSpectator
+S1e I4.2	OPER/definition-as-hypothesis	IsReferencePositive
+S1e I4.3	OPER/hypothesis-structure	HasParallelReferenceExtension
+S1e I4.4	OPER/hypothesis-structure	HasQutritReferenceExtension
+S1e I4.23	OPER/definition-as-hypothesis	IsThreePositive
+S1e I4.12	OPER/definition-as-hypothesis	IsSpectatorExtension
+S1e I4.14	OPER/hypothesis-structure	InertSpectatorCompositionality
+S1e I4.18	OPER/hypothesis-structure	HCompRealized
+S1e I4.24	DEF/definition-as-hypothesis	ImplementationClass
+S1e I4.25	OPER/definition-as-hypothesis	Realized
+S1e I4.26	DEF/definition-as-hypothesis	InstAvail
+S1e I4.28	OPER/hypothesis-structure	ImplementationGenerated
+S1e I4.29	OPER/hypothesis-structure	ContextStable
+S1e I4.30	OPER/hypothesis-structure	LabelInvariant
+S1e I4.31	OPER/hypothesis-structure	ImplementationLocality
+S1e I4.32	OPER/hypothesis-structure	Architecture
+S1e I4.42	OPER/hypothesis-structure	OIPlusLocal
+S1e I4.44	DEF/definition-as-hypothesis	substratumClass
+S1e I4.45	OPER/hypothesis-structure	StructurallyClosed
+S1e I4.50	OPER/hypothesis-structure	ExtendsSubstratum
+S1e I4.54	DEF/definition-as-hypothesis	gateFlow
+S1e I4.55	DEF/definition-as-hypothesis	levelPerm
+S1e I4.56	OPER/hypothesis-structure	LayerFlowExecutable
+S1e I4.60	OPER/hypothesis-structure	SubstratumAvail
+S1e I4.64	OPER/hypothesis-structure	FiniteOperationalTheory
+S1e I4.65	OPER/hypothesis-structure	PhysicalCompletionConditions
+S1e I4.66	OPER/hypothesis-structure	CompositeOperationalValidity
+S1e I4.67	OPER/hypothesis-structure	HasCompositeUnitaryControl
+S1e I4.68	OPER/hypothesis-structure	IteratedAncillaClosure
+S1e I4.69	OPER/hypothesis-structure	SystemToLevelOne
+S1e I4.70	OPER/hypothesis-structure	ExactAllFiniteEndomorphicQuantumOps
+S1e I4.73	OPER/hypothesis-structure	WellFormed
+S1e I4.74	OPER/hypothesis-structure	SubstantiveCompletion
+S1e I4.79	OPER/hypothesis-structure	OICore
+S1e I4.80	OPER/hypothesis-structure	CompletedOI
+S1e I4.82	OPER/hypothesis-structure	ObservationalIndependence
+S1e I4.85	OPER/hypothesis-structure	ReversibleRichness
+S1e I4.86	OPER/definition-as-hypothesis	IsShiftedTheory
+S1e I4.87	OPER/hypothesis-structure	ObserverRecursion
+S1e I4.88	OPER/hypothesis-structure	OIPlus
+S1e I4.96	OPER/hypothesis-structure	ObservationalIndependence
+S1e I4.99	OPER/hypothesis-structure	ReversibleRichness
+S1e I4.102	OPER/hypothesis-structure	OIPlus
+S1e I4.106	DEF/definition-as-hypothesis	TheoryFamily
+S1e I4.107	OPER/hypothesis-structure	RegroupingInvariant
+S1e I4.108	OPER/hypothesis-structure	RelabellingInvariant
+S1e I4.109	OPER/hypothesis-structure	IsAmbientMember
+S1e I4.110	OPER/hypothesis-structure	EmbeddedObservation
+S1e I4.115	OPER/hypothesis-structure	OIPlusEmbedded
+S1e I4.118	OPER/hypothesis-structure	PhaseFreeRichness
+S1e I4.120	OPER/hypothesis-structure	OIPlusMin
+S1e I4.123	OPER/hypothesis-structure	CyclicRichness
+S1e I4.124	OPER/hypothesis-structure	OIPlusPos
+S1e I4.127	OPER/hypothesis-structure	InverseAccessibility
+S1e I4.128	OPER/hypothesis-structure	LieRankRichness
+S1e I4.132	OPER/hypothesis-structure	DaggerStable
+S1e I4.133	OPER/hypothesis-structure	ReversibleImplementationLocality
+S1e I4.134	OPER/hypothesis-structure	UnitaryRaySaturated
+S1e I4.137	OPER/hypothesis-structure	OIPlusMicro
+S1e I4.140	DEF/definition-as-hypothesis	posReach
+S1e I4.143	OPER/hypothesis-structure	DrivesElementary
+S1e I4.144	OPER/hypothesis-structure	QuantumArchitecture
+S1e I4.148	DEF/definition-as-hypothesis	IsMonomial
+S1e I4.149	OPER/hypothesis-structure	MonomialSource
+S1e I4.155	DEF/definition-as-hypothesis	ReadWriteFamily
+S1e I4.156	OPER/hypothesis-structure	ReadWriteSourced
+S1e I4.172	DEF/definition-as-hypothesis	KillBattery
+S1e I4.174	DEF/definition-as-hypothesis	PolGen
+S1e I4.175	DEF/definition-as-hypothesis	MixR
+S1e I4.179	OPER/hypothesis-structure	PairFlowSourced
+S1e I4.182	OPER/hypothesis-structure	NonMonomialCountablyCovered
+S1e I4.183	OPER/hypothesis-structure	UncountableNonMonomialRays
+S1e I4.186	OPER/hypothesis-structure	TypedOperationalTheory
+S1e I4.187	OPER/hypothesis-structure	ShadowQuantum
+S1e I4.188	DEF/definition-as-hypothesis	IsTypedKrausInstrument
+S1e I4.195	DEF/definition-as-hypothesis	Quasilocal
+S1e I4.196	OPER/hypothesis-structure	IsStateFamily
+S1e I4.197	OPER/hypothesis-structure	FiniteRange
+S1e I4.198	OPER/hypothesis-structure	ReversibleDynamics
+S1e I4.201	OPER/hypothesis-structure	QuasilocalSystem
+S1e I4.202	DEF/definition-as-hypothesis	IsState
+S1e I4.203	OPER/hypothesis-structure	OISystem
+S1e I4.204	OPER/definition-as-hypothesis	LocalityPreserving
+S1e I4.213	OPER/hypothesis-structure	OrderIsoHyp
+S1e I4.217	OPER/definition-as-hypothesis	IsPassiveInstrument
+S1e I4.218	OPER/definition-as-hypothesis	SeparatesStates
+S1e I4.220	OPER/hypothesis-structure	PassivelyIncomplete
+S1e I4.221	OPER/definition-as-hypothesis	KeepsLabels
+S1e I4.222	OPER/hypothesis-structure	PassivelyCompleteOnDiagonal
+S1e I4.225	DEF/definition-as-hypothesis	MinimalCarrier
+S1e I4.226	OPER/definition-as-hypothesis	ObservationCongruence
+S1e I4.227	OPER/hypothesis-structure	PassivelyMinimal
+S1e I4.233	OPER/obligation	Kₙ — elementary-to-arbitrary-carrier lift
+S1e I4.234	OPER/obligation	Kₙ census — disposition and §1 (no theorem consumes the reco
+S1e I4.235	OPER/obligation	Kₙ census §3 — the K3 interfaces take every finite carrier a
+S1e I4.236	OPER/obligation	Kₙ census §4 — scope of K∞'s geometric branch
+S1e I4.238	OPER/obligation	H-∞ — finite to continuum / infinite-dimensional completion
+S1e I4.240	DEF/definition-as-hypothesis	substratumTheory
+S1e I4.241	OPER/hypothesis-structure	DerivedOI
+S1e I4.242	OPER/hypothesis-structure	ConfigurationLevel
+S1e I4.243	OPER/hypothesis-structure	HControl
+S1e I4.244	OPER/hypothesis-structure	ElementaryTransitionRichness
+S1e I4.245	OPER/hypothesis-structure	OIPlusElem
+S1e I4.246	OPER/hypothesis-structure	HComp
+S1e I4.247	OPER/hypothesis-structure	OnesFixing
+S1e I4.248	OPER/hypothesis-structure	SourcedOI
+== S2 do-not-assume
+S2 I2.3	The operational-extension boundary	class e/NEUTRAL/manuscript-principle	status: scope statement (components: I2.39 proved [K]; I2.12 proved [M]; I2.17 proved [M] with imported half; I2.29 manuscript statement of an I4 kernel result)
+S2u I2.3	appears as a hypothesis of 0 derived nodes: 
+S2p I2.3	of which in Anc(P): none
+S2 I2.29	The operational-completion characterization (manuscript statement; ker	class c/	status: proved [K] per the manuscript's kernel citation (`exactAll_iff_physical_general`, `general_characterization`, GeneralCarrier.lean) — kernel side out of scope: I4
+S2u I2.29	appears as a hypothesis of 1 derived nodes: I2.30
+S2p I2.29	of which in Anc(P): none
+S2 I2.30	Bare finite OI does not imply QM; OI-compatible theory plus (i)–(v) if	class c/	status: proved [K] per manuscript citation (`main_result`, `oi_compatible_classification`, `oi_alone_not_qm` in GeneralCarrier.lean; `five_way_minimality` in RankGapTheory.lean) — kernel side out of scope: I4
+S2u I2.30	appears as a hypothesis of 0 derived nodes: 
+S2p I2.30	of which in Anc(P): none
+S2 I2.31	Quantum-complete OI (OI⁺): observational independence, reversible rich	class e/OPER/definition-as-hypothesis	status: equivalence proved [K] per manuscript citation (`carrier_general_oiPlus`, `oiPlus_iff_completedOI`, `oiPlus_independence`) — kernel side out of scope: I4; the three principles assumed (not derived from bare OI: "None of observational independence, reversible richness, or observer recursion follows from the OI core")
+S2u I2.31	appears as a hypothesis of 0 derived nodes: 
+S2p I2.31	of which in Anc(P): none
+S2 I2.32	Primitive-source form: implementation locality, phase-free richness, e	class c/	status: equivalence proved [K] per manuscript citation (`carrier_general_oiPlusMin`, `oiPlusMin_iff_qm`, `carrier_general_oiPlusPos`) — kernel side out of scope: I4; the principles assumed
+S2u I2.32	appears as a hypothesis of 0 derived nodes: 
+S2p I2.32	of which in Anc(P): none
+S2 I2.33	Substratum-source form	class c/	status: proved [K] per manuscript citation (`substratum_plus_control_qm`, `substratum_extension_quantum_iff_drives`, `readWriteSourced_not_qm`) — kernel side out of scope: I4; the phase intervention and the controllability resource are assumed ("an empirical extension of the current substratum")
+S2u I2.33	appears as a hypothesis of 3 derived nodes: I2.34 I2.35 I2.36
+S2p I2.33	of which in Anc(P): none
+S2 I2.34	Layer-flow form	class c/	status: proved [K] per manuscript citation (`derivedOI_qm_iff_layerFlowExecutable'`, `substratumTheory_not_layerFlowExecutable`, `obs_not_layerFlowExecutable`) — kernel side out of scope: I4; executability assumed, not derived
+S2u I2.34	appears as a hypothesis of 0 derived nodes: 
+S2p I2.34	of which in Anc(P): none
+S2 I2.35	Typed form	class c/	status: proved [K] per manuscript citation (`typed_determined_iff`, `typed_determined_of_oiPlusMin`, `typed_interface_not_quantum`) — kernel side out of scope: I4
+S2u I2.35	appears as a hypothesis of 0 derived nodes: 
+S2p I2.35	of which in Anc(P): none
+S2 I2.62	Comparison of routes and dependency scope: in-house, imported, additio	class e/NEUTRAL/manuscript-principle	status: scope statement (components I2.39, I2.44, I2.56, I2.29)
+S2u I2.62	appears as a hypothesis of 0 derived nodes: 
+S2p I2.62	of which in Anc(P): none
+S2 I2.63	Operational-reconstruction route: target conditions and the outstandin	class e/NEUTRAL/manuscript-principle	status: scope statement
+S2u I2.63	appears as a hypothesis of 0 derived nodes: 
+S2p I2.63	of which in Anc(P): none
+S2 I2.69	The claim structure: the four layers, the four-part theorem statement,	class e/NEUTRAL/manuscript-principle	status: scope statement (layers 1–3 proved; layer 4 / part (4) requires additional hypotheses)
+S2u I2.69	appears as a hypothesis of 1 derived nodes: I2.14
+S2p I2.69	of which in Anc(P): none
+S2 I3.6	`actT`	class e/DEF/definition-as-hypothesis	status: proved [K] (definition)
+S2u I3.6	appears as a hypothesis of 1 derived nodes: I3.185
+S2p I3.6	of which in Anc(P): none
+S2 I3.7	`actC`	class e/DEF/definition-as-hypothesis	status: proved [K] (definition)
+S2u I3.7	appears as a hypothesis of 1 derived nodes: I3.185
+S2p I3.7	of which in Anc(P): none
+S2 I3.66	`ElementaryDrivability` (K∞-Drive)	class e/OPER/hypothesis-structure	status: assumed / open — ROADMAP.md:1017 "**K∞-Drive** — field-neutral drivability, `ElementaryDrivability`", K∞ OPEN, "All are unsourced" (ROADMAP.md:1009); KINF-2 "named here as definitions, discharged by no OI construction"; instance proved [K] for the control `ball3` (I3.67)
+S2u I3.66	appears as a hypothesis of 3 derived nodes: I3.72 I3.78 I3.84
+S2p I3.66	of which in Anc(P): none
+S2 I3.80	`boundaryTransitive_fullAut3`	class a/a0	status: proved [K]
+S2u I3.80	appears as a hypothesis of 0 derived nodes: 
+S2p I3.80	of which in Anc(P): none
+S2 I3.83	`boundaryTransitive_ball3Drive` (with `driveWords3`)	class a/a0	status: proved [K]
+S2u I3.83	appears as a hypothesis of 0 derived nodes: 
+S2p I3.83	of which in Anc(P): none
+S2 I3.118	`JointReversible`	class e/OPER/hypothesis-structure	status: assumed (a predicate; no OI source; KT4-PREM-1 / PT stage 1 B: `JointReversible`/`PreservesBody` of the pair slice restates `hgate`)
+S2u I3.118	appears as a hypothesis of 1 derived nodes: I3.122
+S2p I3.118	of which in Anc(P): none
+S2 I3.137	IE1 (`IE1`, with `IsRot3`, `IsOrth3`)	class e/OPER/definition-as-hypothesis	status: not at L — [D] FourCopyCore.lean:155–157; conclusion of I3.139 (CONDITIONAL on the five premises, [D]); PT stage 1–3: INDEPENDENT of L; fails on every exotic cone of stage 3
+S2u I3.137	appears as a hypothesis of 1 derived nodes: I3.187
+S2p I3.137	of which in Anc(P): none
+S2 I3.139	`kt4_forward_ie1` (Theorem A′, the audited theorem)	class e/OPER/theorem	status: not at L — [D] "kernel-checked in a design run, not certified" (KT4-PREM-1 result.md:188, :241)
+S2u I3.139	appears as a hypothesis of 0 derived nodes: 
+S2p I3.139	of which in Anc(P): none
+S2 I3.142	`IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the drive w	class e/OPER/definition-as-hypothesis	status: not at L — [D]; `ie1Drive_of_ie1` is "Open." with proof `sorry` (FourCopyPackage.lean:291–293)
+S2u I3.142	appears as a hypothesis of 0 derived nodes: 
+S2p I3.142	of which in Anc(P): none
+S2 I3.144	`Q3`, `twin`, `pauliW`, `twistQ3`	class e/OPER/definition-as-hypothesis	status: not at L — [D] in the `sorry` preflight FourCopyPackage.lean:174–190; in the kernel at L `Q3` occurs only as a question label in DerivedQ3/FlowEndpoint (name collision, I4's scope), and the twin enters only as `actT reflY` with `cnot idW = chainW` (K2Guard.lean:110)
+S2u I3.144	appears as a hypothesis of 0 derived nodes: 
+S2p I3.144	of which in Anc(P): none
+S2 I3.146	P-ACT2 (named premise of KT4-PREM-1)	class e/OPER/hypothesis-structure	status: assumed (named premise of the landed KT4-PREM-1 record; a premise `D` does not state) (KT4-PREM-1 result.md:162)
+S2u I3.146	appears as a hypothesis of 0 derived nodes: 
+S2p I3.146	of which in Anc(P): none
+S2 I3.150	(b_S4) — the full rotation group of one token acts on the pair preserv	class e/OPER/hypothesis-structure	status: PT-record: open — "INDEPENDENT of H1–H3 plus the certified pair structure at L" (PROTOCOL-STAGE5.md:17–20; INTEGRATION-NOTE-STAGE4.md:20, :118–123); sufficient for `K = Q3` given H1–H3 (stage 4, [W + X], audited)
+S2u I3.150	appears as a hypothesis of 0 derived nodes: 
+S2p I3.150	of which in Anc(P): none
+S2 I3.151	(b_n) — one rotation subgroup of one token about an off-frame axis	class e/OPER/hypothesis-structure	status: PT-record: open; stage 4 record S3[n]: "UNIQUE iff n is off the native frame's coordinate axes (level (ii))" (INTEGRATION-NOTE-STAGE4.md:40)
+S2u I3.151	appears as a hypothesis of 0 derived nodes: 
+S2p I3.151	of which in Anc(P): none
+S2 I3.152	(b_R1) — one order-3 rotation of one token about (5,1,1)	class e/OPER/hypothesis-structure	status: PT-record: open; stage 4 record R1: "UNIQUE [W + X]; its only proper sub-extension (cnot alone) EXOTIC-X" (INTEGRATION-NOTE-STAGE4.md:42)
+S2u I3.152	appears as a hypothesis of 0 derived nodes: 
+S2p I3.152	of which in Anc(P): none
+S2 I3.153	(b_DJ) — the native drive with the native `J` acting on one token	class e/OPER/hypothesis-structure	status: PT-record: open; stage 4: "The drive the corpus attaches to the NOT (`nflip`, axis x; corner axis `z3`) lies exactly on the exceptional set: its idle extension does not force `Q3`. Idle extension of the drive together with its off-axis conjugate (`J_off_axis` of `ElementaryDrivability`, KInfFoundations.lean:264, 276) contains S4 and does." (INTEGRATION-NOTE-STAGE4.md:113–116)
+S2u I3.153	appears as a hypothesis of 0 derived nodes: 
+S2p I3.153	of which in Anc(P): none
+S2 I3.154	IE2 — idle extension of the pair interaction groups	class e/OPER/hypothesis-structure	status: PT-record: open ("IE₂ open", INTEGRATION-REVIEW.md:187, :211); forbidden as a premise (PROTOCOL.md:82; PROTOCOL-STAGE3.md:133)
+S2u I3.154	appears as a hypothesis of 0 derived nodes: 
+S2p I3.154	of which in Anc(P): none
+S2 I3.155	frame covariance (FC) of the native gate	class e/OPER/hypothesis-structure	status: PT-record: flagged; "FC ⟺ IE1 given hgate, with exact words confirmed" (INTEGRATION-ADDENDUM-STAGE2.md:124); candidate μ "fails the disguise test by record" (PROTOCOL-STAGE5.md:95)
+S2u I3.155	appears as a hypothesis of 0 derived nodes: 
+S2p I3.155	of which in Anc(P): none
+S2 I3.165	K2 — the composite	class e/OPER/obligation	status: open (ROADMAP.md:1001 "**K2 — the composite. OPEN.**")
+S2u I3.165	appears as a hypothesis of 0 derived nodes: 
+S2p I3.165	of which in Anc(P): none
+S2 I3.184	the operational-reconstruction route: reconstruction axioms as hypothe	class c/	status: conditional — the manuscript states the route as "a classification conditional on the five completion conditions, not an independent derivation" (Main.md:352)
+S2u I3.184	appears as a hypothesis of 0 derived nodes: 
+S2p I3.184	of which in Anc(P): none
+S2 I3.187	the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ IE1 ⇒ K_	class c/	status: conditional-on IE1, `hcls`, `hadm`, `hgate`; "a written argument and it is not yet kernel-checked" (KT4-PREM-1 result.md:142); finite steps exact (probe checks C1–C6); one standard Lie-theory input "not checked" (:140–141)
+S2u I3.187	appears as a hypothesis of 0 derived nodes: 
+S2p I3.187	of which in Anc(P): none
+S2 I4.3	HasParallelReferenceExtension	class e/OPER/hypothesis-structure	status: assumed (never discharged for a general theory at L). Satisfiable: hcompRealized_consistent_with_parallelReferenceExtension (SpectatorBridge.lean:472) [K]; refuted for the round-34 `countermodel` (countermodel_not_parallelReferenceExtension, :501) [K]; not supplied by composite unitary control (control_not_implies_parallelReferenceExtension, :507) [K] nor by the other OI⁺ principles (oiPlus_independence, CompletedOI.
+S2d I4.3	[. Satisfiable:] hcompRealized_consistent_with_parallelReferenceExtension (SpectatorBridge.lean:472) -> I4.22 [a/a0]	premises: (none)
+S2d I4.3	[refuted for the round-34 `countermodel`] countermodel_not_parallelReferenceExtension (:501) -> I4.9 [a/a0]	premises: (none)
+S2d I4.3	[not supplied by composite unitary control] control_not_implies_parallelReferenceExtension (:507) -> I4.10 [a/a0]	premises: K:countermodel;K:countermodel_control
+S2d I4.3	[[K] nor by the other OI⁺ principles] oiPlus_independence (CompletedOI.lean:506) -> I4.95 [c/]	premises: I4.64
+S2d I4.3	[equivalent to] InertSpectatorCompositionality (SpectatorBridge.lean:233) -> I4.14 [e/OPER/hypothesis-structure]	premises: I4.64;I4.12
+S2d I4.3	[implied by] ImplementationLocality (ImplementationLocality.lean:957) -> I4.31 [e/OPER/hypothesis-structure]	premises: I4.28;I4.29;I4.30
+S2u I4.3	appears as a hypothesis of 1 derived nodes: I4.5
+S2p I4.3	of which in Anc(P): none
+S2 I4.4	HasQutritReferenceExtension	class e/OPER/hypothesis-structure	status: assumed; implied by HasParallelReferenceExtension (qutrit_of_parallel, :474) [K]; refuted for `countermodel` (countermodel_not_qutritReferenceExtension, :492) [K]
+S2d I4.4	[implied by HasParallelReferenceExtension] qutrit_of_parallel (:474) -> I4.5 [c/]	premises: I4.3;I4.64
+S2d I4.4	[refuted for `countermodel`] countermodel_not_qutritReferenceExtension (:492) -> I4.8 [a/a0]	premises: K:countermodel;K:countermodel_reduction2_available
+S2u I4.4	appears as a hypothesis of 0 derived nodes: 
+S2p I4.4	of which in Anc(P): none
+S2 I4.14	InertSpectatorCompositionality	class e/OPER/hypothesis-structure	status: assumed (hypothesis of krausSoundExt_of_sound_control_inert (:249), exactAll_iff_substantive (GeneralCarrier.lean:144) and, through PhysicalCompletionConditions, of exactAll_iff_physical_general (GeneralCarrier.lean:100)); equivalent to HasParallelReferenceExtension (:233) [K]; refuted for `countermodel` (:460) [K]; necessary for exact finite QM (physical_of_exactAll, PhysicalCharacterization.lean:301) [K]
+S2d I4.14	[hypothesis of] krausSoundExt_of_sound_control_inert (:249) -> I4.16 [c/]	premises: K:FiniteIsometryExtensionSF;K:KrausSound;I4.67;I4.14;I4.64
+S2d I4.14	[] exactAll_iff_substantive (GeneralCarrier.lean:144) -> I4.75 [c/]	premises: I4.73;I4.64
+S2d I4.14	[and, through PhysicalCompletionConditions, of] exactAll_iff_physical_general (GeneralCarrier.lean:100) -> I4.71 [c/]	premises: I4.64
+S2d I4.14	[equivalent to] HasParallelReferenceExtension (:233) -> I4.3 [e/OPER/hypothesis-structure]	premises: I4.64;I4.1
+S2d I4.14	[necessary for exact finite QM] physical_of_exactAll (PhysicalCharacterization.lean:301) -> no record	declared arguments: PhysicalCharacterization.lean:301 FiniteOperationalTheory, ExactAllFiniteEndomorphicQuantumOps
+S2u I4.14	appears as a hypothesis of 2 derived nodes: I1.46 I4.16
+S2p I4.14	of which in Anc(P): none
+S2 I4.29	ContextStable	class e/OPER/hypothesis-structure	status: assumed in general; discharged for the substratum class (substratumClass_contextStable, StructuralClosure.lean:261) [K] and for StateMixingCoupling's class (mixC_contextStable, StateMixingCoupling.lean:442) [K]
+S2d I4.29	[discharged for the substratum class] substratumClass_contextStable (StructuralClosure.lean:261) -> no record	declared arguments: StructuralClosure.lean:261 (none: closed statement)
+S2d I4.29	[[K] and for StateMixingCoupling's class] mixC_contextStable (StateMixingCoupling.lean:442) -> no record	declared arguments: StateMixingCoupling.lean:442 (none: closed statement)
+S2u I4.29	appears as a hypothesis of 2 derived nodes: I4.176 I4.35
+S2p I4.29	of which in Anc(P): none
+S2 I4.31	ImplementationLocality	class e/OPER/hypothesis-structure	status: assumed; satisfied by exact finite QM (implementationLocality_of_qm, :1017) [K]; not supplied by the OI core, validity, reversible richness and embedded observation (implementationLocality_independent, :1035) [K]
+S2d I4.31	[satisfied by exact finite QM] implementationLocality_of_qm (:1017) -> I4.39 [c/]	premises: I4.70;I4.64
+S2d I4.31	[not supplied by the OI core, validity, reversible richness and embedded observation] implementationLocality_independent (:1035) -> I4.41 [a/a0]	premises: (none)
+S2u I4.31	appears as a hypothesis of 2 derived nodes: I4.37 I4.38
+S2p I4.31	of which in Anc(P): none
+S2 I4.42	OIPlusLocal	class e/OPER/hypothesis-structure	status: assumed; equivalent to exact finite operational QM on every nonempty finite carrier (carrier_general_oiPlusLocal, :1079) [K]
+S2d I4.42	[equivalent to exact finite operational QM on every nonempty finite carrier] carrier_general_oiPlusLocal (:1079) -> I4.43 [c/]	premises: I4.64
+S2u I4.42	appears as a hypothesis of 0 derived nodes: 
+S2p I4.42	of which in Anc(P): none
+S2 I4.45	StructurallyClosed	class e/OPER/hypothesis-structure	status: assumed for an extension (hypothesis of quantumArchitecture_iff_drives_of_closed, substratum_extension_quantum_iff_drives, substratum_plus_control_qm); discharged for substratumClass itself (substratumClass_structurallyClosed, :316) [K]
+S2d I4.45	[discharged for substratumClass itself] substratumClass_structurallyClosed (:316) -> I4.46 [a/a0]	premises: I4.44
+S2u I4.45	appears as a hypothesis of 4 derived nodes: I2.33 I4.47 I4.51 I4.52
+S2p I4.45	of which in Anc(P): none
+S2 I4.56	LayerFlowExecutable	class e/OPER/hypothesis-structure	status: assumed; holds under composite unitary control (layerFlowExecutable_of_control, :117) [K]; fails in the substratum theory for every involution moving a configuration (substratumTheory_not_layerFlowExecutable, :200) and in the theory of any configuration-level class (:183) [K]; the ROADMAP lists 'Executable intermediate layer flow' as INDEPENDENT (ROADMAP.md:1401)
+S2d I4.56	[holds under composite unitary control] layerFlowExecutable_of_control (:117) -> I4.57 [c/]	premises: I4.67;I4.64
+S2d I4.56	[fails in the substratum theory for every involution moving a configuration] substratumTheory_not_layerFlowExecutable (:200) -> I4.59 [a/a0]	premises: (none)
+S2u I4.56	appears as a hypothesis of 4 derived nodes: I4.160 I4.164 I4.184 I4.61
+S2p I4.56	of which in Anc(P): none
+S2 I4.65	PhysicalCompletionConditions	class e/OPER/hypothesis-structure	status: assumed; necessary for exact finite QM (physical_of_exactAll, PhysicalCharacterization.lean:301) [K]; jointly satisfiable (main_result clause (ii)) [K]; each of the five independent of the other four and of OI realization on the qubit (main_result clause (iii)) [K]
+S2d I4.65	[necessary for exact finite QM] physical_of_exactAll (PhysicalCharacterization.lean:301) -> no record	declared arguments: PhysicalCharacterization.lean:301 FiniteOperationalTheory, ExactAllFiniteEndomorphicQuantumOps
+S2u I4.65	appears as a hypothesis of 0 derived nodes: 
+S2p I4.65	of which in Anc(P): none
+S2 I4.66	CompositeOperationalValidity	class e/OPER/hypothesis-structure	status: assumed; derived from ImplementationLocality (validity_of_implementationLocality, ImplementationLocality.lean:971) [K]; necessary for exact QM [K]
+S2d I4.66	[derived from ImplementationLocality] validity_of_implementationLocality (ImplementationLocality.lean:971) -> I4.38 [c/]	premises: I4.31;I4.64
+S2u I4.66	appears as a hypothesis of 0 derived nodes: 
+S2p I4.66	of which in Anc(P): none
+S2 I4.67	HasCompositeUnitaryControl	class e/OPER/hypothesis-structure	status: assumed; derived from ReversibleRichness (control_of_reversibleRichness, CarrierGeneralOIPlus.lean:127) [K], from LieRankRichness (control_of_lieRank, MicroscopicReversibility.lean:114) [K], from PhaseFreeRichness with IteratedAncillaClosure (control_of_phaseFree, MinimalRepertoire.lean:529) [K]; refuted for the substratum's monomial sources (monomialSource_not_control, SubstratumInterface.lean:186; readWriteSourced_
+S2d I4.67	[derived from ReversibleRichness] control_of_reversibleRichness (CarrierGeneralOIPlus.lean:127) -> I4.100 [c/]	premises: I4.99;I4.64
+S2d I4.67	[[K], from LieRankRichness] control_of_lieRank (MicroscopicReversibility.lean:114) -> I4.130 [c/]	premises: I4.128;I4.64
+S2d I4.67	[[K], from PhaseFreeRichness with IteratedAncillaClosure] control_of_phaseFree (MinimalRepertoire.lean:529) -> I4.119 [c/]	premises: I4.68;I4.118;I4.64
+S2d I4.67	[] readWriteSourced_not_control (ReadWriteControl.lean:169) -> I4.157 [c/]	premises: I4.156;I4.64
+S2u I4.67	appears as a hypothesis of 6 derived nodes: I1.44 I4.101 I4.16 I4.20 I4.57 I4.77
+S2p I4.67	of which in Anc(P): none
+S2 I4.68	IteratedAncillaClosure	class e/OPER/hypothesis-structure	status: assumed; derived from EmbeddedObservation (closure_of_embedded, EmbeddedObservation.lean:184) [K]
+S2d I4.68	[derived from EmbeddedObservation] closure_of_embedded (EmbeddedObservation.lean:184) -> I4.111 [c/]	premises: I4.107;I4.108;I4.109;I4.64;I4.106
+S2u I4.68	appears as a hypothesis of 2 derived nodes: I1.46 I4.119
+S2p I4.68	of which in Anc(P): none
+S2 I4.69	SystemToLevelOne	class e/OPER/hypothesis-structure	status: assumed; derived from EmbeddedObservation (systemToLevelOne_of_embedded, EmbeddedObservation.lean:203) [K]; necessary for exact QM (levelOne_of_exactAll, PhysicalCharacterization.lean:285) [K]
+S2d I4.69	[derived from EmbeddedObservation] systemToLevelOne_of_embedded (EmbeddedObservation.lean:203) -> I4.112 [c/]	premises: I4.107;I4.108;I4.109;I4.64;I4.106
+S2d I4.69	[necessary for exact QM] levelOne_of_exactAll (PhysicalCharacterization.lean:285) -> no record	declared arguments: PhysicalCharacterization.lean:285 FiniteOperationalTheory, ExactAllFiniteEndomorphicQuantumOps
+S2u I4.69	appears as a hypothesis of 0 derived nodes: 
+S2p I4.69	of which in Anc(P): none
+S2 I4.70	ExactAllFiniteEndomorphicQuantumOps	class e/OPER/hypothesis-structure	status: assumed where it is a hypothesis (the necessity directions: implementationLocality_of_qm, qm_generated_by_substratum_extension, oiPlus_of_qm, ...); never derived from the OI core alone (oi_alone_not_qm, GeneralCarrier.lean:160) [K]
+S2d I4.70	[never derived from the OI core alone] oi_alone_not_qm (GeneralCarrier.lean:160) -> I4.76 [a/a0]	premises: (none)
+S2u I4.70	appears as a hypothesis of 6 derived nodes: I1.48 I1.54 I4.136 I4.146 I4.39 I4.53
+S2p I4.70	of which in Anc(P): none
+S2 I4.73	WellFormed	class e/OPER/hypothesis-structure	status: assumed (hypothesis of exactAll_iff_substantive, reversibleRichness_of_control, inverseAccessibility_of_lieRank; conjunct of OIPlus)
+S2u I4.73	appears as a hypothesis of 4 derived nodes: I1.82 I4.101 I4.131 I4.75
+S2p I4.73	of which in Anc(P): none
+S2 I4.74	SubstantiveCompletion	class e/OPER/hypothesis-structure	status: assumed
+S2u I4.74	appears as a hypothesis of 0 derived nodes: 
+S2p I4.74	of which in Anc(P): none
+S2 I4.80	CompletedOI	class e/OPER/hypothesis-structure	status: assumed; equivalent to PhysicalCompletionConditions (completedOI_iff_physical, :110) [K]
+S2d I4.80	[equivalent to PhysicalCompletionConditions] completedOI_iff_physical (:110) -> I4.81 [c/]	premises: I4.64
+S2u I4.80	appears as a hypothesis of 0 derived nodes: 
+S2p I4.80	of which in Anc(P): none
+S2 I4.82	ObservationalIndependence	class e/OPER/hypothesis-structure	status: assumed; by definition HasParallelReferenceExtension T; equivalent to InertSpectatorCompositionality (observationalIndependence_iff_inert, :131) [K]; independent of OICore, WellFormed, ReversibleRichness, ObserverRecursion (independence_independent, :475) [K]
+S2d I4.82	[equivalent to InertSpectatorCompositionality] observationalIndependence_iff_inert (:131) -> I4.83 [c/]	premises: I4.64
+S2d I4.82	[independent of OICore, WellFormed, ReversibleRichness, ObserverRecursion] independence_independent (:475) -> I4.92 [c/]	premises: I4.64
+S2u I4.82	appears as a hypothesis of 1 derived nodes: I4.84
+S2p I4.82	of which in Anc(P): none
+S2 I4.85	ReversibleRichness	class e/OPER/hypothesis-structure	status: assumed; independent of the other OI⁺ principles (richness_independent, :487; oiPlus_independence, :506) [K]
+S2d I4.85	[] oiPlus_independence (:506) -> I4.95 [c/]	premises: I4.64
+S2u I4.85	appears as a hypothesis of 0 derived nodes: 
+S2p I4.85	of which in Anc(P): none
+S2 I4.87	ObserverRecursion	class e/OPER/hypothesis-structure	status: assumed; derived from EmbeddedObservation (observerRecursion_of_embeddedObservation, EmbeddedObservation.lean:217) [K]; independent of the other OI⁺ principles (recursion_independent, :496) [K]
+S2d I4.87	[derived from EmbeddedObservation] observerRecursion_of_embeddedObservation (EmbeddedObservation.lean:217) -> I4.113 [c/]	premises: I4.110;I4.64
+S2d I4.87	[independent of the other OI⁺ principles] recursion_independent (:496) -> I4.94 [c/]	premises: I4.64
+S2u I4.87	appears as a hypothesis of 0 derived nodes: 
+S2p I4.87	of which in Anc(P): none
+S2 I4.88	OIPlus	class e/OPER/hypothesis-structure	status: assumed; equivalent to exact finite operational QM on the qubit (oiPlus_iff_qm, :440) [K]
+S2d I4.88	[equivalent to exact finite operational QM on the qubit] oiPlus_iff_qm (:440) -> I4.90 [c/]	premises: I4.64
+S2u I4.88	appears as a hypothesis of 1 derived nodes: I4.89
+S2p I4.88	of which in Anc(P): none
+S2 I4.96	ObservationalIndependence	class e/OPER/hypothesis-structure	status: assumed; by definition HasParallelReferenceExtension T; implied by ImplementationLocality (ImplementationLocality.lean:957) [K]
+S2d I4.96	[implied by] ImplementationLocality (ImplementationLocality.lean:957) -> I4.31 [e/OPER/hypothesis-structure]	premises: I4.28;I4.29;I4.30
+S2u I4.96	appears as a hypothesis of 1 derived nodes: I4.98
+S2p I4.96	of which in Anc(P): none
+S2 I4.99	ReversibleRichness	class e/OPER/hypothesis-structure	status: assumed; gives HasCompositeUnitaryControl (control_of_reversibleRichness, :127) [K]; follows from control on a well-formed theory (reversibleRichness_of_control, :148) [K]; ⟺ InverseAccessibility ∧ LieRankRichness (reversibleRichness_iff, MicroscopicReversibility.lean:100) [K]
+S2d I4.99	[gives HasCompositeUnitaryControl] control_of_reversibleRichness (:127) -> I4.100 [c/]	premises: I4.99;I4.64
+S2d I4.99	[follows from control on a well-formed theory] reversibleRichness_of_control (:148) -> I4.101 [c/]	premises: I4.73;I4.67;I4.64
+S2d I4.99	[⟺ InverseAccessibility ∧ LieRankRichness] reversibleRichness_iff (MicroscopicReversibility.lean:100) -> no record	declared arguments: MicroscopicReversibility.lean:101 (none: closed statement)
+S2u I4.99	appears as a hypothesis of 1 derived nodes: I4.100
+S2p I4.99	of which in Anc(P): none
+S2 I4.102	OIPlus	class e/OPER/hypothesis-structure	status: assumed; equivalent to exact finite operational QM on every nonempty finite carrier (carrier_general_oiPlus, :213) [K]
+S2d I4.102	[equivalent to exact finite operational QM on every nonempty finite carrier] carrier_general_oiPlus (:213) -> I4.104 [c/]	premises: I4.64
+S2u I4.102	appears as a hypothesis of 0 derived nodes: 
+S2p I4.102	of which in Anc(P): none
+S2 I4.110	EmbeddedObservation	class e/OPER/hypothesis-structure	status: assumed; implies ObserverRecursion (:217), IteratedAncillaClosure (:184) and SystemToLevelOne (:203) [K]; holds for exact QM (embeddedObservation_of_qm, :327) [K] and for every theory generated by a label-invariant architecture (genTheory_embeddedObservation, ImplementationLocality.lean:904) [K]; independent of OICore, WellFormed, ObservationalIndependence, ReversibleRichness (embeddedObservation_independent, :343) [
+S2d I4.110	[implies] ObserverRecursion (:217) -> I4.87 [e/OPER/hypothesis-structure]	premises: I4.86
+S2d I4.110	[] IteratedAncillaClosure (:184) -> I4.68 [e/OPER/hypothesis-structure]	premises: I4.64
+S2d I4.110	[and] SystemToLevelOne (:203) -> I4.69 [e/OPER/hypothesis-structure]	premises: I4.64
+S2d I4.110	[holds for exact QM] embeddedObservation_of_qm (:327) -> no record	declared arguments: EmbeddedObservation.lean:327 Nonempty, FiniteOperationalTheory, ExactAllFiniteEndomorphicQuantumOps
+S2d I4.110	[[K] and for every theory generated by a label-invariant architecture] genTheory_embeddedObservation (ImplementationLocality.lean:904) -> I4.36 [c/]	premises: I4.30;I4.32
+S2d I4.110	[independent of OICore, WellFormed, ObservationalIndependence, ReversibleRichness] embeddedObservation_independent (:343) -> I4.114 [a/a0]	premises: (none)
+S2u I4.110	appears as a hypothesis of 1 derived nodes: I4.113
+S2p I4.110	of which in Anc(P): none
+S2 I4.115	OIPlusEmbedded	class e/OPER/hypothesis-structure	status: assumed; ⟺ OIHierarchyGeneral.OIPlus (oiPlusEmbedded_iff_oiPlus, :388) [K]; ⟺ exact finite operational QM (:384) [K]
+S2d I4.115	[⟺ OIHierarchyGeneral.OIPlus] oiPlusEmbedded_iff_oiPlus (:388) -> no record	declared arguments: EmbeddedObservation.lean:388 (none: closed statement)
+S2u I4.115	appears as a hypothesis of 0 derived nodes: 
+S2p I4.115	of which in Anc(P): none
+S2 I4.118	PhaseFreeRichness	class e/OPER/hypothesis-structure	status: assumed; implied by LayerFlowExecutable under SubstratumAvail (phaseFree_of_layerFlowExecutable, LiftAudit.lean:783) [K] and by CyclicRichness (phaseFree_of_cyclic) [K]; gives control with IteratedAncillaClosure (control_of_phaseFree, :529) [K]
+S2d I4.118	[implied by LayerFlowExecutable under SubstratumAvail] phaseFree_of_layerFlowExecutable (LiftAudit.lean:783) -> I4.61 [c/]	premises: I4.60;I4.56;I4.64
+S2d I4.118	[gives control with IteratedAncillaClosure] control_of_phaseFree (:529) -> I4.119 [c/]	premises: I4.68;I4.118;I4.64
+S2u I4.118	appears as a hypothesis of 2 derived nodes: I1.53 I4.119
+S2p I4.118	of which in Anc(P): none
+S2 I4.120	OIPlusMin	class e/OPER/hypothesis-structure	status: assumed; ⟺ exact finite operational QM (oiPlusMin_iff_qm, :569) [K]
+S2d I4.120	[⟺ exact finite operational QM] oiPlusMin_iff_qm (:569) -> I4.121 [c/]	premises: I4.64
+S2u I4.120	appears as a hypothesis of 1 derived nodes: I4.194
+S2p I4.120	of which in Anc(P): none
+S2 I4.123	CyclicRichness	class e/OPER/hypothesis-structure	status: assumed; implies PhaseFreeRichness (phaseFree_of_cyclic) [K]
+S2u I4.123	appears as a hypothesis of 0 derived nodes: 
+S2p I4.123	of which in Anc(P): none
+S2 I4.124	OIPlusPos	class e/OPER/hypothesis-structure	status: assumed; ⟺ exact finite operational QM (oiPlusPos_iff_qm, :55) [K]
+S2d I4.124	[⟺ exact finite operational QM] oiPlusPos_iff_qm (:55) -> I4.125 [c/]	premises: I4.64
+S2u I4.124	appears as a hypothesis of 1 derived nodes: I4.193
+S2p I4.124	of which in Anc(P): none
+S2 I4.127	InverseAccessibility	class e/OPER/hypothesis-structure	status: assumed; derived from LieRankRichness on a well-formed theory (inverseAccessibility_of_lieRank, :132) [K] and from a dagger-stable, unitary-ray-saturated generating class (:283) [K]
+S2d I4.127	[derived from LieRankRichness on a well-formed theory] inverseAccessibility_of_lieRank (:132) -> I4.131 [c/]	premises: I4.73;I4.128;I4.64
+S2u I4.127	appears as a hypothesis of 1 derived nodes: I4.129
+S2p I4.127	of which in Anc(P): none
+S2 I4.128	LieRankRichness	class e/OPER/hypothesis-structure	status: assumed
+S2u I4.128	appears as a hypothesis of 3 derived nodes: I4.129 I4.130 I4.131
+S2p I4.128	of which in Anc(P): none
+S2 I4.133	ReversibleImplementationLocality	class e/OPER/hypothesis-structure	status: assumed; holds for exact QM (reversibleImplementationLocality_of_qm, :329) [K]
+S2d I4.133	[holds for exact QM] reversibleImplementationLocality_of_qm (:329) -> I4.136 [c/]	premises: I4.70;I4.64
+S2u I4.133	appears as a hypothesis of 0 derived nodes: 
+S2p I4.133	of which in Anc(P): none
+S2 I4.137	OIPlusMicro	class e/OPER/hypothesis-structure	status: assumed; ⟺ exact finite operational QM (oiPlusMicro_iff_qm, :357) [K]
+S2d I4.137	[⟺ exact finite operational QM] oiPlusMicro_iff_qm (:357) -> I4.138 [c/]	premises: I4.64
+S2u I4.137	appears as a hypothesis of 0 derived nodes: 
+S2p I4.137	of which in Anc(P): none
+S2 I4.143	DrivesElementary	class e/OPER/hypothesis-structure	status: assumed for an extension; refuted for substratumClass (substratumClass_not_drivesElementary, StructuralClosure.lean:370) [K] and for the diagonal class (diagClass_not_drivesElementary, :174) [K]; holds for the full class (fullClass_quantumArchitecture, :151) [K]
+S2d I4.143	[refuted for substratumClass] substratumClass_not_drivesElementary (StructuralClosure.lean:370) -> no record	declared arguments: StructuralClosure.lean:370 (none: closed statement)
+S2d I4.143	[[K] and for the diagonal class] diagClass_not_drivesElementary (:174) -> I4.147 [a/a0]	premises: (none)
+S2d I4.143	[holds for the full class] fullClass_quantumArchitecture (:151) -> no record	declared arguments: SubstratumSource.lean:151 (none: closed statement)
+S2u I4.143	appears as a hypothesis of 2 derived nodes: I2.33 I4.52
+S2p I4.143	of which in Anc(P): none
+S2 I4.144	QuantumArchitecture	class e/OPER/hypothesis-structure	status: assumed; for a structurally closed class ⟺ DrivesElementary (StructuralClosure.lean:364) [K]; refuted for substratumClass (substratumClass_not_quantumArchitecture, StructuralClosure.lean:376) [K]
+S2d I4.144	[for a structurally closed class ⟺] DrivesElementary (StructuralClosure.lean:364) -> I4.143 [e/OPER/hypothesis-structure]	premises: I4.24
+S2d I4.144	[refuted for substratumClass] substratumClass_not_quantumArchitecture (StructuralClosure.lean:376) -> no record	declared arguments: StructuralClosure.lean:376 (none: closed statement)
+S2u I4.144	appears as a hypothesis of 2 derived nodes: I4.145 I4.237
+S2p I4.144	of which in Anc(P): none
+S2 I4.179	PairFlowSourced	class e/OPER/hypothesis-structure	status: assumed; ⟺ (with DerivedOI) exact QM on the qubit (qm_iff_derivedOI_pairFlowSourced, :199) [K]
+S2d I4.179	[exact QM on the qubit] qm_iff_derivedOI_pairFlowSourced (:199) -> I4.180 [c/]	premises: I4.64
+S2u I4.179	appears as a hypothesis of 0 derived nodes: 
+S2p I4.179	of which in Anc(P): none
+S2 I4.187	ShadowQuantum	class e/OPER/hypothesis-structure	status: assumed; ⟺ the typed Kraus determination (typed_determined_iff, :850) [K]; refuted for typedDiag (typedDiag_shadow_not_qm, :940) [K]
+S2d I4.187	[⟺ the typed Kraus determination] typed_determined_iff (:850) -> I4.190 [a/a0]	premises: (none)
+S2d I4.187	[refuted for typedDiag] typedDiag_shadow_not_qm (:940) -> I4.192 [a/a0]	premises: (none)
+S2u I4.187	appears as a hypothesis of 1 derived nodes: I4.189
+S2p I4.187	of which in Anc(P): none
+S2 I4.210	psd_iff_trace_nonneg	class a/a0	status: K
+S2u I4.210	appears as a hypothesis of 0 derived nodes: 
+S2p I4.210	of which in Anc(P): none
+S2 I4.215	psd_trace_mul_nonneg	class a/a0	status: K
+S2u I4.215	appears as a hypothesis of 0 derived nodes: 
+S2p I4.215	of which in Anc(P): none
+S2 I4.216	accessible_cone_full	class a/a0	status: K
+S2u I4.216	appears as a hypothesis of 0 derived nodes: 
+S2p I4.216	of which in Anc(P): none
+S2 I4.241	DerivedOI	class e/OPER/hypothesis-structure	status: assumed (hypothesis of derivedOI_qm_iff_layerFlowExecutable, qm_of_derivedOI_layerFlowExecutable, derivedOI_qm_iff_layerFlowExecutable', qm_iff_derivedOI_pairFlowSourced); holds for the substratum theory (substratumTheory_derivedOI, RouteB.lean:290) [K]
+S2d I4.241	[holds for the substratum theory] substratumTheory_derivedOI (RouteB.lean:290) -> no record	declared arguments: RouteB.lean:290 (none: closed statement)
+S2u I4.241	appears as a hypothesis of 0 derived nodes: 
+S2p I4.241	of which in Anc(P): none
+S2 I4.244	ElementaryTransitionRichness	class e/OPER/hypothesis-structure	status: assumed (conjunct of OIPlusPos)
+S2u I4.244	appears as a hypothesis of 0 derived nodes: 
+S2p I4.244	of which in Anc(P): none
+S2 I4.245	OIPlusElem	class e/OPER/hypothesis-structure	status: assumed (hypothesis of typed_determined_of_oiPlusElem)
+S2u I4.245	appears as a hypothesis of 1 derived nodes: I4.191
+S2p I4.245	of which in Anc(P): none
+== S3 ancestor / descendant
+S3 verdict (R,RA,RN,KC): NO-MEET; with Y: NO-MEET; countercontrol with synthetic I3.1->I1.1: MEET-K
+S3 Anc(P): 25 nodes; Desc(AX): 31 nodes (31 through kernel-supplied or within-level edges); shared: 0; with Y: Anc 32, Desc 41, shared 0
+S3anc I3.1	P	non-derived	e/OPER/definition-as-hypothesis	`W d`
+S3anc I3.2	P	non-derived	e/DEF/definition-as-hypothesis	`prodState`
+S3anc I3.3	P	non-derived	e/DEF/definition-as-hypothesis	`maxCone`
+S3anc I3.6	P	non-derived	e/DEF/definition-as-hypothesis	`actT`
+S3anc I3.7	P	non-derived	e/DEF/definition-as-hypothesis	`actC`
+S3anc I3.11	P (`cnot`, `phiW`), 	non-derived	e/DEF/definition-as-hypothesis	`cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (t
+S3anc I3.12	P (O for `isNot_nfli	derived	c/	`isNot_nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC`
+S3anc I3.13	P	derived	c/	`nativeGate_cnot`
+S3anc I3.43	P	non-derived	e/OPER/hypothesis-structure	`CandidateCone`
+S3anc I3.58	O	non-derived	e/DEF/definition-as-hypothesis	`IsEffectOn`
+S3anc I3.66	O	non-derived	e/OPER/hypothesis-structure	`ElementaryDrivability` (K∞-Drive)
+S3anc I3.67	O	derived	a/a0	`ball3Drive`, `ball3_drivable` (with `ball3`, `rot3`, `cyc3`
+S3anc I3.80	O	derived	a/a0	`boundaryTransitive_fullAut3`
+S3anc I3.143	P	non-derived	e/OPER/definition-as-hypothesis	`ipW`, `dualW` (the Euclidean pairing and dual cone of table
+S3anc I3.147	P	non-derived	e/OPER/hypothesis-structure	H1 — products in `K`
+S3anc I3.148	P	non-derived	e/OPER/hypothesis-structure	H2 — `cnot`-invariance (level (i)); `G16`-invariance (level 
+S3anc I3.149	P	non-derived	e/OPER/hypothesis-structure	H3 — trace self-duality `K = dualW K`
+S3anc I3.150	P	non-derived	e/OPER/hypothesis-structure	(b_S4) — the full rotation group of one token acts on the pa
+S3anc I3.151	P	non-derived	e/OPER/hypothesis-structure	(b_n) — one rotation subgroup of one token about an off-fram
+S3anc I3.152	P	non-derived	e/OPER/hypothesis-structure	(b_R1) — one order-3 rotation of one token about (5,1,1)
+S3anc I3.153	P	non-derived	e/OPER/hypothesis-structure	(b_DJ) — the native drive with the native `J` acting on one 
+S3root I3.1	`W d`	K2 (I3.165): two-copy local tomography, the carrier W d
+S3root I3.2	`prodState`	unmapped; bridge field: n/a
+S3root I3.3	`maxCone`	unmapped; bridge field: n/a
+S3root I3.6	`actT`	unmapped; bridge field: this is the only kernel map from a one-copy linear map to the pair carrier. Its arguments in kernel statements at L: a variable `N` (in identities valid for eve
+S3root I3.7	`actC`	unmapped; bridge field: as I3.6 (the control-index map; its kernel arguments at L: a variable `N`, `nflip`, `neg1`, `nC5`, `n5`)
+S3root I3.11	`cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (t	unmapped; bridge field: n/a
+S3root I3.43	`CandidateCone`	K2 (hadm: products in K, K within maxCone)
+S3root I3.58	`IsEffectOn`	unmapped; bridge field: enters the pair through `maxCone` (I3.3)
+S3root I3.66	`ElementaryDrivability` (K∞-Drive)	K-inf-Drive I3.169
+S3root I3.143	`ipW`, `dualW` (the Euclidean pairing and dual cone of table	unmapped; bridge field: n/a
+S3root I3.147	H1 — products in `K`	K2 (hadm (a): products in K)
+S3root I3.148	H2 — `cnot`-invariance (level (i)); `G16`-invariance (level 	P-ACT2 (I3.146)
+S3root I3.149	H3 — trace self-duality `K = dualW K`	none at L (no ROADMAP row; dualW/ipW/Q3 design-only, AUDIT-I 5.4)
+S3root I3.150	(b_S4) — the full rotation group of one token acts on the pa	K2 local actions + K-inf-Act I3.168 / K-inf-Drive I3.169
+S3root I3.151	(b_n) — one rotation subgroup of one token about an off-fram	K2 local actions + K-inf-Act I3.168 / K-inf-Drive I3.169
+S3root I3.152	(b_R1) — one order-3 rotation of one token about (5,1,1)	K2 local actions + K-inf-Act I3.168 / K-inf-Drive I3.169
+S3root I3.153	(b_DJ) — the native drive with the native `J` acting on one 	K2 local actions + K-inf-Act I3.168 / K-inf-Drive I3.169
+S3desc I1.1	H	non-derived	a/gen	Axiom 1 (tokened differentiation).
+S3desc I1.2	H	non-derived	a/gen	Axiom 2 (recurrence of differentiation).
+S3desc I1.3	H	derived	a/a1	The two-axiom observation base and the non-derivability of A
+S3desc I1.4	H	non-derived	e/FOUND/manuscript-principle	The perspectival reading: embeddedness `V ⊊ S` belongs to th
+S3desc I1.5	H	non-derived	e/PHYS/hypothesis	The C1–C4 selection condition (domain commitment).
+S3desc I1.6	H	non-derived	e/FOUND/definition-as-hypothesis	Definition of an observation `(S, φ, V)`.
+S3desc I1.7	H	derived	a/a2	Dynamics from the composition (semigroup) law.
+S3desc I1.8	H	derived	a/a2	Lemma 1 (finiteness; finite visible resolution).
+S3desc I1.9	H	non-derived	e/FOUND/lemma	Lemma 2 (causal partition; product decomposition).
+S3desc I1.10	H	non-derived	e/PHYS/lemma	Lemma 3: determinism and reversibility (the bijective repres
+S3desc I1.12	H	non-derived	e/FOUND/hypothesis	Lemma 3: the selected measure (maximal-entropy counting meas
+S3desc I1.13	H	non-derived	e/FOUND/manuscript-principle	The measure as a realization datum (hidden prior `μ_H`).
+S3desc I1.15	H	derived	d/	Partition-relativity lemma.
+S3desc I1.17	H→M/X	derived	b/C1,C2,C3,C4	The layered theorem statement: readback content, and the ful
+S3desc I1.18	H	non-derived	e/NEUTRAL/manuscript-principle	Methodology's rung analysis of the conditions (C1–C4 are sel
+S3desc I1.19	H	non-derived	e/NEUTRAL/manuscript-principle	The conditions are diagnostics, not hypotheses.
+S3desc I1.20	H	non-derived	b/gen:C1	(C1) Non-zero coupling.
+S3desc I1.21	H	non-derived	b/gen:C2	(C2-structural) Memory persistence.
+S3desc I1.23	H	non-derived	b/gen:C3	(C3) Sufficient memory capacity.
+S3desc I1.24	H	non-derived	b/gen:C4	(C4) History readback.
+S3desc I1.25	H	derived	b/C1,C2,C3,C4	Which condition is primitive: only C4 is logically independe
+S3desc I1.26	H	non-derived	e/NEUTRAL/manuscript-principle	Book variant: the four conditions "logically independent".
+S3desc I1.29	H	derived	b/C1,C2,C3,C4	Lemma (accessible backflow from readback).
+S3desc I1.33	H	derived	b/C1,C2,C3,C4	Existential and universal readings of the conditions.
+S3desc I1.34	H→M (single-system v	derived	b/C1	(C1) does not fix the composite: entanglement-breaking is a 
+S3desc I1.35	H/X	derived	d/	Substratum Stage 1: C1–C4 from E1–E3, A1–A2 and M1-T (condit
+S3desc I1.37	H	non-derived	e/NEUTRAL/manuscript-principle	Explainer: the conditions as access conditions on a lossless
+S3desc I1.64	H	non-derived	e/PHYS/axiom	Substratum (A2) Determinism.
+S3desc I1.69	H	derived	d/	A1–A6 jointly sufficient, not proved minimal; the classes th
+S3desc I1.84	H (a deterministic p	derived	d/	The finite-horizon observability quotient: OI resolves exact
+S3desc I1.85	H	derived	d/	Bare OI does not make the ontic carrier observable; the mini
+S3 Desc(AX) by level letter: H=31 M=2 X=2; kernel-status members: I1.84 I1.85
+== S4 cross-level edges
+S4 G -> H supply K: 3  I4.200>I4.198 I4.207>I4.198 I2.37>I4.198
+S4 G -> H supply MS: 1  I4.203>I4.198
+S4 G -> H/M supply K: 3  I2.3>I2.39 I2.3>I2.12 I2.3>I2.16
+S4 G -> H/O supply K: 1  I2.3>I2.17
+S4 G -> H/X supply K: 1  I2.3>I2.6
+S4 G -> M supply K: 14  I4.106>I4.64 I4.191>I4.245 I4.193>I4.124 I4.194>I4.120 I2.29>I4.64 I2.32>I4.64 I2.34>I4.64 I2.34>I1.49 I4.43>I4.64 I4.104>I4.64 I4.117>I4.64 I4.122>I4.64 I4.126>I4.64 I4.139>I4.64
+S4 G -> M supply MS: 9  I4.187>I4.70 I4.235>I4.24 I4.235>I4.64 I4.235>I4.32 I4.235>I4.29 I4.235>I4.30 I4.235>I4.132 I4.235>I4.143 I4.235>I4.144
+S4 G/H -> M supply K: 4  I2.33>I4.24 I2.33>I4.45 I2.33>I4.143 I2.33>I4.64
+S4 G/H -> M supply MS: 1  I2.18>I2.26
+S4 G/O -> H supply MS: 1  I2.63>I2.64
+S4 H -> G supply MS: 1  I4.198>I4.197
+S4 H -> M supply K: 13  I4.58>I4.32 I4.153>I4.32 I4.164>I4.32 I4.164>I4.56 I4.168>I4.32 I4.58>I4.24 I4.150>I4.64 I4.151>I4.64 I4.153>I4.24 I4.157>I4.64 I4.158>I4.64 I4.164>I4.24 I4.168>I4.24
+S4 H -> M supply MS: 5  I2.41>I2.42 I4.149>I4.64 I4.156>I4.64 I4.242>I4.24 I4.247>I4.24
+S4 H/M -> X supply MS: 1  I2.107>I2.77
+S4 M -> G supply K: 6  I4.111>I4.107 I4.111>I4.108 I4.112>I4.107 I4.112>I4.108 I4.111>I4.106 I4.112>I4.106
+S4 M -> G supply MS: 5  I2.68>I2.29 I4.109>I4.106 I4.110>I4.106 I4.110>I4.107 I4.110>I4.108
+S4 M -> H supply K: 8  I1.45>I1.42 I1.55>I1.38 I1.55>I1.42 I4.51>I4.50 I4.52>I4.50 I4.61>I4.60 I4.62>I4.60 I4.172>I4.240
+S4 M -> H supply MS: 2  I2.43>I2.40 I2.60>I2.48
+S4 O -> P supply K: 4  I3.24>I3.23 I3.124>I3.3 I3.24>I3.1 I3.124>I3.1
+S4 O -> P supply MS: 6  I3.162>I3.164 I3.162>I3.165 I3.179>I3.164 I3.179>I3.165 I3.182>I3.164 I3.182>I3.165
+S4 P -> O supply K: 43  I3.3>I3.58 I3.15>I3.8 I3.16>I3.8 I3.17>I3.8 I3.18>I3.8 I3.19>I3.8 I3.22>I3.8 I3.25>I3.24 I3.27>I3.8 I3.30>I3.8 I3.31>I3.8 I3.37>I3.48 I3.37>I3.74 I3.37>I3.73 I3.37>I3.76 I3.37>I3.75 I3.37>I3.8 I3.38>I3.48 I3.38>I3.74 I3.38>I3.73 I3.38>I3.76 I3.38>I3.75 I3.38>I3.8 I3.45>I3.8 I3.47>I3.48 I3.47>I3.74 I3.47>I3.73 I3.47>I3.76 I3.47>I3.75 I3.47>I3.8 I3.51>I3.74 I3.51>I3.73 I3.51>I3.76 I3.51>I3.75 I3.51>I3.48 I3.56>I3.73 I3.56>I3.74 I3.56>I3.75 I3.56>I3.54 I3.56>I3.48
+S4 P -> O supply MS: 18  I3.114>I3.58 I3.118>I3.74 I3.142>I3.83 I3.145>I3.92 I3.145>I3.104 I3.146>I3.99 I3.146>I3.105 I3.150>I3.80 I3.151>I3.80 I3.152>I3.80 I3.153>I3.66 I3.153>I3.67 I3.164>I3.73 I3.164>I3.74 I3.164>I3.75 I3.164>I3.76 I3.164>I3.8 I3.164>I3.48
+S4 X -> H supply MS: 4  I2.73>I2.41 I2.75>I2.5 I2.110>I2.2 I2.113>I1.57
+S4 X -> M supply MS: 2  I2.74>I2.27 I2.113>I2.59
+== S5 P-level nodes
+S5 I3.1	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.2	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.3	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.4	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.5	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.6	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.7	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.9	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.10	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.11	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.12	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.13	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.14	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.15	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.16	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.17	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.18	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.19	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.20	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.21	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.22	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.23	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.25	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.26	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.27	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.28	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.29	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.30	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.31	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.32	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.33	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.34	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.35	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.36	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.37	AX/C in closure: none	O-level in closure: 8	H/M/G/X in closure: none
+S5 I3.38	AX/C in closure: none	O-level in closure: 8	H/M/G/X in closure: none
+S5 I3.41	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.42	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.43	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.44	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.45	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.46	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.47	AX/C in closure: none	O-level in closure: 8	H/M/G/X in closure: none
+S5 I3.49	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.51	AX/C in closure: none	O-level in closure: 7	H/M/G/X in closure: none
+S5 I3.56	AX/C in closure: none	O-level in closure: 7	H/M/G/X in closure: none
+S5 I3.113	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.114	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.115	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.116	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.118	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.120	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.121	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.122	AX/C in closure: none	O-level in closure: 5	H/M/G/X in closure: none
+S5 I3.125	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.126	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.128	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.129	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.130	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.131	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.132	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.133	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.134	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.135	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.136	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.137	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.138	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.139	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.140	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.141	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.142	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.143	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.144	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.145	AX/C in closure: none	O-level in closure: 3	H/M/G/X in closure: none
+S5 I3.146	AX/C in closure: none	O-level in closure: 10	H/M/G/X in closure: none
+S5 I3.147	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.148	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.149	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.150	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.151	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.152	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.153	AX/C in closure: none	O-level in closure: 2	H/M/G/X in closure: none
+S5 I3.154	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.155	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.156	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.157	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.158	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.159	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+S5 I3.160	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.161	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.164	AX/C in closure: none	O-level in closure: 8	H/M/G/X in closure: none
+S5 I3.165	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.185	AX/C in closure: none	O-level in closure: 0	H/M/G/X in closure: none
+S5 I3.187	AX/C in closure: none	O-level in closure: 1	H/M/G/X in closure: none
+checks: A2=PASS A3=PASS
+VERDICT ANALYSIS COMPLETE

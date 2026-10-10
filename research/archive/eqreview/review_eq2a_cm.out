@@ -1,0 +1,30 @@
+PASS C0 place(sig, (0,1), rho) == sig (x) rho (symbolic)
+PASS C0 PT is an involution on every qubit (symbolic 8 x 8)
+PASS C0 PT is self-adjoint for the pairing tr(A B) (symbolic)
+PASS C0 PT permutes entries, so it preserves the Hilbert-Schmidt norm
+PASS T1 every generator's pair marginals lie in that pair's cone: PT^t(sigma) on the matching pair, a product of one-copy marginals on the others (symbolic, both twists, all pairs)
+PASS T2 conditioning on an effect: the matching pair gives a multiple of PT^t(sigma), a copy of the pair gives a product (symbolic)
+PASS T3 COMP-1 on pair|single, mismatched generators: <E (x) f, g> = tr(E_rho . sigma_f) with one-copy operators E_rho (E contracted with the state g carries) and sigma_f (g's pair operator contracted with f) (symbolic)
+PASS T4 control: the three Cayley transforms are exactly unitary
+PASS T4 IE1: (U (x) V (x) X) maps the generator family of each pair onto itself, PT_j intertwining U_j with conj U_j (symbolic sigma, rho; exact rational unitaries)
+PASS T5 per-token chart: PT on copy q flips the twist bit of each pair containing q (image = PT_j^(1-t) of a transpose of sigma, still PSD) and transposes the state of a copy outside the pair (symbolic)
+PASS T6 a per-token chart presenting all three pairs as Q exists iff t01 + t02 + t12 is even (all 8 tau); M_odd = K_(0,1,0) and M_tw = K_(1,1,1) have none, M_bs = K_(0,0,0) has the trivial one
+PASS G1 omega0 = |+><+|_0 (x) Phi+_(1,2) is the generator 'Phi+ on (1,2) times |+> on 0' (Kronecker form)
+PASS G2 (CNOT_(0,1) (x) 1) omega0 (CNOT (x) 1)^dag = |GHZ'><GHZ'| exactly
+PASS G3 W' = 1/2 - |GHZ'><GHZ'| has value tr(W' GHZ') = -1/2
+PASS G3 input of the written bound: every one-copy marginal of GHZ' is 1/2
+PASS G3 control: CNOT maps the pair cone Q onto itself (unitary conjugation); t01 = 0 in M_odd and M_bs
+PASS G3 spot check: W' >= 0 on 48 random exact generators across all 8 K_tau (min 321/1210)
+PASS G3 tr X_rho = tr(rho psi_k) = 1/2 for every one-copy state rho and every copy k (symbolic)
+PASS G4 M_tw: PT_1 maps M_odd onto M_tw (T5) and GHZ' to PT_1(GHZ'), with PT_1(W') of value -1/2 on it
+PASS G4 the twisted pair interaction cnot' = PT_1 . Ad CNOT . PT_1 idly extended sends PT_1(omega0) (a generator of M_tw) to PT_1(GHZ'), outside M_tw
+PASS B1 W_GHZ has value -1/2 on GHZ, GHZ is PSD (rank one), every one-copy marginal of GHZ is 1/2
+PASS B1 spot check: W_GHZ >= 0 on 24 random exact generators across all 8 K_tau (min 47/168)
+PASS H0 Psi-_rot = (1 (x) S) Psi- (1 (x) S)^dag has correlation matrix [[0, -1, 0], [1, 0, 0], [0, 0, -1]]
+PASS H1 the nine ingredients are PT_j(sigma) (x) rho with sigma PSD of trace 1 and rho a state
+PASS H2 the 8 GHZ stabilizers commute, square to 1 and fix GHZ
+PASS H3 twirl((1/9) sum_p (alpha_p + beta_p + delta_p)) = W_GHZ / 3 exactly, so W_GHZ is in B_tw (local Pauli conjugations preserve every generator family, T4)
+PASS H4 countercontrol: without the beta family the twirl is not a multiple of W_GHZ
+PASS H5 W_GHZ is not PSD (eigenvalue -1/2) and lies in B_tw* by the bound of B1 (B_tw = K_(1,1,1))
+review_eq2a_cm: 28/28 checks pass
+VERDICT COUNTERMODELS-CONFIRMED: K_(0,1,0), K_(1,1,1), K_(0,0,0) satisfy the transported premises checked here and violate IE2; the odd-parity models have no per-token chart; K_(0,0,0) excludes GHZ; the all-twisted hull contains W_GHZ

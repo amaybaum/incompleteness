@@ -1,0 +1,8 @@
+grid classes: 60 (72 pairs less 12 shared-vertex identifications = 60)
+matrix-induced subgroup of A33 on the grid: relabellings 576, +conj 1152, +transpose 2304
+automorphisms of K3,3 on the six vertices: 72
+BFS: relabellings 576, +conj 1152, +transpose 2304
+matrix-induced subgroup: image in Aut(K3,3) 72, kernel bit patterns 32, product 2304; index in A33 16
+single-circle bit induced: False; global conjugation (all bits): True
+kernel patterns (circles conjugated): [(), (0, 1, 2), (0, 1, 2, 3, 4, 5), (0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 6, 7, 8), (0, 1, 3, 4, 6, 7), (0, 1, 3, 4, 8), (0, 1, 5, 6, 7), (0, 1, 5, 8), (0, 2, 3, 5, 6, 8), (0, 2, 3, 5, 7), (0, 2, 4, 6, 8), (0, 2, 4, 7), (0, 3, 6), (0, 3, 7, 8), (0, 4, 5, 6), (0, 4, 5, 7, 8), (1, 2, 3, 6), (1, 2, 3, 7, 8), (1, 2, 4, 5, 6), (1, 2, 4, 5, 7, 8), (1, 3, 5, 6, 8), (1, 3, 5, 7), (1, 4, 6, 8), (1, 4, 7), (2, 3, 4, 6, 7), (2, 3, 4, 8), (2, 5, 6, 7), (2, 5, 8), (3, 4, 5), (3, 4, 5, 6, 7, 8), (6, 7, 8)]
+relabellings+conj only: image 36, kernel 32; relabellings only: image 36, kernel 16

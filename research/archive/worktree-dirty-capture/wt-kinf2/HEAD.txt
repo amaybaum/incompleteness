@@ -1,0 +1,2 @@
+95036c66a59624d6890a3d008bff54392f1d675a
+claude/kinf2-dev

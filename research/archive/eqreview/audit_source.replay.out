@@ -1,0 +1,6 @@
+PASS K0 sgn, pc, pt transcription; chainW (K2G) = cnot idW
+PASS AS anchor sum: evaluation laws, cross values e(x0)f(y0) and E(L0)F(L0'), unit pairing 1, tok fails; control: zero anchor gives unit pairing 0 -- tok differences ['-31/8', '-35/4', '-1']
+PASS MR M_rho: Q3 != twin; witnesses in Q3, Q3*, twin*; family (i) value negative; rho involution and PB's evaluation law; tok fails -- value -1/8, tok difference 2
+PASS G landed gate countermodels: idW nonnegative on 200 Lorentz pairs, chainW = cnot idW at -1/2; F >= 0 on products (identity) and F(cnot(prodState xplus z3)) < 0 -- chainW value -1/2, F(phiW) -2
+--- audit_source: 4/4 checks pass
+VERDICT SOURCE-AUDIT-EXACT

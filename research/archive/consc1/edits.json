@@ -1,0 +1,206 @@
+[
+ {
+  "item": "B1",
+  "file": "book/ch01-observation.md",
+  "old": "This is the *cogito* of Descartes made mathematical — the framework's one concession to a foundation outside its own theorems.",
+  "new": "This is the *cogito* of Descartes made mathematical, without its thinking subject — the framework's one concession to a foundation outside its own theorems."
+ },
+ {
+  "item": "B1",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "This is the *cogito* of Descartes made mathematical — the framework's one concession to a foundation outside its own theorems.",
+  "new": "This is the *cogito* of Descartes made mathematical, without its thinking subject — the framework's one concession to a foundation outside its own theorems."
+ },
+ {
+  "item": "B2",
+  "file": "book/ch01-observation.md",
+  "old": "The definition is weaker than classical mechanics. A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it.",
+  "new": "The definition is weaker than classical mechanics. A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it. So does a detector or a protein interior: nothing in the definition requires that anyone be aware of an outcome. What cannot be doubted is that *some* differentiated content is registered — that much is secured from within whatever locus raises the doubt. That a particular deck, automaton or detector registers anything is not indubitable but a physical fact, and the definition covers it all the same."
+ },
+ {
+  "item": "B2",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "The definition is weaker than classical mechanics. A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it.",
+  "new": "The definition is weaker than classical mechanics. A shuffled deck of cards satisfies it. A finite cellular automaton satisfies it. So does a detector or a protein interior: nothing in the definition requires that anyone be aware of an outcome. What cannot be doubted is that *some* differentiated content is registered — that much is secured from within whatever locus raises the doubt. That a particular deck, automaton or detector registers anything is not indubitable but a physical fact, and the definition covers it all the same."
+ },
+ {
+  "item": "B3",
+  "file": "book/ch01-observation.md",
+  "old": "In particular, whether the embedded observer's status as a *proper part* of a larger whole is best regarded as following from the first axiom or as a further foundational posit in its own right is an open question — one that bears on how the framework describes the minimality of its own assumptions, but not on any prediction it makes.",
+  "new": "In particular, whether the embedded observer's status as a *proper part* of a larger whole follows from the first axiom or is a further foundational posit in its own right turns on how the first axiom is read. The framework adopts the reading on which the registering occurs from a locus against a remainder, so that embeddedness follows; on a thinner reading it would be a third posit. The choice bears on how the framework counts its assumptions, not on any prediction it makes."
+ },
+ {
+  "item": "B3",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "In particular, whether the embedded observer's status as a *proper part* of a larger whole is best regarded as following from the first axiom or as a further foundational posit in its own right is an open question — one that bears on how the framework describes the minimality of its own assumptions, but not on any prediction it makes.",
+  "new": "In particular, whether the embedded observer's status as a *proper part* of a larger whole follows from the first axiom or is a further foundational posit in its own right turns on how the first axiom is read. The framework adopts the reading on which the registering occurs from a locus against a remainder, so that embeddedness follows; on a thinner reading it would be a third posit. The choice bears on how the framework counts its assumptions, not on any prediction it makes."
+ },
+ {
+  "item": "B4",
+  "file": "book/ch03-structural-realism.md",
+  "old": "from the framework's foundational empirical commitment to its specific predictive content",
+  "new": "from the framework's foundational commitment to its specific predictive content"
+ },
+ {
+  "item": "B4",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "from the framework's foundational empirical commitment to its specific predictive content",
+  "new": "from the framework's foundational commitment to its specific predictive content"
+ },
+ {
+  "item": "B5",
+  "file": "book/ch03-structural-realism.md",
+  "old": "At the broadest level, the framework commits only to the empirical fact that observation occurs;",
+  "new": "At the broadest level, the framework commits only to the fact that observation occurs;"
+ },
+ {
+  "item": "B5",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "At the broadest level, the framework commits only to the empirical fact that observation occurs;",
+  "new": "At the broadest level, the framework commits only to the fact that observation occurs;"
+ },
+ {
+  "item": "B6",
+  "file": "book/ch03-structural-realism.md",
+  "old": "is the empirical fact that observation occurs: an observer records distinguishable outcomes",
+  "new": "is that observation occurs: an observer records distinguishable outcomes"
+ },
+ {
+  "item": "B6",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "is the empirical fact that observation occurs: an observer records distinguishable outcomes",
+  "new": "is that observation occurs: an observer records distinguishable outcomes"
+ },
+ {
+  "item": "B6",
+  "file": "book/ch03-structural-realism.md",
+  "old": "This Cartesian *cogito*, made mathematically precise, is the one premise the framework takes from outside its own theorems.",
+  "new": "Its indubitable core — that some differentiated content is registered — is the Cartesian *cogito*, made mathematically precise and without its thinking subject; it is the one premise the framework takes from outside its own theorems. The structure Level A adds to that core is that of the Chapter 1 definition, and it is physical, not mental."
+ },
+ {
+  "item": "B6",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "This Cartesian *cogito*, made mathematically precise, is the one premise the framework takes from outside its own theorems.",
+  "new": "Its indubitable core — that some differentiated content is registered — is the Cartesian *cogito*, made mathematically precise and without its thinking subject; it is the one premise the framework takes from outside its own theorems. The structure Level A adds to that core is that of the Chapter 1 definition, and it is physical, not mental."
+ },
+ {
+  "item": "B7",
+  "file": "book/ch03-structural-realism.md",
+  "old": "the first axiom costs nothing precisely because it is the bare fact of registration itself;",
+  "new": "the first axiom costs nothing precisely because it is the bare fact that difference is registered at all;"
+ },
+ {
+  "item": "B7",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "the first axiom costs nothing precisely because it is the bare fact of registration itself;",
+  "new": "the first axiom costs nothing precisely because it is the bare fact that difference is registered at all;"
+ },
+ {
+  "item": "B8",
+  "file": "book/ch18-beyond.md",
+  "old": "The framework provides structural necessary conditions for consciousness without specifying sufficient conditions.",
+  "new": "The framework provides structural necessary conditions for consciousness without specifying sufficient conditions. The two directions below differ in standing: Direction 2 follows from the definition of observation, which detectors and horizons satisfy; Direction 1 is a conjecture about consciousness, motivated by the role of memory in conscious information processing, and not a theorem of the framework. Evidence in the framework's sense is perspective-neutral — a record bears its evidential relations through its correlations at the partition, whether or not a conscious system takes it up; whether evidence as experienced requires a conscious perspective is an epistemological question the framework does not address."
+ },
+ {
+  "item": "B8",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "The framework provides structural necessary conditions for consciousness without specifying sufficient conditions.",
+  "new": "The framework provides structural necessary conditions for consciousness without specifying sufficient conditions. The two directions below differ in standing: Direction 2 follows from the definition of observation, which detectors and horizons satisfy; Direction 1 is a conjecture about consciousness, motivated by the role of memory in conscious information processing, and not a theorem of the framework. Evidence in the framework's sense is perspective-neutral — a record bears its evidential relations through its correlations at the partition, whether or not a conscious system takes it up; whether evidence as experienced requires a conscious perspective is an epistemological question the framework does not address."
+ },
+ {
+  "item": "B8",
+  "file": "book/ch18-beyond.md",
+  "old": "None of these is conscious in any phenomenal sense — there is nothing it is like to be the cosmological horizon.",
+  "new": "Nothing in the framework attributes phenomenal experience to any of them."
+ },
+ {
+  "item": "B8",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "None of these is conscious in any phenomenal sense — there is nothing it is like to be the cosmological horizon.",
+  "new": "Nothing in the framework attributes phenomenal experience to any of them."
+ },
+ {
+  "item": "B8",
+  "file": "book/ch18-beyond.md",
+  "old": "implement observation structurally without being conscious.",
+  "new": "implement observation structurally, and nothing in the definition requires that they be conscious."
+ },
+ {
+  "item": "B8",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "implement observation structurally without being conscious.",
+  "new": "implement observation structurally, and nothing in the definition requires that they be conscious."
+ },
+ {
+  "item": "B8",
+  "file": "book/ch18-beyond.md",
+  "old": "The framework's necessary-condition account makes empirical predictions about the structural features conscious systems should exhibit.",
+  "new": "The framework's necessary-condition conjecture implies structural expectations about the features conscious systems should exhibit; they are consistency checks on the conjecture, not evidence for the framework."
+ },
+ {
+  "item": "B8",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "The framework's necessary-condition account makes empirical predictions about the structural features conscious systems should exhibit.",
+  "new": "The framework's necessary-condition conjecture implies structural expectations about the features conscious systems should exhibit; they are consistency checks on the conjecture, not evidence for the framework."
+ },
+ {
+  "item": "B8",
+  "file": "book/ch18-beyond.md",
+  "old": "the arrow of time, consciousness as structural necessary condition.",
+  "new": "and the arrow of time. The consciousness conjecture of §18.10 is not part of this case."
+ },
+ {
+  "item": "B8",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "the arrow of time, consciousness as structural necessary condition.",
+  "new": "and the arrow of time. The consciousness conjecture of §18.10 is not part of this case."
+ },
+ {
+  "item": "B8",
+  "file": "book/ch18-beyond.md",
+  "old": "The framework's content beyond conventional physics is not speculative addition to an empirical base but structural extension of the same framework that produced the empirical predictions of Chapters 5-17.",
+  "new": "The framework's physical content beyond conventional physics is structural extension of the same framework that produced the empirical predictions of Chapters 5-17, not speculative addition to an empirical base."
+ },
+ {
+  "item": "B8",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "The framework's content beyond conventional physics is not speculative addition to an empirical base but structural extension of the same framework that produced the empirical predictions of Chapters 5-17.",
+  "new": "The framework's physical content beyond conventional physics is structural extension of the same framework that produced the empirical predictions of Chapters 5-17, not speculative addition to an empirical base."
+ },
+ {
+  "item": "B9",
+  "file": "book/glossary.md",
+  "old": "The framework's technical term for an observer who is a substructure of the system they are trying to describe — coupled to the system, bounded in extent, unable to access the full state from outside.",
+  "new": "The framework's technical term for an observer that is a proper subsystem of the system it registers — coupled to the system, bounded in extent, unable to access the full state from outside. A detector, a protein interior or a cosmological horizon qualifies; nothing in the definition requires consciousness."
+ },
+ {
+  "item": "B9",
+  "file": "book/The-Incompleteness-of-Observation-FULL.md",
+  "old": "The framework's technical term for an observer who is a substructure of the system they are trying to describe — coupled to the system, bounded in extent, unable to access the full state from outside.",
+  "new": "The framework's technical term for an observer that is a proper subsystem of the system it registers — coupled to the system, bounded in extent, unable to access the full state from outside. A detector, a protein interior or a cosmological horizon qualifies; nothing in the definition requires consciousness."
+ },
+ {
+  "item": "P1",
+  "file": "papers/Main.md",
+  "old": "the cogito made precise, which is irreducibly perspectival: a doubting *I*, not a free-floating fact. Read this way, the primitive already contains three things that therefore need no separate derivation: a differentiation (the this-not-that), a locus that registers it (the observer), and the remainder it is registered against.",
+  "new": "the cogito made precise, which is irreducibly perspectival: a registering from a locus, not a free-floating fact, and not a thinking subject — the primitive asserts no *I* (companion methodology paper, §2.3). Read this way, the primitive already contains three things that therefore need no separate derivation: a differentiation (the this-not-that), a locus that registers it (the observer of the Definition below), and the remainder it is registered against. The indubitability is the warrant available to whatever locus raises the doubt; the Definition covers every registering locus, and for a detector or a horizon that a registering occurs is a physical fact, not an indubitable one."
+ },
+ {
+  "item": "P2",
+  "file": "papers/Main.md",
+  "old": "The axiom thus commits to our universe being in the observer-admitting subset of substrata — substrata whose bijection structure satisfies the conditions C1–C4 below for some partition.",
+  "new": "Applied to our universe, the starting point thus carries a further commitment: that our universe lies in the observer-admitting subset of substrata — substrata whose bijection structure satisfies the conditions C1–C4 below for some partition. This is the C1–C4 selection condition, not a consequence of the first axiom: a momentary registering with no persistent record satisfies the first axiom and fails C2."
+ },
+ {
+  "item": "P3",
+  "file": "papers/Structure.md",
+  "old": "The framework begins with the empirical fact that *observation occurs* [Main §1].",
+  "new": "The framework begins with the fact that *observation occurs* [Main §1]."
+ },
+ {
+  "item": "P4",
+  "file": "papers/GR.md",
+  "old": "(the empirical fact that observation occurs, the empirical inputs E1–E4, and the structural assumptions A1–A6)",
+  "new": "(the fact that observation occurs, the empirical inputs E1–E4, and the structural assumptions A1–A6)"
+ }
+]

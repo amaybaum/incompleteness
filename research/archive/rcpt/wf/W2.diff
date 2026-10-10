@@ -1,0 +1,47 @@
+--- wf_1.yml	2026-10-01 18:03:59.708405503 +0000
++++ wf_2.yml	2026-10-01 18:03:59.695612873 +0000
+@@ -536,7 +536,7 @@
+ 
+   probes:
+     name: Numerical probes
+-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
++    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_a42_witness, probes_a42_census01, a42_receipts, probes_a42_exclusion, probes_foundations]
+     if: ${{ always() }}
+     runs-on: ubuntu-latest
+     steps:
+@@ -555,6 +555,9 @@
+           KINF2_RESULT: ${{ needs.probes_kinf2.result }}
+           A42W_RESULT: ${{ needs.probes_a42_witness.result }}
+           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
++          A42R_RESULT: ${{ needs.a42_receipts.result }}
++          A42R_MODE: ${{ needs.a42_receipts.outputs.mode }}
++          A42R_SOURCE: ${{ needs.a42_receipts.outputs.source }}
+           A42X_RESULT: ${{ needs.probes_a42_exclusion.result }}
+           FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
+         run: |
+@@ -571,6 +574,7 @@
+           echo "kinf2=${KINF2_RESULT}"
+           echo "a42_witness=${A42W_RESULT}"
+           echo "a42_census01=${A42C_RESULT}"
++          echo "a42_receipts=${A42R_RESULT} mode=${A42R_MODE} source=${A42R_SOURCE}"
+           echo "a42_exclusion=${A42X_RESULT} (event ${GITHUB_EVENT_NAME})"
+           echo "foundations=${FOUNDATIONS_RESULT}"
+           test "${CORE_A_RESULT}" = success
+@@ -587,8 +591,17 @@
+           test "${A42W_RESULT}" = success
+           test "${A42C_RESULT}" = success
+           if [ "${GITHUB_EVENT_NAME}" = workflow_dispatch ]; then
++            test "${A42R_RESULT}" = success
+             test "${A42X_RESULT}" = success
++            if [ "${A42R_MODE}" = compute ]; then
++              echo "A42 exclusion: success, computed (15 shards)"
++            elif [ "${A42R_MODE}" = reuse ] && [ -n "${A42R_SOURCE}" ]; then
++              echo "A42 exclusion: success, receipt-validated from run ${A42R_SOURCE} (15 shards; not an F, E or Q attestation)"
++            else
++              echo "A42 exclusion: no receipt decision"; exit 1
++            fi
+           else
++            test "${A42R_RESULT}" = skipped
+             test "${A42X_RESULT}" = skipped
+           fi
+           test "${FOUNDATIONS_RESULT}" = success

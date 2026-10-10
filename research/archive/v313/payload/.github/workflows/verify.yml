@@ -1,0 +1,204 @@
+name: verify
+
+# Machine-checked verification layer (verification/lean).
+#
+# The six core proof files are self-contained Lean 4 — no Mathlib, no lake project,
+# zero imports — so the kernel gate is just a `lean` binary and one command per file.
+# A clean exit is the certificate; see verification/lean/VERIFYING.md.
+
+# NO PATH FILTERS, deliberately. The three verification jobs are required status checks on main, and a
+# required check that never runs never reports: GitHub leaves it Expected forever and the pull
+# request cannot be merged. A path filter would do exactly that to any pull request touching only
+# papers/*.md. The filters that used to live here also had to name every gated probe individually,
+# which was a standing trap of its own — a probe added to the job below but not to both filter
+# lists is a gate that silently never fires. Cheaper to run the suite on everything.
+#
+# pull_request covers every branch and re-runs on each push to the head branch (synchronize), so a
+# dev pull request is checked on every commit. push is restricted to main so that the same commit
+# is not checked twice under the same check-run names, which is what a required-check rule has to
+# match against. The gap this leaves is a push to dev with no pull request open; it closes the
+# moment one is opened, and nothing merges without one.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  kernel:
+    name: Lean kernel check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lean
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain leanprover/lean4:stable
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Report toolchain
+        run: lean --version
+
+      # Each file is checked independently and the failures are summed, so one
+      # rejection does not hide the state of the other two.
+      - name: Kernel check
+        working-directory: verification/lean
+        run: |
+          rc=0
+          for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations \
+                   OI_Regulator_Symmetry OI_Structural_Chain OI_Time_Reversal; do
+            echo "::group::lean ${f}.lean"
+            if lean "${f}.lean"; then
+              echo "OK ${f}.lean"
+            else
+              echo "FAIL ${f}.lean"
+              rc=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $rc
+
+  # The Mathlib bridge is a separate lake project with a pinned toolchain, and a separate
+  # job: it is slower and has its own failure surface, and a breakage there must not be
+  # able to obscure the state of the zero-import core gate above. fetch-depth: 0 is load-bearing
+  # for the release gate's v3-receipts step, which verifies each receipt from the commit that last
+  # wrote it and fails on a shallow repository (round V3-11), and for its legacy-records step,
+  # which reads a changed manifest's governing round from history (round V3-13).
+  bridge:
+    name: Mathlib bridge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      # Mathlib's own oleans come from `lake exe cache get` below and are NOT cached here:
+      # that tree is 4.5 GB and has no business in the Actions cache. What is cached is the
+      # 536 MB this package builds itself -- 170 OIBridge modules -- which is thrown away on
+      # every fresh runner and rebuilt from nothing. Three consecutive runs measured 20m34s,
+      # 20m02s and 20m56s of Build, two of them on a tree whose Lean source was byte-identical
+      # to its base, so the cost is paid whether or not any Lean changed.
+      #
+      # The key pins the toolchain, the resolved dependency manifest and the lakefile, so a
+      # Mathlib or toolchain bump can never restore artifacts built against the old one, and
+      # then the Lean sources. The restore prefix drops only the source hash, so a changed
+      # module restores the last build of the same dependency set and recompiles from there.
+      # Both globs name this package's own sources; neither can reach into .lake/, so the key
+      # never depends on downloaded dependency source.
+      - name: Restore the OIBridge build cache
+        uses: actions/cache@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          # Both keys are single physical lines on purpose: restore-keys is a
+          # newline-separated LIST, so a key broken across lines would parse as
+          # several malformed keys rather than one.
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+
+      # `--rehash` is what makes a restored cache safe to trust: it hashes the files for traces
+      # rather than believing the restored `.hash` files, so the cache supplies candidate
+      # artifacts and the checked-out source still decides which of them may be reused.
+      #
+      # NOT `--old`. Lake's own help says it "only rebuild modified modules (ignore transitive
+      # deps)" -- it would skip dependents of a changed module, which is precisely the assurance
+      # this gate exists to provide. `--rehash` keeps ordinary dependency semantics intact.
+      #
+      # The two phases are timed separately because they have different remedies: time in
+      # `cache get` is Mathlib download and decompression, which the step above deliberately
+      # does not address, and time in the build is this package's own compilation, which it does.
+      - name: Build
+        working-directory: verification/lean-mathlib
+        run: |
+          lean --version
+
+          t0=$(date +%s)
+          lake exe cache get
+          t1=$(date +%s)
+
+          lake --rehash build
+          t2=$(date +%s)
+
+          echo "TIMING lake-exe-cache-get $((t1 - t0))s"
+          echo "TIMING lake-rehash-build $((t2 - t1))s"
+          {
+            echo "| build phase | seconds |"
+            echo "|---|---|"
+            echo "| \`lake exe cache get\` | $((t1 - t0)) |"
+            echo "| \`lake --rehash build\` | $((t2 - t1)) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The release gate runs HERE, after the build, because this job already has
+      # elan, lake and the Mathlib cache, and several gate checks read the built
+      # tree. It is the real `tools/release_gate.py`, not a CI approximation of it:
+      # a second partial implementation would drift from the gate it stands in for,
+      # and drift is exactly the failure this step exists to prevent.
+      #
+      # Before this step existed, "all checks green" said nothing about voice,
+      # claims, coverage, staleness, the manuscript census, or any other gate
+      # check — only about Lean and the probes. A voice_check scope defect reached
+      # main under three green checks that way.
+      - name: Release gate
+        run: python3 tools/release_gate.py
+
+  probes:
+    name: Numerical probes
+    runs-on: ubuntu-latest
+    steps:
+      # The default depth-1 checkout: no probe and no guard predicate reads repository history
+      # (round V3-13).
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: Probes
+        working-directory: verification/lean
+        run: |
+          for p in gauge_certificates structural_core staggered_relations \
+                   structural_chain representation_bridge time_reversal \
+                   equivalence_chain hidden_memory finite_horizon_equivalence \
+                   c3_necessity canonical_measure finiteness cubic_isotropy \
+                   idempotent_trace link_decomposition stinespring_scope \
+                   factor_uniqueness kraus_uniqueness stinespring_uniqueness \
+                   weyl_twirl weyl_lift separability boundary_rank reciprocity \
+                   gauge_dimension bohr_frequency taste_branching gap_correspondence \
+                   static_generator spectral_logarithm centralizer_basis \
+                   wave_period partition_coupling audit_census repertoire_lie edge_rigidity \
+                   causal_readback_discovery causal_readback_bridge causal_readback_t1_scope \
+                   recurrence_tightness recurrence_tightness_guard scaling_family \
+                   rooted_classification_t3 physical_c4_toy_instance; do
+            echo "=== ${p}_probe.py ==="
+            python3 "${p}_probe.py"
+          done
+
+      # papers/oi_lattice_code/ has sat outside this gate; these are the first of its probes
+      # brought in. Named individually rather than by directory glob: several of the others
+      # (intervention_probes at K=2 builds 124k states) are far too slow for CI. All twelve of these
+      # use the standard library alone, so nothing here depends on the pip step above.
+      - name: Foundations probes
+        working-directory: papers/oi_lattice_code/foundations
+        run: |
+          rc=0
+          for p in comb_reachability_probes phaselock_probes source_lift_probes \
+                   induced_source_probes gauge_support_probes \
+                   bargmann_bridge_probes coherence_boundary_probes \
+                   native_group_probes finite_horizon_probes \
+                   recurrence_entropy_probes comb_dimension_probes \
+                   comb_realization_probes; do
+            echo "=== ${p}.py ==="
+            python3 "${p}.py" || rc=1
+          done
+          exit $rc

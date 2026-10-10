@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A36",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "8b33e25fcb7e5b464cbfc605f61f7d40e5825784",
+ "f": "1f86b690352248789b95d79606cda52a43a70465",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md",
+   "blob": "e6c17bd04bf52c96657efc25b788107ed5af8543"
+  }
+ ],
+ "governed_paths_digest": "93d47f5dad23a6cf8194274e20704ca05fb3c8cd0aac5591ed3dc60cf0e20bbd",
+ "e": "5375703c0058c76f5ad27746e3fb7b49f31abb08",
+ "tree_e": "f322c1a297c627263708d98e75aefcb5e1aa7297",
+ "execution_delta_digest": "346a76b0c52acea428fe122634e7868f66da2e7262fb7bf158c8af5dbdf63afa",
+ "candidates": [],
+ "landing": {
+  "base": "8b33e25fcb7e5b464cbfc605f61f7d40e5825784",
+  "object": "8c322b366e0469cab67e4dea5bd38ab4ec4ace9c",
+  "reconciliations": [
+   "8c322b366e0469cab67e4dea5bd38ab4ec4ace9c"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "1d36b8b5190957981a7fb6ba79902494f7bda46c449b5f1505ba625cdea87c2f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "1f86b690352248789b95d79606cda52a43a70465",
+   "record": "https://github.com/amaybaum/incompleteness/pull/757#issuecomment-5857996731"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "1f86b690352248789b95d79606cda52a43a70465",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36335286607"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "5375703c0058c76f5ad27746e3fb7b49f31abb08",
+   "record": "https://github.com/amaybaum/incompleteness/pull/757#issuecomment-5858962817"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "5375703c0058c76f5ad27746e3fb7b49f31abb08",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36340582485"
+  }
+ ]
+}

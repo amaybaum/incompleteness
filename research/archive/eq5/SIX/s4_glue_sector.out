@@ -1,0 +1,7 @@
+PASS K0 transcription control
+PASS X integer contraction = eq4_lib operator contraction on 6 random GHZ-projector quadruples (Bell and twin)
+PASS A c = 0: glue network >= 0 on all 92^4 quadruples of K_A generators (min integer value 0; true value = /64)
+PASS W c = 1: twin-link glue network >= 0 on all 36^4 quadruples of K_tw generators (min integer value 0)
+PASS C countercontrols: (i) all four nodes in S* (GD shadow of BS*, GHZ and W3 together) reach -4 < 0; (ii) K_tw with Bell links instead of twin links: min -128 (differs from the twin minimum 0)
+--- s4_glue_sector: 5/5 checks pass
+VERDICT S4-GLUE-SECTOR-EXACT

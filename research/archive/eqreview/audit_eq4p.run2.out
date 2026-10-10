@@ -1,0 +1,38 @@
+PASS T1 teleportation identity on all 64 units (scaled Bell factors 2x2 = 4 = 1/(1/4))
+PASS T2 countercontrol: a product link does not teleport -- 64/64 units fail
+PASS U1 three five-token steps carry y on (0,1,2) to y on (3,4,5) (0->3, 1->4, 2->5), factor (1/4)^3 -- labels after: ('5', '4', '3')
+PASS U2 five-token pairing = (1/4) tr(W3 GHZ) < 0 -- value -1/8
+PASS U3 single-token marginals of 2GHZ are I (GHZ marginals I/2: W3 in BS*); <GHZ|W3|GHZ> < 0 (W3 not in BS) -- tr(W3 GHZ) = -1/2
+PASS U4 control: with GHZ as the effect the value is positive -- value 1/4
+PASS P1 3|3 Bell-link value of W3 (x) GHZ is negative -- value -1/16
+PASS P2 control: GHZ (x) GHZ gives a positive value -- value 1/8
+PASS N1 contraction of a PSD 2-token effect with two PSD pair blocks is PSD (24 random exact instances)
+PASS N2 countercontrol: SWAP (not PSD) gives a non-PSD contraction
+PASS S1 <XXX, ZZ1, 1ZZ> has 8 elements; its average is the GHZ-basis pinching on all 64 units
+PASS S2 twirled single-token filter = (1/4)|a+d|^2 id + (1/4)|a-d|^2 Z_k + (1/4)|b+c|^2 X_k + (1/4)|b-c|^2 X_kZ_k (symbolic, k = 1, 2, 3); countercontrol (|b+c|^2 <-> |b-c|^2) false
+PASS S3 the seven local operations permute the GHZ projectors; generated group order -- order 192
+PASS A1 K_A: 92 generators, pairwise >= 0 -- 92 generators
+PASS A2 own double description: extreme rays of K_A* = the 92 generators -- 92 rays
+PASS A3 own written decomposition reconstructs 400 random exact points of K_A* -- 229 with a negative entry
+PASS A4 extreme rays of K_A n R^8_+ are exactly the 28 e_j + e_k -- 28 rays
+PASS A5 GHZ+ pairs negatively with a generator; 2W3 and 2kappa are generators -- GHZ+ (1, 0, 0, 0, 0, 0, 0, 0), W3 (-1, 1, 1, 1, 1, 1, 1, 1), kappa (3, -1, 1, 1, 1, 1, 1, 1)
+PASS A6 countercontrol: cone{e_j+e_k, 1-2e_j} has dual elements x, y with <x,y> < 0 (not self-dual) -- <x,y> = -1
+PASS W1 orbit(t) has 24 elements; the 36-vector set is invariant under the group of S3 -- orbit 24, set 36
+PASS W2 K_tw generators pairwise >= 0
+PASS W3 own double description: extreme rays of K_tw* = the 36 generators -- 36 rays
+PASS W4 GHZ+ pairs negatively with a K_tw generator; 2W3 in cone(p_b, orbit t) (explicit combination) -- combination ['-1', '1', '1', '1', '1', '1', '1', '1']
+PASS W5 sample: twirls of 60 random B_tw generators pair >= 0 with every K_tw generator; countercontrol GHZ+ < 0
+PASS M1 PT_k of a symbolic GHZ-diagonal operator splits into 2x2 blocks [[u,v],[v,u]] (k = 1, 2, 3) -- 24 distinct forms u +- v
+FAIL M2 2<nu,z>, 2<F,z>, 2<G,z> are nonnegative combinations of the PT block forms (exact)
+PASS M3 nu = 2W3 + 4GHZ-; nu = nu^T; <nu, Z1 nu Z1> < 0; tr(FG) < 0 -- <nu,Z nu Z> = -4, tr(FG) = -1/2
+PASS M4 countercontrol: W3 in Z (PT_k(W3) PSD, k = 1,2,3) and <GHZ+, W3> < 0
+PASS E1 hyperdeterminants: nonzero for CNOT(|+>Phi+), GHZ, psi3; zero for W, |000>, |0>Phi+ -- Det(CNOT(|+>Phi+)) = 4 (normalized: /16), Det(GHZ unnorm.) = 1, Det(psi3) = 4
+PASS E2 seven-token contraction = sum_ij |i>_0|i+j>_1|j>_2|j>_3 = Choi vector of a CNOT (in 0,2; out 1,3)
+PASS C1 C^2 = 4C and C^T = C
+PASS C2 on all 7 cuts the reduced state of C/4 has largest eigenvalue <= 1/2 -- cuts (in a,b; out c,d) attaining 1/2: ['ac', 'a', 'b', 'c', 'd']
+PASS C3 w = I/16 - C/32: tr(Cw)/tr(w) < 0 -- value -2/7
+PASS J1 Choi(Lambda_x) = PT_R(x) (R = token 2, P = token 0; random integer x)
+PASS J2 the crossing conditional equals Lambda'_x (x) Lambda'_y rebuilt from PT_R(x), PT_U(y), all 64 units
+PASS J3 countercontrol: rebuilt from x without PT_R it fails -- 32/64 units fail
+--- audit_eq4p: 35/36 checks pass
+VERDICT NOT RENDERED

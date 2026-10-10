@@ -1,0 +1,31 @@
+# NS start marker (thread NS; written first, by one mechanical shell command)
+
+- UTC time at start of checks: 2026-10-10T12:36:14Z
+- pt/audit/reviews/NS/ before this thread acted: absent (audit/reviews/ contains: coherence-note )
+- created with mkdir; directory listing immediately before writing this file: total 8;drwxr-xr-x 2 root root 4096 Oct 10 12:36 .;drwxr-xr-x 4 root root 4096 Oct 10 12:36 ..;
+
+## Manifest checks (silent = every listed file OK)
+
+- `sha256sum -c --quiet inputs.manifest.sha256` (cwd pt/): exit 0, output: [] (lines in manifest: 41)
+- `sha256sum -c --quiet stage1.manifest.sha256` (cwd pt/): exit 0, output: [] (lines in manifest: 209)
+- `sha256sum -c --quiet inputs2.manifest.sha256` (cwd pt/): exit 0, output: [] (lines in manifest: 3)
+- `sha256sum -c --quiet inputs3.manifest.sha256` (cwd pt/): exit 0, output: [] (lines in manifest: 1)
+- `sha256sum -c --quiet stage2.manifest.sha256` (cwd pt/): exit 0, output: [] (lines in manifest: 173)
+- `sha256sum -c --quiet inputs4.manifest.sha256` (cwd pt/): exit 0, output: [] (lines in manifest: 1)
+- `sha256sum -c --quiet ns.manifest.sha256` (cwd pt/audit/stage3-inputs/): exit 0, output: []
+
+## Base
+- `git -C pt/base rev-parse HEAD`: 9f9f8257a980a1819fbbc1dc0019917cf8678626 (exit 0); expected 9f9f8257a980a1819fbbc1dc0019917cf8678626 — OK
+- `GIT_OPTIONAL_LOCKS=0 git -C pt/base status --porcelain` (optional locks off so status does not refresh the index): exit 0, output: [] — empty: OK
+- bytecode under pt/base/ (__pycache__, *.pyc, *.pyo): [] — none: OK
+
+## Protocol files (sha256)
+
+- PROTOCOL.md: expected 239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23 — OK
+- PROTOCOL-AMENDMENT-1.md: expected b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83 — OK
+- PROTOCOL-AMENDMENT-2.md: expected 2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a — OK
+- PROTOCOL-STAGE2.md: expected 386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da — OK
+- PROTOCOL-STAGE2-DS.md: expected 086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5 — OK
+- PROTOCOL-STAGE3.md: expected 1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a — OK
+- audit/stage3-inputs/PROTOCOL-NS.md: expected 4f61891f82a4bfe13a9d0ed74fd064c903c94d57ed8d29bf039633f72b2494e0 — OK
+- PROTOCOL-NS.sha256 records: 4f61891f82a4bfe13a9d0ed74fd064c903c94d57ed8d29bf039633f72b2494e0  PROTOCOL-NS.md

@@ -1,0 +1,523 @@
+name: verify
+
+# Machine-checked verification layer (verification/lean).
+#
+# The six core proof files are self-contained Lean 4 — no Mathlib, no lake project,
+# zero imports — so the kernel gate is just a `lean` binary and one command per file.
+# A clean exit is the certificate; see verification/lean/VERIFYING.md.
+
+# NO PATH FILTERS, deliberately. The three verification jobs are required status checks on main, and a
+# required check that never runs never reports: GitHub leaves it Expected forever and the pull
+# request cannot be merged. A path filter would do exactly that to any pull request touching only
+# papers/*.md. The filters that used to live here also had to name every gated probe individually,
+# which was a standing trap of its own — a probe added to the job below but not to both filter
+# lists is a gate that silently never fires. Cheaper to run the suite on everything.
+#
+# pull_request covers every branch and re-runs on each push to the head branch (synchronize), so a
+# dev pull request is checked on every commit. push is restricted to main so that the same commit
+# is not checked twice under the same check-run names, which is what a required-check rule has to
+# match against. The gap this leaves is a push to dev with no pull request open; it closes the
+# moment one is opened, and nothing merges without one.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  kernel:
+    name: Lean kernel check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lean
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain leanprover/lean4:stable
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Report toolchain
+        run: lean --version
+
+      # Each file is checked independently and the failures are summed, so one
+      # rejection does not hide the state of the other two.
+      - name: Kernel check
+        working-directory: verification/lean
+        run: |
+          rc=0
+          for f in OI_Gauge_Certificates OI_Structural_Core OI_Staggered_Relations \
+                   OI_Regulator_Symmetry OI_Structural_Chain OI_Time_Reversal; do
+            echo "::group::lean ${f}.lean"
+            if lean "${f}.lean"; then
+              echo "OK ${f}.lean"
+            else
+              echo "FAIL ${f}.lean"
+              rc=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $rc
+
+  # The Mathlib bridge is a separate lake project with a pinned toolchain, and a separate
+  # job: it is slower and has its own failure surface, and a breakage there must not be
+  # able to obscure the state of the zero-import core gate above. fetch-depth: 0 is load-bearing
+  # for the release gate's v3-receipts step, which verifies each receipt from the commit that last
+  # wrote it and fails on a shallow repository (round V3-11), and for its legacy-records step,
+  # which reads a changed manifest's governing round from history (round V3-14).
+  bridge:
+    name: Mathlib bridge
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      # Mathlib's own oleans come from `lake exe cache get` below and are NOT cached here:
+      # that tree is 4.5 GB and has no business in the Actions cache. What is cached is the
+      # 536 MB this package builds itself -- 170 OIBridge modules -- which is thrown away on
+      # every fresh runner and rebuilt from nothing. Three consecutive runs measured 20m34s,
+      # 20m02s and 20m56s of Build, two of them on a tree whose Lean source was byte-identical
+      # to its base, so the cost is paid whether or not any Lean changed.
+      #
+      # The key pins the toolchain, the resolved dependency manifest and the lakefile, so a
+      # Mathlib or toolchain bump can never restore artifacts built against the old one, and
+      # then the Lean sources. The restore prefix drops only the source hash, so a changed
+      # module restores the last build of the same dependency set and recompiles from there.
+      # Both globs name this package's own sources; neither can reach into .lake/, so the key
+      # never depends on downloaded dependency source.
+      - name: Restore the OIBridge build cache
+        uses: actions/cache@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          # Both keys are single physical lines on purpose: restore-keys is a
+          # newline-separated LIST, so a key broken across lines would parse as
+          # several malformed keys rather than one.
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+
+      # `--rehash` is what makes a restored cache safe to trust: it hashes the files for traces
+      # rather than believing the restored `.hash` files, so the cache supplies candidate
+      # artifacts and the checked-out source still decides which of them may be reused.
+      #
+      # NOT `--old`. Lake's own help says it "only rebuild modified modules (ignore transitive
+      # deps)" -- it would skip dependents of a changed module, which is precisely the assurance
+      # this gate exists to provide. `--rehash` keeps ordinary dependency semantics intact.
+      #
+      # The two phases are timed separately because they have different remedies: time in
+      # `cache get` is Mathlib download and decompression, which the step above deliberately
+      # does not address, and time in the build is this package's own compilation, which it does.
+      - name: Build
+        working-directory: verification/lean-mathlib
+        run: |
+          lean --version
+
+          t0=$(date +%s)
+          lake exe cache get
+          t1=$(date +%s)
+
+          lake --rehash build
+          t2=$(date +%s)
+
+          echo "TIMING lake-exe-cache-get $((t1 - t0))s"
+          echo "TIMING lake-rehash-build $((t2 - t1))s"
+          {
+            echo "| build phase | seconds |"
+            echo "|---|---|"
+            echo "| \`lake exe cache get\` | $((t1 - t0)) |"
+            echo "| \`lake --rehash build\` | $((t2 - t1)) |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # The release gate runs HERE, after the build, because this job already has
+      # elan, lake and the Mathlib cache, and several gate checks read the built
+      # tree. It is the real `tools/release_gate.py`, not a CI approximation of it:
+      # a second partial implementation would drift from the gate it stands in for,
+      # and drift is exactly the failure this step exists to prevent.
+      #
+      # Before this step existed, "all checks green" said nothing about voice,
+      # claims, coverage, staleness, the manuscript census, or any other gate
+      # check — only about Lean and the probes. A voice_check scope defect reached
+      # main under three green checks that way.
+      - name: Release gate
+        run: python3 tools/release_gate.py
+
+  # Probe shards run independently so the required Numerical probes check is bounded by
+  # the slowest shard rather than by their sum. The final `probes` job below keeps the
+  # historical required-check name and fails unless every shard succeeded.
+  # The core probes are split into two shards of about equal measured wall time; every core
+  # probe is listed exactly once across the two, and their union is the former single list.
+  probes_core_a:
+    name: Numerical probes / core A
+    runs-on: ubuntu-latest
+    steps:
+      # The default depth-1 checkout: no probe and no guard predicate reads repository history
+      # (round V3-14).
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: Core probes A
+        working-directory: verification/lean
+        run: |
+          for p in bohr_frequency static_generator centralizer_basis; do
+            echo "=== ${p}_probe.py ==="
+            python3 "${p}_probe.py"
+          done
+
+  probes_core_b:
+    name: Numerical probes / core B
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: Core probes B
+        working-directory: verification/lean
+        run: |
+          for p in gauge_certificates structural_core staggered_relations \
+                   structural_chain representation_bridge time_reversal \
+                   equivalence_chain hidden_memory finite_horizon_equivalence \
+                   c3_necessity canonical_measure finiteness cubic_isotropy \
+                   idempotent_trace link_decomposition stinespring_scope \
+                   factor_uniqueness kraus_uniqueness stinespring_uniqueness \
+                   weyl_twirl weyl_lift separability boundary_rank reciprocity \
+                   gauge_dimension taste_branching gap_correspondence \
+                   spectral_logarithm \
+                   wave_period partition_coupling audit_census repertoire_lie edge_rigidity \
+                   causal_readback_discovery causal_readback_bridge causal_readback_t1_scope \
+                   recurrence_tightness recurrence_tightness_guard scaling_family \
+                   rooted_classification_t3 physical_c4_toy_instance dita_defect; do
+            echo "=== ${p}_probe.py ==="
+            python3 "${p}_probe.py"
+          done
+
+  probes_a36:
+    name: Numerical probes / A36 hierarchy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: A36 hierarchy probe
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_hierarchy_probe.py ==="
+          python3 dita_hierarchy_probe.py
+          echo "=== dita_arc_exclusivity_probe.py ==="
+          python3 dita_arc_exclusivity_probe.py
+
+  probes_a38:
+    name: Numerical probes / A38 escape
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: A38 local-escape probe
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_local_escape_probe.py ==="
+          python3 dita_local_escape_probe.py
+          echo "=== dita_torus_probe.py ==="
+          python3 dita_torus_probe.py
+
+  probes_a40:
+    name: Numerical probes / A40 locus
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: A40 Dita-locus probe
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_torus_locus_probe.py ==="
+          python3 dita_torus_locus_probe.py
+
+  probes_a41_production:
+    name: Numerical probes / A41 production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: A41 index-map probe, the production path
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_index_map_probe.py ==="
+          python3 dita_index_map_probe.py
+
+  probes_a41_independent:
+    name: Numerical probes / A41 independent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: A41 index-map probe, the independent path
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_index_map_independent.py ==="
+          python3 dita_index_map_independent.py
+
+  probes_a41_hulls:
+    name: Numerical probes / A41 hulls
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      - name: A41 hull census
+        working-directory: verification/lean
+        run: |
+          echo "=== dita_index_map_hulls.py ==="
+          python3 dita_index_map_hulls.py
+
+  probes_a45:
+    name: Numerical probes / A45 ancilla
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: A45 fixed-basis ancilla probe
+        working-directory: verification/lean
+        run: |
+          echo "=== fixed_basis_ancilla_probe.py ==="
+          python3 fixed_basis_ancilla_probe.py
+
+  probes_nb1:
+    name: Numerical probes / NB-1 native-gate ball
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: NB-1 native-gate ball probe
+        working-directory: verification/lean
+        run: |
+          echo "=== native_gate_ball_probe.py ==="
+          python3 native_gate_ball_probe.py
+
+  probes_kinf2:
+    name: Numerical probes / KINF-2 foundations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install the exact-algebra dependency
+        run: pip install sympy==1.14.0
+
+      - name: KINF-2 foundations probe
+        working-directory: verification/lean
+        run: |
+          echo "=== kinf2_foundations_probe.py ==="
+          python3 kinf2_foundations_probe.py
+
+  # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
+  # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
+  # On any other event the matrix job is skipped and the aggregate below requires exactly that.
+  probes_a42_witness:
+    name: Numerical probes / A42 witness
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 witness, class supports, controls, lemmas and case-split ingredients
+        working-directory: verification/lean
+        run: |
+          python3 dita_support_minimality_probe.py --part witness
+          python3 dita_support_minimality_probe.py --part wlog
+
+  probes_a42_census01:
+    name: Numerical probes / A42 census01
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 {0,1} census and the zero-row span lemma
+        working-directory: verification/lean
+        run: python3 dita_support_minimality_probe.py --part d01span
+
+  probes_a42_exclusion:
+    name: Numerical probes / A42 exclusion (${{ matrix.part }})
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        part: ['paths', 'r5', 'n18:0', 'n18:1', 'n18:2', 'dfs:0', 'dfs:1', 'dfs:2', 'dfs:3', 'dfs:4', 'dfs:5',
+               'sathr', 'cubes:0', 'cubes:1', 'cubes:2']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy==2.4.6 python-sat==1.9.dev15
+
+      - name: A42 exclusion shard
+        working-directory: verification/lean
+        run: python3 dita_support_minimality_probe.py --part '${{ matrix.part }}'
+
+  probes_foundations:
+    name: Numerical probes / foundations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install numpy scipy
+
+      # papers/oi_lattice_code/ has sat outside this gate; these are the first of its probes
+      # brought in. Named individually rather than by directory glob: several of the others
+      # (intervention_probes at K=2 builds 124k states) are far too slow for CI.
+      - name: Foundations probes
+        working-directory: papers/oi_lattice_code/foundations
+        run: |
+          rc=0
+          for p in comb_reachability_probes phaselock_probes source_lift_probes \
+                   induced_source_probes gauge_support_probes \
+                   bargmann_bridge_probes coherence_boundary_probes \
+                   native_group_probes finite_horizon_probes \
+                   recurrence_entropy_probes comb_dimension_probes \
+                   comb_realization_probes; do
+            echo "=== ${p}.py ==="
+            python3 "${p}.py" || rc=1
+          done
+          exit $rc
+
+  probes:
+    name: Numerical probes
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every probe shard
+        env:
+          CORE_A_RESULT: ${{ needs.probes_core_a.result }}
+          CORE_B_RESULT: ${{ needs.probes_core_b.result }}
+          A36_RESULT: ${{ needs.probes_a36.result }}
+          A38_RESULT: ${{ needs.probes_a38.result }}
+          A40_RESULT: ${{ needs.probes_a40.result }}
+          A41P_RESULT: ${{ needs.probes_a41_production.result }}
+          A41I_RESULT: ${{ needs.probes_a41_independent.result }}
+          A41H_RESULT: ${{ needs.probes_a41_hulls.result }}
+          A45_RESULT: ${{ needs.probes_a45.result }}
+          NB1_RESULT: ${{ needs.probes_nb1.result }}
+          KINF2_RESULT: ${{ needs.probes_kinf2.result }}
+          A42W_RESULT: ${{ needs.probes_a42_witness.result }}
+          A42C_RESULT: ${{ needs.probes_a42_census01.result }}
+          A42X_RESULT: ${{ needs.probes_a42_exclusion.result }}
+          FOUNDATIONS_RESULT: ${{ needs.probes_foundations.result }}
+        run: |
+          echo "core_a=${CORE_A_RESULT}"
+          echo "core_b=${CORE_B_RESULT}"
+          echo "a36=${A36_RESULT}"
+          echo "a38=${A38_RESULT}"
+          echo "a40=${A40_RESULT}"
+          echo "a41_production=${A41P_RESULT}"
+          echo "a41_independent=${A41I_RESULT}"
+          echo "a41_hulls=${A41H_RESULT}"
+          echo "a45=${A45_RESULT}"
+          echo "nb1=${NB1_RESULT}"
+          echo "kinf2=${KINF2_RESULT}"
+          echo "a42_witness=${A42W_RESULT}"
+          echo "a42_census01=${A42C_RESULT}"
+          echo "a42_exclusion=${A42X_RESULT} (event ${GITHUB_EVENT_NAME})"
+          echo "foundations=${FOUNDATIONS_RESULT}"
+          test "${CORE_A_RESULT}" = success
+          test "${CORE_B_RESULT}" = success
+          test "${A36_RESULT}" = success
+          test "${A38_RESULT}" = success
+          test "${A40_RESULT}" = success
+          test "${A41P_RESULT}" = success
+          test "${A41I_RESULT}" = success
+          test "${A41H_RESULT}" = success
+          test "${A45_RESULT}" = success
+          test "${NB1_RESULT}" = success
+          test "${KINF2_RESULT}" = success
+          test "${A42W_RESULT}" = success
+          test "${A42C_RESULT}" = success
+          if [ "${GITHUB_EVENT_NAME}" = workflow_dispatch ]; then
+            test "${A42X_RESULT}" = success
+          else
+            test "${A42X_RESULT}" = skipped
+          fi
+          test "${FOUNDATIONS_RESULT}" = success

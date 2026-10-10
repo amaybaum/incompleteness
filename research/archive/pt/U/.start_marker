@@ -1,0 +1,36 @@
+# pt/U/.start_marker — thread U (UNIQ), launch 3
+
+UTC time of start checks and write: 2026-10-10T11:23:27Z
+
+Directory state before the write (`ls -la U` from pt/):
+ls: cannot access 'U': No such file or directory
+(pt/U/ created by this command immediately before this file; this file is the first write into it.)
+
+Start checks, all run from pt/:
+
+- sha256sum -c --quiet inputs.manifest.sha256: exit 0 (no output; all files OK)
+- sha256sum -c --quiet stage1.manifest.sha256: exit 0 (no output; all files OK)
+- sha256sum -c --quiet inputs2.manifest.sha256: exit 0 (no output; all files OK)
+- sha256sum -c --quiet inputs3.manifest.sha256: exit 0 (no output; all files OK)
+- sha256sum -c --quiet stage2.manifest.sha256: exit 0 (no output; all files OK)
+- sha256sum -c --quiet inputs4.manifest.sha256: exit 0 (no output; all files OK)
+- git -C base rev-parse HEAD: 9f9f8257a980a1819fbbc1dc0019917cf8678626 (required 9f9f8257a980a1819fbbc1dc0019917cf8678626)
+- git -C base status --porcelain: [] (required empty)
+- bytecode under base/ (__pycache__ or *.pyc): [] (required none)
+- protocol hashes (sha256sum):
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  PROTOCOL-AMENDMENT-1.md
+2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  PROTOCOL-AMENDMENT-2.md
+386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  PROTOCOL-STAGE2.md
+086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  PROTOCOL-STAGE2-DS.md
+1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+- PROTOCOL-STAGE3.sha256 records: 1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a  PROTOCOL-STAGE3.md
+- required: PROTOCOL.md 239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23;
+  PROTOCOL-AMENDMENT-1.md b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83;
+  PROTOCOL-AMENDMENT-2.md 2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a;
+  PROTOCOL-STAGE2.md 386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da;
+  PROTOCOL-STAGE2-DS.md 086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5;
+  PROTOCOL-STAGE3.md 1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a.
+
+Verdict of the start checks: all green (every manifest exit 0 with no output; HEAD matches; status empty;
+no bytecode; all six protocol hashes match, and PROTOCOL-STAGE3.sha256 agrees).

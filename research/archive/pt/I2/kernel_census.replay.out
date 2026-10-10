@@ -1,0 +1,225 @@
+# I2 kernel census — candidate module set
+modules in OIBridge: 214
+MODULE AncillaClosure                     owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+  idents: compositeCompleteness
+MODULE AntiunitaryInvariance              owner=I2 cited_at=papers/GR.md:182;papers/GR.md:747
+  idents: <module AntiunitaryInvariance.lean> ad_eq_scalar circuit_invariance kraus_normalization phase_families_shift string_invariance transposeMap_kraus unitary_channel_transpose
+MODULE C3Necessity                        owner=I1 (C1-C4 / realization modules) cited_at=papers/Main.md:494
+  idents: <module C3Necessity.lean> c3_necessity c3_necessity_and_capacity card_hidden_ge_two_pow_Istar
+MODULE CarrierGeneralOIPlus               owner=I4 (protocol module list) cited_at=papers/GR.md:226;papers/GR.md:228;papers/GR.md:230;papers/GR.md:238;papers/GR.md:240;papers/Main.md:568
+  idents: <module CarrierGeneralOIPlus.lean> OIHierarchy.OIPlus OIPlus carrier_general_oiPlus control_of_reversibleRichness observationalIndependence_iff_inert oiPlus_independence oiPlus_qubit_iff parallel_of_observationalIndependence reversibleRichness_of_control
+MODULE CentralObservation                 owner=I2 cited_at=papers/Main.md:570
+  idents: <module CentralObservation.lean> central_classification complete_passive_iff_commutative
+MODULE CoherentContinuumSource            owner=I2 cited_at=verification/ROADMAP.md:950
+  idents: <module CoherentContinuumSource.lean>
+MODULE CoherentLift                       owner=I2 cited_at=papers/GR.md:190
+  idents: comb_mixture_of_shell_representation shell_representation_from_comb uniform_overlap_obstruction
+MODULE CoherentLiftGauge                  owner=I2 cited_at=verification/ROADMAP.md:225
+  idents: CoherentLift
+MODULE CompletedOI                        owner=I4 (protocol module list) cited_at=papers/GR.md:226;papers/GR.md:228;papers/GR.md:230;papers/GR.md:232;papers/GR.md:238;papers/GR.md:240;+2 more
+  idents: <module CompletedOI.lean> CompletedOI OICore OIHierarchy.OIPlus OIPlus closure_of_observerRecursion completedOI_iff_physical control_of_reversibleRichness observationalIndependence_iff_inert observerRecursion_of_closure oiPlus_iff_completedOI oiPlus_independence parallel_of_observationalIndependence qm_implies_oiCore reversibleRichness_of_control
+MODULE CompositeDimension                 owner=I3 (K programme modules) cited_at=papers/GR.md:194
+  idents: corner_form
+MODULE CrossTimeInvariants                owner=I2 cited_at=verification/ROADMAP.md:396
+  idents: ct2a_relative_conj
+MODULE CubicIsotropy                      owner=I2 cited_at=papers/SM.md:262
+  idents: <module CubicIsotropy.lean> ohInvariant_iff rem_bigO rem_littleO
+MODULE DerivedQ3                          owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+  idents: <module DerivedQ3.lean> derivedOI_qm_iff_layerFlowExecutable' derivedOI_qm_iff_layerFlowExecutable_swap' gateFlow_isolation_flip phaseFree_of_derivedOI_layerFlowExecutable phaseGate_mul_self qm_of_derivedOI_layerFlowExecutable
+MODULE DiagonalTheory                     owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+  idents: diagTheory
+MODULE DilationChoice                     owner=I2 cited_at=papers/Main.md:530
+  idents: permMatrix_mem_unitaryGroup
+MODULE DimensionalCountermodel            owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+  idents: countermodel
+MODULE EmbeddedObservation                owner=I4 (protocol module list) cited_at=papers/GR.md:248
+  idents: <module EmbeddedObservation.lean> observerRecursion_of_embeddedObservation systemToLevelOne_of_embeddedObservation
+MODULE Equivalence                        owner=I2 cited_at=papers/Main.md:500;papers/Main.md:530
+  idents: <module Equivalence.lean> S_imp_D finite_horizon_equivalence
+MODULE EquivalenceChain                   owner=I2 cited_at=papers/Main.md:530
+  idents: <module EquivalenceChain.lean> isDiag_Phi permMatrix_mem_unitaryGroup
+MODULE ExecSource                         owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+  idents: <module ExecSource.lean> exists_nonMonomial_of_layerFlowExecutable obs_not_layerFlowExecutable waveSubstratum_not_layerFlowExecutable_swap
+MODULE GeneralCarrier                     owner=I4 (protocol module list) cited_at=papers/GR.md:214;papers/GR.md:216;papers/GR.md:224
+  idents: <module GeneralCarrier.lean> exactAll_iff_physical_general exactAll_iff_substantive general_characterization main_result oi_alone_not_qm oi_compatible_classification
+MODULE GramTrajectorySelection            owner=I2 cited_at=verification/ROADMAP.md:548
+  idents: GramTrajEquiv
+MODULE HiddenMemory                       owner=I2 cited_at=papers/Main.md:586
+  idents: <module HiddenMemory.lean> capacity_floor distinguishability_floor unavoidable_hidden_predictive_memory
+MODULE ImplementationLocality             owner=I4 (protocol module list) cited_at=papers/GR.md:244;papers/GR.md:254
+  idents: <module ImplementationLocality.lean> instAvail_trace observationalIndependence_of_implementationLocality redundancy_fails validity_of_implementationLocality
+MODULE InternalObserver                   owner=I2 cited_at=papers/Main.md:570
+  idents: <module InternalObserver.lean> internal_branch_eq_blockPart internal_outcome_law no_full_passive_self_record recordInstr_not_passive recordInstr_writes
+MODULE IsometryExtension                  owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+  idents: <module IsometryExtension.lean> finiteIsometryExtensionSF_discharged
+MODULE JordanClassification               owner=I4 (protocol module list) cited_at=papers/GR.md:192;papers/GR.md:194
+  idents: <module JordanClassification.lean> corner_cocycle corner_form corner_nilpotent corner_unimodular matrixJordan_unitary_or_transpose orientation_dichotomy orthogonal_resolution_rank_one psd_iff_trace_nonneg sameData_orderIso sameData_unitary_or_transpose
+MODULE KrausSoundness                     owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+  idents: everywhereAvailable
+MODULE LevelOneSeam                       owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214;papers/GR.md:216
+  idents: exactAll_of_levelOne systemLoose
+MODULE LieRankSource                      owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:246;papers/GR.md:254
+  idents: bracket_XY hControl_star lieRank_not_redundant lieRank_of_elementary
+MODULE LiftAudit                          owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+  idents: <module LiftAudit.lean> configurationLevel_not_layerFlowExecutable gateFlow_half_not_preservesDiag layerFlowExecutable_of_control substratumTheory_not_layerFlowExecutable
+MODULE LiftSource                         owner=I4 (protocol module list) cited_at=papers/GR.md:266;papers/Main.md:568
+  idents: <module LiftSource.lean> avail_one_not_layerFlowExecutable coherentLiftClass_eq_substratumClass correlationExtension_preservesDiag reversibleExtension_conj_monomial stochasticChannel_kraus_monomial
+MODULE MicroscopicReversibility           owner=I4 (protocol module list) cited_at=papers/GR.md:230;papers/GR.md:244;papers/GR.md:246;papers/GR.md:254;papers/Main.md:568
+  idents: <module MicroscopicReversibility.lean> control_of_lieRank inverseAccessibility_of_lieRank reversibleImplementationLocality_of_qm
+MODULE MinimalRepertoire                  owner=I4 (protocol module list) cited_at=papers/GR.md:242;papers/GR.md:246;papers/GR.md:254;papers/Main.md:568
+  idents: <module MinimalRepertoire.lean> bracket_XX carrier_general_oiPlusMin control_at_level control_of_phaseFree descend hControl_perm not_hControl_evenCycle not_hControl_two oiPlusMin_iff_oiPlusPos oiPlusMin_iff_qm phaseFree_of_cyclic phaseFree_of_elementary
+MODULE OIRealization                      owner=I1 (C1-C4 / realization modules) cited_at=papers/GR.md:224;papers/GR.md:226;papers/Main.md:570
+  idents: <module OIRealization.lean> RealizesSealedOICore realizesSealedOICore_of_control
+MODULE OperationalRigidity                owner=I4 (protocol module list) cited_at=papers/GR.md:192;papers/GR.md:194
+  idents: operational_separation orderIso_jordan sameData_unique_state
+MODULE OperationalSourcing                owner=I2 cited_at=papers/Main.md:622
+  idents: padData_rooted
+MODULE OperationalValidity                owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+  idents: krausSoundExt_of_validity_inert
+MODULE OrientationClosure                 owner=I2 cited_at=papers/GR.md:200;papers/GR.md:202
+  idents: <module OrientationClosure.lean> OrientedShellRepresentation no_universal_oriented_property orientedShellRepresentation_orientation_sensitive shellRepresentation_transpose_stable transitionIdentification_orientation_sensitive
+MODULE OrientationSelection               owner=I2 cited_at=papers/GR.md:200;papers/GR.md:202
+  idents: <module OrientationSelection.lean> operational_orientation_noGo sameData_unitary_of_orientedReference sameData_unitary_of_shellRepresentation sameData_unitary_of_transitionIdentification transpose_completion_admissible transpose_data_eq transpose_not_inner transpose_realizes_second_branch
+MODULE PassiveIndependence                owner=I2 cited_at=papers/Main.md:570
+  idents: <module PassiveIndependence.lean> oiCore_to_passive_vacuous passive_nondiscriminating passivelyIncomplete_of_card passivelyIncomplete_without_oiCore
+MODULE PassiveObservation                 owner=I2 cited_at=papers/Main.md:570
+  idents: <module PassiveObservation.lean> no_complete_passive_observation
+MODULE PhaseSource                        owner=I4 (protocol module list) cited_at=papers/GR.md:256
+  idents: <module PhaseSource.lean> onesFixing_not_phasesAvailable permClass_onesFixing substratumClass_not_onesFixing
+MODULE PhysicalCharacterization           owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:214
+  idents: physical_of_exactAll
+MODULE PositivePackage                    owner=I4 (protocol module list) cited_at=papers/GR.md:242;papers/GR.md:254;papers/Main.md:568
+  idents: <module PositivePackage.lean> carrier_general_oiPlusPos oiPlusPos_iff_oiPlusElem oiPlusPos_iff_qm
+MODULE PositiveReachability               owner=I4 (protocol module list) cited_at=papers/GR.md:230;papers/GR.md:244
+  idents: <module PositiveReachability.lean> universalReachability_of_lieRank_positive
+MODULE QuasilocalAlgebra                  owner=I4 (protocol module list) cited_at=papers/GR.md:278;papers/Main.md:568
+  idents: <module QuasilocalAlgebra.lean> closure_iUnion_stage emb_eq_iff heisQ_mul heis_iterate_emb inclObs_injective inclObs_mul instCStarAlgebraQuasilocal norm_heisQ norm_inclObs quasiState_nonneg quasiState_unique
+MODULE QuasilocalCharacterization         owner=I4 (protocol module list) cited_at=papers/GR.md:278;papers/GR.md:280;papers/GR.md:286;papers/Main.md:568
+  idents: <module QuasilocalCharacterization.lean> QuasilocalSystem canonEquiv canon_dyn canon_unique emb_comm_of_disjoint phaseQ_ne_heisQ phase_localityPreserving systemEquiv_dyn systemEquiv_unique
+MODULE RankGapTheory                      owner=I4 (cited only from the operational-completion/OI-plus ranges) cited_at=papers/GR.md:216
+  idents: <module RankGapTheory.lean> five_way_minimality gapTheory
+MODULE ReadWriteControl                   owner=I4 (protocol module list) cited_at=papers/GR.md:256;papers/Main.md:568
+  idents: <module ReadWriteControl.lean> offDiagonal_interp_not_monomial readWriteControl_independent readWriteSourced_not_qm
+MODULE RegionLimit                        owner=I2 cited_at=papers/GR.md:288;verification/ROADMAP.md:949
+  idents: <module RegionLimit.lean> continuous_extension_not_unique
+MODULE RegionTower                        owner=I2 cited_at=papers/GR.md:290
+  idents: <module RegionTower.lean> state_selection_audit
+MODULE SecondOrderCircuit                 owner=I2 cited_at=papers/GR.md:288
+  idents: <module SecondOrderCircuit.lean> depth_two_circuit gate_comm leap_eq_swap_shear leap_leap_symm
+MODULE SecondOrderDrive                   owner=I4 (protocol module list) cited_at=papers/GR.md:288;papers/Main.md:268;papers/Main.md:568
+  idents: <module SecondOrderDrive.lean> driveQ_isContinuousPath driveQ_one_eq_heisQ heisQ_of_comp layerQ_one_eq_heisQ swapQ_one_eq_heisQ
+MODULE SecondOrderLayer                   owner=I2 cited_at=papers/GR.md:288
+  idents: <module SecondOrderLayer.lean> layerQ_add_time
+MODULE Separability                       owner=I2 cited_at=papers/Main.md:310
+  idents: <module Separability.lean> separable_imp_ppt
+MODULE ShellAssignment                    owner=I2 cited_at=papers/GR.md:190;papers/GR.md:202
+  idents: ShellRepresentationConsistency
+MODULE StructuralClosure                  owner=I4 (protocol module list) cited_at=papers/GR.md:256;papers/Main.md:568
+  idents: <module StructuralClosure.lean> bijectiveOperator_conjTranspose phaseOperator_conjTranspose qm_generated_by_substratum_extension substratumClass_structurallyClosed substratum_extension_quantum_iff_drives substratum_plus_control_qm substratum_residual
+MODULE SubstratumInterface                owner=I4 (protocol module list) cited_at=papers/GR.md:256
+  idents: <module SubstratumInterface.lean> bijectiveOperator_monomial phaseOperator_monomial phase_monomial
+MODULE SubstratumInterfaceAudit           owner=I2 cited_at=verification/ROADMAP.md:63
+  idents: permClass
+MODULE SubstratumSource                   owner=I4 (protocol module list) cited_at=papers/GR.md:256
+  idents: <module SubstratumSource.lean> genTheory_qm_of_quantumArchitecture qm_generated_by_quantumArchitecture
+MODULE SwapLayer                          owner=I2 cited_at=papers/GR.md:288
+  idents: <module SwapLayer.lean> swapQ_add_time
+MODULE ThermalOrientation                 owner=I2 cited_at=papers/GR.md:186;papers/GR.md:202;papers/GR.md:206;papers/GR.md:210
+  idents: <module ThermalOrientation.lean> OperationalTransitionIdentification counting_passive gibbs_orientation gibbs_strictlyPassive orientation_excludes_reflection passivity_selector_nonuniform transported_gibbs
+MODULE TrackBQfbBridge                    owner=I2 cited_at=papers/Main.md:622
+  idents: bridge_traj realData_traj_stochastic rooted_eq_iff_slice_eq
+MODULE TurnpikeScopeTransfer              owner=I2 cited_at=papers/GR.md:178
+  idents: BGIntegerClassification twoBranch_of_BGClassification
+MODULE TwoByTwoNoGo                       owner=I2 cited_at=papers/GR.md:190
+  idents: twoByTwo_affine_rigidity twoByTwo_no_local_lift twoByTwo_nonCP
+MODULE TypedCompletion                    owner=I4 (protocol module list) cited_at=papers/GR.md:272;papers/Main.md:568
+  idents: <module TypedCompletion.lean> TypedOperationalTheory shadow_embeddedObservation typed_determined_iff typed_interface_not_quantum
+MODULE TypedPositive                      owner=I4 (protocol module list) cited_at=papers/GR.md:272;papers/Main.md:568
+  idents: <module TypedPositive.lean> typed_determined_of_oiPlusMin typed_determined_of_oiPlusPos
+MODULE WeylLift                           owner=I2 cited_at=papers/Main.md:310
+  idents: <module WeylLift.lean> entanglementBreaking_twirl exists_lagrangian_tuple not_entanglementBreaking_twirl
+MODULE WeylTwirl                          owner=I2 cited_at=papers/Main.md:310
+  idents: <module WeylTwirl.lean> isotropic_iff_commute
+unresolved backticked identifiers (no Lean declaration found): 3
+UNRESOLVED CoherentContinuumSource
+UNRESOLVED RegionLimit
+UNRESOLVED fiber_freedom
+
+# census of axiom / opaque / class / Prop-valued structure, def, abbrev, inductive in I2 modules
+DECL CentralObservation:67 def BlockDiag lit=P prop=True hyp_uses=9
+DECL CentralObservation:71 def InBlock lit=P prop=True hyp_uses=15
+DECL CentralObservation:164 def IsBlockPassiveInstrument lit=P prop=True hyp_uses=11
+DECL CentralObservation:509 def SeparatesBlockStates lit=P prop=True hyp_uses=7
+DECL CoherentContinuumSource:135 def NonMonomialCountablyCovered lit=P prop=True hyp_uses=4
+DECL CoherentContinuumSource:143 def UncountableNonMonomialRays lit=P prop=True hyp_uses=2
+DECL CoherentContinuumSource:269 class has lit=P prop=False hyp_uses=0
+DECL CoherentLift:489 def ProjectorShellRepresentation lit=P prop=True hyp_uses=4
+DECL CoherentLift:1211 def TwoTimeCoherentLift lit=P prop=True hyp_uses=1
+DECL CoherentLift:1504 def ActionIntertwining lit=P prop=True hyp_uses=2
+DECL CoherentLift:1512 def ReadoutIntertwining lit=P prop=True hyp_uses=2
+DECL CoherentLiftGauge:101 def StrongAnchorStabilizer lit=P prop=True hyp_uses=20
+DECL CoherentLiftGauge:114 def WeakAnchorStabilizer lit=P prop=True hyp_uses=4
+DECL CoherentLiftGauge:124 def CoherentLift lit=P prop=True hyp_uses=26
+DECL CoherentLiftGauge:135 def GaugeRelated lit=P prop=True hyp_uses=5
+DECL CrossTimeInvariants:118 def ConstRightRelated lit=P prop=True hyp_uses=1
+DECL CrossTimeInvariants:123 def ConstLeftRelated lit=P prop=True hyp_uses=2
+DECL CubicIsotropy:61 def IsSign lit=P prop=True hyp_uses=2
+DECL CubicIsotropy:65 def OhInvariant lit=P prop=True hyp_uses=5
+DECL CubicIsotropy:218 def KernelOh lit=P prop=True hyp_uses=7
+DECL DilationChoice:134 def AdmissibleDilationAt lit=P prop=True hyp_uses=15
+DECL DilationChoice:271 def MovesVisibleCandidate lit=P prop=True hyp_uses=4
+DECL DilationChoice:284 def VisibleInvariance lit=P prop=True hyp_uses=3
+DECL Equivalence:147 def Stochastic lit=P prop=True hyp_uses=3
+DECL Equivalence:168 def RevReal.IsLaw lit=P prop=True hyp_uses=0
+DECL Equivalence:182 def RevRealizable lit=P prop=True hyp_uses=3
+DECL Equivalence:201 def QfbReal.IsLaw lit=P prop=True hyp_uses=0
+DECL Equivalence:216 def QfbRealizable lit=P prop=True hyp_uses=3
+DECL EquivalenceChain:197 def IsDiag lit=P prop=True hyp_uses=1
+DECL GramTrajectorySelection:61 class is lit=P prop=False hyp_uses=2
+DECL GramTrajectorySelection:121 def GramTrajEquiv lit=P prop=True hyp_uses=7
+DECL GramTrajectorySelection:131 def SelectsAt lit=P prop=True hyp_uses=4
+DECL InternalObserver:63 def Records lit=P prop=True hyp_uses=3
+DECL InternalObserver:68 def IsInternalObserver lit=P prop=True hyp_uses=9
+DECL OperationalSourcing:819 def RepUnitary lit=P prop=True hyp_uses=0
+DECL OrientationClosure:151 def OrientedShellRepresentation lit=P prop=True hyp_uses=2
+DECL OrientationClosure:165 def ReadoutSeparating lit=P prop=True hyp_uses=2
+DECL OrientationSelection:206 class as lit=P prop=False hyp_uses=1
+DECL PassiveIndependence:74 def PassivelyIncomplete lit=P prop=True hyp_uses=7
+DECL PassiveIndependence:98 def SuppAnc lit=P prop=True hyp_uses=1
+DECL PassiveIndependence:103 def KeepsLabels lit=P prop=True hyp_uses=7
+DECL PassiveIndependence:288 def PassivelyCompleteOnDiagonal lit=P prop=True hyp_uses=3
+DECL PassiveObservation:203 def IsPassiveInstrument lit=P prop=True hyp_uses=7
+DECL PassiveObservation:208 def SeparatesStates lit=P prop=True hyp_uses=1
+DECL PassiveObservation:288 def IsDiagonal lit=P prop=True hyp_uses=3
+DECL RegionTower:93 def AgreeOff lit=P prop=True hyp_uses=6
+DECL RegionTower:249 def DependsOnlyOn lit=P prop=True hyp_uses=4
+DECL RegionTower:319 def Consistent lit=P prop=True hyp_uses=3
+DECL SecondOrderCircuit:518 structure IsGateList lit=P prop=True hyp_uses=9
+DECL Separability:83 def PosSemidefOn lit=P prop=True hyp_uses=4
+DECL Separability:130 def Separable lit=P prop=True hyp_uses=5
+DECL Separability:254 def EntanglementBreaking lit=P prop=True hyp_uses=2
+DECL ShellAssignment:149 def ShellRepresentationConsistency lit=P prop=True hyp_uses=1
+DECL SubstratumInterfaceAudit:84 def A1 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:87 def A2 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:91 def A3 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:94 def A4Exact lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:98 def A4 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:102 def A5 lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:131 def A3Family lit=P prop=True hyp_uses=0
+DECL SubstratumInterfaceAudit:231 def IsScaledPartialPerm lit=P prop=True hyp_uses=11
+DECL SubstratumInterfaceAudit:370 class is lit=P prop=False hyp_uses=2
+DECL SubstratumInterfaceAudit:485 def BijectionLevel lit=P prop=True hyp_uses=5
+DECL SubstratumInterfaceAudit:505 def PreservesNonneg lit=P prop=True hyp_uses=6
+DECL SubstratumInterfaceAudit:619 def SourcedOI lit=P prop=True hyp_uses=7
+DECL ThermalOrientation:192 def StrictlyPassive lit=P prop=True hyp_uses=3
+DECL ThermalOrientation:195 def Passive lit=P prop=True hyp_uses=10
+DECL ThermalOrientation:318 def OperationalTransitionIdentification lit=P prop=True hyp_uses=6
+DECL TrackBQfbBridge:297 def IsFlatHadamard lit=P prop=True hyp_uses=6
+DECL TurnpikeScopeTransfer:542 def BGIntegerClassification lit=P prop=True hyp_uses=2
+DECL WeylLift:246 def Indep lit=P prop=True hyp_uses=9
+DECL WeylTwirl:244 def Isotropic lit=P prop=True hyp_uses=9
+
+I2 modules: 32
+census entries: 72 (literal-pattern matches: 72)
+by kind: class=4, def=67, structure=1
+out-of-scope modules: 38

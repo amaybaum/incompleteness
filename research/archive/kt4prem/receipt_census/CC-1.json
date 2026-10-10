@@ -1,0 +1,53 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "CC-1",
+ "status": "halted",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "0f2687b7b87925b53c6e3d8c6d1a233f36624dea",
+ "f": "2cd8ff91a8772c300f379469d7789845587eb39e",
+ "control_plane_blobs": [
+  {
+   "path": "verification/audits/manuscript/round-cc-1-corpus-correction/preregistration.md",
+   "blob": "1a42e669ca988b90312ee8930d6af2c9f9ff0694"
+  }
+ ],
+ "governed_paths_digest": "d3f4e95dee92cb7aae87daa3e125162e6ffc7d743098999fc09122383e0ec09a",
+ "withdrawal": "5ae15444af71a11269e6adeb6d64eab783747f79",
+ "candidates": [
+  {
+   "commit": "342fb68f0196a77c9085ac981f01266fd86eb869",
+   "tree": "78933e818c1d52912dc94126a6fbcc37eeda8616",
+   "measured": "workflow_dispatch run 37143464345 at this commit: 29 of 32 jobs success; Mathlib bridge failed on the release gate's coverage step (STALE entry SUBSTRATUM:C-effective-finiteness-gauge-class-transfer, whose fingerprint in verification/coverage/LEDGER.json the T-A1-1 substitution changed), and Numerical probes / core B failed on edge_rigidity_probe guard R7-A6P (its SM.md section-3.1 delimiter is the phrase the T-A6-1 substitution removes); both files are outside the governed paths; every substitution applied and controls.py --check E passed; not certified: the round halted under S12 by owner direction, PR #784 comment 5972395961"
+  }
+ ],
+ "landing": {
+  "base": "0f2687b7b87925b53c6e3d8c6d1a233f36624dea",
+  "object": "396668c2a776ff9c58266a26e6c1d02e5331bcb5",
+  "reconciliations": [
+   "396668c2a776ff9c58266a26e6c1d02e5331bcb5"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "d92e0367421b20780333689b37ca5998f758575bcb6f56166903043204a3837b"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "2cd8ff91a8772c300f379469d7789845587eb39e",
+   "record": "https://github.com/amaybaum/incompleteness/pull/784#issuecomment-5972019225"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "2cd8ff91a8772c300f379469d7789845587eb39e",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37142054525"
+  }
+ ],
+ "absent": {
+  "e": "halted-before-certification",
+  "tree_e": "halted-before-certification",
+  "execution_delta_digest": "halted-before-certification"
+ }
+}

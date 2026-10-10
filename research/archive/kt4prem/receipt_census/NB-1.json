@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "NB-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "fdebc6e39498367e15a8352fe0f01f8f75ab3671",
+ "f": "6fdeff77f5c9cbf865d2167600555269dc0b1a18",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md",
+   "blob": "40f9ab4cacdb40468389cbcd02b46e309dfc2c7f"
+  }
+ ],
+ "governed_paths_digest": "1b1482f0477b0c438ea413e69392e7f2745cc245767d88dab3434ba963ed33ed",
+ "e": "9fc91b41bc035891858fe18aa7ae62020b670fdc",
+ "tree_e": "37e49b688d9aa0564f05a707e1bad3a96b4426f2",
+ "execution_delta_digest": "10160ba0787ef21f7aad426b46d2f7aa3efa5aaf0c2272a17d007a80ee7f5600",
+ "candidates": [],
+ "landing": {
+  "base": "fdebc6e39498367e15a8352fe0f01f8f75ab3671",
+  "object": "ff42e9f802ab55d477c0dcf2c2415dd4cb47484f",
+  "reconciliations": [
+   "ff42e9f802ab55d477c0dcf2c2415dd4cb47484f"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "6ed112318ddac0473b164d6a3a42a724e7a76debf9da160839ca857763b24956"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "6fdeff77f5c9cbf865d2167600555269dc0b1a18",
+   "record": "https://github.com/amaybaum/incompleteness/pull/772#issuecomment-5916238987"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "6fdeff77f5c9cbf865d2167600555269dc0b1a18",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36731516115"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "9fc91b41bc035891858fe18aa7ae62020b670fdc",
+   "record": "https://github.com/amaybaum/incompleteness/pull/772#issuecomment-5916167442"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "9fc91b41bc035891858fe18aa7ae62020b670fdc",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36747267290"
+  }
+ ]
+}

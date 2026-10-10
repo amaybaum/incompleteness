@@ -1,0 +1,20 @@
+nflip (proper): det R1 = 1, dim of form space = 2
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0]
+    every form kills Y0: False; every form kills Y3: False
+diag(1,1,-1) (improper): det R1 = -1, dim of form space = 3
+    [0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+    every form kills Y0: False; every form kills Y3: True
+diag(R(3/5,4/5), -1) (improper): det R1 = -1, dim of form space = 0
+    every form kills Y0: True; every form kills Y3: True
+-I (improper): det R1 = -1, dim of form space = 3
+    [0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 1, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0]
+    every form kills Y0: True; every form kills Y3: False
+rotation pi about (3/5,4/5,0) (proper): det R1 = 1, dim of form space = 2
+    [0, 3/4, 1, 0, 3/4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+    [0, 0, 0, 0, 0, 0, 0, 4/3, 0, 0, 0, -1, 0, -4/3, 1, 0]
+    every form kills Y0: False; every form kills Y3: False

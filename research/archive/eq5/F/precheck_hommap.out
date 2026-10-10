@@ -1,0 +1,12 @@
+PASS  homMap_rot3_one: computed c*v1 - s*v2  stated c*v1 - s*v2
+PASS  homMap_rot3_two: computed c*v2 + s*v1  stated c*v2 + s*v1
+PASS  homMap_rot3_three: computed v3  stated v3
+PASS  homMap_rotX_one: computed v1  stated v1
+PASS  homMap_rotX_two: computed c*v2 - s*v3  stated c*v2 - s*v3
+PASS  homMap_rotX_three: computed c*v3 + s*v2  stated c*v3 + s*v2
+PASS  homMap_rotYpi_one: computed -v1  stated -v1
+PASS  homMap_rotYpi_two: computed v2  stated v2
+PASS  homMap_rotYpi_three: computed -v3  stated -v3
+PASS  countercontrol: wrong axis convention differs from the stated rotX entries
+10/10
+VERDICT PRECHECK-HOMMAP-PASS

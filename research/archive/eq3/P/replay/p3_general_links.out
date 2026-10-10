@@ -1,0 +1,7 @@
+PASS G1 L_{a,b} = coordsW(|psi_C><psi_C|) with C = diag(1,u).[[1,v],[v,1]] (row = first token) (symbolic u, v)
+PASS G1 L_{a,b}.f.L_{a',b'}^T = 4 coordsW(Ad(C (x) C')(pauliW(transposeW f))) (symbolic f, u, v, u', v')
+PASS G2 countercontrol: with C^T, C'^T in place of C, C' the identity fails (C is not symmetric)
+PASS G3 the gate links supply unitary filters: (1 - t^2) 1 + 2 i t X = coefficient of the link with u = 1, v = 2it/(1 - t^2), times (1 - t^2), and it is (1 + t^2) times a unitary; diag(1, u_z) with |u_z| = 1 is a Z-phase (t = 1/2, 2/3)
+PASS G4 for these unitary coefficients the induced one-copy map M_C is homMap(R) with R in SO(3) (exact): the links supply X- and Z-rotations, which generate SO(3) by the Euler decomposition (written)
+--- p3_general_links: 5/5 checks pass
+VERDICT P3-GENERAL-LINKS-EXACT

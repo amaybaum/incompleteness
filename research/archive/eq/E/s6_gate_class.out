@@ -1,0 +1,79 @@
+NOTE  D = diag(1, 1, 1, 1) : common N: [[[1, 0, 0], [0, -1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, 1, 1, I) : NO NOT pair
+NOTE  D = diag(1, 1, 1, -1) : NO NOT pair
+NOTE  D = diag(1, 1, 1, -I) : NO NOT pair
+NOTE  D = diag(1, 1, I, 1) : NO NOT pair
+NOTE  D = diag(1, 1, I, I) : NO NOT pair
+NOTE  D = diag(1, 1, I, -1) : NO NOT pair
+NOTE  D = diag(1, 1, I, -I) : common N: [[[-1, 0, 0], [0, 1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, 1, -1, 1) : NO NOT pair
+NOTE  D = diag(1, 1, -1, I) : NO NOT pair
+NOTE  D = diag(1, 1, -1, -1) : common N: [[[1, 0, 0], [0, -1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, 1, -1, -I) : NO NOT pair
+NOTE  D = diag(1, 1, -I, 1) : NO NOT pair
+NOTE  D = diag(1, 1, -I, I) : common N: [[[-1, 0, 0], [0, 1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, 1, -I, -1) : NO NOT pair
+NOTE  D = diag(1, 1, -I, -I) : NO NOT pair
+NOTE  D = diag(1, I, 1, 1) : NO NOT pair
+NOTE  D = diag(1, I, 1, I) : NO NOT pair
+NOTE  D = diag(1, I, 1, -1) : NO NOT pair
+NOTE  D = diag(1, I, 1, -I) : NO NOT pair
+NOTE  D = diag(1, I, I, 1) : NO NOT pair
+NOTE  D = diag(1, I, I, I) : NO NOT pair
+NOTE  D = diag(1, I, I, -1) : NO NOT pair
+NOTE  D = diag(1, I, I, -I) : NO NOT pair
+NOTE  D = diag(1, I, -1, 1) : NO NOT pair
+NOTE  D = diag(1, I, -1, I) : NO NOT pair
+NOTE  D = diag(1, I, -1, -1) : NO NOT pair
+NOTE  D = diag(1, I, -1, -I) : NO NOT pair
+NOTE  D = diag(1, I, -I, 1) : NO NOT pair
+NOTE  D = diag(1, I, -I, I) : NO NOT pair
+NOTE  D = diag(1, I, -I, -1) : NO NOT pair
+NOTE  D = diag(1, I, -I, -I) : NO NOT pair
+NOTE  D = diag(1, -1, 1, 1) : NO NOT pair
+NOTE  D = diag(1, -1, 1, I) : NO NOT pair
+NOTE  D = diag(1, -1, 1, -1) : common N: [[[1, 0, 0], [0, -1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, -1, 1, -I) : NO NOT pair
+NOTE  D = diag(1, -1, I, 1) : NO NOT pair
+NOTE  D = diag(1, -1, I, I) : common N: [[[-1, 0, 0], [0, 1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, -1, I, -1) : NO NOT pair
+NOTE  D = diag(1, -1, I, -I) : NO NOT pair
+NOTE  D = diag(1, -1, -1, 1) : common N: [[[1, 0, 0], [0, -1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, -1, -1, I) : NO NOT pair
+NOTE  D = diag(1, -1, -1, -1) : NO NOT pair
+NOTE  D = diag(1, -1, -1, -I) : NO NOT pair
+NOTE  D = diag(1, -1, -I, 1) : NO NOT pair
+NOTE  D = diag(1, -1, -I, I) : NO NOT pair
+NOTE  D = diag(1, -1, -I, -1) : NO NOT pair
+NOTE  D = diag(1, -1, -I, -I) : common N: [[[-1, 0, 0], [0, 1, 0], [0, 0, -1]]]
+NOTE  D = diag(1, -I, 1, 1) : NO NOT pair
+NOTE  D = diag(1, -I, 1, I) : NO NOT pair
+NOTE  D = diag(1, -I, 1, -1) : NO NOT pair
+NOTE  D = diag(1, -I, 1, -I) : NO NOT pair
+NOTE  D = diag(1, -I, I, 1) : NO NOT pair
+NOTE  D = diag(1, -I, I, I) : NO NOT pair
+NOTE  D = diag(1, -I, I, -1) : NO NOT pair
+NOTE  D = diag(1, -I, I, -I) : NO NOT pair
+NOTE  D = diag(1, -I, -1, 1) : NO NOT pair
+NOTE  D = diag(1, -I, -1, I) : NO NOT pair
+NOTE  D = diag(1, -I, -1, -1) : NO NOT pair
+NOTE  D = diag(1, -I, -1, -I) : NO NOT pair
+NOTE  D = diag(1, -I, -I, 1) : NO NOT pair
+NOTE  D = diag(1, -I, -I, I) : NO NOT pair
+NOTE  D = diag(1, -I, -I, -1) : NO NOT pair
+NOTE  D = diag(1, -I, -I, -I) : NO NOT pair
+PASS  all 64 sampled frame-class gates satisfy DIM-1's frame exactly
+PASS  control: D = I (the kernel's cnot) admits the common N = Ad_X
+NOTE  counts over the 64 Clifford-phase gates: common N 8, two-NOT only 0, none 56
+PASS  the relations do NOT hold for every frame-class quantum gate (some sampled D admits no common N)
+PASS  witness gate (S x I) CNOT = CNOT . diag(1,1,i,i)
+PASS  witness: frame holds
+PASS  witness: entangling (reduced state of U|+>|0> is I/2, maximally mixed)
+PASS  WITNESS: (S x I) CNOT admits NO common NOT (no linear N of R^3 with IsNot, relT, relC)
+NOTE  two-NOT pairs for the witness: []
+PASS  WITNESS: (S x I) CNOT admits no two-NOT pair whose control NOT has det +1 (no unitary-induced pair)
+PASS  R_z(phi)xR_z(phi) CNOT R_z(phi)^dag x R_z(phi)^dag = CNOT . diag(1, 1, u, conj(u)), u = (3+4i)/5
+PASS  its common NOT is the rotated NOT R_z(phi) Ad_X R_z(phi)^-1 (exact rational)  -- N = [[-7/25, 24/25, 0], [24/25, 7/25, 0], [0, 0, -1]]
+NOTE  symbolic solutions (d00 = 1): [{a: -1, b: -w, c: 1/w, lam: -1, mu: -1}, {a: -1, b: w, c: -1/w, lam: -1, mu: 1}, {a: 1, b: -w, c: -1/w, lam: 1, mu: -1}, {a: 1, b: w, c: 1/w, lam: 1, mu: 1}]
+PASS  GENERAL (symbolic): CNOT.diag(1,a,b,c) has a common NOT Ad_V, V = [[0,1/w],[w,0]], iff a = lam, b = mu w, c = mu lam / w with lam, mu in {+1,-1}; i.e. U = CNOT . diag(1,1,u,conj u) . (I x Z)^k
+s6_gate_class: OK -- 11 checks, 0 failed

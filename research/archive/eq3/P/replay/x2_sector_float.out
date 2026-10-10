@@ -1,0 +1,4 @@
+(a) min pairwise inner product among 6000 sector generators = 3.691e-03
+    W2 sector vector = [-1.  1.  1.  1.  1.  1.  1.  1.]
+(b) dual probe points not in the sector cone (LP infeasible): 200 of 200; most negative eigenvalue coordinate among them: -1.270e-01
+x2 done (exploration only)

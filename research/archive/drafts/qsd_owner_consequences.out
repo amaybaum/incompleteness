@@ -1,0 +1,9 @@
+CONFIRMED N1 [identity] the 36 axis products average to E00 and span R^16: for X nonneg on products, <X,E00> = mean <X,p_i> >= 0, and = 0 forces all 36 pairings 0, hence X = 0; so every nonzero X in maxCone (a fortiori in K) has X_00 = Tr X/... > 0
+CONFIRMED N2 [identity] for w in maxCone with w_00 = 1, pairs of axis products give 2 +- 2 w_ij >= 0 and 1 +- w_i0 >= 0: every entry has |w_mn| <= 1, so the section {w_00 = 1} of maxCone, hence of any K in the corridor, is compact
+CONFIRMED W1 [witness] E0's negative eigenvalue is -1/4 with eigenprojector P_psi = G (|<psi|G>|^2 = 1): ipW(E0, P_psi) = -1 < 0, so if E0 were in a self-dual K then the pure state G would not be -- -1
+CONFIRMED W2 [witness] G and cnot G have table rank 4, so G is neither a product (rank 1) nor a cnot image of a product (rank 1 after cnot): the missed pure state lies outside K_gen, as the corridor requires
+CONFIRMED V1 [identity] P+ = (I + cnot)/2 is a self-adjoint projection onto V+: for v in V+, <v,k> = <v,P+ k> symbolically; so v in K* iff v in (K cap V+)^{*V+}, and K cap V+ is self-dual within V+
+CONFIRMED V2 [identity] dim V+ = 10, dim V- = 6
+
+checks: 6, confirmed: 6
+VERDICT QSD-OWNER-CONSEQUENCES-CONFIRMED

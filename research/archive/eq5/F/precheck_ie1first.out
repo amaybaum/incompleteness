@@ -1,0 +1,14 @@
+PASS K0 transcription of sgn, pc, pt from the base
+PASS M1 control family: cnot(prodState x z3) = actC (z-rotation x) phiW for 6 equatorial x
+PASS M2 target family: cnot(prodState xplus y) = actC R phiW, R a rotation about the first axis, 6 y -- example R = [['1', '0', '0'], ['0', '3/5', '4/5'], ['0', '-4/5', '3/5']]
+PASS M3 combined: cnot(prodState x y) = actC (R1(x) R2(y)) phiW, R in SO(3), 36 pairs
+PASS M4 countercontrol: non-equatorial x gives no orthogonal block
+PASS M5 Theta = actC (A02 reflY B02^T) . actT (A13 reflY B13^T) on all units (4 draws); without reflY it fails -- 60 unit failures for the countercontrol
+PASS M6 control-side rotated link = actC (A02 R A02^T) . Theta; the conjugation in the other order fails -- 48 unit failures for the countercontrol
+PASS M7 target-side rotated link = Theta . actC (B02 R^T B02^T)
+PASS M8 Theta is ipW-orthogonal on all 256 unit pairs (4 draws)
+PASS M9 N-CLASS Bell state, Bell effect (1/4) and ipW-orthogonality (4 draws)
+PASS M10 link family: N (prodState (A'^T x) (B'^T y)) = actC A (actT B (cnot (prodState x y)))
+PASS M11 det(A reflY B^T) = -det A det B
+--- precheck_ie1first: 12/12 checks pass
+VERDICT IE1FIRST-PRECHECK-EXACT

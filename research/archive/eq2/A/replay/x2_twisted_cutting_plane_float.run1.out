@@ -1,0 +1,3 @@
+iter 0: LP min y.target = 0; continuous worst y.t(g) = 0; added 0
+separating y stable: [-0. -0. -0. -0. -0. -0. -0.]
+final convex-combination LP status: 2 The problem is infeasible. (HiGHS Status 8: model_status is Infeasible; primal_status is Infeasible)

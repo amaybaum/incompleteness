@@ -1,0 +1,104 @@
+R6 start marker (stage 6, step 3, Q-EX-FULL reassessment)
+time_utc_begin: Sat Oct 10 17:57:30 UTC 2026
+== (1) manifests, sha256sum -c --quiet, run from pt/ ==
+inputs.manifest.sha256: exit 0
+stage1.manifest.sha256: exit 0
+inputs2.manifest.sha256: exit 0
+inputs3.manifest.sha256: exit 0
+stage2.manifest.sha256: exit 0
+inputs4.manifest.sha256: exit 0
+== (1b) sha256sum -c ns.manifest.sha256, run from pt/audit/stage3-inputs/ ==
+ns/NS-INPUT.md: OK
+ns.manifest.sha256: exit 0
+== (2) base checkout ==
+HEAD 9f9f8257a980a1819fbbc1dc0019917cf8678626
+HEAD equals L: yes
+porcelain lines: 0
+__pycache__/*.pyc entries under pt/base: 0
+== (3a) protocol files, sidecars checked from pt/ ==
+PROTOCOL.md 239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23 expected-prefix 239dc123 prefix-match | sidecar: /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL.md: OK | exit 0
+PROTOCOL-AMENDMENT-1.md b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83 expected-prefix b41aa0e7 prefix-match | sidecar: /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-1.md: OK | exit 0
+PROTOCOL-AMENDMENT-2.md 2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a expected-prefix 2a2f78f3 prefix-match | sidecar: /tmp/claude-0/-home-user-incompleteness/727ddb71-72ba-5388-a9a1-1413a0433ac0/scratchpad/pt/PROTOCOL-AMENDMENT-2.md: OK | exit 0
+PROTOCOL-STAGE2.md 386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da expected-prefix 38603692 prefix-match | sidecar: PROTOCOL-STAGE2.md: OK | exit 0
+PROTOCOL-STAGE2-DS.md 086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5 expected-prefix 086a4cb8 prefix-match | sidecar: PROTOCOL-STAGE2-DS.md: OK | exit 0
+PROTOCOL-STAGE3.md 1a6491681c370873e028ab1c95c305836f04596a2579f8397791032389f8821a expected-prefix 1a649168 prefix-match | sidecar: PROTOCOL-STAGE3.md: OK | exit 0
+== (3b) protocol files, sidecars checked from SCRATCH ==
+PROTOCOL-STAGE4.md d3da28116a5bcdd32fe8b8418d5bc83003918240ce4b0477d9f714518a717a74 expected-prefix d3da2811 prefix-match | sidecar: pt/PROTOCOL-STAGE4.md: OK | exit 0
+PROTOCOL-STAGE5.md 9e01f098cbe0a279d5f56bf7d40f295d8fdade465fe40ab5d1e4983ebcf0642c expected-prefix 9e01f098 prefix-match | sidecar: pt/PROTOCOL-STAGE5.md: OK | exit 0
+PROTOCOL-STAGE5-AMENDMENT-1.md 1f639115d369de13c367a249735858818ce2a2323e848eaf28c595f4b96a5bce expected-prefix 1f639115 prefix-match | sidecar: pt/PROTOCOL-STAGE5-AMENDMENT-1.md: OK | exit 0
+PROTOCOL-STAGE6.md b277b7c1a7020c4e409fed602f7cb425ad028497471f15cae8191aae02d7972f expected-prefix b277b7c1 prefix-match | sidecar: pt/PROTOCOL-STAGE6.md: OK | exit 0
+PROTOCOL-STAGE6-AMENDMENT-1.md 59019538597a61883926a1079893ee64def9221817a6004fe29025437a983872 expected-prefix 59019538 prefix-match | sidecar: pt/PROTOCOL-STAGE6-AMENDMENT-1.md: OK | exit 0
+== (4) ls -la --time-style=full-iso pt/ ==
+total 480
+drwxr-xr-x  35 root root  4096 2026-10-10 17:57:30.592679849 +0000 .
+drwx------ 277 root root 12288 2026-10-10 17:27:30.220721028 +0000 ..
+drwxr-xr-x   4 root root  4096 2026-10-10 05:29:45.470418662 +0000 A
+drwxr-xr-x   4 root root  4096 2026-10-10 05:59:26.446377927 +0000 B
+drwxr-xr-x   2 root root  4096 2026-10-10 05:41:17.154402841 +0000 C
+drwxr-xr-x   3 root root  4096 2026-10-10 17:20:02.948731258 +0000 C5
+drwxr-xr-x   2 root root  4096 2026-10-10 05:50:39.166389987 +0000 D
+drwxr-xr-x   3 root root  4096 2026-10-10 17:13:57.604387073 +0000 D5
+drwxr-xr-x   2 root root  4096 2026-10-10 09:31:14.247896660 +0000 DS
+-r--r--r--   1 root root   498 2026-10-10 08:48:46.154729975 +0000 DS-LAUNCH-LOG.md
+drwxr-xr-x   2 root root  4096 2026-10-10 17:56:31.808681194 +0000 G6
+drwxr-xr-x   2 root root  4096 2026-10-10 17:24:13.348725531 +0000 I1
+drwxr-xr-x   2 root root  4096 2026-10-10 17:22:53.300727362 +0000 I2
+drwxr-xr-x   2 root root  4096 2026-10-10 17:27:52.276720523 +0000 I3
+drwxr-xr-x   2 root root  4096 2026-10-10 17:26:15.880722728 +0000 I4
+-rw-r--r--   1 root root 20284 2026-10-10 09:40:15.405448957 +0000 INTEGRATION-ADDENDUM-STAGE2.md
+-rw-r--r--   1 root root 18638 2026-10-10 14:21:38.289004252 +0000 INTEGRATION-NOTE-STAGE3.md
+-rw-r--r--   1 root root 16556 2026-10-10 16:16:17.128846916 +0000 INTEGRATION-NOTE-STAGE4.md
+-rw-r--r--   1 root root 12661 2026-10-10 17:52:38.280686535 +0000 INTEGRATION-NOTE-STAGE5.md
+-rw-r--r--   1 root root 17866 2026-10-10 06:27:36.166339279 +0000 INTEGRATION-REVIEW.md
+-r--r--r--   1 root root  3774 2026-10-10 05:13:09.914441433 +0000 PROTOCOL-AMENDMENT-1.md
+-rw-r--r--   1 root root   181 2026-10-10 05:13:12.498441373 +0000 PROTOCOL-AMENDMENT-1.sha256
+-r--r--r--   1 root root  3930 2026-10-10 05:22:22.118428802 +0000 PROTOCOL-AMENDMENT-2.md
+-rw-r--r--   1 root root   181 2026-10-10 05:22:24.670428744 +0000 PROTOCOL-AMENDMENT-2.sha256
+-r--r--r--   1 root root  8545 2026-10-10 08:48:02.499955939 +0000 PROTOCOL-STAGE2-DS.md
+-r--r--r--   1 root root    88 2026-10-10 08:48:09.347955783 +0000 PROTOCOL-STAGE2-DS.sha256
+-r--r--r--   1 root root 17623 2026-10-10 07:12:04.360505080 +0000 PROTOCOL-STAGE2.md
+-r--r--r--   1 root root    85 2026-10-10 07:12:08.792504979 +0000 PROTOCOL-STAGE2.sha256
+-r--r--r--   1 root root 12680 2026-10-10 10:22:18.357332697 +0000 PROTOCOL-STAGE3.md
+-r--r--r--   1 root root    85 2026-10-10 10:22:36.105332291 +0000 PROTOCOL-STAGE3.sha256
+-rw-r--r--   1 root root  8424 2026-10-10 14:22:11.263861371 +0000 PROTOCOL-STAGE4.md
+-rw-r--r--   1 root root    88 2026-10-10 14:22:11.265003497 +0000 PROTOCOL-STAGE4.sha256
+-rw-r--r--   1 root root  1474 2026-10-10 16:42:55.080782215 +0000 PROTOCOL-STAGE5-AMENDMENT-1.md
+-rw-r--r--   1 root root   100 2026-10-10 16:43:17.520781701 +0000 PROTOCOL-STAGE5-AMENDMENT-1.sha256
+-rw-r--r--   1 root root 12186 2026-10-10 16:35:10.892792832 +0000 PROTOCOL-STAGE5.md
+-rw-r--r--   1 root root    88 2026-10-10 16:36:33.624790939 +0000 PROTOCOL-STAGE5.sha256
+-rw-r--r--   1 root root  6740 2026-10-10 17:54:00.272684660 +0000 PROTOCOL-STAGE6-AMENDMENT-1.md
+-rw-r--r--   1 root root   100 2026-10-10 17:54:09.708684444 +0000 PROTOCOL-STAGE6-AMENDMENT-1.sha256
+-rw-r--r--   1 root root 14708 2026-10-10 16:49:36.052773043 +0000 PROTOCOL-STAGE6.md
+-rw-r--r--   1 root root    88 2026-10-10 16:49:55.140772607 +0000 PROTOCOL-STAGE6.sha256
+-r--r--r--   1 root root 19714 2026-10-10 04:32:46.254496867 +0000 PROTOCOL.md
+-rw-r--r--   1 root root   169 2026-10-10 04:32:55.766496650 +0000 PROTOCOL.sha256
+drwxr-xr-x   2 root root  4096 2026-10-10 17:57:30.596679849 +0000 R6
+drwxr-xr-x   2 root root  4096 2026-10-10 08:34:03.271975134 +0000 S2
+drwxr-xr-x   2 root root  4096 2026-10-10 08:32:34.867977156 +0000 S3
+-r--r--r--   1 root root  1401 2026-10-10 07:25:56.792068602 +0000 STAGE2-LAUNCH-LOG.md
+-r--r--r--   1 root root   490 2026-10-10 10:22:36.121332290 +0000 STAGE3-LAUNCH-LOG.md
+drwxr-xr-x   2 root root  4096 2026-10-10 12:46:54.205791858 +0000 U
+drwxr-xr-x   2 root root  4096 2026-10-10 12:46:18.369135079 +0000 X
+drwxr-xr-x   2 root root  4096 2026-10-10 15:23:34.700919249 +0000 Y
+drwxr-xr-x   2 root root  4096 2026-10-10 16:00:18.584868841 +0000 Z
+drwxr-xr-x   3 root root  4096 2026-10-10 07:25:56.776068602 +0000 aborted-launch1
+drwxr-xr-x  22 root root  4096 2026-10-10 17:48:25.480692317 +0000 audit
+drwxr-xr-x   2 root root  4096 2026-10-10 05:32:05.902415450 +0000 auditA-replay
+drwxr-xr-x   3 root root  4096 2026-10-10 06:18:14.226352132 +0000 auditB-replay
+drwxr-xr-x   2 root root  4096 2026-10-10 05:44:31.978398385 +0000 auditC-replay
+drwxr-xr-x   2 root root  4096 2026-10-10 06:13:03.338359243 +0000 auditD-replay
+drwxr-xr-x   2 root root  4096 2026-10-10 09:37:02.539888694 +0000 auditDS-replay
+drwxr-xr-x   2 root root  4096 2026-10-10 09:04:33.823933265 +0000 auditS2-replay
+drwxr-xr-x   2 root root  4096 2026-10-10 08:49:23.367954090 +0000 auditS3-replay
+drwxr-xr-x   7 root root  4096 2026-10-10 04:30:52.383855404 +0000 base
+dr-xr-xr-x   5 root root  4096 2026-10-10 04:30:52.090499478 +0000 inputs
+-r--r--r--   1 root root  4066 2026-10-10 04:30:54.118499432 +0000 inputs.manifest.sha256
+dr-xr-xr-x   3 root root  4096 2026-10-10 07:10:16.532507546 +0000 inputs2
+-r--r--r--   1 root root   315 2026-10-10 07:10:21.272507438 +0000 inputs2.manifest.sha256
+dr-xr-xr-x   2 root root  4096 2026-10-10 08:47:33.699956598 +0000 inputs3
+-r--r--r--   1 root root    86 2026-10-10 08:48:09.345833962 +0000 inputs3.manifest.sha256
+dr-xr-xr-x   2 root root  4096 2026-10-10 10:22:27.729332482 +0000 inputs4
+-r--r--r--   1 root root   100 2026-10-10 10:22:36.097332291 +0000 inputs4.manifest.sha256
+-r--r--r--   1 root root 18717 2026-10-10 07:10:01.604507888 +0000 stage1.manifest.sha256
+-r--r--r--   1 root root 15695 2026-10-10 10:21:01.355808394 +0000 stage2.manifest.sha256
+time_utc_end: Sat Oct 10 17:57:30 UTC 2026

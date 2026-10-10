@@ -1,0 +1,216 @@
+I3.1 | `W d` | kind=definition-as-hypothesis | level=P | status=assumed | bearing=direct
+I3.2 | `prodState` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.3 | `maxCone` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.4 | `jointStates` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.5 | `IsProduct` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.6 | `actT` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.7 | `actC` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.8 | `IsNot` | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token inherited
+I3.9 | `NativeGate` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.10 | `Entangling` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.11 | `cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (the `d = 3` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.12 | `isNot_nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.13 | `nativeGate_cnot` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.14 | `entangling_cnot` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.15 | parity: `finrank_plus_eq_finrank_minus`, `not_even_of_nativeGate` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.16 | `blockData_of_nativeGate` (with `BlockData`) | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.17 | `not_entangling_one` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.18 | `dim_of_nativeGate` (the selector) | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.19 | `three_of_nativeGate` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.20 | DIM-1 controls: `nativeGate_cnot1`, `not_entangling_cnot1`, `no_gate_f | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.21 | `dim1_core` (DIM-1 verdict) | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.22 | `not_even_of_gateRel` (with `finrank_plus_eq_finrank_minus_rel`) | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.23 | `GateRel` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.24 | `piRotation_three` (with `tangentPlus_three`, `det_three`) | kind=theorem | level=O | status=proved [K] | bearing=single-token inherited
+I3.25 | `not_gateRel_refl3`, `not_gateRel_negId3` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.26 | `not_posFwd_gJ3`, `not_posFwd_gJ5` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.27 | `exists_frame_gateRel_iff_odd` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.28 | `not_posFwd_gRev` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.29 | `CtrlGate` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.30 | `not_even_of_relC` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.31 | `dim_of_ctrlGate`, `three_of_ctrlGate` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.32 | `ctrlGate_of_nativeGate` | kind=lemma-folded | level=P | status=proved [K] | bearing=direct
+I3.33 | `gSq_sep`, `gSqInv_sep` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.34 | `relT_not_dimension_selecting` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.35 | `NativeGateOf` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.36 | `EntanglingOf` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.37 | `dim_of_nativeGateOf` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.38 | `three_of_nativeGateOf` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.39 | `HasTwoSharpTests` | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token inherited
+I3.40 | `hasTwoSharpTests_iff` | kind=theorem | level=O | status=proved [K] | bearing=single-token inherited
+I3.41 | `two_le_not_implied` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.42 | `prodState_mem_maxCone` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.43 | `CandidateCone` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.44 | `no_candidateCone_cnot_reflY` | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.45 | `three_of_nativeGate_of_two_le` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.46 | `two_le_of_entangling` | kind=lemma-folded | level=P | status=proved [K] | bearing=direct
+I3.47 | `three_of_nativeGateOf_of_two_le` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.48 | `EffectsOn` | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.49 | `maxConeOf` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.50 | `MixingClosed` | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token (not inherited)
+I3.51 | `maxConeOf_avail_eq` (with `sharpFamily_subset_avail`, `maxConeOf_shar | kind=theorem | level=P | status=proved [K] | bearing=through bridge
+I3.52 | `fullEffects_subset_avail` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.53 | `not_fullEffects_of_orbit` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.54 | `DenseBoundaryOrbit` | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.55 | `denseBoundaryOrbit_of_boundaryTransitive` | kind=lemma-folded | level=O | status=proved [K] | bearing=through bridge
+I3.56 | `maxConeOf_avail_eq_of_dense` (with the dense ball and selector varian | kind=theorem | level=P | status=proved [K] | bearing=through bridge
+I3.57 | `FiniteStage` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.58 | `IsEffectOn` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=through bridge
+I3.59 | `IsProperOn` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.60 | `IsBoundaryState` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=through bridge
+I3.61 | `SupportingEffectComplete` (SEC) | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.62 | `SingletonFaces` (SF) | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.63 | `RelStrictConvex` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.64 | `PerfectlyDistinguishable` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.65 | `CentrallySymmetric` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.66 | `ElementaryDrivability` (K∞-Drive) | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.67 | `ball3Drive`, `ball3_drivable` (with `ball3`, `rot3`, `cyc3`) | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.68 | `not_drivable_Icc`, `not_drivable_singleton` | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.69 | `CopyNatural` (K∞-Copy) | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token inherited
+I3.70 | `ClassicallyExposed` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.71 | `KInf1` (hypothesis K∞-1) | kind=hypothesis-structure | level=O | status=open | bearing=none at L
+I3.72 | `kinf2_kernel_core` (KINF-2 verdict) | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.73 | `SharpSeed` (K∞-Seed, P1) | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.74 | `PreservesBody` | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.75 | `SeedOrbitAvailable` (K∞-V4, V4′) | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.76 | `BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record) | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token inherited
+I3.77 | `CoversBoundaryFrom` (COVER) | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.78 | `preservesBody_drive` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.79 | `seedOrbit_ball3_eq` (the reduced orbit-generation theorem) | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.80 | `boundaryTransitive_fullAut3` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.81 | `not_boundaryTransitive_flow` | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.82 | `orbit_generation_core` (OG-1 verdict) | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.83 | `boundaryTransitive_ball3Drive` (with `driveWords3`) | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.84 | `isEmpty_drivability_of_finite_orbits` | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.85 | `boundaryTransitive_ball4` | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.86 | `IsBodyGroup` (TRANS, group clause) | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.87 | `TransBody` (TRANS) | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token inherited
+I3.88 | `eq_qBall_of_boundaryTransitive` | kind=theorem | level=O | status=proved [K] | bearing=single-token inherited
+I3.89 | `exists_affine_image_eq_eball` | kind=theorem | level=O | status=proved [K] | bearing=single-token inherited
+I3.90 | `extreme_of_isBoundaryState_of_transitive` (boundary purity) | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.91 | `invariant_inner_product` (with `centroid_fixed`) | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.92 | `DirectedStages` (with `StageMap`) | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.93 | `StageMap.Consistent` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.94 | `SCInf` (SC∞, K∞-Stage) | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token (not inherited)
+I3.95 | `BinaryVisible` (ELEM-bin) | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token (not inherited)
+I3.96 | `FiniteRank` (K∞-Stage) | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.97 | `sharpSeed_completion` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.98 | `exists_chart_of_finiteRank` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.99 | `OpDatum` (K∞-Act) | kind=hypothesis-structure | level=O | status=assumed | bearing=through bridge
+I3.100 | `StateRespect` | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.101 | `AffineRespect` | kind=hypothesis-structure | level=O | status=assumed | bearing=single-token (not inherited)
+I3.102 | `Undoes` | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.103 | `CompletionChart` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.104 | `body_isClosed` | kind=theorem | level=O | status=proved [K] | bearing=through bridge
+I3.105 | `preservesBody_inducedEquiv` | kind=theorem | level=O | status=proved [K] | bearing=through bridge
+I3.106 | `InfiniteOrderOn` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.107 | `FiniteOrderOn` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.108 | `OrdInf` (ORD∞) | kind=hypothesis-structure | level=O | status=open | bearing=none at L
+I3.109 | `MulClosed` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.110 | `StagePreserving` | kind=hypothesis-structure | level=O | status=assumed | bearing=none at L
+I3.111 | `finiteOrderOn_of_stagePreserving` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.112 | `not_ordInf_of_finite_of_mulClosed` | kind=theorem | level=O | status=proved [K] | bearing=none at L
+I3.113 | `ProductData` | kind=definition-as-hypothesis | level=P | status=proved [K] | bearing=direct
+I3.114 | `PreComposite` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.115 | `LocallyTomographic` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.116 | `Composite` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.117 | `BoundedAffine` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.118 | `JointReversible` | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.119 | `SharpReadout` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.120 | `condA_prodState` (L9, no signalling on products) | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.121 | `not_locallyTomographic_paddedPre`, `no_composite_over_paddedPre` (wit | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.122 | `comp1_core` (COMP-1 verdict) | kind=theorem | level=P | status=proved [K] | bearing=direct
+I3.123 | `Lor` | kind=definition-as-hypothesis | level=O | status=proved [K] | bearing=none at L
+I3.124 | the effect cone of the ball: `lor_ehom`, `isEffectOn_affOf`, `lor_toOp | kind=theorem | level=O | status=proved [K] | bearing=single-token inherited
+I3.125 | `NativeGateBall.parity` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.126 | `p_le_one`, `dim_of_bounds` | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.127 | `lorentz_of_effects` | kind=theorem | level=O | status=proved [K] | bearing=single-token (not inherited)
+I3.128 | `nb1_kernel_core` (NB-1 verdict) | kind=theorem | level=P | status=proved [K] | bearing=single-token inherited
+I3.129 | `hcls` — N-CLASS gates (`NClass`) | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.130 | `hadm` — pair admissibility (`PairAdm`, with `IsConvexCone`) | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.131 | `hcl` — closedness of each pair cone | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.132 | `hgate` — gate preservation (H2 of stage 3 is this clause for `cnot`) | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.133 | `H` — the four-copy core (`KT4Core`, with `KT4`, `KT4LT`) | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.134 | token clauses `tokA`, `tokB` (`TokenCoherent`) | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.135 | FCC — the cone-level four-copy interface (`FourCopyCoherent`, `FCC`) | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.136 | `PairLinked` (Lemma R's interface form) | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.137 | IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | kind=definition-as-hypothesis | level=P | status=D | bearing=direct
+I3.138 | `EvenCycle` (with `EvenCycle4`) | kind=definition-as-hypothesis | level=P | status=D | bearing=direct
+I3.139 | `kt4_forward_ie1` (Theorem A′, the audited theorem) | kind=theorem | level=P | status=D | bearing=direct
+I3.140 | `fourCopyCoherent_of_kt4Core` (Lemma B1) | kind=theorem | level=P | status=D | bearing=direct
+I3.141 | `KT4Cone` | kind=hypothesis-structure | level=P | status=D | bearing=direct
+I3.142 | `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the drive w | kind=definition-as-hypothesis and theorem | level=P | status=D | bearing=direct
+I3.143 | `ipW`, `dualW` (the Euclidean pairing and dual cone of tables) | kind=definition-as-hypothesis | level=P | status=D | bearing=direct
+I3.144 | `Q3`, `twin`, `pauliW`, `twistQ3` | kind=definition-as-hypothesis | level=P | status=D | bearing=direct
+I3.145 | P-STAGE2 (named premise of KT4-PREM-1) | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.146 | P-ACT2 (named premise of KT4-PREM-1) | kind=hypothesis-structure | level=P | status=assumed | bearing=direct
+I3.147 | H1 — products in `K` | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.148 | H2 — `cnot`-invariance (level (i)); `G16`-invariance (level (ii)) | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.149 | H3 — trace self-duality `K = dualW K` | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.150 | (b_S4) — the full rotation group of one token acts on the pair preserv | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.151 | (b_n) — one rotation subgroup of one token about an off-frame axis | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.152 | (b_R1) — one order-3 rotation of one token about (5,1,1) | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.153 | (b_DJ) — the native drive with the native `J` acting on one token | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.154 | IE2 — idle extension of the pair interaction groups | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.155 | frame covariance (FC) of the native gate | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.156 | INV2 — the native gate is an operational involution on the pair system | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.157 | SDC = P3 ∧ OVL4 ∧ CSD2 — self-duality under composition | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.158 | N0 ∧ N1 ∧ N2 — regrouping invariance of a four-token composite (stage- | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.159 | S2 Pair — a compact, gate-reversible COMP-1 pre-composite (stage-1 pri | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.160 | H — pair-level homogeneity of `K` | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.161 | T — pair-level reversible richness (transitivity on extreme rays) | kind=hypothesis-structure | level=P | status=PT | bearing=direct
+I3.162 | P1 — K: pre-quantum kinematics (the umbrella row) | kind=obligation | level=O | status=open | bearing=none at L
+I3.163 | K section framing | kind=obligation | level=O | status=open | bearing=none at L
+I3.164 | K1 — the dimension | kind=obligation | level=P | status=conditional | bearing=single-token inherited
+I3.165 | K2 — the composite | kind=obligation | level=P | status=open | bearing=direct
+I3.166 | K∞ — the field-neutral premises | kind=obligation | level=O | status=open | bearing=single-token inherited
+I3.167 | K∞-Stage | kind=obligation | level=O | status=open | bearing=single-token (not inherited)
+I3.168 | K∞-Act | kind=obligation | level=O | status=open | bearing=single-token (not inherited)
+I3.169 | K∞-Drive | kind=obligation | level=O | status=open | bearing=single-token (not inherited)
+I3.170 | K∞-Trans | kind=obligation | level=O | status=open | bearing=through bridge
+I3.171 | K∞-Seed | kind=obligation | level=O | status=open | bearing=through bridge
+I3.172 | K∞-V4 | kind=obligation | level=O | status=open | bearing=through bridge
+I3.173 | K∞-Copy | kind=obligation | level=O | status=open | bearing=single-token inherited
+I3.174 | K∞-Geom | kind=obligation | level=O | status=open | bearing=none at L
+I3.175 | the K∞-R label note | kind=obligation | level=O | status=open | bearing=none at L
+I3.176 | the geometric obligation is not committed to singleton faces | kind=obligation | level=O | status=open | bearing=none at L
+I3.177 | the geometric branch is elementary-scoped | kind=obligation | level=O | status=open | bearing=none at L
+I3.178 | matrix-level drivability, the region limit, and continuous NOTs | kind=obligation | level=O | status=open | bearing=none at L
+I3.179 | Kₙ — the elementary-to-arbitrary-carrier lift | kind=obligation | level=O | status=open | bearing=none at L
+I3.180 | KINF-1 halted | kind=obligation | level=O | status=refuted | bearing=none at L
+I3.181 | the research direction (unproved) | kind=obligation | level=O | status=open | bearing=none at L
+I3.182 | the finite route | kind=obligation | level=O | status=open | bearing=none at L
+I3.183 | orthogonality to P0 | kind=obligation | level=O | status=open | bearing=none at L
+I3.184 | the operational-reconstruction route: reconstruction axioms as hypothe | kind=manuscript-principle | level=X | status=conditional | bearing=none at L
+I3.185 | carrier-map identities for every one-copy linear map: `actT_prodState` | kind=lemma-folded | level=P | status=proved [K] | bearing=direct
+I3.186 | `eball_three` | kind=lemma-folded | level=O | status=proved [K] | bearing=single-token inherited
+I3.187 | the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ IE1 ⇒ K_ | kind=theorem | level=P | status=conditional | bearing=direct
+
+## by kind: definition-as-hypothesis = 31; definition-as-hypothesis and theorem = 1; hypothesis-structure = 63; lemma-folded = 5; manuscript-principle = 1; obligation = 22; theorem = 64
+## by level: O = 92; P = 94; X = 1
+## by status: D = 14; PT = 15; assumed = 40; conditional = 3; open = 22; proved [K] = 92; refuted = 1
+## by bearing: direct = 80; none at L = 45; single-token (not inherited) = 20; single-token inherited = 25; through bridge = 17
+## records: 187
+
+## flag 'do not assume':
+I3.6 | `actT`
+I3.7 | `actC`
+I3.66 | `ElementaryDrivability` (K∞-Drive)
+I3.80 | `boundaryTransitive_fullAut3`
+I3.83 | `boundaryTransitive_ball3Drive` (with `driveWords3`)
+I3.118 | `JointReversible`
+I3.137 | IE1 (`IE1`, with `IsRot3`, `IsOrth3`)
+I3.139 | `kt4_forward_ie1` (Theorem A′, the audited theorem)
+I3.142 | `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the drive words, anywhere)
+I3.144 | `Q3`, `twin`, `pauliW`, `twistQ3`
+I3.146 | P-ACT2 (named premise of KT4-PREM-1)
+I3.150 | (b_S4) — the full rotation group of one token acts on the pair preserving `K`
+I3.151 | (b_n) — one rotation subgroup of one token about an off-frame axis
+I3.152 | (b_R1) — one order-3 rotation of one token about (5,1,1)
+I3.153 | (b_DJ) — the native drive with the native `J` acting on one token
+I3.154 | IE2 — idle extension of the pair interaction groups
+I3.155 | frame covariance (FC) of the native gate
+I3.165 | K2 — the composite
+I3.184 | the operational-reconstruction route: reconstruction axioms as hypotheses of a continuum e
+I3.187 | the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ IE1 ⇒ K_p ∈ {Q3, twin}`
+END

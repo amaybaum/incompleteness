@@ -1,0 +1,220 @@
+===== error: OIBridge/OrbitIsometryGroup.lean:3424:80: Application type mismatch: The argument
+  π
+has type
+  RealizableGram (Fin 1) Γ₀ hf
+of sort `Prop` but is expected to have type
+  Equiv.Perm (Fin 4)
+of sort `Type` in the application
+  relabel2_dilation 0 hx Γ₀ hΓ 0 π
+===== error: OIBridge/OrbitIsometryGroup.lean:3424:116: Application type mismatch: The argument
+  z
+has type
+  AdmissibleDilationAt Γ₀ 0 τ
+of sort `Prop` but is expected to have type
+  ℂ
+of sort `Type` in the application
+  hadamard_z_admissible Γ₀ hΓ₀ z
+===== error: OIBridge/OrbitIsometryGroup.lean:3425:43: Application type mismatch: The argument
+  π
+has type
+  RealizableGram (Fin 1) Γ₀ hf
+of sort `Prop` but is expected to have type
+  Equiv.Perm (Fin 4)
+of sort `Type` in the application
+  (iso2_classes_single Γ₀ hΓ₀).right π
+===== error: OIBridge/OrbitIsometryGroup.lean:3420:114: unsolved goals
+Γ₀ : Matrix (Fin 4) (Fin 4) ℝ
+hΓ₀ : Γ₀ = of fun x x_1 => 1 / 4
+f :
+  EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4) →
+    EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4)
+hf : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ
+π : RealizableGram (Fin 1) Γ₀ hf
+τ : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ
+z : AdmissibleDilationAt Γ₀ 0 τ
+hz : FibreGram 0 τ = hf
+hx : ∀ (y : Fin 1), y = 0
+hΓ : ∀ (i j i' j' : Fin 4), Γ₀ i j = Γ₀ i' j'
+hadm :
+  AdmissibleDilationAt Γ₀ 0
+    ((of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, sorry, -1, -sorry; 1, -1, 1, -1; 1, -sorry, -1, sorry] p.1 q.1).submatrix
+      (Prod.map (⇑sorry) id) (Prod.map (⇑sorry) id))
+hdil :
+  FibreGram 0
+      ((of fun p q =>
+            1 / 2 * !![1, 1, 1, 1; 1, sorry, -1, -sorry; 1, -1, 1, -1; 1, -sorry, -1, sorry] p.1 q.1).submatrix
+        (Prod.map (⇑sorry) id) (Prod.map (⇑sorry) id)) =
+    fun i =>
+    (FibreGram 0
+          (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, sorry, -1, -sorry; 1, -1, 1, -1; 1, -sorry, -1, sorry] p.1 q.1)
+          (sorry i)).submatrix
+      ⇑sorry ⇑sorry
+hT :
+  FibreGram 0
+      ((of fun p q =>
+===== error: OIBridge/OrbitIsometryGroup.lean:3435:9: Tactic `rcases` failed: `hx : Fin 4 × Fin 1 → Fin 4 × Fin 1 → ℂ` is not an inductive datatype
+===== error: OIBridge/OrbitIsometryGroup.lean:3467:30: Function expected at
+  GramPhaseEquiv
+    (fun i =>
+      (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+            (1 i)).submatrix
+        ⇑1 ⇑1)
+    ?m.158
+but this term has type
+  Prop
+Note: Expected a function because this term is being applied to the argument
+  (0 : Fin 1)
+===== error: OIBridge/OrbitIsometryGroup.lean:3468:180: Application type mismatch: The argument
+  FibreGram
+has type
+  ?m.155 → Matrix (?m.154 × ?m.155) (?m.154 × ?m.155) ℂ → ?m.154 → Matrix ?m.154 ?m.154 ℂ
+but is expected to have type
+  Fin 4 → Matrix (Fin 4) (Fin 4) ℂ
+in the application
+  GramPhaseEquiv
+    (fun i =>
+      (FibreGram 0 (of fun p q => 1 / 2 * !![1, 1, 1, 1; 1, z, -1, -z; 1, -1, 1, -1; 1, -z, -1, z] p.1 q.1)
+            (1 i)).submatrix
+        ⇑1 ⇑1)
+    FibreGram
+===== error: OIBridge/OrbitIsometryGroup.lean:3893:43: Application type mismatch: The argument
+  hfU
+has type
+  ∀ (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+    RealizableGram (Fin 1) Γ₀ G →
+      ∀ (U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+        AdmissibleDilationAt Γ₀ 0 U → FibreGram 0 U = G → f (featureVec G) = featureVec (FibreGram 0 Uᵀ)
+of sort `Prop` but is expected to have type
+  Fin 4 → Matrix (Fin 4) (Fin 4) ℂ
+of sort `Type` in the application
+  a33_shared_T_circle Γ₀ hΓ₀ f hfU
+===== error: OIBridge/OrbitIsometryGroup.lean:3894:77: Application type mismatch: The argument
+  hfU
+has type
+  ∀ (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+    RealizableGram (Fin 1) Γ₀ G →
+      ∀ (U : Matrix (Fin 4 × Fin 1) (Fin 4 × Fin 1) ℂ),
+        AdmissibleDilationAt Γ₀ 0 U → FibreGram 0 U = G → f (featureVec G) = featureVec (FibreGram 0 Uᵀ)
+of sort `Prop` but is expected to have type
+  Fin 4 → Matrix (Fin 4) (Fin 4) ℂ
+of sort `Type` in the application
+  a33_shared_T_invol Γ₀ hΓ₀ f hfU
+===== error: OIBridge/OrbitIsometryGroup.lean:3900:18: Application type mismatch: The argument
+  z
+has type
+  ℂ
+of sort `Type` but is expected to have type
+  AdmissibleDilationAt Γ₀ 0 ?m.9924
+of sort `Prop` in the application
+  hfT ?m.9923 ?m.9924 z
+===== error: OIBridge/OrbitIsometryGroup.lean:3905:18: Application type mismatch: The argument
+  z
+has type
+  ℂ
+of sort `Type` but is expected to have type
+  AdmissibleDilationAt Γ₀ 0 ?m.10576
+of sort `Prop` in the application
+  hfT ?m.10575 ?m.10576 z
+===== error: OIBridge/OrbitIsometryGroup.lean:4488:160: unsolved goals
+Γ₀ : Matrix (Fin 4) (Fin 4) ℝ
+hΓ₀ : Γ₀ = of fun x x_1 => 1 / 4
+f :
+  EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4) →
+    EuclideanSpace ℂ ((Fin 4 × Fin 4 × Fin 4) × Fin 4 × Fin 4 × Fin 4)
+hf : IsSurjIsometryOn (normalizedSet Γ₀) f
+hfG :
+  ∀ (G : Fin 4 → Matrix (Fin 4) (Fin 4) ℂ),
+    RealizableGram (Fin 1) Γ₀ G →
+      f (featureVec G) = featureVec fun i => (G (1 i)).submatrix ⇑(Equiv.swap 0 1) ⇑(Equiv.swap 0 1)
+z : ℂ
+hz : star z * z = 1
+h1 :
+  (![Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, Equiv.swap 0 4 * Equiv.swap 1 5 * Equiv.swap 2 3, Equiv.swap 3 5,
+          Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4, Equiv.swap 0 4 * Equiv.swap 1 3 * Equiv.swap 2 5,
+          Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4, Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, 1]
+        6)
+      (![0, 2, 4, 2, 0, 3, 4, 5, 0] 1) =
+    ![0, 2, 4, 2, 0, 3, 4, 5, 0] 0
+h2 :
+  (![Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, Equiv.swap 0 4 * Equiv.swap 1 5 * Equiv.swap 2 3, Equiv.swap 3 5,
+          Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4, Equiv.swap 0 4 * Equiv.swap 1 3 * Equiv.swap 2 5,
+          Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4, Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, 1]
+        6)
+      (![1, 3, 5, 5, 4, 1, 3, 1, 2] 1) =
+    ![1, 3, 5, 5, 4, 1, 3, 1, 2] 0
+er : ∀ (i : Fin 4), 1 (1 i) = 1 (1 i)
+⊢ ⇑(Equiv.trans (Equiv.swap 0 1) (Equiv.swap 2 3)) ∘ ⇑1 = (⇑(Equiv.trans (Equiv.swap 0 1) (Equiv.swap 2 3)) ∘ ⇑1) ∘ ⇑1
+===== error: OIBridge/OrbitIsometryGroup.lean:4815:89: Invalid `⟨...⟩` notation: The expected type
+  (List.foldr
+              (fun g acc =>
+                (![Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, Equiv.swap 0 4 * Equiv.swap 1 5 * Equiv.swap 2 3,
+                        Equiv.swap 3 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                        Equiv.swap 0 4 * Equiv.swap 1 3 * Equiv.swap 2 5,
+                        Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                        Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, 1]
+                      g *
+                    acc.1,
+                  ![![1, 0, 2, 4, 3, 5, 7, 6, 8], ![2, 1, 0, 5, 4, 3, 8, 7, 6], ![0, 3, 6, 1, 4, 7, 2, 5, 8],
+                        ![3, 4, 5, 0, 1, 2, 6, 7, 8], ![6, 7, 8, 3, 4, 5, 0, 1, 2], ![3, 4, 5, 0, 1, 2, 6, 7, 8],
+                        ![1, 0, 2, 4, 3, 5, 7, 6, 8], ![0, 1, 2, 3, 4, 5, 6, 7, 8]]
+                      g ∘
+                    acc.2.1,
+                  fun r =>
+                  decide
+                    (acc.2.2 r =
+                      ![![true, true, true, true, true, true, true, true, true],
+                          ![true, true, true, true, true, true, true, true, true],
+                          ![true, true, true, true, true, true, true, true, true],
+                          ![true, true, true, true, true, true, true, true, true],
+                          ![true, true, true, true, true, true, true, true, true],
+                          ![false, false, false, false, false, false, true, true, true],
+                          ![false, false, true, false, false, true, false, false, true],
+                          ![false, false, false, false, false, false, false, false, false]]
+                        g (acc.2.1 r))))
+              (1, id, fun x => true) []).1
+          (![0, 2, 4, 2, 0, 3, 4, 5, 0] r) =
+        ![0, 2, 4, 2, 0, 3, 4, 5, 0]
+===== error: OIBridge/OrbitIsometryGroup.lean:4821:80: Application type mismatch: The argument
+  hgcond
+has type
+  ∀ (r : Fin 9),
+    (![Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, Equiv.swap 0 4 * Equiv.swap 1 5 * Equiv.swap 2 3,
+                Equiv.swap 3 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                Equiv.swap 0 4 * Equiv.swap 1 3 * Equiv.swap 2 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, 1]
+              g)
+            (![0, 2, 4, 2, 0, 3, 4, 5, 0] r) =
+          ![0, 2, 4, 2, 0, 3, 4, 5, 0]
+            (![![1, 0, 2, 4, 3, 5, 7, 6, 8], ![2, 1, 0, 5, 4, 3, 8, 7, 6], ![0, 3, 6, 1, 4, 7, 2, 5, 8],
+                ![3, 4, 5, 0, 1, 2, 6, 7, 8], ![6, 7, 8, 3, 4, 5, 0, 1, 2], ![3, 4, 5, 0, 1, 2, 6, 7, 8],
+                ![1, 0, 2, 4, 3, 5, 7, 6, 8], ![0, 1, 2, 3, 4, 5, 6, 7, 8]]
+              g r) ∧
+        (![Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, Equiv.swap 0 4 * Equiv.swap 1 5 * Equiv.swap 2 3,
+                Equiv.swap 3 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                Equiv.swap 0 4 * Equiv.swap 1 3 * Equiv.swap 2 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, 1]
+              g)
+            (![1, 3, 5, 5, 4, 1, 3, 1, 2] r) =
+          ![1, 3, 5, 5, 4, 1, 3, 1, 2]
+            (![![1, 0, 2, 4, 3, 5, 7, 6, 8], ![2, 1, 0, 5, 4, 3, 8, 7, 6], ![0, 3, 6, 1, 4, 7, 2, 5, 8],
+                ![3, 4, 5, 0, 1, 2, 6, 7, 8], ![6, 7, 8, 3, 4, 5, 0, 1, 2], ![3, 4, 5, 0, 1, 2, 6, 7, 8],
+                ![1, 0, 2, 4, 3, 5, 7, 6, 8], ![0, 1, 2, 3, 4, 5, 6, 7, 8]]
+              g r) ∨
+      (![Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, Equiv.swap 0 4 * Equiv.swap 1 5 * Equiv.swap 2 3,
+                Equiv.swap 3 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                Equiv.swap 0 4 * Equiv.swap 1 3 * Equiv.swap 2 5, Equiv.swap 0 2 * Equiv.swap 1 5 * Equiv.swap 3 4,
+                Equiv.swap 0 2 * Equiv.swap 1 3 * Equiv.swap 4 5, 1]
+===== error: OIBridge/OrbitIsometryGroup.lean:4826:6: 'show' tactic failed, pattern
+  FG g
+      (List.foldr (fun x1 x2 => x1 ∘ x2) id (List.map FG w)
+        (List.foldr (fun x1 x2 => x1 ∘ x2) id (List.map FG w.reverse) (FG g x))) =
+    x
+is not definitionally equal to target
+  (FG g ∘ List.foldr (fun x1 x2 => x1 ∘ x2) id (List.map FG w))
+      (List.foldr (fun x1 x2 => x1 ∘ x2) (FG g ∘ id) (List.map FG w.reverse) x) =
+    x
+===== error: OIBridge/OrbitIsometryGroup.lean:4869:20: Unknown identifier `a32_shared_exists`
+===== error: OIBridge/OrbitIsometryGroup.lean:4869:9: Tactic `rcases` failed: `x✝ : ?m.3331` is not an inductive datatype
+===== error: OIBridge/OrbitIsometryGroup.lean:4937:18: (deterministic) timeout at `whnf`, maximum number of heartbeats (200000) has been reached
+Note: Use `set_option maxHeartbeats <num>` to set the limit.
+Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.

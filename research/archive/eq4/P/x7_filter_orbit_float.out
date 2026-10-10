@@ -1,0 +1,10 @@
+rho(beta=1     z=1     ) [sector self-positive iff beta <= 3 z^2 =  3.000]  min normalized tr(y Ad(m) y) = 8.331359e-17
+rho(beta=2     z=1     ) [sector self-positive iff beta <= 3 z^2 =  3.000]  min normalized tr(y Ad(m) y) = 1.507557e-01
+rho(beta=3     z=1     ) [sector self-positive iff beta <= 3 z^2 =  3.000]  min normalized tr(y Ad(m) y) = 2.269179e-16
+rho(beta=2.9   z=1     ) [sector self-positive iff beta <= 3 z^2 =  3.000]  min normalized tr(y Ad(m) y) = 1.297859e-02
+rho(beta=3     z=1.2   ) [sector self-positive iff beta <= 3 z^2 =  4.320]  min normalized tr(y Ad(m) y) = 1.505533e-01
+rho(beta=5     z=1.5   ) [sector self-positive iff beta <= 3 z^2 =  6.750]  min normalized tr(y Ad(m) y) = 8.860759e-02
+rho(beta=6.75  z=1.5   ) [sector self-positive iff beta <= 3 z^2 =  6.750]  min normalized tr(y Ad(m) y) = 1.417491e-16
+rho(beta=7     z=1.6667) [sector self-positive iff beta <= 3 z^2 =  8.333]  min normalized tr(y Ad(m) y) = 4.000000e-02
+rho(beta=12    z=2     ) [sector self-positive iff beta <= 3 z^2 = 12.000]  min normalized tr(y Ad(m) y) = 2.357968e-16
+rho(beta=1     z=2     ) [sector self-positive iff beta <= 3 z^2 = 12.000]  min normalized tr(y Ad(m) y) = 9.527190e-17

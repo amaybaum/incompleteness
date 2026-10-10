@@ -1,0 +1,22 @@
+PASS P1 product rule K(NM)=K(N)K(M), N,M in 2..8  {'classical': True, 'real': False, 'complex': True, 'quaternionic': False}
+PASS P1 real deficit at 2x2: K(4)=10 vs K(2)^2=9 (real has MORE global params than local products)
+PASS P1 quaternionic mismatch at 2x2: K(4)=28 vs K(2)^2=36
+PASS P2 s_y(x)s_y is real symmetric
+PASS P2 s_y(x)s_y orthogonal to all 9 real-symmetric product observables
+PASS P2 rho_+ != rho_- , both PSD real states, identical local statistics
+PASS P2 control: over C, tr((s_y(x)s_y) rho_+-) = +-1 distinguishes them
+PASS P3 Fourier F3 is unitary with |F|^2 = J/3 (complex lift)
+PASS P3 no two {+-1}^3 vectors are orthogonal => no real orthogonal lift of J/3
+PASS P4 (J-I)/2 is the visible law of a bijection of V x H with uniform |H|=2
+PASS P4 every pair of rows overlaps in exactly one column => no unitary lift over R, C or H
+PASS P5 D=3 real rotation + permutations: dim 3 = so(D) 3
+PASS P5 D=3 complex drive -iX + permutations: dim 8 = su(D) 8
+PASS P5 D=4 real rotation + permutations: dim 6 = so(D) 6
+PASS P5 D=4 complex drive -iX + permutations: dim 15 = su(D) 15
+PASS P5 D=5 real rotation + permutations: dim 10 = so(D) 10
+PASS P5 D=5 complex drive -iX + permutations: dim 24 = su(D) 24
+PASS P5 D=2 drive + swap: dim 1 < su(2) 3 (the bipartite obstruction)
+PASS P6 D=3 diagonal skew-Hermitian generators: abelian, dim 3 = D
+PASS P6 D=4 diagonal skew-Hermitian generators: abelian, dim 4 = D
+
+SUMMARY: 20 PASS, 0 FAIL

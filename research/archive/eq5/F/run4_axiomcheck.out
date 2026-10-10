@@ -1,0 +1,10 @@
+  SORRY  3 line(s) of Lean output mention `sorryAx`:
+         2026-10-09T15:05:23.0419545Z info: OIBridge/FourCopyPackage.lean:383:0: 'OIBridge.FourCopy.fourCopyCoherent_of_kt4Cone' depends on axioms: [propext, sorryAx, Cl
+         2026-10-09T15:05:23.0420451Z info: OIBridge/FourCopyPackage.lean:384:0: 'OIBridge.FourCopy.kt4_forward' depends on axioms: [propext, sorryAx, Classical.choice, 
+         2026-10-09T15:05:23.0421172Z info: OIBridge/FourCopyPackage.lean:385:0: 'OIBridge.FourCopy.kt4_forward_lt' depends on axioms: [propext, sorryAx, Classical.choic
+  AXIOM  fourCopyCoherent_of_kt4Cone depends on ['sorryAx']
+  AXIOM  kt4_forward depends on ['sorryAx']
+  AXIOM  kt4_forward_lt depends on ['sorryAx']
+  SILENT 5771 declared `#print axioms` produced no report: ['Bmat_factor', 'Bmat_isRowStochastic', 'Bmat_mul', 'Bmat_one_eq', 'D3_colMonomial', 'D_imp_Qfb', 'E3_colMonomial', 'Esf_eq_seedEmbed']
+
+lean_axiom_check: FAILED (5777 problem(s))

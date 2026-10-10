@@ -1,0 +1,38 @@
+F 2697a58ca14a898752bca2f68c15c991e97b4df5
+C1 ed80885da3dde74b0e9613bf2b3a2495dd18a4e3
+S1 f32f483b502c8a00d937d267c9ea81631b458824
+S2 9a23623141df7e77c463268f3114b7fb4ff42d32
+prereg blob fdd438ca05daaaba50ede0e8042c5fb501b31083  controls blob 7a691bca95232e1dbe289f57d8b9e458b9732b76  result blob 8e473d8e63a3ea539c8eb6555e5ef8d66041c0ef  indep blob 94159768a66248bbe5733e0ebde83b4c1dfe40ca  workflow blob 6207ec57b53ce2f0844397fd84e29aab77dd90be
+C1: controls blob is the frozen blob recorded in the preregistration
+F: single parent D
+== check S1
+controls: OK -- 12 checks
+== self-test
+controls: OK -- self-test 47 checks
+== check S2
+controls: OK -- 14 checks
+== verdict S2
+Q1-CL   CLOSEDNESS-FOIL-VERIFIED
+Q1-MAX  MAXCONE-MODEL-VERIFIED
+Q1-IND  INDEPENDENT-REPLICATION-VERIFIED
+Q1-MAP  COUNTERMODEL-MATRIX-VERIFIED
+Q1-NEC  CLASSIFICATION-STEPS-VERIFIED
+Q2      PAIR-ROUTE-GAP-VERIFIED
+Q3      SOURCE-MAP-CITATIONS-VERIFIED
+kt4_prem1_probe: OK -- 79 checks
+FINAL: 124 exact checks, 0 failed; claims AGREE
+PASS countercontrol extra-token -> FAILED V1
+PASS countercontrol earned-altered -> FAILED V2
+PASS countercontrol rule-missing -> FAILED V3
+PASS countercontrol summary-missing -> FAILED V4
+PASS countercontrol phrase-PH -> FAILED PH
+PASS countercontrol prereg-after-F -> FAILED F
+PASS countercontrol roadmap-touched -> FAILED G
+PASS countercontrol workflow-test-line -> FAILED W
+PASS countercontrol probe-witness -> FAILED P
+PASS countercontrol extra-record-file -> FAILED R
+PASS countercontrol indep-witness -> FAILED P
+PASS countercontrol final-missing -> FAILED V4
+PASS countercontrol ind-token-negated -> FAILED V1
+PASS countercontrol lean-source-changed -> FAILED G
+exit 0

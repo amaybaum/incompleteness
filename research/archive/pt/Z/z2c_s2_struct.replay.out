@@ -1,0 +1,18 @@
+== A  basis B, CNOT, torus
+A1    PASS  W* CNOT W = diag(1,-1,1,1); CNOT = I(x)P+ + Z(x)P- (amendment)
+A2    PASS  torus diagonal in B; commutes with CNOT
+A3    PASS  generators map C1 u C2 into itself; torus shifts gamma by th+ph on C1, th-ph on C2
+A4    PASS  |det|^2 = 1/4 for C_k(gamma) and CNOT C_k(gamma): maximally entangled
+A5    PASS  psi_(1,1) = C1(0), psi_(-1,-1) = C1(pi), psi_(1,-1) = C2(0), psi_(-1,1) = C2(pi) (rays)
+== A6  Bell-type seeds: orbit invariants in the product basis (|0+>, |0->, |1+>, |1->)
+A6    PASS  torus fixes (A,B); CNOT (-A,B); ZI (-A,-B); IZ (B,A); T conj; parallelogram identity; det = A - B in the product basis
+== A7  the group S2 = <T2c, G16>: identity component and component group
+A7    PASS  unitary part of G16: 8 elements mod phase; in the torus: 2 (I, Z(x)I); component group of S2 has order 16/2 = 8
+== A8  the larger torus T3 (all B-diagonal unitaries)
+A8    PASS  Z(x)X = diag(1,1,-1,-1) in B; e^{i chi Z(x)X} fixes each circle pointwise (rays)
+== CC countercontrols (each must be REJECTED)
+CC1   REJECTED  Phi+: |det|^2 = 1/4 but CNOT Phi+ has |det|^2 = 0
+CC2   REJECTED  Ad(H(x)I) C1(0) leaves C1 u C2
+CC3   REJECTED  CNOT not in the torus T2c (d1 d2 = -1, d3 d4 = 1)
+SUMMARY checks 8/8 PASS; countercontrols rejected 3/3
+VERDICT S2-STRUCT-EXACT

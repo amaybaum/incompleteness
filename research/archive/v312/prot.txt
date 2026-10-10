@@ -1,0 +1,415 @@
+R7-A11P	_a11p_amend_drift	1
+R7-A11P	_a11p_amendment_pin	2
+R7-A11P	_a11p_drift	1
+R7-A11P	_a11p_freeze_pin	2
+R7-A12P	_a12p_drift	1
+R7-A12P	_a12p_execution_ancestry	1
+R7-A12P	_a12p_freeze_pin	2
+R7-A6D	_a6d_drift	1
+R7-A6D	_a6d_execution_ancestry	1
+R7-A6D	_a6d_freeze_pin	2
+R7-A6I	_a6i_chronology	1
+R7-A6I	_a6i_drift	3
+R7-A6I	_a6i_execution_ancestry	1
+R7-A6I	_a6i_freeze_pin	2
+R7-A6I	_a6i_non_licences	7
+R7-A6I	_a6i_readme	2
+R7-A6I	_a6i_untouched_pins	2
+R7-A6P	_a6p_drift	1
+R7-A6P	_a6p_execution_ancestry	1
+R7-A6P	_a6p_freeze_pin	2
+R7-A6P	_a6p_non_licences	6
+R7-A6P	_a6p_readme	1
+R7-A6P	_a6p_result_drift	1
+R7-A6P	_a6p_round1_pins	2
+R7-ABR	_abr_chronology_strong	3
+R7-ABR	_abr_drift	1
+R7-ABR	_abr_execution_ancestry	1
+R7-ABR	_abr_freeze_pin	2
+R7-ARCH	_rbr_archive_regression	1
+R7-BRIDGE	_bb_drift	1
+R7-BRIDGE	_bb_freeze	2
+R7-CAND	_cs_drift	1
+R7-CAND	_cs_freeze_pin	2
+R7-CGR	    ok_cgr &= _cgr_ok3	1
+R7-CGR	_cgr_attestation	6
+R7-CGR	_cgr_chronology	2
+R7-CGR	_cgr_declarations	1
+R7-CGR	_cgr_drift	1
+R7-CGR	_cgr_execution_ancestry	1
+R7-CGR	_cgr_freeze_pin	1
+R7-CGR	_cgr_locating	1
+R7-CGR	_cgr_ordering_pred	14
+R7-CGR	_cgr_records	5
+R7-CGR	_cgr_shape	1
+R7-CGR	_si2_integrity_ok	1
+R7-CLG	_clg_drift	1
+R7-CLG	_clg_execution_ancestry	1
+R7-CLG	_clg_freeze_pin	2
+R7-CTI	_cti_drift	1
+R7-CTI	_cti_execution_ancestry	1
+R7-CTI	_cti_freeze_pin	2
+R7-CTN	_artifact	1
+R7-CV1	        _cv1_checks['landed-artifact:' +	1
+R7-CV1	    _cv1_checks['additive-added-under-th	1
+R7-CV1	    _cv1_checks['additive-modified-only-	1
+R7-CV1	    _cv1_checks['additive-no-cv2-object'	1
+R7-CV1	    _cv1_checks['additive-no-deletion'] 	1
+R7-CV1	    _cv1_checks['additive-no-forbidden-p	1
+R7-CV1	    _cv1_checks['s1:' + _nm] = _ok	1
+R7-CV1	    _cv1_checks['s234:' + _nm] = _ok	1
+R7-CV1	    _cv1_checks[_k + '-segment-once-at-b	1
+R7-CV1	    _cv1_checks[_nm] = _ok	1
+R7-CV1	_cv1_budget	2
+R7-CV1	_cv1_checks['census-6a-as-adjudicated'] 	1
+R7-CV1	_cv1_checks['census-6b-as-frozen'] = _CV	1
+R7-CV1	_cv1_checks['census-equal-to-committed']	1
+R7-CV1	_cv1_checks['chronology'] = bool(_CV1_CH	1
+R7-CV1	_cv1_checks['corpus-every-family'] = boo	1
+R7-CV1	_cv1_checks['corpus-exact'] = bool(
+    	1
+R7-CV1	_cv1_checks['corpus-mut:one-id-substitut	1
+R7-CV1	_cv1_checks['freeze-eight-python-blocks'	1
+R7-CV1	_cv1_checks['freeze-prints-the-supersede	1
+R7-CV1	_cv1_checks['legacy-owned-exactly-pra'] 	1
+R7-CV1	_cv1_checks['no-check-call-removed'] = b	1
+R7-CV1	_cv1_checks['no-r7-block-removed'] = boo	1
+R7-CV1	_cv1_checks['no-relocation-record'] = no	1
+R7-CV1	_cv1_checks['provenance-fifty-one-transl	1
+R7-CV1	_cv1_checks['provenance-one-bootstrap-an	1
+R7-CV1	_cv1_checks['provenance-thirty-five-tran	1
+R7-CV1	_cv1_checks['provenance-translated-rows'	1
+R7-CV1	_cv1_checks['result-note'] = bool(_CV1_R	1
+R7-CV1	_cv1_checks['s1-anchors-once-at-base'] =	1
+R7-CV1	_cv1_checks['s4-anchors-once-at-base'] =	1
+R7-CV1	_cv1_checks['tag-map'] = bool(
+    _CV1_	1
+R7-CV1	_cv1_checks['verifier-ran'] = _CV1_REP i	1
+R7-CV1	_cv1_checks['verifier-shadow-ok'] = bool	1
+R7-CV1	_cv1_checks['workflow-job-in-shadow'] = 	1
+R7-CV1	_cv1_git	6
+R7-CV1	_cv1_revert	1
+R7-CV1	_gr1_blob_id	2
+R7-CV1	_gr1_seals_ok	1
+R7-CV1	_gr2_sha	2
+R7-CV1	_pfr_n	4
+R7-CV1	_si1_load	1
+R7-CV1	_si2_integrity_ok	1
+R7-DILCH	_dc_drift	1
+R7-DILCH	_dc_freeze_pin	2
+R7-DILMAP	_dm_drift	1
+R7-DILMAP	_dm_freeze_pin	2
+R7-GR1	            _gr1_checks['landed-artifact	1
+R7-GR1	        _gr1_checks['history-prefix'] = 	1
+R7-GR1	        _gr1_checks['placement-historica	1
+R7-GR1	    _gr1_checks['fixture:' + _nm] = _goo	1
+R7-GR1	    _gr1_checks['note-mut:shape-dropped'	1
+R7-GR1	    _gr1_checks['pin:' + _p] = _got is n	1
+R7-GR1	_gr1_bad = sorted(k for k, v in _gr1_che	1
+R7-GR1	_gr1_blob_id	6
+R7-GR1	_gr1_budget	2
+R7-GR1	_gr1_checks['base-predicate-extracted'] 	1
+R7-GR1	_gr1_checks['chronology'] = bool(_GR1_CH	1
+R7-GR1	_gr1_checks['frozen-new-retires-the-leg'	1
+R7-GR1	_gr1_checks['frozen-texts-read'] = bool(	1
+R7-GR1	_gr1_checks['landed-pin-names'] = (
+    	1
+R7-GR1	_gr1_checks['suite-29-rows'] = _GR1_SUIT	1
+R7-GR1	_gr1_checks['suite-as-frozen'] = _GR1_SU	1
+R7-GR1	_gr1_checks['suite-ran'] = _GR1_SUITE_N 	1
+R7-GR1	_gr1_checks['suite-seven-reject-then-acc	1
+R7-GR1	_gr1_git	2
+R7-GR1	_gr1_history_prefix	2
+R7-GR1	_gr1_norm	4
+R7-GR1	_gr1_pin_ok	1
+R7-GR1	_gr1_seals_hist	1
+R7-GR1	_gr1_seals_ok	1
+R7-GR1	_pfr_n	3
+R7-GR1	_si1_load	1
+R7-GR1	_si2_integrity_ok	1
+R7-GR2	    _gr2_checks['composition:' + _nm] = 	1
+R7-GR2	    _gr2_checks['fixture:' + _nm] = _ok	1
+R7-GR2	    _gr2_checks['negative:' + _nm] = _ok	1
+R7-GR2	    _gr2_checks['placement-historical-bu	1
+R7-GR2	    _gr2_checks['suite-a:' + _nm] = _ok	1
+R7-GR2	    _gr2_checks['suite-b:' + _nm] = _ok	1
+R7-GR2	_gr1_blob_id	2
+R7-GR2	_gr1_seals_ok	1
+R7-GR2	_gr2_bad = sorted(k for k, v in _gr2_che	1
+R7-GR2	_gr2_budget	2
+R7-GR2	_gr2_checks['chronology'] = bool(_GR2_CH	1
+R7-GR2	_gr2_checks['result-note'] = bool(_GR2_R	1
+R7-GR2	_gr2_checks['segments-once-at-base'] = (	1
+R7-GR2	_gr2_checks['tag-map'] = bool(
+    _GR2_	1
+R7-GR2	_gr2_row_ok	1
+R7-GR2	_gr2_sha	4
+R7-GR2	_si1_load	1
+R7-GR2	_si2_integrity_ok	1
+R7-HYA	_hya_drift	1
+R7-HYA	_hya_execution_ancestry	1
+R7-HYA	_hya_freeze_pin	2
+R7-HYB	_hyb_drift	1
+R7-HYB	_hyb_execution_ancestry	1
+R7-HYB	_hyb_freeze_pin	2
+R7-HYE	_hye_drift	1
+R7-HYE	_hye_execution_ancestry	1
+R7-HYE	_hye_freeze_pin	2
+R7-HYE	_hye_seal_state	2
+R7-HYE	_hye_seals_untouched	1
+R7-MIN	ok_min &= 'repertoire_lie' in _wf	1
+R7-MSP	ok_msp &= '"lean-manuscript"' in open(os	1
+R7-NLV	_nlv_bad = [name for name, ok in _nlv_ch	1
+R7-NLV	_nlv_checks['ordering'] = _nlv_order_ok	1
+R7-NLV	_nlv_declarations	1
+R7-NLV	_nlv_execution_ancestry	1
+R7-NLV	_nlv_freeze_pin	2
+R7-NLV	_nlv_module_ok	3
+R7-NLV	_nlv_note_ok	3
+R7-NLV	_nlv_ordering_pred	5
+R7-NLV	_nlv_p0	2
+R7-NLV	_nlv_wired	2
+R7-OGC	    ok_ogc &= _ogc_ok3	1
+R7-OGC	_ogc_attestation	5
+R7-OGC	_ogc_chronology	2
+R7-OGC	_ogc_declarations	1
+R7-OGC	_ogc_drift	1
+R7-OGC	_ogc_execution_ancestry	1
+R7-OGC	_ogc_freeze_pin	1
+R7-OGC	_ogc_locating	1
+R7-OGC	_ogc_ordering_pred	11
+R7-OGC	_ogc_records	4
+R7-OGC	_ogc_shape	1
+R7-OGC	_si2_integrity_ok	1
+R7-OGS	    ok_ogs &= _ogs_ok3	1
+R7-OGS	_ogs_attestation	3
+R7-OGS	_ogs_chronology	2
+R7-OGS	_ogs_declarations	1
+R7-OGS	_ogs_drift	1
+R7-OGS	_ogs_execution_ancestry	1
+R7-OGS	_ogs_freeze_pin	1
+R7-OGS	_ogs_locating	1
+R7-OGS	_ogs_ordering_pred	10
+R7-OGS	_ogs_records	4
+R7-OGS	_ogs_shape	1
+R7-OGS	_si2_integrity_ok	1
+R7-OINN	_artifact	1
+R7-OLG	    ok_olg &= _olg_ok3	1
+R7-OLG	_olg_attestation	3
+R7-OLG	_olg_chronology	2
+R7-OLG	_olg_declarations	1
+R7-OLG	_olg_drift	1
+R7-OLG	_olg_execution_ancestry	1
+R7-OLG	_olg_freeze_pin	1
+R7-OLG	_olg_locating	1
+R7-OLG	_olg_ordering_pred	8
+R7-OLG	_olg_records	3
+R7-OLG	_olg_shape	1
+R7-OLG	_si2_integrity_ok	1
+R7-OLN	    ok_oln &= _oln_ok3	1
+R7-OLN	_oln_attestation	2
+R7-OLN	_oln_chronology	2
+R7-OLN	_oln_declarations	1
+R7-OLN	_oln_drift	1
+R7-OLN	_oln_execution_ancestry	1
+R7-OLN	_oln_freeze_pin	1
+R7-OLN	_oln_locating	1
+R7-OLN	_oln_ordering_pred	4
+R7-OLN	_oln_shape	1
+R7-OLN	_oln_supersession	1
+R7-OLN	_si2_integrity_ok	1
+R7-OLT	    ok_olt &= _olt_ok3	1
+R7-OLT	_olt_attestation	2
+R7-OLT	_olt_chronology	2
+R7-OLT	_olt_declarations	1
+R7-OLT	_olt_drift	1
+R7-OLT	_olt_execution_ancestry	1
+R7-OLT	_olt_freeze_pin	1
+R7-OLT	_olt_locating	1
+R7-OLT	_olt_ordering_pred	4
+R7-OLT	_olt_records	2
+R7-OLT	_olt_shape	1
+R7-OLT	_olt_supersessions	1
+R7-OLT	_si2_integrity_ok	1
+R7-PC4	_pc4_drift	1
+R7-PC4	_pc4_execution_ancestry	1
+R7-PC4	_pc4_freeze_pin	2
+R7-PC4S	_pc4s_drift	1
+R7-PC4S	_pc4s_execution_ancestry	1
+R7-PC4S	_pc4s_freeze_pin	2
+R7-PC4S	_pc4s_round1_seal	4
+R7-PFR	    _pfr_checks['note-req:' + _k] = _s i	1
+R7-PFR	    _pfr_checks['stmt:' + _n] = _pfr_liv	1
+R7-PFR	    _pfr_checks[_k] = _v in _PFRLEAN	1
+R7-PFR	_pfr_bad = [k for k, v in _pfr_checks.it	1
+R7-PFR	_pfr_census_ok	3
+R7-PFR	_pfr_checks['chronology-recoverable'] = 	1
+R7-PFR	_pfr_checks['frozen-blob'] = (_hashlib.s	1
+R7-PFR	_pfr_checks['frozen-blob-drift'] = (_has	1
+R7-PFR	_pfr_checks['gate-head'] = 'a28_1' not i	1
+R7-PFR	_pfr_checks['module-import'] = _PFRLEAN.	1
+R7-PFR	_pfr_checks['module-one-import'] = _PFRL	1
+R7-PFR	_pfr_checks['no-rival-predicate'] = 'Fac	1
+R7-PFR	_pfr_checks['root-wired'] = 'import OIBr	1
+R7-PFR	_pfr_checks['statement-count'] = len(_pf	1
+R7-PFR	_pfr_checks['statement-set'] = set(_pfr_	1
+R7-PFR	_pfr_checks['zero-definitions'] = not _P	1
+R7-PFR	_pfr_checks['zero-definitions-control'] 	1
+R7-PFR	_pfr_chron_ok	2
+R7-PFR	_pfr_git	2
+R7-PFR	_pfr_note_ok	4
+R7-PFR	_pfr_road_ok	2
+R7-PFR	_pfr_stmts	1
+R7-PFR	_si2_authority	1
+R7-PQT	_pqt_drift	1
+R7-PQT	_pqt_execution_ancestry	1
+R7-PQT	_pqt_freeze_pin	2
+R7-PRA	    _pra_checks['note-req:' + _k] = _s i	1
+R7-PRA	    _pra_checks['stmt:' + _n] = _pra_liv	1
+R7-PRA	    _pra_checks[_k] = _v in _PRALEAN	1
+R7-PRA	    _pra_checks[_k] = _v in _pra_p_stmt	1
+R7-PRA	_pfr_stmts	1
+R7-PRA	_pra_bad = [k for k, v in _pra_checks.it	1
+R7-PRA	_pra_census_ok	4
+R7-PRA	_pra_checks['chronology-recoverable'] = 	1
+R7-PRA	_pra_checks['frozen-blob'] = (_hashlib.s	1
+R7-PRA	_pra_checks['frozen-blob-drift'] = (_has	1
+R7-PRA	_pra_checks['module-import'] = _PRALEAN.	1
+R7-PRA	_pra_checks['module-one-import'] = _PRAL	1
+R7-PRA	_pra_checks['no-forbidden-names'] = not 	1
+R7-PRA	_pra_checks['no-forbidden-names-mut'] = 	1
+R7-PRA	_pra_checks['no-rival-predicate'] = 'Fac	1
+R7-PRA	_pra_checks['p-no-factorization'] = 'Fac	1
+R7-PRA	_pra_checks['p-no-pair'] = ('RelabelTran	1
+R7-PRA	_pra_checks['p-scope-mut'] = 'Factorizes	1
+R7-PRA	_pra_checks['root-wired'] = 'import OIBr	1
+R7-PRA	_pra_checks['statement-count'] = len(_pr	1
+R7-PRA	_pra_checks['statement-set'] = set(_pra_	1
+R7-PRA	_pra_checks['zero-definitions'] = not _P	1
+R7-PRA	_pra_checks['zero-definitions-control'] 	1
+R7-PRA	_pra_chron_ok	2
+R7-PRA	_pra_git	2
+R7-PRA	_pra_note_ok	5
+R7-PRA	_pra_road_ok	3
+R7-PRA	_si2_authority	1
+R7-QSTAR	_qs_root_reachable	4
+R7-RBR	_rbr_base_ancestry	1
+R7-RBR	_rbr_drift	1
+R7-RBR	_rbr_freeze_pin	2
+R7-RCL	_rc_root_reachable	4
+R7-RNC	_rnc_chronology	1
+R7-RNC	_rnc_drift	1
+R7-RNC	_rnc_execution_ancestry	1
+R7-RNC	_rnc_freeze_pin	2
+R7-RNC	_si2_integrity_ok	1
+R7-RNT	_rnt_chronology	6
+R7-RNT	_rnt_drift	1
+R7-RNT	_rnt_execution_ancestry	1
+R7-RNT	_rnt_freeze_pin	2
+R7-RNT	_rnt_ordering	6
+R7-RNT	_si2_integrity_ok	2
+R7-SGT	_sgt_drift	1
+R7-SGT	_sgt_execution_ancestry	1
+R7-SGT	_sgt_freeze_pin	2
+R7-SI1	    ok_si1 &= _si1_tags['base_tags'] == 	1
+R7-SI1	    ok_si1 &= _si1_tags['matches_persist	1
+R7-SI1	_bb_blob	1
+R7-SI1	_pred	1
+R7-SI1	_si1_census_divergent	1
+R7-SI1	_si1_drift	1
+R7-SI1	_si1_execution_ancestry	1
+R7-SI1	_si1_freeze_pin	2
+R7-SI1	_si1_no_forbidden_paths	1
+R7-SI1	_si1_region_no_stem	1
+R7-SI1	_si1_rows_not_cases	1
+R7-SI1	_si1_schema	1
+R7-SI1	ok_si1 &= _SI1_TRANSCRIBED <= set(_si1_a	1
+R7-SI1	ok_si1 &= _si1_census_pinned	1
+R7-SI1	ok_si1 &= _si1_mb['mandate_compared'] ==	1
+R7-SI1	ok_si1 &= _si1_mb['records'] == 22 and _	1
+R7-SI1	ok_si1 &= _si1_mb['sealed'] == 18 and _s	1
+R7-SI1	ok_si1 &= _si1_reach == 18 and _si1_spin	1
+R7-SI1	ok_si1 &= _si1_tags is not None	1
+R7-SI1	ok_si1 &= all(good for _n, good, _d in _	2
+R7-SI1	ok_si1 &= len(_si1_cases) == 21 and len(	1
+R7-SI1	ok_si1 &= not _si1_errs and len(_si1_rec	1
+R7-SI1	ok_si1 &= sum(1 for r in _si1_recs.value	2
+R7-SI2	_bb_blob	1
+R7-SI2	_si1_integrity	3
+R7-SI2	_si2_agents_updated	4
+R7-SI2	_si2_base_provenance	1
+R7-SI2	_si2_clause_gates_on_u3	1
+R7-SI2	_si2_drift	1
+R7-SI2	_si2_execution_ancestry	1
+R7-SI2	_si2_freeze_pin	3
+R7-SI2	_si2_integrity_ok	1
+R7-SI2	_si2_region_no_stem	1
+R7-SI2	_si2_region_relocated_verbatim	1
+R7-SI2	ok_si2 &= (_si2_auth['gate_on_u3'] == 23	1
+R7-SI2	ok_si2 &= _si2_141_holds	1
+R7-SI2	ok_si2 &= _si2_census_pinned	1
+R7-SI2	ok_si2 &= _si2_diff and not any(p.starts	1
+R7-SI2	ok_si2 &= _si2_hold	1
+R7-SI2	ok_si2 &= _si2_m_ok	1
+R7-SI2	ok_si2 &= _si2_map_preserved	1
+R7-SI2	ok_si2 &= _si2_mb['branch_roots'] == 18 	1
+R7-SI2	ok_si2 &= _si2_mb['records'] == 23 and _	1
+R7-SI2	ok_si2 &= _si2_mut10 != _si2_src	1
+R7-SI2	ok_si2 &= _si2_tagpersist is not None an	1
+R7-SI2	ok_si2 &= len(_si2_neg) == 9 and all(goo	1
+R7-SI2	ok_si2 &= not re.search(r"^_si2_shadow_i	1
+R7-SI3	_pred	1
+R7-SI3	_seal_field	2
+R7-SI3	_si1_integrity	1
+R7-SI3	_si1_schema	1
+R7-SI3	_si2_integrity_ok	1
+R7-SI3	_si2_region_no_stem	1
+R7-SI3	_si3_agents_updated	4
+R7-SI3	_si3_amend_pin	2
+R7-SI3	_si3_archives_pinned	2
+R7-SI3	_si3_base	1
+R7-SI3	_si3_chronology	1
+R7-SI3	_si3_drift	2
+R7-SI3	_si3_freeze_pin	2
+R7-SI3	_si3_genuine_reads	2
+R7-SI3	_si3_reads_outside	4
+R7-SI3	_si3_region_bounded	4
+R7-SI3	_si3_shadows_gone	3
+R7-SI3	_si3_statements	1
+R7-SI3	ok_si3 &= _si3_arch	1
+R7-SI3	ok_si3 &= _si3_hold	1
+R7-SI3	ok_si3 &= _si3_neg8 and _si3_neg9	1
+R7-SI3	ok_si3 &= _si3_preserved	1
+R7-SI3	ok_si3 &= _si3_rb_ok	1
+R7-SI3	ok_si3 &= _si3_reads == 0 and '_seal_fie	1
+R7-SI3	ok_si3 &= _si3_sh and '_SI2_SHADOW_INTEG	1
+R7-SI3	ok_si3 &= all(name in globals() for name	1
+R7-SI3	ok_si3 &= bool(_si3_diff) and not any(p.	1
+R7-SI3	ok_si3 &= len(_si3_stmts) == 0	1
+R7-SOURCE	ok_src &= re.search(r'lake build\s+OIBri	1
+R7-SRCA	_sa_drift	1
+R7-SRCA	_sa_freeze_pin	2
+R7-TBRIDGE	_tb_drift	1
+R7-TBRIDGE	_tb_freeze_pin	2
+R7-TCF	_si2_integrity_ok	1
+R7-TCF	_tcf_drift	1
+R7-TCF	_tcf_execution_ancestry	1
+R7-TCF	_tcf_freeze_pin	2
+R7-TRJ	_si2_integrity_ok	1
+R7-TRJ	_trj_chronology	1
+R7-TRJ	_trj_drift	1
+R7-TRJ	_trj_execution_ancestry	1
+R7-TRJ	_trj_freeze_pin	2
+R7-TSG	_tsg_drift	1
+R7-TSG	_tsg_execution_ancestry	1
+R7-TSG	_tsg_freeze_pin	2
+R7-TUPLE	_tu_drift	1
+R7-TUPLE	_tu_freeze_pin	2
+R7-VIS	_rbr_archive_visibility_regression	1
+R7-WTS	_wts_drift	1
+R7-WTS	_wts_execution_ancestry	1
+R7-WTS	_wts_freeze_pin	2
+R7-XTS	_si2_integrity_ok	2
+R7-XTS	_xts_drift	1
+R7-XTS	_xts_execution_ancestry	1
+R7-XTS	_xts_freeze_pin	2

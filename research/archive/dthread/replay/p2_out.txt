@@ -1,0 +1,27 @@
+PASS 2.1 cnot = Ad(CNOT)
+PASS 2.2 q=(1, 1, 0, 0) :: U~ in Z[i]: True; R rational: True; actT: True; actC: True
+PASS 2.2 q=(2, 1, 2, 0) :: U~ in Z[i]: True; R rational: True; actT: True; actC: True
+PASS 2.2 q=(1, 2, 3, 4) :: U~ in Z[i]: True; R rational: True; actT: True; actC: True
+PASS 2.3a Segre form matrix
+PASS 2.3b words over Q(i), rank-4 pulled-back Segre form, nonzero dehomogenisation :: 819 words, 0 bad []
+PASS 2.4a Segre(psi*) = e^sqrt5 - e^(sqrt2+sqrt3) :: -exp(sqrt(2) + sqrt(3)) + exp(sqrt(5))
+PASS 2.4b sqrt5 != sqrt2+sqrt3 (minimal polynomial of the difference is not x) :: x**8 - 40*x**6 + 352*x**4 - 960*x**2 + 576
+PASS 2.4c [Q(sqrt2,sqrt3,sqrt5):Q] = 8 :: x**8 - 40*x**6 + 352*x**4 - 960*x**2 + 576
+     [L] Lindemann-Weierstrass: e^sqrt2, e^sqrt3, e^sqrt5 algebraically independent over Qbar.
+     [W] hence Q_V(psi*) != 0 for every word V (Q_V(1,X,Y,Z) is a nonzero polynomial over Q(i)),
+         so psi* is no G_D-image of a pure product, so P_psi* (pure, extreme in Q3) is not in K_d.
+PASS 2.5a Schmidt family -> product under CNOT
+PASS 2.5b twisted cubic is a product
+PASS 2.5c phiW in K_d is an entangled pure state :: eigenvalues {1: 1, 0: 3}, segre 1/2
+PASS 2.6 16 rational products span W 3
+     [L] Rockafellar Thm 6.3: a convex set with nonempty interior in R^n has int C = int cl C;
+         with cl K_d = Q3 this gives int K_d = int Q3: every full-rank state is in K_d.
+PASS 2.7a omega not PSD :: {16/25: 3, -9/25: 1}
+PASS 2.7b R_y rational rotation sending (24/25,0,7/25) to e_z
+PASS 2.7c value on g omega = -9/25 (outside maxCone) :: -9/25
+PASS 2.7d countercontrol: same word on P_psi gives 1
+PASS 2.8a F on products = (1 + x1y1 - x2y2 + x3y3)/4 (<= 1/2 by Cauchy-Schwarz on balls)
+PASS 2.8b Werner(1/2) = (cnot(prodState xplus z3) + prodState 0 0)/2 in K_d, F = 5/8, full rank :: eigenvalues {5/8: 1, 1/8: 3}
+---
+P2 interval: 19 checks, 0 failures
+VERDICT INTERVAL-INGREDIENTS-EXACT

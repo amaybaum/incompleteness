@@ -1,0 +1,13 @@
+## CONTROLS
+PASS: sites found
+PASS: C1 CompositeDimension reaches KInfFoundations
+PASS: C2 ReferenceExtension reaches OperationalAssembly
+PASS: C3 root reaches all levels
+
+modules reaching O definitions: 22
+modules that can state an M-O link (F3): 1 : (root)OIBridge
+modules that can state an H-O link (F3): 1 : (root)OIBridge
+modules that can state an G-O link (F3): 1 : (root)OIBridge
+I4 modules reaching O: (none)
+I4 modules NOT reaching M: JordanClassification OperationalRigidity PassiveQuotient
+VERDICT: SCAN VALID

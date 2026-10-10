@@ -1,0 +1,4 @@
+distinct matrices 38, forms 2, subsets 14810: 1125560 prop_partition calls
+interned vs landed: 0 differing outputs (want 0); time landed 112.2s, interned 14.0s
+countercontrol (id mod 7) vs landed: 47731 differing outputs (want > 0)
+VERDICT EQUIVALENT (150s)

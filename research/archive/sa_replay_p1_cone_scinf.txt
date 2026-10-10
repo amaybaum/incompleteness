@@ -1,0 +1,5 @@
+rule nonlinear: 25 protocols of length <= 3 with >= 1 read
+uniform measure: law at R = cone radius equals law at R+1 for 25/25 protocols
+parity-conditioned (inconsistent) measure: equal for 25/25 protocols
+boundary-pinned (inconsistent) measure: equal for 8/25 protocols
+OK

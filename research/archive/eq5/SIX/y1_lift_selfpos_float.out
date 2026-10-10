@@ -1,0 +1,9 @@
+min normalized tr(kappa' Ad(k) kappa') over 60 starts = -1.732e-17
+min normalized tr(omega Ad(k) kappa') over 60 starts = 4.427e-18
+min normalized tr(kappa' Ad(k) omega) over 60 starts = 1.250e-01
+min normalized tr(omega Ad(k) omega) over 60 starts = 2.995e-18
+one-qubit Clifford representatives (mod phase): 38
+pair (kappa', kappa'): Clifford tight points 71; min Hessian eigenvalue at the first <= 40: -2.398e-08
+pair (kappa', omega): Clifford tight points 0; min Hessian eigenvalue at the first <= 40: inf
+pair (omega, kappa'): Clifford tight points 0; min Hessian eigenvalue at the first <= 40: inf
+pair (omega, omega): Clifford tight points 30; min Hessian eigenvalue at the first <= 40: -1.817e-08

@@ -1,0 +1,23 @@
+== S1  the family Z_F
+PASS F1  [exact] F = E00/2 - T_psi/4 is the member s = (-1,-1) of Z_F
+PASS F2  [exact] f(x,y) are joint eigenvectors of X(x)Z (eigenvalue x) and Y(x)Y (eigenvalue y)
+PASS F3  [identity] pauliW z_s = (1/8)(I - 2 |f(-s)><f(-s)|): spectrum (1,1,1,-1)/8, so z_s ∉ Q3
+PASS F4  [exact] Gram matrix of Z_F = (1/4) I: mutually orthogonal, self-positive
+PASS F5  [exact] each z_s: no local part, bilinear part (1/4) x signed permutation, so sigma_max = z_00 and z_s ∈ maxCone (on its boundary)
+PASS F6  [identity] 8<prodState x y, z_s> = (1-|x|^2) + (1-|y|^2) + (x1+s1 y3)^2 + (x2+s2 y2)^2 + (x3-s1 s2 y1)^2 for all four s (H1 on the ball)
+PASS F7  [identity] <q, z_s> = (tr q - 2 <f(-s)|q|f(-s)>)/2 and the four f-diagonal entries sum to tr q (generic Hermitian q): a PSD q violates at most one Z_F constraint
+== S2  the projection lemma for each member (spectrum (1,1,1,-1)/8)
+PASS PL  [identity] for each z_s and psi = sum c_k f_k: det pauliW(Pi_s q) = 3 B'^4/256 and the block on the three non-cap vectors is (B'/4) I + c c^H, B' = n_cap - sum n_other (> 0 in the cap): Pi_s q ≻ 0
+PASS PLc  [countercontrol] outside the cap the projection is not PSD (psi = f(1,1) against z_(1,1); f(1,-1)^T rho' f(1,-1) = -1/4)
+== S3  level (ii): the order-16 group permutes Z_F and consists of Q3-automorphisms
+PASS G1  [exact] the (even, even) gates generate the same order-16 group as {cnot, Z_c, Z_t, T}
+PASS G2  [exact] every one of the 16 elements maps Z_F onto Z_F
+PASS G3  [identity] cnot = Ad(CNOT), Z_c = Ad(Z(x)I), Z_t = Ad(I(x)Z), T = global transpose on generic tables: each generator preserves Q3
+== S4  countercontrol: the non-orthogonal orbit {a E00 ± E13 ± E22}, a = 3/2, is not self-dual
+PASS CC  [countercontrol] y = P_e3 + (2-a)/a^2 z_(1,-1) ∈ (Q3 + cone Z) ∩ Z*, <y, z_(1,1)> = 0, every <z_s, z_(1,1)> > 0 and y ∉ Q3 (g^T y g = -1/36): y ∉ K_Z, so K_Z ≠ K_Z*; orthogonality of the orbit is load-bearing
+== S5  distinctness
+PASS D1  [exact] T_psi is pure with <T_psi, F> = -1/2: T_psi ∈ Q3 \ K_F, F ∈ K_F \ Q3 (K_F incomparable with Q3)
+PASS D2  [exact] E0 ∉ K_F (K_F is level-(ii) invariant and <E0, Z_c E0> = -1), so K_F ≠ K*
+
+checks: 15, failed: 0
+VERDICT KF-INGREDIENTS-EXACT -- 15 checks

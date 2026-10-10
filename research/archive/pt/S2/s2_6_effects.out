@@ -1,0 +1,31 @@
+PASS F0.pc/pt transcription
+PASS F0.cnot involution
+PASS F0.cnot pxz = phiW
+PASS F1.cnot symmetric (C^T = C)
+PASS F1.cnot orthogonal (C^T C = I)
+PASS F1.sharp product effect tables = (1/4) prodState(b, c)
+PASS F2.ipW(E, X) = 4 Tr(rho(E) rho(X)) on all 256 basis pairs
+PASS F3.ipW(F, T_psi) = -1/2  [-1/2]
+PASS F3.ipW(F, prodState x y) = 1/4 - (1/4) x^T M y with M orthogonal  [M = [[0, 0, 1], [0, 1, 0], [1, 0, 0]]]
+PASS F3.ipW(F, cnot prodState x y) = 1/4 - (1/4) x^T M' y with M' orthogonal  [M' = [[0, 0, -1], [0, -1, 0], [1, 0, 0]]]
+PASS F3.T_psi in Q3 (pure: rho^2 = rho, trace 1)
+PASS F3.rho(F) not PSD: Tr(rho(F) rho(T_psi)) = -1/8 < 0 with rho(T_psi) PSD (F outside Q3, hence outside E_gen)  [-1/8]
+PASS F3.T_psi outside E_gen = K_gen (table ranks of T_psi, cnot T_psi > 1)  [4, 4]
+PASS F4.famI(phiW, phiW, T_psi/4, F) = -1/8  [-1/8]
+PASS F5.(i) famI(phiW, phiW, E, F) >= 0 for all generated effect pairs (5184)
+PASS F5.(ii) famII(phiW, phiW, e, f) >= 0 for all generated effect pairs (5184)
+PASS F5.(iii) famI and famII >= 0 on 3000 sampled generated quadruples
+PASS countercontrol F5.instance with the full-dual effects (F4) is nonnegative fails as required
+INFO scan cross_rel: upper=[('states free', 'effects bound')]; lower=[('states bound', 'effects free')]
+INFO scan inv_left_ctrl: lower=[('states bound', 'effects free')]
+INFO scan inv_right_ctrl: lower=[('states bound', 'effects free')]
+INFO scan inv_left_partner: lower=[('states bound', 'effects free')]
+INFO scan inv_right_partner: lower=[('states bound', 'effects free')]
+INFO scan kt4_parity_of_witnesses: famI=[('states bound', 'effects bound')]
+PASS F6.consumption pattern on the proof path
+PASS F6.target02: upper reads famII, lower reads famI
+PASS countercontrol F6.classifier calls a bound-effect line 'effects free' fails as required  [('states bound', 'effects bound')]
+PASS F7.IE1 fails for K_gen: phiW in K_gen, actT R_H phiW outside (ranks)
+SUMMARY checks passed=22 all_ok=True
+VERDICT EFFECTS: for the cnot-generated pair system the generated effect cone equals the generated state cone K_gen; the full dual dualW K_gen is strictly larger (F outside Q3); FCC restricted to generated effects holds for uniform K_gen on every checked instance (written: all generated objects lie in Q3); the failing instance uses non-generated effects
+VERDICT CONSUMPTION: the design proof consumes FCC with bound (gate-supplied) effects and free states in cross_rel's first half, and with bound (gate-supplied) states and FREE full-dual effects in cross_rel's second half and the four invariance lemmas, for both families (target02 swaps them); the parity step binds all slots

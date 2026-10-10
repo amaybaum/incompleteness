@@ -1,0 +1,39 @@
+CHECK D0a cnot=Ad(CNOT)              PASS 16/16 basis tables
+CHECK D0b R(U), actC/actT=Ad         PASS X, Y, Z, U_J (=cyc3), quarter-turns about x, y, z, Rx(cos 3/5)
+CHECK D0c transpose                  PASS actC reflY ∘ actT reflY = M ↦ Mᵀ
+CHECK D0d trace pairing              PASS 256 basis pairs
+CHECK Z1 M(z_s)=I/2-P_s              PASS P_s orthogonal rank-one projectors summing to I
+CHECK Z2 pairings                    PASS ipW(z_s,z_t) = [s=t]/4; ipW(z_s,p_s) = -1/8; tr M(z_s) = 1
+CHECK Z6 K != Q3                     PASS M(z_s) P_s = -(1/2) P_s
+CHECK Z3 H1 SOS                      PASS 4 ipW(prodState x y, z_s) = 1 + x·M_s y, M_s orthogonal; 2(1+x·M_s y) = |x+M_s y|²+(1-|x|²)+(1-|y|²)
+CHECK Z4 correction lemma            PASS 600 instances, 278 with a negative pairing, all corrected into Q3 ∩ Z_F*
+CHECK CC-Z4 non-orthogonal family    PASS P_s pairs negatively with z_s and with actC Rx(3/5) z_s: property (i) fails, as it must
+CHECK Z5 Gbig                        PASS order 64; every element permutes Z_F and fixes (0,0); 32 local generators in Aut(Q3) (16 conj, 16 transpose); cnot = Ad(CNOT)
+RECORD SWAP permutes Z_F: True
+POOL: 104 certified elements of K (4 defects, 64 rotated pure states in Q3 ∩ Z_F*, 36 axis products); 0 rotated pure states not in Z_F* (not used)
+CHECK Z7 I3.44 consistency           PASS actT reflY z(-1, -1) pairs -1/8 with z(1, -1) ∈ K: actT reflY does not preserve K(Z_F)
+CHECK Z8 LT on W 3                   PASS the 49 product-effect tables (unit and sharp effects along ±e_i) span W 3
+WITNESS R_x(pi/2) on C: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = Rx+90_C p(-1, -1)
+WITNESS R_y(pi/2) on C: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = Ry+90_C p(-1, -1)
+WITNESS R_z(pi/2) on C: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = Rx+90_T p(-1, -1)
+WITNESS R_x(cos 3/5) on C: min ipW(g z_s, y) = -1/10 at s = (-1, -1), y = Rx+90_C p(-1, -1)
+WITNESS R_z(cos 3/5) on C: min ipW(g z_s, y) = -1/10 at s = (-1, -1), y = Rx+90_T p(-1, -1)
+WITNESS cyc3 on C: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = cyc3_C p(-1, -1)
+WITNESS cyc3^-1 on C: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = cyc3^-1_C p(-1, -1)
+WITNESS R_x(pi/2) on T: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = Rx+90_T p(-1, -1)
+WITNESS R_y(pi/2) on T: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = Ry+90_C p(-1, -1)
+WITNESS R_z(pi/2) on T: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = Rx+90_C p(-1, -1)
+WITNESS R_x(cos 3/5) on T: min ipW(g z_s, y) = -1/10 at s = (-1, -1), y = Rx+90_T p(-1, -1)
+WITNESS R_z(cos 3/5) on T: min ipW(g z_s, y) = -1/10 at s = (-1, -1), y = Rx+90_C p(-1, -1)
+WITNESS cyc3 on T: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = cyc3_C p(-1, -1)
+WITNESS cyc3^-1 on T: min ipW(g z_s, y) = -1/8 at s = (-1, -1), y = cyc3^-1_C p(-1, -1)
+CHECK B (b) witnesses                PASS every tested flow member and J, on each token, moves some z_s out of K(Z_F)
+CHECK B flow law                     PASS ipW(R_a(t)_τ z_s, R_a(π/2)_τ p_s) = -sin(t)/8 for a in {x,y,z}, τ in {C,T}, all s; the witness is in Q3 ∩ Z_F*
+CONTROL nflip on C: permutes Z_F True; min pairing over the pool 0
+CONTROL rot3 pi on C: permutes Z_F True; min pairing over the pool 0
+CONTROL nflip on T: permutes Z_F True; min pairing over the pool 0
+CONTROL rot3 pi on T: permutes Z_F True; min pairing over the pool 0
+CHECK CC-B symmetries                PASS nflip and rot3 π on either token permute Z_F; no negative pairing (no false witness)
+CHECK CC-B Q3 kept (A.21)            PASS every rotated Bell-type pure state is a trace-one projector: the modeled actions preserve Q3
+SUMMARY 17/17 checks pass
+VERDICT C1-KZF-EXACT: K(Z_F) satisfies H1 (SOS), H2 at level (ii) (Gbig of order 64), the H3 ingredients and the correction-lemma control, K ≠ Q3, the I3.44 consistency, LT on W 3; every coordinate flow member with sin t ≠ 0 and cyc3^±1, on either token, moves K(Z_F) out (exact witnesses; flow law -sin(t)/8)

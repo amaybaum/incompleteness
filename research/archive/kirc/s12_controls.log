@@ -1,0 +1,9 @@
+PASS C3 complex CNOT (d=3): frame True, S1 form True, M_a isometries True, M_1 = N M_0 True, S2 structure True, target rel True, control rel True (p=1)
+PASS C3: every hypothesis and the S1/S2 structure hold; p = q = 1
+PASS C5 J/K (d=5): frame True, S1 form True, M_a isometries True, M_1 = N M_0 True, S2 structure True, target rel True, control rel False (p=1)
+PASS C5: frame, S1, S2, target relation hold; control relation FAILS; p = 1, q = 3
+PASS C2 d=2: p + q = d - 1 = 1 admits no p = q
+PASS C7 d=7 candidate: frame True, S1 form True, M_a isometries True, M_1 = N M_0 True, S2 structure True, target rel True, control rel True (p=3)
+PASS C7: frame, G^2 = I and both native relations hold (positivity fails: 1 - sqrt 3, see uniform_nogo.log)
+
+SUMMARY: 7 PASS, 0 FAIL

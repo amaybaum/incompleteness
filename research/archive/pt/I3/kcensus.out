@@ -1,0 +1,475 @@
+# I3 kernel census — modules, declaration counts, census items
+
+## Declaration counts per module (column-0 declarations)
+tag | round | module | lines | axiom | opaque | class | structure | def | abbrev | inductive | instance | theorem | lemma | indented
+K | KINF-1/KINF-2 | KInfFoundations.lean | 1212 | 0 | 0 | 0 | 2 | 29 | 0 | 0 | 0 | 67 | 0 | 0
+K | OG-1 | OrbitGeneration.lean | 818 | 0 | 0 | 0 | 0 | 15 | 0 | 0 | 0 | 64 | 0 | 0
+K | OG-1 | OrbitNormalization.lean | 793 | 0 | 0 | 0 | 0 | 14 | 1 | 0 | 0 | 68 | 0 | 0
+K | TRB-1 | TransitiveBody.lean | 924 | 0 | 0 | 0 | 1 | 7 | 0 | 0 | 0 | 62 | 0 | 0
+K | CMP-1 | StageCompletion.lean | 460 | 0 | 0 | 0 | 3 | 16 | 3 | 0 | 0 | 31 | 0 | 0
+K | IIP-1 | InvariantInnerProduct.lean | 560 | 0 | 0 | 0 | 0 | 6 | 0 | 0 | 0 | 34 | 0 | 0
+K | OPACT-1 | CompletionAction.lean | 539 | 0 | 0 | 0 | 2 | 16 | 0 | 0 | 0 | 44 | 0 | 0
+K | ORD-1 | CompositionOrder.lean | 509 | 0 | 0 | 0 | 0 | 10 | 0 | 0 | 0 | 35 | 0 | 0
+K | COMP-1 | CompositeInterface.lean | 1056 | 0 | 0 | 0 | 4 | 28 | 2 | 0 | 0 | 69 | 0 | 0
+K | DIM-1 | CompositeDimension.lean | 3007 | 0 | 0 | 0 | 3 | 54 | 3 | 0 | 0 | 259 | 0 | 0
+K | EFF-1 | EffectSpace.lean | 962 | 0 | 0 | 0 | 0 | 16 | 0 | 0 | 0 | 62 | 0 | 1
+K | K1-BRIDGE-1 | K1Bridge.lean | 200 | 0 | 0 | 0 | 1 | 2 | 0 | 0 | 0 | 10 | 0 | 0
+K | K1-SHARP-TESTS-1 | SharpTests.lean | 252 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 17 | 0 | 0
+K | K2-GUARD-1 | K2Guard.lean | 337 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 0 | 38 | 0 | 0
+K | KTRANS-DENSE-1 | DenseOrbit.lean | 435 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 22 | 0 | 0
+K | NB-1 | NativeGateBall.lean | 289 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 10 | 0 | 0
+K | ODD-CHAR-1 | OddChar.lean | 311 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 0 | 22 | 0 | 0
+K | PARITY-NOT-1 | ParityNot.lean | 737 | 0 | 0 | 0 | 1 | 17 | 0 | 0 | 0 | 74 | 0 | 0
+K | RELC-SELECT-1 | RelcSelectParity.lean | 364 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 24 | 0 | 0
+K | RELC-SELECT-1 | RelcSelectBlock.lean | 769 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 29 | 0 | 0
+K | RELC-SELECT-1 | RelcSelectSqueeze.lean | 503 | 0 | 0 | 0 | 0 | 12 | 0 | 0 | 0 | 46 | 1 | 0
+K | RELC-SELECT-1 | RelcSelectC5.lean | 420 | 0 | 0 | 0 | 0 | 8 | 0 | 0 | 0 | 32 | 0 | 0
+D | fourcopy | FourCopyBipolar.lean | 216 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 13 | 0 | 0
+D | fourcopy | FourCopyBridge.lean | 348 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 26 | 0 | 0
+D | fourcopy | FourCopyCore.lean | 187 | 0 | 0 | 0 | 4 | 20 | 1 | 1 | 0 | 1 | 0 | 0
+D | fourcopy | FourCopyDefs.lean | 106 | 0 | 0 | 0 | 1 | 12 | 0 | 0 | 0 | 5 | 0 | 0
+D | fourcopy | FourCopyEuler.lean | 188 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 11 | 0 | 0
+D | fourcopy | FourCopyHeadline.lean | 162 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 | 0 | 0
+D | fourcopy | FourCopyIE1.lean | 636 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 57 | 0 | 0
+D | fourcopy | FourCopyLocal.lean | 315 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 40 | 0 | 0
+D | fourcopy | FourCopyPackage.lean | 385 | 0 | 0 | 0 | 1 | 13 | 1 | 0 | 0 | 43 | 0 | 0
+D | fourcopy | FourCopyParity.lean | 263 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 33 | 0 | 0
+D | fourcopy | FourCopyTables.lean | 196 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 20 | 0 | 0
+K-total | | | | 0 | 0 | 0 | 18 | 273 | 9 | 0 | 0 | 1119 | 1 |
+INDENTED K EffectSpace.lean:11 theorem per
+
+## Census items (axiom | opaque | class | Prop-valued structure/def/abbrev/inductive)
+count D abbrev = 1
+count D def = 10
+count D structure = 3
+count K abbrev = 1
+count K def = 39
+count K structure = 7
+count K total = 47
+count D total = 14
+
+### C001 [K] KInfFoundations.lean:116 def IsEffectOn (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:115-115:
+  | /-- An affine functional is an effect on `Ω` when it takes values in `[0, 1]` on `Ω`. -/
+header:
+  > def IsEffectOn (Ω : Set V) (e : V →ᵃ[ℝ] ℝ) : Prop :=
+
+### C002 [K] KInfFoundations.lean:125 def IsProperOn (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:123-124:
+  | /-- An effect is proper on `Ω` when some state gives it a value below one. The unit effect, and
+  | every effect identically one on `Ω`, is not proper. Properness is tested on `Ω`, not on `V`. -/
+header:
+  > def IsProperOn (Ω : Set V) (e : V →ᵃ[ℝ] ℝ) : Prop :=
+
+### C003 [K] KInfFoundations.lean:130 def IsBoundaryState (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:128-129:
+  | /-- A boundary state of `Ω`, read in `Ω` alone: some state `y` is such that no extension of the
+  | segment from `y` through `x` beyond `x` stays in `Ω`. -/
+header:
+  > def IsBoundaryState (Ω : Set V) (x : V) : Prop :=
+
+### C004 [K] KInfFoundations.lean:135 def SupportingEffectComplete (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:133-134:
+  | /-- Supporting-effect completeness (SEC) relative to a family `avail` of available functionals:
+  | every boundary state of `Ω` is certain for some proper available effect. -/
+header:
+  > def SupportingEffectComplete (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+
+### C005 [K] KInfFoundations.lean:139 def SingletonFaces (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:138-138:
+  | /-- Singleton faces (SF): every proper available effect is certain on at most one state. -/
+header:
+  > def SingletonFaces (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+
+### C006 [K] KInfFoundations.lean:144 def RelStrictConvex (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:142-143:
+  | /-- Relative strict convexity: every point strictly between two distinct states is a state and
+  | is not a boundary state. -/
+header:
+  > def RelStrictConvex (Ω : Set V) : Prop :=
+
+### C007 [K] KInfFoundations.lean:154 def PerfectlyDistinguishable (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:152-153:
+  | /-- A finite family of states is perfectly distinguishable by a family of effects when the
+  | effects are effects on `Ω`, sum to the unit on `Ω`, and each is certain on its own state. -/
+header:
+  > def PerfectlyDistinguishable (Ω : Set V) {ι : Type} [Fintype ι]
+  >     (x : ι → V) (e : ι → V →ᵃ[ℝ] ℝ) : Prop :=
+
+### C008 [K] KInfFoundations.lean:160 def CentrallySymmetric (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:159-159:
+  | /-- Central symmetry of `Ω` about `c`: the reflection `x ↦ c + (c − x)` preserves `Ω`. -/
+header:
+  > def CentrallySymmetric (Ω : Set V) (c : V) : Prop :=
+
+### C009 [K] KInfFoundations.lean:284 def CopyNatural (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:282-283:
+  | /-- Copy naturality: under the identification `e` of copy `A` with copy `B`, the NOT of `B`
+  | is the conjugate of the NOT of `A`. -/
+header:
+  > def CopyNatural (N_A N_B : V ≃ᵃ[ℝ] V) (e : V ≃ᵃ[ℝ] V) : Prop :=
+
+### C010 [K] KInfFoundations.lean:894 def ClassicallyExposed (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:892-893:
+  | /-- A point of a body in the simplex exposed by a response effect: the response effect with
+  | vector `c ∈ [0, 1]^N` is certain exactly there. -/
+header:
+  > def ClassicallyExposed (Ω : Set (Fin N → ℝ)) (x : Fin N → ℝ) : Prop :=
+
+### C011 [K] KInfFoundations.lean:1013 def KInf1 (round KINF-1/KINF-2)
+docstring KInfFoundations.lean:1008-1012:
+  | /-- **Hypothesis K∞-1**, stated and not proved: a compact convex body admitting an elementary
+  | drive has supporting-effect completeness relative to the available effects. This is the
+  | field-neutral Naimark step. Compactness enters because an open body has no boundary state
+  | (`supportingEffectComplete_of_isOpen`). The module proves K∞-1 for no physical family; it is an
+  | open target. -/
+header:
+  > def KInf1 (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+
+### C012 [K] OrbitGeneration.lean:65 def SharpSeed (round OG-1)
+docstring OrbitGeneration.lean:63-64:
+  | /-- **P1, the sharp seed**: an effect on `Ω` with the value one at a state and the value zero at a
+  | state. -/
+header:
+  > def SharpSeed (Ω : Set V) (r : V →ᵃ[ℝ] ℝ) : Prop :=
+
+### C013 [K] OrbitGeneration.lean:69 def PreservesBody (round OG-1)
+docstring OrbitGeneration.lean:68-68:
+  | /-- Every member of `G` is an automorphism of `Ω`: it and its inverse map `Ω` into `Ω`. -/
+header:
+  > def PreservesBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### C014 [K] OrbitGeneration.lean:74 def SeedOrbitAvailable (round OG-1)
+docstring OrbitGeneration.lean:72-73:
+  | /-- **V4′, seed-orbit availability**: every transport of the seed along a member of `G` is
+  | available. -/
+header:
+  > def SeedOrbitAvailable (G : Set (V ≃ᵃ[ℝ] V)) (r : V →ᵃ[ℝ] ℝ) (avail : Set (V →ᵃ[ℝ] ℝ)) :
+  >     Prop :=
+
+### C015 [K] OrbitGeneration.lean:79 def BoundaryTransitive (round OG-1)
+docstring OrbitGeneration.lean:78-78:
+  | /-- **K∞-R, boundary transitivity**: a member of `G` carries any boundary state to any other. -/
+header:
+  > def BoundaryTransitive (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### C016 [K] OrbitGeneration.lean:83 def CoversBoundaryFrom (round OG-1)
+docstring OrbitGeneration.lean:82-82:
+  | /-- COVER: every boundary state is the image of `x₀` under a member of `G`. -/
+header:
+  > def CoversBoundaryFrom (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) (x₀ : V) : Prop :=
+
+### C017 [K] TransitiveBody.lean:223 structure IsBodyGroup (round TRB-1)
+docstring TransitiveBody.lean:221-222:
+  | /-- **TRANS, the group clause.** `G` contains the identity, is closed under composition and
+  | inversion, and every member maps `Ω` into `Ω`. -/
+header:
+  > structure IsBodyGroup (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop where
+fields: one_mem@224, mul_mem@225, inv_mem@226, preserves@227
+
+### C018 [K] TransitiveBody.lean:235 def TransBody (round TRB-1)
+docstring TransitiveBody.lean:234-234:
+  | /-- **TRANS.** A body group acting transitively on every boundary state of `Ω`. -/
+header:
+  > def TransBody (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop := IsBodyGroup Ω G ∧ BoundaryTransitive Ω G
+
+### C019 [K] StageCompletion.lean:59 def StageMap.Consistent (round CMP-1)
+docstring StageCompletion.lean:58-58:
+  | /-- Table consistency of a stage map. -/
+header:
+  > def StageMap.Consistent {S T : FiniteStage} (f : StageMap S T) : Prop :=
+
+### C020 [K] StageCompletion.lean:78 def SCInf (round CMP-1)
+docstring StageCompletion.lean:77-77:
+  | /-- **SC∞, stage consistency**: every forward map carries the probability table. -/
+header:
+  > def SCInf (D : DirectedStages) : Prop :=
+
+### C021 [K] StageCompletion.lean:299 def FiniteRank (round CMP-1)
+docstring StageCompletion.lean:298-298:
+  | /-- **Finite rank**: the affine span of the body is finite-dimensional. -/
+header:
+  > def FiniteRank (Ω : Set V) : Prop :=
+
+### C022 [K] CompletionAction.lean:53 def StateRespect (round OPACT-1)
+docstring CompletionAction.lean:52-52:
+  | /-- **StateRespect**: preparations with the same preparation vector have the same image. -/
+header:
+  > def StateRespect (T : OpDatum D) : Prop :=
+
+### C023 [K] CompletionAction.lean:58 def AffineRespect (round OPACT-1)
+docstring CompletionAction.lean:56-57:
+  | /-- **AffineRespect**: every finite affine relation among preparation vectors holds among the
+  | images. -/
+header:
+  > def AffineRespect (T : OpDatum D) : Prop :=
+
+### C024 [K] CompletionAction.lean:325 def Undoes (round OPACT-1)
+docstring CompletionAction.lean:324-324:
+  | /-- `S` undoes `T`: `S` after `T` returns every stage preparation. -/
+header:
+  > def Undoes (S T : OpDatum D) (hS : AffineRespect S) : Prop :=
+
+### C025 [K] CompositionOrder.lean:51 def InfiniteOrderOn (round ORD-1)
+docstring CompositionOrder.lean:49-50:
+  | /-- Infinite order on `Ω`: every positive power moves some state of `Ω`. Iteration is of the
+  | underlying function. -/
+header:
+  > def InfiniteOrderOn (Ω : Set V) (g : V ≃ᵃ[ℝ] V) : Prop :=
+
+### C026 [K] CompositionOrder.lean:55 def FiniteOrderOn (round ORD-1)
+docstring CompositionOrder.lean:54-54:
+  | /-- Finite order on `Ω`: some positive power fixes every state of `Ω`. -/
+header:
+  > def FiniteOrderOn (Ω : Set V) (g : V ≃ᵃ[ℝ] V) : Prop :=
+
+### C027 [K] CompositionOrder.lean:60 def OrdInf (round ORD-1)
+docstring CompositionOrder.lean:58-59:
+  | /-- **ORD∞**: some member of `G` has infinite order on `Ω`. A predicate on a set of affine
+  | automorphisms; nothing about closure. -/
+header:
+  > def OrdInf (Ω : Set V) (G : Set (V ≃ᵃ[ℝ] V)) : Prop := ∃ g ∈ G, InfiniteOrderOn Ω g
+
+### C028 [K] CompositionOrder.lean:63 def MulClosed (round ORD-1)
+docstring CompositionOrder.lean:62-62:
+  | /-- Composition closure of a set of affine automorphisms. -/
+header:
+  > def MulClosed (G : Set (V ≃ᵃ[ℝ] V)) : Prop := ∀ g ∈ G, ∀ h ∈ G, g.trans h ∈ G
+
+### C029 [K] CompositionOrder.lean:234 def StagePreserving (round ORD-1)
+docstring CompositionOrder.lean:232-233:
+  | /-- **Stage preservation**: each preparation of stage `i` is carried to a preparation vector of
+  | the same stage `i`. -/
+header:
+  > def StagePreserving (T : OpDatum D) : Prop :=
+
+### C030 [K] CompositeInterface.lean:139 def BoundedAffine (round COMP-1)
+docstring CompositeInterface.lean:138-138:
+  | /-- Every affine functional is bounded in absolute value on `Ω`. -/
+header:
+  > def BoundedAffine (Ω : Set (Fin d → ℝ)) : Prop :=
+
+### C031 [K] CompositeInterface.lean:235 def LocallyTomographic (round COMP-1)
+docstring CompositeInterface.lean:232-234:
+  | /-- Local tomography of a pre-composite: two states of the body that agree on every product of
+  | effects are equal. Stated as a predicate so that it can be asserted of a structure as a field and
+  | refuted of another as a control. -/
+header:
+  > def LocallyTomographic {ΩA : Set (Fin dA → ℝ)} {ΩB : Set (Fin dB → ℝ)} {V : Type}
+  >     [NormedAddCommGroup V] [NormedSpace ℝ V] (P : PreComposite ΩA ΩB V) : Prop :=
+
+### C032 [K] CompositeInterface.lean:445 abbrev JointReversible (round COMP-1)
+docstring CompositeInterface.lean:444-444:
+  | /-- Joint reversible action: a family of affine automorphisms of the carrier preserving the body. -/
+header:
+  > abbrev JointReversible (G : Set (V ≃ᵃ[ℝ] V)) : Prop := PreservesBody P.Ω G
+
+### C033 [K] CompositeDimension.lean:194 def IsProduct (round DIM-1)
+docstring CompositeDimension.lean:193-193:
+  | /-- A joint vector is a product state of `Ω`. -/
+header:
+  > def IsProduct (Ω : Set (Fin d → ℝ)) (ω : W d) : Prop :=
+
+### C034 [K] CompositeDimension.lean:210 structure IsNot (round DIM-1)
+docstring CompositeDimension.lean:209-209:
+  | /-- The NOT of one copy: a linear involution preserving the body and inverting the corner axis. -/
+header:
+  > structure IsNot (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) :
+  >     Prop where
+fields: unit@212, invol@213, preserves@214, flips@215
+
+### C035 [K] CompositeDimension.lean:218 structure NativeGate (round DIM-1)
+docstring CompositeDimension.lean:217-217:
+  | /-- The native-gate hypotheses on two identical copies of `Ω`, with one `N` in both relations. -/
+header:
+  > structure NativeGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+  >     (G : W d ≃ₗ[ℝ] W d) : Prop where
+fields: frame@220, posFwd@222, posInv@223, relT@224, relC@225
+
+### C036 [K] CompositeDimension.lean:229 def Entangling (round DIM-1)
+docstring CompositeDimension.lean:227-228:
+  | /-- The entangling clause: some pure product input has an image that is an extreme joint state
+  | and is not a product state. -/
+header:
+  > def Entangling (Ω : Set (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop :=
+
+### C037 [K] CompositeDimension.lean:712 structure BlockData (round DIM-1)
+docstring CompositeDimension.lean:707-711:
+  | /-- The data the S1–S2–S4 reduction extracts from a native gate whose `+1` eigenspace has tangent
+  | dimension `p`: the `E₊` blocks `A`, `B` on a target index set of size `m`, antisymmetric in the
+  | pair index, with the Lorentz positivity of `I + Γ` at `t = ±eᵢ` against every unit effect and one
+  | nonzero entry. For `2 ≤ d` the data is derived from the frozen hypotheses in §Q
+  | (`blockData_of_nativeGate`); it is the hypothesis of `NativeGateBall.p_le_one`. -/
+header:
+  > structure BlockData (p : ℕ) : Prop where
+fields: blocks@713
+
+### C038 [K] CompositeDimension.lean:869 def Lor (round DIM-1)
+docstring CompositeDimension.lean:867-868:
+  | /-- The cone of homogenized vectors whose unit coordinate dominates the norm of the rest: the
+  | homogenized coefficients of the effects of the ball, up to scale. -/
+header:
+  > def Lor (v : HVec d) : Prop := 0 ≤ v 0 ∧ ∑ j : Fin d, v j.succ ^ 2 ≤ v 0 ^ 2
+
+### C039 [K] EffectSpace.lean:567 def EffectsOn (round EFF-1)
+docstring EffectSpace.lean:566-566:
+  | /-- Every member of the family is an effect on `Ω`. -/
+header:
+  > def EffectsOn (Ω : Set (Fin d → ℝ)) (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Prop :=
+
+### C040 [K] EffectSpace.lean:591 def MixingClosed (round EFF-1)
+docstring EffectSpace.lean:590-590:
+  | /-- The mixing closure, a named premise: closure under sub-convex binary combinations. -/
+header:
+  > def MixingClosed (A : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) : Prop :=
+
+### C041 [K] K1Bridge.lean:49 structure NativeGateOf (round K1-BRIDGE-1)
+docstring K1Bridge.lean:46-48:
+  | /-- DIM-1's native-gate hypotheses relative to a family `avail` of available test functionals: the
+  | frame, the two NOT relations and, in place of `maxCone Ω`, two-sided positivity on the cone of the
+  | products of the family. -/
+header:
+  > structure NativeGateOf (Ω : Set (Fin d → ℝ)) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ)) (z : Fin d → ℝ)
+  >     (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (T : W d ≃ₗ[ℝ] W d) : Prop where
+fields: frame@51, posFwd@53, posInv@54, relT@55, relC@56
+
+### C042 [K] K1Bridge.lean:64 def EntanglingOf (round K1-BRIDGE-1)
+docstring K1Bridge.lean:62-63:
+  | /-- DIM-1's entangling clause relative to the family: some pure product input has an image that is
+  | an extreme joint state of the family's cone and is not a product state. -/
+header:
+  > def EntanglingOf (Ω : Set (Fin d → ℝ)) (avail : Set ((Fin d → ℝ) →ᵃ[ℝ] ℝ))
+  >     (T : W d ≃ₗ[ℝ] W d) : Prop :=
+
+### C043 [K] SharpTests.lean:41 def HasTwoSharpTests (round K1-SHARP-TESTS-1)
+docstring SharpTests.lean:39-40:
+  | /-- Two sharp binary tests of `Ω`, separated on `Ω` from each other and from each other's
+  | complement. -/
+header:
+  > def HasTwoSharpTests (Ω : Set V) : Prop :=
+
+### C044 [K] K2Guard.lean:95 def CandidateCone (round K2-GUARD-1)
+docstring K2Guard.lean:93-94:
+  | /-- The candidate-cone family of two copies of `eball 3`: the sets of joint vectors containing
+  | every product state of the ball and contained in DIM-1's maximal cone. -/
+header:
+  > def CandidateCone (K : Set (W 3)) : Prop :=
+
+### C045 [K] DenseOrbit.lean:53 def DenseBoundaryOrbit (round KTRANS-DENSE-1)
+docstring DenseOrbit.lean:52-52:
+  | /-- Every boundary state lies in the closure of the orbit of every boundary state. -/
+header:
+  > def DenseBoundaryOrbit {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] (Ω : Set V)
+  >     (G : Set (V ≃ᵃ[ℝ] V)) : Prop :=
+
+### C046 [K] ParityNot.lean:42 structure GateRel (round PARITY-NOT-1)
+docstring ParityNot.lean:41-41:
+  | /-- The target relation and the control relation of `NativeGate`, and nothing else. -/
+header:
+  > structure GateRel (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (G : W d ≃ₗ[ℝ] W d) : Prop where
+fields: relT@43, relC@44
+
+### C047 [K] RelcSelectBlock.lean:45 structure CtrlGate (round RELC-SELECT-1)
+docstring RelcSelectBlock.lean:44-44:
+  | /-- `NativeGate` without the target relation `relT`. -/
+header:
+  > structure CtrlGate (Ω : Set (Fin d → ℝ)) (z : Fin d → ℝ) (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ))
+  >     (G : W d ≃ₗ[ℝ] W d) : Prop where
+fields: frame@47, posFwd@49, posInv@50, relC@51
+
+### C048 [D] FourCopyCore.lean:33 structure PairLinked (round fourcopy)
+docstring FourCopyCore.lean:32-32:
+  | /-- The two families read from one target pair `K`, with partner `K'` and link pairs `La`, `Lb`. -/
+header:
+  > structure PairLinked (K K' La Lb : Set (W 3)) : Prop where
+fields: upper@34, lower@36
+
+### C049 [D] FourCopyCore.lean:64 def TokenCoherent (round fourcopy)
+docstring FourCopyCore.lean:61-63:
+  | /-- **The four-token coherence clause.** On the common body, the product of the coordinate
+  | effects `(a, b)` on pair `01` and `(c, d)` on pair `23` equals the product of the coordinate
+  | effects `(a, c)` on pair `02` and `(b, d)` on pair `13`. -/
+header:
+  > def TokenCoherent {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V]
+  >     {Ω01 Ω23 Ω02 Ω13 : Set (Fin 16 → ℝ)} (PA : PreComposite Ω01 Ω23 V)
+  >     (PB : PreComposite Ω02 Ω13 V) : Prop :=
+
+### C050 [D] FourCopyCore.lean:119 def IsOrth3 (round fourcopy)
+docstring FourCopyCore.lean:118-118:
+  | /-- Orthogonality of a one-copy linear map. -/
+header:
+  > def IsOrth3 (A : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
+
+### C051 [D] FourCopyCore.lean:123 def IsRot3 (round fourcopy)
+docstring FourCopyCore.lean:122-122:
+  | /-- Rotations of one ball. -/
+header:
+  > def IsRot3 (R : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
+
+### C052 [D] FourCopyCore.lean:132 def NClass (round fourcopy)
+docstring FourCopyCore.lean:130-131:
+  | /-- **N-CLASS**: the gate is `cnot` between orthogonal local maps, post-locals `(A, B)` and
+  | pre-locals `(A', B')`. -/
+header:
+  > def NClass (N : W 3 ≃ₗ[ℝ] W 3) (A B A' B' : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : Prop :=
+
+### C053 [D] FourCopyCore.lean:156 def IE1 (round fourcopy)
+docstring FourCopyCore.lean:155-155:
+  | /-- **IE₁** for one pair cone: invariance under every local rotation of either token. -/
+header:
+  > def IE1 (K : Set (W 3)) : Prop :=
+
+### C054 [D] FourCopyCore.lean:177 abbrev FCC (round fourcopy)
+docstring FourCopyCore.lean:176-176:
+  | /-- The interface predicate for a family of pair cones. -/
+header:
+  > abbrev FCC (K : Pr → Set (W 3)) : Prop := FourCopyCoherent (K .p01) (K .p23) (K .p02) (K .p13)
+
+### C055 [D] FourCopyCore.lean:180 def EvenCycle (round fourcopy)
+docstring FourCopyCore.lean:179-179:
+  | /-- Twist parity of the four-cycle. -/
+header:
+  > def EvenCycle (τ : Pr → Bool) : Prop := EvenCycle4 (τ .p01) (τ .p23) (τ .p02) (τ .p13)
+
+### C056 [D] FourCopyDefs.lean:39 def IsConvexCone (round fourcopy)
+docstring FourCopyDefs.lean:38-38:
+  | /-- A convex cone of tables. -/
+header:
+  > def IsConvexCone (K : Set (W 3)) : Prop :=
+
+### C057 [D] FourCopyDefs.lean:43 def PairAdm (round fourcopy)
+docstring FourCopyDefs.lean:42-42:
+  | /-- Admissibility of one pair cone: a candidate cone of K2-GUARD-1 that is a convex cone. -/
+header:
+  > def PairAdm (K : Set (W 3)) : Prop := CandidateCone K ∧ IsConvexCone K
+
+### C058 [D] FourCopyDefs.lean:56 structure FourCopyCoherent (round fourcopy)
+docstring FourCopyDefs.lean:53-55:
+  | /-- The cone-level four-copy interface. `famI`: products of states across `01|23` against
+  | products of effects across `02|13`; `famII`: products of states across `02|13` against products of
+  | effects across `01|23`. The effect factors range over the full Euclidean dual cones. -/
+header:
+  > structure FourCopyCoherent (K01 K23 K02 K13 : Set (W 3)) : Prop where
+fields: famI@57, famII@59
+
+### C059 [D] FourCopyDefs.lean:97 def EvenCycle4 (round fourcopy)
+docstring FourCopyDefs.lean:95-96:
+  | /-- The twist parity of the four-cycle `0–1–3–2–0`, pairs in the order `01, 23, 02, 13`: the number
+  | of twisted pairs is even. -/
+header:
+  > def EvenCycle4 (τ01 τ23 τ02 τ13 : Bool) : Prop :=
+
+### C060 [D] FourCopyPackage.lean:83 structure KT4Cone (round fourcopy)
+docstring FourCopyPackage.lean:82-82:
+  | /-- Cone-level KT(4; 01|23, 02|13). -/
+header:
+  > structure KT4Cone (K01 K23 K02 K13 : Set (W 3)) (K4 : Set W4) : Prop where
+fields: prodA_mem@84, prodB_mem@85, effA_nonneg@86, effB_nonneg@87
+
+### C061 [D] FourCopyPackage.lean:279 def IE1Drive (round fourcopy)
+docstring FourCopyPackage.lean:278-278:
+  | /-- IE₁ in the drive form: invariance under the local lifts of the landed drive words. -/
+header:
+  > def IE1Drive (K : Set (W 3)) : Prop :=
+
+END

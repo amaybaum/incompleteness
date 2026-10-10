@@ -1,0 +1,35 @@
+== T0 (hidden sector permanently hidden)
+   T0: N=8 |atoms|=26 |distinct prep vecs|=3 affine dim 1 classes [[0, 1, 2, 3], [4, 5, 6, 7]] simplex True
+PASS T0: every effect is constant on hidden fibres (OI incompleteness: hidden never read)
+PASS T0: body is a segment (affine dim 1, simplex)
+PASS T0: the visible readout + re-preparation reconstructs every stage preparation (record-complete)
+== random passive towers (finite carrier, reversible step, permutation menu)
+   R0 phi=[3, 1, 2, 0] vis=[1, 0, 0, 0] acts=[] Lp=3: N=4 |atoms|=70 |distinct prep vecs|=6 affine dim 2 classes [[0], [1, 2], [3]] simplex True
+PASS R0: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R0: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+   R1 phi=[1, 2, 0] vis=[0, 1, 1] acts=[[2, 0, 1]] Lp=3: N=3 |atoms|=72 |distinct prep vecs|=7 affine dim 2 classes [[0], [1], [2]] simplex True
+PASS R1: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R1: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+   R2 phi=[1, 2, 0] vis=[1, 0, 0] acts=[] Lp=3: N=3 |atoms|=72 |distinct prep vecs|=7 affine dim 2 classes [[0], [1], [2]] simplex True
+PASS R2: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R2: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+   R3 phi=[0, 1, 2] vis=[1, 0, 0] acts=[[1, 2, 0]] Lp=3: N=3 |atoms|=66 |distinct prep vecs|=7 affine dim 2 classes [[0], [1], [2]] simplex True
+PASS R3: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R3: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+   R4 phi=[3, 2, 1, 0] vis=[0, 0, 1, 0] acts=[] Lp=3: N=4 |atoms|=70 |distinct prep vecs|=6 affine dim 2 classes [[0, 3], [1], [2]] simplex True
+PASS R4: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R4: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+   R5 phi=[1, 4, 2, 0, 3] vis=[0, 0, 0, 0, 1] acts=[[3, 2, 4, 0, 1]] Lp=3: N=5 |atoms|=74 |distinct prep vecs|=11 affine dim 3 classes [[0], [1], [2], [3], [4]] simplex True
+   R5 phi=[1, 4, 2, 0, 3] vis=[0, 0, 0, 0, 1] acts=[[3, 2, 4, 0, 1]] Lp=4: N=5 |atoms|=74 |distinct prep vecs|=24 affine dim 4 classes [[0], [1], [2], [3], [4]] simplex True
+PASS R5: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R5: at horizon Lp=4: affine dim = #finest classes - 1, class images independent and realised
+   R6 phi=[1, 4, 3, 2, 0] vis=[1, 1, 1, 0, 1] acts=[] Lp=3: N=5 |atoms|=70 |distinct prep vecs|=6 affine dim 2 classes [[0, 1, 4], [2], [3]] simplex True
+PASS R6: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R6: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+   R7 phi=[2, 3, 4, 1, 0] vis=[0, 0, 1, 0, 1] acts=[[4, 2, 3, 0, 1]] Lp=3: N=5 |atoms|=81 |distinct prep vecs|=21 affine dim 4 classes [[0], [1], [2], [3], [4]] simplex True
+PASS R7: stage body is a simplex at every preparation horizon tried (brute force)
+PASS R7: at horizon Lp=3: affine dim = #finest classes - 1, class images independent and realised
+== C1 countercontrol: restricted (non-prefix-closed) readouts on two classical bits
+PASS C1: body with single-bit reads only is a square (NOT a simplex)
+PASS C1b: adding the joint read (prefix-closed: read a, swap, read) gives a simplex
+ALL-PASS 21/21

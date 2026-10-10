@@ -1,0 +1,28 @@
+
+== F  the normalized family G(a, b)
+CONFIRMED F1: G(I, J') = landed cnot (symbolic table)
+CONFIRMED F2: G(a^-1, -b^-1) . G(a, b) = id (symbolic invertible a, b)
+CONFIRMED F3: G(a, +-a J') = actC(diag(a, 1)) . G(I, +-J') (symbolic a) and G(I, -J') = actC reflY . cnot . actC reflY
+
+== P  the bounds and the mixing step
+CONFIRMED P1: equatorial pairings: at effect (1,1,0,0) and Y = (1,1,0,0): 2 + 2 u'^T a x'; at effect (1,0,1,0) and Y = hom z3: 1 - u'^T b x' (symbolic): posFwd forces sigma_max(a), sigma_max(b) <= 1, and posInv (by F2) the same for a^-1, b^-1, so a, b are orthogonal
+CONFIRMED P2: <b,Y><b,HN Y> - sigma^2 - tau^2 = N(b) (Y0^2 - Y1^2) + (b2^2 + b3^2) N(Y) with N the Lorentz form (symbolic): on null b, Y the right side of the mixing bound squared is sigma^2 + tau^2
+CONFIRMED P3: (sigma I + tau U)^T (sigma I + tau U) = (sigma^2 + tau^2) I + sigma tau (U + U^T) for O(2) (mod c^2 + s^2 = 1); U + U^T = 2c I for rotations, eigenvalues +-2 for reflections: the bound for sigma tau of both signs forces U + U^T = 0, i.e. U = +-J' (c = 0 rotations), so b = +-a J'
+
+== T  orientation is a gate invariant; M_refl
+CONFIRMED T1: det cnot(prodState x y) = -(x0^2+x1^2)(1-x2^2)(1-y0^2)(y1^2+y2^2) (symbolic): <= 0 on ball x ball
+CONFIRMED T2: for unit x, y: det cnot(prodState x y) = -(1-x2^2)^2 (1-y0^2)^2, in [-1, 0]. In T2's argument -det A det B = det A~ det B~ * d with |det| = 1 on both sides, so |d| = 1, d = -1, and the orientations agree
+CONFIRMED T3: det(actC A (actT B w)) = det A det B det w (symbolic) and det phiW = -1
+CONFIRMED T4: M_refl: cnot sends prodState xplus z3 to phiW, while the claimed form with post-local reflY gives actC reflY phiW = idW of determinant +1 > 0; since every cnot image of a product of ball states has det <= 0 (T1) and pre-locals map products of ball states to products of ball states, (reflY, I) is the post-local pair of no decomposition of cnot
+
+== C  deletion countermodels for T1
+MISMATCH  C1: G(I/2, J'/2) = (1/2) cnot + (1/2) cnot . (control dephasing onto span(hom z3, hom -z3)) (symbolic)
+MISMATCH  C2: the dephased part maps prodState x y to p_x prodState(z3, y) + q_x prodState(-z3, (y1, -y2, -y3)) with p_x, q_x >= 0 on the ball: a positive combination of products, so G(I/2, J'/2) satisfies posFwd (landed cnot_prodState_mem_maxCone, prodState_mem_maxCone)
+CONFIRMED C3: ipW(G e10, G e10) = 1/4 != 1 (N-CLASS gates are ipW-orthogonal); G(2I, 2J') is the inverse and pairs prodState(xplus, z3) with hom(-1,0,0), (1,1,0,0) to -1 < 0: posInv fails
+CONFIRMED C3c: countercontrol: cnot itself is ipW-orthogonal on e10
+
+== A  hadm (c): the scaled cnot orbit is not a convex cone
+CONFIRMED A1: E00 = prodState 0 0 (a product) and phiW = cnot(prodState xplus z3) lie in the scaled cnot orbit; their sum has rank 4 and its cnot image rank 2, while products are rank 1: the sum is neither a scaled product nor a scaled cnot image of one (cnot is an involution), so additivity fails
+CONFIRMED A1c: countercontrol bookkeeping: cnot is an involution and fixes E00
+
+AUDIT-D MISMATCH FOUND

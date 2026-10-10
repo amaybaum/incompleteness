@@ -1,0 +1,433 @@
+# Premise ledger (off-repo, read-only; corpus at base 0f2687b7)
+
+Corpus read from `scratchpad/base0f/` (`git archive 0f2687b7 papers book`; every paper diffed equal to
+`git show 0f2687b7:<path>`). Line anchors are to that tree. Built dependency-first, starting from A5.
+
+**Fields per entry.** Exact statement · descriptive level (SUBSTRATE / INTERFACE (G) / R4 / Q) · status
+(definitional / posit / sharpened stipulation / theorem / probed) · direct consumers · transitive consumers ·
+coexisting (uses nearby structure, not the premise) · evidence status of each dependence · interface dependence ·
+controls affected · relation to QM · circularity risk · replacement obligation per direct consumer · corpus drift ·
+open checks · **representation vs physical-identification use** (added after L-A5 froze, from L-A2: does the consumer
+need only the *existence* of a representation with the property, or does it assert the property of the *actual*
+substrate? Retro-reading of L-A5: D4 is a realization claim about a chosen representative; the observer route is
+representation-level).
+
+**Consumer classes.** *Direct*: the result's own proof uses the premise or its stated equivalent. *Transitive*: it
+uses the premise only through a direct consumer. *Coexisting*: it is stated for, or illustrated on, the linear
+realization but its proof does not use linearity. *Verified* = the proof or statement text was read and the use
+located; *declared* = the corpus asserts the dependence and the proof was not read here.
+
+***
+
+## L-A5 — Linearity of the substratum update — CLOSED and FROZEN 2026-10-03 (source graph; drift R1–R5 held for a future propagation round)
+
+**Exact statement.** "(A5) **Linearity.** The wave equation for φ is linear." (Substratum.md:100), with: equivalent
+to amplitude-scale gauge invariance via the linearity-equivalence lemma of [SM §4.1]; "necessary *given*" that gauge
+principle. Formal content (SM.md:224): over ℤ/qℤ, f(a + a′) = f(a) + f(a′) for the neighbour function f of the
+second-order update x_i(t+1) = f(neighbours at t) − x_i(t−1).
+
+**Level.** SUBSTRATE. **Status.** Posit, held as a sharpened stipulation (Substratum.md:266–268): the irreducible
+assumption is "the alphabet's additive automorphisms x ↦ λx + c are gauge" (amplitude-scale gauge), from which
+linearity follows by a certified elementary lemma. Main.md:706 posit-ledger item (vii).
+
+**Two roles of the realized dynamics (SM.md:292).** The exact rule is linear over ℤ/qℤ; the realized bijection
+carries a bounded threshold/rounding nonlinearity, measured chaotic (Main.md:480). The *structural chain* reads only
+the linear part; the *ergodic/measure* properties (full-shell Gaussianization, the mixing behind operational
+measurement independence in Main §3.3, the ETH-conditioning of C2 necessity in Main §3.4) read the nonlinear part.
+Track I's QM side therefore already consumes bounded substrate nonlinearity; A5 holds exactly only at the structural
+level.
+
+### The central structural finding: two routes to the wave operator
+
+The corpus contains **two** routes to the lattice wave operator, and only one consumes A5.
+
+- **Substrate route (A5-direct).** Form lemma (SM.md:220–224): center-free + cubic-isotropic + *linear* second-order
+  NN rule ⇒ x_i(t+1) = α Σ_{j∼i} x_j(t) − x_i(t−1). Used by Substratum Stage 2(b) (Substratum.md:158) for the
+  reconstruction theorem's wave-equation step.
+- **Observer route (A5-free as stated).** Theorem 1a (SM.md:238): the projected evolution of the Koopman operator of
+  *any* bijection φ under a linear observer projection, with symmetry-equivariant memory kernels (Mori–Zwanzig form;
+  linearity of U is automatic for every bijection). Lemma 1c (SM.md:248): canonical projection, memory-resummed
+  Schur complement, observer dispersion as the zero set of 𝒟(λ). Corollary 1a: O_h equivariance forbids quadratic
+  anisotropy (Lean: `OIBridge/CubicIsotropy.lean`). Corollary 1b (SM.md:266): a scalar, translation-invariant,
+  NN-local, O_h-equivariant, constant-preserving observer Markov part is p₀f + pΣ…; with observer-level center
+  freedom, T = A/(2d). **Theorem 1** (SM.md:274): *if* the scalar observer branch satisfies Corollary 1b and a
+  reversible second-order temporal update, the normalized lattice Klein–Gordon branch follows.
+  None of these use substrate linearity. Their hypotheses (H-T1: Corollary 1b's kernel conditions, observer-level
+  center freedom, reversible second-order temporal update) are conditions on the projected observer kernel, and
+  their derivation from φ is the open map φ → L_obs → Δ_g (SM.md:228: "not proved anywhere in this framework").
+
+The SM §4 chain is stated on the observer route ("on the observer-level lattice-wave branch of Theorem 1",
+SM.md:282), while the Substratum reconstruction cites the substrate route. A5's role in the wave-operator step is
+therefore: *sufficient on the substrate route, not used on the observer route, where its job is taken by H-T1.*
+
+### Direct consumers (verified)
+
+| # | Consumer | Anchor | Linear structure needed | Track |
+|---|---|---|---|---|
+| D1 | Form lemma (substrate route to the wave operator); Substratum Stage 2(b) | SM.md:220–224; Substratum.md:158 | additivity of f over ℤ/qℤ | SM / reconstruction |
+| D2 | Amplitude-scale U(1)-phase stripping, U(3)×U(2)×U(1) → SU(3)×SU(2)×U(1) | Substratum.md:162, :264; book ch05:47, :127–133 | the A5-equivalent principle itself, not additivity | SM / gauge |
+| D3 | Stationary Gaussian measure "on linear dynamics with energy conservation"; two-point function [□_lat⁻¹]; pseudofermion covariance match | SM.md:288 | linear dynamics + energy conservation (ergodicity from the nonlinear part) | SM measure ↔ lattice MC |
+| D4 | Coherence cluster of Main §3.2: for the F₂-linear NN update u′ = Σ_{z∼x} u_z + v, v′ = u, Lemma 2 (channel normal form Φ = Ad_{V_A} ∘ Φ_G, Clifford-conjugated abelian Weyl mixture), Corollary 1 (non-EB iff w < κ), Corollary 2 (non-EB if min(\|∂⁻R\|,\|∂⁺R\|) < \|R\|), cubic-block Remark | Main.md:288–318 | F₂-linearity (block matrices A, B, C; character sums over im B) | QM side — realization-specific |
+| D5 | §4.4 multi-component update: "the general second-order **linear** update" φ(n,t+1) = Cφ + Σ_j M^{(j)}[…] + Dφ(t−1), with C = 0, D = −I, M^{(j)} = M ⇒ the internal-matrix branch | SM.md:306–310 | linearity of the K-component update (matrix parametrization) | SM / gauge — **level-ambiguous** (stated on (ℤ/qℤ)^K, then placed on the observer branch; "not identified with the fundamental finite bijection without the coarse-graining bridge") |
+| D6 | Class filter: OI class membership requires A1–A6; matrix models excluded at A5 | Structure.md:136, :295–332 | A5 as a predicate | comparison |
+
+### Transitive consumers
+
+- **Through the wave operator (D1 on the substrate route, or Theorem 1 / H-T1 on the observer route):**
+  Theorem 2 Susskind factorization (SM.md:282, stated on Theorem 1's branch — an operator identity on □_lat);
+  dispersion results, 4/45 coefficient, emergent-Lorentz argument (§4.1 scope, SM.md:228); Theorem 3 (CI ⇔ exact
+  chiral symmetry); staggered tastes, Theorems 8–11, 8b ("normalized wave equation"); Theorems 12–13 (grading,
+  chirality); Theorem 17 (T-invariance of the wave equation) and §5 strong-CP; §6–§7 gauge coupling and quantitative
+  predictions; Substratum Stage-2 uniqueness, Lemma 23.0, Theorem 23 (Substratum.md:144–192, which cite D1).
+- **Through D5:** Theorem 4 (mass spectrum), Lemma 4a, Proposition 4b, Theorem 5 (condensate stabilizer), the
+  commutant gauge group and Theorem 7b (Bravais uniqueness under the commutant construction).
+- **Through D2:** the SU(N) reduction and everything stated on the Standard-Model group (hypercharges of Theorems
+  14–15 take the group as given).
+- **Through D3:** substratum ↔ pseudofermion measure equivalence; the lattice-MC reduction of SM §7.5.
+- **Through D4:** nothing load-bearing. Main.md:320 states the boundary explicitly: coherence preservation "is a
+  property of this realization, not an additional structural condition: (C1)–(C4) … neither contain nor imply a
+  coherence requirement"; non-entanglement-breaking "is a statement about a single channel, not about quantum
+  mechanics". The "coherence is a bulk quantity, decoherence an area quantity" link to the §7 horizon entropy is
+  labelled "an interpretation of the one-step result, not a theorem" (Main.md:318). No later Main result cites
+  Corollary 1 or 2 (grep of Main/SM/Substratum/GR/Structure/Methodology/Explainer).
+- **Gravity (GR), by ladder level:**
+  - **G1** (§3–§6: ħ, ε = 2l_p, area law, 1/4, cosmological-constant dissolution): **A5-free as declared**
+    (GR.md:669–675; the proof is "the §3–§6 derivations themselves"; no theorem-style proof written). Declared, not
+    verified line by line.
+  - **G2** (weak-field, §8.7): **A5-transitive (through the wave operator).** "Equipartition is the equipartition
+    *theorem* because the emergent boundary modes are harmonic (the [SM] wave equation)", and bond weights are fixed
+    by "the framework's own dispersion relation" (GR.md:693–695).
+  - **G3** (covariant field equations): open; no dependence to classify.
+  - **G4** (cosmology, conditional on G3): the ν-magnitude remark uses the boundary measure dN/dω ∝ ω⁴ from "the
+    half-space trace-out of the reconstruction-selected wave equation" (GR.md:551) — A5-transitive. The Page-curve
+    proof (Appendix A.7, GR.md:825) uses energy conservation "(the wave equation is Hamiltonian)" — transitive *as
+    written*, but needs only a Hamiltonian (energy-conserving) bijection; recorded as replaceable by any
+    energy-conserving φ. §7.2–7.3 dark-sector results depend on OI's specific gap-equation solution ("Level D ×
+    G1–G2", GR.md:677), hence inherit G2's A5-transitivity.
+
+### Coexisting (checked; not A5 consumers)
+
+- Main's representation layer, all stated for an arbitrary finite bijection on 𝒞_V × 𝒞_H: S ⇔ D ⇔ Q_fb, the
+  finite-horizon stochastic–reversible–unitary equivalence, the characterization theorem, history readback and
+  indivisibility, C3 necessity, process dilation, unavoidable hidden memory, canonical predictive quotient
+  (Main.md:115, :137, :484, :496, :516, :526, :580, :598).
+- Main's separability-threshold theorem (Main.md:308): general abelian Weyl subgroups; only its application
+  (Corollary 1) is D4.
+- Main's CP-indivisibility theorem and diagonal-preservation lemma (Main.md:322–326): any permutation unitary.
+- Main's Lemma 1 boundary bound (Main.md:294): factorization over any ℤ_q; "in weakened form the support argument
+  covers arbitrary nearest-neighbour bijections" (Main.md:320). Rank form uses a field; support form is A5-free.
+- Main's Bell–lattice obstruction (Main.md:394): stated for "the nearest-neighbor cubic wave-equation update", but
+  the argument is a light-cone/locality argument (NN range + maximum speed); uses A3/NN locality, not A5.
+- SM Theorem 7 (6 = T₁ ⊕ E ⊕ A₁): pure representation theory of O on the six link directions ("unconditional").
+- SM Theorem 1a, Lemma 1c, Corollaries 1a–1b, Theorem 1: observer route, above.
+
+### Interface dependence
+
+D4 concerns the passive single-step channel of a fixed partition. The RECORD linear control is the same update in
+d = 1, q = 2 (v′ = v_{i−1} + v_{i+1} + u, u′ = v — Main's u′ = Σu + v, v′ = u with variables renamed), so D4's
+Clifford/Weyl normal form is that control's passive-interface structure.
+
+### Controls affected
+
+RECORD's nonlinear and majority leap rules violate A5; the linear rule is an A5-type representative and the d = 1
+instance of D4. RECORD's OVER-RANK exclusions concern those A5-violating dynamics under the tested interfaces only.
+
+### Relation to QM — two notions of "quantum side"
+
+- **Generic QM representation** (Main's equivalence and characterization theorems): A5-independent.
+- **Realization-specific structure** (D4 coherence/Clifford–Weyl channel; and, through the wave operator, the
+  SM-selection chain): A5-dependent.
+A5 is, in the corpus, an SM-selecting and realization-specific premise, not a QM-representation premise.
+
+### Circularity warnings
+
+1. (Corpus, Substratum.md:266.) Deriving amplitude-scale gauge from the observer architecture is circular: a
+   nonlinear F induces observable amplitude-dependent dispersion, so "absolute amplitude is unobservable" already
+   presupposes linearity. No replacement may re-enter by this route.
+2. (D4 → R4/Q.) D4's stabilizer (Clifford/Weyl) structure comes from an F₂-linear substrate. If it is used to
+   motivate the target R4 or Q geometry, linear-substrate structure is being imported into an observer-level premise.
+   Recorded as a warning, not a conclusion (RECORD's diamond and the held Level-3 prediction sit on this edge).
+3. (Observer route.) H-T1 includes a "reversible second-order temporal update" at observer level. For a linear φ the
+   projected recurrence is inherited (Lemma 1c(i): x_{t+2} = L x_{t+1} − x_t); for a nonlinear φ it is a genuine
+   hypothesis. Using H-T1 as a premise while citing linear-φ examples as its evidence would be circular.
+
+### Replacement obligations (if A5 is removed as a substrate posit)
+
+| Direct consumer | Exact obligation at the interface |
+|---|---|
+| D1 | Discharged on the observer route *iff* H-T1 holds for the nonlinear φ: prove that the canonical projected observer kernel of φ (Lemma 1c) is scalar, translation invariant, NN-local, O_h-equivariant, constant-preserving, observer-center-free (Corollary 1b), and that the visible recurrence is reversible second order — i.e. the map φ → L_obs with L_obs = A/(2d); then L_obs → Δ_g at low momentum (Corollary 1a gives isotropy of any surviving quadratic term; nondegeneracy b_m ≠ 0 must be shown separately, SM.md:260). The substrate-route reconstruction (Substratum Stage 2(b)) would need restating on the observer route. |
+| D2 | Amplitude-scale gauge as an observer-level redundancy of the emergent field (phase of each block unobservable), established without circularity warning 1. |
+| D3 | Gaussianity of the relevant stationary measure, or of its observer-level marginals, for the nonlinear φ, with the covariance [□_lat⁻¹] up to normalization. |
+| D4 | Either a non-EB theorem for the visible channel of a nonlinear NN update, or nothing: Main.md:320 already marks D4 as realization-specific and not load-bearing for the QM representation. Lemma 1's support form survives as is. |
+| D5 | The K-component analogue of D1's observer-route obligation: the projected multi-component kernel has the internal-matrix form Σ_j M[…] with a single isotropic M, at observer level. Resolve D5's level ambiguity first. |
+| D6 | None mathematical; a class boundary. Removing A5 redefines the class. |
+
+### Classification (current evidence)
+
+(ii) **weakenable, not yet shown removable.** The corpus already operates with "exact linear structural part +
+bounded chaotic nonlinearity". Removal (iii) reduces to the D1/D5 observer-route obligation (H-T1 for nonlinear φ),
+D2's non-circular observer-level amplitude gauge, and D3's Gaussianity. D4 needs nothing for the QM representation.
+
+### Corpus drift found (record only; not a ledger classification input)
+
+| # | Sites | Drift |
+|---|---|---|
+| R1 | Substratum.md:158; book ch02-substratum.md:98; book FULL.md:739 | "propagation speed v = α … α = 1 fixed by relativistic causality" vs SM.md:226–228 (the source): "α is neither the propagation speed nor free to be set to 1", α = 1 unstable for the d = 3 real lift, α = 1/d at observer level. Both papers last changed in 58100aea (2026-09-13); SM carries the revised scope. |
+| R2 | Structure.md:301 vs Structure.md:219 and Substratum.md:268 | Structure.md:301 says the necessity argument "rests on q-gauge invariance ([SM §2.7])"; Structure.md:219 and Substratum.md:268 say it runs through amplitude-scale gauge and that q-size gauge does *not* entail it (the strong reading overshoots). Internal inconsistency within Structure. |
+| R3 | book ch09-universality.md:205 | Restates A5 as "the framework's emergent dynamics is linear at the visible-sector level" — a different descriptive level (observer/visible) from Substratum's A5 (substrate update). A level-crossing restatement. |
+| R4 | book ch02-substratum.md:84 | A5 stated without the amplitude-scale equivalence or its sharpened-stipulation status ("would require a separate derivation chain not developed here"); lags Substratum.md:100/266–268 (the equivalence appears in book ch05:47). |
+| R5 | SM.md:306–310 (D5) | Level ambiguity: the multi-component linear update is written on (ℤ/qℤ)^K, then placed on the observer branch with the caveat that it is not identified with the fundamental bijection. |
+
+These are manuscript-consistency items for a future §A.25 propagation round under owner direction; nothing in the
+repository is changed here.
+
+### Remaining open (not blocking the A5 graph)
+
+- G1's A5-freedom is declared, with no theorem-style proof written (GR.md:675). A line-by-line check of GR §3–§6 for
+  wave-equation inputs is a separate task.
+- Whether the Substratum reconstruction theorem should cite the observer route instead of D1 is a manuscript question
+  (R1 is its symptom), not a ledger one.
+
+***
+
+## Cross-entry note (after L-A5 froze)
+
+L-A5's observer route is *conditional* on H-T1, and H-T1 is not proved for the corpus's own linear φ either:
+SM.md:228 says the map φ → L_obs → Δ_g "is not proved anywhere in this framework", and Corollary 1b's observer-level
+center freedom is "a theorem conditional on observer-level CI, while the descent of CI through the
+substratum-to-observer map remains open" (SM.md:272). So the bridge target is "derive H-T1 from substrate dynamics"
+for linear φ as much as for nonlinear φ; a linear φ only makes the projected second-order recurrence available
+(Lemma 1c(i)). The nonlinear case is not a harder version of a solved problem.
+
+***
+
+## L-A2 — Determinism / bijectivity of the substratum map — CLOSED and FROZEN 2026-10-03 (checks 1–4 done below)
+
+**Exact statement.** "(A2) **Determinism.** φ: S → S is a bijection (deterministic, reversible dynamics)."
+(Substratum.md:94), with: two-part status per the dilemma argument of [Main §2.2] — a non-injective descent either
+leaves a statistical trace (excluded by the observed unitarity of quantum dynamics) or none (then removable: every map
+on a finite set restricts to a bijection on its eventual image, where all recurrent registered history lives). Main
+Lemma 3 (Main.md:56): φ is a function (determinism) and, "as the reversible representative of §1.2", a bijection;
+invariant measure uniform on each cycle; the counting measure selected globally as maximal-entropy ("a selection
+principle, not uniqueness"). Main.md:62: "The bijective substratum is a representation choice — the minimal recurrent
+bijective representative"; the characterization theorem "is accordingly conditional on finite reversible substratum
+dynamics". Posit ledger item (iii) (Main.md:706): bijectivity is part-empirical (observed unitarity).
+
+**Split into logically distinct sub-premises.**
+- **A2a determinism** — φ is a function (one successor per state).
+- **A2b injectivity** — distinct states have distinct successors; on a finite S, A2a + A2b ⇔ bijection.
+- **A2c recurrence** — φ^N = id for some N. *Not a separate premise*: a consequence of A2a + A2b + A1 (finiteness).
+  Kept as its own line because several consumers use only it.
+- **A1 finiteness** — separate premise (its own entry); listed here only where a consumer needs it jointly.
+- **Measure selection** — uniform on cycles (needs A2b) and maximal-entropy globally (posit item (iv)); separate.
+- **Not A2: Koopman linearity.** f ↦ f ∘ φ is linear for *every* map φ. What A2b buys is that the Koopman/permutation
+  operator U_φ|s⟩ = |φ(s)⟩ is **unitary** (a non-injective φ sends two basis vectors to one, so U_φ is not an
+  isometry). A2 gets credit for unitarity, not for linearity.
+- **Not A2: operational reversibility.** GR.md:230's "reversible richness" (available reversible transformations admit
+  operational inverses; dynamical Lie algebra contains su) is a Q-layer operational premise of OI⁺, not substrate A2.
+- **Not A2: observer-level reversibility in H-T1.** The "reversible second-order temporal update" hypothesis of SM
+  Theorem 1 is an observer-level condition; projection of a bijection does not in general yield a reversible visible
+  recurrence (Theorem 1a's memory kernels). Kept separate.
+
+**Level.** SUBSTRATE (A2a, A2b, A2c).
+
+**Status.** Posit, part-structural / part-empirical (Main.md:706 (iii); Substratum.md:94). The second-order "leap"
+form x(t+1) = F(x(t)) − x(t−1) is bijective for **every** F (inverse: x(t−1) = F(x(t)) − x(t+1)), so A2 is
+automatic for every second-order rule the SM chain considers, linear or not.
+
+### The central structural finding: A2 is free at the law level
+
+Main's finite-horizon equivalence (Main.md:526; Lean `finite_horizon_equivalence`, `S_imp_D`): (S) finite stochastic
+laws = (D) visible marginals of finite reversible deterministic systems = (Q_fb) fixed-basis unitary Born
+representations. Its proof: S ⇒ D *constructs* a bijection (response-table construction, §3.4); D ⇒ Q_fb uses the
+bijection's permutation unitary U_φ (needs A2b); Q_fb ⇒ S is the Born rule. Consequently:
+- **As a class equality of laws, the theorem does not assume A2 of nature.** Any finite visible law — whether it comes
+  from a deterministic non-invertible, a stochastic, or a bijective substrate — is in S, hence has a reversible
+  realization (D) and a fixed-basis unitary representation (Q_fb). Bijectivity appears in the *conclusion*
+  (existence of a reversible representative), which is what Main.md:62 means by "representation choice".
+- **A2 acquires physical content only through realization identification**: when the actual substrate is identified
+  with a bijective representative, so that U_φ is the substrate's own dynamics (with U_φ = e^{−iĤ} a fixed autonomous
+  generator at integer times), and when results are proved *about every* such representative or *about the actual*
+  one (recurrence, microreversibility, measure).
+
+### Direct consumers
+
+| # | Consumer | Anchor | Uses | Evidence |
+|---|---|---|---|---|
+| B1 | D ⇒ Q_fb step: U_φ permutation unitary, diagonal preservation, integer-time generator | Main.md:528; Lean `permMatrix_mem_unitaryGroup`, `isDiag_Phi` | A2b | verified |
+| B2 | P-indivisibility of the uniform-prior marginal when T is not a permutation | Main.md:115–131, Step 1 "φ bijective on a finite set ⇒ ∃N: φ^N = id" | A2c (+A1) | verified |
+| B3 | History readback + finite recurrence ⇒ global indivisibility on the fixed finite reversible representative | Main.md:137–142 ("φ is a permutation of a finite set, it has finite order L") | A2c (+A1) | verified |
+| B4 | Measure on orbits: invariant measure uniform on each cycle (Lemma 3) | Main.md:56 | A2b | verified (statement) |
+| B5 | Uniform-prior one-step marginal is doubly stochastic (Birkhoff–von Neumann) — used by the dilemma argument and by C2 necessity's model | Main.md:62, :433 | A2b + uniform prior | declared (lemma in §3.2, proof not re-read) |
+| B6 | CP-indivisibility of the permutation-dilation family; diagonal-preservation lemma | Main.md:322–326 | A2b (permutation unitary) | verified |
+| B7 | Classical half of the ħ calibration: microreversibility Θφ Θ = φ⁻¹ gives N_ij = N_ji and the thermal rate ratio β_E "from finite deterministic reversible counting" | GR.md:68–70 | A2b + T-invariance | verified |
+| B8 | Page curve (A.7): φ restricted to an energy shell decomposes into cycles; exact cycle time averages | GR.md:825 | A2b + A1 + energy conservation | verified |
+| B9 | Induced-dynamics characterization of OI_Q: substratum-induced dynamics ⊊ locality-preserving automorphisms (phase unitary induced by no reversible finite-range bijection) | GR.md:286; Lean `phase_localityPreserving`, `phaseQ_ne_heisQ` | A2b (+A3) | declared |
+| B10 | Class filter: matrix models fail A2; LQG, causal sets, asymptotic safety fail A2 (quantum/stochastic substrata) | Structure.md:136, :1039 | A2 as predicate | verified |
+
+### Consumers of determinism only (A2a), not injectivity
+
+- Unavoidable hidden predictive memory (Main.md:580; Lean `OIBridge/HiddenMemory.lean`): hypothesis says "a bijection",
+  but the proof uses only "Determinism makes X_{t+1} a function of (X_t, H_t)" — verified; injectivity unused.
+- Canonical predictive quotient, universality clause (Main.md:598): "every faithful deterministic realization" —
+  determinism (statement); the existence clause *constructs* a bijective realization (A2 in the conclusion).
+
+### Not consumers (A2 in the conclusion, or unused)
+
+- S ⇒ D (Main.md:528), finite-horizon process dilation (Main.md:496), intervention dilation (Main.md:460): they
+  *construct* reversible realizations.
+- Q_fb ⇒ S (Born rule).
+- Lemma 1 boundary bound and other linear-update results: the leap form makes them bijective automatically; their
+  content is A5/locality (L-A5).
+- GR G1 universality claim (GR.md:669): declares A2 not required — but see tension T-A2-1.
+
+### What breaks under each alternative substrate
+
+| Substrate | Law-level QM representation (S ⇔ D ⇔ Q_fb) | Recurrence results (B2, B3, B8) | U_φ is the substrate's own unitary (B1, B6) | Microreversibility / ħ classical half (B7) | Determinism-only results (memory, quotient) |
+|---|---|---|---|---|---|
+| Deterministic, non-invertible (finite) | holds (law is in S) | hold on the eventual image; transients excluded or removable (dilemma, Main.md:62) | only on the eventual image | only on the eventual image | hold |
+| Stochastic (finite) | holds (law is in S) | **fail as stated**: no φ^N = id; a stochastic substrate can be P-divisible (Markov chains) | **fails**: no substrate permutation; the unitary exists only as a constructed dilation | **fails as derived**: N_ij = N_ji needs a separate detailed-balance assumption for the stochastic kernel | memory floor (c) survives if the noise is fresh and independent (data processing); (a) pushforward identity becomes a kernel identity |
+| Effectively reversible after adjoining hidden state | holds | hold for the dilated system *if* the dilation is closed into cycles (Main.md:598 closes tails into cycles) — recurrence becomes a property of the representative, not of nature | holds for the representative | holds only if the dilation respects T-invariance | hold |
+
+### Interface dependence
+
+A2's law-level role is interface-independent (Main's equivalence is passive, fixed basis). B6 and the
+intervention-dilation theorem concern the passive / action-labelled settings; RECORD's record-writing interface is a
+realization question (B1-type), not a law-level one.
+
+### Controls affected
+
+All three RECORD leap rules are of the second-order form and therefore **bijective** — linear, nonlinear and
+majority alike. RECORD does not probe A2 at all; its controls separate A5, not A2.
+
+### Relation to QM
+
+- Not required by the generic QM *representation* (law level): A2 is a representation choice there.
+- Required for the *identification* of the representation's unitary with the substrate's own dynamics (B1), and for
+  the global-indivisibility results that rely on exact recurrence (B2, B3) — Track I's memory/indivisibility layer.
+- Required by GR's own derivation of the classical half of the ħ calibration (B7).
+
+### Circularity warnings
+
+1. (Corpus, Main.md:62 / Substratum.md:94.) The empirical anchor for injectivity is "the observed unitarity of
+   quantum dynamics". Using that anchor and then presenting unitarity of the emergent description as *derived* from a
+   bijective substrate is circular. The corpus states the division honestly; the ledger records that B1's unitarity
+   is input-anchored, not output.
+2. (Law level.) Because S ⇔ D holds for every finite law, "the substrate is reversible" cannot be *tested* from
+   finite visible laws alone. Any claim that observed statistics confirm A2 must go through realization
+   identification (recurrence, microreversibility), not through representability.
+
+### Replacement obligations (if A2 is weakened)
+
+| Direct consumer | Obligation |
+|---|---|
+| B1, B6 | None for the law-level representation; for the identification claim, show the physical generator is the substrate's (or accept that U is a representative). |
+| B2, B3 | Recurrence on the eventual image (deterministic non-invertible: already given by the dilemma argument), or a replacement indivisibility theorem for stochastic substrata. |
+| B4, B5 | Measure selection and double stochasticity on the eventual image / for the stochastic kernel (bistochastic noise would preserve B5). |
+| B7 | An explicit detailed-balance condition for the substrate kernel with respect to shell counting (stochastic case). |
+| B8 | Cycle decomposition on the energy shell's eventual image, or a stochastic-ergodic replacement. |
+| B9 | Restate the induced-dynamics class for the weakened substrate. |
+| B10 | None mathematical; class boundary. |
+
+### Classification (current evidence)
+
+**Representation-free at the law level; physically load-bearing only through realization identification and exact
+recurrence.** Deterministic non-invertibility is already absorbed by the corpus's dilemma argument (eventual image).
+Stochasticity is the real alternative, and it breaks B2, B3, B7, B8 as derived.
+
+### Tensions and drift (record only)
+
+| # | Sites | Item |
+|---|---|---|
+| T-A2-1 | GR.md:669, :673 vs GR.md:68–74 | GR's universality claim says a substratum with **stochastic** dynamics would still produce ħ = c³ε²/(4G), ε = 2l_p and the 1/4 under H-slope, H-frame, H-Hawking "provided the partial-trace machinery and thermal self-consistency hold". The ħ chain's classical side (β_E = −∂ ln R_E) is derived at GR.md:70 "from finite deterministic reversible counting" via microreversibility (A2b + T). H-slope is only the observer-side slope (GR.md:74); H-frame is the foliation (GR.md:88). For a stochastic substrate the classical side needs a detailed-balance condition that none of S1–S4, H-slope, H-frame, H-Hawking states explicitly; "thermal self-consistency" may be intended to cover it. Candidate claim/evidence-boundary item; not resolved here. |
+| T-A2-2 | Main.md:62 vs Main.md:526 | Main.md:62 calls the characterization theorem "conditional on finite reversible substratum dynamics"; at the law level the S ⇔ D ⇔ Q_fb equivalence is A2-free (A2 in the conclusion). Consistent once read as "the physical reading is conditional"; flagged so the ledger records the finer statement. |
+
+### Closure of the four checks
+
+**Check 1 — GR §3–§6 microreversibility (T-A2-1 resolved: confirmed, isolated, precisely stated).**
+- Microreversibility appears only at GR.md:68–70 (grep of GR for microreversib / Θ / detailed balance / H-balance /
+  shell rate). Its exact output: with Θφ Θ = φ⁻¹ and Θ M_i = M_{θi}, the trajectory-reversal map gives
+  N_ij = N_{θj,θi}; for time-reversal-even coarse states N_ij = N_ji, hence N_i P_ij = N_j P_ji, hence the classical
+  rate ratio ln(P_ij/P_ji) = −β_E(e_j − e_i) + ½ s_H″(E)(e_j² − e_i²) + ⋯ "from finite deterministic reversible
+  counting". This is the identity −∂_{ΔE} ln R_E|₀ = β_E that H-slope (GR.md:74) takes as given on the classical side.
+- GR.md:86 says the calibration needs only the scalar β_E = ∂s_H/∂E, from the horizon density of states and the first
+  law. That fixes the *value* of β_E; the *identification of the classical rate-ratio slope with β_E* is what
+  GR.md:70 derives, and that step uses A2b + time reversal.
+- "Thermal self-consistency" (Step 4, GR.md:146; dependency list GR.md:637) is the equality of the classical horizon
+  temperature with the emergent KMS temperature. It is a temperature-matching condition and does **not** state any
+  condition on the substrate kernel.
+- Conclusion: for a deterministic bijective substrate the classical side is derived; for a stochastic substrate it
+  needs a stochastic microreversibility condition that none of S1–S4, H-slope, H-frame (the comoving foliation,
+  GR.md:88), H-Hawking, or "thermal self-consistency" supplies. GR.md:669's stochastic-substratum clause is therefore
+  stronger than the written derivation supports. **Kept as a claim/evidence-boundary item, not harmonized.**
+- Isolation: no other §3–§6 use found; G1's A2-dependence is exactly this classical-rate-ratio identity, and it
+  propagates to everything downstream of ħ (ε = 2l_p, the 1/4 coefficient; the counting S = A/ε² itself is
+  unconditional, GR.md:12). The time-reversal structure is automatic for the second-order leap form (the inverse has
+  the same form), so it is A2b + coarse-grain T-evenness, not A5.
+- **Replacement obligation A2-GR.** For a stochastic substrate with kernel P on each energy shell, prove the
+  stochastic microreversibility condition P(x, y) = P(Θy, Θx) (equivalently, detailed balance with respect to the
+  uniform shell measure twisted by Θ), plus T-evenness of the coarse states, which together give
+  N_ij = N_{θj,θi} → N_i P_ij = N_j P_ji and hence the classical β_E calibration.
+
+**Check 2 — double stochasticity (B5 confirmed and scoped by the corpus itself).**
+- Main.md:270–272: a uniform-prior marginal of a bijection is doubly stochastic (Birkhoff–von Neumann: a convex
+  combination of permutation matrices); conversely any single rational doubly stochastic matrix has such a
+  realization. A merely row-stochastic matrix has none in this form. Main.md:502: "double stochasticity is a property
+  of uniform-prior marginals, not of deterministic realizability as such"; general laws are realized with a
+  structured prior (process dilation).
+- So: permutation ⇒ doubly stochastic (A2b); an arbitrary stochastic law ⇏ doubly stochastic; existence of a
+  doubly-stochastic uniform-prior representative ⇔ the law's one-step matrix is doubly stochastic — a representation
+  fact, not a substrate fact. B5 = A2b + uniform prior (measure selection, posit (iv)).
+- **T-A2-3 (new).** The dilemma argument's empirical prong (Main.md:62) infers injectivity from "the observed
+  unitarity of quantum dynamics" via "a merge … breaks the double stochasticity of the marginalized process … unitary
+  emergent statistics are unistochastic". That inference needs (a) the uniform hidden prior — under a structured prior
+  even a bijection's marginal need not be doubly stochastic (Main.md:502) — and (b) that the observed visible
+  statistics are of the bistochastic class; GR.md:76 itself notes that a bare visible law read off a closed unitary is
+  bistochastic and "that form is unavailable in general", since open-system (ancilla-carrying) visible laws are not.
+  Recorded as a scope tension on the empirical anchor of A2b; not resolved here.
+
+**Check 3 — SM reversibility (automatic; no A2-direct SM consumer).**
+- SM.md:70 factorization-uniqueness theorem: hypothesis "φ a bijection"; its key step is the wave equation's
+  *addition* (algebraic dependence of inputs) — content is A5/locality; bijectivity is automatic for the second-order
+  form.
+- SM §4.1 form lemma "second-order reversible" and §4.4 "Reversibility requires D = −I": reversibility of the
+  second-order form (inverse has the same form), automatic, and at observer level for the normalized branch.
+- SM §2.7 q-gauge (SM.md:90–94): equivalence defined by emergent transition probabilities — law level; A2 unused.
+- SM Theorem 17 (T-invariance of the wave equation): time-reversal of the second-order form holds for every F; it is
+  the Θ GR.md:68 uses.
+
+**Check 4 — book mirror (drift recorded; not a classification input).**
+
+| # | Site | Item |
+|---|---|---|
+| R6 | book ch02-substratum.md:78 | "(A2) Determinism … a bijection — deterministic and reversible. This is the input from Lemma 3 of Chapter 1." Omits the two-part status (dilemma argument; empirical anchor in observed unitarity) of Substratum.md:94 / Main.md:62, 706. Lag, not conflict. |
+| — | book ch02:122, ch09:199 | Consistent with Substratum / Structure (stochastic theories outside the class; matrix models fail A2). |
+| — | book (all) | GR.md:669's stochastic-substratum universality clause and GR.md:68–70's microreversibility are not mirrored in the book; nothing to reconcile there, T-A2-1 is papers-only. |
+
+### Deterministic non-invertible substrata — own replacement category (A2-EV)
+
+A finite deterministic φ restricts to a permutation on its eventual image E∞ = ⋂_n φⁿ(S). This rescues recurrence
+*asymptotically* (φ^{N}|_{E∞} = id), but not:
+- recurrence from time zero (B2 Step 1 uses T^{(N)} = I from the initial time; on transients T^{(N)} ≠ I);
+- the uniform-prior double stochasticity on all of S (B5), the permutation unitary on all of S (B1), and Θφ Θ = φ⁻¹
+  (B7), all of which fail on transient states;
+- the cycle decomposition of the full energy shell (B8).
+The corpus's dilemma (Main.md:62) handles this by restricting to "registered history", which lives on E∞, plus the
+empirical prong (T-A2-3) for merges that would leave a trace. A2-EV is therefore "A2 on E∞ + a premise that registered
+history lies in E∞", not equivalence with A2.
+
+### Representation vs physical-identification (the L-A2 headline)
+
+A2 is not required for the observable-law representation theorem (S ⇔ D ⇔ Q_fb). It is required when the corpus
+identifies a reversible representative with the actual substratum and then uses the resulting recurrence, unitarity,
+cycle structure, or microreversibility as physical facts (B1–B8). A theorem relying only on the existence of a
+reversible representation is A2-free; one asserting that the substratum itself recurs, is unitary, has cycles, or is
+microreversible consumes A2 or a replacement (A2-EV, A2-GR, or a stochastic indivisibility theorem).
+
+### Combined statement after L-A5 and L-A2
+
+Neither substrate linearity (A5) nor substrate bijectivity (A2) is required for the generic observable QM
+representation. Their work begins when the corpus identifies particular substrate properties with particular
+physical realizations and derives further structure: SM selection and realization-specific coherence (A5);
+recurrence-based indivisibility, the substrate's own unitary, cycles, and the classical side of the ħ calibration
+(A2).

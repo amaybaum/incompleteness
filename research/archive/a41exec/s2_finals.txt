@@ -1,0 +1,3 @@
+dita_index_map_probe: OK -- REPLAYED: 42 named test cases; H3 46 partition candidates, 43 nonempty loci
+dita_index_map_independent: OK -- REPLAYED: 42 named test cases, 38 distinct matrices
+dita_index_map_hulls: OK -- REPLAYED: 31168 parametrizations, 3896 distinct hulls as matrix families, 3896 modulo the gauge

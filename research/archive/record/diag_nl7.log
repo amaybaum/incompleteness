@@ -1,0 +1,7 @@
+((0, 1), (1, 0)) rank 13 cert True welldef False dimC None INCONCLUSIVE(welldef)
+((1, 0), (0, 1)) rank 14 cert True welldef False dimC None INCONCLUSIVE(welldef)
+((1, 0), (3, 2)) rank 17 cert True welldef False dimC None INCONCLUSIVE(welldef)
+((2, 3), (0, 1)) rank 14 cert True welldef False dimC None INCONCLUSIVE(welldef)
+((2, 3), (3, 2)) rank 17 cert True welldef False dimC None INCONCLUSIVE(welldef)
+((3, 2), (1, 0)) rank 18 cert True welldef False dimC None INCONCLUSIVE(welldef)
+((3, 2), (2, 3)) rank 17 cert True welldef False dimC None INCONCLUSIVE(welldef)

@@ -1,0 +1,25 @@
+c = 1 target t3 mode full: d = [1. 1. 2. 2.], rho = 4.0000, phi_tw = 2.828427, (3/2) u1 = 2.121320
+  round 0: LP value 2.00000000, upper bracket 3.24264069 (eps 1.04e-01)
+  round 10: LP value 2.59016543, upper bracket 2.59030576 (eps 1.17e-05)
+  round 20: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 30: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 40: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 50: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 60: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 70: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 80: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 90: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 100: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 110: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 120: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 130: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 140: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 150: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 160: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 170: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 180: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  round 190: LP value 2.59028001, upper bracket 2.59028013 (eps 1.01e-08)
+  final: LP value 2.59028001, verified upper bracket 2.59028013 (eps 1.01e-08), phi_tw 2.82842712, psi_tw 2.82842712
+  support: [(np.float64(0.451996), [1.0, 0.0, 0.0, 0.0], 0.0), (np.float64(0.270881), [0.0, 0.0607, 0.2726, 0.0], np.float64(0.192975)), (np.float64(8.976218), [0.0611, 0.094, 0.1447, 0.2228], np.float64(0.233262)), (np.float64(2.300904), [0.0, 0.0608, 0.2726, 0.0], np.float64(0.193054))]
+  duals y (full precision): [0.0, 1.5888272243435142, 0.35403468210491046, 0.14669171191817498]
+  reading: gap lead

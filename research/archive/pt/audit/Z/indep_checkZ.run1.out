@@ -1,0 +1,40 @@
+== K  the K_T refutation (Z's S2 explicit-cone attempt): y, w in K_T* with tr(yw) < 0, in the basis B = (|0+>,|1->,|0->,|1+>)
+CONFIRMED K1 [identity] the circle-1 Bell defects I - 2 phi phi^dag, phi = (|0+> + e^{ig}|1->)/sqrt2, are exactly ell1(e^{-ig}, 1): their closed cone is L1 = {ell1(u,L): |u| <= L} and its dual is {2|y12| <= y33 + y44}
+CONFIRMED K2 [identity] y = [[1,1,c1,0],[1,1,c2,0],[c1*,c2*,1,0],[0,0,0,1]] (c1 = (1+2i)/5, c2 = (2-i)/5) lies in L1* (2|y12| = y33 + y44 = 2) and in L2* (y34 = 0)
+CONFIRMED K3 [witness] y = q0 + ell1(u0, 7/17) with q0 Hermitian PSD (exact characteristic-coefficient signs) and |u0|^2 = 1613/10000 <= 49/289: y in Q + L1, hence y in K_T* = (Q + L1 + L2) cap L1* cap L2* -- |u0|^2 = 1613/10000, L0^2 = 49/289
+CONFIRMED K4 [witness] w = v v^dag + ell1(zeta, 17), v = (1, -(4+3i)/5, 157i/125, 0), zeta = 530899/31250 + 3i/5: |zeta| <= 17, 2|w12| = w33 + w44, w34 = 0, so w in (Q + L1) cap L1* cap L2* = K_T* as well -- |zeta|^2 = 282205310701/976562500 <= 289; 2|w12| = 555899/15625
+CONFIRMED K5 [witness] tr(y w) = -6/625 < 0 (ipW = 4 tr = -24/625): two elements of K_T* pair negatively, so K_T* is not self-positive and K_T (the only G16 x torus-invariant Bell-type surgery) is not self-dual (Z's refutation) -- -6/625
+CONFIRMED K6c [countercontrol] countercontrol: members of K_T (the defect ell1(1,1) and the identity, which lies in Q cap L1* cap L2*) pair >= 0 with both y and w, as they must (y, w in K_T*); the negative value is between two dual elements, not between a member and a dual element -- 1111798/15625, 0, 587149/15625, 4
+
+== P  the pair obstruction (two Bell-type defects at squared overlap c) and its generalization, symbolic
+CONFIRMED P1 [identity] with sigma = 1/(4c): tr(y d_l) = 0, tr(y d_j) = 1 - 2c + 1/c > 0 (y in Z* and in Q + cone Z, so y in K*), and tr(y w) = c - 1/(4c): negative iff c < 1/2 (Z's pair obstruction)
+CONFIRMED P2 [instance] c = 9/25 gives -301/900 (Z's value); countercontrol c = 16/25 gives +399/1600 (no refutation for c >= 1/2)
+CONFIRMED P3 [witness] realized on Phi+ and (I (x) R_{3/5,4/5}) Phi+ (overlap 9/25): tr(yw) = -301/900 with y, w in K({d1,d2})* exactly -- -301/900
+CONFIRMED P4 [identity] NOTES N15: for seeds aE00 - T/4 with sigma = (1-a)/G, <y, z_l> = 0 and <y,w> = 4c - (1-a)^2/G; at c = 0 (orthogonal pair) and a in (1/2,1) this is negative: a plain surgery over two generalized seeds is not self-dual (identity check; the pairing table is the one Z states)
+MISMATCH P4c [countercontrol] countercontrol: at (c, a) = (0, 3/4) the value is negative; at the Bell case a = 1/2 with c = 1/2 it is positive (no refutation there, consistent with P2)
+
+== S  the S3 and S3-z seeds (claim D instances)
+CONFIRMED S1 [identity] psi_a = (15,-1,7,7)/18 is a unit vector and |det Psi|^2 = 784/6561 = (28/81)^2 on the whole torus orbit exp(-i beta X(x)X) of psi_a and of CNOT psi_a (local factors and G16 do not change |det|): psi_a is unreachable at S3 -- 784/6561, 784/6561
+CONFIRMED S2 [identity] f(psi_a) = (1 + sqrt(1 - 4 min|det|^2))/2 = 1/2 + 5 sqrt(137)/162 (Z's value) and f <= 7/8: alpha = 7/8 is admissible -- (5/18 + sqrt(137)/18)**2
+CONFIRMED S3 [identity] the seed e = (7/8)E00 - T_psi/4 has rho(e) psi_a = -psi_a/32 (not PSD) and <E00, e> = 7/8 - 1/4 = 5/8 > 0 (closedness of the seed cone)
+CONFIRMED S4 [witness] the seed pairs >= 0 with 40 exact reachable pure states (torus images of products and CNOT-products), as the bound guarantees -- min pairing 83/648
+CONFIRMED S5 [identity] the only maximally entangled states whose torus orbit stays maximally entangled, (|++> + e^{ig}|-->)/sqrt2 and (|+-> + e^{ig}|-+>)/sqrt2 [W: AM-GM], are sent by CNOT to products (det = 0, symbolic in g): no Bell-type defect exists at S3 (Z and Y agree)
+CONFIRMED S6c [countercontrol] countercontrol: the product |00> has |det|^2 = sin^2 cos^2 on its torus orbit, with minimum 0 (reachable), so it admits no seed
+CONFIRMED S7 [identity] S3-z: psi_t = (7,4,0,4)/9 has |det|^2 = 784/6561 on its torus orbit and 256/6561 on CNOT psi_t's, so min|det| = 16/81, f = 1/2 + sqrt(5537)/162 = (7/18 + sqrt(113)/18)^2 <= 24/25 (Z's value): alpha = 24/25 admissible -- 784/6561, 256/6561
+
+== G  the groups as signed permutations of the 16 Pauli tables; orders, stabilizers, seeds
+CONFIRMED G1 [identity] orders: G16 = 16, <G16,SWAP> = 48, G_H = <G16, Ad(I(x)H)> = 128, G_S = <G16, Ad(S(x)I)> = 32, Gbig (local Paulis, T, cnot) = 64, <Gbig,SWAP> = 192, G_Cl (Clifford with T) = 23040 (Z's census) -- (16, 48, 128, 32, 64, 192, 23040)
+CONFIRMED G2 [identity] Stab_Cl(Z_F) has 1536 elements (Z's value) and contains <G16,SWAP> and <Gbig,SWAP>; the action of <G16,SWAP> on the four defects has image of order 24 (= S4), kernel of order 2 -- stab 1536, image 24
+CONFIRMED G3 [identity] the G_S orbit of the Bell-type defect z_(1,1) has 8 elements with off-diagonal pairings exactly {0, 1/8}: not pairwise orthogonal (Z: SD2 does not apply; explicit cone open) -- 8, [0, 1/8]
+CONFIRMED G4 [identity] for a table E00 + sum C_ij E_ij (zero marginals), the X(x)I and Y(x)I marginals of cnot T are C11, C21 and the I(x)Z marginal of cnot.Ad(I(x)H) T is C31 (symbolic): a G_H-orbit of maximally entangled states would force the first column of the orthogonal C to vanish -- impossible: no Bell-type defect for G_H or any group containing it (Z's refutation of the finite-extension conjecture) -- C11, C21, C31
+CONFIRMED G5 [witness] instances: 5 maximally entangled states (two Bell states, two rotated Bell states, (1,1,1,-1)/2) each have a G_H image with a nonzero token-1 marginal (m > 0) -- [1, 1, 1, 1, 1]
+CONFIRMED G6 [identity] seeds: m(psi_a) = max over the group of the squared token-1 Bloch length = 4160/6561 for G_H and 6272/6561 for G_Cl (exhaustive, Z's values); f = (1 + sqrt m)/2 <= 9/10 and <= 99/100 respectively, so alpha = 9/10 and 99/100 are admissible -- 4160/6561, 6272/6561
+MISMATCH G7c [countercontrol] countercontrol: a product state has m = 1 in every group (reachable, no seed); a rotated Bell state has m < 1 under G_H
+CONFIRMED G8 [identity] consistency with the determinant form: m = 1 - 4 min|det Psi|^2 gives min|det| = 17/162 over G_Cl and 49/162 over G_H for psi_a
+
+== A  the axis question at level (ii): the images under T and Ad(I(x)Z) that G16 supplies
+CONFIRMED A1 [identity] level (i) (cnot alone): the equatorial control axis (3,4,0) and the target axis (0,3,4) perpendicular to x close to abelian 2-tori; the generic axes (3,0,4) control and (3,4,0) target close to dimension 4 (Z's S3-g: UNIQUE) -- control {'[3, 4, 0]': 2, '[3, 0, 4]': 4, '[1, 0, 0]': 2, '[0, 1, 0]': 2, '[0, 0, 1]': 1}; target {'[0, 3, 4]': 2, '[3, 4, 0]': 4, '[1, 0, 0]': 1, '[0, 1, 0]': 2, '[0, 0, 1]': 2}
+CONFIRMED A2 [identity] level (ii) (with G16): T sends an axis to (nx, -ny, nz) and Ad(I(x)Z) sends a target axis to (-mx, -my, mz); the equatorial control axis (3,4,0) and the target axis (0,3,4) then close to dimension >= 4 (reachable: UNIQUE), while the coordinate axes stay exceptional. Z's [W] extrapolation 'EXOTIC for every equatorial control axis / every target axis perpendicular to x' is correct at level (i) only; Z's exact nodes (control x, y; target z) are unaffected -- control {'[3, 4, 0]': 6, '[3, 0, 4]': 4, '[1, 0, 0]': 2, '[0, 1, 0]': 2, '[0, 0, 1]': 1}; target {'[0, 3, 4]': 6, '[3, 4, 0]': 6, '[1, 0, 0]': 1, '[0, 1, 0]': 2, '[0, 0, 1]': 2}
+CONFIRMED A3c [countercontrol] countercontrol: for the coordinate axes the level-(ii) images coincide with the axis (up to sign), so the dimension does not change (Z's S3 and S3-z verdicts stand at level (ii))
+checks: 29, confirmed: 27
+VERDICT INDEP-Z-MISMATCH

@@ -1,0 +1,28 @@
+NOTE modules in OIBridge/: 214; aggregator OIBridge.lean imports 214 of them
+PASS C1 every module file has at least one import line (Mathlib or OIBridge); aggregator excluded from paths
+PASS C2 positive controls: K2Guard ->* CompositeInterface and RegionTower ->* TypedCompletion; countercontrol: no path CompositeInterface ->* K2Guard
+NOTE modules (other than the aggregator) reaching both a ball-core and a complex-core module: none
+PASS Q1a no import path in either direction between the field-neutral composite core and the complex region core  [missing=[] paths=[]]
+PASS C4a identifier scanner finds PreComposite in CompositeInterface.lean (positive control)
+PASS C4b identifier scanner finds TokenCoherent in the preflight input FourCopyPackage.lean (positive control)
+PASS Q1b the COMP-1 structure names occur only in CompositeInterface.lean  [users=['CompositeInterface']]
+PASS C3 carrier scanner: finds W4 in FourCopyPackage.lean; counts no >=3-copy carrier in CompositeDimension or CompositeInterface although both contain two-copy carriers; does not count `pc : Fin 4 -> Fin 4 -> Fin 4`  [W4 hits=1, two-copy hits CD=1 CI=2]
+NOTE field-neutral side scanned for Q1c (18 modules): CompletionAction, CompositeDimension, CompositeInterface, DenseOrbit, EffectSpace, K1Bridge, K2Guard, KInfFoundations, NativeGateBall, OddChar, ParityNot, RelcSelectBlock, RelcSelectC5, RelcSelectParity, RelcSelectSqueeze, SharpTests, StageCompletion, TransitiveBody
+NOTE three-binder real-valued types outside the field-neutral side (not judged): HydroSourceAudit: Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℝ, HydroSourceAudit: Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℝ, HydroSourceAudit: Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℝ, HydroSourceAudit: Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℝ, HydroSourceAudit: Fin 3 → Fin 3 → Fin 3 → Fin 3 → ℝ
+PASS Q1c no field-neutral module contains a real-valued carrier with >= 3 chained Fin binders  [hits=[]]
+NOTE COMP-1 value: ball3MaxComposite : Composite ball3 ball3 (Carrier 3 3)
+NOTE COMP-1 value: ball3MinComposite : Composite ball3 ball3 (Carrier 3 3)
+NOTE COMP-1 value: bitComposite : Composite (simplex 2) (simplex 2) (Carrier 2 2)
+NOTE COMP-1 value: maxComposite : Composite ΩA ΩB (Carrier dA dB)
+NOTE COMP-1 value: maxPre : PreComposite ΩA ΩB V
+NOTE COMP-1 value: minComposite : Composite ΩA ΩB (Carrier dA dB)
+NOTE COMP-1 value: minPre : PreComposite ΩA ΩB V
+NOTE COMP-1 value: paddedBall3 : PreComposite ball3 ball3 (Carrier 3 3 × ℝ)
+NOTE COMP-1 value: paddedPre : PreComposite ΩA ΩB (V × ℝ)
+PASS Q1d every Composite/PreComposite value of CompositeInterface has one-copy factor bodies (ball3, simplex 2, or generic ΩA ΩB), and at least four such values exist  [values=9]
+PASS Q1e no stage-product, joint-tower, local-extension or four-copy package name occurs in the base  [found=[]]
+NOTE DirectedStages values defined in the base: CompletionAction.midD, StageCompletion.badD, StageCompletion.bitTower
+PASS Q2a DirectedStages values listed (record only)  [count=3]
+PASS Q2b the region tower's inclObs and restrict act on complex matrices over configurations
+--- s0_census: 12/12 checks pass
+VERDICT S0-CENSUS-NO-MULTICOPY-STRUCTURE

@@ -1,0 +1,15 @@
+# Thread B start marker
+utc: 2026-10-10T04:33:37Z
+## sha256sum -c --quiet inputs.manifest.sha256
+exit: 0
+## git -C base rev-parse HEAD
+9f9f8257a980a1819fbbc1dc0019917cf8678626
+## git -C base status --porcelain (empty expected)
+exit: 0
+## PROTOCOL.md sha256
+239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  PROTOCOL.md
+## B dir listing before marker
+total 12
+drwxr-xr-x 2 root root 4096 Oct 10 04:33 .
+drwxr-xr-x 8 root root 4096 Oct 10 04:32 ..
+-rw-r--r-- 1 root root  366 Oct 10 04:33 .start_marker

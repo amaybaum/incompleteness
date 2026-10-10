@@ -1,0 +1,10 @@
+PASS S1 value = A + B + (e_T.x_T) a' + (e_T.J x_T) b'  (identity in c, s)
+PASS S2 alpha beta - a'^2 - b'^2 = (2 - 2c)(PM - |omega|^2) on c^2 + s^2 = 1
+PASS S3 4(PM - |omega|^2) = cone slack (1-y_x^2) + |u|^2 ball slack + Bessel bracket
+PASS S3 Bessel bracket: |v|^2 [|u|^2|v|^2 - (u.v)^2 - (u.Kv)^2] = |g|^2 (K orthogonal complex structure)
+PASS S4 Bessel on T: |x_T|^2 Bes_J = |g_J|^2
+PASS S4 4AB - C^2 decomposition (identity in c, s)
+PASS R_t is 1 (+) orthogonal on the circle (so alpha, beta >= 0 for f in the cone, y in the ball)
+PASS J and K are orthogonal complex structures on their blocks
+review_jkflow_positivity: 8/8 checks pass
+exit 0

@@ -1,0 +1,28 @@
+PASS T0 transcription: every transcribed definition matches the base source text
+PASS P1 homMap (rot3 t) at indices 0..3 = v0, c v1 - s v2, s v1 + c v2, v3
+PASS P2 homMap (rotX t) at indices 0..3 = v0, v1, c v2 - s v3, s v2 + c v3
+PASS P2b rot3 a xplus = (ca, sa, 0); rotX b z3 = (0, -sb, cb)
+PASS P3 cnot (actC (rot3 t) w) = actC (rot3 t) (cnot w), symbolic w, independent c, s
+PASS P4 cnot (actT (rotX t) w) = actT (rotX t) (cnot w), symbolic w, independent c, s
+PASS N1 countercontrol: cnot does NOT commute with actC (rotX t) (control x-rotation)
+PASS N2 countercontrol: cnot does NOT commute with actT (rot3 t) (target z-rotation)
+PASS P5 actT (rotX t) phiW = actC (rotX t) phiW and actT (rot3 t) phiW = actC (rot3 t) phiW
+PASS P5b general: actT M phiW = actC (reflY M^T reflY) phiW for symbolic M
+PASS N3 countercontrol: actT M phiW != actC M phiW for symbolic M
+PASS P6 G7(ii): cnot (prodState (rot3 a xplus) (rotX b z3)) = actC (rotWord a b) phiW (polynomial identity)
+PASS P6b structural route: prodState (R3 xplus) (RX z3) = actC R3 (actT RX (prodState xplus z3))
+PASS P6c cnot (prodState xplus z3) = phiW
+PASS P7 G7(iii): actC (rotWord a b) phiW = actT (rotWord' a b) phiW
+PASS N4 countercontrol: actC (rotWord a b) phiW != actT (rotWord a b) phiW (unreversed word)
+PASS P8 actC A (actT B (actC Wd phiW)) = actC (A Wd) (actT B phiW) (symbolic A, B, Wd)
+PASS P8b actC A (actT (B Wd') phiW) = actC A (actT B (actT Wd' phiW)) (symbolic)
+PASS P9 tabMul X idW = X (symbolic X)
+PASS P10 actC reflY idW = phiW
+PASS P11 bellOf A B = actC (A reflY B^T) idW (symbolic A, B)
+PASS P11b tabMul (actC P (actT Q phiW)) g = actC (P reflY Q^T) g (symbolic P, Q, g)
+PASS P12 rotYpi = diag(-1,1,-1) is in SO(3); actC rotYpi (dg p q r s) = dg p (-q) r (-s)
+PASS P12b gateOf tau (prodState xplus z3) = dg 1 1 sgnB 1; at (-xplus, -z3) = dg 1 -1 sgnB -1 = actC rotYpi of it
+PASS P13 orientation reduction on 144 exact orthogonal pairs: rotation trn C (tau true) / reflY trn C (tau false) sends bellOf A B to idW / phiW; det C = -det A det B  [true 64, false 80]
+PASS N5 countercontrol: the swapped assignment fails on every pair  [144]
+--- precheck_g7g14: 26/26 checks behave as stated
+VERDICT PRECHECK-G7G14-PASS

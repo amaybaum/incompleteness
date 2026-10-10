@@ -1,0 +1,32 @@
+  PASS  P delta(D, commit) is exactly the governed execution paths plus the record directory
+  PASS  L the landed texts read from D are the frozen ones
+  PASS  N1 RelcSelectParity declares exactly its frozen declarations
+  PASS  N2 RelcSelectParity: the preamble and every context block unchanged and in order
+  PASS  N2 RelcSelectParity: every frozen statement and definition unchanged
+  PASS  N3 RelcSelectParity: no sorry, admit, axiom or native_decide; every frozen #print axioms line present
+  PASS  N1 RelcSelectBlock declares exactly its frozen declarations
+  PASS  N2 RelcSelectBlock: the preamble and every context block unchanged and in order
+  PASS  N2 RelcSelectBlock: every frozen statement and definition unchanged
+  PASS  N3 RelcSelectBlock: no sorry, admit, axiom or native_decide; every frozen #print axioms line present
+  PASS  N1 RelcSelectSqueeze declares exactly its frozen declarations
+  PASS  N2 RelcSelectSqueeze: the preamble and every context block unchanged and in order
+  PASS  N2 RelcSelectSqueeze: every frozen statement and definition unchanged
+  PASS  N3 RelcSelectSqueeze: no sorry, admit, axiom or native_decide; every frozen #print axioms line present
+  PASS  N1 RelcSelectC5 declares exactly its frozen declarations
+  PASS  N2 RelcSelectC5: the preamble and every context block unchanged and in order
+  PASS  N2 RelcSelectC5: every frozen statement and definition unchanged
+  PASS  N3 RelcSelectC5: no sorry, admit, axiom or native_decide; every frozen #print axioms line present
+  PASS  S1 parity from IsNot and relC alone; the parity module free of relT, the frame and positivity
+  PASS  S2 CtrlGate is NativeGate without relT; IsNot and CtrlGate give d = 1 ∨ d = 3, Entangling d = 3; the copy is the landed proof; no relT read
+  PASS  S3 at d = 5, gSq fails posInv and gSq.symm fails posFwd with every other clause; the relC transfer takes relT
+  PASS  S4 at d = 5, gC5 with nC5 has the frame, relT and both positivity clauses and fails relC; the selector does not follow
+  PASS  S6 no complex field or landed dimension selector; only the frozen selector theorems conclude on d; no native gate concluded
+  PASS  S7 no declaration shares a name with a visible OIBridge declaration or another module of the round; the imports are the frozen ones
+  PASS  S8 the comments of the modules carry none of the frozen phrases
+  PASS  S9 exactly the frozen #print axioms lines of each module (2, 5, 15, 12), distinct, each naming a declaration of its module
+  PASS  V one outcome per cell by the frozen rules: RELC-PARITY-PROVED, CTRL-SELECTOR-PROVED, POSITIVITY-SEPARATION-PROVED, RELT-NOT-DIMENSION-SELECTING-PROVED
+  PASS  I OIBridge.lean is D's with exactly the four frozen import lines
+  PASS  C the census is D's with exactly the frozen family after the ODD-CHAR-1 family
+  FAIL  F the preregistration is unchanged from F
+  PASS  F delta(D, F) is the preregistration alone
+controls: FAILED (1 of 31): F

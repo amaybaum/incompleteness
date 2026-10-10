@@ -1,0 +1,5 @@
+PASS K0 transcription control
+PASS A the 36 K_tw inequalities restricted to GD cap S10: the undominated C-bounds are exactly the four forms of phi_tw (36 generators, 4 distinct C-bounds, 8 C-free forms, all with nonnegative coefficients)
+PASS B H_tw is self-dual: F F^T >= 0 entrywise (12 rows) and its 12 extreme rays pair >= 0; countercontrol: without (P0 + P1 + P2 + P3)/2 the extreme rays pair to -1/4 < 0
+--- s7_s10_slice_c1: 3/3 checks pass
+VERDICT S7-S10-SLICE-C1-EXACT

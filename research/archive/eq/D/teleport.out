@@ -1,0 +1,17 @@
+PASS omega is a primitive cube root of unity (exact)
+PASS S is skew-Hermitian (so its Cayley transform is unitary)
+PASS Cayley unitary Uc: Uc^dag Uc = 1 exactly; Uc is not monomial
+PASS (1) [swap P01] sum_ab K_ab^dag K_ab = 1 (an instrument on the input)
+PASS (1) [swap P01] K_00 = U/3 exactly
+PASS (1) [swap P01] every branch is (1/3) U V_ab with V_ab unitary (branch map = (1/9) conj(U V_ab))
+PASS (1) [Cayley Uc] sum_ab K_ab^dag K_ab = 1 (an instrument on the input)
+PASS (1) [Cayley Uc] K_00 = U/3 exactly
+PASS (1) [Cayley Uc] every branch is (1/3) U V_ab with V_ab unitary (branch map = (1/9) conj(U V_ab))
+PASS (2) RUS: success weight after 1 rounds = 1 - (8/9)^1 exactly
+PASS (2) RUS: success weight after 2 rounds = 1 - (8/9)^2 exactly
+PASS (2) RUS: success weight after 5 rounds = 1 - (8/9)^5 exactly
+PASS (2) RUS: success weight after 10 rounds = 1 - (8/9)^10 exactly
+PASS (2) RUS: success weight after 40 rounds = 1 - (8/9)^40 exactly
+PASS (2) RUS never reaches weight 1 at finite N ((8/9)^N > 0)
+
+VERDICT  with full kinematics on T(x)T and no operation acting on T, every unitary on T is available as an exact probabilistic branch (weight 1/9) and deterministically within 2(8/9)^N; exact deterministic availability is not decided by this computation

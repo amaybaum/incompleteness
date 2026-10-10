@@ -1,0 +1,9 @@
+| run | head | what the head carries | outcome |
+| --- | --- | --- | --- |
+| 36296861494 | `d204841a6108a9fc85bfd6d372058f0d498e9804` | **the twenty frozen propositions and the corollary of this file**, exactly as frozen, as twenty-one `#check` commands under the frozen header, wired directly after `OrbitIsometryGroup`, with no census family | the `Mathlib bridge` build is green: all twenty-one `#check`s elaborate and no error is reported; the job is red only at the release gate's `lean-manuscript` step, the new module carrying no census family. The kernel check and the numerical probes are green |
+| 36297196513 | `4ad2037476059119524c03356ce9aeeae736e0a0` | the same, with a disposable census family for the module | all three jobs green. All twenty-one `#check`s elaborate and no error is reported; the release gate passes all 21 steps with nine receipts holding |
+| 36297226027 | `432820d0fc16832108bedfc751bfc1248f2cf7c1` | **the countercontrol**: the head of the second run with one deliberate defect, an extra argument to `tup` in `P_R`'s `POINT` conjunct | red, as required. The `Mathlib bridge` build fails with exactly one source error, `OIBridge/ProductStratum.lean:37:61: Application type mismatch`, at that argument; the kernel check and the numerical probes are green |
+
+The countercontrol shows that the elaboration check has force: an ill-typed frozen statement fails
+the build at its own line, and nothing else fails. The disposable census family and the
+diagnostics step are recorded for what they are and are not part of the freeze.

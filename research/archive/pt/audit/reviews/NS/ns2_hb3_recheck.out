@@ -1,0 +1,15 @@
+A1: PASS -- moved states: 5; inverse explicit on all 64: True
+A2: PASS -- [True,True,True,True]
+A3: PASS -- t: [(((0, 0), 0), 1), (((0, 0), 3), 1)]; t-1: [(((0, 0), 3), 1), (((1, 0), 0), 1)]
+A4: PASS -- P1 on block (0,0) at t+1: c -> 1, c' -> 0
+A5: PASS -- next (M,P1,P2): c -> [(((0, 0), 0), 1), (((0, 0), 1), 1), (((1, 0), 0), 1), (((1, 0), 1), -1)]; c' -> [(((0, 0), 0), 1), (((0, 0), 2), 1), (((0, 1), 0), 1), (((0, 1), 2), -1)]
+CC1: PASS -- pure streaming t+1 histograms equal: True
+CC2: PASS -- site-level states of c and c' differ at t
+C3: PASS -- block-shift lemma: True; rule on 4657 configurations of mass <= 2: True
+CC3: PASS -- gas t+1 histogram of c': [(((0, 0), 1), 1), (((0, 1), 4), 1)]; shift rule gives: [(((0, 0), 0), 1), (((1, 0), 3), 1)]
+H1: PASS -- q in {2,3,4,5,7}: equal two-time block states, block {0,1,2} at t+1: 0 vs 1
+H2: PASS -- closing rule exact on all 20195 (q, alpha, configuration) cases
+CC4: PASS -- perturbed rule refuted for every alpha in Z_3
+VERDICT-HB3: HB3-a re-evaluated exactly at L=4, b=2; the separating information is collision-dependent
+VERDICT-H3A: H-A non-closure witness and closing control re-evaluated
+checks: 12/12 PASS

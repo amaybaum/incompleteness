@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "K1-SHARP-TESTS-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "68b6df0651f14b2c8ab082635b8d2051918617a2",
+ "f": "f2ff52a9894b59f4eaeade4e14f3022510a69522",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-k1-sharp-tests-1/preregistration.md",
+   "blob": "bddfa3401dd16674958fc1de40eaa0d94fd30072"
+  }
+ ],
+ "governed_paths_digest": "a0d46166ef95bb7150445092dd4d38d3cd767d588f36a1781b488ff3a8bbbf9d",
+ "e": "a1ce0bea2b1fefad72efd6a870d57464d1f30373",
+ "tree_e": "ee25abb602750075e33f8af8cacbfdb2a2a8c78b",
+ "execution_delta_digest": "6fcf917616041a5d69cf21a472f1b43c4a009b6a4ae99d8cebd1aefc454c55a4",
+ "candidates": [],
+ "landing": {
+  "base": "68b6df0651f14b2c8ab082635b8d2051918617a2",
+  "object": "51b4a1f82f6298267879b0e1bad22afad766eedd",
+  "reconciliations": [
+   "51b4a1f82f6298267879b0e1bad22afad766eedd"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "ad9e5dde186614c3c0794a5dcc8c857d0ec68ea17ebab17b1d18511b73e92d47"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "f2ff52a9894b59f4eaeade4e14f3022510a69522",
+   "record": "https://github.com/amaybaum/incompleteness/pull/801#issuecomment-6022472726"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "f2ff52a9894b59f4eaeade4e14f3022510a69522",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37503335458"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "a1ce0bea2b1fefad72efd6a870d57464d1f30373",
+   "record": "https://github.com/amaybaum/incompleteness/pull/801#issuecomment-6023324441"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "a1ce0bea2b1fefad72efd6a870d57464d1f30373",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/37511855588"
+  }
+ ]
+}

@@ -1,0 +1,58 @@
+== 1. the certified point, the named point and the exact line ==
+  PASS  SIG is unitary (scaled)                                                True
+  PASS  u60 is a unit                                                          1
+  PASS  P = SIG ∘ u60^W is unitary (scaled)                                    True
+  PASS  rank DF at SIG                                                         176
+  PASS  defect of SIG                                                          49
+  PASS  defect of P                                                            37
+  PASS  W is an exact straight line at SIG (every level-set sum of the c_k vanishes, 120 pairs) True
+  PASS  a one-entry perturbation of W is not a straight line (control)         False
+  PASS  W lies in ker DF                                                       True
+  PASS  the family at u = 1 is SIG entrywise (control)                         True
+  PASS  u5 = (3+4i)/5 is a unit; the second frozen point Pu(u5) is unitary (scaled) (Fraction(1, 1), True)
+  PASS  defect of Pu(u5)                                                       37
+  PASS  cross-ratio violations of P over ordered (b,b'),(c,c') (identity value 1 scaled) 384
+  PASS  the value at (a,b,b',c,c',d) = (0,0,1,0,1,0) is u60 (scaled; u60/256 in the frozen normalization) True
+  (26s)
+== 2. Diţă factorizations by exhaustive search over block structures ==
+  PASS  column-Diţă 4x4 at P: (candidates, exact factorizations)               (1, 0)
+  PASS  column-Diţă 4x4 at Pu(u5): (candidates, exact factorizations)          (1, 0)
+  PASS  column-Diţă 4x4 at SIG = Pu(1): (candidates, exact factorizations) (control) (5, 4)
+  PASS  row-Diţă 4x4 at P: (candidates, exact factorizations)                  (1, 0)
+  PASS  row-Diţă 4x4 at Pu(u5): (candidates, exact factorizations)             (1, 0)
+  PASS  row-Diţă 4x4 at SIG = Pu(1): (candidates, exact factorizations) (control) (5, 4)
+  PASS  column-Diţă 8x2 at P: (candidates, exact factorizations)               (1, 0)
+  PASS  column-Diţă 8x2 at Pu(u5): (candidates, exact factorizations)          (1, 0)
+  PASS  column-Diţă 8x2 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 2)
+  PASS  row-Diţă 8x2 at P: (candidates, exact factorizations)                  (1, 0)
+  PASS  row-Diţă 8x2 at Pu(u5): (candidates, exact factorizations)             (1, 0)
+  PASS  row-Diţă 8x2 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 2)
+  PASS  column-Diţă 2x8 at P: (candidates, exact factorizations)               (1, 1)
+  PASS  column-Diţă 2x8 at P: the frozen blocks and row classes                (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+  PASS  column-Diţă 2x8 at Pu(u5): (candidates, exact factorizations)          (1, 1)
+  PASS  column-Diţă 2x8 at Pu(u5): the frozen blocks and row classes           (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+  PASS  column-Diţă 2x8 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 3)
+  PASS  row-Diţă 2x8 at P: (candidates, exact factorizations)                  (1, 1)
+  PASS  row-Diţă 2x8 at P: the frozen blocks and row classes                   (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+  PASS  row-Diţă 2x8 at Pu(u5): (candidates, exact factorizations)             (1, 1)
+  PASS  row-Diţă 2x8 at Pu(u5): the frozen blocks and row classes              (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+  PASS  row-Diţă 2x8 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 3)
+  (180s)
+== 3. the first-order census at SIG: gauge, the fixed-pairing hulls, the residual, the cokernel ==
+  PASS  dim ker DF                                                             80
+  PASS  gauge rank                                                             31
+  PASS  T_c, T_r, T_c + T_r mod gauge                                          (14, 14, 26)
+  PASS  R = ker DF / (gauge + T): dim                                          23
+  PASS  coker DF: dim                                                          64
+  (195s)
+== 4. every 4x4 Diţă hull through SIG: orientations, factor circles, exact integrability, the span ==
+  PASS  4x4 Diţă hulls through SIG (orientations × circle choices)             492
+  PASS  every hull tangent in ker DF and D²F vanishing exactly on every hull (failures) 0
+  PASS  every hull tangent has dimension 14 mod gauge                          [14]
+  PASS  the span of all 4x4 hull tangents mod gauge equals the defect          49
+  (479s)
+== 5. the stabilizer of SIG in G_ext and the residual sectors ==
+  PASS  factor stabilizer products without factor exchange and with it         ([256, 256, 256, 256], [0, 0, 0, 0])
+  PASS  stabilizer order                                                       1024
+  PASS  conjugacy classes of the stabilizer                                    112
+  PASS  exact coordinate solver reconstructs a transported basis vector (control) True

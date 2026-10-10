@@ -1,0 +1,37 @@
+PASS K0 parsed sgn, pc, pt, phiW, xplus, z3 (CD) and nflip, reflY, idW, chainW (CD, K2G) equal the hand transcriptions
+PASS K1 the landed statements are present (CD:1222, K2G:106, K2G:110, K2G:134) and reproduce exactly
+PASS P1 pauliW(prodState x y) = r(x) (x) r(y) (symbolic x, y)
+PASS P2 kernel cnot = Pauli transfer of Ad(CNOT) on the 16 basis tables; countercontrol: Ad(CZ) fails
+PASS P3 pauliW(actT reflY B) = PT_2 pauliW(B) on the 16 basis tables; countercontrol: without the transpose fails
+PASS P4 pairVal u_a u_b B = tr((s_a (x) s_b) pauliW B) on all basis vectors and basis tables
+PASS P5a op4(prodA B B') = pauliW B (x) pauliW B' and op4(prodB B B') = P (pauliW B (x) pauliW B') P^T on all 256 basis pairs; countercontrol: without P some pair fails
+PASS P5b op4(rho3 Z) = PT_3 op4(Z) and op4(R Z) = P op4(Z) P^T on all 256 basis tables
+PASS P5c tr(s_I s_J) = 16 [I = J] for all 256 x 256 Pauli strings (so sum_I Z_I Z'_I = 16 tr(op4 Z op4 Z'))
+PASS P6 pauliW(phiW) = |Phi+><Phi+| (phiW in Q3); v = (0, 1, -1, 0) gives v^dag pauliW(idW) v < 0 (idW not in Q3); with actT reflY phiW = idW and the involution, idW in twin and phiW not in twin  [v^dag pauliW(idW) v = -1]
+PASS P7 pauliW(tabT B) = SWAP pauliW(B) SWAP on the 16 basis tables (tabT maps Q3 onto Q3)
+PASS L the four sharp-product values sum to X00, and their sign-weighted sum is X_ij (symbolic X); countercontrol: the unweighted sum is not X_ij
+PASS A1 anchor sum: prodEff_apply holds for both structures (symbolic chart points and affine functionals)
+PASS A2 anchor sum: PA's product effects at PB's products are e(x0) f(y0), PB's at PA's products are E(L0) F(L0') (symbolic)
+PASS A3 anchor sum: tok fails at the body point (pState phiW phiW, pState e00 e00), index (a,b,c,d) = (1,1,0,0)  [difference = -1]
+PASS A-control with zero anchors PA's unit pairing at PB's products is not 1 (anchors are load-bearing)  [value = 0]
+PASS R1 M_rho: PB.prodEff_apply (symbolic chart points and affine functionals)
+PASS R2 actT reflY is an involution on W 3, rho = flat o actT reflY o unflat, rho fixes the unit entry (symbolic)
+PASS R3 M_rho: tok fails at pState phiW (prodState 0 e_y), index (0,0,0,2)  [difference = -2]
+PASS R4 Lemma P's family (i) value at the gate-supplied witnesses for cones (Q3, Q3, Q3, twin) is negative (exact)  [value = -1/8]
+PASS R5 cnot and cnotTw are involutions and ipW-self-adjoint, ipW (tens a b) w = pairVal a b w (symbolic); the witness effects are E = phiW/4 and F = dg(1,-1,1,-1)/4 (exact)
+PASS R6 cnotTw = actC id o actT reflY o cnot o actC id o actT reflY (orthogonal locals; symbolic); with Q3 != twin (P6) the twist bits are forced to (0, 0, 0, 1), which is odd
+PASS R-countercontrol M_sigma (token-coherent) with the same cones: PB.prodEff E F at PA's product of the witnesses equals the same negative value (no common body)  [value = -1/8]
+PASS T1 sigma o sigma = id on all 289 basis vectors (sigma^-1 = sigma) and sigma o iota = iota o R (symbolic)
+PASS T2 M_tw cross values: PB.prodEff E F (PA.prodState X Y) = fourVal X Y Et (rho Ft) and PA.prodEff e f (PB.prodState L L') = fourVal et ft L (rho L') (symbolic)
+PASS T3 M_tw: on iota(Z) the tok difference is (s_d - 1) Z_abcd, nonzero exactly at d = 2 (symbolic); countercontrol M_sigma: zero
+PASS T4 M_tw: the two images of a four-token product state differ exactly by rho3 (TokProdState fails; symbolic Bloch vectors); countercontrol M_sigma: equal
+PASS T5 M_tw: token 3's y-marginal reads Z0002 through 01|23 and -Z0002 through 02|13 (STMC fails; symbolic); countercontrol M_sigma: equal
+PASS S1 M_sigma: tok holds on iota(W4) (symbolic)
+PASS S2 Lemma B1 endpoints in M_sigma: PB.prodEff(sum E tabCoord)(sum F tabCoord)(PA.prodState X Y) = fourVal X Y E F and PA.prodEff(sum e tabCoord)(sum f tabCoord)(PB.prodState L L') = fourVal e f L L' (symbolic); countercontrol: the first expression in M_rho differs
+PASS S3 fourVal's four readings (package fourVal_eq_01, _23, _02, _13) hold (symbolic)
+PASS S4 the complement identity pEff e f + pEff (u - e) f + pEff u (u - f) = pEff u u (symbolic carrier point)
+PASS I1 M_id (PB = PA): tok fails at pState (prodState 0 e_x) (prodState 0 0), index (0,1,0,0); fourVal X Y E F = sum_I (prodA X Y)_I (prodB E F)_I (symbolic)  [difference = -1]
+PASS I2 M_T (f1 W4 completed): tok fails at pState (prodState e_x 0) (prodState 0 0), index (1,0,0,0); PB.prodEff E F (PA.prodState X Y) = fourVal X Y (tabT Et) Ft (symbolic)  [difference = -1]
+PASS F no float entered any checked quantity
+--- s1_kt4_models: 35/35 checks pass
+VERDICT S1-KT4-WITHOUT-TOK-MODELS-EXACT

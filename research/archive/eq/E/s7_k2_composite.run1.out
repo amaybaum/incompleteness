@@ -1,0 +1,14 @@
+PASS  complex two-qubit LT: the 16 Pauli products are R-linearly independent in Herm(4) (rank 16 = 4 x 4)
+PASS  foil states are real symmetric two-rebit states: (I + Y(x)Y)/4 is real symmetric with spectrum {1/2,1/2,0,0}
+PASS  FOIL: real QM fails LT -- I/4 and (I + Y(x)Y)/4 agree on every product of real local effects
+NOTE  written: tr(rho E (x) F) >= 0 for PSD rho, E, F, so the PSD cone lies in maxCone; products of states are PSD.
+PASS  CNOT: unitary, and its transfer matrix is real with T T^T = I (it permutes the cone of states)
+PASS  H (x) I: unitary, and its transfer matrix is real with T T^T = I (it permutes the cone of states)
+PASS  I (x) H: unitary, and its transfer matrix is real with T T^T = I (it permutes the cone of states)
+PASS  S (x) I: unitary, and its transfer matrix is real with T T^T = I (it permutes the cone of states)
+PASS  I (x) S: unitary, and its transfer matrix is real with T T^T = I (it permutes the cone of states)
+PASS  actT reflY (the partial transpose on copy B) maps Phi+ to an operator with eigenvalue -1/2 (outside the cone)
+FAIL  K2Guard's chain (K2Guard:104,134) reproduced through the quantum identification: cnot . actT reflY . cnot (prodState xplus z3) = chainW, pairing -1/2 with sharp(-e1) (x) sharp(-e3)
+PASS  with nflip (= Ad_X, a rotation) in place of reflY the chain stays in the cone (value 0, as K2Guard records)
+NOTE  reading: K2Guard's obstruction is the failure of positivity of the partial transpose; QM's local reversible group is SO(3) (det +1) and never contains reflY, so QM satisfies K2's compatible-local-action premise.
+s7_k2_composite: FAILED -- 11 checks, 1 failed

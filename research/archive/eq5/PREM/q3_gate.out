@@ -1,0 +1,48 @@
+PASS K transcription and landed statements: sgn, pc, pt, nflip, reflY, z3, xplus, phiW, idW, chainW; cnot_prodState_xplus_z3, actT_reflY_phiW, cnot_idW, chain_value (reproduced), nativeGate_cnot, entangling_cnot, maxConeOf_fullEffects (present)
+PASS G-MAX idW in maxCone (pairings 1, 1/2, 1/2, (1 + b.c)/4 on the generators of the effect cone, symbolic); cnot idW = chainW is -1/2 at a sharp pair: hgate fails on MAX; cnot is an involution (16 basis tables): hinv fails  [value = -1/2]
+PASS G-MIN F(prodState x y) = 1/2|x - Dy|^2 + 1/2(1 - |x|^2) + 1/2(1 - |y|^2) (symbolic), so F >= 0 on MIN; F(phiW) < 0 with phiW = cnot(prodState xplus z3): hgate fails on MIN  [F(phiW) = -2]
+PASS G-TWIN (t1) actT reflY maps prodState x y to prodState x (reflY y), involution; (t2) pauliW(prodState x y) = r(x) (x) r(y); (t3) pairVal a b w = tr((A (x) B) pauliW w) and the reflY pullback; (t4) v^dag pauliW(idW) v < 0, actT reflY phiW = idW, phiW = cnot(prodState xplus z3): hgate fails on TWIN; (t5) N-CLASS (identity locals), frame, relT, relC; (t6) actT reflY ipW-self-adjoint; (t7) cnot orthogonal signed permutation fixing e00  [t1 True t2 True t3 True/True t4 True (value -1) t5 True t6 True t7 True]
+PASS W witnesses: SINGLET and D' = dg(1,-1,1,-1) pair with hom b (x) hom c as 1 - b.c and 1 - b1c1 + b2c2 - b3c3 (symbolic; nonnegative for |b|,|c| <= 1, so both lie in maxCone); ipW(idW, SINGLET) < 0; cnot(tens(sharpVec xplus)(sharpVec z3)) = phiW/4 and ipW(phiW/4, D') < 0  [ipW(idW, SINGLET) = -2, ipW(cnot tens, D') = -1/2]
+RESULT MAX  hgate FAILS  (cnot idW = chainW, -1/2 at a sharp pair (G-MAX))
+RESULT MAX  K1    HOLDS  (nativeGate_cnot CD:1160, entangling_cnot CD:1380, isNot_nflip CD:838 (independent of K))
+RESULT MAX  NGOF  HOLDS  (avail = all effects: maxConeOf = maxCone (EffectSpace:415); then NativeGateOf = NativeGate)
+RESULT MAX  PAIR  HOLDS  (SOURCE s2 D1-D3 + G-MAX: maxCone is a closed CandidateCone convex cone; N-CLASS (t5))
+RESULT MAX  SD    FAILS  (idW in MAX and SINGLET in MAX with ipW(idW, SINGLET) < 0 (W))
+RESULT MAX  IIP   N/A    (the second moments of MAX are not computed here)
+RESULT MAX  PRP   HOLDS  (posFwd/posInv of nativeGate_cnot: cnot(prodState x y) in maxCone (CD:1152))
+RESULT MAX  JR    FAILS  (PreservesBody {cnot} would contain hgate (G-MAX))
+RESULT MAX  OAE   FAILS  (tens(sharpVec xplus)(sharpVec z3) in dualW MAX, its cnot image phiW/4 is negative on D' in MAX)
+RESULT MAX  OPACT FAILS  (preservesBody_inducedEquiv (CA:352) would give PreservesBody, contradicting G-MAX)
+RESULT MIN  hgate FAILS  (F(phiW) = -2 with phiW = cnot(prodState xplus z3) (G-MIN))
+RESULT MIN  K1    HOLDS  (as MAX (independent of K))
+RESULT MIN  NGOF  HOLDS  (as MAX)
+RESULT MIN  PAIR  HOLDS  (SOURCE s2: the minimal body is a closed CandidateCone convex cone; N-CLASS (t5))
+RESULT MIN  SD    FAILS  (dualW MIN = maxCone contains idW, which is not in MIN (idW is not in Q3 (t4) and MIN is in Q3 (t2)))
+RESULT MIN  IIP   N/A    (the second moments of MIN are not computed here)
+RESULT MIN  PRP   FAILS  (cnot(prodState xplus z3) = phiW is not in MIN (G-MIN))
+RESULT MIN  JR    FAILS  (would contain hgate (G-MIN))
+RESULT MIN  OAE   FAILS  (dualW MIN = maxCone contains idW; cnot idW = chainW is not in maxCone (G-MAX))
+RESULT MIN  OPACT FAILS  (would give PreservesBody (CA:352), contradicting G-MIN)
+RESULT TWIN hgate FAILS  (prodState xplus z3 in TWIN (t1, t2), cnot image phiW not in TWIN (t4))
+RESULT TWIN K1    HOLDS  (as MAX (independent of K))
+RESULT TWIN NGOF  HOLDS  (as MAX)
+RESULT TWIN PAIR  HOLDS  (CandidateCone: products in TWIN (t1, t2), TWIN in maxCone (t3); convex cone and closed (linear image of Q3, W); N-CLASS with identity locals (t5))
+RESULT TWIN SD    HOLDS  (dualW TWIN = actT reflY (dualW Q3) = TWIN: t6 + Q3 self-dual (package O28, W))
+RESULT TWIN IIP   HOLDS  (cnot orthogonal, fixing e00 (t7); the IIP-1 form of TWIN is a multiple of the Euclidean one (W: Ad SU(4) irreducible on traceless Hermitian, PT_2 diagonal +-1))
+RESULT TWIN PRP   FAILS  (cnot(prodState xplus z3) = phiW is not in TWIN (t4))
+RESULT TWIN JR    FAILS  (would contain hgate (t4))
+RESULT TWIN OAE   FAILS  (dualW TWIN = TWIN contains prodState xplus z3; its cnot image phiW is not in TWIN (t4))
+RESULT TWIN OPACT FAILS  (would give PreservesBody (CA:352), contradicting t4)
+PASS T consistency: no relabelling formulation (JR, OAE, OPACT) HOLDS where hgate FAILS, and every exact entry of the table rests on a passing check above
+PASS F four-token level: FourCopyCoherent's two families factorize on the generators for uniform SEP (product states against arbitrary effect tables) and for uniform maxCone (arbitrary states against product effect tables), symbolic
+REFUTATION K1    => hgate : REFUTED by MAX, MIN, TWIN
+REFUTATION NGOF  => hgate : REFUTED by MAX, MIN, TWIN
+REFUTATION PAIR  => hgate : REFUTED by MAX, MIN, TWIN
+REFUTATION SD    => hgate : REFUTED by TWIN
+REFUTATION IIP   => hgate : REFUTED by TWIN
+REFUTATION PRP   => hgate : REFUTED by MAX
+REFUTATION JR    => hgate : SURVIVES
+REFUTATION OAE   => hgate : SURVIVES
+REFUTATION OPACT => hgate : SURVIVES
+--- q3_gate: 7/7 checks pass
+VERDICT Q3-PART-B-GATE-EXACT

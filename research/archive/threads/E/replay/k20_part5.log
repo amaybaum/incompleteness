@@ -1,0 +1,10 @@
+witness for SO-class 2: value -2.000000 at s,t,f,g = [[1.0, 0.6994, 0.7148, -0.0], [1.0, -0.0, -0.6212, -0.7837], [1.0, -0.6994, -0.7148, -0.0], [1.0, -0.0, 0.6212, 0.7837]]
+SO-class  0 rep ((1, 1), (-1, -1, -1, 1)) unitary=False : min product value over words with generic local rotations ~ -0.0000
+SO-class  1 rep ((1, 1), (-1, -1, 1, -1)) unitary=True : min product value over words with generic local rotations ~ -0.0000
+SO-class  6 rep ((1, -1), (-1, 1, -1, -1)) unitary=False : min product value over words with generic local rotations ~ -0.0000
+SO-class  7 rep ((1, -1), (-1, 1, 1, 1)) unitary=False : min product value over words with generic local rotations ~ -0.0000
+SO-class 10 rep ((-1, 1), (-1, 1, -1, -1)) unitary=False : min product value over words with generic local rotations ~ -0.0000
+SO-class 11 rep ((-1, 1), (-1, 1, 1, 1)) unitary=False : min product value over words with generic local rotations ~ -0.0000
+SO-class 12 rep ((-1, -1), (-1, -1, -1, 1)) unitary=False : min product value over words with generic local rotations ~ -0.0000
+SO-class 13 rep ((-1, -1), (-1, -1, 1, -1)) unitary=True : min product value over words with generic local rotations ~ -0.0000
+exit 0 time 25s

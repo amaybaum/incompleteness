@@ -1,0 +1,16 @@
+(0) builder reproduces the complex CNOT with M0 = I, A = I, K = [[0,-1],[1,0]]: True
+(1) M0 = (1, 1) : value = (1+s_z f_z)(1+g_x t'_x) + (s_z+f_z)(g-.t'-) + (f.As)(g_x+t'_x) + (f.Ks)(g- x t'-): True
+(1) M0 = (1, -1) : value = (1+s_z f_z)(1+g_x t'_x) + (s_z+f_z)(g-.t'-) + (f.As)(g_x+t'_x) + (f.Ks)(g- x t'-): True
+(1) M0 = (-1, 1) : value = (1+s_z f_z)(1+g_x t'_x) + (s_z+f_z)(g-.t'-) + (f.As)(g_x+t'_x) + (f.Ks)(g- x t'-): True
+(1) M0 = (-1, -1) : value = (1+s_z f_z)(1+g_x t'_x) + (s_z+f_z)(g-.t'-) + (f.As)(g_x+t'_x) + (f.Ks)(g- x t'-): True
+(2) sign solutions of |a_i| = |k_i| = 1 with a1 k1 + a2 k2 = 0: 8
+    candidate gates: 32
+    the inverse of each candidate is a candidate: True
+    all satisfy F, Rt, Rc and are invertible: True ; G^2 = I for 8 of 32
+(3) classes under the 16 local O-type relabellings: 8  sizes [4, 4, 4, 4, 4, 4, 4, 4]
+    classes under the 4 local SO-type relabellings: 16  sizes [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+control identity  : (6, False, False)
+control SWAP      : (6, False, False)
+control N(x)N     : (6, False, False)
+failing SO-class  2: (105, False, False)
+exit 124 time 1200s

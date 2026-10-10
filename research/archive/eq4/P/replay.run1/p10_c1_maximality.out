@@ -1,0 +1,7 @@
+PASS K0 transcription control
+PASS F1 F, G are GHZ-diagonal; fibre coordinates F: [('0', '2'), ('1', '0'), ('1', '0'), ('1', '0')], G: [('0', '-2'), ('1', '0'), ('1', '0'), ('1', '0')]
+PASS F2 2<F,z> = (P_01 + C_00) + (P_10 + C_00) + P_11 and 2<G,z> = (P_01 - C_00) + (P_10 - C_00) + P_11 (symbolic): F, G are nonnegative on Z^GD, hence (twirl) on Z
+PASS F3 tr(F G) = -1/2 < 0
+PASS F4 control: W3 is in Z (PT_j PSD); tr(W3 F) = 1/2, tr(W3 G) = 5/2 >= 0
+--- p10_c1_maximality: 5/5 checks pass
+VERDICT P10-C1-MAXIMALITY-EXACT

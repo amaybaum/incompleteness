@@ -1,0 +1,56 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "A41",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "78ea3c39004e97aad027ee6153051c6d372bdd55",
+ "f": "fb6af214ce28f54baeab0ed6e9a85eb7e562126a",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/track-b/act-41-index-map-semantics/preregistration.md",
+   "blob": "372ceb6d9f9c13117856f27d3300b4ddd8e8bda4"
+  }
+ ],
+ "governed_paths_digest": "8f36cf01ffb0cf60a54a0d190411fa76b6ce2c75c1c67159b2d479e164fed7fa",
+ "e": "1dc1a4238d1dc974ddc0081ed52b9ab84f16c88f",
+ "tree_e": "658028478b4541ece5ca25dc7318bbf20d415b56",
+ "execution_delta_digest": "e635902ca8200d3cf279d2e92dc315c2e0ab98054d233d2bb82b8b905c9f666b",
+ "candidates": [],
+ "landing": {
+  "base": "78ea3c39004e97aad027ee6153051c6d372bdd55",
+  "object": "ca93f5da111ada4bb5991f814e79c0893191afff",
+  "reconciliations": [
+   "ca93f5da111ada4bb5991f814e79c0893191afff"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "511f9dcbed9460d2f6a5d4ee16d3a3b3cd3bdadf1aa7e0a1f803dad19d859840"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "fb6af214ce28f54baeab0ed6e9a85eb7e562126a",
+   "record": "https://github.com/amaybaum/incompleteness/pull/769#issuecomment-5887776876"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "fb6af214ce28f54baeab0ed6e9a85eb7e562126a",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36548545143"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "1dc1a4238d1dc974ddc0081ed52b9ab84f16c88f",
+   "record": "https://github.com/amaybaum/incompleteness/pull/769#issuecomment-5890244633"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "1dc1a4238d1dc974ddc0081ed52b9ab84f16c88f",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/36561347220"
+  }
+ ]
+}

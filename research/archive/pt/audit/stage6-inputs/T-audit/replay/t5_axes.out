@@ -1,0 +1,5 @@
+token C: A1 True  A2 True  A3 True
+token T: A1 True  A2 True  A3 True
+example (token C, s = (1,1)): reduced pairing = -sn/8
+example pairings ipW(y, z_t), token C, s = (1,1): 0, n2**2/8 + n3**2/8, 1/8 - n2**2/8, 1/8 - n3**2/8
+VERDICT C3-ALL-AXES: for every unit axis n and every t with sin t != 0, R_n(t) on either token moves K(Z_F) out; the witness Q_n p_s is a pure state in Q3 ∩ Z_F* and the pairing is -sin(t)/8 identically

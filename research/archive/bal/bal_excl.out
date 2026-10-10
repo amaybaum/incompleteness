@@ -1,0 +1,53 @@
+== E0 so(m) (x) so(3): no inverse-closed invertible element
+PASS E0a [e_r x][e_s x] = e_s e_r^T - d_rs I for all r, s
+PASS E0b m = 2: block (i,j) of M M' = P_j Q_i - d_ij sum_r P_r Q_r (generic P_r, Q_s in so(2))
+PASS E0b m = 4: block (i,j) of M M' = P_j Q_i - d_ij sum_r P_r Q_r (generic P_r, Q_s in so(4))
+PASS E0c m = 2: Groebner basis of M M' = I over so(2) (x) so(3) is [1] (no solution)
+PASS E0c m = 3: Groebner basis of M M' = I over so(3) (x) so(3) is [1] (no solution)
+PASS E0d controls: so(2)(x)so(2), so(4)(x)so(2), so(2)(x)so(4), so(4)(x)so(4) contain inverse-closed invertible elements
+== E1 d = 5, N = n5 = diag(1,1,-1,-1,-1): every admissible sigma is excluded
+PASS E1 s+=I s-=I: Lsig solver dim 10 == formula-space dim 10 and solver basis has the formula shape
+PASS E1 sigma = I (+) I (+) (-1): EXCLUDED -- p_sigma = 4 >= 2: positivity forces a = 0; then e0 is killed by every block (2-dim common kernel)
+PASS E1 sigma = I (+) -I (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (1-dim common kernel)
+PASS E1 sigma = I (+) diag(1,-1) (+) (-1): EXCLUDED -- p_sigma = 3 >= 2: positivity forces a = 0; then e0 is killed by every block (2-dim common kernel)
+PASS E1 sigma = I (+) F(m) (+) (-1): EXCLUDED -- p_sigma = 3 >= 2: positivity forces a = 0; then e0 is killed by every block (2-dim common kernel)
+PASS E1 sigma = I (+) R(m) (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = -I (+) I (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (2-dim common kernel)
+PASS E1 sigma = -I (+) -I (+) (-1): EXCLUDED -- p_sigma = 0: common kernel of Lsig(sigma) cap comm(N) has dim 1 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = -I (+) diag(1,-1) (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 2 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = -I (+) F(m) (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 2 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = -I (+) R(m) (+) (-1): EXCLUDED -- p_sigma = 0: common kernel of Lsig(sigma) cap comm(N) has dim 4 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = diag(1,-1) (+) I (+) (-1): EXCLUDED -- p_sigma = 3 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = diag(1,-1) (+) -I (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 1 (e.g. [0, 0, 1, 0, 0, 0])
+PASS E1 sigma = diag(1,-1) (+) diag(1,-1) (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = diag(1,-1) (+) F(m) (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = diag(1,-1) (+) R(m) (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 4 (e.g. [0, 0, 1, 0, 0, 0])
+PASS E1 sigma = F(m) (+) I (+) (-1): EXCLUDED -- p_sigma = 3 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = F(m) (+) -I (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 1 (e.g. [0, -m, 1, 0, 0, 0])
+PASS E1 sigma = F(m) (+) diag(1,-1) (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = F(m) (+) F(m) (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = F(m) (+) R(m) (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 4 (e.g. [0, -m, 1, 0, 0, 0])
+PASS E1 sigma = R(m) (+) I (+) (-1): EXCLUDED -- p_sigma = 2 >= 2: positivity forces a = 0; then e0 is killed by every block (4-dim common kernel)
+PASS E1 sigma = R(m) (+) -I (+) (-1): EXCLUDED -- p_sigma = 0: common kernel of Lsig(sigma) cap comm(N) has dim 3 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = R(m) (+) diag(1,-1) (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 4 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = R(m) (+) F(m) (+) (-1): EXCLUDED -- p_sigma = 1: common kernel of Lsig(sigma) cap comm(N) has dim 4 (e.g. [1, 0, 0, 0, 0, 0])
+PASS E1 sigma = R(m) (+) R(m) (+) (-1): EXCLUDED -- p_sigma = 0: common kernel of Lsig(sigma) cap comm(N) has dim 6 (e.g. [1, 0, 0, 0, 0, 0])
+== E2 the p_sigma >= 2 step
+PASS E2 f^T L hom v = (1 - c)(a.v) - s (a.u + u.A v) for f = (1, -(c v + s u)), every a, antisymmetric A
+== E3 the general lemmas
+PASS E3a d = 7, (p,q) = (2,4), sigma on F cap z-perp = -I4: every block kills lift e2 (p_N = 2 lemma)
+PASS E3a d = 7, (p,q) = (2,4), sigma on F cap z-perp = R(m)(+)-I2: every block kills lift e2 (p_N = 2 lemma)
+PASS E3a d = 7, (p,q) = (2,4), sigma on F cap z-perp = R(m)(+)R(m): every block kills lift e2 (p_N = 2 lemma)
+PASS E3b d = 9, (4,4), sigma|V = rotoreflection R(m) (+) (-1): every block kills lift V
+PASS E3c d = 7, (4,2), sigma on F cap z-perp = R(m): every block kills lift z
+PASS E3d d = 9, (4,4), sigma = 2e1e1^T - I: dim = 14 = 1 + 3 + 10, a in span(e1), A in so(V) (+) so(F)
+PASS E3e d = 7, (4,2), sigma = 2e1e1^T - I: dim = 7 = 1 + 3 + 3 (so(3) twice: excluded by E0)
+== E4 controls: no exclusion where a gate exists; the positivity step is load-bearing for sigma = n5
+PASS (3, nflip, nflip) [DIM-1 cnot]: Lsig solver dim 2 == formula-space dim 2 and solver basis has the formula shape
+PASS E4 (3, nflip, nflip) [DIM-1 cnot]: NOT excluded (p_sigma = 1, common kernel dim 0, block space dim 2)
+PASS E4 (5, nC5, nC5) [landed gC5]: NOT excluded (p_sigma = 1, common kernel dim 0, block space dim 7)
+PASS E4 (5, (3,1), 2e1e1^T-I) [P3 gate]: NOT excluded (p_sigma = 1, common kernel dim 0, block space dim 3)
+PASS E4 (7, N7b, 2e1e1^T-I) [C7b]: NOT excluded (p_sigma = 1, common kernel dim 0, block space dim 8)
+PASS E4 (5, n5, sigma = n5): linear common kernel dim 0 == 0, p_sigma = 2; excluded only by the positivity step (True)
+bal_excl: 46/46 checks pass
+exit 0

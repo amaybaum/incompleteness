@@ -1,0 +1,33 @@
+DS start marker (thread DS, research-only)
+
+UTC at checks: 2026-10-10T08:49:10Z ; DS/ created 2026-10-10T08:49:28Z ; this marker is the first file written in DS/.
+
+Directory state before the write:
+- pt/DS/ did not exist at the checks (verified: "DS does not exist"); created empty, then this marker written.
+- pt/ top level at the checks: A B C D DS-LAUNCH-LOG.md INTEGRATION-REVIEW.md PROTOCOL-AMENDMENT-1.md(.sha256)
+  PROTOCOL-AMENDMENT-2.md(.sha256) PROTOCOL-STAGE2-DS.md(.sha256) PROTOCOL-STAGE2.md(.sha256) PROTOCOL.md(.sha256)
+  S2 S3 STAGE2-LAUNCH-LOG.md aborted-launch1 audit auditA-replay auditB-replay auditC-replay auditD-replay
+  auditS3-replay base inputs inputs.manifest.sha256 inputs2 inputs2.manifest.sha256 inputs3 inputs3.manifest.sha256
+  stage1.manifest.sha256
+- Two entries absent from my first listing (08:4x) and present at the checks, both predating this marker and both
+  coordinator-owned: DS-LAUNCH-LOG.md (498 bytes, mtime 2026-10-10 08:48:46.154729975 +0000, sha256
+  f0a5a94614cf10782f389394d7d4916d3ef2997eb989491f45ee98db97b3cd1e; read: the coordinator's launch record of this
+  thread) and auditS3-replay/ (dir mtime 2026-10-10 08:49:23 +0000; excluded by protocol; not opened).
+
+Start checks (run from pt/):
+- sha256sum -c --quiet inputs.manifest.sha256   : rc=0 (41 lines)  OK
+- sha256sum -c --quiet stage1.manifest.sha256   : rc=0 (209 lines) OK
+- sha256sum -c --quiet inputs2.manifest.sha256  : rc=0 (3 lines)   OK
+- sha256sum -c --quiet inputs3.manifest.sha256  : rc=0 (1 line)    OK
+- git -C base rev-parse HEAD = 9f9f8257a980a1819fbbc1dc0019917cf8678626  OK
+- git -C base status --porcelain : empty (0 lines)  OK
+- bytecode under base/: 0 __pycache__ dirs, 0 *.pyc/*.pyo files  OK
+- protocol hashes (computed = expected):
+  PROTOCOL.md             239dc123b07cb83f354a0f9def3cc39f5fd025fb2f6b4f3c4ba3d3e0ddfa9b23  OK
+  PROTOCOL-AMENDMENT-1.md b41aa0e735b3ca0bf7fb08c3629dd9a18c6d979039c6ba005fd707330831cf83  OK
+  PROTOCOL-AMENDMENT-2.md 2a2f78f374e5dfb541854677060481a0e40bda636c1649a850a132f3b27c530a  OK
+  PROTOCOL-STAGE2.md      386036921cd55ed976884aa97c548b0440024d5d1a7be493395784dce2da18da  OK
+  PROTOCOL-STAGE2-DS.md   086a4cb85bca12043f03e5f9d7faf5b730bc61d87636c125eee2d330437d52d5  OK
+  (each also equals the hash recorded in its .sha256 file)
+
+Result: all start checks pass. Work proceeds.

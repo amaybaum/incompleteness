@@ -1,0 +1,54 @@
+
+== S0  transcription (read-only)
+PASS S0.cand  [source] CandidateCone K := (forall x y in eball 3, prodState x y in K) /\ K subset maxCone (eball 3) (K2G)
+PASS S0.adm  [source] PairAdm K := CandidateCone K /\ IsConvexCone K; IsConvexCone = additivity and nonnegative scaling (design)
+PASS S0.pre  [source] PreComposite fields: convex, prod_mem, prodEff_effect, prodEff_unit (no local tomography field)
+PASS S0.sub  [source] subset_maxBody : P.Omega subset maxBody; maxBody = normalized points nonnegative on product effects
+PASS S0.coeff  [source] COMP-1 coeff e = Fin.cons (e 0) (linear coefficients) and DIM-1 ehom e = vecCons (e 0) (the same)
+PASS S0.hom  [source] COMP-1 Model.hom x = Fin.cons 1 x and DIM-1 hom x = Matrix.vecCons 1 x
+PASS S0.ball  [source] ball3 = {v | v0^2 + v1^2 + v2^2 <= 1} and eball d = {x | sum x_j^2 <= 1}
+PASS S0.pad  [source] padEff reads P's pairing on the first component; paddedBall3 := paddedPre ball3MinComposite; not_locallyTomographic_paddedBall3 is landed
+PASS S0.basis  [source] basisEff mu = Fin.cons (unitEff d) coord mu; IsEffectOn: 0 <= e x <= 1 on the set
+PASS S0.cands  [source] landed candidate cones: candidateCone_productSet, candidateCone_cnotOrbit, cnot_mem_cnotOrbit
+
+== S1  the product-test chart
+PASS S1.a  [identity] pEff e f w = sum coeff e mu coeff f nu w[mu][nu] = pairVal(coeff e, coeff f, w), i.e. DIM-1 prodEffVal (coeff = ehom by S0.coeff)
+PASS S1.b  [identity] pEff(basisEff mu, basisEff nu) w = w[mu][nu] (coeff basisEff mu is the unit vector; landed pEff_basisEff)
+PASS S1.c  [identity] pState x y = hom x hom y^T = prodState x y (symbolic)
+PASS S1.d  [identity] paddedBall3: q(w, h) = w (the chart forgets the height h), and padEff e f (w, h) = sum coeff e mu coeff f nu q(w, h)[mu][nu] (symbolic e, f, w, h)
+PASS S1.e  [identity] paddedBall3 product states are (prodState x y, 0) and q maps them to prodState x y; its body minBody x [0,1] has image minBody under q
+
+== S2  the converse pieces
+PASS S2.a  [identity] pEff(e, f) = pEff(1, 1) - pEff(1 - e, f) - pEff(1, 1 - f) (bilinearity; symbolic coefficients)
+PASS S2.b  [identity] pairVal(e0 + s e_mu, e0 + t e_nu, w) = w00 + t w0nu + s wmu0 + s t wmunu for all mu, nu (symbolic); with s, t = +-1 (vectors in L) the four values average to w00 +- wmunu, so |wmunu| <= w00 on maxCone
+
+== S3  clause (a): the countermodel M_class
+PASS S3.a.fail  [witness] clause (a) fails: prodState xplus xplus has entry (1,1) = 1, every generator vanishes off {0,3}x{0,3}
+PASS S3.gate  [enumerate] cnot maps the generators onto the generators: cnot prodState(s z3)(t z3) = prodState(s z3)(s t z3)
+PASS S3.H  [identity] at every pair of generators fourVal X Y E F and the famII value equal ipW E (generator) * ipW F (generator) (symbolic E, F; 16 pairs): with effect tables nonnegative on the generators, posBA and posAB hold on the carrier of S4
+PASS S3.ie1  [witness] IE1 fails: actT R_H (prodState z3 z3) = prodState z3 xplus, entry (3,1) = 1 outside the support of K_class
+PASS CC1  [countercontrol] countercontrol: phiW (a Q3 table) is NOT in M_class's cone (entry (1,1) = 1 off the support)
+PASS CC2  [countercontrol] countercontrol: the factorization FAILS at the non-classical pair (phiW, phiW) (symbolic E, F)
+
+== S4  clause (b): uniform W 3, on an explicit four-copy carrier
+PASS S4.evalA  [identity] effA e f (stA x y) = e(x) f(y) (symbolic e, f, x, y)
+PASS S4.evalB  [identity] effB e f (stB x y) = e(x) f(y) (symbolic e, f, x, y)
+PASS S4.tok  [enumerate] tokA and tokB hold at all 256 index quadruples (symbolic x, y)
+PASS S4.cross  [identity] effB e f (stA x y) = fourVal(tab x, tab y, Et, Ft) and effA e f (stB x y) = famII(Et, Ft, tab x, tab y) (symbolic e, f, x, y)
+PASS S4.H  [identity] fourVal(X, Y, c E00, c' E00) = c c' X00 Y00 and famII(c E00, c' E00, X, Y) = c c' X00 Y00 (symbolic): >= 0 on the slice (X00 = Y00 = 1) for c, c' in [0, 1]
+PASS S4.eff  [identity] an affine functional e(v) = e0 + E.v with E supported on index 0 has table (e0 + E0) E00
+PASS CC4  [countercontrol] countercontrol: with a nonzero coefficient off index 0 the functional is non-constant along the slice (value depends on the free coordinate lam): such e is not an effect on the slice of W 3
+PASS S4.b.fail  [witness] clause (b) fails for W 3: -E00 is in W 3 and pairVal(e0, e0, -E00) = -1 < 0 (e0 in L)
+PASS S4.odd  [identity] cnotTw = actC I (actT reflY (cnot (actC I (actT reflY w)))) (NClass with B = B' = reflY); orient bits (I,I),(I,I),(I,I),(I,reflY) are (0,0,0,1): odd, so EvenCycle fails for the odd pattern
+
+== S5  clause (c): the scaled cnotOrbit
+PASS S5.00  [identity] cnot preserves the (0,0) entry and is an involution (symbolic); products have (0,0) entry 1
+PASS CC5  [countercontrol] countercontrol: p + cnot p = 2 q with q = (p + cnot p)/2, and cnot q = q (the obstruction is membership)
+PASS S5.c1.fail  [witness] (c1) fails: q = (p + cnot p)/2 has table rank 4 >= 2, so q is not a product; since cnot q = q and cnot is an involution, q is not the cnot image of a product either; (0,0) entries force the scale s = 2, so p + cnot p is not in the scaled cnotOrbit while p and cnot p are
+
+== S6  M_mix (the ray of E00)
+PASS S6.a  [witness] M_mix: E00 = prodState 0 0; clause (a) fails since prodState xplus xplus is not a multiple of E00
+PASS CC3  [countercontrol] countercontrol: prodState x y is a multiple of E00 only when x = y = 0 (entries (mu,0), (0,nu) are x, y)
+
+d2_adm: 37 checks, 0 failed
+VERDICT D2-EXACT-STEPS-HOLD: the product-test chart identities hold (padded, non-locally-tomographic pre-composite included); the converse pieces hold; M_class fails (a) only, uniform W 3 fails (b) only, the scaled cnotOrbit fails (c1); the H reductions on the explicit carrier and the odd-pattern parity failure hold

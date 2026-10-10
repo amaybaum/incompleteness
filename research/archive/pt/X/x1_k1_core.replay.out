@@ -1,0 +1,33 @@
+
+== A  primitives (own implementation, compared with the landed tables)
+PASS A1  [enumerate] landed cnot table = conjugation by CNOT (control = first qubit) on all 16 basis tables
+PASS A2  [enumerate] cnot is a signed permutation of the 16 entries and an involution (hence ipW-orthogonal)
+PASS A3  [identity] ipW(w, v) = 4 tr(pauliW w pauliW v), symbolic
+PASS A4  [identity] pauliW(prodState x y) = rho(x) (x) rho(y), symbolic
+PASS A5  [identity] tr rho(x) = 1 and det rho(x) = (1 - |x|^2)/4, symbolic (so rho(x) >= 0 on the closed ball)
+
+== B  E0: cnot-fixed; exact spectral decomposition; the SD1 certificate
+PASS B1  [witness] cnot E0 = E0
+PASS B2  [identity] {g, f1, f3, f4} orthonormal and pauliW(E0) = (1/4)(-g g^T + f1 f1^T + 3 f3 f3^T + f4 f4^T)
+PASS B3  [identity] SD1 certificate: pauliW(E0) - (1/4)(I - 2 g g^T) = (1/2) f3 f3^T  (>= 0, rank one)
+PASS B4  [witness] E0 is not in Q3: g^T pauliW(E0) g = -1/4; tr pauliW(E0) = 1 > 0 (so -E0 is not in Q3)
+PASS B5  [witness] ipW(E0, E0) = 3 >= 0 and ipW(E0, E00) = 1
+
+== C  H1 over the continuous product family (symbolic identities)
+PASS C1  [identity] ipW(E0, prodState x y) = 1 + x1 y3 - x2 y2, symbolic
+PASS C2  [identity] SOS: 2 ipW(E0, prodState x y) = (x1+y3)^2 + (y2-x2)^2 + (1-|x|^2) + x3^2 + (1-|y|^2) + y1^2, symbolic (every summand >= 0 on the closed ball: E0 in maxCone)
+PASS C1c  [countercontrol] countercontrol: the same H1 test rejects e_c = E00 + (3/2)(E13 - E22): ipW(e_c, prodState(e1, -e3)) = -1/2 < 0 (while E0 gives 0 there)
+
+== D  H2: cnot preserves Q3, the half-space E0^* and E0
+PASS D1  [identity] pauliW(cnot w) = CNOT pauliW(w) CNOT for a generic table w, symbolic (so cnot Q3 = Q3)
+PASS D2  [identity] ipW(cnot w, E0) = ipW(w, E0), symbolic (so cnot maps E0^* onto itself)
+PASS D1c  [countercontrol] countercontrol: the H2 test rejects twin = actT reflY Q3: idW = actT reflY phiW with pauliW(phiW) a pure state (so idW in twin), cnot idW = chainW, and a^T chainW b = -2 < 0 for sharp effects a, b (chainW not in maxCone, which contains twin)
+
+== F  the witness pair for K1 != Q3
+PASS F1  [witness] P_v (v = (1,-1,-1,-1)) is a pure state (pauliW(P_v)^2 = pauliW(P_v), trace 1) and ipW(E0, P_v) = -1
+PASS F2  [witness] P_v is not a product table and cnot P_v is not a product table (table ranks > 1): P_v is outside SEP and cnot SEP
+PASS F2c  [countercontrol] control: the rank test returns 1 on the axis product prodState(e1, e3)
+PASS F3  [countercontrol] countercontrol: the PSD test rejects E0 (B4) but accepts P_v: <v|pauliW(P_v)|v>/|v|^2 = 1 and pauliW(P_v) = v v^T/|v|^2
+
+kinds: identity 9, enumerate 2, witness 5, countercontrol 4
+VERDICT X1-K1-CORE-EXACT -- 20 checks

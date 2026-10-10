@@ -1,0 +1,6 @@
+PASS K0 transcription control
+PASS A the 92 K_A inequalities restricted to GD cap S10: the undominated C-bounds are exactly the five forms of phi (92 generators, 11 distinct C-bounds, 17 C-free forms, all with nonnegative coefficients)
+PASS B H is self-dual: F F^T >= 0 entrywise (14 rows) and its 14 extreme rays pair >= 0; countercontrol: without (P0 + P1 + P2 + P3)/2 the extreme rays pair to -2/9 < 0
+PASS C diagonal filters act on S10 by the predicted scaling (10 basis elements, 2 exact filters) and keep rho (6 random exact elements); countercontrol: an upper-triangular filter maps |000><111| outside S10 (6 off-S10 entries)
+--- s6_s10_slice: 4/4 checks pass
+VERDICT S6-S10-SLICE-EXACT

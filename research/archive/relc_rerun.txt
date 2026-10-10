@@ -1,0 +1,82 @@
+
+=== SECTION 1 (Q1): relC alone versus the eigenspace balance ===
+  PASS  C1.0 landed cnot satisfies relC (reproduces cnot_relC)
+  PASS  C1.0' relC as matrix identity G.L_H = Theta.G for cnot
+  PASS  C1.0'' landed gJ5 satisfies relC with n5 (reproduces gateRel_gJ5.relC)
+  PASS  C1.0''' landed cnot1 satisfies relC with neg1
+   d  P  Q  IsNot  tr(L_H)  tr(L_H R_H)  dim+1(L_H)  dim+1(L_H R_H)  invertible-relC-possible
+   1  1  1   True        0            0           2               2  True
+   2  1  2   True       -3            1           3               5  False
+   2  2  1   True        3            1           6               5  False
+   3  1  3   True       -8            4           4              10  False
+   3  2  2   True        0            0           8               8  True
+   3  3  1   True        8            4          12              10  False
+   4  1  4   True      -15            9           5              17  False
+   4  2  3   True       -5            1          10              13  False
+   4  3  2   True        5            1          15              13  False
+   4  4  1   True       15            9          20              17  False
+   5  1  5   True      -24           16           6              26  False
+   5  2  4   True      -12            4          12              20  False
+   5  3  3   True        0            0          18              18  True
+   5  4  2   True       12            4          24              20  False
+   5  5  1   True       24           16          30              26  False
+  PASS  C1.1 for d<=5, every diagonal NOT type: +1-eigendims of L_H and L_H R_H agree iff P = Q
+  direct exact solve of the linear system G.L_H = Theta.G (unknown G, n^2 x n^2):
+   d=1 P=1 Q=1  dim(solutions)=8 (pred 8)  rank(random solution)=4  max-rank bound=4  n^2=4
+   d=2 P=1 Q=2  dim(solutions)=39 (pred 39)  rank(random solution)=7  max-rank bound=7  n^2=9
+   d=2 P=2 Q=1  dim(solutions)=42 (pred 42)  rank(random solution)=8  max-rank bound=8  n^2=9
+   d=3 P=1 Q=3  dim(solutions)=112 (pred 112)  rank(random solution)=10  max-rank bound=10  n^2=16
+   d=3 P=2 Q=2  dim(solutions)=128 (pred 128)  rank(random solution)=16  max-rank bound=16  n^2=16
+   d=3 P=3 Q=1  dim(solutions)=144 (pred 144)  rank(random solution)=14  max-rank bound=14  n^2=16
+  PASS  C1.2 direct solve: invertible relC solution found exactly when P = Q (d <= 3)
+  PASS  X1.3a countercontrol: id satisfies relT with an unbalanced NOT at d=2 (P=2,Q=1)
+  PASS  X1.3b countercontrol: d=2 gate with frame + relT + invertible exists
+  PASS  X1.3c ... and it fails relC (as balance forces)
+   d=2 frame+relT gate, most negative grid value: -6/5 at x=(Fraction(1, 1), Fraction(0, 1)) y=(Fraction(0, 1), Fraction(1, 1)) a=(Fraction(-4, 5), Fraction(-3, 5)) b=(Fraction(0, 1), Fraction(1, 1))
+  VERDICT S1: RELC-ALONE-BALANCES (measured: invertible relC solutions exist iff P=Q, d<=5 diag types; relT+frame admits even d=2)
+
+=== SECTION 2 (Q3): d = 3 under relC alone ===
+  nflip   IsNot=True tr L_H=0 tr Theta=0 dim+1 L_H=8 dim+1 Theta=8 det=1
+  refl3   IsNot=True tr L_H=8 tr Theta=4 dim+1 L_H=12 dim+1 Theta=10 det=-1
+  negId3  IsNot=True tr L_H=-8 tr Theta=4 dim+1 L_H=4 dim+1 Theta=10 det=-1
+  PASS  C2.1 positive control nflip: traces agree, det 1 (reproduces det_nflip_rel)
+  PASS  C2.2 refl3: IsNot, traces differ => no invertible G with relC alone (strengthens not_gateRel_refl3)
+  PASS  C2.3 negId3: IsNot, traces differ => no invertible G with relC alone (strengthens not_gateRel_negId3)
+
+=== SECTION 3: relT is not implied by frame + relC + positivity (d = 3) ===
+  PASS  C3.0 R fixes z3 and is orthogonal, R does not commute with nflip
+  PASS  C3.1 G_R = cnot o (I(x)R): frame
+  PASS  C3.2 G_R: relC
+  PASS  C3.3 G_R: relT FAILS (mismatch on 8 of 16 matrix units)
+  PASS  C3.4 G_R invertible with inverse (I(x)R^T) o cnot
+  PASS  C3.5 identity G_R(prodState x y) = cnot(prodState x (R y)) for symbolic x, y
+  dim ker Lop: cnot=0  G_R=0
+  PASS  C3.6 positive control: Lop injective for cnot (reproduces Lop_injective_rel)
+
+=== SECTION 4: the relT-free replacement for DIM-1's single relT step ===
+  PASS  C4.0 KG o KGinv = id
+  PASS  C4.1 K commutes with Theta = L_H R_H (so relC is preserved)
+  PASS  C4.2 KG: frame
+  PASS  C4.3 KG: relC
+  PASS  C4.4 KG: relT fails
+  cnot  Mfwd.Minv = I: True ; nonzero Phi(e_mu, c; u, hom0) entries: {}
+  PASS  C4.5 positive control (GateRel+positive): lemma conclusion holds for cnot
+  G_R   Mfwd.Minv = I: True ; nonzero Phi(e_mu, c; u, hom0) entries: {}
+  PASS  C4.6 positive control (relC-only, positive): lemma conclusion holds for G_R
+  KG    Mfwd.Minv = I: True ; nonzero Phi(e_mu, c; u, hom0) entries: {(0, 0, 2): Fraction(1, 1)}
+  PASS  X4.7 countercontrol (relC-only, frame): lemma conclusion FAILS for KG
+  cnot  (i) eigen-sign: True  (ii) mixed symmetry: True  conclusion Phi(.;u,h0)=0: True
+  PASS  C4.8 cnot: (i), (ii) and the conclusion hold
+  G_R   (i) eigen-sign: True  (ii) mixed symmetry: True  conclusion Phi(.;u,h0)=0: True
+  PASS  C4.8 G_R: (i), (ii) and the conclusion hold
+  KG    (i) eigen-sign: True  (ii) mixed symmetry: False  conclusion Phi(.;u,h0)=0: False
+  PASS  X4.8 KG: (i) holds (relC), (ii) fails, conclusion fails -- the chain is not vacuous
+  witness value: KG=-2/5  cnot=2/5
+  PASS  X4.9 KG fails posFwd at an explicit rational witness (value -2/5 < 0)
+  PASS  C4.10 the same inputs/effects on cnot give a nonnegative value (2/5)
+  PASS  C4.11 slice formula of the alternative proof holds on cnot and G_R
+  PASS  C4.12 step (i) eigen-sign holds at d = 5 for the landed relC gate gJ5
+  dim ker Lop: G_R=0  KG=1
+  VERDICT S4: the replacement lemma holds on both positive controls (relT and relC-only) and its proof's witness refutes positivity on the relC-only countercontrol
+
+SUMMARY: 0 failed checks

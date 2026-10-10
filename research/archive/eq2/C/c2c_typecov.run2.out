@@ -1,0 +1,9 @@
+PASS TC.1 the kernel cnot satisfies the two-NOT relation relC(N_A, nflip) with N_A the pi-rotation about (3/5, 4/5, 0); N_A is a NOT of the ball (unit z, involution, orthogonal, flips z); N_A != nflip
+PASS TC.2 type covariance: g (rotation about z, (3/5,4/5,0) -> e1) fixes z, is orthogonal with det 1, and nflip = g N_A g^-1
+PASS TC.3 T~ = actT g^-1 . cnot . actT g has the frame on +-z and relC(N_A, N_A): a CtrlGate with the common NOT N_A
+PASS TC.4 positivity transfer (symbolic): actT A (prodState x y) = prodState x (A y) [kernel K2G:173]; pairVal a b (actT A w) = pairVal a (homMap(A)^T b) w; for orthogonal g, homMap(g)^T fixes b0 and the tail norm (so it maps the Lorentz cone onto itself and effects to effects)
+PASS TC.5 countercontrol: conjugating cnot by a rotation about y (moves z, does not commute with nflip) breaks the frame; control: the rotation about x moves z but commutes with nflip, and the frame survives (so the hypothesis g z = z is sufficient, not necessary)
+PASS TC.6 load-bearing: gC5 satisfies the frame and the two-NOT relC(N_A', nC5) with N_A' = diag(1,-1,1,-1,-1) a NOT of eball 5 (axis z5); trace N_A' = -1, trace nC5 = -3, so no linear g gives nC5 = g N_A' g^-1
+PASS TC.7 actC N (actT M w) = actT M (actC N w) (symbolic N, M, w at d = 3): the two local actions commute
+c2c_typecov: 7/7 checks pass
+VERDICT TYPECOV-CTRL: type covariance reduces the two-NOT control gate to a CtrlGate with one NOT (no relT read); QM instance exact; the conjugating map must fix z; the two-NOT clauses alone do not give type covariance (gC5 with NB-1's C2N pair)

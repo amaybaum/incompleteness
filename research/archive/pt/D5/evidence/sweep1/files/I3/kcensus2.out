@@ -1,0 +1,152 @@
+# I3 kernel census supplement
+
+cross-check: Prop-valued def/abbrev headers = 51
+supplement A (non-Prop structure/class): K = 11, D = 3
+supplement B (def/abbrev with no explicit result type): K = 5, D = 1
+
+## Supplement A
+### S001 [K] KInfFoundations.lean:63 structure FiniteStage
+docstring KInfFoundations.lean:61-62:
+  | /-- A finite observer stage: finitely many preparations `P`, finitely many effects `E`, a
+  | probability table `p e x ∈ [0, 1]`, and a unit effect certain on every preparation. -/
+header:
+  > structure FiniteStage where
+fields: P@64, E@65, p@68, unit@69, nonneg@70, le_one@71, unit_eq@72
+
+### S002 [K] KInfFoundations.lean:264 structure ElementaryDrivability
+docstring KInfFoundations.lean:260-263:
+  | /-- Elementary drivability of a body `Ω`, stated without a field: a continuous one-parameter
+  | group of affine automorphisms of `V` preserving `Ω`, on which a distinguished involution of `Ω`
+  | (the NOT) lies, together with an automorphism `J` of `Ω` whose conjugate of some flow member
+  | agrees on `Ω` with no flow member. -/
+header:
+  > structure ElementaryDrivability (Ω : Set V) where
+fields: flow@265, flow_zero@266, flow_add@267, flow_continuous@268, flow_preserves@269, N_involutive@271, N_moves@272, J@273, J_preserves@274, J_symm_preserves@275, J_off_axis@276
+
+### S003 [K] StageCompletion.lean:53 structure StageMap
+docstring StageCompletion.lean:52-52:
+  | /-- A map of finite stages: effects and preparations carried forward, unit to unit. -/
+header:
+  > structure StageMap (S T : FiniteStage) where
+fields: onE@54, onP@55, unit_map@56
+
+### S004 [K] StageCompletion.lean:63 structure DirectedStages
+docstring StageCompletion.lean:62-62:
+  | /-- A directed system of finite stages with functorial forward maps. -/
+header:
+  > structure DirectedStages where
+fields: directed@67, stage@68, map@69, comp_E@70, comp_P@72
+
+### S005 [K] StageCompletion.lean:244 structure BinaryVisible
+docstring StageCompletion.lean:240-243:
+  | /-- **ELEM-bin, the binary-visible condition**: every stage carries a binary visible test, and the
+  | forward maps carry the visible outcomes to the visible outcomes. It is the binary-visible part of
+  | the elementary-system scope — necessary, not sufficient; it says nothing about reading the body on
+  | the visible factor alone. -/
+header:
+  > structure BinaryVisible where
+fields: v0@245, v1@246, test@247, carried0@248, carried1@249
+
+### S006 [K] CompletionAction.lean:46 structure OpDatum
+docstring CompletionAction.lean:44-45:
+  | /-- A completion-valued operation datum: the completed state each stage preparation is carried
+  | to. -/
+header:
+  > structure OpDatum (D : DirectedStages) where
+fields: mem_body@48
+
+### S007 [K] CompletionAction.lean:144 structure CompletionChart
+docstring CompletionAction.lean:142-143:
+  | /-- The chart data of a completed body: an injective affine chart of its affine span, with a
+  | left inverse of the chart's linear part. -/
+header:
+  > structure CompletionChart (D : DirectedStages) where
+fields: d@145, L@146, p0@147, Lg@148, hL@149, hLg@150, hspan@151
+
+### S008 [K] CompositeInterface.lean:210 structure ProductData
+docstring CompositeInterface.lean:208-209:
+  | /-- Product-state and product-effect data on a real carrier `V`: a bi-affine product-state map and a
+  | bilinear product-effect pairing with the evaluation law `prodEff e f (prodState x y) = e x * f y`. -/
+header:
+  > structure ProductData (dA dB : ℕ) (V : Type) [NormedAddCommGroup V] [NormedSpace ℝ V] where
+fields: prodState@211, prodState_combo_left@212, prodState_combo_right@214, prodEff@216, prodEff_apply@217
+
+### S009 [K] CompositeInterface.lean:223 structure PreComposite
+docstring CompositeInterface.lean:220-222:
+  | /-- A pre-composite: product data together with a convex body `Ω` of the carrier that contains the
+  | product states, on which every product of effects is an effect and the unit pairing is one. These are
+  | the eight fields of the interface other than local tomography. -/
+header:
+  > structure PreComposite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ)) (V : Type)
+  >     [NormedAddCommGroup V] [NormedSpace ℝ V] extends ProductData dA dB V where
+fields: convex@226, prod_mem@227, prodEff_effect@228, prodEff_unit@230
+
+### S010 [K] CompositeInterface.lean:243 structure Composite
+docstring CompositeInterface.lean:240-242:
+  | /-- **The weak composite interface.** A pre-composite with local tomography as a field. The field
+  | `lt` is a premise of the structure; it is not derived from the other eight fields anywhere in this
+  | module, and §G exhibits a pre-composite for which it fails. -/
+header:
+  > structure Composite (ΩA : Set (Fin dA → ℝ)) (ΩB : Set (Fin dB → ℝ)) (V : Type)
+  >     [NormedAddCommGroup V] [NormedSpace ℝ V] extends PreComposite ΩA ΩB V where
+fields: lt@245
+
+### S011 [K] CompositeInterface.lean:393 structure SharpReadout
+docstring CompositeInterface.lean:391-392:
+  | /-- A sharp register readout: a perfectly distinguishable pair of register states and effects whose
+  | two effects sum to the unit functional. -/
+header:
+  > structure SharpReadout (ΩB : Set (Fin dB → ℝ)) where
+fields: y@394, f@395, pd@396, sum_eq@397
+
+### S012 [D] FourCopyCore.lean:73 structure KT4
+docstring FourCopyCore.lean:70-72:
+  | /-- **KT(4; 01|23, 02|13).** Two COMP-1 pre-composites of the normalized pair bodies, one per
+  | grouping, with one body and the four-token coherence clause. Local tomography of the four-copy
+  | composite is not a field. -/
+header:
+  > structure KT4 (K01 K23 K02 K13 : Set (W 3)) (V : Type) [NormedAddCommGroup V]
+  >     [NormedSpace ℝ V] where
+fields: PA@75, PB@76, one_body@77, tok@78
+
+### S013 [D] FourCopyCore.lean:82 structure KT4LT
+docstring FourCopyCore.lean:80-81:
+  | /-- **KT(4) with local tomography.** The same data with COMP-1 `Composite`s, whose field `lt` is
+  | local tomography of each grouping. -/
+header:
+  > structure KT4LT (K01 K23 K02 K13 : Set (W 3)) (V : Type) [NormedAddCommGroup V]
+  >     [NormedSpace ℝ V] where
+fields: CA@84, CB@85, one_body@86, tok@87
+
+### S014 [D] FourCopyCore.lean:99 structure KT4Core
+docstring FourCopyCore.lean:94-98:
+  | /-- **The core of KT(4) that Lemma B1 reads.** Product states of each grouping in one carrier,
+  | bilinear product effects with their evaluation laws, positivity of each grouping's product
+  | effects on the other grouping's product states, and token coherence on the product states of
+  | each grouping. Each field is a consequence of the corresponding `KT4` fields (`KT4.toCore`); no
+  | body, convexity, normalization, combination law or local tomography is a field. -/
+header:
+  > structure KT4Core (K01 K23 K02 K13 : Set (W 3)) (V : Type) [NormedAddCommGroup V]
+  >     [NormedSpace ℝ V] where
+fields: stA@101, stB@102, effA@103, effB@104, effA_apply@105, effB_apply@106, posBA@107, posAB@109, tokA@111, tokB@113
+
+## Supplement B
+### B001 [K] OrbitNormalization.lean:712 abbrev E4
+  > abbrev E4 := EuclideanSpace ℝ (Fin 4)
+
+### B002 [K] CompositeInterface.lean:579 abbrev Carrier
+  > abbrev Carrier (dA dB : ℕ) := Fin (dA + 1) → Fin (dB + 1) → ℝ
+
+### B003 [K] CompositeDimension.lean:93 abbrev HVec
+  > abbrev HVec (d : ℕ) := Fin (d + 1) → ℝ
+
+### B004 [K] CompositeDimension.lean:97 abbrev W
+  > abbrev W (d : ℕ) := Fin (d + 1) → Fin (d + 1) → ℝ
+
+### B005 [K] CompositeDimension.lean:540 abbrev OpSpace
+  > abbrev OpSpace (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) := minusSpace N →ₗ[ℝ] HVec d
+
+### B006 [D] FourCopyPackage.lean:68 abbrev W4
+  > abbrev W4 := Fin 4 → Fin 4 → Fin 4 → Fin 4 → ℝ
+
+END

@@ -1,0 +1,1 @@
+CONFIRMED N1 [identity] the 36 axis products average to E00 and span R^16: for X nonneg on products, <X,E00> = mean <X,p_i> >= 0, and = 0 forces all 36 pairings 0, hence X = 0; so every nonzero X in maxCone (a fortiori in K) has X_00 = Tr X/... > 0

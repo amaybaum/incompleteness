@@ -1,0 +1,27 @@
+== B1-B3  functoriality, products, positivity transport
+PASS B1  [identity] actC A (actC B w) = actC (AB) w; actT A (actT B w) = actT (AB) w; actC A (actT B w) = actT B (actC A w)
+PASS B2  [identity] actC M (prodState x y) = prodState (Mx) y; actT M (prodState x y) = prodState x (My)
+PASS B3a  [identity] pairVal a b (actC M w) = pairVal (homMap(M)^T a) b w; pairVal a b (actT M w) = pairVal a (homMap(M)^T b) w
+PASS B3b  [identity] for a Cayley rotation R and for R reflY (symbolic), |M^T v|^2 = |v|^2; homMap(M)^T fixes the head: so homMap(M)^T maps L into L and actC M, actT M map maxCone (eball 3) into itself
+
+== B4  the -z3 corner trick
+PASS B4a  [enumerate] nflip (corner z3 c) = corner z3 (c+1) and corner (-z3) b = corner z3 (1+b), for all c, b in Fin 2
+PASS B4b  [identity] instance: actT nflip . cnot fixes prodState (-z3) (corner (-z3) b) for b = 0, 1 (corner_form applies at -z3)
+
+== B5  Lorentz algebra of step 3
+PASS B5a  [identity] (1+w0)^2 = r and (1-w0)^2 = r have the unique solution w0 = 0, r = 1: [{r: 1, w0: 0}]
+PASS B5b  [identity] the pairing of (t, v) with (t, -v) is t^2 - |v|^2 (zero exactly on null vectors)
+
+== B6  end-to-end instance of the normalization procedure
+PASS B6.0  [witness] instance data are orthogonal (Q, Q2, R0 rational; det Q = 1); z = Q^T z3 = [2/3, 1/3, 2/3] is a unit vector
+PASS B6.1  [identity] the instance gate (N-CLASS by construction) satisfies the frame at z = Q^T z3
+PASS B6.2  [identity] M0 = homMap R0' with R0' orthogonal fixing z3 (step 3 on the instance)
+PASS B6.3  [identity] R1' = [[-7/25, -24/25, 0], [-24/25, 7/25, 0], [0, 0, -1]] is a rotation by pi with axis w = [-3/5, 4/5, 0] orthogonal to z3 (step 8)
+PASS B6.4  [identity] G4 = G(a', b') on a symbolic table, with a' = [[-8/17, 15/17], [-15/17, -8/17]], b' = [[-15/17, -8/17], [8/17, -15/17]]
+PASS B6.5  [identity] a' is orthogonal and b' = a' J' or -a' J' (steps 11-12 on the instance)
+
+== CC-B  countercontrol: the procedure on G(I/2, J'/2)
+PASS CC-B  [countercontrol] countercontrol: for G(I/2, J'/2) the procedure returns a' = [[1/2, 0], [0, 1/2]], NOT orthogonal
+
+d1c_bookkeeping: 15 checks, 0 failed
+VERDICT D1-BOOKKEEPING-EXACT: functoriality, positivity transport, the -z3 corner trick and the Lorentz algebra hold; the normalization procedure returns an orthogonal a' with b' = +-a'J' on the instance and a non-orthogonal a' on the posInv-failing countercontrol

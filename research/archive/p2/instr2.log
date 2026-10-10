@@ -1,0 +1,94 @@
+== 1. the certified point, the named point and the exact line ==
+  PASS  SIG is unitary (scaled)                                                True
+  PASS  u60 is a unit                                                          1
+  PASS  P = SIG ∘ u60^W is unitary (scaled)                                    True
+  PASS  rank DF at SIG                                                         176
+  PASS  defect of SIG                                                          49
+  PASS  defect of P                                                            37
+  PASS  W is an exact straight line at SIG (every level-set sum of the c_k vanishes, 120 pairs) True
+  PASS  a one-entry perturbation of W is not a straight line (control)         False
+  PASS  W lies in ker DF                                                       True
+  PASS  the family at u = 1 is SIG entrywise (control)                         True
+  PASS  u5 = (3+4i)/5 is a unit; the second frozen point Pu(u5) is unitary (scaled) (Fraction(1, 1), True)
+  PASS  defect of Pu(u5)                                                       37
+  PASS  cross-ratio violations of P over ordered (b,b'),(c,c') (identity value 1 scaled) 384
+  PASS  the value at (a,b,b',c,c',d) = (0,0,1,0,1,0) is u60 (scaled; u60/256 in the frozen normalization) True
+  (1s)
+== 2. Diţă factorizations by exhaustive search over block structures ==
+    [sweep 4x4: 1820 subsets, 8 good, 1.7s]
+    [partitions: 3, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 4x4 at P: (candidates, exact factorizations)               (1, 0)
+    [sweep 4x4: 1820 subsets, 8 good, 1.8s]
+    [partitions: 3, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 4x4 at Pu(u5): (candidates, exact factorizations)          (1, 0)
+    [sweep 4x4: 1820 subsets, 20 good, 1.6s]
+    [partitions: 17, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 4x4 at SIG = Pu(1): (candidates, exact factorizations) (control) (5, 4)
+    [sweep 4x4: 1820 subsets, 8 good, 1.6s]
+    [partitions: 3, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 4x4 at P: (candidates, exact factorizations)                  (1, 0)
+    [sweep 4x4: 1820 subsets, 8 good, 1.6s]
+    [partitions: 3, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 4x4 at Pu(u5): (candidates, exact factorizations)             (1, 0)
+    [sweep 4x4: 1820 subsets, 20 good, 1.7s]
+    [partitions: 17, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 4x4 at SIG = Pu(1): (candidates, exact factorizations) (control) (5, 4)
+    [sweep 8x2: 120 subsets, 20 good, 0.1s]
+    [partitions: 27, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 8x2 at P: (candidates, exact factorizations)               (1, 0)
+    [sweep 8x2: 120 subsets, 20 good, 0.1s]
+    [partitions: 27, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 8x2 at Pu(u5): (candidates, exact factorizations)          (1, 0)
+    [sweep 8x2: 120 subsets, 24 good, 0.1s]
+    [partitions: 81, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 8x2 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 2)
+    [sweep 8x2: 120 subsets, 20 good, 0.1s]
+    [partitions: 27, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 8x2 at P: (candidates, exact factorizations)                  (1, 0)
+    [sweep 8x2: 120 subsets, 20 good, 0.1s]
+    [partitions: 27, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 8x2 at Pu(u5): (candidates, exact factorizations)             (1, 0)
+    [sweep 8x2: 120 subsets, 24 good, 0.1s]
+    [partitions: 81, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 8x2 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 2)
+    [sweep 2x8: 12870 subsets, 2 good, 24.7s]
+    [partitions: 1, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 2x8 at P: (candidates, exact factorizations)               (1, 1)
+  PASS  column-Diţă 2x8 at P: the frozen blocks and row classes                (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+    [sweep 2x8: 12870 subsets, 2 good, 23.6s]
+    [partitions: 1, 0.0s]
+    [factor checks: 0.0s]
+  PASS  column-Diţă 2x8 at Pu(u5): (candidates, exact factorizations)          (1, 1)
+  PASS  column-Diţă 2x8 at Pu(u5): the frozen blocks and row classes           (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+    [sweep 2x8: 12870 subsets, 6 good, 22.8s]
+    [partitions: 3, 0.0s]
+    [factor checks: 0.1s]
+  PASS  column-Diţă 2x8 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 3)
+    [sweep 2x8: 12870 subsets, 2 good, 23.3s]
+    [partitions: 1, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 2x8 at P: (candidates, exact factorizations)                  (1, 1)
+  PASS  row-Diţă 2x8 at P: the frozen blocks and row classes                   (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+    [sweep 2x8: 12870 subsets, 2 good, 22.7s]
+    [partitions: 1, 0.0s]
+    [factor checks: 0.0s]
+  PASS  row-Diţă 2x8 at Pu(u5): (candidates, exact factorizations)             (1, 1)
+  PASS  row-Diţă 2x8 at Pu(u5): the frozen blocks and row classes              (((0, 1, 2, 3, 8, 9, 10, 11), (4, 5, 6, 7, 12, 13, 14, 15)), [(0, 8), (1, 9), (2, 10), (3, 11), (4, 12), (5, 13), (6, 14), (7, 15)])
+    [sweep 2x8: 12870 subsets, 6 good, 22.5s]
+    [partitions: 3, 0.0s]
+    [factor checks: 0.1s]
+  PASS  row-Diţă 2x8 at SIG = Pu(1): (candidates, exact factorizations) (control) (3, 3)
+  (151s)

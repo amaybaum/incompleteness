@@ -1,0 +1,90 @@
+## CENSUS (a) MAPPING (76 entries)
+mapped: 70 ; out-of-scope: 6 ; unmapped: 0
+
+### mapped (entry | keyword | name | record ids)
+GeneralCarrier.lean:125 | WellFormed | Prop | I4.73
+GeneralCarrier.lean:130 | SubstantiveCompletion | Prop | I4.74
+CompletedOI.lean:96 | OICore | Prop | I4.79
+CompletedOI.lean:99 | CompletedOI | Prop | I4.80
+CompletedOI.lean:129 | ObservationalIndependence | Prop | I4.82
+CompletedOI.lean:171 | ReversibleRichness | Prop | I4.85
+CompletedOI.lean:315 | IsShiftedTheory | Prop | I4.86
+CompletedOI.lean:327 | ObserverRecursion | Prop | I4.87
+CompletedOI.lean:418 | OIPlus | Prop | I4.88
+CarrierGeneralOIPlus.lean:73 | ObservationalIndependence | Prop | I4.96
+CarrierGeneralOIPlus.lean:110 | ReversibleRichness | Prop | I4.99
+CarrierGeneralOIPlus.lean:185 | OIPlus | Prop | I4.102
+ImplementationLocality.lean:250 | Realized | Prop | I4.25
+ImplementationLocality.lean:268 | InstAvail | predicate | I4.26
+ImplementationLocality.lean:352 | ImplementationGenerated | Prop | I4.28
+ImplementationLocality.lean:359 | ContextStable | Prop | I4.29
+ImplementationLocality.lean:364 | LabelInvariant | Prop | I4.30
+ImplementationLocality.lean:370 | ImplementationLocality | Prop | I4.31
+ImplementationLocality.lean:506 | Architecture | Prop | I4.32
+ImplementationLocality.lean:1053 | OIPlusLocal | Prop | I4.42
+MinimalRepertoire.lean:423 | PhaseFreeRichness | Prop | I4.118
+MinimalRepertoire.lean:544 | OIPlusMin | Prop | I4.120
+MinimalRepertoire.lean:634 | CyclicRichness | Prop | I4.123
+PositivePackage.lean:35 | OIPlusPos | Prop | I4.124
+MicroscopicReversibility.lean:88 | InverseAccessibility | Prop | I4.127
+MicroscopicReversibility.lean:93 | LieRankRichness | Prop | I4.128
+MicroscopicReversibility.lean:216 | DaggerStable | Prop | I4.132
+MicroscopicReversibility.lean:223 | ReversibleImplementationLocality | Prop | I4.133
+MicroscopicReversibility.lean:238 | UnitaryRaySaturated | Prop | I4.134
+MicroscopicReversibility.lean:336 | OIPlusMicro | Prop | I4.137
+StructuralClosure.lean:183 | StructurallyClosed | Prop | I4.45
+StructuralClosure.lean:401 | ExtendsSubstratum | Prop | I4.50
+SubstratumSource.lean:77 | DrivesElementary | Prop | I4.143
+SubstratumSource.lean:86 | QuantumArchitecture | Prop | I4.144
+SubstratumInterface.lean:75 | IsMonomial | Prop | I4.148
+SubstratumInterface.lean:180 | MonomialSource | Prop | I4.149
+ReadWriteControl.lean:158 | ReadWriteSourced | Prop | I4.156
+LiftAudit.lean:112 | LayerFlowExecutable | Prop | I4.56
+LiftAudit.lean:745 | SubstratumAvail | Prop | I4.60
+C5Discovery.lean:71 | KillBattery | Prop | I4.172
+C5Discovery.lean:221 | PolGen | predicate | I4.174
+StateMixingCoupling.lean:56 | MixR | predicate | I4.175
+PairFlowEquivalence.lean:48 | PairFlowSourced | Prop | I4.179
+CoherentContinuumSource.lean:135 | NonMonomialCountablyCovered | Prop | I4.182
+CoherentContinuumSource.lean:143 | UncountableNonMonomialRays | Prop | I4.183
+EmbeddedObservation.lean:98 | RegroupingInvariant | Prop | I4.107
+EmbeddedObservation.lean:106 | RelabellingInvariant | Prop | I4.108
+EmbeddedObservation.lean:114 | IsAmbientMember | Prop | I4.109
+EmbeddedObservation.lean:123 | EmbeddedObservation | Prop | I4.110
+EmbeddedObservation.lean:366 | OIPlusEmbedded | Prop | I4.115
+ReferenceExtension.lean:98 | IsReferencePositive | Prop | I4.2
+ReferenceExtension.lean:106 | IsThreePositive | Prop | I4.23
+ReferenceExtension.lean:447 | HasParallelReferenceExtension | Prop | I4.3
+ReferenceExtension.lean:469 | HasQutritReferenceExtension | Prop | I4.4
+SpectatorBridge.lean:180 | IsSpectatorExtension | Prop | I4.12
+SpectatorBridge.lean:223 | InertSpectatorCompositionality | Prop | I4.14
+SpectatorBridge.lean:396 | HCompRealized | Prop | I4.18
+TypedCompletion.lean:291 | ShadowQuantum | Prop | I4.187
+TypedCompletion.lean:448 | IsTypedKrausInstrument | Prop | I4.188
+QuasilocalAlgebra.lean:738 | IsStateFamily | Prop | I4.196
+QuasilocalCharacterization.lean:196 | IsState | Prop | I4.202
+QuasilocalCharacterization.lean:475 | LocalityPreserving | Prop | I4.204
+OperationalRigidity.lean:647 | OrderIsoHyp | Prop | I4.213
+PassiveObservation.lean:203 | IsPassiveInstrument | Prop | I4.217
+PassiveObservation.lean:208 | SeparatesStates | Prop | I4.218
+PassiveIndependence.lean:74 | PassivelyIncomplete | Prop | I4.220
+PassiveIndependence.lean:103 | KeepsLabels | Prop | I4.221
+PassiveIndependence.lean:288 | PassivelyCompleteOnDiagonal | Prop | I4.222
+PassiveQuotient.lean:234 | ObservationCongruence | Prop | I4.226
+PassiveQuotient.lean:240 | PassivelyMinimal | Prop | I4.227
+
+### out of scope (entry | keyword | name | reason)
+MinimalRepertoire.lean:208 | IsRealAntisym | Prop | a theorem-internal auxiliary (closure class of the colour-phase Lie algebra `colourAlg`, MinimalRepertoire.lean:250, used for the bipartite obstruction)
+MinimalRepertoire.lean:311 | ColourCompatible | Prop | a theorem-internal auxiliary (hypothesis of not_hControl_of_colourCompatible, MinimalRepertoire.lean:353, an obstruction lemma)
+StructuralClosure.lean:98 | IsSubmonomial | Prop | a definition with no hypothesis role (the elementwise form of IsMonomial; monomial_iff_submonomial, StructuralClosure.lean:169)
+QuasilocalAlgebra.lean:104 | AgreeOffG | Prop | a theorem-internal auxiliary (agreement off a finite set, used by agreeOffG_map, QuasilocalAlgebra.lean:942)
+PassiveObservation.lean:288 | IsDiagonal | Prop | a theorem-internal auxiliary (diagonal matrices, used by the pinching lemmas, PassiveObservation.lean:299-:342)
+PassiveIndependence.lean:98 | SuppAnc | Prop | a theorem-internal auxiliary (ancilla support predicate used by KeepsLabels and the label theory, PassiveIndependence.lean:103-:150)
+
+### unmapped
+
+PASS: C1 census section count equals TOTAL (76)
+PASS: C2 no entry both mapped and out-of-scope
+PASS: C3 synthetic entry is unmapped
+PASS: M3 reasons admissible
+VERDICT: ALL ENTRIES ACCOUNTED

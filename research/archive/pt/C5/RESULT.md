@@ -1,0 +1,348 @@
+# Thread C5 (BRIDGE-COUNTER), stage 5 — Q-EX-BRIDGE, the countermodel side — RESULT (research only)
+
+Governing texts: `PROTOCOL-STAGE5.md` (`9e01f098…`) with `PROTOCOL-STAGE5-AMENDMENT-1.md` (`1f639115…`), and the
+stage-1–4 protocols they name. Base L = `9f9f8257…`, read-only. Evidence levels kept apart: [K] certified at L
+(file:line), [D] design module, [W] written argument, [X] exact computation (instance-scoped unless lifted by [W]),
+[N] numerical (none used), [L] unverified literature. EXOTIC-X = an exact cone exhibited with H1–H3 and the candidate
+verified exactly; EXOTIC-E = existence by EBF [W, audited AUDIT-X] over a seed exhibited exactly with its overlap
+bound proved on the whole reachable set. The two are never merged. Level (i): `cnot` only; level (ii): the order-16
+group `G16 = ⟨cnot, Ad(Z⊗I), Ad(I⊗Z), T⟩`. A countermodel at level (ii) is one at level (i).
+
+## 0. Answer
+
+**Bottom line.** Every candidate assigned to this thread that is not itself the composite action (b) for an
+off-frame family has an exact countermodel in the field-neutral transcription: the stage-3 cone `K(Z_F)` (level (ii))
+satisfies η (all three readings), θ, ι, the pair-level drivability form of ζ, the NOT-only form of spectator
+stability, and — with the audited anchor sum — four-token coherence without `tok`, each verified exactly on the
+cone, and `K(Z_F) ≠ Q3`; κ (the gate's own flow), the NOT-and-J form and the flow-only forms are EXOTIC-E over exact
+seeds. The minimal-subset census decides exactly which native single-token operations, granted the composite
+action, force `Q3`: **{flow, J} on the same token (either token) does; every proper subset — {flow}, {J}, {NOT, J},
+{flow, NOT}, {flow on both tokens} — admits an exotic invariant cone.** The certified drive's own flow (`ball3Drive`,
+axis z) behaves the same way. The kernel's five matrix-level theorems do not bear on (b) for reversible operations:
+each concerns availability or the spectator extension of a non-completely-positive map on the matrix carrier, where
+the composite is the tensor product by construction.
+
+**Verdict table** (outcome in the protocol's vocabulary; "tested as P" = the candidate fails the disguise test and
+enters only as the named principle under test).
+
+| candidate | field-neutral transcription (pair cone `K ⊆ W 3`, H1–H3) | outcome | countermodel or seed | disguise test | evidence |
+|---|---|---|---|---|---|
+| η-a | `relT`, `relC` hold for the gate | INDEPENDENT | EXOTIC-X `K(Z_F)` (ii); `K(E0)` (i) | passes | [K CD:854, 860]; [X c3 ETA-a, Z1–Z6] |
+| η-b | the NOT, idle-extended on either token, preserves `K` | INDEPENDENT | EXOTIC-X `K(Z_F)` | fails (idle extension); tested as P | [X c3 ETA-b, Z3]; `K(E0)` fails it [X ETA-cc] |
+| η-c | `CopyNatural`: the two copies' NOTs agree under the copy identification (identity or exchange) | INDEPENDENT | EXOTIC-X `K(Z_F)` | passes | [K KIF:284]; [X c3 ETA-c, IOTA] |
+| θ | every conditional state admissible: `K ⊆ maxCone`; no-signalling; steering | INDEPENDENT (implied by H1–H3 [W]) | EXOTIC-X `K(Z_F)`, `K(E0)`; the defects even steer to pure states for every sharp effect | passes | [X c3 THETA, THETA-ns, THETA-cc] |
+| ι | `SWAP` preserves `K` | INDEPENDENT | EXOTIC-X `K(Z_F)` (`⟨G16, SWAP⟩`, order 48) | passes | [X c3 IOTA, IOTA-cc]; stage 4 Z z1 |
+| κ | the gate flow `U(w) = I + (w−1)|1−⟩⟨1−|` (`U(−1) = CNOT`) preserves `K` | INDEPENDENT | EXOTIC-E: Bell seed `F = e_(−1,−1)` on the invariant circles `C1 ∪ C2`; `K(Z_F)` is not κ-invariant; explicit cone UNRESOLVED | passes | [X c3 KAPPA, KAPPA-cc1/2] + [W EBF] |
+| ζ-1 | the pair is a system with its own drive: a one-parameter automorphism group of `K` through an involution, with an off-axis `J` (ElementaryDrivability at the pair level) | INDEPENDENT | EXOTIC-X `K(Z_F)`: `D(w) = I + (w−1)ψψ†`, `J` a monomial permutation in the defect basis | passes | [X c3 ZETA-1, ZETA-2]; `T³_F` (stage 4 Z z1) |
+| ζ-2 | pair transitivity, literal transfer of `BoundaryTransitive` | not admissible: `Q3` itself fails it (retention fails) | — | — | [K TransitiveBody.lean:301] + [W] (stage 4 Y6) |
+| ζ-3 | pair transitivity on extreme rays (stage 4's T) | UNRESOLVED | the stage-3 cones fail it (EXCLUDES-KNOWN) | passes | stage 4 Y6 [W + X] |
+| ζ, matrix level | observer recursion + reversible richness ⇒ observational independence | INDEPENDENT at the matrix level, all operations | `oiPlus_independence` (first conjunct) | — | [K CompletedOI.lean:506] |
+| α–δ, NOT only | spectator stability granted only for the NOT (either or both tokens) | INDEPENDENT | EXOTIC-X `K(Z_F)` | fails; tested as P | [X c3 ETA-b, Z3]; [X c1 NOT@C/T/CT] |
+| α–δ, NOT and J | spectator stability for the NOT and `J` (either token, or both) | INDEPENDENT | EXOTIC-E: seed `φ₀ = (1,2,3i,−1+i)`, `α = 122509/125000`; no Bell-type defect exists | fails; tested as P | [X c1 NOTJ@*, c3 FORM-J] |
+| α–δ, finite | spectator stability for a finite group of single-token operations | native groups (generated by NOT, `J`, `G16`): INDEPENDENT; not uniform over all finite groups | EXOTIC-E (`d_low = 5/256`); but one off-frame order-3 rotation forces `Q3` (stage 4 R1) | fails; tested as P | [X c1]; stage 4 Y7 [W + X] |
+| α–δ, flow only | spectator stability for the drive (one or both tokens; with or without the NOT) | INDEPENDENT | EXOTIC-E (`d_low = 1/2304` or `5/256`) | fails; tested as P | [X c1 flow@*] |
+| α–δ, flow and J | spectator stability for the drive and `J` = (b_DJ) | forces `Q3` (it is (b_min) itself) | none can exist | fails; tested as P | [X c1 flowJ@C/T + W] |
+| λ without `tok` | KT(4) minus `tok` (with every pair premise) | INDEPENDENT of (b_min) | anchor sum with uniform `K(Z_F)`; `M_ρ`, `M_tw` do not serve (their cones satisfy (b)) | (λ's own disguise status: thread D) | [W + X, EQ5-SOURCE §3.1, audited]; [X c3 LAMBDA-b, LAMBDA-tw] |
+
+**The minimal-subset census** (`c1_census.py`, 60/60; native single-token operations idle-extended on the named
+token(s); flow = rotations about `nflip`'s axis x, i.e. `cyc3 ∘ rot3 ∘ cyc3⁻¹`; NOT = `nflip`; J = `cyc3`).
+
+| subset | token | dim of the Lie closure with cnot, (i) / (ii) | verdict | exact seed or witness |
+|---|---|---|---|---|
+| {flow} | control | 2 / 2 (span{X⊗I, X⊗X}, abelian) | EXOTIC-E (i), (ii) | `φ₀`, `d_low = 1/2304`, `α = 499783/500000` (= Y4's c = 4609/4608) |
+| {flow} | target | 1 / 1 (commutes with cnot) | EXOTIC-E | `φ₀`, `d_low = 5/256`, `α = 122509/125000` |
+| {flow on both tokens} | both | 3 / 3 (abelian) | EXOTIC-E | `φ₀`, `d_low = 1/2304` |
+| {flow, NOT} | control / target | 2 / 2; 1 / 1 (NOT = flow at π) | EXOTIC-E | as {flow} |
+| {J} | control / target | 0 / 0 (finite; φ₀-orbits 768 / 384) | EXOTIC-E | `d_low = 5/256`; no Bell-type defect |
+| {NOT, J} | control / target | 0 / 0 (finite; orbits 768 / 384) | EXOTIC-E | `d_low = 5/256`; no Bell-type defect |
+| {flow, J} | control | 6 / 6 (su(2)⊗P₊ ⊕ su(2)⊗P₋) | **forces Q3** at (i) | exact radical witnesses reach `φ₀` and `ψ_a` |
+| {flow, J} | target | 6 / 6 (|0⟩⟨0|⊗su(2) ⊕ |1⟩⟨1|⊗su(2)) | **forces Q3** at (i) | witnesses reach `φ₀`, `ψ_a` |
+| record: flow control, J target | mixed | 15 / 15 (su(4)) | forces Q3 | witnesses |
+| record: flow target, J control | mixed | 1 / 1 | EXOTIC-E | `d_low = 5/256` |
+| record: {NOT}, one or both tokens | — | 0 | EXOTIC-X `K(Z_F)` (c3) | — |
+| record: `ball3Drive` flow (axis z) | control / target / both | 1 / 2 / 3 | EXOTIC-E | `d_low = 5/256`, `1/8704`, `1/8704` |
+| record: {`ball3Drive` flow, J} | control / target | 6 / 6 | forces Q3 | witnesses |
+
+**Dependency-chain links these countermodels decide.**
+- **L2 (the composite action (b)) is not implied** by η, θ, ι, κ, the pair-drivability form of ζ, λ without `tok`, or
+  spectator stability restricted to the NOT, to the NOT and `J`, to the native finite groups, or to the drive alone:
+  each has a field-neutral countermodel (above). Status of L2 at L unchanged: a hypothesis of the extension results /
+  open obligation K2 (ROADMAP.md:1001–1005); not supplied by any candidate tested here.
+- **L1 ∧ L2 → L3, exactly:** granted the composite action, the native repertoire forces `Q3` only through {flow, J}
+  acting on one token (or the flow on the control with `J` on the target); the census shows this is the minimal
+  native content [X + W]. So L1 must supply both the drive and `J` as operations, and L2 must supply (b) for both.
+- **L1 at the matrix level** (record, [K]): the substratum does not source the flow at intermediate times
+  (`LiftAudit.lean:200`, `ExecSource.lean:129`); read-write sourcing is not QM (`ReadWriteControl.lean:174`). The
+  matrix form of `J`, `U_J = (I − i(X+Y+Z))/2`, has no zero entry, so it is not monomial either [X c1 T3 + W].
+- **L3** is stage 4's [W + X, audited]; the census re-derives its numbers for the native nodes from independent code.
+- **L0** (substratum operations monomial, `StructuralClosure.lean:316`): transcribed to `W 3` by analogy only — the
+  native gate is a signed permutation of the sixteen table entries, and stage 2's Theorem N (fixed-frame native
+  constructions generate exactly `K_gen`) is its field-neutral shadow. Not decided further here.
+
+**Weakest sufficient added content, as far as this thread's evidence reaches.** Field-neutral: (b) for the drive and
+`J` on one token (either), the (b_DJ) form; nothing smaller in the native repertoire suffices (census). (Stage 4's
+non-native forms — one off-frame rotation subgroup, or one off-frame order-3 rotation — are smaller still but are not
+native operations.) Relation to OI⁺-1: on the matrix carrier OI⁺-1 (`HasParallelReferenceExtension`,
+`ReferenceExtension.lean:447`) gives the composite action of every available operation, but the kernel's no-go there
+(`:507`) is about a non-completely-positive map; for a unitary conjugation the spectator extension is always a valid
+operation on that carrier (`conjChannel_referencePositive`), and in the no-go's countermodel it is also available. Relation to the layer-flow hypothesis: under `DerivedOI`, exact QM is equivalent to the executability of one
+layer flow at every level (`DerivedQ3.lean:222`, [K]); in the field-neutral pair setting the drive's composite action
+alone does not force `Q3` (EXOTIC-E, census), because the matrix carrier presupposes the tensor-product composite.
+The two settings therefore need different minimal additions: availability (L1) on the matrix carrier, composite
+action of an off-axis pair of generators (L2 for {flow, J}) on `W 3`.
+
+## 1. Candidate by candidate
+
+### C1 — the census (`c1_census.py`; NOTES N2)
+- **Transcription, exact on all 16 basis tables** (T0–T7, G1): the Lean `cnotFun` (`sgn`, `pc`, `pt`,
+  CompositeDimension.lean:741–786) is `Ad(CNOT)`, control first; `actC/actT nflip` = `Ad(X⊗I)/Ad(I⊗X)` (CD:198–202,
+  797); `actC/actT cyc3` = `Ad(U_J⊗I)/Ad(I⊗U_J)` (KInfFoundations.lean:416–425); `rot3` (KIF:411, the flow of
+  `ball3Drive`, KIF:449) = `Ad(Rz)`; the flow through `nflip` is `cyc3 ∘ rot3 ∘ cyc3⁻¹` = `Ad(Rx)` and its half-turn
+  is `nflip`, while `ball3Drive`'s own NOT `rot3 π = diag(−1,−1,1)` is not `nflip` (an exposed identification: the
+  protocol's "flow through the NOT" is the `J`-conjugate of the certified drive's flow); `transposeW` (FourCopyDefs:49)
+  is complex conjugation; `|G16| = 16 = Loc8 ∪ cnot·Loc8`.
+- **Method.** For each subset, `L` = the smallest subspace of su(4) containing the flow generators and closed under
+  commutators and under `Ad(d)` for every discrete generator (Fractions, Pauli coordinates). UNIQUE when `L` contains
+  `|p⟩⟨p|⊗su(2)` or `su(2)⊗|p⟩⟨p|` for a Pauli eigenstate `p` [W: the connected group then contains
+  `{|p⟩⟨p|⊗V + |p⊥⟩⟨p⊥|⊗I}`, which carries a product to every pure state], with an exact radical witness. EXOTIC-E
+  when `L` is abelian with at most one non-local Pauli direction `N` and the seed bound holds over the orbit of `φ₀`'s
+  ray under the discrete group: `|a|² = 1 − 4|det Ψ|²/n²` bounds the squared marginal Bloch length, and for `N`
+  present `|det Ψ(e^{−iβN}ψ)|² = (cos 2β, sin 2β) Q (cos 2β, sin 2β)ᵀ` (checked at four rational points) with
+  `λ_min(Q) ≥ det Q / tr Q`. The seed is `αE00 − T_ψ/4`, `ψ = φ₀/4`, `α = (1 + r)/2`, `r² ≥ 1 − 4 d_low` rational; its
+  identities (S1: `pauliW(e)ψ = (α−1)ψ/4`, `⟨e, T_φ⟩ = α − |⟨ψ|φ⟩|²`, `⟨e, cnot e⟩ = α² − α/2 + |⟨ψ|CNOTψ⟩|²/4`,
+  `⟨e, T_ψ⟩ = α − 1 < 0`) are exact. The reachable set is `exp(L)·D` exactly when `L` is abelian and spanned by Pauli
+  products (a compact torus normalized by the finite group `D`) [W].
+- **Results** as in the census table. Countercontrols: the product `|00⟩` gives no seed on every EXOTIC-E node
+  (c1-*), the reachable Bell state `CNOT|+0⟩` gives `d_low = 0` (c2-*), no seed is certified on any UNIQUE node
+  (R5-*), the criterion fails on the S3 instance (c4), and the UNIQUE witnesses reach `ψ_a = (15,−1,7,7)/18`, a state
+  certified unreachable for S3 at stage 4 (Z z3), and `φ₀` (c3-*). Agreement with stage 4: `d_low = 1/2304` gives Y4's
+  `c = 4609/4608` (actC Rx and the drive), `1/8704` gives `17409/17408` (actT Rz), and `5/256` is Y5's `d_min`.
+- **Exposed (gem type 3).** The mixed placement is asymmetric: the flow on the control with `J` on the target closes
+  to all of su(4), while the flow on the target with `J` on the control stays one-dimensional (the target flow
+  commutes with `cnot` and with `J` on the control) and is EXOTIC-E.
+- **Pressure test of the favourable branch ({flow, J} forces Q3).** It holds at level (i), for both the protocol's
+  flow and the certified `ball3Drive` flow, with exact witnesses; its Lie closure is exactly the stage-4 S4 algebra
+  (dimension 6), matching the protocol's pre-audit statement for (b_DJ). What it uses is (b) for both generators: the
+  favourable verdict is "`Q3` given (b_DJ)", not a derivation of (b).
+
+### η — copy naturality and the native-gate relations (`c3`, ETA-a/b/c)
+- η-a: `relT`, `relC` are identities of `cnot` with `actT/actC nflip` (CD:224–225, [K] `cnot_relT`, `cnot_relC`
+  CD:854, 860; re-checked on all 16 tables). They place no condition on `K`; every cone with H1–H3 satisfies them.
+- η-b (strongest NOT-level reading): `actC nflip` and `actT nflip` permute the four defects of `Z_F` (ETA-b), and
+  are unitary conjugations, so `K(Z_F)` is invariant; with Z1–Z5, `K(Z_F)` is EXOTIC-X for η-b at level (ii).
+  Countercontrol: `⟨E0, actT nflip E0⟩ = −1`, so `K(E0)` fails η-b (the check discriminates).
+- η-c: `CopyNatural N_A N_B e` (KIF:284) with `e` the identity says both copies have the same NOT (the `NativeGate`
+  structure uses one `N`); with `e` the exchange, `SWAP ∘ actC nflip ∘ SWAP = actT nflip` (ETA-c), and `K(Z_F)` is
+  SWAP-invariant (IOTA). Verdict: INDEPENDENT; the content of η stays at the level of the NOT, a finite element whose
+  idle extension `K(Z_F)` already admits.
+
+### θ — steering, no-signalling, conditional-state admissibility (`c3`, THETA*)
+- Transcription: every conditional state is admissible ⟺ `K ⊆ maxCone (eball 3)` (CD:186); no-signalling is the
+  identity `ehom(e) + ehom(1−e) = (1,0,0,0)` (THETA-ns), true of every table. Every `K` with H1–H3 satisfies θ
+  (`K = K* ⊆ SEP* = maxCone`) [W]; θ adds nothing.
+- On `K(Z_F)`: `4·pairVal(a, b, e_s) = a₀b₀ + aᵀM_s b` with `M_s` orthogonal (symbolic), so each defect is in
+  `maxCone`; the conditional target state for any control effect has Bloch length `|a|/a₀ ≤ 1` and is pure for every
+  sharp effect: the non-quantum defects steer maximally (THETA). Countercontrol: `idW ∈ maxCone` but
+  `cnot idW = chainW` pairs `−1/2` with the sharp effects of `−e₁, −e₃` (K2Guard.lean:101–134; THETA-cc), so θ does
+  not even give H2. Verdict: INDEPENDENT (EXOTIC-X `K(Z_F)`; `K(E0)` likewise by stage 3's H1 identity).
+
+### κ — the gate's own flow (`c3`, KAPPA*)
+- Transcription: `K` invariant under `Ad U(w)`, `U(w) = I + (w−1)|1−⟩⟨1−|`, `|w| = 1` (a one-parameter group through
+  `CNOT = U(−1)`, exact), at level (ii) together with `G16`.
+- `U(w)` is diagonal in `(|0+⟩, |1−⟩, |0−⟩, |1+⟩)`; the circles `C1 = {|0+⟩ + w|1−⟩}`, `C2 = {|0−⟩ + w|1+⟩}` are
+  mapped into `C1 ∪ C2` by `U(w)`, `CNOT`, `Ad(Z⊗I)`, `Ad(I⊗Z)` and `T` (symbolic in the rational circle parameter),
+  and every point is maximally entangled (`|det|²/n² = 1/4`). Hence for every `g` in the closure of the group and every
+  product `p`, `|⟨ψ|gp⟩|² = |⟨g⁻¹ψ|p⟩|² ≤ 1/2` for `ψ = C1(w=1) = (1,1,1,−1)/2`, whose Bell-type defect is
+  `e_(−1,−1) = F` (stage 2's F; AUDIT-X S4). The seed `cone(Ĝ·SEP ∪ Ĝ·F)` is invariant and subdual; EBF gives an
+  exotic κ-invariant self-dual cone: **EXOTIC-E** [W over X]. Non-vacuity: `(H⊗I)C1(1)` leaves `C1 ∪ C2` (KAPPA-cc1).
+- `K(Z_F)` is **not** κ-invariant: at `w = −i`, `φ = Uψ_(1,1)` has overlaps `≤ 1/2` with every defect vector, so
+  `T_φ ∈ K(Z_F)`, while `⟨U e_(1,1) U†, T_φ⟩ = −1/2` (KAPPA-cc2). An explicit κ-invariant exotic cone is UNRESOLVED
+  (the residual is stage 4's: torus-invariant Bell surgeries over the circles fail, Z z2e).
+
+### ζ — observer recursion / embedded observation (`c3`, ZETA*)
+- ζ-1 (the pair as a system with its own drivability): on the pair body of `K(Z_F)`, `D(w) = I + (w−1)ψψ†` with
+  `ψ = ψ_(1,1)` gives a continuous one-parameter group (`D(w₁)D(w₂) = D(w₁w₂)`, unitary, symbolic) whose conjugation
+  fixes every defect and preserves `Q3`, hence `K(Z_F)`; its half-turn `D(−1)` is an involution moving the body state
+  `T_χ`, `χ = ψ_(1,1) + ψ_(1,−1)`; `J = Ad P`, `P` the monomial unitary exchanging `ψ_(1,1)` and `ψ_(1,−1)`, is an
+  automorphism of `K(Z_F)`, and `J D(−1) J⁻¹` moves `x = T_(ψ_(1,−1)+ψ_(−1,1))` while every `D(w)` fixes `x`:
+  `J_off_axis` holds. So `K(Z_F)` carries the full `ElementaryDrivability` pattern (KIF:264–276) at the pair level
+  [X], inside its 3-torus of automorphisms `T³_F` (stage 4 Z z1). Retention: `Q3` carries the same data. **INDEPENDENT
+  (EXOTIC-X).**
+- ζ-2: the literal pair transfer of `BoundaryTransitive` fails for `Q3` itself (rank-2 states are non-extreme boundary
+  points; `not_boundaryTransitive_of_nonextreme_boundary`, TransitiveBody.lean:301 [K] + [W], stage 4 Y6): not an
+  admissible candidate. ζ-3, transitivity on extreme rays (T): the stage-3 cones fail it (invariant c = 15 on defects,
+  9 on products); whether every exotic cone fails it is UNRESOLVED.
+- Matrix level: `oiPlus_independence` (CompletedOI.lean:506) [K], first conjunct: a theory with the OI core,
+  well-formedness, reversible richness and `ObserverRecursion` (CompletedOI.lean:327) but not observational
+  independence. Scope: qubit matrix carrier; the failing operation is the non-completely-positive `Φ₂` of the round-34
+  countermodel; it says nothing about reversible single-token operations on `W 3`.
+
+### ι — token exchange (`c3`, IOTA)
+- `SWAP` (table transposition = `Ad(SWAP)`) permutes the defects; `K(Z_F)` is invariant under `⟨G16, SWAP⟩` (order
+  48; stage 4 Z z1). **INDEPENDENT (EXOTIC-X).** Countercontrol: the pure state `(5,−5,−1,−1)` lies in `Q3 ∩ E0*`
+  (pairing `3/13`) and pairs `−5/13` with `SWAP E0`, so `K(E0)` is not SWAP-invariant.
+
+### α–δ restricted forms (spectator stability for a restricted class; each fails the disguise test and is tested as P)
+- **NOT only** (either or both tokens): `K(Z_F)` (ETA-b, Z3), **EXOTIC-X** at level (ii).
+- **NOT and J** (either token or both): **EXOTIC-E** (census; seed `φ₀`, `d_low = 5/256`, `α = 122509/125000`). No
+  Bell-type defect exists (FORM-J [W over X]): `(U_J⊗I)CNOT(U_J⊗I)† = I⊗P₊ + X⊗P₋` and `CNOT = I⊗P₊ + Z⊗P₋`, so the
+  group contains the block pairs `(I, Z)`, `(I, X)`; a maximally entangled `u⊗|+⟩ + v⊗|−⟩` keeps a maximally entangled
+  image under `(I, W)` iff `Wv ∥ v`, impossible for `W = X` and `Z` together (target side: `(I, X)`, `(I, Y)` from
+  `(I⊗U_J)CNOT(I⊗U_J)† = P0⊗I + P1⊗Y`). So no explicit surgery over Bell-type defects serves this node.
+- **Finite groups.** Every native finite group (generated by NOT, `J`, `G16`, on any placement; at most the two-qubit
+  Clifford group with `T`, orbit 11520) is EXOTIC-E with `d_low = 5/256`. The class "finite groups of single-token
+  operations" is not uniformly independent: one off-frame order-3 rotation about (5,1,1) forces `Q3` with `cnot`
+  (stage 4 R1, Y7 [W + X], audited). The finite form fails exactly for the native (Clifford) data.
+- **Drive only** (one or both tokens, with or without the NOT): EXOTIC-E (census).
+- **Drive and J**: forces `Q3` (census) — this is (b_DJ) itself.
+
+### λ without `tok` (`c3`, LAMBDA*)
+- With the anchor sum (EQ5-SOURCE-RESULT §3.1, `KT4` minus `tok` for every quadruple of nonempty pair bodies;
+  audited, EQ5-SOURCE-AUDIT "Anchor sum … Confirmed") on uniform `K(Z_F)` with `N_p = cnot` and identity locals:
+  `hadm` (H1 = Z2; `K ⊆ maxCone` = THETA; convex cone by construction), `hcl` (SD1/SD2 closedness [W, audited]),
+  `hgate` (Z3), `hcls` (`cnot` is its own N-CLASS form with identity locals, KT4-PREM-1 `result.md` row `M_Q` [D/record]).
+  `K(Z_F)` violates (b): for every `s`, `φ = (U_J⊗I)ψ_s` has overlap `1/4` with each defect vector, so `T_φ ∈ K(Z_F)`,
+  and `⟨actC cyc3 e_s, T_φ⟩ = −1/2` (LAMBDA-b). Since every (b_min) form forces `Q3` (stage 4; census) and
+  `K(Z_F) ≠ Q3`, `K(Z_F)` violates every (b_min) form [W]. **INDEPENDENT of (b_min).**
+- `M_ρ`, `M_tw` (EQ5-SOURCE §3.2–3.3; the analogue of KT4-PREM-1's `M_tok`) have pair cones `(Q3, Q3, Q3, twin)`; the
+  twin is rotation-invariant on either token (LAMBDA-tw: `reflY R reflY` is a rotation, `actC R` commutes with
+  `actT reflY`), so these models satisfy (b) and refute only the parity part `EvenCycle` (EQ5-SOURCE-AUDIT §3 item 1).
+  They are not countermodels to "λ without `tok` ⇒ (b_min)"; the anchor sum with an exotic cone is.
+
+### C4 — the kernel's matrix-level independence and no-go theorems, with scope (read at L; [K] + [W] scope)
+All five live on `FiniteOperationalTheory` (complex matrix carriers, composites as tensor products by construction,
+so the pair state space is the quantum one by typing); none is a statement about cones in `W 3`.
+
+| theorem (file:line) | statement at L | what it says about (b) | what it does not say |
+|---|---|---|---|
+| `oiPlus_independence` (CompletedOI.lean:506) | each of observational independence, reversible richness, observer recursion fails on a qubit theory with the core, well-formedness and the other two | OI⁺-1 (`ObservationalIndependence = HasParallelReferenceExtension`, :129) is not implied by richness + recursion (ζ) on the matrix carrier | its countermodel (round 34) has composite unitary control; the operation whose spectator extension fails is the non-CP `Φ₂`. Nothing about reversible operations, nothing on `W 3` |
+| `control_not_implies_parallelReferenceExtension` (ReferenceExtension.lean:507) | `∃ T, HasCompositeUnitaryControl T ∧ ¬HasParallelReferenceExtension T` | full unitary control within carriers does not give spectator extension of ALL available operations | conjugations are reference-positive for every reference (`conjChannel_referencePositive`), and in the countermodel every composite unitary is available: the composite action of reversible operations holds there; the failure is `Φ₂` (2-positive, not 3-positive) |
+| `substratumTheory_not_layerFlowExecutable` (LiftAudit.lean:200) | the substratum theory does not execute the gate flow of a moving involution (at level 1, time 1/2 the diagonal is not preserved) | L1: the continuous drive is not an available operation of the substratum, so its composite action is not sourced either | nothing about the composite action of an operation that is available; `LayerFlowExecutable` (:112) itself quantifies over every level, i.e. contains the spectator clause |
+| `obs_not_layerFlowExecutable` (ExecSource.lean:129) | the observer theory of every substratum executes no such layer flow (it lies inside the substratum theory) | as above, for the observer theory | as above |
+| `readWriteSourced_not_qm` (ReadWriteControl.lean:174) | a theory whose available composite conjugations are permutation operators is not finite operational QM | L0/L1: monomial (read-write) sources give no off-diagonal generator | nothing about (b) for given operations |
+
+Consequence for the bridge: on the matrix carrier (b) for reversible operations is automatic once they are available,
+so these theorems locate the matrix-level gap in availability (L1) and in non-CP spectator extension; the field-neutral
+gap — (b) for reversible single-token operations on `W 3` — is decided only by the countermodels above (INDEPENDENT).
+
+### Closure picture
+- **`K_gen = SEP + cnot SEP` is not self-dual** (stage 2, `pt/S2/RESULT.md:373–380`: `F ∈ dualW K_gen`, `F ∉ Q3`,
+  `E_gen = K_gen ⊆ Q3`). Re-verified (CL1): `cnot` is `ipW`-self-adjoint, `cnot F` is a defect, so
+  `⟨F, cnot p⟩ = ⟨cnot F, p⟩ ≥ 0` by the H1 identity; `F` pairs `−1/2` with its own pure state. [X + W]
+- **The closure under `cnot` and the drive** (closed cone generated by the reachable set `R_flow = exp(L)·D·SEP`) is a
+  proper subcone of `Q3` (all generators are `Q3`-automorphisms) and is **not self-dual**: the census seed `e`
+  (`α = 499783/500000`) pairs `≥ 0` with every point of `R_flow` and `α − 1 < 0` with `T_{φ₀}`, so
+  `T_{φ₀} ∈ Q3 ⊆ (closure)* ` but `∉` closure [W over X c1]. The same holds for the closure under `cnot` and `J`
+  (finite group; `α = 122509/125000`) and under `cnot`, the NOT and `J`.
+- **The closure under `cnot`, the drive and `J` is `Q3`** (either token): the generated connected group contains
+  `{|p⟩⟨p|⊗V + |p⊥⟩⟨p⊥|⊗I}` (census criterion), so the closure contains every pure state, hence `Q3`; it lies in `Q3`;
+  `Q3 = dualW Q3` [K JordanClassification.lean:84]. [W + X c1]
+- So among the native closures exactly the one containing both the drive and `J` is self-dual, and it is `Q3`.
+
+## 2. Ledger — certified versus added
+
+| item | class | anchor | used in |
+|---|---|---|---|
+| `W 3`, `hom`, `homMap`, `prodState`, `pairVal`, `maxCone`, `actT`, `actC`, `IsNot`, `NativeGate` (`relT`, `relC`) | [K] | CompositeDimension.lean:93–225 | all |
+| `sgn`, `pc`, `pt`, `cnotFun`, `cnot`, `z3`, `nflip`, `cnot_relT`, `cnot_relC` | [K] | CD:741–797, 854, 860 | C1, η |
+| `ElementaryDrivability`, `CopyNatural`, `rot3`, `cyc3`, `ball3Drive` | [K] | KInfFoundations.lean:264–285, 411, 416–425, 449 | C1, η, ζ |
+| `reflY`, `idW`, `chainW`, `cnot_idW`, `chain_value` | [K] | K2Guard.lean:46, 101, 104, 110, 134 | θ countercontrol, λ |
+| PSD self-duality | [K] | JordanClassification.lean:84 | closure picture |
+| `not_boundaryTransitive_of_nonextreme_boundary` | [K] | TransitiveBody.lean:301 | ζ-2 |
+| the five matrix-level theorems; `HasParallelReferenceExtension`, `ObservationalIndependence`, `ObserverRecursion`, `LayerFlowExecutable`, `ReadWriteSourced`; `derivedOI_qm_iff_layerFlowExecutable'` | [K] | ReferenceExtension.lean:447, 507; CompletedOI.lean:129, 327, 506; LiftAudit.lean:112, 200; ExecSource.lean:129; ReadWriteControl.lean:158, 174; DerivedQ3.lean:222 | C4, §0 |
+| `ipW`, `dualW`, `transposeW`, `pauliW`, `Q3`, `twin` | [D] | FourCopyDefs.lean:31, 34, 49; FourCopyPackage.lean:176, 180, 183 | all |
+| `K(Z_F)`, `K(E0)`, SD1/SD2, Theorem S, EBF, `F = e_(−1,−1)` | [W + X], audited | AUDIT-X, AUDIT-U; stage-3 note | all countermodels; EBF for every EXOTIC-E |
+| stage-4 dichotomy (Y1 / claim D), S4 group, R1, T/H, `T³_F` | [W + X], audited | AUDIT-Y, AUDIT-Z | C1 method, finite form, ζ |
+| anchor sum (KT4 minus `tok` for every quadruple); `M_ρ`, `M_tw` | [W + X], audited (leads) | EQ5-SOURCE-RESULT §3.1–3.3; EQ5-SOURCE-AUDIT | λ |
+| census Lie closures, seeds, witnesses; the c3 checks | [X], added here | `c1_census.py`, `c3_countermodels.py` | all verdicts |
+| closure under one-parameter subgroups and finite groups; `exp` onto SU(2); Schmidt/`|det|` invariance | standard [W] | — | C1 |
+| status of K2, K∞ (Act, Drive), IE1 | [A] record | ROADMAP.md:1001–1005, 1014–1022; KT4-PREM-1 result.md:171–172 | §0 |
+
+**Flagged premises and where they enter (as candidates only).** Idle extension / spectator stability: only as the
+candidates η-b, the α–δ restricted forms and the census subsets, each named. Local operations on entangled states:
+only as those candidates. Frame covariance (μ): not used. IE1/IE2: not used (IE1 appears only as the failing property
+of `K(Z_F)` in λ). `Q3`/PSD: comparison object, model material of seeds and surgeries, and verification only. No
+flagged premise enters any argument as a premise.
+
+## 3. What is not claimed
+- **EXOTIC-E is existence only** (EBF, non-constructive) for κ, the NOT-and-J and finite forms, and the drive-only
+  forms; the seeds are exact, the cones are not exhibited. An explicit κ-invariant exotic cone is UNRESOLVED.
+- **No derivation of (b)** for any family; "forces `Q3`" for {flow, J} is `Q3` given (b) for those operations.
+- **Scope of INDEPENDENT:** relative to H1–H3 (levels stated), the certified single-token structure and the candidate's
+  transcription as written here, on `W 3`; not a claim about every observer-native extension, nor about other
+  carriers. Other transcriptions of a candidate (e.g. a steering principle demanding the existence of states rather
+  than admissibility) are not decided, except where a check above covers them.
+- **The census is exhaustive over the listed subsets and placements only**; general Lie facts are [W].
+- The λ countermodel's KT4-minus-`tok` part rests on the audited anchor-sum argument; its `hcls` row rests on the
+  KT4-PREM-1 record (a design-module predicate, [D]). No Lean was written; nothing is kernel-checked here.
+- Bands unchanged: consistency-axis work. No label of the certified corpus changes.
+
+## 4. Evidence log
+Every script ran as `python3 -I -B <script>` from `pt/C5/`, stdout to `<name>.out`, stderr plus an appended `exit N`
+line to `<name>.err`; decision rules fixed in each header before its first run; final scripts replayed into
+`<name>.replay.{out,err}` and compared with `cmp`: both byte-identical (stdout and stderr). Every `.err` is the single
+line `exit 0` (`28d3b9e8…`), failed runs included (they failed on their own decision rules, not by crashing). Exact
+arithmetic throughout (Fractions, Gaussian rationals, sympy radicals); no floating point anywhere.
+
+| script | node | checks | verdict line | runs | replay |
+|---|---|---|---|---|---|
+| `c1_census.py` | C1 census (24 nodes, both levels) | 60/60 | `VERDICT C1-CENSUS-EXACT (undecided nodes: none)` | 1 (one pre-run edit, NOTES N2) | identical |
+| `c3_countermodels.py` | C3 η, θ, κ, ζ, ι, forms, λ, closure | 24/24 | `VERDICT C3-COUNTERMODELS-EXACT: …` | 3 (run 1 18/24 kept; run 2 24/24 kept; run 3 final) | identical |
+
+**Kept runs.** `c3_countermodels.run1.*`: 18 PASS, 6 FAIL, no verdict — my transcription of the defect vectors
+(labels `s ↔ −s` against my `e_s`) and a wrong countercontrol claim (`⟨E0, actC nflip E0⟩` is `+1`, not `−1`); both
+corrected for run 2 (NOTES N3). `c3_countermodels.run2.*`: 24/24 with a description string naming the κ seed by the
+old label; run 3 differs from run 2 in that line only.
+
+sha256 of every file written (RESULT.md excluded; it is given in the final report):
+```
+3404a509e45c90027ecbc155a8903b5a2e2930ca00e1703cd5ecd5ad45d2f048  .start_marker
+cc2014f37c3c81b5e1b7802b21e28db6cd91c3b91837aac6735a36aac491650f  NOTES.md
+1e320604e22a195c29ead35b71b04257a391c6eb324a3136f16560d5abc7e774  c1_census.py
+1cca95f81fde047bb3dd0fe79e3aecd1303b761463a2d7477d7a0e5f5c5aab54  c1_census.out
+28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320  c1_census.err
+1cca95f81fde047bb3dd0fe79e3aecd1303b761463a2d7477d7a0e5f5c5aab54  c1_census.replay.out
+28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320  c1_census.replay.err
+4ad2396f26f57ffc77258ab774b3b41d9e979b9c752564d8becba61f1120cd53  c3_countermodels.py
+d15d92938dbeb5707f0b7ba34361958b4e59a27a557888fcb87705567323d07f  c3_countermodels.out
+28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320  c3_countermodels.err
+d15d92938dbeb5707f0b7ba34361958b4e59a27a557888fcb87705567323d07f  c3_countermodels.replay.out
+28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320  c3_countermodels.replay.err
+67c33eb64bb072cb8f95bc907bcb254f94d05cc6aab02a7a990b87e52f73dc0a  c3_countermodels.run1.py
+06c7f9cf4988efe24a0d169ca4db0456ed0cf3b5a9d80d88cad8c880930d4ca9  c3_countermodels.run1.out
+28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320  c3_countermodels.run1.err
+48d0252b2c748ac4ec95b9c8c4b37058f450577dd0a97af54932deea4ba9376e  c3_countermodels.run2.py
+499ad8f6b24249513ecb1c7f942ff184a4ad44b36c2aa04c8cc1875aeaeb54a4  c3_countermodels.run2.out
+28d3b9e880a77975493dc7e359144c0295a4f694cfe0af4f928c22307bc5c320  c3_countermodels.run2.err
+12dc957bbf184c216fe61d42089f371b8dff455b647986653f7b4d1b46bbf8a6  evidence/sweep-20261010T1818Z/MANIFEST.originals.txt
+cc89ebe6b8e59bf3f9b448541a9b750b68f64027317dd45014fbd1ec69672a70  evidence/sweep-20261010T1818Z/MANIFEST.snapshot.sha256
+```
+The 159 quarantine copies under `evidence/sweep-20261010T1818Z/snapshot/` are each hashed in
+`MANIFEST.snapshot.sha256` (hash above), and equal the originals' hashes recorded in `MANIFEST.originals.txt`.
+
+## 5. Integrity
+- **Start (16:44:59Z).** `pt/C5/` did not exist (checked 16:44:45Z); created, `.start_marker` written first with the
+  UTC time and the checks: six manifests rc=0 from `pt/`; `audit/stage3-inputs/ns.manifest.sha256` rc=0 from its own
+  directory (`sha256sum -c` only); base HEAD `9f9f8257a980a1819fbbc1dc0019917cf8678626`, porcelain empty, no bytecode;
+  the nine protocol files with prefixes 239dc123, b41aa0e7, 2a2f78f3, 38603692, 086a4cb8, 1a649168, d3da2811,
+  9e01f098, 1f639115, every sidecar rc=0 (STAGE4/STAGE5/STAGE5-AMENDMENT-1 from SCRATCH, the others from `pt/`); the
+  `pt/` top-level listing with mtimes (58 entries including `C5/`; 64 at the end, the six additions being the anomaly below).
+- **End (17:18:14Z).** The same checks, all green; no bytecode under `base/` or `C5/`.
+- **Sweep and anomaly (§A.26).** Newer than the marker outside `C5/`, `D5/`, `audit/`, `audit*-replay/`:
+  `pt/PROTOCOL-STAGE6.md`, `pt/PROTOCOL-STAGE6.sha256` (16:49Z) and the new directories `pt/I1/`–`pt/I4/` (157
+  files, still being written at 17:18Z). Not written by this thread, not sourceable to the launch inputs, not opened.
+  Quarantined by copy (originals untouched, never deleted, nothing written outside `pt/C5/`) under
+  `evidence/sweep-20261010T1818Z/` with hash, size and mtime manifests (NOTES N5). No effect on any result: the
+  scripts read no file, all decisive runs had finished, and every record read is covered by the verified manifests or
+  by the clean base. Substantive work halted at the anomaly; reported for the coordinator's decision.
+- **Reads.** The governing texts in the prescribed order; the stage-1–4 records listed in NOTES N1; the ledgers named
+  by the protocol (EQ5-SOURCE result and audit, EQ2-SYNTHESIS, EQ3-P-RESULT in part); the KT4-PREM-1 `result.md`;
+  `pt/base/` read-only (Lean modules and line greps listed in NOTES N1 and N4; `AGENTS.md` from the launch context).
+- **Not read.** `pt/D5/`; `pt/audit/stage3-inputs/OWNER-*`, `pt/audit/stage4-inputs/OWNER-*`, `pt/audit/stage5-inputs/`,
+  `pt/audit/reviews/`, `pt/audit/aborted-launches/`; the anomalous files (names, sizes, mtimes, hashes only). The stage
+  scripts in `pt/X/`, `pt/U/`, `pt/Y/`, `pt/Z/` were not opened; this thread's code is its own.
+- **Writes.** Only inside `pt/C5/`. Disclosures: one version check at 16:53Z ran `python3 -c` without `-I -B` (no
+  bytecode under `pt/`); the malformed first sweep's oversized listing was kept by the tool runner in its own
+  tool-results file outside `pt/` (no command of mine redirected output there).
+- **Limits observed.** No git write, branch, PR, CI, GitHub call, network or URL fetch, publication or sub-agent; git
+  commands read-only (`rev-parse`, `status`). The sha256 of this file is given in the final report.

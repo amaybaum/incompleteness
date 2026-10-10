@@ -1,0 +1,7 @@
+<X_t, Y_t> = -0.222963
+control PSD nodes: 10 trials; worst normalized min -1.1140e-18 at ('psd', 'psd', 'psd', 'psd')
+countercontrol X_t, Y_t states with (1/2) (x) Phi+ effects: 10 trials; worst normalized min -2.5559e-18 at ('X_t', 'Y_t', '1/2 (x) Phi+', '1/2 (x) Phi+')
+(a) X_t in all four positions: 20 trials; worst normalized min -1.4125e-18 at ('X_t', 'X_t', 'X_t', 'X_t')
+(b) X_t in one position, K_A generators elsewhere: 60 trials; worst normalized min -4.4408e-18 at ('n34', 'X_t', 'n53', 'n02')
+(c) X_t as both states, K_A generator effects: 40 trials; worst normalized min -2.1124e-18 at ('X_t', 'X_t', 'n40', 'n32')
+(a) Y_t in all four positions: 20 trials; worst normalized min -1.2597e-19 at ('Y_t', 'Y_t', 'Y_t', 'Y_t')

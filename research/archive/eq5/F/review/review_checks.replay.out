@@ -1,0 +1,23 @@
+PASS T0 transcription of 37 definitions (base, package, Mathlib AffineEquiv.coe_mul) and of sgn/pc/pt
+PASS T1 literal actC/actT equal H(N).om and om.H(N)^T (random non-orthogonal N)
+PASS C1 (G1) Theta = actC (A02 reflY B02^T) . actT (A13 reflY B13^T); det classes of (A02,B02) seen: 4 -- countercontrol (no reflY) failures: 143
+PASS C2 (G2, the note's N9) Theta ipW-orthogonal on all unit pairs and Theta^-1 = actC R02^T . actT R13^T -- countercontrol (R in place of R^T) failures: 141
+PASS C3 (G7 i) N (prodState (A'^T x) (B'^T y)) = actC A (actT B (cnot (prodState x y))), general unit x, y -- countercontrol (A' x) failures: 60
+PASS C4 (G7 ii, iii) cnot (prodState (rot3 a xplus) (rotX b z3)) = actC (rot3 a . rotX b) phiW and actT (rotX b . rot3 a) phiW = actC (rot3 a . rotX b) phiW, 36 pairs; euler_apply_pole reproduced -- countercontrol (same order on both sides) failures: 25
+PASS C5 (G8) the four rotated-link identities with links built as gate images of product states (left/right x control/target side) -- per identity [True, True, True, True]; countercontrol failures 156, 156
+PASS C6 (O1, O3, target02) fourVal = ipW X (E Y F^T) = ipW E (X F Y^T); target02 fields are famII/famI -- countercontrol (no transpose) failures: 5
+PASS C7 (G14) witness reduction for states and effects, s = +-1, all four det classes of (A, B), general pre-locals -- countercontrol failures: 32
+PASS C8 (G14 end to end) famI on the reduced general-chart witnesses is negative exactly at odd patterns -- values (odd, value): [(False, '0'), (True, '-1/8')]
+PASS C9 (G3, O14) adjoints and actC/actT commutation for random non-orthogonal M; O14 on all units
+PASS P1 (L1, L2) ipW = 4 Re tr (pauliW E pauliW X) (exactly real); pauliW (pureTab C) = v v^H
+PASS P2 (L11 i) transposeW (pureTab C) = pureTab (C.map star), 6 Gaussian-rational C -- countercontrol (C^T) failures: 6
+PASS P3 (L11 ii, L12 cases) actC reflY (pureTab C) = actT reflY (pureTab C*); actT reflY (actC reflY (pureTab C)) = pureTab C*; actT reflY is the second-factor partial transpose -- countercontrol: singlet expectation of pauliW idW = -1
+PASS P4 (L8) pureTab (diag (d0, d1)) = n cnot (prodState (Bloch (d0, d1)) z3), complex d0, d1 -- countercontrol (conjugate phase) failures: 6
+PASS P5 (L4, L6) R_U in SO(3); pureTab (U C V^T) = actC R_U (actT R_V (pureTab C)), 16 pairs -- countercontrol (R_U^T) failures: 12
+PASS F1 C_H exclusion by a linear witness: |H| = 8; h ipW-orthogonal, fixing e00; h(psi1) local parts 0 and orthogonal block for all h; W = 2 e00 - psi1 >= 0 on spot generators, = -2 on psi1 -- countercontrol: certificate(phiW) = False, certificate(product) = False
+PASS F2 convexity foil: rho' PSD rank 2; det PT_2 pauliW rho' < 0 and det PT_2 pauliW (cnot rho') < 0; control: sigma PPT -- dets -135/4096, -135/4096; control det 0
+PASS F3 closedness foil: det pauliW psi1 = 0 (psi1 not positive definite); phiW = cnot (prodState xplus z3)
+PASS B1 (B1a) sharp-effect combinations give (w00 +- w_ik)/2, (w00 +- w_i0)/2, (w00 +- w_0k)/2 symbolically
+PASS B2 (B1e) tok-converted expansions equal fourVal and O1 for famI and famII -- countercontrol (no tok regrouping) failures: 4
+--- review_checks: 21/21 checks pass
+VERDICT REVIEW-CHECKS-EXACT

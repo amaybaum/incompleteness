@@ -1,0 +1,228 @@
+frozen: 19 stage-file blobs
+PASS  F has one parent, D, and adds the preregistration alone
+PASS  receipts at a982b5cd: RECEIPTS  3 receipt(s), all hold
+PASS  C1 retire.py has its frozen blob
+PASS  C1 messages.json has its frozen blob
+PASS  C1 headers.json has its frozen blob
+PASS  C1 controls.py has its frozen blob
+PASS  C1 controls self-test: controls: self-test OK
+PASS  controls history 06b795f7: history: 56 file(s) run by the probes job (56 named), 213 history site(s)
+PASS  controls callers 06b795f7 f9a9acaa: callers: 1
+PASS  C2 pc4s: pc4s: 4 predicate(s) all hold; 35 file(s) read, 34 legacy record(s); 1 directory listing(s); legacy bytes only
+  EVAL  1,610 _olt_supersessions on the guard: holds
+  EVAL  1,610 _olt_supersessions on the sought strings removed outside it: holds
+  EVAL  1,610 _olt_supersessions on its own definition alone: holds
+  COUNTERCONTROL  _olt_supersessions on a text without its strings: FAILS
+  EVAL  1,610 _olt_supersessions: 0 occurrence(s) of its strings outside its definition
+  EVAL  1,610 _oln_supersession on the guard: holds
+  EVAL  1,610 _oln_supersession on the sought strings removed outside it: holds
+  EVAL  1,610 _oln_supersession on its own definition alone: holds
+  COUNTERCONTROL  _oln_supersession on a text without its strings: FAILS
+  COUNTERCONTROL  _oln_supersession on the guard with the forbidden statement appended: FAILS
+  EVAL  1,610 _oln_supersession: 0 occurrence(s) of its strings outside its definition
+  NOTE  D     _olt_supersessions on the guard: holds
+  NOTE  D     _olt_supersessions on the sought strings removed outside it: holds
+  NOTE  D     _olt_supersessions on its own definition alone: holds
+  NOTE  D     _olt_supersessions: 10 occurrence(s) of its strings outside its definition
+  NOTE  D     _oln_supersession on the guard: holds
+  NOTE  D     _oln_supersession on the sought strings removed outside it: holds
+  NOTE  D     _oln_supersession on its own definition alone: holds
+  NOTE  D     _oln_supersession: 1 occurrence(s) of its strings outside its definition
+  vacuity: both predicates hold whatever the rest of the 1,610 guard says
+PASS  C2 vacuity: vacuity: both predicates hold whatever the rest of the 1,610 guard says
+  retire: 1616 predicates retired, 1610 as the census classes them and 6 by the amendment; 2486 retained
+  retire: structural rows: 15 removed with the emptied checks, 85 kept
+  retire: 3942 statements removed directly, 3 dead-code rounds, 35099 lines -> 14793 lines
+  retire: 91 checks remain; emptied: R7-ABR, R7-ARCH, R7-BRIDGE, R7-CV1, R7-DILCH, R7-DILMAP, R7-GR1, R7-GR2, R7-RBR, R7-SI1, R7-SI2, R7-SI3, R7-SRCA, R7-VIS
+  retire: retained predicates missing: 0
+PASS  C2 retire.py exits 0 with no retained predicate missing
+PASS  C2 the guard has its frozen blob: d1c6bf660958f870b9e9c8e3d07fe6935ba5f824
+PASS  C2 the guard compiles
+PASS  C2 stage 2 changes the guard alone
+PASS  controls history ec0a856d: history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  receipts at ec0a856d: RECEIPTS  3 receipt(s), all hold
+PASS  S2 V2 authoritative (still wired): certificate_verifier: authoritative OK (0 failure(s))
+PASS  C3 verification/infrastructure/legacy-records.json has its frozen blob
+PASS  C3 tools/legacy_records_check.py has its frozen blob
+PASS  C3 tools/release_gate.py has its frozen blob
+PASS  C3 .github/workflows/verify.yml has its frozen blob
+PASS  C3 the manifest is byte-identical to V3-12's
+PASS  legacy-records at 772535b6: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  legacy-records at ec0a856d: LEGACY  FAILS  manifest-absent
+PASS  controls callers 772535b6 f9a9acaa: callers: 0
+PASS  controls history 772535b6: history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  S3 v3 self-test: v3_verifier: self-test OK
+PASS  S3 v3 corpus: CORPUS  135 vector(s), exact and as expected
+PASS  receipts at 772535b6: RECEIPTS  3 receipt(s), all hold
+PASS  S3 duplicate_check: exit 0  duplicate_check: OK (no paragraph repeated within a file)
+PASS  S3 claims_check: exit 0  claims_check: OK (no withdrawn result asserted unconditional
+PASS  S3 artifact_placement_check: exit 0  artifact_placement_check: OK (no unaccounted root artifact; 
+PASS  S3 baseline_label_check: exit 0  baseline_label_check: OK (no baseline archives named)
+PASS  S3 ci_gate_presence_test: exit 0  ci_gate_presence_test: OK (CI runs the real release gate)
+PASS  S3 voice_scope_test: exit 0  voice_scope_test: OK (6 scope case(s); the checker scans the
+PASS  C4 v3_verifier.py has its frozen blob
+PASS  C4 architecture.md has its frozen blob
+PASS  C4 g12-admit-execution-changes-legacy-seal-namespace.json has its frozen blob
+PASS  C4 g13-admit-records-unchanged-after-later-commit.json has its frozen blob
+PASS  C4 g13-reject-record-file-added-after-landing.json has its frozen blob
+PASS  C4 g13-reject-record-file-deleted-after-landing.json has its frozen blob
+PASS  C4 g13-reject-record-file-modified-after-landing.json has its frozen blob
+PASS  C4 g13-reject-seal-record-changed-after-landing.json has its frozen blob
+PASS  S4 v3 self-test: v3_verifier: self-test OK
+PASS  S4 v3 corpus: CORPUS  140 vector(s), exact and as expected
+PASS  S4 legacy self-test: legacy_records_check: self-test OK
+PASS  controls callers d310a543 f9a9acaa: callers: 0
+PASS  receipts at d310a543: RECEIPTS  3 receipt(s), all hold
+PASS  legacy-records at d310a543: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  C5 AGENTS.md has its frozen blob
+PASS  C5 verification/README.md has its frozen blob
+PASS  C5 the README surfaces the guard reads: D      A6P slice  28719 chars, affirms=False; A6I slice  16611 chars, affirms=False | edited A6P slice  28417 chars, affirms=False; A6I slice  16309 chars, affirms=False
+PASS  receipts at 84eecf5b: RECEIPTS  3 receipt(s), all hold
+PASS  legacy-records at 84eecf5b: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  S5 duplicate_check: exit 0  duplicate_check: OK (no paragraph repeated within a file)
+PASS  S5 claims_check: exit 0  claims_check: OK (no withdrawn result asserted unconditional
+PASS  S5 artifact_placement_check: exit 0  artifact_placement_check: OK (no unaccounted root artifact; 
+PASS  S5 baseline_label_check: exit 0  baseline_label_check: OK (no baseline archives named)
+PASS  S5 ci_gate_presence_test: exit 0  ci_gate_presence_test: OK (CI runs the real release gate)
+PASS  S5 voice_scope_test: exit 0  voice_scope_test: OK (6 scope case(s); the checker scans the
+PASS  C9 README: 0 guard literals lost; anchor present
+PASS  C9 workflow: repertoire_lie, no lake build or lake env lean of an OIBridge module
+PASS  C9 AGENTS: the A.35 heading and the registry sentence
+PASS  C9 release gate: lean-manuscript
+PASS  linear: f9a9acaa is the one parent of a982b5cd
+PASS  linear: a982b5cd is the one parent of 06b795f7
+PASS  linear: 06b795f7 is the one parent of ec0a856d
+PASS  linear: ec0a856d is the one parent of 772535b6
+PASS  linear: 772535b6 is the one parent of d310a543
+PASS  linear: d310a543 is the one parent of 84eecf5b
+PASS  linear: 84eecf5b is the one parent of ddaf5bc7
+PASS  controls history ddaf5bc7: history: 56 file(s) run by the probes job (56 named), 0 history site(s)
+PASS  controls callers ddaf5bc7 f9a9acaa: callers: 0
+PASS  legacy-records at ddaf5bc7: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  receipts at ddaf5bc7: RECEIPTS  3 receipt(s), all hold
+  delta(D, E):
+  M	.github/workflows/verify.yml
+  M	AGENTS.md
+  D	tools/certificate_verifier.py
+  D	tools/control_plane_base_check.py
+  D	tools/control_plane_lint.py
+  A	tools/legacy_records_check.py
+  M	tools/release_gate.py
+  M	tools/v3_verifier.py
+  M	verification/README.md
+  D	conformance/v2/ambiguity-base-multiple-candidates.json
+  D	conformance/v2/ambiguity-base-zero-candidates.json
+  D	conformance/v2/ambiguity-landing-multiple-candidates.json
+  D	conformance/v2/ambiguity-landing-zero-candidates.json
+  D	conformance/v2/ambiguity-sealed-head-multiple-candidates.json
+  D	conformance/v2/ambiguity-sealed-head-zero-candidates.json
+  D	conformance/v2/artifact-contribution-changed-passes.json
+  D	conformance/v2/artifact-evidence-blob-changed.json
+  D	conformance/v2/artifact-evidence-moved-with-record.json
+  D	conformance/v2/artifact-evidence-moved-without-record.json
+  D	conformance/v2/artifact-evidence-removed.json
+  D	conformance/v2/artifact-relocation-fork.json
+  D	conformance/v2/artifact-relocation-seq-gap.json
+  D	conformance/v2/artifact-relocation-two-active-locations.json
+  D	conformance/v2/dependency-failed-propagates.json
+  D	conformance/v2/dependency-missing.json
+  D	conformance/v2/dependency-protocol-1-on-2-fails.json
+  D	conformance/v2/dependency-protocol-2-on-1-passes.json
+  D	conformance/v2/divergence-C-S1.json
+  D	conformance/v2/divergence-C-S2.json
+  D	conformance/v2/divergence-C-S3.json
+  D	conformance/v2/divergence-C-S4.json
+  D	conformance/v2/expected.json
+  D	conformance/v2/historical-subject-01-declaration-scope.json
+  D	conformance/v2/historical-subject-02-pin-scope.json
+  D	conformance/v2/historical-subject-03-budget-n12.json
+  D	conformance/v2/historical-subject-04-seals-tree-first-repair.json
+  D	conformance/v2/historical-subject-05-seals-tree-second-repair.json
+  D	conformance/v2/historical-subject-06-fixture-positive-half.json
+  D	conformance/v2/ledger-base-only-row-positive.json
+  D	conformance/v2/ledger-certificate-blob-unequal.json
+  D	conformance/v2/ledger-landed-row-missing-topology-field.json
+  D	conformance/v2/ledger-row-edited.json
+  D	conformance/v2/ledger-row-removed.json
+  D	conformance/v2/ledger-two-rows-for-one-round.json
+  D	conformance/v2/legacy-owned-certificate-for-owned-stem.json
+  D	conformance/v2/legacy-owned-count-unequal.json
+  D	conformance/v2/legacy-owned-entry-with-certificate.json
+  D	conformance/v2/legacy-owned-positive.json
+  D	conformance/v2/legacy-owned-second-entry.json
+  D	conformance/v2/live-policy-clause-missing-activation.json
+  D	conformance/v2/live-policy-clause-missing-evidence.json
+  D	conformance/v2/live-policy-clause-missing-expiry.json
+  D	conformance/v2/live-policy-clause-missing-owner_round.json
+  D	conformance/v2/live-policy-clause-missing-protocol.json
+  D	conformance/v2/live-policy-clause-predicate-type-unknown.json
+  D	conformance/v2/live-policy-clause-violated.json
+  D	conformance/v2/live-policy-count-unequal.json
+  D	conformance/v2/live-policy-positive-one-clause.json
+  D	conformance/v2/provenance-native-certificate-with-translation.json
+  D	conformance/v2/provenance-native-row-without-ci.json
+  D	conformance/v2/provenance-second-bootstrap.json
+  D	conformance/v2/provenance-translated-certificate-without-translation.json
+  D	conformance/v2/provenance-translated-row-with-ci.json
+  D	conformance/v2/provenance-translated-row-without-snapshot.json
+  D	conformance/v2/schema-00-positive-native.json
+  D	conformance/v2/schema-00-positive-translated.json
+  D	conformance/v2/schema-base-only-row-topology-null.json
+  D	conformance/v2/schema-base-only-row-topology-value.json
+  D	conformance/v2/schema-content-only-carrying-topology.json
+  D	conformance/v2/schema-malformed-hash.json
+  D	conformance/v2/schema-missing-base.json
+  D	conformance/v2/schema-missing-contributions.json
+  D	conformance/v2/schema-missing-control_plane.json
+  D	conformance/v2/schema-missing-dependencies.json
+  D	conformance/v2/schema-missing-directory.json
+  D	conformance/v2/schema-missing-evidence.json
+  D	conformance/v2/schema-missing-origin.json
+  D	conformance/v2/schema-missing-protocol.json
+  D	conformance/v2/schema-missing-round.json
+  D	conformance/v2/schema-missing-schema.json
+  D	conformance/v2/schema-missing-shape.json
+  D	conformance/v2/schema-unknown-key.json
+  D	conformance/v2/schema-unknown-protocol.json
+  D	conformance/v2/topology-landing-second-parent-not-e.json
+  D	conformance/v2/topology-recorded-sealed-head-unequal-derived.json
+  D	conformance/v2/topology-recorded-tree-unequal.json
+  D	conformance/v2/topology-rewritten-landing.json
+  D	conformance/v2/topology-rewritten-sealed-head.json
+  D	conformance/v2/topology-tree-identical-different-parents.json
+  D	conformance/v2/vacuity-fewer-vectors-than-corpus.json
+  D	conformance/v2/vacuity-one-id-substituted.json
+  D	conformance/v2/visibility-base-sha-refused.json
+  D	conformance/v2/visibility-landing-on-base-tip-only.json
+  D	conformance/v2/visibility-landing-on-both-one-candidate.json
+  D	conformance/v2/visibility-landing-on-both-two-candidates.json
+  D	conformance/v2/visibility-landing-on-head-only.json
+  D	conformance/v2/visibility-local-branch-refused.json
+  D	conformance/v2/visibility-synthetic-merge-refused.json
+  D	conformance/v2/visibility-unresolvable-base-ref.json
+  A	verification/infrastructure/legacy-records.json
+  A	verification/infrastructure/round-v3-13-retirement/controls.py
+  A	verification/infrastructure/round-v3-13-retirement/headers.json
+  A	verification/infrastructure/round-v3-13-retirement/messages.json
+  A	verification/infrastructure/round-v3-13-retirement/preregistration.md
+  A	verification/infrastructure/round-v3-13-retirement/result.md
+  A	verification/infrastructure/round-v3-13-retirement/retire.py
+  M	verification/infrastructure/v3/architecture.md
+  A	verification/infrastructure/v3/conformance/g12-admit-execution-changes-legacy-seal-namespace.json
+  D	verification/infrastructure/v3/conformance/g12-reject-execution-changes-legacy-seal-namespace.json
+  A	verification/infrastructure/v3/conformance/g13-admit-records-unchanged-after-later-commit.json
+  A	verification/infrastructure/v3/conformance/g13-reject-record-file-added-after-landing.json
+  A	verification/infrastructure/v3/conformance/g13-reject-record-file-deleted-after-landing.json
+  A	verification/infrastructure/v3/conformance/g13-reject-record-file-modified-after-landing.json
+  A	verification/infrastructure/v3/conformance/g13-reject-seal-record-changed-after-landing.json
+  M	verification/lean/edge_rigidity_probe.py
+PASS  the builder exits 0
+PASS  C7 --verify-round Q: VERDICT  HOLDS
+PASS  receipts at d9ff21ae: RECEIPTS  4 receipt(s), all hold
+PASS  legacy-records at d9ff21ae: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  countercontrol G13: RECEIPTS  4 receipt(s), NOT ALL HOLD
+PASS  legacy-records at e68635ee: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+PASS  countercontrol legacy: receipts still hold: RECEIPTS  4 receipt(s), all hold
+PASS  legacy-records at ad306a67: LEGACY  303 record(s) in 75 closed namespace(s), NOT INTACT
+PASS  countercontrol: a corrupted receipt does not hold: VERDICT  FAILS  s4:execution-delta-digest
+SIMULATION  all as predicted

@@ -1,0 +1,9 @@
+RANK majority n=1: rank_Fp=1,1 rank_Q=1
+RANK majority n=2: rank_Fp=4,4 rank_Q=4
+RANK majority n=3: rank_Fp=8,8 rank_Q=8
+RANK majority n=4: rank_Fp=16,16 rank_Q=16
+RANK majority n=5: rank_Fp=32,32
+RANK majority n=6: rank_Fp=64,64
+RANK majority n=7: rank_Fp=120,120
+SCALAR majority P(0^m)*2^(2W), m=0..14: [67108864, 33554432, 16777216, 12582912, 9437184, 8388608, 7864320, 7733248, 7634944, 7585792, 7544832, 7524352, 7505920, 7492096, 7479424]
+SCALAR majority Hankel rank of (s_(i+j)), i,j<=7: Fp=8 Q=8

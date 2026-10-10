@@ -1,0 +1,16 @@
+== P  two non-orthogonal Bell-type defects
+P1    PASS  symbolic in t (e^{i delta} = (1-t^2+2it)/(1+t^2), c = 1/(1+t^2)): pairings -1, 4c, c, 1-2c; sigma = 1/(4c): tr(y d_l) = 0, tr(y d_j) = (1-c)(2c+1)/c, tr(y w) = c - 1/(4c)
+P2    PASS  c = 9/25; y, w in (Q + cone Z) n Z*; tr(y w) = -301/900
+== S  the circle surgery: an exact pair y, w in K_T* with negative pairing
+S1    PASS  circle defects are l1(e^{-ig},1), l2(e^{-ig},1); tr(a l1(u,L)) = -conj(u) a01 - u a10 + L(a22+a33)
+S2    PASS  y = q0 + l1(u0, L0), q0 PSD, |u0|^2 = 1613/10000 <= 49/289; y in L1* n L2*; y not PSD
+S3    PASS  zeta = 530899/31250 + 3*I/5; |zeta|^2 <= tau^2; w in (Q + L1) n L1* n L2*; tr(y w) = -6/625
+S4    PASS  x det S(x) = -(x^3 - x + 2/5); min on [0,1] at 1/sqrt3 is 2/5 - 2/(3 sqrt3) > 0; x = 0 excluded
+S5    PASS  ipW(Y, W) = -24/625 in table form; ipW(e_g, Y) = tr(d_g y)/2 >= 0 at four spot angles
+== CC countercontrols (each must be REJECTED)
+CC1   REJECTED  orthogonal pair: tr((P_l + s d_j) d_l) = -1 for every s
+CC2   REJECTED  c = 16/25: tr(y w) = 399/1600 > 0 (no refutation)
+CC3   REJECTED  pure cap state P: 2|P12| = 1 > P33 + P44 = 0
+CC4   REJECTED  member y0 of K_T: tr(y0 w) = 23867561/468750 >= 0
+SUMMARY checks 7/7 PASS; countercontrols rejected 4/4
+VERDICT S2-SURGERY-NOT-SELF-DUAL plain pair (c = 9/25) and the circle surgeries K', K_T

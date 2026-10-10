@@ -1,0 +1,11 @@
+signature: Σ point H 20 / H^T 20; column-Diţă point H 4 / H^T 4; A34 witness 12 / 12; F4⊗F4 28; H4⊗H4 140
+    ε=0.3 converged: feature-dist 0.027  Σ-res 0.012  col-res 0.000  row-res 0.000  signature H 16 H^T 12  defect 15
+    ε=0.3 converged: feature-dist 0.028  Σ-res 0.013  col-res 0.024  row-res 0.020  signature H 2 H^T 4  defect 17
+    ε=0.6 converged: feature-dist 0.073  Σ-res 0.027  col-res 0.000  row-res 0.000  signature H 4 H^T 0  defect 18
+    ε=0.3 converged: feature-dist 0.036  Σ-res 0.000  col-res 0.000  row-res 0.000  signature H 4 H^T 4  defect 15
+    ε=0.3 converged: feature-dist 0.211  Σ-res 0.084  col-res 0.050  row-res 0.002  signature H 4 H^T 12  defect 16
+    ε=0.6 converged: feature-dist 0.117  Σ-res 0.070  col-res 0.180  row-res 0.184  signature H 4 H^T 8  defect 17
+    ε=0.3 converged: feature-dist 0.038  Σ-res 0.025  col-res 0.010  row-res 0.077  signature H 2 H^T 2  defect 17
+    ε=0.6 converged: feature-dist 0.064  Σ-res 0.029  col-res 0.041  row-res 0.041  signature H 2 H^T 2  defect 17
+    ε=0.6 converged: feature-dist 0.148  Σ-res 0.075  col-res 0.251  row-res 0.061  signature H 4 H^T 4  defect 17
+converged points: 9; certified in no Diţă hull for any pairing (both signatures 0): 0; of those with defect 17: 0 (9s)

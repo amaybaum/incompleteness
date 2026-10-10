@@ -1,0 +1,229 @@
+SELFTEST = r'''
+def self_test():
+    bad = []
+    here = os.path.dirname(os.path.abspath(__file__))
+    pre = os.path.join(here, 'preregistration.md')
+    if not os.path.exists(pre):
+        bad.append('agreement: preregistration.md not beside controls.py')
+    else:
+        text = open(pre, encoding='utf-8').read()
+        q, n = qnorm(text), norm(text)
+        if norm(COMPONENTS['HEAD']) not in n:
+            bad.append('agreement: the head not in the preregistration')
+        for k, v in PROPS.items():
+            if not v.startswith(COMPONENTS['HEAD']) or norm(v[len(COMPONENTS['HEAD']):]) not in n:
+                bad.append('agreement: proposition %s not in the preregistration as the head followed by its body' % k)
+        for k, v in list(SENTENCES.items()) + [('clause', CLAUSE), ('end-of-cell', P0_END_D),
+                                               ('standing-40', P0_STANDING_40)] + list(P0_CASE.items()):
+            if qnorm(v) not in q:
+                bad.append('agreement: %s not in the preregistration' % k)
+        for b in (ROADMAP_BLOB_D, GUARD_BLOB_D, WORKFLOW_BLOB_D, PROBE_BLOB, MODULE_BLOB, D):
+            if b not in text:
+                bad.append('agreement: %s not in the preregistration' % b)
+        for role, nm, key in THEOREMS:
+            if '`%s`' % nm not in text:
+                bad.append('agreement: theorem %s not in the preregistration' % nm)
+    for a, x in SENTENCES.items():
+        for b, y in SENTENCES.items():
+            if a != b and qnorm(x) in qnorm(y):
+                bad.append('distinctness: the sentence of %s lies inside that of %s' % (a, b))
+    # the duality and the single source hold of the frozen texts, and fail when either is altered
+    if duality_ok(PROPS, COMPONENTS):
+        bad.append('duality: the frozen texts fail: %s' % duality_ok(PROPS, COMPONENTS))
+    dmuts = 0
+    for nm, key, old, new in (
+            ('P_R-face-weakened', 'P_R', '(' + COMPONENTS['FACE_2p'] + ')', '(True)'),
+            ('P_R-exclusion-weakened', 'P_R', '(' + COMPONENTS['EXCL_mc_c'] + ')', '(True)'),
+            ('P_N-negation-dropped', 'P_N', '¬ (' + COMPONENTS['FACE_1p'] + ')', '(' + COMPONENTS['FACE_1p'] + ')'),
+            ('face-moved-to-the-absent-face', 'FACE_2p', 'H3 u₁ 1 u₃', 'H3 u₁ (-1) u₃'),
+            ('face-orientation-dropped', 'FACE_3p', '(dita28 X Y D)ᵀ', 'dita28 X Y D'),
+            ('face-flatness-dropped', 'FACE_1m', 'flg X ∧ ', ''),
+            ('exclusion-conclusion-weakened', 'EXCL_k1_c', '→ u₂ = 1 ∧ u₃ = 1', '→ u₂ = 1'),
+            ('exclusion-value-flipped', 'EXCL_mc_c', '→ u₁ = -1', '→ u₁ = 1'),
+            ('exclusion-unit-dropped', 'EXCL_t1_c', 'star u₂ * u₂ = 1 →', 'u₂ = 1 →')):
+        props = dict(PROPS)
+        if props[key].count(old) < 1:
+            bad.append('duality mutation %s: pattern absent' % nm)
+            continue
+        props[key] = props[key].replace(old, new, 1)
+        dmuts += 1
+        if not duality_ok(props, COMPONENTS):
+            bad.append('duality mutation %s: accepted' % nm)
+    for nm, comp, old, new in (
+            ('head-drift-act-36', 'HEAD39', '3599 / 3601 + (120 / 3601) * Complex.I', '3599 / 3600 + (120 / 3601) * Complex.I'),
+            ('head-drift-act-39', 'HEAD39', 'i.2 = 3', 'i.2 = 2'),
+            ('head-drift-act-40', 'HEAD40', 'let rmc', 'let rmc '),
+            ('component-drift-face', 'FACE_3m', 'H3 u₁ u₂ (-1)', 'H3 u₁ u₂ 1'),
+            ('component-drift-exclusion', 'EXCL_mr_r', '→ u₃ = -1', '→ u₃ = 1')):
+        if COMPONENTS[comp].count(old) < 1:
+            bad.append('duality mutation %s: pattern absent' % nm)
+            continue
+        comps = dict(COMPONENTS, **{comp: COMPONENTS[comp].replace(old, new, 1)})
+        dmuts += 1
+        if not duality_ok(PROPS, comps):
+            bad.append('duality mutation %s: accepted' % nm)
+
+    fd = _synthetic_d()
+    EXPECTED_PROBE_BLOB[0] = blob_id('# synthetic probe\n')
+    EXPECTED_MODULE_BLOB[0] = blob_id(_module(ROWS[0]))
+    for label in ROWS:
+        fe, delta = _synthetic_e(fd, label)
+        r = check_all(fd, fe, delta)
+        if r:
+            bad.append('positive %s: %s' % (label, r))
+    # a proof-only departure from the reference implementation, reported in the note, holds
+    fe, delta = _synthetic_e(fd, ROWS[0])
+    m2 = fe[MODULE].replace('/-! synthetic -/', '/-! synthetic, repaired -/')
+    r = check_all(fd, dict(fe, **{MODULE: m2, RDIR + 'result.md': _note(ROWS[0], blob_id(m2))}), delta)
+    if r:
+        bad.append('positive reported departure: %s' % r)
+    PV, FL, X = ROWS
+    muts = []
+
+    def mut(name, label, fn, want):
+        fe, delta = _synthetic_e(fd, label)
+        fe, delta = fn(dict(fe), dict(delta))
+        r = check_all(fd, fe, delta)
+        muts.append(name)
+        if not any(x.startswith(want) for x in r):
+            bad.append('mutation %s: expected %s, got %s' % (name, want, r))
+
+    def modstmt(label, nm, s):
+        return lambda fe, dl: (dict(fe, **{MODULE: _module(label, stmt={nm: s})}), dl)
+    E_ = 'end ' + NAMESPACE
+    mut('definition-added', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        E_, 'noncomputable def zz := 1\n' + E_)}), dl), 'module:forbidden-command')
+    mut('variable-added', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        '\ntheorem a40_shared_x', '\nvariable (h : False)\ntheorem a40_shared_x')}), dl),
+        'module:forbidden-command')
+    mut('second-open', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        '\ntheorem a40_shared_x', '\nopen Classical in\ntheorem a40_shared_x')}), dl), 'module:open')
+    mut('second-import', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        '/-! synthetic -/', 'import Mathlib.GroupTheory.SemidirectProduct\n/-! synthetic -/')}), dl),
+        'module:forbidden-command')
+    mut('sorry', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace('exact test', 'sorry', 1)}), dl),
+        'module:forbidden-token')
+    mut('native-decide', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace('exact test', 'native_decide', 1)}), dl),
+        'module:forbidden-token')
+    mut('print-axioms-dropped', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        '#print axioms a40_locus_kernel\n', '')}), dl), 'module:no-print-axioms')
+    mut('stray-theorem-name', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        E_, 'theorem a40_n : True := trivial\n#print axioms a40_n\n' + E_)}), dl),
+        'module:theorem-name-outside')
+    mut('note-module-blobs-absent', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        '`' + EXPECTED_MODULE_BLOB[0] + '`', 'x')}), dl), 'note:module-blobs-not-reported')
+    mut('module-departure-unreported', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace('/-! synthetic -/', '/-! synthetic, repaired -/'),
+        RDIR + 'result.md': fe[RDIR + 'result.md'].replace('`' + EXPECTED_MODULE_BLOB[0] + '`.', '`' + EXPECTED_MODULE_BLOB[0] + '`; the module at E is `'
+        + blob_id(fe[MODULE].replace('/-! synthetic -/', '/-! synthetic, repaired -/')) + '`.')}), dl),
+        'note:departure-from-the-reference-implementation-not-reported')
+    mut('verdict-weakened', PV, modstmt(PV, 'a40_locus_kernel', PROPS['P_R'].replace(
+        '(' + COMPONENTS['EXCL_k2_r'] + ')', '(True)', 1)), 'module:statement-not-frozen:a40_locus_kernel')
+    mut('not-verdict-weakened', FL, modstmt(FL, 'a40_not_locus_kernel', PROPS['P_N'].replace(
+        '¬ (' + COMPONENTS['FACE_3m'] + ')', '(' + COMPONENTS['FACE_3m'] + ')', 1)), 'module:statement-not-frozen:a40_not_locus_kernel')
+    mut('face-at-one-point', PV, modstmt(PV, 'a40_shared_face_2p', PROPS['FACE_2p'].replace(
+        '∀ u₁ u₃ : ℂ, star u₁ * u₁ = 1 → star u₃ * u₃ = 1 →', '∀ u₁ u₃ : ℂ, u₁ = 1 → u₃ = 1 →', 1)), 'module:statement-not-frozen:a40_shared_face_2p')
+    mut('face-moved-to-the-absent-face', PV, modstmt(PV, 'a40_shared_face_2p', PROPS['FACE_2p'].replace(
+        'H3 u₁ 1 u₃', 'H3 u₁ (-1) u₃', 1)), 'module:statement-not-frozen:a40_shared_face_2p')
+    mut('face-map-changed', PV, modstmt(PV, 'a40_shared_face_1m', PROPS['FACE_1m'].replace(
+        'ditamc X Y D', 'ditat2 X Y D', 1)), 'module:statement-not-frozen:a40_shared_face_1m')
+    mut('exclusion-weakened', PV, modstmt(PV, 'a40_shared_excl_k3_r', PROPS['EXCL_k3_r'].replace(
+        '→ u₁ = 1 ∧ u₂ = 1 ∧ u₃ = 1', '→ u₁ = 1', 1)), 'module:statement-not-frozen:a40_shared_excl_k3_r')
+    mut('exclusion-relaxed-to-true', PV, modstmt(PV, 'a40_shared_excl_mr_r', PROPS['EXCL_mr_r'].replace(
+        '→ u₃ = -1', '→ True', 1)), 'module:statement-not-frozen:a40_shared_excl_mr_r')
+    for nm, _ in REQUIRED[PV]:
+        mut('required-absent:' + nm, PV, lambda fe, dl, nm=nm: (dict(fe, **{MODULE: _module(PV, drop=(nm,))}), dl),
+            'module:required-statement-absent:' + nm)
+    for nm, _ in REQUIRED[FL]:
+        mut('required-absent-fails:' + nm, FL, lambda fe, dl, nm=nm: (dict(fe, **{MODULE: _module(FL, drop=(nm,))}), dl),
+            'module:required-statement-absent:' + nm)
+    mut('corollary-absent', X, lambda fe, dl: (dict(fe, **{MODULE: _module(X, drop=('a40_c_exclusive',))}), dl),
+        'module:required-corollary-absent')
+    mut('corollary-altered', X, lambda fe, dl: (dict(fe, **{MODULE: _module(
+        X, stmt={'a40_c_exclusive': corollary_statement()[2:].replace('→ ¬ (', '→ (', 1)})}), dl),
+        'module:statement-not-frozen:a40_c_exclusive')
+    mut('both-labels', PV, lambda fe, dl: (dict(fe, **{MODULE: fe[MODULE].replace(
+        E_, 'theorem a40_not_locus_kernel :\n    ' + PROPS['P_N'] + ' := by\n  exact test\n'
+        '#print axioms a40_not_locus_kernel\n' + E_)}), dl), 'module:both-labels')
+    mut('note-outcome-mismatch', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        '**Outcome:** `A40-LOCUS-CLASSIFIED`', '**Outcome:** `A40-LOCUS-FAILS`')}), dl), 'note:outcome-line')
+    mut('note-second-outcome', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md']
+        + '\n**Outcome:** `A40-LOCUS-CLASSIFIED`\n'}), dl), 'note:outcome-line')
+    mut('note-sentence-altered', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        'evidence level 2', 'evidence level 3', 1)}), dl), 'note:frozen-sentence')
+    mut('note-unearned-sentence', X, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md']
+        + '\n' + SENTENCES[PV] + '\n'}), dl), 'note:sentence-of-a-label-not-earned')
+    mut('note-clause-twice', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md']
+        + '\n' + CLAUSE + '\n'}), dl), 'note:the-clause')
+    mut('note-clause-detached', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        ' — the result note.**\n', ' — the result note.**\n' + 'x ' * 60 + '\n', 1)}), dl), 'note:the-clause')
+    mut('note-face-unnamed', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        '`a40_shared_face_3m`', 'x')}), dl), 'note:required-statement-not-named')
+    mut('note-exclusion-unnamed', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        '`a40_shared_excl_mc_c`', 'x')}), dl), 'note:required-statement-not-named')
+    mut('note-probe-line-absent', PV, lambda fe, dl: (dict(fe, **{RDIR + 'result.md': fe[RDIR + 'result.md'].replace(
+        'dita_torus_locus_probe: OK', 'dita_torus_locus_probe: ran')}), dl), 'note:probe-summary-line-absent')
+    mut('roadmap-wrong-case', PV, lambda fe, dl: (dict(fe, **{ROADMAP: expected_roadmap(fd[ROADMAP], FL)}), dl),
+        'roadmap:')
+    mut('roadmap-standing-dropped', PV, lambda fe, dl: (dict(fe, **{ROADMAP: fe[ROADMAP].replace(
+        P0_CASE[PV] + ' ' + P0_STANDING_40, P0_CASE[PV])}), dl), 'roadmap:')
+    mut('roadmap-sentence-misplaced', PV, lambda fe, dl: (dict(fe, **{ROADMAP: fd[ROADMAP].replace(
+        ' Act 25 a.', ' Act 25 a. ' + P0_CASE[PV] + ' ' + P0_STANDING_40, 1)}), dl), 'roadmap:')
+    mut('roadmap-touched-when-undecided', X, lambda fe, dl: (dict(fe, **{ROADMAP: expected_roadmap(fd[ROADMAP], PV)}),
+        dict(dl, **{ROADMAP: 'M'})), 'roadmap:')
+    mut('guard-one-byte', PV, lambda fe, dl: (dict(fe, **{GUARD: fe[GUARD] + ' '}), dict(dl, **{GUARD: 'M'})), 'guard:')
+    mut('census-status-promoted', PV, lambda fe, dl: (dict(fe, **{CENSUS: fe[CENSUS].replace(
+        '"status": "kernel-only",\n      "manuscript": [],\n      "note": "Outcome',
+        '"status": "manuscript-cited",\n      "manuscript": [],\n      "note": "Outcome')}), dl),
+        'census:family-disposition')
+    mut('census-other-entry-changed', PV, lambda fe, dl: (dict(fe, **{CENSUS: fe[CENSUS].replace(
+        '"note": "n"', '"note": "m"')}), dl), 'census:another-entry-changed')
+    mut('census-outcome-wrong', PV, lambda fe, dl: (dict(fe, **{CENSUS: fe[CENSUS].replace(
+        'A40-LOCUS-CLASSIFIED.', 'A40-LOCUS-FAILS.')}), dl), 'census:outcome')
+    mut('census-entry-absent', PV, lambda fe, dl: (dict(fe, **{CENSUS: fd[CENSUS]}), dl), 'census:family-count-or-place')
+    mut('wire-absent', PV, lambda fe, dl: (dict(fe, **{ROOT: fd[ROOT]}), dl), 'wire:')
+    mut('wire-misplaced', PV, lambda fe, dl: (dict(fe, **{ROOT: fd[ROOT] + WIRE}), dl), 'wire:')
+    mut('workflow-probe-not-wired', PV, lambda fe, dl: (dict(fe, **{WORKFLOW: fd[WORKFLOW]}), dl), 'workflow:')
+    mut('workflow-extra-change', PV, lambda fe, dl: (dict(fe, **{WORKFLOW: fe[WORKFLOW] + '\n'}), dl), 'workflow:')
+    mut('workflow-shard-not-required', PV, lambda fe, dl: (dict(fe, **{WORKFLOW: fe[WORKFLOW].replace(
+        '          test "${A40_RESULT}" = success\n', '')}), dl), 'workflow:')
+    mut('workflow-shard-not-in-needs', PV, lambda fe, dl: (dict(fe, **{WORKFLOW: fe[WORKFLOW].replace(
+        'probes_a38, probes_a40, probes_foundations', 'probes_a38, probes_foundations')}), dl), 'workflow:')
+    mut('workflow-probe-in-the-a38-shard', PV, lambda fe, dl: (dict(fe, **{WORKFLOW: fe[WORKFLOW].replace(
+        '  probes_a40:\n', '  probes_a38b:\n')}), dl), 'workflow:')
+    mut('probe-altered', PV, lambda fe, dl: (dict(fe, **{PROBE: fe[PROBE] + '\n'}), dl), 'probe:')
+    mut('path-extra', PV, lambda fe, dl: (fe, dict(dl, **{'papers/SM.md': 'M'})), 'paths:')
+    mut('path-missing-note', PV, lambda fe, dl: (fe, dict((k, v) for k, v in dl.items()
+                                                         if k != RDIR + 'result.md')), 'paths:')
+    mut('path-missing-probe', PV, lambda fe, dl: (fe, dict((k, v) for k, v in dl.items() if k != PROBE)), 'paths:')
+    mut('path-missing-module', PV, lambda fe, dl: (fe, dict((k, v) for k, v in dl.items() if k != MODULE)), 'paths:')
+    EXPECTED_PROBE_BLOB[0] = PROBE_BLOB
+    EXPECTED_MODULE_BLOB[0] = MODULE_BLOB
+    return bad, len(ROWS), dmuts, len(muts)
+
+
+def main():
+    if sys.argv[1:] == ['--self-test']:
+        bad, rows, dmuts, muts = self_test()
+        for b in bad:
+            print('  FAIL', b)
+        if bad:
+            print('controls: self-test FAILED')
+            return 1
+        print('controls: the two verdict propositions are duals and every shared text has one source; '
+              '%d duality mutations fail as required' % dmuts)
+        print('controls: %d rows hold as frozen, %d mutation controls fail as required' % (rows, muts))
+        print('controls: self-test OK')
+        return 0
+    if len(sys.argv) == 3 and sys.argv[1] == 'check':
+        f = cmd_check(sys.argv[2])
+        for x in f:
+            print('  FAIL', x)
+        print('controls: check %s' % ('FAILED' if f else 'OK'))
+        return 1 if f else 0
+    print(__doc__)
+    return 2
+
+
+if __name__ == '__main__':
+    sys.exit(main())
+'''

@@ -1,0 +1,85 @@
+
+== S0  the landed definitions read here (file:line at L)
+PASS S0.locs  [source] every landed identifier used in the checklist resolves at L -- IsNot CompositeDimension.lean:210; isNot_nflip CompositeDimension.lean:838; NativeGate CompositeDimension.lean:218; nativeGate_cnot CompositeDimension.lean:1160; cnot_prodState_mem_maxCone CompositeDimension.lean:1152; Entangling CompositeDimension.lean:229; entangling_cnot CompositeDimension.lean:1380; maxCone CompositeDimension.lean:186; jointStates CompositeDimension.lean:190; CtrlGate RelcSelectBlock.lean:45; ctrlGate_of_nativeGate RelcSelectBlock.lean:53; GateRel ParityNot.lean:42; gateRel_cnot ParityNot.lean:418; NativeGateOf K1Bridge.lean:49; EntanglingOf K1Bridge.lean:64; nativeGate_of_cone_eq K1Bridge.lean:73; maxConeOf_avail_eq EffectSpace.lean:572; CandidateCone K2Guard.lean:95; prodState_mem_maxCone K2Guard.lean:165; no_candidateCone_cnot_reflY K2Guard.lean:143; PreComposite CompositeInterface.lean:223; Composite CompositeInterface.lean:243; maxBody CompositeInterface.lean:271; minBody CompositeInterface.lean:267; ball3MinComposite CompositeInterface.lean:807; ball3MaxComposite CompositeInterface.lean:811; JointReversible CompositeInterface.lean:445; PreservesBody OrbitGeneration.lean:69; OpDatum CompletionAction.lean:46; preservesBody_inducedEquiv CompletionAction.lean:352; body_isClosed CompletionAction.lean:202; ball3 KInfFoundations.lean:311; eball TransitiveBody.lean:518
+PASS S0.tabs  [source] landed sgn, phiW, reflY = diag(1,-1,1), nflip = diag(1,-1,-1), z3, xplus match the transcription
+PASS S0.nat  [source] NativeGate fields: frame on the corners, posFwd and posInv on product states INTO maxCone, relT, relC (two-sided positivity is relative to maxCone, not to any pair cone)
+PASS S0.ball  [source] ball3 = {v | v0^2 + v1^2 + v2^2 <= 1} and eball d = {x | sum x_j^2 <= 1}: the same set at d = 3 (Fin.sum_univ_three)
+PASS S0.comp  [source] ball3MaxComposite = maxComposite ball3_isCompact ball3_isCompact (body: maxBody of the coordinate model) and ball3MinComposite = minComposite (body: the convex hull of the products)
+PASS S0.jr  [source] JointReversible G := PreservesBody P.Omega G, and PreservesBody asks g x and g.symm x in the body: a predicate, asserted of no pair gate at L
+PASS S0.opd  [source] OpDatum: tau maps each stage preparation into the completed body (mem_body); no DirectedStages value for a pair of systems is declared at L (only badD, bitTower, midD) -- ['badD', 'bitTower', 'midD']
+
+== S1  the native-gate premises for the four gates (same NOT nflip, axis z3)
+PASS K1.cnot  [identity] cnot: frame on the four corner pairs, relT and relC with nflip, two-sided inverse -- frame True, relT True, relC True
+PASS K1.g_D  [identity] g_D: frame on the four corner pairs, relT and relC with nflip, two-sided inverse -- frame True, relT True, relC True
+PASS K1.g_pre  [identity] g_pre: frame on the four corner pairs, relT and relC with nflip, two-sided inverse -- frame True, relT True, relC True
+PASS K1.g_Tw  [identity] g_Tw: frame on the four corner pairs, relT and relC with nflip, two-sided inverse -- frame True, relT True, relC True
+PASS K1.pos  [identity] forward and inverse images of prodState x y under the four gates are cnot (prodState x y'), y' in {y, reflY y}, possibly followed by actT reflY (symbolic); with the landed cnot_prodState_mem_maxCone, |reflY y| = |y| and the actT reflY-invariance of maxCone (next check) every gate has posFwd and posInv
+PASS K1.max  [identity] pairVal a b (actT R w) = pairVal a (homMap R^T b) w (symbolic R), and homMap reflY keeps b0 and the Lorentz form: actT reflY maps maxCone onto maxCone
+PASS K1.ent  [witness] Entangling: the images of the pure product (xplus, z3) are phiW (cnot, g_pre) and idW = actT reflY phiW (g_D, g_Tw); each has table rank 4, so none is a product state (rank 1); idW is extreme in the joint states because actT reflY is a linear involution of W 3 mapping maxCone onto itself and fixing the unit entry, and phiW is extreme (landed entangling_cnot)
+PASS K1.cc  [countercontrol] countercontrol: actT R_H . cnot (R_H swaps the first and third axes) fails the frame (it is detected)
+
+== S2  admissible invariant cones of the four gates
+PASS S2.no  [witness] g_D and g_pre: two applications take the product state (xplus, z3) to chainW, outside maxCone (value -1/2 at the sharp effects of -e1, -e3): no cone containing the products and inside maxCone is invariant
+PASS S2.yes  [identity] cnot and g_Tw have admissible invariant cones: pauliW (cnot w) = CNOT pauliW(w) CNOT^dagger (cnot Q3 = Q3) and pauliW (actT reflY w) is the partial transpose of pauliW(w) (twin = actT reflY Q3, g_Tw twin = twin), symbolic
+PASS S2.cc  [countercontrol] countercontrol: cnot applied twice returns the product state (it does not leave maxCone)
+
+== S3  the certified-premise checklist (INDEPENDENT): each certified premise bearing on (K, N), per model
+PASS S3.vio  [witness] the violations: M_max -- idW in maxCone (pairVal a b idW = a.b >= a0 b0 - |a||b| >= 0) and cnot idW = chainW outside it; M_D13 -- g_D (xplus, z3) = idW outside Q3 (singlet value -1) with (xplus, z3) in Q3
+  checklist  1. IsNot (eball 3) z3 nflip
+      M_max: K isNot_nflip
+      M_D13: K isNot_nflip
+  checklist  2. NativeGate (eball 3) z3 nflip N: frame, posFwd, posInv into maxCone, relT, relC
+      M_max: K nativeGate_cnot
+      M_D13: X K1.g_D, K1.pos, K1.max + K cnot_prodState_mem_maxCone
+  checklist  3. CtrlGate (eball 3) z3 nflip N
+      M_max: K ctrlGate_of_nativeGate
+      M_D13: from NativeGate (K ctrlGate_of_nativeGate)
+  checklist  4. GateRel nflip N (relT, relC)
+      M_max: K gateRel_cnot
+      M_D13: X K1.g_D
+  checklist  5. Entangling (eball 3) N
+      M_max: K entangling_cnot
+      M_D13: X+W K1.ent
+  checklist  6. NativeGateOf / EntanglingOf for an available family whose cone is maxCone (EFF-1)
+      M_max: W: NativeGate + cone equality (K maxConeOf_avail_eq)
+      M_D13: W: same
+  checklist  7. one common NOT on both copies (K-inf-Copy, open premise)
+      M_max: nflip on both copies
+      M_D13: nflip on both copies
+  checklist  8. CandidateCone K: products in K, K in maxCone
+      M_max: K prodState_mem_maxCone; maxCone itself
+      M_D13: W: D5, D6, landed D.W (Q3 in maxCone)
+  checklist  9. K is a convex cone, closed
+      M_max: W (landed M_max.2W)
+      M_D13: W (PSD cone)
+  checklist 10. the normalized slice of K is a COMP-1 Composite body in the coordinate model
+      M_max: K ball3MaxComposite (S0.comp, S0.ball)
+      M_D13: W: PreComposite fields from CandidateCone and convexity; lt as in the landed minComposite/maxComposite (result.md Q2)
+  checklist 11. no candidate cone is invariant under both cnot and actT reflY (K2-GUARD-1)
+      M_max: consistent: maxCone is not cnot-invariant (S3.vio)
+      M_D13: consistent: Q3 is not actT reflY-invariant (b1_models W2)
+  checklist 12. OPACT-1: an operation datum with an inverse datum preserves the completed body
+      M_max: vacuous: no pair directed system or datum at L (S0.opd)
+      M_D13: vacuous (S0.opd)
+  checklist 13. the other hypotheses of the four-copy theorem (hcls, hadm, hcl, H) -- design level, not certified
+      M_max: landed M_max (KT4-PREM-1 Q1-MAX, replayed)
+      M_D13: landed M_D (Q1-MAP, replayed)
+PASS S3.list  [source] the checklist covers every landed declaration of S0 that constrains a pair gate or a pair cone
+
+== S4  candidate sources (B2): derived, restated or refuted
+PASS S4.pact  [witness] P-ACT2 on a product-only pair system is impossible for cnot: ipW F (prodState x y) = |x - D y|^2/2 + (1-|x|^2)/2 + (1-|y|^2)/2 >= 0 on products (symbolic) and ipW F phiW = -2 with phiW = cnot (prodState xplus z3)
+PASS S4.jr  [identity] JR (PreservesBody of the normalized slice under {N}) gives hgate: N-CLASS gates fix the unit entry (symbolic, cnot and actC/actT of orthogonal maps), so N (c w) = c N(w) carries the slice to the cone
+PASS S4.gt  [identity] GT-COMP: for the four gates, ipW (N (a b^T)) (N (prodState x y)) = (a.x^)(b.y^), symbolic (transported evaluation law)
+
+== S5  restricted idle extension (B3)
+PASS S5.prod  [identity] product-level idle extension is an identity of the product data: actC M (actT M' (prodState x y)) = prodState (M x) (M' y), symbolic (it holds in every model and says nothing about entangled tables)
+PASS S5.gate  [witness] gate-factor idle extension of the post-local reflection: actT reflY sends phiW (in Q3) to idW (not in Q3), and the landed chain cnot . actT reflY . cnot takes (xplus, z3) to chainW (K2-GUARD-1)
+PASS S5.comm  [identity] the commutant of cnot: cnot . actC Rz = actC Rz . cnot and cnot . actT Rx = actT Rx . cnot (symbolic angles); with the Bell state they give the links: actC Rz (actT Rx phiW) = actC (Rz Rx) phiW
+PASS S5.cc  [countercontrol] countercontrol: a control-side rotation about the first axis does not commute with cnot (sample angle)
+
+kinds: identity 11, witness 5, enumerate 0, source 8, countercontrol 3
+VERDICT B2-K1: the native-gate premises (frame, relT, relC, two-sided positivity on maxCone, entangling, same NOT) hold for all four gates ['cnot', 'g_D', 'g_pre', 'g_Tw']: True; two of them (g_D, g_pre) have no admissible invariant cone (S2.no): True
+VERDICT B2-INDEP: M_max = (maxCone, cnot) and M_D13 = (Q3, g_D) satisfy each of the 13 checklist premises (S3) and violate hgate (S3.vio)
+VERDICT B2-PACT: a product-only pair system admits no operation datum for cnot (S4.pact); JR gives hgate by scaling (S4.jr); GT-COMP's evaluation law holds for the transported data (S4.gt)
+VERDICT B3: product-level idle extension is an identity (S5.prod); the post-local reflection factor leaves Q3 (S5.gate); the commutant extension yields the links only by assuming rotation invariance of K (S5.comm)
+b2_sources: OK -- 27 checks

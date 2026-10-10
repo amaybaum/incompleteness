@@ -1,0 +1,18 @@
+PASS E1 the Bell table of Tw is idW (= actT reflY phiW)
+PASS E1 uniform charts chart2 e e (e in {I, R}) send phiW -> phiW and idW -> idW: twist bits unchanged
+PASS E1 per-token (I,R) and (R,I) exchange phiW and idW
+PASS E1 the global transpose chart2 R R fixes Q's and Tw's Bell tables and commutes with actT reflY (symbolic)
+PASS E2 n = 3: per-token chart exists iff tau is a coboundary (4 of 8)
+PASS E2 n = 3: uniform chart exists iff tau = 0 (1 of 8)
+PASS E3 n = 3: EX-symmetric tau = c has a per-token chart iff c = 0
+PASS E2 n = 4: per-token chart exists iff tau is a coboundary (8 of 64)
+PASS E2 n = 4: uniform chart exists iff tau = 0 (1 of 64)
+PASS E3 n = 4: EX-symmetric tau = c has a per-token chart iff c = 0
+PASS E4 the twin (n = 2, tau = 1): per-token presentable, not uniformly presentable
+PASS E4 the twin is SWAP-invariant: swapW . actT reflY = transposeW . actT reflY . swapW and transposeW fixes Q (symbolic; A1.13)
+PASS E5 on a triangle, parity tau_02 = tau_01 XOR tau_12 with tau = c constant forces c = 0
+PASS E6 (0 1) maps sigma on (0,1) (x) z to (swapW sigma) on (0,1) (x) z (symbolic)
+PASS E6 (0 1) maps sigma on (0,2) (x) y to sigma on (1,2) (x) y and back (symbolic)
+PASS E6 swapW idW = idW (the twisted Bell table is exchange-symmetric)
+a5_pertype: 16/16 checks pass
+VERDICT A5-PERTYPE-EXACT

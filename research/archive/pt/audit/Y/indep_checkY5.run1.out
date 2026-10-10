@@ -1,0 +1,8 @@
+CONFIRMED F1 the two-qubit Clifford group modulo global phase has 11520 elements (23040 with the global transpose, Y's census) -- 11520
+CONFIRMED F2 phi0 = (1, 2, 3i, -1+i) stays entangled under every Clifford element, with min |det Psi|^2/|phi0|^4 = 5/256 (Y's d_min) -- 5/256
+CONFIRMED F3 the unitary part of G16 has 8 elements and already attains d_min = 5/256 (so the whole Clifford extension adds no lower value) -- 8
+CONFIRMED F4 the seed c = 1 + 4 d_min/8 equals 517/512 (Y's value); with d_min > 0 every finite node's reachable set misses phi0 and the cap defect is admissible -- 517/512
+CONFIRMED F5 the global transpose (complex conjugation on states) leaves the minimum unchanged: the 23040-element group with T has the same d_min
+MISMATCH F6c countercontrol: the product |00> has |det Psi| = 0 under every element, and the Bell state (1,0,0,1) reaches a product (min 0): reachable states give no certificate
+checks: 6, confirmed: 5
+VERDICT INDEP-Y5-MISMATCH

@@ -1,0 +1,22 @@
+control: B(T_c,T_c) = 0 and B(T_r,T_r) = 0 through the Def-coordinate expansion: True True
+sector 0 (dim 8):
+   trial 0: B(v,v)=0: False | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): True | extendable with an explicit Diţă correction: not found
+   trial 1: B(v,v)=0: False | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): True | extendable with an explicit Diţă correction: not found
+   sector isotropic for B (B(V,V)=0): False | couples to T (B(V,T) != 0): True
+sector 1 (dim 8):
+   trial 0: B(v,v)=0: False | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): True | extendable with an explicit Diţă correction: not found
+   trial 1: B(v,v)=0: False | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): True | extendable with an explicit Diţă correction: not found
+   sector isotropic for B (B(V,V)=0): False | couples to T (B(V,T) != 0): True
+sector 2 (dim 4):
+   trial 0: B(v,v)=0: True | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): False | extendable with an explicit Diţă correction: yes (t_c sample 0)
+   trial 1: B(v,v)=0: True | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): False | extendable with an explicit Diţă correction: yes (t_c sample 0)
+   sector isotropic for B (B(V,V)=0): True | couples to T (B(V,T) != 0): True
+sector 3 (dim 2):
+   trial 0: B(v,v)=0: True | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): False | extendable with an explicit Diţă correction: yes (t_c sample 0)
+   trial 1: B(v,v)=0: True | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): False | extendable with an explicit Diţă correction: yes (t_c sample 0)
+   sector isotropic for B (B(V,V)=0): True | couples to T (B(V,T) != 0): True
+sector 4 (dim 1):
+   trial 0: B(v,v)=0: True | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): False | extendable with an explicit Diţă correction: yes (t_c sample 0)
+   trial 1: B(v,v)=0: True | obstruction certificate (B(v,v) outside span{B(v,T),B(T,T)}): False | extendable with an explicit Diţă correction: yes (t_c sample 0)
+   sector isotropic for B (B(V,V)=0): True | couples to T (B(V,T) != 0): True
+done (11s)

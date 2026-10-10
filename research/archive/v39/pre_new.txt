@@ -1,0 +1,3 @@
+identifier. The specification is operative only for a round the owner authorizes as a provisional
+V3 pilot under `AGENTS.md` §A.39. Every other round is governed by `AGENTS.md` §A.37 until a later
+round makes V3 the default, and no `V1` or `V2` state is changed or migrated by it.

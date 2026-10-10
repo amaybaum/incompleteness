@@ -1,0 +1,24 @@
+window: 5000 lines, 2026-10-08T05:52:23.7482470Z .. 2026-10-08T05:52:56.9125829Z
+  FAIL  RelcSelectParity build line in window: []
+  FAIL  RelcSelectBlock build line in window: []
+  FAIL  RelcSelectSqueeze build line in window: []
+  FAIL  RelcSelectC5 build line in window: []
+  PASS  lake: ['Build completed successfully (3643 jobs).']
+  PASS  declared #print axioms at the commit: 34 ([2, 5, 15, 12])
+  FAIL  RelcSelect axiom reports in window: 0
+  PASS  every report is exactly [propext, Classical.choice, Quot.sound]
+  FAIL  distinct reported names: 0
+  FAIL  reports match the declared prints file:line:name one for one
+  FAIL  warnings per module (Parity, Block, Squeeze, C5): [0, 0, 0, 0]
+  FAIL  Block warnings at []
+  FAIL  Block warnings identical (location, message, flagged argument) to the reference log
+  PASS  no line mentions sorryAx
+  PASS  no 'declaration uses sorry'
+  PASS  no error:, ##[error] or failed-build line
+  PASS  release gate rows: 21, PASS 21
+  PASS  lean-axioms: PASS  lean-axioms      lean_axiom_check: OK (5860 named result(s) reported, no sorr
+  PASS  lean-manuscript: PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path
+  PASS  v3-receipts: PASS  v3-receipts      RECEIPTS  41 receipt(s), all hold
+  PASS  legacy-records: PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+  PASS  verdict: ['release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)']
+bridge log: FAILED
