@@ -1,0 +1,17 @@
+X0    PASS  (I(x)Had) CNOT (I(x)Had) = diag(1,1,1,-1) = CZ
+X1I1  PASS  type I, open case: orthogonal=True, CZ permutes lines=True, products=1 (designed 1), certified by eta=1/400, eta'=1/100, eps=1/1000000
+X1I2  PASS  type I, open case: orthogonal=True, CZ permutes lines=True, products=2 (designed 2), certified by eta=1/400, eta'=1/100, eps=1/1000000
+X1I3  PASS  type II, (P3): orthogonal=True, CZ permutes lines=True, products=0 (designed 0), certified by eta=1/400, eta'=1/100, eps=1/1000000
+X1I4  PASS  type II, open case: CZ swaps the product line: orthogonal=True, CZ permutes lines=True, products=1 (designed 1), certified by eta=1/900, eta'=1/200, eps=1/100000000
+      I4: product line(s) [0]; CZ maps line 0 to line 1 (parallel=True); line 1 product=False
+X1I5  PASS  control, grid: orthogonal=True, CZ permutes lines=True, products=4 (designed 4), certified by eta=1/400, eta'=1/100, eps=1/1000000
+X1I6  PASS  control, non-grid: orthogonal=True, CZ permutes lines=True, products=4 (designed 4), certified by eta=1/400, eta'=1/100, eps=1/1000000
+X1I7  PASS  control, Bell: orthogonal=True, CZ permutes lines=True, products=0 (designed 0), certified by eta=1/400, eta'=1/100, eps=1/1000000
+X2    PASS  12 product vertices: an explicit product near each vertex has |<w|p>|^2 <= eps^2 and fails the certificate for all 6 orders
+X3    PASS  64 product directions, 448 orthogonal triples; every orthocomplement is a product
+X4    PASS  det on E = (-4+0i) x^2 + (2+0i) xy + (2+0i) y^2, discriminant (36+0i) (two product directions); CZ = diag(1,1,1,-1) in T; eps = 1/10 < |det C(f1)|^2 = 16/81
+X5    PASS  rho = g(u) identically on products (x|0>+y|1>)(x)v; target |u|^2 = 1/2, rho = 1/2, g(u0) = 9/25 for u0 = (3,4)/5; 1/2 not in {9/25, 16/25}
+X6    PASS  72 exact tangent points: Heron(|omega_j|^2 m_j) >= 0 at each
+
+PASS 13  FAIL 0
+VERDICT B7-B3C-EXACT

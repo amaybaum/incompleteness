@@ -109,3 +109,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   Dev branch only; never on research/bridge's verification tree.
 - 2026-10-10T22:16:12Z — dispatch 1 of 3: `verify.yml` on `dev-bridge/b11-lemma` @ 00d43da4, run 38090784384
   (queued). No local Lean toolchain (and 7.8 GB free on a shared container: a Mathlib install was not attempted).
+- 2026-10-10T22:26:50Z — B7 decision rule written into `b7_b3c.py` (date -u taken immediately before writing).
+  Approach: reduce B3.C via claim (D) [A] to "H·P misses a pure state"; one uniform certificate for all
+  four-eigenline cases (moment orbit near vertices; Lemma 2), Lemma 3 (exactly three product lines impossible), a
+  separate argument for the `(2,1,1)` 2-tori. Instances in the CZ frame (local Hadamard on the target).
+- 2026-10-10T22:28:51Z — `b7_b3c.py` run 1: 13/13 PASS, VERDICT B7-B3C-EXACT; replay byte-identical (22:29Z). No
+  failed runs; no pre-run edits after the rule was fixed. I4 is certified by the second parameter triple of the fixed
+  list (the first fails one order), as the rule provides.
+- 2026-10-10T22:31Z — NOTES-B7 written; RESULTS rows B7-1 … B7-4 appended (round-2 section). B3-4 is not edited;
+  B7-2 supersedes its label for the same statement.
