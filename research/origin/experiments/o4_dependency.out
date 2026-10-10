@@ -1,0 +1,18 @@
+== o4_dependency ==
+
+D1     PASS  cyc3 = R_z(pi/2) R_x(pi/2); cyc3 is orthogonal
+D2     PASS  cyc3 R_z(t) cyc3^-1 = R_x(t) for 5 Pythagorean angles
+D3     PASS  J e_z = (Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)) (balanced, pure); sandwich (J, J^-1): (1, 1/2); order 3
+D4     PASS  U_J with Ad U_J = cyc3: U_J |0> balanced (1/2, 1/2); sandwich (U_J, U_J^dag): (1, 1/2); U_J^3 = -1 * 1; non-monomial
+D5     PASS  (1 (x) B)(1 (x) D)(1 (x) B)^dag = 1 (x) (B D B^dag) exactly; H D H = the transition flow at cos t = 3/5
+
+-- countercontrols
+CC1    CC-OK (False as required)  cyc3 commutes with R_z(t)
+CC2    CC-OK (False as required)  U_J is monomial in the frame basis
+CC3    CC-OK (False as required)  cyc3 R_z(t) cyc3^-1 = R_y(t)
+
+OK -- 5/5 checks, 3 countercontrols expected-false
+VERDICT O4: the bridge's off-frame partner J = cyc3 is a discrete balanced mixer for the frame z (the
+  owner's witness holds for it) and conjugates the substratum phase flow into the drive; the missing
+  assumption (b) for {phase flow, drive} is therefore (b) for {phase flow, one discrete balanced mixer};
+  at the matrix level the spectator form of the drive is the spectator form of that one mixer.

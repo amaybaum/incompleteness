@@ -1,0 +1,23 @@
+== o3_density ==
+
+E1: unitary=True; factors over Q of the norm of the characteristic polynomial:
+     (lam - 1)^2   [cyclotomic]
+     (lam**4 + lam**3 + lam**2/4 + lam + 1)^1   [not monic over Z]
+     infinite order certified: True  (three states, overlapping pairs)
+E2: unitary=True; factors over Q of the norm of the characteristic polynomial:
+     (lam**2 + 1)^2   [cyclotomic]
+     (lam**2 - 3*lam/2 + 1)^4   [not monic over Z]
+     infinite order certified: True  (level n = 3 of fixedGateTheory(pi/4))
+E3: unitary=True; factors over Q of the norm of the characteristic polynomial:
+     (lam - 1)^4   [cyclotomic]
+     (lam**2 + 1)^2   [cyclotomic]
+     infinite order certified: False  (level n = 2 (four states))
+
+-- countercontrols
+CC1  CC-OK (False as required)  rot(pi/4).X infinite-order certificate
+CC2  CC-OK (False as required)  identity has a non-cyclotomic factor
+
+VERDICT DENSITY: a balanced mixer and its exchange conjugates generate elements of infinite order on three
+  states and at level 3 of the fixed-gate datum (level 2 certified infinite: False); the closure of the generated
+  group then contains a one-parameter subgroup, so the quarter-phase finiteness of o3_continuous C5 is a
+  single-qubit statement only; exactness is a separate matter (kernel: fixedGateTheory_not_qm).

@@ -1,0 +1,19 @@
+== o3_density ==
+
+E1: unitary=True; characteristic polynomial factors over Q:
+     (lam**3 + lam**2*(-sqrt(2) - 1/2) + lam*(1/2 + sqrt(2)) - 1)^1   [not monic over Z]
+     infinite order certified: True  (three states, overlapping pairs)
+E2: unitary=True; characteristic polynomial factors over Q:
+     (lam**2 + 1)^1   [monic, not cyclotomic]
+     (lam**2 - 3*lam/2 + 1)^2   [not monic over Z]
+     infinite order certified: True  (level n = 3 of fixedGateTheory(pi/4))
+E3: unitary=True; characteristic polynomial factors over Q:
+     (lam - 1)^2   [monic, not cyclotomic]
+     (lam**2 + 1)^1   [monic, not cyclotomic]
+     infinite order certified: True  (level n = 2 (four states))
+
+-- countercontrols
+CC1  CC-FAIL (True)  rot(pi/4).X infinite-order certificate
+CC2  CC-FAIL (True)  identity has a non-cyclotomic factor
+
+VERDICT VOID

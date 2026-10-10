@@ -3,7 +3,9 @@
 Thread `research/origin`, node O3. Base L = `9f9f8257`. Evidence levels as in NOTES-O1. Script:
 `experiments/o3_continuous.py` (11 checks, 4 countercontrols; decision rule in the header before run 1; one
 pre-run edit — the closure search depth of C5 raised from 12 to 24 — before any run; green on run 1,
-byte-identical on replay).
+byte-identical on replay) and the skeptical pass `experiments/o3_density.py` (run 1 VOID by its countercontrols,
+a defective cyclotomic test, kept as `o3_density.run1.*`; run 2 with the corrected certificate, byte-identical on
+replay).
 
 **Productivity test, fixed before starting (§A.31).** A finding counts only if it locates the one-parameter
 family's premise more sharply than "K∞-Drive is open", and either relates the Discrete and Continuous targets
@@ -24,11 +26,15 @@ exactly or constrains what any source of the drive must also supply.
 2. **The two targets, exactly.** Continuous ⇒ Discrete always: the drive's member at a quarter of the NOT time
    is a balanced mixer [X C2a], and on any body a continuous flow whose NOT swaps two pure frame states with a
    complemented readout passes through a balanced pure state (intermediate values) [W + X C2b]. Discrete ⇒
-   Continuous at the matrix level given the phase continuum (item 1). Discrete ⇏ Continuous with the quarter
-   phase only (a balanced mixer and S generate the 24-element rotation group of the cube [X C5]; the kernel's
-   fixed-gate theory is not quantum mechanics at any angle) and field-neutrally (the KB-D octahedron's
-   reversible group has order 24 [X C4]). So "deliberately weaker" holds exactly where the phase continuum is
-   absent.
+   Continuous at the matrix level given the phase continuum (item 1). Without the continuum, *exactness* fails —
+   the kernel's fixed-gate theory (quarter phase, exchanges, one mixer angle) is not quantum mechanics at any
+   angle — but *finiteness* is level-dependent: on the single qubit a balanced mixer and S generate the
+   24-element rotation group of the cube [X C5], while at level three the balanced fixed-gate datum and one
+   exchange conjugate of it have eigenvalues (3 ± i√7)/4, which are not roots of unity [X o3_density E2], so the
+   closure of what is generated contains a one-parameter subgroup. Field-neutrally the KB-D octahedron's
+   reversible group has order 24 [X C4]: there Discrete ⇏ Continuous outright. So "deliberately weaker" holds
+   field-neutrally and for exactness; at the matrix level the discrete mixer already reaches a continuum in the
+   closure, and what separates it from the exact drive is the phase continuum or a closure principle.
 3. **Field-neutral: a drive through the native NOT needs invasive observation.** If the native readout is
    passive and repeatable — as in every tower built by conditioning a classical substratum — every pure state
    is outcome-deterministic for it (Lemma P), so no drive's NOT can swap two pure frame states of that readout,
@@ -83,18 +89,26 @@ spectator form, nothing more.
   automorphisms; the witness then holds with the inverse member and the frame dephasing [W]. Exact on the
   `ball3Drive` geometry [K KInfFoundations.lean:449]: R_z(π/2) maps x+ to y+ (r = 1/2), r∘N = 1 − r for
   N = R_z(π), sandwich (1, 1/2) [X C2b].
-- **Discrete ⇏ Continuous.** With the quarter phase only, H and S (or the kernel's `rot(π/4)` and S) generate the
-  24-element rotation group of the cube on the Bloch sphere [X C5]: no infinite-order element, no drive; the
-  kernel's `fixedGateTheory α` satisfies `DerivedOI` and `FixedGateSourced α` and is not QM at any angle
-  [K DiscreteCompletion.lean:1929, 1933, 1948]. Field-neutrally the KB-D toy has a discrete balanced mixer and a
-  reversible group of order 24 acting faithfully on its six pure states [X C4]; a polytope has finitely many
-  automorphisms, so no drive [W].
+- **Discrete versus Continuous without the phase continuum.** On the single qubit, H and S (or the kernel's
+  `rot(π/4)` and S) generate the 24-element rotation group of the cube on the Bloch sphere [X C5]. The kernel's
+  `fixedGateTheory α` satisfies `DerivedOI` and `FixedGateSourced α` and is not QM at any angle
+  [K DiscreteCompletion.lean:1929, 1933, 1948]: exactness fails. Finiteness does not survive higher levels
+  [X o3_density]: on three states two balanced mixers on overlapping pairs (one an exchange conjugate of the
+  other) give a product whose norm-polynomial has the factor λ⁴ + λ³ + λ²/4 + λ + 1, not monic over Z, so an
+  eigenvalue is not a root of unity (E1); at level three of the fixed-gate datum at π/4 (six states,
+  `mixImage 3 (π/4)` and its conjugate by an exchange product) the factor λ² − (3/2)λ + 1 gives eigenvalues
+  (3 ± i√7)/4 (E2); at level two the factors are cyclotomic (Clifford, finite) (E3). An element of infinite order
+  in a compact group has a closure of positive dimension, which contains a one-parameter subgroup [W + L,
+  closed-subgroup theorem]. Whether this yields full dense control at the balanced angle (the kernel proves density
+  for irrational angles, `denseUnitaryControl_of_fixedGate` [K :1522]) is not checked here: OPEN.
+  Field-neutrally the KB-D toy has a discrete balanced mixer and a reversible group of order 24 acting faithfully on
+  its six pure states [X C4]; a polytope has finitely many automorphisms, so no drive [W].
 - **Irrational angles [X C7 + K].** A fixed mixer at an irrational angle (cos t = 3/5; its powers are never scalar
   up to k = 200, and t/π is irrational by Niven's theorem [L]) gives dense unitary control under `DerivedOI`
   (`denseUnitaryControl_of_fixedGate` [K DiscreteCompletion.lean:1522]) but not exact QM (density is not
   exactness, `fixedGateTheory_not_qm`); it is unbalanced (sandwich (1, 337/625)), so it does not meet the owner's
-  exact witness, while the balanced member has finite channel order (4). With the quarter phase only, the exact
-  witness and density pull apart; the phase continuum reconciles them (C1).
+  exact witness, while the balanced member has finite channel order (4) on the qubit. On the qubit level the exact
+  witness and density pull apart; the phase continuum (C1), or higher levels (o3_density E2), reconcile them.
 
 ## 3. Field-neutral: Lemma P and what it forbids
 
@@ -161,8 +175,12 @@ sourced operation** — the matrix-level form of the bridge thread's (b) (NOTES-
 ## 6. Classification (§A.31)
 
 - **NEW, O3-N1.** Given the substratum's phase continuum, one exactly available balanced mixer per level is
-  equivalent to the Continuous Origin at the matrix level (T-O3a); the owner's "deliberately weaker" holds exactly
-  where the continuum is absent (quarter phase only; field-neutral).
+  equivalent to the Continuous Origin at the matrix level (T-O3a); the owner's "deliberately weaker" holds
+  field-neutrally (KB-D) and for exactness without the continuum (fixed-gate theory).
+- **NEW, O3-N4 (skeptical pass).** Without the continuum the balanced fixed gate is not of finite type at every
+  level: at level three it generates elements of infinite order (exact certificate), so the qubit-level finiteness
+  of C5 does not extend; the earlier reading "Discrete ⇏ Continuous with the quarter phase only" is narrowed to
+  exactness.
 - **NEW, O3-N2.** The spectator content that `oiPlusMin_iff_qm` still needs reduces, given the phase continuum, to
   the spectator stability of one discrete operation (§4.3).
 - **ELABORATING with cross-propagation, O3-E1.** Lemma P: passive repeatable observation makes the native frame's
