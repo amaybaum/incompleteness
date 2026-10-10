@@ -157,3 +157,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (the last dispatch is reserved for B6 otherwise).
 - 2026-10-10T22:53:52Z — handoff proposals HP-4 (B3.C, conditional on (D)), HP-5 (HO-4 tested; Stab_loc = V4), HP-6
   (SPEC side; HO-6's transfer needs) written for the coordinator to route.
+- 2026-10-10T22:57:13Z — NOTES-B9 §2, row (D1): evidence cell made precise. b9 Y1 checks the product law only; the
+  isomorphism `W 3 ≅ Herm(4)` is the standard Pauli-basis fact [W]. No result changes.
+- 2026-10-10T22:57Z — NOTES-B6 drafted (declarations, mapping to NOTES-B1 §2, gaps); its CI section is filled in
+  after run 38092042844.

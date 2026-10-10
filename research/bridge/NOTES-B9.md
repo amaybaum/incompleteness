@@ -56,7 +56,7 @@ Node B9 of `research/bridge` (round 2). Base L = `9f9f8257`. Evidence:
 
 | clause | content | status | evidence |
 |---|---|---|---|
-| (D1) dictionary | `M(ω) = ¼ Σ ω_μν σ_μ⊗σ_ν`, a linear isomorphism `W 3 → Herm(ℂ²⊗ℂ²)`; `M(prodState x y) = ρ(x)⊗ρ(y)` | exact | [X Y1], symbolic in `x`, `y` |
+| (D1) dictionary | `M(ω) = ¼ Σ ω_μν σ_μ⊗σ_ν`, a linear isomorphism `W 3 → Herm(ℂ²⊗ℂ²)`; `M(prodState x y) = ρ(x)⊗ρ(y)` | exact | [X Y1] for the product law, symbolic in `x`, `y`; the isomorphism is standard [W] (the 16 products `σ_μ⊗σ_ν` are an orthogonal basis of Herm(4)) |
 | (D2) gate | `M(cnot ω) = CNOT·M(ω)·CNOT`, with `CNOT = |0⟩⟨0|⊗I + |1⟩⟨1|⊗X`; `nflip = B(X)` | exact | [X Y2]: the kernel's `pc`/`pt`/`sgn` parsed at L, all 16 basis tables |
 | (D2) monomial images | `B(diag(1, c+is)) = R_z(c, s)`; `M ∘ actT R_z = Ad(1⊗U) ∘ M` and `M ∘ actC R_z = Ad(U⊗1) ∘ M` | exact | [X Y3], symbolic under `c² + s² = 1`; Cliffords and the drive step in B8 X1 |
 | (T) M→P availability | for admissible `K` at a token, `M⁻¹ ∘ Ad(1⊗K) ∘ M` maps the pair cone into itself | **premise**: for the monomial class this is SPEC_P(φ) ∧ SPEC_P(NOT) | [W] from (D1), (D2) |
