@@ -62,3 +62,22 @@ Each mechanism: smallest exact model, induced visible operation, non-monomiality
 | script | sha256 (script) | sha256 (output) | result | replay |
 |---|---|---|---|---|
 | `o2_mechanisms.py` | `14caa86b…5be627` | `fce8a314…02f444` | 17/17 checks, 4 countercontrols expected-false, no CANDIDATE | byte-identical |
+
+## O3 — the Continuous Origin
+
+| id | statement | label | evidence | where |
+|---|---|---|---|---|
+| O3-K | Relative to the baseline the substratum theory satisfies (`DerivedOI ∧ SubstratumAvail`), exact finite QM ⟺ one executable layer flow ⟺ phase-free richness; the substratum theory executes no layer flow. | CERTIFIED [K LiftAudit.lean:812 `derivedOI_qm_iff_layerFlowExecutable`, :783, :200; RouteB.lean:161, :290; LiftAudit.lean:750; MinimalRepertoire.lean:569] | [K] | NOTES-O3 §1 |
+| O3-T1 | With the substratum's phase continuum (every diagonal unitary, `diagonal_avail`), one exactly available balanced mixer on a moved pair at every level yields the transition flow at every angle; so, relative to the same baseline, exact finite QM ⟺ one balanced mixer per level (T-O3a). The one-parameter family comes from the stipulated phase continuum; the missing content is one non-monomial operation per level. | CONDITIONAL ([W] proof incl. B = D₁HD₂ and B† = EBE; no kernel check) | [W] + [X] C1a (6 unit Gaussian rationals), C1b (three points, gate flow + S) + [K LiftAudit.lean:754, :770; RouteB.lean:161] | NOTES-O3 §1 |
+| O3-T2 | Continuous ⇒ Discrete: the drive's member at π/4 is a balanced mixer with the owner's witness; any drive whose NOT swaps two pure frame states with a complemented readout passes through a balanced pure state. | CONDITIONAL ([W] intermediate-value argument; [X] exact instances) | [X] C2a, C2b on `ball3Drive`'s geometry [K KInfFoundations.lean:449] | NOTES-O3 §2 |
+| O3-T3 | Discrete ⇏ Continuous with the quarter phase only (⟨H, S⟩ and ⟨rot(π/4), S⟩ have order 24) and field-neutrally (KB-D octahedron, reversible group of order 24); the fixed-gate theory is not QM at any angle; an irrational fixed gate gives density without exactness and no exact witness. | CONDITIONAL ([X] exact; polytope ⇒ finite Aut [W]); the fixed-gate facts CERTIFIED [K DiscreteCompletion.lean:1929, 1933, 1948, 1522] | [X] C4, C5, C7 + [K] | NOTES-O3 §2 |
+| O3-T4 | Lemma P: if the native readout is repeatable and passive, every pure state is outcome-deterministic for it; hence no balanced mixer and no drive through the native NOT, whatever operation data are added. Applies to every tower built by conditioning a classical substratum. | CONDITIONAL ([W] proof, no kernel check) | [W] + [X] C3a–c + [A oistage A5] | NOTES-O3 §3 |
+| O3-T5 | The field-neutral Continuous Origin needs: finite rank of an infinite-substratum completion, an infinite-order stage-crossing datum with OFF (OPS-Γ), and invasive repeatable observation (Lemma P). | OPEN (all three unsourced) | [A drive F-D2, F-D3; oistage NG1, NG2; rank] + O3-T4 | NOTES-O3 §3 |
+| O3-T6 | Once a drive is sourced at level one, what remains for `oiPlusMin_iff_qm` is its spectator extension to every level and the context stability of a generating class containing it; given the phase continuum this reduces to the spectator stability of one balanced mixer. | CONDITIONAL ([W]; spectator form exact [X] C6; context stability a theorem only for the monomial class [K StructuralClosure.lean:261]) | [K SubstratumInterfaceAudit.lean:654, :660; ImplementationLocality.lean:904] + [A stage 5 D5 N1c, row β] + [X] C6 | NOTES-O3 §4 |
+| O3-D | Disguise test of the minimal added content: every matrix-level form known at L (layer flow, driven pair, state-mixing datum at every angle, balanced mixer by hypothesis) contains the balanced mixer in its interface; OPS-Γ passes syntactically but cannot be met through the native NOT on passive towers. | FAILED as a source (matrix forms); OPEN (OPS-Γ's source) | [K StateMixingCoupling.lean:511] + O2 G1–G4 + O3-T4 | NOTES-O3 §5 |
+
+**Script ledger (O3).**
+
+| script | sha256 (script) | sha256 (output) | result | replay |
+|---|---|---|---|---|
+| `o3_continuous.py` | `795cb274…40ffc7` | `b4e1e261…7e3cc8` | 11/11 checks, 4 countercontrols expected-false | byte-identical |

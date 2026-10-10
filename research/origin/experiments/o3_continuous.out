@@ -1,0 +1,38 @@
+== o3_continuous ==
+
+-- C1: Discrete => Continuous given the phase continuum
+C1a    PASS  H diag(conj p, p) H = exp(-i t X), cos t = Re p, for 6 unit Gaussian rationals
+C1b    PASS  three points: S gateFlow(1/2) diag(conj p, p, 1) gateFlow(1/2)^dag S^dag is the transition flow on the moved pair at angle ['+t'], third point fixed
+
+-- C2: Continuous => Discrete
+C2a    PASS  drive member at t = pi/4: balanced (1/2, 1/2), non-monomial, sandwich (1, 1/2)
+C2b    PASS  ball3Drive geometry: r o N = 1 - r; R_z(pi/2) x+ = (Fraction(0, 1), Fraction(1, 1), Fraction(0, 1)) (r = 1/2, extreme); sandwich (1, 1/2) with the frame dephasing
+
+-- C3: passive + repeatable => pure states outcome-deterministic (illustrations)
+C3a    PASS  classical tower: observe-and-forget = id on the pure states (point masses), each outcome-deterministic
+C3b    PASS  KB-D tower: observe-and-forget is not the identity; 4 balanced pure states (x+-, y+-)
+C3c    PASS  ball, Luders frame readout: observe-and-forget maps y+ to (Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)) (not passive); y+ is pure and balanced
+
+-- C4: Discrete =/=> Continuous field-neutrally (the KB-D octahedron)
+C4     PASS  the 24 permutations act faithfully on the six pure states as a closed group of order 24, element orders [1, 2, 3, 4]; no infinite-order automorphism, hence no drive
+
+-- C5: the quarter phase alone keeps a balanced mixer finite
+C5     PASS  <Ad H, Ad S> has 24 elements, <Ad rot(pi/4), Ad S> has 24 (the rotation group of the cube); kernel: fixedGateTheory_not_qm
+
+-- C6: the all-level clause is the spectator form
+C6     PASS  gateFlow(levelPerm swap n)(1/2) = gateFlow(swap)(1/2) (x) 1_n for n = 2, 3; the extension is non-monomial
+
+-- C7: irrational versus balanced drive members
+C7     PASS  cos t = 3/5: U^k never scalar for k <= 200, sandwich (1, 337/625) (unbalanced); balanced member: (sqrt2 U)^k scalar first at k = 4 (channel order 4)
+
+-- countercontrols
+CC1    CC-OK (False as required)  <Ad H, Ad S> exceeds 24 elements
+CC2    CC-OK (False as required)  Luders observe-and-forget is the identity on y+
+CC3    CC-OK (False as required)  the octahedral group has an element of order > 24
+CC4    CC-OK (False as required)  the drive member at t = pi/4 is dephasing-covariant
+
+OK -- 11/11 checks, 4 countercontrols expected-false
+VERDICT O3: with the substratum's phase continuum one exactly available balanced mixer yields the transition
+  flow at every angle (Discrete => Continuous at the matrix level); the drive contains a balanced mixer
+  (Continuous => Discrete); without the continuum (quarter phase only) or field-neutrally (KB-D octahedron)
+  the discrete mixer generates a finite group; the all-level clause is the spectator extension.

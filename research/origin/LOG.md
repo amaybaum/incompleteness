@@ -14,3 +14,6 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T20:35Z — CI run 38083822302 (dispatch 1/3): Mathlib bridge Build failed at OriginEnvelope.lean:48, parse error on the scoped postfix ᴴ (Matrix notation not opened); every other declaration elaborated with [propext, Classical.choice, Quot.sound]. Fix: open scoped Matrix (dev commit c3f7fbb2).
 - 2026-10-10T20:37Z — dispatch 2/3: run 38084486326 (head c3f7fbb2).
 - 2026-10-10T20:38Z — commit: O2 closed (NOTES-O2, RESULTS O2 rows, o2_mechanisms with output and replay).
+- 2026-10-10T20:42Z — o3_continuous.py: decision rule fixed in the header before run 1; one pre-run edit before any run (C5 closure depth 12 → 24). Run 1 green (11/11, 4 countercontrols); replay byte-identical.
+- 2026-10-10T20:44Z — decision: O3 is anchored on the kernel's Q4′ (derivedOI_qm_iff_layerFlowExecutable) and on the observation that the substratum class contains every diagonal unitary, so that one balanced mixer per level yields the drive; field-neutral side through Lemma P (passive + repeatable ⇒ pure states outcome-deterministic).
+- 2026-10-10T20:47Z — commit: O3 closed (NOTES-O3, RESULTS O3 rows, o3_continuous with output and replay). CI run 38084486326 (dispatch 2/3) still queued at commit time.
