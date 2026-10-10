@@ -1,0 +1,14 @@
+CHECK T16   PASS line triple c = 16/25: y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 3, c12 16/25, lambda 19/256, L1 0, L2 [53/100, 181/100], L3 -323/20736, L4 [2167/2025]
+CHECK T9    PASS line triple c = 9/25: y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 3, c12 9/25, lambda 175/576, L1 0, L2 [337/400, 25/16], L3 -7/64, L4 [9/25]
+CHECK TRI   PASS trine (pairwise c = 1/4): y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 3, c12 1/4, lambda 7/16, L1 0, L2 [17/16, 17/16], L3 -35/144, L4 []
+CHECK SQ    PASS square (c = 1/2, 0, 1/2): y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 4, c12 1/2, lambda 7/32, L1 0, L2 [9/16, 25/16, 9/16], L3 -7/288, L4 [8/9]
+CHECK HEX   PASS regular hexagon on the circle: y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 6, c12 3/4, lambda 19/300, L1 0, L2 [31/100, 131/100, 181/100, 131/100, 31/100], L3 -19/4050, L4 [77/54]
+CHECK NC    PASS triple, third vector outside W, non-orthogonal to g_1: y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 3, c12 16/25, lambda 19/256, L1 0, L2 [53/100, 109/100], L3 -323/20736, L4 []
+CHECK NO    PASS triple, third vector in W^perp (orthogonal to g_1): y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 3, c12 16/25, lambda 19/256, L1 0, L2 [53/100, 181/100], L3 -323/20736, L4 [145/81]
+CHECK ZF+   PASS Z_F plus (4psi_1+3psi_3)/5 (five members): y = v v^dag + lambda d_2 in K(Z)* \ K(Z) -- n 5, c12 16/25, lambda 19/256, L1 0, L2 [53/100, 1, 181/100, 1], L3 -323/20736, L4 [1, 2167/2025, 1]
+COUNTERCONTROL CC1   PASS T16 at eps = 1/2 (eps^2 < 2c - 1): L2 fails at k = 2 -- L2 [-3/100, 5/4]
+COUNTERCONTROL CC2   PASS Z_F: <d_k, d_1> = 0 for k != 1, so L1 cannot be met (no witness of this form; Theorem S)
+COUNTERCONTROL CC3   PASS orthogonal pair: c_12 = 0, the construction is undefined
+CHECK EX    PASS no Float in any recorded value (62 values)
+summary: 12 checks, 0 failed
+VERDICT C8-BELL-SETS-EXACT: K(Z) is not self-dual for T16, T9, TRI, SQ, HEX, NC, NO, ZF+ (witness x^dag y x = -323/20736, -7/64, -35/144, -7/288, -19/4050, -323/20736, -323/20736, -323/20736); the window eps^2 >= 2c - 1 is necessary in the construction (CC1); Z_F admits no witness of this form

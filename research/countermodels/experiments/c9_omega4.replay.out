@@ -1,0 +1,14 @@
+CHECK A1    PASS det Hess N = 2304 s^2 |x|^6 -- 2304*s**2*(x1**2 + x2**2 + x3**2)**3
+CHECK A2    PASS det Hess(N o A) = det(A)^2 (det Hess N) o A for a generic rational A -- det A = 27
+CHECK A3    PASS |x|^2 has rank 3 (irreducible over R); |B x + b s|^2 has rank 3 for invertible A; one factor over Q(i) -- ranks 3, 3
+CHECK A4    PASS eight listed elements of O(3) x Z2 (Cayley rationals, a reflection, -I; both signs of s) preserve N
+COUNTERCONTROL CC1   PASS an x1-s rotation (cos = 3/5), the scaling s -> 2s and a shear in x do not preserve N
+CHECK O1    PASS s^2 (hence s^4) is invariant under O(3) x Z2; boundary points with s^4 = 1/16 and 9/16 lie in different orbits -- (|x|^4, s^4) = (15/16, 1/16), (7/16, 9/16)
+CHECK F1    PASS grad N = (4|x|^2 x, 4 s^3), <grad N, w> = 4 N(w) = 4 on the boundary: nonzero there, unique supporting hyperplane, c* = 1; ball: grad = 2w, the same
+COUNTERCONTROL CC2   PASS cylinder edge (e1, 1): two independent supporting functionals (|x| <= 1 and s <= 1 both tight): c* = 2
+COUNTERCONTROL CC3   PASS Q3 (d = 4) at |0><0|: the vanishing effects span Herm(|0>^perp), dimension 9 = (d - 1)^2
+CHECK S1    PASS rank of the second fundamental form: Omega_4 generic 3, equator 2, poles 0; 4-ball 3 at every listed point -- Omega_4 (3, 2, 0), ball [3, 3, 3]
+CHECK P1    PASS the polar's boundary function has d^2/dt^2 -> oo at (1, 0+) while Hess N is finite on the boundary of Omega_4 -- limit oo
+CHECK EX    PASS no Float in any recorded value
+summary: 12 checks, 0 failed
+VERDICT C9-OMEGA4-EXACT: det Hess N = 2304*s**2*(x1**2 + x2**2 + x3**2)**3 forces Aut(Omega_4) = O(3) x Z2; orbits on the boundary are the level sets of s^4 (not transitive); c* = 1 at every pure state (smooth boundary), as for the ball; second fundamental form ranks (3, 2, 0) (generic, equator, poles) against 3 on the ball

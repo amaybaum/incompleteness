@@ -1,0 +1,10 @@
+CHECK B1   PASS cos(th) psi_1 + sin(th) psi_3 maximally entangled for all th; (I_W + n.sigma)/2 a rank-one projector when |n| = 1
+CHECK B2   PASS |n_i| = 1 exactly, t_i = 189/1000 >= 0; y_i = v v^dag + t_i d_{g_i} + I/1000 in Q3 + cone Z_circ
+CHECK B3   PASS y_1, y_2 in Z_circ* strictly (tr(y Pperp)^2 - |(tr y sz, tr y sx)|^2 > 0) -- margins^2 [8990072864518037/4272030250000000000, 2407429698539/912232000000000]
+CHECK B4   PASS tr(y1 y2) < 0: K(Z_circ)* is not self-positive, so K(Z_circ) is not self-dual -- tr(y1 y2) = -475586012673053754301/30445958586078125000000
+CHECK B5   PASS U unitary maps the circle onto C2 (e^{i th} U g_th = C2(e^{2 i th})); U(x) fixes every C2(w): K(Z_C2) = Ad(U) K(Z_circ) not self-dual
+COUNTERCONTROL CC1  PASS at least one of y1, y2 is not PSD (negative determinant of its 2x2 compression to W), so they are not both in Q3 -- W-dets [-11693271687503/213601512500000, -1559851671207/28507250000000]
+RECORD CC2 unshifted pairing -4292937273710593116533/243567668688625000000000
+CHECK EX   PASS no Float in any recorded value
+summary: 7 checks, 0 failed
+VERDICT C7-CIRCLE-EXACT: the full Bell-circle surgery K(Z_circ) is not self-dual (two members of its dual pair to -475586012673053754301/30445958586078125000000); the same holds for the kappa-fixed circle C2 by the unitary transfer

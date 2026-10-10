@@ -37,3 +37,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   exactness defect of my harness, caught by the check), CC-R stated a wrong slack identity (−Σp/2 instead of −Σp/2 − p_s;
   conclusion unchanged); run 2 8/8 `VERDICT C7-EBF-WALL-EXACT` with the guard EX (no Float), replay identical
   (out 43d18e5d…). Commit: C7 part 1.
+- 2026-10-10T23:01Z — C7 part 2, C8, C9 exact runs. `c7_circle.py` (data from a scratchpad numerical search, rounded
+  to rationals, disclosed in its header; two pre-run edits: the orthonormal completion in B5 and an exact determinant
+  criterion in CC1) run 1 7/7 `VERDICT C7-CIRCLE-EXACT`, replay identical (out 983a6e86…). NOTES-C8 S0 written 23:04Z
+  (sic: written before its script's first run; the timestamps in the S0 headers are the times the text was drafted, all
+  before the runs recorded here); `c8_bell_sets.py` run 1 12/12 `VERDICT C8-BELL-SETS-EXACT`, replay identical
+  (out d219d502…). NOTES-C9 S0 written 22:51Z; `c9_omega4.py` (one pre-run edit: header wording of CC1) run 1 12/12
+  `VERDICT C9-OMEGA4-EXACT`, replay identical (out 88c5fc06…). Kernel citations TransitiveBody.lean:602 and
+  DenseOrbit.lean:174 read at L. Commit: C7 part 2, C8, C9 scripts.
