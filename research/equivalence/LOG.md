@@ -118,9 +118,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T22:28Z — drafts S1 (`preregistration-drafts/S1-kinf-seed.md`) and S2
   (`preregistration-drafts/S2-kinf-copy-type-covariance.md`) written; held for owner review; no round, PR or file under
   `verification/` created.
-- 2026-10-10T22:32Z — LOG correction: the entry for drafts S1/S2 had been written as 22:30Z, later than its commit
+- 2026-10-10T22:31Z — LOG correction: the entry for drafts S1/S2 had been written as 22:30Z, later than its commit
   `7656bbe6` (22:28:46); set to 22:28Z. No other content changed.
-- 2026-10-10T22:32Z — drafts S3 (`preregistration-drafts/S3-kn-descent.md`, design run 38090116254 green at the build)
+- 2026-10-10T22:31Z — drafts S3 (`preregistration-drafts/S3-kn-descent.md`, design run 38090116254 green at the build)
   and S4 (`preregistration-drafts/S4-kinf-trans-separation.md`, marked not ready to freeze: its design run 38090924005
   failed at two terms and the proof-only repair `95beab2b` is unmeasured) written. Design modules copied verbatim to
   `lean/`: `EqvKnDesc.lean` (blob `8157f8ea`, = dev `05b5756c`), `EqvOmega4.run38090924005.lean` (blob `ee870649`, the
@@ -130,3 +130,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `VERDICT FINITE-DYN-CONVERSE-INSTANCE`, replay identical. NOTES-E9 written (three readings of the converse: C-REG true
   by transfer along the stage map, C-DYN and C-KIN false with exact finite countermodels; repairing hypotheses H-FAC,
   H-UNIF, H-GEN, H-DYN). The design run of `EqvLevel3` (38091534622) is still queued; NOTES-E9 §6 pending.
+- 2026-10-10T22:48Z — LOG correction: the two entries committed in `7b1a9205` (22:31:25) had been written as 22:32Z; set to 22:31Z.
+- 2026-10-10T22:48Z — run 38091534622 (dispatch 3/3) measured: Mathlib bridge job 114328799399 `Build completed successfully (3646
+  jobs)`; `StageSeed` 3, `CopyCovariance` 12 and `EqvLevel3` 4 prints, all `[propext, Classical.choice, Quot.sound]`;
+  release gate every step PASS except `lean-manuscript` (3 problems: the three unregistered modules); `lean-axioms` 5879,
+  no sorry. Modules copied byte-identically to `lean/` (`StageSeed` `b6369153`, `CopyCovariance` `fb9c73fe`, `EqvLevel3`
+  `dc89d735`). NOTES-E9 §6 and drafts S1/S2 updated with the run. RESULTS rows R-AUDIT.1 (the coordinator's precision note
+  on R-E3.4 and R-E5.1, acknowledged; old rows not edited), R-E8.1–R-E8.4 and R-E9.1–R-E9.4 appended. The E10 probe
+  `experiments/e10_k2_schema.py` is running (run 1 started 22:43Z).

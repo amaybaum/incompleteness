@@ -48,7 +48,7 @@ conjugacy class of native inversion is fixed by system type. The round asks thre
 
 ## The kernel declarations the round would add (frozen surface, module `OIBridge/CopyCovariance.lean`)
 
-Import `OIBridge.K2Guard` only; namespace `OIBridge.CopyCovariance`. The statement surface is §B–§D of the design
+Import `OIBridge.DenseOrbit` (as the built split module; it reaches `K2Guard`); namespace `OIBridge.CopyCovariance`. The statement surface is §B–§D of the design
 module `EqvSeams` and the three declarations of `EqvSeamsControl` as built in design run 38083519826 (both copied
 byte-identically in `research/equivalence/lean/`), moved into one module with no statement changed:
 
@@ -188,14 +188,15 @@ naturality excludes. K∞-Copy stays OPEN under every outcome.
 |---|---|---|---|
 | 1 | `0578b13d` (`dev-equivalence/kinf-seams`) | 38083220991 | build failed at `sum_mul_ehom` (§C) only |
 | 2 | `f5367a7a` (proof repair of `sum_mul_ehom`) | 38083519826 | `Build completed successfully (3645 jobs)`; all fifteen prints of `EqvSeams` and `EqvSeamsControl` `[propext, Classical.choice, Quot.sound]`; `lean-axioms` OK (5875); gate red at `lean-manuscript` (no family), `claims`, `duplicate` (research archive on the branch) |
+| 3 | `8c92343e` (`dev-equivalence/split-l3`, based on L; the predicted module `CopyCovariance` = §B–§D of `EqvSeams` and `EqvSeamsControl`, no statement changed, blob `fb9c73fe`) | 38091534622 | Mathlib bridge job 114328799399: `Build completed successfully (3646 jobs)`; all twelve `CopyCovariance` prints `[propext, Classical.choice, Quot.sound]`; linter warnings only (unused `first` alternatives inherited from `EqvSeams`); release gate every step PASS except `lean-manuscript` (the unregistered modules) |
 | exact | `research/equivalence` | `e2_copy_conj` run 2 (local, replayed by the coordinator) | 13 checks, 0 failures, `VERDICT TYPE-COVARIANCE-CONSISTENT`; run 1 kept (two countercontrol expectations refuted, restated as C4/J3, C6 added) |
 
 **Predicted outputs, generated from those measurements by the rules:** Q-RED `KINF-COPY-REDUCTION-PROVED` and Q-POS
 `KINF-COPY-SWAPPED-WITNESS` (run 2's statements and prints, unchanged by the move into one module), Q-EXACT
-`KINF-COPY-INSTANCES-CONSISTENT` (`checks: 13, failures: 0`). **Not yet measured:** the predicted execution tree at the
-designated `D` (the merged module, the family, the import line, the probe and its shard), to be built and dispatched
-before `F`; the module move is a split of `EqvSeams` and needs that run because module boundaries change even though no
-statement does.
+`KINF-COPY-INSTANCES-CONSISTENT` (`checks: 13, failures: 0`). Run 3 built the moved module standalone over L with all
+twelve prints standard, so the module split is measured. **Not yet measured:** the predicted execution tree at the
+designated `D` with the family, the probe and its shard, to be built and dispatched before `F`. Pre-`F` hygiene (proofs
+only): the unused `first` alternatives the linter reports may be removed.
 
 **Hazard (frozen into S4 and the non-inference rule).** `e2_copy_conj` C6: the control's swapped gate also has a
 one-NOT reading with the target NOT. No sentence of the result note may say that type covariance admits gates that copy

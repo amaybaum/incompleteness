@@ -163,15 +163,15 @@ K∞-Seed stays OPEN under either outcome.
 |---|---|---|---|
 | 1 | `0578b13d` (`dev-equivalence/kinf-seams`, module `EqvSeams`) | 38083220991 | Mathlib bridge build failed at one declaration of §C (`sum_mul_ehom`); §A's three theorems elaborated |
 | 2 | `f5367a7a` (same branch; proof repair of `sum_mul_ehom` only) | 38083519826 | `Build completed successfully (3645 jobs)`; the three §A prints `[propext, Classical.choice, Quot.sound]`; gate `lean-axioms` OK (5875, no sorry); gate failed at `lean-manuscript` (unregistered modules) and at `claims`, `duplicate` (the branch carried the research archive) |
+| 3 | `8c92343e` (`dev-equivalence/split-l3`, based on L; the predicted module `StageSeed` split from §A with no statement changed, blob `b6369153`, beside two other design modules) | 38091534622 | Mathlib bridge job 114328799399: `Build completed successfully (3646 jobs)`; the three `StageSeed` prints `[propext, Classical.choice, Quot.sound]`; release gate every step PASS except `lean-manuscript` (3 problems: the three unregistered modules) — `claims` and `duplicate` PASS on an L-based tree |
 
 **Predicted outputs, generated from those measurements by the rule above:** the three frozen statements are §A of
-`EqvSeams` as built in run 2, unchanged; read by the Q-SEED rule, run 2's measurements give `KINF-SEED-PROVED` for
-the statement surface, and the landed controls of S3 are present at L with the frozen statements. The rules, not this
-reading, are what a frozen file would fix. **Not yet measured:** the predicted execution tree (module `StageSeed`
-alone, the census family, the import line, `controls.py`) at the designated `D`, which must be built and dispatched
-before `F`; at L its release gate is expected to pass every step, since the census family registers the module and the
-tree carries no research directory (the comparable L-based design branch of this thread, run 38090116254 for draft
-S3, failed only at `lean-manuscript`, the step a family discharges).
+`EqvSeams` as built in run 2, unchanged, and run 3 built them as the standalone module `StageSeed` over L with
+standard prints; read by the Q-SEED rule, these measurements give `KINF-SEED-PROVED` for the statement surface, and the
+landed controls of S3 are present at L with the frozen statements. The rules, not this reading, are what a frozen file
+would fix. **Not yet measured:** the predicted execution tree with the census family and `controls.py` at the
+designated `D`, which must be built and dispatched before `F`; its release gate is predicted to pass every step, since
+run 3 failed only at `lean-manuscript`, the step the family discharges.
 
 ## Stages
 

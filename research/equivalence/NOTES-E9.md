@@ -1,7 +1,7 @@
 # NOTES-E9 — the Level III converse: its exact statement, its countermodels, its repair at one finite level
 
 Base L = `9f9f8257`. Evidence: [K] kernel at L; [D] design module `research/equivalence/lean/EqvLevel3.lean` (branch
-`dev-equivalence/split-l3`, commit `8c92343e`, run 38091534622 — see §6 for its measured result); [X]
+`dev-equivalence/split-l3`, commit `8c92343e`, run 38091534622: built, four prints standard — §6); [X]
 `experiments/e9_level3.py` (7/7) and `experiments/e9_dyn_finite.py` (3/3); [W] written here; [L] literature inputs
 named, not checked here.
 
@@ -44,8 +44,8 @@ because only injectivity and the star-homomorphism property of `st Λ` are used.
 Kraus instruments, (O1) holds at every region of every member [W: the interface definition building that theory from a
 member is not written in the kernel; NOTES-E6 §3]. **Reading:** (O1) follows from membership — and it follows *because*
 the class contains (O2) in its definition. This is the iff "between two descriptions that both carry the quantum
-kinematics" of NOTES-E6 §3, now with its region-level step a theorem in a design run. Label: CONJECTURE ([D] pending
-§6; [W] for the OI⁺ link).
+kinematics" of NOTES-E6 §3, now with its region-level step a theorem in a design run. Label: CONJECTURE ([D], run
+38091534622; [W] for the OI⁺ link).
 
 ### (C-DYN) the naive dynamical converse — FALSE
 
@@ -152,4 +152,11 @@ tensor-product step; the interface definition building a `FiniteOperationalTheor
 
 ## 6. Design run of `EqvLevel3` (run 38091534622)
 
-Recorded in LOG and RESULTS when measured.
+Branch `dev-equivalence/split-l3` at `8c92343e` (based on L; with `StageSeed` and `CopyCovariance` of drafts S1, S2).
+Mathlib bridge job 114328799399: `Build completed successfully (3646 jobs)`; the four prints `phase_not_oiInduced`,
+`not_naiveConverseDyn`, `not_comm_of_system`, `kraus_iff_of_member` each `[propext, Classical.choice, Quot.sound]`;
+one warning (an unused simp argument in `not_comm_of_system`); release gate every step PASS except `lean-manuscript`
+(3 problems: the three unregistered design modules), `lean-axioms` 5879 named results, no `sorryAx`, 43 receipts hold,
+303 legacy records intact. The module is copied byte-identically to `lean/EqvLevel3.lean` (blob `dc89d735`). So the
+[D] items of §1 are kernel-checked in a design run: (C-REG)'s transfer lemma, (C-DYN)'s refutation at the stage level,
+and (C-KIN)'s exclusion of commutative algebras from the class. They are not certified.
