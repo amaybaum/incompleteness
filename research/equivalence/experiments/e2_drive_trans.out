@@ -1,0 +1,14 @@
+== Omega4 = {(|x|^2)^2 + s^4 <= 1}
+PASS D1 the flow preserves F identically
+PASS D2 flow_zero and flow_add (R_z(t) R_z(u) = R_z(t+u))
+PASS D3 N = flow(pi) is an involution and moves e0 in Omega4
+PASS D4 J and J^-1 preserve F identically
+PASS D5 J_off_axis at t = pi/2, x = e1: J flow(pi/2) J^-1 e1 = e2, flow(s) e1 has zero third coordinate
+PASS D6 seed (1+s)/2: s^4 <= F gives |s| <= 1 on Omega4; values 1 and 0 at (0,0,0,+-1) in Omega4
+PASS D7 F(-v) = F(v) (central symmetry; capacity <= 2 by Lemma D)
+PASS D8 9 exact boundary points; every midpoint of a distinct pair has F < 1 (max 169/225)
+PASS D9 the section {u^4 + v^4 <= 1} is not {A u^2 + 2 B u v + C v^2 <= 1}: the boundary-point system has no solution
+== control: the Euclidean 4-ball
+PASS C1 ball4: D1-D5 hold and the section system is consistent (B = 0) -- solution [{A: 1, B: 0, C: 1, tau: 1/2}]
+checks: 10, failures: 0
+VERDICT DRIVE-SEED-GEOM-CAP2-NOT-TRANS

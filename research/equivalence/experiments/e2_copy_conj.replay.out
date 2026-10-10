@@ -1,0 +1,20 @@
+parsed: pc, pt, sgn tables (16 entries each); nflip diagonal [1, -1, -1]; z3 = [0, 0, 1]
+== d = 3 (kernel cnot, nflip, swapped target)
+PASS C1 kernel cnot meets frame, relT(nflip), relC(nflip, nflip)
+PASS C2 G2 = actT s . cnot . actT s meets frame, relT(NT), relC(nflip, NT) with NT = s nflip s -- NT diagonal ['1', '-1', '1', '-1']
+PASS C3 NT != nflip; both involutive isometries flipping z; equal splits -- splits (1, 1) (1, 1)
+PASS C4 G2 has no one-NOT reading with the control NOT: relT(nflip) fails
+PASS C6 G2 has a one-NOT reading with the target NOT: relT(NT) and relC(NT, NT) hold (run-1 fact)
+PASS C5 the reduction actT s . G2 . actT s equals cnot on the basis of W 3 and meets the one-NOT relations
+== d = 5 J/K map
+PASS J1 d=5 frame, relT(NB), relC(NA, NB) hold
+PASS J2 d=5 split(NA) = (2, 2) != split(NB) = (1, 3): NA, NB not similar, no conjugator; type covariance fails
+PASS J3 d=5 no one-NOT reading: not (relT(N) and relC(N, N)) for N = NA and for N = NB
+== d = 7 J/K map
+PASS J1 d=7 frame, relT(NB), relC(NA, NB) hold
+PASS J2 d=7 split(NA) = (3, 3) != split(NB) = (1, 5): NA, NB not similar, no conjugator; type covariance fails
+PASS J3 d=7 no one-NOT reading: not (relT(N) and relC(N, N)) for N = NA and for N = NB
+== transfer countercontrol (shear)
+PASS S1 shear fixing z: value on prodState(0, e0) is 0 >= 0, on its actT g image -1/2 < 0
+checks: 13, failures: 0
+VERDICT TYPE-COVARIANCE-CONSISTENT
