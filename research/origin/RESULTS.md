@@ -141,3 +141,28 @@ Classical.choice, Quot.sound]; release gate red only on `claims`, `duplicate`, `
 | script | sha256 (script) | sha256 (output) | result | replay |
 |---|---|---|---|---|
 | `o5_kbd.py` | `a662d9ab…ddcc4f` | `2aca6e8c…f87797` | 15/15 items True, 5 countercontrols expected-false, normalization control True, VERDICT NO-GO-ON-STATED-ACCESS | byte-identical |
+
+## O6 — the stage-crossing generator against O3-T5's three requirements (round 2)
+
+Script `experiments/o6_tower.py` (decision rule in the header before run 1; one pre-run edit, K9's nonnegativity
+made an exact identity; run 1 `VERDICT EXCLUSIVE-ON-PASSIVE-JOINT-ON-INVASIVE`, 5 countercontrols expected-false;
+replay byte-identical). Design module `lean/OriginPassive.lean` now the verbatim copy at dev commit
+`c2484cca3107085e360c461167095262dba45444` (blob `4fc0c2a5…`, sha256 `5da5a6d4…eacc36`; adds Section D to the
+`aef5d446` version, no other line changed): Mathlib bridge Build green in workflow run 38091462366, all thirteen
+declarations on [propext, Classical.choice, Quot.sound]; release gate red only on `claims`, `duplicate`,
+`lean-manuscript` (by construction), `lean-axioms` PASS.
+
+| id | statement | label | evidence | where |
+|---|---|---|---|---|
+| O6-K | An infinite-order reversible datum on the chart body is not stage-preserving (F-D3 kernelized): the generator crosses stages. | CERTIFIED [K CompositionOrder.lean:378 `not_stagePreserving_of_infiniteOrderOn`, :348 `finiteOrderOn_of_stagePreserving`] | [K] | NOTES-O6 §1 |
+| O6-T1 | Passive towers: with FiniteRank, passive and repeatable native observation and reversible data, every extreme point of the completed chart body is outcome-deterministic for every protocol effect; there are at most 2^d of them; every reversible datum respecting affine relations, stage-crossing or not, has finite order on the chart body; no OPS-Γ datum, no drive. On passive towers finite rank and an infinite-order datum are mutually exclusive. | CONDITIONAL ([W] for the tower step (i): Lemma P at extreme points and induction along protocols, with DRIVE §2.2's coordinatizing labels [A]; steps (ii)–(iv) [D] `extremePoints_finite_of_binary`, `finiteOrderOn_of_finite_extremePoints`, `finiteOrderOn_chartBody_of_binary`, `not_infiniteOrderOn_chartBody_of_binary`, green in run 38091462366 at dev commit c2484cca, composed with the landed `chartBody_isCompact`, `chartBody_convex` [K TransitiveBody.lean:109, :80], `preservesBody_inducedEquiv` [K CompletionAction.lean:352], `exists_return`, `exists_common_period` [K CompositionOrder.lean:149, :171]; not certified) | [W] + [D] + [K] pieces; instances [X] P1 and O5 A1 | NOTES-O6 §1 |
+| O6-T2 | What the generator must do to the frame readout: an infinite-order datum on a finite-rank body forces infinitely many pure states, all but at most 2^d of them outcome-random for some protocol effect; its infinite orbits contain infinitely many outcome-random pure states; with a repeatable readout, observation is invasive at each of them. Invasive observation is necessary, not sufficient (KB-D octahedron: invasive, reversible group of order 24). | CONDITIONAL ([W]; [D] finite-order step; Γ2 [A drive] and Cartan [L] for the circle reading) | [W] + [D] + [X] K5, O3 C4 | NOTES-O6 §2 |
+| O6-I | Smallest exact instance meeting all three requirements: circle substratum, half-circle readout with the cosine re-preparation law (Kochen–Specker density): response (1 + cos(u − ψ))/2 exactly; rank 3 at every stage n = 1…10 (single and two-step readouts); the rotation by a (cos a = 3/5) has infinite order (minimal polynomial 5x² − 6x + 5) and crosses stages; the readout is repeatable and invasive; the pure states ρ_{ka} are frame-random; the owner's witness is exact for the closure member R(π/2) and never for a stage datum (V_k = sin²(ka)/2 < 1/2, k ≤ 200). The sphere version: response (1 + ψ·u)/2, rank 4, OFF-Γ′ for g = R_z(a), J = R_x(π/2), m ≤ 60. | CONDITIONAL (on the re-preparing law, outside the stated access; [X] exact) | [X] K1–K7; [L] Kochen–Specker 1967 | NOTES-O6 §3 |
+| O6-L | Finite rank constrains the invasive law: on the dyadic grids passive conditioning and uniform re-preparation give table ranks 3, 5, 9, 17, 33, 65 (= 2^m + 1, growing); the cosine law gives 3; at degree one, repeatability and two outcomes force the response (1 + cos β)/2; finite rank alone does not (a repeatable degree-3 response with density (3/4)cos³t ≥ 0 has rank 5). | CONDITIONAL ([X] exact; rank = number of Fourier modes on uniform grids [W]) | [X] P1, K8, K9 | NOTES-O6 §4 |
+| O6-V | Verdict O6: O3-T5's three requirements are mutually exclusive on passive towers (O6-T1) and jointly satisfiable, with a repeatable readout, on an invasive re-preparing tower (O6-I); the invasive law needed is a measure-and-re-prepare law — KB-D in continuous form — whose exclusivity the stated access excludes (O5-T1a): O5 and O6 meet at one premise. | CONDITIONAL (on O6-T1, O6-I at their status); the source of the re-preparing law OPEN | as above | NOTES-O6 §0 |
+
+**Script ledger (O6).**
+
+| script | sha256 (script) | sha256 (output) | result | replay |
+|---|---|---|---|---|
+| `o6_tower.py` | `1abb0a69…bdfd1f2` | `3e8e9fbc…f680ef4` | 10/10 items True, 5 countercontrols expected-false, VERDICT EXCLUSIVE-ON-PASSIVE-JOINT-ON-INVASIVE | byte-identical |
