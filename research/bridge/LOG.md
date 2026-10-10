@@ -90,3 +90,22 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - **HO-6.** Relied on as a planning input for B9 (the dictionary request), at its labels: W-DESC / Kₙ-DESC
     CONJECTURE; the absence of a map at L [A]. I do not assume `ContextStable` is (b) (the handoff forbids the
     identification without a formal map; B9's job is to state what such a map needs).
+- 2026-10-10T22:12Z — B6 design decisions (before writing the module). Theorem B1.1 is formalized in two forms:
+  (i) RESPECT in readout-kernel form (`R ν = 0 → R (P ν) = 0`, the form B1 §2 and B3.1 use for readout-respecting
+  permutations), product behaviour on a spanning set `X` of token points, (A); (ii) B1.1 exactly as written in
+  NOTES-B1 §2 (RESPECT only on the convex set `𝒫`, normalized readout, H1 on the ball), reduced to (i) on the span of
+  `𝒫` through differences of rays. Local tomography is proved as a theorem of the carrier from one-token spanning, not
+  assumed. Controls in the module: an L-REG model on `Fin 4 × Fin 4` realizing the kernel's `cyc3` (linear part
+  `cycEquiv`) as the hidden bijection `tokPerm × id` (positive control: all hypotheses hold), and the same model with
+  `𝒫` a point mass (countercontrol: (A) fails and the conclusion fails). Generic linear-algebra core
+  (`intertwine_of_respect`) so the actC/actT and convex forms share one proof.
+- 2026-10-10T22:15Z — dev branch `dev-bridge/b11-lemma` created from the thread head e29b6a42 with git plumbing (a
+  temporary index; the research/bridge working tree and index untouched): commit 00d43da4 adds
+  `verification/lean-mathlib/OIBridge/BridgeLemma.lean` (blob 937a97e9, verbatim copy of `lean/BridgeLemma.lean`)
+  and **one import line in the root `verification/lean-mathlib/OIBridge.lean`** (after `RelcSelectC5`). Deviation,
+  recorded: the root file is outside `verification/lean-mathlib/OIBridge/`; it is needed because the lake library
+  builds only modules reachable from the root and `tools/lean_axiom_check.py` fails on any unelaborated
+  `#print axioms` line; the round-1 dev branches (`dev-equivalence/kinf-seams`, `dev-origin/envelope`) did the same.
+  Dev branch only; never on research/bridge's verification tree.
+- 2026-10-10T22:16:12Z — dispatch 1 of 3: `verify.yml` on `dev-bridge/b11-lemma` @ 00d43da4, run 38090784384
+  (queued). No local Lean toolchain (and 7.8 GB free on a shared container: a Mathlib install was not attempted).
