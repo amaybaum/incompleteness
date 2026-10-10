@@ -265,6 +265,7 @@ import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
 import OIBridge.BridgeLemma
+import OIBridge.BridgeDictionary
 
 namespace OIBridge
 
