@@ -147,3 +147,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   reachability; no spectral step; the finite clause and the flow alone fail at reachability; `R_z(θ₀)` with `cos θ₀ =
   3/5` and `cyc3` suffice given H3). RESULTS R-E10.1–R-E10.4; LEDGER round-2 notes (statuses at L unchanged). Handoff
   proposals HP-5 (coordinator), HP-6 (bridge, origin), HP-7 (countermodels) written.
+- 2026-10-10T22:54Z — `experiments/e8_cite_check.py`: run 1 did not render (the checker read a design-module error location and a
+  hypothesis name as kernel citations, and its floor of 40 exceeded the 37 citations found); kept as
+  `e8_cite_check.run1.*`. Run 2 (scope rules and countercontrols X1–X3 in place of the floor, decision rule fixed
+  before it ran): `VERDICT CITATIONS-RESOLVE`, 37 distinct citations, replay identical. RESULTS R-E8.5.
