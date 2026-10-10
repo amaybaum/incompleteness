@@ -68,3 +68,23 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   commits' times (`git log --format=%cI`): the E7/addenda entry 20:50Z → 20:48Z (`7787b699`, 20:48:58), the hygiene entry
   20:53Z → 20:51Z (`adfe2503`, 20:51:34), the close entry 20:53Z → 20:52Z (`2ae3d47b`, 20:52:52). Every other entry checked
   against its commit time; no other content changed. Commit: this entry's (reported in the final message).
+
+## Round 2
+
+- 2026-10-10T21:49Z — round 2 opened at thread head `8c67c7fb` (verified: `git status` clean, `git log -1`). Re-read the
+  charter, LOG, LEDGER, RESULTS, NOTES-E2 … E7, and from the overview worktree (branch `research/overview` @ `62cbb3cf`,
+  read-only) `research/AUDITS/2026-10-10-round1/AUDIT-EQUIVALENCE.md` and `research/OVERVIEW.md`.
+- 2026-10-10T21:49Z — **receipt of HO-2 v1** (`research/HANDOFFS/HO-2-bridge-to-equivalence-and-countermodels-finite-substrata.md`
+  at overview `62cbb3cf`, blob `06c9d4c6`, sha256 `13abf306c4ad6466…`), copied byte-identically to
+  `inbox/HO-2-bridge-to-equivalence-and-countermodels-finite-substrata.md`. **Reliance, stated before use.** (i) Only at
+  its own labels; nothing in HO-2 is CERTIFIED, and no ledger status changes on its strength. (ii) HO-2c's one-token
+  clause is taken as a CONDITIONAL [L] constraint (on Jordan's theorem and the classification of finite subgroups of
+  SO(3), neither checked here) on any sourcing of K∞-Act / K∞-Drive through finite stage-preserving operations: an
+  off-axis `ElementaryDrivability` (KInfFoundations.lean:264) is never the closure of directed stage-preserving finite
+  operations, so the generator must cross stages. This is consistent with, and sharper than, the kernel fact the ledger
+  already records (`finiteOrderOn_of_stagePreserving` CompositionOrder.lean:348 [K]: a stage-preserving datum has finite
+  order); it is cited in the Kinf-Act / Kinf-Drive rows as CONDITIONAL [L] and is not used as a premise of any draft.
+  (iii) HO-2a (a finite realized pair group of unitary or antiunitary conjugations leaves an exotic self-dual cone with
+  H1–H3; CONDITIONAL on claim D [A]) and HO-2d (A_miss ⟺ (b) for `{R_z(θ), R_x(θ)}`, `cos θ = 3/5`; CONDITIONAL on
+  closedness of K) bear on node E10's countercontrol; E10 recomputes its own countercontrol by exact computation and
+  cites HO-2a/HO-2d only as comparators at their labels. (iv) HO-2b (`tr(cnot · actC R1) = 10/9`) is not used.
