@@ -186,3 +186,19 @@ Script `experiments/o7_density.py` (decision rule in the header before run 1; no
 | script | sha256 (script) | sha256 (output) | result | replay |
 |---|---|---|---|---|
 | `o7_density.py` | `c3968310…ac23649` | `81a8e440…f4589` | 4/4 items True, 3 countercontrols expected-false, VERDICT DENSE-AT-THE-BALANCED-ANGLE | byte-identical |
+
+## O5-SRC — the SRC side of HO-5's joint statement (round 2)
+
+Script `experiments/o5_src.py` (decision rule in the header before run 1; two pre-run cleanups before any run; run 1
+`VERDICT SRC-KB-TOKEN-ONLY`, 2 countercontrols expected-false; replay byte-identical).
+
+| id | statement | label | evidence | where |
+|---|---|---|---|---|
+| O5-SRC1 | If KB-D were SRC's source, the premise is SRC_KB(J): all configuration permutations on a token and an exclusive KB-D frame readout. Under it J = cyc3 is available as the unique configuration permutation inducing cyc3 on the toy bit's pure states (order 3, a rotation), mapping z⁺ to the balanced pure state x⁺, with the exact witness (1, 1/2). Disguise test: the operation is monomial and passes the owner's letter; the non-classicality is carried by KB-D2, which removes the stated access's native readout (O5-T1a). | CONDITIONAL (on KB-D2, excluded on the stated access; [X] exact) | [X] S1, S2, CC1; [K KInfFoundations.lean:425, :427] | NOTES-O5 §8 |
+| O5-SRC2 | Every composite of such tokens built from product registers with local readouts has \|S_CHSH\| ≤ 2 (attained), so it realizes no candidate pair cone (each contains phiW with S = 14/5, HO-3 v1): SRC via KB-D is token-only and cannot serve SPEC's target. | CONDITIONAL ([X] exact over the 16 joint configurations; HO-3 v1 items 1–2 at their labels) | [X] S3, CC2; HO-3 v1 (received) | NOTES-O5 §8 |
+
+**Script ledger (O5-SRC).**
+
+| script | sha256 (script) | sha256 (output) | result | replay |
+|---|---|---|---|---|
+| `o5_src.py` | `c7c5bfd6…f7c7908` | `96e052e7…d41683` | 3/3 items True, 2 countercontrols expected-false, VERDICT SRC-KB-TOKEN-ONLY | byte-identical |

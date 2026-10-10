@@ -161,3 +161,30 @@ to `lean/OriginPassive.lean` (blob `9ef2a18d`, sha256 `8fac1f7f…17bf978`). Des
 - **ELABORATING, O5-E1.** T1, the sharpened Lemma P (deterministic extreme points; point masses under
   separation), with a design module.
 - **CONFIRMING, O5-C1.** O1-T7a (memory erasure fakes the witness) recurs as B3; O2-KB's four closed sources.
+
+## 8. The SRC side of HO-5's joint statement (if KB-D were SRC's source)
+
+Script `experiments/o5_src.py` (decision rule in the header before run 1; two pre-run cleanups before any run — an
+unused stub removed and one print expression simplified; run 1 `VERDICT SRC-KB-TOKEN-ONLY`; replay byte-identical).
+
+**The premise SRC would be.** SRC_KB(J): on one token the configurations are {0,1}², every permutation of them is
+available (A2, the exchanges), and the frame's native readout is the measure-and-re-prepare law KB-D with no passive
+readout of any partition (KB-D2, exclusivity). Then J = `cyc3` [K KInfFoundations.lean:425, :427] is available on the
+token: exactly one permutation of the four configurations induces cyc3 on the six pure states — σ fixes (0,0) and
+cycles (0,1) → (1,0) → (1,1) — of order 3, acting as a rotation (determinant +1; a transposition acts as a
+reflection, determinant −1) [X S1]; σ maps the pure frame state z⁺ to the pure balanced state x⁺, and the owner's
+sandwich with σ, σ⁻¹ and the KB-D frame dephasing is exactly (1, 1/2) [X S2].
+
+**Disguise test.** The operation σ is a permutation of configurations: monomial, no complex number, no unitary, no
+non-monomial operator in its interface — it passes the owner's letter. The non-classical structure (balanced pure
+states) is carried by KB-D2, an observation law, which (i) is not an addition to the stated access but the removal of
+its native readout (O5-T1a), and (ii) does not reach the composite: every composite of such tokens built from product
+registers with local readouts has |S_CHSH| ≤ 2 exactly (the 16 joint configurations, all setting pairs: max 2,
+min −2) [X S3], whereas every candidate pair cone contains phiW with S = 14/5 (HO-3 v1 items 1–2, received; item 1's
+identity CERTIFIED at CompositeDimension.lean:1220–1222, membership [W]; item 2 [X]). So SRC_KB(J) gives J on a token
+but no composite that SPEC's target concerns. The continuous version (the re-preparing sphere tower of O6-I) is the
+same in this respect: its single-token law is a local hidden-variable model, and a product-register composite is
+Bell-local (HO-3 item 3 [W]).
+**Status.** SRC_KB(J): CONDITIONAL on KB-D2 (exclusivity), which the stated access excludes; as a source for HO-5's
+joint statement it is token-only. A source of SRC that could serve SPEC would have to come with a composite outside
+product registers — the branch-(a) nonlocal response HO-3 names — which nothing in this thread sources.

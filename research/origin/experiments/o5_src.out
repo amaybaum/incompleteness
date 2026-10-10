@@ -1,0 +1,19 @@
+== o5_src ==
+pure states (Bloch): X+ (Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)), X- (Fraction(-1, 1), Fraction(0, 1), Fraction(0, 1)), Y+ (Fraction(0, 1), Fraction(1, 1), Fraction(0, 1)), Y- (Fraction(0, 1), Fraction(-1, 1), Fraction(0, 1)), Z+ (Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)), Z- (Fraction(0, 1), Fraction(0, 1), Fraction(-1, 1))
+S1  permutations inducing cyc3: 1 ([(0, 2, 3, 1)]); order 3 and a rotation (det of the induced map 1): True
+    transposition (00 01) induces a map of determinant -1
+S2  sigma(z+) = x+: True; frame probability of sigma(z+): 1/2; sandwich (P_coh, P_deph) = (1, 1/2)  -> True
+S3  product registers, local readouts: CHSH over the 16 joint configurations and all setting pairs: max 2, min -2  -> |S| <= 2 with 2 attained: True
+    setting-dependent table: S = 4
+
+-- countercontrols (must be False)
+CC1  CC-OK (False as required)
+CC2  CC-OK (False as required)
+
+  S1: True
+  S2: True
+  S3: True
+VERDICT SRC-KB-TOKEN-ONLY: with all configuration permutations and an exclusive KB-D frame readout, J = cyc3
+  is available on one token as a configuration permutation of order 3 with the exact witness (1, 1/2); every
+  composite of such tokens built from product registers with local readouts has |S| <= 2, so it realizes no
+  candidate pair cone (each contains phiW, S = 14/5, HO-3 v1).
