@@ -154,7 +154,10 @@ theorem omega4_strictConvex : StrictConvex ℝ omega4 := by
   have hopen : IsOpen {v : Fin 4 → ℝ | (v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2) ^ 2 + v 3 ^ 4 < 1} :=
     isOpen_lt (by fun_prop) continuous_const
   have hsub : {v : Fin 4 → ℝ | (v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2) ^ 2 + v 3 ^ 4 < 1} ⊆ omega4 :=
-    fun v hv => le_of_lt hv
+    fun v hv => by
+      simp only [Set.mem_setOf_eq] at hv
+      rw [mem_omega4]
+      exact le_of_lt hv
   refine interior_maximal hsub hopen ?_
   have hx' : (x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2) ^ 2 + x 3 ^ 4 ≤ 1 := hx
   have hy' : (y 0 ^ 2 + y 1 ^ 2 + y 2 ^ 2) ^ 2 + y 3 ^ 4 ≤ 1 := hy
@@ -212,7 +215,10 @@ theorem omega4_interior_nonempty : (interior omega4).Nonempty := by
   have hopen : IsOpen {v : Fin 4 → ℝ | (v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2) ^ 2 + v 3 ^ 4 < 1} :=
     isOpen_lt (by fun_prop) continuous_const
   have hsub : {v : Fin 4 → ℝ | (v 0 ^ 2 + v 1 ^ 2 + v 2 ^ 2) ^ 2 + v 3 ^ 4 < 1} ⊆ omega4 :=
-    fun v hv => le_of_lt hv
+    fun v hv => by
+      simp only [Set.mem_setOf_eq] at hv
+      rw [mem_omega4]
+      exact le_of_lt hv
   refine interior_maximal hsub hopen ?_
   show ((0 : ℝ) ^ 2 + 0 ^ 2 + 0 ^ 2) ^ 2 + (0 : ℝ) ^ 4 < 1
   norm_num
@@ -221,7 +227,7 @@ theorem omega4_centrallySymmetric : CentrallySymmetric omega4 0 := by
   intro x hx
   have hx' : (x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2) ^ 2 + x 3 ^ 4 ≤ 1 := hx
   rw [mem_omega4]
-  simp only [Pi.add_apply, Pi.sub_apply, Pi.zero_apply, Pi.neg_apply, zero_add, zero_sub]
+  simp only [Pi.add_apply, Pi.zero_apply, Pi.neg_apply, zero_add, zero_sub]
   have e : ((-x 0) ^ 2 + (-x 1) ^ 2 + (-x 2) ^ 2) ^ 2 + (-x 3) ^ 4
       = (x 0 ^ 2 + x 1 ^ 2 + x 2 ^ 2) ^ 2 + x 3 ^ 4 := by ring
   rw [e]
