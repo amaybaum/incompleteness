@@ -1,0 +1,12 @@
+CHECK B1 cnot keeps Bell-type iff on C1 ∪ C2 PASS local entries of cnot T: (C32, C33; C11, C21); C1, C2 tables have the vanishing pattern; the pattern family = C1 ∪ C2
+COUNTERCONTROL CC1 Phi+ is maximally entangled, CNOT Phi+ is a product: True
+CHECK B2 group action on the circles     PASS cnot: C1(w)->C1(-w), C2 fixed; ZI: w->-w; IZ: C1<->C2; T: w->conj w; S(x)I: w->iw
+CHECK B3 orthogonality on the circles    PASS |<Ck(w)|Ck(w')>|^2 = |1 + conj(w) w'|^2/4; C1 ⊥ C2
+CHECK B4 pair theorem instances (c >= 1/2) PASS c=16/25: lam=225/328, ipW(y,z1)=0, ipW(y,z2)=9/32, u^dag pauliW(y) u=-50625/4410944; c=3/4: lam=24/41, ipW(y,z1)=0, ipW(y,z2)=31/164, u^dag pauliW(y) u=-1869/551368; c=9/10: lam=44/327, ipW(y,z1)=0, ipW(y,z2)=461/8175, u^dag pauliW(y) u=-971509/2428179375
+COUNTERCONTROL CC3 ipW(z_C1(1), z_C1(-1)) = 0 (orthogonal: the construction is unavailable)
+B5 G16-orbits on the circles (size, orthonormal): {'1': (4, True), 'I': (4, True), '-1': (4, True), '-I': (4, True), '3/5 + 4*I/5': (8, False), '5/13 + 12*I/13': (8, False), '-3/5 + 4*I/5': (8, False), '8/17 + 15*I/17': (8, False), '7/25 - 24*I/25': (8, False)}
+CHECK B5 level (ii) classification       PASS G16-orthonormal orbits exactly at w in {+-1, +-i}: Z_F (w=1) and Z_Y (w=i); Z_Y: H1, certificates, orthogonal, G16-invariant, = Ad(S(x)I) Z_F, not SWAP-invariant, != Z_F
+COUNTERCONTROL CC2 w = (3+4i)/5: G16-orbit orthonormal = False (as required: False)
+CHECK B6 level (i) family; flow fixes C2 PASS {C1(w), C1(-w), C2(w'), C2(-w')} orthonormal, maximally entangled, cnot-invariant (symbolic t, t'); U(x) fixes C2, moves C1
+summary: 9 checks, 0 failed
+VERDICT C4-BELL-FAMILY-EXACT
