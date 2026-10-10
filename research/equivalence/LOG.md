@@ -88,3 +88,33 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   H1–H3; CONDITIONAL on claim D [A]) and HO-2d (A_miss ⟺ (b) for `{R_z(θ), R_x(θ)}`, `cos θ = 3/5`; CONDITIONAL on
   closedness of K) bear on node E10's countercontrol; E10 recomputes its own countercontrol by exact computation and
   cites HO-2a/HO-2d only as comparators at their labels. (iv) HO-2b (`tr(cnot · actC R1) = 10/9`) is not used.
+- 2026-10-10T21:52Z — E8 begun: read `verification/infrastructure/v3/architecture.md` (K1, S7, G6, G10, S8 and the
+  receipt field table) and the landed preregistrations of KTRANS-DENSE-1 and KT4-PREM-1 (block structure, decision
+  rules, non-inference rule, controls, design evidence, predicted tree, stages, outcomes) and the invariant→checkpoint
+  table of KINF-2 (§A.41). Mathlib API names checked against the Mathlib v4.33.0 sources fetched read-only from
+  raw.githubusercontent.com into the session scratchpad (`Equiv.Perm.exists_extending_pair`, `Matrix.single_apply`,
+  `submatrix_*`, `Fin.castLEEmb`, `AffineEquiv.map_vadd`, linarith's polynomial parsing).
+- 2026-10-10T22:05Z — DEVIATION (scope of dev-branch writes, as in round 1): the Mathlib bridge builds only modules
+  imported from the root `verification/lean-mathlib/OIBridge.lean`, so each dev branch adds one import line there
+  besides its modules under `OIBridge/`; round 1's dev branches did the same. New this round: the dev branches are
+  based on L `9f9f8257` directly (no `research/` tree), so the gate's `claims` and `duplicate` steps are meaningful and
+  only `lean-manuscript` (no census family) is expected red.
+- 2026-10-10T22:05Z — dispatch 1/3 (round 2): run **38090116254** on `05b5756c` (branch `dev-equivalence/kn-desc`,
+  module `EqvKnDesc`, draft S3). Result (job 114324651733): `Build completed successfully (3644 jobs)`; all twelve
+  `#print axioms` lines of `EqvKnDesc` `[propext, Classical.choice, Quot.sound]`; release gate every step PASS except
+  `lean-manuscript` (1 problem: the unregistered module), `lean-axioms` 5872 named results, no sorry, 43 receipts hold,
+  303 legacy records intact. Warnings only: three theorems carry unused `[Fintype S] [Fintype T]` section binders; one
+  `haveI` style hint.
+- 2026-10-10T22:18Z — dispatch 2/3: run **38090924005** on `195dfbee` (branch `dev-equivalence/omega4`, module
+  `EqvOmega4`, draft S4). Result (job 114327010280): build FAILED at exactly two terms (lines 157, 215: `fun v hv =>
+  le_of_lt hv` elaborated against `v ∈ omega4`, Type mismatch); every other declaration elaborated — the prints of
+  `omega4_isCompact`, `conv_core`, `omega4_convex`, `abstract_strict`, `omega4_centrallySymmetric`, `sharpSeed_omega4`,
+  `omega4_drivable` and `not_affine_eball_omega4` standard; the seven dependants of the two terms printed `sorryAx`
+  (error recovery). Proof-only repair committed as `95beab2b` (blob `9030f471`), NOT dispatched: S4's one dispatch is
+  spent; the repair is unmeasured.
+- 2026-10-10T22:28Z — dispatch 3/3: run **38091534622** on `8c92343e` (branch `dev-equivalence/split-l3`): modules
+  `StageSeed` (S1) and `CopyCovariance` (S2), split from the built `EqvSeams`/`EqvSeamsControl` with no statement
+  changed, and `EqvLevel3` (node E9). This is S1's and S2's one dispatch and the round's last; no dispatch remains.
+- 2026-10-10T22:30Z — drafts S1 (`preregistration-drafts/S1-kinf-seed.md`) and S2
+  (`preregistration-drafts/S2-kinf-copy-type-covariance.md`) written; held for owner review; no round, PR or file under
+  `verification/` created.
