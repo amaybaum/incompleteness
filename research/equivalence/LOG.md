@@ -54,6 +54,13 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   countermodels (CONJECTURE [W]); R-E3.3 and S3's controls updated.
 - 2026-10-10T20:53Z — hygiene: two table cells carried `|x|⁴` (a pipe inside a markdown cell); written `‖x‖⁴` in LEDGER and
   RESULTS; every table row's column count checked.
-- 2026-10-10T20:55Z — NOTES-E3 §3 scope caveat (pressure test): the descent to odd carriers needs `ContextStable` with an
+- 2026-10-10T20:52Z — NOTES-E3 §3 scope caveat (pressure test): the descent to odd carriers needs `ContextStable` with an
   odd-size spectator; it fixes the repertoire of carriers the formalism has as types, it does not produce them; R-E3.2
   scope sentence added.
+- 2026-10-10T20:53Z — close of the session's plan (E1–E7 done). Commits on `research/equivalence`: `04e69e04` (E1), `88cc525d`
+  (E2), `dc31472c` (E3), `8103045f` (E4), `32612d8b` (E5, E6), `a9a8b34e` (E5 close), `7787b699` (E7, handoffs),
+  `0e5673f7` (E3 addendum), `adfe2503` (table hygiene), `0f52efab` (E3 scope caveat), and this entry. Disposable branches
+  (not for merge): `dev-equivalence/kinf-seams` (`0578b13d`, `f5367a7a`) and `dev-equivalence/kt4-at-l` (`288f80ec`).
+  Dispatches used: 3 of 3 (runs 38083220991 failed at one declaration and was repaired; 38083519826 and 38084161796 green
+  at module level). A diagnostic script for run 1 of `e2_copy_conj` was run from the session scratchpad (outside the
+  repository); its output is summarized in NOTES-E2 §3 and the run-1 files are kept here.
