@@ -48,7 +48,8 @@ token operation. If the full lemma is out of reach, formalize the largest exact 
 
 ## 3. Reading
 
-- **B1.1 [D] (if green).** The first H→P declaration about the pair carrier, as a design module. It discharges no
+- **B1.1 [D].** The first H→P declaration about the pair carrier, as a design module (run 38092042844 green on
+  Build and `lean-axioms`). It discharges no
   obligation: (b_H) for `O` holds exactly when (A) holds for `O`'s hidden realization (given RESPECT and (P)).
 - **The controls make the hypothesis set honest.**
   - Satisfiable: `ctl_bH`, in an L-REG model. Such models are Bell-local by B1.2, consistent with local readout.
@@ -58,4 +59,12 @@ token operation. If the full lemma is out of reach, formalize the largest exact 
 
 ## 4. CI record
 
-Filled in from the runs; see LOG.md for the times.
+Dispatches: `workflow_dispatch` of `verify.yml` on `dev-bridge/b11-lemma`, 2 of 3 used for this module. As noted in
+the round-1 CI record, the gate's `claims`, `duplicate` and `lean-manuscript` steps are red by construction on
+research branches; the meaningful signals are the Build step, the module's `#print axioms` lines and the
+`lean-axioms` gate step.
+
+| run | dev commit | Build | module `#print axioms` | `lean-axioms` | notes |
+|---|---|---|---|---|---|
+| 38090784384 | 00d43da4 | **failure** (22:28:43–22:30:37Z) | 7 built on [propext, Classical.choice, Quot.sound]: `actCLin`, `actTLin`, `intertwine_of_respect`, `span_prodSetOf`, `span_hom_of_frame`, `span_productSet`, `ctl_intertwine` | not run (gate skipped) | `𝒫` is reserved Mathlib notation (`Set.powerset`), so nine declarations failed to parse and their dependents followed; remaining probe jobs cancelled after the bridge job completed |
+| 38092042844 (job 114330283929) | f1c5f0fb | **success**, 22:59:12–23:01:10Z ("Build completed successfully (3644 jobs)"; `Built OIBridge.BridgeLemma`, warnings only) | all 14 `#print axioms` lines on [propext, Classical.choice, Quot.sound]: `actCLin`, `actTLin`, `intertwine_of_respect`, `span_prodSetOf`, `span_hom_of_frame`, `span_productSet`, `bH_respect`, `bH_respect_target`, `bH_perm`, `respect_diff`, `bH_convex`, `ctl_intertwine`, `ctl_bH`, `ctl_counter` | **PASS** ("OK (5874 named result(s) reported, no sorr…") | gate red only on `claims`, `duplicate`, `lean-manuscript` (1 problem: no census disposition for the design module), by construction; `𝒫` renamed `Pd`; unexecuted fallbacks removed; `mem_diffSub`; explicit countercontrol evaluation |

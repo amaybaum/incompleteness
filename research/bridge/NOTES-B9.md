@@ -66,7 +66,7 @@ Node B9 of `research/bridge` (round 2). Base L = `9f9f8257`. Evidence:
   spectator clause at P. Round-1 B2-4 found the same by analogy; (D1) and (D2) now make it exact.
 - The alternative (T′) "the pair cone is `M⁻¹(PSD)`" makes the transfer trivial and is `K = Q3`, circular from the
   other side.
-- Through B6 (Theorem B1.1, [D] if run 38092042844 is green), (T) at level P follows from (A) at level H for each
+- Through B6 (Theorem B1.1, [D]: CI run 38092042844 green), (T) at level P follows from (A) at level H for each
   operation. So the hidden-level form of (T) is H-OI_g for the monomial images (B5). It is again the spectator clause.
 
 ## 3. The reduction and its non-redundancy

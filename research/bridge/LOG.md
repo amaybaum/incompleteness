@@ -167,3 +167,17 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   passed on all 12 bases and the countercontrol at all 13 product vertices. Replay byte-identical (23:00Z).
   NOTES-B7 §6 and RESULTS row B7-5 added.
 - 2026-10-10T22:58:58Z — run 38092042844: Mathlib bridge job started (monitor); Build in progress at 23:00Z.
+- 2026-10-10T23:01:27Z — run 38092042844, Mathlib bridge job 114330283929: **Build success** (started 22:59:12Z);
+  Release gate in progress at reading time.
+- 2026-10-10T23:01:40Z — dev commit 3 bbbefb72 (child of f1c5f0fb): adds `verification/lean-mathlib/OIBridge/
+  BridgeDictionary.lean` (blob 119d85ba, verbatim copy of `lean/BridgeDictionary.lean`) and one more root import line
+  (`import OIBridge.BridgeDictionary` after `BridgeLemma`). Dispatch 3 of 3 at 23:01:42Z: run 38093576860. The B6
+  evidence is run 38092042844; run 3 bears only on the dictionary (B9).
+- 2026-10-10T23:02:04Z — run 38092042844 complete, read via the jobs API and the job log. Mathlib bridge job
+  114330283929:
+  - Build **success** 22:59:12–23:01:10Z ("Build completed successfully (3644 jobs)"; `Built OIBridge.BridgeLemma`
+    with warnings only: unused variables in `hpush`'s `rfl` fields, unexecuted fallback alternatives);
+  - all 14 `#print axioms` lines of the module on [propext, Classical.choice, Quot.sound];
+  - Release gate: `lean-axioms` **PASS** ("OK (5874 named result(s) reported, no sorr…"); FAIL only on `claims`,
+    `duplicate`, `lean-manuscript` (1 problem), red by construction.
+  B6 is [D]. NOTES-B6 §4 filled; RESULTS rows B6-1 and V-2 appended; NOTES-B9 §2's forward reference to B6 updated.
