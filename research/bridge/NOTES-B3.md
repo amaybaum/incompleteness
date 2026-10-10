@@ -133,14 +133,22 @@ eigenlines. For antiunitary `h`: if `tφ = λφ`, then `hφ` is an eigenvector o
   - the full diagonal (monomial) torus, i.e. the continuous phase flows on both tokens together with the `ZZ` phase;
   - stage 4's S2 torus `actC R_z ∘ actT R_x` (EXOTIC-E [A], consistent);
   - every torus of commuting local frame-axis flows whose eigenbasis is a grid.
+- **(P2′) `T` has four distinct eigenlines, all of them product states, grid or not ⇒ EXOTIC.** Up to a local unitary
+  and a swap of the factors, an orthonormal product basis is `{0β, 0β⊥, 1γ, 1γ⊥}`. It is a grid iff
+  `γ ∈ {β, β⊥}`, so suppose it is not.
+  - A product `(a|0⟩ + b|1⟩)⊗v` has coefficients `(a⟨β|v⟩, a⟨β⊥|v⟩, b⟨γ|v⟩, b⟨γ⊥|v⟩)`.
+  - Support exactly 3 forces `a, b ≠ 0` and `v ∈ {β⊥, β, γ⊥, γ}`, one value for each missing index.
+  - So in each face of the simplex, the moduli of the support-3 products lie on a curve parametrized by `|a|²`.
+  - `T` preserves supports, and `H` permutes the eigenlines through a finite group `Γ ⊆ S₄`. So the support-3 part of
+    `R(H)` has its moduli on finitely many curves.
+  - A state with support exactly 3 whose moduli lie off those curves is not in `R(H)`.
+  (P2′) contains (P2).
 - **(P3) `T` has four distinct eigenlines, none of them a product state ⇒ EXOTIC.** Suppose `h·p = φ_k` with `h ∈ H`
   and `p ∈ P`. Then `p = h⁻¹φ_k` is an eigenline, hence not a product, which is a contradiction. So `φ_k ∉ R(H)`. This
   covers the Bell-diagonal 3-torus, the identity component of K(Z_F)'s own stabilizer (stage 4 Z [A]).
 
 **The wall.** The remaining cases are:
-- 2- and 3-dimensional tori whose eigenbasis is a non-grid product basis, such as `{|0β⟩, |0β⊥⟩, |1γ⟩, |1γ⊥⟩}` with
-  `β ≠ γ, γ⊥`;
-- eigenbases that contain some, but not only, product lines;
+- tori with four distinct eigenlines of which exactly one, two or three are product states;
 - 2-dimensional tori with a 2-dimensional eigenspace.
 
 For these, `μ(P)` (the moment image in the simplex) is 3-dimensional. Whether the finitely many images `σ(μ(P))`,

@@ -55,3 +55,6 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   timeboxed; written proofs only. Result: partial theorem (P1)–(P3) in NOTES-B3 §2.1. Wall recorded: non-grid or
   partially-product eigenbases and degenerate 2-tori need a moment-polytope covering analysis under `cnot ∈ N(T)`, not
   done. RESULTS B3-4 updated (still CONJECTURE, with partial results).
+- 2026-10-10T20:51Z — B3.C: (P2) extended to (P2′), any orthonormal product eigenbasis (non-grid case: support-3
+  products have pinned second factor, so face moduli lie on finitely many curves). Wall narrowed to eigenbases with
+  exactly 1–3 product lines and degenerate 2-tori. Stopping the B3.C attempt at this wall (timebox).
