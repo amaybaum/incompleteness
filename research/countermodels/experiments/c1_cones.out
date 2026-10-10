@@ -1,0 +1,115 @@
+CHECK D0z pc/pt/sgn = Lean text      PASS CompositeDimension.lean:741-755 at L
+CHECK D0a cnot=Ad(CNOT)              PASS 16/16 basis tables, control first
+CHECK D0b actC/actT=Ad               PASS U in {X, Z, U_J, U_x90}; R(U_J) = cyc3, R(X) = nflip, R(Z) = rot3(pi)
+CHECK D0c transposeW=T               PASS 
+CHECK D0d SWAP=table transpose       PASS 
+CHECK D1a cnot invol/sym             PASS 
+CHECK D1b relT,relC nflip            PASS [K] :854, :860
+CHECK D1c frame                      PASS 
+CHECK D1d IsNot nflip                PASS 
+CHECK D1e entangling image           PASS cnot(prodState xplus z3) = phiW: pure, rank-4 table (not a product)
+CHECK D1f posFwd identity            PASS [K] nativeGate_cnot :1160; through the [D] dictionary
+CHECK D1g pW(prod)=rho(x)rho(y)      PASS symbolic
+CHECK D2 cnot F = z_(1,1)            PASS K_F2 = K({z_(-1,-1), z_(1,1)})
+== cone F2
+CHECK F2-C1 H1                       PASS SOS identity over the whole ball, each defect
+CHECK F2-C2 cnot permutes Z          PASS 
+  spectrum F2: [-1/8, 1/8]
+  spectrum F2: [-1/8, 1/8]
+CHECK F2-C3 H3 certificate           PASS one simple negative eigenvalue -a, others >= a; Z orthogonal; tr > 0
+CHECK F2-C3 one-violation identity   PASS orthonormal cap basis {psi_s}; sum_s <psi_s|Q|psi_s> = tr Q (symbolic); caps of F, cnot F in it
+CHECK F2-C4 K != Q3                  PASS ipW(z, T_g) < 0 for the negative eigenvector g; T_g in Q3, not in K = K*
+CHECK F2-C5 maxCone                  PASS pairing with Lorentz a (x) b = a0 b0 (C1 value) >= 0
+CHECK F2-C6 slice                    PASS cnot fixes the (0,0) entry
+CHECK F2-C2 record level (ii) fails  PASS G16 generator actT rot3(pi) moves K: ('WITNESS', -1/2)
+RECORD F2-C7r actT reflY z: spectrum [0, 1/4]; PSD True; pairs with Z: [1/8, 1/8]
+RECORD F2-C7r actT reflY z: spectrum [0, 1/4]; PSD True; pairs with Z: [1/8, 1/8]
+CHECK F2-C7 actT reflY moves K       PASS defect images: NOWITNESS ; kernel chain phiW -> idW, ipW(idW, cnot prodState(-e1,-e3)) = -2; consistent with no_candidateCone_cnot_reflY [K]
+MAP actC rot3(pi)    F2: INVARIANT 
+MAP actT rot3(pi)    F2: WITNESS -1/2
+MAP actC nflip       F2: WITNESS -1/2
+MAP actT nflip       F2: INVARIANT 
+MAP actC cyc3        F2: WITNESS -1/2
+MAP actT cyc3        F2: WITNESS -1/2
+MAP actC Rx(pi/2)    F2: WITNESS -1/2
+MAP actT Rx(pi/2)    F2: WITNESS -1/2
+MAP actC Rz(pi/2)    F2: WITNESS -1/2
+MAP actT Rz(pi/2)    F2: WITNESS -1/2
+MAP actC R_n(pi/2)   F2: WITNESS -1/2
+MAP actT R_n(pi/2)   F2: WITNESS -1/2
+MAP actC R1          F2: WITNESS -1/2
+MAP actT R1          F2: WITNESS -1/18
+MAP SWAP             F2: WITNESS -1/2
+MAP transposeW       F2: INVARIANT 
+CHECK F2-C8 IE1 (I3.137)             PASS 
+CHECK F2-C8 IE1Drive (I3.142)        PASS 
+CHECK F2-C8 b_S4 control (I3.150)    PASS 
+CHECK F2-C8 b_S4 target (I3.150)     PASS 
+CHECK F2-C8 b_n actC (I3.151)        PASS 
+CHECK F2-C8 b_R1 actC (I3.152)       PASS 
+CHECK F2-C8 b_DJ control (I3.153)    PASS 
+CHECK F2-C8 b_DJ target (I3.153)     PASS 
+CHECK F2-C8 K2 clause (I3.165)       PASS 
+CHECK F2-C8 Q3 control               PASS every map keeps the candidate pure tables PSD (Q3 invariant)
+COUNTERCONTROL F2-CC4 3 invariant maps: no negative pairing (as required)
+CHECK F2-C10 SF pair reading fails   PASS values (1, 1, 0)
+== cone EC
+CHECK EC-C1 H1                       PASS SOS identity over the whole ball, each defect (all c)
+CHECK EC-C2 cnot permutes Z          PASS 
+  spectrum EC: [(2*c + 1)/4, -(2*c - 1)/4, 1/4]
+CHECK EC-C3 H3 certificate           PASS one simple negative eigenvalue -a, others >= a; Z orthogonal; tr > 0
+CHECK EC-C4 K != Q3                  PASS ipW(z, T_g) < 0 for the negative eigenvector g; T_g in Q3, not in K = K*
+CHECK EC-C5 maxCone                  PASS pairing with Lorentz a (x) b = a0 b0 (C1 value) >= 0
+CHECK EC-C6 slice                    PASS cnot fixes the (0,0) entry
+CHECK EC-C2 record level (ii) fails  PASS G16 generator actC rot3(pi) moves K: ('ALLC', None)
+RECORD EC-C7r actT reflY z: spectrum (c = 3/4) [-1/8, 1/4, 5/8]; PSD False; pairs with Z: [1]
+CHECK EC-C7 actT reflY moves K       PASS defect images: ALLC ; kernel chain phiW -> idW, ipW(idW, cnot prodState(-e1,-e3)) = -2; consistent with no_candidateCone_cnot_reflY [K]
+MAP actC rot3(pi)    EC: ALLC 
+MAP actT rot3(pi)    EC: ALLC 
+MAP actC nflip       EC: ALLC 
+MAP actT nflip       EC: ALLC 
+MAP actC cyc3        EC: ALLC 
+MAP actT cyc3        EC: ALLC 
+MAP actC Rx(pi/2)    EC: ALLC 
+MAP actT Rx(pi/2)    EC: ALLC 
+MAP actC Rz(pi/2)    EC: ALLC 
+MAP actT Rz(pi/2)    EC: ALLC 
+MAP actC R_n(pi/2)   EC: ALLC 
+MAP actT R_n(pi/2)   EC: ALLC 
+MAP actC R1          EC: ALLC 
+MAP actT R1          EC: ALLC 
+MAP SWAP             EC: INST [-7/73, -1/5, -1/3]
+MAP transposeW       EC: INVARIANT 
+CHECK EC-C8 IE1 (I3.137)             PASS 
+CHECK EC-C8 IE1Drive (I3.142)        PASS 
+CHECK EC-C8 b_S4 control (I3.150)    PASS 
+CHECK EC-C8 b_S4 target (I3.150)     PASS 
+CHECK EC-C8 b_n actC (I3.151)        PASS 
+CHECK EC-C8 b_R1 actC (I3.152)       PASS 
+CHECK EC-C8 b_DJ control (I3.153)    PASS 
+CHECK EC-C8 b_DJ target (I3.153)     PASS 
+CHECK EC-C8 K2 clause (I3.165)       PASS 
+CHECK EC-C8 Q3 control               PASS every map keeps the candidate pure tables PSD (Q3 invariant)
+COUNTERCONTROL EC-CC4 1 invariant maps: no negative pairing (as required)
+CHECK EC-C10 SF pair reading fails   PASS values (1, 1, 0)
+CHECK F2-C9 FCC fails                PASS uniform K_F2: min famI -1/2 at (X, Y, E, F) pool indices (0, 50, 38, 41)
+RECORD EC-C9 c = 5/8: min famI over the pool -1/4 at (0, 50, 38, 46)
+RECORD EC-C9 c = 3/4: min famI over the pool -1/2 at (0, 50, 38, 46)
+CHECK EC-C9 FCC fails at c = 1       PASS uniform K(e_1) = K(E0): min famI -1 at (0, 50, 38, 46)
+CHECK EC-C9 FCC fails for all c      PASS famI(X = e_c, Y, E, F) = 1 - 2*c at the c = 1 tuple (0, 50, 38, 46) (Y, E, F products or cnot-products, or e_c)
+CHECK Q3-C9 control FCC >= 0         PASS instance control: min 0
+CHECK F2-T c(F) = 15                 PASS rank of 19 members of K_F2 ∩ F^perp (pure tables with |<t|v>|^2 = |v|^2/2, and cnot F)
+CHECK F2-T c(P00) = 9                PASS rank 9 of 112 members of Q3 ∩ Z* ∩ P00^perp; ipW(P00, z) > 0; span bound dim Herm(|00>^perp) = 9
+CHECK EC-T c(e_c) = 15 at c = 5/8    PASS rank of 40 pure tables on the cap boundary 1 + c<D> = 0
+CHECK EC-T c(P00) = 9 at c = 5/8     PASS ipW(P00, e_c) = 1 > 0
+CHECK EC-T c(e_c) = 15 at c = 3/4    PASS rank of 40 pure tables on the cap boundary 1 + c<D> = 0
+CHECK EC-T c(P00) = 9 at c = 3/4     PASS ipW(P00, e_c) = 1 > 0
+CHECK EC-T c(e_c) = 15 at c = 1      PASS rank of 40 pure tables on the cap boundary 1 + c<D> = 0
+CHECK EC-T c(P00) = 9 at c = 1       PASS ipW(P00, e_c) = 1 > 0
+CHECK Q3-T c(P00) = c(phiW) = 9      PASS Q3: pure states orthogonal to |00> and to the Bell vector span 9 dimensions each
+COUNTERCONTROL CC1 e_{3/2}: eigenvalues [-1/2, 1/4, 1] -> certificate fails (as required)
+COUNTERCONTROL CC2 e_{1/2}: eigenvalues [0, 1/4, 1/2] -> PSD: K(e_{1/2}) = Q3 (as required)
+COUNTERCONTROL CC3 {F, actC Rx F} (cos 3/5): ipW(F, gF) = 1/5; pure state with both pairings negative: (0, 1, -1/2, -3/10)
+COUNTERCONTROL CC5 twin: actT reflY phiW = idW, cnot idW = chainW, value -1/2; idW not PSD: True
+summary: 71 checks, 0 failed
+VERDICT C1-CONES-EXACT: K_F2 and K(e_c) (every c in (1/2, 1]) satisfy H1, H2 at level (i), the H3 certificates, the maxCone bound and the slice; both are moved by a G16 generator (level (i) only), by actT reflY, and by the one-token maps listed with witnesses; uniform FCC fails (K_F2: -1/2; K(e_1): exact); c = 15 on the defects and 9 on P00; controls green

@@ -1,0 +1,416 @@
+### Table C1-F2 — K_F2 = K({F, cnot F}) = (Q3 ∩ {F, cnot F}*) + cone{F, cnot F}, F = z_(-1,-1), level (i)
+| item | statement (R6) | class | verdict | evidence | reference (R6 A1 = A2) |
+|---|---|---|---|---|---|
+| I3.1 | `W d` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:95-97; LT is encoded by the carrier (as for Q3) | SATISFIES |
+| I3.2 | `prodState` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.3 | `maxCone` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.4 | `jointStates` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.5 | `IsProduct` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.6 | `actT` — invariance of K under a rotation: rows I3.150-153 | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:197-202; [X] r2 D0c; re-checked: c1 D0b actC/actT=Ad; [X] c1_cones.out: D0b actC/actT=Ad | SATISFIES |
+| I3.7 | `actC` — invariance of K under a rotation: rows I3.150-153 | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:197-202; [X] r2 D0c; re-checked: c1 D0b actC/actT=Ad; [X] c1_cones.out: D0b actC/actT=Ad | SATISFIES |
+| I3.8 | `IsNot` | inh | SATISFIES [inherit] | R6 A1/A2: [K] isNot_nflip CD:838; [X] r2 D1e, r6 T3 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.9 | `NativeGate` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] nativeGate_cnot CD:1159; [X] r2 D1b, D1d, D1g; re-checked: c1 D1b relT,relC nflip, D1c frame, D1f posFwd identity; [X] c1_cones.out: D1b relT,relC nflip, D1c frame, D1f posFwd identity | SATISFIES |
+| I3.10 | `Entangling` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] entangling_cnot CD:1378; [X] r2 D1f; re-checked: c1 D1e entangling image; [X] c1_cones.out: D1e entangling image | SATISFIES |
+| I3.11 | `cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (the … | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:741-798; [X] r2 D0a (cnot = Ad(CNOT), control first); re-checked: c1 D0a cnot=Ad(CNOT); [X] c1_cones.out: D0a cnot=Ad(CNOT) | SATISFIES |
+| I3.12 | `isNot_nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:838-860; [X] r2 D1b, D1d, D1e; re-checked: c1 D1b relT,relC nflip, D1c frame, D1d IsNot nflip; [X] c1_cones.out: D1b relT,relC nflip, D1c frame, D1d IsNot nflip | SATISFIES |
+| I3.13 | `nativeGate_cnot` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:1159; [X] r2 D1g; re-checked: c1 D1f posFwd identity; [X] c1_cones.out: D1f posFwd identity | SATISFIES |
+| I3.14 | `entangling_cnot` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:1378; [X] r2 D1f; re-checked: c1 D1e entangling image; [X] c1_cones.out: D1e entangling image | SATISFIES |
+| I3.15 | parity: `finrank_plus_eq_finrank_minus`, `not_even_of_nativeGat… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.16 | `blockData_of_nativeGate` (with `BlockData`) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.17 | `not_entangling_one` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.18 | `dim_of_nativeGate` (the selector) | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.19 | `three_of_nativeGate` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.20 | DIM-1 controls: `nativeGate_cnot1`, `not_entangling_cnot1`, `no… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.21 | `dim1_core` (DIM-1 verdict) | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.22 | `not_even_of_gateRel` (with `finrank_plus_eq_finrank_minus_rel`) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.23 | `GateRel` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] gateRel_cnot (ParityNot); [X] r2 D1b; re-checked: c1 D1b relT,relC nflip; [X] c1_cones.out: D1b relT,relC nflip | SATISFIES |
+| I3.24 | `piRotation_three` (with `tangentPlus_three`, `det_three`) | inh | SATISFIES [inherit] | R6 A1/A2: [K] ParityNot:161; [X] r6 T3 (nflip = pi-rotation about e1) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.25 | `not_gateRel_refl3`, `not_gateRel_negId3` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.26 | `not_posFwd_gJ3`, `not_posFwd_gJ5` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.27 | `exists_frame_gateRel_iff_odd` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.28 | `not_posFwd_gRev` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.29 | `CtrlGate` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] ctrlGate_of_nativeGate RelcSelectBlock:53 | SATISFIES |
+| I3.30 | `not_even_of_relC` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.31 | `dim_of_ctrlGate`, `three_of_ctrlGate` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.32 | `ctrlGate_of_nativeGate` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.33 | `gSq_sep`, `gSqInv_sep` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.34 | `relT_not_dimension_selecting` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.35 | `NativeGateOf` | gate | SATISFIES [K-indep] | R6 A1/A2: [W] from nativeGate_cnot: maxCone ⊆ maxConeOf avail for every effect-sound avail | SATISFIES |
+| I3.36 | `EntanglingOf` | gate | SATISFIES [K-indep] | R6 A1/A2: [W] = Entangling once maxConeOf avail = maxCone (B1); [K] entangling_cnot | SATISFIES |
+| I3.37 | `dim_of_nativeGateOf` | inh | SATISFIES [inherit] | R6 A1/A2: [K] K1Bridge:128, :138 (through B1) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.38 | `three_of_nativeGateOf` | inh | SATISFIES [inherit] | R6 A1/A2: [K] K1Bridge:128, :138 (through B1) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.39 | `HasTwoSharpTests` | inh | SATISFIES [inherit] | R6 A1/A2: [K] hasTwoSharpTests_iff SharpTests:155; [X] r6 T1 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.40 | `hasTwoSharpTests_iff` | inh | SATISFIES [inherit] | R6 A1/A2: [K] hasTwoSharpTests_iff SharpTests:155; [X] r6 T1 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.41 | `two_le_not_implied` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.42 | `prodState_mem_maxCone` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.43 | `CandidateCone` | cone | SATISFIES [cone] | H1 and the maxCone bound; [X] c1_cones.out: F2-C1 H1, F2-C5 maxCone | SATISFIES |
+| I3.44 | `no_candidateCone_cnot_reflY` | kthm | SATISFIES [K] | [K] K2Guard:143; actT reflY moves the cone; [X] c1_cones.out: F2-C7 actT reflY moves K | SATISFIES |
+| I3.45 | `three_of_nativeGate_of_two_le` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.46 | `two_le_of_entangling` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.47 | `three_of_nativeGateOf_of_two_le` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.48 | `EffectsOn` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.49 | `maxConeOf` | def | SATISFIES [K-indep] | R6 A1/A2: [K] definitions (I3.143 [D]) | SATISFIES |
+| I3.50 | `MixingClosed` | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.51 | `maxConeOf_avail_eq` (with `sharpFamily_subset_avail`, `maxCone… | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.52 | `fullEffects_subset_avail` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.53 | `not_fullEffects_of_orbit` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.54 | `DenseBoundaryOrbit` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.55 | `denseBoundaryOrbit_of_boundaryTransitive` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.56 | `maxConeOf_avail_eq_of_dense` (with the dense ball and selector… | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.57 | `FiniteStage` | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.58 | `IsEffectOn` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.60 | `IsBoundaryState` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.69 | `CopyNatural` (K∞-Copy) | inh | SATISFIES [inherit] | R6 A1/A2: [X] r6 T5; K∞-Copy open for Q3 likewise (one N built into NativeGate) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.73 | `SharpSeed` (K∞-Seed, P1) | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.74 | `PreservesBody` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.75 | `SeedOrbitAvailable` (K∞-V4, V4′) | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.76 | `BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record) | inh | SATISFIES [inherit] | R6 A1/A2: [K] boundaryTransitive_fullAut3 OG:537, _ball3Drive ON:665; [X] r6 T6 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.78 | `preservesBody_drive` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.79 | `seedOrbit_ball3_eq` (the reduced orbit-generation theorem) | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.80 | `boundaryTransitive_fullAut3` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.82 | `orbit_generation_core` (OG-1 verdict) | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.83 | `boundaryTransitive_ball3Drive` (with `driveWords3`) | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.87 | `TransBody` (TRANS) | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.88 | `eq_qBall_of_boundaryTransitive` | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.89 | `exists_affine_image_eq_eball` | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.92 | `DirectedStages` (with `StageMap`) | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.94 | `SCInf` (SC∞, K∞-Stage) | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.95 | `BinaryVisible` (ELEM-bin) | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.96 | `FiniteRank` (K∞-Stage) | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.97 | `sharpSeed_completion` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.98 | `exists_chart_of_finiteRank` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.99 | `OpDatum` (K∞-Act) | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.101 | `AffineRespect` | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.104 | `body_isClosed` | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.105 | `preservesBody_inducedEquiv` | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.111 | `finiteOrderOn_of_stagePreserving` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.113 | `ProductData` | def | SATISFIES [K-indep] | R6 A1/A2: [K] definitions (I3.143 [D]) | SATISFIES |
+| I3.114 | `PreComposite` | cone | SATISFIES [cone] | [W] over the slice checks (convex, compact, products inside, effects valid, unit pairing); [X] c1_cones.out: F2-C1 H1, F2-C5 maxCone, F2-C6 slice | SATISFIES |
+| I3.115 | `LocallyTomographic` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CompositeInterface §E: LT is a theorem of the coordinate model W 3 | SATISFIES |
+| I3.116 | `Composite` | cone | SATISFIES [cone] | [W] over the slice checks; [X] c1_cones.out: F2-C1 H1, F2-C5 maxCone, F2-C6 slice | SATISFIES |
+| I3.118 | `JointReversible` | cone | SATISFIES [cone] | cnot preserves the body, involutive; [X] c1_cones.out: F2-C2 cnot permutes Z, F2-C6 slice, D1a cnot invol/sym | SATISFIES |
+| I3.120 | `condA_prodState` (L9, no signalling on products) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.121 | `not_locallyTomographic_paddedPre`, `no_composite_over_paddedPr… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.122 | `comp1_core` (COMP-1 verdict) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.124 | the effect cone of the ball: `lor_ehom`, `isEffectOn_affOf`, `l… | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.125 | `NativeGateBall.parity` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.126 | `p_le_one`, `dim_of_bounds` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.127 | `lorentz_of_effects` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.128 | `nb1_kernel_core` (NB-1 verdict) | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.129 | `hcls` — N-CLASS gates (`NClass`) | gate | SATISFIES [K-indep] | R6 A1/A2: [D] NClass: cnot with identity locals (KT4-PREM-1 record, M_Q) | SATISFIES |
+| I3.130 | `hadm` — pair admissibility (`PairAdm`, with `IsConvexCone`) | cone | SATISFIES [cone] | convex cone by construction; H1; maxCone bound; [X] c1_cones.out: F2-C1 H1, F2-C5 maxCone | SATISFIES |
+| I3.131 | `hcl` — closedness of each pair cone | cone | SATISFIES [cone] | [A] SD1/SD2 closedness (AUDIT-X); [W] a self-dual cone is closed; [X] c1_cones.out: F2-C3 H3 certificate | SATISFIES |
+| I3.132 | `hgate` — gate preservation (H2 of stage 3 is this clause for `… | cone | SATISFIES [cone] | level (i) (level (ii) fails, record); [X] c1_cones.out: F2-C2 cnot permutes Z, F2-C2 record level (ii) fails | SATISFIES |
+| I3.133 | `H` — the four-copy core (`KT4Core`, with `KT4`, `KT4LT`) | d4f | FAILS [hyp] | [D] Lemma B1 (FourCopyBridge:267): H => FCC; FCC fails; [X] c1_cones.out: F2-C9 FCC fails | FAILS |
+| I3.134 | token clauses `tokA`, `tokB` (`TokenCoherent`) — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.135 | FCC — the cone-level four-copy interface (`FourCopyCoherent`, `… | d4f | FAILS [hyp] | uniform assignment, exact (min -1/2); [X] c1_cones.out: F2-C9 FCC fails | FAILS |
+| I3.136 | `PairLinked` (Lemma R's interface form) — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.137 | IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | dna | FAILS [hyp] | local rotation witnesses (MAP lines); [X] c1_cones.out: F2-C8 IE1 (I3.137) | FAILS |
+| I3.138 | `EvenCycle` (with `EvenCycle4`) | d4s | SATISFIES | [W] cnot with identity locals: every twist bit false (K-blind) | SATISFIES |
+| I3.139 | `kt4_forward_ie1` (Theorem A′, the audited theorem) | d4v | SATISFIES (vacuous) | [D] (vacuous: hypothesis H fails, I3.133); [X] c1_cones.out: F2-C9 FCC fails | SATISFIES |
+| I3.140 | `fourCopyCoherent_of_kt4Core` (Lemma B1) | d4v | SATISFIES (vacuous) | [D] (vacuous: hypothesis H fails, I3.133); [X] c1_cones.out: F2-C9 FCC fails | SATISFIES |
+| I3.141 | `KT4Cone` — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.142 | `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the … | dna | FAILS [hyp] | drive-word witness on some token; [X] c1_cones.out: F2-C8 IE1Drive (I3.142) | FAILS |
+| I3.143 | `ipW`, `dualW` (the Euclidean pairing and dual cone of tables) | def | SATISFIES [K-indep] | R6 A1/A2: [K] definitions (I3.143 [D]) | SATISFIES |
+| I3.144 | `Q3`, `twin`, `pauliW`, `twistQ3` | dna | FAILS [hyp] | a pure state outside K; K != twin (cnot-invariant; twin is not, CC5); [X] c1_cones.out: F2-C4 K != Q3, CC5 | FAILS |
+| I3.145 | P-STAGE2 (named premise of KT4-PREM-1) | nr | NOT REACHED | R6 A1/A2: absent bridge A3 (P-STAGE2 not at L); its cone consequence hcl: I3.131 (K-independent) | NOT REACHED |
+| I3.146 | P-ACT2 (named premise of KT4-PREM-1) | nr | NOT REACHED | R6 A1/A2: absent bridge A4 (P-ACT2 not at L); cone consequence hgate: I3.132; idle-extension reading: I3.137 (K-independent) | NOT REACHED |
+| I3.147 | H1 — products in `K` | cone | SATISFIES [cone] | symbolic SOS over the whole ball; [X] c1_cones.out: F2-C1 H1 | SATISFIES |
+| I3.148 | H2 — `cnot`-invariance (level (i)); `G16`-invariance (level (ii… | cone | SATISFIES [cone] | level (i) (level (ii) fails, record); [X] c1_cones.out: F2-C2 cnot permutes Z, F2-C2 record level (ii) fails | SATISFIES |
+| I3.149 | H3 — trace self-duality `K = dualW K` | cone | SATISFIES [cone] | certificates of SD1/SD2 and Theorem S + [A] their proofs (AUDIT-X, AUDIT-U); T6 §3.3 proof applies verbatim to a subset of Z_F; [X] c1_cones.out: F2-C3 H3 certificate, F2-C3 one-violation identity | SATISFIES |
+| I3.150 | (b_S4) — the full rotation group of one token acts on the pair … | dna | FAILS [hyp] | witnesses on the control and on the target; [X] c1_cones.out: F2-C8 b_S4 control (I3.150), F2-C8 b_S4 target (I3.150) | FAILS |
+| I3.151 | (b_n) — one rotation subgroup of one token about an off-frame a… | dna | FAILS [hyp] | actC R_n(pi/2), n = (3,0,4)/5; [X] c1_cones.out: F2-C8 b_n actC (I3.151) | FAILS |
+| I3.152 | (b_R1) — one order-3 rotation of one token about (5,1,1) | dna | FAILS [hyp] | actC R1 (order 3 about (5,1,1)); [X] c1_cones.out: F2-C8 b_R1 actC (I3.152) | FAILS |
+| I3.153 | (b_DJ) — the native drive with the native `J` acting on one tok… | dna | FAILS [hyp] | drive/J witnesses on the control and on the target; [X] c1_cones.out: F2-C8 b_DJ control (I3.153), F2-C8 b_DJ target (I3.153) | FAILS |
+| I3.154 | IE2 — idle extension of the pair interaction groups — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.155 | frame covariance (FC) of the native gate | dna | FAILS [hyp] | [W] FC <=> IE1 given hgate (stage 2 [A]); hgate holds, IE1 fails; [X] c1_cones.out: F2-C2 cnot permutes Z, F2-C8 IE1 (I3.137) | FAILS |
+| I3.156 | INV2 — the native gate is an operational involution on the pair… | cone | SATISFIES [cone] | cnot preserves the body, involutive; [X] c1_cones.out: F2-C2 cnot permutes Z, F2-C6 slice, D1a cnot invol/sym | SATISFIES |
+| I3.157 | SDC = P3 ∧ OVL4 ∧ CSD2 — self-duality under composition — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.158 | N0 ∧ N1 ∧ N2 — regrouping invariance of a four-token composite … — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.159 | S2 Pair — a compact, gate-reversible COMP-1 pre-composite (stag… | cone | SATISFIES [cone] | [W] over the slice checks; [X] c1_cones.out: F2-C1 H1, F2-C5 maxCone, F2-C6 slice | SATISFIES |
+| I3.160 | H — pair-level homogeneity of `K` | cand | FAILS [hyp] | [A] stage 3 X1 / stage 4 Y6 [W + L]: a homogeneous cone with H1-H3 is Q3; K != Q3; [X] c1_cones.out: F2-C4 K != Q3 | FAILS |
+| I3.161 | T — pair-level reversible richness (transitivity on extreme ray… | cand | FAILS [hyp] | c = 15 on the defect, 9 on P00; automorphisms of a self-dual cone preserve c on extreme rays ([A] Y6); [X] c1_cones.out: F2-T c(F) = 15, F2-T c(P00) = 9 | FAILS |
+| I3.164 | K1 — the dimension | inh | SATISFIES [inherit] | R6 A1/A2: [K] dim1_core instance; K1 CONDITIONAL for Q3 likewise (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.165 | K2 — the composite — other K2 clauses: LT encoded, cone exists | dna | FAILS [hyp] | its clause "local actions compatible with the composite cone"; [X] c1_cones.out: F2-C8 K2 clause (I3.165) | FAILS |
+| I3.166 | K∞ — the field-neutral premises | inh | SATISFIES [inherit] | R6 A1/A2: K∞ OPEN for Q3 likewise (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.167 | K∞-Stage | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.168 | K∞-Act | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.169 | K∞-Drive | inh | SATISFIES [inherit] | R6 A1/A2: [K] ball3Drive KIF:449; [X] r6 T4; operational availability open for Q3 likewise (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.170 | K∞-Trans | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.171 | K∞-Seed | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.172 | K∞-V4 | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: F2-C5 maxCone | SATISFIES |
+| I3.173 | K∞-Copy | inh | SATISFIES [inherit] | R6 A1/A2: [X] r6 T5; K∞-Copy open for Q3 likewise (one N built into NativeGate) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.185 | carrier-map identities for every one-copy linear map: `actT_pro… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:1923-1931, K2Guard:172 (products only) | SATISFIES |
+| I3.186 | `eball_three` | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.187 | the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ I… | d4v | SATISFIES (vacuous) | [W] KT4-PREM-1 result.md:128 (vacuous: IE1 fails, I3.137); [X] c1_cones.out: F2-C8 IE1 (I3.137) | SATISFIES |
+| I4.236 | Kₙ census §4 — scope of K∞'s geometric branch | inh | SATISFIES [inherit] | R6 A1/A2: [A] kn census §4; [X] r2 C10: the pair reading of SF fails for Q3 and the cones alike (single-token; the tokens are those of Q3) | SATISFIES |
+| I1.17 | layered theorem statement (Main.md:82) | hmg | NOT REACHED | R6 A1/A2: I1 bridge field: none at L (Main.md:82) (K-independent) | NOT REACHED |
+| I4.3 | HasParallelReferenceExtension | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.4 | HasQutritReferenceExtension | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.14 | InertSpectatorCompositionality | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.29 | ContextStable | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.31 | ImplementationLocality | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.42 | OIPlusLocal | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.45 | StructurallyClosed | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.56 | LayerFlowExecutable | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.65 | PhysicalCompletionConditions | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.66 | CompositeOperationalValidity | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.67 | HasCompositeUnitaryControl | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.68 | IteratedAncillaClosure | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.69 | SystemToLevelOne | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.70 | ExactAllFiniteEndomorphicQuantumOps | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.73 | WellFormed | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.74 | SubstantiveCompletion | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.80 | CompletedOI | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.82 | ObservationalIndependence | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.85 | ReversibleRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.87 | ObserverRecursion | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.88 | OIPlus | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.96 | ObservationalIndependence | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.99 | ReversibleRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.102 | OIPlus | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.110 | EmbeddedObservation | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.115 | OIPlusEmbedded | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.118 | PhaseFreeRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.120 | OIPlusMin | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.123 | CyclicRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.124 | OIPlusPos | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.127 | InverseAccessibility | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.128 | LieRankRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.133 | ReversibleImplementationLocality | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.137 | OIPlusMicro | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.143 | DrivesElementary | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.144 | QuantumArchitecture | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.179 | PairFlowSourced | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.187 | ShadowQuantum | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.210 | psd_iff_trace_nonneg | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.215 | psd_trace_mul_nonneg | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.216 | accessible_cone_full | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.241 | DerivedOI | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.244 | ElementaryTransitionRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.245 | OIPlusElem | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.3 | The operational-extension boundary | hmg | NOT REACHED | R6 A1/A2: level G (operational co…; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.29 | The operational-completion characterization (manuscript stateme… | hmg | NOT REACHED | R6 A1/A2: level G (every nonempty…; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.30 | Bare finite OI does not imply QM; OI-compatible theory plus (i)… | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.31 | Quantum-complete OI (OI⁺): observational independence, reversib… | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.32 | Primitive-source form: implementation locality, phase-free rich… | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.33 | Substratum-source form | hmg | NOT REACHED | R6 A1/A2: level G/H; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.34 | Layer-flow form | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.35 | Typed form | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.62 | Comparison of routes and dependency scope: in-house, imported, … | hmg | NOT REACHED | R6 A1/A2: level M/G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.63 | Operational-reconstruction route: target conditions and the out… | hmg | NOT REACHED | R6 A1/A2: level G/O; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.69 | The claim structure: the four layers, the four-part theorem sta… | hmg | NOT REACHED | R6 A1/A2: level H/M/G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+
+### Table C1-EC — K(e_c) = (Q3 ∩ e_c*) + R+ e_c, e_c = E00 + c(E13 - E22), every c in (1/2, 1], level (i)
+| item | statement (R6) | class | verdict | evidence | reference (R6 A1 = A2) |
+|---|---|---|---|---|---|
+| I3.1 | `W d` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:95-97; LT is encoded by the carrier (as for Q3) | SATISFIES |
+| I3.2 | `prodState` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.3 | `maxCone` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.4 | `jointStates` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.5 | `IsProduct` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:160-195 (definitions) | SATISFIES |
+| I3.6 | `actT` — invariance of K under a rotation: rows I3.150-153 | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:197-202; [X] r2 D0c; re-checked: c1 D0b actC/actT=Ad; [X] c1_cones.out: D0b actC/actT=Ad | SATISFIES |
+| I3.7 | `actC` — invariance of K under a rotation: rows I3.150-153 | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:197-202; [X] r2 D0c; re-checked: c1 D0b actC/actT=Ad; [X] c1_cones.out: D0b actC/actT=Ad | SATISFIES |
+| I3.8 | `IsNot` | inh | SATISFIES [inherit] | R6 A1/A2: [K] isNot_nflip CD:838; [X] r2 D1e, r6 T3 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.9 | `NativeGate` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] nativeGate_cnot CD:1159; [X] r2 D1b, D1d, D1g; re-checked: c1 D1b relT,relC nflip, D1c frame, D1f posFwd identity; [X] c1_cones.out: D1b relT,relC nflip, D1c frame, D1f posFwd identity | SATISFIES |
+| I3.10 | `Entangling` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] entangling_cnot CD:1378; [X] r2 D1f; re-checked: c1 D1e entangling image; [X] c1_cones.out: D1e entangling image | SATISFIES |
+| I3.11 | `cnot`, `sgn`, `pc`, `pt`, `z3`, `nflip`, `xplus`, `phiW` (the … | def | SATISFIES [K-indep] | R6 A1/A2: [K] CD:741-798; [X] r2 D0a (cnot = Ad(CNOT), control first); re-checked: c1 D0a cnot=Ad(CNOT); [X] c1_cones.out: D0a cnot=Ad(CNOT) | SATISFIES |
+| I3.12 | `isNot_nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:838-860; [X] r2 D1b, D1d, D1e; re-checked: c1 D1b relT,relC nflip, D1c frame, D1d IsNot nflip; [X] c1_cones.out: D1b relT,relC nflip, D1c frame, D1d IsNot nflip | SATISFIES |
+| I3.13 | `nativeGate_cnot` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:1159; [X] r2 D1g; re-checked: c1 D1f posFwd identity; [X] c1_cones.out: D1f posFwd identity | SATISFIES |
+| I3.14 | `entangling_cnot` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:1378; [X] r2 D1f; re-checked: c1 D1e entangling image; [X] c1_cones.out: D1e entangling image | SATISFIES |
+| I3.15 | parity: `finrank_plus_eq_finrank_minus`, `not_even_of_nativeGat… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.16 | `blockData_of_nativeGate` (with `BlockData`) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.17 | `not_entangling_one` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.18 | `dim_of_nativeGate` (the selector) | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.19 | `three_of_nativeGate` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.20 | DIM-1 controls: `nativeGate_cnot1`, `not_entangling_cnot1`, `no… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.21 | `dim1_core` (DIM-1 verdict) | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.22 | `not_even_of_gateRel` (with `finrank_plus_eq_finrank_minus_rel`) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.23 | `GateRel` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] gateRel_cnot (ParityNot); [X] r2 D1b; re-checked: c1 D1b relT,relC nflip; [X] c1_cones.out: D1b relT,relC nflip | SATISFIES |
+| I3.24 | `piRotation_three` (with `tangentPlus_three`, `det_three`) | inh | SATISFIES [inherit] | R6 A1/A2: [K] ParityNot:161; [X] r6 T3 (nflip = pi-rotation about e1) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.25 | `not_gateRel_refl3`, `not_gateRel_negId3` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.26 | `not_posFwd_gJ3`, `not_posFwd_gJ5` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.27 | `exists_frame_gateRel_iff_odd` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.28 | `not_posFwd_gRev` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.29 | `CtrlGate` | gate | SATISFIES [K-indep] | R6 A1/A2: [K] ctrlGate_of_nativeGate RelcSelectBlock:53 | SATISFIES |
+| I3.30 | `not_even_of_relC` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.31 | `dim_of_ctrlGate`, `three_of_ctrlGate` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.32 | `ctrlGate_of_nativeGate` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.33 | `gSq_sep`, `gSqInv_sep` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.34 | `relT_not_dimension_selecting` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.35 | `NativeGateOf` | gate | SATISFIES [K-indep] | R6 A1/A2: [W] from nativeGate_cnot: maxCone ⊆ maxConeOf avail for every effect-sound avail | SATISFIES |
+| I3.36 | `EntanglingOf` | gate | SATISFIES [K-indep] | R6 A1/A2: [W] = Entangling once maxConeOf avail = maxCone (B1); [K] entangling_cnot | SATISFIES |
+| I3.37 | `dim_of_nativeGateOf` | inh | SATISFIES [inherit] | R6 A1/A2: [K] K1Bridge:128, :138 (through B1) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.38 | `three_of_nativeGateOf` | inh | SATISFIES [inherit] | R6 A1/A2: [K] K1Bridge:128, :138 (through B1) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.39 | `HasTwoSharpTests` | inh | SATISFIES [inherit] | R6 A1/A2: [K] hasTwoSharpTests_iff SharpTests:155; [X] r6 T1 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.40 | `hasTwoSharpTests_iff` | inh | SATISFIES [inherit] | R6 A1/A2: [K] hasTwoSharpTests_iff SharpTests:155; [X] r6 T1 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.41 | `two_le_not_implied` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.42 | `prodState_mem_maxCone` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.43 | `CandidateCone` | cone | SATISFIES [cone] | H1 and the maxCone bound; [X] c1_cones.out: EC-C1 H1, EC-C5 maxCone | SATISFIES |
+| I3.44 | `no_candidateCone_cnot_reflY` | kthm | SATISFIES [K] | [K] K2Guard:143; actT reflY moves the cone; [X] c1_cones.out: EC-C7 actT reflY moves K | SATISFIES |
+| I3.45 | `three_of_nativeGate_of_two_le` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.46 | `two_le_of_entangling` | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.47 | `three_of_nativeGateOf_of_two_le` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.48 | `EffectsOn` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.49 | `maxConeOf` | def | SATISFIES [K-indep] | R6 A1/A2: [K] definitions (I3.143 [D]) | SATISFIES |
+| I3.50 | `MixingClosed` | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.51 | `maxConeOf_avail_eq` (with `sharpFamily_subset_avail`, `maxCone… | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.52 | `fullEffects_subset_avail` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.53 | `not_fullEffects_of_orbit` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.54 | `DenseBoundaryOrbit` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.55 | `denseBoundaryOrbit_of_boundaryTransitive` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.56 | `maxConeOf_avail_eq_of_dense` (with the dense ball and selector… | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.57 | `FiniteStage` | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.58 | `IsEffectOn` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.60 | `IsBoundaryState` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.69 | `CopyNatural` (K∞-Copy) | inh | SATISFIES [inherit] | R6 A1/A2: [X] r6 T5; K∞-Copy open for Q3 likewise (one N built into NativeGate) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.73 | `SharpSeed` (K∞-Seed, P1) | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.74 | `PreservesBody` | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.75 | `SeedOrbitAvailable` (K∞-V4, V4′) | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.76 | `BoundaryTransitive` (K∞-Trans; "K∞-R" in OG-1's record) | inh | SATISFIES [inherit] | R6 A1/A2: [K] boundaryTransitive_fullAut3 OG:537, _ball3Drive ON:665; [X] r6 T6 (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.78 | `preservesBody_drive` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.79 | `seedOrbit_ball3_eq` (the reduced orbit-generation theorem) | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.80 | `boundaryTransitive_fullAut3` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.82 | `orbit_generation_core` (OG-1 verdict) | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.83 | `boundaryTransitive_ball3Drive` (with `driveWords3`) | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.87 | `TransBody` (TRANS) | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.88 | `eq_qBall_of_boundaryTransitive` | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.89 | `exists_affine_image_eq_eball` | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.92 | `DirectedStages` (with `StageMap`) | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.94 | `SCInf` (SC∞, K∞-Stage) | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.95 | `BinaryVisible` (ELEM-bin) | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.96 | `FiniteRank` (K∞-Stage) | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.97 | `sharpSeed_completion` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.98 | `exists_chart_of_finiteRank` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.99 | `OpDatum` (K∞-Act) | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.101 | `AffineRespect` | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.104 | `body_isClosed` | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.105 | `preservesBody_inducedEquiv` | nr | NOT REACHED | R6 A1/A2: routed through the absent P-STAGE2/P-ACT2 (I3 bridge field); single-token content shared with Q3 (K-independent) | NOT REACHED |
+| I3.111 | `finiteOrderOn_of_stagePreserving` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.113 | `ProductData` | def | SATISFIES [K-indep] | R6 A1/A2: [K] definitions (I3.143 [D]) | SATISFIES |
+| I3.114 | `PreComposite` | cone | SATISFIES [cone] | [W] over the slice checks (convex, compact, products inside, effects valid, unit pairing); [X] c1_cones.out: EC-C1 H1, EC-C5 maxCone, EC-C6 slice | SATISFIES |
+| I3.115 | `LocallyTomographic` | def | SATISFIES [K-indep] | R6 A1/A2: [K] CompositeInterface §E: LT is a theorem of the coordinate model W 3 | SATISFIES |
+| I3.116 | `Composite` | cone | SATISFIES [cone] | [W] over the slice checks; [X] c1_cones.out: EC-C1 H1, EC-C5 maxCone, EC-C6 slice | SATISFIES |
+| I3.118 | `JointReversible` | cone | SATISFIES [cone] | cnot preserves the body, involutive; [X] c1_cones.out: EC-C2 cnot permutes Z, EC-C6 slice, D1a cnot invol/sym | SATISFIES |
+| I3.120 | `condA_prodState` (L9, no signalling on products) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.121 | `not_locallyTomographic_paddedPre`, `no_composite_over_paddedPr… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.122 | `comp1_core` (COMP-1 verdict) | thm | SATISFIES [K-indep] | R6 A1/A2: [K] (statement does not quantify over K) | SATISFIES |
+| I3.124 | the effect cone of the ball: `lor_ehom`, `isEffectOn_affOf`, `l… | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.125 | `NativeGateBall.parity` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.126 | `p_le_one`, `dim_of_bounds` | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.127 | `lorentz_of_effects` | inh | SATISFIES [inherit] | R6 A1/A2: [K] single-body theorems (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.128 | `nb1_kernel_core` (NB-1 verdict) | inh | SATISFIES [inherit] | R6 A1/A2: [K] (d = 3 for eball 3 with nflip, cnot) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.129 | `hcls` — N-CLASS gates (`NClass`) | gate | SATISFIES [K-indep] | R6 A1/A2: [D] NClass: cnot with identity locals (KT4-PREM-1 record, M_Q) | SATISFIES |
+| I3.130 | `hadm` — pair admissibility (`PairAdm`, with `IsConvexCone`) | cone | SATISFIES [cone] | convex cone by construction; H1; maxCone bound; [X] c1_cones.out: EC-C1 H1, EC-C5 maxCone | SATISFIES |
+| I3.131 | `hcl` — closedness of each pair cone | cone | SATISFIES [cone] | [A] SD1/SD2 closedness (AUDIT-X); [W] a self-dual cone is closed; [X] c1_cones.out: EC-C3 H3 certificate | SATISFIES |
+| I3.132 | `hgate` — gate preservation (H2 of stage 3 is this clause for `… | cone | SATISFIES [cone] | level (i) (level (ii) fails, record); [X] c1_cones.out: EC-C2 cnot permutes Z, EC-C2 record level (ii) fails | SATISFIES |
+| I3.133 | `H` — the four-copy core (`KT4Core`, with `KT4`, `KT4LT`) | d4f | FAILS [hyp] | [D] Lemma B1 (FourCopyBridge:267): H => FCC; FCC fails; [X] c1_cones.out: EC-C9 FCC fails for all c | FAILS |
+| I3.134 | token clauses `tokA`, `tokB` (`TokenCoherent`) — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.135 | FCC — the cone-level four-copy interface (`FourCopyCoherent`, `… | d4f | FAILS [hyp] | uniform assignment, exact for every c: famI = 1 - 2c at one tuple of e_c and (cnot-)products; [X] c1_cones.out: EC-C9 FCC fails at c = 1, EC-C9 FCC fails for all c | FAILS |
+| I3.136 | `PairLinked` (Lemma R's interface form) — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.137 | IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | dna | FAILS [hyp] | local rotation witnesses (MAP lines); [X] c1_cones.out: EC-C8 IE1 (I3.137) | FAILS |
+| I3.138 | `EvenCycle` (with `EvenCycle4`) | d4s | SATISFIES | [W] cnot with identity locals: every twist bit false (K-blind) | SATISFIES |
+| I3.139 | `kt4_forward_ie1` (Theorem A′, the audited theorem) | d4v | SATISFIES (vacuous) | [D] (vacuous: hypothesis H fails, I3.133); [X] c1_cones.out: EC-C9 FCC fails for all c | SATISFIES |
+| I3.140 | `fourCopyCoherent_of_kt4Core` (Lemma B1) | d4v | SATISFIES (vacuous) | [D] (vacuous: hypothesis H fails, I3.133); [X] c1_cones.out: EC-C9 FCC fails for all c | SATISFIES |
+| I3.141 | `KT4Cone` — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.142 | `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the … | dna | FAILS [hyp] | drive-word witness on some token; [X] c1_cones.out: EC-C8 IE1Drive (I3.142) | FAILS |
+| I3.143 | `ipW`, `dualW` (the Euclidean pairing and dual cone of tables) | def | SATISFIES [K-indep] | R6 A1/A2: [K] definitions (I3.143 [D]) | SATISFIES |
+| I3.144 | `Q3`, `twin`, `pauliW`, `twistQ3` | dna | FAILS [hyp] | a pure state outside K; K != twin (cnot-invariant; twin is not, CC5); [X] c1_cones.out: EC-C4 K != Q3, CC5 | FAILS |
+| I3.145 | P-STAGE2 (named premise of KT4-PREM-1) | nr | NOT REACHED | R6 A1/A2: absent bridge A3 (P-STAGE2 not at L); its cone consequence hcl: I3.131 (K-independent) | NOT REACHED |
+| I3.146 | P-ACT2 (named premise of KT4-PREM-1) | nr | NOT REACHED | R6 A1/A2: absent bridge A4 (P-ACT2 not at L); cone consequence hgate: I3.132; idle-extension reading: I3.137 (K-independent) | NOT REACHED |
+| I3.147 | H1 — products in `K` | cone | SATISFIES [cone] | symbolic SOS over the whole ball; [X] c1_cones.out: EC-C1 H1 | SATISFIES |
+| I3.148 | H2 — `cnot`-invariance (level (i)); `G16`-invariance (level (ii… | cone | SATISFIES [cone] | level (i) (level (ii) fails, record); [X] c1_cones.out: EC-C2 cnot permutes Z, EC-C2 record level (ii) fails | SATISFIES |
+| I3.149 | H3 — trace self-duality `K = dualW K` | cone | SATISFIES [cone] | certificates of SD1/SD2 and Theorem S + [A] their proofs (AUDIT-X, AUDIT-U); X characterization (c in (1/2, 1]); [X] c1_cones.out: EC-C3 H3 certificate | SATISFIES |
+| I3.150 | (b_S4) — the full rotation group of one token acts on the pair … | dna | FAILS [hyp] | witnesses on the control and on the target; [X] c1_cones.out: EC-C8 b_S4 control (I3.150), EC-C8 b_S4 target (I3.150) | FAILS |
+| I3.151 | (b_n) — one rotation subgroup of one token about an off-frame a… | dna | FAILS [hyp] | actC R_n(pi/2), n = (3,0,4)/5; [X] c1_cones.out: EC-C8 b_n actC (I3.151) | FAILS |
+| I3.152 | (b_R1) — one order-3 rotation of one token about (5,1,1) | dna | FAILS [hyp] | actC R1 (order 3 about (5,1,1)); [X] c1_cones.out: EC-C8 b_R1 actC (I3.152) | FAILS |
+| I3.153 | (b_DJ) — the native drive with the native `J` acting on one tok… | dna | FAILS [hyp] | drive/J witnesses on the control and on the target; [X] c1_cones.out: EC-C8 b_DJ control (I3.153), EC-C8 b_DJ target (I3.153) | FAILS |
+| I3.154 | IE2 — idle extension of the pair interaction groups — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.155 | frame covariance (FC) of the native gate | dna | FAILS [hyp] | [W] FC <=> IE1 given hgate (stage 2 [A]); hgate holds, IE1 fails; [X] c1_cones.out: EC-C2 cnot permutes Z, EC-C8 IE1 (I3.137) | FAILS |
+| I3.156 | INV2 — the native gate is an operational involution on the pair… | cone | SATISFIES [cone] | cnot preserves the body, involutive; [X] c1_cones.out: EC-C2 cnot permutes Z, EC-C6 slice, D1a cnot invol/sym | SATISFIES |
+| I3.157 | SDC = P3 ∧ OVL4 ∧ CSD2 — self-duality under composition — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.158 | N0 ∧ N1 ∧ N2 — regrouping invariance of a four-token composite … — not a function of the pair cone | nr | NOT REACHED | R6 A1/A2: no structure with three or more tokens at L (EQ5-SOURCE §1; KT4-PREM-1 Q2) (K-independent) | NOT REACHED |
+| I3.159 | S2 Pair — a compact, gate-reversible COMP-1 pre-composite (stag… | cone | SATISFIES [cone] | [W] over the slice checks; [X] c1_cones.out: EC-C1 H1, EC-C5 maxCone, EC-C6 slice | SATISFIES |
+| I3.160 | H — pair-level homogeneity of `K` | cand | FAILS [hyp] | [A] stage 3 X1 / stage 4 Y6 [W + L]: a homogeneous cone with H1-H3 is Q3; K != Q3; [X] c1_cones.out: EC-C4 K != Q3 | FAILS |
+| I3.161 | T — pair-level reversible richness (transitivity on extreme ray… | cand | FAILS [hyp] | c = 15 on the defect, 9 on P00; automorphisms of a self-dual cone preserve c on extreme rays ([A] Y6); [X] c1_cones.out: EC-T c(e_c) = 15 at c = 5/8, EC-T c(e_c) = 15 at c = 3/4, EC-T c(e_c) = 15 at c = 1, EC-T c(P00) = 9 at c = 5/8, EC-T c(P00) = 9 at c = 3/4, EC-T c(P00) = 9 at c = 1 | FAILS |
+| I3.164 | K1 — the dimension | inh | SATISFIES [inherit] | R6 A1/A2: [K] dim1_core instance; K1 CONDITIONAL for Q3 likewise (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.165 | K2 — the composite — other K2 clauses: LT encoded, cone exists | dna | FAILS [hyp] | its clause "local actions compatible with the composite cone"; [X] c1_cones.out: EC-C8 K2 clause (I3.165) | FAILS |
+| I3.166 | K∞ — the field-neutral premises | inh | SATISFIES [inherit] | R6 A1/A2: K∞ OPEN for Q3 likewise (pair-blind) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.167 | K∞-Stage | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.168 | K∞-Act | inh | SATISFIES [inherit] | R6 A1/A2: pair-blind; open/assumed for Q3 likewise (no instance for ball3 at L) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.169 | K∞-Drive | inh | SATISFIES [inherit] | R6 A1/A2: [K] ball3Drive KIF:449; [X] r6 T4; operational availability open for Q3 likewise (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.170 | K∞-Trans | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.171 | K∞-Seed | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.172 | K∞-V4 | b1 | SATISFIES [inherit] | B1/B2 fix maxCone (eball 3); K ⊆ maxCone; [X] c1_cones.out: EC-C5 maxCone | SATISFIES |
+| I3.173 | K∞-Copy | inh | SATISFIES [inherit] | R6 A1/A2: [X] r6 T5; K∞-Copy open for Q3 likewise (one N built into NativeGate) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.185 | carrier-map identities for every one-copy linear map: `actT_pro… | thm | SATISFIES [K-indep] | R6 A1/A2: [K] CD:1923-1931, K2Guard:172 (products only) | SATISFIES |
+| I3.186 | `eball_three` | inh | SATISFIES [inherit] | R6 A1/A2: [K] TRB-1 / DIM-1 single-ball statements (the token is eball 3 = ball3) (single-token; the tokens are those of Q3) | SATISFIES |
+| I3.187 | the classification step of KT4-PREM-1: `hcls ∧ hadm ∧ hgate ∧ I… | d4v | SATISFIES (vacuous) | [W] KT4-PREM-1 result.md:128 (vacuous: IE1 fails, I3.137); [X] c1_cones.out: EC-C8 IE1 (I3.137) | SATISFIES |
+| I4.236 | Kₙ census §4 — scope of K∞'s geometric branch | inh | SATISFIES [inherit] | R6 A1/A2: [A] kn census §4; [X] r2 C10: the pair reading of SF fails for Q3 and the cones alike (single-token; the tokens are those of Q3) | SATISFIES |
+| I1.17 | layered theorem statement (Main.md:82) | hmg | NOT REACHED | R6 A1/A2: I1 bridge field: none at L (Main.md:82) (K-independent) | NOT REACHED |
+| I4.3 | HasParallelReferenceExtension | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.4 | HasQutritReferenceExtension | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.14 | InertSpectatorCompositionality | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.29 | ContextStable | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.31 | ImplementationLocality | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.42 | OIPlusLocal | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.45 | StructurallyClosed | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.56 | LayerFlowExecutable | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.65 | PhysicalCompletionConditions | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.66 | CompositeOperationalValidity | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.67 | HasCompositeUnitaryControl | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.68 | IteratedAncillaClosure | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.69 | SystemToLevelOne | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.70 | ExactAllFiniteEndomorphicQuantumOps | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.73 | WellFormed | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.74 | SubstantiveCompletion | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.80 | CompletedOI | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.82 | ObservationalIndependence | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.85 | ReversibleRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.87 | ObserverRecursion | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.88 | OIPlus | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.96 | ObservationalIndependence | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.99 | ReversibleRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.102 | OIPlus | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.110 | EmbeddedObservation | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.115 | OIPlusEmbedded | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.118 | PhaseFreeRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.120 | OIPlusMin | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.123 | CyclicRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.124 | OIPlusPos | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.127 | InverseAccessibility | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.128 | LieRankRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.133 | ReversibleImplementationLocality | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.137 | OIPlusMicro | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.143 | DrivesElementary | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.144 | QuantumArchitecture | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.179 | PairFlowSourced | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.187 | ShadowQuantum | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.210 | psd_iff_trace_nonneg | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.215 | psd_trace_mul_nonneg | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.216 | accessible_cone_full | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.241 | DerivedOI | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.244 | ElementaryTransitionRichness | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I4.245 | OIPlusElem | hmg | NOT REACHED | R6 A1/A2: level M; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.3 | The operational-extension boundary | hmg | NOT REACHED | R6 A1/A2: level G (operational co…; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.29 | The operational-completion characterization (manuscript stateme… | hmg | NOT REACHED | R6 A1/A2: level G (every nonempty…; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.30 | Bare finite OI does not imply QM; OI-compatible theory plus (i)… | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.31 | Quantum-complete OI (OI⁺): observational independence, reversib… | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.32 | Primitive-source form: implementation locality, phase-free rich… | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.33 | Substratum-source form | hmg | NOT REACHED | R6 A1/A2: level G/H; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.34 | Layer-flow form | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.35 | Typed form | hmg | NOT REACHED | R6 A1/A2: level G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.62 | Comparison of routes and dependency scope: in-house, imported, … | hmg | NOT REACHED | R6 A1/A2: level M/G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.63 | Operational-reconstruction route: target conditions and the out… | hmg | NOT REACHED | R6 A1/A2: level G/O; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+| I2.69 | The claim structure: the four layers, the four-part theorem sta… | hmg | NOT REACHED | R6 A1/A2: level H/M/G; no H→P, M→P or G→P bridge at L (AUDIT-I §5.2–5.3; r5 (a)) (K-independent) | NOT REACHED |
+
+TALLY F2: FAILS 13, NOT REACHED 68, SATISFIES 118
+TALLY EC: FAILS 13, NOT REACHED 68, SATISFIES 118
+TALLY reference A1 = A2: FAILS 13, NOT REACHED 68, SATISFIES 118
+MAP lines read from c1_cones.out: 32
+CONTROL 0 c1_cones green                         OK
+CONTROL 1 references agree                       OK
+CONTROL 2 every row assigned and backed          OK
+CONTROL 3 EXCLUDED-BY-L listed (none expected)   OK
+ROWS DECIDED BY CONE-SPECIFIC CHECKS (not by the covering argument alone): 42 -- I3.43(cone), I3.44(kthm), I3.48(b1), I3.51(b1), I3.54(b1), I3.55(b1), I3.56(b1), I3.58(b1), I3.60(b1), I3.73(b1), I3.74(b1), I3.75(b1), I3.114(cone), I3.116(cone), I3.118(cone), I3.130(cone), I3.131(cone), I3.132(cone), I3.133(d4f), I3.135(d4f), I3.137(dna), I3.139(d4v), I3.140(d4v), I3.142(dna), I3.144(dna), I3.147(cone), I3.148(cone), I3.149(cone), I3.150(dna), I3.151(dna), I3.152(dna), I3.153(dna), I3.155(dna), I3.156(cone), I3.159(cone), I3.160(cand), I3.161(cand), I3.165(dna), I3.170(b1), I3.171(b1), I3.172(b1), I3.187(d4v)
+OUTCOME COVERING-CONFIRMED: K_F2 and K(e_c) (every c in (1/2, 1]) receive the reference verdict on all 199 rows; no item at L excludes either cone; every FAILS row is a hypothesis

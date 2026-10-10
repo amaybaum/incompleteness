@@ -2,6 +2,18 @@
 
 Every claim carries one label: CERTIFIED [K at L, file:line] / CONDITIONAL (on named items at their status) / CONJECTURE / FAILED / OPEN; evidence level [K]/[D]/[W]/[X]/[A]/[U]; and a pointer to its script, output and replay.
 
+Reading the labels. Nothing in this thread is kernel-checked, so no row is CERTIFIED. A row proved here by exact
+computation and written argument is CONDITIONAL on the non-kernel ingredients it uses, named in the row: the written
+steps of this thread ([W], in the NOTES file cited), audited archived records ([A]), and the design-module dictionary
+`pauliW` ([D] at L), which enters as a construction and comparison tool only. CONJECTURE = stated, not proved; OPEN = not
+decided; FAILED = an attempt refuted, kept with evidence.
+
 | id | statement | label | evidence | where |
 |---|---|---|---|---|
-| (none yet) | | | | |
+| C1.1 | `K_F2 = K({F, cnot F})` (`F = z_(−1,−1)`, `cnot F = z_(1,1)`) and `K(e_c)` (every `c ∈ (1/2, 1]`) satisfy H1 (symbolic SOS over the ball), H2 at level (i), the SD1/SD2/Theorem-S certificates, `K ≠ Q3`, the `maxCone` bound and the slice; level (ii) fails for both | CONDITIONAL (H3 through W1 / [A] SD1–SD2 and X's characterization; `pauliW` [D]) | [X] + [W] + [A] | `experiments/c1_cones.{py,out}` (run 2; run 1 kept), replay; NOTES-C1 §3.2–3.3 |
+| C1.2 | Row by row against the 199 applicable items, both cones receive R6's reference verdicts: 118 SATISFIES, 13 FAILS, 68 NOT REACHED; no item at L excludes either; every FAILS row is a hypothesis (do-not-assume, [D] four-token, PT-record candidate) | CONDITIONAL (C1.1; R6's K-independent anchors [A]; the [D] theorems cited in rows I3.133, I3.139, I3.140) | [X] + [A] | `experiments/c1_rows.{py,out}` (run 2; run 1 kept), replay; NOTES-C1 §3.1 |
+| C1.3 | AUDIT-R §4's covering argument is confirmed: it carries every SATISFIES / NOT REACHED row; as stated it yields R6's A3 table (T UNDECIDED); the T row is decided here by computation (FAILS for both cones) | CONDITIONAL (C1.2) | [X] + [W] | NOTES-C1 §4 |
+| C1.4 | T fails for both cones: `c(defect) = 15`, `c(P00) = 9` (with [A] Y6: automorphisms of a self-dual cone preserve `c` on extreme rays); for `K(e_c)` exact at `c ∈ {5/8, 3/4, 1}`, every `c` by W4 | CONDITIONAL (W3, W4, W5 [W]; Y6 [A]) | [X] + [W] + [A] | `c1_cones.out` F2-T, EC-T; NOTES-C1 W3–W5 |
+| C1.5 | Every listed one-token map that does not permute the defects moves the cone: `K_F2` all except `actC rot3(π)`, `actT nflip` (and the transpose); `K(e_c)` all, each with a witness valid for every `c` (exact interval cover); uniform FCC fails (`K_F2`: −1/2; `K(e_c)`: `1 − 2c`) | CONDITIONAL (`pauliW` [D]) | [X] | `c1_cones.out` MAP, C8, C9 lines |
+| C1.6 | The family `K(e_c)` is one-parameter: `K(e_c) ≠ K(e_c′)` for `c ≠ c′` | CONDITIONAL (W6 [W]) | [W] | NOTES-C1 W6 |
+| C1.7 | Record: `actT reflY` maps each defect of `K_F2` to a pure state inside `K_F2`; the K2Guard obstruction moves `K_F2` only through the kernel chain `phiW → idW` (`ipW(idW, cnot prodState(−e1, −e3)) = −2`) | CONDITIONAL (`pauliW` [D]; the chain itself is [K] K2Guard.lean:106–143) | [X] + [K] | `c1_cones.out` F2-C7r, F2-C7 |
