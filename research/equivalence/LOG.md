@@ -52,3 +52,5 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   HP-3 (countermodels), HP-4 (origin); ledger summary recounted (22 rows: 18 OPEN, 3 CONDITIONAL, 1 EXTERNAL).
 - 2026-10-10T20:50Z — NOTES-E3 §2: `block` and `LabelInvariant` shown load-bearing for the descent by written generated-class
   countermodels (CONJECTURE [W]); R-E3.3 and S3's controls updated.
+- 2026-10-10T20:53Z — hygiene: two table cells carried `|x|⁴` (a pipe inside a markdown cell); written `‖x‖⁴` in LEDGER and
+  RESULTS; every table row's column count checked.
