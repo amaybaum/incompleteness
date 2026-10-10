@@ -1,0 +1,43 @@
+LOCAL type ('+', '+'): 96 of 576 permute Z_F
+LOCAL type ('-', '-'): 96 of 576 permute Z_F
+LOCAL type ('+', '-'): 0 of 576 permute Z_F
+LOCAL type ('-', '+'): 0 of 576 permute Z_F
+CHECK S1 local stabilizer                PASS (+,+) 96, (-,-) 96, closed; SWAP o g permutes Z_F for 192; total with SWAP 384
+CHECK S2 mixed-type maps not automorphisms PASS 0 mixed-type maps permute Z_F; each sends the pure member phiW to a non-PSD table that is not a defect ray
+GROUP G16                      order 16
+GROUP <G16,SWAP>               order 48
+GROUP Gbig                     order 64
+GROUP <Gbig,SWAP>              order 192
+GROUP LU-stab (unitary)        order 96
+GROUP LU-stab (+T)             order 192
+GROUP LU-stab (+T,+SWAP)       order 384
+GROUP <LU-stab, SWAP, cnot>    order 1536
+CHECK S3 named groups                    PASS orders 16/48/64/192; all inside the stabilizer of Z_F; closure <LU-stab, SWAP, cnot> order 1536 ([A] Z: 1536)
+CHECK S4 algebra criterion               FAIL permutes Z_F <=> preserves the pattern {(1,3),(2,2),(3,1)}, all 2304 signed-permutation pairs
+COUNTERCONTROL CC1 actC Rx(pi/2): does not permute Z_F (as required)
+COUNTERCONTROL CC2 <cnot> orbit of z_(1,1) on Z_F: 2 (as required: 2)
+CHECK E1 z_s + z_t = pure + pure         PASS (T_{psi_u+psi_w} + T_{psi_u-psi_w})/4 with both pure tables in K: cone Z_F is not a face
+CHECK E2 product criterion diagonal      PASS psi_s^T Omega psi_t = diag[1, -1, 1, -1]: product iff sum k_s c_s^2 = 0
+CHECK E3 rank-2 decomposes               PASS q = (P_1 + P_2)/2 = (T_{psi1+psi2} + T_{psi1-psi2})/2, both pure members of K
+CHECK E4 restricted caps sum to Pi_R     PASS three 2-dim subspaces, exact
+FACE defect     c = 15 (upper bound 15; tight defects 0)
+FACE interior   c = 9 (upper bound 9; tight defects 0)
+FACE one tight  c = 10 (upper bound 10; tight defects 1)
+FACE two tight  c = 10 (upper bound 11; tight defects 2)
+CHECK F facial invariant                 FAIL c = 15 (defect), 9 (interior pure), 10 (one cap tight), 11 (two caps tight)
+ORBIT <cnot>                 |G| =    2: defects 4 rays; generic pure extreme ray 2
+ORBIT G16                    |G| =   16: defects 4 rays; generic pure extreme ray 16
+ORBIT <G16,SWAP>             |G| =   48: defects 4 rays; generic pure extreme ray 48
+ORBIT Gbig                   |G| =   64: defects 4 rays; generic pure extreme ray 64
+ORBIT <Gbig,SWAP>            |G| =  192: defects 4 rays; generic pure extreme ray 192
+ORBIT LU-stab (unitary)      |G| =   96: defects 4 rays; generic pure extreme ray 96
+ORBIT LU-stab (+T)           |G| =  192: defects 4 rays; generic pure extreme ray 192
+ORBIT LU-stab (+T,+SWAP)     |G| =  384: defects 4 rays; generic pure extreme ray 384
+ORBIT <LU-stab,SWAP,cnot>    |G| = 1536: defects 4 rays; generic pure extreme ray 1536
+CHECK U1 K(Z_F) ∩ Fix = cone{1 - 2e_s}   PASS self-dual in Fix; = {d : d_s <= sum d/2}; Q3 ∩ Fix = R^4_+ (PSD diagonal)
+CHECK U2 Circ self-dual, Circ ⊆ O*       PASS min (d_s + d_t) on the section alpha = 1 equals 1 - |w_st| = 0
+CHECK U3 Circ meets neither slice        PASS d1 = (5,1,1,1)/4 in Circ, not in K(Z_F) ∩ Fix; d2 = (-1,3,3,3)/4 in Circ, not in R^4_+
+CHECK U4 diag(Q3 ∩ Z*) ⊆ O               PASS vertices of the profile polytope: 6, all of the form (e_s + e_t)/2
+COUNTERCONTROL CC3 e_1 not in K(Z_F) ∩ Fix, 1 - 2e_1 not in R^4_+: True
+summary: 16 checks, 2 failed: S4 algebra criterion, F facial invariant
+NO VERDICT
