@@ -1,0 +1,18 @@
+CHECK X1 O_(pi o sig) = O_pi O_sig on all respecting pairs: PASS (|G| = 48)
+CHECK X2 <cnot, actC/actT S, actC/actT cyc3> is finite: PASS order = 11520
+CHECK C3 identity enumerated; every element fixes the (0,0) entry: PASS 
+CHECK X3 R1 exact rotation of order 3 about (5,1,1), off the frame: PASS 
+CHECK X3 R1 realized as a readout-respecting permutation of a finite ontic token: PASS |Lam_R1| = 18
+CHECK X4 <cnot, actC R1> contains an element with non-integer rational trace (infinite order): PASS word = ['cnot', 'R1'], trace = 10/9
+CHECK C1 integer traces for the finite-order elements cnot, actC S, actC cyc3, actC R1: PASS 
+CHECK X5 tr R_z(th) = 11/5 and tr R_x(th) non-integer (infinite order): PASS tr = 11/5, 11/5
+CHECK X5 K(Z_F) moved out by actC S and by actC R_z(th) (certified witnesses): PASS S: -1/8, R_z(th): -1/10
+CHECK C2 witnesses are PSD (Q3-control): PASS 
+CHECK X6 frame-axis circles commute with their cnot-conjugates; off-frame circles do not: PASS frame zero: {'C[1, 0, 0]': True, 'C[0, 0, 1]': True, 'T[1, 0, 0]': True, 'T[0, 0, 1]': True}; off-frame zero: {"C['3/5', '0', '4/5']": False, "T['3/5', '0', '4/5']": False}
+RESULT K(Z_F) MOVED OUT BY actC R1 (certified witness, value -79/720)
+RESULT FIXED FINITE SUBSTRATUM: REALIZED GROUPS ARE FINITE
+RESULT R1 IS H-SOURCEABLE ON ONE TOKEN, NOT TOGETHER WITH CNOT ON ANY FINITE PAIR SUBSTRATUM
+RESULT A_MISS IS (b) FOR TWO RATIONAL MATRICES; EACH ALONE EXCLUDES K(Z_F)
+RESULT TOWERS: CNOT WITH AN OFF-FRAME LOCAL CIRCLE GENERATES A NONABELIAN IDENTITY COMPONENT; FRAME AXES COMMUTE
+SUMMARY 11/11 checks pass
+VERDICT B3-FINITE-EXACT
