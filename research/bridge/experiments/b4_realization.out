@@ -1,0 +1,24 @@
+INFO probe S: q = <y_g, actC g w0> = -1/2; y_g and E00 - y_g certified in K: True; realization raises an invalid threshold: True
+INFO probe cyc3: q = <y_g, actC g w0> = -1/2; y_g and E00 - y_g certified in K: True; realization raises an invalid threshold: True
+INFO probe R_z(th): q = <y_g, actC g w0> = -2/5; y_g and E00 - y_g certified in K: True; realization raises an invalid threshold: True
+CHECK R1 realized law equals the K(Z_F) law on every protocol: PASS 
+CHECK R2 every threshold of the K(Z_F) family is an integer in [0, G]: PASS 
+CHECK R3 operational no-signalling (both directions): PASS 
+CHECK R4 local measurements commute operationally: PASS 
+CHECK R5 parameter dependence: B's register after MA depends on A's setting: PASS hB after MA(x) = [['1', '0', '0', '1'], ['1', '0', '0', '1'], ['0', '0', '0', '0'], ['0', '0', '0', '0']] vs MA(z) = [['1', '-1', '0', '0'], ['0', '0', '0', '0'], ['0', '0', '0', '0'], ['1', '-1', '0', '0']]
+CHECK R6 the two wing registers agree on every reachable configuration: PASS 
+CHECK R7 every step map is injective on its reachable configurations: PASS 
+CHECK R8 cnot and both NOTs are bijections of the closed reachable register set: PASS (|set| = 129)
+CHECK R9 realized axis statistics reconstruct w0; tr(M(w0) P_(1,1)) < 0 (not quantum): PASS tr = -2
+CHECK R10 realized CHSH exceeds 2: PASS S = 14/5
+CHECK R11 S, cyc3, R_z(th) on A raise an invalid threshold before a valid K(Z_F) joint measurement: PASS 
+INFO Q3 control S: <y_g, actC g phiW> = 1/2
+INFO Q3 control cyc3: <y_g, actC g phiW> = 1/2
+INFO Q3 control R_z(th): <y_g, actC g phiW> = 9/20
+CHECK R12 Q3 control: the same probes and measurements are valid on phiW: PASS 
+CHECK R13 isolated token: S, cyc3 permute the axis register; R_z(th) preserves the ball: PASS 
+RESULT EXOTIC PAIR K(Z_F) REALIZED BY EMBEDDED OBSERVERS (BRANCH (a), EXACT)
+RESULT THE TOKEN'S S, J, R_z(th) ARE NOT INSTRUMENTS OF THE REALIZED PAIR, THOUGH AVAILABLE TO THE ISOLATED TOKEN
+RESULT Q3 CONTROL: THE SAME MACHINERY ADMITS THEM
+SUMMARY 13/13 checks pass
+VERDICT B4-REALIZATION-EXACT

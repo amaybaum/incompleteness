@@ -32,3 +32,21 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   header time is taken from `date -u` immediately before writing.
 - 2026-10-10T20:37Z — commit B3: NOTES-B3.md, b3 script/outputs/replay/run1, RESULTS rows B3-1 to B3-6; label fix of
   B2-1/B2-2 to the charter's label set (FAILED as routes); LOG times of the B1/B2 commits made exact.
+- 2026-10-10T20:37Z — decision: B4 built as the framework's own reversible gluing machinery in branch (a) (two wing
+  registers carrying the joint table); the obstruction probe uses only valid K(Z_F) instruments (a joint measurement
+  {y, E00 − y} certified in K = K*), not local quarter-turns (which are not K(Z_F) symmetries and would misattribute
+  the negativity). Decision rule written at 20:37Z (date -u taken before writing).
+- 2026-10-10T20:39:55Z — `b4_realization.py`: pre-run edit at 20:39Z (R8 closure iterated to a fixed point; a guessed
+  time "20:42Z" was written first and corrected to the `date -u` value before the run). Run 1: 13/13 PASS, VERDICT
+  B4-REALIZATION-EXACT; replay byte-identical (20:40:41Z).
+- 2026-10-10T20:44Z — B4 pressure test: preparation reachability examined as a candidate bridge (NOTES-B4 §4(d));
+  recorded as FAILED (self-defeating at the finite level; T/H family at the completed level). B5 written as a synthesis
+  (no new computation). Lean formalization of Theorem B1.1 not attempted (time budget; recorded as OPEN, B5-2).
+- 2026-10-10T20:45Z — Lean formalization of Theorem B1.1 (B5-2) not attempted. Reasons: the Actions queue is backed up
+  (other threads' dispatches queued since 20:27Z), and a new OIBridge module needs a census-registry disposition
+  (§A.35) outside the module path this thread may write. B5-2 recorded as OPEN; no dispatch used (0 of 3).
+- 2026-10-10T20:46Z — scope of B4 narrowed in NOTES-B4/NOTES-B5: "every constraint listed in §1" (realization theorem +
+  branch (a)), not "every H-level constraint"; C1–C4 and the SM/GR spatial-graph constraints stated as not imposed.
+  RESULTS V-1 (standing verdict) added. Handoff proposals HP-1, HP-2, HP-3 written.
+- 2026-10-10T20:46Z — commit B4/B5 prepared (exact commit time recorded in the next entry): NOTES-B4.md, NOTES-B5.md, b4 script/outputs/replay, RESULTS rows B4-1..B5-3 and
+  V-1, handoff-proposals/HP-1..HP-3.
