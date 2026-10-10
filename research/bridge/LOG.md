@@ -146,3 +146,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T22:46:45Z — `b9_spec.py` run 1: 7/7 PASS, VERDICT B9-EXACT; replay byte-identical. The Y2 message text
   says "as transcribed"; the tables are parsed (printed in the output).
 - 2026-10-10T22:49Z — NOTES-B9 written; RESULTS rows B9-1 … B9-4 appended.
+- 2026-10-10T22:52:40Z — run 38090784384 cancelled (its remaining numerical-probe shards only). Its Mathlib bridge
+  job had completed (Build failure, recorded above). The cancellation frees runners: the repository's queue at
+  22:52Z held run 38092042844 (this thread, dispatch 2) behind three other threads' dispatches. Not a dispatch;
+  dispatches used: 2 of 3.
+- 2026-10-10T22:49–22:52Z (between commit 9c34afde, 22:49:29Z, and a `date -u` reading of 22:52:21Z) —
+  `lean/BridgeDictionary.lean` drafted for B9: the two-token dictionary `dict` on the kernel's
+  `tensorOf`, the product law `dict_tens`/`dict_prodState`, the certified monomial spectator theorem restated at the
+  pair carrier, and the transfer clause `TransferClause` as a definition. Dispatched only if run 38092042844 is green
+  (the last dispatch is reserved for B6 otherwise).
+- 2026-10-10T22:53:52Z — handoff proposals HP-4 (B3.C, conditional on (D)), HP-5 (HO-4 tested; Stab_loc = V4), HP-6
+  (SPEC side; HO-6's transfer needs) written for the coordinator to route.
