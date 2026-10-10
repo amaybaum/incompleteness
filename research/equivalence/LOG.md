@@ -125,3 +125,8 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   failed at two terms and the proof-only repair `95beab2b` is unmeasured) written. Design modules copied verbatim to
   `lean/`: `EqvKnDesc.lean` (blob `8157f8ea`, = dev `05b5756c`), `EqvOmega4.run38090924005.lean` (blob `ee870649`, the
   built-and-failed text of `195dfbee`) and `EqvOmega4.lean` (blob `9030f471`, the repaired text of `95beab2b`).
+- 2026-10-10T22:35Z — E9: `experiments/e9_level3.py` run 1: 7/7, `VERDICT LEVEL3-CONVERSE-BOUNDED`, replay identical (decision rule
+  fixed before run 1; the script was edited before its first run only). `experiments/e9_dyn_finite.py` run 1: 3/3,
+  `VERDICT FINITE-DYN-CONVERSE-INSTANCE`, replay identical. NOTES-E9 written (three readings of the converse: C-REG true
+  by transfer along the stage map, C-DYN and C-KIN false with exact finite countermodels; repairing hypotheses H-FAC,
+  H-UNIF, H-GEN, H-DYN). The design run of `EqvLevel3` (38091534622) is still queued; NOTES-E9 §6 pending.

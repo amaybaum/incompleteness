@@ -1,0 +1,9 @@
+PASS P1 -- phase image of E_01 has entry I; permutation transports of E_01 (x) 1 take entries [0, 1]
+PASS P2 -- sign image of E_01 has entry -1; real, diagonal-preserving, local; no permutation transport has -1
+PASS K1 -- diagonal net commutative, generating (rank 4), site swap local; [E_01, E_10] = diag(1, -1) != 0 in M_2
+PASS K2 -- CAR exact; site algebras dim 4, 4, generate dim 16; a0 a1 = -a1 a0 != 0; even parts commute
+PASS K3 -- single-site stage dimensions 4 and 9, region {0, 1} stage dimension 36 = 4 * 9; a member of QuasilocalSystem iota Q has |Q|^2 at every site
+PASS T1 -- twisted commuting copies: commute, unital, multiplicative on matrix units, 16 products of rank 16
+PASS T2 -- fermionic copies are matrix-unit systems and span M_4 (rank 16), but phi1(X1)phi2(Y1)phi1(X2)phi2(Y2) != phi1(X1X2)phi2(Y1Y2): [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] vs [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+checks: 7, failures: 0
+VERDICT LEVEL3-CONVERSE-BOUNDED

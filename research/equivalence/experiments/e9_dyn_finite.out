@@ -1,0 +1,5 @@
+PASS M1 -- H-DYN holds exactly for scalar D, and then the map is conjugation by P
+PASS M2 -- 16 of 16 matrix units leave the matrix units under H
+PASS M3 -- 24 distinct maps satisfy H-DYN
+checks: 3, failures: 0
+VERDICT FINITE-DYN-CONVERSE-INSTANCE
