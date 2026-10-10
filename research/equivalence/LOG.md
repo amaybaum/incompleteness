@@ -54,3 +54,6 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   countermodels (CONJECTURE [W]); R-E3.3 and S3's controls updated.
 - 2026-10-10T20:53Z — hygiene: two table cells carried `|x|⁴` (a pipe inside a markdown cell); written `‖x‖⁴` in LEDGER and
   RESULTS; every table row's column count checked.
+- 2026-10-10T20:55Z — NOTES-E3 §3 scope caveat (pressure test): the descent to odd carriers needs `ContextStable` with an
+  odd-size spectator; it fixes the repertoire of carriers the formalism has as types, it does not produce them; R-E3.2
+  scope sentence added.

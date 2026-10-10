@@ -122,6 +122,17 @@ The face principle the census asked for is therefore not a new principle at the 
 LabelInvariant + block`. It is still absent at the field-neutral level, where no notion of "a face of a system is a
 system" exists — but the route need not use one, if it reaches K3 through qubit registers.
 
+**Scope caveat (pressure test of the favourable reading).** Step (1) adjoins a spectator `R = S`; any route from
+`Fin (2^k)` to `Fin 3` through these clauses needs a spectator whose size is divisible by 3, since `block` and
+`LabelInvariant` only connect carriers whose sizes are multiples of the target's, and spectators of power-of-two size
+keep every size a power of two. So the descent fixes the **repertoire** at a carrier the K3 formalism already has as a
+type, using `ContextStable` at carriers of odd size; it does not produce a three-level system from qubits. The physical
+reading of a non-power-of-two carrier — a coordinate subspace (face) of a qubit register with the compressed
+repertoire — is exactly what `compress_mem` states, and it is a *consequence* of the clauses only because the
+formalism quantifies `ContextStable` over every carrier type. A route that admits only power-of-two carriers as systems
+would need a corner-compression clause (compression along an injection of carriers) in place of step (1) — Hardy's
+subspace axiom in matrix form.
+
 ## 4. Classification and scope (§A.31)
 
 - W-DESC and Kₙ-DESC: **NEW** (scoped). They expose that the census's "subspace principle" is implied, at the matrix
