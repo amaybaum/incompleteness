@@ -1,0 +1,13 @@
+== X1 dephasing covariance <-> monomial
+MISMATCH X1 Ad U commutes with dephasing iff U is monomial, on all 14 unitary instances (9 monomial, 5 not) -- {'I2': (True, True), 'X': (True, True), 'Z': (True, True), 'S': (True, True), 'phases': (True, True), 'XS': (True, True), 'I3': (True, True), 'P3': (True, True), 'cyc': (True, True), 'H': (False, False), 'sqrtX': (False, False), 'Ry': (False, False), 'F3': (False, False), 'Rz3': (False, False)}
+== X2 qubit sandwich visibility
+CONFIRMED X2 V = 2|a|^2|b|^2 symbolically; at the balanced angle the probabilities are 1 (coherent) and 1/2 (dephased) -- V = 1/4 - cos(4*th)/4
+== X3 cyc3 and the rotations
+CONFIRMED X3 cyc3 = R_z(pi/2) R_x(pi/2), cyc3 R_z(t) cyc3^-1 = R_x(t), cyc3^3 = 1
+== X4 the NOT flow at t = 1/2
+CONFIRMED X4 R_x(pi/2) e_z has zero z-component (balanced, pure); R_x(pi) = nflip -- R_x(pi/2) e_z = [0, -1, 0]
+== X5 infinite order from two overlapping balanced mixers
+CONFIRMED X5 B1 B2 is orthogonal with det 1 and 2 cos(theta) = -3/2 (not an integer): infinite order; control (H S)^24 = 1 -- trace -1/2
+SUMMARY 4/5 CONFIRMED
+INDEP-O-MISMATCH
+exit=0

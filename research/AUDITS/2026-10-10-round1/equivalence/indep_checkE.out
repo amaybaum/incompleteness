@@ -1,0 +1,7 @@
+== X1 the central section x^4 + s^4 = 1 has a flat point
+CONFIRMED X1 curvature 0 at the four axis points of x^4 + s^4 = 1; controls: circle 1, ellipse 2 and 1/4 (positive) -- quartic [0, 0, 0, 0], circle [1, 1, 1], ellipse [2, 2, 1/4, 1/4]
+== X2 convexity, symmetry, drivability data
+CONFIRMED X2 Hessian of |x|^4 is 4|x|^2 I + 8 x x^T (PSD), the body is centrally symmetric, R_z(t) and cyc3 preserve |x| (hence Omega_4), cyc3 R_z cyc3^-1 = R_x, cyc3^3 = 1, R_x(pi) = nflip
+SUMMARY 2/2 CONFIRMED
+INDEP-E-FIXED
+exit=0

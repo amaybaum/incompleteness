@@ -1,0 +1,70 @@
+OK   CompositeDimension.lean:1220 [None] def phiW : W 3 := fun μ ν => if μ = ν then (if μ = 2 then -1 else 1) else 0
+OK   CompositeDimension.lean:1222 [None] theorem cnot_prodState_xplus_z3 : cnot (prodState xplus z3) = phiW := by
+OK   ImplementationLocality.lean:207 [redundancy_fails] theorem redundancy_fails :
+OK   CompositeInterface.lean:245 [lt] lt : ∀ ω ∈ Ω, ∀ ω' ∈ Ω, (∀ (e : (Fin dA → ℝ) →ᵃ[ℝ] ℝ) (f : (Fin dB → ℝ) →ᵃ[ℝ] ℝ),
+OK   StructuralClosure.lean:261 [substratumClass_contextStable] theorem substratumClass_contextStable : ContextStable substratumClass := by
+OK   SubstratumInterface.lean:75 [None] def IsMonomial (K : Matrix S S ℂ) : Prop :=
+OK   KInfFoundations.lean:264 [ElementaryDrivability] structure ElementaryDrivability (Ω : Set V) where
+OK   SubstratumInterface.lean:126 [preservesDiag_conj_of_monomial] theorem preservesDiag_conj_of_monomial {K : Matrix S S ℂ} (h : IsMonomial K) :
+OK   ImplementationLocality.lean:530 [None] theorem realized_of_instAvail (arch : Architecture 𝓘) {T : Type} [Fintype T] [DecidableEq T]
+OK   StructuralClosure.lean:231 [None] theorem substratumClass_arch : Architecture substratumClass where
+OK   SubstratumInterfaceAudit.lean:350 [None] theorem permClass_arch : Architecture permClass where
+OK   InstrumentRealization.lean:628 [onesClass_arch] theorem onesClass_arch : Architecture onesClass where
+OK   InstrumentRealization.lean:833 [isometry_fixes_ones] theorem isometry_fixes_ones : OnesFixing onesClass := by
+OK   InstrumentRealization.lean:508 [onesClass_gateFlow] theorem onesClass_gateFlow {σ : Equiv.Perm T} (hσ : ∀ x, σ (σ x) = x) (t : ℝ) :
+OK   SubstratumSource.lean:103 [genTheory_avail_conj] theorem genTheory_avail_conj {n : ℕ} {V : Matrix (A × Fin n) (A × Fin n) ℂ}
+OK   LiftAudit.lean:138 [gateFlow_half_entries] theorem gateFlow_half_entries {σ : Equiv.Perm S} {a : S} (ha : σ a ≠ a) :
+OK   PhaseSource.lean:79 [None] theorem permClass_onesFixing : OnesFixing permClass := by
+OK   InstrumentRealization.lean:398 [instAvail_unitary_fixes_ones] theorem instAvail_unitary_fixes_ones (hf : OnesFixing 𝓘) {T : Type} [Fintype T] [DecidableEq T]
+OK   SubstratumInterface.lean:91 [None] theorem bijectiveOperator_monomial (σ : Equiv.Perm S) : IsMonomial (bijectiveOperator σ) :=
+OK   ReadWriteControl.lean:96 [None] theorem readWriteOperator_eq_perm {a b : S} (F : ReadWriteFamily a b) (l : ℝ) :
+OK   CoherentContinuumSource.lean:292 [None] theorem readWriteOperator_range_finite {a b : S} (F : ReadWriteControl.ReadWriteFamily a b) :
+OK   InternalObserver.lean:249 [None] def recordInstr (a : A) : Matrix (A × A) (A × A) ℂ →ₗ[ℂ] Matrix (A × A) (A × A) ℂ :=
+OK   InternalObserver.lean:290 [None] theorem recordInstr_not_passive (hA : 1 < Fintype.card A) :
+OK   AncillaInterference.lean:161 [None] def HasAncillaQubitInterference (T : FiniteOperationalTheory A) : Prop :=
+OK   AncillaInterference.lean:163 [None] T.availExt 2 Unit (fun _ => conjChannel (ancMix A))
+OK   LiftAudit.lean:47 [None] noncomputable def gateFlow (σ : Equiv.Perm S) (t : ℝ) : Matrix S S ℂ :=
+OK   LiftAudit.lean:200 [None] theorem substratumTheory_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x) :
+OK   StateMixingCoupling.lean:45 [None] noncomputable def rot (θ : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+OK   StateMixingCoupling.lean:50 [None] noncomputable def mixImage (n : ℕ) (θ : ℝ) : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ :=
+OK   DiscreteCompletion.lean:1929 [None] theorem fixedGateTheory_derivedOI (α : ℝ) : DerivedOI (fixedGateTheory α) :=
+OK   DiscreteCompletion.lean:1933 [None] theorem fixedGateTheory_fixedGateSourced (α : ℝ) : FixedGateSourced α (fixedGateTheory α) :=
+OK   DiscreteCompletion.lean:1948 [None] theorem fixedGateTheory_not_qm (α : ℝ) : ¬ ExactAllFiniteEndomorphicQuantumOps (fixedGateTheory α) :=
+OK   DiscreteCompletion.lean:1522 [None] theorem denseUnitaryControl_of_fixedGate (hd : DerivedOI T) {α : ℝ} (hα : Irrational (α / Real.pi))
+OK   BarandesTuple.lean:430 [None] def IsUnistochastic (M : Matrix V V ℝ) : Prop :=
+OK   OperationalAssembly.lean:658 [None] theorem readout_is_localLuders (T : FiniteOperationalTheory A) (n : ℕ) (k : Fin n) :
+OK   LiftAudit.lean:812 [derivedOI_qm_iff_layerFlowExecutable] theorem derivedOI_qm_iff_layerFlowExecutable [Nonempty S] (T : FiniteOperationalTheory S)
+OK   LiftAudit.lean:783 [None] theorem phaseFree_of_layerFlowExecutable (T : FiniteOperationalTheory S) (hsub : SubstratumAvail T)
+OK   RouteB.lean:161 [derivedOI_qm_iff_phaseFree] theorem derivedOI_qm_iff_phaseFree [Nonempty A] {T : FiniteOperationalTheory A}
+OK   RouteB.lean:290 [None] theorem substratumTheory_derivedOI : DerivedOI (substratumTheory A) :=
+OK   LiftAudit.lean:750 [None] theorem substratumTheory_substratumAvail : SubstratumAvail (substratumTheory S) :=
+OK   LiftAudit.lean:754 [None] theorem diagonal_avail (T : FiniteOperationalTheory S) (hsub : SubstratumAvail T) (n : ℕ)
+OK   LiftAudit.lean:770 [None] theorem avail_conj_mul (T : FiniteOperationalTheory S) (n : ℕ)
+OK   MinimalRepertoire.lean:569 [oiPlusMin_iff_qm] theorem oiPlusMin_iff_qm : OIPlusMin T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+OK   KInfFoundations.lean:449 [ball3Drive] noncomputable def ball3Drive : ElementaryDrivability ball3 where
+OK   SubstratumInterfaceAudit.lean:654 [None] theorem sourcedOI_qm_iff_phaseFree [Nonempty A] {T : FiniteOperationalTheory A} (h : SourcedOI T) :
+OK   SubstratumInterfaceAudit.lean:660 [None] theorem permTheory_sourcedOI : SourcedOI (permTheory A) :=
+OK   ImplementationLocality.lean:904 [None] theorem genTheory_embeddedObservation (hl : LabelInvariant 𝓘) :
+OK   StateMixingCoupling.lean:511 [None] theorem mixTheory_qm : ExactAllFiniteEndomorphicQuantumOps (mixTheory (Fin 2)) :=
+OK   KInfFoundations.lean:425 [cyc3] noncomputable def cyc3 : (Fin 3 → ℝ) ≃ᵃ[ℝ] (Fin 3 → ℝ) := cycEquiv.toAffineEquiv
+OK   KInfFoundations.lean:427 [cyc3_apply] theorem cyc3_apply (v : Fin 3 → ℝ) : cyc3 v 0 = v 2 ∧ cyc3 v 1 = v 0 ∧ cyc3 v 2 = v 1 :=
+OK   CarrierGeneralOIPlus.lean:207 [oiPlus_iff_qm] theorem oiPlus_iff_qm : OIPlus T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+OK   TypedCompletion.lean:850 [typed_determined_iff] theorem typed_determined_iff :
+OK   SubstratumSource.lean:136 [genTheory_qm_of_quantumArchitecture] theorem genTheory_qm_of_quantumArchitecture [Nonempty A] (hq : QuantumArchitecture 𝓘) :
+OK   TransitiveBody.lean:602 [None] theorem exists_affine_image_eq_eball (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+OK   DenseOrbit.lean:174 [None] theorem exists_affine_image_eq_eball_of_dense (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+OK   DenseOrbit.lean:398 [None] theorem not_boundaryTransitive_ratRefl : ¬ BoundaryTransitive (eball 3) (ratRefl 3) :=
+OK   DenseOrbit.lean:403 [None] theorem countable_seedOrbit_cone :
+OK   KInfFoundations.lean:590 [None] theorem singletonFaces_of_relStrictConvex {Ω : Set V} (avail : Set (V →ᵃ[ℝ] ℝ))
+OK   KInfFoundations.lean:632 [None] theorem card_le_two_of_centrallySymmetric {Ω : Set V} {c : V} (hΩ : CentrallySymmetric Ω c)
+OK   ImplementationLocality.lean:506 [Architecture] structure Architecture (𝓘 : ImplementationClass) : Prop where
+OK   ImplementationLocality.lean:359 [ContextStable] def ContextStable (𝓘 : ImplementationClass) : Prop :=
+OK   ImplementationLocality.lean:364 [LabelInvariant] def LabelInvariant (𝓘 : ImplementationClass) : Prop :=
+OK   SubstratumSource.lean:77 [DrivesElementary] def DrivesElementary (𝓘 : ImplementationClass) : Prop :=
+OK   K2Guard.lean:143 [no_candidateCone_cnot_reflY] theorem no_candidateCone_cnot_reflY {K : Set (W 3)} (hK : CandidateCone K)
+OK   K2Guard.lean:106 [None] theorem actT_reflY_phiW : actT reflY phiW = idW := by
+OK   K2Guard.lean:110 [None] theorem cnot_idW : cnot idW = chainW := by
+OK   K2Guard.lean:134 [None] theorem chain_value :
+OK   QuasilocalCharacterization.lean:359 [canon_unique] theorem canon_unique (g : Quasilocal ι Q → S.A) (hg : Continuous g)
+OK   QuasilocalCharacterization.lean:497 [systemEquiv_dyn] theorem systemEquiv_dyn (T T' : OISystem ι Q) (hΦ : T.Φ = T'.Φ) (y : T.A) :
+MISSING 0 of 69

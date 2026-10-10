@@ -1,0 +1,9 @@
+21:37:41Z replay start countermodels (cwd experiments/, python3 -I -B)
+REPLAY c1_cones stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:25Z
+REPLAY c1_rows stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:25Z
+REPLAY c2_structure stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:39Z
+REPLAY c3_transitivity stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:40Z
+REPLAY c4_bell_family stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:52Z
+REPLAY c5_kappa_torus stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:55Z
+REPLAY c6_handoff_checks stdout=IDENTICAL stderr=DIFFERENT rc=0 21:39:56Z
+DONE 21:39:56Z

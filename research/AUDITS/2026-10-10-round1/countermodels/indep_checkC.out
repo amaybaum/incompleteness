@@ -1,0 +1,17 @@
+== X0 conventions
+CONFIRMED X0 psi_s has entries +-1/2, P_s has w00 = 1, ipW(z_s, P_s) = -1/2 (the cap exclusion, KZ2), the defects are orthogonal with |z_s|^2 = 1/4
+== X1 local stabilizer of Z_F, closures
+CONFIRMED X1 local maps permuting Z_F: 96 of type (+,+), 96 of type (-,-), 0 mixed; closures 96 / 192 / with SWAP 384 / with SWAP and cnot 1536 -- counts {(-1, -1): 96, (1, 1): 96}; closures unit 96, local 192, +SWAP 384, +cnot 1536
+== X2 facial invariant c on K(Z_F)
+CONFIRMED X2 c = 15 on a defect, 9 on |00>, 10 on one tight cap, 10 on two tight caps (z_s + z_t in Herm(v^perp)); the prediction 11 is refuted -- defect face 15 (60 candidates), |00> face 9 (66), one-cap lower/upper 10/10 (Herm rank 9), two-cap lower/upper 10/10 (Herm rank 9), z_s + z_t annihilates v: True
+== X3 pair theorem, 'only if', at overlaps 16/25 and 144/169
+CONFIRMED X3 for both pairs an explicit y in K* \ K exists (ipW(y, z_1) = 0, ipW(y, z_2) > 0, y in Q3 + cone Z, not PSD): K({z_1, z_2}) is not self-dual -- 16/25: {'c': '16/25', 'p12': '4/25', 'v': '[2, 0, 0, 1 + I]', 'lam': '25/4', 'ipW_y_z2': '801/400', 'witness': '-473/200'}; 144/169: {'c': '144/169', 'p12': '36/169', 'v': '[2, 0, -1, 0]', 'lam': '169/24', 'ipW_y_z2': '34465/16224', 'witness': '-4961/2704'}
+== X4 Z_Y = Ad(S x I) Z_F; G16; SWAP
+CONFIRMED X4 Z_Y: four pairwise orthogonal Bell-type defects, != Z_F, = Ad(S x I) Z_F; |G16| = 16 permuting Z_F and Z_Y; Ad(S x I) normalizes G16; SWAP permutes Z_F, moves Z_Y -- |G16| = 16
+== X5 K_F2: c on the defects and on P00
+CONFIRMED X5 K_F2: c = 15 on the defect F (hence on cnot F), c = 9 on P00 (ipW(F, P00), ipW(cnot F, P00) > 0 so no defect enters that face); T fails -- defect face rank 15 (78 candidates), P00 face rank 9 (96 candidates)
+== X6 flow law
+CONFIRMED X6 ipW(R_n(t) z_s, R_n(pi/2) P_s/4) = -sin(t)/8 for n = z, x, (1,2,2)/3, both tokens, all four defects -- exceptions []
+SUMMARY 7/7 CONFIRMED
+INDEP-C-FIXED
+exit=0

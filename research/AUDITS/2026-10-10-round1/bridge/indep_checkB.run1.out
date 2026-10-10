@@ -1,0 +1,12 @@
+== X1 trace obstruction
+CONFIRMED X1 tr(cnot . actC R1) = 10/9, not an algebraic integer, so no finite group on W 3 contains both; control tr(cnot . actC cyc3) integral -- tr = 10/9, control 2
+== X2 order of <cnot, actC O, actT O>
+CONFIRMED X2 the native pair group <cnot, actC O, actT O> on W 3 has order 11520 (24 octahedral rotations) -- order 11520
+== X3 witnesses and thresholds
+MISMATCH X3 S, cyc3, R_z(theta), R1 each move a defect out of K(Z_F) (negative witnesses); thresholds -1/2, -1/2, -2/5 with Q3 controls 1/2, 1/2, 9/20 -- best witnesses {'S': '-1/2', 'cyc3': '-1/2', 'Rz35': '-2/5', 'R1': '-7/18'}; thresholds {'S': ('-1/2', '1/2'), 'cyc3': ('-1/2', '1/2'), 'Rz35': ('-1/2', '1/2')}
+== X4 CHSH
+CONFIRMED X4 phiW = diag(1,1,-1,1); S_CHSH(phiW) = 14/5 at the stated settings; every defect reaches 14/5 within the pool -- phiW 14/5, defects {'(1, 1)': '14/5', '(1, -1)': '14/5', '(-1, 1)': '14/5', '(-1, -1)': '14/5'}
+== X5 the measure-and-prepare realization reproduces the K(Z_F) law exactly
+CONFIRMED X5 measure-and-prepare dynamics = the GPT law exactly on the pool, all probabilities in [0,1], no-signalling marginals, every threshold on the 20-grid -- thresholds ['0', '1', '1/10', '1/2', '1/5', '4/5', '9/10']
+SUMMARY 4/5 CONFIRMED
+INDEP-B-MISMATCH

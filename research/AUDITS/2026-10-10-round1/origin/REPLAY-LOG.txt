@@ -1,0 +1,8 @@
+21:02:56Z replay start origin
+REPLAY o1_envelope stdout=IDENTICAL stderr=IDENTICAL 21:02:59Z
+REPLAY o1_fieldneutral stdout=IDENTICAL stderr=IDENTICAL 21:03:00Z
+REPLAY o2_mechanisms stdout=IDENTICAL stderr=IDENTICAL 21:03:01Z
+REPLAY o3_continuous stdout=IDENTICAL stderr=IDENTICAL 21:03:01Z
+REPLAY o3_density stdout=IDENTICAL stderr=IDENTICAL 21:03:02Z
+REPLAY o4_dependency stdout=IDENTICAL stderr=IDENTICAL 21:03:02Z
+DONE 21:03:02Z
