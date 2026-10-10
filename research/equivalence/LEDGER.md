@@ -91,3 +91,39 @@ so that the inventory is complete, and carry no row here.
   "no source".
 - **countermodels**: exotic pair cones (K(Z_F), EXOTIC-E seeds) are what keep K2(b)/(c) OPEN; an embedded-observer
   realization of K(Z_F), or an obstruction to one, is open at L in either direction (stage 6 §6 [A]).
+
+## Round-2 notes (dated; statuses at L unchanged — this thread changes no status)
+
+Each note is dated, names its evidence, and supersedes nothing in the tables above, which stay as written in round 1.
+
+- **2026-10-10 (round 2) — Kinf-Act, Kinf-Drive.** Received HO-2 v1 (inbox; bridge B3): an off-axis
+  `ElementaryDrivability` is never the closure of directed stage-preserving finite operations, so a drive's generator
+  must cross stages — CONDITIONAL on Jordan's theorem and the finite subgroups of SO(3) [L]. Consistent with, and sharper
+  than, `finiteOrderOn_of_stagePreserving` (CompositionOrder.lean:348 [K]). Status OPEN.
+- **2026-10-10 (round 2) — Kinf-Seed.** The three seed theorems compile as the standalone predicted module `StageSeed`
+  over L ([D] run 38091534622, R-E8.4); preregistration draft S1 (KINF-SEED-1) written. Status OPEN.
+- **2026-10-10 (round 2) — Kinf-Copy.** The type-covariance reduction compiles as the standalone predicted module
+  `CopyCovariance` over L ([D] run 38091534622, R-E8.4); draft S2 (KINF-COPY-1) written. Status OPEN.
+- **2026-10-10 (round 2) — Kinf-Trans.** The decisive step of the separation, Ω₄ is no affine image of `eball 4`, is
+  kernel-checked in a design run together with Ω₄'s compactness, convexity, symmetry, seed and drive ([D] run
+  38090924005, R-E8.3); strict convexity and the separation theorems did not build in that run (two failed terms; the
+  proof-only repair is unmeasured), so the separation stays at R-E2.5's [W]+[X]. Draft S4 (KTRANS-SEP-1) written, marked
+  not ready to freeze. Status OPEN.
+- **2026-10-10 (round 2) — Kn.** Kₙ-DESC is kernel-checked in a design run ([D] run 38090116254, R-E8.2): within the K3
+  architecture drivability descends from the carriers `Fin (2^k)`, and `QuantumArchitecture` is equivalent to its closure
+  clauses with qubit-power drivability, one witness per direction. Draft S3 (KN-DESC-1) written. What remains is
+  unchanged: drivability on qubit registers and the closure clauses (`ContextStable` the matrix form of (b)'s spectator
+  clause). Status OPEN.
+- **2026-10-10 (round 2) — K2.** The pair-level schema `pairCone_eq_Q3_of_drive` has a complete written proof with every
+  identity checked exactly (NOTES-E10; R-E10.1–R-E10.4): A_miss enters at one lemma (reachability of every pure state from the
+  products by words in `cnot` and one token's unitaries); the cone step needs no spectral theorem (PSD definition and
+  Gram decomposition); the finite clause `⟨R_z(π/2), cyc3⟩` fails at reachability on an exact witness (EXOTIC-E by claim
+  D [A]); two exact rotations `R_z(θ₀)` (`cos θ₀ = 3/5`) and `cyc3` suffice given H3's closedness. Status OPEN; the schema
+  is CONDITIONAL on H2, H3, A_miss.
+- **2026-10-10 (round 2) — L3-conv.** NOTES-E9: the converse read relative to the target class (C-REG) holds by transfer
+  along the stage map ([D] `kraus_iff_of_member`); the naive dynamical converse (C-DYN) is false ([D]
+  `not_naiveConverseDyn`, from [K] :769/:792; exact stage witnesses, including a real sign automorphism); the naive
+  kinematic converse (C-KIN) is false (classical lattice, non-uniform sites [X]; [D] `not_comm_of_system`); the converse
+  holds at one finite level under H-FAC, H-UNIF, H-GEN and H-DYN ([W]+[L]+[X]), H-FAC being the site-level quantum
+  kinematics. Status OPEN as an obligation in its strong reading, which is now refuted as stated; the scope-correct
+  Level III statement of NOTES-E6 §3 stands.

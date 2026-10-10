@@ -138,3 +138,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `dc89d735`). NOTES-E9 §6 and drafts S1/S2 updated with the run. RESULTS rows R-AUDIT.1 (the coordinator's precision note
   on R-E3.4 and R-E5.1, acknowledged; old rows not edited), R-E8.1–R-E8.4 and R-E9.1–R-E9.4 appended. The E10 probe
   `experiments/e10_k2_schema.py` is running (run 1 started 22:43Z).
+- 2026-10-10T22:52Z — E10: `experiments/e10_k2_schema.py` run 1 (started 22:43Z) terminated at 22:50Z after seven minutes at full
+  CPU in sympy's simplification with no output (stdout block-buffered); kept as `e10_k2_schema.run1.{py,out,err}` (exit
+  143). Run 2 changed the instances only (L2's flow at two rational angles; L4's five states with Gaussian-rational
+  data, `φ₀` moved out of L4 and kept as F1's witness; `expand` for `simplify`; flushed prints), its decision rule
+  fixed in the header before it ran: 9/9, `VERDICT K2-SCHEMA-SKELETON-CONSISTENT`, replay identical; the finite group
+  `⟨cnot, actT R_z(π/2), actT cyc3⟩` has order 384. NOTES-E10 written (six-lemma skeleton; A_miss enters only at
+  reachability; no spectral step; the finite clause and the flow alone fail at reachability; `R_z(θ₀)` with `cos θ₀ =
+  3/5` and `cyc3` suffice given H3). RESULTS R-E10.1–R-E10.4; LEDGER round-2 notes (statuses at L unchanged). Handoff
+  proposals HP-5 (coordinator), HP-6 (bridge, origin), HP-7 (countermodels) written.

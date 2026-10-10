@@ -1,0 +1,12 @@
+parsed: pc, pt, sgn (16 entries each); nflip diagonal [1, -1, -1]
+PASS L1 -- rho(prodState x y) = rho_x (x) rho_y on 16 pairs; <w, e> = 4 tr(rho rho') (7/9 = 7/9)
+PASS L2 -- parsed cnot = Ad(P0 (x) 1 + P1 (x) X) on 16 basis tables; actT R_z(t) = Ad(1 (x) exp(-i t s_z/2)) at cos t = 3/5, 5/13; actT cyc3 = Ad(1 (x) U_J), U_J = [-sqrt(2)*I/2, -sqrt(2)/2, -sqrt(2)*I/2, sqrt(2)/2]
+PASS L3 -- cyc3 R_z(t) cyc3^-1 = R_x(t); cyc3^3 = 1; R_x(pi) = nflip = diag(1, -1, -1)
+PASS L4 -- CNOT (1 (x) W) CNOT = P0 (x) W + P1 (x) X W X; word reaches {'product (3/5, 4/5) (x) |0>': True, 'Bell (|00>+|11>)': True, 'kappa = (4+4i)/9, n_z = 7/9': True, 'kappa = 7i/25, n_z = 24/25': True, 'kappa = 9(1+4i)/49, n_z = 32/49, x = (3/5, 4i/5)': True}
+PASS L5 -- Gram matrix = sum of its rank-one terms; v* A v = 102 >= 0
+PASS F1 -- group <cnot, actT R_z(pi/2), actT cyc3> on W 3 is finite of order 384; phi0 is mapped to a rank-one (product) table by no element; the Bell state is (by cnot)
+PASS F2 -- R_z(theta0), cos theta0 = 3/5: no power up to 2000 is the identity (Niven: theta0/pi irrational)
+PASS F3 -- group of cnot and the flow is monomial with permutations {id, (10 11)}; squared magnitudes [1, 4, 9, 2] of phi0 are no product pattern under either
+PASS P -- phi0 and its images under the three generators are PSD (Descartes sign test); products are PSD
+checks: 9, failures: 0
+VERDICT K2-SCHEMA-SKELETON-CONSISTENT

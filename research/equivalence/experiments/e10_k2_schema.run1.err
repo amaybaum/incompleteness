@@ -1,0 +1,2 @@
+exit 143
+terminated by SIGTERM after 7 minutes at 98% CPU with no output (stdout block-buffered); see LOG
