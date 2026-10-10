@@ -1,0 +1,36 @@
+CHECK C1 tr(M(a)M(b)) = 4 ipW(a,b) on 256 basis pairs: PASS 
+CHECK Z0 M(z_s) = I/2 - P_s and P_s orthogonal rank-one projectors summing to I: PASS 
+CHECK E1a generators cnot, SWAP, actC/actT nflip, actC/actT rot3(pi) certified in Aut(K): PASS 
+CHECK E1a signed-diagonal pairs (det D det D' = 1) certified in Aut(K): PASS (32 maps)
+CHECK E1b discard: margA(g(prodState x y)) in the ball for every generator and listed point: PASS 
+RESULT T-EO: K(Z_F) SATISFIES (with rot3 t and cyc3 available on the token; A2 = Aut(K))
+CHECK E2a U(w) unitary, Ad U(w) fixes every defect: PASS 
+CHECK E2b N = Ad U(-1) involution; moves a certified K-point: PASS 
+CHECK E2c J = actC nflip off-axis: x_i fixed by J N J^-1, moved by Ad U(w') iff w' = 1 fails; x_ii moved: PASS solutions of Ad U(w') x_i = x_i: [{wp: 1}]
+RESULT T-OR(drivability): K(Z_F) SATISFIES (pair-level flow Ad U(w), NOT Ad U(-1), J = actC nflip)
+CHECK E3a V4 = {I, R_x(pi), R_y(pi), R_z(pi)} on either token certified in Aut(K): PASS 
+INFO pool: 64 elements, 64 certified in K
+INFO witness S=R_z(pi/2)_C: min <g z_s, y> = -1/8 at s = (1, 1), y = Rx(pi/2)_T p_(1, 1)
+INFO witness S=R_z(pi/2)_T: min <g z_s, y> = -1/8 at s = (1, 1), y = Rx(pi/2)_C p_(1, -1)
+INFO witness cyc3_C: min <g z_s, y> = -1/8 at s = (1, 1), y = cyc3_C p_(1, 1)
+INFO witness cyc3_T: min <g z_s, y> = -1/8 at s = (1, 1), y = cyc3_C p_(1, -1)
+INFO witness cyc3^-1_C: min <g z_s, y> = -1/8 at s = (1, 1), y = cyc3^-1_C p_(1, 1)
+INFO witness cyc3^-1_T: min <g z_s, y> = -1/8 at s = (1, 1), y = cyc3^-1_C p_(-1, 1)
+INFO witness R_z(th)_C: min <g z_s, y> = -1/10 at s = (1, 1), y = Rx(pi/2)_T p_(1, 1)
+INFO witness R_z(th)_T: min <g z_s, y> = -1/10 at s = (1, 1), y = Rx(pi/2)_C p_(1, -1)
+INFO witness R_x(th)_C: min <g z_s, y> = -1/10 at s = (1, 1), y = Rx(pi/2)_C p_(1, 1)
+INFO witness R_x(th)_T: min <g z_s, y> = -1/10 at s = (1, 1), y = Rx(pi/2)_T p_(1, 1)
+CHECK E3b S, cyc3^{+-1}, R_z(th), R_x(th) on either token move K out (certified witnesses): PASS 
+RESULT T-PRE: VIOLATED BY K(Z_F) AS SOON AS ONE OF S, J, R_z(th), R_x(th) IS AVAILABLE ON A TOKEN; SATISFIED WITH A1 = V4
+CHECK E4 monomial dictionary: diag(1,(3+4i)/5) -> R_z(th), X -> R_x(pi) = nflip: PASS 
+CHECK E4 symbolic flow law <R_z(c,s)_tau z_t, R_z(pi/2)_tau p_t> = -s/8 with certified witness: PASS 
+CHECK E4 rational instance (3/5, 4/5) negative: PASS value = -1/10
+RESULT T-CS(substratum class): VIOLATED BY K(Z_F) (continuous phase flow about z)
+CHECK E5 gateFlow of the NOT is R_x(pi t): v = i -> R_x(pi/2), v = -1 -> nflip, v = (3+4i)/5 -> R_x(th): PASS 
+CHECK E5 every-level clause = (b) for R_x(th): violated (certified witness); level 1 preserves the ball: PASS witness = -1/10
+RESULT T-LFE: EVERY-LEVEL CLAUSE VIOLATED BY K(Z_F), LEVEL 1 SATISFIED
+CHECK C2 every pool element is PSD with trace 1 (rotated Bell projectors; Q3 kept): PASS 
+CHECK C3 symmetries nflip, rot3(pi) give no negative pairing over the certified pool: PASS 
+CHECK C4 the modeled local actions keep Q3 on certified pool elements: PASS 
+SUMMARY 18/18 checks pass
+VERDICT B2-TRANSCRIPTIONS-EXACT

@@ -15,3 +15,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-10T20:17Z — `b1_hidden.py` run 1: 17/17 PASS, VERDICT B1-HIDDEN-EXACT. Replay byte-identical (cmp on out
   and err). No failed runs.
 - 2026-10-10T20:19Z — commit B1: NOTES-B1.md, b1_hidden.{py,out,err,replay.*}, RESULTS rows B1-1 to B1-4.
+- 2026-10-10T20:21Z — decision: B2 transcribes each principle with the pair family as independent data (never as
+  tensor products of token families), and certifies `Aut(K(Z_F))` membership by permutation of `Z_F` + ipW-orthogonality
+  + explicit unitary implementation; non-membership only through `K ⊆ K*`. Decision rule written before the first run.
+- 2026-10-10T20:24Z — `b2_transcriptions.py` pre-run edits (C2 wording; simplify → expand). Run 1: 18/18 PASS. Record
+  defect: the header misstated the pre-run-edit time as 20:31Z (actual ≈ 20:24Z). Run 1 kept as `.run1.*`; the comment
+  was corrected and the script re-run (output byte-identical to run 1), then replayed byte-identically.
+- 2026-10-10T20:27Z — commit B2: NOTES-B2.md, b2 script/outputs/replay/run1, RESULTS rows B2-1 to B2-5. Verdict:
+  CONFIRMING stage 5 (no principle at L excludes K(Z_F) through a clause that passes the disguise test).
