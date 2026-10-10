@@ -23,6 +23,8 @@ status. It records two kernel facts the thread's no-go envelope uses.
 namespace OIBridge
 namespace OriginEnvelope
 
+open scoped Matrix
+
 variable {S : Type} [Fintype S] [DecidableEq S]
 
 /-! ### Section A — dephasing covariance -/
