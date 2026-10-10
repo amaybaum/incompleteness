@@ -1,0 +1,63 @@
+== o2_mechanisms ==
+
+-- A12: A1-A2, all 24 bijections of {(z, x)}, z visible, x hidden
+   induced visible channels (rows: input z; entries P(z'|z)), with the hidden x fresh and uniform:
+     ((Fraction(0, 1), Fraction(1, 1)), (Fraction(1, 1), Fraction(0, 1)))  [flip]  x4
+     ((Fraction(1, 2), Fraction(1, 2)), (Fraction(1, 2), Fraction(1, 2)))  [replace by uniform]  x16
+     ((Fraction(1, 1), Fraction(0, 1)), (Fraction(0, 1), Fraction(1, 1)))  [identity]  x4
+A12a     PASS  all 24 induced channels are DC and lie in {identity, flip, replace by uniform} (3 distinct)
+A12b     PASS  composite sandwich, 24 x 24 x 2 seeds: V_max = 0
+   => A12: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: identity / flip / replace by uniform (classical); class: FAILED-ENVELOPE
+
+-- A36: link-coupled, centre-independent, linear second-order rule on a ring (N=3, K=2, q=2)
+A36a     PASS  the rule is a bijection of the 4096 configurations
+A36b     PASS  A5 linearity over F_2: phi(s) = sum of phi on basis vectors, for all 4096 states
+A36c     PASS  A6 gauge covariance: phi_{G M G^-1}(G s) = G phi_M(s), three gauge fields, all states
+A36d     PASS  passive sandwich (two rule steps): P_coh(0) = 1/2, P_deph(0) = 1/2; one step P(0|0) = 1/2 (the rule is a permutation of configurations, so O1-T3 applies on the matrix carrier)
+   => A36: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: classical stochastic, P(z1=0|z0=0) = 1/2; class: FAILED-ENVELOPE
+
+-- PH: phase interventions
+PHa      PASS  36 diagonal phase pairs: monomial, DC, V_max = 0 (Z and the quarter phase included)
+   => PH: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: the identity on populations (phases only); class: FAILED-ENVELOPE
+
+-- RW: read-write coupling (ReadWriteFamily shape: a bijection fixing every state outside {a, b})
+RWa      PASS  for |S| = 3, 4, 5 the admissible couplings at any knob value are exactly {1, swap(a,b)}
+   => RW: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: 1 or the swap at every knob value (monomial; V = 0 by A12/O1-T3); class: FAILED-ENVELOPE
+
+-- ANC: ancilla coupling with readback (exhaustive in o1_envelope M3/M4) and the record instrument
+ANCa     PASS  recordInstr's channel is DC; into a blank register it leaves the visible populations unchanged
+   => ANC: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: classical (DC) channels; see o1_envelope M3, M4c (2304 runs, V = 0); class: FAILED-ENVELOPE
+
+-- TAV: time averaging over the orbit of a cyclic permutation of the four configurations
+TAVa     PASS  the orbit average is DC (a mixture of permutations); sandwich P_coh = 1/2, P_deph = 1/2
+   => TAV: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: P(z'|z=0) = (1/2, 1/2) (doubly stochastic); class: FAILED-ENVELOPE
+
+-- CLO: closure of monomial generators with infinite-order phases
+CLOa     PASS  all 121 words of length <= 4 are monomial (the monomial group is closed)
+   => CLO: input non-monomial = False; readout = passive; V_max = 0; induced visible operation: monomial unitaries only; DC is a closed linear condition (o1_envelope M7); class: FAILED-ENVELOPE
+
+-- G1-G4: routes that pass the witness because the coherence is in their input
+G1a      PASS  hMat by hypothesis: P_coh = 1, P_deph = 1/2
+   => G1: input non-monomial = True; readout = passive; V_max = 1/2; induced visible operation: the balanced mixer hMat itself; class: FAILED-DISGUISE
+G2a      PASS  gate flow at t = 1/2: P_coh(1) = 1, P_deph(1) = 1/2; generator projector (1-X)/2 non-monomial
+   => G2: input non-monomial = True; readout = passive; V_max = 1/2; induced visible operation: sqrt(X) = proj_+ + i proj_- (the flow's complex interpolation); class: FAILED-DISGUISE
+G3a      PASS  rot(pi/4) datum: P_coh = 1, P_deph = 1/2
+   => G3: input non-monomial = True; readout = passive; V_max = 1/2; induced visible operation: the postulated real rotation rot(pi/4); class: FAILED-DISGUISE
+G4a      PASS  every tested lift has |U_ij|^2 = 1/2, is unitary and non-monomial; the classical two-step P(0|0) = B^2_00 = 1/2 equals the DEPHASED branch 1/2, the coherent branch 1 is the lift's
+G4b      PASS  the coherent prediction of (U(u), U(u')^dag) depends on the chosen phases: values [Fraction(4, 13), Fraction(1, 2), Fraction(49, 65), Fraction(4, 5), Fraction(9, 10), Fraction(25, 26), Fraction(1, 1)]
+   => G4: input non-monomial = True; readout = passive; V_max = 1/2; induced visible operation: a unitary dilation chosen for B; phases not fixed by B; class: FAILED-DISGUISE
+
+-- G5: the knowledge-balance readout (inputs: substratum permutations only)
+G5a      PASS  KB-D sandwich with the substratum swap: P_coh = 1, P_deph = 1/2 (see o1_fieldneutral F8 for the body)
+   => G5: input non-monomial = False; readout = KB-D (reading z re-randomizes the memory x); V_max = 1/2; induced visible operation: the swap acting on the toy bit's octahedron; class: CONDITIONAL (KB-D (reading z re-randomizes the memory x))
+
+-- countercontrols
+CC1      CC-OK (False as required)  V = 0 on the A12 composite with (H (x) 1) composed into both mixers: P_coh = 1, P_deph = 1/2
+CC2      CC-OK (False as required)  all A12 induced channels stay DC after composing with Ad H
+CC3      CC-OK (False as required)  the lift's coherent two-step prediction is fixed by B
+CC4      CC-OK (False as required)  the classifier calls a non-monomial-input mechanism with V > 0 FAILED-ENVELOPE
+
+classes: A12: FAILED-ENVELOPE; A36: FAILED-ENVELOPE; PH: FAILED-ENVELOPE; RW: FAILED-ENVELOPE; ANC: FAILED-ENVELOPE; TAV: FAILED-ENVELOPE; CLO: FAILED-ENVELOPE; G1: FAILED-DISGUISE; G2: FAILED-DISGUISE; G3: FAILED-DISGUISE; G4: FAILED-DISGUISE; G5: CONDITIONAL (KB-D (reading z re-randomizes the memory x))
+OK -- 17/17 checks, 4 countercontrols expected-false, no CANDIDATE
+VERDICT O2: FAILED by the envelope: ['A12', 'A36', 'PH', 'RW', 'ANC', 'TAV', 'CLO']; FAILED by the disguise test: ['G1', 'G2', 'G3', 'G4']; CONDITIONAL on an access
+  change: ['G5']. No mechanism with monomial input and the stated passive readout yields a witness.

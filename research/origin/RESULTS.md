@@ -34,3 +34,31 @@ under `experiments/`; each has `.py`, `.out`, `.err` (exit marker), `.replay.out
 |---|---|---|---|---|
 | `o1_envelope.py` | `9390d8a5…7d9fd9` | `a161ea05…c8a695` | 14/14 checks, 6 countercontrols expected-false, VERDICT ENVELOPE-M HOLDS | byte-identical |
 | `o1_fieldneutral.py` | `965eb41d…acd5d` | `0750e15c…2073` | 16/16 checks, 4 countercontrols expected-false, VERDICT ENVELOPE-F HOLDS | byte-identical |
+
+## O2 — candidate mechanisms for a discrete mixer
+
+Each mechanism: smallest exact model, induced visible operation, non-monomiality, sandwich, disguise test
+(`experiments/o2_mechanisms.py`, classification rule fixed in the header before run 1).
+
+| id | statement | label | evidence | where |
+|---|---|---|---|---|
+| O2-A12 | A1–A2 (finite configurations, bijective dynamics, selectable permutations): the 24 bijections of {0,1}² induce only identity, flip, replace-by-uniform on the visible bit (all DC); composite sandwich V = 0. | FAILED (envelope; O1-T3) | [X] A12a–b, CC1 live detector; [K SubstratumInterface.lean:91] | NOTES-O2 §1 |
+| O2-A36 | A3–A6 with the link coupling: a centre-independent, linear, link-coupled second-order rule (N = 3, K = 2, q = 2) is a bijection of the 4096 configurations, gauge-covariant under M → G M G⁻¹; hence monomial on the carrier; visible bit uniform after one step. The reconstruction's U(3)×U(2)×U(1) is complex representation theory downstream of the input E1. | FAILED (envelope; the complex route imports E1) | [X] A36a–d; Substratum.md:122, :162 | NOTES-O2 §1 |
+| O2-PH | Phase interventions (Z, quarter phase, rational phases): monomial, DC, V = 0. | FAILED (envelope) | [X] PHa | NOTES-O2 §1 |
+| O2-RW | Read-write coupling: at every knob value the coupling is 1 or the swap. | FAILED (envelope) | [X] RWa; [K ReadWriteControl.lean:96, CoherentContinuumSource.lean:292] | NOTES-O2 §1 |
+| O2-ANC | Ancilla coupling with readback and feed-forward; record writing (`recordInstr`): DC; memory, not coherence; the recorder into a blank register leaves populations unchanged. | FAILED (envelope) | [X] ANCa; O1 M3, M4c–d; [K InternalObserver.lean:249, :290] | NOTES-O2 §1 |
+| O2-TAV | Coarse-graining and time averaging: mixtures of permutations, DC, V = 0. | FAILED (envelope) | [X] TAVa | NOTES-O2 §1 |
+| O2-CLO | The completion's closure: monomial group closed; DC a closed linear condition; passivity survives the completion. | FAILED (envelope) | [X] CLOa, O1 M7; [W] O1-T5 | NOTES-O2 §1 |
+| O2-G1 | `HasAncillaQubitInterference`: passes (1, 1/2); the coherence is the hypothesis `availExt … (ancMix A)`. | FAILED (disguise) | [K AncillaInterference.lean:161–163] + [X] G1a | NOTES-O2 §2 |
+| O2-G2 | `LayerFlowExecutable` / gate flow at t = 1/2: passes; coherence enters through the complex phase on the swap's −1 eigenspace; not derived by the substratum theory. | FAILED (disguise) | [K LiftAudit.lean:47, :200] + [X] G2a | NOTES-O2 §2 |
+| O2-G3 | State-mixing datum `rot(π/4)` / `fixedGateTheory`: passes; a postulate; with one angle DerivedOI ∧ FixedGateSourced ∧ ¬QM. | FAILED (disguise) | [K StateMixingCoupling.lean:45, :50; DiscreteCompletion.lean:1929, 1933, 1948] + [X] G3a | NOTES-O2 §2 |
+| O2-G4 | Unistochastic lift of the balanced transition: every lift is a balanced mixer, but its coherent predictions are not fixed by B (seven values found), and the substratum's own two-step statistic is the dephased 1/2. | FAILED (disguise) | [K BarandesTuple.lean:430] + [X] G4a–b, CC3 | NOTES-O2 §2 |
+| O2-G5 | Knowledge balance: with all permutations, the counting measure and KB-D (reading z re-randomizes the memory), the substratum swap is a balanced extreme mixer of an octahedral toy bit; exact witness (1, 1/2). | CONDITIONAL (KB-D; [X] exact on the model) | [X] G5a, O1 F8; [L] Spekkens 2007 | NOTES-O2 §3 |
+| O2-KB | No premise at L supplies KB-D; four candidate sources closed (recorder, bath relaxation, incompleteness of observation, native readout); the native Lüders readout and A5 passivity contradict it. | OPEN (sourcing of KB-D); ruled out on the stated access ([W] + [X] O1 F2, F7) | [K OperationalAssembly.lean:658]; [A oistage A5] | NOTES-O2 §3 |
+| O2-V | Verdict O2: no mechanism from the stated resources sources a discrete coherent mixer; every passing construction either imports the coherence (G1–G4) or changes the observation law (G5). | CONDITIONAL (on O1-T3, O1-T5 at their status) | as above | NOTES-O2 §0 |
+
+**Script ledger (O2).**
+
+| script | sha256 (script) | sha256 (output) | result | replay |
+|---|---|---|---|---|
+| `o2_mechanisms.py` | `14caa86b…5be627` | `fce8a314…02f444` | 17/17 checks, 4 countercontrols expected-false, no CANDIDATE | byte-identical |
