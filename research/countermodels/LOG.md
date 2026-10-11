@@ -638,3 +638,62 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   at node close. Applied from this entry on.
 - 2026-10-11T10:33:52Z — **C23 independent checker run 1** (`experiments/c23_check.py`, reads only the certificate): 9/9,
   `CHECK C23-CERTIFICATE-OK`; replay byte-identical. Every prediction of S0 for the checker held.
+- 2026-10-11T10:43Z (direction dated 10:38Z; received before the 10:43:29Z `date -u` reading) — **owner's direction relayed by the coordinator**: round 5 is narrowed — complete C23;
+  C24 and C25 move to round 6; no further builds (the three dispatches are used); finish C23 without any build, then write
+  the round-5 close (RESULTS rows, LOG, handoff proposals, with C24–C25 recorded as carried forward), push, and stop.
+  Applied. C23 was already closed (`9fed24fa`); no C23 script or analysis needed changes. **C24 at the narrowing**: no S0
+  written, no script run in the repository; only scratch exploration in the session scratchpad (`c24/x24_search.py`, an
+  exact search for Gaussian-integer states with profile on `∂Circ`, and written reasoning) — guidance, not evidence; nothing
+  of it is recorded as a result. Directions noted for round 6, unverified: (a) under T every pure member `v` has
+  `c(P_v) = 9`, so any member `y` with `v†yv = 0` must satisfy `yv = 0` at every pure member (a global form of C14-4's
+  smooth-contact condition); (b) two explicit classes of `K_circ` appear to violate it — those containing a pure member with
+  profile on `∂Circ` in the open simplex (through the dual diagonal member of `Circ`), and those containing C7's element
+  `w = P_u + ½diag_ψ(−1, 1, 1, 1)` (at the reachable state `ψ₁ + ψ₂`) — to be stated, proved and checked exactly in round 6.
+  C25 not started.
+- 2026-10-11T10:44Z — **record correction** (no earlier line edited): the entry headed "2026-10-11T08:34Z (recorded 10:2xZ)"
+  (C23's cross-branch reads) carries a placeholder; it was written between the `date -u` readings 10:22:14Z and 10:26:04Z.
+  The reads themselves took place at about 08:34Z, before the interruption, as that entry says.
+- 2026-10-11T10:47Z — **round 5 closed** (owner's narrowing of 10:38Z applied; C23's last commit `9fed24fa`, pushed).
+  - **Nodes.** STEP 0 receipts (`7f38a089`): HO-18 v2, HO-27, HO-28, HO-33, HO-34, HO-35, HO-36 (v1), byte-identical to the
+    overview blobs at `4c4a02b1`. **C22** — Theorem S′ for compact defect families design-built: CONJECTURE [D] by
+    Amendment A1 (run `38131214451` BUILT); the S0 design run (two dispatches) FAILED (design), kept; the closedness of the
+    conic hull over a compact base stays [W] (C22.3); the circle cones' H3 now rests on [D] + [W] (C22.4). **C23** —
+    OBSTRUCTED: universal orthogonal pair for the tower's closure `G_T`, rank-one route closed (with the Bell corner and
+    the mixtures under an overlap condition), the balanced engine certifies nothing; certificate independently checked
+    (9/9); explicit `G_T` cone OPEN (existence at claim (D)); not evidence for outcome (D). **C24, C25** — carried forward
+    to round 6 (not run; C24.0, C25.0).
+  - **Rows appended** (16; no earlier row changed): C22.1 (CONJECTURE [D]), C22.2f (FAILED, design), C22.3 (CONDITIONAL),
+    C22.4 (CONDITIONAL), C22.4f (FAILED, a prediction), C23.1–C23.5 (CONDITIONAL), C23.6 (OPEN), R5.read (record), C24.0,
+    C25.0 (OPEN, carried forward). None CERTIFIED.
+  - **CI design runs** (3 of 3 dispatches, all `workflow_dispatch` on `dev-countermodels/c22-compact`, cut from L; none
+    cancelled; each run concluded `failure` through its Mathlib bridge job only, 32 other jobs green):
+    run `38124380741` (head `6cb76f96`, created 08:19:12Z, completed 08:50:08Z; job `114425574221`): Build FAILED (errors
+    90:42, 375:79, 536:11), `CmSprimeCompact` prints 38 = 32 standard + 6 `sorryAx` (error recovery), gate skipped, so
+    `lean-axioms` not run; run `38125067948` (head `e4ef2e46`, created 08:30:53Z, completed 09:01:31Z; job `114427630399`):
+    Build FAILED (error 377:2, `mem_box`), prints 38 = 32 + 6 `sorryAx`, gate skipped; run `38131214451` (head `a69987bd`,
+    created 10:14:05Z, completed 10:31:25Z; job `114445772534`): Build success, prints 38/38 on `[propext, Classical.choice,
+    Quot.sound]` (and `CmSprime`'s 78/78), `lean-axioms` PASS (5976 named results, no `sorryAx`), release gate red only at
+    `lean-manuscript` (2 problems: the two modules have no census family).
+  - **Cross-branch reads** (each logged with commit and sha256): `research/overview` @ `4c4a02b1` (the seven receipts;
+    AUDIT-COUNTERMODELS-R4.md; HO-30, HO-31, HO-32 for item numbering) and @ `51cce8ac` (OVERVIEW.md lines 906–950, on the
+    coordinator's authorization); `research/bridge` @ `a34d20b5` (NOTES-B17, NOTES-B10, `b17_tower.py` lines 1–80, for C23).
+    `research/equivalence` @ `ab6788b9` (authorized for C25) was not read (C25 not started). `research/archive` (inherited
+    copy) read freely: `pt/Z/RESULT.md`, `pt/Z/z2e_s2_surgery.py` (C23's Bell corner).
+  - **Handoff proposals**: HP-countermodels-10 (→ overview, equivalence, bridge: S′ compact form design-built, hypotheses
+    explicit, provenance through Amendment A1), HP-countermodels-11 (→ bridge, equivalence, origin, coordinator: the
+    obstruction for the tower's closure with its certificate).
+  - **Integrity sweep at close** (10:43Z): final replays of `c22_preflight`, `c23_torus` (it rewrites the certificate; the
+    file is unchanged in git), `c23_check` byte-identical (`cmp`, `.out` and `.err`, every `.err` `exit 0`); the inbox
+    receipts equal the overview blobs at `4c4a02b1`; nothing outside `research/countermodels/` changed on this branch since
+    `644bf0a1`; RESULTS.md and LOG.md have no deleted line since `644bf0a1`; the hashes quoted in the two proposals match the
+    files. The dev branch `dev-countermodels/c22-compact` (`6cb76f96`, `e4ef2e46`, `a69987bd`) carried the design runs;
+    nothing merged, no pull request.
+  - **Deviations.** (1) C22's third dispatch was spent under Amendment A1, after the S0 rule had reserved it for C23 (whose
+    design needed no Lean) and had declared C22 FAILED after two dispatches; the amendment was written and committed before
+    the dispatch, the S0 verdict is kept (C22.2f), and the [D] label is attributed to the amendment run. (2) Failed runs kept:
+    preflight runs 1–2 of C22 (a harness crash; a refuted prediction), the two failed design texts. (3) C23's S0 was
+    drafted at 08:34:52Z, interrupted, and revised at 10:26Z–10:32Z before any C23 script ran (the draft kept in the session
+    scratchpad, not committed). (4) Scratch computations (float and exact) chose C23's tightness parameters before its run
+    and explored C24 before the narrowing; none is evidence. (5) The session was stopped by a usage limit 08:35Z–10:06Z; the
+    trailer changed at 10:07Z. (6) One committed LOG heading carries a time placeholder, corrected by the 10:44Z note.
+    (7) C24 and C25 were not done (owner's narrowing).
