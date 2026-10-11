@@ -30,6 +30,7 @@ namespace OIBridge
 namespace EqvTransport
 
 open QuasilocalCharacterization QuasilocalAlgebra RegionTower
+open scoped Matrix
 
 noncomputable section
 
@@ -134,7 +135,8 @@ theorem sum_unitM_zeroOne (s : Finset C) (c c' k : C) :
     · left
       apply Finset.sum_eq_zero
       intro f hf
-      rw [unitM_apply, if_neg (fun h => hc (h.1 ▸ hf))]
+      have hfc : f ≠ c := fun hfc' => hc (hfc' ▸ hf)
+      rw [unitM_apply, if_neg (fun h => hfc h.1)]
   · left
     apply Finset.sum_eq_zero
     intro f _
@@ -327,7 +329,7 @@ theorem finiteStage_transport (α : Matrix C C ℂ ≃⋆ₐ[ℂ] Matrix C C ℂ
         rcases h01 c c d d with h | h
         · exact h
         · exact absurd (hsupp c d h) hd
-    · rw [if_neg (fun h => hde (h.1.trans h.2.symm))]
+    · rw [if_neg (show ¬(d = s c ∧ e = s c) from fun h => hde (h.1.trans h.2.symm))]
       exact hdiag c d e hde
   -- and every unit goes to the unit of the permuted configurations
   have hunit : ∀ c c', α (unitM c c') = unitM (s c) (s c') := by

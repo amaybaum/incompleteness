@@ -266,6 +266,7 @@ import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
 import OIBridge.EqvK2Converse
 import OIBridge.EqvTransport
+import OIBridge.EqvPowerCone
 
 namespace OIBridge
 
