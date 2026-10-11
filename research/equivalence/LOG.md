@@ -1054,3 +1054,8 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   H3, A_miss ⇒ `K = Q3`, no `ReachPure`), `Q3_cnot`, `pairCone_eq_Q3_iff_drive_exact` (given H1 and H3, `K = Q3` iff
   H2 and A_miss; the two directions separate theorems). The `lean/` copy is byte-identical to the dispatched blob
   (`682f187e`). All three dispatches used; none remains.
+- 2026-10-11T11:19Z — `experiments/e8_cite_check.py` run 6 (run 5's files kept as `.run5.*`; the header extends the
+  scope to the round-5 E19 documents and the round-5 design modules, lists another thread's design-module citations as
+  out of scope, and leaves the decision rule as fixed before run 2): 75 distinct citations (158 occurrences), 71 named
+  pairs, X1–X3 failing as stated, `VERDICT CITATIONS-RESOLVE`; `CmSprime.lean:1067` (NOTES-E19 S0) listed out of
+  scope; replay byte-identical (py `14623c27…`, out `a8a0f83a…`). RESULTS row R-CITE.5.

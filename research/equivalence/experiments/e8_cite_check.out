@@ -1,3 +1,4 @@
+out of scope (another thread's design module, research/countermodels @ 644bf0a1): CmSprime.lean:1067 in NOTES-E19.md
 countercontrols: X1 ["C2 X1: TransitiveBody.lean:603 does not begin a declaration: '    (hconv : Convex ℝ Ω) (hi : (interior Ω).Nonempty) {G : Set ((Fin d → ℝ) ≃ᵃ[ℝ'"]; X2 ['C3 X2: `eball` cited at TransitiveBody.lean:602, which declares exists_affine_image_eq_eball']; X3 ['C1 X3: NoSuchModule.lean:1 (file missing or too short)']
 cite BoundaryAudit.lean:100 -> psdFactorization_discharged
 cite CarrierGeneralOIPlus.lean:198 -> oiPlus_of_qm
@@ -39,6 +40,7 @@ cite KInfFoundations.lean:149 -> fullEffects
 cite KInfFoundations.lean:160 -> CentrallySymmetric
 cite KInfFoundations.lean:264 -> ElementaryDrivability
 cite KInfFoundations.lean:386 -> rotLin
+cite KInfFoundations.lean:416 -> cycEquiv
 cite KInfFoundations.lean:529 -> not_drivable_Icc
 cite KInfFoundations.lean:590 -> singletonFaces_of_relStrictConvex
 cite KInfFoundations.lean:617 -> relStrictConvex_of_strictConvex
@@ -73,5 +75,5 @@ cite SubstratumSource.lean:86 -> QuantumArchitecture
 cite TransitiveBody.lean:518 -> eball
 cite TransitiveBody.lean:602 -> exists_affine_image_eq_eball
 cite TransitiveBody.lean:651 -> chartBody_eq_eball
-citations: 74 distinct (153 occurrences), named pairs: 69
+citations: 75 distinct (158 occurrences), named pairs: 71
 VERDICT CITATIONS-RESOLVE

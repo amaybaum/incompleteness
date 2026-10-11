@@ -36,8 +36,15 @@ the copy that built in run 38096511360, which contains every line the earlier co
 e8_cite_check.run4.{py,out,err,replay.out,replay.err}.  Run 5 (round 4) extends the scope to the round-4 documents --
 preregistration-drafts/S6, NOTES-E15..E18, the RESULTS rows R-E15.* .. R-E18.*, the LEDGER's round-4 notes (scanned
 with the earlier notes), handoff-proposals/HP-11..HP-13 -- and applies the design-module rule to the round-4 design
-modules EqvK2Converse, EqvTransport (the repaired copy) and EqvPowerCone.
-DECISION RULE (fixed before run 2; unchanged for runs 3, 4 and 5).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
+modules EqvK2Converse, EqvTransport (the repaired copy) and EqvPowerCone.  Run 5's files are kept as
+e8_cite_check.run5.{py,out,err,replay.out,replay.err}.  Run 6 (round 5) extends the scope to the round-5 documents of
+node E19 -- NOTES-E19.md, the RESULTS rows R-E19.*, the LEDGER's round-5 notes (scanned with the earlier notes),
+handoff-proposals/HP-equivalence-14..17 -- and applies the design-module rule to the round-5 design modules EqvK2Block,
+EqvOneDictionary and EqvK2Generation.  A citation of another research thread's design module at a recorded commit
+(CmSprime: research/countermodels @ 644bf0a1; BridgeDictionary, BridgeConverge: research/bridge @ a34d20b5) is out of
+this check's scope: it is listed, not resolved.  The deferred work-in-progress documents NOTES-E20 and NOTES-E21 are
+not scanned.
+DECISION RULE (fixed before run 2; unchanged for runs 3, 4, 5 and 6).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
 20 distinct citations are found, and X1, X2, X3 each fail exactly as stated.  Otherwise "VERDICT NOT RENDERED" followed by
 each failing citation or countercontrol.
 """
@@ -62,7 +69,12 @@ DOCS = ['preregistration-drafts/S1-kinf-seed.md', 'preregistration-drafts/S2-kin
         'NOTES-E15.md', 'NOTES-E16.md', 'NOTES-E17.md', 'NOTES-E18.md',
         'handoff-proposals/HP-11-coordinator-round4-ho18-s6-decisive-question.md',
         'handoff-proposals/HP-12-countermodels-bridge-hybrid-token-dimension-count.md',
-        'handoff-proposals/HP-13-bridge-origin-invariance-not-availability.md']
+        'handoff-proposals/HP-13-bridge-origin-invariance-not-availability.md',
+        'NOTES-E19.md',
+        'handoff-proposals/HP-equivalence-14-coordinator-e19-reachpure-derived-full-flow-equivalence.md',
+        'handoff-proposals/HP-equivalence-15-bridge-origin-drive-target-exactly-h2-amiss.md',
+        'handoff-proposals/HP-equivalence-16-countermodels-generation-tools-where-exotic-cones-must-break.md',
+        'handoff-proposals/HP-equivalence-17-coordinator-e20-e22-deferred-state.md']
 
 
 def text_of(doc):
@@ -72,10 +84,10 @@ def text_of(doc):
 texts = [(d, text_of(d)) for d in DOCS]
 res = text_of('RESULTS.md')
 rows = '\n'.join(l for l in res.split('\n')
-                 if re.match(r'\| R-(AUDIT\.1|E8\.|E9\.|E10\.|E11\.|E12\.|E13\.|E14\.|E15\.|E16\.|E17\.|E18\.)', l))
-texts.append(('RESULTS.md (round-2, round-3 and round-4 rows)', rows))
+                 if re.match(r'\| R-(AUDIT\.1|E8\.|E9\.|E10\.|E11\.|E12\.|E13\.|E14\.|E15\.|E16\.|E17\.|E18\.|E19\.)', l))
+texts.append(('RESULTS.md (round-2 to round-5 rows)', rows))
 led = text_of('LEDGER.md')
-texts.append(('LEDGER.md (round-2, round-3 and round-4 notes)', led[led.index('## Round-2 notes'):]))
+texts.append(('LEDGER.md (round-2 to round-5 notes)', led[led.index('## Round-2 notes'):]))
 
 DECL = re.compile(r'^\s*(?:@\[[^\]]*\]\s*)*(?:private\s+|protected\s+|noncomputable\s+)*'
                   r'(theorem|lemma|def|abbrev|structure|class|instance)\s+([^\s(:{\[]+)')
@@ -97,7 +109,10 @@ DESIGN = {'EqvKnDesc': 'EqvKnDesc.lean', 'EqvOmega4': 'EqvOmega4.lean', 'EqvLeve
           'EqvK2Schema': 'EqvK2Schema.lean', 'EqvK2Converse': 'EqvK2Converse.lean',
           'EqvTransport': 'EqvTransport.lean', 'EqvPowerCone': 'EqvPowerCone.lean',
           'StageSeed': 'StageSeed.lean', 'CopyCovariance': 'CopyCovariance.lean', 'EqvSeams': 'EqvSeams.lean',
-          'EqvSeamsControl': 'EqvSeamsControl.lean'}
+          'EqvSeamsControl': 'EqvSeamsControl.lean', 'EqvK2Block': 'EqvK2Block.lean',
+          'EqvOneDictionary': 'EqvOneDictionary.lean', 'EqvK2Generation': 'EqvK2Generation.lean'}
+CROSS = {'CmSprime': 'research/countermodels @ 644bf0a1', 'BridgeDictionary': 'research/bridge @ a34d20b5',
+         'BridgeConverge': 'research/bridge @ a34d20b5'}
 cache = {}
 
 
@@ -141,6 +156,11 @@ def check_all(found, named):
     return fails, decl_at
 
 
+out_of_scope = sorted(set((doc, f, ln) for doc, f, ln in found if f in CROSS))
+found = [c for c in found if c[1] not in CROSS]
+named = [c for c in named if c[2] not in CROSS]
+for doc, f, ln in out_of_scope:
+    print('out of scope (another thread\'s design module, %s): %s.lean:%d in %s' % (CROSS[f], f, ln, doc))
 fails, decl_at = check_all(found, named)
 x1, _ = check_all([('X1', 'TransitiveBody', 603)], [])
 x2, _ = check_all([('X2', 'TransitiveBody', 602)], [('X2', 'eball', 'TransitiveBody', 602)])
