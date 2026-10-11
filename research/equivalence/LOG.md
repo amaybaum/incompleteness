@@ -236,3 +236,16 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   called with one argument in C6's instance list); kept as `e11_k2_dict.run1.{py,out,err}`. Run 2 changes only those two
   calls (`R(0, 1)`, `R(1, 1)`), decision rule unchanged: 18/18, `COUNTER X1 fails as stated`, `COUNTER X2 fails as
   stated`, `VERDICT E11-DICT-STATEMENTS-EXACT`; replay byte-identical (py `09da63b1…`, out `2a73ca38…`). Prediction P-X held.
+- 2026-10-11T00:37Z — dispatch 2/3 (round 3): run **38099025197** (created 00:36:52Z, `workflow_dispatch` of `verify.yml`)
+  on `472835c5` (branch `dev-equivalence/k2-schema`, parent L; written by git plumbing into a scratch index, so no new
+  worktree: the diff from L is exactly `verification/lean-mathlib/OIBridge/EqvK2Schema.lean`, blob `3edcf9b0`,
+  byte-identical to `lean/EqvK2Schema.lean` at `97b6f080`, and the import line `import OIBridge.EqvK2Schema` after
+  `import OIBridge.RelcSelectC5` in `OIBridge.lean`, the recorded deviation). Still queued at 00:53Z.
+- 2026-10-11T00:54Z — E13 begun. NOTES-E13 S0 (written 00:46Z: productivity test, the candidate countermodel
+  Ω⋆ = Ω_{1/3}, the lemma on centrally symmetric self-dual bodies, predictions) and the exact probe
+  `experiments/e13_selfdual_body.py` (decision rule in its header, written 00:47Z) committed together, before the probe's
+  first run. The probe was edited before any run (pre-run review: the witness for outside points with `u' = 0` or
+  `v' = 0` rewritten, a guard against a zero direction vector, exact `cancel` in place of `simplify`); its decision rule
+  was not changed. Read at L for E13: `ElementaryDrivability` (KInfFoundations.lean:264), `ball3Drive` (:449),
+  `KInf1` (:1013), `SharpSeed` (OrbitGeneration.lean:65), `PreservesBody` (:69), `BoundaryTransitive` (:79),
+  `DenseBoundaryOrbit` (DenseOrbit.lean:53) and the hypotheses of TransitiveBody.lean:602 and DenseOrbit.lean:174.
