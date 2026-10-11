@@ -1,0 +1,13 @@
+T1   PASS  nflip on A and on B: permutes Z_F True, ipW-orthogonal True, Ad(X(x)I)/Ad(I(x)X) True
+T2   PASS  B4 closed reachable register set: 129 tables (b4 R8: 129); all certified in K(Z_F): True; actC nflip and actT nflip are bijections of it: True
+T3   PASS  w -> actT R_z(th0) w is linear (16x16 matrix reproduces it on 18 tables): True; (P) actT R_z(c,s) prodState(x,y) = prodState(x, R_z(c,s) y) symbolically: True
+T4   PASS  (A) fails for R_z(th0) in B4: min <y, actT R_z(th0) w0> = -2/5; code-path control (actC, b4 R11's case) min <y, actC R_z(th0) w0> = -2/5; y and E00 - y certified in K(Z_F)
+T5   PASS  Q3 control: <y_T, actT R_z(th0) phiW> = 9/20; <y_C, actC R_z(th0) phiW> = 9/20
+T6   PASS  countercontrol actT R_z(pi): images of the 129 tables certified in K(Z_F): True; min over 64 certified pool effects = 0
+T7   PASS  2 cos th0 = 6/5 (rational, not an integer); tr R_z(th0) = 11/5 on R^3, 16/5 on HVec 3, 64/5 on W 3 (actT)
+T8   PASS  monomial orders mod phase n=1..4: [16, 64, 256, 1024] (4^(n+1): True); G_n in G_(n+1): True; on W 3 tables: n=1 order 16, n=2 order 64
+T9   PASS  Lie closure of I(x)Z under CNOT, I(x)X: dim 2 = span{I(x)Z, Z(x)Z}: True; abelian: True; with V (B(V) = cyc3) on B: V Z V^* = [[0, 1], [1, 0]], [I(x)Z, I(x)VZV^*] != 0: True
+T10  PASS  opglue_probes.py R = [[3/5, -4/5], [4/5, 3/5]] unitary True; B(R) = [[-7/25, 0, 24/25], [0, 1, 0], [-24/25, 0, -7/25]] (rotation about y: True); trace 11/25 not an integer
+
+PASS 10  FAIL 0
+VERDICT B10-EXACT

@@ -255,3 +255,23 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - **HO-16.** Not relied on as a premise in B10–B12. Used as context in B10/B12 only to note where its eigenline-orbit
     mechanism does not apply (an identity component whose eigenlines are all products), and in B13 (if reached) for
     comparison. Not assumed: B3.C from it; EBF certified.
+- 2026-10-11T00:00:28Z — receipts commit 0ccc1bef pushed (remote head verified equal). Disk check: 7.3 GB free on a
+  shared container, no elan/lake; a local Mathlib install is again not attempted (the round-2 decision stands).
+  B10 design decision: the target is (T)θ₀ (one token, `actT R_z(θ₀)` and `actT nflip`). The premise is tested in
+  NOTES-B1's vocabulary only. B4's machine is copied from `b4_realization.py`, with its 129-table closure as a replay
+  control. The Bloch image of the realization theorem's own 3-4-5 rotation is read from opglue_probes.py in this tree,
+  which is identical to L (`git diff 9f9f8257 HEAD -- verification papers book` is empty). NOTES-B10 opened with the
+  productivity test and the S0 table at 00:00:28Z, before any run.
+- 2026-10-11T00:01:41Z — `b10_transfer.py` decision rule written. Pre-run edit at 00:03:56Z, logged in its header (T7
+  reads the three traces off the matrices); rule text unchanged.
+- 2026-10-11T00:04:05Z — `b10_transfer.py` run 1: 10/10 PASS, VERDICT B10-EXACT (00:04:22Z). Replay byte-identical
+  (00:04:42Z). All S0 predictions held, including the guessed value `−2/5` for `actT`.
+- 2026-10-11T00:08:06Z — NOTES-B10 §1–§7 written; RESULTS round-3 section opened with rows B10-1 … B10-7. Kernel
+  lines re-checked at L before citing: OIRealization.lean:360, SpectatorBridge.lean:223/:233,
+  ReferenceExtension.lean:447, StructuralClosure.lean:261, CompositeDimension.lean:97/:198/:201/:1220,
+  CompositionOrder.lean:348/:378. B10's verdict:
+  - H-T (one infinite-order frame-axis rotation's (A), with (W) and (P), plus the NOT) is the weakest premise;
+  - the disguise test FAILS;
+  - H-T is strictly weaker than H-OI_g, CONDITIONAL on claim (D);
+  - the continuous half is locally finite;
+  - B4 fails H-T at (A) alone.
