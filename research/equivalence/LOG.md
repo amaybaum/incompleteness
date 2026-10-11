@@ -1040,3 +1040,17 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (adds `OIBridge/EqvK2Generation.lean`, blob `682f187e`, byte-identical to `lean/EqvK2Generation.lean`, and one
   import line after `import OIBridge.EqvOneDictionary`; nothing else changed), pushed; `workflow_dispatch` of
   `verify.yml` via `gh api` at 11:04:40Z: run `38134245361` (head `f0c36cf9`), queued. No dispatch remains.
+- 2026-10-11T11:11Z — **dispatch 3 measured** (run `38134245361`, head `f0c36cf9`): Mathlib bridge job `114454742595`
+  (11:06:17Z–11:09:57Z) **Build success** (`Build completed successfully (3650 jobs)`); prints `EqvK2Generation`
+  12/12, `EqvK2Schema` 22/22, `EqvK2Converse` 9/9, `EqvK2Block` 11/11, `BridgeDictionary` 20/20, `BridgeConverge` 21/21,
+  `EqvOneDictionary` 10/10, every one `[propext, Classical.choice, Quot.sound]`, no error (warnings only); release
+  gate red only at `lean-manuscript` (7 problems: the seven unregistered design modules, by construction),
+  `lean-axioms` PASS (5961 named results, no sorry), `legacy-records` 303 intact, `v3-receipts` 43 hold, every other
+  step PASS. Log read with the GitHub MCP job-log tool, tail 5000 of 38389 lines (scratchpad, sha256 `f7a6d94b…`); the
+  run's other jobs were still queued or running at 11:10Z (the Lean kernel check job `114454742690` queued) — no job
+  or run was cancelled. **Reading** by NOTES-E19 §2's rule: `EqvK2Generation` BUILT (prediction 0.35 — it came true).
+  So [D]: `su_euler` (Euler factors without angles), `blockInvariant_of_drive` (H2 and A_miss give block invariance
+  by exact finite words), **`reachPure : ReachPure` (S6's L4 a theorem)**, `pairCone_eq_Q3_of_drive_exact` (H1, H2,
+  H3, A_miss ⇒ `K = Q3`, no `ReachPure`), `Q3_cnot`, `pairCone_eq_Q3_iff_drive_exact` (given H1 and H3, `K = Q3` iff
+  H2 and A_miss; the two directions separate theorems). The `lean/` copy is byte-identical to the dispatched blob
+  (`682f187e`). All three dispatches used; none remains.
