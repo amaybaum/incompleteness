@@ -300,3 +300,22 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     certificates tried in a `first` list. Every fallback alternative ends in `ring1`, which fails when the goal stays
     open (a `ring` that falls back to `ring_nf` would not trigger `first`'s next branch). The pair identities go
     through `conj_dict_right`/`conj_dict_left` and `module`. `dict_cnot` is entrywise.
+- 2026-10-11T00:38:46Z — dev branch `dev-bridge/r3-dict` created and pushed with git plumbing (a temporary index;
+  the research worktree and index untouched). Dev commit 3d554e7e, child of research/bridge 7fd01094. It adds
+  `verification/lean-mathlib/OIBridge/BridgeDictionary.lean` (blob fece97f4, a verbatim copy of
+  `lean/BridgeDictionary.lean`) and one import line in the root `verification/lean-mathlib/OIBridge.lean`, after
+  `RelcSelectC5`. Deviation, as in rounds 1–2: the root file is outside `OIBridge/`, and the lake library builds
+  only modules reachable from it. The branch is cut from research/bridge (its tree contains `research/archive/`).
+- 2026-10-11T00:38:46Z — **dispatch 1 of 3**: `verify.yml` on `dev-bridge/r3-dict`, run 38099134414 (queued
+  00:38:50Z, head 3d554e7e). At about 00:43Z, read through the jobs API: Mathlib bridge job 114351216052 has
+  **Build success** (00:39:40–00:42:00Z); the Release gate is in progress. No job is cancelled (round-3 rule).
+- 2026-10-11T00:44:30Z — run 38099134414 read via the jobs API and the job log (GitHub MCP job-log reader; the built-in
+  `gh` again refuses the log host redirect). Mathlib bridge job 114351216052: **Build success** (00:39:40–00:42:00Z;
+  "⚠ [3642/3644] Built OIBridge.BridgeDictionary (23s)", warnings only; "Build completed successfully (3644 jobs)").
+  All 20 module `#print axioms` lines are on [propext, Classical.choice, Quot.sound]. Release gate (00:42:00–00:42:52Z):
+  `lean-axioms` **PASS** (5880 named results, no sorry); FAIL only on `claims`, `duplicate`, `lean-manuscript` (by
+  construction). Job conclusion "failure", from the gate only. The other jobs of the run were left running; none
+  cancelled. Dispatches used: 1 of 3.
+- 2026-10-11T00:45:30Z — NOTES-B11 §1–§3 written. RESULTS rows B11-1 and B11-2 appended. B11's verdict: (D1) and (D2)
+  are [D]; the pull-back of (T) is formal modulo dictionary injectivity; gem classification ELABORATING (a
+  formalization; the preflight and the build agree).
