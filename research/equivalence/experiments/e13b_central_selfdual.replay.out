@@ -1,0 +1,15 @@
+PASS B1 J0 self-polar; the circle symmetric, through J0 and swap J0, tangent there to the polar line of J0
+PASS B2 C^1 closure at J0 and at g swap J0 -- g swap J0 = (Fraction(19, 52), Fraction(44, 13))
+PASS B3 non-degenerate conics; endpoint slopes; E0 a single real arc over [19/52, 11/13] -- slopes ['-19/44', '-44/19', '-44/19', '-76/11'], discriminant roots in the interval: 0
+PASS B4 symmetries: circle swap invariant; swap(E0) = g^-1(E0); M not Z-invariant, M^-1 Z M Z = g -- proportionality factor 1
+PASS B5 self-positivity <Mx, y> >= 1 on all pairs of 80 exact points of Gamma -- 6400 pairs, 7 with equality, min 1
+PASS B6 polar partners: B0 <-> E0 with pairing exactly 1 and tangency -- partner(J0) = (Fraction(11, 13), Fraction(19, 13))
+PASS B7 C^{*M} <= C: 36 outside points, each with an exact separating cone point
+PASS B8 Gamma lies on no conic (3 + 3 exact points, rank 6) -- rank 6
+PASS B9 drive on X, J off axis at ((0,0,1/2),0) in Omega_cs, seed, central symmetry on the exact points -- J rot(pi) J^-1 (0,0,1/2) = (Fraction(0, 1), Fraction(0, 1), Fraction(-1, 2))
+PASS B10 strict convexity: 30 midpoints strictly inside U; v'' > 0 at the 12 exact points
+PASS P1 control: the polygon with vertices (4^-j, 4^j) is M-self-dual (edge j = polar line of vertex -j)
+COUNTER XB1 fails as stated -- solutions of the minors: []
+COUNTER XB2 fails as stated -- polar conic of the (2,2)-circle at J0: -529/714025
+checks: 11, failures: 0
+VERDICT E13-CS-SELFDUAL-DRIVABLE-NOT-TRANS

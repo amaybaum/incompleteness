@@ -270,3 +270,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (four `simp only` lists, proof-only) is `lean/EqvK2Schema.lean` (blob `659ae36c`), written into the dev commit
   `aabc649e` (parent `472835c5`, by plumbing). NOTES-E11 measurement section and the prediction for dispatch 3/3
   written before it.
+- 2026-10-11T01:22Z — dispatch 3/3 (round 3; the last): run **38101580750** (created 01:21:50Z) on `aabc649e`
+  (`dev-equivalence/k2-schema`, the proof-only repair; pushed 01:21:46Z, fast-forward from `472835c5`). No further
+  dispatch is available this round.
+- 2026-10-11T01:23Z — E13 measured. `experiments/e13b_central_selfdual.py` run 1 (started 01:17:53Z, after commit
+  `6a7a1e77`; decision rule unchanged): 11/11, `COUNTER XB1 fails as stated`, `COUNTER XB2 fails as stated`, `VERDICT
+  E13-CS-SELFDUAL-DRIVABLE-NOT-TRANS`; replay byte-identical (py `c3482560…`, out `24e01a77…`). NOTES-E13 §§1–5 (the
+  written steps, the lemma L-a/L-b/L-c, the outcome NEW, the sharpened assumption-watch marker); RESULTS R-E13.1–R-E13.4;
+  LEDGER round-3 note (Kinf-Trans, self-duality). S0's node prediction (centrally symmetric case OPEN) was wrong: the
+  branch closed negatively (Ω_cs).

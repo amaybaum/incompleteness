@@ -125,3 +125,122 @@ is written correctly on the first run.
 all the single-system seams, central symmetry included, does not give K∞-Trans (Ω_cs); strong self-duality without
 central symmetry does not either (Ω⋆); outcome (c): central symmetry with strong self-duality (invariance under `Z`
 suffices) gives the ellipsoid (L-a).
+
+## 1. Ω⋆ — self-dual, even strongly self-dual, drivable, strictly convex, not boundary transitive (probe 1)
+
+**Measured.** `experiments/e13_selfdual_body.py` run 1 (started 00:53:52Z, after commit `dc44e737`): 11/11, `COUNTER XS1
+fails as stated` (−1/80), `COUNTER XS2 fails as stated` (−17/80), the true inner product 3/16 on the same pair,
+`VERDICT E13-SELFDUAL-DRIVABLE-NOT-TRANS`; replay byte-identical (py `fffa8bb3…`, out `a0063f05…`). Every S0
+prediction for the probe held; A10 also gave the meridian's second derivative −24 at the regular point `m = 1`.
+
+**The written argument, step by step (what the exact checks do not cover).**
+- *Self-duality for all points.* With `u = T + S`, `v = T − S`, `C(Ω⋆) = P_{1/3} = {u, v ≥ 0, u^{1/3} v^{2/3} ≥ |X|}`. For
+  `z, w ∈ P`: `⟨z, w⟩_M = (1/3)uu' + (2/3)vv' + X·X' ≥ (uu')^{1/3}(vv')^{2/3} − |X||X'| ≥ 0` (weighted AM–GM, A2's
+  factorization). Conversely, if `w = (u', v', X') ∉ P` then either `u' < 0` or `v' < 0` (a pole state pairs negatively)
+  or `u'^{1/3} v'^{2/3} < |X'|`, and `z = (k/u', k/v', −cX')` with `k/|X'|² < c ≤ k/(u'^{1/3} v'^{2/3}|X'|)` lies in `P`
+  and pairs to `k − c|X'|² < 0` (A4's construction; boundary cases `u' = 0` or `v' = 0` as in the probe). So
+  `C^{*M} = C`.
+- *The kernel seams.* `ElementaryDrivability Ω⋆` (KInfFoundations.lean:264) with the fields of `ball3Drive` (:449)
+  extended by `S ↦ S`: flow = rotations of `(X₀, X₁)`, `t₀ = π`, `J` = the cyclic permutation of `X`, `J_off_axis` at the
+  state `((0, 0, 1), 0)` (A5). `SharpSeed Ω⋆ ((1 + S)/2)` (OrbitGeneration.lean:65; A6). Strict convexity (A7: `f'' =
+  −(2/9)(p + q)² f < 0` on `(−1, 1)`, `f(±1) = 0`, and the surface of revolution of a strictly concave profile contains
+  no segment) gives `StrictConvex ℝ Ω⋆`, hence `RelStrictConvex Ω⋆` by `relStrictConvex_of_strictConvex`
+  (KInfFoundations.lean:617), hence singleton faces for every family (`singletonFaces_of_relStrictConvex`, :590).
+  Capacity ≤ 2: three perfectly distinguishable states would put two of them in the zero face of a proper full effect,
+  against singleton faces. `KInf1 Ω⋆ (fullEffects Ω⋆)` (:1013): supporting hyperplanes of a compact convex body with
+  interior, normalized to effects (as in R-E8.6). V4 with the full effects and `G = Aut`: every transport of an effect
+  is an effect.
+- *Non-transitivity.* A9: the section `{X₁ = X₂ = 0}` of an ellipsoid through an interior point is an ellipse, and its
+  boundary points lie on one conic; the fourteen measured boundary points lie on none. Ω⋆ is compact, convex, with
+  interior, so by `exists_affine_image_eq_eball` (TransitiveBody.lean:602) and `exists_affine_image_eq_eball_of_dense`
+  (DenseOrbit.lean:174), contrapositively, no body-preserving family `G` (`PreservesBody`, OrbitGeneration.lean:69) has
+  `BoundaryTransitive Ω⋆ G` (:79) or `DenseBoundaryOrbit Ω⋆ G` (DenseOrbit.lean:53). Independently, A10's contact
+  orders (3/2 at `S = 1`, 3 at `S = −1`, 2 at every regular point, where both principal curvatures are positive) are
+  invariant under affine maps (a linear map distorts distances by bounded factors and so preserves the exponent; [W]),
+  so every affine automorphism fixes both poles and their tangent hyperplanes `S = ±1`; an affine map fixing
+  `(0, ±1)` and preserving `{S = 1}` has the form `(X, S) ↦ (BX, S)`, and `B` preserves the level spheres, so
+  `Aut_aff(Ω⋆) = O(3)` acting on `X` [W].
+- *Strong self-duality.* `M` is invariant under every `(X, S) ↦ (BX, S)`, `B ∈ O(3)`, so the self-dualizing inner
+  product is invariant under all affine automorphisms of Ω⋆ (all reversible transformations that preserve
+  normalization). The cone's boosts `(u, v, X) ↦ (λu, μv, λ^{1/3} μ^{2/3} X)` are automorphisms of `C` that do not
+  preserve normalization (filters) and do not preserve `M`.
+
+## 2. The lemma (written proof; S0-b, with the steps checked)
+
+Let Ω be a convex body with interior, centrally symmetric about the chart origin, `C = C(Ω)`, `Z = diag(1, −I)` (an
+automorphism of `C`).
+- **L-a.** If `C = C^{*M}` with `M = diag(a, D)` (no `T`–`y` cross term; equivalently `ZᵀMZ = M`), then for `T' > 0`,
+  `(T', w) ∈ C^{*M}` iff `aT' + yᵀDw ≥ 0` for all `y ∈ Ω` iff (central symmetry) `yᵀ(Dw/(aT')) ≤ 1` for all `y ∈ Ω` iff
+  `w/T' ∈ aD⁻¹Ω°`; so `Ω = aD⁻¹Ω°`, and with `R = (D/a)^{1/2}`, `(RΩ)° = R⁻¹Ω° = RΩ`: `RΩ` is self-polar, hence the unit
+  ball (`x ∈ K ∩ K°` gives `|x|² ≤ 1`, so `K ⊆ B`, so `K = K° ⊇ B`). Ω is an ellipsoid.
+- **L-b.** `C^{*M} = M⁻¹C^{*std}`, so `M` self-dualizes iff `MC = C^{*std}`. For `g ∈ Aut(C)`, `(gᵀMg)C = gᵀC^{*std} =
+  C^{*std}`, so `gᵀMg` self-dualizes too; for two self-dualizing `M₁, M₂`, `h = M₁⁻¹M₂` maps `C` onto `C`, is
+  `M₁`-self-adjoint and positive. With `g = Z`: `h = M⁻¹ZᵀMZ`, `ZhZ = h⁻¹`, and `h` is a scalar iff `ZᵀMZ = λM`, iff
+  (`Z² = I`, `λ > 0`) `ZᵀMZ = M`. If `Aut(C)/ℝ₊` is compact, the positive elements of `Aut(C)` are scalars (bounded
+  condition number of all powers), so every self-dualizing `M` is `Z`-invariant and Ω is an ellipsoid — whose cone, the
+  Lorentz cone, has a non-compact `Aut(C)/ℝ₊`; contradiction. So: **a centrally symmetric body with a self-dual cone is
+  an ellipsoid or carries the non-scalar filter `h = M⁻¹ZᵀMZ`.**
+- **L-c.** Hence central symmetry with a self-dualizing inner product invariant under `Z` (in particular under all
+  reversible transformations: strong self-duality) gives the ellipsoid, which is boundary transitive under its affine
+  automorphisms — K∞-Trans — with no drive, strict convexity or compactness hypothesis.
+
+## 3. Ω_cs — centrally symmetric, self-dual, drivable, strictly convex, not boundary transitive (probe 2)
+
+**Measured.** `experiments/e13b_central_selfdual.py` run 1 (started 01:17:53Z, after commit `6a7a1e77`): 11/11, `COUNTER
+XB1 fails as stated` (the minors have no common solution at all), `COUNTER XB2 fails as stated` (the polar conic of the
+`(2, 2)`-circle takes −529/714025 at `J₀`), `VERDICT E13-CS-SELFDUAL-DRIVABLE-NOT-TRANS`; replay byte-identical (py
+`c3482560…`, out `24e01a77…`). B5: 80 exact points of Γ, 6400 pairs, minimum pairing exactly 1, 7 pairs with equality
+(polar partners present in the set). B4: `swap(E₀) = g⁻¹(E₀)` with proportionality factor 1; `M⁻¹ZMZ = g`. Every S0-b
+prediction for the probe held.
+
+**The written steps.**
+- *Γ is a `C¹`, strictly convex, decreasing curve over `u ∈ (0, ∞)`*: two non-degenerate conic arcs per period with
+  matching tangents at both junctions (B1–B3), slopes −19/44 → −44/19 → −76/11 → (next period, ×16) …, convex on each
+  arc (no conic has an inflection; B3/B10 fix the side), and `g` multiplies `u` by 1/4 per period, so the chain covers
+  `(0, ∞)` with `v → ∞` as `u → 0` and `v → 0` as `u → ∞`.
+- *Γ is its own `M`-polar curve*: the polar of a point `x` is the line `π(x) = {y : ⟨Mx, y⟩ = 1}`. The envelope of
+  `π(B₀)` is `E₀` (the dual conic, B6), with `π(J₀)` tangent at `J₀` and `π(swap J₀)` tangent at `g swap J₀` (B2, B6);
+  `π` is an involution on points/lines, so `π(E₀) = B₀`; and `π(gx) = g⁻¹π(x)` (`M`, `g` diagonal), so
+  `π(g^j B₀) = g^{−j}E₀`, `π(g^j E₀) = g^{−j}B₀`: `π(Γ) = Γ`. For a convex upper set `U` with `C¹` strictly convex
+  boundary, `U^∘ = {y : ⟨Mx, y⟩ ≥ 1 ∀x ∈ U}` is the intersection of the half-planes bounded by the polar lines of the
+  points of Γ; these are exactly the tangent lines of Γ, each half-plane containing `U`; so `U^∘ = U`. With `F` the
+  1-homogeneous profile (`U = {F ≥ 1}`), the dual of `C = {|X| ≤ F(u, v)}` for `⟨·,·⟩_M` is `{|X'| ≤ F^∘(u', v')}` with
+  `{F^∘ ≥ 1} = U^∘ = U`: **`C^{*M} = C`**.
+- *The body.* `Ω_cs = {(X, S) ∈ ℝ³ × ℝ : |X| ≤ F(1 + S, 1 − S)}` is compact, convex, with interior; `F(u, v) = F(v, u)`
+  (Γ is swap-symmetric, B4/B9) gives `CentrallySymmetric Ω_cs 0` (KInfFoundations.lean:160) and `(1 + S)/2` is a sharp
+  seed (poles `(0, ±1)`: `F` vanishes on the axes); the drive is that of Ω⋆ (rotations of `X`; `J_off_axis` at
+  `((0, 0, 1/2), 0) ∈ Ω_cs`, B9). Strict convexity of `U` makes `F` strictly concave off rays, so `f(S) = F(1 + S, 1 − S)`
+  is strictly concave on `[−1, 1]` and the body of revolution is strictly convex: `RelStrictConvex` (:617), singleton
+  faces (:590); capacity ≤ 2 by Lemma D (`card_le_two_of_centrallySymmetric`, :632, with `0 ∈ Ω_cs`); `KInf1` for the
+  full effects as for Ω⋆.
+- *Non-transitivity.* B8: six points of Γ lie on no conic; the meridian section of Ω_cs is the image of `U`'s boundary
+  under the projective map `(u', v') ↦ ((u' − v')/(u' + v'), 2/(u' + v'))`, so if Ω_cs were an ellipsoid Γ would lie on
+  one conic. By TransitiveBody.lean:602 and DenseOrbit.lean:174, no body-preserving family is boundary transitive or
+  has a dense boundary orbit.
+- *The lemma's filter, exhibited.* `M` is not `Z`-invariant and `h = M⁻¹ZMZ = g`, the boost that generates Γ's period
+  (B4): `Aut(C)/ℝ₊` contains the infinite discrete group `⟨g⟩`. XB1 checks the lemma's L-a prediction on the instance:
+  no inner product invariant under `Z` and the rotations even makes the circle `B` self-polar.
+
+## 4. Chart dimension 3
+
+There the question is empty: `ElementaryDrivability` alone forces the ellipsoid (R-E2.6, CONJECTURE [W]+[L]), so
+K∞-Trans holds for every drivable body with or without self-duality.
+
+## 5. Outcome (§A.31) and the assumption-watch marker
+
+- Productivity test: met, in its strongest form (a) and in (c). **NEW**: in chart dimension 4, self-duality together
+  with *every* single-system seam in its kernel form — drive, sharp seed, V4 (full effects, `G = Aut`), relative strict
+  convexity, capacity ≤ 2, K∞-1 for the full effects, and central symmetry — does not give K∞-Trans (Ω_cs); strong
+  self-duality with every seam except central symmetry does not either (Ω⋆). **NEW**: central symmetry with a
+  self-dualizing inner product invariant under the central symmetry does give it (L-a), and a centrally symmetric
+  self-dual non-ellipsoid must carry a filter (L-b), exhibited exactly in Ω_cs.
+- Skepticism applied: the favourable reading for the K route ("self-duality closes K∞-Trans") was tested first and
+  failed twice; the countermodels' weakest steps are written (global self-polarity of Γ from the envelope argument;
+  strict convexity of a body of revolution; the contact-order invariance used only for `Aut_aff(Ω⋆)`), and the
+  non-transitivity itself rests on an exact non-conic check plus two kernel theorems at L.
+- **Assumption-watch marker** (sharpens HO-15's): *self-duality of the state cone is not a source of K∞-Trans; the
+  invariance of the self-dualizing inner product under the body's central symmetry (strong self-duality) is. A
+  proposed OI source of K∞-Trans through self-duality has to deliver that invariance, not the duality alone; plain
+  self-duality is compatible with non-transitive bodies through filters.*
+- Not shown: anything about the bodies OI supplies; any kernel check of Ω⋆ or Ω_cs (no design module was attempted;
+  the dispatch budget went to E12 and E11).

@@ -140,3 +140,10 @@ Each note is dated, names its evidence, and supersedes nothing above.
   marker). Received HO-9 v1 item 3 (CONDITIONAL; its stage-crossing clause CERTIFIED, CompositionOrder.lean:378): no
   passive finite-rank tower carries an infinite-order datum, hence no drive and no transitive family of that origin.
   Status OPEN.
+- **2026-10-11 (round 3) — Kinf-Trans, self-duality (E13).** Self-duality of the state cone is not a source of K∞-Trans in
+  chart dimension 4: Ω⋆ (strongly self-dual, every seam but central symmetry; R-E13.1) and Ω_cs (self-dual, every seam
+  including central symmetry; R-E13.3) are drivable, strictly convex, with sharp seeds, and admit no boundary-transitive
+  or dense-orbit family (CONJECTURE [W]+[X], the non-transitivity through TransitiveBody.lean:602 and DenseOrbit.lean:174).
+  What does force the ellipsoid is central symmetry with a self-dualizing inner product invariant under the central
+  symmetry (R-E13.2, [W]); a centrally symmetric self-dual non-ellipsoid carries a filter. HO-15's assumption-watch
+  marker, sharpened accordingly. In chart dimension 3 the question is empty (R-E2.6). Status OPEN.
