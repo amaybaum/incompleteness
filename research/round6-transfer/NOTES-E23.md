@@ -21,3 +21,6 @@ INDEPENDENT relative to L); A_miss's sources are open and do not assume, and its
 an introduced transfer clause (B22: OPEN in both forms). CONFIRMING; not a gem. The one structural note: H2's operation
 is already available in the stated access ([W]), so H2's open content is the two-token transfer alone, the same gap as
 B22's.
+
+**Update after run 38151796092.** `bridge_channel_half` is [W], not [D] pending: the module's build failed on another
+theorem (B23-1); the route's status in the A_miss row is unchanged otherwise.

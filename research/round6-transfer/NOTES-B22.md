@@ -50,7 +50,7 @@ with the gap located at a named open obligation.
 | item | status at L | what it transfers | yields (T) / (T^ch)? |
 |---|---|---|---|
 | I3.165 K2, clause "local actions compatible with the composite cone" | open obligation (ROADMAP.md:1001); flag: the clause is (b), do not assume | the field-neutral form of (b): `K` invariant under the local actions | it is the transfer, in invariance form; usable only as an introduced assumption |
-| I3.150 (b_S4), I3.151 (b_n), I3.152 (b_R1), I3.153 (b_DJ) | PT-record open; INDEPENDENT of H1–H3 at L; do not assume | invariance of `K` under one token's rotations (all, or named subgroups, or the drive with `J`) | (b_S4) gives (T)_𝓘 for every class (every unitary's transfer is the target action of its adjoint rotation: [D] for the generators used, `dict_actT_rotZ`, `dict_actT_nflip`, `dict_actT_cyc`; [W] in general) and (T^ch) for mixed-unitary channels by convexity [W]; it is the (b) target itself |
+| I3.150 (b_S4), I3.151 (b_n), I3.152 (b_R1), I3.153 (b_DJ) | PT-record open; INDEPENDENT of H1–H3 at L; do not assume | invariance of `K` under one token's rotations (all, or named subgroups, or the drive with `J`) | (b_S4) in its `actT` form gives (T)_𝓘 for every class (every unitary's transfer is the target action of its adjoint rotation: [D] for the generators used, `dict_actT_rotZ`, `dict_actT_nflip`, `dict_actT_cyc`; [W] in general) and (T^ch) for mixed-unitary channels by convexity [W]; it is the (b) target itself |
 | I4.66, I4.38 (validity) | I4.66 assumed, do not assume; derived from implementation locality by I4.38 [K] | PSD → PSD on matrix carriers | only through `hId` (§1); at the PSD cone `hId` is `K = Q3` |
 | K2-GUARD-1: I3.43 `CandidateCone`, I3.44 | I3.43 assumed (hypothesis of I3.44); I3.44 proved [K] | products in `K` and `K ⊆ maxCone (eball 3)`; I3.44 takes `actT reflY`-invariance as a hypothesis | no: an upper bound, no invariance |
 | K1-BRIDGE-1: I3.35–I3.38 with EFF-1 (`maxConeOf_avail_eq`) | I3.37, I3.38 proved [K], premises unsourced | the availability of one copy's tests (effects) to the cone of available product tests, `= maxCone (eball d)` | no: tests, not operations; an upper bound |
@@ -89,7 +89,7 @@ reach only the upper bound `maxCone`, which every alternative respects").
 | claim | status |
 |---|---|
 | (i) from the existing OI assumptions at their recorded status | **OPEN** — no derivation: the inventory's only items whose content contains the transfer are I3.165's clause and the (b)-forms I3.150–I3.153, each open and do-not-assume; every other item either holds at `K(Z_F)` or makes no statement about a cone in `W 3`. Not an independence result: the full-model status of (b) and (T) is the bridge thread's B24 |
-| (ii) with an additional assumption | CONDITIONAL on any one of: (T)_𝓘 itself, introduced (B20-2 [D]); (b_S4) I3.150, do not assume ([W]; [D] for the generators); the identification `K = Q3` (`transferClause_Q3` [D]) — the target, excluded as a source |
+| (ii) with an additional assumption | CONDITIONAL on any one of: (T)_𝓘 itself, introduced (B20-2 [D]); (b_S4) I3.150 in its `actT` form, do not assume ([W]; [D] for the generators); the identification `K = Q3` (`transferClause_Q3` [D]) — the target, excluded as a source |
 | (iii) necessary for this construction (`bridge_derived_half`) | yes: §3, [K] + [D] + [X] + [A] (HO-39 item 3) |
 | (iv) necessary for any derivation of quantum equivalence | not shown: `Q3` satisfies (T) for every class, so every premise set that derives `K = Q3` entails (T) — a consequence of the target, not an independent necessary premise; not concluded from (iii) |
 
@@ -119,3 +119,9 @@ provisional; nothing here makes the channel route premise-free.
 (open, do not assume). Classification: ELABORATING (the location sharpens "no M→P theorem at L" but constrains nothing
 new), with one exposed hidden assumption at statement level (I4.29, I4.30 in the identified-state-space lemma), recorded
 as an assumption-watch marker. Not a gem.
+
+**Update after run 38151796092.** The module's build failed (B23-1: `channelTransfer_Q3`, a missing
+`open scoped ComplexOrder`). Every "[D pending]" above resolves to [W]: `unitaryTransfer_of_channelTransfer`,
+`channelTransfer_of_identified_stateSpace` and `bridge_channel_half` elaborated with standard axioms in that run, which
+is recorded as evidence and does not make them [D]; `channelTransfer_Q3` stays [W] on the kernel facts `cp_of_instAvail`
+and `cp_referencePositive` [K]. No verdict of §4 depends on the build: each rests on [A], [K], [X] and [W] as stated.
