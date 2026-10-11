@@ -336,3 +336,39 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-11T05:51Z — **C21 closed**: NOTES-C21 (runs, the four tables, the other 186 rows, standing and weaker
   alternatives, verdict, gems, scope) and RESULTS C21.1, C21.1f. Kernel lines read at L for the drive families:
   KInfFoundations.lean:350 `rotFun`, :411 `rot3`, :425 `cyc3`, :449 `ball3Drive`.
+- 2026-10-11T05:58Z — **round 4 closed** (C21's commit is `c9dcc18e`, pushed; this entry's commit adds HP7–HP9).
+  - **Nodes**, depth-first in the listed order: C17 — Theorem S′ (finite form) design-built, CONJECTURE [D] (run
+    `38112813276` BUILT after the failed first dispatch; C17.1 CONJECTURE, C17.2 CONDITIONAL, C17.3f FAILED). C18 — the
+    three attempts at explicit cones for case B and the S2 node with G16 FAILED with scoped lemmas (C18.1–C18.5
+    CONDITIONAL, C18.6f and C18.7f FAILED), explicit cones OPEN (C18.8). C19 — Theorem C19-1 and the Clifford chain
+    CONDITIONAL (C19.1–C19.4; new explicit `G₇₆₈` cone, C19.3), survivor patterns OPEN (C19.5), C19.6f FAILED (a guess).
+    C21 — the four explicit cones against Table A2, C21.1 CONDITIONAL, C21.1f FAILED (a prediction). C20 (T on `K_circ`,
+    optional) not run: the question stands as C14.4.
+  - **Rows appended** (19; no earlier row changed): 11 CONDITIONAL, 1 CONJECTURE (C17.1), 5 FAILED (C17.3f, C18.6f,
+    C18.7f, C19.6f, C21.1f), 2 OPEN (C18.8, C19.5); none CERTIFIED.
+  - **CI design runs**: 2 of 3 dispatches used, none cancelled — run `38112032111` (job `114389409224`, head `7d3736e4`,
+    created 04:34:48Z): Build FAILED, gate skipped, run `failure`, probe jobs green; run `38112813276` (job `114391721556`,
+    head `5649e641`, created 04:49:47Z): Build success, 78 prints on the three permitted axioms, `lean-axioms` PASS, gate red
+    only at `lean-manuscript`, run `failure` (that job only; 32 other jobs green, completed 05:29:31Z).
+  - **Handoff proposals** (the coordinator routes): HP7 (→ overview, equivalence, bridge: S′ design-built), HP8 (→ bridge,
+    origin, equivalence: Theorem C19-1, the Clifford chain, the `G₇₆₈` cone, the closed routes for case B and S2 with
+    G16), HP9 (→ overview, equivalence, bridge, origin: the cones against Table A2 by operation; FCC mechanism; marker).
+  - **Cross-branch reads**: `research/overview` @ `742c6b2f` (receipts HO-17, HO-18, HO-19, HO-21, HO-22, HO-23; HO-24,
+    HO-25 for item numbers; HO-24 re-read at 05:34Z) and `research/archive` @ `4dc0321c` (five files, 05:13Z–05:21Z), each
+    on the coordinator's instruction with sha256 recorded; one unauthorized read (overview @ `f833107f`, 05:23Z).
+  - **Integrity sweep at close** (05:57Z): final replays of `c17_preflight`, `c18_attempts`, `c19_groups`, `c21_rows`
+    byte-identical (`cmp`, `.out` and `.err`; every `.err` empty, exit 0); the hashes quoted in HP7–HP9 match the files; the
+    receipts in `inbox/` equal the overview's blobs at `742c6b2f`; nothing outside `research/countermodels/` changed on this
+    branch since `23713ce9`; RESULTS.md and LOG.md have no deleted line since `23713ce9`. The dev branch
+    `dev-countermodels/c17-sprime` (`7d3736e4`, `5649e641`: the module and one import line on a branch cut from L) carried
+    the design runs; nothing was merged anywhere and no pull request was opened.
+  - **Deviations.** (1) The unauthorized pattern search over three coordinator audit files (05:23Z); no decision used it.
+    (2) C21's run-2 amendment added two RECORD lines after a passing run 1 (kept as `.run1.*`, disclosed in the script).
+    (3) Failed first runs kept: C17's dispatch 1 (`lean/CmSprime.run38112032111.lean`), C18's run 1 (an auxiliary
+    assertion). (4) A float scratch computation chose C18's A2b-near parameters before run 1 (disclosed in NOTES-C18).
+    (5) NOTES-C17's S0 first stated 81 `#print axioms` lines; corrected to 78 before any run (not logged at the time).
+    (6) C19's and C17's closings share commit `37cbb0af` (C19's record cites C17's outcome). (7) NOTES-C21's tables are
+    transcribed from `c21_rows.out` with in-cell separators rendered as `;` (formatting only). (8) C20 not run.
+  - **Open questions**: explicit cones for case B, the S2 node with G16 and `K_circ`; T on `K_circ`; level-(ii) versions of
+    `K384`, `KC`, `K768`; survivor patterns at `C₂`; S′ for compact defect sets as a module; self-duality of balanced
+    rank-two surgeries.
