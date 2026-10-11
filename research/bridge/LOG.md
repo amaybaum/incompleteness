@@ -401,3 +401,19 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-11T01:32:09Z — closing replay (§A.26). All five round-3 scripts, re-run with `python3 -I -B`
   (01:31:42–01:32:09Z, outputs in the scratchpad only), are byte-identical to their committed `.out` and `.err`:
   `b10_transfer`, `b11_preflight`, `b12_stagecross`, `b12_followup`, `b13_preflight`.
+- 2026-10-11T01:36:52Z — run 38101591388 (dispatch 2 of 3, B13), Mathlib bridge job 114358450003, read through the
+  jobs API and the job log (GitHub MCP job-log reader). The job started at 01:33:55Z after waiting in the queue.
+  - **Build success** (01:34:13–01:36:15Z): "⚠ [3644/3646] Built OIBridge.BridgeReach (1.7s)", warnings only, then
+    "Build completed successfully (3646 jobs)".
+  - All 21 module `#print axioms` lines (module lines 355–375) are on [propext, Classical.choice, Quot.sound].
+  - Release gate (01:36:15–01:36:47Z): `lean-axioms` **PASS** (5881 named results, no sorry); FAIL only on `claims`,
+    `duplicate`, `lean-manuscript` (by construction). A local census run on the exported dev tree names the one
+    problem: "UNCLASSIFIED module BridgeReach has no registry family".
+  - Job conclusion "failure", from the gate only. "Lean kernel check" success (01:34:19–01:35:04Z).
+  - At 01:38:58Z the run is in progress: 24 jobs success, 1 failure (the bridge job's gate), 7 numerical-probe shards
+    running, left to finish. No job cancelled. Dispatches used: 2 of 3.
+- 2026-10-11T01:38:58Z — NOTES-B13 S0 outcome (S0-1, S0-2, S0-4 held; S0-3 did not arise), §2 (CI record) and §3
+  (reading and verdict: ELABORATING) written. RESULTS rows B13-1 (CONJECTURE, [D]) and B13-2 (CONDITIONAL on claim (D)
+  [A]; evidence-level propagation to B7-4, label unchanged) appended, with the standing verdict V-3. Handoff proposal
+  HP-10 (B7-1's formal statement and finite case) written. The dispatched module is unchanged (`lean/BridgeReach.lean`
+  sha256 a6e055e4…, cmp-equal to the dev blob 7a279393).

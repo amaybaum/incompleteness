@@ -59,6 +59,14 @@ the antiunitary case. Otherwise B13 is ELABORATING: a formalization.
 | S0-3 | If the build fails, the most likely failure points are, in order: (i) elaboration of the statement definitions (topology on the nested subtype for `connectedComponent`, the coerced subgroup in `IsClosed`); (ii) `prodDet_bellV` and the controls (deciding `Fin 2` literals); (iii) the induction in `exists_avoid` (motive, `choose`, pigeonhole) | job log |
 | S0-4 | Gem classification ELABORATING. NEW only if the formal statement exposes a hidden assumption of B7-1 | §3 |
 
+**S0 outcome.**
+- S0-1 held: `b13_preflight.py` run 1 (01:10:34Z) gave 7/7 PASS, VERDICT B13-PREFLIGHT-OK; the replay is
+  byte-identical.
+- S0-2 held: the build succeeded on the single dispatch (§2), with 21/21 `#print axioms` lines standard and
+  `lean-axioms` PASS.
+- S0-3 did not arise. The fallback branches show which first alternative closed each goal (§2).
+- S0-4 held: ELABORATING (§3).
+
 ## 1. What the module states
 
 `lean/BridgeReach.lean` (sha256 a6e055e4…; dev blob 7a279393). The section numbers are those of the module.
@@ -79,3 +87,63 @@ the antiunitary case. Otherwise B13 is ELABORATING: a formalization.
 | **`reachUnitary_of_infinite`**, **`reachAnti_of_infinite`** | each statement follows from its restriction to infinite closed subgroups: the finite case is discharged |
 | `ctl_cnot_witness`, `ctl_avoids` | positive control: `(1, 2, 3, 5)` has `prodDet = −1`, and its `CNOT` image has `−7` |
 | `ctl_counter_zero`, `ctl_counter_step` | countercontrols: the zero matrix (quadratic, no non-root); two complementary step functions (each nonzero somewhere, no common non-root) |
+
+## 2. CI record (dispatch 2 of 3; the only dispatch of B13)
+
+- **Run.** 38101591388: `verify.yml`, `workflow_dispatch` on `dev-bridge/r3-reach` @ 747bcf94, created 01:22:01Z. The
+  dev commit's parent is research/bridge 7266e30b. It adds the module and one root import line.
+  - The run waited in the queue behind run 38101580750 of another thread until the job started at 01:33:55Z. Nothing
+    was cancelled.
+- **Mathlib bridge job 114358450003.**
+  - **Build: success**, 01:34:13–01:36:15Z: "⚠ [3644/3646] Built OIBridge.BridgeReach (1.7s)", warnings only,
+    then "Build completed successfully (3646 jobs)".
+  - **`#print axioms`: 21/21 on `[propext, Classical.choice, Quot.sound]`** (module lines 355–375). The declarations
+    are `prodDet_kron2`, `avoids_of_prodDet`, `prodDet_add_smul`, `conjV_add_natSmul`, `conjV_conjV`,
+    `prodDet_bellV`, `prodDet_zero`, `quad_eq_zero_of_three`, `exists_avoid`, `quadAlong_mulVec`,
+    `quadAlong_mulVec_conj`, `exists_ne_zero_of_mul_star`, `exists_ne_zero_of_mul_star_conj`,
+    `reachUnitary_finite`, `reachAnti_finite`, `reachUnitary_of_infinite`, `reachAnti_of_infinite`,
+    `ctl_cnot_witness`, `ctl_avoids`, `ctl_counter_zero` and `ctl_counter_step`.
+  - **Release gate** (01:36:15–01:36:47Z). `lean-axioms` **PASS** ("OK (5881 named result(s) reported, no sorr…").
+    This is consistent with the module's 21 named results. B11's run, whose dev tree carried the dictionary's 20
+    instead, reported 5880.
+  - The gate fails only on `claims`, `duplicate` and `lean-manuscript`. All three are red by construction on research
+    branches.
+  - The `lean-manuscript` problem is the one expected. A local run of `tools/lean_manuscript_census.py` on the
+    exported dev tree (evidence for this thread only, not an attestation, §A.40) reports exactly "UNCLASSIFIED module
+    BridgeReach has no registry family".
+  - Job conclusion: "failure", from the gate only.
+- **The warnings.**
+  - Unused `done` and never-executed fallbacks in `conjV_add_natSmul` (100, 101), `conjV_conjV` (106, 107) and
+    `prodDet_bellV` (111–113). In each, the first alternative closed the goal: `simp only` with the named lemmas, and
+    `simp [prodDet, bellV]`.
+  - `push_neg` is deprecated in favour of `push Not` (line 171), a warning only.
+
+## 3. Reading and verdict
+
+- **B7-1 now has a precise formal statement** in two parts. `ReachUnitary` covers unitary groups; `ReachAnti` covers
+  groups with an antiunitary coset. The finite case of each is a design statement built in CI ([D]).
+  `reachUnitary_of_infinite` and `reachAnti_of_infinite` state formally that what remains of B7-1 is its infinite
+  closed subgroups, i.e. the cases `dim H₀ ≥ 1` of NOTES-B7 §1, §2 and §4.
+- **What writing the statement fixed** [W]:
+  - **The antiunitary coset needs two explicit conditions.** `K conj(h) K* ∈ H` and `K conj(K) ∈ H` are what make
+    `H ∪ Hκ` a group (preflight P7). B7-1's written proof uses them through the group structure: the group permutes
+    the eigenspaces of its identity component and normalizes the maximal torus (NOTES-B7 §1). The finite case needs
+    neither.
+  - **Conjugation preserves products.** So an antiunitary coset contributes the set `H K·P`, a unitary coset applied
+    to the products.
+  - **Working in `U(4)`.** Projective groups are covered by their preimages in `U(4)`.
+- **The finite case is elementary and needs no group structure.** The avoidance lemma, with `quadAlong_mulVec`,
+  `quadAlong_mulVec_conj` and the two non-root lemmas, covers any finite family of unitary and antiunitary
+  conjugations; the two theorems state it for finite subgroups. Invertibility alone would suffice [W]. The proof
+  avoids finitely many quadratics along a line.
+- **Propagation.** B7-4's fixed-finite-substratum case uses B7-1 only for finite groups. That reachability step is
+  now [D] (row B13-2). The tower case is unchanged: it still needs Jordan [L] and the written proof of B7-1 for tori.
+- **Gem classification: ELABORATING**, as predicted (S0-4). The productivity test is not met: the formal statement
+  exposes no hypothesis that B7-1's written proof uses without stating, and the finite case is the expected
+  nowhere-density fact.
+- **Not claimed.**
+  - B7-1 for subgroups of positive dimension.
+  - Formal non-vacuity of `IdCompComm` [W]: `U(4)` itself is excluded, its identity component being non-commutative.
+  - The identification of table-level pair groups (on `W 3`) with groups of conjugations beyond the dictionary
+    statements of B11 [D].
+  - Certification or any census disposition.
