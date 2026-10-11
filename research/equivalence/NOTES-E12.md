@@ -40,3 +40,45 @@ rule (the statement surface only — the rule's "at `E`" clause cannot be read o
 **Productivity test (§A.31, fixed now).** E12 is closure-mode checkpointing, not gem-finding. A measurement counts if
 it settles `C0` either way; a green build is POSITIVE (it validates the repair and generates S4's last unmeasured
 prediction), not NEW; a red build is a hazard exposed (it would have voided a round frozen on the repair).
+
+## The measurement (run 38096511360)
+
+**Dispatch.** `workflow_dispatch` of `verify.yml` on `dev-equivalence/omega4`, run **38096511360** (run number 1860),
+created 2026-10-10T23:52:27Z, `head_sha` `95beab2b48ab9a07dac820e1df7d0850828f5bec` (read from the run record).
+Mathlib bridge job **114343410536**: Build step `success` (23:52:54–23:55:08Z), Release gate step `failure`
+(23:55:08–23:55:55Z).
+
+**Build step (job log).** `⚠ [3642/3644] Built OIBridge.EqvOmega4 (14s)`, warnings only: `Set.mem_setOf_eq` is
+deprecated in favour of `Set.mem_ofPred_eq` (lines 158, 219 — the two repaired terms), `push_neg` is deprecated in
+favour of `push Not` (line 166), one `unnecessarySeqFocus` lint (line 244). The fifteen prints, `EqvOmega4.lean:530–544`,
+each `depends on axioms: [propext, Classical.choice, Quot.sound]`: `omega4_isCompact`, `conv_core`, `omega4_convex`,
+`abstract_strict`, `omega4_strictConvex`, `relStrictConvex_omega4`, `singletonFaces_omega4`,
+`omega4_interior_nonempty`, `omega4_centrallySymmetric`, `sharpSeed_omega4`, `omega4_drivable`,
+`not_affine_eball_omega4`, `not_boundaryTransitive_omega4`, `not_denseBoundaryOrbit_omega4`, `kinfTrans_separation`.
+`Build completed successfully (3644 jobs)`.
+
+**Release gate (job log).** Every step PASS except `lean-manuscript` (`FAILED (1 problem(s))`: the unregistered design
+module, by construction on a dev branch); `lean-axioms` `OK (5875 named result(s) reported, no sorr…)`; `claims`,
+`duplicate`, `voice`, `mirror`, `staleness` PASS; `legacy-records` 303 records in 75 closed namespaces intact;
+`v3-receipts` 43 hold.
+
+**Reading by the rule fixed in S0.** Build `success` and the fifteen prints exactly `[propext, Classical.choice,
+Quot.sound]`: **`C0` is MET.** P1, P2 and P3 held as predicted, P3 to the count (5875 = 5860 + 15). So S4's Q-SEP
+prediction `KTRANS-SEP-SEPARATED` is now generated from a measurement (for the statement surface; the rule's "at `E`"
+clause is the round's own), and the separation of K∞-Trans — Ω₄ is compact, convex, with interior, drivable, with a
+sharp seed, relatively strictly convex and centrally symmetric, and no body-preserving family on it is boundary
+transitive or has a dense boundary orbit — is kernel-checked in a design run: CONJECTURE [D], upgrading the
+[W] + [X] evidence of R-E2.5 and the partial [D] of R-E8.3 (those rows are not edited). The module is the file already
+kept as `lean/EqvOmega4.lean` (blob `9030f471`, sha256 `505a0784…`, checked equal to the dispatched blob).
+
+**What S4 still lacks (as every draft).** The predicted execution tree at a designated `D` is unmeasured: the module
+under its predicted name `TransSeparation` (namespace `OIBridge.TransSeparation`; a rename of the measured text), the
+census family, `controls.py`, the probe shard. One optional pre-`F` revision item, warnings only: the two deprecated
+names (`Set.mem_setOf_eq`, `push_neg`) could be replaced by `Set.mem_ofPred_eq` and `push Not`; neither affects the
+build or a print. S4 is updated accordingly (status line, design table, predicted outputs, invariant row `C0`).
+
+**Classification (§A.31).** POSITIVE: the repair was proof-only and the separation is kernel-checked in a design run;
+no NEW finding (E12 is checkpointing). Pressure test of the favourable reading: the design run certifies nothing at L;
+the separation says nothing about which bodies OI supplies (S4's non-inference rule), and HO-15 (received this round,
+CONDITIONAL) adds that Aut(Ω₄) = O(3) × ℤ₂ with orbits the level sets of `s⁴`, which agrees with the separation and is
+not used by it.

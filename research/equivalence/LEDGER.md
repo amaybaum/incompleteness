@@ -127,3 +127,16 @@ Each note is dated, names its evidence, and supersedes nothing in the tables abo
   holds at one finite level under H-FAC, H-UNIF, H-GEN and H-DYN ([W]+[L]+[X]), H-FAC being the site-level quantum
   kinematics. Status OPEN as an obligation in its strong reading, which is now refuted as stated; the scope-correct
   Level III statement of NOTES-E6 §3 stands.
+
+## Round-3 notes (dated; statuses at L unchanged — this thread changes no status)
+
+Each note is dated, names its evidence, and supersedes nothing above.
+
+- **2026-10-11 (round 3) — Kinf-Trans.** Draft S4's checkpoint `C0` is met: the repaired `EqvOmega4` builds over L with all
+  fifteen prints standard ([D] run 38096511360, R-E12.1), so the separation — on Ω₄ every other single-system seam in its
+  kernel form holds and no body-preserving family is boundary transitive or has a dense boundary orbit — is kernel-checked
+  in a design run (upgrading R-E2.5's [W]+[X]). Received HO-15 v1 (CONDITIONAL): Aut(Ω₄) = O(3) × ℤ₂ with orbits the level
+  sets of `s⁴`; the facial invariant `c*` is constant on every `C¹` body, so it cannot source K∞-Trans (assumption-watch
+  marker). Received HO-9 v1 item 3 (CONDITIONAL; its stage-crossing clause CERTIFIED, CompositionOrder.lean:378): no
+  passive finite-rank tower carries an infinite-order datum, hence no drive and no transitive family of that origin.
+  Status OPEN.

@@ -7,9 +7,13 @@ the round, this text moves to the record directory below on a pull request from 
 marked *(at L)* is re-taken at `D`; `controls.py` is generated; the predicted execution tree is built and dispatched;
 and this file may change before `F` (`G9`). Measurements were taken at L = `9f9f8257a980a1819fbbc1dc0019917cf8678626`.
 
-**This draft is not ready to freeze as it stands**: its one design run failed to build at two terms (below). The
-repair is proof-only and is committed on the design branch, but it has not been built; a design run of the repaired
-module is the first step before any `F`.
+**Readiness (round 3).** Checkpoint `C0` is measured and met: the proof-only repair of the module's two failing terms
+was built in design run 38096511360 with all fifteen prints standard (below), so every predicted output of the three
+cells is generated from a measurement. The draft is ready for owner review on the same footing as S1–S3: what remains
+unmeasured is what every draft lists — the predicted execution tree at a designated `D` (the module under its
+predicted name `TransSeparation`, a rename of the measured text; the census family; `controls.py`; the probe shard).
+One optional pre-`F` revision item, warnings only: the deprecated names `Set.mem_setOf_eq` and `push_neg` may be
+replaced by `Set.mem_ofPred_eq` and `push Not`.
 
 ```v3-round
 round KTRANS-SEP-1
@@ -202,7 +206,7 @@ under every outcome.
 | invariant | checkpoint |
 | --- | --- |
 | execution begins from the frozen control plane | `C1`: this file's blob at `F` |
-| the module was built before `F` (this draft's open hazard) | `C0`: a design run of the repaired module on the predicted tree, green at the Mathlib bridge build with all fifteen prints standard, recorded in this file before `F` |
+| the module was built before `F` (this draft's open hazard) | `C0`: a design run of the repaired module, green at the Mathlib bridge build with all fifteen prints standard, recorded in this file before `F` — **measured: run 38096511360 (job 114343410536), met**; the predicted tree's run at `D` remains with every draft's unmeasured items |
 | the controls and the probe are the frozen ones | `C2`: blobs at stage 1 and at `E`; `controls.py --self-test` OK at `E` |
 | every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the fifteen prints, none with `sorryAx` |
 | the exact layer replays and renders | `C3`: shard `probes_ktranssep1` green with `VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS`; the aggregate job green |
@@ -215,19 +219,22 @@ under every outcome.
 | run | commit | workflow run | measured |
 |---|---|---|---|
 | 1 | `195dfbee` (`dev-equivalence/omega4`, based on L; module `EqvOmega4`, blob `ee870649`) | 38090924005 | Mathlib bridge job 114327010280: **build failed** at two terms only, `EqvOmega4.lean:157:16` and `:215:16` (`fun v hv => le_of_lt hv` elaborated against `v ∈ omega4`: Type mismatch). Prints `[propext, Classical.choice, Quot.sound]` for `omega4_isCompact`, `conv_core`, `omega4_convex`, `abstract_strict`, `omega4_centrallySymmetric`, `sharpSeed_omega4`, `omega4_drivable`, `not_affine_eball_omega4`; `sorryAx` (error recovery at the two terms) for `omega4_strictConvex`, `relStrictConvex_omega4`, `singletonFaces_omega4`, `omega4_interior_nonempty`, `not_boundaryTransitive_omega4`, `not_denseBoundaryOrbit_omega4`, `kinfTrans_separation` |
-| repair | `95beab2b` (blob `9030f471`) | — (not dispatched: this draft's one dispatch of the round was run 1) | each failing term replaced by `by simp only [Set.mem_setOf_eq] at hv; rw [mem_omega4]; exact le_of_lt hv`; one unused simp argument dropped; no statement changed; **unmeasured** |
+| repair | `95beab2b` (blob `9030f471`) | — (not dispatched in round 2: that round's one dispatch for this draft was run 1) | each failing term replaced by `by simp only [Set.mem_setOf_eq] at hv; rw [mem_omega4]; exact le_of_lt hv`; one unused simp argument dropped; no statement changed |
+| 2 (`C0`, round 3) | `95beab2b` (`dev-equivalence/omega4`, blob `9030f471`) | 38096511360 | Mathlib bridge job 114343410536: `Build completed successfully (3644 jobs)`; `EqvOmega4` built with warnings only (deprecated `Set.mem_setOf_eq`, `push_neg`; one `unnecessarySeqFocus` lint); **all fifteen prints** (`EqvOmega4.lean:530–544`) `[propext, Classical.choice, Quot.sound]`; release gate every step PASS except `lean-manuscript` (1 problem: the unregistered module), `lean-axioms` 5875, no sorry, 303 legacy records intact, 43 receipts hold |
 | exact (round 1) | `research/equivalence` | `e2_drive_trans` (local; replayed by the coordinator; decisive step independently confirmed as X1) | 10 checks, 0 failures, `VERDICT DRIVE-SEED-GEOM-CAP2-NOT-TRANS` |
 | exact (the probe to freeze) | `research/equivalence` | `e8_ktrans_probe` run 1 (local, `python3 -I -B`; replay byte-identical; py `c32afda9…`, out `d6f6d298…`) | 12 checks, 0 failures; `COUNTER XW1 fails as stated`, `COUNTER XW2 fails as stated`; grid of 1669 states; `VERDICT DRIVE-SEED-GEOM-SEC-CAP2-NOT-TRANS` |
 
-**Predicted outputs, generated from those measurements by the rules:** Q-NONELL `KTRANS-SEP-NONELLIPSOID-PROVED` is
-already supported by run 1 (the theorem built with standard axioms; it does not depend on the two failing terms). Q-SEP
-`KTRANS-SEP-SEPARATED` is **not** supported by any measurement: in run 1 its dependants printed `sorryAx`; the
-prediction rests on the repair being proof-only and is to be measured by `C0`. Q-EXACT `KTRANS-SEP-INSTANCES-EXACT`
-is generated from the run of `e8_ktrans_probe` (`checks: 12, failures: 0`, both countercontrols failing as stated, the
-verdict token), the frozen probe being that blob (checkpoint `C2`).
+**Predicted outputs, generated from those measurements by the rules:** Q-NONELL `KTRANS-SEP-NONELLIPSOID-PROVED`
+(runs 1 and 2: `not_affine_eball_omega4` built with standard axioms). Q-SEP `KTRANS-SEP-SEPARATED` (run 2:
+`kinfTrans_separation` and every declaration it depends on in the module built, all fifteen prints within the three
+axioms; in run 1 its dependants had printed `sorryAx`). Q-EXACT `KTRANS-SEP-INSTANCES-EXACT` is generated from the run
+of `e8_ktrans_probe` (`checks: 12, failures: 0`, both countercontrols failing as stated, the verdict token), the frozen
+probe being that blob (checkpoint `C2`). The rules, not this reading, are what a frozen file would fix; the predicted
+execution tree at `D` (the module renamed `TransSeparation`, the census family, `controls.py`, the probe shard) is
+not yet measured.
 
 ## Stages and outcomes
 
-Stages as KT4-PREM-1, preceded by `C0`. **`KTRANS-SEP-1-READ`**: `controls.py check E --freeze F` OK, three tokens
+Stages as KT4-PREM-1, preceded by `C0` (met in design run 38096511360). **`KTRANS-SEP-1-READ`**: `controls.py check E --freeze F` OK, three tokens
 printed, the exact-head run at `E` green on every job. **`KTRANS-SEP-1-HALTED`**: anything else (`S12`). No outcome
 sources boundary transitivity or edits the ROADMAP or a manuscript; correctness bands unchanged (consistency axis).

@@ -210,3 +210,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   No research step of round 3 precedes this receipt's commit.
 - 2026-10-10T23:52Z — E12 S0: `NOTES-E12.md` opened with its reading rule and predictions P1–P4 for the dispatch of
   `dev-equivalence/omega4` at `95beab2b` (head checked by `git ls-remote` at 23:51Z); committed before the dispatch.
+- 2026-10-10T23:52Z — dispatch 1/3 (round 3): run **38096511360** on `95beab2b` (branch `dev-equivalence/omega4`, the repaired
+  `EqvOmega4`, draft S4's checkpoint `C0`), no further repair.
+- 2026-10-11T00:15Z — run 38096511360 measured (Mathlib bridge job 114343410536): Build `success` (3644 jobs), `EqvOmega4`
+  built with warnings only (deprecated `Set.mem_setOf_eq`, `push_neg`), all fifteen prints `[propext, Classical.choice,
+  Quot.sound]`; release gate every step PASS except `lean-manuscript` (1 problem), `lean-axioms` 5875, no sorry, 303 legacy
+  records intact, 43 receipts hold. `C0` MET by the rule fixed at 23:52Z; P1–P3 held (P3 to the count). The `lean/` copy
+  `EqvOmega4.lean` checked byte-identical to the dispatched blob (`9030f471`). NOTES-E12 measurement section; draft S4
+  updated (readiness line, design table row 2, predicted outputs, invariant row `C0`, stages line); RESULTS R-E12.1; LEDGER
+  round-3 note (Kinf-Trans).
