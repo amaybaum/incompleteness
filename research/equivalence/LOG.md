@@ -241,7 +241,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   worktree: the diff from L is exactly `verification/lean-mathlib/OIBridge/EqvK2Schema.lean`, blob `3edcf9b0`,
   byte-identical to `lean/EqvK2Schema.lean` at `97b6f080`, and the import line `import OIBridge.EqvK2Schema` after
   `import OIBridge.RelcSelectC5` in `OIBridge.lean`, the recorded deviation). Still queued at 00:53Z.
-- 2026-10-11T00:54Z — E13 begun. NOTES-E13 S0 (written 00:46Z: productivity test, the candidate countermodel
+- 2026-10-11T00:53Z — E13 begun. NOTES-E13 S0 (written 00:46Z: productivity test, the candidate countermodel
   Ω⋆ = Ω_{1/3}, the lemma on centrally symmetric self-dual bodies, predictions) and the exact probe
   `experiments/e13_selfdual_body.py` (decision rule in its header, written 00:47Z) committed together, before the probe's
   first run. The probe was edited before any run (pre-run review: the witness for outside points with `u' = 0` or
@@ -249,3 +249,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   was not changed. Read at L for E13: `ElementaryDrivability` (KInfFoundations.lean:264), `ball3Drive` (:449),
   `KInf1` (:1013), `SharpSeed` (OrbitGeneration.lean:65), `PreservesBody` (:69), `BoundaryTransitive` (:79),
   `DenseBoundaryOrbit` (DenseOrbit.lean:53) and the hypotheses of TransitiveBody.lean:602 and DenseOrbit.lean:174.
+- 2026-10-11T01:08Z — LOG time correction: the E13 entry was written as 00:54Z, later than its commit `dc44e737`
+  (00:53:45Z); set to 00:53Z. `experiments/e13_selfdual_body.py` run 1 (started 00:53:52Z, after that commit; decision
+  rule unchanged): 11/11, `COUNTER XS1 fails as stated` (pairing −1/80), `COUNTER XS2 fails as stated` (−17/80), the
+  true inner product on the same pair 3/16, `VERDICT E13-SELFDUAL-DRIVABLE-NOT-TRANS`; replay byte-identical (py
+  `fffa8bb3…`, out `a0063f05…`). The probe's predictions in NOTES-E13 S0 held (A10 also measured the meridian's
+  second derivative −24 at the regular point m = 1).

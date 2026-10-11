@@ -1,0 +1,16 @@
+PASS A1 cone homogeneity and the T = 1 section
+PASS A2 inner product M = P^T diag(1/3,2/3,1,1,1) P, positive definite; AM-GM factorization
+PASS A3 C <= C^{*M} on 60 exact pairs
+PASS A4 C^{*M} <= C: 60 outside points, each with an exact separating cone point
+PASS A5 drive: rotation and J preserve the body; N involutive and moving; J off axis -- J rot(pi) J^-1 (0,0,1) = (Fraction(0, 1), Fraction(0, 1), Fraction(-1, 1))
+PASS A6 sharp seed (1 + S)/2
+PASS A7 strict concavity of the profile (symbolic) and 30 strict midpoints
+PASS A8 two perfectly distinguishable states (the poles)
+PASS A9 the meridian section lies on no conic (14 points, rank 6) -- rank 6
+PASS A10 contact orders 3/2 (S = 1), 3 (S = -1), 2 (regular point) -- lim (1-S)^2/u^3 = 1/2, lim (1+S)/u^3 = 1/4, d2S/du2 at m=1: -24
+PASS A11 control: the Euclidean ball (Lorentz cone, no cross term; conic section) -- rank 5
+COUNTER XS1 fails as stated -- pairing -1/80
+COUNTER XS2 fails as stated -- pairing -17/80
+true inner product on the same pair: 3/16
+checks: 11, failures: 0
+VERDICT E13-SELFDUAL-DRIVABLE-NOT-TRANS
