@@ -1,14 +1,24 @@
-/-!
+/-
+  OIBridge/BridgeChannelTransfer.lean — design module of the cross-thread research record
+  `research/round6-transfer` (round 6, nodes B22/B23). Not certified. Built on a disposable dev
+  branch only; not for merge.
+
   Round-six channel transfer bridge — design source.
 
+  The channel form of the transfer clause, (T^ch)_𝓘 (`ChannelTransferClause`), is an introduced
+  hypothesis wherever it appears; nothing here sources it.
   The O14 availability/convergence witness is an explicit hypothesis of this module.
   The protocol itself and density of powers are not formalized here.
-  Closedness is needed for the limit; self-duality supplies it through EqvOneDictionary.
+  Closedness is used for the limit; self-duality supplies it through EqvOneDictionary.
   No closure of the availability predicate, or exact availability of the limit, is used.
+  `channelTransfer_of_identified_stateSpace` states validity for pair-available channels and
+  reaches the token through the kernel's spectator rule (I4.29, I4.30); at the kernel's own pair
+  state space its identification hypothesis is `K = Q3`.
+
+  Kernel check (dev branch):  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.BridgeOpDrive
 import OIBridge.EqvOneDictionary
-import OIBridge.EqvK2Generation
 
 namespace OIBridge
 namespace BridgeChannelTransfer
@@ -56,17 +66,26 @@ theorem unitaryTransfer_of_channelTransfer {𝓘 : ImplementationClass} {K : Set
   have h := hT (conjChannel U) (InstAvail.op U hU hu) ω hω
   simpa only [channelTransfer_conjChannel] using h
 
-/-- Operational validity on an identified state space gives channel transfer. The
-identification and validity are separate hypotheses; neither is sourced by this theorem. -/
-theorem channelTransfer_of_identified_stateSpace (𝓘 : ImplementationClass) (K : Set (W 3))
+/-- Operational validity on an identified pair state space gives channel transfer. Validity
+`hValid` is stated for channels available on the pair carrier; the token case goes through the
+kernel's spectator rule `instAvail_spectator`, which uses context stability (I4.29) and label
+invariance (I4.30). The identification `hId` and validity are separate hypotheses; neither is
+sourced by this theorem. At the kernel's own pair state space (the positive semidefinite cone)
+`hId` is `K = Q3`, the target. -/
+theorem channelTransfer_of_identified_stateSpace (𝓘 : ImplementationClass)
+    (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘) (K : Set (W 3))
     (C : Set PairMatrix) (hId : C = BridgeDictionary.dict '' K)
-    (hValid : ∀ Φ : OneChannel, InstAvail 𝓘 (Fin 2) Unit (fun _ => Φ) →
-      ∀ X ∈ C, amplRefL (Fin 2) Φ X ∈ C) : ChannelTransferClause 𝓘 K := by
+    (hValid : ∀ Ψ : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ →ₗ[ℂ]
+        Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ,
+      InstAvail 𝓘 (Fin 2 × Fin 2) Unit (fun _ => Ψ) → ∀ X ∈ C, Ψ X ∈ C) :
+    ChannelTransferClause 𝓘 K := by
   intro Φ hΦ ω hω
   have hX : BridgeDictionary.dict ω ∈ C := by
     rw [hId]
     exact ⟨ω, hω, rfl⟩
-  have hOut := hValid Φ hΦ _ hX
+  have hΦ2 : InstAvail 𝓘 (Fin 2 × Fin 2) Unit (fun _ => amplRefL (Fin 2) Φ) :=
+    instAvail_spectator hc hl (Fin 2) hΦ
+  have hOut := hValid (amplRefL (Fin 2) Φ) hΦ2 _ hX
   rw [hId] at hOut
   rcases hOut with ⟨η, hη, he⟩
   change coordOf (amplRefL (Fin 2) Φ (BridgeDictionary.dict ω)) ∈ K
