@@ -8,7 +8,7 @@ import Mathlib.Algebra.Polynomial.Roots
 import Mathlib.Data.Fintype.Pigeonhole
 
 /-!
-# Origin drive — design module of the research thread `research/origin` (round 5, O14 and O15)
+# Origin drive — design module of the research thread `research/origin` (round 5, O14)
 
 A design artifact on a disposable branch; it is not part of any governed round and asserts no
 status. It imports this thread's `OriginTokenOrder` and `OriginAngle` and the bridge thread's
@@ -40,12 +40,14 @@ under composition and, where `InverseAccessibility` holds, inverse) or the **`In
 * **The drive is the identity on every monomial token body** (`diagonal_trivial_on_body`,
   `zPh_trivial_on_drive_body`, `zPh_trivial_on_substratum_body`): on the stated access and on every
   monomial extension the token body is configuration-diagonal and every diagonal unitary fixes it.
-* **O15** (`lattice_reach_diag`, `lattice_not_ordInf`, `latticeTheory_datum_finiteOrderOn`,
-  `rootLat_pow_scalar`, `lattice_pow_scalar`, `lattice_not_infiniteOrderOn_univ`): in FM every
-  available unitary datum has finite order on the token body and on the full matrix algebra — the
-  whole reversible group, every composition included, has a scalar power — while the drive
+* **The stated access's reversible group** (`lattice_avail_iff`, `lattice_avail_finite_upToScalar`,
+  `mixEmpty_avail_finite_upToScalar`, `rootLat_pow_scalar`, `lattice_pow_scalar`,
+  `lattice_not_infiniteOrderOn_univ`, `lattice_not_ordInf`): in FM, and so for `MixR ∅`, every
+  available unitary — by every protocol, every composition included — is a nonzero multiple of a
+  matrix with entries in `{0} ∪ μ₄`, a finite set at each carrier: the reversible group is finite up
+  to scalar, and each of its elements has a scalar power; while the drive
   (`zPh_infiniteOrderOn_univ`) has infinite order on the full matrix algebra and is the identity on
-  the body: the first datum of infinite order is a non-torsion phase.
+  the body.
 * **The non-torsion phase** (`w345_pow_ne_one`, `theta0`, `exp_theta0`, `irrational_theta0_div_pi`):
   `w` is no root of unity, so the fixed gate at `θ₀ = arccos (3/5)` has the kernel's dense unitary
   control (`fixedGateTheory_theta0_denseUnitaryControl`) and is not exact quantum mechanics
@@ -528,7 +530,7 @@ theorem drive_not_denseUnitaryControl : ¬ DenseUnitaryControl (driveTheory (Fin
 
 end NoDensity
 
-/-! ### §D — the drive is the identity on every monomial token body; O15 on the body -/
+/-! ### §D — the drive is the identity on every monomial token body -/
 
 section Body
 
@@ -576,13 +578,13 @@ theorem drive_not_ordInf :
     ¬ CompositionOrder.OrdInf (body driveClass T) (availData driveClass T) :=
   not_ordInf_of_reach_diag drive_reach_diag
 
-/-- **O15, ON THE BODY**: FM carries no datum of infinite order on its token body. -/
+/-- FM carries no datum of infinite order on its token body. -/
 theorem lattice_not_ordInf :
     ¬ CompositionOrder.OrdInf (body latticeClass T) (availData latticeClass T) :=
   not_ordInf_of_reach_diag lattice_reach_diag
 
-/-- **O15, ON THE BODY, AT EVERY LEVEL**: in the lattice theory every available unitary datum has
-finite order on the token body. -/
+/-- At every level, in the lattice theory every available unitary datum has finite order on the
+token body. -/
 theorem latticeTheory_datum_finiteOrderOn (n : ℕ)
     {U : Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ} (hU : Uᴴ * U = 1)
     (hav : (latticeTheory (Fin 2)).availExt n Unit (fun _ => conjChannel U)) :
@@ -591,7 +593,7 @@ theorem latticeTheory_datum_finiteOrderOn (n : ℕ)
 
 end Body
 
-/-! ### §E — O15: the reversible group of a root lattice is finite, not merely torsion -/
+/-! ### §E — the reversible group of the stated access: finite up to scalar, not merely torsion -/
 
 section RootLattice
 
@@ -694,13 +696,12 @@ theorem pow_scalar_of_eq' [Nonempty T] {W : Matrix T T ℂ} {i j : ℕ} (hij : i
     _ = (cj * ci⁻¹) • (W ^ i * (W ^ i)ᴴ) := by rw [Matrix.smul_mul]
     _ = (cj * ci⁻¹) • (1 : Matrix T T ℂ) := by rw [hu']
 
-/-- **A UNITARY WHOSE SCALAR MULTIPLE IS SUBMONOMIAL ON A ROOT LATTICE HAS A SCALAR POWER**: divide by
-one nonzero entry, so that every nonzero entry is an `N`-th root of unity; the powers range over a
-finite set of matrices, two coincide, and the quotient power is a scalar. -/
-theorem rootLat_pow_scalar [Nonempty T] {N : ℕ} (hN : 0 < N) {U : Matrix T T ℂ}
-    (hU : Uᴴ * U = 1) {c : ℂ} (hc : c ≠ 0) (hs : IsSubmonomial (c • U))
-    (hr : RootLat N (c • U)) :
-    ∃ m : ℕ, 0 < m ∧ ∃ μ : ℂ, U ^ m = μ • (1 : Matrix T T ℂ) := by
+/-- **NORMALIZATION**: a unitary some nonzero multiple of which is submonomial on a root lattice has
+a nonzero multiple that is submonomial with every entry in `{0} ∪ μ_N` (divide by one nonzero
+entry). -/
+theorem rootLat_normalize [Nonempty T] {N : ℕ} {U : Matrix T T ℂ} (hU : Uᴴ * U = 1) {c : ℂ}
+    (hc : c ≠ 0) (hs : IsSubmonomial (c • U)) (hr : RootLat N (c • U)) :
+    ∃ l : ℂ, l ≠ 0 ∧ IsSubmonomial (l • U) ∧ ∀ i j, (l • U) i j = 0 ∨ (l • U) i j ^ N = 1 := by
   classical
   obtain ⟨i₀, j₀, h0⟩ : ∃ i j, (c • U) i j ≠ 0 := by
     by_contra hall
@@ -714,38 +715,67 @@ theorem rootLat_pow_scalar [Nonempty T] {N : ℕ} (hN : 0 < N) {U : Matrix T T �
       exact h'
     rw [hU0, Matrix.mul_zero] at hU
     exact zero_ne_one hU
-  have hlam0 : ((c • U) i₀ j₀)⁻¹ * c ≠ 0 := mul_ne_zero (inv_ne_zero h0) hc
-  have hMs : IsSubmonomial ((((c • U) i₀ j₀)⁻¹ * c) • U) := by
-    rw [← smul_smul]
+  refine ⟨((c • U) i₀ j₀)⁻¹ * c, mul_ne_zero (inv_ne_zero h0) hc, ?_, ?_⟩
+  · rw [← smul_smul]
     exact submonomial_smul _ hs
-  have hMe : ∀ i j, ((((c • U) i₀ j₀)⁻¹ * c) • U) i j = 0
-      ∨ ((((c • U) i₀ j₀)⁻¹ * c) • U) i j ^ N = 1 := by
-    intro i j
+  · intro i j
     rw [← smul_smul, Matrix.smul_apply, smul_eq_mul]
     by_cases h : (c • U) i j = 0
     · left
       rw [h, mul_zero]
     · right
       rw [mul_pow, hr i j i₀ j₀ h h0, inv_pow, inv_mul_cancel₀ (pow_ne_zero _ h0)]
+
+/-- **A UNITARY WHOSE SCALAR MULTIPLE IS SUBMONOMIAL ON A ROOT LATTICE HAS A SCALAR POWER**: after the
+normalization its powers range over a finite set of matrices, two coincide, and the quotient power
+is a scalar. -/
+theorem rootLat_pow_scalar [Nonempty T] {N : ℕ} (hN : 0 < N) {U : Matrix T T ℂ}
+    (hU : Uᴴ * U = 1) {c : ℂ} (hc : c ≠ 0) (hs : IsSubmonomial (c • U))
+    (hr : RootLat N (c • U)) :
+    ∃ m : ℕ, 0 < m ∧ ∃ μ : ℂ, U ^ m = μ • (1 : Matrix T T ℂ) := by
+  obtain ⟨l, hl, hMs, hMe⟩ := rootLat_normalize hU hc hs hr
   obtain ⟨i, j, hij, hpow⟩ := exists_pow_eq_of_rootEntries hN hMs hMe
-  have hUk : ∀ k : ℕ, U ^ k
-      = ((((c • U) i₀ j₀)⁻¹ * c) ^ k)⁻¹ • ((((c • U) i₀ j₀)⁻¹ * c) • U) ^ k := by
+  have hUk : ∀ k : ℕ, U ^ k = (l ^ k)⁻¹ • (l • U) ^ k := by
     intro k
-    rw [smul_pow, smul_smul, inv_mul_cancel₀ (pow_ne_zero _ hlam0), one_smul]
+    rw [smul_pow, smul_smul, inv_mul_cancel₀ (pow_ne_zero _ hl), one_smul]
   rcases lt_or_gt_of_ne hij with hlt | hlt
-  · have hj' : U ^ j
-        = ((((c • U) i₀ j₀)⁻¹ * c) ^ j)⁻¹ • ((((c • U) i₀ j₀)⁻¹ * c) • U) ^ i := by
+  · have hj' : U ^ j = (l ^ j)⁻¹ • (l • U) ^ i := by
       rw [hUk j, hpow]
     obtain ⟨μ, hμ⟩ := pow_scalar_of_eq' hlt (pow_unitary hU i) (hUk i) hj'
     exact ⟨j - i, Nat.sub_pos_of_lt hlt, μ, hμ⟩
-  · have hi' : U ^ i
-        = ((((c • U) i₀ j₀)⁻¹ * c) ^ i)⁻¹ • ((((c • U) i₀ j₀)⁻¹ * c) • U) ^ j := by
+  · have hi' : U ^ i = (l ^ i)⁻¹ • (l • U) ^ j := by
       rw [hUk i, ← hpow]
     obtain ⟨μ, hμ⟩ := pow_scalar_of_eq' hlt (pow_unitary hU j) (hUk j) hi'
     exact ⟨i - j, Nat.sub_pos_of_lt hlt, μ, hμ⟩
 
-/-- **O15, ON THE FULL MATRIX ALGEBRA**: in the lattice theory every available unitary has a scalar
-power — the whole reversible group, every composition included, at every carrier. -/
+/-- **THE LATTICE'S REVERSIBLE GROUP IS FINITE UP TO SCALAR** at every carrier: every available
+unitary — by every protocol, ancillas and relabellings included — is a nonzero multiple of a matrix
+with entries in `{0} ∪ μ₄`, a finite set fixed by the carrier. -/
+theorem lattice_avail_finite_upToScalar [Nonempty T] {V : Matrix T T ℂ} (hV : Vᴴ * V = 1)
+    (hav : InstAvail latticeClass T Unit (fun _ => conjChannel V)) :
+    ∃ (b : ℂ) (M : Matrix T T ℂ), b ≠ 0 ∧ Matrix.of.symm M ∈ rootMats (T := T) 4 ∧ V = b • M := by
+  obtain ⟨c, hc, hs, hq⟩ := (lattice_avail_iff hV).mp hav
+  obtain ⟨l, hl, -, hle⟩ := rootLat_normalize hV hc hs (rootLat_four_of_quart hq)
+  refine ⟨l⁻¹, l • V, inv_ne_zero hl, ?_, ?_⟩
+  · unfold rootMats
+    rw [Fintype.mem_piFinset]
+    intro i
+    rw [Fintype.mem_piFinset]
+    intro j
+    rw [Matrix.of_symm_apply]
+    exact mem_rootSet (by norm_num) (hle i j)
+  · rw [smul_smul, inv_mul_cancel₀ hl, one_smul]
+
+/-- **THE STATED ACCESS WITH THE QUARTER PHASE (`MixR ∅`)**: the same, through the inclusion of its
+class in the lattice and the monotonicity of availability. -/
+theorem mixEmpty_avail_finite_upToScalar [Nonempty T] {V : Matrix T T ℂ} (hV : Vᴴ * V = 1)
+    (hav : InstAvail (MixR (∅ : Set ℝ)) T Unit (fun _ => conjChannel V)) :
+    ∃ (b : ℂ) (M : Matrix T T ℂ), b ≠ 0 ∧ Matrix.of.symm M ∈ rootMats (T := T) 4 ∧ V = b • M :=
+  lattice_avail_finite_upToScalar hV (instAvail_mono mixEmpty_le_lattice hav)
+
+/-- **THE STATED ACCESS'S REVERSIBLE GROUP, ON THE FULL MATRIX ALGEBRA**: in the lattice theory every
+available unitary has a scalar power — the whole reversible group, every composition included, at
+every carrier. -/
 theorem lattice_pow_scalar [Nonempty T] {U : Matrix T T ℂ} (hU : Uᴴ * U = 1)
     (hav : InstAvail latticeClass T Unit (fun _ => conjChannel U)) :
     ∃ m : ℕ, 0 < m ∧ ∃ μ : ℂ, U ^ m = μ • (1 : Matrix T T ℂ) := by
@@ -768,8 +798,8 @@ theorem conjAff_iterate_scalar [Nonempty T] {U : Matrix T T ℂ} (hU : Uᴴ * U 
   simp only [Matrix.conjTranspose_smul, Matrix.conjTranspose_one, Matrix.smul_mul,
     Matrix.mul_smul, Matrix.one_mul, Matrix.mul_one, smul_smul, hμ, hμ', one_smul]
 
-/-- **O15**: in the lattice theory every available unitary datum has finite order on the full
-matrix algebra. -/
+/-- In the lattice theory every available unitary datum has finite order on the full matrix
+algebra. -/
 theorem lattice_finiteOrderOn_univ [Nonempty T] {U : Matrix T T ℂ} (hU : Uᴴ * U = 1)
     (hav : InstAvail latticeClass T Unit (fun _ => conjChannel U)) :
     CompositionOrder.FiniteOrderOn (Set.univ : Set (Matrix T T ℂ)) (conjAff U hU) := by
@@ -1089,28 +1119,24 @@ theorem o14_core :
     fixedGateTheory_theta0_denseUnitaryControl, fixedGateTheory_theta0_not_qm,
     fun hB _ hα => not_opDrive_of_rotClifford hB hα⟩
 
-/-- **O15, THE CORE.** -/
-theorem o15_core :
-    (∀ (T : Type) [Fintype T] [DecidableEq T],
-      ¬ CompositionOrder.OrdInf (body latticeClass T) (availData latticeClass T)) ∧
-    (∀ (T : Type) [Fintype T] [DecidableEq T] [Nonempty T] (U : Matrix T T ℂ), Uᴴ * U = 1 →
-      InstAvail latticeClass T Unit (fun _ => conjChannel U) →
-        ∃ m : ℕ, 0 < m ∧ ∃ μ : ℂ, U ^ m = μ • (1 : Matrix T T ℂ)) ∧
-    (∀ (T : Type) [Fintype T] [DecidableEq T] [Nonempty T] (U : Matrix T T ℂ) (hU : Uᴴ * U = 1),
-      InstAvail latticeClass T Unit (fun _ => conjChannel U) →
-        ¬ CompositionOrder.InfiniteOrderOn (Set.univ : Set (Matrix T T ℂ)) (conjAff U hU)) ∧
+/-- **THE STATED ACCESS'S REVERSIBLE GROUP, THE CORE.** -/
+theorem latticeGroup_core :
     (∀ (T : Type) [Fintype T] [DecidableEq T] [Nonempty T] (V : Matrix T T ℂ), Vᴴ * V = 1 →
       (InstAvail latticeClass T Unit (fun _ => conjChannel V)
         ↔ ∃ c : ℂ, c ≠ 0 ∧ IsSubmonomial (c • V) ∧ QuartEq (c • V))) ∧
+    (∀ (T : Type) [Fintype T] [DecidableEq T] [Nonempty T] (V : Matrix T T ℂ), Vᴴ * V = 1 →
+      InstAvail latticeClass T Unit (fun _ => conjChannel V) →
+        ∃ (b : ℂ) (M : Matrix T T ℂ), b ≠ 0 ∧ Matrix.of.symm M ∈ rootMats (T := T) 4 ∧ V = b • M) ∧
+    (∀ (T : Type) [Fintype T] [DecidableEq T] [Nonempty T] (U : Matrix T T ℂ), Uᴴ * U = 1 →
+      InstAvail latticeClass T Unit (fun _ => conjChannel U) →
+        ∃ m : ℕ, 0 < m ∧ ∃ μ : ℂ, U ^ m = μ • (1 : Matrix T T ℂ)) ∧
     (∀ (T : Type) [Fintype T] [DecidableEq T],
-      ¬ CompositionOrder.OrdInf (body driveClass T) (availData driveClass T)) ∧
-    (∀ n : ℕ, 0 < n → CompositionOrder.InfiniteOrderOn
-      (Set.univ : Set (Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ))
-      (conjAff (tokOp zPh n) (tokOp_isometry zPh_unitary n))) :=
-  ⟨fun _ _ _ => lattice_not_ordInf, fun _ _ _ _ _ hU hav => lattice_pow_scalar hU hav,
-    fun _ _ _ _ _ hU hav => lattice_not_infiniteOrderOn_univ hU hav,
-    fun _ _ _ _ _ hV => lattice_avail_iff hV, fun _ _ _ => drive_not_ordInf,
-    fun _ hn => zPh_infiniteOrderOn_univ hn⟩
+      ¬ CompositionOrder.OrdInf (body latticeClass T) (availData latticeClass T)) ∧
+    ¬ OriginAngle.LevelOneClause (latticeTheory (Fin 2)) :=
+  ⟨fun _ _ _ _ _ hV => lattice_avail_iff hV,
+    fun _ _ _ _ _ hV hav => lattice_avail_finite_upToScalar hV hav,
+    fun _ _ _ _ _ hU hav => lattice_pow_scalar hU hav, fun _ _ _ => lattice_not_ordInf,
+    lattice_not_levelOneClause⟩
 
 end Cores
 
@@ -1190,7 +1216,10 @@ end Cores
 #print axioms mem_rootSet
 #print axioms exists_pow_eq_of_rootEntries
 #print axioms pow_scalar_of_eq'
+#print axioms rootLat_normalize
 #print axioms rootLat_pow_scalar
+#print axioms lattice_avail_finite_upToScalar
+#print axioms mixEmpty_avail_finite_upToScalar
 #print axioms lattice_pow_scalar
 #print axioms conjAff_iterate_scalar
 #print axioms lattice_finiteOrderOn_univ
@@ -1219,7 +1248,7 @@ end Cores
 #print axioms not_opDrive_pi_div_four
 #print axioms not_opDrive_of_rotClifford
 #print axioms o14_core
-#print axioms o15_core
+#print axioms latticeGroup_core
 
 end OriginDrive
 end OIBridge
