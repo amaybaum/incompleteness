@@ -1,0 +1,11 @@
+U1   PASS  <cnot, actT J>: order 48 (divides 384); traces [0, 2, 4, 8, 16] (integers); every element fixes E(3,0): True
+U2   PASS  |G_C| = 11520; |Stab(E30)| = 384; |G_1| = 384; G_1 subset of Stab: True; G_1 = <cnot, actT S, actT J>: True
+U3   PASS  |Lambda_0| = 60; all pure: True; readout rank 16; each generator permutes Lambda_0: True
+U4   PASS  tr actT R_z(th0) = 64/5; charpoly R_z(th0) = (x - 1)*(5*x**2 - 6*x + 5)/5, quadratic factor x**2 - 6*x/5 + 1 not in Z[x]: True; tr(cnot o actT R_z(th0)) = 16/5
+U5   PASS  tr(J R_z(2pi/m)) = -sin(2pi/m) for m = 1..16: True; 2cos alpha an algebraic integer exactly for m in [1, 2, 4]; |<J, R_z(2pi/m)>| for m = 1, 2, 4: 3, 12, 24
+U6   PASS  Lie closure dim 6 = span{1X,1Y,1Z,ZX,ZY,ZZ}: True; commutes with Z(x)1: True; non-abelian: True; phi0 = (P0(x)U0 + P1(x)U1)(a(x)|0>): True (U0, U1 in SU(2): True); phi0 not carried to a product table by any element of G_1: True
+U7   PASS  |Lambda_0| = 60, |Lambda_1| = 588; G_1 permutes Lambda_1: True; R Lambda_0 in Lambda_1: True; R Lambda_0 not in Lambda_0: True; R Lambda_1 not in Lambda_1: True
+U8   PASS  (A) fails for J on token B in B4: min <y, actT J w0> = -1/2 (y, E00 - y certified in K(Z_F)); Q3 control <y, actT J phiW> = 1/2
+
+PASS 8  FAIL 0
+VERDICT B12-EXACT

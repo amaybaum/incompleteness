@@ -319,3 +319,33 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-11T00:45:30Z — NOTES-B11 §1–§3 written. RESULTS rows B11-1 and B11-2 appended. B11's verdict: (D1) and (D2)
   are [D]; the pull-back of (T) is formal modulo dictionary injectivity; gem classification ELABORATING (a
   formalization; the preflight and the build agree).
+- 2026-10-11T00:45:30Z — B12 opened. NOTES-B12 §0 and S0 (productivity test, predictions S0-1 … S0-8) written before
+  any run.
+- 2026-10-11T00:46:30Z — `b12_stagecross.py` decision rule written. Pre-run edit at 00:48:22Z, logged in its header
+  (U4 obtains the quadratic factor by division by `x − 1`, remainder checked); rule text unchanged.
+- 2026-10-11T00:48:32Z — `b12_stagecross.py` run 1: 8/8 PASS, VERDICT B12-EXACT (00:48:32–00:48:36Z). Replay
+  byte-identical (00:48:46Z). `⟨cnot, actT J⟩` has order 48; `G₁ = Stab_C(Z ⊗ 1)`, order 384; `|Λ₀| = 60`,
+  `|Λ₁| = 588`; the guessed U8 value `−1/2` held.
+- 2026-10-11T00:50:27Z — NOTES-B12 §1–§6 drafted.
+- 2026-10-11T00:56:00Z — review of the draft, before commit. Two defects found:
+  - S0-5's check column names `m = 1 … 24`, but the decision rule (00:46:30Z) and run 1 cover `m = 1 … 16`;
+  - a draft sentence of §3 ("the octahedral group is the largest finite stage holding `J` and a `z`-rotation") is
+    contradicted by the icosahedral group, which contains `T = ⟨J, R_z(π)⟩`.
+  NOTES-B12 S0′ (predictions S0′-1 … S0′-3) written before the follow-up's first run.
+- 2026-10-11T00:56:10Z — `b12_followup.py` decision rule written. Run 1 (00:57:14–00:57:15Z): 3/3 PASS, VERDICT
+  B12F-EXACT. Replay byte-identical (00:57:18Z). `m = 17 … 24` checked, with a positive control (`2 cos(2π/m)`) and a
+  countercontrol (`cos(2π/m)`, integral exactly for `m ∈ {1, 2, 4}`); `|⟨J, R_z(π), R_u⟩| = 60`.
+- 2026-10-11T00:59:02Z — NOTES-B12 revised from the follow-up:
+  - §3 now states what the certificate proves (every finite rotation group holding `J` has `z`-rotations of order
+    1, 2 or 4 only) in place of the false draft sentence;
+  - §2 and §6 now credit the single-generator obstruction to B10-5 and classify it ELABORATING;
+  - §4 gains the determinant-ratio step that makes the identity component exactly `SU(2) × SU(2)`.
+  RESULTS rows B12-1 … B12-5 appended. CompositionOrder.lean:348/:378 re-checked at L before citing. B12's verdict:
+  NEW (i) the stabilizer identification and the `SU(2) × SU(2)` closure; NEW (ii) the `z`-rotation bound for finite
+  groups holding `J`.
+- 2026-10-11T00:59:02Z — forward correction of two B11 entries above. Their stamps were not `date -u` readings: both
+  entries were appended by one command whose `date -u` read 00:45:20Z.
+  - The entry stamped 00:44:30Z: the run was read between the readings 00:43:37Z and 00:44:56Z.
+  - The entry stamped 00:45:30Z (later than its own append time): NOTES-B11 §1–§3 were written by the 00:44:56Z
+    reading, and RESULTS B11-1/B11-2 and the two entries were appended at 00:45:20Z, before commit 3d7b23b8.
+  The entries are not edited.
