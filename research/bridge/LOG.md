@@ -374,3 +374,22 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     conjugation lemmas (`simp only` with named lemmas, then `simp`).
   - Goals with beta-redexes are restated with `show` before `rw`. The `v ≠ 0` steps use one `simp [h0, prodDet]`
     instead of `rw` followed by `simp`.
+- 2026-10-11T01:21:56Z — dev branch `dev-bridge/r3-reach` created and pushed with git plumbing (a temporary index in
+  the scratchpad; the research worktree and index untouched). Dev commit 747bcf94, child of research/bridge 7266e30b.
+  It adds `verification/lean-mathlib/OIBridge/BridgeReach.lean` (blob 7a279393, cmp-equal to
+  `lean/BridgeReach.lean`, sha256 a6e055e4…, the module as dispatched) and one import line in the root
+  `verification/lean-mathlib/OIBridge.lean` after `RelcSelectC5` (root blob a9981951). Deviation, as in rounds 1–3:
+  the root file is outside `OIBridge/`, and the lake library builds only modules reachable from it.
+- 2026-10-11T01:22:01Z — **dispatch 2 of 3**: `verify.yml` on `dev-bridge/r3-reach`, run 38101591388 (created
+  01:22:01Z, head 747bcf94). Mathlib bridge job 114358450003, queued at 01:22:08Z. Waiting through the jobs API; no
+  job is cancelled.
+- 2026-10-11T01:26:30Z — charter deviation found and checked. The charter runs every script as `python3 -I -B`;
+  `b10_transfer.py`, `b11_preflight.py` and `b12_stagecross.py` were run that way. `b12_followup.py` (run 1 and
+  replay) and `b13_preflight.py` (run 1 and replay) were run as plain `python3`. A third run of each with
+  `python3 -I -B` (01:26:28–01:26:30Z, outputs kept in the scratchpad only) is byte-identical to run 1, on `.out`
+  and `.err`. The recorded outputs do not depend on the flags; the files are kept as they are.
+- 2026-10-11T01:27:10Z — handoff proposals HP-7 (B10: the transfer clause at one rational angle, H-T), HP-8 (B11:
+  the dictionary design module) and HP-9 (B12: the finite half as `Stab_C(Z ⊗ 1)`, the `z`-rotation bound, the
+  `SU(2) × SU(2)` closure, B12-S) written under `handoff-proposals/`. Each states labels, evidence pointers and what
+  the recipient may not assume. NOTES-B13 §1 (what the module states) written while run 38101591388 is queued
+  behind run 38101580750 of another thread (16 jobs in progress).

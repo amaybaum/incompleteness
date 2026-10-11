@@ -58,3 +58,24 @@ the antiunitary case. Otherwise B13 is ELABORATING: a formalization.
 | S0-2 | The CI build of the module succeeds: Build green; every `#print axioms` line of the module on `[propext, Classical.choice, Quot.sound]`; `lean-axioms` PASS; the gate red only on `claims`, `duplicate`, `lean-manuscript` | dispatch, job log |
 | S0-3 | If the build fails, the most likely failure points are, in order: (i) elaboration of the statement definitions (topology on the nested subtype for `connectedComponent`, the coerced subgroup in `IsClosed`); (ii) `prodDet_bellV` and the controls (deciding `Fin 2` literals); (iii) the induction in `exists_avoid` (motive, `choose`, pigeonhole) | job log |
 | S0-4 | Gem classification ELABORATING. NEW only if the formal statement exposes a hidden assumption of B7-1 | §3 |
+
+## 1. What the module states
+
+`lean/BridgeReach.lean` (sha256 a6e055e4…; dev blob 7a279393). The section numbers are those of the module.
+
+| declaration | content |
+|---|---|
+| `PVec`, `M4`, `U4` | pair vectors `Fin 2 × Fin 2 → ℂ`; pair matrices; `Matrix.unitaryGroup (Fin 2 × Fin 2) ℂ` |
+| `prodDet`, `prodCross`, `kron2`, `conjV`, `bellV` | `ψ₀₀ψ₁₁ − ψ₀₁ψ₁₀` and its polarization; `a ⊗ b`; entrywise conjugation; `|00⟩ + |11⟩` |
+| `AvoidsProducts v g` | `g v` is no product `a ⊗ b` |
+| `prodDet_kron2`, `avoids_of_prodDet` | products have `prodDet = 0`, so `prodDet (g v) ≠ 0` gives `AvoidsProducts v g` (only this direction is used) |
+| `prodDet_add_smul`, `conjV_add_natSmul`, `conjV_conjV`, `prodDet_bellV`, `prodDet_zero` | `prodDet` is quadratic along lines; conjugation fixes natural-number parameters and is an involution; `prodDet (|00⟩ + |11⟩) = 1` |
+| `IdCompComm H` | the identity component `connectedComponent (1 : H)` of a subgroup of `U4` is commutative |
+| **`ReachUnitary`** (definition) | B7-1 for unitary groups: every closed `H ≤ U4` with `IdCompComm H` has some `v ≠ 0` that no `h ∈ H` carries to a product |
+| **`ReachAnti`** (definition) | B7-1 with an antiunitary coset `H κ`, `κ = K ∘ conj`. The hypotheses: `K conj(h) K* ∈ H` for `h ∈ H`, and `K conj(K) ∈ H`, which make `H ∪ H κ` a group (preflight P7). The conclusion: some `v ≠ 0` with neither `h v` nor `h K conj(v)` a product |
+| `QuadAlong`, `quad_eq_zero_of_three`, **`exists_avoid`** | the avoidance lemma (S0 design) |
+| `quadAlong_mulVec`, `quadAlong_mulVec_conj`, `exists_ne_zero_of_mul_star`, `exists_ne_zero_of_mul_star_conj` | unitary and antiunitary conjugations qualify |
+| **`reachUnitary_finite`**, **`reachAnti_finite`** | the conclusions of both statements for every finite subgroup `H`, with no hypothesis on the identity component and none on `K` |
+| **`reachUnitary_of_infinite`**, **`reachAnti_of_infinite`** | each statement follows from its restriction to infinite closed subgroups: the finite case is discharged |
+| `ctl_cnot_witness`, `ctl_avoids` | positive control: `(1, 2, 3, 5)` has `prodDet = −1`, and its `CNOT` image has `−7` |
+| `ctl_counter_zero`, `ctl_counter_step` | countercontrols: the zero matrix (quadratic, no non-root); two complementary step functions (each nonzero somewhere, no common non-root) |
