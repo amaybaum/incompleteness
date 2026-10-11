@@ -1,0 +1,10 @@
+P1   PASS  prodDet expansion along a line: True
+P2   PASS  prodDet(kron2 a b) = 0: True
+P3   PASS  five certificates are identities: True; countercontrol (t1 = t2 admits a nonzero quadratic): True
+P4   PASS  conj fixes natural parameters n = 0..5: True; countercontrol t = i fails: True
+P5   PASS  prodDet bellV = 1; prodDet psi = -1; CNOT psi = [1, 2, 5, 3], prodDet = -7; cnotV agrees with the CNOT matrix: True
+P6   PASS  induction steps (member, n): [('1', 1), ('CNOT', 1), ('SWAP', 0), ('H(x)1', 0), ('S(x)H', 0), ('CZ', 0), ('conj', 0), ('CNOT conj', 0)]; final v = [2, 0, 1, 1] avoids all 8 members: True; zero-matrix countercontrol: True
+P7   PASS  kappa^-1 = conj o K^*: True; kappa h kappa^-1 = K conj(h) K^*: True; kappa^2 = K conj(K): True
+
+PASS 7  FAIL 0
+VERDICT B13-PREFLIGHT-OK

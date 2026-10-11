@@ -349,3 +349,28 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - The entry stamped 00:45:30Z (later than its own append time): NOTES-B11 §1–§3 were written by the 00:44:56Z
     reading, and RESULTS B11-1/B11-2 and the two entries were appended at 00:45:20Z, before commit 3d7b23b8.
   The entries are not edited.
+- 2026-10-11T01:09:22Z — B13 opened. NOTES-B13 S0 (success criterion, reading of "finite cases" as the case of a
+  finite group, design, productivity test, predictions S0-1 … S0-4) written before any run or dispatch.
+  - Mathlib names checked against the pinned tag `v4.33.0`, read from raw.githubusercontent.com into a new, empty
+    scratchpad directory: Algebra/Star/Unitary.lean (the namespace is `Unitary`, e.g.
+    `Unitary.mul_star_self_of_mem`), LinearAlgebra/UnitaryGroup.lean (`Matrix.mem_unitaryGroup_iff`),
+    Combinatorics/Pigeonhole.lean (`Finset.exists_lt_card_fiber_of_mul_lt_card_of_maps_to`), Data/Finset/Card.lean
+    (`two_lt_card_iff`, `card_range`), Data/Finset/Insert.lean (`Finset.induction_on`, `@[elab_as_elim]`, explicit
+    insert binders), Data/Matrix/Mul.lean (`mulVec_mulVec`, `mulVec_add`, `mulVec_smul`, `one_mulVec`,
+    `zero_mulVec`, `mulVec_zero`, all `@[simp]` where used by `simp`; `*ᵥ` is scoped in `Matrix`),
+    Data/Fin/VecNotation.lean, Data/Set/Finite/Basic.lean, Data/Finite/Defs.lean (`Set.Infinite := ¬ s.Finite`),
+    Algebra/Star/Basic.lean (`starRingEnd_self_apply`), Tactic/Push.lean (`push_neg`).
+  - The kernel at L uses the same patterns: `induction s using Finset.induction_on with | empty | insert a s ha ih`
+    (ClosureObstruction.lean:133), `Matrix.mem_unitaryGroup_iff` (BarandesTuple.lean:445), topology on
+    `unitary (Matrix S S ℂ)` (PositiveReachability.lean:963), `push_neg at` (DitaHull.lean:573).
+  - No declaration of the new module's names exists at L; there is no file `OIBridge/BridgeReach.lean`.
+- 2026-10-11T01:09:57Z — `b13_preflight.py` decision rule written. Run 1 (01:10:34Z): 7/7 PASS, VERDICT
+  B13-PREFLIGHT-OK. Replay byte-identical (01:10:41Z). Every algebraic statement the module relies on holds under
+  its conventions. The module's induction, run exactly on 8 instances (6 unitary, 2 antiunitary), ends at
+  `v = (2, 0, 1, 1)`.
+- 2026-10-11T01:20:49Z — module `lean/BridgeReach.lean` written for B13.
+  - Proof design: the elaboration-sensitive steps carry fallbacks in `first` lists, each alternative ending in
+    `done` so that a partial `simp` falls through. These are `prodDet_bellV` (three alternatives) and the two
+    conjugation lemmas (`simp only` with named lemmas, then `simp`).
+  - Goals with beta-redexes are restated with `show` before `rw`. The `v ≠ 0` steps use one `simp [h0, prodDet]`
+    instead of `rw` followed by `simp`.
