@@ -790,3 +790,34 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     the side hypotheses of every link and shows the model satisfies them, otherwise it is a written argument [W] — are
     applied to every round-5 use of a kernel theorem on a model (E19's cones, E20's bodies, E21's stages).
   No research step of round 5 precedes this receipt's commit.
+- 2026-10-11T07:30Z — **authorized cross-branch reads** (read-only; each extracted to the session scratchpad by
+  `git show <commit>:<path>` after `git fetch`, the commit checked to be the one named by the instruction, the git
+  blob and sha256 recorded): `research/countermodels` @ `644bf0a15f0553ca9d5181363fe328a430a60184` —
+  `research/countermodels/lean/CmSprime.lean` (blob `eb5e109a`, sha256
+  `a10f47907c797da9fa5e40ece08b7606e122bad7deccf7c68b1e76863a9de434`, read: the definitions `pr`, `defect`, `dualH`,
+  `surgery`, the statements of `selfDual_of_local`, `theorem_Sprime`, `cap_subset_cocap`, `theorem_Sprime_ineq`,
+  `theorem_Sprime_C4`, `twoDefect`, `control_single_defect`), `NOTES-C19.md` (`6c51b8a0`,
+  `bfdfd94a1a6707932fdf50e0658c0ba95844228e97453a3f2ea668b8f6958d92`, whole), `NOTES-C21.md` (`a2f46be3`,
+  `f0d72871ae25493023a1afc4026f42544702bc097e83c1e103c2c59f934e8adc`, lines 1–120: the cones' table, the reading of
+  the columns, S0), `experiments/c19_groups.py` (`0519f74d`,
+  `4517e4d2b79236fedc79748f454cff0860b836b41f173545b8d678f71d6e99db`, whole — the seed `h_C` and the orbit survey),
+  `experiments/c21_rows.py` (`3c777416`, `c4621d1e20d9ddaad07cd7d2a134ad19d385352682aa598bf1782b2632ee1fb4`,
+  extracted, not read: NOTES-C21's table supplied what E19 needs); `research/bridge` @
+  `a34d20b58d1f937c4705bfa4e24d3c1ecae793c4` — `research/bridge/lean/BridgeDictionary.lean` (blob `fece97f4`, sha256
+  `48fc4a7e5b1f27d433ffb38cfd89f69a74544a803605465b2d0bd8b7a932156d`, whole) and `lean/BridgeConverge.lean`
+  (`d09c7050`, `3f7155ca28787b56b130ec6573e97fa49d30f5f732f9dd5157242d463af8b829`, whole), for E22 (to be carried
+  verbatim with attribution onto the dev branch). Nothing else on either branch was read. Kernel read at L in this
+  branch's tree: CompositeDimension.lean:93–232 (`HVec`, `W`, `hom`, `homMap`, `prodState`, `maxCone`, `actT`,
+  `actC`, `IsNot`, `NativeGate`, `Entangling`), :770–863 (`cnot`, `nflip`, `cnot_frame`, `cnot_relT`, `cnot_relC`),
+  :2700–2756 (the selector and its block reduction), :274, :297, :682 (the eigenspace counts); KInfFoundations.lean:
+  135–161, 260–291, 345–475; QuasilocalCharacterization.lean:150–209, 440–510; QuasilocalAlgebra.lean:900–975,
+  1030–1130; TransitiveBody.lean:518–520; ImplementationLocality.lean:244; StructuralClosure.lean:180;
+  SubstratumInterfaceAudit.lean:236; SubstratumInterface.lean:75. Mathlib API names checked against the local
+  checkout `/home/user/leanprover-community/mathlib4` at `db584cd6` (the `v4.33.0` pin). The GitHub API (`gh api`)
+  was used read-only: the workflow id of `verify.yml` (342319289) and the run queue (empty at 07:36Z).
+- 2026-10-11T07:41Z — E19 begun. NOTES-E19 S0 (written 07:41Z: the productivity test, the analysis (A1)–(A5) — the
+  hypotheses of `theorem_Sprime_ineq` and their reduction for a common `c`; the orbit reduction; the group the clause
+  generates, decided by the determinant-ratio invariant; C19-1 in the schema's vocabulary with the block module's
+  statements; the predicted answer to (ii) — and the predictions) and the exact probe
+  `experiments/e19_s6_controls.py` (decision rule in its header, written 07:41Z) committed together, before the
+  probe's first run.
