@@ -665,19 +665,24 @@ theorem exists_decomp {ι : Type*} [Fintype ι] [DecidableEq ι] (d : ι → Mat
 
 theorem mem_surgery_single {ι : Type*} [Fintype ι] [DecidableEq ι] (d : ι → Matrix n n ℂ)
     (j : ι) : d j ∈ surgery d := by
-  have hsum : ∑ k, ((Pi.single j (1 : ℝ) k : ℝ) : ℂ) • d k = d j := by
+  obtain ⟨t, ht⟩ : ∃ t : ι → ℝ, t = (Pi.single j (1 : ℝ) : ι → ℝ) := ⟨_, rfl⟩
+  have htj : t j = 1 := by
+    rw [ht, Pi.single_eq_same]
+  have htk : ∀ k, k ≠ j → t k = 0 := fun k hk => by
+    rw [ht, Pi.single_eq_of_ne hk]
+  have hsum : ∑ k, (t k : ℂ) • d k = d j := by
     rw [Finset.sum_eq_single j]
-    · rw [Pi.single_eq_same, Complex.ofReal_one, one_smul]
+    · rw [htj, Complex.ofReal_one, one_smul]
     · intro k _ hk
-      rw [Pi.single_eq_of_ne hk, Complex.ofReal_zero, zero_smul]
+      rw [htk k hk, Complex.ofReal_zero, zero_smul]
     · intro h
       exact absurd (Finset.mem_univ j) h
-  refine ⟨0, Pi.single j 1, Matrix.PosSemidef.zero, fun k => le_of_eq (pr_zero_left (d k)).symm,
+  refine ⟨0, t, Matrix.PosSemidef.zero, fun k => le_of_eq (pr_zero_left (d k)).symm,
     fun k => ?_, ?_⟩
   · by_cases hk : k = j
-    · rw [hk, Pi.single_eq_same]
+    · rw [hk, htj]
       exact zero_le_one
-    · exact le_of_eq (Pi.single_eq_of_ne hk (1 : ℝ)).symm
+    · exact le_of_eq (htk k hk).symm
   · rw [zero_add, hsum]
 
 theorem isClosed_dualH (S : Set (Matrix n n ℂ)) : IsClosed (dualH S) := by
@@ -710,8 +715,15 @@ theorem selfDual_of_local {ι : Type*} [Fintype ι] [DecidableEq ι] (d : ι →
       refine ⟨hq.isHermitian.add (isHermitian_sum_smul d hd t), ?_⟩
       intro B hB
       obtain ⟨q', t', hq', hq'd, ht', rfl⟩ := hB
-      rw [pr_add_left, pr_sum_left]
-      simp only [pr_smul_left, pr_add_right, pr_sum_right, pr_smul_right]
+      have e1 : pr q' (q + ∑ k, (t k : ℂ) • d k) = pr q' q + ∑ k, t k * pr q' (d k) := by
+        rw [pr_add_right, pr_sum_right,
+          Finset.sum_congr rfl fun k _ => pr_smul_right (t k) q' (d k)]
+      have e2 : ∀ l, pr ((t' l : ℂ) • d l) (q + ∑ k, (t k : ℂ) • d k) =
+          t' l * (pr (d l) q + ∑ k, t k * pr (d l) (d k)) := by
+        intro l
+        rw [pr_smul_left, pr_add_right, pr_sum_right,
+          Finset.sum_congr rfl fun k _ => pr_smul_right (t k) (d l) (d k)]
+      rw [pr_add_left, pr_sum_left, e1, Finset.sum_congr rfl fun l _ => e2 l]
       have h1 : 0 ≤ pr q' q := pr_psd_psd hq' hq
       have h2 : 0 ≤ ∑ k, t k * pr q' (d k) :=
         Finset.sum_nonneg fun k _ => mul_nonneg (ht k) (hq'd k)
@@ -719,9 +731,7 @@ theorem selfDual_of_local {ι : Type*} [Fintype ι] [DecidableEq ι] (d : ι →
         Finset.sum_nonneg fun l _ => mul_nonneg (ht' l)
           (add_nonneg (le_of_le_of_eq (hqd l) (pr_comm _ _))
             (Finset.sum_nonneg fun k _ => mul_nonneg (ht k) (hpair l k)))
-      first
-        | exact add_nonneg (add_nonneg h1 h2) h3
-        | linarith
+      exact add_nonneg (add_nonneg h1 h2) h3
     · intro y hy
       obtain ⟨hyH, hyK⟩ := hy
       have hdual : ∀ x : Matrix n n ℂ, x.PosSemidef → (∀ k, 0 ≤ pr x (d k)) → 0 ≤ pr x y :=
