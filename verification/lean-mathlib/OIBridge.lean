@@ -270,6 +270,7 @@ import OIBridge.BridgeDictionary
 import OIBridge.BridgeConverge
 import OIBridge.EqvK2Block
 import OIBridge.EqvOneDictionary
+import OIBridge.EqvK2Generation
 
 namespace OIBridge
 
