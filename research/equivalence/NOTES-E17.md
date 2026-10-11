@@ -118,3 +118,15 @@ changed): `open scoped Matrix`; the lambda of line 137 replaced by a typed `hfc 
 `hdiagUnit` given its type by `show` (the same elaboration hazard, not reported because the parse error stopped that
 proof first). Repaired module: blob `fadf980e`, sha256 `0f8aa17a…`. The bodies of (a), (b) and (c) after `hsa` were not
 elaborated in run 1 and are first checked in dispatch 2. Prediction for dispatch 2: BUILT, moderate (about 0.55).
+
+## 4. Dispatch 2 measured (run 38112803530): BUILT
+
+Mathlib bridge job 114391691368: `Build completed successfully (3647 jobs)`; `EqvTransport` (blob `fadf980e`, the repair)
+built with warnings only, all nine prints standard (EqvTransport.lean:439–447): `unitM_mul`, `sandwich_apply`,
+`matrix_eq_sum_unitM`, `offDiag_eq_zero_of_zeroOne`, `col_unique_of_zeroOne`, `finiteStage_transport`,
+`finiteStage_transport_apply`, `isZeroOne_transported`, `oiSystem_transportHDyn`. The bodies of (a), (b) and (c) after
+`hsa`, first elaborated here, needed no change. Release gate as NOTES-E15 §7. **Reading: BUILT.** Outcome (§A.31):
+**POSITIVE** — the transport form is a predicate on the kernel's `QuasilocalSystem`, every Target A system satisfies it
+(kernel-form positive control), and the finite-stage case is proved in a design run; the passage itself stays R-E14.2's
+written proof (`Passage` stated, not proved). No label at L changes. The S0 prediction (BUILT, moderate) held on the
+second dispatch.

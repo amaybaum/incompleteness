@@ -586,3 +586,27 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   04:40Z) and the probe header ("Written 2026-10-11T04:40Z") are later than the commit `8f3baf2e` (04:38:20Z) that holds
   them; both were written between 04:36:32Z and 04:38:20Z. The probe text is left as run (its replay identity depends on
   it). Dispatch 2 plan: `EqvK2Converse` byte-identical, `EqvTransport` repaired, `EqvPowerCone` first build.
+- 2026-10-11T04:49Z — dispatch 2/3 (round 4): run **38112803530** (created 04:49:34Z, `workflow_dispatch` of `verify.yml`)
+  on `20c207f1` (branch `dev-equivalence/r4-design`, fast-forward from `2d978412`; pushed 04:49Z). Diff from L:
+  `EqvK2Schema` (blob `659ae36c`), `EqvK2Converse` (blob `4add9b8d`, unchanged from dispatch 1), `EqvTransport` (blob
+  `fadf980e`, the repair), `EqvPowerCone` (blob `e7d7a286`, first build) and three import lines after
+  `import OIBridge.RelcSelectC5`. Run 38112020014's remaining numerical-probe jobs were still running; the workflow
+  has no concurrency group, so nothing is cancelled. One dispatch remains.
+- 2026-10-11T04:55Z — final replay of the round-4 probes (04:53:52Z–04:54:07Z, `python3 -I -B`, outputs to the session
+  scratchpad and compared with `cmp` against the recorded run-1 `.out`/`.err`): `e15_k2s6_probe` (py `78cd7c59…`, out
+  `3ee625fe…`), `e16a_tokens_pair` (`b032f5c4…`, `fa854faf…`), `e16b_hybrid` (`6a53bad3…`, `105c8f85…`),
+  `e17_transport_finite` (`f1f8016f…`, `cefedd2e…`), `e18_powercone` (`402f9e88…`, `aa53f144…`) — all five byte-identical,
+  each rendering its verdict. `e8_cite_check` runs last, after the documents are final. Handoff proposals HP-11
+  (coordinator), HP-12 (countermodels, cc bridge), HP-13 (bridge, origin) drafted; S6's §G surface and print count
+  (31) updated to the built module; dispatch 2's Mathlib bridge job still queued (runners busy with run 1's probes).
+- 2026-10-11T05:11Z — dispatch 2 measured (run 38112803530 on `20c207f1`; Mathlib bridge job 114391691368, 05:06:55Z–
+  05:10:40Z; job log read through the GitHub MCP `get_job_logs`): **`Build completed successfully (3647 jobs)`**.
+  Prints: `EqvK2Schema` 22/22, `EqvK2Converse` 9/9, `EqvTransport` 9/9, `EqvPowerCone` 7/7, all
+  `[propext, Classical.choice, Quot.sound]`; warnings only (unused `simp` arguments, unreached `first` alternatives,
+  deprecated `push_neg` and `Set.mem_setOf_eq`). Release gate red only at `lean-manuscript` (4 problems: the four
+  unregistered design modules), by construction; `lean-axioms` 5907, no sorry; `legacy-records` 303 intact;
+  `v3-receipts` 43 hold; `claims`, `duplicate` PASS. Lean kernel check job 114391691345 `success`. Readings by the rules
+  fixed before the dispatches: `EqvK2Converse` BUILT (S6's `C0′` met), `EqvTransport` BUILT, `EqvPowerCone` BUILT. The
+  `lean/` copies are byte-identical to the dispatched blobs. The third dispatch is not used. A dry run of the extended
+  citation checker (output to the session scratchpad, not a recorded run) rendered `CITATIONS-RESOLVE` over 71
+  citations at 04:56Z; the recorded run 5 comes last.

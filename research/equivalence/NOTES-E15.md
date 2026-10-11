@@ -139,3 +139,14 @@ the dispatch (`EqvTransport`, NOTES-E17 §3). `EqvK2Schema` rebuilt with warning
 of §5: PARTIAL** — the rule ties BUILT to a successful Build step, which this run did not have although the module itself
 elaborated cleanly; the module goes into dispatch 2 byte-identical (blob `4add9b8d`) so that a green build can read
 BUILT. The S0 prediction (BUILT, about 0.55) is not decided by this run.
+
+## 7. Dispatch 2 measured (run 38112803530): §G BUILT, checkpoint `C0′` met
+
+Mathlib bridge job 114391691368 (started 05:06:55Z, completed 05:10:40Z): **`Build completed successfully (3647 jobs)`**;
+`EqvK2Converse` (blob `4add9b8d`, byte-identical to dispatch 1) built with warnings only, all nine prints
+`[propext, Classical.choice, Quot.sound]` (EqvK2Converse.lean:226–234); `EqvK2Schema` 22/22 standard. Release gate:
+every step PASS except `lean-manuscript` (4 problems: the four unregistered design modules of the dispatch), as expected;
+`lean-axioms` 5907 named results, no `sorry`; `legacy-records` 303 intact; `v3-receipts` 43 hold. Lean kernel check job
+`success`. **Reading by the rule of §5: BUILT.** S6's checkpoint `C0′` is met; R-E15.4 moves from [W] + [X] to [D]
+(CONJECTURE, design run, not certified). The S0 prediction (BUILT, about 0.55) held on the second dispatch; the first
+dispatch's Build step failed on another module.

@@ -15,9 +15,10 @@ exact layer the round would freeze was run this round (`e15_k2s6_probe`, 12/12, 
 predicted output below is generated from those measurements. Unmeasured, as in every draft: the predicted execution
 tree at a designated `D` (the module under its predicted name `K2Schema`, a rename of the measured text; the census
 family; `controls.py`; the probe shard). One optional pre-`F` hygiene item, warnings only: the unused `simp` arguments
-the linter reports in run 38101580750. **Not yet built: §G**, the necessity direction of the equivalence (the
-invariance of `Q3` under one copy's local unitary conjugations and the assembled `iff`), added after the coordinator's
-round-4 framing; its design run is checkpoint `C0′`, pending.
+the linter reports in run 38101580750. **§G**, the necessity direction of the equivalence (the invariance of `Q3` under
+one copy's local unitary conjugations and the assembled `iff`), added after the coordinator's round-4 framing, is a
+built design module too: `EqvK2Converse` (copy `research/equivalence/lean/EqvK2Converse.lean`, blob `4add9b8d`) built
+over L in design run 38112803530 with all nine prints standard, so checkpoint `C0′` is met.
 
 ```v3-round
 round K2-SCHEMA-1
@@ -62,8 +63,8 @@ the equivalence does not source it and adopts nothing; it says that, given H1–
 exactly when it has that invariance. The necessity direction proves A_miss in this invariance reading only: `Q3`'s
 invariance under every local unitary gives `Q3 ⇒ A_miss` and says nothing about whether those operations are available
 through the kernel's protocols. That availability is the H-level premise (A)/H-OI_g — for this repertoire, H-OI_g at
-`{R_z(θ₀), J}` (handoff HO-20 item 4, CONDITIONAL), whose pair-level image is the two-rotation clause below — a separate
-question S6 does not decide; a quantum cone with a restricted set of available transformations has the invariance
+`{R_z(θ₀), J}` (handoff HO-20 item 4, CONDITIONAL), the hidden-history premise of the two-rotation invariance clause
+below — a separate question S6 does not decide; a quantum cone with a restricted set of available transformations has the invariance
 without the availability. With A the transferred pair-level premises at L (the 118 rows stage 6 transferred) and (b)
 the composite action, the stage-6 record has a cone meeting A and not (b) (K(Z_F) [A]): (b) is independent of the
 transferred pair-level premises at L; the 68 rows not reached at stage 6 have not been shown irrelevant, so the record
@@ -130,12 +131,16 @@ theorem pairCone_eq_Q3_of_drive {K : Set (W 3)}
     K = Q3
 ```
 
-**§G, the necessity direction (planned; not yet built).** Four declarations appended to the same module, measured in a
-design module of their own before `F` (checkpoint `C0′`): two intertwining lemmas — the dictionary carries
-`actT (rotLin t)` to conjugation by `1 ⊗ diag(1, cos t + i sin t)` and `actT cycEquiv` to conjugation by
-`1 ⊗ (I − i(X + Y + Z))/2` (the identities checked exactly by `e15_k2s6_probe` D1 at `cos t = 3/5` and `t = π/2`, and by
-`e10_k2_schema` L2 at `cos t = 5/13`; the monomial case is also the bridge thread's `BridgeDictionary` [D], handoff HO-21)
-— and
+**§G, the necessity direction (a design module of its own, `EqvK2Converse`, copy
+`research/equivalence/lean/EqvK2Converse.lean`, blob `4add9b8d`, measured before `F` — checkpoint `C0′`).** Its
+declarations, appended in order to the module and renamed into `K2Schema`, no statement changed: `dict_eq_sum_tensorOf`
+(the split `dict ω = Σ_μ (½σ_μ) ⊗ tokMat (ω μ)`), `dict_actT`, `tensorOf_conj`, `tokMat_eq`, `mat2_ext`, `phaseMat`,
+`phaseMat_conjTranspose`, `homMap_rotLin`, `tokMat_rot`, `cycMat`, `cycMatH`, `cycMat_conjTranspose`, `homMap_cyc`,
+`tokMat_cyc`, the two intertwining lemmas — `dict_actT_rotLin` (the dictionary carries `actT (rotLin t)` to conjugation
+by `1 ⊗ diag(1, cos t + i sin t)` for every real `t`) and `dict_actT_cyc` (`actT cycEquiv` to conjugation by
+`1 ⊗ (I − i(X + Y + Z))/2`) — the identities also checked exactly by `e15_k2s6_probe` D1 at `cos t = 3/5` and `t = π/2`
+and by `e10_k2_schema` L2 at `cos t = 5/13` (the monomial case is also the bridge thread's `BridgeDictionary` [D],
+handoff HO-21) — and
 
 ```lean
 theorem Q3_aMiss : ∀ t : ℝ, ∀ ω ∈ Q3, actT (KInfFoundations.rotLin t) ω ∈ Q3 ∧
@@ -152,9 +157,11 @@ The direction `→` is `Q3_aMiss` after substituting `K = Q3` (unitary conjugati
 Mathlib's `PosSemidef.mul_mul_conjTranspose_same`); the direction `←` is `pairCone_eq_Q3_of_drive`. The two directions
 are witnessed by different declarations; neither is an extension, uniqueness or density theorem standing in for the
 other. Both sides of the `iff` are statements about the cone: `→` yields the invariance of `Q3`, not the availability of
-the operations (the H-level premise (A)/H-OI_g, not in S6). Until `C0′` is measured, §G stands at [W] + [X].
+the operations (the H-level premise (A)/H-OI_g, not in S6). §G is [D] (design run 38112803530), not certified.
 
-`#print axioms` lines: the 22 of the built module (EqvK2Schema.lean:453–474), in the built order, and §G's four. **Census family:**
+`#print axioms` lines: the 22 of the built module (EqvK2Schema.lean:453–474), in the built order, and §G's nine
+(EqvK2Converse.lean:226–234): `dict_eq_sum_tensorOf`, `tensorOf_conj`, `tokMat_eq`, `tokMat_rot`, `tokMat_cyc`,
+`dict_actT_rotLin`, `dict_actT_cyc`, `Q3_aMiss`, `pairCone_eq_Q3_iff_drive`. **Census family:**
 "the pair-level composite cone, conditionally: products of ball states, invariance under DIM-1's gate and under one
 copy's rotations about the third axis and its cyclic permutation, and self-duality under the table pairing give the
 two-qubit positive cone through the Pauli dictionary, given the reachability statement (round K2-SCHEMA-1,
@@ -209,6 +216,7 @@ them an OI premise.
 | input | layer |
 |---|---|
 | the 22 declarations of `EqvK2Schema` (the frozen surface) | [D] design run 38101580750, not certified |
+| §G, the declarations of `EqvK2Converse` (the frozen surface's necessity direction) | [D] design run 38112803530, not certified |
 | `cnot` and its relations (CompositeDimension.lean:775, :854, :860), `rotLin` (KInfFoundations.lean:386), `cycEquiv` (:416), `psdFactorization_discharged` (BoundaryAudit.lean:100), `CandidateCone` (K2Guard.lean:95), `actT_reflY_phiW` (:106), `cnot_idW` (:110), `chain_value` (:134), `no_candidateCone_cnot_reflY` (:143) | [K] kernel at L |
 | the verdicts of DIM-1 and K2-GUARD-1 on those declarations | CERTIFIED (landed rounds) |
 | the exact layer `e15_k2s6_probe` | [X] |
@@ -262,7 +270,7 @@ the audited record); the round asserts neither.
 | Q-CONE | `K2-SCHEMA-CONE-STEP-NOT-ESTABLISHED` | otherwise |
 | Q-SUFF | `K2-SCHEMA-SUFFICIENCY-PROVED` | `driveWords_preserve` and `pairCone_eq_Q3_of_drive` have their frozen statements — exactly the five hypotheses quoted above, `hA` in the full-flow form, `ReachPure` the frozen definition — resolve to the landed objects, and are built at `E` with their prints within the three axioms |
 | Q-SUFF | `K2-SCHEMA-SUFFICIENCY-NOT-ESTABLISHED` | otherwise |
-| Q-NEC | `K2-SCHEMA-NECESSITY-PROVED` | §G's four declarations — the two intertwining lemmas, `Q3_aMiss` and `pairCone_eq_Q3_iff_drive` — have their frozen statements, resolve to the landed objects, and are built at `E` with their prints within the three axioms |
+| Q-NEC | `K2-SCHEMA-NECESSITY-PROVED` | §G's declarations — among them the two intertwining lemmas, `Q3_aMiss` and `pairCone_eq_Q3_iff_drive` — have their frozen statements, resolve to the landed objects, and are built at `E` with their nine prints within the three axioms |
 | Q-NEC | `K2-SCHEMA-NECESSITY-NOT-ESTABLISHED` | otherwise |
 | Q-EXACT | `K2-SCHEMA-INSTANCES-EXACT` | the probe blob at `E`, run by `controls.py` with `python3 -I`, prints `PASS` for D1, D2, P1, P2, X1–X7 and R1, no `FAIL`, `COUNTER XC1 fails as stated`, `COUNTER XC2 fails as stated`, `COUNTER XC3 fails as stated`, `checks: 12, failures: 0` and `VERDICT E15-S6-EXACT-LAYER-CONSISTENT` |
 | Q-EXACT | `K2-SCHEMA-INSTANCES-NOT-ESTABLISHED` | otherwise |
@@ -320,11 +328,11 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 
 - **S1 surface**: preamble, every declaration in order and by kind, every theorem's signature, every definition whole
   (`pauli`, `tokMat`, `dict`, `dictLin`, `ipW`, `coordOf`, `dictEquiv`, `dualW`, `Q3`, `actTLin`, `driveGens`,
-  `driveWords`, `ReachPure`), 26 prints (22 and §G's four). Mutations, each failing with its code: the two sides of
+  `driveWords`, `ReachPure`; and §G's `phaseMat`, `cycMat`, `cycMatH`), 31 prints (22 and §G's nine). Mutations, each failing with its code: the two sides of
   `pairCone_eq_Q3_iff_drive` exchanged with `hA` added as a hypothesis (the equivalence turned into the implication); `hA` weakened to the finite clause
   (`t = Real.pi / 2` only) in `pairCone_eq_Q3_of_drive` (the frozen statement check fails; the countercontrol shows the
   weakened statement false given Theorem S′); `hreach` dropped; `hH3` weakened to `K ⊆ dualW K`; the factor `1/4` of
-  `dict` replaced by `1/2`; `0 ≤ c` dropped from `ReachPure`; a twenty-seventh print.
+  `dict` replaced by `1/2`; `0 ≤ c` dropped from `ReachPure`; a thirty-second print.
 - **S2 resolution**: `W`, `HVec`, `hom`, `prodState`, `tens`, `actT`, `cnot`, `tensorOf`, `eball`, `rotLin`,
   `cycEquiv`, `psdFactorization_discharged` resolve to the landed declarations at `D`. Mutation: a local `cnot`.
 - **S3 positive control and hypothesis load-bearing**: positive — `Q3` meets H1 (P1), H2 and A_miss (D1: each generator
@@ -358,10 +366,10 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 | execution begins from the frozen control plane | `C1`: this file's blob at `F` |
 | the module's text was built before `F` | `C0`: a design run of the module text, green at the Mathlib bridge build with all 22 prints standard, recorded in this file before `F` — **measured: run 38101580750 (job 114358419270), met**; the predicted tree's run at `D` remains with every draft's unmeasured items |
 | the controls and the probe are the frozen ones | `C2`: blobs of `controls.py` and the probe at stage 1 and at `E`; `controls.py --self-test` OK at `E` |
-| every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the Mathlib bridge build and the 26 prints, none with `sorryAx` |
+| every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the Mathlib bridge build and the 31 prints, none with `sorryAx` |
 | the exact layer replays and renders | `C3`: shard `probes_k2schema1` green with `VERDICT E15-S6-EXACT-LAYER-CONSISTENT`; the aggregate job green |
 | `hA` is the full-flow form and `ReachPure` the frozen definition | `C5`: `controls.py check E --freeze F` (S1 surface, with the mutation "`hA` weakened to the finite clause") |
-| §G was built before `F` | `C0′`: a design run of §G (a design module importing the built `EqvK2Schema`), green at the Mathlib bridge build with §G's four prints standard, recorded in this file before `F` — **pending** |
+| §G was built before `F` | `C0′`: a design run of §G (a design module importing the built `EqvK2Schema`), green at the Mathlib bridge build with §G's nine prints standard, recorded in this file before `F` — **measured: run 38112803530 (job 114391691368), met** |
 | the equivalence's two directions are witnessed by different declarations | `C5` (S1 surface: `pairCone_eq_Q3_iff_drive`'s `→` cites `Q3_aMiss`, its `←` cites `pairCone_eq_Q3_of_drive`) |
 | the module is registered; no manuscript changes | `C4`: the release gate at `E` passing every step |
 | the statements, the workflow edit and the note are the frozen ones | `C5`: `controls.py check E --freeze F` |
@@ -374,6 +382,8 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 |---|---|---|---|
 | 1 | `472835c5` (`dev-equivalence/k2-schema`, based on L; module `EqvK2Schema`, blob `3edcf9b0`) | 38099025197 | Mathlib bridge job 114350890660: **build failed** at four proofs (`dict_tens` 105:87, `dict_smul` 122:67, `trace_dict_mul` 167:64, `dict_coordOf` 235:2), one rewriting-order defect of the one-list `simp only` rendering; prints standard for 10 of 22, `sorryAx` for the 12 that are or use those four; no statement failed |
 | 2 | `aabc649e` (proof-only repair: four `simp only` lists gain `Matrix.add_apply` or `Matrix.trace_add`; blob `659ae36c`) | 38101580750 | Mathlib bridge job 114358419270: `Build completed successfully (3644 jobs)`; **all 22 prints** (`EqvK2Schema.lean:453–474`) `[propext, Classical.choice, Quot.sound]`; warnings only (unused `simp` arguments); release gate every step PASS except `lean-manuscript` (1 problem: the unregistered module), `lean-axioms` 5882, no sorry, 303 legacy records intact, 43 receipts hold |
+| 3 (§G) | `2d978412` (`dev-equivalence/r4-design`, based on L; `EqvK2Schema` unchanged, `EqvK2Converse` blob `4add9b8d`, with another design module) | 38112020014 | Mathlib bridge job 114389373318: Build failed at the other module (`EqvTransport`); `EqvK2Converse` built with warnings only, 9/9 prints standard |
+| 4 (§G) | `20c207f1` (same branch; `EqvK2Converse` byte-identical) | 38112803530 | Mathlib bridge job 114391691368: `Build completed successfully (3647 jobs)`; §G's nine prints (EqvK2Converse.lean:226–234) and the 22 standard; release gate PASS except `lean-manuscript` (4 problems: the four unregistered design modules), `lean-axioms` 5907, no sorry, 303 legacy records intact, 43 receipts hold |
 | exact (round 2) | `research/equivalence` | `e10_k2_schema` run 2 (replayed by the coordinator) | 9 checks, 0 failures, `VERDICT K2-SCHEMA-SKELETON-CONSISTENT` |
 | exact (round 3) | `research/equivalence` | `e11_k2_dict` run 2 (replayed by the coordinator) | 18 checks, 0 failures, `VERDICT E11-DICT-STATEMENTS-EXACT` |
 | exact (the probe to freeze) | `research/equivalence` | `e15_k2s6_probe` run 1 (local, `python3 -I -B`; replay byte-identical; py `78cd7c59…`, out `3ee625fe…`) | 12 checks, 0 failures; `COUNTER XC1/XC2/XC3 fails as stated`; `VERDICT E15-S6-EXACT-LAYER-CONSISTENT` |
@@ -381,8 +391,9 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 **Predicted outputs, generated from those measurements by the rules:** Q-CONE `K2-SCHEMA-CONE-STEP-PROVED` (run 2: the
 six named declarations and their dependants built with standard prints; in run 1 four of them printed `sorryAx`).
 Q-SUFF `K2-SCHEMA-SUFFICIENCY-PROVED` (run 2: `driveWords_preserve` and `pairCone_eq_Q3_of_drive` standard). Q-NEC: no
-predicted output yet — §G is unmeasured (`C0′` pending); its written proof and the exact conjugation identities
-(`e15_k2s6_probe` D1, `e10_k2_schema` L2) support `K2-SCHEMA-NECESSITY-PROVED`, which the rules generate only from a build.
+Q-NEC `K2-SCHEMA-NECESSITY-PROVED` (run 38112803530: §G's nine declarations printed, `Q3_aMiss` and
+`pairCone_eq_Q3_iff_drive` among them, all standard; the same blob elaborated cleanly in run 38112020014, whose Build
+step failed on another module).
 Q-EXACT `K2-SCHEMA-INSTANCES-EXACT` (the run of `e15_k2s6_probe`: `checks: 12, failures: 0`, the three countercontrols
 failing as stated, the verdict token), the frozen probe being that blob with its two path lines changed (checkpoint
 `C2`). The rules, not this reading, are what a frozen file would fix; the predicted execution tree at `D` is not yet
@@ -396,7 +407,8 @@ conjugations instead, D1). A converged dictionary module would be a separate rou
 ## Stages and outcomes
 
 Stages as KT4-PREM-1 (C1 `controls.py`; S1 the module, probe, workflow edit, import line and family in one commit; proof
-repairs only; S2 the result note = candidate `E`), preceded by `C0` (met in design run 38101580750) and `C0′` (pending).
+repairs only; S2 the result note = candidate `E`), preceded by `C0` (met in design run 38101580750) and `C0′` (met in
+design run 38112803530).
 **`K2-SCHEMA-1-READ`**: `controls.py check E --freeze F` OK, four tokens printed, the exact-head run at `E` green on
 every job. **`K2-SCHEMA-1-HALTED`**: anything else (`S12`). No outcome sources a premise, discharges K2, or edits the
 ROADMAP or a manuscript; correctness bands unchanged (consistency axis).

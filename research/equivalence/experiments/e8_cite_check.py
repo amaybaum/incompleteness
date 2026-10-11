@@ -32,8 +32,12 @@ Run 3's files are kept as e8_cite_check.run3.{py,out,err,replay.out,replay.err}.
 the round-3 documents -- NOTES-E11..E14, the RESULTS rows R-E11.* .. R-E14.*, the LEDGER's round-3 notes (scanned with
 the round-2 notes, which precede them), handoff-proposals/HP-8..HP-10 -- and applies the design-module rule to the new
 design module EqvK2Schema (resolved against lean/EqvK2Schema.lean) and to the repaired EqvOmega4 (lean/EqvOmega4.lean,
-the copy that built in run 38096511360, which contains every line the earlier copy did).
-DECISION RULE (fixed before run 2; unchanged for runs 3 and 4).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
+the copy that built in run 38096511360, which contains every line the earlier copy did).  Run 4's files are kept as
+e8_cite_check.run4.{py,out,err,replay.out,replay.err}.  Run 5 (round 4) extends the scope to the round-4 documents --
+preregistration-drafts/S6, NOTES-E15..E18, the RESULTS rows R-E15.* .. R-E18.*, the LEDGER's round-4 notes (scanned
+with the earlier notes), handoff-proposals/HP-11..HP-13 -- and applies the design-module rule to the round-4 design
+modules EqvK2Converse, EqvTransport (the repaired copy) and EqvPowerCone.
+DECISION RULE (fixed before run 2; unchanged for runs 3, 4 and 5).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
 20 distinct citations are found, and X1, X2, X3 each fail exactly as stated.  Otherwise "VERDICT NOT RENDERED" followed by
 each failing citation or countercontrol.
 """
@@ -53,7 +57,12 @@ DOCS = ['preregistration-drafts/S1-kinf-seed.md', 'preregistration-drafts/S2-kin
         'NOTES-E11.md', 'NOTES-E12.md', 'NOTES-E13.md', 'NOTES-E14.md',
         'handoff-proposals/HP-8-bridge-dictionary-kernel-checked.md',
         'handoff-proposals/HP-9-countermodels-coordinator-selfduality-not-a-source.md',
-        'handoff-proposals/HP-10-coordinator-round3-status-s4-s6-level3.md']
+        'handoff-proposals/HP-10-coordinator-round3-status-s4-s6-level3.md',
+        'preregistration-drafts/S6-k2-schema-pair-cone.md',
+        'NOTES-E15.md', 'NOTES-E16.md', 'NOTES-E17.md', 'NOTES-E18.md',
+        'handoff-proposals/HP-11-coordinator-round4-ho18-s6-decisive-question.md',
+        'handoff-proposals/HP-12-countermodels-bridge-hybrid-token-dimension-count.md',
+        'handoff-proposals/HP-13-bridge-origin-invariance-not-availability.md']
 
 
 def text_of(doc):
@@ -62,10 +71,11 @@ def text_of(doc):
 
 texts = [(d, text_of(d)) for d in DOCS]
 res = text_of('RESULTS.md')
-rows = '\n'.join(l for l in res.split('\n') if re.match(r'\| R-(AUDIT\.1|E8\.|E9\.|E10\.|E11\.|E12\.|E13\.|E14\.)', l))
-texts.append(('RESULTS.md (round-2 and round-3 rows)', rows))
+rows = '\n'.join(l for l in res.split('\n')
+                 if re.match(r'\| R-(AUDIT\.1|E8\.|E9\.|E10\.|E11\.|E12\.|E13\.|E14\.|E15\.|E16\.|E17\.|E18\.)', l))
+texts.append(('RESULTS.md (round-2, round-3 and round-4 rows)', rows))
 led = text_of('LEDGER.md')
-texts.append(('LEDGER.md (round-2 and round-3 notes)', led[led.index('## Round-2 notes'):]))
+texts.append(('LEDGER.md (round-2, round-3 and round-4 notes)', led[led.index('## Round-2 notes'):]))
 
 DECL = re.compile(r'^\s*(?:@\[[^\]]*\]\s*)*(?:private\s+|protected\s+|noncomputable\s+)*'
                   r'(theorem|lemma|def|abbrev|structure|class|instance)\s+([^\s(:{\[]+)')
@@ -84,7 +94,8 @@ for doc, t in texts:
         named.append((doc, m.group(1), m.group(2), int(m.group(3))))
 
 DESIGN = {'EqvKnDesc': 'EqvKnDesc.lean', 'EqvOmega4': 'EqvOmega4.lean', 'EqvLevel3': 'EqvLevel3.lean',
-          'EqvK2Schema': 'EqvK2Schema.lean',
+          'EqvK2Schema': 'EqvK2Schema.lean', 'EqvK2Converse': 'EqvK2Converse.lean',
+          'EqvTransport': 'EqvTransport.lean', 'EqvPowerCone': 'EqvPowerCone.lean',
           'StageSeed': 'StageSeed.lean', 'CopyCovariance': 'CopyCovariance.lean', 'EqvSeams': 'EqvSeams.lean',
           'EqvSeamsControl': 'EqvSeamsControl.lean'}
 cache = {}

@@ -209,3 +209,19 @@ Each note is dated, names its evidence, and supersedes nothing above.
   K∞-Geom, a drivable non-ellipsoidal body of odd chart dimension `≥ 5` with a native gate. Assumption-watch marker: a
   pair-level source of K∞-Trans must exclude superselection sectors and must act in odd chart dimension `≥ 5`. Status
   OPEN at L; no label changes.
+- **2026-10-11 (round 4) — K2, the necessity direction built in design.** S6's §G is the design module
+  `EqvK2Converse`: the dictionary intertwines one copy's rotations about the third axis (every angle) and its cyclic
+  permutation with local unitary conjugations, so `Q3` has the invariance form of A_miss (`Q3_aMiss`), and, given
+  H1–H3 and `ReachPure`, `K = Q3 ↔ A_miss` (`pairCone_eq_Q3_iff_drive`); 9/9 prints standard in design run 38112803530
+  (R-E15.4, CONJECTURE [D]). S6's checkpoint `C0′` is met. The equivalence is between cone-level statements; the
+  availability of the operations ((A)/H-OI_g) is not addressed. Status OPEN at L; no label changes.
+- **2026-10-11 (round 4) — L3-conv, the transport form in design.** The transport form of H-DYN (R-E14.2) is a predicate
+  on the kernel's `QuasilocalSystem` (`TransportHDyn`); every Target A system satisfies it (`oiSystem_transportHDyn`,
+  through the kernel's `transported`); its finite-stage case — a star automorphism of a stage's matrix algebra in
+  transport form is the transport along a configuration permutation — is proved in design run 38112803530 (R-E17.1,
+  R-E17.2, CONJECTURE [D]); the infinite-volume passage is stated (`Passage`) and stays R-E14.2's written proof. The
+  transport form is introduced (H-DYN's form), not an OI premise. Status OPEN; no label changes.
+- **2026-10-11 (round 4) — Kinf-Trans, self-duality in design.** The state cone of Ω⋆ equals its dual for the
+  self-dualizing form, in polynomial form, in design run 38112803530 (R-E18.1, CONJECTURE [D]): R-E13.1's self-duality
+  step is now design-checked; its conclusion (token self-duality is not a source of K∞-Trans) and R-E16.4 (nor is
+  product-form pair self-duality) are unchanged. Status OPEN; no label changes.

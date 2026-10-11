@@ -73,3 +73,13 @@ moves R-E13.1's self-duality step (in polynomial form) to CONJECTURE [D].
 
 **Prediction.** BUILT, moderate (about 0.5): the risk is in the `field_simp` identities of the witnesses, the
 `nlinarith` certificates of `B_nonneg` and `le_of_cube_le`, and the destructuring of set-builder membership.
+
+## 3. Dispatch 2 measured (run 38112803530): BUILT
+
+Mathlib bridge job 114391691368: `Build completed successfully (3647 jobs)`; `EqvPowerCone` (blob `e7d7a286`) built on its
+first dispatch with warnings only (three deprecated `push_neg`, one deprecated `Set.mem_setOf_eq`, the unreached
+`first` alternatives), all seven prints standard (EqvPowerCone.lean:313–319): `form_eq`, `dot3_sq_le`, `amgm`,
+`B_nonneg`, `bernoulli6`, `mem_PC_of_dual`, `PC_selfDual`. **Reading: BUILT.** Outcome (§A.31): **POSITIVE** — R-E13.1's
+self-duality step (the power cone equals its dual for the self-dualizing form) is proved in a design run, in polynomial
+form, with no hypothesis; R-E13.1's separation (token self-duality is not a source of K∞-Trans) is unchanged. The S0
+prediction (BUILT, moderate) held.
