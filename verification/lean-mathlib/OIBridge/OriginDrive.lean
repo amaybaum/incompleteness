@@ -332,11 +332,11 @@ theorem wlat_of_entries {T : Type} {K : Matrix T T ℂ}
 
 /-- The nonzero entries of the drive's operator are `1 = w⁰` and `w`. -/
 theorem zPh_entries (i j : Fin 2) (h : zPh i j ≠ 0) : ∃ a : ℕ, zPh i j ^ 4 = w345 ^ (4 * a) := by
-  fin_cases i <;> fin_cases j <;>
-    first
-    | exact ⟨0, by simp [zPh]⟩
-    | exact ⟨1, by simp [zPh]⟩
-    | exact absurd (by simp [zPh]) h
+  fin_cases i <;> fin_cases j
+  · exact ⟨0, by simp [zPh]⟩
+  · exact (h (by simp [zPh])).elim
+  · exact (h (by simp [zPh])).elim
+  · exact ⟨1, by simp [zPh]⟩
 
 theorem zPh_wlat : WLat zPh :=
   wlat_of_entries zPh_entries
@@ -807,7 +807,7 @@ theorem conjAff_iterate_scalar [Nonempty T] {U : Matrix T T ℂ} (hU : Uᴴ * U 
       Matrix.mul_smul, Matrix.one_mul, Matrix.mul_one, smul_smul] at h1
     have h2 := congrFun (congrFun h1 (Classical.arbitrary T)) (Classical.arbitrary T)
     simp only [Matrix.smul_apply, Matrix.one_apply_eq, smul_eq_mul, mul_one] at h2
-    exact h2
+    linear_combination h2
   have hμ' : μ * star μ = 1 := by rw [mul_comm]; exact hμ
   rw [conjAff_iterate, h]
   simp only [Matrix.conjTranspose_smul, Matrix.conjTranspose_one, Matrix.smul_mul,
