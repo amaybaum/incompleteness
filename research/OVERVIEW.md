@@ -1143,6 +1143,13 @@ remains). B22, B23, E23 and the S6 surface moved from the bridge and equivalence
 threads do not duplicate them and do not read that branch this round. Each agent: at most three `workflow_dispatch`
 runs, receipts first, commits and pushes after every step.
 
+**Owner's narrowing (2026-10-11, about 15:25Z): limited scope for this batch.** Relayed to the five agents at once.
+Cross-thread record: the pre-run-1 revision and Lean fixes; B22 (both forms, the four claims per form, the K(Z_F)
+countercontrol) as the priority; E23 as a short source table; B23 limited to the Lean fixes and at most one design
+build of the existing module; B23's exact-check plan, the placement question beyond B22's channel-form verdict, and
+the S6 surface deferred to round 7. Threads: receipts, and the small forward corrections (F-C5-1; F-O5-2, F-O5-1), then
+close without starting a node or dispatching; B24–B26, C24–C26, O15–O18 and E20–E22 deferred to round 7.
+
 The plan as recorded before the launch follows unchanged.
 
 Rules unchanged from round 5, with four additions from the round-5 audits: (i) **LOG files are append-only** — a
