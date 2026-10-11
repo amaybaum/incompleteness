@@ -153,3 +153,14 @@ finite rank; with it removed the tower is OI-STAGE's passive one.
   the balanced mixer relative to the exchanges and the KB-D instrument; the owner's numbers alone are reproducible
   without it by memory erasure, so the witness's numbers do not detect the premise.
 - **CONFIRMING, O8-C1.** O5-T1a, O5-KB1, O5-SRC2, O6 P1 (recomputed in X4, X5, X6).
+
+## 5. Design-module status (appended 2026-10-11T01:12Z; earlier sections unchanged)
+
+The [D] labels above refer to `OIBridge/OriginExclusive.lean` at dev commit `5df964af` on `dev-origin/exclusive`
+(cut from L; the diff from L is the module and the one import line in the aggregator `OIBridge.lean`): workflow run
+38099172719, Mathlib bridge job 114351335821, Build success; all 33 declarations print
+[propext, Classical.choice, Quot.sound]; release gate red only on `lean-manuscript`, `lean-axioms` PASS. The first
+version (dev commit `39fd0e67`, run 38098314988, job 114348781009) failed at Build with three errors in
+`reach_mergeInto` (a `rw` under ite conditions whose Decidable instances still named the unrewritten term); the repair
+moved the pointwise identity into `step_eq_mergeInto`, closed by `simp`. Verbatim copy: `lean/OriginExclusive.lean`
+(blob `28776414`, sha256 `a8eb5802…66869a8`).
