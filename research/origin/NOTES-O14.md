@@ -299,6 +299,12 @@ invariance reading the non-monomial datum the bridge needs for `J`, taken as the
 invariance under the drive (W2): the phase intervention at θ₀ is then no additional premise of that reading. Every
 placement that depends on the transfer clause (T)_𝓘 stays provisional.
 
+**S0 addendum 2 — 2026-10-11T11:08Z, before the first run of `o14_opdrive.py`.** One parameter of the addendum
+changed by derivation, not by any computation: the search of X11, PC5 and CC9 runs over words of length `≤ 12`, not
+`≤ 10`. Reason: `H = X · rot(π/8)²` and `rot(π/8) = e^{−iπ/8} S H T H S†`, so the shortest word this note can exhibit
+for a unit multiple of `diag(1, ζ₈)` is `H S³ rot(π/8) S H`, of length 11; a search to length 10 could leave PC5
+undecided for want of depth. Nothing else changes.
+
 ## 0. Verdict
 
 (Written after the run and the dispatch; see §0 below the S0 block in the committed version.)
