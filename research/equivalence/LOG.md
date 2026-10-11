@@ -451,3 +451,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   wording and unsourced-premises paragraph name the four introduced hypotheses. RESULTS R-E15.1–R-E15.3 (rows of this
   round, unaudited) amended in place with the form of each result and the flags; the LEDGER's round-4 K2 note likewise.
   No measurement or label changed.
+- 2026-10-11T03:34Z — E16 begun, under the standing rules. Record search first (§A.19): the trace form of the parity count
+  from the control relation is the archive's relC ledger N1.3 [A] (`research/archive/relc/LEDGER.md`), landed for the
+  ball only as `not_even_of_relC` (RelcSelectParity.lean:354) [K]; ODD-CHAR-1 (`exists_frame_gateRel_iff_odd`,
+  OddChar.lean:184) and the KIRC no-go record (`kirc/THEOREM.md`, `kirc/UNIFORM-NOGO.md`: non-ball local systems are
+  "Barnum–Wilce territory") read. NOTES-E16 S0 (written 03:31Z: the pair-level hypotheses P1–P4 stated and classified
+  against the inventory; the analysis (A1)–(A4) before computation; the probe order; predictions) and the exact probe
+  `experiments/e16a_tokens_pair.py` (decision rule in its header, written 03:31Z) committed together, before the probe's
+  first run.
