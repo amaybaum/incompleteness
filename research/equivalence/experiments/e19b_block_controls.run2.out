@@ -1,0 +1,13 @@
+PASS B1 -- -Q3: no product in it (tr dict = 1 on 36 products); 5 members x 3 block pairs carried into it; members pair >= 0; each of 6 products pairs negatively with some member
+PASS B2 -- HS = {w00 >= 0}: products in it; w00 = Re tr dict w unchanged by 3 block pairs on 9 tables; e11, -e11 in HS pair -1 (HS != dualW HS); coordOf(diag(1,1,1,-1)) in HS, not PSD (HS != Q3)
+FAIL B3 -- K384: 192 rays, closed under the three lifts of G384; max overlap of R h* with the rays 10141/10240 < 1/c = 400/401; <R h*|R d R^dag|R h*>/|h*|^2 = -1/400 = 1 - c: the element 1 (x) D of H moves the cone
+PASS B4 -- det ratios: 1 (x) D -> 1, 1 (x) U_J -> 1 (in H after a phase), CNOT -> -1 (not in H.U(1)); invariant under a common unit scalar
+PASS B5 -- for phi0 and (1, 2, 3i, 5) and U in {U_J, D, D U_J}: det Psi((1 (x) U) psi) = det Psi(psi) != 0 (det U = 1): the diagonal subgroup reaches no product
+PASS B6 -- U in SU(2) (unitary, det 1), non-Clifford (U X U^dag has Bloch vector ('5033/48841', '67368/244205', '-1056/1105')); U = D_alpha (U_J^k D_beta U_J^-k) D_gamma up to a unit scalar for k = [2], with e^{i alpha} = (Fraction(-140, 221), Fraction(-171, 221)), e^{i beta} = (Fraction(-7, 25), Fraction(24, 25)), e^{i gamma} = (Fraction(220, 221), Fraction(-21, 221)) exact
+FAIL B7 -- |G384| = 384, |G768| = 768, |C2| = 11520 (finite, closed, equal to their closures); 1 (x) D is non-Clifford (1 (x) X -> coordinates ('-7/25', '24/25', '0') on 1 (x) (X, Y, Z)), so in none of the three groups modulo phase; proportional to none of the 384 lifted matrices of G384: True
+COUNTER XB1 fails as stated: "-e11 lies in dualW HS" -- ipW(e11, -e11) = -1
+COUNTER XB2 fails as stated: "-Q3 contains a product"
+COUNTER XB3 fails as stated: "some diagonal element carries phi0 to a product" -- determinants ['(Fraction(-1, 1), Fraction(-5, 1))']
+checks: 7, failures: 2
+VERDICT NOT RENDERED -- failing: ['B3', 'B7']
+exit 1

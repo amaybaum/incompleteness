@@ -43,9 +43,12 @@ CHECKS.
       -1 (CNOT), 1 (1 (x) S), 1 (1 (x) U_J); the two-reflection construction on exact instances: with
       U_n = diag((3-4i)/5, (3+4i)/5), U_n X U_n^dag = n . sigma for n = (-7/25, 24/25, 0), and (U_n (x) ... ) --
       explicitly (1 (x) U_n) CNOT (1 (x) U_n)^dag = P0 (x) 1 + P1 (x) (n . sigma); the product of two such reflections is
-      a block pair (1, R) with R in SU(2) of trace 2 n.m; the word (1 (x) U_J) . [(1 (x) U_n) CNOT (1 (x) U_n)^dag] .
-      [(1 (x) U_m) CNOT (1 (x) U_m)^dag] equals the block pair (U_J, R U_J) up to a global phase, with U_m = U_J (so that
-      m . sigma = U_J X U_J^dag); the controlled phase P0 (x) 1 + P1 (x) diag(1, i) has det ratio -i, outside {1, -1}.
+      a block pair (1, R) with R in SU(2) of trace 2 n.m; the word [(1 (x) U_n) CNOT (1 (x) U_n)^dag] .
+      [(1 (x) U_m) CNOT (1 (x) U_m)^dag] . (1 (x) U_J) -- that is (1, R)(U_J, U_J) -- equals the block pair (U_J, R U_J)
+      up to a global phase, with U_m = U_J (so that m . sigma = U_J X U_J^dag); the controlled phase
+      P0 (x) 1 + P1 (x) diag(1, i) has det ratio -i, outside {1, -1}.  [Run 1 multiplied the diagonal factor on the
+      left, which gives (U_J, U_J R), and compared it with (U_J, R U_J): a harness error in the expected order, kept as
+      e19_s6_controls.run1.*; the order is corrected here to the construction (1, W)(U, U) = (U, W U) of NOTES-E19 (A3).]
   K5  Theorem C19-1 (a) on exact instances: for psi = |0> (x) a + |1> (x) b with Gaussian-rational a, b, the matrix
       M0 = [[conj a0, conj a1], [-a1, a0]] satisfies M0 a = (|a|^2, 0), M0 M0^dag = |a|^2 I and det M0 = |a|^2 (so
       M0/|a| is in SU(2)); with M1 from b, (M0 (+) M1) psi = (|a|^2, 0, |b|^2, 0), whose 2 x 2 reshaping has
@@ -519,7 +522,7 @@ two_refl_n = refl_n == madd(kron(P0, S0m), kron(P1, nsig)) and mmul(mmul(Un, SX)
 msig = mmul(mmul(UJ, SX), adj(UJ))
 refl_m = mmul(mmul(kron(S0m, UJ), CNOT), adj(kron(S0m, UJ)))
 Rmat = mmul(nsig, msig)
-word = mmul(mmul(kron(S0m, UJ), refl_n), refl_m)
+word = mmul(mmul(refl_n, refl_m), kron(S0m, UJ))          # (1, R)(U_J, U_J) = (U_J, R U_J)
 target_pair = madd(kron(P0, UJ), kron(P1, mmul(Rmat, UJ)))
 # equality up to a global phase: the two matrices are proportional
 def proportional(A, B):
@@ -536,8 +539,8 @@ k4 = (len(mg384) == 384 and all_commute and all_block and ratios == {O1, C(-1)} 
       and two_refl_n and word_ok and cphase_ratio == C(0, -1))
 check('K4', k4, 'all %d lifted matrices of G384 commute with Z (x) 1 (%s), are block-diagonal (%s), with det U0/det U1 in %s; '
       'generator ratios %s; U_n X U_n^dag = n.sigma and (1 (x) U_n) CNOT (1 (x) U_n)^dag = P0 (x) 1 + P1 (x) n.sigma: %s; '
-      'U_J X U_J^dag = m.sigma with m = %s; the word (1 (x) U_J)(refl_n)(refl_m) is the block pair (U_J, R U_J) up to a '
-      'phase with R = (n.sigma)(m.sigma) in SU(2): %s; the controlled phase has det ratio %s'
+      'U_J X U_J^dag = m.sigma with m = %s; the word (refl_n)(refl_m)(1 (x) U_J) = (1, R)(U_J, U_J) is the block pair '
+      '(U_J, R U_J) up to a phase with R = (n.sigma)(m.sigma) in SU(2): %s; the controlled phase has det ratio %s'
       % (len(mg384), all_commute, all_block, sorted(ratios), gen_ratios, two_refl_n, tuple(msig_coords), word_ok,
          cphase_ratio))
 

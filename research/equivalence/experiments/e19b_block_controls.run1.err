@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/user/wt-research/equivalence/research/equivalence/experiments/e19b_block_controls.py", line 281, in <module>
+    pairs_H = [(Dz, UJ), (UJ, Dz), (su_of([C(3), C(0, 4)]), su_of([C(4, 3), C(0, 5)]))]
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/wt-research/equivalence/research/equivalence/experiments/e19b_block_controls.py", line 276, in su_of
+    assert r * r == na
+           ^^^^^^^^^^^
+AssertionError
