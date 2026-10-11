@@ -488,3 +488,28 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `experiments/e16b_hybrid.py` (decision rule in its header, written 03:36Z) committed together, before that probe's
   first run. Pre-run review fixed one defect of the probe (an identity matrix bound by an assignment expression inside a
   short-circuited conjunction, which could leave it undefined); the decision rule was not changed.
+- 2026-10-11T03:55Z — E16 probe b measured. `experiments/e16b_hybrid.py` run 1 (started 03:43:23Z, after commit
+  `f540b32c`; decision rule unchanged): 7/7, `COUNTER XH1/XH2/XH3 fails as stated`,
+  `VERDICT E16B-HYBRID-MEETS-PAIR-LEVEL-NOT-ELLIPSOID`, `exit 0`; replay byte-identical (`cmp` silent; py `6a53bad3…`,
+  out `105c8f85…`). Every S0-b prediction held. NOTES-E16 §2 (the measurement), §3 (the general case G1–G5, written after
+  the instances agreed) and §4 (outcome) written. Cross-branch read on the coordinator's instruction (addendum 1, rule 2;
+  read-only): `research/archive/pt/I3/INVENTORY.md` at archive `4dc0321c` (sha256 `51eff9af…`, unchanged since the 03:29Z
+  read), entries I3.8–I3.10, I3.43, I3.50, I3.57–I3.76, I3.88–I3.89, I3.92–I3.108, I3.148–I3.153, I3.165–I3.177, to
+  classify the hypotheses of G2 and Ω_h's standing; one search also returned lines of the evidence snapshot
+  `research/archive/pt/C5/evidence/sweep-20261010T1818Z/snapshot/I3/INVENTORY.md` (sha256 `d786a1f3…`), not relied on.
+  Two corrections from that read, applied before the closing commit: (i) the body hypotheses are carried by TRB-1's
+  theorems (I3.88–I3.89, proved [K]), and the inventory item that supplies the body is K∞-Stage (I3.167, open) — S0's
+  (A2) said "TRB-1's body hypotheses, assumed"; §3 G2 and G5 cite I3.167 and record the change; (ii) the standing table of
+  Ω_h gained rows for the token body (I3.167's formalized clauses), the elementary scope (I3.177, not formalized: Ω_h has
+  four perfectly distinguishable states), K∞-Act and K∞-V4, and the negative answer names an elementary-scope predicate
+  as the second assumption that would exclude Ω_h. Kernel lines checked at L for the rows: RelcSelectParity.lean:354,
+  CompositeDimension.lean:218, :1160, :1380, :2723, :2888, KInfFoundations.lean:160, :264, :529, :632,
+  TransitiveBody.lean:602. RESULTS R-E16.1–R-E16.5 and the LEDGER's round-4 K∞-Trans note written, each result in the
+  form of rule 1, the weaker alternatives named in those words (the pair-level hypotheses without K∞-Geom; self-duality
+  alone; central symmetry alone).
+- 2026-10-11T03:55Z — **E16 closed.** Outcome (§A.31): NEW — the dichotomy "OI ⇒ (d = 3 ∧ Ω an ellipsoid) ∨ (d odd ∧
+  d ≥ 5)" with every hypothesis of kind (i), so "OI + {chart dimension at most 4} ⇒ ellipsoid"; NEW in the kernel's
+  vocabulary — the exact body Ω_h answers the decisive question negatively in odd chart dimension (missing assumption
+  K∞-Geom, or an elementary-scope predicate); CONFIRMING [A] the body-independence of the relC count; ELABORATING HO-19 —
+  product-form pair self-duality reduces to token self-duality. Residual OPEN (R-E16.5). Labels: CONJECTURE ×4, OPEN ×1;
+  no status at L changes. Dispatches used this round: 0 of 3.

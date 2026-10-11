@@ -189,3 +189,18 @@ Each note is dated, names its evidence, and supersedes nothing above.
   schema [D], necessity by `Q3`'s invariance under one copy's local unitary conjugations ([W] + [X]; S6 §G, design run
   pending); A_miss is the open bridge (K2's clause I3.165, the (b) forms I3.150/I3.153), not a premise at L. The weaker
   alternative **the finite clause** fails (R-E15.3, given Theorem S′ [W]).
+- **2026-10-11 (round 4) — K∞-Trans from the pair level (the owner's decisive question).** The control relation alone
+  counts dimensions for every body: a NOT and an invertible gate with `relC` force odd chart dimension (R-E16.1; the
+  archive's count N1.3 read for every body; `not_even_of_relC` at L is stated for `eball d`). With a drive this gives,
+  with no introduced hypothesis, **OI ⇒ (d = 3 ∧ Ω an ellipsoid) ∨ (d odd ∧ d ≥ 5)**, the OI items being I3.8, I3.9,
+  I3.66 and the token body of K∞-Stage (I3.167); equivalently **OI + {chart dimension at most 4} ⇒ ellipsoid**, the bound
+  **introduced, not an OI premise** (R-E16.2). The three chart-4 separation countermodels (Ω₄, Ω⋆, Ω_cs) are excluded by
+  dimension, not by shape. In odd chart dimension the answer is negative: the hybrid token Ω_h (a qubit with a two-sector
+  superselection rule, chart dimension 7) meets every pair-level clause in the kernel's form and is no ellipsoid —
+  **OI + {gate invariance of K, product-form self-duality, drive invariance of K} ⇏ ellipsoid**, the three **introduced,
+  not OI premises** (R-E16.3); the missing assumption is K∞-Geom (I3.174), or an elementary-scope predicate (I3.177)
+  bounding the number of perfectly distinguishable states by two. The weaker alternatives **self-duality alone** and
+  **central symmetry alone** fail at the pair level without the gate (Ω⋆, Ω_cs; R-E16.4). Residual (R-E16.5, OPEN): with
+  K∞-Geom, a drivable non-ellipsoidal body of odd chart dimension `≥ 5` with a native gate. Assumption-watch marker: a
+  pair-level source of K∞-Trans must exclude superselection sectors and must act in odd chart dimension `≥ 5`. Status
+  OPEN at L; no label changes.

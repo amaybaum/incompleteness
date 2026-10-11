@@ -1,0 +1,13 @@
+parsed: cnot (pc, pt, sgn); nflip = diag[1, -1, -1]; cycEquiv v = (v 2, v 0, v 1); rotFun_apply: True
+PASS H1 -- IsNot Omega_h z N (z = (0, e_3, 0) = the corner state hom_q(z3) (x) (e0 + e1)/2); 12 exact states; sharp seed (1 + w)/2
+PASS H2 -- flow 1 (+) R_z (+) R_z preserves Omega_h at two exact angles, group law, F_pi involutive and moving; J = 1 (+) cyc (+) cyc preserves; J F_{pi/2} J^-1 moves (1, e3, e3), which every flow member fixes
+PASS H3 -- frame on the four corner products; relT and relC on all 64 basis tables; G o G = id; tr H = 0, tr(actC N) = 0, tr(actC N o actT N) = 0
+PASS H4 -- all 100 images G(prodState x y) have PSD sector blocks; 6400 values of 8 x 8 extreme product effects on them, minimum 0
+PASS H5 -- G(prodState x y) for x = (1, e1, e1), y = (1, e3, e3): block (0,0) of rank 4, the other blocks zero: not a product
+PASS H6 -- K contains the 100 products; G, actT F_t and actT J map 35 elements of K into K; idW in block (0,0) pairs -2 with an element of K (product form M (x) M)
+PASS H7 -- the segment (s, e3, s e3), s in [-1, 1], lies in the boundary; the effect t1 vanishes at two distinct states
+COUNTER XH1 fails as stated -- the zero face of t1 holds two distinct states
+COUNTER XH2 fails as stated -- a nondegenerate boundary segment exists
+COUNTER XH3 fails as stated -- with the identity in place of cnot the image is a product (every block of rank <= 1)
+checks: 7, failures: 0
+VERDICT E16B-HYBRID-MEETS-PAIR-LEVEL-NOT-ELLIPSOID

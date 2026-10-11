@@ -131,3 +131,117 @@ no segment"; "the gate with `cnot` replaced by the identity is entangling".
 
 **Decision rule** (in the probe's header, fixed now): `VERDICT E16B-HYBRID-MEETS-PAIR-LEVEL-NOT-ELLIPSOID` iff every
 check and every countercontrol behaves as stated.
+
+## 2. Probe b — the hybrid token (measured)
+
+`experiments/e16b_hybrid.py` run 1 (started 03:43:23Z, after commit `f540b32c`; decision rule unchanged): 7/7,
+`COUNTER XH1/XH2/XH3 fails as stated`, `VERDICT E16B-HYBRID-MEETS-PAIR-LEVEL-NOT-ELLIPSOID`; replay byte-identical (py
+`6a53bad3…`, out `105c8f85…`). Measured: `IsNot Ω_h z N` with the parsed `nflip` in both sectors; the drive's fields at
+two exact angles and `J_off_axis`; the frame, relT and relC on all 64 basis tables of `W 7` (a complete check of these
+linear identities) and `G ∘ G = id`; `tr H = 0` at `d = 7`, as the count of (A1) requires; all 100 images
+`G(prodState x y)` of exact state pairs have PSD sector blocks, and 6400 values of extreme product effects on them are
+`≥ 0` (minimum 0); the image of the pure product `(sector 0, +x) ⊗ (sector 0, +z)` has a rank-4 block, so it is no
+product; the composite `K` contains the 100 products and is mapped into itself by the gate, the flow and `J` on 35
+elements; a boundary segment and a two-point zero face. Every S0-b prediction held.
+
+## 3. The general case (written, after the instances agreed)
+
+**(G1) The control relation counts dimensions for every body.** For any set Ω ⊂ ℝ^d, any `z ≠ 0` and linear involution
+`N` with `N z = −z`, and any linear equivalence `G` of `W d` with relC: `(d + 1) tr H = (tr H)²` and `tr H ≠ d + 1`, so
+`tr H = 0`, `d` odd and `N` has `(d − 1)/2` eigenvalues `+1` (traces of similar maps; `actC N = H ⊗ 1`,
+`actC N ∘ actT N = H ⊗ H` as maps of `W d`). The body, the frame, positivity, relT and self-adjointness of `N` are not
+read. This is the archive's count N1.3 [A] read for every body; probe a measured its instances and controls. In
+particular no body of even chart dimension carries a native gate.
+
+**(G2) With a drive, below chart dimension 5 the ellipsoid follows with no introduced hypothesis.** Let Ω be compact,
+convex, with interior (TRB-1's hypotheses), carry `ElementaryDrivability`, a NOT and a gate with relC. By (G1) `d` is odd.
+If `d = 1`, Ω is a segment, an affine image of `[−1, 1]`; drivability transfers along affine equivalences (conjugate the
+flow and `J`), and `[−1, 1]` is not drivable (`not_drivable_Icc`, KInfFoundations.lean:529 [K]); so `d ≠ 1`. If `d = 3`,
+the drive forces the ellipsoid (NOTES-E2 R3: the closure of the flow and its `J`-conjugate is SO(3) in an invariant inner
+product, by the classification of closed connected subgroups of SO(3) [L]); the ellipsoid is boundary transitive under
+its affine automorphisms. R3's caveat — that the K route could not use it before DIM-1, whose selector is stated on
+`eball d` — lapses: (G1) does not use the ball. **Form: OI ⇒ (d = 3 ∧ Ω an ellipsoid) ∨ (d odd ∧ d ≥ 5)**, every
+hypothesis of kind (i): I3.8 (`IsNot`: involution, flip, unit corner; assumed), I3.9 (`NativeGate`: relC and the gate's
+invertibility only; assumed), I3.66 (`ElementaryDrivability`; assumed/open), and the token body itself — the completed
+body of K∞-Stage (I3.167, open), compact, convex, with interior as TRB-1's theorems (I3.88–I3.89, proved [K]) take it —
+all unsourced at L. (S0's (A2) cited the body hypotheses as "TRB-1's, I3.88–I3.89, assumed"; those two items are proved
+theorems that carry the hypotheses, and the inventory item that supplies the body is K∞-Stage.) Equivalently
+**OI + {chart dimension at most 4} ⇒ ellipsoid**, the dimension bound introduced, not an OI premise.
+The three chart-4 countermodels to "the single-system seams give K∞-Trans" (Ω₄ of S4, Ω⋆ and Ω_cs of E13) are excluded by
+the gate's control relation — for a reason that does not see their shape, since it excludes `eball 4` as well.
+
+**(G3) In odd chart dimension the pair-level hypotheses do not give the ellipsoid: the exact body Ω_h.** Ω_h meets every
+pair-level hypothesis in the kernel's form and is not an ellipsoid (probe b; the written steps: positivity for all
+inputs, because every sector block of `G(prodState x y)` is `cnot` of a product of two Lorentz-cone vectors, which
+`nativeGate_cnot` [K] puts in `maxCone (eball 3)`, and every product effect of Ω_h is a sum of nonnegative multiples of
+qubit product effects on the blocks; extremality of the entangled image, because the normalized maximal cone of Ω_h is
+the convex hull of four copies of the qubit's, one per sector pair, and `phiW` is extreme in the qubit's
+(`entangling_cnot` [K]); self-duality of `K` for the product form `M ⊗ M`, `M` Euclidean in the `V_q ⊗ V_b` basis,
+because the dual of a product of independent blocks is the product of the blocks' duals and `Q3 = dualW Q3`
+(`Q3_selfDual` [D]); the drive's fields at every `t`, because they are `ball3Drive`'s in each sector). Its standing:
+
+| item (inventory id) | Ω_h | evidence |
+|---|---|---|
+| the token body: K∞-Stage's completed body (I3.167), with `SCInf`, `BinaryVisible`, `FiniteRank` (I3.94–I3.96) | meets | [W]: compact, convex (two second-order-cone constraints), the origin interior; a single-stage presentation with the sector-blind `z`-test as its binary visible test |
+| the elementary scope (I3.167's unformalized part; I3.177) | not formalized at L | Ω_h has four perfectly distinguishable states (sector ⊗ `z`-basis, effects `(t_i ± r_i·e₃)/2`), the qubit two |
+| P1: products in `K`, `K ⊆ maxCone Ω_h` (I3.43's clauses, Ω_h's version) | meets | [X] H6, [W] blockwise |
+| `IsNot` (I3.8) | meets | [X] H1 |
+| `NativeGate` (I3.9): frame, relT, relC | meets | [X] H3, complete on a basis |
+| `NativeGate` (I3.9): posFwd, posInv | meets | [X] H4 on instances; [W] from `nativeGate_cnot` [K] |
+| `Entangling` (I3.10) | meets | [X] H5 (no product); [W] extremality from `entangling_cnot` [K] |
+| `ElementaryDrivability`, K∞-Drive (I3.66, I3.169) | meets | [X] H2; [W] every `t` |
+| `SharpSeed`, K∞-Seed (I3.73, I3.171) | meets | [X] H1 |
+| one NOT on both copies, K∞-Copy (I3.173) | meets | by construction (`NativeGate`'s single `N`) |
+| reversible operations, K∞-Act (I3.168); seed-orbit availability with full effects, K∞-V4 (I3.75, I3.172) | meets | [W]: the flow members and `J` are body-preserving affine equivalences; every transport of an effect along them is an effect |
+| `SingletonFaces` / `RelStrictConvex`, K∞-Geom (I3.62, I3.63, I3.174) | **fails** | [X] H7 (a two-state zero face; a boundary segment) |
+| `BoundaryTransitive`, K∞-Trans (I3.76, I3.170) | **fails** | [W]: Ω_h is no ellipsoid (H7), so by TRB-1 (TransitiveBody.lean:602 [K]) no body-preserving family is boundary transitive |
+| central symmetry (`CentrallySymmetric`, KInfFoundations.lean:160) | fails | [W]: the only candidate centre is the origin (fixed by `O(3)` on both sectors and by the sector swap `(w, a, b) ↦ (−w, a, −b)`), and `−(1, e₃, e₃) ∉ Ω_h` |
+| gate invariance of `K` (H2's form, I3.148) — introduced | meets | [X] H6; [W] |
+| product-form self-duality of `K` (H3's form, I3.149) — introduced | meets | [W] from `Q3_selfDual` [D]; [X] instance |
+| drive invariance of `K` (A_miss's form, I3.150/I3.153) — introduced | meets | [X] H6; [W] |
+
+So the decisive question has a **negative answer**: the pair-level results do not imply the transitivity without adding
+an assumption. **Form: OI + {gate invariance of K, product-form self-duality, drive invariance of K} ⇏ ellipsoid**, the
+three named hypotheses introduced, not OI premises, and the OI items I3.8, I3.9, I3.10, I3.43, I3.66, I3.73, I3.173 all
+met by Ω_h, with the token body (I3.167's formalized clauses), K∞-Act and K∞-V4. The assumption whose absence lets Ω_h
+through is K∞-Geom (I3.174) — an inventory item, open and unsourced at L — in its role of excluding superselection
+sectors (the archive's "Barnum–Wilce territory" for non-ball local systems); the elementary scope (I3.177), not
+formalized at L, would exclude Ω_h as well if it bounds the number of perfectly distinguishable states by two. The
+negative answer is stated for this class: the hypotheses in their kernel form, without K∞-Geom and without an
+elementary-scope predicate.
+
+**(G4) Product-form self-duality adds exactly token self-duality** (both directions written in S0 (A4); instances in
+probe a): it excludes Ω₄ and admits Ω⋆ and Ω_cs. By HO-19 it is not a source of K∞-Trans. Without the gate, the ball's
+own composite is not singled out either (`Q3` and `actT reflY (Q3)` both meet P1, P3 and the drive invariance; K2Guard).
+
+**(G5) The residual, OPEN.** With K∞-Geom added (strict convexity or singleton faces), does a drivable, non-ellipsoidal
+body of odd chart dimension `≥ 5` carry a native gate? If none does, **OI ⇒ ellipsoid** with OI carrying I3.8, I3.9,
+I3.66, I3.167 (the body) and I3.174 — the pair level would then supply K∞-Trans with no introduced hypothesis.
+For balls DIM-1's selector excludes `d ≥ 5` (`dim_of_nativeGate`, CompositeDimension.lean, I3.18 [K]); its block
+reduction uses the ball, and no argument for strictly convex non-balls is known to this thread.
+
+## 4. Outcome (§A.31)
+
+- Productivity test met: (a) the decisive question is answered negatively with an exact body (Ω_h), and positively in
+  the stated scope (chart dimension below 5) in the form "OI ⇒ X"; (b) the residual is isolated with every hypothesis
+  classified (G5). **NEW**: the dichotomy (G2) — the gate's control relation and the drive give the ellipsoid below chart
+  dimension 5 with no introduced hypothesis, and they exclude every chart-4 countermodel of the separation record;
+  **NEW** in the kernel's vocabulary: Ω_h meets every pair-level clause and is no ellipsoid, so K∞-Geom is load-bearing for
+  "pair level ⇒ K∞-Trans" (CONFIRMING [L] that superselection must be excluded by a separate premise).
+  **CONFIRMING** [A]: the body-independence of the relC count (N1.3). **ELABORATING** HO-19: product-form pair
+  self-duality reduces to token self-duality.
+- Skepticism on the favourable branch (G2): it is relative to a gate the inventory records as assumed and unsourced
+  (I3.9), to `IsNot`, and to the drive; R3 is a written argument with a literature input, not a kernel theorem; and it
+  excludes `eball 4` as well, so it selects dimensions, not shapes. On the negative branch (G3): positivity, extremality
+  and self-duality are proved in writing from kernel and design facts blockwise and checked exactly on instances; Ω_h is
+  a superselection body with four perfectly distinguishable states, which an elementary-scope predicate (not formalized
+  at L, I3.177) bounding that number by two would also exclude. Before the closing commit the standing table was
+  checked against the inventory's single-system hypothesis-structures (I3.50, I3.57–I3.76, I3.92–I3.108) and K∞
+  obligations (I3.166–I3.177): with full effects `MixingClosed`, SEC and K∞-1 hold (supporting hyperplanes of a compact
+  convex body with interior), ORD∞ holds (a flow member of infinite order), and no assumed or open item other than
+  K∞-Geom (`SingletonFaces`, I3.62) and K∞-Trans (I3.76) excludes Ω_h; central symmetry (I3.65) is a definition used by
+  Lemma D, not an assumed premise.
+- **Assumption-watch marker** (new): a pair-level source of K∞-Trans must exclude superselection sectors (K∞-Geom or an
+  elementary-scope predicate) and must work in odd chart dimension at least 5; separation countermodels in even chart
+  dimension (Ω₄, Ω⋆, Ω_cs) are excluded by the gate's control relation for every body and so say nothing about the pair
+  level.
