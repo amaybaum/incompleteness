@@ -1,0 +1,16 @@
+[PASS] Z1: U_c cyclic X->Y->Z->X, U_c^3 = -1, U_c^+ = -U_c^2: True; Euler form True; diag(z, conj z) = z diag(1, conj z^2) True; R(c, s) = U_c^+ diag(c - is, c + is) U_c True; controlled diagonal word True; controlled real rotation True; assembly identity (with U0^+ U0 = 1) True
+[CC] CC1 = False: the controlled-diagonal word with the gate replaced by the identity is not the identity
+[CC] CC2 = False: without the cyclic lift, diag(c - is, c + is) equals R(c, s) identically
+[PASS] Z2: 19 factors, SU(2) pair True, product = scalar x blockdiag(U0, U1) True (scalar 1), factors among CNOT, F(w) with |w| = 1, L(U_c), -L(U_c)^2: True; 19 factors, SU(2) pair True, product = scalar x blockdiag(U0, U1) True (scalar 1), factors among CNOT, F(w) with |w| = 1, L(U_c), -L(U_c)^2: True; 19 factors, SU(2) pair True, product = scalar x blockdiag(U0, U1) True (scalar 1), factors among CNOT, F(w) with |w| = 1, L(U_c), -L(U_c)^2: True
+[PASS] Z3: characteristic polynomial preserved by CNOT, F(w) (two w) and L(U_c) on 6 exact Hermitian matrices: True
+[PASS] Z4: 6 pure states (including products and one with a zero block) reached from a product by an element of H: True
+[PASS] Z5: rho(CNOT) = -1, rho(F(w)) = 1, rho(L(U_c)) = 1, rho(blockdiag(U0, U1)) = 1
+[CC] CC4 = False: CNOT has determinant ratio 1 (would lie in U(1) H)
+[PASS] Z6: -Q3 misses the product |00><00| (H1 fails; invariant and self-dual structurally); half-space: tr x = 1/2, tr y = 1, tr(xy) = -1/2 < 0 (H3 fails), trace preserved by the generators True, products in it
+[CC] CC5 = False: the tested pair of the half-space pairs nonnegatively
+[CC] CC6 = False: -Q3 contains |00><00|
+[PASS] Z7: <CNOT, F(i), L(U_c)> finite modulo phase: True (order 384); F((3+4i)/5) in it: False; no power of (3+4i)/5 up to 1000 is 1: True; cos theta0 = 3/5 outside Niven list: True
+[CC] CC3 = False: F((3+4i)/5) lies in the finite-order group modulo phase
+
+PASS 7/7; countercontrols False 6/6
+VERDICT INDEP-E5-FIXED

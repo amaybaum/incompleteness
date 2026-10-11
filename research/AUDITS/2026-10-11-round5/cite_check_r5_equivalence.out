@@ -1,0 +1,90 @@
+MISSING EqvK2Schema.lean:297
+RESOLVED+NAMED CompositeDimension.lean:93 ['HVec']
+RESOLVED QuasilocalCharacterization.lean:150 (no identifier named on the citing lines)
+RESOLVED QuasilocalAlgebra.lean:900 (no identifier named on the citing lines)
+RESOLVED TransitiveBody.lean:518 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:244 (no identifier named on the citing lines)
+RESOLVED StructuralClosure.lean:180 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:236 (no identifier named on the citing lines)
+RESOLVED SubstratumInterface.lean:75 (no identifier named on the citing lines)
+MISSING CmSprime.lean:1067
+RESOLVED+NAMED CompositeDimension.lean:775 ['cnot']
+RESOLVED+NAMED KInfFoundations.lean:386 ['t']
+RESOLVED-UNNAMED KInfFoundations.lean:139 names ['RelStrictConvex'] not in window: def SingletonFaces (Ω : Set V) (avail : Set (V →ᵃ[ℝ] ℝ)) : Prop :=
+RESOLVED+NAMED CompositeDimension.lean:210 ['IsNot']
+RESOLVED+NAMED CompositeDimension.lean:2723 ['dim_of_nativeGate']
+RESOLVED KInfFoundations.lean:144 (no identifier named on the citing lines)
+RESOLVED+NAMED QuasilocalCharacterization.lean:168 ['QuasilocalSystem']
+RESOLVED+NAMED QuasilocalAlgebra.lean:956 ['ReversibleDynamics']
+RESOLVED CompositeDimension.lean:97 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:797 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:416 (no identifier named on the citing lines)
+RESOLVED+NAMED TransitiveBody.lean:603 ['eball', 'exists_affine_image_eq_eball']
+RESOLVED+NAMED TransitiveBody.lean:602 ['eball']
+MISSING NoSuchModule.lean:1
+RESOLVED BoundaryAudit.lean:100 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:198 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:207 (no identifier named on the citing lines)
+RESOLVED CompletionAction.lean:144 (no identifier named on the citing lines)
+RESOLVED CompletionAction.lean:166 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:218 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:854 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:860 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:1160 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:1380 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:2888 (no identifier named on the citing lines)
+RESOLVED CompositionOrder.lean:348 (no identifier named on the citing lines)
+RESOLVED CompositionOrder.lean:378 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:53 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:174 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:209 (no identifier named on the citing lines)
+RESOLVED EffectSpace.lean:337 (no identifier named on the citing lines)
+MISSING EqvK2Converse.lean:226
+MISSING EqvK2Schema.lean:308
+MISSING EqvK2Schema.lean:453
+MISSING EqvOmega4.lean:157
+MISSING EqvOmega4.lean:530
+MISSING EqvPowerCone.lean:313
+MISSING EqvTransport.lean:439
+RESOLVED ImplementationLocality.lean:506 (no identifier named on the citing lines)
+RESOLVED InstrumentCompletion.lean:195 (no identifier named on the citing lines)
+RESOLVED+NAMED K1Bridge.lean:128 ['hP1']
+RESOLVED K2Guard.lean:95 (no identifier named on the citing lines)
+RESOLVED K2Guard.lean:106 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:130 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:135 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:149 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:160 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:264 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:529 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:590 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:617 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:632 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1013 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1053 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1089 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:65 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:69 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:79 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:620 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:652 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:159 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:400 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:427 (no identifier named on the citing lines)
+RESOLVED QuasilocalAlgebra.lean:919 (no identifier named on the citing lines)
+RESOLVED QuasilocalAlgebra.lean:1109 (no identifier named on the citing lines)
+RESOLVED QuasilocalCharacterization.lean:463 (no identifier named on the citing lines)
+RESOLVED QuasilocalCharacterization.lean:769 (no identifier named on the citing lines)
+RESOLVED QuasilocalCharacterization.lean:792 (no identifier named on the citing lines)
+RESOLVED RegionTower.lean:254 (no identifier named on the citing lines)
+RESOLVED RelcSelectParity.lean:354 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:78 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:224 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:350 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:401 (no identifier named on the citing lines)
+RESOLVED StructuralClosure.lean:383 (no identifier named on the citing lines)
+RESOLVED SubstratumSource.lean:77 (no identifier named on the citing lines)
+RESOLVED SubstratumSource.lean:86 (no identifier named on the citing lines)
+RESOLVED TransitiveBody.lean:651 (no identifier named on the citing lines)
+SUMMARY equivalence: 88 distinct citations in added lines since ab6788b9; resolved 78; named-and-found 10; unnamed 67
+CITATIONS-EQUIVALENCE-FAIL

@@ -1,0 +1,10 @@
+thread equivalence: 4 round-5 scripts between ab6788b9 and 3a46b811; replay dir <scratchpad>/replays/equivalence-replay/research/equivalence/experiments/
+EXIT 1    e19_s6_controls.py (0s); stderr tail: ", encoding='utf-8').read()\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '../../../verification/lean-mathlib/OIBridge/CompositeDimension.lean'\n"
+IDENTICAL e19b_block_controls.py (4s, 1929 bytes)
+NO-OUT    e20_odd_bodies.py
+EXIT 1    e8_cite_check.py (0s); stderr tail: "oin(HERE, doc), encoding='utf-8').read()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '../preregistration-drafts/S1-kinf-seed.md'\n"
+Re-run from a full export of 3a46b811 (research/equivalence and verification/lean-mathlib/OIBridge; the two scripts read the kernel and the thread's documents by relative path):
+IDENTICAL e19_s6_controls.py (29s, 3467 bytes; stderr empty)
+IDENTICAL e8_cite_check.py (0s, 4264 bytes; stderr empty)
+e20_odd_bodies.py: no final .out (E20 deferred to round 6; its runs are kept as .run1.*, .run2.*); not replayed
+indep_checkE5.py (coordinator): run 1 and replay stdout identical (cmp); stderr empty in both
