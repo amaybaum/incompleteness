@@ -305,6 +305,158 @@ changed by derivation, not by any computation: the search of X11, PC5 and CC9 ru
 for a unit multiple of `diag(1, ζ₈)` is `H S³ rot(π/8) S H`, of length 11; a search to length 10 could leave PC5
 undecided for want of depth. Nothing else changes.
 
-## 0. Verdict
+## 0. Verdict (written 2026-10-11T11:29Z, after run 1 of `o14_opdrive.py` and the build of dispatch 2)
 
-(Written after the run and the dispatch; see §0 below the S0 block in the committed version.)
+Evidence at this point: the design module `OriginDrive.lean` built green in run 38135099684 (dev-origin/drive @
+`86358785`), every one of its 110 `#print axioms` lines on [propext, Classical.choice, Quot.sound] (two, `phi5_three_four`
+and `phi5_five`, on the subset [propext, Quot.sound]), the release gate red only on `lean-manuscript`; run 38134267257
+(@ `78baca7c`) failed at two proofs and is kept as `lean/OriginDrive.run38134267257.lean`. `o14_opdrive.py` run 1: both
+verdict lines positive, replay byte-identical. Row numbers T1 … T12 refer to RESULTS O14-T1 … O14-T12.
+
+**The owner's question in his three forms.**
+
+- **Derived from existing OI premises — no; class (D).** At the audited scope — the stated access `permClass`, `MixR ∅`
+  and FM's `latticeClass` (HO-33 item 1) — every available unitary at every carrier, by every protocol, is a nonzero
+  multiple of a matrix with entries in `{0} ∪ μ₄` (T5): the reversible group is finite up to scalar, of order `(2n)!`
+  (`permClass`) and `(2n)! · 4^{2n−1}` (`MixR ∅`, FM) modulo scalars at level `n` (the monomial count; X6 at `n = 1, 2`),
+  every element has a scalar power, and the group, unit scalars included, is its own closure. The drive is available at
+  no level by no protocol (T1), and it is not a limit of available channels either: on a fourth-root lattice the
+  coefficient of `|0⟩⟨1|` in the image of `|0⟩⟨1|` stays in the square `|Re| + |Im| ≤ 1`, closed under limits, while the
+  drive's coefficient `w̄` has `|Re| + |Im| = 7/5` (T9, X10). FM and the drive class are the non-quantum models.
+- **Independent of the phase intervention — no candidate that supplies the drive exactly; class (C) for each.** (a) the
+  phase intervention at θ₀ (the drive class), (a′) at every angle (the monomial interface; I4.60, which implies the drive,
+  T2, and is not a row of Table A2), (c) the fractional layer flow (the phase intervention at every angle in the
+  exchange's eigenbasis, `gateFlow σ t = H diag(1, e^{iπt}) H`; with the quarter phase it gives the drive exactly, X3,
+  and every token unitary), (b) the Kochen–Specker re-preparing tower (a coherent member per axis, O13) and (d) the
+  remaining angle-general kernel objects are each the phase intervention or contain it. Disguise test FAILED for each.
+- **Scoped OPEN.** Whether the fixed gate at θ₀ — a mixer, not the phase intervention — supplies the drive exactly
+  through dilations (at level one without dilations it does not, given the freeness of the Lubotzky–Phillips–Sarnak
+  generators [L], X4); whether any existing premise supplies the bridge's transfer clause (T)_𝓘 (not examined in O14;
+  no route found).
+
+**The generated group, exact against dense (the owner's (i), (ii), (iii)).**
+
+| class (candidate) | (i) the exact group of available unitaries | (ii) its closure | (iii) what availability reaches | rows |
+|---|---|---|---|---|
+| `permClass` (stated access) | unit multiples of permutation matrices; `(2n)!` modulo scalars | itself | (i) | T5, X6 |
+| `MixR ∅` = FM `latticeClass` | unit multiples of `μ₄`-monomials; `(2n)! · 4^{2n−1}` modulo scalars; finite up to scalar at every carrier | itself | (i); the drive not even in the closure of the available channels | T5, T9, X6, X10 |
+| (a) drive class | unit multiples of monomials on the lattice of `⟨i, w⟩`; infinite (`w` is no root of unity) | monomial unitaries; the level-one clause of `DenseUnitaryControl` fails | (i) | T4, T6 |
+| (a′) monomial interface (I4.44, I4.240; I4.60) | every monomial unitary | itself; not dense | (i) | T2, T6 |
+| (c) layer flow with the quarter phase | every token unitary, exactly | — | (i); with I4.60 exact QM at every level | T11, X3 |
+| fixed gate at π/4 (the balanced mixer) | level one: the 24 Clifford channels; level ≥ 2: countable | level one: itself; level two: dense | (i); the drive only as a limit of available channels | T9, T10, O9 |
+| fixed gate at π/8 | countable | level one: dense | (i); never the drive | T8, O12-T4 |
+| fixed gate at θ₀ | countable | dense at every level | (i); not QM; the exact drive OPEN | T7, X4 |
+| full class | every unitary | — | every unitary | [K] |
+
+Availability never reaches (ii) beyond (i) without a closure premise. The archive names one, LIMCLOSE-C (available
+operation data closed under limits; `research/archive/drive/RESULT.md`:81, :343, :374), introduced, not an OI premise and
+not an inventory item at L. T9 shows that (ii) must be taken for the available *channels*, not only for the reversible
+group: under LIMCLOSE-C for channels the balanced mixer supplies the drive, while the closure of its level-one reversible
+group is that finite group.
+
+**One class per candidate, with separating models and scope.**
+
+| candidate | class | separating model | scope |
+|---|---|---|---|
+| the existing premises (stated access, `MixR ∅`, FM) | (D) | FM: no drive, exactly or as a limit of channels; no density. The drive class: the drive added, still not QM | the bridge's audited scope (Table A2); I4.60 lies outside it (T2) |
+| (a) the phase intervention at θ₀ | (C) | the drive class: the drive, no mixer, no density, no control, not QM (T4, T6) | exact availability |
+| (a′) the phase intervention at every angle; I4.60 | (C) | the monomial interface: every phase, not dense, not QM; FM fails I4.60 | exact availability |
+| (b) the re-preparing tower (HO-9 v2) | (C) | O13: available along n only with a coherent member ∝ Π^n_+ per axis; fixed gates reach countably many axes | the kernel's carrier |
+| (c) the fractional layer flow (I2.34, I4.56) | (C) | — (it contains a Clifford mixer, `H S H`, at t = 1/2 and, with the quarter phase, every token unitary) | exact availability |
+| (d) the other kernel objects | as (a′), (c) or the balanced mixer | as those | — |
+| the balanced mixer, the non-monomial datum J needs, as a source of the drive | (B), provisional | `MixR {π/4}`: J exactly, the drive only as a limit of available channels (T9), never available (T8, T10) | the invariance reading only: closed sets of states invariant under every available channel |
+
+The last placement is provisional twice over: its premise is the datum the bridge needs for J in any case, whose own
+motivation within OI is not decided here (I4.239 records the fixed gate as an independent datum; O2-G3), and it gives the
+drive in the invariance reading only, which serves the bridge only if the bridge's cones are closed and required to be
+invariant under every available channel, not only under the reversible group. Every placement on which the bridge's
+outcome (C) depends stays provisional until the cross-thread checks.
+
+**"Sufficient, not necessary", made precise.** In the exact reading the drive is a consequence of the target:
+composite unitary control, hence exact quantum mechanics, on the token's generated theory makes it available at every
+level (T3, `opDrive_of_qm`). So "not necessary" is a statement about premises — other premise sets entail it (control;
+the layer flow with the quarter phase, X3) — and, in the invariance reading, about closures: a dense generating set
+without the drive does the same work. `MixR {π/8}` separates: its level-one reversible group is dense (O12-T4), and no
+protocol at any level makes the drive available there (T8). The alternative generating sets, each with its disguise test,
+are in §2.
+
+**The transfer clause (T)_𝓘.** No route was found by which existing OI premises supply the drive: FM excludes it
+exactly and as a limit of channels (T1, T9). O14 did not examine the transfer clause itself. The one route found by which
+something the bridge already needs supplies the drive is T9's, and it runs in the invariance reading only.
+
+**Classification (§A.31).** The productivity test is met on both prongs: (i) the complete reversible group at every
+level for the stated access (finite up to scalar, exact orders) and for each monomial candidate (monomial, closed, not
+dense), with exact group, closure and availability kept apart and every candidate placed by exact separating models; (ii)
+hidden assumptions exposed. NEW — **O14-N1**: the closure of the `InstAvail` closure is not bounded by the closure of the
+reversible group: at the balanced angle the level-one reversible group is finite, yet a repeat-until-success protocol of
+the kernel's five constructors approaches the drive (T9); in the invariance reading the J datum, taken as the balanced
+mixer, makes the phase intervention redundant. **O14-N2**: exact quantum mechanics entails the drive (T3), so the
+safeguard's "sufficient, not necessary" has content only at the level of premises and of closures. **O14-N3**: no fixed
+gate at a rational angle makes the drive available, at any level, by any protocol — O9's norm step in valuation form
+(T8). POSITIVE — H1 (the drive is the identity on every monomial token body, T4), H2 (a finite-order non-Clifford phase
+with the stated access generates a finite group, X7: the Hadamard–T density needs the mixer), H3 (`MixR {θ₀}` is a
+mixer, not the phase intervention), H4 (I4.60 implies the drive and lies outside Table A2). Assumption-watch markers:
+**AW-14a** — any bound on what a class reaches in the limit must be taken over its available channels, not over its
+reversible group (T9); **AW-14b** — a necessity claim about an operation is trivial in the exact reading when the target
+makes every unitary available (T3).
+
+## 1. Disguise tests
+
+- **(a) the phase intervention at θ₀.** Letter: it is the phase intervention. Kernel carrier: the drive class is
+  structurally closed, has `DerivedOI` and inverse accessibility, and supplies exactly the drive's lattice of phases; on
+  every monomial token body the drive is the identity (T4). FAILED as an independent principle.
+- **(a′) every angle; I4.60.** I4.60 (`SubstratumAvail`: a theory carries the substratum theory's availability) supplies
+  every diagonal unitary (`diagonal_avail`) and so the drive (T2); I2.33 records the phase intervention as assumed.
+  FAILED.
+- **(b) the re-preparing tower.** Available along n only through a class member ∝ Π^n_+ per axis (O13-T1): it presupposes
+  the coherent repertoire it is meant to source. FAILED (O13-D).
+- **(c) the fractional layer flow.** `gateFlow σ t = 1 + (e^{iπt} − 1)(1 − P_σ)/2 = H diag(1, e^{iπt}) H` on the token:
+  the phase intervention at every angle in the exchange's eigenbasis; I2.34 records it as "an additional physical
+  intervention assumption, as the phase intervention is". FAILED.
+- **(d)** the coherent lift's flows `Umat V E t` (the phase intervention in the basis `V`), `ball3Drive` (an invariance
+  statement, not availability; HO-33 item 4), the gate flow at time one half (`H S H`, a Clifford mixer, a word in the
+  balanced mixer and the quarter phase),
+  the shear image (the quarter phase, already in the stated access). Each reduces to (a′), (c) or the balanced mixer.
+- **The fixed gates.** Letter: passed — a fixed real rotation is a mixer, not a phase. Kernel carrier: a postulated
+  non-monomial datum (O2-G3; I4.239), introduced, not an OI premise; at rational angles never a source of the drive
+  (T8).
+
+## 2. The alternative generating sets
+
+| set | what it generates | the drive | disguise test | separating model |
+|---|---|---|---|---|
+| a non-Clifford phase of finite order, `T = diag(1, ζ₈)`, with the stated access | a finite group: `⟨T, S, X⟩` has 16 elements modulo scalars (X7) | no | the phase intervention at π/4: FAILED; and not sufficient | the monomial interface (holds `T`, not dense, T6) |
+| `T` with the balanced mixer (Hadamard–T) | dense [L]; `H T` of infinite order (X7) | not available (T8's argument over `ℤ[ζ₈][1/2]`); a limit | a postulated mixer | — |
+| `rot(π/8)`, `S`, `X` | level one dense (O12-T4) | never available (T8; X11 to word length 12) | a postulated mixer | `MixR {π/8}` |
+| the balanced mixer with Toffoli and `S` | level one: 24 Clifford channels; level two dense (O9) | a limit of available channels (T9), never available (T8, T10) | a postulated mixer; it is the J datum | `MixR {π/4}` |
+| `rot θ₀` | dense at every level ([K], T7) | exact OPEN (level one without dilations excluded given [L], X4) | a postulated mixer | `fixedGateTheory θ₀` (dense, not QM) |
+| the layer flow with the quarter phase | every token unitary exactly | exactly (X3) | FAILED (the phase intervention in another basis) | — |
+
+Among the sets built from fixed gates none supplies the drive exactly at a rational angle (T8), and no mixer among them
+is available in any submonomial candidate (`not_tokenAvail_rot_of_submonomial`, T4; T6).
+
+## 3. Fixed-point passes
+
+1. Skeptical, O14-N1 (favourable to the bridge, so tested hardest): the repeat-until-success protocol uses only `op`
+   (unitary members: the circuit, permutations, the correction `Z`), `readout` (the class's ancilla projectors, `MixR.proj`
+   with a relabelling), `bind`, `coarse` and `discard`, and every gate of the circuit is a product of `MixR {π/4}`
+   generators at the carrier `Fin 2 × Fin 4` (X9); the limit is taken in the space of channels and no density of the
+   reversible group is claimed. Holds. No NEW.
+2. Skeptical, O14-N1's use for the bridge: the invariance conclusion needs the bridge's cones to be closed and invariant
+   under every available channel. A premise of invariance under the reversible group alone does not give it. Recorded as
+   the scope of the (B) placement. No NEW.
+3. Cross-propagation, O14-N3 to O12 and O13: at π/8 the level-one density is a closure statement only (O12-T7, O13-N2);
+   T8 says the drive itself is never available there. ELABORATING. No NEW.
+4. Cross-propagation, O14-N2 to HO-31 item 1 and H-T: every bridge to exact QM entails the drive; the content of the
+   bridge's drive premise lies in what it is derived from, not in whether QM needs it. CONFIRMING. No NEW.
+
+Four consecutive passes without a NEW finding: O14 stops here.
+
+## 4. Open after O14
+
+- The exact drive in `fixedGateTheory θ₀` through dilations.
+- Kernel forms of T8 (the valuation argument over `InstAvail`), of T9 (the protocol and its limit) and of O9-L1.
+- The transfer clause (T)_𝓘 against the existing premises.
+- Whether the bridge's cones are required to be invariant under every available channel (T9's scope).
+- Carried to round 6 by the owner's direction (LOG 10:39Z): O15 (the comparison with OriginTokenOrder's model and the
+  largest finite-order closure) and O16.
