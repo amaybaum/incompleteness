@@ -766,7 +766,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - research/HANDOFFS/HO-33 … `d5f9d19eafa2fdf39877fa701961bb1c95ae5cfde5bbfd13ace7a0ce08a21169`, HO-34 …
     `0a39ea8227e51cae331a4d3b9de62ba12f168b14e46993e4690eae42f94d1e6f`, HO-35 …
     `70d57d852f8f8f7e3500c464faeefffc0b64f62d795eefc48308c5ec3f2dee53`, HO-36 …
-    `8b3b3a8bf52b6a834825e592cdfd75c3c40fbdd7cdbcf8a4fb566901b4fd536cd2`: this thread's own round-4 results as routed, read
+    `8b8a3bf52b6a834825e592cdfd75c3c40fbdd7cdbcf8a4fb566901b4fd536cd2`: this thread's own round-4 results as routed, read
     for their item numbering and for HO-33's correction item only. Not copied: they are not addressed to this thread.
 - 2026-10-11T07:37:26Z — receipts. Copied from research/overview @ 4c4a02b1 `research/HANDOFFS/` into `inbox/`, byte-identical
   (`cmp` against `git show 4c4a02b1:…`), sha256 of each copy:
@@ -838,3 +838,149 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     order) and `J`. Item 2's three kinds of premise and item 4's list of refuted implications are used as stated. Not
     assumed: availability of any operation; that any cone "satisfies OI" or is "independent of OI"; anything about the
     68 NOT REACHED rows beyond R6; level-(ii) versions; invariance under any continuous family other than `Kk`'s.
+- 2026-10-11T07:54:19Z — correction, forward: the HO-36 hash in the receipts entry above was first typed as `8b3b3a8b…`; the
+  measured value is `8b8a3bf52b6a834825e592cdfd75c3c40fbdd7cdbcf8a4fb566901b4fd536cd2`, and the entry now carries it.
+- 2026-10-11T07:54:19Z — **owner's round-5 directions received** through the coordinator (recorded in research/overview
+  OVERVIEW.md, "Owner's round-5 directions"; binding from now; this thread has first priority with origin). Quoted:
+  the question round 5 works is "can the existing OI principles generate the continuous operational control needed
+  to force the quantum cone, without assuming that control separately?" Requirements: "(1) correct F1 WITHOUT relying
+  on SubstratumAvail where it fails — the re-classification of I4.56 and I2.34 must rest on a chain whose every
+  link's side hypotheses FM satisfies (the quarter phase from DerivedOI, avail_conj_mul, the exchange's layer flow),
+  kernel-checked in design if small, else [W]; never cite LiftAudit.lean:812 or :783 for FM; (2) verify the
+  sufficient bridge WITHOUT silently assuming the phase intervention: in B20, OpDrive(θ₀) and the J-datum are
+  explicit introduced hypotheses, every other hypothesis of the derivation OI + {OpDrive(θ₀), J-datum} ⇒ (T) is an
+  inventory item cited by id at its status at L, and no step uses any availability beyond those (in particular no
+  diagonal_avail, no SubstratumAvail, no DrivesElementary); state the exact kernel closure rules used (bind /
+  avail_conj_mul, spectator, transport, relabel, discard — HO-17 item 8)." Safeguard (shared with origin): "that
+  every available primitive has finite order does not establish that compositions cannot generate continuous control
+  (Hadamard and T are finite-order and generate a dense subgroup). So the bridge OpDrive(θ₀) is to be classified as
+  SUFFICIENT, NOT NECESSARY, unless alternative generating sets are excluded: a finite-order non-Clifford datum on
+  the token (a non-Clifford phase of finite order with the stated access) would also generate dense single-token
+  control. In B20 record the bridge as 'sufficient'; list the alternative generating sets you can name (the origin
+  thread characterizes the generated groups under the actual composition rules — do not duplicate that, cite it as
+  pending: origin O14/O15); and make explicit which closure or limiting step (density → every unitary available, or
+  only a dense set) your derived half needs: availability of each finite composition is exact, density is a closure
+  statement that must be an inventory item or introduced. The transfer clause in table form needs the specific
+  operations R_z(θ₀) and J available, not a dense set — say whether your chain needs exact availability of R_z(θ₀)
+  (OpDrive as stated) or whether a dense subgroup plus a closure premise (H3's closedness of the cone) suffices for
+  the invariance conclusion; keep the two versions apart." Everything else in the round-5 instructions stands.
+  Applied from here on, before any dispatch: B18's chain takes its sign diagonal from DerivedOI's quarter phases
+  (`PhasesAvailable`) through the kernel's `avail_conj_mul` and the exchanges from `ExchangesAvailable`, with the
+  row's own executable layer flow — no `SubstratumAvail`, no `diagonal_avail`, and LiftAudit.lean:812/:783 cited
+  only as the chain being replaced, never for FM; B20 records the bridge as sufficient, not necessary, lists the
+  alternative generating sets, names the closure rules of every step, and keeps the exact-availability version
+  (OpDrive as stated) apart from a dense-subgroup-plus-closedness version of the invariance conclusion. S0 addenda
+  dated after this entry carry the adjustments in NOTES-B18 and NOTES-B20; the S0 sections already written stay as
+  written.
+- 2026-10-11T08:07:01Z — **two further owner distinctions received** through the coordinator (recorded in research/overview
+  OVERVIEW.md under "Owner's round-5 directions"; binding for B18–B20). Quoted: "(1) Reversible groups versus general
+  operational closure. Ancilla preparation and discard are not invertible and do not belong to a group of reversible
+  operations. Your predicates PairAvailAt / TokenAvailAt are availabilities of one-outcome conjugation channels
+  (reversible), but the kernel closure you use to move between them (B19: spectator, transport, relabel, and discard
+  for the pair ⇒ token direction) includes non-invertible protocols. State for every theorem which domain it lives in
+  — the reversible group generated at a level, or the InstAvail closure with ancillas and discard — and never let a
+  group-generation step rely silently on a transformation outside its stated domain (when a token unitary is
+  recovered by discarding an ancilla, the kernel's `discardWith_uniform_conjChannel` is the lemma that says the
+  result is again a conjugation). (2) Dense control versus exact availability. In B20 keep three objects apart for
+  the drive: (i) exact availability of R_z(θ₀) as a finite composition of available operations (OpDrive(θ₀) as
+  stated; by bind the kernel's availability reaches exact finite compositions only); (ii) a dense subgroup of SU(2)
+  (closure(⟨generators⟩) = SU(2) does NOT mean every element is exactly reachable); (iii) exact invariance of a pair
+  cone under the full closure, which K2 requires. If your derived half passes from density to exact invariance,
+  establish first the topological closure (H3: K closed, with the exact statement that a closed cone invariant under
+  a dense subgroup is invariant under its closure) and the continuity property it needs (the action
+  U ↦ coordOf(Ad(1 ⊗ U) dict ω) is continuous in U — state and, if small, prove it in design); label the closure
+  step as the premise it is. If instead your chain needs exact availability of R_z(θ₀) and J, say so and do not
+  invoke density at all. Non-Clifford status of a finite-order datum does not by itself give density: density is
+  proved for the actual generating set, at the level claimed (the origin thread characterizes the generated groups;
+  cite its result at its label, pending)." The owner's classification of the decisive outcome, to be applied by the
+  coordinator to B20's verdict with origin O14: "(A) drive derived from existing OI premises; (B) drive derived only
+  after a new independently motivated premise — conditional reconstruction with an explicit physical principle; (C)
+  drive supplied by an assumption equivalent to the phase intervention — a sufficient bridge with no independent
+  explanation of its origin; (D) existing premises admit non-quantum countermodels — demonstrated insufficiency at
+  the audited scope. B20's expected classification is (C) unless origin's O14 moves it; say which it is, and keep
+  the scope explicit: insufficiency for the complete stage-6 inventory is definitive within its scope and says
+  nothing about every conceivable extension of OI." Applied from here on, before any dispatch: every theorem of
+  B18–B20 carries its domain (the reversible group generated at a level by the bind rule on conjugations, or the
+  InstAvail closure with ancillas and discard), recorded in the NOTES addenda and in every RESULTS row; B20's chain
+  needs the exact availability of `R_z(θ₀)` and `J` and invokes no density (the dense-subgroup version is named as
+  the different statement it is, with its two premises — a closed cone and the continuity of the transferred table —
+  and is neither claimed nor built); the alternative generating sets are listed as candidates whose density is for
+  the origin thread to establish, not asserted; B20's outcome is classified (C) and B14-6's (D) with the scope
+  sentence. The addenda are dated after this entry.
+- 2026-10-11T07:20:12Z (recorded here) — cross-branch read on the coordinator's instruction (authorized for the builds):
+  `git show ab6788b9:research/equivalence/lean/EqvK2Schema.lean` (blob 659ae36c, 474 lines, sha256
+  `0bc6da00d5b9ba9c4a2f9390db31c15830a19bf1e30fc2ee6889cd9211281221`, equal to the round-4 value) and
+  `git show ab6788b9:research/equivalence/lean/EqvK2Converse.lean` (blob 4add9b8d, 234 lines, sha256
+  `240abaf6c445112e1b2d5aa39932b51004e6b21cb93b9999ca6aacb5201b0554`, equal to HO-29's value). Saved to the session
+  scratchpad; carried verbatim with attribution on the dev branch only (B20 imports `EqvK2Converse`, which imports
+  `EqvK2Schema`); nothing of them is copied into this branch.
+- 2026-10-11T07:39:54Z — NOTES-B18, NOTES-B19 and NOTES-B20 opened: question, design, productivity test and predictions,
+  before any run or dispatch (S0-1 … S0-8; S0-1 … S0-6; S0-1 … S0-10).
+- 2026-10-11T07:43:14Z — decision rules written into `b18_preflight.py`, `b19_preflight.py` and `b20_bridge.py` (one
+  `date -u` reading immediately before writing the three headers).
+- 2026-10-11T07:45:20Z — `b18_preflight.py` run 1: 6/6 PASS, VERDICT B18-PREFLIGHT-OK (the isolation identity rebuilt
+  from the kernel's definitions, symbolic in `t`, at levels 1–3 and on the pair carrier; the scalar-free form; the sign
+  diagonals on the lattice; the countercontrol with a fixed point). 07:45:21Z — `b19_preflight.py` run 1: 4/4 PASS,
+  VERDICT B19-PREFLIGHT-OK. 07:45:34Z — `b20_bridge.py` run 1: 4/5, VERDICT B20-FAILED P3: no certified witness for the
+  target `R_z(θ₀)` in the witness family searched (b8 X2's family — the defects' images and their sums with Bell
+  projectors), while the `J` half of P3 passed with the value `−1`; kept as `b20_bridge.run1.{py,out,err}`.
+- 2026-10-11T07:50:59Z — `b20_bridge.py` post-run edit, logged in its header (rule text unchanged): the witness family
+  of b8 X3 — the Bell projectors rotated by the quarter phase or its Hadamard conjugate on either token — added to the
+  candidates. Run 2 (07:50:59Z): 5/5 PASS, VERDICT B20-EXACT; P3's values `−4/5` for `R_z(θ₀)` (defect 0, the flow law
+  `−s` at `s = 4/5`) and `−1` for `J` (defect 0), `Q3` controls green. Replays at 07:57:57Z, 07:58:11Z, 07:58:14Z
+  byte-identical (`cmp`, `.out` and `.err`) for all three scripts.
+- 2026-10-11T08:06:00Z — decision rule written into `b18_reclass.py` (loads `b14_fullmodel.py`'s row table unchanged by
+  executing its text before `def main():`; two rows re-classed; C1–C5 re-run; new controls C6–C8; the design links
+  tagged [D] only when `DESIGN_BUILT` is set after a green build, [W] before). Run 1 (08:09:47Z, `DESIGN_BUILT =
+  False`): tally SAT 34 / HARMLESS 29 / NA 5 / HARMFUL 0, C1–C8 PASS, VERDICT B18-RECLASS-OK with the two rows HARMLESS
+  [W] and the scope sentence "27 on a kernel chain at L whose side hypotheses FM satisfies, 2 (I4.56, I2.34) on a written
+  chain [W]"; replay 08:11:04Z byte-identical. Run 2 follows the dispatch result.
+- 2026-10-11T08:07:01Z — pre-dispatch review of the two round-5 modules (no local Lean; every kernel name read at L in
+  this tree; every Mathlib name read in the pinned sources, the local checkout `/home/user/leanprover-community/mathlib4`
+  at tag `v4.33.0` = `db584cd6`, the rev the lakefile pins):
+  - `lean/BridgeToken.lean` (483 lines, 41 declarations, 36 `#print axioms` lines, sha256
+    `417142becdcfe19d541f971581eae520a84f72580027d5375b48f1e033f018c8`): §A B19 (`assocPair`, `reindex_assoc_tokOp`,
+    `pairAvail_of_tokenAvail`; `toEnd`, `reindex_toEnd_pairOp`, `discard_two`, `tokenAvail_of_pairAvail`;
+    `pairAvail_iff_tokenAvail`); §B B18 (`signDiag`, `signDiag_empty`, `signDiag_insert`, `phaseGate_fourth`,
+    `signDiag_avail_of_phases` by `Finset.induction_on`; `signFun_pm`, `signSet`, `diagonal_signFun_eq`,
+    `diagonal_phaseFun_free`, `phaseFun_mul_star`; `phaseFree_of_layerFlowExecutable_free`, its `DerivedOI` form, the
+    control and QM endpoints; FM's token and pair instances). Mathlib names read: `Equiv.swap_apply_self`,
+    `Equiv.swap_apply_def`, `Equiv.symm_symm` (rfl), `Equiv.prodAssoc`'s definition, `Finset.induction_on` (binders
+    `a s h ih`), `Finset.notMem_empty`, `Finset.mem_insert`, `Finset.mem_insert_self`, `Finset.mem_filter`,
+    `Finset.mem_univ`, `Fintype.one_lt_card_iff`, `Matrix.diagonal_mul_diagonal`, `Matrix.diagonal_one`,
+    `Matrix.diagonal_apply`, `Matrix.smul_apply`, `Matrix.one_apply`, `Matrix.smul_mul`, `Matrix.one_mul`,
+    `Matrix.reindex_apply`, `Matrix.submatrix_apply`, `Complex.I_mul_I`, `inv_mul_cancel₀`, `Nat.cast_smul_eq_nsmul`.
+    Robustness fallbacks (`first | … | …`) where a step depends on a simp normal form, a definitional unfolding or a
+    literal (`assocPair_symm_apply`, the two reindex identities, `discard_two` through the kernel's
+    `discard_tensorOf_one` at `m + 1 = 2`, the transport steps, `signDiag_insert`, `phaseGate_fourth`,
+    `swap01_free`).
+  - `lean/BridgeOpDrive.lean` (249 lines, 23 declarations, 21 prints, sha256
+    `02f92407b9727e9944a457592df87b72145a6ea2d2b30b5db9a8db4f70db8d81`): `OpDrive`, `JDatum`; §A pair availability;
+    §B `ancBlock_smul_tokOp`, `exists_scaled_mem_of_tokenAvail`, `mem_of_tokenAvail`; §C `zPh_eq_zPhase` (fallbacks),
+    `uJ_eq_cycMat` (rfl), `transferMap_zPh`, `transferMap_uJ`; §D `transfer_of_opDrive`, `transfer_of_jDatum`,
+    `bridge_derived_half`, `Q3_two_invariant`; §E the refutations, controls and exclusion lemmas.
+  - Name check: none of the 64 new declarations has a namesake among the kernel's, the earlier design modules' or the
+    equivalence modules' declarations (grep over `OIBridge/*.lean`, `lean/*.lean` and the two equivalence files).
+  - Expected `lean-axioms` count for the dispatch tree: baseline 5860 + 240 prints (BridgeAvail 61, BridgeAvailFull 50,
+    BridgeDictionary 20, BridgeConverge 21, EqvK2Schema 22, EqvK2Converse 9, BridgeToken 36, BridgeOpDrive 21) − 4
+    short names recurring across the dictionary modules (`dict_tens`, `dict_prodState`, `dict_injective`,
+    `dict_isHermitian`) = 6096 distinct short names.
+- 2026-10-11T08:10:09Z — **dispatch 1 of 3**: dev branch `dev-bridge/r5-bridge` cut from L (`9f9f8257`) with git
+  plumbing (a temporary index in the scratchpad; the research worktree and index untouched): commit `36083b22` (tree
+  `be98ce01`), child of L, adding under `verification/lean-mathlib/OIBridge/` the blobs BridgeAvail `c88aafd5`,
+  BridgeAvailFull `192fca74`, BridgeDictionary `fece97f4`, BridgeConverge `d09c7050` (the round-3/4 modules,
+  unchanged), BridgeToken `e0d3ce0c`, BridgeOpDrive `722b20ef` (equal to `lean/*.lean` here), EqvK2Schema `659ae36c`
+  and EqvK2Converse `4add9b8d` (verbatim from `research/equivalence` @ `ab6788b9`, with attribution in the commit
+  message, for the build only), and eight import lines in the root `verification/lean-mathlib/OIBridge.lean` after
+  `import OIBridge.RelcSelectC5` (root blob `cf1cbc30`). Deviation, as in rounds 1–4: the root file is outside
+  `OIBridge/`, and the lake library builds only modules reachable from it. Pushed; `verify.yml` dispatched through
+  `gh api -X POST repos/amaybaum/incompleteness/actions/workflows/verify.yml/dispatches -f ref=dev-bridge/r5-bridge`;
+  run 38123860471 (head `36083b22`, created 2026-10-11T08:10:11Z, event `workflow_dispatch`). Waiting; no job or run
+  will be cancelled.
+- 2026-10-11T08:11:09Z — B21 cross-branch reads on the coordinator's instruction (authorized for B21 only; read, not
+  copied): `research/countermodels` @ `644bf0a1` — NOTES-C18.md (187 lines, sha256
+  `a247e83b07c6d0bf034f501ffd0b07f96ef78fd910fb753baef4fec308436817`), NOTES-C19.md (141 lines,
+  `bfdfd94a1a6707932fdf50e0658c0ba95844228e97453a3f2ea668b8f6958d92`), experiments/c18_attempts.py (500 lines,
+  `16eb933f96f76d435917227bb7381f7b5e28f880813c45173503d674a64832f8`), experiments/c19_groups.py (441 lines,
+  `4517e4d2b79236fedc79748f454cff0860b836b41f173545b8d678f71d6e99db`); all four equal to the values HO-31 records.
+  Saved to the session scratchpad; nothing of them is copied into this branch.

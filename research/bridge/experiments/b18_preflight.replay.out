@@ -1,0 +1,9 @@
+[PASS] P1: levels n = 1, 2, 3: every configuration moved [True, True, True]; phaseFun single value e^(-i pi t) [True, True, True]
+[PASS] P2: isolation identity diag(phaseFun) G (D G D) = flow(transition a (tau a))(pi t), symbolic in t: [True, True, True]
+[PASS] P3: scalar-free form G D G D = e^(i pi t) flow(...)(pi t), symbolic in t: [True, True, True]
+[PASS] P4: sign diagonals (n = 1, 2, 3): [[1, 1], [1, -1, 1, 1], [1, -1, -1, 1, 1, 1]]; entries in {1, -1}, fourth powers 1, unitary
+[PASS] P5: S = Fin 3 with 2 fixed: phaseFun takes 2 values; the kernel identity with the phase still holds True; the scalar-free form fails True: (2,2) difference 0 forces scalar 1, (0,1) difference -exp(2*I*pi*t)/2 + I*sin(pi*t) + 1/2 (at t = 1/2: 1 + I)
+[PASS] P6: pair carrier, id x exchange: fixed-point-free at n = 1, 2 [True, True]; at n = 1 (8 configurations) the identity True and its scalar-free form True; sign diagonal [1, 1, -1, 1]
+
+PASS 6  FAIL 0
+VERDICT B18-PREFLIGHT-OK

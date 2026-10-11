@@ -1,0 +1,7 @@
+[PASS] P1: reindex along the associator: 1 (x) tokOp = pairOp; along toEnd: pairOp = tokOp (x) 1_2 (n = 1, 2, 3; three random U each)
+[PASS] P2: discardWith 2 (uniformAttach 2) (conjChannel (V (x) 1_2)) rho = V rho V^H, exactly (n = 1, 2)
+[PASS] P3: amplRef (Fin 2) (conjChannel V) M = (1_2 (x) V) M (1_2 (x) V)^H, exactly (n = 1, 2)
+[PASS] P4: countercontrol: the ancilla attached as 1_2 gives 2 V rho V^H (the uniform normalization is load-bearing)
+
+PASS 4  FAIL 0
+VERDICT B19-PREFLIGHT-OK

@@ -1,0 +1,8 @@
+[PASS] P1: zPh = zPhase(3/5, 4/5), uJ = cycMat, both unitary; w^4 = -527/625 - 336*I/625; bloch(zPh) = R_z(th0), bloch(uJ) = cyc
+[PASS] P2: coordOf . M = id, coordOf(Ad(I(x)zPh) M(E)) = actT R_z(th0) E and coordOf(Ad(I(x)uJ) M(E)) = actT cyc E on all 16 basis tables
+[FAIL] P3: K(Z_F) moved on the target by both operations; certified witnesses and values: R_z(th0): none; J: defect 0, tr(y Ad D) = -1, Q3 control True
+[PASS] P4: 2 cos th0 = 6/5 is not an integer (R_z(th0) of infinite order); actT R_z(th0) and actT cyc disagree on the basis table E(0, 1)
+[PASS] P5: the (0, 0) ancilla block of c (U (x) 1_3) is c U (random Gaussian-rational U, c = 2 + 3i)
+
+PASS 4  FAIL 1
+VERDICT B20-FAILED P3
