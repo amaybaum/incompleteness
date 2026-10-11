@@ -1,0 +1,6 @@
+thread countermodels: 3 round-5 scripts between 644bf0a1 and c9ac75bd; replay dir <scratchpad>/replays/countermodels-replay/research/countermodels/experiments/
+IDENTICAL c22_preflight.py (1s, 1781 bytes)
+IDENTICAL c23_check.py (1s, 1921 bytes)
+IDENTICAL c23_torus.py (2s, 3384 bytes)
+c23_torus.py regenerates experiments/c23_certificate.json in the replay directory: byte-identical to the committed file (sha256 d5841161f024006d1f4951d845253508e8813cd8a71e211264175ab80af60d03)
+indep_checkC5.py (coordinator): run 1 and replay stdout identical (cmp); stderr empty in both

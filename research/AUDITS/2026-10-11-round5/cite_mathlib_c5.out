@@ -1,0 +1,9 @@
+Mathlib citations in research/countermodels round-5 text (lines added 644bf0a1..c9ac75bd), resolved at the pinned Mathlib tag v4.33.0
+(verification/lean-mathlib/lakefile.toml at L: rev = "v4.33.0"; local clone of that tag, commit db584cd6d46c92f209a44c0f1c829460d327499d).
+Each line below: citation | the cited declaration named on the citing line | the source line(s) at v4.33.0.
+FOUND  Mathlib/Analysis/Calculus/TangentCone/Pi.lean:64 | hx i (mem_univ i) |  fun _x hx ↦ .univ_pi fun i ↦ h i _ <| hx i (mem_univ i) 
+FOUND  Mathlib/Topology/MetricSpace/Pseudo/Defs.lean:424 | Metric.mem_closedBall | @[simp] theorem mem_closedBall : y ∈ closedBall x ε ↔ dist y x ≤ ε := Iff.rfl 
+FOUND  Mathlib/Analysis/Normed/Group/Basic.lean:51–52 | dist_one_right / dist_zero_right (to_additive) | @[to_additive (attr := simp)] theorem dist_one_right (a : E) : dist a 1 = ‖a‖ := by rw [dist_eq_norm_inv_mul', inv_one, one_mul] 
+FOUND  Mathlib/Order/Basic.lean:78 | Eq.trans_le | @[to_dual trans_ge] alias Eq.trans_le := le_of_eq_of_le 
+FOUND  Mathlib/Analysis/Convex/Caratheodory.lean:149 | convexHull_eq_union | theorem convexHull_eq_union : convexHull 𝕜 s = 
+Kernel citation: JordanClassification.lean:84 at L = 9f9f8257: 'theorem psd_iff_trace_nonneg' (the citing line names the kernel's PSD self-duality; read by hand).

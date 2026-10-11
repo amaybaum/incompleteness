@@ -1,0 +1,8 @@
+MISSING Pi.lean:64
+MISSING Defs.lean:424
+MISSING Basic.lean:51
+MISSING Basic.lean:78
+RESOLVED JordanClassification.lean:84 (no identifier named on the citing lines)
+MISSING Caratheodory.lean:149
+SUMMARY countermodels: 6 distinct citations in added lines since 644bf0a1; resolved 1; named-and-found 0; unnamed 1
+CITATIONS-COUNTERMODELS-FAIL

@@ -1,0 +1,18 @@
+2026-10-11T08:34:52.722Z  ->2026-10-11T08:34:52.793Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels && D=$(date -u +%Y-%m-%dT%H:%M:%SZ) && cat > NOTES-C23.md <<EOF # NOTES-C23 — the 2-torus group of the tower's closure: an explicit inv
+2026-10-11T10:13:41.027Z  ->2026-10-11T10:13:41.138Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels && grep -n "hmm" NOTES-C23.md; sed -n 118,128p NOTES-C23.md
+2026-10-11T10:24:37.330Z  ->2026-10-11T10:24:38.283Z  Bash  mkdir -p <scratchpad>/c23 && cd <scratchpad>/c23 && cat > x23_tight.py
+2026-10-11T10:24:43.749Z  ->2026-10-11T10:24:44.417Z  Bash  cd <scratchpad>/c23 && sed -i 's/        k = null\[0\]$/        k = null[0].conj()/' x23_tight.py && python3 x23_tight.py 2>&1 | grep -v "vh row"
+2026-10-11T10:25:04.177Z  ->2026-10-11T10:25:05.591Z  Bash  cd <scratchpad>/c23 && cat > x23_exact.py <<'EOF' # Scratch: exact (sympy) partners k0 and candidate rational tightness parameters (guidance; the
+2026-10-11T10:25:32.207Z  ->2026-10-11T10:25:40.366Z  Bash  cd <scratchpad>/c23 && cat > x23_exact2.py <<'EOF' # Scratch: exact search (Fractions) for tightness instances; guidance for c23_torus.py's fixed
+2026-10-11T10:26:04.797Z  ->2026-10-11T10:26:04.880Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels && cp NOTES-C23.md <scratchpad>/c23/NOTES-C23.draft-0834.md && sha256sum NOTES-C23
+2026-10-11T10:27:15.878Z  ->2026-10-11T10:27:15.886Z  Write /home/user/wt-research/countermodels/research/countermodels/NOTES-C23.md
+2026-10-11T10:27:18.219Z  ->2026-10-11T10:27:18.239Z  Read  /home/user/wt-research/countermodels/research/countermodels/NOTES-C23.md
+2026-10-11T10:28:55.852Z  ->2026-10-11T10:28:55.900Z  Write /home/user/wt-research/countermodels/research/countermodels/NOTES-C23.md
+2026-10-11T10:31:14.303Z  ->2026-10-11T10:31:14.330Z  Write /home/user/wt-research/countermodels/research/countermodels/experiments/c23_torus.py
+2026-10-11T10:31:53.579Z  ->2026-10-11T10:31:55.588Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels/experiments && python3 - <<'EOF' p='c23_torus.py' s=open(p).read() old1='''def dmin_formula(h):     # min over the orbit of |det Psi|^2 =
+2026-10-11T10:33:26.026Z  ->2026-10-11T10:33:26.056Z  Write /home/user/wt-research/countermodels/research/countermodels/experiments/c23_check.py
+2026-10-11T10:33:38.402Z  ->2026-10-11T10:33:40.638Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels && cat >> LOG.md <<'EOF' - 2026-10-11T10:26Z–10:32Z — **C23 S0** revised and fixed in NOTES-C23 before any C23 script ran (the 08:34:
+2026-10-11T10:33:52.703Z  ->2026-10-11T10:33:53.908Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels/experiments && date -u && timeout 900 python3 -I -B c23_check.py > c23_check.out 2> c23_check.err; echo "exit $?" >> c23_check.err; cat c
+2026-10-11T10:34:02.575Z  ->2026-10-11T10:34:06.011Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels/experiments && S=<scratchpad>/c23 && python3 -I -B c23_check.py > $S/chk.out 2> $S
+2026-10-11T10:35:24.604Z  ->2026-10-11T10:35:26.536Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels && D=$(date -u +%Y-%m-%dT%H:%M:%SZ) && cat >> NOTES-C23.md <<EOF  ## Runs (written ${D}, \`date -u\`) | script | run | result | replay | 
+2026-10-11T10:44:02.239Z  ->2026-10-11T10:44:02.340Z  Bash  cd /home/user/wt-research/countermodels/research/countermodels && grep -n "[0-9]xZ\|:[0-9]x" LOG.md NOTES-C22.md NOTES-C23.md RESULTS.md | head
