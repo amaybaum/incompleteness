@@ -372,9 +372,13 @@ theorem isCompact_box (R : ℝ) : IsCompact (box (n := n) R) :=
   isCompact_univ_pi fun _ => isCompact_univ_pi fun _ => isCompact_closedBall 0 R
 
 theorem mem_box {R : ℝ} {M : Matrix n n ℂ} : M ∈ box R ↔ ∀ i j, ‖M i j‖ ≤ R := by
-  show (M : n → n → ℂ) ∈
-    Set.pi Set.univ (fun _ : n => Set.pi Set.univ fun _ : n => Metric.closedBall (0 : ℂ) R) ↔ _
-  simp only [Set.mem_univ_pi, Metric.mem_closedBall, dist_zero_right]
+  -- membership in `Set.pi` by definitional unfolding (no lemma matched at the `Matrix` type)
+  have key : M ∈ box R ↔ ∀ i j, M i j ∈ Metric.closedBall (0 : ℂ) R :=
+    ⟨fun hM i j => hM i (Set.mem_univ i) j (Set.mem_univ j), fun hM i _ j _ => hM i j⟩
+  have ball : ∀ z : ℂ, z ∈ Metric.closedBall (0 : ℂ) R ↔ ‖z‖ ≤ R := fun z =>
+    ⟨fun h => (dist_zero_right z).symm.trans_le (Metric.mem_closedBall.mp h),
+      fun h => Metric.mem_closedBall.mpr ((dist_zero_right z).trans_le h)⟩
+  exact key.trans (forall_congr' fun i => forall_congr' fun j => ball (M i j))
 
 instance instFirstCountableTopologyMatrix : FirstCountableTopology (Matrix n n ℂ) :=
   inferInstanceAs (FirstCountableTopology (n → n → ℂ))
