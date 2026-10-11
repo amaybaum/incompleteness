@@ -560,3 +560,16 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   design aid, not evidence) agreed. One name collision avoided: the kernel has `transport_apply` (SpectatorBridge.lean:353),
   so E17's lemma is `finiteStage_transport_apply`. E18 is deferred to the second dispatch (budget plan: dispatch 1 =
   §G + E17; dispatch 2 = repairs and E18; dispatch 3 = final repairs, any module still failing dropped).
+- 2026-10-11T04:34Z — dispatch 1/3 (round 4): run **38112020014** (created 04:34:33Z, `workflow_dispatch` of `verify.yml`)
+  on `2d978412` (branch `dev-equivalence/r4-design`, created by `git worktree add … -b dev-equivalence/r4-design 9f9f8257`,
+  parent L; pushed 04:34Z). The diff from L is exactly `OIBridge/EqvK2Schema.lean` (blob `659ae36c`, unchanged from
+  round 3), `OIBridge/EqvK2Converse.lean` (blob `4add9b8d`), `OIBridge/EqvTransport.lean` (blob `f48afc3c`) and the two
+  import lines `import OIBridge.EqvK2Converse`, `import OIBridge.EqvTransport` after `import OIBridge.RelcSelectC5` in
+  `OIBridge.lean` (the recorded deviation of earlier rounds: dev-branch writes under `verification/`). `EqvTransport`'s
+  dispatched blob differs from the 04:33Z text of NOTES-E17 §2 (blob `0c7f92f8`) by one `first` fallback in the proof
+  of `hsurj`, added at 04:34Z before the push; statements unchanged. The reading rules are those of NOTES-E15 §5 and
+  NOTES-E17 §2.
+- 2026-10-11T04:40Z — E18 begun (if budget; owner's priority 4) while dispatch 1 runs. Source: R-E13.1, NOTES-E13 §1.
+  NOTES-E18 S0 (written 04:38Z: the polynomial form of the power cone, the witnesses, predictions) and the exact probe
+  `experiments/e18_powercone.py` (decision rule in its header, written 04:40Z) committed together, before the probe's
+  first run. Pre-run review simplified one detail string of XW2; the decision rule was not changed.
