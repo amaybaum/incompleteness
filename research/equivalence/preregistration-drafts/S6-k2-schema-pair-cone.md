@@ -15,7 +15,9 @@ exact layer the round would freeze was run this round (`e15_k2s6_probe`, 12/12, 
 predicted output below is generated from those measurements. Unmeasured, as in every draft: the predicted execution
 tree at a designated `D` (the module under its predicted name `K2Schema`, a rename of the measured text; the census
 family; `controls.py`; the probe shard). One optional pre-`F` hygiene item, warnings only: the unused `simp` arguments
-the linter reports in run 38101580750.
+the linter reports in run 38101580750. **Not yet built: §G**, the necessity direction of the equivalence (the
+invariance of `Q3` under one copy's local unitary conjugations and the assembled `iff`), added after the coordinator's
+round-4 framing; its design run is checkpoint `C0′`, pending.
 
 ```v3-round
 round K2-SCHEMA-1
@@ -48,14 +50,31 @@ obligations include the composite cone and local actions compatible with it. At 
 local-action clause are settled by K2-GUARD-1 (`CandidateCone`, K2Guard.lean:95; `no_candidateCone_cnot_reflY`, :143).
 The audited stage records show that products, the gate and self-duality do not force the two-qubit positive cone:
 exotic self-dual cones exist. The research record proposes that one further invariance does: invariance under one
-copy's rotations about the third axis and its cyclic permutation (A_miss, in handoff HO-5's form). The round asks:
+copy's rotations about the third axis and its cyclic permutation (A_miss, in handoff HO-5's form). The round states the
+schema as an equivalence relative to H1, H2, H3 and `ReachPure` — **`K = Q3` iff A_miss** — with each direction
+separately witnessed (§A.34): sufficiency is `pairCone_eq_Q3_of_drive` (§F), necessity is the invariance of `Q3` under
+one copy's local unitary conjugations (§G, `Q3_aMiss`).
+
+**Scope: A_miss is the open bridge, not a premise at L.** The equivalence does not source it and adopts nothing: it says
+that, given H1–H3 and `ReachPure`, the pair cone is `Q3` exactly when A_miss holds. With A the applicable OI premises at L
+and (b) the composite action, the stage-6 record has a cone meeting A and not (b) (K(Z_F) [A]); A_miss is a form of (b)
+(I3.150, I3.153), and the candidate bridge that would supply it at the hidden-history level is H-OI_g at
+`{R_z(θ₀), J}` (handoff HO-20 item 4, CONDITIONAL), whose pair-level image is the two-rotation clause below. A failure of
+`Q3` (`K ≠ Q3`) is not a failure of any particular instance of A_miss; a failure of an instance is a failure of `Q3` only
+through `Q3`'s invariance under that operation (§G).
+
+The round asks:
 
 - **Q-CONE (kernel).** Is the two-token Pauli dictionary a real-linear equivalence
   `W 3 ≃ₗ[ℝ] selfAdjoint (Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ)` carrying product states to Kronecker products and
   the table pairing to four times the trace pairing, and do the two cone lemmas hold — LOWER (a set closed under
   addition that contains a table of every rank-one positive matrix contains `Q3`), UPPER (such a set lying in its own
   dual lies in `Q3`) — with `Q3 = dualW Q3` as the positive control for self-duality?
-- **Q-SCHEMA (kernel).** Does `pairCone_eq_Q3_of_drive` hold with exactly its five hypotheses (below)?
+- **Q-SUFF (kernel, the sufficiency direction).** Does `pairCone_eq_Q3_of_drive` hold with exactly its five hypotheses
+  (below)?
+- **Q-NEC (kernel, the necessity direction).** Is `Q3` invariant under `actT (rotLin t)` for every `t` and under
+  `actT cycEquiv` (`Q3_aMiss`), so that, given H1, H2, H3 and `ReachPure`, `K = Q3 ↔ A_miss`
+  (`pairCone_eq_Q3_iff_drive`)?
 - **Q-EXACT (exact layer).** Do the exact checks hold — the lifts of the generators, the positive control `Q3`, the
   reachability lemma on exact instances — and does the countercontrol behave as stated: under the native octahedral
   repertoire on one copy in place of the rotations, an explicit invariant cone with the products differs from `Q3` and
@@ -103,7 +122,30 @@ theorem pairCone_eq_Q3_of_drive {K : Set (W 3)}
     K = Q3
 ```
 
-`#print axioms` lines: the 22 of the built module (EqvK2Schema.lean:453–474), in the built order. **Census family:**
+**§G, the necessity direction (planned; not yet built).** Four declarations appended to the same module, measured in a
+design module of their own before `F` (checkpoint `C0′`): two intertwining lemmas — the dictionary carries
+`actT (rotLin t)` to conjugation by `1 ⊗ diag(1, cos t + i sin t)` and `actT cycEquiv` to conjugation by
+`1 ⊗ (I − i(X + Y + Z))/2` (the identities checked exactly by `e15_k2s6_probe` D1 at `cos t = 3/5` and `t = π/2`, and by
+`e10_k2_schema` L2 at `cos t = 5/13`; the monomial case is also the bridge thread's `BridgeDictionary` [D], handoff HO-21)
+— and
+
+```lean
+theorem Q3_aMiss : ∀ t : ℝ, ∀ ω ∈ Q3, actT (KInfFoundations.rotLin t) ω ∈ Q3 ∧
+    actT (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω ∈ Q3
+
+theorem pairCone_eq_Q3_iff_drive {K : Set (W 3)}
+    (hH1 : ∀ x ∈ TransitiveBody.eball 3, ∀ y ∈ TransitiveBody.eball 3, prodState x y ∈ K)
+    (hH2 : ∀ ω ∈ K, cnot ω ∈ K) (hH3 : K = dualW K) (hreach : ReachPure) :
+    K = Q3 ↔ ∀ t : ℝ, ∀ ω ∈ K, actT (KInfFoundations.rotLin t) ω ∈ K ∧
+      actT (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω ∈ K
+```
+
+The direction `→` is `Q3_aMiss` after substituting `K = Q3` (unitary conjugation preserves positive semidefiniteness,
+Mathlib's `PosSemidef.mul_mul_conjTranspose_same`); the direction `←` is `pairCone_eq_Q3_of_drive`. The two directions
+are witnessed by different declarations; neither is an extension, uniqueness or density theorem standing in for the
+other. Until `C0′` is measured, §G stands at [W] + [X].
+
+`#print axioms` lines: the 22 of the built module (EqvK2Schema.lean:453–474), in the built order, and §G's four. **Census family:**
 "the pair-level composite cone, conditionally: products of ball states, invariance under DIM-1's gate and under one
 copy's rotations about the third axis and its cyclic permutation, and self-duality under the table pairing give the
 two-qubit positive cone through the Pauli dictionary, given the reachability statement (round K2-SCHEMA-1,
@@ -133,8 +175,9 @@ reconstruction)", `modules: ["K2Schema"]`, `status: "kernel-only"`, `manuscript:
 
 ## The hypotheses, classified against the premise inventory (owner's rule: derive, do not introduce)
 
-The theorem's form is **OI + {H2, H3, A_miss (full flow), ReachPure} ⇒ K = Q3**: four of its hypotheses are introduced,
-so it is not of the form "OI ⇒ X". Inventory ids are the stage-6 premise inventory's (`research/archive/pt/I3/INVENTORY.md`
+The sufficiency theorem's form is **OI + {H2, H3, A_miss (full flow), ReachPure} ⇒ K = Q3**: four of its hypotheses are
+introduced, so it is not of the form "OI ⇒ X". The equivalence of §G has the form **OI + {H2, H3, ReachPure} ⇒
+(K = Q3 ↔ A_miss)**, A_miss being the open bridge on one side of it, not a premise. Inventory ids are the stage-6 premise inventory's (`research/archive/pt/I3/INVENTORY.md`
 at `research/archive` @ `4dc0321c`, sha256 `51eff9af…`), with the status each record fixes at L.
 
 | hypothesis or setting item | kind | inventory id and status at L |
@@ -144,7 +187,7 @@ at `research/archive` @ `4dc0321c`, sha256 `51eff9af…`), with the status each 
 | the token body is `eball 3` | (i) inventory items | the output of TRB-1 (I3.89, proved [K]) from K∞-Trans (I3.170) and the other K∞ seams (I3.166–I3.174), each open, unsourced |
 | `hH2`: `cnot`-invariance of `K` | (ii) **introduced, not an OI premise** | PT-record H2 (I3.148); `cnot` itself is I3.11, but no kernel statement at L asserts `cnot K ⊆ K` of any cone (I3.9's bridge note) |
 | `hH3`: `K = dualW K` | (ii) **introduced, not an OI premise** | PT-record H3 (I3.149); `ipW` and `dualW` are not at L (I3.143) |
-| `hA`: invariance under `actT (rotLin t)` for every `t` and under `actT cycEquiv` | (ii) **introduced, not an OI premise** | a form of (b) (I3.150 (b_S4), I3.153 (b_DJ)): PT-record open, flagged do not assume |
+| A_miss — `hA` in §F, one side of the equivalence in §G: invariance under `actT (rotLin t)` for every `t` and under `actT cycEquiv` | (ii) **introduced, not an OI premise** | the open bridge: K2's clause "local actions compatible with the composite cone" (I3.165, open), in a form of (b) (I3.150 (b_S4), I3.153 (b_DJ)): PT-record open, flagged do not assume |
 | `hreach`: `ReachPure` | (ii) **introduced, not an OI premise** | not an inventory record; pure-state reachability is flagged do not assume (I3.144); it is a statement about the drive words only, proved in writing (NOTES-E10 L4) and not in the kernel |
 
 The objects `dict`, `Q3`, `ipW`, `dualW`, `driveWords` are definitions of the module (the comparison objects of I3.144 at
@@ -207,29 +250,36 @@ the audited record); the round asserts neither.
 |---|---|---|
 | Q-CONE | `K2-SCHEMA-CONE-STEP-PROVED` | `dictEquiv`, `dict_prodState`, `ipW_eq_trace`, `subset_Q3_of_pure_dual`, `Q3_subset_of_pure`, `Q3_selfDual` and every declaration of the module they depend on have their frozen statements, resolve to the landed objects (S2), and are built at `E` with their `#print axioms` lines within `[propext, Classical.choice, Quot.sound]` |
 | Q-CONE | `K2-SCHEMA-CONE-STEP-NOT-ESTABLISHED` | otherwise |
-| Q-SCHEMA | `K2-SCHEMA-CONDITIONAL-PROVED` | `driveWords_preserve` and `pairCone_eq_Q3_of_drive` have their frozen statements — exactly the five hypotheses quoted above, `hA` in the full-flow form, `ReachPure` the frozen definition — resolve to the landed objects, and are built at `E` with their prints within the three axioms |
-| Q-SCHEMA | `K2-SCHEMA-CONDITIONAL-NOT-ESTABLISHED` | otherwise |
+| Q-SUFF | `K2-SCHEMA-SUFFICIENCY-PROVED` | `driveWords_preserve` and `pairCone_eq_Q3_of_drive` have their frozen statements — exactly the five hypotheses quoted above, `hA` in the full-flow form, `ReachPure` the frozen definition — resolve to the landed objects, and are built at `E` with their prints within the three axioms |
+| Q-SUFF | `K2-SCHEMA-SUFFICIENCY-NOT-ESTABLISHED` | otherwise |
+| Q-NEC | `K2-SCHEMA-NECESSITY-PROVED` | §G's four declarations — the two intertwining lemmas, `Q3_aMiss` and `pairCone_eq_Q3_iff_drive` — have their frozen statements, resolve to the landed objects, and are built at `E` with their prints within the three axioms |
+| Q-NEC | `K2-SCHEMA-NECESSITY-NOT-ESTABLISHED` | otherwise |
 | Q-EXACT | `K2-SCHEMA-INSTANCES-EXACT` | the probe blob at `E`, run by `controls.py` with `python3 -I`, prints `PASS` for D1, D2, P1, P2, X1–X7 and R1, no `FAIL`, `COUNTER XC1 fails as stated`, `COUNTER XC2 fails as stated`, `COUNTER XC3 fails as stated`, `checks: 12, failures: 0` and `VERDICT E15-S6-EXACT-LAYER-CONSISTENT` |
 | Q-EXACT | `K2-SCHEMA-INSTANCES-NOT-ESTABLISHED` | otherwise |
 
-No rule reads another cell's outcome. `K2-SCHEMA-1-READ` when the three cells are assigned; tokens printed by
+No rule reads another cell's outcome. `K2-SCHEMA-1-READ` when the four cells are assigned; tokens printed by
 `controls.py verdict E` from the measurements at `E`.
 
 ## The earned reading and the non-inference rule (frozen)
 
-> Earned reading (only when all three cells are positive): on the pair carrier of two copies of the Euclidean 3-ball,
+> Earned reading (only when all four cells are positive): on the pair carrier of two copies of the Euclidean 3-ball,
 > a set of joint vectors that contains every product of ball states, is invariant under DIM-1's gate and under one
 > copy's rotations about the third axis and its cyclic permutation, and equals its own dual under the table pairing is
 > the two-qubit positive cone read through the Pauli dictionary, provided every pure two-qubit state is reachable from
 > a product by the drive words (ReachPure). With the octahedral repertoire on that copy in place of the rotations, an
 > explicit set with the products, invariant under the gate and that repertoire, differs from the two-qubit positive cone
-> and is not invariant under the rotation with cosine 3/5. The gate invariance, self-duality, the rotation invariance
-> and ReachPure are introduced hypotheses, not OI premises: the result has the form OI + {H2, H3, A_miss, ReachPure} ⇒
-> K = Q3.
+> and is not invariant under the rotation with cosine 3/5. Conversely the two-qubit positive cone is invariant under
+> those rotations and that permutation, so, given the products, the gate invariance, self-duality and ReachPure, the
+> pair cone is the two-qubit positive cone exactly when it has that invariance. The gate invariance, self-duality and
+> ReachPure are introduced hypotheses, not OI premises, and the rotation invariance is the open bridge, not a premise:
+> the results have the forms OI + {H2, H3, A_miss, ReachPure} ⇒ K = Q3 and OI + {H2, H3, ReachPure} ⇒ (K = Q3 ↔
+> A_miss).
 
 > Non-inference rule: this round does not show that OI supplies the composite cone, the gate, self-duality or the
 > rotations; the products clause, the gate invariance, self-duality and the rotation invariance are premises. It does
-> not prove ReachPure, which it carries as a hypothesis. It does not formalize invariance under one rotation of
+> not prove ReachPure, which it carries as a hypothesis. The equivalence does not source the rotation invariance: it
+> says only that, given the other hypotheses, the rotation invariance and the conclusion stand or fall together; a
+> failure of the conclusion is not a failure of any particular rotation's invariance. It does not formalize invariance under one rotation of
 > irrational angle and the cyclic permutation in place of the rotations. It says nothing about more than two copies,
 > local tomography as a source, the antiunitary or complete-positivity bridge, the relation to K3, or H-Bell. The
 > countercontrol set is self-dual by a written theorem of another research thread, which this round does not check.
@@ -244,26 +294,28 @@ A_miss and `ReachPure` are introduced hypotheses, not OI premises; H1 is the pro
 
 At L, ROADMAP :1001–1003 reads: "**K2 — the composite. OPEN.** Read-only research has mapped a candidate `d = 3`
 composition route, but no governed round records the classification or the cone theorem." Under `K2-SCHEMA-1-READ` with
-all three cells positive the second sentence may be replaced by: "A governed round records the pair-level cone theorem
+all four cells positive the second sentence may be replaced by: "A governed round records the pair-level cone theorem
 conditionally (`pairCone_eq_Q3_of_drive`): products, invariance under the gate and under one copy's rotations about the
 third axis and its cyclic permutation, and self-duality under the table pairing give the two-qubit positive cone
-through the Pauli dictionary, given a reachability statement the round carries as a hypothesis; the gate invariance,
-self-duality, the rotation invariance and the reachability statement are introduced hypotheses, not OI premises; no
-governed round records the classification." The obligations sentence ("… all are open") stands: every hypothesis of
+through the Pauli dictionary, given a reachability statement the round carries as a hypothesis, and conversely that
+cone has the rotation invariance (`pairCone_eq_Q3_iff_drive`); the gate invariance, self-duality and the reachability
+statement are introduced hypotheses, not OI premises, and the rotation invariance is the open bridge; no governed round
+records the classification." The obligations sentence ("… all are open") stands: every hypothesis of
 the theorem is unsourced. K2 stays OPEN under every outcome.
 
 ## The controls (in `controls.py`)
 
 - **S1 surface**: preamble, every declaration in order and by kind, every theorem's signature, every definition whole
   (`pauli`, `tokMat`, `dict`, `dictLin`, `ipW`, `coordOf`, `dictEquiv`, `dualW`, `Q3`, `actTLin`, `driveGens`,
-  `driveWords`, `ReachPure`), 22 prints. Mutations, each failing with its code: `hA` weakened to the finite clause
+  `driveWords`, `ReachPure`), 26 prints (22 and §G's four). Mutations, each failing with its code: the two sides of
+  `pairCone_eq_Q3_iff_drive` exchanged with `hA` added as a hypothesis (the equivalence turned into the implication); `hA` weakened to the finite clause
   (`t = Real.pi / 2` only) in `pairCone_eq_Q3_of_drive` (the frozen statement check fails; the countercontrol shows the
   weakened statement false given Theorem S′); `hreach` dropped; `hH3` weakened to `K ⊆ dualW K`; the factor `1/4` of
-  `dict` replaced by `1/2`; `0 ≤ c` dropped from `ReachPure`; a twenty-third print.
+  `dict` replaced by `1/2`; `0 ≤ c` dropped from `ReachPure`; a twenty-seventh print.
 - **S2 resolution**: `W`, `HVec`, `hom`, `prodState`, `tens`, `actT`, `cnot`, `tensorOf`, `eball`, `rotLin`,
   `cycEquiv`, `psdFactorization_discharged` resolve to the landed declarations at `D`. Mutation: a local `cnot`.
 - **S3 positive control and hypothesis load-bearing**: positive — `Q3` meets H1 (P1), H2 and A_miss (D1: each generator
-  is a unitary conjugation) and H3 (`Q3_selfDual`, kernel); H2 load-bearing — the partial transpose `actT reflY (Q3)`
+  is a unitary conjugation; in the kernel layer §G's `Q3_aMiss`, the necessity direction) and H3 (`Q3_selfDual`); H2 load-bearing — the partial transpose `actT reflY (Q3)`
   meets H1, H3 and A_miss (written: `actT reflY` is an involutive signed permutation of the table coordinates that
   carries products of ball states to products of ball states, and `reflY R reflY` is a rotation for every rotation
   `R`), and it is not `cnot`-invariant: it contains `idW = actT reflY phiW` (K2Guard.lean:106; `phiW`, the table of a
@@ -278,9 +330,10 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 - **P, W**: the probe at S1 and `E` is the frozen blob; the workflow is `D`'s with the frozen edit — a shard
   `probes_k2schema1` installing `sympy==1.14.0` and running the probe, and the aggregate `Numerical probes` job's
   four-place edit (as KT4-PREM-1); `controls.py` checks the workflow at `E` is `D`'s with exactly that edit.
-- **V**: each cell one token by its rule; the note contains exactly the three computed tokens; the earned reading
-  exactly when all three are positive; the non-inference rule under every outcome. Self-test mutations: a broken
-  signature of `dict_coordOf` fails only Q-CONE; a broken signature of `pairCone_eq_Q3_of_drive` fails only Q-SCHEMA; a
+- **V**: each cell one token by its rule; the note contains exactly the four computed tokens; the earned reading
+  exactly when all four are positive; the non-inference rule under every outcome. Self-test mutations: a broken
+  signature of `dict_coordOf` fails only Q-CONE; a broken signature of `pairCone_eq_Q3_of_drive` fails only Q-SUFF; a
+  broken signature of `Q3_aMiss` fails only Q-NEC; a
   probe with one witness value changed (for example `c* = 301/300`) fails only Q-EXACT.
 - **I, C, R, G** as in KTRANS-DENSE-1 (one import line; one family; record directory exactly three files; `delta(D, E)`
   exactly the record paths and the five execution paths).
@@ -292,9 +345,11 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 | execution begins from the frozen control plane | `C1`: this file's blob at `F` |
 | the module's text was built before `F` | `C0`: a design run of the module text, green at the Mathlib bridge build with all 22 prints standard, recorded in this file before `F` — **measured: run 38101580750 (job 114358419270), met**; the predicted tree's run at `D` remains with every draft's unmeasured items |
 | the controls and the probe are the frozen ones | `C2`: blobs of `controls.py` and the probe at stage 1 and at `E`; `controls.py --self-test` OK at `E` |
-| every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the Mathlib bridge build and the 22 prints, none with `sorryAx` |
+| every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the Mathlib bridge build and the 26 prints, none with `sorryAx` |
 | the exact layer replays and renders | `C3`: shard `probes_k2schema1` green with `VERDICT E15-S6-EXACT-LAYER-CONSISTENT`; the aggregate job green |
 | `hA` is the full-flow form and `ReachPure` the frozen definition | `C5`: `controls.py check E --freeze F` (S1 surface, with the mutation "`hA` weakened to the finite clause") |
+| §G was built before `F` | `C0′`: a design run of §G (a design module importing the built `EqvK2Schema`), green at the Mathlib bridge build with §G's four prints standard, recorded in this file before `F` — **pending** |
+| the equivalence's two directions are witnessed by different declarations | `C5` (S1 surface: `pairCone_eq_Q3_iff_drive`'s `→` cites `Q3_aMiss`, its `←` cites `pairCone_eq_Q3_of_drive`) |
 | the module is registered; no manuscript changes | `C4`: the release gate at `E` passing every step |
 | the statements, the workflow edit and the note are the frozen ones | `C5`: `controls.py check E --freeze F` |
 | the change stays inside the governed paths | `C6`: `git diff --no-renames --name-status D E`; `C5` (G) |
@@ -312,7 +367,9 @@ the theorem is unsourced. K2 stays OPEN under every outcome.
 
 **Predicted outputs, generated from those measurements by the rules:** Q-CONE `K2-SCHEMA-CONE-STEP-PROVED` (run 2: the
 six named declarations and their dependants built with standard prints; in run 1 four of them printed `sorryAx`).
-Q-SCHEMA `K2-SCHEMA-CONDITIONAL-PROVED` (run 2: `driveWords_preserve` and `pairCone_eq_Q3_of_drive` standard).
+Q-SUFF `K2-SCHEMA-SUFFICIENCY-PROVED` (run 2: `driveWords_preserve` and `pairCone_eq_Q3_of_drive` standard). Q-NEC: no
+predicted output yet — §G is unmeasured (`C0′` pending); its written proof and the exact conjugation identities
+(`e15_k2s6_probe` D1, `e10_k2_schema` L2) support `K2-SCHEMA-NECESSITY-PROVED`, which the rules generate only from a build.
 Q-EXACT `K2-SCHEMA-INSTANCES-EXACT` (the run of `e15_k2s6_probe`: `checks: 12, failures: 0`, the three countercontrols
 failing as stated, the verdict token), the frozen probe being that blob with its two path lines changed (checkpoint
 `C2`). The rules, not this reading, are what a frozen file would fix; the predicted execution tree at `D` is not yet
@@ -326,7 +383,7 @@ conjugations instead, D1). A converged dictionary module would be a separate rou
 ## Stages and outcomes
 
 Stages as KT4-PREM-1 (C1 `controls.py`; S1 the module, probe, workflow edit, import line and family in one commit; proof
-repairs only; S2 the result note = candidate `E`), preceded by `C0` (met in design run 38101580750).
-**`K2-SCHEMA-1-READ`**: `controls.py check E --freeze F` OK, three tokens printed, the exact-head run at `E` green on
+repairs only; S2 the result note = candidate `E`), preceded by `C0` (met in design run 38101580750) and `C0′` (pending).
+**`K2-SCHEMA-1-READ`**: `controls.py check E --freeze F` OK, four tokens printed, the exact-head run at `E` green on
 every job. **`K2-SCHEMA-1-HALTED`**: anything else (`S12`). No outcome sources a premise, discharges K2, or edits the
 ROADMAP or a manuscript; correctness bands unchanged (consistency axis).

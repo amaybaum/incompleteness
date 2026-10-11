@@ -185,3 +185,7 @@ Each note is dated, names its evidence, and supersedes nothing above.
   PT-record I3.148), H3 (`K = dualW K`; PT-record I3.149), A_miss in the full-flow form (a form of (b), I3.150/I3.153)
   and `ReachPure` (pure-state reachability, I3.144) are each **introduced, not an OI premise**; the kind-(i) items are
   I3.1 `W d`, the products clause of I3.43 `CandidateCone` and the ball through TRB-1 (I3.89) from the open K∞ seams.
+  After the coordinator's round-4 framing: given H1–H3 and `ReachPure`, `K = Q3 ↔ A_miss` (R-E15.4), sufficiency by the
+  schema [D], necessity by `Q3`'s invariance under one copy's local unitary conjugations ([W] + [X]; S6 §G, design run
+  pending); A_miss is the open bridge (K2's clause I3.165, the (b) forms I3.150/I3.153), not a premise at L. The weaker
+  alternative **the finite clause** fails (R-E15.3, given Theorem S′ [W]).

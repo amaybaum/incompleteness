@@ -459,3 +459,23 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   against the inventory; the analysis (A1)–(A4) before computation; the probe order; predictions) and the exact probe
   `experiments/e16a_tokens_pair.py` (decision rule in its header, written 03:31Z) committed together, before the probe's
   first run.
+- 2026-10-11T03:41Z — **coordinator addendum 2 received** (the owner's framing; recorded before further research steps; node
+  list, order and budget unchanged): with A the applicable non-hypothetical OI premises at L and (b) the composite action,
+  stage 6 gives K(Z_F) ⊨ A and K(Z_F) ⊭ (b); the live objectives are (1) a sufficient bridge H with A + H ⇒ (b) — the
+  candidate H-OI_g at `{R_z(θ₀), J}`, carried to `Q3` by the K2 schema with H1–H3 and `ReachPure`; (2) independence and
+  minimality of H; (3) the obligations of the K ledger and Level III at their own levels. For E15: S6 states the schema
+  as "given H1–H3 and `ReachPure`, `K = Q3` iff A_miss", the two directions separately witnessed (§A.34), A_miss
+  classified as introduced against the inventory (I3.165, I3.150/I3.153) and named in the scope section as the open
+  bridge, not a premise at L. For E16: the answer forms as before. In both nodes a failing weaker alternative is named in
+  its RESULTS row in those words; the C21 safeguard is kept (a failure of a (b)-instance is a failure of `Q3` only through
+  `Q3`'s invariance under that operation; `K ≠ Q3` is not a failure of any particular (b)-instance).
+- 2026-10-11T03:41Z — E15 brought under addendum 2. Draft S6: the scope section names A_miss as the open bridge; Q-SCHEMA is
+  split into Q-SUFF (`pairCone_eq_Q3_of_drive`, built) and Q-NEC (a new §G: two intertwining lemmas, `Q3_aMiss`,
+  `pairCone_eq_Q3_iff_drive`; not yet built, checkpoint `C0′` pending, [W] + [X] until measured); the hypothesis table
+  adds I3.165 to A_miss's row; the earned reading, non-inference rule, licensed wording, controls (26 prints; a
+  mutation that turns the equivalence into the implication), invariant table and predicted outputs follow. RESULTS:
+  R-E15.1 and R-E15.3 amended (R-E15.3 now names the weaker alternative "the finite clause" and carries the C21
+  safeguard), R-E15.4 added (the necessity direction, CONJECTURE [W] + [X]). LEDGER K2 note likewise. **Scheduling
+  decision:** §G is E15 work (owner's priority 2); its design module will be built in this round's shared design
+  dispatch together with E17's and E18's modules (one dispatch for the three, two left for repairs), not in a dispatch of
+  its own. Probe `e16b_hybrid` (written with S0-b at 03:36Z, before addendum 2) is unaffected and not yet run.
