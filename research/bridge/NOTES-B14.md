@@ -292,3 +292,104 @@ put `DerivedOI` (I4.241) in HARMFUL — the class is not vacuous, and the lattic
 | S0-18 | FM satisfies (b) in the invariance reading at P (`Q3` meets I3.150–I3.153, I3.165, IE1, FC and T as cone statements [A]), so B14 bears on (b) not at all | §8 |
 | S0-19 | FM satisfies the K∞ token premises as R6 reads them ([inherit]) and fails their operational readings — the drive's flow available on the token, every seed transport available as an effect — which no item at L states; at `t = θ₀` the first is H-T's token clause | §8 |
 | S0-20 | If S0-11–S0-17 hold: the verdict is "independent bridge (full model, relative to the stage-6 inventory)", CONJECTURE ([D] + [A] + [W]); gem NEW (the token clause is the operational reading of K∞-Drive, which the inventory states only in its invariance form) | §8 |
+
+### 8.1 Outcome of S0-11 … S0-20 (written 2026-10-11T06:35Z)
+
+**The runs.** `experiments/b14_fullmodel.py` at 05:28:13Z (replay byte-identical). `lean/BridgeAvailFull.lean` built in
+dispatch 2 (run 38115337569, job 114399008857: "Built OIBridge.BridgeAvailFull (4.6s)", 50/50 `#print axioms` on
+`[propext, Classical.choice, Quot.sound]`; that run's gate did not run because two other modules failed) and again,
+unchanged, in dispatch 3 (run 38117986499, job 114406679644: 50/50 standard; `lean-axioms` PASS, 6083 named results,
+no sorry; gate red only on `lean-manuscript`, 7 problems, the seven design modules having no census family).
+
+| id | outcome |
+|---|---|
+| S0-11 | confirmed [D]: `latticeClass_arch`, `latticeClass_contextStable`, `latticeClass_labelInvariant`, `latticeClass_daggerStable`, `latticeClass_unitaryRaySaturated`, `latticeClass_structurallyClosed`, `latticeClass_configurationLevel`; `permClass_le_lattice`, `mixEmpty_le_lattice`, `phaseGate_lattice`, `lattice_le_substratum` |
+| S0-12 | confirmed [D]: `latticeTheory_derivedOI` (every carrier), the sealed core, `OICore` and `DerivedOICore` on `Fin 2`, and the fifteen rows of S0-12 by name |
+| S0-13 | confirmed [D]: `lattice_refutes` (pair and token, every `n ≥ 1`), `lattice_pairAvail_quarter`, `lattice_strict_in_substratum` |
+| S0-14 | confirmed [D]: `latticeTheory_pair_not_control`, `…_token_not_control`, `…_not_qm`, `…_pair_not_qm`, `…_not_phaseFree`, `…_not_layerFlowExecutable`, `latticeClass_not_drivesElementary`, `…_not_quantumArchitecture`; `pairAvail_of_control` for every architecture |
+| S0-15 | confirmed [D]: `obs_zPhase_unavailable`, `obs_twoInRow_unavailable`, for every kernel substratum and every rule |
+| S0-16 | confirmed in dispatch 3 (above); in dispatch 2 the module built with standard axioms but the gate did not run |
+| S0-17 | confirmed exactly [X]: SAT 34 (I4 20, I2 2, I3 12), HARMLESS 29 (I4 24, I2 5), NA 5 (I2 4, I1 1), HARMFUL 0; C1–C5 and X1–X4 green. The 34 SAT rows rest on 17 theorems of the module [D], 7 kernel theorems at L [K], 8 written arguments on FM's token and pair levels [W], one written argument with module support [W]+[D] and one audited reading [A]/[W] |
+| S0-18 | confirmed [A]: FM's pair cone is `Q3`, and R6's `Q3` column has no FAILS (131 SATISFIES, 68 NOT REACHED; the 13 rows K(Z_F) FAILS, among them I3.150–I3.153 and I3.165, are SATISFIES for `Q3`) |
+| S0-19 | confirmed in substance, with one clause withdrawn: FM satisfies I3.168–I3.170 as R6 reads them (SATISFIES [inherit]) and refutes the operational reading of K∞-Drive at `t = θ₀` (`zPh` unavailable [D]). The clause "which no item at L states" does not hold as written: R6 records "operational availability open for Q3 likewise" for K∞-Drive (`r4_tables.out`:141), and stage 4 records that the operational availability of the rotations is unsourced (quoted in I3.168). It holds only in the narrow sense that no inventory row states the operational reading as an item of its own |
+| S0-20 | the verdict as predicted (§8.3); the gem is ELABORATING, not NEW (§8.6) |
+
+### 8.2 The full-model row table
+
+`b14_fullmodel.out` lists every one of the 68 NOT REACHED rows of Table A2 with its level at FM, its class, its
+evidence and, for a HARMLESS row, the kernel chain from the row to composite unitary control or QM. The 29 HARMLESS
+rows are, by inventory content, the OI⁺ packages and their primitive-source, embedded, positive, microscopic and
+elementary variants (I4.42, I4.88, I4.102, I4.115, I4.120, I4.124, I4.137, I4.245; I2.31, I2.32), the richness
+principles (I4.85, I4.99, I4.118, I4.123, I4.128, I4.244), the completion conditions and composite control (I4.65,
+I4.67, I4.74, I4.80), the drivability resources (I4.143, I4.144, I4.179, I4.56; I2.33–I2.35 at level G) and the two
+shadow or exact-QM statements (I4.70, I4.187). Each is a named hypothesis at least as strong as the conclusion; none
+is a weaker alternative to a bridge.
+
+### 8.3 The verdict
+
+FM is a full model of the stated access in the third addendum's sense, relative to the stage-6 inventory. It satisfies
+the applicable premises at every level that applies to it — H: the sealed core and the wave substratum [K], with P1
+open as for every model; M: the lattice theory [D]; O: the ball token [inherit]; P: `Q3` [A] — and of the 68 NOT
+REACHED rows it satisfies 34, five are scope statements without a truth value, and the 29 it fails each imply composite
+unitary control or QM by a kernel chain [K], hence both pair operators [D]. In FM, `actT R_z(θ₀)` and `actT J` are
+not available on the token or on the pair, at any level, by any protocol, so a fortiori not with RESPECT and product
+behaviour [D]; through the H→M arrow at L the same holds in every substratum's observer theory [D].
+
+**Verdict: independent bridge (full model, relative to the stage-6 inventory)** — the availability of
+`actT R_z(θ₀)` (and of `actT J`) with RESPECT and product behaviour is independent of every stage-6 inventory item that
+does not itself imply composite unitary control or QM. Label: CONJECTURE ([D] + [A] + [W]; not certified, no census
+disposition). Reading: availability.
+
+Scope, stated with the verdict: the H level is P1-open, as for every model; the 29 failed rows are hypotheses at least
+as strong as the conclusion; items outside the stage-6 inventory are not checked.
+
+### 8.4 Reading of B14-1 … B14-4
+
+All four are availability statements. Two sentences are corrected forward:
+- B14-2's "independence by models of the stated access" was established in §2 against the kernel predicates named
+  there (at level M); the full-model verdict is §8.3's;
+- B14-2's disguise-test sentence ("as a statement about `W 3` it is (T) = (b)") and B14-4's assumption-watch marker
+  ("reading it at the pair cone is (T) = (b)") identify an availability statement with an invariance one. Transcribed
+  to `W 3` through the Kronecker composite, pair availability yields (T) — availability implies invariance — and the
+  converse fails: FM's pair cone `Q3` satisfies the transfer clause for every class (`transferClause_Q3`, B15 [D])
+  while `zPh` is unavailable (`lattice_refutes` [D]). The disguise-test outcome (FAILS as a bridge) is unchanged.
+
+### 8.5 (b) and FM
+
+FM satisfies (b) in the invariance reading [A], so B14 bears on (b) not at all. A full model for the independence of
+(b) would need an M-level theory whose pair cone is not `Q3`; every M-level theory in the kernel's vocabulary has the
+Kronecker composite with the PSD cone ([A], stage-6 R6 §6), whose dictionary image is `Q3`. The independence of (b)
+stands at pair level (K(Z_F): the 118 pair-level rows [A], the transcriptions of EO and ObserverRecursion [X], B4's
+H-level realization); its full-model status is OPEN.
+
+### 8.6 Gem classification (§A.31), re-assessed
+
+ELABORATING, with a POSITIVE part; the NEW predicted in S0-20 is not confirmed. The favorable reading — that the
+operational reading of K∞-Drive is absent from the record — fails against R6's evidence column and stage 4 (S0-19).
+What the re-assessment adds: (i) POSITIVE — B14-2's model-level independence holds at the full-model standard,
+relative to stage 6; (ii) ELABORATING — one model separates the two readings of K∞-Drive (satisfied as R6 reads it,
+refuted operationally at `θ₀`), and H-T's token clause is the operational reading of K∞-Drive at `θ₀`: `ball3Drive`'s
+flow about `z` (KInfFoundations.lean:449) at `t = θ₀` is `R_z(θ₀)`, which is `actT (rotZ (3/5) (4/5))` on the target
+(BridgeDictionary's `rotZ_cos_sin`). Cross-propagation: an operational sourcing of K∞-Drive at one irrational angle
+would supply H-T's token half, and no invariance fact about the ball can.
+
+### 8.7 Manuscript obligations
+
+None.
+
+### 8.8 Standing rows of rounds 1–3, audited once for the two readings
+
+Each row is read for whether it is about invariance (cone-preserving admissibility: (b), (T), A_miss, SPEC_P, the
+exotic cones) or availability (operational: (A), H-T, H-OI_g, the kernel's protocols), and for whether a fact of one
+kind stands in for the other. Rows stay as recorded; the corrections are carried forward in RESULTS rows B14-8 and V-4.
+
+| rows | reading | finding | correction carried forward |
+|---|---|---|---|
+| V-1, V-2, V-3, B4-1 | invariance ((b)) | "independent of every embedded-observation principle stated in the corpus" (and B4-1's "INDEPENDENCE survives embedding") rests on K(Z_F) at P (the 118 pair-level rows [A]; EO and ObserverRecursion transcribed to `W 3` [X]) and B4's H-level realization; K(Z_F)'s 68 NOT REACHED rows, at levels M and G, are not decided | pair-level independence (surviving B4's H-level embedding), never "independent of OI"; the full-model status of (b) is OPEN (§8.5) |
+| B2-3, B2-4, B2-5 | availability at M (parallel reference extension; the certified `ContextStable substratumClass`; `LayerFlowExecutable`) | "transcribed is (b)" identifies an availability statement with its invariance transcription | each transcription yields (b) (availability implies invariance through the Kronecker composite); the disguise-test outcomes are unchanged |
+| B8-3 | availability (local rotations act on the pair) | "the clause doing so is (b)" | the clause yields (b); the converse fails (FM) |
+| B9-1 | invariance ((T)) | (T) is called "an M→P availability clause"; as formalized (`TransferClause`) it is an invariance clause: the transferred tables of admissible unitaries lie in the cone | (T) is an M→P invariance (admissibility) clause; (T) = (b) for the monomial class stands (B11-2, B15) |
+| V-2 (iii) | invariance (SPEC_P(φ)) | "matrix-certified via `substratumClass_contextStable`": the certified fact is the availability of the idle phase extension at M; SPEC_P(φ) at P is not certified | the M-level availability is certified; SPEC_P(φ) needs (T) |
+| B1-2, B5-1, B10-3, B10-4, B10-5, B10-6, B12-5 | availability supplying invariance | direction correct (availability ⇒ invariance; B10-3's "after B1.1 an instance of I3.165's clause" uses B1.1's equivalence under (W) and (P), a built design lemma [D]) | none; reading markers only |
+| B14-2, B14-4 | availability | §8.4 | §8.4 |
+| all other rows | one reading only | no conflation found | none |

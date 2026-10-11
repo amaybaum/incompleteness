@@ -706,3 +706,33 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   Expected `lean-axioms` count for the dispatch-3 tree: 6083 distinct short names (baseline 5860 at L, 223 new). The
   dispatch-2 entry's 6082 summed the per-module print counts (222); the gate counts distinct short names, four of
   which recur across the design modules, so the dispatch-2 tree's figure was 6078 (that run's gate did not run).
+- 2026-10-11T06:25:04Z — dispatch 3 of 3 (the last of the round): dev branch `dev-bridge/r4-final` cut from L
+  (`9f9f8257`), commit `bf8ba746` (BridgeAvail, BridgeAvailFull, BridgeDictionary, BridgeReach unchanged since
+  dispatch 2; BridgeConverge `3f7155ca…` and BridgeReachDim `d4ee2170…` from `b7038e6c`; EqvK2Schema verbatim from
+  `research/equivalence` @ `c10dbaee`, sha256 `0bc6da00…`, with attribution, for the build only; the same seven
+  import lines after `import OIBridge.RelcSelectC5`); `verify.yml` dispatched; run 38117986499 (head `bf8ba746`,
+  created 2026-10-11T06:25:04Z, event `workflow_dispatch`). Expected `lean-axioms`: 6083. No dispatch remains this
+  round; no job or run will be cancelled.
+- 2026-10-11T06:29:39Z — dispatch 3 result, Mathlib bridge job 114406679644 (run 38117986499, head `bf8ba746`,
+  06:25:07–06:28:44Z): Build SUCCESS (06:25:26–06:27:53Z, "Build completed successfully (3659 jobs)"); per module, in
+  the readable tail: "[3652/3659] Built OIBridge.BridgeAvail" 61/61, "[3653] EqvK2Schema" 22/22, "[3654]
+  BridgeAvailFull" 50/50, "[3655] BridgeReachDim (3.5s)" 32/32, "[3656] BridgeDictionary" 20/20, "[3657]
+  BridgeConverge (2.2s)" 21/21 `#print axioms` reports on `[propext, Classical.choice, Quot.sound]`; `BridgeReach`
+  (built before the tail) is covered by the gate; no `sorryAx` and no `error:` line in the tail. Diagnostics of the
+  two revised modules are unused-tactic notes only: in every `first` block of BridgeReachDim the first alternative
+  closed the goal, and in BridgeConverge the `simp` fallback of `pauli1_eq_perm` never ran. Release gate:
+  `lean-axioms` PASS ("6083 named result(s) reported, no sorry"), exactly the predicted count; the only red step is
+  `lean-manuscript` (7 problems: the seven design modules have no census family, by construction); every other gate
+  step PASS. The rest of the run (numerical probes) still running at this entry; no job or run cancelled.
+- 2026-10-11T06:35:56Z — final replay of every round-4 script from `experiments/` into the session scratchpad, compared
+  with `cmp` against the committed `.out` and `.err`: `b14_preflight`, `b14_fullmodel`, `b15_preflight`,
+  `b16_preflight`, `b17_tower` — all five byte-identical.
+- 2026-10-11T06:36:40Z — outcomes written: NOTES-B14 §8.1–§8.8 (S0-11 … S0-20; the full-model row table; the verdict
+  "independent bridge (full model, relative to the stage-6 inventory)", CONJECTURE; the reading of B14-1 … B14-4 with
+  two sentences corrected forward; (b) and FM; gem re-assessed ELABORATING with a POSITIVE part — S0-19's clause "which
+  no item at L states" withdrawn against R6 `r4_tables.out`:141 and stage 4, so S0-20's NEW is not confirmed; the
+  standing-rows audit of rounds 1–3); NOTES-B15 §1–§5, NOTES-B16 §1–§5, NOTES-B17 §1–§4 (one sentence of B17 §2
+  corrected before commit: the tower's closure is B10-4's 2-torus group, beyond B16's count, so its exotic cone rests
+  on claim (D) through B7-2, not on B16). RESULTS rows B14-5 … B14-8, B15-1 … B15-3, B16-1 … B16-3, B17-1 and the
+  standing verdict V-4, each with its reading. Handoff proposals HP-11 (full model, K∞-Drive's two readings, the
+  audit), HP-12 (one dictionary), HP-13 (B7-1 under curve covers), HP-14 (HO-24's cone along the tower).
