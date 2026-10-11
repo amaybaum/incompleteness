@@ -72,3 +72,56 @@ Geom (relative strict convexity), capacity ≤ 2 and K∞-1 for the full effects
 dimension 4; outcome (c) in part: central symmetry with self-duality forces non-compact filters (the lemma), and
 whether a centrally symmetric, self-dual, drivable, strictly convex non-ellipsoid exists in chart dimension 4 stays
 OPEN.
+
+## S0-b (written 2026-10-11T01:14Z, before the second probe) — the centrally symmetric branch
+
+**Why this branch.** Ω⋆ is not centrally symmetric, and draft S4's separation body Ω₄ is; central symmetry is in the
+kernel vocabulary (`CentrallySymmetric`, KInfFoundations.lean:160; Lemma D, :632). So the decisive branch after the
+first probe is: do self-duality and *all* the single-system seams, central symmetry included, give K∞-Trans? S0
+predicted this would stay OPEN. It did not: written analysis after S0 (recorded here before any exact run) produced a
+candidate, and a floating-point scratch exploration (a design aid, not a result; not committed) checked that its
+parameters close up. The exact probe below is the measurement.
+
+**The lemma, completed (written, [W]).** Let Ω be centrally symmetric about the chart centre, with central symmetry
+`Z = diag(1, −I)` on the cone, and let `C(Ω)` be self-dual for an inner product `M`.
+(L-a) If `M` is `Z`-invariant (no `T`–`y` cross term, `M = diag(a, D)`), then `(D/a)^{1/2} Ω` is self-polar, hence the
+unit ball: Ω is an ellipsoid. No drive, strict convexity or compactness of a group enters.
+(L-b) For `g ∈ Aut(C)`, `gᵀ M g` also self-dualizes `C`, and for two self-dualizing `M₁, M₂`, `h = M₁⁻¹ M₂` is a positive
+`M₁`-self-adjoint automorphism of `C`. With `g = Z`: `h = M⁻¹ Zᵀ M Z` satisfies `Z h Z = h⁻¹`, and `h` is a scalar iff
+`M` is `Z`-invariant. So a centrally symmetric non-ellipsoid with a self-dual cone carries a non-scalar positive
+automorphism `h` (a filter); if the cone's automorphism group is compact modulo scalars, no such body exists.
+(L-c) Consequence for the seams: *strong* self-duality — an inner product that self-dualizes `C` and is invariant under
+the body's affine automorphisms (in particular under `Z`) — together with central symmetry gives the ellipsoid, hence
+K∞-Trans. Ω⋆ is strongly self-dual in this sense (its affine automorphisms fix both poles, so they are `O(3)` on `X`,
+and `M` is invariant) and is not centrally symmetric.
+
+**The candidate Ω_cs (to be checked exactly).** Coordinates `u = T + S`, `v = T − S`, `X ∈ ℝ³`; inner product
+`M = diag(4/5, 1/5, 1, 1, 1)` in `(u, v, X)`, i.e. `TT' + SS' + (3/5)(TS' + ST') + X·X'`; boost `g : (u, v, X) ↦ (u/4,
+4v, X)`. The level set `U = {F ≥ 1}` of the cone's profile `F(u, v)` (the cone is `{|X| ≤ F(u, v)}`) is bounded by the
+curve Γ = ⋃_j g^j(B₀ ∪ E₀), where `J₀ = (11/13, 19/13)` lies on the ellipse `⟨Mx, x⟩ = 1` (`4u² + v² = 5`), `B₀` is the
+arc from `swap J₀ = (19/13, 11/13)` to `J₀` of the swap-symmetric circle tangent at `J₀` to the polar line of `J₀`
+(`u² + v² − (1254/325)(u + v) + 5114/845 = 0`), and `E₀` is the `M`-polar of `B₀` (the dual conic
+`M̃ adj(A_B) M̃`, `M̃ = diag(4/5, 1/5, −1)`), from `J₀` to `g·swap J₀ = (19/52, 44/13)`. Claims: Γ is a `C¹` strictly
+convex chain (junction tangents match at `J₀` because `J₀` is self-polar, and at `g·swap J₀` because
+`π(g x) = g⁻¹ π(x)` and `swap ∘ π_M = π_M ∘ g ∘ swap`), invariant under `g` and under `swap`, and `M`-self-polar, so
+`C^{*M} = C`; `M` is not `Z`-invariant and `M⁻¹ZMZ = g` exactly (the filter of L-b). The body
+Ω_cs = {(X, S) : |X| ≤ F(1 + S, 1 − S)} ⊂ ℝ⁴ is then compact, convex, with interior, centrally symmetric, strictly
+convex, drivable (rotations of `X`, as for Ω⋆), with the sharp seed `(1 + S)/2`, capacity ≤ 2 (Lemma D), and no
+ellipsoid (Γ lies on two different conics), so by TransitiveBody.lean:602 and DenseOrbit.lean:174 no body-preserving
+family is boundary transitive or has a dense boundary orbit.
+
+**Predictions for `experiments/e13b_central_selfdual.py`.** Every check passes: the junction identities, the
+symmetries (`swap(E₀) = g⁻¹(E₀)` as conics), `M⁻¹ZMZ = g`, self-positivity `⟨Mx, y⟩ ≥ 1` on all pairs of a few hundred
+exact points of Γ (equality exactly at polar partners), the polar partner of each exact point of `B₀` lying on `E₀`
+and conversely with tangency, witnesses for the dual inclusion, rank 6 for six points of Γ, the seams, and the
+polygonal control (vertices `(4^{−j}, 4^{j})`, self-dual for the same `M`). The countercontrols fail as stated: no
+inner product invariant under `Z` and the rotations (`[[a, b], [b, a]] ⊕ c·I` in `(u, v, X)`) makes the circle `B` its
+own polar (so none self-dualizes `C`, as L-a predicts); and the circle through `J₀` and `swap J₀` with centre `(2, 2)`,
+not tangent to the polar line of `J₀`, has an `M`-polar conic that misses `J₀` (the closure is not automatic).
+Strength: high for the algebra (it closed in floating point); moderate that every arc-membership and orientation test
+is written correctly on the first run.
+
+**Prediction for the node, revised.** Outcome (a) holds in its strongest form: in chart dimension 4, self-duality with
+all the single-system seams, central symmetry included, does not give K∞-Trans (Ω_cs); strong self-duality without
+central symmetry does not either (Ω⋆); outcome (c): central symmetry with strong self-duality (invariance under `Z`
+suffices) gives the ellipsoid (L-a).

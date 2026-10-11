@@ -249,9 +249,16 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   was not changed. Read at L for E13: `ElementaryDrivability` (KInfFoundations.lean:264), `ball3Drive` (:449),
   `KInf1` (:1013), `SharpSeed` (OrbitGeneration.lean:65), `PreservesBody` (:69), `BoundaryTransitive` (:79),
   `DenseBoundaryOrbit` (DenseOrbit.lean:53) and the hypotheses of TransitiveBody.lean:602 and DenseOrbit.lean:174.
-- 2026-10-11T01:08Z — LOG time correction: the E13 entry was written as 00:54Z, later than its commit `dc44e737`
+- 2026-10-11T01:07Z — LOG time correction: the E13 entry was written as 00:54Z, later than its commit `dc44e737`
   (00:53:45Z); set to 00:53Z. `experiments/e13_selfdual_body.py` run 1 (started 00:53:52Z, after that commit; decision
   rule unchanged): 11/11, `COUNTER XS1 fails as stated` (pairing −1/80), `COUNTER XS2 fails as stated` (−17/80), the
   true inner product on the same pair 3/16, `VERDICT E13-SELFDUAL-DRIVABLE-NOT-TRANS`; replay byte-identical (py
   `fffa8bb3…`, out `a0063f05…`). The probe's predictions in NOTES-E13 S0 held (A10 also measured the meridian's
   second derivative −24 at the regular point m = 1).
+- 2026-10-11T01:17Z — E13, the centrally symmetric branch. NOTES-E13 S0-b (the lemma completed as L-a/L-b/L-c; the
+  candidate Ω_cs; predictions) and the exact probe `experiments/e13b_central_selfdual.py` (decision rule in its header,
+  written 01:15Z) committed together, before the probe's first run. S0 had predicted this branch would stay OPEN; the
+  candidate came from written analysis after S0, and a floating-point scratch exploration in the session scratchpad (not
+  committed; a design aid, not evidence) checked that its parameters close up. Pre-run review fixed two defects in the
+  probe (the order J⁻¹, rot(π), J in B9; an exact matrix equality in place of `simplify` in B4); the decision rule was
+  not changed. Kernel read at L for the branch: `card_le_two_of_centrallySymmetric` (KInfFoundations.lean:632).
