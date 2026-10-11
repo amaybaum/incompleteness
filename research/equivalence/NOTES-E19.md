@@ -419,3 +419,43 @@ the release gate is expected red at `lean-manuscript` only (design modules carry
 `simp`/`field_simp` normal forms and in `dphase_eq`'s entry (1, 1)); `EqvOneDictionary` BUILT 0.4 (never compiled;
 §B's continuity terms and `exists_su_of_unitary` are the risks); both BUILT 0.3. A green `EqvK2Block` reads:
 `reach_block`, `pairCone_eq_Q3_of_block`, `pairCone_eq_Q3_iff_block`, `aMiss_of_blockInvariant` [D].
+
+## 2-c. Dispatch 2 measured; the generation module and dispatch 3 (written 2026-10-11T11:04Z, before dispatch 3)
+
+**Dispatch 2** (run `38132266383`, head `f67da967`; LOG 10:58Z): Build success; every print standard in all six
+modules (`EqvK2Block` 11/11, `EqvOneDictionary` 10/10, the four carried modules 22, 9, 20, 21); gate red only at
+`lean-manuscript` (six unregistered design modules), `lean-axioms` 5949, no sorry. By §2's rule `EqvK2Block` and
+`EqvOneDictionary` are BUILT: `reach_block`, `pairCone_eq_Q3_of_block`, `Q3_blockInvariant`,
+`pairCone_eq_Q3_iff_block`, `aMiss_of_blockInvariant` [D]; S0-c's (i) `isClosed_of_selfDual`, (ii)
+`continuous_transferMap`, (iv) `invariant_of_closure` and `flow_of_dense` [D].
+
+**What remained [W] after dispatch 2**: the generation step of the full-flow form (S0-c (E1)–(E4); S0-b step 4) —
+that invariance under the gate (H2) and the clause's two operations at every angle (A_miss) gives `BlockInvariant`.
+Without it the full-flow chain to `Q3` passed through Euler angles at [L] and a written word construction at [W].
+
+**The module `lean/EqvK2Generation.lean` (dispatch 3, the round's last).** Exact finite words, no closure and no
+density: §I.1 conjugation invariance closed under products and unit scalars, `blockMat_mul`; §I.2 the generators —
+the flow at every point of the unit circle (`exists_angle` through `Complex.arg`), the cyclic lift and its inverse
+(`cycMatᴴ = −cycMat²`, i.e. `cycMat³ = −1`), the gate as the block pair `(1, X)` (`cnotMat_eq`, `dict_cnot_block`);
+§I.3 every special unitary is `dUnit a · rotRe c s · dUnit b` (`su_euler`: the form `[[p, −q̄], [q, p̄]]` from the
+adjugate, polar parts, one square root of a unit), `rotRe c s = cycMatᴴ · dUnit (c − i s) · cycMat`, hence idle
+invariance under every special unitary; §I.4 `(1, diag(r̄², r²)) = (1, X)(R, R)(1, X)(R̄, R̄)` with `R = diag(r, r̄)`
+(`rtrick`), the controlled real rotation as a cyclic conjugate of it, hence controlled invariance under every special
+unitary; §I.5 `blockInvariant_of_drive` (H2, A_miss ⇒ `BlockInvariant`; no H1, no H3), **`reachPure : ReachPure` as
+a theorem** (applied to the set of scaled drive images of products, which satisfies H2 and A_miss by construction),
+`pairCone_eq_Q3_of_drive_exact` (H1, H2, H3, A_miss ⇒ `K = Q3`, no `ReachPure`), `Q3_cnot`, and
+`pairCone_eq_Q3_iff_drive_exact` (given H1 and H3: `K = Q3` ⟺ H2 ∧ A_miss; `→` by `Q3_cnot` and `Q3_aMiss`, `←` by
+`pairCone_eq_Q3_of_drive_exact`). Every `linear_combination` coefficient was checked symbolically before writing
+(sympy, scratchpad): the Euler entries, the unit conditions, the cyclic identities (`cycMatᴴ + cycMat² ≡ 0`,
+`cycMatᴴ Z cycMat = Y`), the controlled-phase word. Every Mathlib name was checked at the pin (`Matrix.adjugate_fin_two`,
+`Matrix.mul_adjugate`, `Matrix.eta_fin_two`, `Matrix.det_fin_two_of`, `Complex.cos_arg`, `Complex.sin_arg`,
+`Complex.conj_mul'`, `Complex.normSq_eq_norm_sq`, `Complex.normSq_mk`, `Complex.re_add_im`, `star_div₀`,
+`mul_div_cancel₀`, `div_self`, `Module.End.mul_apply`, `Matrix.PosSemidef.mul_mul_conjTranspose_same`). The dev
+branch adds this module and one import line; nothing else changes.
+
+**Reading rule for dispatch 3** — §2's rule, unchanged, for `EqvK2Generation` (12 prints). **Prediction:** BUILT 0.35
+(new, long, compiled by inspection only; the risks are `simp` normal forms in `su_form`, `dUnit_eq_smul` and the
+`P`-products, and the `first` alternatives' coverage); PARTIAL with `blockMat_mul`, `cycMat_conjTranspose_eq`,
+`rotRe_eq`, `rtrick`, `Q3_cnot` standard 0.45. A green run moves to [D]: `ReachPure` (S6's L4) as a theorem; the
+full-flow sufficiency without `ReachPure`; the full-flow equivalence, both directions. Otherwise those stay
+[W] + [L] as in S0-b/S0-c, and the block-form results of dispatch 2 stand.

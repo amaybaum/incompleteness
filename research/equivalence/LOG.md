@@ -1020,7 +1020,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (iv) the closure lemma as premises before C19-1 (a) gives `ReachPure`, and these are their proofs; the rest of the
   module (§A's two directions against the bridge's `TransferClause`, §C) is E22 proper — built in dispatch 2 because it
   was queued, its reading recorded, its analysis deferred to round 6.
-- 2026-10-11T11:03Z — dispatch 2 measured (run `38132266383`, head `f67da967`): Mathlib bridge job `114448854872`
+- 2026-10-11T10:58Z — dispatch 2 measured (run `38132266383`, head `f67da967`): Mathlib bridge job `114448854872`
   (10:31:44Z–10:34:55Z) **Build success**; prints `EqvK2Schema` 22/22, `EqvK2Converse` 9/9, `EqvK2Block` 11/11,
   `BridgeDictionary` 20/20, `BridgeConverge` 21/21, `EqvOneDictionary` 10/10, every one `[propext, Classical.choice,
   Quot.sound]`; release gate red only at `lean-manuscript` (6 problems: the six unregistered design modules, by
@@ -1029,7 +1029,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   tool, tail 5000 of 38180 lines (scratchpad, sha256 `840c33ce…`). **Reading** by NOTES-E19 §2's rule: `EqvK2Block`
   BUILT, `EqvOneDictionary` BUILT (and the four carried modules BUILT). Predictions of §2-b held (0.6, 0.4, both
   0.3). The `lean/` copies are byte-identical to the dispatched blobs (`23d0db23`, `39b4188a`).
-- 2026-10-11T11:03Z — E19, the generation step (the decisive question of the owner's first round-5 direction):
+- 2026-10-11T10:58Z — E19, the generation step (the decisive question of the owner's first round-5 direction):
   `lean/EqvK2Generation.lean` drafted — exact finite words from the gate and the clause's two operations to every
   block pair of special unitaries (Euler factors through polar forms and one square root; the controlled phase as
   `gate · idle · gate · idle`; the cyclic lift's inverse as minus its square), hence `BlockInvariant` from H2 and

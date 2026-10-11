@@ -69,20 +69,24 @@ theorem conjInv_smul {K : Set (W 3)} {A : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 
   exact hA ω hω
 
 theorem P0_mul_P0 : P0 * P0 = P0 := by
-  ext i j
-  fin_cases i <;> fin_cases j <;> simp [P0, Matrix.mul_apply, Fin.sum_univ_two]
+  first
+    | (ext i j; fin_cases i <;> fin_cases j <;> simp [P0, Matrix.mul_apply, Fin.sum_univ_two]; done)
+    | (simp only [P0, Matrix.mul_fin_two]; ext i j; fin_cases i <;> fin_cases j <;> simp; done)
 
 theorem P0_mul_P1 : P0 * P1 = 0 := by
-  ext i j
-  fin_cases i <;> fin_cases j <;> simp [P0, P1, Matrix.mul_apply, Fin.sum_univ_two]
+  first
+    | (ext i j; fin_cases i <;> fin_cases j <;> simp [P0, P1, Matrix.mul_apply, Fin.sum_univ_two]; done)
+    | (simp only [P0, P1, Matrix.mul_fin_two]; ext i j; fin_cases i <;> fin_cases j <;> simp; done)
 
 theorem P1_mul_P0 : P1 * P0 = 0 := by
-  ext i j
-  fin_cases i <;> fin_cases j <;> simp [P0, P1, Matrix.mul_apply, Fin.sum_univ_two]
+  first
+    | (ext i j; fin_cases i <;> fin_cases j <;> simp [P0, P1, Matrix.mul_apply, Fin.sum_univ_two]; done)
+    | (simp only [P0, P1, Matrix.mul_fin_two]; ext i j; fin_cases i <;> fin_cases j <;> simp; done)
 
 theorem P1_mul_P1 : P1 * P1 = P1 := by
-  ext i j
-  fin_cases i <;> fin_cases j <;> simp [P1, Matrix.mul_apply, Fin.sum_univ_two]
+  first
+    | (ext i j; fin_cases i <;> fin_cases j <;> simp [P1, Matrix.mul_apply, Fin.sum_univ_two]; done)
+    | (simp only [P1, Matrix.mul_fin_two]; ext i j; fin_cases i <;> fin_cases j <;> simp; done)
 
 theorem tensorOf_zero_left (B : Matrix (Fin 2) (Fin 2) ℂ) :
     tensorOf (0 : Matrix (Fin 2) (Fin 2) ℂ) B = 0 := by
@@ -114,8 +118,11 @@ theorem exists_angle (c s : ℝ) (h : c ^ 2 + s ^ 2 = 1) :
   have hre : (Complex.mk c s).re = c := rfl
   have him : (Complex.mk c s).im = s := rfl
   have hsq : ‖Complex.mk c s‖ ^ 2 = 1 := by
-    rw [← Complex.normSq_eq_norm_sq, Complex.normSq_apply, hre, him]
-    nlinarith [h]
+    rw [← Complex.normSq_eq_norm_sq]
+    first
+      | (rw [Complex.normSq_apply, hre, him]; nlinarith [h])
+      | (rw [Complex.normSq_mk]; nlinarith [h])
+      | (simp [Complex.normSq_apply]; nlinarith [h])
   have hn : ‖Complex.mk c s‖ = 1 := by
     have h0 := norm_nonneg (Complex.mk c s)
     nlinarith [hsq, h0]
@@ -236,7 +243,10 @@ def rotRe (c s : ℝ) : Matrix (Fin 2) (Fin 2) ℂ := !![(c : ℂ), -(s : ℂ); 
 theorem rotRe_eq (c s : ℝ) :
     rotRe c s = cycMatᴴ * dUnit ((c : ℂ) - (s : ℂ) * Complex.I) * cycMat := by
   have hst : star ((c : ℂ) - (s : ℂ) * Complex.I) = (c : ℂ) + (s : ℂ) * Complex.I := by
-    simp
+    first
+      | (simp; done)
+      | (rw [Complex.star_def, map_sub, map_mul, Complex.conj_ofReal, Complex.conj_ofReal,
+          Complex.conj_I]; ring1)
   rw [cycMat_conjTranspose]
   simp only [rotRe, dUnit, hst, cycMatH, cycMat, Matrix.mul_fin_two]
   refine mat2_ext ?_ ?_ ?_ ?_
@@ -312,13 +322,18 @@ theorem euler_core (p q u₁ u₂ b : ℂ) (c s : ℝ)
     !![p, -star q; q, star p] = dUnit (u₁ * star b) * rotRe c s * dUnit b := by
   have hps : star p = (c : ℂ) * star u₁ := by
     rw [hp]
-    simp
+    first
+      | (simp; done)
+      | (rw [star_mul', Complex.star_def, Complex.conj_ofReal])
   have hqs : star q = (s : ℂ) * star u₂ := by
     rw [hq]
-    simp
+    first
+      | (simp; done)
+      | (rw [star_mul', Complex.star_def, Complex.conj_ofReal])
+  have ha' : star (u₁ * star b) = star u₁ * b := by rw [star_mul', star_star]
   have hb2s : star b ^ 2 = star u₁ * star u₂ := by
     rw [← star_pow, hb2, star_mul']
-  simp only [dUnit, rotRe, Matrix.mul_fin_two, star_mul', star_star]
+  simp only [dUnit, rotRe, Matrix.mul_fin_two, ha']
   refine mat2_ext ?_ ?_ ?_ ?_
   · linear_combination hp - ((c : ℂ) * u₁) * hb
   · linear_combination (-1 : ℂ) * hqs + ((s : ℂ) * u₁) * hb2s + ((s : ℂ) * star u₂) * hu₁
@@ -451,15 +466,22 @@ theorem blockInvariant_of_drive {K : Set (W 3)} (hH2 : ∀ ω ∈ K, cnot ω ∈
   rw [e]
   exact conjInv_mul (conjInv_ctrl hc hflow hcyc hW) hI ω hω
 
-theorem cnot_mem_driveWords : (cnot : W 3 →ₗ[ℝ] W 3) ∈ driveWords :=
-  Submonoid.subset_closure (Set.mem_union_left _ (Set.mem_union_left _ (Set.mem_singleton _)))
+theorem cnot_mem_driveWords : (cnot : W 3 →ₗ[ℝ] W 3) ∈ driveWords := by
+  first
+    | exact Submonoid.subset_closure (Set.mem_union_left _ (Set.mem_union_left _ (Set.mem_singleton _)))
+    | (apply Submonoid.subset_closure; simp [driveGens])
 
-theorem rot_mem_driveWords (t : ℝ) : actTLin (KInfFoundations.rotLin t) ∈ driveWords :=
-  Submonoid.subset_closure (Set.mem_union_left _ (Set.mem_union_right _ (Set.mem_range_self t)))
+theorem rot_mem_driveWords (t : ℝ) : actTLin (KInfFoundations.rotLin t) ∈ driveWords := by
+  first
+    | exact Submonoid.subset_closure
+        (Set.mem_union_left _ (Set.mem_union_right _ (Set.mem_range_self t)))
+    | (apply Submonoid.subset_closure; simp [driveGens])
 
 theorem cyc_mem_driveWords :
-    actTLin (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ∈ driveWords :=
-  Submonoid.subset_closure (Set.mem_union_right _ (Set.mem_singleton _))
+    actTLin (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ∈ driveWords := by
+  first
+    | exact Submonoid.subset_closure (Set.mem_union_right _ (Set.mem_singleton _))
+    | (apply Submonoid.subset_closure; simp [driveGens])
 
 /-- The scaled drive images of product states of the ball. -/
 def driveOrbit : Set (W 3) :=
@@ -469,7 +491,8 @@ def driveOrbit : Set (W 3) :=
 theorem driveOrbit_gen {g' : Module.End ℝ (W 3)} (hg' : g' ∈ driveWords) :
     ∀ ω ∈ driveOrbit, g' ω ∈ driveOrbit := by
   rintro ω ⟨g, hg, x₀, hx₀, y₀, hy₀, c, hc, rfl⟩
-  exact ⟨g' * g, driveWords.mul_mem hg' hg, x₀, hx₀, y₀, hy₀, c, hc, by rw [map_smul]; rfl⟩
+  exact ⟨g' * g, driveWords.mul_mem hg' hg, x₀, hx₀, y₀, hy₀, c, hc, by
+    rw [map_smul, Module.End.mul_apply]⟩
 
 /-- **`ReachPure` is a theorem**: every pure two-token state is, up to a nonnegative scale, a drive
 word applied to a product state of the ball (S6's lemma L4, no longer a hypothesis). -/
