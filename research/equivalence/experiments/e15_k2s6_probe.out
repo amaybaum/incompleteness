@@ -1,0 +1,18 @@
+parsed: pc, pt, sgn (16 entries each); cycEquiv v = (v 2, v 0, v 1); rotFun_apply lines found: True
+PASS D1 -- parsed cnot = Ad(CNOT); actT R_z(pi/2) = Ad(1 (x) diag(1, i)); actT cyc3 = Ad(1 (x) (I - i(X+Y+Z))/2); actT R_z(theta0) = Ad(1 (x) diag(1, (3+4i)/5)); all four lifts unitary
+PASS D2 -- the table group <cnot, actT R_z(pi/2), actT cyc3> has order 384
+PASS P1 -- dict(prodState x y) = rho_x (x) rho_y and PSD for all 36 pairs of six rational ball points
+PASS P2 -- a non-PSD table pairs -15/2 with the pure Bell table; a PSD pair pairs 2
+PASS X1 -- the orbit of the ray of h* has 192 rays, closed under the three lift generators; |h*|^2 = 128
+PASS X2 -- 18336 pairs; squared overlaps in [25/2048, 13/16]; every tr(d_j d_k) > 0
+PASS X3 -- H1 for every defect at c* = 401/400 (1 - 4D <= (2/c* - 1)^2 = 159201/160801); minimum normalized |det Psi|^2 = 85/2048
+PASS X4 -- (CC) c*^2 s >= 4(c* - 1) on all 18336 pairs (threshold s >= 1600/160801)
+PASS X5 -- <h*| d* |h*> = -1/400 < 0, so d* is not PSD; dict(z*) = d*/8
+PASS X6 -- max squared overlap of R h* with the 192 rays = 1949/2048 <= 400/401; <P_{Rh*}, R d* R^*> = -1/400 < 0
+PASS X7 -- the orbit of phi0 has 384 rays, none a product; minimum normalized |det Psi|^2 = 5/256
+PASS R1 -- CNOT (1 (x) W) CNOT = P0 (x) W + P1 (x) X W X; the L4 word reaches all five states: True
+COUNTER XC1 fails as stated -- (CC) at 301/300 fails on the minimal-overlap pair (s = 25/2048 < 1200/90601)
+COUNTER XC2 fails as stated -- R d* R^* pairs -1/400 with P_{Rh*}, an element of K*
+COUNTER XC3 fails as stated -- d* is not PSD (<h*|d*|h*> = -1/400)
+checks: 12, failures: 0
+VERDICT E15-S6-EXACT-LAYER-CONSISTENT

@@ -409,6 +409,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     round); the file is not edited. Every other statement of HO-18 is as meant (item 3 with the coordinator's precision;
     the conjugation facts of its countermodels clause agree with NOTES-E10 L2 up to a global phase of `U_J`).
   No research step of round 4 precedes this receipt's commit.
-- 2026-10-11T03:13Z — E15 begun. NOTES-E15 S0 (written 03:08Z: what the node is, the draft's decisions, predictions) and
+- 2026-10-11T03:10Z — E15 begun. NOTES-E15 S0 (written 03:08Z: what the node is, the draft's decisions, predictions) and
   the exact probe `experiments/e15_k2s6_probe.py` (decision rule in its header, written 03:08Z; X6's header text
   narrowed to the argument the code uses before any run) committed together, before the probe's first run.
+- 2026-10-11T03:15Z — LOG time correction: the E15 entry committed in `f7c3668c` (03:10:56Z) had been written as 03:13Z,
+  later than its commit; set to 03:10Z. No other content changed.
+- 2026-10-11T03:15Z — E15 measured. `experiments/e15_k2s6_probe.py` run 1 (started 03:11:06Z, after commit `f7c3668c`;
+  decision rule unchanged): 12/12, `COUNTER XC1/XC2/XC3 fails as stated`, `VERDICT E15-S6-EXACT-LAYER-CONSISTENT`; replay
+  byte-identical (py `78cd7c59…`, out `3ee625fe…`). Every S0 prediction held; the flow witness's maximum overlap
+  `1949/2048` equals the hand value of S0. Draft S6 written (`preregistration-drafts/S6-k2-schema-pair-cone.md`,
+  round id `K2-SCHEMA-1`; nothing activated, nothing under `verification/`). NOTES-E15 §§1–3; RESULTS R-E15.1–R-E15.3;
+  LEDGER round-4 note (K2). No dispatch used (the module was built in round 3, run 38101580750).

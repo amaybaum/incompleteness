@@ -163,3 +163,22 @@ Each note is dated, names its evidence, and supersedes nothing above.
   `not_stagePreserving_of_infiniteOrderOn`, CompositionOrder.lean:378): a passive finite-rank conditioning tower
   carries no infinite-order datum, so it sources no drive (and no transitive family); K∞-Seed is compatible with such
   towers. Recorded as a constraint on candidate sources only. Status OPEN.
+
+## Round-4 notes (dated; statuses at L unchanged — this thread changes no status)
+
+Each note is dated, names its evidence, and supersedes nothing above.
+
+- **2026-10-11 (round 4) — K2.** Draft S6 (`K2-SCHEMA-1`) written in the native V3 format around the built module
+  `EqvK2Schema` (R-E15.1): A_miss in the full-flow form the module carries; HO-13 item 2's two-rotation clause recorded
+  as the stronger theorem not formalized (its H-level premise H-OI_g at `{R_z(θ₀), J}`, HO-20 item 4, CONDITIONAL);
+  `ReachPure` a named hypothesis with no OI content. Its countercontrol, HO-24's explicit cone for the finite clause, is
+  recomputed exactly and shown not invariant under the flow at `cos t = 3/5` by an explicit witness (R-E15.2; its
+  self-duality CONDITIONAL on Theorem S′ [W]); so the full-flow form is load-bearing (R-E15.3). Received HO-21–HO-26
+  at their labels: the bridge's dictionary module (the gate's matrix form, the monomial images; [D]); the finite half
+  is `Stab_C(Z ⊗ 1)` and the clause with the gate closes to `SU(2) × SU(2)` (HO-22, CONJECTURE exact); the finite case
+  of reachability ([D]); each half of A_miss alone leaves exotic cones on the cone side (HO-25: the Clifford half
+  explicitly through S′, the continuous half through claim (D) [A]). HO-26's refined assumption-watch markers, recorded
+  here at their labels: explicit exotic cones do not need Bell-type defects or finitely many defects (small-cap
+  rank-one surgeries for finite groups and for tori whose orbits avoid orthogonal pairs); T fails on every explicit
+  cone of the record, `K_circ` the one open class. Status OPEN; the schema stays CONDITIONAL on H2, H3, A_miss and
+  `ReachPure`.
