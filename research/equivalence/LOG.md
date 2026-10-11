@@ -610,3 +610,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `lean/` copies are byte-identical to the dispatched blobs. The third dispatch is not used. A dry run of the extended
   citation checker (output to the session scratchpad, not a recorded run) rendered `CITATIONS-RESOLVE` over 71
   citations at 04:56Z; the recorded run 5 comes last.
+- 2026-10-11T05:15Z — `e39aaa68` pushed (05:14Z). Bare line references of the round-4 documents (a `:NNN` outside the
+  checker's pattern, read against the file cited before it) checked at L by hand before run 5: draft S6's `cnot` (:775)
+  after CompositeDimension.lean:97; `actT_reflY_phiW` (:106), `cnot_idW` (:110), `chain_value` (:134),
+  `no_candidateCone_cnot_reflY` (:143) after K2Guard.lean:95; `cycEquiv` (:416) after KInfFoundations.lean:386; ROADMAP
+  :1001–1006 (the K2 row) and the quotation of :1001–1003 — each line declares or reads as cited. NOTES-E17's
+  `LocalityPreserving` (:475) after QuasilocalCharacterization.lean:168 resolves; its `OISystem` (:463) followed a
+  citation of QuasilocalAlgebra.lean, whose line 463 is blank — the declaration is QuasilocalCharacterization.lean:463.
+  Corrected in place to the full citation, which run 5 then checks; no other text changed.

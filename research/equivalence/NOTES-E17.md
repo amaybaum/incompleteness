@@ -3,11 +3,11 @@
 Base L = `9f9f8257`. Node E17 of round 4 (owner's priority 4). Source: R-E14.2 (NOTES-E14 §2, reading (R-01)): a star
 automorphism `α` of a `QuasilocalSystem` (QuasilocalCharacterization.lean:168) that maps every stage matrix unit to a
 stage matrix with entries in `{0, 1}`, and that is `LocalityPreserving` (:475) with its inverse, is the Target A
-automorphism of a `ReversibleDynamics` (QuasilocalAlgebra.lean:956), i.e. an `OISystem` (:463) up to the canonical
-isomorphism — a written proof (CONJECTURE [W]) resting on three standard facts not checked there (the diagonal
-subalgebra is maximal abelian; Gelfand duality for `C(Q^ι)`; the identification with the kernel's `transported`,
-QuasilocalAlgebra.lean:1109). The node asks for the statement as a design-module object and for its finite-stage case
-proved in a design run.
+automorphism of a `ReversibleDynamics` (QuasilocalAlgebra.lean:956), i.e. an `OISystem`
+(QuasilocalCharacterization.lean:463) up to the canonical isomorphism — a written proof (CONJECTURE [W]) resting on
+three standard facts not checked there (the diagonal subalgebra is maximal abelian; Gelfand duality for `C(Q^ι)`; the
+identification with the kernel's `transported`, QuasilocalAlgebra.lean:1109). The node asks for the statement as a
+design-module object and for its finite-stage case proved in a design run.
 
 ## S0 (written 2026-10-11T04:04Z, before the probe's first run and before any module is written)
 
