@@ -18,20 +18,24 @@ readout of every finite operational theory refutes it on the algebras a classica
   (`nativeReadout_repeatable`).
 * **The exclusivity clause** (`ExclusiveOn`): every available outcome family that is a passive
   instrument on the algebra has a state-independent outcome law there.
-* **The no-go** (`not_exclusiveOn_ancilla`, `not_exclusiveOn_diagonal`): in every
-  `FiniteOperationalTheory` over a nonempty system the clause fails on both algebras at ancilla size
-  two; what it contradicts is `readout_is_localLuders` with the structure field `readout_avail`.
+* **The no-go** (`not_exclusiveOn_of_refines`, with the cases `not_exclusiveOn_ancilla`,
+  `not_exclusiveOn_diagonal`): in every `FiniteOperationalTheory` over a nonempty system the
+  clause fails, at ancilla size two, on every algebra whose blocks do not straddle two ancilla
+  values; what it contradicts is `readout_is_localLuders` with the structure field
+  `readout_avail`. Hence the clause presupposes a block straddling two ancilla values, a coherence
+  between them (`exists_straddle_of_exclusiveOn`).
   **The control** (`exclusiveOn_factor`): on the full matrix algebra of the extended carrier, one
   block, the clause holds in every theory, by OI-N1 (`branch_scalar_on_block`).
 * **The substratum theory** (`substratumTheory_hasAncillaSwapControl`, `substratumTheory_pureSeed`,
   `substratumTheory_exclusivity_false`): the ancilla exchanges are monomial, hence available, so
-  `pureSeedPrep_available_of_swap` makes every ancilla point mass preparable from the uniform ancilla,
-  and the clause fails on both algebras.
-* **The classical carrier, any cell** (`passive_repeatable_eq`, `Reach`, `reach_mergeInto`,
-  `reach_collectAt`, `reach_pointMass`): on a finite configuration set with every permutation
-  available, a passive repeatable readout of a cell is the restriction to the cell, and the readout of
-  any one cell that is neither empty nor everything makes every point mass reachable from the uniform
-  state by the pure-seed pattern (read, correct by feed-forward, forget).
+  `pureSeedPrep_available_of_swap` makes every ancilla point mass preparable from the uniform
+  ancilla, and the clause fails on both algebras.
+* **The classical carrier, any cell** (`passive_repeatable_eq`, `Reach`, `step_eq_mergeInto`,
+  `reach_mergeInto`, `reach_collectAt`, `reach_pointMass`): on a finite configuration set with
+  every permutation available, a passive repeatable readout of a cell is the restriction to the
+  cell, and the readout of any one cell that is neither empty nor everything makes every point mass
+  reachable from the uniform state by the pure-seed pattern (read, correct by feed-forward,
+  forget).
 -/
 
 namespace OIBridge
@@ -172,6 +176,50 @@ theorem not_exclusiveOn_diagonal [Nonempty A] (T : FiniteOperationalTheory A) :
     PassiveObservation.pure_trace] at h1
   exact one_ne_zero (h0.trans h1.symm)
 
+/-- **The no-go on every algebra refining the ancilla value.** If no block of the labelling
+`blk` contains two configurations with different ancilla values, the native readout is a passive
+instrument on the labelling's algebra with a state-dependent outcome law there, so the exclusivity
+clause fails on it. `not_exclusiveOn_ancilla` and `not_exclusiveOn_diagonal` are the cases
+`Prod.snd` and `id`. -/
+theorem not_exclusiveOn_of_refines [Nonempty A] {I : Type} [DecidableEq I]
+    (blk : A × Fin 2 → I) (hblk : ∀ s t, blk s = blk t → s.2 = t.2)
+    (T : FiniteOperationalTheory A) : ¬ ExclusiveOn blk T := by
+  intro h
+  have hpass : CentralObservation.IsBlockPassiveInstrument blk (T.readout 2) := by
+    refine ⟨(nativeReadout_blockPassive T 2).1, fun X hX => (nativeReadout_blockPassive T 2).2 X ?_⟩
+    intro s t hst
+    exact hX s t fun h' => hst (hblk s t h')
+  obtain ⟨c, hc⟩ := h (Fin 2) (T.readout 2) (T.readout_avail 2) hpass 0
+  obtain ⟨a₀⟩ := (inferInstance : Nonempty A)
+  have hin0 : CentralObservation.InBlock (Prod.snd : A × Fin 2 → Fin 2) 0
+      (PassiveObservation.pureState ((a₀, 0) : A × Fin 2)) :=
+    CentralObservation.pureState_inBlock (Prod.snd : A × Fin 2 → Fin 2) ((a₀, 0) : A × Fin 2)
+  have hin1 : CentralObservation.InBlock (Prod.snd : A × Fin 2 → Fin 2) 1
+      (PassiveObservation.pureState ((a₀, 1) : A × Fin 2)) :=
+    CentralObservation.pureState_inBlock (Prod.snd : A × Fin 2 → Fin 2) ((a₀, 1) : A × Fin 2)
+  have h0 := hc _ (CentralObservation.inBlock_blockDiag _
+    (CentralObservation.pureState_inBlock blk ((a₀, 0) : A × Fin 2)))
+  have h1 := hc _ (CentralObservation.inBlock_blockDiag _
+    (CentralObservation.pureState_inBlock blk ((a₀, 1) : A × Fin 2)))
+  rw [nativeReadout_eq_blockPinch, CentralObservation.blockPinch_apply,
+    CentralObservation.blockPart_eq_of_inBlock _ hin0, PassiveObservation.pure_trace] at h0
+  rw [nativeReadout_eq_blockPinch, CentralObservation.blockPinch_apply,
+    blockPart_eq_zero_of_inBlock _ (by decide : (0 : Fin 2) ≠ 1) hin1, Matrix.trace_zero,
+    PassiveObservation.pure_trace] at h1
+  exact one_ne_zero (h0.trans h1.symm)
+
+/-- **Exclusivity presupposes coherence between ancilla values.** If the exclusivity clause holds on
+the algebra of a labelling, some block of that algebra contains two configurations with different
+ancilla values: the observed algebra carries a coherence between ancilla values, which no family of
+the monomial classes creates from a configuration-diagonal state. -/
+theorem exists_straddle_of_exclusiveOn [Nonempty A] {I : Type} [DecidableEq I]
+    (blk : A × Fin 2 → I) (T : FiniteOperationalTheory A) (h : ExclusiveOn blk T) :
+    ∃ s t : A × Fin 2, blk s = blk t ∧ s.2 ≠ t.2 := by
+  by_contra hne
+  refine not_exclusiveOn_of_refines blk (fun s t hst => ?_) T h
+  by_contra h'
+  exact hne ⟨s, t, hst, h'⟩
+
 /-- **The control: on a factor the clause holds in every theory.** On the full matrix algebra of
 the extended carrier (the labelling with one block) every branch of a passive instrument is a scalar
 (OI-N1, `branch_scalar_on_block`), so its outcome law is state-independent. -/
@@ -226,11 +274,13 @@ noncomputable def outCell (C : Finset Ω) (w : Ω → ℝ) (x : Ω) : ℝ := if 
 /-- Transport of a distribution by a permutation of the configurations. -/
 noncomputable def pushPerm (σ : Equiv.Perm Ω) (w : Ω → ℝ) (x : Ω) : ℝ := w (σ.symm x)
 
+omit [Fintype Ω] in
 theorem inCell_add_outCell (C : Finset Ω) (w : Ω → ℝ) (x : Ω) :
     inCell C w x + outCell C w x = w x := by
   unfold inCell outCell
   split_ifs <;> ring
 
+omit [Fintype Ω] in
 /-- **A passive repeatable readout of a cell is the restriction to the cell.** Two branches that
 sum to the state (passive), the first vanishing off the cell and the second on it (repeatable: each
 reads its outcome surely), are `inCell` and `outCell`. -/
@@ -269,16 +319,20 @@ theorem reach_pushPerm {C : Finset Ω} (σ : Equiv.Perm Ω) {w : Ω → ℝ} (hw
 noncomputable def mergeInto (x y : Ω) (w : Ω → ℝ) (z : Ω) : ℝ :=
   if z = x then w x + w y else if z = y then 0 else w z
 
+omit [Fintype Ω] in
 theorem mergeInto_apply_left (x y : Ω) (w : Ω → ℝ) : mergeInto x y w x = w x + w y := by
   simp [mergeInto]
 
+omit [Fintype Ω] in
 theorem mergeInto_apply_right {x y : Ω} (h : y ≠ x) (w : Ω → ℝ) : mergeInto x y w y = 0 := by
   simp [mergeInto, h]
 
+omit [Fintype Ω] in
 theorem mergeInto_apply_of_ne {x y z : Ω} (hx : z ≠ x) (hy : z ≠ y) (w : Ω → ℝ) :
     mergeInto x y w z = w z := by
   simp [mergeInto, hx, hy]
 
+omit [Fintype Ω] in
 /-- A nontrivial cell separates any two configurations after a permutation. -/
 theorem exists_perm_sep {C : Finset Ω} (hC : ∃ c, c ∈ C) (hC' : ∃ d, d ∉ C) {x y : Ω}
     (hxy : x ≠ y) : ∃ π : Equiv.Perm Ω, π y ∈ C ∧ π x ∉ C := by
@@ -298,42 +352,54 @@ theorem exists_perm_sep {C : Finset Ω} (hC : ∃ c, c ∈ C) (hC' : ∃ d, d �
   · rw [Equiv.trans_apply, Equiv.swap_apply_left]
     exact hd
 
+omit [Fintype Ω] in
+/-- **The step's value at each configuration.** With `π y` in the cell and `π x` outside it, the
+step whose outcome "in" is corrected by the exchange of the two images followed by `π⁻¹`, and whose
+outcome "out" is corrected by `π⁻¹`, moves the mass of `y` onto `x` and leaves the rest. -/
+theorem step_eq_mergeInto {C : Finset Ω} {π : Equiv.Perm Ω} {x y : Ω} (hy : π y ∈ C)
+    (hx : π x ∉ C) (w : Ω → ℝ) (z : Ω) :
+    pushPerm ((Equiv.swap (π x) (π y)).trans π.symm) (inCell C (pushPerm π w)) z
+      + pushPerm π.symm (outCell C (pushPerm π w)) z = mergeInto x y w z := by
+  by_cases hzx : z = x
+  · subst hzx
+    simp [pushPerm, inCell, outCell, mergeInto, Equiv.symm_trans_apply, Equiv.symm_swap,
+      Equiv.symm_symm, Equiv.symm_apply_apply, Equiv.swap_apply_left, hy, hx, add_comm]
+  · by_cases hzy : z = y
+    · subst hzy
+      simp [pushPerm, inCell, outCell, mergeInto, Equiv.symm_trans_apply, Equiv.symm_swap,
+        Equiv.symm_symm, Equiv.symm_apply_apply, Equiv.swap_apply_right, hy, hx, hzx]
+    · have h1 : π z ≠ π x := fun h => hzx (π.injective h)
+      have h2 : π z ≠ π y := fun h => hzy (π.injective h)
+      by_cases hc : π z ∈ C
+      · simp [pushPerm, inCell, outCell, mergeInto, Equiv.symm_trans_apply, Equiv.symm_swap,
+          Equiv.symm_symm, Equiv.symm_apply_apply, Equiv.swap_apply_of_ne_of_ne h1 h2, hc, hzx, hzy]
+      · simp [pushPerm, inCell, outCell, mergeInto, Equiv.symm_trans_apply, Equiv.symm_swap,
+          Equiv.symm_symm, Equiv.symm_apply_apply, Equiv.swap_apply_of_ne_of_ne h1 h2, hc, hzx, hzy]
+
 /-- **One step of the pattern merges any configuration into any other.** Permute so that the cell
 holds `y` and not `x`, read the cell, correct the outcome "in" by the exchange of the two images and
 the permutation back, correct the outcome "out" by the permutation back, forget the outcome. -/
 theorem reach_mergeInto {C : Finset Ω} (hC : ∃ c, c ∈ C) (hC' : ∃ d, d ∉ C) {w : Ω → ℝ}
     (hw : Reach C w) {x y : Ω} (hxy : x ≠ y) : Reach C (mergeInto x y w) := by
   obtain ⟨π, hy, hx⟩ := exists_perm_sep hC hC' hxy
-  refine (Reach.step ((Equiv.swap (π x) (π y)).trans π.symm) π.symm (reach_pushPerm π hw)).of_eq
-    (funext fun z => ?_)
-  simp only [pushPerm, inCell, outCell, Equiv.symm_trans_apply, Equiv.symm_swap, Equiv.symm_symm,
-    Equiv.symm_apply_apply]
-  by_cases hzx : z = x
-  · subst hzx
-    rw [Equiv.swap_apply_left, if_pos hy, if_neg hx, Equiv.symm_apply_apply, mergeInto_apply_left,
-      add_comm]
-  · by_cases hzy : z = y
-    · subst hzy
-      rw [Equiv.swap_apply_right, if_neg hx, if_pos hy, mergeInto_apply_right hzx, add_zero]
-    · have h1 : π z ≠ π x := fun h => hzx (π.injective h)
-      have h2 : π z ≠ π y := fun h => hzy (π.injective h)
-      rw [Equiv.swap_apply_of_ne_of_ne h1 h2, Equiv.symm_apply_apply, mergeInto_apply_of_ne hzx hzy]
-      by_cases hc : π z ∈ C
-      · rw [if_pos hc, if_pos hc, add_zero]
-      · rw [if_neg hc, if_neg hc, zero_add]
+  exact (Reach.step ((Equiv.swap (π x) (π y)).trans π.symm) π.symm (reach_pushPerm π hw)).of_eq
+    (funext fun z => step_eq_mergeInto hy hx w z)
 
 /-- The mass of the configurations of `R` collected onto `x₀`. -/
 noncomputable def collectAt (x₀ : Ω) (R : Finset Ω) (w : Ω → ℝ) (z : Ω) : ℝ :=
   if z = x₀ then w x₀ + ∑ y ∈ R, w y else if z ∈ R then 0 else w z
 
+omit [Fintype Ω] in
 theorem collectAt_apply_self (x₀ : Ω) (R : Finset Ω) (w : Ω → ℝ) :
     collectAt x₀ R w x₀ = w x₀ + ∑ y ∈ R, w y := by
   simp [collectAt]
 
+omit [Fintype Ω] in
 theorem collectAt_apply_mem {x₀ z : Ω} {R : Finset Ω} (hz : z ≠ x₀) (hzR : z ∈ R)
     (w : Ω → ℝ) : collectAt x₀ R w z = 0 := by
   simp [collectAt, hz, hzR]
 
+omit [Fintype Ω] in
 theorem collectAt_apply_not_mem {x₀ z : Ω} {R : Finset Ω} (hz : z ≠ x₀) (hzR : z ∉ R)
     (w : Ω → ℝ) : collectAt x₀ R w z = w z := by
   simp [collectAt, hz, hzR]
@@ -388,6 +454,7 @@ theorem collectAt_univ_apply (x₀ : Ω) (w : Ω → ℝ) (z : Ω) :
     rw [collectAt_apply_self, if_pos rfl, Finset.add_sum_erase _ _ (Finset.mem_univ _)]
   · rw [collectAt_apply_mem hz (Finset.mem_erase.2 ⟨hz, Finset.mem_univ z⟩), if_neg hz]
 
+omit [DecidableEq Ω] in
 theorem sum_uniform [Nonempty Ω] : ∑ _y : Ω, (Fintype.card Ω : ℝ)⁻¹ = 1 := by
   rw [Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
   exact mul_inv_cancel₀ (Nat.cast_ne_zero.mpr Fintype.card_ne_zero)
@@ -398,7 +465,7 @@ nontrivial cell, of the exclusivity no-go of the knowledge-balance toy (one pass
 partition, with the exchanges, restores the simplex). -/
 theorem reach_pointMass {C : Finset Ω} (hC : ∃ c, c ∈ C) (hC' : ∃ d, d ∉ C) (x₀ : Ω) :
     Reach C fun z => if z = x₀ then 1 else 0 := by
-  haveI : Nonempty Ω := ⟨x₀⟩
+  have : Nonempty Ω := ⟨x₀⟩
   refine (reach_collectAt hC hC' x₀ (Finset.univ.erase x₀) (Finset.notMem_erase x₀ _) _
     Reach.seed).of_eq (funext fun z => ?_)
   rw [collectAt_univ_apply, sum_uniform]
@@ -414,6 +481,8 @@ end Classical
 #print axioms nativeReadout_repeatable
 #print axioms not_exclusiveOn_ancilla
 #print axioms not_exclusiveOn_diagonal
+#print axioms not_exclusiveOn_of_refines
+#print axioms exists_straddle_of_exclusiveOn
 #print axioms exclusiveOn_factor
 #print axioms substratumTheory_hasAncillaSwapControl
 #print axioms substratumTheory_pureSeed
@@ -426,6 +495,7 @@ end Classical
 #print axioms mergeInto_apply_right
 #print axioms mergeInto_apply_of_ne
 #print axioms exists_perm_sep
+#print axioms step_eq_mergeInto
 #print axioms reach_mergeInto
 #print axioms collectAt_apply_self
 #print axioms collectAt_apply_mem
