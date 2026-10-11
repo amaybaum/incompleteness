@@ -1,0 +1,11 @@
+X1: CONFIRMED -- direct test q<=12 agrees with closed form at every angle: True; Clifford angles (q<=12 direct) 8, (q<=24 closed form) 8 of 360 grid angles; Clifford set [(0, 1), (1, 1), (1, 2), (1, 4), (3, 2), (3, 4), (5, 4), (7, 4)]
+X2: CONFIRMED -- classes modulo scalars at k*pi/4: {0: (8, True), 1: (24, True), 2: (8, True), 3: (24, True), 4: (8, True), 5: (24, True), 6: (8, True), 7: (24, True)}
+X3: CONFIRMED -- det(W)=1 True, tr(W)=1+sqrt2/2 True, W^k non-scalar k<=96 True, p_k != 0 k<=400 True; tr W(alpha)=2cos^2 alpha and det 1 symbolic True; 1+cos 2alpha algebraic integer exactly at Clifford angles on q<=24 True (352 non-integral of 360)
+X4: CONFIRMED -- minimal polynomial of (3+4i)/5: 5*x**2 - 6*x + 5, leading coefficient 5
+X5: CONFIRMED -- group with scalars 192 (closed True); channels 24; channel orders {1: 1, 4: 6, 2: 9, 3: 8}
+X6: CONFIRMED -- submonomial axes ['z', '-z']; Choi rank one and = kron(Pi^T, Pi) at all axes True; Lueders = F^z True
+X7: CONFIRMED -- 16+5+21+4+8+12+2 = 68
+X8: CONFIRMED -- monomial U carries E_ss to E_{pi(s) pi(s)} for 3 permutations x 2 phase patterns (exact)
+COUNTERCONTROLS (expected False): {'CC1': False, 'CC2': False, 'CC3': False, 'CC4': False, 'CC5': False}
+VERDICT INDEP-O4-FIXED
+SUMMARY 8/8 confirmed

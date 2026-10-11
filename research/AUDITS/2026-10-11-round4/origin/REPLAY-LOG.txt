@@ -1,0 +1,5 @@
+Coordinator replays of research/origin round-4 scripts at thread head 7192e3b5 (python3 -I -B, cwd research/origin/experiments; stdout compared byte for byte with the committed .out).
+o11_token.py   IDENTICAL  (rc=0, 38 s; VERDICT O11-FINITE-ON-STATED-ACCESS+ORDINF-IFF-COHERENT)
+o12_angle.py   IDENTICAL  (rc=0, 16 s; VERDICT O12-CLIFFORD-ANGLES-EXACTLY)
+o13_ks.py      IDENTICAL  (rc=0, 4 s;  VERDICT O13-KS-LAW-NEEDS-A-COHERENT-MEMBER-PER-AXIS)
+3/3 identical.

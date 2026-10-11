@@ -1,0 +1,80 @@
+RESOLVED CompositionOrder.lean:348 (no identifier named on the citing lines)
+RESOLVED+NAMED StructuralClosure.lean:261 ['ContextStable', 'substratumClass_contextStable']
+RESOLVED+NAMED OIRealization.lean:360 ['finiteOI_not_implies_inert']
+RESOLVED SpectatorBridge.lean:223 (no identifier named on the citing lines)
+MISSING OriginTokenOrder.lean:653
+RESOLVED+NAMED ImplementationLocality.lean:268 ['InstAvail']
+RESOLVED-UNNAMED StructuralClosure.lean:98 names ['InstAvail'] not in window: def IsSubmonomial (K : Matrix S S ℂ) : Prop :=
+RESOLVED ManuscriptAxioms.lean:125 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:106 (no identifier named on the citing lines)
+RESOLVED-UNNAMED CompositionOrder.lean:51 names ['InstAvail'] not in window: def InfiniteOrderOn (Ω : Set V) (g : V ≃ᵃ[ℝ] V) : Prop :=
+RESOLVED+NAMED RouteB.lean:279 ['FiniteOperationalTheory', 'genTheory']
+RESOLVED-UNNAMED LiftAudit.lean:200 names ['PhaseFreeRichness', 'substratumTheory_not_phaseFree'] not in window: theorem substratumTheory_not_layerFlowExecutable {σ : Equiv.Perm S} {x : S} (hx : σ x ≠ x)
+RESOLVED BackgroundIndependence.lean:161 (no identifier named on the citing lines)
+MISSING OriginAngle.lean:181
+RESOLVED+NAMED DiscreteCompletion.lean:216 ['blockOf_mul']
+RESOLVED RouteB.lean:141 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:217 (no identifier named on the citing lines)
+RESOLVED-UNNAMED ImplementationLocality.lean:957 names ['blockOf'] not in window: theorem observationalIndependence_of_implementationLocality [Nonempty A]
+RESOLVED GeneralCarrier.lean:125 (no identifier named on the citing lines)
+RESOLVED-UNNAMED SpectatorBridge.lean:233 names ['blockOf'] not in window: theorem inertSpectator_iff_parallelReferenceExtension (T : FiniteOperationalTheory A) :
+RESOLVED-UNNAMED ReferenceExtension.lean:474 names ['blockOf'] not in window: theorem qutrit_of_parallel (T : FiniteOperationalTheory (Fin 2))
+RESOLVED CarrierGeneralOIPlus.lean:127 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:110 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:114 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:569 (no identifier named on the citing lines)
+RESOLVED PositivePackage.lean:55 (no identifier named on the citing lines)
+RESOLVED PairFlowEquivalence.lean:199 (no identifier named on the citing lines)
+RESOLVED-UNNAMED JordanClassification.lean:84 names ['body_isClosed', 'preservesBody_inducedEquiv'] not in window: theorem psd_iff_trace_nonneg {A : Matrix n n ℂ} (hAh : A.IsHermitian) :
+RESOLVED-UNNAMED OperationalRigidity.lean:917 names ['body_isClosed', 'preservesBody_inducedEquiv'] not in window: theorem psd_trace_mul_nonneg {A B : Matrix n n ℂ} (hA : A.PosSemidef) (hB : B.PosSemidef) 
+RESOLVED+NAMED CompletionAction.lean:202 ['body_isClosed']
+MISSING OriginAngle.lean:624
+RESOLVED+NAMED DiscreteCompletion.lean:34 ['FixedGateSourced']
+RESOLVED+NAMED StateMixingCoupling.lean:45 ['rot']
+RESOLVED+NAMED ImplementationLocality.lean:305 ['instAvail_mono']
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:406 ['permClass_permMatrix']
+RESOLVED+NAMED ImplementationLocality.lean:250 ['InstAvail', 'Realized']
+RESOLVED+NAMED OperationalAssembly.lean:594 ['FiniteOperationalTheory']
+RESOLVED-UNNAMED StateMixingCoupling.lean:655 names ['FiniteOperationalTheory', 'Realized', 'cp_of_instAvail', 'mixR_countable_upToScalar', 'mixTheoryR_not_qm', 'pureSeedPrep_available_of_swap'] not in window: simp only [Set.mem_iUnion, Set.mem_image]
+RESOLVED+NAMED OperationalAssembly.lean:658 ['readout_is_localLuders']
+RESOLVED+NAMED StateMixingCoupling.lean:662 ['mixR_countable_upToScalar']
+RESOLVED+NAMED DiscreteCompletion.lean:1942 ['DenseUnitaryControl', 'fixedGateTheory_denseUnitaryControl']
+RESOLVED-UNNAMED RouteB.lean:149 names ['blockOf'] not in window: theorem DerivedOI.implementationLocality {T : FiniteOperationalTheory A} (h : DerivedOI T)
+RESOLVED-UNNAMED SubstratumInterfaceAudit.lean:236 names ['InstAvail'] not in window: def permClass : ImplementationClass := fun _ _ _ K => IsScaledPartialPerm K
+RESOLVED+NAMED CompositionOrder.lean:149 ['exists_return']
+RESOLVED+NAMED CompositionOrder.lean:378 ['not_stagePreserving_of_infiniteOrderOn']
+RESOLVED+NAMED ImplementationLocality.lean:852 ['InstAvail']
+RESOLVED+NAMED CompositionOrder.lean:109 ['not_ordInf_of_finite_of_mulClosed']
+RESOLVED+NAMED StructuralClosure.lean:231 ['Architecture', 'substratumClass_arch']
+RESOLVED+NAMED ManuscriptAxioms.lean:129 ['ConfigurationLevel', 'substratumClass_configurationLevel']
+RESOLVED+NAMED ImplementationLocality.lean:530 ['InstAvail', 'Realized', 'realized_of_instAvail']
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:350 ['permClass', 'permClass_arch']
+RESOLVED-UNNAMED ImplementationLocality.lean:374 names ['fullClass_ordInf'] not in window: def fullClass : ImplementationClass := fun _ _ _ _ => True
+RESOLVED+NAMED ImplementationLocality.lean:926 ['ImplementationGenerated', 'genTheory_generated']
+RESOLVED+NAMED LiftAudit.lean:750 ['SubstratumAvail', 'substratumTheory_substratumAvail']
+RESOLVED+NAMED RouteB.lean:290 ['DerivedOI', 'substratumTheory_derivedOI']
+RESOLVED+NAMED RouteB.lean:375 ['substratumTheory_realizesSealedOICore']
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:785 ['obs_a1']
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:827 ['SourcedOI', 'obs_sourcedOI']
+RESOLVED+NAMED StructuralClosure.lean:348 ['HasCompositeUnitaryControl', 'substratumGen_not_control']
+RESOLVED+NAMED RouteB.lean:388 ['PhaseFreeRichness', 'substratumTheory_not_phaseFree']
+RESOLVED CompletedOI.lean:200 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:642 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:1079 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:440 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:213 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:384 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:357 (no identifier named on the citing lines)
+RESOLVED+NAMED DiscreteCompletion.lean:45 ['DenseUnitaryControl']
+RESOLVED+NAMED StateMixingCoupling.lean:56 ['MixR']
+RESOLVED-UNNAMED DiscreteCompletion.lean:844 names ['instAvail_mono'] not in window: theorem echo_identity (α : ℝ) (k₀ : Fin n) :
+RESOLVED DiscreteCompletion.lean:1734 (no identifier named on the citing lines)
+RESOLVED-UNNAMED DiscreteCompletion.lean:1929 names ['AngleWeakenedLevelOne', 'RationalDensityInput'] not in window: theorem fixedGateTheory_derivedOI (α : ℝ) : DerivedOI (fixedGateTheory α) :=
+RESOLVED DiscreteCompletion.lean:762 (no identifier named on the citing lines)
+RESOLVED StructuralClosure.lean:180 (no identifier named on the citing lines)
+RESOLVED LieRankSource.lean:209 (no identifier named on the citing lines)
+RESOLVED DiscreteCompletion.lean:1522 (no identifier named on the citing lines)
+RESOLVED DiscreteCompletion.lean:314 (no identifier named on the citing lines)
+RESOLVED+NAMED DiscreteCompletion.lean:1948 ['fixedGateTheory_not_qm']
+SUMMARY origin: 78 distinct citations in added lines since de9285d6; resolved 75; named-and-found 34; unnamed 27
+CITATIONS-ORIGIN-FAIL
