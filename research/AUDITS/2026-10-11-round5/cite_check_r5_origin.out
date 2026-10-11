@@ -1,0 +1,35 @@
+RESOLVED+NAMED MicroscopicReversibility.lean:251 ['exists_scaled_mem_of_instAvail_unitary']
+MISSING BridgeAvailFull.lean:64
+MISSING BridgeAvail.lean:74
+RESOLVED ImplementationLocality.lean:909 (no identifier named on the citing lines)
+RESOLVED+NAMED LiftAudit.lean:770 ['avail_conj_mul']
+RESOLVED+NAMED AncillaClosure.lean:182 ['availExt_comp_unit']
+RESOLVED+NAMED ImplementationLocality.lean:268 ['InstAvail']
+RESOLVED+NAMED MicroscopicReversibility.lean:88 ['InverseAccessibility']
+RESOLVED+NAMED AncillaClosure.lean:461 ['discardWith_uniform_conjChannel']
+RESOLVED+NAMED DiscreteCompletion.lean:45 ['DenseUnitaryControl']
+RESOLVED+NAMED LiftAudit.lean:754 ['diagonal_avail']
+RESOLVED+NAMED LiftAudit.lean:112 ['LayerFlowExecutable']
+RESOLVED SecondOrderCircuit.lean:356 (no identifier named on the citing lines)
+RESOLVED CoherentLift.lean:1063 (no identifier named on the citing lines)
+RESOLVED BohrFrequency.lean:202 (no identifier named on the citing lines)
+RESOLVED+NAMED KInfFoundations.lean:449 ['ball3Drive']
+RESOLVED C5Discovery.lean:287 (no identifier named on the citing lines)
+RESOLVED DiscreteCompletion.lean:1926 (no identifier named on the citing lines)
+RESOLVED-UNNAMED AncillaClosure.lean:457 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: def ancBlock {m : ℕ} (K : Matrix (S × Fin m) (S × Fin m) ℂ) (f e : Fin m) : Matrix S S ℂ :
+RESOLVED-UNNAMED LiftAudit.lean:47 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: noncomputable def gateFlow (σ : Equiv.Perm S) (t : ℝ) : Matrix S S ℂ :=
+RESOLVED+NAMED DiscreteCompletion.lean:1548 ['Gen2', 'rot']
+RESOLVED+NAMED StateMixingCoupling.lean:45 ['rot']
+RESOLVED-UNNAMED OperationalAssembly.lean:665 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: def HasCompositeUnitaryControl (T : FiniteOperationalTheory A) : Prop :=
+RESOLVED+NAMED PhysicalCharacterization.lean:301 ['physical_of_exactAll']
+RESOLVED-UNNAMED FrozenSourcing.lean:31 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: theorem norm_entry_le_l2_opNorm {m n : Type*} [Fintype m] [Fintype n] [DecidableEq n]
+RESOLVED-UNNAMED CompositionOrder.lean:51 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: def InfiniteOrderOn (Ω : Set V) (g : V ≃ᵃ[ℝ] V) : Prop :=
+RESOLVED-UNNAMED EmbeddedObservation.lean:211 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: theorem closure_of_embeddedObservation {T : FiniteOperationalTheory A}
+RESOLVED-UNNAMED MinimalRepertoire.lean:529 names ['Gen2', 'Gen2.pauli_conj', 'InstAvail', 'MixR', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable'] not in window: theorem control_of_phaseFree [Nonempty A] (hclos : IteratedAncillaClosure T)
+RESOLVED+NAMED SubstratumSource.lean:103 ['InstAvail']
+RESOLVED-UNNAMED DiscreteCompletion.lean:1942 names ['fixedGateTheory_theta0_denseUnitaryControl', 'fixedGateTheory_theta0_not_qm', 'irrational_theta0_div_pi'] not in window: theorem fixedGateTheory_denseUnitaryControl {α : ℝ} (hα : Irrational (α / Real.pi)) :
+RESOLVED+NAMED LiftAudit.lean:812 ['derivedOI_qm_iff_layerFlowExecutable']
+RESOLVED DiscreteCompletion.lean:314 (no identifier named on the citing lines)
+RESOLVED LieRankSource.lean:209 (no identifier named on the citing lines)
+SUMMARY origin: 33 distinct citations in added lines since 7192e3b5; resolved 31; named-and-found 15; unnamed 8
+CITATIONS-ORIGIN-FAIL

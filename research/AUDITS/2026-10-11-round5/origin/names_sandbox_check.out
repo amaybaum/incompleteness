@@ -1,0 +1,4 @@
+2026-10-11T10:13:58.218Z re-executed in the sandbox (exit 1; a nonzero exit comes from the analysis tail, which reads the dev tree, not from the file write)
+2026-10-11T10:44:00.304Z re-executed in the sandbox (exit 1; a nonzero exit comes from the analysis tail, which reads the dev tree, not from the file write)
+IDENTICAL names.py: sandbox d5da912e66ab5228c8dab74d92bc831521ed1fd4c7396d0522619fd009451bc5 thread scratch d5da912e66ab5228c8dab74d92bc831521ed1fd4c7396d0522619fd009451bc5
+IDENTICAL names2.py: sandbox 79296cd1799bb4cda358b1f0c2421e91e20336fdd1dba1dcf643cf81c63f19a1 thread scratch 79296cd1799bb4cda358b1f0c2421e91e20336fdd1dba1dcf643cf81c63f19a1

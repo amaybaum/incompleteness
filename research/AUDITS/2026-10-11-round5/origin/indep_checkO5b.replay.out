@@ -1,0 +1,10 @@
+[PASS] Y1: uJ = e^(-i pi/4) H S^3: True; four nonzero entries: True; |<rot(pi/4), S, X>| = 24, |<uJ, S, X>| = 24 modulo phase; uJ in the first: True; H in the second: True
+[CC] DD2 = False: uJ is a multiple of a monomial matrix
+[PASS] Y2: K_00 = ((3+i)/4) zPh, K_01, K_10, K_11 multiples of Z, K^+K = 5/8, 1/8, 1/8, 1/8: True
+[PASS] Y3: k-round channel with the correction Z = (1-(3/8)^k) Ad(zPh) + (3/8)^k id on the matrix units, k = 1..4: True
+[PASS] Y4: with a spectator qubit: (1-(3/8)^k) Ad(zPh (x) 1) + (3/8)^k id on the 16 matrix units, k = 1, 2: True
+[CC] DD1 = False: without the correction the 2-round channel equals (1-(3/8)^2) Ad(zPh) + (3/8)^2 id
+[CC] DD3 = False: with S unconditional the success block is a multiple of zPh
+
+PASS 4/4; countercontrols False 3/3
+VERDICT INDEP-O5B-FIXED

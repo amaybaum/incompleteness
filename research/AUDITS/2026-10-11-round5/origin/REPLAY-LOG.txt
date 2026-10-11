@@ -1,0 +1,6 @@
+thread origin: 1 round-5 scripts between 7192e3b5 and 44c06d46; replay dir <scratchpad>/audit-research/round5/replays/origin-replay/research/origin/experiments/
+IDENTICAL o14_opdrive.py (8s, 3124 bytes)
+stderr: the replay's stderr is empty, as committed (o14_opdrive.err and o14_opdrive.replay.err are empty at 44c06d46).
+indep_checkO5.py (coordinator): run 1 and replay stdout identical (cmp); stderr empty in both.
+indep_checkO5b.py (coordinator, supplementary; its own decision rule fixed before its run 1): run 1 and replay stdout identical (cmp); stderr empty in both.
+dev_replay.py (coordinator; the thread's OriginDrive.lean rebuilt from its transcript): run 1 kept as dev_replay.run1.out with the tool version that produced it (dev_replay.run1.py) - it applied an Edit the tool had refused (11:01:52Z) and re-executed two thread commands that write the thread's scratch files; run 2 (dev_replay.out) skips refused calls and every command naming a path outside the dev tree, and matches all seven recorded digests.

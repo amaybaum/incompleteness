@@ -1,0 +1,15 @@
+[PASS] Z1: N = 2: <transpositions> 2, <transpositions, quarter phase> 8 (N! 4^(N-1) = 8), all mu4-monomial up to scalar True; N = 4: <transpositions> 24, <transpositions, quarter phase> 1536 (N! 4^(N-1) = 1536), all mu4-monomial up to scalar True
+[PASS] Z2: 400 lattice protocols trace preserving with |Re c| + |Im c| <= 1: True (largest 1); drive coefficient = conj w True, |Re| + |Im| = 7/5
+[CC] CC2 = False: the drive coefficient lies in the square
+[CC] CC5 = False: a tested lattice protocol leaves the square
+[PASS] Z3: gates H = B Z, S^2 = Z, Toffoli a permutation: True; pure ancilla from uniform attachment by readout and flips True; Kraus operators (3I+iZ)/4, (I-iZ)/4 x2, (-I+iZ)/4 with K^+K = 5/8, 1/8, 1/8, 1/8, failures prop. S, success prop. V = diag(1, (4-3i)/5): True; k-round channel = (1-(3/8)^k) Ad(V) + (3/8)^k id on the matrix units, k = 1, 2, 3: True; S V = D: True
+[CC] CC1 = False: with CC(Z) the success branch is proportional to a unitary (K^+K = diag(1, 1/4))
+[PASS] Z4: <B, S, X> modulo phase: 24 elements; contains V: False; contains D: False
+[CC] CC3 = False: V or D in <B, S, X> modulo phase
+[PASS] Z5: (2+i)^2 = 3+4i and (2+i)(2-i) = 5: True; (2-i)-adic valuation of w = -1, (2+i)-adic = 1; entries of <B, S, X> (normalized) have power-of-two denominators: True
+[CC] CC4 = False: w has nonnegative (2 - i)-adic valuation
+[PASS] Z6: <T, S, X> modulo scalars: 16 elements, all monomial True; H T monomial: False; (H T)^n scalar for some n <= 200: False
+[CC] CC6 = False: H T in <T, S, X> modulo phase
+
+PASS 6/6; countercontrols False 6/6
+VERDICT INDEP-O5-FIXED

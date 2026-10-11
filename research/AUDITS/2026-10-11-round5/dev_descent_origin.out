@@ -1,0 +1,55 @@
+interruption 2026-10-11T08:20:00Z 883272bf572f verification/lean-mathlib/OIBridge.lean: matches at ['0f0bdbb4', '80909988', '538dc51d', '78baca7c', '86358785']
+    9f9f8257 e5af96140098
+    0f0bdbb4 883272bf572f
+    80909988 883272bf572f
+    538dc51d 883272bf572f
+    78baca7c 883272bf572f
+    86358785 883272bf572f
+interruption 2026-10-11T08:17:16Z c75f6467795b verification/lean-mathlib/OIBridge/BridgeAvail.lean: matches at ['0f0bdbb4', '80909988', '538dc51d', '78baca7c', '86358785']
+    9f9f8257 ABSENT
+    0f0bdbb4 c75f6467795b
+    80909988 c75f6467795b
+    538dc51d c75f6467795b
+    78baca7c c75f6467795b
+    86358785 c75f6467795b
+interruption 2026-10-11T08:17:16Z b93a732e3935 verification/lean-mathlib/OIBridge/BridgeAvailFull.lean: matches at ['0f0bdbb4', '80909988', '538dc51d', '78baca7c', '86358785']
+    9f9f8257 ABSENT
+    0f0bdbb4 b93a732e3935
+    80909988 b93a732e3935
+    538dc51d b93a732e3935
+    78baca7c b93a732e3935
+    86358785 b93a732e3935
+interruption 2026-10-11T08:17:16Z b1beafccc966 verification/lean-mathlib/OIBridge/OriginAngle.lean: matches at ['0f0bdbb4', '80909988', '538dc51d', '78baca7c', '86358785']
+    9f9f8257 ABSENT
+    0f0bdbb4 b1beafccc966
+    80909988 b1beafccc966
+    538dc51d b1beafccc966
+    78baca7c b1beafccc966
+    86358785 b1beafccc966
+interruption 2026-10-11T08:33:36Z adaf19a2994f verification/lean-mathlib/OIBridge/OriginDrive.lean: matches at NONE
+    9f9f8257 ABSENT
+    0f0bdbb4 f9eabcaff07a
+    80909988 03fafb4179a2
+    538dc51d 58d639b4de02
+    78baca7c 2639b3ceae9f
+    86358785 a1d595ea128d
+interruption 2026-10-11T08:17:16Z bdf625995bfc verification/lean-mathlib/OIBridge/OriginTokenOrder.lean: matches at ['0f0bdbb4', '80909988', '538dc51d', '78baca7c', '86358785']
+    9f9f8257 ABSENT
+    0f0bdbb4 bdf625995bfc
+    80909988 bdf625995bfc
+    538dc51d bdf625995bfc
+    78baca7c bdf625995bfc
+    86358785 bdf625995bfc
+checkpoint   2026-10-11T10:36:38Z 03fafb4179a2 verification/lean-mathlib/OIBridge/OriginDrive.lean: matches at ['80909988']
+    9f9f8257 ABSENT
+    0f0bdbb4 f9eabcaff07a
+    80909988 03fafb4179a2
+    538dc51d 58d639b4de02
+    78baca7c 2639b3ceae9f
+    86358785 a1d595ea128d
+checkpoint copy checkpoints/2026-10-11T103838Z/dev-origin-drive/verification/lean-mathlib/OIBridge/OriginDrive.lean: IDENTICAL to recorded
+NO-PREFIX-MATCH verification/lean-mathlib/OIBridge/OriginDrive.lean at 0f0bdbb4
+NO-PREFIX-MATCH verification/lean-mathlib/OIBridge/OriginDrive.lean at 80909988
+NO-PREFIX-MATCH verification/lean-mathlib/OIBridge/OriginDrive.lean at 538dc51d
+NO-PREFIX-MATCH verification/lean-mathlib/OIBridge/OriginDrive.lean at 78baca7c
+NO-PREFIX-MATCH verification/lean-mathlib/OIBridge/OriginDrive.lean at 86358785
