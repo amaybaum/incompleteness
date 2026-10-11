@@ -648,3 +648,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   27/27, `c49e3964…`). No new declaration has a namesake among the kernel's or the earlier design modules'
   declarations. Robustness fallbacks (`first | … | …`) are used where a proof depends on a simp normal form or on the
   defeq of a coercion.
+- 2026-10-11T05:36:37Z — dispatch 2 of 3: dev branch `dev-bridge/r4-conv` cut from L (`9f9f8257`), commit `ca48c4c4`
+  (BridgeAvail, BridgeAvailFull, BridgeConverge, BridgeReachDim verbatim from `bf585a14`; BridgeDictionary and
+  BridgeReach from rounds 3; EqvK2Schema verbatim from `research/equivalence` @ `c10dbaee`, sha256 `0bc6da00…`, with
+  attribution, for the build only; seven import lines after `import OIBridge.RelcSelectC5`); `verify.yml` dispatched;
+  run 38115337569 (head `ca48c4c4`, created 2026-10-11T05:36:37Z, event `workflow_dispatch`). Expected `lean-axioms`
+  count: 5860 + 222 = 6082. Waiting; no job or run will be cancelled.
