@@ -1,6 +1,7 @@
 """E11 probe -- the exact content of the formal statements of the design module EqvK2Schema (skeleton S6).
 
-Written 2026-10-11T00:36Z (date -u), before the first run and before the module's design run.
+Written 2026-10-11T00:35Z (date -u read at 00:33:35Z before writing; committed 00:35:41Z in 97b6f080), before the
+first run and before the module's design run.
 
 PURPOSE.  The module lean/EqvK2Schema.lean states, in Lean, the two-token dictionary of DIM-1's pair carrier W 3 and
 the cone step of the K2 schema.  A statement that is false as formalized (a wrong orientation, a missing factor, a wrong
