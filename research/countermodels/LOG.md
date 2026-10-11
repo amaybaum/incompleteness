@@ -150,3 +150,28 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `|0±⟩` coordinates, and κ with G16 has an explicit two-circle surgery cone (C16.4, CONDITIONAL on S′; T fails on it,
   C16.5). RESULTS rows C16.1–C16.6 and C13.9f appended; no earlier row changed. HP4 item 5 scoped to `φ₀`'s H1 window;
   HP5 and HP6 revised before their first commit. Commit: C16.
+- 2026-10-11T01:40Z — **round 3 close** (C16's commit is `95bf36d1`, pushed).
+  - **Nodes done**, depth-first in the listed order: C11, C12, C13, C14 (all four listed nodes), then two extra nodes:
+    C15 (the bridge's two halves of A_miss, from the overview's group definitions only; HO-12 not received) and C16 (the
+    closing review).
+  - **Rows appended** (36; no earlier row's label changed): C11.1–C11.7, C12.1–C12.6, C13.1–C13.9, C14.1–C14.4,
+    C15.1–C15.3, C16.1–C16.6, C13.9f. By label: 30 CONDITIONAL, 4 OPEN (C12.5, C13.9, C14.4, C16.6), 1 CONJECTURE
+    (C12.6), 1 FAILED (C13.9f); none CERTIFIED (no kernel work this round).
+  - **Handoff proposals** (uncommitted drafts until this entry's commit; the coordinator routes): HP4 (→ equivalence,
+    bridge: `G₃₈₄`, Theorem S′, EXOTIC-X for finite unitary groups with `cnot`), HP5 (→ bridge, equivalence: the two halves
+    of A_miss, B3.C's residual region, Lemma C13-O, the Bell corner), HP6 (→ overview, equivalence: the pair theorem, C8-C
+    at four members, κ with G16 EXOTIC-X, T on continuum cones, two assumption-watch markers).
+  - **Integrity sweep at close** (01:40Z): every round-3 replay byte-identical and every `.err` ends `exit 0`; the
+    hashes quoted in HP4–HP6 match the files; the receipts in `inbox/` still equal the overview's blobs at `2a055180`;
+    nothing outside `research/countermodels/` changed since `e6d42cab`; RESULTS.md has no deleted line since `e6d42cab`.
+  - **Deviations.** (1) Two version checks ran without `-I -B` (23:48Z entry). (2) The receipts commit was amended before
+    its push (local `f230bc04` → `43a49d57`; 23:59Z entry). (3) Two extra nodes beyond the list (C15, C16). (4) Pre-run
+    edits in every script, each recorded in its NOTES "Runs" section; no first run failed, so there are no `.run1.*`
+    files this round. (5) Row C12.6's label cell carries CONJECTURE with an explanatory pointer to CONDITIONAL rows; the
+    label is CONJECTURE (00:56Z entry). (6) Four obstruction rows (C13.4, C13.6, C13.7, C15.3) were written without the
+    Bell corner `c = 2`, and C13.9 carried an unchecked κ parenthetical; both were found at the closing review and
+    recorded by appended rows (C16.2; FAILED row C13.9f), not by edits. (7) `c13_residual.out` prints `⟨L_A|L_B⟩` as a
+    pair of Fraction reprs (cosmetic; the value is `9 − 6i`, NOTES-C13). (8) A numerical penalty-optimizer test of
+    self-positivity was insensitive and is not used (00:21Z entry); all scratchpad numerics are guidance, not evidence.
+    (9) Row C15.2 and NOTES-C15 S0 quote `s_min ≈ 4.19·10⁻⁵` as a decimal gloss; the exact value
+    `164178929/3916193820250` is in `c15_clifford.out`. (10) No CI runs, no dev branches, no Lean work.
