@@ -301,3 +301,6 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   re-check prepared: run 3's files kept as `e8_cite_check.run3.*`; run 4 extends the documents list to the round-3
   documents and applies the existing design-module rule to `EqvK2Schema` and to the repaired `EqvOmega4`; the decision
   rule is unchanged. Committed before run 4.
+- 2026-10-11T01:36Z — `experiments/e8_cite_check.py` run 4 (started 01:35:37Z, after commit `b955d119`): 54 distinct
+  citations (110 occurrences, 49 named pairs), countercontrols X1–X3 fail as stated, `VERDICT CITATIONS-RESOLVE`; replay
+  byte-identical (py `88dd6b1d…`, out `2871d48e…`). RESULTS R-CITE.3.
