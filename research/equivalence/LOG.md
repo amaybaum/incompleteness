@@ -513,3 +513,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   K∞-Geom, or an elementary-scope predicate); CONFIRMING [A] the body-independence of the relC count; ELABORATING HO-19 —
   product-form pair self-duality reduces to token self-duality. Residual OPEN (R-E16.5). Labels: CONJECTURE ×4, OPEN ×1;
   no status at L changes. Dispatches used this round: 0 of 3.
+- 2026-10-11T04:06Z — E17 begun (owner's priority 4). Search first (§A.19): R-E14.2 and NOTES-E14 §2 are the source; the
+  stage-6 inventory has no item for H-DYN, Level III, `OISystem`, `LocalityPreserving` or `ReversibleDynamics` (search of
+  `pt/I3/INVENTORY.md`, archive `4dc0321c`, sha256 `51eff9af…`; cross-branch read on the coordinator's instruction,
+  addendum 1 rule 2). Read at L for the module: `QuasilocalSystem` (QuasilocalCharacterization.lean:168), `OISystem`
+  (:463), `LocalityPreserving` (:475), `FiniteRange` (QuasilocalAlgebra.lean:919), `ReversibleDynamics` (:956), `hat`
+  (:1040), `target` (:1054), `transported` (:1109). NOTES-E17 S0 (written 04:04Z: the objects, the finite-stage lemmas
+  (a)–(c), the hypotheses classified, predictions) and the exact probe `experiments/e17_transport_finite.py` (decision
+  rule in its header, written 04:05Z) committed together, before the probe's first run. Pre-run review simplified one
+  expression of Z4 (a redundant conjunct); the decision rule was not changed.
