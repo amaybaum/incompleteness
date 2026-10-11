@@ -181,7 +181,7 @@ theorem suTo_mulVec (a : Fin 2 → ℂ) : suTo a *ᵥ a = ![(nrm a : ℂ), 0] :=
   unfold suTo
   split_ifs with h
   · have ha := eq_zero_of_nrm_eq_zero h
-    rw [ha, Matrix.mulVec_zero, h]
+    rw [h, ha, Matrix.mulVec_zero]
     funext i
     fin_cases i <;> simp
   · have hr : (nrm a : ℂ) ≠ 0 := by exact_mod_cast h
@@ -199,8 +199,8 @@ theorem suTo_mulVec (a : Fin 2 → ℂ) : suTo a *ᵥ a = ![(nrm a : ℂ), 0] :=
 /-- The conjugate transpose of a special unitary is a special unitary. -/
 theorem isSU_conjTranspose {U : Matrix (Fin 2) (Fin 2) ℂ} (hU : IsSU U) : IsSU Uᴴ := by
   refine ⟨?_, ?_⟩
-  · rw [← Matrix.star_eq_conjTranspose]
-    exact unitary.star_mem hU.1
+  · rw [← Matrix.star_eq_conjTranspose, Matrix.mem_unitaryGroup_iff, star_star]
+    exact Matrix.mem_unitaryGroup_iff'.mp hU.1
   · rw [Matrix.det_conjTranspose, hU.2, star_one]
 
 /-! ### §H.3 — reachability: C19-1 (a) in dictionary form -/
@@ -266,20 +266,24 @@ theorem tokMat_hom_z3 : tokMat (hom z3) = Matrix.vecMulVec ![(1 : ℂ), 0] (star
 theorem tokMat_hom_bloch (α β : ℝ) (h : α ^ 2 + β ^ 2 ≠ 0) :
     tokMat (hom (bloch α β)) =
       (((α ^ 2 + β ^ 2 : ℝ) : ℂ)⁻¹) • Matrix.vecMulVec ![(α : ℂ), (β : ℂ)] (star ![(α : ℂ), (β : ℂ)]) := by
-  have hc : ((α ^ 2 + β ^ 2 : ℝ) : ℂ) ≠ 0 := by exact_mod_cast h
   have hc' : (α : ℂ) ^ 2 + (β : ℂ) ^ 2 ≠ 0 := by exact_mod_cast h
-  have e0 : bloch α β 0 = 2 * α * β / (α ^ 2 + β ^ 2) := rfl
-  have e1 : bloch α β 1 = 0 := rfl
-  have e2 : bloch α β 2 = (α ^ 2 - β ^ 2) / (α ^ 2 + β ^ 2) := rfl
-  rw [tokMat_eq]
+  have h0 : hom (bloch α β) 0 = 1 := rfl
+  have h1 : hom (bloch α β) 1 = 2 * α * β / (α ^ 2 + β ^ 2) := rfl
+  have h2 : hom (bloch α β) 2 = 0 := rfl
+  have h3 : hom (bloch α β) 3 = (α ^ 2 - β ^ 2) / (α ^ 2 + β ^ 2) := rfl
+  rw [tokMat_eq, h0, h1, h2, h3]
   ext i j
+  -- the scalar and the rank-one matrix are applied before any `simp` (which would otherwise unfold
+  -- `vecMulVec` of a literal into rows by `cons_vecMulVec` and leave the scalar unapplied)
+  rw [Matrix.smul_apply, Matrix.vecMulVec_apply, smul_eq_mul]
   fin_cases i <;> fin_cases j <;>
-    simp [Matrix.vecMulVec_apply, e0, e1, e2, Complex.star_def] <;>
+    simp <;>
     first
-      | (field_simp; ring)
-      | (push_cast; field_simp; ring)
+      | (field_simp; ring1)
       | (field_simp; done)
-      | (apply Complex.ext <;> simp <;> field_simp <;> ring)
+      | ring1
+      | (field_simp [hc']; ring1)
+      | (field_simp [hc']; done)
 
 /-- The dictionary image of the scaled product state is the rank-one matrix of the block vector. -/
 theorem dict_prod_bloch (α β : ℝ) :
@@ -292,9 +296,13 @@ theorem dict_prod_bloch (α β : ℝ) :
     have hβ : β = 0 := by nlinarith [sq_nonneg α, sq_nonneg β]
     subst hα
     subst hβ
+    have hz : ∀ i : Fin 2, (![((0 : ℝ) : ℂ), ((0 : ℝ) : ℂ)] : Fin 2 → ℂ) i = 0 := by
+      intro i
+      fin_cases i <;> simp
     ext ⟨i, j⟩ ⟨k, l⟩
-    fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
-      simp [tensorOf_apply, Matrix.vecMulVec_apply]
+    -- the entries are applied before any `simp` (as in `tensorOf_vecMulVec`)
+    simp only [Matrix.smul_apply, tensorOf_apply, Matrix.vecMulVec_apply, Complex.real_smul, hz]
+    simp
   · rw [tokMat_hom_bloch α β h, tensorOf_smul_left]
     have hc : ((α ^ 2 + β ^ 2 : ℝ) : ℂ) ≠ 0 := by exact_mod_cast h
     have hone : ((α ^ 2 + β ^ 2 : ℝ) : ℂ) * ((α ^ 2 + β ^ 2 : ℝ) : ℂ)⁻¹ = 1 := mul_inv_cancel₀ hc
@@ -398,30 +406,60 @@ theorem conj_smul (z : ℂ) (hz : star z * z = 1) (A M : Matrix (Fin 2 × Fin 2)
   rw [Matrix.conjTranspose_smul, Matrix.smul_mul, Matrix.mul_smul, Matrix.smul_mul, smul_smul, hz,
     one_smul]
 
-/-- The half-angle phase `diag(e^{−it/2}, e^{it/2})`. -/
-def hphase (t : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
-  !![(Real.cos (t / 2) : ℂ) - (Real.sin (t / 2) : ℂ) * Complex.I, 0;
-     0, (Real.cos (t / 2) : ℂ) + (Real.sin (t / 2) : ℂ) * Complex.I]
+/-- The diagonal phase pair `diag(c − i s, c + i s)`, for real `c`, `s` (kept opaque, so that no
+`simp` lemma about the cosine or the sine of a real number can rewrite them). -/
+def dphase (c s : ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  !![(c : ℂ) - (s : ℂ) * Complex.I, 0; 0, (c : ℂ) + (s : ℂ) * Complex.I]
 
-theorem hphase_isSU (t : ℝ) : IsSU (hphase t) := by
-  have hcs : Real.cos (t / 2) ^ 2 + Real.sin (t / 2) ^ 2 = 1 := Real.cos_sq_add_sin_sq _
-  have hcsC : (Real.cos (t / 2) : ℂ) ^ 2 + (Real.sin (t / 2) : ℂ) ^ 2 = 1 := by exact_mod_cast hcs
+theorem dphase_isSU (c s : ℝ) (h : c ^ 2 + s ^ 2 = 1) : IsSU (dphase c s) := by
+  have hC : (c : ℂ) ^ 2 + (s : ℂ) ^ 2 = 1 := by exact_mod_cast h
   constructor
   · rw [Matrix.mem_unitaryGroup_iff, Matrix.star_eq_conjTranspose]
     ext i j
     fin_cases i <;> fin_cases j <;>
-      simp [hphase, Matrix.mul_apply, Fin.sum_univ_two, Matrix.conjTranspose_apply, Matrix.one_apply,
-        Complex.star_def] <;>
+      simp [dphase, Matrix.mul_apply, Fin.sum_univ_two, Matrix.conjTranspose_apply,
+        Matrix.one_apply] <;>
       first
-        | ring
-        | linear_combination hcsC
-        | (apply Complex.ext <;> simp <;> nlinarith [hcs])
-  · rw [Matrix.det_fin_two]
-    simp [hphase]
+        | ring1
+        | linear_combination hC - (s : ℂ) ^ 2 * Complex.I_sq
+        | linear_combination hC + (s : ℂ) ^ 2 * Complex.I_sq
+        | linear_combination hC
+        | (apply Complex.ext <;> simp <;> nlinarith [h])
+  · rw [dphase, Matrix.det_fin_two_of]
     first
-      | linear_combination hcsC
-      | ring_nf
-      | (apply Complex.ext <;> simp <;> nlinarith [hcs])
+      | linear_combination hC - (s : ℂ) ^ 2 * Complex.I_sq
+      | linear_combination hC + (s : ℂ) ^ 2 * Complex.I_sq
+      | (apply Complex.ext <;> simp <;> nlinarith [h])
+
+/-- The diagonal phase pair is a unit multiple of `phaseMat c s` when `(c₂, s₂)` is the half angle of
+`(c, s)`, stated through the two subtraction identities. -/
+theorem dphase_eq (c₂ s₂ c s : ℝ) (hc : c₂ = c * c₂ + s * s₂) (hs : s₂ = s * c₂ - c * s₂) :
+    dphase c₂ s₂ = ((c₂ : ℂ) - (s₂ : ℂ) * Complex.I) • phaseMat c s := by
+  have hcC : (c₂ : ℂ) = (c : ℂ) * c₂ + (s : ℂ) * s₂ := by exact_mod_cast hc
+  have hsC : (s₂ : ℂ) = (s : ℂ) * c₂ - (c : ℂ) * s₂ := by exact_mod_cast hs
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [dphase, phaseMat] <;>
+    first
+      | ring1
+      | linear_combination hcC + Complex.I * hsC + ((s₂ : ℂ) * (s : ℂ)) * Complex.I_sq
+      | linear_combination (-1 : ℂ) * hcC - Complex.I * hsC - ((s₂ : ℂ) * (s : ℂ)) * Complex.I_sq
+      | (apply Complex.ext <;> simp <;> nlinarith [hc, hs])
+
+theorem dphase_unit (c s : ℝ) (h : c ^ 2 + s ^ 2 = 1) :
+    star ((c : ℂ) - (s : ℂ) * Complex.I) * ((c : ℂ) - (s : ℂ) * Complex.I) = 1 := by
+  have hC : (c : ℂ) ^ 2 + (s : ℂ) ^ 2 = 1 := by exact_mod_cast h
+  simp only [Complex.star_def, map_sub, map_mul, Complex.conj_ofReal, Complex.conj_I]
+  first
+    | linear_combination hC - (s : ℂ) ^ 2 * Complex.I_sq
+    | linear_combination hC + (s : ℂ) ^ 2 * Complex.I_sq
+    | (apply Complex.ext <;> simp <;> nlinarith [h])
+
+/-- The half-angle phase `diag(e^{−it/2}, e^{it/2})`. -/
+def hphase (t : ℝ) : Matrix (Fin 2) (Fin 2) ℂ := dphase (Real.cos (t / 2)) (Real.sin (t / 2))
+
+theorem hphase_isSU (t : ℝ) : IsSU (hphase t) :=
+  dphase_isSU _ _ (Real.cos_sq_add_sin_sq _)
 
 /-- The half-angle phase is a unit multiple of the phase matrix of the flow. -/
 theorem hphase_eq (t : ℝ) :
@@ -435,19 +473,12 @@ theorem hphase_eq (t : ℝ) :
     rw [← Real.sin_sub]
     congr 1
     ring
-  ext i j
-  fin_cases i <;> fin_cases j <;>
-    simp [hphase, phaseMat] <;>
-    first
-      | ring
-      | (apply Complex.ext <;> simp <;> linarith [hc, hs])
-      | (apply Complex.ext <;> simp <;> nlinarith [hc, hs])
+  exact dphase_eq _ _ _ _ hc hs
 
 theorem hphase_unit (t : ℝ) :
     star ((Real.cos (t / 2) : ℂ) - (Real.sin (t / 2) : ℂ) * Complex.I) *
-      ((Real.cos (t / 2) : ℂ) - (Real.sin (t / 2) : ℂ) * Complex.I) = 1 := by
-  have hcs : Real.cos (t / 2) ^ 2 + Real.sin (t / 2) ^ 2 = 1 := Real.cos_sq_add_sin_sq _
-  apply Complex.ext <;> simp [Complex.star_def] <;> nlinarith [hcs]
+      ((Real.cos (t / 2) : ℂ) - (Real.sin (t / 2) : ℂ) * Complex.I) = 1 :=
+  dphase_unit _ _ (Real.cos_sq_add_sin_sq _)
 
 /-- The cyclic permutation's lift is a special unitary. -/
 theorem cycMat_isSU : IsSU cycMat := by
@@ -457,13 +488,18 @@ theorem cycMat_isSU : IsSU cycMat := by
     fin_cases i <;> fin_cases j <;>
       simp [cycMat, cycMatH, Matrix.mul_apply, Fin.sum_univ_two, Matrix.one_apply] <;>
       first
-        | ring
-        | (apply Complex.ext <;> simp <;> ring)
-  · rw [Matrix.det_fin_two]
-    simp [cycMat]
+        | ring1
+        | linear_combination (-1 / 2 : ℂ) * Complex.I_sq
+        | linear_combination (1 / 2 : ℂ) * Complex.I_sq
+        | linear_combination (-1 / 4 : ℂ) * Complex.I_sq
+        | linear_combination (1 / 4 : ℂ) * Complex.I_sq
+        | (apply Complex.ext <;> simp <;> norm_num)
+  · rw [cycMat, Matrix.det_fin_two_of]
     first
-      | ring
-      | (apply Complex.ext <;> simp <;> ring)
+      | ring1
+      | linear_combination (-1 / 2 : ℂ) * Complex.I_sq
+      | linear_combination (1 / 2 : ℂ) * Complex.I_sq
+      | (apply Complex.ext <;> simp <;> norm_num)
 
 /-- **Block invariance gives the full-flow form of A_miss** (the flow and the cyclic permutation on
 one token are block pairs of special unitaries). -/

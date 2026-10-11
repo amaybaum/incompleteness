@@ -64,20 +64,25 @@ theorem transferMap_cyc (ω : W 3) :
   unfold BridgeConverge.transferMap
   rw [BridgeConverge.dict_converge, ← dict_actT_cyc, coordOf_dict]
 
-theorem phaseMat_unitary (t : ℝ) :
-    (phaseMat (Real.cos t) (Real.sin t))ᴴ * phaseMat (Real.cos t) (Real.sin t) = 1 := by
-  have hcs : Real.cos t ^ 2 + Real.sin t ^ 2 = 1 := Real.cos_sq_add_sin_sq t
-  have hcsC : (Real.cos t : ℂ) ^ 2 + (Real.sin t : ℂ) ^ 2 = 1 := by exact_mod_cast hcs
+/-- The phase matrix of a point of the unit circle is unitary (real `c`, `s` kept opaque, so that no
+`simp` lemma about the cosine or the sine of a real number can rewrite them). -/
+theorem phaseMat_unitary_of (c s : ℝ) (h : c ^ 2 + s ^ 2 = 1) :
+    (phaseMat c s)ᴴ * phaseMat c s = 1 := by
+  have hC : (c : ℂ) ^ 2 + (s : ℂ) ^ 2 = 1 := by exact_mod_cast h
   rw [phaseMat_conjTranspose]
   ext i j
   fin_cases i <;> fin_cases j <;>
     simp [phaseMat, Matrix.mul_apply, Fin.sum_univ_two, Matrix.one_apply] <;>
     first
-      | ring
-      | linear_combination hcsC - (Real.sin t : ℂ) ^ 2 * Complex.I_sq
-      | linear_combination hcsC + (Real.sin t : ℂ) ^ 2 * Complex.I_sq
-      | linear_combination hcsC
-      | (apply Complex.ext <;> simp <;> nlinarith [hcs])
+      | ring1
+      | linear_combination hC - (s : ℂ) ^ 2 * Complex.I_sq
+      | linear_combination hC + (s : ℂ) ^ 2 * Complex.I_sq
+      | linear_combination hC
+      | (apply Complex.ext <;> simp <;> nlinarith [h])
+
+theorem phaseMat_unitary (t : ℝ) :
+    (phaseMat (Real.cos t) (Real.sin t))ᴴ * phaseMat (Real.cos t) (Real.sin t) = 1 :=
+  phaseMat_unitary_of _ _ (Real.cos_sq_add_sin_sq t)
 
 theorem cycMat_unitary : cycMatᴴ * cycMat = 1 := by
   have h := Matrix.mem_unitaryGroup_iff'.mp cycMat_isSU.1
@@ -118,7 +123,7 @@ theorem aMiss_of_transferClause (𝓘 : ImplementationClass)
     (hT : BridgeDictionary.TransferClause 𝓘 K) :
     ∀ t : ℝ, ∀ ω ∈ K, actT (KInfFoundations.rotLin t) ω ∈ K ∧
       actT (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω ∈ K := by
-  rw [aMiss_iff_transfer]
+  apply (aMiss_iff_transfer K).mpr
   intro U hU ω hω
   exact (BridgeConverge.transferClause_iff 𝓘 K).mp hT U (h𝓘 U hU) (driveUnitaries_unitary hU) ω hω
 
@@ -130,7 +135,7 @@ theorem transferClause_of_aMiss (𝓘 : ImplementationClass)
     (hA : ∀ t : ℝ, ∀ ω ∈ K, actT (KInfFoundations.rotLin t) ω ∈ K ∧
       actT (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω ∈ K) :
     BridgeDictionary.TransferClause 𝓘 K := by
-  rw [BridgeConverge.transferClause_iff]
+  apply (BridgeConverge.transferClause_iff 𝓘 K).mpr
   intro U hU hu ω hω
   exact (aMiss_iff_transfer K).mp hA U (h𝓘 U hU hu) ω hω
 
@@ -138,8 +143,12 @@ theorem transferClause_of_aMiss (𝓘 : ImplementationClass)
 
 theorem continuous_ipW_right (ω : W 3) : Continuous fun η : W 3 => ipW ω η := by
   unfold ipW
-  exact continuous_finset_sum _ fun μ _ => continuous_finset_sum _ fun ν _ =>
-    continuous_const.mul ((continuous_apply ν).comp (continuous_apply μ))
+  first
+    | exact continuous_finset_sum _ fun μ _ => continuous_finset_sum _ fun ν _ =>
+        continuous_const.mul (continuous_apply_apply μ ν)
+    | exact continuous_finset_sum _ fun μ _ => continuous_finset_sum _ fun ν _ =>
+        continuous_const.mul ((continuous_apply ν).comp (continuous_apply μ))
+    | fun_prop
 
 theorem dualW_eq_iInter (K : Set (W 3)) : dualW K = ⋂ ω ∈ K, {η | 0 ≤ ipW ω η} := by
   ext η
@@ -156,20 +165,20 @@ theorem isClosed_of_selfDual {K : Set (W 3)} (h : K = dualW K) : IsClosed K := b
 
 theorem continuous_tensorOf_one :
     Continuous fun U : Matrix (Fin 2) (Fin 2) ℂ => tensorOf (1 : Matrix (Fin 2) (Fin 2) ℂ) U := by
-  refine continuous_pi fun p => continuous_pi fun q => ?_
-  have hfun : (fun U : Matrix (Fin 2) (Fin 2) ℂ => tensorOf (1 : Matrix (Fin 2) (Fin 2) ℂ) U p q) =
-      fun U => (1 : Matrix (Fin 2) (Fin 2) ℂ) p.1 q.1 * U p.2 q.2 := by
-    funext U
-    exact tensorOf_apply _ _ _ _
-  rw [hfun]
-  exact continuous_const.mul (continuous_id.matrix_elem p.2 q.2)
+  refine continuous_matrix fun p q => ?_
+  have hc : Continuous fun U : Matrix (Fin 2) (Fin 2) ℂ =>
+      (1 : Matrix (Fin 2) (Fin 2) ℂ) p.1 q.1 * U p.2 q.2 :=
+    continuous_const.mul (continuous_id.matrix_elem p.2 q.2)
+  exact hc.congr fun U => (tensorOf_apply _ _ _ _).symm
 
 theorem continuous_coordOf :
     Continuous (coordOf : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ → W 3) := by
   refine continuous_pi fun μ => continuous_pi fun ν => ?_
   show Continuous fun H : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ =>
     (Matrix.trace (tensorOf (pauli μ) (pauli ν) * H)).re
-  exact Complex.continuous_re.comp ((continuous_const.matrix_mul continuous_id).matrix_trace)
+  first
+    | exact Complex.continuous_re.comp ((continuous_const.matrix_mul continuous_id).matrix_trace)
+    | fun_prop
 
 /-- **(ii) The action of a one-token matrix on tables is continuous.** -/
 theorem continuous_transferMap (ω : W 3) :
@@ -229,8 +238,7 @@ theorem exists_su_of_unitary {U : Matrix (Fin 2) (Fin 2) ℂ} (hU : Uᴴ * U = 1
     have hnn := Complex.normSq_nonneg w
     nlinarith [h2', hnn]
   have hz : star (star w) * star w = 1 := by
-    rw [star_star, Complex.star_def, Complex.mul_conj, hn]
-    simp
+    rw [star_star, Complex.star_def, Complex.mul_conj, hn, Complex.ofReal_one]
   refine ⟨star w, hz, ?_, ?_⟩
   · rw [Matrix.mem_unitaryGroup_iff', star_smul, Matrix.smul_mul, Matrix.mul_smul, smul_smul, hz,
       one_smul, Matrix.star_eq_conjTranspose, hU]
@@ -241,7 +249,7 @@ theorem exists_su_of_unitary {U : Matrix (Fin 2) (Fin 2) ℂ} (hU : Uᴴ * U = 1
 class act on tables as special unitaries do. -/
 theorem transferClause_of_blockInvariant (𝓘 : ImplementationClass) {K : Set (W 3)}
     (hB : BlockInvariant K) : BridgeDictionary.TransferClause 𝓘 K := by
-  rw [BridgeConverge.transferClause_iff]
+  apply (BridgeConverge.transferClause_iff 𝓘 K).mpr
   intro U _ hu ω hω
   obtain ⟨z, hz, hsu⟩ := exists_su_of_unitary hu
   rw [← transferMap_smul z hz]
