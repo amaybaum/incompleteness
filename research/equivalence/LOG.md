@@ -985,7 +985,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `f67da96728f1ef54f0dc3aea3cc3c1a532d8eb0a` (the two modules only; the other four modules and the import lines
   unchanged), pushed; `workflow_dispatch` of `verify.yml` via `gh api` at 10:31:41Z: run `38132266383` (head
   `f67da967`), queued.
-- 2026-10-11T10:37Z — coordinator message (usage-limit protection), applied from now on: "commit and push
+- 2026-10-11T10:34Z — coordinator message (usage-limit protection), applied from now on: "commit and push
   research/equivalence at every finished step (notes, scripts with their outputs, the lean/ copies, LOG entries), not
   only at node close; push your current uncommitted files as soon as they are in a consistent state. Do not change
   your plan otherwise; the dispatch cap (3) and all rules stand." Pushed now: the dispatch-2 repair texts
@@ -993,3 +993,30 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `experiments/e20_odd_bodies.run1.*` (the shell wrapper had appended its exit status `exit 1` to the `.err` file;
   removed — the program wrote nothing to stderr, its stdout ends with `exit 1`), NOTES-E20 S0-b (10:33Z) and the
   run-2 harness (decision rule unchanged), before run 2.
+- 2026-10-11T10:39Z — `experiments/e20_odd_bodies.py` run 2 (10:33:55Z–10:36:50Z; S0-b's threshold change and
+  diagnostics): 7/8 again, C4 FAIL with the positive control `eball 3` `UNDECIDED(iterations)` at the same 18639
+  constraints; `eball 5` and `Ω⋆⁵` `FEASIBLE(pool)`; D1: the `eball 5` candidate violates `posFwd` off the pool
+  (minimum `−5.1·10⁻²`, 23 of 400 000 quadruples), the `Ω⋆⁵` candidate likewise (`−5.5·10⁻¹`, 6687); D2: both candidates
+  violate `posInv` on the pool (minima `−16.9` and `−33.4`); `VERDICT NOT RENDERED`; kept as
+  `experiments/e20_odd_bodies.run2.*` (py `ec95a697…`, out `d2bc6007…`). A debugging pass on a scratch copy (not a
+  recorded run) shows the S0-b diagnosis of run 1 was wrong: the `eball 3` loop is not a tolerance stall — its margin
+  settles at `t* = 6.24·10⁻³ > 0` while every round still finds pool violations of order `10⁻²` (the cutting plane
+  converges slowly in the 48-dimensional `F`, 600 cuts a round, 40 rounds); no verdict is drawn from E20.
+- 2026-10-11T10:39Z — **owner's direction (relayed by the coordinator, 10:38Z), binding: round 5 is narrowed.**
+  Quoted: "1. Now: commit and push your uncommitted files (LOG.md, NOTES-E21.md, the e20 outputs). Label the E20/E21
+  material in the commit message 'WIP — deferred to round 6, unverified'. WIP commits are acceptable on research
+  branches only when labeled. 2. Complete E19 only. Finish the queued build (dispatch 2) and establish the strongest
+  justified equivalence result. 3. E20–E22 move to round 6. Do E20–E22 work only if a portion is indispensable to
+  completing E19, and say which portion and why. 4. State E19's result with sufficiency and necessity kept apart.
+  Witness each direction of any equivalence separately (§A.34). Classify every hypothesis. Keep the circularity check
+  (does ReachPure follow, or do the forcing conditions contain it) explicit. Keep exact generation and
+  closure/density steps separate, as in your S0-b/S0-c. 5. Close E19 with RESULTS rows, LOG, handoff proposals, push,
+  then stop. The cap of 3 dispatches stands." Applied: E20 (S0, S0-b, runs 1–2, the run-2 harness) and E21 (S0 only;
+  no module written, nothing dispatched) are committed as WIP, deferred to round 6, unverified, with no RESULTS or
+  LEDGER rows this round. Of E22, one portion is indispensable to E19 and is kept: §B of `lean/EqvOneDictionary.lean`
+  (`isClosed_dualW`/`isClosed_of_selfDual`, `continuous_transferMap`, `invariant_of_closure`, `flow_of_dense`) with
+  the two lemmas it uses from §A (`transferMap_phase`, `transferMap_cyc`) — because the owner's second round-5
+  direction requires the dense-control form of E19 to establish (i) closedness, (ii) continuity of the action and
+  (iv) the closure lemma as premises before C19-1 (a) gives `ReachPure`, and these are their proofs; the rest of the
+  module (§A's two directions against the bridge's `TransferClause`, §C) is E22 proper — built in dispatch 2 because it
+  was queued, its reading recorded, its analysis deferred to round 6.
