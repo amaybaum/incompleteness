@@ -56,3 +56,16 @@ the mixtures outside the overlap condition; availability of any operation of `G_
 `.out` (`e7e58309…`): run 1 6/6 `VERDICT C23-EXACT`, replay identical; `experiments/c23_check.py` (`c13e14e1…`) / `.out`
 (`dd7f2aea…`): run 1 9/9, replay identical; the certificate as above; RESULTS C23.1–C23.6; LOG 08:34Z, 10:26Z–10:33Z.
 Cross-branch reads: `research/bridge` @ `a34d20b5` (NOTES-B17, NOTES-B10, `b17_tower.py` lines 1–80; definitions only).
+
+## Forward correction (round 6; appended between the `date -u` readings 2026-10-11T15:24:46Z and 15:25:36Z; the text above stays as written)
+This proposal was issued as HO-42 v1 with the coordinator's correction of statement 2's `c = 2` clause (finding F-C5-1).
+Statement 2 is corrected forward to HO-42 item 3, re-derived and re-checked here (`experiments/c23f_correction.py`, run 1
+6/6 `VERDICT C23F-EXACT`, replay identical; RESULTS C23.2c, C23.2bf, C23.6c): **no `G_T`-orbit is admissible for H1 and H3
+at `c = 2`** (`CNOT ∈ G_T` carries every Bell state of `C1′ ∪ C2′` to a product); every `G_T`-orbit has `D_min ≤ 1/8`, so H1
+and H3 admit a rank-one defect orbit only at weights `c ≤ 4 − 2√2 ≈ 1.1716` (attained on the orbit of `(√2/2, 0, 1/2, 1/2)`);
+with `K(Z) = K(cl Z)` no `G_T`-invariant rank-one surgery satisfies H1 and H3, with any weights or number of orbits, closed
+or not. The statements about the two Bell circles (stage 4's `K_T` transported by `1 ⊗ H`, `tr(y′w′) = −6/625`) and the
+mixture instance `(3, 2i, 2, 1)` are statements about `T² ⋊ ⟨X_B⟩` (no `CNOT`), not about `G_T`; the residual "mixtures
+outside the overlap condition" does not arise for `G_T`. Statements 1, 3, 4 and 5 are unchanged; statement 3's scope, more
+exactly: the engine's local condition fails on a pair inside every `G_T`-orbit, which also blocks any compact extension
+keeping that condition. Recipients may not assume the Bell-circle statements as statements about `G_T`.

@@ -320,3 +320,30 @@ run is kept as `.run1.*`). Then rows C23.2c (the corrected statement, CONDITIONA
 C23-2 (b), FAILED) and C23.6c (the residual after the correction, OPEN) are appended to RESULTS; no existing row is edited
 and no existing label changes. Any other outcome: the correction is recorded only as received (HO-42 item 3 at its label)
 and the discrepancy is examined before any row is written.
+
+### Round-6 run and results (written between the `date -u` readings 2026-10-11T15:24:46Z and 15:25:36Z)
+| script | run | result | replay | sha256 (script / out) |
+|---|---|---|---|---|
+| `c23f_correction.py` | 1 (15:24:17Z) | 6/6, `VERDICT C23F-EXACT` | identical (`cmp`) | `2d1a393f…` / `96d837f9…` |
+
+Pre-run edits (recorded in the script header): F1's symbolic part computed through the permutation helper, F1's pairing
+through an explicit matrix, F2's printed `D_min` computed exactly; no criterion changed. Every S0 prediction held: F1 20
+Bell states, each maximally entangled with a product `CNOT` image, the image's `c = 2` defect pairing `−1` with it, and the
+symbolic orbit statement; F2 the four coset identities and the `D_min` formula on 12 seeds (minimizer exact, 32 rational
+unimodular points above it); F3 the two factorizations and the two certificates; F4 `x² = y² = 1/8` at `h*`,
+`c_max = 4 − 2√2` exactly, `51/50, 101/100, 1001/1000, 251/250 < 4 − 2√2 < 6/5`; F5 no violation over `{0..6}⁴` (integer
+moduli: maximum `36/289 < 1/8`) or over `m ∈ {0..9}⁴` (equality `1/8` at 16 tuples, `(2, 0, 1, 1)` among them); F6 the
+countercontrol without `CNOT` (`D = 1/4` kept), the `T² ⋊ ⟨X_B⟩`-invariance of `C1′ ∪ C2′`, the mixture seed's
+`D_min = 1/324`, C18-1's identity and term signs.
+
+**Results.** (F-a)–(F-d) hold as stated above, with the evidence: (F-a), (F-b) [W] (the inequality chain) + [X] (identities
+F2, F3; attainment F4; exhaustive control F5); (F-c) [W] (closure of `Z`, C18-1, C23-5) + [X] (F6 (d)); (F-d) [X] (F1, F6).
+So C23-2 is corrected forward to HO-42 item 3: no `G_T`-orbit is admissible for H1 and H3 at `c = 2`, every admissible
+weight is `≤ 4 − 2√2`, and no `G_T`-invariant rank-one surgery satisfies H1 and H3 (any weights, any number of orbits, closed
+or not). The Bell-circle computations of C23-2 (b)–(c) stand as statements about `T² ⋊ ⟨X_B⟩`. C23.2's verdict and C23.4
+(OBSTRUCTED) are unchanged; C23-1 and C23-3 are untouched; the certificate `c23_certificate.json` is unchanged (its G4
+data are correct computations about `T² ⋊ ⟨X_B⟩`). Rows C23.2c (CONDITIONAL), C23.2bf (FAILED) and C23.6c (OPEN) record
+this; no existing row is edited and no existing label changes. Gem classification: CONFIRMING (the correction is the
+coordinator's and the bridge's statement, re-derived and re-checked here) with one ELABORATING step (the closure of `Z`
+makes the compactness hypothesis free for `G_T`, covering HO-40 item 3's unattained supremum). Not evidence for outcome
+(D) (no cone is produced).
