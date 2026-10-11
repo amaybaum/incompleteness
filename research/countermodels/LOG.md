@@ -778,3 +778,30 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   C25, C24 and C26 are deferred to round 7; close with "research/countermodels: round 6 closed (limited scope)". Applied.
   At receipt: STEP 0 committed and pushed (`aa3cfa0a`); STEP 1's S0 committed (`a0a0177c`) and its check run and
   replayed; no S0, note or script exists for C24, C25 or C26 this round; no CI run was dispatched this round.
+- 2026-10-11T15:26:04Z — **record correction** (no earlier line edited): the entry headed "2026-10-11T15:24Z (received
+  during the run's replay; recorded 15:2xZ …)" carries a placeholder; the direction arrived after the `date -u` reading
+  15:24:26Z (the replay) and that entry was written and committed before the reading 15:24:46Z (`c6beff6a`).
+- 2026-10-11T15:26:04Z — **round 6 closed (limited scope)** by the owner's direction relayed at about 15:24Z.
+  - **Done.** STEP 0 receipts (`aa3cfa0a`): HO-33 v2, HO-39 v1, HO-40 v1, HO-44 v1, HO-45 v1, byte-identical to the blobs at
+    overview `1325160c` (re-checked at close: blob ids equal); reliance item by item in the 15:15:44Z entry. STEP 1, the
+    forward correction F-C5-1 (`a0a0177c` S0, `c6beff6a` run, `8db56773` write-up): `c23f_correction.py` run 1 6/6
+    `VERDICT C23F-EXACT`, replay identical; rows C23.2c (CONDITIONAL), C23.2bf (FAILED), C23.6c (OPEN), R6.defer (OPEN,
+    deferred) appended; NOTES-C23 and HP-countermodels-11 corrected forward by appended sections; no existing row, note or
+    label changed; C23.2's verdict and C23.4 (OBSTRUCTED) stand.
+  - **Deferred to round 7** (not run; no S0, notes or script exists for any of them): C25 (pair cones over Ω_h), C24 (T on
+    `K_circ`), C26 (toward an explicit `G_T`-invariant cone).
+  - **CI**: no `workflow_dispatch` this round; no run in flight; no dev branch touched.
+  - **Cross-branch reads**: `research/overview` @ `1325160c` only (the five receipts; AUDIT-COUNTERMODELS-R5.md; HO-41;
+    HO-42; OVERVIEW.md round-6 section), each logged with sha256. `research/equivalence` @ `3a46b811` (authorized for C25)
+    was not read. Read freely: `research/archive` @ `4dc0321c` (`ac/AC-LEDGER.md`, `drive/RESULT.md` for LIMCLOSE-C,
+    `pt/I4/INVENTORY.md` record I4.60, `pt/PROTOCOL-STAGE3.md` (`1a649168…`) for H1–H3); `main` @ L (one `git grep -c`).
+  - **Integrity sweep at close** (15:26:04Z): nothing outside `research/countermodels/` changed since `c9ac75bd`; no deleted
+    line in LOG.md, RESULTS.md, NOTES-C23.md or HP-countermodels-11 since `c9ac75bd`; final replay of `c23f_correction`
+    byte-identical; tree clean before this entry.
+  - **Deviations.** (1) The audit read displayed §9 and §11 with §8–§12 (one contiguous range) and heading outlines of the
+    audit and of OVERVIEW.md were listed (15:17:18Z entry). (2) Pre-run edits of `c23f_correction.py`, recorded in its
+    header; no criterion changed. (3) The 15:24Z entry's placeholder time, corrected by the record correction above.
+    (4) Two times in the uncommitted write-up were first written as estimates and replaced by the `date -u` bracket before
+    commit. (5) The receipts push used a retry loop that tested the exit status of `tail`, not of `git push`; the push
+    succeeded at once (HEAD = origin verified); later pushes used a helper that tests `git push` itself. (6) Round narrowed
+    by the owner: C25, C24, C26 not done.
