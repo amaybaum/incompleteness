@@ -1,0 +1,42 @@
+A1 grid angles: 792; Clifford angles: 8 -> 0*pi/1, 1*pi/1, 1*pi/2, 1*pi/4, 3*pi/2, 3*pi/4, 5*pi/4, 7*pi/4
+A1 Clifford exactly at k*pi/4: True
+A2 0*pi/1: classes 8 closed True (expected 8)
+A2 1*pi/1: classes 8 closed True (expected 8)
+A2 1*pi/2: classes 8 closed True (expected 8)
+A2 1*pi/4: classes 24 closed True (expected 24)
+A2 3*pi/2: classes 8 closed True (expected 8)
+A2 3*pi/4: classes 24 closed True (expected 24)
+A2 5*pi/4: classes 24 closed True (expected 24)
+A2 7*pi/4: classes 24 closed True (expected 24)
+A3 det W = 1 at every grid angle: True; trace = 1 + cos 2a at every grid angle: True
+A3 non-Clifford angles with non-integral trace (coordinates): 784 of 784
+A3 coordinates and minimal polynomials agree at every grid angle: True (distinct cos 2a values: 199, max degree 15)
+A3 holds: True
+A4 sin 2a != 0 at every non-Clifford grid angle: True
+A5 sqrt2^(k-1) p_k = x_k + y_k sqrt2 with x_k odd, 1 <= k <= 400: True
+A5 W(pi/8)^k = p_k W - p_(k-1) 1 and W^k not scalar, 1 <= k <= 96: True
+A6 rot(k pi/4) = rot(pi/4)^k, X rot(pi/4) X = rot(-pi/4), rot(pi/8)^2 = rot(pi/4): True
+A6 level-two echo of mixImage 2 (pi/8) = rot(pi/4) on the chosen block, both blocks: True
+PC1 True
+PC2 True
+PC3 True
+CC3 1*pi/8: classes reached 3001, closed False
+CC3 1*pi/3: classes reached 3001, closed False
+CC3 1*pi/6: classes reached 3001, closed False
+CC3 1*pi/5: classes reached 3001, closed False
+CC3 3*pi/8: classes reached 3001, closed False
+CC5 first zeros of p_k: t = 1 at k = [3], t = sqrt2 at k = [4]
+CC6 group <rot(pi/4), X> has 16 elements
+CC1 False
+CC2 False
+CC3 False
+CC4 False
+CC5 False
+CC6 False
+A1 True
+A2 True
+A3 True
+A4 True
+A5 True
+A6 True
+VERDICT O12-CLIFFORD-ANGLES-EXACTLY

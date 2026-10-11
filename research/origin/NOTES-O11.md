@@ -258,3 +258,64 @@ evidence only; nothing certified.
 - The chart-body form (item 7) and the non-unitary reversible data (item 6) are written arguments, not kernel-checked.
 - Whether some principle outside the inventory supplies a coherent token body without introducing a mixer is the open
   question of SRC itself; O11 shows the stage-crossing datum adds no obligation beyond it on the kernel's carrier.
+
+## 7. The acceptance criteria of coordinator addendum 3 (appended 2026-10-11T04:40Z)
+
+Addendum 3 makes two distinctions acceptance criteria for O11's verdict. This section states how O11's results stand
+under them; §0–§6 are not edited and are read with this section. Where §0 ("Which way O11 comes out") says that the
+stage-crossing datum "is an additional principle", read the narrower statement N11 below: O11 does not establish that
+the datum is independent of OI.
+
+**(1) Pair-level versus full-OI insufficiency.** An independence verdict needs a full model of the stated access — its
+generated theory with every `InstAvail` protocol and ancilla block — that satisfies the applicable OI premises at every
+level that applies to it, the 68 NOT REACHED rows of the stage-6 reassessment (Table A2, R6 REASSESSMENT at
+research/archive 4dc0321c, sha256 1ff62ad6…a884ffe) included so far as they apply to the model's level, and in which
+every datum on the token's completed chart body has finite order.
+
+What O11 has. The model is the substratum theory `substratumTheory A` (RouteB.lean:279; `genTheory` of the substratum
+class, every `InstAvail` constructor — step, readout, coarse-graining, feed-forward, discard — and every ancilla block,
+the class being closed under `Architecture.block`); its theorems quantify over every carrier, so they hold at every
+level A × Fin n. The finite-order statement is [D] on O11's own token body (the closed convex hull of the
+`InstAvail`-reachable normalized states, §0.1) for available unitary conjugations; for other available reversible data
+it is [W] (§0.6), and on the kernel's completed chart body it is [W] (§0.7). Against the 68 NOT REACHED rows:
+
+| class | rows | how |
+|---|---|---|
+| (a) satisfied, 16 | I4.241 DerivedOI; I4.133, I4.110 (its first two conjuncts); I4.31 ImplementationLocality; I4.29 ContextStable; I4.45 StructurallyClosed; I4.68 IteratedAncillaClosure; I4.69 SystemToLevelOne; I4.87 ObserverRecursion; I4.66 CompositeOperationalValidity; I4.73 WellFormed; I4.96 and I4.3 ObservationalIndependence = HasParallelReferenceExtension; I4.82 (the same on the qubit carrier); I4.14 InertSpectatorCompositionality; I4.4 HasQutritReferenceExtension | [K] RouteB.lean:290, :141, :149, :153; StructuralClosure.lean:261, :316; EmbeddedObservation.lean:217, :223; ImplementationLocality.lean:957, :971; GeneralCarrier.lean:125; SpectatorBridge.lean:233; ReferenceExtension.lean:474 (composition of these per row [W]) |
+| (b) kernel theorems, true in every model, 5 | I4.210, I4.215, I4.216 (positive-semidefinite facts, comparison objects); I3.104 `body_isClosed`, I3.105 `preservesBody_inducedEquiv` | [K] JordanClassification.lean:84; OperationalRigidity.lean:917, :956; CompletionAction.lean:202, :352 |
+| (c) failed, 21 — each flagged in the inventory as an OI⁺ completion condition, an OI⁺ package equivalent to exact quantum mechanics, or a form of reversible richness ("do not assume"; none is an OI premise) | I4.67 HasCompositeUnitaryControl; I4.70 ExactAll…QuantumOps; I4.56 LayerFlowExecutable; I4.118 PhaseFreeRichness; I4.143 DrivesElementary; I4.144 QuantumArchitecture; I4.65, I4.74, I4.80 (they contain or are equivalent to conditions containing control); I4.85, I4.99 ReversibleRichness and I4.128 LieRankRichness (each gives control); I4.123 CyclicRichness (gives phase-free richness); I4.179 PairFlowSourced (with DerivedOI, equivalent to exact QM); I4.42, I4.88, I4.102, I4.115, I4.120, I4.124, I4.137 (packages equivalent to exact QM) | [K] StructuralClosure.lean:348, :359, :370, :376; LiftAudit.lean:200; RouteB.lean:388 (qubit carrier); the implications CarrierGeneralOIPlus.lean:127 (I4.99), CompletedOI.lean:200 (I4.85), MicroscopicReversibility.lean:114 (I4.128), MinimalRepertoire.lean:642 (I4.123); the equivalences PairFlowEquivalence.lean:199 (I4.179), CompletedOI.lean:110 (I4.80), ImplementationLocality.lean:1079, CompletedOI.lean:440, CarrierGeneralOIPlus.lean:213, EmbeddedObservation.lean:384, MinimalRepertoire.lean:569, PositivePackage.lean:55, MicroscopicReversibility.lean:357 (the packages) |
+| (c′) not decided here, 4 — flagged as clauses or forms of reversible richness, or as the quantum endpoint (not OI premises) | I4.127 InverseAccessibility; I4.244 ElementaryTransitionRichness; I4.245 OIPlusElem; I4.187 ShadowQuantum (level G) | — |
+| (d) level P, not at the model's level, 8 | I3.134, I3.136, I3.141, I3.154, I3.157, I3.158 (three or four tokens); I3.145 P-STAGE2, I3.146 P-ACT2 (named pair premises) | the model has no pair-cone structure; no M→P bridge at L |
+| (e) manuscript scope statements and theorem statements, 12 (not premises) | I1.17; I2.3, I2.29, I2.30, I2.31, I2.32, I2.33, I2.34, I2.35, I2.62, I2.63, I2.69 | consistent with the model: an OI-compatible theory that is not quantum (I2.30's statement) |
+| (f) level O, applicable, not shown for the model, 2 | I3.96 `FiniteRank` (K∞-Stage), I3.99 `OpDatum` (K∞-Act) | the kernel's completed chart body of the stated access's token tower is not constructed in O11 |
+
+Counts: 16 + 5 + 21 + 4 + 8 + 12 + 2 = 68. The H-level items of the model's substratum stand as in §1: A1, A2 [K];
+the wave rule's A1–A5 through the rule independence of the observer theory [K]; the other A3–A6 readings [W].
+
+**Conclusion under (1).** O11 establishes the narrower statement
+
+> **N11.** In the stated-access model — which satisfies every row of the inventory checked against it at level M, the
+> NOT REACHED rows of class (a) included, and fails only rows flagged as OI⁺ completion conditions, packages or
+> endpoints — every available unitary datum has finite order on the matrix-level token body, at every level.
+
+Label: CONDITIONAL ([D] run 38108620996 with [K] per item). It does not establish independence of the stage-crossing
+datum from OI. That question is a precisely scoped OPEN; the unproved lemma at the model's own levels is:
+
+> **(L-O)** For the stated access, the kernel's completed chart body of one token — the StageCompletion and
+> CompletionAction construction (I3.92–I3.105) applied to the token's protocol tower, whose stage n holds the
+> `InstAvail`-reachable states and effects at level n — has finite rank (I3.96) and is affinely the simplex of
+> configuration states, and every operation datum on it (I3.99) with `AffineRespect` and an inverse datum that is
+> realized by available operations of the stated access is induced by an available operation, so that it permutes the
+> vertices of the simplex and has finite order.
+
+(L-O) is argued in §0.6–0.7 [W]; there is no kernel or design proof. The rows of class (c′) are not premises, so they do
+not bear on the criterion, and the rows of class (d) are at a level the model does not have; neither is claimed either
+way. No independence is claimed.
+
+**(2) Cone invariance versus operational availability.** Every O11 row is an availability statement: the data are
+operations obtainable through the kernel's protocols (unitary conjugation channels available by `InstAvail`; in O11-T7,
+available deterministic families with available inverses), and the token body is built from `InstAvail`-reachable
+states. No O11 row is a cone-invariance (admissibility) statement, and none lets preservation stand in for
+availability: where preservation enters (§0.6, an available reversible family maps the simplex onto itself and so
+permutes its vertices), it is a consequence of availability, not a substitute for it. O11 does not use the pair-level
+(b), (T) or A_miss, which are cone-preserving admissibility statements.
