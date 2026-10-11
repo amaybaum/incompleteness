@@ -22,6 +22,8 @@ enters `main` only through a §A.39 governed round with separate authorization.
 | `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `44c06d46` (round 5 audited) | active |
 | `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `3a46b811` (round 5 audited) | active |
 | `research/wip-checkpoints` | the coordinator's safety copies of uncommitted thread work, taken at the owner's direction before a possible usage-limit stop (`checkpoints/2026-10-11T103838Z/`, with its manifest); labelled UNFINISHED / UNVERIFIED; copies only — the threads' own commits are the record | L | `1b2ec2bb` | coordinator only; not authoritative |
+| `research/round6-transfer-sourcing` | the owner's cross-thread record for round 6's priority nodes B22, E23, B23 and the S6 surface (`research/round6-transfer/`: preregistration, LOG, inbox copies of HO-33 v2 and HO-37 … HO-45); opened by the owner at `7b35ef42`, continued by the agent `Claude (research round6-transfer)`; not a governed round | overview `1325160c` | live | active, priority 1 |
+| `dev-bridge/r6-channel-transfer` | disposable design branch of the cross-thread record: `BridgeChannelTransfer` (the O14 channel route against the bridge's construction) with the three E19 modules; opened by the owner at `5d4b9833` (UNBUILT at that head) | `dev-bridge/r5-bridge2` `16e75fbe` | live | design only, not for merge |
 | `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (runs 38090924005 at `195dfbee`, 38096511360 at `95beab2b`: the repair measured, 15/15), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-equivalence/k2-schema` @ `aabc649e` (runs 38099025197 at `472835c5`, 38101580750), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-origin/exclusive` @ `5df964af` (runs 38098314988 at `39fd0e67`, 38099172719), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860), `dev-bridge/r3-dict` @ `3d554e7e` (run 38099134414), `dev-bridge/r3-reach` @ `747bcf94` (run 38101591388); round 4: `dev-origin/token-order` @ `35d326a3` (run 38108620996), `dev-origin/angle` @ `f0cd9272` (runs 38111982910 at `9dd6a173`, 38112242400), `dev-equivalence/r4-design` @ `20c207f1` (runs 38112020014 at `2d978412`, 38112803530), `dev-countermodels/c17-sprime` @ `5649e641` (runs 38112032111 at `7d3736e4`, 38112813276), `dev-bridge/r4-avail` @ `152094b5` (run 38110368244), `dev-bridge/r4-conv` @ `ca48c4c4` (run 38115337569), `dev-bridge/r4-final` @ `bf8ba746` (run 38117986499); round 5 (`research/AUDITS/2026-10-11-round5/CI-RUNS-R5.md`): `dev-bridge/r5-bridge` @ `36083b22` (run 38123860471, Build failure in `BridgeToken`), `dev-bridge/r5-bridge2` @ `16e75fbe` (run 38124442150), `dev-countermodels/c22-compact` @ `a69987bd` (runs 38124380741 at `6cb76f96` and 38125067948 at `e4ef2e46`, both Build failures, then 38131214451), `dev-equivalence/r5-design` @ `f0c36cf9` (runs 38124464622 at `7dd71a7e`, Build failure in `EqvK2Block`, 38132266383 at `f67da967`, 38134245361), `dev-origin/drive` @ `86358785` (runs 38134267257 at `78baca7c`, Build failure in `OriginDrive`, then 38135099684) | thread branch | — | as created |
 | `research/conscious-observation-loop` | pre-existing branch of the owner (CONSC-1 charter work, 2026-10-05); not part of this tree, untouched | — | `0cefaecb` | owner's |
 
@@ -1123,7 +1125,25 @@ highest-value result is a derivation of continuous operational control from esta
 the countermodel and circularity tests. Scope is kept explicit throughout: a proof of insufficiency for the complete
 stage-6 inventory is definitive within its scope and establishes nothing about every conceivable extension of OI.
 
-## Next round (round 6) — nodes to hand to the threads (recorded 2026-10-11; not launched, awaiting the owner)
+## Round 6 — nodes handed to the threads (recorded 2026-10-11; launched 2026-10-11 at the owner's direction)
+
+**Launch.** The owner opened the cross-thread record `research/round6-transfer-sourcing` (`7b35ef42`: the
+preregistration for B22, E23, B23 and the S6 surface, in that order, with handoff copies) and the design branch
+`dev-bridge/r6-channel-transfer` (`5d4b9833`: `BridgeChannelTransfer` and the three E19 modules), then directed:
+"proceed with round 6 from where the latest commits left off". The coordinator reviewed both commits first (eight
+confirmed findings: the module's `/-!` header before its imports breaks the library build; the preregistration narrower
+than the node definitions at B22, B23 and E23; the exact-check set not enumerated; the identified-state-space lemma's
+hidden spectator premises; provenance and receipt records; an unsupported necessity phrase; an unused import) and
+launched, at about 15:10Z, five agents from these heads: the cross-thread record (B22 → E23 → B23 → S6 surface), its
+first commits to be the pre-run-1 revision answering the findings, logged append-only, and the Lean fixes before any
+dispatch; and the four threads from their round-5 heads — bridge B24, B25 (B26 if time remains), countermodels F-C5-1
+then C25, C24 (C26 if time remains), origin F-O5-2 / F-O5-1 then O17 (the kernel form of O14-T9 first, the witness the
+cross-thread assembly takes as a hypothesis), O15, O16 (O18 if time remains), equivalence E20, E21 (E22 if time
+remains). B22, B23, E23 and the S6 surface moved from the bridge and equivalence threads to the cross-thread record; the
+threads do not duplicate them and do not read that branch this round. Each agent: at most three `workflow_dispatch`
+runs, receipts first, commits and pushes after every step.
+
+The plan as recorded before the launch follows unchanged.
 
 Rules unchanged from round 5, with four additions from the round-5 audits: (i) **LOG files are append-only** — a
 correction is a new entry naming the entry it corrects, never an edit in place (F-E5-1); (ii) a `|` inside a code span
