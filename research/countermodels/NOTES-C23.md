@@ -161,3 +161,75 @@ principal minor, rank and quadratic-form value from the listed vectors and matri
 C23-1 and the determinant identity by expanding polynomials in real coordinates (sympy `expand` on real and imaginary
 parts), not by the construction's complex simplification. `CHECK C23-CERTIFICATE-OK` iff every item passes. Predicted:
 every item passes.
+
+## Runs (written 2026-10-11T10:35:24Z, `date -u`)
+| script | run | result | replay | sha256 (script / out) |
+|---|---|---|---|---|
+| `c23_torus.py` | 1 (10:31:53Z) | 6/6, `VERDICT C23-EXACT`; certificate written (267 group elements, sha256 `d5841161f024006d1f4951d845253508e8813cd8a71e211264175ab80af60d03`) | identical (`cmp`) | `e6a3555e…` / `e7e58309…` |
+| `c23_check.py` | 1 (10:33:52Z) | 9/9, `CHECK C23-CERTIFICATE-OK` | identical (`cmp`) | `c13e14e1…` / `dd7f2aea…` |
+
+Pre-run edits of `c23_torus.py` (before run 1): dead code and a redundant special case removed; no check changed. Every
+S0 prediction held (G3's `D_min(h₂) = 25/900 = 1/36`; the checker prints `(gh)†y(gh)` unnormalized, `−31/2450 =
+|gh|²·(−1/4900)`).
+
+## Results
+
+### C23-1 — every `G_T`-orbit carries an orthogonal pair [W + X G2, K2, K3]
+Lemma C23-1 as stated in the design: the identity `⟨h|D(u, v)X_Bh⟩ = β + uvβ̄ + uα + vᾱ` and the modulus identity
+(`|β + uα|² − |ᾱ + uβ̄|² = (|u|² − 1)(|α|² − |β|²)`) are verified symbolically twice by different routes (the construction's
+complex simplification; the checker's real-coordinate expansion); the five-class solution is [W]; exact instances in all
+five classes, each realized by an element accepted by the checker's own membership test. **Every `G_T`-orbit of rays —
+hence, through the closure step, every orbit of the countable group `G_∞` of B10-5's stages taken together, whose
+closure is `G_T` — contains an orthogonal pair, realized by `D(u, v)X_B`.**
+
+### C23-2 — the rank-one route is closed [W + X G3, G4, K4–K6 + A Z]
+(a) No compact `G_T`-invariant rank-one surgery with every `c < 2` is self-dual (C18-1's witness on the orbit of largest
+`c`, Lemma C23-5 for the closed hull); exact instance: `c* = 51/50` on `(6, i, 4, 3)` with a second orbit `(4, i, 2, 3)`
+at `101/100`, 200 sample defects, `⟨y, d_h⟩ = 0`, `(gh)†y(gh)/|gh|² = −1/4900`; the maximum is load-bearing (the witness
+built with the smaller value pairs `−199/19800`). (b) At `c = 2` the only admissible orbit is `C1′ ∪ C2′`, and its surgery
+`= (1 ⊗ H)K_T(1 ⊗ H)†` is not self-dual: stage 4's pair transported and re-verified exactly, `tr(y′w′) = −6/625` with
+both in `K*` (decompositions, 15 principal minors, the Lorentz-dual conditions). (c) Mixtures with the Bell circles: not
+self-dual under the overlap condition (instance `(3, 2i, 2, 1)` at `1001/1000`, 16 Bell defects and 36 orbit samples);
+OPEN otherwise.
+
+### C23-3 — the balanced route: the engine certifies nothing [W + X G5, K7–K9]
+Every seed falls in exactly one case: `r = 3` (class (i)): no balanced partner (exact: partners of rank 3,
+`{k ⊥ partners} = ℂh`); `r = 2` (classes (ii), (iii), (iv)): the partner is forced (`k₀`, exact and unique), zero pairing holds
+on the orthogonalizing family, `p₁ + p₂ ≠ 0` in general (the five subcase formulas, [W]), and the first-order tightness
+breaks the local condition (exact instances at `c = 3/2` and `c = 101/100` in all three classes, normalized values
+`−0.077 … −0.00024`); two vanishing coordinates: H1 excludes (products in the orbit). So for no seed and no `c ∈ (1, 2)`
+does the engine `selfDual_of_local` certify a balanced rank-two surgery on a `G_T`-orbit.
+
+### C23-4 — the node's outcome under its decision rule: **OBSTRUCTED**
+Both conditions hold: every seed orbit meets an orthogonal pair (C23-1, all five classes, identities verified twice) and
+the balanced engine fails (C23-3, every case, with the instances the rule names), each instance part passing the
+independent checker. Consequences, stated at their scope: (1) **no surgery-type cone — rank-one with any weights, or
+balanced rank-two through the engine — is invariant under `G_T`**, and therefore (closure step (b) for surgeries; step
+(a) with H3 for any closed cone) **none is invariant under all of B10-5's stages `G_n` at once**; this extends HO-36
+item 1 (HO-24's cone fails from `n = 3`) to the whole surgery class. (2) An explicit `G_T`-invariant exotic cone stays
+**OPEN**; existence stays CONDITIONAL on claim (D) [A] through B7-2 (HO-36 item 2, cited at its label). (3) Nothing here
+is evidence for the owner's outcome (D): no cone is produced. Groups named exactly: the countable group `G_∞ = ⋃ G_n`
+(each `G_n` finitely generated), its closure `G_T = T² ⋊ V4` (modulo phase); closedness of a cone (H3) is the step from
+the one to the other.
+
+### Residual (OPEN)
+Mixtures of the Bell circles with orbits outside the overlap condition; balanced rank-two surgeries without the engine
+(self-duality not decided); defects with a higher-rank subtracted part and one negative eigenvalue; non-surgery
+constructions — C18-3's linear-perturbation lemma does not transfer verbatim (the torus's off-diagonal real blocks pair
+up: `E₀₂` (`ū`) with `E₁₃` (`u`) and `E₀₃` (`v̄`) with `E₁₂` (`v`) are equivalent as real representations); the explicit cone.
+
+## Gem classification (§A.31)
+- NEW: the universal orthogonal pair for the tower's closure with an explicit realizing element and identities; the
+  rank classification of orthogonalizing families (r = 3 ⇔ `αβ ≠ 0`, `|α| ≠ |β|`), which decides when a balanced partner
+  exists; the complete failure of the engine on `G_T`; the extension of HO-36 item 1 to the whole surgery class.
+  Productivity test met.
+- Assumption-watch markers: (1) "an explicit cone invariant under every stage of the tower can be found among surgery
+  cones" is false (rank-one and engine-certified balanced); a construction for `G_T` needs a sufficiency argument of
+  another kind (as C18's marker for case B). (2) "invariance under a dense subgroup is invariance under its closure" holds
+  for closed cones only; the step uses H3 (owner's point (2)), recorded wherever used.
+
+## What is not claimed
+No kernel statement (Lemma C23-1's case analysis, Theorems C23-2, C23-3 and Lemma C23-5 are [W]; the identities and
+instances are [X], checked twice); no statement about cones outside the surgery and engine routes; the existence of a
+`G_T`-invariant exotic cone is HO-36's (claim (D)), not decided here; no availability statement; no claim about OI beyond
+the audited scope (the stage-6 inventory at L, level (i), invariance reading).
