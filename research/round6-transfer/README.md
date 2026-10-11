@@ -1,6 +1,8 @@
 # Round 6 — transfer and premise sourcing
 
-Owner-authorized priority work on B22, E23 and B23. Status: IN PROGRESS; no verdict yet.
+Owner-authorized priority work on B22, E23 and B23. Status (narrowed batch, closed): B22 OPEN in both transfer
+forms, the gap located at I3.165's clause; E23 source table, CONFIRMING; B23's one design build FAILED (run
+38151796092). Deferred to round 7: B23's exact-check plan and controls, the placement question, S6-SURFACE.
 
 PREREGISTRATION.md fixes the questions and computation rules before run 1. LOG.md is append-only.
 The inbox copies HO-33 v2 and HO-37 through HO-45 byte-for-byte from overview 1325160c.
