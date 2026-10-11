@@ -1123,3 +1123,23 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   Dispatches: 2 of 3 used; the third not needed (both round-5 modules built green at dispatch 2; Version D of B20 is not
   built by design). `git diff 9f9f8257 HEAD -- verification papers book tools` empty: nothing outside `research/bridge/`
   changed on this branch.
+- 2026-10-11T10:32:04Z — **round 5 closed** (outcomes commit `4b229b3d`). Nodes: B18 — FM's rows I4.56 and I2.34 on the `DerivedOI`
+  chain of `BridgeToken.lean` [D] (no `SubstratumAvail`; fixed-point-free involutions, the fixed-point instance OPEN),
+  B14-6's label unchanged (CONJECTURE), its scope sentence amended (NOTES-B14 §8.9), gem POSITIVE + ELABORATING; B19 —
+  `PairAvailAt ↔ TokenAvailAt` for context-stable, label-invariant architectures, CONJECTURE [D], gem POSITIVE +
+  ELABORATING; B20 — the sufficient bridge: OI + {OpDrive(θ₀), J-datum} ⇒ pair availability [D], and with (T)_𝓘 ⇒ (T)
+  for {R_z(θ₀), J} [D], CONDITIONAL on the introduced data and (T)_𝓘, sufficient not necessary, exact availability
+  only, excludes K(Z_F), not an equivalence, owner's class (C) pending origin's O14 and B14-6 (D) at its scope, gem
+  POSITIVE; B21 — `G = T² · {1, CNOT, X_B, CNOT X_B}`, every orbit with an orthogonal pair, none maximally entangled
+  throughout, so no self-dual `G`-invariant rank-one surgery with H1, CONDITIONAL on C18-1, existence at claim (D),
+  gem ELABORATING. Standing verdict V-5. Dispatches: run 38123860471 (`dev-bridge/r5-bridge` @ `36083b22`): Build
+  FAILED in BridgeToken (two elaboration errors), gate skipped; run 38124442150 (`dev-bridge/r5-bridge2` @ `16e75fbe`):
+  Build success, prints 61/22/50/36/9/20/21/21 (240), all standard (two on `[Quot.sound]` alone), `lean-axioms` PASS
+  6096, gate red only on `lean-manuscript` (8 design modules without census disposition); third dispatch unused.
+  Deviations, all recorded above: the root import lines on both dev branches (outside `OIBridge/`, as in rounds 1–4);
+  the HO-36 hash typo corrected forward; three timestamp errors corrected forward (10:11:59Z entry); kept failed runs
+  (`b20_bridge` run 1, `b21_torus` runs 1–2, `b21_ceq2` run 1, the last with Q1's rule text brought to its
+  pre-registered form) and the failed dispatch-1 module text; the interruption 08:34Z–10:06Z and the trailer change from
+  commit `2c67f168` on; B21 extended beyond its S0 by a dated addendum before its script ran; job logs read as
+  5000-line tails, not full logs; the census check run locally on the dispatch tree as evidence only. Nothing outside
+  `research/bridge/` changed on this branch; no pull request; no CI job or run cancelled.
