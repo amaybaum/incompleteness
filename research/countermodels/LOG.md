@@ -138,3 +138,15 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `VERDICT C15-CLIFFORD-EXACT`, replay identical (out `6cd53515…`). Results: order 11520 recomputed; an explicit exotic cone
   for the native Clifford family (CONDITIONAL on S′ only); the continuous half's group has double transpositions (rank-one
   route closed). RESULTS rows C15.1–C15.3 appended. Commit: C15.
+- 2026-10-11T01:39Z — extra node C16 (closing review; C15's commit is `a107df72`, pushed). Checking the drafted handoff
+  proposals against the rows found two defects in this round's own rows: (i) C13.4, C13.6, C13.7 and C15.3 say no rank-one
+  orbit surgery with a common `c` is self-dual and cite Lemma C13-O, which covers `c ∈ (1, 2)` only; (ii) C13.9's
+  parenthetical claims the orthogonal-pair obstruction for κ with G16, with no argument (the S2 argument was transferred
+  unchecked). NOTES-C16 S0 written 01:31:37Z (`date -u`; file 01:32:44); `c16_kappa_bellcorner.py` decision rule
+  01:32:52Z; two pre-run helper fixes (Gaussian rationals passed to the `GQ` constructor in `Ux` and `diag`); run 1
+  (01:35:14Z) 15/15 `VERDICT C16-KAPPA-BELLCORNER-EXACT`, replay identical (out `6d0a5dfe…`). Results: the Bell corner
+  closes (Lemma C16-1, Corollary C16-2 [W], exact instances, [A] Z's `K_T`), so the four rows' statements hold for every
+  `c ∈ (1, 2]` (row C16.2; their labels unchanged); defect (ii) is a refuted claim (FAILED row C13.9f): κ's torus fixes the
+  `|0±⟩` coordinates, and κ with G16 has an explicit two-circle surgery cone (C16.4, CONDITIONAL on S′; T fails on it,
+  C16.5). RESULTS rows C16.1–C16.6 and C13.9f appended; no earlier row changed. HP4 item 5 scoped to `φ₀`'s H1 window;
+  HP5 and HP6 revised before their first commit. Commit: C16.

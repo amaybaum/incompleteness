@@ -1,0 +1,18 @@
+CHECK D0   PASS in the basis (|0+>, |0->, |1+>, |1->): U(x) = diag(1,1,1,x), CNOT = diag(1,1,1,-1), Z(x)I = diag(1,1,-1,-1), I(x)Z = (12)(34); U(x) unitary; det = 2(bc - ad) on F -- B on F = [['0', '0', '0', '-1'], ['0', '0', '1', '0'], ['0', '1', '0', '0'], ['-1', '0', '0', '0']]
+CHECK K1   PASS S = {(6,2,x,-x)} u {(6,-2,x,x)} is invariant under U(y), CNOT, Z(x)I, I(x)Z and T: the orbit of h = (6, 2, 1, -1) under kappa with G16 is two circles
+CHECK K2   PASS no orthogonal pair on S: within a circle |<v|v'>| >= 38, across circles <v|v'> = 32, |v|^2 = 42 -- s_min 256/441, within-circle minimum 361/441
+CHECK K3   PASS det(h0 + x e) = -8x, det(h0' + x e') = 8x: |det Psi|^2 = D on all of S (unreachable); H1 at c = 103/100 -- D 16/441, 1 - 4D 377/441 <= (2/c - 1)^2 9409/10609
+CHECK K4   PASS (CC) c^2 s >= 4(c - 1) for every pair (s >= s_min) and every pairing positive -- c^2 s_min 169744/275625 vs 4(c - 1) 3/25
+CHECK K5   PASS d = I - c P_h is not PSD (K_kappa != Q3) -- e1..e4 [297/100, 291/100, 91/100, -3/100]
+CHECK K6   PASS S' consequence holds on the cross pair at the far cap edge and the midpoint -- t=4178439/500000000: s(h_j,v)-1/c=579014700/253828612684864859, s(h_k,v)=445409524022572805/1086780759165295173 vs 1-1/c=3/103, PSD True; t=4178439/1000000000: s(h_j,v)-1/c=21533203704014700/993135253309864859, s(h_k,v)=2102540240522572805/4252161618540295173 vs 1-1/c=3/103, PSD True
+RECORD z = E00/2 - (c/8) T_h, h = (6, 2, 1, -1), c = 103/100 (pauliW(z) = d/8: True): [['297/800', '-1133/16800', '0', '-103/1050'], ['-103/4200', '103/4200', '0', '-103/2100'], ['0', '0', '-103/2100', '0'], ['-1957/16800', '-1339/16800', '0', '-103/1050']]
+CHECK BC1  PASS computational basis: B nonzero only on {00,11} and {01,10}; CNOT carries both Bell circles to products (det identically 0): no Bell-type orbit for T^3 x| D4
+CHECK BC2  PASS case B basis: orthogonal; products exactly b1, b3 (b2 = CNOT b1 and b4 entangled): no pair of product eigenlines survives (12)
+CHECK BC3  PASS C1 = {f1 + x f4}, C2 = {f2 + x f3} are Bell-type circles invariant under the kappa generators, I(x)Z swapping them: the c = 2 orbit for kappa with G16 is C1 u C2 (K_T)
+COUNTERCONTROL CC1  PASS S2 contrast: (Rz(pi) (x) Rx(pi))(I(x)Z) h = (2, -6, 1, 1) is orthogonal to h (the torus decides) -- <h|g h> = 0
+COUNTERCONTROL CC2  PASS at c = 26/25 H1 fails on S -- 1 - 4D 377/441 > (2/c - 1)^2 144/169
+COUNTERCONTROL CC3  PASS r = (2, 0, 1+i, 1-i) is entangled and U(-i) r is a product (the unreachability test is not vacuous) -- det r = (2-2i), U(-i) r = [2, 0, 2, 0]
+COUNTERCONTROL CC4  PASS c' = 5/4 violates (CC) on the cross pair; exact y in K({d_j,d_k})* \ K({d_j,d_k}) -- t=24124229/1000000000, s(h_j,v)-1/c'=5623022732/538330071096221585, s(h_k,v)=7289116385060198645/47480712270686743797 < 1-1/c'=1/5, x^dag y x=-623480056784532024241965551281433489320088522752/55642315750717914716080534322402498407179939677434728579
+CHECK EX   PASS no float in any recorded value
+summary: 15 checks, 0 failed
+VERDICT C16-KAPPA-BELLCORNER-EXACT: under kappa with G16 the orbit of h = (6, 2, 1, -1) is two circles with squared overlaps >= 256/441 (no orthogonal pair) and |det Psi|^2 = 16/441 throughout; at c = 103/100 H1 and (CC) hold: an explicit invariant exotic cone with a continuum of non-PSD extreme rays given Theorem S'; the Bell corner c = 2: no Bell-type orbit for T^3 x| D4 or case B, and C1 u C2 (K_T) for kappa with G16
