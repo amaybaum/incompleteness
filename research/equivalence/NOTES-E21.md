@@ -1,5 +1,8 @@
 # NOTES-E21 — E17's residual: the infinite-volume passage of the transport form
 
+**Status: work in progress, deferred to round 6 by the owner's direction of 2026-10-11T10:38Z; unverified; no result row.**
+
+
 Base L = `9f9f8257`. Node E21 of round 5 (priority 3). The residual: R-E14.2's passage, stated in round 4 as the
 proposition `EqvTransport.Passage` (R-E17.1, [D] as a statement; not proved): a star automorphism `α` of a
 `QuasilocalSystem` (QuasilocalCharacterization.lean:168) in **transport form** (`TransportHDyn`: every matrix unit of

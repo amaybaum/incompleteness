@@ -1059,3 +1059,31 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   out of scope, and leaves the decision rule as fixed before run 2): 75 distinct citations (158 occurrences), 71 named
   pairs, X1–X3 failing as stated, `VERDICT CITATIONS-RESOLVE`; `CmSprime.lean:1067` (NOTES-E19 S0) listed out of
   scope; replay byte-identical (py `14623c27…`, out `a8a0f83a…`). RESULTS row R-CITE.5.
+- 2026-10-11T11:21Z — final replays (11:19Z): `e19_s6_controls` and `e19b_block_controls` byte-identical to their
+  committed outputs (py `80787ca1…`/out `ecaddd86…`; py `92e6a5b3…`/out `b6f90dd7…`). Dispatch 3's run at 11:20Z: Lean
+  kernel check `success`, Mathlib bridge as recorded (Build success, gate red only at `lean-manuscript`), 28 probe jobs
+  `success`, three A42 shards still running — none cancelled. NOTES-E20 and NOTES-E21 carry a status line: work in
+  progress, deferred to round 6, unverified.
+- 2026-10-11T11:21Z — **round 5 closed.** Nodes: **E19 closed** — `ReachPure` is a theorem (`reachPure`) and, given H1
+  and H3, `K = Q3` iff H2 and A_miss (`pairCone_eq_Q3_iff_drive_exact`, each direction its own theorem), with the
+  generation step by exact finite words (`blockInvariant_of_drive`), the block form (`pairCone_eq_Q3_iff_block`), the
+  dense-control premises (i), (ii), (iv) in design and DENSE(θ₀) at [L], and the countercontrol family on
+  `theorem_Sprime_ineq` with its hypotheses checked exactly; RESULTS R-E19.1–R-E19.6 (CONJECTURE: design runs and exact
+  checks), draft S6 revised, LEDGER round-5 notes, HP-equivalence-14, -15, -16; classification NEW (ReachPure derived),
+  POSITIVE (the family), ELABORATING (angle-free Euler factors; the split of the closure identification). **E20, E21,
+  E22 deferred to round 6** by the owner's direction (WIP committed and labelled; HP-equivalence-17). Dispatches: 3 of
+  3 (runs 38124464622 failure at Build, 38132266383 and 38134245361 Build success with every print standard, gate red
+  only at `lean-manuscript`); no CI job or run cancelled. Cross-branch reads, each logged with commit and sha256:
+  `research/overview` @ `4c4a02b1` (the eight handoffs copied byte-identically; the round-4 audit, HO-18 v2, HO-28,
+  HO-29 read) and @ `51cce8ac` (OVERVIEW.md); `research/countermodels` @ `644bf0a1` (CmSprime, NOTES-C19, NOTES-C21,
+  `c19_groups.py`, `c21_rows.py`); `research/bridge` @ `a34d20b5` (BridgeDictionary, BridgeConverge, carried verbatim
+  onto the dev branch); `research/archive` @ `4dc0321c` (free). Deviations, each recorded where it happened: four
+  unauthorized overview extracts written by an over-broad loop and deleted unread (07:21Z); dev-branch writes under
+  `verification/` (the dev branch only, as every round); dispatch 1 logged only after the interruption, from the host's
+  record; timestamps written ahead of the measured time corrected before or at their commits (LOG 08:02Z, 10:34Z,
+  10:58Z; NOTES-E19 §2-b; NOTES-E20 S0-b; the E20 header); the E20 harness corrected after the resumption before its
+  first run, and S0-b's diagnosis of its run 1 later found wrong (10:39Z); the shell wrapper's `exit 1` line removed
+  from E20 run 1's `.err`; a debugging pass on a scratch copy of the E20 probe (not a recorded run); `EqvOneDictionary`
+  (E22) built in dispatch 2 although E22 was later deferred (queued before the narrowing; its §B belongs to E19); the
+  third dispatch carried E19's generation module instead of E21's (E21 deferred, no module written); S0-c's label for
+  DENSE(θ₀) ("introduced") revised in NOTES-E19 §3 to a mathematical statement at [L], recorded there.

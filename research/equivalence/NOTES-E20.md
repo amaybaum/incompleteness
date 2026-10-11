@@ -1,5 +1,8 @@
 # NOTES-E20 — E16's residual: odd chart dimension at least five with K∞-Geom
 
+**Status: work in progress, deferred to round 6 by the owner's direction of 2026-10-11T10:38Z; unverified; no result row.**
+
+
 Base L = `9f9f8257`. Node E20 of round 5 (priority 2). The residual R-E16.5: with K∞-Geom added (`SingletonFaces`,
 KInfFoundations.lean:139, or `RelStrictConvex`, :144), does a drivable, non-ellipsoidal token body of odd chart
 dimension `d ≥ 5` carry a native gate (`IsNot`, CompositeDimension.lean:210; `NativeGate`, :218: frame, `posFwd`,
