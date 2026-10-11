@@ -1,0 +1,5 @@
+== o9_scope ==
+S1  alpha = pi/8: det W = 1; trace W = sqrt(2)/2 + 1; minimal polynomial 2*x**2 - 4*x + 1 (monic over Z: False); rot(pi/8)^2 = rot(pi/4): True  -> True
+S2  alpha = pi/4: trace W = 1; minimal polynomial x - 1 (monic over Z: True); order 6  -> True
+CC  infinite-order test fires at alpha = pi/4: False  -> CC-OK (False as required)
+VERDICT SCOPE-ANGLE-SPECIFIC: at alpha = pi/8 (alpha/pi rational) the level-one group is infinite and contains the level-one group at pi/4; the level-one obstruction of O9-L1 belongs to the balanced angle

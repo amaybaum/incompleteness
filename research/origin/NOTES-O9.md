@@ -208,3 +208,25 @@ equal to a power of two is trivial, while larger carriers have nontrivial repres
 - The level-one argument is written ([W]) with exact checks of its finite parts ([X]); a kernel formalization would
   need the parity invariant over `MixR`, the averaging over ancilla assignments over `InstAvail`, and the two-square
   descent — not attempted this round.
+
+## 6. Scope of O9-S — S0 for `o9_scope.py`, written before its first run (2026-10-11T01:27:00Z)
+
+Fixed-point pass 2 (cross-propagation) asks whether O9-S could be read as "dense control needs α/π irrational". It
+should not, if the level-one obstruction is specific to angles where rot(α) is itself a Clifford element. Predictions:
+
+- **S1.** At α = π/8 (α/π rational) the level-one word rot(π/8) · (S rot(π/8) S†), S = `phaseGate (1,0)` = diag(1, i), has
+  determinant 1 and trace 2 cos²(π/8) = 1 + √2/2, whose minimal polynomial x² − 2x + 1/2 is not monic over ℤ: infinite
+  order. rot(π/8)² = rot(π/4) exactly, so the level-one group at π/8 contains the level-one group at π/4 and with it
+  the octahedral group (mod phase); an infinite closed subgroup of SO(3) containing it is SO(3) [W + L]: the n = 1
+  clause of `DenseUnitaryControl` holds at π/8.
+- **S2 (control).** At α = π/4 the same word has trace 2 cos²(π/4) = 1, an algebraic integer, and finite order (as
+  O9-L1 requires).
+- **CC.** The infinite-order test must not fire at α = π/4 (expected False).
+
+Run 1 of `o9_scope.py` (2026-10-11T01:27:36Z): `VERDICT SCOPE-ANGLE-SPECIFIC`, the countercontrol False as required;
+replay byte-identical. One pre-run edit before any run: the two matrix-equality tests made robust
+(`simplify(P − 1).is_zero_matrix` instead of structural equality). S1 and S2 as predicted (the π/4 word has order 6).
+So O9-S is a statement about the balanced angle only: at α = π/8 the level-one group is infinite and contains the
+level-one group at π/4, hence (closed subgroups of SO(3) [L]) it is dense in SU(2) up to phase and the n = 1 clause of
+`DenseUnitaryControl` holds there although α/π is rational. Classification: ELABORATING (O9-E1) — a scope guard on
+O9-S, not a new obstruction.
