@@ -636,3 +636,5 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   written (267 group elements). Predictions as stated in S0 (G3's `D_min` for `h₂` is `25/900 = 1/36`, as predicted).
 - 2026-10-11T10:33Z — **coordinator's usage-limit protection received**: commit and push at every finished step, not only
   at node close. Applied from this entry on.
+- 2026-10-11T10:33:52Z — **C23 independent checker run 1** (`experiments/c23_check.py`, reads only the certificate): 9/9,
+  `CHECK C23-CERTIFICATE-OK`; replay byte-identical. Every prediction of S0 for the checker held.

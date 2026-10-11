@@ -1,0 +1,11 @@
+K1  PASS  267 listed group elements; rejected: []
+K2  PASS  every instance: class recomputed from (alpha, beta), g in G_T, <h|gh> = 0, gh not parallel to h; classes ['i', 'ii', 'iii', 'iv', 'v']
+K3  PASS  <h|D(u,v)X_B h> identity: True; |beta+u alpha|^2 - |conj alpha + u conj beta|^2 = (|u|^2-1)(|alpha|^2-|beta|^2): True; det Psi(D(u,v)h) = v(h0h3 - u^2 h1h2): True (real coordinates)
+K4  PASS  lambda = (c*-1)/(4-2c*); <y,d_h> = 0; (gh)^+y(gh) = -31/2450 < 0; 200 samples: <y,d> >= 0 (min 0), <d,d_h> > 0, H1 at each: True; countercontrol <y_small, d_h> = -199/19800 < 0
+K5  PASS  y' = q0' + l1'(u0, L0), q0' PSD (all 15 principal minors), |u0| <= L0; w' = v'v'^+ + l1'(zeta, tau), |zeta| <= tau; y', w' in L1'* n L2'*; tr(y'w') = -6/625 < 0: True; IH = 1 (x) [[1,1],[1,-1]] maps the S2 circles onto C1', C2': True; circle defects are l1'(conj w,1), l2'(conj w,1): True
+K6  PASS  mixture: lambda, <h|gh> = 0, <y,d_h> = 0, (gh)^+y(gh) < 0; 16 Bell samples maximally entangled with <y,d_b> >= 0 and <d_b,d_h> > 0; 36 orbit samples >= 0: True; overlap condition: True; D_min = 1/324 > 0 with H1 at c: True
+K7  PASS  partners orthogonal to h, rank 3; {k perp partners} has dimension 1 and contains h: True; with k perp h: dimension 0; countercontrol (non-orthogonalizing image) rank 4
+K8  PASS  r = 2 classes: partners orthogonal to h, rank 2, k0 spans the solutions of k perp (partners, h), zero pairing on every partner, p1 + p2 != 0, tightness instances (U a torus element, u in the cap, x perp u, x'dx > 0, <d,UdU+> > 0, x'(UdU+)x < 0): ii c=3/2: x'(UdU+)x/|x|^2 = -0.076732; ii c=101/100: x'(UdU+)x/|x|^2 = -0.001535; iii c=3/2: x'(UdU+)x/|x|^2 = -0.075651; iii c=101/100: x'(UdU+)x/|x|^2 = -0.000400; iv c=3/2: x'(UdU+)x/|x|^2 = -0.071360; iv c=101/100: x'(UdU+)x/|x|^2 = -0.000239
+K9  PASS  two-vanishing-coordinate entangled seeds have a product in their orbit (g in G_T): True
+CHECKS 9/9
+CHECK C23-CERTIFICATE-OK
