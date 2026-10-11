@@ -1,0 +1,313 @@
+{
+  "schema": "oi-round6-audit-inputs-v1",
+  "main": "9f9f8257a980a1819fbbc1dc0019917cf8678626",
+  "overview": "5d3ccb3e737ded9dfccaabacc3ee901312cf5b20",
+  "record": "694219a43bc9af449784c2b4dbc5b38b44df96a2",
+  "design": "fd3640202f4b8abdf8d64ff82434eb10d3d18f5c",
+  "receipts": [
+    {
+      "path": "research/round6-transfer/inbox/HO-33-v2-bridge-to-origin-countermodels-equivalence-full-model-scope-relative-to-table-a2.md",
+      "source": "research/HANDOFFS/HO-33-v2-bridge-to-origin-countermodels-equivalence-full-model-scope-relative-to-table-a2.md",
+      "receiptBlob": "f32922400bd87191031230d6b8177af4df8791f8",
+      "sourceBlob": "f32922400bd87191031230d6b8177af4df8791f8",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-37-bridge-to-origin-equivalence-layer-flow-chain-without-substratum-avail.md",
+      "source": "research/HANDOFFS/HO-37-bridge-to-origin-equivalence-layer-flow-chain-without-substratum-avail.md",
+      "receiptBlob": "ea15ac7abd67da40f7ef3f110ba9bebb8e20d87f",
+      "sourceBlob": "ea15ac7abd67da40f7ef3f110ba9bebb8e20d87f",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-38-bridge-to-origin-equivalence-pair-availability-is-token-availability.md",
+      "source": "research/HANDOFFS/HO-38-bridge-to-origin-equivalence-pair-availability-is-token-availability.md",
+      "receiptBlob": "e99bb75611f0545f9c5eb32d13826687a5c75ac4",
+      "sourceBlob": "e99bb75611f0545f9c5eb32d13826687a5c75ac4",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-39-bridge-to-origin-equivalence-countermodels-sufficient-bridge-opdrive-transfer-clause.md",
+      "source": "research/HANDOFFS/HO-39-bridge-to-origin-equivalence-countermodels-sufficient-bridge-opdrive-transfer-clause.md",
+      "receiptBlob": "ed856ba2f1ea34bd984af315c5074c9b4c3ebe3d",
+      "sourceBlob": "ed856ba2f1ea34bd984af315c5074c9b4c3ebe3d",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-40-bridge-to-countermodels-equivalence-tower-closure-no-rank-one-surgery.md",
+      "source": "research/HANDOFFS/HO-40-bridge-to-countermodels-equivalence-tower-closure-no-rank-one-surgery.md",
+      "receiptBlob": "b9d294bd906d782fda135b7f65ec384231d4a943",
+      "sourceBlob": "b9d294bd906d782fda135b7f65ec384231d4a943",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-41-countermodels-to-equivalence-bridge-theorem-sprime-compact-design-module.md",
+      "source": "research/HANDOFFS/HO-41-countermodels-to-equivalence-bridge-theorem-sprime-compact-design-module.md",
+      "receiptBlob": "09d779493dbbc8d866eff6f6620bcbac56be5973",
+      "sourceBlob": "09d779493dbbc8d866eff6f6620bcbac56be5973",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-42-countermodels-to-bridge-equivalence-origin-tower-closure-surgery-obstruction.md",
+      "source": "research/HANDOFFS/HO-42-countermodels-to-bridge-equivalence-origin-tower-closure-surgery-obstruction.md",
+      "receiptBlob": "dc32b186f2151cde48e67702055e097640d7bc9c",
+      "sourceBlob": "dc32b186f2151cde48e67702055e097640d7bc9c",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-43-equivalence-to-bridge-origin-k2-target-h2-amiss-reachpure-derived.md",
+      "source": "research/HANDOFFS/HO-43-equivalence-to-bridge-origin-k2-target-h2-amiss-reachpure-derived.md",
+      "receiptBlob": "9473c660285edd47c694a949cfa870c7ce1c750f",
+      "sourceBlob": "9473c660285edd47c694a949cfa870c7ce1c750f",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-44-equivalence-to-countermodels-where-exotic-cones-must-break.md",
+      "source": "research/HANDOFFS/HO-44-equivalence-to-countermodels-where-exotic-cones-must-break.md",
+      "receiptBlob": "70a888f7365cd59c13e5d024287a1df5baeb94c5",
+      "sourceBlob": "70a888f7365cd59c13e5d024287a1df5baeb94c5",
+      "identical": true
+    },
+    {
+      "path": "research/round6-transfer/inbox/HO-45-origin-to-bridge-equivalence-countermodels-generated-group-exact-dense-channel-limit.md",
+      "source": "research/HANDOFFS/HO-45-origin-to-bridge-equivalence-countermodels-generated-group-exact-dense-channel-limit.md",
+      "receiptBlob": "e72ce5806d429b8f6452f69be9e0b8c9d320f714",
+      "sourceBlob": "e72ce5806d429b8f6452f69be9e0b8c9d320f714",
+      "identical": true
+    }
+  ],
+  "logHistory": [
+    {
+      "sha": "7b35ef425a577a21901e822e35cf9196f6b6c233",
+      "blob": "d2803483be66388684797687c76be262ef289121",
+      "extendsPrevious": null
+    },
+    {
+      "sha": "b7f54c379344c242fc0f64836f4bed60da6c4312",
+      "blob": "369cdfb4271398fff5030dafb1c6250bad89faa8",
+      "extendsPrevious": true
+    },
+    {
+      "sha": "f4597e4609ce80877cd0ac1cf471984c37100c43",
+      "blob": "4d4ba808e17089ff2081cd957256f8e02f1a31e1",
+      "extendsPrevious": true
+    },
+    {
+      "sha": "ed0534d87f4b0a43ff53dbd39d417a0d7832b4e4",
+      "blob": "2d4804167019c9c4402052679280c8e65ec7d24b",
+      "extendsPrevious": true
+    },
+    {
+      "sha": "33ae09c6e621e78a370f3eb20d473310d900dbb8",
+      "blob": "12673111eecd5fa382b2b2a446b1d4fcff3f1101",
+      "extendsPrevious": true
+    },
+    {
+      "sha": "2e9540968fd9d3880c36b7b9ee6c80e82909d7eb",
+      "blob": "9e80a2d0a0f9d3065f7244bb6483387c3cd9e42c",
+      "extendsPrevious": true
+    },
+    {
+      "sha": "694219a43bc9af449784c2b4dbc5b38b44df96a2",
+      "blob": "bd5be186d7b5a9e3dcf8a23152f19f5340e2002a",
+      "extendsPrevious": true
+    }
+  ],
+  "threads": {
+    "bridge": {
+      "receipts": [
+        {
+          "name": "HO-41-countermodels-to-equivalence-bridge-theorem-sprime-compact-design-module.md",
+          "blob": "09d779493dbbc8d866eff6f6620bcbac56be5973",
+          "identical": true
+        },
+        {
+          "name": "HO-42-countermodels-to-bridge-equivalence-origin-tower-closure-surgery-obstruction.md",
+          "blob": "dc32b186f2151cde48e67702055e097640d7bc9c",
+          "identical": true
+        },
+        {
+          "name": "HO-43-equivalence-to-bridge-origin-k2-target-h2-amiss-reachpure-derived.md",
+          "blob": "9473c660285edd47c694a949cfa870c7ce1c750f",
+          "identical": true
+        },
+        {
+          "name": "HO-45-origin-to-bridge-equivalence-countermodels-generated-group-exact-dense-channel-limit.md",
+          "blob": "e72ce5806d429b8f6452f69be9e0b8c9d320f714",
+          "identical": true
+        }
+      ],
+      "endpointPatches": [
+        {
+          "path": "research/bridge/LOG.md",
+          "deletedLines": 0,
+          "addedLines": 109
+        }
+      ]
+    },
+    "countermodels": {
+      "receipts": [
+        {
+          "name": "HO-33-v2-bridge-to-origin-countermodels-equivalence-full-model-scope-relative-to-table-a2.md",
+          "blob": "f32922400bd87191031230d6b8177af4df8791f8",
+          "identical": true
+        },
+        {
+          "name": "HO-39-bridge-to-origin-equivalence-countermodels-sufficient-bridge-opdrive-transfer-clause.md",
+          "blob": "ed856ba2f1ea34bd984af315c5074c9b4c3ebe3d",
+          "identical": true
+        },
+        {
+          "name": "HO-40-bridge-to-countermodels-equivalence-tower-closure-no-rank-one-surgery.md",
+          "blob": "b9d294bd906d782fda135b7f65ec384231d4a943",
+          "identical": true
+        },
+        {
+          "name": "HO-44-equivalence-to-countermodels-where-exotic-cones-must-break.md",
+          "blob": "70a888f7365cd59c13e5d024287a1df5baeb94c5",
+          "identical": true
+        },
+        {
+          "name": "HO-45-origin-to-bridge-equivalence-countermodels-generated-group-exact-dense-channel-limit.md",
+          "blob": "e72ce5806d429b8f6452f69be9e0b8c9d320f714",
+          "identical": true
+        }
+      ],
+      "endpointPatches": [
+        {
+          "path": "research/countermodels/LOG.md",
+          "deletedLines": 0,
+          "addedLines": 108
+        },
+        {
+          "path": "research/countermodels/NOTES-C23.md",
+          "deletedLines": 0,
+          "addedLines": 114
+        },
+        {
+          "path": "research/countermodels/RESULTS.md",
+          "deletedLines": 0,
+          "addedLines": 4
+        }
+      ]
+    },
+    "origin": {
+      "receipts": [
+        {
+          "name": "HO-33-v2-bridge-to-origin-countermodels-equivalence-full-model-scope-relative-to-table-a2.md",
+          "blob": "f32922400bd87191031230d6b8177af4df8791f8",
+          "identical": true
+        },
+        {
+          "name": "HO-37-bridge-to-origin-equivalence-layer-flow-chain-without-substratum-avail.md",
+          "blob": "ea15ac7abd67da40f7ef3f110ba9bebb8e20d87f",
+          "identical": true
+        },
+        {
+          "name": "HO-38-bridge-to-origin-equivalence-pair-availability-is-token-availability.md",
+          "blob": "e99bb75611f0545f9c5eb32d13826687a5c75ac4",
+          "identical": true
+        },
+        {
+          "name": "HO-39-bridge-to-origin-equivalence-countermodels-sufficient-bridge-opdrive-transfer-clause.md",
+          "blob": "ed856ba2f1ea34bd984af315c5074c9b4c3ebe3d",
+          "identical": true
+        },
+        {
+          "name": "HO-42-countermodels-to-bridge-equivalence-origin-tower-closure-surgery-obstruction.md",
+          "blob": "dc32b186f2151cde48e67702055e097640d7bc9c",
+          "identical": true
+        },
+        {
+          "name": "HO-43-equivalence-to-bridge-origin-k2-target-h2-amiss-reachpure-derived.md",
+          "blob": "9473c660285edd47c694a949cfa870c7ce1c750f",
+          "identical": true
+        }
+      ],
+      "endpointPatches": [
+        {
+          "path": "research/origin/LOG.md",
+          "deletedLines": 0,
+          "addedLines": 17
+        },
+        {
+          "path": "research/origin/RESULTS.md",
+          "deletedLines": 0,
+          "addedLines": 24
+        }
+      ]
+    },
+    "equivalence": {
+      "receipts": [
+        {
+          "name": "HO-33-v2-bridge-to-origin-countermodels-equivalence-full-model-scope-relative-to-table-a2.md",
+          "blob": "f32922400bd87191031230d6b8177af4df8791f8",
+          "identical": true
+        },
+        {
+          "name": "HO-37-bridge-to-origin-equivalence-layer-flow-chain-without-substratum-avail.md",
+          "blob": "ea15ac7abd67da40f7ef3f110ba9bebb8e20d87f",
+          "identical": true
+        },
+        {
+          "name": "HO-38-bridge-to-origin-equivalence-pair-availability-is-token-availability.md",
+          "blob": "e99bb75611f0545f9c5eb32d13826687a5c75ac4",
+          "identical": true
+        },
+        {
+          "name": "HO-39-bridge-to-origin-equivalence-countermodels-sufficient-bridge-opdrive-transfer-clause.md",
+          "blob": "ed856ba2f1ea34bd984af315c5074c9b4c3ebe3d",
+          "identical": true
+        },
+        {
+          "name": "HO-40-bridge-to-countermodels-equivalence-tower-closure-no-rank-one-surgery.md",
+          "blob": "b9d294bd906d782fda135b7f65ec384231d4a943",
+          "identical": true
+        },
+        {
+          "name": "HO-41-countermodels-to-equivalence-bridge-theorem-sprime-compact-design-module.md",
+          "blob": "09d779493dbbc8d866eff6f6620bcbac56be5973",
+          "identical": true
+        },
+        {
+          "name": "HO-42-countermodels-to-bridge-equivalence-origin-tower-closure-surgery-obstruction.md",
+          "blob": "dc32b186f2151cde48e67702055e097640d7bc9c",
+          "identical": true
+        },
+        {
+          "name": "HO-45-origin-to-bridge-equivalence-countermodels-generated-group-exact-dense-channel-limit.md",
+          "blob": "e72ce5806d429b8f6452f69be9e0b8c9d320f714",
+          "identical": true
+        }
+      ],
+      "endpointPatches": [
+        {
+          "path": "research/equivalence/LOG.md",
+          "deletedLines": 0,
+          "addedLines": 130
+        }
+      ]
+    }
+  },
+  "sourceBlobs": {
+    "operational": "9a71b5872df3c88ca119612ef4d90ab259955ad4",
+    "locality_full": "d96b65bd262e658baf0be52cfaf4b6e33de0dd28",
+    "i3": "49f08221369319527f93d08e11e998e0c4d269cb",
+    "i4": "6262bebcebd87e12a4d7f5482c4fb0c1126a5ec7",
+    "r6_reassessment": "04e35df63bade710994d57b317bc0a599551277c",
+    "b22": "6a60d224c82d4cd46e591d28ab12884a3be43c91",
+    "b23": "c61716ac5e8846f27b66882df197578a2e375682",
+    "e23": "398298e429c51429f4e789b2cc59b41fcf9ee44b",
+    "results": "1d1902dea13fe51710b0a86e6aae4a2ae49596fd",
+    "channel": "2c7c56b63c7ac82f95a63e566c7c431870914e0c"
+  },
+  "ci": {
+    "run": 38151796092,
+    "job": 114506598572,
+    "head": "fd3640202f4b8abdf8d64ff82434eb10d3d18f5c",
+    "build": "failure",
+    "releaseGate": "skipped",
+    "retrieval": "complete 38860-line decoded job log retrieved on 2026-10-11; SHA256 in README"
+  }
+}
+

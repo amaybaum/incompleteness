@@ -63,3 +63,4 @@ by this batch's budget; a failure is retained and named.
 The subsequent main PR is a native V3 audit round, drafted from main with a frozen scope,
 separate from these research branches. F and E require the owner's exact-commit
 designations and exact-head all-green workflow attestations under AGENTS.md section A.39.
+

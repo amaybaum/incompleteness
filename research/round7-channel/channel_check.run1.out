@@ -1,0 +1,18 @@
+U: PASS
+RESET: PASS
+BRANCH: PASS
+TP: PASS
+TOKEN: PASS (28 matrix-unit cases)
+PAIR: PASS (112 matrix-unit cases)
+DICT: PASS (112 Pauli table cases)
+J: PASS (16 Pauli table cases)
+ZF: PASS (drive=-1/10, mixer=-1/8)
+OCT: PASS (24 actions; failing value=-1/4)
+OPEN: PASS (finite images interior; limiting boundary point excluded)
+KAPPA: PASS (pair=-5/4; PSD test=-1/2)
+CC-Z: PASS
+CC-OUTCOME: PASS
+CC-RESET: PASS
+CC-ID: PASS
+CC-CLIFFORD: PASS
+CHANNEL-CHECK: PASS; 17 checks; 140 matrix-unit cases

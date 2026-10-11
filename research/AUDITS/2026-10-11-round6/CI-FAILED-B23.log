@@ -1,0 +1,71 @@
+2026-10-11T15:40:39.1908441Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-10-11T15:40:39.1909022Z warning: OIBridge/EqvK2Generation.lean:484:6: Unused tactic linter: `(apply Submonoid.subset_closure; simp [driveGens])` does nothing
+2026-10-11T15:40:39.1909366Z 
+2026-10-11T15:40:39.1909520Z Note: This linter can be disabled with `set_option linter.unusedTactic false`
+2026-10-11T15:40:39.1909891Z warning: OIBridge/EqvK2Generation.lean:484:6: this tactic is never executed
+2026-10-11T15:40:39.1910114Z 
+2026-10-11T15:40:39.1910274Z Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+2026-10-11T15:40:39.1910831Z info: OIBridge/EqvK2Generation.lean:551:0: 'OIBridge.EqvK2Generation.blockMat_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1911562Z info: OIBridge/EqvK2Generation.lean:552:0: 'OIBridge.EqvK2Generation.cycMat_conjTranspose_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1912275Z info: OIBridge/EqvK2Generation.lean:553:0: 'OIBridge.EqvK2Generation.rotRe_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1912945Z info: OIBridge/EqvK2Generation.lean:554:0: 'OIBridge.EqvK2Generation.su_euler' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1913622Z info: OIBridge/EqvK2Generation.lean:555:0: 'OIBridge.EqvK2Generation.conjInv_idle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1914441Z info: OIBridge/EqvK2Generation.lean:556:0: 'OIBridge.EqvK2Generation.rtrick' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1915119Z info: OIBridge/EqvK2Generation.lean:557:0: 'OIBridge.EqvK2Generation.conjInv_ctrl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1915842Z info: OIBridge/EqvK2Generation.lean:558:0: 'OIBridge.EqvK2Generation.blockInvariant_of_drive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1916560Z info: OIBridge/EqvK2Generation.lean:559:0: 'OIBridge.EqvK2Generation.reachPure' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1917351Z info: OIBridge/EqvK2Generation.lean:560:0: 'OIBridge.EqvK2Generation.pairCone_eq_Q3_of_drive_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1918072Z info: OIBridge/EqvK2Generation.lean:561:0: 'OIBridge.EqvK2Generation.Q3_cnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.1918789Z info: OIBridge/EqvK2Generation.lean:562:0: 'OIBridge.EqvK2Generation.pairCone_eq_Q3_iff_drive_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.5868483Z ✖ [3653/3655] Building OIBridge.BridgeChannelTransfer (2.4s)
+2026-10-11T15:40:39.5875442Z trace: .> LEAN_PATH=/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Cli/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/batteries/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/Qq/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/aesop/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/importGraph/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/plausible/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/packages/mathlib/.lake/build/lib/lean:/home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean /home/runner/.elan/toolchains/leanprover--lean4---v4.33.0/bin/lean /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/OIBridge/BridgeChannelTransfer.lean -o /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/BridgeChannelTransfer.olean -i /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/lib/lean/OIBridge/BridgeChannelTransfer.ilean -c /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/BridgeChannelTransfer.c --setup /home/runner/work/incompleteness/incompleteness/verification/lean-mathlib/.lake/build/ir/OIBridge/BridgeChannelTransfer.setup.json --json
+2026-10-11T15:40:39.5881070Z error: OIBridge/BridgeChannelTransfer.lean:100:13: failed to synthesize instance of type class
+2026-10-11T15:40:39.5881508Z   PartialOrder ℂ
+2026-10-11T15:40:39.5881620Z 
+2026-10-11T15:40:39.5881900Z Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+2026-10-11T15:40:39.5882446Z error: OIBridge/BridgeChannelTransfer.lean:103:12: failed to synthesize instance of type class
+2026-10-11T15:40:39.5882816Z   PartialOrder ℂ
+2026-10-11T15:40:39.5882924Z 
+2026-10-11T15:40:39.5883191Z Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+2026-10-11T15:40:39.5883879Z error: OIBridge/BridgeChannelTransfer.lean:105:9: failed to synthesize instance of type class
+2026-10-11T15:40:39.5884321Z   PartialOrder ℂ
+2026-10-11T15:40:39.5884423Z 
+2026-10-11T15:40:39.5884688Z Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+2026-10-11T15:40:39.5885446Z info: OIBridge/BridgeChannelTransfer.lean:149:0: 'OIBridge.BridgeChannelTransfer.channelTransfer_conjChannel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.5886273Z info: OIBridge/BridgeChannelTransfer.lean:150:0: 'OIBridge.BridgeChannelTransfer.unitaryTransfer_of_channelTransfer' depends on axioms: [propext,
+2026-10-11T15:40:39.5886761Z  Classical.choice,
+2026-10-11T15:40:39.5886941Z  Quot.sound]
+2026-10-11T15:40:39.5887506Z info: OIBridge/BridgeChannelTransfer.lean:151:0: 'OIBridge.BridgeChannelTransfer.channelTransfer_of_identified_stateSpace' depends on axioms: [propext,
+2026-10-11T15:40:39.5888021Z  Classical.choice,
+2026-10-11T15:40:39.5888194Z  Quot.sound]
+2026-10-11T15:40:39.5888699Z info: OIBridge/BridgeChannelTransfer.lean:152:0: 'OIBridge.BridgeChannelTransfer.channelTransfer_Q3' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.5889500Z info: OIBridge/BridgeChannelTransfer.lean:153:0: 'OIBridge.BridgeChannelTransfer.transfer_of_channelApproximation' depends on axioms: [propext,
+2026-10-11T15:40:39.5889971Z  Classical.choice,
+2026-10-11T15:40:39.5890136Z  Quot.sound]
+2026-10-11T15:40:39.5890609Z info: OIBridge/BridgeChannelTransfer.lean:154:0: 'OIBridge.BridgeChannelTransfer.bridge_channel_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-11T15:40:39.5891378Z info: OIBridge/BridgeChannelTransfer.lean:155:0: 'OIBridge.BridgeChannelTransfer.bridge_channel_half_of_selfDual' depends on axioms: [propext,
+2026-10-11T15:40:39.5891886Z  Classical.choice,
+2026-10-11T15:40:39.5892053Z  Quot.sound]
+2026-10-11T15:40:39.5892234Z error: Lean exited with code 1
+2026-10-11T15:40:39.6870058Z Some required targets logged failures:
+2026-10-11T15:40:39.6870410Z - OIBridge.BridgeChannelTransfer
+2026-10-11T15:40:39.6876816Z error: build failed
+2026-10-11T15:40:39.7468687Z ##[error]Process completed with exit code 1.
+2026-10-11T15:40:39.7608921Z Post job cleanup.
+2026-10-11T15:40:39.8409456Z [command]/usr/bin/git version
+2026-10-11T15:40:39.8452113Z git version 2.55.0
+2026-10-11T15:40:39.8486442Z Temporarily overriding HOME='/home/runner/work/_temp/ccff4690-de2d-4484-a297-3c0e61734bf1' before making global git config changes
+2026-10-11T15:40:39.8487402Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-11T15:40:39.8491621Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/incompleteness/incompleteness
+2026-10-11T15:40:39.8537383Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-11T15:40:39.8581818Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-11T15:40:39.8863022Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-11T15:40:39.8894990Z http.https://github.com/.extraheader
+2026-10-11T15:40:39.8907025Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-11T15:40:39.8956086Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-11T15:40:39.9209559Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-11T15:40:39.9257061Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-11T15:40:39.9659631Z Cleaning up orphan processes
+2026-10-11T15:40:39.9968134Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+
