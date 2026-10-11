@@ -87,3 +87,47 @@ and, with the drive, forces the ellipsoid below chart dimension 5 with no introd
 answer in chart dimension 7 unless the probe finds a clause the hybrid fails (moderate-high: positivity of the hybrid
 gate rests on the block structure of its maximal cone, written before the probe); the decisive question with K∞-Geom
 added stays OPEN.
+
+## 1. Probe a — the three chart-4 tokens (measured)
+
+`experiments/e16a_tokens_pair.py` run 1 (started 03:35:01Z, after commit `aca4fc91`; decision rule unchanged): 11/11,
+`COUNTER XG1/XG2/XS1/XS2 fails as stated`, `VERDICT E16A-CHART4-PAIR-LEVEL-SEPARATED`; replay byte-identical (py
+`b032f5c4…`, out `fa854faf…`). Measured: the tokens' NOT `diag(−1, −1, 1, 1)` (the flow of `rotFun4` at `π`, parsed) has
+`tr H = 1`, so on `W 4` `tr(actC N) = 5` and `tr(actC N ∘ actT N) = 1`: no invertible gate satisfies relC; the same holds
+for all fifteen non-identity diagonal involutions of `ℝ⁴`; for `d = 1 … 6` the count is met exactly at
+`(d, m) = (1, 1), (3, 2), (5, 3)`; the kernel's `cnot` (with `nflip`), `cnot1` (with `neg1`) and `gRev 2` (with
+`nK 2 = diag(1, 1, −1, −1, −1)`) satisfy relC, all with `tr H = 0`; `refl3`, `negId3` do not meet the count (8 against 4,
+−8 against 4). Self-duality: `(1, y)` and `(1, −y)`, `y = (5/6, 0, 0, 5/6) ∈ Ω₄`, pair `−7/18` for the Euclidean form, the
+ball's sample pairs are all `≥ 0`; for Ω⋆ (43 exact cone points pairwise `≥ 0` for its `M`) and Ω_cs, the table `M⁻¹`
+lies in `K_max` and pairs `tr R = −1` with a form that is nonnegative on products: `K_min ≠ K_max`. Every S0 prediction for
+the probe held. **The three instances agree with (A1) and (A4).**
+
+## S0-b (written 2026-10-11T03:36Z, after probe a and before probe b) — the residual, odd chart dimension
+
+**Why this branch.** (A1)–(A2) settle chart dimension below 5 with no introduced hypothesis; the decisive question is
+then whether odd chart dimension `≥ 5` admits a non-ellipsoidal token meeting the pair-level hypotheses. A negative answer
+needs an exact body (rule 1). The candidate of (A3) is tested exactly, every clause in the kernel's form.
+
+**The body.** Ω_h ⊂ ℝ⁷, chart coordinates `y = (w, a, b)`, `a, b ∈ ℝ³`; sector weights `t₀ = (1 + w)/2`, `t₁ = (1 − w)/2`,
+sector Bloch parts `r₀ = (a + b)/2`, `r₁ = (a − b)/2`; Ω_h = `{|r₀| ≤ t₀, |r₁| ≤ t₁}` — a qubit with a two-sector
+superselection rule (its cone `L₃ ⊕ L₃`). Homogenized coordinates `(T, w, a, b)` are the image of `V_q ⊗ V_b` (qubit
+table index ⊗ sector index) under the linear map `Φ`: `T = t₀ + t₁`, `w = t₀ − t₁`, `a = r₀ + r₁`, `b = r₀ − r₁`.
+NOT `N = 1 ⊕ nflip ⊕ nflip` on `(w, a, b)`, corner `z = (0, e₃, 0)` (unit; `hom z = hom_q(z3) ⊗ (e₀ + e₁)/2`). Gate
+`G = (Φ ⊗ Φ)(cnot ⊗ id)(Φ ⊗ Φ)⁻¹` on `W 7`. Drive: `ball3Drive`'s flow and `J` acting on `a` and `b` together. Composite
+`K = {ω : every sector block of (Φ ⊗ Φ)⁻¹ ω is in Q3}`.
+
+**Predictions for `experiments/e16b_hybrid.py`** (sign, strength, reason). Every check PASS: Ω_h's chart objects (`IsNot`;
+the drive's fields at exact angles; a sharp seed; compact, convex, interior), `NativeGate`'s five clauses on all 64 basis
+tables (frame, relT, relC) and on exact product inputs (`posFwd`, `posInv`: each sector block of the image is a PSD
+table, so every product of effects — which decompose by sector — is nonnegative; checked also directly on sample extreme
+effects), `G` an involution, `Entangling` (the image of the pure product `(sector 0, +x) ⊗ (sector 0, +z)` has block
+`phiW`, a non-product table), `tr H = 0` (the count of (A1) at `d = 7`); the composite `K` contains the products, is
+invariant under `G` and under the drive on one token, and is self-dual for the product form `M ⊗ M` with `M` Euclidean in
+the `V_q ⊗ V_b` basis (blockwise `Q3 = dualW Q3`); and Ω_h is no ellipsoid (a boundary segment) and fails `SingletonFaces`
+(the zero face of the sector weight `t₁` is the sector-0 ball). Strength: high for the algebra (every clause reduces to
+the kernel's `d = 3` facts blockwise), moderate-high that the chart transport through `Φ` is coded right on the first
+run (D1-type checks expose it). Countercontrols, each failing as stated: `SingletonFaces` for Ω_h; "Ω_h's boundary holds
+no segment"; "the gate with `cnot` replaced by the identity is entangling".
+
+**Decision rule** (in the probe's header, fixed now): `VERDICT E16B-HYBRID-MEETS-PAIR-LEVEL-NOT-ELLIPSOID` iff every
+check and every countercontrol behaves as stated.

@@ -1,0 +1,17 @@
+PASS G1 -- rotFun4_apply parsed: True; N = flow(pi) = diag(-1, -1, 1, 1): involution, flips the unit e_0, preserves |x|^2 and the last coordinate (IsNot for Omega_4, Omega_star, Omega_cs)
+PASS G2 -- on W 4: tr(actC N) = 5 = 5 tr H, tr(actC N o actT N) = 1 = (tr H)^2, tr H = 1; not similar, no invertible G with relC
+PASS G3 -- all 15 non-identity diagonal involutions of R^4: (d+1) tr H != (tr H)^2
+PASS G4 -- d = 1..6: the identity holds exactly for [(1, 1), (3, 2), (5, 3)]
+PASS C1 -- d = 3: kernel cnot with nflip satisfies relC and relT on 16 basis tables; tr H = 0
+PASS C2 -- d = 1: cnot1 with neg1 satisfies relC; d = 5: gRev 2 with nK 2 = diag[1, 1, -1, -1, -1] satisfies relC and relT; tr H = 0 for both (definitions parsed: True, True)
+PASS C3 -- d = 3: refl3 tr H = 2 (8 vs 4), negId3 tr H = -2 (-8 vs 4): no invertible G with relC
+PASS S1 -- y = (5/6, 0, 0, 5/6) in Omega_4, y.y = 25/18, <(1, y), (1, -y)> = -7/18 < 0; axis support 1; flat directions at (e_0, 0) and (0, 1); Hessian positive definite at (1/2, 1/2, 0, 1/2)
+PASS S2 -- eball 4: every pairing 1 + p.q of 7 sample points scaled into the ball is >= 0
+PASS S3 -- Omega_star: 43 exact cone points pairwise >= 0 for M; R preserves the cone; <omega_Phi, Ma (x) Mb> = <a, b>_M; phi(omega_Phi) = tr R = -1
+PASS S4 -- Omega_cs: <omega_Phi, Ma (x) Mb> = <a, b>_M; phi(omega_Phi) = tr R = -1; R fixes u, v and |X|, so it preserves the cone
+COUNTER XG1 fails as stated -- G = id satisfies relT with the tokens' N on all 25 basis tables
+COUNTER XG2 fails as stated -- G = id fails relC with the tokens' N
+COUNTER XS1 fails as stated -- two points of C(Omega_4) pair -7/18 for the Euclidean form
+COUNTER XS2 fails as stated -- a form nonnegative on the products of Omega_star pairs -1 with omega_Phi
+checks: 11, failures: 0
+VERDICT E16A-CHART4-PAIR-LEVEL-SEPARATED

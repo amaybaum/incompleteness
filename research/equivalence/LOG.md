@@ -479,3 +479,12 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   decision:** §G is E15 work (owner's priority 2); its design module will be built in this round's shared design
   dispatch together with E17's and E18's modules (one dispatch for the three, two left for repairs), not in a dispatch of
   its own. Probe `e16b_hybrid` (written with S0-b at 03:36Z, before addendum 2) is unaffected and not yet run.
+- 2026-10-11T03:43Z — E16 probe a measured. `experiments/e16a_tokens_pair.py` run 1 (started 03:35:01Z, after commit
+  `aca4fc91`; decision rule unchanged): 11/11, `COUNTER XG1/XG2/XS1/XS2 fails as stated`,
+  `VERDICT E16A-CHART4-PAIR-LEVEL-SEPARATED`; replay byte-identical (py `b032f5c4…`, out `fa854faf…`). Every S0 prediction
+  for the probe held: no native gate on any body of chart dimension 4 (relC alone; the three tokens and `eball 4` alike);
+  product-form pair self-duality excludes Ω₄ and admits Ω⋆ and Ω_cs, whose `K_min` and `K_max` differ. NOTES-E16 §1 and
+  S0-b (written 03:36Z: the hybrid body, its chart transport, predictions) and the exact probe
+  `experiments/e16b_hybrid.py` (decision rule in its header, written 03:36Z) committed together, before that probe's
+  first run. Pre-run review fixed one defect of the probe (an identity matrix bound by an assignment expression inside a
+  short-circuited conjunction, which could leave it undefined); the decision rule was not changed.
