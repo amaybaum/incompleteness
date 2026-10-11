@@ -216,6 +216,89 @@ OpDrive(θ₀) is **sufficient, not necessary** for the continuous half of the b
 `{rot(π/4), diag(1, ζ₈)}` (the Hadamard–T set, [L]) and `{rot θ₀}` ([K], D7) reach the same closure, none exactly, and
 none is available in any monomial candidate.
 
+## S0 addendum — written 2026-10-11T11:04Z, before the first run of `o14_opdrive.py` and before any dispatch
+
+The owner's narrowing (LOG 10:39Z): round 5 is O14 only; O15 and O16 are carried to round 6. The S0 above stands as
+written. Its D6 is O14's characterization of the stated access's reversible group under the owner's item (b) of 07:55Z
+(not O15), and its D10's `o15_core` is replaced by `latticeGroup_core`. One miscount in S0 is corrected here, before
+any run: the dev branch carries five modules outside the census (`OriginTokenOrder`, `OriginAngle`, `BridgeAvail`,
+`BridgeAvailFull`, `OriginDrive`), not seven; the gate prediction is red only on `lean-manuscript`, naming no module
+but these five.
+
+**Module as it will be dispatched** (`OriginDrive.lean`, 1273 lines, 110 theorems with one `#print axioms` line each,
+sha256 2639b3ceae9fab54…dc44a7d8 at 11:02Z). Added to D1–D10:
+
+- **D2′ (the drive is entailed by the target).** `opDrive_of_control`, `opDrive_of_qm`: composite unitary control on
+  the token's generated theory, and so exact quantum mechanics (`physical_of_exactAll`), gives OpDrive(θ₀). In the
+  exact reading no premise set reaching quantum mechanics avoids the drive.
+- **D3′.** `driveTheory_closure`, `driveTheory_token_not_control`, `driveTheory_not_qm`, `driveTheory_not_phaseFree`,
+  `driveTheory_not_layerFlowExecutable`, `drive_not_rot`.
+- **D4′ (no density in a submonomial class: the closure (ii) of every monomial candidate).**
+  `not_levelOneClause_of_submonomial`: for every architecture whose members are submonomial, the level-one clause of
+  `DenseUnitaryControl` fails — the balanced mixer stays at operator distance at least `√2/2` from every multiple of
+  every available level-one unitary (through `FrozenSourcing.norm_entry_le_l2_opNorm`); instances for the drive class,
+  FM and the monomial interface; `drive_` and `substratum_not_denseUnitaryControl`.
+- **D6′.** `rootLat_normalize`, `lattice_avail_finite_upToScalar`, `mixEmpty_avail_finite_upToScalar`: in FM, and for
+  `MixR ∅`, every available unitary at every carrier is a nonzero multiple of a matrix with entries in `{0} ∪ μ₄`, a
+  finite set fixed by the carrier: the reversible group is finite up to scalar at every carrier (the exact orders per
+  level are X6's).
+- **D8′.** `discard_tokOp_eq U m` for the level `m + 1`, `tokenAvail_descend` from `m + 1`, `reindex_prodUnique`.
+- **D10′.** `o14_core` (19 conjuncts, D2′ included) and `latticeGroup_core` (5 conjuncts).
+- Build success; every print on `[propext, Classical.choice, Quot.sound]` or a subset of it; no `sorryAx`;
+  `lean-axioms` PASS.
+
+**Written argument W1 (the valuation form of O9's norm step, for every rational angle), predicted.** For `α = pπ/q`
+and every level `n`, `conj(zPh ⊗ 1ₙ)` is available in `MixR {α}` by no protocol. Put `R = ℤ[ζ_N][1/2]`,
+`N = lcm(4, 2q)`, so that `i`, `cos α`, `sin α` lie in `R`. (1) Every member is `a · K₀` with `|a| ≤ 1` and `K₀` a
+contraction with entries in `R` (O9 Claim 1's induction over `MixR`, without the parity). (2) A unitary member has
+`|a| = 1` (O9 Claim 2). (3) Every available family is an average over uniform ancilla assignments of trace-preserving
+Kraus families with entries in `R` (O9 Claim 3's induction over the five constructors). (4) A unitary channel is an
+extreme point of the channels, so every assignment's family is `{c_j · (zPh ⊗ 1ₙ)}` with `Σ |c_j|² = 1` (O9 Claim 4),
+and `c_j`, `c_j w` lie in `R`. (5) Let `P` be a prime of `ℤ[ζ_N]` over `(2 − i)`; `P ∤ 2`, `v_P(2 + i) = 0` and
+`w = (2 + i)/(2 − i)`, so `v_P(w) < 0` and every `c_j` lies in `P`; `c̄_j ∈ R`, so `Σ c_j c̄_j ∈ P`, against
+`Σ |c_j|² = 1`. The argument fails, as it must, at `θ₀`, where `rot θ₀` has entries `3/5`, `4/5` and `5` is inverted.
+[W]; X11 checks its arithmetic inputs and its consistency at `π/8`.
+
+**Written argument W2 (the `InstAvail` closure against the reversible group, at the Clifford angle), predicted.** In
+`MixR {π/4}` the circuit `U = (1 ⊗ H ⊗ H) · Tof · (S ⊗ 1 ⊗ 1) · Tof · (1 ⊗ H ⊗ H)` on the token and two ancilla
+qubits (carrier `Fin 2 × Fin 4`) is a member: `H = rot(π/4) · Z` on an ancilla through a relabelling, `Tof` a
+permutation, `S` a product of quarter phases. A protocol of the kernel's constructors — uniform attachment of the
+ancillas, readout and a permutation to the value `0` (`readout`, `bind`, `op`), `U` (`op`), readout of the ancillas, the
+correction `Z` after a failure (`bind`, `op`), `k` repetitions, coarse-graining and discard — makes available exactly
+`Φ_k = (1 − (3/8)^k) · conj(zPh) + (3/8)^k · id` at level one (and with a spectator at every level). So `conj(zPh)` is a
+limit of available channels in a class whose level-one reversible group is finite (O9-L1) and in which the drive is not
+available (W1): the closure of the `InstAvail` closure strictly exceeds the closure of the reversible group, and every
+closed set of states invariant under all available channels of `MixR {π/4}` is invariant under the drive. No such
+limit exists on a fourth-root lattice: the coefficient of `|0⟩⟨1|` in the image of `|0⟩⟨1|` under an available channel
+lies in the square `|Re| + |Im| ≤ 1` (the convex hull of `μ₄ ∪ {0}`, closed under limits), while `conj(zPh)` gives `w̄`,
+with `|Re| + |Im| = 7/5`. [W]; X9 and X10 check the exact inputs.
+
+**Script additions** (the decision rule extended in the header before run 1):
+- **X9.** `H = rot(π/4) · Z` exactly; `U` unitary; the blocks `K_m = block_{m,0}(U)`: `K_0 = ((3 + i)/4) · zPh`, `K_1`,
+  `K_2`, `K_3` multiples of `Z`, `|κ|² = 5/8`, `Σ_{m ≥ 1} |β_m|² = 3/8`; the `k`-round channel equals
+  `(1 − (3/8)^k) conj(zPh) + (3/8)^k id` on the four matrix units for `k ≤ 6`.
+- **X10.** For every `2 × 2` monomial with entries in `μ₄` (32 of them) the coefficient lies in `μ₄ ∪ {0}`;
+  `|Re w̄| + |Im w̄| = 7/5 > 1`.
+- **X11.** `(2 + i)(2 − i) = 5`, `(2 + i)² = 3 + 4i`, `w (2 − i) = 2 + i`, and `2 + i`, `2 − i` are not associates in `ℤ[i]`;
+  `rot(π/8)` has entries in `ℤ[ζ₁₆][1/2]`; the words of length `≤ 10` in `rot(π/8)`, `S`, `X` contain no unit multiple
+  of `zPh`.
+- **Positive controls.** PC4 `Σ_m K_m† K_m = 1`; PC5 the same words contain a unit multiple of `diag(1, ζ₈)` (the search
+  reaches non-Clifford diagonals); PC6 the square test accepts `1`.
+- **Countercontrols (each expected False).** CC8 `|κ| = 1`; CC9 a unit multiple of `zPh` among the words; CC10
+  `|Re w̄| + |Im w̄| ≤ 1`.
+
+Second decision line (fixed in the header before run 1): `VERDICT-R O14-DRIVE-IN-CHANNEL-CLOSURE-AT-CLIFFORD-ANGLE` if
+X9–X11 hold, PC4–PC6 are True and CC8–CC10 are False; `VOID-R` if any of these countercontrols is True or positive
+controls False; `UNDECIDED-R` otherwise.
+
+**Placements, the S0 paragraph extended (before any run).** In the exact reading the drive is entailed by quantum
+mechanics (D2′): "sufficient, not necessary" is a statement about premises — other premise sets entail it (control; the
+layer flow with the quarter phase, X3) — and in the invariance reading about closures: a dense generating set without
+the drive does the same work, `MixR {π/8}` being the separating model (level-one density, O12-T4; no drive, W1). In the
+invariance reading the non-monomial datum the bridge needs for `J`, taken as the balanced mixer, already yields
+invariance under the drive (W2): the phase intervention at θ₀ is then no additional premise of that reading. Every
+placement that depends on the transfer clause (T)_𝓘 stays provisional.
+
 ## 0. Verdict
 
 (Written after the run and the dispatch; see §0 below the S0 block in the committed version.)
