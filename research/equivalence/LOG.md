@@ -618,3 +618,53 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `LocalityPreserving` (:475) after QuasilocalCharacterization.lean:168 resolves; its `OISystem` (:463) followed a
   citation of QuasilocalAlgebra.lean, whose line 463 is blank — the declaration is QuasilocalCharacterization.lean:463.
   Corrected in place to the full citation, which run 5 then checks; no other text changed.
+- 2026-10-11T05:17Z — `experiments/e8_cite_check.py` run 5 (started 05:15:26Z, after commit `bc0820cf`; decision rule
+  unchanged): 74 distinct citations (153 occurrences, 69 named pairs), countercontrols X1–X3 fail as stated,
+  `VERDICT CITATIONS-RESOLVE`, `exit 0`; replay byte-identical (`cmp` silent; py `88847d31…`, out `e9168406…`). The 20
+  citations new since run 4 are all additions (none of run 4's is lost); among them the design-module lines
+  EqvK2Converse.lean:226, EqvTransport.lean:439, EqvPowerCone.lean:313 and EqvK2Schema.lean:297/:308, resolved by C1,
+  the two names beside the last pair read by hand (`subset_Q3_of_pure_dual`, `Q3_subset_of_pure`); the `lean/` copies'
+  blobs are those dispatched (`659ae36c`, `4add9b8d`, `fadf980e`, `e7d7a286`). Run 5 follows the final replay of the
+  five round-4 probes (04:53–04:54Z); their scripts are unchanged since (sha256 rechecked at 05:16Z). RESULTS R-CITE.4.
+- 2026-10-11T05:17Z — **Round 4 closed.** Nodes done, in the instructed order, under addenda 1–3:
+  - **E15** — draft S6 (`K2-SCHEMA-1`, native V3 format, non-sealing; for owner review): given H1–H3 and `ReachPure`,
+    `K = Q3` iff A_miss, A_miss the invariance of `K` under the flow and `cycEquiv`; sufficiency `pairCone_eq_Q3_of_drive`
+    (built in round 3), necessity `Q3_aMiss` (§G, built in design run 38112803530; checkpoint `C0′` met); availability
+    ((A)/H-OI_g) a separate H-level question not decided by S6; A_miss introduced, not a premise at L; countercontrol
+    HO-24's cone recomputed exactly, the finite clause named as the weaker alternative that fails. POSITIVE (drafting),
+    ELABORATING (an explicit non-invariance witness at `cos t = 3/5`).
+  - **E16** — the owner's decisive question: positive below chart dimension 5 (OI ⇒ (d = 3 ∧ Ω an ellipsoid) ∨ (d odd
+    ∧ d ≥ 5), every hypothesis an inventory item); negative in odd chart dimension through the hybrid token Ω_h (missing
+    assumption K∞-Geom, or an elementary-scope predicate); self-duality alone and central symmetry alone named as
+    failing weaker alternatives; residual OPEN. NEW ×2, CONFIRMING, ELABORATING.
+  - **E17** — the transport form of H-DYN as a predicate on `QuasilocalSystem`, the kernel-form positive control and the
+    finite-stage case built in design run 38112803530 (after a proof-only repair); `Passage` stated, not proved
+    (R-E14.2's status). POSITIVE.
+  - **E18** — the power cone of Ω⋆ equals its dual for the self-dualizing form, in polynomial form, built in the same
+    run on its first dispatch. POSITIVE.
+  Rows added: R-E15.1–R-E15.4, R-E16.1–R-E16.5, R-E17.1–R-E17.2, R-E18.1 (OPEN ×2, CONDITIONAL ×1, CONJECTURE ×9, of
+  which four on design-run evidence [D]) and R-CITE.4; no label of an earlier round changed and no status at L changed.
+  LEDGER round-4 notes: K2 (two), K∞-Trans (two), L3-conv. Handoff proposals HP-11 (coordinator), HP-12 (countermodels,
+  cc bridge), HP-13 (bridge, origin). Dispatches used: 2 of 3 — 38112020014 (`dev-equivalence/r4-design` `2d978412`;
+  Mathlib bridge job 114389373318; Build failure at `EqvTransport` only, `EqvK2Converse` 9/9 standard; readings PARTIAL
+  by the rules) and 38112803530 (`20c207f1`; job 114391691368; Build success, 3647 jobs; `EqvK2Schema` 22/22,
+  `EqvK2Converse` 9/9, `EqvTransport` 9/9, `EqvPowerCone` 7/7, all `[propext, Classical.choice, Quot.sound]`; gate red
+  only at `lean-manuscript`, `lean-axioms` 5907); the third unused; no job or run cancelled. Cross-branch reads, all
+  read-only and recorded above with their sha256: `research/overview` @ `742c6b2f` (nine handoffs copied to `inbox/`;
+  HO-18 v1, HO-19 v1 and the handoffs README read, not copied); `research/archive` @ `4dc0321c` (the stage-6 inventory
+  files under addendum 1 rule 2, `pt/I3/INVENTORY.md` at 03:29Z, 03:55Z and 04:06Z); one search's incidental lines of
+  the C5 evidence snapshot (`d786a1f3…`), not relied on. Deviations, all recorded above: dev-branch writes under
+  `verification/` (four design modules and three import lines in `OIBridge.lean` on `dev-equivalence/r4-design`;
+  nothing under `verification/` on this branch); in-place amendments of this round's unaudited rows, notes and draft
+  under addenda 1–3, and of two older surfaces under addendum 3 (the LEDGER's K2 row, clause (c); R-E4.1), old text in
+  the 04:33Z entry; NOTES-E16's body-hypothesis classification corrected before its closing commit (K∞-Stage I3.167 in
+  place of TRB-1's proved I3.88–I3.89); dispatch 1's `EqvTransport` blob differing from NOTES-E17 §2's text by one
+  `first` fallback (statements unchanged); `EqvK2Converse` read PARTIAL in dispatch 1 by the rule's letter (the module
+  clean, the Build step failed on another module); E18's module departing from S0's plan in two proof devices (NOTES-E18
+  §2); two LOG time corrections (the E15 entry; the E18 entry and its probe header, the probe text left as run); a
+  scratch exact check of §G's identity forms and a dry run of the citation checker (session scratchpad, not committed,
+  not evidence); NOTES-E17's `OISystem` reference made a full citation before run 5; no local Lean toolchain, so every
+  module was elaborated only in the design dispatches. Final replay: the five round-4 probes byte-identical
+  (04:53–04:54Z), then `e8_cite_check` last (run 5, replay identical). No preregistration became a round; nothing was
+  merged and no pull request opened; `main` and the other threads' branches untouched; nothing outside
+  `research/equivalence/` changed on this branch.
