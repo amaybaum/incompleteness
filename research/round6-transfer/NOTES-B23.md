@@ -29,3 +29,6 @@ Module at `fd364020` (sha256 `c9909973…e96d`), branch tree = `16e75fbe` + the 
   disposition); every other step PASS. Workflow: one failure (Mathlib bridge, at the gate), every other job success.
 - **Not predicted to change any label:** a green build makes the module's statements [D]; every hypothesis stays
   explicit — (T^ch)_𝓘 introduced, the witness [W] + [X] (O14-T9), closedness from H3 in the variant.
+
+Correction (appended 2026-10-11 15:34 UTC): the S0 heading's time "15:39 UTC" is wrong; the predictions were written at
+15:33:40 UTC and committed at `f4597e46` before the dispatch (15:33:49 UTC, run 38151796092). Text unchanged.
