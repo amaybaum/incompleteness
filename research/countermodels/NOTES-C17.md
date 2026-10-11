@@ -98,3 +98,51 @@ details — `rw`/`simp` shapes in `bessel_two`, `capcocap_real`, `exists_qf_add_
 mathematics); 78 prints, all within the permitted three (several basic lemmas and the definitions may print a strict
 subset); the release gate red on `lean-manuscript` (a new module without a census disposition) and possibly on other
 registry steps that bind to the module list; no other red step.
+
+## Runs (written 2026-10-11T05:24Z, `date -u`)
+
+Two dispatches of `verify.yml` (`workflow_dispatch`) on `dev-countermodels/c17-sprime`; neither run was cancelled.
+
+| dispatch | run | job (Mathlib bridge) | head | created | Build | `#print axioms` (module) | `lean-axioms` | gate red steps |
+|---|---|---|---|---|---|---|---|---|
+| 1 | `38112032111` | `114389409224` | `7d3736e4` | 04:34:48Z | FAILED (2 errors) | 78: 71 on the permitted three, 7 with `sorryAx` (error recovery) | not run (gate skipped) | — (gate skipped); run conclusion `failure` at 05:18:53Z, every probe job green |
+| 2 | `38112813276` | `114391721556` | `5649e641` | 04:49:47Z | success, `Built OIBridge.CmSprime (6.2s)` | 78, every one `[propext, Classical.choice, Quot.sound]` | PASS (5938 named results, no `sorryAx`) | `lean-manuscript` only |
+
+Run 1: errors at 668:20 (`mem_surgery_single`: `Pi.single j 1 k`, dependent family not inferred) and 724:10
+(`selfDual_of_local`: `linarith` after `simp`, whose normal form of the `K × K` pairing did not match the stated `h3`).
+The dispatched text is kept as `lean/CmSprime.run38112032111.lean` (sha256 `78e40162…`). Repair (dispatch 2): the weight
+vector's type is fixed before use (`(Pi.single j (1 : ℝ) : ι → ℝ)`), and the pairing is expanded by explicit rewrites
+(`pr_add_left`, `pr_sum_left`, `pr_smul_left/right`, `pr_sum_right`) before `add_nonneg`. No statement changed.
+
+Run 2, read from the job log through the GitHub connector (tail of 3000 of 37665 lines, which holds the module's build
+output from its `Built` line and the whole gate): 43 warnings on the module (32 unused section variables, 7 `push_neg`
+deprecations, 2 `Set.mem_setOf_eq` deprecations, one unused `push_cast`, one tactic never executed), no error, no
+`declaration uses 'sorry'`. Release gate: every step PASS except `lean-manuscript` — `FAILED (1 problem(s))`; a local rerun of
+`tools/lean_manuscript_census.py` on the dev worktree at `5649e641` (read-only) names it: `UNCLASSIFIED module CmSprime has no
+registry family`. The run's probe jobs were still running when the job was read; the run is not cancelled.
+
+Predictions against outcome: "builds at the first dispatch" FAILED (built at the second; the failure sites were
+elaboration details, as the fallback prediction said, but not in the declarations it named); "78 prints within the
+permitted three" held; "several basic lemmas may print a strict subset" FAILED (all 78 print the three); "gate red on
+`lean-manuscript`, possibly other registry steps" held with no other red step.
+
+## Results
+
+### C17-1 — Theorem S′ (finite form), design-built [D]
+By the decision rule fixed in S0, run 2 is **BUILT**: (i) Build success with `Built OIBridge.CmSprime`; (ii) all 78
+`#print axioms` reports within `{propext, Classical.choice, Quot.sound}`; (iii) no `sorryAx`, `lean-axioms` PASS. The
+module's statements — `theorem_Sprime` (ℂⁿ, `c_k ∈ (1, 2]`, `c_k < n`, pairwise nonnegative pairings, (CC) in cap/co-cap
+form ⇒ `surgery d` closed and equal to its dual in `Herm(n)` under `Re tr(AB)`), `theorem_Sprime_C4`, `theorem_Sprime_ineq`
+((CC) in inequality form, through `cap_subset_cocap`), `twoDefect` (C12-P's sufficiency half on ℂ⁴, the pairing's sign
+derived), `pr_defect_defect`, the engine `selfDual_of_local`, and the non-vacuity control `control_single_defect` — are
+recorded **CONJECTURE [D]**: machine-checked in a design module built against L, outside the certified chain, with no
+census disposition. For finite `Z` this replaces Theorem S′'s [W] as the condition of the rows that use it: C11.5, C11.6,
+C12.1 (⇐), C15.2, C19.3 (and C21's cones with finite `Z`). The compact-`Z` uses (C13.1, C13.5, C13.7, C16.4: circle
+orbits) are not covered by the module and keep S′ [W].
+
+Hypothesis classification (standing rule 1): pure cone geometry; no OI inventory item, no introduced hypothesis.
+
+## What is not claimed
+No kernel statement and no census disposition (the module is on a dev branch only; `lean-manuscript` is red because it
+has none, which is the predicted state of a design module); nothing about compact `Z`; nothing about H1 for any cone (a
+separate exact check in each cone's script).

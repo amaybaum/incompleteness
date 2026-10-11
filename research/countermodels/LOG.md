@@ -290,3 +290,32 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   4); the substantive refutation passed. Kept as `c18_attempts.run1.{py,out,err}`; prediction recorded FAILED. Run 2
   (05:01:41Z) with the assertion corrected and nothing else changed: 13/13, `VERDICT C18-EXACT`; replay byte-identical.
   A float scratch computation (scratchpad, not recorded) chose A2b-near's phase and cap point before run 1.
+- 2026-10-11T05:06Z — **C19 S0** written in NOTES-C19 before any C19 script ran.
+- 2026-10-11T05:09Z — **C19 run 1**: `experiments/c19_groups.py` 7/7, `VERDICT C19-EXACT` (35 s); replay byte-identical.
+  Theorem C19-1 checked on exact instances; chain `G₃₈₄ ⊂ G₇₆₈ ⊂ C₂` (orders 384, 768, 11520); HO-24's seed survives
+  `G₇₆₈` (new explicit cone, 384 rays) and dies at `C₂`; `h_C` survives at `C₂`; K4 found no survivor with a nontrivial
+  stabilizer (guess FAILED; search not exhaustive).
+- 2026-10-11T05:13Z–05:21Z (`date -u` bracket) — **C21 reads** (standing rule 2 of addendum 1), read on the coordinator's
+  instruction: `research/archive` @ `4dc0321c` — `pt/I4/INVENTORY.md` (sha256 `43bbada1…`), `pt/I4/INVENTORY-HEADER.md`
+  (`02c431ff…`), `pt/G6/GRAPH.md` (`83f4619f…`), `pt/R6/REASSESSMENT.md` (`1ff62ad6…`; Table A2 from line 277, Table A3
+  after it), `pt/INTEGRATION-NOTE-STAGE6.md` (`1130a8c5…`); each sha256 computed from `git show 4dc0321c:<path>` and equal
+  to the addendum's value. `4dc0321c` is an ancestor of this branch and `research/archive/` is unchanged on it (blob ids
+  equal), so C21's script reads the same blobs under `research/archive/`.
+- 2026-10-11T05:19Z — **C17 run 1 complete**: run `38112032111` concluded `failure` at 05:18:53Z (the Mathlib bridge job,
+  as read at 04:47Z; every probe job green). Not cancelled.
+- 2026-10-11T05:22Z — **C17 design run 2 read** (run `38112813276`, Mathlib bridge job `114391721556`, head `5649e641`,
+  created 04:49:47Z; queued until 05:18:08Z, completed 05:21:11Z): Build success, `Built OIBridge.CmSprime (6.2s)` with 43
+  warnings, no error, no `sorry`; 78 `#print axioms` reports, every one `[propext, Classical.choice, Quot.sound]`;
+  release gate: `lean-axioms` PASS (5938 named results, no `sorryAx`), FAIL only at `lean-manuscript` (1 problem, named by
+  a local read-only rerun of `tools/lean_manuscript_census.py` on the dev worktree at `5649e641`: `UNCLASSIFIED module
+  CmSprime has no registry family`). Log read through the GitHub connector (tail of 3000 of 37665 lines, holding the
+  module's output from its `Built` line and the whole gate). S0's rule: **BUILT** ⇒ C17's statements CONJECTURE [D].
+  C17 closed (C17.1–C17.3f). Dispatches used: 2 of 3; the run's probe jobs were still running and are not cancelled.
+- 2026-10-11T05:23Z — **Deviation (unauthorized read)**: a pattern search over the coordinator worktree's Markdown files
+  at overview `f833107f`, for how design-built statements are labelled, matched three audit files —
+  `research/AUDITS/2026-10-11-round3/AUDIT-ORIGIN-R3.md` (sha256 `c9265ad1…`),
+  `research/AUDITS/2026-10-10-round2/AUDIT-EQUIVALENCE-R2.md` (`b213fd54…`),
+  `research/AUDITS/2026-10-11-round4/AUDIT-ORIGIN-R4.md` (`6be52485…`). Neither the prompt nor a received handoff permits
+  it. No decision used it: C17's label was fixed in S0 (04:28Z) and is applied as fixed.
+- 2026-10-11T05:25Z — **C19 closing note**: C19.3's condition is S′ in its finite form, C17.1 [D] (C17 built before C19 was
+  committed); NOTES-C19 says so. RESULTS rows C18.1–C18.8, C19.1–C19.6f, C17.1–C17.3f written.

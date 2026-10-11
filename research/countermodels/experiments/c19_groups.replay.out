@@ -1,0 +1,9 @@
+T1   PASS explicit P0(x)U0 + P1(x)U1 with U0, U1 in SU(2) carries each test state to a product (det Psi = 0) -- 5 states incl. phi0 = (1, 2, 3i, -1+i) and the edge cases a = 0, b = 0: [True, True, True, True, True]
+T2   PASS countercontrol: G384 = <cnot, actT S, actT J> carries phi0 to no product -- 384 rays, minimum normalised |det Psi|^2 = 5/256
+T3   PASS p†(I - cP_p)p = (1 - c)|p|^2 < 0 at a product p: the carried defect is not block-positive -- c = 21/20: -5/4
+K1   PASS orders along the chain -- |C2| = 11520, |G384| = 384 (= Stab(Z(x)1): True), actC S in G384: True, |<G384, actC nflip>| = 768 (= Stab(+-Z(x)1): True), |<G384, actC J>| = 11520, |<G768, actC J>| = 11520
+K2   PASS HO-24's seed h* along the chain (a surviving orbit gets an exact c with H1 and (CC)) -- G384: 192 rays (stabilizer 2), min det 85/2048, min overlap 25/2048, orthogonal partners 0, SURVIVES (c = 1001/1000 satisfies H1 and (CC)); G768 = <G384, actC nflip>: 384 rays (stabilizer 2), min det 85/2048, min overlap 1/1024, orthogonal partners 0, SURVIVES (c = 10001/10000 satisfies H1 and (CC)); C2 = <G384, actC J>: 5760 rays (stabilizer 2), min det 85/2048, min overlap 0, orthogonal partners 2, DIES
+K3   PASS the top of the chain keeps an explicit surgery cone (C15.2's h_C) -- 11520 rays, min det 198406621629/9790484550625, min overlap 164178929/3916193820250, orthogonal partners 0, c = 100001/100000
+K4   PASS Gaussian eigenspaces of the 20 nontrivial class representatives of C2 sampled; Pauli eigenvectors die (control) -- classes 21, without a Gaussian eigenvalue 8; dead samples by reason {'product': 26, 'orthogonal partner': 13}; Pauli controls dead 4/4; survivors with a nontrivial stabilizer: 0
+CHECKS 7/7
+VERDICT C19-EXACT
