@@ -668,3 +668,125 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (04:53–04:54Z), then `e8_cite_check` last (run 5, replay identical). No preregistration became a round; nothing was
   merged and no pull request opened; `main` and the other threads' branches untouched; nothing outside
   `research/equivalence/` changed on this branch.
+
+## Round 5
+
+- 2026-10-11T07:20Z — round 5 opened at thread head `ab6788b9` (verified: `git rev-parse HEAD` =
+  `git rev-parse origin/research/equivalence` = `ab6788b9fbe07cb227a611c81b3998e9921293b8` after
+  `git fetch origin research/equivalence`; `git status` clean). Re-read the charter, LOG, LEDGER, RESULTS,
+  NOTES-E15 … E18, draft S6, HP-11 … HP-13 and the modules `lean/EqvK2Schema.lean`, `EqvK2Converse.lean`,
+  `EqvTransport.lean`, `EqvPowerCone.lean`. Conventions unchanged (S0 before the first run with `date -u` readings;
+  decision rules in script headers; failed runs kept as `.run1.*`; byte-identical replays before commit; dev branches
+  `dev-equivalence/<topic>` cut from L `9f9f8257` with one commit carrying the modules and the import lines in
+  `verification/lean-mathlib/OIBridge.lean`; `verify.yml` by `workflow_dispatch` through `gh api`; job logs through the
+  GitHub MCP `get_job_logs`). Budget: at most three `workflow_dispatch` runs; no cancellation; no pull request.
+- 2026-10-11T07:21Z — **receipt of HO-27 v1, HO-30 v1, HO-31 v1, HO-32 v1, HO-33 v1, HO-34 v1, HO-35 v1, HO-36 v1**
+  (`research/HANDOFFS/` at `origin/research/overview` = `4c4a02b18ab80819694312a7526dd360c2dfea38`, fetched; the
+  directory listed with `git ls-tree`), each copied byte-identically to `inbox/` by `git show 4c4a02b1:<path>` with the
+  git blob of the copy checked equal to the source blob: HO-27 blob `a817d94a`, sha256
+  `196fdad5e8917ef04ce6f229ab7405636d93b9fd98c41688245a0bd48cf9c2a4`; HO-30 `15bd19b7`,
+  `b9d380753e40f29d9fccd13290ca430b9b2c7b02f3191edad943ac93da4d5f38`; HO-31 `a5f86ba5`,
+  `27263a957e2e50e5aaca8499f5355cf387fb30943c74226259fd5c52522feef8`; HO-32 `a5a6694b`,
+  `06a0ac6b463a41b62647d1b1aaf11263758fda7390516a53484abd5a98a2a0a9`; HO-33 `06eee1d8`,
+  `d5f9d19eafa2fdf39877fa701961bb1c95ae5cfde5bbfd13ace7a0ce08a21169`; HO-34 `46870ef4`,
+  `0a39ea8227e51cae331a4d3b9de62ba12f168b14e46993e4690eae42f94d1e6f`; HO-35 `5b5ea61f`,
+  `70d57d852f8f8f7e3500c464faeefffc0b64f62d795eefc48308c5ec3f2dee53`; HO-36 `f9c74e69`,
+  `8b8a3bf52b6a834825e592cdfd75c3c40fbdd7cdbcf8a4fb566901b4fd536cd2`. **Read, not copied** (authorized read-only
+  cross-branch reads of `research/overview` @ `4c4a02b1`, extracted to the session scratchpad): the coordinator's audit
+  `research/AUDITS/2026-10-11-round4/AUDIT-EQUIVALENCE-R4.md` (blob `ec94ee8a`, sha256
+  `f4b3487416508490a1d8a9cc6f86ea1d0fc98cbc26312e9e9c2da09f0637bec4`); this thread's own handoffs as issued, for their
+  item numbering: HO-18 v2 (blob `ebd9e287`, sha256 `9aeac715ae694e44fcfa11789890b6644470995d29c9d352700adfe301c131ba`),
+  HO-28 v1 (`841749d4`, `608aca2ecef2e59281ede77ceeb6d387a0fbed39aa3d11df9b6e5fcd5a6a7034`), HO-29 v1 (`d3cf4e4d`,
+  `5526735ff8f833a8b503e553889366942c7ffdaacb701b7610569e4ccad65aa0`). **Deviation (over-broad extraction):** the
+  extraction loop also wrote `research/HANDOFFS/README.md`, `research/AUDITS/2026-10-11-round4/README.md`,
+  `…/equivalence/REPLAY-LOG.txt` and `…/CI-RUNS-R4.md` to the scratchpad; they were not authorized for this round and
+  were deleted without being read (the loop printed their sha256; nothing of their content was seen or is relied on).
+  **Reliance, stated before use** (only at the labels the handoffs carry; nothing in them is CERTIFIED except kernel
+  declarations named at L; every "may not assume" clause is honoured as stated under each item):
+  - **HO-27 v1 (origin; items 4–7 addressed here).** Item 4 (at level one the angle condition of
+    `denseUnitaryControl_of_fixedGate` is `¬RotClifford α`; CONDITIONAL [D] + inputs), item 5 (scope: level one;
+    `DenseUnitaryControl` under `¬RotClifford α` at every level OPEN), item 6 (the re-preparation law is an operation
+    datum; CONDITIONAL [W] + [K] + [X]) and item 7 (HO-17 item 7's scope sentence sharpened) are **recorded and not
+    relied on**: no round-5 node uses the angle hypothesis, a fixed-gate theory or a re-preparation law. Item 2
+    (independence of the stage-crossing datum: OPEN at (L-O)) is recorded as the exact location of the open transfer
+    lemma; item 1 (N11) and item 3 (ORD∞ as coherence) are context for availability and are not cone statements.
+    Honoured: no availability is inferred from cone invariance anywhere (E19 and E22 state every invariance as a
+    property of a cone; S6's scope section keeps availability as the H-level premise (A)/H-OI_g, not in S6); nothing
+    is taken as kernel status, as independence of OI, or as exactness at any angle.
+  - **HO-30 v1 (countermodels).** Item 1 — Theorem S′ in finite form as the design-built `CmSprime.theorem_Sprime_ineq`
+    (hypotheses: unit seeds, `c_k ∈ (1, 2]`, `c_k < card n`, pairwise nonnegative trace pairings, the inequality form of
+    (CC) on every positively paired pair; 78/78 prints standard in run 38112813276; CONJECTURE [D]) — is **relied on in
+    E19 (i)** for H3 of the countercontrol cones `K384` (S6's `K*`) and `K768`, **at [D] and only after this thread's own
+    exact check of each hypothesis** (as the coordinator's X2/X3 did; the check is the node's probe). Item 2 (the
+    evidence update of the explicit cones; the circle cones and `Kk` stay on S′ [W] for compact defect sets) is relied
+    on as the label of `Kk` in S6's countercontrol family. Item 3 (the first dispatch's failure) is context. Honoured:
+    nothing CERTIFIED; S′ not used for compact defect sets; (CC) used as sufficient only; H1 checked separately by the
+    probe (Schmidt bound); no OI content attributed to S′.
+  - **HO-31 v1 (countermodels; items 1–3 addressed here).** Item 1 — Theorem C19-1 (the block-diagonal
+    `{P₀ ⊗ U₀ + P₁ ⊗ U₁}` carries every pure state to a product (a); with H1 and H3 it forces `Q3` (b); CONDITIONAL
+    [W] + [K] + [X]) — is **the source statement of E19 (ii)**: the node restates (a) and (b) in the schema's
+    vocabulary and proves them in its own design module; HO-31's text is cited as the source, its label unchanged.
+    Item 2 — the `G₇₆₈` cone (seed `h*`, `c = 10001/10000`, 384 rays, no product, overlaps in `[1/1024, 13/16]`;
+    CONDITIONAL on S′ [D] and HO-22 item 3 [W]) — is **relied on as the second countercontrol of S6 after the node's
+    own exact recomputation** of every exact item (the group, the orbit, the overlaps, H1, (CC)). Item 3 (case B and
+    S2 with G16: three routes closed; OPEN) and item 4 (survivor patterns; OPEN) are context. Honoured: nothing
+    CERTIFIED; every statement read as cone invariance, never availability; HO-22 item 3's identification of the
+    closure is **not** relied on — E19 states the group generated by `cnot`, the flow and `cycEquiv` by its own exact
+    algebra (the determinant-ratio invariant and the two-reflection construction) and cites HO-22 item 3 only as a
+    comparator; no claim about balanced rank-two surgeries, case B, S2 with G16 or `K_circ`.
+  - **HO-32 v1 (countermodels).** Items 1–5 (the four explicit cones `K384`, `KC`, `Kk`, `K768` against Table A2:
+    118 SATISFIES / 13 FAILS / 68 NOT REACHED each; the three kinds of premises; the operations by which each fails;
+    the exact list of refuted implications; uniform FCC failing by one mechanism; CONDITIONAL at the labels stated) are
+    **relied on in E19 (i)** as the documentation of the countercontrol family placed into S6's controls, each cone
+    at its own label (H3 of `K384`, `KC`, `K768` on `theorem_Sprime_ineq` [D] per HO-30; `Kk` on S′ compact form [W]);
+    item 4's reading — the finite clause and the Clifford group are refuted as sufficient invariances with H1–H3, and
+    no cone of the record refutes the full-flow form — is the reading S6 records. The assumption-watch marker (which
+    operation moves a cone depends on the cone) is recorded in the LEDGER. Honoured: no availability; no cone
+    "satisfies OI" or is "independent of OI"; nothing about the 68 NOT REACHED rows beyond R6's record; `pauliW` and
+    `twistQ3` not examined; no level-(ii) versions; no invariance under a continuous family other than `Kk`'s;
+    `Kk` and the FCC mechanism not re-derived by the coordinator and not re-derived here.
+  - **HO-33 v1 (bridge; items 5–6 addressed here).** Item 5 (availability implies invariance, not conversely:
+    `transferClause_Q3` [D] while `zPh` is unavailable, `lattice_refutes` [D]; CONJECTURE) is **relied on as a
+    constraint on S6's premises** — invariance premises do not supply availability — and is written into S6's scope
+    section at its label. Item 6's reading markers (an availability statement *yields* (b), it is not (b);
+    `TransferClause` is an invariance clause; a full model for the independence of (b) is OPEN) are recorded and
+    followed in every round-5 text. Items 1–4 (the full model FM; the verdict with its scope; what supplies the
+    operations; K∞-Drive's two readings) are context. Honoured: no certification; "independent of OI" never written
+    without item 2's scope (and not written at all in this thread's own claims); nothing about (b) from FM; FM's pair
+    cone not described as generated by its operations.
+  - **HO-34 v1 (bridge).** Item 1 (one dictionary: `pauli`, `tokMat`, `dict` of `BridgeDictionary` and `EqvK2Schema`
+    converge by `rfl` in `BridgeConverge`; CONJECTURE [D] run 38117986499) and item 2 (the transfer clause in table
+    form, `transferClause_iff`, both directions, and `transferClause_mono`; CONJECTURE [D]) are **relied on in E22**:
+    the two modules are to be carried verbatim with attribution onto this thread's dev branch (authorized read of
+    `research/bridge` @ `a34d20b5`), and S6's (b)-instances are to be stated through `transferClause_iff`. Item 3 ((b)
+    for the phase circle in table form; CONDITIONAL on the clause) is a comparator for `dict_actT_rotLin`. Item 4 (two
+    weaker clauses defeated: the clause for the stated access, FAILED; a finite group, FAILED CONDITIONAL on claim
+    (D)) is recorded in S6's controls as further failing weaker alternatives at those labels. Honoured: no
+    certification; no sourcing of the transfer clause (every statement has it as a hypothesis); no availability.
+  - **HO-35 v1 (bridge).** Items 1–3 (the curve-cover theorem `reachUnitary_of_curveCover` [D]; identity components of
+    dimension at most one through Cartan, CONDITIONAL [L] + [W]; "a group" of that kind FAILED as a sufficient bridge,
+    CONDITIONAL on claim (D), with the block-diagonal `SU(2) × SU(2)` as the countercontrol) are **relied on as
+    context for E19 (ii)**: the reachability side of the schema fails for every closed subgroup whose identity
+    component has dimension at most one, and the block group of C19-1 has dimension six, consistent with item 3's
+    countercontrol; recorded in S6's controls at those labels. Honoured: no certification; B7-1 not used for identity
+    components of dimension two or more; the Cartan link not treated as formalized.
+  - **HO-36 v1 (bridge).** Items 1–2 (HO-24's cone is invariant under B10-5's stages `G_1`, `G_2` and under no `G_n`
+    with `n ≥ 3`, every one of its 192 defects certified out of `K` at `n = 3` by the phase `e^{iπ/4}`; "a finite stage"
+    FAILED as a sufficient bridge, CONDITIONAL on HO-24 items 4 and 6 and on claim (D)) are **relied on as context for
+    S6's countercontrol** — a second explicit non-invariance witness for `K*` (at the phase `π/4`) beside this thread's
+    witness at `cos t = 3/5` — and recorded in S6's controls at those labels. Honoured: `K`'s exoticness and
+    self-duality taken only at HO-24 item 4's label (now HO-30's [D] finite form after the hypothesis check); nothing
+    about a tower-invariant cone except through B10-4 and claim (D); no kernel check assumed.
+  - **HO-18 v2, HO-28 v1, HO-29 v1 (this thread's own, read as issued, not copied).** HO-18 v2 corrects item 2 as
+    HP-11 item 1 requested; every statement is as meant. The receipt asks a thread that relied on v1's item 2 to say
+    which of its steps read the lemmas with the products as hypothesis: **none** — this thread's modules state LOWER
+    and UPPER with every pure state as hypothesis (EqvK2Schema.lean:297, :308), and no note, row or draft of this
+    thread read them otherwise. HO-28 (items 1–5) carries R-E16.1–R-E16.5 with the coordinator's precision that the
+    count is necessary, not sufficient (its X2: `diag(−1, 1, −1)` and `diag(−1, −1, 1)` meet the count and fail `relC`
+    with `Ad(CNOT)`); that precision is carried into E20's S0. HO-29 (items 1–3) carries R-E15.4 and the admissible
+    wording; nothing to correct.
+  - **The round-4 audit (`AUDIT-EQUIVALENCE-R4.md`).** No label changes; every row accepted; the deviations
+    accepted; X2's precision (above) and the rule it motivates — a chain of kernel theorems applied to a model names
+    the side hypotheses of every link and shows the model satisfies them, otherwise it is a written argument [W] — are
+    applied to every round-5 use of a kernel theorem on a model (E19's cones, E20's bodies, E21's stages).
+  No research step of round 5 precedes this receipt's commit.
