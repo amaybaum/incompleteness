@@ -22,8 +22,10 @@ enters `main` only through a §A.39 governed round with separate authorization.
 | `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `44c06d46` (round 5 audited) | active |
 | `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `3a46b811` (round 5 audited) | active |
 | `research/wip-checkpoints` | the coordinator's safety copies of uncommitted thread work, taken at the owner's direction before a possible usage-limit stop (`checkpoints/2026-10-11T103838Z/`, with its manifest); labelled UNFINISHED / UNVERIFIED; copies only — the threads' own commits are the record | L | `1b2ec2bb` | coordinator only; not authoritative |
-| `research/round6-transfer-sourcing` | the owner's cross-thread record for round 6's priority nodes B22, E23, B23 and the S6 surface (`research/round6-transfer/`: preregistration, LOG, inbox copies of HO-33 v2 and HO-37 … HO-45); opened by the owner at `7b35ef42`, continued by the agent `Claude (research round6-transfer)`; not a governed round | overview `1325160c` | live | active, priority 1 |
+| `research/round6-transfer-sourcing` | narrowed B22/E23/B23 record; provenance and failed build audited in `research/AUDITS/2026-10-11-round6/` | overview `1325160c` | `694219a4` | closed at limited scope; deferred work stays open |
 | `dev-bridge/r6-channel-transfer` | disposable design branch of the cross-thread record: `BridgeChannelTransfer` (the O14 channel route against the bridge's construction) with the three E19 modules; opened by the owner at `5d4b9833` (UNBUILT at that head) | `dev-bridge/r5-bridge2` `16e75fbe` | live | design only, not for merge |
+| `research/round7-channel-audit` | round-6 closure and live scope correction; saved RUS and cone checks, written arguments, bounded native audit preparation | overview `5d3ccb3e` | see commits | active, scoped channel batch |
+| `dev-bridge/r7-channel-transfer-repair` | one-line ComplexOrder repair; PR 807 and run 38162504147 | dev `fd364020` | `13ad14a1` | design Build green; census gate red, not for main |
 | `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (runs 38090924005 at `195dfbee`, 38096511360 at `95beab2b`: the repair measured, 15/15), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-equivalence/k2-schema` @ `aabc649e` (runs 38099025197 at `472835c5`, 38101580750), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-origin/exclusive` @ `5df964af` (runs 38098314988 at `39fd0e67`, 38099172719), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860), `dev-bridge/r3-dict` @ `3d554e7e` (run 38099134414), `dev-bridge/r3-reach` @ `747bcf94` (run 38101591388); round 4: `dev-origin/token-order` @ `35d326a3` (run 38108620996), `dev-origin/angle` @ `f0cd9272` (runs 38111982910 at `9dd6a173`, 38112242400), `dev-equivalence/r4-design` @ `20c207f1` (runs 38112020014 at `2d978412`, 38112803530), `dev-countermodels/c17-sprime` @ `5649e641` (runs 38112032111 at `7d3736e4`, 38112813276), `dev-bridge/r4-avail` @ `152094b5` (run 38110368244), `dev-bridge/r4-conv` @ `ca48c4c4` (run 38115337569), `dev-bridge/r4-final` @ `bf8ba746` (run 38117986499); round 5 (`research/AUDITS/2026-10-11-round5/CI-RUNS-R5.md`): `dev-bridge/r5-bridge` @ `36083b22` (run 38123860471, Build failure in `BridgeToken`), `dev-bridge/r5-bridge2` @ `16e75fbe` (run 38124442150), `dev-countermodels/c22-compact` @ `a69987bd` (runs 38124380741 at `6cb76f96` and 38125067948 at `e4ef2e46`, both Build failures, then 38131214451), `dev-equivalence/r5-design` @ `f0c36cf9` (runs 38124464622 at `7dd71a7e`, Build failure in `EqvK2Block`, 38132266383 at `f67da967`, 38134245361), `dev-origin/drive` @ `86358785` (runs 38134267257 at `78baca7c`, Build failure in `OriginDrive`, then 38135099684) | thread branch | — | as created |
 | `research/conscious-observation-loop` | pre-existing branch of the owner (CONSC-1 charter work, 2026-10-05); not part of this tree, untouched | — | `0cefaecb` | owner's |
 
@@ -141,9 +143,10 @@ every label; cone invariance and operational availability are kept apart in ever
 ## The central question: the composite action (b)
 
 (b): single-token reversible operations, idle-extended to one token of a pair, preserve the pair cone in `W 3`.
-Stage 6 (archived, audited) established **INDEPENDENCE** at L: the complete applicable premise set (199 items of a
-633-record inventory) does not force (b); the countermodel K(Z_F) satisfies every non-hypothesis item and violates (b)
-under every one-parameter local rotation (law `ipW(R_n(t) z_s, R_n(π/2) p_s) = −sin t/8`); the missing assumption
+Stage 6 (archived, audited) establishes **pair-level insufficiency** at L: K(Z_F) satisfies the 118 reached
+SATISFIES rows of the 199-item applicable set in the 633-record inventory and violates (b), with the exact rotation
+witness `ipW(R_n(t) z_s, R_n(π/2) p_s) = −sin t/8`. The 13 FAILS rows are hypotheses or open candidates; the
+68 NOT REACHED rows remain unresolved. Independence from the complete OI framework is OPEN. The missing assumption
 A_miss is (b) for `ball3Drive`'s flow and its `cyc3`-conjugate on one token (an instance of OI⁺-1; fails the disguise
 test). Round 1 added, with every claim at its label:
 
@@ -538,13 +541,13 @@ and (ii) K(Z_F).
   ring-4 and rule instances), the module statements read (the five hypotheses exactly), citations 57/57, three runs
   step-verified — `AUDITS/2026-10-11-round3/AUDIT-EQUIVALENCE-R3.md`; HO-18, HO-19 issued.
 
-## Newly identified assumptions (rounds 1–5)
+## Newly identified assumptions (rounds 1–7)
 
 | assumption | where it enters | status |
 |---|---|---|
 | OpDrive(θ₀) := `TokenAvailAt 𝓘 arch zPh n` for every `n` (`zPh = diag(1, w)`, `w = 3/5 + 4i/5`) and the J-datum := `TokenAvailAt 𝓘 arch uJ n` for every `n` (`uJ = (1 − i(X + Y + Z))/2`) — the round-4 resources as kernel predicates | bridge round 5 (B20-1; HO-39) | introduced; OpDrive restates I2.33's phase intervention at θ₀ in availability form and I3.169's operational reading at θ₀ (H-T's token clause at level M), not (b) in disguise; FM refutes both; the bridge's premises are jointly unsatisfiable at K(Z_F) |
 | the transfer clause (T)_𝓘 — every admissible one-token unitary `U` of the class maps the pair cone `K` into itself through `coordOf ∘ Ad(1 ⊗ U) ∘ dict` | bridge round 5: the third introduced item of `bridge_derived_half` (B20-2; HO-39) | introduced, not an OI premise; cannot be omitted from this construction (the full class with K(Z_F), verified independently); whether the complete OI framework implies it is OPEN; not shown necessary for any derivation of quantum equivalence |
-| the transfer clause in channel form (T^ch)_𝓘 — every available one-token channel `Φ` maps `K` into itself through `coordOf ∘ (1 ⊗ Φ) ∘ dict` — with `K` closed (`hcl`) | origin round 5 (O14-N1, the limit route to the drive's invariance; HO-45 item 7; the coordinator's F-O5-3) | introduced; implies (T) for the class's unitaries; `Q3` satisfies both for every class [W]; [W] + [X], not assembled against the derived half |
+| the transfer clause in channel form (T^ch)_𝓘 — every available one-token channel `Φ` maps `K` into itself through `coordOf ∘ (1 ⊗ Φ) ∘ dict` — with `K` closed (`hcl`) | origin round 5 (O14-N1, the limit route to the drive's invariance; HO-45 item 7; the coordinator's F-O5-3) | introduced; implies (T) for the class's unitaries; `Q3` satisfies both for every class [W]; B22 source audit OPEN at I3.165; conditional bridge [D] after round-7 repair, with the channel-approximation witness still assumed |
 | LIMCLOSE-C — closure of availability under limits of available channels | wherever a limit of available channels stands in for an available operation (O14, AUDIT-ORIGIN-R5 §8) | introduced, not an inventory item at L; availability reaches the exact group only |
 | "a limit of available channels is available" | origin round 5 (O14-T9) | false: in `MixR {π/4}` the drive is a limit of available channels and never available (O14-T8); a limit gives invariance of closed invariant sets, not availability |
 | "independent of the stage-6 inventory" for the token clause's availability (HO-33 v1 item 2) | bridge round 4, scoped in round 5 by origin O14-T2 (HO-33 v2) | holds relative to Table A2's rows; I4.60 `SubstratumAvail`, an inventory item outside Table A2, implies the drive without implying control or QM; FM fails it |
@@ -683,7 +686,7 @@ and (ii) K(Z_F).
 | SRC: the exclusive readout refuted; the stated access carries no infinite-order datum at any level by any protocol (HO-27, [D]); no stated source of (A) for `J` on one token in the pair context; the field-neutral Continuous Origin stays OPEN with the stated access excluded; the level-one angle condition is the Clifford exclusion (HO-27); whether any extension of the stated access supplying the operational drive at one irrational angle is independently justified is the live question. Round 5 (O14, HO-45): the stated access's reversible group is finite up to scalar and excludes the drive even as a limit of channels; every exact source found is the phase intervention or contains it; QM entails the drive; the balanced angle gives the drive as a limit of available channels only; the exact drive in `fixedGateTheory θ₀` through dilations OPEN; O15 (FM against `OriginTokenOrder`'s model) and O16 (the Kochen–Specker tower under `InstAvail`) carried to round 6 | origin | HO-33 v2, HO-39 | no |
 | K2 (c) = (T) (HO-12), with H-T as its premise (HO-20) and its table form (HO-34); S6 drafted in the native V3 format with `ReachPure` as the hypothesis and `Q3_aMiss` as the necessity direction (invariance only; HO-29); the gate's control relation forces odd chart dimension with the hybrid token as the non-ellipsoid witness (HO-28); the K∞ seams (self-duality excluded, HO-19; `c*` excluded, HO-15); Kₙ (design module green); H-Bell; H-∞; λ; the Level III converse (C-REG true; the transport form's finite-stage case [D], the infinite-volume passage CONJECTURE). Round 5 (E19, HO-43): `ReachPure` derived; given H1 and H3, `K = Q3 ↔ (H2 ∧ A_miss)` with each direction witnessed [D]; S6 revised; E20 (odd chart dimension ≥ 5 with K∞-Geom; two probe runs, no verdict rendered: the positive control did not converge), E21 (the transport passage; S0 only) and E22 (one dictionary; `EqvOneDictionary` built, analysis not done) carried to round 6, work in progress, unverified | equivalence | bridge (for (T)); origin (for the drive); countermodels (the countercontrol family, HO-30 … HO-32, HO-41, HO-42) | per obligation; S1–S6 below |
 
-## Round-ready findings (none created; each needs owner authorization to open a §A.39 round)
+## Round-ready findings (research packages and native PR drafts)
 
 From the equivalence thread (NOTES-E7, NOTES-E8, NOTES-E11, NOTES-E12, HP-1, HP-5, HP-10): preregistration **drafts**
 in the native V3 format exist on the thread branch for owner review — **S1** KINF-SEED-1
@@ -774,6 +777,14 @@ F-O5-1 (table rendering), F-O5-2 (orders at general `n`), F-O5-3 (what the limit
 round 4's F1 closed in design. No label changes. During the first transcript replay the coordinator's tool re-wrote
 two files in the origin thread's scratch area (content identical, modification times changed); recorded in
 `AUDIT-ORIGIN-R5.md` §2, no effect on any committed file.
+
+`research/AUDITS/2026-10-11-round6/`: narrowed batch closed and audited at cross-thread head `694219a4`;
+10/10 cross-thread inbox identities, six chronological LOG prefix comparisons, four thread receipt sets
+4/4, 5/5, 6/6, 8/8; I4.66/I4.38 and the spectator premises read at L; failed run 38151796092 independently
+retrieved in full. Finding F-R6-1 corrects the overview's full-inventory independence claim to the 118 reached
+rows with 68 NOT REACHED unresolved. B22/E23 stay OPEN; B23-1 stays FAILED. New round-7 evidence is separate:
+17 saved exact checks with byte-identical replay, 140 matrix-unit cases, five negative controls; ComplexOrder
+repair Build green in design run 38162504147, all seven axiom reports standard, census gate red as expected.
 
 ## Milestone log
 
@@ -888,6 +899,18 @@ two files in the origin thread's scratch area (content identical, modification t
   `Q3`, and the sources of H2, H3 and A_miss, are the open content carried to round 6. Handoffs HO-33 v2 and HO-37 …
   HO-45 issued; HO-18 v2 and HO-27 … HO-36 all received. Safety checkpoint of uncommitted thread work at
   `research/wip-checkpoints` @ `1b2ec2bb` (copies, not authoritative).
+
+- 2026-10-11 — **round 6 closed and audited at its narrowed scope**. B22 and E23 retain their OPEN source
+  verdicts; B23-1 retains its failed-build verdict. Correction of the 2026-10-10 milestone's independence reading:
+  the countermodel establishes insufficiency of the 118 reached rows, not independence from the entire OI
+  system; the 68 NOT REACHED rows remain unresolved. HO-46 and HO-47 issue the transfer-source boundary and
+  the scoped channel controls; receipt obligations begin when issued, with no receiving-thread reliance inferred.
+- 2026-10-11 — **round 7 channel batch executed** after the owner's instruction to proceed with the suggested
+  research and PR sequence. Prospective registration `78aa5b25`; checker 17/17 PASS, deterministic replay;
+  repair `13ad14a1`, Build green with seven standard axiom reports and 6136-result axiom census, release gate
+  red only for the twelve undispositioned design modules. The expanded block-cone control fails product-effect
+  positivity and is not a full OI countermodel. OI-CHANNEL-1 is the first bounded native audit PR draft into main (PR 808, draft head `f8efc99f`);
+  exact-head F/E attestations and the owner's designations remain required. No main merge or premise adoption.
 
 ## Round 3 — nodes handed to the threads (2026-10-10; closed 2026-10-11, audited)
 
@@ -1161,8 +1184,7 @@ check `c23f_correction.py` replayed byte-identical (6/6), the origin rendering r
 unescaped. **Pending for the next session:** the coordinator's audit of the cross-thread record (rows B22-1 … B22-4,
 E23-1 … E23-3 and B23-1 against I4.66 and I4.38 at L, the countercontrol and the job log); the audit directory
 `research/AUDITS/2026-10-11-round6/` (the round-5 tools in `research/AUDITS/2026-10-11-round5/` are reusable); issuing
-HP-round6-transfer-1 and -2 as handoffs; the round-6 close (milestone log, open gaps, assumptions). Round 7 is not
-planned beyond the deferral list; the owner's decisions are open.
+HP-round6-transfer-1 and -2 as handoffs; the round-6 close (milestone log, open gaps, assumptions). The subsequent round-7 channel batch is recorded below; other deferred nodes remain open.
 
 Rules unchanged from round 5, with four additions from the round-5 audits: (i) **LOG files are append-only** — a
 correction is a new entry naming the entry it corrects, never an edit in place (F-E5-1); (ii) a `|` inside a code span
@@ -1216,3 +1238,24 @@ HO-42, HO-45.
 **Audit obligations carried to round 6.** None of round 5 is pending: all four audits are complete. The round-6 audits
 check, besides the usual items, the receipts of HO-33 v2 and HO-37 … HO-45 (the index's round-6 receipt column), the
 forward corrections F-C5-1, F-O5-1 and F-O5-2, and that every LOG is append-only from its round-5 head.
+
+## Round-6 audit close and round-7 continuation (2026-10-11)
+
+The pending cross-thread audit listed in the launching-session record is completed in
+`research/AUDITS/2026-10-11-round6/`. HP-round6-transfer-1 and -2 are issued as HO-46 and HO-47 with
+explicit evidence levels and receipt requirements. Their source records and the failed module remain unchanged.
+
+The owner's instruction to proceed authorizes a new, bounded channel batch and native audit PR preparation.
+`research/round7-channel/` contains its prospectively committed preregistration, saved standalone checker,
+outputs/replay, written arguments, repair CI excerpt and results. The limit-preservation argument uses
+closedness of K; LIMCLOSE-C is needed only if exact availability of the limit is asserted, which this batch
+never does. Broader channel transfer and the sources of H2, H3 and A_miss remain OPEN. The cone controls
+are scoped separately and cannot be promoted to full-model counterexamples.
+
+The first native main package is OI-CHANNEL-1 (PR 808, draft head `f8efc99f`): the exact operational evidence and its bounded dependency
+reading. Its draft changes only its preregistration. Execution adds the frozen checker, control script,
+CI shard and result note after an exact-head all-green F run and the owner's F designation. A subsequent
+conditional-pair proof should check whether cone structure plus the product-effect maxCone upper bound
+can replace H3 once H2 and A_miss hold; no such replacement is certified here. The remaining milestones
+are token geometry, the conditional pair theorem, arbitrary finite composites and operation/measurement
+correspondence. Full-model independence and unconditional OI-to-QM reconstruction remain OPEN.

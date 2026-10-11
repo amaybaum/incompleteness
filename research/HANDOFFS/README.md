@@ -66,6 +66,8 @@ the receiving thread's assumptions silently.
 | HO-43 | equivalence | bridge, origin | `ReachPure` a theorem; given H1 and H3, `K = Q3 ↔ H2 ∧ A_miss`, each direction witnessed (CONJECTURE [D]); `aMiss_of_transferClause`; the one-angle form needs closure, continuity and DENSE(θ₀) [L] | v1 | — (round 6) |
 | HO-44 | equivalence | countermodels | exotic cones must break the full clause (`blockInvariant_of_drive`); S′'s hypotheses checked for `K384`, `K768`, `KC`; generation tools in design | v1 | — (round 6) |
 | HO-45 | origin | bridge, equivalence, countermodels | O14: the stated access's reversible group finite up to scalar at every carrier, no drive even as a limit of channels; every exact source of the drive is the phase intervention; QM entails the drive; no rational fixed gate makes it available; at the balanced angle the drive is a limit of available channels and never available — a candidate route needing the transfer clause in channel form, (B) provisional | v1 | — (round 6) |
+| HO-46 | round6-transfer / coordinator audit | bridge, origin, equivalence, countermodels | transfer-source boundary: both forms OPEN; identified-state-space statement CONDITIONAL; construction countercontrol | v1 | pending |
+| HO-47 | round7-channel | bridge, countermodels, origin, equivalence | stopped-channel exact checks and scoped cone controls; written universal steps; no full-model claim | v1 | pending |
 
 The equivalence thread's HP-1 (proposed ROADMAP wording for row K), HP-5 (the Level III wording marker and S6's
 revised kernel cost), HP-10 (S4 ready for owner review; S6's skeleton built in design; the infinite-volume form of
