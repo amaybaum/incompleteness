@@ -220,3 +220,75 @@ pair cone (B2-4, B10-6) carry this marker.
 
 None. Nothing here bears on a manuscript statement; the results are research statements about the kernel's own
 models.
+
+## 8. The coordinator's third addendum: the full-model check
+
+### 8.0 S0 for the re-assessment (written 2026-10-11T05:25:38Z, before any run or dispatch for it)
+
+**The two criteria.** (1) A verdict of independence needs a full model: a model of the stated access that satisfies
+the applicable OI premises at every level that applies to it, the NOT REACHED rows of Table A2 included so far as they
+apply to its level, in which the operation is not available with RESPECT and product behaviour. A model checked only
+against the 118 pair-level rows gives pair-level independence and is labelled so. A derived bridge is a theorem
+transferring inventory items to the pair level with no introduced hypothesis; a precisely scoped OPEN names the
+unproved lemma and claims no independence. (2) (b), (T) and A_miss are invariance statements (cone-preserving
+admissibility); (A) and H-T are availability statements (the kernel's protocols). Every RESULTS row says which.
+
+**What §2 established, read under the criteria.** §2's two models were checked against the kernel predicates named
+in its table (`SourcedOI`, `ContextStable`, `LabelInvariant`, `EmbeddedObservation`,
+`ReversibleImplementationLocality`, the sealed core, `DerivedOI`), not against the 68 NOT REACHED rows. Its sentence
+"the token operations are independent of {I1.43, …, I4.248} at the kernel's carrier" is a statement about those
+named items at level M; it is not a full-model verdict, and RESULTS B14-2's "independence by models of the stated
+access" carries no such limit. Every statement of §1–§7 is an availability statement. None is about (b), (T) or
+A_miss; §4's comparison of `PairAvailAt` with (T) = (b) compares the two kinds of statement and asserts neither.
+
+**The candidate full model FM** (levels as in the inventories: H substratum, O one token, M matrix-level theory,
+G general carrier, P pair cone).
+- H: the sealed core (I1.38–I1.42: `CoreC1C4`, `SealedCoreIsFiniteOI`, the kernel images of Axioms 1–2, Lemmas 1–3
+  and C1–C4) [K]; for A1–A6 the wave substratum (I1.58: A1–A5 [K]; A6 in its adopted covariant reading holds
+  identically on the least interface, I1.61 [K], ROADMAP CONDITIONAL). Whether one physical object satisfies A1–A6 and
+  C1–C4 together — physical C4 at a cut — is P1, open at L for every model (I1.73, I1.74); FM claims nothing there.
+  The H→M arrows at L are the observer theory (I1.59, rule-independent: `obsTheory_rule_independent`,
+  SubstratumInterfaceAudit.lean:779) and the realization of the core (I1.43).
+- M: the lattice theory, `genTheory latticeClass` at every carrier, where `latticeClass` is the fourth-root lattice
+  of §2 taken as a class (every submonomial operator whose nonzero entries have equal fourth powers). It contains the
+  stated access (I1.60) and the quarter phase, and availability is monotone in the class (`instAvail_mono`,
+  ImplementationLocality.lean:305), so obsTheory ≤ mixTheoryR ∅ ≤ lattice theory ≤ substratumTheory.
+- O: the token is the ball `eball 3` with its effects, as R6 reads every pair cone's tokens ([inherit]).
+- P: the kernel's pair carrier is the Kronecker composite with the PSD cone; through the dictionary (injective, B15)
+  FM's pair cone is `Q3`, whose R6 column is 131 SATISFIES and 68 NOT REACHED, with no FAILS (`r4_tables.out`,
+  TALLY Q3) [A].
+
+**Decision rules (fixed now).** Each of the 68 NOT REACHED rows is classed:
+- SAT — FM satisfies it at its level: a kernel theorem at L [K], a theorem of `BridgeAvailFull.lean` built green in
+  this round's second dispatch [D], R6's Q3 reading [A], or a written argument [W], each labelled;
+- HARMLESS — FM fails it, and given rows FM satisfies it implies composite unitary control or quantum mechanics on
+  the pair or token carrier by a kernel chain [K], hence both pair operators (`pairAvail_of_control`, [D]); such a
+  row is at least as strong as the conclusion and is no weaker alternative;
+- HARMFUL — FM fails it and no such implication is known;
+- NA — a scope statement without a truth value for a model (its components carry their own rows).
+Verdict: "independent bridge (full model, relative to the stage-6 inventory)" iff there is no HARMFUL row, the
+operations are refuted in FM at level M and through the H→M arrow for every substratum [D], and the module builds
+with standard axioms; otherwise "independent of every item except" the HARMFUL rows, named. If the module fails to
+build, its cells fall back to [W] and the verdict is held at CONJECTURE until the reserve dispatch. P1 is reported as a
+standing open premise of every model, not as a failure of FM. Controls in `experiments/b14_fullmodel.py`: (C1) its 68
+row ids are exactly Table A2's NOT REACHED rows; (C2) every HARMLESS row carries a chain ending in control or QM;
+(C3) against the inventory's own status text, every NOT REACHED I4 row whose status records an equivalence with
+exact QM, or a derivation of composite control, is HARMLESS, and every row whose status records its derivation from
+implementation locality, embedded observation or a dagger-stable saturated class is SAT; (C4) R6's Q3 tally is 131
+SATISFIES with no FAILS; (C5) countercontrol: run on the observer theory alone (`permTheory`), the classifier must
+put `DerivedOI` (I4.241) in HARMFUL — the class is not vacuous, and the lattice theory is needed for that row.
+
+**Predictions.**
+
+| id | prediction | check |
+|---|---|---|
+| S0-11 | `latticeClass` is an architecture, context-stable, label-invariant, dagger-stable, unitary-ray saturated, structurally closed and configuration-level; it contains `permClass`, `MixR ∅` and every quarter phase, and lies in `substratumClass` | D2 |
+| S0-12 | The lattice theory satisfies `DerivedOI` on every carrier; the sealed core, `OICore` and `DerivedOICore` on `Fin 2`; implementation locality (plain and reversible), embedded observation, iterated ancilla closure, observer recursion and the level-one seam on every carrier; parallel reference extension, both observational independences, inert spectators, validity, well-formedness and inverse accessibility on every nonempty carrier; qutrit reference extension on `Fin 2` | D2 |
+| S0-13 | It refutes `zPh` and `uJ` on the pair and the token at every level `n ≥ 1`; the quarter phase is pair-available (positive control); the monomial interface supplies `zPh` (countercontrol) | D2 |
+| S0-14 | It fails control and QM on the pair and token carriers, phase-free richness on `Fin 2`, layer-flow executability for every involution moving a point, elementary drivability and the quantum architecture; control supplies both pair operators for every architecture | D2 |
+| S0-15 | For every kernel substratum, whatever its rule, and every level, a configuration-diagonal operator with the values `1` and `w` at two configurations, and any operator with two nonzero entries in one row, are unavailable in its observer theory | D2 |
+| S0-16 | D2 builds the module with every `#print axioms` line on `[propext, Classical.choice, Quot.sound]`; `lean-axioms` PASS; gate red only on `lean-manuscript` | D2 job log |
+| S0-17 | Tally over the 68 rows: SAT 34 (I4: 20, I2: 2, I3: 12), HARMLESS 29 (I4: 24, I2: 5), NA 5 (I2: 4, I1.17), HARMFUL 0; controls C1–C5 green | `b14_fullmodel.py` |
+| S0-18 | FM satisfies (b) in the invariance reading at P (`Q3` meets I3.150–I3.153, I3.165, IE1, FC and T as cone statements [A]), so B14 bears on (b) not at all | §8 |
+| S0-19 | FM satisfies the K∞ token premises as R6 reads them ([inherit]) and fails their operational readings — the drive's flow available on the token, every seed transport available as an effect — which no item at L states; at `t = θ₀` the first is H-T's token clause | §8 |
+| S0-20 | If S0-11–S0-17 hold: the verdict is "independent bridge (full model, relative to the stage-6 inventory)", CONJECTURE ([D] + [A] + [W]); gem NEW (the token clause is the operational reading of K∞-Drive, which the inventory states only in its invariance form) | §8 |

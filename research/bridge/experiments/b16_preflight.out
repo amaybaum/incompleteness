@@ -1,0 +1,11 @@
+P2 prodDet = 5*I*sin(t) + 5*cos(t) - 6 ; real part = 5*cos(t) - 6
+P5 dimension count (d = dim of identity component, d + 6 vs 8): [(0, 6, True), (1, 7, True), (2, 8, False), (3, 9, False), (4, 10, False)]
+
+CHECKS
+PASS P1 every product lies in chart0 (a0 != 0) or chart1 (a0 = 0), 40 + 40 exact cases
+PASS P2 prodDet(diag(1,1,1,e^{it}) (1,2,3,5)) = 5 e^{it} - 6
+PASS P2b its real part 5 cos t - 6 <= -1 < 0 for every t
+PASS P3 block-diagonal elements carry 30 random vectors to products; each block has det |alpha|^2 (so the normalized element lies in SU(2) x SU(2))
+PASS P4 K* h^-1 (h K) = 1 and v = conj(K* h^-1 (h K conj v)) on exact Cayley unitaries
+PASS P5 1 + 2*3 = 7 < 8 = 2*4, and d + 6 < 8 iff d <= 1
+VERDICT B16-PREFLIGHT: all checks green

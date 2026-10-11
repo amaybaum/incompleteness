@@ -1,0 +1,25 @@
+equivalence module c10dbaee research/equivalence/lean/EqvK2Schema.lean 0bc6da00d5b9ba9c4a2f9390db31c15830a19bf1e30fc2ee6889cd9211281221
+bridge dictionary ../lean/BridgeDictionary.lean 48fc4a7e5b1f27d433ffb38cfd89f69a74544a803605465b2d0bd8b7a932156d
+  def pauli | equivalence: : Fin 4 → Matrix (Fin 2) (Fin 2) ℂ := ![1, !![0, 1; 1, 0], !![0, -Complex.I; Complex.I, 0], !![1, 0; 0, -1]]
+  def pauli | bridge     : : Fin 4 → Matrix (Fin 2) (Fin 2) ℂ := ![1, !![0, 1; 1, 0], !![0, -Complex.I; Complex.I, 0], !![1, 0; 0, -1]]
+  def tokMat | equivalence: (v : HVec 3) : Matrix (Fin 2) (Fin 2) ℂ := ∑ μ : Fin 4, ((v μ : ℂ) / 2) • pauli μ
+  def tokMat | bridge     : (v : HVec 3) : Matrix (Fin 2) (Fin 2) ℂ := ∑ μ : Fin 4, ((v μ : ℂ) / 2) • pauli μ
+  def dict | equivalence: (ω : W 3) : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ := ∑ μ : Fin 4, ∑ ν : Fin 4, ((ω μ ν : ℂ) / 4) • tensorOf (pauli μ) (pauli ν)
+  def dict | bridge     : (ω : W 3) : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ := ∑ μ : Fin 4, ∑ ν : Fin 4, ((ω μ ν : ℂ) / 4) • tensorOf (pauli μ) (pauli ν)
+P2 rank of the sixteen Pauli tensors over Q(i): 16
+P7 partial permutation patterns: 7  unitary up to |c| = 1: [[[0, 1], [1, 0]], [[1, 0], [0, 1]]]
+P8 group <actT nflip, actT R_z(pi/2)> on the target: order 8 ; contains R_z(theta0): False
+
+CHECKS
+PASS P0 equivalence module hash = the authorized blob
+PASS P1 pauli, tokMat, dict textually identical in the two modules
+PASS P2 rank 16: dict is injective
+PASS P3 coordOf(Ad(1 (x) zPhase(3/5,4/5)) dict w) = actT(rotZ(3/5,4/5)) w on 6 tables
+PASS P3b the same at the quarter turn (0, 1)
+PASS P3c coordOf(dict w) = w (the left inverse) on 6 tables
+PASS P4 coordOf(Ad(1 (x) X) dict w) = actT nflip w on 6 tables
+PASS P5 actT nflip permutes Z_F
+PASS P6 actT(rotZ(0,1)) e01 != e01
+PASS P7 unitary scaled partial permutations of one token: exactly c*1 and c*X, |c| = 1
+PASS P8 the quarter access transfers a finite group of order 8 without R_z(theta0)
+VERDICT B15-PREFLIGHT: all checks green

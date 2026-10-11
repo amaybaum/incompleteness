@@ -1,0 +1,101 @@
+inputs:
+   ../../archive/pt/R6/REASSESSMENT.md 1ff62ad633fbd752f247d49b605e6cc8d984e23d8b7151b6497cdd60fa884ffe
+   ../../archive/pt/R6/r4_tables.out 08d38e1cab735d25245a1335bddb1a95305977f68ee5b542e4351efac0438219
+   ../../archive/pt/I4/INVENTORY.md 43bbada1db14f052e3ec3eb3d7fc99d1bb042d41a143c912aa6ca3e4cad75461
+Table A2 rows parsed: 199  NOT REACHED: 68
+
+FM classification of the 68 NOT REACHED rows
+| row | level at FM | class | evidence | chain |
+|---|---|---|---|---|
+| I3.96 | O | SAT | [A]/[W] FM token body eball 3 has finite rank (dimension 3), as for Q3 | - |
+| I3.99 | O | SAT | [W] an operation datum with affine respect and an inverse: the NOT, available in FM | - |
+| I3.104 | O | SAT | [K] theorem body_isClosed | - |
+| I3.105 | O | SAT | [K] theorem preservesBody_inducedEquiv | - |
+| I3.134 | P4 | SAT | [W] token coherence of the Kronecker/PSD four-token composite | - |
+| I3.136 | P4 | SAT | [W] Lemma R interface families hold for Q3 on every pair (quantum four-copy composite) | - |
+| I3.141 | P4 | SAT | [W] KT4Cone with K4 the four-qubit PSD cone: products in, product effects nonnegative | - |
+| I3.145 | P | SAT | [W] P-STAGE2: FM pair completion is the PSD slice, charted onto W 3 by the dictionary (B15) | - |
+| I3.146 | P | SAT | [W]+[D] P-ACT2: the CNOT is a permutation matrix available in FM; dict_cnot (B11) | - |
+| I3.154 | P4 | SAT | [W] IE2 in both readings: Q3-type cones invariant; FM pair operations extend idly (ContextStable) | - |
+| I3.157 | P4 | SAT | [W] SDC: P3, OVL4, CSD2 for the PSD composites (self-duality of the PSD cone) | - |
+| I3.158 | P4 | SAT | [W] N0-N2: regrouping invariance of the Kronecker composite | - |
+| I1.17 | H/M/G | NA | layered theorem statement (Main.md:82): a scope statement | - |
+| I4.3 | M | SAT | [D] BridgeAvailFull latticeTheory_parallel (kernel parallel_of_implementationLocal, ImplementationLocality.lean:943) | - |
+| I4.4 | M | SAT | [D] BridgeAvailFull latticeTheory_qutrit (kernel qutrit_of_parallel, ReferenceExtension.lean:474) | - |
+| I4.14 | M | SAT | [D] BridgeAvailFull latticeTheory_inert (kernel inertSpectator_iff_parallelReferenceExtension, SpectatorBridge.lean:233) | - |
+| I4.29 | M | SAT | [D] BridgeAvailFull latticeClass_contextStable (for permClass [K] SubstratumInterfaceAudit.lean:358) | - |
+| I4.31 | M | SAT | [D] BridgeAvailFull latticeTheory_implementationLocality (kernel genTheory_implementationLocality) | - |
+| I4.42 | M | HARMLESS | OIPlusLocal | OIPlusLocal <-> QM [K] ImplementationLocality.lean:1070 -> QM |
+| I4.45 | M | SAT | [D] BridgeAvailFull latticeClass_structurallyClosed | - |
+| I4.56 | M | HARMLESS | LayerFlowExecutable; [D] BridgeAvailFull latticeTheory_not_layerFlowExecutable | with DerivedOI: QM <-> LayerFlowExecutable [K] LiftAudit.lean:812 -> QM |
+| I4.65 | M | HARMLESS | PhysicalCompletionConditions | third conjunct HasCompositeUnitaryControl (definition) -> control |
+| I4.66 | M | SAT | [D] BridgeAvailFull latticeTheory_validity (kernel validity_of_implementationLocality, :971) | - |
+| I4.67 | M | HARMLESS | HasCompositeUnitaryControl; [D] BridgeAvailFull latticeTheory_pair_not_control | control |
+| I4.68 | M | SAT | [D] BridgeAvailFull latticeTheory_closure (kernel closure_of_embeddedObservation, EmbeddedObservation.lean:211) | - |
+| I4.69 | M | SAT | [D] BridgeAvailFull latticeTheory_systemToLevelOne (kernel, EmbeddedObservation.lean:223) | - |
+| I4.70 | M | HARMLESS | ExactAllFiniteEndomorphicQuantumOps; [D] BridgeAvailFull latticeTheory_not_qm | QM |
+| I4.73 | M | SAT | [D] BridgeAvailFull latticeTheory_wellFormed | - |
+| I4.74 | M | HARMLESS | SubstantiveCompletion | second conjunct HasCompositeUnitaryControl (definition) -> control |
+| I4.80 | M | HARMLESS | CompletedOI | <-> PhysicalCompletionConditions [K] CompletedOI.lean:110 -> third conjunct control -> control |
+| I4.82 | M | SAT | [D] BridgeAvailFull latticeTheory_qubitObservationalIndependence | - |
+| I4.85 | M | HARMLESS | ReversibleRichness (qubit) | control_of_reversibleRichness [K] CompletedOI.lean:200 -> control |
+| I4.87 | M | SAT | [D] BridgeAvailFull latticeTheory_observerRecursion (kernel, EmbeddedObservation.lean:217) | - |
+| I4.88 | M | HARMLESS | OIPlus (qubit) | oiPlus_iff_qm [K] CompletedOI.lean:440 -> QM |
+| I4.96 | M | SAT | [D] BridgeAvailFull latticeTheory_observationalIndependence (kernel, ImplementationLocality.lean:957) | - |
+| I4.99 | M | HARMLESS | ReversibleRichness | control_of_reversibleRichness [K] CarrierGeneralOIPlus.lean:127 -> control |
+| I4.102 | M | HARMLESS | OIPlus | oiPlus_iff_qm [K] CarrierGeneralOIPlus.lean:207 -> QM |
+| I4.110 | M | SAT | [D] BridgeAvailFull latticeTheory_embeddedObservation (kernel genTheory_embeddedObservation) | - |
+| I4.115 | M | HARMLESS | OIPlusEmbedded | oiPlusEmbedded_iff_oiPlus [K] EmbeddedObservation.lean:388 -> oiPlus_iff_qm -> QM |
+| I4.118 | M | HARMLESS | PhaseFreeRichness; [D] BridgeAvailFull latticeTheory_not_phaseFree | with IteratedAncillaClosure: control_of_phaseFree [K] MinimalRepertoire.lean:529 -> control |
+| I4.120 | M | HARMLESS | OIPlusMin | oiPlusMin_iff_qm [K] MinimalRepertoire.lean:569 -> QM |
+| I4.123 | M | HARMLESS | CyclicRichness | phaseFree_of_cyclic [K] MinimalRepertoire.lean:642 -> control_of_phaseFree -> control |
+| I4.124 | M | HARMLESS | OIPlusPos | oiPlusPos_iff_qm [K] PositivePackage.lean:55 -> QM |
+| I4.127 | M | SAT | [D] BridgeAvailFull latticeTheory_inverseAccessibility (kernel, MicroscopicReversibility.lean:283) | - |
+| I4.128 | M | HARMLESS | LieRankRichness | control_of_lieRank [K] MicroscopicReversibility.lean:114 -> control |
+| I4.133 | M | SAT | [D] BridgeAvailFull latticeTheory_reversibleImplementationLocality | - |
+| I4.137 | M | HARMLESS | OIPlusMicro | oiPlusMicro_iff_qm [K] MicroscopicReversibility.lean:357 -> QM |
+| I4.143 | M | HARMLESS | DrivesElementary; [D] BridgeAvailFull latticeClass_not_drivesElementary | genTheory_elementary [K] SubstratumSource.lean:109 -> phaseFree_of_elementary [K] MinimalRepertoire.lean:430 -> control_of_phaseFree -> control |
+| I4.144 | M | HARMLESS | QuantumArchitecture; [D] BridgeAvailFull latticeClass_not_quantumArchitecture | field drives: DrivesElementary -> genTheory_elementary -> phaseFree_of_elementary -> control_of_phaseFree -> control |
+| I4.179 | M | HARMLESS | PairFlowSourced | with DerivedOI: qm_of_derivedOI_pairFlowSourced [K] PairFlowEquivalence.lean:190 -> QM |
+| I4.187 | G | HARMLESS | ShadowQuantum (the shadow of FM is the lattice theory, not QM) | QM on every carrier (definition) -> QM |
+| I4.210 | M | SAT | [K] theorem (PSD duality; FM states are PSD) | - |
+| I4.215 | M | SAT | [K] theorem (PSD pairing; FM states are PSD) | - |
+| I4.216 | M | SAT | [K] theorem (accessible cone; FM states are PSD) | - |
+| I4.241 | M | SAT | [D] BridgeAvailFull latticeTheory_derivedOI (kernel derivation of derivedOI_of_stated, StateMixingCoupling.lean:463) | - |
+| I4.244 | M | HARMLESS | ElementaryTransitionRichness | phaseFree_of_elementary [K] MinimalRepertoire.lean:430 -> control_of_phaseFree -> control |
+| I4.245 | M | HARMLESS | OIPlusElem | oiPlusElem_iff_qm [K] LieRankSource.lean:543 -> QM |
+| I2.3 | G | NA | operational-extension boundary: a scope statement | - |
+| I2.29 | G | SAT | [K] theorem (exactAll_iff_physical_general); FM fails (iv) and is not QM, as the theorem requires | - |
+| I2.30 | G | SAT | [K] theorem (oi_alone_not_qm); FM instantiates "bare finite OI does not imply QM" | - |
+| I2.31 | G | HARMLESS | OI+ package: FM has (1) and (3), fails (2) reversible richness | oiPlus_iff_qm -> QM |
+| I2.32 | G | HARMLESS | primitive-source form: FM has locality and embedded observation, fails phase-free richness | oiPlusMin_iff_qm -> QM |
+| I2.33 | G/H | HARMLESS | substratum-source form: FM lacks the phase intervention at general angles and the controllability resource | phase intervention at theta0 supplies zPh: substratum_pairAvail_zPh [D B14] -> controllability: substratum_plus_control_qm [K] -> QM |
+| I2.34 | G | HARMLESS | layer-flow form: FM lacks executability | with DerivedOI: QM <-> LayerFlowExecutable [K] -> QM |
+| I2.35 | G | HARMLESS | typed form: its resource is the substratum-source form's | as I2.33 -> QM |
+| I2.62 | M/G | NA | comparison of routes: a scope statement | - |
+| I2.63 | G/O | NA | operational-reconstruction route: a scope statement | - |
+| I2.69 | H/M/G | NA | the claim structure: a scope statement | - |
+
+TALLY FM {'HARMLESS': 29, 'NA': 5, 'SAT': 34}
+TALLY FM I1 {'NA': 1}
+TALLY FM I2 {'HARMLESS': 5, 'NA': 4, 'SAT': 2}
+TALLY FM I3 {'SAT': 12}
+TALLY FM I4 {'HARMLESS': 24, 'SAT': 20}
+
+C3 rows the inventory text forces: 24 {'I4.3': 'SAT', 'I4.4': 'SAT', 'I4.14': 'SAT', 'I4.42': 'HARMLESS', 'I4.66': 'SAT', 'I4.68': 'SAT', 'I4.69': 'SAT', 'I4.87': 'SAT', 'I4.88': 'HARMLESS', 'I4.96': 'SAT', 'I4.99': 'HARMLESS', 'I4.102': 'HARMLESS', 'I4.110': 'SAT', 'I4.115': 'HARMLESS', 'I4.118': 'HARMLESS', 'I4.120': 'HARMLESS', 'I4.123': 'HARMLESS', 'I4.124': 'HARMLESS', 'I4.127': 'SAT', 'I4.137': 'HARMLESS', 'I4.179': 'HARMLESS', 'I4.210': 'SAT', 'I4.215': 'SAT', 'I4.216': 'SAT'}
+
+C5 countercontrol, the observer theory alone: HARMFUL rows ['I4.241']
+
+X2 group generated by X_B, S_B, X_A, S_A, CNOT, SWAP: order 3072
+
+CHECKS
+PASS C1 ids = Table A2 NOT REACHED (68)
+PASS C2 every HARMLESS chain ends in control or QM
+PASS C3 inventory status text agrees (24 forced rows; disagreements [])
+PASS C4 R6 Q3 tally 131 SATISFIES / 68 NOT, no FAILS
+PASS C5 countercontrol: permTheory has DerivedOI HARMFUL
+PASS X1 w^4 = (-527 - 336 i)/625, not 1
+PASS X2 every element on the fourth-root lattice
+PASS X3 no element on the ray of 1 (x) diag(1, w) or of 1 (x) U_J
+PASS X4 diag(1,...,1,w) has two distinct nonzero entries (no nonzero multiple has all entries equal)
+VERDICT B14-FULL: no HARMFUL row; SAT 34, HARMLESS 29, NA 5 over 68 NOT REACHED rows; controls green
