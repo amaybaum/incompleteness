@@ -86,8 +86,7 @@ def box (R : ℝ) : Set (Matrix n n ℂ) :=
 /-! ### §K — elementary facts: membership, Hermiticity, pairings, `K ⊆ K*` -/
 
 theorem zero_mem_coneOf {κ : Type*} (d : κ → Matrix n n ℂ) : (0 : Matrix n n ℂ) ∈ coneOf d :=
-  ⟨∅, fun _ => 0, fun _ => le_refl 0,
-    (Finset.sum_eq_zero fun k _ => absurd k.2 (Finset.notMem_empty (k : κ))).symm⟩
+  ⟨∅, fun _ => 0, fun _ => le_refl 0, by simp⟩
 
 theorem single_mem_coneOf {κ : Type*} [DecidableEq κ] (d : κ → Matrix n n ℂ) (k : κ) :
     d k ∈ coneOf d := by
@@ -307,7 +306,7 @@ theorem norm_entry_defect_le {c : ℝ} {h : n → ℂ} (hh : ip h h = 1) (hc : 0
         (Finset.mem_univ a)
     exact le_of_pow_le_pow_left₀ two_ne_zero zero_le_one (by rw [one_pow]; exact h2)
   have hd : defect c h i j = (1 : Matrix n n ℂ) i j - (c : ℂ) * (h i * star (h j)) := by
-    simp [defect, Matrix.sub_apply, Matrix.smul_apply, Matrix.vecMulVec_apply, smul_eq_mul]
+    simp [defect, Matrix.sub_apply, Matrix.smul_apply, Matrix.vecMulVec_apply]
   rw [hd]
   have h1 : ‖(1 : Matrix n n ℂ) i j‖ ≤ 1 := by
     rw [Matrix.one_apply]
@@ -373,7 +372,9 @@ theorem isCompact_box (R : ℝ) : IsCompact (box (n := n) R) :=
   isCompact_univ_pi fun _ => isCompact_univ_pi fun _ => isCompact_closedBall 0 R
 
 theorem mem_box {R : ℝ} {M : Matrix n n ℂ} : M ∈ box R ↔ ∀ i j, ‖M i j‖ ≤ R := by
-  simp only [box, Set.mem_univ_pi, Metric.mem_closedBall, dist_zero_right]
+  show (M : n → n → ℂ) ∈
+    Set.pi Set.univ (fun _ : n => Set.pi Set.univ fun _ : n => Metric.closedBall (0 : ℂ) R) ↔ _
+  simp only [Set.mem_univ_pi, Metric.mem_closedBall, dist_zero_right]
 
 instance instFirstCountableTopologyMatrix : FirstCountableTopology (Matrix n n ℂ) :=
   inferInstanceAs (FirstCountableTopology (n → n → ℂ))
@@ -533,13 +534,13 @@ theorem dualH_subset_surgeryC_of_finite {κ : Type*} [TopologicalSpace κ] [Comp
         (mul_le_mul_of_nonneg_left hzR hMd0)
   choose q z hq hqk hz hyeq hqB hzB using hstep
   -- subsequences in the compact boxes
-  obtain ⟨q∞, -, φ₁, hφ₁, hq∞⟩ :=
+  obtain ⟨qlim, -, φ₁, hφ₁, hqlim⟩ :=
     (isCompact_box (n := n) R).tendsto_subseq fun m => mem_box.mpr (hqB m)
-  obtain ⟨z∞, -, φ₂, hφ₂, hz∞⟩ :=
+  obtain ⟨zlim, -, φ₂, hφ₂, hzlim⟩ :=
     (isCompact_box (n := n) (Md * R / τ)).tendsto_subseq fun m => mem_box.mpr (hzB (φ₁ m))
   have hψ : Tendsto (fun m => φ₁ (φ₂ m)) atTop atTop := (hφ₁.comp hφ₂).tendsto_atTop
-  have hq∞' : Tendsto (fun m => q (φ₁ (φ₂ m))) atTop (𝓝 q∞) := hq∞.comp hφ₂.tendsto_atTop
-  have hz∞' : Tendsto (fun m => z (φ₁ (φ₂ m))) atTop (𝓝 z∞) := hz∞
+  have hqlim' : Tendsto (fun m => q (φ₁ (φ₂ m))) atTop (𝓝 qlim) := hqlim.comp hφ₂.tendsto_atTop
+  have hzlim' : Tendsto (fun m => z (φ₁ (φ₂ m))) atTop (𝓝 zlim) := hzlim
   have hηψ : Tendsto (fun m => η (φ₁ (φ₂ m))) atTop (𝓝 0) := hη_lim.comp hψ
   have hεψ : Tendsto (fun m => ε (φ₁ (φ₂ m))) atTop (𝓝 0) := by
     have h := (hηψ.mul_const τ).div_const K
@@ -548,10 +549,10 @@ theorem dualH_subset_surgeryC_of_finite {κ : Type*} [TopologicalSpace κ] [Comp
       funext fun m => hε _
     rw [hfun]
     exact h
-  -- the two limits of one sequence: `y = q∞ + z∞`
+  -- the two limits of one sequence: `y = qlim + zlim`
   have hlim1 : Tendsto (fun m => y + ((η (φ₁ (φ₂ m)) : ℝ) : ℂ) • (1 : Matrix n n ℂ)) atTop
-      (𝓝 (q∞ + z∞)) :=
-    (hq∞'.add hz∞').congr fun m => (hyeq (φ₁ (φ₂ m))).symm
+      (𝓝 (qlim + zlim)) :=
+    (hqlim'.add hzlim').congr fun m => (hyeq (φ₁ (φ₂ m))).symm
   have hlim2 : Tendsto (fun m => y + ((η (φ₁ (φ₂ m)) : ℝ) : ℂ) • (1 : Matrix n n ℂ)) atTop
       (𝓝 y) := by
     have h0 : Tendsto (fun m => ((η (φ₁ (φ₂ m)) : ℝ) : ℂ)) atTop (𝓝 ((0 : ℝ) : ℂ)) :=
@@ -561,17 +562,17 @@ theorem dualH_subset_surgeryC_of_finite {κ : Type*} [TopologicalSpace κ] [Comp
         (𝓝 (y + (0 : ℂ) • (1 : Matrix n n ℂ))) :=
       tendsto_const_nhds.add (h0.smul_const (1 : Matrix n n ℂ))
     rwa [zero_smul, add_zero] at h1
-  have heq : q∞ + z∞ = y := tendsto_nhds_unique hlim1 hlim2
-  refine ⟨q∞, z∞, ?_, ?_, ?_, heq.symm⟩
-  · exact isClosed_psd.mem_of_tendsto hq∞' (Eventually.of_forall fun m => hq _)
+  have heq : qlim + zlim = y := tendsto_nhds_unique hlim1 hlim2
+  refine ⟨qlim, zlim, ?_, ?_, ?_, heq.symm⟩
+  · exact isClosed_psd.mem_of_tendsto hqlim' (Eventually.of_forall fun m => hq _)
   · intro k
     have hneg : Tendsto (fun m => -(ε (φ₁ (φ₂ m)) * Fintype.card n * R)) atTop (𝓝 0) := by
       have h := ((hεψ.mul_const (Fintype.card n : ℝ)).mul_const R).neg
       rwa [zero_mul, zero_mul, neg_zero] at h
-    have hpr : Tendsto (fun m => pr (q (φ₁ (φ₂ m))) (d k)) atTop (𝓝 (pr q∞ (d k))) :=
-      ((continuous_pr_left (d k)).tendsto q∞).comp hq∞'
+    have hpr : Tendsto (fun m => pr (q (φ₁ (φ₂ m))) (d k)) atTop (𝓝 (pr qlim (d k))) :=
+      ((continuous_pr_left (d k)).tendsto qlim).comp hqlim'
     exact le_of_tendsto_of_tendsto' hneg hpr fun m => hqk _ k
-  · exact mem_closure_of_tendsto hz∞' (Eventually.of_forall fun m => hz _)
+  · exact mem_closure_of_tendsto hzlim' (Eventually.of_forall fun m => hz _)
 
 /-! ### §N — Theorem S′ for compact defect families -/
 
