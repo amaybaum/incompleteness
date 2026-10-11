@@ -178,7 +178,7 @@ theorem blockOf_gen2_mem (T : OperationalAssembly.FiniteOperationalTheory (Fin 2
   | rot => exact R.rot_mem
   | phase => exact R.phase_mem
   | swap => exact R.swap_mem
-  | mul _ _ hA hB => rw [blockOf_mul]; exact R.mul_mem hA hB
+  | mul _ _ hA hB => rw [← blockOf_mul]; exact R.mul_mem hA hB
 
 /-- **DENSITY OF THE LEVEL-ONE GROUP GIVES THE LEVEL-ONE CLAUSE** in every theory with the closure
 and the gate. -/
