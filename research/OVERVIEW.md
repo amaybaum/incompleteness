@@ -13,15 +13,16 @@ enters `main` only through a §A.39 governed round with separate authorization.
 
 ## Branch map
 
-| branch | purpose | base | head (round 4) | status |
+| branch | purpose | base | head (round 5) | status |
 |---|---|---|---|---|
 | `research/archive` | shared historical record: PT stages 1–6 and all prior rounds' working records, with manifests and provenance (`research/archive/README.md`) | L | `4dc0321c` | landed, read-only |
 | `research/overview` | this overview, `research/HANDOFFS/` (versioned handoffs), `research/AUDITS/` (coordinator audits), the milestone log | archive | live | coordinator only |
-| `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `a34d20b5` (round 4 audited) | active, priority 1 |
-| `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `644bf0a1` (round 4 audited) | active |
-| `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `7192e3b5` (round 4 audited) | active |
-| `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `ab6788b9` (round 4 audited) | active |
-| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (runs 38090924005 at `195dfbee`, 38096511360 at `95beab2b`: the repair measured, 15/15), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-equivalence/k2-schema` @ `aabc649e` (runs 38099025197 at `472835c5`, 38101580750), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-origin/exclusive` @ `5df964af` (runs 38098314988 at `39fd0e67`, 38099172719), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860), `dev-bridge/r3-dict` @ `3d554e7e` (run 38099134414), `dev-bridge/r3-reach` @ `747bcf94` (run 38101591388); round 4: `dev-origin/token-order` @ `35d326a3` (run 38108620996), `dev-origin/angle` @ `f0cd9272` (runs 38111982910 at `9dd6a173`, 38112242400), `dev-equivalence/r4-design` @ `20c207f1` (runs 38112020014 at `2d978412`, 38112803530), `dev-countermodels/c17-sprime` @ `5649e641` (runs 38112032111 at `7d3736e4`, 38112813276), `dev-bridge/r4-avail` @ `152094b5` (run 38110368244), `dev-bridge/r4-conv` @ `ca48c4c4` (run 38115337569), `dev-bridge/r4-final` @ `bf8ba746` (run 38117986499) | thread branch | — | as created |
+| `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `5ba9218e` (round 5 audited) | active, priority 1 |
+| `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `c9ac75bd` (round 5 audited) | active |
+| `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `44c06d46` (round 5 audited) | active |
+| `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `3a46b811` (round 5 audited) | active |
+| `research/wip-checkpoints` | the coordinator's safety copies of uncommitted thread work, taken at the owner's direction before a possible usage-limit stop (`checkpoints/2026-10-11T103838Z/`, with its manifest); labelled UNFINISHED / UNVERIFIED; copies only — the threads' own commits are the record | L | `1b2ec2bb` | coordinator only; not authoritative |
+| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (runs 38090924005 at `195dfbee`, 38096511360 at `95beab2b`: the repair measured, 15/15), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-equivalence/k2-schema` @ `aabc649e` (runs 38099025197 at `472835c5`, 38101580750), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-origin/exclusive` @ `5df964af` (runs 38098314988 at `39fd0e67`, 38099172719), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860), `dev-bridge/r3-dict` @ `3d554e7e` (run 38099134414), `dev-bridge/r3-reach` @ `747bcf94` (run 38101591388); round 4: `dev-origin/token-order` @ `35d326a3` (run 38108620996), `dev-origin/angle` @ `f0cd9272` (runs 38111982910 at `9dd6a173`, 38112242400), `dev-equivalence/r4-design` @ `20c207f1` (runs 38112020014 at `2d978412`, 38112803530), `dev-countermodels/c17-sprime` @ `5649e641` (runs 38112032111 at `7d3736e4`, 38112813276), `dev-bridge/r4-avail` @ `152094b5` (run 38110368244), `dev-bridge/r4-conv` @ `ca48c4c4` (run 38115337569), `dev-bridge/r4-final` @ `bf8ba746` (run 38117986499); round 5 (`research/AUDITS/2026-10-11-round5/CI-RUNS-R5.md`): `dev-bridge/r5-bridge` @ `36083b22` (run 38123860471, Build failure in `BridgeToken`), `dev-bridge/r5-bridge2` @ `16e75fbe` (run 38124442150), `dev-countermodels/c22-compact` @ `a69987bd` (runs 38124380741 at `6cb76f96` and 38125067948 at `e4ef2e46`, both Build failures, then 38131214451), `dev-equivalence/r5-design` @ `f0c36cf9` (runs 38124464622 at `7dd71a7e`, Build failure in `EqvK2Block`, 38132266383 at `f67da967`, 38134245361), `dev-origin/drive` @ `86358785` (runs 38134267257 at `78baca7c`, Build failure in `OriginDrive`, then 38135099684) | thread branch | — | as created |
 | `research/conscious-observation-loop` | pre-existing branch of the owner (CONSC-1 charter work, 2026-10-05); not part of this tree, untouched | — | `0cefaecb` | owner's |
 
 **CI on research branches.** Pushes to research branches trigger no workflow. A `workflow_dispatch` run on a dev
@@ -65,7 +66,11 @@ round 4 on:
   four-token coherence λ, pair homogeneity H, strong self-duality, H-FAC / H-UNIF / H-GEN / H-DYN, and the exclusive
   readout (refuted); round 4 added the token-level resources a sufficient bridge must introduce — the phase
   intervention at θ₀ (I2.33), i.e. the operational reading of K∞-Drive at one irrational angle, and the non-monomial
-  datum at π/4 for `J` — and Theorem S′'s hypotheses on a defect family. Evidence layers stay separate: [D] design
+  datum at π/4 for `J` — and Theorem S′'s hypotheses on a defect family; round 5 stated those two resources as
+  kernel predicates — OpDrive(θ₀) and the J-datum — and made the bridge's transfer clause (T)_𝓘 an explicit third
+  introduced item, and named what the origin thread's limit route would need in its place: the transfer clause in
+  channel form (T^ch)_𝓘, closedness of the pair cone, and a closure premise for limits of available channels
+  (LIMCLOSE-C in the archive's name), each introduced. Evidence layers stay separate: [D] design
   results, [W] written proofs, [K] kernel theorems at L and CERTIFIED landed rounds never stand in for one another in
   a label; a chain of kernel theorems is only as strong as the side hypotheses of each link, checked against the model
   it is applied to (round-4 finding F1).
@@ -261,6 +266,63 @@ test). Round 1 added, with every claim at its label:
   tower first at `n = 3` with every orbit defect certified out. Four weaker alternatives are FAILED in the owner's
   words: the transfer clause for the stated access, a finite group, a group whose identity component has dimension at
   most one, a finite stage.
+- **The sufficient bridge with the transfer clause as an explicit third assumption (bridge round 5, HO-37 … HO-40,
+  HO-33 v2):** the two control-or-QM rows of FM that rested on a written argument (I4.56, I2.34) now rest on a design
+  chain without `SubstratumAvail` for fixed-point-free layer involutions (`BridgeToken` §B; round 4's F1 closed in
+  design; the fixed-point instances stay OPEN); for context-stable, label-invariant architectures pair availability is
+  token availability (`pairAvail_iff_tokenAvail`, [D]); OpDrive(θ₀) := `TokenAvailAt zPh n` for every `n` and the
+  J-datum := `TokenAvailAt uJ n` for every `n` give pair availability of both (B20-1, CONDITIONAL [D]), and with
+  **(T)_𝓘 as a third introduced item** — every admissible one-token unitary maps the pair cone into itself through
+  its transferred table — invariance of the pair cone under `actT R_z(θ₀)` and `actT J` (`bridge_derived_half`,
+  B20-2, CONDITIONAL [D]; `BridgeOpDrive` 21/21). (T) cannot be omitted from this construction: the full class
+  satisfies every other hypothesis of the derived half and K(Z_F) is moved by both operations (verified independently
+  by the coordinator with exact certificates). Whether the complete existing OI framework implies (T) is OPEN; that
+  (T) is necessary for any derivation of quantum equivalence is not shown (QM satisfies (T) for its own class, a
+  consequence of the target). The bridge is not an equivalence (FM's `Q3` has both invariances with neither datum).
+  The scope of round 4's full-model verdict is relative to Table A2's rows: I4.60 `SubstratumAvail`, an inventory
+  item outside Table A2, implies the drive without implying control or QM (HO-33 v2). On B10-4's 2-torus group (the
+  tower's closure) no self-dual rank-one surgery satisfies H1 (CONDITIONAL on Lemma C18-1; HO-40). Classification:
+  **(C), provisional**.
+- **The generated group, exact against dense (origin round 5, HO-45):** for a unitary-ray-saturated architecture the
+  `InstAvail` closure adds no unitary conjugation (`avail_unitary_iff` [D]); on the stated access (`permClass`,
+  `MixR ∅`, FM's `latticeClass`) the reversible group is finite up to scalar at every carrier ([D], `OriginDrive`;
+  orders `(2n)!` and `(2n)! · 4^{2n−1}` computed at levels one and two [X], the monomial count at general `n` [W]),
+  and the drive is not even a limit of available channels (every Kraus operator a positive multiple of a `μ₄` partial
+  monomial [W], spot-checked [X]). Every exact source of the drive — the phase intervention at θ₀ as a class, at every
+  angle (I4.60), the fractional layer flow with the quarter phase, the re-preparing tower — is the phase intervention
+  or contains it (disguise test FAILED for each); exact QM entails the drive (`opDrive_of_qm` [D]); no fixed gate at a
+  rational angle makes the drive available (O14-T8, valuation at a prime above `2 − i`, [W]). In `MixR {π/4}` (the
+  fixed gate at the balanced angle), a repeat-until-success protocol on the token and two ancilla qubits, built from
+  `H`, Toffoli and `S`, makes available `Φ_k = (1 − (3/8)^k) conj(zPh) + (3/8)^k id` (`op`, `readout`, `bind`,
+  `coarse` and `discard` only), so the drive is a limit of available channels and never available
+  (O14-T9, [W] + [X], verified with two circuits). That route cannot supply OpDrive(θ₀); it gives invariance under
+  the drive of every closed pair cone invariant under every available channel, which needs the transfer clause in
+  channel form (T^ch)_𝓘 and closedness of `K`. The candidate premise set {the J-datum as the balanced mixer,
+  (T^ch)_𝓘, `K` closed} trades the phase intervention at θ₀ for a stronger transfer clause; placement (B), provisional
+  twice; not assembled against `bridge_derived_half`.
+- **`ReachPure` is a theorem; the pair-level equivalence with each direction witnessed (equivalence round 5, HO-43,
+  HO-44):** the gate (H2) and the clause's rotations at every angle with `cycEquiv` (A_miss) give invariance under the
+  block-diagonal `SU(2) × SU(2)` by exact finite words — no closure, density or continuity, neither H1 nor H3
+  (`blockInvariant_of_drive`, `reachPure` [D], `EqvK2Generation` 12/12); so `ReachPure` is derived, not assumed, and
+  given H1 and H3, `K = Q3 ↔ (H2 ∧ A_miss)` (`pairCone_eq_Q3_iff_drive_exact` [D]; sufficiency and necessity each a
+  separate theorem, the necessity direction using neither H1 nor H3). The forcing conditions do not contain the
+  conclusion (H2 and A_miss mention no positivity, no `Q3`, no pure state, no reachability; transitivity on pure
+  states from products proved, confirmed independently). The one-irrational-angle form needs `K` closed (H3),
+  continuity, the closure lemma [D] and DENSE(θ₀) [L]. `aMiss_of_transferClause` (`EqvOneDictionary` [D]) connects
+  the bridge's (T) for a class containing the drive unitaries to A_miss. What E19 isolates as open: the sources of
+  H2, H3 and A_miss.
+- **Theorem S′ for compact families built; the tower's closure admits no rank-one or engine-certified surgery cone
+  (countermodels round 5, HO-41, HO-42):** Theorem S′ for compact defect families with every hypothesis explicit is a design module
+  (`CmSprimeCompact` 38/38 standard; the pre-registered design run FAILED in two dispatches and is kept), so the
+  circle cones C13.5, C13.7 and `Kk` rest on [D] plus a written closedness remark. For
+  `G_T = cl⟨CNOT, X_B, R_B(t)⟩ = T² ⋊ V4`: every orbit carries an orthogonal pair; no rank-one surgery with every
+  weight in `(1, 2)` is self-dual; **no `G_T`-orbit is H1-admissible at `c = 2`** (CNOT carries every Bell state to a
+  product) and H1 admits rank-one defect orbits only at weights `c ≤ 4 − 2√2` (the coordinator's correction F-C5-1,
+  agreeing with the bridge's B21); the balanced engine certifies no rank-two surgery. Node outcome OBSTRUCTED: no
+  surgery-type cone — rank-one with any weights, or balanced through the engine — is invariant under `G_T`, hence none
+  under all of B10-5's stages at once; balanced surgeries without the engine, higher-rank defects and non-surgery
+  constructions are not ruled out, and an explicit `G_T`-invariant exotic cone stays OPEN (existence at claim (D));
+  nothing here is evidence for outcome (D).
 
 Stage summaries (archived, audited): stage 5 — no principle at L derives (b); CONDITIONAL on a spectator clause; weakest
 content (b) for {flow, J} or {flow, phase flow} on one token. Stage 4 — dichotomy UNIQUE iff Ĝ·SEP = all pure states,
@@ -474,10 +536,20 @@ and (ii) K(Z_F).
   ring-4 and rule instances), the module statements read (the five hypotheses exactly), citations 57/57, three runs
   step-verified — `AUDITS/2026-10-11-round3/AUDIT-EQUIVALENCE-R3.md`; HO-18, HO-19 issued.
 
-## Newly identified assumptions (rounds 1–4)
+## Newly identified assumptions (rounds 1–5)
 
 | assumption | where it enters | status |
 |---|---|---|
+| OpDrive(θ₀) := `TokenAvailAt 𝓘 arch zPh n` for every `n` (`zPh = diag(1, w)`, `w = 3/5 + 4i/5`) and the J-datum := `TokenAvailAt 𝓘 arch uJ n` for every `n` (`uJ = (1 − i(X + Y + Z))/2`) — the round-4 resources as kernel predicates | bridge round 5 (B20-1; HO-39) | introduced; OpDrive restates I2.33's phase intervention at θ₀ in availability form and I3.169's operational reading at θ₀ (H-T's token clause at level M), not (b) in disguise; FM refutes both; the bridge's premises are jointly unsatisfiable at K(Z_F) |
+| the transfer clause (T)_𝓘 — every admissible one-token unitary `U` of the class maps the pair cone `K` into itself through `coordOf ∘ Ad(1 ⊗ U) ∘ dict` | bridge round 5: the third introduced item of `bridge_derived_half` (B20-2; HO-39) | introduced, not an OI premise; cannot be omitted from this construction (the full class with K(Z_F), verified independently); whether the complete OI framework implies it is OPEN; not shown necessary for any derivation of quantum equivalence |
+| the transfer clause in channel form (T^ch)_𝓘 — every available one-token channel `Φ` maps `K` into itself through `coordOf ∘ (1 ⊗ Φ) ∘ dict` — with `K` closed (`hcl`) | origin round 5 (O14-N1, the limit route to the drive's invariance; HO-45 item 7; the coordinator's F-O5-3) | introduced; implies (T) for the class's unitaries; `Q3` satisfies both for every class [W]; [W] + [X], not assembled against the derived half |
+| LIMCLOSE-C — closure of availability under limits of available channels | wherever a limit of available channels stands in for an available operation (O14, AUDIT-ORIGIN-R5 §8) | introduced, not an inventory item at L; availability reaches the exact group only |
+| "a limit of available channels is available" | origin round 5 (O14-T9) | false: in `MixR {π/4}` the drive is a limit of available channels and never available (O14-T8); a limit gives invariance of closed invariant sets, not availability |
+| "independent of the stage-6 inventory" for the token clause's availability (HO-33 v1 item 2) | bridge round 4, scoped in round 5 by origin O14-T2 (HO-33 v2) | holds relative to Table A2's rows; I4.60 `SubstratumAvail`, an inventory item outside Table A2, implies the drive without implying control or QM; FM fails it |
+| `ReachPure` as a hypothesis of the K2 schema | equivalence round 5 (R-E19.4; HO-43) | derived: a theorem about the drive words (`reachPure` [D]); the forcing conditions H2, A_miss do not contain the conclusion |
+| "invariance under a dense subgroup is invariance under its closure" | countermodels C23, equivalence R-E19.5 | for closed cones only; the step uses H3 (closedness) and continuity, named wherever used |
+| Theorem S′, compact form, as a design-built statement (compact nonempty index space, continuous weights and seeds, unit seeds, `1 < c ≤ 2`, `c < card n`, nonnegative pairings, (CC) on positively paired pairs) | countermodels round 5 (C22.1, `CmSprimeCompact` 38/38; HO-41) | [D]; the closedness remark for `cone Z` [W]; the necessity of (CC) not stated |
+| "the two Bell circles are a `G_T`-orbit" (C23-2 (b)–(c)) | countermodels round 5 (the coordinator's F-C5-1; HO-42 item 3) | false: CNOT ∈ `G_T` maps every Bell state to a product; the statements hold for `T² ⋊ ⟨X_B⟩`, which lacks CNOT |
 | the fourth-root lattice theory FM (the stated access with the quarter phase taken as a class, `genTheory latticeClass`) as a full model at level M, with the ball token and the kernel's ambient PSD pair cone | bridge round 4 (B14-6; HO-33) | CONJECTURE ([D] + [A] + [W]); its pair cone is not generated by its operations; P1 open as for every model |
 | "pair availability in the kernel's vocabulary is a pair-cone statement" | bridge round 4 (B14-4, B14-5, B14-8) | false: for context-stable, label-invariant classes it is token availability on the Kronecker composite; reading it at the pair cone is (T) = (b); availability ⇒ invariance and not conversely (FM) |
 | a model-against-inventory implication chain is only as strong as the side hypotheses of each cited theorem, checked against the model | bridge round 4, the coordinator's F1 (`derivedOI_qm_iff_layerFlowExecutable` needs `SubstratumAvail`, which FM fails; two of 29 rows rest on a written argument) | marker for every classification of a model against the inventory |
@@ -514,7 +586,27 @@ and (ii) K(Z_F).
 | "explicit exotic cones need Bell-type defects or finitely many defects" and "cones with a continuum of non-PSD extreme rays are EBF-only, so T is undecidable there" | countermodels round 3 (HP6; refined in C16) | both false: small-cap surgeries for finite groups and for tori whose orbits avoid orthogonal pairs; T fails on the explicit continuum cones; for `c < 2` the obstruction is an orthogonal pair inside an orbit, at `c = 2` a non-orthogonal pair |
 | the transfer route's identification of the matrix carrier's Kronecker composite with a product configuration space (L-REG, again) | bridge round 3 (B10-6) | marker: read configuration-wise, the certified `substratumClass_contextStable` is Bell-local and hosts no candidate pair cone |
 
-## Eliminated alternatives (rounds 1–4, each kept with evidence)
+## Eliminated alternatives (rounds 1–5, each kept with evidence)
+
+- (Round 5, origin) The stated access (`permClass`, `MixR ∅`, FM) as a source of the drive, exactly or as a limit of
+  available channels; every exact source of the drive as an independent principle — the phase intervention at θ₀ as
+  a class, the phase intervention at every angle (I4.60), the fractional layer flow with the quarter phase (the phase
+  intervention in the exchange's eigenbasis) and the re-preparing tower (disguise test FAILED for each, O14-D); a
+  finite-order non-Clifford phase `T` with the stated access (a finite group, 16 elements modulo scalars); a fixed gate
+  at a rational angle as a source of the drive's availability (O14-T8); the balanced-angle limit route as a source of
+  OpDrive(θ₀) (the drive is a limit there, never available); the first `OriginDrive` text (run 38134267257, two error
+  sites, kept as `lean/OriginDrive.run38134267257.lean`).
+- (Round 5, bridge) The derived half of the bridge without (T)_𝓘 (the full class with K(Z_F)); the bridge as an
+  equivalence between the data and the invariances (FM's `Q3`); self-dual rank-one surgeries with H1 for the tower's
+  closure (CONDITIONAL on Lemma C18-1); the first `BridgeToken` text (run 38123860471, three errors in one proof);
+  the predicted pairing `4(s − 1)` of two `c = 2` rank-one defects in B21's S0 (it is `4s`; kept as a failed
+  prediction).
+- (Round 5, countermodels) Rank-one surgeries (any weights) and engine-certified balanced rank-two surgeries as
+  `G_T`-invariant cones (OBSTRUCTED); the proposal's Bell-circle statements as statements about `G_T` (F-C5-1); C22's
+  pre-registered design run (two dispatches, C22.2f) and its preflight prediction `4s − 4 < 0` (C22.4f; the same
+  arithmetic slip as B21's, made independently).
+- (Round 5, equivalence) `ReachPure` as an independent hypothesis of S6 (derived); the first `EqvK2Block` text (run
+  38124464622, ten errors, kept).
 
 - (Round 4, bridge) "The transfer clause for the stated access" (K(Z_F) satisfies it), "a finite group" (the quarter
   access transfers a group of order 8 on the target), "a group" whose identity component has dimension at most one
@@ -581,13 +673,13 @@ and (ii) K(Z_F).
 
 | gap | thread | depends on | ready for a governed round? |
 |---|---|---|---|
-| an H→P bridge: the token clause's availability (H-T's continuous half at θ₀, and (A) for `J`) is independent of every stage-6 item not implying control or QM — a full model FM, relative to the inventory (HO-33); on the stated access every available datum has finite order (HO-27); so a sufficient bridge must **introduce** a token-level continuous resource — the operational reading of K∞-Drive at one irrational angle (the phase intervention at θ₀, I2.33) and a non-monomial datum for `J` — and carry it to the pair cone, where with H1–H3 and `ReachPure` the schema forces `Q3`; what remains is whether any such resource is independently justified (the owner's central question), and the full-model status of (b)'s own independence, OPEN | bridge / origin | HO-27, HO-29, HO-31, HO-33 | no — research |
-| B3.C: holds CONDITIONAL on claim (D) (HO-10); the reachability theorem is [D] for finite, countable and curve-covered groups and [D] + [L] for identity components of dimension at most one (HO-35); explicit cones exist for every finite unitary group with `cnot` (HO-24, HO-31, now resting on Theorem S′ [D], HO-30), for a residual torus case (HO-25) and along the Clifford chain to `C₂` (HO-31); the continuous block-diagonal group forces `Q3` (Theorem C19-1); remaining: the tori of dimension two to four (B10-4's 2-torus, the tower's closure, among them); explicit cones for case B, the S2 node with G16 and `K_circ` (three routes closed) | bridge / countermodels | claim (D) [A] (EBF); Theorem S′ compact form [W]; Cartan [L] | no |
-| design modules green, each needing a census disposition and the owner's choice to become a round: Theorem B1.1 (14/14), the dictionary (20/20), B7-1's finite case (21/21), the K2 schema skeleton with `ReachPure` (22/22), the exclusive-readout no-go (33/33), the Ω₄ separation (15/15); round 4: `BridgeAvail` (61/61), `BridgeAvailFull` (50/50), `BridgeConverge` (21/21), `BridgeReachDim` (32/32), `CmSprime` (78/78), `OriginTokenOrder` (45/45), `OriginAngle` (52/52), `EqvK2Converse` (9/9), `EqvTransport` (9/9), `EqvPowerCone` (7/7) | bridge / equivalence / origin / countermodels | — | design green; owner's choice |
-| whether T excludes every exotic cone: T fails on every explicit cone so far, the continuum cones included; the undecided class is cones with no smooth contact between pure and non-PSD members (no explicit member known); T on `K_circ` reduced to that condition | countermodels | — | only if proved; then after its disguise test |
-| Conjecture C8-C beyond four members (sets whose every component has an orthogonal pair and no tool vertex); necessity of (CC) for three or more defects; the slice-map fibres; Theorem S′ as a kernel statement | countermodels | — | no |
-| SRC: the exclusive readout refuted; the stated access carries no infinite-order datum at any level by any protocol (HO-27, [D]); no stated source of (A) for `J` on one token in the pair context; the field-neutral Continuous Origin stays OPEN with the stated access excluded; the level-one angle condition is the Clifford exclusion (HO-27); whether any extension of the stated access supplying the operational drive at one irrational angle is independently justified is the live question (round 5, O14) | origin | HO-33 | no |
-| K2 (c) = (T) (HO-12), with H-T as its premise (HO-20) and its table form (HO-34); S6 drafted in the native V3 format with `ReachPure` as the hypothesis and `Q3_aMiss` as the necessity direction (invariance only; HO-29); the gate's control relation forces odd chart dimension with the hybrid token as the non-ellipsoid witness (HO-28); the K∞ seams (self-duality excluded, HO-19; `c*` excluded, HO-15); Kₙ (design module green); H-Bell; H-∞; λ; the Level III converse (C-REG true; the transport form's finite-stage case [D], the infinite-volume passage CONJECTURE) | equivalence | bridge (for (T)); origin (for the drive); countermodels (the countercontrol family, HO-30 … HO-32) | per obligation; S1–S6 below |
+| an H→P bridge: the token clause's availability (H-T's continuous half at θ₀, and (A) for `J`) is independent of every stage-6 item not implying control or QM — a full model FM, relative to the inventory (HO-33); on the stated access every available datum has finite order (HO-27); so a sufficient bridge must **introduce** a token-level continuous resource — the operational reading of K∞-Drive at one irrational angle (the phase intervention at θ₀, I2.33) and a non-monomial datum for `J` — and carry it to the pair cone, where with H1–H3 and `ReachPure` the schema forces `Q3`; what remains is whether any such resource is independently justified (the owner's central question), and the full-model status of (b)'s own independence, OPEN. Round 5: the bridge's derived half is built in design with three introduced items, OpDrive(θ₀), the J-datum and (T)_𝓘 (HO-39; (C), provisional; (T) cannot be omitted from this construction); on the stated access the drive is excluded exactly and as a limit of channels, and at the balanced angle it is a limit of available channels and never available, a candidate route needing (T^ch)_𝓘 and `K` closed (HO-45); given H1 and H3 the pair-level target is exactly H2 ∧ A_miss (HO-43). Open: whether OI's operational semantics supplies (T) or (T^ch) on the P-level pair cone without identifying it with `Q3`; the full-model independence of (b) and (T); the sources of H2, H3 and A_miss | bridge / origin / equivalence | HO-27, HO-29, HO-31, HO-33 v2, HO-39, HO-43, HO-45 | no — research |
+| B3.C: holds CONDITIONAL on claim (D) (HO-10); the reachability theorem is [D] for finite, countable and curve-covered groups and [D] + [L] for identity components of dimension at most one (HO-35); explicit cones exist for every finite unitary group with `cnot` (HO-24, HO-31, now resting on Theorem S′ [D], HO-30), for a residual torus case (HO-25) and along the Clifford chain to `C₂` (HO-31); the continuous block-diagonal group forces `Q3` (Theorem C19-1); remaining: the tori of dimension two to four (B10-4's 2-torus, the tower's closure, among them); explicit cones for case B, the S2 node with G16 and `K_circ` (three routes closed). Round 5: for the tower's closure `G_T = T² ⋊ V4` the rank-one route is closed with no residual and the balanced engine certifies nothing (OBSTRUCTED, HO-40, HO-42 with F-C5-1); what remains there is defects of rank two or more without the engine, an unattained supremum of `c`, or a non-surgery construction; Theorem S′'s compact form is [D] (HO-41) | bridge / countermodels | claim (D) [A] (EBF); Theorem S′ compact form [D] with the closedness remark [W]; Lemma C18-1 [W]; Cartan [L] | no |
+| design modules green, each needing a census disposition and the owner's choice to become a round: Theorem B1.1 (14/14), the dictionary (20/20), B7-1's finite case (21/21), the K2 schema skeleton with `ReachPure` (22/22), the exclusive-readout no-go (33/33), the Ω₄ separation (15/15); round 4: `BridgeAvail` (61/61), `BridgeAvailFull` (50/50), `BridgeConverge` (21/21), `BridgeReachDim` (32/32), `CmSprime` (78/78), `OriginTokenOrder` (45/45), `OriginAngle` (52/52), `EqvK2Converse` (9/9), `EqvTransport` (9/9), `EqvPowerCone` (7/7); round 5: `BridgeToken` (36: 34 standard, 2 on `[Quot.sound]`), `BridgeOpDrive` (21/21), `CmSprimeCompact` (38/38), `EqvK2Block` (11/11), `EqvOneDictionary` (10/10), `EqvK2Generation` (12/12), `OriginDrive` (110: 108 standard, 2 on `[propext, Quot.sound]`) | bridge / equivalence / origin / countermodels | — | design green; owner's choice |
+| whether T excludes every exotic cone: T fails on every explicit cone so far, the continuum cones included; the undecided class is cones with no smooth contact between pure and non-PSD members (no explicit member known); T on `K_circ` reduced to that condition (C24, carried to round 6) | countermodels | — | only if proved; then after its disguise test |
+| Conjecture C8-C beyond four members (sets whose every component has an orthogonal pair and no tool vertex); necessity of (CC) for three or more defects; the slice-map fibres; Theorem S′ as a kernel statement (finite and compact forms are design modules, round 4 and round 5); the pair cones over the hybrid token Ω_h (C25, carried to round 6) | countermodels | — | no |
+| SRC: the exclusive readout refuted; the stated access carries no infinite-order datum at any level by any protocol (HO-27, [D]); no stated source of (A) for `J` on one token in the pair context; the field-neutral Continuous Origin stays OPEN with the stated access excluded; the level-one angle condition is the Clifford exclusion (HO-27); whether any extension of the stated access supplying the operational drive at one irrational angle is independently justified is the live question. Round 5 (O14, HO-45): the stated access's reversible group is finite up to scalar and excludes the drive even as a limit of channels; every exact source found is the phase intervention or contains it; QM entails the drive; the balanced angle gives the drive as a limit of available channels only; the exact drive in `fixedGateTheory θ₀` through dilations OPEN; O15 (FM against `OriginTokenOrder`'s model) and O16 (the Kochen–Specker tower under `InstAvail`) carried to round 6 | origin | HO-33 v2, HO-39 | no |
+| K2 (c) = (T) (HO-12), with H-T as its premise (HO-20) and its table form (HO-34); S6 drafted in the native V3 format with `ReachPure` as the hypothesis and `Q3_aMiss` as the necessity direction (invariance only; HO-29); the gate's control relation forces odd chart dimension with the hybrid token as the non-ellipsoid witness (HO-28); the K∞ seams (self-duality excluded, HO-19; `c*` excluded, HO-15); Kₙ (design module green); H-Bell; H-∞; λ; the Level III converse (C-REG true; the transport form's finite-stage case [D], the infinite-volume passage CONJECTURE). Round 5 (E19, HO-43): `ReachPure` derived; given H1 and H3, `K = Q3 ↔ (H2 ∧ A_miss)` with each direction witnessed [D]; S6 revised; E20 (odd chart dimension ≥ 5 with K∞-Geom; two probe runs, no verdict rendered: the positive control did not converge), E21 (the transport passage; S0 only) and E22 (one dictionary; `EqvOneDictionary` built, analysis not done) carried to round 6, work in progress, unverified | equivalence | bridge (for (T)); origin (for the drive); countermodels (the countercontrol family, HO-30 … HO-32, HO-41, HO-42) | per obligation; S1–S6 below |
 
 ## Round-ready findings (none created; each needs owner authorization to open a §A.39 round)
 
@@ -615,7 +707,16 @@ HO-30's [D] Theorem S′) — ready for owner review as an equivalence of cone-l
 A_miss and `ReachPure`; and the green design modules `EqvTransport` (9/9), `EqvPowerCone` (7/7), `EqvK2Converse` (9/9),
 `CmSprime` (78/78), `OriginTokenOrder` (45/45), `OriginAngle` (52/52), `BridgeAvail` (61/61), `BridgeAvailFull`
 (50/50), `BridgeConverge` (21/21) and `BridgeReachDim` (32/32), each packageable at the owner's choice, none
-discharging a premise (each is a statement about kernel models, cone geometry or the dictionary).
+discharging a premise (each is a statement about kernel models, cone geometry or the dictionary). Round 5 added: the
+**S6** draft revised (HP-equivalence-14; `preregistration-drafts/S6-k2-schema-pair-cone.md`, sha256 `3e3488ee…`) —
+statement, premise list with `ReachPure` derived rather than assumed, six decision cells, the earned reading and its
+non-inference rule, the countercontrol family on `theorem_Sprime_ineq` with its hypotheses checked exactly, checkpoints
+`C0″` and `C0‴` met — ready for owner review as an equivalence of cone-level statements given H1 and H3, CONDITIONAL on
+H2, H3 and A_miss; a round would also have to settle how the two bridge-thread declarations its §H.6 uses (`cnotMat`,
+`dict_cnot`) enter the frozen surface. And the green design modules `BridgeToken`, `BridgeOpDrive`, `CmSprimeCompact`,
+`EqvK2Block`, `EqvOneDictionary`, `EqvK2Generation` and `OriginDrive` (counts in the open-gaps table), each packageable
+at the owner's choice; `BridgeOpDrive` carries three introduced hypotheses (OpDrive(θ₀), the J-datum, (T)_𝓘) as
+explicit arguments, and none of the seven discharges a premise.
 
 ## Manuscript obligations (recorded, not applied; manuscript hold)
 
@@ -630,7 +731,10 @@ Versioned, documented handoffs live in `research/HANDOFFS/` (protocol and index 
 HO-1 … HO-8 after round 1 (all received), HO-9 … HO-16 after round 2 (all received in round 3, each thread's receipt
 commit in the index). Issued 2026-10-11 after round 3: HO-9 v2 (a corrected clause; v1 stays on record), HO-17 …
 HO-26 (all received in round 4, each thread's receipt commit in the index). Issued 2026-10-11 after round 4: HO-18 v2
-(item 2 corrected — the coordinator's error; v1 stays on record), HO-27 … HO-36 (receipts due in round 5). A thread
+(item 2 corrected — the coordinator's error; v1 stays on record), HO-27 … HO-36 (all received in round 5, each
+thread's receipt commit in the index). Issued 2026-10-11 after round 5's audits: HO-33 v2 (item 2's scope stated
+relative to Table A2's rows, from origin's O14-T2; v1 stays on record), HO-37 … HO-45, HO-42 with the coordinator's
+correction F-C5-1 of its proposal (receipts due in round 6). A thread
 never changes another thread's assumptions silently: the receiving thread records its receipt in its own `inbox/`
 with a commit before relying on a handoff. Handoff-proposal numbers are per thread and collide across threads; the
 index names the thread with every HP.
@@ -653,6 +757,21 @@ design module (statements, hypotheses, imports, axiom reports), the owner's thre
 countermodels (`AUDIT-COUNTERMODELS-R4.md`), the evidence hash list with commits; one correction item (bridge F1:
 two of the 29 control-or-QM rows of the full-model verdict rest on a written argument, the cited kernel theorem
 needing a hypothesis the model fails).
+`research/AUDITS/2026-10-11-round5/`: the same for round 5 — receipts byte-identical (bridge 7/7, countermodels 7/7,
+equivalence 8/8, origin 4/4); replays 13/13 (bridge 6, countermodels 3, equivalence 3, origin 1); independent checks
+B5 (run 2: Z1–Z12 PASS, CC1–CC7 False; run 1 kept, a harness defect), C5 (Z1–Z5, CC1–CC5), E5 (Z1–Z7, CC1–CC6), O5
+(Z1–Z6, CC1–CC6) and O5b (the thread's own circuit and the J identity: Y1–Y4, DD1–DD3), each with a byte-identical
+replay; citations bridge 60/60, countermodels 6/6, equivalence 87/87, origin 55/55; ten CI
+dispatches verified at the job and step level from the saved logs (bridge 2, countermodels 3, equivalence 3, origin
+2; none cancelled); the Lean statement review of every round-5 design module; the interruption record of 08:33–10:07Z
+with its full-digest manifest and descent checks; `OriginDrive.lean` rebuilt from the thread's transcript and matched
+against seven recorded digests; for the bridge the transfer clause as an explicit third assumption with its
+counterexample verified and the owner's four claims kept apart. Findings: F-B5-1 (scope of "cannot be dropped"),
+F-C5-1 (the Bell circles are not a `G_T`-orbit; issued corrected in HO-42), F-E5-1 (LOG timestamps edited in place),
+F-O5-1 (table rendering), F-O5-2 (orders at general `n`), F-O5-3 (what the limit route needs of the transfer clause);
+round 4's F1 closed in design. No label changes. During the first transcript replay the coordinator's tool re-wrote
+two files in the origin thread's scratch area (content identical, modification times changed); recorded in
+`AUDIT-ORIGIN-R5.md` §2, no effect on any committed file.
 
 ## Milestone log
 
@@ -741,6 +860,32 @@ needing a hypothesis the model fails).
   angle is independently justified, or is the phase intervention assumed (I2.33) under another name. Handoffs HO-18
   v2 and HO-27 … HO-36 issued; HO-9 v2 and HO-17 … HO-26 all received. A separate review thread (the
   cosmological-constant argument, `research/REVIEWS/cosmological-constant-2026-10-11.md`) recorded findings only.
+- 2026-10-11 — **round 5 closed and audited** (bridge `5ba9218e`, countermodels `c9ac75bd`, equivalence `3a46b811`,
+  origin `44c06d46`), narrowed by the owner at 10:38Z to origin O14, equivalence E19 and countermodels C23 with the
+  audit of the bridge's completed result; O15–O16, E20–E22 and C24–C25 carried to round 6. New results (none
+  certified; labels as recorded): the bridge's sufficient bridge in design with the transfer clause (T)_𝓘 as an
+  explicit third introduced item, the counterexample showing (T) cannot be omitted from this construction, pair
+  availability as token availability, F1 closed in design and the full-model verdict scoped to Table A2's rows; the
+  origin thread's generated group of the stated access (finite up to scalar at every carrier, the drive excluded
+  exactly and as a limit of channels), its classification of every alternative generating set with its disguise test,
+  and the balanced-angle protocol giving the drive as a limit of available channels and never as an available
+  operation; the equivalence thread's derivation of `ReachPure` and the equivalence `K = Q3 ↔ (H2 ∧ A_miss)` given H1
+  and H3, each direction witnessed; the countermodels thread's design-built compact Theorem S′ and the obstruction of
+  every surgery route for the tower's closure (with the coordinator's correction at `c = 2`). Eliminated alternatives
+  and new assumptions as listed. Progress toward OI–QM equivalence, against the owner's priority — whether full
+  quantum equivalence follows from the complete existing OI framework: **not established.** At the audited scope the
+  existing premises exclude the drive (class (D) at Table A2's scope for the drive's availability), every exact source
+  found is the phase intervention, and the bridge that reaches `Q3` uses three introduced items; B20 is classified
+  **(C), provisional**, and the four claims stay apart — a bridge from the existing OI assumptions alone (not
+  established); a bridge using additional assumptions (CONDITIONAL [D] on OpDrive(θ₀), the J-datum and (T)_𝓘); (T)
+  necessary for this construction (yes, by the verified counterexample); (T) necessary for any derivation of quantum
+  equivalence (not shown — QM satisfies (T) for its own class, a consequence of the target, not a proof of
+  independence). Origin's O14 identified a different route, through limits of available channels at the balanced
+  angle, which trades the phase intervention for the transfer clause in channel form with closedness ((B),
+  provisional); whether OI's operational semantics supplies (T) or (T^ch) on the pair cone without identifying it with
+  `Q3`, and the sources of H2, H3 and A_miss, are the open content carried to round 6. Handoffs HO-33 v2 and HO-37 …
+  HO-45 issued; HO-18 v2 and HO-27 … HO-36 all received. Safety checkpoint of uncommitted thread work at
+  `research/wip-checkpoints` @ `1b2ec2bb` (copies, not authoritative).
 
 ## Round 3 — nodes handed to the threads (2026-10-10; closed 2026-10-11, audited)
 
@@ -843,7 +988,7 @@ to `OI + {the hypotheses it satisfies} ⇒ Q3` in the inventory's terms. 4. brid
 premise-inventory rule above governs every result the round records: hypotheses classified as inventory items or as
 introduced, and the evidence layers kept apart.
 
-## Next round (round 5) — nodes handed to the threads
+## Round 5 — nodes handed to the threads (2026-10-11; narrowed 10:38Z; closed 2026-10-11, audited)
 
 Rules unchanged (receipts first; S0 predictions before the first run with `date -u` readings; decision rules in
 script headers; failed runs kept; at most three `workflow_dispatch` runs per thread; dev branches
@@ -853,6 +998,38 @@ names the side hypotheses of every link and shows the model satisfies them**; a 
 is a written argument, labelled [W]. Priority: the owner's central question — whether any extension of the stated
 access that supplies the operational drive at one irrational angle is independently justified — first (origin O14,
 bridge B20), then the correction and consolidation items, then the cone side.
+
+**Outcome.** Done: bridge B18–B21 (closed at 10:32Z, before the narrowing, so its scope was unchanged), countermodels
+C22 and C23, origin O14, equivalence E19 (with `EqvOneDictionary` of E22 built because it was queued). Carried to round
+6 by the owner's narrowing: O15, O16, E20, E21, E22's analysis, C24, C25; the equivalence thread's partial E20–E22 work
+is committed and labelled work in progress, unverified (HP-equivalence-17). Dispatches used — bridge 2, countermodels
+3, equivalence 3, origin 2 — none cancelled (`CI-RUNS-R5.md`). A usage-limit stop interrupted all four threads from
+08:33Z to 10:07Z; every uncommitted file was recorded with its full digest (`INTERRUPTION-2026-10-11.md`), and the
+threads' later commits were checked against that record — identical, an append-only prefix for LOG files, or, where a
+recorded file was edited before its first commit, rebuilt from the thread's transcript to the recorded digest (the
+equivalence LOG's in-place timestamp edits are finding F-E5-1). At the owner's direction the coordinator took safety copies of the
+uncommitted work, among them origin's then-unbuilt `OriginDrive.lean`, on `research/wip-checkpoints` @ `1b2ec2bb`
+(labelled UNFINISHED / UNVERIFIED; nothing was inferred from the unbuilt module, which was built and audited later
+from the thread's own commits). All four audits are complete; no audit obligation of round 5 is pending.
+
+**Owner's narrowing (2026-10-11, 10:38Z).** Round 5 narrowed to its three highest-priority objectives, the rest moved
+to round 6: (1) checkpoint and push all uncommitted work, WIP commits labelled unfinished or unverified; (2) origin O14
+— establish the actual generated group under the permitted operations, distinguish exact generation from dense
+generation, classify alternative generating sets and their disguise tests, infer nothing from an unbuilt Lean draft;
+(3) equivalence E19 — the strongest justified equivalence result, E20–E22 deferred; (4) countermodels C23 within the
+existing build budget, C24–C25 deferred; (5) the bridge's completed result audited, with its transfer clause treated as
+an explicit third assumption, not silently included among the original premises, the counterexample showing it cannot
+be omitted verified independently, and its derivability from existing OI assumptions decided or left explicitly open;
+(6) the four audits completed where possible, uncompleted ones kept explicitly pending, every SHA, build outcome,
+counterexample and dependency record preserved; (7) round 6 carries O15–O16, E20–E22, C24–C25 and any unresolved audit
+obligation. Four claims are kept distinct: a bridge derived from the existing OI assumptions; a bridge derived using an
+additional transfer assumption; a demonstration that the transfer assumption is necessary for this particular bridge
+construction; and a demonstration that it is necessary for any derivation of quantum equivalence. The transfer clause
+is not concluded to be fundamentally necessary for quantum mechanics because this bridge needs it — O14 may identify a
+different route, and a stronger consequence of existing OI could supply the transfer — and outcome (C) stays
+provisional until the cross-thread checks are complete. The priority is whether full quantum equivalence follows from
+the complete existing OI framework, not adding assumptions that merely guarantee the desired result. No change to
+certified results or governance standards.
 
 - **bridge:** receive HO-18 v2, HO-27, HO-28, HO-29, HO-30, HO-31, HO-32; (B18) the correction item of HO-33:
   re-class I4.56 and I2.34 in `b14_fullmodel.py` and NOTES-B14 §8.2 — a kernel chain without `SubstratumAvail` in a
@@ -945,3 +1122,58 @@ assumption equivalent to the phase intervention — a sufficient bridge, but no 
 highest-value result is a derivation of continuous operational control from established OI structure that survives
 the countermodel and circularity tests. Scope is kept explicit throughout: a proof of insufficiency for the complete
 stage-6 inventory is definitive within its scope and establishes nothing about every conceivable extension of OI.
+
+## Next round (round 6) — nodes to hand to the threads (recorded 2026-10-11; not launched, awaiting the owner)
+
+Rules unchanged from round 5, with four additions from the round-5 audits: (i) **LOG files are append-only** — a
+correction is a new entry naming the entry it corrects, never an edit in place (F-E5-1); (ii) a `|` inside a code span
+in a Markdown table is written `\|` (F-O5-1); (iii) **every route from available operations to a limit names its
+closure premise** (LIMCLOSE-C or another, introduced) and the form of transfer it needs — (T)_𝓘 for unitaries,
+(T^ch)_𝓘 for channels — with the closedness of the cone it uses (F-O5-3); (iv) every result bearing on the transfer
+clause records the owner's four claims separately, and no result concludes that a premise is necessary for quantum
+mechanics because one construction needs it. Priority, in the owner's words: whether full quantum equivalence follows
+from the complete existing OI framework, rather than adding assumptions that merely guarantee the desired result — so
+the open content isolated in round 5 comes first: the source of the transfer clause, and the sources of H2, H3 and
+A_miss. Receipts first, per the index: bridge HO-41, HO-42, HO-43, HO-45; countermodels HO-33 v2, HO-39, HO-40, HO-44,
+HO-45; origin HO-33 v2, HO-37, HO-38, HO-39, HO-42, HO-43; equivalence HO-33 v2, HO-37, HO-38, HO-39, HO-40, HO-41,
+HO-42, HO-45.
+
+- **bridge:** (B22) the transfer clause's source — whether OI's operational semantics (available operations are
+  admissible maps on the state space of every system they act on) applies to the P-level pair cone without
+  identifying it with `Q3`, decided in both forms: (T)_𝓘 for the class's admissible unitaries and (T^ch)_𝓘 for its
+  available channels with `K` closed; the four claims recorded for each form; (B23) with HO-45: the candidate premise
+  set {the J-datum as the balanced mixer, (T^ch)_𝓘, `K` closed} assembled against `bridge_derived_half` — a design
+  statement that it yields invariance under `actT R_z(θ₀)` and `actT J` through the channel limit, or the obstruction —
+  and whether the bridge's cones must be invariant under every available channel of the class (the scope of HO-45's
+  (B) placement; the cross-thread check on which (C)'s provisional status waits); (B24) the full-model independence of
+  (b) and of (T): a full model satisfying the 68 NOT REACHED rows so far as they apply in which (b) or (T) fails, or a
+  precisely scoped OPEN; (B25, if time remains) the fixed-point instances of I4.56 and I2.34 for FM on carriers of
+  three or more configurations, and the tower's closure beyond rank one (HO-40 item 3: defects of rank two or more
+  without the engine, an unattained supremum of `c`, a non-surgery construction).
+- **countermodels:** correct C23-2 (b)–(c), row C23.2, C23.6 and HP-countermodels-11 forward to HO-42 item 3 (F-C5-1;
+  no label change); (C24) T on `K_circ` — the smooth-contact condition on one explicit candidate, or no `K_circ`
+  satisfies it; (C25) the pair cones over the hybrid token Ω_h — whether H1–H3 with A_miss (invariance) admit a cone
+  over Ω_h, i.e. whether Ω_h is a countermodel to S6's premise set beyond the ellipsoid, or the gate's relation
+  excludes it, exactly; (C26, if time remains) from C23.6: balanced rank-two surgeries for `G_T` without the engine,
+  defects with a higher-rank subtracted part, or a non-surgery construction toward an explicit `G_T`-invariant exotic
+  cone (existence at claim (D) [A]).
+- **origin:** correct O14-V and HP-origin-14 item 1 forward to "computed at levels one and two" with the general-`n`
+  count at [W] (F-O5-2) and escape the table cells of O14-T8 and O14-T9 (F-O5-1); (O15) FM against
+  `OriginTokenOrder`'s model — both on the stated access, FM adding the quarter phases — whether the two threads'
+  models are one and the fourth-root lattice the largest finite-order closure of the stated access (O14's
+  finiteness up to scalar [D] is the input); (O16) O13 as left from round 4: the Kochen–Specker tower's
+  re-preparation law under `InstAvail` with ancillas; (O17) the kernel forms of O14-T8 (the valuation argument over
+  `InstAvail`), O14-T9 (the repeat-until-success protocol and its channel limit) and O9-L1, so that the limit route's
+  input to B23 is [D] rather than [W]; (O18, if time remains) the exact drive in `fixedGateTheory θ₀` through
+  dilations (OPEN; excluded at level one without dilations given [L]).
+- **equivalence:** (E20) E16's residual — odd chart dimension ≥ 5 with K∞-Geom — from the committed work in progress
+  (HP-equivalence-17): a separation that converges on the positive control (more rounds or an exact positive-control
+  check) before any verdict; (E21) the infinite-volume passage of the transport form from its S0 decomposition (P1)–(P4),
+  the maximal abelianness of the diagonal [L] carried as an assumption-watch marker; (E22) the one dictionary — the
+  analysis of `EqvOneDictionary`'s two directions between S6's clause and the bridge's `TransferClause` and of
+  `transferClause_of_blockInvariant`; (E23) with B22: the sources of H2, H3 and A_miss against the stage-6 inventory —
+  which inventory item, if any, implies each, and in which reading (invariance or availability).
+
+**Audit obligations carried to round 6.** None of round 5 is pending: all four audits are complete. The round-6 audits
+check, besides the usual items, the receipts of HO-33 v2 and HO-37 … HO-45 (the index's round-6 receipt column), the
+forward corrections F-C5-1, F-O5-1 and F-O5-2, and that every LOG is append-only from its round-5 head.

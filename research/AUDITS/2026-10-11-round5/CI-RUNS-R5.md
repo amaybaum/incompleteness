@@ -1,4 +1,4 @@
-# CI runs cited by the round-5 threads — verified through the GitHub API (live; rows added as each thread is audited)
+# CI runs cited by the round-5 threads — verified through the GitHub API (complete: the ten dispatches of round 5)
 
 Same reading as rounds 1–4: on a research branch the release gate is red by construction (`lean-manuscript` refuses a
 design module without a census disposition); the meaningful signals are the Mathlib bridge *Build* step, the modules'

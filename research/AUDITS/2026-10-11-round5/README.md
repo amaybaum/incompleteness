@@ -1,9 +1,10 @@
-# Round-5 audits (2026-10-11) — index (live; rows added as each thread closes)
+# Round-5 audits (2026-10-11) — index (complete: all four threads audited)
 
 Coordinator audits of the four thread reports at their round-5 heads, from the certified base L = `9f9f8257`. Round 5
 was narrowed by the owner at 10:38Z to three objectives — origin O14, equivalence E19, countermodels C23 — together
-with the audit of the bridge's completed result; O15–O16, E20–E22 and C24–C25 move to round 6. An audit not yet done is
-marked **PENDING** below and stays an open obligation until its row is filled.
+with the audit of the bridge's completed result; O15–O16, E20–E22 and C24–C25 move to round 6. An audit not yet
+done was to be marked **PENDING** below and to stay an open obligation until its row was filled; all four rows are
+filled, and no round-5 audit is pending.
 
 | thread | round-5 head | receipts | replay | independent check | citations | audit note |
 |---|---|---|---|---|---|---|
