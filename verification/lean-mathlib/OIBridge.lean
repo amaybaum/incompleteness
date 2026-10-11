@@ -264,6 +264,8 @@ import OIBridge.RelcSelectParity
 import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
+import OIBridge.EqvK2Converse
+import OIBridge.EqvTransport
 
 namespace OIBridge
 
