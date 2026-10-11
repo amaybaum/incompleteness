@@ -35,8 +35,9 @@ coordinator routes.
 ## What the recipient may assume
 
 Items 1–2 at their labels: (D1) and (D2) as Lean statements that build against Mathlib `v4.33.0` and the kernel at
-L, with the standard axiom footprint. A governed round can import the module as it stands. The dev branch adds one
-root import line, a deviation recorded in the thread's LOG.
+L, with the standard axiom footprint. The module's code builds unchanged. A governed round adopting it would still
+owe the census disposition the release gate's `lean-manuscript` step requires (§A.35). The dev branch adds one root
+import line, a deviation recorded in the thread's LOG.
 
 ## What the recipient may not assume
 

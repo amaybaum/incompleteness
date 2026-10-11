@@ -393,3 +393,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `SU(2) × SU(2)` closure, B12-S) written under `handoff-proposals/`. Each states labels, evidence pointers and what
   the recipient may not assume. NOTES-B13 §1 (what the module states) written while run 38101591388 is queued
   behind run 38101580750 of another thread (16 jobs in progress).
+- 2026-10-11T01:28:50Z — final state of run 38099134414 (B11, dispatch 1), read through the jobs API: completed
+  01:03:02Z, head 3d554e7e. 33 jobs: 32 success, 1 failure, the Mathlib bridge job 114351216052, through its release
+  gate (`claims`, `duplicate`, `lean-manuscript`, by construction). "Lean kernel check" success (00:42:56–00:43:41Z).
+  Every numerical-probe shard success; the aggregate "Numerical probes" success at 01:03:01Z. No job of the run was
+  cancelled.
+- 2026-10-11T01:32:09Z — closing replay (§A.26). All five round-3 scripts, re-run with `python3 -I -B`
+  (01:31:42–01:32:09Z, outputs in the scratchpad only), are byte-identical to their committed `.out` and `.err`:
+  `b10_transfer`, `b11_preflight`, `b12_stagecross`, `b12_followup`, `b13_preflight`.

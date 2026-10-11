@@ -113,3 +113,9 @@ built in CI; [X] exact computation (`experiments/b11_preflight.py`); [W] written
   - That `TransferClause` holds for any pair cone. It is a definition here; for the monomial class it is (b) for the
     monomial images (B9-1), and B10 locates its H-level premise.
   - Any census disposition or certification. The module is [D], CONJECTURE until a governed round.
+
+## 4. Run completion (appended 2026-10-11T01:28:50Z)
+
+Run 38099134414 completed at 01:03:02Z (head 3d554e7e): 33 jobs, 32 success and 1 failure. The failure is the
+Mathlib bridge job 114351216052, through its release gate (red by construction on a research branch). "Lean kernel
+check" and every numerical-probe shard succeeded. No job was cancelled.
