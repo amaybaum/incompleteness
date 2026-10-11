@@ -515,3 +515,84 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 
     Item 4 is context. Not assumed: that S′ or C13-O is kernel-checked; that the continuous half's exotic cones exist
     other than through claim (D).
+- 2026-10-11T02:52:11Z — B14: cross-branch read on the coordinator's instruction (authorized for B14 only, as a model
+  of the statement style): `git show de9285d6:research/origin/lean/OriginExclusive.lean`, blob 28776414, sha256
+  `a8eb5802c9c6e7bd2164a3f1e0b5b55da4f4925e17930d4b4f848d9ad66869a8` (equal to the value the directive names). Saved
+  to the session scratchpad only; nothing of it is copied into this branch.
+- 2026-10-11T03:09:18Z — NOTES-B14 opened: question, design, productivity test and predictions S0-1 … S0-10, before any
+  run or dispatch.
+- 2026-10-11T03:10:16Z — `b14_preflight.py` decision rule written. Pre-run edit at 03:11:13Z, logged in its header (P1
+  compares `w⁴` by expanding the difference); rule text unchanged.
+- 2026-10-11T03:11:19Z — `b14_preflight.py` run 1: 8/8 PASS, VERDICT B14-PREFLIGHT-OK. Recording defect: `.err` lacked
+  the `exit N` line of the thread's convention. Run 1's outputs kept as `b14_preflight.run1.out/.err` (no `.run1.py`:
+  the script is unchanged). Run 2 (03:11:54Z) with the convention: stdout byte-identical to run 1; replay
+  byte-identical (`.out` and `.err`). A diagnostic of the P5 sampler, kept in the scratchpad only (not a record): of 300
+  sampled words, 38 have more than one distinct nonzero entry and 191 a non-real entry, and a `diag(1, w, 1, 1)`
+  insertion fails `QuartEq`; so P5's closure check is not vacuous.
+- 2026-10-11T03:24:47Z — coordinator addendum received (owner's round-4 directions; node list and order unchanged).
+  Recorded and applied from here on:
+  - priority: B14–B15 first (with origin O11), then the other threads' nodes, then B16–B17;
+  - B14's record must name either the inventory items a derivation of (A)/H-T uses, or the items a countermodel
+    satisfies while (A) fails;
+  - standing rule 1 (derive, do not introduce): every result lists its hypotheses, each classified as an item of the
+    OI premise inventory at its status at L (cited by inventory id) or as an introduced hypothesis; "OI ⇒ X" only
+    when all are inventory items, otherwise "OI + {named hypotheses} ⇒ X" with each flagged "introduced, not an OI
+    premise" in the RESULTS row;
+  - standing rule 2: the stage-6 premise inventory is the reference point;
+  - standing rule 3: the evidence layers [D], [W], [K] and CERTIFIED are kept apart.
+- 2026-10-11T03:30:29Z — inventory reads, authorized by the addendum (cross-branch read on the coordinator's
+  instruction; the same blobs are also in this branch's `research/archive/`, inherited from 4dc0321c). All read with
+  `git show 4dc0321c:…`; sha256 of what was read:
+  - research/archive/pt/I4/INVENTORY.md `43bbada1db14f052e3ec3eb3d7fc99d1bb042d41a143c912aa6ca3e4cad75461` (equal to
+    the addendum's value; its own render-control line reads "records 248", so the addendum's "633 records" is taken
+    to count I1–I4 together);
+  - research/archive/pt/I4/INVENTORY-HEADER.md `02c431ff5dd5ee68892128aa3162c48de78814edb3690ae2c98900e22cf0eb07`;
+  - research/archive/pt/G6/GRAPH.md `83f4619f48982f881e43b0a19c14b7c6cc182179ea2a3c69dcf5992c4aab342c` (hash taken;
+    read only where cited);
+  - research/archive/pt/R6/REASSESSMENT.md `1ff62ad633fbd752f247d49b605e6cc8d984e23d8b7151b6497cdd60fa884ffe`
+    (Table A2 and the rows above it, lines 255–340);
+  - research/archive/pt/INTEGRATION-NOTE-STAGE6.md `1130a8c5e72e03503ebd8c6183b468dfadc8ebe813bfc857bc21f6262bcf0e6b`
+    (hash taken; read in round 1);
+  - the other three inventories, for the I1/I2/I3 numbering the addendum requires:
+    research/archive/pt/I1/INVENTORY.md `a4a8806b219141975b6e2f6e5ccc13e723cb29c0b158386fa19049966eb66a99`,
+    research/archive/pt/I2/INVENTORY.md `d923e63013c7fdf0fc2be61f6ce5566816ef1c339e7f070aee966ada6952325b`,
+    research/archive/pt/I3/INVENTORY.md `51eff9afef1f7ed25d82dc140a83dd97a9b24765d39b84cfdb636fa38ca96d7d`.
+
+  Records used for B14 (ids as issued there): I1.43/I1.47 (the sealed core, `OICore`), I1.46 (bare OI implies neither
+  compositional principle), I1.49 `DerivedOI`, I1.50 `DerivedOICore`, I1.52, I1.55, I1.56 `ConfigurationLevel`,
+  I1.59 (the observer theory of a substratum is `permTheory` on its configuration space), I1.60 `SourcedOI`;
+  I2.31 (OI⁺-1, GR.md:228), I2.32, I2.33 (the phase intervention assumed); I3.150–I3.153 (forms of (b)), I3.165 (K2's
+  clause, (b)), I3.168 K∞-Act, I3.169 K∞-Drive; I4.24–I4.32, I4.44, I4.58, I4.64, I4.110, I4.133, I4.148, I4.153,
+  I4.154, I4.175, I4.240–I4.242, I4.247, I4.248.
+- 2026-10-11T04:02:26Z — second coordinator addendum received (during B14 preparation, after the inventory reads;
+  owner's framing; node list, order and budget unchanged). Recorded and applied from here on:
+  - with A the applicable non-hypothetical OI premises at L and b the composite action, stage 6 gives
+    K(Z_F) ⊨ A and K(Z_F) ⊭ b; the live objectives are (1) a sufficient bridge H with A + H ⇒ b, (2) the
+    independence and minimality of H (weaker alternatives shown to fail; any sufficient bridge must exclude
+    K(Z_F) or say why K(Z_F) fails its premises), (3) A + H ⇒ b is not yet an equivalence;
+  - B14 ends in exactly one of: (i) a derivation of the availability of `actT R_z(θ₀)` or `actT J` (with
+    RESPECT and product behaviour) from inventory items at L, through a bridge the stage-6 graph does not have,
+    naming the NOT REACHED items it brings to the pair cone; (ii) a statement that no such derivation exists
+    from the stated access, the obstruction named in inventory terms and independence shown by a model of the
+    stated access in which the operation is unavailable; (iii) a precisely scoped OPEN naming the step at which
+    the decision stops; in every case the disguise test on the predicate stated;
+  - for B15–B17: a RESULTS row recording that an alternative weaker than H fails names the alternative it
+    defeats, in those words.
+- 2026-10-11T04:02:26Z — B14 pre-dispatch review of `lean/BridgeAvail.lean` (no local Lean; every change checked
+  against the kernel source at L and the pinned Mathlib sources read in this session):
+  - S0-1's ray lemma is already a kernel theorem at L: `MicroReversibility.exists_scaled_mem_of_instAvail_unitary`
+    (MicroscopicReversibility.lean:251; for an architecture, an available unitary conjugation has a nonzero
+    multiple of its operator in the class). The module's own `ray_of_instAvail` is removed and the kernel theorem
+    used in its place, so the ray step is CERTIFIED [K] at L, not [D]. S0-1 stands as written; its check is now
+    the kernel citation;
+  - the unitarity proofs of `zPh` and `uJ` no longer depend on simp normal forms: the conjugates are computed by
+    `Complex.star_def` and named map lemmas (`w345_star`, `uJ_star_a/b/c`), `zPh` through the diagonal lemmas,
+    `uJ` entry by entry; `w345_ne_zero` now follows from `|w|² = 1`;
+  - term-mode membership proofs restructured with explicit `unfold` steps (`zPh_sub`, `tokOp_zPh_substratum`,
+    `pairOp_zPh_substratum`, `pairOp_nflip_permClass`, `quarter_on_lattice`, `sPh_quart`); explicit tactic
+    imports added (`FinCases`, `NormNum`, `Ring`); two helpers renamed to avoid any clash with opened namespaces
+    (`submonomial_mul_apply`, `one_entries_one`);
+  - name check: none of the module's 72 declarations has a namesake among the kernel's declarations, and no
+    identifier used resolves to two declarations in the namespaces opened;
+  - the module now has 61 theorems, each with a `#print axioms` line; sha256
+    `c75f6467795bd7f197e99e0e6a9f5780e18ed2f388630249dd2f01d827d1754e`, 794 lines.

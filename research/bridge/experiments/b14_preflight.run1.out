@@ -1,0 +1,9 @@
+P1   PASS  |w|^2 = 1, w^4 = -527/625 - 336*I/625, certificate residue = 0
+P2   PASS  U_J = [1/2 - I/2, -1/2 - I/2, 1/2 - I/2, 1/2 + I/2], ((1-i)/sqrt2) X rot(pi/4) S^3 = [1/2 - I/2, -1/2 - I/2, 1/2 - I/2, 1/2 + I/2]
+P3   PASS  Ad(1 x U_J) = actT cycEquiv: True; Ad(1 x diag(1,w)) = actT R_z(th0): True
+P4   PASS  unitarity, the diagonal of pairOp(zPhase, n), the two nonzero entries of the U_J rows (n = 1, 2, 3)
+P5   PASS  refutation instances: True; 300 words at Fin 2 x Fin 2 and 100 blocks from (Fin 2 x Fin 2) x Fin 2: True
+P6   PASS  conj((1 x U) x 1)(rho x sigma x tau) = rho x (U sigma U*) x tau for zPhase, X, U_J
+P7   PASS  pairOp(X, n) is the permutation ((a, b), k) -> ((a, 1 - b), k), n = 1, 2, 3
+P8   PASS  pairOp(zPhase, n) monomial (4n nonzero entries, one per row and column); pairOp(U_J, n) not
+VERDICT B14-PREFLIGHT-OK
