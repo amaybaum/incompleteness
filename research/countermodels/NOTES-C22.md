@@ -1,0 +1,128 @@
+# NOTES-C22 — Theorem S′ for compact defect sets as a design module
+
+Round-5 node C22, opened 2026-10-11T07:19Z (session start); S0 written 2026-10-11T07:50:58Z (`date -u`), before any C22 script ran and
+before any Lean text of the node was dispatched. Target (the coordinator's words): for a compact family of rank-one
+defects `d_h = 1 − c(h) P_h` with unit seeds, `c` continuous into `(1, 2]`, `c < card n`, pairwise nonnegative trace
+pairings and (CC) in cap/co-cap form on every pair of positive pairing, the surgery cone `K(Z) = (PSD ∩ Z*) + closed cone Z`
+is closed and self-dual under `Re tr(AB)`. The circle cones C13.5, C13.7 and `K_κ` (C16.4) rest on this statement at
+[W] (C13-S); the finite form is `CmSprime` (C17.1, [D]).
+
+Conventions as in NOTES-C11, NOTES-C13 and NOTES-C17; the module is `OIBridge/CmSprimeCompact.lean` (namespace
+`OIBridge.CmSprime`, importing `OIBridge.CmSprime` unchanged), written against the kernel at L = `9f9f8257` and the
+Mathlib the lakefile pins (`v4.33.0`; the local read-only checkout `db584cd6`, grep only); the working copy is kept under
+`lean/` once a run has been made.
+
+## Question, design, productivity test (§A.31)
+
+**Question.** Which step of the finite proof needs a new argument over a compact base, and can the compact theorem be
+stated with every hypothesis explicit and machine-checked within one or two dispatches?
+
+**Design (fixed before the first run).** The finite engine (`selfDual_of_local`: Farkas by the infimum of ratios, the
+least-weight decomposition on a compact feasible set, the local lemma) is reused as a black box through
+`theorem_Sprime`, not generalized to a compact family. The compact theorem is reduced to the finite theorem on finite
+nets of the compact family:
+
+1. **Definition.** For an index type `κ` and `d : κ → Herm(n)`, `coneOf d` is the set of finite nonnegative
+   combinations `Σ_{k ∈ s} t_k d_k` (`s` a finset), and
+   `surgeryC d = {q + z : q ⪰ 0, pr q (d k) ≥ 0 for every k, z ∈ closure (coneOf d)}` — the surgery with the **closed**
+   conic hull, which is the target statement's own form. (Whether `coneOf d` is already closed for a compact family —
+   Carathéodory over a compact base not containing 0, NOTES-C13 C13-S — is left as a written remark [W]; it is what
+   identifies `surgeryC` with the thread's `K(Z) = (Q ∩ Z*) + cone Z` and is **not** part of the module's statement.)
+2. **`K ⊆ K*`** by the four pairings, each extended to the closure of `coneOf d` by `closure_minimal` (the pairing
+   with a fixed matrix is continuous). No new argument.
+3. **`K* ⊆ K` — the new argument (approximation).** Let `y ∈ K*`. For `ε > 0`, compactness of `κ` and continuity of
+   `d` give a finite `F ⊆ κ` with every `d k` within `ε` (entrywise) of some `d k′`, `k′ ∈ F`. The finite theorem
+   applies to the subfamily `F` (every hypothesis restricts). Two estimates make `y + ηI` a member of the finite
+   dual cone `(K_F)*`: (a) for `q ⪰ 0` and any `M` with entries `≤ ε` in modulus, `|pr q M| ≤ ε · n · tr q` (through
+   the factorization `q = BB†`, `pr q M = Σ_m qf M (B_m)`, and Cauchy–Schwarz `(Σ|v_a|)² ≤ n Σ|v_a|²`); hence for
+   `q ∈ Q ∩ F*`, `pr q (d k) ≥ −ε n tr q` for every `k ∈ κ`, so `q + δI ∈ Q ∩ Z*` for `δ = ε n tr(q)/τ`
+   (`τ ≤ tr d_k` the uniform trace bound, `τ = n − max c > 0` by compactness), so `pr q y ≥ −δ tr y`; (b) therefore
+   `pr X (y + ηI) ≥ (η − ε n tr(y)/τ) tr q ≥ 0` for every `X = q + Σ t_k d_k ∈ K_F` when `η ≥ ε n tr(y)/τ`. The finite
+   theorem gives `y + ηI = q_F + z_F` with `q_F ∈ Q ∩ F*`, `z_F ∈ coneOf d`. Along `ε_m → 0` (`η_m → 0`) the
+   `q_m` and `z_m` lie in compact entry boxes (PSD entries are bounded by the trace; `z`-entries by
+   `3 · tr z/τ`), so subsequences converge: `q_m → q ⪰ 0` with `pr q (d k) ≥ 0` for every `k` (limit of
+   `≥ −ε_m n R`), `z_m → z ∈ closure (coneOf d)`, and `y = q + z ∈ K`.
+4. **Closedness** of `surgeryC d` from `K = K*` (a dual cone is closed), as in the finite engine.
+
+So the steps that need new arguments over a compact base are exactly: the quantitative pairing estimate (3a), the shift
+`y + ηI` into the finite dual cone (3b), and the limit passage (compact entry boxes, subsequences). What the design
+does **not** need: Farkas over a compact family, a least-weight decomposition over a compact family, a separation
+theorem, and Carathéodory (the last only because the closed conic hull is in the definition).
+
+**Productivity test.** The node is a gem iff it yields a fact strictly stronger than the restatement "S′ holds for
+compact Z" — here: the identification of the finite-net approximation as the only new step, with the closedness of the
+conic hull separated out as a named [W] remark — and it constrains something: the compact-form statement the circle cones
+rest on becomes machine-checked (if the dispatch is green), and its exact hypothesis list fixes what every consumer
+(C13.5, C13.7, C16.4; HO-36's tower closure question, C23) must verify. Below that bar: record only.
+
+## Hypothesis classification (standing rule 1; owner's requirement (1))
+
+Pure cone geometry in `Herm(n)`; no OI inventory item is used, no introduced hypothesis (H1–H3, A_miss, claim (D), EBF,
+T) appears. Every hypothesis of the compact form is explicit in the module's statement: `[CompactSpace κ]` (the
+defect family is the continuous image of a compact space), `Continuous c`, `Continuous h` (the seed map), unit seeds,
+`1 < c k ≤ 2`, `c k < card n`, `[Nonempty κ]` (the empty family is the PSD cone, self-dual by the kernel's
+JordanClassification.lean:84, not restated), pairwise nonnegative pairings, (CC) in cap/co-cap form on every ordered
+pair `j ≠ k` of positive pairing; the closedness the compact base needs enters as the closed conic hull in the
+definition of `surgeryC`. Reading of every downstream use: invariance (the cones are pair cones; nothing here is about
+availability). Written parts and kernel-checked parts are separated in the RESULTS rows: the module's statements are
+[W] until the dispatch is green and [D] after; the Carathéodory remark (closedness of `coneOf d`) stays [W].
+
+## S0 — predictions and decision rules (written before the first run)
+
+### Preflight `experiments/c22_preflight.py` (exact: Fractions, Gaussian rationals; sympy for symbolic identities)
+
+Instance data: the S2 circle cone of C13.7 — `g_w = (3, 3, w, −w)` in the computational basis (`|0+⟩ = (1,1,0,0)/√2`,
+`|1−⟩ = (0,0,1,−1)/√2`; `|g_w|² = 20`), `P_w = g_w g_w†/20`, `d_w = I − c P_w`, `c = 21/20`, `|w| = 1`; the net
+`F = {±1, ±i, (±3 ± 4i)/5}` (eight rational points) and off-net rational points `w ∈ {(5 + 12i)/13, (−5 + 12i)/13,
+(8 + 15i)/17, (7 + 24i)/25, (−7 − 24i)/25, (20 + 21i)/29}`.
+
+1. **Q1 the column identity and the pairing estimate.** For exact PSD `q = BB†` (Gaussian-rational `B`) and Hermitian
+   `M`: `pr q M = Σ_m qf M (B_{·m})` exactly, and `|pr q M| ≤ ε n tr q` with `ε² = max_ij |M_ij|²` (compared through
+   squares). Countercontrol: the factor `n` is load-bearing — `q = vv†`, `v = (1,1,1,1)`, `M` the all-ones matrix:
+   `pr q M = 16 = ε n tr q` while `ε tr q = 4 < 16`. Predicted: identity on every instance; bound on every instance;
+   countercontrol as stated.
+2. **Q2 the entry bound for PSD matrices.** `4|q_ij|² ≤ (q_ii + q_jj)²` and `|q_ij|² ≤ (tr q)²` on the PSD instances.
+   Countercontrol: the Hermitian non-PSD `X ⊕ 0` (`|q_01| = 1 > 0`). Predicted: both hold; countercontrol fails.
+3. **Q3 the defect entry bound.** `|d_ij|² ≤ (1 + c)²` for unit seeds (exact instances including `c = 2` on a Bell
+   state); countercontrol: a non-unit seed `(2, 0, 0, 0)` at `c = 2` has `|d_00| = 7 > 3`. Predicted: as stated.
+4. **Q4 the net mechanism on the circle.** (a) Hypotheses of the finite theorem on `F ∪ {off-net points}`: unit seeds,
+   `c ∈ (1, 2]`, pairings `4 − 2c + c²s ≥ 0`, (CC) `c²s ≥ 4(c − 1)` on every pair; the symbolic identity
+   `|⟨g_w|g_{w′}⟩|²/400 = |9 + w̄w′|²/100` for `|w| = |w′| = 1`, whose minimum `64/100 = 16/25` is C13-S2's `s_min`.
+   (b) `ε²` := the exact maximum over off-net `w` of the minimum over `w′ ∈ F` of `max_ij |(d_w − d_{w′})_ij|²`;
+   `τ = 4 − c = 59/20`. (c) For sampled pure `q = P_v ∈ Q ∩ F*` (exact `v` with `|⟨g_{w′}|v⟩|² ≤ 20|v|²/c` for every
+   `w′ ∈ F`), and every off-net `w`: `pr q (d_w) ≥ −ε n tr q\) and `pr (q + δI) (d_w) ≥ 0` with `δ = ε n tr(q)/τ`
+   (both compared exactly through squares when the left side is negative). (d) The shift on a real instance:
+   `y = d_{w₀}`, `w₀ = (5 + 12i)/13` (an element of `K(Z)`, hence of `K(Z)*` by the pairings), is **not** in `K(F)*`
+   — an exact pure `v` in the open cap of `w₀` outside every net cap has `pr (d_{w₀}) P_v < 0` — while
+   `y + ηI`, `η = ε n tr(y)/τ = 4ε`, pairs `≥ 0` with every sampled `P_v ∈ Q ∩ F*` and with every `d_{w′}`,
+   `w′ ∈ F`. Predicted: (a)–(d) as stated (the witness of (d) exists, by the cap-radius count `arccos(1/√c) ≈ 12.6° <`
+   the half-spacing of the net `≈ 15.6°` in Fubini–Study distance).
+5. **Q5 Bell-circle countercontrol.** On the Bell circle `C2(w)` at `c = 2` two distinct points pair to `4s − 4 < 0`:
+   the pairing hypothesis fails (consistent with C7.6, `K(Z_circ)` not self-dual). Predicted: as stated.
+
+Decision rule (fixed now): `VERDICT C22-PREFLIGHT-OK` iff Q1–Q5 give the predicted outcomes, countercontrols included.
+Any other outcome voids the preflight and blocks the dispatch until it is understood; a failed run is kept as
+`c22_preflight.run1.{py,out,err}`.
+
+### Design run (CI): at most two dispatches for C22 (the round's third is held for C23)
+
+Branch `dev-countermodels/c22-compact` cut from L with two modules — `OIBridge/CmSprime.lean` exactly as at
+`5649e641` (sha256 `a10f4790…`) and the new `OIBridge/CmSprimeCompact.lean` — and two import lines in `OIBridge.lean`
+(after `import OIBridge.RelcSelectC5`). Dispatched by `workflow_dispatch` through `gh api`, as LOG records for round 4.
+
+Decision rule (fixed now): the run is **BUILT** iff, in the Mathlib bridge job log, (i) the Build step succeeds with
+`Built OIBridge.CmSprimeCompact` (and `Built OIBridge.CmSprime`); (ii) every one of the new module's `#print axioms`
+lines reports a subset of `{propext, Classical.choice, Quot.sound}`; (iii) no `sorryAx` anywhere and `lean-axioms`
+passes. BUILT ⇒ the compact-form statements (`theorem_Sprime_compact`, its inequality and `ℂ⁴` forms, the two
+inclusions, the control) are CONJECTURE [D], and the rows conditional on "S′ for compact Z [W]" (C13.1, C13.5, C13.7,
+C16.4; C21.1's `Kk`) become conditional on [D] **plus** the [W] Carathéodory remark identifying `surgeryC` with
+`K(Z)`. Not BUILT ⇒ the text is kept as `lean/CmSprimeCompact.run<id>.lean`, the error lines recorded, one repair
+dispatch may follow; not BUILT after two ⇒ C22 FAILED (design), the compact form stays [W], and the closedness lemma /
+two-sided inclusion are recorded at whatever the log shows elaborated (per declaration, by its `#print axioms` line).
+Nothing about the compact form is cited as [D] before a green dispatch (owner's requirement (1)).
+
+Predictions (stated plainly): the module builds at the first dispatch with probability about one half; if not, the
+likeliest failure sites are the limit bookkeeping (`IsCompact.tendsto_subseq`, `Tendsto.comp` along a strictly monotone
+subsequence, `tendsto_nhds_unique`), the subtype-indexed sums of the finite surgery, and `simp` normal forms in the
+entry bounds — not the mathematics; every `#print axioms` line within the permitted three; the gate red on
+`lean-manuscript` (two modules without census family) and on no other step.

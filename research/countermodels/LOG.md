@@ -450,3 +450,83 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   round-4 audit's chain rule. Budget: at most three `workflow_dispatch` runs; no cancellation; cross-branch reads limited
   to `research/bridge` @ `a34d20b5` (NOTES-B17, `experiments/b17_tower.py`, NOTES-B10; C23) and `research/equivalence` @
   `ab6788b9` (node E16's NOTES and script; C25), each to be logged with commit and sha256 when read.
+- 2026-10-11T07:48:24Z — **owner's round-5 directions received through the coordinator** (recorded in `research/overview`
+  OVERVIEW.md, "Owner's round-5 directions"; binding from this entry on, applied in C22 and C23 before any dispatch).
+  Priority across threads: origin and bridge first; this thread and equivalence establish the boundaries of what can
+  legitimately be claimed — the limitation side: "if continuous control cannot be derived from existing OI conditions,
+  the countermodels must show exactly which additional physical principle is required." Requirements, quoted:
+  (1) "establish Theorem S′ with PRECISE assumptions — in C22 every hypothesis of the compact form is stated explicitly
+  in the module (the compactness of the defect family, the continuity of c, the bounds on c, the pairing conditions,
+  (CC) on positively paired pairs, and whichever closedness lemma the compact base needs), with the control
+  `control_single_defect`-style non-vacuity instance, and the written parts separated from the kernel-checked parts
+  in RESULTS; nothing about the compact form is cited as [D] until the dispatch is green"; (2) "the two-torus
+  countermodel (C23) is to be INDEPENDENTLY CHECKED: whatever you produce (an explicit G_T-invariant cone, or the
+  obstruction) must come with a certificate verifiable by exact arithmetic independent of the construction — for a
+  cone: a finite certificate set (defects, dual witnesses, the (CC)/pairing data, the H1 Schmidt bounds, the invariance
+  data for the torus generators at exact rational points of the circle and for the closure step), written to a plain
+  data file, and a second script using a different method (e.g. verifying the dual-cone membership and the invariances
+  directly from the certificate without the construction's parametrization); for an obstruction: the orthogonal-pair
+  witness for every seed class with the exact pairings. The coordinator will run its own independent check on the
+  certificate; design C23 so that is possible." Safeguard shared with origin and bridge: "finite-order primitives can
+  generate continuous control by composition (Hadamard and T); a group's finiteness is a statement about the generated
+  group under the actual composition rules, not about the generators. When you record which operations a cone is
+  invariant under, name the generated group exactly (as you did for G384, G768, C₂) and never infer finiteness from the
+  generators' orders." Everything else in the round-5 instructions stands (receipts first, ≤ 3 dispatches, no CI
+  cancellation, S0 before runs, hypotheses classified, readings named, C21 safeguard). Application: C22's module
+  states every hypothesis of the compact form explicitly (compact index space, continuity of `c` and of the seed map,
+  `1 < c ≤ 2`, `c < card n`, pairwise nonnegative pairings, (CC) on positively paired pairs) and the closedness it
+  needs is the closed conic hull in the cone's definition, with the conic hull's own closedness stated as a separate
+  written remark; C22's RESULTS rows separate [W] (written) from [D] (design-built), and no compact-form statement is
+  cited [D] before a green dispatch; C23 writes a plain certificate file and a second, construction-independent exact
+  verifier; invariance groups are named as generated groups under composition, never by the generators' orders.
+- 2026-10-11T08:03:34Z — **two further owner points received through the coordinator** (recorded in `research/overview`
+  OVERVIEW.md, "Owner's round-5 directions"; binding for C22–C25 from this entry on). Quoted: (1) "Scope of
+  insufficiency. Preserve the distinction between a proof of insufficiency for the COMPLETE stage-6 inventory
+  (definitive within its scope) and a claim about every conceivable extension of OI (never established by a
+  countermodel). Every countermodel row you write says 'at the audited scope: the stage-6 inventory at L, at level …',
+  and the C21 safeguard stands: a cone invariant under a group is not a model in which the group's operations are
+  available, and a (b)-failure is a Q3-failure only through a proved entailment." (2) "Dense control versus exact
+  invariance, for your cone statements: when a cone is recorded as invariant or not invariant under a group, name the
+  exact finitely generated group and, separately, its topological closure; closedness of the cone (H3) is what carries
+  invariance from a dense subgroup to its closure, so say when you use it. For C23 (the 2-torus group of the tower's
+  closure) this is load-bearing: the torus is the closure of the finitely generated group of B10-5's stages, and an
+  explicit cone invariant under all stages G_n (finitely generated, countable) is invariant under the torus only if
+  the cone is closed — state the step." The owner's classification of the decisive round-5 outcome: (A) drive derived
+  from existing OI premises; (B) derived only after a new independently motivated premise; (C) supplied by an
+  assumption equivalent to the phase intervention; (D) existing premises admit non-quantum countermodels —
+  demonstrated insufficiency at the audited scope. "Your thread owns outcome (D): every explicit cone you produce is
+  recorded as evidence for (D) at its exact scope (which items, which level, which reading), never as more."
+  Application: every countermodel row of this round carries the clause "at the audited scope: the stage-6 inventory at
+  L, at level (i)/(ii), reading: invariance"; every invariance statement names the finitely generated group and its
+  closure separately, and the passage from a dense subgroup to the closure is written as a step using H3 (the cone is
+  closed: a dual cone); every explicit cone is recorded as evidence for outcome (D) at its exact scope and never as
+  more; the C21 safeguard stands unchanged.
+- 2026-10-11T07:50:58Z — **C22 S0** written in NOTES-C22 (question, design — the finite-net reduction —, productivity test,
+  hypothesis classification, predictions and the two decision rules) before any C22 script ran; Mathlib APIs for the
+  design checked by grep only on the read-only checkout `db584cd6` (the tag `master-2026-08-10`; the lakefile pins
+  `v4.33.0`, as recorded in round 4).
+- 2026-10-11T07:53:29Z–07:54:19Z — **C22 preflight runs** (`experiments/c22_preflight.py`). Run 1 (07:53:29Z) crashed
+  before any check printed: a harness error (the square-only `matmul` helper applied to a 4×1 factor in Q1's
+  countercontrol); kept as `c22_preflight.run1.{py,out,err}`. Run 2 (07:53:41Z): 7/8, `VERDICT C22-PREFLIGHT-FAIL` —
+  Q5's **prediction refuted**: S0 said two non-antipodal Bell-type defects at `c = 2` pair to "`4s − 4 < 0`"; the
+  pairing is `4 − 2 − 2 + 4s = 4s ≥ 0` (= 2 at `s = 1/2`), an arithmetic slip in S0; what excludes the Bell circle is
+  (CC) (`4s ≥ 4` needs `s = 1`), as NOTES-C11 Remark (iii) already says. Kept as `c22_preflight.run2.{py,out,err}`;
+  recorded as a FAILED prediction (row C22.4f). Run 3 (07:54:17Z), Q5 amended to test the correct hypothesis (pairing
+  `= 4s ≥ 0`; (CC) fails), nothing else changed: 8/8, `VERDICT C22-PREFLIGHT-OK`; replay byte-identical (`cmp` on
+  `.out`, `.err`); script sha256 `962c1562…`, out `7b1bdc9a…`. Measured: `ε² = 3969/850000` for the eight-point net
+  (worst off-net point `(15 + 8i)/17`, nearest net point `(3 + 4i)/5`); the shift instance: `y = d_{w₀}` pairs
+  `−1/74` with an exact pure member of `Q ∩ F*` in its own cap (so `y ∉ K(F)*`) while `η² = 3969/53125 ≥ 1/5476`;
+  two of the 49 `(q, w)` instances had `pr q d_w < 0` and satisfied the estimate.
+- 2026-10-11T08:08:18Z — C22 design: the Lean module `CmSprimeCompact.lean` is being written (text to be recorded by sha256 at dispatch).
+- 2026-10-11T08:19:04Z — **C22 design run, dispatch 1 of 3**: branch `dev-countermodels/c22-compact` cut from L = `9f9f8257`
+  (worktree `/home/user/wt-research/dev-countermodels-c22-compact`), commit `6cb76f96` adding
+  `verification/lean-mathlib/OIBridge/CmSprime.lean` (= `lean/CmSprime.lean`, sha256 `a10f4790…`, unchanged from
+  `5649e641`), `verification/lean-mathlib/OIBridge/CmSprimeCompact.lean` (= `lean/CmSprimeCompact.lean`, sha256
+  `d24b7ea86b3d1aee4f4c8d8849108fd2fbbe598b2159298a05772034f1cfa017`, 721 lines, 38 `#print axioms` lines) and two
+  import lines `import OIBridge.CmSprime`, `import OIBridge.CmSprimeCompact` after `import OIBridge.RelcSelectC5` in
+  `OIBridge.lean`; pushed. `verify.yml` dispatched at 08:19:10Z through `gh api -X POST
+  repos/amaybaum/incompleteness/actions/workflows/verify.yml/dispatches -f ref=dev-countermodels/c22-compact`; run
+  `38124380741`, head `6cb76f96e2f54cf9e5ea647d981d8095ff6a0562`, created 08:19:12Z, event `workflow_dispatch`. Not
+  cancelled; waited on. Before the dispatch the module text was re-read against the confirmed Mathlib signatures and
+  three fragile spots hardened (pointwise definitions of the sequences `η`, `ε` instead of lambdas; the type
+  ascription of the constant limit; `Finset.mul_sum` as a term) — all before any run, no statement changed.

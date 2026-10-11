@@ -1,0 +1,10 @@
+Q1  PASS  column identity and |pr q M|² ≤ ε²n²(tr q)² on 6 instances: True; countercontrol: pr q M = 16 = ε n tr q, and the bound without n fails: True
+Q2  PASS  4|q_ij|² ≤ (q_ii+q_jj)² and |q_ij|² ≤ (tr q)² on 3 PSD instances: True; countercontrol (non-PSD X ⊕ 0 violates the first): True
+Q3  PASS  |d_ij|² ≤ (1+c)² on 4 unit-seed instances: True; countercontrol non-unit seed: d_00 = (-7+0i), bound 3 violated: True
+Q4a  PASS  105 pairs: pairing formula, pairing ≥ 0, (CC) c²s ≥ 4(c−1) with c = 21/20: True; symbolic |9 + e^{it}|² = 82 + 18 cos t: True; minimum 64/100 = 16/25 (C13-S2's s_min): True
+Q4b  PASS  ε² = 3969/850000 ≈ 0.004669 (ε ≈ 0.0683); nearest net index and deviation² per off-net w: {'(5/13+12/13i)': (4, '3969/2600000'), '(-5/13+12/13i)': (5, '3969/2600000'), '(8/17+15/17i)': (4, '3969/6800000'), '(7/25+24/25i)': (1, '3969/2000000'), '(-7/25-24/25i)': (3, '3969/2000000'), '(20/29+21/29i)': (4, '3969/11600000'), '(15/17+8/17i)': (4, '3969/850000')}
+Q4c  PASS  49 (q, w) instances: pr q d_w ≥ −ε n tr q and pr (q + δI) d_w ≥ 0 (δ = ε n tr q/τ): True; instances with pr q d_w < 0 (where the estimate is load-bearing): 2
+Q4d  PASS  w0 = (15/17+8/17i): witness v in the open cap of w0 (True) and in F* (True), pr y P_v = -1/74 < 0 so y = d_w0 ∉ K(F)*; y ∈ Z* on all 15 points: True; η² = 3969/53125 ≥ (pr y P_v)² = 1/5476: True; y + ηI pairs ≥ 0 with every sampled P_v: True
+Q5  FAIL  Bell circle at c = 2: pairing(1, i) = 2 = 4s − 4 with s = 1/2 (negative: hypothesis fails); antipodal pairing = 0 (orthogonal, admissible)
+CHECKS 7/8
+VERDICT C22-PREFLIGHT-FAIL
