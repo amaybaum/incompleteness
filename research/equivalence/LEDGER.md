@@ -159,3 +159,7 @@ Each note is dated, names its evidence, and supersedes nothing above.
   item 1 CONJECTURE, item 2 CONDITIONAL on claim (D)) and HO-12 v1 (the dictionary's (D1)–(D2); the clause (T) a named
   premise, FAILED as a bridge; the A_miss split), each at its label. Status OPEN; the schema stays CONDITIONAL on H2,
   H3, A_miss and `ReachPure`, none sourced.
+- **2026-10-11 (round 3) — Kinf-Drive.** Received HO-9 v1 item 3 (CONDITIONAL; its stage-crossing clause CERTIFIED,
+  `not_stagePreserving_of_infiniteOrderOn`, CompositionOrder.lean:378): a passive finite-rank conditioning tower
+  carries no infinite-order datum, so it sources no drive (and no transitive family); K∞-Seed is compatible with such
+  towers. Recorded as a constraint on candidate sources only. Status OPEN.

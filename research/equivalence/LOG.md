@@ -304,3 +304,20 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-11T01:36Z — `experiments/e8_cite_check.py` run 4 (started 01:35:37Z, after commit `b955d119`): 54 distinct
   citations (110 occurrences, 49 named pairs), countercontrols X1–X3 fail as stated, `VERDICT CITATIONS-RESOLVE`; replay
   byte-identical (py `88dd6b1d…`, out `2871d48e…`). RESULTS R-CITE.3.
+- 2026-10-11T01:36Z — **Round 3 closed.** Nodes done, in the instructed order: E12 (S4's `C0` met; S4 ready for owner
+  review), E11 (BUILT after one proof-only repair), E13 (two countermodels and a lemma; the centrally symmetric branch
+  closed, against S0's prediction), E14 (three readings separated; the transport form gives the passage, written).
+  Rows added: R-E12.1; R-E11.1–R-E11.4; R-E13.1–R-E13.4; R-E14.1–R-E14.3; R-CITE.3 — no earlier row's label changed.
+  LEDGER round-3 notes: Kinf-Trans (two), K2, L3-conv, Kinf-Drive; statuses at L unchanged. Handoff proposals HP-8,
+  HP-9, HP-10. Dispatches used: 3 of 3 — 38096511360 (`dev-equivalence/omega4` `95beab2b`; job 114343410536; Build
+  success, 15/15 standard), 38099025197 (`dev-equivalence/k2-schema` `472835c5`; job 114350890660; Build failure at four
+  proofs, 10/22 standard), 38101580750 (`dev-equivalence/k2-schema` `aabc649e`; job 114358419270; Build success, 22/22
+  standard; gate red only at `lean-manuscript`, `lean-axioms` 5882). No job or run was cancelled; at 01:36Z seven long
+  numerical-probe jobs of run 38101580750 were still running (they do not bear on the design measurement). Deviations,
+  all recorded above: one import line per design module in `OIBridge.lean` on each dev branch; a cross-branch read of
+  the bridge's draft dictionary and NOTES-B9 §4 on the coordinator's instruction; dev commits written by git plumbing
+  into a scratch index (no new worktree); no local Lean toolchain (API names checked against the pinned Mathlib
+  checkout); a floating-point scratch exploration (not committed) to choose Ω_cs's parameters before its exact probe;
+  three LOG time corrections (entries written a few seconds ahead of their commits). Citation check re-run over the
+  round-3 documents (run 4, R-CITE.3). No preregistration became a round; nothing was merged, and nothing outside
+  `research/equivalence/` changed on this branch.
