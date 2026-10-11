@@ -442,3 +442,76 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - **Governance.** Round-3 commits on `research/bridge` change only `research/bridge/`; `git diff --stat
     3686049e..HEAD` outside it is empty. `main`, manuscripts, `verification/` on the research branch, receipts,
     seals and legacy records are untouched. No pull request was opened and nothing was posted on GitHub.
+
+## Round 4
+
+- 2026-10-11T02:45:43Z — round 4 opened at thread head 7abe4da4 (clean, equal to origin). Own record re-read: README.md,
+  LOG.md, RESULTS.md, NOTES-B1, NOTES-B3, NOTES-B7, NOTES-B10 … NOTES-B13. Read-only reads of the coordinator's branch
+  research/overview @ 742c6b2f (as in rounds 2–3; cross-branch read on the coordinator's instruction), sha256 of what
+  was read:
+  - research/AUDITS/2026-10-11-round3/AUDIT-BRIDGE-R3.md `9f60a7b3690b43e2cab96f63d976c39000caff159c7e3c62340c2b8b7b042579`
+    (the round-3 audit: no label changes);
+  - research/OVERVIEW.md `c3ca2beae5ca2fcad60c0488abd6a3dfcbcecc4bcd390f9e4cf33eb07404c9f6` (§ "Next round (round 4)",
+    the nodes B14–B17);
+  - research/HANDOFFS/HO-20 … `f36b244824f1f096ed1bd554047bf2b7d24c3f27bb3e85e67f6e7784a2857497` and HO-23 …
+    `3c1e126d889b2ff9734da4432f212ca074b2ec74291570c8e3a0398af4c0f3ae`: this thread's own round-3 results as routed,
+    read only for their item numbering (B14 names HO-20 item 3). Not copied: they are not addressed to this thread.
+- 2026-10-11T02:51:26Z — receipts. Copied from research/overview @ 742c6b2f `research/HANDOFFS/` into `inbox/`,
+  byte-identical (cmp against `git show 742c6b2f:…`), sha256 equal to the overview blob:
+  - HO-9 v2 (origin → bridge, equivalence) `bd62649d0b7eb594046d5da6ce8bf5de4f70dbdd43000445e98315c035bb7b44`;
+  - HO-17 v1 (origin → bridge, equivalence, countermodels) `65d2f79a0421b1b15162603114febae17c0452c792699303b2953db4724bf3a6`;
+  - HO-18 v1 (equivalence → bridge, countermodels) `df704843343310fb16ed1eac29564ca5091ce1a3225d3796ec185d8c6b6731ed`;
+  - HO-19 v1 (equivalence → countermodels, bridge) `ad17f101a560674b437d170dce8b7c776da59a00021fbc990979d73093a3184b`;
+  - HO-24 v1 (countermodels → equivalence, bridge) `27175857ac88aac878afdd50f124b5b532a9429d377bf5575169670a56bc688b`;
+  - HO-25 v1 (countermodels → bridge, equivalence) `9341f3f3df33fdd2766b8b506a40f4bfb9465e95851bb26b326e27f985d7c437`.
+
+  HO-9 v1 stays in `inbox/` (received 0ccc1bef); v2 supersedes it. Nothing in these handoffs is CERTIFIED except the
+  kernel lines they cite; every item is used at its own label. The "may not assume" sections of all six are honoured.
+  Reliance, handoff by handoff and item by item:
+  - **HO-9 v2.** Items 1–6 are unchanged from v1 and relied on as in round 3. Item 3 at CONDITIONAL in B14 (a passive
+    finite-rank tower carries no infinite-order datum); its stage-crossing clause is CompositionOrder.lean:378, cited
+    directly. Item 6 as a constraint: product-register composites are Bell-local. Items 1 and 5 as context: the current
+    form of Origin's open premise. Item 4 is context, not a premise. Item 7's density facts are not used. Its corrected
+    may-not-assume clause is honoured: availability at a level is not the group generated at that level.
+  - **HO-17 v1.** Items 1, 3 and 5 (addressed to this thread) are constraints in B14:
+    - item 1: the exclusive readout is not a source inside the kernel's operational structure; refuted on the stated
+      access ([D] there; the kernel facts OperationalAssembly.lean:658 and :675 are re-checked at L before any citation);
+    - item 3: its disguise-test reading, as context for B14's own disguise test;
+    - item 5: no re-preparing pair law short of the cone's own conditioning rule, with `cnot` given, realizes a
+      candidate cone.
+
+    **Item 8 binds every availability argument of this round.** Availability at a level includes the ancilla blocks
+    `MixR.block` and the relabellings `MixR.relabel` of members at every level, and every `InstAvail` protocol. B14's
+    predicate is stated over exactly that availability, never over a generated group. Item 4 (HO-13's token pair on
+    one re-preparing token, CONDITIONAL on the cosine law) is context for B14's token side only. Items 2, 6 and 7 are not
+    relied on. Not assumed: that the exclusive readout, the re-preparing law, SRC or SPEC is sourced; kernel status for
+    the [D] items.
+  - **HO-18 v1.** Relied on in B15:
+    - item 1 at CONJECTURE ([D] run 38101580750): `dictEquiv`, `dict_injective` and their supporting lemmas as Lean
+      text that builds against Mathlib v4.33.0 and the kernel at L, on the same definitions `pauli`, `tokMat`, `dict`;
+      the text itself comes from the authorized read of `EqvK2Schema.lean` at c10dbaee (logged when made);
+    - item 5 as the convergence target;
+    - item 4 as a build-time fact about the one-list rendering only.
+
+    Items 2 and 3 (the cone lemmas, the schema) are context only. Not assumed: certification; that the schema
+    formalizes HO-13 item 2's two-rotation clause; anything beyond two tokens.
+  - **HO-19 v1.** Not relied on as a premise. Recorded as a constraint: no round-4 argument sources K∞-Trans through
+    self-duality. If one arose, item 3 (strong self-duality, not duality alone) is the obstruction it must clear.
+  - **HO-24 v1.** Relied on in B17:
+    - item 4 (`h*`, `c* = 401/400`, the 192-defect orbit) at CONDITIONAL;
+    - item 1 (the Gaussian-rational lift of `G₃₈₄ = Stab_C(Z ⊗ 1)`), re-derived in my own script before use;
+    - the (CC) and H1 tests as exact design rules.
+
+    Item 3 (Theorem S′, [W]) only where a B17 statement needs self-duality of the cone; a non-invariance certificate
+    that uses only `K ⊆ K*` (pairwise defect pairings `≥ 0`, checked exactly) does not rest on it. Item 6 is recorded
+    as the cone step of B7-4's fixed-finite case for unitary groups containing `cnot` (an explicit surgery, CONDITIONAL
+    on Theorem S′ [W], instead of claim (D) [A]); any RESULTS propagation is stated there with its label. Item 5 is
+    context.
+  - **HO-25 v1.** Context for B17:
+    - item 2 (for the continuous half's group the rank-one surgery route is closed; existence there by claim (D) only);
+    - item 3 (Lemma C13-O, [W]) at its label, if B17's reading uses it;
+    - item 1 as the cone side of the Clifford half (B10-4's "leaves exotic cones" for that half, now explicit through
+      Theorem S′ [W]).
+
+    Item 4 is context. Not assumed: that S′ or C13-O is kernel-checked; that the continuous half's exotic cones exist
+    other than through claim (D).
