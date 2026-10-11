@@ -73,3 +73,33 @@ arithmetic). Predictions (sign, strength, reason):
 `oiSystem_transportHDyn` and (a)–(c); the build risk is in (c) (the counting argument and the star-automorphism
 algebra written without a local Lean), moderate. Label after a green design run: CONJECTURE [D] for (a)–(c) and the
 positive control; R-E14.2's passage itself unchanged (CONJECTURE [W]).
+
+## 1. The probe (measured)
+
+`experiments/e17_transport_finite.py` run 1 (started 04:06:08Z, after commit `6ae7fd4f`; decision rule unchanged):
+5/5, `COUNTER XZ1/XZ2/XZ3 fails as stated`, `VERDICT E17-TRANSPORT-FINITE-CONSISTENT`; replay byte-identical (py
+`f1f8016f…`, out `cefedd2e…`). Measured: the symmetric idempotent `{0,1}` matrices of size `1 … 4` are exactly the
+`2, 4, 8, 16` diagonal ones; the `{0,1}` matrices with `VᵀV` idempotent are exactly the partial permutation matrices,
+`2, 7, 34, 209`, and the diagonal of `VᵀV` is the column count; `Ad(D P)` maps every matrix unit to a `{0,1}` matrix
+for exactly 8 of 32 (`n = 2`) and 24 of 384 (`n = 3`) monomial unitaries, all with scalar `D` and each the transport along
+`p`; the Hadamard and the `(3/5, 4/5)` rotation fail at `E_00` (`½` and `9/25`, `12/25` entries); the CNOT transport of
+all 124 stage units of three sites is `{0,1}`, and the image of `E^{0}_{0,1}` is no stage unit. Every S0 prediction held.
+
+## 2. The design module (reading rule and prediction, written 2026-10-11T04:33Z, before dispatch 1)
+
+`lean/EqvTransport.lean` (blob `0c7f92f8`, sha256 `1aa3710f…`, 442 lines, 9 prints), namespace
+`OIBridge.EqvTransport`, importing `OIBridge.QuasilocalCharacterization`: §A `unitM`, `IsZeroOne` and the unit algebra
+(`unitM_mul`, `unitM_conjTranspose`, `sandwich_apply`, `matrix_eq_sum_unitM`, `sum_unitM_zeroOne`); §B (a)
+`offDiag_eq_zero_of_zeroOne`, (b) `col_unique_of_zeroOne`; §C (c) `finiteStage_transport`, `finiteStage_transport_apply`;
+§D `TransportHDyn`, `isZeroOne_transported`, the positive control `oiSystem_transportHDyn`, and `Passage` (a definition:
+R-E14.2's conclusion in Target A form, not proved). The proof of (c) uses (a) and an injectivity count: one chosen
+support point per diagonal unit is an injective, hence surjective, map of the finite configuration set, and every
+support point is the chosen one — no cardinality sum is needed (simpler than S0's count).
+
+**Reading rule (fixed now).** As NOTES-E15 §5, for `EqvTransport`'s nine prints: BUILT / PARTIAL / NOT BUILT. BUILT
+moves (a)–(c) and the positive control to CONJECTURE [D]; `Passage` stays a stated proposition (R-E14.2 CONJECTURE [W]).
+
+**Prediction.** BUILT, strength moderate (about 0.5): the risk is in (b) (`Complex.normSq` and the inequality chain), in
+(c)'s rewriting chain through `map_mul`/`map_star` of a star-algebra equivalence, and in the defeq step of
+`isZeroOne_transported` (the kernel's `transported` unfolded against the generic sum lemma); §A's unit algebra is low
+risk.

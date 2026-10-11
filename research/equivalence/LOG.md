@@ -522,3 +522,41 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (a)–(c), the hypotheses classified, predictions) and the exact probe `experiments/e17_transport_finite.py` (decision
   rule in its header, written 04:05Z) committed together, before the probe's first run. Pre-run review simplified one
   expression of Z4 (a redundant conjunct); the decision rule was not changed.
+- 2026-10-11T04:31Z — **coordinator addendum 3 received** (the owner's acceptance criteria; recorded before further
+  research steps; nodes, order and budget unchanged). (1) S6's necessity direction proves the invariance reading only:
+  A_miss in the module is cone-preserving admissibility (`K` invariant under `actT (rotLin t)` and `actT cycEquiv`);
+  `Q3`'s invariance under every local unitary gives `Q3 ⇒ A_miss` in that reading and does not give operational
+  availability of those operations through the kernel's protocols, which is the H-level premise (A)/H-OI_g, not in S6.
+  The draft is to state "given H1–H3 and `ReachPure`, `K = Q3` iff A_miss, where A_miss is the invariance of `K` under
+  the flow and `cycEquiv`", sufficiency witnessed by the schema and necessity by the invariance lemma; its scope section
+  is to say that the equivalence is between cone-level statements, that availability is a separate H-level question
+  not decided by S6, and that A_miss remains an introduced hypothesis, not a premise at L; the hypothesis table is to
+  name "A_miss (invariance form, introduced)" and "(A)/H-OI_g (availability, H-level, not in S6)" separately. (2) Stage
+  6 established `A_reached ⊭ (b)` for the 118 transferred pair-level rows; the 68 NOT REACHED rows have not been shown
+  irrelevant, so no ledger entry may describe (b), A_miss or any pair-level hypothesis as "independent of OI";
+  "independent of the transferred pair-level premises at L" is the admissible wording until B14/O11 decide the
+  transfer question. The E15/E16 records and the ledger are brought under it next; the §G and E17 design modules
+  (written, not yet dispatched) are unaffected in content.
+- 2026-10-11T04:33Z — addendum 3 applied. Draft S6: the statement "given H1–H3 and `ReachPure`, `K = Q3` iff A_miss,
+  where A_miss is the invariance of `K` under the flow and `cycEquiv`" (What the round is), Q-NEC, §G's paragraph, the
+  scope section (cone-level equivalence; availability (A)/H-OI_g a separate H-level question not decided by S6; A_miss
+  introduced, not a premise at L; (b) independent of the transferred pair-level premises at L, not shown independent of
+  OI), the hypothesis table (rows "A_miss (invariance form, introduced)" and "(A)/H-OI_g (availability, H-level, not in
+  S6)"), the earned reading, the non-inference rule, the unsourced-premises paragraph and the licensed ROADMAP wording.
+  RESULTS R-E15.1, R-E15.4 and R-E16.3 and the LEDGER's round-4 K2 and K∞-Trans notes amended in place (rows of this
+  round, unaudited). Two older surfaces carried the inadmissible wording and are corrected in place, old text recorded
+  here: the LEDGER's K2 row, clause (c), "INDEPENDENT of every item at L (stage 6 [A])" → "independent of the
+  transferred pair-level premises at L (stage 6 [A]: the 118 transferred rows; the 68 rows not reached not shown
+  irrelevant)"; RESULTS R-E4.1, "independent of every item at L" → "independent of the transferred pair-level premises
+  at L (the 68 rows not reached at stage 6 not shown irrelevant)". NOTES-E3 §4 (round 1, a node record) keeps its
+  sentence "found independent of everything at L"; the corrected LEDGER and RESULTS rows are the reading. NOTES-E15 §4
+  and NOTES-E16 §5 record the change. No measurement or label changed.
+- 2026-10-11T04:33Z — E17 probe measured: `experiments/e17_transport_finite.py` run 1 (started 04:06:08Z, after commit
+  `6ae7fd4f`; decision rule unchanged) 5/5, `COUNTER XZ1/XZ2/XZ3 fails as stated`,
+  `VERDICT E17-TRANSPORT-FINITE-CONSISTENT`, `exit 0`; replay byte-identical (`cmp` silent; py `f1f8016f…`, out
+  `cefedd2e…`). The two design modules written: `lean/EqvK2Converse.lean` (E15's §G; blob `4add9b8d`) and
+  `lean/EqvTransport.lean` (E17; blob `0c7f92f8`); their reading rules and predictions written in NOTES-E15 §5 and
+  NOTES-E17 §2 before the dispatch. A scratch exact check of §G's identity forms (session scratchpad, not committed; a
+  design aid, not evidence) agreed. One name collision avoided: the kernel has `transport_apply` (SpectatorBridge.lean:353),
+  so E17's lemma is `finiteStage_transport_apply`. E18 is deferred to the second dispatch (budget plan: dispatch 1 =
+  §G + E17; dispatch 2 = repairs and E18; dispatch 3 = final repairs, any module still failing dropped).

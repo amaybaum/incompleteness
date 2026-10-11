@@ -51,17 +51,25 @@ local-action clause are settled by K2-GUARD-1 (`CandidateCone`, K2Guard.lean:95;
 The audited stage records show that products, the gate and self-duality do not force the two-qubit positive cone:
 exotic self-dual cones exist. The research record proposes that one further invariance does: invariance under one
 copy's rotations about the third axis and its cyclic permutation (A_miss, in handoff HO-5's form). The round states the
-schema as an equivalence relative to H1, H2, H3 and `ReachPure` — **`K = Q3` iff A_miss** — with each direction
-separately witnessed (§A.34): sufficiency is `pairCone_eq_Q3_of_drive` (§F), necessity is the invariance of `Q3` under
-one copy's local unitary conjugations (§G, `Q3_aMiss`).
+schema as an equivalence: **given H1–H3 and `ReachPure`, `K = Q3` iff A_miss, where A_miss is the invariance of `K`
+under the flow and `cycEquiv`** — each direction separately witnessed (§A.34): sufficiency by the schema
+(`pairCone_eq_Q3_of_drive`, §F), necessity by the invariance lemma (`Q3_aMiss`, §G: `Q3` is invariant under one copy's
+local unitary conjugations).
 
-**Scope: A_miss is the open bridge, not a premise at L.** The equivalence does not source it and adopts nothing: it says
-that, given H1–H3 and `ReachPure`, the pair cone is `Q3` exactly when A_miss holds. With A the applicable OI premises at L
-and (b) the composite action, the stage-6 record has a cone meeting A and not (b) (K(Z_F) [A]); A_miss is a form of (b)
-(I3.150, I3.153), and the candidate bridge that would supply it at the hidden-history level is H-OI_g at
-`{R_z(θ₀), J}` (handoff HO-20 item 4, CONDITIONAL), whose pair-level image is the two-rotation clause below. A failure of
-`Q3` (`K ≠ Q3`) is not a failure of any particular instance of A_miss; a failure of an instance is a failure of `Q3` only
-through `Q3`'s invariance under that operation (§G).
+**Scope: the equivalence is between cone-level statements.** A_miss is cone-preserving admissibility — the invariance
+of `K` under `actT (rotLin t)` for every `t` and under `actT cycEquiv` — an introduced hypothesis, not a premise at L:
+the equivalence does not source it and adopts nothing; it says that, given H1–H3 and `ReachPure`, the pair cone is `Q3`
+exactly when it has that invariance. The necessity direction proves A_miss in this invariance reading only: `Q3`'s
+invariance under every local unitary gives `Q3 ⇒ A_miss` and says nothing about whether those operations are available
+through the kernel's protocols. That availability is the H-level premise (A)/H-OI_g — for this repertoire, H-OI_g at
+`{R_z(θ₀), J}` (handoff HO-20 item 4, CONDITIONAL), whose pair-level image is the two-rotation clause below — a separate
+question S6 does not decide; a quantum cone with a restricted set of available transformations has the invariance
+without the availability. With A the transferred pair-level premises at L (the 118 rows stage 6 transferred) and (b)
+the composite action, the stage-6 record has a cone meeting A and not (b) (K(Z_F) [A]): (b) is independent of the
+transferred pair-level premises at L; the 68 rows not reached at stage 6 have not been shown irrelevant, so the record
+does not make (b) or A_miss independent of OI. A_miss is a form of (b) (I3.150, I3.153). A failure of `Q3` (`K ≠ Q3`) is
+not a failure of any particular instance of A_miss; a failure of an instance is a failure of `Q3` only through `Q3`'s
+invariance under that operation (§G).
 
 The round asks:
 
@@ -73,8 +81,8 @@ The round asks:
 - **Q-SUFF (kernel, the sufficiency direction).** Does `pairCone_eq_Q3_of_drive` hold with exactly its five hypotheses
   (below)?
 - **Q-NEC (kernel, the necessity direction).** Is `Q3` invariant under `actT (rotLin t)` for every `t` and under
-  `actT cycEquiv` (`Q3_aMiss`), so that, given H1, H2, H3 and `ReachPure`, `K = Q3 ↔ A_miss`
-  (`pairCone_eq_Q3_iff_drive`)?
+  `actT cycEquiv` (`Q3_aMiss`: A_miss in its invariance reading), so that, given H1, H2, H3 and `ReachPure`,
+  `K = Q3 ↔ A_miss` (`pairCone_eq_Q3_iff_drive`)?
 - **Q-EXACT (exact layer).** Do the exact checks hold — the lifts of the generators, the positive control `Q3`, the
   reachability lemma on exact instances — and does the countercontrol behave as stated: under the native octahedral
   repertoire on one copy in place of the rotations, an explicit invariant cone with the products differs from `Q3` and
@@ -143,7 +151,8 @@ theorem pairCone_eq_Q3_iff_drive {K : Set (W 3)}
 The direction `→` is `Q3_aMiss` after substituting `K = Q3` (unitary conjugation preserves positive semidefiniteness,
 Mathlib's `PosSemidef.mul_mul_conjTranspose_same`); the direction `←` is `pairCone_eq_Q3_of_drive`. The two directions
 are witnessed by different declarations; neither is an extension, uniqueness or density theorem standing in for the
-other. Until `C0′` is measured, §G stands at [W] + [X].
+other. Both sides of the `iff` are statements about the cone: `→` yields the invariance of `Q3`, not the availability of
+the operations (the H-level premise (A)/H-OI_g, not in S6). Until `C0′` is measured, §G stands at [W] + [X].
 
 `#print axioms` lines: the 22 of the built module (EqvK2Schema.lean:453–474), in the built order, and §G's four. **Census family:**
 "the pair-level composite cone, conditionally: products of ball states, invariance under DIM-1's gate and under one
@@ -177,7 +186,7 @@ reconstruction)", `modules: ["K2Schema"]`, `status: "kernel-only"`, `manuscript:
 
 The sufficiency theorem's form is **OI + {H2, H3, A_miss (full flow), ReachPure} ⇒ K = Q3**: four of its hypotheses are
 introduced, so it is not of the form "OI ⇒ X". The equivalence of §G has the form **OI + {H2, H3, ReachPure} ⇒
-(K = Q3 ↔ A_miss)**, A_miss being the open bridge on one side of it, not a premise. Inventory ids are the stage-6 premise inventory's (`research/archive/pt/I3/INVENTORY.md`
+(K = Q3 ↔ A_miss)**, A_miss (invariance form) being the open bridge on one side of it, not a premise. Inventory ids are the stage-6 premise inventory's (`research/archive/pt/I3/INVENTORY.md`
 at `research/archive` @ `4dc0321c`, sha256 `51eff9af…`), with the status each record fixes at L.
 
 | hypothesis or setting item | kind | inventory id and status at L |
@@ -187,7 +196,8 @@ at `research/archive` @ `4dc0321c`, sha256 `51eff9af…`), with the status each 
 | the token body is `eball 3` | (i) inventory items | the output of TRB-1 (I3.89, proved [K]) from K∞-Trans (I3.170) and the other K∞ seams (I3.166–I3.174), each open, unsourced |
 | `hH2`: `cnot`-invariance of `K` | (ii) **introduced, not an OI premise** | PT-record H2 (I3.148); `cnot` itself is I3.11, but no kernel statement at L asserts `cnot K ⊆ K` of any cone (I3.9's bridge note) |
 | `hH3`: `K = dualW K` | (ii) **introduced, not an OI premise** | PT-record H3 (I3.149); `ipW` and `dualW` are not at L (I3.143) |
-| A_miss — `hA` in §F, one side of the equivalence in §G: invariance under `actT (rotLin t)` for every `t` and under `actT cycEquiv` | (ii) **introduced, not an OI premise** | the open bridge: K2's clause "local actions compatible with the composite cone" (I3.165, open), in a form of (b) (I3.150 (b_S4), I3.153 (b_DJ)): PT-record open, flagged do not assume |
+| A_miss (invariance form, introduced) — `hA` in §F, one side of the equivalence in §G: the invariance of `K` under `actT (rotLin t)` for every `t` and under `actT cycEquiv` | (ii) **introduced, not an OI premise** | the open bridge: K2's clause "local actions compatible with the composite cone" (I3.165, open), in a form of (b) (I3.150 (b_S4), I3.153 (b_DJ)): PT-record open, flagged do not assume |
+| (A)/H-OI_g (availability, H-level, not in S6) — the operational availability of those operations through the kernel's protocols | not a hypothesis of any statement of the round | the H-level premise; for this repertoire H-OI_g at `{R_z(θ₀), J}` (handoff HO-20 item 4, CONDITIONAL); neither assumed nor decided by S6, and not implied by A_miss |
 | `hreach`: `ReachPure` | (ii) **introduced, not an OI premise** | not an inventory record; pure-state reachability is flagged do not assume (I3.144); it is a statement about the drive words only, proved in writing (NOTES-E10 L4) and not in the kernel |
 
 The objects `dict`, `Q3`, `ipW`, `dualW`, `driveWords` are definitions of the module (the comparison objects of I3.144 at
@@ -270,7 +280,7 @@ No rule reads another cell's outcome. `K2-SCHEMA-1-READ` when the four cells are
 > explicit set with the products, invariant under the gate and that repertoire, differs from the two-qubit positive cone
 > and is not invariant under the rotation with cosine 3/5. Conversely the two-qubit positive cone is invariant under
 > those rotations and that permutation, so, given the products, the gate invariance, self-duality and ReachPure, the
-> pair cone is the two-qubit positive cone exactly when it has that invariance. The gate invariance, self-duality and
+> pair cone is the two-qubit positive cone exactly when it has that invariance, a property of the cone. The gate invariance, self-duality and
 > ReachPure are introduced hypotheses, not OI premises, and the rotation invariance is the open bridge, not a premise:
 > the results have the forms OI + {H2, H3, A_miss, ReachPure} ⇒ K = Q3 and OI + {H2, H3, ReachPure} ⇒ (K = Q3 ↔
 > A_miss).
@@ -279,16 +289,19 @@ No rule reads another cell's outcome. `K2-SCHEMA-1-READ` when the four cells are
 > rotations; the products clause, the gate invariance, self-duality and the rotation invariance are premises. It does
 > not prove ReachPure, which it carries as a hypothesis. The equivalence does not source the rotation invariance: it
 > says only that, given the other hypotheses, the rotation invariance and the conclusion stand or fall together; a
-> failure of the conclusion is not a failure of any particular rotation's invariance. It does not formalize invariance under one rotation of
+> failure of the conclusion is not a failure of any particular rotation's invariance. It does not show that the rotations
+> or the permutation are available operations: the rotation invariance is a property of the cone, and availability is a
+> separate premise the round does not address. It does not formalize invariance under one rotation of
 > irrational angle and the cyclic permutation in place of the rotations. It says nothing about more than two copies,
 > local tomography as a source, the antiunitary or complete-positivity bridge, the relation to K3, or H-Bell. The
 > countercontrol set is self-dual by a written theorem of another research thread, which this round does not check.
 > The probe is an exact computation, not a Lean kernel proof.
 
-**Premises this round does NOT source:** H2 (`cnot`-invariance), H3 (`K = dualW K`), A_miss (the full flow with
-`cycEquiv`) and H1 as a property of a composite; `ReachPure` is carried as a hypothesis, not proved in the kernel. H2, H3,
-A_miss and `ReachPure` are introduced hypotheses, not OI premises; H1 is the products clause of the inventory item I3.43
-(assumed at L).
+**Premises this round does NOT source:** H2 (`cnot`-invariance), H3 (`K = dualW K`), A_miss (the invariance of `K`
+under the full flow with `cycEquiv`) and H1 as a property of a composite; `ReachPure` is carried as a hypothesis, not
+proved in the kernel. H2, H3, A_miss and `ReachPure` are introduced hypotheses, not OI premises; H1 is the products clause
+of the inventory item I3.43 (assumed at L). The availability of the operations ((A)/H-OI_g) is not a premise of any
+statement of the round and is not decided by it.
 
 ## The ROADMAP wording the round would license (row K2; not applied by the round)
 
@@ -299,8 +312,8 @@ conditionally (`pairCone_eq_Q3_of_drive`): products, invariance under the gate a
 third axis and its cyclic permutation, and self-duality under the table pairing give the two-qubit positive cone
 through the Pauli dictionary, given a reachability statement the round carries as a hypothesis, and conversely that
 cone has the rotation invariance (`pairCone_eq_Q3_iff_drive`); the gate invariance, self-duality and the reachability
-statement are introduced hypotheses, not OI premises, and the rotation invariance is the open bridge; no governed round
-records the classification." The obligations sentence ("… all are open") stands: every hypothesis of
+statement are introduced hypotheses, not OI premises, and the rotation invariance of the cone is the open bridge; no
+governed round records the classification." The obligations sentence ("… all are open") stands: every hypothesis of
 the theorem is unsourced. K2 stays OPEN under every outcome.
 
 ## The controls (in `controls.py`)

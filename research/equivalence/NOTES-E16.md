@@ -245,3 +245,11 @@ reduction uses the ball, and no argument for strictly convex non-balls is known 
   elementary-scope predicate) and must work in odd chart dimension at least 5; separation countermodels in even chart
   dimension (Ω₄, Ω⋆, Ω_cs) are excluded by the gate's control relation for every body and so say nothing about the pair
   level.
+
+## 5. Scope of the negative answer (coordinator addendum 3, 04:31Z)
+
+Stage 6 established `A_reached ⊭ (b)` for the 118 transferred pair-level rows; the 68 rows not reached have not been
+shown irrelevant. The same limit applies here: Ω_h meets the inventory items listed in (G3)'s table at their status at
+L, so the ellipsoid (and K∞-Trans) is independent of those premises together with the three introduced hypotheses — not
+of OI. Whether a row not reached at stage 6, once transferred, would exclude Ω_h is not decided by this node. RESULTS
+R-E16.3 and the LEDGER's round-4 K∞-Trans note carry the form with the listed items in place of "OI".

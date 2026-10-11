@@ -1,0 +1,10 @@
+PASS Z1 -- n=1: 2 symmetric idempotent, all diagonal: True; n=2: 4 symmetric idempotent, all diagonal: True; n=3: 8 symmetric idempotent, all diagonal: True; n=4: 16 symmetric idempotent, all diagonal: True
+PASS Z2 -- n=1: 2 with V^T V idempotent, 2 partial permutations, formula 2; n=2: 7 with V^T V idempotent, 7 partial permutations, formula 7; n=3: 34 with V^T V idempotent, 34 partial permutations, formula 34; n=4: 209 with V^T V idempotent, 209 partial permutations, formula 209; column counts on the diagonal: checked
+PASS Z3 -- n=2: 8 of 32 pass, all with scalar D, each the transport along p: True; n=3: 24 of 384 pass, all with scalar D, each the transport along p: True
+PASS Z4 -- Ad(H)(E_00) = [['1/2', '1/2'], ['1/2', '1/2']]; Ad(R)(E_00) = [['9/25', '12/25'], ['12/25', '16/25']]
+PASS Z5 -- CNOT transport of all 124 stage units is {0,1}; the image of E^{0}_{0,1} is no stage unit
+COUNTER XZ1 fails as stated -- [[1, 1], [0, 0]] is idempotent and not diagonal
+COUNTER XZ2 fails as stated -- Ad(diag(1, i))(E_01) has entry (0, -1) at (0, 1)
+COUNTER XZ3 fails as stated -- V = [[1, 1], [0, 0]]: column sums 1, 1; V^T V = ((1, 1), (1, 1)), (V^T V)^2 = ((2, 2), (2, 2))
+checks: 5, failures: 0
+VERDICT E17-TRANSPORT-FINITE-CONSISTENT

@@ -91,3 +91,38 @@ met by run 38101580750; the design evidence and the predicted outputs generated 
 - Pressure test of the favourable reading ("S6 settles K2's cone"): the theorem is conditional on H2, H3 and A_miss,
   none sourced, and on `ReachPure`, proved only in writing; the countercontrol's self-duality is [W] from another
   thread; nothing here concerns more than two tokens. K2 stays OPEN; no label changes.
+
+## 4. Addendum 3 (04:31Z): the meaning of the necessity direction
+
+A_miss in S6 is cone-preserving admissibility: the invariance of `K` under `actT (rotLin t)` and `actT cycEquiv`.
+`Q3_aMiss` gives `Q3 ⇒ A_miss` in that reading only; it says nothing about the operational availability of those
+operations through the kernel's protocols, which is the H-level premise (A)/H-OI_g and is not in S6 (a quantum cone with
+a restricted set of available transformations has the invariance without the availability). The draft now states
+"given H1–H3 and `ReachPure`, `K = Q3` iff A_miss, where A_miss is the invariance of `K` under the flow and `cycEquiv`",
+sufficiency witnessed by the schema and necessity by the invariance lemma; its scope section says the equivalence is
+between cone-level statements, availability is a separate H-level question S6 does not decide, and A_miss remains an
+introduced hypothesis, not a premise at L; its hypothesis table names "A_miss (invariance form, introduced)" and
+"(A)/H-OI_g (availability, H-level, not in S6)" as separate rows. The scope paragraph also states the stage-6 record's
+reach: (b) is independent of the transferred pair-level premises at L, not shown independent of OI.
+
+## 5. §G built in a design module (reading rule and prediction, written 2026-10-11T04:33Z, before dispatch 1)
+
+`lean/EqvK2Converse.lean` (blob `4add9b8d`, sha256 `240abaf6…`, 234 lines, 9 prints) imports the built `EqvK2Schema`
+(blob `659ae36c`, unchanged) and states §G: the split `dict_eq_sum_tensorOf`, `dict_actT`, `tensorOf_conj`, the one-token
+lemmas `tokMat_eq`, `phaseMat_conjTranspose`, `homMap_rotLin`, `tokMat_rot`, `cycMat_conjTranspose`, `homMap_cyc`,
+`tokMat_cyc`, the two intertwining lemmas `dict_actT_rotLin`, `dict_actT_cyc`, then `Q3_aMiss` and
+`pairCone_eq_Q3_iff_drive` with exactly the statements of S6 §G. The forms of the identities were checked exactly
+beforehand in a scratch script (design aid in the session scratchpad, not evidence; the evidence for the identities is
+`e15_k2s6_probe` D1 and `e10_k2_schema` L2).
+
+**Reading rule (fixed now).** In the dispatch's Mathlib bridge job: **BUILT** iff the Build step succeeds and every
+`#print axioms` line of `EqvK2Converse` prints exactly `[propext, Classical.choice, Quot.sound]`; **PARTIAL** iff the
+build fails and some of its prints are standard; **NOT BUILT** otherwise. `lean-axioms` must report no `sorry`; the
+release gate is expected red at `lean-manuscript` only (no census family); any other red step is recorded and examined.
+Only BUILT meets `C0′` and moves R-E15.4 from [W] + [X] to [D].
+
+**Prediction.** Sign: BUILT is more likely than not, strength moderate (about 0.55). The statements are low risk; the
+risk is in four proofs written without a local Lean: `tokMat_eq` (full `simp` on Pauli entries, then `ring`), the two
+conjugate-transpose lemmas (complex `star` through `simp`), and `tokMat_rot`/`tokMat_cyc` (`Matrix.mul_fin_two`, then
+real and imaginary parts and `linarith`). A failure there would leave the three dependent theorems with `sorryAx`
+(PARTIAL), with the repair proof-only.
