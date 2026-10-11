@@ -1,0 +1,59 @@
+== o8_exclusive ==
+
+-- X1: any finite carrier, any nontrivial cell, every permutation
+X1  N = 2: 2 nontrivial cells; every point mass reachable for every cell: True; closure sizes [3] (C(2N-1, N) = 3)
+X1  N = 3: 6 nontrivial cells; every point mass reachable for every cell: True; closure sizes [10] (C(2N-1, N) = 10)
+X1  N = 4: 14 nontrivial cells; every point mass reachable for every cell: True; closure sizes [35] (C(2N-1, N) = 35)
+X1  N = 5: 30 nontrivial cells; every point mass reachable for every cell: True; closure sizes [126] (C(2N-1, N) = 126)
+X1  -> True
+
+-- X1b: the module's construction, replicated exactly
+X1b 2424 cases (N = 2..5, every nontrivial cell, every x != y, 3 states): pi(y) in C, pi(x) not in C, and step = mergeInto(x, y, w) in every case: True
+X1c successive merges onto x0 from the uniform state give the point mass at x0 (N = 2..5, every x0): True
+
+-- X2: control, the trivial cells
+X2  C = empty and C = all, N = 2..5: the closure is the uniform state alone: True
+
+-- X3: the kernel's native readout
+X3  ancilla size 2: localLuders k = blockPinch(snd, k) on all matrix units: True; observe-and-forget fixes every ancilla-classical matrix unit: True; sends E_((0,0),(0,1)) to 0: True; repeatable: True
+X3  ancilla size 3: localLuders k = blockPinch(snd, k) on all matrix units: True; observe-and-forget fixes every ancilla-classical matrix unit: True; sends E_((0,0),(0,1)) to 0: True; repeatable: True
+X3b Prod.snd (refines): observe-and-forget fixes every matrix unit of the algebra: True; outcome-0 probability on the pure states (0,0), (0,1): 1, 0  -> as expected: True
+X3b id (refines): observe-and-forget fixes every matrix unit of the algebra: True; outcome-0 probability on the pure states (0,0), (0,1): 1, 0  -> as expected: True
+X3b three blocks (refines): observe-and-forget fixes every matrix unit of the algebra: True; outcome-0 probability on the pure states (0,0), (0,1): 1, 0  -> as expected: True
+X3b one block (straddles): observe-and-forget fixes every matrix unit of the algebra: False; outcome-0 probability on the pure states (0,0), (0,1): 1, 0  -> as expected: True
+X3b system value (straddles): observe-and-forget fixes every matrix unit of the algebra: False; outcome-0 probability on the pure states (0,0), (0,1): 1, 0  -> as expected: True
+
+-- X4: disguise test on the knowledge-balance toy
+X4a access (S4, KB-D Z, X, Y): 7 reachable states; extreme points = the 6 pair states: True; permutations mapping z+ to x+ (extreme, z-balanced): 4; reachable states with z-mass 1 = {z+}: True; KB-D observe-and-forget = frame dephasing on every reachable state: True; sandwich (Fraction(1, 1), Fraction(1, 2)); a P-conditioned posterior outside the body for each of the 14 partitions: 14/14  -> True
+X4b access (S4, KB-D Z, X, Y, passive P), for each of the 14 nontrivial partitions P: every point mass reachable, extreme points = the 4 point masses, none balanced, sandwich from (0,1) with the z-x exchange and KB-D's observe-and-forget = (1, 1/2) while that map moves the pure state (0,1) of the face z = 0, visibility 0 with the fresh-record dephasing for all 24 x 4 sandwiches: 14/14  -> True
+X4c access (S4, passive Z): 11 reachable states; point masses reachable, extreme points the 4 point masses, none balanced: True
+X5  product-register composites, all 81 setting choices, 16 joint configurations: CHSH values [-2, 2]  -> True
+
+-- X6: the continuous form (circle substratum)
+X6  conditioning on grid half-circles reaches every elementary arc (m = 1..5): True; table ranks [3, 5, 9, 17, 33] (2^m + 1: [3, 5, 9, 17, 33]); cosine law alone, 12 Pythagorean directions: rank 3  -> True
+
+-- countercontrols (must be False)
+CC1  CC-OK (False as required)
+CC2  CC-OK (False as required)
+CC3  CC-OK (False as required)
+CC4  CC-OK (False as required)
+CC5  CC-OK (False as required)
+
+  X1: True
+  X1b: True
+  X1c: True
+  X2: True
+  X3: True
+  X3b: True
+  X4a: True
+  X4b: True
+  X4c: True
+  X5: True
+  X6: True
+VERDICT EXCLUSIVITY-REFUTED-AND-LOCATED: on every finite carrier with every permutation, one passive
+  readout of any nontrivial cell reaches every point mass (the module's construction replicated); the
+  kernel's native readout is the block pinching of the ancilla values, passive exactly on the algebras
+  refining the ancilla value; on the knowledge-balance toy the exclusivity holds exactly where a pure
+  frame state is carried to a pure balanced state, the owner's numbers alone being reproducible by memory
+  erasure without it, and the premise says nothing about the pair (CHSH in [-2, 2]); in continuous form one
+  conditioning readout restores growing rank.

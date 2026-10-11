@@ -1,0 +1,48 @@
+== o10_pair ==
+
+-- A: one token
+A1  J = cyc3 = [['0', '0', '1'], ['1', '0', '0'], ['0', '1', '0']]: orthogonal, det 1, order 3, J e_z = e_x: True; R_z(theta0) orthogonal, det 1, fixes e_z; minimal polynomial of (3+4i)/5: 5*x**2 - 6*x + 5 (monic over Z: False); R^k != 1 for k <= 200: True  -> True
+A2  psi.(R^T lambda) = (R psi).lambda for R = J, R_z(theta0) (symbolic): True  -> True
+A3  seed e_z, J, [frame dephasing], J^-1, read z: (P_coh, P_deph) = (1, 1/2); J e_z = (Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)) pure and z-balanced; dephasing = projection on the frame axis: True  -> True
+A4  R_z(theta0) sandwich: P_coh = P_deph for 4 seeds: True  -> True
+A5  sphere datum g = R_z(theta0): True, fixes e_z: True; circle datum maps e_1 to (Fraction(3, 5), Fraction(4, 5)) (P(+0) = 4/5); O(2) fixing e_1 = {diag(1, 1), diag(1, -1)}; R(2pi/3): P(+0) = 1/4; R(pi/2): P(+0) = 1/2, order 4: True  -> True
+A6  J R_z(theta0) J^-1 = R_x(theta0): True; fixes e_x, trace 11/5 = trace of R_z(theta0)  -> True
+
+-- B: the pair
+B1  deterministic patterns: S in [-2, 2]; all 16 realized by rational KS directions: True; b0 + b1, b0 - b1 as stated: True; S on the product e_x (x) e_x: 8/5  -> True
+B2  E[sgn(e_z.lambda) lambda] over the uniform sphere = [0, 0, 1/2]; table (1, 0; 0, C/2): S = 7/5; partial transpose eigenvalues [-1/8, 3/8, 3/8, 3/8]  -> True
+B3  cnot(prodState xplus z3) from the kernel tables = diag(1, 1, -1, 1): True; density matrix = |Phi+><Phi+| (rank one): True; S(phiW) = 14/5  -> True
+B4  collapse law: A-then-B and B-then-A statistics = the table's bilinear form (symbolic): True; no-signaling: True; S(phiW) = 14/5; psi_B(+, e_x) = (Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)), psi_B(+, e_z) = (Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)): True  -> True
+B5  the B-state reproducing the conditional statistics is unique and equals (s + a C^T u)/(1 + a r.u): True; b = -1 conditions hold: True  -> True
+B6  required conditional states at (+, e_x), (+, e_z): (Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)), (Fraction(0, 1), Fraction(0, 1), Fraction(1, 1)) (pure, distinct: True); octants forced to e_x: 4, to e_z: 4, both: 2 (uniform measure 1/4); conflicting octants: 2  -> True
+B7  octant-pattern law: S = 12/5; B's marginal for both settings (Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)), (Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)); correlators 9/10, 27/50, 4/5, -4/25; bilinear fit C_b = [['9/10', '3/10'], ['2/5', '4/5']]; p(1) = -17/50  -> True
+B8  laws at (+, e_x): phiW -> (Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)), uncorrelated state -> (Fraction(0, 1), Fraction(0, 1), Fraction(0, 1)) (same hidden marginals); post-readout statistics factorize: True  -> True
+
+-- countercontrols (must be False)
+CC1  CC-OK (False as required)
+CC2  CC-OK (False as required)
+CC3  CC-OK (False as required)
+CC4  CC-OK (False as required)
+CC5  CC-OK (False as required)
+CC6  CC-OK (False as required)
+
+  A1: True
+  A2: True
+  A3: True
+  A4: True
+  A5: True
+  A6: True
+  B1: True
+  B2: True
+  B3: True
+  B4: True
+  B5: True
+  B6: True
+  B7: True
+  B8: True
+VERDICT TOKEN-REALIZED-PAIR-ONLY-BY-THE-CONE-OWN-LAW: the sphere tower carries J = cyc3 and its own
+  stage-crossing datum R_z(theta0) on one token with the exact witness (the circle tower carries neither);
+  every pair law re-preparing each token only keeps |S| <= 2 (non-separable tables included), so phiW and
+  cnot are out of reach; a cross-token law realizes phiW only if it takes the first readout's setting, and
+  then it is forced to be the table's own conditioning rule, which reads the correlation block and needs
+  cnot given.
