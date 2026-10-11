@@ -1,0 +1,15 @@
+A1-id  PASS  <y,d_l> - [c*(1-s) + (c*-c_l)(s+lam) + lam c* c_l s'] = 0
+A1-B  PASS  33 sample defects (orbits of (2,1,0,0) at 51/50 and (1,i,2,1+i) at 101/100): identity True, min pairing 0, h'†yh' = -1/980, <y,d_h> = 0, all <d_l,d_h> > 0: True
+A1-S2  PASS  58 sample defects (orbits of 3|0+>+|1-> at 21/20 and (1,1,1,i) at 41/40): identity True, min pairing 0, h'†yh' = -1/76, <y,d_h> = 0, all <d_l,d_h> > 0: True
+A1-cc  PASS  witness on c = 101/100 against d_h(51/50): -199/19800 (< 0); witness on c = 51/50 against the four defects: min 0
+A1-Bell  PASS  circle orbit at 21/20 vs Bell w=1: -23/40 (< 0, lemma inapplicable); orbit of (1,1,1,i) at 11/10: min Bell pairing 1/20 >= (c*-1)/2 = 1/20, max s_b 1/2
+A2a  PASS  p in the negative plane, p†dp = [Fraction(-3, 2), Fraction(-3, 1)] (< 0); control rank-one defect at 10/9: min over 144 products 0, value at |00> 0
+A2b-partners  PASS  <h|D s~ h>: e 4*d1/49 + 9*d2/49 + 36*d4/49, (12) 6*d1/49 + 6*d2/49 + 36*d4/49, (34) 4*d1/49 + 9*d2/49 (dominated); (12)(34) 6*d1/49 + 6*d2/49 (zero iff d2 = -d1)
+A2b-zero  PASS  on d2 = -d1: <h|gk>, <k|gh>, <k|gk> = [0, 0, 0] (plane of the partner orthogonal to span(h, k))
+A2b-near  PASS  nearby pair violating the local condition (m, sign, b, phi, x†(UdU†)x, x†dx) = (20, 1, Fraction(83, 50), (0-1i), Fraction(-672234517517, 81106356240000), Fraction(5759, 6480000)); control x†dx > 0 at every tested cap point: True
+A3-irr  PASS  case B torus (16 elements) and S2's <T^2, cnot, Z(x)I> (27 elements): six pairwise inequivalent, non-real off-diagonal characters
+A3-perm  FAIL  centralizers of order 4 (case B) and 8 (S2); permutations not refuted by a full-support product: []
+A3-schur  PASS  M_12 = -1: 3x3 principal minor -463732736 (case B, scaled) and -144 (S2) < 0; coboundary multiplier: image = w w† (PSD) in both
+A3-slice  PASS  b1 = (2,3)(x)(2,-1+2i) and b3 = |0>(x)(1+2i,2) products, b2 = CNOT b1; b4 = g' b3 by definition of g'; B is a product basis: every eigenline projector lies in G.SEP, so every invariant self-dual cone with H1 has slice R^4_+
+CHECKS 12/13
+VERDICT C18-FAIL

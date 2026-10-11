@@ -263,3 +263,30 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   certificate without `q₂` leaves 3 terms; P5 2064 cap points of 35684, no violation at `s = s*`, 318 witnesses at
   `s = 1/3`; P6 1291 instances, no counterexample, countercontrol instance found). Replay at 04:31Z byte-identical
   (`cmp` on `.out` and `.err`).
+- 2026-10-11T04:34Z — **C17 design run, dispatch 1 of 3**: branch `dev-countermodels/c17-sprime` cut from L = `9f9f8257`
+  (worktree `/home/user/wt-research/dev-countermodels-c17-sprime`), commit `7d3736e4` adding
+  `verification/lean-mathlib/OIBridge/CmSprime.lean` (= `lean/CmSprime.lean`, sha256 `78e40162…`) and one line
+  `import OIBridge.CmSprime` after `import OIBridge.RelcSelectC5` in `OIBridge.lean`; pushed; `verify.yml` dispatched at
+  04:34:46Z; run `38112032111`, head `7d3736e4`, created 04:34:48Z, event `workflow_dispatch`. Not cancelled; waited on.
+- 2026-10-11T04:47Z — **C17 design run 1 read** (run `38112032111`, Mathlib bridge job `114389409224`, head `7d3736e4`):
+  Build FAILED (job 04:36:55Z–04:39:23Z; release gate skipped, so `lean-axioms` did not run). Log read through the GitHub
+  connector (the built-in `gh` refuses the log host's redirect). Two errors, both elaboration details: 668:20 type
+  mismatch in `mem_surgery_single` (`Pi.single j 1 k` — the dependent family was not inferred), 724:10 `linarith`
+  failed in `selfDual_of_local` (simp's normal form of the `K × K` pairing did not match the stated `h3`). Every other
+  declaration elaborated without error (the error recovery of `·` admits only the failing bullet); 78 `#print axioms`
+  reports: 71 on `[propext, Classical.choice, Quot.sound]`, 7 with `sorryAx` — `mem_surgery_single`,
+  `selfDual_of_local` and the five statements that depend on them. Prediction "builds at the first dispatch" FAILED;
+  the failure sites were among the predicted kind (elaboration details), not the predicted declarations. The
+  dispatched text is kept as `lean/CmSprime.run38112032111.lean` (sha256 `78e40162…`).
+- 2026-10-11T04:49Z — **C17 design run, dispatch 2 of 3** (repair): `mem_surgery_single` fixes the weight vector's type
+  before use; `selfDual_of_local` expands the pairing by explicit rewrites. Dev commit `5649e641` (module sha256
+  `a10f4790…` = `lean/CmSprime.lean`); dispatched 04:49:45Z; run `38112813276`, head `5649e641`, created 04:49:47Z,
+  event `workflow_dispatch`. Run `38112032111` was not cancelled (its probe jobs are still running; `verify.yml` has no
+  concurrency group, so the new dispatch cancels nothing).
+- 2026-10-11T04:55Z — **C18 S0** written in NOTES-C18 (three attempts in the node's order, decision rules) before any C18
+  script ran; C17's second design run still queued (C17 is blocked only on CI; it is closed as soon as the run reads).
+- 2026-10-11T05:01Z — **C18 runs**: `experiments/c18_attempts.py` run 1 (05:01:20Z) 12/13, `VERDICT C18-FAIL` — A3-perm's
+  auxiliary assertion "centralizer of order 8" is wrong for case B (the centralizer of `⟨(12), (34)⟩` is that group, order
+  4); the substantive refutation passed. Kept as `c18_attempts.run1.{py,out,err}`; prediction recorded FAILED. Run 2
+  (05:01:41Z) with the assertion corrected and nothing else changed: 13/13, `VERDICT C18-EXACT`; replay byte-identical.
+  A float scratch computation (scratchpad, not recorded) chose A2b-near's phase and cap point before run 1.
