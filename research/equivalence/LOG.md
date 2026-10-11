@@ -219,3 +219,13 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `EqvOmega4.lean` checked byte-identical to the dispatched blob (`9030f471`). NOTES-E12 measurement section; draft S4
   updated (readiness line, design table row 2, predicted outputs, invariant row `C0`, stages line); RESULTS R-E12.1; LEDGER
   round-3 note (Kinf-Trans).
+- 2026-10-11T00:38Z — E11 begun. Read on the coordinator's instruction (a cross-branch read the README's round-1 rule did not
+  foresee; recorded as a deviation): `research/bridge/lean/BridgeDictionary.lean` (sha256 `e4b60411…`) and NOTES-B9 §4
+  (sha256 `949124f0…`) at `origin/research/bridge` `3686049e`. The design module `lean/EqvK2Schema.lean` uses that
+  draft's `pauli`, `tokMat`, `dict` verbatim and the recorded fix for `dict_tens`. No local Lean toolchain exists and the
+  shared disk has 7.3 GB free (other threads' worktrees are active on the same machine), so no Mathlib cache was fetched:
+  every Lean API name was checked against the local Mathlib checkout at tag `v4.33.0` (`db584cd6`, the pin) and against
+  kernel precedents at L (`pauliBase_mul_table` DiscreteCompletion; `Submonoid.closure_induction` PositiveReachability;
+  `psdFactorization_discharged` BoundaryAudit.lean:100). NOTES-E11 S0 (predictions P-X, P-D and the reading rule) and
+  the probe `experiments/e11_k2_dict.py` (decision rule in its header, 00:36Z) committed before the probe's first run
+  and before the dispatch.
