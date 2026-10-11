@@ -126,3 +126,57 @@ likeliest failure sites are the limit bookkeeping (`IsCompact.tendsto_subseq`, `
 subsequence, `tendsto_nhds_unique`), the subtype-indexed sums of the finite surgery, and `simp` normal forms in the
 entry bounds — not the mathematics; every `#print axioms` line within the permitted three; the gate red on
 `lean-manuscript` (two modules without census family) and on no other step.
+
+## Runs (written 2026-10-11T10:13:34Z, `date -u`)
+
+### Preflight
+Run 1 (07:53:29Z) crashed before any check printed (harness: the square-only `matmul` on a 4×1 factor in Q1's
+countercontrol), kept as `c22_preflight.run1.*`. Run 2 (07:53:41Z) 7/8: Q5's prediction refuted — S0 said two
+non-antipodal Bell-type defects at `c = 2` pair to "`4s − 4 < 0`"; the pairing is `4 − 2c − 2c + c²s = 4s ≥ 0`, an
+arithmetic slip; what excludes the Bell circle is (CC) (`4s ≥ 4` needs `s = 1`), as NOTES-C11 Remark (iii) says; kept as
+`c22_preflight.run2.*`. Run 3 (07:54:17Z), Q5 amended to the correct statement and nothing else changed: 8/8,
+`VERDICT C22-PREFLIGHT-OK`; replay byte-identical. Measured: `ε² = 3969/850000` for the eight-point net of the S2 circle
+(`c = 21/20`); `y = d_{w₀}`, `w₀ = (15 + 8i)/17`, pairs `−1/74` with an exact pure member of `Q ∩ F*` in its own cap (so
+`y ∉ K(F)*`), while `η² = 3969/53125 ≥ 1/5476` (the shift restores membership).
+
+### Design runs under S0 (two dispatches)
+| dispatch | run | job | head | Build | `CmSprimeCompact` prints | errors |
+|---|---|---|---|---|---|---|
+| 1 | `38124380741` | `114425574221` | `6cb76f96` | FAILED | 38: 32 standard, 6 `sorryAx` (error recovery; 4 inherited) | 90:42 invalid projection (`zero_mem_coneOf`); 375:79 unsolved goals (`mem_box`); 536:11 expected token (`q∞` is not an identifier) |
+| 2 | `38125067948` | `114427630399` | `e4ef2e46` | FAILED | 38: 32 standard, 6 `sorryAx` (`mem_box` and the five declarations that use it) | 377:2 `simp` made no progress (`mem_box`: membership instance at `Matrix n n ℂ` against `Set (n → n → ℂ)`) |
+
+`CmSprime` (the finite module, unchanged) printed all 78 lines on the three permitted axioms in both runs. Dispatched
+texts kept: `lean/CmSprimeCompact.run38124380741.lean` (`d24b7ea8…`), `lean/CmSprimeCompact.run38125067948.lean`
+(`5b447af0…`). **S0 verdict: not BUILT after two dispatches ⇒ C22's S0 design run is FAILED (design)**; by the S0 rule
+the compact form stays [W]. Per declaration (S0's fallback clause), run 2 shows on the standard axioms: `K ⊆ K*`
+(`surgeryC_subset_dualH`), the pairing estimate `abs_pr_le` (with `abs_qf_le`), the entry bounds
+(`norm_entry_le_pr_one`, `norm_entry_defect_le`, `norm_entry_coneOf_le`), finite nets (`exists_net`), compactness of the
+entry boxes (`isCompact_box`), `isClosed_psd`, the pairing lemmas over the closed hull and `continuous_defect_family`;
+the engine `dualH_subset_surgeryC_of_finite` reached no error of its own and carries `sorryAx` only through
+`mem_box` — which is not a statement about the engine's proof being checked (a declaration that uses a sorried lemma is
+not machine-checked), so nothing beyond the listed declarations is [D] from these runs.
+
+## Amendment A1 (written 2026-10-11T10:13:34Z, before the third dispatch)
+
+**Why.** S0 held the round's third dispatch for C23. C23's design (NOTES-C23, S0) is exact arithmetic with a plain
+certificate and an independent checker; it uses no Lean module, so the held dispatch is not needed there. The
+coordinator's message of 10:06Z authorizes spending it "only on a module whose every error from run 38125067948 is
+diagnosed and repaired with the names checked in the pinned sources". The single error is diagnosed (LOG entry 2026-10-11T10:13:10Z):
+`mem_box` is repaired by definitional unfolding of the membership and the ball condition through `Metric.mem_closedBall`,
+`dist_zero_right`, `Eq.trans_le`, `forall_congr'`, `Iff.trans`, `Set.mem_univ`, each grep-checked in the pinned Mathlib;
+no other declaration changes (`diff` against the run-2 text: `mem_box`'s three proof lines replaced by seven).
+
+**What does not change.** The S0 verdict above stands: C22's S0 design run is FAILED (design) and is recorded as such.
+
+**Decision rule for the amendment run (fixed now).** One dispatch (the round's third and last). **BUILT** iff (i) the Build
+step succeeds with `Built OIBridge.CmSprimeCompact`; (ii) all 38 of its `#print axioms` lines report a subset of
+`{propext, Classical.choice, Quot.sound}`; (iii) no `sorryAx` and `lean-axioms` passes. BUILT ⇒ the compact-form
+statements of the module (`theorem_Sprime_compact`, `_ineq`, `_C4`, the two inclusions, `control_compact_single_defect`)
+are CONJECTURE [D] **by the amendment run**, recorded in their own row with the amendment named, and the rows that rest on
+"S′ for compact Z [W]" become conditional on that [D] statement plus the written Carathéodory remark (which identifies
+`surgeryC` with `(Q ∩ Z*) + cone Z`) — the remark stays [W]. Not BUILT ⇒ the compact form stays [W]; the declarations
+on the standard axioms in the last run are recorded [D] individually; no further dispatch.
+
+**Prediction (fixed now).** BUILT, with every `CmSprimeCompact` print standard and the gate red only on
+`lean-manuscript` (two modules without a census family) — confidence moderate (the repaired lemma is the only changed
+declaration and the rest elaborated in run 2; the residual risk is in the elaboration of the membership unfolding).

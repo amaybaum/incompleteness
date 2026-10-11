@@ -530,3 +530,73 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   cancelled; waited on. Before the dispatch the module text was re-read against the confirmed Mathlib signatures and
   three fragile spots hardened (pointwise definitions of the sequences `η`, `ε` instead of lambdas; the type
   ascription of the constant limit; `Finset.mul_sum` as a term) — all before any run, no statement changed.
+- 2026-10-11T08:29:47Z — **C22 design run 1 read** (run `38124380741`, Mathlib bridge job `114425574221`, head `6cb76f96`; job
+  08:19:15Z–08:22:07Z, conclusion `failure`; log read through the GitHub connector, tail 400 of 37733 lines, holding
+  `CmSprime`'s 78 prints — all on the three permitted axioms, the module unchanged — and the whole `CmSprimeCompact`
+  output). Build FAILED at `CmSprimeCompact` with three errors: 90:42 `Invalid projection` in `zero_mem_coneOf` (a
+  type ascription `(k : κ)` on the summation index made Lean elaborate it as `κ` instead of the subtype); 375:79
+  `unsolved goals` in `mem_box` (`simp` does not see `Matrix n n ℂ` as the Pi type, so `Set.mem_univ_pi` never fired);
+  536:11 `expected token` — a parse error: the identifiers `q∞`, `z∞` (U+221E is not an identifier character), after
+  which the engine's tail was not elaborated. The 38 `#print axioms` reports: 32 on `[propext, Classical.choice,
+  Quot.sound]`, 6 with `sorryAx` by error recovery — `zero_mem_coneOf`, `one_mem_surgeryC`, `mem_box`,
+  `dualH_subset_surgeryC_of_finite`, and the three `theorem_Sprime_compact*` plus the control that depend on the engine
+  (7 lines in all: the four final theorems inherit). Built on the standard axioms, in particular: `surgeryC_subset_dualH`
+  (`K ⊆ K*`), `abs_pr_le`, `abs_qf_le`, `norm_entry_le_pr_one`, `norm_entry_defect_le`, `norm_entry_coneOf_le`,
+  `exists_net`, `isCompact_box`, `isClosed_psd`, the pairing lemmas and `continuous_defect_family`. Prediction "builds at
+  the first dispatch with probability about one half" — did not build; the failure sites were elaboration details and
+  one lexical slip, not the mathematics. The dispatched text is kept as `lean/CmSprimeCompact.run38124380741.lean`
+  (sha256 `d24b7ea8…`). Run `38124380741` is not cancelled (its other jobs continue).
+- 2026-10-11T08:30:51Z — **C22 design run, dispatch 2 of 3** (repair; the last C22 dispatch under the S0 rule): three
+  fixes, no statement changed — `zero_mem_coneOf` closes by `simp` (the index ascription removed); `mem_box` restates
+  the membership in Pi form by `show` before `simp`; `q∞`, `z∞` and their hypotheses renamed `qlim`, `zlim`; one
+  unused simp argument dropped. Dev commit `e4ef2e46` (module sha256
+  `5b447af0f9eeeab46ed7cbe6576707d65fa6b76081d88d40a4e84c588ef84337` = `lean/CmSprimeCompact.lean`); dispatched
+  08:30:51Z through the same `gh api` call; run `38125067948`, head `e4ef2e46280909a767f9712da30daa8e9459ba95`,
+  created 08:30:53Z, event `workflow_dispatch`. Run `38124380741` was still in progress (probe jobs) and is not
+  cancelled.
+- 2026-10-11T10:07:25Z — **interruption and resumption** (process change 1, logged once). The session was stopped by an
+  API usage limit at about 08:35Z (a container restart followed) and resumed at about 10:06Z on the coordinator's
+  message, from this thread's own transcript. State checked at 10:07:25Z against the coordinator's record of 10:05Z, and
+  equal: HEAD `23d32bc5` = origin; uncommitted, this thread's own writes only — `LOG.md` (sha256 `918a15bf…`, mtime
+  08:31:23), `lean/CmSprimeCompact.lean` (`5b447af0…`, 08:30:38), `lean/CmSprimeCompact.run38124380741.lean`
+  (`d24b7ea8…`, 08:29:47), `NOTES-C23.md` (`b1683d44…`, 08:34:52; C23's S0 draft, written before any C23 script,
+  committed below only after its pre-run review). Dispatches used: 2 of 3 (runs `38124380741`, `38125067948`); the
+  coordinator reports both Mathlib bridge jobs Build FAILURE with the gate skipped (114425574221 completed 08:50:08Z as a
+  job record — its log was read at 08:29Z; 114427630399 completed 09:01:31Z, not yet read). Neither run was cancelled.
+- 2026-10-11T10:07:25Z — **commit trailers** (process change 2, logged once): from this entry on every commit message ends
+  with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` and `Claude-Session:
+  https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1` (the session's attribution changed); earlier commits are not
+  rewritten.
+- 2026-10-11T10:09Z — **authorized read**: `research/overview` @ `51cce8ac` (fetched), `research/OVERVIEW.md` (sha256
+  `4aed424d3d1251fc29717ea2971ec821a6d03daca9a9fc8f4fc2d7c89f3b9b41`), lines 906–950: "Owner's round-5 directions",
+  "Two distinctions preserved in the round-5 audits", "The decisive round-5 outcome, classified". Confirmation: both
+  owner messages reached this thread before the stop (acknowledged at 07:48:24Z and 08:03:34Z) and their content
+  matches these sections; additionally recorded from the sections: distinction (2) "density is proved for the actual
+  available generating set; and closure(⟨G₁, …, Gₙ⟩) = SU(2) does not mean every element is exactly reachable by finite
+  compositions" — applied in C23 exactly as the 08:03:34Z entry states (the finitely generated `G_∞`, its closure
+  `G_T`, the step through H3 named); and the scope sentence "a proof of insufficiency for the complete stage-6
+  inventory is definitive within its scope and establishes nothing about every conceivable extension of OI". Both
+  messages are applied in C22 and C23.
+- 2026-10-11T10:13:10Z — **C22 design run 2 read** (run `38125067948`, Mathlib bridge job `114427630399`, head `e4ef2e46`; job started
+  08:30:59Z, Build step ended 08:48:12Z, job completed 09:01:31Z per the coordinator's record, conclusion `failure`, gate
+  skipped; log read through the GitHub connector, tail 170 of 37785 lines, holding the end of `CmSprime`'s prints and
+  the whole `CmSprimeCompact` output from its `✖ [3645/3647] Building` line). `CmSprime`: every print in the tail on
+  `[propext, Classical.choice, Quot.sound]` (unchanged module). `CmSprimeCompact`: **one error**, 377:2 `simp made no
+  progress` in `mem_box` — the `show` of the repair elaborated `(M : n → n → ℂ) ∈ Set.pi …` with the membership
+  instance at `Matrix n n ℂ` against a set of type `Set (n → n → ℂ)` ("Application type mismatch: … Set.instMembership
+  has type Membership (n → n → ℂ) (Set (n → n → ℂ)) but is expected to have type Membership (Matrix n n ℂ) (Set (n → n →
+  ℂ))"), so `Set.mem_univ_pi` could not match. No other error. The 38 prints: 32 standard, 6 with `sorryAx` —
+  `mem_box` (the error) and the five declarations that use it (`dualH_subset_surgeryC_of_finite` through `mem_box.mpr`,
+  then `theorem_Sprime_compact`, `_ineq`, `_C4`, `control_compact_single_defect`); since Lean reports an error for every
+  failing declaration and none is reported for the engine, the engine's proof itself elaborated. Run 1's three errors
+  (90:42, 375:79, 536:11) are all gone. Diagnosis of the remaining error: matching a `Set` lemma at the `Matrix` type;
+  repair: prove `mem_box` by definitional unfolding of the membership (applying the hypothesis, as Mathlib does for
+  `Set.pi` membership, e.g. `hx i (mem_univ i)` in Analysis/Calculus/TangentCone/Pi.lean:64 at the pinned version) and
+  the ball condition by `Metric.mem_closedBall` (Topology/MetricSpace/Pseudo/Defs.lean:424) and `dist_zero_right` (the
+  additive form of `dist_one_right`, Analysis/Normed/Group/Basic.lean:51–52, `@[to_additive (attr := simp)]`) through
+  `Eq.trans_le` (Order/Basic.lean:78), `forall_congr'` and `Iff.trans` — every name checked by grep in the read-only
+  Mathlib checkout at `db584cd6`, which carries the tags `v4.33.0` (the lakefile's pin) and `master-2026-08-10`. The run-2
+  text is kept as `lean/CmSprimeCompact.run38125067948.lean` (sha256 `5b447af0…`); the repaired text differs from it
+  in `mem_box`'s proof only (`diff`: lines 375–377 replaced by 375–381), sha256 `2f12f6e8…`. **By C22's S0 decision
+  rule (two dispatches for C22), the S0 design run is FAILED (design)**; recorded as such (row C22.2f) before any further
+  dispatch.
