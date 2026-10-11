@@ -1,0 +1,7 @@
+# coordinator safety copies of UNCOMMITTED research work — UNFINISHED / UNVERIFIED; not authoritative (the threads' own commits are the record)
+# taken 2026-10-11T103838Z; columns: sha256  mtime(UTC)  source-worktree@HEAD  path
+03fafb4179a25d6792d506fb24817533741a784a7473431900c9fa12c6441c7d  2026-10-11T10:36:38Z  dev-origin-drive@0f0bdbb4  M verification/lean-mathlib/OIBridge/OriginDrive.lean
+3b5d719daaebe0984bd86f6b296d84ef6ce195a55f5103fa86b4809895f52cfb  2026-10-11T10:33:50Z  equivalence@2296bfcd  M research/equivalence/LOG.md
+7eda2316f62a950c9ee7a458dc80a4b3cec46bcf3378da8f19ab46fddce5ee79  2026-10-11T10:37:08Z  equivalence@2296bfcd  ?? research/equivalence/NOTES-E21.md
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  2026-10-11T10:33:55Z  equivalence@2296bfcd  ?? research/equivalence/experiments/e20_odd_bodies.err
+d2bc6007522b3c31e1076ab4b401a937e49c8bfb626fc8bde61b576f4a461c3b  2026-10-11T10:36:50Z  equivalence@2296bfcd  ?? research/equivalence/experiments/e20_odd_bodies.out
