@@ -45,6 +45,30 @@ bridge *Build* step, the module's `#print axioms` lines and the `lean-axioms` st
   [W] written argument · [X] exact computation (script, output, replay) · [A] audited stage record · [L] literature
   input named, not checked here · [U] unsourced.
 
+## Premise inventory as the reference point (owner's direction, 2026-10-11)
+
+The objective is `OI ⇒ QM`, not `OI + additional hypotheses ⇒ QM`. Two rules govern every result recorded from
+round 4 on:
+
+- **The inventory is the reference set of OI premises.** The complete inventory at L is the stage-6 record on
+  `research/archive` @ `4dc0321c`: `pt/I4/INVENTORY.md` (633 records in four namespaces, each with kind, level, status
+  at L, dependencies and the do-not-assume flag; sha256 `43bbada1…`), its header `pt/I4/INVENTORY-HEADER.md`
+  (`02c431ff…`), the dependency graph `pt/G6/GRAPH.md` (`83f4619f…`), the 199-item applicable set with K(Z_F)'s
+  row-by-row standing in `pt/R6/REASSESSMENT.md`, Table A2 (`1ff62ad6…`: 118 SATISFIES, 68 NOT REACHED, 13 FAILS,
+  every FAILS row a hypothesis), and `pt/INTEGRATION-NOTE-STAGE6.md` (`1130a8c5…`). A premise "of OI" is cited by its
+  inventory id and at its status at L.
+- **Derive, do not introduce.** A result is written `OI ⇒ X` only when every hypothesis it uses is an inventory item
+  at its status at L. Otherwise it is written `OI + {named hypotheses} ⇒ X`, and each named hypothesis appears in the
+  assumptions table below, flagged as introduced. A hypothesis introduced for an intermediate theorem never becomes an
+  OI axiom by use. The introduced hypotheses of the record so far: H-OI_g and H-T (availability (A) in the pair
+  context), (b) and the transfer clause (T), A_miss, `ReachPure`, claim (D) and EBF, extreme-ray transitivity T, the
+  four-token coherence λ, pair homogeneity H, strong self-duality, H-FAC / H-UNIF / H-GEN / H-DYN, and the exclusive
+  readout (refuted). Evidence layers stay separate: [D] design results, [W] written proofs, [K] kernel theorems at L
+  and CERTIFIED landed rounds never stand in for one another in a label.
+
+A countermodel is recorded against the inventory the same way: the items it satisfies, the items it fails (each a
+hypothesis, or the record names the theorem at L it violates) and the items that do not reach it.
+
 ## The central question: the composite action (b)
 
 (b): single-token reversible operations, idle-extended to one token of a pair, preserve the pair cone in `W 3`.
@@ -621,3 +645,14 @@ independence from embedded-observation principles first.
   and Ω_cs tokens first; (E17) the transport form of H-DYN (R-E14.2) as a design-module statement with its finite-stage
   case proved (one dispatch); (E18, if time remains) Ω⋆'s power-cone self-duality as a design module (HP-9's
   "kernel-feasible two-line inequality"), to upgrade R-E13.1 from [W] + [X] to [D].
+
+**Owner's prioritization (2026-10-11), relayed to the four threads after launch; the node order already running
+matches it.** 1. bridge B14–B15 and origin O11: can composite-operation availability be derived from the existing OI
+axioms and conditions? 2. equivalence E15–E16: can the pair-level results imply the transitivity needed at higher
+levels without adding assumptions? 3. countermodels C17–C20: can a model satisfy the complete existing OI premise set
+while failing the proposed quantum conclusion? — with the recording obligation **C21**: each explicit exotic cone
+handled this round is recorded against Table A2 of the stage-6 reassessment (which of the 13 FAILS rows it now
+satisfies, which it still fails, whether any SATISFIES row is specific to K(Z_F)), so that each cone is a countermodel
+to `OI + {the hypotheses it satisfies} ⇒ Q3` in the inventory's terms. 4. bridge B16–B17 and equivalence E17–E18. The
+premise-inventory rule above governs every result the round records: hypotheses classified as inventory items or as
+introduced, and the evidence layers kept apart.
