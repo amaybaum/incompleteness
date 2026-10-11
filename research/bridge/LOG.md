@@ -654,3 +654,55 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   attribution, for the build only; seven import lines after `import OIBridge.RelcSelectC5`); `verify.yml` dispatched;
   run 38115337569 (head `ca48c4c4`, created 2026-10-11T05:36:37Z, event `workflow_dispatch`). Expected `lean-axioms`
   count: 5860 + 222 = 6082. Waiting; no job or run will be cancelled.
+- 2026-10-11T06:22:32Z — B17 (opened while dispatch 2 ran; S0 in NOTES-B17 at 05:39:54Z, before any run):
+  `b17_tower.py` run 1 at 05:41:17Z, green (K1, K1b, S0-2, S0-3, K2, K3 all PASS; 192 of 192 orbit defects certified
+  out of HO-24's cone under `1 ⊗ diag(1, e^{iπ/4})`; first failing stage n = 3); replay at 05:41:28Z byte-identical
+  (`cmp`). Exact arithmetic throughout (Gaussian rationals; `√2` only through integer comparisons of `p + q√2`).
+- 2026-10-11T06:22:32Z — dispatch 2 result: run 38115337569 (head `ca48c4c4`, created 05:36:37Z, completed 05:52:07Z,
+  conclusion failure). Mathlib bridge job 114399008857 (05:36:40–05:39:34Z): Build step FAILED (05:37:00–05:39:31Z);
+  Release gate SKIPPED, so no `lean-axioms` count this run; every other job of the run green. Per module:
+  - `BridgeAvailFull` BUILT ("[3655/3659] Built OIBridge.BridgeAvailFull (4.6s)", linter warnings only), 50/50
+    `#print axioms` reports on `[propext, Classical.choice, Quot.sound]`, no `sorryAx` (parsed from the job log);
+    `BridgeDictionary` (20/20) and `EqvK2Schema` (22/22) rebuilt, all standard;
+  - `BridgeConverge` FAILED ("[3657/3659] Building"): the postfix `ᴴ` did not parse at lines 79, 85, 96, 151
+    (`open Matrix` / `open scoped Matrix` missing from the module's opens); every other error in the block is a
+    cascade of those four (truncated statements of `transferMap`, `dict_transferMap`, `transferClause_iff`,
+    `pauli1_unitary`; a type mismatch and a `whnf` timeout in `transferClause_Q3` against the truncated statement;
+    a kernel unknown-constant error in `Q3_phase_invariant`). The 14 declarations not downstream of the four
+    reported standard axioms;
+  - `BridgeReachDim` FAILED (listed under "Some required targets logged failures"); its error block was printed
+    before the readable tail (the job-log reader returns at most the last 5000 of 38194 lines; the built-in `gh`
+    refuses the log redirect and the proxy refuses the blob host), so its errors are not recorded. This round
+    records the failure without a diagnosis.
+  Failed versions kept as `lean/BridgeConverge.run38115337569.lean` (sha256 `1e4cbb86…`) and
+  `lean/BridgeReachDim.run38115337569.lean` (sha256 `c49e3964…`), equal to the dev-branch blobs.
+- 2026-10-11T06:24:26Z — pre-dispatch review for dispatch 3 of 3 (the last; no local Lean; every Mathlib name read in
+  the pinned sources, a local `leanprover-community/mathlib4` checkout at tag `v4.33.0` = `db584cd6`, the rev the
+  lakefile pins; every kernel name read at L):
+  - `lean/BridgeConverge.lean`: `open scoped Matrix` added (the cause of every dispatch-2 error in the module);
+    `transferClause_Q3` restated so that the positive-semidefinite step is taken over one dictionary
+    (`EqvK2Schema.dict`), with no cross-module definitional unfolding. 232 lines, 21 theorems, 21 prints, sha256
+    `3f7155ca…`;
+  - `lean/BridgeReachDim.lean`, rewritten without a diagnosis of its dispatch-2 failure. Every step whose outcome
+    depended on a simp normal form, on the direction of `subst`, or on a defeq the unifier had to discover is
+    replaced: the charts are `kron2 ![1, x₀] ![x₁, x₂]` and `kron2 ![0, 1] ![x₁, x₂]`; chart membership is proved
+    entry by entry (`Fin.forall_fin_two`, `show` at literal indices, `ring` and `div_mul_cancel₀`) in
+    `kron2_eq_chart0` / `kron2_eq_chart1`; smoothness of the chart entries through `vec2_contDiff`; the coset map
+    through `badMapA_apply` and an explicit function equation; `dimH` bounded through a `calc` stated in this
+    module's own instances; the controlled-phase control through `czMat_apply`, `czMat_mulVec`, `decide`d index
+    inequalities and `rfl` entries of `ctlV`. Names checked: one Mathlib namespace changed since the D2 text
+    (`unitary.star_mul_self_of_mem` is `Unitary.star_mul_self_of_mem` at v4.33.0; the D2 text reached the
+    unitary step through a `first` fallback); `Matrix.UnitaryGroup.star_mul_self`, `Matrix.UnitaryGroup.inv_val`,
+    `Set.Countable.exists_eq_range`, `Set.mem_compl_iff`, `Module.finrank_prod`, `Module.finrank_pi_fintype`,
+    `Module.finrank_self`, `Complex.finrank_real_complex`, `Complex.conjCLE_apply`, `Complex.re_ofNat`,
+    `Complex.im_ofNat`, `div_mul_cancel₀`, `contDiff_apply` (explicit `𝕜 E`), `ContDiff.dimH_range_le`,
+    `dimH_iUnion`, `dense_compl_of_dimH_lt_finrank` read with their signatures. The module imports `EqvK2Schema`
+    for build order only, so that its report is compiled after `EqvK2Schema` and falls in the readable tail of
+    the job log; the import closure of `EqvK2Schema` was read for global notations, simp attributes and instances
+    that could reach this module's proofs (simp lemmas only on kernel-specific definitions, instances only on
+    kernel-specific types, notations all local). 484 lines, 32 theorems, 32 prints, sha256 `d4ee2170…`;
+  - no declaration of either module has a namesake among the kernel's, the other design modules' or Mathlib's
+    declarations; no identifier used unqualified resolves to a kernel declaration.
+  Expected `lean-axioms` count for the dispatch-3 tree: 6083 distinct short names (baseline 5860 at L, 223 new). The
+  dispatch-2 entry's 6082 summed the per-module print counts (222); the gate counts distinct short names, four of
+  which recur across the design modules, so the dispatch-2 tree's figure was 6078 (that run's gate did not run).

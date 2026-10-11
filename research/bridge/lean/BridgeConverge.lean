@@ -40,7 +40,7 @@ namespace BridgeConverge
 
 open CompositeDimension MonoidalCompletion InterventionLocality StructuralClosure
   SubstratumInterfaceAudit
-open scoped ComplexOrder
+open scoped ComplexOrder Matrix
 
 /-! ### §A — one dictionary -/
 
@@ -176,10 +176,11 @@ theorem transferClause_Q3 (𝓘 : ImplementationClass) :
     BridgeDictionary.TransferClause 𝓘 EqvK2Schema.Q3 := by
   intro U _ _ ω hω
   refine ⟨transferMap U ω, ?_, dict_transferMap U ω⟩
-  have hω' : (BridgeDictionary.dict ω).PosSemidef := hω
-  show (EqvK2Schema.dict (transferMap U ω)).PosSemidef
-  rw [← dict_converge, dict_transferMap]
-  exact hω'.mul_mul_conjTranspose_same _
+  have hω' : (EqvK2Schema.dict ω).PosSemidef := hω
+  have key : (EqvK2Schema.dict (transferMap U ω)).PosSemidef := by
+    rw [← dict_converge, dict_transferMap, dict_converge]
+    exact hω'.mul_mul_conjTranspose_same _
+  exact key
 
 /-- The table form holds non-vacuously: `Q3` is invariant under every target rotation of the phase
 circle. -/

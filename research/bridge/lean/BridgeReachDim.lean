@@ -11,7 +11,9 @@
   (Mathlib's `ContDiff.dimH_range_le` and `dense_compl_of_dimH_lt_finrank`).
 
   Proved here:
-    §A  the products are covered by two C¹ charts of `ℂ³` (`kron2_mem_chart`, `charts_contDiff`);
+    §A  the products are covered by two C¹ charts of `ℂ³`, `(1, x₀) ⊗ (x₁, x₂)` and
+        `(0, 1) ⊗ (x₁, x₂)` (`kron2_eq_chart0`, `kron2_eq_chart1`, `kron2_mem_chart`,
+        `charts_contDiff`);
     §B  the dimension lemma: countably many C¹ maps `ℝ × ℂ³ → ℂ⁴` miss a common vector
         (`exists_not_mem_ranges`), from `finrank_dom = 7` and `finrank_pvec = 8`;
     §C  the avoidance theorem for countably many C¹ curves (`avoid_of_curves`) and its coset form
@@ -29,16 +31,21 @@
   operational availability of an operation. Nothing here proves B7-1 for identity components of
   dimension two or more.
 
+  The import of `EqvK2Schema` orders the build only (this module is compiled after it, so that its
+  report falls in the readable tail of the CI log); nothing from it is used.
+
   Kernel check (dev branch):  cd verification/lean-mathlib && lake exe cache get && lake build
 -/
 import OIBridge.BridgeReach
+import OIBridge.EqvK2Schema
 import Mathlib.Topology.MetricSpace.HausdorffDimension
 import Mathlib.Analysis.Calculus.ContDiff.Operations
 import Mathlib.LinearAlgebra.Complex.FiniteDimensional
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Deriv
 import Mathlib.Analysis.Complex.Basic
+import Mathlib.Data.Fin.VecNotation
 import Mathlib.Tactic.FinCases
-import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.NormNum
 import Mathlib.Tactic.Ring
 import Mathlib.Tactic.Linarith
 
@@ -48,66 +55,90 @@ namespace BridgeReachDim
 open Matrix BridgeReach
 open scoped ENNReal
 
+noncomputable section
+
 /-! ### §A — two charts of the products -/
 
 /-- The chart `(1, x₀) ⊗ (x₁, x₂)`. -/
-def chart0 (x : Fin 3 → ℂ) : PVec :=
-  fun ij => (if ij.1 = 0 then 1 else x 0) * (if ij.2 = 0 then x 1 else x 2)
+def chart0 (x : Fin 3 → ℂ) : PVec := kron2 ![1, x 0] ![x 1, x 2]
 
 /-- The chart `(0, 1) ⊗ (x₁, x₂)`. -/
-def chart1 (x : Fin 3 → ℂ) : PVec :=
-  fun ij => (if ij.1 = 0 then 0 else 1) * (if ij.2 = 0 then x 1 else x 2)
+def chart1 (x : Fin 3 → ℂ) : PVec := kron2 ![0, 1] ![x 1, x 2]
 
 /-- The two charts, indexed by `Bool`. -/
 def charts (b : Bool) : (Fin 3 → ℂ) → PVec := cond b chart1 chart0
+
+/-- A product with `a₀ ≠ 0` lies in the first chart. -/
+theorem kron2_eq_chart0 (a b : Fin 2 → ℂ) (h : a 0 ≠ 0) :
+    kron2 a b = chart0 ![a 1 / a 0, a 0 * b 0, a 0 * b 1] := by
+  have e : a 1 / a 0 * a 0 = a 1 := div_mul_cancel₀ (a 1) h
+  funext ij
+  obtain ⟨i, j⟩ := ij
+  revert i j
+  refine Fin.forall_fin_two.2 ⟨Fin.forall_fin_two.2 ⟨?_, ?_⟩, Fin.forall_fin_two.2 ⟨?_, ?_⟩⟩
+  · show a 0 * b 0 = 1 * (a 0 * b 0)
+    ring
+  · show a 0 * b 1 = 1 * (a 0 * b 1)
+    ring
+  · show a 1 * b 0 = a 1 / a 0 * (a 0 * b 0)
+    rw [← mul_assoc, e]
+  · show a 1 * b 1 = a 1 / a 0 * (a 0 * b 1)
+    rw [← mul_assoc, e]
+
+/-- A product with `a₀ = 0` lies in the second chart. -/
+theorem kron2_eq_chart1 (a b : Fin 2 → ℂ) (h : a 0 = 0) :
+    kron2 a b = chart1 ![0, a 1 * b 0, a 1 * b 1] := by
+  funext ij
+  obtain ⟨i, j⟩ := ij
+  revert i j
+  refine Fin.forall_fin_two.2 ⟨Fin.forall_fin_two.2 ⟨?_, ?_⟩, Fin.forall_fin_two.2 ⟨?_, ?_⟩⟩
+  · show a 0 * b 0 = 0 * (a 1 * b 0)
+    rw [h]
+    ring
+  · show a 0 * b 1 = 0 * (a 1 * b 1)
+    rw [h]
+    ring
+  · show a 1 * b 0 = 1 * (a 1 * b 0)
+    ring
+  · show a 1 * b 1 = 1 * (a 1 * b 1)
+    ring
 
 /-- **EVERY PRODUCT LIES IN A CHART.** -/
 theorem kron2_mem_chart (a b : Fin 2 → ℂ) :
     ∃ x : Fin 3 → ℂ, kron2 a b = chart0 x ∨ kron2 a b = chart1 x := by
   by_cases h : a 0 = 0
-  · refine ⟨fun k => if k = 1 then a 1 * b 0 else a 1 * b 1, Or.inr ?_⟩
-    funext ij
-    obtain ⟨i, j⟩ := ij
-    fin_cases i <;> fin_cases j <;> simp [kron2, chart1, h]
-  · have h' : a 0 ≠ 0 := h
-    have e1 : a 1 / a 0 * (a 0 * b 0) = a 1 * b 0 := by
-      first
-      | (field_simp; done)
-      | (field_simp; ring)
-      | (rw [div_mul_eq_mul_div, div_eq_iff h']; ring)
-    have e2 : a 1 / a 0 * (a 0 * b 1) = a 1 * b 1 := by
-      first
-      | (field_simp; done)
-      | (field_simp; ring)
-      | (rw [div_mul_eq_mul_div, div_eq_iff h']; ring)
-    refine ⟨fun k => if k = 0 then a 1 / a 0 else if k = 1 then a 0 * b 0 else a 0 * b 1,
-      Or.inl ?_⟩
-    funext ij
-    obtain ⟨i, j⟩ := ij
-    fin_cases i <;> fin_cases j <;> simp [kron2, chart0, h', e1, e2] <;>
-      first
-      | (field_simp; done)
-      | (field_simp; ring)
-      | ring
-
-theorem sel_contDiff (p : Prop) [Decidable p] (f g : (Fin 3 → ℂ) → ℂ) (hf : ContDiff ℝ 1 f)
-    (hg : ContDiff ℝ 1 g) : ContDiff ℝ 1 (fun x => if p then f x else g x) := by
-  by_cases h : p
-  · simp only [if_pos h]
-    exact hf
-  · simp only [if_neg h]
-    exact hg
+  · exact ⟨_, Or.inr (kron2_eq_chart1 a b h)⟩
+  · exact ⟨_, Or.inl (kron2_eq_chart0 a b h)⟩
 
 theorem coord_contDiff (k : Fin 3) : ContDiff ℝ 1 (fun x : Fin 3 → ℂ => x k) :=
   contDiff_apply ℝ ℂ k
 
-theorem chart0_contDiff (ij : Fin 2 × Fin 2) : ContDiff ℝ 1 (fun x : Fin 3 → ℂ => chart0 x ij) :=
-  (sel_contDiff (ij.1 = 0) (fun _ => 1) (fun x => x 0) contDiff_const (coord_contDiff 0)).mul
-    (sel_contDiff (ij.2 = 0) (fun x => x 1) (fun x => x 2) (coord_contDiff 1) (coord_contDiff 2))
+/-- The entries of a two-vector of C¹ functions are C¹. -/
+theorem vec2_contDiff {f g : (Fin 3 → ℂ) → ℂ} (hf : ContDiff ℝ 1 f) (hg : ContDiff ℝ 1 g) :
+    ∀ i : Fin 2, ContDiff ℝ 1 (fun x => ![f x, g x] i) := by
+  refine Fin.forall_fin_two.2 ⟨?_, ?_⟩
+  · show ContDiff ℝ 1 (fun x => f x)
+    exact hf
+  · show ContDiff ℝ 1 (fun x => g x)
+    exact hg
 
-theorem chart1_contDiff (ij : Fin 2 × Fin 2) : ContDiff ℝ 1 (fun x : Fin 3 → ℂ => chart1 x ij) :=
-  (sel_contDiff (ij.1 = 0) (fun _ => 0) (fun _ => 1) contDiff_const contDiff_const).mul
-    (sel_contDiff (ij.2 = 0) (fun x => x 1) (fun x => x 2) (coord_contDiff 1) (coord_contDiff 2))
+theorem chart0_contDiff (ij : Fin 2 × Fin 2) :
+    ContDiff ℝ 1 (fun x : Fin 3 → ℂ => chart0 x ij) := by
+  have h1 := vec2_contDiff (f := fun _ => (1 : ℂ)) (g := fun x => x 0) contDiff_const
+    (coord_contDiff 0) ij.1
+  have h2 := vec2_contDiff (f := fun x => x 1) (g := fun x => x 2) (coord_contDiff 1)
+    (coord_contDiff 2) ij.2
+  show ContDiff ℝ 1 (fun x : Fin 3 → ℂ => ![(1 : ℂ), x 0] ij.1 * ![x 1, x 2] ij.2)
+  exact h1.mul h2
+
+theorem chart1_contDiff (ij : Fin 2 × Fin 2) :
+    ContDiff ℝ 1 (fun x : Fin 3 → ℂ => chart1 x ij) := by
+  have h1 : ContDiff ℝ 1 (fun _ : Fin 3 → ℂ => (![(0 : ℂ), 1] : Fin 2 → ℂ) ij.1) :=
+    contDiff_const
+  have h2 := vec2_contDiff (f := fun x => x 1) (g := fun x => x 2) (coord_contDiff 1)
+    (coord_contDiff 2) ij.2
+  show ContDiff ℝ 1 (fun x : Fin 3 → ℂ => (![(0 : ℂ), 1] : Fin 2 → ℂ) ij.1 * ![x 1, x 2] ij.2)
+  exact h1.mul h2
 
 theorem charts_contDiff (b : Bool) (ij : Fin 2 × Fin 2) :
     ContDiff ℝ 1 (fun x : Fin 3 → ℂ => charts b x ij) := by
@@ -120,14 +151,14 @@ theorem charts_contDiff (b : Bool) (ij : Fin 2 × Fin 2) :
 theorem finrank_dom : Module.finrank ℝ (ℝ × (Fin 3 → ℂ)) = 7 := by
   first
   | (simp [Module.finrank_prod, Module.finrank_pi_fintype, Complex.finrank_real_complex]; done)
-  | (rw [Module.finrank_prod, Module.finrank_self, Module.finrank_pi_fintype]
-     simp [Complex.finrank_real_complex])
+  | (rw [Module.finrank_prod, Module.finrank_self, Module.finrank_pi_fintype]; simp; done)
+  | (norm_num [Module.finrank_prod, Module.finrank_pi_fintype, Complex.finrank_real_complex]; done)
 
 theorem finrank_pvec : Module.finrank ℝ PVec = 8 := by
   first
   | (simp [Module.finrank_pi_fintype, Complex.finrank_real_complex]; done)
-  | (rw [Module.finrank_pi_fintype]
-     simp [Complex.finrank_real_complex])
+  | (rw [Module.finrank_pi_fintype]; simp; done)
+  | (norm_num [Module.finrank_pi_fintype, Complex.finrank_real_complex]; done)
 
 /-- **COUNTABLY MANY C¹ MAPS FROM `ℝ × ℂ³` MISS A COMMON PAIR VECTOR.** -/
 theorem exists_not_mem_ranges {ι : Type} [Countable ι] (Φ : ι → (ℝ × (Fin 3 → ℂ)) → PVec)
@@ -135,15 +166,17 @@ theorem exists_not_mem_ranges {ι : Type} [Countable ι] (Φ : ι → (ℝ × (F
   have hle : dimH (⋃ i, Set.range (Φ i)) ≤ ((7 : ℕ) : ℝ≥0∞) := by
     rw [dimH_iUnion]
     refine iSup_le fun i => ?_
-    have h := (hΦ i).dimH_range_le
-    rwa [finrank_dom] at h
+    calc dimH (Set.range (Φ i)) ≤ (Module.finrank ℝ (ℝ × (Fin 3 → ℂ)) : ℝ≥0∞) :=
+          (hΦ i).dimH_range_le
+      _ = ((7 : ℕ) : ℝ≥0∞) := by rw [finrank_dom]
   have hdim : dimH (⋃ i, Set.range (Φ i)) < (Module.finrank ℝ PVec : ℝ≥0∞) := by
     rw [finrank_pvec]
     first
     | exact hle.trans_lt (Nat.cast_lt.mpr (by norm_num))
     | exact hle.trans_lt (by norm_num)
+    | exact lt_of_le_of_lt hle (by exact_mod_cast (show (7 : ℕ) < 8 by norm_num))
   obtain ⟨v, hv⟩ := (dense_compl_of_dimH_lt_finrank hdim).nonempty
-  exact ⟨v, fun i hi => hv (Set.mem_iUnion.mpr ⟨i, hi⟩)⟩
+  exact ⟨v, fun i hi => (Set.mem_compl_iff _ v).mp hv (Set.mem_iUnion.mpr ⟨i, hi⟩)⟩
 
 /-! ### §C — the avoidance theorems -/
 
@@ -165,6 +198,13 @@ theorem badMap_contDiff {γ : ℝ → M4} (hγ : ∀ i j, ContDiff ℝ 1 fun t =
 def badMapA (L : M4) (γ : ℝ → M4) (ch : (Fin 3 → ℂ) → PVec) (p : ℝ × (Fin 3 → ℂ)) : PVec :=
   conjV (L *ᵥ badMap γ ch p)
 
+theorem badMapA_apply (L : M4) (γ : ℝ → M4) (ch : (Fin 3 → ℂ) → PVec)
+    (p : ℝ × (Fin 3 → ℂ)) (i : Fin 2 × Fin 2) :
+    badMapA L γ ch p i = Complex.conjCLE (∑ l, L i l * badMap γ ch p l) := by
+  first
+  | rfl
+  | (rw [Complex.conjCLE_apply]; rfl)
+
 theorem badMapA_contDiff (L : M4) {γ : ℝ → M4} (hγ : ∀ i j, ContDiff ℝ 1 fun t => γ t i j)
     {ch : (Fin 3 → ℂ) → PVec} (hch : ∀ j, ContDiff ℝ 1 fun x => ch x j) :
     ContDiff ℝ 1 (badMapA L γ ch) := by
@@ -172,11 +212,13 @@ theorem badMapA_contDiff (L : M4) {γ : ℝ → M4} (hγ : ∀ i j, ContDiff ℝ
   refine contDiff_pi.2 fun i => ?_
   have hS : ContDiff ℝ 1 (fun p : ℝ × (Fin 3 → ℂ) => ∑ l, L i l * badMap γ ch p l) :=
     ContDiff.sum fun l _ => contDiff_const.mul (hB l)
-  first
-  | exact Complex.conjCLE.contDiff.comp hS
-  | (convert Complex.conjCLE.contDiff.comp hS using 1
-     funext p
-     simp [badMapA, conjV, Matrix.mulVec, dotProduct, Complex.conjCLE_apply, Function.comp])
+  have hC := Complex.conjCLE.contDiff.comp hS
+  have heq : (fun p : ℝ × (Fin 3 → ℂ) => badMapA L γ ch p i) =
+      (fun p : ℝ × (Fin 3 → ℂ) => Complex.conjCLE (∑ l, L i l * badMap γ ch p l)) := by
+    funext p
+    exact badMapA_apply L γ ch p i
+  rw [heq]
+  exact hC
 
 /-- **AVOIDANCE FOR COUNTABLY MANY C¹ CURVES**: some pair vector is no `γ_k(t) · (a ⊗ b)`. -/
 theorem avoid_of_curves (γ : ℕ → ℝ → M4) (hγ : ∀ k i j, ContDiff ℝ 1 fun t => γ k t i j) :
@@ -228,12 +270,16 @@ def CurveCover (H : Subgroup U4) : Prop :=
   ∃ γ : ℕ → ℝ → M4, (∀ k i j, ContDiff ℝ 1 fun t => γ k t i j) ∧
     ∀ h ∈ H, ∃ (k : ℕ) (t : ℝ), γ k t = (h : M4)
 
-theorem inv_mul_val (h : U4) : ((h⁻¹ : U4) : M4) * (h : M4) = 1 :=
-  congrArg Subtype.val (inv_mul_cancel h)
+theorem inv_mul_val (h : U4) : ((h⁻¹ : U4) : M4) * (h : M4) = 1 := by
+  first
+  | exact congrArg Subtype.val (inv_mul_cancel h)
+  | (rw [Matrix.UnitaryGroup.inv_val]; exact Matrix.UnitaryGroup.star_mul_self h)
+  | simp
 
 theorem kron2_zero : kron2 0 0 = 0 := by
-  funext ij
-  simp [kron2]
+  first
+  | (funext ij; simp [kron2]; done)
+  | (funext ij; show (0 : ℂ) * 0 = 0; exact mul_zero 0)
 
 /-- **B7-1 UNDER A CURVE COVER, UNITARY GROUPS**: the conclusion of `ReachUnitary`. -/
 theorem reachUnitary_of_curveCover (H : Subgroup U4) (hH : CurveCover H) :
@@ -243,7 +289,7 @@ theorem reachUnitary_of_curveCover (H : Subgroup U4) (hH : CurveCover H) :
   have key : ∀ h ∈ H, ∀ a b : Fin 2 → ℂ, (h : M4) *ᵥ v ≠ kron2 a b := by
     intro h hh a b hab
     obtain ⟨k, t, hkt⟩ := hcov h⁻¹ (H.inv_mem hh)
-    apply hv k t a b
+    refine hv k t a b ?_
     rw [hkt, ← hab, Matrix.mulVec_mulVec, inv_mul_val, Matrix.one_mulVec]
   refine ⟨v, fun hv0 => key 1 H.one_mem 0 0 ?_, fun h hh a b => key h hh a b⟩
   rw [hv0, Matrix.mulVec_zero, kron2_zero]
@@ -257,17 +303,18 @@ theorem reachAnti_of_curveCover (H : Subgroup U4) (K : U4) (hH : CurveCover H) :
   obtain ⟨v, hv⟩ := avoidA_of_curves (star (K : M4)) γ hγ
   have hK1 : star (K : M4) * (K : M4) = 1 := by
     first
-    | exact unitary.star_mul_self_of_mem K.2
-    | exact (Matrix.mem_unitaryGroup_iff'.mp K.2)
+    | exact Matrix.UnitaryGroup.star_mul_self K
+    | exact Matrix.mem_unitaryGroup_iff'.mp K.2
+    | exact Unitary.star_mul_self_of_mem K.2
   have keyA : ∀ h ∈ H, ∀ a b : Fin 2 → ℂ, (h : M4) *ᵥ v ≠ kron2 a b := by
     intro h hh a b hab
     obtain ⟨k, t, hkt⟩ := hcov h⁻¹ (H.inv_mem hh)
-    apply (hv k t a b).1
+    refine (hv k t a b).1 ?_
     rw [hkt, ← hab, Matrix.mulVec_mulVec, inv_mul_val, Matrix.one_mulVec]
   have keyB : ∀ h ∈ H, ∀ a b : Fin 2 → ℂ, ((h : M4) * (K : M4)) *ᵥ conjV v ≠ kron2 a b := by
     intro h hh a b hab
     obtain ⟨k, t, hkt⟩ := hcov h⁻¹ (H.inv_mem hh)
-    apply (hv k t a b).2
+    refine (hv k t a b).2 ?_
     have hprod : star (K : M4) * ((h⁻¹ : U4) : M4) * ((h : M4) * (K : M4)) = 1 := by
       rw [Matrix.mul_assoc, ← Matrix.mul_assoc ((h⁻¹ : U4) : M4), inv_mul_val, Matrix.one_mul,
         hK1]
@@ -298,11 +345,15 @@ theorem reachAnti_of_covers
 theorem curveCover_of_countable (H : Subgroup U4) (hc : (H : Set U4).Countable) :
     CurveCover H := by
   obtain ⟨f, hf⟩ := hc.exists_eq_range ⟨1, H.one_mem⟩
-  refine ⟨fun k _ => ((f k : U4) : M4), fun k i j => contDiff_const, fun h hh => ?_⟩
-  have hh' : h ∈ (H : Set U4) := hh
-  rw [hf] at hh'
-  obtain ⟨k, hk⟩ := hh'
-  exact ⟨k, 0, congrArg Subtype.val hk⟩
+  refine ⟨fun k _ => ((f k : U4) : M4), ?_, ?_⟩
+  · intro k i j
+    show ContDiff ℝ 1 fun _ : ℝ => ((f k : U4) : M4) i j
+    exact contDiff_const
+  · intro h hh
+    have hh' : h ∈ (H : Set U4) := hh
+    rw [hf] at hh'
+    obtain ⟨k, hk⟩ := hh'
+    exact ⟨k, 0, congrArg Subtype.val hk⟩
 
 /-- **B7-1 FOR COUNTABLE SUBGROUPS**, by the dimension count (the finite case of round 3 included). -/
 theorem reachUnitary_countable (H : Subgroup U4) (hc : (H : Set U4).Countable) :
@@ -312,33 +363,62 @@ theorem reachUnitary_countable (H : Subgroup U4) (hc : (H : Set U4).Countable) :
 /-! ### §D — controls -/
 
 /-- `e^{it}`. -/
-noncomputable def czE (t : ℝ) : ℂ := (Real.cos t : ℂ) + (Real.sin t : ℂ) * Complex.I
+def czE (t : ℝ) : ℂ := (Real.cos t : ℂ) + (Real.sin t : ℂ) * Complex.I
 
 /-- The controlled phase `diag(1, 1, 1, e^{it})`. -/
-noncomputable def czMat (t : ℝ) : M4 :=
+def czMat (t : ℝ) : M4 :=
   Matrix.diagonal fun ij => if ij = ((1 : Fin 2), (1 : Fin 2)) then czE t else 1
 
 theorem czE_contDiff : ContDiff ℝ 1 czE := by
-  have hc : ContDiff ℝ 1 (fun t : ℝ => (Real.cos t : ℂ)) :=
-    Complex.ofRealCLM.contDiff.comp Real.contDiff_cos
-  have hs : ContDiff ℝ 1 (fun t : ℝ => (Real.sin t : ℂ)) :=
-    Complex.ofRealCLM.contDiff.comp Real.contDiff_sin
-  exact hc.add (hs.mul contDiff_const)
+  have hof : ContDiff ℝ 1 (fun r : ℝ => (r : ℂ)) := Complex.ofRealCLM.contDiff
+  have hc : ContDiff ℝ 1 (fun t : ℝ => (Real.cos t : ℂ)) := hof.comp Real.contDiff_cos
+  have hs : ContDiff ℝ 1 (fun t : ℝ => (Real.sin t : ℂ)) := hof.comp Real.contDiff_sin
+  have hI : ContDiff ℝ 1 (fun _ : ℝ => Complex.I) := contDiff_const
+  show ContDiff ℝ 1 fun t : ℝ => (Real.cos t : ℂ) + (Real.sin t : ℂ) * Complex.I
+  exact hc.add (hs.mul hI)
+
+theorem czMat_apply (t : ℝ) (i j : Fin 2 × Fin 2) :
+    czMat t i j = if i = j then (if i = ((1 : Fin 2), (1 : Fin 2)) then czE t else 1) else 0 :=
+  Matrix.diagonal_apply _ i j
 
 /-- The controlled-phase circle is a C¹ curve. -/
 theorem cz_entry_contDiff (i j : Fin 2 × Fin 2) : ContDiff ℝ 1 fun t => czMat t i j := by
+  have e : (fun t => czMat t i j) =
+      fun t => if i = j then (if i = ((1 : Fin 2), (1 : Fin 2)) then czE t else 1) else 0 :=
+    funext fun t => czMat_apply t i j
+  rw [e]
   by_cases hij : i = j
-  · subst hij
-    by_cases h11 : i = ((1 : Fin 2), (1 : Fin 2))
-    · simp only [czMat, Matrix.diagonal_apply_eq, if_pos h11]
+  · by_cases h11 : i = ((1 : Fin 2), (1 : Fin 2))
+    · simp only [if_pos hij, if_pos h11]
       exact czE_contDiff
-    · simp only [czMat, Matrix.diagonal_apply_eq, if_neg h11]
+    · simp only [if_pos hij, if_neg h11]
       exact contDiff_const
-  · simp only [czMat, Matrix.diagonal_apply_ne _ hij]
+  · simp only [if_neg hij]
     exact contDiff_const
 
+theorem czMat_mulVec (t : ℝ) (v : PVec) (ij : Fin 2 × Fin 2) :
+    (czMat t *ᵥ v) ij = (if ij = ((1 : Fin 2), (1 : Fin 2)) then czE t else 1) * v ij :=
+  Matrix.mulVec_diagonal _ _ _
+
 theorem cz_prodDet (t : ℝ) : prodDet (czMat t *ᵥ ctlV) = 5 * czE t - 6 := by
-  simp [prodDet, czMat, Matrix.mulVec_diagonal, ctlV] <;> ring
+  have n00 : ((0 : Fin 2), (0 : Fin 2)) ≠ ((1 : Fin 2), (1 : Fin 2)) := by decide
+  have n01 : ((0 : Fin 2), (1 : Fin 2)) ≠ ((1 : Fin 2), (1 : Fin 2)) := by decide
+  have n10 : ((1 : Fin 2), (0 : Fin 2)) ≠ ((1 : Fin 2), (1 : Fin 2)) := by decide
+  have p11 : ((1 : Fin 2), (1 : Fin 2)) = ((1 : Fin 2), (1 : Fin 2)) := rfl
+  have c00 : ctlV ((0 : Fin 2), (0 : Fin 2)) = 1 := rfl
+  have c01 : ctlV ((0 : Fin 2), (1 : Fin 2)) = 2 := rfl
+  have c10 : ctlV ((1 : Fin 2), (0 : Fin 2)) = 3 := rfl
+  have c11 : ctlV ((1 : Fin 2), (1 : Fin 2)) = 5 := rfl
+  show (czMat t *ᵥ ctlV) ((0 : Fin 2), (0 : Fin 2)) * (czMat t *ᵥ ctlV) ((1 : Fin 2), (1 : Fin 2)) -
+      (czMat t *ᵥ ctlV) ((0 : Fin 2), (1 : Fin 2)) * (czMat t *ᵥ ctlV) ((1 : Fin 2), (0 : Fin 2)) =
+    5 * czE t - 6
+  rw [czMat_mulVec t ctlV ((0 : Fin 2), (0 : Fin 2)), czMat_mulVec t ctlV ((1 : Fin 2), (1 : Fin 2)),
+    czMat_mulVec t ctlV ((0 : Fin 2), (1 : Fin 2)), czMat_mulVec t ctlV ((1 : Fin 2), (0 : Fin 2)),
+    if_neg n00, if_neg n01, if_neg n10, if_pos p11]
+  first
+  | (rw [c00, c01, c10, c11]; ring)
+  | (simp only [ctlV]; norm_num <;> ring)
+  | (norm_num [ctlV] <;> ring)
 
 /-- **POSITIVE CONTROL**: the vector `(1, 2, 3, 5)` avoids the products on the whole controlled-phase
 circle: `prodDet = 5 e^{it} − 6`, whose real part is at most `−1`. -/
@@ -347,8 +427,15 @@ theorem cz_avoids (t : ℝ) : AvoidsProducts ctlV (fun u => czMat t *ᵥ u) := b
   show prodDet (czMat t *ᵥ ctlV) ≠ 0
   rw [cz_prodDet]
   intro h
-  have hre := congrArg Complex.re h
-  simp [czE] at hre
+  have hre : (5 * czE t - 6).re = (0 : ℂ).re := congrArg Complex.re h
+  have h1 : (5 * czE t - 6).re = 5 * Real.cos t - 6 := by
+    first
+    | (simp [czE]; done)
+    | (unfold czE
+       simp only [Complex.sub_re, Complex.mul_re, Complex.add_re, Complex.ofReal_re,
+         Complex.ofReal_im, Complex.I_re, Complex.I_im, Complex.re_ofNat, Complex.im_ofNat]
+       ring)
+  rw [h1, Complex.zero_re] at hre
   have hcos := Real.cos_le_one t
   linarith
 
@@ -358,9 +445,13 @@ theorem ctl_dim_eight :
     ContDiff ℝ 1 (fun v : PVec => v) ∧ ∀ v : PVec, v ∈ Set.range (fun v : PVec => v) :=
   ⟨contDiff_id, fun v => Set.mem_range.mpr ⟨v, rfl⟩⟩
 
+end
+
+#print axioms kron2_eq_chart0
+#print axioms kron2_eq_chart1
 #print axioms kron2_mem_chart
-#print axioms sel_contDiff
 #print axioms coord_contDiff
+#print axioms vec2_contDiff
 #print axioms chart0_contDiff
 #print axioms chart1_contDiff
 #print axioms charts_contDiff
@@ -369,6 +460,7 @@ theorem ctl_dim_eight :
 #print axioms exists_not_mem_ranges
 #print axioms badMap_eq
 #print axioms badMap_contDiff
+#print axioms badMapA_apply
 #print axioms badMapA_contDiff
 #print axioms avoid_of_curves
 #print axioms avoidA_of_curves
@@ -381,7 +473,9 @@ theorem ctl_dim_eight :
 #print axioms curveCover_of_countable
 #print axioms reachUnitary_countable
 #print axioms czE_contDiff
+#print axioms czMat_apply
 #print axioms cz_entry_contDiff
+#print axioms czMat_mulVec
 #print axioms cz_prodDet
 #print axioms cz_avoids
 #print axioms ctl_dim_eight
