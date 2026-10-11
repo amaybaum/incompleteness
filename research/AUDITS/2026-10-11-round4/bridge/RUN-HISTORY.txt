@@ -1,0 +1,4 @@
+run 1 (2026-10-11, 19 s): 8/8 PASS, CC1-CC5 all False, VERDICT INDEP-B4-FIXED. The X4 message carries an informational flag
+"r4_tables lists a SATISFIES line for each of the 13 K(Z_F)-FAILS ids: False": r4_tables.out carries the Q3 column as a tally
+(TALLY Q3, CHECK (2)), not as per-row lines, so the flag reads False by construction; it is not a decision criterion
+(X4 passes on the tally and the check line). No run 2; replay byte-identical.

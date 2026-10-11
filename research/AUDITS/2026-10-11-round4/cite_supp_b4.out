@@ -1,0 +1,72 @@
+UNMATCHED CompletedOI.lean:110  cited line: theorem completedOI_iff_physical (T : FiniteOperationalTheory (Fin 2)) :
+    citing: | I4.80 | M | HARMLESS | CompletedOI | <-> PhysicalCompletionConditions [K] CompletedOI.lean:110 -> third conjunct control -> control |
+    citing: 'I4.80': ('M', 'fails', 'CompletedOI', ['<-> PhysicalCompletionConditions [K] CompletedOI.lean:110', 'third conjunct control', 'control']),
+UNMATCHED CompletionAction.lean:352  cited line: theorem preservesBody_inducedEquiv {S T : OpDatum D} (hS : AffineRespect S)
+    citing: CompletionAction.lean:352, CompositionOrder.lean:149, :171). The stage-crossing clause itself is CERTIFIED
+UNMATCHED CompositionOrder.lean:149  cited line: theorem exists_return {S : Finset α} {f : α → α} (hf : Function.Injective f)
+    citing: CompletionAction.lean:352, CompositionOrder.lean:149, :171). The stage-crossing clause itself is CERTIFIED
+UNMATCHED DenseOrbit.lean:174  cited line: theorem exists_affine_image_eq_eball_of_dense (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+    citing: family is boundary transitive or has a dense boundary orbit (TransitiveBody.lean:602, DenseOrbit.lean:174,
+UNMATCHED DiscreteCompletion.lean:1929  cited line: theorem fixedGateTheory_derivedOI (α : ℝ) : DerivedOI (fixedGateTheory α) :=
+    citing: (DiscreteCompletion.lean:1929, :1933), so the hypothesis `Irrational (α / π)` of `denseUnitaryControl_of_fixedGate`
+UNMATCHED DiscreteCompletion.lean:1948  cited line: theorem fixedGateTheory_not_qm (α : ℝ) : ¬ ExactAllFiniteEndomorphicQuantumOps (fixedGateTheory α) :=
+    citing: DiscreteCompletion.lean:1948).
+    citing: DiscreteCompletion.lean:1948). Label: CONDITIONAL ([X] exact certificates and Lie-algebra dimensions 10 → 15; [W];
+UNMATCHED EmbeddedObservation.lean:217  cited line: theorem observerRecursion_of_embeddedObservation {T : FiniteOperationalTheory A}
+    citing: | I4.87 | M | SAT | [D] BridgeAvailFull latticeTheory_observerRecursion (kernel, EmbeddedObservation.lean:217) | - |
+    citing: 'I4.87': ('M', 'holds', D + ' latticeTheory_observerRecursion (kernel, EmbeddedObservation.lean:217)', []),
+UNMATCHED EmbeddedObservation.lean:223  cited line: theorem systemToLevelOne_of_embeddedObservation {T : FiniteOperationalTheory A}
+    citing: | I4.69 | M | SAT | [D] BridgeAvailFull latticeTheory_systemToLevelOne (kernel, EmbeddedObservation.lean:223) | - |
+    citing: 'I4.69': ('M', 'holds', D + ' latticeTheory_systemToLevelOne (kernel, EmbeddedObservation.lean:223)', []),
+UNMATCHED ImplementationLocality.lean:268  cited line: inductive InstAvail (𝓘 : ImplementationClass) :
+    citing: ImplementationLocality.lean:268 `InstAvail`, :852 `genTheory`), with availability at a level taken as HO-17 item 8
+UNMATCHED ImplementationLocality.lean:305  cited line: theorem instAvail_mono {𝓙 : ImplementationClass}
+    citing: ImplementationLocality.lean:305), so obsTheory ≤ mixTheoryR ∅ ≤ lattice theory ≤ substratumTheory.
+UNMATCHED ImplementationLocality.lean:644  cited line: theorem instAvail_transport (hl : LabelInvariant 𝓘) {T : Type} [Fintype T] [DecidableEq T]
+    citing: | B14-2 | **B14, decided in form (ii).** No derivation of the availability of `actT R_z(θ₀)` (`cos θ₀ = 3/5`) or of `actT J` on the pair — or on the token — exists from t
+UNMATCHED ImplementationLocality.lean:909  cited line: theorem genTheory_availExt_iff (n : ℕ) {O : Type} [Fintype O] [DecidableEq O]
+    citing: (ImplementationLocality.lean:909, `Iff.rfl`) this is `InstAvail` at the carrier `(Fin 2 × Fin 2) × Fin n`: every
+UNMATCHED ImplementationLocality.lean:957  cited line: theorem observationalIndependence_of_implementationLocality [Nonempty A]
+    citing: | I4.96 | M | SAT | [D] BridgeAvailFull latticeTheory_observationalIndependence (kernel, ImplementationLocality.lean:957) | - |
+    citing: 'I4.96': ('M', 'holds', D + ' latticeTheory_observationalIndependence (kernel, ImplementationLocality.lean:957)', []),
+UNMATCHED ImplementationLocality.lean:1070  cited line: theorem oiPlusLocal_iff_qm : OIPlusLocal T ↔ ExactAllFiniteEndomorphicQuantumOps T :=
+    citing: | I4.42 | M | HARMLESS | OIPlusLocal | OIPlusLocal <-> QM [K] ImplementationLocality.lean:1070 -> QM |
+    citing: 'I4.42': ('M', 'fails', 'OIPlusLocal', ['OIPlusLocal <-> QM [K] ImplementationLocality.lean:1070', 'QM']),
+UNMATCHED KInfFoundations.lean:416  cited line: noncomputable def cycEquiv : (Fin 3 → ℝ) ≃ₗ[ℝ] (Fin 3 → ℝ) where
+    citing: KInfFoundations.lean:416) is the conjugation by `1 ⊗ U_J`, `U_J = (1 − i(X + Y + Z))/2` (HO-18, the coordinator's
+    citing: KInfFoundations.lean:416, (x, y, z) -> (z, x, y)). pairOp(U, n) = (1 (x) U) (x) 1_n on ((Fin 2 x Fin 2) x Fin n),
+UNMATCHED KInfFoundations.lean:449  cited line: noncomputable def ball3Drive : ElementaryDrivability ball3 where
+    citing: flow about `z` (KInfFoundations.lean:449) at `t = θ₀` is `R_z(θ₀)`, which is `actT (rotZ (3/5) (4/5))` on the target
+    citing: | B14-7 | FM separates K∞-Drive's two readings: it satisfies I3.169 as R6 reads it (SATISFIES [inherit]; `ball3Drive`, KInfFoundations.lean:449) and refutes its operation
+UNMATCHED LiftAudit.lean:812  cited line: theorem derivedOI_qm_iff_layerFlowExecutable [Nonempty S] (T : FiniteOperationalTheory S)
+    citing: | I4.56 | M | HARMLESS | LayerFlowExecutable; [D] BridgeAvailFull latticeTheory_not_layerFlowExecutable | with DerivedOI: QM <-> LayerFlowExecutable [K] LiftAudit.lean:81
+    citing: ['with DerivedOI: QM <-> LayerFlowExecutable [K] LiftAudit.lean:812', 'QM']),
+UNMATCHED MicroscopicReversibility.lean:189  cited line: theorem kraus_of_conj_unitary {ι : Type} [Fintype ι] (K : ι → Matrix S S ℂ)
+    citing: MicroscopicReversibility.lean:189). So if a unitary `V`'s conjugation is available at a carrier, some nonzero
+UNMATCHED MicroscopicReversibility.lean:283  cited line: theorem inverseAccessibility_of_generated_daggerStable [Nonempty A]
+    citing: | I4.127 | M | SAT | [D] BridgeAvailFull latticeTheory_inverseAccessibility (kernel, MicroscopicReversibility.lean:283) | - |
+    citing: 'I4.127': ('M', 'holds', D + ' latticeTheory_inverseAccessibility (kernel, MicroscopicReversibility.lean:283)', []),
+UNMATCHED OperationalAssembly.lean:594  cited line: structure FiniteOperationalTheory (A : Type*) [Fintype A] [DecidableEq A] where
+    citing: predicate over the kernel's `genTheory` / `InstAvail` (OperationalAssembly.lean:594 `FiniteOperationalTheory`;
+UNMATCHED RouteB.lean:279  cited line: noncomputable abbrev substratumTheory (A : Type) [Fintype A] [DecidableEq A] :
+    citing: (StructuralClosure.lean:180; the substratum theory of RouteB.lean:279, whose phase intervention PhaseSource.lean
+UNMATCHED StateMixingCoupling.lean:13  cited line: angles of `D` under the architecture operations and relabelling; `MixC` is the class at every
+    citing: :236) and for `permClass` together with the quarter phase on any configuration (StateMixingCoupling.lean:13, the
+UNMATCHED StructuralClosure.lean:180  cited line: def substratumClass : ImplementationClass := fun _ _ _ K => IsMonomial K
+    citing: (StructuralClosure.lean:180; the substratum theory of RouteB.lean:279, whose phase intervention PhaseSource.lean
+UNMATCHED SubstratumInterfaceAudit.lean:358  cited line: theorem permClass_contextStable : ContextStable permClass :=
+    citing: | I4.29 | M | SAT | [D] BridgeAvailFull latticeClass_contextStable (for permClass [K] SubstratumInterfaceAudit.lean:358) | - |
+    citing: 'I4.29': ('M', 'holds', D + ' latticeClass_contextStable (for permClass [K] SubstratumInterfaceAudit.lean:358)', []),
+UNMATCHED SubstratumInterfaceAudit.lean:660  cited line: theorem permTheory_sourcedOI : SourcedOI (permTheory A) :=
+    citing: | B14-2 | **B14, decided in form (ii).** No derivation of the availability of `actT R_z(θ₀)` (`cos θ₀ = 3/5`) or of `actT J` on the pair — or on the token — exists from t
+UNMATCHED SubstratumInterfaceAudit.lean:674  cited line: theorem permTheory_diagonal_only_scalar {n : ℕ} {d : A × Fin n → ℂ}
+    citing: (SubstratumInterfaceAudit.lean:674) in another form; with the quarter phase adjoined (the kernel's own
+UNMATCHED SubstratumInterfaceAudit.lean:769  cited line: noncomputable abbrev obsTheory : FiniteOperationalTheory 𝒮.Conf :=
+    citing: (I1.59: `obsTheory 𝒮 = permTheory 𝒮.Conf`, SubstratumInterfaceAudit.lean:769), lands in the stated access: its
+UNMATCHED SubstratumInterfaceAudit.lean:779  cited line: theorem obsTheory_rule_independent (ι V : Type) [DecidableEq ι] [AddCommGroup ι] [AddCommGroup V]
+    citing: SubstratumInterfaceAudit.lean:779) and the realization of the core (I1.43).
+UNMATCHED TransitiveBody.lean:109  cited line: theorem chartBody_isCompact : IsCompact (chartBody C) :=
+    citing: `not_infiniteOrderOn_chartBody_of_binary` in run 38091462366, composed with the landed TransitiveBody.lean:109, :80,
+UNMATCHED TransitiveBody.lean:602  cited line: theorem exists_affine_image_eq_eball (hd : 0 < d) {Ω : Set (Fin d → ℝ)} (hc : IsCompact Ω)
+    citing: family is boundary transitive or has a dense boundary orbit (TransitiveBody.lean:602, DenseOrbit.lean:174,
+SUMMARY supp: 63 citations; window names an identifier of the citing line: 33; unmatched: 30

@@ -1,0 +1,65 @@
+RESOLVED+NAMED CompositionOrder.lean:378 ['not_stagePreserving_of_infiniteOrderOn']
+RESOLVED+NAMED OperationalAssembly.lean:658 ['readout_is_localLuders']
+RESOLVED+NAMED MicroscopicReversibility.lean:251 ['InstAvail', 'exists_scaled_mem_of_instAvail_unitary']
+RESOLVED+NAMED OperationalAssembly.lean:594 ['FiniteOperationalTheory']
+RESOLVED+NAMED ImplementationLocality.lean:268 ['InstAvail']
+RESOLVED KInfFoundations.lean:416 (no identifier named on the citing lines)
+RESOLVED+NAMED ImplementationLocality.lean:909 ['InstAvail']
+RESOLVED+NAMED ImplementationLocality.lean:530 ['realized_of_instAvail']
+RESOLVED+NAMED MicroscopicReversibility.lean:189 ['V']
+RESOLVED-UNNAMED StateMixingCoupling.lean:13 names ['permClass'] not in window: angles of `D` under the architecture operations and relabelling; `MixC` is the class at ev
+RESOLVED StructuralClosure.lean:180 (no identifier named on the citing lines)
+RESOLVED RouteB.lean:279 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:769 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:674 (no identifier named on the citing lines)
+RESOLVED+NAMED StateMixingCoupling.lean:463 ['ContextStable', 'derivedOI_of_stated']
+RESOLVED+NAMED ImplementationLocality.lean:789 ['instAvail_spectator']
+RESOLVED+NAMED AncillaClosure.lean:461 ['discardWith_uniform_conjChannel']
+RESOLVED+NAMED RouteB.lean:380 ['DerivedOICore', 'substratumTheory_derivedOICore']
+RESOLVED+NAMED DiscreteCompletion.lean:1890 ['DiscreteCompletion.mixR_singleton_contextStable', 'mixR_singleton_contextStable']
+RESOLVED SubstratumInterfaceAudit.lean:779 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:305 (no identifier named on the citing lines)
+RESOLVED+NAMED KInfFoundations.lean:449 ['ball3Drive', 'rot3']
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:660 ['SourcedOI', 'permTheory']
+RESOLVED-UNNAMED ImplementationLocality.lean:644 names ['ContextStable', 'DerivedOI', 'PairAvailAt', 'SourcedOI', 'U_J', 'mixEmpty_derivedOI'] not in window: theorem instAvail_transport (hl : LabelInvariant 𝓘) {T : Type} [Fintype T] [DecidableEq T]
+RESOLVED ImplementationLocality.lean:943 (no identifier named on the citing lines)
+RESOLVED ReferenceExtension.lean:474 (no identifier named on the citing lines)
+RESOLVED SpectatorBridge.lean:233 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:358 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:1070 (no identifier named on the citing lines)
+RESOLVED LiftAudit.lean:812 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:211 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:223 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:110 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:200 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:217 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:440 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:957 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:127 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:207 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:388 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:529 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:569 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:642 (no identifier named on the citing lines)
+RESOLVED PositivePackage.lean:55 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:283 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:114 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:357 (no identifier named on the citing lines)
+RESOLVED SubstratumSource.lean:109 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:430 (no identifier named on the citing lines)
+RESOLVED PairFlowEquivalence.lean:190 (no identifier named on the citing lines)
+RESOLVED LieRankSource.lean:543 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:686 (no identifier named on the citing lines)
+RESOLVED-UNNAMED DiscreteCompletion.lean:1929 names ['denseUnitaryControl_of_fixedGate'] not in window: theorem fixedGateTheory_derivedOI (α : ℝ) : DerivedOI (fixedGateTheory α) :=
+RESOLVED DiscreteCompletion.lean:1948 (no identifier named on the citing lines)
+RESOLVED+NAMED BoundaryAudit.lean:100 ['psdFactorization_discharged']
+RESOLVED TransitiveBody.lean:602 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:174 (no identifier named on the citing lines)
+RESOLVED+NAMED JordanClassification.lean:84 ['psd_iff_trace_nonneg']
+RESOLVED-UNNAMED TransitiveBody.lean:109 names ['not_infiniteOrderOn_chartBody_of_binary'] not in window: theorem chartBody_isCompact : IsCompact (chartBody C) :=
+RESOLVED CompletionAction.lean:352 (no identifier named on the citing lines)
+RESOLVED CompositionOrder.lean:149 (no identifier named on the citing lines)
+RESOLVED+NAMED DiscreteCompletion.lean:1861 ['DiscreteCompletion.mixR_singleton_daggerStable']
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:740 ['permTheory_realizesSealedOICore']
+SUMMARY bridge: 63 distinct citations in added lines since 7abe4da4; resolved 63; named-and-found 19; unnamed 40
+CITATIONS-BRIDGE-FAIL

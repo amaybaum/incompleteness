@@ -1,0 +1,17 @@
+X1   PASS  |w|^2 = 1, w^4 = (-527/625+-336/625i); every nonzero multiple of diag(1, w) fails QuartEq; diag(1, i) satisfies it
+X2   PASS  U_J literal, unitary, two nonzero first-row entries, 2U_J = (1-i) X [[1,-1],[1,1]] S^3; Ad = actT cyc: True, Ad(1(x)diag(1,w)) = actT R_z(theta0): True, Ad(1(x)X) = actT nflip: True; (P) instance: True
+X3   PASS  (a) order 3072 on the lattice, excludes the two rays, contains 1(x)S: True; (b) kernel-faithful monomials order 6144, contains (a) and 1(x)S, excludes the two rays: True
+X4   PASS  Table A2: 199 rows, SATISFIES 118, NOT REACHED 68, FAILS 13; NOT REACHED ids = the fixed list: True; TALLY Q3 68/131: True; no-FAILS check present: True; r4_tables lists a SATISFIES line for each of the 13 K(Z_F)-FAILS ids: False
+CC3  evaluates False (must be False)  Table A2 has 67 NOT REACHED rows
+X5   PASS  rank 16; coordOf o dict = id; Ad(1(x)zPhase) = actT rotZ at three rational points; unitary partial permutations of one token: 2 = {1, X}; nflip permutes Z_F; <nflip, R_z(pi/2)> order 8, contains R_z(theta0): False; R_z(theta0) infinite order to 4000; PSD preserved; e01 moved
+CC4  evaluates False (must be False)  <actT nflip, actT R_z(pi/2)> contains actT R_z(theta0)
+X6   PASS  charts cover the products (80 exact cases); prodDet on the controlled-phase circle = 5e - 6, Re <= -1 at six exact points; block-diagonal SU(2)xSU(2) carries 30 random vectors to products; 7 < 8, d + 6 < 8 iff d <= 1
+X7   PASS  G384 modulo scalars: 384; orbit rays 192; overlaps over 18336 pairs in [25/2048, 13/16]; memberships {'CNOT': True, '1(x)Z': True, '1(x)S': True, '1(x)X': True}; 1/2 is not a rational square (zeta_8 not in Q(i))
+X8   PASS  n = 3 (V = 1(x)diag(1, zeta_8)): 192 of 192 orbit defects certified out of K, each by the projector onto V h_j in K* with pairing 1 - c* = -1/400; n = 2 (V = 1(x)S): 0 certified (positive control)
+CC5  evaluates False (must be False)  V = 1 certifies 0 defects out of K
+CC1  evaluates False (must be False)  the fourth-root lattice excludes 1 (x) diag(1, i)
+CC2  evaluates False (must be False)  1 (x) diag(1, w) satisfies QuartEq
+
+CHECKS: PASS ['X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'X8'] FAIL []
+COUNTERCONTROLS: [('CC3', False), ('CC4', False), ('CC5', False), ('CC1', False), ('CC2', False)]
+VERDICT INDEP-B4-FIXED

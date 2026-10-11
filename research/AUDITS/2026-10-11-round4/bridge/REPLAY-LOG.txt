@@ -1,0 +1,7 @@
+b14_preflight rc=0 2s stdout=IDENTICAL stderr=differs
+b14_fullmodel rc=1 0s stdout=DIFF stderr=differs
+b15_preflight rc=1 0s stdout=DIFF stderr=differs
+b16_preflight rc=0 0s stdout=IDENTICAL stderr=differs
+b17_tower rc=0 6s stdout=IDENTICAL stderr=differs
+b14_fullmodel rc=0 2s stdout=IDENTICAL (rerun from experiments/)
+b15_preflight rc=0 0s stdout=IDENTICAL (rerun from experiments/)

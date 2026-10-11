@@ -7,7 +7,7 @@ full-OI insufficiency kept apart; cone invariance and operational availability k
 | thread | round-4 head | receipts | replay | independent check | citations | audit note |
 |---|---|---|---|---|---|---|
 | `research/origin` | `7192e3b5` | HO-20, HO-22 at `8709fe41` | 3/3 identical (stdout) | `indep_checkO4.py` run 1: 8/8, countercontrols 5/5 False | 75/75 at L (three module-internal line references excluded; 14 window misses inspected by hand) | `AUDIT-ORIGIN-R4.md` |
-| `research/bridge` | in progress | | | | | |
+| `research/bridge` | `a34d20b5` | HO-9 v2, HO-17, HO-18, HO-19, HO-24, HO-25 at `d877be82` (12/12 inbox files identical) | 5/5 identical (stdout; two re-run from `experiments/`) | `indep_checkB4.py` run 1: 8/8, countercontrols 5/5 False; replay identical | 63/63 at L (40 unnamed on the citing line and 30 window misses inspected by hand; one chain defect, F1) | `AUDIT-BRIDGE-R4.md` (with the Lean statement review and finding F1 on two HARMLESS rows) |
 | `research/countermodels` | `644bf0a1` | HO-17, HO-18, HO-19, HO-21, HO-22, HO-23 at `217979fd` | 4/4 identical (stdout) | `indep_checkC4.py` run 1: 8/8, countercontrols 5/5; replay identical | 20/20 at L (four window misses inspected by hand) | `AUDIT-COUNTERMODELS-R4.md` (with the owner's three questions and the Lean statement review) |
 | `research/equivalence` | `ab6788b9` | HO-9 v2, HO-17, HO-20 … HO-26 at `46d5aea0` | 6/6 identical (stdout) | `indep_checkE4.py` run 2: 8/8, countercontrols 5/5 (run 1 kept: 7/8, one harness expectation wrong) | 84/84 at L (nine module-internal line references and the checker's own countercontrol string excluded; four window misses inspected by hand) | `AUDIT-EQUIVALENCE-R4.md` |
 
