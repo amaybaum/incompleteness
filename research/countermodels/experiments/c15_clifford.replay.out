@@ -1,0 +1,8 @@
+CHECK D0   PASS PC, PT, SGN equal the Lean text (CompositeDimension.lean:741-755 at L)
+CHECK G1   PASS closure of {cnot, actC cyc3, actT cyc3} as signed permutations -- order 11520
+CHECK G2   PASS Ad(CNOT), Ad(UJ (x) I), Ad(I (x) UJ) are cnot, actC cyc3, actT cyc3 (the lift maps onto G1)
+CHECK X1   PASS h's orbit: 11520 rays, no product, H1 at c = 100001/100000, no orthogonal pair and (CC) for every pair: K(G (I - cP_h)) is explicit given Theorem S' -- orbit 11520 rays; min det ratio 198406621629/9790484550625 (~20265e-6); s_min 164178929/3916193820250 (~41923e-9)
+COUNTERCONTROL CC1  PASS 4 phi0 = (1, 2, 3i, -1+i) has an exactly orthogonal ray in its orbit (S' unavailable for it) -- orbit 5760 rays
+CHECK EX   PASS no float in any recorded value
+summary: 6 checks, 0 failed
+VERDICT C15-CLIFFORD-EXACT: <cnot, actC cyc3, actT cyc3> has order 11520; the orbit of h has 11520 product-free rays with no orthogonal pair (s_min = 164178929/3916193820250); at c = 100001/100000 H1 and (CC) hold: an explicit invariant exotic cone given Theorem S'

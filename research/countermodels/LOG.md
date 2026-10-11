@@ -130,4 +130,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (CC2's search box); run 1 (01:04:27Z) 8/8 `VERDICT C14-FACIAL-EXACT`, replay identical (out `e1a26898…`). Results: the
   tangency bound `c ≤ 15 − k` (`≤ 14` on `K_circ`'s off-`Fix` defects); `c = 14` exactly on circle-surgery defects; T fails
   on the explicit continuum cones of C13; T on `K_circ` OPEN, reduced to the absence of smooth contact. RESULTS rows
-  C14.1–C14.4 appended. Commit: C14.
+  C14.1–C14.4 appended. Commit: C14 (`3394d6b6`, pushed).
+- 2026-10-11T01:10Z — extra node C15 (after the four listed nodes; C11.6 applied to the group of the bridge's "finite half"
+  as recorded in the overview, definition only; HO-12 not received and not relied on). Scratchpad exploration (numerical,
+  not evidence; `x15_cliff*.py`): small lattice seeds have exactly orthogonal pairs, large irregular seeds do not.
+  NOTES-C15 S0 written 01:07:47Z (`date -u`); `c15_clifford.py` decision rule 01:08:11Z; run 1 (01:08:57–01:09:11Z) 6/6
+  `VERDICT C15-CLIFFORD-EXACT`, replay identical (out `6cd53515…`). Results: order 11520 recomputed; an explicit exotic cone
+  for the native Clifford family (CONDITIONAL on S′ only); the continuous half's group has double transpositions (rank-one
+  route closed). RESULTS rows C15.1–C15.3 appended. Commit: C15.
