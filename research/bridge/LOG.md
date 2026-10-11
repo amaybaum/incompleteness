@@ -1143,3 +1143,86 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   commit `2c67f168` on; B21 extended beyond its S0 by a dated addendum before its script ran; job logs read as
   5000-line tails, not full logs; the census check run locally on the dispatch tree as evidence only. Nothing outside
   `research/bridge/` changed on this branch; no pull request; no CI job or run cancelled.
+
+## Round 6
+
+- 2026-10-11T15:13:55Z — round 6 opened at thread head `5ba9218e` (`git fetch origin research/bridge`: HEAD = origin/research/bridge
+  = `5ba9218eb17608015118131be4a3ddc14d8095cf`, clean tree). Own record re-read: README.md, LOG.md, RESULTS.md, NOTES-B14
+  (§8), NOTES-B18 … NOTES-B21, HP-bridge-15 … 18, `lean/*.lean`. Rules in force from this round (the directive's round-6
+  additions): this LOG is append-only (a correction is a new entry naming the entry it corrects); `\|` for a `|` in a
+  code span inside a Markdown table; every route from available operations to a limit names its closure premise and the
+  form of transfer it needs ((T)_𝓘 for unitaries, (T^ch)_𝓘 for channels) with the closedness of the cone it uses; every
+  result bearing on the transfer clause records the owner's four claims separately and never concludes the fourth from
+  the third. Not this thread's this round: B22, B23 and the S6 surface (the owner's record
+  `research/round6-transfer-sourcing`, not read).
+- 2026-10-11T15:24:01Z — **receipts (STEP 0).** `git fetch origin research/overview`: origin/research/overview =
+  `1325160c35ddb5b7a9f6f608cced0225a40401f1` (committed 2026-10-11 12:18:49Z). Copied into `inbox/` with
+  `git show 1325160c:research/HANDOFFS/<file>`, each `cmp`-identical to its source; blob and sha256 of each copy:
+  - HO-41 v1 (countermodels → equivalence, bridge; Theorem S′ compact form) blob `09d77949`, sha256
+    `1559c0984ef8acb2cfd3432112d889385666eabb27597326114193ee68fa5fd6` (58 lines);
+  - HO-42 v1 (countermodels → bridge, equivalence, origin; `G_T` obstructed for surgery cones, `c = 2` corrected) blob
+    `dc32b186`, sha256 `f12ce49200067e3fbc80e688209d69411fbd5b77215887288bf42d1cd3c48ac7` (88 lines);
+  - HO-43 v1 (equivalence → bridge, origin; `ReachPure` derived, `K = Q3 ↔ H2 ∧ A_miss` given H1, H3) blob `9473c660`,
+    sha256 `2b66cf113ed9402d79d6b500bc4f4267627640ab0686acd56251ed110e8ba12b` (73 lines);
+  - HO-45 v1 (origin → bridge, equivalence, countermodels; the generated group of the stated access, exact against
+    dense, the channel limit) blob `e72ce580`, sha256 `8aa5a61a9dfb8ce21a211917951c3d2da216101a9da91737464f610927cff301`
+    (114 lines).
+
+  Nothing in these four is CERTIFIED except the kernel lines they cite; every item is used at its own label, and the
+  "may not assume" clause of each is honoured. Reliance, handoff by handoff and item by item (what is used, where, at
+  which label; an item not named is context only):
+  - **HO-41 v1.** Item 1 (Theorem S′ for compact defect families, `CmSprimeCompact.lean`, CONJECTURE [D], run
+    38131214451, 38/38 standard): relied on only in B26, if reached, as the H3 engine for a compact defect family, at
+    CONJECTURE [D]. Item 2 (closedness of `cone Z` for compact `Z`, [W]; Carathéodory [L]): context. Item 3 (the circle
+    cones C13.5, C13.7, `Kk` meet `theorem_Sprime_compact_ineq`; labels CONDITIONAL): context; if B24 names one of them
+    as a P-level cone, at CONDITIONAL. Not assumed: certification; item 2 machine-checked; the necessity of (CC);
+    extremality of the defects; H1 for any cone; any OI content; availability of any operation.
+  - **HO-42 v1.** Items 1–6 at their labels, item 3 as corrected by the coordinator (F-C5-1): relied on in B26 as the
+    state of the explicit-cone question for the tower's closure `G_T` (universal orthogonal pair, CONDITIONAL; rank-one
+    route closed for `c ∈ (1, 2)` and no `G_T`-orbit admissible for H1 at `c = 2`, so no residual, CONDITIONAL; the
+    balanced engine certifies nothing on a `G_T`-orbit, CONDITIONAL; node outcome OBSTRUCTED for surgery-type cones;
+    the certificate `c23_certificate.json`, checked independently by the coordinator). The two assumption-watch markers
+    are adopted as stated (a closed cone invariant under a dense subgroup is invariant under its closure only with H3's
+    closedness, named wherever used). Not assumed: anything certified or kernel-checked; that no exotic `G_T`-invariant
+    cone exists; that balanced surgeries are non-self-dual; the proposal's Bell-circle statements as statements about
+    `G_T`; availability of any operation of `G_T`.
+  - **HO-43 v1.** Item 2 (given H1 and H3, `K = Q3 ↔ (H2 ∧ A_miss)`, each direction its own design theorem; CONJECTURE)
+    relied on in B24 as the invariance-side boundary: a P-level cone with H1–H3 that fails (b) for the drive's flow and
+    its off-frame partner is not `Q3`, and conversely. Item 5 (`aMiss_of_transferClause`: the transfer clause for a
+    class whose admissible one-token matrices include the drive unitaries gives A_miss; CONJECTURE [D]) relied on in B24
+    as the statement that (T) for such a class carries (b). Item 6 (classification: H1 is the products clause of I3.43,
+    assumed; H2 I3.148, H3 I3.149 and A_miss introduced) adopted as the classification of those hypotheses. Items 1, 3, 4
+    context. Not assumed: that the transfer clause, OpDrive(θ₀), H2, H3 or A_miss is an OI premise or sourced; that
+    invariance gives availability; certification, or that S6 or any preregistration became a round; that the
+    finite-order insufficiency extends to OI with continuous control.
+  - **HO-45 v1.** Items 1, 3 and 5 as the exact-reading boundary of any drive premise (availability), at CONDITIONAL;
+    item 1's characterization of the available channels of the stated access and FM (every Kraus operator a positive
+    multiple of a partial monomial with `μ₄` entries, [W] + [X]) relied on in B24, if a model there carries the channel
+    form of the transfer, at its label CONDITIONAL ([W]); item 4 (`opDrive_of_qm` [D]) context for the four-claims
+    table. Items 6 and 7 (the balanced-angle channel limit; the candidate premise set with (T^ch)_𝓘) are B23's and are
+    not used here. Items 2, 8, 9 context. Not assumed: kernel status for any [D] declaration, for item 5's valuation
+    argument, for item 6's protocol or for O9-L1; that item 6 makes the drive available, or serves the bridge's cones
+    without the channel form of the transfer and closedness; the exact orders at every level; the fixed gate at θ₀
+    through dilations; that (T)_𝓘 or (T^ch)_𝓘 is supplied, or needed for QM; availability from cone invariance.
+- 2026-10-11T15:24:01Z — read-only reads of research/overview @ `1325160c` (authorized by the round-6 directive; saved to
+  the session scratchpad, nothing copied into this branch), sha256 of what was read:
+  - `research/AUDITS/2026-10-11-round5/AUDIT-BRIDGE-R5.md` (blob `4c101d75`, 187 lines)
+    `6e7114e2e7befd88f866f13a7b35aa64b432f604ed52d644a96159904091e5a1`: no label changes; F1 (round 4) closed in design;
+    F-B5-1 (the absence of an M→P theorem at L is not an independence result; the full-model status of (T) is OPEN with
+    (b)'s); §9 (the transfer clause: an explicit third assumption of B20; necessary for that construction, verified;
+    not shown necessary for any derivation of quantum equivalence; whether the complete framework implies it OPEN); §11
+    carried to round 6 (the full-model independence of (b) and (T); the fixed-point instances of I4.56 and I2.34 for FM;
+    B21's open routes).
+  - `research/HANDOFFS/HO-33-v2-…` (blob `f3292240`) `17e217fa00fb4b7dc1bd0efbefb8b69fd1ce6da24698978ccba0c22213d58795`;
+    HO-37 (blob `ea15ac7a`) `e1daa4503eca9e31a51e7ff8ed7d02a381fa2ce9a006af1cf58bcc25f5fe2ff3`; HO-38 (blob `e99bb756`)
+    `867dbacd05557d3bcfbe77134e319213c12112ce95b9143b58883abf4f72012d`; HO-39 (blob `ed856ba2`)
+    `2fc5103f52ccfa80bc69f7e6b5dbe0017753a7daf5b57e48915194f9a0c54f27`; HO-40 (blob `b9d294bd`)
+    `8aaed02fcca73825383187bc6ad1615d4617ead367c89cb3339ca783bafe427e` — this thread's round-5 results as routed (HO-37 …
+    HO-40) and HO-33's scope correction (v2: "independent of every row of Table A2 that does not itself imply composite
+    unitary control or QM", not of the inventory as a whole, I4.60 implying the drive), read for numbering and scope; not
+    copied (not addressed to this thread for receipt).
+  - `research/OVERVIEW.md` (blob `a5ea093a`, 1179 lines, sha256
+    `2346f6ad7c6b96691bae3bff9d75a4c2ef62c33a723001546536a88e4960ea64`): the round-6 section, lines 1126–1179, read; the
+    file's heading list (a `grep` of its `##`/`###` lines) was printed to locate that section, and nothing else of it was
+    read. The overview lists B25 as both the fixed-point instances and the tower's closure; this round's directive
+    splits them (B25 the fixed-point instances, B26 the tower's closure), and the directive's numbering is used.
