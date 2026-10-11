@@ -1,0 +1,18 @@
+indep_checkB5 — run history (coordinator, round 5, research/bridge)
+
+Decision rule fixed in the script header before run 1 (2026-10-11, ~10:20Z): INDEP-B5-FIXED iff Z1–Z12 PASS and
+CC1–CC7 evaluate False.
+
+Design exploration before run 1 (kept: explore_J_family.py): the two-term Bell family of Z8 is empty for U_J (the image
+of each Bell vector has overlap 1/4 with every Bell vector); the image-ray member was added to Z8's family before run 1.
+
+Run 1 (10:21:58Z; script kept as indep_checkB5.run1.py, output as indep_checkB5.run1.out/.err): Z1–Z7, Z9–Z12 PASS,
+CC1–CC7 False, Z8 FAIL -> INDEP-B5-FAILED Z8.  Defect (harness): psi_s was taken as the archive's formula
+(1, s1 s2, s1, -s2)/2, which belongs to the opposite tensor-factor order from this script's dictionary
+dict(w) = (1/4) sum w_mn sigma_m (x) sigma_n; so dict(e_s) = (1 - 2 P_s)/8 failed, and the image-ray member of the
+family (built from that psi_s) was not the defect's image.  The 8 R_z(theta0) certificates of run 1 were valid
+(their Z* membership and pairings were computed against dict(e_t) directly).
+
+Run 2 (10:24:15Z; this script): psi_s computed exactly as the unit vector spanning ker(dict(e_s) + 1/8) (it is
+(1, 1, -1, 1)/2 for s = (1, 1): the archive's vector with the two middle coordinates exchanged).  Z1–Z12 PASS,
+CC1–CC7 False -> VERDICT INDEP-B5-FIXED.  Replay identical (indep_checkB5.replay.out).

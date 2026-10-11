@@ -1,0 +1,62 @@
+RESOLVED+NAMED SubstratumInterfaceAudit.lean:236 ['permClass']
+RESOLVED StateMixingCoupling.lean:13 (no identifier named on the citing lines)
+RESOLVED+NAMED LiftAudit.lean:812 ['DerivedOI', 'LayerFlowExecutable', 'SubstratumAvail', 'derivedOI_qm_iff_layerFlowExecutable']
+RESOLVED+NAMED LiftAudit.lean:660 ['a', 'gateFlow_isolation']
+RESOLVED+NAMED ImplementationLocality.lean:395 ['conjChannel_smul']
+RESOLVED MinimalRepertoire.lean:423 (no identifier named on the citing lines)
+RESOLVED+NAMED MinimalRepertoire.lean:529 ['IteratedAncillaClosure', 'PhaseFreeRichness', 'control_of_phaseFree']
+RESOLVED+NAMED RouteB.lean:161 ['derivedOI_qm_iff_phaseFree']
+RESOLVED-UNNAMED LieRankSource.lean:209 names ['PhasesAvailable'] not in window: def phaseGate (a : S) : Matrix S S ℂ := Matrix.diagonal fun p => if a = p then Complex.I e
+RESOLVED-UNNAMED RouteB.lean:128 names ['DerivedOI', 'avail_conj_mul', 'latticeTheory_derivedOI', 'signDiag_avail_of_phases'] not in window: def PhasesAvailable (T : FiniteOperationalTheory A) : Prop :=
+RESOLVED+NAMED LiftAudit.lean:770 ['avail_conj_mul']
+RESOLVED-UNNAMED RouteB.lean:123 names ['DerivedOI', 'PhaseFreeRichness', 'SubstratumAvail', 'avail_conj_mul', 'conjChannel_smul', 'control_of_phaseFree'] not in window: def ExchangesAvailable (T : FiniteOperationalTheory A) : Prop :=
+RESOLVED+NAMED RouteB.lean:153 ['closure_of_embeddedObservation']
+RESOLVED+NAMED EmbeddedObservation.lean:211 ['closure_of_embeddedObservation']
+RESOLVED+NAMED LiftAudit.lean:117 ['layerFlowExecutable_of_control']
+RESOLVED+NAMED PhysicalCharacterization.lean:301 ['physical_of_exactAll']
+RESOLVED+NAMED ImplementationLocality.lean:789 ['InstAvail', 'instAvail_spectator']
+RESOLVED+NAMED SpectatorBridge.lean:357 ['transport_conjChannel']
+RESOLVED ImplementationLocality.lean:285 (no identifier named on the citing lines)
+RESOLVED+NAMED MinimalRepertoire.lean:495 ['discardWith_uniform_conjChannel', 'discard_tensorOf_one']
+RESOLVED+NAMED AncillaClosure.lean:461 ['discardWith_uniform_conjChannel']
+RESOLVED+NAMED MicroscopicReversibility.lean:251 ['exists_scaled_mem_of_instAvail_unitary']
+RESOLVED+NAMED MicroscopicReversibility.lean:238 ['UnitaryRaySaturated']
+RESOLVED+NAMED DiscreteCompletion.lean:1948 ['fixedGateTheory_not_qm']
+RESOLVED-UNNAMED ImplementationLocality.lean:644 names ['discardWith_uniform_conjChannel', 'pairAvail_iff_tokenAvail'] not in window: theorem instAvail_transport (hl : LabelInvariant 𝓘) {T : Type} [Fintype T] [DecidableEq T]
+RESOLVED SecondOrderCircuit.lean:710 (no identifier named on the citing lines)
+RESOLVED SecondOrderCircuit.lean:352 (no identifier named on the citing lines)
+RESOLVED LiftAudit.lean:47 (no identifier named on the citing lines)
+RESOLVED LiftAudit.lean:51 (no identifier named on the citing lines)
+RESOLVED LieRankSource.lean:199 (no identifier named on the citing lines)
+RESOLVED ReachabilitySeam.lean:95 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:943 (no identifier named on the citing lines)
+RESOLVED ReferenceExtension.lean:474 (no identifier named on the citing lines)
+RESOLVED SpectatorBridge.lean:233 (no identifier named on the citing lines)
+RESOLVED SubstratumInterfaceAudit.lean:358 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:1070 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:223 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:110 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:200 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:217 (no identifier named on the citing lines)
+RESOLVED CompletedOI.lean:440 (no identifier named on the citing lines)
+RESOLVED ImplementationLocality.lean:957 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:127 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:207 (no identifier named on the citing lines)
+RESOLVED EmbeddedObservation.lean:388 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:569 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:642 (no identifier named on the citing lines)
+RESOLVED PositivePackage.lean:55 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:283 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:114 (no identifier named on the citing lines)
+RESOLVED MicroscopicReversibility.lean:357 (no identifier named on the citing lines)
+RESOLVED SubstratumSource.lean:109 (no identifier named on the citing lines)
+RESOLVED MinimalRepertoire.lean:430 (no identifier named on the citing lines)
+RESOLVED PairFlowEquivalence.lean:190 (no identifier named on the citing lines)
+RESOLVED StateMixingCoupling.lean:463 (no identifier named on the citing lines)
+RESOLVED LieRankSource.lean:543 (no identifier named on the citing lines)
+RESOLVED LiftAudit.lean:783 (no identifier named on the citing lines)
+RESOLVED MonoidalCompletion.lean:193 (no identifier named on the citing lines)
+RESOLVED ReferenceExtension.lean:91 (no identifier named on the citing lines)
+RESOLVED OperationalAssembly.lean:492 (no identifier named on the citing lines)
+SUMMARY bridge: 60 distinct citations in added lines since a34d20b5; resolved 60; named-and-found 18; unnamed 38
+CITATIONS-BRIDGE-FAIL

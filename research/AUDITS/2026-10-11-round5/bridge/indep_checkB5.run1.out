@@ -1,0 +1,23 @@
+Z1   PASS  5 fixed-point-free carriers, 48 (a, enumeration) cases: involution without fixed points, phaseFun = 1/q constant, isolation identity exact, G D G D = q * flow
+Z2   PASS  every sign diagonal = product of squared quarter phases; phaseGate^4 = 1
+Z3   PASS  phases: True, exchanges: True, derivedOI: True, pfr_exchange_distinct: True, smul: True, conj_mul_no_sub: True, diagonal_avail_needs_sub: True, phaseFree_of_layerFlowExecutable_needs_sub: True, derivedOI_qm_iff_layerFlowExecutable_needs_sub: True
+Z4   PASS  Fin 3 swap(0,1): kernel identity True; phaseFun constant False; ratio at (0,0) q, at (2,2) 1
+CC1  evaluates False (must be False)  phaseFun is constant on the Fin 3 carrier
+Z5   PASS  discard over a uniformly attached two-level ancilla returns V rho V^* (n = 1, 2, three exact samples each); associator identity entrywise
+CC2  evaluates False (must be False)  the discard with the ancilla attached as 1_2 returns V rho V^*
+Z6   PASS  |w| = 1: True; w^4 = -527/625 - 336*I/625; w^k != 1 for k <= 1000: True; U_J unitary: True; U_J^3 = -1 * 1
+Z7   PASS  Ad(1 (x) diag(1, w)) = actT R_z(3/5, 4/5) and Ad(1 (x) U_J) = actT cyc on the 16 basis tables
+Z8   FAIL  dict(e_s) = (1 - 2 P_s)/8: False; certificates for R_z(theta0): 8 (min pairing -1/10, e.g. ((1, 1), ((-1, 1), (-1, -1), I), -1/10)); for J: 0 (min pairing None, e.g. None)
+CC3  evaluates False (must be False)  Ad(1 (x) 1) moves K(Z_F) within the family (0 certificates)
+CC4  evaluates False (must be False)  Ad(1 (x) X) moves K(Z_F) within the family (0 certificates)
+Z9   PASS  R_z(theta0)^k != 1 for k <= 1000: True; actT R_z(theta0) and actT cyc commute: False
+CC5  evaluates False (must be False)  actT R_z(theta0) commutes with actT cyc
+Z10  PASS  CNOT U(u,v) CNOT = U(u,-v): True; X_B U X_B = U(-u,-v): True; commute and involutive: True; 1 (x) diag(1, e^it) = e^(it/2) U(-t/2,-t/2): True; its CNOT conjugate e^(it/2) U(-t/2, t/2): True
+CC6  evaluates False (must be False)  CNOT U(u, v) CNOT = U(v, u) identically
+Z11  PASS  orthogonality identity symbolic: True; instance <h | diag(i,-i,1,1) X_B h> = 0
+Z12  PASS  determinant law symbolic: True; (2,1,1,0) product-free on the four components: True; (1,2,2,-4) reaches a product at diag(i,-i,1,1): True
+CC7  evaluates False (must be False)  the G-orbit of (2, 1, 1, 0) contains a product
+
+CHECKS: PASS ['Z1', 'Z2', 'Z3', 'Z4', 'Z5', 'Z6', 'Z7', 'Z9', 'Z10', 'Z11', 'Z12'] FAIL ['Z8']
+COUNTERCONTROLS: [('CC1', False), ('CC2', False), ('CC3', False), ('CC4', False), ('CC5', False), ('CC6', False), ('CC7', False)]
+VERDICT INDEP-B5-FAILED Z8

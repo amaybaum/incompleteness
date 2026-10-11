@@ -1,0 +1,9 @@
+thread bridge: 6 round-5 scripts between a34d20b5 and 5ba9218e; replay dir <scratchpad>/replays/bridge-replay/research/bridge/experiments/
+IDENTICAL b18_preflight.py (1s, 973 bytes)
+EXIT 1    b18_reclass.py (0s); stderr tail: ": '<scratchpad>/replays/bridge-replay/research/bridge/experiments/../../archive/pt/R6/REASSESSMENT.md'\n"
+IDENTICAL b19_preflight.py (15s, 492 bytes)
+IDENTICAL b20_bridge.py (2s, 732 bytes)
+IDENTICAL b21_ceq2.py (1s, 805 bytes)
+IDENTICAL b21_torus.py (7s, 1016 bytes)
+b18_reclass.py re-run (10:40:56Z): research/archive/pt/ and verification/lean-mathlib/OIBridge/ exported from 5ba9218e beside the experiments (the script reads them by relative path); stdout compared with the committed b18_reclass.out:
+IDENTICAL b18_reclass.py (13234 bytes; stderr empty: yes)

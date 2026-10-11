@@ -1,0 +1,37 @@
+# interruption descent checks, 2026-10-11T10:17:15Z
+## bridge @ 2c67f168
+IDENTICAL bridge:research/bridge/experiments/b18_reclass.out
+IDENTICAL bridge:research/bridge/experiments/b18_reclass.py
+IDENTICAL bridge:research/bridge/experiments/b18_reclass.replay.out
+IDENTICAL bridge:research/bridge/experiments/b18_reclass.run1.err
+IDENTICAL bridge:research/bridge/experiments/b18_reclass.run1.out
+IDENTICAL bridge:research/bridge/experiments/b18_reclass.run1.py
+IDENTICAL bridge:research/bridge/experiments/b21_torus.err
+IDENTICAL bridge:research/bridge/experiments/b21_torus.out
+IDENTICAL bridge:research/bridge/experiments/b21_torus.py
+IDENTICAL bridge:research/bridge/experiments/b21_torus.replay.err
+IDENTICAL bridge:research/bridge/experiments/b21_torus.replay.out
+IDENTICAL bridge:research/bridge/experiments/b21_torus.run1.err
+IDENTICAL bridge:research/bridge/experiments/b21_torus.run1.out
+IDENTICAL bridge:research/bridge/experiments/b21_torus.run1.py
+IDENTICAL bridge:research/bridge/experiments/b21_torus.run2.err
+IDENTICAL bridge:research/bridge/experiments/b21_torus.run2.out
+IDENTICAL bridge:research/bridge/experiments/b21_torus.run2.py
+## countermodels @ 114fc688
+CHANGED   countermodels:research/countermodels/LOG.md recorded 918a15bfe750 committed 489b52f02d79; commits touching it since 08:00Z: ['114fc688 2026-10-11T10:13:52+00:00 research/countermodels: C', '23d32bc5 2026-10-11T08:19:58+00:00 research/countermodels: C']
+CHANGED   countermodels:research/countermodels/lean/CmSprimeCompact.lean recorded 5b447af0f9ee committed 2f12f6e86654; commits touching it since 08:00Z: ['114fc688 2026-10-11T10:13:52+00:00 research/countermodels: C', '23d32bc5 2026-10-11T08:19:58+00:00 research/countermodels: C']
+ABSENT    countermodels:research/countermodels/NOTES-C23.md at 114fc688
+IDENTICAL countermodels:research/countermodels/lean/CmSprimeCompact.run38124380741.lean
+PREFIX-MATCH research/countermodels/LOG.md at 114fc688: first 556 of 603 lines (63670 of 68863 bytes); appended after: 5193 bytes
+dev-countermodels/c22-compact module sha256: 6cb76f96 d24b7ea86b3d1aee4f4c8d8849108fd2fbbe598b2159298a05772034f1cfa017 (= run38124380741 copy), e4ef2e46 5b447af0f9eeeab46ed7cbe6576707d65fa6b76081d88d40a4e84c588ef84337 (= recorded), a69987bd 2f12f6e86654962bc8845f6f0311b80c616cc2104d5ace6179f21212eccffc65 (= committed at 114fc688)
+parents: a69987bd -> e4ef2e46, e4ef2e46 -> 6cb76f96
+## origin @ 9893930e
+CHANGED   origin:research/origin/LOG.md recorded 63409ae3a284 committed d36214476413; commits touching it since 08:00Z: ['9893930e 2026-10-11T10:12:51+00:00 research/origin: O14 open']
+IDENTICAL origin:research/origin/NOTES-O14.md
+SKIP      dev-origin-drive:verification/lean-mathlib/OIBridge.lean (no ref given)
+SKIP      dev-origin-drive:verification/lean-mathlib/OIBridge/BridgeAvail.lean (no ref given)
+SKIP      dev-origin-drive:verification/lean-mathlib/OIBridge/BridgeAvailFull.lean (no ref given)
+SKIP      dev-origin-drive:verification/lean-mathlib/OIBridge/OriginAngle.lean (no ref given)
+SKIP      dev-origin-drive:verification/lean-mathlib/OIBridge/OriginDrive.lean (no ref given)
+SKIP      dev-origin-drive:verification/lean-mathlib/OIBridge/OriginTokenOrder.lean (no ref given)
+PREFIX-MATCH research/origin/LOG.md at 9893930e: first 126 of 129 lines (81983 of 84526 bytes); appended after: 2543 bytes
