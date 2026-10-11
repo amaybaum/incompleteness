@@ -909,7 +909,7 @@ repair Build green in design run 38162504147, all seven axiom reports standard, 
   research and PR sequence. Prospective registration `78aa5b25`; checker 17/17 PASS, deterministic replay;
   repair `13ad14a1`, Build green with seven standard axiom reports and 6136-result axiom census, release gate
   red only for the twelve undispositioned design modules. The expanded block-cone control fails product-effect
-  positivity and is not a full OI countermodel. OI-CHANNEL-1 is the first bounded native audit PR draft into main (PR 808, draft head `f8efc99f`);
+  positivity and is not a full OI countermodel. OI-CHANNEL-1 is the first bounded native audit PR draft into main (PR 808, draft head `a5aad0c1`);
   exact-head F/E attestations and the owner's designations remain required. No main merge or premise adoption.
 
 ## Round 3 — nodes handed to the threads (2026-10-10; closed 2026-10-11, audited)
@@ -1252,7 +1252,7 @@ closedness of K; LIMCLOSE-C is needed only if exact availability of the limit is
 never does. Broader channel transfer and the sources of H2, H3 and A_miss remain OPEN. The cone controls
 are scoped separately and cannot be promoted to full-model counterexamples.
 
-The first native main package is OI-CHANNEL-1 (PR 808, draft head `f8efc99f`): the exact operational evidence and its bounded dependency
+The first native main package is OI-CHANNEL-1 (PR 808, draft head `a5aad0c1`): the exact operational evidence and its bounded dependency
 reading. Its draft changes only its preregistration. Execution adds the frozen checker, control script,
 CI shard and result note after an exact-head all-green F run and the owner's F designation. A subsequent
 conditional-pair proof should check whether cone structure plus the product-effect maxCone upper bound
