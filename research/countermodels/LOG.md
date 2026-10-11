@@ -697,3 +697,73 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     and explored C24 before the narrowing; none is evidence. (5) The session was stopped by a usage limit 08:35Z–10:06Z; the
     trailer changed at 10:07Z. (6) One committed LOG heading carries a time placeholder, corrected by the 10:44Z note.
     (7) C24 and C25 were not done (owner's narrowing).
+
+## Round 6
+
+- 2026-10-11T15:14:21Z — round 6 session start (first `date -u` reading of the session). `git fetch origin
+  research/countermodels`; HEAD = origin/research/countermodels = `c9ac75bd51f2c7be201f21083be866e92269dfa3` (the round-5
+  head), tree clean. Re-read README, LOG, RESULTS, NOTES-C22, NOTES-C23, HP-countermodels-10, HP-countermodels-11 and the
+  `lean/` texts (`CmSprime.lean` `a10f4790…`, `CmSprimeCompact.lean` `2f12f6e8…`: headers, the engine `selfDual_of_local`,
+  `theorem_Sprime`, `theorem_Sprime_compact` and its two forms; the three failed texts by hash only). No C24/C25 S0 stub
+  exists (rows C24.0, C25.0; LOG 10:43Z). Round-6 rule additions applied from this entry on: (i) this LOG is append-only
+  from `c9ac75bd` — a correction is a new entry naming the entry it corrects; (ii) a `|` inside a code span in a Markdown
+  table is written `\|`; (iii) every route from available operations (or from a dense subgroup) to a limit names its
+  closure premise and the form of transfer it needs, with the closedness of the cone it uses; (iv) results bearing on the
+  transfer clause record the owner's four claims separately.
+- 2026-10-11T15:15:44Z — **receipts** (overview `1325160c35ddb5b7a9f6f608cced0225a40401f1`, fetched; `git ls-tree` for the
+  exact names), copied byte-identical into `inbox/` (`git show 1325160c:research/HANDOFFS/<file>`; sha256 of each copy
+  equal to its blob's, checked at 15:15:44Z): **HO-33 v2** (blob `f3292240…`, sha256 `17e217fa00fb4b7d…`), **HO-39 v1**
+  (`ed856ba2…`, `2fc5103f52ccfa80…`), **HO-40 v1** (`b9d294bd…`, `8aaed02fcca73825…`), **HO-44 v1** (`70a888f7…`,
+  `1e3d32d8ad689a3b…`), **HO-45 v1** (`e72ce580…`, `8aa5a61a9dfb8ce2…`). Nothing in them is CERTIFIED; reliance, item by
+  item, only at the labels they carry, and every "may not assume" clause honoured:
+  - **HO-33 v2** (replaces v1's item 2 and its correction item; v1's items 1, 3–6, markers and may-not-assume list, as
+    received in round 5 (LOG 07:33:17Z), stand). Item 2 (v2) — relied on as a **scope marker** only: every countermodel
+    row of this round states its scope as "Table A2's rows" (the 199 applicable items of the stage-6 inventory at L), not
+    the inventory as a whole; I4.60 `SubstratumAvail` (level H, "bearing: none at L", outside Table A2; read in
+    `research/archive/pt/I4/INVENTORY.md` at its record) is named where relevant as an inventory item not checked against
+    any cone here. FM's availability verdict and the two rows moved to a design chain are not used (this thread computes
+    invariance). Not assumed: "independent of the stage-6 inventory" without "relative to Table A2's rows";
+    certification; any census disposition; anything on v1's may-not-assume list.
+  - **HO-39 v1**. Item 3 (K(Z_F) as the counterexample that keeps (T) in the bridge's construction) — recorded as context;
+    it agrees with this thread's C1/C21 (K(Z_F) is moved by `actT R_z(θ₀)` and `actT J`); no row here rests on the
+    bridge's derived half. Item 4 (exact availability, not density: passing from a dense family to invariance needs a
+    closed cone, H3, and continuity, and gives invariance only) — relied on as the form in which rule (iii) is applied to
+    C23's closure step (STEP 1). The four-claims table — relied on as the template of rule (iv) for any round-6 result
+    that bears on the transfer clause. Items 1, 2, 5, 6 (availability; the derived half; exclusion; disguise test) — not
+    used. Not assumed: certification; (T) for `{R_z(θ₀), J}` from the data without (T)_𝓘; that OpDrive(θ₀) or the
+    transfer clause is necessary for QM; that any alternative generating set is dense at a level; that any inventory item
+    at L implies either datum; an equivalence between the data and the invariances.
+  - **HO-40 v1**. Item 1 (B21-1: the group in `U(u, v)` coordinates; orthogonal pairs; "no `G`-orbit is maximally
+    entangled throughout") and item 2 (B21-2: no self-dual rank-one surgery with H1) — used as an independent
+    corroboration of the F-C5-1 correction, not as premises: STEP 1's corrected statement is re-derived and re-checked here
+    by its own exact script and compared with them. Item 3 (what remains: defects of rank ≥ 2, an unattained supremum of
+    `c`, non-surgery constructions) — the residual list for C26. Not assumed: a kernel check; an exotic `G`-invariant
+    cone; anything about rank-two or non-surgery constructions; that `G` is, or is not, conjugate to a subgroup of `G_B`.
+  - **HO-44 v1**. Item 1 (`blockInvariant_of_drive`: the gate, the flow at every angle and `cycEquiv` give the
+    block-diagonal `SU(2) × SU(2)`, and with H1 and H3 `K = Q3`, CONJECTURE [D]) — recorded as the statement of where an
+    exotic cone must break; used in C25 and C26 only to name which part of the full clause a group or premise set lacks;
+    it agrees with this thread's C19-1 [W]; not a premise of any derivation here. Item 2 (S′'s hypotheses checked for
+    `K384`, `K768`, `KC` by the equivalence thread, CONJECTURE [X]) — recorded as an independent corroboration of the
+    inputs of C11.5, C19.3, C15.2; no label changes. Item 3 (design tools) — not used. Not assumed: certification; that a
+    cone surviving the finite-order parts says anything about OI with continuous control.
+  - **HO-45 v1**. Items 1, 5, 6 (FM's exclusion of the drive in the channel limit; `MixR {π/8}` dense without the drive;
+    `MixR {π/4}`, where the drive is a limit of available channels and never available) — recorded as the availability
+    models addressed to this thread; **no round-6 node takes them up** (the node list is fixed) and no row cites them.
+    Item 7 (the channel form (T^ch)_𝓘 and closedness of `K` for the limit route) — relied on as the formulation of rule
+    (iii): this thread's routes are from invariance under a dense subgroup to invariance under its closure (closure
+    premise: the cone is closed, H3), and no route from availability to a limit is taken here. Items 2–4, 8, 9 — not used.
+    Not assumed: kernel status of any [D] declaration, of item 5's valuation argument, item 6's protocol or O9-L1; that
+    item 6 gives the drive as available; that it serves pair cones without the channel transfer and closedness; the exact
+    orders at every level; anything through dilations; that (T)_𝓘 or (T^ch)_𝓘 is supplied or needed for QM; availability
+    from cone invariance, anywhere.
+- 2026-10-11T15:17:18Z — **authorized read-only reads at overview `1325160c`** (sha256 from `git show`):
+  `research/AUDITS/2026-10-11-round5/AUDIT-COUNTERMODELS-R5.md` (`60b65b2d2106b49d0d31feb8d3e26c078a1b6b5f7650d16f614b4970d0158cb5`;
+  lines 1–8 and 106–169, i.e. the header, §8 finding F-C5-1, §10, §12 — the contiguous range also displayed §9 and §11 —
+  and a heading outline of the file by `grep "^#"`); HO-41 v1 (`1559c0984ef8acb2…`, in full) and HO-42 v1
+  (`f12ce49200067e3f…`, in full), the handoffs issued from HP-countermodels-10 and -11 (HO-42 with the coordinator's
+  correction of the proposal's `c = 2` clause, item 3); `research/OVERVIEW.md` (`2346f6ad7c6b96691bae3bff9d75a4c2ef62c33a723001546536a88e4960ea64`;
+  lines 1126–1179, the round-6 section, and a heading outline). HO-41 and HO-42 restate this thread's own rows and are not
+  copied to `inbox/` (not addressed to this thread as receipts). Read freely (not cross-branch): `research/archive` @
+  `4dc0321c` — `ac/AC-LEDGER.md` (`fabc76d4…`) and `drive/RESULT.md` (`7cb7bd71…`), the lines naming LIMCLOSE-C (the
+  operational closure premise "a datum approximable … by available data is available"; it concerns availability and is
+  not used by any route of this thread), `pt/I4/INVENTORY.md` record I4.60; `main` @ L (`git grep -c LIMCLOSE`).
