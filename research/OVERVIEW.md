@@ -69,6 +69,42 @@ round 4 on:
 A countermodel is recorded against the inventory the same way: the items it satisfies, the items it fails (each a
 hypothesis, or the record names the theorem at L it violates) and the items that do not reach it.
 
+### The three objectives (owner, 2026-10-11)
+
+With `A` the applicable adopted non-hypothetical OI premises at L and `b` the composite action, the stage-6
+countermodel gives `K(Z_F) ⊨ A` and `K(Z_F) ⊭ b`, hence `A ⊭ b` — for every item of `A` that reaches the pair cone
+at L (the 118 SATISFIES rows). The 68 NOT REACHED rows bear on other levels, and no theorem at L transfers them to the
+pair cone; a transfer found later would be a previously overlooked consequence of OI, not a new principle. The
+countermodel, not the dependency graph, is the decisive evidence. Round 4 and its successors therefore work three
+distinct objectives:
+
+1. **A sufficient bridge.** A precisely stated `H` with `A + H ⇒ b`. Candidate: H-OI_g at `{R_z(θ₀), J}`,
+   pair-context availability of the two operations, with H-T its continuous portion; with H1–H3 and `ReachPure` the K2
+   schema carries it to `Q3` ([D], `EqvK2Schema`).
+2. **Independence and minimality of `H`.** The countermodel shows that some additional constraint is needed; it does
+   not show that `H` is necessary or minimal. One direction is immediate for the conclusion: `Q3` is invariant under
+   every local unitary, so `Q3 ⇒ A_miss`. What remains is to show that the relevant weaker alternatives fail (recorded so
+   far: each half alone — H-T leaves exotic cones conditional on claim (D), the finite half leaves an explicit cone;
+   stage 5's weaker forms ε … κ, NOT, NOT+J, finite and flow-only) and to decide whether any principle supplying
+   `A_miss` without being (b) in disguise is derivable from `A` (B14, O11) or independent of it. Any sufficient bridge
+   must exclude K(Z_F), or say why K(Z_F) no longer satisfies the bridge's applicable premises (at present: K(Z_F)
+   violates (A) for `R_z(θ₀)`, B10-2).
+3. **From the bridge to equivalence.** `A + H ⇒ b` does not establish OI–QM equivalence; the geometric, composite,
+   operational and infinite-dimensional obligations of the K ledger and Level III are discharged at their own levels
+   (equivalence E15–E16 and the ledger).
+
+The central question, in the owner's words: *what is the weakest independently justified principle that excludes the
+established non-quantum countermodels and supplies the missing composite operations, without assuming quantum
+mechanics itself?* Whether `H` is an independent additional principle or a previously overlooked consequence of OI
+decides the strongest defensible formulation of the eventual result.
+
+**C21 safeguard.** A countermodel to (b) and a countermodel to `Q3` are recorded separately. A failure of (b)
+establishes a failure of `Q3` only where a theorem or definition at L proves that `Q3` entails the (b)-instance in
+question — true for every local unitary, since `Q3` is invariant under them, so a (b)-failure for a local unitary is a
+`Q3`-failure; a `Q3`-failure (`K ≠ Q3`) is not a (b)-failure for any particular operation (the order-384 and
+Clifford cones satisfy (b) for their groups and are not `Q3`). Each Table A2 row is decided on its own terms, and no
+row's verdict is inferred from another's.
+
 ## The central question: the composite action (b)
 
 (b): single-token reversible operations, idle-extended to one token of a pair, preserve the pair cone in `W 3`.
