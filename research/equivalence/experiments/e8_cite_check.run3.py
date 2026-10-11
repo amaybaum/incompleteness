@@ -28,12 +28,7 @@ hypothesis name `hP1` was read as the declaration at K1Bridge.lean:128.  All thr
 the documents; the scope rules above and the countercontrols X1-X3 replace the floor, which becomes a non-vacuity
 floor of 20.  Run 2 (kept: e8_cite_check.run2.{py,out,err,replay.out,replay.err}) rendered over the documents at commit
 4a18e16a.  Run 3 changes only the documents list, adding NOTES-E8.md, after draft S4's exact layer was updated.
-Run 3's files are kept as e8_cite_check.run3.{py,out,err,replay.out,replay.err}.  Run 4 (round 3) extends the scope to
-the round-3 documents -- NOTES-E11..E14, the RESULTS rows R-E11.* .. R-E14.*, the LEDGER's round-3 notes (scanned with
-the round-2 notes, which precede them), handoff-proposals/HP-8..HP-10 -- and applies the design-module rule to the new
-design module EqvK2Schema (resolved against lean/EqvK2Schema.lean) and to the repaired EqvOmega4 (lean/EqvOmega4.lean,
-the copy that built in run 38096511360, which contains every line the earlier copy did).
-DECISION RULE (fixed before run 2; unchanged for runs 3 and 4).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
+DECISION RULE (fixed before run 2; unchanged for run 3).  VERDICT CITATIONS-RESOLVE iff C1, C2 and C3 hold for every citation found, at least
 20 distinct citations are found, and X1, X2, X3 each fail exactly as stated.  Otherwise "VERDICT NOT RENDERED" followed by
 each failing citation or countercontrol.
 """
@@ -49,11 +44,7 @@ DOCS = ['preregistration-drafts/S1-kinf-seed.md', 'preregistration-drafts/S2-kin
         'NOTES-E8.md', 'NOTES-E9.md', 'NOTES-E10.md',
         'handoff-proposals/HP-5-coordinator-level3-wording-and-s6-cost.md',
         'handoff-proposals/HP-6-bridge-origin-two-rotations-suffice.md',
-        'handoff-proposals/HP-7-countermodels-finite-octahedral-group.md',
-        'NOTES-E11.md', 'NOTES-E12.md', 'NOTES-E13.md', 'NOTES-E14.md',
-        'handoff-proposals/HP-8-bridge-dictionary-kernel-checked.md',
-        'handoff-proposals/HP-9-countermodels-coordinator-selfduality-not-a-source.md',
-        'handoff-proposals/HP-10-coordinator-round3-status-s4-s6-level3.md']
+        'handoff-proposals/HP-7-countermodels-finite-octahedral-group.md']
 
 
 def text_of(doc):
@@ -62,10 +53,10 @@ def text_of(doc):
 
 texts = [(d, text_of(d)) for d in DOCS]
 res = text_of('RESULTS.md')
-rows = '\n'.join(l for l in res.split('\n') if re.match(r'\| R-(AUDIT\.1|E8\.|E9\.|E10\.|E11\.|E12\.|E13\.|E14\.)', l))
-texts.append(('RESULTS.md (round-2 and round-3 rows)', rows))
+rows = '\n'.join(l for l in res.split('\n') if re.match(r'\| R-(AUDIT\.1|E8\.|E9\.|E10\.)', l))
+texts.append(('RESULTS.md (round-2 rows)', rows))
 led = text_of('LEDGER.md')
-texts.append(('LEDGER.md (round-2 and round-3 notes)', led[led.index('## Round-2 notes'):]))
+texts.append(('LEDGER.md (round-2 notes)', led[led.index('## Round-2 notes'):]))
 
 DECL = re.compile(r'^\s*(?:@\[[^\]]*\]\s*)*(?:private\s+|protected\s+|noncomputable\s+)*'
                   r'(theorem|lemma|def|abbrev|structure|class|instance)\s+([^\s(:{\[]+)')
@@ -83,8 +74,7 @@ for doc, t in texts:
     for m in NAMED.finditer(t):
         named.append((doc, m.group(1), m.group(2), int(m.group(3))))
 
-DESIGN = {'EqvKnDesc': 'EqvKnDesc.lean', 'EqvOmega4': 'EqvOmega4.lean', 'EqvLevel3': 'EqvLevel3.lean',
-          'EqvK2Schema': 'EqvK2Schema.lean',
+DESIGN = {'EqvKnDesc': 'EqvKnDesc.lean', 'EqvOmega4': 'EqvOmega4.run38090924005.lean', 'EqvLevel3': 'EqvLevel3.lean',
           'StageSeed': 'StageSeed.lean', 'CopyCovariance': 'CopyCovariance.lean', 'EqvSeams': 'EqvSeams.lean',
           'EqvSeamsControl': 'EqvSeamsControl.lean'}
 cache = {}

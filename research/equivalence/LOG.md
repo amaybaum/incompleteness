@@ -295,3 +295,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   Lean kernel check job `success`; seven long numerical-probe jobs still running at 01:32Z. Reading BUILT by the rule
   fixed at 00:34Z; the prediction written at 01:21Z held exactly. The `lean/` copy is byte-identical to the dispatched
   blob (`659ae36c`). NOTES-E11 measurement section; RESULTS R-E11.1–R-E11.4; LEDGER round-3 note (K2).
+- 2026-10-11T01:35Z — handoff proposals HP-8 (bridge: the dictionary kernel-checked in a design run; the recorded
+  `dict_tens` fix corrected), HP-9 (countermodels and coordinator: self-duality is not a source of K∞-Trans; the
+  sharpened marker), HP-10 (coordinator: S4 ready; S6's skeleton built; the infinite-volume form of H-DYN). Citation
+  re-check prepared: run 3's files kept as `e8_cite_check.run3.*`; run 4 extends the documents list to the round-3
+  documents and applies the existing design-module rule to `EqvK2Schema` and to the repaired `EqvOmega4`; the decision
+  rule is unchanged. Committed before run 4.
