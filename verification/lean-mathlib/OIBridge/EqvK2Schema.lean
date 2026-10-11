@@ -104,8 +104,8 @@ noncomputable def dict (ω : W 3) : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ
 /-- **The product law of the dictionary.** -/
 theorem dict_tens (X Y : HVec 3) : dict (tens X Y) = tensorOf (tokMat X) (tokMat Y) := by
   ext ⟨i, j⟩ ⟨k, l⟩
-  simp only [dict, tokMat, tens_apply, Matrix.sum_apply, Matrix.smul_apply, tensorOf_apply,
-    smul_eq_mul, Complex.ofReal_mul, Fin.sum_univ_four]
+  simp only [dict, tokMat, tens_apply, Matrix.sum_apply, Matrix.add_apply, Matrix.smul_apply,
+    tensorOf_apply, smul_eq_mul, Complex.ofReal_mul, Fin.sum_univ_four]
   ring
 
 /-- **First compatibility**: product states of the ball go to Kronecker products. -/
@@ -121,8 +121,8 @@ theorem dict_add (ω η : W 3) : dict (ω + η) = dict ω + dict η := by
 
 theorem dict_smul (c : ℝ) (ω : W 3) : dict (c • ω) = c • dict ω := by
   ext a b
-  simp only [dict, Matrix.sum_apply, Matrix.smul_apply, Pi.smul_apply, smul_eq_mul,
-    Complex.real_smul, Complex.ofReal_mul, Fin.sum_univ_four]
+  simp only [dict, Matrix.sum_apply, Matrix.add_apply, Matrix.smul_apply, Pi.smul_apply,
+    smul_eq_mul, Complex.real_smul, Complex.ofReal_mul, Fin.sum_univ_four]
   ring
 
 /-- The dictionary as a real linear map. -/
@@ -166,8 +166,8 @@ def ipW (ω η : W 3) : ℝ := ∑ μ : Fin 4, ∑ ν : Fin 4, ω μ ν * η μ 
 theorem trace_dict_mul (ω η : W 3) :
     Matrix.trace (dict ω * dict η) = ((ipW ω η : ℝ) : ℂ) / 4 := by
   rw [dict_mul_left]
-  simp only [Matrix.trace_sum, Matrix.trace_smul, trace_T_mul_dict, smul_eq_mul, ipW,
-    Complex.ofReal_sum, Complex.ofReal_mul, Complex.ofReal_add, Fin.sum_univ_four]
+  simp only [Matrix.trace_sum, Matrix.trace_add, Matrix.trace_smul, trace_T_mul_dict, smul_eq_mul,
+    ipW, Complex.ofReal_sum, Complex.ofReal_mul, Complex.ofReal_add, Fin.sum_univ_four]
   ring
 
 /-- **Second compatibility**: the table pairing is four times the trace pairing. -/
@@ -229,9 +229,10 @@ theorem dict_coordOf (H : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ) (hH : H.
   have hr := trace_T_mul_real H hH
   ext a b
   have hab := congrFun (congrFun h4 a) b
-  simp only [Matrix.sum_apply, Matrix.smul_apply, smul_eq_mul, Fin.sum_univ_four] at hab
-  simp only [dict, coordOf, hr, Matrix.sum_apply, Matrix.smul_apply, smul_eq_mul,
-    Fin.sum_univ_four]
+  simp only [Matrix.sum_apply, Matrix.add_apply, Matrix.smul_apply, smul_eq_mul,
+    Fin.sum_univ_four] at hab
+  simp only [dict, coordOf, hr, Matrix.sum_apply, Matrix.add_apply, Matrix.smul_apply,
+    smul_eq_mul, Fin.sum_univ_four]
   linear_combination hab / 4
 
 /-- **The dictionary as a linear equivalence** `W 3 ≃ Herm(ℂ² ⊗ ℂ²)`. -/
