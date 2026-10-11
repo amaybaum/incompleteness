@@ -736,3 +736,20 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   on claim (D) through B7-2, not on B16). RESULTS rows B14-5 … B14-8, B15-1 … B15-3, B16-1 … B16-3, B17-1 and the
   standing verdict V-4, each with its reading. Handoff proposals HP-11 (full model, K∞-Drive's two readings, the
   audit), HP-12 (one dictionary), HP-13 (B7-1 under curve covers), HP-14 (HO-24's cone along the tower).
+- 2026-10-11T06:41:34Z — dispatch 3's run 38117986499 completed at 06:41:23Z: 32 jobs success, 1 failure (the Mathlib
+  bridge job, whose only red step is the release gate's `lean-manuscript`, as recorded at 06:29:39Z). No job or run
+  of the round was cancelled.
+- 2026-10-11T06:41:34Z — **round 4 closed.** Nodes: B14 re-assessed under the third addendum — independent bridge
+  (full model, relative to the stage-6 inventory), CONJECTURE, reading availability; standing rows of rounds 1–3
+  audited, corrections carried forward in V-4; gem ELABORATING with a POSITIVE part (S0-20's NEW not confirmed).
+  B15 — one dictionary and the transfer clause in table form, CONJECTURE [D]; (b) for the phase circle in table form
+  CONDITIONAL on the clause; "the transfer clause for the stated access" and "a finite group" FAILED as sufficient
+  bridges; ELABORATING. B16 — B7-1 under countable C¹ curve covers, CONJECTURE [D]; for identity components of
+  dimension at most one CONDITIONAL on Cartan [L]; "a group" with such an identity component FAILED as a sufficient
+  bridge; ELABORATING. B17 — HO-24's explicit cone along B10-5's tower, first failing stage `n = 3`, CONJECTURE
+  (exact); "a finite stage" FAILED as a sufficient bridge; CONFIRMING. Dispatches: 3 of 3 (runs 38110368244,
+  38115337569, 38117986499). Cross-branch reads this round, each logged: `research/overview` @ `742c6b2f` (receipts),
+  `research/origin` @ `de9285d6` (OriginExclusive.lean, B14), `4dc0321c` (inventory blobs, B14), `research/equivalence`
+  @ `c10dbaee` (EqvK2Schema.lean, B15). Handoff proposals HP-11 … HP-14. Final replay of every round-4 script
+  byte-identical (06:35:56Z). Nothing outside `research/bridge/` changed on this branch; no pull request, merge or
+  write to `main` or to another thread's branch.
