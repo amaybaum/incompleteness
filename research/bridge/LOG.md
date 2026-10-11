@@ -275,3 +275,28 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - H-T is strictly weaker than H-OI_g, CONDITIONAL on claim (D);
   - the continuous half is locally finite;
   - B4 fails H-T at (A) alone.
+- 2026-10-11T00:08:30Z — commit 5596c0ca (B10) pushed; remote head verified equal.
+- 2026-10-11T00:28:49Z — B11 opened. NOTES-B11 S0 (success criterion, design decisions, predictions) written
+  before any run or dispatch.
+  - No local Lean is possible: the agent proxy's status log shows `lakecache.blob.core.windows.net` (Mathlib's olean
+    cache) denied with a 403 at 00:01:10Z, from another process. Not retried by this thread.
+  - Mathlib names are therefore checked against the pinned tag `v4.33.0` (lakefile.toml), read from
+    raw.githubusercontent.com into the session scratchpad: Kronecker.lean (`mul_kronecker_mul`,
+    `conjTranspose_kronecker`, `kronecker_add`, `kronecker_smul`, `add_kronecker`, `smul_kronecker`), Tactic/Module.lean,
+    Data/Matrix/Mul.lean (`smul_mul`, `Matrix.mul_smul`, `mul_apply`), LinearAlgebra/Matrix/Defs.lean (`add_apply`,
+    `smul_apply`), Data/Matrix/Diagonal.lean, ConjTranspose.lean, Data/Complex/Basic.lean (`I_sq`, `ofReal_*`,
+    `star_def` simp), Fintype/BigOperators.lean (`Fintype.sum_prod_type`), Ring/Finset.lean (`mul_sum`, `sum_mul`).
+  - The kernel at L already uses the same Kronecker rewrites (AncillaInterference.lean:123, ClosureObstruction.lean:282)
+    and `set_option maxHeartbeats 1000000` (InstrumentAvailability.lean:72).
+  - New names checked for clashes at L: none. `phaseU` exists in OperationalSourcing and QuasilocalCharacterization,
+    so the phase is named `zPhase`.
+- 2026-10-11T00:29:05Z — `b11_preflight.py` decision rule written. Run 1 (00:29:59Z): 10/10 PASS, VERDICT
+  B11-PREFLIGHT-OK. Replay byte-identical (00:30:06Z). Every statement of the planned module is true under the
+  kernel's conventions, including the countercontrol off the circle.
+- 2026-10-11T00:38:04Z — module `lean/BridgeDictionary.lean` written for round 3 (sha256 48fc4a7e…).
+  - The round-2 draft is preserved verbatim as `lean/BridgeDictionary.round2-draft.lean` (sha256 e4b60411…, cmp-equal to
+    the dispatched dev blob at bbbefb72), so B9-5's pointer stays resolvable.
+  - Proof design: the circle hypothesis is isolated in `zPhase_pauli0`/`zPhase_pauli3`, with `linear_combination`
+    certificates tried in a `first` list. Every fallback alternative ends in `ring1`, which fails when the goal stays
+    open (a `ring` that falls back to `ring_nf` would not trigger `first`'s next branch). The pair identities go
+    through `conj_dict_right`/`conj_dict_left` and `module`. `dict_cnot` is entrywise.

@@ -1,0 +1,13 @@
+F1   PASS  dict (tens X Y) = tensorOf (tokMat X) (tokMat Y), symbolic
+F2   PASS  dict (cnot w) = cnotMat dict w cnotMat on 16 basis tables (pc = [[0, 0, 3, 3], [1, 1, 2, 2], [2, 2, 1, 1], [3, 3, 0, 0]], pt = [[0, 1, 2, 3], [1, 0, 3, 2], [1, 0, 3, 2], [0, 1, 2, 3]])
+F3   PASS  (zPhase c s)^H = zPhaseD c s
+F4   PASS  U s1 U^H = c s1 + s s2: True; U s2 U^H = -s s1 + c s2: True (no circle needed); U s0 U^H = s0: True, U s3 U^H = s3: True on the circle; both fail off it: True
+F5   PASS  conj_dict_right: True; conj_dict_left: True (symbolic U, 16 basis tables)
+F6   PASS  homMap (rotZ c s) v = [v0, c*v1 - s*v2, c*v2 + s*v1, v3]; homMap nflip v = [v0, v1, -v2, -v3]
+F7   PASS  dict_actT_rotZ: True; dict_actC_rotZ: True (on the circle, 16 basis tables); fails at (0, 0): True
+F8   PASS  X s_k X = (1, 1, -1, -1) s_k: [True, True, True, True]; dict_actT_nflip: True; dict_actC_nflip: True
+F9   PASS  (zPhase c s)^H zPhase c s = 1 on the circle: True; (zPhase 0 0 s0 (zPhase 0 0)^H)[1,1] = 0 != 1
+F10  PASS  rotZ (cos t) (sin t) = rotFun t (kernel); (3/5)^2 + (4/5)^2 = 1
+
+PASS 10  FAIL 0
+VERDICT B11-PREFLIGHT-OK
