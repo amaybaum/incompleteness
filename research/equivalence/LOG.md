@@ -289,3 +289,9 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `COUNTER XR1 fails as stated`, `COUNTER XR2 fails as stated`, `VERDICT E14-HDYN-READINGS-SEPARATED`; replay
   byte-identical (py `1db6a11b…`, out `cfd9aa1f…`). NOTES-E14 §§1–3; RESULTS R-E14.1–R-E14.3; LEDGER round-3 note
   (L3-conv). Every S0 prediction held.
+- 2026-10-11T01:33Z — run 38101580750 measured (Mathlib bridge job 114358419270): Build `success` (3644 jobs),
+  `EqvK2Schema` built with warnings only, all 22 prints standard (EqvK2Schema.lean:453–474); release gate red only at
+  `lean-manuscript` (1 problem), `lean-axioms` 5882, no sorry, 303 legacy records intact, 43 receipts hold; the
+  Lean kernel check job `success`; seven long numerical-probe jobs still running at 01:32Z. Reading BUILT by the rule
+  fixed at 00:34Z; the prediction written at 01:21Z held exactly. The `lean/` copy is byte-identical to the dispatched
+  blob (`659ae36c`). NOTES-E11 measurement section; RESULTS R-E11.1–R-E11.4; LEDGER round-3 note (K2).

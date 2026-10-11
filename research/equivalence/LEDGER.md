@@ -152,3 +152,10 @@ Each note is dated, names its evidence, and supersedes nothing above.
   exact at `N = 3, 4`). In the transport form (stage matrix units to `{0,1}`-matrices) with locality preservation of the
   automorphism and its inverse, it yields a global `ReversibleDynamics` and a Target A system (R-E14.2, written proof).
   Like H-DYN it restates (O3) on the stages. Status OPEN.
+- **2026-10-11 (round 3) — K2.** The pair-level schema is kernel-checked in a design run (R-E11.1–R-E11.3, [D] run
+  38101580750): the dictionary `W 3 ≃ Herm(ℂ² ⊗ ℂ²)` as a real-linear equivalence with its product law and pairing,
+  LOWER and UPPER, and `pairCone_eq_Q3_of_drive` with L4 isolated as the hypothesis `ReachPure`. Received HO-10 v1
+  (a compact pair group containing `cnot` with abelian identity component cannot meet such a reachability hypothesis:
+  item 1 CONJECTURE, item 2 CONDITIONAL on claim (D)) and HO-12 v1 (the dictionary's (D1)–(D2); the clause (T) a named
+  premise, FAILED as a bridge; the A_miss split), each at its label. Status OPEN; the schema stays CONDITIONAL on H2,
+  H3, A_miss and `ReachPure`, none sourced.

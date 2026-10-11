@@ -98,3 +98,28 @@ pattern with `Matrix.add_apply` elaborating); the release gate red only at `lean
 construction on a dev branch); `lean-axioms` 5860 + 22 = 5882 if every new print is counted as in run 38096511360
 (5860 + 15 = 5875). If a print is still `sorryAx`, the node closes PARTIAL with the standard ones [D] and no further
 dispatch.
+
+## Measurement — dispatch 3/3 of round 3 (run 38101580750)
+
+Run **38101580750** (created 01:21:50Z) on `aabc649e` (`dev-equivalence/k2-schema`, the proof-only repair; blob
+`659ae36c` = `lean/EqvK2Schema.lean`, byte-identical). Mathlib bridge job **114358419270**: Build `success`
+(`Build completed successfully (3644 jobs)`; `⚠ [3642/3644] Built OIBridge.EqvK2Schema (6.5s)`, warnings only — unused
+`simp` arguments); **all 22 prints standard** `[propext, Classical.choice, Quot.sound]` at EqvK2Schema.lean:453–474
+(`pauli_conjTranspose`, `trace_pauli_mul`, `pauli_complete`, `trace_T_mul_T`, `dict_tens`, `dict_prodState`, `dict_sum`,
+`dict_isHermitian`, `trace_T_mul_dict`, `trace_dict_mul`, `ipW_eq_trace`, `dict_injective`, `dict_complete4`,
+`dict_coordOf`, `dictEquiv`, `trace_vecMulVec_mul`, `posSemidef_dict_of_pure`, `subset_Q3_of_pure_dual`,
+`Q3_subset_of_pure`, `Q3_selfDual`, `driveWords_preserve`, `pairCone_eq_Q3_of_drive`). Release gate (step 6) red only at
+`lean-manuscript` (1 problem: the unregistered design module, as expected on a dev branch); `lean-axioms` OK, **5882**
+named results, no `sorry`; 303 legacy records intact; 43 receipts hold; every other step PASS. Lean kernel check job
+`success`. At 01:32Z, 24 of the run's 32 jobs had succeeded, the Mathlib bridge job had failed at the gate as above, and
+seven long numerical-probe jobs (A42 exclusion) were still running; they test parts of the tree this branch does not
+touch.
+
+**Reading (rule fixed at 00:34Z): BUILT.** Every statement of §A–§F is kernel-checked in a design run ([D]); the
+prediction for this dispatch (all 22 standard, `lean-axioms` 5882) held exactly. The schema theorem
+`pairCone_eq_Q3_of_drive` is a theorem *with hypotheses*: it is CONDITIONAL on H1 (products in `K`), H2
+(`cnot`-invariance), H3 (`K = dualW K`), A_miss (the drive's flow and `cyc3` on one token) and `ReachPure` (L4), none
+sourced at L. What the build adds over R-E10.1's written proof: the dictionary is a real-linear equivalence
+`W 3 ≃ₗ[ℝ] selfAdjoint (Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ)` with both compatibilities, the cone step is the two
+lemmas LOWER (through `psdFactorization_discharged`, BoundaryAudit.lean:100) and UPPER, and L4 is isolated as the single
+named hypothesis `ReachPure`; no hidden hypothesis surfaced, and no statement was false as formalized.
