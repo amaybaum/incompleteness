@@ -21,4 +21,7 @@ cut from L. Design evidence only; nothing certified. Round-4 rule: no job or run
 The print-axioms lines were counted by the coordinator over the saved job logs (the GitHub job-log tool, the tail of
 5000 and 3000 lines; the built-in `gh` client refuses the log redirect), with wrapped lines joined before counting;
 the gate tables were read line by line. Job conclusions, head SHAs, events and timestamps were read from
-`GET …/actions/runs/{id}` and `…/jobs`.
+`GET …/actions/runs/{id}` and `…/jobs`. Provenance of this table: every verification here is from the saved job
+logs as the job-log tool returns them (tail-capped), which is distinct from independently retrieving a complete log
+from the blob host; no complete log was retrieved in round 4, and the one place where the cap hid an error block (the
+bridge's dispatch 2, `BridgeReachDim`) is marked above as undiagnosed, not as verified.
