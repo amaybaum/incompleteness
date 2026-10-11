@@ -3,13 +3,13 @@ inputs:
    ../../archive/pt/R6/r4_tables.out 08d38e1cab735d25245a1335bddb1a95305977f68ee5b542e4351efac0438219
    ../../archive/pt/I4/INVENTORY.md 43bbada1db14f052e3ec3eb3d7fc99d1bb042d41a143c912aa6ca3e4cad75461
   b14_fullmodel.py bd9b383d96b7974c64509b744399a48f06e3a49da5affaaf09ff3af4faed7870
-DESIGN_BUILT = False  (design links tagged [W])
+DESIGN_BUILT = True  (design links tagged [D])
 
 rows re-classed (old -> new):
    I4.56 OLD chain: with DerivedOI: QM <-> LayerFlowExecutable [K] LiftAudit.lean:812 -> QM
-   I4.56 NEW chain: with DerivedOI (I4.241, [D] BridgeAvailFull latticeTheory_derivedOI): LayerFlowExecutable (exchange) => PhaseFreeRichness [W] BridgeToken phaseFree_of_layerFlowExecutable_derivedOI (gateFlow_isolation [K] LiftAudit.lean:660, conjChannel_smul [K] ImplementationLocality.lean:395, avail_conj_mul [K] LiftAudit.lean:770, quarter phases and exchanges of DerivedOI [K] RouteB.lean:128, :123) -> PhaseFreeRichness => control [K] control_of_phaseFree MinimalRepertoire.lean:529 (IteratedAncillaClosure [D] BridgeAvailFull latticeTheory_closure, closure_of_embeddedObservation [K] EmbeddedObservation.lean:211) -> control => both token and pair operators [W] layerFlow_supplies_token / layerFlow_supplies_pair -> control
+   I4.56 NEW chain: with DerivedOI (I4.241, [D] BridgeAvailFull latticeTheory_derivedOI): LayerFlowExecutable (exchange) => PhaseFreeRichness [D] BridgeToken phaseFree_of_layerFlowExecutable_derivedOI (gateFlow_isolation [K] LiftAudit.lean:660, conjChannel_smul [K] ImplementationLocality.lean:395, avail_conj_mul [K] LiftAudit.lean:770, quarter phases and exchanges of DerivedOI [K] RouteB.lean:128, :123) -> PhaseFreeRichness => control [K] control_of_phaseFree MinimalRepertoire.lean:529 (IteratedAncillaClosure [D] BridgeAvailFull latticeTheory_closure, closure_of_embeddedObservation [K] EmbeddedObservation.lean:211) -> control => both token and pair operators [D] layerFlow_supplies_token / layerFlow_supplies_pair -> control
    I2.34 OLD chain: with DerivedOI: QM <-> LayerFlowExecutable [K] -> QM
-   I2.34 NEW chain: QM <-> LayerFlowExecutable for FM on Fin 2 and Fin 2 x Fin 2 [W] BridgeToken latticeTheory_token_qm_iff_layerFlow / latticeTheory_pair_qm_iff_layerFlow (derivedOI_qm_iff_phaseFree [K] RouteB.lean:161; layerFlowExecutable_of_control [K] LiftAudit.lean:117; physical_of_exactAll [K] PhysicalCharacterization.lean:301) -> QM
+   I2.34 NEW chain: QM <-> LayerFlowExecutable for FM on Fin 2 and Fin 2 x Fin 2 [D] BridgeToken latticeTheory_token_qm_iff_layerFlow / latticeTheory_pair_qm_iff_layerFlow (derivedOI_qm_iff_phaseFree [K] RouteB.lean:161; layerFlowExecutable_of_control [K] LiftAudit.lean:117; physical_of_exactAll [K] PhysicalCharacterization.lean:301) -> QM
 Table A2 rows parsed: 199  NOT REACHED: 68
 
 FM classification of the 68 NOT REACHED rows (round 5, the two rows re-classed)
@@ -35,7 +35,7 @@ FM classification of the 68 NOT REACHED rows (round 5, the two rows re-classed)
 | I4.31 | M | SAT | [D] BridgeAvailFull latticeTheory_implementationLocality (kernel genTheory_implementationLocality) | - |
 | I4.42 | M | HARMLESS | OIPlusLocal | OIPlusLocal <-> QM [K] ImplementationLocality.lean:1070 -> QM |
 | I4.45 | M | SAT | [D] BridgeAvailFull latticeClass_structurallyClosed | - |
-| I4.56 | M | HARMLESS | LayerFlowExecutable; [D] BridgeAvailFull latticeTheory_not_layerFlowExecutable | with DerivedOI (I4.241, [D] BridgeAvailFull latticeTheory_derivedOI): LayerFlowExecutable (exchange) => PhaseFreeRichness [W] BridgeToken phaseFree_of_layerFlowExecutable_derivedOI (gateFlow_isolation [K] LiftAudit.lean:660, conjChannel_smul [K] ImplementationLocality.lean:395, avail_conj_mul [K] LiftAudit.lean:770, quarter phases and exchanges of DerivedOI [K] RouteB.lean:128, :123) -> PhaseFreeRichness => control [K] control_of_phaseFree MinimalRepertoire.lean:529 (IteratedAncillaClosure [D] BridgeAvailFull latticeTheory_closure, closure_of_embeddedObservation [K] EmbeddedObservation.lean:211) -> control => both token and pair operators [W] layerFlow_supplies_token / layerFlow_supplies_pair -> control |
+| I4.56 | M | HARMLESS | LayerFlowExecutable; [D] BridgeAvailFull latticeTheory_not_layerFlowExecutable | with DerivedOI (I4.241, [D] BridgeAvailFull latticeTheory_derivedOI): LayerFlowExecutable (exchange) => PhaseFreeRichness [D] BridgeToken phaseFree_of_layerFlowExecutable_derivedOI (gateFlow_isolation [K] LiftAudit.lean:660, conjChannel_smul [K] ImplementationLocality.lean:395, avail_conj_mul [K] LiftAudit.lean:770, quarter phases and exchanges of DerivedOI [K] RouteB.lean:128, :123) -> PhaseFreeRichness => control [K] control_of_phaseFree MinimalRepertoire.lean:529 (IteratedAncillaClosure [D] BridgeAvailFull latticeTheory_closure, closure_of_embeddedObservation [K] EmbeddedObservation.lean:211) -> control => both token and pair operators [D] layerFlow_supplies_token / layerFlow_supplies_pair -> control |
 | I4.65 | M | HARMLESS | PhysicalCompletionConditions | third conjunct HasCompositeUnitaryControl (definition) -> control |
 | I4.66 | M | SAT | [D] BridgeAvailFull latticeTheory_validity (kernel validity_of_implementationLocality, :971) | - |
 | I4.67 | M | HARMLESS | HasCompositeUnitaryControl; [D] BridgeAvailFull latticeTheory_pair_not_control | control |
@@ -78,7 +78,7 @@ FM classification of the 68 NOT REACHED rows (round 5, the two rows re-classed)
 | I2.31 | G | HARMLESS | OI+ package: FM has (1) and (3), fails (2) reversible richness | oiPlus_iff_qm -> QM |
 | I2.32 | G | HARMLESS | primitive-source form: FM has locality and embedded observation, fails phase-free richness | oiPlusMin_iff_qm -> QM |
 | I2.33 | G/H | HARMLESS | substratum-source form: FM lacks the phase intervention at general angles and the controllability resource | phase intervention at theta0 supplies zPh: substratum_pairAvail_zPh [D B14] -> controllability: substratum_plus_control_qm [K] -> QM |
-| I2.34 | G | HARMLESS | layer-flow form: FM lacks executability | QM <-> LayerFlowExecutable for FM on Fin 2 and Fin 2 x Fin 2 [W] BridgeToken latticeTheory_token_qm_iff_layerFlow / latticeTheory_pair_qm_iff_layerFlow (derivedOI_qm_iff_phaseFree [K] RouteB.lean:161; layerFlowExecutable_of_control [K] LiftAudit.lean:117; physical_of_exactAll [K] PhysicalCharacterization.lean:301) -> QM |
+| I2.34 | G | HARMLESS | layer-flow form: FM lacks executability | QM <-> LayerFlowExecutable for FM on Fin 2 and Fin 2 x Fin 2 [D] BridgeToken latticeTheory_token_qm_iff_layerFlow / latticeTheory_pair_qm_iff_layerFlow (derivedOI_qm_iff_phaseFree [K] RouteB.lean:161; layerFlowExecutable_of_control [K] LiftAudit.lean:117; physical_of_exactAll [K] PhysicalCharacterization.lean:301) -> QM |
 | I2.35 | G | HARMLESS | typed form: its resource is the substratum-source form's | as I2.33 -> QM |
 | I2.62 | M/G | NA | comparison of routes: a scope statement | - |
 | I2.63 | G/O | NA | operational-reconstruction route: a scope statement | - |
@@ -86,8 +86,8 @@ FM classification of the 68 NOT REACHED rows (round 5, the two rows re-classed)
 
 TALLY FM {'HARMLESS': 29, 'NA': 5, 'SAT': 34}
 
-HARMLESS rows by chain kind: kernel chain at L (side hypotheses FM satisfies) 27 ['I4.42', 'I4.65', 'I4.67', 'I4.70', 'I4.74', 'I4.80', 'I4.85', 'I4.88', 'I4.99', 'I4.102', 'I4.115', 'I4.118', 'I4.120', 'I4.123', 'I4.124', 'I4.128', 'I4.137', 'I4.143', 'I4.144', 'I4.179', 'I4.187', 'I4.244', 'I4.245', 'I2.31', 'I2.32', 'I2.33', 'I2.35']; design chain 2 ['I4.56', 'I2.34']; written 2 ['I4.56', 'I2.34']
-SCOPE SENTENCE: Of the 29 control-or-QM rows, 27 rest on a kernel chain at L whose side hypotheses FM satisfies and 2 (I4.56, I2.34) on a written chain [W] (the design module not yet built).
+HARMLESS rows by chain kind: kernel chain at L (side hypotheses FM satisfies) 27 ['I4.42', 'I4.65', 'I4.67', 'I4.70', 'I4.74', 'I4.80', 'I4.85', 'I4.88', 'I4.99', 'I4.102', 'I4.115', 'I4.118', 'I4.120', 'I4.123', 'I4.124', 'I4.128', 'I4.137', 'I4.143', 'I4.144', 'I4.179', 'I4.187', 'I4.244', 'I4.245', 'I2.31', 'I2.32', 'I2.33', 'I2.35']; design chain 2 ['I4.56', 'I2.34']; written 0 []
+SCOPE SENTENCE: Of the 29 control-or-QM rows, 27 rest on a kernel chain at L whose side hypotheses FM satisfies and 2 (I4.56, I2.34) on the design chain of BridgeToken.lean [D] with kernel theorems [K]; none rests on a written argument.
   C6 LiftAudit.lean:660 theorem gateFlow_isolation -> found
   C6 ImplementationLocality.lean:395 theorem conjChannel_smul -> found
   C6 LiftAudit.lean:770 theorem avail_conj_mul -> found
@@ -111,4 +111,4 @@ PASS C6 every cited kernel declaration at its line (11/11)
 PASS C7 countercontrol: the replaced chain needs SubstratumAvail, the new chains cite neither :812 nor :783
 PASS C8 exact: every +-1 diagonal on Fin 2 x Fin n (n = 1, 2, 3) is the product of quarter-phase squares over its -1 positions; phaseGate^4 = 1
 tally as predicted (34/29/5/0): True
-VERDICT B18-RECLASS-OK: I4.56 and I2.34 HARMLESS by the DerivedOI chain [W]; Of the 29 control-or-QM rows, 27 rest on a kernel chain at L whose side hypotheses FM satisfies and 2 (I4.56, I2.34) on a written chain [W] (the design module not yet built).
+VERDICT B18-RECLASS-OK: I4.56 and I2.34 HARMLESS by the DerivedOI chain [D]; Of the 29 control-or-QM rows, 27 rest on a kernel chain at L whose side hypotheses FM satisfies and 2 (I4.56, I2.34) on the design chain of BridgeToken.lean [D] with kernel theorems [K]; none rests on a written argument.

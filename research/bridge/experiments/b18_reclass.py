@@ -43,13 +43,19 @@ whose side hypotheses FM satisfies, how many on the design chain, how many on a 
 VERDICT B18-RECLASS-OK iff the tally is SAT 34 / HARMLESS 29 / NA 5 / HARMFUL 0 and C1-C8 all PASS; otherwise
 VERDICT B18-RECLASS-FAILED followed by the failing ids.
 Run from experiments/:  python3 -I -B b18_reclass.py > b18_reclass.out 2> b18_reclass.err
+
+Post-run edit after run 1 (2026-10-11T08:32:20Z; run 1 kept as b18_reclass.run1.*; rule text unchanged): DESIGN_BUILT
+set to True, as the rule provides, after dispatch 2 of 3 (run 38124442150, dev-bridge/r5-bridge2 @ 16e75fbe, job
+114425761656) built lean/BridgeToken.lean (dev blob dda95f6b, sha256 23e3dcde...) green: "Built OIBridge.BridgeToken
+(3.2s)", 36/36 `#print axioms` lines standard (34 on [propext, Classical.choice, Quot.sound], 2 on [Quot.sound]), no
+sorryAx anywhere in the build, lean-axioms PASS (6096 named results). Run 2 tags the design links [D].
 """
 import itertools
 import os
 import re
 import sys
 
-DESIGN_BUILT = False   # set to True only after the dispatch builds BridgeToken.lean green with standard axioms
+DESIGN_BUILT = True    # set to True only after the dispatch builds BridgeToken.lean green with standard axioms (run 38124442150)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 KERNEL = os.path.join(HERE, '..', '..', '..', 'verification', 'lean-mathlib', 'OIBridge')

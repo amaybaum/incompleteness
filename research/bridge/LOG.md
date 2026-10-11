@@ -1012,3 +1012,81 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   to `lean/*.lean` here; pushed; `verify.yml` dispatched by the same `gh api` call with `ref=dev-bridge/r5-bridge2`;
   run 38124442150 (head `16e75fbe`, created 2026-10-11T08:20:16Z, event `workflow_dispatch`). Expected `lean-axioms`:
   6096. Waiting; no job or run will be cancelled.
+- 2026-10-11T10:11:59Z — **interruption and resumption.** This session was stopped by an API usage limit at about 08:34Z (a
+  container restart followed) and resumed at about 10:06Z on the coordinator's message, from its own transcript. State
+  verified at 10:07:45Z against the coordinator's record (nothing else wrote to the worktree): HEAD =
+  origin/research/bridge = `b0b2378a`; uncommitted, this session's own writes: `experiments/b18_reclass.py` (sha256
+  `8ee36294…`, 08:32:31Z), `b18_reclass.out` and `b18_reclass.replay.out` (both `d17f6c11…`, 08:32:37Z),
+  `b18_reclass.run1.{py,out,err}` (08:08–08:09Z), `b21_torus.py` (`1692ede4…`, 08:26:36Z), `b21_torus.out` and
+  `b21_torus.replay.out` (both `bfc68a01…`), `b21_torus.run1.*`, `b21_torus.run2.*` — all equal to the coordinator's
+  values and to this session's last actions before the stop (B21 runs 1–3, the dispatch-2 job log read at 08:30Z,
+  `b18_reclass.py` run 2 at 08:32:37Z). The session scratchpad survived the restart (the saved job log, the
+  equivalence and countermodels reads). Dispatches used: 2 of 3.
+- 2026-10-11T10:11:59Z — **commit trailers from now on**, on the coordinator's instruction (the session's attribution changed):
+  `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` followed by
+  `Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1`. Earlier commits are not rewritten.
+- 2026-10-11T10:11:59Z — cross-branch read on the coordinator's instruction (authorized): `git show 51cce8ac:research/OVERVIEW.md`
+  (research/overview @ `51cce8ac`, committed 2026-10-11 07:59:56Z; blob `9b13c2ce`, 947 lines, sha256
+  `4aed424d3d1251fc29717ea2971ec821a6d03daca9a9fc8f4fc2d7c89f3b9b41`), lines 846–947 (the round-5 section with
+  "Owner's round-5 directions", "Two distinctions preserved in the round-5 audits" and "The decisive round-5 outcome,
+  classified"). Both owner messages reached this thread before the stop (entries 07:54:19Z and 08:07:01Z above) and
+  were applied before either dispatch: NOTES-B18's S0 addendum (07:55:45Z) and second addendum (08:07:01Z), NOTES-B19's
+  addendum (08:07:01Z), NOTES-B20's two addenda (07:55:45Z, 08:07:01Z); dispatch 1 followed at 08:10:09Z. Three
+  points of the overview's text beyond the relayed quotes, applied from here: (i) provenance — "verification from
+  saved CI logs is distinct from independently retrieving a full log; where a full log was unavailable …, the record
+  says so": this round's job logs are tails of at most 5000 lines read with the GitHub MCP job-log reader and saved in
+  the session scratchpad, and the full logs were not retrieved (each dispatch entry says so); (ii) the owner's note on
+  N11 — the finite-order theorem ranges over the composition-closed generated theory, so the primitive-generator
+  objection does not apply to it, and the safeguard bites on the round-5 extensions and on every closure step — applied
+  in NOTES-B20 §2 (each alternative generating set named there adds a datum to the stated access); (iii) the
+  overview's suggested B18 route (the exchange's flow with the quarter phase generating the token's unitaries) differs
+  from the chain built (the kernel's isolation identity to `PhaseFreeRichness`, then `control_of_phaseFree`); neither
+  uses `SubstratumAvail`; NOTES-B18 §1 compares them.
+- 2026-10-11T10:11:59Z — **dispatch 2 result** (job log read at 08:30Z, before the stop; recorded now). Run 38124442150 (head
+  `16e75fbe`, `dev-bridge/r5-bridge2`, workflow_dispatch; created 08:20:16Z, completed 08:53:07Z): conclusion failure
+  from the Mathlib bridge job alone — the run's other 32 jobs (the Lean kernel check, the 30 numerical-probe jobs and
+  the probes summary job) success. Mathlib bridge job 114425761656 (08:26:22–08:29:36Z): **Build SUCCESS** ("Build completed successfully (3651
+  jobs)"; "Built OIBridge.BridgeToken (3.2s)", "Built OIBridge.BridgeOpDrive (1.8s)" and the six carried modules).
+  `#print axioms` lines by module path: BridgeAvail 61, EqvK2Schema 22, BridgeAvailFull 50, BridgeToken 36, EqvK2Converse
+  9, BridgeDictionary 20, BridgeConverge 21, BridgeOpDrive 21 (240, as predicted); every one on [propext,
+  Classical.choice, Quot.sound] except two on [Quot.sound] alone (BridgeToken's `assocPair_symm_apply` and
+  `toEnd_symm_apply`, closed by `rfl`); no `sorryAx` anywhere in the log read; warnings are linter notes only
+  (unused or unreached `first` fallbacks, unused simp arguments, "Try this" suggestions). Release gate: every step PASS
+  except one; `lean-axioms` PASS "6096 named result(s) reported, no sorr[y]" (the predicted 6096); `lean-manuscript`
+  FAIL "(8 problem(s))". The eight identified locally: `tools/lean_manuscript_census.py --root` on the dispatch tree
+  (`git archive 16e75fbe`, extracted in the scratchpad) prints "UNCLASSIFIED module … has no registry family" for
+  exactly BridgeAvail, BridgeAvailFull, BridgeConverge, BridgeDictionary, BridgeOpDrive, BridgeToken, EqvK2Converse and
+  EqvK2Schema — design modules carry no census disposition, by construction; countercontrol: the same tool on this
+  tree (= L) exits 0. Local runs, evidence for this thread only, not attestations. Provenance: the job log read is the
+  tail of 5000 lines (08:28:32.99Z–08:29:34Z), saved as scratchpad `logs/job114425761656.log` (sha256
+  `0333b7c3d52bf55f3645e8e39c46b01ec0144e3681ae7692bdf91a8c15e9a9fa`); every line of the eight modules' build output
+  (the first of them, BridgeAvail, built at 08:28:39Z) and the whole gate lie in the tail; the full log was not
+  retrieved. S0 predictions B18 S0-5, B19 S0-4 and B20 S0-6 met. Dispatch 3 of 3 not used so far.
+- 2026-10-11T10:11:59Z — `b18_reclass.py` run 2 (made before the stop; recorded now). Post-run edit 08:32:20–08:32:31Z, logged in the
+  header: `DESIGN_BUILT` set to True, as the rule provides, after dispatch 2's green build (run 1 kept as
+  `b18_reclass.run1.{py,out,err}`, copied with timestamps preserved). Run 2 at 08:32:37Z: tally SAT 34 / HARMLESS 29 /
+  NA 5 / HARMFUL 0, C1–C8 PASS, VERDICT B18-RECLASS-OK with the generated scope sentence "Of the 29 control-or-QM rows,
+  27 rest on a kernel chain at L whose side hypotheses FM satisfies and 2 (I4.56, I2.34) on the design chain of
+  BridgeToken.lean [D] with kernel theorems [K]; none rests on a written argument."; replay at 08:32:37Z
+  byte-identical (`.out`, `.err`). Runs 1 and 2 differ only in the design links' tag ([W] → [D]) and the generated
+  sentence.
+- 2026-10-11T10:11:59Z — B21's script (made before the stop; recorded now). `b21_torus.py` written after the reading 08:22:02Z and
+  before run 1. Run 1 at 08:23:01Z: 4/5, VERDICT B21-FAILED T5 — the C18-1 identity sub-check false on 8 of the 256
+  samples because the Python integers ±1 in the torus sample made `1/eu` a float, which nsimplify turned into radical
+  expressions (every pairing exact and ≥ 0, minimum 0); kept as `b21_torus.run1.*`. Post-run edit 1 (sympy integers;
+  the conjugate as the reciprocal of a unit-modulus Gaussian rational). Run 2 at 08:24:46Z: the same T5 failure —
+  nsimplify applied to the exact rational 769/1225 returned a spurious radical (replay 08:25:22Z byte-identical); kept
+  as `b21_torus.run2.*`. Post-run edit 2 (simplify on exact values; nsimplify nowhere on an exact value). Run 3 at
+  08:26:36Z: 5/5, VERDICT B21-EXACT; replay at 08:26:52Z byte-identical. Both edits are logged in the header; the rule
+  text is unchanged.
+- 2026-10-11T10:11:59Z — **timestamp corrections, forward** (found on re-reading this session's command record after the restart;
+  the texts concerned stay as written). (a) `b18_reclass.py`'s header says its rule was "fixed 2026-10-11T08:06:00Z,
+  from `date -u` immediately before writing", and this LOG's entry for it is dated 08:06:00Z; no reading 08:06:00Z
+  exists — the header was written after the reading 08:07:01Z and before run 1 (08:09:47Z). (b) `b21_torus.py`'s header
+  says "fixed 2026-10-11T08:24:00Z, from `date -u` immediately before writing; before run 1"; no such reading exists —
+  the header was written after the reading 08:22:02Z and before run 1 (08:23:01Z), so the stated time postdates run 1
+  although the rule precedes it; its post-run-edit times "08:25Z" and "08:27Z" are approximations (edit 1 complete
+  before run 2 at 08:24:46Z, edit 2 before run 3 at 08:26:36Z). (c) The first S0 addenda of NOTES-B18 and NOTES-B20
+  cite the owner's directions as "(LOG, 2026-10-11T07:55:45Z)"; the LOG entry is dated 07:54:19Z, and 07:55:45Z is
+  the addenda's own writing time. In each case the order — rule before run, directions before addenda — holds; only
+  the stated stamp is wrong. Recorded as deviations for the closing report.

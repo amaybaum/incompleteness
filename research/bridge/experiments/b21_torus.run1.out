@@ -1,0 +1,8 @@
+[PASS] T1: generators in T^2 . {1, CNOT, X_B, CNOT X_B} modulo scalars; CNOT U(u,v) CNOT = U(u,-v), X_B U(u,v) X_B = U(-u,-v); CNOT, X_B commuting involutions, none diagonal: four components, identity component T^2
+[PASS] T2: <h|U(u,v) X_B h> = 2Re(conj(h00)h01 e^iu) + 2Re(conj(h10)h11 e^iv) symbolically; instances (1,1,2,i), U(pi/2,0): 0; (1,2,3,4), U(pi/2,pi/2): 0
+[PASS] T3: det law symbolic; seed (2,1,1,0): product-free on all four components True (squared moduli [(0, 1), (4, 0), (1, 0), (0, 4)]); countercontrol (1,2,2,-4): |h00h11|^2 = |h01h10|^2 = 16, U(pi/2,0) h = [I, -2*I, 2, -4] = (i,2) (x) (1,-2), det 0
+[PASS] T4: <d_j, d_k> = 4 - 2c + c^2 s (exact instance 145909/62500 at c = 51/50, s = 9/25); at c = 2 the pairing is 4*s >= 0; (CC) at c = 2 reads 4 <= 4 s, i.e. s = 1 on every positively paired pair
+[FAIL] T5: lambda = 1/98; <y, d_h> = 0; h'^* y h'/|h'|^2 = -1/4900 < 0; over 256 sampled orbit defects min <y, d> = 0 >= 0, C18-1's identity on every sample False
+
+PASS 4  FAIL 1
+VERDICT B21-FAILED T5
