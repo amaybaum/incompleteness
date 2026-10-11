@@ -236,3 +236,30 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     or `R_z(θ₀)`.
   - **HO-23 v1**: `ReachUnitary`/`ReachAnti` and their finite case ([D]) as context for C19 and C18 (reachability of the
     groups met there); no row rests on them as a premise. Not assumed: B7-1 in positive dimension; certification.
+- 2026-10-11T03:37Z — **coordinator addendum 2 received** (owner's audit safeguard for C21): for every cone and every Table
+  A2 row, a (b)-instance verdict and a Q3-level verdict are decided separately; one fills the other only through a cited
+  entailment (inventory id or kernel line), e.g. a failed local-unitary (b)-instance implies `K ≠ Q3` because Q3 is
+  invariant under every `U ⊗ V` conjugation, never the converse. Each C21 table carries at least the two columns
+  "(b)-instances: satisfied / failed, by operation" and "Q3-level rows: satisfied / failed". Owner's framing recorded:
+  C17–C20 serve objective 2 (independence and minimality of a bridge H); every explicit cone's RESULTS row names the
+  weaker alternative (a group of operations, a finite clause) it shows does not force Q3. Applied from this entry on.
+- 2026-10-11T04:30Z — **coordinator addendum 3 received** (owner's acceptance criteria for C21 tables and RESULTS rows; no
+  change to nodes, order or budget). (1) Cone invariance versus operational availability: the (b)-instances are
+  cone-preserving admissibility statements (K invariant under the group's action); a cone invariant under a group is not
+  thereby a model in which the operations are operationally available through the kernel's protocols, which is the
+  bridge and origin threads' question and is never decided by a cone computation. The (b) column of every C21 table is
+  headed "invariance under …", never "availability of …", and no row or note says a cone "makes the operations
+  available". (2) Pair-level versus full-OI insufficiency: stage 6 established `A_reached ⊭ (b)` for the 118 transferred
+  pair-level rows; the 68 NOT REACHED rows are not shown irrelevant, so a cone satisfying every reached row is labelled
+  "satisfies the transferred pair-level premises at L", never "satisfies OI" or "independent of OI"; the NOT REACHED rows
+  are listed as NOT REACHED for each new cone exactly as Table A2 lists them for K(Z_F), unless a theorem at L transfers
+  one to the pair cone (then cited and the row decided). Applied from this entry on; C17's NOTES S0 (04:28Z) states no
+  C21 verdict and needs no change; a sweep of the round's earlier wording (C17 NOTES and LOG so far) finds no
+  "available"/"satisfies OI" phrasing to correct.
+- 2026-10-11T04:28Z — **C17 S0** written in NOTES-C17 (predictions and decision rules for the preflight and the design
+  run) before any C17 script ran; the module draft `lean/CmSprime.lean` (sha256 `78e40162…`) is the text to be dispatched.
+- 2026-10-11T04:30:41Z — **C17 preflight run 1**: `experiments/c17_preflight.py` (sha256 `e7e2d65c…`) → `.out`
+  (`c99f569c…`), `.err` empty; 7/7, `VERDICT C17-PREFLIGHT-OK`, every control as predicted (P1 certificate remainder 0, the
+  certificate without `q₂` leaves 3 terms; P5 2064 cap points of 35684, no violation at `s = s*`, 318 witnesses at
+  `s = 1/3`; P6 1291 instances, no counterexample, countercontrol instance found). Replay at 04:31Z byte-identical
+  (`cmp` on `.out` and `.err`).
