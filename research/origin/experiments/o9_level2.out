@@ -1,0 +1,48 @@
+== o9_level2 ==
+
+-- L2R: level two, real: the permutations of Fin 2 x Fin 2 and mixImage 2 (pi/4)
+L2R  BFS closes within 10000: True; order 2304 (2304 = 32 * |O+(4,2)|: True); contains -1: True; every element maps the real Pauli group to itself: True
+L2R  -> True
+
+-- L2C: level two with the single-state quarter phase
+L2C  U = M2 SWAP M2 SWAP phaseGate(1,1): unitary True; trace 3/2 + 1/2 i; in Z[zeta_8]: False (infinite order certified: True)
+L2C  commutant of the conjugation action on M_4(C), generators (transposition, 4-cycle, M2, phase): dimension mod 998244353: 2, mod 1000000009: 2
+L2C  determinants of the generators: ['-1', '-1', '1', '1 i']; in {1, -1, i, -i} with i attained: True
+L2C  -> True
+
+-- L1: level one
+L1a  sums of four squares: counts (4^k, 2*4^k) for k = 0..6: [(8, 24), (24, 24), (24, 24), (24, 24), (24, 24), (24, 24), (24, 24)]; exactly the scaled patterns: True
+L1b  unit columns over B: 24, over sqrt2*B: 24; unitaries: 96 + 96 = 192 (all unitary: True); all Clifford up to phase: True
+L1c  distinct conjugation channels: 24
+L1d  level-one generated group: closes True, order 192; channels 24; equal to the L1c channels: True; every element among the L1b unitaries: True
+L1e  sigma-parity: mixImage n (pi/4) negated, permutation and phase matrices fixed, n = 1..4: True
+L1f  level 2 with the phase: 20000 elements, 40420 isometric 2x2 blocks (21674 not monomial), non-Clifford: 0; distinct block channels 24, all among the 24: True
+L1f  level 3 with the phase: 6000 elements, 40456 isometric 2x2 blocks (9711 not monomial), non-Clifford: 0; distinct block channels 24, all among the 24: True
+L1   -> True
+
+-- L3X, L4: levels three and four, real
+L3X  level 3: U = M3 (3-cycle): trace 3/2 sqrt2, in Z[zeta_8]: False; commutant on Lambda^2(C^6), dimension mod 998244353: 1, mod 1000000009: 1
+L3X  -> True
+L4   level 4: U = M4 (3-cycle): trace 5/2 sqrt2, in Z[zeta_8]: False; commutant on Lambda^2(C^8), dimension mod 998244353: 1, mod 1000000009: 1
+L4   -> True
+
+-- countercontrols (must be False)
+CC1  the three-state pair R01, R12 closes within 5000: False
+CC2  HZ (x) HZ: trace 2, order 4; infinite order certified: False
+CC3  real level-two group: commutant on M_4(C) mod 998244353 has dimension 3; equal to 2: False
+CC4  rot(alpha), cos alpha = 3/5: entries in B: False; trace 6/5 integral: False; both: False
+CC5  V = diag(1+2i, 1-2i)/sqrt5: entries in Q(i): False; superoperator entries (sympy) ['1', '-3/5 + 4*I/5', '-3/5 - 4*I/5', '1'], (Gaussian rationals) ['1 + 0 i', '-3/5 + 4/5 i', '-3/5 + -4/5 i', '1 + 0 i']; field test excludes V: False
+CC6  diag(1+2i, 1-2i) primitive in Z[i] (Bezout (-1-2i)(1+2i) + (-2)(1-2i) = 1): True; column norm 5, a power of 2: False; norm step admits V: False
+CC1  CC-OK (False as required)
+CC2  CC-OK (False as required)
+CC3  CC-OK (False as required)
+CC4  CC-OK (False as required)
+CC5  CC-OK (False as required)
+CC6  CC-OK (False as required)
+
+  L2R: True
+  L2C: True
+  L1: True
+  L3X: True
+  L4: True
+VERDICT L2-REAL-FINITE+L2-PHASE-DENSE+L1-CLIFFORD-ONLY+L3-CONFIRMED+L4-REAL-DENSE
