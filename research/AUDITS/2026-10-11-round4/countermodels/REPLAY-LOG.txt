@@ -1,0 +1,6 @@
+Coordinator replays of research/countermodels round-4 scripts at thread head 644bf0a1 (python3 -I -B, cwd research/countermodels/experiments; stdout compared byte for byte with the committed .out).
+c17_preflight.py   IDENTICAL  (rc=0, 10 s;  VERDICT C17-PREFLIGHT-OK; 7 checks with countercontrols)
+c18_attempts.py    IDENTICAL  (rc=0, 1 s;   VERDICT C18-EXACT; 13/13, run 2; run 1 kept as .run1.* with 12/13 on an auxiliary assertion)
+c19_groups.py      IDENTICAL  (rc=0, 36 s;  VERDICT C19-EXACT; 7/7)
+c21_rows.py        IDENTICAL  (rc=0, 120 s; VERDICT C21-EXACT; 25/25, run 2 = run 1 plus four RECORD lines; run 1 kept as .run1.*)
+4/4 identical.

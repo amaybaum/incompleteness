@@ -1,0 +1,22 @@
+RESOLVED+NAMED CompositeDimension.lean:161 ['prodState']
+RESOLVED+NAMED K2Guard.lean:95 ['CandidateCone']
+RESOLVED+NAMED KInfFoundations.lean:350 ['rotFun']
+RESOLVED+NAMED JordanClassification.lean:84 ['OperationalRigidity.psd_trace_mul_nonneg']
+RESOLVED+NAMED OperationalRigidity.lean:917 ['OperationalRigidity.psd_trace_mul_nonneg']
+RESOLVED+NAMED BoundaryAudit.lean:100 ['psdFactorization_discharged']
+RESOLVED+NAMED JordanClassification.lean:74 ['trace_mul_vecMulVec']
+RESOLVED-UNNAMED ReferenceSufficiency.lean:373 names ['trace_mul_vecMulVec'] not in window: theorem dotProduct_star_self_real {C : Type*} [Fintype C] (v : C → ℂ) :
+RESOLVED-UNNAMED CompositeDimension.lean:186 names ['CandidateCone', 'cnot', 'd4v'] not in window: def maxCone (Ω : Set (Fin d → ℝ)) : Set (W d) :=
+RESOLVED-UNNAMED CompositeDimension.lean:198 names ['pc', 'pt', 'sgn'] not in window: def actT (N : (Fin d → ℝ) →ₗ[ℝ] (Fin d → ℝ)) (ω : W d) : W d := fun μ => homMap N (ω μ)
+RESOLVED+NAMED K2Guard.lean:143 ['cnot']
+RESOLVED+NAMED KInfFoundations.lean:411 ['t']
+RESOLVED+NAMED OperationalAssembly.lean:658 ['readout_is_localLuders']
+RESOLVED-UNNAMED DiscreteCompletion.lean:1929 names ['denseUnitaryControl_of_fixedGate'] not in window: theorem fixedGateTheory_derivedOI (α : ℝ) : DerivedOI (fixedGateTheory α) :=
+RESOLVED DiscreteCompletion.lean:1948 (no identifier named on the citing lines)
+RESOLVED TransitiveBody.lean:602 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:174 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:386 (no identifier named on the citing lines)
+RESOLVED+NAMED CompositeDimension.lean:741 ['pc', 'sgn']
+RESOLVED+NAMED CompositionOrder.lean:378 ['not_stagePreserving_of_infiniteOrderOn']
+SUMMARY countermodels: 20 distinct citations in added lines since 23713ce9; resolved 20; named-and-found 12; unnamed 4
+CITATIONS-COUNTERMODELS-FAIL
