@@ -93,4 +93,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     existence of an exotic invariant cone enters only at CONDITIONAL on claim D [A] (EBF [A]).
   Process note (2026-10-11T00:00Z): the first form of the receipts commit (local, never pushed, `f230bc04`) carried the
   three inbox files without this LOG entry (my LOG edit had failed); the entry was added to that commit before any
-  push, with the same message.
+  push, with the same message. Receipts commit pushed as `43a49d57`.
+- 2026-10-11T00:21Z — C11. Scratchpad exploration (numerical, not evidence; `/tmp/.../scratchpad/x11_*.py`, `x12_*.py`):
+  the group's order, Bell-defect images, `φ₀`'s orbit (orthogonal pair found), a rounding search for seeds with no
+  orthogonal pair in their orbit, a numerical pair test of the cap/co-cap criterion; a penalty-optimizer test of
+  self-positivity of `K*` was insensitive (it missed a known witness) and is not used. NOTES-C11 S0 written 00:11:33Z
+  (`date -u`), before the script. `c11_octahedral.py`: decision rule drafted 00:13:49Z, revised before any run and
+  re-stamped 00:16:53Z (cap-edge construction, charpoly helper, `table` speed-up); run 1 (00:17:45–00:18:07Z) 12/12
+  `VERDICT C11-OCTAHEDRAL-EXACT`; replay identical (out `9b4fed7b…`). Results: order 384 with the block form
+  `P₀⊗A + P₁⊗ωPA`; Theorem C11-B (no Bell-type defect in any invariant cone; the sum identity); Theorem S′ (written proof);
+  `φ₀`'s orbit has an orthogonal pair (no surgery on it); the explicit `G₃₈₄` cone on `h*` at `c* = 401/400` (EXOTIC-X,
+  CONDITIONAL on S′); EXOTIC-X for every finite unitary group with `cnot`. RESULTS rows C11.1–C11.7 appended. Commit: C11.
