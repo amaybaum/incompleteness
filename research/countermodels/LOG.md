@@ -103,4 +103,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `VERDICT C11-OCTAHEDRAL-EXACT`; replay identical (out `9b4fed7b…`). Results: order 384 with the block form
   `P₀⊗A + P₁⊗ωPA`; Theorem C11-B (no Bell-type defect in any invariant cone; the sum identity); Theorem S′ (written proof);
   `φ₀`'s orbit has an orthogonal pair (no surgery on it); the explicit `G₃₈₄` cone on `h*` at `c* = 401/400` (EXOTIC-X,
-  CONDITIONAL on S′); EXOTIC-X for every finite unitary group with `cnot`. RESULTS rows C11.1–C11.7 appended. Commit: C11.
+  CONDITIONAL on S′); EXOTIC-X for every finite unitary group with `cnot`. RESULTS rows C11.1–C11.7 appended. Commit: C11
+  (`1219a971`, pushed).
+- 2026-10-11T00:40Z — C12. Scratchpad exploration (numerical, not evidence; `x12_mu.py`, `x12_bell4.py`, `x12_tools.py`,
+  `x12_inst*.py`): the boundary-cover measure `μ(s)`, Gaussian-integer Bell sets for the ten orthogonality patterns, the
+  witness Tools A–C on them and on 3000 random four-member sets (no failure), integer witness points for the exact
+  instances. NOTES-C12 S0 written 00:35:34Z (`date -u`); `c12_pairs_bellsets.py` decision rule 00:35:57Z; one pre-run edit
+  (CC3's rank test); run 1 (00:37:49Z) 9/9 `VERDICT C12-PAIRS-BELLSETS-EXACT`, replay identical (out `363c9899…`).
+  Results: the sharp pair theorem for rank-one defects (C4.1 its Bell corner); the boundary witness BW with Tools A–C;
+  C8-C proved at four members (all ten patterns) and for every finite Bell set with a complete non-orthogonality
+  component; residual classes recorded. RESULTS rows C12.1–C12.6 appended (C8.4's label unchanged; C12.6 records the
+  refined status). Commit: C12.
