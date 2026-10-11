@@ -131,6 +131,41 @@ reconstruction)", `modules: ["K2Schema"]`, `status: "kernel-only"`, `manuscript:
   `φ₀ = (1, 2, 3i, −1+i)/4` to a product (X7 below; for every finite subgroup of `U(4)` by the bridge thread's
   `reachUnitary_finite`, a design-run statement, handoff HO-23).
 
+## The hypotheses, classified against the premise inventory (owner's rule: derive, do not introduce)
+
+The theorem's form is **OI + {H2, H3, A_miss (full flow), ReachPure} ⇒ K = Q3**: four of its hypotheses are introduced,
+so it is not of the form "OI ⇒ X". Inventory ids are the stage-6 premise inventory's (`research/archive/pt/I3/INVENTORY.md`
+at `research/archive` @ `4dc0321c`, sha256 `51eff9af…`), with the status each record fixes at L.
+
+| hypothesis or setting item | kind | inventory id and status at L |
+|---|---|---|
+| the pair carrier `W 3` (local tomography encoded) | (i) inventory item | I3.1 `W d`: assumed (the premise the carrier encodes; K2 OPEN) |
+| `hH1`: every product of `eball 3` states lies in `K` | (i) inventory item | the products clause of I3.43 `CandidateCone`: assumed (also the PT-record H1, I3.147) |
+| the token body is `eball 3` | (i) inventory items | the output of TRB-1 (I3.89, proved [K]) from K∞-Trans (I3.170) and the other K∞ seams (I3.166–I3.174), each open, unsourced |
+| `hH2`: `cnot`-invariance of `K` | (ii) **introduced, not an OI premise** | PT-record H2 (I3.148); `cnot` itself is I3.11, but no kernel statement at L asserts `cnot K ⊆ K` of any cone (I3.9's bridge note) |
+| `hH3`: `K = dualW K` | (ii) **introduced, not an OI premise** | PT-record H3 (I3.149); `ipW` and `dualW` are not at L (I3.143) |
+| `hA`: invariance under `actT (rotLin t)` for every `t` and under `actT cycEquiv` | (ii) **introduced, not an OI premise** | a form of (b) (I3.150 (b_S4), I3.153 (b_DJ)): PT-record open, flagged do not assume |
+| `hreach`: `ReachPure` | (ii) **introduced, not an OI premise** | not an inventory record; pure-state reachability is flagged do not assume (I3.144); it is a statement about the drive words only, proved in writing (NOTES-E10 L4) and not in the kernel |
+
+The objects `dict`, `Q3`, `ipW`, `dualW`, `driveWords` are definitions of the module (the comparison objects of I3.144 at
+L only in a design preflight), not hypotheses. Using the four introduced hypotheses in this theorem does not make any of
+them an OI premise.
+
+## The cited inputs and their evidence layers (owner's rule: layers kept separate)
+
+| input | layer |
+|---|---|
+| the 22 declarations of `EqvK2Schema` (the frozen surface) | [D] design run 38101580750, not certified |
+| `cnot` and its relations (CompositeDimension.lean:775, :854, :860), `rotLin` (KInfFoundations.lean:386), `cycEquiv` (:416), `psdFactorization_discharged` (BoundaryAudit.lean:100), `CandidateCone` (K2Guard.lean:95), `actT_reflY_phiW` (:106), `cnot_idW` (:110), `chain_value` (:134), `no_candidateCone_cnot_reflY` (:143) | [K] kernel at L |
+| the verdicts of DIM-1 and K2-GUARD-1 on those declarations | CERTIFIED (landed rounds) |
+| the exact layer `e15_k2s6_probe` | [X] |
+| `ReachPure`'s written proof (NOTES-E10 L4) | [W] + [X] instances + [L] Euler angles |
+| the countercontrol's self-duality, Theorem S′ (HO-24 item 3) and the operator-norm bound | [W], read by the coordinator, not kernel-checked |
+| the two-rotation clause (HO-13 item 2) | [W] + [X] + [L] Niven |
+| claim (D) and K(Z_F) (stage records) | [A] |
+| `BridgeDictionary` (HO-21) and `reachUnitary_finite` (HO-23) | [D] bridge-thread design runs |
+| HO-17 item 4, HO-20 item 4, HO-22 items 1 and 3, HO-25 items 1–2 | at their handoff labels (CONJECTURE or CONDITIONAL; [W], [X], [A]) |
+
 ## The exact layer (frozen probe `verification/lean/k2_schema1_probe.py`)
 
 The probe is `research/equivalence/experiments/e15_k2s6_probe.py` (sha256
@@ -188,7 +223,9 @@ No rule reads another cell's outcome. `K2-SCHEMA-1-READ` when the three cells ar
 > the two-qubit positive cone read through the Pauli dictionary, provided every pure two-qubit state is reachable from
 > a product by the drive words (ReachPure). With the octahedral repertoire on that copy in place of the rotations, an
 > explicit set with the products, invariant under the gate and that repertoire, differs from the two-qubit positive cone
-> and is not invariant under the rotation with cosine 3/5.
+> and is not invariant under the rotation with cosine 3/5. The gate invariance, self-duality, the rotation invariance
+> and ReachPure are introduced hypotheses, not OI premises: the result has the form OI + {H2, H3, A_miss, ReachPure} ⇒
+> K = Q3.
 
 > Non-inference rule: this round does not show that OI supplies the composite cone, the gate, self-duality or the
 > rotations; the products clause, the gate invariance, self-duality and the rotation invariance are premises. It does
@@ -199,7 +236,9 @@ No rule reads another cell's outcome. `K2-SCHEMA-1-READ` when the three cells ar
 > The probe is an exact computation, not a Lean kernel proof.
 
 **Premises this round does NOT source:** H2 (`cnot`-invariance), H3 (`K = dualW K`), A_miss (the full flow with
-`cycEquiv`) and H1 as a property of a composite; `ReachPure` is carried as a hypothesis, not proved in the kernel.
+`cycEquiv`) and H1 as a property of a composite; `ReachPure` is carried as a hypothesis, not proved in the kernel. H2, H3,
+A_miss and `ReachPure` are introduced hypotheses, not OI premises; H1 is the products clause of the inventory item I3.43
+(assumed at L).
 
 ## The ROADMAP wording the round would license (row K2; not applied by the round)
 
@@ -208,9 +247,10 @@ composition route, but no governed round records the classification or the cone 
 all three cells positive the second sentence may be replaced by: "A governed round records the pair-level cone theorem
 conditionally (`pairCone_eq_Q3_of_drive`): products, invariance under the gate and under one copy's rotations about the
 third axis and its cyclic permutation, and self-duality under the table pairing give the two-qubit positive cone
-through the Pauli dictionary, given a reachability statement the round carries as a hypothesis; no governed round
-records the classification." The obligations sentence ("… all are open") stands: every hypothesis of the theorem is
-unsourced. K2 stays OPEN under every outcome.
+through the Pauli dictionary, given a reachability statement the round carries as a hypothesis; the gate invariance,
+self-duality, the rotation invariance and the reachability statement are introduced hypotheses, not OI premises; no
+governed round records the classification." The obligations sentence ("… all are open") stands: every hypothesis of
+the theorem is unsourced. K2 stays OPEN under every outcome.
 
 ## The controls (in `controls.py`)
 

@@ -181,4 +181,7 @@ Each note is dated, names its evidence, and supersedes nothing above.
   here at their labels: explicit exotic cones do not need Bell-type defects or finitely many defects (small-cap
   rank-one surgeries for finite groups and for tori whose orbits avoid orthogonal pairs); T fails on every explicit
   cone of the record, `K_circ` the one open class. Status OPEN; the schema stays CONDITIONAL on H2, H3, A_miss and
-  `ReachPure`.
+  `ReachPure`. **Form (owner's rule 1): OI + {H2, H3, A_miss (full flow), ReachPure} ⇒ K = Q3** — H2 (`cnot`-invariance;
+  PT-record I3.148), H3 (`K = dualW K`; PT-record I3.149), A_miss in the full-flow form (a form of (b), I3.150/I3.153)
+  and `ReachPure` (pure-state reachability, I3.144) are each **introduced, not an OI premise**; the kind-(i) items are
+  I3.1 `W d`, the products clause of I3.43 `CandidateCone` and the ball through TRB-1 (I3.89) from the open K∞ seams.

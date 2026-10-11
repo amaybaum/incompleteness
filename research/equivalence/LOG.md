@@ -420,3 +420,34 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `1949/2048` equals the hand value of S0. Draft S6 written (`preregistration-drafts/S6-k2-schema-pair-cone.md`,
   round id `K2-SCHEMA-1`; nothing activated, nothing under `verification/`). NOTES-E15 §§1–3; RESULTS R-E15.1–R-E15.3;
   LEDGER round-4 note (K2). No dispatch used (the module was built in round 3, run 38101580750).
+- 2026-10-11T03:29Z — **coordinator addendum received** (mid-round, while E16's S0 was being drafted; recorded before any
+  further research step). The owner's round-4 priorities: (1) bridge B14–B15 with origin O11; (2) equivalence E15–E16,
+  the decisive question stated as "can the pair-level results imply the transitivity needed at higher levels without
+  adding assumptions?"; (3) countermodels C17–C20; (4) bridge B16–B17 and equivalence E17–E18. Three standing rules,
+  effective now and applied to everything this thread records from here on: (1) derive, do not introduce — every result
+  lists its hypotheses, each classified as (i) an item of the OI premise inventory at its status at L, cited by id, or
+  (ii) an introduced hypothesis, flagged "introduced, not an OI premise" in the RESULTS row and the LEDGER; a result is
+  written "OI ⇒ X" only when every hypothesis is of kind (i), otherwise "OI + {named hypotheses} ⇒ X"; an introduced
+  hypothesis never becomes an OI axiom by use; for E16 a positive answer is written "OI + {…} ⇒ ellipsoid" with the
+  braces filled, a negative answer names the exact body that meets the pair-level hypotheses and is not an ellipsoid;
+  (2) the premise inventory (stage 6) is the reference point; (3) the evidence layers [D], [W], [K] and CERTIFIED are
+  kept separate, and a preregistration draft states the layer of each cited input. Node list and order unchanged.
+- 2026-10-11T03:29Z — **reads of the premise inventory, authorized by the addendum** (branch `research/archive` @
+  `4dc0321c`, worktree `/home/user/wt-research/archive`, read-only; each file's sha256 checked equal to the value the
+  addendum states, and its blob checked equal to the copy in this branch's own `research/archive/` tree):
+  `research/archive/pt/I4/INVENTORY-HEADER.md` (`02c431ff5dd5ee68892128aa3162c48de78814edb3690ae2c98900e22cf0eb07`, read
+  whole), `pt/I4/INVENTORY.md` (`43bbada1db14f052e3ec3eb3d7fc99d1bb042d41a143c912aa6ca3e4cad75461`, record index and
+  section headers), `pt/G6/GRAPH.md` (`83f4619f48982f881e43b0a19c14b7c6cc182179ea2a3c69dcf5992c4aab342c`, §0),
+  `pt/R6/REASSESSMENT.md` (`1ff62ad633fbd752f247d49b605e6cc8d984e23d8b7151b6497cdd60fa884ffe`, Table A2 from line 277),
+  `pt/INTEGRATION-NOTE-STAGE6.md` (`1130a8c5e72e03503ebd8c6183b468dfadc8ebe813bfc857bc21f6262bcf0e6b`, read in round 1, not
+  re-read). The K-programme records the addendum names are I3's, in `pt/I3/INVENTORY.md`
+  (`51eff9afef1f7ed25d82dc140a83dd97a9b24765d39b84cfdb636fa38ca96d7d`, blob `49f08221`, 187 records; the stage-6 total of 633
+  is I1 85 + I2 113 + I3 187 + I4 248): read the header, the record index, and records I3.1–I3.2, I3.8–I3.10, I3.42–I3.44,
+  I3.66, I3.68, I3.88–I3.91, I3.103–I3.105, I3.113–I3.116, I3.143–I3.176.
+- 2026-10-11T03:30Z — E15 brought under the standing rules (the node was closed at `5670ec63`, before the addendum):
+  draft S6 gains a classification table of the schema's hypotheses against the inventory (kind (i): I3.1, the products
+  clause of I3.43, the ball through I3.89 from the open K∞ seams; kind (ii), introduced, not OI premises: H2, H3, A_miss in
+  the full-flow form, `ReachPure`) and a table of the evidence layer of every cited input; its earned reading, licensed
+  wording and unsourced-premises paragraph name the four introduced hypotheses. RESULTS R-E15.1–R-E15.3 (rows of this
+  round, unaudited) amended in place with the form of each result and the flags; the LEDGER's round-4 K2 note likewise.
+  No measurement or label changed.
