@@ -409,3 +409,6 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     round); the file is not edited. Every other statement of HO-18 is as meant (item 3 with the coordinator's precision;
     the conjugation facts of its countermodels clause agree with NOTES-E10 L2 up to a global phase of `U_J`).
   No research step of round 4 precedes this receipt's commit.
+- 2026-10-11T03:13Z — E15 begun. NOTES-E15 S0 (written 03:08Z: what the node is, the draft's decisions, predictions) and
+  the exact probe `experiments/e15_k2s6_probe.py` (decision rule in its header, written 03:08Z; X6's header text
+  narrowed to the argument the code uses before any run) committed together, before the probe's first run.
