@@ -923,3 +923,25 @@ claimed. Two outcomes are both useful: continuous control derived from existing 
 strengthens), or not (the countermodels show exactly which additional physical principle is required — a limitation
 of observational incompleteness alone). Provenance: verification from saved CI logs is distinct from independently
 retrieving a full log; where a full log was unavailable (the bridge's dispatch 2), the record says so.
+
+**Two distinctions preserved in the round-5 audits (owner, 2026-10-11).** (1) *Reversible groups versus general
+operational closure*: ancilla preparation and discard are not invertible and do not belong to a group of reversible
+operations; the origin thread distinguishes the reversible group generated on each system from the larger
+collection of operational transformations obtained with ancillas, composition and discard, so that no
+group-generation theorem relies silently on transformations outside its stated domain. (2) *Dense control versus
+exact availability*: a finite-order non-Clifford operation can contribute to universal control, but non-Clifford
+status alone does not guarantee density — density is proved for the actual available generating set; and
+closure(⟨G₁, …, Gₙ⟩) = SU(2) does not mean every element is exactly reachable by finite compositions. Where K2
+requires exact invariance, the bridge establishes the topological closure (a closed cone, H3) and the continuity of
+the action before using density to obtain it, and labels the closure step as the premise it is. The owner's note on
+N11: the finite-order theorem ranges over the composition-closed generated theory, so the primitive-generator
+objection does not apply to that result; the safeguard bites on the round-5 extensions and on every closure step.
+
+**The decisive round-5 outcome, classified (owner, 2026-10-11).** (A) the drive derived from existing OI premises —
+genuine progress toward unconditional reconstruction; (B) the drive derived only after a new independently
+motivated premise — conditional reconstruction with an explicit physical principle; (C) the drive supplied by an
+assumption equivalent to the phase intervention — a sufficient bridge, but no independent explanation of its origin;
+(D) the existing premises admit non-quantum countermodels — demonstrated insufficiency at the audited scope. The
+highest-value result is a derivation of continuous operational control from established OI structure that survives
+the countermodel and circularity tests. Scope is kept explicit throughout: a proof of insufficiency for the complete
+stage-6 inventory is definitive within its scope and establishes nothing about every conceivable extension of OI.
