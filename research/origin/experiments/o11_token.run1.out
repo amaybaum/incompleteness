@@ -1,0 +1,24 @@
+sanity: cos(pi/8) ~ 0.923879532511, sin(pi/8) ~ 0.382683432365, sqrt2 ~ 1.414213562373
+E1 level one: 182 families, 3 distinct reached states, all diagonal probability vectors: True, every point mass reached: True
+E2 level one: 72 unitary data; configuration states to configuration states: True; periods [1, 2] (divide 2: True); the period fixes every reached state: True
+E3 level one: the frame phase (z at configuration 1) fixes every reached state: True
+E8 level one: 129 deterministic families, all column-stochastic on the configuration states; nonnegative inverse in 95, permutation matrix in 97
+E1 level two: 2031 families, 10 distinct reached states, all diagonal probability vectors: True, every point mass reached: True
+E2 level two: 384 unitary data; configuration states to configuration states: True; periods [1, 2, 3, 4] (divide 12: True); the period fixes every reached state: True
+E3 level two: the frame phase (z at configuration 3) fixes every reached state: True
+E8 level two: 1209 deterministic families, all column-stochastic on the configuration states; nonnegative inverse in 399, permutation matrix in 415
+E3 frame phase on |+><+|: 200 steps, 201 distinct members (no return: True); minimal polynomial of z: 5*x**2 - 6*x + 5, not monic over Z: True
+E4 extension (substratum + rot(pi/4), level one): 5 reached states, 2 coherent, |+><+| reached: True; frame phase orbit of |+><+|: 201 distinct; coherent/infinite-orbit: stated access False/False, extension True/True, agree: True
+E5 fixedGateTheory(pi/4) level one: group 192 elements, 24 channels, channel orders [1, 2, 3, 4]; reached states 6 (4 coherent); frame phase among the channels: False
+E6 fixedGateTheory(pi/8) level one: tr W = 1 + sqrt2/2: True; minimal polynomial 2*x**2 - 4*x + 1, not monic over Z: True; orbit of rot(pi/8)|0><0|rot(pi/8)^dagger (coherent: True): 201 distinct
+E7 infinite-order data return within 200 steps: none (True); every E2 datum preserves the configuration states: level one True, level two True
+countercontrols: CC1 False, CC2 False, CC3 False (tr of the level-one word at pi/4 = 1: True, minimal polynomial x - 1), CC4 False, CC5 False
+E1 True
+E2 True
+E3 True
+E4 True
+E5 True
+E6 True
+E7 True
+E8 False
+VERDICT UNDECIDED (E8)
