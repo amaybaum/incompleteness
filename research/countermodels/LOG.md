@@ -319,3 +319,20 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   it. No decision used it: C17's label was fixed in S0 (04:28Z) and is applied as fixed.
 - 2026-10-11T05:25Z — **C19 closing note**: C19.3's condition is S′ in its finite form, C17.1 [D] (C17 built before C19 was
   committed); NOTES-C19 says so. RESULTS rows C18.1–C18.8, C19.1–C19.6f, C17.1–C17.3f written.
+- 2026-10-11T05:34Z — **C21 S0** written in NOTES-C21 (cones, operations, checks, row rules, predictions) before any C21
+  script ran. Re-read of HO-24 v1 (the same blob as read at 03:25Z, `research/overview` @ `742c6b2f`, sha256 `27175857…`) to fix
+  the `K384` parameters (`h*`, `c* = 401/400`, 192 defects, overlaps in `[25/2048, 13/16]`); kernel definitions read at L
+  (`git show 9f9f8257:…`): CompositeDimension.lean:161 `prodState`, :186 `maxCone`, :198 `actT`, :201 `actC`, :775 `cnot`;
+  K2Guard.lean:95 `CandidateCone`, :101 `idW`, :143 `no_candidateCone_cnot_reflY`; and, at L, the KT4-PREM-1 round's
+  `preregistration.md` and `result.md` (`verification/programmes/oi-qm/reconstruction/round-kt4-prem-1-premise-audit/`)
+  for the definition of IE1 ("every `K_p` is invariant under `actC R` and `actT R` for every rotation `R`").
+- 2026-10-11T05:40Z — **C21 run 1** (`experiments/c21_rows.py`, 05:40:45Z, 2 min): 25/25, `VERDICT C21-EXACT`. Kept as
+  `c21_rows.run1.{py,out,err}`.
+- 2026-10-11T05:44Z — **C21 run-2 amendment and run 2**: two RECORD lines added (the sharp T-support form
+  `s_max ≤ (2/c − 1)²`, since S0's bound is loose and printed False for `KC`; the identity putting the control phase flow
+  in `G_κ`, since run 1 printed `actC R_z(π/2)`, `actC R_z(t₀)` INVARIANT for `Kk`, against S0's prediction); nothing else
+  changed. Run 2 (05:44:15Z): 25/25, `VERDICT C21-EXACT`, output = run 1's plus four RECORD lines (all True). Replay at
+  05:48Z byte-identical (`cmp`).
+- 2026-10-11T05:51Z — **C21 closed**: NOTES-C21 (runs, the four tables, the other 186 rows, standing and weaker
+  alternatives, verdict, gems, scope) and RESULTS C21.1, C21.1f. Kernel lines read at L for the drive families:
+  KInfFoundations.lean:350 `rotFun`, :411 `rot3`, :425 `cyc3`, :449 `ball3Drive`.

@@ -1,0 +1,192 @@
+CHECK R0             PASS Table A2 of R6 parsed from the authorized blob -- sha256 1ff62ad633fbd752..., 199 rows, verdicts {'SATISFIES': 118, 'NOT REACHED': 68, 'FAILS': 13}, classes {'b1': 13, 'cand': 2, 'cone': 12, 'd4f': 2, 'd4s': 1, 'd4v': 3, 'def': 12, 'dna': 9, 'gate': 7, 'hmg': 56, 'inh': 46, 'kthm': 1, 'nr': 12, 'thm': 23}
+CHECK D1             PASS actC R(U), actT R(U) = Ad(U(x)I), Ad(I(x)U) on the 16 basis tables, for the 9 one-token unitaries -- R(Z) = rot3(pi), R(X) = nflip, R(U_J) = cyc3, R_x(t0) with cos t0 = 3/5 (CompositeDimension.lean:198, :201)
+CHECK D2             PASS cnot = Ad(CNOT) (pc, pt, sgn equal the Lean text at L), transposeW = complex conjugation, SWAP = table transpose, on the 16 basis tables
+CHECK D3             PASS the kernel chain: cnot prodState(xplus, z3) = phiW, actT reflY phiW = idW, ipW(idW, cnot prodState(-e1, -e3)) < 0 -- value -2 (K2Guard.lean:143's obstruction)
+CHECK K384-0         PASS cone data reproduce the source; H1 (Schmidt bound) and (CC) exact at c = 401/400 -- 192 rays, min |det Psi|^2 = 85/2048, overlaps in [25/2048, 13/16], orthogonal pairs 0
+CHECK K384-CG        PASS control: every generator of the cone's group is INVARIANT; the membership test rejects P_h -- cnot INVARIANT, actT S INVARIANT, actT J INVARIANT
+CHECK K384-B         PASS every operation decided (INVARIANT, or MOVED with an exact witness); known moving maps MOVED -- undecided []; controls [('actC R_x(pi)', 'MOVED'), ('actC J', 'MOVED')]
+OP   K384  actC R_z(pi)     INVARIANT
+OP   K384  actT R_z(pi)     INVARIANT
+OP   K384  actC R_z(pi/2)   INVARIANT
+OP   K384  actT R_z(pi/2)   INVARIANT
+OP   K384  actC R_z(t0)     MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 485/512
+OP   K384  actT R_z(t0)     MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 1949/2048
+OP   K384  actC R_x(pi)     MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 225/512
+OP   K384  actT R_x(pi)     INVARIANT
+OP   K384  actC R_x(pi/2)   MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 2273/4096
+OP   K384  actT R_x(pi/2)   INVARIANT
+OP   K384  actC R_x(t0)     MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 4177/5120
+OP   K384  actT R_x(t0)     MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 2329/2560
+OP   K384  actC J           MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 2273/4096
+OP   K384  actT J           INVARIANT
+OP   K384  actC R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 20737/25600
+OP   K384  actT R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 24777/25600
+OP   K384  actC R1          MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 14185/36864
+OP   K384  actT R1          MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 17009/18432
+OP   K384  cnot             INVARIANT
+OP   K384  SWAP             MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 1805/4096
+OP   K384  transposeW       MOVED     witness tr(g(d) P_w) = -1/400, w's max overlap with Z 1861/2048
+CHECK K384-Q1        PASS I3.144: P_h in Q3 is not in K (tr(d_h P_h) = 1 - c < 0); an entangled pure state in K is outside twin -- 1 - c = -1/400; Phi+ in K, its partial transpose has eigenvalue -1/2
+CHECK K384-Q2        PASS I3.135 FCC (uniform): X = d_h, Y = P_y, E = P_psi, F = P_chi, all in K, famI < 0; famI = 16 tr[(x(x)y)(e(x)f)]; control X = P_h gives famI > 0 -- chi #0; famI = -4/375, operator route -4/375, control 64/15
+RECORD K384-T T-support (sqrt s_max + sqrt(1 - 1/c) < sqrt(1/c)): True (s_max = 13/16, c = 401/400)
+CHECK KC-0           PASS cone data reproduce the source; H1 (Schmidt bound) and (CC) exact at c = 100001/100000 -- 11520 rays, min |det Psi|^2 = 198406621629/9790484550625, overlaps in [164178929/3916193820250, 1560203344561/1566477528100], orthogonal pairs 0
+CHECK KC-CG          PASS control: every generator of the cone's group is INVARIANT; the membership test rejects P_h -- cnot INVARIANT, actT S INVARIANT, actT J INVARIANT, actC S INVARIANT, actC J INVARIANT
+CHECK KC-B           PASS every operation decided (INVARIANT, or MOVED with an exact witness); known moving maps MOVED -- undecided []; controls []
+OP   KC    actC R_z(pi)     INVARIANT
+OP   KC    actT R_z(pi)     INVARIANT
+OP   KC    actC R_z(pi/2)   INVARIANT
+OP   KC    actT R_z(pi/2)   INVARIANT
+OP   KC    actC R_z(t0)     MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 184582484028657/195809691012500
+OP   KC    actT R_z(t0)     MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 46222262146773/48952422753125
+OP   KC    actC R_x(pi)     INVARIANT
+OP   KC    actT R_x(pi)     INVARIANT
+OP   KC    actC R_x(pi/2)   INVARIANT
+OP   KC    actT R_x(pi/2)   INVARIANT
+OP   KC    actC R_x(t0)     MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 187178441227817/195809691012500
+OP   KC    actT R_x(t0)     MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 188794252749681/195809691012500
+OP   KC    actC J           INVARIANT
+OP   KC    actT J           INVARIANT
+OP   KC    actC R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 475677394902673/489524227531250
+OP   KC    actT R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 937867802787297/979048455062500
+OP   KC    actC R1          MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 173513187743677/176228721911250
+OP   KC    actT R1          MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 340117015140709/352457443822500
+OP   KC    cnot             INVARIANT
+OP   KC    SWAP             INVARIANT
+OP   KC    transposeW       MOVED     witness tr(g(d) P_w) = -1/100000, w's max overlap with Z 9416599686644/9790484550625
+CHECK KC-Q1          PASS I3.144: P_h in Q3 is not in K (tr(d_h P_h) = 1 - c < 0); an entangled pure state in K is outside twin -- 1 - c = -1/100000; Phi+ in K, its partial transpose has eigenvalue -1/2
+CHECK KC-Q2          PASS I3.135 FCC (uniform): X = d_h, Y = P_y, E = P_psi, F = P_chi, all in K, famI < 0; famI = 16 tr[(x(x)y)(e(x)f)]; control X = P_h gives famI > 0 -- chi #0; famI = -125159/5319389250, operator route -125159/5319389250, control 50063600/21277557
+RECORD KC-T T-support (sqrt s_max + sqrt(1 - 1/c) < sqrt(1/c)): False (s_max = 1560203344561/1566477528100, c = 100001/100000)
+CHECK Kk-0           PASS cone data reproduce the source; H1 (Schmidt bound) and (CC) exact at c = 103/100 -- two circles, |det Psi|^2 = 16/441 throughout, overlaps >= 256/441 (closed forms at 16 exact points)
+CHECK Kk-CG          PASS control: every generator of the cone's group is INVARIANT; the membership test rejects P_h -- cnot INVARIANT, Ad(Z(x)I) INVARIANT, Ad(I(x)Z) INVARIANT, T INVARIANT, U(x), x = (3+4i)/5 INVARIANT
+CHECK Kk-B           PASS every operation decided (INVARIANT, or MOVED with an exact witness); known moving maps MOVED -- undecided []; controls [('actT R_x(pi)', 'MOVED')]
+OP   Kk    actC R_z(pi)     INVARIANT
+OP   Kk    actT R_z(pi)     INVARIANT
+OP   Kk    actC R_z(pi/2)   INVARIANT
+OP   Kk    actT R_z(pi/2)   MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC R_z(t0)     INVARIANT
+OP   Kk    actT R_z(t0)     MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC R_x(pi)     MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actT R_x(pi)     MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC R_x(pi/2)   MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actT R_x(pi/2)   MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC R_x(t0)     MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actT R_x(t0)     MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC J           MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actT J           MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actT R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actC R1          MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    actT R1          MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    cnot             INVARIANT
+OP   Kk    SWAP             MOVED     witness tr(g(d) P_w) = -3/100
+OP   Kk    transposeW       INVARIANT
+CHECK Kk-Q1          PASS I3.144: P_h in Q3 is not in K (tr(d_h P_h) = 1 - c < 0); an entangled pure state in K is outside twin -- 1 - c = -3/100; Phi+ in K, its partial transpose has eigenvalue -1/2
+CHECK Kk-Q2          PASS I3.135 FCC (uniform): X = d_h, Y = P_y, E = P_psi, F = P_chi, all in K, famI < 0; famI = 16 tr[(x(x)y)(e(x)f)]; control X = P_h gives famI > 0 -- chi #0; famI = -21/125, operator route -21/125, control 28/5
+CHECK K768-0         PASS cone data reproduce the source; H1 (Schmidt bound) and (CC) exact at c = 10001/10000 -- 384 rays, min |det Psi|^2 = 85/2048, overlaps in [1/1024, 13/16], orthogonal pairs 0
+CHECK K768-CG        PASS control: every generator of the cone's group is INVARIANT; the membership test rejects P_h -- cnot INVARIANT, actT S INVARIANT, actT J INVARIANT, actC nflip INVARIANT
+CHECK K768-B         PASS every operation decided (INVARIANT, or MOVED with an exact witness); known moving maps MOVED -- undecided []; controls [('actC J', 'MOVED')]
+OP   K768  actC R_z(pi)     INVARIANT
+OP   K768  actT R_z(pi)     INVARIANT
+OP   K768  actC R_z(pi/2)   INVARIANT
+OP   K768  actT R_z(pi/2)   INVARIANT
+OP   K768  actC R_z(t0)     MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 485/512
+OP   K768  actT R_z(t0)     MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 9257/10240
+OP   K768  actC R_x(pi)     INVARIANT
+OP   K768  actT R_x(pi)     INVARIANT
+OP   K768  actC R_x(pi/2)   MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 3365/4096
+OP   K768  actT R_x(pi/2)   INVARIANT
+OP   K768  actC R_x(t0)     MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 233/256
+OP   K768  actT R_x(t0)     MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 1949/2048
+OP   K768  actC J           MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 3365/4096
+OP   K768  actT J           INVARIANT
+OP   K768  actC R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 93061/102400
+OP   K768  actT R_n(pi/2)   MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 24473/25600
+OP   K768  actC R1          MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 33641/36864
+OP   K768  actT R1          MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 16553/18432
+OP   K768  cnot             INVARIANT
+OP   K768  SWAP             MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 3505/4096
+OP   K768  transposeW       MOVED     witness tr(g(d) P_w) = -1/10000, w's max overlap with Z 1861/2048
+CHECK K768-Q1        PASS I3.144: P_h in Q3 is not in K (tr(d_h P_h) = 1 - c < 0); an entangled pure state in K is outside twin -- 1 - c = -1/10000; Phi+ in K, its partial transpose has eigenvalue -1/2
+CHECK K768-Q2        PASS I3.135 FCC (uniform): X = d_h, Y = P_y, E = P_psi, F = P_chi, all in K, famI < 0; famI = 16 tr[(x(x)y)(e(x)f)]; control X = P_h gives famI > 0 -- chi #0; famI = -4/9375, operator route -4/9375, control 64/15
+RECORD K768-T T-support (sqrt s_max + sqrt(1 - 1/c) < sqrt(1/c)): True (s_max = 13/16, c = 10001/10000)
+CHECK Q3-FCC         PASS Q3 control: C1's instance pool (3 quantum states x 72 product / cnot-product tables) has min famI >= 0 -- min 0
+ROWS K384  {'SATISFIES': 118, 'NOT REACHED': 68, 'FAILS': 13, 'other': 0}; differences from Table A2: [('I3.148', 'SATISFIES at level (i); level (ii) FAILS (moved by transposeW)')]
+ROWS KC    {'SATISFIES': 118, 'NOT REACHED': 68, 'FAILS': 13, 'other': 0}; differences from Table A2: [('I3.148', 'SATISFIES at level (i); level (ii) FAILS (moved by transposeW)')]
+ROWS Kk    {'SATISFIES': 118, 'NOT REACHED': 68, 'FAILS': 13, 'other': 0}; differences from Table A2: none
+ROWS K768  {'SATISFIES': 118, 'NOT REACHED': 68, 'FAILS': 13, 'other': 0}; differences from Table A2: [('I3.148', 'SATISFIES at level (i); level (ii) FAILS (moved by transposeW)')]
+TABLE K384
+| item | (b)-instances: invariance under …, satisfied/failed, by operation | Q3-level rows: satisfied/failed | Table A2 (K(Z_F)) → this cone |
+|---|---|---|---|
+| I3.137 IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | control — satisfied: R_z(pi), R_z(pi/2); failed: R_z(t0), R_x(pi), R_x(pi/2), R_x(t0), J, R_n(pi/2), R1 | target — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0), R_n(pi/2), R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.142 `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the … | control — satisfied: R_z(pi), R_z(pi/2); failed: R_z(t0), J | target — satisfied: R_z(pi), R_z(pi/2), J; failed: R_z(t0) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.150 (b_S4) | control: failed | target: failed | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.151 (b_n) | control — failed: R_n(pi/2) | target — failed: R_n(pi/2) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.152 (b_R1) | control — failed: R1 | target — failed: R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.153 (b_DJ) | control — satisfied: R_z(pi), R_z(pi/2); failed: R_z(t0), R_x(pi), R_x(pi/2), R_x(t0), J | target — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.155 frame covariance (FC) of the native gate | FC ⟺ IE1 given hgate (R6 I3.155 evidence; hgate: cnot INVARIANT) | — | FAILS → FAILS |
+| I3.165 K2 | some local map moves K | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.144 `Q3`, `twin`, `pauliW`, `twistQ3` | — | failed: P_h in Q3 \ K (1 - c = -1/400); Phi+ in K \ twin | FAILS → FAILS |
+| I3.133 `H` | — | failed: via I3.140 (KT4Core ⇒ FCC, [D]) and I3.135 | FAILS → FAILS |
+| I3.135 FCC | — | failed: famI = -4/375 at (d_h, P_y, P_psi, P_chi) | FAILS → FAILS |
+| I3.160 H | — | failed: homogeneity ⇒ Q3 (stage 4 Y6 [W + L]); K ≠ Q3 | FAILS → FAILS |
+| I3.161 T | — | failed: C3.3/C11.7 (finitely many non-PSD extreme rays: c = 15 on defects), c(P00) = 9 (C3.2); T-support True | FAILS → FAILS |
+| I3.148 H2 | cnot: invariant; level (ii): failed (moved by transposeW) | — | SATISFIES → SATISFIES at level (i) only |
+TWO-TOKEN K384: cnot INVARIANT, SWAP MOVED, transposeW MOVED
+TABLE KC
+| item | (b)-instances: invariance under …, satisfied/failed, by operation | Q3-level rows: satisfied/failed | Table A2 (K(Z_F)) → this cone |
+|---|---|---|---|
+| I3.137 IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | control — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0), R_n(pi/2), R1 | target — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0), R_n(pi/2), R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.142 `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the … | control — satisfied: R_z(pi), R_z(pi/2), J; failed: R_z(t0) | target — satisfied: R_z(pi), R_z(pi/2), J; failed: R_z(t0) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.150 (b_S4) | control: failed | target: failed | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.151 (b_n) | control — failed: R_n(pi/2) | target — failed: R_n(pi/2) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.152 (b_R1) | control — failed: R1 | target — failed: R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.153 (b_DJ) | control — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0) | target — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.155 frame covariance (FC) of the native gate | FC ⟺ IE1 given hgate (R6 I3.155 evidence; hgate: cnot INVARIANT) | — | FAILS → FAILS |
+| I3.165 K2 | some local map moves K | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.144 `Q3`, `twin`, `pauliW`, `twistQ3` | — | failed: P_h in Q3 \ K (1 - c = -1/100000); Phi+ in K \ twin | FAILS → FAILS |
+| I3.133 `H` | — | failed: via I3.140 (KT4Core ⇒ FCC, [D]) and I3.135 | FAILS → FAILS |
+| I3.135 FCC | — | failed: famI = -125159/5319389250 at (d_h, P_y, P_psi, P_chi) | FAILS → FAILS |
+| I3.160 H | — | failed: homogeneity ⇒ Q3 (stage 4 Y6 [W + L]); K ≠ Q3 | FAILS → FAILS |
+| I3.161 T | — | failed: C3.3/C11.7 (finitely many non-PSD extreme rays: c = 15 on defects), c(P00) = 9 (C3.2); T-support False | FAILS → FAILS |
+| I3.148 H2 | cnot: invariant; level (ii): failed (moved by transposeW) | — | SATISFIES → SATISFIES at level (i) only |
+TWO-TOKEN KC: cnot INVARIANT, SWAP INVARIANT, transposeW MOVED
+TABLE Kk
+| item | (b)-instances: invariance under …, satisfied/failed, by operation | Q3-level rows: satisfied/failed | Table A2 (K(Z_F)) → this cone |
+|---|---|---|---|
+| I3.137 IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | control — satisfied: R_z(pi), R_z(pi/2), R_z(t0); failed: R_x(pi), R_x(pi/2), R_x(t0), J, R_n(pi/2), R1 | target — satisfied: R_z(pi); failed: R_z(pi/2), R_z(t0), R_x(pi), R_x(pi/2), R_x(t0), J, R_n(pi/2), R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.142 `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the … | control — satisfied: R_z(pi), R_z(pi/2), R_z(t0); failed: J | target — satisfied: R_z(pi); failed: R_z(pi/2), R_z(t0), J | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.150 (b_S4) | control: failed | target: failed | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.151 (b_n) | control — failed: R_n(pi/2) | target — failed: R_n(pi/2) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.152 (b_R1) | control — failed: R1 | target — failed: R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.153 (b_DJ) | control — satisfied: R_z(pi), R_z(pi/2), R_z(t0); failed: R_x(pi), R_x(pi/2), R_x(t0), J | target — satisfied: R_z(pi); failed: R_z(pi/2), R_z(t0), R_x(pi), R_x(pi/2), R_x(t0), J | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.155 frame covariance (FC) of the native gate | FC ⟺ IE1 given hgate (R6 I3.155 evidence; hgate: cnot INVARIANT) | — | FAILS → FAILS |
+| I3.165 K2 | some local map moves K | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.144 `Q3`, `twin`, `pauliW`, `twistQ3` | — | failed: P_h in Q3 \ K (1 - c = -3/100); Phi+ in K \ twin | FAILS → FAILS |
+| I3.133 `H` | — | failed: via I3.140 (KT4Core ⇒ FCC, [D]) and I3.135 | FAILS → FAILS |
+| I3.135 FCC | — | failed: famI = -21/125 at (d_h, P_y, P_psi, P_chi) | FAILS → FAILS |
+| I3.160 H | — | failed: homogeneity ⇒ Q3 (stage 4 Y6 [W + L]); K ≠ Q3 | FAILS → FAILS |
+| I3.161 T | — | failed: C16.5 (c = 14 on defects), c(P00) = 9 (C3.2) | FAILS → FAILS |
+| I3.148 H2 | cnot: invariant; level (ii): satisfied | — | SATISFIES → SATISFIES |
+TWO-TOKEN Kk: cnot INVARIANT, SWAP MOVED, transposeW INVARIANT
+TABLE K768
+| item | (b)-instances: invariance under …, satisfied/failed, by operation | Q3-level rows: satisfied/failed | Table A2 (K(Z_F)) → this cone |
+|---|---|---|---|
+| I3.137 IE1 (`IE1`, with `IsRot3`, `IsOrth3`) | control — satisfied: R_z(pi), R_z(pi/2), R_x(pi); failed: R_z(t0), R_x(pi/2), R_x(t0), J, R_n(pi/2), R1 | target — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0), R_n(pi/2), R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.142 `IE1Drive`, `ie1Drive_of_ie1` (the only pair-level lift of the … | control — satisfied: R_z(pi), R_z(pi/2); failed: R_z(t0), J | target — satisfied: R_z(pi), R_z(pi/2), J; failed: R_z(t0) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.150 (b_S4) | control: failed | target: failed | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.151 (b_n) | control — failed: R_n(pi/2) | target — failed: R_n(pi/2) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.152 (b_R1) | control — failed: R1 | target — failed: R1 | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.153 (b_DJ) | control — satisfied: R_z(pi), R_z(pi/2), R_x(pi); failed: R_z(t0), R_x(pi/2), R_x(t0), J | target — satisfied: R_z(pi), R_z(pi/2), R_x(pi), R_x(pi/2), J; failed: R_z(t0), R_x(t0) | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.155 frame covariance (FC) of the native gate | FC ⟺ IE1 given hgate (R6 I3.155 evidence; hgate: cnot INVARIANT) | — | FAILS → FAILS |
+| I3.165 K2 | some local map moves K | K ≠ Q3 (entailed: a local unitary moves K; never the converse) | FAILS → FAILS |
+| I3.144 `Q3`, `twin`, `pauliW`, `twistQ3` | — | failed: P_h in Q3 \ K (1 - c = -1/10000); Phi+ in K \ twin | FAILS → FAILS |
+| I3.133 `H` | — | failed: via I3.140 (KT4Core ⇒ FCC, [D]) and I3.135 | FAILS → FAILS |
+| I3.135 FCC | — | failed: famI = -4/9375 at (d_h, P_y, P_psi, P_chi) | FAILS → FAILS |
+| I3.160 H | — | failed: homogeneity ⇒ Q3 (stage 4 Y6 [W + L]); K ≠ Q3 | FAILS → FAILS |
+| I3.161 T | — | failed: C3.3/C11.7 (finitely many non-PSD extreme rays: c = 15 on defects), c(P00) = 9 (C3.2); T-support True | FAILS → FAILS |
+| I3.148 H2 | cnot: invariant; level (ii): failed (moved by transposeW) | — | SATISFIES → SATISFIES at level (i) only |
+TWO-TOKEN K768: cnot INVARIANT, SWAP MOVED, transposeW MOVED
+NOT-REACHED (68, as in Table A2 for every cone; no theorem at L transfers one): I3.96 I3.99 I3.104 I3.105 I3.134 I3.136 I3.141 I3.145 I3.146 I3.154 I3.157 I3.158 I1.17 I4.3 I4.4 I4.14 I4.29 I4.31 I4.42 I4.45 I4.56 I4.65 I4.66 I4.67 I4.68 I4.69 I4.70 I4.73 I4.74 I4.80 I4.82 I4.85 I4.87 I4.88 I4.96 I4.99 I4.102 I4.110 I4.115 I4.118 I4.120 I4.123 I4.124 I4.127 I4.128 I4.133 I4.137 I4.143 I4.144 I4.179 I4.187 I4.210 I4.215 I4.216 I4.241 I4.244 I4.245 I2.3 I2.29 I2.30 I2.31 I2.32 I2.33 I2.34 I2.35 I2.62 I2.63 I2.69
+K-DEPENDENT SATISFIES (29): I3.43 I3.44 I3.48 I3.51 I3.54 I3.55 I3.56 I3.58 I3.60 I3.73 I3.74 I3.75 I3.114 I3.116 I3.118 I3.130 I3.131 I3.132 I3.139 I3.140 I3.147 I3.148 I3.149 I3.156 I3.159 I3.170 I3.171 I3.172 I3.187
+CHECKS 25/25
+VERDICT C21-EXACT
