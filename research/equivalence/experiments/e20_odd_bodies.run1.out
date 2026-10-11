@@ -1,0 +1,15 @@
+parsed: pc, pt, sgn; nflip = diag(1, -1, -1)
+PASS SF1 -- the count for the sector family: (2, (3, 3)): D = 7, +1 count 4, meets: True; (3, (3, 3, 3)): D = 11, +1 count 6, meets: True; (4, (3, 3, 3, 3)): D = 15, +1 count 8, meets: True; (2, (3, 1)): D = 5, +1 count 3, meets: True; (2, (3, 5)): D = 9, +1 count 5, meets: True; (2, (5, 5)): D = 11, +1 count 6, meets: True; (2, (1, 1)): D = 3, +1 count 2, meets: True
+PASS SF2 -- for every member with k >= 2: the midpoint of two distinct pure sector-0 states is a boundary state (RelStrictConvex fails) and the effect t_0 is proper and certain on both (SingletonFaces fails)
+PASS SF3 -- (3;3,3,3), D = 11: relT True, relC True, G^2 = 1 True, H a homMap True, |z| = 1 True, N z = -z True, frame True; posFwd blockwise PSD on 26 product pairs True; the image of the pure product (sector 0, +x) (x) (sector 0, +z) is not a product -- its (0,0) block has table rank 4 True (extremality in jointStates not checked)
+PASS C0 -- eball 3 with N = nflip, z = z3: the parsed cnot is zero outside the 64-entry free pattern (True) and meets the frame (True)
+PASS C1 -- the count: eball 3: +1 count 2 of 4, meets True; eball 5: +1 count 3 of 6, meets True; Omega*^5: +1 count 3 of 6, meets True; |z| = 1 and N z = -z for each: True
+PASS C2 -- Omega*^5: 66 midpoints of distinct exact boundary points strictly inside (F < 0) True; z = e_2 on the boundary True; every pooled state is a state and every pooled effect takes values in [0, 1] on the pooled states, all three bodies
+PASS C3 -- eball 3: 64 free entries, frame consistent True, rank 16, dim F = 48; eball 5: 324 free entries, frame consistent True, rank 36, dim F = 288; Omega*^5: 324 free entries, frame consistent True, rank 36, dim F = 288
+FAIL C4 -- eball 3: UNDECIDED(iterations) (18639 constraints); eball 5: FEASIBLE(pool) (5678 constraints); Omega*^5: FEASIBLE(pool) (3034 constraints)
+COUNTER XO1 fails as stated: "eball 3 is INFEASIBLE" -- status UNDECIDED(iterations)
+COUNTER XO2 fails as stated: "the sector body (2;3,3) is relatively strictly convex at the probed midpoint" -- the midpoint is a boundary state: True
+COUNTER XO3 fails as stated: "the frame equations are inconsistent for eball 3" -- consistent: True
+checks: 8, failures: 1
+VERDICT NOT RENDERED -- failing: ['C4']
+exit 1

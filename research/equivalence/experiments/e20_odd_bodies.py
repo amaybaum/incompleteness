@@ -10,6 +10,13 @@ Pre-run review (2026-10-11T10:17Z, after the session's interruption, before run 
 file; draft sha256 5743149f...): SF3's non-product test corrected to the rank of the 4 x 4 table block (the first draft
 took the rank of the block's density matrix, which is 1 for the pure entangled image, so SF3 would have failed on a
 harness error); a vacuous clause (`... or True`) removed from C1.  The decision rule is unchanged.
+Run 2 (S0-b of NOTES-E20, written 2026-10-11T10:33Z after run 1, kept as e20_odd_bodies.run1.*): run 1 rendered no
+verdict because the positive control eball 3 ended UNDECIDED(iterations) -- its pool has exactly tight constraints at
+every feasible point, and the separation threshold (1e-9) sat below the LP's feasibility tolerance (1e-7), so the same
+near-tight constraints were re-added every round.  The threshold is now 1e-7 (SEP_TOL).  Diagnostics D1 (posFwd of each
+FEASIBLE(pool) candidate on 400000 random quadruples drawn independently of the pool) and D2 (the candidate's inverse:
+condition number and the minimum posInv value on the pool) are printed as DIAG lines; they are outside the eight checks
+and do not enter the verdict.  The decision rule is unchanged.
 
 SETTING (kernel vocabulary at L).  A token body Omega in R^D (chart dimension D); HVec D = R^{D+1} with hom x = (1, x);
 W D = tables w[mu][nu] (control, target); prodState x y = hom x (x) hom y; a NOT N (linear involution preserving Omega,
@@ -66,6 +73,7 @@ from scipy.optimize import linprog
 
 KERNEL_CD = '../../../verification/lean-mathlib/OIBridge/CompositeDimension.lean'
 RESULTS = []
+SEP_TOL = 1e-7      # run 2: the separation threshold equals HiGHS's default primal feasibility tolerance (run 1: 1e-9)
 random.seed(20261011)
 
 
@@ -764,7 +772,7 @@ def lp_relaxation(body, max_iter=40, seed=1):
             status = 'INFEASIBLE'
             break
         vals = all_values(lam)
-        viol = np.argwhere(vals < -1e-9)
+        viol = np.argwhere(vals < -SEP_TOL)
         if len(viol) == 0:
             status = 'FEASIBLE(pool)'
             break
@@ -834,12 +842,113 @@ def lp_relaxation(body, max_iter=40, seed=1):
 
 c4txt = []
 c4_status = {}
+c4_lam = {}
 for b in (B3, B5, OM):
     st, ncons, lam, cert = lp_relaxation(b)
     c4_status[b.name] = st
+    c4_lam[b.name] = lam
     c4txt.append('%s: %s (%d constraints%s)' % (b.name, st, ncons, (', certificate support %d, kernel dim %d, float gap %.3g' % (cert['support'], cert['dimker'], cert['float_gap'])) if cert else ''))
 c4 = all(st in ('FEASIBLE(pool)', 'INFEASIBLE-CERTIFIED', 'INFEASIBLE-UNCERTIFIED') for st in c4_status.values()) and c4_status['eball 3'] == 'FEASIBLE(pool)'
 check('C4', c4, '; '.join(c4txt))
+
+
+# ------------------------------------------------------------------ diagnostics D1, D2 (S0-b; outside the eight checks)
+def candidate_matrix(body, lam):
+    free, ok, part, basis, rank = Fdata[body.name]
+    n = body.D + 1
+    Nmat = np.zeros((len(free), len(basis)))
+    for k, bv in enumerate(basis):
+        for i, v in enumerate(bv):
+            if v != 0:
+                Nmat[i, k] = float(v)
+    gvec = np.array([float(v) for v in part]) + Nmat @ lam
+    G = np.zeros((n * n, n * n))
+    for (p, q), v in zip(free, gvec):
+        G[p, q] = v
+    return G
+
+
+def pair_values(G, n, HX, HY, E1, E2):
+    """(e1 (x) e2)(G (hom x (x) hom y)) for row-aligned batches"""
+    P = np.einsum('bi,bj->bij', HX, HY).reshape(len(HX), n * n)
+    M = (P @ G.T).reshape(len(HX), n, n)
+    return np.einsum('bi,bij,bj->b', E1, M, E2)
+
+
+def r_profile(S):
+    return np.cbrt(np.clip((1 + S) * (1 - S) ** 2, 0, None))
+
+
+SGRID = np.linspace(-1.0, 1.0, 20001)
+RGRID = r_profile(SGRID)
+
+
+def support_om(vX, vS):
+    """h(v) = max over Omega*^5 of v.x, by the S-grid (body of revolution)"""
+    return np.max(np.linalg.norm(vX) * RGRID + vS * SGRID)
+
+
+def random_samples(body, rng, N):
+    D, n = body.D, body.D + 1
+    if body.name.startswith('eball'):
+        def pure(m):
+            v = rng.standard_normal((m, D))
+            return v / np.linalg.norm(v, axis=1, keepdims=True)
+        X, Y, V, Wv = pure(N), pure(N), pure(N), pure(N)
+        E1 = np.hstack([np.full((N, 1), 0.5), V / 2])
+        E2 = np.hstack([np.full((N, 1), 0.5), Wv / 2])
+    else:
+        def bpoints(m):
+            S = rng.uniform(-1, 1, m)
+            u = rng.standard_normal((m, 4))
+            u /= np.linalg.norm(u, axis=1, keepdims=True)
+            return np.hstack([r_profile(S)[:, None] * u, S[:, None]])
+        X, Y = bpoints(N), bpoints(N)
+        # a fixed pool of 2000 normalised supporting effects at random boundary points
+        Pts = bpoints(2000)
+        effs = []
+        for p in Pts:
+            Xp, S = p[:4], p[4]
+            rho = np.linalg.norm(Xp)
+            g = np.concatenate([3 * rho * Xp, [(1 - S) * (1 + 3 * S)]])
+            hp, hm = support_om(g[:4], g[4]), support_om(-g[:4], -g[4])
+            den = hp + hm
+            effs.append(np.concatenate([[hp / den], -g / den]))
+        effs = np.array(effs)
+        E1 = effs[rng.integers(0, 2000, N)]
+        E2 = effs[rng.integers(0, 2000, N)]
+    HX = np.hstack([np.ones((N, 1)), X])
+    HY = np.hstack([np.ones((N, 1)), Y])
+    return HX, HY, E1, E2
+
+
+for k, b in enumerate((B3, B5, OM)):
+    if c4_status[b.name] != 'FEASIBLE(pool)':
+        print('DIAG D1/D2 %s: no FEASIBLE(pool) candidate' % b.name, flush=True)
+        continue
+    G = candidate_matrix(b, c4_lam[b.name])
+    n = b.D + 1
+    rng = np.random.default_rng(20261011 + k)
+    mins, below = [], 0
+    for _ in range(8):
+        HX, HY, E1, E2 = random_samples(b, rng, 50000)
+        v = pair_values(G, n, HX, HY, E1, E2)
+        mins.append(float(v.min()))
+        below += int((v < -1e-6).sum())
+    print('DIAG D1 %s: posFwd of the candidate on 400000 random quadruples off the pool: minimum %.3e, values below -1e-6: %d'
+          % (b.name, min(mins), below), flush=True)
+    cond = float(np.linalg.cond(G))
+    if not np.isfinite(cond) or cond > 1e12:
+        print('DIAG D2 %s: the candidate is numerically singular (condition number %.3e)' % (b.name, cond), flush=True)
+        continue
+    Gi = np.linalg.inv(G)
+    Sx = np.array([[float(v) for v in hom(x)] for x in b.states])
+    Ex = np.array([[float(v) for v in e] for e in b.effects])
+    Om = np.einsum('ia,jb->ijab', Sx, Sx).reshape(len(Sx) ** 2, n * n)
+    Mi = (Om @ Gi.T).reshape(-1, n, n)
+    vinv = np.einsum('ai,pij,bj->pab', Ex, Mi, Ex)
+    print('DIAG D2 %s: condition number %.3e; posInv of the candidate on the pool: minimum %.3e, values below -1e-6: %d'
+          % (b.name, cond, float(vinv.min()), int((vinv < -1e-6).sum())), flush=True)
 
 # ------------------------------------------------------------------ countercontrols
 xo1 = c4_status['eball 3'].startswith('INFEASIBLE')

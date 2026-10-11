@@ -101,3 +101,37 @@ rests on the Lorentz positivity of the `E₊` blocks against unit effects, which
 the certificate exactifies is uncertain (0.5); `Ω⋆⁵`: if `eball 5` is infeasible, `Ω⋆⁵` infeasible with probability
 0.6 (its effects are looser, which weakens the test), else undecided. (C5): the `(3; 3, 3, 3)` gate meets everything
 (high; E16b's construction with one more sector). Node outcome: C with probability 0.5, B′ 0.35, A 0.15.
+
+## S0-b (written 2026-10-11T10:33Z, after run 1, before run 2)
+
+**Run 1** (10:17:30Z–10:20:21Z; kept as `experiments/e20_odd_bodies.run1.*`): 7/8 — SF1, SF2, SF3, C0, C1, C2, C3
+PASS; C4 FAIL because the positive control `eball 3` ended `UNDECIDED(iterations)` (40 rounds, 18639 constraints);
+`eball 5` and `Ω⋆⁵` `FEASIBLE(pool)` (5678 and 3034 constraints); XO1–XO3 fail as stated; `VERDICT NOT RENDERED`.
+The cause is the harness's tolerance, not the body: for `eball 3` the pool contains exactly tight constraints at every
+feasible point (the frame fixes `G(prodState z z) = prodState z z`, and the tight effect `(1 − z·x)/2` vanishes there),
+so the maximal margin is `0`, the LP returns a point within HiGHS's feasibility tolerance (`10⁻⁷`) and the separation
+step, which counted values below `−10⁻⁹` as violated, re-added the same near-tight constraints round after round. The
+other two bodies had no exactly tight pool constraint and converged.
+
+**Run 2 changes (the decision rule unchanged).** (1) The separation threshold is set to HiGHS's feasibility tolerance:
+a pool value counts as violated below `−10⁻⁷` (and `FEASIBLE(pool)` means every pool value is `≥ −10⁻⁷` at the float
+candidate; it was and remains a float verdict, recorded, not a proof). (2) Two diagnostics are added, printed as
+`DIAG` lines outside the eight checks and not entering the verdict: **D1** — for every `FEASIBLE(pool)` candidate,
+`posFwd` on 400 000 random (state, state, effect, effect) quadruples drawn independently of the pool (float; balls:
+uniform pure states and tight effects `(1 + v·x)/2`; `Ω⋆⁵`: boundary points `(r(S) u, S)` with `S` uniform on
+`[−1, 1]` and `u` uniform on the unit 3-sphere, and the normalised supporting effects at such points, the support
+function computed by a 20 001-point grid in `S`); **D2** — the same candidate's inverse: its condition number, and the
+minimum over the pool of the `posInv` values `(e ⊗ f)(G⁻¹(prodState x y))`. Why: the kernel's exclusion of the ball
+in dimension five (`dim_of_nativeGate`, CompositeDimension.lean:2723) runs through `blockData_of_nativeGate` (:2703),
+whose corner maps use `posFwd` (`gate_corner`, :1884) **and** `posInv` (`gate_corner_symm` :1895, `lor_Minv` :1918,
+`Mfwd_Minv`, `Minv_Mfwd`): the corner map must be an automorphism of the Lorentz cone, not only a positive map. The
+relaxation imposes `posFwd` alone, so run 1's `FEASIBLE(pool)` for `eball 5` is the expected weakness of the method
+(outcome C by S0's rule, whatever run 2 records for `Ω⋆⁵`), and D1/D2 test the reading "`posInv` is the clause that
+carries the exclusion" on the candidate itself.
+
+**Predictions for run 2.** `eball 3` `FEASIBLE(pool)` (0.85); `eball 5` and `Ω⋆⁵` `FEASIBLE(pool)` as in run 1
+(0.9 each) — so `VERDICT E20-ODD-BODIES-EXACT` (0.8) and **outcome C** (the negative control is not excluded by the
+relaxation). D1: the `eball 5` candidate shows `posFwd` violations off the pool (0.6 — 43 states and 36 effects are a
+thin sample of a four-sphere); D2: the `eball 5` candidate violates `posInv` on the pool (0.8); the `Ω⋆⁵` candidate
+violates `posInv` on the pool (0.6). None of D1/D2 is a proof: a violation shows only that this candidate is not a
+gate; no violation would show nothing beyond the samples.

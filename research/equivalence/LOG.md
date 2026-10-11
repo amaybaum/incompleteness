@@ -979,3 +979,17 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   below, the header note dated 10:17Z): SF3's non-product test now takes the rank of the 4 × 4 table block (the
   draft took the rank of the block's density matrix, which is 1 for the pure entangled image — a harness error that
   would have failed SF3); a vacuous clause removed from C1. Decision rule unchanged.
+- 2026-10-11T10:32Z — **dispatch 2 of 3.** The repair written (proof-only; NOTES-E19 §2-b, written 10:31Z before the
+  dispatch, with the reading rule unchanged and the predictions): `lean/EqvK2Block.lean` (blob `23d0db23`) and
+  `lean/EqvOneDictionary.lean` (blob `39b4188a`). Dev branch `dev-equivalence/r5-design`: commit
+  `f67da96728f1ef54f0dc3aea3cc3c1a532d8eb0a` (the two modules only; the other four modules and the import lines
+  unchanged), pushed; `workflow_dispatch` of `verify.yml` via `gh api` at 10:31:41Z: run `38132266383` (head
+  `f67da967`), queued.
+- 2026-10-11T10:37Z — coordinator message (usage-limit protection), applied from now on: "commit and push
+  research/equivalence at every finished step (notes, scripts with their outputs, the lean/ copies, LOG entries), not
+  only at node close; push your current uncommitted files as soon as they are in a consistent state. Do not change
+  your plan otherwise; the dispatch cap (3) and all rules stand." Pushed now: the dispatch-2 repair texts
+  (`lean/EqvK2Block.lean`, `lean/EqvOneDictionary.lean`), NOTES-E19 §2-b, E20's run 1 kept as
+  `experiments/e20_odd_bodies.run1.*` (the shell wrapper had appended its exit status `exit 1` to the `.err` file;
+  removed — the program wrote nothing to stderr, its stdout ends with `exit 1`), NOTES-E20 S0-b (10:33Z) and the
+  run-2 harness (decision rule unchanged), before run 2.

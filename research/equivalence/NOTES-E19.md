@@ -378,3 +378,44 @@ the risks are the continuity lemmas (`Continuous.matrix_*` signatures), the `cpo
 (b) in the schema's vocabulary, no reachability hypothesis), `Q3_blockInvariant` and `pairCone_eq_Q3_iff_block` [D],
 `aMiss_of_blockInvariant` [D]; (i), (ii), (iv) of S0-c [D]; S6's clause in the bridge's table form, both directions,
 [D].
+
+## 2-b. Dispatch 1 measured; the repair and dispatch 2 (written 2026-10-11T10:31Z, before dispatch 2)
+
+**Dispatch 1** (run `38124464622`, head `7dd71a7e`; LOG 10:16Z): Build failure in `EqvK2Block`, gate skipped. By §2's
+rule no module is BUILT; `EqvK2Block` PARTIAL (5 of 11 prints standard: `dict_blockAct`, `blockMat_mulVec`,
+`conj_vecMulVec`, `suTo_isSU`, `Q3_blockInvariant`), `EqvOneDictionary` NOT BUILT (blocked by its import), the four
+carried modules PARTIAL by the rule's letter with every print standard. The prediction (`EqvK2Block` BUILT, 0.4)
+failed. The errors and their causes: `suTo_mulVec` (a rewrite order), `isSU_conjTranspose` (`unitary.star_mem` is
+`Unitary.star_mem` at the pin), `tokMat_hom_bloch` and `dict_prod_bloch`'s degenerate case (`simp` rewrote
+`vecMulVec` of a literal into rows by `cons_vecMulVec` before applying the scalar and the entries), `hphase_isSU`,
+`hphase_eq`, `hphase_unit` (`simp` rewrote the real half-angle cosine and sine into complex ones, which the
+hypotheses no longer matched), `cycMat_isSU` (a goal needing `I ^ 2 = −1`); behind four of them, `ring` inside
+`first | ring | …` falls back to `ring_nf`, succeeds as a tactic without closing the goal, and blocks the later
+alternatives. The failed texts: `lean/EqvK2Block.run38124464622.lean`, `lean/EqvOneDictionary.run38124464622.lean`.
+
+**The repair (proof-only; no statement of either module changes; each new name is a helper).**
+`EqvK2Block`: `suTo_mulVec` rewrites `h` before `ha`; `isSU_conjTranspose` goes through `mem_unitaryGroup_iff`,
+`star_star` and `mem_unitaryGroup_iff'`; `tokMat_hom_bloch` evaluates `hom (bloch α β)` by four `rfl` facts and
+applies `Matrix.smul_apply`, `Matrix.vecMulVec_apply` by `rw` before any `simp`, then `field_simp` and `ring1`;
+`dict_prod_bloch`'s degenerate case applies the entries by `simp only` before `simp`; §H.5 introduces
+`dphase c s = diag(c − i s, c + i s)` for opaque real `c`, `s` with `dphase_isSU`, `dphase_eq`, `dphase_unit`
+(`linear_combination` with `Complex.I_sq`), and `hphase t := dphase (cos (t/2)) (sin (t/2))`, so `hphase_isSU`,
+`hphase_eq`, `hphase_unit` are instances; `cycMat_isSU` closes by `linear_combination (−1/2) · I_sq`; every
+`first | ring | …` alternative that the repair touches uses `ring1`. `EqvOneDictionary` (never compiled; repaired by
+inspection against the same causes): `phaseMat_unitary` through `phaseMat_unitary_of` on opaque reals with `ring1`;
+the two directions of §A apply the iff by `.mpr` instead of `rw`; `continuous_tensorOf_one` through
+`continuous_matrix` and `Continuous.congr`; `continuous_ipW_right` and `continuous_coordOf` with a `fun_prop`
+fallback; `exists_su_of_unitary`'s scalar step closes by `Complex.ofReal_one`. Every Mathlib name used is checked
+against the checkout at tag `v4.33.0` (`Matrix.det_fin_two_of`, `Complex.I_sq`, `Complex.conj_ofReal`,
+`Complex.conj_I`, `Complex.star_def` (simp), `Matrix.cons_vecMulVec` (simp), `continuous_matrix`,
+`continuous_apply_apply`, `Continuous.matrix_elem/_mul/_trace/_conjTranspose`, `isClosed_biInter`,
+`Complex.cpow_nat_inv_pow`, `Complex.mul_conj`, `Complex.normSq_eq_conj_mul_self`).
+
+**Reading rule for dispatch 2** — §2's rule, unchanged: per module, BUILT iff the Build step succeeds and every
+`#print axioms` line of the module prints exactly `[propext, Classical.choice, Quot.sound]`; PARTIAL iff the Build
+step fails and some of the module's prints are standard; NOT BUILT otherwise; `lean-axioms` must report no `sorry`;
+the release gate is expected red at `lean-manuscript` only (design modules carry no census entry). **Predictions:**
+`EqvK2Block` BUILT 0.6 (the repaired proofs avoid the three failure causes; residual risk in `tokMat_hom_bloch`'s
+`simp`/`field_simp` normal forms and in `dphase_eq`'s entry (1, 1)); `EqvOneDictionary` BUILT 0.4 (never compiled;
+§B's continuity terms and `exists_su_of_unitary` are the risks); both BUILT 0.3. A green `EqvK2Block` reads:
+`reach_block`, `pairCone_eq_Q3_of_block`, `pairCone_eq_Q3_iff_block`, `aMiss_of_blockInvariant` [D].
