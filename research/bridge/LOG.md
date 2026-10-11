@@ -1226,3 +1226,29 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     file's heading list (a `grep` of its `##`/`###` lines) was printed to locate that section, and nothing else of it was
     read. The overview lists B25 as both the fixed-point instances and the tower's closure; this round's directive
     splits them (B25 the fixed-point instances, B26 the tower's closure), and the directive's numbering is used.
+- 2026-10-11T15:25:18Z — **owner's direction received through the coordinator** (quoted in substance: tokens are running low,
+  so this batch runs at limited scope; finish and push STEP 0; start no node and dispatch nothing; B24, B25 and B26 are
+  deferred to round 7; any S0 or notes already written are committed marked "deferred to round 7 (not run)"; a CI run
+  already in flight is recorded, never cancelled; close with "research/bridge: round 6 closed (limited scope)").
+  Applied: STEP 0 committed and pushed (`885ade54`). **B24, B25 and B26: deferred to round 7 (not run).** No S0, notes,
+  script, run or design module was written for any of them, so nothing is committed under that marker. The reliance
+  recorded at 15:24:01Z for HO-41, HO-42, HO-43 and HO-45 is the planned use for those nodes; no item of the four was
+  used this round. Dispatches: none (0 of 3); no dev branch created or pushed by this session; no CI run was in flight.
+- 2026-10-11T15:25:18Z — scoping reads made for B24 before the direction arrived, recorded for provenance (no finding is
+  recorded from them; all are free reads — the inherited `research/archive` copy at `4dc0321c` and the kernel at L in
+  this tree, `git diff 9f9f8257 HEAD -- verification papers book tools` empty): `research/archive/pt/R6/REASSESSMENT.md`
+  (sha256 `1ff62ad633fbd752f247d49b605e6cc8d984e23d8b7151b6497cdd60fa884ffe`), lines 1–72 and 277–480 (Table A2);
+  `research/archive/pt/I3/INVENTORY.md` (`51eff9afef1f7ed25d82dc140a83dd97a9b24765d39b84cfdb636fa38ca96d7d`), lines
+  1000–1059 and 1255–1862; `research/archive/pt/I1/INVENTORY.md`
+  (`a4a8806b219141975b6e2f6e5ccc13e723cb29c0b158386fa19049966eb66a99`), lines 740–819; `research/archive/pt/I4/INVENTORY.md`
+  (`43bbada1db14f052e3ec3eb3d7fc99d1bb042d41a143c912aa6ca3e4cad75461`), lines 1–60 and `grep` hits for
+  `ConfigurationLevel`; this thread's `experiments/b18_reclass.out`; `grep` of the kernel at L for `fullClass` and for
+  theorems concluding exact QM. Remote observation: `git ls-remote` lists a ref `dev-bridge/r6-channel-transfer` at
+  `5d4b9833fce1e36726abfee1f89ce5f74ebce7e1` that this session did not create; it was not fetched or read (presumably the
+  owner's round-6 transfer-sourcing work; not this thread's to touch).
+- 2026-10-11T15:25:18Z — **round 6 closed (limited scope).** Commits this round: `885ade54` (STEP 0: HO-41 v1, HO-42 v1,
+  HO-43 v1, HO-45 v1 received; LOG reliance and reads) and this closing commit. Nodes: B24, B25, B26 deferred to round 7
+  (not run). No RESULTS row, label or verdict changed; V-5 stands. Handoff proposals: none (HP-bridge-19 onwards unused).
+  Dispatches: none. Deviations: none beyond those recorded in the entries above (the OVERVIEW heading list printed to
+  locate its round-6 section; the unread remote ref noted). Nothing outside `research/bridge/` changed on this branch;
+  no pull request; no CI job or run cancelled.
