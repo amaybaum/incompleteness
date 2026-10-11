@@ -180,3 +180,85 @@ on the standard axioms in the last run are recorded [D] individually; no further
 **Prediction (fixed now).** BUILT, with every `CmSprimeCompact` print standard and the gate red only on
 `lean-manuscript` (two modules without a census family) — confidence moderate (the repaired lemma is the only changed
 declaration and the rest elaborated in run 2; the residual risk is in the elaboration of the membership unfolding).
+
+### Amendment run (written 2026-10-11T10:23:29Z)
+| dispatch | run | job | head | Build | `CmSprimeCompact` prints | `lean-axioms` | gate red steps |
+|---|---|---|---|---|---|---|---|
+| 3 (A1) | `38131214451` | `114445772534` | `a69987bd` | success, `⚠ [3645/3647] Built OIBridge.CmSprimeCompact (4.4s)` (warnings only) | 38/38 `[propext, Classical.choice, Quot.sound]` | PASS (5976 named results, no `sorryAx`) | `lean-manuscript` only (2 problems: `CmSprime`, `CmSprimeCompact` have no registry family — local read-only rerun of the census tool) |
+
+By A1's rule the run is **BUILT**; A1's prediction held.
+
+## Results
+
+### C22-1 — Theorem S′ for compact defect families, design-built [D by Amendment A1]
+`theorem_Sprime_compact` (`OIBridge.CmSprime`, `lean/CmSprimeCompact.lean`, sha256 `2f12f6e8…`): for a topological
+space `κ` that is **compact** and **nonempty**, a nonempty finite index type `n`, **continuous** `c : κ → ℝ` and
+**continuous** seed map `h : κ → ℂⁿ` with **unit** seeds, **`1 < c k ≤ 2`**, **`c k < card n`**, **pairwise nonnegative trace
+pairings** `pr (d j) (d k) ≥ 0` (all `j, k`) and **(CC) in cap/co-cap form on every ordered pair `j ≠ k` of positive
+pairing**, the surgery with the **closed** conic hull `surgeryC d = (Q ∩ Z*) + closure (cone Z)` is closed and equal to
+its dual inside the Hermitian matrices under `Re tr(AB)`. Also: `theorem_Sprime_compact_ineq` ((CC) in the inequality
+form `(√(c_j − 1) + √(c_k − 1))² ≤ c_jc_k|⟨h_j|h_k⟩|²`), `theorem_Sprime_compact_C4` (`ℂ⁴`, `c k < 4` automatic), the two
+inclusions `surgeryC_subset_dualH` (`K ⊆ K*`, needs only Hermitian members and pairwise nonnegative pairings) and
+`dualH_subset_surgeryC_of_finite` (`K* ⊆ K` from the finite self-duality of every finite subfamily, a uniform trace bound
+`τ > 0` and a uniform entry bound), the quantitative estimate `abs_pr_le` (`|pr q M| ≤ ε · card n · tr q` for `q ⪰ 0`,
+`max |M_ij| ≤ ε`), and the non-vacuity control `control_compact_single_defect`. Machine-checked in a design module built
+against L (run `38131214451`), outside the certified chain, no census disposition: **CONJECTURE [D]**.
+
+### C22-2 — which step needed a new argument (the answer to the node's question) [D + W]
+The finite engine (Farkas by the infimum of ratios, the least-weight decomposition, the local lemma) survives
+unchanged as a black box: it is applied to finite ε-nets of the compact family. The only new arguments are (i) the
+pairing estimate `abs_pr_le` (through the factorization `q = BB†` and Cauchy–Schwarz), (ii) the shift: for `y ∈ K*` and
+an ε-net `F`, `y + ηI ∈ (K_F)*` once `η ≥ ε · card n · tr(y)/τ` — exact instance in the preflight (Q4d: `y = d_{w₀}` is
+outside `(K_F)*` and the shift restores it), and (iii) the limit along `ε → 0` in compact entry boxes with two
+subsequences. Farkas over a compact family, a least-weight decomposition over a compact family, a separation theorem and
+Carathéodory are **not** needed for the statement with the closed hull. Carathéodory is needed only for C22-3. [D] for
+(i)–(iii) as parts of the built module.
+
+### C22-3 — the closedness of the conic hull over a compact base [W + L]
+*If `Z ⊂ Herm(n)` is compact and `tr d ≥ τ > 0` on `Z`, then `cone Z` (finite nonnegative combinations) is closed; hence
+`surgeryC d = (Q ∩ Z*) + cone Z = K(Z)`, the surgery as NOTES-C11/C13 define it.* Proof: by Carathéodory in `Herm(n)` (real
+dimension `n²`) every point of `conv Z` is a convex combination of at most `n² + 1` points of `Z`, so `conv Z` is a
+continuous image of `Δ_{n²} × Z^{n²+1}`, compact; `cone Z = {t x : t ≥ 0, x ∈ conv Z}`; if `t_m x_m → y` then
+`t_m τ ≤ tr(t_m x_m)` is bounded, so along a subsequence `t_m → t`, `x_m → x ∈ conv Z`, and `y = t x ∈ cone Z`. ∎
+[W]; Carathéodory [L: Mathlib `convexHull_eq_union`, Analysis/Convex/Caratheodory.lean:149 at the pinned version, read,
+not used in the module]. Not machine-checked (not in the module).
+
+### C22-4 — consumers: the circle cones, with every link's side hypotheses checked (round-4 audit's chain rule)
+Chain: link 1 `theorem_Sprime_compact_ineq` [D by A1] — side hypotheses: compact nonempty `κ`, continuous `c` and seed
+map, unit seeds, `c ∈ (1, 2]`, `c < 4`, pairwise pairings `4 − 2c + c²s ≥ 0`, (CC) `c²s ≥ 4(c − 1)` on positively paired
+pairs (equal `c`; monotone in `s`, so checked at `s_min`); link 2 C22-3 [W] (to read the result for `K(Z) = (Q ∩ Z*) +
+cone Z`).
+
+| cone | `κ` (compact, continuous injective parametrization) | `c` | `s_min` (source) | pairings `≥ 0` | (CC) |
+|---|---|---|---|---|---|
+| C13.7 (S2 circle, level (i)) | `S¹`, `w ↦ (3, 3, w, −w)/√20` | `21/20` | `16/25` (C13 R4 [X]; symbolic `82 + 18 cos t` in C22 Q4a [X]) | `4 − 21/10 + (441/400)(16/25) > 0` | `(441/400)(16/25) = 441/625 ≥ 1/5` ✓ |
+| C13.5 (case A, three circles) | three copies of `S¹`, `θ ↦ √p b̂₃ + √(1 − p) e^{iθ} b̂_j` | `251/250` | `(36/49)²` (C13 R2, CC2 [X]; orbit formulas [W]) | positive (C13 CC2) | checked exactly in C13 (R2) |
+| C16.4 (`K_κ` = C21's `Kk`, two circles) | `{±1} × S¹`, `(σ, x) ↦ (6, 2σ, x, −σx)/√42` | `103/100` | `256/441` (C16 K2 [X]) | positive (C16 K4) | `c²s_min = 169744/275625 ≥ 3/25` (C16 K4 [X]) |
+
+So the rows that rested on "S′ for compact Z [W]" (C13.1, C13.5, C13.7, C16.4, and C21.1 for `Kk`) rest on C22-1 [D] with the
+side hypotheses as tabled, plus C22-3 [W] for the identification with the cones as those rows define them. Their labels
+do not change (CONDITIONAL); the condition moves from a written proof of the theorem to a design-built statement plus a
+written closedness remark.
+
+### C22-2f — the S0 design run
+Two dispatches under S0 did not build (errors as tabled above); by S0's rule **FAILED (design)**, kept with evidence
+(`lean/CmSprimeCompact.run38124380741.lean`, `lean/CmSprimeCompact.run38125067948.lean`). C22-1's [D] is the amendment
+run's, not S0's.
+
+## Hypothesis classification
+Cone geometry: no OI inventory item; no introduced hypothesis (H1–H3, A_miss, claim (D), EBF, T do not appear). Every
+hypothesis of the compact form is explicit in the module's statement (owner's requirement (1)). Reading of downstream
+uses: invariance (the circle cones are pair cones; nothing here is about availability).
+
+## Gem classification (§A.31)
+- NEW: the compact form reduces to the finite engine by finite ε-nets with one quantitative estimate and a shift; the
+  closedness of the conic hull (Carathéodory) is needed only to identify the closed-hull form with `(Q ∩ Z*) + cone Z`,
+  and is isolated as a written remark. The productivity test is met: a fact strictly stronger than "S′ holds for compact
+  Z" (the decomposition of the proof into a machine-checked core and one named written remark), and it constrains the
+  circle cones' evidence (C22-4).
+- Process: S0's Bell-circle prediction (Q5) carried an arithmetic slip (FAILED, kept); the S0 design run FAILED after two
+  dispatches on elaboration details; the amendment run built.
+
+## What is not claimed
+No kernel statement and no census disposition; C22-3 is [W] + [L]; necessity of (CC) is not stated; extremality of the
+defects (C13-S) is not in the module; nothing about OI's premises.

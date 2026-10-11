@@ -600,3 +600,20 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   in `mem_box`'s proof only (`diff`: lines 375–377 replaced by 375–381), sha256 `2f12f6e8…`. **By C22's S0 decision
   rule (two dispatches for C22), the S0 design run is FAILED (design)**; recorded as such (row C22.2f) before any further
   dispatch.
+- 2026-10-11T10:14:04Z — **C22 amendment run, dispatch 3 of 3** (Amendment A1, NOTES-C22, written and committed in
+  `114fc688` before this dispatch): dev commit `a69987bd` on `dev-countermodels/c22-compact` (module sha256
+  `2f12f6e86654962bc8845f6f0311b80c616cc2104d5ace6179f21212eccffc65` = `lean/CmSprimeCompact.lean`; `git diff --stat`
+  against `e4ef2e46`: the module only, 7 insertions, 3 deletions, all in `mem_box`); dispatched 10:14:04Z through the same
+  `gh api` call; run `38131214451`, head `a69987bd238f4aba9bf6ac92ff41e8cd75a19119`, created 10:14:05Z, event
+  `workflow_dispatch`. Not cancelled; waited on. This is the round's last dispatch; none remains.
+- 2026-10-11T10:22:42Z — **C22 amendment run read** (run `38131214451`, Mathlib bridge job `114445772534`, head `a69987bd`; job
+  10:14:10Z–10:17:28Z; steps: Build **success**, Release gate failure; log read through the GitHub connector, tail 300 of
+  37773 lines, holding all 78 `CmSprime` prints, the whole `CmSprimeCompact` output and the gate): `⚠ [3645/3647] Built
+  OIBridge.CmSprimeCompact (4.4s)` (warnings only: unused section variables, one deprecation, two unused names), all 38
+  `CmSprimeCompact` prints `[propext, Classical.choice, Quot.sound]` (lines 689–726), all 78 `CmSprime` prints the same,
+  `Build completed successfully (3647 jobs)`; release gate: every step PASS except `lean-manuscript` — `FAILED (2
+  problem(s))`, named by a local read-only rerun of `tools/lean_manuscript_census.py` on the dev worktree at `a69987bd`
+  (10:22:14Z): `UNCLASSIFIED module CmSprime has no registry family`, `UNCLASSIFIED module CmSprimeCompact has no registry
+  family`; `lean-axioms` PASS (5976 named results, no `sorryAx`). By Amendment A1's rule: **BUILT** ⇒ the compact-form
+  statements are CONJECTURE [D] by the amendment run; prediction (BUILT, gate red only on `lean-manuscript`) held. The
+  run's probe jobs were still running at the read (run status `in_progress`); it is not cancelled. Dispatches used: 3 of 3.
