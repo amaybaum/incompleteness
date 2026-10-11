@@ -233,3 +233,90 @@ No kernel statement (Lemma C23-1's case analysis, Theorems C23-2, C23-3 and Lemm
 instances are [X], checked twice); no statement about cones outside the surgery and engine routes; the existence of a
 `G_T`-invariant exotic cone is HO-36's (claim (D)), not decided here; no availability statement; no claim about OI beyond
 the audited scope (the stage-6 inventory at L, level (i), invariance reading).
+
+## Round 6 — forward correction F-C5-1 (appended 2026-10-11T15:20:46Z, `date -u`; the text above stays as written)
+
+**What is corrected, and why.** Design item 2 (b)–(c) above, the Results paragraph C23-2 (b)–(c), row C23.2's `c = 2` and
+mixture clauses, C23.6's first residual item and HP-countermodels-11 statement 2 treat the two Bell circles
+`C1′ = {|00⟩ + w|11⟩}`, `C2′ = {|01⟩ + w|10⟩}` as a `G_T`-orbit admissible for H1 at `c = 2`. That is false for `G_T`:
+`CNOT ∈ G_T` (it lies in every stage `G_n`) carries `|00⟩ + w|11⟩` to `(|0⟩ + w|1⟩) ⊗ |0⟩` and `|01⟩ + w|10⟩` to
+`(|0⟩ + w|1⟩) ⊗ |1⟩`, products; the argument of (b) used the torus and `X_B` and omitted `CNOT`. The coordinator's audit
+(AUDIT-COUNTERMODELS-R5 §8, finding F-C5-1) found it; HO-42 item 3 is the corrected statement; the bridge reached the same
+statement independently (HO-40 items 1–2). This thread's own records already contained the facts that refute it: G3's
+`D_min` formula gives `D_min = 0` on these seeds, and C23-3 (c) excludes `(h₀, 0, 0, h₃)`, `(0, h₁, h₂, 0)` by H1 because
+`CNOT` maps them to products.
+
+**Admissibility, stated exactly.** H1 (products in `K`) and H3 (`K = K*`) give `K ⊆ maxCone` (the dual of the products),
+so every defect `I − cP_h` of a cone with H1 and H3 is block-positive, `c · λ_max(h) ≤ 1` (`λ_max` the largest squared
+Schmidt coefficient of the unit `h`); for a surgery `K(Z)`, block-positivity of every defect of `Z` is also sufficient
+for H1 (products then lie in `Q ∩ Z*`). For an orbit `G_T·h`, admissibility at weight `c` reads
+`c ≤ c_max(h) := 2/(1 + √(1 − 4D_min(h)))`, `D_min(h) = min_{g ∈ G_T} |det Ψ(gh)|²/|h|⁴`.
+
+**The corrected statements (to be checked by `experiments/c23f_correction.py` before they are recorded).**
+- **(F-a)** `det Ψ(D(u, v)h) = v(h₀h₃ − u²h₁h₂)`, `det Ψ(CNOT·D(u, v)h) = u(h₀h₂ − v²h₁h₃)`, and the `X_B`-cosets give the
+  same two moduli; with `a_i = |h_i|`, `x = a₀a₃ − a₁a₂`, `y = a₀a₂ − a₁a₃`, `S = Σa_i²`: `D_min(h) = min(x², y²)/S²` [W:
+  `min_{|u|=1}|A − u²B| = ||A| − |B||`] with exact identities [X].
+- **(F-b)** `x + y = (a₀ − a₁)(a₂ + a₃)`, `x − y = (a₀ + a₁)(a₃ − a₂)`, `|x| + |y| = max(|x + y|, |x − y|)`, and the two
+  certificates `S²/2 − (x + y)² = (A − B)²/2 + A(a₂ − a₃)² + 2a₀a₁(a₂ + a₃)²`,
+  `S²/2 − (x − y)² = (A − B)²/2 + B(a₀ − a₁)² + 2a₂a₃(a₀ + a₁)²` (`A = a₀² + a₁²`, `B = a₂² + a₃²`), each a sum of
+  nonnegative terms for `a ≥ 0`. Hence `D_min(h) ≤ ((|x| + |y|)/2)²/S² ≤ 1/8` for every `h ≠ 0`, with equality at
+  `h* = (√2/2, 0, 1/2, 1/2)`; so **H1 and H3 admit a rank-one defect orbit of `G_T` only at weights
+  `c ≤ c_max(h) ≤ 2/(1 + 1/√2) = 4 − 2√2 ≈ 1.1716`**, the bound attained on the orbit of `h*`. In particular **no `G_T`-orbit
+  is admissible at `c = 2`**, and none at any `c ∈ (4 − 2√2, 2]`.
+- **(F-c)** Consequence for C23-2: every `G_T`-invariant set `Z` of rank-one defects `I − c_dP_d` (`c_d > 1`) whose
+  surgery has H1 and H3 has every weight `≤ 4 − 2√2 < 2`; and the compactness hypothesis of C23-2 (a) costs nothing:
+  `K(Z) = K(cl Z)` (step (b) of the closure paragraph above), `cl Z` is compact and `G_T`-invariant, its points are
+  defects with weights in `(1, 4 − 2√2]` or PSD limits `I − P` (weight 1), and C18-1's identity
+  `⟨y, d_l⟩ = c*(1 − s_{hl}) + (c* − c_l)(s_{hl} + λ) + λc*c_l s_{h′l}` is nonnegative for every `c_l ∈ [0, c*]`; so the
+  maximum `c*` (attained on `cl Z`, an orbit with an orthogonal pair by C23-1) gives `y ∈ K(Z)* \ K(Z)`. **No `G_T`-invariant
+  rank-one surgery satisfies H1 and H3, with any weights and any number of orbits, closed or not** — the rank-one route for
+  `G_T` is closed with no residual (HO-42 item 3; it also covers HO-40 item 3's "unattained supremum of `c`" for `G_T`).
+  C23.2's verdict and C23.4 (OBSTRUCTED) stand.
+- **(F-d)** The Bell-circle statements of C23-2 (b)–(c) are statements about the subgroup `T² ⋊ ⟨X_B⟩` (no `CNOT`): it
+  maps `C1′ ∪ C2′` onto itself, every point of `C1′ ∪ C2′` is maximally entangled (admissible at `c = 2`), and the surgery on
+  the two circles is `(1 ⊗ H)K_T(1 ⊗ H)†`, not self-dual by the transported stage-4 pair (`tr(y′w′) = −6/625`, C23's G4); the
+  mixture instance `(3, 2i, 2, 1)` at `1001/1000` with the Bell circles at `c = 2` is likewise a `T² ⋊ ⟨X_B⟩` statement.
+  For `G_T` a set containing a Bell defect at `c = 2` contains the `c = 2` defect of its `CNOT` image, which pairs `−1` with
+  that product, so H1 and H3 exclude it. C23.6's first residual item (mixtures outside the overlap condition) does not
+  arise for `G_T`; it remains a question for `T² ⋊ ⟨X_B⟩` only.
+- **(F-e)** Scope of C23-3, stated more exactly (audit §10, no change of substance): the engine `selfDual_of_local` takes a
+  finite family; what C23-3 shows is that its local condition fails on a pair inside every `G_T`-orbit, which also blocks
+  any compact extension that keeps the same local condition.
+- **(F-f)** The closure step in rule (iii)'s form (round 6): from invariance under the countable dense subgroup
+  `G_∞ = ⋃G_n` to invariance under its closure `G_T`. Closure premise: the cone is **closed** — H3 (`K = K*`; a dual cone is
+  closed), introduced, not an OI premise; LIMCLOSE-C (an availability closure premise) is not used. Form of transfer:
+  none in this thread's invariance reading (the group acts on the pair cone by conjugation); a route that starts from the
+  availability of `G_∞`'s elements would need the transfer clause for unitaries, (T)_𝓘 (HO-39 item 2), to reach
+  invariance under `G_∞`, and then H3 for the closure. Closedness of the cone used: `K` closed, from H3.
+
+**Design of the check (exact; Fractions, Gaussian rationals; sympy for the identities and for `√2`).**
+- **F1** For ten rational `w` (`±1, ±i, (±3 ± 4i)/5, (5 + 12i)/13, (8 + 15i)/17`) and both circles: `b = (1, 0, 0, w)`,
+  `(0, 1, w, 0)` are maximally entangled (`|det Ψ|²/|b|⁴ = 1/4`); `CNOT·b` is a product (`det Ψ = 0`); the `c = 2` defect of
+  `CNOT·b` has `(CNOT b)†d(CNOT b)/|b|² = −1`. Symbolically: `det Ψ(CNOT·D(u, v)·(1, 0, 0, w)) = 0`,
+  `det Ψ(CNOT·D(u, v)·(0, 1, w, 0)) = 0`. `CNOT` is the permutation `(2 3)` and lies in `G_1`. Predicted: as stated.
+- **F2** The four coset determinant identities (symbolic in `h` and `u, v`); the formula `D_min = min(x², y²)/S²` on 12
+  exact seeds against an exact minimization over the orbit's two moduli (the minimum of `|A − u²B|²` attained at the
+  rational point `u² = (A B̄)/|AB|`… realized by exact algebraic values where the seeds are chosen so that `A B̄/|AB|` is a
+  rational square; else compared through `(|A| − |B|)²` with `|A|, |B|` as exact square roots). Predicted: identities hold;
+  formula agrees on every seed.
+- **F3** The two factorizations and the two certificates of (F-b) by `sympy.expand` (difference zero). Predicted: zero.
+- **F4** At `h* = (√2/2, 0, 1/2, 1/2)` (sympy exact): `x² = y² = 1/8`, `D_min = 1/8`, `c_max = 4 − 2√2` exactly, and
+  `(4 − 2√2)·(2 + √2)/4 = 1`; the round-5 instances `51/50`, `101/100`, `1001/1000` are `< 4 − 2√2`; the weight `6/5` is
+  `> 4 − 2√2`. Predicted: as stated.
+- **F5** Exhaustive exact control of `D_min ≤ 1/8` over moduli: every `a ∈ {0, …, 6}⁴` (integers) and every
+  `m = (a_i²) ∈ {0, …, 9}⁴` with `a_i = √m_i` (exact through `min(P, Q) − 2√(m₀m₁m₂m₃) ≤ S²/8`, squared when needed): no
+  violation; the maximum of `D_min` equals `1/8` and is attained (at `m = (2, 0, 1, 1)` and its images). Predicted: no
+  violation; maximum `1/8`.
+- **F6** Countercontrols and consequences: (a) without `CNOT` (the group `T² ⋊ ⟨X_B⟩`) the orbit of `(1, 0, 0, 1)` keeps
+  `|det Ψ|²/|h|⁴ = 1/4` at 16 sampled torus points and under `X_B` — the bound `1/8` fails for that subgroup, so `CNOT` is
+  load-bearing; (b) `T² ⋊ ⟨X_B⟩` maps sampled points of `C1′ ∪ C2′` into `C1′ ∪ C2′` (exact), while `CNOT` maps them to
+  products; (c) the mixture seed `(3, 2i, 2, 1)` has `D_min = 1/324` under `G_T` and is admissible at `1001/1000`, but a
+  `G_T`-invariant set containing it and a Bell defect at `c = 2` contains a non-block-positive defect (F1); (d) C18-1's
+  identity holds symbolically in `(c*, c_l, s, s′)` and its three terms are nonnegative at `c_l ∈ {0, 1, c*}` for
+  `c* = 51/50` (sampled `s, s′`). Predicted: as stated.
+
+Decision rule (fixed now): `VERDICT C23F-EXACT` iff F1–F6 give the predicted outcomes, countercontrols included (a failed
+run is kept as `.run1.*`). Then rows C23.2c (the corrected statement, CONDITIONAL), C23.2bf (the refuted sub-claim of
+C23-2 (b), FAILED) and C23.6c (the residual after the correction, OPEN) are appended to RESULTS; no existing row is edited
+and no existing label changes. Any other outcome: the correction is recorded only as received (HO-42 item 3 at its label)
+and the discrepancy is examined before any row is written.
