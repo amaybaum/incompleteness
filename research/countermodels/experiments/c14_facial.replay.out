@@ -1,0 +1,10 @@
+CHECK F0   PASS the circle {3e1 + w e2}: lambda_max = 9/10, overlaps >= 16/25; at c = 1000/961 H1 and (CC) hold (S' applies) -- smallest sampled overlap 16/25
+CHECK F1   PASS contact points of d_0 (pure members of K on its null quadric, aligned at alpha = 0) -- 24 points, (a, b) ratios [(9, 4), (18, 8), (19, 5), (27, 12), (28, 9), (29, 6)]
+CHECK F2   PASS the contact projectors span a space of real dimension exactly 14 -- rank 14
+CHECK F3   PASS every contact projector is orthogonal to d_0 and to the tangent i[P_e2, d_0]; the two constraints are independent (face span <= 14)
+CHECK F4   PASS pure members of K orthogonal to |00> span Herm(|00>-perp): c(P00) >= 9 (= 9 by Lemma 1 of NOTES-C3) -- 124 members, rank 9
+COUNTERCONTROL CC1  PASS the same point with relative phase pi between e1 and e2 is off the face (<P_v, d_0> > 0) -- <P_v,d_0> = 432/961
+COUNTERCONTROL CC2  PASS the single-defect cone K({d_0}): points of the whole null quadric span the hyperplane d_0-perp (rank 15, Lemma 2); the circle cuts it to 14 -- 30 points, rank 15
+CHECK EX   PASS no float in any recorded value
+summary: 8 checks, 0 failed
+VERDICT C14-FACIAL-EXACT: on the S2 circle cone at c = 1000/961 the exposed face at a defect spans exactly 14 dimensions (contact points; tangency bound), at P00 the pure members span 9; with Y6 no automorphism maps a defect to P00: T fails; the single-defect cone has 15 (Lemma 2)

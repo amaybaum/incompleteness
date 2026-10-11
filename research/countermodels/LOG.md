@@ -124,4 +124,10 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   without G16 (one circle); the obstruction for `Π ∋` double transposition (exact witness). HO-10 relied on only for the
   label of the residual region's existence (C13.6). RESULTS rows C13.1–C13.9 appended. Record: row C12.6's label is
   CONJECTURE (for C8-C as a whole); the rest of that cell points to the CONDITIONAL rows C12.3–C12.4 and is explanatory.
-  Commit: C13.
+  Commit: C13 (`0d27d079`, pushed).
+- 2026-10-11T01:06Z — C14. Scratchpad exploration (numerical, not evidence; `x14_span.py`): rank 14 of a circle surgery's
+  contact span. NOTES-C14 S0 written 01:02:22Z (`date -u`); `c14_facial.py` decision rule 01:03:09Z; one pre-run edit
+  (CC2's search box); run 1 (01:04:27Z) 8/8 `VERDICT C14-FACIAL-EXACT`, replay identical (out `e1a26898…`). Results: the
+  tangency bound `c ≤ 15 − k` (`≤ 14` on `K_circ`'s off-`Fix` defects); `c = 14` exactly on circle-surgery defects; T fails
+  on the explicit continuum cones of C13; T on `K_circ` OPEN, reduced to the absence of smooth contact. RESULTS rows
+  C14.1–C14.4 appended. Commit: C14.
