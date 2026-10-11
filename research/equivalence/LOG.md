@@ -1199,3 +1199,21 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   declarations they name (EqvK2Generation.lean:448 `blockInvariant_of_drive`, :499 `reachPure`, :535
   `pairCone_eq_Q3_iff_drive_exact`, :345 `su_euler`, :382 `rtrick`; EqvK2Block.lean:385 `pairCone_eq_Q3_iff_block`;
   EqvOneDictionary.lean:121 `aMiss_of_transferClause`). Nothing to correct.
+- 2026-10-11T15:34Z — **coordinator message received (the owner's direction, binding), applied now.** Quoted: "Owner's direction:
+  tokens are running low, so this batch runs at limited scope — please wind down now. Finish and push STEP 0 (the
+  eight receipts with their LOG reliance records; LOG append-only, timestamps from `date -u`). Then stop: start no
+  node and dispatch nothing. E20, E21 and E22 are deferred to round 7; if you have already written an S0-c, notes or a
+  script change for one, commit it marked "deferred to round 7 (not run)". If a CI run is already in flight, never
+  cancel it — record it and read its result." State at receipt: STEP 0 committed and pushed (`84824d18`); no S0-c,
+  note, script change or module had been written for E20, E21 or E22 — after the receipt commit this session only read
+  the kernel at L in this branch's own tree toward E20's S0-c (CompositeDimension.lean:93–240, :700–740, :1757–2330,
+  :2486–2500, :2700–2760; KInfFoundations.lean:125–170, :264–291), so nothing is committed as "deferred to round 7
+  (not run)". No `workflow_dispatch` was sent this round, so no CI run is in flight; no dev branch was created or
+  pushed. **E20, E21, E22 deferred to round 7**; HP-equivalence-17 describes their state, unchanged.
+- 2026-10-11T15:34Z — **round 6 closed (limited scope).** Commits on `research/equivalence` this round: `84824d18` (receipts HO-33 v2,
+  HO-37 v1, HO-38 v1, HO-39 v1, HO-40 v1, HO-41 v1, HO-42 v1, HO-45 v1, with item-by-item reliance; the authorized reads)
+  and this entry's commit. Dispatches: 0 of 3. Cross-branch reads: `research/overview` @ `1325160c` (the eight
+  handoffs copied; AUDIT-EQUIVALENCE-R5.md, HO-43, HO-44 and OVERVIEW.md's round-6 section read; sha256 recorded at
+  15:18Z); no read of `research/bridge`, `research/countermodels` or `research/round6-transfer-sourcing`.
+  Deviations: none beyond the scope narrowing above (the fetch of `research/overview` returned the later tip
+  `39370c99`; every read was at `1325160c`, as recorded). No RESULTS or LEDGER row changes; no label changes.
