@@ -25,7 +25,7 @@ namespace BridgeChannelTransfer
 
 open CompositeDimension MonoidalCompletion CoherentExtension InterventionLocality
 open ReferenceExtension EqvK2Schema BridgeAvail
-open scoped Topology
+open scoped Topology ComplexOrder
 
 noncomputable section
 
