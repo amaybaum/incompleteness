@@ -279,3 +279,8 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   written steps, the lemma L-a/L-b/L-c, the outcome NEW, the sharpened assumption-watch marker); RESULTS R-E13.1–R-E13.4;
   LEDGER round-3 note (Kinf-Trans, self-duality). S0's node prediction (centrally symmetric case OPEN) was wrong: the
   branch closed negatively (Ω_cs).
+- 2026-10-11T01:31Z — E14 begun (time permits). Read at L: `QuasilocalSystem` (QuasilocalCharacterization.lean:168),
+  `OISystem` (:463), `LocalityPreserving` (:475), `phaseQ_ne_heisQ` (:792), `CouplingGraph` (RegionTower.lean:254),
+  `FiniteRange` (QuasilocalAlgebra.lean:919), `ReversibleDynamics` (:956), `hat` (:1040), `transported` (:1109).
+  NOTES-E14 S0 (three readings of "H-DYN at every finite stage", predictions) and the exact probe
+  `experiments/e14_hdyn_rings.py` (decision rule in its header, written 01:29Z) committed together, before the first run.
