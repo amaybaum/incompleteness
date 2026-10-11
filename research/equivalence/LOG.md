@@ -262,3 +262,11 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   committed; a design aid, not evidence) checked that its parameters close up. Pre-run review fixed two defects in the
   probe (the order J⁻¹, rot(π), J in B9; an exact matrix equality in place of `simplify` in B4); the decision rule was
   not changed. Kernel read at L for the branch: `card_le_two_of_centrallySymmetric` (KInfFoundations.lean:632).
+- 2026-10-11T01:21Z — run 38099025197 measured (Mathlib bridge job 114350890660): Build `failure` at four proofs of
+  `EqvK2Schema` (105:87 `dict_tens`, 122:67 `dict_smul`, 167:64 `trace_dict_mul`, 235:2 `dict_coordOf`), one
+  rewriting-order defect (`Fin.sum_univ_four` before `Matrix.sum_apply`; `Matrix.add_apply` / `Matrix.trace_add`
+  missing); prints standard for 10 of 22, `sorryAx` for the 12 that are or use those four. Reading PARTIAL by the rule
+  fixed at 00:34Z. The dispatched text kept as `lean/EqvK2Schema.run38099025197.lean` (blob `3edcf9b0`); the repair
+  (four `simp only` lists, proof-only) is `lean/EqvK2Schema.lean` (blob `659ae36c`), written into the dev commit
+  `aabc649e` (parent `472835c5`, by plumbing). NOTES-E11 measurement section and the prediction for dispatch 3/3
+  written before it.

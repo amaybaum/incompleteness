@@ -55,3 +55,46 @@ design run reads exactly `[propext, Classical.choice, Quot.sound]` (an error in 
 print is standard and some is not — then the standard ones are [D] and the rest stay at the written proof's level
 ([W]+[X], R-E10.1); **FAILED** if no print is standard. The schema theorem is never read as more than CONDITIONAL on
 H2, H3, A_miss and `ReachPure`.
+
+## Measurement — dispatch 2/3 of round 3 (run 38099025197)
+
+Run **38099025197** (`workflow_dispatch` of `verify.yml`, created 00:36:52Z) on `472835c5` (`dev-equivalence/k2-schema`,
+parent L; blob `3edcf9b0` = `lean/EqvK2Schema.run38099025197.lean`, byte-identical to `lean/EqvK2Schema.lean` at
+`97b6f080`). Mathlib bridge job **114350890660**: Build `failure` (step 5; `✖ [3642/3644] Building OIBridge.EqvK2Schema`,
+every other module from the cache), release gate skipped; Lean kernel check and every numerical-probe job `success`.
+Four errors, all in proofs, none in a statement:
+
+| line | declaration | error | cause read from the printed goal |
+|---|---|---|---|
+| 105:87 | `dict_tens` | unsolved goals after `ring` | `Fin.sum_univ_four` expanded the matrix-valued sums before `Matrix.sum_apply` could fire, leaving `(A + B + …) (i, j) (k, l)`; `Matrix.add_apply` was missing (and `Matrix.smul_apply` never fired) |
+| 122:67 | `dict_smul` | unsolved goals after `ring` | the same |
+| 167:64 | `trace_dict_mul` | unsolved goals after `ring` | the same at the trace: `trace (A + B + …)` with `Matrix.trace_add` missing |
+| 235:2 | `dict_coordOf` | `ring failed` in `linear_combination` | the same in `hab` and the goal |
+
+`dict_add`, written with `Matrix.add_apply`, has no error. The 22 prints: **standard** `[propext, Classical.choice,
+Quot.sound]` for `pauli_conjTranspose`, `trace_pauli_mul`, `pauli_complete`, `trace_T_mul_T`, `dict_isHermitian`,
+`trace_T_mul_dict`, `dict_injective`, `dict_complete4`, `trace_vecMulVec_mul`, `driveWords_preserve` (10);
+**`sorryAx`** for `dict_tens`, `dict_prodState`, `dict_sum`, `trace_dict_mul`, `ipW_eq_trace`, `dict_coordOf`,
+`dictEquiv`, `posSemidef_dict_of_pure`, `subset_Q3_of_pure_dual`, `Q3_subset_of_pure`, `Q3_selfDual`,
+`pairCone_eq_Q3_of_drive` (12) — each of these is one of the four failing proofs or uses one; Lean elaborated every
+other proof in the file, and none of them failed.
+
+**Reading (rule fixed at 00:34Z): PARTIAL.** The ten standard declarations are [D]; the other twelve stay at the
+written proof's level ([W]+[X], R-E10.1, and the exact instances of `e11_k2_dict`). Prediction P-D held in form (most
+statements elaborated, failure at a few terms, no statement wrong) but not in location: `dict_complete4`, which I rated
+least certain, built; the failures were a single rewriting-order defect repeated four times. A finding for the bridge
+thread: the fix NOTES-B9 §4 recorded for `dict_tens` ("full expansion, then `ring`") does not elaborate as written —
+the expansion must also distribute the entry (or the trace) over the expanded sums (`Matrix.add_apply`,
+`Matrix.trace_add`), because `simp` rewrites the inner sums with `Fin.sum_univ_four` before the outer application.
+
+## Repair and prediction for dispatch 3/3 (written 2026-10-11T01:21Z, before the dispatch)
+
+The repair (`lean/EqvK2Schema.lean`, proof-only; the diff against `EqvK2Schema.run38099025197.lean` is four `simp only`
+lists, each gaining `Matrix.add_apply` or `Matrix.trace_add`, one of them split over two lines): no statement, definition
+or print changes; the prints move one line down (453–474). The coordinator allowed a second E11 dispatch only for a
+certain fix; this is the round's third and last. **Prediction:** Build `success` and all 22 prints standard
+(probability about 0.85: the defect is identified from the printed goals, and `dict_add` shows the same `simp only`
+pattern with `Matrix.add_apply` elaborating); the release gate red only at `lean-manuscript` (expected by
+construction on a dev branch); `lean-axioms` 5860 + 22 = 5882 if every new print is counted as in run 38096511360
+(5860 + 15 = 5875). If a print is still `sorryAx`, the node closes PARTIAL with the standard ones [D] and no further
+dispatch.
