@@ -916,3 +916,66 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `EqvOneDictionary.lean` (`00ac3707`), and six import lines after `import OIBridge.RelcSelectC5` in `OIBridge.lean`
   (the recorded deviation of every round: dev-branch writes under `verification/`; nothing under `verification/` on
   this branch).
+- 2026-10-11T10:16Z — **interruption and resumption (process change 1 of 2, logged once).** The session stopped at
+  about 08:34Z on an API usage limit; a container restart followed; work resumed at 10:06Z from this thread's own
+  transcript, under the coordinator's message of 10:05Z, which recorded the state. Verified at 10:07:30Z (`date -u`):
+  HEAD `3715857c` = `origin/research/equivalence`; uncommitted, both my own writes and matching my last actions
+  before the stop — `NOTES-E20.md` (sha256 `96e95bc5…`, mtime 08:26:43Z: E20's S0, written 08:27Z) and
+  `experiments/e20_odd_bodies.py` (`5743149f…`, mtime 08:30:53Z: the probe, written after S0, never run); nothing
+  else changed in the worktree; the dev worktree `dev-equivalence-r5-design` clean at `7dd71a7e` =
+  `origin/dev-equivalence/r5-design`. Not logged before the stop: dispatch 1 (entry below, recorded now from the
+  host's run record and job log). Dispatches used: 1 of 3.
+- 2026-10-11T10:16Z — **commit trailers (process change 2 of 2, logged once).** From this entry on every commit
+  message of this thread ends with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` followed by
+  `Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1` (the session's attribution changed);
+  earlier commits keep their trailers and are not rewritten.
+- 2026-10-11T08:20Z (recorded 10:16Z) — **dispatch 1 of 3.** `workflow_dispatch` of `verify.yml` (via `gh api`) on
+  `dev-equivalence/r5-design`, pushed at 08:20Z with head `7dd71a7eacf029374a785d3bac51a9eb51bef4cb`: run
+  `38124464622`, created 08:20:37Z, completed 08:56:31Z, conclusion `failure`. Mathlib bridge job `114425828153`
+  (08:33:16Z–08:36:07Z): **Build failure**, Release gate **skipped** — so no `lean-axioms` reading and no gate reading
+  exist for this run; every other job green (Lean kernel check and the numerical probes). Log read at 10:09Z with
+  the GitHub MCP job-log tool, tail capped at 5000 of 38272 lines (the six modules' build lines all lie within the
+  tail; the earlier 33272 lines, the build of modules this branch did not change, were not retrieved), saved in the
+  scratchpad (sha256 `27c29eca…`). Build lines: `⚠ [3642/3649] Built OIBridge.EqvK2Schema` (22 prints, all
+  `[propext, Classical.choice, Quot.sound]`), `⚠ [3643/3649] Built OIBridge.EqvK2Converse` (9, standard),
+  `⚠ [3644/3649] Built OIBridge.BridgeDictionary` (20, standard), `✖ [3645/3649] Building OIBridge.EqvK2Block` (11
+  prints: `dict_blockAct`, `blockMat_mulVec`, `conj_vecMulVec`, `suTo_isSU`, `Q3_blockInvariant` standard;
+  `suTo_mulVec`, `dict_prod_bloch`, `reach_block`, `pairCone_eq_Q3_of_block`, `pairCone_eq_Q3_iff_block`,
+  `aMiss_of_blockInvariant` with `sorryAx`), `⚠ [3646/3649] Built OIBridge.BridgeConverge` (21, standard);
+  `EqvOneDictionary` not built (it imports `EqvK2Block`; it has no line in the log). The errors, all in
+  `EqvK2Block` (verbatim heads, recorded before any repair): `184:32 Tactic rewrite failed: Did not find an
+  occurrence of the pattern nrm a in the target expression 0 = ![↑(nrm 0), 0]` (`suTo_mulVec`, zero case: `rw [ha]`
+  before `rw [h]`); `203:10 Unknown constant unitary.star_mem` (`isSU_conjTranspose`; at the pin the namespace is
+  `Unitary`); `268:105 unsolved goals` (`tokMat_hom_bloch`: four entries left as `((↑α ^ 2 + ↑β ^ 2)⁻¹ • vecCons (α •
+  star ![↑α, ↑β]) (vecCons (β • star ![↑α, ↑β]) !![,,])) i j` — `simp` unfolded `vecMulVec` into rows and did not
+  apply the scalar); `291:2 unsolved goals` (`dict_prod_bloch`, degenerate case: sixteen goals `0 = tensorOf
+  (vecCons 0 (vecCons 0 !![,,])) (vecCons (star ![1, 0]) (vecCons 0 !![,,])) (a, b) (c, d)`); `410:2` and `419:2
+  unsolved goals` (`hphase_isSU`: `simp` rewrote the real half-angle cosine and sine into `Complex.cos (↑t * (1 /
+  2))`, `Complex.sin …`, leaving `starRingEnd ℂ` and `Complex.I ^ 2`); `429:44 unsolved goals` (`hphase_eq`, entry
+  (1, 1), the same normal form); `450:52 linarith failed` (`hphase_unit`, the same normal form); `455:2` and `462:2
+  unsolved goals 1 / 2 + Complex.I ^ 2 * (-1 / 2) = 1` (`cycMat_isSU`). A common cause behind four of them: inside
+  `first | ring | …`, `ring` that cannot close a goal falls back to `ring_nf`, succeeds as a tactic and leaves the
+  goal open, so the later alternatives were never tried (`Try this: ring_nf` infos at 279:21, 416:10, 442:8, 460:10,
+  465:8). **Reading** by NOTES-E19 §2's rule, fixed before the dispatch: the Build step failed, so no module is
+  BUILT; `EqvK2Block` PARTIAL (5 of 11 prints standard; `reach_block` and the two main theorems carry `sorryAx`);
+  `EqvK2Schema`, `EqvK2Converse`, `BridgeDictionary`, `BridgeConverge` PARTIAL by the rule's letter (their own build
+  lines `Built`, every print standard); `EqvOneDictionary` NOT BUILT. Prediction `EqvK2Block` BUILT (0.4) failed,
+  at the places §2 named as the risks (the sixteen-entry identities, §H.5's half-angle identities) and at one API
+  name §2 did not foresee. The failed text is kept as `lean/EqvK2Block.run38124464622.lean` (blob `d339c6c5`) and
+  the unbuilt `EqvOneDictionary` text as `lean/EqvOneDictionary.run38124464622.lean` (blob `00ac3707`, never
+  compiled; kept because its repair-by-inspection changes it); the repair is proof-only, statements unchanged.
+- 2026-10-11T10:16Z — cross-branch read (authorized by the coordinator's message of 10:05Z): `research/overview` @
+  `51cce8ac353fffb6666999d5311d97b932ff03b7` (fetched 10:12Z), `git show 51cce8ac:research/OVERVIEW.md` (blob
+  `9b13c2ce`, sha256 `4aed424d3d1251fc29717ea2971ec821a6d03daca9a9fc8f4fc2d7c89f3b9b41`), read in full for the
+  section "The decisive round-5 outcome, classified (owner, 2026-10-11)" — outcomes (A) the drive derived from
+  existing OI premises, (B) derived only after a new independently motivated premise, (C) supplied by an assumption
+  equivalent to the phase intervention, (D) the existing premises admit non-quantum countermodels — and the
+  explicit-scope rule ("a proof of insufficiency for the complete stage-6 inventory is definitive within its scope
+  and establishes nothing about every conceivable extension of OI"); with it the round-5 node list and the two
+  distinctions already relayed. Applied where E19 bears on the outcome: NOTES-E19 §3.
+- 2026-10-11T10:18Z — **E20 begun (S0 and probe committed together, before the probe's first run).** `NOTES-E20.md` S0
+  (written 08:27Z, unchanged, sha256 `96e95bc5…`) and `experiments/e20_odd_bodies.py`, reviewed after the
+  resumption and corrected before its first run and first commit (draft `5743149f…` → `4f1a4739…` after the edits
+  below, the header note dated 10:17Z): SF3's non-product test now takes the rank of the 4 × 4 table block (the
+  draft took the rank of the block's density matrix, which is 1 for the pure entangled image — a harness error that
+  would have failed SF3); a vacuous clause removed from C1. Decision rule unchanged.
