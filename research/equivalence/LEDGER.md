@@ -225,3 +225,22 @@ Each note is dated, names its evidence, and supersedes nothing above.
   self-dualizing form, in polynomial form, in design run 38112803530 (R-E18.1, CONJECTURE [D]): R-E13.1's self-duality
   step is now design-checked; its conclusion (token self-duality is not a source of K∞-Trans) and R-E16.4 (nor is
   product-form pair self-duality) are unchanged. Status OPEN; no label changes.
+
+## Round-5 notes (dated; statuses at L unchanged — this thread changes no status)
+
+- **2026-10-11 (round 5) — K2, `ReachPure` derived and the full-flow equivalence in design.** The gate and one copy's
+  rotations about the third axis (every angle) with its cyclic permutation generate, by exact finite words, the
+  block-diagonal `SU(2) × SU(2)` on tables (`blockInvariant_of_drive`, no closure); with Theorem C19-1 in the
+  schema's vocabulary (`reach_block`, `pairCone_eq_Q3_of_block`) this makes S6's reachability statement a theorem
+  (`reachPure`) and gives, given the products clause (H1) and self-duality (H3), `K = Q3` exactly when `K` is invariant
+  under the gate and the clause's two operations (`pairCone_eq_Q3_iff_drive_exact`; the two directions are separate
+  theorems) — design runs 38132266383 and 38134245361 (R-E19.3, R-E19.4, CONJECTURE [D]). S6's premise list is
+  {H1, H2, H3, A_miss}, H2, H3 and A_miss introduced; draft S6 revised (ReachPure a theorem; the countercontrol family
+  on `theorem_Sprime_ineq` with its hypotheses checked exactly, R-E19.1). The dense-control form (one irrational angle)
+  needs, beyond the clause, only DENSE(θ₀) [L] (R-E19.5). The equivalence is between cone-level statements; the
+  availability of the operations ((A)/H-OI_g) is not addressed, and A_miss stays the open bridge. Status OPEN at L; no
+  label changes. Assumption-watch marker: reachability of pure states is a property of the operations, never a separate
+  premise beside invariance under a generating set.
+- **2026-10-11 (round 5) — Kinf-Geom (E16's residual), L3-conv (E17's residual) and the one dictionary (E22):** deferred
+  to round 6 by the owner's direction of 10:38Z; the round-5 material (NOTES-E20 S0, S0-b and two unrendered probe runs;
+  NOTES-E21 S0) is work in progress, unverified, with no result row. Statuses unchanged.
