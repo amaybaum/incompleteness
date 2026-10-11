@@ -984,3 +984,31 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `16eb933f96f76d435917227bb7381f7b5e28f880813c45173503d674a64832f8`), experiments/c19_groups.py (441 lines,
   `4517e4d2b79236fedc79748f454cff0860b836b41f173545b8d678f71d6e99db`); all four equal to the values HO-31 records.
   Saved to the session scratchpad; nothing of them is copied into this branch.
+- 2026-10-11T08:20:00Z — dispatch 1 result: run 38123860471 (head `36083b22`), Mathlib bridge job 114424007491
+  (08:10:14–08:13:04Z): Build FAILED (08:10:35–08:13:00Z), Release gate skipped; the Lean kernel check green. The job
+  log read with the GitHub MCP job-log reader (tail 5000 of the log; the error block falls in the tail). Per module:
+  BridgeAvail (61), EqvK2Schema (22), BridgeAvailFull (50), EqvK2Converse (9), BridgeDictionary (20), BridgeConverge
+  (21) built with every `#print axioms` line standard; `BridgeToken` FAILED ("[3645/3651] Building") with three
+  errors: (i) 199:2 "No goals to be solved" in `signDiag_empty` — `congr 1` already closed the goal (the two
+  lambdas are definitionally equal: membership in the empty finset decides to `false`), so the following `funext`
+  found none; (ii) 274:40 "failed to synthesize instance DecidablePred (And (τ z ≠ z))" and 274:19 "rewrite failed"
+  in `diagonal_signFun_eq` — the term `if_neg (fun h => …)` carried no type ascription, so the condition of
+  `if_neg` was a metavariable when its `Decidable` instance was sought. Every other declaration of the module
+  elaborated: 36 axiom reports, of which the 16 non-standard ones are `diagonal_signFun_eq` (`sorryAx`), its 13
+  dependents (`phaseFree_of_layerFlowExecutable_free` … `latticeTheory_pair_qm_iff_layerFlow`, all through that
+  one lemma) and two `[Quot.sound]`-only reports (`assocPair_symm_apply`, `toEnd_symm_apply`, closed by `rfl`);
+  the `first` fallbacks of `signDiag_insert` were not needed (unused-tactic notes). `BridgeOpDrive` was not
+  attempted (it imports `BridgeToken`). Failed text kept as `lean/BridgeToken.run38123860471.lean` (sha256
+  `417142be…`, equal to the dev blob `e0d3ce0c`).
+- 2026-10-11T08:20:00Z — pre-dispatch review for dispatch 2 of 3 (no local Lean): `lean/BridgeToken.lean` — `signDiag_empty`
+  guarded with `first | done | (funext p; …)`; `diagonal_signFun_eq` restructured: `by_cases hz : z ∈ signSet τ e a`
+  before unfolding, the two conditions stated as typed `have`s (`hc`), then `rw [if_pos hz]; unfold signFun;
+  rw [if_pos hc]` and the `neg` twin; nothing else changed. `lean/BridgeOpDrive.lean` (not yet compiled): the two
+  injectivity steps written as `refine BridgeConverge.dict_injective ?_` instead of `apply`, and
+  `ancBlock_smul_tokOp` given a `simp` fallback; nothing else changed. Expected `lean-axioms` count unchanged: 6096.
+- 2026-10-11T08:20:14Z — **dispatch 2 of 3**: dev branch `dev-bridge/r5-bridge2` cut from L (`9f9f8257`) by the same
+  plumbing: commit `16e75fbe` (tree `4cae40a2`), the same eight modules and root import lines as dispatch 1 except
+  BridgeToken (blob `dda95f6b`, sha256 `23e3dcde…`) and BridgeOpDrive (blob `ce820b34`, sha256 `5d41b3f3…`), both equal
+  to `lean/*.lean` here; pushed; `verify.yml` dispatched by the same `gh api` call with `ref=dev-bridge/r5-bridge2`;
+  run 38124442150 (head `16e75fbe`, created 2026-10-11T08:20:16Z, event `workflow_dispatch`). Expected `lean-axioms`:
+  6096. Waiting; no job or run will be cancelled.

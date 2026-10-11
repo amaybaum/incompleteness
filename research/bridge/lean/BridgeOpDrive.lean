@@ -91,8 +91,10 @@ theorem jDatum_iff_pairAvail (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘
 theorem ancBlock_smul_tokOp (c : ℂ) (U : Matrix (Fin 2) (Fin 2) ℂ) {n : ℕ} (k : Fin n) :
     ancBlock (c • tokOp U n) k k = c • U := by
   ext s t
-  simp only [ancBlock, Matrix.of_apply, Matrix.smul_apply, tokOp, tensorOf_apply,
-    Matrix.one_apply_eq, mul_one]
+  first
+  | (simp only [ancBlock, Matrix.of_apply, Matrix.smul_apply, tokOp, tensorOf_apply,
+      Matrix.one_apply_eq, mul_one]; done)
+  | simp [ancBlock, tokOp, tensorOf_apply]
 
 /-- **THE RAY STEP AT THE TOKEN**: token availability at a positive level puts a nonzero multiple of
 the operator into the class at `Fin 2` (the kernel's `exists_scaled_mem_of_instAvail_unitary` at
@@ -131,14 +133,14 @@ theorem uJ_eq_cycMat : uJ = EqvK2Converse.cycMat := rfl
 /-- `transferMap zPh` is the target rotation `R_z(θ₀)` on tables. -/
 theorem transferMap_zPh (ω : W 3) :
     BridgeConverge.transferMap zPh ω = actT (BridgeDictionary.rotZ (3 / 5) (4 / 5)) ω := by
-  apply BridgeConverge.dict_injective
+  refine BridgeConverge.dict_injective ?_
   rw [BridgeConverge.dict_transferMap, zPh_eq_zPhase, BridgeDictionary.dict_actT_rotZ_345]
 
 /-- `transferMap uJ` is the target cyclic permutation `J` on tables. -/
 theorem transferMap_uJ (ω : W 3) :
     BridgeConverge.transferMap uJ ω
       = actT (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω := by
-  apply BridgeConverge.dict_injective
+  refine BridgeConverge.dict_injective ?_
   rw [BridgeConverge.dict_transferMap, uJ_eq_cycMat, BridgeConverge.dict_converge,
     EqvK2Converse.dict_actT_cyc]
 

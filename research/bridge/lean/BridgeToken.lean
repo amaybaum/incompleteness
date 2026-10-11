@@ -196,9 +196,11 @@ theorem signDiag_empty {T : Type} [DecidableEq T] : signDiag (∅ : Finset T) = 
   unfold signDiag
   rw [← Matrix.diagonal_one]
   congr 1
-  funext p
-  show (if p ∈ (∅ : Finset T) then (-1 : ℂ) else 1) = 1
-  rw [if_neg (Finset.notMem_empty p)]
+  first
+  | done
+  | (funext p
+     show (if p ∈ (∅ : Finset T) then (-1 : ℂ) else 1) = 1
+     rw [if_neg (Finset.notMem_empty p)])
 
 /-- Adjoining a configuration to the sign set multiplies by the square of its quarter phase. -/
 theorem signDiag_insert {T : Type} [Fintype T] [DecidableEq T] {F : Finset T} {p : T} (hp : p ∉ F) :
@@ -268,10 +270,16 @@ theorem diagonal_signFun_eq (τ : Equiv.Perm S) (e : S ≃ Fin (Fintype.card S))
   congr 1
   funext z
   show signFun τ e a z = if z ∈ signSet τ e a then -1 else 1
-  unfold signFun signSet
-  by_cases hz : τ z ≠ z ∧ ¬ (z = a ∨ z = τ a) ∧ e z < e (τ z)
-  · rw [if_pos hz, if_pos (Finset.mem_filter.mpr ⟨Finset.mem_univ z, hz⟩)]
-  · rw [if_neg hz, if_neg (fun h => hz (Finset.mem_filter.mp h).2)]
+  by_cases hz : z ∈ signSet τ e a
+  · have hc : τ z ≠ z ∧ ¬ (z = a ∨ z = τ a) ∧ e z < e (τ z) := (Finset.mem_filter.mp hz).2
+    rw [if_pos hz]
+    unfold signFun
+    rw [if_pos hc]
+  · have hc : ¬ (τ z ≠ z ∧ ¬ (z = a ∨ z = τ a) ∧ e z < e (τ z)) :=
+      fun h => hz (Finset.mem_filter.mpr ⟨Finset.mem_univ z, h⟩)
+    rw [if_neg hz]
+    unfold signFun
+    rw [if_neg hc]
 
 /-- For an involution without fixed points the kernel's phase diagonal is a unimodular scalar. -/
 theorem diagonal_phaseFun_free {τ : Equiv.Perm S} (hfree : ∀ z, τ z ≠ z) (s : ℝ) (a : S) :
