@@ -674,7 +674,7 @@ theorem exists_pow_eq_of_rootEntries {N : ℕ} (hN : 0 < N) {M : Matrix T T ℂ}
 
 /-- Two powers proportional to one matrix: their quotient power is a scalar (the carrier-general
 form of `OriginAngle.pow_scalar_of_eq`). -/
-theorem pow_scalar_of_eq' {W : Matrix T T ℂ} {i j : ℕ} (hij : i < j)
+theorem pow_scalar_of_eq' [Nonempty T] {W : Matrix T T ℂ} {i j : ℕ} (hij : i < j)
     (hu : (W ^ i)ᴴ * W ^ i = 1) {ci cj : ℂ} {M : Matrix T T ℂ}
     (hi : W ^ i = ci • M) (hj : W ^ j = cj • M) :
     ∃ c : ℂ, W ^ (j - i) = c • (1 : Matrix T T ℂ) := by
@@ -977,39 +977,36 @@ def LevelOneCliffordInput : Prop :=
 theorem pauli_offdiag {P : Matrix (Fin 2) (Fin 2) ℂ} (h : P ∈ Pauli) (h00 : P 0 0 = 0) :
     P 0 1 = P 1 0 ∨ P 0 1 = -P 1 0 := by
   obtain ⟨k, q, rfl⟩ := mem_pauli.mp h
-  fin_cases q
-  · exfalso
-    simp [pauliBase] at h00
-  · left
-    simp [pauliBase, X2]
-  · right
-    simp [pauliBase, Y2]
-  · exfalso
-    simp [pauliBase, Z2] at h00
+  have hk : Complex.I ^ (k : ℕ) ≠ 0 := pow_ne_zero _ Complex.I_ne_zero
+  fin_cases q <;> simp [pauliBase, X2, Y2, Z2, hk, Complex.I_ne_zero] at h00 ⊢
 
-theorem zPh_X_conj : zPh * X2 * zPhᴴ = !![0, star w345; w345, 0] := by
-  ext i j
-  fin_cases i <;> fin_cases j <;>
-    simp [zPh, X2, Matrix.mul_apply, Fin.sum_univ_two, Matrix.diagonal_apply,
-      Matrix.conjTranspose_apply]
+/-- The entries of a matrix conjugated by the drive's operator. -/
+theorem zPh_conj_apply (M : Matrix (Fin 2) (Fin 2) ℂ) (i j : Fin 2) :
+    (zPh * M * zPhᴴ) i j
+      = (![(1 : ℂ), w345] : Fin 2 → ℂ) i * M i j * star ((![(1 : ℂ), w345] : Fin 2 → ℂ) j) := by
+  rw [zPh, Matrix.diagonal_conjTranspose, Matrix.mul_diagonal, Matrix.diagonal_mul, Pi.star_apply]
 
 /-- **`zPh X zPhᴴ` IS NOT A PAULI**: its off-diagonal entries `w̄`, `w` are neither equal nor
 opposite. -/
 theorem zPh_X_conj_not_pauli : zPh * X2 * zPhᴴ ∉ Pauli := by
   intro h
-  rw [zPh_X_conj] at h
-  have h00 : (!![0, star w345; w345, 0] : Matrix (Fin 2) (Fin 2) ℂ) 0 0 = 0 := by
-    first | rfl | simp
-  rcases pauli_offdiag h h00 with h1 | h1
-  · have h1' : star w345 = w345 := by first | exact h1 | simpa using h1
-    rw [w345_star] at h1'
-    unfold w345 at h1'
-    have : Complex.I = 0 := by linear_combination (-5 / 8 : ℂ) * h1'
+  have e00 : (zPh * X2 * zPhᴴ) 0 0 = 0 := by
+    rw [zPh_conj_apply]
+    simp [X2]
+  have e01 : (zPh * X2 * zPhᴴ) 0 1 = star w345 := by
+    rw [zPh_conj_apply]
+    simp [X2]
+  have e10 : (zPh * X2 * zPhᴴ) 1 0 = w345 := by
+    rw [zPh_conj_apply]
+    simp [X2]
+  rcases pauli_offdiag h e00 with h1 | h1
+  · rw [e01, e10, w345_star] at h1
+    unfold w345 at h1
+    have : Complex.I = 0 := by linear_combination (-5 / 8 : ℂ) * h1
     exact Complex.I_ne_zero this
-  · have h1' : star w345 = -w345 := by first | exact h1 | simpa using h1
-    rw [w345_star] at h1'
-    unfold w345 at h1'
-    have : (6 / 5 : ℂ) = 0 := by linear_combination h1'
+  · rw [e01, e10, w345_star] at h1
+    unfold w345 at h1
+    have : (6 / 5 : ℂ) = 0 := by linear_combination h1
     norm_num at this
 
 /-- **UNDER THE LEVEL-ONE INPUT, THE BALANCED FIXED GATE HAS NO DRIVE**: a level-one availability of
@@ -1018,8 +1015,7 @@ the Pauli set, while `zPh X zPhᴴ` is not a Pauli. -/
 theorem not_opDrive_pi_div_four (hB : LevelOneCliffordInput) :
     ¬ OpDrive (MixR {Real.pi / 4}) (mixR_arch {Real.pi / 4}) := by
   intro h
-  have h1 : TokenAvailAt (MixR {Real.pi / 4}) (mixR_arch {Real.pi / 4}) zPh 1 :=
-    tokenAvail_descend (mixR_arch _) (mixR_labelInvariant _) zPh Nat.one_pos (h 1 Nat.one_pos)
+  have h1 : TokenAvailAt (MixR {Real.pi / 4}) (mixR_arch {Real.pi / 4}) zPh 1 := h 1 Nat.one_pos
   have h1' : (fixedGateTheory (Real.pi / 4)).availExt 1 Unit
       (fun _ => conjChannel (tokOp zPh 1)) := h1
   obtain ⟨c, G, hG, hV⟩ := hB _ (tokOp_isometry zPh_unitary 1) h1'
@@ -1031,7 +1027,7 @@ theorem not_opDrive_pi_div_four (hB : LevelOneCliffordInput) :
   have hc0 : c ≠ 0 := by
     rintro rfl
     rw [zero_smul] at hzG
-    exact zPh_00_ne (by rw [hzG]; rfl)
+    exact zPh_00_ne (by simp [hzG])
   have hG_eq : G = c⁻¹ • zPh := by rw [hzG, smul_smul, inv_mul_cancel₀ hc0, one_smul]
   have hunit : star c⁻¹ * c⁻¹ = 1 := by
     have hu := hG.unitary
@@ -1073,19 +1069,25 @@ theorem o14_core :
     ¬ LiftAudit.SubstratumAvail (latticeTheory (Fin 2)) ∧
     OpDrive driveClass driveClass_arch ∧
     (∀ (A : Type) [Fintype A] [DecidableEq A], DerivedOI (driveTheory A)) ∧
+    ¬ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps (driveTheory (Fin 2)) ∧
     (∀ n : ℕ, 0 < n → ¬ TokenAvailAt driveClass driveClass_arch uJ n) ∧
+    ¬ DenseUnitaryControl (driveTheory (Fin 2)) ∧
+    ¬ DenseUnitaryControl (substratumTheory (Fin 2)) ∧
     (∀ n : ℕ, ∀ X ∈ body driveClass (Fin 2 × Fin n), conjChannel (tokOp zPh n) X = X) ∧
     (∀ n : ℕ, 0 < n → CompositionOrder.InfiniteOrderOn
       (Set.univ : Set (Matrix (Fin 2 × Fin n) (Fin 2 × Fin n) ℂ))
       (conjAff (tokOp zPh n) (tokOp_isometry zPh_unitary n))) ∧
     Irrational (theta0 / Real.pi) ∧ DenseUnitaryControl (fixedGateTheory theta0) ∧
+    ¬ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps (fixedGateTheory theta0) ∧
     (LevelOneCliffordInput → ∀ α : ℝ, OriginAngle.RotClifford α →
       ¬ OpDrive (MixR {α}) (mixR_arch {α})) :=
   ⟨opDrive_substratum, fun arch h => opDrive_of_substratumAvail arch h, not_opDrive_perm,
     not_opDrive_mixEmpty, not_opDrive_lattice, lattice_not_substratumAvail, opDrive_drive,
-    fun A _ _ => driveTheory_derivedOI A, fun _ hn => drive_not_uJ hn, zPh_trivial_on_drive_body,
+    fun A _ _ => driveTheory_derivedOI A, driveTheory_not_qm, fun _ hn => drive_not_uJ hn,
+    drive_not_denseUnitaryControl, substratum_not_denseUnitaryControl, zPh_trivial_on_drive_body,
     fun _ hn => zPh_infiniteOrderOn_univ hn, irrational_theta0_div_pi,
-    fixedGateTheory_theta0_denseUnitaryControl, fun hB _ hα => not_opDrive_of_rotClifford hB hα⟩
+    fixedGateTheory_theta0_denseUnitaryControl, fixedGateTheory_theta0_not_qm,
+    fun hB _ hα => not_opDrive_of_rotClifford hB hα⟩
 
 /-- **O15, THE CORE.** -/
 theorem o15_core :
@@ -1112,6 +1114,7 @@ theorem o15_core :
 
 end Cores
 
+#print axioms is
 #print axioms opDrive_substratum
 #print axioms opDrive_fullClass
 #print axioms not_opDrive_of_quartLattice
@@ -1144,6 +1147,8 @@ end Cores
 #print axioms phaseGate_drive
 #print axioms driveTheory_derivedOI
 #print axioms driveTheory_inverseAccessibility
+#print axioms wlat_of_entries
+#print axioms zPh_entries
 #print axioms zPh_wlat
 #print axioms tokOp_zPh_drive
 #print axioms opDrive_drive
@@ -1151,10 +1156,25 @@ end Cores
 #print axioms rot_apply_01
 #print axioms not_tokenAvail_rot_of_submonomial
 #print axioms drive_not_rot
+#print axioms driveTheory_closure
+#print axioms driveTheory_token_not_control
+#print axioms driveTheory_not_qm
+#print axioms driveTheory_not_phaseFree
+#print axioms driveTheory_not_layerFlowExecutable
 #print axioms avail_unitary_iff
 #print axioms lattice_avail_iff
 #print axioms drive_avail_iff
 #print axioms avail_monomial_of_submonomial
+#print axioms rotQuarter_apply_00
+#print axioms rotQuarter_apply_10
+#print axioms norm_sqrt_two_div_two
+#print axioms half_lt_sqrt_two_div_two
+#print axioms not_levelOneClause_of_submonomial
+#print axioms drive_not_levelOneClause
+#print axioms lattice_not_levelOneClause
+#print axioms substratum_not_levelOneClause
+#print axioms substratum_not_denseUnitaryControl
+#print axioms drive_not_denseUnitaryControl
 #print axioms diagonal_fixes_diag
 #print axioms diagonal_trivial_on_body
 #print axioms drive_reach_diag
@@ -1167,6 +1187,7 @@ end Cores
 #print axioms rootLat_four_of_quart
 #print axioms pow_unitary
 #print axioms pow_rootEntries
+#print axioms mem_rootSet
 #print axioms exists_pow_eq_of_rootEntries
 #print axioms pow_scalar_of_eq'
 #print axioms rootLat_pow_scalar
@@ -1188,14 +1209,12 @@ end Cores
 #print axioms irrational_theta0_div_pi
 #print axioms fixedGateTheory_theta0_denseUnitaryControl
 #print axioms fixedGateTheory_theta0_not_qm
-#print axioms conjChannel_zero_mat
-#print axioms conj_ite
 #print axioms ancBlock_tokOp
 #print axioms discard_tokOp_eq
 #print axioms reindex_prodUnique
 #print axioms tokenAvail_descend
 #print axioms pauli_offdiag
-#print axioms zPh_X_conj
+#print axioms zPh_conj_apply
 #print axioms zPh_X_conj_not_pauli
 #print axioms not_opDrive_pi_div_four
 #print axioms not_opDrive_of_rotClifford
