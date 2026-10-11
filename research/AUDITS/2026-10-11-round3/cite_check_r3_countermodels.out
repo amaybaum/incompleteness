@@ -1,0 +1,6 @@
+RESOLVED-UNNAMED JordanClassification.lean:84 names ['d_j', 'd_k'] not in window: theorem psd_iff_trace_nonneg {A : Matrix n n ℂ} (hAh : A.IsHermitian) :
+RESOLVED CompositeDimension.lean:741 (no identifier named on the citing lines)
+RESOLVED+NAMED OIRealization.lean:360 ['finiteOI_not_implies_inert']
+RESOLVED-UNNAMED SpectatorBridge.lean:223 names ['finiteOI_not_implies_inert'] not in window: def InertSpectatorCompositionality (T : FiniteOperationalTheory A) : Prop :=
+SUMMARY countermodels: 4 distinct citations in added lines since e6d42cab; resolved 4; named-and-found 1; unnamed 1
+CITATIONS-COUNTERMODELS-FAIL

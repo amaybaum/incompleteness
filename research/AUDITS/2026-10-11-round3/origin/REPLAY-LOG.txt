@@ -1,0 +1,6 @@
+01:31:31Z replay start origin round 3 (cwd experiments/, python3 -I -B)
+REPLAY o8_exclusive stdout=IDENTICAL stderr=DIFFERENT rc=0 01:31:49Z
+REPLAY o10_pair stdout=IDENTICAL stderr=DIFFERENT rc=0 01:31:51Z
+REPLAY o9_level2 stdout=IDENTICAL stderr=IDENTICAL rc=0 01:31:58Z
+REPLAY o9_scope stdout=IDENTICAL stderr=IDENTICAL rc=0 01:31:59Z
+DONE 01:31:59Z

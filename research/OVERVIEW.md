@@ -13,15 +13,15 @@ enters `main` only through a §A.39 governed round with separate authorization.
 
 ## Branch map
 
-| branch | purpose | base | head (round 2) | status |
+| branch | purpose | base | head (round 3) | status |
 |---|---|---|---|---|
 | `research/archive` | shared historical record: PT stages 1–6 and all prior rounds' working records, with manifests and provenance (`research/archive/README.md`) | L | `4dc0321c` | landed, read-only |
 | `research/overview` | this overview, `research/HANDOFFS/` (versioned handoffs), `research/AUDITS/` (coordinator audits), the milestone log | archive | live | coordinator only |
-| `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `3686049e` (round 2 audited) | active, priority 1 |
-| `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `e6d42cab` (round 2 audited) | active |
-| `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `42bc3da6` (round 2 audited) | active |
-| `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `5d266133` (round 2 audited) | active |
-| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (run 38090924005 at `195dfbee`; the repair commit unmeasured), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860) | thread branch | — | as created |
+| `research/bridge` | composite-action bridge: derive (b) — or its independence — from embedded-observation principles; the H→P bridge; the realization question for K(Z_F) | archive | `7abe4da4` (round 3 audited) | active, priority 1 |
+| `research/countermodels` | countermodel analysis: the composite-cone classification, extreme-ray transitivity, explicit κ/torus cones, the structure of K(Z_F), the unreassessed stage-3 cones | archive | `23713ce9` (round 3 audited) | active |
+| `research/origin` | the Discrete and Continuous Origin targets (owner's note 3): a substratum-sourced non-monomial coherent mixer with an exact interference witness; the continuously driven transition of the minimal repertoire | archive | `de9285d6` (round 3 audited) | active |
+| `research/equivalence` | the remaining OI–QM equivalence obligations: K2, the eight K∞ seams, Kₙ, H-Bell, H-∞, λ's sourcing, Level III, and the ROADMAP P0/P1 rows that bear on the chain | archive | `c10dbaee` (round 3 audited) | active |
+| `dev-<thread>/<topic>` | disposable development branches (Lean proofs, CI runs via `workflow_dispatch`, numerical experiments, alternative approaches); results enter the parent thread branch only after verification, with the dev commit and run id cited. (The form `dev/<thread>/…` is impossible: a remote branch named `dev` exists.) Existing: `dev-equivalence/kinf-seams` @ `f5367a7a` (run 38083519826), `dev-equivalence/kt4-at-l` @ `288f80ec` (run 38084161796), `dev-equivalence/kn-desc` @ `05b5756c` (run 38090116254), `dev-equivalence/omega4` @ `95beab2b` (runs 38090924005 at `195dfbee`, 38096511360 at `95beab2b`: the repair measured, 15/15), `dev-equivalence/split-l3` @ `8c92343e` (run 38091534622), `dev-equivalence/k2-schema` @ `aabc649e` (runs 38099025197 at `472835c5`, 38101580750), `dev-origin/envelope` @ `c3f7fbb2` (run 38084486326), `dev-origin/passive` @ `c2484cca` (runs 38090594001, 38091462366), `dev-origin/exclusive` @ `5df964af` (runs 38098314988 at `39fd0e67`, 38099172719), `dev-bridge/b11-lemma` @ `bbbefb72` (runs 38090784384, 38092042844, 38093576860), `dev-bridge/r3-dict` @ `3d554e7e` (run 38099134414), `dev-bridge/r3-reach` @ `747bcf94` (run 38101591388) | thread branch | — | as created |
 | `research/conscious-observation-loop` | pre-existing branch of the owner (CONSC-1 charter work, 2026-10-05); not part of this tree, untouched | — | `0cefaecb` | owner's |
 
 **CI on research branches.** Pushes to research branches trigger no workflow. A `workflow_dispatch` run on a dev
@@ -97,6 +97,40 @@ test). Round 1 added, with every claim at its label:
   composite action for the instruments it is given; "an operation available to a token in isolation is a joint
   instrument" is the clause that excludes K(Z_F), its matrix form certified independent of the sealed OI core
   (`finiteOI_not_implies_inert`); the single-token rotations preserving K(Z_F) are exactly `V4` on each token.
+- **The exclusive readout is refuted (origin round 3, HO-17):** stated in the kernel's vocabulary, Origin's one open
+  premise — an exclusive measure-and-re-prepare readout — is OI-N1's factor property relative to the observed
+  algebra; it is false on every algebra whose blocks do not straddle two ancilla values and in the substratum theory,
+  where every ancilla point mass is preparable (design module `OriginExclusive`, 33/33; the kernel facts
+  `readout_is_localLuders`, `pureSeedPrep_available_of_swap` CERTIFIED). No re-preparing pair law short of the cone's
+  own conditioning rule realizes a candidate cone (product laws are Bell-local whatever their correlations; the
+  cone's own law reads the correlation block — FAILED as a source). `DenseUnitaryControl (fixedGateTheory (π/4))` is
+  false through level one (every available unitary channel is one of 24 Clifford channels), so the kernel theorem's
+  irrationality hypothesis cannot be dropped at `π/4`; at `π/8` the level-one clause holds.
+- **H-T and the finite half (bridge round 3, HO-20, HO-22, HO-23):** the weakest H-level premise for (T) at `θ₀` is
+  **H-T** — (A) with RESPECT and product behaviour for one infinite-order frame-axis rotation and the NOT on one
+  token; the NOT half excludes nothing against K(Z_F); H-T fails the disguise test (OI⁺-1's clause at level H), is
+  strictly weaker than H-OI_g (its group's identity component is an abelian 2-torus, so exotic cones survive by claim
+  (D)), and H-T ∧ (A)_J = H-OI_g at `{R_z(θ₀), J}`. The finite half with the gate is exactly `Stab_C(Z ⊗ 1)` (order
+  384), realized by permutations of the 60 stabilizer states; no finite rotation group holding `J` has a `z`-rotation
+  of order other than 1, 2 or 4, so the two halves share no finite stage; adjoining `R_z(θ₀)` closes to the
+  block-diagonal `SU(2) × SU(2)` fixing `Z ⊗ 1`, whose product orbit is every pure state — the structural reason the
+  clause forces `Q3`; stage-crossing substrata exist trivially and supply none of the (A) the clause needs. B7-1 has
+  formal statements whose finite case is built.
+- **Explicit exotic cones without EBF (countermodels round 3, HO-24, HO-25, HO-26):** Theorem S′ (the cap/co-cap
+  surgery theorem; [W], read by the coordinator) gives explicit self-dual cones with H1–H3 for HO-14's order-384
+  group (`c* = 401/400`), for the native Clifford family of order 11520 (`c = 1 + 10⁻⁵`) — so SPEC_P(J) alone leaves an
+  explicit exotic cone without claim (D) — for a residual case of B3.C (three circles of non-PSD extreme rays), for the
+  torus node S2 at level (i) and for κ with G16 (two circles); every finite unitary group with `cnot` is EXOTIC-X. For
+  `c < 2` the operative obstruction is an orthogonal pair inside an orbit (double transpositions with a maximal
+  torus), which closes the rank-one route for the continuous half `T³ ⋊ D₄`; T is decided (fails, `c = 14` against 9)
+  on cones with a continuum of non-PSD extreme rays; the non-Bell pair theorem is sharp; C8-C holds at four members.
+- **K2's skeleton kernel-checked; self-duality is not a source of K∞-Trans (equivalence round 3, HO-18, HO-19):**
+  `EqvK2Schema` (22/22) proves the dictionary `W 3 ≃ₗ[ℝ] Herm(ℂ² ⊗ ℂ²)` with both compatibilities, the cone step and
+  `pairCone_eq_Q3_of_drive` with the reachability lemma isolated as the single hypothesis `ReachPure` — CONDITIONAL on
+  H2, H3, A_miss and `ReachPure`, none sourced; S4's checkpoint `C0` is met (`EqvOmega4` 15/15) and S4 is ready for
+  owner review; Ω⋆ and Ω_cs show that self-duality of the state cone, even with central symmetry and every other
+  single-system seam, does not give K∞-Trans, while central symmetry with a `Z`-invariant self-dualizing form does;
+  the literal infinite-volume reading of H-DYN collapses to site permutations, and the transport form gives the passage.
 
 Stage summaries (archived, audited): stage 5 — no principle at L derives (b); CONDITIONAL on a spectator clause; weakest
 content (b) for {flow, J} or {flow, phase flow} on one token. Stage 4 — dichotomy UNIQUE iff Ĝ·SEP = all pure states,
@@ -135,6 +169,23 @@ and (ii) K(Z_F).
   dictionary draft `BridgeDictionary.lean` did not build (B9-5, OPEN). Coordinator audit: replays 4/4, independent
   check 5/5 (run 2; moment-orbit certificate, `V4`, both orders 11520, the torus, the dictionary), citations 14/14,
   three runs step-verified — `AUDITS/2026-10-10-round2/AUDIT-BRIDGE-R2.md`; HO-10, HO-11, HO-12 issued.
+- **Round 3 (head `7abe4da4`, audited; RESULTS rows B10-1 … B10-7, B11-1, B11-2, B12-1 … B12-5, B13-1, B13-2, V-3):**
+  the transfer clause at one rational angle has a weakest H-level premise, H-T (B10-3, CONDITIONAL, assumed; FAILED as
+  a bridge by the disguise test); the NOT half excludes nothing and B4 fails exactly (A) for `R_z(θ₀)` (B10-1, B10-2);
+  H-T is strictly weaker than H-OI_g (identity component a 2-torus) and H-T ∧ (A)_J is H-OI_g at `{R_z(θ₀), J}`
+  (B10-4); the continuous half is locally finite (`G_n` of order `4^{n+1}`, B10-5); the configuration-wise reading of
+  `substratumClass_contextStable` is L-REG (marker, B10-6); the realization theorem does not imply H-T (B10-7). The
+  dictionary module `BridgeDictionary` built (run 38099134414, 20/20): (D1), (D2) for `cnot`, the phase rotations and
+  the NOT on either token, `transfer_phase` (B11-1, B11-2, CONJECTURE [D]). The finite half with the gate is
+  `Stab_C(Z ⊗ 1)`, order 384, on the 60 stabilizer states (B12-1); every finite rotation group holding `J` has
+  `z`-rotations of order 1, 2, 4 only (B12-2); `{cnot, J, R_z(θ₀)}` closes to `SU(2) × SU(2)` with product orbit every
+  pure state (B12-3); stage-crossing substrata exist and supply nothing (B12-4); B12-S states what one must supply
+  (B12-5). B7-1 as `ReachUnitary`/`ReachAnti` with the finite case built (`BridgeReach`, run 38101591388, 21/21;
+  B13-1, B13-2). Coordinator audit: replays 5/5, independent check 4/4 (run 2; the kernel's own gate, action and NOT
+  definitions against (D1)/(D2); K(Z_F)'s non-invariance under `R_z(θ₀)`; the monomial orders; the Lie closures of
+  dimensions 2 and 6; the orders 48/384/11520, the stabiliser and the 60 states; the algebraic-integer certificate to
+  `m = 24` with the icosahedral group of order 60; `φ₀`'s reach; `|Λ₁| = 588`), citations 25/25, two runs step-verified
+  — `AUDITS/2026-10-11-round3/AUDIT-BRIDGE-R3.md`; HO-20 … HO-23 issued.
 
 ### `research/countermodels` — RESULTS.md rows C1.1 … C6.2
 
@@ -167,6 +218,24 @@ and (ii) K(Z_F).
   5/5, independent check 7/7 (run 1; the Circ witness, the sandwich and simplex seeds, the Bell-circle certificate to
   the exact value, a line-triple instance of C8, `det Hess`, the C10 facet enumeration both ways), citations 4/4,
   four written proofs read — `AUDIT-COUNTERMODELS-R2.md`; HO-15, HO-16 issued.
+- **Round 3 (head `23713ce9`, audited; RESULTS rows C11.1 … C11.7, C12.1 … C12.6, C13.1 … C13.9 with C13.9f,
+  C14.1 … C14.4, C15.1 … C15.3, C16.1 … C16.6):** Theorem S′ — for a compact set of rank-one defects `I − c_dP_d`,
+  `c_d ∈ (1, 2]`, with nonnegative pairings and the cap/co-cap condition (CC), the surgery `K(Z)` is closed and
+  self-dual ([W], read by the coordinator: sound); it contains SD1's sufficiency and Theorem S. Explicit exotic cones
+  (EXOTIC-X, each CONDITIONAL on S′): for HO-14's group of order 384 (`h*`, `c* = 401/400`), after Theorem C11-B
+  showed no Bell-type defect survives the group and `φ₀`'s orbit carries an orthogonal pair; for the native Clifford
+  family of order 11520 (`c = 1 + 10⁻⁵`); for a residual case of B3.C (`Π = S₃`, three circles of non-PSD extreme rays);
+  for the torus node S2 without G16 (one circle); for κ with G16 (two circles, after the FAILED row C13.9f refuted the
+  transferred obstruction). Every finite unitary group with `cnot` is EXOTIC-X; the sharp pair theorem for rank-one
+  defects (self-dual iff orthogonal Bell-type or `c₁c₂|⟨h₁|h₂⟩|² ≥ (√(c₁−1) + √(c₂−1))²`); C8-C holds at four members
+  and for every finite Bell set with a complete non-orthogonality component; Lemma C13-O (an orthogonal pair in an
+  orbit with `c < 2` kills self-duality), the dichotomy for maximal tori and the Bell corner `c = 2` (Lemma C16-1);
+  the tangency bound `c ≤ 15 − k`, `c = 14` exactly on circle surgeries, so T fails on the explicit continuum cones;
+  T on `K_circ` reduced to the absence of smooth contact. Coordinator audit: replays 6/6, independent check 10/10
+  (run 1; the C11-B identity; the orders 48/384/11520 and the stabiliser; the `h*` orbit with its 18336 pairs; the
+  `φ₀` witness; a pair-theorem instance; the ranks 14 and 15 on own point sets; the κ orbit; the 11520-ray Clifford
+  orbit to the exact `s_min`; the case-A basis and circles; the Bell corner), citations 4/4, eleven written proofs
+  read — `AUDITS/2026-10-11-round3/AUDIT-COUNTERMODELS-R3.md`; HO-24, HO-25, HO-26 issued.
 
 ### `research/origin` — RESULTS.md rows O1-T1 … O4-D
 
@@ -201,6 +270,24 @@ and (ii) K(Z_F).
   group's closure contains SO(6), SU(6) with the quarter phase — density without exactness (CONDITIONAL [X]+[W]+[L]).
   Coordinator audit: replays 5/5, independent check 6/6 (the level-three Lie-algebra dimensions recomputed from
   scratch), citations 23/23 — `AUDITS/2026-10-10-round2/AUDIT-ORIGIN-R2.md`; HO-9 issued.
+- **Round 3 (head `de9285d6`, audited; RESULTS rows O8-K … O8-V, O10-K … O10-V, O9-K … O9-E):** the exclusive
+  readout as a premise is OI-N1's factor property relative to the observed algebra, and the stated access refutes it:
+  the native readout is a passive repeatable instrument on every algebra whose blocks do not straddle two ancilla
+  values, and the substratum theory prepares every ancilla point mass (design module `OriginExclusive`, run
+  38099172719, 33/33: `not_exclusiveOn_of_refines`, `exists_straddle_of_exclusiveOn`, `exclusiveOn_factor`,
+  `substratumTheory_exclusivity_false`; the disguise test passes the owner's letter and fails on the kernel's carrier);
+  one passive readout of any nontrivial cell reaches every point mass on any finite carrier (`reach_pointMass`);
+  HO-13's token pair lives on one Kochen–Specker sphere token with the exact witness, but no re-preparing pair law
+  short of the cone's own conditioning rule supplies the pair half (product laws Bell-local; the cone's own law FAILED
+  as a source); level two at the balanced angle generates the real Clifford group (order 2304) and `SU(4)` with the
+  quarter phase; `DenseUnitaryControl (fixedGateTheory (π/4))` is false through level one, so `fixedGateTheory (π/4)`
+  is a countermodel to dropping the irrationality hypothesis of `denseUnitaryControl_of_fixedGate`; HO-9 v1's reason
+  for item 7's clause corrected (availability at a level ≠ the generated group; HO-9 v2). Coordinator audit: replays
+  4/4, independent check 7/7 (run 2; own `Q(ζ₈)` arithmetic: the order 2304, the trace `(3+i)/2` and the commutant
+  dimensions with a third prime, the level-one group and channels by two constructions, the four-square counts, the
+  `π/8` scope, `phiW`'s `14/5` and the Bell-local entangled table, the closures `C(2N−1, N)`), the O9 argument read
+  against the kernel definitions, citations 32/32, two runs step-verified — `AUDITS/2026-10-11-round3/AUDIT-ORIGIN-R3.md`;
+  HO-17 and HO-9 v2 issued.
 
 ### `research/equivalence` — LEDGER.md (22 obligations), RESULTS.md rows R-E1.1 … R-E7.1
 
@@ -236,8 +323,28 @@ and (ii) K(Z_F).
   check. Coordinator audit: replays 5/5, independent check 7/7 (run 2; `U_J`, the order 384 and `φ₀`, an exact
   irrationality proof, the reachability word on new instances, the cone step, the H-DYN census, the Level III
   instances), citations 45/45, three runs verified — `AUDIT-EQUIVALENCE-R2.md`; HO-13, HO-14 issued.
+- **Round 3 (head `c10dbaee`, audited; RESULTS rows R-E12.1, R-E11.1 … R-E11.4, R-E13.1 … R-E13.4, R-E14.1 … R-E14.3,
+  R-CITE.3):** draft S4's checkpoint `C0` is met — the repaired `EqvOmega4` builds over L with all fifteen prints
+  standard (run 38096511360), so the separation of K∞-Trans by Ω₄ is kernel-checked in a design run and S4 is ready
+  for owner review (R-E12.1). The K2 schema is kernel-checked in a design run with L4 isolated (`EqvK2Schema`, run
+  38101580750 after one proof-only repair, 22/22): the dictionary as a real-linear equivalence with the product law,
+  the pairing, completeness and injectivity; LOWER through `psdFactorization_discharged`, UPPER, `Q3 = dualW Q3`;
+  `pairCone_eq_Q3_of_drive` CONDITIONAL on H1, H2, H3, A_miss (full-flow form) and `ReachPure` (R-E11.1 … R-E11.3);
+  the recorded `dict_tens` fix fails in its one-list rendering (R-E11.4; the bridge's two-stage rendering builds).
+  Self-duality is not a source of K∞-Trans: Ω⋆ = {‖X‖³ ≤ (1+S)(1−S)²} (the power cone, strongly self-dual, not
+  centrally symmetric) and Ω_cs (a `C¹` chain of conic arcs under the boost `g = (u/4, 4v)`, self-dual and centrally
+  symmetric) carry every single-system seam and no boundary-transitive or dense-orbit family (TransitiveBody.lean:602,
+  DenseOrbit.lean:174 contrapositively); central symmetry with a `Z`-invariant self-dualizing form gives the ellipsoid
+  (L-a), otherwise the filter `M⁻¹ZᵀMZ` (L-b) (R-E13.1 … R-E13.4). Level III in infinite volume: the literal reading of
+  "H-DYN at every finite stage" collapses to site permutations with relabelings (48 of 40320 on the ring of 3; the CNOT
+  update violates it), the transport form (`{0,1}`-matrices, `LocalityPreserving` both ways) gives a `ReversibleDynamics`
+  by a written proof (R-E14.1 … R-E14.3). Coordinator audit: replays 5/5 (one at its run commit), independent check 8/8
+  (run 2; the dictionary identities and `Q3` facts, the drive generators as conjugations, the power cone's self-duality
+  and the irreducible cubic, the Ω_cs junctions and the exact polar-partner sample, the ring-3 count by exhaustion, the
+  ring-4 and rule instances), the module statements read (the five hypotheses exactly), citations 57/57, three runs
+  step-verified — `AUDITS/2026-10-11-round3/AUDIT-EQUIVALENCE-R3.md`; HO-18, HO-19 issued.
 
-## Newly identified assumptions (rounds 1–2)
+## Newly identified assumptions (rounds 1–3)
 
 | assumption | where it enters | status |
 |---|---|---|
@@ -256,8 +363,16 @@ and (ii) K(Z_F).
 | Level III wording (assumption-watch marker): any "OI_Q ⟺ quasilocal lattice QM" sentence must name its right-hand side — with an abstract net it is false, with the target class it is (C-REG) and carries the matrix stages in its premise | equivalence HP-5; manuscript hold | marker, recorded here |
 | constancy of the facial invariant (`c*` on single systems) cannot source K∞-Trans; a source must constrain second-order data or the automorphism group | countermodels round 2 (C9.4, HO-15) | marker for draft S4 and the K∞ seams |
 | no unextendible product basis in `2⊗n` (bridge B7-3); Niven's theorem (equivalence R-E10.4 — discharged for the instance `cos θ₀ = 3/5` by the coordinator's exact Gaussian-prime argument) | B3.C's "exactly three product lines" case; the two-rotation clause | [L], named |
+| H-T — (A) with RESPECT and product behaviour, in the pair context, for one infinite-order frame-axis rotation on one token (or a dense directed family of finite-order ones) and for the NOT | bridge round 3 (B10-3): the weakest H-level premise yielding (T) at `θ₀`; H-T ∧ (A)_J = H-OI_g at `{R_z(θ₀), J}` | assumed, unsourced; fails the disguise test (OI⁺-1's spectator clause for one operation); not implied by the realization theorem's constraints (B4 meets them and violates H-T) |
+| Theorem S′ — the cap/co-cap surgery theorem for rank-one defects (compact defect sets) | countermodels round 3: every explicit exotic cone of the round (C11.5, C13.5, C13.7, C15.2, C16.4) | [W], written proof read by the coordinator (sound); not kernel-checked |
+| OI-N1's factor property relative to the observed algebra — the exclusive readout in the kernel's vocabulary | origin round 3 (O8): the one open Origin premise stated exactly | refuted on the stated access ([D] `OriginExclusive`); holding it on an algebra forces a block straddling two ancilla values (coherence between ancilla values) |
+| availability at a level of a generated theory includes the ancilla blocks of members at every level (`MixR.block`, `MixR.relabel`) and the `InstAvail` protocols; it is not the group generated at that level | origin round 3 (O9-C; HO-17 item 8; HO-9 v2) | assumption-watch marker for every availability argument over `genTheory` |
+| the transport form of H-DYN (stage matrix units to `{0,1}`-matrices, `LocalityPreserving` for the automorphism and its inverse) as the infinite-volume form of the Level III dynamical repair; the literal matrix-unit form collapses to site permutations | equivalence round 3 (R-E14.1, R-E14.2) | marker; the passage CONJECTURE [W]; like H-DYN it restates (O3) on the stages and derives no dynamics |
+| self-duality of the state cone is not a source of K∞-Trans; the invariance of the self-dualizing inner product under the body's central symmetry (strong self-duality with central symmetry) is | equivalence round 3 (R-E13.1 … R-E13.3; HO-19), sharpening HO-15's marker | marker; plain self-duality is compatible with non-transitive bodies through filters |
+| "explicit exotic cones need Bell-type defects or finitely many defects" and "cones with a continuum of non-PSD extreme rays are EBF-only, so T is undecidable there" | countermodels round 3 (HP6; refined in C16) | both false: small-cap surgeries for finite groups and for tori whose orbits avoid orthogonal pairs; T fails on the explicit continuum cones; for `c < 2` the obstruction is an orthogonal pair inside an orbit, at `c = 2` a non-orthogonal pair |
+| the transfer route's identification of the matrix carrier's Kronecker composite with a product configuration space (L-REG, again) | bridge round 3 (B10-6) | marker: read configuration-wise, the certified `substratumClass_contextStable` is Bell-local and hosts no candidate pair cone |
 
-## Eliminated alternatives (rounds 1–2, each kept with evidence)
+## Eliminated alternatives (rounds 1–3, each kept with evidence)
 
 - Locality of registers as the H→P bridge (Bell-local; CHSH `14/5`).
 - Fixed finite pair substrata and directed towers of finite substrata as carriers of A_miss, of an off-frame local
@@ -285,37 +400,56 @@ and (ii) K(Z_F).
 - (Round 2, equivalence) The naive dynamical and kinematic converses of Level III (countermodels K1, K3, P1, P2); the
   finite clause `⟨R_z(π/2), cyc3⟩` and the flow alone as substitutes for A_miss; a spectral theorem as a kernel cost
   of S6; "supporting-effect completeness" as a distinguishing property of Ω₄.
+- (Round 3, origin) The exclusive readout as a source (OI-N1's factor property, refuted on the stated access); every
+  re-preparing pair law short of the cone's own conditioning rule as a source of a candidate cone (Bell-local
+  composites), and the cone's own law as a source (it reads the correlation block); dropping the irrationality
+  hypothesis of `denseUnitaryControl_of_fixedGate` at `π/4`; "level one is finite at the balanced angle" as the reason
+  for the failure of the level-one clause (HO-9 v1's clause, corrected in v2).
+- (Round 3, bridge) The NOT half of (T) as excluding content; H-T as a bridge (the disguise test); the token-local
+  tower route to HO-13's clause (no finite rotation group holding `J` carries a `z`-rotation of order other than
+  1, 2, 4); stage-crossing substrata as suppliers of (A); a draft bound "the octahedral group is the largest finite stage
+  holding `J` and a `z`-rotation" (the icosahedral group of order 60 holds `J` and `R_z(π)`; replaced before commit).
+- (Round 3, countermodels) The EBF seed `φ₀` as an explicit surgery (its orbit has an orthogonal pair); invariant
+  orthogonal Bell sets for the order-384 group (Theorem C11-B); rank-one orbit surgeries for the continuous half
+  `T³ ⋊ D₄`, for B3.C's case B and for the S2 node with G16 (orthogonal pairs for `c < 2`; the Bell corner at `c = 2`);
+  the orthogonal-pair obstruction for κ with G16 (FAILED, C13.9f: κ has an explicit cone); claim (D) as the only route
+  to exotic cones for SPEC_P(J) (now explicit).
+- (Round 3, equivalence) Self-duality — plain or strong, with or without central symmetry — as a source of K∞-Trans in
+  chart dimension 4; the literal reading of "H-DYN at every finite stage" (it excludes OI's own interacting dynamics);
+  the one-list rendering of the recorded `dict_tens` fix.
 
 ## Open gaps, by thread (dependencies in parentheses)
 
 | gap | thread | depends on | ready for a governed round? |
 |---|---|---|---|
-| an H→P bridge: a principle yielding the spectator clause — now exactly the transfer clause (T) for the phase flow and the NOT (continuous half; by HO-13 one rational angle suffices) together with (A) for the native Clifford family (finite half) — or a proof that none exists beyond H-OI_g | bridge | SRC from origin (HO-5, HO-9); HO-12, HO-13 | no — research |
-| B3.C: holds CONDITIONAL on claim (D) (HO-10); remaining: a kernel-checked form of the reachability theorem; explicit cones in the residual region (HO-16); degenerate tori on the cone side | bridge / countermodels | claim (D) [A] (EBF) | no |
-| Theorem B1.1 is a design module ([D], run 38092042844 green); the two-token dictionary draft failed to build (B9-5); a governed round would need a census disposition and the owner's choice | bridge | — | design green; owner's choice |
-| whether T excludes every exotic cone: the undecided class is the EBF cones with a continuum of non-PSD extreme rays, now with a structural obstruction to closed forms (Theorem C7-D) | countermodels | — | only if proved; then after its disguise test |
-| explicit κ-with-G16 and torus cones (non-surgery; every surgery with torus-fixed defects fails); Conjecture C8-C (four or more Bell-type members); an explicit exotic cone for the finite octahedral group of order 384 (HO-14); the slice-map fibres | countermodels | HO-14 | no |
-| SRC: the source of an exclusive measure-and-re-prepare readout (KB-D discrete, the cosine law continuous) — now the single open Origin premise; on the stated access its exclusivity is excluded | origin | — | no |
-| the field-neutral Continuous Origin: mutually exclusive requirements on passive towers; jointly satisfiable on an invasive re-preparing tower whose law is outside the stated access | origin | the same premise as SRC | no |
-| K2 (c) = (T) at the pair level (HO-12); the K2 schema proved on paper (S6; kernel cost = dictionary + reachability); the K∞ seams (a source of K∞-Trans must constrain second-order data or the automorphism group, HO-15); Kₙ (design module green); H-Bell; H-∞; λ; the Level III converse bounded (C-REG true, C-DYN and C-KIN false; repairs H-FAC/H-UNIF/H-GEN/H-DYN; the infinite-volume passage open) | equivalence | bridge (for (T)); origin (for the drive) | per obligation; S1–S6 below |
+| an H→P bridge: the spectator clause is now H-T (the continuous half at one rational angle) together with (A) for `J` (the finite half), i.e. H-OI_g at `{R_z(θ₀), J}`; the token's infinite-order datum must cross stages and is unavailable on passive towers; the exclusive readout is refuted; what remains is (A) itself for two operations in the pair context, with no stated principle supplying it — or a proof that none exists beyond H-OI_g | bridge / origin | HO-17, HO-20, HO-22 | no — research |
+| B3.C: holds CONDITIONAL on claim (D) (HO-10); the finite case of the reachability theorem is [D] (HO-23); explicit cones exist for every finite unitary group with `cnot` (HO-24) and for a residual torus case (HO-25); remaining: the tori of positive dimension in B7-1 as kernel statements; explicit cones for case B, the S2 node with G16 and `K_circ`; degenerate 2-tori | bridge / countermodels | claim (D) [A] (EBF); Theorem S′ [W] | no |
+| design modules green, each needing a census disposition and the owner's choice to become a round: Theorem B1.1 (14/14), the dictionary (20/20), B7-1's finite case (21/21), the K2 schema skeleton with `ReachPure` (22/22), the exclusive-readout no-go (33/33), the Ω₄ separation (15/15) | bridge / equivalence / origin | — | design green; owner's choice |
+| whether T excludes every exotic cone: T fails on every explicit cone so far, the continuum cones included; the undecided class is cones with no smooth contact between pure and non-PSD members (no explicit member known); T on `K_circ` reduced to that condition | countermodels | — | only if proved; then after its disguise test |
+| Conjecture C8-C beyond four members (sets whose every component has an orthogonal pair and no tool vertex); necessity of (CC) for three or more defects; the slice-map fibres; Theorem S′ as a kernel statement | countermodels | — | no |
+| SRC: the exclusive readout refuted; no stated source of (A) for `J` on one token in the pair context, nor of the token's infinite-order stage-crossing datum; the field-neutral Continuous Origin stays OPEN with the stated access excluded; `DenseUnitaryControl` at the balanced angle false through level one | origin | — | no |
+| K2 (c) = (T) (HO-12), now with H-T as its premise (HO-20); S6 kernel-checked in design with `ReachPure` as the hypothesis (HO-18); the K∞ seams (self-duality excluded as a source, HO-19; `c*` excluded, HO-15); Kₙ (design module green); H-Bell; H-∞; λ; the Level III converse (C-REG true; the infinite-volume passage in the transport form, CONJECTURE) | equivalence | bridge (for (T)); origin (for the drive) | per obligation; S1–S6 below |
 
 ## Round-ready findings (none created; each needs owner authorization to open a §A.39 round)
 
-From the equivalence thread (NOTES-E7, NOTES-E8, HP-1, HP-5): preregistration **drafts** in the native V3 format now
-exist on the thread branch for owner review — **S1** KINF-SEED-1 (`preregistration-drafts/S1-kinf-seed.md`, sha256
-`58062eb0…`; module `StageSeed`, run 38091534622 green), **S2** KINF-COPY-1 (`S2-kinf-copy-type-covariance.md`,
-`bdf95a45…`; `CopyCovariance`, same run), **S3** KN-DESC-1 (`S3-kn-descent.md`, `f669caf4…`; `EqvKnDesc`, run
-38090116254 green; one pre-`F` revision item), each with its decision rules, controls, invariant→checkpoint table and
-predicted outputs generated from measurements at L; **S4** KTRANS-SEP-1 (`S4-kinf-trans-separation.md`, `93095ff2…`)
-is **not** ready: its module failed to build at two terms and the repair is unmeasured (checkpoint `C0`); its exact
-layer is measured and advises omitting "supporting-effect completeness" from HP-1's wording. **S5** (the per-region
-Level III converse) now has its transfer lemma as a design-run theorem (`kraus_iff_of_member`); **S6** (the K2 schema)
-has a complete written proof whose kernel cost is the dictionary `W 3 ≃ Herm(ℂ⁴)` plus an explicit reachability
-construction, no spectral theorem. None of S1–S6 sources a premise or would change a ROADMAP status by itself; the
-ROADMAP wording the thread proposes for row K (`research/equivalence/handoff-proposals/HP-1-…`, sha256
-`688afdea262d442c…`) lands only with the corresponding round. From the bridge: Theorem B1.1 as a design module is green
-(B6-1) and could be packaged as a round at the owner's choice (it discharges nothing: a relocation of K2's local-action
-clause to the hidden premise (A)). From the other threads: nothing round-ready.
+From the equivalence thread (NOTES-E7, NOTES-E8, NOTES-E11, NOTES-E12, HP-1, HP-5, HP-10): preregistration **drafts**
+in the native V3 format exist on the thread branch for owner review — **S1** KINF-SEED-1
+(`preregistration-drafts/S1-kinf-seed.md`, sha256 `58062eb0…`; module `StageSeed`, run 38091534622 green), **S2**
+KINF-COPY-1 (`S2-kinf-copy-type-covariance.md`, `bdf95a45…`; `CopyCovariance`, same run), **S3** KN-DESC-1
+(`S3-kn-descent.md`, `f669caf4…`; `EqvKnDesc`, run 38090116254 green; one pre-`F` revision item), and now **S4**
+KTRANS-SEP-1 (`S4-kinf-trans-separation.md`, updated in round 3; `EqvOmega4` run 38096511360 green, 15/15, checkpoint
+`C0` met; one optional pre-`F` item: two deprecated names), each with its decision rules, controls,
+invariant→checkpoint table and predicted outputs generated from measurements at L; as for every draft, the predicted
+execution tree at a designated `D` (the module under its round name, the census family, `controls.py`, the probe
+shard) is unmeasured. **S5** (the per-region Level III converse) has its transfer lemma as a design-run theorem
+(`kraus_iff_of_member`); **S6** (the K2 schema) now has its skeleton built in a design run (`EqvK2Schema`, run
+38101580750, 22/22), so a preregistration can cite a built module with `ReachPure` as its named hypothesis; the theorem
+stays CONDITIONAL on H2, H3, A_miss and `ReachPure`. None of S1–S6 sources a premise or would change a ROADMAP status by
+itself; the ROADMAP wording the thread proposes for row K (`research/equivalence/handoff-proposals/HP-1-…`, sha256
+`688afdea262d442c…`) lands only with the corresponding round. From the bridge: Theorem B1.1 (B6-1, 14/14), the
+dictionary module (B11-1, 20/20) and B7-1's finite case (B13-1, 21/21) are green design modules, each packageable as a
+round at the owner's choice (none discharges a premise). From the origin thread: the exclusive-readout no-go
+(`OriginExclusive`, 33/33) likewise. From the countermodels thread: nothing round-ready (Theorem S′ is a written proof).
 
 ## Manuscript obligations (recorded, not applied; manuscript hold)
 
@@ -327,9 +461,10 @@ clause to the hidden premise (A)). From the other threads: nothing round-ready.
 ## Handoffs
 
 Versioned, documented handoffs live in `research/HANDOFFS/` (protocol and index in its README). Issued 2026-10-10:
-HO-1 … HO-8 after round 1 (all received), HO-9 … HO-16 after round 2 (receipts due in round 3). A thread never changes
-another thread's assumptions silently: the receiving thread records its receipt in its own `inbox/` with a commit
-before relying on a handoff.
+HO-1 … HO-8 after round 1 (all received), HO-9 … HO-16 after round 2 (all received in round 3, each thread's receipt
+commit in the index). Issued 2026-10-11 after round 3: HO-9 v2 (a corrected clause; v1 stays on record), HO-17 …
+HO-26 (receipts due in round 4). A thread never changes another thread's assumptions silently: the receiving thread
+records its receipt in its own `inbox/` with a commit before relying on a handoff.
 
 ## Audits
 
@@ -337,6 +472,10 @@ before relying on a handoff.
 run, failed runs kept), the 69/69 citation check at L, the step-level CI record, the evidence hash list.
 `research/AUDITS/2026-10-10-round2/`: the same for round 2 — replays 19/19, independent checks O2 6/6, B2 5/5, C2 7/7,
 E2 7/7, citations 23 + 14 + 4 + 45 at L, eight CI runs verified, the evidence hash list with commits.
+`research/AUDITS/2026-10-11-round3/`: the same for round 3 — replays 20/20 (one at its run commit), independent checks
+O3 7/7, E3 8/8, B3 4/4, C3 10/10 (three with kept first runs whose defects were the coordinator's), citations
+32 + 57 + 25 + 4 at L, seven CI runs verified from the saved job logs, fifteen written proofs read, the evidence hash
+list with commits.
 
 ## Milestone log
 
@@ -374,8 +513,29 @@ E2 7/7, citations 23 + 14 + 4 + 45 at L, eight CI runs verified, the evidence ha
   and the NOT, plus the H-level availability (A) of the native Clifford family — each half alone provably insufficient
   (conditional on (D)), together sufficient (K2 schema, written proof); Origin's SRC and the bridge's SPEC remain
   mutually dependent with no new source. Handoffs HO-10 … HO-16 issued.
+- 2026-10-11 — **round 3 closed and audited** (origin `de9285d6`, equivalence `c10dbaee`, bridge `7abe4da4`,
+  countermodels `23713ce9`). New theorems (none certified; labels as above): the origin thread's exact statement and
+  refutation of the exclusive readout as OI-N1's factor property (design module, 33/33), the Bell-locality of every
+  re-preparing pair law short of the cone's own, the real Clifford group at level two and the failure of
+  `DenseUnitaryControl` at `π/4` through level one; the bridge's H-T (the weakest H-level premise for the transfer
+  clause, strictly weaker than H-OI_g and reducing to it with (A) for `J`), the identification of the finite half with
+  `Stab_C(Z ⊗ 1)` on the 60 stabilizer states, the `z`-rotation bound for finite groups holding `J`, the
+  `SU(2) × SU(2)` closure of the two-operation clause, the dictionary module (20/20) and B7-1's formal statement with
+  its finite case built (21/21); the countermodels thread's Theorem S′ with explicit exotic cones for the order-384
+  group, the Clifford family, a residual B3.C case, the S2 torus node and κ with G16 (no EBF), the sharp non-Bell pair
+  theorem, C8-C at four members, the orthogonal-pair obstruction with its Bell corner, and T decided on the continuum
+  cones; the equivalence thread's kernel-checked K2 skeleton with `ReachPure` isolated (22/22), S4's checkpoint met
+  (15/15), the two self-dual non-transitive bodies Ω⋆ and Ω_cs with the lemma on `Z`-invariant forms, and the
+  transport form of H-DYN in infinite volume. Eliminated alternatives and new assumptions as listed. Progress toward
+  OI–QM equivalence: the composite-action gap is now exactly (A) for two operations on one token in the pair context —
+  H-OI_g at `{R_z(θ₀), J}` — with the continuous half's weakest premise H-T identified and shown strictly weaker, the
+  finite half finitely sourced but provably insufficient (an explicit exotic cone, no EBF), the only Origin mechanism
+  (the exclusive readout) refuted within the kernel's operational structure, and no stated principle supplying (A); on
+  the K route the pair-level schema is kernel-checked in design with its reachability lemma isolated, and both
+  self-duality and the facial invariant are excluded as sources of K∞-Trans. Handoffs HO-17 … HO-26 and HO-9 v2
+  issued; HO-9 … HO-16 all received.
 
-## Next round (round 3) — nodes handed to the threads
+## Round 3 — nodes handed to the threads (2026-10-10; closed 2026-10-11, audited)
 
 Rules unchanged from rounds 1–2 (receipts first; S0 predictions before the first run with `date -u` readings; decision
 rules in script headers; failed runs kept; at most three `workflow_dispatch` runs per thread; dev branches
@@ -409,3 +569,55 @@ rules in script headers; failed runs kept; at most three `workflow_dispatch` run
   single-system seams, implies K∞-Trans in chart dimension 3 and 4 on exact candidate bodies, or exhibit a self-dual
   non-transitive body; (E14, if time remains) the infinite-volume passage from H-DYN at every finite stage to a global
   finite-range configuration bijection.
+
+All sixteen nodes were done (the countermodels thread added two, C15 and C16); every thread used at most three
+dispatches (origin 2, equivalence 3, bridge 2, countermodels 0) and cancelled nothing.
+
+## Next round (round 4) — nodes handed to the threads
+
+Rules unchanged (receipts first; S0 predictions before the first run with `date -u` readings; decision rules in
+script headers; failed runs kept; at most three `workflow_dispatch` runs per thread; dev branches
+`dev-<thread>/<topic>`; CI jobs never cancelled). Priority order as in the owner's directive: the composite-action
+independence from embedded-observation principles first.
+
+- **bridge:** receive HO-9 v2, HO-17 (items 1, 3, 5), HO-18, HO-19, HO-24, HO-25; (B14) (A) at level H in the kernel's own
+  vocabulary: as the origin thread did for the exclusive readout, state "availability in the pair context of one
+  stage-crossing token operation" as a predicate over `genTheory`/`InstAvail` (HO-17 item 8: availability at a level
+  includes ancilla blocks and protocols) and decide, in a design module if the statement is small enough, whether any
+  protocol of the stated access makes `actT R_z(θ₀)` or `actT J` available on the pair with RESPECT and product
+  behaviour — i.e. whether H-T or (A)_J is supplied or refuted inside the kernel's operational structure; run its
+  disguise test; (B15) the dictionary convergence: one module importing the equivalence thread's `dictEquiv` and
+  `dict_injective` (HO-18) and proving `transfer_phase` in table form — (b) for the phase circle from `TransferClause`
+  — so that (T)'s continuous half is a kernel statement about pair cones, not dictionary images (one dispatch); (B16)
+  B7-1 for identity components of dimension one (round-1 (P1)) as a design statement with its proof, the first
+  positive-dimension case of `ReachUnitary` (one dispatch); (B17, if time remains) with HO-24: whether the explicit
+  exotic cone for `Stab_C(Z ⊗ 1)` is invariant under B10-5's monomial groups `G_n` for `n ≥ 3` (if so, the
+  continuous half's finite stages all admit exotic cones; if not, the first `n` at which they do not).
+- **countermodels:** receive HO-17 (item 7), HO-18, HO-19, HO-21, HO-22, HO-23; (C17) Theorem S′ as a design module:
+  the two-defect case (the pair theorem's sufficiency) as the first target, the finite case in general if it fits in
+  the dispatch budget — one or two dispatches; (C18) explicit cones where rank-one surgeries with a common `c` fail
+  (B3.C's case B, the S2 node with G16): surgeries with two values of `c`, or with defects of rank two, or a non-surgery
+  construction; (C19) with HO-22: from the cone side, the two group nodes — show by the stage-4 dichotomy that the
+  `SU(2) × SU(2)` group forces `Q3` (no invariant exotic cone), and for `Stab_C(Z ⊗ 1)` classify which of the
+  explicit cone's defects survive each further generator of the Clifford group (the first generator that kills every
+  exotic cone); (C20, if time remains) T on `K_circ`: decide the smooth-contact condition of C14-4 on one explicit
+  candidate, or prove no `K_circ` satisfies it.
+- **origin:** receive HO-20, HO-22; (O11) the stage-crossing datum from the stated access: whether `genTheory` over
+  the stated access, with every `InstAvail` protocol and ancilla block (HO-17 item 8), contains an infinite-order
+  datum on the completed chart body of one token, or whether every such datum has finite order (extending HO-9 item 3
+  from passive finite-rank towers to the kernel's full availability) — a design module if the statement is small
+  enough; (O12) the angle condition of `denseUnitaryControl_of_fixedGate`: characterize the rational angles at which
+  the level-one clause fails (the Clifford angles, by O9-E) and state the weakened hypothesis "`rot(α)` is not a
+  Clifford element" as a design-module statement at level one (one dispatch); (O13, if time remains) with HO-20 and
+  HO-22: whether the Kochen–Specker sphere tower's re-preparation law is realizable by any `InstAvail` protocol with
+  ancillas (a no-go over `readout_is_localLuders` in the style of O8), i.e. whether HO-17 item 4's token model is
+  inside or outside the kernel's operational structure.
+- **equivalence:** receive HO-9 v2, HO-17 (items 4, 6, 7, 8), HO-20, HO-21, HO-22, HO-23, HO-24, HO-25, HO-26; (E15)
+  draft S6 in the native V3 format citing `EqvK2Schema` as its built module, with `ReachPure` as the named hypothesis,
+  HO-24's explicit cone for the finite clause as the countercontrol, and the decision rules, controls and
+  invariant→checkpoint table in the style of S1–S4; (E16) K∞-Trans from the pair level: in the K2 schema with the
+  token body a general compact convex Ω (not `eball 3`), do H1–H3 and A_miss force Ω to be an ellipsoid, i.e. does the
+  pair-level self-duality with the gate supply what the single-system seams cannot (HO-19)? — exact probes on Ω₄, Ω⋆
+  and Ω_cs tokens first; (E17) the transport form of H-DYN (R-E14.2) as a design-module statement with its finite-stage
+  case proved (one dispatch); (E18, if time remains) Ω⋆'s power-cone self-duality as a design module (HP-9's
+  "kernel-feasible two-line inequality"), to upgrade R-E13.1 from [W] + [X] to [D].

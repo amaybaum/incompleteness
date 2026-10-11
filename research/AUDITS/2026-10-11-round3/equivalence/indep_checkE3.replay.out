@@ -1,0 +1,10 @@
+X1 dictionary identities, Q3 facts: PASS  (Bell defect vs Bell projector ipW = -4)
+X2 drive generators = unitary conjugations (rotZ True, cyc3 as Ad(U_J) True, image {1: 2, 2: 3, 3: 1}); Q3 preserved on instances (principal minors) True: PASS
+X3 Omega*: AM-GM identity, cone pairings, outside witness (pair = -7/24), irreducible cubic, f'', countercontrols (min -27/128, -99/64): PASS
+X4 Omega_cs: ellipse/circle/tangency/junction slopes/filter g; 14 arc points with poles on E0; 8649 pairs min <Mx,y> = 1, equalities 97 = polar-partner pairs 97: True; six points no conic; XB1 solutions 0 (positive-definite 0); XB2: PASS
+X5 ring 3: (R-lit) holds for 48/40320 (site perms with relabelings: 48, equal sets: True); top-stage holds for 40320/40320; units 124: PASS
+X6 ring 4: 384 site-perm-relabelings satisfy (R-lit) on 624 units; CNOT violates at E^0_01 (image pairs {3: 4, 4: 8}, each flipping site 1), top-stage ok; T^2 satisfies, site 0 -> site 2: PASS
+X7 rule x_i+x_i+1+x_i+2: images ring4 = 16, ring3 = 2; (110)^inf -> 0: PASS
+X8 Omega_cs seams (swap symmetry, junctions on the ellipse, F -> 0 on the axes): PASS
+8/8 PASS
+VERDICT INDEP-E3-FIXED

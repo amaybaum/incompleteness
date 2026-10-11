@@ -1,0 +1,8 @@
+01:42:36Z replay start equivalence round 3 (cwd experiments/, python3 -I -B)
+REPLAY e13_selfdual_body stdout=IDENTICAL rc=0 01:42:36Z
+REPLAY e13b_central_selfdual stdout=IDENTICAL rc=0 01:42:37Z
+REPLAY e14_hdyn_rings stdout=IDENTICAL rc=0 01:42:40Z
+REPLAY e8_cite_check stdout=DIFFERENT rc=0 01:42:40Z
+DONE 01:42:40Z
+REPLAY e11_k2_dict stdout=IDENTICAL rc=0 02:18:01Z (added after the first replay pass)
+REPLAY e8_cite_check at its run commit e2f522d3 (worktree): stdout=IDENTICAL (the head c10dbaee adds one LEDGER citation after the run: 111 occurrences, 50 named pairs)

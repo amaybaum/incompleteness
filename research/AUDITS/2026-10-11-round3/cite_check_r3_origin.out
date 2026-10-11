@@ -1,0 +1,36 @@
+RESOLVED+NAMED CompositionOrder.lean:348 ['finiteOrderOn_of_stagePreserving']
+MISSING OriginExclusive.lean:313
+MISSING OriginExclusive.lean:475
+RESOLVED OperationalAssembly.lean:492 (no identifier named on the citing lines)
+RESOLVED CentralObservation.lean:75 (no identifier named on the citing lines)
+RESOLVED-UNNAMED RouteB.lean:279 names ['blk', 'monomial_permMatrix', 'not_exclusiveOn_ancilla', 'not_exclusiveOn_diagonal', 'not_exclusiveOn_of_refines', 'pureSeedPrep_available_of_swap'] not in window: noncomputable abbrev substratumTheory (A : Type) [Fintype A] [DecidableEq A] :
+RESOLVED+NAMED SubstratumInterface.lean:85 ['monomial_permMatrix']
+RESOLVED KInfFoundations.lean:351 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:161 (no identifier named on the citing lines)
+RESOLVED-UNNAMED CompositionOrder.lean:378 names ['ball3Drive', 'cyc3', 'pc', 'pt', 'rotFun', 'sgn'] not in window: theorem not_stagePreserving_of_infiniteOrderOn {S T : OpDatum D} (hS : AffineRespect S)
+RESOLVED DiscreteCompletion.lean:34 (no identifier named on the citing lines)
+RESOLVED StateMixingCoupling.lean:50 (no identifier named on the citing lines)
+RESOLVED+NAMED ImplementationLocality.lean:268 ['InstAvail', 'op']
+RESOLVED+NAMED SubstratumSource.lean:103 ['InstAvail', 'genTheory_avail_conj']
+RESOLVED+NAMED AncillaClosure.lean:457 ['ancBlock']
+RESOLVED-UNNAMED SubstratumInterfaceAudit.lean:231 names ['phaseGate'] not in window: def IsScaledPartialPerm (K : Matrix S S ℂ) : Prop :=
+RESOLVED LieRankSource.lean:209 (no identifier named on the citing lines)
+RESOLVED+NAMED KInfFoundations.lean:425 ['cyc3', 'cyc3_apply']
+RESOLVED+NAMED CompositeDimension.lean:741 ['pc', 'sgn']
+RESOLVED+NAMED KInfFoundations.lean:427 ['cyc3_apply']
+RESOLVED+NAMED OperationalAssembly.lean:658 ['FiniteOperationalTheory', 'readout_is_localLuders']
+RESOLVED+NAMED CentralObservation.lean:164 ['CentralObservation.IsBlockPassiveInstrument']
+RESOLVED+NAMED CentralObservation.lean:486 ['blockPinch_passive']
+RESOLVED+NAMED OperationalAssembly.lean:566 ['ancSwap_unitary']
+RESOLVED-UNNAMED CentralObservation.lean:79 names ['localLuders_eq_blockPinch'] not in window: def blockPart (blk : S → I) (i : I) (X : Matrix S S ℂ) : Matrix S S ℂ :=
+RESOLVED-UNNAMED DiscreteCompletion.lean:1926 names ['InstAvail', 'genTheory'] not in window: noncomputable abbrev fixedGateTheory (α : ℝ) : FiniteOperationalTheory (Fin 2) :=
+RESOLVED+NAMED DiscreteCompletion.lean:45 ['DenseUnitaryControl']
+RESOLVED+NAMED StateMixingCoupling.lean:56 ['MixR']
+RESOLVED+NAMED DiscreteCompletion.lean:1929 ['DerivedOI']
+RESOLVED+NAMED AncillaClosure.lean:461 ['discardWith_uniform_conjChannel']
+RESOLVED+NAMED OperationalAssembly.lean:642 ['readout_avail', 'readout_local']
+RESOLVED+NAMED CentralObservation.lean:392 ['blk']
+RESOLVED+NAMED CompositeDimension.lean:1222 ['pc', 'pt', 'sgn']
+RESOLVED DiscreteCompletion.lean:1948 (no identifier named on the citing lines)
+SUMMARY origin: 34 distinct citations in added lines since 42bc3da6; resolved 32; named-and-found 19; unnamed 8
+CITATIONS-ORIGIN-FAIL

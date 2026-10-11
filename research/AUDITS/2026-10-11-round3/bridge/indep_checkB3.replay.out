@@ -1,0 +1,6 @@
+X1 kernel cnotFun = Ad(CNOT) True; actT/actC rotZ = Ad(phase) at rational points True, symbolic True; nflip True; countercontrol at (0,0); product law True: PASS
+X2 B10: nflip permutes Z_F on both tokens (signed perms) True; R_z(pi) permutes Z_F True and pairs >= 0 True; R_z(theta0) excluded with 48 negative pairings (e.g. ((-1, 1), -4/5)); 6/5 not an algebraic integer; traces 64/5, 16/5; G_n orders {1: 16, 2: 64, 3: 256, 4: 1024} with inclusions True; Lie closures dim 2 (abelian), 6 (non-abelian, commuting with Z(x)1) True; 3-4-5 Bloch trace 11/25 True: PASS
+X3 B12: |<cnot,actT J>| = 48 True; G1 384 = <cnot,actT S,actT J> True; Clifford 11520, Stab(E(3,0)) 384, orbit 30 True; stabilizer states 60 (tables rank 16) True; -1-sin(2pi/m) monic for m in [1, 2, 4] True; orders 12/24: 12/24; icosahedral 60 with 2 z-rotations True; phi0 block-diagonal reach, 384-group reach 0 True; |Lambda_1| = 588 True: PASS
+X4 B13 controls: prodDet -1/-7, polarisation identity, three-root lemma instance, common non-root at n in [1, 2, 3, 4]: PASS
+4/4 PASS
+VERDICT INDEP-B3-FIXED

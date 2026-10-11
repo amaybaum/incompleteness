@@ -1,0 +1,16 @@
+== X1 level two, real: order 2304, -1, normalizes the real Pauli group
+CONFIRMED X1 |<mixImage 2 (pi/4), transposition, 4-cycle>| = 2304, contains -1, generators unitary and normalizing the real Pauli group (32 elements) -- order 2304
+== X2 level two with the quarter phase: infinite order; commutant 2 (real: 3)
+CONFIRMED X2 trace of M2.SWAP.M2.SWAP.phaseGate(1,1) is (3+i)/2, not an algebraic integer; commutant of Ad on M_4 has dimension 2 (real generators: 3); determinants -1, -1, 1, i -- trace 3/2 + I/2, minpoly 2*x**2 - 6*x + 5, p = 2000000033, dims 2 / 3
+== X3 level one: 192 elements, 24 channels; unit columns 24 + 24
+CONFIRMED X3 level-one group 192 elements, 24 channels; unit columns in B: 24, in sqrt2 B: 24; unitaries from same-class orthonormal pairs: 192, with the same 24 channels -- group 192, channels 24, columns 24 + 24, unitaries 192
+== X4 four squares equal to 4^k and 2*4^k
+CONFIRMED X4 ordered four-square representations: 8 for 1, 24 for 4, 16, 64, 2, 8, 32, 128 -- {1: 8, 4: 24, 16: 24, 64: 24, 2: 24, 8: 24, 32: 24, 128: 24}
+== X5 scope: pi/8 infinite order, pi/4 order 6
+CONFIRMED X5 trace at pi/8 is 1 + sqrt2/2 (minimal polynomial 2x^2 - 4x + 1, not monic: infinite order); at pi/4 trace 1, order 6 -- minpoly 2*x**2 - 4*x + 1, order at pi/4 6
+== X6 O10 pair numbers
+CONFIRMED X6 phiW = diag(1,1,-1,1), S = 14/5; the controlled-rotation table has partial-transpose eigenvalue -1/8 and S = 7/5; E[sgn(u.lambda) lambda] = u/2; lune 1/4; deterministic patterns give +-2 -- S(phiW) = 14/5, PT eigenvalues {'3/8': 3, '-1/8': 1}, S(C) = 7/5, E = [0, 0, 1/2], lune 1/4
+== X7 O8: one nontrivial cell with every permutation reaches every point mass; closure sizes C(2N-1, N)
+CONFIRMED X7 closures 3, 10, 35 = C(2N-1, N) for N = 2, 3, 4 with every point mass; every nontrivial cell at N = 3 gives 10; trivial cells give 1 -- {2: 3, 3: 10, 4: 35}
+SUMMARY 7/7 CONFIRMED
+INDEP-O3-FIXED

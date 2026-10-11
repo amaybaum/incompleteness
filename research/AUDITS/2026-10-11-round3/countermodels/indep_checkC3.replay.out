@@ -1,0 +1,12 @@
+X1 Theorem C11-B identity (symbolic): PASS
+X2 groups: |<cnot,actT J>| = 48 (traces [0, 2, 4, 8, 16]); |<cnot,actT J,actT S>| = 384, with nflip 384, equal True; |<cnot,actC J,actT J>| = 11520, full Clifford 11520; Stab(E(3,0)) = 384 (= G384: True); orbit of E(3,0): 30: PASS
+X3 h* orbit: 192 rays, min D = 85/2048, overlaps [25/2048, 13/16] over 18336 pairs; H1 and (CC) at 401/400: True, True; (CC) at 301/300: False: PASS
+X4 phi0 orbit: 384 rays, min D = 5/256, s_max = 233/256, orthogonal rays 1; witness at c = 101/100: min <y,d_l> = 0, <y,d_phi0> = (0+0i), h_k^+ y h_k = (-4/22275+0i): PASS
+X5 pair theorem instance (s = 9/25): threshold roots [10/9, 10]; witness at c = 5/4: lam = 16/507, x^+ y x = -3116988/603351125; at c = 11/10 (CC) holds, inside-cap y eigenvalues nonnegative: PASS
+X6 C14 contact spans: aligned points 14240 -> rank 14; full quadric points 377 -> rank 15: PASS
+X7 kappa orbit facts (|v|^2 = 42, D = 16/441, overlaps >= 38^2 within / = 32^2 across; H1 103/100 ok, 26/25 fails; (CC) 103/100 ok, cross pair at 5/4 fails; S2 image ((2+0i), (-6+0i), (1+0i), (1+0i)) orthogonal): PASS
+X8 Clifford orbit of h_C: 11520 rays, s_min = 164178929/3916193820250 (~4.192e-05), min D = 198406621629/9790484550625 (~0.0203); H1/(CC) at 100001/100000: True/True; 4phi0 orbit 5760 rays, min overlap 0: PASS
+X9 case A: basis orthogonal, products b1,b3, entangled b2,b4; p = 85/98; (A^2,B^2) = {1: (9/52, 0), 2: (4/117, 20/117), 4: (5/117, 20/117)}; D_min = {1: 0.0796543, 2: 0.00498305, 4: 0.00729254}; H1 at 251/250 all, fails on circle 2 at 101/100; s_min = (36/49)^2: PASS
+X10 CNOT carries both computational Bell circles to products: PASS
+10/10 PASS
+VERDICT INDEP-C3-FIXED

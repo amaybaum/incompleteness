@@ -1,0 +1,8 @@
+01:46:32Z replay start countermodels round 3 (cwd experiments/, python3 -I -B)
+REPLAY c11_octahedral stdout=IDENTICAL rc=0 01:46:54Z
+REPLAY c12_pairs_bellsets stdout=IDENTICAL rc=0 01:46:55Z
+REPLAY c13_residual stdout=IDENTICAL rc=0 01:46:55Z
+REPLAY c14_facial stdout=IDENTICAL rc=0 01:46:55Z
+REPLAY c15_clifford stdout=IDENTICAL rc=0 01:47:09Z
+REPLAY c16_kappa_bellcorner stdout=IDENTICAL rc=0 01:47:10Z
+DONE 01:47:10Z

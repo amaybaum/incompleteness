@@ -1,0 +1,27 @@
+RESOLVED+NAMED CompositionOrder.lean:348 ['finiteOrderOn_of_stagePreserving']
+RESOLVED+NAMED OperationalAssembly.lean:658 ['readout_is_localLuders']
+RESOLVED+NAMED CompositionOrder.lean:378 ['not_stagePreserving_of_infiniteOrderOn']
+RESOLVED-UNNAMED OIRealization.lean:360 names ['y'] not in window: theorem finiteOI_not_implies_inert :
+RESOLVED-UNNAMED SpectatorBridge.lean:223 names ['finiteOI_not_implies_inert', 'y'] not in window: def InertSpectatorCompositionality (T : FiniteOperationalTheory A) : Prop :=
+RESOLVED ReferenceExtension.lean:447 (no identifier named on the citing lines)
+RESOLVED+NAMED StructuralClosure.lean:261 ['substratumClass_contextStable']
+RESOLVED CompositeDimension.lean:97 (no identifier named on the citing lines)
+RESOLVED-UNNAMED AncillaInterference.lean:123 names ['conjTranspose_kronecker', 'mul_kronecker_mul'] not in window: rw [ancMix, Matrix.conjTranspose_kronecker, ← Matrix.mul_kronecker_mul,
+RESOLVED-UNNAMED ClosureObstruction.lean:282 names ['module'] not in window: rw [Matrix.conjTranspose_kronecker, ← Matrix.mul_kronecker_mul, Matrix.conjTranspose_one,
+RESOLVED InstrumentAvailability.lean:72 (no identifier named on the citing lines)
+RESOLVED-UNNAMED ClosureObstruction.lean:133 names ['Matrix.mem_unitaryGroup_iff'] not in window: induction s using Finset.induction_on with
+RESOLVED-UNNAMED BarandesTuple.lean:445 names ['Matrix.mem_unitaryGroup_iff'] not in window: have h1 := Matrix.mem_unitaryGroup_iff.1 hU
+RESOLVED PositiveReachability.lean:963 (no identifier named on the citing lines)
+RESOLVED DitaHull.lean:573 (no identifier named on the citing lines)
+RESOLVED+NAMED KInfFoundations.lean:386 ['rotFun']
+RESOLVED CompositeDimension.lean:198 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:112 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:201 (no identifier named on the citing lines)
+RESOLVED MonoidalCompletion.lean:193 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:351 (no identifier named on the citing lines)
+RESOLVED-UNNAMED TransitiveBody.lean:109 names ['not_infiniteOrderOn_chartBody_of_binary'] not in window: theorem chartBody_isCompact : IsCompact (chartBody C) :=
+RESOLVED CompletionAction.lean:352 (no identifier named on the citing lines)
+RESOLVED CompositionOrder.lean:149 (no identifier named on the citing lines)
+RESOLVED DiscreteCompletion.lean:1948 (no identifier named on the citing lines)
+SUMMARY bridge: 25 distinct citations in added lines since 3686049e; resolved 25; named-and-found 5; unnamed 13
+CITATIONS-BRIDGE-FAIL

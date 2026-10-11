@@ -1,0 +1,7 @@
+01:46:27Z replay start bridge round 3 (cwd experiments/, python3 -I -B)
+REPLAY b10_transfer stdout=IDENTICAL rc=0 01:46:44Z
+REPLAY b11_preflight stdout=IDENTICAL rc=0 01:46:47Z
+REPLAY b12_followup stdout=IDENTICAL rc=0 01:46:48Z
+REPLAY b12_stagecross stdout=IDENTICAL rc=0 01:46:52Z
+REPLAY b13_preflight stdout=IDENTICAL rc=0 01:46:53Z
+DONE 01:46:53Z
