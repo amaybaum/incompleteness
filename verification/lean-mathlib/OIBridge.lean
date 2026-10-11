@@ -264,6 +264,13 @@ import OIBridge.RelcSelectParity
 import OIBridge.RelcSelectBlock
 import OIBridge.RelcSelectSqueeze
 import OIBridge.RelcSelectC5
+import OIBridge.BridgeDictionary
+import OIBridge.EqvK2Schema
+import OIBridge.BridgeConverge
+import OIBridge.BridgeReach
+import OIBridge.BridgeReachDim
+import OIBridge.BridgeAvail
+import OIBridge.BridgeAvailFull
 
 namespace OIBridge
 
