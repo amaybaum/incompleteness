@@ -617,3 +617,22 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   family`; `lean-axioms` PASS (5976 named results, no `sorryAx`). By Amendment A1's rule: **BUILT** ⇒ the compact-form
   statements are CONJECTURE [D] by the amendment run; prediction (BUILT, gate red only on `lean-manuscript`) held. The
   run's probe jobs were still running at the read (run status `in_progress`); it is not cancelled. Dispatches used: 3 of 3.
+- 2026-10-11T08:34Z (recorded 10:2xZ) — **authorized cross-branch reads for C23** (`research/bridge` @
+  `a34d20b58d1f937c4705bfa4e24d3c1ecae793c4`, fetched; read, not copied; sha256 from `git show a34d20b5:<path>`):
+  `research/bridge/NOTES-B17.md` (`f5abc1136a083983afbed576582fd44ec83df3c3243bf183c0bc3292a3334261`, read in full),
+  `research/bridge/NOTES-B10.md` (`98b877ef00318d0db7167d8aad8a316f9ad470a4fa6719617755d3bdb4376925`, read in full),
+  `research/bridge/experiments/b17_tower.py` (`2138fd7532f75e6766650ca5bcd9d593ca2acac8a37ff2e36aade36ab19f88be`, lines
+  1–80: header, decision rule, conventions — `block(U)` is `I ⊗ U` with index `2a + b`, `b` the target). Used for: the
+  definition of B10-5's stages `G_n = ⟨CNOT, 1 ⊗ diag(1, e^{2πi/2ⁿ}), 1 ⊗ X⟩` and of B10-4's closure (identity
+  component the 2-torus `exp(i(a Z_B + b Z_A Z_B))`, NOTES-B10 §4–§5), and the basis convention; every group fact C23
+  uses is recomputed here. No decision of C23 rests on a value read there.
+- 2026-10-11T10:26Z–10:32Z — **C23 S0** revised and fixed in NOTES-C23 before any C23 script ran (the 08:34:52Z draft,
+  uncommitted, sha256 `b1683d44…`, kept in the session scratchpad; the revision corrects a class-(v) instance that H1
+  excludes, completes the balanced-route classification by the rank of the orthogonalizing family, replaces a reachable
+  mixture seed, and adopts C18's A1-cc countercontrol). Scratch computations between the draft and the revision chose the
+  tightness parameters (`x23_tight.py` float; `x23_exact.py`, `x23_exact2.py` exact searches; guidance, not evidence).
+- 2026-10-11T10:31:53Z — **C23 construction run 1** (`experiments/c23_torus.py`, pre-run edits: dead code and a redundant
+  special case removed, no check changed): 6/6, `VERDICT C23-EXACT`; certificate `experiments/c23_certificate.json`
+  written (267 group elements). Predictions as stated in S0 (G3's `D_min` for `h₂` is `25/900 = 1/36`, as predicted).
+- 2026-10-11T10:33Z — **coordinator's usage-limit protection received**: commit and push at every finished step, not only
+  at node close. Applied from this entry on.
