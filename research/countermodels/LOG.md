@@ -372,3 +372,81 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   - **Open questions**: explicit cones for case B, the S2 node with G16 and `K_circ`; T on `K_circ`; level-(ii) versions of
     `K384`, `KC`, `K768`; survivor patterns at `C₂`; S′ for compact defect sets as a module; self-duality of balanced
     rank-two surgeries.
+
+## Round 5
+
+- 2026-10-11T07:19:46Z — round 5 session start (head `644bf0a1` = origin, clean; first `date -u` reading 07:19:46Z).
+  `git fetch origin research/countermodels` done; HEAD = origin = `644bf0a15f0553ca9d5181363fe328a430a60184`. Re-read README,
+  LOG, RESULTS, NOTES-C17, NOTES-C18, NOTES-C19, NOTES-C21, HP7–HP9, `lean/CmSprime.lean` (whole file, 1253 lines),
+  `experiments/c17_preflight.py`; for the round's nodes also NOTES-C11 (Theorem S′), NOTES-C13 (C13-S compact form, C13-Π,
+  C13-A), NOTES-C14 (C14-1, C14-2, C14-4), NOTES-C16 (C16-4 `K_κ`), NOTES-C7 (W1–W5, `K_circ` sandwich), NOTES-C2 (e)
+  (`K_circ` definition), NOTES-C3 (Lemmas 1–4). The round-4 scripts `c18_attempts.py`, `c19_groups.py`, `c21_rows.py` are
+  re-read where a node reuses an engine (recorded at the node).
+- 2026-10-11T07:33:17Z — **receipts** (overview `4c4a02b18ab80819694312a7526dd360c2dfea38`, fetched; `git ls-tree` for the
+  exact names), copied byte-identical into `inbox/` (`git show 4c4a02b1:research/HANDOFFS/<file>`; sha256 of the copy equal
+  to the blob's, checked at 07:33:17Z): HO-18 v2 `9aeac715…`, HO-27 v1 `196fdad5…`, HO-28 v1 `608aca2e…`, HO-33 v1
+  `d5f9d19e…`, HO-34 v1 `0a39ea82…`, HO-35 v1 `70d57d85…`, HO-36 v1 `8b8a3bf5…`. Nothing in them is CERTIFIED; reliance,
+  item by item, only at the labels they carry, and every "may not assume" clause honoured:
+  - **HO-18 v2**: item 1 (the dictionary, [D]) — relied on only as the identity `tr(dict ω · dict η) = ipW ω η/4` where a
+    table-level pairing is compared with a matrix pairing (as in round 4); item 2 in its **v2 form** (LOWER/UPPER take a
+    table of *every* rank-one positive matrix, not the products) — recorded; no round-4 or round-5 step of this thread read
+    either lemma with the products as hypothesis (round 4 cited item 3's hypothesis list only, LOG 03:26Z); item 3 (the
+    five hypotheses of `pairCone_eq_Q3_of_drive`, CONDITIONAL) — the exact premise list when a cone is tested against the
+    schema (C23: the 2-torus group G_T contains the full flow `actT R_z(t)` but not `cycEquiv`, so no cone of C23 is
+    within the schema's hypotheses; recorded, not used as a theorem); items 4–5 not used. Not assumed: certification; more
+    than CONDITIONAL for the schema; the two-rotation clause; anything beyond two tokens; the one-list rendering as the
+    only failing rendering.
+  - **HO-27 v1**: item 4's countermodel family (`fixedGateTheory (kπ/4)` at level one, CONDITIONAL on O9-L1) and the
+    `fixedGateTheory α` statement about the sphere tower's law — recorded as the countermodels addressed to this thread;
+    **no node of this round takes them up** (the node list is fixed: C22–C25) and no row cites them. Items 1–3, 5–7 are
+    availability statements and are not used (this thread computes invariance only). Not assumed: independence of the
+    stage-crossing datum (OPEN at (L-O)); kernel status for any [D]; `DenseUnitaryControl` at every level; dilation
+    statements; exact re-preparation from dense control; availability from cone invariance anywhere.
+  - **HO-28 v1**: item 3 (Ω_h, CONJECTURE: the chart `(w, a, b) ∈ ℝ⁷`, `Ω_h = {‖r₀‖ ≤ t₀, ‖r₁‖ ≤ t₁}`, the composite `K`
+    with every sector block in `Q3`, the three introduced hypotheses H2/H3/A_miss) is the object of node C25 (if time
+    remains): its definition is taken from HO-28 item 3 and the authorized E16 record, and every property C25 needs is
+    recomputed exactly here; item 1 (the control relation forces odd chart dimension; a necessary condition only) is
+    used as the reason Ω_h (chart 7) is admissible for a pair-cone question where chart-4 bodies are not; item 5 (the
+    residual target, OPEN) is the question C25 addresses; items 2 and 4 are context. Not assumed: certification; that
+    item 3 concerns OI as a whole (the 68 NOT REACHED rows are not checked against Ω_h); that K∞-Geom, the elementary
+    scope, H2, H3 or A_miss is sourced; sufficiency of the dimension count; that the coordinator's X3 covered every
+    kernel-form clause.
+  - **HO-33 v1**: FM (items 1–2, availability reading) is recorded as a kernel-vocabulary model at level M and not used
+    by any node (every result here is invariance); item 5 (availability ⇒ invariance, not conversely; `transferClause_Q3`
+    with `zPh` unavailable) and item 6 (the pair-level reading of (b)'s independence; a full model for it OPEN) are the
+    reading markers applied to every RESULTS row of this round ("reading: invariance"). Not assumed: certification;
+    "independent of OI" without item 2's scope; anything about (b) from FM; that FM's pair cone is generated by its
+    operations.
+  - **HO-34 v1**: item 2 (`TransferClause 𝓘 K` ⟺ invariance under `transferMap U` for every admissible `U`, [D]) is the
+    table form under which a cone's invariance under a one-token unitary is the same statement as the clause's — used,
+    at its label, only to say which clause a C23 verdict bears on; item 4 (two weaker clauses defeated: the stated
+    access, and the finite group of order 8 with the quarter phase, CONDITIONAL on claim (D)) is context for C23 (G_T is
+    the closure of the tower whose finite stages HO-34/HO-36 treat). Items 1, 3 not used. Not assumed: certification; any
+    sourcing of the transfer clause; availability of any operation.
+  - **HO-35 v1**: item 3 (the count decides nothing from identity-component dimension two on; B10-4's 2-torus stays at
+    NOTES-B7's written proof and claim (D)) is the reason C23 is posed (an explicit cone, or an obstruction, for a
+    2-torus group); items 1–2 (the curve-cover theorem [D]; dimension ≤ 1 through Cartan [L + W]) are not used in any
+    derivation here (C23's orbits are computed directly). Not assumed: certification; B7-1 for dimension ≥ 2; that the
+    Cartan link is formalized.
+  - **HO-36 v1**: item 1 (HO-24's cone is invariant under B10-5's stages `G₁`, `G₂` and under no `G_n`, `n ≥ 3`; at `n = 3`
+    every one of the 192 defects is certified out by `V = 1 ⊗ diag(1, e^{iπ/4})`, CONJECTURE) — recorded; C23 recomputes
+    the relevant orbit facts for the closure `G_T` directly; item 2 ("a finite stage" defeated; the tower's closure
+    leaves an exotic cone CONDITIONAL on claim (D) through B7-2) — the statement C23 aims to replace by an explicit cone
+    or an obstruction. Not assumed: that HO-24's cone is exotic/self-dual beyond HO-24 item 4's label (CONDITIONAL on
+    S′, HO-30's [D] finite form); anything about a tower-invariant exotic cone other than through B10-4 and claim (D); a
+    kernel check.
+- 2026-10-11T07:33Z — **authorized read-only reads at overview `4c4a02b1`** (sha256 from `git show`):
+  `research/AUDITS/2026-10-11-round4/AUDIT-COUNTERMODELS-R4.md` (`15e436ec1eac1435c995364f06fe4020022dd4086f5f41720417a24df7dd4ae8`;
+  no label changes to this thread's rows; the new rule it motivates — a chain of theorems applied to a model names the
+  side hypotheses of every link and shows the model satisfies them, otherwise the chain is [W] — applied from this entry
+  on); HO-30 v1 (`b9d38075…`), HO-31 v1 (`27263a95…`), HO-32 v1 (`06a0ac6b…`), the handoffs issued from HP7–HP9, read for
+  their item numbering only (HO-30 items 1–3; HO-31 items 1–4; HO-32 items 1–5); they restate this thread's own rows and
+  are not copied to `inbox/` and not relied on beyond those rows.
+- 2026-10-11T07:33Z — **framing for the round** (owner's directive, unchanged; round-4 addenda 1–3 standing): every result
+  lists its hypotheses, each classified as a stage-6 inventory item (`research/archive/pt/I1–I4/INVENTORY.md` at
+  `4dc0321c`; Table A2 of `pt/R6/REASSESSMENT.md`) at its status at L, cited by id, or as "introduced, not an OI premise";
+  every RESULTS row names its reading (invariance / availability); C21's safeguard (countermodels to (b) and to Q3 recorded
+  separately; each cone against Table A2 with its premises in three kinds and the exact implication it refutes); the
+  round-4 audit's chain rule. Budget: at most three `workflow_dispatch` runs; no cancellation; cross-branch reads limited
+  to `research/bridge` @ `a34d20b5` (NOTES-B17, `experiments/b17_tower.py`, NOTES-B10; C23) and `research/equivalence` @
+  `ab6788b9` (node E16's NOTES and script; C25), each to be logged with commit and sha256 when read.
