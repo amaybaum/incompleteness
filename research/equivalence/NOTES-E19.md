@@ -459,3 +459,127 @@ branch adds this module and one import line; nothing else changes.
 `rotRe_eq`, `rtrick`, `Q3_cnot` standard 0.45. A green run moves to [D]: `ReachPure` (S6's L4) as a theorem; the
 full-flow sufficiency without `ReachPure`; the full-flow equivalence, both directions. Otherwise those stay
 [W] + [L] as in S0-b/S0-c, and the block-form results of dispatch 2 stand.
+
+## 3. The result (written 2026-10-11T11:12Z, after dispatch 3; the node's close)
+
+Setting (the kernel's vocabulary at L and the design modules' definitions): `W 3` the table carrier, `dict` the
+dictionary onto the Hermitian matrices of `ℂ² ⊗ ℂ²`, `Q3 = {ω : dict ω PSD}`, `eball 3` the token body;
+**H1** `∀ x y ∈ eball 3, prodState x y ∈ K`; **H2** `∀ ω ∈ K, cnot ω ∈ K`; **H3** `K = dualW K`; **A_miss** (the
+full-flow form, S6's `hA`) `∀ t, ∀ ω ∈ K, actT (rotLin t) ω ∈ K ∧ actT cycEquiv ω ∈ K`; **BlockInvariant** invariance
+under `blockAct U₀ U₁` for every pair of special unitaries (`H = SU(2) × SU(2)` block-diagonal). Every statement below
+is in the **invariance reading** (a property of the cone `K`); none is availability.
+
+### 3.1 The statements, sufficiency and necessity apart, each direction witnessed (§A.34)
+
+| | statement | witness | evidence |
+|---|---|---|---|
+| S-gen (sufficiency) | H1 ∧ H2 ∧ H3 ∧ A_miss ⇒ `K = Q3` — **no `ReachPure`** | `pairCone_eq_Q3_of_drive_exact` | [D] run 38134245361 |
+| N-gen (necessity) | `K = Q3` ⇒ H2 ∧ A_miss (invariance only) | `Q3_cnot` with `Q3_aMiss` | [D] run 38134245361; `Q3_aMiss` also run 38112803530 |
+| E-gen | given H1 and H3: `K = Q3` ⟺ H2 ∧ A_miss | `pairCone_eq_Q3_iff_drive_exact`: `→` by N-gen, `←` by S-gen | [D] run 38134245361 |
+| G (generation) | H2 ∧ A_miss ⇒ BlockInvariant — exact finite words, **no closure, no H1, no H3** | `blockInvariant_of_drive` | [D] run 38134245361 |
+| G′ | BlockInvariant ⇒ A_miss (not H2: the gate has determinant ratio `−1`, outside `H`) | `aMiss_of_blockInvariant` | [D] run 38132266383 |
+| R | **`ReachPure` (S6's L4) is a theorem** — about the drive words and the dictionary, with no hypothesis | `reachPure` | [D] run 38134245361 |
+| S-block | H1 ∧ H3 ∧ BlockInvariant ⇒ `K = Q3` (no `ReachPure`, no H2) | `pairCone_eq_Q3_of_block` | [D] runs 38132266383, 38134245361 |
+| N-block | `Q3` is block-invariant | `Q3_blockInvariant` | [D] same |
+| E-block | given H1 and H3: `K = Q3` ⟺ BlockInvariant | `pairCone_eq_Q3_iff_block`: `→` N-block, `←` S-block | [D] same |
+| Euler | every special unitary of `ℂ²` is `diag(a, ā) · R(c, s) · diag(b, b̄)` with `|a| = |b| = 1`, `c² + s² = 1` | `su_euler` | [D] run 38134245361 (replaces (E1)'s [L]) |
+
+The generation G is the decisive link. Its words (§I of the module): every special unitary is a product of a diagonal
+unit pair, a real rotation and a diagonal unit pair (`su_euler`: the form `[[p, −q̄], [q, p̄]]` from the adjugate,
+polar parts, one square root of a unit — no angles); a diagonal unit pair is a unit scalar times a phase of the flow at
+the point `(Re z̄², Im z̄²)` of the unit circle, and every point of the circle is `(cos t, sin t)` (`Complex.arg`); the
+real rotation is the inverse cyclic conjugate of a diagonal unit pair (`cycMatᴴ · diag(c − is, c + is) · cycMat`), the
+inverse cyclic lift being minus the square of the lift (`cycMat³ = −1`); the controlled diagonal pair is the word
+`gate · (1 ⊗ diag(r, r̄)) · gate · (1 ⊗ diag(r̄, r))` with `r² = ā` (`rtrick`); the controlled real rotation is its
+conjugate by idle cyclic lifts; `(U₀, U₁) = (1, U₁U₀ᴴ)(U₀, U₀)`. Invariance under a product of conjugations and under a
+unit scalar follows from invariance under the factors (`conjInv_mul`, `conjInv_smul`), so no limit is taken anywhere.
+
+**The dense-control form** (one rotation `actT (rotLin θ₀)`, `cos θ₀ = 3/5`, and `actT cycEquiv`), with the owner's
+four items: (i) `K` closed — a consequence of H3 (`isClosed_of_selfDual` [D] run 38132266383; the one-sided
+`K ⊆ dualW K` does not suffice); (ii) the action continuous in the one-token matrix (`continuous_transferMap` [D]);
+(iv) the closure lemma (`invariant_of_closure`, `flow_of_dense` [D]); (iii) the closure identification splits into its
+density half — DENSE(θ₀): every phase of the flow lies in the closure of the powers of the one rotation, a fact about
+the circle (Niven for the irrationality of `θ₀/π`, Kronecker for the density) [L], carried as an explicit hypothesis of
+`flow_of_dense`, not proved in design — and its generation half, which is G [D]. Invariance under the powers of one
+rotation from invariance under the rotation is the iteration [W, one line]. So in this form `K = Q3` follows from H1,
+H2, H3 and the one-angle clause **modulo DENSE(θ₀) [L] and that iteration** — no physical premise beyond the clause
+itself enters, and HO-22 item 3 is needed only for its density half. (S0-c called DENSE(θ₀) "the introduced premise of
+this form"; it is a mathematical statement with no physical content, [L]; the form's physical premise is the one-angle
+clause.)
+
+### 3.2 The circularity check, closed (the owner's first direction, (a)–(d))
+
+(a) **The hypothesis exactly.** H2 ∧ A_miss: invariance under the kernel's own table maps `cnot` (CompositeDimension.
+lean:775), `actT (rotLin t)` for every real `t` and `actT cycEquiv` (KInfFoundations.lean:386, :416). The group they
+generate is `ρ⁻¹{±1}` modulo scalars (`ρ` the determinant ratio of the two blocks; exact on instances, K4 [X]); its
+identity component `H` is reached by exact words (G [D]); its other coset contains the gate. No closure is taken.
+(b) **C19-1 (a) and `ReachPure`.** `reach_block` [D]: reachability of every pure state from a product under `H`;
+`reachPure` [D]: S6's `ReachPure` (reachability under the drive words) — proved from `reach_block` and G applied to the
+set of scaled drive images of products, which satisfies H2 and A_miss by construction. Both are theorems about the
+operations; neither is a statement about `K`.
+(c) **Which hypothesis carries the conclusion.** Jointly H1 (the orbit starts at the products), H2 ∧ A_miss (the orbit
+stays in `K`), H3 (UPPER and LOWER); the transitivity of `H` on pure states modulo products is a theorem. Each
+hypothesis is load-bearing, with exact non-`Q3` witnesses meeting all the others: `−Q3` without H1 (`e19b` B1);
+the half-space `{ω 0 0 ≥ 0}` without H3 (B2); without H2 the clause's operations generate only the diagonal
+subgroup, which fixes `|det Ψ|` and reaches no product from an entangled state (B5; the cone side at HO-25 item 2's
+label); without the continuous part of A_miss, `K384`, `K768`, `KC` — invariant under the finite-order parts `G₃₈₄`,
+`G₇₆₈`, `C₂`, H1 and H3 holding ([D] via `theorem_Sprime_ineq` with every hypothesis checked exactly here, K1–K3), moved
+by the non-Clifford rotation (E15 X6, K7, B3; HO-32 item 3) — failing exactly at (iii) (B7: their groups are finite and
+closed, and `1 ⊗ diag(1, (3 + 4i)/5)` lies in none).
+(d) **Outcome: `ReachPure` DERIVED** — a theorem [D], with no premise at all; S6's generator form has premises
+{H1, H2, H3, A_miss} and, given H1 and H3, `K = Q3` is equivalent to H2 ∧ A_miss [D]. **The forcing conditions do
+not contain the conclusion**: H2 and A_miss mention no positivity, no `Q3`, no pure state and no reachability; what
+they contain is a set of operations whose generated group is transitive on pure states modulo products, and that
+transitivity is proved. In the dense-control form the same holds modulo DENSE(θ₀) [L].
+
+### 3.3 The hypotheses, classified (stage-6 inventory, `pt/I3/INVENTORY.md`, sha256 `51eff9af…`)
+
+| item | kind | inventory id and status at L |
+|---|---|---|
+| H1, products of `eball 3` states in `K` | inventory item | products clause of I3.43 `CandidateCone`: assumed (also PT-record H1, I3.147) |
+| the token body `eball 3` | inventory items | output of TRB-1 (I3.89 [K]) from K∞-Trans (I3.170) and the K∞ seams (I3.166–I3.174), open |
+| H2, `cnot`-invariance of `K` | **introduced, not an OI premise** | PT-record H2 (I3.148) |
+| H3, `K = dualW K` | **introduced, not an OI premise** | PT-record H3 (I3.149) |
+| A_miss (full flow), invariance under `actT (rotLin t)` ∀`t` and `actT cycEquiv` | **introduced, not an OI premise** — the open bridge | (b)-instance for the clause's two operations: I3.165 (open), I3.150 (b_S4), I3.153 (b_DJ) |
+| BlockInvariant | introduced in the block form; **not a hypothesis of the generator form** (derived, G [D]) | (b)-instance for the operations of `H` (I3.165) |
+| `ReachPure` | **not a hypothesis — a theorem** [D] | — (was introduced; I3.144 flags pure-state reachability "do not assume") |
+| (i) closedness | consequence of H3 [D] | — |
+| (ii) continuity, (iv) closure lemma | theorems [D] | — |
+| DENSE(θ₀) (dense-control form only) | mathematical fact [L], an explicit hypothesis of `flow_of_dense` | — |
+| availability of the operations ((A)/H-OI_g) | not a hypothesis of any statement; not implied by any | H-level premise; HO-20 item 4 (CONDITIONAL) |
+
+Forms: **OI + {H2, H3, A_miss} ⇒ K = Q3** (H1 the products clause of I3.43, assumed); **OI + {H3} ⇒ (K = Q3 ↔ H2 ∧
+A_miss)**; **{H2, A_miss} ⇒ BlockInvariant** (no OI premise used); **⊢ ReachPure**. A + H ⇒ b is not an equivalence,
+and none of these is: each is an implication or an equivalence between cone-level statements under the listed
+premises.
+
+### 3.4 Bearing on the decisive round-5 outcome (owner's classification A–D, `research/overview` @ `51cce8ac`)
+
+Scope: pair cones over two copies of `eball 3` with the kernel's gate and the drive's two operations, at L.
+- E19 does **not** derive the drive: A_miss (and the one-angle clause) remain introduced. E19 is not evidence for (A).
+- E19 fixes what the drive must deliver: given H1 and H3, H2 ∧ A_miss is **necessary and sufficient** for `K = Q3`
+  (invariance reading), and nothing further is needed — `ReachPure` is not a premise. So the reconstruction's open
+  pair-level content is exactly the sources of H2, H3 and A_miss. Whether A_miss is supplied by a new, independently
+  motivated principle (outcome (B)) or by an assumption equivalent to the phase intervention (outcome (C)) is decided
+  by the origin and bridge threads (O14, B20), not here. Through `aMiss_of_transferClause` [D] (run 38132266383), the
+  bridge's transfer clause for any class containing the drive unitaries gives A_miss; with H1, H2, H3 it then gives
+  `K = Q3` [D] — the derived half of a sufficient bridge, ending at `Q3` with every link in design.
+- (D) at the audited scope: invariance under the finite-order parts (`G₃₈₄`, `G₇₆₈`, `C₂`) with H1, H2, H3 does not force
+  `Q3` (`K384`, `K768`, `KC`): demonstrated insufficiency of the finite-order part, definitive for those groups and
+  cones, and establishing nothing about extensions of OI that supply an infinite-order rotation.
+- The hypothesis that separates the two is the infinite-order (non-Clifford) part of the drive: A_miss's flow at
+  every angle, or one irrational angle with DENSE(θ₀).
+
+### 3.5 Productivity, classification, predictions
+
+Productivity test (S0): (i) met — every finite cone of the family has the hypotheses of `theorem_Sprime_ineq` checked
+exactly by this thread's probe, `Kk` labelled [W]; (ii) met and exceeded — the design statement of C19-1 (b) carries no
+reachability hypothesis (S-block), and `ReachPure` itself is proved (R), with the generator-form equivalence (E-gen) in
+design. Classification: **NEW** for (ii) — a hypothesis of S6 shown to be a theorem, the generator-form premise list
+reduced to {H1, H2, H3, A_miss} with both directions witnessed; **POSITIVE** for (i); **ELABORATING** for `su_euler`
+(the Euler step without angles) and for the dense-control split of (iii). Assumption-watch marker (cross-propagation):
+*reachability of pure states is a property of the operations, never a separate premise* — a premise list that carries
+a reachability statement next to invariance under a generating set contains a theorem. Predictions: S0's module
+prediction (0.5) failed at dispatch 1 and held after the proof-only repair; §2-b's held (0.6, 0.4, 0.3); §2-c's
+prediction for `EqvK2Generation` (BUILT 0.35) came true. S0's (A5) predicted that the generation step would stay
+written ([W] + [L]) — superseded by G [D].
