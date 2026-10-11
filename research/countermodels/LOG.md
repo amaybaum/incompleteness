@@ -175,3 +175,64 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     self-positivity was insensitive and is not used (00:21Z entry); all scratchpad numerics are guidance, not evidence.
     (9) Row C15.2 and NOTES-C15 S0 quote `s_min ≈ 4.19·10⁻⁵` as a decimal gloss; the exact value
     `164178929/3916193820250` is in `c15_clifford.out`. (10) No CI runs, no dev branches, no Lean work.
+
+## Round 4
+
+- 2026-10-11T02:46Z — round 4 session start (head 23713ce9, clean, equal to origin; first `date -u` reading 02:46:23Z).
+  Re-read README, LOG, RESULTS, NOTES-C11 (Theorem S′), NOTES-C12, NOTES-C13, NOTES-C14, NOTES-C16 and the round-3
+  handoff proposals HP4, HP5. Kernel files read at L (own base, `git show 9f9f8257:`): JordanClassification.lean (:74
+  `trace_mul_vecMulVec`, :84 `psd_iff_trace_nonneg`), OperationalRigidity.lean (:917 `psd_trace_mul_nonneg`),
+  BoundaryAudit.lean (:100 `psdFactorization_discharged`), CompositeInterface.lean, DimensionalObstruction.lean,
+  ReferenceSufficiency.lean (:373, :381), `.github/workflows/verify.yml`, `tools/release_gate.py`,
+  `tools/lean_axiom_check.py`, `verification/lean-mathlib/OIBridge.lean` (sha256 `e5af9614…`).
+- 2026-10-11T03:25Z — **cross-branch reads on the coordinator's instruction** (recorded before the receipts commit; all
+  read-only):
+  - `research/overview` @ `742c6b2f`: the six handoffs below (receipts), and HO-24 v1
+    (`research/HANDOFFS/HO-24-…-G384-cone-theorem-Sprime.md`, blob `a84866aa`, sha256 `27175857ac88aac878afdd50f124b5b532a9429d377bf5575169670a56bc688b`)
+    and HO-25 v1 (`…/HO-25-…-halves-B3C-residual.md`, blob `3cbdc47b`, sha256 `9341f3f3df33fdd2766b8b506a40f4bfb9465e95851bb26b326e27f985d7c437`),
+    read only to resolve the item numbers the round-4 prompt cites (HO-24's 192-defect cone; HO-25 items 1, 4, 5). They
+    are this thread's own round-3 results as routed by the coordinator; not copied to `inbox/` (not addressed to this
+    thread as receipts) and not relied on beyond the rows they restate.
+  - `dev-equivalence/k2-schema` @ `aabc649e` (layout of a design module): `verification/lean-mathlib/OIBridge/EqvK2Schema.lean`
+    (sha256 `0bc6da00d5b9ba9c4a2f9390db31c15830a19bf1e30fc2ee6889cd9211281221`, read in full), the root `OIBridge.lean`
+    (sha256 `811c2366…`; diff against L: one added import line) and `git diff --stat 9f9f8257 aabc649e`.
+  - `dev-bridge/r3-reach` @ `747bcf94`: `git diff --stat` and the root `OIBridge.lean` diff only (sha256 `ed231c42…`;
+    one added import line); `BridgeReach.lean` not read.
+  - Reference (not a branch of this repository): the local Mathlib source checkout `/home/user/leanprover-community/mathlib4`
+    at `db584cd6` (= tag `v4.33.0`, the version the lakefile pins), read-only, grep only, to check declaration names and
+    signatures before writing Lean. No local Lean toolchain exists; the Mathlib cache hosts are denied by the session's
+    egress policy (proxy status), so the module is checked only in CI.
+- 2026-10-11T03:25Z — **coordinator addendum received** (round-4 directions): C21 added as a recording obligation (standing
+  of each explicit exotic cone handled this round against R6's Table A2, after C17–C19, before any optional node), and
+  three standing rules (derive, do not introduce: every result's hypotheses classified as OI-inventory items or introduced
+  hypotheses; the stage-6 premise inventory on `research/archive` @ `4dc0321c` as the reference point, reads authorized
+  and to be recorded with sha256; evidence layers kept separate). Applied from this entry on.
+- 2026-10-11T03:26Z — **receipts** (overview `742c6b2f`), copied byte-identical into `inbox/` (sha256 equal to the overview
+  blobs, checked at 02:46:40Z): HO-17 v1 `65d2f79a…`, HO-18 v1 `df704843…`, HO-19 v1 `ad17f101…`, HO-21 v1 `5b8599be…`,
+  HO-22 v1 `3a6440f0…`, HO-23 v1 `3c1e126d…`. Nothing in them is CERTIFIED; reliance, only at the labels they carry, and
+  every "may not assume" clause honoured:
+  - **HO-17 v1**: item 7 (`fixedGateTheory (π/4)` as a countermodel candidate to "`DerivedOI ∧ FixedGateSourced α` ⇒
+    `DenseUnitaryControl`" at `α = π/4`, CONDITIONAL [W] + [X]) is recorded as a candidate at its label. No round-4 node
+    takes it up (the node list is fixed and does not include it); no row of this round cites it. Not assumed: kernel
+    status for item 7; that dense control needs `α/π` irrational. Items 1–6 and 8 are not used.
+  - **HO-18 v1**: relied on for the coordinator's two exact conjugation facts (the drive's flow `rotLin t` is
+    `Ad(1 ⊗ diag(1, e^{it}))`, `cycEquiv` is `Ad(1 ⊗ U_J)`) and the pairing `tr(dict ω · dict η) = ipW ω η / 4`, as exact
+    identities for pair-cone checks (C19), and for item 3's hypothesis list as the exact premises of "H1–H3 + A_miss +
+    `ReachPure` ⇒ `Q3`" when a cone is tested against the K2 schema (C19, C21). Not assumed: certification; more than
+    CONDITIONAL for `pairCone_eq_Q3_of_drive`; the two-rotation clause; anything beyond two tokens.
+  - **HO-19 v1**: item 3's filter mechanism (L-b) is used only as a heuristic for C18's third attempt, as the node
+    directs; Ω_cs and Ω⋆ are not used unless that attempt names them. Not assumed: kernel status; the global
+    self-polarity of Ω_cs beyond [W].
+  - **HO-21 v1**: relied on for the conjugation formulas `Ad(CNOT)`, `Ad(1 ⊗ diag(1, c + is))`, `Ad(diag(1, c + is) ⊗ 1)`,
+    `Ad(1 ⊗ X)`, `Ad(X ⊗ 1)` as identities between the kernel's table actions and matrix conjugations (C19 (ii): the
+    generators `actC S`, `actC J`, `actC nflip`, … as matrices), at their label (CONJECTURE [D], coordinator's [X]). Every
+    group computation of C19 is redone exactly at the matrix level; the table-level reading rests on HO-18/HO-21 and on
+    this thread's `pauliW` [D]. Not assumed: certification; injectivity of `dict` from this module; anything beyond two
+    tokens.
+  - **HO-22 v1**: the two group nodes of C19 — item 1 (`Stab_C(Z ⊗ 1)`, order 384, = `⟨cnot, actT S, actT J⟩`,
+    CONJECTURE) and item 3 (the block-diagonal `SU(2) × SU(2)` fixing `Z ⊗ 1` as the identity component of the clause's
+    group, its product orbit every pure state, CONJECTURE). Order, block form and the orbit statement are recomputed or
+    re-proved here before use. Not assumed: kernel status of any group computation; sourcing of (A), the re-preparing law
+    or `R_z(θ₀)`.
+  - **HO-23 v1**: `ReachUnitary`/`ReachAnti` and their finite case ([D]) as context for C19 and C18 (reachability of the
+    groups met there); no row rests on them as a premise. Not assumed: B7-1 in positive dimension; certification.
