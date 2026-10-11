@@ -1035,3 +1035,8 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `gate · idle · gate · idle`; the cyclic lift's inverse as minus its square), hence `BlockInvariant` from H2 and
   A_miss with no closure, `ReachPure` as a theorem, and the two directions of the full-flow equivalence. Every
   `linear_combination` coefficient checked symbolically beforehand (sympy, scratchpad); not yet dispatched.
+- 2026-10-11T11:05Z — **dispatch 3 of 3 (the last).** NOTES-E19 §2-c written at 11:04Z before it (reading rule
+  unchanged, predictions). Dev branch `dev-equivalence/r5-design`: commit `f0c36cf9fa8395ac4349d944dc21dda80e4c2658`
+  (adds `OIBridge/EqvK2Generation.lean`, blob `682f187e`, byte-identical to `lean/EqvK2Generation.lean`, and one
+  import line after `import OIBridge.EqvOneDictionary`; nothing else changed), pushed; `workflow_dispatch` of
+  `verify.yml` via `gh api` at 11:04:40Z: run `38134245361` (head `f0c36cf9`), queued. No dispatch remains.
