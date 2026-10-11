@@ -46,3 +46,30 @@ self-positivity and the converse with these witnesses; the build risk is in the 
 (`le_of_mul_le_mul_right` rather than `le_div_iff`, whose name has moved) and in Bernoulli (`one_add_mul_le_pow`, with an
 `nlinarith` fallback), moderate. It rides in dispatch 2 (the budget plan of the LOG entry of 04:33Z). Label after a green design run:
 CONJECTURE [D] for the self-duality of `P` in polynomial form.
+
+## 1. The probe (measured)
+
+`experiments/e18_powercone.py` run 1 (started 04:38:20Z, after commit `8f3baf2e`; decision rule unchanged): 5/5,
+`COUNTER XW1/XW2 fails as stated`, `VERDICT E18-POWERCONE-SELFDUAL-EXACT`; replay byte-identical (py `402f9e88…`, out
+`aa53f144…`). Measured: the form identity at 50 points; AM–GM's factorization at 200 points; 40 exact points of `P`
+(boundary points `u = p³/q²`, `v = q`, `X = p · (3, 4, 12)/13` up to signs and order, and inner scalings), minimum `B`
+over 400 pairs `1238533/4542720 > 0`; the interior witness in `P` with negative pairing at 300 exterior points, Bernoulli
+at each; both boundary witnesses at 100 points each; the poles; XW1 fails at `ρ = 99/100` (`0.9704 < 0.99`), XW2 at
+`(1, 4)` (`125/8 < 16`). Every S0 prediction held.
+
+## 2. The design module (reading rule and prediction, written 2026-10-11T04:48Z, before dispatch 2)
+
+`lean/EqvPowerCone.lean` (blob `e7d7a286`, sha256 `477a9f1f…`, 319 lines, 7 prints), namespace
+`OIBridge.EqvPowerCone`, importing only Mathlib: `sq3`, `dot3`, `PC`, `B`; `form_eq`; `dot3_sq_le` (Lagrange);
+`cube_le_cube`, `le_of_cube_le`; `amgm`; `B_nonneg` (self-positivity); `pole_u_mem`, `pole_v_mem`; `bernoulli6` (through
+`θ⁶ − (6θ − 5) = (θ − 1)²(θ⁴ + 2θ³ + 3θ² + 4θ + 5)`, no library lemma); `mem_PC_of_dual` (the converse, three cases);
+`PC_selfDual`. Two changes from S0's plan: Bernoulli is proved by that factorization instead of `one_add_mul_le_pow`;
+the `v' = 0` witness has second coordinate `S' + (u' + 1)² + 1` (so that `b⁴ ≥ b² ≥ S'(u' + 1)²` is elementary) instead
+of `(S' + 1)(u' + 1)` — both points pair negatively and lie in `P` (the probe's W4 checked the S0 witness; the module's
+is checked by its proof).
+
+**Reading rule (fixed now).** As NOTES-E15 §5, for `EqvPowerCone`'s seven prints: BUILT / PARTIAL / NOT BUILT. BUILT
+moves R-E13.1's self-duality step (in polynomial form) to CONJECTURE [D].
+
+**Prediction.** BUILT, moderate (about 0.5): the risk is in the `field_simp` identities of the witnesses, the
+`nlinarith` certificates of `B_nonneg` and `le_of_cube_le`, and the destructuring of set-builder membership.

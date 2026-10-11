@@ -1,0 +1,9 @@
+PASS W1 -- form identity at 50 rational points
+PASS W2 -- AM-GM factorization at 200 points; 40 exact points of P; minimum B over 400 pairs 1238533/4542720
+PASS W3 -- 300 exterior points with u', v' > 0: witness in P, Bernoulli, pairing (theta - 1) S' < 0
+PASS W4 -- boundary witnesses: u' = 0 (100 points) and v' = 0 (100 points), in P and pairing negatively
+PASS W5 -- poles in P; negative u' (v') detected by the pole at 50 points each
+COUNTER XW1 fails as stated -- at rho = 99/100: ((1 + rho)/2)^6 = 0.9703725093562656 < rho
+COUNTER XW2 fails as stated -- at (1, 4): ((a + b)/2)^3 = 125/8 < a b^2 = 16
+checks: 5, failures: 0
+VERDICT E18-POWERCONE-SELFDUAL-EXACT

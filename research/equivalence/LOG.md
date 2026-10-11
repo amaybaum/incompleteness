@@ -573,3 +573,16 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   NOTES-E18 S0 (written 04:38Z: the polynomial form of the power cone, the witnesses, predictions) and the exact probe
   `experiments/e18_powercone.py` (decision rule in its header, written 04:40Z) committed together, before the probe's
   first run. Pre-run review simplified one detail string of XW2; the decision rule was not changed.
+- 2026-10-11T04:49Z — dispatch 1 measured (run 38112020014; Mathlib bridge job 114389373318, 04:35:14Z–04:38:03Z; job log
+  read through the GitHub MCP `get_job_logs`, the built-in `gh` refusing the log redirect): Build `failure` at
+  `EqvTransport` only. `EqvK2Schema` 22/22 prints standard; `EqvK2Converse` built with warnings only and 9/9 prints
+  standard; `EqvTransport` 4/9 standard (parse errors from the `Matrix`-scoped notation `ᴴ` not opened, lines 50, 153,
+  195, 260; an untyped-lambda projection at 137:44). Release gate skipped; Lean kernel check job `success`. Readings by
+  the rules: `EqvK2Converse` PARTIAL (Build step failed; module clean), `EqvTransport` PARTIAL. NOTES-E15 §6, NOTES-E17
+  §3. Dispatched text kept as `lean/EqvTransport.run38112020014.lean` (blob `f48afc3c`); repair proof-only (blob
+  `fadf980e`). E18: probe run 1 (started 04:38:20Z, after commit `8f3baf2e`) 5/5, `VERDICT E18-POWERCONE-SELFDUAL-EXACT`,
+  replay byte-identical (py `402f9e88…`, out `aa53f144…`); module `lean/EqvPowerCone.lean` (blob `e7d7a286`) written;
+  NOTES-E18 §1–§2 (reading rule and prediction before dispatch 2). LOG time correction: the E18 entry of this log (stamped
+  04:40Z) and the probe header ("Written 2026-10-11T04:40Z") are later than the commit `8f3baf2e` (04:38:20Z) that holds
+  them; both were written between 04:36:32Z and 04:38:20Z. The probe text is left as run (its replay identity depends on
+  it). Dispatch 2 plan: `EqvK2Converse` byte-identical, `EqvTransport` repaired, `EqvPowerCone` first build.

@@ -103,3 +103,18 @@ moves (a)–(c) and the positive control to CONJECTURE [D]; `Passage` stays a st
 (c)'s rewriting chain through `map_mul`/`map_star` of a star-algebra equivalence, and in the defeq step of
 `isZeroOne_transported` (the kernel's `transported` unfolded against the generic sum lemma); §A's unit algebra is low
 risk.
+
+## 3. Dispatch 1 measured (run 38112020014) and the repair
+
+Mathlib bridge job 114389373318: Build `failure` at `EqvTransport` (`✖ Building OIBridge.EqvTransport`). Errors: the
+conjugate-transpose notation `ᴴ` is scoped to `Matrix` and the module did not open it — parse errors at lines 50, 153,
+195 and 260 (the statements of `unitM_conjTranspose`, (a), (b) and the `hsa` step of (c)); one elaboration error at
+137:44 (`h.1 ▸ hf` with `h` of unknown type inside `if_neg`). Consequences at the prints: `unitM_mul`,
+`sandwich_apply`, `matrix_eq_sum_unitM`, `finiteStage_transport_apply` standard; `offDiag_eq_zero_of_zeroOne` unknown;
+`col_unique_of_zeroOne` with no axioms (its statement truncated by the parse error); `finiteStage_transport`,
+`isZeroOne_transported`, `oiSystem_transportHDyn` with `sorryAx`. **Reading: PARTIAL.** `TransportHDyn` and `Passage`
+elaborated. The dispatched text is kept as `lean/EqvTransport.run38112020014.lean` (blob `f48afc3c`). Repair (no statement
+changed): `open scoped Matrix`; the lambda of line 137 replaced by a typed `hfc : f ≠ c`; the `if_neg` lambda of
+`hdiagUnit` given its type by `show` (the same elaboration hazard, not reported because the parse error stopped that
+proof first). Repaired module: blob `fadf980e`, sha256 `0f8aa17a…`. The bodies of (a), (b) and (c) after `hsa` were not
+elaborated in run 1 and are first checked in dispatch 2. Prediction for dispatch 2: BUILT, moderate (about 0.55).

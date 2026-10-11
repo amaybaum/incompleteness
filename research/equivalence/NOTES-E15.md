@@ -126,3 +126,16 @@ risk is in four proofs written without a local Lean: `tokMat_eq` (full `simp` on
 conjugate-transpose lemmas (complex `star` through `simp`), and `tokMat_rot`/`tokMat_cyc` (`Matrix.mul_fin_two`, then
 real and imaginary parts and `linarith`). A failure there would leave the three dependent theorems with `sorryAx`
 (PARTIAL), with the repair proof-only.
+
+## 6. Dispatch 1 measured (run 38112020014)
+
+Mathlib bridge job 114389373318 (started 04:35:14Z, completed 04:38:03Z): Build `failure`, caused by the other module of
+the dispatch (`EqvTransport`, NOTES-E17 §3). `EqvK2Schema` rebuilt with warnings only and its 22 prints standard;
+**`EqvK2Converse` built (`⚠ Built OIBridge.EqvK2Converse`, warnings only: unused `simp` arguments and the unreached
+`first` alternatives) with all nine prints `[propext, Classical.choice, Quot.sound]`** — `dict_eq_sum_tensorOf`,
+`tensorOf_conj`, `tokMat_eq`, `tokMat_rot`, `tokMat_cyc`, `dict_actT_rotLin`, `dict_actT_cyc`, `Q3_aMiss`,
+`pairCone_eq_Q3_iff_drive` (EqvK2Converse.lean:226–234). The first alternative of every `first` block closed its goal
+(the linter reports the others unreached). The release gate was skipped (the Build step failed). **Reading by the rule
+of §5: PARTIAL** — the rule ties BUILT to a successful Build step, which this run did not have although the module itself
+elaborated cleanly; the module goes into dispatch 2 byte-identical (blob `4add9b8d`) so that a green build can read
+BUILT. The S0 prediction (BUILT, about 0.55) is not decided by this run.
