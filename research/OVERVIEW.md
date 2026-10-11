@@ -1150,7 +1150,19 @@ build of the existing module; B23's exact-check plan, the placement question bey
 the S6 surface deferred to round 7. Threads: receipts, and the small forward corrections (F-C5-1; F-O5-2, F-O5-1), then
 close without starting a node or dispatching; B24–B26, C24–C26, O15–O18 and E20–E22 deferred to round 7.
 
-The plan as recorded before the launch follows unchanged.
+**State at the end of the launching session (2026-10-11, about 16:00Z).** All five agents closed at limited scope.
+Heads: `research/round6-transfer-sourcing` `694219a4` (B22 OPEN in both forms with the four claims per form; E23 OPEN;
+B23-1 FAILED: design run 38151796092 at `dev-bridge/r6-channel-transfer` `fd364020`, Build failure in
+`channelTransfer_Q3` — `open scoped ComplexOrder` missing — six of seven prints standard; handoff proposals
+HP-round6-transfer-1 and -2), `research/bridge` `029cb5e0`, `research/countermodels` `cb3e114a`, `research/origin`
+`0b89d1c8`, `research/equivalence` `488d98c8`. Checked by the coordinator for the four threads: receipts byte-identical
+(4, 5, 6 and 8), changes confined to each thread's directory, LOG, RESULTS and notes append-only, the countermodels
+check `c23f_correction.py` replayed byte-identical (6/6), the origin rendering rows identical to the originals once
+unescaped. **Pending for the next session:** the coordinator's audit of the cross-thread record (rows B22-1 … B22-4,
+E23-1 … E23-3 and B23-1 against I4.66 and I4.38 at L, the countercontrol and the job log); the audit directory
+`research/AUDITS/2026-10-11-round6/` (the round-5 tools in `research/AUDITS/2026-10-11-round5/` are reusable); issuing
+HP-round6-transfer-1 and -2 as handoffs; the round-6 close (milestone log, open gaps, assumptions). Round 7 is not
+planned beyond the deferral list; the owner's decisions are open.
 
 Rules unchanged from round 5, with four additions from the round-5 audits: (i) **LOG files are append-only** — a
 correction is a new entry naming the entry it corrects, never an edit in place (F-E5-1); (ii) a `|` inside a code span
