@@ -24,6 +24,8 @@ under composition and, where `InverseAccessibility` holds, inverse) or the **`In
   `MixR ∅`, FM's `latticeClass` (`not_opDrive_of_quartLattice`).
 * **I4.60 supplies it** (`opDrive_of_substratumAvail`, through the kernel's `diagonal_avail`), and FM
   fails I4.60 (`lattice_not_substratumAvail`).
+* **Control entails it** (`opDrive_of_control`, `opDrive_of_qm`): composite unitary control, and so
+  exact quantum mechanics, on the token's generated theory makes the drive available at every level.
 * **The phase intervention at θ₀ as a class** (`driveClass`: submonomial, any two nonzero entries
   with fourth powers equal up to powers of `w⁴`): an architecture, context-stable, label-invariant,
   dagger-stable, unitary-ray saturated, structurally closed and configuration-level; its theory has
@@ -143,6 +145,19 @@ theorem opDrive_of_substratumAvail {𝓘 : ImplementationClass} (arch : Architec
 substratum's availability, since it lacks the drive. -/
 theorem lattice_not_substratumAvail : ¬ LiftAudit.SubstratumAvail (latticeTheory (Fin 2)) :=
   fun h => not_opDrive_lattice (opDrive_of_substratumAvail latticeClass_arch h)
+
+/-- **COMPOSITE UNITARY CONTROL ENTAILS THE DRIVE**: the drive is one of the unitaries control makes
+available at every level. -/
+theorem opDrive_of_control {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
+    (h : HasCompositeUnitaryControl (genTheory 𝓘 arch (Fin 2))) : OpDrive 𝓘 arch :=
+  fun n _ => h n _ (tokOp_isometry zPh_unitary n)
+
+/-- **QUANTUM MECHANICS ENTAILS THE DRIVE**: in the exact reading the drive is a consequence of the
+target, so no premise set reaching the target avoids it. -/
+theorem opDrive_of_qm {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
+    (h : LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2))) :
+    OpDrive 𝓘 arch :=
+  opDrive_of_control arch (PhysicalCharacterization.physical_of_exactAll _ h).2.2.1
 
 end Drive
 
@@ -1093,6 +1108,8 @@ theorem o14_core :
     OpDrive substratumClass substratumClass_arch ∧
     (∀ {𝓘 : ImplementationClass} (arch : Architecture 𝓘),
       LiftAudit.SubstratumAvail (genTheory 𝓘 arch (Fin 2)) → OpDrive 𝓘 arch) ∧
+    (∀ {𝓘 : ImplementationClass} (arch : Architecture 𝓘),
+      LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps (genTheory 𝓘 arch (Fin 2)) → OpDrive 𝓘 arch) ∧
     ¬ OpDrive permClass permClass_arch ∧
     ¬ OpDrive (MixR (∅ : Set ℝ)) (mixR_arch (∅ : Set ℝ)) ∧
     ¬ OpDrive latticeClass latticeClass_arch ∧
@@ -1111,7 +1128,8 @@ theorem o14_core :
     ¬ LevelOneSeam.ExactAllFiniteEndomorphicQuantumOps (fixedGateTheory theta0) ∧
     (LevelOneCliffordInput → ∀ α : ℝ, OriginAngle.RotClifford α →
       ¬ OpDrive (MixR {α}) (mixR_arch {α})) :=
-  ⟨opDrive_substratum, fun arch h => opDrive_of_substratumAvail arch h, not_opDrive_perm,
+  ⟨opDrive_substratum, fun arch h => opDrive_of_substratumAvail arch h,
+    fun arch h => opDrive_of_qm arch h, not_opDrive_perm,
     not_opDrive_mixEmpty, not_opDrive_lattice, lattice_not_substratumAvail, opDrive_drive,
     fun A _ _ => driveTheory_derivedOI A, driveTheory_not_qm, fun _ hn => drive_not_uJ hn,
     drive_not_denseUnitaryControl, substratum_not_denseUnitaryControl, zPh_trivial_on_drive_body,
@@ -1140,7 +1158,6 @@ theorem latticeGroup_core :
 
 end Cores
 
-#print axioms is
 #print axioms opDrive_substratum
 #print axioms opDrive_fullClass
 #print axioms not_opDrive_of_quartLattice
@@ -1152,6 +1169,8 @@ end Cores
 #print axioms tokenAvail_zPh_of_substratumAvail
 #print axioms opDrive_of_substratumAvail
 #print axioms lattice_not_substratumAvail
+#print axioms opDrive_of_control
+#print axioms opDrive_of_qm
 #print axioms wlat_of_quart
 #print axioms wl_mul
 #print axioms wl_smul
