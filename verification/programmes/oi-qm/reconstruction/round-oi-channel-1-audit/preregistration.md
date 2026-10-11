@@ -132,8 +132,8 @@ This is design evidence only. This round adds none of those Lean modules.
 
 1. Before F: hold the control-plane branch at the proposed F, dispatch verify.yml on
    that exact head, and record an all-green run before requesting the owner's designation.
-2. S1 after the owner's F designation: add the three frozen files and controls.py in
-   one linear commit. Run controls HEAD --freeze F and the mutation tests; CI must pass.
+2. S1 after the owner's F designation: add the three frozen files in one linear
+   commit. Run controls HEAD --freeze F and the mutation tests; CI must pass.
 3. S2: add result.md with Outcome: OI-CHANNEL-1-READ, the frozen earned reading, the
    checker's final line, written arguments at their labels and exact evidence pointers.
    Run controls HEAD --freeze F; obtain an all-green exact-head run and the owner's E
