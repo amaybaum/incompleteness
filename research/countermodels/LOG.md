@@ -114,3 +114,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   C8-C proved at four members (all ten patterns) and for every finite Bell set with a complete non-orthogonality
   component; residual classes recorded. RESULTS rows C12.1–C12.6 appended (C8.4's label unchanged; C12.6 records the
   refined status). Commit: C12.
+- 2026-10-11T00:56Z — C13. Scratchpad exploration (numerical, not evidence; `x13_explore.py`, `x13_more.py`): the basis,
+  `λ_max` along the orbit circles, the overlap minimum, the S2 circle. NOTES-C13 S0 written 00:50:00Z (`date -u`);
+  `c13_residual.py` decision rule 00:51:17Z; pre-run edits (R1's kernel statement made a rank statement, an unused line
+  removed); run 1 (00:53:18Z) 9/9 `VERDICT C13-RESIDUAL-EXACT`, replay identical (out `cabe7692…`). Results: S′ for compact
+  defect sets and extremality of the defects; the orthogonal-pair obstruction (Lemma C13-O); the minimal group
+  `⟨H₀, cnot⟩` has no residual case (C10.2 explicit there); the fixed-point dichotomy for maximal tori; explicit exotic
+  cones with a continuum of non-PSD extreme rays for a residual case (`Π = S₃`, three circles) and for the torus node S2
+  without G16 (one circle); the obstruction for `Π ∋` double transposition (exact witness). HO-10 relied on only for the
+  label of the residual region's existence (C13.6). RESULTS rows C13.1–C13.9 appended. Record: row C12.6's label is
+  CONJECTURE (for C8-C as a whole); the rest of that cell points to the CONDITIONAL rows C12.3–C12.4 and is explanatory.
+  Commit: C13.
