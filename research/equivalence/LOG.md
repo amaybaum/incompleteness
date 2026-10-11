@@ -1087,3 +1087,115 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   (E22) built in dispatch 2 although E22 was later deferred (queued before the narrowing; its §B belongs to E19); the
   third dispatch carried E19's generation module instead of E21's (E21 deferred, no module written); S0-c's label for
   DENSE(θ₀) ("introduced") revised in NOTES-E19 §3 to a mathematical statement at [L], recorded there.
+
+## Round 6
+
+- 2026-10-11T15:18Z — round 6 opened at thread head `3a46b811` (verified at 15:15:18Z by `date -u`: after `git fetch origin
+  research/equivalence`, `git rev-parse HEAD` = `git rev-parse origin/research/equivalence` =
+  `3a46b81103717c55510ea5b57ea7d520858cb478`; `git status --porcelain` empty). Re-read this thread's record: README,
+  LOG, LEDGER, RESULTS, NOTES-E19, NOTES-E20 (S0, S0-b), NOTES-E21, HP-equivalence-14 … 17, `lean/*.lean`,
+  `experiments/e20_odd_bodies.*` (runs 1 and 2 kept; the working script is byte-identical to `.run2.py`). NOTES-E22.md
+  does not exist. Conventions unchanged from round 5. **Round-6 rule additions, applied from this entry:** (i) this LOG
+  is append-only — a correction is a new entry naming the entry it corrects, never an edit in place, and every
+  timestamp is read from `date -u` at writing time (finding F-E5-1); (ii) a `|` inside a code span in a Markdown table
+  is written `\|`; (iii) every route from available operations to a limit names its closure premise and the form of
+  transfer it needs, with the closedness of the cone it uses; (iv) results bearing on the transfer clause record the
+  owner's four claims separately. Budget: at most three `workflow_dispatch` runs; no cancellation; no pull request.
+  Not this thread's this round: E23 (the sources of H2, H3 and A_miss) and the S6 surface (`cnotMat` / `dict_cnot`),
+  worked in `research/round6-transfer-sourcing`, which is not read.
+- 2026-10-11T15:18Z — **receipt of HO-33 v2, HO-37 v1, HO-38 v1, HO-39 v1, HO-40 v1, HO-41 v1, HO-42 v1, HO-45 v1**
+  (`research/HANDOFFS/` at `research/overview` @ `1325160c35ddb5b7a9f6f608cced0225a40401f1`, the commit the
+  instruction names; `git fetch origin research/overview` at 15:16Z returned the later tip `39370c99b4395344…`, of
+  which `1325160c` is an ancestor; every read of this round is at `1325160c`), each copied byte-identically to
+  `inbox/` by `git show 1325160c:<path>`, the git blob of the copy checked equal to the source blob: HO-33 v2 blob
+  `f3292240`, sha256 `17e217fa00fb4b7dc1bd0efbefb8b69fd1ce6da24698978ccba0c22213d58795`; HO-37 `ea15ac7a`,
+  `e1daa4503eca9e31a51e7ff8ed7d02a381fa2ce9a006af1cf58bcc25f5fe2ff3`; HO-38 `e99bb756`,
+  `867dbacd05557d3bcfbe77134e319213c12112ce95b9143b58883abf4f72012d`; HO-39 `ed856ba2`,
+  `2fc5103f52ccfa80bc69f7e6b5dbe0017753a7daf5b57e48915194f9a0c54f27`; HO-40 `b9d294bd`,
+  `8aaed02fcca73825383187bc6ad1615d4617ead367c89cb3339ca783bafe427e`; HO-41 `09d77949`,
+  `1559c0984ef8acb2cfd3432112d889385666eabb27597326114193ee68fa5fd6`; HO-42 `dc32b186`,
+  `f12ce49200067e3fbc80e688209d69411fbd5b77215887288bf42d1cd3c48ac7`; HO-45 `e72ce580`,
+  `8aa5a61a9dfb8ce21a211917951c3d2da216101a9da91737464f610927cff301`. HO-33 v1 stays in `inbox/` unchanged (v2 replaces
+  its item 2 and correction item only). **Reliance, item by item, stated before any use** (only at the labels the
+  handoffs carry; nothing in them is CERTIFIED except kernel declarations named at L; every "may not assume" clause is
+  honoured as stated under each handoff):
+  - **HO-33 v2 (bridge, origin).** Item 2 (v2) — the availability of `actT R_z(θ₀)` and `actT J` is independent of
+    every row of Table A2 that does not itself imply composite unitary control or QM, and not of the inventory as a
+    whole: I4.60 `SubstratumAvail`, outside Table A2, implies OpDrive(θ₀) (`opDrive_of_substratumAvail` [D]); the two
+    [W] rows on the design chain of HO-37 — is **relied on as a wording constraint** in E22 and in every round-6 text:
+    no independence statement about these operations is written without "relative to Table A2's rows", and none is a
+    premise of any statement here. Items 1 and 3–6 of v1: context at their v1 labels, as recorded in round 5 (07:21Z).
+    Honoured: no "independent of the stage-6 inventory" without the Table-A2 scope; no certification or census
+    disposition; v1's may-not-assume list.
+  - **HO-37 v1 (bridge).** Items 1–2 (the layer-flow endpoint without `SubstratumAvail` for fixed-point-free
+    involutions, [D]; FM's rows I4.56 and I2.34 HARMLESS) are **recorded and not relied on**: no round-6 node of this
+    thread concerns `LayerFlowExecutable`, composite unitary control or FM's rows. Item 3 (a kernel theorem with
+    `SubstratumAvail` among its hypotheses may be weaker than stated) is recorded as an assumption-watch marker; no
+    round-6 statement here cites such a theorem. Honoured: no certification; nothing for involutions with a fixed
+    point; LiftAudit.lean:812 not applied to FM.
+  - **HO-38 v1 (bridge; addressed to E22).** Items 1–3 (`pairAvail_iff_tokenAvail` [D] for context-stable,
+    label-invariant architectures; its domains; "the decision falls at the token") are **relied on in E22 only as the
+    availability-side statement** from which E22's invariance-side statements are kept apart: availability lives in the
+    `InstAvail` closure on the kernel's Kronecker carrier; `EqvOneDictionary` speaks of cones on `W 3`. No E22
+    statement takes it as a premise. Honoured: no certification; nothing about a pair cone on `W 3` drawn from it;
+    token ⇒ pair never used without context stability.
+  - **HO-39 v1 (bridge; addressed to E19, E22).** Item 2's reading of (T)_𝓘 — `TransferClause` (BridgeDictionary [D]),
+    `transferClause_iff` (BridgeConverge [D]), the derived half `bridge_derived_half` (CONDITIONAL [D]) — is **relied
+    on in E22 as the reading of the bridge's clause**, with the definitions re-read from `research/bridge` @
+    `5ba9218e` (authorized; logged when read). Items 1, 3 ((T) cannot be omitted from this construction, verified), 4
+    (exact availability, not density: a dense subgroup gives membership of its own elements only; the limit needs a
+    closed cone (H3) and continuity and gives invariance only), 5 and 6: **context for E22**; item 4 is the
+    availability-side counterpart of R-E19.5's cone-side dense-control form, and E22 records the two apart. The
+    four-claims table: **E22's result records the owner's four claims separately** (rule (iv)). The audit's §9 (whether
+    the complete OI framework implies (T): OPEN) is recorded; E22 does not address it (E23/B22). Honoured: no
+    certification; (T) for `{R_z(θ₀), J}` never drawn from the data without (T)_𝓘; neither OpDrive(θ₀) nor the transfer
+    clause stated as necessary for QM; no inventory item at L said to imply either datum; no equivalence between the
+    data and the invariances.
+  - **HO-40 v1 (bridge).** Items 1–3 (the closure `G` of B10-4; no self-dual rank-one surgery with H1, CONDITIONAL on
+    Lemma C18-1; what remains) are **recorded and not relied on**: no round-6 node of this thread uses S6's
+    countercontrol family. Honoured: no kernel check; no exotic `G`-invariant cone; nothing about rank-two or
+    non-surgery constructions; nothing about conjugacy to a subgroup of `G_B`.
+  - **HO-41 v1 (countermodels).** Items 1–3 (Theorem S′ in compact form [D], run 38131214451; the closedness remark
+    [W]; the consumers, `Kk` among them) are **recorded and not relied on this round**. Consequence noted for this
+    thread's record: R-E19.1 and draft S6 label `Kk` "on Theorem S′ for compact defect sets [W]"; that label is not
+    changed this round, because a change needs this thread's own check of `Kk`'s hypotheses against
+    `theorem_Sprime_compact_ineq` (the rule applied to `K384`, `K768`, `KC` in round 5), which no round-6 node
+    performs — a pending item. Honoured: no certification; item 2 not machine-checked; (CC) not necessary; no
+    extremality; H1 of no cone from it; no OI content; no availability.
+  - **HO-42 v1 (countermodels, with the coordinator's correction F-C5-1).** Items 1–6 (the universal orthogonal pair;
+    the rank-one route closed for `c ∈ (1, 2)` and, as corrected, no `G_T`-orbit admissible for H1 at `c = 2`; the
+    engine certifies nothing; OBSTRUCTED; the certificate) are **recorded and not relied on**. Its assumption-watch
+    marker "invariance under a dense subgroup is invariance under its closure — for closed cones only; the step uses H3"
+    agrees with R-E19.5 (i) (`isClosed_of_selfDual`) and is applied in E22's rule-(iii) statements. Honoured: nothing
+    certified; no claim that no exotic `G_T`-invariant cone exists; nothing about balanced surgeries being
+    non-self-dual; the proposal's Bell-circle statements not read as statements about `G_T`; no availability.
+  - **HO-45 v1 (origin, with the coordinator's qualifications F-O5-2, F-O5-3).** Item 7's scope and its definition of
+    the channel form (T^ch)_𝓘 with `K` closed are **relied on in E22 as vocabulary for rule (iii)**: the clause
+    `EqvOneDictionary` meets is the unitary form (T)_𝓘; the channel form is neither stated nor built here; every limit
+    route E22 names states its closure premise (`K` closed, from H3), the continuity it uses and its density input.
+    Item 4 (exact QM entails the drive, `opDrive_of_qm` [D], availability) is **relied on** for any necessity statement
+    about the drive's availability — E22 makes none. Items 1–3, 5, 6, 8, 9 and the generating-set table: context, not
+    relied on. Honoured: no kernel status for any [D] declaration, item 5's valuation argument, item 6's protocol or
+    O9-L1; item 6 never read as availability of the drive; nothing serves the bridge's cones without (T^ch)_𝓘 and
+    closedness; the orders only at levels one and two; nothing about dilations; (T)_𝓘 and (T^ch)_𝓘 neither supplied
+    nor said to be needed for QM; no availability from cone invariance.
+  No research step of round 6 precedes this receipt's commit.
+- 2026-10-11T15:18Z — **authorized cross-branch reads** (read-only, `research/overview` @ `1325160c`, each extracted to the session
+  scratchpad by `git show 1325160c:<path>`, blob and sha256 recorded): `research/AUDITS/2026-10-11-round5/
+  AUDIT-EQUIVALENCE-R5.md` (blob `e8e7f49a`, sha256 `8a7f882d5050263a5d553e8c90026048885c0b6c00f8d3e50b5b349b42010cdb`),
+  read in full (§1–§10; the instruction's emphasis §7–§10 and F-E5-1); the handoffs issued from this thread's proposals,
+  `research/HANDOFFS/HO-43-equivalence-to-bridge-origin-k2-target-h2-amiss-reachpure-derived.md` (`9473c660`,
+  `2b66cf113ed9402d79d6b500bc4f4267627640ab0686acd56251ed110e8ba12b`) and `…/HO-44-equivalence-to-countermodels-where-exotic-
+  cones-must-break.md` (`70a888f7`, `1e3d32d8ad689a3b133131e8484d39e46cfbe2d7d41c9a7c9df1e75f1f526511`), read in full;
+  `research/OVERVIEW.md` (`a5ea093a`, `2346f6ad7c6b96691bae3bff9d75a4c2ef62c33a723001546536a88e4960ea64`): its
+  Markdown headings listed to locate the section, then the round-6 section (lines 1126–1179) read, nothing else.
+  **Acknowledged.** F-E5-1 (LOG timestamps edited in place in `a047ee43` and `1329adc9`): accepted; from this round
+  every LOG correction is a new entry naming the corrected one (rule (i)). No finding on the mathematics; no label
+  changes (R-E19.1 … R-E19.6, R-CITE.5 stand). The audit's independent check (`indep_checkE5.py`, Z1–Z7) and its
+  reconstruction of E20's 08:30Z draft are recorded; E20's round-6 runs build on the committed run-2 harness. §10's
+  carried items: E20, E21, E22 are this round's nodes; the sources of H2, H3, A_miss are E23, not this thread's this
+  round. **HO-43 v1 and HO-44 v1** (from HP-equivalence-14, -15, -16): their items agree with the proposals and with
+  R-E19.1 … R-E19.6; their seven line citations to this thread's design modules resolve, in the `lean/` copies, to the
+  declarations they name (EqvK2Generation.lean:448 `blockInvariant_of_drive`, :499 `reachPure`, :535
+  `pairCone_eq_Q3_iff_drive_exact`, :345 `su_euler`, :382 `rtrick`; EqvK2Block.lean:385 `pairCone_eq_Q3_iff_block`;
+  EqvOneDictionary.lean:121 `aMiss_of_transferClause`). Nothing to correct.
