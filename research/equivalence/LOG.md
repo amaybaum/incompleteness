@@ -232,3 +232,7 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
 - 2026-10-11T00:36Z — LOG and probe-header time correction: the E11 entry and the probe header had been written as 00:38Z and
   00:36Z, later than commit `97b6f080` (00:35:41Z); set to 00:35Z (the header now cites the `date -u` reading and the commit).
   Edited before the probe's first run; the decision rule is unchanged.
+- 2026-10-11T00:36Z — `experiments/e11_k2_dict.py` run 1 stopped with a TypeError after C1–C5 passed (the helper `R(a, b)`
+  called with one argument in C6's instance list); kept as `e11_k2_dict.run1.{py,out,err}`. Run 2 changes only those two
+  calls (`R(0, 1)`, `R(1, 1)`), decision rule unchanged: 18/18, `COUNTER X1 fails as stated`, `COUNTER X2 fails as
+  stated`, `VERDICT E11-DICT-STATEMENTS-EXACT`; replay byte-identical (py `09da63b1…`, out `2a73ca38…`). Prediction P-X held.

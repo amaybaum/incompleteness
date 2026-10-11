@@ -1,0 +1,6 @@
+parsed: pc, pt, sgn (16 entries each)
+PASS C1 pauli_conjTranspose
+PASS C2 trace_pauli_mul
+PASS C3 pauli_complete (a = d and b = c)
+PASS C4 tensorOf_mul, trace_tensorOf, tensorOf_conjTranspose
+PASS C5 trace_T_mul_T (256)

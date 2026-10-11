@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/user/wt-research/equivalence/research/equivalence/experiments/e11_k2_dict.py", line 168, in <module>
+    for x, y in [((R(1, 2), R(-1, 3), R(1, 4)), (R(0), R(3, 5), R(-4, 5))), ((R(1), 0, 0), (0, 0, R(1)))]:
+                                                 ^^^^
+TypeError: R() missing 1 required positional argument: 'b'
+exit 1

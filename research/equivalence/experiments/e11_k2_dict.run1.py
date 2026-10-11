@@ -41,9 +41,6 @@ COUNTERCONTROLS (each must fail as stated).
   X1  pauli_complete with the orientation (a = c and b = d) is false for some quadruple.
   X2  the dictionary without its factor 1/4 does not satisfy tr (dict' w dict' e) = ipW w e / 4.
 
-RUN HISTORY.  Run 1 (kept: e11_k2_dict.run1.{py,out,err}) stopped with a TypeError after C1-C5 had passed: the
-helper R(a, b) was called with one argument in C6's instance list (R(0), R(1)).  Run 2 changes only those two calls
-to R(0, 1) and R(1, 1); no check, instance value or rule changed.
 DECISION RULE (fixed before the first run).  VERDICT E11-DICT-STATEMENTS-EXACT iff C1 ... C18 all pass and X1 and X2
 both fail as stated; otherwise "VERDICT NOT RENDERED" with the failing items.  The verdict says only that the module's
 formal statements are exactly true on these instances with these conventions; it is not a kernel proof, and C18 is one
@@ -168,7 +165,7 @@ for s in range(3):
     X = [R(s + k, 3) - 1 for k in range(4)]
     Y = [R(2 * s - k, 5) for k in range(4)]
     ok6 &= Z(dict_(tens(X, Y)) - tensorOf(tokMat(X), tokMat(Y)))
-for x, y in [((R(1, 2), R(-1, 3), R(1, 4)), (R(0, 1), R(3, 5), R(-4, 5))), ((R(1, 1), 0, 0), (0, 0, R(1, 1)))]:
+for x, y in [((R(1, 2), R(-1, 3), R(1, 4)), (R(0), R(3, 5), R(-4, 5))), ((R(1), 0, 0), (0, 0, R(1)))]:
     ok6 &= Z(dict_(tens(hom(x), hom(y))) - tensorOf(tokMat(hom(x)), tokMat(hom(y))))
 check('C6 dict_tens, dict_prodState', ok6)
 # C7

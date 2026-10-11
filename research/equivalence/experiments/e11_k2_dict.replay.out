@@ -1,0 +1,23 @@
+parsed: pc, pt, sgn (16 entries each)
+PASS C1 pauli_conjTranspose
+PASS C2 trace_pauli_mul
+PASS C3 pauli_complete (a = d and b = c)
+PASS C4 tensorOf_mul, trace_tensorOf, tensorOf_conjTranspose
+PASS C5 trace_T_mul_T (256)
+PASS C6 dict_tens, dict_prodState
+PASS C7 dict_add, dict_smul
+PASS C8 dict_conjTranspose
+PASS C9 trace_T_mul_dict
+PASS C10 trace_dict_mul, ipW_eq_trace
+PASS C11 coordOf_dict
+PASS C12 sum_T_entry (2 x 16 entries)
+PASS C13 dict_complete4 (non-Hermitian H)
+PASS C14 trace_T_mul_real, dict_coordOf
+PASS C15 trace_vecMulVec_mul
+PASS C16 B B^H = sum of rank-one terms
+PASS C17 Q3 pairing nonnegative on PSD instances
+PASS C18 ReachPure instance: dict (2 cnot (prodState xplus z3)) = x x^H, x = (1,0,0,1) -- cnot(prodState xplus z3) = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]]
+COUNTER X1 fails as stated
+COUNTER X2 fails as stated
+checks: 18, failures: 0
+VERDICT E11-DICT-STATEMENTS-EXACT
