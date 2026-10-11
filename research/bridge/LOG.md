@@ -417,3 +417,28 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   [A]; evidence-level propagation to B7-4, label unchanged) appended, with the standing verdict V-3. Handoff proposal
   HP-10 (B7-1's formal statement and finite case) written. The dispatched module is unchanged (`lean/BridgeReach.lean`
   sha256 a6e055e4…, cmp-equal to the dev blob 7a279393).
+- 2026-10-11T01:39:30Z — **round 3 closing.**
+  - **Nodes done.** All four:
+    - B10, commit 5596c0ca;
+    - B11, commits 7fd01094 and 3d7b23b8;
+    - B12, commit 69fbbc53;
+    - B13, commits 7266e30b and fdc8e8ac.
+  - **Recorded output.** RESULTS rows B10-1 … B10-7, B11-1, B11-2, B12-1 … B12-5, B13-1, B13-2 and the standing
+    verdict V-3; no earlier row edited. Handoff proposals HP-7 … HP-10.
+  - **Dispatches used: 2 of 3.** Both builds succeeded on the first try:
+    - run 38099134414 (`dev-bridge/r3-dict` @ 3d554e7e, Mathlib bridge job 114351216052);
+    - run 38101591388 (`dev-bridge/r3-reach` @ 747bcf94, Mathlib bridge job 114358450003).
+
+    No CI job or run was cancelled in round 3.
+  - **Deviations, each recorded above.**
+    - Each dev branch adds one import line to the root `OIBridge.lean`, outside `OIBridge/`.
+    - Two B11 LOG entries carried estimated stamps; they are corrected forward (00:59:02Z) and not edited.
+    - Two pre-run edits, logged in the script headers: b10 T7 (00:03:56Z) and b12 U4 (00:48:22Z).
+    - B12's S0-5 named `m ≤ 24`, but its rule checked `m ≤ 16`; the follow-up `b12_followup.py` checked the rest.
+    - A false draft sentence of NOTES-B12 §3 was replaced before commit by what the certificate proves.
+    - `b12_followup.py` and `b13_preflight.py` were run without `-I -B`; their re-runs with the flags are
+      byte-identical.
+    - The charter names `dev/bridge/<topic>`; the round-3 directive's `dev-bridge/<topic>` was followed.
+  - **Governance.** Round-3 commits on `research/bridge` change only `research/bridge/`; `git diff --stat
+    3686049e..HEAD` outside it is empty. `main`, manuscripts, `verification/` on the research branch, receipts,
+    seals and legacy records are untouched. No pull request was opened and nothing was posted on GitHub.
