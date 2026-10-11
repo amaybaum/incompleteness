@@ -767,3 +767,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   `4dc0321c` — `ac/AC-LEDGER.md` (`fabc76d4…`) and `drive/RESULT.md` (`7cb7bd71…`), the lines naming LIMCLOSE-C (the
   operational closure premise "a datum approximable … by available data is available"; it concerns availability and is
   not used by any route of this thread), `pt/I4/INVENTORY.md` record I4.60; `main` @ L (`git grep -c LIMCLOSE`).
+- 2026-10-11T15:24:17Z — **F-C5-1 check run 1** (`experiments/c23f_correction.py`; S0 appended to NOTES-C23 at 15:20:46Z and
+  committed in `a0a0177c` before the script was written; pre-run edits recorded in the script header — F1's symbolic part
+  computed through the permutation helper instead of hand-written determinants, F1's pairing through an explicit matrix,
+  F2's printed `D_min` computed exactly; no criterion changed): 6/6, `VERDICT C23F-EXACT`; every S0 prediction held. Replay
+  at 15:24:26Z byte-identical (`cmp`, `.out` and `.err`; `.err` `exit 0`). Script sha256 `2d1a393f…`, out `96d837f9…`.
+- 2026-10-11T15:24Z (received during the run's replay; recorded 15:2xZ — see the next entry's `date -u` reading) —
+  **owner's direction relayed by the coordinator**: tokens are running low; this batch runs at limited scope. Finish and
+  push STEP 0 and STEP 1 (new rows and appended notes only), then stop: no node is started and nothing is dispatched;
+  C25, C24 and C26 are deferred to round 7; close with "research/countermodels: round 6 closed (limited scope)". Applied.
+  At receipt: STEP 0 committed and pushed (`aa3cfa0a`); STEP 1's S0 committed (`a0a0177c`) and its check run and
+  replayed; no S0, note or script exists for C24, C25 or C26 this round; no CI run was dispatched this round.
