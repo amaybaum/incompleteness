@@ -72,3 +72,54 @@ operator itself, with the scalar `(1/2) · 2` cancelling. So the equivalence `pa
 InstAvail closure with ancillas and discard; its token ⇒ pair half lives in the reversible operations alone; no
 group-generation step occurs in either (no product of operations is formed). Every RESULTS row of B19 carries this
 domain statement.
+
+## 1. Outcome (written 2026-10-11T10:24:44Z)
+
+**The runs.** `b19_preflight.py` run 1 (07:45:21Z) 4/4, VERDICT B19-PREFLIGHT-OK, replay byte-identical (07:58:11Z).
+`lean/BridgeToken.lean` §A elaborated with standard axioms already in dispatch 1 (the module failed there in §B only)
+and built in dispatch 2 (run 38124442150, job 114425761656): `assocPair_symm_apply`, `reindex_assoc_tokOp`,
+`pairAvail_of_tokenAvail`, `toEnd_symm_apply`, `reindex_toEnd_pairOp`, `discard_two`, `tokenAvail_of_pairAvail`,
+`pairAvail_iff_tokenAvail`, every `#print axioms` line standard (the two `rfl` lemmas on `[Quot.sound]` alone).
+
+| id | outcome |
+|---|---|
+| S0-1 | confirmed [X]: P1 |
+| S0-2 | confirmed [X]: P2; the countercontrol P4 (an ancilla attached as `1₂` gives `2 V ρ Vᴴ`) |
+| S0-3 | confirmed [X]: P3 |
+| S0-4 | confirmed at dispatch 2 [D] (above) |
+| S0-5 | confirmed by the module's statements: `tokenAvail_of_pairAvail (hl : LabelInvariant 𝓘)`; `pairAvail_of_tokenAvail (hc : ContextStable 𝓘) (hl : LabelInvariant 𝓘)`; no `0 < n`, dagger stability, saturation or architecture clause beyond `arch` itself in either |
+| S0-6 | confirmed: POSITIVE with the ELABORATING sharpening (§3) |
+
+## 2. The theorem
+
+`pairAvail_iff_tokenAvail` [D]: for an implementation class `𝓘` with an architecture (I4.32), context stability (I4.29)
+and label invariance (I4.30), and every token operator `U` and level `n` (level `0` included),
+`PairAvailAt 𝓘 arch U n ↔ TokenAvailAt 𝓘 arch U n`. Halves: **token ⇒ pair** under I4.29 and I4.30 — the spectator rule
+(`instAvail_spectator`, ImplementationLocality.lean:789 [K]) and the transport rule along the associator
+(`instAvail_transport`, :644 [K]; `amplRefL_conjChannel` :697 and `transport_conjChannel`, SpectatorBridge.lean:357 [K]);
+**pair ⇒ token** under I4.30 alone — the transport rule along `toEnd` and the discard rule (`InstAvail.discard`, `m = 2`),
+the discard of `conj (V ⊗ 1₂)` over a uniformly attached ancilla being `conj V` (`discard_two`, by the kernel's
+`discard_tensorOf_one`, MinimalRepertoire.lean:495, through `discardWith_uniform_conjChannel`, AncillaClosure.lean:461
+[K]).
+
+**Domains** (the owner's distinction (1)). Both predicates are InstAvail-closure availabilities of one-outcome
+conjugation channels. The token ⇒ pair proof uses the spectator and transport rules only: no ancilla is attached or
+discarded and no product of operations is formed. The pair ⇒ token proof uses the discard rule, a non-invertible
+protocol, and `discardWith_uniform_conjChannel` is the lemma that returns a conjugation. So the equivalence lives in the
+InstAvail closure with ancillas and discard; no group-generation step occurs in it.
+
+**Hypotheses, classified.** I4.29, I4.30, I4.32: inventory items, assumed in general at L, discharged for the
+substratum class [K] and for FM's lattice class [D] (round 4). No introduced hypothesis. **Reading:** availability.
+
+With it, "the decision falls at the token, not in the pair context" (B14-2, B14-4) is a design statement: for a
+context-stable, label-invariant architecture, every refutation of a token operation on the token is a refutation on the
+pair at the same level, and conversely; FM's refutations (`lattice_refutes`, round 4) and B20's data (`OpDrive`,
+`JDatum`) are instances.
+
+## 3. Gem classification (§A.31)
+
+**POSITIVE** — NOTES-B14 §2's written argument holds as written and is now [D]. **ELABORATING** — one direction needs
+strictly fewer hypotheses than NOTES-B14 §2 stated: pair ⇒ token uses label invariance alone, context stability entering
+only token ⇒ pair. By the productivity test fixed in S0 this is a gem (a direction with strictly fewer hypotheses); it is
+not NEW (no hidden assumption of the bridge vocabulary was found: the kernel's protocols and the bridge's predicates
+agree).

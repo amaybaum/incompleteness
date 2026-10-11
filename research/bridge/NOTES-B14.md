@@ -325,6 +325,10 @@ I4.67, I4.74, I4.80), the drivability resources (I4.143, I4.144, I4.179, I4.56; 
 shadow or exact-QM statements (I4.70, I4.187). Each is a named hypothesis at least as strong as the conclusion; none
 is a weaker alternative to a bridge.
 
+*Amended in round 5 (node B18; §8.9): the chains of I4.56 and I2.34 are replaced by the `DerivedOI` chain of
+`lean/BridgeToken.lean` [D]; the chain recorded here for them (LiftAudit.lean:812) has a side hypothesis,
+`SubstratumAvail`, that FM fails.*
+
 ### 8.3 The verdict
 
 FM is a full model of the stated access in the third addendum's sense, relative to the stage-6 inventory. It satisfies
@@ -342,6 +346,9 @@ disposition). Reading: availability.
 
 Scope, stated with the verdict: the H level is P1-open, as for every model; the 29 failed rows are hypotheses at least
 as strong as the conclusion; items outside the stage-6 inventory are not checked.
+
+*Amended in round 5 (node B18; §8.9): "each imply composite unitary control or QM by a kernel chain [K]" held for 27 of
+the 29 rows; the amended scope sentence is in §8.9.*
 
 ### 8.4 Reading of B14-1 … B14-4
 
@@ -393,3 +400,29 @@ kind stands in for the other. Rows stay as recorded; the corrections are carried
 | B1-2, B5-1, B10-3, B10-4, B10-5, B10-6, B12-5 | availability supplying invariance | direction correct (availability ⇒ invariance; B10-3's "after B1.1 an instance of I3.165's clause" uses B1.1's equivalence under (W) and (P), a built design lemma [D]) | none; reading markers only |
 | B14-2, B14-4 | availability | §8.4 | §8.4 |
 | all other rows | one reading only | no conflation found | none |
+
+### 8.9 Amendment (round 5, node B18; written 2026-10-11T10:27:42Z)
+
+HO-33's correction item (the round-4 audit's finding F1): the rows I4.56 (`LayerFlowExecutable`) and I2.34 (the
+layer-flow form) were classed HARMLESS through LiftAudit.lean:812, whose hypothesis `SubstratumAvail` FM fails
+(`lattice_strict_in_substratum` [D]); they rested on a written argument, not on the cited chain. Round 5 replaces the
+chain (NOTES-B18 §2): with `DerivedOI` (I4.241, FM: `latticeTheory_derivedOI` [D]) and an involution without fixed
+points, `LayerFlowExecutable` gives `PhaseFreeRichness` (`phaseFree_of_layerFlowExecutable_derivedOI` [D]: the
+kernel's `gateFlow_isolation`, `conjChannel_smul` and `avail_conj_mul` with `DerivedOI`'s quarter phases and
+exchanges), hence composite unitary control (`control_of_phaseFree` [K]) and QM (`derivedOI_qm_iff_phaseFree` [K]);
+FM's instances on the token and pair carriers are `latticeTheory_token_qm_iff_layerFlow`,
+`latticeTheory_pair_qm_iff_layerFlow`, `layerFlow_supplies_token` and `layerFlow_supplies_pair` [D] (dispatch 2 of
+round 5, run 38124442150: 36/36 standard). The re-classification `experiments/b18_reclass.py` (run 2, replay
+byte-identical) leaves the tally SAT 34 / HARMLESS 29 / NA 5 / HARMFUL 0 and C1–C8 green.
+
+**Amended scope sentence:** of the 29 control-or-QM rows, 27 rest on a kernel chain at L whose side hypotheses FM
+satisfies and 2 (I4.56, I2.34) on the design chain of `BridgeToken.lean` [D] with kernel theorems [K]; none rests on a
+written argument. The design chain covers involutions without fixed points — on FM's token carrier every involution
+that moves a configuration; for an involution with a fixed point on a carrier of three or more configurations neither
+LiftAudit.lean:812 nor the design chain applies, and that instance of the two rows is OPEN for FM. The H level is
+P1-open, as for every model; the 29 failed rows are hypotheses at least as strong as the conclusion; items outside the
+stage-6 inventory are not checked.
+
+The verdict's label is unchanged: CONJECTURE ([D] + [A] + [W]); its remaining [W] comes from the written arguments among
+the 34 SAT rows (§8.1, S0-17). In the owner's round-5 classification the verdict is outcome (D) for the availability of
+the drive, at the scope just stated (NOTES-B20 §5).

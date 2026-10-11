@@ -1,0 +1,8 @@
+[PASS] Q1: |D(U h)|^2 and |D(CNOT U h)|^2 from the matrices equal the two modulus formulas, symbolically
+[PASS] Q2: 1 - a^2 - b^2 = -(a - b)^2 + (1 - 2ab) identically; at ab = 1/2, p^2 + q^2 = -(a - b)^2
+[PASS] Q3: Phi+: maxent True, CNOT image product True (factorized True), pairing -1; Phi-: maxent True, CNOT image product True (factorized True), pairing -1; Psi+: maxent True, CNOT image product True (factorized True), pairing -1; Psi-: maxent True, CNOT image product True (factorized True), pairing -1
+[PASS] Q4: Phi+ under T^2 . <X_B>: 4|D|^2 = N^2 at all 128 sampled orbit points True; its CNOT image a product True
+[PASS] Q5: over 390624 nonzero Gaussian-integer h: whole G-orbit maximally entangled 0; T^2 . <X_B>-orbit (no CNOT) maximally entangled 256
+
+PASS 5  FAIL 0
+VERDICT B21-CEQ2-EXACT

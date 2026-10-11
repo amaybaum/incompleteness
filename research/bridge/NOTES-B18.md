@@ -141,3 +141,102 @@ returning a conjugation) — for FM's token carrier `Fin 2` at level `n = 1` thi
 `derivedOI_qm_iff_phaseFree` [K] is a statement about the theory's full availability. So: the design lemma is a
 reversible-group statement; the control and QM endpoints are InstAvail-closure statements, exactly as the kernel's own
 LiftAudit.lean:812 is. Recorded in every RESULTS row of B18.
+
+## 1. Outcome (written 2026-10-11T10:24:11Z)
+
+**The runs.** `b18_preflight.py` run 1 (07:45:20Z) 6/6, VERDICT B18-PREFLIGHT-OK, replay byte-identical (07:57:57Z).
+`lean/BridgeToken.lean` §B: dispatch 1 (run 38123860471, dev `36083b22`) failed in two local elaboration errors of §B
+(`signDiag_empty`: `congr 1` already closed the goal; `diagonal_signFun_eq`: an `if_neg` term without a type ascription),
+the failed text kept as `lean/BridgeToken.run38123860471.lean`; the repair changed no statement. Dispatch 2 (run
+38124442150, dev `16e75fbe`, job 114425761656): "Built OIBridge.BridgeToken (3.2s)", 36/36 `#print axioms` lines standard
+(34 on `[propext, Classical.choice, Quot.sound]`, two `rfl` lemmas on `[Quot.sound]`), no `sorryAx`, `lean-axioms` PASS
+(6096); the gate red only on `lean-manuscript` (the eight design modules have no census disposition, identified locally;
+LOG 10:11:59Z). `b18_reclass.py` run 1 (08:09:47Z, `DESIGN_BUILT = False`, kept as `.run1.*`) and run 2 (08:32:37Z,
+`DESIGN_BUILT = True` after the green build), each replayed byte-identically. The rule of `b18_reclass.py` was written
+after the reading 08:07:01Z, not at the 08:06:00Z its header states (LOG, timestamp corrections).
+
+| id | outcome |
+|---|---|
+| S0-1 | confirmed [X]: P1 (levels 1–3: every configuration moved, `phaseFun` the single value `e^{−iπt}`), P6 (the pair carrier with the second token's exchange) |
+| S0-2 | confirmed [X]: P2, P3, symbolic in `t`, levels 1–3 |
+| S0-3 | confirmed [X]: P4 |
+| S0-4 | confirmed [X]: P5 — with a fixed point (`Fin 3`, the exchange of `0, 1`) `phaseFun` takes two values; the kernel identity still holds with the phase; the scalar-free form fails (`(0, 1)` entry of the difference `1 + i` at `t = 1/2`) |
+| S0-5 | confirmed at dispatch 2 [D] (above), in the `DerivedOI` form of the S0 addendum; failed at dispatch 1 for two elaboration errors, no statement changed |
+| S0-6 | confirmed [X]: tally SAT 34 / HARMLESS 29 / NA 5 / HARMFUL 0, C1–C8 PASS; 27 rows on kernel chains at L, 2 (I4.56, I2.34) on the design chain [D], none on a written argument — within the scope stated below |
+| S0-7 | confirmed: B14-6's label unchanged, CONJECTURE ([D] + [A] + [W]); its [W] now comes only from the written arguments among the 34 SAT rows (NOTES-B14 §8.1, S0-17), none from the 29 HARMLESS rows |
+| S0-8 | confirmed: POSITIVE with the ELABORATING sharpening (§4) |
+| S0-9 | confirmed [X]: C8 (every `±1` diagonal on `Fin 2 × Fin n`, `n = 1, 2, 3`, is the product of quarter-phase squares over its `−1` positions; `phaseGate⁴ = 1`) |
+
+## 2. The chain, link by link (the F1 rule)
+
+`derivedOI_qm_iff_layerFlowExecutable_free` [D]: for a finite operational theory `T` on `S` with `DerivedOI T`
+(I4.241) and an involution `σ` of `S` without fixed points, `ExactAllFiniteEndomorphicQuantumOps T ↔
+LayerFlowExecutable T σ`. Links, each with its side hypotheses and FM's discharge:
+
+| link | statement | side hypotheses | FM |
+|---|---|---|---|
+| 1 | `signDiag_avail_of_phases` [D]: every `±1` diagonal available at every level | `PhasesAvailable T` (the fourth conjunct of I4.241, RouteB.lean:128) | `latticeTheory_derivedOI` [D] |
+| 2 | `diagonal_phaseFun_free` [D]: the kernel's phase diagonal is a unimodular scalar | `σ` (hence `levelPerm σ n`) without fixed points | the exchange on `Fin 2`; `pairSwap` on `Fin 2 × Fin 2` [D] |
+| 3 | `phaseFree_of_layerFlowExecutable_free` [D]: the kernel's `gateFlow_isolation` (LiftAudit.lean:660 [K]), the scalar removed by `conjChannel_smul` (ImplementationLocality.lean:395 [K]), three bind steps `avail_conj_mul` (LiftAudit.lean:770 [K]) ⇒ `PhaseFreeRichness T` (I4.118) | the sign diagonals (link 1); `ExchangesAvailable T` (the third conjunct of I4.241, RouteB.lean:123); `LayerFlowExecutable T σ` (I4.56, the row itself) | as links 1–2 |
+| 4 | `control_of_phaseFree` [K] (MinimalRepertoire.lean:529) ⇒ `HasCompositeUnitaryControl T` (I4.67) | `IteratedAncillaClosure T` (I4.68), from I4.241's embedded observation I4.110 (`DerivedOI.closure`, RouteB.lean:153 [K], which is `closure_of_embeddedObservation`, EmbeddedObservation.lean:211 [K]) | `latticeTheory_derivedOI` [D] |
+| 5 | `derivedOI_qm_iff_phaseFree` [K] (RouteB.lean:161) ⇒ QM (I4.70) | I4.241 | as above |
+| 6 | the converse: `layerFlowExecutable_of_control` [K] (LiftAudit.lean:117) through `physical_of_exactAll` [K] (PhysicalCharacterization.lean:301) | none beyond QM | — |
+
+No link uses `SubstratumAvail`, `diagonal_avail` or `DrivesElementary`, and LiftAudit.lean:812/:783 are cited only as
+the chain replaced. FM's instances: `latticeTheory_token_qm_iff_layerFlow` and `latticeTheory_pair_qm_iff_layerFlow`
+(the biconditional of I2.34 on the token and on the pair carrier), `layerFlow_supplies_token` (an executable exchange
+flow would give both token operators at every level) and `layerFlow_supplies_pair` (both pair operators), with
+`latticeTheory_token_not_layerFlow` and `latticeTheory_pair_not_layerFlow` (both sides false in FM) [D].
+
+**Domains** (the owner's distinction (1)). Links 1–3 are statements about the reversible operations generated at each
+level by the bind rule on conjugations: every operation formed is a finite product of available unitaries, no ancilla
+is attached or discarded, and the scalar is removed by an identity of channels, not by a protocol. Links 4–6 are
+statements about the InstAvail closure with ancillas and discard: `control_of_phaseFree` descends from level `3n`
+through `IteratedAncillaClosure` (attach, act, discard, with `discard_tensorOf_one` returning a conjugation), which FM's
+token carrier `Fin 2` uses. **Kernel closure rules used**: bind (`avail_conj_mul`) in links 1 and 3; the ancilla descent
+inside the kernel's link 4; no spectator or transport step.
+
+**Hypotheses, classified.** I4.241 (`DerivedOI`): inventory item, assumed at L, holds for the substratum theory [K] and
+for FM [D]. I4.56 (`LayerFlowExecutable`): the row being classified. The fixed-point-free condition on `σ`: a condition
+on the involution, not an availability. No introduced hypothesis.
+
+**Scope.** The chain covers involutions without fixed points. On FM's token carrier `Fin 2` the only involution that
+moves a configuration is the exchange, so there the two rows are covered completely. On a carrier with three or more
+configurations, an involution with a fixed point (the controlled exchange on `Fin 2 × Fin 2`, for one) is covered by
+neither LiftAudit.lean:812 (FM fails `SubstratumAvail`) nor the design chain: there the isolation product
+`G · D · G · D` is the transition flow times a diagonal phase that separates the moved from the fixed configurations
+(P5), and whether `DerivedOI` with that executability gives composite control is **OPEN**. The row classification of
+B14-6 reads I4.56 and I2.34 at the exchange (round-4 reading, kept); the OPEN instance is recorded with the amended scope
+sentence (NOTES-B14 §8.9).
+
+**Reading.** Availability throughout; no statement of this node concerns a pair cone.
+
+## 3. Comparison with the route sketched in the round-5 node list
+
+The node list (research/overview @ `51cce8ac`, OVERVIEW.md, round 5) sketched: for `S = Fin 2` and the exchange, the
+executable layer flow is an `R_x`-type flow at every level, and with the quarter phase and `avail_conj_mul` the
+generated group is the token's unitary group, so `TokenAvailAt zPh`. That route also avoids `SubstratumAvail`, and it
+needs no density: up to a global phase every token unitary is an exact product `R_x(α) R_y(β) R_x(γ)` (Euler angles),
+`R_x` the flow at a time and `R_y` its conjugate by the quarter phase, each available by the bind rule [W, not built].
+It is specific to the token carrier. The built chain goes through the kernel's own isolation
+identity to `PhaseFreeRichness` and the kernel's `control_of_phaseFree`, so it gives composite unitary control on every
+carrier with a fixed-point-free involution (the pair carrier included) and the QM endpoint — the analogue of
+LiftAudit.lean:812 — at the price of the fixed-point-free scope above. Both routes are exact; neither invokes a closure
+or limiting step.
+
+## 4. Gem classification (§A.31)
+
+**POSITIVE** — the HARMLESS classification of I4.56 and I2.34 in FM is validated by a chain whose every link's side
+hypotheses FM satisfies, kernel-checked in design. **ELABORATING** sharpening, as predicted: the kernel's endpoint
+LiftAudit.lean:812 holds with `SubstratumAvail` replaced by `DerivedOI` alone for involutions without fixed points
+(`derivedOI_qm_iff_layerFlowExecutable_free` [D]); `SubstratumAvail` supplies the phase continuum, which for such an
+involution enters the isolation identity only as a global phase. Assumption-watch marker, cross-propagated: a kernel
+theorem with `SubstratumAvail` among its hypotheses may use it only through `diagonal_avail` at a general angle; where
+that angle enters as a global phase, `DerivedOI` suffices (for :812 the involution must be fixed-point-free; the
+fixed-point case is OPEN). Not NEW: the fact that FM fails `SubstratumAvail` was the round-4 audit's (F1).
+
+## 5. Manuscript obligations
+
+None applied (manuscript hold). Recorded for the coordinator: GR.md:262–268 states I2.34's biconditional with the
+substratum's phase continuum among its premises; a version with `DerivedOI` for a fixed-point-free involution exists in
+design only.

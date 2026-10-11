@@ -1090,3 +1090,36 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   cite the owner's directions as "(LOG, 2026-10-11T07:55:45Z)"; the LOG entry is dated 07:54:19Z, and 07:55:45Z is
   the addenda's own writing time. In each case the order — rule before run, directions before addenda — holds; only
   the stated stamp is wrong. Recorded as deviations for the closing report.
+- 2026-10-11T10:18:06Z (recorded at 2026-10-11T10:31:27Z) — NOTES-B21 S0 addendum, after run 3 of `b21_torus.py` and before any run of
+  `b21_ceq2.py`: claim G4 (no `G`-orbit is maximally entangled throughout, so a self-dual `G`-invariant rank-one
+  surgery with H1 has no orbit at `c = 2`), checks Q1–Q4, predictions S0-8, S0-9.
+- 2026-10-11T10:19:09Z — decision rule written into `b21_ceq2.py` (the `date -u` reading immediately before writing),
+  with an added exhaustive control Q5 (Gaussian-integer components in `{−2, …, 2} + i{−2, …, 2}`, with a CNOT-free
+  countercontrol). Run 1 (10:19:44Z): 4/5, VERDICT B21-CEQ2-FAILED Q1 — the header and the code stated the second
+  modulus identity for `U(u, v) CNOT h`, where it is false with the phase `e^{2i(u+v)}`; the addendum (10:18:06Z)
+  specifies it for `CNOT U(u, v) h`. Diagnosed in a scratchpad copy (identity for `U h`: holds; for `U CNOT h` with
+  `e^{2i(u+v)}`: false, with `e^{2i(u−v)}`: holds; for `CNOT U h` with `e^{2i(u+v)}`: holds). Kept as
+  `b21_ceq2.run1.{py,out,err}` (sha256 of the run-1 script `3cd6fa51…`). Post-run edit (10:20:18Z, logged in the
+  header): Q1's second identity brought to the addendum's form — the rule text of Q1 changed, to the pre-registered
+  statement (a deviation, recorded); Q2–Q5 and the verdict rule unchanged. Run 2 (10:20:33Z): 5/5, VERDICT
+  B21-CEQ2-EXACT (Q5: 0 of 390624 `h` with a maximally entangled `G`-orbit; 256 with a maximally entangled
+  `T² · ⟨X_B⟩`-orbit); replay 10:20:35Z byte-identical (script sha256 `b0791fa0…`).
+- 10:24:11Z–10:27:42Z — outcomes written: NOTES-B18 §1–§5 (10:24:11Z; afterwards §3's heading was made to name its source,
+  the round-5 node list in research/overview @ `51cce8ac`, and the Euler product written out), NOTES-B19 §1–§3
+  (10:24:44Z), NOTES-B20 §1–§6 (10:26:03Z), NOTES-B21 §1–§3 (10:27:03Z; afterwards S0-1's row was given the remark
+  that the design's "CNOT swaps u ↔ v" holds in B10's coordinates `(a, b)`, not in `(u, v)`), NOTES-B14 §8.9
+  (10:27:42Z) with one-line pointers in §8.2 and §8.3. Findings of the write-up, each recorded where it applies: (1)
+  B18's design chain covers involutions without fixed points — on FM's token carrier every moving involution; the
+  fixed-point instances of I4.56 and I2.34 on carriers of three or more configurations are OPEN for FM (NOTES-B18 §2,
+  NOTES-B14 §8.9, B18-2). (2) B20's derived half has a third introduced premise, the class's transfer clause (T)_𝓘, and
+  cannot drop it; the requested form "OI + {OpDrive(θ₀), J-datum} ⇒ (T) for {R_z(θ₀), J}" holds only with it (NOTES-B20
+  §2, B20-2). (3) B20's S0-7 corrected: I4.29 and I4.30 are hypotheses of the pair-availability theorems, not of the
+  derived half. (4) B21's S0-4 FAILED as written (the pairing at `c = 2` is `4s ≥ 0`); S0-7's NEW not confirmed (G3's
+  mechanism is the eigenline group, case B's `Π`): ELABORATING. RESULTS: the round-5 rows B18-1, B18-2, B19-1, B20-1 …
+  B20-4, B21-1, B21-2 and V-5 (sha256 of RESULTS.md `32261e46…`). Handoff proposals HP-bridge-15 (B18), HP-bridge-16
+  (B19), HP-bridge-17 (B20), HP-bridge-18 (B21).
+- 2026-10-11T10:30:10Z — final replay of every round-5 script: `b18_preflight`, `b19_preflight`, `b20_bridge`,
+  `b18_reclass`, `b21_torus`, `b21_ceq2` — each `.out` and `.err` byte-identical to its replay (10:30:38Z).
+  Dispatches: 2 of 3 used; the third not needed (both round-5 modules built green at dispatch 2; Version D of B20 is not
+  built by design). `git diff 9f9f8257 HEAD -- verification papers book tools` empty: nothing outside `research/bridge/`
+  changed on this branch.
