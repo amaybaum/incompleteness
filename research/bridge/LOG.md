@@ -753,3 +753,88 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   @ `c10dbaee` (EqvK2Schema.lean, B15). Handoff proposals HP-11 … HP-14. Final replay of every round-4 script
   byte-identical (06:35:56Z). Nothing outside `research/bridge/` changed on this branch; no pull request, merge or
   write to `main` or to another thread's branch.
+
+## Round 5
+
+- 2026-10-11T07:37:26Z — round 5 opened at thread head a34d20b5 (clean, equal to origin/research/bridge; `git diff 9f9f8257 HEAD
+  -- verification papers book` empty, so the kernel in this tree is L). Own record re-read: README.md, LOG.md,
+  RESULTS.md, NOTES-B14 (§8), NOTES-B15, NOTES-B16, NOTES-B17, HP-11 … HP-14, lean/BridgeAvail.lean,
+  lean/BridgeAvailFull.lean, lean/BridgeConverge.lean, lean/BridgeDictionary.lean. Read-only reads of the coordinator's
+  branch research/overview @ 4c4a02b1 (authorized by the round-5 directive), sha256 of what was read:
+  - research/AUDITS/2026-10-11-round4/AUDIT-BRIDGE-R4.md `3f23aff50458fbd8d69e4084cc4eab563c2e5244799e8869e90f30d5415badb9`
+    (no label changes; finding F1 = the correction item of HO-33, taken up as B18);
+  - research/HANDOFFS/HO-33 … `d5f9d19eafa2fdf39877fa701961bb1c95ae5cfde5bbfd13ace7a0ce08a21169`, HO-34 …
+    `0a39ea8227e51cae331a4d3b9de62ba12f168b14e46993e4690eae42f94d1e6f`, HO-35 …
+    `70d57d852f8f8f7e3500c464faeefffc0b64f62d795eefc48308c5ec3f2dee53`, HO-36 …
+    `8b3b3a8bf52b6a834825e592cdfd75c3c40fbdd7cdbcf8a4fb566901b4fd536cd2`: this thread's own round-4 results as routed, read
+    for their item numbering and for HO-33's correction item only. Not copied: they are not addressed to this thread.
+- 2026-10-11T07:37:26Z — receipts. Copied from research/overview @ 4c4a02b1 `research/HANDOFFS/` into `inbox/`, byte-identical
+  (`cmp` against `git show 4c4a02b1:…`), sha256 of each copy:
+  - HO-18 v2 (equivalence → bridge, countermodels) `9aeac715ae694e44fcfa11789890b6644470995d29c9d352700adfe301c131ba`
+    (overview blob ebd9e287);
+  - HO-27 v1 (origin → bridge, equivalence, countermodels) `196fdad5e8917ef04ce6f229ab7405636d93b9fd98c41688245a0bd48cf9c2a4`
+    (blob a817d94a);
+  - HO-28 v1 (equivalence → countermodels, bridge) `608aca2ecef2e59281ede77ceeb6d387a0fbed39aa3d11df9b6e5fcd5a6a7034` (blob 841749d4);
+  - HO-29 v1 (equivalence → bridge, origin) `5526735ff8f833a8b503e553889366942c7ffdaacb701b7610569e4ccad65aa0` (blob d3cf4e4d);
+  - HO-30 v1 (countermodels → equivalence, bridge) `b9d380753e40f29d9fccd13290ca430b9b2c7b02f3191edad943ac93da4d5f38` (blob 15bd19b7);
+  - HO-31 v1 (countermodels → bridge, origin, equivalence) `27263a957e2e50e5aaca8499f5355cf387fb30943c74226259fd5c52522feef8`
+    (blob a5f86ba5);
+  - HO-32 v1 (countermodels → equivalence, bridge, origin) `06a0ac6b463a41b62647d1b1aaf11263758fda7390516a53484abd5a98a2a0a9`
+    (blob a5a6694b).
+
+  HO-18 v1 stays in `inbox/` (received d877be82); v2 supersedes it. Nothing in these handoffs is CERTIFIED except the
+  kernel lines they cite; every item is used at its own label. The "may not assume" sections of all seven are honoured.
+  Reliance, handoff by handoff and item by item:
+  - **HO-18 v2.** Item 1 (`EqvK2Schema`: the dictionary's product law, pairing, completeness, injectivity, `dictEquiv`)
+    at CONJECTURE [D] (run 38101580750), relied on in B20 only through the round-4 `BridgeConverge` (B15-1, which already
+    imports it) — `dict_injective`, `coordOf`, `dict_coordOf`, `Q3`. Item 2 (v2: LOWER and UPPER take a table of every
+    rank-one positive matrix, not the products) is context; no step of rounds 1–4 read the lemmas with the products as
+    hypothesis (round-4 LOG: items 2 and 3 were context only), and none does now. Item 3 (the schema's five hypotheses)
+    is context: B20 claims nothing about the schema. Item 4 is a build-time fact about the one-list rendering. Item 5
+    (the convergence target) was met in B15. Not assumed: certification; more than CONDITIONAL for
+    `pairCone_eq_Q3_of_drive`; a formalized two-rotation clause; v1's wording of the cone lemmas; anything beyond two
+    tokens.
+  - **HO-27 v1.** Items 1–3 and 6 are addressed to this thread. Item 1 (N11: on origin's stated-access model every
+    available unitary datum has finite order on the token body; OI ⇒ X with no introduced hypothesis) at CONDITIONAL
+    [D], as context for B20's refutation statements; terminology recorded: origin's "stated-access model" is the
+    substratum theory (`genTheory substratumClass`, I4.44), whereas this thread's "stated access" is the kernel's own
+    phrase for `permClass` (I1.60) and for `MixR ∅` (OperationalSourcing.lean, SubstratumInterfaceAudit.lean:236,
+    StateMixingCoupling.lean:13); FM's lattice theory lies between them. Item 2 ((L-O), OPEN) as the exact location of
+    the open single-token transfer lemma: nothing this round assumes the stage-crossing datum independent of OI. Item 3
+    (ORD∞ on the token body is coherence) as context for B20's disguise test: on the matrix carrier the frame-axis
+    phase is a member of the monomial class, and what the lattice and the stated access lack is the member
+    `diag(1, w)` itself (B14), not a coherent state. Item 6 (the re-preparation law is an operation datum) as a
+    constraint, not used. Items 4, 5, 7 are addressed elsewhere; not relied on. Not assumed: independence of the
+    stage-crossing datum from OI; kernel status for any [D] declaration or for O9-L1; dense control at every level;
+    availability from cone invariance.
+  - **HO-28 v1** (copy). Item 1 (the control relation counts chart dimensions: a native gate needs odd chart dimension)
+    as a constraint on the bodies a transfer can reach; every object of this round has `d = 3`, so it is not used.
+    Items 2–5 context. Not assumed: certification; that the count is sufficient; anything about OI as a whole from the
+    hybrid token.
+  - **HO-29 v1.** Item 1 (S6's necessity direction: `K = Q3` iff A_miss given H1–H3 and `ReachPure`, invariance reading
+    only; a sufficient bridge must deliver the invariance form at the pair level) at CONJECTURE [D] as the target shape
+    of B20; item 2 (`EqvK2Converse`: `dict_actT_rotLin`, `dict_actT_cyc`, `Q3_aMiss`; run 38112803530, 9/9 standard)
+    relied on in B20 at CONJECTURE [D]: `dict_actT_cyc` is the cycEquiv intertwining B20 needs and `Q3_aMiss` the
+    unconditional control at the kernel's own pair cone; the module is read at research/equivalence @ ab6788b9 (logged
+    below) and carried verbatim with attribution on the dev branch only. Item 3 (the admissible wording: "independent of
+    the transferred pair-level premises at L", never "independent of OI") adopted for every statement of this round.
+    Not assumed: certification; that A_miss, H2, H3 or `ReachPure` is an OI premise or sourced; that invariance
+    implies availability (B20 derives the opposite direction only); that the module formalizes the two-rotation clause.
+  - **HO-30 v1.** Theorem S′ (finite form) as a design-built statement [D] (run 38112813276, 78/78 standard): relied on
+    only in B21, if reached, as the H3 engine of the explicit cones (HO-24's `K384`, HO-31's `K768`), at CONJECTURE
+    [D]; not used in B18–B20. Not assumed: certification; S′ for compact defect sets; the necessity of (CC); H1 for any
+    cone; any OI content.
+  - **HO-31 v1.** Item 1 (Theorem C19-1: the block-diagonal `SU(2) × SU(2)` with H1 and H3 forces `Q3`; with HO-22
+    item 3 the mechanism by which the clause with the gate forces `Q3`) at CONDITIONAL, as the pair-level reading of
+    B20's bridge (the two operations it delivers generate, with the gate, exactly that group: B12-3). Item 2 (the
+    Clifford chain keeps explicit exotic cones; the first generator killing every surgery-type cone is non-Clifford of
+    infinite order) at CONDITIONAL, as the statement that B20's `R_z(θ₀)` is of the required kind. Item 3 (Lemmas
+    C18-1 … C18-3; case B and S2 with G16 OPEN) and the two assumption-watch markers are the inputs of B21, if reached.
+    Item 4 context. Not assumed: certification; the closure identification of HO-22 item 3 beyond its label; explicit
+    cones for case B, S2 with G16 or `K_circ`; exhaustiveness of the survivor search.
+  - **HO-32 v1.** Items 1–5 (the four explicit cones against Table A2: 118/13/68 each; what each refutes) at
+    CONDITIONAL, as the pair-level constraint on B20: a bridge delivering only finitely many Clifford rotations, or the
+    drive flow without `J`, is refuted by an explicit cone; B20's two operations are `R_z(θ₀)` (non-Clifford, infinite
+    order) and `J`. Item 2's three kinds of premise and item 4's list of refuted implications are used as stated. Not
+    assumed: availability of any operation; that any cone "satisfies OI" or is "independent of OI"; anything about the
+    68 NOT REACHED rows beyond R6; level-(ii) versions; invariance under any continuous family other than `Kk`'s.
