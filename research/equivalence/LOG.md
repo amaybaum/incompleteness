@@ -321,3 +321,91 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   three LOG time corrections (entries written a few seconds ahead of their commits). Citation check re-run over the
   round-3 documents (run 4, R-CITE.3). No preregistration became a round; nothing was merged, and nothing outside
   `research/equivalence/` changed on this branch.
+
+## Round 4
+
+- 2026-10-11T03:04Z — round 4 opened at thread head `c10dbaee` (verified: `git status` clean, equal to
+  `origin/research/equivalence`). Re-read the charter, LOG, LEDGER, RESULTS, NOTES-E10 … E14, `lean/EqvK2Schema.lean`,
+  drafts S2 and S4 (the native V3 format) and HP-8 … HP-10. Read at L in this branch's own tree:
+  CompositeDimension.lean (`IsNot` :210, `NativeGate` :218, `maxCone` :186, `actT` :198, `actC` :201,
+  `finrank_plus_eq_finrank_minus` :682, `cnot` :775), QuasilocalCharacterization.lean (`QuasilocalSystem` :168,
+  `OISystem` :463, `LocalityPreserving` :475), QuasilocalAlgebra.lean (`FiniteRange` :919, `ReversibleDynamics` :956,
+  `hat` :1040, `transported` :1109). The round-3 coordinator audit and `research/OVERVIEW.md` were not read this round;
+  the coordinator's summary of the audit (no label changes; the `dict_tens` finding holds for the one-list rendering;
+  `EqvK2Schema`'s A_miss is the full-flow form of HO-5, not HO-13's two-rotation clause) is taken from the round-4
+  instruction.
+- 2026-10-11T03:04Z — **cross-branch reads on the coordinator's instruction**, all by
+  `git -C /home/user/wt-research/overview show 742c6b2f:research/HANDOFFS/<file>` (branch `research/overview` @
+  `742c6b2f`): the nine handoffs of the next entry (copied); HO-18 v1 (sha256
+  `df704843343310fb16ed1eac29564ca5091ce1a3225d3796ec185d8c6b6731ed`) and HO-19 v1
+  (`ad17f101a560674b437d170dce8b7c776da59a00021fbc990979d73093a3184b`), this thread's own handoffs as issued, read and not
+  copied (as HO-13 and HO-14 in round 3); and `research/HANDOFFS/README.md`
+  (`cdc742d205e49c60496a1ae247953a0b1cf640e05742f05144cd4cb0c2385a41`, the protocol and the index). Nothing else on that
+  branch was read.
+- 2026-10-11T03:04Z — **receipt of HO-9 v2, HO-17 v1, HO-20 v1, HO-21 v1, HO-22 v1, HO-23 v1, HO-24 v1, HO-25 v1,
+  HO-26 v1** (`research/HANDOFFS/` at overview `742c6b2f`), each copied byte-identically to `inbox/` (sha256 and git blob
+  checked equal to the source): HO-9 v2 `bd62649d0b7eb594…` (blob `bc4a8930`), HO-17 `65d2f79a0421b1b1…` (`fb5cd86c`),
+  HO-20 `f36b244824f1f096…` (`c0d772b8`), HO-21 `5b8599be79351d86…` (`37350cdc`), HO-22 `3a6440f0fa4343c2…` (`1cffc118`),
+  HO-23 `3c1e126d889b2ff9…` (`39579579`), HO-24 `27175857ac88aac8…` (`a84866aa`), HO-25 `9341f3f3df33fdd2…` (`3cbdc47b`),
+  HO-26 `4ee56f58add22fed…` (`478a9fa1`). Kernel lines the relied-on items name, re-read at L before this entry:
+  CompositionOrder.lean:348, :378; JordanClassification.lean:84 (`psd_iff_trace_nonneg`); KInfFoundations.lean:386
+  (`rotLin`); BoundaryAudit.lean:100; StructuralClosure.lean:261; OIRealization.lean:360. **Reliance, stated before
+  use** (only at the labels the handoffs carry; nothing in them is CERTIFIED except the kernel declarations they name
+  at L):
+  - **HO-9 v2** supersedes HO-9 v1 (received in round 3, `44c2708c`; the v1 file stays in `inbox/` as the record of that
+    receipt). The change is item 7's may-not-assume clause only; this thread relied on item 3 only and still does, as
+    a constraint on sourcing K∞-Drive and K∞-Trans through classical conditioning towers. Item 7's corrected clause is
+    read as stated in v2; no round-4 node argues about `DenseUnitaryControl`.
+  - **HO-17 v1 (items 4, 6, 7, 8 addressed here).** Item 4 (HO-13's token pair on one re-preparing token, CONDITIONAL on
+    the cosine re-preparation law, which lies outside the stated access and is false there by item 1) is cited in draft
+    S6 as context for the two-rotation clause, at its label; it is not a premise. Items 6 and 7 are recorded and not
+    used: no round-4 node uses `DenseUnitaryControl` or the balanced angle. Item 8 (availability at a level is not the
+    group generated at that level) is recorded as an assumption-watch marker; no round-4 node makes an availability
+    argument over `genTheory`. Item 5's reading (the re-preparing premise supplies H1 and the token invariances, not H2
+    or H3) is context for S6's statement of what it does not source. Items 1–3 are context.
+  - **HO-20 v1.** Item 4 (the H-level premise of HO-13's clause, (T) at `θ₀` with `J`, is H-OI_g at `{R_z(θ₀), J}`,
+    nothing weaker; CONDITIONAL on claim (D) [A], the stage-4 record [A] and HO-13 item 2) is recorded in S6 beside the
+    two-rotation clause that S6 does not formalize. Item 6 (the L-REG marker) is recorded; no round-4 node reads the
+    certified `substratumClass_contextStable` (StructuralClosure.lean:261) configuration-wise. Items 1–3, 5, 7 are
+    context.
+  - **HO-21 v1.** The bridge's `BridgeDictionary` (built, 20/20 [D]; not certified) carries the gate (D2), the monomial
+    images and `rotZ (cos t) (sin t) = rotLin t` on the same definitions as `EqvK2Schema`. S6 records them as the
+    statements a converged dictionary module would add; they are not part of S6's frozen surface, and S6's exact layer
+    checks the conjugation formulas it uses by its own exact computation. Item 3 (two working renderings of the
+    `dict_tens` proof) is recorded; it agrees with the coordinator's precision on HO-18.
+  - **HO-22 v1.** Item 1 (`⟨cnot, actT J, actT S, actT nflip⟩ = Stab_C(Z ⊗ 1)`, order 384, CONJECTURE exact) and item 3
+    (`cnot`, `actT J`, `actT R_z(θ₀)` close to the block-diagonal `SU(2) × SU(2)` fixing `Z ⊗ 1`, whose product orbit is
+    every pure state; CONJECTURE exact + written) are cited in S6 as the structural reason the full-flow and
+    two-rotation clauses reach every pure state and the finite clause does not; S6's probe recomputes the order 384
+    itself. Items 2, 4, 5 are context.
+  - **HO-23 v1.** The finite case of `ReachUnitary` (`reachUnitary_finite`, [D] on the bridge's branch, not certified) is
+    cited in S6 as a comparator for the countercontrol's reachability side: for a finite group the analogue of
+    `ReachPure` fails. S6 does not depend on it: the thread's own exact witness (`φ₀`, NOTES-E10 F1) is the frozen
+    instance. B7-1 for subgroups of positive dimension is not used.
+  - **HO-24 v1.** The explicit exotic cone `K(G₃₈₄·z*)` (`h* = (10, 2 − 2i, −1 − 3i, 3 − i)/√128`, `c* = 401/400`) is
+    S6's countercontrol, as instructed. Its self-duality is CONDITIONAL on Theorem S′ [W] (read by the coordinator and
+    found sound, not kernel-checked) and the operator-norm bound [W]; every exact item (the group of order 384, the 192
+    defects, the overlap range, H1 for each defect, (CC) on all 18336 pairs at `401/400` and its failure at `301/300`)
+    is recomputed by this thread's own probe before S6 cites it, and S6's decision rule for the countercontrol reads
+    only those exact items. Items 2, 5, 6 are context for S6's non-inference rule.
+  - **HO-25 v1.** Item 1 (the Clifford half alone leaves an explicit exotic cone, CONDITIONAL on S′ [W]) and item 2 (the
+    continuous half: rank-one route closed; exotic cones by claim (D) [A] only) are recorded in S6 at their labels: each
+    half of A_miss alone fails to force `Q3` on the cone side, so S6 asserts nothing about either half. Items 3–6 are
+    context.
+  - **HO-26 v1.** Item 1's two-defect criterion (the (CC) inequality, CONDITIONAL on S′ [W]) is the condition S6's probe
+    checks pair by pair; item 3 (T fails on every explicit cone of the record; `K_circ` open) and the two refined
+    assumption-watch markers are recorded in the LEDGER's round-4 note for K2 at their labels. E16 does not use T.
+  - **HO-18 v1 and HO-19 v1 (this thread's own, read as issued).** HO-19: every statement is what NOTES-E13 and
+    R-E13.1–R-E13.4 carry; its item 3 distributes the sub-labels differently from NOTES-E13 §2 (HO-19's "(L-c)" is the
+    last sentence of NOTES-E13's L-b, and NOTES-E13's L-c is HO-19's concluding sentence), with no difference of
+    content; no correction is requested. **HO-18 item 2 is not what this thread meant**: it describes LOWER as "every
+    product of `eball 3` states has a positive semidefinite dictionary image" and UPPER as bounding "a cone containing
+    the products". The module proves something else: LOWER `Q3_subset_of_pure` (EqvK2Schema.lean:308) — a set closed
+    under addition that contains a table of every rank-one positive matrix `x xᴴ` contains `Q3`; UPPER
+    `subset_Q3_of_pure_dual` (:297) — a set that contains a table of every rank-one positive matrix and lies in its own
+    dual lies in `Q3` (R-E11.2). The hypothesis of both is every pure state, not the products; with products only,
+    UPPER would make A_miss and `ReachPure` superfluous, which the exotic cones of the record (K(Z_F); HO-24's cone)
+    refute. A corrected version is requested from the coordinator through handoff proposal HP-11 (to be written this
+    round); the file is not edited. Every other statement of HO-18 is as meant (item 3 with the coordinator's precision;
+    the conjugation facts of its countermodels clause agree with NOTES-E10 L2 up to a global phase of `U_J`).
+  No research step of round 4 precedes this receipt's commit.
