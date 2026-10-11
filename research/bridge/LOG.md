@@ -596,3 +596,19 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
     identifier used resolves to two declarations in the namespaces opened;
   - the module now has 61 theorems, each with a `#print axioms` line; sha256
     `c75f6467795bd7f197e99e0e6a9f5780e18ed2f388630249dd2f01d827d1754e`, 794 lines.
+- 2026-10-11T04:03:30Z — B14 dispatch (1 of 3 this round): dev branch `dev-bridge/r4-avail` cut from L
+  (`9f9f8257`), commit `152094b5` (module verbatim from `937af1fb`, one import line after
+  `import OIBridge.RelcSelectC5`); `verify.yml` dispatched on it; run 38110368244 (head `152094b5`, created
+  2026-10-11T04:03:31Z, event `workflow_dispatch`). Waiting; no job or run will be cancelled.
+- 2026-10-11T04:04:10Z — B15: cross-branch read on the coordinator's instruction (authorized for B15):
+  `git show c10dbaee:research/equivalence/lean/EqvK2Schema.lean`, blob 659ae36c, 474 lines, sha256
+  `0bc6da00d5b9ba9c4a2f9390db31c15830a19bf1e30fc2ee6889cd9211281221` (equal to the value the directive names).
+  Saved to the session scratchpad; anything carried into this branch is carried verbatim with attribution.
+- 2026-10-11T04:18:50Z — B14 CI result: run 38110368244 (head `152094b5`, created 2026-10-11T04:03:31Z) completed
+  2026-10-11T04:16:41Z; Mathlib bridge job 114384480945: Build success (04:05:00–04:07:00Z, "Built
+  OIBridge.BridgeAvail (3.7s)" with linter warnings only), 61/61 `#print axioms` lines of the module on
+  `[propext, Classical.choice, Quot.sound]`, no `sorryAx`; `lean-axioms` PASS (5921 named results, no sorry); release
+  gate red only on `lean-manuscript` (1 problem: no census family for the new module, by construction); every other
+  job of the run green. The job log was read with the GitHub MCP job-log reader (the built-in `gh` refuses the log
+  redirect, and the proxy refuses the blob host); the tail read covers the module's build lines, its 61 prints, the
+  root build and the whole gate. NOTES-B14 §1–§7 written (form (ii)); RESULTS rows B14-1 … B14-4.
