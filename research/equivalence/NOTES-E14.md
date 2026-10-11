@@ -53,3 +53,64 @@ stated: a 3-cycle on three configurations passes (R-lit); the phase automorphism
 **Prediction for the node.** Outcome (a)+(b): (R-lit) is the wrong infinite-volume form of H-DYN (it excludes OI's
 own interacting dynamics); (R-01) gives the passage (CONJECTURE, written proof); (R-ring) holds on every ring and fails
 on some rings.
+
+## 1. Measurement (probe run 1)
+
+`experiments/e14_hdyn_rings.py` run 1 (started 01:30:40Z, after commit `3c10fb14`): 7/7, `COUNTER XR1 fails as stated`,
+`COUNTER XR2 fails as stated` (first unit with a phase: `E^{0}_{0,1}`), `VERDICT E14-HDYN-READINGS-SEPARATED`; replay
+byte-identical (py `1db6a11b…`, out `cfd9aa1f…`). Ring of 3, exhaustively: (R-lit) holds for exactly 48 of the 40320
+configuration permutations, the site permutations with relabelings; NOTES-E9's top-stage H-DYN holds for all 40320.
+Ring of 4: the 384 site permutations with relabelings satisfy (R-lit) on all 624 units. The CNOT update (rings of 3
+and 4) satisfies the top-stage H-DYN and (R-01) at every stage and violates (R-lit): the image of `E^{0}_{0,1}` has
+4 (resp. 8) pairs, each also flipping site 1. The two-site shift `T²` satisfies all three readings on both rings and
+carries site-0 units to site-2 units. The rule `x_i + x_{i+1} + x_{i+2}` is a permutation on the ring of 4 (16
+images), not on the ring of 3 (2 images); `(110)^∞` and `0^∞` collide on `ℤ`; its pair graph has a cycle through a
+non-diagonal vertex, `T²`'s has none. (That (R-01) holds for every configuration permutation needs no run: conjugation
+by a permutation keeps every entry in `{0, 1}`.) Every S0 prediction held.
+
+## 2. The three readings (written arguments, checked against the instances)
+
+- **(R-lit) collapses to site permutations.** For a star automorphism `α` of a `QuasilocalSystem` (any `ι`, `|Q| ≥ 2`)
+  sending every matrix unit of every finite stage to a matrix unit of some finite stage: the unique tracial state is
+  `α`-invariant, so a unit of `M_Λ` goes to a unit of a stage of size `|Λ|`; the `E^{i}_{a,a}` go to pairwise orthogonal
+  single-site projections, which must sit at one site (projections at two sites have non-zero product); the off-diagonal
+  units follow (`E_{ab} = E_{aa}E_{ab}E_{bb}`); the site map is injective and, `α` being onto, surjective. So `α` is a
+  site permutation with on-site relabelings — exactly the 48 of R1 at `N = 3`. It is a global configuration bijection, but
+  (i) it excludes OI's own interacting dynamics (R4: the CNOT update is a `ReversibleDynamics` whose Target A
+  automorphism violates (R-lit)), and (ii) on a metric lattice it does not bound the range (the reflection of `ℤ`).
+  **So "H-DYN at every finite stage", read literally, is the wrong infinite-volume form of H-DYN**; NOTES-E9's H-DYN is a
+  top-stage condition, and an infinite lattice has no top stage.
+- **(R-01) gives the passage** (CONJECTURE, written proof). Hypotheses: `α` maps every stage matrix unit to a stage
+  matrix with entries in `{0, 1}` in the configuration basis, and `α`, `α⁻¹` are `LocalityPreserving` (:475). Steps:
+  (1) a self-adjoint idempotent `{0,1}`-matrix is diagonal (its diagonal entry equals its row count), so `α` maps the
+  diagonal subalgebra `D` into itself, and onto it because `α(D)` is maximal abelian inside the abelian `D` (`D` is a
+  maximal abelian subalgebra [L]); (2) `D ≅ C(Q^ι)` and Gelfand duality give a homeomorphism `G` of `Q^ι` with
+  `α(f) = f ∘ G` on `D`; (3) a `{0,1}` partial isometry has at most one `1` in each row and column, so `α(E^Λ_{c,c'})`
+  implements a partial bijection of `Conf Λ'`, and `V α(f) V* = α(E f E*)` for `f ∈ D` forces it to be `G⁻¹τG` with `τ`
+  the substitution `c' → c` on Λ, with no phase; (4) `α` therefore agrees with the transport along `G` on every stage unit,
+  hence everywhere; `G` changes finitely many coordinates when its argument does (the partial bijection lives in a finite
+  stage); (5) each output coordinate of `G` and of `G⁻¹` depends on finitely many input coordinates (continuity on the
+  compact `Q^ι`, or the diagonal half of `LocalityPreserving`), and each input coordinate influences finitely many output
+  coordinates (the off-diagonal half of `LocalityPreserving` for `α` and `α⁻¹`): `FiniteRange` (QuasilocalAlgebra.lean:919)
+  both ways, i.e. a `ReversibleDynamics` (:956), and `(S, Φ, α)` is an `OISystem` (:463) up to the canonical isomorphism.
+  (R-01) holds for every Target A system (`transported` of a matrix unit is a `{0,1}`-matrix, :1109) and fails for the
+  phase automorphism of `phaseQ_ne_heisQ` (:792; XR2 on the ring of 3).
+- **(R-ring), a finite-volume family from one uniform rule.** A window rule on `Q^ℤ` is a permutation on every ring iff
+  it is a reversible cellular automaton: if `F(x) = F(y)`, `x ≠ y`, then either they are asymptotic (excluded by the
+  Garden-of-Eden theorem, since bijectivity on all rings makes `F` surjective, the periodic points being dense) or a
+  non-diagonal vertex of the pair graph recurs, giving distinct periodic preimages of one configuration [W; L: Hedlund
+  1969, Amoroso–Patt 1972]; the inverse has finite range by Curtis–Hedlund–Lyndon [L]. Permutation on *some* rings is not
+  enough (R6, R7: bijective on the ring of 4, not on the ring of 3, not injective on `ℤ`).
+
+## 3. Outcome (§A.31)
+
+- Productivity test met: (b) with an exact instance — the literal reading of "H-DYN at every finite stage" is false for
+  OI's own dynamics (R4) and collapses to site permutations (R1, exhaustively at `N = 3`); (a) the reading that works,
+  (R-01), carries the passage to a `ReversibleDynamics` by a written proof whose hypotheses every Target A system meets.
+  **NEW** (scoped): the infinite-volume form of H-DYN is the `{0,1}` (transport) condition, not the matrix-unit
+  condition, and with locality preservation of `α` and `α⁻¹` it yields the global finite-range configuration bijection.
+- Skepticism on the favourable branch (R-01): its strength is that of NOTES-E9's H-DYN — it restates (O3) on the stages
+  in operator language (a dynamics permuting configurations), so it repairs the converse without deriving the
+  dynamics; the written proof uses three standard facts not checked here (the diagonal is maximal abelian; Gelfand
+  duality for `C(Q^ι)`; the identification with the kernel's `transported` through the canonical isomorphism).
+- Not decided: a kernel proof of (R-01)'s passage; whether `LocalityPreserving` of `α` alone (without `α⁻¹`) suffices.

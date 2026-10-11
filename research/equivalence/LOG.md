@@ -279,8 +279,13 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   written steps, the lemma L-a/L-b/L-c, the outcome NEW, the sharpened assumption-watch marker); RESULTS R-E13.1–R-E13.4;
   LEDGER round-3 note (Kinf-Trans, self-duality). S0's node prediction (centrally symmetric case OPEN) was wrong: the
   branch closed negatively (Ω_cs).
-- 2026-10-11T01:31Z — E14 begun (time permits). Read at L: `QuasilocalSystem` (QuasilocalCharacterization.lean:168),
+- 2026-10-11T01:30Z — E14 begun (time permits). Read at L: `QuasilocalSystem` (QuasilocalCharacterization.lean:168),
   `OISystem` (:463), `LocalityPreserving` (:475), `phaseQ_ne_heisQ` (:792), `CouplingGraph` (RegionTower.lean:254),
   `FiniteRange` (QuasilocalAlgebra.lean:919), `ReversibleDynamics` (:956), `hat` (:1040), `transported` (:1109).
   NOTES-E14 S0 (three readings of "H-DYN at every finite stage", predictions) and the exact probe
   `experiments/e14_hdyn_rings.py` (decision rule in its header, written 01:29Z) committed together, before the first run.
+- 2026-10-11T01:31Z — LOG time correction: the E14 entry was written as 01:31Z, later than its commit `3c10fb14`
+  (01:30:37Z); set to 01:30Z. `experiments/e14_hdyn_rings.py` run 1 (started 01:30:40Z; decision rule unchanged): 7/7,
+  `COUNTER XR1 fails as stated`, `COUNTER XR2 fails as stated`, `VERDICT E14-HDYN-READINGS-SEPARATED`; replay
+  byte-identical (py `1db6a11b…`, out `cfd9aa1f…`). NOTES-E14 §§1–3; RESULTS R-E14.1–R-E14.3; LEDGER round-3 note
+  (L3-conv). Every S0 prediction held.

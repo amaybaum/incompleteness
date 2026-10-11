@@ -1,0 +1,11 @@
+PASS R1 ring of 3: (R-lit) holds for exactly the 48 site permutations with relabelings -- 48 of 40320 pass
+PASS R2 ring of 3: NOTES-E9 H-DYN (top stage) holds for all 40320 configuration permutations
+PASS R3 ring of 4: all 384 site permutations with relabelings satisfy (R-lit) on all 624 units
+PASS R4 CNOT: a permutation; (R-top) and (R-01) hold at every stage; (R-lit) fails at E^{0}_{0,1} -- N=3 image of E^0_01 has 4 pairs, each flipping site 1; N=4 image of E^0_01 has 8 pairs, each flipping site 1; 
+PASS R5 control T^2 on rings of 3 and 4: (R-lit), (R-top), (R-01); site 0 -> site 2
+PASS R6 rule x_i+x_{i+1}+x_{i+2}: permutation on the ring of 4, not on the ring of 3; (110)^oo and 0^oo collide on Z -- images: ring 4 16, ring 3 2
+PASS R7 pair graphs: the rule of R6 has a cycle through a non-diagonal vertex; T^2 (window rule a) has none
+COUNTER XR1 fails as stated
+COUNTER XR2 fails as stated -- first unit with a phase: [((0,), (0,), (1,))]
+checks: 7, failures: 0
+VERDICT E14-HDYN-READINGS-SEPARATED

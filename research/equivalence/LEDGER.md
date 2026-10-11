@@ -147,3 +147,8 @@ Each note is dated, names its evidence, and supersedes nothing above.
   What does force the ellipsoid is central symmetry with a self-dualizing inner product invariant under the central
   symmetry (R-E13.2, [W]); a centrally symmetric self-dual non-ellipsoid carries a filter. HO-15's assumption-watch
   marker, sharpened accordingly. In chart dimension 3 the question is empty (R-E2.6). Status OPEN.
+- **2026-10-11 (round 3) — L3-conv, infinite volume (E14).** NOTES-E9's H-DYN is a top-stage condition; read at every
+  finite stage of an infinite lattice it forces site permutations and excludes OI's own interacting dynamics (R-E14.1,
+  exact at `N = 3, 4`). In the transport form (stage matrix units to `{0,1}`-matrices) with locality preservation of the
+  automorphism and its inverse, it yields a global `ReversibleDynamics` and a Target A system (R-E14.2, written proof).
+  Like H-DYN it restates (O3) on the stages. Status OPEN.
