@@ -1,0 +1,95 @@
+RESOLVED+NAMED CompositeInterface.lean:223 ['PreComposite']
+RESOLVED+NAMED K2Guard.lean:95 ['CandidateCone']
+RESOLVED-UNNAMED CompositionOrder.lean:348 names ['psd_iff_trace_nonneg'] not in window: theorem finiteOrderOn_of_stagePreserving {S T : OpDatum D} (hS : AffineRespect S)
+RESOLVED+NAMED JordanClassification.lean:84 ['psd_iff_trace_nonneg']
+RESOLVED+NAMED KInfFoundations.lean:386 ['rotLin']
+RESOLVED+NAMED BoundaryAudit.lean:100 ['psdFactorization_discharged']
+RESOLVED+NAMED StructuralClosure.lean:261 ['substratumClass_contextStable']
+RESOLVED+NAMED OIRealization.lean:360 ['finiteOI_not_implies_inert']
+MISSING EqvK2Schema.lean:308
+RESOLVED+NAMED RelcSelectParity.lean:354 ['G', 'IsNot', 'N', 'd']
+RESOLVED OddChar.lean:184 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:218 (no identifier named on the citing lines)
+RESOLVED+NAMED KInfFoundations.lean:160 ['CentrallySymmetric']
+RESOLVED+NAMED TransitiveBody.lean:602 ['BoundaryTransitive', 'G', 'eball']
+RESOLVED+NAMED QuasilocalCharacterization.lean:168 ['QuasilocalSystem']
+RESOLVED+NAMED QuasilocalAlgebra.lean:919 ['FiniteRange']
+RESOLVED+NAMED SpectatorBridge.lean:353 ['transport_apply']
+RESOLVED-UNNAMED CompositeDimension.lean:97 names ['actT_reflY_phiW', 'chain_value', 'cnot', 'cnot_idW'] not in window: abbrev W (d : ℕ) := Fin (d + 1) → Fin (d + 1) → ℝ
+RESOLVED+NAMED QuasilocalCharacterization.lean:463 ['OISystem', 'QuasilocalSystem']
+MISSING EqvK2Converse.lean:226
+MISSING EqvTransport.lean:439
+MISSING EqvPowerCone.lean:313
+MISSING EqvK2Schema.lean:297
+RESOLVED+NAMED KInfFoundations.lean:529 ['ElementaryDrivability', 'not_drivable_Icc']
+RESOLVED+NAMED QuasilocalAlgebra.lean:956 ['ReversibleDynamics']
+RESOLVED+NAMED QuasilocalAlgebra.lean:1109 ['transported']
+RESOLVED+NAMED K2Guard.lean:143 ['no_candidateCone_cnot_reflY']
+RESOLVED+NAMED CompositeDimension.lean:2888 ['G', 'IsNot', 'N', 'NativeGate']
+RESOLVED+NAMED CompositeDimension.lean:1160 ['NativeGate', 'cnot', 'nativeGate_cnot', 'posFwd']
+RESOLVED+NAMED CompositeDimension.lean:1380 ['Entangling', 'cnot', 'entangling_cnot']
+RESOLVED+NAMED CompositeDimension.lean:2723 ['dim_of_nativeGate']
+RESOLVED ParityNot.lean:307 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:797 (no identifier named on the citing lines)
+RESOLVED+NAMED CompositeDimension.lean:775 ['cnot']
+RESOLVED CompositeDimension.lean:854 (no identifier named on the citing lines)
+RESOLVED CompositeDimension.lean:860 (no identifier named on the citing lines)
+RESOLVED+NAMED K2Guard.lean:106 ['phiW']
+RESOLVED+NAMED TransitiveBody.lean:603 ['eball', 'exists_affine_image_eq_eball']
+MISSING NoSuchModule.lean:1
+RESOLVED CarrierGeneralOIPlus.lean:198 (no identifier named on the citing lines)
+RESOLVED CarrierGeneralOIPlus.lean:207 (no identifier named on the citing lines)
+RESOLVED CompletionAction.lean:144 (no identifier named on the citing lines)
+RESOLVED CompletionAction.lean:166 (no identifier named on the citing lines)
+RESOLVED+NAMED CompositionOrder.lean:378 ['not_stagePreserving_of_infiniteOrderOn']
+RESOLVED DenseOrbit.lean:53 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:174 (no identifier named on the citing lines)
+RESOLVED DenseOrbit.lean:209 (no identifier named on the citing lines)
+RESOLVED EffectSpace.lean:337 (no identifier named on the citing lines)
+MISSING EqvK2Schema.lean:453
+MISSING EqvOmega4.lean:157
+MISSING EqvOmega4.lean:530
+RESOLVED ImplementationLocality.lean:506 (no identifier named on the citing lines)
+RESOLVED InstrumentCompletion.lean:195 (no identifier named on the citing lines)
+RESOLVED+NAMED K1Bridge.lean:128 ['hP1']
+RESOLVED KInfFoundations.lean:130 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:135 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:144 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:149 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:264 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:590 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:617 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:632 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1013 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1053 (no identifier named on the citing lines)
+RESOLVED KInfFoundations.lean:1089 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:65 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:69 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:79 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:620 (no identifier named on the citing lines)
+RESOLVED OrbitGeneration.lean:652 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:159 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:400 (no identifier named on the citing lines)
+RESOLVED OrbitNormalization.lean:427 (no identifier named on the citing lines)
+RESOLVED QuasilocalCharacterization.lean:769 (no identifier named on the citing lines)
+RESOLVED QuasilocalCharacterization.lean:792 (no identifier named on the citing lines)
+RESOLVED RegionTower.lean:254 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:78 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:224 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:350 (no identifier named on the citing lines)
+RESOLVED StageCompletion.lean:401 (no identifier named on the citing lines)
+RESOLVED StructuralClosure.lean:383 (no identifier named on the citing lines)
+RESOLVED SubstratumSource.lean:77 (no identifier named on the citing lines)
+RESOLVED SubstratumSource.lean:86 (no identifier named on the citing lines)
+RESOLVED TransitiveBody.lean:518 (no identifier named on the citing lines)
+RESOLVED TransitiveBody.lean:651 (no identifier named on the citing lines)
+RESOLVED+NAMED OperationalAssembly.lean:658 ['readout_is_localLuders']
+RESOLVED-UNNAMED DiscreteCompletion.lean:1929 names ['denseUnitaryControl_of_fixedGate'] not in window: theorem fixedGateTheory_derivedOI (α : ℝ) : DerivedOI (fixedGateTheory α) :=
+RESOLVED DiscreteCompletion.lean:1948 (no identifier named on the citing lines)
+RESOLVED SpectatorBridge.lean:223 (no identifier named on the citing lines)
+RESOLVED+NAMED CompositeDimension.lean:741 ['pc', 'sgn']
+RESOLVED-UNNAMED TransitiveBody.lean:109 names ['not_infiniteOrderOn_chartBody_of_binary'] not in window: theorem chartBody_isCompact : IsCompact (chartBody C) :=
+RESOLVED CompletionAction.lean:352 (no identifier named on the citing lines)
+RESOLVED CompositionOrder.lean:149 (no identifier named on the citing lines)
+SUMMARY equivalence: 93 distinct citations in added lines since c10dbaee; resolved 84; named-and-found 29; unnamed 51
+CITATIONS-EQUIVALENCE-FAIL

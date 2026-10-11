@@ -9,7 +9,7 @@ full-OI insufficiency kept apart; cone invariance and operational availability k
 | `research/origin` | `7192e3b5` | HO-20, HO-22 at `8709fe41` | 3/3 identical (stdout) | `indep_checkO4.py` run 1: 8/8, countercontrols 5/5 False | 75/75 at L (three module-internal line references excluded; 14 window misses inspected by hand) | `AUDIT-ORIGIN-R4.md` |
 | `research/bridge` | in progress | | | | | |
 | `research/countermodels` | in progress | | | | | |
-| `research/equivalence` | in progress | | | | | |
+| `research/equivalence` | `ab6788b9` | HO-9 v2, HO-17, HO-20 … HO-26 at `46d5aea0` | 6/6 identical (stdout) | `indep_checkE4.py` run 2: 8/8, countercontrols 5/5 (run 1 kept: 7/8, one harness expectation wrong) | 84/84 at L (nine module-internal line references and the checker's own countercontrol string excluded; four window misses inspected by hand) | `AUDIT-EQUIVALENCE-R4.md` |
 
 - `cite_check_r4.py` / `cite_check_r4_<thread>.out`: the kernel citations new in round 4, resolved at L through
   `git show` over the lines added since each thread's round-3 head.

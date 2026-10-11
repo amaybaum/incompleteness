@@ -1,0 +1,8 @@
+Coordinator replays of research/equivalence round-4 scripts at thread head ab6788b9 (python3 -I -B, cwd research/equivalence/experiments; stdout compared byte for byte with the committed .out).
+e15_k2s6_probe.py        IDENTICAL  (rc=0, 3 s; VERDICT E15-S6-EXACT-LAYER-CONSISTENT; 12 checks, COUNTER XC1/XC2/XC3 fail as stated)
+e16a_tokens_pair.py      IDENTICAL  (rc=0, 2 s; VERDICT E16A-CHART4-PAIR-LEVEL-SEPARATED; 11 checks, COUNTER XG1/XG2/XS1/XS2 fail as stated)
+e16b_hybrid.py           IDENTICAL  (rc=0, 7 s; VERDICT E16B-HYBRID-MEETS-PAIR-LEVEL-NOT-ELLIPSOID; 7 checks, COUNTER XH1/XH2/XH3 fail as stated)
+e17_transport_finite.py  IDENTICAL  (rc=0, 3 s; VERDICT E17-TRANSPORT-FINITE-CONSISTENT; 5 checks, COUNTER XZ1/XZ2/XZ3 fail as stated)
+e18_powercone.py         IDENTICAL  (rc=0, 0 s; VERDICT E18-POWERCONE-SELFDUAL-EXACT; 5 checks, COUNTER XW1/XW2 fail as stated)
+e8_cite_check.py         IDENTICAL  (rc=0, 1 s; VERDICT CITATIONS-RESOLVE; run 5, 74 distinct citations, 153 occurrences)
+6/6 identical.
