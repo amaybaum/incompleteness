@@ -1457,6 +1457,21 @@
       "status": "kernel-only",
       "manuscript": [],
       "note": "Round RELC-SELECT-1, a native round under AGENTS.md §A.39, executed under the frozen control plane programmes/oi-qm/reconstruction/round-relc-select-1/preregistration.md. Q-PAR: from IsNot (eball d) z N and the control relation alone, the two homogenized eigenspaces of N have equal dimension and d is not even (finrank_plus_eq_finrank_minus_relC, not_even_of_relC). Q-SEL: CtrlGate, NativeGate's frame, two positivity clauses and control relation without its target relation, gives d = 1 ∨ d = 3 with IsNot and d = 3 with Entangling (dim_of_ctrlGate, three_of_ctrlGate), through DIM-1's block reduction restated over CtrlGate with its one target-relation step replaced by actT_slice_ctrl. Q-POS: at d = 5 with PARITY-NOT-1's n5, the squeezed gate gSq has the frame, GateRel and forward positivity and fails inverse positivity, and its inverse has the frame, GateRel and inverse positivity and fails forward positivity (gSq_sep, gSqInv_sep). Q-REL: at d = 5 the witness NOT nC5 and NB-1's J/K map gC5 have the frame, the target relation and both positivity clauses and fail the control relation (c5_sep), so those clauses with IsNot do not give d = 1 ∨ d = 3 (relT_not_dimension_selecting). Carried by no manuscript. CtrlGate is the selector's hypothesis only; NativeGate and GateRel are unchanged and the target relation remains a field of both; the transfer of the control relation to an inverse reads the target relation; the frame is not audited."
+    },
+    {
+      "name": "conditional pair-cone reconstruction using exact block generation, explicit cone closure and product-test positivity (round OI-PAIR-MAXCONE-1)",
+      "modules": [
+        "EqvK2Schema",
+        "EqvK2Converse",
+        "EqvK2Block",
+        "EqvK2Generation",
+        "BridgeDictionary",
+        "BridgeConverge",
+        "EqvK2MaxCone"
+      ],
+      "status": "kernel-only",
+      "manuscript": [],
+      "note": "Conditional pair-level infrastructure on W 3. EqvK2MaxCone.subset_Q3_of_maxCone_block uses maxCone and block invariance for the upper inclusion; Q3_subset_of_products_cone_block uses products, addition, nonnegative scaling and block invariance for the lower. pairCone_eq_Q3_of_drive_maxCone assembles equality using E19's exact CNOT/full-flow/cyclic generation. The two block and generator equivalences have separately named witnesses. pairCone_eq_Q3_of_sharp_available obtains the upper bound from product-test validity on an available family containing sharpFamily 3; it assumes neither full affine effect availability nor EffectsOn in that direction. Self-duality, closedness and assumed ReachPure are absent from the replacement headlines. The six auxiliary modules supply the measured dictionary, generation, reachability and conditional transfer identities. This family is carried by no manuscript. The state/test identification, products and cone structure, pair validity, CNOT invariance and the full-flow/cyclic invariance remain explicit premises; no bare OI source, arbitrary finite-carrier reconstruction or full-model independence is asserted. Record: verification/programmes/oi-qm/reconstruction/round-oi-pair-maxcone-1/."
     }
   ]
 }
