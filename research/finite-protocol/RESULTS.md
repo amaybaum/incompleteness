@@ -48,3 +48,27 @@ finite availability is distinct from an available limiting drive and from preser
 of an arbitrary identified pair cone. A later channel-limit use on such a cone requires
 that cone's channel-transfer premise and closedness. The exact full-flow maxCone theorem
 does not need closedness; this approximation route has that separate obligation.
+
+## Design run 2
+
+Head: 6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc.
+Run: 38208235321, pull_request, attempt 1.
+Mathlib bridge job: 114676391242; Build failed, 05:30:56Z–05:35:47Z.
+Release gate skipped. Eleven targets elaborate on standard axioms; the branch formula
+lemma and its two dependents remain unfinished. A failed Build establishes no built
+design result, including for the eleven elaborated targets.
+
+Two causes remain: the documentation comment was attached to a scoped set_option command
+instead of its theorem, and simp unfolded uniformAttach before applying the proved pure
+reset equation. The latter left resetChannel applied to the tensor table as an opaque
+variable in the matrix calculation. These are proof-script defects, not a failing physical
+control or a new mathematical premise.
+
+## Prospective run-3 correction
+
+Move the theorem documentation inside the scoped option, and use an explicit entrywise
+change followed by reset_uniformAttach_eq_pure before any matrix expansion. All fourteen
+statement and premise headers are unchanged from run 1. Constructors and the exact checker
+remain unchanged. Start the final budgeted design run only after run 2 fully completes.
+Require a successful Build and all fourteen standard axiom reports; make no stronger
+classification if either fails. No further run is authorized by this prospective budget.

@@ -188,13 +188,17 @@ def correctedReadout (U : Matrix Work Work ℂ) (j : Fin 4) : Channel Work :=
 def attempt (U : Matrix Work Work ℂ) (j : Fin 4) : Channel Token :=
   discardWith (A := Token) 4 (uniformAttach 4) ((correctedReadout U j).comp resetChannel)
 
+set_option maxHeartbeats 2000000 in
 /-- Exact identity for each branch of the constructed attempt, including the actual reset
     from the uniformly attached register and its final partial trace. -/
-set_option maxHeartbeats 2000000 in
 theorem attempt_balanced_branch (j : Fin 4) :
     attempt balancedCircuit j = if j = 0 then (5 / 8 : ℂ) • conjChannel drivePhase
       else (1 / 8 : ℂ) • LinearMap.id := by
   ext X s t
+  change ptraceAnc 4 (conjChannel (correction j)
+    (conjChannel (InterventionLocality.readProj Token 4 j)
+      (conjChannel balancedCircuit (resetChannel (uniformAttach 4 X))))) s t = _
+  rw [reset_uniformAttach_eq_pure]
   fin_cases s <;> fin_cases t <;> fin_cases j <;>
     simp [attempt, discardWith, correctedReadout, LinearMap.comp_apply, ptraceAncL,
       ptraceAnc_apply, reset_uniformAttach_eq_pure, pureAttach_apply,
