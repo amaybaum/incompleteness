@@ -30,6 +30,10 @@ Bell, J. S. (1964). On the Einstein-Podolsky-Rosen paradox. *Physics Physique Fi
 
 Bong, K.-W., Utreras-Alarcón, A., Ghafari, F., Liang, Y.-C., Tischler, N., Cavalcanti, E. G., Pryde, G. J., & Wiseman, H. M. (2020). A strong no-go theorem on the Wigner's friend paradox. *Nature Physics* 16: 1199-1205.
 
+Busch, P. (2009). "No information without disturbance": Quantum limitations of measurement. In W. C. Myrvold & J. Christian (Eds.), *Quantum Reality, Relativistic Causality, and Closing the Epistemic Circle*. Springer.
+
+Busch, P., Lahti, P., & Werner, R. F. (2013). Proof of Heisenberg's error-disturbance relation. *Physical Review Letters* 111: 160405.
+
 Clauser, J. F., Horne, M. A., Shimony, A., & Holt, R. A. (1969). Proposed experiment to test local hidden-variable theories. *Physical Review Letters* 23: 880-884.
 
 Colbeck, R., & Renner, R. (2011). No extension of quantum theory can have improved predictive power. *Nature Communications* 2: 411.
@@ -44,13 +48,21 @@ Fein, Y. Y., Geyer, P., Zwick, P., Kiałka, F., Pedalino, S., Mayor, M., Gerlich
 
 Fine, A. (1982). Hidden variables, joint probability, and the Bell inequalities. *Physical Review Letters* 48: 291-295.
 
+Heisenberg, W. (1927). Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik. *Zeitschrift für Physik* 43: 172-198.
+
 Nimmrichter, S., and Hornberger, K. (2013). Macroscopicity of mechanical quantum superposition states. *Physical Review Letters* 110: 160403.
 
+Ozawa, M. (2003). Universally valid reformulation of the Heisenberg uncertainty principle on noise and disturbance in measurement. *Physical Review A* 67: 042105.
+
 Pedalino, S., Ramírez-Galindo, B. E., Ferstl, R., Hornberger, K., Arndt, M., and Gerlich, S. (2026). Probing quantum mechanics with nanoparticle matter-wave interferometry. *Nature* 649: 866.
+
+Robertson, H. P. (1929). The uncertainty principle. *Physical Review* 34: 163-164.
 
 Rössler, O. E. (1998). *Endophysics: The World as an Interface*. World Scientific.
 
 Schrödinger, E. (1935). Die gegenwärtige Situation in der Quantenmechanik. *Die Naturwissenschaften* 23: 807-812, 823-828, 844-849.
+
+Spekkens, R. W. (2007). Evidence for the epistemic view of quantum states: A toy theory. *Physical Review A* 75: 032110.
 
 Szangolies, J. (2018). Epistemic horizons and the foundations of quantum mechanics. *Foundations of Physics* 48(12): 1669-1697.
 
