@@ -77,7 +77,7 @@ is not part of this package and no unneeded design module is imported.
 | verification/lean-manuscript-census.json | d23abaf21d73f2410d932f47ff6f29e68fe3d12f482714c462c6276d807eb547 | dd59b8938c12d87be9d3a007900eca2c3020518a |
 | .github/workflows/verify.yml | 62fb29a5348e02828044c4e34d8a1281b00c20d4c7e0a5de9aefc5ab43d1535d | 7c85970db08f8326ff3bca86c62cebab1e3159db |
 
-Controls SHA256: c5a13a2f7ae09f705e653a101d48210ac6be018a46dece35bc0ff66c2b85bedd
+Controls SHA256: 05e53806ea9fc662ffc72887662ab869baf2d68b2a453a6da89f6aea8089f502
 
 The seven new module headers describe conditional infrastructure truthfully. The six E19
 proof bodies are from dev-equivalence/r5-design f0c36cf9fa8395ac4349d944dc21dda80e4c2658
@@ -137,9 +137,9 @@ and the parallel transfer successor.
 | The round records are exactly preregistration and controls at S1, with result added at S2 | Record-population check R |
 | The exact checker reproduces all 2743 checks with byte-identical stdout, empty stderr and zero exit | Output control V against OUTPUT_SHA |
 | Broken trace normalization, adjoint transport and product-test sign are rejected | Checker --self-test: three mutations |
-| Content controls accept S1/S2 and reject altered frozen files, scope and output | Controls --self-test: two positive fixtures and 25 mutations |
+| Content controls accept S1/S2 and reject altered frozen files, scope, output and a stale K2 summary | Controls --self-test: two positive fixtures and 26 mutations |
 | The result preserves the conditional earned scope and actual F/S1 identifiers | Exact-template check S and source-audit table |
-| Only the specified K2 paragraph changes; K2 stays OPEN and other obligations retain D | Roadmap reconstruction M and changed-path bound G |
+| Exactly the detailed K2 paragraph and its queue summary clause change; both retain K2 OPEN and other obligations retain D | Two-splice roadmap reconstruction M, summary check U and changed-path bound G |
 | All sixteen named MaxCone axiom reports are standard; no sorryAx occurs | S1/E Mathlib Build axiom-report audit, before E designation |
 | Every required host job is green on the exact F and E objects | Held-head workflow_dispatch attestations, checked from host metadata |
 | Reconciliation preserves other rounds' shared changes and the round's own execution delta | S9 per-path merits review and native receipt verifier |
@@ -159,9 +159,10 @@ of the trace factor, omitted adjoint and product-test sign must be rejected. The
 has an independent Gaussian-rational helper; changing the support file also trips P.
 Finite computations are controls, not universal proofs or a full OI model.
 
-The frozen content controls pass two positive fixtures (S1 and S2) and reject 25 mutations:
-each of twelve S1 files, workflow reconstruction, import, registry, roadmap, preregistration,
-controls, extra record, result overclaim, wrong F, source anchor, stdout, stderr and exit code.
+The frozen content controls pass two positive fixtures (S1 and S2) and reject 26 mutations:
+each of twelve S1 files, workflow reconstruction, import, registry, roadmap, the stale
+K2 summary alone, preregistration, controls, extra record, result overclaim, wrong F,
+source anchor, stdout, stderr and exit code.
 The result check uses the full exact earned template below with four bounded attestation
 fields; negated sentences containing kernel-certified, sources H3 or OI implies QM pass.
 Appending an affirmative overclaim fails. No context-blind forbidden-word list is used.
@@ -224,11 +225,14 @@ The theorem replaces the self-duality obligation in this route with explicit con
 
 ## S2 roadmap and exact result note
 
-The sole roadmap splice replaces the K2 paragraph, retaining K2 OPEN, and states the new
-conditional theorem and all remaining sources. Every byte outside that uniquely identified
-paragraph is D. Its complete predicted SHA256 is a6a4e9e7f5d1e3e363c9abef34e1123002fb1a9494c65bef690450f833b3e160.
-The controls reconstruct that one replacement from D; the precise old/new paragraphs are
-literal ROADMAP_SPLICE values in the frozen controls. No K∞, K1, K_n, K3 or H-Bell status changes.
+Exactly two uniquely identified roadmap replacements are authorized: the detailed K2
+paragraph and its queue summary clause. Both retain K2 OPEN and record the conditional
+pair-cone theorem with physical pair sourcing unresolved. Every byte outside those two
+spans is D. Its complete predicted SHA256 is f0223101974e9432f7bc45d5978b5de04127ca3fc7a8406c6c36a88d5dcca37e.
+The controls reconstruct both replacements from D; the precise old/new strings are literal
+ROADMAP_SPLICE and ROADMAP_SUMMARY_SPLICE values in the frozen controls. Independent
+summary check U rejects a stale summary even when the detailed paragraph is updated.
+No K∞, K1, K_n, K3 or H-Bell status changes.
 
 The result has exactly this template. Only F and S1 may be replaced by lowercase 40-hex
 commit IDs and F_RUN/S1_RUN by positive workflow IDs; the former must equal the actual
@@ -281,20 +285,26 @@ gate passed; all 44 receipts held. Entire workflow: twenty successful jobs, one 
 dispatch-only Act42 skip. The maxCone shard passed its 2743-check output and controls'
 two positive fixtures / 25 rejected mutations. This completes the three-run design budget.
 
-The predictive tree contains the twelve exact S1 files and controls, D's roadmap and no
-result note. The seven proof bodies are the measured ones. Its draft preregistration differs
-from this final draft by this evidence entry; all executable file blobs are identical to
-the frozen table above. The legitimate kernel-only family resolves the earlier expected
-census failure; no manuscript disposition is fabricated. Prospective research checkpoint
-8508d17278ea11b90fd37d137172e18a25b3835f preceded this predictive publication.
+The predictive tree contains the twelve exact S1 files, the historical controls, D's
+roadmap and no result note. Those twelve file blobs and the seven proof bodies remain
+identical to the frozen tables above. The controls in this draft differ from the measured
+predictive controls: they reconstruct both K2 roadmap locations and independently check
+the summary, with one additional stale-summary mutation. The historical run's 25-mutation
+validation applies to its own controls; the revised draft's two fixtures and 26 mutations
+are locally replayed evidence. Its two-location roadmap and revised controls have no new
+predictive host run. No additional design run is authorized within the exhausted three-run
+budget. The legitimate kernel-only family resolves the earlier expected census failure;
+no manuscript disposition is fabricated. Prospective research checkpoint
+8508d17278ea11b90fd37d137172e18a25b3835f preceded the historical predictive publication.
 These are disclosed design results, not a blind prediction or an F/E host attestation.
 
-1. Before F: complete the predictive check, hold the control-plane PR at its proposed exact
-   F and dispatch verify.yml on that head. Every job must be green before owner F designation.
+1. Before F: retain the historical predictive evidence and complete the revised local
+   controls; hold the control-plane PR at its proposed exact F and dispatch verify.yml on
+   that head. Every job must be green before owner F designation.
 2. S1 after F: add the twelve frozen files plus controls.py in one single-parent commit,
    retaining D's roadmap. Run controls HEAD --freeze F, mutation tests and CI; the Build must
    emit all sixteen named standard reports with no sorryAx and the release gate must pass.
-3. S2: add the exact result note and only the roadmap splice. Run the frozen controls;
+3. S2: add the exact result note and only the two roadmap replacements. Run the frozen controls;
    hold E for an all-green exact-head workflow_dispatch run and owner E designation.
 4. Reconcile under S9 even if the current base has not advanced; resolve any differing
    shared rows by merits. Build a receipt-only single-parent Q, require v3_verifier
