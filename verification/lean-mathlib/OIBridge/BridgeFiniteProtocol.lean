@@ -89,7 +89,7 @@ theorem stopped_closedForm (F : Fin 4 → Channel T) (D : Channel T) (q : ℂ)
         _ = _ := by rw [hF]
     rw [hm, hS, ih]
     ext X s t
-    simp only [LinearMap.add_apply, LinearMap.smul_apply, LinearMap.comp_apply,
+    simp only [if_true, LinearMap.add_apply, LinearMap.smul_apply, LinearMap.comp_apply,
       LinearMap.id_apply, map_smul, Matrix.add_apply, Matrix.smul_apply, smul_eq_mul]
     rw [pow_succ]
     ring
@@ -134,17 +134,17 @@ theorem reset_uniformAttach (X : Matrix Token Token ℂ) (s t : Token) (f e : Fi
   simp only [resetChannel, LinearMap.sum_apply, Matrix.sum_apply, LinearMap.comp_apply,
     conjChannel_apply]
   simp only [resetPerm, permMatrix_conj_apply, InterventionLocality.readProj,
-    Matrix.conjTranspose_diagonal, Matrix.diagonal_mul, Matrix.mul_diagonal,
+    Matrix.diagonal_conjTranspose, Matrix.diagonal_mul, Matrix.mul_diagonal,
     Matrix.diagonal_apply_eq]
   fin_cases f <;> fin_cases e <;>
-    simp [resetEquiv, uniformAttach, ReferenceExtension.tensorOf_apply, Fin.sum_univ_four,
-      Matrix.smul_apply, Matrix.one_apply, Equiv.swap_apply_def]
+    simp [resetEquiv, uniformAttach, tensorOf_apply, Fin.sum_univ_four,
+      Matrix.smul_apply, Matrix.one_apply, Equiv.swap_apply_def] <;> norm_num <;> ring
 
 theorem reset_uniformAttach_eq_pure (X : Matrix Token Token ℂ) :
     resetChannel (uniformAttach 4 X) = pureAttach 4 0 X := by
   ext ⟨s, f⟩ ⟨t, e⟩
   rw [reset_uniformAttach]
-  simp [pureAttach_apply, tensorOf_apply, Matrix.single_apply]
+  simp [pureAttach_apply, tensorOf_apply, Matrix.single_apply, eq_comm]
 
 /-- The exact rational eight-dimensional balanced circuit, in its computational basis.
     v is the final column of the unnormalized two-ancilla Hadamard table. -/
@@ -161,7 +161,8 @@ theorem balancedCircuit_isometry : balancedCircuitᴴ * balancedCircuit = 1 := b
   fin_cases s <;> fin_cases t <;> fin_cases a <;> fin_cases b <;>
     simp [Matrix.mul_apply, Matrix.conjTranspose_apply, Fintype.sum_prod_type,
       Fin.sum_univ_two, Fin.sum_univ_four, balancedCircuit, v, Matrix.one_apply,
-      Complex.star_def] <;> ring_nf <;> simp [Complex.I_sq, Complex.I_pow_four] <;> ring
+      Complex.star_def, map_ofNat] <;> ring_nf <;>
+    simp [Complex.I_sq, Complex.I_pow_four, map_ofNat] <;> ring
 
 def drivePhase : Matrix Token Token ℂ :=
   Matrix.diagonal fun s => if s = 0 then 1 else 3 / 5 + (4 / 5) * Complex.I
@@ -171,9 +172,11 @@ def correction (j : Fin 4) : Matrix Work Work ℂ :=
 
 theorem correction_isometry (j : Fin 4) : (correction j)ᴴ * correction j = 1 := by
   ext r c
-  simp only [correction, Matrix.conjTranspose_diagonal, Matrix.diagonal_mul_diagonal,
-    Matrix.diagonal_apply, Matrix.one_apply]
-  by_cases hr : j = 0 ∨ r.1 = 0 <;> by_cases hrc : r = c <;> simp [hr, hrc]
+  by_cases hrc : r = c
+  · subst c
+    by_cases hr : j = 0 ∨ r.1 = 0 <;>
+      simp [correction, Matrix.diagonal_conjTranspose, Matrix.diagonal_mul_diagonal, hr]
+  · simp [correction, Matrix.diagonal_conjTranspose, Matrix.diagonal_mul_diagonal, hrc]
 
 /-- Read the register and perform the Z correction on each failure branch. -/
 def correctedReadout (U : Matrix Work Work ℂ) (j : Fin 4) : Channel Work :=
@@ -187,6 +190,7 @@ def attempt (U : Matrix Work Work ℂ) (j : Fin 4) : Channel Token :=
 
 /-- Exact identity for each branch of the constructed attempt, including the actual reset
     from the uniformly attached register and its final partial trace. -/
+set_option maxHeartbeats 2000000 in
 theorem attempt_balanced_branch (j : Fin 4) :
     attempt balancedCircuit j = if j = 0 then (5 / 8 : ℂ) • conjChannel drivePhase
       else (1 / 8 : ℂ) • LinearMap.id := by
@@ -195,11 +199,11 @@ theorem attempt_balanced_branch (j : Fin 4) :
     simp [attempt, discardWith, correctedReadout, LinearMap.comp_apply, ptraceAncL,
       ptraceAnc_apply, reset_uniformAttach_eq_pure, pureAttach_apply,
       conjChannel_apply, correction, InterventionLocality.readProj,
-      Matrix.diagonal_mul, Matrix.mul_diagonal, Matrix.conjTranspose_diagonal,
+      Matrix.diagonal_mul, Matrix.mul_diagonal, Matrix.diagonal_conjTranspose,
       Matrix.mul_apply, Matrix.conjTranspose_apply, Fintype.sum_prod_type,
       Fin.sum_univ_two, Fin.sum_univ_four, balancedCircuit, v, drivePhase,
-      Matrix.single_apply, tensorOf_apply, Complex.star_def] <;>
-    ring_nf <;> simp [Complex.I_sq, Complex.I_pow_four] <;> ring
+      Matrix.single_apply, tensorOf_apply, Complex.star_def, map_ofNat] <;>
+    ring_nf <;> simp [Complex.I_sq, Complex.I_pow_four, map_ofNat] <;> ring
 
 theorem instAvail_attempt {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
     (U : Matrix Work Work ℂ) (hU : 𝓘 Work U) (hIso : Uᴴ * U = 1)
@@ -241,10 +245,9 @@ theorem balanced_stopped_formula (k : ℕ) :
   apply stopped_closedForm
   · rw [attempt_balanced_branch]
     norm_num
-  · ext X s t
-    simp [attempt_balanced_branch, Fin.sum_univ_three, Matrix.smul_apply,
-      smul_eq_mul]
-    ring
+  · simp only [attempt_balanced_branch, Fin.succ_ne_zero, if_false]
+    rw [← Finset.sum_smul]
+    norm_num [Fin.sum_univ_three]
 
 theorem balanced_finite_available {𝓘 : ImplementationClass} (arch : Architecture 𝓘)
     (hCircuit : 𝓘 Work balancedCircuit)
