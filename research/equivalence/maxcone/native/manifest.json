@@ -1,0 +1,44 @@
+{
+  "D": "f2415108601a9c36bb985b3374c56f0eb34c2962",
+  "round": "OI-PAIR-MAXCONE-1",
+  "record": "verification/programmes/oi-qm/reconstruction/round-oi-pair-maxcone-1/",
+  "pin": {
+    "verification/lean-mathlib/OIBridge/EqvK2Schema.lean": "c76991ba337ac3ac58a41eaa88c46af62e59a374117b31edecabaec9309f6a3e",
+    "verification/lean-mathlib/OIBridge/EqvK2Converse.lean": "58f97ca9a371b3d14148328a2816f953e6adc0d1067ea383cc802460aae26d56",
+    "verification/lean-mathlib/OIBridge/EqvK2Block.lean": "081b99696c104d6e3c4d50d6b9f1b7d5133976f89c9d5410ae5d3067a5b1d0ac",
+    "verification/lean-mathlib/OIBridge/EqvK2Generation.lean": "42c9e313ee35d7f5ee16cf0bee2abde2ad17867d6eaf65a76e5abb2be469c6d3",
+    "verification/lean-mathlib/OIBridge/BridgeDictionary.lean": "f32304db1803ee31141f3a805ac9c15c7ea7c02042e6e2234c77f3863850e065",
+    "verification/lean-mathlib/OIBridge/BridgeConverge.lean": "f1c43d1ca223c8a924a1afee55ee97a661e49079ec757c80df53aa5637de7c42",
+    "verification/lean-mathlib/OIBridge/EqvK2MaxCone.lean": "9222038440f742856480706c27569611bed15b82f650b3eab76c9c61e258169f",
+    "verification/lean-mathlib/OIBridge.lean": "a031136f6c7eddc7c9d5cc0162119dfcd9bb5fa2ec8be996628a99cc94a400c8",
+    "verification/lean/oi_maxcone_check.py": "d322c9139666c00821fbf85bb2c63dbf5b977ce329dca180bbf652b55c7ca72a",
+    "verification/lean/oi_maxcone_gaussian.py": "8e4573f6f5a916202cc5770809809bbbbabd682cc2aefd5d3e4567d2b0282df1",
+    "verification/lean-manuscript-census.json": "d23abaf21d73f2410d932f47ff6f29e68fe3d12f482714c462c6276d807eb547",
+    ".github/workflows/verify.yml": "62fb29a5348e02828044c4e34d8a1281b00c20d4c7e0a5de9aefc5ab43d1535d"
+  },
+  "pin_blob": {
+    "verification/lean-mathlib/OIBridge/EqvK2Schema.lean": "c634beb82193eb7372ccaf498dba56dd2ec8538c",
+    "verification/lean-mathlib/OIBridge/EqvK2Converse.lean": "f01fc607eab88d8d8ffe24b48d164830e2dad3e6",
+    "verification/lean-mathlib/OIBridge/EqvK2Block.lean": "23c74144073ef001d69c718f1fa3c0be5b8c1896",
+    "verification/lean-mathlib/OIBridge/EqvK2Generation.lean": "1251afd7aa8667cf73fb8b19a669e6a3d7bb026e",
+    "verification/lean-mathlib/OIBridge/BridgeDictionary.lean": "f997b33ec7ff8402246c7250d38f3e935e4f92df",
+    "verification/lean-mathlib/OIBridge/BridgeConverge.lean": "e1647b1dc6585073b5b27be2b5e7e13ac803eb0c",
+    "verification/lean-mathlib/OIBridge/EqvK2MaxCone.lean": "5b4b98c8e81e21eb002de25383eada381b65e3dd",
+    "verification/lean-mathlib/OIBridge.lean": "281b6a52412ea3e51cb412997c9984d5806bad82",
+    "verification/lean/oi_maxcone_check.py": "09d2abcd66f0e230b1a1895e015cb3183297f900",
+    "verification/lean/oi_maxcone_gaussian.py": "eff710c93f2211b90472eec8f6d3d5884e3c9421",
+    "verification/lean-manuscript-census.json": "dd59b8938c12d87be9d3a007900eca2c3020518a",
+    ".github/workflows/verify.yml": "7c85970db08f8326ff3bca86c62cebab1e3159db"
+  },
+  "base_hash": {
+    ".github/workflows/verify.yml": "bd71bdc270753be8296c4a5c9723e23673c2f8acdaa9417fb70a6ddd6cbe2443",
+    "verification/lean-mathlib/OIBridge.lean": "e5af9614009889dab616d7f02f75bb395f1ae1fb01307f46ef82d3b282b4c313",
+    "verification/lean-manuscript-census.json": "cdadb02e0463366c036834f2ca58ae904ad70e05dfe981fd1f37d9bc928e0bbf",
+    "verification/ROADMAP.md": "a64835c2107131530f2396311b3e8fa291bc690462ffbbde225f3479d89a2c2c",
+    "verification/lean-mathlib/OIBridge/OperationalValidity.lean": "ba316747d23820f75f4bbd25105d87a85febb3bd1d0eaa123913b629b34f05f0",
+    "verification/lean-mathlib/OIBridge/ImplementationLocality.lean": "4e5b4b22298dfba7b0ee7ba26109ef3090eb48b23227734bb26bbf6834a545ac"
+  },
+  "controls_sha256": "c5a13a2f7ae09f705e653a101d48210ac6be018a46dece35bc0ff66c2b85bedd",
+  "roadmap_sha256": "a6a4e9e7f5d1e3e363c9abef34e1123002fb1a9494c65bef690450f833b3e160",
+  "stdout_sha256": "492bfc19254a39193222a90e828dc16c4ae58bc434bb00c90f03931c6a0adeee"
+}

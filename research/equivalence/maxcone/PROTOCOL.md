@@ -53,3 +53,13 @@ Design run 1 (38205087980, head 4d7d71d6b1c771e2f6c578b4cdead45d3a63ff96) builds
 
 Require all sixteen named axiom reports on the new design head. No new computational claim is drawn from the unchanged exact checker. Retain the first design head and evidence, and start the second workflow only after the first completes.
 
+## Predictive native execution, fixed before design run 3
+
+Run 2 completed at bbcdbab531af5c6ce14d43625e6dc1df16e2063f, run 38205760341: Build succeeded, sixteen standard MaxCone axiom reports, no sorryAx, 5967 named global reports. Only the seven-module manuscript census failed; all 44 native receipts held. Preserve that design evidence and all earlier records.
+
+The final run within the three-run budget tests the predicted S1 executable tree. Keep all seven proof bodies unchanged; replace only their obsolete design-only headers with truthful conditional-infrastructure headers. Add the maintained kernel-only registry family covering the seven modules and carried by no manuscript. Add the standard-library checker/support, the five-splice OI maxCone CI shard and its controls. Include the draft native preregistration, retaining D's roadmap and no result note. Exact file hashes, original anchors, body hashes and the changes are prospectively saved in native/manifest.json, native/preregistration.md and native/controls.py beside this protocol.
+
+Expected outcome changes from the earlier census-only red design runs to a green census and green required jobs. Require sixteen standard MaxCone axiom reports, no sorryAx, a successful release gate including all 44 native receipts, the 2743-check stdout and two positive control fixtures with all 25 mutations rejected. Any different failure must be diagnosed and recorded; it cannot be treated as the earlier expected census failure. This is disposable design evidence, not an F or E attestation and not an actual native execution before owner F designation.
+
+At later heads, controls --self-test reconstructs immutable Git-blob fixtures for the shared files; it does not permanently pin the live workflow, registry, aggregator or kernel. Actual execution controls continue to pin every declared output. A separate local replay replacing every shared live fixture file still passes; owned checker/support and actual checker output retain their regression checks. The exact result template accepts its harmless negations and rejects appended affirmative overclaims.
+

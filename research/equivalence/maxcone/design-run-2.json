@@ -1,0 +1,124 @@
+{
+  "head": "bbcdbab531af5c6ce14d43625e6dc1df16e2063f",
+  "run_id": 38205760341,
+  "event": "pull_request",
+  "attempt": 1,
+  "mathlib_job": 114668772880,
+  "build": "success",
+  "maxcone_axiom_reports": 16,
+  "standard_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "global_axiom_reports": 5967,
+  "sorryAx": false,
+  "gate_failures": [
+    "lean-manuscript: 7 undispositioned design modules"
+  ],
+  "v3_receipts": 44,
+  "v3_receipts_verdict": "all hold",
+  "jobs": [
+    {
+      "id": 114668772880,
+      "name": "Mathlib bridge",
+      "conclusion": "failure"
+    },
+    {
+      "id": 114668772978,
+      "name": "Numerical probes / core B",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773001,
+      "name": "Numerical probes / KT4-PREM-1 premise audit",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773007,
+      "name": "Numerical probes / A41 independent",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773017,
+      "name": "Numerical probes / core A",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773054,
+      "name": "Numerical probes / A36 hierarchy",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773060,
+      "name": "Numerical probes / OI channel protocol",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773063,
+      "name": "Numerical probes / KINF-2 foundations",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773064,
+      "name": "Numerical probes / A41 production",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773083,
+      "name": "Numerical probes / A38 escape",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773104,
+      "name": "Numerical probes / foundations",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773107,
+      "name": "Numerical probes / A42 witness",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773125,
+      "name": "Lean kernel check",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773143,
+      "name": "Numerical probes / A40 locus",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773169,
+      "name": "Numerical probes / A42 census01",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773181,
+      "name": "Numerical probes / A45 ancilla",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773183,
+      "name": "Numerical probes / A41 hulls",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668773196,
+      "name": "Numerical probes / NB-1 native-gate ball",
+      "conclusion": "success"
+    },
+    {
+      "id": 114668774048,
+      "name": "Numerical probes / A42 exclusion (${{ matrix.part }})",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 114670560647,
+      "name": "Numerical probes",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Design evidence only; no F/E attestation."
+}
