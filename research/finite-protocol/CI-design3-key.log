@@ -1,0 +1,43 @@
+⚠ [3654/3656] Built OIBridge.BridgeFiniteProtocol (56s)
+warning: OIBridge/BridgeFiniteProtocol.lean:80:15: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:80:27: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:138:4: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:141:65: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+warning: OIBridge/BridgeFiniteProtocol.lean:141:78: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+warning: OIBridge/BridgeFiniteProtocol.lean:163:6: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:163:63: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:164:6: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:165:24: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:165:44: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:178:55: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:179:53: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:203:10: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:203:19: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:203:32: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:203:50: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:203:72: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:204:23: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:206:6: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:206:27: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:209:43: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:210:36: This simp argument is unused:
+warning: OIBridge/BridgeFiniteProtocol.lean:210:56: This simp argument is unused:
+info: OIBridge/BridgeFiniteProtocol.lean:283:0: 'OIBridge.BridgeFiniteProtocol.instAvail_stopped_step' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:284:0: 'OIBridge.BridgeFiniteProtocol.instAvail_stopped' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:285:0: 'OIBridge.BridgeFiniteProtocol.stopped_closedForm' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:286:0: 'OIBridge.BridgeFiniteProtocol.instAvail_reset' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:287:0: 'OIBridge.BridgeFiniteProtocol.reset_uniformAttach' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:288:0: 'OIBridge.BridgeFiniteProtocol.reset_uniformAttach_eq_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:289:0: 'OIBridge.BridgeFiniteProtocol.balancedCircuit_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:290:0: 'OIBridge.BridgeFiniteProtocol.correction_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:291:0: 'OIBridge.BridgeFiniteProtocol.attempt_balanced_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:292:0: 'OIBridge.BridgeFiniteProtocol.instAvail_attempt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:293:0: 'OIBridge.BridgeFiniteProtocol.finite_protocol_available' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:294:0: 'OIBridge.BridgeFiniteProtocol.balanced_stopped_formula' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:295:0: 'OIBridge.BridgeFiniteProtocol.balanced_finite_available' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: OIBridge/BridgeFiniteProtocol.lean:296:0: 'OIBridge.BridgeFiniteProtocol.finite_protocol_spectator' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (3656 jobs).
+PASS  lean-axioms      lean_axiom_check: OK (6150 named result(s) reported, no sorr
+FAIL  lean-manuscript  lean_manuscript_census: FAILED (13 problem(s))
+PASS  v3-receipts      RECEIPTS  43 receipt(s), all hold
+release gate: FAILED -> lean-manuscript

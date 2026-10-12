@@ -1,0 +1,4370 @@
+{
+  "kind": "conditional-design-result",
+  "pr": 810,
+  "original_pr807_head": "13ad14a1ba2973245354aea7790c021d946b1ff0",
+  "tested_head": "708153423ffb5ea4fe27663654431650b5a2e48a",
+  "tested_tree": "98e238d80ab3c7b3028e01b4b9775ee9ade0c741",
+  "source_blob": "ead35aa2609ee58b2785b31bb39bd3bc2923105e",
+  "source_sha256": "004311de61a6c034524e898a4fa091bbfad1751e0ca67c817ee9f6a03757012e",
+  "protocol_sha256": "d91872b62cfe5a08e56739da264c727a7d3ef42f2c5484d6049646a437d29f31",
+  "checker_sha256": "2641288f4cb0b2487bf182ca5a367ca6f0cf51ebd1e82aa9eaa65a0bb2acce98",
+  "design_run_budget": {
+    "limit": 3,
+    "used": 3,
+    "sequential": true,
+    "no_reruns": true
+  },
+  "theorem_headers_unchanged": true,
+  "available_sequence_assumed": false,
+  "actual_primitive_inputs": [
+    "Architecture 𝓘",
+    "𝓘 Work balancedCircuit",
+    "∀ j : Fin 4, 𝓘 Work (resetPerm j)",
+    "∀ j : Fin 4, 𝓘 Work (correction j)"
+  ],
+  "spectator_inputs": [
+    "ContextStable 𝓘",
+    "LabelInvariant 𝓘"
+  ],
+  "finite_controls": {
+    "groups": 10,
+    "stopped_depths": {
+      "first": 0,
+      "last": 8
+    },
+    "matrix_unit_cases": 36,
+    "stdout_sha256": "f33e3c97bd1baa7f4b583f798cf0ecdec185860d37f69523f31128e4131d35e1",
+    "stderr_empty": true,
+    "replay_identical": true,
+    "countercontrols": [
+      "remove reset",
+      "remove correction",
+      "continue after success"
+    ]
+  },
+  "final_axiom_reports": [
+    {
+      "name": "instAvail_stopped_step",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "instAvail_stopped",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "stopped_closedForm",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "instAvail_reset",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "reset_uniformAttach",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "reset_uniformAttach_eq_pure",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "balancedCircuit_isometry",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "correction_isometry",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "attempt_balanced_branch",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "instAvail_attempt",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "finite_protocol_available",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "balanced_stopped_formula",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "balanced_finite_available",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    },
+    {
+      "name": "finite_protocol_spectator",
+      "axioms": "propext, Classical.choice, Quot.sound"
+    }
+  ],
+  "final_lean_axiom_count": 6150,
+  "final_release_gate_failure": "lean-manuscript only: 13 unadopted design modules",
+  "held_receipts_at_design_base": 43,
+  "remaining_obligations": [
+    "MixR {π/4} primitive class membership",
+    "formal channel convergence adapter",
+    "pair-cone validity and transfer source",
+    "closedness for channel-limit passage"
+  ],
+  "native_attestation": false,
+  "owner_designations": [],
+  "main_changed": false,
+  "runs": [
+    {
+      "metadata": {
+        "id": 38207454267,
+        "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267",
+        "name": "verify",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "run_attempt": 1,
+        "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+        "head_branch": "dev-bridge/r8-finite-protocol",
+        "run_started_at": "2026-10-12T05:19:43Z",
+        "created_at": "2026-10-12T05:19:43Z",
+        "updated_at": "2026-10-12T05:28:24Z"
+      },
+      "jobs": [
+        {
+          "id": 114673990735,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A38 escape",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:45Z",
+          "completed_at": "2026-10-12T05:25:06Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673990735",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673990735",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:59Z"
+            },
+            {
+              "name": "A38 local-escape probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:59Z",
+              "completed_at": "2026-10-12T05:25:03Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:25:03Z",
+              "completed_at": "2026-10-12T05:25:03Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:25:03Z",
+              "completed_at": "2026-10-12T05:25:03Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:25:03Z",
+              "completed_at": "2026-10-12T05:25:04Z"
+            }
+          ]
+        },
+        {
+          "id": 114673990910,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / KINF-2 foundations",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:20:00Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673990910",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673990910",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:51Z"
+            },
+            {
+              "name": "Install the exact-algebra dependency",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:51Z",
+              "completed_at": "2026-10-12T05:19:57Z"
+            },
+            {
+              "name": "KINF-2 foundations probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:57Z",
+              "completed_at": "2026-10-12T05:19:58Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:19:58Z",
+              "completed_at": "2026-10-12T05:19:58Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:19:58Z",
+              "completed_at": "2026-10-12T05:19:58Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:19:58Z",
+              "completed_at": "2026-10-12T05:19:58Z"
+            }
+          ]
+        },
+        {
+          "id": 114673990969,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / core A",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:23:07Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673990969",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673990969",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:59Z"
+            },
+            {
+              "name": "Core probes A",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:59Z",
+              "completed_at": "2026-10-12T05:23:04Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:23:04Z",
+              "completed_at": "2026-10-12T05:23:04Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:23:04Z",
+              "completed_at": "2026-10-12T05:23:05Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:23:05Z",
+              "completed_at": "2026-10-12T05:23:05Z"
+            }
+          ]
+        },
+        {
+          "id": 114673990981,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A40 locus",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:45Z",
+          "completed_at": "2026-10-12T05:21:32Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673990981",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673990981",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "A40 Dita-locus probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:21:29Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:21:29Z",
+              "completed_at": "2026-10-12T05:21:30Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:21:30Z",
+              "completed_at": "2026-10-12T05:21:30Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:21:30Z",
+              "completed_at": "2026-10-12T05:21:30Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991028,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Lean kernel check",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:20:30Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991028",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991028",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:48Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:48Z",
+              "completed_at": "2026-10-12T05:19:52Z"
+            },
+            {
+              "name": "Install Lean",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:52Z",
+              "completed_at": "2026-10-12T05:19:53Z"
+            },
+            {
+              "name": "Report toolchain",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:53Z",
+              "completed_at": "2026-10-12T05:20:07Z"
+            },
+            {
+              "name": "Kernel check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:20:07Z",
+              "completed_at": "2026-10-12T05:20:27Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:20:27Z",
+              "completed_at": "2026-10-12T05:20:27Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:20:27Z",
+              "completed_at": "2026-10-12T05:20:27Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991060,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Mathlib bridge",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:23:04Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991060",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991060",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:20:02Z"
+            },
+            {
+              "name": "Install elan",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:20:02Z",
+              "completed_at": "2026-10-12T05:20:03Z"
+            },
+            {
+              "name": "Restore the OIBridge build cache",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:20:03Z",
+              "completed_at": "2026-10-12T05:20:07Z"
+            },
+            {
+              "name": "Build",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5,
+              "started_at": "2026-10-12T05:20:07Z",
+              "completed_at": "2026-10-12T05:23:01Z"
+            },
+            {
+              "name": "Release gate",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 6,
+              "started_at": "2026-10-12T05:23:01Z",
+              "completed_at": "2026-10-12T05:23:01Z"
+            },
+            {
+              "name": "Post Restore the OIBridge build cache",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-10-12T05:23:01Z",
+              "completed_at": "2026-10-12T05:23:01Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-12T05:23:01Z",
+              "completed_at": "2026-10-12T05:23:01Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-12T05:23:01Z",
+              "completed_at": "2026-10-12T05:23:01Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991073,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / core B",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:23:21Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991073",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991073",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:59Z"
+            },
+            {
+              "name": "Core probes B",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:59Z",
+              "completed_at": "2026-10-12T05:23:18Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:23:18Z",
+              "completed_at": "2026-10-12T05:23:18Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:23:18Z",
+              "completed_at": "2026-10-12T05:23:19Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:23:19Z",
+              "completed_at": "2026-10-12T05:23:19Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991099,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 witness",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:25:04Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991099",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991099",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:55Z"
+            },
+            {
+              "name": "A42 witness, class supports, controls, lemmas and case-split ingredients",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:55Z",
+              "completed_at": "2026-10-12T05:25:01Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:25:01Z",
+              "completed_at": "2026-10-12T05:25:01Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:25:01Z",
+              "completed_at": "2026-10-12T05:25:02Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:25:02Z",
+              "completed_at": "2026-10-12T05:25:02Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991131,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 production",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:21:37Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991131",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991131",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "A41 index-map probe, the production path",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:21:34Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:21:34Z",
+              "completed_at": "2026-10-12T05:21:35Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:21:35Z",
+              "completed_at": "2026-10-12T05:21:35Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:21:35Z",
+              "completed_at": "2026-10-12T05:21:35Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991134,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A36 hierarchy",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:22:38Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991134",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991134",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:51Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:51Z",
+              "completed_at": "2026-10-12T05:19:57Z"
+            },
+            {
+              "name": "A36 hierarchy probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:57Z",
+              "completed_at": "2026-10-12T05:22:35Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:22:35Z",
+              "completed_at": "2026-10-12T05:22:35Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:22:35Z",
+              "completed_at": "2026-10-12T05:22:35Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:22:35Z",
+              "completed_at": "2026-10-12T05:22:35Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991135,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / NB-1 native-gate ball",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:19:58Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991135",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991135",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:48Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:48Z",
+              "completed_at": "2026-10-12T05:19:51Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:51Z",
+              "completed_at": "2026-10-12T05:19:51Z"
+            },
+            {
+              "name": "NB-1 native-gate ball probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:51Z",
+              "completed_at": "2026-10-12T05:19:56Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:19:56Z",
+              "completed_at": "2026-10-12T05:19:56Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:19:56Z",
+              "completed_at": "2026-10-12T05:19:56Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:19:56Z",
+              "completed_at": "2026-10-12T05:19:56Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991151,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 census01",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:25:42Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991151",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991151",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:48Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:48Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:55Z"
+            },
+            {
+              "name": "A42 {0,1} census and the zero-row span lemma",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:55Z",
+              "completed_at": "2026-10-12T05:25:38Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:25:38Z",
+              "completed_at": "2026-10-12T05:25:39Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:25:39Z",
+              "completed_at": "2026-10-12T05:25:39Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:25:39Z",
+              "completed_at": "2026-10-12T05:25:39Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991193,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / foundations",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:21:01Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991193",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991193",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:57Z"
+            },
+            {
+              "name": "Foundations probes",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:57Z",
+              "completed_at": "2026-10-12T05:20:58Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:20:58Z",
+              "completed_at": "2026-10-12T05:20:58Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:20:58Z",
+              "completed_at": "2026-10-12T05:20:59Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:20:59Z",
+              "completed_at": "2026-10-12T05:20:59Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991210,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 hulls",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:24:12Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991210",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991210",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:20:00Z"
+            },
+            {
+              "name": "A41 hull census",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:20:00Z",
+              "completed_at": "2026-10-12T05:24:09Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:24:09Z",
+              "completed_at": "2026-10-12T05:24:09Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:24:09Z",
+              "completed_at": "2026-10-12T05:24:10Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:24:10Z",
+              "completed_at": "2026-10-12T05:24:10Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991241,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 independent",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:28:18Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991241",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991241",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:46Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:49Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:49Z",
+              "completed_at": "2026-10-12T05:19:49Z"
+            },
+            {
+              "name": "A41 index-map probe, the independent path",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:49Z",
+              "completed_at": "2026-10-12T05:28:16Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:28:16Z",
+              "completed_at": "2026-10-12T05:28:17Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:28:17Z",
+              "completed_at": "2026-10-12T05:28:17Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:28:17Z",
+              "completed_at": "2026-10-12T05:28:17Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991291,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / KT4-PREM-1 premise audit",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:20:53Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991291",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991291",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:50Z"
+            },
+            {
+              "name": "Install the exact-algebra dependency",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:50Z",
+              "completed_at": "2026-10-12T05:19:57Z"
+            },
+            {
+              "name": "KT4-PREM-1 premise audit probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:19:57Z",
+              "completed_at": "2026-10-12T05:20:20Z"
+            },
+            {
+              "name": "KT4-PREM-1 independent countermodel check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-12T05:20:20Z",
+              "completed_at": "2026-10-12T05:20:50Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:20:50Z",
+              "completed_at": "2026-10-12T05:20:50Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-12T05:20:50Z",
+              "completed_at": "2026-10-12T05:20:50Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-12T05:20:50Z",
+              "completed_at": "2026-10-12T05:20:50Z"
+            }
+          ]
+        },
+        {
+          "id": 114673991312,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A45 ancilla",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:19:46Z",
+          "completed_at": "2026-10-12T05:19:56Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673991312",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673991312",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:19:47Z",
+              "completed_at": "2026-10-12T05:19:51Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:19:51Z",
+              "completed_at": "2026-10-12T05:19:51Z"
+            },
+            {
+              "name": "A45 fixed-basis ancilla probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:19:51Z",
+              "completed_at": "2026-10-12T05:19:54Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:19:54Z",
+              "completed_at": "2026-10-12T05:19:54Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:19:54Z",
+              "completed_at": "2026-10-12T05:19:54Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:19:54Z",
+              "completed_at": "2026-10-12T05:19:54Z"
+            }
+          ]
+        },
+        {
+          "id": 114673992150,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 exclusion (${{ matrix.part }})",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-10-12T05:19:44Z",
+          "completed_at": "2026-10-12T05:19:43Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114673992150",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114673992150",
+          "steps": []
+        },
+        {
+          "id": 114675892049,
+          "run_id": 38207454267,
+          "run_attempt": 1,
+          "head_sha": "5e57fb740496e6e851e1fcc0da13ef392016a9cf",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:28:20Z",
+          "completed_at": "2026-10-12T05:28:23Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38207454267/job/114675892049",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114675892049",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:28:21Z",
+              "completed_at": "2026-10-12T05:28:21Z"
+            },
+            {
+              "name": "Require every probe shard",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:28:21Z",
+              "completed_at": "2026-10-12T05:28:21Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:28:21Z",
+              "completed_at": "2026-10-12T05:28:22Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "id": 38208235321,
+        "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321",
+        "name": "verify",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "run_attempt": 1,
+        "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+        "head_branch": "dev-bridge/r8-finite-protocol",
+        "run_started_at": "2026-10-12T05:30:33Z",
+        "created_at": "2026-10-12T05:30:33Z",
+        "updated_at": "2026-10-12T05:38:56Z"
+      },
+      "jobs": [
+        {
+          "id": 114676391140,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / core A",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:34:06Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391140",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391140",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:38Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:52Z"
+            },
+            {
+              "name": "Core probes A",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:52Z",
+              "completed_at": "2026-10-12T05:34:02Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:34:02Z",
+              "completed_at": "2026-10-12T05:34:03Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:34:03Z",
+              "completed_at": "2026-10-12T05:34:03Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:34:03Z",
+              "completed_at": "2026-10-12T05:34:03Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391242,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Mathlib bridge",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:35:51Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391242",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391242",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:52Z"
+            },
+            {
+              "name": "Install elan",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:52Z",
+              "completed_at": "2026-10-12T05:30:53Z"
+            },
+            {
+              "name": "Restore the OIBridge build cache",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:53Z",
+              "completed_at": "2026-10-12T05:30:56Z"
+            },
+            {
+              "name": "Build",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:56Z",
+              "completed_at": "2026-10-12T05:35:47Z"
+            },
+            {
+              "name": "Release gate",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 6,
+              "started_at": "2026-10-12T05:35:47Z",
+              "completed_at": "2026-10-12T05:35:47Z"
+            },
+            {
+              "name": "Post Restore the OIBridge build cache",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-10-12T05:35:47Z",
+              "completed_at": "2026-10-12T05:35:47Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-12T05:35:47Z",
+              "completed_at": "2026-10-12T05:35:47Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-12T05:35:47Z",
+              "completed_at": "2026-10-12T05:35:47Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391274,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A38 escape",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:35:23Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391274",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391274",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:47Z"
+            },
+            {
+              "name": "A38 local-escape probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:47Z",
+              "completed_at": "2026-10-12T05:35:20Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:35:20Z",
+              "completed_at": "2026-10-12T05:35:20Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:35:20Z",
+              "completed_at": "2026-10-12T05:35:21Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:35:21Z",
+              "completed_at": "2026-10-12T05:35:21Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391297,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 independent",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:38:29Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391297",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391297",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "A41 index-map probe, the independent path",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:38:26Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:38:26Z",
+              "completed_at": "2026-10-12T05:38:26Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:38:26Z",
+              "completed_at": "2026-10-12T05:38:26Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:38:26Z",
+              "completed_at": "2026-10-12T05:38:26Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391299,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / core B",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:33:03Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391299",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391299",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:45Z"
+            },
+            {
+              "name": "Core probes B",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:45Z",
+              "completed_at": "2026-10-12T05:32:59Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:32:59Z",
+              "completed_at": "2026-10-12T05:33:00Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:33:00Z",
+              "completed_at": "2026-10-12T05:33:00Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:33:00Z",
+              "completed_at": "2026-10-12T05:33:00Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391319,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A36 hierarchy",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:37Z",
+          "completed_at": "2026-10-12T05:33:35Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391319",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391319",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:38Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:42Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:42Z",
+              "completed_at": "2026-10-12T05:30:42Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:42Z",
+              "completed_at": "2026-10-12T05:30:52Z"
+            },
+            {
+              "name": "A36 hierarchy probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:52Z",
+              "completed_at": "2026-10-12T05:33:32Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:33:32Z",
+              "completed_at": "2026-10-12T05:33:32Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:33:32Z",
+              "completed_at": "2026-10-12T05:33:33Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:33:33Z",
+              "completed_at": "2026-10-12T05:33:33Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391357,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Lean kernel check",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:52Z",
+          "completed_at": "2026-10-12T05:31:33Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391357",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391357",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:53Z",
+              "completed_at": "2026-10-12T05:30:53Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:53Z",
+              "completed_at": "2026-10-12T05:30:55Z"
+            },
+            {
+              "name": "Install Lean",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:55Z",
+              "completed_at": "2026-10-12T05:30:56Z"
+            },
+            {
+              "name": "Report toolchain",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:56Z",
+              "completed_at": "2026-10-12T05:31:08Z"
+            },
+            {
+              "name": "Kernel check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:31:08Z",
+              "completed_at": "2026-10-12T05:31:31Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:31:31Z",
+              "completed_at": "2026-10-12T05:31:32Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:31:32Z",
+              "completed_at": "2026-10-12T05:31:32Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391372,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / NB-1 native-gate ball",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:30:50Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391372",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391372",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:38Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "NB-1 native-gate ball probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:47Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:30:47Z",
+              "completed_at": "2026-10-12T05:30:47Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:30:47Z",
+              "completed_at": "2026-10-12T05:30:47Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:30:47Z",
+              "completed_at": "2026-10-12T05:30:47Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391378,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 hulls",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:34:59Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391378",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391378",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:48Z"
+            },
+            {
+              "name": "A41 hull census",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:48Z",
+              "completed_at": "2026-10-12T05:34:56Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:34:56Z",
+              "completed_at": "2026-10-12T05:34:56Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:34:56Z",
+              "completed_at": "2026-10-12T05:34:57Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:34:57Z",
+              "completed_at": "2026-10-12T05:34:57Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391423,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A45 ancilla",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:30:46Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391423",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391423",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "A45 fixed-basis ancilla probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:44Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:30:44Z",
+              "completed_at": "2026-10-12T05:30:44Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:30:44Z",
+              "completed_at": "2026-10-12T05:30:45Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:30:45Z",
+              "completed_at": "2026-10-12T05:30:45Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391437,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / KINF-2 foundations",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:30:51Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391437",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391437",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:38Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "Install the exact-algebra dependency",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:30:47Z"
+            },
+            {
+              "name": "KINF-2 foundations probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:47Z",
+              "completed_at": "2026-10-12T05:30:48Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:30:48Z",
+              "completed_at": "2026-10-12T05:30:48Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:30:48Z",
+              "completed_at": "2026-10-12T05:30:48Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:30:48Z",
+              "completed_at": "2026-10-12T05:30:48Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391449,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 census01",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:31:17Z",
+          "completed_at": "2026-10-12T05:34:42Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391449",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391449",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:31:17Z",
+              "completed_at": "2026-10-12T05:31:18Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:31:18Z",
+              "completed_at": "2026-10-12T05:31:19Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:31:19Z",
+              "completed_at": "2026-10-12T05:31:19Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:31:19Z",
+              "completed_at": "2026-10-12T05:31:23Z"
+            },
+            {
+              "name": "A42 {0,1} census and the zero-row span lemma",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:31:23Z",
+              "completed_at": "2026-10-12T05:34:40Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:34:40Z",
+              "completed_at": "2026-10-12T05:34:40Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:34:40Z",
+              "completed_at": "2026-10-12T05:34:40Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:34:40Z",
+              "completed_at": "2026-10-12T05:34:40Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391450,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A40 locus",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:32:20Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391450",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391450",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:36Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:39Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:39Z",
+              "completed_at": "2026-10-12T05:30:40Z"
+            },
+            {
+              "name": "A40 Dita-locus probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:40Z",
+              "completed_at": "2026-10-12T05:32:18Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:32:18Z",
+              "completed_at": "2026-10-12T05:32:18Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:32:18Z",
+              "completed_at": "2026-10-12T05:32:19Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:32:19Z",
+              "completed_at": "2026-10-12T05:32:19Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391462,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 production",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:33:01Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391462",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391462",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:37Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "A41 index-map probe, the production path",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:32:58Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:32:58Z",
+              "completed_at": "2026-10-12T05:32:58Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:32:58Z",
+              "completed_at": "2026-10-12T05:32:59Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:32:59Z",
+              "completed_at": "2026-10-12T05:32:59Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391476,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 witness",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:52Z",
+          "completed_at": "2026-10-12T05:36:09Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391476",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391476",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:53Z",
+              "completed_at": "2026-10-12T05:30:54Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:54Z",
+              "completed_at": "2026-10-12T05:30:56Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:56Z",
+              "completed_at": "2026-10-12T05:30:57Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:57Z",
+              "completed_at": "2026-10-12T05:31:08Z"
+            },
+            {
+              "name": "A42 witness, class supports, controls, lemmas and case-split ingredients",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:31:08Z",
+              "completed_at": "2026-10-12T05:36:06Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:36:06Z",
+              "completed_at": "2026-10-12T05:36:06Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:36:06Z",
+              "completed_at": "2026-10-12T05:36:07Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:36:07Z",
+              "completed_at": "2026-10-12T05:36:07Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391479,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / foundations",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:48Z",
+          "completed_at": "2026-10-12T05:32:01Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391479",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391479",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:48Z",
+              "completed_at": "2026-10-12T05:30:50Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:50Z",
+              "completed_at": "2026-10-12T05:30:51Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:51Z",
+              "completed_at": "2026-10-12T05:30:51Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:51Z",
+              "completed_at": "2026-10-12T05:30:57Z"
+            },
+            {
+              "name": "Foundations probes",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:57Z",
+              "completed_at": "2026-10-12T05:31:59Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:31:59Z",
+              "completed_at": "2026-10-12T05:31:59Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:31:59Z",
+              "completed_at": "2026-10-12T05:31:59Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:31:59Z",
+              "completed_at": "2026-10-12T05:31:59Z"
+            }
+          ]
+        },
+        {
+          "id": 114676391492,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / KT4-PREM-1 premise audit",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:30:36Z",
+          "completed_at": "2026-10-12T05:31:17Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676391492",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676391492",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:30:37Z",
+              "completed_at": "2026-10-12T05:30:38Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:30:38Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:41Z"
+            },
+            {
+              "name": "Install the exact-algebra dependency",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:30:41Z",
+              "completed_at": "2026-10-12T05:30:46Z"
+            },
+            {
+              "name": "KT4-PREM-1 premise audit probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:30:46Z",
+              "completed_at": "2026-10-12T05:30:58Z"
+            },
+            {
+              "name": "KT4-PREM-1 independent countermodel check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-12T05:30:58Z",
+              "completed_at": "2026-10-12T05:31:14Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:31:14Z",
+              "completed_at": "2026-10-12T05:31:15Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-12T05:31:15Z",
+              "completed_at": "2026-10-12T05:31:15Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-12T05:31:15Z",
+              "completed_at": "2026-10-12T05:31:15Z"
+            }
+          ]
+        },
+        {
+          "id": 114676392144,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 exclusion (${{ matrix.part }})",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-10-12T05:30:34Z",
+          "completed_at": "2026-10-12T05:30:34Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114676392144",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114676392144",
+          "steps": []
+        },
+        {
+          "id": 114678229543,
+          "run_id": 38208235321,
+          "run_attempt": 1,
+          "head_sha": "6a2e9f0e2e3a5842491767a4ff2ff1b3652335bc",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:38:47Z",
+          "completed_at": "2026-10-12T05:38:49Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208235321/job/114678229543",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678229543",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:38:47Z",
+              "completed_at": "2026-10-12T05:38:47Z"
+            },
+            {
+              "name": "Require every probe shard",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:38:47Z",
+              "completed_at": "2026-10-12T05:38:48Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:38:48Z",
+              "completed_at": "2026-10-12T05:38:48Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "id": 38208911901,
+        "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901",
+        "name": "verify",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "failure",
+        "run_attempt": 1,
+        "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+        "head_branch": "dev-bridge/r8-finite-protocol",
+        "run_started_at": "2026-10-12T05:39:44Z",
+        "created_at": "2026-10-12T05:39:44Z",
+        "updated_at": "2026-10-12T05:48:41Z"
+      },
+      "jobs": [
+        {
+          "id": 114678473964,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A40 locus",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:41:31Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678473964",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678473964",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:46Z",
+              "completed_at": "2026-10-12T05:39:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:49Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:49Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "A40 Dita-locus probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:41:29Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:41:29Z",
+              "completed_at": "2026-10-12T05:41:29Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:41:29Z",
+              "completed_at": "2026-10-12T05:41:29Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:41:29Z",
+              "completed_at": "2026-10-12T05:41:29Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474141,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / KINF-2 foundations",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:40:02Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474141",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474141",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:48Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:48Z",
+              "completed_at": "2026-10-12T05:39:51Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:51Z",
+              "completed_at": "2026-10-12T05:39:51Z"
+            },
+            {
+              "name": "Install the exact-algebra dependency",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:51Z",
+              "completed_at": "2026-10-12T05:39:58Z"
+            },
+            {
+              "name": "KINF-2 foundations probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:39:58Z",
+              "completed_at": "2026-10-12T05:39:59Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:39:59Z",
+              "completed_at": "2026-10-12T05:39:59Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:39:59Z",
+              "completed_at": "2026-10-12T05:40:00Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:40:00Z",
+              "completed_at": "2026-10-12T05:40:00Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474158,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Mathlib bridge",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:43:44Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474158",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474158",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:48Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:48Z",
+              "completed_at": "2026-10-12T05:40:02Z"
+            },
+            {
+              "name": "Install elan",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:02Z",
+              "completed_at": "2026-10-12T05:40:03Z"
+            },
+            {
+              "name": "Restore the OIBridge build cache",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:03Z",
+              "completed_at": "2026-10-12T05:40:07Z"
+            },
+            {
+              "name": "Build",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:07Z",
+              "completed_at": "2026-10-12T05:43:09Z"
+            },
+            {
+              "name": "Release gate",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 6,
+              "started_at": "2026-10-12T05:43:09Z",
+              "completed_at": "2026-10-12T05:43:42Z"
+            },
+            {
+              "name": "Post Restore the OIBridge build cache",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 11,
+              "started_at": "2026-10-12T05:43:42Z",
+              "completed_at": "2026-10-12T05:43:42Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-12T05:43:42Z",
+              "completed_at": "2026-10-12T05:43:42Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-12T05:43:42Z",
+              "completed_at": "2026-10-12T05:43:42Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474160,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A45 ancilla",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:39:56Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474160",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474160",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "A45 fixed-basis ancilla probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:54Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:39:54Z",
+              "completed_at": "2026-10-12T05:39:54Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:39:54Z",
+              "completed_at": "2026-10-12T05:39:54Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:39:54Z",
+              "completed_at": "2026-10-12T05:39:54Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474162,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Lean kernel check",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:40:30Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474162",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474162",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Install Lean",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:55Z"
+            },
+            {
+              "name": "Report toolchain",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:55Z",
+              "completed_at": "2026-10-12T05:40:14Z"
+            },
+            {
+              "name": "Kernel check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:14Z",
+              "completed_at": "2026-10-12T05:40:29Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:40:29Z",
+              "completed_at": "2026-10-12T05:40:29Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:40:29Z",
+              "completed_at": "2026-10-12T05:40:29Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474164,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 production",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:41:11Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474164",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474164",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:46Z",
+              "completed_at": "2026-10-12T05:39:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "A41 index-map probe, the production path",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:41:09Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:41:09Z",
+              "completed_at": "2026-10-12T05:41:09Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:41:09Z",
+              "completed_at": "2026-10-12T05:41:09Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:41:09Z",
+              "completed_at": "2026-10-12T05:41:09Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474175,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / core A",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:43:05Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474175",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474175",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:58Z"
+            },
+            {
+              "name": "Core probes A",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:39:58Z",
+              "completed_at": "2026-10-12T05:43:03Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:43:03Z",
+              "completed_at": "2026-10-12T05:43:03Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:43:03Z",
+              "completed_at": "2026-10-12T05:43:04Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:43:04Z",
+              "completed_at": "2026-10-12T05:43:04Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474207,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A38 escape",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:45:50Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474207",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474207",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:47Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:58Z"
+            },
+            {
+              "name": "A38 local-escape probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:39:58Z",
+              "completed_at": "2026-10-12T05:45:48Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:45:48Z",
+              "completed_at": "2026-10-12T05:45:48Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:45:48Z",
+              "completed_at": "2026-10-12T05:45:48Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:45:48Z",
+              "completed_at": "2026-10-12T05:45:48Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474212,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A36 hierarchy",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:40:32Z",
+          "completed_at": "2026-10-12T05:43:14Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474212",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474212",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:40:33Z",
+              "completed_at": "2026-10-12T05:40:33Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:40:33Z",
+              "completed_at": "2026-10-12T05:40:35Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:35Z",
+              "completed_at": "2026-10-12T05:40:35Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:35Z",
+              "completed_at": "2026-10-12T05:40:43Z"
+            },
+            {
+              "name": "A36 hierarchy probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:43Z",
+              "completed_at": "2026-10-12T05:43:11Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:43:11Z",
+              "completed_at": "2026-10-12T05:43:12Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:43:12Z",
+              "completed_at": "2026-10-12T05:43:12Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:43:12Z",
+              "completed_at": "2026-10-12T05:43:12Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474223,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / KT4-PREM-1 premise audit",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:46Z",
+          "completed_at": "2026-10-12T05:40:52Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474223",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474223",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:47Z",
+              "completed_at": "2026-10-12T05:39:48Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:48Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:50Z"
+            },
+            {
+              "name": "Install the exact-algebra dependency",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:39:50Z",
+              "completed_at": "2026-10-12T05:39:57Z"
+            },
+            {
+              "name": "KT4-PREM-1 premise audit probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:39:57Z",
+              "completed_at": "2026-10-12T05:40:20Z"
+            },
+            {
+              "name": "KT4-PREM-1 independent countermodel check",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-12T05:40:20Z",
+              "completed_at": "2026-10-12T05:40:50Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:40:50Z",
+              "completed_at": "2026-10-12T05:40:50Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-12T05:40:50Z",
+              "completed_at": "2026-10-12T05:40:51Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-12T05:40:51Z",
+              "completed_at": "2026-10-12T05:40:51Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474225,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / foundations",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:40:23Z",
+          "completed_at": "2026-10-12T05:41:39Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474225",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474225",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:40:24Z",
+              "completed_at": "2026-10-12T05:40:25Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:40:25Z",
+              "completed_at": "2026-10-12T05:40:27Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:27Z",
+              "completed_at": "2026-10-12T05:40:28Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:28Z",
+              "completed_at": "2026-10-12T05:40:35Z"
+            },
+            {
+              "name": "Foundations probes",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:35Z",
+              "completed_at": "2026-10-12T05:41:36Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:41:36Z",
+              "completed_at": "2026-10-12T05:41:36Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:41:36Z",
+              "completed_at": "2026-10-12T05:41:37Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:41:37Z",
+              "completed_at": "2026-10-12T05:41:37Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474247,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 independent",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:40:04Z",
+          "completed_at": "2026-10-12T05:48:36Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474247",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474247",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:40:05Z",
+              "completed_at": "2026-10-12T05:40:06Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:40:06Z",
+              "completed_at": "2026-10-12T05:40:09Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:09Z",
+              "completed_at": "2026-10-12T05:40:09Z"
+            },
+            {
+              "name": "A41 index-map probe, the independent path",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:09Z",
+              "completed_at": "2026-10-12T05:48:33Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:48:33Z",
+              "completed_at": "2026-10-12T05:48:33Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:48:33Z",
+              "completed_at": "2026-10-12T05:48:33Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:48:33Z",
+              "completed_at": "2026-10-12T05:48:33Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474258,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / core B",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:40:32Z",
+          "completed_at": "2026-10-12T05:44:05Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474258",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474258",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:40:33Z",
+              "completed_at": "2026-10-12T05:40:33Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:40:33Z",
+              "completed_at": "2026-10-12T05:40:36Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:36Z",
+              "completed_at": "2026-10-12T05:40:36Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:36Z",
+              "completed_at": "2026-10-12T05:40:43Z"
+            },
+            {
+              "name": "Core probes B",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:43Z",
+              "completed_at": "2026-10-12T05:44:04Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:44:04Z",
+              "completed_at": "2026-10-12T05:44:04Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:44:04Z",
+              "completed_at": "2026-10-12T05:44:04Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:44:04Z",
+              "completed_at": "2026-10-12T05:44:04Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474286,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / NB-1 native-gate ball",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:40:54Z",
+          "completed_at": "2026-10-12T05:41:05Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474286",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474286",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:40:54Z",
+              "completed_at": "2026-10-12T05:40:55Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:40:55Z",
+              "completed_at": "2026-10-12T05:40:57Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:57Z",
+              "completed_at": "2026-10-12T05:40:57Z"
+            },
+            {
+              "name": "NB-1 native-gate ball probe",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:57Z",
+              "completed_at": "2026-10-12T05:41:03Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-12T05:41:03Z",
+              "completed_at": "2026-10-12T05:41:03Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-12T05:41:03Z",
+              "completed_at": "2026-10-12T05:41:03Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:41:03Z",
+              "completed_at": "2026-10-12T05:41:03Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474317,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 census01",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:39:57Z",
+          "completed_at": "2026-10-12T05:45:52Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474317",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474317",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:39:58Z",
+              "completed_at": "2026-10-12T05:39:59Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:39:59Z",
+              "completed_at": "2026-10-12T05:40:00Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:00Z",
+              "completed_at": "2026-10-12T05:40:00Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:00Z",
+              "completed_at": "2026-10-12T05:40:06Z"
+            },
+            {
+              "name": "A42 {0,1} census and the zero-row span lemma",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:06Z",
+              "completed_at": "2026-10-12T05:45:50Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:45:50Z",
+              "completed_at": "2026-10-12T05:45:50Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:45:50Z",
+              "completed_at": "2026-10-12T05:45:50Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:45:50Z",
+              "completed_at": "2026-10-12T05:45:50Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474347,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A41 hulls",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:41:07Z",
+          "completed_at": "2026-10-12T05:46:49Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474347",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474347",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:41:08Z",
+              "completed_at": "2026-10-12T05:41:09Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:41:09Z",
+              "completed_at": "2026-10-12T05:41:12Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:41:12Z",
+              "completed_at": "2026-10-12T05:41:12Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:41:12Z",
+              "completed_at": "2026-10-12T05:41:19Z"
+            },
+            {
+              "name": "A41 hull census",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:41:19Z",
+              "completed_at": "2026-10-12T05:46:46Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:46:46Z",
+              "completed_at": "2026-10-12T05:46:46Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:46:46Z",
+              "completed_at": "2026-10-12T05:46:47Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:46:47Z",
+              "completed_at": "2026-10-12T05:46:47Z"
+            }
+          ]
+        },
+        {
+          "id": 114678474386,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 witness",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:40:49Z",
+          "completed_at": "2026-10-12T05:46:08Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678474386",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678474386",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:40:50Z",
+              "completed_at": "2026-10-12T05:40:50Z"
+            },
+            {
+              "name": "Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:40:50Z",
+              "completed_at": "2026-10-12T05:40:51Z"
+            },
+            {
+              "name": "Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:40:51Z",
+              "completed_at": "2026-10-12T05:40:52Z"
+            },
+            {
+              "name": "Install dependencies",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-12T05:40:52Z",
+              "completed_at": "2026-10-12T05:40:57Z"
+            },
+            {
+              "name": "A42 witness, class supports, controls, lemmas and case-split ingredients",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-12T05:40:57Z",
+              "completed_at": "2026-10-12T05:46:06Z"
+            },
+            {
+              "name": "Post Run actions/setup-python@v5",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-12T05:46:06Z",
+              "completed_at": "2026-10-12T05:46:06Z"
+            },
+            {
+              "name": "Post Run actions/checkout@v4",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-12T05:46:06Z",
+              "completed_at": "2026-10-12T05:46:06Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-12T05:46:06Z",
+              "completed_at": "2026-10-12T05:46:06Z"
+            }
+          ]
+        },
+        {
+          "id": 114678475048,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes / A42 exclusion (${{ matrix.part }})",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-10-12T05:39:45Z",
+          "completed_at": "2026-10-12T05:39:44Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114678475048",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114678475048",
+          "steps": []
+        },
+        {
+          "id": 114680490476,
+          "run_id": 38208911901,
+          "run_attempt": 1,
+          "head_sha": "708153423ffb5ea4fe27663654431650b5a2e48a",
+          "head_branch": "dev-bridge/r8-finite-protocol",
+          "name": "Numerical probes",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-10-12T05:48:38Z",
+          "completed_at": "2026-10-12T05:48:40Z",
+          "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/38208911901/job/114680490476",
+          "check_run_url": "https://api.github.com/repos/amaybaum/incompleteness/check-runs/114680490476",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-12T05:48:38Z",
+              "completed_at": "2026-10-12T05:48:39Z"
+            },
+            {
+              "name": "Require every probe shard",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-12T05:48:39Z",
+              "completed_at": "2026-10-12T05:48:39Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-12T05:48:39Z",
+              "completed_at": "2026-10-12T05:48:39Z"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "delta_from_original_repair": [
+    {
+      "filename": "research/finite-protocol/PROTOCOL.md",
+      "status": "added",
+      "additions": 59,
+      "deletions": 0,
+      "changes": 59,
+      "previous_filename": null
+    },
+    {
+      "filename": "research/finite-protocol/RESULTS.md",
+      "status": "added",
+      "additions": 74,
+      "deletions": 0,
+      "changes": 74,
+      "previous_filename": null
+    },
+    {
+      "filename": "research/finite-protocol/check.run1.out",
+      "status": "added",
+      "additions": 11,
+      "deletions": 0,
+      "changes": 11,
+      "previous_filename": null
+    },
+    {
+      "filename": "research/finite-protocol/finite_protocol_check.py",
+      "status": "added",
+      "additions": 167,
+      "deletions": 0,
+      "changes": 167,
+      "previous_filename": null
+    },
+    {
+      "filename": "verification/lean-mathlib/OIBridge.lean",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 0,
+      "changes": 1,
+      "previous_filename": null
+    },
+    {
+      "filename": "verification/lean-mathlib/OIBridge/BridgeFiniteProtocol.lean",
+      "status": "added",
+      "additions": 296,
+      "deletions": 0,
+      "changes": 296,
+      "previous_filename": null
+    }
+  ]
+}

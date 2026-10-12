@@ -3,6 +3,11 @@
 This is the successor to #807's completed one-line repair, not a change to that record.
 Its draft PR is #810 and its prospective rules are in PROTOCOL.md.
 
+The conditional finite-depth construction and channel formula are built design results [D]
+at 708153423ffb5ea4fe27663654431650b5a2e48a. Primitive gate memberships remain explicit;
+the class-specific membership, convergence and arbitrary pair-cone validity obligations
+remain open. No new main certification or owner F/E designation is recorded here.
+
 ## Exact protocol controls
 
 Gaussian-rational computation: ten of ten required groups pass, including the actual
@@ -72,3 +77,29 @@ statement and premise headers are unchanged from run 1. Constructors and the exa
 remain unchanged. Start the final budgeted design run only after run 2 fully completes.
 Require a successful Build and all fourteen standard axiom reports; make no stronger
 classification if either fails. No further run is authorized by this prospective budget.
+
+## Design run 3 — successful Build
+
+Head: 708153423ffb5ea4fe27663654431650b5a2e48a.
+Run: 38208911901, pull_request, attempt 1.
+Mathlib bridge job: 114678474158.
+Build succeeded, 05:40:07Z–05:43:09Z; the new module built in 56 seconds.
+All fourteen named reports are exactly [propext, Classical.choice, Quot.sound], with no
+sorryAx. lean-axioms passes with 6150 named results. The gate runs, and its sole failure
+is lean-manuscript: thirteen design modules lack a manuscript-census disposition. Every
+other gate step passes, including all 43 receipts present at this historical design base.
+Main's newer receipt count is not the population under this design run.
+The complete workflow finished at 05:48:41Z: nineteen jobs, seventeen success,
+the scoped Mathlib census failure, and one intentional A42 exclusion skip.
+Every job names the tested head 708153423ffb5ea4fe27663654431650b5a2e48a.
+
+The built statements include construction of the reset from the maximally mixed attachment,
+the four-outcome corrected attempt, its explicit outcome maps, all-depth stopped availability,
+the all-depth closed form, and spectator availability under named context and label assumptions.
+No one-round available-instrument or all-depth available-sequence witness is assumed in the
+concrete availability endpoint. The actual primitives are the architecture's projectors,
+the finite circuit, reset permutations and conditional correction gates.
+
+The three-run budget is exhausted. The tested design head stays unchanged; this completed
+outcome and full run record are maintained on a separate research record branch so that
+recording the outcome does not launch a fourth pull-request workflow.
