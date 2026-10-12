@@ -1,0 +1,67 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "OI-CHANNEL-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "9f9f8257a980a1819fbbc1dc0019917cf8678626",
+ "f": "a5aad0c1c52df963f8d1365479e4c6f1a0305de0",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-oi-channel-1-audit/preregistration.md",
+   "blob": "05118f61d7be7d09a39d619439570cb41254e00b"
+  }
+ ],
+ "governed_paths_digest": "73dbd9ba84a5a55db1f04c449f687d6c11d8dc03c019de8c9ad301bdeb681f63",
+ "e": "d84536837b591de4601e09dada57a4e565db34c7",
+ "tree_e": "979892a133da17ac92d3d1b9360001d60692f7a0",
+ "execution_delta_digest": "91fc8d010dc146c1b19200330dbec65fd207f6b37fd972be6b44c1df6a26bd4d",
+ "candidates": [
+  {
+   "commit": "2d870fc508cbf2d0f74d7681a8546a694eaef92b",
+   "tree": "150b151d47ebaa4756f12c825bf6e011c78704c2",
+   "measured": "S1 native controls PASS; frozen stdout checksum, 17 groups and 140 matrix-unit cases; positive fixture and 11 mutations PASS; PR verify 38167557092 success (19 successful jobs, intentional A42 matrix skip)."
+  },
+  {
+   "commit": "d84536837b591de4601e09dada57a4e565db34c7",
+   "tree": "979892a133da17ac92d3d1b9360001d60692f7a0",
+   "measured": "S2 native controls PASS, frozen stdout checksum, empty stderr, exit 0; 17 groups and 140 matrix-unit cases. Exact-head workflow_dispatch 38168537087, attempt 1, all 34 jobs successful and no skips; OI mutation self-test PASS."
+  }
+ ],
+ "landing": {
+  "base": "9f9f8257a980a1819fbbc1dc0019917cf8678626",
+  "object": "2f05823c038d2142f3178ce3aa9f3adbad643cfc",
+  "reconciliations": [
+   "2f05823c038d2142f3178ce3aa9f3adbad643cfc"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "72f426ee43d84efb41e4cb2c517865e6d9dd7f88ddac21d45bed4072b90ac625"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "a5aad0c1c52df963f8d1365479e4c6f1a0305de0",
+   "record": "https://github.com/amaybaum/incompleteness/commit/2d870fc508cbf2d0f74d7681a8546a694eaef92b"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "a5aad0c1c52df963f8d1365479e4c6f1a0305de0",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38164920166"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "d84536837b591de4601e09dada57a4e565db34c7",
+   "record": "https://github.com/amaybaum/incompleteness/commit/2f05823c038d2142f3178ce3aa9f3adbad643cfc"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "d84536837b591de4601e09dada57a4e565db34c7",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38168537087"
+  }
+ ]
+}
