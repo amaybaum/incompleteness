@@ -139,6 +139,7 @@ import OIBridge.CompletedOI
 import OIBridge.CarrierGeneralOIPlus
 import OIBridge.EmbeddedObservation
 import OIBridge.ImplementationLocality
+import OIBridge.BridgeFiniteProtocol
 import OIBridge.MicroscopicReversibility
 import OIBridge.LieRankSource
 import OIBridge.SubstratumSource

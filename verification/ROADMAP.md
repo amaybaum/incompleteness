@@ -980,7 +980,15 @@ minimal premises from which it follows. It has five parts, each with its own sta
   elementary transitions (`DrivesElementary`) — generates a theory carrying every finite
   endomorphic quantum operation (`genTheory_qm_of_quantumArchitecture`), through composite unitary
   control (`control_of_lieRank`) and the full instruments (`fullInstruments_of_control`). The typed
-  characterization covers the finite rectangular Kraus endpoint (`typed_determined_iff`).
+  characterization covers the finite rectangular Kraus endpoint (`typed_determined_iff`). Round OI-FINITE-PROTOCOL-1 constructs every finite
+  stopped-channel depth from an architecture and explicit circuit/reset/correction
+  memberships (`finite_protocol_available`); its balanced circuit obeys the all-depth
+  formula (`balanced_stopped_formula`) and yields conditional availability
+  (`balanced_finite_available`). The ancilla starts uniformly mixed and is reset inside
+  the protocol. Spectator extension additionally requires `ContextStable` and
+  `LabelInvariant` (`finite_protocol_spectator`). Primitive memberships, convergence and
+  availability of a limiting drive, physical state/test identification and preservation
+  of an arbitrary pair cone remain separate obligations. K3 retains its conditional status.
 - **K1 — the dimension. CONDITIONAL.** In the DIM-1 coordinate realization of two identical
   `d`-balls on the locally tomographic bilinear carrier `W d`, one common `IsNot` involution and a
   `NativeGate` satisfying its frame, two-sided positivity on `maxCone` and two NOT relations imply

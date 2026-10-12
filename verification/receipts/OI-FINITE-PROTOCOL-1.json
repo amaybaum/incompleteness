@@ -1,0 +1,67 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "OI-FINITE-PROTOCOL-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "f2415108601a9c36bb985b3374c56f0eb34c2962",
+ "f": "1f17f1a631d5b8a57c1b70f5965c6e032e9873da",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-oi-finite-protocol-1/preregistration.md",
+   "blob": "f2d31cd92b173389206a4729dee763a9891d74d0"
+  }
+ ],
+ "governed_paths_digest": "92ae2c8c351e639db569ccd32de914b72b0172d791b98708a99881193d5b96b7",
+ "e": "ce46c2047c4ae22ec2373dc1ea81459545dd4c7f",
+ "tree_e": "97fca2f6fc80b2661ca57ed68d9d2ce5a03033f6",
+ "execution_delta_digest": "65787410e1364aa422c152da950e8582a169e31b2624a123f0520845be4cb4d7",
+ "candidates": [
+  {
+   "commit": "031a32bd5fc054004ee3ea6ed0faa79aa2451a4b",
+   "tree": "071fba5b186ee7e5c13d0b21b69c399104dbe232",
+   "measured": "S1 frozen controls PASS; exact Q(i) output matched the frozen checksum, ten groups and 36 stopped matrix-unit cases; S1/S2 fixtures and 19 mutations PASS. PR run 38250404107, Mathlib job 114814907712 passed Build and complete release gate; all fourteen finite-protocol reports use propext, Classical.choice and Quot.sound, global gate reports 5874 named results without sorryAx and 44 existing receipts hold. Synthetic checkout tree equals the actual S1 tree."
+  },
+  {
+   "commit": "ce46c2047c4ae22ec2373dc1ea81459545dd4c7f",
+   "tree": "97fca2f6fc80b2661ca57ed68d9d2ce5a03033f6",
+   "measured": "S2 frozen controls PASS; exact result template and roadmap splice matched, with control plane and S1 files unchanged. Exact-head workflow_dispatch 38253942780, attempt 1, all 35 jobs successful and no failures. Named finite-protocol reports use only standard axioms; complete release gate and owned mutation shard pass. Owner designated this exact object E."
+  }
+ ],
+ "landing": {
+  "base": "f2415108601a9c36bb985b3374c56f0eb34c2962",
+  "object": "ce962a421872475356afc4b6892419e2209c83a4",
+  "reconciliations": [
+   "ce962a421872475356afc4b6892419e2209c83a4"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "2925a1e0279e84e7e041e4c54be91969ba5d7d45e72a0fe0130520ecb4e04817"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "1f17f1a631d5b8a57c1b70f5965c6e032e9873da",
+   "record": "https://github.com/amaybaum/incompleteness/commit/031a32bd5fc054004ee3ea6ed0faa79aa2451a4b"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "1f17f1a631d5b8a57c1b70f5965c6e032e9873da",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38245409846/attempts/2"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "ce46c2047c4ae22ec2373dc1ea81459545dd4c7f",
+   "record": "https://github.com/amaybaum/incompleteness/commit/ce962a421872475356afc4b6892419e2209c83a4"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "ce46c2047c4ae22ec2373dc1ea81459545dd4c7f",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38253942780/attempts/1"
+  }
+ ]
+}
