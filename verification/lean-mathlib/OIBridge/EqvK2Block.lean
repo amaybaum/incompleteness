@@ -1,30 +1,11 @@
 /-
-  OIBridge/EqvK2Block.lean — design module of the research thread `research/equivalence` (node E19,
-  draft S6 §H). Not adopted, not certified, not a round: Theorem C19-1 of the countermodels thread
-  (handoff HO-31 item 1) in the vocabulary of the pair-level K2 schema of `EqvK2Schema`, on the same
-  dictionary.
+  OIBridge/EqvK2Block.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  §H.1  The block-diagonal matrices `P₀ ⊗ U₀ + P₁ ⊗ U₁` (`blockMat`), their action on tables through the
-        dictionary (`blockAct`), and the invariance hypothesis `BlockInvariant K`: invariance under every
-        pair of special unitaries — the (b)-instances for the operations of the block group
-        `H = SU(2) × SU(2)`, the identity component of the group the clause's operations generate.
-  §H.2  One token: every vector of `ℂ²` is carried to `(‖a‖, 0)` by a special unitary (`suTo`).
-  §H.3  Reachability (C19-1 (a)): every rank-one positive matrix is a block conjugate of the dictionary
-        image of a nonnegative multiple of a product state of the ball (`reach_block`).
-  §H.4  The forcing (C19-1 (b)): products (H1), self-duality (H3) and block invariance give `K = Q3`
-        (`pairCone_eq_Q3_of_block`) — with no reachability hypothesis and no gate hypothesis; `Q3` is
-        block-invariant (`Q3_blockInvariant`); given H1 and H3, `K = Q3` exactly when `K` is block-invariant
-        (`pairCone_eq_Q3_iff_block`; the two directions are the two theorems).
-  §H.5  Block invariance gives the full-flow form of A_miss (`aMiss_of_blockInvariant`): the flow through
-        the half-angle phase `diag(e^{−it/2}, e^{it/2})`, the cyclic permutation through `cycMat`, both
-        special unitaries.
+  Special-unitary block actions and the constructive rank-one product-state reduction.
 
-  Every hypothesis is a premise. Nothing here sources H1, H3 or the block invariance; nothing here shows
-  that the block invariance follows from the gate and the flow (the written generation step of
-  NOTES-E19, `blockInvariant_of_driveWords`, open); nothing here concerns availability or more than two
-  tokens.
-
-  Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.EqvK2Converse
 

@@ -1,33 +1,11 @@
 /-
-  OIBridge/EqvK2Generation.lean — design module of the research thread `research/equivalence` (node
-  E19, draft S6 §H.6). Not adopted, not certified, not a round: the generation step of the full-flow
-  form. Invariance under the gate and under the clause's two operations at every angle gives block
-  invariance, through exact finite words in those operations — no closure, no density, no
-  reachability hypothesis. Hence S6's reachability statement `ReachPure` is a theorem about the
-  drive words, and the pair-level K2 schema holds without it.
+  OIBridge/EqvK2Generation.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  §I.1  Conjugation invariance `ConjInv K M` — `K` carried into itself by `ω ↦ coordOf (M dict ω Mᴴ)` —
-        closed under products and unit scalars; the block product law `blockMat_mul`.
-  §I.2  The generators: the phase circle (the flow at every angle; every point of the unit circle
-        through `Complex.arg`), the cyclic lift and its inverse (`cycMatᴴ = −cycMat²`), the gate
-        (`cnotMat = blockMat 1 X`, `dict_cnot`).
-  §I.3  One token: every special unitary is `dUnit a · rotRe c s · dUnit b` (`su_euler`), with
-        `rotRe c s = cycMatᴴ · dUnit (c − i s) · cycMat` (`rotRe_eq`); hence idle invariance under every
-        special unitary (`conjInv_idle`).
-  §I.4  The controlled half: `blockMat 1 (dUnit (r̄²))` is the word `gate · (1 ⊗ dUnit r) · gate ·
-        (1 ⊗ dUnit r̄)` (`rtrick`); `blockMat 1 (rotRe c s)` is its conjugate by an idle word; hence
-        controlled invariance under every special unitary (`conjInv_ctrl`).
-  §I.5  Block invariance from the gate and the clause (`blockInvariant_of_drive`); `ReachPure` as a
-        theorem (`reachPure`); the forcing without it (`pairCone_eq_Q3_of_drive_exact`); `Q3` is
-        invariant under the gate (`Q3_cnot`); given H1 and H3, `K = Q3` exactly when `K` is invariant
-        under the gate and the clause's two operations (`pairCone_eq_Q3_iff_drive_exact`: the direction
-        `→` is `Q3_cnot` with `EqvK2Converse.Q3_aMiss`, the direction `←` is
-        `pairCone_eq_Q3_of_drive_exact`).
+  Exact generation of the SU(2) block subgroup by CNOT, the full rotation flow and the cyclic datum.
 
-  Every hypothesis is a premise; nothing here sources H1, H2, H3 or the clause, and every invariance
-  statement is cone invariance, not availability.
-
-  Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.EqvK2Block
 import OIBridge.BridgeConverge

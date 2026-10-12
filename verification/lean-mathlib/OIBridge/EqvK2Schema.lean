@@ -1,34 +1,11 @@
 /-
-  OIBridge/EqvK2Schema.lean — design module of the research thread `research/equivalence` (node E11,
-  skeleton S6). Not adopted, not certified, not a round: the pair-level K2 schema with its dictionary
-  and its cone step as kernel statements and the reachability lemma as a hypothesis, on a disposable
-  branch.
+  OIBridge/EqvK2Schema.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  §A–§C  The two-token dictionary of DIM-1's pair carrier `W 3`. The definitions `pauli`, `tokMat`
-         and `dict` are those of the bridge thread's draft `BridgeDictionary.lean` (sha256 `e4b60411…`),
-         verbatim, so that both threads use one dictionary: `dict ω = ¼ Σ ω_μν σ_μ ⊗ σ_ν` in the kernel's
-         tensor `tensorOf`, control token first. Proved: the product law
-         `dict (prodState x y) = tensorOf (tokMat (hom x)) (tokMat (hom y))` (`dict_prodState`, with the
-         fix the bridge recorded for `dict_tens`: full expansion of the four-element sums, then `ring`);
-         real linearity (`dictLin`); Hermiticity; the pairing compatibility
-         `ipW ω η = 4 · tr (dict ω * dict η)` (`ipW_eq_trace`) for the Euclidean table pairing `ipW`;
-         injectivity through the coordinate functionals (`coordOf_dict`).
-  §D     Completeness of the Pauli tensors and the linear equivalence
-         `dictEquiv : W 3 ≃ₗ[ℝ] selfAdjoint (Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ)`.
-  §E     The cone step. `Q3` is the set of tables whose dictionary image is positive semidefinite.
-         LOWER (`Q3_subset_of_pure`): a set closed under addition that contains a table of every
-         rank-one positive matrix `x xᴴ` contains `Q3` (through the kernel's PSD factorization
-         `BoundaryAudit.psdFactorization_discharged`). UPPER (`subset_Q3_of_pure_dual`): if such a set
-         lies in its own dual under `ipW`, it lies in `Q3`. Positive control: `Q3 = dualW Q3`.
-  §F     The assembly `pairCone_eq_Q3_of_drive`: products of ball states (H1), `cnot`-invariance (H2),
-         self-duality `K = dualW K` (H3) and invariance under one token's rotations about the third axis
-         and the cyclic permutation `cycEquiv` (A_miss, in the form of handoff HO-5) give `K = Q3`, given
-         the reachability statement `ReachPure` (lemma L4 of the thread's NOTES-E10) as a hypothesis.
+  The real table / Hermitian matrix dictionary, trace pairing, pure-state cone inclusions, and the conditional H3 drive schema.
 
-  Every hypothesis is a premise. Nothing here sources H2, H3, A_miss or `ReachPure`, and nothing here
-  concerns more than two tokens.
-
-  Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.CompositeDimension
 import OIBridge.BoundaryAudit

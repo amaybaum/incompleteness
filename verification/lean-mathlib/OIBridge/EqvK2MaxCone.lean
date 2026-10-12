@@ -1,13 +1,11 @@
 /-
-  Conditional pair-cone design proof: replace self-duality H3 with the maxCone upper bound
-  and explicit addition/nonnegative-scaling closure. The exact SU(2) block generation and
-  pure-state reduction are the measured E19 design dependencies.
+  OIBridge/EqvK2MaxCone.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  UPPER uses only maxCone and block invariance. LOWER uses products, scaling, addition
-  and block invariance. No closedness, self-duality or assumed ReachPure occurs in either
-  headline. Full-flow A_miss still includes the cyclic datum.
+  Separate upper/lower pair-cone inclusions with explicit cone closure and maxCone; available sharp-product tests supply the upper bound.
 
-  This design module does not derive any premise from observational incompleteness.
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.EqvK2Generation
 import OIBridge.EffectSpace

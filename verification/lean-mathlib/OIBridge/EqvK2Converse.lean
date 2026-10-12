@@ -1,25 +1,11 @@
 /-
-  OIBridge/EqvK2Converse.lean — design module of the research thread `research/equivalence` (node E15,
-  draft S6 §G). Not adopted, not certified, not a round: the necessity direction of the pair-level K2
-  schema of `EqvK2Schema`, on the same definitions.
+  OIBridge/EqvK2Converse.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  §G.1  The dictionary split along the control index, `dict ω = Σ_μ (½ σ_μ) ⊗ tokMat (ω μ)`, and the
-        conjugation law `tensorOf A (U B Uᴴ) = (1 ⊗ U)(A ⊗ B)(1 ⊗ U)ᴴ`.
-  §G.2  One token: the homogenized rotation about the third axis acts on `tokMat` as conjugation by
-        `diag(1, cos t + i sin t)` (`tokMat_rot`), the cyclic permutation as conjugation by
-        `(I − i(X + Y + Z))/2` (`tokMat_cyc`).
-  §G.3  The two intertwining lemmas: the dictionary carries `actT (rotLin t)` to conjugation by
-        `1 ⊗ diag(1, cos t + i sin t)` (`dict_actT_rotLin`) and `actT cycEquiv` to conjugation by
-        `1 ⊗ (I − i(X + Y + Z))/2` (`dict_actT_cyc`).
-  §G.4  `Q3` is invariant under both, because unitary conjugation preserves positive semidefiniteness
-        (`Q3_aMiss`); with `EqvK2Schema.pairCone_eq_Q3_of_drive`, given H1, H2, H3 and `ReachPure`,
-        `K = Q3` exactly when `K` is invariant under both (`pairCone_eq_Q3_iff_drive`). The direction
-        `→` is `Q3_aMiss`, the direction `←` is `pairCone_eq_Q3_of_drive`.
+  Exact one-token rotation and cyclic actions through the dictionary, with the quantum invariance witnesses.
 
-  Every hypothesis is a premise. Nothing here sources H2, H3, A_miss or `ReachPure`, and nothing here
-  concerns more than two tokens.
-
-  Kernel check:  cd verification/lean-mathlib && lake exe cache get && lake build
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.EqvK2Schema
 

@@ -1,34 +1,11 @@
 /-
-  OIBridge/BridgeConverge.lean — design module of the research thread `research/bridge`
-  (round 4, node B15). Not certified. Built on the disposable branch `dev-bridge/r4-conv` only;
-  not for merge.
+  OIBridge/BridgeConverge.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  One dictionary. The two-token dictionary is stated in two design modules on the same definitions
-  of `pauli`, `tokMat` and `dict`: the bridge thread's `BridgeDictionary` (round 3, run 38099134414)
-  and the equivalence thread's `EqvK2Schema` (`research/equivalence` @ `c10dbaee`, sha256
-  `0bc6da00…`, run 38101580750; carried verbatim on the dev branch, with attribution to that
-  thread). Both are imported here; nothing in either is restated.
+  Compatibility of the two dictionaries and the conditional transfer maps.
 
-  Proved here:
-    §A  the two dictionaries are one map (`pauli_converge`, `tokMat_converge`, `dict_converge`, by
-        definitional equality); hence the bridge's dictionary is injective (`dict_injective`, from the
-        equivalence thread's `dict_injective`), Hermitian-valued, and is the linear equivalence
-        `dictEquiv` onto the Hermitian matrices (`dictEquiv_eq`);
-    §B  the transfer clause in table form: `transferMap U ω` is the table whose dictionary image is
-        `Ad(1 ⊗ U)(dict ω)` (`dict_transferMap`), and `TransferClause 𝓘 K` holds exactly when `K` is
-        invariant under `transferMap U` for every admissible unitary `U` (`transferClause_iff`, each
-        direction proved); the clause is antitone in the class (`transferClause_mono`);
-    §C  (b) for the phase circle in table form: on a pair cone with `TransferClause substratumClass K`,
-        `actT (rotZ c s) ω ∈ K` for `ω ∈ K` and `c² + s² = 1` (`transfer_phase_table`); the flow form
-        `actT (rotLin t) ω ∈ K` for every `t` (`transfer_flow_table`) and the 3-4-5 point
-        (`transfer_345_table`); the NOT on the target from the clause for the stated access
-        (`transfer_nflip_table`), hence from the monomial clause (`transfer_nflip_of_substratum`);
-    §D  controls: `Q3` satisfies the clause for every class (`transferClause_Q3`), so the table form
-        holds non-vacuously (`Q3_phase_invariant`); a one-table set fails it (`transfer_counter`).
-
-  Nothing here sources the transfer clause: every statement of §C has it as a hypothesis.
-
-  Kernel check (dev branch):  cd verification/lean-mathlib && lake exe cache get && lake build
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.BridgeDictionary
 import OIBridge.EqvK2Schema

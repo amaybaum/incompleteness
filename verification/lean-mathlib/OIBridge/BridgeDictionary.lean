@@ -1,43 +1,11 @@
 /-
-  OIBridge/BridgeDictionary.lean — design module of the research thread `research/bridge`
-  (round 3, node B11). Not certified. Built on the disposable branch `dev-bridge/r3-dict` only;
-  not for merge. The round-2 draft of this module (node B9) did not build; this version replaces
-  it.
+  OIBridge/BridgeDictionary.lean — conditional pair-cone infrastructure (OI-PAIR-MAXCONE-1).
 
-  The two-token dictionary of handoff HO-6, at the table level of DIM-1's pair carrier `W 3`, in
-  the kernel's own tensor `tensorOf` (MonoidalCompletion.lean), the operation `ContextStable` uses:
-    `tokMat v = ½ Σ v_μ σ_μ`        one token's homogenized vector as a 2 × 2 complex matrix;
-    `dict ω = ¼ Σ ω_μν σ_μ ⊗ σ_ν`   a pair table as a 4 × 4 complex matrix.
+  Dictionary identities and explicitly introduced operation-transfer interfaces.
 
-  Proved here:
-    §A  (D1) the product law `dict (tens X Y) = tensorOf (tokMat X) (tokMat Y)` (`dict_tens`), hence
-        `dict (prodState x y) = tensorOf (tokMat (hom x)) (tokMat (hom y))` (`dict_prodState`);
-    §B  (D2) the gate: `dict (cnot ω) = cnotMat * dict ω * cnotMat`, with
-        `cnotMat = |0⟩⟨0| ⊗ 1 + |1⟩⟨1| ⊗ X` (`dict_cnot`);
-    §C  (D2) the monomial images. `rotZ c s` is the rotation of the ball by `(c, s)` about the third
-        axis; at `(c, s) = (cos t, sin t)` it is the kernel's `rotLin t` (`rotZ_cos_sin`).
-        `zPhase c s = diag(1, c + i s)`. On the unit circle the two local actions are intertwined with
-        conjugation by the idle extensions: `dict (actT (rotZ c s) ω) = Ad(1 ⊗ zPhase c s) (dict ω)`
-        (`dict_actT_rotZ`) and `dict (actC (rotZ c s) ω) = Ad(zPhase c s ⊗ 1) (dict ω)`
-        (`dict_actC_rotZ`). The NOT: `dict (actT nflip ω) = Ad(1 ⊗ X) (dict ω)`,
-        `dict (actC nflip ω) = Ad(X ⊗ 1) (dict ω)` (`dict_actT_nflip`, `dict_actC_nflip`). The unit
-        circle enters only through the one-token identities `zPhase_pauli0` and `zPhase_pauli3`; the
-        pair identities follow from the generic conjugation formulas `conj_dict_right`,
-        `conj_dict_left` (Mathlib's Kronecker algebra);
-    §D  the certified `substratumClass_contextStable` at the pair carrier
-        (`monomial_extension_admissible`); the transfer clause `TransferClause` as a definition; and
-        its pull-back to the phase rotations: on a cone `K` satisfying the clause for the substratum
-        class, every rotated table `actT (rotZ c s) ω`, `ω ∈ K`, `c² + s² = 1`, has the dictionary image
-        of a member of `K` (`transfer_phase`);
-    §E  controls: the circle hypothesis is satisfiable at the rational point `(3/5, 4/5)`
-        (`dict_actT_rotZ_345`), and it is load-bearing: off the circle the phase conjugation does not
-        fix the identity (`zPhase_pauli0_counter`).
-
-  The dictionary is a comparison and construction tool. Nothing here is a premise about a pair cone,
-  and nothing sources the transfer clause. `transfer_phase` concludes equality of dictionary images;
-  injectivity of the dictionary is not proved here.
-
-  Kernel check (dev branch):  cd verification/lean-mathlib && lake exe cache get && lake build
+  The hypotheses retain their stated scope. The physical realization of the pair carrier,
+  its product tests and its operation-preserving action has separate source obligations.
+  Proof bodies follow the measured E19 and MaxCone design sources.
 -/
 import OIBridge.CompositeDimension
 import OIBridge.MonoidalCompletion
