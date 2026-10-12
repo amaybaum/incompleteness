@@ -1,0 +1,72 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "OI-PAIR-MAXCONE-1",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "f2415108601a9c36bb985b3374c56f0eb34c2962",
+ "f": "ef486aa48c445db2264d7a7f8b22520af743e4a9",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-oi-pair-maxcone-1/preregistration.md",
+   "blob": "a1b4293b71d062c7224c8bae422ba1c0ccf181c9"
+  }
+ ],
+ "governed_paths_digest": "6dbabcb0d61c75c2d19b457f1d352217ac70850955a2b61f1b5eb272fe78029f",
+ "e": "6a7696a050f6d3fd9e16a9fb17665cbe01b4b3be",
+ "tree_e": "535d1535c059e781fb19f21b53f8be5d827f41bb",
+ "execution_delta_digest": "4f9ed21e7439f861e176328980d218616001181aa873afee0d3a38d9e5d1d517",
+ "candidates": [
+  {
+   "commit": "b6fc7139659227b3f8170e0e8926945791976276",
+   "tree": "420660cd033322919e8d3c328fd8f8e76939e23b",
+   "measured": "S1 frozen controls PASS; 2743 exact Q(i) checks and three checker mutations; content fixtures and 26 mutations PASS. PR run 38250344438 Mathlib job 114814706272 passed Build and complete release gate with sixteen standard MaxCone reports, 5967 named global results without sorryAx, and 44 existing receipts holding. Its tested tree equals actual S1."
+  },
+  {
+   "commit": "6a7696a050f6d3fd9e16a9fb17665cbe01b4b3be",
+   "tree": "535d1535c059e781fb19f21b53f8be5d827f41bb",
+   "measured": "S2 frozen controls PASS; exact result and two-location roadmap update matched, with control plane unchanged. Exact-head workflow_dispatch run 38253938894, attempt 1, all 35 jobs successful. The sixteen named MaxCone reports use only standard axioms; the complete release gate and owned mutation shard pass. Owner replied \"Proceed as suggested\" in the explicit exact-E designation context. Lower inclusion additionally requires block invariance as the frozen scope table and named theorem state."
+  }
+ ],
+ "landing": {
+  "base": "2954989a40bb2807d3432e13cf671d698295124f",
+  "object": "82a1d18d5ae08d9d528fb1f8e80ad71c9a35f4d1",
+  "reconciliations": [
+   "82a1d18d5ae08d9d528fb1f8e80ad71c9a35f4d1"
+  ],
+  "resolved_paths": [
+   ".github/workflows/verify.yml",
+   "verification/ROADMAP.md",
+   "verification/lean-manuscript-census.json",
+   "verification/lean-mathlib/OIBridge.lean"
+  ],
+  "delta_digest": "ba53c988e195ac6f938f7e40fba468ca220d52bc36cd125ee530651aa119973b"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "ef486aa48c445db2264d7a7f8b22520af743e4a9",
+   "record": "https://github.com/amaybaum/incompleteness/commit/b6fc7139659227b3f8170e0e8926945791976276"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "ef486aa48c445db2264d7a7f8b22520af743e4a9",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38245407074/attempts/1"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "6a7696a050f6d3fd9e16a9fb17665cbe01b4b3be",
+   "record": "https://github.com/amaybaum/incompleteness/commit/82a1d18d5ae08d9d528fb1f8e80ad71c9a35f4d1"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "6a7696a050f6d3fd9e16a9fb17665cbe01b4b3be",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38253938894/attempts/1"
+  }
+ ]
+}
