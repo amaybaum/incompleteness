@@ -182,8 +182,9 @@ adoption or a failed finite-availability theorem. Its earlier failed runs remain
 and are not rewritten. This native successor adopts no unrelated historical module.
 
 The local preparation checkpoint 5152a959 carried the preregistration alone before the
-new local checks. Before the predictive CI run, the published control-plane checkpoint
-will be named here; neither checkpoint is an owner F designation. The exact checker must replay byte-for-byte to
+new local checks. The published prospective control-plane checkpoint is
+07a09570ff343aec73e12e1aae991b2290de840b, committed before the predictive CI run.
+Neither checkpoint is an owner F designation. The exact checker must replay byte-for-byte to
 SHA256 f33e3c97bd1baa7f4b583f798cf0ecdec185860d37f69523f31128e4131d35e1,
 with empty stderr and exit zero. Its final line is:
 FINITE-PROTOCOL: PASS; 10 groups; 36 stopped matrix-unit cases
