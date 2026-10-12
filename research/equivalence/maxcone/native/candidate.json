@@ -1,0 +1,124 @@
+{
+  "pr": 811,
+  "candidate": "0557e8cd66742f4f52d29ab191a3537e7efbcd62",
+  "branch": "adopt/oi-pair-maxcone-1-20261012",
+  "D": "f2415108601a9c36bb985b3374c56f0eb34c2962",
+  "delta": [
+    "verification/programmes/oi-qm/reconstruction/round-oi-pair-maxcone-1/preregistration.md"
+  ],
+  "automatic_check": {
+    "id": 38208826121,
+    "event": "pull_request",
+    "attempt": 1,
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 114678208185,
+        "name": "Numerical probes / core A",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208308,
+        "name": "Numerical probes / A41 independent",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208416,
+        "name": "Numerical probes / A38 escape",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208433,
+        "name": "Numerical probes / A42 witness",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208455,
+        "name": "Mathlib bridge",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208458,
+        "name": "Lean kernel check",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208463,
+        "name": "Numerical probes / core B",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208481,
+        "name": "Numerical probes / A36 hierarchy",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208482,
+        "name": "Numerical probes / A41 hulls",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208494,
+        "name": "Numerical probes / A41 production",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208565,
+        "name": "Numerical probes / NB-1 native-gate ball",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208589,
+        "name": "Numerical probes / OI channel protocol",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208601,
+        "name": "Numerical probes / A40 locus",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208608,
+        "name": "Numerical probes / KT4-PREM-1 premise audit",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208616,
+        "name": "Numerical probes / A42 census01",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208619,
+        "name": "Numerical probes / foundations",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208638,
+        "name": "Numerical probes / A45 ancilla",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678208663,
+        "name": "Numerical probes / KINF-2 foundations",
+        "conclusion": "success"
+      },
+      {
+        "id": 114678209329,
+        "name": "Numerical probes / A42 exclusion (${{ matrix.part }})",
+        "conclusion": "skipped"
+      },
+      {
+        "id": 114679443644,
+        "name": "Numerical probes",
+        "conclusion": "success"
+      }
+    ],
+    "gate": "PASS",
+    "receipts": 44
+  },
+  "F_check_run": null,
+  "F_owner_designation": null,
+  "execution_started": false,
+  "blocker": "No fresh-dispatch operation in connector; browser observation unavailable after documented credential-protection recovery.",
+  "scope": "Control-plane candidate only. Automatic pull_request check is not a native F attestation."
+}
