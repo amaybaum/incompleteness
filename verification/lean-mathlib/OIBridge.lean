@@ -1,3 +1,4 @@
+import OIBridge.BridgeFiniteProtocol
 /-
   OIBridge.lean — ROADMAP §A1/§A5, in the form the counting layer consumes.
 
