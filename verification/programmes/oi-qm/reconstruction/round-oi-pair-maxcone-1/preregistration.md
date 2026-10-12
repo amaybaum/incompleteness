@@ -126,6 +126,25 @@ local replay changed every shared fixture file and still passed; actual executio
 continue to reject every changed frozen output. This is essential for later native rounds
 and the parallel transfer successor.
 
+## Execution invariants and checkpoints
+
+| Execution invariant | Checkpoint that measures it |
+|---|---|
+| The twelve S1 files and controls retain their frozen bytes | Content controls P and C; SHA256 and blob table above |
+| The workflow has exactly five splices, the aggregator one import, and the registry one kernel-only family | Independent reconstruction W, H and J |
+| Existing jobs and source modules retain their bytes; no unrelated path changes | Changed-path bound G and retained-anchor check L |
+| The control plane stays exactly F; execution is linear from F | Freeze check F and ancestry check T; native receipt verifier G7 and S3 |
+| The round records are exactly preregistration and controls at S1, with result added at S2 | Record-population check R |
+| The exact checker reproduces all 2743 checks with byte-identical stdout, empty stderr and zero exit | Output control V against OUTPUT_SHA |
+| Broken trace normalization, adjoint transport and product-test sign are rejected | Checker --self-test: three mutations |
+| Content controls accept S1/S2 and reject altered frozen files, scope and output | Controls --self-test: two positive fixtures and 25 mutations |
+| The result preserves the conditional earned scope and actual F/S1 identifiers | Exact-template check S and source-audit table |
+| Only the specified K2 paragraph changes; K2 stays OPEN and other obligations retain D | Roadmap reconstruction M and changed-path bound G |
+| All sixteen named MaxCone axiom reports are standard; no sorryAx occurs | S1/E Mathlib Build axiom-report audit, before E designation |
+| Every required host job is green on the exact F and E objects | Held-head workflow_dispatch attestations, checked from host metadata |
+| Reconciliation preserves other rounds' shared changes and the round's own execution delta | S9 per-path merits review and native receipt verifier |
+| The receipt is valid before landing | v3_verifier --verify-round Q: VERDICT HOLDS |
+
 ## Exact controls and their limits
 
 The independent checker reads no research or Lean source, computes in Q(i) with the
@@ -133,9 +152,9 @@ standard library, and prints 2743 finite exact checks. Its SHA256 stdout is
 492bfc19254a39193222a90e828dc16c4ae58bc434bb00c90f03931c6a0adeee, stderr empty, exit zero. Final line:
 MAXCONE-EXACT: PASS; 2743 finite exact checks
 
-Its checks include all 16 matrix units and 256 trace pairings; 81 products and 1296
-product identities; 169 pure-state block reductions including zero blocks and complex
-phases, 338 SU checks and 169 adjoint checks; exact PSD/minor/rank witnesses. Mutations
+Its checks include all 16 scaled Pauli-tensor basis elements and 256 trace pairings;
+81 products and 1296 product identities; 169 pure-state block reductions including
+zero blocks and complex phases, 338 SU checks and 169 adjoint checks; exact PSD/minor/rank witnesses. Mutations
 of the trace factor, omitted adjoint and product-test sign must be rejected. The checker
 has an independent Gaussian-rational helper; changing the support file also trips P.
 Finite computations are controls, not universal proofs or a full OI model.
