@@ -3537,16 +3537,20 @@ readout, where no choice between measurements arises: every faithful
 deterministic completion of the visible process carries readout-relevant
 hidden predictive memory. The visible laws of fixed-readout processes
 are, by \(S \iff D \iff Q_{\mathrm{fb}}\), exactly the finite stochastic
-laws, and no uncertainty relation constrains that class. The relations
-bind only where non-commuting observables are operationally available,
-and that availability belongs to the coherent-instrument completion
-rather than to the finite-law equivalence: in the OI⁺ characterization
-above, the full non-commutative operational structure follows from
-well-formedness and the three added principles, the OI-core clause being
-redundant once reversible control is present, and the operational
-realization theorem realizes non-quantum instrument families as well.
-Whether embedded observation selects a non-commutative operational
-structure is the selection question of route (ii).
+laws, and no uncertainty relation constrains that class (kernel:
+\texttt{S\_imp\_D} for the realization of every finite stochastic law,
+\texttt{D\_imp\_Qfb} and \texttt{Qfb\_imp\_S} for the converse,
+assembled in \texttt{finite\_horizon\_equivalence} in
+\texttt{OIBridge/Equivalence.lean}). The relations bind only where
+non-commuting observables are operationally available, and that
+availability belongs to the coherent-instrument completion rather than
+to the finite-law equivalence: in the OI⁺ characterization above, the
+full non-commutative operational structure follows from well-formedness
+and the three added principles, the OI-core clause being redundant once
+reversible control is present, and the operational realization theorem
+realizes non-quantum instrument families as well. Whether embedded
+observation selects a non-commutative operational structure is the
+selection question of route (ii).
 
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
@@ -5184,4 +5188,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: b3a3728612ab3c118270f0896b538913f2aeddbbefd3a088f248785e4af85a10
+% source-sha256: 3c45b8ecfd0b7cd6641535697135bc16f48dd0f9e652d79173cda49271c62981
