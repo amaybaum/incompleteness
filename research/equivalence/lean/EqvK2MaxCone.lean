@@ -10,6 +10,7 @@
   This design module does not derive any premise from observational incompleteness.
 -/
 import OIBridge.EqvK2Generation
+import OIBridge.EffectSpace
 
 namespace OIBridge
 namespace EqvK2MaxCone
@@ -183,6 +184,38 @@ theorem pairCone_eq_Q3_iff_drive_maxCone {K : Set (W 3)}
   ⟨driveInvariant_of_eq_Q3, fun ⟨hH2, hA⟩ =>
     pairCone_eq_Q3_of_drive_maxCone hH1 hadd hsmul hmax hH2 hA⟩
 
+/-- EFF-1's sharp-product tests suffice for the upper inclusion. -/
+theorem subset_Q3_of_sharp_products_block {K : Set (W 3)}
+    (hsharp : K ⊆ EffectSpace.maxConeOf (EffectSpace.sharpFamily 3))
+    (hB : BlockInvariant K) : K ⊆ Q3 :=
+  subset_Q3_of_maxCone_block (fun _ hω =>
+    EffectSpace.maxConeOf_sharp_subset_maxCone (by norm_num) (hsharp hω)) hB
+
+/-- Validity on an available family containing the sharp tests supplies the maxCone bound.
+Only this inclusion is used: no EffectsOn or full-affine-effect availability is assumed. -/
+theorem maxCone_bound_of_sharp_available {K : Set (W 3)}
+    {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)}
+    (hvalid : K ⊆ EffectSpace.maxConeOf avail)
+    (hsharp : EffectSpace.sharpFamily 3 ⊆ avail) :
+    K ⊆ maxCone (TransitiveBody.eball 3) := fun _ hω =>
+  EffectSpace.maxConeOf_sharp_subset_maxCone (by norm_num)
+    (EffectSpace.maxConeOf_anti hsharp (hvalid hω))
+
+/-- The generator theorem in the available-sharp-test reading.
+The actual pair validity and the inclusion of sharp tests remain explicit hypotheses. -/
+theorem pairCone_eq_Q3_of_sharp_available {K : Set (W 3)}
+    {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)}
+    (hH1 : ∀ x ∈ TransitiveBody.eball 3, ∀ y ∈ TransitiveBody.eball 3, prodState x y ∈ K)
+    (hadd : ∀ ω ∈ K, ∀ η ∈ K, ω + η ∈ K)
+    (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ K, c • ω ∈ K)
+    (hvalid : K ⊆ EffectSpace.maxConeOf avail)
+    (hsharp : EffectSpace.sharpFamily 3 ⊆ avail)
+    (hH2 : ∀ ω ∈ K, cnot ω ∈ K)
+    (hA : ∀ t : ℝ, ∀ ω ∈ K, actT (KInfFoundations.rotLin t) ω ∈ K ∧
+      actT (KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω ∈ K) : K = Q3 :=
+  pairCone_eq_Q3_of_drive_maxCone hH1 hadd hsmul
+    (maxCone_bound_of_sharp_available hvalid hsharp) hH2 hA
+
 end
 end EqvK2MaxCone
 end OIBridge
@@ -200,3 +233,6 @@ end OIBridge
 #print axioms OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone
 #print axioms OIBridge.EqvK2MaxCone.driveInvariant_of_eq_Q3
 #print axioms OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_drive_maxCone
+#print axioms OIBridge.EqvK2MaxCone.subset_Q3_of_sharp_products_block
+#print axioms OIBridge.EqvK2MaxCone.maxCone_bound_of_sharp_available
+#print axioms OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_sharp_available

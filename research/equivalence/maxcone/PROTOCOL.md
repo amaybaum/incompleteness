@@ -47,3 +47,9 @@ All computational conclusions are finite exact facts. Membership and invariance 
 
 de la Torre, Masanes, Short and Mueller, arXiv:1110.5482 (2012), reconstruct quantum composite structure from local quantum structure and continuous reversible interactions. It is a relevant comparison, not a source for this proof or for an OI premise. The present proof uses the exact SU(2) block generation and pure-state reduction already built in E19, and preserves their explicit hypotheses.
 
+## Sharp-test refinement, fixed before design run 2
+
+Design run 1 (38205087980, head 4d7d71d6b1c771e2f6c578b4cdead45d3a63ff96) builds the core with thirteen standard axiom reports. Main's EffectSpace.maxConeOf_sharp_subset_maxCone and maxConeOf_anti yield a narrower source form: positivity on the products of an available family containing sharpFamily 3 is enough. The refinement adds three declarations, with no EffectsOn, full-affine-effect availability, self-duality or closedness premise. The actual pair positivity and sharp-family inclusion remain explicit assumptions.
+
+Require all sixteen named axiom reports on the new design head. No new computational claim is drawn from the unchanged exact checker. Retain the first design head and evidence, and start the second workflow only after the first completes.
+

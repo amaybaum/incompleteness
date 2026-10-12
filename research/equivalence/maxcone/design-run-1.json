@@ -1,0 +1,35 @@
+{
+  "head": "4d7d71d6b1c771e2f6c578b4cdead45d3a63ff96",
+  "run": 38205087980,
+  "event": "pull_request",
+  "attempt": 1,
+  "overall": "failure",
+  "job": 114666683925,
+  "build": "success",
+  "axiom_reports": [
+    "2026-10-12T04:48:08.1240093Z info: OIBridge/EqvK2MaxCone.lean:190:0: 'OIBridge.EqvK2MaxCone.ipW_prodState' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1240939Z info: OIBridge/EqvK2MaxCone.lean:191:0: 'OIBridge.EqvK2MaxCone.products_mem_dualW_of_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1241821Z info: OIBridge/EqvK2MaxCone.lean:192:0: 'OIBridge.EqvK2MaxCone.ipW_blockAct_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1242328Z info: OIBridge/EqvK2MaxCone.lean:193:0: 'OIBridge.EqvK2MaxCone.dualW_blockInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1242931Z info: OIBridge/EqvK2MaxCone.lean:194:0: 'OIBridge.EqvK2MaxCone.pure_mem_of_products_scaling_block' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1243479Z info: OIBridge/EqvK2MaxCone.lean:195:0: 'OIBridge.EqvK2MaxCone.Q3_subset_of_products_cone_block' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1244009Z info: OIBridge/EqvK2MaxCone.lean:196:0: 'OIBridge.EqvK2MaxCone.subset_Q3_of_maxCone_block' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1244544Z info: OIBridge/EqvK2MaxCone.lean:197:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_block_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1245083Z info: OIBridge/EqvK2MaxCone.lean:198:0: 'OIBridge.EqvK2MaxCone.blockInvariant_of_eq_Q3' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1245619Z info: OIBridge/EqvK2MaxCone.lean:199:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_block_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1246167Z info: OIBridge/EqvK2MaxCone.lean:200:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1246693Z info: OIBridge/EqvK2MaxCone.lean:201:0: 'OIBridge.EqvK2MaxCone.driveInvariant_of_eq_Q3' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "2026-10-12T04:48:08.1247223Z info: OIBridge/EqvK2MaxCone.lean:202:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]"
+  ],
+  "release_gate": [
+    "2026-10-12T04:48:46.0162082Z   PASS  lean-axioms      lean_axiom_check: OK (5964 named result(s) reported, no sorr",
+    "2026-10-12T04:48:46.0162469Z   FAIL  lean-manuscript  lean_manuscript_census: FAILED (7 problem(s))",
+    "2026-10-12T04:48:46.0163873Z   PASS  v3-receipts      RECEIPTS  44 receipt(s), all hold",
+    "2026-10-12T04:48:46.0164422Z release gate: FAILED -> lean-manuscript"
+  ],
+  "job_counts": {
+    "success": 18,
+    "failure": 1,
+    "skipped": 1
+  }
+}

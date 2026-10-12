@@ -1228,3 +1228,10 @@ Draft `lean/EqvK2MaxCone.lean` separates upper (maxCone + block invariance) from
 Independent standard-library Q(i) checks: 2743 finite exact checks, replay byte-identical, stderr empty; 3/3 mutations rejected with named codes. Initial loader attempts could not import SymPy and produced no verdict; the final check uses only the standard library. The controls include density-state scaling and the rank-three-excluded PSD set's failure of addition. Whole-family claims need written proofs and are not inferred from finite instances.
 
 Pointers: `maxcone/PROTOCOL.md`, `experiments/maxcone_exact_check.py`, `experiments/gaussian_exact.py`, `experiments/maxcone.check.out`, `experiments/maxcone.replay.out`, `experiments/maxcone.mutations.out`. Up to three sequential design CI runs; actual Build/axiom reports decide [D]. Source audit pending, no inventory premise upgraded.
+
+
+## 2026-10-12T04:54:45.717Z — MaxCone design run 1 measured; sharp-test refinement
+
+PR #809 design head 4d7d71d6, run 38205087980, attempt 1, Mathlib bridge job 114666683925: Build success; 13/13 new print-axioms reports standard, no sorryAx; lean-axioms 5964 named results; release gate fails only lean-manuscript (7 problems). All 44 receipts hold. Workflow completed: 18 successful jobs, Mathlib gate failure, one intentional dispatch-only skip. Evidence: maxcone/design-run-1.json. This is [D], not certification at main.
+
+The premise audit narrows the test-side input through main's EFF-1: products of available sharp tests suffice, and the upper inclusion does not need EffectsOn avail or availability of the full affine effect set. Three additional corollaries are drafted; their second-run decision rule is appended to maxcone/PROTOCOL.md before that run. They are UNBUILT at this checkpoint; the original core remains built at the first head. The provenance table names H1, addition/scaling, maxCone, H2, full A_miss and the coordinate realization at their inventory statuses. No bare-OI source or full-model independence is claimed.
