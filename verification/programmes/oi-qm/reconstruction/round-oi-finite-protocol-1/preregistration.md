@@ -198,7 +198,21 @@ altered stdout/stderr/exit, and stale declared SHA256 pins on all four shared
 outputs and S1's D roadmap anchor pin. The stale-pin tests restore each original metadata
 pin after probing it. Python compilation and artifact placement pass. The corpus
 search reports zero occurrences of the five new kernel identifiers across papers and book.
-Predictive CI results will be recorded here during drafting.
+Predictive design validation completed on head
+1998542461fff0f7b0e03d0b98278d72a7770f50, tree
+8fad9ffba131c0e7b3ebfbf22e77a0681b4a5c42, draft PR #813, run
+38227812539 (pull_request, attempt 1). The workflow completed successfully:
+twenty job conclusions are success and the dispatch-only Act42 exclusion job is
+intentionally skipped. Mathlib job 114739543132 passed Build and the complete release
+gate, including the manuscript census and all 44 existing receipts. All fourteen named
+BridgeFiniteProtocol reports list exactly propext, Classical.choice and Quot.sound;
+the global axiom check reports 5874 named results without sorryAx. The finite-protocol
+shard passed its exact checker and the two-fixture/19-mutation adoption controls.
+The synthetic merge 7f495d9a61f2d9198e180f2a1d1fcce43a68141a has exactly the
+predicted tree above. The six S1 file blobs match their declared frozen outputs; D's
+roadmap remains unchanged and no result note is present. This consumes the one newly
+prospective design run. The measured design head is preserved and establishes no F/E
+attestation or native execution.
 No predictive run or local check is an F/E attestation.
 
 1. Fix the predicted executable tree and controls, publish it only as disposable design,
