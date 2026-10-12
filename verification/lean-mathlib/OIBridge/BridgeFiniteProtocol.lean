@@ -240,7 +240,7 @@ theorem finite_protocol_available {𝓘 : ImplementationClass} (arch : Architect
     InstAvail 𝓘 Token Unit (fun _ => stopped (attempt U) k) :=
   instAvail_stopped arch (instAvail_attempt arch U hU hIso hReset hCorrect) k
 
-/-- The O14 stopped-loop formula at every finite depth, derived from the constructed
+/-- The balanced stopped-channel formula at every finite depth, derived from the constructed
     branch maps rather than posited as an available approximation. -/
 theorem balanced_stopped_formula (k : ℕ) :
     stopped (attempt balancedCircuit) k =
