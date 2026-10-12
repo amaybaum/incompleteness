@@ -90,7 +90,7 @@ or H-Bell status is changed. The K3 label remains CONDITIONAL.
 | S1 .github/workflows/verify.yml | 05020b877f667199f647ce50b00e446670e2e1fea37854e5a00972b879eb089d | c2203af2f9f668442561f02e6a936c736378d362 |
 | S2 verification/ROADMAP.md | 971b868db5e81ca7eaad17dd1d39c97558a4553f3ddad9e16162bd65312af615 | ba7b23d4f1b0a2b78722dbc15b3fc51193f147d8 |
 
-Controls SHA256: 13b172d61f219b4b5cb0539be1711f3f2d7a09ca2b34d8a49fae23683ffead07
+Controls SHA256: fe801c75b554b798acdefa9efc64c7f39df83e30dbf6edf41fde061da10ef38c
 
 Preserved body SHA256: 016c8e724c73ae358fbcae3646c0b7e975beed3ddd8056d9197bf2f79a27b847
 
@@ -100,7 +100,10 @@ historical measured checker only in its opening provenance sentence. Its mathema
 code is unchanged. The independent controls import neither Lean nor the checker. They
 reconstruct the workflow's five splices, the aggregate's one import insertion, the
 registry's single family append and the roadmap's unique K3 paragraph replacement
-from D. The kernel-only family has manuscript=[] and lists only BridgeFiniteProtocol.
+from D. Each output's declared SHA256 is checked alongside the independent
+reconstruction. At S1 the roadmap is compared to the declared D anchor SHA256; at S2 it uses
+the declared execution SHA256. The kernel-only family has manuscript=[] and lists
+only BridgeFiniteProtocol.
 No family or supersession that D already carries is changed.
 
 The controls hold the six D anchors below, preserve the module body, reject extra changed
@@ -189,9 +192,11 @@ SHA256 f33e3c97bd1baa7f4b583f798cf0ecdec185860d37f69523f31128e4131d35e1,
 with empty stderr and exit zero. Its final line is:
 FINITE-PROTOCOL: PASS; 10 groups; 36 stopped matrix-unit cases
 
-Local preparation: the independent controls pass S1/S2 fixtures and reject fourteen
-mutations, including every output file, record files/population, result overclaim, wrong F
-and altered stdout/stderr/exit. Python compilation and artifact placement pass. The corpus
+Local preparation: the independent controls pass S1/S2 fixtures and reject nineteen
+mutations, including every output file, record files/population, result overclaim, wrong F,
+altered stdout/stderr/exit, and stale declared SHA256 pins on all four shared
+outputs and S1's D roadmap anchor pin. The stale-pin tests restore each original metadata
+pin after probing it. Python compilation and artifact placement pass. The corpus
 search reports zero occurrences of the five new kernel identifiers across papers and book.
 Predictive CI results will be recorded here during drafting.
 No predictive run or local check is an F/E attestation.
