@@ -1465,7 +1465,7 @@
       ],
       "status": "kernel-only",
       "manuscript": [],
-      "note": "Conditional finite-depth availability through InstAvail readout, op, bind, coarse and discard. The actual uniformly attached ancilla is reset internally. From Architecture and explicit circuit/reset/correction memberships, finite_protocol_available constructs every finite depth; balanced_stopped_formula derives the O14 channel formula and balanced_finite_available combines availability with it. finite_protocol_spectator additionally requires ContextStable and LabelInvariant. No AvailableChannelApproximation sequence is a premise. Primitive memberships, convergence, availability of a limit, physical state/test identification, validity or preservation of an arbitrary pair cone, arbitrary finite-carrier reconstruction and unconditional OI reconstruction remain unestablished here. Carried by no manuscript."
+      "note": "Conditional finite-depth availability through InstAvail readout, op, bind, coarse and discard. The actual uniformly attached ancilla is reset internally. From Architecture and explicit circuit/reset/correction memberships, finite_protocol_available constructs every finite depth; balanced_stopped_formula derives the balanced stopped-channel formula and balanced_finite_available combines availability with it. finite_protocol_spectator additionally requires ContextStable and LabelInvariant. No sequence of available channels is assumed. Primitive memberships, convergence, availability of a limit, physical state/test identification, validity or preservation of an arbitrary pair cone, arbitrary finite-carrier reconstruction and unconditional OI reconstruction remain unestablished here. Carried by no manuscript."
     }
   ]
 }
