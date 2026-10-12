@@ -411,7 +411,9 @@ jobs:
         run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-oi-channel-1-audit/controls.py --self-test
 
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
-  # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
+  # run only on workflow_dispatch. Section A.39 permits a PR attestation to inherit a prior full
+  # exclusion run only after the complete input closure and runtime requirements are compared.
+  # This event condition alone establishes no inherited evidence.
   # On any other event the matrix job is skipped and the aggregate below requires exactly that.
   probes_a42_witness:
     name: Numerical probes / A42 witness

@@ -446,9 +446,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - **§A.40 Where verification runs.** Cheap deterministic checks run locally before a push: a
   tool's self-test, the V3 verifier's self-test and corpus, `legacy_records_check.py`, a round's
   own scripts, compilation and static checks of changed Python. The Lean kernel, the Mathlib
-  bridge, the release gate and the full probe suite run in CI. The exact-head host runs, dispatched
-  on exactly `F` and `E`, are the source of certification (§A.39); a local run is evidence for the
-  executor and is never recorded as a `check-run` attestation.
+  bridge, the release gate and the full probe suite run in CI. The qualifying host runs for `F`
+  and `E`, with the candidate, actual checkouts, matching trees and applicable job coverage
+  recorded under §A.39, are the source of certification; a local run is evidence for the executor
+  and is never recorded as a `check-run` attestation.
 - **§A.41 Every stated invariant is measured.** A preregistration carries an invariant→checkpoint
   table: every property it asserts of its execution names the checkpoint that measures it, and an
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
@@ -478,9 +479,9 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
 - Two sealed executions had their pull-request builds go red for one reason only: an archive
   clause had entered main after their base was cut, so the synthetic merge ran a newer guard
   against an older head. One was first reported as a stale watcher, and the job log said
-  otherwise. Hence §A.39's exact-head rule — a pull-request run tests a synthetic merge, so check
-  the exact-head run before calling a red badge a research failure, and never cure it by merging
-  main into a certified execution.
+  otherwise. Hence §A.39's candidate-source check: compare the recorded PR checkout and its tree
+  with the held candidate before calling a red badge a research failure, and never cure it by
+  merging main into a certified execution.
 - A landing's obligation table collided on four rows at once, three of which a sibling round had
   moved since the base; taking either side wholesale would have silently reverted a label merged
   twenty minutes earlier. Hence §A.39's resolve-by-merits rule and its check that a landing adds
@@ -755,15 +756,45 @@ which it landed:
 5. **Landing.** The pull request lands through ordinary review and merge. How it lands is not part
    of the round's validity.
 
-**The check runs at `F` and `E`.** A `check-run` attestation names the commit it was run on. Before
-`F` is designated, the round's branch is held at exactly `F` and the workflow is dispatched on it
-(`workflow_dispatch`); the run whose `head_sha` is `F`, with every job green, is `F`'s `check-run`
-attestation, and only then is `F` designated and the branch moved on. `E` is attested the same way
-before it is designated. A pull-request run tests a synthetic merge, not `F` or `E`, and is not
-recorded as their attestation. These are host attestations, which the receipt records and no
-predicate of `tools/v3_verifier.py` reads. So a red pull-request badge on a round held at `F` or `E`
-is diagnosed against the exact-head run first; it is never cured by merging main into the round
-before `E`.
+**The check runs at `F` and `E`.** Before the owner designates either candidate, its branch
+is held at that exact commit and the applicable verification profile must complete successfully.
+A `workflow_dispatch` run on that commit is admissible. A `pull_request` run is also admissible
+under all of the following conditions:
+
+- The host run's recorded head is the candidate. For every required job that executes repository
+  code, its actual checkout commit is recovered from the recorded job logs, recorded separately,
+  and its tree is exactly the candidate's tree. If the checkout is a synthetic merge, its base
+  must be an ancestor of the candidate; a tree containing unrelated later base changes does not
+  certify that candidate. A job whose checkout cannot be established does not qualify.
+- The workflow and required-job profile are identified from the tested tree. Every required job,
+  including the round's own control shard at E, concludes success. Failed, cancelled, missing or
+  unexpectedly skipped jobs invalidate the attestation. Each permitted skip is named and justified
+  in the round's control plane before F.
+- The dispatch-only Act42 exclusion matrix may be inherited from a named successful full run only
+  when its complete source/input dependency closure and declared runtime requirements are unchanged.
+  The compared set includes the entry script, transitive imports, data and configuration, relevant
+  job commands and matrix setup, and declared package/runtime versions. That comparison and the
+  prior run are recorded. A change to those inputs or the Act42 result, or an unresolved dependency
+  comparison, requires the full matrix to run successfully.
+- Commit-history obligations are checked on the named candidate itself. Tree equality establishes
+  the tested source, not an equivalence of repository histories. Receipt validity remains a
+  separate repository-fact check.
+
+The host record carries the run ID and attempt, event, candidate SHA, each applicable job's actual
+checkout SHA and matching tree IDs, the applicable job results and any justified inherited
+regression evidence. For regression inheritance it names the prior full run and the complete
+compared input set, with mode/blob identities and declared runtime requirements at both subjects.
+It is recorded truthfully as a PR or dispatch attestation. Only after these checks pass does the
+owner designate the exact F or E. A green PR badge alone is not an attestation, and a moved head
+needs its own evidence. Earlier receipts and frozen rounds retain their original protocol.
+
+This policy applies after its adoption to rounds whose F has not yet been designated. Each such
+round declares the admitted event/job profile and any regression inheritance in its control plane
+before F. An existing run may be considered only for the exact unchanged candidate it tested;
+a drafting amendment that changes the candidate needs a qualifying run for the new candidate.
+
+Future workflows may check out the PR head explicitly to make the tested commit itself the
+candidate; integration on the reconciled receipt commit remains separately checked before landing.
 
 **A halted round.** A round that halts after `F` instead of reaching a designated `E` follows the
 specification's `S12`: it appends the withdrawal commit `W` when execution commits exist, or,

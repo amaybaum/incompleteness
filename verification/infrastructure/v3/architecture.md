@@ -263,6 +263,13 @@ a **human attestation**; check-run and workflow-run identities and their recorde
 **host attestations**. Attestations are stored in `attestations`, reported by an offline verifier as
 recorded and unverified, and never treated as proved because an identifier parses.
 
+Admissibility of a host check as evidence for F or E is the operational policy in AGENTS.md
+section A.39. That policy may accept a PR checkout with the exact candidate tree and recorded
+job coverage; the tested checkout and the candidate remain separately identified. The required
+checks on exactly F or E in S2 and S3 refer to the named candidate under that policy. No event,
+synthetic merge or job result becomes an input to a V3 predicate, and tree equality does not
+replace checks of the candidate's repository history.
+
 What the offline verifier proves is that the subjects the receipt records exist, have the recorded
 trees, blobs and deltas, and stand in the recorded ancestry.
 
