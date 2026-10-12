@@ -1217,3 +1217,14 @@ Dated entries (UTC, from `date -u`), newest last. Every commit on this branch is
   15:18Z); no read of `research/bridge`, `research/countermodels` or `research/round6-transfer-sourcing`.
   Deviations: none beyond the scope narrowing above (the fetch of `research/overview` returned the later tip
   `39370c99`; every read was at `1325160c`, as recorded). No RESULTS or LEDGER row changes; no label changes.
+
+
+## 2026-10-12T04:44:33.120Z — MaxCone replacement, design checkpoint
+
+Owner authorized the proposed reconstruction sequence in ChatGPT at 2026-10-12T04:24:46Z. Begin depth-first with the conditional pair theorem at main f2415108. Local PROTOCOL.md preceded the first decisive checks; this committed checkpoint precedes the first design CI run. No native F has been designated.
+
+Draft `lean/EqvK2MaxCone.lean` separates upper (maxCone + block invariance) from lower (products + scaling + addition + block invariance). Its full-flow generator form reuses E19's exact SU(2) generation. Six dependency source blobs match the measured dev f0c36cf9. Lean status UNBUILT at this checkpoint.
+
+Independent standard-library Q(i) checks: 2743 finite exact checks, replay byte-identical, stderr empty; 3/3 mutations rejected with named codes. Initial loader attempts could not import SymPy and produced no verdict; the final check uses only the standard library. The controls include density-state scaling and the rank-three-excluded PSD set's failure of addition. Whole-family claims need written proofs and are not inferred from finite instances.
+
+Pointers: `maxcone/PROTOCOL.md`, `experiments/maxcone_exact_check.py`, `experiments/gaussian_exact.py`, `experiments/maxcone.check.out`, `experiments/maxcone.replay.out`, `experiments/maxcone.mutations.out`. Up to three sequential design CI runs; actual Build/axiom reports decide [D]. Source audit pending, no inventory premise upgraded.

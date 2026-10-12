@@ -1,0 +1,4 @@
+MUTATION trace-factor REJECTED TRACE
+MUTATION omit-adjoint REJECTED ADJOINT
+MUTATION product-sign REJECTED KAPPA-EFFECT
+SELF-TEST PASS; positive fixture and 3 mutations
