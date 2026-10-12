@@ -1,0 +1,136 @@
+{
+  "head": "6543cb2f9700ada87cb66384e1049006ae3ad072",
+  "tree": "0173c309f02c998d36220d7354b51a880ff1ab3a",
+  "run_id": 38208044012,
+  "event": "pull_request",
+  "attempt": 1,
+  "conclusion": "success",
+  "synthetic_merge": "ae475cccf22d985f4906bfc04d131c09d52baf50",
+  "synthetic_tree": "0173c309f02c998d36220d7354b51a880ff1ab3a",
+  "mathlib_job": 114675816616,
+  "build": "success",
+  "maxcone_axiom_reports": 16,
+  "standard_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "global_axiom_reports": 5967,
+  "sorryAx": false,
+  "release_gate": "PASS",
+  "census": "PASS",
+  "v3_receipts": 44,
+  "v3_receipts_verdict": "all hold",
+  "control_job": 114675816731,
+  "finite_checks": 2743,
+  "positive_control_fixtures": 2,
+  "control_mutations": 25,
+  "job_results": [
+    {
+      "id": 114675816300,
+      "name": "Numerical probes / A41 production",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816549,
+      "name": "Numerical probes / core A",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816557,
+      "name": "Lean kernel check",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816577,
+      "name": "Numerical probes / A38 escape",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816590,
+      "name": "Numerical probes / A40 locus",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816616,
+      "name": "Mathlib bridge",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816625,
+      "name": "Numerical probes / NB-1 native-gate ball",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816636,
+      "name": "Numerical probes / A42 census01",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816642,
+      "name": "Numerical probes / KINF-2 foundations",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816643,
+      "name": "Numerical probes / OI channel protocol",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816644,
+      "name": "Numerical probes / KT4-PREM-1 premise audit",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816660,
+      "name": "Numerical probes / foundations",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816670,
+      "name": "Numerical probes / A45 ancilla",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816672,
+      "name": "Numerical probes / A36 hierarchy",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816682,
+      "name": "Numerical probes / A41 independent",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816685,
+      "name": "Numerical probes / A41 hulls",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816731,
+      "name": "Numerical probes / OI pair maxCone",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816761,
+      "name": "Numerical probes / core B",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675816824,
+      "name": "Numerical probes / A42 witness",
+      "conclusion": "success"
+    },
+    {
+      "id": 114675817360,
+      "name": "Numerical probes / A42 exclusion (${{ matrix.part }})",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 114677688047,
+      "name": "Numerical probes",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Predictive design evidence, not F/E attestations. Draft control plane only changed by completed evidence entry before native candidate."
+}

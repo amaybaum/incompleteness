@@ -254,12 +254,21 @@ sorryAx; release gate failed only the same seven-module census. The other eighte
 passed, with the dispatch-only Act42 matrix job intentionally skipped. All44 existing
 native receipts held in both runs. These are design evidence, not F/E attestations.
 
-Predictive S1 execution evidence: pending before F. The third and final prospectively
-registered design build uses the twelve exact S1 files, frozen controls and draft control
-plane, with D's roadmap and no result note. Unlike the first two design runs, the maintained
-kernel-only disposition and added control shard are included; the expected census outcome
-is success. Exact head, run and job conclusions are filled in before requesting F.
-This disclosed design evidence is exploratory rather than a blind prediction.
+Predictive S1 execution evidence: head 6543cb2f9700ada87cb66384e1049006ae3ad072,
+tree 0173c309f02c998d36220d7354b51a880ff1ab3a, run 38208044012, pull_request,
+attempt 1, Mathlib job 114675816616. Build succeeded with sixteen named standard MaxCone
+reports, 5967 global reports and no sorryAx. The manuscript census and complete release
+gate passed; all 44 receipts held. Entire workflow: twenty successful jobs, one intentional
+dispatch-only Act42 skip. The maxCone shard passed its 2743-check output and controls'
+two positive fixtures / 25 rejected mutations. This completes the three-run design budget.
+
+The predictive tree contains the twelve exact S1 files and controls, D's roadmap and no
+result note. The seven proof bodies are the measured ones. Its draft preregistration differs
+from this final draft by this evidence entry; all executable file blobs are identical to
+the frozen table above. The legitimate kernel-only family resolves the earlier expected
+census failure; no manuscript disposition is fabricated. Prospective research checkpoint
+8508d17278ea11b90fd37d137172e18a25b3835f preceded this predictive publication.
+These are disclosed design results, not a blind prediction or an F/E host attestation.
 
 1. Before F: complete the predictive check, hold the control-plane PR at its proposed exact
    F and dispatch verify.yml on that head. Every job must be green before owner F designation.
