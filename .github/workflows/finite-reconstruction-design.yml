@@ -1,0 +1,51 @@
+name: finite reconstruction research design
+
+# Research-only design compilation; no native round or F designation.
+on:
+  push:
+    branches: [research/finite-reconstruction-design-20261013]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  design-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile finite algebra and carrier descent designs
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.EqvK2Schema OIBridge.SubstratumSource OIBridge.LiftAudit
+          mkdir -p ResearchDesign
+          cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FinitePauli.lean ResearchDesign/FinitePauli.lean
+          cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteWalsh.lean ResearchDesign/FiniteWalsh.lean
+          lake env bash -c '
+            export LEAN_PATH="$PWD/ResearchDesign:$PWD:$LEAN_PATH"
+            design_status=0
+            lean -o ResearchDesign/FinitePauli.olean ResearchDesign/FinitePauli.lean || design_status=1
+            lean ResearchDesign/FiniteWalsh.lean || design_status=1
+            lean ../programmes/oi-qm/reconstruction/carrier-descent-design/KnDescentDesign.lean || design_status=1
+            exit "$design_status"
+          '
+      - name: Check retained records and artifact placement
+        run: |
+          revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$revision"
+          python3 tools/v3_verifier.py --receipts "$revision"
+          python3 tools/artifact_placement_check.py
