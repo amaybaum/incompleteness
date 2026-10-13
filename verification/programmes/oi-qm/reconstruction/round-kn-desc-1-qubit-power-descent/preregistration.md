@@ -206,6 +206,26 @@ and stays. Kₙ remains OPEN under every outcome.
 | 1 | `05b5756c` (`dev-equivalence/kn-desc`, based on L; module `EqvKnDesc` and its import line) | 38090116254 | Mathlib bridge job 114324651733: `Build completed successfully (3644 jobs)`; all twelve `EqvKnDesc` prints `[propext, Classical.choice, Quot.sound]`; release gate: every step PASS except `lean-manuscript` (1 problem: no family) — `lean-axioms` 5872 named results, no `sorryAx`; `legacy-records` 303 intact; `v3-receipts` 43 hold; `claims`, `duplicate` PASS |
 | exact | `research/equivalence` | `e3_compress` (local; replayed by the coordinator, 3/3 identical) | 7 checks, 0 failures, `VERDICT COMPRESSION-DESCENT-EXACT` |
 
+**Fresh research rebuild at D's library.** Exact head
+`d3a95be6a0049ee1450f438803ebcf2896f69744`,
+[run 38457070337, job 115502431432](https://github.com/amaybaum/incompleteness/actions/runs/38457070337/job/115502431432),
+compiled the research-only module
+`verification/programmes/oi-qm/reconstruction/carrier-descent-design/KnDescentDesign.lean`
+in namespace `OIBridge.KnDescentDesign`, with all twelve theorem prints
+`[propext, Classical.choice, Quot.sound]`. Its SHA256 is
+`fa9c3b084ddfa01a5fcb2ec3023f004d7614f16943b021c1d2f1ebfe67f0b70f`.
+The proof body is the original `EqvKnDesc` source at
+`424aa33bf16c5160c00e6f6aea974d00c0d745dd`, Git blob
+`8157f8eaf77a080391c54e518f4c6f3bb4de8f56`, with only the research header
+and namespace changed. The landed Lean sources in the build agree with D.
+The job verified the source probe's seven checks and byte-identical output,
+the separately written standard-library checker's 2410 controls (including
+self-index flows), 303 legacy records, 46 receipts and artifact placement.
+The retained unused-section-binder warnings and `haveI` style hint match the
+historical source. This is confirming research design evidence. It does not
+execute the native round, designate F or E, adopt a module, or certify the
+predicted execution tree with its new census family, import line and shard.
+
 **Predicted outputs, generated from those measurements by the rules:** Q-DESC `KN-DESC-DESCENT-PROVED`, Q-IFF
 `KN-DESC-IFF-PROVED` (run 1's statements and prints; the iff's two components are the named witnesses in the built
 proof), Q-EXACT `KN-DESC-INSTANCES-EXACT` (`checks: 7, failures: 0`). Of the release gate at the predicted tree, every
