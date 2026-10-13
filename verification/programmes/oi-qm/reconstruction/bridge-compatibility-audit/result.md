@@ -261,6 +261,18 @@ only by fullClass does not. The successor also checks assumptions and fixture
 inventories for unearned Q3 ⊆ C, not just C=Q3. These corrections prevent the
 two negative fixtures alone from certifying a useful new physical principle.
 
+## Follow-up source assessment
+
+[source-assessment.md](source-assessment.md) records four readings of local
+state–operation compatibility. Restricted rank-one consistency holds throughout
+SEP ⊆ C ⊆ maxCone; general available one-token preservation asserts the target
+directly; complete dual-test closure restates preservation; product-test
+saturation admits the classical comparison but rejects quantum PSD and grants
+Q3 inclusion before any derivation. These are CONFIRMING written arguments,
+with corrected, pinned exact design controls. No independent physical source
+is obtained. The proposed native round in #819 is withdrawn before F; the
+assessment stays research-only and adds no main CI job or receipt.
+
 ## Reproduction and independence
 
 From the repository root:

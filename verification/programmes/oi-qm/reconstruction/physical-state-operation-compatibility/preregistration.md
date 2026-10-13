@@ -1,9 +1,13 @@
-# Physical state–operation compatibility: draft preregistration
+# Physical state–operation compatibility: future research criteria
 
-**Status: research draft for review, not F-designated or executed.** Drafting
+**Status: research criteria, not an active native round, F-designated or executed.** Drafting
 snapshot D: `d69acffa6d2a1067c7a9162446d09b0db3b28c93`. The adjacent
 [bridge audit](../bridge-compatibility-audit/result.md) is exploratory input,
-including post-result verification; it is not this round's execution.
+including post-result verification; it is not a native execution.
+The [four-reading source assessment](../bridge-compatibility-audit/source-assessment.md)
+obtained no independent physical source. Its proposed native round (#819) was
+withdrawn before F. These criteria remain requirements for a future
+independently sourced candidate; they do not schedule or authorize a new freeze.
 
 ## Question and independent inputs
 
