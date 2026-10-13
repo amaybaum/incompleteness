@@ -17,6 +17,7 @@ theorem tensor_mul (P R : Matrix A A ℂ) (Q S : Matrix B B ℂ) :
   ext ⟨a, b⟩ ⟨c, d⟩
   simp only [Matrix.mul_apply, tensorOf_apply, Fintype.sum_prod_type]
   simp only [Finset.sum_mul, Finset.mul_sum]
+  rw [Finset.sum_comm]
   apply Finset.sum_congr rfl
   intro i hi
   apply Finset.sum_congr rfl
@@ -27,6 +28,7 @@ theorem tensor_trace (P : Matrix A A ℂ) (Q : Matrix B B ℂ) :
     Matrix.trace (tensorOf P Q) = Matrix.trace P * Matrix.trace Q := by
   simp only [Matrix.trace, Matrix.diag_apply, tensorOf_apply, Fintype.sum_prod_type,
     Finset.sum_mul, Finset.mul_sum]
+  rw [Finset.sum_comm]
 
 theorem tensor_star (P : Matrix A A ℂ) (Q : Matrix B B ℂ) :
     (tensorOf P Q)ᴴ = tensorOf Pᴴ Qᴴ := by
@@ -40,7 +42,7 @@ theorem tensor_conjugation (U P : Matrix A A ℂ) (V Q : Matrix B B ℂ) :
   rw [tensor_star, tensor_mul, tensor_mul]
 
 /-- Recursive binary and Pauli-label carriers include the empty tensor. -/
-def Carrier (d : ℕ) : ℕ → Type
+abbrev Carrier (d : ℕ) : ℕ → Type
   | 0 => Fin 1
   | n + 1 => Carrier d n × Fin d
 
@@ -91,7 +93,8 @@ theorem pauliWord_complete (n : ℕ) (a b c d : Bits n) :
   | zero =>
     have ha : a = d := Subsingleton.elim _ _
     have hb : b = c := Subsingleton.elim _ _
-    simp [pauliWord, Matrix.one_apply, ha, hb, Fin.sum_univ_one]
+    have hcd : c = d := Subsingleton.elim _ _
+    simp [pauliWord, Matrix.one_apply, ha, hb, hcd, Fin.sum_univ_one]
   | succ n ih =>
     rcases a with ⟨a, a'⟩
     rcases b with ⟨b, b'⟩
@@ -104,6 +107,7 @@ theorem pauliWord_complete (n : ℕ) (a b c d : Bits n) :
         (∑ μ : Labels n, pauliWord n μ a b * pauliWord n μ c d) *
           (∑ ν : Fin 4, pauli ν a' b' * pauli ν c' d') := by
       simp only [Finset.sum_mul, Finset.mul_sum]
+      rw [Finset.sum_comm]
       apply Finset.sum_congr rfl
       intro μ hμ
       apply Finset.sum_congr rfl

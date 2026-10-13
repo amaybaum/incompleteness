@@ -42,6 +42,7 @@ theorem walsh_orthogonal (n : ℕ) (a b : Bits n) :
         (∑ c : Bits n, walsh n a c * walsh n b c) *
           (∑ d : Fin 2, hadamard a' d * hadamard b' d) := by
       simp only [Finset.sum_mul, Finset.mul_sum]
+      rw [Finset.sum_comm]
       apply Finset.sum_congr rfl
       intro c hc
       apply Finset.sum_congr rfl
