@@ -5,19 +5,16 @@
 \documentclass[
 ]{article}
 \usepackage{amsmath,amssymb}
+\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math} % this also loads fontspec
+  \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
-\fi
-\usepackage{lmodern}
-\ifPDFTeX\else
-  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -36,6 +33,12 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -56,6 +59,9 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -157,12 +163,6 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
 
 \author{}
 \date{}
@@ -702,12 +702,10 @@ Hidden: h ∈ \{1, 2, 3, 4, 5, 6\} (a die) - Total: 12 states
 \textbf{The permutation σ:}
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule\noalign{}
+\toprule
 Input state & Output state & What happens \\
-\midrule\noalign{}
+\midrule
 \endhead
-\bottomrule\noalign{}
-\endlastfoot
 (0, 1) & (1, 1) & Coin flips, die stays \\
 (1, 1) & (0, 1) & Coin flips, die stays \\
 (0, 2) & (1, 2) & Coin flips, die stays \\
@@ -720,6 +718,7 @@ Input state & Output state & What happens \\
 (1, 4) & (1, 3) & Coin stays, die changes \\
 (1, 5) & (1, 6) & Coin stays, die changes \\
 (1, 6) & (1, 5) & Coin stays, die changes \\
+\bottomrule
 \end{longtable}
 
 Every swap is a transposition (a ↔ b), so σ² = id (apply twice,
@@ -3162,7 +3161,7 @@ consequences:
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2105}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4211}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3684}}@{}}
-\toprule\noalign{}
+\toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Pillar
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -3170,10 +3169,8 @@ What is derived
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Source paper
 \end{minipage} \\
-\midrule\noalign{}
+\midrule
 \endhead
-\bottomrule\noalign{}
-\endlastfoot
 \textbf{Quantum mechanics} & Emerges from embedded observation & Main \\
 \textbf{General relativity} & Emerges from lattice dynamics passing 7
 checks & GR + Substratum \\
@@ -3184,6 +3181,7 @@ Higgs, chiral coupling & SM \\
 Substratum \\
 \textbf{Chemistry → life} & Orbitals, periodic table, carbon, water,
 chirality, autocatalysis, origin of life, evolution & Complexity \\
+\bottomrule
 \end{longtable}
 
 The starting point for all of it: a finite set, a bijection, and a
@@ -3696,7 +3694,7 @@ Does}\label{sections-12-what-each-piece-does}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule\noalign{}
+\toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Component
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -3704,10 +3702,8 @@ What it establishes
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 What it uses
 \end{minipage} \\
-\midrule\noalign{}
+\midrule
 \endhead
-\bottomrule\noalign{}
-\endlastfoot
 Definition + Lemmas 1--3 & The physical setup (no QM assumed) & Nothing
 --- these are starting points \\
 Partition-relativity (§1.4) & Emergent description depends only on
@@ -3729,6 +3725,7 @@ Necessity proof (§3.3) & Accessible non-Markovian memory requires
 C1/C3/C4 in every faithful deterministic realization; C2's
 physical-timescale necessity conditional on the mixing hypothesis &
 Per-condition necessity ({[}Main §3.4{]}) \\
+\bottomrule
 \end{longtable}
 
 \hypertarget{sections-36-the-logical-flow}{%
@@ -3739,7 +3736,7 @@ Flow}\label{sections-36-the-logical-flow}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule\noalign{}
+\toprule
 \begin{minipage}[b]{\linewidth}\raggedright
 Step
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -3747,10 +3744,8 @@ What it establishes
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Key equation
 \end{minipage} \\
-\midrule\noalign{}
+\midrule
 \endhead
-\bottomrule\noalign{}
-\endlastfoot
 §3.1: Stochastic-quantum correspondence & compressed (≤ n³)
 representation for the correspondence's class; existence is internal and
 universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) & T\_ij =
@@ -3788,6 +3783,7 @@ c³ε²/(4G) \\
 §5.3: Bohr-frequency completeness & Frequencies determined, ℏ not &
 Dimensional obstruction \\
 §6: Self-consistency & ε = 2 l\_p, S\_BH = A/(4l\_p²) & ε² = 4ℏG/c³ \\
+\bottomrule
 \end{longtable}
 
 The chain from definition to ℏ:
