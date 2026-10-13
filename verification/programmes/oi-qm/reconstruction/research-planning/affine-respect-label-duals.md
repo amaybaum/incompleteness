@@ -1,8 +1,12 @@
 # Conditional affine respect from label duals
 
-**Status: planning placeholder for review.** This note proposes research work;
-it is not a native control plane, F candidate, proof result or empirical result.
+**Status: Written conditional interface supplied; formal certification and physical source remain open.**
+This umbrella note is research/design, not a native control plane or F candidate.
 Planning snapshot: main `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
+
+## First research update (2026-10-13)
+
+[The separate interface argument](https://github.com/amaybaum/incompleteness/blob/476651fed70017543345bd784de95ead9f193ccf/verification/programmes/oi-qm/reconstruction/preservation-induction-design/affine-respect-interface.md) evaluates each affine relation against jointly separating output tests with affine preparation pullbacks. It includes a StateRespect-without-AffineRespect separation. No Lean certificate or source for the physical test inventory is supplied.
 
 ## Current gap
 
@@ -42,7 +46,7 @@ written arguments or kernel proofs at their stated evidence level.
 - [Protocol tower draft](https://github.com/amaybaum/incompleteness/pull/827)
 - [Equivalence ledger](https://github.com/amaybaum/incompleteness/blob/424aa33bf16c5160c00e6f6aea974d00c0d745dd/research/equivalence/LEDGER.md)
 
-This PR adds only this planning note. Existing theorem and manuscript
+This note tracks the broader agenda alongside the linked research evidence. Existing theorem and manuscript
 classifications, ROADMAP rows, adopted modules, CI workflows and historical
 round records retain their current authority. Later work should be recorded
 forward, with its own scope and provenance.
