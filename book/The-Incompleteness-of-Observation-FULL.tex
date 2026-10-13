@@ -5,16 +5,19 @@
 \documentclass[
 ]{article}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -33,12 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -163,6 +160,12 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \author{}
 \date{}
@@ -2582,7 +2585,7 @@ The three failure modes are structurally distinct.
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1774}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3065}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3387}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Condition
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -2592,13 +2595,14 @@ Resulting dynamics
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Resulting situation
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 C1 & Coupling & Closed classical & Isolated subsystem \\
 C2 & Timescale separation & Markovian stochastic & Thermalized
 observer \\
 C3 & Capacity hierarchy & No observation & Coextensive with system \\
-\bottomrule
 \end{longtable}
 
 Each tells us something different about why our situation produces the
@@ -2704,15 +2708,16 @@ available: hole card and burn card trade places. Then, writing the odds
 that the hole card at showdown matches the hole card as dealt:
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule\noalign{}
 protocol & matching odds \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 one shuffle, then showdown & 1/2 \\
 two shuffles, then showdown & 1 (certain) \\
 two shuffles, odds chained through the unobserved middle & 1/2 \\
 two shuffles with a peek (and forced re-burn) in the middle & 1/2 \\
-\bottomrule
 \end{longtable}
 
 Each line is checkable by hand --- there are sixteen cases in the
@@ -8209,17 +8214,18 @@ from inter-corner distances in various cubic-lattice geometries ---
 against the observed \(\lambda = 0.22500 \pm 0.00067\):
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule
+\toprule\noalign{}
 \(N\) & \(\lambda = 1/(\pi\sqrt{N})\) & Deviation \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 1 & 0.3183 & \(+139\sigma\) \\
 \textbf{2 (framework)} & \textbf{0.2251} & \textbf{\(+0.1\sigma\)} \\
 3 & 0.1838 & \(-62\sigma\) \\
 4 & 0.1592 & \(-98\sigma\) \\
 6 & 0.1299 & \(-142\sigma\) \\
 8 & 0.1125 & \(-186\sigma\) \\
-\bottomrule
 \end{longtable}
 
 The framework's \(N = 2\) is the only integer value in the nearby
@@ -8439,7 +8445,7 @@ commitment determines all three charged-lepton masses:
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2340}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2128}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2340}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mass
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -8451,13 +8457,14 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Deviation
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(m_e\) & Koide\((Q, \theta_0;\, m_\tau)\) & \(0.51096\) MeV &
 \(0.5110\) & \(0.007\%\) \\
 \(m_\mu\) & Koide closure with \(m_e\), \(m_\tau\) & \(105.74\) MeV &
 \(105.66\) & \(0.07\%\) \\
-\bottomrule
 \end{longtable}
 
 Both predictions match observation at the percent level. The implied
@@ -8569,7 +8576,7 @@ vs charged-leptons) is bijection-specific per Chapter 2 §2.5.
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2200}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2000}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1400}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mass
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -8583,8 +8590,10 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(m_d\) & \(m_s/(2\pi^2)\) & Layer 1 & \(4.73\) MeV & \(4.67 \pm 0.48\)
 & \(1.3\%\) \\
 \(m_u\) & \(m_d \times \sqrt{2/9}\) & Layer 1 & \(2.20\) MeV &
@@ -8597,7 +8606,6 @@ Match
 \(0.511\) & \(0.007\%\) \\
 \(m_\mu\) & Koide closure & Layer 1 & \(105.74\) MeV & \(105.66\) &
 \(0.07\%\) \\
-\bottomrule
 \end{longtable}
 
 The chain produces six masses from one empirical scale (\(m_s\)) plus
@@ -8726,7 +8734,7 @@ global fit and from NuFIT 6.0 (normal mass ordering).
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2857}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Angle
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -8736,15 +8744,16 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(\sin^2\theta_{12}\) & \(0.3080\) & \(0.3085 \pm 0.0073\) (post-JUNO
 global fit) & \(0.07\sigma\) \\
 \(\sin^2\theta_{23}\) & \(0.5507\) & \(0.561^{+0.012}_{-0.015}\) (NuFIT
 6.0 NO) & \(0.74\sigma\) \\
 \(\sin^2\theta_{13}\) & \(0.02252\) & \(0.02195 \pm 0.00056\) (NuFIT 6.0
 NO) & \(1.01\sigma\) \\
-\bottomrule
 \end{longtable}
 
 All three angles match observation within about \(1\sigma\). The match
@@ -8897,7 +8906,7 @@ below (A/B/C/D/E).
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1186}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1186}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0847}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Observable
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -8913,8 +8922,10 @@ Class
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Cat
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(1/\alpha_0\) & one-loop staggered VP & \(23.25\) & \(-\) & structural
 input & \textbf{S} & input \\
 \(\alpha_3(M_Z)\) & RG running with \((\delta_0, A, B)\) & \(0.118\) &
@@ -8969,7 +8980,6 @@ Koide angle \(\theta_0\) & \(C_2(T_1)/d^2\) & \(2/9\) & \(0.22222\) &
 \(m_H\) & RGE running from \(\lambda(M_{\text{Pl}})=0\) &
 \(129\text{-}132\) GeV (band) & \(125.10 \pm 0.14\) & \(m_t\)-consistent
 & \textbf{M} (\(m_t\)) & D \\
-\bottomrule
 \end{longtable}
 
 Footnotes: \textbf{{[}a{]}} The three gauge couplings at \(M_Z\) are
@@ -10640,7 +10650,7 @@ awaiting tests.
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2222}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1556}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1333}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Observable
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -10652,8 +10662,10 @@ Match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Tier
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(\hbar = c^3 \epsilon^2 / (4G)\) & from horizon thermodynamics,
 conditional on H-slope & \(1.055 \times 10^{-34}\,\text{J·s}\) &
 identity (given \(\epsilon = 2 l_p\)) & 1 (cond.) \\
@@ -10691,7 +10703,6 @@ No dark-matter particle & conditional dark-sector interpretation &
 XENON, LUX, etc. null & consistent & 2 (cond.) \\
 No GUT-mediated proton decay & \(\tau_p \sim 10^{45}\)--\(10^{46}\) yr &
 \(\tau_p > 10^{34}\) yr & consistent & 1 \\
-\bottomrule
 \end{longtable}
 
 The tier system per Section 7.1: Tier 1 results follow from partition
@@ -11362,7 +11373,7 @@ neutrino-oscillation data set under the normal mass ordering convention.
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2857}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Angle
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -11372,15 +11383,16 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(\sin^2\theta_{12}\) & \(0.3080\) & \(0.3085 \pm 0.0073\) (post-JUNO
 global fit) & \(0.07\sigma\) \\
 \(\sin^2\theta_{23}\) & \(0.5507\) & \(0.561^{+0.012}_{-0.015}\) (NuFIT
 6.0, NO) & \(0.74\sigma\) \\
 \(\sin^2\theta_{13}\) & \(0.02252\) & \(0.02195 \pm 0.00056\) (NuFIT
 6.0, NO) & \(1.01\sigma\) \\
-\bottomrule
 \end{longtable}
 
 All three predictions match observation within \(1.1\sigma\) at current
@@ -11467,7 +11479,7 @@ well below both alternatives in tension with the post-JUNO global fit:
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2286}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3000}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3286}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Approach
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -11477,14 +11489,15 @@ Symmetry origin
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(\sigma\) from observed
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 TM1 & postulated \(A_4\) flavor & \(0.3184\) & \(1.35\sigma\) \\
 TM2 & postulated \(A_4\) flavor & \(0.3408\) & \(4.4\sigma\) \\
 TM3 & postulated; \(\theta_{13} = 0\) & --- & excluded \\
 \textbf{This work} & \textbf{cubic group \(O\) of 3D space} &
 \textbf{\(0.3080\)} & \textbf{\(0.07\sigma\)} \\
-\bottomrule
 \end{longtable}
 
 (Comparing against the post-JUNO global fit
@@ -12138,7 +12151,7 @@ of Chapters 5-8, organized by hierarchy level, summarizes as follows.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3617}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2766}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3617}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Hierarchy level
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -12146,8 +12159,10 @@ Predictions
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Empirical match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Level G4 (universality class) & \(S = A/(4 l_p^2)\), CC dissolution,
 \(\hbar\) from partition geometry, RVM form & structural (\(1/4\)
 untested directly) \\
@@ -12160,7 +12175,6 @@ angles, sum rule, gauge couplings at \(M_Z\) & \(0.04\%\)-\(1.01\sigma\)
 across 22 predictions \\
 Level G3 (open) & Bottom-to-tau mass ratio, Koide angle's structural
 origin, \(\delta_{\text{CP}}\) & Open research program \\
-\bottomrule
 \end{longtable}
 
 The framework's empirical exposure is therefore distributed across the
@@ -12346,7 +12360,7 @@ empirical record at Tier 1 summarizes as follows.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3654}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3269}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3077}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Tier 1 prediction
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -12354,8 +12368,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Source chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(S = A/(4 l_p^2)\) & conditional on H-slope; no direct test & Ch 7
 §7.5 \\
 Area law \(dA \geq 0\) & GW250114 area increase at \(99.999\%\) & Ch 7
@@ -12370,7 +12386,6 @@ Dark sector budget \(\sim 95\%\) & \(\Omega_{\text{dark}} \approx 0.95\)
 concordance & Ch 7 §7.9 \\
 No dark matter particle & XENON, LUX, etc. null & Ch 7 §7.9 \\
 No GUT-mediated proton decay & \(\tau_p > 10^{34}\) yr & Ch 6 §6.4 \\
-\bottomrule
 \end{longtable}
 
 Seven universality-class entries tested against current empirical
@@ -12430,7 +12445,7 @@ The empirical record at Tier 2 summarizes as follows.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3654}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3269}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3077}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Tier 2 prediction
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -12438,8 +12453,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Source chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)\) gauge
 group & confirmed & Ch 5 \\
 Three generations of matter & confirmed & Ch 5, Ch 6 \\
@@ -12452,7 +12469,6 @@ relation & Ch 7 §7.9 \\
 \(r_M(z)\) shrinkage with redshift & Jiao et al.~(Milky Way), Genzel et
 al.~(high-\(z\)) & Ch 7 §7.9 \\
 Mass ordering (normal) & DESI DR2 + CMB preference & Ch 8 §8.9 \\
-\bottomrule
 \end{longtable}
 
 The seven Tier 2 entries combine observed structural features,
@@ -12485,7 +12501,7 @@ The empirical record at Tier 3 summarizes as follows.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3654}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3269}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3077}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Tier 3 prediction
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -12493,8 +12509,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Source chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Cabibbo angle \(\lambda = 1/(\pi\sqrt{2})\) & \(0.04\%\) & Ch 6 §6.5 \\
 Koide relation \(Q = 2/3\) & \(0.02\%\) & Ch 6 §6.5 \\
 \(\sin^2\theta_{12} = 1/3 - 1/(4\pi^2)\) & \(0.07\sigma\) from post-JUNO
@@ -12509,7 +12527,6 @@ Three gauge couplings at \(M_Z\) & Fitted; zero residual by construction
 & Ch 6 §6.4 \\
 MOND interpolation ``simple'' function & Conditional comparison;
 transition kernel open & Ch 7 §7.9 \\
-\bottomrule
 \end{longtable}
 
 The eight Tier 3 entries comprise six numerical flavor comparisons, one
@@ -14629,7 +14646,7 @@ Their intersection produces template replication:
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3200}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3200}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Element
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -14637,8 +14654,10 @@ Source
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Linear polymers & Carbon \(sp^3\) in \(d = 3\) & Structural \\
 Complementary pairing & H-bonding geometry in \(d = 3\) & Structural \\
 Catalytic activity & Statistically abundant (§11.2) & Statistically
@@ -14649,7 +14668,6 @@ Copying errors & Finite-fidelity copying & Inevitable \\
 Selection & Competition for finite resources & Inevitable \\
 Darwinian evolution & Replication + variation + selection &
 Consequence \\
-\bottomrule
 \end{longtable}
 
 Each row follows from the preceding rows. No row requires contingent
@@ -15624,7 +15642,7 @@ chain after the chemistry is fixed.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2609}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3913}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3478}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Step
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -15632,8 +15650,10 @@ Content
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Band theory & QM + periodic crystal potential & Structural \\
 Band gap for Group IV & Exactly filled valence band (4 electrons +
 Pauli) & Structural \\
@@ -15646,7 +15666,6 @@ Transistors & Voltage-controlled p-n junctions & Structural \\
 Logic gates & Transistors in series / parallel & Structural \\
 Universal computation & NAND is functionally complete & Mathematical
 theorem \\
-\bottomrule
 \end{longtable}
 
 The cumulative chain from \((S, \varphi)\) to a universal computer is
@@ -15828,14 +15847,16 @@ achieve.
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5789}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.4211}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Capability
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Discover \((S, \varphi)\) from observations & Structurally possible
 (reconstruction theorem) \\
 Build better models of the visible sector & No structural limit \\
@@ -15852,7 +15873,6 @@ Solve problems outside BQP & Impossible under global coverage of Ch 14's
 computational model (a conditional theorem) \\
 Achieve consciousness in the phenomenal sense & Not addressed (Ch 18
 §18.10) \\
-\bottomrule
 \end{longtable}
 
 The framework's content places several capabilities in the impossible
@@ -18239,7 +18259,7 @@ engineered quantum systems summarize as follows.
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2414}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2931}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3276}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Domain
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -18249,8 +18269,10 @@ System / Bath
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Current relevance
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Cosmology & Observer / trans-horizon & \(10^{-32}\) & Framework's home
 ground \\
 Enzymes & Active site / scaffold & \(10^{-9}\) to \(10^{-12}\) & Chapter
@@ -18262,7 +18284,6 @@ Atomic clocks & Atom / cavity & \(\sim 10^{-6}\) & Potentially
 measurable \\
 Engineered baths & Designed coupling & up to \(10^{-1}\) & Future
 architectures \\
-\bottomrule
 \end{longtable}
 
 The corrections grow as \(\tau_S/\tau_B\) increases --- equivalently, as
@@ -19235,7 +19256,7 @@ with its own characteristic \(\tau_B\).
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Memory mechanism
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -19247,8 +19268,10 @@ Storage medium
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 C1--C4 role
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Conformational hysteresis & Ligand binding & Oligomeric/regulatory state
 & \(\mu\)s-ms & C2 \\
 Sequential phosphorylation & Ordered modification & Conformational
@@ -19259,7 +19282,6 @@ Chromatin marks & \(\gamma\)H2AX, methylation & Histone modification
 state & Hrs-days & C2 + C3 \\
 DNA methylation & Methyltransferase activity & CpG state &
 Months-generations & C2 + C3 \\
-\bottomrule
 \end{longtable}
 
 In multicellular tissues --- particularly the nervous system --- the
@@ -19810,7 +19832,7 @@ hierarchy is multi-scale:
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mechanism
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -19818,15 +19840,16 @@ Mechanism
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(\tau_S/\tau_B\)
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 DNA methylation (CpG) & Cell generations & \(\sim 10^{-6}\) \\
 Histone methylation & Hours to days & \(\sim 10^{-3}\) to \(10^{-2}\) \\
 Histone acetylation & Minutes to hours & \(\sim 10^{-1}\) to \(1\) \\
 Chromatin compaction & Cell generations & \(\sim 10^{-6}\) \\
 CTCF/cohesin loops & Hours to cell generations & \(\sim 10^{-3}\) to
 \(10^{-6}\) \\
-\bottomrule
 \end{longtable}
 
 The framework predicts a \emph{hierarchy of memory strength}: genes
@@ -21639,7 +21662,7 @@ for several systems:
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2286}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5429}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2286}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 System
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -21647,8 +21670,10 @@ System
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Regime
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Cosmological partition & \(\sim 10^{-32}\) & Maximal backflow \\
 Protein conformational dynamics & \(\sim 10^{-9}\) to \(10^{-12}\) &
 Intermediate backflow \\
@@ -21657,7 +21682,6 @@ backflow \\
 Histone modification dynamics & \(\sim 10^{-3}\) to \(10^{-1}\) & Weak
 backflow \\
 Small-molecule reactions & \(\sim 1\) & Memoryless \\
-\bottomrule
 \end{longtable}
 
 The framework's content is not ``quantum effects in biology'' ---
@@ -24374,7 +24398,7 @@ ledger.
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2807}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3158}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2456}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Problem
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -24384,8 +24408,10 @@ Framework status
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Developed in
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Quantum gravity & Central problem & Dissolved (three components) & Chs
 1, 7, 18 \\
 SU(2) chirality & Assumed in the SM & Open --- named hypothesis H-χ';
@@ -24446,7 +24472,6 @@ verification residual)} & §19.3.1 \\
 possibilities, none developed)} & §19.3.4 \\
 \textbf{Initial state} & \textbf{Framework-specific} & \textbf{Partially
 gauge, partially irreducible} & §19.3.5 \\
-\bottomrule
 \end{longtable}
 
 The empirical record summarized above is mixed. Several problems are
@@ -24809,7 +24834,7 @@ bounds and untested formulas.
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2698}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -24825,8 +24850,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 1 & \(1/\alpha_0\) universal threshold & 23.25 & S & 0 & Within
 \textasciitilde0.5\% & Ch 5 §5.4 \\
 2 & \(A \cdot B\) gauge coupling product & \(\approx 48\)--\(62\)
@@ -24874,7 +24901,6 @@ inheritance & Ch 6 §6.5 \\
 systematics & Ch 7 §7.9 \\
 24 & Bekenstein-Hawking entropy & \(S = A/(4 l_p^2)\) & C & 1 & No
 direct test & Ch 7 §7.5 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Summary statistics.} Counts: 8 S + 3 C + 8 L + 1 M + 2 R + 2 E.
@@ -24953,7 +24979,7 @@ normalization.
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2698}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -24969,8 +24995,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 G1 & Discreteness scale & \(\epsilon = 2 l_p\) & C & 0 & Conditional
 calibration & Ch 7 §7.4 \\
 G2 & Bekenstein bound & \(S_{\text{dS}} \sim 10^{122}\) & C & 0 &
@@ -25002,7 +25030,6 @@ G13 & Lorentz violation & Free dispersion \(O((k\epsilon)^2)\);
 interactions open & C & 0 & Interacting protection open & Ch 7 §7.4 \\
 G14 & Boundary entropy & \(\rho_s = \rho_{\text{crit}}\) & S & 1 &
 Normalization identity & Ch 7 §7.9 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Summary statistics.} Counts: 2 S + 9 C + 2 L. Total: 13. The
@@ -25040,7 +25067,7 @@ precision into the framework's cleanest pre-registered forward test.
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1111}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2698}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -25056,8 +25083,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 N1 & \(\sin^2\theta_{12}\) & \(1/3 - 1/(4\pi^2)\) & L & 1+2(b) &
 \textbf{0.07\(\sigma\) JUNO} & Ch 8 \\
 N2 & \(\sin^2\theta_{13}\) & \(4/(18\pi^2)\) & S & 1 & Within 1\% & Ch
@@ -25071,7 +25100,6 @@ N6 & PMNS sum rule & \(2\Delta_{12} + \Delta_{23} = 0\) & L & 1+2(b) &
 \(1.178 \pm 0.020\) confirmed & Ch 8 \\
 N7 & \(\delta_{\text{CP}}\) & \(b_{12} - b_{13}\) (sub-dominant U-odd) &
 L & 2(b)ᵍ & T2K/NOvA: bijection-constraining & Ch 8 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Summary statistics.} Counts: 2 S + 5 L. Total: 7. The numerical
@@ -25122,7 +25150,7 @@ of, and consistency with, established clinical biology.
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0933}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.2267}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1200}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -25138,8 +25166,10 @@ Empirical match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 B1 & Wider therapeutic window for Rett & Substratum-emergent operator
 dissociation & S & 1 & Retrodiction (Guy et al.~2007) & Ch 16 §16.12 \\
 B2 & Cancer methylome classifier accuracy & Substratum preserved during
@@ -25169,7 +25199,6 @@ B13 & iPSC reprogramming residuals & Substratum-emergent dissociation &
 S & 1 & Lin et al.~2024 confirmed & Ch 16 §16.10 \\
 B14 & Bivalent chromatin states & Multi-operator substratum & S & 1 &
 Bernstein et al.~2006 confirmed & Ch 16 §16.10 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Summary statistics.} Counts: 12 S + 2 C. B1 (Rett syndrome wider
@@ -25198,7 +25227,7 @@ several years of experimental research.
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -25210,8 +25239,10 @@ Testability
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 F1 & BEC analogue-gravity \(\mathcal{F}(r) = 2r - r^2\) (proposed model
 form; derivation unpackaged) & Capacity-controlled non-Markovianity &
 Steinhauer group, 2-3 years & Ch 15 §15.8 \\
@@ -25223,7 +25254,6 @@ only; factor not quantified & Current NV platforms & Ch 15 §15.6 \\
 F4 & Engineered-bath coherence extension & coherence beyond the
 Markovian estimate; factor not quantified & Spin chain / NV / trapped
 ion platforms & Ch 15 §15.5 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Cosmology and gravity.}
@@ -25234,7 +25264,7 @@ ion platforms & Ch 15 §15.5 \\
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -25246,8 +25276,10 @@ Testability
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 F5 & Gravitational wave echoes & \(\Delta t = (r_+/c)\ln(r_+/2l_p)\) &
 LIGO/Virgo/KAGRA next observing runs & Ch 18 §18.5 \\
 F6 & Running vacuum DESI test & \(w(z) \neq -1\) in specific form & DESI
@@ -25256,7 +25288,6 @@ F7 & Born rule transient violations & CMB non-Gaussianity signatures &
 LiteBIRD, future CMB-S4 & Ch 18 §18.2 \\
 F8 & Cosmic recurrence & \(\sim e^{e^{10^{122}}}\) timescale & Logically
 falsifiable only & Ch 18 §18.7 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Biology and medicine.}
@@ -25267,7 +25298,7 @@ falsifiable only & Ch 18 §18.7 \\
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -25279,8 +25310,10 @@ Testability
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 F9 & Variant pathogenicity stratification for reader/writer/eraser &
 AlphaMissense miscalibration for machinery genes & Reanalysis of
 existing benchmarks & Ch 17 §17.8 \\
@@ -25296,7 +25329,6 @@ discriminate the framework from a mundane superposition null; only the
 \textbf{derived} capacity-dependence \(H(C3)\) would be a genuine test,
 and that relationship is not yet derived} & Existing phylogenetic data
 (consistency, not exposure) & Ch 17 §17.9 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Foundations (Lorentz sector).}
@@ -25307,7 +25339,7 @@ and that relationship is not yet derived} & Existing phylogenetic data
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.3684}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2281}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1579}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \#
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -25319,8 +25351,10 @@ Testability
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Chapter
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 F13 & Cross-charged boost-LV decoupling &
 \(\delta c \sim \Delta C_2\,(\alpha_0/4\pi)(M_X/M_{\text{Pl}})^2[c_L\ln(M_{\text{Pl}}/M_X)+c_0]\);
 the symmetric-point matching is certified ({[}SM §4.4{]}); the
@@ -25339,7 +25373,6 @@ remains open, so these are illustrative windows, not predictions or
 bounds & Multi-species LV bounds (matching certified; running reported,
 unverified; full reach pending \(\Delta C_2\)) & SM §3.1 (\emph{Scope of
 the emergent-Lorentz claim}, point (iii)) \\
-\bottomrule
 \end{longtable}
 
 The \emph{rotational} Lorentz sector is deliberately \textbf{not} listed
@@ -26040,7 +26073,7 @@ their orders match. \(\square\)
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \(L\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -26050,14 +26083,15 @@ their orders match. \(\square\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(\text{NM}^2 = 3L/4\)
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 4 & 14 & 16 & 3.00 \\
 6 & 30 & 32 & 4.50 \\
 8 & 70 & 72 & 6.00 \\
 10 & 106 & 108 & 7.50 \\
 12 & 130 & 132 & 9.00 \\
-\bottomrule
 \end{longtable}
 
 Both \(\mathfrak{f}_{\text{ss}}\) and \(\text{NM}^2\) are

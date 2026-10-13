@@ -5,16 +5,19 @@
 \documentclass[
 ]{article}
 \usepackage{amsmath,amssymb}
-\usepackage{lmodern}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -33,12 +36,6 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
-\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
-\urlstyle{same} % disable monospaced font for URLs
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -163,6 +160,12 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
 
 \author{}
 \date{}
@@ -1433,14 +1436,15 @@ This equals unity only for d = 3. For d = 2: overclosure. For d ≥ 4:
 gravitational deficit with no source.
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule
+\toprule\noalign{}
 d & ρ\_s / ρ\_crit & Status \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 2 & 2 & Overclosure \\
 \textbf{3} & \textbf{1} & \textbf{Exact concordance} \\
 4 & 2/3 & Deficit \\
-\bottomrule
 \end{longtable}
 
 The d = 3 case is derived explicitly in {[}GR §7.2{]} from the Friedmann
@@ -2287,7 +2291,7 @@ group under the commutant construction of Theorem 5. Computing the
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Lattice
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -2297,15 +2301,16 @@ NN
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Gauge group (commutant)
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 SC & 6 & \(T_1 \oplus E \oplus A_1\) &
 \(SU(3) \times SU(2) \times U(1)\) ✓ \\
 BCC & 8 & \(A_1 \oplus A_2 \oplus T_1 \oplus T_2\) &
 \(SU(3)^2 \times U(1)^2\) \\
 FCC & 12 & \(A_1 \oplus E \oplus T_1 \oplus 2T_2\) &
 \(SU(3)^3 \times SU(2) \times U(1)\) \\
-\bottomrule
 \end{longtable}
 
 SC is uniquely compatible with the observed Standard Model gauge
@@ -2320,14 +2325,15 @@ natural triplet sector (SC: \(X\)-points; BCC: \(H\)-points; FCC:
 \(L\)-points), with equal-NN normalization:
 
 \begin{longtable}[]{@{}lll@{}}
-\toprule
+\toprule\noalign{}
 Lattice & Triplet separation & Cabibbo \(\lambda\) \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 SC & \(\pi\sqrt{2}\) & 0.2251 \\
 BCC & \(\pi\sqrt{6}\) & 0.1299 \\
 FCC & \(2\pi\) & 0.1592 \\
-\bottomrule
 \end{longtable}
 
 Observed \(\lambda = 0.2250 \pm 0.00067\) {[}20{]}. The SC value matches
@@ -3869,17 +3875,18 @@ a standard-QCD cross-check at the same \(N\) and \(m\)), the resulting
 per-\(N\) values of \(A \cdot B\) at \(m = 0.05\) are:
 
 \begin{longtable}[]{@{}llll@{}}
-\toprule
+\toprule\noalign{}
 \(N\) & \(\Pi_s(N)\) & \(b_0^{\text{capture}}(N)\) & \(A \cdot B(N)\) \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 20 & 0.3451 & 0.523 & 22.14 \\
 24 & 0.3255 & 0.460 & 28.55 \\
 28 & 0.3174 & 0.427 & 33.31 \\
 32 & 0.3135 & 0.408 & 36.92 \\
 36 & 0.3115 & 0.398 & 39.61 \\
 40 & 0.3104 & 0.392 & 41.70 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Extrapolation to \(N \to \infty\).} The \(1/N^2\) fit and the
@@ -3887,16 +3894,17 @@ specified Shanks accelerations give the following values for the
 \(A \cdot B(N)\) sequence:
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
+\toprule\noalign{}
 Estimator & \(A \cdot B(\infty)\) \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Linear \(1/N^2\) fit on \((N=32,36,40)\) & \(50.1\) (residual std
 \(0.05\)) \\
 Shanks acceleration, level 2 (last term) & \(48.0\) \\
 Shanks acceleration, level 3 (last term) & \(47.9\) \\
 Shanks acceleration, level 4 (last term) & \(47.9\) \\
-\bottomrule
 \end{longtable}
 
 The extrapolated value is model-dependent beyond the estimator spread
@@ -4093,7 +4101,7 @@ the uncorrected \(1/N^2\) extrapolation.
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1429}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Group
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -4109,12 +4117,13 @@ Predicted
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Observed
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 U(1) & 23.25 & 10.02 & 0.00 & \(+25.73\) & \textbf{59.00} & 59.00 \\
 SU(2) & 23.25 & 10.02 & 16.17 & \(-19.88\) & \textbf{29.57} & 29.57 \\
 SU(3) & 23.25 & 10.02 & 19.13 & \(-43.93\) & \textbf{8.47} & 8.48 \\
-\bottomrule
 \end{longtable}
 
 \textbf{Parameter count.} The chain contains one structurally computed
@@ -5046,7 +5055,7 @@ magnitude:
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Ratio
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -5054,8 +5063,10 @@ Value
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match to \(\theta_0 = 0.222225\)
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(C_2 / d^2 = 2/9\) & \(0.22222\) & \(\mathbf{0.001\%}\) ✓ \\
 \(\dim(E)/\dim(T_1\otimes T_1) = 2/9\) & \(0.22222\) &
 \(\mathbf{0.001\%}\) ✓ \\
@@ -5068,7 +5079,6 @@ Match to \(\theta_0 = 0.222225\)
 \(C_2/(2d) = 2/6\) & \(0.33333\) & \(50\%\) off \\
 \(\dim(E)/\dim(\text{Sym}^2(T_1)) = 2/6\) & \(0.33333\) & \(50\%\)
 off \\
-\bottomrule
 \end{longtable}
 
 Only \(2/9\) matches. The Casimir construction \(C_2(T_1)/d^2\) is the
@@ -5351,13 +5361,14 @@ With \(Q = 2/3\), \(\theta_0 = 2/9\), and \(m_\tau = 1776.93\) MeV as
 input:
 
 \begin{longtable}[]{@{}llll@{}}
-\toprule
+\toprule\noalign{}
 Mass & Predicted & Observed & Deviation \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(m_e\) & 0.51098 MeV & 0.51100 MeV & 0.003\% \\
 \(m_\mu\) & 105.656 MeV & 105.658 MeV & 0.002\% \\
-\bottomrule
 \end{longtable}
 
 The quark sector does not satisfy \(Q = 2/3\):
@@ -5458,7 +5469,7 @@ input (\(m_s\)):
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2558}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2326}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1628}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Mass
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -5470,8 +5481,10 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(m_d\) & \(m_s/(2\pi^2)\) & 4.73 MeV & 4.67 ± 0.48 & 1.3\% \\
 \(m_u\) & \(m_d \times \sqrt{2/9}\) & 2.20 MeV & 2.16 ± 0.49 &
 \(0.1\sigma\) \\
@@ -5480,7 +5493,6 @@ Match
 \(m_e\) & Koide(\(\theta_0\), \(m_\tau\)) & 0.505 MeV & 0.511 & 1.2\% \\
 \(m_\mu\) & Koide(\(\theta_0\), \(m_\tau\)) & 104.4 MeV & 105.7 &
 1.2\% \\
-\bottomrule
 \end{longtable}
 
 Six masses from one input, all within \(\sim 1\)--\(1.3\%\). The
@@ -5548,7 +5560,7 @@ the PMNS corrections:
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2857}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Angle
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -5558,15 +5570,16 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(\sin^2\theta_{12}\) & 0.3080 & 0.3085 ± 0.0073 (post-JUNO global fit
 {[}27{]}) & \(0.07\sigma\) \\
 \(\sin^2\theta_{23}\) & 0.5507 & 0.561\(^{+0.012}_{-0.015}\) (NuFIT 6.0,
 NO) & \(0.74\sigma\) \\
 \(\sin^2\theta_{13}\) & 0.02252 & 0.02195 ± 0.00056 (NuFIT 6.0, NO) &
 \(1.01\sigma\) \\
-\bottomrule
 \end{longtable}
 
 The three predictions have different structural status, made precise in
@@ -6214,7 +6227,7 @@ already employs:
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Identity
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -6224,15 +6237,16 @@ Formula
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Source
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Wolfenstein \(A^2\) & \((d-1)/d\) & \(2/3\) & Off-democratic projection
 (§7.1) \\
 Cond 2 ratio & \(4(d-1)/(2d) = 2A^2\) & \(4/3\) & Squared off-democratic
 projection (§7.3) \\
 \textbf{\(K\) (this work)} & \textbf{\(1/(n_{\text{gen}} - 1)\)} &
 \textbf{\(1/2\)} & \textbf{Inverse off-democratic partner count} \\
-\bottomrule
 \end{longtable}
 
 \textbf{Unifying identity.} Wolfenstein \(A^2 = (d-1)/d\) and
@@ -6270,7 +6284,7 @@ stratification):
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Component
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -6278,8 +6292,10 @@ Required value
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Layer status
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Democratic eigenstate \(\hat h\) as O-singlet & from cubic-group rep
 theory & \textbf{Layer 1} (rep theory) \\
 \(c_{bb} = (n_{\text{gen}} - 1) \cdot \lambda\) & from
@@ -6293,7 +6309,6 @@ from CW dimensional analysis & \textbf{Layer 1} (already noted in
 Loop calculation gives \(K = 1/(n_{\text{gen}} - 1)\) explicitly & from
 OI-specific taste-decomposed CW one-loop & \textbf{Layer 2(a)-tractable}
 (residual gap) \\
-\bottomrule
 \end{longtable}
 
 The first four components are Layer 1 closed: they together fix
@@ -6384,15 +6399,16 @@ Among the natural fractions \(K \in \{1/4, 1/2, 1, 2\}\), the observed
 \(m_b/m_\tau\) excludes all but \(K = 1/2\):
 
 \begin{longtable}[]{@{}llll@{}}
-\toprule
+\toprule\noalign{}
 \(K\) & \(m_{\text{match}}\) & \(m_b/m_\tau\) & Discrepancy \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(1/2\) & \(0.122\) & \(2.36\) & \(0.4\%\) ✓ \\
 \(1\) & \(0.243\) & \(\approx 3.17\) & \(35\%\) ✗ \\
 \(1/4\) & \(0.061\) & \(\approx 1.78\) & \(24\%\) ✗ \\
 \(2\) & \(0.487\) & \(\gg 4\) & excluded ✗ \\
-\bottomrule
 \end{longtable}
 
 Intermediate fractions (\(K \in \{1/3, 2/3, 3/4\}\)) give
@@ -6675,7 +6691,7 @@ mass/parameter chain; \textbf{E} = uses explicit empirical input;
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1923}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1346}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1346}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Prediction
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -6689,8 +6705,10 @@ Match
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Input
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 \(1/\alpha_1(M_Z)\) & lattice + RGE & 59.00 & 59.00 & \(< 0.1\%\) &
 \textbf{E}ᵃ (fixes \(\delta_0\)) \\
 \(1/\alpha_2(M_Z)\) & lattice + RGE & 29.57 & 29.57 & \(< 0.1\%\) &
@@ -6737,7 +6755,6 @@ MeV & 0.006\% & \textbf{M} (\(m_\tau\)) \\
 \(0.5\sigma\) & \textbf{L}ᵇ \\
 \(m_t\) & \(v/\sqrt{2}\) (weak-scale \(y_t \approx 1\); mechanism open)
 & 174.1 GeV & 172.5 ± 0.3 & 0.9\% & \textbf{R}ᵍ \\
-\bottomrule
 \end{longtable}
 
 Footnotes:
@@ -6974,7 +6991,7 @@ a six-prediction simultaneous-match consistency check:
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Prediction
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -6986,8 +7003,10 @@ Observed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Match
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 Wolfenstein \(A^2\) & \(C_2/d = (d-1)/d = 2/3\) & 0.6667 & 0.683 &
 1.2\% \\
 \(\sin^2\theta_{13}\) & \(\propto A^4 = (C_2/d)^2 = 4/9\) & 0.0225 &
@@ -6997,7 +7016,6 @@ Koide \(\theta_0\) & \(C_2/d^2 = 2/9\) & 0.2222 & 0.2222 & 0.02\% \\
 \(|V_{cb}|\) & \(A\lambda^2\) & 0.04136 & 0.0408 & 0.4σ \\
 PMNS sum rule & \(7/6 = 1 + 2A^2/3\) via Cond 2 & 1.167 & 1.178 &
 0.6σ \\
-\bottomrule
 \end{longtable}
 
 All six derive from the structural identity \(A^2 = C_2/d\) for vector
@@ -7938,7 +7956,7 @@ framework:
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Substratum-level structural precursor
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -7946,8 +7964,10 @@ Emergent-level non-perturbative feature
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Trace-out role
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 T-invariance of the wave equation (§5) & \(\theta \in \{0,\pi\}\) in
 QCD; \(\bar\theta\) not fixed & Narrows parameter value; H-top, H-det
 open \\
@@ -7972,7 +7992,6 @@ form, emerges automatically from induced gauge structure \\
 Topology of induced \(\mathrm{SU}(3)\) gauge action (instantons) & 't
 Hooft determinant interaction; \(\eta'\) mass via Witten-Veneziano &
 Standard mechanism (open derivation in framework) \\
-\bottomrule
 \end{longtable}
 
 The framework's treatment of the strong CP problem (§5) is not yet an
@@ -8476,7 +8495,7 @@ their orders match. \(\square\)
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}
   >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2143}}@{}}
-\toprule
+\toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 \(L\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -8486,14 +8505,15 @@ their orders match. \(\square\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(\mathrm{NM}^2 = 3L/4\)
 \end{minipage} \\
-\midrule
+\midrule\noalign{}
 \endhead
+\bottomrule\noalign{}
+\endlastfoot
 4 & 14 & 16 & 3.00 \\
 6 & 30 & 32 & 4.50 \\
 8 & 70 & 72 & 6.00 \\
 10 & 106 & 108 & 7.50 \\
 12 & 130 & 132 & 9.00 \\
-\bottomrule
 \end{longtable}
 
 Both \(\mathfrak{f}_{\mathrm{ss}}\) and \(\mathrm{NM}^2\) are
