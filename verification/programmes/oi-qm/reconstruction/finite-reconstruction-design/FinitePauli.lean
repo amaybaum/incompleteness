@@ -115,8 +115,9 @@ theorem pauliWord_complete (n : ℕ) (a b c d : Bits n) :
       ring
     simp only [pauliWord, Fintype.sum_prod_type, tensorOf_apply]
     rw [hf, ih, pauli_complete]
-    by_cases h : a = d ∧ b = c <;> by_cases h' : a' = d' ∧ b' = c' <;>
-      simp_all [pow_succ]
+    by_cases ha : a = d <;> by_cases hb : b = c <;>
+      by_cases ha' : a' = d' <;> by_cases hb' : b' = c' <;>
+        simp [ha, hb, ha', hb', pow_succ]
 
 def complexDictionary (n : ℕ) (w : Labels n → ℂ) : Matrix (Bits n) (Bits n) ℂ :=
   ∑ μ, (w μ / (2 : ℂ) ^ n) • pauliWord n μ
