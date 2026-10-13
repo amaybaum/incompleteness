@@ -1,0 +1,39 @@
+{
+  "common_end": [
+    "1/64",
+    "1/64",
+    "1/64",
+    "1/64"
+  ],
+  "controls": 2126,
+  "exit_exponent_1": [
+    "1/4",
+    "1/8",
+    "1/16",
+    "1/32"
+  ],
+  "exit_exponent_2": [
+    "1/4",
+    "1/16",
+    "1/64",
+    "1/256"
+  ],
+  "fine_tv": [
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2",
+    "1/2"
+  ],
+  "mutation_countercontrols_rejected": 6,
+  "projected_tv": [
+    "1/2",
+    "0",
+    "1/2",
+    "0",
+    "1/2"
+  ],
+  "third_moment": "0",
+  "variance_ratio": "5/4",
+  "verdict": "DESIGN_CHECKS_PASS; no empirical or native OI verdict"
+}
