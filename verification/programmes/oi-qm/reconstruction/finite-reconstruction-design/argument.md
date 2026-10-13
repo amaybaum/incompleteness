@@ -1,8 +1,9 @@
 # Finite reconstruction: exact reachability and the descent interface
 
 Research/design record, 2026-10-13. Base D: `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
-This is a written argument and an exact three-token design check. It is neither an
-adopted Lean theorem nor a native round execution. No F is designated.
+This is a written all-k argument, an exact three-token design check and compiled
+generic algebra supporting the proposed formalization. It is neither an
+adopted all-k Lean theorem nor a native round execution. No F is designated.
 
 The source drafts are [#829](https://github.com/amaybaum/incompleteness/pull/829)
 at `625f853ff70546f6e8d56d22fad15e968ad48354` and
@@ -229,11 +230,14 @@ This was a harness correction, not a change to the witness or decision rule.
 There is no Lean executable or Mathlib cache in this execution environment.
 The generic Pauli, Walsh and finite-circuit algebra sources are recorded in
 [formalization.md](formalization.md), with their separate compilation status
-and remaining obligations. They supply a design for the all-k dictionary and
-angle inversion, rather than an adopted all-k synthesis theorem. The concrete
+and remaining obligations. They compile the all-k dictionary, angle inversion
+and abstract finite-circuit identities at design head
+`d3a95be6a0049ee1450f438803ebcf2896f69744`, in all-green run `38457070337`.
+They do not supply an adopted all-k synthesis theorem. The concrete
 Gray circuit transport and the induction in section 4 remain open formal
-links. The historical KN-DESC design proof needs a fresh build on D before
-native use. No current K2, Kn, manuscript, registry, receipt or native draft
+links. The same run freshly compiles the historical KN-DESC design against D;
+that design build is distinct from native execution and adoption. No current
+K2, Kn, manuscript, registry, receipt or native draft
 record is changed by this research record. Research-only compilation workflows
 provide design evidence and do not designate F.
 

@@ -5,11 +5,36 @@ They are design sources outside the adopted `OIBridge` population. They change
 neither the mathematical hypotheses of the written cone theorem nor a native
 round's control plane. No F is designated.
 
-Compilation status: pending a fresh build against the library at D
-`dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`. A source proof body is not kernel
-certification. Each main declaration requests `#print axioms` in its build log;
-there are no `sorry`, additional axioms or admitted synthesis hypotheses in
-these sources.
+Compilation status: all three modules compile against the adopted library at D
+`dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`. The exact design head is
+`d3a95be6a0049ee1450f438803ebcf2896f69744`; GitHub Actions
+[run 38457070337](https://github.com/amaybaum/incompleteness/actions/runs/38457070337),
+job `115502431432`, is all green. Its source manifest matches the local source
+manifest. The source hashes are:
+
+| Module | SHA256 |
+| --- | --- |
+| `FinitePauli.lean` | `4af38e2e151390edf8ca23cdec94be06b7b4b1f9c72c57292a5374b7ca195b8e` |
+| `FiniteWalsh.lean` | `d4815ec809fa37fefabe786886efb860f1da02788cea4f7e048e34726da8a5f0` |
+| `FiniteCircuit.lean` | `70ce411d9cd830b8d73a5eee3e1eed758da4633802b9734961a6a0021ecc9763` |
+
+The modules contain 23 theorems: 14 Pauli/tensor/dictionary theorems, six Walsh
+theorems and three circuit theorems. All 14 requested main axiom reports list
+only `propext`, `Classical.choice` and `Quot.sound`. The successful log contains
+no `sorryAx` and no errors. No `sorry`, additional axiom or admitted synthesis
+hypothesis appears in these sources.
+
+That same run replays the 242 finite controls and five mutations, the historical
+descent probe and the independent descent controls, checks the saved hashes,
+and compiles the historical KN-DESC design. It also passes the 303-record
+legacy check, all 46 receipts and artifact placement. This is research design
+evidence; it is not an F attestation or a native execution. Documentation added
+after this exact head reports its build and does not change these source bytes.
+
+Earlier development builds rejected type transparency, finite-sum ordering,
+delta-case simplification and division-normalization steps in the proof sources.
+Those failed builds supplied no certification. The corrections retain the
+mathematical statements and the all-k argument's stated hypotheses.
 
 ## Pauli coordinates and spectators
 

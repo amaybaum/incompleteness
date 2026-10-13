@@ -70,11 +70,26 @@ non-Hermitian arbitrary-kernel compression, and negative controls for an
 incorrect relabelling and a flow that leaves the compressed subspace.
 
 These finite checks supplement the universal proof. They do not certify a
-universal claim by themselves. A fresh Lean run against D's library is
-pending; compilation and the twelve axiom prints must be checked before
-calling this rebuild kernel-checked. There is no local Lean executable or
-Mathlib cache in this workspace. Root's disposable research CI will perform
-the rebuild without adding an adopted import or a permanent job on main.
+universal claim by themselves. The research rebuild compiled successfully
+against D's unchanged landed Lean library at exact head
+`d3a95be6a0049ee1450f438803ebcf2896f69744`, in
+[workflow run 38457070337, job 115502431432](https://github.com/amaybaum/incompleteness/actions/runs/38457070337/job/115502431432).
+All twelve theorem axiom prints are `[propext, Classical.choice, Quot.sound]`.
+The compiled source's SHA256 is
+`fa9c3b084ddfa01a5fcb2ec3023f004d7614f16943b021c1d2f1ebfe67f0b70f`.
+The job also replayed both carrier-descent implementations, checked their
+saved outputs and hashes, and passed the 303-legacy-record, 46-receipt and
+artifact-placement checks. The combined research job was all-green.
+
+The rebuild retains the original source warnings: unused `[Fintype S]` and
+`[Fintype T]` section binders in `transition_submatrix`,
+`permMatrix_swap_submatrix`, and `phaseGate_submatrix`, plus the `haveI`
+style hint in the nonempty branch of `drivesElementary_of_pow`. These are
+linter warnings; they do not invalidate elaboration or the axiom audit. No
+Lean source changes were made to remove them. Compilation occurred outside
+the adopted module population, without adding an adopted import or a
+permanent job on main. This is research design evidence, not an F or E
+attestation and not a native KN-DESC-1 execution or adoption.
 
 Replay commands from the repository root:
 
