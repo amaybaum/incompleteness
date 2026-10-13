@@ -1,8 +1,12 @@
 # Hidden-sector empirical tests: four proposed routes
 
-**Status: planning placeholder for review.** This note proposes research work;
-it is not a native control plane, F candidate, proof result or empirical result.
+**Status: First derivation route selected; no empirical analysis or prediction established.**
+This umbrella note is research/design, not a native control plane or F candidate.
 Planning snapshot: main `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
+
+## First research update (2026-10-13)
+
+[The route-selection result](../hidden-sector-route-selection/result.md) selects H-NEQ-PROPAGATOR with a conditional variance/power response. It proves the fine-grained TV boundary and audits rate, initial-data and exit/end assumptions; 2,126 exact checks pass. The next task is to derive the projected/conditioned propagator for a specified completion before preregistering any data analysis.
 
 ## Current gap
 
@@ -42,7 +46,7 @@ written arguments or kernel proofs at their stated evidence level.
 - [Roadmap agenda adopted by #818](https://github.com/amaybaum/incompleteness/pull/818)
 - [Hidden-sector route details](https://github.com/amaybaum/incompleteness/blob/dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4/verification/ROADMAP.md#p2--direct-empirical-access-to-the-hidden-sector)
 
-This PR adds only this planning note. Existing theorem and manuscript
+This note tracks the broader agenda alongside the linked research evidence. Existing theorem and manuscript
 classifications, ROADMAP rows, adopted modules, CI workflows and historical
 round records retain their current authority. Later work should be recorded
 forward, with its own scope and provenance.
