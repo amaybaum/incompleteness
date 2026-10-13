@@ -6,9 +6,10 @@ adopted kernel module or physical compatibility principle. Base: #831 at
 `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
 
 Evidence legend: [W] written universal argument; [X] exact finite controls;
-[D] uncompiled Lean design. The Lean file has not been compiled in this
-environment: Lean/lake and a Mathlib build cache are absent. The `#print axioms`
-commands are proposed build checks, not saved kernel outputs.
+[D] research design source; [K] compiled research-design theorem. Lean/lake
+and a Mathlib cache remain absent locally. GitHub compiled the design at
+`e684897da41b1c3d066b880194c9beb87a19b7ad`; see [build-status.md](build-status.md)
+for the exact source, successful run and checked standard axiom reports.
 
 ## Fixed question, decision rule and productivity test
 
@@ -23,8 +24,9 @@ Before the exact controls were run, the decision rule was: all finite
 positive and countercontrols must pass, the independently implemented paths
 must agree on the full sample-manifest digest, and every named wrong-step
 guard must reject its corresponding variant. These tests certify their
-finite examples only. A universal kernel verdict additionally requires the
-design file to compile and its printed axiom outputs to be checked. No
+finite examples only. The universal research-design kernel verdict also
+requires compilation and checked axiom reports. These passed at the pinned
+build; native adoption and positive-premise Lean instances remain separate. No
 native-round verdict token is emitted by either script.
 
 ## Universal conditional statement [W, D]
@@ -73,8 +75,8 @@ needed merely to prove preservation of the assigned cone on S×R.
 
 `PreservationInduction.lean` states the core, finite branch sum, spectator
 and transport results outside the adopted OIBridge tree. Only zero/additive
-closure is exposed. Compilation and positive-premise Lean instances remain
-design obligations before a freeze can be proposed.
+closure is exposed. The four design theorems compile with standard axioms.
+Positive-premise Lean instances remain obligations before a freeze is proposed.
 
 ## Positive comparisons [W, X]
 
@@ -175,8 +177,8 @@ python3 verification/programmes/oi-qm/reconstruction/preservation-induction-desi
 ```
 
 The first command requires SymPy 1.14.0; neither command claims the
-universal theorem is kernel certified. Conditional soundness remains [W]
-until a Lean design build is available. The scripts terminate before
+universal theorem is kernel certified. Conditional soundness is [K] at the
+pinned research-design build; these scripts remain finite evidence. They stop before
 printing checked-result text when any required check fails.
 
 ## Earned scope and remaining obligations
@@ -190,7 +192,7 @@ No preservation premise is physically sourced, and no bridge cone is
 asserted to extend to an all-carrier family satisfying them. No claim of
 K2, P0, Q3 reconstruction, native execution or adoption changes.
 
-Before any F proposal: compile the design, check the printed axioms,
+Before any F proposal: retain a reviewed compiled design,
 instantiate quantum/classical premise controls in Lean, settle prospective
 adoption/registry/workflow edits, and pin a concrete reviewed design package.
 No historical record or maintained manuscript is edited by this milestone.
