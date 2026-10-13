@@ -1,0 +1,4 @@
+SAMPLE-MANIFEST-SHA256 a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9
+EXACT-CONTROLS 107
+MUTATIONS-REJECTED 7
+CHECKED: finite constructor examples and named countercontrols only
