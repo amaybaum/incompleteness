@@ -5182,12 +5182,14 @@ converges with the recent technical work on observer-incorporated
 quantum gravity --- Chandrasekaran-Longo-Penington-Witten on de Sitter
 entropy with observer (2022), Maldacena on observer's-clock dependence
 in cosmological partition functions (2024), Harlow-Usatyuk-Zhao on
-observer-dependent Hilbert spaces in closed universes (2025),
-Slagle-Preskill on quantum gravity from observer-bounded information
-(2024) --- on the foundational claim that observation matters and that
-the algebra of observables depends on the observer's embedding. The
-technical apparatus these programs employ differs from the framework's,
-and the empirical content they produce is different (mostly structural
+observer-dependent Hilbert spaces in closed universes (2025) --- on the
+foundational claim that observation matters and that the algebra of
+observables depends on the observer's embedding. Slagle and Preskill
+(2023) add a different comparison: an explicit local classical lattice
+model whose boundary dynamics reproduces quantum mechanics, using
+stochastic dynamics in an extra spatial dimension. The technical
+apparatus these programs employ differs from the framework's, and the
+empirical content they produce is different (mostly structural
 commitments rather than specific numerical predictions), but the
 foundational commitment is shared.
 
@@ -10156,6 +10158,28 @@ The framework's geometry-first ordering is therefore not a stipulation
 but a structural consequence of the framework's three commitments ---
 definiteness, non-circularity, and the universality of \(\hbar\).
 
+\textbf{What the ordering does not yet fix.} The three requirements fix
+the metric at the partition boundary. They do not fix the gravitational
+field of a laboratory mass that the observer's description places in a
+spatial superposition. Three completions are consistent with them. In
+the first, the field follows the substratum configuration of the mass,
+so a nearby probe records which path the mass took: the superposition
+then decoheres at a rate set by the gravitational distinguishability of
+the paths, or the field carries which-path information without that
+loss, which quantum mechanics does not admit. The decoherence is
+mass-dependent and of the form Chapter 4 §4.5 lists among the
+framework's falsifiers, so this completion cannot be adopted without
+revising that commitment. In the second, the field follows an average
+over the hidden sector, which is semiclassical gravity at laboratory
+scales. In the third, the laboratory near field belongs to the emergent
+quantum description and the classical metric of the ordering is the
+metric at the partition boundary only; two masses can then become
+entangled through gravity. The framework has not determined which
+completion holds. The three differ on interferometric tests of
+gravitationally mediated entanglement and on searches for gravitational
+decoherence ({[}GR §6.2{]}), so fixing the completion is what turns the
+geometry-first ordering into a laboratory prediction.
+
 \textbf{The structural origin of the \(10^{122}\) discrepancy.} The
 ratio
 \(\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2 / G) = S_{\text{dS}} = A / (4\, l_p^2)\)
@@ -13049,13 +13073,14 @@ description as quantum-mechanical because the cosmological horizon
 imposes a partition with C1--C4 structure --- has three specific
 features that match DSW's analysis.
 
-\emph{Decoherence depends on horizon geometry.} The framework's emergent
-quantum mechanics has decoherence rates determined by the cosmological
-horizon's structural properties --- area, surface gravity, hidden-sector
-capacity. DSW reproduces this with horizon area and surface gravity as
-the geometric inputs. The two derivations converge on the geometric
-dependence: horizons impose decoherence, and the rate is determined by
-their geometry.
+\emph{Decoherence depends on horizon geometry.} At the cosmological
+partition the framework's hidden-sector parameters are set by the
+horizon: its area fixes the capacity (C3) and its surface gravity the
+correlation time (C2). The framework does not derive a decoherence rate
+from these parameters. DSW compute a rate with horizon area and surface
+gravity as the geometric inputs, so the convergence is in those inputs:
+horizons impose decoherence through their geometry, and the framework's
+hidden-sector parameters are the same geometric quantities.
 
 \emph{Decoherence vanishes when coupling is screened.} The framework's
 C1 condition requires non-trivial coupling between visible and hidden
@@ -13127,9 +13152,9 @@ structural features matching across derivations.
 The framework's distinctive content --- the substratum picture, the
 specific cubic-lattice realization, the Tier 3 predictions --- is not
 external-validated by DSW. But the framework's universality-class
-commitments --- that horizons produce decoherence, with rate determined
-by geometry, with coupling-screening eliminating the effect, with
-non-Markovian structure --- are external-validated. The framework
+commitments --- that horizons produce decoherence, with geometry setting
+the relevant parameters, with coupling-screening eliminating the effect,
+with non-Markovian structure --- are external-validated. The framework
 therefore stands on stronger empirical ground than its specific
 substratum content alone provides: the universality-class content is
 converged-upon by mainstream physics, with the framework being one
@@ -13141,7 +13166,7 @@ literature}\label{adjacent-observer-emergent-literature}}
 
 Beyond the DSW convergence on horizon decoherence, the framework's
 content engages a broader recent literature on observer-emergent
-physics. Three programs in particular have substantive overlap with the
+physics. Four programs in particular have substantive overlap with the
 framework's substratum-emergent operator distinction, each addressing
 related questions from different theoretical starting points.
 
@@ -13216,23 +13241,21 @@ result on operator-algebra differences between observers matches the
 framework's content on reduced-description differences between
 observers.
 
-\textbf{Slagle-Preskill experimental program.} Slagle and Preskill
-(2023) developed an experimental program for measuring entanglement
-structure in gravitational systems through interferometry. The program
-proposes specific experiments where a quantum superposition is
-gravitationally separated, then recombined, with the resulting
-interference pattern probing the gravitational decoherence rate. The
-Slagle-Preskill program is \emph{experimental} (testable with current
-and near-future technology), while DSW is \emph{theoretical} (a result
-within standard QFT in curved spacetime).
+\textbf{Slagle-Preskill emergent quantum mechanics.} Slagle and Preskill
+(2023) constructed a local classical lattice model with one extra
+spatial dimension: classical bits propagate toward a boundary through a
+circuit of stochastic matrices, and the boundary dynamics reproduces
+Schrödinger evolution for a chosen local Hamiltonian, approximately but
+to arbitrary precision. Bell nonlocality is carried by bulk signals that
+travel faster than the boundary speed of light, and the authors estimate
+analytically, and check by simulation, how far the model departs from
+quantum mechanics.
 
-The Slagle-Preskill program provides a direct experimental test of the
-framework's content. The framework predicts gravitational decoherence
-rates determined by the partition's geometric structure; the
-Slagle-Preskill experimental program measures gravitational decoherence
-rates through interferometry. The two programs are complementary: the
-framework provides specific structural predictions, and the experimental
-program provides the empirical access.
+The model converges with the framework on the possibility that quantum
+mechanics emerges from classical dynamics. It differs in mechanism: the
+Slagle-Preskill construction uses an extra spatial dimension and
+stochastic bulk dynamics, while the framework uses a finite
+deterministic substratum and a trace-out with no extra dimension.
 
 \textbf{The cumulative external convergence.} The DSW, CLPW, Maldacena,
 HUZ, and Slagle-Preskill programs together constitute substantial
@@ -13240,8 +13263,8 @@ external convergence with the framework's content. Each program is
 operating with different starting commitments (DSW with standard QFT,
 CLPW with operator algebra theory, Maldacena with string theory and
 holography, HUZ with AdS/CFT entanglement wedge reconstruction,
-Slagle-Preskill with experimental interferometry), and each converges
-with specific features of the framework's substratum-emergent operator
+Slagle-Preskill with a classical lattice model), and each converges with
+specific features of the framework's substratum-emergent operator
 distinction.
 
 The framework's content is therefore \emph{not} idiosyncratic but lies
@@ -13294,14 +13317,14 @@ reinforcing rather than substituting for each other.
 \textbf{External convergence as evidential support.} The framework's
 universality-class commitments --- observers as essential, horizons as
 causal partitions producing decoherence, reduced descriptions as
-observer-relative, finite entanglement entropy --- are converged-upon by
-multiple independent mainstream programs: DSW on horizon decoherence,
-CLPW on observer-relative operator algebras, Maldacena on
-observer-essentiality, HUZ on observer-dependent operator structure,
-Slagle-Preskill on experimental gravitational decoherence. The
-framework's content at the universality-class level is therefore
-externally validated by independent derivations from different starting
-commitments.
+observer-relative, finite entanglement entropy, quantum mechanics as
+emergent from classical dynamics --- are converged-upon by multiple
+independent mainstream programs: DSW on horizon decoherence, CLPW on
+observer-relative operator algebras, Maldacena on observer-essentiality,
+HUZ on observer-dependent operator structure, Slagle-Preskill on quantum
+mechanics emerging from a classical lattice. The framework's content at
+the universality-class level is therefore externally validated by
+independent derivations from different starting commitments.
 
 The framework's distinctive content --- the substratum picture, the
 cubic-lattice realization, the specific Tier 3 predictions --- is not
@@ -21422,15 +21445,29 @@ system approaches Born-rule statistics on a characteristic timescale set
 by the hidden sector's equilibration time
 \(\tau_{\text{eq}} \sim \tau_B\), where \(\tau_B\) is the hidden
 sector's correlation time from condition C2. For the cosmological
-partition, \(\tau_B \sim H^{-1} \sim 10^{17}\) seconds --- the Hubble
-time. Equilibration occurs on timescales much shorter than this, with
-corrections at order \(\tau_S / \tau_B \sim 10^{-32}\) for any
-laboratory measurement. The Born rule is therefore exact for all
-practical purposes in any current or foreseeable laboratory experiment.
-(Status of this estimate: the equilibration-timescale identification
-\(\tau_{\text{eq}} \sim \tau_B\) and the \(O(\tau_S/\tau_B)\) correction
-order are heuristic consequences of the mechanism proposal, not theorems
-of the foundational paper.)
+partition \(\tau_B\) is the horizon time, \(\tau_B(t) \sim H(t)^{-1}\):
+about \(10^{17}\) seconds today and far shorter in the early universe.
+Two quantities must be kept apart. The ratio
+\(\tau_S/\tau_B \sim 10^{-32}\) is the per-step loss of a stored record
+under C2; it sets the size of memory effects, not the distance from
+equilibrium. The residual departure from equilibrium is set instead by
+the accumulated number of relaxation times,
+\(\int dt/\tau_B \sim \int H\,dt = \ln(a/a_i)\), so a deviation present
+when relaxation began at scale factor \(a_i\) decays as \(a_i/a\). The
+epoch-local reading is required: with \(\tau_B\) fixed at today's
+\(H_0^{-1}\), the age of the universe would amount to about one
+relaxation time and would leave a fraction of order \(e^{-1}\) of any
+initial deviation in place today, a departure that laboratory tests of
+the Born rule exclude unless the initial deviation was itself
+negligible. On the epoch-local reading the residual in any current or
+foreseeable laboratory experiment is suppressed by the full expansion
+factor since relaxation began, and the Born rule is exact for all
+practical purposes. If the hidden sector began at equilibrium there is
+no transient to relax, and the account reduces to the maximal-entropy
+measure posited in {[}Main §4.5{]}. (Status of this estimate: the
+identification \(\tau_{\text{eq}} \sim \tau_B\), its epoch-local reading
+and the resulting \(a_i/a\) decay are heuristic consequences of the
+mechanism proposal, not theorems of the foundational paper.)
 
 \textbf{Transient violations in the very early universe.} The
 framework's structural commitment is that the Born rule was \emph{not}
@@ -21471,10 +21508,10 @@ signature of primordial Born-rule violations is modified statistics of
 quantum fluctuations during inflation, producing non-Gaussian signatures
 in the cosmic microwave background perturbation spectrum. Standard
 inflationary models predict approximately Gaussian primordial
-perturbations, with the non-Gaussianity parameter \(f_{\text{NL}}\)
-bounded by the Planck satellite at \(f_{\text{NL}} < 5\) (95\% CL) ---
-well below the framework's prediction threshold for the relevant
-parameter ranges.
+perturbations, and the Planck 2018 analysis detects no primordial
+non-Gaussianity: for the local shape, \(f_{\text{NL}} = -0.9 \pm 5.1\)
+(68\% CL). The framework does not yet supply an amplitude to compare
+with this bound.
 
 The framework's prediction has a specific structural form distinguishing
 it from other sources of CMB non-Gaussianity. Standard local,
@@ -21493,24 +21530,29 @@ the deviations are erased before they imprint on observable scales ---
 the framework would predict no detectable signature. If
 \(\tau_{\text{eq}} \gtrsim H_{\text{inf}}^{-1}\), the non-Gaussianity
 constraint already bounds the equilibration rate, with current Planck
-data placing a lower bound on \(\tau_{\text{eq}}\) at the inflationary
-epoch.
+data placing an upper bound on \(\tau_{\text{eq}}\) at the inflationary
+epoch. The epoch-local reading above places
+\(\tau_{\text{eq}} \sim H_{\text{inf}}^{-1}\) at the boundary between
+these cases; the residual on observable scales then depends on how many
+e-folds of relaxation preceded the horizon exit of those scales, which
+the account does not fix.
 
 \textbf{Status ledger for §18.2 (b127 audit).} Layer by layer: the
 representation-level Born status is a theorem ({[}Main §3.4{]}: admitted
 universally, coherent operational extension characterized by five named
 conditions in {[}GR §3.3{]}); the read-write equilibrium reading is a
 mechanism \emph{proposal} whose stationary-distribution step is a
-structural commitment; the equilibration timescale, correction order,
-and deviation parametrization above are the proposal's heuristic
-quantitative content; the history-dependent non-Gaussianity \emph{shape}
-claim is a structural consequence of the proposal (deviations integrate
-the coupling history); and the F7 prediction --- transient deviations,
-testable through CMB non-Gaussianity --- is the falsifiable output of
-the whole chain, conditional on
-\(\tau_{\text{eq}} \gtrsim H_{\text{inf}}^{-1}\) as stated below. No
-entry in this section is a theorem of the foundational paper, and none
-is required to be for F7 to be a well-posed prediction of the account.
+structural commitment; the equilibration timescale, its epoch-local
+reading with the resulting \(a_i/a\) decay, and the deviation
+parametrization above are the proposal's heuristic quantitative content;
+the history-dependent non-Gaussianity \emph{shape} claim is a structural
+consequence of the proposal (deviations integrate the coupling history);
+and the F7 prediction --- transient deviations, testable through CMB
+non-Gaussianity --- is the falsifiable output of the whole chain,
+conditional on \(\tau_{\text{eq}} \gtrsim H_{\text{inf}}^{-1}\) as
+stated above. No entry in this section is a theorem of the foundational
+paper, and none is required to be for F7 to be a well-posed prediction
+of the account.
 
 CMB-S4 (the upcoming ground-based experiment) and LiteBIRD (the planned
 space-based experiment) will tighten the non-Gaussianity constraints by
@@ -23009,12 +23051,15 @@ developed over decades without producing a complete theory.
 relativity are different projections of the same structure
 \((S, \varphi)\): quantum mechanics from the trace-out (Chapter 1),
 general relativity from Jacobson's thermodynamic route applied to the
-emergent area-entropy relation (Chapter 7). The two cannot conflict
-because they describe different levels of the same object. The lattice
-at \(\epsilon = 2 l_p\) is the fundamental description; there is no
-continuum limit to take and no renormalizability problem to solve. The
-framework produces the quantum and gravitational sectors from the same
-axioms with seven independent consistency checks and no fitted
+emergent area-entropy relation (Chapter 7). The two describe different
+levels of the same object. Which level carries the gravitational field
+of a laboratory mass that the observer's description places in a spatial
+superposition is not yet fixed; fixing it determines the framework's
+prediction for interferometric tests of gravity (Chapter 7 §7.7). The
+lattice at \(\epsilon = 2 l_p\) is the fundamental description; there is
+no continuum limit to take and no renormalizability problem to solve.
+The framework produces the quantum and gravitational sectors from the
+same axioms with seven independent consistency checks and no fitted
 parameters --- the quantum representation under the translation
 hypothesis (T) ({[}Main §3.4{]}), and the gravitational results at the
 G1/G2 rungs, with the covariant rung G3 open and G4 conditional on it.
@@ -29485,6 +29530,9 @@ Maldacena, J. (2024). Real observers solving imaginary problems.
 Planck Collaboration (2018). Planck 2018 results. VI. Cosmological
 parameters. \emph{Astronomy \& Astrophysics} 641: A6.
 
+Planck Collaboration (2020). Planck 2018 results. IX. Constraints on
+primordial non-Gaussianity. \emph{Astronomy \& Astrophysics} 641: A9.
+
 Susskind, L. (1995). The world as a hologram. \emph{Journal of
 Mathematical Physics} 36: 6377-6396.
 
@@ -29941,4 +29989,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 4ff296d8ecfb8b883ae1bc634576161bfd27e24e85b59edd58fc88f91a22f292
+% source-sha256: f1739e92cbfd151a0e723041c7c9b0487798be61658d9facecdb50982fcfc2c8

@@ -72,6 +72,7 @@ quantum mechanics.
 | **P2** | H-link — physical-carrier identification | Standard Model | **CONDITIONAL** | the physical `K = 6` carrier |
 | **P2** | H-state / H-frame / H-slope | Gravity | **CONDITIONAL** | the `ℏ` and `1/4` calibration |
 | **P2** | Covariant matter→boundary coupling (the G3 map) | Gravity | **OPEN** | the MOND / dark-sector chain |
+| **P2** | Direct empirical access to the hidden sector — the regimes where the trace-out equivalence can fail | Gravity / physical realization | **OPEN** | the first discriminating predictions about the hidden sector itself |
 | **P3** | GR states → Level-III quasilocal states | Gravity / Level III | **OPEN** | formal state-layer integration |
 
 ### P0 — what fixes the relative evolution: act 11's no-go, and what it leaves
@@ -1155,6 +1156,79 @@ emergent rest energy and heat must be delivered to the boundary in the required 
 manuscript assigns that to the open coupling theorem.
 
 → [`papers/GR.md`](../papers/GR.md)
+
+### P2 — direct empirical access to the hidden sector
+
+**Why the row exists.** The finite-horizon correspondence `S ⇔ D ⇔ Q_fb` makes a hidden sector that is
+at its equilibrium measure, astronomically large, and coupled to the observer only through the
+trace-out observationally equivalent to fundamental randomness: no record of the visible process
+discriminates between the two. Direct evidence for or against the hidden sector can come only from
+a regime where one of those three conditions fails. The row tracks the three regimes and one
+cross-cutting test. None has a preregistration; each enters the queue as a native round only once
+its decision rule is frozen, and each comparison with data is preregistered before the data are read.
+
+**H-GRAV — gravitating superpositions (the coupling bypasses the trace-out).** The geometry-first
+ordering sources the metric from the classical stress-energy of the total microstate, but its three
+requirements fix the metric at the partition boundary only. For a laboratory mass that the
+observer's description places in a spatial superposition, three completions remain: (a) the field
+follows the substratum configuration; (b) the field follows the hidden-sector average
+(semiclassical gravity); (c) the near field belongs to the emergent description. Required output:
+a derivation that selects one completion from the framework's premises, or a proof that the
+premises do not select and a statement of which added principle would; then that completion's
+prediction for
+
+1. gravitationally mediated entanglement tests (Bose et al., PRL 119, 240401 (2017); Marletto and
+   Vedral, PRL 119, 240402 (2017)), including whether the classical-mediator no-entanglement
+   argument applies to a substratum with ontic parameter dependence;
+2. gravitational-decoherence searches, including the underground bound that excludes the
+   parameter-free Diósi–Penrose model (Donadi et al., Nature Physics 17, 74 (2021));
+3. the Page–Geilker experiment (PRL 47, 979 (1981));
+4. the objection that gravitational quantum states of ultracold neutrons exclude entropic gravity
+   (Kobakhidze, arXiv:1009.5414, and its replies), since the gravitational sector uses Jacobson's
+   thermodynamic route.
+
+Completion (a) produces mass-dependent decoherence of the form the book lists among the framework's
+falsifiers (Chapter 4 §4.5), so it cannot be adopted without revising that commitment.
+
+→ [`papers/GR.md`](../papers/GR.md) §6.2; book Chapter 7 §7.7
+
+**H-NEQ — relic non-equilibrium (the measure condition fails).** [Main §4.5] posits the
+maximal-entropy measure; book Chapter 18 §18.2 reads the Born rule as a dynamical equilibrium. Only
+the dynamical reading makes the hidden sector detectable. Required output:
+
+1. a decision between the posited and the dynamical measure, with the consequence of each stated;
+2. on the dynamical reading, a derivation of the relaxation law with the epoch-local correlation time
+   `τ_B(t) ~ H(t)⁻¹`, whose accumulated relaxation `∫ H dt = ln(a/a_i)` leaves a residual decaying as
+   `a_i/a`;
+3. the residual's dependence on scale across the inflationary window, including whether relaxation
+   continues after horizon exit — with `H` constant during inflation the residual at exit scales as
+   `k_i/k`, largest on the largest observable scales;
+4. an amplitude, to compare with the Planck 2018 non-Gaussianity bounds and with large-scale CMB
+   power;
+5. whether Valentini's signal-locality theorem (arXiv:quant-ph/0106098: deterministic
+   hidden-variable theories that reproduce quantum correlations at equilibrium predict statistical
+   signalling away from it) transfers to the substratum's parameter dependence, in which case a
+   non-equilibrium relic would carry signals.
+
+→ book Chapter 18 §18.2
+
+**H-FIN — finiteness signatures.** A finite deterministic substratum implies Planck-scale dispersion
+`O((kε)²)` (book appendix A, G13), outcome probabilities that are ratios of integers with bounded
+denominators, exact recurrence, and a bound on the fresh randomness the hidden sector can supply.
+Required output: the magnitude of each at accessible scales, and whether it distinguishes a
+deterministic hidden sector from other discrete models. The Slagle–Preskill lattice model
+(PRA 108, 012217 (2023)), whose departure from quantum mechanics its authors estimate, is the
+comparison case. These are expected to lie beyond experimental reach; the row records them so the
+expectation is computed, not assumed.
+
+**Cross-cutting — the classical-memory test.** [Main §4.5]'s falsification route requires every
+fundamental non-Markovian process to be classical-memory simulable, and exempts engineered quantum
+environments. Required output: an operational criterion separating fundamental from engineered
+processes, fixed before any data, so that the test cannot be passed by reclassification.
+
+**What the row does not license.** No claim that the hidden sector is detectable, and none that it
+is not. The manuscripts state the gravitational completion and the measure question as open; the
+row changes status only through a preregistered round.
 
 ### P3 — GR states to Level-III quasilocal states
 

@@ -148,6 +148,8 @@ Maldacena, J. (2024). Real observers solving imaginary problems. *arXiv*:2412.14
 
 Planck Collaboration (2018). Planck 2018 results. VI. Cosmological parameters. *Astronomy & Astrophysics* 641: A6.
 
+Planck Collaboration (2020). Planck 2018 results. IX. Constraints on primordial non-Gaussianity. *Astronomy & Astrophysics* 641: A9.
+
 Susskind, L. (1995). The world as a hologram. *Journal of Mathematical Physics* 36: 6377-6396.
 
 Tsang, K. W., Rollier, M., Ghosh, A., Samajdar, A., Agathos, M., Chatziioannou, K., Cardoso, V., Khanna, G., & Van Den Broeck, C. (2018). A morphology-independent data analysis method for detecting and characterizing gravitational wave echoes. *Physical Review D* 98: 024023. arXiv:1804.04877.
