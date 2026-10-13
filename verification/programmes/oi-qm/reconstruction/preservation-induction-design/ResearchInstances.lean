@@ -43,7 +43,7 @@ theorem quantum_conj {S : Type} [Fintype S] [DecidableEq S] (K : Matrix S S ℂ)
 theorem quantum_primitive (𝓘 : ImplementationClass) :
     PrimitivePreservation 𝓘 quantumCone where
   op := fun _ _ _ K _ _ => quantum_conj K
-  readout := fun _ _ _ _ _ _ _ _ _ k => quantum_conj _
+  readout := fun _ _ _ _ _ _ _ _ _ _k => quantum_conj _
 
 /-- Copy X into one coordinate ancilla block, using a diagonal compression. -/
 def attachBlock {S : Type} [Fintype S] [DecidableEq S] (m : ℕ)
@@ -66,8 +66,15 @@ theorem uniformAttach_eq_blocks {S : Type} [Fintype S] [DecidableEq S]
     Matrix.smul_apply, Matrix.sum_apply]
   simp only [smul_eq_mul, attachBlock_apply]
   by_cases h : p.2 = q.2
-  · simp [h, mul_comm, Finset.sum_ite_eq']
-  · simp [h, Finset.sum_ite_eq']
+  · simp [h, mul_comm]
+  · have hz : (∑ e : Fin m,
+        if p.2 = e ∧ q.2 = e then X p.1 q.1 else 0) = 0 := by
+      apply Finset.sum_eq_zero
+      intro e _
+      apply if_neg
+      rintro ⟨hp, hq⟩
+      exact h (hp.trans hq.symm)
+    simp [h, hz]
 
 theorem quantum_attach : UniformAttachPreservation quantumCone := by
   intro S _ _ m _ X hX
@@ -126,7 +133,7 @@ theorem classical_attach : UniformAttachPreservation classicalCone := by
   refine ⟨quantum_attach S m hm _ hX, ⟨fun p => (m : ℂ)⁻¹ * d p.1, ?_⟩⟩
   ext p q
   by_cases hs : p.1 = q.1 <;> by_cases he : p.2 = q.2 <;>
-    simp [uniformAttach_apply, tensorOf_apply, Matrix.diagonal, Matrix.one_apply,
+    simp [uniformAttach_apply, tensorOf_apply, Matrix.diagonal,
       Matrix.smul_apply, hs, he, Prod.ext_iff, mul_comm]
 
 theorem classical_discard : AncillaDiscardPreservation classicalCone := by
