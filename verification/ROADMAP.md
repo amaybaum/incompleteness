@@ -1208,8 +1208,8 @@ route is open only on the dynamical reading. Required output:
 3. the residual's dependence on scale across the inflationary window, including whether relaxation
    continues after horizon exit — with `H` constant during inflation the residual at exit scales as
    `k_i/k`, largest on the largest observable scales;
-4. an amplitude, to compare with the Planck 2018 non-Gaussianity bounds and with large-scale CMB
-   power;
+4. an amplitude for a stated initial deviation, to compare with the Planck 2018 non-Gaussianity
+   bounds and with large-scale CMB power;
 5. whether Valentini's signal-locality theorem (arXiv:quant-ph/0106098: deterministic
    hidden-variable theories that reproduce quantum correlations at equilibrium predict statistical
    signalling away from it) transfers to the substratum's parameter dependence, in which case a
@@ -1221,7 +1221,7 @@ route is open only on the dynamical reading. Required output:
 finiteness alone:
 
 1. exact recurrence — finiteness together with bijectivity of the update;
-2. outcome probabilities that are ratios of integers with bounded denominators — only under a
+2. outcome probabilities that are ratios of integers with bounded denominators — guaranteed under a
    rational hidden prior such as the uniform one; [Main §3.4] admits any fixed hidden prior, and an
    irrational prior can give an irrational law;
 3. Planck-scale dispersion `O((kε)²)` — a property of the particular lattice dynamics, recorded
