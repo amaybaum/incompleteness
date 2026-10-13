@@ -10,7 +10,7 @@ noncomputable section
 
 def hadamard : Matrix (Fin 2) (Fin 2) ℝ := !![1, 1; 1, -1]
 
-def walsh : (n : ℕ) → Matrix (Bits n) (Bits n) ℝ
+def walsh : (n : ℕ) → Bits n → Bits n → ℝ
   | 0 => fun _ _ => 1
   | n + 1 => fun a b => walsh n a.1 b.1 * hadamard a.2 b.2
 
@@ -68,8 +68,9 @@ def multiplexorAngles (n : ℕ) (g : Equiv.Perm (Bits n)) (θ : Bits n → ℝ) 
 theorem multiplexorAngles_recover (n : ℕ) (g : Equiv.Perm (Bits n))
     (θ : Bits n → ℝ) (b : Bits n) :
     (∑ j, walsh n b (g j) * multiplexorAngles n g θ j) = θ b := by
-  unfold multiplexorAngles
-  simp only [mul_div_assoc, Finset.mul_sum]
+  change (∑ j : Bits n, walsh n b (g j) *
+    ((∑ c : Bits n, walsh n c (g j) * θ c) / (2 : ℝ) ^ n)) = θ b
+  simp only [← mul_div_assoc, Finset.mul_sum]
   rw [← Finset.sum_div, Finset.sum_comm]
   have hinner (c : Bits n) :
       (∑ j : Bits n, walsh n b (g j) * (walsh n c (g j) * θ c)) =
