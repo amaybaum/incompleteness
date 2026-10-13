@@ -26,10 +26,11 @@ must agree on the full sample-manifest digest, and every named wrong-step
 guard must reject its corresponding variant. These tests certify their
 finite examples only. The universal research-design kernel verdict also
 requires compilation and checked axiom reports. These passed at the pinned
-build; native adoption and positive-premise Lean instances remain separate. No
+build; positive-premise Lean instances also compile at the follow-up source
+listed below. Native adoption remains separate. No
 native-round verdict token is emitted by either script.
 
-## Universal conditional statement [W, D]
+## Universal conditional statement [W, K]
 
 Fix an implementation class I on every finite carrier, and independently
 specified sets C_S of matrices on those carriers. Assume:
@@ -76,15 +77,17 @@ needed merely to prove preservation of the assigned cone on S×R.
 `PreservationInduction.lean` states the core, finite branch sum, spectator
 and transport results outside the adopted OIBridge tree. Only zero/additive
 closure is exposed. The four design theorems compile with standard axioms.
-Positive-premise Lean instances remain obligations before a freeze is proposed.
+Positive-premise Lean instances now compile at `febfe5e2`; the concrete
+native adoption package remains an obligation before a freeze is proposed.
 
-## Positive comparisons [W, X]
+## Positive comparisons [W, X, K]
 
 Quantum: take C_S to be all PSD matrices. Isometric conjugation and
 projection preserve PSD since v†KXK†v=(K†v)†X(K†v)≥0. Uniform attachment
 is block-diagonal copies of X/m, up to tensor ordering. Partial trace is
 a sum of compressed PSD blocks. Zero/additive closure is immediate.
-These are universal written instances, not new kernel-certified instances.
+These universal instances also have research kernel proofs in
+`ResearchInstances.lean`, compiled at `febfe5e2`.
 
 Classical: take C_S to be nonnegative diagonal matrices on each labelled
 carrier, and the admitted class to consist of matrices with at most one
@@ -181,6 +184,38 @@ universal theorem is kernel certified. Conditional soundness is [K] at the
 pinned research-design build; these scripts remain finite evidence. They stop before
 printing checked-result text when any required check fails.
 
+## Positive-premise Lean design follow-up [K]
+
+`ResearchInstances.lean` supplies positive-premise source on every finite
+carrier, including empty carriers. The quantum preparation family is the
+PSD cone; its implementation class can be arbitrary, with `fullClass` an
+explicit specialization. Conjugation positivity does not require the
+operator to be isometric. Uniform attachment is proved to be a nonnegative
+scalar multiple of a sum of coordinate-block compressions of a duplicated
+PSD matrix, and partial trace is a sum of PSD principal submatrices.
+
+The classical family is PSD matrices that are diagonal in the assigned
+carrier basis. This is the nonnegative diagonal cone, since PSD gives
+nonnegative diagonal entries. The implementation inventory is the existing
+`substratumClass`, equivalently the all-carrier monomial/submonomial class
+with zero weights allowed. Its general admitted conjugations preserve the
+diagonal; PSD follows from quantum conjugation positivity. Attachment
+copies and rescales diagonal entries and discard sums them. The source
+also proves that every reindexed native register projector is actually
+admitted, then applies the induction to that register's branch family.
+The class's existing context-stability and label-invariance theorems remain
+the inventory premises for spectator and transport corollaries.
+Preservation of these generated classical protocols does not assert
+availability of every real-valued classical stochastic instrument.
+
+This follow-up source compiled at
+`febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3` in
+[run 38454439833](https://github.com/amaybaum/incompleteness/actions/runs/38454439833).
+Its six printed instance axiom reports contain exactly the standard axioms;
+see `build-status.md`. These are independently specified mathematical
+positive comparisons: they neither source physical preservation nor show
+that either bridge counterexample has a compatible all-carrier extension.
+
 ## Earned scope and remaining obligations
 
 The protocol-level argument is CONFIRMING: closure under constructors is
@@ -193,6 +228,6 @@ asserted to extend to an all-carrier family satisfying them. No claim of
 K2, P0, Q3 reconstruction, native execution or adoption changes.
 
 Before any F proposal: retain a reviewed compiled design,
-instantiate quantum/classical premise controls in Lean, settle prospective
-adoption/registry/workflow edits, and pin a concrete reviewed design package.
+settle the exact prospective adoption/registry/probe/workflow edits, check
+the predicted executable tree, and pin a concrete reviewed design package.
 No historical record or maintained manuscript is edited by this milestone.

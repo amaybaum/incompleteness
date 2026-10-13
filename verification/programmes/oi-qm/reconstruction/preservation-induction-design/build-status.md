@@ -21,6 +21,29 @@ hypotheses, exact scripts and saved numerical outputs retain their content.
 
 This is a compiled research-design conditional theorem. Physical primitive,
 attachment and discard preservation is still assumed. Quantum/classical
-Lean premise instances and prospective adoption remain open. The check
+Lean premise instances compile in the follow-up build below; prospective
+native adoption remains open. The check
 belongs to a separate research branch. No owner F designation, native
 execution, receipt or adopted module is added.
+
+## Universal quantum and classical instances
+
+`ResearchInstances.lean` compiled at source commit
+`febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3` in
+[run 38454439833](https://github.com/amaybaum/incompleteness/actions/runs/38454439833),
+[job 115493410133](https://github.com/amaybaum/incompleteness/actions/runs/38454439833/job/115493410133).
+Its SHA256 is `54b1451e1788fe6b71ca28eb81d2e9031abf1f78ee92d471bfddd73256044c65`.
+All six instance reports and the four core reports contain only `propext`,
+`Classical.choice` and `Quot.sound`, with no `sorryAx`. The job also passes
+both exact replays, 303 legacy records, 46 receipts and artifact placement.
+
+Quantum PSD preservation holds for every implementation inventory. Classical
+nonnegative diagonal preservation uses the existing monomial inventory and
+proves admission of reindexed coordinate readouts. Both instances cover the
+all-carrier primitive, uniform mixed-attachment and partial-trace premises.
+
+The first instance run failed before elaboration because a temporary source
+path shadowed the adopted build objects. After fixing search-path priority,
+one off-diagonal block-sum helper required an explicit zero-sum proof. Those
+failed runs supply no successful certificate; the pinned successful source
+above includes the repair. No old numerical output was altered.
