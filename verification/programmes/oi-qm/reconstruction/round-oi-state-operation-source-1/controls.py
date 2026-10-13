@@ -21,7 +21,7 @@ ROUND='OI-STATE-OPERATION-SOURCE-1'
 HASHES={
     'probe.py':'ac740098cd100aca32b6ac0ff19d1c1dcb5a42a081863319e1ff0fac7b2b7e01',
     'fixture_check.py':'b8e316ee44c80e366a65c5d95bf4a5ef699d8bc556583c1fe9bac4c314750532',
-    'argument.md':'93abc25afd5b54a12c061798b426a2807c59798ad71a9d6d1d0f4ec27d18f121'}
+    'argument.md':'158e2e42f3ade89653f080b259903fb89de27ccd26a78445b2d9c37626894b38'}
 WORKFLOW='4210a0ca30ab724cddfa10cecf69ef73c5a7f584a52a9fda5213b4c7446b840c'
 EARNED=('Local product-test and rank-one update consistency does not imply preservation of the given pair cone; '
         'complete-dual-test pullback closure restates that preservation; product-test state saturation grants Q3 inclusion '

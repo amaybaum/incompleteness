@@ -181,7 +181,7 @@ unearned quantum inclusion and fails the quantum positive comparison while
 admitting the classical one. None of these four readings provides an
 independently sourced physical compatibility principle.
 
-This is a source audit of those three readings, not an exhaustive no-go for all
+This is a source audit of those four readings, not an exhaustive no-go for all
 physical principles. Main's gluing theorem takes joint local instrument maps
 as input; it is not an additional derivation of them on an arbitrary pair cone.
 The historical stage-6 118 satisfied, 13 failed-hypothesis and 68 unreached rows
