@@ -5,7 +5,7 @@
 
 ## 9.1 What this chapter develops
 
-Chapters 5 through 8 developed the framework's empirical record in fundamental physics: twenty-two classified Standard Model retrodictions (seven parameter-free structural), the sharpest matched within $0.02\%$ to $1.2\%$, thirteen gravitational-sector predictions matched within $0.04\%$ to $0.5\%$ where a direct test exists (the Bekenstein-Hawking coefficient is derived but untested; GW250114 constrains the area theorem), seven neutrino-sector predictions matched within $0.07\sigma$ to $1.01\sigma$. The empirical case for the framework's structural commitments is concentrated in those four chapters, with the framework's content tested against high-precision experimental data across the sectors of fundamental physics where the framework makes specific quantitative claims.
+Chapters 5 through 8 developed twenty-two classified Standard Model observable entries (seven parameter-free structural), thirteen gravitational-sector entries and seven neutrino-sector entries. The numerical comparisons have different evidential roles: selected flavor retrodictions have percent or sub-percent agreement, fitted gauge couplings match by construction, and the neutrino mass sum is constrained by upper bounds. The gravitational formulas carry the conditions of Chapter 7; the MOND acceleration agrees within quoted systematics, and the Bekenstein-Hawking coefficient is conditional and has no direct test. GW250114 tests the classical area theorem. Appendix A records each entry's classification and empirical standing.
 
 This chapter is different. The framework's content is *not* a competitor to other unification programs that operate at the same level — it is a structural framework at a different level than string theory, loop quantum gravity, or grand unified theories. Locating the framework within the broader theoretical landscape, articulating what classes of results the framework establishes at the universality-class level rather than at the specific-bijection level, and identifying convergences and divergences with mainstream physics literature — these are the chapter's content.
 
@@ -155,7 +155,7 @@ The empirical record at Tier 2 summarizes as follows.
 | $r_M(z)$ shrinkage with redshift | Jiao et al. (Milky Way), Genzel et al. (high-$z$) | Ch 7 §7.9 |
 | Mass ordering (normal) | DESI DR2 + CMB preference | Ch 8 §8.9 |
 
-Seven Tier 2 predictions tested against current empirical evidence, with all seven either confirmed at high precision or consistent with the current data. The empirical record at Tier 2 is therefore as strong as the record at Tier 1 — the framework's substratum-properties commitments are extensively tested.
+The seven Tier 2 entries combine observed structural features, conditional gravitational formulas and consistency with bounds. The acceleration formula carries the imported factor and the quoted systematic uncertainty; the redshift and mass-ordering comparisons retain their model dependence. Their evidential roles are assessed individually, rather than as seven independent confirmations.
 
 **Tier 3: bijection-specific content.** Tier 3 results require the *specific bijection* within the equivalence class $[(S, \varphi)] / \mathcal{G}_{\text{sub}}$ — not just the substratum's structural properties but the particular way the bijection breaks the cubic symmetry. Tier 3 results are *substratum-specific* in the strongest sense: alternative bijections within the framework's universality class with different taste-breaking patterns would produce different Tier 3 predictions.
 
@@ -171,14 +171,14 @@ The empirical record at Tier 3 summarizes as follows.
 | $\sin^2\theta_{13} = 4/(18\pi^2)$ | $1.01\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | $\sin^2\theta_{23} = 1/2 + 1/(2\pi^2)$ | $0.74\sigma$ from NuFIT 6.0 | Ch 8 §8.6 |
 | Sum rule $2\sin^2\theta_{12} + \sin^2\theta_{23} = 7/6$ | $0.6\sigma$ | Ch 8 §8.6 |
-| Three gauge couplings at $M_Z$ | $< 0.1\%$ | Ch 6 §6.4 |
-| MOND interpolation "simple" function | $< 0.1$ dex match | Ch 7 §7.9 |
+| Three gauge couplings at $M_Z$ | Fitted; zero residual by construction | Ch 6 §6.4 |
+| MOND interpolation "simple" function | Conditional comparison; transition kernel open | Ch 7 §7.9 |
 
-The framework's empirical exposure at Tier 3 is similarly substantial — eight specific bijection-dependent predictions matched at sub-percent or sub-$\sigma$ precision. The Tier 3 record is the *strongest* evidence for the framework's specific cubic-lattice realization being the correct member of the universality class for our universe.
+The eight Tier 3 entries comprise six numerical flavor comparisons, one fitted coupling entry and one conditional interpolation comparison. The flavor comparisons test the stated cubic-lattice relations at the precisions listed. The fitted couplings supply no independent confirmation, and the interpolation comparison retains the open transition-kernel obligation.
 
-**Why the tier stratification matters.** The stratification clarifies what the framework's empirical case tests at each level. Tier 1 results (seven entries consistent with observation, one sharply confirmed) test the framework's universality-class commitments — that the universe is in the framework's universality class. Tier 2 results (seven predictions confirmed) test the framework's substratum-properties commitments — that the universe's substratum has the framework's specific properties (cubic-lattice, three-dimensional, with the framework's link and taste content). Tier 3 results (eight predictions confirmed) test the framework's specific-bijection commitments — that our universe's bijection is in the specific class developed in Chapters 5-8.
+**Why the tier stratification matters.** The stratification separates the objects tested at each level. Tier 1 has seven entries: the area theorem is measured, the conditional entropy coefficient has no direct test, and the remaining entries have the conditions and empirical standing listed above. Tier 2 has seven entries concerning the substratum's properties, including conditional gravitational formulas and observational consistency checks. Tier 3 has eight entries concerning the specific-bijection account, with the numerical, fitted and conditional comparisons distinguished above.
 
-The cumulative empirical record across all three tiers is therefore not just a record of "twenty-two confirmed predictions" but a record of multi-level structural commitments tested at successively more specific levels, with each level adding constraint without removing earlier-level constraint. The framework's content is robust at the universality-class level (Tier 1) while remaining empirically specific at the bijection level (Tier 3).
+The three tiers contain twenty-two entries of unequal evidential weight. Numerical retrodictions, fitted quantities, conditional formulas and untested results remain distinct; a count of entries is not a count of independent confirmations. The tier assignment identifies the level at which each statement is made, while its conditions and empirical standing determine what its comparison tests.
 
 ## 9.5 The framework's relationship to string theory
 

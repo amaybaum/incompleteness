@@ -285,7 +285,9 @@ the hidden sector. Whether a description obtained this way can be
 considered complete is the question Einstein, Podolsky, and Rosen posed
 of quantum mechanics {[}46{]}; it returns here with the opposite valence
 --- incompleteness is derived as a structural property of embedded
-observation, and quantum mechanics is identified as its form. The
+observation, and quantum mechanics is identified as its form. This
+incompleteness is inaccessibility of the hidden sector, a statement
+distinct from the uncertainty relations of quantum theory (§3.4). The
 question is what this reduction imposes on the form of the observer's
 physical laws.
 
@@ -3514,6 +3516,42 @@ being not passive on the record-block algebra (kernel:
 \texttt{no\_full\_passive\_self\_record}). All four statements are
 finite-dimensional, and none bears on the equivalence.
 
+\textbf{The uncertainty relations.} The uncertainty principle {[}58{]}
+has two standard quantitative forms, both inequalities in the
+commutator: the preparation relation
+\(\sigma_A\sigma_B \geq \tfrac{1}{2}|\langle[A,B]\rangle|\) for a state
+and two observables \(A\), \(B\) {[}59{]}, and the error--disturbance
+relations of measurement {[}60, 61{]}. The first statement of the
+preceding paragraph is a qualitative finite-dimensional consequence of
+the same non-commutativity for observation without disturbance {[}62{]}:
+an instrument that leaves every state of the algebra unchanged on
+average obtains information only about the algebra's center. The
+preparation relation does not discriminate the OI core either: it holds
+for every density matrix and every pair of Hermitian matrices, hence in
+every finite operational theory in the present sense, including the
+theory that is passively incomplete and lacks the core. Observational
+incompleteness in the sense of the OI core concerns the hidden sector of
+an embedded observer, not the joint sharpness of non-commuting
+observables. Under (C4) it is present already for a single fixed
+readout, where no choice between measurements arises: every faithful
+deterministic completion of the visible process carries readout-relevant
+hidden predictive memory. The visible laws of fixed-readout processes
+are, by \(S \iff D \iff Q_{\mathrm{fb}}\), exactly the finite stochastic
+laws, and no uncertainty relation constrains that class (kernel:
+\texttt{S\_imp\_D} for the realization of every finite stochastic law,
+\texttt{D\_imp\_Qfb} and \texttt{Qfb\_imp\_S} for the converse,
+assembled in \texttt{finite\_horizon\_equivalence} in
+\texttt{OIBridge/Equivalence.lean}). The relations bind only where
+non-commuting observables are operationally available, and that
+availability belongs to the coherent-instrument completion rather than
+to the finite-law equivalence: in the OI⁺ characterization above, the
+full non-commutative operational structure follows from well-formedness
+and the three added principles, the OI-core clause being redundant once
+reversible control is present, and the operational realization theorem
+realizes non-quantum instrument families as well. Whether embedded
+observation selects a non-commutative operational structure is the
+selection question of route (ii).
+
 \emph{Lemma (adaptive diamond telescoping).} \emph{Let \(\pi\) be an
 adaptive protocol of horizon \(K\) and \(\pi'\) the protocol with each
 instrument \(I_t\) replaced by \(I_t'\). Then the outcome-sequence laws
@@ -5129,5 +5167,25 @@ route.
 for Bell nonlocality: Causal versus retrocausal models,'' \emph{Phys.
 Rev.~A} \textbf{102}, 052228 (2020).
 
+{[}58{]} W. Heisenberg, ``Über den anschaulichen Inhalt der
+quantentheoretischen Kinematik und Mechanik,'' \emph{Z. Phys.}
+\textbf{43}, 172--198 (1927).
+
+{[}59{]} H. P. Robertson, ``The uncertainty principle,'' \emph{Phys.
+Rev.} \textbf{34}, 163--164 (1929).
+
+{[}60{]} M. Ozawa, ``Universally valid reformulation of the Heisenberg
+uncertainty principle on noise and disturbance in measurement,''
+\emph{Phys. Rev.~A} \textbf{67}, 042105 (2003).
+
+{[}61{]} P. Busch, P. Lahti, and R. F. Werner, ``Proof of Heisenberg's
+error-disturbance relation,'' \emph{Phys. Rev.~Lett.} \textbf{111},
+160405 (2013).
+
+{[}62{]} P. Busch, ``\,`No information without disturbance': Quantum
+limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
+\emph{Quantum Reality, Relativistic Causality, and Closing the Epistemic
+Circle} (Springer, 2009).
+
 \end{document}
-% source-sha256: 3790e62597952de9bf4a73819620227e636578df91ff7137b86d779dd934a868
+% source-sha256: 3c45b8ecfd0b7cd6641535697135bc16f48dd0f9e652d79173cda49271c62981
