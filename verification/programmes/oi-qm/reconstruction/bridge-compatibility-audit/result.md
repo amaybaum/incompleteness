@@ -11,9 +11,15 @@ outside the cone. This does not say that preservation cannot be obtained from
 additional, independently sourced compatibility premises, or that the example
 is a complete physical OI model.
 
-Here [W] means a written universal argument, [X] exact computation, and [K]
-an existing adopted Lean theorem. The computations supplement the universal
-arguments; sampling never establishes a cone-wide statement.
+Here [W] means a written universal argument, [X] exact computation, [K] an
+existing adopted Lean theorem, [A] a cited audited historical record, and [D]
+design validation. The computations supplement the universal arguments;
+sampling never establishes a cone-wide statement.
+
+Under AGENTS §A.31 this audit is **CONFIRMING**: availability's premises do
+not mention the given cone, and the physical compatibility gap was already
+named. Its contribution is the exact depth-one failure and reusable fixtures,
+not a newly discovered foundational gap or a full-model independence result.
 
 ## Exact witness
 
@@ -72,6 +78,38 @@ The existing all-depth formula [K] and the same trace algebra [W] give
 the general statement is not inferred from those eight samples. Depth one
 already resolves the implication under test, without a limit argument.
 
+## Closed-cone equivalence with the third-axis flow [W]
+
+For **any closed convex cone C** on the pair carrier, the following are
+equivalent:
+
+1. Every finite stopped spectator map Phi_k preserves C.
+2. Ad_(I tensor D) preserves C.
+3. The whole third-axis rotation flow on the target token preserves C.
+
+For 1 ⇒ 2, fix x in C. The adopted formula gives Phi_k(x) → Ad_(I tensor D)(x);
+closedness of C puts the limit in C. This is a limit of states, requiring no
+availability of the limiting channel. For 2 ⇒ 3, set lambda=(3+4i)/5.
+It has unit modulus and is not a root of unity: if it were, lambda+lambda^(-1)
+would be a rational algebraic integer, hence an integer, whereas it is 6/5.
+The nonnegative powers of lambda are therefore dense in the unit circle
+(an infinite cyclic subgroup of the circle has full closure, and the closure
+of its nonnegative powers also contains its inverses). Preservation by D
+implies preservation by every nonnegative power. Continuity of conjugation
+and closedness of C then give preservation by every diag(1,exp(i theta)),
+with the spectator untouched. In the native Pauli dictionary these are exactly
+the target's third-axis rotations, up to the harmless choice of angle sign.
+Both angle signs are included, so preservation is also equality of the cone
+with its rotated image. For 3 ⇒ 1, the identity and Ad_(I tensor D) preserve C,
+and each Phi_k is their convex combination with weights in [0,1].
+
+Thus closure under the protocol's guaranteed operations already implies this
+rotation-flow clause of the stage-6 missing assumption. Deferring availability
+of Ad_D does not weaken that preservation consequence. This equivalence does
+**not** supply the J-conjugate/off-frame flow or the whole rotation group, nor
+does preservation by Phi_1 alone establish preservation by all Phi_k. It is
+a written argument, not a new kernel theorem or a claim inferred from samples.
+
 ## Availability: every explicit premise
 
 Take `I = InterventionLocality.fullClass`, whose membership predicate is
@@ -109,7 +147,8 @@ The exact existing-theorem specialization is [W], with no new kernel claim:
 OIBridge.BridgeFiniteProtocol.finite_protocol_spectator
   OIBridge.InterventionLocality.fullClass_arch
   OIBridge.InterventionLocality.fullClass_contextStable
-  OIBridge.InterventionLocality.fullClass_labelInvariant (Fin 2)
+  OIBridge.InterventionLocality.fullClass_labelInvariant
+  (Fin 2)
   OIBridge.BridgeFiniteProtocol.balancedCircuit (by trivial)
   OIBridge.BridgeFiniteProtocol.balancedCircuit_isometry
   (fun _ => by trivial) (fun _ => by trivial) k
@@ -117,10 +156,15 @@ OIBridge.BridgeFiniteProtocol.finite_protocol_spectator
 
 This supplies `InstAvail fullClass (Fin 2 × Token) Unit` for the spectator
 stopped map, including k=1. The application is a written instantiation of
-adopted kernel statements; this package has not compiled a new Lean instance.
+adopted kernel statements, not a new named or adopted kernel theorem.
 Actual physical sourcing of the eight-dimensional matrix carrier and its
 primitive inventory remains upstream, rather than being a reconstruction
 conclusion of this audit.
+
+The research-only [availability_example.lean](availability_example.lean)
+contains an anonymous example of the same specialization at every k. The
+branch workflow compiles it separately against the adopted module; it is not
+imported into OIBridge or claimed as a new adopted reconstruction theorem.
 
 ## Retained and excluded pair premises
 
@@ -191,6 +235,32 @@ The adopted `round-oi-channel-1-audit/result.md` separately preserves the
 historical inventory's 118 satisfied, 13 failed-hypothesis and 68 unreached rows.
 Those historical counts and evidence statuses remain unchanged.
 
+## Inventory-size confound and the fixture rule
+
+fullClass is convenient for the availability instantiation, but its extra
+operations cannot earn a candidate compatibility principle an exclusion.
+`InterventionLocality.instAvail_fullClass_of_krausFamily` [K] makes every
+finite quantum channel available, including replacement by any density matrix
+sigma. Generic closure under that inventory, applied to any normalized input,
+therefore forces Q3 ⊆ C by nonnegative scaling. This is already a quantum
+state-inclusion assumption, even without self-duality or C=Q3.
+
+Both fixtures can be excluded this way. The displayed Phi_1(B) is a PSD state
+outside K_B. For K(Z_F), the PSD rank-one projector
+`P_+=(I-8 e_(1,1))/2` has pairing −1/8 with e_(1,1). That defect is nonnegative
+on Q3 intersect Z_F* by definition and on all four defects because
+`Tr(e_(s,t) e_(s',t'))` is 1/16 for identical signs and zero otherwise.
+It is consequently nonnegative on all K(Z_F), so P_+ is outside that cone.
+No self-duality is needed for this exclusion [W].
+
+An exclusion witness counts in the successor only if **each operation used
+is available in every inventory satisfying the retained availability premises**,
+with a named uniform theorem or construction. The displayed Phi_1 witnesses
+qualify by finite_protocol_spectator; an arbitrary replacement channel granted
+only by fullClass does not. The successor also checks assumptions and fixture
+inventories for unearned Q3 ⊆ C, not just C=Q3. These corrections prevent the
+two negative fixtures alone from certifying a useful new physical principle.
+
 ## Reproduction and independence
 
 From the repository root:
@@ -205,7 +275,7 @@ the Python standard library. Both fail before a verdict if a control fails.
 
 The branch's `bridge compatibility research` workflow repeats both calculations,
 compares the saved outputs and checks the digest manifest. It is a research
-replay, not a native F/E attestation or a new Lean compilation.
+replay and separate Lean design compilation, not a native F/E attestation.
 
 - [probe.py](probe.py): 197 exact controls, rederived corrected Kraus blocks,
   stopped recurrence, Pauli round trips, trace normalization, density checks
@@ -213,6 +283,8 @@ replay, not a native F/E attestation or a new Lean compilation.
   originally saved source is replacing the absolute ROOT assignment by
   repository discovery. Reversing that one line recovers SHA256
   `e60d4cafac9d1a72cc9635fd49198f33863d39043844d9fdbfc1de930478f431`.
+  The original line, verbatim, is `ROOT = Path('/workspace/pr817-review')`;
+  its published replacement is `ROOT = Path(__file__).resolve().parents[5]`.
 - [independent_check.py](independent_check.py): 53 exact controls, rational
   pairs and sparse matrices, gate-composed circuit, explicit uniform
   attachment, reset/readout, feed-forward and partial-trace simulation on

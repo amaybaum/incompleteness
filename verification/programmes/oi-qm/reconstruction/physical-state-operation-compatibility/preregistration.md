@@ -48,9 +48,17 @@ preservation. Any added premise gets a named, sourced ledger row.
    actual applicable inventory, including the unreached bridges. Do not infer
    a full physical realization from either cone-level fixture.
 
-A successful proposed principle must fail on **both** supplied cone/inventory
-pairings for a specific clause of that principle, with an exact witness or a
-universal argument. Record all retained premises first. If a fixture violates
+A successful proposed principle must be **violated by both** supplied
+cone/inventory pairings, at a named clause, with an exact witness or a universal
+argument. Every operation used by an exclusion witness must be available in
+**every** inventory meeting the retained availability premises; cite its
+uniform availability theorem or give a construction from those premises.
+The audit's Phi_1 witnesses meet this rule by finite_protocol_spectator.
+Arbitrary replacement channels available only because the chosen fixture uses
+fullClass do not count. Generic closure under fullClass would force Q3 ⊆ C
+and exclude both fixtures by inventory size alone, without testing a new source.
+
+Record all retained premises first. If a fixture violates
 another retained premise, mark it ineligible for that lane; it cannot then
 establish that the new principle excludes it. The common-domain test remains
 mandatory, so the weaker fixture cannot disappear by premise selection.
@@ -73,12 +81,18 @@ become a premise in a frozen proof round.
 
 Reject as reconstruction inputs:
 
-- K=Q3, C_S=the PSD cone, quantum pure-state reachability, or an identification
-  that already supplies the target cone. The PSD family is a comparison only.
+- K=Q3, Q3 ⊆ C, C_S=the PSD cone, quantum pure-state reachability, or an
+  identification that already supplies the target cone or includes all quantum
+  states. Check fixture inventories as well as candidate wording: generic
+  closure combined with fullClass's replacement channels already gives
+  Q3 ⊆ C. Such an unearned inclusion cannot count as a physical source or an
+  exclusion witness. The PSD family is a comparison only.
 - Full-flow or all-rotation invariance (b), IE1/idle extension, frame covariance
   and OI⁺-1 as unproved premises, including relabelled forms. They may be
   targets to derive, or explicit extra assumptions earning CONDITIONAL only.
-- Any conjunction already forcing K=Q3 before the proposed source is used.
+- Any conjunction already forcing K=Q3 **or Q3 ⊆ C** before an independently
+  established physical source is used, including reachability supplied by an
+  overly large fixture inventory rather than written into the candidate.
   Check the exact hypotheses of `pairCone_eq_Q3_of_drive_maxCone` and its sharp
   variant, plus the cited stage-4/6 classifications. In particular, maxCone
   with CNOT and the full drive/cyclic or full-flow invariances cannot be
@@ -93,6 +107,15 @@ Reject as reconstruction inputs:
 The stage-6 integration note §5 identifies preservation of the drive and its
 off-frame partner as an instance of OI⁺-1, restating (b_DJ) and K2's local-action
 clause. Apply that same test to each proposed compatibility premise P:
+
+One implication is already settled by the audit's closed-cone argument:
+preservation by every guaranteed Phi_k is equivalent to preservation by the
+whole target third-axis flow rot3. A candidate establishing closure under
+those guaranteed operations therefore entails that flow clause, regardless
+of whether Ad_D is available. Record this implication explicitly. It does
+not establish the J-conjugate clause; test that clause separately. Deferring
+limit-channel availability cannot be used as evidence that the candidate
+has weaker preservation content.
 
 1. Expand P's definitions and quantify over the actual states and operations.
    Map every clause to the old (b) forms, OI⁺-1, IE1, and the level-M spectator
@@ -120,8 +143,10 @@ assumptions, not as a derivation from the existing OI premises.
 | States specified independently | Exogenous state/test data and provenance; no operation-generated definition |
 | Complete retained premise set | Ledger row for every hypothesis, with fixture satisfied/failed/unreached and proof reference |
 | Both known pairings tested | Exact witness or universal rejection of each by P itself in the common domain |
-| No conclusion in the baseline | Logical dependency check against pair-maxCone and stage-4/6 classifiers |
+| Witness independent of excess inventory | Each operation uniformly available from retained premises; fullClass-only replacement witnesses rejected |
+| No conclusion or quantum inclusion in the baseline | Check K=Q3 and Q3 ⊆ C, including fixture inventories and reachability, against pair-maxCone and stage-4/6 classifiers |
 | No disguised (b) or OI⁺-1 | Expanded clauses, two-direction implication analysis and physical-source audit |
+| Guaranteed flow implication recorded | Use closed-cone Phi_k ⇔ third-axis flow equivalence; keep the J-conjugate obligation separate |
 | Positive compatibility case | Independently specified quantum PSD family with ordinary physical instruments; labelled comparison |
 | Non-quantum interface control | Independently specified diagonal cone and monomial operations; closure checked without claiming it has ball tokens |
 | Constructor scope explicit | Separate primitive, readout, attachment, discard, relabelling, bind and coarse-graining obligations |
@@ -133,8 +158,12 @@ Decision labels:
 
 - **SOURCE-DERIVATION:** a written implication with every source proved at its
   actual level, every bridge supplied, both fixtures excluded by the candidate
-  itself and all controls green. State precisely what is derived; this alone
-  does not settle K2, arbitrary finite carriers or P0.
+  itself using uniformly guaranteed operations, and all controls green.
+  The candidate must also hold on the independently specified quantum PSD
+  positive control and the classical diagonal/monomial positive control
+  (the latter is an interface control, not a ball-token fixture). A principle
+  excluding every model earns no derivation. State precisely what is derived;
+  this alone does not settle K2, arbitrary finite carriers or P0.
 - **CONDITIONAL(P):** a noncircular new premise would suffice, but its physical
   source remains assumed/open; list that premise and any extra bridge.
 - **DISGUISED/CIRCULAR:** the proposed source merely assumes the target extension
@@ -154,5 +183,5 @@ mutation controls and workflow in one concrete control plane. Follow AGENTS
 F before execution; then linear execution and the prescribed E/reconciliation
 and receipt process. No F/E designation, receipt or adopted reconstruction
 change is asserted by publishing this research branch. The existing frozen
-records remain immutable. Limit availability is deferred until this finite
-compatibility question has an earned result.
+records remain immutable. Limit-channel availability is deferred, while its
+irrelevance to the closed-cone preservation equivalence is recorded now.

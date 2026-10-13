@@ -1,6 +1,6 @@
 name: bridge compatibility research
 
-# Replay of exploratory evidence only; no native round designation or receipt.
+# Exploratory replay and Lean design check; no native designation or receipt.
 on:
   push:
     branches: [research/bridge-compatibility-20261013]
@@ -36,3 +36,32 @@ jobs:
           PY
       - name: Check artifact placement
         run: python tools/artifact_placement_check.py
+
+  lean-instantiation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library build cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile research-only anonymous example
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.BridgeFiniteProtocol
+          lake env lean ../programmes/oi-qm/reconstruction/bridge-compatibility-audit/availability_example.lean
+      - name: Verify retained historical records
+        run: |
+          research_revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$research_revision"
+          python3 tools/v3_verifier.py --receipts "$research_revision"
