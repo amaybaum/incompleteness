@@ -5,13 +5,13 @@
 **Status:** DRAFT PRE-PRINT  
 **Classification:** Theoretical Physics / Gravitation / Cosmology
 
----
+***
 
 ## Abstract
 
 Applied to the cosmological horizon as a causal partition, the embedded-observation framework of [Main] determines the emergent action scale $\hbar = c^3 \epsilon^2 / (4G)$ from classical horizon temperature and thermal self-consistency, fixes the discreteness scale $\epsilon = 2\,l_p$ as the unique simultaneous solution, and obtains the Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ including the $1/4$ coefficient by direct boundary-mode counting — the three conditional on the infrared detailed-balance condition H-slope (§3.2) together with the horizon and frame conditions of §2 and §8.5, the counting $S = A/\epsilon^2$ itself unconditional — and addresses the cosmological constant problem at Level G1 — this paper's register: horizon-normalization identities and conditional thermodynamic relations — by identifying the quantum vacuum energy and the effective cosmological constant as properties of logically distinct descriptions rather than commensurable quantities whose $10^{122}$ ratio requires cancellation; the decisive Level-G3 target, open, is a covariant equation — the dependency ladder in full: G1, horizon and mode-count identities (this paper's register); G2, weak-field and Newtonian consistency; G3, covariant field equations with conservation/Bianchi structure and the continuum limit, open; G4, the cosmological implications (cosmological constant, dark sector, Page curve, MOND and the Bullet Cluster), conditional on G3 and their listed assumptions — namely $E_{\mu\nu}[g, \text{OI}] = 8\pi G\,(T_{\mu\nu} - \mathcal{F}[g,T]\, g_{\mu\nu})$ under which the distinct-descriptions argument becomes a theorem of the dynamics — field equations, stress-energy coupling, Bianchi structure, and the continuum limit being the named G3 opens. The recent LIGO/Virgo/KAGRA observation GW250114 (September 2025) confirms the black-hole area theorem at $99.999\%$ confidence — a test of classical horizon dynamics, which the framework preserves; the $1/4$ entropy coefficient itself has no direct empirical test. The framework carries dark energy in running-vacuum form, the functional form being the local expansion shared by every smooth model (§7.1) and the falsifiable content the Type II channel — a structural reading, not a derived law; matter conserved, compensation through running $G$ — the exclusion of phantom crossing, and the magnitude $|\nu| \approx |\nu_{\rm QFT}| \sim 10^{-32}$ (conditional on the §7.3 split and not established at theorem level, indistinguishable from zero) — consistent with the Bertini et al. (2025) RG-corrected $\Lambda$CDM fit to DESI DR2 + DES-Y5 + Planck 2018, which reports $\nu = -(2.5 \pm 1.3) \times 10^{-4}$ (consistent with zero at $2\sigma$); a ~$95\%$ dark sector corollary in which the apparent invisible matter is a structural feature of the embedded observer's description rather than a new particle species; and a MOND-like acceleration scale $a_0 = cH/6$ from entropy displacement at the cosmological boundary (the dimensional factor imported from Verlinde), reproducing the baryonic Tully-Fisher relation and predicting Keplerian decline of galactic rotation curves at radii exceeding $r_M = \sqrt{6 G M_B/(cH)}$ — the last confirmed by Jiao et al. (2023) in the Milky Way at $\sim 17$ kpc. The $H(z)$ dependence of $a_0$ predicts systematically more baryon-dominated rotation curves at high redshift, consistent with Genzel et al.'s detection of declining outer velocities at $z = 0.9$–$2.4$. The results follow from partition geometry under the conditions named at each step and are independent of the specific substratum dynamics, treated in a separate companion paper [SM].
 
----
+***
 
 ## 1. Introduction
 
@@ -31,7 +31,7 @@ The tier system maps to the framework's broader hierarchical structure articulat
 
 The paper is organized as follows. §2 identifies the cosmological horizon as a causal partition and verifies the structural conditions. §3 derives the emergent action scale $\hbar$ in four steps: the classical horizon temperature, boundary-only dependence, dimensional determination, and thermal self-consistency. §4 fixes the discreteness scale $\epsilon = 2\,l_p$. §5 derives the Bekenstein-Hawking entropy and discusses the GW250114 confirmation. §6 dissolves the cosmological constant problem. §7 presents the quantitative predictions for dark energy, the dark sector, and dark matter, with a summary table in §7.4. §8 discusses scope, the status of the discreteness scale, vacuum energy and the Higgs potential, and the framework's falsifiability conditions. §9 concludes. The cubic-lattice realization of the substratum — which fixes the Standard Model gauge structure via the wave equation — is developed in a companion paper [SM] and is independent of the GR results presented here. The reconstruction theorem and the synthesis claim that quantum mechanics, general relativity, and the arrow of time descend as three projections of the same $(S, \varphi)$ are developed in [Substratum].
 
----
+***
 
 ## 2. The Cosmological Horizon as Causal Partition
 
@@ -89,7 +89,7 @@ The action scale is exactly the conversion between an independently derived inve
 
 Lemma 1 is now a consequence of partition geometry: the horizon has finite area $A = 4\pi c^2/H^2$, bounding coupled modes to $A/\epsilon^2 < \infty$. The Part I theorem applies: the observer's reduced description is P-indivisible and, by either route of [Main, §3], equivalent to unitary QM with $\hbar$ determined by the partition boundary.
 
----
+***
 
 ## 3. The Emergent Action Scale $\hbar$
 
@@ -295,7 +295,7 @@ Every member of the residual family is invisible to the transition data for a st
 
 **Remark (phase recovery under discrete sampling).** The spatial lattice discreteness does not discretize time: the continuous-time extension ([Main, §2.3]) provides $T_{ij}(t)$ as a genuinely continuous function of $t$ via the Liouville marginalization of the Hamiltonian flow (Lemma 3). The D-gauge theorem therefore applies to the continuous object without aliasing corrections. Aliasing would arise only if the observer sampled $T_{ij}$ at discrete intervals, in which case trans-Planckian frequencies could be misidentified — but these lie outside the emergent QFT's domain. The phase-recovery error is controlled by the same $\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}$ suppression that governs the boundary-only dependence of §3.2.
 
----
+***
 
 ## 4. Self-Consistency and the Discreteness Scale
 
@@ -305,7 +305,7 @@ $$\epsilon^2 = \frac{4\hbar G}{c^3} = 4\,l_p^2$$
 
 The framework yields $\epsilon = 2\,l_p$ exactly. This is algebraically equivalent to the formula for $\hbar$: the framework contains one free geometric parameter ($\epsilon$), and thermal self-consistency establishes its relationship to $\hbar$. The result is a self-consistency condition constraining $\epsilon$ to the Planck regime, not an independent determination. If $\epsilon^2 \ll l_p^2$, sub-Planckian subcells would create a second trace-out, breaking the single-valuedness of $\hbar$. If $\epsilon^2 \gg l_p^2$, the emergent description would assign distinct quantum states to physically identical configurations. The framework's predictive content comes from the relationship $\hbar = c^3 \epsilon^2/(4G)$, the Bekenstein-Hawking formula, and the consequences that follow.
 
----
+***
 
 ## 5. The Bekenstein-Hawking Entropy
 
@@ -317,7 +317,7 @@ where $S_{\text{dS}} = A/(4\,l_p^2)$ is the Bekenstein-Hawking entropy of the de
 
 **Observational confirmation: GW250114.** The Bekenstein-Hawking area law $dA \geq 0$ has long been regarded as a theoretical prediction of black-hole thermodynamics, but until 2025 the empirical evidence came primarily from agreement between classical horizon dynamics and semiclassical Hawking radiation predictions — none of it testing the $1/4$ coefficient directly. The LIGO/Virgo/KAGRA observation of GW250114 (September 2025) provides the first direct test of the area law at the percent level: comparing the remnant horizon area inferred from the ringdown to the sum of initial horizon areas inferred from the inspiral, the area increase is consistent with the theorem at $99.999\%$ confidence. The scope of this test is important to state precisely: GW250114 compares horizon areas and does not measure entropy, so it tests Hawking's area theorem — classical horizon dynamics, which the framework preserves — and not the $1/4$ entropy coefficient. The coefficient, fixed here as the exact ratio $2\pi/8\pi$ between Euclidean KMS periodicity (thermal physics) and Jacobson's Einstein-equation prefactor (gravitational coupling), is a derived structural constant with no direct empirical test at present; any framework retaining classical general relativity passes the GW250114 test identically, so the observation is consistent with, but non-discriminating for, the framework. Untested is not untestable: the coefficient is equivalent to the Hawking-temperature normalization ($T = \hbar\kappa/2\pi c k_B$ plus the first law fixes it), so any measurement of a horizon's radiation would fix it directly. No known astrophysical source is accessible — a solar-mass black hole radiates at $\sim 60$ nK against the 2.7 K CMB — but one physically contingent channel exists: the final evaporation burst of a primordial black hole ($M_i \sim 5 \times 10^{14}$ g expiring today), whose burst light curve would measure $T(M)$ and hence the coefficient. Dedicated all-sky burst searches are active — Fermi-LAT [45], HAWC [46], and most recently LHAASO's all-sky search [47] — with only rate-density limits so far, and next-generation sensitivity projected for CTAO [48]; detection is contingent on PBHs existing in the relevant mass window. Analogue-gravity horizon experiments measure the kinematic ($2\pi$/KMS) side of the ratio but not the gravitational ($8\pi G$) side. The ongoing LVK observing runs will accumulate additional events testing the area theorem across a range of progenitor masses and spins.
 
----
+***
 
 ## 6. Dissolution of the Cosmological Constant Problem
 
@@ -361,7 +361,7 @@ $\rho_{\text{QFT}} / \rho_{\text{classical}} \sim M_{\text{Pl}}^4 / (H^2/G) = S_
 
 **Convergence with Maldacena's de Sitter observer cancellation.** Maldacena [38] has recently shown that the unphysical phase of the de Sitter sphere partition function — long understood to obstruct a clean dS thermodynamic interpretation — cancels exactly when one incorporates an observer with a clock. The framework presented here arrives at the same cancellation by a different route: the substratum-count formulation makes the partition trace-out the *defining* operation rather than an added ingredient, so the cancellation Maldacena requires an observer-with-clock to achieve is structurally forced. CLPW [39] establish that the von Neumann algebra of QFT observables in a gravitational subregion promotes from type III to type II once an observer is included, with the resulting entropy pinned to the substratum's $\log|G_{\text{sub}}|$ in the present construction. HUZ [40] argue that the closed-universe Hilbert-space dimension is determined by the observer's degrees of freedom; the present framework provides a microscopic realization in which that dimension is computed directly from the partition geometry. The post-2022 mainstream observer-essentiality literature thus converges with the present construction on substantive content while differing in mechanism — a triangulation that strengthens the empirical case for both programs.
 
----
+***
 
 ## 7. Predictions and Tests
 
@@ -550,7 +550,7 @@ The gravitational sector's dark-energy content is geometry-dependent bookkeeping
 
 *Remark (the magnitude question reduces to emergent locality).* The choice between the two boundary-mode spectral measures is not an independent free parameter: it is the same question as the radiative emergent-Lorentz problem ([SM §3.1, point iii]). The natural 2D field-theoretic measure ($dN/d\omega \propto \omega$, giving $|\nu| \approx |\nu_{\rm QFT}|$) is the one induced when the coarse-grained boundary dynamics inherits the locality of the range-1 substratum; the log-uniform measure ($dN/d\ln\omega = {\rm const}$, giving $|\nu| \sim 10^{-4}$) is not the spectrum of a local field theory in any dimension, and would require the coarse-graining to generate scale-invariant (non-local) boundary dynamics — precisely the failure mode that would also generate a relevant Lorentz-violating operator. The two open questions therefore share one premise: whether the substratum-to-observer coarse-graining preserves locality. A consequence is that the DESI Year 5 measurement is effectively a test of emergent horizon locality, with a built-in cross-check: a detection of $|\nu|$ at the $10^{-4}$ level would, under this analysis, require emergent non-locality, which must independently manifest as Lorentz violation — so a positive $\nu$ cannot be absorbed as a free parameter without a correlated Lorentz-violation signature. This reduces the framework's count of independent open questions; the magnitude of $\nu$ is forced to $\approx 0$ conditional on the same emergent locality the framework requires for Lorentz invariance, rather than being independently open. (The reduction is supported by a stretched-horizon Clausius computation on the de Sitter static patch: the near-horizon redshift generates a log-uniform *observed* boundary spectrum ('t Hooft brick-wall kinematics), but the running coefficient is fixed by $d\rho_\Lambda/dH^2$, whose integrand is near-wall-dominated, so the redshift band reconstructs the area-law baseline and contributes to the running only at $O((H\epsilon)^2)$ — the local value. A log-uniform $\nu \sim 10^{-4}$ would instead require the *intrinsic* boundary theory to be scale-invariant (an RG fixed point the range-1 blocking does not supply), not merely a redshifted local spectrum. This defeats the one mechanism that could generate log-uniform weighting from local dynamics. The direct boundary-lattice computation confirms this independently: the density of states of any bounded-range (range-1) 2D boundary theory is $dN/d\omega \propto \omega$ (2D-local), with correlation length $\xi \sim 1/\Delta$ finite off criticality; the log-uniform measure is the density of states of a scale-invariant (critical, $\xi\to\infty$) theory only, reachable at the lattice level solely by tuning the gap to $\Delta \sim H\epsilon \sim 10^{-61}$ — the same horizon hierarchy the cosmological-constant dissolution removes, so a log-uniform $\nu$ would be self-undermining. That terminal residual is now discharged at the linear-map level: an exact surface-Green's-function extraction of the boundary measure from the substratum dynamics itself — the semi-infinite half-space trace-out of the reconstruction-selected wave equation, with no Gaussian effective model — gives a boundary-projected spectral measure $dN/d\omega \propto \omega^{4}$ (analytic edge count $+4$; estimator validated on the known $+1$/$+2$ controls), flat across thirty orders of magnitude in the slow-bath ratio $\tau_S/\tau_B$ and stable under generic quenched deformation, with the log-uniform $\omega^{-1}$ measure appearing nowhere. The effective one-degree-of-freedom-per-cell 2D measure used in the running-vacuum bookkeeping above ($dN/d\omega \propto \omega$) is therefore an upper bound on the infrared boundary weight of the microscopic trace-out, so $|\nu| \approx |\nu_{\rm QFT}|$ holds a fortiori; which of the two local measures the $\nu$ integral runs over affects the prefactor only, not the fork. The remaining residual is the interacting (condensate-dressed) kernel, shared with [SM §3.1].)
 
----
+***
 
 ## 8. Discussion
 
@@ -678,7 +678,7 @@ The proof is the §3–§6 derivations themselves, with the observation that eac
 
 The stratification clarifies what would falsify what: a measured violation of the area theorem would challenge the classical horizon dynamics the framework presupposes; a direct empirical test of the $1/4$ coefficient, if one becomes available, would test the universality-class claim; a measured deviation from the dark-sector phenomenology would falsify OI's specific representative without necessarily refuting the universality class. The framework's empirical content thus operates at multiple hierarchy levels, with falsifiability stratified accordingly.
 
----
+***
 
 ### 8.6 Relation to other entropic and emergent-gravity programs
 
@@ -700,11 +700,11 @@ The derivations of §3–§5, and the four convergent necessity routes of §3.2 
 
 The cosmological horizon realizes the embedded-observation framework of [Main], and the consequences for the gravitational sector are sharp. The emergent action scale $\hbar = c^3 (2\,l_p)^2 / (4G)$ is determined by thermal self-consistency between the classical horizon temperature and the Euclidean periodicity of the emergent QFT, as a gap equation with $\epsilon$ the one free geometric input (§4), conditional on H-slope (§3.2). The Bekenstein-Hawking entropy $S = A/(4 l_p^2)$ follows by direct mode counting, with the $1/4$ coefficient fixed as the ratio between the Euclidean KMS period and the Jacobson prefactor — a structural constant rather than an empirical fit, carrying the same condition together with the horizon and frame conditions of §2 and §8.5. The GW250114 observation of September 2025 confirms Hawking's area theorem at $99.999\%$ confidence — classical horizon dynamics the framework preserves; the $1/4$ coefficient has no direct empirical test. The cosmological constant problem is addressed at Level G1 — dissolved at the descriptive-levels register, with the covariant Level-G3 target equation (§7) the decisive open: the $10^{122}$ ratio between the quantum vacuum energy and the effective $\Lambda$ is the compression ratio between two levels of description that refer to incommensurable objects, not a failure of cancellation.
 
-The empirical payoff is the set of predictions in §7. The dark-energy content is geometry-dependent bookkeeping whose smooth late-time expansion contains an $H^2 - H_0^2$ term shared by every smooth model, read in the Type II running-vacuum channel — a structural reading, not a derived law (§7.1): consistent with the Bertini et al. (2025) direct fit to DESI DR2 + DES-Y5 + Planck 2018 [15] (which reports $\nu$ consistent with zero at $2\sigma$), and decisively testable by DESI Year 5 and subsequent stage-IV surveys. The coefficient's magnitude is the self-consistent emergent-QFT value $|\nu_{\rm QFT}| \sim 10^{-32}$ (conditional on the §7.3 split, not yet established at theorem level), observationally indistinguishable from zero. Substratum contributions beyond this are constrained by the boundary mode count of §3.1 and §5 — spatial location alone, with no inherent frequency assignment — to be well below $|\nu_{\rm QFT}|$ under the natural 2D distribution. The framework's structural prediction is therefore the Type II channel with $|\nu| \approx |\nu_{\rm QFT}|$ and $w(z) \approx -1$. The dark-sector corollary explains ~95% of the gravitational budget of the universe without new fundamental particles, and the absence of direct dark-matter detection at the LZ and XENONnT experiments is interpreted within the framework as a structural consequence rather than a null result to be explained away. The MOND phenomenology emerges — at the G1 register, with the covariant completion (§7) the standing conditional — from entropy displacement at the cosmological boundary with $a_0 = cH/6$ (the factor $1/6$ imported from Verlinde), reproducing the baryonic Tully-Fisher relation and predicting Keplerian decline at $r > r_M$ — the latter confirmed by the Jiao et al. (2023) detection of a Keplerian decline in the Milky Way's own rotation curve at $\sim 17$ kpc. The $H(z)$ scaling of $a_0$ predicts systematically more baryon-dominated rotation curves at high redshift, consistent with Genzel et al.'s detection of declining outer velocities at $z = 0.9$–$2.4$ and testable at higher precision by JWST and ELT kinematics.
+The empirical payoff is the set of predictions in §7. The dark-energy content is geometry-dependent bookkeeping whose smooth late-time expansion contains an $H^2 - H_0^2$ term shared by every smooth model, read in the Type II running-vacuum channel — a structural reading, not a derived law (§7.1): consistent with the Bertini et al. (2025) direct fit to DESI DR2 + DES-Y5 + Planck 2018 [15] (which reports $\nu$ consistent with zero at $2\sigma$), and decisively testable by DESI Year 5 and subsequent stage-IV surveys. The coefficient's magnitude is the self-consistent emergent-QFT value $|\nu_{\rm QFT}| \sim 10^{-32}$ (conditional on the §7.3 split, not yet established at theorem level), observationally indistinguishable from zero. Substratum contributions beyond this are constrained by the boundary mode count of §3.1 and §5 — spatial location alone, with no inherent frequency assignment — to be well below $|\nu_{\rm QFT}|$ under the natural 2D distribution. The framework's structural prediction is therefore the Type II channel with $|\nu| \approx |\nu_{\rm QFT}|$ and $w(z) \approx -1$. The dark-sector corollary explains ~95% of the gravitational budget of the universe without new fundamental particles, and the absence of direct dark-matter detection at the LZ and XENONnT experiments is interpreted within the framework as a structural consequence rather than a null result to be explained away. The MOND phenomenology emerges — at the G1 register, with the covariant completion (§7) the standing conditional — from entropy displacement at the cosmological boundary with $a_0 = cH/6$ (the factor $1/6$ imported from Verlinde), reproducing the baryonic Tully-Fisher relation and predicting Keplerian decline at $r > r_M$ — a conditional comparison with Jiao et al. (2023), who observed a decline over $19$–$26.5$ kpc; the estimated Milky Way crossover is $9$–$17$ kpc depending on the baryon budget (§7.3), so this is not a precise confirmation of its radius. The $H(z)$ scaling of $a_0$ predicts systematically more baryon-dominated rotation curves at high redshift, consistent with Genzel et al.'s detection of declining outer velocities at $z = 0.9$–$2.4$ and testable at higher precision by JWST and ELT kinematics.
 
 The foundational framework developed in [Main] and the cubic-lattice realization developed in [SM] are complementary to the present work: [Main] establishes the equivalence between embedded observation and quantum mechanics, the present paper applies it to the cosmological horizon, and the SM paper applies it to the microscopic lattice substratum. The reconstruction theorem and the synthesis claim — that quantum mechanics, general relativity, and the arrow of time descend as three projections of the same deterministic $(S, \varphi)$ — are developed in [Substratum]. Together, this four-paper synthesis ([Main], [SM], [GR], [Substratum]) establishes that the Standard Model, general relativity, and the arrow of time are three faces of a single finite deterministic construction, with quantum mechanics emerging as the unique self-consistent description for any observer bounded by a causal horizon. The framework's hierarchical structural realism and its relationship to other unification programs are developed in the fifth core paper [Structure].
 
----
+***
 
 ## Appendix A: Nested Partitions
 
@@ -862,7 +862,7 @@ The framework here arrives at the same Page time $t_P = (1 - 2^{-3/2}) t_{\rm ev
 
 The convergence is structural: both approaches require *something* to play the role of typicality (PSW measure-concentration here, replica saddles in QES + islands), and both extract the same Page time and Page entropy from that ingredient. The framework here establishes that the typicality-providing ingredient need not be gravitational at all — it can be combinatorial, on the substratum side of the trace-out — which constitutes a microscopic realization of the entanglement-island construction.
 
----
+***
 
 ## References
 
@@ -874,7 +874,7 @@ The convergence is structural: both approaches require *something* to play the r
 
 [Substratum] A. Maybaum, "The Substratum Construction: Reconstruction, the Substratum Gauge Group, and the QM-GR Synthesis," (2026).
 
----
+***
 
 [1] T. Jacobson, "Thermodynamics of Spacetime: The Einstein Equation of State," *Phys. Rev. Lett.* **75**, 1260 (1995).
 
@@ -926,7 +926,7 @@ The convergence is structural: both approaches require *something* to play the r
 
 [25] Y. Jiao et al., "Detection of the Keplerian decline in the Milky Way rotation curve," *Astronomy & Astrophysics* **678**, A208 (2023).
 
----
+***
 
 [26] N. Bao, S. M. Carroll, and A. Singh, "The Hilbert space of quantum gravity is locally finite-dimensional," *Int. J. Mod. Phys. D* **26**, 1743013 (2017).
 

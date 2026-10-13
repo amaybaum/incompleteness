@@ -2,6 +2,12 @@
 reproduce_AB_with_wilson_tadpole.py — A·B driver INCLUDING the derived
 Wilson V_4g tadpole contribution.
 
+The numerical extrapolation uses the stated Wilson implementation and a leading
+1/N² model. Its printed historical-estimate line repeats the selected
+1/N²/Shanks estimate, not total uncertainty. SM.md §6.2.1 gives approximately
+48–62 across finite-size models and an inconclusive comparison; the verified
+per-topology cosine placement does not determine the full normalized shift.
+
 Extends reproduce_AB.py by adding the tadpole's Π_T·Π_s² contribution
 (see tadpole_wilson_v4g.py) to the bubble+ghost sum
 before the A·B extraction.
@@ -147,7 +153,7 @@ def main(N_list=None):
     print(f"  A·B(∞) WITH Wilson tadpole:                  {tot_inf:.2f}")
     print(f"  Shift from tadpole:  {tot_inf - bg_inf:+.2f}  ({(tot_inf/bg_inf - 1)*100:+.1f}%)")
     print(f"  Paper target:         {46.4}")
-    print(f"  Paper reported:       48.0 ± 1.5 (±3%)")
+    print(f"  Historical selected 1/N²/Shanks estimate: 48.0 ± 1.5 (±3% estimator spread; leading-power uncertainty excluded)")
 
 
 if __name__ == "__main__":

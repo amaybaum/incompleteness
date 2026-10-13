@@ -5,7 +5,7 @@
 
 ## A.1 What this appendix provides
 
-The framework has a substantial empirical record across multiple domains. Twenty-two Standard Model observables, thirteen gravitational-sector observables, seven neutrino-sector observables, and one structural biological retrodiction (the wider therapeutic window for Rett syndrome) cumulatively constitute the framework's quantitative match against existing data. This appendix provides a single reference resource for what the framework predicts, how each prediction is classified by structural status, what the current empirical match is, and what open issues remain.
+Twenty-two Standard Model observables, thirteen gravitational-sector entries, seven neutrino-sector entries, and the biological retrodictions form an inventory of measured comparisons, conditional formulas, observational bounds and predictions awaiting tests. This appendix gives each entry's structural classification, empirical standing and remaining assumptions.
 
 The appendix serves two purposes. First, as a *navigational index*: readers wanting to know "what does the framework predict for X" can find each prediction with its location in the book, its formula, its empirical match, and its current status. Second, as an *honest accounting*: predictions that are confirmed appear alongside predictions that are layered (requiring additional verification), parameter-fit (where the framework provides structural form but specific values are empirical), and forward-looking (testable but not yet tested). The reader can therefore assess the framework's empirical record at the level of detail appropriate to their domain of interest.
 
@@ -25,9 +25,9 @@ Section A.6 closes with a discussion of the framework's epistemic position based
 
 The framework classifies each prediction by its structural status, using a seven-category scheme designed to make the *epistemic content* of each prediction explicit.
 
-**S — Structural prediction.** The framework's content fully determines the prediction's content from substratum-level commitments. The prediction's value emerges from the framework's structural foundations without empirical input beyond what is required to identify which physical system the framework describes. Examples: $\sin^2\theta_{13} = 4/(18\pi^2)$, the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$, the Bekenstein-Hawking coefficient $1/4$. S-class predictions provide the framework's strongest evidence — they are *first-principles derivations* from structural commitments.
+**S — Structural prediction.** The framework's content fully determines the prediction's content from substratum-level commitments. The prediction's value emerges from the framework's structural foundations without empirical input beyond what is required to identify which physical system the framework describes. Examples: $\sin^2\theta_{13} = 4/(18\pi^2)$, the Cabibbo angle $\lambda = 1/(\pi\sqrt{2})$, Koide $Q = 2/3$. S-class predictions provide the framework's strongest evidence — they are *first-principles derivations* from structural commitments.
 
-**C — Conditional prediction.** The framework's content determines the prediction *conditional* on an additional unverified structural relation holding. If the relation is verified, the prediction promotes to S. If the relation fails, the prediction may need reclassification. The C-class can therefore be either provisional S (awaiting verification) or provisional L (awaiting demotion). The current §B.3 table has zero C-class entries — the Cond 2 prediction that previously occupied this class was reclassified as L following the §B.2.2 audit.
+**C — Conditional prediction.** The result follows given an additional unverified relation. Examples include the horizon calibration under H-slope and the frame/state conditions, and the $A\cdot B$ extrapolation conditional on its finite-size leading power. Verification of the relation can establish the corresponding unconditional result; observational agreement alone does not verify that relation.
 
 **L — Layered prediction.** The framework's content includes the prediction's *form* at the structural level but requires an empirical or computational input for the specific value. The empirical input is bounded — typically a single dimensionless coefficient or a normalization scale — but cannot be derived without additional work. Examples: $\sin^2\theta_{12}$, $\sin^2\theta_{23}$, $m_b/m_\tau$. L-class predictions provide *structural understanding* of the prediction's origin with empirical input for specific values.
 
@@ -63,12 +63,12 @@ This section provides the master tables of the framework's predictions, organize
 
 ### A.4.1 Standard Model observables
 
-The framework's twenty-two Standard Model predictions form the core empirical record. All twenty-two predictions match observation within approximately 1% or approximately 1$\sigma$ — the cumulative empirical content is substantial.
+The reference table combines Standard Model observables, coupling-sector inputs and gravitational entries. Its empirical column distinguishes measured comparisons from inconclusive calculations, observational bounds and untested formulas.
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
 | 1 | $1/\alpha_0$ universal threshold | 23.25 | S | 0 | Within ~0.5% | Ch 5 §5.4 |
-| 2 | $A \cdot B$ gauge coupling product | 48.0 ± 1.5 | S | 0 | Within 1% | Ch 5 §5.5 |
+| 2 | $A \cdot B$ gauge coupling product | $\approx 48$–$62$ (leading-power dependent) | C | 0 | Inconclusive | Ch 5 §5.5 |
 | 3 | $\delta_0$ from $U(1)$ row | 10.02 | E | 0 | Empirical input | Ch 5 §5.5 |
 | 4 | $\alpha_2(M_Z), \alpha_3(M_Z)$ | 29.57, 8.47 | R | 0 | Retrodictions | Ch 5 §5.5 |
 | 5 | Cabibbo $\lambda$ | $1/(\pi\sqrt{2})$ | S | 1 | 0.04% | Ch 6 §6.4 |
@@ -84,43 +84,43 @@ The framework's twenty-two Standard Model predictions form the core empirical re
 | 15 | $m_e, m_\mu$ via Koide | from $m_\tau$ | M | 3 | Mass-chain inheritance | Ch 6 §6.5 |
 | 16 | $m_b/m_\tau$ | $4.28/Z_S(\lambda g_0^2) = 2.361$ | L | 2(a) | 0.4% (0.5$\sigma$ at L=32) | Ch 6 §6.6 |
 | 17 | $m_u/m_d$ | $\sqrt{2/9}$ | L | 1+2(b) | Within 1$\sigma$ | Ch 6 §6.6 |
-| 18 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
+| 18 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
 | 19 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b)ᶠ | $1.178 \pm 0.020$ confirmed | Ch 8 |
 | 20 | $m_t$ (weak-scale $y_t\approx1$) | $v/\sqrt{2}$ | R | 3 | 0.9\%; mechanism open | Ch 6 §6.7 |
 | 21 | $m_b$ via $Q_{\text{down}}$ | derived | L | 2(b) | Within 1$\sigma$ | Ch 6 §6.7 |
 | 22 | $\lambda(M_{\text{Pl}}) = 0$ | structural | S | 1 | **0.6$\sigma$** | Ch 6 §6.8 |
-| 23 | MOND acceleration $a_0$ | $cH/6$ | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
-| 24 | Bekenstein-Hawking entropy | $S = A/(4 l_p^2)$ | S | 1 | derived; no direct test | Ch 7 §7.5 |
+| 23 | MOND acceleration $a_0$ | $cH/6$ | C | 0/1 | Within quoted systematics | Ch 7 §7.9 |
+| 24 | Bekenstein-Hawking entropy | $S = A/(4 l_p^2)$ | C | 1 | No direct test | Ch 7 §7.5 |
 
-**Summary statistics.** Counts: 12 S + 7 L + 1 M + 2 R + 2 E. Total: 24. This table is the book's reference index and is broader in scope than the paper's Standard-Model table ([SM §7.6], 22 rows): it additionally carries the two structural inputs to the coupling sector ($1/\alpha_0$, $A \cdot B$), the neutrino-sector entries, and the two gravitational results ($a_0$, $S_{\rm BH}$) that also appear in §A.4.2. The headline count of *seven* parameter-free structural predictions among twenty-two Standard Model observables derives from [SM §7.6], not from the row total here. The C class is currently empty (the Cond 2 prediction that previously occupied C was reclassified following the §B.2.2 audit). The P class is currently empty. Every prediction within approximately 1% or 1$\sigma$ of observation.
+**Summary statistics.** Counts: 8 S + 3 C + 8 L + 1 M + 2 R + 2 E. Total: 24. This reference index is broader than the paper's Standard-Model table ([SM §7.6], 22 rows): it also carries coupling-sector cross-checks, neutrino entries and the gravitational results $a_0$ and $S_{\rm BH}$. The headline count of *seven* parameter-free structural predictions among twenty-two Standard Model observables belongs to that paper's observable inventory, which excludes $A\cdot B$. The conditional entries here are the leading-power-dependent coupling product and the two horizon-dependent gravitational formulas. Empirical precision applies to the individual measured comparisons. The numerical mass sum is L at Layer 3: its near-minimum value combines the hierarchical normal-ordering expectation with measured solar and atmospheric mass-squared splittings, and is constrained by upper bounds.
 
 **ᶠ** *Layer 2(b) (sin²θ_12, sin²θ_23, PMNS sum rule).* The Layer 1 component is structurally protected against the $A_1$ perturbation by the cosines-dressing of the TBM sum rule (cubic geometry alone). The remaining Layer 2 component is the $A_2$ Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3 = 4(d-1)/(2d)$, equivalent to the substrate-level relation $b_{23}^\text{sub} = (4/3)(b_{12}^\text{sub}+b_{13}^\text{sub}) + 1/9$. The ratio's 2(a)-tractable period — the label meaning the residual question was sharply specified and admitted definite outcomes from substrate calculations — has ended: the calculation was performed. It does *not* mean the answer is forced by representation theory alone — the May 6, 2026 audit (§B.2.2) established that the natural Higgs-democratic spurion does not produce this ratio (instead giving $b_{12}:b_{13}:b_{23} \approx 17:1:1$ in the heavy-quark hierarchy, off by factor ~24 from the required 4/3), and the relation requires substrate amplitudes with the non-natural scaling $\delta M_{ij}^\text{sub} \propto m_{\max(i,j)}$ plus a channel-specific enhancement factor $K_{23}/K_{12} \approx 2.8$. The substantive content is bijection-specific — Layer 2(b) — and the sharply specified verification path has since been executed: the §7.3 routing computation excludes the second-order route (the two-hop operator is a pure spin-taste monomial, orthogonal to every mass channel), leaving the recorded $O(\lambda^3)$ construction as the one unpursued analytical route. The empirical match at 0.07$\sigma$ (JUNO) and 0.6$\sigma$ (sum rule) confirms the bijection has the required structure; the $7/6$ sum rule remains the direct experimental test.
 
-**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a parameter-free retrodiction; its exact, freedom-free form makes JUNO's design-lifetime precision ($\pm 0.0014$) a pre-registered forward test. (ii) the Milky Way Keplerian decline at the predicted $r_M \sim 17$ kpc — the framework's strongest gravitational empirical content; the Bekenstein-Hawking coefficient is derived but has no direct test (GW250114 constrains the classical area theorem). (iii) Koide $Q = 2/3$ at **0.02%** — the sharpest framework prediction across all 24, matching observation at four-significant-figure precision.
+**Distinctive empirical content.** Three predictions stand out as the framework's strongest empirical content. (i) JUNO $\sin^2\theta_{12} = 1/3 - 1/(4\pi^2) = 0.3080$ at **0.07$\sigma$** against the post-JUNO global fit — a parameter-free retrodiction; its exact, freedom-free form makes JUNO's design-lifetime precision ($\pm 0.0014$) a pre-registered forward test. (ii) the conditional Milky Way crossover, whose radius depends on the baryon budget; the Bekenstein-Hawking coefficient is conditional and has no direct test (GW250114 constrains the classical area theorem). (iii) Koide $Q = 2/3$ at **0.02%** — the sharpest framework prediction across all 24, matching observation at four-significant-figure precision.
 
 ### A.4.2 Gravitational-sector observables
 
-The framework's gravitational predictions match general relativistic predictions at the emergent level while making distinctive structural predictions about the gravitational sector's origin and parameters.
+The horizon calibration and radiation entries inherit H-slope and the horizon/frame/state conditions (Chapter 7; [GR §§3, 8.5]). The MOND and physical dark-sector interpretation additionally require the open matter-to-boundary coupling map. The Page curve requires H-scramble. Free symbolic dispersion does not establish suppression in the interacting sector. These conditions are separate from the descriptive vacuum-energy distinction and the classical boundary-density normalization.
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
-| G1 | Discreteness scale | $\epsilon = 2 l_p$ | S | 0 | Structural | Ch 7 §7.4 |
-| G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | S | 0 | Within 1% | Ch 7 §7.4 |
-| G3 | Planck constant from gap eqn | $\hbar$ derived | S | 1 | Structural | Ch 7 §7.4 |
-| G4 | Bekenstein-Hawking coefficient | $1/4$ | S | 1 | derived; no direct test | Ch 7 §7.5 |
-| G5 | Hawking radiation rate | structural | S | 1 | Within 1% | Ch 7 §7.5 |
-| G6 | MOND acceleration $a_0 = cH/6$ | structural | S | 0/1 | Within 0.5% | Ch 7 §7.8 |
-| G7 | CC dissolution | compression ratio | S | 1 | Structural | Ch 7 §7.7 |
-| G8 | Running vacuum $\nu_{\text{OI}}$ | functional form Type II RVM (structural); emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim 1$% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
-| G9 | Dark sector budget | $\sim 95\%$ | S | 1 | Within 1% | Ch 7 §7.9 |
-| G11 | Page curve | nested trace-out | S | 1 | Structural | Ch 7 §7.6 |
-| G12 | $\Sigma m_\nu \sim 0.059$ eV | structural | S | 1 | Within 1$\sigma$ | Ch 8 |
-| G13 | Lorentz violation | $O(\epsilon^2/c^2)$ | S | 0 | Below current limits | Ch 7 §7.4 |
-| G14 | Boundary entropy | $\rho_s = \rho_{\text{crit}}$ | S | 1 | Exact | Ch 7 §7.9 |
+| G1 | Discreteness scale | $\epsilon = 2 l_p$ | C | 0 | Conditional calibration | Ch 7 §7.4 |
+| G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | C | 0 | Order-of-magnitude estimate | Ch 7 §7.5 |
+| G3 | Planck constant from gap eqn | $\hbar = c^3\epsilon^2/(4G)$ | C | 1 | Conditional calibration | Ch 7 §7.3 |
+| G4 | Bekenstein-Hawking coefficient | $1/4$ | C | 1 | No direct test | Ch 7 §7.5 |
+| G5 | Hawking radiation | Thermal spectrum; greybody-dependent rate | C | 1 | Not observed astrophysically | Ch 7 §7.5 |
+| G6 | MOND acceleration $a_0 = cH/6$ | $cH/6$ (factor imported) | C | 0/1 | Within quoted systematics | Ch 7 §7.9 |
+| G7 | Vacuum-energy level distinction | compression ratio | S | 1 | Descriptive relation | Ch 7 §7.7 |
+| G8 | Running vacuum $\nu_{\text{OI}}$ | Type II interpretation not derived; conditional emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim 1$% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
+| G9 | Dark sector budget | $\sim 95\%$ | C | 1 | Partly definitional budget | Ch 7 §7.9 |
+| G11 | Page curve | Nested trace-out and H-scramble | C | 1 | Scrambling condition open | Ch 7 §7.6 |
+| G12 | $\Sigma m_\nu \sim 0.059$ eV | Measured splittings | L | 3 | Upper bounds only | Ch 8 |
+| G13 | Lorentz violation | Free dispersion $O((k\epsilon)^2)$; interactions open | C | 0 | Interacting protection open | Ch 7 §7.4 |
+| G14 | Boundary entropy | $\rho_s = \rho_{\text{crit}}$ | S | 1 | Normalization identity | Ch 7 §7.9 |
 
-**Summary statistics.** Counts: 12 S + 1 L. Total: 13. The G6 MOND prediction has dual Layer 0/1 status (the discreteness scale at Layer 0 plus the mode-counting at Layer 1). Cumulative empirical match at observational precision for all entries within current experimental capability.
+**Summary statistics.** Counts: 2 S + 9 C + 2 L. Total: 13. The conditional entries carry the calibration, horizon-state, coupling, scrambling or interacting-sector obligations stated above. $S_{\rm dS}\sim10^{122}$ is an order-of-magnitude estimate; the mass sum has upper bounds and the boundary-density equality is a normalization identity. These entries do not constitute a common precision test.
 
-**Distinctive content.** The MOND acceleration $a_0 = cH/6$ at 0.5% (entry G6) is the framework's strongest gravitational empirical content. The Bekenstein-Hawking coefficient (entry G4) is derived but has no direct empirical test: GW250114 constrains the classical area theorem, which the framework preserves, not the entropy coefficient. The Running Vacuum Model coefficient $\nu_{\text{OI}}$ (entry G8) provides forward-looking exposure to DESI data over the next 2-3 years.
+**Distinctive content.** The conditional MOND formula gives $a_0 = 1.09$–$1.18\times10^{-10}\,{\rm m/s}^2$ across the stated $H_0$ range, compared with $(1.20\pm0.02\pm0.24)\times10^{-10}\,{\rm m/s}^2$. It agrees within the quoted systematic uncertainty; the factor $1/6$ is imported. The Bekenstein-Hawking coefficient (G4) is conditional and has no direct empirical test: GW250114 constrains the classical area theorem. The running-vacuum coefficient (G8) provides forward exposure to DESI data.
 
 ### A.4.3 Neutrino-sector observables
 
@@ -131,12 +131,12 @@ The neutrino sector provides the framework's sharpest parameter-free retrodictio
 | N1 | $\sin^2\theta_{12}$ | $1/3 - 1/(4\pi^2)$ | L | 1+2(b) | **0.07$\sigma$ JUNO** | Ch 8 |
 | N2 | $\sin^2\theta_{13}$ | $4/(18\pi^2)$ | S | 1 | Within 1% | Ch 8 |
 | N3 | $\sin^2\theta_{23}$ | $1/2 + 1/(2\pi^2)$ | L | 1+2(b) | Within 1$\sigma$ | Ch 8 |
-| N4 | $\Sigma m_\nu$ | ~0.059 eV | S | 1 | Within 1$\sigma$ | Ch 8 |
+| N4 | $\Sigma m_\nu$ | ~0.059 eV (oscillation inputs) | L | 3 | Upper bounds only | Ch 8 |
 | N5 | Normal mass ordering | structural | S | 1 | Confirmed | Ch 8 |
 | N6 | PMNS sum rule | $2\Delta_{12} + \Delta_{23} = 0$ | L | 1+2(b) | $1.178 \pm 0.020$ confirmed | Ch 8 |
 | N7 | $\delta_{\text{CP}}$ | $b_{12} - b_{13}$ (sub-dominant U-odd) | L | 2(b)ᵍ | T2K/NOvA: bijection-constraining | Ch 8 |
 
-**Summary statistics.** Counts: 3 S + 4 L. Total: 7. The L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale) holds unconditionally and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
+**Summary statistics.** Counts: 2 S + 5 L. Total: 7. The numerical mass sum uses measured oscillation splittings; the remaining L-class entries divide into two kinds: (i) **sub-σ confirmed predictions** — N1, N3, N6 — whose Layer 1 structural form (TBM zeroth order plus the $\lambda^2$ scale) holds unconditionally and whose specific values follow given the substrate Wilson-coefficient ratio $b_{23}/(b_{12}+b_{13}) = 4/3$, classified as Layer 2(b) per the §7.3 routing computation (the second-order derivation route excluded; see footnote ᶠ above); (ii) **parameterization-level prediction** — N7 — where the framework identifies $b_{12} - b_{13}$ as the Wilson-coefficient combination controlling $\delta_{CP}$ (a structural-form statement) but the specific value is bijection-specific and the framework "makes no commitment to any specific value of $\delta_{PMNS}$" per SM §6.4 / §7.3 (see footnote ᵍ).
 
 **ᵍ** *Parameterization-level prediction (δ_CP).* The framework identifies $\delta_{CP}$ with the sub-dominant U-odd combination $b_{12} - b_{13}$ in the $A_2$ second-order corrections to the charged-lepton sector (SM §7.3 line 901). This is a structural-form prediction: it specifies how $\delta_{CP}$ enters the framework's parameterization but does not predict its value. The value of $b_{12} - b_{13}$ is bijection-specific (Layer 2(b), property of the particular $\varphi$); the framework "makes no commitment to any specific value of $\delta_{PMNS}$" (SM §6.4 line 546). Future T2K/NOvA measurements constrain the bijection's $b_{12} - b_{13}$ value rather than testing a framework prediction of $\delta_{CP}$ itself. This is qualitatively different from N1/N3/N6, where specific numerical values are fixed with no freedom and the JUNO-era fit matches sin²θ_12 at 0.07σ (retrodictively).
 
@@ -214,13 +214,13 @@ The *rotational* Lorentz sector is deliberately **not** listed as a forward pred
 
 The framework's cumulative empirical record can be summarized as follows.
 
-**Strongest current evidence.** The framework currently has no pre-registered forward confirmation. Its strongest empirical content is retrodictive: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1; the derivation postdates the November-2025 first results), Koide $Q$ at 0.02%, and Cabibbo at 0.04%. The genuinely pre-registered content is forward-looking — DESI Y5 ($\nu$), the anisotropy amplitude, BTFR at $z > 1$, the A2 lattice thresholds, and JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value — documented in dated artifacts preceding their future data. The Bekenstein-Hawking coefficient (entry 24 / G4) is derived but has no direct empirical test — GW250114 constrains the classical area theorem, not the coefficient. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
+**Strongest current evidence.** The framework currently has no pre-registered forward confirmation. Its strongest empirical content is retrodictive: JUNO $\sin^2\theta_{12}$ at 0.07$\sigma$ (entry 12 / N1; the derivation postdates the November-2025 first results), Koide $Q$ at 0.02%, and Cabibbo at 0.04%. The genuinely pre-registered content is forward-looking — DESI Y5 ($\nu$), the anisotropy amplitude, BTFR at $z > 1$, the A2 lattice thresholds, and JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value — documented in dated artifacts preceding their future data. The Bekenstein-Hawking coefficient (entry 24 / G4) is conditional and has no direct empirical test — GW250114 constrains the classical area theorem, not the coefficient. The Rett wider-window result (entry B1) is a retrodiction, not counted among the forward confirmations.
 
 **Most distinctive content.** Two predictions distinguish the framework from standard accounts most sharply: the substratum-emergent operator distinction (with empirical signatures in B1, B2, B13, B14) and the partially-quantum regime $\mathcal{F}(r) = 2r - r^2$ (with empirical exposure in F1). Neither has analog in standard quantum mechanics or effective field theory.
 
 **Sharpest single match.** Koide $Q = 2/3$ at 0.02% (entry 10) — the framework's sharpest individual empirical match.
 
-**Highest-precision overall.** All twenty-two Standard Model predictions within approximately 1% or 1$\sigma$ — cumulative empirical content matching at observational precision across the full SM.
+**Precision and empirical standing.** The comparisons have different evidential roles: Koide and Cabibbo supply numerical retrodictions, the fitted coupling entries are retrodictions by construction, $A\cdot B$ is an inconclusive finite-size extrapolation, and the neutrino mass sum is constrained by upper bounds. The quoted precision belongs to each comparison separately.
 
 **Most consequential forward exposure.** BEC analogue-gravity test (F1) and DESI Year 5 running vacuum test (F6) provide the framework's most consequential near-term empirical exposure. Both have specific falsification conditions that would substantially constrain the framework's content if not confirmed.
 
@@ -228,7 +228,7 @@ The framework's cumulative empirical record can be summarized as follows.
 
 **Where the framework has no current content.** Five fundamental physics problems are scope limits from the framework's perspective — places where it does not provide a derived value: the fermion mass hierarchy in detail (flavor problem), baryogenesis (solution-specific — the baryon asymmetry inherits the input status of the framework's flavor-sector CP phases, §19.3.3), inflation and initial conditions, the Hubble tension's specific resolution, and the cosmological initial state. These are explicitly characterized in Chapter 19.
 
-**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, seven are parameter-free structural retrodictions and the remainder are layered, chained, or fitted; the thirteen gravitational-sector and seven neutrino-sector entries include retrodictions, consistency results, and one definitional fraction, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement); the fourteen biology/medicine entries are retrodictions and consistency results. Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value). The framework's empirical case is therefore a broad retrodictive compression across domains, with its forward-test exposure concentrated in that smaller pre-registered set, rather than a single decisive confirmation.
+**Cumulative assessment.** The framework's empirical record spans multiple domains, and its entries are of unequal evidential weight, classified explicitly above: of the twenty-two Standard Model observables, seven are parameter-free structural retrodictions and the remainder are layered, chained, or fitted; the thirteen gravitational-sector entries comprise two structural results, nine conditional results and two layered estimates, while the seven neutrino-sector entries include retrodictions and bound-only comparisons, with the $0.07\sigma$ JUNO match the sharpest (a retrodiction — the derivation postdates the November 2025 measurement); the fourteen biology/medicine entries are retrodictions and consistency results. Genuinely pre-registered forward content is the smaller set awaiting data (DESI Y5 $\nu$, the rotational-anisotropy amplitude, BTFR at $z>1$, the A2 lattice thresholds, JUNO design-lifetime precision on the exact $\sin^2\theta_{12}$ value). The framework's empirical case is therefore a broad retrodictive compression across domains, with its forward-test exposure concentrated in that smaller pre-registered set, rather than a single decisive confirmation.
 
 The framework's distinctive epistemic position is that it provides *structural foundations* for the empirical patterns rather than competing theoretical content at the emergent level. Standard QM, standard QFT, and standard GR are reproduced at the emergent level; the framework's distinctive content is the structural foundations explaining why these emergent theories have the specific forms they do. The cumulative empirical record provides convergent evidence for the framework's structural commitments across multiple domains, with no single empirical match being load-bearing for the framework's overall content.
 

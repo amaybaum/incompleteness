@@ -1,10 +1,15 @@
 """
-reproduce_AB.py — End-to-end reproduction of the first-principles A·B
-                  derivation in the OI induced gauge theory.
+reproduce_AB.py — Reproduce the selected finite-lattice A·B extrapolators
+                  in the OI induced gauge theory.
+
+This driver reports the selected 1/N²/Shanks estimator spread. It does not
+determine total uncertainty: SM.md §6.2.1 gives approximately 48–62 across
+finite-size models and an inconclusive comparison pending larger lattices
+or a derivation of the leading finite-size power.
 
 Runs sequentially:
   --max-N 28: ~15 minutes (initial coarse result)
-  --max-N 40: ~45 minutes (tightened to ±3%)
+  --max-N 40: ~45 minutes (selected-estimator spread about 3%)
 
 Steps:
   1. Reproduce Π_s(0) → 0.308 (verifies 1/α_0 = 23.25)
@@ -16,8 +21,8 @@ Steps:
   5. Report A·B central value ± spread of estimators vs paper's fitted 46.4
 
 Usage: python3 reproduce_AB.py
-       python3 reproduce_AB.py --max-N 28   # faster, ±4-5% precision
-       python3 reproduce_AB.py --max-N 40   # full, ±3% precision
+       python3 reproduce_AB.py --max-N 28   # faster, selected extrapolators
+       python3 reproduce_AB.py --max-N 40   # full, selected-estimator spread
 
 Key numerical results (from --max-N 40 run):
   - Π_s(0) at m=0.05, N→∞ ≈ 0.308 ✓
@@ -25,9 +30,9 @@ Key numerical results (from --max-N 40 run):
   - A·B(N) goes from 0.8 (N=8) → 41.7 (N=40)
   - 1/N² extrapolation (last 3 points): A·B(∞) = 50.1
   - Shanks-3/4 iterated: A·B(∞) = 47.9
-  - Central estimate: A·B = 48.0 ± 1.5 (±3%)
+  - Selected 1/N²/Shanks estimate: A·B = 48.0 ± 1.5 (estimator spread only)
   - Paper fitted: A·B = 46.4
-  - Agreement: 3.5%, within the extrapolation uncertainty
+  - Comparison: about 3.5% at the selected central value; inconclusive across models
 """
 import argparse
 import warnings
@@ -163,11 +168,11 @@ def main(max_N=40):
     A_B_paper_fit = 46.4
     print(f'  Shanks (best iterated):    A·B(∞) = {central_shanks:.2f}')
     print(f'  1/N² fit (last 3 points):  A·B(∞) = {est_1N2:.2f}')
-    print(f'  Central estimate:          A·B    = {central:.2f} ± {spread:.2f}')
+    print(f'  Selected 1/N²/Shanks estimate (estimator spread only): A·B = {central:.2f} ± {spread:.2f}')
     print(f'  Paper fitted (reference):  A·B    = {A_B_paper_fit}')
     print()
     print(f'  Deviation from paper: {(central - A_B_paper_fit):+.2f}   ({(central/A_B_paper_fit - 1)*100:+.1f}%)')
-    print(f'  Precision vs paper fit: {spread/A_B_paper_fit*100:.1f}% (extrapolation uncertainty)')
+    print(f'  Selected-estimator spread relative to fitted product: {spread/A_B_paper_fit*100:.1f}% (leading-power and subleading uncertainties excluded)')
 
 
 if __name__ == "__main__":
