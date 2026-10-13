@@ -8,7 +8,7 @@ nonnegative-scaling or trace premise is used in the induction.
 
 namespace OIBridge.PreservationInductionDesign
 
-open InterventionLocality OperationalAssembly ReferenceExtension MonoidalCompletion
+open Matrix InterventionLocality OperationalAssembly ReferenceExtension MonoidalCompletion SpectatorBridge
 
 abbrev CarrierConeFamily :=
   ∀ (S : Type) [Fintype S] [DecidableEq S], Set (Matrix S S ℂ)
