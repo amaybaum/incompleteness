@@ -1,0 +1,27 @@
+name: state operation source design
+on:
+  push:
+    branches: [research/state-operation-source-design-20261013]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-design:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact arithmetic
+        run: python3 -m pip install sympy==1.14.0
+      - name: Positive and mutation controls
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-oi-state-operation-source-1/controls.py --self-test
+      - name: Historical records and placement
+        run: |
+          design_revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$design_revision"
+          python3 tools/v3_verifier.py --receipts "$design_revision"
+          python3 tools/artifact_placement_check.py
