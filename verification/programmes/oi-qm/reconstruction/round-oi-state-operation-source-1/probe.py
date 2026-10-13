@@ -93,6 +93,14 @@ check('ZF dual generator inequalities', [pair(T,e) for e in es]==[0,0,Q(1,8),Q(1
 separators=[pair(W,phi(B)),pair(T,phi(es[1]))]
 check('uniform protocol negative witnesses', all(x.is_negative for x in separators))
 
+# Phi_1 is itself a one-token operation with the other token idle.
+def token_phi(a):
+    return clean(sum((k*a*k.H for k in ks),s.zeros(2)))
+for r,c in product(range(4),repeat=2):
+    left=s.zeros(2);left[r//2,c//2]=1
+    right=s.zeros(2);right[r%2,c%2]=1
+    check('single-token factorization '+str((r,c)),same(phi(kron(left,right)),kron(left,token_phi(right))))
+
 # Symbolic identities supply the inputs to the universal Cauchy-Schwarz proof.
 a=s.symbols('a1:4',real=True);b=s.symbols('b1:4',real=True)
 rho=(s.eye(2)+sum((a[j]*pauli[j+1] for j in range(3)),s.zeros(2)))/2
@@ -142,10 +150,27 @@ quantum_ok=all(same(q.H,q) and all(ev.is_nonnegative for ev in q.eigenvals()) an
                same(phi(q).H,phi(q)) and all(ev.is_nonnegative for ev in phi(q).eigenvals()) for q in quantum)
 check('quantum PSD positive control',quantum_ok)
 classical=[s.diag(*[int(j==k) for j in range(4)]) for k in range(4)]
-perm=s.Matrix(4,4,lambda r,c:int(r==c^1))
-classical_ok=all(all((perm*q*perm.H)[r,c]==0 for r in range(4) for c in range(4) if r!=c)
-                 and all((perm*q*perm.H)[r,r]>=0 for r in range(4)) for q in classical)
-check('classical diagonal/monomial positive control',classical_ok)
+classical_protocol=all(same(phi(q),q) for q in classical)
+check('actual protocol fixes the classical diagonal basis',classical_protocol)
+coordinate=[s.diag(1,0),s.diag(0,1)]
+classical_filters=True
+for side,p,q in product((0,1),coordinate,classical):
+    op=kron(p,s.eye(2)) if side==0 else kron(s.eye(2),p)
+    out=clean(op*q*op)
+    classical_filters &= all(out[r,c]==0 for r in range(4) for c in range(4) if r!=c)
+    classical_filters &= all(out[r,r].is_nonnegative for r in range(4))
+check('classical native local filters preserve the diagonal cone',classical_filters)
+classical_tests=[kron(p,q) for p,q in product(coordinate,repeat=2)]
+coordinates=s.symbols('d0:4',real=True)
+diagonal=s.diag(*coordinates)
+classical_saturation=(classical_tests==classical and
+                      [pair(t,diagonal) for t in classical_tests]==list(coordinates))
+check('classical product tests saturate exactly to the nonnegative diagonal cone',classical_saturation)
+classical_dual=all(same(clean(sum((kron(s.eye(2),k.H)*t*kron(s.eye(2),k) for k in ks),s.zeros(4))),t)
+                  for t in classical_tests)
+check('actual protocol fixes the classical complete dual-test basis',classical_dual)
+classical_ok=classical_protocol and classical_filters and classical_saturation and classical_dual
+check('classical comparisons bear on the candidate readings',classical_ok)
 
 # Product-test saturation selects maxCone, which contains an indefinite defect
 # and excludes the quantum PSD comparison as a saturation model.
@@ -162,9 +187,14 @@ print(json.dumps({
     'uniform_phi1_separators':[str(x) for x in separators],
     'witness_operation':'Phi1',
     'availability_theorem':'finite_protocol_spectator',
-    'P1_local_consistency':'INSUFFICIENT: both fixtures satisfy local readout/update controls while cone preservation fails',
+    'P1_local_consistency':'INSUFFICIENT: restricted rank-one filter/readout consistency holds while cone preservation fails',
+    'LO_available_local_operations':'Phi1 is a one-token operation; general local-operation preservation asserts the target directly',
     'P2_complete_dual_tests':'both fixture pullback clauses violated; universal disguise classification is written evidence',
     'P3_product_saturation':'fails the quantum PSD positive control; universal Q3-inclusion consequence is written evidence',
     'quantum_positive':bool(quantum_ok),'classical_positive':bool(classical_ok),
+    'classical_protocol_fixed':bool(classical_protocol),
+    'classical_filters':bool(classical_filters),
+    'classical_product_saturation':bool(classical_saturation),
+    'classical_dual_pullbacks':bool(classical_dual),
     'scope':'exact instances plus symbolic identities; universal arguments and physical source statuses remain separate'
 },sort_keys=True,indent=2))

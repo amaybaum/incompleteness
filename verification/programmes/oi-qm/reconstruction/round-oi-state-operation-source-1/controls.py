@@ -19,10 +19,10 @@ R='verification/programmes/oi-qm/reconstruction/round-oi-state-operation-source-
 D='dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4'
 ROUND='OI-STATE-OPERATION-SOURCE-1'
 HASHES={
-    'probe.py':'7dcea2e0df5980acd7afe78c828dd932544e506e6fc19cc8bf6fbe6511e1dc28',
+    'probe.py':'ac740098cd100aca32b6ac0ff19d1c1dcb5a42a081863319e1ff0fac7b2b7e01',
     'fixture_check.py':'b8e316ee44c80e366a65c5d95bf4a5ef699d8bc556583c1fe9bac4c314750532',
-    'argument.md':'b7f31ee700a3ec928bcc7146a468ae78f9776e56e6b8b5fca5e7f32e68ea9189'}
-WORKFLOW='fc9edd8035ae846d440529f09993b89be9172c466762874735e17d0f6e0eec05'
+    'argument.md':'93abc25afd5b54a12c061798b426a2807c59798ad71a9d6d1d0f4ec27d18f121'}
+WORKFLOW='4210a0ca30ab724cddfa10cecf69ef73c5a7f584a52a9fda5213b4c7446b840c'
 EARNED=('Local product-test and rank-one update consistency does not imply preservation of the given pair cone; '
         'complete-dual-test pullback closure restates that preservation; product-test state saturation grants Q3 inclusion '
         'and fails the quantum PSD comparison. No physical compatibility source is derived by this bounded audit.')
@@ -52,6 +52,11 @@ def validate(data):
     require(len(data['uniform_phi1_separators'])==2 and all(Fraction(v)<0 for v in data['uniform_phi1_separators']),
             'both qualified fixture separations')
     require(data['quantum_positive'] and data['classical_positive'],'both positive controls')
+    require(all(data[k] for k in ('classical_protocol_fixed','classical_filters',
+                                  'classical_product_saturation','classical_dual_pullbacks')),
+            'classical checks test the actual readings')
+    require(data['LO_available_local_operations'].startswith('Phi1 is a one-token operation'),
+            'general local-operation reading explicit')
     require(data['readout_cases']==5*2*8*8 and data['filter_cases']==5*2*2*8*2,'declared finite coverage')
     require(data['controls']>0,'nonvacuous controls')
     require(data['P1_local_consistency'].startswith('INSUFFICIENT:'),'local-consistency assessment')
@@ -75,14 +80,18 @@ def self_test():
                         ('missing classical positive',lambda x:x.update(classical_positive=False)),
                         ('missing fixture',lambda x:x.update(uniform_phi1_separators=['-1/4'])),
                         ('missing readout coverage',lambda x:x.update(readout_cases=1)),
-                        ('upgraded written proof',lambda x:x.update(P2_complete_dual_tests='kernel theorem'))]:
+                        ('upgraded written proof',lambda x:x.update(P2_complete_dual_tests='kernel theorem')),
+                        ('missing classical protocol',lambda x:x.update(classical_protocol_fixed=False)),
+                        ('missing classical filters',lambda x:x.update(classical_filters=False)),
+                        ('missing classical saturation',lambda x:x.update(classical_product_saturation=False)),
+                        ('missing classical dual',lambda x:x.update(classical_dual_pullbacks=False))]:
         bad=copy.deepcopy(data);change(bad)
         try:validate(bad)
         except AssertionError:pass
         else:raise AssertionError('accepted metadata mutation: '+name)
     print(raw.decode(),end='')
     print(fixture.decode(),end='')
-    print('DESIGN CONTROLS: PASS; positive fixture; 4 construction mutations; 6 policy mutations')
+    print('DESIGN CONTROLS: PASS; positive fixture; 4 construction mutations; 10 policy mutations')
 
 
 def object_checks(subject,freeze):

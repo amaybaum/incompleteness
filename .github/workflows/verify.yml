@@ -409,7 +409,7 @@ jobs:
         run: python3 -m pip install sympy==1.14.0
       - name: Source audit and native controls
         run: |
-          research_revision=$(git rev-parse HEAD)
+          research_revision='${{ github.event.pull_request.head.sha || github.sha }}'
           python3 -I -B verification/programmes/oi-qm/reconstruction/round-oi-state-operation-source-1/controls.py "$research_revision"
           python3 -I -B verification/programmes/oi-qm/reconstruction/round-oi-state-operation-source-1/controls.py --self-test
 

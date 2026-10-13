@@ -13,7 +13,7 @@ premises, including context and label stability. Use the adopted Pauli
 dictionary only as a linear coordinate representation. Do not identify C
 with all PSD states or with an operation-generated reachable closure.
 
-The first candidate is **local preparation/test and conditioning consistency**:
+The restricted candidate LC is **rank-one filter/readout consistency**:
 product sharp readouts give nonnegative outcome weights on each preparation;
 the weights sum to its normalization; and a conditional rank-one local
 readout returns an admitted, possibly unnormalized, preparation. This has a
@@ -65,11 +65,35 @@ their uniformly available Phi_1 images are outside their own cones. The
 separating traces are checked as -1/4 and -1/16 at the historical scaling.
 The exclusion operations are guaranteed by finite_protocol_spectator for every
 inventory meeting the retained hypotheses; fullClass-only replacements are
-not used. Hence the local consistency candidate is **INSUFFICIENT**, even
-when the candidate update rule is granted. This excludes this bounded source
-route, not every possible physical compatibility principle.
+not used. Hence this **restricted rank-one filter/readout** candidate is
+INSUFFICIENT, even when the update rule is granted. This does not show that
+consistency under local operations generally is insufficient. The restriction
+to rank-one filters is precisely why the argument covers every cone in the
+interval and cannot discriminate between them.
 
-## 3. Complete joint tests convert the requirement into its dual form
+## 3. General available one-token operations assert the target directly
+
+The obvious general local-operation reading LO is: every available one-token
+operation, with the other token idle, preserves the admitted preparation cone.
+This is explicitly a fourth reading, distinct from restricted LC.
+
+Write phi_1=(5/8)Ad_D+(3/8)id on one token. The actual constructed map obeys
+Phi_1=id tensor phi_1, as the independent gate/branch derivation and all sixteen
+pair matrix units check exactly. Thus requiring preservation under every
+available one-token operation already requires preservation under this
+uniformly available witness. Both cones violate that clause, at the familiar
+negative separators. LO asserts the desired local state-operation compatibility;
+it is not an independently sourced explanation of it.
+
+This is a family-preservation reading, so it may demand more than preservation
+of only Phi_1 or the specified stopped sequence if the inventory contains more
+local operations. No equivalence between the full inventory and that one map
+is claimed. It includes every guaranteed Phi_k and consequently entails the
+third-axis flow clause on closed cones. Its physical source and the off-frame
+clause remain unsupplied. The insufficiency conclusion for restricted LC is
+not extended to LO.
+
+## 4. Complete joint tests convert the requirement into its dual form
 
 For a closed convex cone C in this finite-dimensional real space, write C* for
 its mathematical dual. The nondegenerate trace pairing (or four times it in
@@ -101,7 +125,7 @@ closed-cone equivalence in the bridge research record. It supplies neither
 an independent source nor the J-conjugate/off-frame clause. A primitive
 constructor soundness proof based on it remains CONDITIONAL.
 
-## 4. Saturating the product tests already grants quantum state inclusion
+## 5. Saturating the product tests already grants quantum state inclusion
 
 The third candidate declares every vector nonnegative on the product sharp
 test family to be a physical preparation. The cone is then maxCone, by the
@@ -122,13 +146,40 @@ The separate fullClass confound remains excluded: generic closure under all
 its replacement channels forces Q3 ⊆ C. Those channels are not shown available
 in every retained inventory and cannot be used as the successor's witnesses.
 
-## 5. Scope of the source assessment
+## 6. Classical comparisons actually test the readings
 
-The independently motivated local probability/update requirement is too weak.
-Its complete-joint-test strengthening is a dual restatement. Its product-test
-saturation strengthening supplies unearned quantum inclusion and fails a
-positive comparison. None of these three fixed readings is an independently
-sourced physical compatibility principle.
+For any classical diagonal pair state, conjugation by the diagonal I tensor D
+is the identity. Phi_1 therefore leaves the **entire** diagonal cone unchanged.
+The exact probe verifies the four diagonal matrix units; linearity extends
+that equality to every diagonal matrix, not just the four basis states. The
+protocol is thus a positive preservation control for the actual witness map.
+
+Classical local sharp filters use the native coordinate projectors on each
+token. They retain nonnegative diagonal entries and remove others, preserving
+the classical cone. The probe checks their action on each basis state; its
+nonnegative span is the cone. Dual pullback by Phi_1 fixes each classical
+coordinate effect and hence their nonnegative span.
+
+For a diagonal vector diag(d_0,...,d_3), the four diagonal product tests return
+exactly d_0,...,d_3. Positivity on those tests is therefore equivalent to
+membership in the nonnegative diagonal cone. Product-test saturation **holds
+in the classical model**, while it fails in the quantum PSD model because
+of the block-positive indefinite defect. This is the useful PS comparison:
+saturation admits the classical interface and rejects the quantum one.
+It is not replaced by a test of an unrelated fixed permutation.
+
+The classical interface still does not claim ball tokens or an inventory
+containing the balanced circuit. The actual Phi_1 map restricts to its identity
+operation, so this comparison is available without inventing such a circuit.
+
+## 7. Scope of the source assessment
+
+The restricted rank-one filter/readout requirement is too weak. The general
+one-token-operation reading asserts the target directly. Complete-joint-test
+closure is its dual preservation statement. Product-test saturation supplies
+unearned quantum inclusion and fails the quantum positive comparison while
+admitting the classical one. None of these four readings provides an
+independently sourced physical compatibility principle.
 
 This is a source audit of those three readings, not an exhaustive no-go for all
 physical principles. Main's gluing theorem takes joint local instrument maps
