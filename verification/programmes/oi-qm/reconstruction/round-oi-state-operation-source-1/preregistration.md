@@ -93,6 +93,13 @@ into a proved one. The historical 118 satisfied, 13 failed-hypothesis and 68
 unreached rows remain distinct and unchanged. A future bridge audit needs its
 own scope and control plane.
 
+The frozen historical references are the
+[bridge audit at eda945a](https://github.com/amaybaum/incompleteness/blob/eda945a6a94251878ac56c7ddb67e148a82e3dd5/verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/result.md),
+[R6 NOTES N2/N5](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/R6/NOTES.md),
+and [stage-6 integration §5](https://github.com/amaybaum/incompleteness/blob/e7d380fcb9881e3063243aaa149e85be3cd0a914/research/archive/pt/INTEGRATION-NOTE-STAGE6.md).
+They supply the cited fixture certificates and disguise assessment; their
+statuses are not strengthened by this round.
+
 ## Mandatory fixtures, comparisons and inventory-size gate
 
 1. K_B=SEP+R+ B, where B is the Bell projector. Its product, closed-cone and
