@@ -61,7 +61,7 @@ face principle relating higher-level systems to elementary ones exists. The roun
 
 Imports `OIBridge.SubstratumSource` and `OIBridge.LiftAudit`; namespace `OIBridge.KnDescent`. The statement surface
 is the design module `EqvKnDesc` built green in run 38090116254 (copy: `research/equivalence/lean/EqvKnDesc.lean`,
-blob `8157f8ea`), with twelve declarations and twelve `#print axioms` lines:
+blob `8157f8ea`), with thirteen declarations (one definition and twelve theorems) and twelve `#print axioms` lines:
 
 ```lean
 def DrivesElementaryAt (𝓘 : ImplementationClass) (T : Type) [Fintype T] [DecidableEq T] : Prop :=
@@ -111,14 +111,16 @@ DrivesElementary (round KN-DESC-1, reconstruction)", `modules: ["KnDescent"]`, `
 
 ## The exact layer (frozen probe `verification/lean/kn_desc1_probe.py`)
 
-The probe is `research/equivalence/experiments/e3_compress.py` (sha256 `18c3aa1b…`; 7 checks), standard library and
-exact arithmetic only: F0 (the closed form of `flow (transition a b) t` solves `M' = −iHM`, `M(0) = 1`), G1–G3 (the
+The probe is `research/equivalence/experiments/e3_compress.py` (sha256 `18c3aa1b…`; 7 checks), using Python and
+SymPy 1.14.0 with exact symbolic arithmetic: F0 (the closed form of `flow (transition a b) t` solves `M' = −iHM`, `M(0) = 1`), G1–G3 (the
 literal construction — tensor, an explicit bijection, reindex, block — returns the three generator families for
-`(|S|, |T|) = (3, 4), (3, 8), (5, 8)`, 32 ordered pairs), B1 (every bijection used sends `(s₀, ι s)` to `(s, 0)`), K1
+`(|S|, |T|) = (3, 4), (3, 8), (5, 8)`, 32 ordered distinct-index pairs), B1 (every bijection used sends `(s₀, ι s)` to `(s, 0)`), K1
 (compressing a flow that leaves `ι(S)` is not unitary: `B Bᴴ − 1` has entry `−sin² t` — the invariance of the
 coordinate subspace is load-bearing for the generators), K2 (no bijection `Fin 4 ≃ Fin 3 × Fin m`; `1_3 ⊗ X` is not
 diagonal; the `Fin 3` transition flow at `t = 1` is not diagonal — the exact failure instances showing `ContextStable`
-load-bearing). Its shard `probes_kndesc1` and the aggregate edit follow KT4-PREM-1.
+load-bearing). The frozen probe does not sample self-index transition flows (`a = b`); the universal kernel theorem
+covers that case separately through `flow_transition_self`. Its shard `probes_kndesc1` and the aggregate edit follow
+KT4-PREM-1, with the Python/SymPy dependency installed explicitly.
 
 ## The decision rules (frozen; implemented by `controls.py verdict`)
 
@@ -168,7 +170,7 @@ and stays. Kₙ remains OPEN under every outcome.
 
 ## The controls (in `controls.py`)
 
-- **S1 surface**: preamble, twelve declarations in order with frozen signatures, twelve prints. Mutations, each
+- **S1 surface**: preamble, thirteen declarations (one definition and twelve theorems) in order with frozen signatures, twelve prints. Mutations, each
   failing with its code: `hC` dropped from `compress_mem`; `[Nonempty S]` dropped from `compress_mem`; `hpow` weakened
   to `∀ k, 1 ≤ k → …`; `DaggerStable` dropped from the iff's right side; the conclusion of `drivesElementary_of_pow`
   replaced by `DrivesElementaryAt 𝓘 (Fin 3)`; a thirteenth print.
