@@ -35,11 +35,13 @@ jobs:
           mkdir -p ResearchDesign
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FinitePauli.lean ResearchDesign/FinitePauli.lean
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteWalsh.lean ResearchDesign/FiniteWalsh.lean
+          cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteCircuit.lean ResearchDesign/FiniteCircuit.lean
           lake env bash -c '
             export LEAN_PATH="$PWD/ResearchDesign:$PWD:$LEAN_PATH"
             design_status=0
             lean -o ResearchDesign/FinitePauli.olean ResearchDesign/FinitePauli.lean || design_status=1
             lean ResearchDesign/FiniteWalsh.lean || design_status=1
+            lean ResearchDesign/FiniteCircuit.lean || design_status=1
             lean ../programmes/oi-qm/reconstruction/carrier-descent-design/KnDescentDesign.lean || design_status=1
             exit "$design_status"
           '
