@@ -1,10 +1,11 @@
 # H-NEQ: the exact projected-memory template
 
-The model-input gate remains **OPEN**. Neither the roadmap nor the current
-research record fixes one physical update, observer partition, initial law,
-mode readout and clock jointly. This follow-up supplies the exact equation
-those choices determine. It selects no cosmological completion and analyses
-no observational data. Main §4.5's conditional mixing premise is retained;
+The cosmological model-input gate remains **OPEN**. No selected completion
+fixes its update, observer partition, initial law, cosmological mode readout
+and clock jointly. This follow-up supplies the exact equation those choices
+determine and evaluates it for Main §2.4's actual minimal model. It selects
+no cosmological completion and analyses no observational data. Main §4.5's
+conditional mixing premise is retained;
 Main §4.6 already distinguishes an effective gap from finite Koopman dynamics.
 
 Evidence: [W] universal written algebra; [X] finite rational controls.
@@ -66,7 +67,7 @@ lifted macro law (1,0), the direct projected laws are
 The one-step A maps every law to (1/2,1/2); its powers already fail at t=2.
 Here eta_0=0, so the discrepancy tests the memory term itself. A point mass
 at 0 has a nonzero initial hidden term, testing that separate clause.
-The checker passes 13,709 exact checks over 492 cases, including five
+The generic checker passes 13,709 exact checks over 492 cases, including five
 countercontrols. It computes direct trajectories by state-index reallocation
 and compares them with independently assembled projection/lift matrices and
 memory sums. These are two computational paths in one stdlib checker, not
@@ -74,6 +75,31 @@ independent authorship. Invalid bijections, partitions and stationary priors
 are rejected. Saved outputs replay byte for byte and SHA256SUMS records the run.
 The examples test block elimination; they discharge no (C1)–(C4) observer
 realization or cosmological mode readout.
+
+## The manuscript's actual minimal model [W, X]
+
+Main §2.4 specifies twelve states (x,h), x=0,1 and h=1,...,6. The update
+flips x for h=1,2 and swaps h=3↔4 and h=5↔6 at fixed x. The observer reads
+x and the conditional hidden preparation is uniform. This gives U²=I and
+
+    A = [[2/3,1/3],[1/3,2/3]], K_2=P U² R=I,
+    B C = I−A² = (4/9) [[1,−1],[−1,1]].
+
+The off-diagonal block of U²=I gives B E=−A B on the hidden subspace.
+Consequently the exact memory coefficients are
+
+    B E^j C = (−1/3)^j (4/9) [[1,−1],[−1,1]].
+
+The one-step comparison has a spectral gap, and even its memory kernel
+decays geometrically, yet the true visible law returns every two steps.
+Thus neither that comparison gap nor decay of the memory coefficients
+alone is a source for scalar visible relaxation. This evaluates the actual
+construction, rather than transferring a reset-model calculation into it.
+The literal index checker adds 25 source-model checks for a total of 13,734,
+verifying all twelve point-state updates and the first eight memory
+coefficients. It checks the model's quoted probability
+construction; it does not certify every observer-condition claim or give
+it a cosmological mode or scale-factor interpretation.
 
 ## What must be supplied next
 

@@ -107,7 +107,33 @@ for bad_phi,bad_labels,bad_pi in [((1,1,3,0),labels,pi),
     try: construct(bad_phi,bad_labels,bad_pi)
     except AssertionError: rejected+=1
     else: raise AssertionError('invalid model premise accepted')
+
+# Main §2.4: literal visible x in {0,1}, hidden h in {1,...,6}.
+source_phi=[]
+for x in range(2):
+    for h in range(6):
+        source_phi.append((1-x)*6+h if h<2 else x*6+(h^1))
+source_labels=tuple(i//6 for i in range(12))
+sp,sr,su,sq,sa,sb,sc,se,_=construct(source_phi,source_labels,[F(1,12)]*12)
+check(all(source_phi[source_phi[i]]==i for i in range(12)))
+check(sa==[[F(2,3),F(1,3)],[F(1,3),F(2,3)]])
+source_k2=mm(mm(sp,mpow(su,2)),sr)
+check(source_k2==eye(2))
+check(source_k2!=mm(sa,sa))
+source_bc=mm(sb,sc)
+check(source_bc==[[F(4,9),F(-4,9)],[F(-4,9),F(4,9)]])
+epower=eye(12)
+for j in range(8):
+    kernel=mm(mm(sb,epower),sc)
+    check(kernel==[[F(-1,3)**j*x for x in row] for row in source_bc])
+    epower=mm(se,epower)
+for i in range(12):
+    point=[F(i==j) for j in range(12)]
+    observed,nxt=direct(source_phi,source_labels,point)
+    check(mv(sp,mv(su,point))==direct(source_phi,source_labels,nxt)[0])
 print(json.dumps({'checks':count,'cases':cases,'countercontrols':rejected,
                   'four_cycle':[[str(x) for x in row] for row in series],
+                  'Main_2_4_A':[[str(x) for x in row] for row in sa],
+                  'Main_2_4_memory_0':[[str(x) for x in row] for row in source_bc],
                   'scope':'exact conditional projected-memory template; physical model inputs OPEN'},
                  indent=2,sort_keys=True))

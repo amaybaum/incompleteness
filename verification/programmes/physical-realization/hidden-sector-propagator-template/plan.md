@@ -17,3 +17,10 @@ Useful outcomes: identify the exact missing memory/closure terms; prove an
 obstruction for the explicitly fixed finite/autonomous domain; or obtain a
 source-derived projected propagator for a physically specified model. An
 illustrative finite cycle cannot count as the third outcome.
+
+Source benchmark added before its certificate run: derive the same blocks for
+Main §2.4's specified twelve-state involution and visible-bit partition, using
+its uniform hidden preparation. Check literal index evolution, the involution,
+the single-step comparison, the two-step return and the memory kernel. This
+is an actual manuscript model benchmark, with no cosmological clock/readout
+or empirical interpretation added.
