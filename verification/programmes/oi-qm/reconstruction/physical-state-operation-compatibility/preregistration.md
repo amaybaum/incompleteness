@@ -9,6 +9,11 @@ obtained no independent physical source. Its proposed native round (#819) was
 withdrawn before F. These criteria remain requirements for a future
 independently sourced candidate; they do not schedule or authorize a new freeze.
 
+The [spectrality screen](spectrality.md) supplies a subsequent externally
+motivated candidate and written exclusions of both fixtures, with positive
+comparisons. Its OI source and preservation implication remain UNRESOLVED;
+it is not a selected native successor or a source derivation.
+
 ## Question and independent inputs
 
 Can an independently motivated physical premise connect an independently

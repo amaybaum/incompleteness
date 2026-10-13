@@ -273,6 +273,13 @@ with corrected, pinned exact design controls. No independent physical source
 is obtained. The proposed native round in #819 is withdrawn before F; the
 assessment stays research-only and adds no main CI job or receipt.
 
+The later [spectrality screen](../physical-state-operation-compatibility/spectrality.md)
+examines a different, externally motivated state/test postulate. It excludes
+both fixtures by written arguments and passes quantum and classical comparisons;
+its physical source and its implication to preservation remain UNRESOLVED.
+This candidate screen does not upgrade the four-reading assessment or the
+stage-6 statuses.
+
 ## Reproduction and independence
 
 From the repository root:

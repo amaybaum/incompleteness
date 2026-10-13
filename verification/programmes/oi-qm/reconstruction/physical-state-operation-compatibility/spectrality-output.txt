@@ -1,0 +1,20 @@
+{
+  "controls": 77,
+  "kb_Bell_support_gap": "144/313",
+  "kb_distance_bound": "10/13",
+  "mutations_rejected": 4,
+  "scope": "exact certificates for written fixture exclusions; sourcing and preservation implication unresolved",
+  "zf_cut_pairings": [
+    "0",
+    "41/126",
+    "41/126",
+    "22/63"
+  ],
+  "zf_projection_weights": [
+    "3/4",
+    "37/84",
+    "37/84",
+    "31/84"
+  ],
+  "zf_weighted_overlap_lower": "t/3 + 1/3"
+}

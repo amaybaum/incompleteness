@@ -21,16 +21,21 @@ jobs:
         run: python -m pip install sympy==1.14.0
       - name: Verify saved record digests
         run: sha256sum -c verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/SHA256SUMS
-      - name: Replay both implementations
+      - name: Replay bridge implementations and spectrality certificates
         run: |
           python - <<'PY'
           from pathlib import Path
           import subprocess
           import sys
           p = Path('verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit')
-          for script, saved in [('independent_check.py', 'independent-output.txt'), ('probe.py', 'original-output.txt')]:
-              result = subprocess.run([sys.executable, '-I', '-B', str(p / script)], check=True, capture_output=True)
-              if result.stderr or result.stdout != (p / saved).read_bytes():
+          q = Path('verification/programmes/oi-qm/reconstruction/physical-state-operation-compatibility')
+          replays = [(p, 'independent_check.py', 'independent-output.txt'),
+                     (p, 'probe.py', 'original-output.txt'),
+                     (q, 'spectrality_check.py', 'spectrality-output.txt'),
+                     (q, 'spectrality_independent.py', 'spectrality-independent-output.txt')]
+          for directory, script, saved in replays:
+              result = subprocess.run([sys.executable, '-I', '-B', str(directory / script)], check=True, capture_output=True)
+              if result.stderr or result.stdout != (directory / saved).read_bytes():
                   raise SystemExit(f'Failed saved-output comparison: {script}')
               print(result.stdout.decode(), end='')
           PY
