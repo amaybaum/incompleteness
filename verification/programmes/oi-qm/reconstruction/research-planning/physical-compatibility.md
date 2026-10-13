@@ -1,8 +1,12 @@
 # Physical compatibility: spectrality source and preservation implication
 
-**Status: planning placeholder for review.** This note proposes research work;
-it is not a native control plane, F candidate, proof result or empirical result.
+**Status: Bounded spectrality screen complete; the general implication remains open.**
+This umbrella note is research/design, not a native control plane or F candidate.
 Planning snapshot: main `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
+
+## First research update (2026-10-13)
+
+[The research result](../spectrality-preservation-research/result.md) proves local preservation for coPSD and rejects a CNOT-tilted model because it fails the retained product domain. The exact implementations pass 109 and 112 controls. This resolves one model family; it neither proves SP ⇒ preservation on the common domain nor supplies SP physically.
 
 ## Current gap
 
@@ -41,7 +45,7 @@ written arguments or kernel proofs at their stated evidence level.
 - [Bridge and spectrality research](https://github.com/amaybaum/incompleteness/pull/820)
 - [Conditional preservation draft](https://github.com/amaybaum/incompleteness/pull/831)
 
-This PR adds only this planning note. Existing theorem and manuscript
+This note tracks the broader agenda alongside the linked research evidence. Existing theorem and manuscript
 classifications, ROADMAP rows, adopted modules, CI workflows and historical
 round records retain their current authority. Later work should be recorded
 forward, with its own scope and provenance.
