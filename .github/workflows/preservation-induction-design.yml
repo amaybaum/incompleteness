@@ -57,7 +57,7 @@ jobs:
           cp ../programmes/oi-qm/reconstruction/preservation-induction-design/ResearchInstances.lean ResearchDesign/ResearchInstances.lean
           lake env bash -c '
             set -e
-            export LEAN_PATH="$PWD:$LEAN_PATH"
+            export LEAN_PATH="$LEAN_PATH:$PWD"
             lean -o ResearchDesign/PreservationInduction.olean ResearchDesign/PreservationInduction.lean
             lean ResearchDesign/ResearchInstances.lean
           '
