@@ -1,0 +1,28 @@
+{
+  "cases": 492,
+  "checks": 13709,
+  "countercontrols": 5,
+  "four_cycle": [
+    [
+      "1",
+      "0"
+    ],
+    [
+      "1/2",
+      "1/2"
+    ],
+    [
+      "0",
+      "1"
+    ],
+    [
+      "1/2",
+      "1/2"
+    ],
+    [
+      "1",
+      "0"
+    ]
+  ],
+  "scope": "exact conditional projected-memory template; physical model inputs OPEN"
+}
