@@ -51,8 +51,16 @@ jobs:
         working-directory: verification/lean-mathlib
         run: |
           lake exe cache get
-          lake --rehash build OIBridge.ImplementationLocality
-          lake env lean ../programmes/oi-qm/reconstruction/preservation-induction-design/PreservationInduction.lean
+          lake --rehash build OIBridge.ImplementationLocality OIBridge.StructuralClosure
+          mkdir -p ResearchDesign
+          cp ../programmes/oi-qm/reconstruction/preservation-induction-design/PreservationInduction.lean ResearchDesign/PreservationInduction.lean
+          cp ../programmes/oi-qm/reconstruction/preservation-induction-design/ResearchInstances.lean ResearchDesign/ResearchInstances.lean
+          lake env bash -c '
+            set -e
+            export LEAN_PATH="$PWD:$LEAN_PATH"
+            lean -o ResearchDesign/PreservationInduction.olean ResearchDesign/PreservationInduction.lean
+            lean ResearchDesign/ResearchInstances.lean
+          '
       - name: Check retained records and artifact placement
         run: |
           revision=$(git rev-parse HEAD)
