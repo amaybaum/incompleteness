@@ -1,6 +1,12 @@
 # OI-STATE-OPERATION-SOURCE-1 — local consistency and the physical pair-state source
 
-Status: candidate freeze, native V3 draft for owner review. This is a bounded
+**Status: withdrawn before F; historical, unexecuted native draft.** The
+confirming arguments and corrected controls are retained in the
+[bridge research assessment](https://github.com/amaybaum/incompleteness/blob/research/bridge-compatibility-20261013/verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/source-assessment.md).
+The plan and old design pins below are historical, not a candidate freeze or
+an active execution instruction. No F was designated and no receipt is due.
+
+Original draft status: candidate freeze, native V3 draft for owner review. This is a bounded
 source audit, not a proposed new physical axiom. No compatibility source or
 native execution is claimed by drafting it. Execution waits for an exact-head
 all-green workflow_dispatch run and the owner's designation of F under
@@ -144,8 +150,9 @@ The fixed [W] arguments are in the prospective argument.md below:
   family would be additional, not provided by this equivalence.
 - Preservation by all Phi_k is equivalent to the target's complete third-axis
   flow: closedness gives the D limit; (3+4i)/5 is not a root of unity because
-  its sum with its inverse is 6/5, a noninteger rational algebraic integer if
-  it were; dense powers and closedness give the flow; convexity gives the
+  if z were a root of unity, z + z⁻¹ would be an algebraic integer, whereas
+  here it equals 6/5, which is not a rational algebraic integer. Dense powers
+  and closedness give the flow; convexity gives the
   converse. No availability of the limiting channel is required. The
   J-conjugate/off-frame clause is not reached.
 - Product-test state saturation gives maxCone and hence Q3 inclusion before
