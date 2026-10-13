@@ -78,7 +78,8 @@ theorem multiplexorAngles_recover (n : ℕ) (g : Equiv.Perm (Bits n))
     simp only [← mul_assoc, ← Finset.sum_mul]
     rw [walsh_permuted_orthogonal]
   simp_rw [hinner]
-  simp [eq_comm, pow_ne_zero]
+  have hn : (2 : ℝ) ^ n ≠ 0 := pow_ne_zero _ (by norm_num)
+  simp [eq_comm, hn, mul_comm]
 
 #print axioms walsh_orthogonal
 #print axioms walsh_permuted_orthogonal

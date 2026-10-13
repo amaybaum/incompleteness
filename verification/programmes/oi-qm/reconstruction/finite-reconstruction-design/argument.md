@@ -227,11 +227,15 @@ before printing any result: the test selected the wrong partial-transpose minor
 This was a harness correction, not a change to the witness or decision rule.
 
 There is no Lean executable or Mathlib cache in this execution environment.
-No new declaration has been compiled or adopted. The next formal milestone is
-the k-generic Pauli intertwining plus a Walsh/Gray multiplexor lemma, followed
-by the induction in section 4; the historical KN-DESC design proof needs a fresh
-build on D before native use. No current K2, Kn, manuscript, registry, workflow,
-receipt or native draft record is changed by this research record.
+The generic Pauli, Walsh and finite-circuit algebra sources are recorded in
+[formalization.md](formalization.md), with their separate compilation status
+and remaining obligations. They supply a design for the all-k dictionary and
+angle inversion, rather than an adopted all-k synthesis theorem. The concrete
+Gray circuit transport and the induction in section 4 remain open formal
+links. The historical KN-DESC design proof needs a fresh build on D before
+native use. No current K2, Kn, manuscript, registry, receipt or native draft
+record is changed by this research record. Research-only compilation workflows
+provide design evidence and do not designate F.
 
 Productivity classification: ELABORATING on the consistency axis. The two-sided
 conditional argument is supplied here; exact all-k synthesis remains a written

@@ -1,0 +1,2 @@
+PASS independent carrier controls: 2410; failures: 0
+Includes self-index flows, all spectator choices, arbitrary matrices, and negative controls.

@@ -16,6 +16,30 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact arithmetic dependency
+        run: python -m pip install sympy==1.14.0
+      - name: Replay finite reconstruction and independent descent controls
+        run: |
+          python - <<'PYREPLAY'
+          from pathlib import Path
+          import subprocess
+          import sys
+          f = Path('verification/programmes/oi-qm/reconstruction/finite-reconstruction-design')
+          k = Path('verification/programmes/oi-qm/reconstruction/carrier-descent-design')
+          for p in (f, k):
+              subprocess.run(['sha256sum', '-c', 'SHA256SUMS'], cwd=p, check=True)
+          replays = [(f, 'exact_check.py', 'output.txt', ['--self-test']),
+                     (k, 'source_e3_compress.py', 'source_e3_expected.txt', []),
+                     (k, 'independent_check.py', 'independent-output.txt', [])]
+          for p, script, saved, args in replays:
+              r = subprocess.run([sys.executable, '-I', '-B', str(p / script), *args], capture_output=True, check=True)
+              if r.stderr or r.stdout != (p / saved).read_bytes():
+                  raise SystemExit(f'Failed saved-output comparison: {script}')
+          print('All three exact replays match their saved outputs')
+          PYREPLAY
       - name: Install elan
         run: |
           curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
