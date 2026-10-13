@@ -1,0 +1,4 @@
+controls: 341; mutations rejected: 4
+entangling phase product preimage determinant: -1/400
+four-outcome reflection pairing sum: -2
+certificate controls pass; generic SP implication remains open
