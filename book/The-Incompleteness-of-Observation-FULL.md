@@ -5655,7 +5655,7 @@ The horizon calibration and radiation entries inherit H-slope and the horizon/fr
 | G8 | Running vacuum $\nu_{\text{OI}}$ | Type II interpretation not derived; conditional emergent-QFT-scale magnitude $|\nu| \approx |\nu_{\text{QFT}}| \sim (M_{\text{SM}}/M_{\text{Pl}})^2 \sim 10^{-32}$, indistinguishable from zero | L | 2(a) | DESI Year 5 decisive ($\sim 1$% on $\nu$); Bertini 2025 $\nu=-(2.5\pm1.3)\times10^{-4}$ consistent at $2\sigma$ | Ch 7 §7.8 |
 | G9 | Dark sector budget | $\sim 95\%$ | C | 1 | Partly definitional budget | Ch 7 §7.9 |
 | G11 | Page curve | Nested trace-out and H-scramble | C | 1 | Scrambling condition open | Ch 7 §7.6 |
-| G12 | $\Sigma m_\nu \sim 0.059$ eV | Hierarchical spectrum with oscillation inputs | L | 3 | Upper bounds only | Ch 8 |
+| G12 | $\Sigma m_\nu \sim 0.059$ eV | Measured splittings | L | 3 | Upper bounds only | Ch 8 |
 | G13 | Lorentz violation | Free dispersion $O((k\epsilon)^2)$; interactions open | C | 0 | Interacting protection open | Ch 7 §7.4 |
 | G14 | Boundary entropy | $\rho_s = \rho_{\text{crit}}$ | S | 1 | Normalization identity | Ch 7 §7.9 |
 
