@@ -37,7 +37,7 @@ jobs:
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteWalsh.lean ResearchDesign/FiniteWalsh.lean
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteCircuit.lean ResearchDesign/FiniteCircuit.lean
           lake env bash -c '
-            export LEAN_PATH="$PWD/ResearchDesign:$PWD:$LEAN_PATH"
+            export LEAN_PATH="$LEAN_PATH:$PWD/ResearchDesign:$PWD"
             design_status=0
             lean -o ResearchDesign/FinitePauli.olean ResearchDesign/FinitePauli.lean || design_status=1
             lean ResearchDesign/FiniteWalsh.lean || design_status=1
