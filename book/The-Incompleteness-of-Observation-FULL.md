@@ -6251,7 +6251,7 @@ Sections C.4-C.6 engage the foundational concerns: the role of the stochastic-qu
 
 Section C.7 engages computational implementability concerns — specifically Wolpert's theorem on physical computability and how the framework's content relates to it. Section C.8 engages the framework's relationship to standard interpretations of quantum mechanics: Many-Worlds (MWI), Bohmian mechanics, and QBism.
 
-Sections C.9-C.11 engage framework-specific concerns: the substratum-emergent operator distinction (whether the framework's distinction between substratum and emergent operators is a substantive structural feature or just renaming), circularity concerns (particularly around the gap equation deriving $\hbar$), and the framework's epistemic status as a structural framework rather than a competing physical theory.
+Sections C.9-C.11 engage framework-specific concerns: the substratum-emergent operator distinction (whether the framework's distinction between substratum and emergent operators is a substantive structural feature or just renaming) together with the parallel question whether observational incompleteness is the uncertainty principle renamed (C.9.1), circularity concerns (particularly around the gap equation deriving $\hbar$), and the framework's epistemic status as a structural framework rather than a competing physical theory.
 
 Section C.12 engages meta-objections: credentials, scope, and the framework's ambition. The appendix closes with a brief discussion of which objections the framework cannot address (acknowledging genuine limits of the framework's reach) and which objections turn out to be category errors (where the framework's structural commitments dissolve apparent puzzles by relocating them).
 
@@ -6446,6 +6446,26 @@ These empirical patterns are not generic effective-field-theory predictions; the
 **The methodological asymmetry.** The framework's substratum-emergent distinction operates *the same way* in fundamental physics and in biology. The same structural pattern that organizes baryon-number conservation and anomaly matching in fundamental physics also organizes iPSC reprogramming residuals, bivalent chromatin states, and methylation classification in biology. The standard fundamental/effective distinction does not have this cross-domain reach — it is specifically a tool of effective field theory, not a general structural principle.
 
 The framework's content is therefore that the substratum-emergent operator distinction is a *general structural principle* with applications across physics and biology, rather than a domain-specific tool. This generality is itself substantive content beyond the standard effective-field-theory distinction.
+
+### C.9.1 Observational incompleteness and the uncertainty principle: substantive or renaming?
+
+**The objection.** "Quantum mechanics already says that an observer cannot know everything about a system: that is Heisenberg's uncertainty principle. 'Observational incompleteness' renames it — or revives Heisenberg's original microscope picture, in which observation disturbs a system that has definite values all along. Either way, nothing new is being said."
+
+**The framework's response.** The two are different statements; the framework proves an uncertainty-type obstruction and classifies it as carrying no evidence for the framework; and the sharp form of the objection points to an open question rather than to a renaming.
+
+*What the uncertainty principle says.* The principle goes back to Heisenberg (1927). In its standard quantitative forms it is a family of inequalities in the commutator of two observables: the preparation relation $\sigma_A\sigma_B \geq \tfrac{1}{2}|\langle[A,B]\rangle|$ (Robertson 1929), which limits how sharply a single state can fix two non-commuting observables, and the error–disturbance relations (Ozawa 2003; Busch, Lahti and Werner 2013), which limit how accurately one observable can be measured without disturbing another. These are theorems of the quantum formalism, valid under every interpretation; they take the formalism as given and say nothing about why it holds. A single observable can be perfectly sharp: the principle constrains pairs.
+
+*What observational incompleteness says.* The framework's incompleteness concerns an observer embedded in a larger finite deterministic system: the observer's description is a marginal over a hidden sector it cannot access. Its discriminating content is history readback (C4): every faithful deterministic completion of the observer's visible process carries readout-relevant hidden predictive memory that the observer cannot read. This holds for a single fixed readout — one register, recorded over time, with no choice between measurements — where the uncertainty principle has nothing to bound. The visible laws of fixed-readout records are exactly the finite stochastic laws (Main §3.4), and no uncertainty relation constrains that class.
+
+*Where the uncertainty principle sits in the framework.* The framework proves a qualitative counterpart of the principle as a theorem about observation. An instrument that leaves every state unchanged on average — a passive instrument — learns only about the commutative center of the observable algebra, so complete passive observation fails whenever the algebra is non-commutative (Main §3.4); this is the finite-dimensional form of "no information without disturbance" (Busch 2009). The framework then classifies the statement as non-discriminating: it holds in every finite operational theory with two or more states, whether or not the framework's core conditions hold, and the framework's formal verification exhibits a theory that satisfies it and violates the core. Robertson's inequality is in the same position, since it is a property of density matrices and Hermitian matrices as such. Neither counts as evidence for the framework.
+
+*The sharp form of the objection.* A stronger critic makes a different point: the framework does not derive, from embedded observation, the non-commutative structure that gives the uncertainty principle its content. That is correct. The relations bind only where non-commuting observables are operationally available, and the proved equivalence between stochastic, deterministic and quantum descriptions concerns readout in one fixed basis, which an ordinary classical stochastic process also reproduces. The coherent preparations and non-commuting instruments of standard quantum theory, together with its composites, form one quantum operational theory under the completion conditions of the quantum-complete extension OI⁺, none of which embedded observation supplies on its own; once reversible control is present, the core clause is logically redundant in that derivation, and the finite realization theorem realizes non-quantum operational theories as well (Main §3.4). Whether embedded observation selects the non-commutative structure is the framework's open selection problem. The framework's incompleteness accounts for what an embedded observer cannot access; it does not account for the specific non-commutative form of quantum uncertainty.
+
+*Heisenberg's microscope and Bell's theorem.* The microscope picture — observation disturbing a system with definite values — is the picture Bell's theorem constrains: a local model with setting-independent hidden variables cannot reproduce quantum correlations. The framework does posit a definite deterministic substratum, and it states the price (Section C.2): it keeps measurement independence and takes ontic parameter dependence, with operational no-signaling. The uncertainty principle carries no commitment of this kind, so the two positions differ in ontology as well as in content.
+
+*A precedent.* Spekkens' toy theory (Spekkens 2007) shows how far a bare restriction on knowledge reaches: an epistemic restriction alone reproduces complementarity, uncertainty-like trade-offs and no-cloning, but not violations of Bell inequalities. The framework's classification agrees with this lesson: restricted access does not by itself single out quantum theory.
+
+**The relation summarized.** The two are different statements. The uncertainty-type obstruction is proved and classified as non-discriminating. Deriving from embedded observation the non-commutative structure that gives the uncertainty relations their content is open, as part of the selection problem.
 
 ## C.10 Circularity concerns: the gap equation deriving $\hbar$
 
@@ -6760,6 +6780,10 @@ Bell, J. S. (1964). On the Einstein-Podolsky-Rosen paradox. *Physics Physique Fi
 
 Bong, K.-W., Utreras-Alarcón, A., Ghafari, F., Liang, Y.-C., Tischler, N., Cavalcanti, E. G., Pryde, G. J., & Wiseman, H. M. (2020). A strong no-go theorem on the Wigner's friend paradox. *Nature Physics* 16: 1199-1205.
 
+Busch, P. (2009). "No information without disturbance": Quantum limitations of measurement. In W. C. Myrvold & J. Christian (Eds.), *Quantum Reality, Relativistic Causality, and Closing the Epistemic Circle*. Springer.
+
+Busch, P., Lahti, P., & Werner, R. F. (2013). Proof of Heisenberg's error-disturbance relation. *Physical Review Letters* 111: 160405.
+
 Clauser, J. F., Horne, M. A., Shimony, A., & Holt, R. A. (1969). Proposed experiment to test local hidden-variable theories. *Physical Review Letters* 23: 880-884.
 
 Colbeck, R., & Renner, R. (2011). No extension of quantum theory can have improved predictive power. *Nature Communications* 2: 411.
@@ -6774,13 +6798,21 @@ Fein, Y. Y., Geyer, P., Zwick, P., Kiałka, F., Pedalino, S., Mayor, M., Gerlich
 
 Fine, A. (1982). Hidden variables, joint probability, and the Bell inequalities. *Physical Review Letters* 48: 291-295.
 
+Heisenberg, W. (1927). Über den anschaulichen Inhalt der quantentheoretischen Kinematik und Mechanik. *Zeitschrift für Physik* 43: 172-198.
+
 Nimmrichter, S., and Hornberger, K. (2013). Macroscopicity of mechanical quantum superposition states. *Physical Review Letters* 110: 160403.
 
+Ozawa, M. (2003). Universally valid reformulation of the Heisenberg uncertainty principle on noise and disturbance in measurement. *Physical Review A* 67: 042105.
+
 Pedalino, S., Ramírez-Galindo, B. E., Ferstl, R., Hornberger, K., Arndt, M., and Gerlich, S. (2026). Probing quantum mechanics with nanoparticle matter-wave interferometry. *Nature* 649: 866.
+
+Robertson, H. P. (1929). The uncertainty principle. *Physical Review* 34: 163-164.
 
 Rössler, O. E. (1998). *Endophysics: The World as an Interface*. World Scientific.
 
 Schrödinger, E. (1935). Die gegenwärtige Situation in der Quantenmechanik. *Die Naturwissenschaften* 23: 807-812, 823-828, 844-849.
+
+Spekkens, R. W. (2007). Evidence for the epistemic view of quantum states: A toy theory. *Physical Review A* 75: 032110.
 
 Szangolies, J. (2018). Epistemic horizons and the foundations of quantum mechanics. *Foundations of Physics* 48(12): 1669-1697.
 
