@@ -10,6 +10,11 @@ hypothesis; this module does not prove the published classification or its
 translation into that hypothesis. Both orientations transfer to real spectra.
 The reversed exceptional branch is excluded by conjugating the source
 coefficient data and applying the existing six-mode obstruction.
+
+The real-to-integer reduction is stated once, as `real_to_integer_surrogate`. It is the
+reduction that `ScopeTransfer.spectral_classification_of_BG` carries out inline before
+applying its premise; the `example` after the signed theorem derives that theorem's
+statement from the lemma, so the adopted proof factors through it.
 -/
 
 namespace OIBridge.ScopeTransferSigned
@@ -33,19 +38,27 @@ def BGIntegerClassificationSigned : Prop :=
       ∨ (∀ a b : Fin 6, a < b →
         F' (eT (mu a b).2) - F' (eT (mu a b).1) = F (eS a) - F (eS b))
 
-/-- The integer-to-real transfer preserves the globally chosen orientation. -/
-theorem spectral_classification_of_BGSigned (hBG : BGIntegerClassificationSigned)
-    {n : ℕ} (E E' : Fin n → ℝ)
+/-- The real-to-integer reduction shared by the unsigned and the signed classification. Real
+spectra with distinct gaps and equal gap sets are translation-congruent, reflection-congruent, or
+sorted relabelings of an integer surrogate pair that meets every hypothesis of the integer
+classification and whose directed gap identities transport back to the real spectra. -/
+theorem real_to_integer_surrogate {n : ℕ} (E E' : Fin n → ℝ)
     (hgapE : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
     (hgapE' : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)
     (hsets : Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ
       = Finset.image (fun q : Fin n × Fin n => E' q.2 - E' q.1) Finset.univ) :
     (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)
     ∨ (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)
-    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
-        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS b) - E (eS a))
-    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
-        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS a) - E (eS b)) := by
+    ∨ ∃ (σ σ' : Equiv.Perm (Fin n)) (F F' : Fin n → ℤ),
+        StrictMono F ∧ StrictMono F' ∧
+        (∀ a b c d : Fin n, a < b → c < d → F b - F a = F d - F c → a = c ∧ b = d) ∧
+        (∀ a b c d : Fin n, a < b → c < d → F' b - F' a = F' d - F' c → a = c ∧ b = d) ∧
+        (Finset.image (fun p : AscPair n => F p.1.2 - F p.1.1) Finset.univ
+          = Finset.image (fun p : AscPair n => F' p.1.2 - F' p.1.1) Finset.univ) ∧
+        (¬ ∃ c : ℤ, ∀ i, F' i = F i + c) ∧
+        (¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev) ∧
+        (∀ a b c d : Fin n, a ≠ b → F' d - F' c = F b - F a →
+          (E' ∘ σ') d - (E' ∘ σ') c = (E ∘ σ) b - (E ∘ σ) a) := by
   classical
   rcases Nat.eq_zero_or_pos n with hn0 | npos
   · subst hn0
@@ -174,7 +187,6 @@ theorem spectral_classification_of_BGSigned (hBG : BGIntegerClassificationSigned
   have hFnorf : ¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev := by
     rintro ⟨c, hc⟩
     exact hFnr (by rw [hc i₁, hc ⟨0, npos⟩]; ring)
-  obtain ⟨eS, eT, hint⟩ := hBG n F F' hFm hF'm hFg hF'g hFsets hFnottr hFnorf
   -- The surrogate's forced directed gaps transport in either orientation.
   have transfer_gap : ∀ a b c d : Fin n, a ≠ b →
       F' d - F' c = F b - F a →
@@ -222,6 +234,27 @@ theorem spectral_classification_of_BGSigned (hBG : BGIntegerClassificationSigned
           = (E ∘ σ) (a) - (E ∘ σ) (b) := hν2 ⟨(b, a), h⟩
       rw [hpair.1, hpair.2]
       linarith [hEp]
+  right; right
+  exact ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩
+
+/-- The integer-to-real transfer preserves the globally chosen orientation. -/
+theorem spectral_classification_of_BGSigned (hBG : BGIntegerClassificationSigned)
+    {n : ℕ} (E E' : Fin n → ℝ)
+    (hgapE : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hgapE' : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)
+    (hsets : Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ
+      = Finset.image (fun q : Fin n × Fin n => E' q.2 - E' q.1) Finset.univ) :
+    (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)
+    ∨ (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)
+    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
+        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS b) - E (eS a))
+    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
+        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS a) - E (eS b)) := by
+  rcases real_to_integer_surrogate E E' hgapE hgapE' hsets with htr | hrf |
+    ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩
+  · exact Or.inl htr
+  · exact Or.inr (Or.inl hrf)
+  obtain ⟨eS, eT, hint⟩ := hBG n F F' hFm hF'm hFg hF'g hFsets hFnottr hFnorf
   rcases hint with hplus | hminus
   · right; right; left
     refine ⟨eS.trans σ, eT.trans σ', fun a b hab => ?_⟩
@@ -231,6 +264,26 @@ theorem spectral_classification_of_BGSigned (hBG : BGIntegerClassificationSigned
     refine ⟨eS.trans σ, eT.trans σ', fun a b hab => ?_⟩
     exact transfer_gap (eS b) (eS a) (eT (mu a b).1) (eT (mu a b).2)
       (fun h => hab.ne (eS.injective h.symm)) (hminus a b hab)
+
+-- The adopted unsigned classification factors through the same reduction: its statement
+-- follows from `real_to_integer_surrogate` and the unsigned premise.
+example (hBG : BGIntegerClassification) {n : ℕ} (E E' : Fin n → ℝ)
+    (hgapE : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hgapE' : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)
+    (hsets : Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ
+      = Finset.image (fun q : Fin n × Fin n => E' q.2 - E' q.1) Finset.univ) :
+    (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)
+    ∨ (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)
+    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
+        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS b) - E (eS a)) := by
+  rcases real_to_integer_surrogate E E' hgapE hgapE' hsets with htr | hrf |
+    ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩
+  · exact Or.inl htr
+  · exact Or.inr (Or.inl hrf)
+  obtain ⟨eS, eT, hint⟩ := hBG n F F' hFm hF'm hFg hF'g hFsets hFnottr hFnorf
+  refine Or.inr (Or.inr ⟨eS.trans σ, eT.trans σ', fun a b hab => ?_⟩)
+  exact transfer_gap (eS a) (eS b) (eT (mu a b).1) (eT (mu a b).2)
+    (fun h => hab.ne (eS.injective h)) (hint a b hab)
 
 open Matrix CongruentReconstruction BohrFrequency
 local notation "conj'" => (starRingEnd ℂ)

@@ -56,6 +56,10 @@ branch by conjugating the source eigenbasis and applying the existing
 six-mode obstruction. The exclusion uses the actual hypotheses: unitarity,
 nonzero overlaps, distinct gaps on both sides and equality of all probability
 families. The general signed classification remains an explicit hypothesis.
+The real-to-integer reduction is the lemma `real_to_integer_surrogate`, from
+which the signed classification follows and from which an `example` derives
+the statement of the adopted `spectral_classification_of_BG`, whose own proof
+carries the same reduction inline.
 
 The manuscript and registry statements of this result are in
 `papers/GR.md` §3.3 and `verification/coverage/LEDGER.json`. BG-1's frozen
