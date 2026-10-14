@@ -60,8 +60,9 @@ x, y = family('piccardX'), family('piccardY')
 phi1 = {(0, 0): 1, (1, 0): 1, (0, 1): 1}
 phi2 = {(0, 0): 1, (-2, 1): 1, (-1, 1): -1, (-1, 2): 1}
 phi2_reverse = {(0, 0): 1, (0, 1): -1, (1, 1): 1, (-1, 2): 1}
-assert product(phi1, phi2) == dict(Counter(x))
-assert product(phi1, phi2_reverse) == dict(Counter(y))
+factorizations_match = (product(phi1, phi2) == dict(Counter(x))
+                        and product(phi1, phi2_reverse) == dict(Counter(y)))
+assert factorizations_match
 mu_body = homometric.split('def mu :', 1)[1].split('def muInv :', 1)[0]
 mu = {(int(a), int(b)): (int(c), int(d)) for a, b, c, d in
       re.findall(r'\|\s*(\d)\s*,\s*(\d)\s*=>\s*\((\d)\s*,\s*(\d)\)', mu_body)}
@@ -94,7 +95,22 @@ for swapped in (False, True):
             rows.append({'swapped': swapped, 'source_reflected': source_reflected,
                          'target_reflected': target_reflected, 'identity_counts': actual})
 
-print(json.dumps({'factorizations_match': True, 'orientation_table': rows,
+# Countercontrols: the same count must come out empty off the quoted correspondence.
+broken_mu = dict(mu)
+broken_mu[0, 2], broken_mu[0, 3] = broken_mu[0, 3], broken_mu[0, 2]
+countercontrols = {
+    'translated_family': counts(x, tuple(plus(v, (1, 0)) for v in x)),
+    'reflection_congruent_family': counts(x, tuple(minus(span, v) for v in x)),
+}
+mu_saved = dict(mu)
+mu.update(broken_mu)
+countercontrols['corrupted_correspondence'] = counts(x, y)
+mu.update(mu_saved)
+assert counts(x, y) == [3, 0]
+assert all(v == [0, 0] for v in countercontrols.values())
+
+print(json.dumps({'factorizations_match': factorizations_match, 'orientation_table': rows,
+                  'countercontrols': countercontrols,
                   'arithmetic': 'integer coefficient vectors; polynomial identities',
                   'scope': 'recorded quoted family and its orientation/order variants; '
                            'no statement that every exceptional pair belongs to it'},

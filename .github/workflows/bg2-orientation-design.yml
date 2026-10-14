@@ -2,7 +2,9 @@ name: BG2 orientation design
 
 on:
   push:
-    branches: [codex/bg2-orientation-design-20261014]
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/**'
+      - '.github/workflows/bg2-orientation-design.yml'
   pull_request:
     paths:
       - 'verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/**'
@@ -25,9 +27,11 @@ jobs:
           python-version: '3.11'
       - name: Exact independent orientation checks
         run: |
-          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact_check.py
-          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent_check.py
-          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/quoted_family_check.py
+          set -o pipefail
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact_check.py | diff - verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact-output.json
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent_check.py | diff - verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent-output.json
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/quoted_family_check.py | diff - verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/quoted-family-output.json
+          sha256sum -c verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/SHA256SUMS
       - name: Install elan
         run: |
           curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/bg2-elan-init.sh
@@ -77,6 +81,10 @@ jobs:
                   raise SystemExit(f'Unexpected repair axioms: {axioms - allowed}')
           print('All three conditional repair reports use only standard axioms.')
           PY
+          cat /tmp/bg2-orientation-axioms.txt /tmp/bg2-signed-axioms.txt \
+            | grep 'depends on axioms' | sort > /tmp/bg2-actual-reports.txt
+          grep 'depends on axioms' ../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/axiom-reports.txt \
+            | sort | diff /tmp/bg2-actual-reports.txt -
       - name: Historical preservation and placement
         run: |
           bg2_revision=$(git rev-parse HEAD)

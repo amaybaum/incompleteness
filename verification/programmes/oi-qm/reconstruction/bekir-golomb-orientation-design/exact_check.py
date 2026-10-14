@@ -67,11 +67,12 @@ for swapped in (False, True):
                          'target_reflected': target_reflected, 'counts': actual})
 
 # Independent positive and negative inputs exercise every nontriviality gate.
-assert not eligible(r1, tuple(v + 3 for v in r1))
-assert not eligible(r1, reflect(r1))
 broken_mu = dict(mu)
 broken_mu[0, 2], broken_mu[0, 3] = broken_mu[0, 3], broken_mu[0, 2]
-assert counts(r1, r2, broken_mu) == [0, 0]
+countercontrols = {'translation_ineligible': not eligible(r1, tuple(v + 3 for v in r1)),
+                   'reflection_ineligible': not eligible(r1, reflect(r1)),
+                   'corrupted_correspondence_unmatched': counts(r1, r2, broken_mu) == [0, 0]}
+assert all(countercontrols.values())
 
 # Check the small algebraic reduction used by the Lean diagnostic.
 survivors = []
@@ -87,7 +88,7 @@ for s in perms:
         assert not any((y[j]-y[i], y[k]-y[i]) == differences
                        for i in range(6) for j in range(6) for k in range(6))
 assert len(survivors) == 3
-print(json.dumps({'orientation_table': rows, 'source_reduction_survivors': 3,
-                  'countercontrols_rejected': 3,
+print(json.dumps({'orientation_table': rows, 'source_reduction_survivors': len(survivors),
+                  'countercontrols_rejected': sum(countercontrols.values()),
                   'scope': 'exact finite diagnostic of the formal premise; no classification theorem'},
                  indent=2, sort_keys=True))
