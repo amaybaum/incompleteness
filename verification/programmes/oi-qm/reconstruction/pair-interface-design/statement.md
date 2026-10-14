@@ -143,7 +143,7 @@ kToken_cone_and_descent
 | ContextStable | spectator for one-token gates | introduced; at k only needed off qubit-power carriers (B L7) |
 | LabelInvariant | k-token relabelling, descent | introduced; unused at the pair |
 | DaggerStable | — | unused by step 4 |
-| one-token transition flows, one pair exchange (⊂ DrivesElementary) | off-diagonal control | **unsourced; false for the substratum class** (`substratum_residual`), the same residual as Arc D / K∞-Drive `J` / Bell (AW-E3) |
+| one-token transition flows, one pair exchange (⊂ DrivesElementary) | off-diagonal control | **unsourced; false for the substratum class** (`substratum_residual`); the continuous family is the resource Arc D and K∞-Drive's `J` name, which the presently stated architecture does not source (frozen-sourcing audit). A Bell violation needs less: particular non-monomial gates and measurement settings suffice, and monomial-only protocols stay within CHSH ≤ 2 (thread E, W6) |
 | H-COMPAT (PairCompat / ConeCompat_k) | state–operation compatibility | introduced, unsourced; availability does not imply it (#820 K_B) |
 | H-CAR | carrier identification | introduced, unsourced (k ≥ 3) |
 | hprod, hadd, hsmul (as availability) | preparations | unsourced |
