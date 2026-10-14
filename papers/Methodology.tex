@@ -46,6 +46,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -1645,9 +1649,11 @@ change} --- replacing the local state space \(\mathbb{Z}/q\mathbb{Z}\)
 by \(\mathbb{Z}/q'\mathbb{Z}\) for any \(q,q'\ge 2\), with every
 prediction proved independent of the choice. \emph{Deep-sector
 enlargement} --- adjoining hidden degrees of freedom beyond the boundary
-layer, with arbitrary slow dynamics, leaves the emergent description
-unchanged, the observables depending only on the visible and boundary
-sectors. \emph{Graph isomorphism up to statistical isotropy} --- two
+layer that no dynamics couples to it leaves every transition
+probability, and so the emergent description, unchanged; an extension
+coupled to the boundary layer with slow dynamics preserves only the
+leading-order transition law on accessible timescales and is not a
+generator. \emph{Graph isomorphism up to statistical isotropy} --- two
 coupling graphs with the same polynomial growth dimension, spectral mode
 count, and large-scale isotropy produce the same emergent
 quantum-mechanical, dimensional, and gravitational content, so for that
@@ -3130,4 +3136,4 @@ deriving temporal succession.'' PhilSci-Archive preprint 20893.
 Time}, 2nd edn. Clarendon Press, Oxford.
 
 \end{document}
-% source-sha256: 8c3dc391734fdfa924e3e67be1db2c6bea1aa199cf8706574514af1bf3c9e5d8
+% source-sha256: ecef7de3d249120fdd51d38fbb75bdd29e20c3e352a01969f0e63eaa4851a202

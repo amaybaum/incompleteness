@@ -3428,14 +3428,18 @@ parametrized by the integers \(q \geq 2\).
 partition boundary --- what Chapter 7 will call the \emph{deep} hidden
 sector \(\mathcal{C}_D\), distinct from the boundary layer
 \(\mathcal{C}_B\) --- can be enlarged arbitrarily without changing
-observables. Adjoining additional degrees of freedom to
-\(\mathcal{C}_D\) with arbitrary dynamics satisfying
-\(\tau_B^D \gg \tau_S\) leaves the emergent description unchanged. The
-boundary-only dependence lemma (Chapter 7) proves that visible-sector
-transition probabilities depend only on the boundary layer
-\(\mathcal{C}_B\) to corrections of order \(\tau_S/\tau_B^D\). The deep
-sector may be finite of any size, or infinite --- the observer's
-predictions are insensitive to which.
+observables, provided the added degrees of freedom are decoupled:
+adjoining to \(\mathcal{C}_D\) degrees of freedom that no dynamics
+couples to the boundary layer leaves every visible-sector transition
+probability unchanged at every time, and with it the emergent
+description. Such a deep sector may be finite of any size, or infinite
+--- the observer's predictions are insensitive to which. An enlargement
+whose dynamics couples to the boundary layer, even slowly
+(\(\tau_B^D \gg \tau_S\)), is not in this family: the boundary-only
+dependence lemma (Chapter 7) shows that it changes the transition
+probabilities only by corrections of order \(\tau_S/\tau_B^D\), so it
+preserves their leading-order law on accessible timescales, not the
+probabilities themselves.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
@@ -3468,11 +3472,12 @@ the dimension via Myrheim-Meyer, the eigenvalue multiplicities
 \((3, 2, 1)\). Generator (ii): \(q\)-independence of every Standard
 Model prediction is established in Chapters 5 and 6 (the predictions
 involve only ratios and cubic-group representation theory, both
-\(q\)-independent). Generator (iii): the boundary-only dependence lemma
-gives the result directly. Generator (iv): the derivation chain in Stage
-2 uses only statistical properties of \(G_\varphi\) --- dimension,
-spectral dimension, bounded degree, isotropy --- never specific graph
-features. \(\square\)
+\(q\)-independent). Generator (iii): the adjoined degrees of freedom are
+decoupled, so averaging over them leaves the visible marginal, and every
+transition probability, unchanged. Generator (iv): the derivation chain
+in Stage 2 uses only statistical properties of \(G_\varphi\) ---
+dimension, spectral dimension, bounded degree, isotropy --- never
+specific graph features. \(\square\)
 
 \textbf{Conditional completeness.} For the reconstructed dilation/local
 datum, and subject to the semigroup-transfer lemma (Substratum Lemma
@@ -3579,7 +3584,7 @@ of the substratum, not chosen from a landscape.
 \textbf{Substrate freedom and the realism question.} The substratum
 gauge group makes precise an earlier claim. Different gauge
 representatives within an equivalence class produce identical
-observables: state relabelings, alphabet changes, deep-sector
+observables: state relabelings, alphabet changes, decoupled deep-sector
 enlargements, and graph isomorphisms all leave every measurement outcome
 unchanged. The question ``which specific substratum representative is
 real?'' therefore has no empirical content. Two representatives in the
@@ -5214,19 +5219,22 @@ The framework takes none of the three classical exits, because it can
 prove that the question loses reference before it needs an answer. The
 reconstruction determines the substratum only up to the gauge group
 \(\mathcal{G}_{\text{sub}}\) (Chapter 2 §2.5), and one of its four
-generator families is deep-sector enlargement: add unobservable
-substrate structure beneath the boundary layer and every observable ---
-every transition probability, the emergent Hamiltonian, \(\hbar\) itself
---- is unchanged. So each candidate answer to the hardware question is
-one of two things. Either it is more structure, in which case it has
-been absorbed into \((S, \varphi)\) and the question repeats; or it is
-deep-sector content, in which case §3.6's identification applies in its
-strong species: gauge incompleteness, where the inaccessible ``fact'' is
-no fact at all. The tower is therefore not terminated by a special
-turtle that stands on nothing; it ends at a line the framework can state
-exactly, and the line is a criterion rather than a depth. A putative
-fact about the tower is physical if and only if it is an \emph{invariant
-of the gauge class} --- the same on every representative of
+generator families is deep-sector enlargement: add substrate structure
+beneath the boundary layer that no dynamics couples to it, and every
+observable --- every transition probability, the emergent Hamiltonian,
+\(\hbar\) itself --- is unchanged; structure coupled to the boundary
+layer with slow dynamics leaves unchanged only the leading-order
+transition law on accessible timescales. So each candidate answer to the
+hardware question is one of two things. Either it is more structure, in
+which case it has been absorbed into \((S, \varphi)\) and the question
+repeats; or it is deep-sector content, in which case §3.6's
+identification applies in its strong species: gauge incompleteness,
+where the inaccessible ``fact'' is no fact at all. The tower is
+therefore not terminated by a special turtle that stands on nothing; it
+ends at a line the framework can state exactly, and the line is a
+criterion rather than a depth. A putative fact about the tower is
+physical if and only if it is an \emph{invariant of the gauge class} ---
+the same on every representative of
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) --- and it is gauge exactly
 when the group's generators move it while every observable stays fixed.
 For the support question the crossing sits at the
@@ -5234,25 +5242,29 @@ boundary-layer/deep-sector interface. One step down, the hidden sector's
 capacity, timescales, coupling structure, and energetic content are
 class invariants --- every representative carries them, which is why
 they can be deduced (the computational species of §3.6, taken up below).
-One step further, every candidate answer to \emph{what does the boundary
-layer run on} --- this substrate or that, larger or smaller cardinality,
-native or simulated --- lies inside a single
-\(\mathcal{G}_{\text{sub}}\)-orbit, because deep-sector enlargement is
-one of the group's own generators: no invariant separates the
-candidates, so there is nothing for an answer to be right about. Below
-that line the sortal \emph{turtle} stops being well-formed, and asking
-what the structure runs on becomes --- precisely, not loosely --- the
-analogue of asking which coordinate chart spacetime is really in: there
-the diffeomorphism invariants exhaust the physics, and here the
+One step further, candidate answers to \emph{what does the boundary
+layer run on} that differ only by decoupled deep-sector structure ---
+this substrate or that, larger or smaller cardinality, native or
+simulated --- lie inside a single \(\mathcal{G}_{\text{sub}}\)-orbit,
+because decoupled deep-sector enlargement is one of the group's own
+generators: no invariant separates the candidates, so there is nothing
+for an answer to be right about. Below that line the sortal
+\emph{turtle} stops being well-formed, and asking what the structure
+runs on becomes --- precisely, not loosely --- the analogue of asking
+which coordinate chart spacetime is really in: there the diffeomorphism
+invariants exhaust the physics, and here the
 \(\mathcal{G}_{\text{sub}}\) invariants do, conditional on the
 semigroup-transfer completeness step (that exhaustion is what the
 reconstruction theorem's equivalence-class form, read through §3.6's
 identification, conditionally asserts). A question about representation,
 mistaken for a question about the world. The same accounting absorbs the
 regress's modern costume, the simulation hypothesis: a simulated
-\((S, \varphi)\) and a native one differ only by deep-sector structure
-invisible to every embedded observer, so on the framework's own gauge
-bookkeeping there is no physics question there to answer.
+\((S, \varphi)\) and a native one that differ only by deep-sector
+structure decoupled from the boundary layer are indistinguishable to
+every embedded observer, so on the framework's own gauge bookkeeping
+there is no physics question there to answer; a difference coupled to
+the boundary layer, however slowly, enters the transition probabilities
+at \(\mathcal{O}(t/\tau_B)\).
 
 The dissolution must be scoped, though, and the scoping is this
 chapter's own two-species distinction (§3.6). Not every turtle below us
@@ -30022,4 +30034,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: bf1a88ea661b7f885a5c0448711d755bee78ac69f6396002fa7e9f2252554c8a
+% source-sha256: 241e6f824656e1fb0848a186ff1e880b1de2343e6ac1098f7ff4e9f31520b5d5

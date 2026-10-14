@@ -591,13 +591,16 @@ undecidability is computability theory. The framework also identifies a
 second class of inaccessible quantities --- the alphabet size \(q\)
 ({[}SM, §2.7{]}) and the deep-sector cardinality \(|\mathcal{C}_D|\)
 ({[}GR, §3.2{]}) --- but these are \emph{gauge}, not undecidable:
-different values of \(q\) produce identical observables, and different
-values of \(|\mathcal{C}_D|\) produce the same transition data at
-leading order on accessible timescales (Corollary (effective finiteness
-and gauge-class transfer), §4), so within those data the question is
-physically empty. The hidden state \(h\) is undecidable (real answer,
-provably inaccessible). The cardinality \(|\mathcal{C}_D|\) is gauge (no
-answer to find in the accessible-timescale data).
+different values of \(q\) produce identical observables, as do different
+cardinalities of a deep sector that no dynamics couples to the boundary
+layer (Theorem 24(ii)--(iii), §4), so the question is physically empty.
+For a deep sector coupled to the boundary layer with slow dynamics,
+different values of \(|\mathcal{C}_D|\) produce the same leading-order
+transition law on accessible timescales (Corollary (effective finiteness
+and gauge-class transfer), §4), and the question is empty only within
+that law. The hidden state \(h\) is undecidable (real answer, provably
+inaccessible). In the decoupled case the cardinality \(|\mathcal{C}_D|\)
+is gauge (no answer to find).
 
 \textbf{Mathematics and physics.} The trace-out performs a
 Jordan-Chevalley projection ({[}SM, Appendix A{]}): it extracts the
@@ -682,14 +685,19 @@ substrates \((S, \varphi)\)):
 (Two-part status. E3, with the holographic bound read as a Hilbert-space
 dimension cutoff \(\dim \mathcal{H} \leq e^{A/4}\), bounds what
 observation reaches: the visible sector and its boundary layer,
-\(\mathcal{C}_V \times \mathcal{C}_B\) --- which is also all that the
-emergent observables depend on, by the boundary-only dependence lemma
-{[}GR §3.2{]}. The extension to all of \(S\) is then a gauge choice
-rather than a further fact: by the deep-sector enlargement freedom
-(Theorem 24(iii)), the deep hidden sector may be finite of any size, or
-infinite, without changing the emergent description, and A1 selects the
-minimal --- finite --- representative of the equivalence class (made
-precise in the corollary following Theorem 24). The substrate's total
+\(\mathcal{C}_V \times \mathcal{C}_B\) --- on which the emergent
+observables depend at leading order on accessible timescales, by the
+boundary-only dependence lemma {[}GR §3.2{]}. For a deep hidden sector
+that no dynamics couples to the boundary layer, the extension to all of
+\(S\) is a gauge choice rather than a further fact: by the deep-sector
+enlargement freedom (Theorem 24(iii)), such a sector may be finite of
+any size, or infinite, without changing any transition probability, and
+A1 selects the minimal --- finite --- representative of the equivalence
+class. A deep sector coupled to the boundary layer with slow dynamics
+changes the transition probabilities at \(\mathcal{O}(t/\tau_B)\); its
+size is not resolved by the leading-order transition law on accessible
+timescales, which is the scope of the transfer in the corollary
+following Theorem 24. In the decoupled case the substrate's total
 cardinality beyond the boundary layer is not an observable question, in
 the same sense that the uniform vacuum offset is not.)
 
@@ -1535,14 +1543,22 @@ subgroup (Remark below).
 leaves all observables unchanged ({[}SM, §2.7{]}). This family is
 parametrized by all integers \(q \geq 2\).
 
-\emph{(iii) Deep-sector enlargement.} Adjoining additional degrees of
-freedom to \(\mathcal{C}_D\) (the deep hidden sector beyond the boundary
-layer), with arbitrary dynamics satisfying \(\tau_B^D \gg \tau_S\), does
-not change the emergent description. The boundary-only dependence lemma
-{[}GR, §3.2{]} proves
-\(T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)\): observables
-depend only on \(\mathcal{C}_V \times \mathcal{C}_B\). The deep sector
-may be finite of any size, or infinite.
+\emph{(iii) Deep-sector enlargement.} Adjoining to \(\mathcal{C}_D\)
+(the deep hidden sector beyond the boundary layer) additional degrees of
+freedom that no dynamics couples to
+\(\mathcal{C}_V \times \mathcal{C}_B\) --- so that the bijection on the
+enlarged space is \(\varphi \times \varphi_{\rm new}\) for a bijection
+\(\varphi_{\rm new}\) of the adjoined degrees of freedom --- leaves
+every \(T_{ij}(t)\) unchanged at every \(t\), and with it the emergent
+description; removing such degrees of freedom is the inverse. The deep
+sector may be finite of any size, or infinite. \emph{(Scope.)} An
+enlargement whose dynamics couples to the boundary layer, even slowly
+(\(\tau_B^D \gg \tau_S\)), is not in this family: the boundary-only
+dependence lemma {[}GR, §3.2{]} gives
+\(T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)\), so such an
+extension preserves the leading-order transition law \(T^{(B)}\) on
+accessible timescales \(t \ll \tau_B\), not the transition probabilities
+themselves.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 qualification on the gauge sector.} Two coupling graphs \(G_\varphi\)
@@ -1574,8 +1590,13 @@ the cubic-group commutant (§4.6).
 chain. (i): conjugation preserves the coupling graph \(G_\varphi\) up to
 relabeling, hence all graph-dependent quantities (area law, dispersion,
 dimension, eigenvalue multiplicities). (ii): {[}SM, §2.7{]} proves
-\(q\)-independence of every prediction. (iii): the boundary-only
-dependence lemma gives the result directly. (iv): the
+\(q\)-independence of every prediction. (iii): the visible marginal of
+\(\varphi \times \varphi_{\rm new}\) averages over the adjoined
+coordinates a quantity that does not depend on them, so every
+\(T_{ij}(t)\) is unchanged exactly, whatever the size of the adjoined
+sector, and the emergent Hamiltonian and \(\hbar\), built from the same
+visible data and the same \(\mathcal{C}_V \times \mathcal{C}_B\)
+dynamics, are unchanged with them. (iv): the
 emergent-QM/dimension/gravity derivation chain (Theorems 1--6) uses only
 statistical properties of \(G_\varphi\) (dimension via Myrheim-Meyer,
 isotropy, bounded degree), not the specific graph; the gauge-group
@@ -1596,26 +1617,32 @@ observationally relevant space:
 premise of A1, and this is the only place it enters. \emph{(ii)
 Boundary-only dependence.} For accessible times \(t \ll \tau_B\),
 \(T_{ij}(t) = T_{ij}^{(B)}(t) + \mathcal{O}(t/\tau_B)\) ({[}GR §3.2{]}),
-so every emergent observable is a functional of
-\(\mathcal{C}_V \times \mathcal{C}_B\) data alone. \emph{(iii)
-Transfer.} Let \(P\) be any statement expressible through
-\(\{T_{ij}(t) : t \ll \tau_B\}\). If \(P\) holds for one member of the
-deep-sector-enlargement orbit of \((S, \varphi)\) under generator (iii),
-it holds for every member, finite or infinite: the enlargement alters
-only \(\mathcal{C}_D\) and its dynamics, subject to
-\(\tau_B^D \gg \tau_S\), leaving \(T^{(B)}\) unchanged, so \(P\)'s truth
-value is constant on the orbit by (ii). In particular, every statement
-expressible through the accessible-timescale transition law transfers
-across the orbit. P-indivisibility at the recurrence scale ---
-established on the minimal finite representative by recurrence
-(\(\varphi^N = \mathrm{id}\), {[}Main §2.3{]}) --- is not such a
-statement: it holds on the finite members, and on infinite-deep-sector
-members, where recurrence is unavailable, the accessible-timescale
-backflow lemma ({[}Main §2.3{]}) gives the accessible-window property it
-states, a different and weaker conclusion. A1's choice of the finite
-representative is therefore a convenience of proof for
-accessible-timescale content; recurrence-scale content is stated for the
-finite representative. \(\square\)
+so at leading order every emergent observable on accessible timescales
+is a functional of \(\mathcal{C}_V \times \mathcal{C}_B\) data alone.
+\emph{(iii) Transfer.} Along the orbit of \((S, \varphi)\) under
+generator (iii), every \(T_{ij}(t)\) is unchanged at every \(t\), so
+every statement expressible through \(\{T_{ij}(t)\}\), recurrence-scale
+statements included, holds on one member if and only if it holds on
+every member, finite or infinite. An extension coupled to the boundary
+layer with \(\tau_B^D \gg \tau_S\) alters \(\mathcal{C}_D\) and its
+dynamics while leaving \(T^{(B)}\) unchanged, so the two systems share
+only the leading-order law: a statement expressible through
+\(\{T^{(B)}_{ij}(t) : t \ll \tau_B\}\) transfers by (ii), while a
+statement about the transition probabilities themselves transfers only
+if it is insensitive to \(\mathcal{O}(t/\tau_B)\) corrections. A
+transition probability equal to zero on one system and to
+\(\varepsilon = \mathcal{O}(t/\tau_B) > 0\) on the other is the
+elementary statement that does not transfer. P-indivisibility at the
+recurrence scale --- established on finite representatives by recurrence
+(\(\varphi^N = \mathrm{id}\), {[}Main §2.3{]}) --- is not an
+accessible-timescale statement: across coupled extensions it holds on
+the finite members, and on infinite-deep-sector members, where
+recurrence is unavailable, the accessible-timescale backflow lemma
+({[}Main §2.3{]}) gives the accessible-window property it states, a
+different and weaker conclusion. A1's choice of the finite
+representative is therefore a convenience of proof for content carried
+by the leading-order accessible-timescale law; recurrence-scale content
+is stated for finite representatives. \(\square\)
 
 \textbf{Remark (amplitude-scale gauge --- the unobservability of
 absolute field scale).} One gauge freedom invoked elsewhere is named
@@ -1773,12 +1800,14 @@ steps.
   \emph{The deep sector is the non-minimal remainder.} Any
   \(\mathcal{C}_H\) larger than \(\mathcal{C}_B\) decomposes as
   \(\mathcal{C}_B \oplus \mathcal{C}_D\) with \(\mathcal{C}_D\)
-  decoupled from the visible factor at every order in \(t\) (this is
-  precisely the boundary-only dependence lemma {[}GR §3.2{]}). The
-  non-minimal dilation freedom of Stinespring is exactly this decoupled
-  remainder, which is generator (iii). Composing, \(W = W_B\) extended
-  by any partial isometry on \(\mathcal{C}_D\) gives the claimed
-  relation. \(\square\)
+  decoupled from the visible factor at every order in \(t\). This exact
+  decoupling is the deep sector of the lemma's statement and of
+  generator (iii); the boundary-only dependence lemma {[}GR §3.2{]} does
+  not supply it, since that lemma bounds the effect of a slowly coupled
+  deep sector at \(\mathcal{O}(t/\tau_B)\). The non-minimal dilation
+  freedom of Stinespring is exactly this decoupled remainder, which is
+  generator (iii). Composing, \(W = W_B\) extended by any partial
+  isometry on \(\mathcal{C}_D\) gives the claimed relation. \(\square\)
 \end{enumerate}
 
 \emph{What a specialist must verify in Lemma 24.1.} The load-bearing
@@ -1848,14 +1877,18 @@ to \(\mathcal{C}_V\) followed by the D-gauge already quotiented in Step
 \(\Phi_t\) invariant, which by Lemma 24.1 is a hidden-sector partial
 isometry --- generator (i) restricted to \(\mathcal{C}_H\) when
 cardinalities match, or generators (i)+(iii) when they differ; and (c)
-possibly change the deep sector beyond the boundary layer, which by the
-boundary-only dependence lemma {[}GR §3.2{]} cannot affect any
-\(\Phi_t\) at all --- generator (iii). The use of the full family
-\(\{\Phi_t\}_{t\geq 0}\) rather than a single channel is what closes the
-gap a single-channel Stinespring argument would leave: a transformation
-preserving \(\Phi_{t_0}\) at one time but altering the generator would
-fail to preserve \(\Phi_t\) at other times, and is therefore excluded by
-the hypothesis that \emph{all} \(T_{ij}(t)\) are preserved.
+possibly change a deep sector that no dynamics couples to the boundary
+layer, which cannot affect any \(\Phi_t\) at all --- generator (iii). A
+change to deep-sector dynamics coupled to the boundary layer, however
+slow, alters \(\Phi_t\) at \(\mathcal{O}(t/\tau_B)\) ({[}GR §3.2{]}); it
+preserves the leading-order law \(T^{(B)}\) but not the family
+\(\{\Phi_t\}\), and so lies outside the transformations this argument
+classifies. The use of the full family \(\{\Phi_t\}_{t\geq 0}\) rather
+than a single channel is what closes the gap a single-channel
+Stinespring argument would leave: a transformation preserving
+\(\Phi_{t_0}\) at one time but altering the generator would fail to
+preserve \(\Phi_t\) at other times, and is therefore excluded by the
+hypothesis that \emph{all} \(T_{ij}(t)\) are preserved.
 
 \emph{Step 3: the structural freedoms.} Two substrata may induce the
 same \(\{\Phi_t\}\) while differing in their local state-space size
@@ -3071,4 +3104,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: d38d3b0759d6ad6b00e2886446a5bbd61941686750b8a583d764ace11cbd764e
+% source-sha256: b664a78bf5b8719a01d48106a8771b6d55dad14afa91a5209d4ef644bb752882
