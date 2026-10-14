@@ -166,7 +166,7 @@
           "anchor": "thermodynamic orientation"
         }
       ],
-      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. Draft #842 is pre-freeze design evidence, not adopted certification."
+      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. The design package landed with #842 is pre-freeze design evidence, not adopted certification."
     },
     {
       "name": "coherent completions",
