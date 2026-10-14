@@ -1,15 +1,15 @@
 # Step 4 — the combined #829/#823 interface: statement and compiled pair assembly
 
-Base: main `M = 5bfdaba6`. Design commits `5a18db06`…`4e2b6370` on the session branch (disposable, not for merge),
+Base: main `M = 5bfdaba6`. Design commits `5a18db06`…`c9f16498` on the session branch (disposable, not for merge),
 children of the disposable design-run commit `22e0d002`. Module:
 `verification/programmes/oi-qm/reconstruction/pair-interface-design/PairInterfaceDesign.lean`, namespace
 `OIBridge.PairInterfaceDesign`, compiled by `.github/workflows/pair-interface-design.yml` against the landed library
-(no adopted file changed). Run 38603550590, job 115988568992, at exact commit `4e2b6370`: every step succeeded;
-all 20 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`; the same comparison rejects the compiled
+(no adopted file changed). Run 38606560943, job 115998853118, at exact commit `c9f16498`: every step succeeded;
+all 27 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`; the same comparison rejects the compiled
 output with `sorryAx` injected into one report and with one report removed; legacy records, receipts and placement
-pass. Earlier runs: 38601947315 at `5a18db06` failed at compilation (the scoped `ᴴ` notation was not opened, and
-`cnotMat` is built from `BridgeDictionary.pauli`); 38602502989 at `066a69a9` and 38603067727 at `4383a150` passed with
-the first fifteen reports.
+pass. Earlier runs on this branch record the build history: 38601947315 (`5a18db06`) and 38605005576 (`8b2131fb`)
+failed at compilation, the first for the unopened `ᴴ` notation and the `BridgeDictionary.pauli` unfolding, the second
+for the missing `DenseOrbit` import; the runs between them passed with fewer reports.
 
 Evidence labels as in threads A–E: [K] kernel at M, [D] compiled design (this module, run above, or the
 design runs cited), [W] written, [X] exact computation, [U] unsourced.
