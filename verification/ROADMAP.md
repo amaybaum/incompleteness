@@ -1113,7 +1113,7 @@ unique quantum history.
 → [`TypedCompletion.lean`](lean-mathlib/OIBridge/TypedCompletion.lean)
 → [`RegionLimit.lean`](lean-mathlib/OIBridge/RegionLimit.lean)
 
-### P2 — Bekir–Golomb integer classification
+### P2 — Sign-aware integer classification
 
 The unsigned `BGIntegerClassification` consumed by `TurnpikeScopeTransfer.lean` is refuted by the singly reflected six-mark pair. Its conditional consumers do not establish the physical two-branch conclusion. Draft #842 proves the refutation and compiles candidate consumers of a global sign-aware replacement, including exclusion of the reversed exceptional physical branch. The replacement classification remains a hypothesis: complete source-to-proposition comparison and a general proof are open. Independent Fourier, realization-transfer, congruent-reconstruction and six-mode obstruction results remain valid. This is a mathematical premise-repair obligation, not solely a K3 formalization backlog.
 

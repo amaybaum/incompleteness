@@ -47,6 +47,7 @@ is what the dimensional determination of hbar actually consumes.
 Usage:  python3 bohr_frequency_probe.py
 """
 import itertools
+import glob
 import os
 import random
 import re
@@ -247,13 +248,49 @@ ok8 &= '**Corollary (operational antiunitary invariance).**' in gr
 ok8 &= '**Corollary (thermodynamic orientation).**' in gr
 ok8 &= 'no antiunitary branch and no nontrivial $D$' in gr
 ok8 &= 'A. Bekir and S. W. Golomb' in gr
-ok8 &= 'H-BG is an explicit classification hypothesis' in gr
+stmt = gr[gr.index('**Theorem (D-gauge completeness, two-branch form).**'):]
+stmt = stmt[:stmt.index('*Conditional proof.*')]
+ok8 &= '*Assume H-BG:' in stmt
+ok8 &= 'where $\\mu$ sends each ascending mark pair' in stmt
+ok8 &= 'for both Hamiltonians' in stmt
 ok8 &= 'The unsigned formal premise `BGIntegerClassification` is false' in gr
-ok8 &= 'both Hamiltonians' in gr
 ok8 &= '[SM] Proposition 20' in gr
 ok8 &= '0,1,4,10,12,17' in gr and '0,1,8,11,13,17' in gr
 # and the withdrawn conclusion must not be asserted anywhere as a theorem
 ok8 &= '**Theorem (D-gauge completeness).**' not in gr
+# Every statement of Hamiltonian reconstruction in the corpus carries H-BG nearby.
+RECON = re.compile(r"uniquely determined by \$\\\{T_\{ij\}"
+                   r"|determines? (?:the emergent Hamiltonian|\$\\hat\{H\}_\{\\text\{eff\}\}\$)[^.]{0,120}?up to"
+                   r"|two-branch (?:form|theorem|classification|conclusion)"
+                   r"|phase-locking lemma.{0,80}?determines")
+
+
+def unconditional_recon(text):
+    hits = []
+    for m in RECON.finditer(text):
+        w = text[max(0, m.start() - 250):m.end() + 250]
+        if 'H-BG' not in w and 'classification hypothesis' not in w:
+            hits.append(text[m.start():m.end()])
+    return hits
+
+
+CORPUS = sorted(glob.glob(os.path.join(HERE, '..', '..', 'papers', '*.md'))
+                + glob.glob(os.path.join(HERE, '..', '..', 'book', '*.md')))
+recon_hits = {os.path.basename(f): unconditional_recon(open(f, encoding='utf-8').read())
+              for f in CORPUS}
+recon_hits = {f: h for f, h in recon_hits.items() if h}
+ok8 &= len(CORPUS) > 10 and not recon_hits
+# countercontrol: each withdrawn unconditional phrasing is caught when injected
+INJECTED = (
+    "the emergent transition probabilities $T_{ij}(t)$ determine the emergent Hamiltonian up to "
+    "a diagonal-unitary D-gauge, an energy origin, and one global antiunitary conjugation.",
+    "Since the emergent Hamiltonian $\\hat{H}_{\\text{eff}}$ is uniquely determined by "
+    "$\\{T_{ij}(t)\\}$, it inherits independence.",
+    "Where these hold, the phase-locking lemma (§3.1) determines $\\hat{H}_{\\text{eff}}$ "
+    "from continuous-time transition data up to the lemma's full gauge.",
+    "The sharper question is settled by the two-branch theorem below.",
+)
+ok8 &= all(unconditional_recon(t) for t in INJECTED)
 check("F8", ok8,
       f"LINT. The file is imported by OIBridge.lean so CI builds it; no `sorry`, no `axiom`, no "
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. The "
@@ -261,8 +298,10 @@ check("F8", ok8,
       f"The manuscript carries Bohr-frequency completeness and the two-branch theorem, the "
       f"latter conditional on H-BG; the unsigned formal premise is refuted and "
       f"the complete sign-aware classification remains open; the [SM] Proposition 20 cross-reference "
-      f"and the homometric rulers stand, and the withdrawn unconditional conclusion is still "
-      f"asserted nowhere")
+      f"and the homometric rulers stand; the withdrawn theorem heading is absent, and "
+      f"{len(CORPUS)} corpus files carry no Hamiltonian-reconstruction statement without H-BG "
+      f"within 250 characters (unconditional hits: {recon_hits or 'none'}; all "
+      f"{len(INJECTED)} injected unconditional phrasings caught)")
 
 # ---------------------------------------------------------------- F9  antiunitary invariance
 rng9 = np.random.default_rng(20260830)

@@ -594,7 +594,7 @@
         }
       ],
       "kernel": "P",
-      "delta": "no Lean statement Full global reconstruction also requires H-BG; these finite/local probes do not certify that classification.",
+      "delta": "no Lean statement. Full global reconstruction also requires H-BG; these finite/local probes do not certify that classification.",
       "note": "Gated in CI. The genericity half rests on exact witnesses at seven shapes (b433); a uniform-D statement is NOT established and must not be formalized as one."
     },
     {
@@ -2604,7 +2604,7 @@
       "line": 174,
       "kind": "Theorem",
       "label": "(D-gauge completeness, two-branch form)",
-      "fingerprint": "d64fe2e7798ce17b",
+      "fingerprint": "67978921c7dfda22",
       "area": "gr",
       "assumptions": "dimension at least three; both Hamiltonians have distinct nonzero gaps and non-vanishing overlaps; global sign-aware integer classification H-BG",
       "checks": [
