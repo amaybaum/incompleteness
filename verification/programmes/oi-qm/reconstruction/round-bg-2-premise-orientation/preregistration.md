@@ -213,11 +213,13 @@ cell are the owner's; the obligation stays open in every outcome.
    running every mutation; edit workflow, import line and census; dispatch the predicted tree less the result note.
 3. Owner choices: slug and module name; whether a corrected premise joins (excluded here; `SignedRepairDesign.lean`
    is a candidate); which change replaces the design-package citations at the sites the non-inference rule lists with
-   the adopted module (§A.27: same session once accepted) — none governed here; and whether this round or a later
-   one changes `TurnpikeScopeTransfer.lean` itself, whose docstring (:535–541) calls the premise "the ONLY unproved
-   input" and whose `spectral_classification_of_BG` carries inline the reduction `SignedRepairDesign.lean` factors as
-   `real_to_integer_surrogate`. Doing so here would add it as an `execution M` path and drop it from the identical-blob
-   row above; as drafted, no landed module changes under any outcome.
+   the adopted module (§A.27: same session once accepted) — none governed here.
+
+**Owner decision on scope.** BG-2 certifies the refutation and its controls and nothing more. Correcting
+`TurnpikeScopeTransfer.lean` — whose docstring (:535–541) calls the premise "the ONLY unproved input" — and moving into it
+the reduction that `SignedRepairDesign.lean` factors as `real_to_integer_surrogate` belong to a separate round, whose
+governed paths include that module (#844 tracks both under ROADMAP P2). No landed module changes in BG-2 under any
+outcome, and the identical-blob row above stands.
 
 ## Stages and outcomes
 
