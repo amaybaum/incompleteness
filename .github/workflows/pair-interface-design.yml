@@ -49,7 +49,7 @@ jobs:
           # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
           REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
           ALLOWED = {'propext', 'Classical.choice', 'Quot.sound'}
-          EXPECTED = 20
+          EXPECTED = 27
           def problems(text):
               found, out = {}, []
               for name, axioms in REPORT.findall(text):

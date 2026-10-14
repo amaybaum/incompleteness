@@ -21,18 +21,22 @@
   clauses and compatibility and does not drive the elementary transitions (`diagClass_pairControl`,
   `not_drives_of_pairCompat`), so the theorem has no converse.
 
-  (D) Correlations at the pair with availability explicit. `prep` and `avail` are the available
-  joint preparations and the available one-token tests. If the products are available
-  preparations, mixing is available, the admitted unitaries carry available preparations to
-  available preparations, the sharp tests are available and valid on every available preparation,
-  then the available preparations are exactly `Q3` and an available preparation with four
-  available two-outcome sharp measurements gives the CHSH value `2√2`
-  (`pair_available_eq_Q3_and_chsh`). The marginal of one party does not depend on the other
-  party's setting, for every joint vector (`marginal_independent`).
+  (D) Correlations at the pair with availability explicit. `prep` and `avail` are free parameters,
+  read as the available joint preparations and the available one-token tests; nothing here ties them
+  to stage data. If the products are available preparations, mixing is available, the admitted
+  unitaries carry available preparations to available preparations, and the product tests of an
+  available family containing the countable dense family are valid on every available preparation,
+  then the available preparations are exactly `Q3` (`pair_available_eq_Q3`); with the four CHSH
+  measurements available, an available preparation attains CHSH value `2√2`
+  (`pair_available_eq_Q3_and_chsh`). A countable family meets these premises, and no countable family
+  contains the whole sharp family (`countable_avail_control`, `not_sharpFamily_subset_of_countable`).
+  The marginal of one party does not depend on the other party's setting, for every joint vector
+  (`marginal_independent`).
 
   (E) The quantum reading at the pair. A sharp-test value is the trace `tr((Π_a ⊗ Π_b) · dict ω)`
   with `Π_a = (1 + a·σ)/2` Hermitian, complete (`Π_a + Π_{−a} = 1`) and, along a unit vector, a
-  projector (`prodEffVal_sharp_eq_trace`, `sharpProj_*`). Under the premises of (D), every available
+  projector (`prodEffVal_sharp_eq_trace`, `sharpProj_*`). Under the premises of `pair_available_eq_Q3`,
+  every available
   preparation is positive semidefinite with those traces as its sharp-test values, and every positive
   semidefinite operator on `ℂ² ⊗ ℂ²` is the image of an available preparation
   (`pair_sharp_behaviours`).
@@ -382,29 +386,61 @@ theorem bMinus_unit : ∑ j, bMinus j ^ 2 = 1 := by
     | (simp [bMinus]; norm_num)
     | (simp [bMinus]; nlinarith [h])
 
-/-- **Attainment with availability explicit.** If the products are available preparations, the
-controlled NOT carries available preparations to available preparations, and the sharp tests are
-available, then an available preparation and four available two-outcome sharp measurements give
-CHSH value `2√2`. -/
+/-- **Attainment from eight available tests.** If the products are available preparations, the
+controlled NOT carries available preparations to available preparations, and the two-outcome sharp
+measurements along `z`, `x` and `(x ± z)/√2` are available, then an available preparation and those
+four measurements give CHSH value `2√2`. -/
 theorem chsh_attained_of_available {prep : Set (CompositeDimension.W 3)}
     {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)}
     (hprod : ∀ x ∈ TransitiveBody.eball 3, ∀ y ∈ TransitiveBody.eball 3,
       CompositeDimension.prodState x y ∈ prep)
     (hcnot : ∀ ω ∈ prep, CompositeDimension.cnot ω ∈ prep)
-    (hsharp : EffectSpace.sharpFamily 3 ⊆ avail) :
+    (hz : BinaryAvail avail CompositeDimension.z3) (hx : BinaryAvail avail CompositeDimension.xplus)
+    (hp : BinaryAvail avail bPlus) (hm : BinaryAvail avail bMinus) :
     ∃ ω ∈ prep, ∃ a a' b b' : Fin 3 → ℝ, BinaryAvail avail a ∧ BinaryAvail avail a' ∧
       BinaryAvail avail b ∧ BinaryAvail avail b' ∧ chsh a a' b b' ω = 2 * Real.sqrt 2 := by
   have hω : CompositeDimension.phiW ∈ prep := by
     rw [← CompositeDimension.cnot_prodState_xplus_z3]
     exact hcnot _ (hprod _ CompositeDimension.xplus_mem _ CompositeDimension.z3_mem)
-  exact ⟨_, hω, _, _, _, _, binaryAvail_of_unit hsharp z3_unit,
-    binaryAvail_of_unit hsharp xplus_unit, binaryAvail_of_unit hsharp bPlus_unit,
-    binaryAvail_of_unit hsharp bMinus_unit, chsh_phiW⟩
+  exact ⟨_, hω, _, _, _, _, hz, hx, hp, hm, chsh_phiW⟩
 
-/-- **The pair clause.** Under the class-side premises, with the available preparations compatible
-with every admitted unitary, containing the products, closed under mixing, and with the sharp tests
-available and valid on every available preparation: the available preparations are exactly `Q3`,
-and an available protocol attains CHSH value `2√2`. -/
+/-- The countable test family of `DenseOrbit`: the rational-reflection orbit of the axis test. -/
+def denseTests : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ) :=
+  OrbitGeneration.seedOrbit (DenseOrbit.ratRefl 3)
+    (EffectSpace.sharpEff (EffectSpace.axisVec (by norm_num : 0 < 3)))
+
+theorem denseTests_countable : denseTests.Countable :=
+  DenseOrbit.countable_seedOrbit_cone.1
+
+/-- Validity on an available family containing the countable dense family supplies the maxCone
+bound. -/
+theorem maxCone_bound_of_dense_available {K : Set (CompositeDimension.W 3)}
+    {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)} (hvalid : K ⊆ EffectSpace.maxConeOf avail)
+    (hdense : denseTests ⊆ avail) : K ⊆ CompositeDimension.maxCone (TransitiveBody.eball 3) := by
+  intro ω hω
+  have hm : ω ∈ EffectSpace.maxConeOf denseTests := EffectSpace.maxConeOf_anti hdense (hvalid hω)
+  rw [denseTests, DenseOrbit.countable_seedOrbit_cone.2] at hm
+  exact hm
+
+/-- **The available preparations are `Q3`.** Under the class-side premises, with the available
+preparations compatible with every admitted unitary, containing the products and closed under mixing,
+and with the product tests of an available family containing the countable dense family valid on every
+available preparation. -/
+theorem pair_available_eq_Q3 (arch : Architecture 𝓘) (hC : ContextStable 𝓘)
+    (hd : DrivesElementary 𝓘) {prep : Set (CompositeDimension.W 3)}
+    {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)} (hcompat : PairCompat 𝓘 prep)
+    (hprod : ∀ x ∈ TransitiveBody.eball 3, ∀ y ∈ TransitiveBody.eball 3,
+      CompositeDimension.prodState x y ∈ prep)
+    (hadd : ∀ ω ∈ prep, ∀ η ∈ prep, ω + η ∈ prep)
+    (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ prep, c • ω ∈ prep)
+    (hvalid : prep ⊆ EffectSpace.maxConeOf avail) (hdense : denseTests ⊆ avail) :
+    prep = EqvK2Schema.Q3 :=
+  pairCone_eq_Q3_of_drives arch hC hd hcompat hprod hadd hsmul
+    (maxCone_bound_of_dense_available hvalid hdense)
+
+/-- **The pair clause.** The premises of `pair_available_eq_Q3`, with the four CHSH measurements
+available: the available preparations are exactly `Q3`, and an available protocol attains CHSH value
+`2√2`. -/
 theorem pair_available_eq_Q3_and_chsh (arch : Architecture 𝓘) (hC : ContextStable 𝓘)
     (hd : DrivesElementary 𝓘) {prep : Set (CompositeDimension.W 3)}
     {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)} (hcompat : PairCompat 𝓘 prep)
@@ -412,16 +448,96 @@ theorem pair_available_eq_Q3_and_chsh (arch : Architecture 𝓘) (hC : ContextSt
       CompositeDimension.prodState x y ∈ prep)
     (hadd : ∀ ω ∈ prep, ∀ η ∈ prep, ω + η ∈ prep)
     (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ prep, c • ω ∈ prep)
-    (hvalid : prep ⊆ EffectSpace.maxConeOf avail)
-    (hsharp : EffectSpace.sharpFamily 3 ⊆ avail) :
+    (hvalid : prep ⊆ EffectSpace.maxConeOf avail) (hdense : denseTests ⊆ avail)
+    (hz : BinaryAvail avail CompositeDimension.z3) (hx : BinaryAvail avail CompositeDimension.xplus)
+    (hp : BinaryAvail avail bPlus) (hm : BinaryAvail avail bMinus) :
     prep = EqvK2Schema.Q3 ∧ ∃ ω ∈ prep, ∃ a a' b b' : Fin 3 → ℝ, BinaryAvail avail a ∧
       BinaryAvail avail a' ∧ BinaryAvail avail b ∧ BinaryAvail avail b' ∧
       chsh a a' b b' ω = 2 * Real.sqrt 2 :=
-  ⟨pairCone_eq_Q3_of_drives arch hC hd hcompat hprod hadd hsmul
-      (EqvK2MaxCone.maxCone_bound_of_sharp_available hvalid hsharp),
+  ⟨pair_available_eq_Q3 arch hC hd hcompat hprod hadd hsmul hvalid hdense,
     chsh_attained_of_available hprod
       (driveClauses_of_admitted arch hC (fun a b t => hd.1 (Fin 2) a b t)
-        (hd.2.1 (Fin 2 × Fin 2) _ _) hcompat).1 hsharp⟩
+        (hd.2.1 (Fin 2 × Fin 2) _ _) hcompat).1 hz hx hp hm⟩
+
+/-! ### §D — counting the available tests -/
+
+theorem sharpEff_injective : Function.Injective (EffectSpace.sharpEff : (Fin 3 → ℝ) → _) := by
+  intro b b' h
+  have h1 := congrArg CompositeDimension.ehom h
+  simp only [EffectSpace.sharpEff, CompositeDimension.ehom_affOf] at h1
+  funext j
+  have h2 := congrFun h1 j.succ
+  rw [EffectSpace.sharpVec_succ, EffectSpace.sharpVec_succ] at h2
+  linarith
+
+/-- The unit sphere of `ℝ³` is uncountable (the argument of `not_boundaryTransitive_of_countable`). -/
+theorem sphere_not_countable : ¬ {b : Fin 3 → ℝ | ∑ j, b j ^ 2 = 1}.Countable := by
+  intro hsph
+  have hmaps : Set.MapsTo (fun t : ℝ => (![t, Real.sqrt (1 - t ^ 2), 0] : Fin 3 → ℝ))
+      (Set.Icc (-1 : ℝ) 1) {b : Fin 3 → ℝ | ∑ j, b j ^ 2 = 1} := by
+    intro t ht
+    obtain ⟨h1, h2⟩ := ht
+    have hnn : 0 ≤ 1 - t ^ 2 := by nlinarith
+    show ∑ j, (![t, Real.sqrt (1 - t ^ 2), 0] : Fin 3 → ℝ) j ^ 2 = 1
+    rw [Fin.sum_univ_three]
+    show t ^ 2 + Real.sqrt (1 - t ^ 2) ^ 2 + (0 : ℝ) ^ 2 = 1
+    rw [Real.sq_sqrt hnn]
+    ring
+  have hinj : Set.InjOn (fun t : ℝ => (![t, Real.sqrt (1 - t ^ 2), 0] : Fin 3 → ℝ))
+      (Set.Icc (-1 : ℝ) 1) := by
+    intro s _ t _ hst
+    exact congrFun hst 0
+  have hc : (Set.Icc (-1 : ℝ) 1).Countable := hmaps.countable_of_injOn hinj hsph
+  have h : Cardinal.mk (Set.Icc (-1 : ℝ) 1) ≤ Cardinal.aleph0 :=
+    Cardinal.le_aleph0_iff_set_countable.mpr hc
+  have hI : Cardinal.mk (Set.Icc (-1 : ℝ) 1) = Cardinal.continuum :=
+    Cardinal.mk_Icc_real (by norm_num)
+  rw [hI] at h
+  exact absurd h (not_le.mpr Cardinal.aleph0_lt_continuum)
+
+/-- **A countable test family never contains the whole sharp family.** -/
+theorem not_sharpFamily_subset_of_countable {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)}
+    (hc : avail.Countable) : ¬ EffectSpace.sharpFamily 3 ⊆ avail := by
+  intro hs
+  have hmaps : Set.MapsTo EffectSpace.sharpEff {b : Fin 3 → ℝ | ∑ j, b j ^ 2 = 1} avail :=
+    fun b hb => hs ⟨b, hb, rfl⟩
+  exact sphere_not_countable
+    (hmaps.countable_of_injOn (fun x _ y _ hxy => sharpEff_injective hxy) hc)
+
+/-- The eight tests of the CHSH protocol. -/
+def chshTests : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ) :=
+  Set.range fun i : Fin 8 => EffectSpace.sharpEff
+    (![CompositeDimension.z3, -CompositeDimension.z3, CompositeDimension.xplus,
+      -CompositeDimension.xplus, bPlus, -bPlus, bMinus, -bMinus] i)
+
+/-- The eight CHSH tests are sharp tests: each is the sharp effect along a unit vector. -/
+theorem chshTests_subset_sharpFamily : chshTests ⊆ EffectSpace.sharpFamily 3 := by
+  have hneg : ∀ c : Fin 3 → ℝ, ∑ j, c j ^ 2 = 1 → ∑ j, (-c) j ^ 2 = 1 := fun c hc => by
+    rw [EffectSpace.sum_neg_sq]; exact hc
+  rintro _ ⟨i, rfl⟩
+  fin_cases i
+  · exact ⟨_, z3_unit, rfl⟩
+  · exact ⟨_, hneg _ z3_unit, rfl⟩
+  · exact ⟨_, xplus_unit, rfl⟩
+  · exact ⟨_, hneg _ xplus_unit, rfl⟩
+  · exact ⟨_, bPlus_unit, rfl⟩
+  · exact ⟨_, hneg _ bPlus_unit, rfl⟩
+  · exact ⟨_, bMinus_unit, rfl⟩
+  · exact ⟨_, hneg _ bMinus_unit, rfl⟩
+
+/-- **The counted premises are satisfiable by a countable family**, which does not contain the
+sharp family. -/
+theorem countable_avail_control :
+    (denseTests ∪ chshTests).Countable ∧ denseTests ⊆ denseTests ∪ chshTests ∧
+      BinaryAvail (denseTests ∪ chshTests) CompositeDimension.z3 ∧
+      BinaryAvail (denseTests ∪ chshTests) CompositeDimension.xplus ∧
+      BinaryAvail (denseTests ∪ chshTests) bPlus ∧ BinaryAvail (denseTests ∪ chshTests) bMinus ∧
+      ¬ EffectSpace.sharpFamily 3 ⊆ denseTests ∪ chshTests := by
+  have hc : (denseTests ∪ chshTests).Countable :=
+    denseTests_countable.union (Set.countable_range _)
+  exact ⟨hc, fun _ h => Or.inl h, ⟨Or.inr ⟨0, rfl⟩, Or.inr ⟨1, rfl⟩⟩,
+    ⟨Or.inr ⟨2, rfl⟩, Or.inr ⟨3, rfl⟩⟩, ⟨Or.inr ⟨4, rfl⟩, Or.inr ⟨5, rfl⟩⟩,
+    ⟨Or.inr ⟨6, rfl⟩, Or.inr ⟨7, rfl⟩⟩, not_sharpFamily_subset_of_countable hc⟩
 
 /-- **No signalling**: the marginal of one party's test does not depend on the other party's
 setting, for every joint vector. -/
@@ -505,7 +621,7 @@ theorem prodEffVal_sharp_eq_trace (a b : Fin 3 → ℝ) (ω : CompositeDimension
   ring
 
 /-- **The pair's sharp behaviours, each direction with its own witness.** Under the premises of
-`pair_available_eq_Q3_and_chsh`: every available preparation has a positive semidefinite dictionary
+`pair_available_eq_Q3`: every available preparation has a positive semidefinite dictionary
 image whose traces against the sharp projectors are its sharp-test values; and every positive
 semidefinite operator on `ℂ² ⊗ ℂ²` is the dictionary image of an available preparation. -/
 theorem pair_sharp_behaviours (arch : Architecture 𝓘) (hC : ContextStable 𝓘)
@@ -515,14 +631,13 @@ theorem pair_sharp_behaviours (arch : Architecture 𝓘) (hC : ContextStable �
       CompositeDimension.prodState x y ∈ prep)
     (hadd : ∀ ω ∈ prep, ∀ η ∈ prep, ω + η ∈ prep)
     (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ prep, c • ω ∈ prep)
-    (hvalid : prep ⊆ EffectSpace.maxConeOf avail)
-    (hsharp : EffectSpace.sharpFamily 3 ⊆ avail) :
+    (hvalid : prep ⊆ EffectSpace.maxConeOf avail) (hdense : denseTests ⊆ avail) :
     (∀ ω ∈ prep, (EqvK2Schema.dict ω).PosSemidef ∧ ∀ a b : Fin 3 → ℝ,
         ((CompositeDimension.prodEffVal (EffectSpace.sharpEff a) (EffectSpace.sharpEff b) ω
           : ℝ) : ℂ) = Matrix.trace (tensorOf (sharpProj a) (sharpProj b) * EqvK2Schema.dict ω)) ∧
       ∀ ρ : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ, ρ.PosSemidef →
         ∃ ω ∈ prep, EqvK2Schema.dict ω = ρ := by
-  have hQ := (pair_available_eq_Q3_and_chsh arch hC hd hcompat hprod hadd hsmul hvalid hsharp).1
+  have hQ := pair_available_eq_Q3 arch hC hd hcompat hprod hadd hsmul hvalid hdense
   refine ⟨fun ω hω => ⟨?_, fun a b => prodEffVal_sharp_eq_trace a b ω⟩, fun ρ hρ => ?_⟩
   · rw [hQ] at hω
     exact hω
@@ -548,6 +663,8 @@ end OIBridge
 #print axioms OIBridge.PairInterfaceDesign.not_drives_of_pairCompat
 #print axioms OIBridge.PairInterfaceDesign.chsh_phiW
 #print axioms OIBridge.PairInterfaceDesign.chsh_attained_of_available
+#print axioms OIBridge.PairInterfaceDesign.maxCone_bound_of_dense_available
+#print axioms OIBridge.PairInterfaceDesign.pair_available_eq_Q3
 #print axioms OIBridge.PairInterfaceDesign.pair_available_eq_Q3_and_chsh
 #print axioms OIBridge.PairInterfaceDesign.marginal_independent
 #print axioms OIBridge.PairInterfaceDesign.sharpProj_conjTranspose
@@ -555,3 +672,8 @@ end OIBridge
 #print axioms OIBridge.PairInterfaceDesign.sharpProj_mul_self
 #print axioms OIBridge.PairInterfaceDesign.prodEffVal_sharp_eq_trace
 #print axioms OIBridge.PairInterfaceDesign.pair_sharp_behaviours
+#print axioms OIBridge.PairInterfaceDesign.sharpEff_injective
+#print axioms OIBridge.PairInterfaceDesign.sphere_not_countable
+#print axioms OIBridge.PairInterfaceDesign.not_sharpFamily_subset_of_countable
+#print axioms OIBridge.PairInterfaceDesign.countable_avail_control
+#print axioms OIBridge.PairInterfaceDesign.chshTests_subset_sharpFamily
