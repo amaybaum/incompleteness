@@ -56,6 +56,7 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
 % Use the Computer Modern-compatible set-difference construction; the large
 % Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
 \AtBeginDocument{\let\setminus\smallsetminus}
@@ -1335,13 +1336,14 @@ provides strictly more information.
 
 \textbf{Lemma (phase-locking).} \emph{Let \(H\) be Hermitian on
 \(\mathbb{C}^n\) with eigenbasis \(\{|k\rangle\}\), eigenvalues
-\(\{E_k\}\), and \(V_{ik} = \langle i | k \rangle\). Assume: (G1)
-non-degenerate spectrum; (G2) non-degenerate energy gaps; (G3)
-\(V_{ik} \neq 0\) for all \(i, k\). Then
-\(T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2\) for all \(i, j, t\)
-uniquely determines \(H\) up to an overall energy shift, basis phase
-conventions, and the antiunitary conjugation \(H \to -H^*\) --- the
-complex-conjugate representation, which satisfies
+\(\{E_k\}\), and \(V_{ik} = \langle i | k \rangle\). Assume \(n\ge3\),
+the global sign-aware integer classification H-BG of {[}GR §3.3{]}, and
+for both Hamiltonians being compared: (G1) non-degenerate spectrum; (G2)
+non-degenerate energy gaps; (G3) \(V_{ik} \neq 0\) for all \(i, k\).
+Then \(T_{ij}(t) = |\langle i | e^{-iHt} | j \rangle|^2\) for all
+\(i, j, t\) uniquely determines \(H\) up to an overall energy shift,
+basis phase conventions, and the antiunitary conjugation \(H \to -H^*\)
+--- the complex-conjugate representation, which satisfies
 \(|\langle i|e^{-i(-H^*)t}|j\rangle|^2 = |\langle i|e^{-iHt}|j\rangle|^2\)
 identically and, for generic \(H\), is not shift- or rephasing-related
 (its spectrum is negated).}
@@ -1350,10 +1352,13 @@ identically and, for generic \(H\), is not shift- or rephasing-related
 
 \[T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}\]
 
-By (G2), the frequencies \(\omega_{kl} = E_k - E_l\) are distinct for
-distinct pairs with \(k \neq l\); since \(T_{ij}(t)\) is real, the
-components at \(\pm\omega_{kl}\) are conjugate-paired, and the
-simultaneous conjugation \(a \to a^*\), \(\omega \to -\omega\)
+The identification of ordered mode pairs from the unlabelled frequency
+data uses H-BG and the exclusion of both globally oriented six-mark
+correspondences ({[}GR §3.3{]}); it does not follow from Fourier
+extraction alone. By (G2), the frequencies \(\omega_{kl} = E_k - E_l\)
+are distinct for distinct pairs with \(k \neq l\); since \(T_{ij}(t)\)
+is real, the components at \(\pm\omega_{kl}\) are conjugate-paired, and
+the simultaneous conjugation \(a \to a^*\), \(\omega \to -\omega\)
 (i.e.~\(V \to V^*\), \(E \to -E\): the \(H \to -H^*\) ambiguity of the
 statement) is invisible to the data. Fourier-transforming yields, up to
 that pairing:
@@ -1374,7 +1379,8 @@ irrelevant basis rephasing). Fixing \(\varphi_{1k} = 0\),
 \(\varphi_{i1} = 0\), each remaining phase is
 \(\varphi_{ik} = \arg(a_{i1}^{k1})\), directly extracted from Fourier
 data. \(H = V \, \text{diag}(E_k) \, V^\dagger\) is unique up to energy
-shift and phase conventions. \(\square\)
+shift, phase conventions and the antiunitary alternative, conditional on
+H-BG. \(\square\)
 
 The ancilla-marginal form of the reconstruction --- where the visible
 transition data constrains a Hamiltonian on
@@ -1966,15 +1972,16 @@ the bath-motion term is fixed by the timescale hierarchy at
 \(\mathcal{O}((\tau_S/\tau_B)^2) \sim 10^{-64}\), while the
 conditioned-Hamiltonian spread is not --- its magnitude for the
 cosmological partition awaits the substratum interaction structure.
-Where these hold, the phase-locking lemma (§3.1) determines
-\(\hat{H}_{\text{eff}}\) from continuous-time transition data up to the
-lemma's full gauge --- an overall energy shift, the residual
-diagonal-unitary rephasing freedom that is physically trivial (basis
-convention), and the antiunitary conjugation \(\hat{H} \to -\hat{H}^*\),
-which is not shift- or rephasing-related and is a genuine twofold
-ambiguity, not a convention; the residual dissipation \(\mathcal{D}\),
-if measurable at sufficient precision, is a prediction of the framework
-rather than an approximation artifact.
+Where these hold, the phase-locking lemma (§3.1), under its
+classification hypothesis H-BG, determines \(\hat{H}_{\text{eff}}\) from
+continuous-time transition data up to the lemma's full gauge --- an
+overall energy shift, the residual diagonal-unitary rephasing freedom
+that is physically trivial (basis convention), and the antiunitary
+conjugation \(\hat{H} \to -\hat{H}^*\), which is not shift- or
+rephasing-related and is a genuine twofold ambiguity, not a convention;
+the residual dissipation \(\mathcal{D}\), if measurable at sufficient
+precision, is a prediction of the framework rather than an approximation
+artifact.
 
 \textbf{Comparison of routes.}
 
@@ -4104,27 +4111,28 @@ representation clause is not a claim that all P-indivisible processes
 are ``secretly quantum'' in some metaphysical sense; it is a theorem
 that the mathematical structures are identical. Classical systems
 exhibiting P-indivisibility --- renewal processes, semi-Markov processes
-on finite state spaces --- admit a unitary description, generically
-constrained up to the phase-locking gauge (shift, rephasing, the
-antiunitary conjugate), whose consequences separate into two layers:
-continuous transition data constrain \emph{generator structure} beyond
-the raw data up to that gauge --- energy-gap structure, under the
-phase-locking hypotheses --- while \emph{operational} interference and
-entanglement predictions require in addition the instrument and
-observable structure of the operational bridge, stated as open (§3.2,
-§3.4). The processes can be realized as marginalization of deterministic
-dynamics under C1--C4 (necessity theorems). The framework locates the
-observer's process inside the correspondence's domain, where the
-imported theorem supplies a unitarily evolving representation for every
-finite-configuration member --- including divisible and Markovian ones.
-P-indivisibility does not gate that supply; it distinguishes
-representations whose dynamics is genuinely indivisible from those that
-are trivially unistochastic (§3.4). The physical content of the unitary
-is not that of a mere mathematical embedding: it is a Hamiltonian
-determined by the transition data up to the stated gauge freedom ---
-energy shift, rephasing, and the antiunitary conjugate \(H \to -H^*\)
-(phase-locking lemma) --- arising from the \emph{actual} dilation
-structure of the system (§3.2).
+on finite state spaces --- admit a unitary description, constrained,
+under the phase-locking hypotheses including H-BG, up to shift,
+rephasing and the antiunitary conjugate, whose consequences separate
+into two layers: continuous transition data constrain \emph{generator
+structure} beyond the raw data up to that gauge --- energy-gap
+structure, under the phase-locking hypotheses --- while
+\emph{operational} interference and entanglement predictions require in
+addition the instrument and observable structure of the operational
+bridge, stated as open (§3.2, §3.4). The processes can be realized as
+marginalization of deterministic dynamics under C1--C4 (necessity
+theorems). The framework locates the observer's process inside the
+correspondence's domain, where the imported theorem supplies a unitarily
+evolving representation for every finite-configuration member ---
+including divisible and Markovian ones. P-indivisibility does not gate
+that supply; it distinguishes representations whose dynamics is
+genuinely indivisible from those that are trivially unistochastic
+(§3.4). The physical content of the unitary is not that of a mere
+mathematical embedding: under H-BG and the other phase-locking
+hypotheses, its Hamiltonian is determined by the transition data up to
+the stated gauge freedom --- energy shift, rephasing, and the
+antiunitary conjugate \(H \to -H^*\) (phase-locking lemma) --- arising
+from the \emph{actual} dilation structure of the system (§3.2).
 
 \emph{(v) The single external dependency, scoped.} The paper imports one
 external result: the Barandes stochastic-quantum correspondence {[}11,
@@ -4583,14 +4591,17 @@ as a posit with a non-derivability countermodel; (ii) finiteness of the
 \emph{total} state space \(S\) --- Lemma 1 delivers finiteness of the
 observer's distinguishable states, and the extension to all of \(S\) is
 A1 of the companion substratum construction --- there scoped as the
-gauge choice of the minimal finite representative, the deep-sector
-cardinality being unobservable (deep-sector enlargement, developed
-there) --- consumed here by the recurrence step of §2.3 and by §4.6,
-whose conclusions hold on the finite representative; those expressible
-through the accessible-timescale transition law hold on every member of
-the gauge class (the transfer stated and proved as a corollary in the
-companion substratum construction), while the recurrence-scale
-conclusion of §2.3 is a statement about the finite representative; (iii)
+gauge choice of the minimal finite representative, the cardinality of a
+deep sector decoupled from the boundary layer being unobservable
+(deep-sector enlargement, developed there) --- consumed here by the
+recurrence step of §2.3 and by §4.6, whose conclusions hold on the
+finite representative and, where expressible through the transition
+probabilities, on every member of its gauge class; across extensions
+whose deep sector couples to the boundary layer with slow dynamics, only
+conclusions expressible through the leading-order accessible-timescale
+transition law transfer (the transfer stated and proved as a corollary
+in the companion substratum construction), while the recurrence-scale
+conclusion of §2.3 is a statement about finite representatives; (iii)
 the record-preservation and eventual-image arguments that ground
 determinism (Lemma 3) close the hidden-sector margin using one
 \emph{empirical} input --- the observed statistics, in the uniform-prior
@@ -5191,4 +5202,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: 3c45b8ecfd0b7cd6641535697135bc16f48dd0f9e652d79173cda49271c62981
+% source-sha256: bba335bd406481ed138665c923061b975d1b8e8b2eedbb3af2f5fe95e5fa18ce

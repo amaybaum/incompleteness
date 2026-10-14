@@ -200,9 +200,10 @@ modules, in the order the development grew:
 - **Hamiltonian reconstruction** (`BohrFrequency`, `FrequencyMatching`, `PiccardBridge`,
   `EdgeRigidity`, `HomometricSix`, `HomometricKill`, `CongruentReconstruction`,
   `TurnpikeScopeTransfer`, `AntiunitaryInvariance`, `ThermalOrientation`, `ShellAssignment`):
-  Bohr-frequency completeness and the two-branch D-gauge theorem of `papers/GR.md` §3.3, the
-  homometric exception killed, the operational antiunitary invariance, and the thermodynamic
-  orientation selector.
+  Bohr-frequency completeness, congruent reconstruction, the positive six-mode obstruction,
+  operational antiunitary invariance, and the thermodynamic orientation selector. The full
+  two-branch D-gauge reconstruction of `papers/GR.md` §3.3 is conditional on the open global
+  sign-aware classification; the unsigned `BGIntegerClassification` is refuted.
 - **Coherent completions** (`CoherentLift`, `TwoByTwoNoGo`, `AccessibleAlgebra`,
   `OperationalRigidity`, `JordanClassification`, `OrientationSelection`, `OrientationClosure`,
   `CycleFibreHull`, `DynamicsGlue`, `DomainGlue`, `ObservabilityQuotient`, `PassiveQuotient`,

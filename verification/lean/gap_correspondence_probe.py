@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Exact classification probes for the [GR] two-branch theorem (D-gauge completeness), which
-was held as a Claim at P-grade until the reconstruction programme closed.
+"""Exact finite classification probes for conditional [GR] D-gauge completeness.
+The complete global sign-aware classification remains an open hypothesis.
 
 The theorem's decisive step is a classification: with all gaps distinct, matching transition
 probabilities force a frequency-preserving bijection mu of ordered mode pairs, and the
@@ -931,8 +931,8 @@ check("M13", ok13,
       "integer member p = (1, 6) realizes the SAME correspondence with order, Golombness, "
       "and nontriviality preserved: precisely the conclusion of the kernel theorem "
       "integer_realization_of_real_realization (TurnpikeScopeTransfer.lean), whose "
-      "twoBranch_of_BGClassification leaves the INTEGER Bekir-Golomb classification as the "
-      "single unproved premise of the entire reconstruction; a perturbed irrational "
+      "twoBranch_of_BGClassification consumes the refuted unsigned integer premise; "
+      "this transfer probe does not justify a complete classification; a perturbed irrational "
       "coordinate breaks the bridge")
 
 print()
@@ -949,12 +949,11 @@ print('     mu-orbit bridge to the quoted exceptional family is kernel-proved ov
 print('     (OIBridge/PiccardBridge.lean, probe twins M11/M12). The primary 2007 text has been')
 print('     read: its exceptional-family formula is confirmed exactly (M12), its equivalence')
 print('     notion (identical or mirror image) and distinct-difference hypothesis match the')
-print('     statement, and its classification argument is the cited external step. The')
-print('     real-vs-integer scope gap is CLOSED by the kernel transfer theorem')
-print('     (TurnpikeScopeTransfer.lean, M13), so the manuscript now prints the two-branch')
-print('     THEOREM at K2, citing Bekir-Golomb for the integer classification only; vanishing')
-print('     overlaps remain outside the theorem by hypothesis, and formalizing the 2007')
-print('     classification is the sole remaining K3 backlog item.')
+print('     stated family, but these checks do not justify the complete classification.')
+print('     Integer realization transfer remains kernel-proved (TurnpikeScopeTransfer, M13).')
+print('     The unsigned BGIntegerClassification is refuted; full reconstruction is')
+print('     conditional on the open global sign-aware H-BG. Source comparison and a general')
+print('     justification of that replacement remain required; finite controls are not closure.')
 print()
 print("gap_correspondence_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

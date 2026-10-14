@@ -155,7 +155,7 @@
         "ThermalOrientation",
         "ShellAssignment"
       ],
-      "status": "current",
+      "status": "scope-consistent",
       "manuscript": [
         {
           "file": "papers/GR.md",
@@ -166,7 +166,7 @@
           "anchor": "thermodynamic orientation"
         }
       ],
-      "note": "GR 3.3: Bohr-frequency completeness, the two-branch D-gauge theorem graded on the cited integer classification, the homometric exception killed, antiunitary invariance, the thermodynamic orientation selector."
+      "note": "GR 3.3: Bohr-frequency completeness, congruent reconstruction, positive six-mode obstruction, antiunitary invariance and thermodynamic orientation are independent kernel results. Full two-branch reconstruction is conditional on the open global sign-aware classification; the unsigned BGIntegerClassification is refuted. Draft #842 is pre-freeze design evidence, not adopted certification."
     },
     {
       "name": "coherent completions",

@@ -56,6 +56,7 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
 % Use the Computer Modern-compatible set-difference construction; the large
 % Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
 \AtBeginDocument{\let\setminus\smallsetminus}
@@ -3028,12 +3029,13 @@ the undecidable hidden state. The alphabet size \(q\) at each lattice
 site and the cardinality of the deep hidden sector beyond the partition
 boundary are \emph{gauge} rather than undecidable. Different values of
 \(q\) produce identical observables; different deep-sector cardinalities
---- including infinite ones --- produce identical observables through
-the boundary-only dependence lemma of Chapter 7. The hidden state \(h\)
-is undecidable: there is a real answer, but the observer cannot find it.
-The alphabet \(q\) is gauge: there is no answer to find, because the
-question is empty. This distinction will be made precise in §2.5, where
-the gauge group is constructed explicitly.
+--- including infinite ones --- produce the same visible transition data
+at leading order on accessible timescales, through the boundary-only
+dependence lemma of Chapter 7. The hidden state \(h\) is undecidable:
+there is a real answer, but the observer cannot find it. The alphabet
+\(q\) is gauge: there is no answer to find, because the question is
+empty. This distinction will be made precise in §2.5, where the gauge
+group is constructed explicitly.
 
 The reconstruction theorem developed in the next section fixes the
 \textbf{local lattice/gauge residue} --- under its stated conditions ---
@@ -3426,14 +3428,18 @@ parametrized by the integers \(q \geq 2\).
 partition boundary --- what Chapter 7 will call the \emph{deep} hidden
 sector \(\mathcal{C}_D\), distinct from the boundary layer
 \(\mathcal{C}_B\) --- can be enlarged arbitrarily without changing
-observables. Adjoining additional degrees of freedom to
-\(\mathcal{C}_D\) with arbitrary dynamics satisfying
-\(\tau_B^D \gg \tau_S\) leaves the emergent description unchanged. The
-boundary-only dependence lemma (Chapter 7) proves that visible-sector
-transition probabilities depend only on the boundary layer
-\(\mathcal{C}_B\) to corrections of order \(\tau_S/\tau_B^D\). The deep
-sector may be finite of any size, or infinite --- the observer's
-predictions are insensitive to which.
+observables, provided the added degrees of freedom are decoupled:
+adjoining to \(\mathcal{C}_D\) degrees of freedom that no dynamics
+couples to the boundary layer leaves every visible-sector transition
+probability unchanged at every time, and with it the emergent
+description. Such a deep sector may be finite of any size, or infinite
+--- the observer's predictions are insensitive to which. An enlargement
+whose dynamics couples to the boundary layer, even slowly
+(\(\tau_B^D \gg \tau_S\)), is not in this family: the boundary-only
+dependence lemma (Chapter 7) shows that it changes the transition
+probabilities only by corrections of order \(\tau_S/\tau_B^D\), so it
+preserves their leading-order law on accessible timescales, not the
+probabilities themselves.
 
 \emph{(iv) Graph isomorphism (up to statistical isotropy), with a
 gauge-sector qualification.} Two coupling graphs \(G_\varphi\) and
@@ -3466,11 +3472,12 @@ the dimension via Myrheim-Meyer, the eigenvalue multiplicities
 \((3, 2, 1)\). Generator (ii): \(q\)-independence of every Standard
 Model prediction is established in Chapters 5 and 6 (the predictions
 involve only ratios and cubic-group representation theory, both
-\(q\)-independent). Generator (iii): the boundary-only dependence lemma
-gives the result directly. Generator (iv): the derivation chain in Stage
-2 uses only statistical properties of \(G_\varphi\) --- dimension,
-spectral dimension, bounded degree, isotropy --- never specific graph
-features. \(\square\)
+\(q\)-independent). Generator (iii): the adjoined degrees of freedom are
+decoupled, so averaging over them leaves the visible marginal, and every
+transition probability, unchanged. Generator (iv): the derivation chain
+in Stage 2 uses only statistical properties of \(G_\varphi\) ---
+dimension, spectral dimension, bounded degree, isotropy --- never
+specific graph features. \(\square\)
 
 \textbf{Conditional completeness.} For the reconstructed dilation/local
 datum, and subject to the semigroup-transfer lemma (Substratum Lemma
@@ -3577,7 +3584,7 @@ of the substratum, not chosen from a landscape.
 \textbf{Substrate freedom and the realism question.} The substratum
 gauge group makes precise an earlier claim. Different gauge
 representatives within an equivalence class produce identical
-observables: state relabelings, alphabet changes, deep-sector
+observables: state relabelings, alphabet changes, decoupled deep-sector
 enlargements, and graph isomorphisms all leave every measurement outcome
 unchanged. The question ``which specific substratum representative is
 real?'' therefore has no empirical content. Two representatives in the
@@ -4327,14 +4334,17 @@ with each broader level absorbing more degrees of freedom as gauge.
 \textbf{Level G1: D-gauge on the emergent Hamiltonian.} The narrowest
 gauge freedom in the framework is the diagonal-unitary equivalence on
 the emergent Hamiltonian: \(H \to D H D^\dagger\) with \(D\) a diagonal
-unitary in the measurement-outcome basis. This is the residual freedom
-that survives after all transition-probability data has been extracted
-from the emergent quantum description. Two Hamiltonians \(H\) and
+unitary in the measurement-outcome basis. This freedom preserves
+transition probabilities exactly. Energy shifts and the antiunitary
+reflection also preserve them; completeness of these alternatives under
+the stated gap and overlap hypotheses is conditional on the sign-aware
+integer classification H-BG ({[}GR §3.3{]}). Two Hamiltonians \(H\) and
 \(D H D^\dagger\) produce identical Born-rule probabilities
 \(T_{ij}(t) = |\langle j | e^{-iHt/\hbar} | i \rangle|^2\) in the
 measurement basis, so they are operationally indistinguishable. The
-transformation rephases the diagonal entries of \(H\) in the measurement
-basis without changing any predicted probability.
+transformation rephases the measurement basis, changing off-diagonal
+phases of \(H\) while leaving its diagonal entries and every transition
+probability unchanged.
 
 Level G1 is the smallest gauge group in the hierarchy. It operates
 within a single Hamiltonian realization in a single emergent quantum
@@ -5209,19 +5219,22 @@ The framework takes none of the three classical exits, because it can
 prove that the question loses reference before it needs an answer. The
 reconstruction determines the substratum only up to the gauge group
 \(\mathcal{G}_{\text{sub}}\) (Chapter 2 §2.5), and one of its four
-generator families is deep-sector enlargement: add unobservable
-substrate structure beneath the boundary layer and every observable ---
-every transition probability, the emergent Hamiltonian, \(\hbar\) itself
---- is unchanged. So each candidate answer to the hardware question is
-one of two things. Either it is more structure, in which case it has
-been absorbed into \((S, \varphi)\) and the question repeats; or it is
-deep-sector content, in which case §3.6's identification applies in its
-strong species: gauge incompleteness, where the inaccessible ``fact'' is
-no fact at all. The tower is therefore not terminated by a special
-turtle that stands on nothing; it ends at a line the framework can state
-exactly, and the line is a criterion rather than a depth. A putative
-fact about the tower is physical if and only if it is an \emph{invariant
-of the gauge class} --- the same on every representative of
+generator families is deep-sector enlargement: add substrate structure
+beneath the boundary layer that no dynamics couples to it, and every
+observable --- every transition probability, the emergent Hamiltonian,
+\(\hbar\) itself --- is unchanged; structure coupled to the boundary
+layer with slow dynamics leaves unchanged only the leading-order
+transition law on accessible timescales. So each candidate answer to the
+hardware question is one of two things. Either it is more structure, in
+which case it has been absorbed into \((S, \varphi)\) and the question
+repeats; or it is deep-sector content, in which case §3.6's
+identification applies in its strong species: gauge incompleteness,
+where the inaccessible ``fact'' is no fact at all. The tower is
+therefore not terminated by a special turtle that stands on nothing; it
+ends at a line the framework can state exactly, and the line is a
+criterion rather than a depth. A putative fact about the tower is
+physical if and only if it is an \emph{invariant of the gauge class} ---
+the same on every representative of
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) --- and it is gauge exactly
 when the group's generators move it while every observable stays fixed.
 For the support question the crossing sits at the
@@ -5229,25 +5242,29 @@ boundary-layer/deep-sector interface. One step down, the hidden sector's
 capacity, timescales, coupling structure, and energetic content are
 class invariants --- every representative carries them, which is why
 they can be deduced (the computational species of §3.6, taken up below).
-One step further, every candidate answer to \emph{what does the boundary
-layer run on} --- this substrate or that, larger or smaller cardinality,
-native or simulated --- lies inside a single
-\(\mathcal{G}_{\text{sub}}\)-orbit, because deep-sector enlargement is
-one of the group's own generators: no invariant separates the
-candidates, so there is nothing for an answer to be right about. Below
-that line the sortal \emph{turtle} stops being well-formed, and asking
-what the structure runs on becomes --- precisely, not loosely --- the
-analogue of asking which coordinate chart spacetime is really in: there
-the diffeomorphism invariants exhaust the physics, and here the
+One step further, candidate answers to \emph{what does the boundary
+layer run on} that differ only by decoupled deep-sector structure ---
+this substrate or that, larger or smaller cardinality, native or
+simulated --- lie inside a single \(\mathcal{G}_{\text{sub}}\)-orbit,
+because decoupled deep-sector enlargement is one of the group's own
+generators: no invariant separates the candidates, so there is nothing
+for an answer to be right about. Below that line the sortal
+\emph{turtle} stops being well-formed, and asking what the structure
+runs on becomes --- precisely, not loosely --- the analogue of asking
+which coordinate chart spacetime is really in: there the diffeomorphism
+invariants exhaust the physics, and here the
 \(\mathcal{G}_{\text{sub}}\) invariants do, conditional on the
 semigroup-transfer completeness step (that exhaustion is what the
 reconstruction theorem's equivalence-class form, read through §3.6's
 identification, conditionally asserts). A question about representation,
 mistaken for a question about the world. The same accounting absorbs the
 regress's modern costume, the simulation hypothesis: a simulated
-\((S, \varphi)\) and a native one differ only by deep-sector structure
-invisible to every embedded observer, so on the framework's own gauge
-bookkeeping there is no physics question there to answer.
+\((S, \varphi)\) and a native one that differ only by deep-sector
+structure decoupled from the boundary layer are indistinguishable to
+every embedded observer, so on the framework's own gauge bookkeeping
+there is no physics question there to answer; a difference coupled to
+the boundary layer, however slowly, enters the transition probabilities
+at \(\mathcal{O}(t/\tau_B)\).
 
 The dissolution must be scoped, though, and the scoping is this
 chapter's own two-species distinction (§3.6). Not every turtle below us
@@ -22174,18 +22191,17 @@ remains finite.
 
 A clarification is essential. The cardinality \(|\mathcal{C}_D|\) of the
 deep hidden sector is \emph{gauge} in the framework: different values of
-\(|\mathcal{C}_D|\) produce identical predictions for all observables
-accessible to the embedded observer. The ``total information'' of the
-universe is therefore not a physical observable in the framework. But
-the \emph{finiteness} of \(|\mathcal{C}_D|\) --- for the recurrence
-route specifically, that there exists some finite value, even if its
-specific magnitude is not observable --- is load-bearing. Infinite
-hidden sectors would break the recurrence argument that drives
-recurrence-scale P-indivisibility; that route would close. Accessible
-non-Markovianity would survive through readback, and the imported
-representation is gated by (T) rather than by recurrence, so an infinite
-substratum removes this route rather than the framework's quantum
-representation.
+\(|\mathcal{C}_D|\) produce the same visible transition data at leading
+order on accessible timescales. The ``total information'' of the
+universe is therefore not fixed by those data. But the \emph{finiteness}
+of \(|\mathcal{C}_D|\) --- for the recurrence route specifically, that
+there exists some finite value, even if its specific magnitude is not
+observable --- is load-bearing. Infinite hidden sectors would break the
+recurrence argument that drives recurrence-scale P-indivisibility; that
+route would close. Accessible non-Markovianity would survive through
+readback, and the imported representation is gated by (T) rather than by
+recurrence, so an infinite substratum removes this route rather than the
+framework's quantum representation.
 
 The framework's commitment to finite information is therefore neither a
 quantitative claim about the specific cardinality nor a metaphysical
@@ -26022,8 +26038,9 @@ generated by \(\hat{H}_{\text{eff}}\) to leading order provided both the
 slow-bath condition \(\tau_S\ll\tau_B\) and a weak-coupling condition
 (small conditioned-Hamiltonian spread) hold. The phase-locking lemma
 (Chapter 1 §1.6) then determines \(\hat{H}_{\text{eff}}\) from
-continuous-time transition data up to the lemma's full gauge: an overall
-energy shift, the residual diagonal-unitary rephasing freedom that is
+continuous-time transition data, under the classification hypothesis
+H-BG of Lemma B.7.5, up to the lemma's full gauge: an overall energy
+shift, the residual diagonal-unitary rephasing freedom that is
 physically trivial (basis convention), and the antiunitary conjugation
 \(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity (Lemma
 B.7.5).
@@ -26263,14 +26280,18 @@ the classical Hamiltonian --- the emergent action scale \(\hbar\)
 inherits \emph{boundary-only dependence}.
 
 \textbf{Step 2: Deep-sector gauge equivalence.} A corollary of the
-factorization lemma is that no observable of the emergent description
-depends on the cardinality \(|\mathcal{C}_D|\) of the deep hidden
-sector. Systems with the same \(\mathcal{C}_V \times \mathcal{C}_B\)
-dynamics produce the same emergent physics to within
-\(\mathcal{O}(\tau_S/\tau_B)\), whether \(|\mathcal{C}_D|\) is finite,
-countably infinite, or uncountably infinite. The question ``is the
-universe finite or infinite?'' has no empirical content within the
-framework --- it is identified as gauge.
+factorization lemma is that, to within \(\mathcal{O}(\tau_S/\tau_B)\),
+no quantity determined by the visible transition data depends on the
+cardinality \(|\mathcal{C}_D|\) of the deep hidden sector: systems with
+the same \(\mathcal{C}_V \times \mathcal{C}_B\) dynamics produce the
+same visible transition data, whether \(|\mathcal{C}_D|\) is finite,
+countably infinite, or uncountably infinite. Quantities that differ
+between Hamiltonians compatible with those data, such as individual
+eigenvalues and raw amplitudes, lie outside the corollary, and so does
+recurrence-scale content, which the recurrence argument establishes on a
+finite representative. Within the leading-order visible transition data
+on accessible timescales, a finite and an infinite deep sector are
+indistinguishable.
 
 \textbf{Step 3: Dimensional determination.} Step 2 excludes volumetric
 (deep-sector) quantities, leaving boundary quantities. The boundary
@@ -26312,14 +26333,14 @@ from the classical substratum alone (no QM), \(T_Q\) from the emergent
 QFT alone (no classical substratum details) --- but they refer to the
 \emph{same physical degrees of freedom}: the boundary modes
 \(V \times B\) across which \(H_{\text{int}}\) couples the visible and
-hidden sectors. Step 1's boundary-only dependence shows that the
-emergent QFT is uniquely determined (at leading order in
-\(\tau_S/\tau_B\)) by these same \(V \times B\) dynamics. Temperature is
-a state property; two complete descriptions of the same modes cannot
-assign different temperatures without logical contradiction. The
-matching \(T_{\text{cl}} = T_Q\) is therefore not an additional
-assumption but a consequence of the boundary modes being the same
-physical objects in both descriptions, with corrections at
+hidden sectors. Step 1's boundary-only dependence shows that the visible
+transition data from which the emergent QFT is reconstructed are fixed
+(at leading order in \(\tau_S/\tau_B\)) by these same \(V \times B\)
+dynamics. Temperature is a state property; two complete descriptions of
+the same modes cannot assign different temperatures without logical
+contradiction. The matching \(T_{\text{cl}} = T_Q\) is therefore not an
+additional assumption but a consequence of the boundary modes being the
+same physical objects in both descriptions, with corrections at
 \(\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}\):
 \[\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}\]
 
@@ -27011,13 +27032,15 @@ inequality. What is robust, and all that the characterization theorem
 requires, is that the memory is \(\mathcal{O}(I_0)\) and observable
 throughout the regime \(k\tau_S \ll \tau_B\). \(\square\)
 
-\textbf{Lemma B.7.5 (Phase locking).} \emph{The emergent effective
-Hamiltonian \(\hat{H}_{\text{eff}}\) on the visible sector is determined
-by the continuous-time transition data \(\{T_{ij}(t)\}\) up to the
-lemma's full gauge: an overall energy shift, the diagonal-unitary
-rephasing freedom, and the antiunitary conjugation
-\(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity rather than a
-convention ({[}Main §3.1{]}).}
+\textbf{Lemma B.7.5 (Phase locking).} \emph{Assume dimension at least
+three, the global sign-aware classification H-BG of {[}GR §3.3{]}, and
+distinct gaps and non-vanishing overlaps for both Hamiltonians being
+compared. The emergent effective Hamiltonian \(\hat{H}_{\text{eff}}\) on
+the visible sector is then determined by the continuous-time transition
+data \(\{T_{ij}(t)\}\) up to the lemma's full gauge: an overall energy
+shift, the diagonal-unitary rephasing freedom, and the antiunitary
+conjugation \(\hat{H} \to -\hat{H}^*\) --- a genuine twofold ambiguity
+rather than a convention ({[}Main §3.1{]}).}
 
 \emph{Proof.} The transition data \(\{T_{ij}(t)\}\) determines the
 Born-rule probabilities
@@ -27025,22 +27048,27 @@ Born-rule probabilities
 squared-modulus structure leaves the phase undetermined; specifically,
 the transformation \(|i\rangle \to e^{i\theta_i}|i\rangle\) leaves all
 \(|U_{ij}|^2\) invariant. This is the basis-convention freedom --- the
-choice of phase for each basis state --- which is physically trivial. Up
-to this freedom, together with the energy shift and the antiunitary
-conjugation \(\hat{H} \to -\hat{H}^*\) noted in the statement, the
-dynamics is determined. \(\square\)
+choice of phase for each basis state --- which is physically trivial.
+H-BG and the coefficient-labelled exceptional obstruction classify the
+possible mode correspondences ({[}GR §3.3{]}); this step is not supplied
+by Fourier extraction alone. Conditional on H-BG, the remaining
+alternatives are this rephasing freedom, the energy shift and the
+antiunitary conjugation \(\hat{H} \to -\hat{H}^*\) stated above.
+\(\square\)
 
 \emph{Scope.} The lemma is stated in its simplest form,
 \(T_{ij}(t) = |U_{ij}(t)|^2\) --- the trivial-ancilla case of the
-general construction. In the ancilla-marginal form the visible data
-determine the \emph{dilated} Hamiltonian and the configuration
-projectors up to an energy shift and the same diagonal-phase freedom;
-the extension, its Fourier structure, and the constraint analysis of the
-larger pair-phase gauge are given in the companion paper ({[}Main
-§3.4{]}) --- where the pair-phase gauge reduces to the diagonal one for
-generic families at each fixed dimension --- together with the
-antiunitary conjugate \(H \to -H^*\), retained there as an intrinsic
-ambiguity of transition data.
+general construction. In the ancilla-marginal form, local generic
+rigidity is checked at the certified block structures; general
+completeness is open. The visible data constrain the \emph{dilated}
+Hamiltonian and configuration projectors, with the energy shift and
+diagonal-phase freedoms exactly invisible; the extension, its Fourier
+structure, and the constraint analysis of the larger pair-phase gauge
+are given in the companion paper ({[}Main §3.4{]}) --- where the
+pair-phase gauge reduces to the diagonal one for generic families at
+each fixed dimension --- together with the antiunitary conjugate
+\(H \to -H^*\), retained there as an intrinsic ambiguity of transition
+data.
 
 \textbf{Theorem B.7.6 (Characterization theorem).} \emph{In the
 redefined form of {[}Main §3.4{]}: accessible non-Markovianity of the
@@ -30006,4 +30034,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 4a4b73ba50b175f18e18689f79596879b095f1b213f827012c295204d028c2d5
+% source-sha256: 241e6f824656e1fb0848a186ff1e880b1de2343e6ac1098f7ff4e9f31520b5d5

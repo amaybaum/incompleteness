@@ -56,6 +56,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -688,12 +692,14 @@ freedom as gauge.
 \textbf{Level G1 --- D-gauge on the emergent Hamiltonian.} The
 diagonal-unitary equivalence on the emergent Hamiltonian:
 \(H \to D H D^\dagger\) with \(D\) diagonal-unitary in the eigenbasis of
-measurement outcomes {[}GR §3.3{]}. This is the residual gauge freedom
-after all transition-probability data has been extracted from the
-emergent QM. Two Hamiltonians \(H\) and \(DHD^\dagger\) produce
-identical \(T_{ij}(t) = |\langle j|e^{-iHt/\hbar}|i\rangle|^2\) in the
-measurement basis. G1 is the smallest gauge group; it operates within a
-single Hamiltonian / single QM realization.
+measurement outcomes {[}GR §3.3{]}. This is an exactly invisible freedom
+of the transition data. Energy shifts and the antiunitary reflection are
+also invisible; their completeness under the stated gap and overlap
+hypotheses is conditional on H-BG {[}GR §3.3{]}. Two Hamiltonians \(H\)
+and \(DHD^\dagger\) produce identical
+\(T_{ij}(t) = |\langle j|e^{-iHt/\hbar}|i\rangle|^2\) in the measurement
+basis. G1 is the smallest gauge group; it operates within a single
+Hamiltonian / single QM realization.
 
 \textbf{Level G2 --- SM gauge group on the emergent QFT.} The Standard
 Model gauge group \(SU(3) \times SU(2) \times U(1)\) emerges as the
@@ -2348,6 +2354,10 @@ predominantly observer-lacking substrata, with the observer-admitting
 subset being structurally smaller --- is a substantive contribution that
 the framework's structural-realism stance makes available to the
 landscape discussion.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{part-ii-universality-classes-of-embedded-observers-question-2}{%
 \section{Part II: Universality Classes of Embedded Observers (Question
@@ -5827,4 +5837,4 @@ Press (1979), 790-831.
 quantum gravity'', Phys. Rev.~D 57, 971 (1998). arXiv:hep-th/9605030.
 
 \end{document}
-% source-sha256: ea7351fb9d5fddd2180f7061622218d2fc7f930b1b0724468ed1a155fa170420
+% source-sha256: c5f6c2348074b943ff25a25d156339171810400ac986c59c475dc6887fa50bae

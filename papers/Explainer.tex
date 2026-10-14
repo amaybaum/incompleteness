@@ -56,6 +56,7 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
 % Use the Computer Modern-compatible set-difference construction; the large
 % Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
 \AtBeginDocument{\let\setminus\smallsetminus}
@@ -936,7 +937,9 @@ throws away phase information. Different unitaries could give the same
 transition probabilities. Does this make the quantum description
 ambiguous?
 
-The phase-locking lemma shows: no.
+The complete two-branch answer requires the sign-aware classification
+hypothesis H-BG ({[}GR §3.3{]}); Fourier extraction alone does not
+classify the unlabelled mode correspondences.
 
 \textbf{Setup:} The transition probability at time t is:
 
@@ -948,10 +951,10 @@ Expanding the square:
 
 \[T_{ij}(t) = \sum_{k,l} V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\; e^{-i(E_k - E_l)t}\]
 
-\textbf{The Fourier trick:} This is a sum of oscillating terms at
-frequencies ω\_kl = E\_k - E\_l. If all these frequencies are distinct
-(condition G2: non-degenerate energy gaps), you can extract each
-coefficient by Fourier transform:
+\textbf{The Fourier trick:} Once a mode correspondence has been fixed,
+this is a sum of oscillating terms at frequencies ω\_kl = E\_k - E\_l.
+If all these frequencies are distinct (condition G2: non-degenerate
+energy gaps), you can extract each coefficient by Fourier transform:
 
 \[a_{ij}^{kl} = V_{ik}\, V_{jk}^*\, V_{jl}\, V_{il}^*\]
 
@@ -971,10 +974,12 @@ remaining phases are determined up to one further discrete ambiguity:
 the complex-conjugate Hamiltonian H → −H*, an antiunitary twin producing
 identical transition probabilities at every time.
 
-\textbf{Bottom line:} Continuous-time transition probability data
-determines the Hamiltonian up to relabeling conventions and the
-antiunitary conjugate H → −H* (ancilla-case completeness open beyond
-tested generic cases); i.e.~up to physically irrelevant relabeling.
+\textbf{Conditional conclusion:} Under H-BG and the gap/overlap
+hypotheses on both Hamiltonians, continuous-time transition data
+determine the Hamiltonian up to an energy shift, diagonal rephasing and
+the antiunitary conjugate H → −H*. The last ambiguity is a global
+orientation alternative. General ancilla-case completeness remains open
+beyond the tested generic cases.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1558,21 +1563,20 @@ degenerate gaps merge coefficients but cannot cancel them --- and
 distinct frequencies give linearly independent characters, so equal
 probability families have equal gap sets.
 
-\textbf{What is proved (two-branch reconstruction).} Under the
-genericity conditions G1--G3 --- non-degenerate spectrum, non-degenerate
-energy gaps, non-vanishing overlaps --- matching probabilities force H'
-= DHD† + E₀ or H' = −DH̄D† + E₀: basis rephasing, an energy origin, and
-an antiunitary reflection, nothing else ({[}GR §3.3{]}). Each listed
-ambiguity is exactly invisible (the reflection satisfies
-e\^{}\{−i(−H̄)t\} = conj(e\^{}\{−iHt\}) entrywise), and each relaxation
-fails on an explicit example --- dropping the gap condition fails on the
-C₄ ring of {[}SM{]} Proposition 20. The discrete inverse problem at the
-proof's core --- the raw difference set does not determine a spectrum,
-since non-congruent homometric Golomb rulers exist --- is resolved on
-the coefficient-labelled frequency data, with one classical input: the
-completed Piccard classification of integer rulers with equal difference
-sets (Bekir--Golomb 2007), whose extension from integer to real spectra
-is proved internally. The double-difference condition
+\textbf{Conditional two-branch reconstruction.} In dimension at least
+three, under G1--G3 for both Hamiltonians and the global sign-aware
+integer classification H-BG of {[}GR §3.3{]}, matching probabilities
+imply H' = DHD† + E₀ or H' = −DH̄D† + E₀. H-BG allows the exceptional
+six-mark correspondence or its global reversal; its complete derivation
+from the published classification remains open. The unsigned formal
+premise \texttt{BGIntegerClassification} is refuted by reflecting one of
+the homometric six-mark rulers. Each displayed ambiguity is exactly
+invisible, and dropping the gap condition fails on the C₄ ring of
+{[}SM{]} Proposition 20. Bohr-frequency completeness, the
+real-to-integer realization transfer, congruent reconstruction and the
+positive six-mode obstruction are established independently; they do not
+by themselves prove the complete classification. The double-difference
+condition
 
 \[\delta_{ik} - \delta_{il} - \delta_{jk} + \delta_{jl} = 0 \pmod{2\pi}\]
 
@@ -3464,11 +3468,13 @@ architecture of computability theory.
 The framework also identifies a distinct class of inaccessible
 quantities: the alphabet size q and the deep-sector cardinality
 \textbar C\_D\textbar. These are not undecidable --- they are
-\emph{gauge}. Different values produce identical observables, so there
-is no fact of the matter to be inaccessible. The hidden state h is
+\emph{gauge}. Different values of q produce identical observables, and
+different values of \textbar C\_D\textbar{} produce the same transition
+data at leading order on accessible timescales, so within those data
+there is no fact of the matter to be inaccessible. The hidden state h is
 undecidable: it has a real answer the observer cannot reach. The
-cardinality \textbar C\_D\textbar{} is gauge: there is nothing there to
-reach.
+cardinality \textbar C\_D\textbar{} is gauge: in the
+accessible-timescale data there is nothing there to reach.
 
 The common thread: a system with finite resources tries to completely
 model something it's part of, and the structural impossibility of doing
@@ -3587,15 +3593,15 @@ rule is extra composite data: H-Bell conditions its
 compatibility/existence, and its uniqueness is open. This gauge group
 has four generators: state relabeling (permuting the elements of S while
 conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ),
-deep-sector enlargement (the cardinality of the deep hidden sector
-beyond the boundary layer is unobservable --- it may even be infinite),
-and graph isomorphism up to statistical isotropy (any bounded-degree
-graph with d = 3 polynomial growth and statistical isotropy is
-gauge-equivalent to ℤ³ \emph{for the emergent-QM, dimensional, and
-gravitational content}; for the Standard Model gauge group this
-generator is restricted to isomorphisms preserving the cubic octahedral
-structure, since the (3,2,1) decomposition requires it --- see
-{[}Substratum §4, Theorem 24(iv){]}). The reconstruction theorem
+deep-sector enlargement (the cardinality of a deep hidden sector that no
+dynamics couples to the boundary layer is unobservable --- it may even
+be infinite), and graph isomorphism up to statistical isotropy (any
+bounded-degree graph with d = 3 polynomial growth and statistical
+isotropy is gauge-equivalent to ℤ³ \emph{for the emergent-QM,
+dimensional, and gravitational content}; for the Standard Model gauge
+group this generator is restricted to isomorphisms preserving the cubic
+octahedral structure, since the (3,2,1) decomposition requires it ---
+see {[}Substratum §4, Theorem 24(iv){]}). The reconstruction theorem
 establishes this list for the state-channel content via Stinespring
 uniqueness; the graph generator carries the cubic-structure
 qualification just noted.
@@ -3759,8 +3765,9 @@ representation for the correspondence's class; existence is internal and
 universal (\(S \iff D \iff Q_{\mathrm{fb}}\), {[}Main §3.4{]}) & T\_ij =
 ancilla-marginal Born rule (T = \textbar U\textbar² in the
 trivial-ancilla case) \\
-§3.1: Phase-locking & Hamiltonian fixed up to shift, rephasing, and the
-antiunitary conjugate & Fourier analysis of T\_ij(t) \\
+§3.1: Phase-locking & Under H-BG and the stated genericity hypotheses,
+Hamiltonian fixed up to shift, rephasing, and the antiunitary conjugate
+& Conditional classification and Fourier analysis \\
 §3.2: Bell analysis & Deterministic screened graph-local completion is
 Bell-local; quantum CHSH therefore requires ontic parameter dependence
 with operational no-signaling & local deterministic completion
@@ -3838,9 +3845,10 @@ strengthen the argument.
 \textbf{3. The D-gauge reconstruction requires genericity, and is stated
 as a claim.}
 
-The phase-locking argument and the two-branch reconstruction theorem
-assume non-degenerate spectrum, non-degenerate energy gaps, and
-non-vanishing overlaps (conditions G1--G3); Bohr-frequency completeness
+The phase-locking argument assumes non-degenerate spectrum,
+non-degenerate energy gaps, and non-vanishing overlaps (conditions
+G1--G3); the conditional two-branch reconstruction also requires H-BG
+and these conditions for both Hamiltonians; Bohr-frequency completeness
 itself needs only the spectrum and overlap conditions. These fail on a
 measure-zero set of Hamiltonians. For the cosmological realization, a
 stronger argument applies to G1 specifically: the genericity conditions
@@ -3885,4 +3893,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: b7ae83ea211b604cc386c466536dce9855970b466070c1dcbdab7f796338923e
+% source-sha256: 6ae44c0988227a4a0dc83aa7380df61d917c97e1a200837e13aa421b475b7f58
