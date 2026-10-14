@@ -2694,9 +2694,9 @@
       "line": 184,
       "kind": "Corollary",
       "label": "(thermodynamic orientation)",
-      "fingerprint": "b7045443fa94c194",
+      "fingerprint": "5dbea06c7b4712a7",
       "area": "gr",
-      "assumptions": "a reflected Hamiltonian pair; inferring that only the ordinary branch remains additionally requires H-BG and the reconstruction hypotheses",
+      "assumptions": "a reflected Hamiltonian pair with distinct energies; inferring that only the ordinary branch remains additionally requires H-BG and the reconstruction hypotheses",
       "checks": [
         {
           "kind": "lean",
