@@ -1,0 +1,6 @@
+candidate images per coupling: [16, 16, 16, 16, 16, 16, 16, 16]
+images consistent under powers alone: [4, 8, 8, 16, 8, 16, 16, 0]
+couplings [[0, 0], [0, 0]] & [[0, 1], [1, 0]]: consistent image pairs = 8
+couplings [[0, 0], [0, 0]] & [[1, 0], [0, 1]]: consistent image pairs = 0
+couplings [[0, 1], [1, 0]] & [[1, 0], [0, 1]]: consistent image pairs = 0
+couplings [[0, 1], [1, 1]] & [[1, 1], [1, 0]]: consistent image pairs = 0

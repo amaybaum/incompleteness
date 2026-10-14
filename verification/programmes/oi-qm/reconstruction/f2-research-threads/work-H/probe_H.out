@@ -1,0 +1,63 @@
+== P1  q=2 kernel images vs classical layers ==
+PASS P1.a classical shear is an involution
+PASS P1.b S^2 = diag(1,-1) is not proportional to I (EXACT)
+first mismatch (word applied left-to-right, x0, classical, Born): ('wssw', 0, array([1., 0.]), array([0., 1.]))
+PASS P1.c kernel images contradict the classical visible law on some word
+PASS P1.d word wssw: classical [1,0], Born [0,1]
+PASS P1.e single-qubit Clifford group mod phase has 24 elements
+Clifford image pairs (shear, swap) reproducing the classical law on all words <= 8: 0
+PASS P1.f no pair of single-qubit Clifford images reproduces the classical law (q=2)
+
+== P2  odd q: Weil image of the leapfrog vs the classical marginal ==
+q=3 N=1: nullspace dims [1], max |Born - classical| = 3.11e-15
+PASS P2.a q=3 N=1 symmetric coupling: Weil image unique and Born = classical marginal
+q=3 N=2: nullspace dims [1], max |Born - classical| = 2.00e-15
+PASS P2.a q=3 N=2 symmetric coupling: Weil image unique and Born = classical marginal
+q=5 N=1: nullspace dims [1], max |Born - classical| = 2.66e-15
+PASS P2.a q=5 N=1 symmetric coupling: Weil image unique and Born = classical marginal
+PASS P2.b non-symmetric coupling: no intertwiner (symplecticity load-bearing)
+point prior: classical [0. 0. 1.]  Born from |0> [0.333333 0.333333 0.333333]
+PASS P2.c point prior on prev is not reproduced (uniform prior load-bearing)
+PASS P2.d Wigner covariance under the leap's Weil image (err 4.4e-16)
+
+== P3  non-affine registration bijection vs the conjugate translation ==
+PASS P3.a Toffoli Z3 Toffoli^T is not proportional to Z3 (EXACT, 0/+-1 entries)
+PASS P3.b affine control: CNOT maps Z3 to a diagonal +-1 Pauli string
+PASS P3.c CNOT image is a Z-string (Clifford), Toffoli image is not
+
+== P4  continuous time: Lie algebra of the substratum's own generators ==
+config carrier q=2 N=1: dim C^Conf = 4, Lie dim = 4, u(dim) = 16, max ones-ray leakage 2.2e-16
+PASS P4.a q=2 N=1 configuration-carrier flows stay ones-fixing and not full
+config carrier q=2 N=2: dim C^Conf = 16, Lie dim = 31, u(dim) = 256, max ones-ray leakage 1.0e-15
+PASS P4.a q=2 N=2 configuration-carrier flows stay ones-fixing and not full
+config carrier q=3 N=1: dim C^Conf = 9, Lie dim = 20, u(dim) = 81, max ones-ray leakage 9.6e-16
+PASS P4.a q=3 N=1 configuration-carrier flows stay ones-fixing and not full
+polarized carrier q=3 N=1: leaps only: Lie dim = 5; parity commutator 2.3e-15; u(even)+u(odd) = 5; u(3) = 9
+PASS P4.b q=3 N=1 leaps commute with parity and stay inside u(even)+u(odd)
+   leaps + position translations: Lie dim = 9 of 9
+PASS P4.c q=3 N=1 leaps + translations under continuous time generate u(d) up to scalars
+polarized carrier q=5 N=1: leaps only: Lie dim = 12; parity commutator 4.5e-16; u(even)+u(odd) = 13; u(5) = 25
+PASS P4.b q=5 N=1 leaps commute with parity and stay inside u(even)+u(odd)
+   leaps + position translations: Lie dim = 25 of 25
+PASS P4.c q=5 N=1 leaps + translations under continuous time generate u(d) up to scalars
+polarized carrier q=3 N=2: leaps only: Lie dim = 35; parity commutator 7.2e-16; u(even)+u(odd) = 41; u(9) = 81
+PASS P4.b q=3 N=2 leaps commute with parity and stay inside u(even)+u(odd)
+   leaps + position translations: Lie dim = 81 of 81
+PASS P4.c q=3 N=2 leaps + translations under continuous time generate u(d) up to scalars
+
+== P5  kernel PolC generators at level two (Fin 2 x Fin 2) ==
+infinite-order-mod-scalars witness (word over [H1,H2,CNOT,CS,S1]): ((0, 1, 3), (0, 1, np.float64(-0.432513364040654)))
+PASS P5.a an element of infinite order modulo scalars exists (numerical, degree-bounded)
+commutant dimension of {g (x) conj g}: 2 (2 means M_4 = scalars + irreducible sl(4))
+PASS P5.b Ad(G) irreducible on sl(4)
+PASS P5.c control: Clifford-only words show no infinite-order element
+
+== P6  two-time statistics with a registered intermediate record ==
+PASS P6.a q=3 bare copy (prev untouched) has no Weil image
+PASS P6.b q=3 symplectic (back-acting) registration: classical two-time law = Born (err 2.4e-15)
+PASS P6.c q=3 bare copy: classical x2 is determined by (x0, record) — memory survives, unlike R
+PASS P6.a q=5 bare copy (prev untouched) has no Weil image
+PASS P6.b q=5 symplectic (back-acting) registration: classical two-time law = Born (err 1.6e-16)
+PASS P6.c q=5 bare copy: classical x2 is determined by (x0, record) — memory survives, unlike R
+
+failed checks: none
