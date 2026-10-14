@@ -39,8 +39,7 @@ The research rebuild below ran on `dee3b5ae` (`main` after #818). From `dee3b5ae
 `verification/audits/foundations/kn-elementary-carrier-census.md` and KT4-PREM-1's record;
 `verification/ROADMAP.md` changed only outside the K block, and the census registry (blob `c8e0e184` at `D`) changed
 only in the status and note of the GR 3.3 family, with 106 families and none naming `KnDescent`. Every reference
-below is measured at `D`. KINF-COPY-1, whose controls P, W, V, I, C, R, G are adopted below by reference, has no
-record at `D`: its control plane is the draft on #822 (head `90c72640`, from `dee3b5ae`).
+below is measured at `D`.
 
 **No manuscript, no built artifact, `verification/ROADMAP.md`, no landed kernel module and no other round's record
 change under any outcome.**
@@ -107,6 +106,49 @@ to relabel `S × T` onto `S × Fin |T|` with `(s₀, ι s) ↦ (s, k)`, then `Ar
 compressions use LiftAudit's closed form `flow_transition_closedForm` (`a ≠ b`) and its idempotent lemma
 `exp_smul_idempotent` (`a = b`).
 
+**The native module text (frozen).** `OIBridge/KnDescent.lean` is the source
+`verification/programmes/oi-qm/reconstruction/carrier-descent-design/KnDescentDesign.lean` at `d3a95be6` (Git blob
+`85b237382443d12daf4ec92e6fed12063ac2b8d1`), whose proof bodies are those of `EqvKnDesc`, with these edits and no
+other: the header comment (the source's lines 1–34) is replaced by the header below; `namespace KnDescentDesign` and
+`end KnDescentDesign` read `KnDescent`, and so do the names of the twelve `#print axioms` lines; in the docstring of
+`compress_mem`, `**Compression along an injection (W-DESC).**` reads `**Compression along an injection.**`; in the
+docstring of `drivesElementary_of_pow`, `**The descent (Kₙ-DESC).**` reads `**The descent.**`; in the docstring of
+`drivesElementaryAt_fullClass`, ``(positive control; `fullClass_arch` is landed)`` reads ``(positive control; its
+architecture is `fullClass_arch`)``. The imports, the `open` lines, the section comments, every other docstring and
+every proof are the source's. The resulting file is Git blob `d2c3ebbe47341e3ebc275427c34f05ad3a64db7d`, SHA256
+`15c8d6a0c7bce4a4471ca6c7fc80334cfa510828676594b412e1e1fd3a3f06a3` (10688 bytes, 214 lines). S1's preamble is the
+header comment through `noncomputable section`, compared byte for byte. The source file and its history are not
+edited. The header:
+
+```text
+/-
+  OIBridge/KnDescent.lean — drivability descends from qubit-power carriers inside the K3
+  architecture (KN-DESC-1).
+
+  (A) Compression. In an implementation class with `Architecture`, `ContextStable` and
+  `LabelInvariant`, an admissible operator on `T` compresses to an admissible operator on `S` along
+  any injection `S ↪ T` (`compress_mem`): adjoin `S` as a spectator (`ContextStable`), relabel
+  `S × T` onto `S × Fin |T|` so that `(s₀, ι s)` goes to `(s, k)` (`LabelInvariant`), and take the
+  `(k, k)` block (`Architecture.block`).
+
+  (B) The elementary generators compress to the elementary generators along an injection
+  (`transition_submatrix`, `flow_transition_submatrix`, `permMatrix_swap_submatrix`,
+  `phaseGate_submatrix`).
+
+  (C) Drivability at one carrier descends to every smaller nonempty carrier
+  (`drivesElementaryAt_of_embedding`); drivability at the carriers `Fin (2 ^ k)` gives
+  `DrivesElementary` (`drivesElementary_of_pow`); and `QuantumArchitecture` holds exactly when its
+  four closure clauses hold with drivability at the qubit-power carriers
+  (`quantumArchitecture_iff_pow`: the forward direction through `drivesElementaryAt_of_drives`, the
+  converse through `drivesElementary_of_pow`).
+
+  The statements live in the carrier-general matrix framework of `ImplementationClass`;
+  `Architecture`, the spectator closure `ContextStable`, `LabelInvariant` and drivability enter as
+  premises. Nothing here sources drivability, a closure clause, or a dictionary from a
+  field-neutral composite to the carriers `Fin (2 ^ k)`.
+-/
+```
+
 **Pre-`F` revision item (owner's choice).** Run 38090116254 reported, as warnings only, unused `[Fintype S]
 [Fintype T]` section binders in `transition_submatrix`, `permMatrix_swap_submatrix`, `phaseGate_submatrix`, and a
 `haveI` style hint. Omitting the unused binders changes those three effective statements; if the owner wants a
@@ -116,20 +158,65 @@ warning-free module, the revision is made before `F` and the predicted tree is r
 with Architecture, ContextStable and LabelInvariant every admissible operator compresses along any injection of
 carriers, the elementary generators compress to themselves, and drivability at the carriers Fin (2^k) gives
 DrivesElementary (round KN-DESC-1, reconstruction)", `modules: ["KnDescent"]`, `status: "kernel-only"`,
-`manuscript: []`. **Import line** after `import OIBridge.EqvK2MaxCone`.
+`manuscript: []`, with the keys in that order and no other key. It is appended as the last family, after
+OI-PAIR-MAXCONE-1's, and the registry is written as `json.dumps(registry, indent=2, ensure_ascii=False)` followed by
+one newline, which reproduces `D`'s file byte for byte; the result is Git blob
+`444fedcd3d07d2a5eb7ef287c2d5c9304d5f428d`. **Import line** `import OIBridge.KnDescent`, directly after
+`import OIBridge.EqvK2MaxCone`; the result is Git blob `9ffd8aa5d0a3c8521623ca946225da28e031dc9c`.
 
 ## The exact layer (frozen probe `verification/lean/kn_desc1_probe.py`)
 
-The probe is `research/equivalence/experiments/e3_compress.py` (sha256 `18c3aa1b…`; 7 checks), using Python and
-SymPy 1.14.0 with exact symbolic arithmetic: F0 (the closed form of `flow (transition a b) t` solves `M' = −iHM`, `M(0) = 1`), G1–G3 (the
+The probe is `research/equivalence/experiments/e3_compress.py` at `424aa33b`, byte for byte (Git blob
+`a8f1ef39b11179fbbf0aacf836d7dc8c1558f8be`, SHA256
+`18c3aa1b95e8277378ecc1382984c761a6c16d6daaa1c344fed03e53ae897ae3`; 7 checks), using Python and SymPy 1.14.0 with
+exact symbolic arithmetic; it reads no file and exits with status 0 under every outcome, so the shard and
+`controls.py` read its verdict line: F0 (the closed form of `flow (transition a b) t` solves `M' = −iHM`, `M(0) = 1`), G1–G3 (the
 literal construction — tensor, an explicit bijection, reindex, block — returns the three generator families for
 `(|S|, |T|) = (3, 4), (3, 8), (5, 8)`, 32 ordered distinct-index pairs), B1 (every bijection used sends `(s₀, ι s)` to `(s, 0)`), K1
 (compressing a flow that leaves `ι(S)` is not unitary: `B Bᴴ − 1` has entry `−sin² t` — the invariance of the
 coordinate subspace is load-bearing for the generators), K2 (no bijection `Fin 4 ≃ Fin 3 × Fin m`; `1_3 ⊗ X` is not
 diagonal; the `Fin 3` transition flow at `t = 1` is not diagonal — the exact failure instances showing `ContextStable`
 load-bearing). The frozen probe does not sample self-index transition flows (`a = b`); the universal kernel theorem
-covers that case separately through `flow_transition_self`. Its shard `probes_kndesc1` and the aggregate edit follow
-KT4-PREM-1, with the Python/SymPy dependency installed explicitly.
+covers that case separately through `flow_transition_self`. Its shard `probes_kndesc1` and the aggregate edit are the
+workflow edit below.
+
+## The workflow edit (frozen)
+
+`.github/workflows/verify.yml` changes by one edit in five places. The job below is inserted directly after the
+`probes_kt4prem1` job, followed by one blank line, before `probes_oichannel1`:
+
+```yaml
+  probes_kndesc1:
+    name: Numerical probes / KN-DESC-1 qubit-power descent
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install the exact-algebra dependency
+        run: pip install sympy==1.14.0
+
+      - name: KN-DESC-1 compression-descent probe
+        working-directory: verification/lean
+        run: |
+          echo "=== kn_desc1_probe.py ==="
+          out=$(python3 -I -B kn_desc1_probe.py)
+          printf '%s\n' "$out"
+          test "$(printf '%s\n' "$out" | tail -n 1)" = "VERDICT COMPRESSION-DESCENT-EXACT"
+```
+
+In the aggregate `Numerical probes` job:
+
+- `probes_kndesc1` is added after `probes_kt4prem1` in `needs`;
+- `KNDESC1_RESULT: ${{ needs.probes_kndesc1.result }}` is added after `KT4PREM1_RESULT`;
+- `echo "kndesc1=${KNDESC1_RESULT}"` is added after the KT4-PREM-1 echo;
+- `test "${KNDESC1_RESULT}" = success` is added after the KT4-PREM-1 test.
+
+The result is Git blob `f40440987d16f8c63373e75f4e3ebf8fff3ed96c`. The last `test` of the shard is there because the
+probe's exit status does not depend on its checks.
 
 ## The decision rules (frozen; implemented by `controls.py verdict`)
 
@@ -199,7 +286,7 @@ landed `transition` (LieRankSource.lean:199), `phaseGate` (:209), `permMatrix` (
 `exp_smul_idempotent` (:219); `le_two_pow` is arithmetic; `drivesElementaryAt_fullClass` is about `fullClass`
 (ImplementationLocality.lean:374). No hypothesis in the table is sourced by the round.
 
-## The ROADMAP wording the round would license (HP-1, row Kₙ; not applied by the round)
+## The ROADMAP wording the round would license (row Kₙ; not applied by the round)
 
 At `D`, ROADMAP :1070–1081 ends "… or by another carrier-general construction. The classification is recorded in
 [`audits/foundations/kn-elementary-carrier-census.md`](…)." and states "No current theorem supplies the lift." Under
@@ -209,7 +296,10 @@ quantifier of drivability reduces to qubit-power carriers: an implementation cla
 finite carrier (`drivesElementary_of_pow`); what remains is drivability on qubit registers from the elementary system
 and those closure clauses." The caution travels with it: the reduction moves the carrier generality into
 `ContextStable`, the matrix form of the spectator clause (b) needs. "No current theorem supplies the lift" stays true
-and stays. Kₙ remains OPEN under every outcome.
+and stays. Kₙ remains OPEN under every outcome. The proposed sentence is the Kₙ row, and the caution restates caution (ii),
+of `research/equivalence/handoff-proposals/HP-1-coordinator-roadmap-K-wording.md` at `424aa33b` (Git blob
+`75ced7d392b305522ae40a3027ec9c05e889d641`); both are stated here in full, and nothing in this file depends on that
+text.
 
 ## The controls (in `controls.py`)
 
@@ -226,13 +316,50 @@ and stays. Kₙ remains OPEN under every outcome.
 - **S4 phrases** (header, result note): "OI supplies", "K2 supplies", "drivability is sourced", "Kn is discharged",
   "Kn is closed", "Kₙ is closed", "F1 is established", "establishes F1", "the lift is supplied",
   "produces a three-level system", "kernel proof of" (for the probe), "design module", "not for merge".
-- **P, W, V, I, C, R, G** as KINF-COPY-1 (probe and workflow frozen; three tokens; the earned reading exactly when all
-  three are positive; one import line; one family; the governed paths).
+  Mutation: the source's header comment in place of the frozen one fails S1 and S4.
+- **P probe.** Object: `verification/lean/kn_desc1_probe.py` at the stage-1 commit and at `E`. Expected: both are Git
+  blob `a8f1ef39b11179fbbf0aacf836d7dc8c1558f8be`. Measured: the tree entries of the two commits, compared with that
+  id. Mutation: a probe with one changed byte fails P.
+- **W workflow.** Object: `.github/workflows/verify.yml` at the stage-1 commit and at `E`. Expected: `D`'s file
+  (Git blob `159936eb42560fd4f22f14cd81fce2ae35382ffe`) with exactly the frozen workflow edit, which is Git blob
+  `f40440987d16f8c63373e75f4e3ebf8fff3ed96c`. Measured: `controls.py` applies the edit to `D`'s file and compares
+  bytes. Mutations: the unchanged file; the aggregate without the `KNDESC1_RESULT` test; the shard without its verdict
+  test. Each fails W.
+- **V verdicts.** Object: the tokens `controls.py verdict E` prints and, at a commit carrying it, the result note.
+  Expected: each cell yields exactly one token by its own rule; the note contains exactly the three computed tokens
+  and no other; it states the frozen earned reading exactly when all three cells are positive and the frozen
+  non-inference rule under every outcome; it carries the probe's two last lines as printed when `controls.py` runs the
+  probe at that commit. Measured: `controls.py` recomputes the tokens from the measurements at `E` and reads them in
+  the note. Self-test mutations: a changed signature of `compress_mem` reads `KN-DESC-DESCENT-NOT-ESTABLISHED` and
+  leaves Q-IFF and Q-EXACT positive; a forward component of the iff that does not name `drivesElementaryAt_of_drives`
+  reads `KN-DESC-IFF-NOT-ESTABLISHED` and leaves Q-DESC and Q-EXACT positive; a probe with one changed witness value
+  reads `KN-DESC-INSTANCES-NOT-ESTABLISHED` and leaves Q-DESC and Q-IFF positive; a note with an extra token, a note
+  stating the earned reading with a cell not positive, and a note without the non-inference rule each fail V.
+- **I import.** Object: `verification/lean-mathlib/OIBridge.lean` at the stage-1 commit and at `E`. Expected: Git blob
+  `9ffd8aa5d0a3c8521623ca946225da28e031dc9c`, `D`'s file with the one frozen import line. Measured: byte comparison.
+  Mutations: the unchanged file; the line at another position; a second added line. Each fails I.
+- **C census.** Object: `verification/lean-manuscript-census.json` at the stage-1 commit and at `E`. Expected: Git blob
+  `444fedcd3d07d2a5eb7ef287c2d5c9304d5f428d`, `D`'s registry with the frozen family appended as written above.
+  Measured: byte comparison. Mutations: the unchanged file; the family with another status; the family at another
+  position; a whitespace change. Each fails C.
+- **R record.** Object: the record directory at `E`. Expected: it holds exactly `preregistration.md`, `controls.py`
+  and `result.md`, with any files under `amendments/` at `F`, and every control-plane file has its blob at `F`.
+  Measured: the tree of `E` under the record directory, compared with `F`'s. Mutations: an extra file; a changed
+  preregistration. Each fails R.
+- **G governed paths.** Object: `git diff --no-renames --name-status D E`. Expected: exactly the record directory's
+  three files (status `A`), `A verification/lean-mathlib/OIBridge/KnDescent.lean`, `A verification/lean/kn_desc1_probe.py`,
+  `M verification/lean-mathlib/OIBridge.lean`, `M verification/lean-manuscript-census.json` and
+  `M .github/workflows/verify.yml`; the receipt path is added only at `Q`. Measured: that diff, compared with the list.
+  Mutations: an extra path; a changed landed module. Each fails G.
+
+P, W, V, I, C, R and G are stated here in full. Their form follows the controls of the KINF-COPY-1 control-plane draft
+and of KT4-PREM-1; nothing in this file depends on either text.
 
 ## Invariants and their checkpoints (§A.41)
 
 | invariant | checkpoint |
 | --- | --- |
+| the exact native bytes compile within the three axioms and pass the controls before `F` is designated | `C0`: the predicted execution tree less the result note, a single-parent child of `D` carrying exactly the blobs this file names, dispatched with `workflow_dispatch` before `F`; every job `success`, the twelve `KnDescent` prints within `[propext, Classical.choice, Quot.sound]`, and its commit, run and job ids recorded in this file before `F` |
 | execution begins from the frozen control plane | `C1`: this file's blob at `F` |
 | the controls and the probe are the frozen ones | `C2`: blobs at stage 1 and at `E`; `controls.py --self-test` OK at `E` |
 | every frozen declaration elaborates within the three axioms | `C3`: the dispatch run at exactly `E`, every job `success`; the Mathlib bridge build and the twelve prints |
@@ -286,9 +413,13 @@ provenance is the build of `d3a95be6` above. Neither run is a `check-run` attest
 **Predicted outputs, generated from those measurements by the rules:** Q-DESC `KN-DESC-DESCENT-PROVED`, Q-IFF
 `KN-DESC-IFF-PROVED` (run 1's statements and prints; the iff's two components are the named witnesses in the built
 proof), Q-EXACT `KN-DESC-INSTANCES-EXACT` (`checks: 7, failures: 0`). Of the release gate at the predicted tree, every
-step is predicted PASS: run 1 failed only at `lean-manuscript`, which the census family discharges. **Not yet
-measured:** the predicted execution tree at `D` (module renamed `KnDescent`, the family, the probe and
-its shard), to be built and dispatched before `F`.
+step is predicted `PASS`: run 1 failed only at `lean-manuscript`, which the census family discharges. The predicted
+execution tree is `D` with this record, `controls.py` and the five blobs named above: the module `d2c3ebbe`, the probe
+`a8f1ef39`, `OIBridge.lean` `9ffd8aa5`, the census `444fedcd` and the workflow `f4044098`. Assembled locally on `D`
+without `controls.py`, its release gate passed every step except `lean-axioms`, which needs the Lean toolchain; `lean-manuscript` passed with the family
+and reported `UNCLASSIFIED module KnDescent` without it; the shard's commands printed `checks: 7, failures: 0` and
+the verdict line, and its test passed. A local run is not a `check-run` attestation. **Not yet measured:** the
+predicted execution tree built and dispatched at `D` (`C0`), before `F`.
 
 ## Stages and outcomes
 
