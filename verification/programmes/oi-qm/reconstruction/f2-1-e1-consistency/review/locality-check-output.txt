@@ -1,0 +1,4 @@
+phase arg +0.000: eig args U = [0.    1.571 3.142]; ||log(UxU) - (logU x 1 + 1 x logU)|| mod identity = 8.886e+00
+phase arg +0.785: eig args U = [-2.356  0.785  2.356]; ||log(UxU) - (logU x 1 + 1 x logU)|| mod identity = 8.886e+00
+phase arg +1.571: eig args U = [-1.571  1.571  3.142]; ||log(UxU) - (logU x 1 + 1 x logU)|| mod identity = 1.185e+01
+phase arg -1.047: eig args U = [-1.047  0.524  2.094]; ||log(UxU) - (logU x 1 + 1 x logU)|| mod identity = 5.924e+00
