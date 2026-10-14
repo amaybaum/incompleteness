@@ -240,14 +240,16 @@ ok8 &= 'native_decide' not in body
 # the analytic step must be Dedekind, used at every real time -- no sampling, no approximation
 ok8 &= 'linearIndependent_monoidHom' in src
 ok8 &= '∀ t : ℝ, retProb E p t = retProb E\' p\' t' in src
-# the manuscript must carry both theorems, the K2 citation structure, and the C4 cross-reference
+# The manuscript carries Bohr completeness and explicitly conditional reconstruction.
 ok8 &= '**Theorem (Bohr-frequency completeness).**' in gr
 ok8 &= '**Theorem (D-gauge completeness, two-branch form).**' in gr
 ok8 &= '**Corollary (operational antiunitary invariance).**' in gr
 ok8 &= '**Corollary (thermodynamic orientation).**' in gr
 ok8 &= 'no antiunitary branch and no nontrivial $D$' in gr
 ok8 &= 'A. Bekir and S. W. Golomb' in gr
-ok8 &= 'the passage from integer to real spectra being proved, not assumed' in gr
+ok8 &= 'H-BG is an explicit classification hypothesis' in gr
+ok8 &= 'The unsigned formal premise `BGIntegerClassification` is false' in gr
+ok8 &= 'both Hamiltonians' in gr
 ok8 &= '[SM] Proposition 20' in gr
 ok8 &= '0,1,4,10,12,17' in gr and '0,1,8,11,13,17' in gr
 # and the withdrawn conclusion must not be asserted anywhere as a theorem
@@ -257,8 +259,8 @@ check("F8", ok8,
       f"`native_decide`; all {len(NAMES)} named results print their axiom dependencies. The "
       f"analytic step is Dedekind's independence of characters at every real time, not sampling. "
       f"The manuscript carries Bohr-frequency completeness and the two-branch theorem, the "
-      f"latter proved with the integer Bekir-Golomb classification as its one cited input and "
-      f"the integer-to-real passage proved internally; the [SM] Proposition 20 cross-reference "
+      f"latter conditional on H-BG; the unsigned formal premise is refuted and "
+      f"the complete sign-aware classification remains open; the [SM] Proposition 20 cross-reference "
       f"and the homometric rulers stand, and the withdrawn unconditional conclusion is still "
       f"asserted nowhere")
 
@@ -10038,11 +10040,10 @@ print('     [scope] Settled in Lean: the return-probability expansion, positivit
 print('     coefficient, gap-set determination from equal probability families (Dedekind, at every')
 print('     real time), the |U_ij|^2 expansion over the same frequencies, and both invisible')
 print('     impostors -- the energy origin and the antiunitary reflection -- as exact identities.')
-print('     The two-branch reconstruction is now a manuscript THEOREM at K2: every step is')
-print('     kernel-proved except the cited integer Bekir-Golomb classification (the explicit')
-print('     premise BGIntegerClassification); the homometric rulers mark why the proof runs on')
-print('     coefficient-labelled data, and formalizing the 2007 classification is the sole')
-print('     remaining K3 backlog item.')
+print('     Full two-branch reconstruction is conditional on the open sign-aware H-BG')
+print('     classification. The unsigned BGIntegerClassification is refuted; its conditional')
+print('     consumers do not establish the physical conclusion. Independent subresults remain')
+print('     valid. Justifying the complete replacement is required before unconditional closure.')
 print()
 print("bohr_frequency_probe:", "ALL CHECKS PASS" if all(CHECKS) else "FAILURE")
 sys.exit(0 if all(CHECKS) else 1)

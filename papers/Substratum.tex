@@ -46,6 +46,7 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
 % Use the Computer Modern-compatible set-difference construction; the large
 % Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
 \AtBeginDocument{\let\setminus\smallsetminus}
@@ -150,7 +151,7 @@
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -162,10 +163,9 @@
 
 \begin{document}
 
-\hypertarget{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}{%
 \section{The Substratum Construction: Reconstruction, the Substratum
 Gauge Group, and the QM-GR
-Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}}
+Synthesis}\label{the-substratum-construction-reconstruction-the-substratum-gauge-group-and-the-qm-gr-synthesis}
 
 \textbf{Observer geometry and physical carrier.} SM §4.1 distinguishes
 two claims. First, finite equivariant projection is classical and exact:
@@ -193,8 +193,7 @@ geometric links.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 Quantum mechanics and general relativity are conventionally treated as
 two fundamental theories awaiting unification. This paper develops the
@@ -232,8 +231,7 @@ traditional QM--GR ``unification problem'' is correspondingly recast as
 a category error between two projections of one object, while the
 theorem statuses and remaining conditional steps are kept explicit.
 
-\hypertarget{introduction}{%
-\subsection{1. Introduction}\label{introduction}}
+\subsection{1. Introduction}\label{introduction}
 
 The standard physical picture of the world contains two fundamental
 theories. Quantum mechanics describes the microscopic regime in terms of
@@ -372,9 +370,8 @@ The paper is short by design: the technical content fits in two sections
 (§§3--4) and the rest is the structural and interpretive context that
 shows why those two sections matter.
 
-\hypertarget{the-metaphysical-commitment}{%
 \subsubsection{1.1 The metaphysical
-commitment}\label{the-metaphysical-commitment}}
+commitment}\label{the-metaphysical-commitment}
 
 The framework's primary metaphysical claim is \emph{ontic structural
 realism applied to the reconstructed local-sector equivalence class}.
@@ -453,9 +450,8 @@ develops the structural and explanatory consequences; {[}SM{]} and
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-physical-interpretation-of-s-ux3c6}{%
 \subsection{2. The Physical Interpretation of (S,
-φ)}\label{the-physical-interpretation-of-s-ux3c6}}
+φ)}\label{the-physical-interpretation-of-s-ux3c6}
 
 \textbf{Storage and memory.} S is the set of all distinguishable states:
 \emph{finite capacity}. φ is a bijection: \emph{perfect memory} ---
@@ -605,9 +601,8 @@ uniqueness of the Bell-inclusive full substratum.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-reconstruction-theorem}{%
 \subsection{3. The Reconstruction
-Theorem}\label{the-reconstruction-theorem}}
+Theorem}\label{the-reconstruction-theorem}
 
 The forward direction --- from \((S, \varphi)\) to observed physics ---
 is established by {[}SM §§3.1, 4--5{]} and the companion paper
@@ -618,9 +613,8 @@ uniquely reconstructed local lattice/gauge residue from the
 Bell-inclusive completion, whose existence is conditional on H-Bell and
 whose uniqueness is open.
 
-\hypertarget{inputs-to-the-reconstruction}{%
 \subsubsection{3.1 Inputs to the
-reconstruction}\label{inputs-to-the-reconstruction}}
+reconstruction}\label{inputs-to-the-reconstruction}
 
 The reconstruction takes two kinds of inputs: empirical observations and
 structural assumptions. Being explicit about both is essential to the
@@ -816,9 +810,8 @@ following prior theorems, whose individual correctness is assumed:
 Theorem 23's confidence is bounded above by the minimum confidence in
 these dependencies.
 
-\hypertarget{stage-1-observed-qm-deterministic-embedding-with-c1c4}{%
 \subsubsection{3.2 Stage 1: Observed QM → deterministic embedding with
-C1--C4}\label{stage-1-observed-qm-deterministic-embedding-with-c1c4}}
+C1--C4}\label{stage-1-observed-qm-deterministic-embedding-with-c1c4}
 
 \textbf{Inputs:} E1 (unitary QM), E2 (Bell violations), E3 (finite
 boundary entropy), A1 (finiteness), A2 (determinism), and M1, now
@@ -979,10 +972,9 @@ hypotheses.
 \textbf{Status:} Theorem for the scoped finite dilation datum; no
 Bell-inclusive Stage-1 uniqueness claim.
 
-\hypertarget{stage-2-embedding-isotropy-specific-lattice-gauge-structure}{%
 \subsubsection{3.3 Stage 2: Embedding + isotropy → specific lattice +
 gauge
-structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}}
+structure}\label{stage-2-embedding-isotropy-specific-lattice-gauge-structure}
 
 \textbf{Inputs:} Stage 1 output + E4 (spatial isotropy) + E5
 (propagating gravity) + E6 (stable matter) + E7 (boundary-entropy
@@ -1118,9 +1110,8 @@ H-Bell's curvature-stability requirement.
 \textbf{Status:} Theorem for the local lattice sector; one-object Bell
 compatibility conditional on H-Bell.
 
-\hypertarget{stage-3-dynamics-emergent-fundamental-constants}{%
 \subsubsection{3.4 Stage 3: Dynamics → emergent fundamental
-constants}\label{stage-3-dynamics-emergent-fundamental-constants}}
+constants}\label{stage-3-dynamics-emergent-fundamental-constants}
 
 \textbf{Inputs:} Stage 2 output.
 
@@ -1141,8 +1132,7 @@ solution under the stated inputs ({[}GR §3, Theorem{]}).
 
 \textbf{Status:} Theorem.
 
-\hypertarget{the-composite-theorem}{%
-\subsubsection{3.5 The composite theorem}\label{the-composite-theorem}}
+\subsubsection{3.5 The composite theorem}\label{the-composite-theorem}
 
 \textbf{Lemma 23.0} (Local-sector uniqueness preservation). \emph{Let
 \((S_1,\varphi_1)\) and \((S_2,\varphi_2)\) both reproduce the same
@@ -1198,8 +1188,7 @@ datum rather than such Bell-composite structure. Therefore
 Bell-inclusive existence is conditional and Bell-inclusive uniqueness
 remains open. \(\square\)
 
-\hypertarget{remarks}{%
-\subsubsection{3.6 Remarks}\label{remarks}}
+\subsubsection{3.6 Remarks}\label{remarks}
 
 \textbf{Remark} (Evidential weight of the reconstruction). The
 reconstruction uniquely derives
@@ -1491,9 +1480,8 @@ the broader ER=EPR program.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-substratum-gauge-group}{%
 \subsection{4. The Substratum Gauge
-Group}\label{the-substratum-gauge-group}}
+Group}\label{the-substratum-gauge-group}
 
 The equivalence relation \(\sim\) in the reconstruction theorem has a
 precise structure. Define: \((S, \varphi) \sim (S', \varphi')\) if the
@@ -1810,13 +1798,17 @@ not to establish an unprecedented result.
 
 \emph{Step 1: the visible channel.} By assumption \(g\) preserves the
 full time-resolved family of visible-sector CPTP channels
-\(\{\Phi_t\}_{t \geq 0}\), not merely a single channel --- the
-observable \(T_{ij}(t)\) is the matrix element of \(\Phi_t\), preserved
-for all \(t\). Two substrata inducing the same \(\{\Phi_t\}\) for all
-\(t\) have, by the {[}Main, §3.2{]} correspondence, the same emergent
-unitary \(U(t) = e^{-iHt/\hbar}\) up to D-gauge; this fixes the emergent
-Hamiltonian \(H\) and the action scale \(\hbar\), consuming the Level-1
-and Level-2 freedom.
+\(\{\Phi_t\}_{t\ge0}\), not merely a single channel; this preserves
+\(T_{ij}(t)\) for all \(t\). Reconstruction from transition
+probabilities is conditional on H-BG and the dimension, gap and overlap
+hypotheses of {[}GR §3.3{]}, and its alternatives include an energy
+shift and the antiunitary reflection as well as diagonal rephasing. If
+the common channel family is exactly unitary, equality of the
+conjugation actions gives a stronger conclusion: the generators differ
+only by an energy shift ({[}GR{]} Corollary A.3). For general CPTP
+dynamics a unique Hamiltonian part is not supplied by this argument. The
+observable tuple defining \(\mathcal G_{\rm sub}\) separately requires
+preservation of \(H\) up to the specified gauge and of \(\hbar\).
 
 \emph{Step 2: the dilation freedom.} Fixing \(\{\Phi_t\}\) does not fix
 the substratum: the substratum is a dilation of the channel family. Here
@@ -1927,8 +1919,10 @@ permute internal components within the eigenspaces of \(M\).
 
 \emph{Level 1 (emergent Hamiltonian):} The D-gauge \(H \to DHD^\dagger\)
 with \(D\) a diagonal unitary, acting on the emergent Hamiltonian within
-the emergent QM. It is the residual freedom after all
-transition-probability data has been extracted.
+the emergent QM. It preserves every transition probability exactly.
+Energy shifts and the antiunitary reflection are also invisible;
+completeness of these alternatives under the generic gap and overlap
+hypotheses is conditional on H-BG ({[}GR §3.3{]}).
 
 Each level is contained in the one above: Level 1 \(\subset\) Level 2
 \(\subset\) Level 3. The trace-out projects Level 3 onto Level 2 (the SM
@@ -1945,9 +1939,8 @@ the standard sense, derived from the substratum through the trace-out.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{synthesis-three-projections-of-s-ux3c6}{%
 \subsection{5. Synthesis: Three Projections of (S,
-φ)}\label{synthesis-three-projections-of-s-ux3c6}}
+φ)}\label{synthesis-three-projections-of-s-ux3c6}
 
 The reconstruction theorem (§3) establishes that the stated empirical
 and structural inputs, together with M1-T, C2-mixing and Lemma 24.1's
@@ -1962,8 +1955,7 @@ section makes the synthesis claim explicit: quantum mechanics, general
 relativity, and the arrow of time are not three independent theories but
 three projections of the same finite deterministic construction.
 
-\hypertarget{the-three-projections}{%
-\subsubsection{5.1 The three projections}\label{the-three-projections}}
+\subsubsection{5.1 The three projections}\label{the-three-projections}
 
 The framework's derivations apply the same trace-out machinery to the
 same \((S, \varphi)\) along three projections: a visible-sector
@@ -2077,9 +2069,8 @@ exhibits it as the necessary shadow of worldline-centered observation,
 with ordinary momentum conservation holding in the visible sector up to
 corrections of order (length / horizon radius).
 
-\hypertarget{the-qm-gr-incompatibility-as-a-category-error}{%
 \subsubsection{5.2 The QM-GR incompatibility as a category
-error}\label{the-qm-gr-incompatibility-as-a-category-error}}
+error}\label{the-qm-gr-incompatibility-as-a-category-error}
 
 The conventional formulation of the QM-GR unification problem treats
 quantum mechanics and general relativity as two competing theories in
@@ -2138,9 +2129,8 @@ accessible observations can separate two descriptions faithful to the
 same data --- the fundamentality question is answered at the level of
 \((S, \varphi)\), not adjudicated between its projections.)
 
-\hypertarget{the-three-level-hierarchy-made-explicit}{%
 \subsubsection{5.3 The three-level hierarchy made
-explicit}\label{the-three-level-hierarchy-made-explicit}}
+explicit}\label{the-three-level-hierarchy-made-explicit}
 
 The substratum gauge group (§4) provides the structural framework for
 the synthesis claim at the level of the two gauge-bearing projections
@@ -2169,9 +2159,11 @@ fields as the commutant of the coupling matrix, and is the image of
 \(\mathcal{G}_{\text{sub}}\) restricted to transformations that permute
 internal components within the eigenspaces of \(M\). At Level 1 (the
 emergent Hamiltonian), the diagonal-unitary D-gauge acts on the emergent
-Hamiltonian within the emergent QM and is the residual freedom after all
-transition-probability data has been extracted. Each level is contained
-in the one above, and the trace-out projects each onto the next.
+Hamiltonian within the emergent QM and preserves transition
+probabilities. The complete shift/rephasing/antiunitary classification
+is conditional on H-BG and the other {[}GR §3.3{]} hypotheses. Each
+level is contained in the one above, and the trace-out projects each
+onto the next.
 
 The boundary-thermodynamic projection that produces GR is a parallel
 structure at Level 2 --- but acting on the \emph{partition} rather than
@@ -2184,9 +2176,8 @@ equations are not two independent theoretical inputs but two co-derived
 structures, both consequences of the same underlying \((S, \varphi)\)
 and the same trace-out under the same conditions C1--C4.
 
-\hypertarget{the-arrow-of-time-as-a-third-projection}{%
 \subsubsection{5.4 The arrow of time as a third
-projection}\label{the-arrow-of-time-as-a-third-projection}}
+projection}\label{the-arrow-of-time-as-a-third-projection}
 
 After Main §4.6 (structural observer-selection theorem), the arrow of
 time joins quantum mechanics and general relativity as a third emergent
@@ -2306,9 +2297,8 @@ statement and §6.4 ``what does not falsify'' for the commitment that the
 framework makes no prediction of \(\delta_{\text{CKM}}\),
 \(\delta_{\text{PMNS}}\), or the Wolfenstein \((\rho, \eta)\).
 
-\hypertarget{what-the-synthesis-does-and-does-not-claim}{%
 \subsubsection{5.5 What the synthesis does and does not
-claim}\label{what-the-synthesis-does-and-does-not-claim}}
+claim}\label{what-the-synthesis-does-and-does-not-claim}
 
 The synthesis claim is structural and architectural rather than
 empirical. It does not claim that the framework predicts gravitational
@@ -2346,8 +2336,7 @@ but the unique consequence of the framework's structural inputs.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{discussion}{%
-\subsection{6. Discussion}\label{discussion}}
+\subsection{6. Discussion}\label{discussion}
 
 The reconstruction theorem identifies the question ``is mathematics
 describing reality, or is it reality?'' as gauge in the precise sense
@@ -2365,9 +2354,8 @@ finally, is the empirical counterpart of the methodological discipline
 developed in §§3--5: a framework that derives rather than posits must be
 willing to specify what would invalidate the derivation.
 
-\hypertarget{ontic-structural-realism-on-the-equivalence-class}{%
 \subsubsection{6.1 Ontic structural realism on the equivalence
-class}\label{ontic-structural-realism-on-the-equivalence-class}}
+class}\label{ontic-structural-realism-on-the-equivalence-class}
 
 The metaphysical commitment introduced in §1.1 can now be stated with
 the full technical machinery in place. The framework's theorem-level
@@ -2489,9 +2477,8 @@ the hierarchical structure is in {[}Structure §2{]}; the
 substratum-class realism developed in this paper is one specific level
 within that broader structure.
 
-\hypertarget{the-ontological-hierarchy}{%
 \subsubsection{6.2 The ontological
-hierarchy}\label{the-ontological-hierarchy}}
+hierarchy}\label{the-ontological-hierarchy}
 
 The triple (S, φ, V) generates every concept in fundamental physics, not
 as independent substances but as different aspects of the same
@@ -2508,9 +2495,8 @@ emergent: energy conservation (Noether) is what information conservation
 these are independent entities; they are descriptions of (S, φ, V) at
 different scales.
 
-\hypertarget{the-measurement-problem}{%
 \subsubsection{6.3 The measurement
-problem}\label{the-measurement-problem}}
+problem}\label{the-measurement-problem}
 
 On the structural reading, the measurement problem is dissolved. The
 wave function is not a component of (S, φ, V) --- it is a derived
@@ -2540,9 +2526,8 @@ operational statistics remain no-signaling {[}Main §3.3{]}. The
 stochastic causal-local indivisible Tsirelson theorem is retained only
 at that weaker stochastic layer.
 
-\hypertarget{pre-registered-falsification-conditions}{%
 \subsubsection{6.4 Pre-registered falsification
-conditions}\label{pre-registered-falsification-conditions}}
+conditions}\label{pre-registered-falsification-conditions}
 
 The framework's structural content --- the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), the emergent Standard Model
@@ -2936,8 +2921,7 @@ sharpens the scope of the positive commitments above.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{conclusion}{%
-\subsection{7. Conclusion}\label{conclusion}}
+\subsection{7. Conclusion}\label{conclusion}
 
 The substratum-level results developed in this paper --- the
 reconstruction theorem (Theorem 23) and the substratum gauge group
@@ -3025,8 +3009,7 @@ construction rather than problems with it.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{references}{%
-\subsection{References}\label{references}}
+\subsection{References}\label{references}
 
 {[}1{]} R. Bousso, ``The holographic principle,'' \emph{Rev.~Mod. Phys.}
 \textbf{74}, 825 (2002).
@@ -3057,4 +3040,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 2099e31ce0d23751d299eec73cc41cef255a9316b4bfb7cb65c05d21a8ea2cd8
+% source-sha256: 06589b315325643f3867f54c6f5a858a8ad1e2ffc3b3307ab35157a32e42ac94
