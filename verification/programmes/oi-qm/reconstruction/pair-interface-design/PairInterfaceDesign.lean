@@ -30,6 +30,13 @@
   (`pair_available_eq_Q3_and_chsh`). The marginal of one party does not depend on the other
   party's setting, for every joint vector (`marginal_independent`).
 
+  (E) The quantum reading at the pair. A sharp-test value is the trace `tr((Π_a ⊗ Π_b) · dict ω)`
+  with `Π_a = (1 + a·σ)/2` Hermitian, complete (`Π_a + Π_{−a} = 1`) and, along a unit vector, a
+  projector (`prodEffVal_sharp_eq_trace`, `sharpProj_*`). Under the premises of (D), every available
+  preparation is positive semidefinite with those traces as its sharp-test values, and every positive
+  semidefinite operator on `ℂ² ⊗ ℂ²` is the image of an available preparation
+  (`pair_sharp_behaviours`).
+
   Every clause is a premise. Nothing here sources drivability, compatibility, the availability of
   preparations, operations or tests, or the validity of product tests on joint preparations. No
   upper bound on CHSH is proved here.
@@ -430,6 +437,99 @@ theorem marginal_independent (e : (Fin 3 → ℝ) →ᵃ[ℝ] ℝ) (b b' : Fin 3
     | (simp [CompositeDimension.prodEffVal, EffectSpace.sharpEff, CompositeDimension.ehom_affOf,
         CompositeDimension.pairVal, Fin.sum_univ_four, EffectSpace.sharpVec]; ring)
 
+/-! ### §E — the quantum reading of the pair's sharp behaviours -/
+
+/-- The projector of the sharp test along `a`: `(1 + a·σ)/2`. -/
+def sharpProj (a : Fin 3 → ℝ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  EqvK2Schema.tokMat (CompositeDimension.hom a)
+
+theorem sharpProj_eq (a : Fin 3 → ℝ) :
+    sharpProj a = !![(1 + (a 2 : ℂ)) / 2, ((a 0 : ℂ) - (a 1 : ℂ) * Complex.I) / 2;
+      ((a 0 : ℂ) + (a 1 : ℂ) * Complex.I) / 2, (1 - (a 2 : ℂ)) / 2] := by
+  rw [sharpProj, EqvK2Converse.tokMat_eq]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    first
+      | (simp [CompositeDimension.hom]; done)
+      | (simp [CompositeDimension.hom]; ring)
+
+theorem sharpProj_conjTranspose (a : Fin 3 → ℝ) : (sharpProj a)ᴴ = sharpProj a := by
+  rw [sharpProj_eq]
+  ext i j
+  fin_cases i <;> fin_cases j <;> apply Complex.ext <;>
+    first
+      | (simp [Matrix.conjTranspose_apply]; done)
+      | (simp [Matrix.conjTranspose_apply]; ring)
+
+/-- The two outcomes of the sharp measurement along `a` complete: `Π_a + Π_{−a} = 1`. -/
+theorem sharpProj_add_neg (a : Fin 3 → ℝ) : sharpProj a + sharpProj (-a) = 1 := by
+  rw [sharpProj_eq, sharpProj_eq]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    first
+      | (simp; done)
+      | (simp; ring)
+
+/-- Along a unit vector the sharp test is a projector. -/
+theorem sharpProj_mul_self {a : Fin 3 → ℝ} (ha : ∑ j, a j ^ 2 = 1) :
+    sharpProj a * sharpProj a = sharpProj a := by
+  rw [Fin.sum_univ_three] at ha
+  rw [sharpProj_eq, Matrix.mul_fin_two]
+  refine EqvK2Converse.mat2_ext ?_ ?_ ?_ ?_ <;> apply Complex.ext <;>
+    simp only [Complex.add_re, Complex.add_im, Complex.sub_re, Complex.sub_im, Complex.mul_re,
+      Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, Complex.I_re, Complex.I_im,
+      Complex.one_re, Complex.one_im, Complex.div_ofNat_re, Complex.div_ofNat_im] <;>
+    linarith
+
+theorem prodEffVal_sharp_eq_ipW (a b : Fin 3 → ℝ) (ω : CompositeDimension.W 3) :
+    CompositeDimension.prodEffVal (EffectSpace.sharpEff a) (EffectSpace.sharpEff b) ω
+      = EqvK2Schema.ipW (CompositeDimension.tens (CompositeDimension.hom a)
+          (CompositeDimension.hom b)) ω / 4 := by
+  first
+    | (simp [CompositeDimension.prodEffVal, EffectSpace.sharpEff, CompositeDimension.ehom_affOf,
+        CompositeDimension.pairVal, EqvK2Schema.ipW, CompositeDimension.tens,
+        CompositeDimension.hom, EffectSpace.sharpVec, Fin.sum_univ_four]; done)
+    | (simp [CompositeDimension.prodEffVal, EffectSpace.sharpEff, CompositeDimension.ehom_affOf,
+        CompositeDimension.pairVal, EqvK2Schema.ipW, CompositeDimension.tens,
+        CompositeDimension.hom, EffectSpace.sharpVec, Fin.sum_univ_four]; ring)
+
+/-- **The sharp-test value is a trace**: `⟨e_a ⊗ e_b, ω⟩ = tr((Π_a ⊗ Π_b) · dict ω)`. -/
+theorem prodEffVal_sharp_eq_trace (a b : Fin 3 → ℝ) (ω : CompositeDimension.W 3) :
+    ((CompositeDimension.prodEffVal (EffectSpace.sharpEff a) (EffectSpace.sharpEff b) ω : ℝ) : ℂ)
+      = Matrix.trace (tensorOf (sharpProj a) (sharpProj b) * EqvK2Schema.dict ω) := by
+  rw [prodEffVal_sharp_eq_ipW, sharpProj, sharpProj, ← EqvK2Schema.dict_tens]
+  have h := EqvK2Schema.ipW_eq_trace
+    (CompositeDimension.tens (CompositeDimension.hom a) (CompositeDimension.hom b)) ω
+  push_cast
+  rw [h]
+  ring
+
+/-- **The pair's sharp behaviours, each direction with its own witness.** Under the premises of
+`pair_available_eq_Q3_and_chsh`: every available preparation has a positive semidefinite dictionary
+image whose traces against the sharp projectors are its sharp-test values; and every positive
+semidefinite operator on `ℂ² ⊗ ℂ²` is the dictionary image of an available preparation. -/
+theorem pair_sharp_behaviours (arch : Architecture 𝓘) (hC : ContextStable 𝓘)
+    (hd : DrivesElementary 𝓘) {prep : Set (CompositeDimension.W 3)}
+    {avail : Set ((Fin 3 → ℝ) →ᵃ[ℝ] ℝ)} (hcompat : PairCompat 𝓘 prep)
+    (hprod : ∀ x ∈ TransitiveBody.eball 3, ∀ y ∈ TransitiveBody.eball 3,
+      CompositeDimension.prodState x y ∈ prep)
+    (hadd : ∀ ω ∈ prep, ∀ η ∈ prep, ω + η ∈ prep)
+    (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ ω ∈ prep, c • ω ∈ prep)
+    (hvalid : prep ⊆ EffectSpace.maxConeOf avail)
+    (hsharp : EffectSpace.sharpFamily 3 ⊆ avail) :
+    (∀ ω ∈ prep, (EqvK2Schema.dict ω).PosSemidef ∧ ∀ a b : Fin 3 → ℝ,
+        ((CompositeDimension.prodEffVal (EffectSpace.sharpEff a) (EffectSpace.sharpEff b) ω
+          : ℝ) : ℂ) = Matrix.trace (tensorOf (sharpProj a) (sharpProj b) * EqvK2Schema.dict ω)) ∧
+      ∀ ρ : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ, ρ.PosSemidef →
+        ∃ ω ∈ prep, EqvK2Schema.dict ω = ρ := by
+  have hQ := (pair_available_eq_Q3_and_chsh arch hC hd hcompat hprod hadd hsmul hvalid hsharp).1
+  refine ⟨fun ω hω => ⟨?_, fun a b => prodEffVal_sharp_eq_trace a b ω⟩, fun ρ hρ => ?_⟩
+  · rw [hQ] at hω
+    exact hω
+  · refine ⟨EqvK2Schema.coordOf ρ, ?_, EqvK2Schema.dict_coordOf ρ hρ.isHermitian⟩
+    rw [hQ, EqvK2Schema.mem_Q3, EqvK2Schema.dict_coordOf ρ hρ.isHermitian]
+    exact hρ
+
 end
 
 end PairInterfaceDesign
@@ -450,3 +550,8 @@ end OIBridge
 #print axioms OIBridge.PairInterfaceDesign.chsh_attained_of_available
 #print axioms OIBridge.PairInterfaceDesign.pair_available_eq_Q3_and_chsh
 #print axioms OIBridge.PairInterfaceDesign.marginal_independent
+#print axioms OIBridge.PairInterfaceDesign.sharpProj_conjTranspose
+#print axioms OIBridge.PairInterfaceDesign.sharpProj_add_neg
+#print axioms OIBridge.PairInterfaceDesign.sharpProj_mul_self
+#print axioms OIBridge.PairInterfaceDesign.prodEffVal_sharp_eq_trace
+#print axioms OIBridge.PairInterfaceDesign.pair_sharp_behaviours
