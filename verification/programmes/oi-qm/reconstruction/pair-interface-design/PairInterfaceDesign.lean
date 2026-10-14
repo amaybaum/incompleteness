@@ -48,6 +48,7 @@
 import OIBridge.EqvK2MaxCone
 import OIBridge.SubstratumSource
 import OIBridge.LiftAudit
+import OIBridge.DenseOrbit
 
 namespace OIBridge
 namespace PairInterfaceDesign

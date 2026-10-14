@@ -62,22 +62,37 @@ Direction: forward only.
 - Drivability is load-bearing (not compiled): `(substratumClass, K_mono)` satisfies every premise except the off-diagonal
   admissions and K_mono ≠ Q3, via the support-3 element `(1⊗cycMat)·phaseGate(1,1)|++⟩` [X + W, thread B X6].
 
-**(D) Correlations at the pair, availability explicit.** Read `prep` as the set of available joint preparations and
-`avail` as the available one-token tests.
+**(D) Correlations at the pair, availability explicit.** `prep` and `avail` are free parameters, read as the available
+joint preparations and the available one-token tests. Nothing at M ties `avail` to stage data: the only kernel notion
+of an available physical test is stage membership (`(D.stage i).E`, `stageEffects`), and no theorem connects it to
+`avail` (thread G). The content of (D) is therefore conditional on that identification.
 
 ```
-pair_available_eq_Q3_and_chsh
+pair_available_eq_Q3
   (arch) (hC) (hd : DrivesElementary 𝓘)
   (hcompat : PairCompat 𝓘 prep)    -- admitted unitaries carry available preparations to available preparations
   (hprod : products of eball 3 states ∈ prep)          -- product preparations available
   (hadd hsmul)                                        -- mixing available
   (hvalid : prep ⊆ maxConeOf avail)                    -- product tests valid on available preparations
-  (hsharp : sharpFamily 3 ⊆ avail)                     -- sharp settings available
+  (hdense : denseTests ⊆ avail)                        -- a countable dense family of sharp tests is available
+  : prep = Q3
+pair_available_eq_Q3_and_chsh  -- the same, with the eight CHSH tests available (hz hx hp hm)
   : prep = Q3 ∧ ∃ ω ∈ prep, ∃ a a' b b', (each ±-measurement available) ∧ chsh a a' b b' ω = 2√2
 ```
 
-plus `chsh_attained_of_available` (needs only hprod, CNOT on available preparations, hsharp) and
-`marginal_independent` (no-signalling of the marginal, every joint vector, by bilinearity).
+`denseTests` is DenseOrbit's rational-reflection orbit of the axis test, countable with
+`maxConeOf denseTests = maxCone (eball 3)` (`countable_seedOrbit_cone` [K]). The eight CHSH tests are sharp tests
+(`chshTests_subset_sharpFamily`); their settings `(x ± z)/√2` lie outside the rational orbit, so they are a separate
+premise.
+
+**Counting.** The sharp-family premise `sharpFamily 3 ⊆ avail` is false for every countable `avail`
+(`not_sharpFamily_subset_of_countable` [D]: the unit sphere is uncountable and `b ↦ sharpEff b` is injective). Every
+stage tower on record is countably indexed (`badD`, `bitTower`, `midD`, PT-STAGE-1's `protocolTower`), so if
+"available" means "carried by a stage" that premise fails for all of them (thread G). The counted premises above are met
+by the countable family `denseTests ∪ chshTests`, which does not contain the sharp family (`countable_avail_control`).
+Exact attainment of `2√2` needs the eight irrational-angle tests; with rational settings only, `2√2` is a supremum.
+
+`marginal_independent`: no-signalling of the marginal, every joint vector, by bilinearity.
 
 What (D) gives that the cone theorem alone does not: with K read as the available preparations, cone equality becomes
 **availability of every PSD table** (state-level Q-down), and the CHSH attainment is by an available preparation with
@@ -85,13 +100,14 @@ available settings, not by mere membership (AW-E1).
 
 **(E) The quantum reading of the pair's sharp behaviours.** `prodEffVal_sharp_eq_trace`: a sharp-test value is
 `tr((Π_a ⊗ Π_b) · dict ω)` with `Π_a = (1 + a·σ)/2`, which is Hermitian, complete (`Π_a + Π_{−a} = 1`) and, for unit
-`a`, a projector. `pair_sharp_behaviours`, under the premises of (D), with one witness per direction:
+`a`, a projector. `pair_sharp_behaviours`, under the premises of `pair_available_eq_Q3`, with one witness per
+direction:
 
 - (Q-up) every available preparation has a positive semidefinite dictionary image, and its sharp-test values are those
   traces — every available two-outcome sharp behaviour of the pair is a quantum behaviour of a two-qubit state
   with projective qubit measurements;
 - (Q-down) every positive semidefinite two-qubit operator is the dictionary image of an available preparation — with
-  the sharp settings available (hsharp), every such quantum behaviour is attained by an available protocol.
+  the two settings available, the quantum behaviour at those settings is attained by an available protocol.
 
 What (D)–(E) do not give: the identification of the projectors `Π_a` (unit `a`) with all rank-one qubit projectors is
 the Bloch parametrization, used and not proved here; the CHSH upper bound is then the standard quantum bound for
@@ -108,7 +124,7 @@ kToken_cone_and_descent
   (hpow : ∀ k, DrivesElementaryAt 𝓘 (Fin (2^k)))       -- KN-DESC (#823): with hC, hL, arch this gives DrivesElementary
   (hCAR : carrier identification  dictK ↔ Fin (2^k))   -- H-CAR, introduced, unsourced
   (prep : ∀ k, Set (WK k)) (hcompat : ∀ k, ConeCompat 𝓘 k (prep k))   -- H-COMPAT_k, introduced, unsourced
-  (hprod_k hadd_k hsmul_k) (hvalid_k : prep k ⊆ maxConeOfK avail) (hsharp : sharpFamily 3 ⊆ avail)
+  (hprod_k hadd_k hsmul_k) (hvalid_k : prep k ⊆ maxConeOfK avail) (hdense : denseTests ⊆ avail)   -- countable
   : DrivesElementary 𝓘 ∧ ∀ k, prep k = QK k
 ```
 
@@ -131,8 +147,14 @@ kToken_cone_and_descent
 | H-COMPAT (PairCompat / ConeCompat_k) | state–operation compatibility | introduced, unsourced; availability does not imply it (#820 K_B) |
 | H-CAR | carrier identification | introduced, unsourced (k ≥ 3) |
 | hprod, hadd, hsmul (as availability) | preparations | unsourced |
-| hvalid, hsharp | tests | hsharp conditional on K∞-Trans/Seed/V4 (`sharpFamily_subset_avail` [K]); hvalid unsourced (#836) |
+| hvalid | product-test validity on available preparations | unsourced (#836) |
+| hdense, the eight CHSH tests (in place of `sharpFamily 3 ⊆ avail`) | available tests | unsourced; `avail` is not tied to stage data at M. With `avail` tied to stage tests (A's M1), they need A's H11 in two parts (thread G): **H11a** stage tests are available, **H11b** an available operation followed by an available test is an available test. Neither has a predicate at M; the zero value of the seed is load-bearing (`not_seedOrbit_unsharp_eq`) and mixing cannot produce sharp tests (`sharp_eq_of_certain`) |
 | A's H23 (cnotI), H24 (aMiss) | gate invariance | derived in (B) from the admissions and H-COMPAT |
+
+Thread G's corrections to thread A's table: reading H13 as "avail = stage effects ∪ seed orbit" makes H11 true by
+definition, contrary to its status "introduced"; H10 cites #821's theorem 1 (the single-effect form), not the
+existential form; and H10 does not depend on H3. #821 as frozen touches only H10, which is free on the ball
+(`sharpEff_sharpSeed`); its composite with `hypotheses_tr` and `sharpFamily_subset_avail` is not frozen.
 
 Classification: consistency work (structural assembly); correctness bands unchanged. NEW at the pair: the gate clauses
 of the adopted pair theorem are consequences of drivability + compatibility, and the cyclic clause is exactly what the

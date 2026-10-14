@@ -38,7 +38,7 @@ jobs:
         working-directory: verification/lean-mathlib
         run: |
           lake exe cache get
-          lake --rehash build OIBridge.EqvK2MaxCone OIBridge.SubstratumSource OIBridge.LiftAudit
+          lake --rehash build OIBridge.EqvK2MaxCone OIBridge.SubstratumSource OIBridge.LiftAudit OIBridge.DenseOrbit
           set -o pipefail
           lake env lean ../programmes/oi-qm/reconstruction/pair-interface-design/PairInterfaceDesign.lean 2>&1 | tee /tmp/pair-interface-axioms.txt
       - name: Check every axiom report
