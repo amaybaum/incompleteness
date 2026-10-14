@@ -27,6 +27,7 @@ jobs:
         run: |
           python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact_check.py
           python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent_check.py
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/quoted_family_check.py
       - name: Install elan
         run: |
           curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/bg2-elan-init.sh
