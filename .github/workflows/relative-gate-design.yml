@@ -47,9 +47,10 @@ jobs:
           mkdir -p ResearchDesign/OIBridge
           cp ../programmes/oi-qm/reconstruction/relative-gate-design/CopyCovariance.lean ResearchDesign/OIBridge/CopyCovariance.lean
           set -o pipefail
+          # Lean resolves OIBridge.* inside the package's build directory, so the design object file
+          # is written there on this disposable runner; the restored cache is not saved back.
           lake env bash -c '
-            export LEAN_PATH="$LEAN_PATH:$PWD/ResearchDesign"
-            lean -o ResearchDesign/OIBridge/CopyCovariance.olean ResearchDesign/OIBridge/CopyCovariance.lean &&
+            lean -o .lake/build/lib/lean/OIBridge/CopyCovariance.olean ResearchDesign/OIBridge/CopyCovariance.lean &&
             lean ../programmes/oi-qm/reconstruction/relative-gate-design/RelativeGateTransport.lean
           ' 2>&1 | tee /tmp/relative-gate-axioms.txt
       - name: Check every axiom report
