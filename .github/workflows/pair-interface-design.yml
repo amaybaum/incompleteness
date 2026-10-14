@@ -46,29 +46,36 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-          text = Path('/tmp/pair-interface-axioms.txt').read_text()
-          if 'sorry' in text:
-              raise SystemExit('The compiled output mentions sorry')
           # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
           REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
-          found = {}
-          for name, axioms in REPORT.findall(text):
-              if name in found:
-                  raise SystemExit(f'Duplicate report for {name}')
-              found[name] = {a.strip() for a in axioms.split(',') if a.strip()}
-          expected = 15
-          if len(found) != expected:
-              raise SystemExit(f'Expected {expected} axiom reports, received {len(found)}')
-          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
-          for name, axioms in found.items():
-              if not axioms <= allowed:
-                  raise SystemExit(f'{name}: unexpected axioms {sorted(axioms - allowed)}')
-          # Control: a report carrying sorryAx is rejected by the same comparison.
-          if {'sorryAx'} <= allowed:
-              raise SystemExit('Control failed: sorryAx admitted')
+          ALLOWED = {'propext', 'Classical.choice', 'Quot.sound'}
+          EXPECTED = 15
+          def problems(text):
+              found, out = {}, []
+              for name, axioms in REPORT.findall(text):
+                  if name in found:
+                      out.append(f'duplicate report for {name}')
+                  found[name] = {a.strip() for a in axioms.split(',') if a.strip()}
+              if len(found) != EXPECTED:
+                  out.append(f'expected {EXPECTED} reports, received {len(found)}')
+              out += [f'{n}: unexpected axioms {sorted(a - ALLOWED)}' for n, a in found.items() if not a <= ALLOWED]
+              if "declaration uses 'sorry'" in text:
+                  out.append('a declaration uses sorry')
+              return found, out
+          text = Path('/tmp/pair-interface-axioms.txt').read_text()
+          found, out = problems(text)
+          # Mutation controls on the compiled output itself: the same comparison must reject a report
+          # carrying sorryAx and a missing report.
+          first = next(iter(found))
+          injected = re.sub(rf"('{re.escape(first)}' depends on axioms: \[)", r"\1sorryAx, ", text, count=1)
+          dropped = re.sub(rf"'{re.escape(first)}' depends on axioms: \[[^\]]*\]", '', text, count=1)
+          if not problems(injected)[1] or not problems(dropped)[1]:
+              raise SystemExit('Control failed: an injected sorryAx or a dropped report was not detected')
+          if out:
+              raise SystemExit('\n'.join(out))
           for name, axioms in found.items():
               print(f'{name}: {sorted(axioms)}')
-          print(f'All {len(found)} reports use only standard axioms.')
+          print(f'All {len(found)} reports use only standard axioms; both mutation controls rejected.')
           PY
       - name: Check retained records and artifact placement
         run: |
