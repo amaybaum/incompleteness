@@ -1,13 +1,15 @@
 # Step 4 — the combined #829/#823 interface: statement and compiled pair assembly
 
-Base: main `M = 5bfdaba6`. Design commits `5a18db06` and `066a69a9` on the session branch (disposable, not for merge),
+Base: main `M = 5bfdaba6`. Design commits `5a18db06`…`4e2b6370` on the session branch (disposable, not for merge),
 children of the disposable design-run commit `22e0d002`. Module:
 `verification/programmes/oi-qm/reconstruction/pair-interface-design/PairInterfaceDesign.lean`, namespace
 `OIBridge.PairInterfaceDesign`, compiled by `.github/workflows/pair-interface-design.yml` against the landed library
-(no adopted file changed). Run 38602502989, job 115985004293, at exact commit `066a69a9`: every step succeeded; all 15
-`#print axioms` reports are `[propext, Classical.choice, Quot.sound]`; legacy records, receipts and placement pass. The
-first run (38601947315 at `5a18db06`) failed at compilation for two reasons, both fixed in `066a69a9`: the scoped
-`ᴴ` notation was not opened, and `cnotMat` is built from `BridgeDictionary.pauli`.
+(no adopted file changed). Run 38603550590, job 115988568992, at exact commit `4e2b6370`: every step succeeded;
+all 20 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`; the same comparison rejects the compiled
+output with `sorryAx` injected into one report and with one report removed; legacy records, receipts and placement
+pass. Earlier runs: 38601947315 at `5a18db06` failed at compilation (the scoped `ᴴ` notation was not opened, and
+`cnotMat` is built from `BridgeDictionary.pauli`); 38602502989 at `066a69a9` and 38603067727 at `4383a150` passed with
+the first fifteen reports.
 
 Evidence labels as in threads A–E: [K] kernel at M, [D] compiled design (this module, run above, or the
 design runs cited), [W] written, [X] exact computation, [U] unsourced.
@@ -81,9 +83,20 @@ What (D) gives that the cone theorem alone does not: with K read as the availabl
 **availability of every PSD table** (state-level Q-down), and the CHSH attainment is by an available preparation with
 available settings, not by mere membership (AW-E1).
 
-What (D) does not give: the CHSH upper bound (Tsirelson) for available behaviours; behaviour-set equality for
-general POVMs; local instruments and post-measurement update (E's G5); anything multi-party (G3). The pair Q-up
-(W1/W2 in thread E) remains written only.
+**(E) The quantum reading of the pair's sharp behaviours.** `prodEffVal_sharp_eq_trace`: a sharp-test value is
+`tr((Π_a ⊗ Π_b) · dict ω)` with `Π_a = (1 + a·σ)/2`, which is Hermitian, complete (`Π_a + Π_{−a} = 1`) and, for unit
+`a`, a projector. `pair_sharp_behaviours`, under the premises of (D), with one witness per direction:
+
+- (Q-up) every available preparation has a positive semidefinite dictionary image, and its sharp-test values are those
+  traces — every available two-outcome sharp behaviour of the pair is a quantum behaviour of a two-qubit state
+  with projective qubit measurements;
+- (Q-down) every positive semidefinite two-qubit operator is the dictionary image of an available preparation — with
+  the sharp settings available (hsharp), every such quantum behaviour is attained by an available protocol.
+
+What (D)–(E) do not give: the identification of the projectors `Π_a` (unit `a`) with all rank-one qubit projectors is
+the Bloch parametrization, used and not proved here; the CHSH upper bound is then the standard quantum bound for
+these behaviours, not a kernel theorem; general POVMs, local instruments and post-measurement update (E's G5) and
+anything multi-party (G3) are outside the pair clause.
 
 ## 3. The finite statement step 4 is building toward (stated, not compilable at M)
 
