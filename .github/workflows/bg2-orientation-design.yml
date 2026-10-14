@@ -58,6 +58,24 @@ jobs:
                   raise SystemExit(f'Unexpected diagnostic axioms: {axioms - allowed}')
           print('All seven diagnostic reports use only standard axioms.')
           PY
+      - name: Compile the conditional sign-aware repair
+        working-directory: verification/lean-mathlib
+        run: |
+          set -o pipefail
+          lake env lean ../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/SignedRepairDesign.lean | tee /tmp/bg2-signed-axioms.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          reports = re.findall(r"depends on axioms: \[([^\]]*)\]", Path('/tmp/bg2-signed-axioms.txt').read_text())
+          if len(reports) != 3:
+              raise SystemExit(f'Expected three repair axiom reports, received {len(reports)}')
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for report in reports:
+              axioms = {a.strip() for a in report.split(',') if a.strip()}
+              if not axioms <= allowed:
+                  raise SystemExit(f'Unexpected repair axioms: {axioms - allowed}')
+          print('All three conditional repair reports use only standard axioms.')
+          PY
       - name: Historical preservation and placement
         run: |
           bg2_revision=$(git rev-parse HEAD)
