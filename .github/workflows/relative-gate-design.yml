@@ -58,8 +58,9 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-          # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
-          REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
+          # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines;
+          # a name may end in a prime, so the name runs to the last quote before the phrase.
+          REPORT = re.compile(r"'(\S+)' depends on axioms: \[([^\]]*)\]")
           ALLOWED = {'propext', 'Classical.choice', 'Quot.sound'}
           EXPECTED = 25
           def problems(text):
