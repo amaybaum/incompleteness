@@ -1,0 +1,13 @@
+PASS P0 kernel cnot: frame, relT, relC with nflip
+PASS C1 T_S frame at the four corners
+PASS C2 T_S relT with nflip
+PASS C3 T_S relC with nflip
+PASS C4 T_S^-1 is the inverse of T_S
+PASS C5 axisFamily coefficients fixed by hat(S)^T
+PASS C6 sampled relative positivity (axisFamily) of T_S and T_S^-1 (37 x 24 sampled pairs; universal by C5 + cnot_prodState_mem_maxCone)
+PASS C7 T_S (prodState z3 xplus) on sharpEff e3 (x) sharpEff (-e1) is -1/2 value -1/2
+PASS C7b T_S (prodState z3 xplus) = prodState z3 (S xplus)
+PASS C8 same pair on cnot (prodState z3 xplus) is nonnegative value 0
+PASS C9 S xplus lies outside eball 3
+checks: 11, failures: 0
+VERDICT TRANSPORT-NEEDS-CONE-EQUALITY

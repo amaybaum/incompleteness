@@ -1,0 +1,96 @@
+name: relative gate research design
+
+# Research-only design compilation; no native round or F designation.
+on:
+  push:
+    branches: [ccr-ac945020-v97mrh]
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/relative-gate-design/**'
+      - '.github/workflows/relative-gate-design.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  design-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Replay the exact countercontrol probe against the kernel source
+        run: |
+          set -o pipefail
+          python3 -I -B verification/programmes/oi-qm/reconstruction/relative-gate-design/relgate_counter.py verification/lean-mathlib/OIBridge/CompositeDimension.lean | diff - verification/programmes/oi-qm/reconstruction/relative-gate-design/relgate-counter-output.txt
+          test "$(git hash-object verification/programmes/oi-qm/reconstruction/relative-gate-design/CopyCovariance.lean)" = fb9c73fe804cc96d09c450a9036e11612e151ea2
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/relgate-elan-init.sh
+          sh /tmp/relgate-elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile the copy-covariance design and the relative transport
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.DenseOrbit
+          mkdir -p ResearchDesign/OIBridge
+          cp ../programmes/oi-qm/reconstruction/relative-gate-design/CopyCovariance.lean ResearchDesign/OIBridge/CopyCovariance.lean
+          set -o pipefail
+          lake env bash -c '
+            export LEAN_PATH="$LEAN_PATH:$PWD/ResearchDesign"
+            lean -o ResearchDesign/OIBridge/CopyCovariance.olean ResearchDesign/OIBridge/CopyCovariance.lean &&
+            lean ../programmes/oi-qm/reconstruction/relative-gate-design/RelativeGateTransport.lean
+          ' 2>&1 | tee /tmp/relative-gate-axioms.txt
+      - name: Check every axiom report
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
+          REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
+          ALLOWED = {'propext', 'Classical.choice', 'Quot.sound'}
+          EXPECTED = 25
+          def problems(text):
+              found, out = {}, []
+              for name, axioms in REPORT.findall(text):
+                  if name in found:
+                      out.append(f'duplicate report for {name}')
+                  found[name] = {a.strip() for a in axioms.split(',') if a.strip()}
+              if len(found) != EXPECTED:
+                  out.append(f'expected {EXPECTED} reports, received {len(found)}')
+              out += [f'{n}: unexpected axioms {sorted(a - ALLOWED)}' for n, a in found.items() if not a <= ALLOWED]
+              if "declaration uses 'sorry'" in text:
+                  out.append('a declaration uses sorry')
+              return found, out
+          text = Path('/tmp/relative-gate-axioms.txt').read_text()
+          found, out = problems(text)
+          # Mutation controls on the compiled output itself: the same comparison must reject a report
+          # carrying sorryAx and a missing report.
+          first = next(iter(found))
+          injected = re.sub(rf"('{re.escape(first)}' depends on axioms: \[)", r"\1sorryAx, ", text, count=1)
+          dropped = re.sub(rf"'{re.escape(first)}' depends on axioms: \[[^\]]*\]", '', text, count=1)
+          if not problems(injected)[1] or not problems(dropped)[1]:
+              raise SystemExit('Control failed: an injected sorryAx or a dropped report was not detected')
+          if out:
+              raise SystemExit('\n'.join(out))
+          for name, axioms in found.items():
+              print(f'{name}: {sorted(axioms)}')
+          print(f'All {len(found)} reports use only standard axioms; both mutation controls rejected.')
+          PY
+      - name: Check retained records and artifact placement
+        run: |
+          revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$revision"
+          python3 tools/v3_verifier.py --receipts "$revision"
+          python3 tools/artifact_placement_check.py
