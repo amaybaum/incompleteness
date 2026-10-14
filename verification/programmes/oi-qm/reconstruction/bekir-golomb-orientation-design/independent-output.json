@@ -1,0 +1,78 @@
+{
+  "countercontrols_rejected": 3,
+  "orientation_table": [
+    {
+      "counts": [
+        3,
+        0
+      ],
+      "source_reflected": false,
+      "swapped": false,
+      "target_reflected": false
+    },
+    {
+      "counts": [
+        0,
+        3
+      ],
+      "source_reflected": false,
+      "swapped": false,
+      "target_reflected": true
+    },
+    {
+      "counts": [
+        0,
+        3
+      ],
+      "source_reflected": true,
+      "swapped": false,
+      "target_reflected": false
+    },
+    {
+      "counts": [
+        3,
+        0
+      ],
+      "source_reflected": true,
+      "swapped": false,
+      "target_reflected": true
+    },
+    {
+      "counts": [
+        3,
+        0
+      ],
+      "source_reflected": false,
+      "swapped": true,
+      "target_reflected": false
+    },
+    {
+      "counts": [
+        0,
+        3
+      ],
+      "source_reflected": false,
+      "swapped": true,
+      "target_reflected": true
+    },
+    {
+      "counts": [
+        0,
+        3
+      ],
+      "source_reflected": true,
+      "swapped": true,
+      "target_reflected": false
+    },
+    {
+      "counts": [
+        3,
+        0
+      ],
+      "source_reflected": true,
+      "swapped": true,
+      "target_reflected": true
+    }
+  ],
+  "scope": "separate exact directed-gap implementation; no classification theorem"
+}

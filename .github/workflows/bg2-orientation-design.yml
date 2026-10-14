@@ -1,0 +1,65 @@
+name: BG2 orientation design
+
+on:
+  push:
+    branches: [codex/bg2-orientation-design-20261014]
+  pull_request:
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/**'
+      - '.github/workflows/bg2-orientation-design.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact independent orientation checks
+        run: |
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact_check.py
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent_check.py
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/bg2-elan-init.sh
+          sh /tmp/bg2-elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library build cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile diagnostic and check every axiom report
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.TurnpikeScopeTransfer OIBridge.PiccardBridge
+          set -o pipefail
+          lake env lean ../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/OrientationDesign.lean | tee /tmp/bg2-orientation-axioms.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          reports = re.findall(r"depends on axioms: \[([^\]]*)\]", Path('/tmp/bg2-orientation-axioms.txt').read_text())
+          if len(reports) != 7:
+              raise SystemExit(f'Expected seven axiom reports, received {len(reports)}')
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for report in reports:
+              axioms = {a.strip() for a in report.split(',') if a.strip()}
+              if not axioms <= allowed:
+                  raise SystemExit(f'Unexpected diagnostic axioms: {axioms - allowed}')
+          print('All seven diagnostic reports use only standard axioms.')
+          PY
+      - name: Historical preservation and placement
+        run: |
+          python3 tools/legacy_records_check.py HEAD
+          python3 tools/v3_verifier.py --receipts HEAD
+          python3 tools/artifact_placement_check.py
