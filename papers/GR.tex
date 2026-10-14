@@ -901,16 +901,21 @@ a raw amplitude \(U_{ij}(t)\), whose phase changes under
 \(H \mapsto -\bar{H}\), while both maps leave \(|U_{ij}(t)|^2\)
 unchanged.
 
-The cardinality of the deep hidden sector is gauge in the same technical
-sense as the alphabet size \(q\): just as two systems with different
-\(q\) are physically equivalent if they share the same coupling
-structure, two systems with different \(|\mathcal{C}_D|\) are physically
-equivalent if they share the same \(\mathcal{C}_V \times \mathcal{C}_B\)
-dynamics. Lemma 1 requires \(S\) finite for the recurrence proof
-({[}Main, §2.3{]}); the corollary establishes that the deep sector's
-contribution to this finiteness has no observable consequences. The
-question ``is the universe finite or infinite?'' has no empirical
-content within the framework --- it is identified as gauge.
+The cardinality of the deep hidden sector is gauge in the scope of this
+corollary: two systems with the same
+\(\mathcal{C}_V \times \mathcal{C}_B\) dynamics and different
+\(|\mathcal{C}_D|\) have the same visible transition data to within
+\(\mathcal{O}(\tau_S/\tau_B)\), so at that order no statement
+expressible through \(\{T_{ij}(t) : t \ll \tau_B\}\) distinguishes them
+({[}Substratum §4{]}, Corollary (effective finiteness and gauge-class
+transfer)). Lemma 1 requires \(S\) finite for the recurrence proof
+({[}Main, §2.3{]}), and recurrence-scale content lies outside that
+scope: P-indivisibility at the recurrence scale is proved on a finite
+representative, while for an infinite deep sector the
+accessible-timescale backflow lemma ({[}Main, §2.3{]}) gives the weaker
+accessible-window property. Within the leading-order visible transition
+data on accessible timescales, a finite and an infinite deep sector are
+indistinguishable.
 
 \textbf{Step 3: Dimensional determination.} Step 2 excludes volumetric
 (deep-sector) quantities, leaving boundary quantities. The boundary
@@ -3590,17 +3595,19 @@ transition-statistics layer, neither reaching the operational instrument
 algebra), and genericity conditions (non-degenerate spectrum,
 non-vanishing overlaps), which hold for all but a measure-zero set. The
 P-indivisibility proof uses finiteness via the recurrence argument
-(\(\varphi^N = \text{id}\)). The deep-sector cardinality corollary
+(\(\varphi^N = \text{id}\)). For the leading-order visible transition
+data on accessible timescales, the deep-sector cardinality corollary
 (§3.2) establishes that only \(\mathcal{C}_V\) and \(\mathcal{C}_B\)
 need be finite --- both guaranteed by holographic entropy bounds
 {[}26{]} independently of the de Sitter finite-dimensionality conjecture
---- while the deep sector \(\mathcal{C}_D\) may be infinite. The
-accessible-timescale backflow lemma ({[}Main, §2.3{]}) provides a second
-route to P-indivisibility that is independent of \(|\mathcal{C}_H|\).
-The characterization theorem becomes an equivalence on observable
-timescales (\(T_{\text{obs}} \ll \tau_B \sim 10^{17}\) s) --- physically
-indistinguishable from a timeless identity for all experiments within
-the age of the universe.
+--- while the deep sector \(\mathcal{C}_D\) may be infinite;
+recurrence-scale P-indivisibility is proved on a finite representative.
+The accessible-timescale backflow lemma ({[}Main, §2.3{]}) provides a
+second route to P-indivisibility that is independent of
+\(|\mathcal{C}_H|\). The characterization theorem becomes an equivalence
+on observable timescales (\(T_{\text{obs}} \ll \tau_B \sim 10^{17}\) s)
+--- physically indistinguishable from a timeless identity for all
+experiments within the age of the universe.
 
 \textbf{The sharp partition and constraint structure.} Lemma 2's product
 decomposition \(\Gamma = \Gamma_V \times \Gamma_H\) is the kinematic
@@ -4977,4 +4984,4 @@ quantum effects in gravity,'' \emph{Phys. Rev.~Lett.} \textbf{119},
 240402 (2017); arXiv:1707.06036.
 
 \end{document}
-% source-sha256: 967accff1b29198c53b0fbeaad9aa18dce37bf9a35c8b9f046c404883754dd70
+% source-sha256: c8740040e765321f9e37fd3bf5e022c146298d0ba8f80ac70f7133e91b091f49

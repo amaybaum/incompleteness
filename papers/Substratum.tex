@@ -526,20 +526,22 @@ infinite; S is finite --- finiteness is essential for the recurrence
 proof of P-indivisibility --- the memory-bearing sector's nontriviality;
 the representation itself is universal, though the effective finiteness
 result ({[}GR, §8.4{]}) shows the deep hidden sector may be infinite
-without affecting the observable physics. Second, a Turing machine is
-generally irreversible (it can erase, overwrite, and halt); φ is a
-bijection --- nothing is erased, nothing is created, there is no
-halting. Third, a Turing machine computes an \emph{extrinsic function}
-(input → output for an external user); (S, φ) computes no extrinsic
-function --- it is a closed permutation that cycles through states and
-returns. The appearance of dynamics, probability, particles, and forces
-is entirely the observer's perspective --- what the permutation looks
-like through the partial window V.
+without affecting the leading-order transition data on accessible
+timescales. Second, a Turing machine is generally irreversible (it can
+erase, overwrite, and halt); φ is a bijection --- nothing is erased,
+nothing is created, there is no halting. Third, a Turing machine
+computes an \emph{extrinsic function} (input → output for an external
+user); (S, φ) computes no extrinsic function --- it is a closed
+permutation that cycles through states and returns. The appearance of
+dynamics, probability, particles, and forces is entirely the observer's
+perspective --- what the permutation looks like through the partial
+window V.
 
 \textbf{Remark (the Turing connection under effective finiteness).} The
 three differences soften under the effective finiteness result. With the
 deep hidden sector potentially infinite, the first difference is between
-the formal definition (S finite) and the physical requirement (only
+the formal definition (S finite) and the physical requirement for
+accessible-timescale content (only
 \(\mathcal{C}_V \times \mathcal{C}_B\) need be finite). The second
 difference is a specialization, not an opposition: reversible Turing
 machines (Bennett, Fredkin-Toffoli) are a well-studied subclass. The
@@ -589,10 +591,13 @@ undecidability is computability theory. The framework also identifies a
 second class of inaccessible quantities --- the alphabet size \(q\)
 ({[}SM, §2.7{]}) and the deep-sector cardinality \(|\mathcal{C}_D|\)
 ({[}GR, §3.2{]}) --- but these are \emph{gauge}, not undecidable:
-different values produce identical observables, so the question itself
-is physically empty. The hidden state \(h\) is undecidable (real answer,
+different values of \(q\) produce identical observables, and different
+values of \(|\mathcal{C}_D|\) produce the same transition data at
+leading order on accessible timescales (Corollary (effective finiteness
+and gauge-class transfer), §4), so within those data the question is
+physically empty. The hidden state \(h\) is undecidable (real answer,
 provably inaccessible). The cardinality \(|\mathcal{C}_D|\) is gauge (no
-answer to find).
+answer to find in the accessible-timescale data).
 
 \textbf{Mathematics and physics.} The trace-out performs a
 Jordan-Chevalley projection ({[}SM, Appendix A{]}): it extracts the
@@ -3066,4 +3071,4 @@ Running-Vacuum Form of Dark Energy from the Cosmological Horizon,''
 (2026).
 
 \end{document}
-% source-sha256: 06589b315325643f3867f54c6f5a858a8ad1e2ffc3b3307ab35157a32e42ac94
+% source-sha256: d38d3b0759d6ad6b00e2886446a5bbd61941686750b8a583d764ace11cbd764e
