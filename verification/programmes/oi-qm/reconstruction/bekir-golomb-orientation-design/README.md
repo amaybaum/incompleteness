@@ -76,6 +76,7 @@ After building `OIBridge.TurnpikeScopeTransfer` and `OIBridge.PiccardBridge`,
 run each design Lean file with `lake env lean` from
 `verification/lean-mathlib`, using its repository-relative path. The workflow
 spells out those commands, checks the count and contents of every report,
+compares the reports with `axiom-reports.txt` by theorem name and axiom set,
 compares each Python output with its committed JSON, and verifies
 `SHA256SUMS`.
 

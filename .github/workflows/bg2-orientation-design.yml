@@ -81,10 +81,46 @@ jobs:
                   raise SystemExit(f'Unexpected repair axioms: {axioms - allowed}')
           print('All three conditional repair reports use only standard axioms.')
           PY
-          cat /tmp/bg2-orientation-axioms.txt /tmp/bg2-signed-axioms.txt \
-            | grep 'depends on axioms' | sort > /tmp/bg2-actual-reports.txt
-          grep 'depends on axioms' ../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/axiom-reports.txt \
-            | sort | diff /tmp/bg2-actual-reports.txt -
+      - name: Compare the axiom reports with the committed record
+        working-directory: verification/lean-mathlib
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
+          REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
+          def reports(text, source):
+              found = {}
+              for name, axioms in REPORT.findall(text):
+                  if name in found:
+                      raise SystemExit(f'{source}: duplicate report for {name}')
+                  found[name] = sorted(a.strip() for a in axioms.split(',') if a.strip())
+              return found
+          def differences(expected, actual):
+              return ([f'missing {n}' for n in sorted(expected.keys() - actual.keys())]
+                      + [f'unexpected {n}' for n in sorted(actual.keys() - expected.keys())]
+                      + [f'{n}: {expected[n]} != {actual[n]}'
+                         for n in sorted(expected.keys() & actual.keys()) if expected[n] != actual[n]])
+          def wrap(found):
+              return ''.join(f"'{n}' depends on axioms: [" + ',\n '.join(a) + ']\n' for n, a in found.items())
+          record = reports(Path('../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/'
+                                'axiom-reports.txt').read_text(), 'axiom-reports.txt')
+          compiled = reports(Path('/tmp/bg2-orientation-axioms.txt').read_text()
+                             + Path('/tmp/bg2-signed-axioms.txt').read_text(), 'compiled output')
+          if len(record) != 10 or len(compiled) != 10:
+              raise SystemExit(f'Expected ten reports, record has {len(record)}, compiled output {len(compiled)}')
+          # Controls: the record re-wrapped one axiom per line parses to itself, and the same
+          # wrapped text with one axiom removed is reported as a difference.
+          if differences(record, reports(wrap(record), 'wrapped control')):
+              raise SystemExit('Control failed: wrapped reports do not parse to the record')
+          first = next(iter(record))
+          if not differences(record, reports(wrap({**record, first: record[first][:-1]}), 'mutated control')):
+              raise SystemExit('Control failed: a removed axiom was not detected')
+          problems = differences(record, compiled)
+          if problems:
+              raise SystemExit('Axiom reports differ from axiom-reports.txt:\n  ' + '\n  '.join(problems))
+          print(f'All {len(compiled)} axiom reports match axiom-reports.txt by theorem name and axiom set.')
+          PY
       - name: Historical preservation and placement
         run: |
           bg2_revision=$(git rev-parse HEAD)
