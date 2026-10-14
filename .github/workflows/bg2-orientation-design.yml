@@ -60,6 +60,7 @@ jobs:
           PY
       - name: Historical preservation and placement
         run: |
-          python3 tools/legacy_records_check.py HEAD
-          python3 tools/v3_verifier.py --receipts HEAD
+          bg2_revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$bg2_revision"
+          python3 tools/v3_verifier.py --receipts "$bg2_revision"
           python3 tools/artifact_placement_check.py
