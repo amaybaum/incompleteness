@@ -1,0 +1,78 @@
+name: pair interface research design
+
+# Research-only design compilation; no native round or F designation.
+on:
+  push:
+    branches: [ccr-ac945020-v97mrh]
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/pair-interface-design/**'
+      - '.github/workflows/pair-interface-design.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  design-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/pair-elan-init.sh
+          sh /tmp/pair-elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile the pair interface design
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.EqvK2MaxCone OIBridge.SubstratumSource OIBridge.LiftAudit
+          set -o pipefail
+          lake env lean ../programmes/oi-qm/reconstruction/pair-interface-design/PairInterfaceDesign.lean 2>&1 | tee /tmp/pair-interface-axioms.txt
+      - name: Check every axiom report
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path('/tmp/pair-interface-axioms.txt').read_text()
+          if 'sorry' in text:
+              raise SystemExit('The compiled output mentions sorry')
+          # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
+          REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
+          found = {}
+          for name, axioms in REPORT.findall(text):
+              if name in found:
+                  raise SystemExit(f'Duplicate report for {name}')
+              found[name] = {a.strip() for a in axioms.split(',') if a.strip()}
+          expected = 15
+          if len(found) != expected:
+              raise SystemExit(f'Expected {expected} axiom reports, received {len(found)}')
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for name, axioms in found.items():
+              if not axioms <= allowed:
+                  raise SystemExit(f'{name}: unexpected axioms {sorted(axioms - allowed)}')
+          # Control: a report carrying sorryAx is rejected by the same comparison.
+          if {'sorryAx'} <= allowed:
+              raise SystemExit('Control failed: sorryAx admitted')
+          for name, axioms in found.items():
+              print(f'{name}: {sorted(axioms)}')
+          print(f'All {len(found)} reports use only standard axioms.')
+          PY
+      - name: Check retained records and artifact placement
+        run: |
+          revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$revision"
+          python3 tools/v3_verifier.py --receipts "$revision"
+          python3 tools/artifact_placement_check.py
