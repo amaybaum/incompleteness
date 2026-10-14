@@ -1,0 +1,129 @@
+name: BG2 orientation design
+
+on:
+  push:
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/**'
+      - '.github/workflows/bg2-orientation-design.yml'
+  pull_request:
+    paths:
+      - 'verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/**'
+      - '.github/workflows/bg2-orientation-design.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact independent orientation checks
+        run: |
+          set -o pipefail
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact_check.py | diff - verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/exact-output.json
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent_check.py | diff - verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/independent-output.json
+          python3 -I -B verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/quoted_family_check.py | diff - verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/quoted-family-output.json
+          sha256sum -c verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/SHA256SUMS
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o /tmp/bg2-elan-init.sh
+          sh /tmp/bg2-elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library build cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile diagnostic and check every axiom report
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.TurnpikeScopeTransfer OIBridge.PiccardBridge
+          set -o pipefail
+          lake env lean ../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/OrientationDesign.lean | tee /tmp/bg2-orientation-axioms.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          reports = re.findall(r"depends on axioms: \[([^\]]*)\]", Path('/tmp/bg2-orientation-axioms.txt').read_text())
+          if len(reports) != 7:
+              raise SystemExit(f'Expected seven axiom reports, received {len(reports)}')
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for report in reports:
+              axioms = {a.strip() for a in report.split(',') if a.strip()}
+              if not axioms <= allowed:
+                  raise SystemExit(f'Unexpected diagnostic axioms: {axioms - allowed}')
+          print('All seven diagnostic reports use only standard axioms.')
+          PY
+      - name: Compile the conditional sign-aware repair
+        working-directory: verification/lean-mathlib
+        run: |
+          set -o pipefail
+          lake env lean ../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/SignedRepairDesign.lean | tee /tmp/bg2-signed-axioms.txt
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          reports = re.findall(r"depends on axioms: \[([^\]]*)\]", Path('/tmp/bg2-signed-axioms.txt').read_text())
+          if len(reports) != 3:
+              raise SystemExit(f'Expected three repair axiom reports, received {len(reports)}')
+          allowed = {'propext', 'Classical.choice', 'Quot.sound'}
+          for report in reports:
+              axioms = {a.strip() for a in report.split(',') if a.strip()}
+              if not axioms <= allowed:
+                  raise SystemExit(f'Unexpected repair axioms: {axioms - allowed}')
+          print('All three conditional repair reports use only standard axioms.')
+          PY
+      - name: Compare the axiom reports with the committed record
+        working-directory: verification/lean-mathlib
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          # Lean wraps a long axiom list across lines, so whole reports are parsed, not lines.
+          REPORT = re.compile(r"'([^'\s]+)' depends on axioms: \[([^\]]*)\]")
+          def reports(text, source):
+              found = {}
+              for name, axioms in REPORT.findall(text):
+                  if name in found:
+                      raise SystemExit(f'{source}: duplicate report for {name}')
+                  found[name] = sorted(a.strip() for a in axioms.split(',') if a.strip())
+              return found
+          def differences(expected, actual):
+              return ([f'missing {n}' for n in sorted(expected.keys() - actual.keys())]
+                      + [f'unexpected {n}' for n in sorted(actual.keys() - expected.keys())]
+                      + [f'{n}: {expected[n]} != {actual[n]}'
+                         for n in sorted(expected.keys() & actual.keys()) if expected[n] != actual[n]])
+          def wrap(found):
+              return ''.join(f"'{n}' depends on axioms: [" + ',\n '.join(a) + ']\n' for n, a in found.items())
+          record = reports(Path('../programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/'
+                                'axiom-reports.txt').read_text(), 'axiom-reports.txt')
+          compiled = reports(Path('/tmp/bg2-orientation-axioms.txt').read_text()
+                             + Path('/tmp/bg2-signed-axioms.txt').read_text(), 'compiled output')
+          if len(record) != 10 or len(compiled) != 10:
+              raise SystemExit(f'Expected ten reports, record has {len(record)}, compiled output {len(compiled)}')
+          # Controls: the record re-wrapped one axiom per line parses to itself, and the same
+          # wrapped text with one axiom removed is reported as a difference.
+          if differences(record, reports(wrap(record), 'wrapped control')):
+              raise SystemExit('Control failed: wrapped reports do not parse to the record')
+          first = next(iter(record))
+          if not differences(record, reports(wrap({**record, first: record[first][:-1]}), 'mutated control')):
+              raise SystemExit('Control failed: a removed axiom was not detected')
+          problems = differences(record, compiled)
+          if problems:
+              raise SystemExit('Axiom reports differ from axiom-reports.txt:\n  ' + '\n  '.join(problems))
+          print(f'All {len(compiled)} axiom reports match axiom-reports.txt by theorem name and axiom set.')
+          PY
+      - name: Historical preservation and placement
+        run: |
+          bg2_revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$bg2_revision"
+          python3 tools/v3_verifier.py --receipts "$bg2_revision"
+          python3 tools/artifact_placement_check.py
