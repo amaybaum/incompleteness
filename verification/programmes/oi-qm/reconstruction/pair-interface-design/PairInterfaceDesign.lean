@@ -44,7 +44,7 @@ namespace PairInterfaceDesign
 open InterventionLocality MonoidalCompletion CoherentLift LieRankSource MicroReversibility
 open SubstratumSource
 
-open scoped ComplexOrder
+open scoped ComplexOrder Matrix
 
 noncomputable section
 
@@ -66,20 +66,14 @@ theorem flow_self_zero (t : ℝ) :
       = !![Complex.exp ((-(t : ℂ) * Complex.I) * 2), 0; 0, 1] := by
   rw [flow_transition_self]
   ext i j
-  fin_cases i <;> fin_cases j <;>
-    first
-      | (simp [Matrix.single_apply, Matrix.one_apply]; done)
-      | (simp [Matrix.single_apply, Matrix.one_apply]; ring)
+  fin_cases i <;> fin_cases j <;> simp
 
 theorem flow_self_one (t : ℝ) :
     ReachabilitySeam.flow (transition (1 : Fin 2) 1) t
       = !![1, 0; 0, Complex.exp ((-(t : ℂ) * Complex.I) * 2)] := by
   rw [flow_transition_self]
   ext i j
-  fin_cases i <;> fin_cases j <;>
-    first
-      | (simp [Matrix.single_apply, Matrix.one_apply]; done)
-      | (simp [Matrix.single_apply, Matrix.one_apply]; ring)
+  fin_cases i <;> fin_cases j <;> simp
 
 theorem flow_transition_zero_one (t : ℝ) :
     ReachabilitySeam.flow (transition (0 : Fin 2) 1) t
@@ -87,10 +81,7 @@ theorem flow_transition_zero_one (t : ℝ) :
           -((Real.sin t : ℂ) * Complex.I), (Real.cos t : ℂ)] := by
   rw [LiftAudit.flow_transition_closedForm (by decide : (0 : Fin 2) ≠ 1)]
   ext i j
-  fin_cases i <;> fin_cases j <;>
-    first
-      | (simp [LiftAudit.pairProj, transition, Matrix.single_apply, Matrix.one_apply]; done)
-      | (simp [LiftAudit.pairProj, transition, Matrix.single_apply, Matrix.one_apply]; ring)
+  fin_cases i <;> fin_cases j <;> simp [LiftAudit.pairProj, transition]
 
 /-- **The phase is one diagonal flow**: `diag(1, cos s + i sin s) = e^{i(s/2)·2E₁₁}`. -/
 theorem phaseMat_eq_flow (s : ℝ) :
@@ -152,7 +143,7 @@ theorem cnotMat_eq_swap :
   ext ⟨i, j⟩ ⟨k, l⟩
   fin_cases i <;> fin_cases j <;> fin_cases k <;> fin_cases l <;>
     simp +decide [BridgeDictionary.cnotMat, CoherentLift.permMatrix, BridgeDictionary.projZero,
-      BridgeDictionary.projOne, EqvK2Schema.pauli, Matrix.one_apply, Matrix.diagonal_apply,
+      BridgeDictionary.projOne, BridgeDictionary.pauli, Matrix.one_apply, Matrix.diagonal_apply,
       Equiv.swap_apply_def]
 
 theorem cnotMat_conjTranspose : BridgeDictionary.cnotMatᴴ = BridgeDictionary.cnotMat := by
