@@ -429,7 +429,7 @@ $$dE = \frac{c^2 \kappa}{8\pi G} \, dA$$
 
 where κ is the surface gravity and dA is the change in horizon area. This is a classical gravitational identity — no quantum mechanics involved.
 
-The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. That the number of internal states per mode (the alphabet size q) does not change this count is the alphabet-size hypothesis [SM §2.7]; the Bekenstein-Hawking coefficient does not depend on it, since an entropy per cell other than one unit cancels from the entropy law [GR §3.1]. So dS = dA/ε². From dE = TdS:
+The entropy density is η = 1/ε² — one coupled mode per minimal cell of area ε². ε is defined as the minimal distinguishable scale (Lemma 1), so each cell of area ε² contributes exactly one boundary mode that couples across the partition. Each mode carries an entropy σ, a normalization taken as one nat: the number of internal states per mode (the alphabet size q) bounds it, σ ≤ ln q, and the alphabet-size hypothesis [SM §2.7] does not fix it. The Bekenstein-Hawking coefficient does not depend on σ, which cancels from the entropy law and enters only the discreteness scale, ε = 2√σ l_p [GR §3.1, §4]. So, at σ = 1, dS = dA/ε². From dE = TdS:
 
 $$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
 
@@ -523,7 +523,7 @@ This is the Bekenstein-Hawking entropy:
 
 $$S_{\text{BH}} = \frac{A}{4 \, l_p^2}$$
 
-The factor of 1/4 — which Bekenstein and Hawking introduced as a proportionality constant in 1973 — is here fixed by the cell size: each minimal cell of area ε² = 4 l_p² contributes one unit of entropy, and the 4 in the denominator comes from ε = 2 l_p, which the gap equation supplies under one named condition on the horizon reservoir (H-slope, the infrared detailed-balance condition of [GR §3.2]) together with the horizon and frame conditions of [GR §2, §8.5].
+The factor of 1/4 — which Bekenstein and Hawking introduced as a proportionality constant in 1973 — is here fixed by the cell size: each minimal cell of area ε² = 4σ l_p² contributes the entropy σ of one boundary mode, σ cancels, and the 4 in the denominator comes from ε² = 4σ l_p², which the gap equation supplies under one named condition on the horizon reservoir (H-slope, the infrared detailed-balance condition of [GR §3.2]) together with the horizon and frame conditions of [GR §2, §8.5].
 
 **Why this is significant:** The 1/4 factor has been a mystery for 50 years. Most frameworks either assume it or derive it within constructions specifically designed to produce it. Here it follows from the gap equation with no fitted input, under the named horizon conditions; the mode count itself, S = A/ε², needs none of them.
 

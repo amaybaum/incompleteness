@@ -104,7 +104,7 @@ The horizon calibration and radiation entries inherit H-slope and the horizon/fr
 
 | # | Prediction | Formula | Class | Layer | Empirical match | Chapter |
 |---|-----------|---------|-------|-------|-----------------|---------|
-| G1 | Discreteness scale | $\epsilon = 2 l_p$ | C | 0 | Conditional calibration | Ch 7 §7.4 |
+| G1 | Discreteness scale | $\epsilon = 2\sqrt{\sigma}\, l_p$ | C | 0 | Conditional calibration | Ch 7 §7.4 |
 | G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | C | 0 | Order-of-magnitude estimate | Ch 7 §7.5 |
 | G3 | Planck constant from gap eqn | $\hbar = c^3\epsilon^2/(4G)$ | C | 1 | Conditional calibration | Ch 7 §7.3 |
 | G4 | Bekenstein-Hawking coefficient | $1/4$ | C | 1 | No direct test | Ch 7 §7.5 |

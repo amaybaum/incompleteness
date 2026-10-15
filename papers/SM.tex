@@ -643,10 +643,14 @@ class with the bound \(|\partial V|\log_2 q\), so its boundary scaling
 is \(q\)-independent while its coefficient carries \(q\). The dispersion
 relation of §4.1 belongs to the observer-level operator, where \(q\)
 does not enter (§4.1, Scope). In the gravitational sector the entropy
-per boundary cell enters the gap equation \(\hbar = c^3/(4G\eta)\)
-through the entropy density \(\eta\) and cancels from the
-Bekenstein-Hawking law \(S = A/(4l_p^2)\) {[}GR §3.1{]}; with one unit
-of entropy per cell, \(\eta = 1/\epsilon^2\), neither contains \(q\).
+\(\sigma\) of one boundary mode enters the gap equation
+\(\hbar = c^3/(4G\eta)\) through the entropy density
+\(\eta = \sigma/\epsilon^2\) and cancels from the Bekenstein-Hawking law
+\(S = A/(4l_p^2)\) {[}GR §3.1{]}. At the normalization \(\sigma = 1\)
+neither contains \(q\); \(\sigma = \ln q\), the entropy of a \(q\)-state
+mode, would place \(q\) in the relation
+\(\epsilon = 2\sqrt{\sigma}\,l_p\) {[}GR §4{]}. The alphabet-size
+hypothesis below does not fix \(\sigma\).
 
 Other results carry \(q\) or hold under a condition on it. The period of
 the wave map on a ring of \(L\) sites is \(qL\) for prime \(q\) coprime
@@ -3710,9 +3714,19 @@ observed asymptotic behavior at higher loops --- is open work.
 resummation}\label{the-threshold-and-logarithmic-resummation}}
 
 The universal induced coupling \(\alpha_0\) is defined at the lattice
-cutoff \(\mu = M_{\text{Pl}}\). At this scale, gauge self-interactions
---- which are proportional to the quadratic Casimir \(C_2\) --- generate
-a group-dependent threshold. A universal (\(C_2\)-independent) threshold
+cutoff \(\mu = M_{\text{Pl}}\). This matching scale is a convention: the
+lattice scale is \(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) for an
+entropy \(\sigma\) per boundary mode {[}GR §3.1, §4{]}, and matching at
+\(1/\epsilon\) instead shifts the running term of row \(i\) below by
+\(-(b_i/2\pi)\ln(2\sqrt{\sigma})\). The fitted \(\delta_0\), \(A\) and
+\(B\) of §6.3 absorb that shift; the U(1)-row value of \(\delta_0\)
+moves by
+\((b_1/2\pi)\ln(2\sqrt{\sigma}) \approx 0.65\ln(2\sqrt{\sigma})\), to
+\(\delta_0 \approx 10.47\) at \(\sigma = 1\). The computed
+\(1/\alpha_0\) is a dimensionless lattice quantity and does not depend
+on \(\sigma\). At this scale, gauge self-interactions --- which are
+proportional to the quadratic Casimir \(C_2\) --- generate a
+group-dependent threshold. A universal (\(C_2\)-independent) threshold
 \(\delta_0\) also arises from higher-loop corrections to the vacuum
 polarization.
 
@@ -3837,7 +3851,10 @@ The four components:
   lattice, non-perturbative effects in the discrete substratum measure
   (§6.5), or lattice topological invariants beyond the framework's
   currently-developed scope --- remains open and is treated as numerical
-  pending such structural mechanisms.
+  pending such structural mechanisms. The coincidence is stated at the
+  matching convention \(\mu = M_{\text{Pl}}\) of §6.2; matching at the
+  lattice scale \(1/\epsilon\) gives \(\delta_0 \approx 10.47\) at
+  \(\sigma = 1\).
 \item
   \(A \cdot \ln(1 + B \cdot C_2 g_0^2)\) with \((A, B) = (8.3, 5.59)\):
   the resummed gauge self-energy contribution. The logarithmic form is
@@ -7709,21 +7726,22 @@ radiative correction within the emergent QFT (§4.11).
 \textbf{Remaining open problems.} (i) \emph{Lattice-continuum
 comparison} --- the structural predictions are exact theorems at the
 lattice level and do not require a continuum limit. The lattice is the
-fundamental description (\(\epsilon = 2l_p\) is physical, not a
-regulator), so there is no \(\epsilon \to 0\) limit to take. The
-comparison to experiment --- which is interpreted through continuum
-perturbation theory --- introduces corrections of order
-\((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC energies, far below any
-foreseeable experimental sensitivity. The Yang-Mills mass gap problem
-(proving rigorous existence of the continuum limit for Yang-Mills
-theory) is a famous open problem in mathematics, but it does not affect
-any prediction of the OI framework: the lattice theory is complete as
-stated, and the lattice is the fundamental description, not a
-regularization. The same \((E/M_{\text{Pl}})^2\) suppression sets the
-framework's structural commitment on Lorentz-invariance violation:
-linear LIV is forbidden at the substrate level (the cubic-lattice
-dispersion relation admits no \(\mathcal{O}(k^3)\) term), and the
-gauge-invariant quadratic coefficient evaluates to
+fundamental description (the spacing \(\epsilon = 2\sqrt{\sigma}\,l_p\)
+{[}GR §4{]} is physical, not a regulator), so there is no
+\(\epsilon \to 0\) limit to take. The comparison to experiment --- which
+is interpreted through continuum perturbation theory --- introduces
+corrections of order \((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC
+energies, far below any foreseeable experimental sensitivity. The
+Yang-Mills mass gap problem (proving rigorous existence of the continuum
+limit for Yang-Mills theory) is a famous open problem in mathematics,
+but it does not affect any prediction of the OI framework: the lattice
+theory is complete as stated, and the lattice is the fundamental
+description, not a regularization. The same \((E/M_{\text{Pl}})^2\)
+suppression sets the framework's structural commitment on
+Lorentz-invariance violation: linear LIV is forbidden at the substrate
+level (the cubic-lattice dispersion relation admits no
+\(\mathcal{O}(k^3)\) term), and the gauge-invariant quadratic
+coefficient evaluates to
 \(\omega^2 = k^2[1 - (4/45)(E/M_{\text{Pl}})^2 + \ldots]\) ---
 subluminal, with the specific \(4/45\) fixed by cubic coordination and
 the statistical-isotropy gauge average. Pre-registered as Class A in
@@ -8806,4 +8824,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: f396d98dde8827af502d53d14b82372e469f379cb878ddae7d72505fa089622b
+% source-sha256: 96e4aefafd80898e7d184ab943bd48b5c640de54f75c0a0bb6e0bf3bce316983
