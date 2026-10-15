@@ -1,0 +1,18 @@
+== q=3 chain couplings M12=1, M23=1
+principal: commutator 0.00e+00  cone violation over s [0. 0. 0. 0. 0. 0.]
+M_phi: K commutes with G0(b2) True; commutator 5.53e-01  cone violation [0.111752 0.861593 1.773585 2.279122 2.329634 2.291068]
+M_C: K commutes with G0(b2) True; commutator 1.63e+00  cone violation [0.339318 1.89252  2.071778 1.590589 1.532079 1.520927]
+random lifted members: 40/40 non-commuting; of those, 0 satisfy the strict cone at s<1; min violation 2.350e-01
+== q=3 chain couplings M12=1, M23=2
+principal: commutator 0.00e+00  cone violation over s [0. 0. 0. 0. 0. 0.]
+M_phi: K commutes with G0(b2) True; commutator 1.28e+00  cone violation [0.239383 1.363401 1.927446 2.21061  2.435271 2.441592]
+M_C: K commutes with G0(b2) True; commutator 1.63e+00  cone violation [0.339318 1.89252  2.071778 1.590589 1.532079 1.520927]
+random lifted members: 40/40 non-commuting; of those, 0 satisfy the strict cone at s<1; min violation 8.277e-01
+== q=5 chain couplings M12=1, M23=1
+principal: commutator 0.00e+00  cone violation over s [0. 0. 0. 0. 0. 0.]
+random lifted members: 40/40 non-commuting; of those, 0 satisfy the strict cone at s<1; min violation 2.070e+00
+== q=5 chain couplings M12=1, M23=2
+principal: commutator 0.00e+00  cone violation over s [0. 0. 0. 0. 0. 0.]
+random lifted members: 40/40 non-commuting; of those, 0 satisfy the strict cone at s<1; min violation 2.608e+00
+== contrast
+XX-type pair terms on chain: commutator 0.00e+00 cone violation [0. 0. 0. 0. 0. 0.]
