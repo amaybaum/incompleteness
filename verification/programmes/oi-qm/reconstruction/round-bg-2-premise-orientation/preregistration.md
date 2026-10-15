@@ -214,10 +214,14 @@ cell are the owner's; the obligation stays open in every outcome.
    and the elaboration time of `not_muForm_r1_r2refl` under the design's route.
 2. Write the probe (O0's parsing; O4's box and O5's bound frozen; replay 3/3) and `controls.py` with a self-test
    running every mutation; edit workflow, import line and census; dispatch the predicted tree less the result note.
-3. Owner choices: slug and module name; whether a corrected premise joins (excluded here; `SignedRepairDesign.lean`
-   is a candidate); which change replaces the design-package citations at the sites the non-inference rule lists (the
-   ledger, ROADMAP, PROGRAMME and census sites) with the adopted module (§A.27: same session once accepted) — none
-   governed here.
+3. Owner decisions (2026-10-15), none governed here:
+   - the round keeps the label BG-2 and the record directory `round-bg-2-premise-orientation`;
+   - the module is `TurnpikePremiseOrientation.lean`, namespace `OIBridge.PremiseOrientation`;
+   - no corrected premise joins: BG-2 certifies the refutation and its controls only, and `SignedRepairDesign.lean`
+     stays design evidence;
+   - correcting the adopted `TurnpikeScopeTransfer.lean` is a separate governed follow-up;
+   - replacing the design-package citations at the ledger, ROADMAP, PROGRAMME and census sites with the adopted
+     module is a separate status update, made after native certification and adoption (§A.27).
 
 **Owner decision on scope.** BG-2 certifies the refutation and its controls and nothing more. Correcting
 `TurnpikeScopeTransfer.lean` — whose docstring (:535–541) calls the premise "the ONLY unproved input" — and moving into it
