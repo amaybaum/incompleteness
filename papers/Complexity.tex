@@ -56,6 +56,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -737,12 +741,13 @@ makes this precise. The structural chain of §2 --- \(d = 3\), orbitals,
 the periodic table, carbon's tetrahedral bonding, water, the thermal
 window, and (conditional on H-χ') chirality --- is invariant under the
 generators of \(\mathcal{G}_{\text{sub}}\): state relabeling, alphabet
-change, deep-sector enlargement, and graph isomorphism up to statistical
-isotropy (as specified in {[}Substratum §4, Theorem 24(iv){]}: for the
-gauge sector, restricted to isomorphisms preserving the cubic octahedral
-structure). These preconditions for complexity are not contingent
-features that happen to hold in our universe. They are gauge-invariant
-properties of the equivalence class
+change (under the alphabet-size hypothesis; {[}Substratum §4, Theorem
+24(ii){]}), deep-sector enlargement, and graph isomorphism up to
+statistical isotropy (as specified in {[}Substratum §4, Theorem
+24(iv){]}: for the gauge sector, restricted to isomorphisms preserving
+the cubic octahedral structure). These preconditions for complexity are
+not contingent features that happen to hold in our universe. They are
+gauge-invariant properties of the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) --- they hold for every
 \((S, \varphi)\) in the class. The only quantities that could have been
 different are the solution-specific parameters (gauge couplings, fermion
@@ -2166,4 +2171,4 @@ radical-pairs,'' \emph{PLoS ONE} \textbf{2}, e1106 (2007).
 error correction for non-Markovian noise,'' arXiv:2411.09637 (2024).
 
 \end{document}
-% source-sha256: e5c9ac2812593f2a94b52165108e109b3f81afe2ecd7d230224d40cc2b665417
+% source-sha256: 37ab71f55a6988d6912038d88af1e2ce75cd622a044c51a67a93aabd2e3c319d

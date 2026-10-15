@@ -3025,17 +3025,18 @@ structural consequence of the halting problem's undecidability is
 computability theory.
 
 Two further classes of inaccessible quantities deserve separation from
-the undecidable hidden state. The alphabet size \(q\) at each lattice
-site and the cardinality of the deep hidden sector beyond the partition
-boundary are \emph{gauge} rather than undecidable. Different values of
-\(q\) produce identical observables; different deep-sector cardinalities
---- including infinite ones --- produce the same visible transition data
-at leading order on accessible timescales, through the boundary-only
-dependence lemma of Chapter 7. The hidden state \(h\) is undecidable:
-there is a real answer, but the observer cannot find it. The alphabet
-\(q\) is gauge: there is no answer to find, because the question is
-empty. This distinction will be made precise in §2.5, where the gauge
-group is constructed explicitly.
+the undecidable hidden state. The cardinality of the deep hidden sector
+beyond the partition boundary is \emph{gauge} rather than undecidable,
+and so is the alphabet size \(q\) at each lattice site under the
+alphabet-size hypothesis of Chapter 5. Different deep-sector
+cardinalities --- including infinite ones --- produce the same visible
+transition data at leading order on accessible timescales, through the
+boundary-only dependence lemma of Chapter 7; under the hypothesis,
+different values of \(q\) produce identical observables. The hidden
+state \(h\) is undecidable: there is a real answer, but the observer
+cannot find it. A gauge quantity has no answer to find, because the
+question is empty. This distinction will be made precise in §2.5, where
+the gauge group is constructed explicitly.
 
 The reconstruction theorem developed in the next section fixes the
 \textbf{local lattice/gauge residue} --- under its stated conditions ---
@@ -3406,7 +3407,9 @@ Lagrangian symmetries in the standard sense, derived from the substratum
 through the trace-out.
 
 \textbf{Theorem (Generators).} \emph{\(\mathcal{G}_{\text{sub}}\)
-contains four independent families of transformations:}
+contains the independent families of transformations (i), (iii) and (iv)
+below, and, under the alphabet-size hypothesis of Chapter 5, the family
+(ii):}
 
 \emph{(i) State relabeling.} For any bijection \(\sigma: S \to S\), the
 substratum \((S, \sigma \circ \varphi \circ \sigma^{-1})\) produces the
@@ -3416,13 +3419,15 @@ sent to which --- but not on which labels are attached to which states.
 This is an \(|S|!\)-element subgroup, vastly larger than any gauge group
 appearing in the Standard Model.
 
-\emph{(ii) Alphabet change.} The local state space at each lattice site
-can be replaced by \(\mathbb{Z}/q'\mathbb{Z}\) for any integer
-\(q' \geq 2\), while preserving the coupling graph and the dynamics
-class, without changing any observable. The internal alphabet at a
-lattice site is the number of distinguishable local states; for any
-\(q \geq 2\) the framework's predictions are identical. This family is
-parametrized by the integers \(q \geq 2\).
+\emph{(ii) Alphabet change (under the alphabet-size hypothesis).} The
+local state space at each lattice site can be replaced by
+\(\mathbb{Z}/q'\mathbb{Z}\) for any integer \(q' \geq 2\), while
+preserving the coupling graph and the dynamics class, without changing
+any observable if the alphabet-size hypothesis of Chapter 5 holds. The
+internal alphabet at a lattice site is the number of distinguishable
+local states; some results hold for every \(q \geq 2\) and others carry
+\(q\) (Chapter 5). This family is parametrized by the integers
+\(q \geq 2\).
 
 \emph{(iii) Deep-sector enlargement.} The hidden sector beyond the
 partition boundary --- what Chapter 7 will call the \emph{deep} hidden
@@ -3469,15 +3474,13 @@ chain.} Generator (i): conjugation preserves the coupling graph
 \(G_\varphi\) up to relabeling of vertices, hence preserves all
 graph-dependent quantities --- the area law, the dispersion relation,
 the dimension via Myrheim-Meyer, the eigenvalue multiplicities
-\((3, 2, 1)\). Generator (ii): \(q\)-independence of every Standard
-Model prediction is established in Chapters 5 and 6 (the predictions
-involve only ratios and cubic-group representation theory, both
-\(q\)-independent). Generator (iii): the adjoined degrees of freedom are
-decoupled, so averaging over them leaves the visible marginal, and every
-transition probability, unchanged. Generator (iv): the derivation chain
-in Stage 2 uses only statistical properties of \(G_\varphi\) ---
-dimension, spectral dimension, bounded degree, isotropy --- never
-specific graph features. \(\square\)
+\((3, 2, 1)\). Generator (ii): this is the alphabet-size hypothesis of
+Chapter 5, under which the family is stated. Generator (iii): the
+adjoined degrees of freedom are decoupled, so averaging over them leaves
+the visible marginal, and every transition probability, unchanged.
+Generator (iv): the derivation chain in Stage 2 uses only statistical
+properties of \(G_\varphi\) --- dimension, spectral dimension, bounded
+degree, isotropy --- never specific graph features. \(\square\)
 
 \textbf{Conditional completeness.} For the reconstructed dilation/local
 datum, and subject to the semigroup-transfer lemma (Substratum Lemma
@@ -3501,15 +3504,16 @@ At the substratum level, this partial isometry is either a relabeling of
 hidden-sector states (generator (i) restricted to \(\mathcal{C}_H\))
 when the two hidden sectors have equal cardinality, or a composition of
 relabeling and deep-sector enlargement/reduction (generators (i) +
-(iii)) when they differ in size. The alphabet may change freely
-(generator (ii)). The local coupling graph must have the same
-statistical properties --- dimension, spectral structure, isotropy ---
-since these determine the scoped derivation chain's outputs, and two
-such graphs are related by generator (iv). These four degrees of freedom
-exhaust --- conditional on the semigroup-transfer lemma --- the freedom
-in that reconstructed datum, so the four generators span
-\(\mathcal{G}_{\text{sub}}\) on this domain. The argument does not
-constrain the separate preparation-indexed Bell-composite rule.
+(iii)) when they differ in size. Under the alphabet-size hypothesis the
+alphabet may change freely (generator (ii)). The local coupling graph
+must have the same statistical properties --- dimension, spectral
+structure, isotropy --- since these determine the scoped derivation
+chain's outputs, and two such graphs are related by generator (iv).
+These four degrees of freedom exhaust --- conditional on the
+semigroup-transfer lemma --- the freedom in that reconstructed datum, so
+the four generators span \(\mathcal{G}_{\text{sub}}\) on this domain.
+The argument does not constrain the separate preparation-indexed
+Bell-composite rule.
 
 Three candidate fifth generators are explicitly subsumed by the four
 already listed:
@@ -3540,9 +3544,10 @@ trace-out:
 representative \((S, \varphi)\) before any marginalization. It is the
 largest of the three gauge groups within that scoped reconstruction and
 includes transformations with no analog at lower levels (deep-sector
-enlargement, alphabet change). The local reconstruction theorem holds
-modulo \(\mathcal{G}_{\text{sub}}\); Bell-composite preparation rules
-are outside this completeness statement.
+enlargement, and alphabet change under the alphabet-size hypothesis).
+The local reconstruction theorem holds modulo
+\(\mathcal{G}_{\text{sub}}\); Bell-composite preparation rules are
+outside this completeness statement.
 
 \emph{Level 2 --- emergent quantum field theory gauge.} The Standard
 Model gauge group
@@ -3584,14 +3589,15 @@ of the substratum, not chosen from a landscape.
 \textbf{Substrate freedom and the realism question.} The substratum
 gauge group makes precise an earlier claim. Different gauge
 representatives within an equivalence class produce identical
-observables: state relabelings, alphabet changes, decoupled deep-sector
-enlargements, and graph isomorphisms all leave every measurement outcome
-unchanged. The question ``which specific substratum representative is
-real?'' therefore has no empirical content. Two representatives in the
-same equivalence class are observably indistinguishable, in the
-strongest possible sense --- every measurement on either gives the same
-result. The framework's ontic commitment is to the equivalence class,
-not to any specific representative within it.
+observables: state relabelings, decoupled deep-sector enlargements and
+graph isomorphisms leave every measurement outcome unchanged, and so,
+under the alphabet-size hypothesis, do alphabet changes. The question
+``which specific substratum representative is real?'' therefore has no
+empirical content. Two representatives in the same equivalence class are
+observably indistinguishable, in the strongest possible sense --- every
+measurement on either gives the same result. The framework's ontic
+commitment is to the equivalence class, not to any specific
+representative within it.
 
 This is what makes the framework's scoped structural realism
 non-trivial. The \textbf{reconstructed local lattice/gauge residue
@@ -4396,10 +4402,11 @@ gauge group as the set of transformations on the underlying bijection
 probabilities, identical emergent Hamiltonian (up to G1), identical
 value of \(\hbar\) across all partitions of OI's structural class. Four
 families of generators were identified: hidden-sector relabeling,
-alphabet change, deep-sector enlargement, and graph isomorphism up to
-statistical isotropy. The Stinespring uniqueness theorem, extended per
-the semigroup-transfer lemma (Substratum Lemma 24.1, identified there
-for specialist verification), conditionally establishes that these four
+alphabet change (under the alphabet-size hypothesis of Chapter 5),
+deep-sector enlargement, and graph isomorphism up to statistical
+isotropy. The Stinespring uniqueness theorem, extended per the
+semigroup-transfer lemma (Substratum Lemma 24.1, identified there for
+specialist verification), conditionally establishes that these four
 families exhaust the freedom.
 
 Level G3 contains both G1 and G2. The Standard Model gauge group is the
@@ -4671,14 +4678,15 @@ should name them apart:
 
 \emph{Gauge incompleteness} is the species where the inaccessible
 ``fact'' is no fact at all --- where there is, demonstrably, nothing of
-the matter to be had. Hidden-sector relabelings, the alphabet freedom,
-the deep-sector enlargement: each is a difference that makes no
-difference to any observer whatsoever, not merely to this one. Gauge
-incompleteness is identical to gauge freedom. The two terms --- ``gauge
-freedom'' and ``gauge incompleteness'' --- name one principle from two
-directions: the methodology's term for the structure that can be
-transformed freely, and the framework's term for the corresponding blind
-spot in the embedded observer's picture.
+the matter to be had. Hidden-sector relabelings, the deep-sector
+enlargement and, under the alphabet-size hypothesis, the alphabet
+freedom: each is a difference that makes no difference to any observer
+whatsoever, not merely to this one. Gauge incompleteness is identical to
+gauge freedom. The two terms --- ``gauge freedom'' and ``gauge
+incompleteness'' --- name one principle from two directions: the
+methodology's term for the structure that can be transformed freely, and
+the framework's term for the corresponding blind spot in the embedded
+observer's picture.
 
 \emph{Computational incompleteness} is the species where there is a
 definite fact, unreachable by this observer for a specifically
@@ -6836,28 +6844,34 @@ the future of the other. This is a dynamical fact, not a spatial
 relationship. The topology is defined by the interactions; the apparent
 spatial arrangement is the topology made visible.
 
-\textbf{The alphabet as gauge freedom.} A subtle but important
-structural feature of the framework is that the alphabet size \(q\) ---
-the number of distinguishable states at each lattice site --- is gauge.
-Every prediction the framework makes is independent of \(q\). The gap
-equation \(\hbar = c^3 \epsilon^2 / (4G)\) derived in Chapter 7 contains
-no \(q\). The Bekenstein-Hawking formula contains no \(q\). The
-dispersion relation, area law, P-indivisibility property, center
-independence, and Einstein's equations are all \(q\)-independent.
-Numerical verification on small systems confirms this: on a
-one-dimensional ring of \(L = 40\) sites, the wave equation produces
-P-indivisibility at every \(q\) tested from 2 to 64. No experiment, even
-in principle, could measure \(q\).
+\textbf{The alphabet size.} The alphabet size \(q\) is the number of
+distinguishable states at each lattice site. Several results hold for
+every \(q \geq 2\) and contain no \(q\): the P-indivisibility theorem,
+center independence, the boundary scaling of the area law, and the
+dispersion relation of the observer-level operator. The gravitational
+sector depends on \(q\) only through the entropy assigned to one
+boundary cell, which cancels from the Bekenstein-Hawking formula; with
+one unit per cell, neither the gap equation
+\(\hbar = c^3 \epsilon^2 / (4G)\) derived in Chapter 7 nor the
+Bekenstein-Hawking formula contains \(q\). Other results carry \(q\):
+the period of the wave map on a ring of \(L\) sites is \(qL\) for prime
+\(q\) coprime to \(L\), the coefficient of the area law and the capacity
+count of the hidden sector contain \(\log q\), and the substratum
+normalisation \(\alpha = 1/d\) requires \(3 \nmid q\).
 
-Two substrata \((S, \varphi)\) and \((S', \varphi')\) with different
-alphabet sizes \(q\) and \(q'\) are physically equivalent if they
-produce the same emergent transition probabilities. The analogy to
-electromagnetic gauge invariance is precise: the gauge potential
-\(A_\mu\) is not physical, the field strength \(F_{\mu\nu}\) is. In the
-framework, the mod-\(q\) state space at each lattice site is not
-physical; the coupling structure and its emergent consequences are. This
-is generator (ii) of the substratum gauge group
-\(\mathcal{G}_{\text{sub}}\) developed in Chapter 2 §2.5.
+That the emergent observables do not depend on \(q\) at all --- that two
+substrata \((S, \varphi)\) and \((S', \varphi')\) with the same coupling
+structure and different alphabet sizes produce the same emergent
+transition probabilities --- is the \emph{alphabet-size hypothesis}. It
+is not proved for every observable, and because the visible transition
+matrices of the two substrata act on configuration spaces of different
+sizes, stating it requires a correspondence between them that is not
+constructed. Under the hypothesis the mod-\(q\) state space at each
+lattice site plays the role of the gauge potential \(A_\mu\) and the
+coupling structure with its emergent consequences that of the field
+strength \(F_{\mu\nu}\). Generator (ii) of the substratum gauge group
+\(\mathcal{G}_{\text{sub}}\) developed in Chapter 2 §2.5 is stated under
+this hypothesis.
 
 A second gauge freedom --- \emph{amplitude-scale invariance} --- has
 consequences that recur in the gauge-derivation chain. Stated
@@ -6872,8 +6886,8 @@ the alphabet being gauge, and is one instance of the framework's master
 principle that observationally indistinguishable transformations are
 gauge --- the same principle behind the four
 \(\mathcal{G}_{\text{sub}}\) generators and the alphabet-\emph{size}
-freedom, from which it is nonetheless \emph{distinct}. It is an explicit
-adjoined operational principle of \(\mathcal{G}_{\text{sub}}\)
+hypothesis, from which it is nonetheless \emph{distinct}. It is an
+explicit adjoined operational principle of \(\mathcal{G}_{\text{sub}}\)
 (companion papers, {[}Substratum §4, Theorem 24 Remark{]}); results that
 invoke it are conditional on it. The reduction of the natural commutant
 \(\mathrm{U}(3) \times \mathrm{U}(2) \times \mathrm{U}(1)\) to the
@@ -9631,19 +9645,22 @@ about the mode density but a consequence of the definition of
 \(\epsilon\) would subdivide the minimal scale; counting fewer modes
 would require a distinction below \(\epsilon\) to group them. Two
 potential multiplicities are settled separately. The number of internal
-\emph{states} per mode (the alphabet size) is gauge --- observationally
-irrelevant by the framework's gauge-freedom result --- so it does not
-enter. The number of internal \emph{components} per site
-(\(K = 2d = 6\)) is physical, but it does not multiply the count either,
-for a structural reason: the \(K = 2d\) components are the \(2d\) link
-directions from a cell, each coupling across exactly one link, and a
-boundary cell has exactly one outward-normal link crossing the horizon
---- the other \(2d - 1\) are tangential or inward. One crossing link per
-cell means one coupled boundary mode per cell, forced by the
-link-direction structure rather than assumed ({[}GR §3.1{]}). The
-counting \(\eta = 1/\epsilon^2\) is therefore the definition of
-\(\epsilon\) together with a forced consequence of the component
-structure, not an additional commitment.
+\emph{states} per mode (the alphabet size) is taken not to enter, which
+is the alphabet-size hypothesis of Chapter 5; the Bekenstein-Hawking
+coefficient does not depend on it, since an entropy per cell other than
+one unit cancels from the entropy law and enters only the relation
+between \(\epsilon\) and the Planck length ({[}GR §3.1{]}). The number
+of internal \emph{components} per site (\(K = 2d = 6\)) is physical, but
+it does not multiply the count either, for a structural reason: the
+\(K = 2d\) components are the \(2d\) link directions from a cell, each
+coupling across exactly one link, and a boundary cell has exactly one
+outward-normal link crossing the horizon --- the other \(2d - 1\) are
+tangential or inward. One crossing link per cell means one coupled
+boundary mode per cell, forced by the link-direction structure rather
+than assumed ({[}GR §3.1{]}). The counting \(\eta = 1/\epsilon^2\) is
+therefore the definition of \(\epsilon\) together with a forced
+consequence of the component structure, under the alphabet-size
+hypothesis for the states per mode.
 
 The counting also sits at the intersection of an independent family of
 results: the Bekenstein bound and Bousso's covariant entropy bound each
@@ -9962,9 +9979,9 @@ Popescu-Short-Winter measure concentration applied to the bijection's
 cycle structure, which is what H-scramble supplies --- the radiation's
 entanglement entropy is approximately
 \[S_{\text{rad}}(t) = \min(n_R(t), n_B(t)) \cdot \ln q,\] where \(q\) is
-the substratum's alphabet size (a gauge quantity that cancels in
-physical ratios) and the corrections are exponentially small. The
-structure has two regimes:
+the substratum's alphabet size, so that one mode carries the entropy
+\(\ln q\), and the corrections are exponentially small. The structure
+has two regimes:
 
 \begin{itemize}
 \tightlist
@@ -10001,18 +10018,20 @@ wormhole geometries connecting the replicas in the gravitational path
 integral are essential to obtaining the saturating Page curve at late
 times.
 
-The framework arrives at the same Page time and the same Page entropy
-through a structurally cleaner mechanism. The cycle-typicality argument
-invokes the Popescu-Short-Winter theorem applied to the deterministic
-substratum dynamics on the energy shell, under the scrambling condition
-H-scramble of {[}GR Appendix A{]} --- uniformity over classical
-microstates is not uniformity over quantum pure states, and that
-condition is not established --- with no replica trick and no
-gravitational path integral. The \emph{island} in the QES formulation
-corresponds, in the framework's construction, to the post-Page-time
-regime in which the black hole's boundary modes form the smaller
-subsystem; the \emph{replica wormhole} geometries appear to correspond
-to the substratum's cycle structure on the energy shell.
+The framework arrives at the same Page time, and at the same Page
+entropy when each boundary mode carries the entropy \(\ln q\) of its
+state space ({[}GR Appendix A{]}), through a structurally cleaner
+mechanism. The cycle-typicality argument invokes the
+Popescu-Short-Winter theorem applied to the deterministic substratum
+dynamics on the energy shell, under the scrambling condition H-scramble
+of {[}GR Appendix A{]} --- uniformity over classical microstates is not
+uniformity over quantum pure states, and that condition is not
+established --- with no replica trick and no gravitational path
+integral. The \emph{island} in the QES formulation corresponds, in the
+framework's construction, to the post-Page-time regime in which the
+black hole's boundary modes form the smaller subsystem; the
+\emph{replica wormhole} geometries appear to correspond to the
+substratum's cycle structure on the energy shell.
 
 This conjectured correspondence --- replica wormholes
 \(\leftrightarrow\) substratum cycles --- is suggestive but not yet
@@ -17945,11 +17964,11 @@ reductions}\label{gauge-equivalence-and-complexity-theoretic-reductions}}
 
 The framework's substratum gauge group \(\mathcal{G}_{\text{sub}}\)
 partitions the space of bijections into equivalence classes; the gauge
-group includes state relabeling, alphabet change, deep-sector
-enlargement, and graph isomorphism up to statistical isotropy
-(Substratum §4). A natural question is whether
-\(\mathcal{G}_{\text{sub}}\) has an image in the space of
-polynomial-time reductions among NP-complete problems. If gauge
+group includes state relabeling, alphabet change (under the
+alphabet-size hypothesis), deep-sector enlargement, and graph
+isomorphism up to statistical isotropy (Substratum §4). A natural
+question is whether \(\mathcal{G}_{\text{sub}}\) has an image in the
+space of polynomial-time reductions among NP-complete problems. If gauge
 equivalence at the substratum level corresponds (in some precise sense)
 to polynomial-time reducibility at the algorithm level, the framework's
 gauge structure would provide a \emph{physical} account of why
@@ -30034,4 +30053,4 @@ convergence in proteins. In: V. Bryson \& H. J. Vogel (eds.),
 {[}Origin of the molecular clock hypothesis.{]}
 
 \end{document}
-% source-sha256: 241e6f824656e1fb0848a186ff1e880b1de2343e6ac1098f7ff4e9f31520b5d5
+% source-sha256: a1f147d21663d838566d1b4c256d18b5a7868d33d6f51c8418cf376d3af81c86

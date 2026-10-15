@@ -754,15 +754,17 @@ Jacobson {[}1{]} showed \(dE = T\,dS\) applied to local causal horizons
 yields Einstein's equations, with \(dE = (c^2 \kappa / 8\pi G)\,dA\),
 where \(\kappa\) is the surface gravity of the horizon. The entropy
 density is \(\eta = 1/\epsilon^2\) --- one coupled mode per minimal
-cell. This is not an assumption about the number of states per cell but
-a consequence of two results: \(\epsilon\) is defined as the minimal
+cell. It rests on two inputs: \(\epsilon\) is defined as the minimal
 distinguishable scale (Lemma 1), so each cell of area \(\epsilon^2\)
 contributes exactly one boundary mode that couples across the partition;
-the number of internal states per mode (the alphabet size \(q\)) is a
-gauge freedom with no observable consequences (the \(q\)-gauge theorem:
-two systems with different \(q\) produce identical transition
-probabilities if they share the same coupling structure). Thus
-\(dS = dA/\epsilon^2\). Equating:
+and each mode is assigned one unit of entropy whatever the number of its
+internal states (the alphabet size \(q\)), which is the alphabet-size
+hypothesis of {[}SM §2.7{]} (two systems with different \(q\) and the
+same coupling structure produce identical transition probabilities). The
+Bekenstein-Hawking coefficient does not depend on that assignment: an
+entropy per cell other than one unit cancels from \(S = \eta A\) exactly
+as \(\kappa_m\) does below, and enters only the relation between
+\(\epsilon\) and \(l_p\). Thus \(dS = dA/\epsilon^2\). Equating:
 
 \[T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G k_B}\]
 
@@ -787,18 +789,19 @@ carry no cross-partition coupling. The number of components whose
 coupling crosses the horizon per cell is therefore exactly one --- the
 normal link --- so \(\kappa_m = 1\) and \(\eta = 1/\epsilon^2\) follows
 from the link-direction structure, not from a separate mode-counting
-postulate. (The \(q\)-gauge argument settles the orthogonal question of
-states per mode; the component count is settled here by which links are
-normal.) This also confirms \(\epsilon = 2\,l_p\) directly: with
-\(\kappa_m = 1\) the relation \(\epsilon = 2\sqrt{\kappa_m}\,l_p\) gives
-\(\epsilon = 2\,l_p\), and the {[}SM §6{]} cutoff identification is
-unaffected. The Bekenstein-Hawking coefficient is independent of
-\(\kappa_m\) in any case --- writing \(\eta = \kappa_m/\epsilon^2\), the
-gap equation gives \(\hbar = c^3/(4G\eta)\) and
-\(S = \eta A = A/(4l_p^2)\) with \(\kappa_m\) cancelling --- so the
-entropy law is a fixed point of the construction regardless, and the
-component count enters only the discreteness scale, where the
-link-direction structure fixes it at unity.
+postulate. (The orthogonal question of states per mode is the
+alphabet-size hypothesis of {[}SM §2.7{]}; the component count is
+settled here by which links are normal.) This also confirms
+\(\epsilon = 2\,l_p\) directly: with \(\kappa_m = 1\) the relation
+\(\epsilon = 2\sqrt{\kappa_m}\,l_p\) gives \(\epsilon = 2\,l_p\), and
+the {[}SM §6{]} cutoff identification is unaffected. The
+Bekenstein-Hawking coefficient is independent of \(\kappa_m\) in any
+case --- writing \(\eta = \kappa_m/\epsilon^2\), the gap equation gives
+\(\hbar = c^3/(4G\eta)\) and \(S = \eta A = A/(4l_p^2)\) with
+\(\kappa_m\) cancelling --- so the entropy law is a fixed point of the
+construction regardless, and the component count enters only the
+discreteness scale, where the link-direction structure fixes it at
+unity.
 
 \hypertarget{the-emergent-action-scale}{%
 \subsubsection{3.2 The emergent action
@@ -1005,12 +1008,13 @@ that \(\epsilon\) is the minimal distinguishable scale (Lemma 1), ``one
 boundary mode per cell of area \(\epsilon^2\)'' is what ``minimal''
 means: a cell finer than \(\epsilon\) would subdivide the minimal scale,
 while counting fewer modes would require a distinction below
-\(\epsilon\) to group them. The \(q\)-gauge theorem (alphabet size is
-observationally irrelevant) settles that what counts is the number of
-\emph{cells}, not the number of internal states per cell.
-\(\eta = 1/\epsilon^2\) is therefore not an independent physical ansatz
-about mode density but a consequence of the definition of \(\epsilon\)
-combined with the irrelevance of sub-cell structure.
+\(\epsilon\) to group them. That what counts is the number of
+\emph{cells}, not the number of internal states per cell, is the
+alphabet-size hypothesis of {[}SM §2.7{]}. \(\eta = 1/\epsilon^2\) is
+therefore not an independent physical ansatz about mode density but a
+consequence of the definition of \(\epsilon\) combined with that
+hypothesis; the Bekenstein-Hawking coefficient is independent of it
+(§3.1).
 
 The predictive content lies not in the gap equation alone but in its
 consequences. The specific relationship \(\hbar = c^3\epsilon^2/(4G)\)
@@ -4675,9 +4679,9 @@ curve). \emph{The entanglement entropy of the radiation follows:}
 
 \[S_{\text{rad}}(t) = \begin{cases} n_R(t) \cdot \ln q - \frac{q^{n_R(t)}}{2\,q^{n_B(t)}} & \text{for } n_R(t) < n_B(t) \quad \text{(early: before Page time)} \\ n_B(t) \cdot \ln q - \frac{q^{n_B(t)}}{2\,q^{n_R(t)}} & \text{for } n_R(t) > n_B(t) \quad \text{(late: after Page time)} \end{cases}\]
 
-\emph{where \(q\) is the alphabet size (gauge --- it cancels in all
-ratios), \(n_B(t) + n_R(t) = n_B(0)\), and the Page time \(t_P\) is
-defined by \(n_R(t_P) = n_B(t_P) = n_B(0)/2\).}
+\emph{where \(q\) is the alphabet size, so that one mode carries the
+entropy \(\ln q\), \(n_B(t) + n_R(t) = n_B(0)\), and the Page time
+\(t_P\) is defined by \(n_R(t_P) = n_B(t_P) = n_B(0)/2\).}
 
 \emph{Proof.} Direct substitution of \(d_B = q^{n_B(t)}\) and
 \(d_R = q^{n_R(t)}\) into the Page entropy formula (Theorem A.8), using
@@ -4700,8 +4704,15 @@ and \(n_R(t) = n_B(0) - n_B(t)\). The Page time \(t_P\) satisfies
 \[t_P = t_{\text{evap}}\!\left(1 - 2^{-3/2}\right) \approx 0.646 \; t_{\text{evap}}\]
 
 The entropy of the radiation at the Page time is
-\(S_{\text{rad}}(t_P) = n_B(0) \ln q / 2 = S_{\text{BH}}(0) \ln q / 2\)
---- half the initial black hole entropy, as expected.
+\(S_{\text{rad}}(t_P) = n_B(0) \ln q / 2\), half the entropy
+\(n_B(0) \ln q\) of the initial boundary modes. Its ratio to the initial
+black-hole entropy depends on the entropy assigned to one boundary mode:
+with the setup's count \(n_B(0) = S_{\text{BH}}(0)\), one unit per mode,
+the ratio is \(\ln q / 2\); with the entropy \(\ln q\) of the mode's
+state space, \(n_B(0) = S_{\text{BH}}(0)/\ln q\) and
+\(S_{\text{rad}}(t_P) = S_{\text{BH}}(0)/2\) for every \(q\), the
+per-mode entropy then entering only the relation between \(\epsilon\)
+and \(l_p\) (§3.1).
 
 \textbf{Remark (Comparison with QES + islands).} The Page-curve
 derivation above quantitatively matches the prediction obtained via the
@@ -4716,8 +4727,9 @@ in the gravitational path integral are essential to obtaining the
 saturating Page curve at late times.
 
 The framework here arrives at the same Page time
-\(t_P = (1 - 2^{-3/2}) t_{\rm evap}\) and the same Page entropy
-\(S_{\rm rad}(t_P) = S_{\rm BH}(0)\ln q/2\) through a structurally
+\(t_P = (1 - 2^{-3/2}) t_{\rm evap}\), and at the same Page entropy
+\(S_{\rm rad}(t_P) = S_{\rm BH}(0)/2\) when each boundary mode carries
+the entropy \(\ln q\) of its state space (above), through a structurally
 cleaner mechanism: the cycle-typicality argument of Theorem A.8 invokes
 only Popescu-Short-Winter {[}29{]} applied to the deterministic
 substratum dynamics on the energy shell, with no replica trick, no
@@ -4988,4 +5000,4 @@ quantum effects in gravity,'' \emph{Phys. Rev.~Lett.} \textbf{119},
 240402 (2017); arXiv:1707.06036.
 
 \end{document}
-% source-sha256: 098d936a73725c779bd1650e67217b45d15dee8524ac52c728e10718e4382e03
+% source-sha256: 0ad9af3b83f19f8c13a9d494077a2cf9d8c1567db066735829d6b4d7587b95ca

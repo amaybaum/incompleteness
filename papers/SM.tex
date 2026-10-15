@@ -56,6 +56,7 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
 % Use the Computer Modern-compatible set-difference construction; the large
 % Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
 \AtBeginDocument{\let\setminus\smallsetminus}
@@ -505,12 +506,13 @@ forced by the observed \(\mathrm{SU}(3)\) factor (§8.3). The gauge group
 itself is a universality-class invariant, shared with any
 Standard-Model-reproducing class through different machinery
 ({[}Structure §2.3, §14.4{]}); the cubic-group commutant of §4.6 is OI's
-specific realization of it. A \emph{specific alphabet size q}. All
-proofs work for any q ≥ 2; no prediction depends on q. A \emph{specific
-dimensionality d}. The proofs work for any d ≥ 1; self-consistency
-selects d = 3 (§3.2). The \emph{wave equation}. It is derived from
-center independence, isotropy, and linearity (§4.1), each of which
-follows from the structural properties listed above.
+specific realization of it. A \emph{specific alphabet size q}, for the
+results that hold for every q ≥ 2 (§2.7); other results carry q, and the
+independence of every observable from q is a hypothesis (§2.7). A
+\emph{specific dimensionality d}. The proofs work for any d ≥ 1;
+self-consistency selects d = 3 (§3.2). The \emph{wave equation}. It is
+derived from center independence, isotropy, and linearity (§4.1), each
+of which follows from the structural properties listed above.
 
 \hypertarget{the-minimal-object}{%
 \subsubsection{2.3 The minimal object}\label{the-minimal-object}}
@@ -519,15 +521,15 @@ The theorems require exactly: a deterministic bijection on a finite set,
 whose state space factors into local degrees of freedom coupled by a
 bounded-degree graph with statistical isotropy, partitioned into visible
 and hidden sectors satisfying C1--C4. Everything else --- the regular
-lattice, the alphabet, the dimensionality, the wave equation, quantum
-mechanics, general relativity --- is either derived or irrelevant. The
-minimal object for the local lattice/gauge chain is the triple (S, φ,
-V): a finite set S, a bijection φ: S → S with bounded-degree coupling,
-and a partition V ⊂ S of the degrees of freedom into visible and hidden
-sectors. This local object does not by itself supply the ontic parameter
-dependence required for quantum Bell violation under measurement
-independence; the joint-completion issue is H-Bell in {[}Substratum
-§3.3{]}.
+lattice, the dimensionality, the wave equation, quantum mechanics,
+general relativity --- is either derived or irrelevant; the alphabet
+size enters as §2.7 states. The minimal object for the local
+lattice/gauge chain is the triple (S, φ, V): a finite set S, a bijection
+φ: S → S with bounded-degree coupling, and a partition V ⊂ S of the
+degrees of freedom into visible and hidden sectors. This local object
+does not by itself supply the ontic parameter dependence required for
+quantum Bell violation under measurement independence; the
+joint-completion issue is H-Bell in {[}Substratum §3.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -628,39 +630,61 @@ the interactions, not by geography.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-alphabet-as-gauge-freedom}{%
-\subsubsection{2.7 The alphabet as gauge
-freedom}\label{the-alphabet-as-gauge-freedom}}
+\hypertarget{the-alphabet-size}{%
+\subsubsection{2.7 The alphabet size}\label{the-alphabet-size}}
 
-Every prediction of the OI framework is independent of the alphabet size
-q. The gap equation ℏ = c³ε²/(4G) contains no q. The Bekenstein-Hawking
-formula contains no q. The dispersion relation, area law,
-P-indivisibility, center independence, and Einstein's equations are all
-q-independent. Numerical confirmation: on a 1D ring of L = 40 sites, the
-wave equation produces significant P-indivisibility at every q tested
-from 2 to 64. No experiment, even in principle, could measure q.
+Several results of the derivation chain hold for every alphabet size
+\(q \geq 2\) and contain no \(q\). The P-indivisibility theorem {[}Main
+§2.3{]} assumes only finite configuration sets with
+\(|\mathcal{C}_V| \geq 2\) and a visible marginal that is not a
+permutation. Center independence (§4.3) is a property of the form of the
+update. The area law of §3.1 holds for every \(q\) in the uniform state
+class with the bound \(|\partial V|\log_2 q\), so its boundary scaling
+is \(q\)-independent while its coefficient carries \(q\). The dispersion
+relation of §4.1 belongs to the observer-level operator, where \(q\)
+does not enter (§4.1, Scope). In the gravitational sector the entropy
+per boundary cell enters the gap equation \(\hbar = c^3/(4G\eta)\)
+through the entropy density \(\eta\) and cancels from the
+Bekenstein-Hawking law \(S = A/(4l_p^2)\) {[}GR §3.1{]}; with one unit
+of entropy per cell, \(\eta = 1/\epsilon^2\), neither contains \(q\).
 
-Two systems (S, φ) and (S', φ') with different alphabet sizes q and q'
-are \emph{physically equivalent} if they produce the same emergent
-transition probabilities. The analogy to electromagnetic gauge
-invariance is precise: the gauge potential A\_μ is not physical; the
-field strength F\_μν is. In the OI framework, the mod-q state space is
-not physical; the coupling structure and its emergent consequences are.
-Operationally this means the \emph{absolute scale} of the field value is
-unobservable --- only the coupling structure and emergent transition
-probabilities are (the discrete analogue of field-normalization
-redundancy in ordinary field theory). The transformations realizing this
-are the alphabet's \textbf{additive-group automorphisms} --- the size
-\(q\), rescalings \(x \mapsto \lambda x\) (for \(\lambda\) a unit), and
-shifts \(x \mapsto x + c\) --- not arbitrary relabellings of
-\(\mathbb{Z}/q\mathbb{Z}\). A nonlinear relabelling preserves the orbit
-structure (hence the transition probabilities under relabelling) but
-changes the fluctuation dispersion, so it is not a symmetry of the
-physical observables; the gauge group is the additive-automorphism
-group, a proper subgroup of all permutations. This amplitude-scale
-(additive-automorphism) gauge is what the §4.1 linearity argument
-invokes; whether it is entailed by the \(q\)-size statement above, or is
-an additional principle, is an identified open structural question.
+Other results carry \(q\) or hold under a condition on it. The period of
+the wave map on a ring of \(L\) sites is \(qL\) for prime \(q\) coprime
+to \(L\) (Theorem A.1). The capacity count
+\(\log_2|\mathcal{C}_H| = |H|\log_2 q\) of Theorem 22 and the
+coefficient of the area law carry \(q\). The substratum normalisation
+\(\alpha = 1/d\) exists in \(\mathbb{Z}/q\mathbb{Z}\) only when
+\(3 \nmid q\) (§4.1, Scope). The factorization-uniqueness argument of
+§2.4 uses \(q > 2\). The induced gauge measure of §6.5 depends on \(q\);
+its concentration near the identity is a large-\(q\) statement.
+
+That the emergent observables do not depend on \(q\) at all --- that two
+systems \((S, \varphi)\) and \((S', \varphi')\) with the same coupling
+structure and dynamics class but alphabet sizes \(q \neq q'\) produce
+the same emergent transition probabilities --- is the
+\emph{alphabet-size hypothesis}. It is not proved for every observable.
+The visible transition matrices of two such systems act on configuration
+spaces of different sizes, so the statement requires a correspondence
+between them, which is not constructed here. Uses of \(q\)-independence
+beyond the results listed above (§6.5) are conditional on this
+hypothesis.
+
+Within one alphabet, the transformations that preserve the emergent
+observables are the alphabet's \textbf{additive-group automorphisms} ---
+rescalings \(x \mapsto \lambda x\) (for \(\lambda\) a unit) and shifts
+\(x \mapsto x + c\) --- not arbitrary relabellings of
+\(\mathbb{Z}/q\mathbb{Z}\). Operationally the \emph{absolute scale} of
+the field value is unobservable; only the coupling structure and the
+emergent transition probabilities are (the discrete analogue of
+field-normalization redundancy in ordinary field theory). A nonlinear
+relabelling preserves the orbit structure (hence the transition
+probabilities under relabelling) but changes the fluctuation dispersion,
+so it is not a symmetry of the physical observables; the gauge group is
+the additive-automorphism group, a proper subgroup of all permutations.
+This amplitude-scale (additive-automorphism) gauge is what the §4.1
+linearity argument invokes; whether it is entailed by the alphabet-size
+hypothesis, or is an additional principle, is an identified open
+structural question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1654,9 +1678,9 @@ coarse-graining as open, and that is precisely this bridge. Until it is
 supplied, §4's dispersion results --- including the \(4/45\)
 coefficient, the Lorentz-invariance argument and Theorem 6's mode count
 --- rest on an operator whose relation to \(\varphi\) is assumed rather
-than derived, and the \(q\)-independence claim of §2.6 must be read as
-applying to the observer-level operator rather than to a substratum
-coefficient.
+than derived, and the \(q\)-independence of the dispersion relation
+(§2.7) applies to the observer-level operator rather than to a
+substratum coefficient.
 
 Each requirement has a physical justification.
 
@@ -4287,21 +4311,21 @@ beyond the pre-registered \(2\%\) tolerance, reproducibly across
 independent streams. The universality reported in this section is
 thereby established only for ensembles generated by Wilson dynamics on
 the image; for the directly sampled measure it is empirically violated
-at this point. Since \(q\) is gauge (§2.7) and the physical coupling is
-\(q\)-independent after renormalization, neither form is load-bearing
---- \(\beta = 11.1\) below is fixed by \(\alpha_0\), not by \(q\) ---
-but the two differ by orders of magnitude in where they place a given
-\(\beta_{\text{eff}}\), and only the second is consistent with §4.2.
-Direct simulation of the 1D state-dependent coupling (§3.1, explicit
-construction) confirms that the wave equation creates no gauge
+at this point. Under the alphabet-size hypothesis (§2.7) the physical
+coupling is \(q\)-independent after renormalization, so neither form is
+load-bearing --- \(\beta = 11.1\) below is fixed by \(\alpha_0\), not by
+\(q\) --- but the two differ by orders of magnitude in where they place
+a given \(\beta_{\text{eff}}\), and only the second is consistent with
+§4.2. Direct simulation of the 1D state-dependent coupling (§3.1,
+explicit construction) confirms that the wave equation creates no gauge
 correlations beyond random matter, but the \((\mathbb{Z}/q\mathbb{Z})\)
 constraint itself acts as an effective gauge kinetic term.
 
-Since \(q\) is gauge (§2.7), the physical coupling is \(q\)-independent
-after renormalization. The perturbative calculation (§6.1) works in the
-\(q\)-independent sector and correctly determines the physical coupling.
-The Haar-measure Monte Carlo explored a confined phase that does not
-correspond to the OI framework's gauge measure.
+Under the alphabet-size hypothesis (§2.7), the physical coupling is
+\(q\)-independent after renormalization. The perturbative calculation
+(§6.1) works in the \(q\)-independent sector and correctly determines
+the physical coupling. The Haar-measure Monte Carlo explored a confined
+phase that does not correspond to the OI framework's gauge measure.
 
 \emph{Status of the induced-measure identification.} The step this
 argument turns on --- that the substratum's uniform measure pushes
@@ -4553,10 +4577,10 @@ observable at the coupling the mass relations use, so the induced
 measure inherits the standard-measure \(Z_S\). The same matching locates
 \(\beta = 11.1\) at \(q \approx 11\), rather than at the exponentially
 large value a \(\beta_{\text{eff}} \sim \ln q\) reading would place it;
-since \(q\) is gauge (§2.7) this fixes where the correspondence sits in
-the parameterization, not a physical alphabet size. The two families of
-residual correction separate cleanly under this test. The \(O(1/q)\)
-corrections are the discreteness of the
+under the alphabet-size hypothesis (§2.7) this fixes where the
+correspondence sits in the parameterization, not a physical alphabet
+size. The two families of residual correction separate cleanly under
+this test. The \(O(1/q)\) corrections are the discreteness of the
 \((\mathbb{Z}/q\mathbb{Z})\)-valued field, isolated by comparing the
 integer-valued field against its continuum idealization: at the §4.2
 amplitude the field occupies only some eight letters whatever \(q\) may
@@ -8782,4 +8806,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 0a5fb4ac5af1feb0276ba8fe6bcb01cf076444fbcb33178620f608095a1862f1
+% source-sha256: f396d98dde8827af502d53d14b82372e469f379cb878ddae7d72505fa089622b
