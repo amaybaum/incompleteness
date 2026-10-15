@@ -137,7 +137,7 @@ The gauge group is not a symmetry of a Lagrangian or an action. There is no Lagr
 
 **Theorem (Generators).** *$\mathcal{G}_{\text{sub}}$ contains the independent families of transformations (i), (iii) and (iv) below, and, under the alphabet-size hypothesis of Chapter 5, the family (ii):*
 
-*(i) State relabeling.* For any bijection $\sigma: S \to S$, the substratum $(S, \sigma \circ \varphi \circ \sigma^{-1})$ produces the same emergent physics as $(S, \varphi)$. The transition probabilities depend on the coupling structure of $\varphi$ — which states are sent to which — but not on which labels are attached to which states. This is an $|S|!$-element subgroup, vastly larger than any gauge group appearing in the Standard Model.
+*(i) State relabeling.* For any bijection $\pi: S \to S$, the substratum $(S, \pi \circ \varphi \circ \pi^{-1})$ produces the same emergent physics as $(S, \varphi)$. The transition probabilities depend on the coupling structure of $\varphi$ — which states are sent to which — but not on which labels are attached to which states. This is an $|S|!$-element subgroup, vastly larger than any gauge group appearing in the Standard Model.
 
 *(ii) Alphabet change (under the alphabet-size hypothesis).* The local state space at each lattice site can be replaced by $\mathbb{Z}/q'\mathbb{Z}$ for any integer $q' \geq 2$, while preserving the coupling graph and the dynamics class, without changing any observable if the alphabet-size hypothesis of Chapter 5 holds. The internal alphabet at a lattice site is the number of distinguishable local states; some results hold for every $q \geq 2$ and others carry $q$ (Chapter 5). This family is parametrized by the integers $q \geq 2$.
 
@@ -153,7 +153,7 @@ The argument uses the Stinespring uniqueness theorem of Chapter 1, extended per 
 
 Three candidate fifth generators are explicitly subsumed by the four already listed:
 
-*Time reversal* ($\varphi \to \varphi^{-1}$). The wave equation that selects $\varphi$ is T-invariant, giving $\varphi^{-1} = T \circ \varphi \circ T^{-1}$ where $T$ is the phase-space layer swap exchanging successive timesteps. This is generator (i) with $\sigma = T$.
+*Time reversal* ($\varphi \to \varphi^{-1}$). The wave equation that selects $\varphi$ is T-invariant, giving $\varphi^{-1} = T \circ \varphi \circ T^{-1}$ where $T$ is the phase-space layer swap exchanging successive timesteps. This is generator (i) with $\pi = T$.
 
 *Hidden-sector dynamical reparametrization* beyond enlargement. By Stinespring uniqueness, any two same-channel dilations of equal hidden-sector dimension differ by a hidden-sector unitary — generator (i) restricted to $\mathcal{C}_H$.
 
