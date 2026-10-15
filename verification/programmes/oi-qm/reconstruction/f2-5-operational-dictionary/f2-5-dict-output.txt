@@ -1,0 +1,25 @@
+PASS K-weyl  D unitary, tr D(z) = 3 delta, D(z)D(w) = w^{-2^{-1}<z,w>} D(z+w) for all 81 pairs
+PASS K-pp  A(z) Hermitian, tr 1, tr A(z)A(w) = 3 delta, sum A(z) = 3I
+PASS K-psd  both PSD tests accept I and a projector, reject diag(1,-1) and A(0)
+PASS K-choi  Choi of identity PSD rank one, of transpose not PSD, of dephasing PSD
+PASS OD-SUB  every A(z) indefinite; of the 84 three-subsets exactly the 12 lines give a PSD operator
+PASS K-AGL  independent AGL(2,3) (432) and ASL(2,3) (216) equal the line-preserving and CP sets of the sweep
+PASS OD-REV  362880 permutations: 432 line-preserving, 216 CP, 216 positive and not CP (Phi o transpose CP), 362448 with a stabilizer state sent to a non-PSD operator
+PASS K-psd-neg  non-uniform registered prior rejected, uniform accepted, by both tests
+PASS OD-PREP  point laws map to non-states; 3 of 84 registered priors give a state (the uniform one at each value); counting measure maps to I/3
+PASS OD-READ  non-disturbing readout not CP; re-randomizing readout equals Lueders; the two agree on diagonal states; k = 0, 1, 2
+PASS K-order  D((x1,x2),(xi1,xi2)) = D(x1,xi1) x D(x2,xi2) for all 81 pairs
+PASS OD-AD  A(z1,z2) = A(z1) x A(z2) for all 81 z; counting attach gives rho x I/3; marginalizing site 2 gives tr_2
+PASS OD-COMP  40 Lagrangian subspaces, each mapping to a rank-one projector: 16 products of lines give product states, 24 others give maximally entangled states
+PASS K-cov-neg  covariance against the shifted target A(Jz + (1,0)) fails
+PASS OD-HOLD  free-leap covariance unitary: U A(z) U^dag = A(Jz), U^4 ~ I, U^2 ~ parity; Lueders registration idempotent; one free tick loses the registered value, four restore it
+PASS K-psd-agree  the LDL and characteristic-polynomial tests agreed on every matrix (0 disagreements)
+TOKEN OD-SUB-LINES
+TOKEN OD-REV-CLIFFORD
+TOKEN OD-PREP-REGISTERED-UNIFORM
+TOKEN OD-READ-BACKACTION
+TOKEN OD-AD-TRANSFER
+TOKEN OD-COMP-STABILIZER
+TOKEN OD-HOLD-STROBOSCOPIC
+VERDICT OD-READ
+checks: 16, failures: 0

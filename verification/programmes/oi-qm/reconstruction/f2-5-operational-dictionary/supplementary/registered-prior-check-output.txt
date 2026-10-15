@@ -1,0 +1,4 @@
+p1 = p2   a state at 0 of 9 registered values; the two PSD tests agree: True
+p1 = -p2  a state at 0 of 9 registered values; the two PSD tests agree: True
+uniform   a state at 9 of 9 registered values; the two PSD tests agree: True
+SUPPLEMENTARY AS-EXPECTED: correlated hidden priors on registered sites have no physical image; the uniform prior does
