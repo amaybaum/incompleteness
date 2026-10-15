@@ -352,7 +352,8 @@ lattice/gauge sector} is fixed up to the stated substratum-gauge
 freedoms: \(d=3\), \(K=6\), the \((3,2,1)\) decomposition,
 \(SU(3)\times SU(2)\times U(1)\) and the associated local representation
 data, with the qualifications stated in {[}SM{]}, and
-\(\hbar=c^3\epsilon^2/(4G)\). M1-B is a separate Bell input. A single
+\(\hbar=c^3\epsilon^2/(4G\sigma)\), \(\sigma\) the entropy per boundary
+mode {[}GR §3.1{]}. M1-B is a separate Bell input. A single
 measurement-independent deterministic completion containing both that
 local sector and the Bell-violating composite exists only conditional on
 H-Bell, now the curvature-stability requirement for preparation-indexed
@@ -2152,8 +2153,8 @@ reading, the landscape's multiplicity decomposes structurally:
   producing four-dimensional vacua with chiral matter, stable
   cosmological structure (de Sitter or near-de Sitter with horizon
   timescales \(\tau_B \sim H^{-1}\)), and sufficient information
-  capacity (the cosmological horizon's \(\sim 10^{122}\) degrees of
-  freedom) satisfy C1--C4 and are observer-admitting. The SM-reproducing
+  capacity (the cosmological horizon's entropy \(\sim 10^{122}\))
+  satisfy C1--C4 and are observer-admitting. The SM-reproducing
   compactifications surveyed in §5 --- heterotic on Calabi-Yau with
   appropriate bundles, Type II / D-brane Pati-Salam constructions,
   F-theory \(SU(5)\) with hypercharge flux --- fall in this class.
@@ -3088,12 +3089,13 @@ visible sector is the sublattice accessible to the embedded observer;
 the hidden sector is the complementary substratum. The visible-sector
 Hilbert space at the substratum scale is \(\ell^2(\mathcal{C}_V)\) where
 \(\mathcal{C}_V\) is the visible sublattice's configuration space. At
-wavelengths long compared to the lattice spacing \(\epsilon = 2 l_p\),
-\(\ell^2(\mathcal{C}_V)\) resolves to the Fock space
-\(\mathcal{H}_V^{\rm OI}\) of the emergent QFT --- the Standard Model
-with gauge group \(SU(3) \times SU(2) \times U(1)\), three generations
-(physical reading conditional on H-spin', {[}SM §4.7{]}; chirality on
-H-χ', {[}SM §4.8{]}), and one Higgs doublet ({[}SM §4{]}).
+wavelengths long compared to the lattice spacing
+\(\epsilon = 2\sqrt{\sigma}\,l_p\), \(\ell^2(\mathcal{C}_V)\) resolves
+to the Fock space \(\mathcal{H}_V^{\rm OI}\) of the emergent QFT --- the
+Standard Model with gauge group \(SU(3) \times SU(2) \times U(1)\),
+three generations (physical reading conditional on H-spin', {[}SM
+§4.7{]}; chirality on H-χ', {[}SM §4.8{]}), and one Higgs doublet ({[}SM
+§4{]}).
 
 \textbf{The algebra.} Let \(\mathcal{A}_V^{\rm OI}\) be the von Neumann
 algebra of gauge-invariant local observables on
@@ -3694,9 +3696,9 @@ in {[}SM §6.7{]}:
   exists at any scale.
 \item
   \emph{Coupling-level.} Gauge couplings do not unify. They are split at
-  the cutoff by \(C_2\)-dependent thresholds (induced-gauge-theory
-  structure), with pure SM running below \(M_{\mathrm{Pl}}\) continuing
-  the splitting.
+  the matching scale \(\mu = M_{\mathrm{Pl}}\) by \(C_2\)-dependent
+  thresholds (induced-gauge-theory structure), with pure SM running
+  below \(M_{\mathrm{Pl}}\) continuing the splitting.
 \item
   \emph{Mechanistic.} OI's gauge couplings emerge from the fermion
   determinant, with no fundamental gauge action and no moduli connecting
@@ -4317,7 +4319,8 @@ parameter. The observed neutrino mass scale \(m_\nu \sim 10^{-3}\) eV
 requires \(\Lambda_{\mathrm{seesaw}} \sim 10^{16}\) GeV ---
 coincidentally the GUT scale. In standard GUT scenarios, this scale is
 structurally explained by gauge-coupling unification. In OI's no-GUT
-framework, no GUT scale exists structurally; the natural cutoff is
+framework, no GUT scale exists structurally; the natural cutoff is the
+lattice scale \(M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order
 \(M_{\mathrm{Pl}} \sim 10^{19}\) GeV, which would give
 \(m_\nu \sim 10^{-6}\) eV --- three orders of magnitude too small. The
 framework currently treats \(\Lambda_{\mathrm{seesaw}}\) as
@@ -4385,16 +4388,18 @@ GUT scale but plays the roles that GUT scales play in standard scenarios
 --- setting the seesaw scale for neutrino masses and protecting the
 Higgs mass via chiral mechanisms? \textbf{Tentative resolution:}
 negative on the analysis conducted here. The framework's
-substratum-level scales are essentially \(M_{\mathrm{Pl}}\) (lattice
-cutoff) and emergent scales below \(M_Z\); candidates for intermediate
-scales (staggered-taste mass gap, boundary-layer thickness,
-\(\delta_0 = \mathrm{Tr}[Y^2]\) coincidence, \(C_2\)-dependent threshold
-effective scales, cosmological-horizon-induced scales, emergent
-dimensional transmutation) all yield scales at \(M_{\mathrm{Pl}}\)
-modulo \(O(1)\) factors or scales below \(M_Z\), but none naturally at
-\(\sim 10^{16}\) GeV. The seesaw scale and the Higgs mass therefore
-remain as Tier 3 (solution-specific) parameters in the framework, set by
-the specific bijection \(\varphi\) rather than by structural derivation.
+substratum-level scales are essentially the lattice scale
+\(M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order \(M_{\mathrm{Pl}}\), and
+emergent scales below \(M_Z\); candidates for intermediate scales
+(staggered-taste mass gap, boundary-layer thickness, the
+\(\delta_0 = \mathrm{Tr}[Y^2]\) coincidence at the matching convention
+\(\mu = M_{\mathrm{Pl}}\), \(C_2\)-dependent threshold effective scales,
+cosmological-horizon-induced scales, emergent dimensional transmutation)
+all yield scales at \(M_{\mathrm{Pl}}\) modulo \(O(1)\) factors or
+scales below \(M_Z\), but none naturally at \(\sim 10^{16}\) GeV. The
+seesaw scale and the Higgs mass therefore remain as Tier 3
+(solution-specific) parameters in the framework, set by the specific
+bijection \(\varphi\) rather than by structural derivation.
 \emph{Implication:} OI's predictions on intermediate-scale physics are
 limited to what can be derived from \(M_{\mathrm{Pl}}\) + EW-scale
 physics, with no claim of structural intermediate-scale derivation. This
@@ -5837,4 +5842,4 @@ Press (1979), 790-831.
 quantum gravity'', Phys. Rev.~D 57, 971 (1998). arXiv:hep-th/9605030.
 
 \end{document}
-% source-sha256: dafa2df48a5486b86dfdf1db2900004463802ede367037f27a71c14b2de1d62b
+% source-sha256: 721a3c4c38d4d689fd8cc6ab74d3e705b90349846119868553af279cf7ae2604
