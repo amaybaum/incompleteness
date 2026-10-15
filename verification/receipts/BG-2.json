@@ -1,0 +1,78 @@
+{
+ "schema": "v3-receipt",
+ "version": 1,
+ "round": "BG-2",
+ "status": "complete",
+ "kind": "non-sealing",
+ "object_format": "sha1",
+ "d": "3519213a47c2c63f7ece3f55a81acffc2a96a3af",
+ "f": "c9f1a34dd6fb3a537a522d1bb38c26ba6f00ed4f",
+ "control_plane_blobs": [
+  {
+   "path": "verification/programmes/oi-qm/reconstruction/round-bg-2-premise-orientation/preregistration.md",
+   "blob": "0c72480270c31e4f784d087ace00eebe8eea2f0f"
+  }
+ ],
+ "governed_paths_digest": "bb13984e458f19c2ccab241425629ddc364c15f9e42014f9a16c35c4507b0bf9",
+ "e": "091a810388a460e43d5b2a812abd09d0fcc978fb",
+ "tree_e": "011292f9bc44bc3f74f71da9d3961637632acfad",
+ "execution_delta_digest": "fe3c785d4f959ce5f18ec450793deebbb1d16ee7d86fe367acf0e1a5df144463",
+ "candidates": [
+  {
+   "commit": "cbe4f0bfa80a9c1914090f0330843ba18e6f47bc",
+   "tree": "0875723120bdd5489334d4524464f06a4886b264",
+   "measured": "Stage 2, committed 2026-10-15T14:30:35Z and pushed at about 14:31Z, before the host record of the F designation (18:03:44Z): a recorded exception. Exact-head workflow_dispatch 38752296936, attempt 1, all 37 jobs successful. Mathlib bridge job 116481534373 built the module fresh and printed the seven axiom reports, each within propext, Classical.choice and Quot.sound, with no sorryAx; the release gate passed every step (lean-axioms 5988). Shard job 116481534630: probe 8/8, PREMISE-ORIENTATION-EXACT. Local frozen controls: check passes C1, S1-S4 and G; verdict over the last 4999 lines of job 116481534373's log, which contain the seven reports, prints BG-2-PREMISE-REFUTED, BG-2-CONTROLS-PROVED and BG-2-ORIENTATION-EXACT."
+  },
+  {
+   "commit": "95e3246ac37b0df401f63eab02162c910979ef03",
+   "tree": "a8089d234ef7f82e55c71132a8ac4a43ce491765",
+   "measured": "Stage 3, the first result note (blob e24d01f6), committed 2026-10-15T18:04:53Z; superseded by E for its provenance wording and kept unchanged. Exact-head workflow_dispatch 38782670851, attempt 1, all 37 jobs successful; the release gate passed every step. Local frozen check passes C1, S1-S4 and G. Not designated."
+  },
+  {
+   "commit": "091a810388a460e43d5b2a812abd09d0fcc978fb",
+   "tree": "011292f9bc44bc3f74f71da9d3961637632acfad",
+   "measured": "Revised stage 3, changing result.md alone (blob 007d21c3); Lean and probe sources byte-identical to stage 2. Exact-head workflow_dispatch 38785744562, attempt 1, all 37 jobs successful; the release gate passed every step (lean-axioms 5988, no sorry); shard job 116597189131: probe 8/8, PREMISE-ORIENTATION-EXACT, controls self-test OK. Local frozen check E --freeze F passes C1, S1-S4 and G. The seven axiom reports of bridge job 116597188403 lie outside the 4999-line log window available to the executor, and the full log was not reachable from its session; over that window the frozen verdict prints BG-2-PREMISE-UNDECIDED and BG-2-CONTROLS-NOT-ESTABLISHED, missing-input outcomes, with BG-2-ORIENTATION-EXACT. A separate reviewer inspected the full original log (38,591 lines), found all seven reports within propext, Classical.choice and Quot.sound, and applied the frozen report-matching pattern to it (#826 comment 6199971389). Over the stage-2 bridge log, with byte-identical Lean sources, the frozen verdict at E prints BG-2-PREMISE-REFUTED, BG-2-CONTROLS-PROVED, BG-2-ORIENTATION-EXACT and the earned reading. The frozen verdict was not run over E's own reports: a limitation of log access, not a failed check. Mathematical: BG-2 formally refutes the BGIntegerClassification premise and establishes its controls. Governance: the round carries an accepted chronology exception, stages 1 and 2 having been executed before the host record of the F designation; VERDICT HOLDS does not certify the designation-before-execution ordering of AGENTS.md A.39."
+  }
+ ],
+ "landing": {
+  "base": "3519213a47c2c63f7ece3f55a81acffc2a96a3af",
+  "object": "f4e2c02e5e24d9d97c6ada0f2d7e61b55fc51652",
+  "reconciliations": [
+   "f4e2c02e5e24d9d97c6ada0f2d7e61b55fc51652"
+  ],
+  "resolved_paths": [],
+  "delta_digest": "7522d7d2a613da47eda0bed8171376e02fbbf1f649047ab57d2e6daa9cfc501f"
+ },
+ "attestations": [
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "c9f1a34dd6fb3a537a522d1bb38c26ba6f00ed4f",
+   "record": "https://github.com/amaybaum/incompleteness/pull/826#issuecomment-6198856734 (designation of F, posted 2026-10-15T18:03:44Z by the executor at the owner's request, its text drafted by a reviewer as comment 6199081087 records; stages 1 and 2 were committed at 14:30:17Z and 14:30:35Z, before it, and it retains them as a recorded exception to designation before execution)"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "F",
+   "commit": "c9f1a34dd6fb3a537a522d1bb38c26ba6f00ed4f",
+   "record": "https://github.com/amaybaum/incompleteness/pull/826#issuecomment-6199095822 (the owner's confirmation of the F designation and of the exception, given at about 18:14Z and posted 2026-10-15T18:15:09Z by the executor at the owner's request)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "F",
+   "commit": "c9f1a34dd6fb3a537a522d1bb38c26ba6f00ed4f",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38740709601/attempts/1"
+  },
+  {
+   "kind": "owner-designation",
+   "subject": "E",
+   "commit": "091a810388a460e43d5b2a812abd09d0fcc978fb",
+   "record": "https://github.com/amaybaum/incompleteness/pull/826#issuecomment-6199982615 (the owner's designation of E, given at about 18:59Z and posted 2026-10-15T19:00:03Z by the executor at the owner's request)"
+  },
+  {
+   "kind": "check-run",
+   "subject": "E",
+   "commit": "091a810388a460e43d5b2a812abd09d0fcc978fb",
+   "record": "https://github.com/amaybaum/incompleteness/actions/runs/38785744562/attempts/1"
+  }
+ ]
+}
