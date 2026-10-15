@@ -30,6 +30,19 @@ TOKEN   F24-OD3                        yes
 VERDICT F24-ROBUST-GENERAL
 ```
 
+This verdict is that of the rules as amended. The two-site link set as first frozen was invalid: it
+took the product of a relation that merged `h` with `h†`, which over-joins orbits. The development
+run that exposed it printed `VERDICT VOID` and is preserved as such (amendment 1). Nothing here
+validates the unamended rule.
+
+**Scope, in three parts.**
+
+| finding | status |
+| --- | --- |
+| All-duration (continuous-flow) fullness of the control algebra, for every odd prime `q`, every `N`, both repertoires and every allowed generator choice | general written proof [W]; exact checks at `(3,2)`, `(3,3)`, `(5,2)` |
+| One-duration density at `q = 3, 5, 7, 11, 13`, for every coupling choice and every free pattern in `Γ_spec(u)` | exact checks at `N = 1, 2`; written extension to every `N` |
+| One-duration density for primes above 13, or for free-layer generators outside `Γ_spec(u)` (including F2-2's two Clifford square roots at `q = 7`) | open |
+
 Every control passed:
 
 - K0;
@@ -377,6 +390,7 @@ measure and on the meter, and without reading any of them off from control.
 - Density is not exactness: the one-duration sets are countable. Exact availability from all
   durations rests on Jurdjevic–Sussmann [L].
 - Unitary control is not operational sufficiency (§5).
-- No kernel proof. Local continuity, `Γ_comm`, and the gate-only rule remain added hypotheses
-  without a physical source.
+- No kernel proof. The written proofs need independent mathematical review and, where feasible, Lean
+  certification before any of them is promoted to an adopted theorem. Local continuity, `Γ_comm`,
+  and the gate-only rule remain added hypotheses without a physical source.
 - Nothing is said about which alphabet nature uses.
