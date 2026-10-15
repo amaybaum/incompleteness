@@ -1,0 +1,5 @@
+(q,N)=(7,2) orbits [48, 48, 96, 96, 96, 672, 672, 672]; H+free-half components per free pattern: [(0, 1, [2400]), (1, 1, [2400]), (2, 1, [2400]), (3, 1, [2400]), (4, 1, [2400]), (5, 1, [2400]), (6, 1, [2400]), (7, 1, [2400])]  [40.8s]
+(q,N)=(3,3) R_cf orbits 1 sizes [728] every orbit has a single-site vector: True [0.0s]
+(q,N)=(5,3) R_cf orbits 1 sizes [15624] every orbit has a single-site vector: True [0.7s]
+(q,N)=(3,4) R_cf orbits 1 sizes [6560] every orbit has a single-site vector: True [0.3s]
+(q,N)=(7,3) R_cf orbits 1 sizes [117648] every orbit has a single-site vector: True [8.3s]
