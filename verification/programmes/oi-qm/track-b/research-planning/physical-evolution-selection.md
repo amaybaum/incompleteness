@@ -39,8 +39,9 @@ written arguments or kernel proofs at their stated evidence level.
 ## Candidate under test
 
 - [Subsystem locality across an uncoupled cut](p0-subsystem-locality/RULES.md): rules fixed before
-  the exact runs, and the [result](p0-subsystem-locality/RESULT.md). Research only; no carrier or
-  principle is adopted.
+  the exact runs, the [result](p0-subsystem-locality/RESULT.md) and
+  [correction 1](p0-subsystem-locality/corrections/correction-1-2026-10-15.md). Research only; no
+  carrier or principle is adopted.
 
 ## Related records and dependencies
 
