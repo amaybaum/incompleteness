@@ -13,7 +13,7 @@ The appendix's content is organized by mathematical structure rather than by cha
 
 *B.3 The trace-out as a Jordan-Chevalley projection.* The framework's content on the Standard Model gauge structure relies on a structural property of the trace-out operation: it extracts the semisimple part of the evolution matrix's Jordan-Chevalley decomposition and discards the nilpotent monodromy. This appendix gives the full algebraic derivation: period formula, Jordan-Chevalley decomposition, $q$-independence of the Weil-Deligne conductor, additive decomposition over gauge irreps, and the precise sense in which the trace-out is a projection.
 
-*B.4 The gap equation for $\hbar$.* The framework derives Planck's constant $\hbar$ from a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G)$.
+*B.4 The gap equation for $\hbar$.* The framework derives Planck's constant $\hbar$ from a thermal self-consistency argument between the classical horizon temperature (substratum-level) and the KMS temperature (emergent QFT-level). This appendix gives the full four-step derivation: spatial locality and boundary dependence, deep-sector gauge equivalence, dimensional determination, and thermal self-consistency producing $\hbar = c^3 \epsilon^2 / (4G\sigma)$.
 
 *B.5 Anomaly cancellation and unique hypercharges.* The framework's content on the Standard Model matter content derives the unique hypercharge assignment from the six anomaly conditions of $\mathrm{SU}(3) \times \mathrm{SU}(2) \times \mathrm{U}(1)$. This appendix gives the explicit calculation: the six anomaly conditions, the algebraic constraint structure, and the unique solution producing $(Y_Q, Y_u, Y_d, Y_L, Y_e) = (1/6, 2/3, -1/3, -1/2, -1)$ with no free parameters.
 
@@ -196,14 +196,14 @@ The correction is $\mathcal{O}(t/\tau_B) \sim 10^{-32}$ for laboratory processes
 
 **Step 2: Deep-sector gauge equivalence.** A corollary of the factorization lemma is that, to within $\mathcal{O}(\tau_S/\tau_B)$, no quantity determined by the visible transition data depends on the cardinality $|\mathcal{C}_D|$ of the deep hidden sector: systems with the same $\mathcal{C}_V \times \mathcal{C}_B$ dynamics produce the same visible transition data, whether $|\mathcal{C}_D|$ is finite, countably infinite, or uncountably infinite. Quantities that differ between Hamiltonians compatible with those data, such as individual eigenvalues and raw amplitudes, lie outside the corollary, and so does recurrence-scale content, which the recurrence argument establishes on a finite representative. Within the leading-order visible transition data on accessible timescales, a finite and an infinite deep sector are indistinguishable.
 
-**Step 3: Dimensional determination.** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data ($\epsilon$, $\kappa$, and the constants $c$, $G$ of the classical Hamiltonian) and a *global* quantity: the total area $A$, which forms the dimensionless ratio $A/\epsilon^2 = S_{\text{dS}}$. If $\hbar$ depended on $S_{\text{dS}}$, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. The surface gravity $\kappa$ is excluded because it varies between observers and epochs while $\hbar$ is observed to be universal across observers and constant in time.
+**Step 3: Dimensional determination.** Step 2 excludes volumetric (deep-sector) quantities, leaving boundary quantities. The boundary carries both *local* geometric data ($\epsilon$, $\kappa$, and the constants $c$, $G$ of the classical Hamiltonian) and a *global* quantity: the total area $A$, which forms the dimensionless ratio $A/\epsilon^2 = S_{\text{dS}}/\sigma$. If $\hbar$ depended on $S_{\text{dS}}$, it would be observer-dependent — different observers have different horizon areas — contradicting the universality of the emergent action scale. The surface gravity $\kappa$ is excluded because it varies between observers and epochs while $\hbar$ is observed to be universal across observers and constant in time.
 
 The unique combination of $c$, $G$, $\epsilon$ with dimensions of action is
 $$\hbar = \beta \frac{c^3 \epsilon^2}{G}$$
 with unknown dimensionless coefficient $\beta$.
 
-**Step 4: Thermal self-consistency.** The classical substratum assigns the partition boundary a temperature
-$$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}$$
+**Step 4: Thermal self-consistency.** The classical substratum, with one boundary mode of entropy $\sigma$ (in nats) per cell of area $\epsilon^2$, assigns the partition boundary a temperature
+$$k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma}$$
 containing no $\hbar$. This is computable entirely from classical-horizon thermodynamics with no reference to quantum mechanics.
 
 On the exact de Sitter calibration, the emergent QFT of the framework's Part I content lives on a classical background that has a bifurcate Killing horizon with surface gravity $\kappa$ (the bifurcate structure presupposes emergent local boost invariance at the horizon, a dependency carried in [GR §8.5]). Regularity of the Wick-rotated metric at the horizon requires Euclidean period $\beta = 2\pi c / \kappa$; any QFT on this background — including a lattice-regularized one — is periodic in imaginary time with that period only under the H-Hawking conditions, giving a KMS state at temperature
@@ -211,10 +211,10 @@ $$T_Q = \frac{\hbar \kappa}{2\pi c k_B}$$
 with $\hbar$ unknown. This is a theorem *within* the derived QFT, not an external import.
 
 The two temperatures are computed independently — $T_{\text{cl}}$ from the classical substratum alone (no QM), $T_Q$ from the emergent QFT alone (no classical substratum details) — but they refer to the *same physical degrees of freedom*: the boundary modes $V \times B$ across which $H_{\text{int}}$ couples the visible and hidden sectors. Step 1's boundary-only dependence shows that the visible transition data from which the emergent QFT is reconstructed are fixed (at leading order in $\tau_S/\tau_B$) by these same $V \times B$ dynamics. Temperature is a state property; two complete descriptions of the same modes cannot assign different temperatures without logical contradiction. The matching $T_{\text{cl}} = T_Q$ is therefore not an additional assumption but a consequence of the boundary modes being the same physical objects in both descriptions, with corrections at $\mathcal{O}(\tau_S/\tau_B) \sim 10^{-32}$:
-$$\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}$$
+$$\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}$$
 
 The surface gravity $\kappa$ cancels — a non-trivial cross-check on Step 3, which excluded $\kappa$ from $\hbar$ on observer-universality grounds. Solving:
-$$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}$$
+$$\boxed{\hbar = \frac{c^3 \epsilon^2}{4G\sigma}}$$
 
 The derivation is a gap equation: $\epsilon$ is the free geometric input, $\hbar$ is the output. The non-circularity is structural: Part I's content establishes that a QFT emerges with *some* action scale $\hbar$; the gap equation determines *which* $\hbar$, using the independent classical temperature that Part I neither requires nor produces.
 

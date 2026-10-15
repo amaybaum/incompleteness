@@ -106,7 +106,7 @@ The horizon calibration and radiation entries inherit H-slope and the horizon/fr
 |---|-----------|---------|-------|-------|-----------------|---------|
 | G1 | Discreteness scale | $\epsilon = 2\sqrt{\sigma}\, l_p$ | C | 0 | Conditional calibration | Ch 7 §7.4 |
 | G2 | Bekenstein bound | $S_{\text{dS}} \sim 10^{122}$ | C | 0 | Order-of-magnitude estimate | Ch 7 §7.5 |
-| G3 | Planck constant from gap eqn | $\hbar = c^3\epsilon^2/(4G)$ | C | 1 | Conditional calibration | Ch 7 §7.3 |
+| G3 | Planck constant from gap eqn | $\hbar = c^3\epsilon^2/(4G\sigma)$ | C | 1 | Conditional calibration | Ch 7 §7.3 |
 | G4 | Bekenstein-Hawking coefficient | $1/4$ | C | 1 | No direct test | Ch 7 §7.5 |
 | G5 | Hawking radiation | Thermal spectrum; greybody-dependent rate | C | 1 | Not observed astrophysically | Ch 7 §7.5 |
 | G6 | MOND acceleration $a_0 = cH/6$ | $cH/6$ (factor imported) | C | 0/1 | Within quoted systematics | Ch 7 §7.9 |
@@ -180,7 +180,7 @@ Beyond the predictions with current empirical match, the framework makes specifi
 
 | # | Prediction | Quantitative content | Testability | Chapter |
 |---|-----------|---------------------|-------------|---------|
-| F5 | Gravitational wave echoes | $\Delta t = (r_+/c)\ln(r_+/2l_p)$ | LIGO/Virgo/KAGRA next observing runs | Ch 18 §18.5 |
+| F5 | Gravitational wave echoes | $\Delta t = (r_+/c)\ln(r_+/\epsilon)$, $\epsilon = 2\sqrt{\sigma}\,l_p$ | LIGO/Virgo/KAGRA next observing runs | Ch 18 §18.5 |
 | F6 | Running vacuum DESI test | $w(z) \neq -1$ in specific form | DESI Year 5 (2-3 years) | Ch 7 §7.7 |
 | F7 | Born rule transient violations (conditional prospect: initial deviation, relaxation history and observable map not fixed) | CMB non-Gaussianity signatures | LiteBIRD, future CMB-S4, once the amplitude is fixed | Ch 18 §18.2 |
 | F8 | Cosmic recurrence | $\sim e^{e^{10^{122}}}$ timescale | Logically falsifiable only | Ch 18 §18.7 |
@@ -205,7 +205,7 @@ The *rotational* Lorentz sector is deliberately **not** listed as a forward pred
 **Falsification conditions.** Each forward prediction has specific falsification conditions developed in the relevant chapter. The framework's content is most distinctively at risk in:
 
 - F1 (BEC analogue-gravity): null result with functional form different from $2r - r^2$ would falsify the proposed functional form — a model prediction, not theorem-derived (Ch 15 §15.8).
-- F5 (gravitational wave echoes): null result at $\Delta t = (r_+/c)\ln(r_+/2l_p)$ would constrain the framework's substratum-level lattice scale.
+- F5 (gravitational wave echoes): null result at $\Delta t = (r_+/c)\ln(r_+/\epsilon)$ would constrain the framework's substratum-level lattice scale.
 - F6 (DESI running vacuum): DESI Year 5 confirmation of phantom-crossing dark energy would contradict the framework's Type II running-vacuum reading — the strongest available disconfirmation of its dark-energy account; the framework supplies the smooth $H^2-H_0^2$ bookkeeping but does not derive a distinctive Type II law.
 - F9 (variant pathogenicity stratification): demonstration that AlphaMissense performance is uniform across reader/writer/eraser and substrate genes would falsify the substratum-emergent operator distinction at the variant-prediction level.
 - F13 (cross-charged decoupling): observation of an inter-species boost-Lorentz-violation that does *not* decouple with the heavy cross-charged mass — i.e. a non-decoupling (constant or pure-logarithmic) sector-differential limiting-speed difference — would falsify the framework's condensate-stabilizer mechanism for gauge content (Theorem 5, revised), under which, conditional on the symmetric-point matching under H-blind ([SM §4.4]), the differential is suppressed as $(M_X/M_{\text{Pl}})^2$ up to a logarithm. The *form* of this suppression and the coefficient $c_L \simeq -9.4 \pm 0.3$ were reported by a one-loop calculation whose driver and numerical output are not available for verification; on them the illustrative consistency window is $M_X \lesssim 3.9\times10^{9}$ GeV. The overall normalization $\Delta C_2$ is not fixed, and the window carries no weight as a prediction or bound until the calculation is independently reproduced.
