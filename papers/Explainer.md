@@ -511,7 +511,7 @@ where l_p = √(ℏG/c³) is the Planck length. Therefore ε = 2√σ l_p, which
 
 **What this is:** The framework has one free geometric parameter — the discreteness scale ε. The gap equation fixes its relationship to ℏ. Given the measured value of ℏ and the entropy σ per mode, the discreteness scale is determined: ε = 2√σ l_p, which at σ = 1 is 2 l_p ≈ 3.2 × 10⁻³⁵ meters.
 
-**What this is NOT:** This is not an independent prediction of ε. The framework contains one free geometric parameter and one equation relating it to known constants and σ. The self-consistency condition pins ε to the Planck regime but doesn't predict a number that wasn't already implicitly known.
+**What this is NOT:** This is not an independent prediction of ε. The framework contains one free geometric parameter and one equation relating it to known constants and σ. The self-consistency condition fixes the ratio ε/√σ = 2 l_p, which puts ε in the Planck regime only if σ is of order one, and doesn't predict a number that wasn't already implicitly known.
 
 ### The Bekenstein-Hawking Entropy — Where the 1/4 factor comes from
 
@@ -527,13 +527,11 @@ The factor of 1/4 — which Bekenstein and Hawking introduced as a proportionali
 
 **Why this is significant:** The 1/4 factor has been a mystery for 50 years. Most frameworks either assume it or derive it within constructions specifically designed to produce it. Here it follows from the gap equation with no fitted input, under the named horizon conditions; the counting itself, S = σA/ε², needs none of them.
 
-### Self-consistency bounds on ε
+### What self-consistency does not bound
 
-**If ε² ≪ l_p²:** Sub-Planckian cells would need further subdivision, creating a second trace-out within the first. This would make ℏ multi-valued — contradicting the observed universality of ℏ.
+The gap equation fixes ε/√σ = 2 l_p, not ε by itself. ε sits at the Planck scale only if σ is of order one. The count caps σ at ln q for a mode with q states but does not bound it from below: σ = 10⁻¹² would give ε = 2 × 10⁻⁶ l_p.
 
-**If ε² ≫ l_p²:** Super-Planckian cells would be too coarse. The emergent quantum description would assign distinct quantum states to configurations that are physically identical.
-
-The self-consistency condition ε = 2√σ l_p is the unique value where neither pathology occurs.
+Two arguments would rule out scales far from l_p. Sub-Planckian cells would need further subdivision, creating a second trace-out that would make ℏ multi-valued. Super-Planckian cells would be too coarse, so the emergent description would assign distinct quantum states to physically identical configurations. Neither argument follows from the gap equation, and neither is derived; whether such scales are excluded on independent grounds is open.
 
 ***
 

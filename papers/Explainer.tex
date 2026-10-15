@@ -1621,8 +1621,9 @@ discreteness scale is determined: ε = 2√σ l\_p, which at σ = 1 is 2 l\_p
 \textbf{What this is NOT:} This is not an independent prediction of ε.
 The framework contains one free geometric parameter and one equation
 relating it to known constants and σ. The self-consistency condition
-pins ε to the Planck regime but doesn't predict a number that wasn't
-already implicitly known.
+fixes the ratio ε/√σ = 2 l\_p, which puts ε in the Planck regime only if
+σ is of order one, and doesn't predict a number that wasn't already
+implicitly known.
 
 \hypertarget{the-bekenstein-hawking-entropy-where-the-14-factor-comes-from}{%
 \subsubsection{The Bekenstein-Hawking Entropy --- Where the 1/4 factor
@@ -1653,20 +1654,22 @@ constructions specifically designed to produce it. Here it follows from
 the gap equation with no fitted input, under the named horizon
 conditions; the counting itself, S = σA/ε², needs none of them.
 
-\hypertarget{self-consistency-bounds-on-ux3b5}{%
-\subsubsection{Self-consistency bounds on
-ε}\label{self-consistency-bounds-on-ux3b5}}
+\hypertarget{what-self-consistency-does-not-bound}{%
+\subsubsection{What self-consistency does not
+bound}\label{what-self-consistency-does-not-bound}}
 
-\textbf{If ε² ≪ l\_p²:} Sub-Planckian cells would need further
-subdivision, creating a second trace-out within the first. This would
-make ℏ multi-valued --- contradicting the observed universality of ℏ.
+The gap equation fixes ε/√σ = 2 l\_p, not ε by itself. ε sits at the
+Planck scale only if σ is of order one. The count caps σ at ln q for a
+mode with q states but does not bound it from below: σ = 10⁻¹² would
+give ε = 2 × 10⁻⁶ l\_p.
 
-\textbf{If ε² ≫ l\_p²:} Super-Planckian cells would be too coarse. The
-emergent quantum description would assign distinct quantum states to
-configurations that are physically identical.
-
-The self-consistency condition ε = 2√σ l\_p is the unique value where
-neither pathology occurs.
+Two arguments would rule out scales far from l\_p.~Sub-Planckian cells
+would need further subdivision, creating a second trace-out that would
+make ℏ multi-valued. Super-Planckian cells would be too coarse, so the
+emergent description would assign distinct quantum states to physically
+identical configurations. Neither argument follows from the gap
+equation, and neither is derived; whether such scales are excluded on
+independent grounds is open.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -3916,4 +3919,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 4936d7e3cd7292fed77c70670bd454856f99c62bb2cf764c6d8912c5281f5105
+% source-sha256: 94b43980f2debd1414bc3fdb971def3e15acc83ac0d437010d7572a59875810a
