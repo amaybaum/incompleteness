@@ -61,8 +61,10 @@ characteristic-polynomial PSD tests disagreed on no matrix.
 - **Registered preparations.** In the position basis, `Σ_ξ ν(ξ) A(a, ξ)` has diagonal entry 1 at `|a⟩`. Its only
   other non-zero entries pair `|a + y⟩` with `|a − y⟩`, with value `ν̂(2y)`, for odd `q`.
   - It is PSD iff `ν̂(k) = 0` for every `k ≠ 0`, that is, iff `ν` is uniform.
-  - The same argument on `N` sites, with `y ∈ V^N`, gives PSD iff the hidden prior is uniform on `V^N`. In particular a
-    registered preparation's hidden prior is then a product across sites.
+  - Take a fully registered preparation on `N` sites, with every site's current component fixed. The same argument,
+    with `y ∈ V^N`, gives PSD iff the joint hidden prior is uniform on `V^N`, and hence a product across sites.
+  - The argument constrains only laws that fix every registered value. It says nothing about laws that leave some
+    registered value free.
 - **Born weights.** `Σ_ξ A(k, ξ) = q |k⟩⟨k|`. So the registration probability, which is the hidden-half marginal
   `Σ_ξ W_ρ(k, ξ)`, equals `⟨k|ρ|k⟩` for every `ρ`, Wigner-positive or not. OD-READ's equality with the Lüders map
   checks this on the operator basis.
@@ -76,7 +78,7 @@ dictionary.
 
 | ingredient | OI on `ℂ^Conf` | image under E1's dictionary | category for E1-L |
 | --- | --- | --- | --- |
-| **preparation** | Only the uniform attach is granted (OperationalAssembly.lean:630). A pure seed comes from attach, configuration readout and a swap (`pureSeedPrep_available_of_swap` :675; Purification.lean:115) | Point configurations, OI's seeds, are not states. Registered preparations are states exactly with the counting measure on the hidden half. The uniform attach maps to `I/q` | **Derivable with an explicit bridge**, the dictionary, in modified form: uniform attach, then registration (Lüders, OD-READ), then a Clifford shift, gives `|0⟩`. Other pure states need `T`. **Contradicted** by positivity: point-configuration preparations, and every structured hidden prior on a registered site (Main.md:60) |
+| **preparation** | Only the uniform attach is granted (OperationalAssembly.lean:630). A pure seed comes from attach, configuration readout and a swap (`pureSeedPrep_available_of_swap` :675; Purification.lean:115) | Point configurations, OI's seeds, are not states. Registered preparations are states exactly with the counting measure on the hidden half. The uniform attach maps to `I/q` | **Derivable with an explicit bridge**, the dictionary, in modified form: uniform attach, then registration (Lüders, OD-READ), then a Clifford shift, gives `|0⟩`. Other pure states need `T`. **Contradicted** by positivity: point-configuration preparations, and every non-uniform hidden prior on a fully registered preparation. That is a special case of Main.md:60's structured priors. Correlated laws that leave registered values free can be states (OD-COMP) |
 | **measurement** | Lüders readout of the configuration basis (`readout_is_localLuders` :658), which resolves both components of a site | A non-disturbing readout of the registered component is not CP. The re-randomizing readout is exactly Lüders. The registration law is the hidden-half marginal, which is the Born weight for every `ρ` [W] | **Derivable with the bridge**: projective registration with back-action, and Born weights as the hidden-half marginal. Back-action is forced, not chosen. **Contradicted:** OI's non-disturbing readout. Other bases need `T` followed by registration. POVMs need an ancilla and control (Naimark [L]) |
 | **holding a state** | — (not addressed in the kernel) | Every fourth free tick is the identity channel. Registration is repeatable, and one free tick does not hold the value | **Available stroboscopically**, from the substratum's free leap. Holding at arbitrary times needs control. Error accumulation is open |
 | **ancillas** | Uniform attach and discard are structure fields (:594–649) | Both transfer exactly (OD-AD) | **Available through the bridge.** A pure ancilla is a registered preparation. Iterated ancilla closure remains its own condition (RankGapTheory.lean:702) |
@@ -98,12 +100,16 @@ configuration-bijection class is "replaced, not enlarged". At `q = 3, N = 1` thi
 CP images are exactly the affine symplectic ones, and positive images exactly the affine ones.
 **Classification:** ELABORATING, as an exact upgrade of thread H's E1(b) and P3.a.
 
-**O2. Positivity under the dictionary forces the counting measure on the hidden half of a registered site, and forces
-back-action on registration (OD-PREP, OD-READ, [W]).**
+**O2. Positivity under the dictionary forces the counting measure on the hidden half of a fully registered preparation,
+and forces back-action on registration (OD-PREP, OD-READ, [W]).**
 - These are not two choices but one constraint. A registered value is a state only with a uniform hidden half, and a
   registration is CP only if it re-randomizes the hidden half.
-- Thread H's P-2 (numerical P2.c) becomes exact here. Its conflict with Main.md:60's structured priors becomes a
-  contradiction under the dictionary: such priors on registered sites have no physical image.
+- Thread H's P-2 (numerical P2.c) becomes exact here.
+- Its conflict with Main.md:60's structured priors becomes a contradiction under the dictionary, but only for fully
+  registered preparations: a non-uniform hidden prior with every registered value fixed has no physical image.
+- Correlated laws that leave the registered values free are not excluded. OD-COMP maps the uniform laws on
+  non-product Lagrangian subspaces, which are correlated across sites in both components, to entangled stabilizer
+  states.
 - **Classification:** NEW. This is the exact form, plus the identification of preparation and back-action as one
   positivity constraint.
 
@@ -152,7 +158,7 @@ and the linear symplectic leap, the audit gives the following.
 
 **What R excludes from OI's admitted operational content:**
 - point-configuration preparations;
-- structured hidden priors on registered sites;
+- non-uniform hidden priors on fully registered preparations;
 - non-disturbing readouts;
 - non-symplectic configuration bijections.
 
@@ -168,24 +174,29 @@ question for the framework, recorded in §6.
 
 ## 6. Cross-propagation and assumption-watch
 
-- **To P0's locality work** (the local branch `p0-locality-local`, `p0-locality-sources/RESULT.md` L3). There,
-  hidden-sector independence across an uncoupled cut held under the counting or record-conditioned maximal-entropy
-  reading of Main Lemma 3 and failed under the actual-orbit law and structured priors.
-  - Under E1's dictionary, a registered preparation's hidden prior must be uniform on `V^N` [W], and so a product.
-  - The correlated prior `p₁ = p₂`, P0's E-pri, has no physical image at any registered value (supplementary [X]).
-  - So E1-L, through positivity, selects the counting-measure reading for registered preparations. This is a
-    consequence of E1-L's posit, not of OI.
+- **To P0's locality work** (branch `research/p2-locality-sources-20261015`, `p0-locality-sources/RESULT.md` L3).
+  There, hidden-sector independence across an uncoupled cut held under the counting or record-conditioned
+  maximal-entropy reading of Main Lemma 3. It failed under the actual-orbit law and under structured priors.
+  - **What is established.** Under the introduced dictionary, positivity selects the uniform hidden prior for a fully
+    registered preparation [W]. The two tested correlated priors, `p₁ = p₂` (P0's E-pri) and `p₁ = −p₂`, fail
+    positivity at every registered value at `N = 2` (supplementary [X]).
+  - **What is not established.**
+    - That every correlated physical state is excluded. Correlated laws on Lagrangian subspaces map to entangled
+      stabilizer states (OD-COMP).
+    - That any of P0's ensemble readings is globally forbidden. Those readings are laws on OI's `Conf`, and only their
+      restriction to fully registered preparations is constrained here.
+    - That the selection follows from OI's axioms alone. It is a consequence of the dictionary E1-L introduces.
 - **Assumption-watch marker.** A claim that an OI theorem on `ℂ^Conf` transfers to E1-L must check whether the theorem
   uses:
   - a point configuration;
   - a readout of both components of a site;
-  - a structured hidden prior;
+  - a non-uniform hidden prior on a fully registered preparation;
   - a non-symplectic bijection.
 
   Each of these has no physical image under the dictionary.
 - **Tension recorded for review.** Main.md:60 admits structured hidden priors as realization data. E1-L's dictionary
-  excludes them on registered sites. This is the same conflict thread H listed as a control conflict, now exact at
-  `q = 3`.
+  excludes the non-uniform ones on fully registered preparations, and only those. This is the case of the conflict
+  thread H listed as a control conflict that is now exact at `q = 3`.
 
 ## 7. Open, and non-claims
 
