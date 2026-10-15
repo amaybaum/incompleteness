@@ -1,0 +1,507 @@
+F2-2 exact run: RULES.md (f2-2-local-continuity) committed before this script
+Labels: [X] exact (all lines unless tagged), [W] written argument, [L] literature, [K] kernel theorem cited.
+imported F2-1 module sha256 e7d257bb09f5b75d4628cd0ebd85a0b189d377b3bdf91a48fd1196705a31e7a6; correction-1 module sha256 7c6ed2a053ebeb85f002cb261bf2791dc84293f056d082ba9883cd68deb471f7
+CONTROL K0 F2-1 module unchanged                       PASS
+
+====================================================================================================
+Implementation self-tests (exact)
+====================================================================================================
+Kronecker product = schoolbook product, a * a^-1 = 1, conj o conj = id: True
+certified signs: sqrt3 - 1.7320 -> 1, sqrt3 - 1.7321 -> -1
+Gauss sums G^2 = (-1/q) q at q = 3, 5: True
+CONTROL K0 exactness self-tests                        PASS
+K-mod p: no reduction modulo a prime is used in this run; every decisive line is exact over Q(zeta_n)
+
+====================================================================================================
+K1  q = 2: the kernel's two-layer images against the visible law
+====================================================================================================
+images (C5Discovery.lean:156-198): shear -> diag(1, i); swap -> (1/sqrt2)[[1,1],[1,-1]]; unitary: True, True
+classical layers on (prev, cur) in Z_2^2: shear (a, b) -> (F(b) - a, b) with F(b) = b; swap (a, b) -> (b, a); cur registered, prev uniform
+words of length 1..6 over {s, w}, both x0: 252 cases, 18 contradict the classical visible law
+first contradiction (word applied left to right, x0, Born, classical): ('wssw', 0, ['0', '1'], ['1', '0'])
+shear is an involution classically; its image squared is diag(1, -1), not a scalar: True
+TOKEN K1                                 q=2,N=1      PASS (kernel images contradict the visible law)
+CONTROL K1 q = 2 layer images contradict the visible law (limitation) PASS
+
+====================================================================================================
+L0  factorization rho(L_M) = u^(x)N D(M), exact
+====================================================================================================
+(q,N)=(3,1): couplings tested 3; identity exact for all: True; images unitary: True
+(q,N)=(5,1): couplings tested 5; identity exact for all: True; images unitary: True
+(q,N)=(7,1): couplings tested 7; identity exact for all: True; images unitary: True
+(q,N)=(3,2): couplings tested 27; identity exact for all: True; images unitary: True
+(q,N)=(3,3): couplings tested 33; identity exact for all: True; images unitary: True
+TOKEN L0                                 all sizes    E1L-FACTORIZED
+[W] U(1) = u^(x)N D(M) for every member of Gamma_all: e^{2 pi i G_g} = g for each gate, by definition
+
+====================================================================================================
+L1  uncoupled independence: U_AB(t) ~ U_A(t) (x) U_B(t), two code paths, exact
+====================================================================================================
+member principal: 18 block-diagonal couplings ((3,2): 9, (3,3): 9) x 6 times: all equal up to phase: True
+member shifted  : 18 block-diagonal couplings ((3,2): 9, (3,3): 9) x 6 times: all equal up to phase: True
+checks: 216
+[W] for every member of Gamma_all: a block-diagonal coupling has no gate across the blocks, so each layer generator is G_A (x) 1 + 1 (x) G_B, and its flow factorizes for every duration
+K-L1: F2-1's composite principal-log rule at (3,2), M = 0: independence fails at t = ['1/6', '1/4', '1/2', '3/4', '3/2']
+CONTROL K-L1 composite-log countercontrol detected     PASS
+TOKEN L1                                 (3,2),(3,3)  E1L-INDEPENDENT
+
+====================================================================================================
+L3  strict causal cone at (3,3): chains [[0,a,0],[a,0,b],[0,b,0]], exact
+====================================================================================================
+member principal: 4 chains x 5 times: images of X_1, Z_1 commute with X_3, Z_3 and images of X_3, Z_3 commute with X_1, Z_1: True
+member shifted  : 4 chains x 5 times: images of X_1, Z_1 commute with X_3, Z_3 and images of X_3, Z_3 commute with X_1, Z_1: True
+[W] for every member of Gamma_all: the coupling layer is a product of commuting gates on sites and edges, so it maps an operator on site i into the algebra of i's closed neighbourhood; the free layer is a product of one-site gates; so for t <= 1 the support grows by at most one edge
+K-L3: with a delta_13(1) generator term added to the coupling layer, the image of X_1 at t = 1/2 fails to commute with X_3 or Z_3 on every chain: True
+CONTROL K-L3 long-range mutation detected              PASS
+comparison (not a control): F2-1's composite principal-log rule, t = 1/2, image of X_1 commutes with X_3 and Z_3: [0,1,0;1,0,1;0,1,0](order 8):False [0,1,0;1,0,2;0,2,0](order 8):False [0,2,0;2,0,1;0,1,0](order 8):False [0,2,0;2,0,2;0,2,0](order 8):False
+TOKEN L3                                 (3,3)        E1L-CAUSAL
+
+====================================================================================================
+[q=7,N=1] C-OI  F2-1's C1 battery and C2 checks at a new alphabet, through F2-1's functions
+====================================================================================================
+genuineness: every image unitary, U W(z) U^+ = W(L z), U^ord(L) = I: True; orders [0]:4 [1]:6 [2]:7 [3]:8 [4]:8 [5]:14 [6]:3
+matrix group generated by the images: order 336; |SL(2,7)| = 336; SL(2,7) is perfect, so the genuine lift is unique [W]
+(i) intertwiner dimension per coupling: [0]:1 [1]:1 [2]:1 [3]:1 [4]:1 [5]:1 [6]:1
+(ii) M=[0] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+(ii) M=[1] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+(ii) M=[2] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+(ii) M=[3] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+(ii) M=[4] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+(ii) M=[5] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+(ii) M=[6] alphabet {L_M, tau_1}: words per length 0..6 = [1, 2, 4, 8, 16, 32, 64], total 127, Born = rooted law: True
+    words over all couplings: 889 (x 7 registered starts)
+(iii) two-time law with the symplectic meter equals the classical law for every M and x0: True (49 protocols)
+C2: probabilities sum to 1 on 6223 of 6223 word states and 49 of 49 two-time laws; previous-component Wigner marginal = 1/7 after registration on 350 post-registration states (56 rays): True; meter: 343, True
+C4(a) at (7,1): u |e_1><e_1| u^+ has 42 of 49 entries that are not nonnegative reals
+TOKEN C-OI                               q=7,N=1      E1L-CONSISTENT
+
+====================================================================================================
+[q=3,N=1] gates and their spectra
+====================================================================================================
+gate u            eigenvalue keys [0, 1, 3] multiplicities ['1', '1', '1'] principal theta ['0', '1/4', '-1/4'] nondegenerate True
+gate X            eigenvalue keys [0, 1, 2] multiplicities ['1', '1', '1'] principal theta ['0', '1/3', '-1/3'] nondegenerate True
+gate ('site', 1)  eigenvalue keys [0, 1] multiplicities ['1', '2'] principal theta ['0', '1/3'] nondegenerate False
+gate ('pair', 1)  eigenvalue keys [0, 1, 2] multiplicities ['5', '2', '2'] principal theta ['0', '1/3', '-1/3'] nondegenerate False
+gate ('site', 2)  eigenvalue keys [0, 2] multiplicities ['1', '2'] principal theta ['0', '-1/3'] nondegenerate False
+gate ('pair', 2)  eigenvalue keys [0, 1, 2] multiplicities ['5', '2', '2'] principal theta ['0', '1/3', '-1/3'] nondegenerate False
+one-site: S in SL(2,3) with S^2 = J': 0 -> every square root of u is non-Clifford (Gamma_all) [W]
+
+====================================================================================================
+[q=3,N=1] R_self: integer-time group
+====================================================================================================
+symplectic part generated: order 24 (|Sp(2,3)| = 24); orbits on nonzero vectors: 1, sizes [8]
+translation orbit spans F_q^2 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 216 = the full Clifford group [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=3,N=1] R_self C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 4 generators (free layer, 2 coupling layers, 1 translations); dimension modulo the identity 8 (full = 8)
+K-Lie: translations removed: dimension modulo the identity 4
+CONTROL K-Lie dropped translations R_self q=3,N=1      PASS
+Sp(2,3) transitive on nonzero vectors: True -> the Clifford adjoint action on sl(3) is irreducible [W]
+[W] robustness over Gamma_all: for any generator choice the algebra contains a non-scalar element and is invariant under the Clifford adjoint action, hence contains su(3): True
+TOKEN C3(a-self)                         q=3,N=1      E1L-SELF-FULL [principal X; Gamma_all W]
+
+====================================================================================================
+[q=3,N=1] R_self C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_self q=3,N=1 PASS
+gate types ["('site', 1)", "('site', 2)", 'u']; sign patterns per type [2, 2, 4]; members of Gamma_spec (one-duration): 16
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True]
+CONTROL K-D1 Clifford integer-time group irreducible q=3,N=1 PASS
+single-gate half-layers: members with no certified single-gate half: 0
+D1 holds for every member (the integer-time group is the full Clifford group, irreducible): True
+D2 certified for 16 of 16 members; 0 without a certificate on the preregistered words
+[L] route (Campbell-Anwar-Browne App. D, owner's reading): Clifford group generated True; free half non-Clifford for every Gamma_spec member True; for every Gamma_all member (no S^2 = J')
+TOKEN C3(b-self)                         q=3,N=1      E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (16/16); L route: Gamma_all]
+
+====================================================================================================
+[q=3,N=1] R_cf: integer-time group
+====================================================================================================
+symplectic part generated: order 4 (|Sp(2,3)| = 24); orbits on nonzero vectors: 2, sizes [4, 4]
+translation orbit spans F_q^2 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 36 [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=3,N=1] R_cf C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 2 generators (free layer, 0 coupling layers, 1 translations); dimension modulo the identity 8 (full = 8)
+K-Lie: translations removed: dimension modulo the identity 1
+CONTROL K-Lie dropped translations R_cf q=3,N=1        PASS
+touching analysis over the orbits of the integer-time group (precondition: every Weyl operator present: True)
+  orbit 0 (size 4): touched for every Gamma_spec member by ['free[Gamma_all]', 'X_1[Gamma_all]']
+  orbit 1 (size 4): touched for every Gamma_spec member by ['free[Gamma_all]']
+CONTROL K-touch principal touching implies full q=3,N=1 PASS
+TOKEN C3(a-cf)                           q=3,N=1      E1L-CF-FULL [Gamma_all]
+
+====================================================================================================
+[q=3,N=1] R_cf C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_cf q=3,N=1 PASS
+gate types ['u']; sign patterns per type [4]; members of Gamma_spec (one-duration): 4
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True]
+K-D1 negative: touching closure over R_cf's orbits with R_cf's own integer-time generators: 2 blocks (orbits 2)
+CONTROL K-D1 integer-time generators merge no orbit q=3,N=1 PASS
+K-D1 positive: adding the leap of [1]: 1 blocks; classical orbits of the enlarged group: 1
+CONTROL K-D1 touching closure reproduces classical orbit merging q=3,N=1 PASS
+members: 4; D1 irreducible: 4; D2 certified: 4; both (dense): 4
+TOKEN C3(b-cf)                           q=3,N=1      E1L-CF-DENSE [Gamma_spec members: ALL (4/4)]
+
+====================================================================================================
+[q=3,N=1] C4  escape from the known obstructions
+====================================================================================================
+(b) Gamma_all: stabilizer rays 12; reachable as v|0> for some square root v of u: 0
+(a) u preserves no nonnegativity: F2-1 C4(a) at q = 3, 5; at q = 7 see C-OI
+(c) one-duration generating sets are finite (integer-time images, translations and the half-layer gates of the selectable couplings), so their groups are countable [W]; the all-duration repertoires are continua
+
+====================================================================================================
+[q=5,N=1] gates and their spectra
+====================================================================================================
+gate u            eigenvalue keys [0, 1, 2, 3] multiplicities ['1', '1', '2', '1'] principal theta ['0', '1/4', '1/2', '-1/4'] nondegenerate False
+gate X            eigenvalue keys [0, 1, 2, 3, 4] multiplicities ['1', '1', '1', '1', '1'] principal theta ['0', '1/5', '2/5', '-2/5', '-1/5'] nondegenerate True
+gate ('site', 1)  eigenvalue keys [0, 2, 3] multiplicities ['1', '2', '2'] principal theta ['0', '2/5', '-2/5'] nondegenerate False
+gate ('pair', 1)  eigenvalue keys [0, 1, 2, 3, 4] multiplicities ['9', '4', '4', '4', '4'] principal theta ['0', '1/5', '2/5', '-2/5', '-1/5'] nondegenerate False
+gate ('site', 2)  eigenvalue keys [0, 1, 4] multiplicities ['1', '2', '2'] principal theta ['0', '1/5', '-1/5'] nondegenerate False
+gate ('pair', 2)  eigenvalue keys [0, 1, 2, 3, 4] multiplicities ['9', '4', '4', '4', '4'] principal theta ['0', '1/5', '2/5', '-2/5', '-1/5'] nondegenerate False
+gate ('site', 3)  eigenvalue keys [0, 1, 4] multiplicities ['1', '2', '2'] principal theta ['0', '1/5', '-1/5'] nondegenerate False
+gate ('pair', 3)  eigenvalue keys [0, 1, 2, 3, 4] multiplicities ['9', '4', '4', '4', '4'] principal theta ['0', '1/5', '2/5', '-2/5', '-1/5'] nondegenerate False
+gate ('site', 4)  eigenvalue keys [0, 2, 3] multiplicities ['1', '2', '2'] principal theta ['0', '2/5', '-2/5'] nondegenerate False
+gate ('pair', 4)  eigenvalue keys [0, 1, 2, 3, 4] multiplicities ['9', '4', '4', '4', '4'] principal theta ['0', '1/5', '2/5', '-2/5', '-1/5'] nondegenerate False
+one-site: S in SL(2,5) with S^2 = J': 0 -> every square root of u is non-Clifford (Gamma_all) [W]
+
+====================================================================================================
+[q=5,N=1] R_self: integer-time group
+====================================================================================================
+symplectic part generated: order 120 (|Sp(2,5)| = 120); orbits on nonzero vectors: 1, sizes [24]
+translation orbit spans F_q^2 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 3000 = the full Clifford group [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=5,N=1] R_self C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 6 generators (free layer, 4 coupling layers, 1 translations); dimension modulo the identity 24 (full = 24)
+K-Lie: translations removed: dimension modulo the identity 12
+CONTROL K-Lie dropped translations R_self q=5,N=1      PASS
+Sp(2,5) transitive on nonzero vectors: True -> the Clifford adjoint action on sl(5) is irreducible [W]
+[W] robustness over Gamma_all: for any generator choice the algebra contains a non-scalar element and is invariant under the Clifford adjoint action, hence contains su(5): True
+TOKEN C3(a-self)                         q=5,N=1      E1L-SELF-FULL [principal X; Gamma_all W]
+
+====================================================================================================
+[q=5,N=1] R_self C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_self q=5,N=1 PASS
+gate types ["('site', 1)", "('site', 2)", "('site', 3)", "('site', 4)", 'u']; sign patterns per type [4, 4, 4, 4, 8]; members of Gamma_spec (one-duration): 2048
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True, True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True, True, True, True, True]
+CONTROL K-D1 Clifford integer-time group irreducible q=5,N=1 PASS
+single-gate half-layers: members with no certified single-gate half: 0
+D1 holds for every member (the integer-time group is the full Clifford group, irreducible): True
+D2 certified for 2048 of 2048 members; 0 without a certificate on the preregistered words
+[L] route (Campbell-Anwar-Browne App. D, owner's reading): Clifford group generated True; free half non-Clifford for every Gamma_spec member True; for every Gamma_all member (no S^2 = J')
+TOKEN C3(b-self)                         q=5,N=1      E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (2048/2048); L route: Gamma_all]
+
+====================================================================================================
+[q=5,N=1] R_cf: integer-time group
+====================================================================================================
+symplectic part generated: order 4 (|Sp(2,5)| = 120); orbits on nonzero vectors: 6, sizes [4, 4, 4, 4, 4, 4]
+translation orbit spans F_q^2 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 100 [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=5,N=1] R_cf C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 2 generators (free layer, 0 coupling layers, 1 translations); dimension modulo the identity 24 (full = 24)
+K-Lie: translations removed: dimension modulo the identity 1
+CONTROL K-Lie dropped translations R_cf q=5,N=1        PASS
+touching analysis over the orbits of the integer-time group (precondition: every Weyl operator present: True)
+  orbit 0 (size 4): touched for every Gamma_spec member by ['free', 'X_1[Gamma_all]']
+  orbit 1 (size 4): touched for every Gamma_spec member by ['free', 'X_1[Gamma_all]']
+  orbit 2 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 3 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 4 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 5 (size 4): touched for every Gamma_spec member by ['free']
+CONTROL K-touch principal touching implies full q=5,N=1 PASS
+TOKEN C3(a-cf)                           q=5,N=1      E1L-CF-FULL [Gamma_spec]
+
+====================================================================================================
+[q=5,N=1] R_cf C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_cf q=5,N=1 PASS
+gate types ['u']; sign patterns per type [8]; members of Gamma_spec (one-duration): 8
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True, True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True, True, True, True, True]
+K-D1 negative: touching closure over R_cf's orbits with R_cf's own integer-time generators: 6 blocks (orbits 6)
+CONTROL K-D1 integer-time generators merge no orbit q=5,N=1 PASS
+K-D1 positive: adding the leap of [1]: 1 blocks; classical orbits of the enlarged group: 1
+CONTROL K-D1 touching closure reproduces classical orbit merging q=5,N=1 PASS
+members: 8; D1 irreducible: 8; D2 certified: 8; both (dense): 8
+TOKEN C3(b-cf)                           q=5,N=1      E1L-CF-DENSE [Gamma_spec members: ALL (8/8)]
+
+====================================================================================================
+[q=5,N=1] C4  escape from the known obstructions
+====================================================================================================
+(b) Gamma_all: stabilizer rays 30; reachable as v|0> for some square root v of u: 0
+(a) u preserves no nonnegativity: F2-1 C4(a) at q = 3, 5; at q = 7 see C-OI
+(c) one-duration generating sets are finite (integer-time images, translations and the half-layer gates of the selectable couplings), so their groups are countable [W]; the all-duration repertoires are continua
+
+====================================================================================================
+[q=7,N=1] gates and their spectra
+====================================================================================================
+gate u            eigenvalue keys [0, 1, 2, 3] multiplicities ['1', '2', '2', '2'] principal theta ['0', '1/4', '1/2', '-1/4'] nondegenerate False
+gate X            eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['1', '1', '1', '1', '1', '1', '1'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate True
+gate ('site', 1)  eigenvalue keys [0, 3, 5, 6] multiplicities ['1', '2', '2', '2'] principal theta ['0', '3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('pair', 1)  eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['13', '6', '6', '6', '6', '6', '6'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('site', 2)  eigenvalue keys [0, 3, 5, 6] multiplicities ['1', '2', '2', '2'] principal theta ['0', '3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('pair', 2)  eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['13', '6', '6', '6', '6', '6', '6'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('site', 3)  eigenvalue keys [0, 1, 2, 4] multiplicities ['1', '2', '2', '2'] principal theta ['0', '1/7', '2/7', '-3/7'] nondegenerate False
+gate ('pair', 3)  eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['13', '6', '6', '6', '6', '6', '6'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('site', 4)  eigenvalue keys [0, 3, 5, 6] multiplicities ['1', '2', '2', '2'] principal theta ['0', '3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('pair', 4)  eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['13', '6', '6', '6', '6', '6', '6'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('site', 5)  eigenvalue keys [0, 1, 2, 4] multiplicities ['1', '2', '2', '2'] principal theta ['0', '1/7', '2/7', '-3/7'] nondegenerate False
+gate ('pair', 5)  eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['13', '6', '6', '6', '6', '6', '6'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate False
+gate ('site', 6)  eigenvalue keys [0, 1, 2, 4] multiplicities ['1', '2', '2', '2'] principal theta ['0', '1/7', '2/7', '-3/7'] nondegenerate False
+gate ('pair', 6)  eigenvalue keys [0, 1, 2, 3, 4, 5, 6] multiplicities ['13', '6', '6', '6', '6', '6', '6'] principal theta ['0', '1/7', '2/7', '3/7', '-3/7', '-2/7', '-1/7'] nondegenerate False
+one-site: S in SL(2,7) with S^2 = J': 2 -> every square root of u is not necessarily non-Clifford
+
+====================================================================================================
+[q=7,N=1] R_self: integer-time group
+====================================================================================================
+symplectic part generated: order 336 (|Sp(2,7)| = 336); orbits on nonzero vectors: 1, sizes [48]
+translation orbit spans F_q^2 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 16464 = the full Clifford group [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=7,N=1] R_self C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 8 generators (free layer, 6 coupling layers, 1 translations); dimension modulo the identity 48 (full = 48)
+K-Lie: translations removed: dimension modulo the identity 24
+CONTROL K-Lie dropped translations R_self q=7,N=1      PASS
+Sp(2,7) transitive on nonzero vectors: True -> the Clifford adjoint action on sl(7) is irreducible [W]
+[W] robustness over Gamma_all: for any generator choice the algebra contains a non-scalar element and is invariant under the Clifford adjoint action, hence contains su(7): True
+TOKEN C3(a-self)                         q=7,N=1      E1L-SELF-FULL [principal X; Gamma_all W]
+
+====================================================================================================
+[q=7,N=1] R_self C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_self q=7,N=1 PASS
+gate types ["('site', 1)", "('site', 2)", "('site', 3)", "('site', 4)", "('site', 5)", "('site', 6)", 'u']; sign patterns per type [8, 8, 8, 8, 8, 8, 8]; members of Gamma_spec (one-duration): 2097152
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True, True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True, True, True, True, True]
+CONTROL K-D1 Clifford integer-time group irreducible q=7,N=1 PASS
+single-gate half-layers: members with no certified single-gate half: 0
+D1 holds for every member (the integer-time group is the full Clifford group, irreducible): True
+D2 certified for 2097152 of 2097152 members; 0 without a certificate on the preregistered words
+[L] route (Campbell-Anwar-Browne App. D, owner's reading): Clifford group generated True; free half non-Clifford for every Gamma_spec member True
+TOKEN C3(b-self)                         q=7,N=1      E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (2097152/2097152); L route: Gamma_spec]
+
+====================================================================================================
+[q=7,N=1] R_cf: integer-time group
+====================================================================================================
+symplectic part generated: order 4 (|Sp(2,7)| = 336); orbits on nonzero vectors: 12, sizes [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+translation orbit spans F_q^2 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 196 [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=7,N=1] R_cf C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 2 generators (free layer, 0 coupling layers, 1 translations); dimension modulo the identity 48 (full = 48)
+K-Lie: translations removed: dimension modulo the identity 1
+CONTROL K-Lie dropped translations R_cf q=7,N=1        PASS
+touching analysis over the orbits of the integer-time group (precondition: every Weyl operator present: True)
+  orbit 0 (size 4): touched for every Gamma_spec member by ['free', 'X_1[Gamma_all]']
+  orbit 1 (size 4): touched for every Gamma_spec member by ['free', 'X_1[Gamma_all]']
+  orbit 2 (size 4): touched for every Gamma_spec member by ['free', 'X_1[Gamma_all]']
+  orbit 3 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 4 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 5 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 6 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 7 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 8 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 9 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 10 (size 4): touched for every Gamma_spec member by ['free']
+  orbit 11 (size 4): touched for every Gamma_spec member by ['free']
+CONTROL K-touch principal touching implies full q=7,N=1 PASS
+TOKEN C3(a-cf)                           q=7,N=1      E1L-CF-FULL [Gamma_spec]
+
+====================================================================================================
+[q=7,N=1] R_cf C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_cf q=7,N=1 PASS
+gate types ['u']; sign patterns per type [8]; members of Gamma_spec (one-duration): 8
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True, True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True, True, True, True, True]
+K-D1 negative: touching closure over R_cf's orbits with R_cf's own integer-time generators: 12 blocks (orbits 12)
+CONTROL K-D1 integer-time generators merge no orbit q=7,N=1 PASS
+K-D1 positive: adding the leap of [1]: 1 blocks; classical orbits of the enlarged group: 1
+CONTROL K-D1 touching closure reproduces classical orbit merging q=7,N=1 PASS
+members: 8; D1 irreducible: 8; D2 certified: 8; both (dense): 8
+TOKEN C3(b-cf)                           q=7,N=1      E1L-CF-DENSE [Gamma_spec members: ALL (8/8)]
+
+====================================================================================================
+[q=7,N=1] C4  escape from the known obstructions
+====================================================================================================
+(b) Gamma_all: stabilizer rays 56; reachable as v|0> for some square root v of u: 2
+(a) u preserves no nonnegativity: F2-1 C4(a) at q = 3, 5; at q = 7 see C-OI
+(c) one-duration generating sets are finite (integer-time images, translations and the half-layer gates of the selectable couplings), so their groups are countable [W]; the all-duration repertoires are continua
+
+====================================================================================================
+[q=3,N=2] gates and their spectra
+====================================================================================================
+gate u            eigenvalue keys [0, 1, 3] multiplicities ['1', '1', '1'] principal theta ['0', '1/4', '-1/4'] nondegenerate True
+gate X            eigenvalue keys [0, 1, 2] multiplicities ['1', '1', '1'] principal theta ['0', '1/3', '-1/3'] nondegenerate True
+gate ('site', 1)  eigenvalue keys [0, 1] multiplicities ['1', '2'] principal theta ['0', '1/3'] nondegenerate False
+gate ('pair', 1)  eigenvalue keys [0, 1, 2] multiplicities ['5', '2', '2'] principal theta ['0', '1/3', '-1/3'] nondegenerate False
+gate ('site', 2)  eigenvalue keys [0, 2] multiplicities ['1', '2'] principal theta ['0', '-1/3'] nondegenerate False
+gate ('pair', 2)  eigenvalue keys [0, 1, 2] multiplicities ['5', '2', '2'] principal theta ['0', '1/3', '-1/3'] nondegenerate False
+one-site: S in SL(2,3) with S^2 = J': 0 -> every square root of u is non-Clifford (Gamma_all) [W]
+
+====================================================================================================
+[q=3,N=2] R_self: integer-time group
+====================================================================================================
+symplectic part generated: order 51840 (|Sp(4,3)| = 51840); orbits on nonzero vectors: 1, sizes [80]
+translation orbit spans F_q^4 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 4199040 = the full Clifford group [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=3,N=2] R_self C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 29 generators (free layer, 26 coupling layers, 2 translations); dimension modulo the identity 80 (full = 80)
+K-Lie: translations removed: dimension modulo the identity 40
+CONTROL K-Lie dropped translations R_self q=3,N=2      PASS
+Sp(4,3) transitive on nonzero vectors: True -> the Clifford adjoint action on sl(9) is irreducible [W]
+[W] robustness over Gamma_all: for any generator choice the algebra contains a non-scalar element and is invariant under the Clifford adjoint action, hence contains su(9): True
+TOKEN C3(a-self)                         q=3,N=2      E1L-SELF-FULL [principal X; Gamma_all W]
+
+====================================================================================================
+[q=3,N=2] R_self C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_self q=3,N=2 PASS
+gate types ["('pair', 1)", "('pair', 2)", "('site', 1)", "('site', 2)", 'u']; sign patterns per type [4, 4, 2, 2, 4]; members of Gamma_spec (one-duration): 256
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True]
+CONTROL K-D1 Clifford integer-time group irreducible q=3,N=2 PASS
+single-gate half-layers: members with no certified single-gate half: 0
+D1 holds for every member (the integer-time group is the full Clifford group, irreducible): True
+D2 certified for 256 of 256 members; 0 without a certificate on the preregistered words
+[L] route (Campbell-Anwar-Browne App. D, owner's reading): Clifford group generated True; free half non-Clifford for every Gamma_spec member True; for every Gamma_all member (no S^2 = J')
+TOKEN C3(b-self)                         q=3,N=2      E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (256/256); L route: Gamma_all]
+
+====================================================================================================
+[q=3,N=2] R_cf: integer-time group
+====================================================================================================
+symplectic part generated: order 48 (|Sp(4,3)| = 51840); orbits on nonzero vectors: 4, sizes [8, 8, 16, 48]
+translation orbit spans F_q^4 (every Weyl operator in the group modulo phases): True
+integer-time group modulo phases: order 3888 [W: Schur, as F2-1 (c1)]
+
+====================================================================================================
+[q=3,N=2] R_cf C3(a)  all durations: Lie algebra of the layer and translation generators
+====================================================================================================
+principal member: 5 generators (free layer, 2 coupling layers, 2 translations); dimension modulo the identity 80 (full = 80)
+K-Lie: translations removed: dimension modulo the identity 22
+CONTROL K-Lie dropped translations R_cf q=3,N=2        PASS
+touching analysis over the orbits of the integer-time group (precondition: every Weyl operator present: True)
+  orbit 0 (size 16): touched for every Gamma_spec member by ['free[Gamma_all]', 'X_1[Gamma_all]', 'X_2[Gamma_all]']
+  orbit 1 (size 8): touched for every Gamma_spec member by no single type; joint system: lattice points exist
+  orbit 2 (size 8): touched for every Gamma_spec member by no single type; joint system: lattice points exist
+  orbit 3 (size 48): touched for every Gamma_spec member by ['free[Gamma_all]']
+CONTROL K-touch principal touching implies full q=3,N=2 PASS
+  member with lifts (-1, -1, -1, -1, -1, -1, -1, 0) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, -1, -1, 1, 1) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, -1, 0, -1, -1) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, -1, 0, 0, 1) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, 0, 1, -1, 0) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, 0, 1, 1, 1) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, 1, 1, -1, -1) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+  member with lifts (-1, -1, -1, -1, 1, 1, 0, 1) on ["('X', 1)", "('X', 2)", "('u', 1)", "('u', 3)", "(('pair', 1), 1)", "(('pair', 1), 2)", "(('pair', 2), 1)", "(('pair', 2), 2)"]: dimension modulo the identity 80
+TOKEN C3(a-cf)                           q=3,N=2      E1L-CF-FULL [principal; plus 8 listed members]
+
+====================================================================================================
+[q=3,N=2] R_cf C3(b)  one duration: integer-time images and the half-layer gates
+====================================================================================================
+CONTROL K-D2 no certificate on integer-time words R_cf q=3,N=2 PASS
+gate types ["('pair', 1)", "('pair', 2)", 'u']; sign patterns per type [4, 4, 4]; members of Gamma_spec (one-duration): 64
+D2 certificates of the free half-layer per sign pattern (first certified word): ['X_1', 'X_1', 'X_1', 'X_1']
+free half-layer non-Clifford per sign pattern: [True, True, True, True]; Wigner of (free half)|0...0> negative: [True, True, True, True]
+K-D1 negative: touching closure over R_cf's orbits with R_cf's own integer-time generators: 4 blocks (orbits 4)
+CONTROL K-D1 integer-time generators merge no orbit q=3,N=2 PASS
+K-D1 positive: adding the leap of [1,0;0,0]: 1 blocks; classical orbits of the enlarged group: 1
+CONTROL K-D1 touching closure reproduces classical orbit merging q=3,N=2 PASS
+members: 64; D1 irreducible: 64; D2 certified: 64; both (dense): 64
+TOKEN C3(b-cf)                           q=3,N=2      E1L-CF-DENSE [Gamma_spec members: ALL (64/64)]
+
+====================================================================================================
+[q=3,N=2] C4  escape from the known obstructions
+====================================================================================================
+(b) Gamma_all at N = 2: the free half-layer is v (x) v with v a square root of u; v|0> is Wigner-negative for every square root at q = 3 (correction 1), so the product state is negative at (z0, z1) with W(z0) < 0 < W(z1) [W]
+(a) u preserves no nonnegativity: F2-1 C4(a) at q = 3, 5; at q = 7 see C-OI
+(c) one-duration generating sets are finite (integer-time images, translations and the half-layer gates of the selectable couplings), so their groups are countable [W]; the all-duration repertoires are continua
+
+====================================================================================================
+Summary and verdict
+====================================================================================================
+control K0 F2-1 module unchanged                           PASS
+control K0 exactness self-tests                            PASS
+control K1 q = 2 layer images contradict the visible law (limitation) PASS
+control K-L1 composite-log countercontrol detected         PASS
+control K-L3 long-range mutation detected                  PASS
+control K-Lie dropped translations R_self q=3,N=1          PASS
+control K-D2 no certificate on integer-time words R_self q=3,N=1 PASS
+control K-D1 Clifford integer-time group irreducible q=3,N=1 PASS
+control K-Lie dropped translations R_cf q=3,N=1            PASS
+control K-touch principal touching implies full q=3,N=1    PASS
+control K-D2 no certificate on integer-time words R_cf q=3,N=1 PASS
+control K-D1 integer-time generators merge no orbit q=3,N=1 PASS
+control K-D1 touching closure reproduces classical orbit merging q=3,N=1 PASS
+control K-Lie dropped translations R_self q=5,N=1          PASS
+control K-D2 no certificate on integer-time words R_self q=5,N=1 PASS
+control K-D1 Clifford integer-time group irreducible q=5,N=1 PASS
+control K-Lie dropped translations R_cf q=5,N=1            PASS
+control K-touch principal touching implies full q=5,N=1    PASS
+control K-D2 no certificate on integer-time words R_cf q=5,N=1 PASS
+control K-D1 integer-time generators merge no orbit q=5,N=1 PASS
+control K-D1 touching closure reproduces classical orbit merging q=5,N=1 PASS
+control K-Lie dropped translations R_self q=7,N=1          PASS
+control K-D2 no certificate on integer-time words R_self q=7,N=1 PASS
+control K-D1 Clifford integer-time group irreducible q=7,N=1 PASS
+control K-Lie dropped translations R_cf q=7,N=1            PASS
+control K-touch principal touching implies full q=7,N=1    PASS
+control K-D2 no certificate on integer-time words R_cf q=7,N=1 PASS
+control K-D1 integer-time generators merge no orbit q=7,N=1 PASS
+control K-D1 touching closure reproduces classical orbit merging q=7,N=1 PASS
+control K-Lie dropped translations R_self q=3,N=2          PASS
+control K-D2 no certificate on integer-time words R_self q=3,N=2 PASS
+control K-D1 Clifford integer-time group irreducible q=3,N=2 PASS
+control K-Lie dropped translations R_cf q=3,N=2            PASS
+control K-touch principal touching implies full q=3,N=2    PASS
+control K-D2 no certificate on integer-time words R_cf q=3,N=2 PASS
+control K-D1 integer-time generators merge no orbit q=3,N=2 PASS
+control K-D1 touching closure reproduces classical orbit merging q=3,N=2 PASS
+token L0           all sizes      E1L-FACTORIZED
+token L1           (3,2),(3,3)    E1L-INDEPENDENT
+token L3           (3,3)          E1L-CAUSAL
+token C-OI         q=7,N=1        E1L-CONSISTENT
+token C3(a-self)   q=3,N=1        E1L-SELF-FULL [principal X; Gamma_all W]
+token C3(b-self)   q=3,N=1        E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (16/16); L route: Gamma_all]
+token C3(a-cf)     q=3,N=1        E1L-CF-FULL [Gamma_all]
+token C3(b-cf)     q=3,N=1        E1L-CF-DENSE [Gamma_spec members: ALL (4/4)]
+token C3(a-self)   q=5,N=1        E1L-SELF-FULL [principal X; Gamma_all W]
+token C3(b-self)   q=5,N=1        E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (2048/2048); L route: Gamma_all]
+token C3(a-cf)     q=5,N=1        E1L-CF-FULL [Gamma_spec]
+token C3(b-cf)     q=5,N=1        E1L-CF-DENSE [Gamma_spec members: ALL (8/8)]
+token C3(a-self)   q=7,N=1        E1L-SELF-FULL [principal X; Gamma_all W]
+token C3(b-self)   q=7,N=1        E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (2097152/2097152); L route: Gamma_spec]
+token C3(a-cf)     q=7,N=1        E1L-CF-FULL [Gamma_spec]
+token C3(b-cf)     q=7,N=1        E1L-CF-DENSE [Gamma_spec members: ALL (8/8)]
+token C3(a-self)   q=3,N=2        E1L-SELF-FULL [principal X; Gamma_all W]
+token C3(b-self)   q=3,N=2        E1L-SELF-DENSE [D1,D2 over Gamma_spec: ALL (256/256); L route: Gamma_all]
+token C3(a-cf)     q=3,N=2        E1L-CF-FULL [principal; plus 8 listed members]
+token C3(b-cf)     q=3,N=2        E1L-CF-DENSE [Gamma_spec members: ALL (64/64)]
+q=3,N=1: R_self all-duration full True [Gamma_all], one-duration dense True | R_cf all-duration full True [Gamma_all], one-duration ALL
+q=5,N=1: R_self all-duration full True [Gamma_all], one-duration dense True | R_cf all-duration full True [Gamma_spec], one-duration ALL
+q=7,N=1: R_self all-duration full True [Gamma_all], one-duration dense True | R_cf all-duration full True [Gamma_spec], one-duration ALL
+q=3,N=2: R_self all-duration full True [Gamma_all], one-duration dense True | R_cf all-duration full True [principal], one-duration ALL
+outcome rule: L0, L1, L3 and C-OI hold; E1L-SELF-FULL and E1L-SELF-DENSE at every control size
+VERDICT E1L-LOCAL-AND-SELF-CONTROLLING
