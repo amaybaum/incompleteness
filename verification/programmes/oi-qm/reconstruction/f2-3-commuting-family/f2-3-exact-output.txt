@@ -1,0 +1,193 @@
+
+====================================================================================================
+F2-3  the commuting generator family of E1-L
+====================================================================================================
+imported F2-1 module sha256 e7d257bb09f5b75d4628cd0ebd85a0b189d377b3bdf91a48fd1196705a31e7a6
+imported F2-2 module sha256 246adb2bc6590a3d84234f6937409f2042bba796d646eae633f6383a62a90e57
+
+====================================================================================================
+Implementation self-tests (exact)
+====================================================================================================
+Kronecker product = schoolbook product, a * a^-1 = 1, conj o conj = id: True
+certified signs: sqrt3 - 1.7320 -> 1, sqrt3 - 1.7321 -> -1
+Gauss sums G^2 = (-1/q) q at q = 3, 5: True
+CONTROL K0 module hashes and F2-1 self-tests                       PASS
+
+====================================================================================================
+E1  the necessary commutant (combinatorial, exact), and E2 diagonal sufficiency
+====================================================================================================
+E1 q=3,N=3 chain    R_cf   layers     9; dim K(m) for m = 1..2: [9, 9]; diagonal: [True, True]
+TOKEN   E1             q=3,N=3 chain R_cf     F23-DIAG-FORCED
+E2 q=3,N=3 chain    R_cf   principal diagonal: all layers commute True (4 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=3,N=3 chain R_cf          PASS
+TOKEN   E2             q=3,N=3 chain R_cf     F23-DIAG-SUFFICES
+E1 q=3,N=3 chain    R_self layers   243; dim K(m) for m = 1..2: [9, 9]; diagonal: [True, True]
+TOKEN   E1             q=3,N=3 chain R_self   F23-DIAG-FORCED
+E2 q=3,N=3 chain    R_self principal diagonal: all layers commute True (40 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=3,N=3 chain R_self        PASS
+TOKEN   E2             q=3,N=3 chain R_self   F23-DIAG-SUFFICES
+E1 q=3,N=3 complete R_cf   layers    27; dim K(m) for m = 1..2: [9, 9]; diagonal: [True, True]
+TOKEN   E1             q=3,N=3 complete R_cf  F23-DIAG-FORCED
+E2 q=3,N=3 complete R_cf   principal diagonal: all layers commute True (12 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=3,N=3 complete R_cf       PASS
+TOKEN   E2             q=3,N=3 complete R_cf  F23-DIAG-SUFFICES
+E1 q=3,N=3 complete R_self layers   729; dim K(m) for m = 1..2: [9, 9]; diagonal: [True, True]
+TOKEN   E1             q=3,N=3 complete R_self F23-DIAG-FORCED
+E2 q=3,N=3 complete R_self principal diagonal: all layers commute True (60 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=3,N=3 complete R_self     PASS
+TOKEN   E2             q=3,N=3 complete R_self F23-DIAG-SUFFICES
+E1 q=5,N=3 chain    R_cf   layers    25; dim K(m) for m = 1..4: [25, 25, 25, 25]; diagonal: [True, True, True, True]
+TOKEN   E1             q=5,N=3 chain R_cf     F23-DIAG-FORCED
+E2 q=5,N=3 chain    R_cf   principal diagonal: all layers commute True (16 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=5,N=3 chain R_cf          PASS
+TOKEN   E2             q=5,N=3 chain R_cf     F23-DIAG-SUFFICES
+E1 q=5,N=3 chain    R_self layers  3125; dim K(m) for m = 1..4: [25, 25, 25, 25]; diagonal: [True, True, True, True]
+TOKEN   E1             q=5,N=3 chain R_self   F23-DIAG-FORCED
+E2 q=5,N=3 chain    R_self principal diagonal: all layers commute True (160 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=5,N=3 chain R_self        PASS
+TOKEN   E2             q=5,N=3 chain R_self   F23-DIAG-SUFFICES
+E1 q=5,N=3 complete R_cf   layers   125; dim K(m) for m = 1..4: [25, 25, 25, 25]; diagonal: [True, True, True, True]
+TOKEN   E1             q=5,N=3 complete R_cf  F23-DIAG-FORCED
+E2 q=5,N=3 complete R_cf   principal diagonal: all layers commute True (48 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=5,N=3 complete R_cf       PASS
+TOKEN   E2             q=5,N=3 complete R_cf  F23-DIAG-SUFFICES
+E1 q=5,N=3 complete R_self layers 15625; dim K(m) for m = 1..4: [25, 25, 25, 25]; diagonal: [True, True, True, True]
+TOKEN   E1             q=5,N=3 complete R_self F23-DIAG-FORCED
+E2 q=5,N=3 complete R_self principal diagonal: all layers commute True (240 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=5,N=3 complete R_self     PASS
+TOKEN   E2             q=5,N=3 complete R_self F23-DIAG-SUFFICES
+E1 q=7,N=3 chain    R_cf   layers    49; dim K(m) for m = 1..6: [49, 49, 49, 49, 49, 49]; diagonal: [True, True, True, True, True, True]
+TOKEN   E1             q=7,N=3 chain R_cf     F23-DIAG-FORCED
+E2 q=7,N=3 chain    R_cf   principal diagonal: all layers commute True (36 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=7,N=3 chain R_cf          PASS
+TOKEN   E2             q=7,N=3 chain R_cf     F23-DIAG-SUFFICES
+E1 q=7,N=3 chain    R_self layers 16807; dim K(m) for m = 1..6: [49, 49, 49, 49, 49, 49]; diagonal: [True, True, True, True, True, True]
+TOKEN   E1             q=7,N=3 chain R_self   F23-DIAG-FORCED
+E2 q=7,N=3 chain    R_self principal diagonal: all layers commute True (360 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=7,N=3 chain R_self        PASS
+TOKEN   E2             q=7,N=3 chain R_self   F23-DIAG-SUFFICES
+E1 q=7,N=3 complete R_cf   layers   343; dim K(m) for m = 1..6: [49, 49, 49, 49, 49, 49]; diagonal: [True, True, True, True, True, True]
+TOKEN   E1             q=7,N=3 complete R_cf  F23-DIAG-FORCED
+E2 q=7,N=3 complete R_cf   principal diagonal: all layers commute True (108 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=7,N=3 complete R_cf       PASS
+TOKEN   E2             q=7,N=3 complete R_cf  F23-DIAG-SUFFICES
+E1 q=7,N=3 complete R_self layers 117649; dim K(m) for m = 1..6: [49, 49, 49, 49, 49, 49]; diagonal: [True, True, True, True, True, True]
+TOKEN   E1             q=7,N=3 complete R_self F23-DIAG-FORCED
+E2 q=7,N=3 complete R_self principal diagonal: all layers commute True (540 distinct term pairs); state-dependent lifted diagonal: True
+CONTROL K-pos diagonal members commute q=7,N=3 complete R_self     PASS
+TOKEN   E2             q=7,N=3 complete R_self F23-DIAG-SUFFICES
+
+====================================================================================================
+K-gen  the exhibited generators exponentiate to their gates
+====================================================================================================
+K-gen M_phi    m=1: Hermitian True, K^2 = K True, [K, G0] = 0 True, block-diagonal over classes True, inside one class True
+K-gen M_C      m=1: Hermitian True, K^2 = K True, [K, G0] = 0 True, block-diagonal over classes True, inside one class False (not required, amendment 1)
+K-gen R_star   m=1: Hermitian True, K^2 = K True, [K, G0] = 0 True, block-diagonal over classes True, inside one class True
+K-gen M_phi    m=2: Hermitian True, K^2 = K True, [K, G0] = 0 True, block-diagonal over classes True, inside one class True
+K-gen M_C      m=2: Hermitian True, K^2 = K True, [K, G0] = 0 True, block-diagonal over classes True, inside one class False (not required, amendment 1)
+K-gen R_star   m=2: Hermitian True, K^2 = K True, [K, G0] = 0 True, block-diagonal over classes True, inside one class True
+CONTROL K-gen exhibited generators                                 PASS
+
+====================================================================================================
+K-neg  the (3,2) non-diagonal members on the (3,3) chain
+====================================================================================================
+E1 q=3,N=3 chain    R_cf   layers     9; dim K(m) for m = 1..2: [9, 9]; diagonal: [True, True]
+K-neg M_phi: all chain layers commute False; first failing layer ((0, 1, 0), (1, 0, 1), (0, 1, 0)); has off-diagonal units outside the chain's diagonal K(m): True
+CONTROL K-neg M_phi fails on the (3,3) chain                       PASS
+K-neg M_C: all chain layers commute False; first failing layer ((0, 1, 0), (1, 0, 1), (0, 1, 0)); has off-diagonal units outside the chain's diagonal K(m): True
+CONTROL K-neg M_C fails on the (3,3) chain                         PASS
+
+====================================================================================================
+K-mut  the single-role star repertoire R_star at (3,3)
+====================================================================================================
+K-mut R_star layers 9; dim K(m) [15, 15] (q^2 = 9)
+K-mut star member: commutes on every R_star layer True; on every chain layer False
+CONTROL K-mut star commutant larger than diagonal                  PASS
+CONTROL K-mut star member commutes on R_star and fails on the chain PASS
+
+====================================================================================================
+K-brute  independent nullspace computation, (3,3) chain, R_cf
+====================================================================================================
+K-brute nullity per m {1: 9, 2: 9}; combinatorial dim K(m) {1: 9, 2: 9}
+CONTROL K-brute agrees with E1 at (3,3) chain R_cf                 PASS
+
+====================================================================================================
+E3  the N = 2 residual under R_self
+====================================================================================================
+E3 q=3,N=2 site commutant: dimension 3, diagonal True
+TOKEN   E3-site        q=3,N=2                F23-SITE-DIAG
+E3 q=3,N=2 pair commutant with principal site generators: dimension 17 (q^2 = 9), diagonal False
+E3 q=3,N=2 pair commutant with y/-y-separating site generators: dimension 9, diagonal True
+TOKEN   E3-pair(i)     q=3,N=2                F23-N2-NONDIAG
+TOKEN   E3-pair(ii)    q=3,N=2                F23-N2-DIAG
+E3 q=5,N=2 site commutant: dimension 5, diagonal True
+TOKEN   E3-site        q=5,N=2                F23-SITE-DIAG
+E3 q=5,N=2 pair commutant with principal site generators: dimension 49 (q^2 = 25), diagonal False
+E3 q=5,N=2 pair commutant with y/-y-separating site generators: dimension 25, diagonal True
+TOKEN   E3-pair(i)     q=5,N=2                F23-N2-NONDIAG
+TOKEN   E3-pair(ii)    q=5,N=2                F23-N2-DIAG
+
+====================================================================================================
+[q=3,N=2] C1  all-duration Lie algebra, R_self
+====================================================================================================
+C1 diag-principal  29 generators; dimension modulo the identity 80 (full = 80)
+K-lie: translations removed: dimension 40
+CONTROL K-lie dropped translations (3,2) R_self                    PASS
+C1 M_phi           29 generators; dimension modulo the identity 80 (full = 80)
+C1 M_C             29 generators; dimension modulo the identity 80 (full = 80)
+TOKEN   C1             q=3,N=2                F23-NONDIAG-FULL
+
+====================================================================================================
+[q=3,N=2] C2  half-layer gates h = exp(pi i G_coup(M))
+====================================================================================================
+C2 M=[[0,1],[1,0]] diag-principal  unitary True; Schmidt rank 3; Clifford False; h|00> Wigner-negative False; diagonal True
+C2 M=[[0,1],[1,0]] M_phi           unitary True; Schmidt rank 5; Clifford False; h|00> Wigner-negative False; diagonal False
+C2 M=[[0,1],[1,0]] M_C             unitary True; Schmidt rank 3; Clifford False; h|00> Wigner-negative False; diagonal False
+C2 M=[[1,1],[1,1]] diag-principal  unitary True; Schmidt rank 3; Clifford False; h|00> Wigner-negative False; diagonal True
+C2 M=[[1,1],[1,1]] M_phi           unitary True; Schmidt rank 5; Clifford False; h|00> Wigner-negative False; diagonal False
+C2 M=[[1,1],[1,1]] M_C             unitary True; Schmidt rank 3; Clifford False; h|00> Wigner-negative False; diagonal False
+TOKEN   C2             q=3,N=2                F23-NO-NEW-ALGEBRA
+TOKEN   C2             q=3,N=2                F23-GATE-DIFFERENCES: M_phi at [[0,1],[1,0]]: Schmidt rank, diagonal; M_C at [[0,1],[1,0]]: diagonal; M_phi at [[1,1],[1,1]]: Schmidt rank, diagonal; M_C at [[1,1],[1,1]]: diagonal
+
+====================================================================================================
+Summary
+====================================================================================================
+E1             q=3,N=3 chain R_cf       F23-DIAG-FORCED
+E2             q=3,N=3 chain R_cf       F23-DIAG-SUFFICES
+E1             q=3,N=3 chain R_self     F23-DIAG-FORCED
+E2             q=3,N=3 chain R_self     F23-DIAG-SUFFICES
+E1             q=3,N=3 complete R_cf    F23-DIAG-FORCED
+E2             q=3,N=3 complete R_cf    F23-DIAG-SUFFICES
+E1             q=3,N=3 complete R_self  F23-DIAG-FORCED
+E2             q=3,N=3 complete R_self  F23-DIAG-SUFFICES
+E1             q=5,N=3 chain R_cf       F23-DIAG-FORCED
+E2             q=5,N=3 chain R_cf       F23-DIAG-SUFFICES
+E1             q=5,N=3 chain R_self     F23-DIAG-FORCED
+E2             q=5,N=3 chain R_self     F23-DIAG-SUFFICES
+E1             q=5,N=3 complete R_cf    F23-DIAG-FORCED
+E2             q=5,N=3 complete R_cf    F23-DIAG-SUFFICES
+E1             q=5,N=3 complete R_self  F23-DIAG-FORCED
+E2             q=5,N=3 complete R_self  F23-DIAG-SUFFICES
+E1             q=7,N=3 chain R_cf       F23-DIAG-FORCED
+E2             q=7,N=3 chain R_cf       F23-DIAG-SUFFICES
+E1             q=7,N=3 chain R_self     F23-DIAG-FORCED
+E2             q=7,N=3 chain R_self     F23-DIAG-SUFFICES
+E1             q=7,N=3 complete R_cf    F23-DIAG-FORCED
+E2             q=7,N=3 complete R_cf    F23-DIAG-SUFFICES
+E1             q=7,N=3 complete R_self  F23-DIAG-FORCED
+E2             q=7,N=3 complete R_self  F23-DIAG-SUFFICES
+E3-site        q=3,N=2                  F23-SITE-DIAG
+E3-pair(i)     q=3,N=2                  F23-N2-NONDIAG
+E3-pair(ii)    q=3,N=2                  F23-N2-DIAG
+E3-site        q=5,N=2                  F23-SITE-DIAG
+E3-pair(i)     q=5,N=2                  F23-N2-NONDIAG
+E3-pair(ii)    q=5,N=2                  F23-N2-DIAG
+C1             q=3,N=2                  F23-NONDIAG-FULL
+C2             q=3,N=2                  F23-NO-NEW-ALGEBRA
+C2             q=3,N=2                  F23-GATE-DIFFERENCES: M_phi at [[0,1],[1,0]]: Schmidt rank, diagonal; M_C at [[0,1],[1,0]]: diagonal; M_phi at [[1,1],[1,1]]: Schmidt rank, diagonal; M_C at [[1,1],[1,1]]: diagonal
+
+====================================================================================================
+Verdict
+====================================================================================================
+outcome rule: F23-DIAG-FORCED and F23-DIAG-SUFFICES at every N = 3 size, graph and repertoire
+VERDICT F23-DIAGONAL-AT-N3
