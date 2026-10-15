@@ -440,6 +440,25 @@ jobs:
       - name: Native control mutation tests
         run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-oi-pair-maxcone-1/controls.py --self-test
 
+  probes_bg2:
+    name: Numerical probes / BG-2 premise orientation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: BG-2 premise orientation probe
+        working-directory: verification/lean
+        run: |
+          echo "=== bg2_orientation_probe.py ==="
+          python3 -I bg2_orientation_probe.py
+
+      - name: BG-2 control mutation tests
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-bg-2-premise-orientation/controls.py --self-test
+
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
   # On any other event the matrix job is skipped and the aggregate below requires exactly that.
@@ -535,7 +554,7 @@ jobs:
 
   probes:
     name: Numerical probes
-    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
+    needs: [probes_core_a, probes_core_b, probes_a36, probes_a38, probes_a40, probes_a41_production, probes_a41_independent, probes_a41_hulls, probes_a45, probes_nb1, probes_kinf2, probes_kt4prem1, probes_oichannel1, probes_oifiniteprotocol1, probes_oimaxcone, probes_bg2, probes_a42_witness, probes_a42_census01, probes_a42_exclusion, probes_foundations]
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
@@ -555,6 +574,7 @@ jobs:
           KT4PREM1_RESULT: ${{ needs.probes_kt4prem1.result }}
           OICHANNEL1_RESULT: ${{ needs.probes_oichannel1.result }}
           OIMAXCONE_RESULT: ${{ needs.probes_oimaxcone.result }}
+          BG2_RESULT: ${{ needs.probes_bg2.result }}
           OIFINITEPROTOCOL1_RESULT: ${{ needs.probes_oifiniteprotocol1.result }}
           A42W_RESULT: ${{ needs.probes_a42_witness.result }}
           A42C_RESULT: ${{ needs.probes_a42_census01.result }}
@@ -575,6 +595,7 @@ jobs:
           echo "kt4prem1=${KT4PREM1_RESULT}"
           echo "oichannel1=${OICHANNEL1_RESULT}"
           echo "oimaxcone=${OIMAXCONE_RESULT}"
+          echo "bg2=${BG2_RESULT}"
           echo "oifiniteprotocol1=${OIFINITEPROTOCOL1_RESULT}"
           echo "a42_witness=${A42W_RESULT}"
           echo "a42_census01=${A42C_RESULT}"
@@ -594,6 +615,7 @@ jobs:
           test "${KT4PREM1_RESULT}" = success
           test "${OICHANNEL1_RESULT}" = success
           test "${OIMAXCONE_RESULT}" = success
+          test "${BG2_RESULT}" = success
           test "${OIFINITEPROTOCOL1_RESULT}" = success
           test "${A42W_RESULT}" = success
           test "${A42C_RESULT}" = success
