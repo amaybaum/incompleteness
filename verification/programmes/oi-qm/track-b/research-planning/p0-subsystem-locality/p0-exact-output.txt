@@ -1,0 +1,247 @@
+== K0 exact arithmetic
+PASS K0 field operations
+PASS K0 H1 exactly unitary
+PASS K0 Hi exactly unitary
+PASS K0 F16 exactly unitary
+PASS K0 P_tau exactly unitary
+PASS K0 W_d exactly unitary
+PASS K0 W_p exactly unitary
+PASS K0 L_cc exactly unitary
+PASS K0 U_cv exactly unitary
+PASS K0 W_e exactly unitary
+PASS K0 K_e exactly unitary
+PASS K0 L (x) L exactly unitary
+== status: admissibility, SL-U status, horizon
+PASS status C21:P admissible at t=0,1
+PASS status C21:P computed SL-U = True, declared True
+PASS status C21:Q admissible at t=0,1
+PASS status C21:Q computed SL-U = True, declared True
+PASS status C21:PQ admissible at t=0,1
+PASS status C21:PQ computed SL-U = True, declared True
+PASS status C21:F admissible at t=0,1
+PASS status C21:F computed SL-U = False, declared False
+PASS status C21:T admissible at t=0,1
+PASS status C21:T computed SL-U = False, declared False
+PASS status C21:PF admissible at t=0,1
+PASS status C21:PF computed SL-U = False, declared False
+PASS status C21:Wd.P admissible at t=0,1
+PASS status C21:Wd.P computed SL-U = False, declared False
+PASS status C21:Wp.P admissible at t=0,1
+PASS status C21:Wp.P computed SL-U = True, declared True
+PASS status C21:Wd.PQ admissible at t=0,1
+PASS status C21:Wd.PQ computed SL-U = False, declared False
+PASS status C21:Wp.PQ admissible at t=0,1
+PASS status C21:Wp.PQ computed SL-U = True, declared True
+PASS status C21:PQ.Dn admissible at t=0,1
+PASS status C21:PQ.Dn computed SL-U = False, declared False
+PASS status C21:PQ.Dp admissible at t=0,1
+PASS status C21:PQ.Dp computed SL-U = True, declared True
+PASS status CCT4:I admissible at t=0,1
+PASS status CCT4:I computed SL-U = True, declared True
+PASS status CCT4:X admissible at t=0,1
+PASS status CCT4:X computed SL-U = True, declared True
+PASS status CCT4:W1.X admissible at t=0,1
+PASS status CCT4:W1.X computed SL-U = True, declared True
+PASS status CCT4:We.X admissible at t=0,1
+PASS status CCT4:We.X computed SL-U = False, declared False
+PASS status CCT4:Lcc admissible at t=0,1
+PASS status CCT4:Lcc computed SL-U = False, declared False
+PASS status CCT4:Llp admissible at t=0,1
+PASS status CCT4:Llp computed SL-U = True, declared True
+PASS status CCT4:WW admissible at t=0,1
+PASS status CCT4:WW computed SL-U = True, declared True
+PASS status CCT4:WW.Ke admissible at t=0,1
+PASS status CCT4:WW.Ke computed SL-U = False, declared False
+PASS status CCT4:WW.X1 admissible at t=0,1
+PASS status CCT4:WW.X1 computed SL-U = True, declared True
+PASS status C1A:P' admissible at t=0,1
+PASS status C1A:P' computed SL-U = True, declared True
+PASS status C1A:Q' admissible at t=0,1
+PASS status C1A:Q' computed SL-U = True, declared True
+PASS status C1A:PQ' admissible at t=0,1
+PASS status C1A:PQ' computed SL-U = True, declared True
+PASS status C1B:X' admissible at t=0,1
+PASS status C1B:X' computed SL-U = True, declared True
+PASS status C1B:WX' admissible at t=0,1
+PASS status C1B:WX' computed SL-U = True, declared True
+PASS status CELIM:I'' admissible at t=0,1
+PASS status CELIM:I'' computed SL-U = True, declared True
+PASS status CELIM:X'' admissible at t=0,1
+PASS status CELIM:X'' computed SL-U = False, declared False
+PASS status CELIM:WX'' admissible at t=0,1
+PASS status CELIM:WX'' computed SL-U = False, declared False
+PASS status CENT:CN admissible at t=0,1
+PASS status CENT:CN computed SL-U = False, declared False
+PASS status CCC:Ucv admissible at t=0,1
+PASS status CCC:Ucv computed SL-U = False, declared False
+== class relations
+PASS class C21:(P,F) inequivalent at t=1 by a28_s_locus_first_index  fibres (0,0),(1,0) indices (0,0),(0,1): (1)/16 vs (1z^4)/16
+PASS class C21:(P,T) inequivalent at t=1 by Psi  (1)/256 vs (1z^4)/256
+PASS class C21:(P,PF) inequivalent at t=1 by a28_s_locus_first_index  fibres (0,0),(1,0) indices (0,0),(0,1): (1)/16 vs (1z^4)/16
+PASS class C21:(P,Q) inequivalent at t=1 by Psi  (1)/256 vs (1z^4)/256
+PASS class C21:(P,PQ) inequivalent at t=1 by Psi  (1)/256 vs (1z^4)/256
+PASS class C21:(P,Wd.P) equivalent at t=0,1 by the exhibited D_t
+PASS class C21:(P,Wp.P) equivalent at t=0,1 by the exhibited D_t
+PASS class C21:(PQ,Wd.PQ) equivalent at t=0,1 by the exhibited D_t
+PASS class C21:(PQ,Wp.PQ) equivalent at t=0,1 by the exhibited D_t
+PASS class C21:(PQ,PQ.Dn) equivalent at t=0,1 by the exhibited D_t
+PASS class C21:(PQ,PQ.Dp) equivalent at t=0,1 by the exhibited D_t
+PASS class CCT4:(I,Lcc) equivalent at t=0,1 by the exhibited D_t
+PASS class CCT4:(I,Llp) equivalent at t=0,1 by the exhibited D_t
+PASS class CCT4:(X,We.X) equivalent at t=0,1 by the exhibited D_t
+PASS class CCT4:(X,W1.X) equivalent at t=0,1 by the exhibited D_t
+PASS class CCT4:(WW,WW.Ke) equivalent at t=0,1 by the exhibited D_t
+PASS class CCT4:(WW,WW.X1) equivalent at t=0,1 by the exhibited D_t
+PASS class C1A:(P',Q') inequivalent at t=1 by Psi  (1)/16 vs (1z^4)/16
+PASS class C1A:(P',PQ') inequivalent at t=1 by Psi  (1)/16 vs (1z^4)/16
+PASS class C1B:(X',WX') equivalent at t=0,1 by the exhibited D_t
+PASS class CELIM:(I'',X'') equivalent at t=0,1 by the exhibited D_t
+PASS class CELIM:(I'',WX'') equivalent at t=0,1 by the exhibited D_t
+== K-frozen
+PASS K-frozen act 17 G^(0)_10 G^(1)_01: 1/16 (H1) vs i/16 (Hi)
+PASS K-frozen CT4 relative-candidate entry (0,0): 1 (U) vs 0 (U')  1 vs 0
+PASS K-frozen act 28 entries at fibres (0,1),(1,1), indices (2,0),(2,1): 1/16 vs i/16  (1)/16 vs (1z^4)/16
+== K-indep
+PASS K-indep O0 is the diagonal action of O1 on every lift at t=0,1
+PASS K-indep O2 is the diagonal action of O3 on every lift at (1,0),(0,1)
+PASS K-indep O1 by the defining sum equals O1 by dilation and partial trace  on C21:P, C21:F, CCT4:I, CCT4:X, CCT4:W1.X, CCT4:We.X, CCT4:Lcc, CCT4:Llp, CCT4:WW, CCT4:WW.Ke, CCT4:WW.X1, C1B:X', C1B:WX', CELIM:I'', CELIM:X'', CELIM:WX'', CCC:Ucv
+== K-cert
+PASS K-cert PC reports rank 1 on every admitted lift's O1, O2, O3 values
+PASS K-cert PC reports rank >= 2 on F16 as an operator
+PASS K-cert PC reports rank >= 2 on H1(x)H1 with entry (0,0) negated
+== pair verdicts
+C21 TRAJ (P,F) O1: SEP-PHYS  non-product at t=0 (minor rows 0,1 cols 0,16)
+C21 TRAJ (P,F) O2: SEP-REP  value attained by P,Q,Wp.P
+C21 TRAJ (P,F) O3: SEP-REP  value attained by P,Q,Wp.P
+C21 TRAJ (P,T) O1: SEP-PHYS  non-product at t=0 (minor rows 0,1 cols 0,32)
+C21 TRAJ (P,T) O2: SEP-REP  value attained by P,Q,Wp.P
+C21 TRAJ (P,T) O3: SEP-REP  value attained by P,Q,Wp.P
+C21 TRAJ (P,PF) O1: SEP-PHYS  non-product at t=1 (minor rows 0,1 cols 0,16)
+C21 TRAJ (P,PF) O2: SEP-PHYS  non-product at (1,0) (minor rows 0,1 cols 0,4)
+C21 TRAJ (P,PF) O3: SEP-PHYS  non-product at (1,0) (minor rows 0,1 cols 0,16)
+C21 TRAJ (P,Q) O1: KEEP-BOTH  differ at t=0,t=1
+C21 TRAJ (P,Q) O2: SAME
+C21 TRAJ (P,Q) O3: SAME
+C21 TRAJ (P,PQ) O1: KEEP-BOTH  differ at t=1
+C21 TRAJ (P,PQ) O2: KEEP-BOTH  differ at (1,0),(0,1)
+C21 TRAJ (P,PQ) O3: KEEP-BOTH  differ at (1,0),(0,1)
+C21 THREAD (P,Wd.P)[L] O1: SEP-PHYS  non-product at t=0 (minor rows 0,48 cols 0,48)
+C21 THREAD (P,Wd.P)[L] O2: SEP-REP  value attained by P,Q,Wp.P
+C21 THREAD (P,Wd.P)[L] O3: SEP-REP  value attained by P,Q,Wp.P
+C21 THREAD (P,Wp.P)[L] O1: KEEP-BOTH  differ at t=0,t=1
+C21 THREAD (P,Wp.P)[L] O2: SAME
+C21 THREAD (P,Wp.P)[L] O3: SAME
+C21 THREAD (PQ,Wd.PQ)[L] O1: SEP-PHYS  non-product at t=0 (minor rows 0,48 cols 0,48)
+C21 THREAD (PQ,Wd.PQ)[L] O2: SEP-REP  value attained by PQ,Wp.PQ
+C21 THREAD (PQ,Wd.PQ)[L] O3: SEP-PHYS  non-product at (1,0) (minor rows 0,19 cols 0,51)
+C21 THREAD (PQ,Wp.PQ)[L] O1: KEEP-BOTH  differ at t=0,t=1
+C21 THREAD (PQ,Wp.PQ)[L] O2: SAME
+C21 THREAD (PQ,Wp.PQ)[L] O3: KEEP-BOTH  differ at (1,0),(0,1)
+C21 THREAD (PQ,PQ.Dn)[D] O1: SEP-PHYS  non-product at t=1 (minor rows 0,3 cols 0,3)
+C21 THREAD (PQ,PQ.Dn)[D] O2: SEP-PHYS  non-product at (1,0) (minor rows 0,1 cols 0,1)
+C21 THREAD (PQ,PQ.Dn)[D] O3: SEP-PHYS  non-product at (1,0) (minor rows 0,1 cols 0,1)
+C21 THREAD (PQ,PQ.Dp)[D] O1: KEEP-BOTH  differ at t=1
+C21 THREAD (PQ,PQ.Dp)[D] O2: KEEP-BOTH  differ at (1,0),(0,1)
+C21 THREAD (PQ,PQ.Dp)[D] O3: KEEP-BOTH  differ at (1,0),(0,1)
+CCT4 THREAD (I,Lcc)[L] O1: SEP-PHYS  non-product at t=0 (minor rows 0,5 cols 0,5)
+CCT4 THREAD (I,Lcc)[L] O2: SEP-REP  value attained by I,X,Llp,WW
+CCT4 THREAD (I,Lcc)[L] O3: SEP-REP  value attained by I,X,Llp,WW
+CCT4 THREAD (I,Llp)[L] O1: KEEP-BOTH  differ at t=0,t=1
+CCT4 THREAD (I,Llp)[L] O2: SAME
+CCT4 THREAD (I,Llp)[L] O3: SAME
+CCT4 THREAD (X,We.X)[L] O1: SEP-PHYS  non-product at t=0 (minor rows 0,5 cols 0,10)
+CCT4 THREAD (X,We.X)[L] O2: SEP-PHYS  non-product at (1,0) (minor rows 0,2 cols 3,2)
+CCT4 THREAD (X,We.X)[L] O3: SEP-PHYS  non-product at (1,0) (minor rows 0,5 cols 15,10)
+CCT4 THREAD (X,W1.X)[L] O1: KEEP-BOTH  differ at t=0,t=1
+CCT4 THREAD (X,W1.X)[L] O2: KEEP-BOTH  differ at (1,0),(0,1)
+CCT4 THREAD (X,W1.X)[L] O3: KEEP-BOTH  differ at (1,0),(0,1)
+CCT4 THREAD (WW,WW.Ke)[S] O1: SEP-REP  value attained by WW,WW.X1
+CCT4 THREAD (WW,WW.Ke)[S] O2: SEP-PHYS  non-product at (1,0) (minor rows 0,2 cols 3,2)
+CCT4 THREAD (WW,WW.Ke)[S] O3: SEP-PHYS  non-product at (1,0) (minor rows 0,5 cols 15,10)
+CCT4 THREAD (WW,WW.X1)[S] O1: SAME
+CCT4 THREAD (WW,WW.X1)[S] O2: KEEP-BOTH  differ at (1,0),(0,1)
+CCT4 THREAD (WW,WW.X1)[S] O3: KEEP-BOTH  differ at (1,0),(0,1)
+C1A TRAJ (P',Q') O1: KEEP-BOTH  differ at t=0,t=1
+C1A TRAJ (P',Q') O2: SAME
+C1A TRAJ (P',Q') O3: SAME
+C1A TRAJ (P',PQ') O1: KEEP-BOTH  differ at t=1
+C1A TRAJ (P',PQ') O2: KEEP-BOTH  differ at (1,0),(0,1)
+C1A TRAJ (P',PQ') O3: KEEP-BOTH  differ at (1,0),(0,1)
+C1B THREAD (X',WX')[L] O1: KEEP-BOTH  differ at t=0,t=1
+C1B THREAD (X',WX')[L] O2: KEEP-BOTH  differ at (1,0),(0,1)
+C1B THREAD (X',WX')[L] O3: KEEP-BOTH  differ at (1,0),(0,1)
+CELIM THREAD (I'',X'') O1: SEP-REP  value attained by I''
+CELIM THREAD (I'',X'') O2: SEP-REP  value attained by I''
+CELIM THREAD (I'',X'') O3: SEP-REP  value attained by I''
+CELIM THREAD (I'',WX'')[L] O1: SEP-OPEN
+CELIM THREAD (I'',WX'')[L] O2: SEP-PHYS  differs from the single admitted value at (1,0)
+CELIM THREAD (I'',WX'')[L] O3: SEP-OPEN
+== cells
+cell C21 TRAJ O1: REDUCES
+cell C21 TRAJ O2: REDUCES
+cell C21 TRAJ O3: REDUCES
+cell C21 THREAD O1: REDUCES
+cell C21 THREAD O2: REDUCES
+cell C21 THREAD O3: REDUCES
+cell CCT4 THREAD O1: REDUCES
+cell CCT4 THREAD O2: REDUCES
+cell CCT4 THREAD O3: REDUCES
+cell C1A TRAJ O1: UNCHANGED (present)
+cell C1A TRAJ O2: UNCHANGED (present)
+cell C1A TRAJ O3: UNCHANGED (present)
+cell C1B THREAD O1: UNCHANGED (present)
+cell C1B THREAD O2: UNCHANGED (present)
+cell C1B THREAD O3: UNCHANGED (present)
+cell CELIM THREAD O1: UNDETERMINED
+cell CELIM THREAD O2: ELIMINATES
+cell CELIM THREAD O3: UNDETERMINED
+cell CCT4 TRAJ O1: UNCHANGED (absent)  (SH1-C2 closed form on every lift: True)
+cell CCT4 TRAJ O2: UNCHANGED (absent)  (SH1-C2 closed form on every lift: True)
+cell CCT4 TRAJ O3: UNCHANGED (absent)  (SH1-C2 closed form on every lift: True)
+cell CENT: EXCLUDES-ALL  (Gamma reshuffled rank >= 2: True)
+cell CCC: EXCLUDES-ALL  (Gamma reshuffled rank >= 2: True)
+== K-17-embed, K-single, K-unique, K-reach
+PASS K-17-embed act 17's lifts tensored with H1 (P, Q) are coherent and SL-U
+PASS K-17-embed F, T, PF are coherent lifts of Gamma = 1/16
+PASS K-17-embed Psi(P) = 1/256 and Psi(Q) = i/256
+PASS K-single every C1A/C1B cell UNCHANGED, every lift SL-U, some pair differs
+PASS K-unique CCT4 tuples equal the SH1-C2 closed form; TRAJ cell UNCHANGED (absent)
+PASS K-reach CELIM THREAD O2 = ELIMINATES
+PASS K-reach CENT and CCC = EXCLUDES-ALL
+PASS K-reach C1A = UNCHANGED
+== no-signalling
+C21:P (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; permutations) holds
+C21:Q (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; permutations) holds
+C21:PQ (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; permutations) holds
+C21:F (SL-U False) prep t=0 violated ('2>1', 0, 1); prep t=1 violated ('2>1', 0, 1)
+C21:T (SL-U False) prep t=0 violated ('2>1', 0, 1); prep t=1 violated ('2>1', 0, 1)
+C21:PF (SL-U False) prep t=0 holds; prep t=1 violated ('2>1', 0, 1); int (s=0,t=1; permutations) violated ('2>1', (0, 1, 3, 2))
+C21:Wd.P (SL-U False) prep t=0 violated ('2>1', 0, 1); prep t=1 violated ('2>1', 0, 1)
+C21:Wp.P (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; permutations) holds
+C21:Wd.PQ (SL-U False) prep t=0 violated ('2>1', 0, 1); prep t=1 violated ('2>1', 0, 1)
+C21:Wp.PQ (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; permutations) holds
+C21:PQ.Dn (SL-U False) prep t=0 holds; prep t=1 violated ('2>1', 3, 15)
+C21:PQ.Dp (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; permutations) holds
+CCT4:I (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:X (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:W1.X (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:We.X (SL-U False) prep t=0 violated ('2>1', 1, 3); prep t=1 violated ('2>1', 1, 3); int (s=0,t=1; every unitary) violated ('2>1', 0, 0, (0, 0, 1, 0))
+CCT4:Lcc (SL-U False) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:Llp (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:WW (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:WW.Ke (SL-U False) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CCT4:WW.X1 (SL-U True) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+CENT:CN (SL-U False) prep t=0 violated ('2>1', 0, 3); prep t=1 violated ('2>1', 0, 3); int (s=0,t=1; every unitary) holds
+CCC:Ucv (SL-U False) prep t=0 holds; prep t=1 holds; int (s=0,t=1; every unitary) holds
+PASS EQ1 consistency: every C21 lift not admitted violates prep no-signalling at some t
+== verdicts
+controls and status checks failed: 0
+P0-SL-DISTINGUISHES-TRAJ   O1: C21:(P,F); C21:(P,PF); C21:(P,T)
+   beside it  O2: C21:(P,PF)   O3: C21:(P,PF)
+P0-SL-DISTINGUISHES-THREAD   O1: C21:(P,Wd.P); C21:(PQ,PQ.Dn); C21:(PQ,Wd.PQ); CCT4:(I,Lcc); CCT4:(X,We.X)
+   beside it  O2: C21:(PQ,PQ.Dn); CCT4:(WW,WW.Ke); CCT4:(X,We.X)   O3: C21:(PQ,PQ.Dn); C21:(PQ,Wd.PQ); CCT4:(WW,WW.Ke); CCT4:(X,We.X)
+P0-SL-REDUCES-ONLY  (main cells: C21 THREAD O1 REDUCES, C21 THREAD O2 REDUCES, C21 THREAD O3 REDUCES, C21 TRAJ O1 REDUCES, C21 TRAJ O2 REDUCES, C21 TRAJ O3 REDUCES, CCT4 THREAD O1 REDUCES, CCT4 THREAD O2 REDUCES, CCT4 THREAD O3 REDUCES, CCT4 TRAJ O1 UNCHANGED (absent), CCT4 TRAJ O2 UNCHANGED (absent), CCT4 TRAJ O3 UNCHANGED (absent))
+P0-NS-HOLDS
+P0-NS-NONVACUOUS
+P0-NS-EQUIV-A1
+P0-NS-WEAKER  witnesses: CCT4:Lcc, CCT4:WW.Ke, CCC:Ucv
