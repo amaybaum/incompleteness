@@ -1,0 +1,37 @@
+F2-2 correction 1 (2026-10-15): noncommuting generators of commuting gates. sha256 of the imported F2-1 module: e7d257bb09f5b75d4628cd0ebd85a0b189d377b3bdf91a48fd1196705a31e7a6
+
+====================================================================================================
+The owner's witness: the pair gate delta(1) at q = 3
+====================================================================================================
+G0 diagonal, e^{2 pi i G0} = delta: True
+P = |psi><psi|, psi = (|00> + |01> + |10>)/sqrt3: P^2 = P True; G0 P = 0 True; P G0 = 0 True
+[W] e^{2 pi i P} = 1 + (e^{2 pi i} - 1) P = 1 and G0 P = P G0 = 0, so e^{2 pi i (G0 + P)} = delta: G = G0 + P is a generator of delta supported on its pair, a member of Gamma_all outside Gamma_spec
+P commutes with delta: True; P commutes with delta (x) 1 on three sites and with 1 (x) delta: True, False
+
+====================================================================================================
+Three-site chain 1-2-3, both pairs coupled by delta(1): K = G_12 + G_23, D = delta_12 delta_23
+====================================================================================================
+witness G = G0 + P:          [K, D] nonzero entries: 16; first-order term [K, X_1] commutes with X_3, Z_3: True; second-order term [K, [K, X_1]] fails to commute with X_3 or Z_3: True
+[K, D] at (|011>, |001>) = (2+1*z^1)/3; equals (1 - w^2)/3: True
+[W] K commutes with e^{2 pi i K}; [K, D] != 0, so e^{2 pi i K} is not proportional to D: the coupling layer does not implement delta_12 delta_23 for this generator choice
+[W] U(s)^+ X_1 U(s), U(s) = e^{2 pi i s K}, is analytic in s with s^2 coefficient proportional to [K, [K, X_1]]; that coefficient's commutator with X_3 or Z_3 is nonzero, so the strict one-edge cone fails for all small s != 0
+
+====================================================================================================
+Controls: diagonal generators
+====================================================================================================
+principal G0:                [K, D] nonzero entries: 0; first-order term [K, X_1] commutes with X_3, Z_3: True; second-order term [K, [K, X_1]] fails to commute with X_3 or Z_3: False
+diagonal non-spectral G0+E00: [K, D] nonzero entries: 0; first-order term [K, X_1] commutes with X_3, Z_3: True; second-order term [K, [K, X_1]] fails to commute with X_3 or Z_3: False
+
+====================================================================================================
+Two sites, R_self coupling [[1,1],[1,0]]: the site gate delta_1(1) and the pair gate delta_12(1)
+====================================================================================================
+site gate exponents [0, 1, 1]; Ps = |+><+| inside the eigenspace span{|1>,|2>}: Ps^2 = Ps True, [Gs0, Ps] = 0 True, so e^{2 pi i (Gs0 + Ps)} = delta_1(1) [W]
+non-spectral site generator: [K, D] nonzero entries 4; principal site generator: 0
+
+====================================================================================================
+Summary
+====================================================================================================
+witness reproduced exactly (entry (1 - w^2)/3, second-order distant commutator): True
+controls (principal and diagonal non-spectral generators commute with the layer): True
+two-site overlap witness under R_self at (3,2): True
+RESULT PASS
