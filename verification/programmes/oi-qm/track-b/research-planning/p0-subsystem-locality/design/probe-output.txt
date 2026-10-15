@@ -1,0 +1,54 @@
+== C-21
+U_P       adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O3(1,0) 1 Omega(t1) (1+0j) Psi(t1) (1+0j)
+U_Q       adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O3(1,0) 1 Omega(t1) (1+0j) Psi(t1) 1j
+U_F       adm True O1 cut-rank t0,t1 [256, 256] O2(1,0) 1 O3(1,0) 1 Omega(t1) (-0+1j) Psi(t1) (1+0j)
+U_PF      adm True O1 cut-rank t0,t1 [1, 256] O2(1,0) 9 O3(1,0) 256 Omega(t1) (-0+1j) Psi(t1) (1+0j)
+U_PQ      adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O3(1,0) 1 Omega(t1) (1+0j) Psi(t1) 1j
+Wd.U_P    adm True O1 cut-rank t0,t1 [4, 4] O2(1,0) 1 O3(1,0) 1 Omega(t1) (1+0j) Psi(t1) (1+0j)
+Wp.U_P    adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O3(1,0) 1 Omega(t1) (1+0j) Psi(t1) (1+0j)
+Wd.U_PQ   adm True O1 cut-rank t0,t1 [4, 4] O2(1,0) 1 O3(1,0) 4 Omega(t1) (1+0j) Psi(t1) 1j
+Wp.U_PQ   adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O3(1,0) 1 Omega(t1) (1+0j) Psi(t1) 1j
+O1 differ U_P/U_Q: True  U_P/Wp.U_P: True
+O2(1,0) differ U_P/U_PQ: True
+O3(1,0) differ U_PQ/Wp.U_PQ: True
+O2(1,0) Wd.U_PQ == U_PQ (threading absent on O2 at |A|=1): True
+== C-CT4
+U_1       adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+U_X       adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+W1.U_X    adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+We.U_X    adm True O1 cut-rank t0,t1 [4, 4] O2(1,0) 3 O2(0,1) 3 O3(1,0) 5 Gram=SH1-C2 form True
+U_cc      adm True O1 cut-rank t0,t1 [2, 2] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+U_lp      adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+U_WW      adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+U_WW.Ke   adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 3 O2(0,1) 3 O3(1,0) 5 Gram=SH1-C2 form True
+U_WW.X1   adm True O1 cut-rank t0,t1 [1, 1] O2(1,0) 1 O2(0,1) 1 O3(1,0) 1 Gram=SH1-C2 form True
+strong: Ke fixes anchored True  X1 fixes anchored True
+in G_L: We True  Lcc True  W1 True  Llp True
+O2(1,0) differ U_X/W1.U_X: True
+O1 differ U_1/U_lp: True
+O1 equal U_WW/U_WW.Ke at t1 (strong right): True
+O2(1,0) differ U_WW/U_WW.X1: True
+== NS
+U_P      NS-prep viol t0 0 t1 0  NS-int(1,0) max over V2 perms 0
+U_PQ     NS-prep viol t0 0 t1 0  NS-int(1,0) max over V2 perms 0
+U_F      NS-prep viol t0 0.5 t1 0.5  NS-int(1,0) max over V2 perms 3.28e-15
+U_PF     NS-prep viol t0 0 t1 0.5  NS-int(1,0) max over V2 perms 0.5
+U_X      NS-prep viol t0 0 t1 0  NS-int(1,0) max over V2 perms 0
+We.U_X   NS-prep viol t0 1 t1 1  NS-int(1,0) max over V2 perms 1
+U_cc     NS-prep viol t0 0 t1 0  NS-int(1,0) max over V2 perms 0
+U_WW.Ke  NS-prep viol t0 0 t1 0  NS-int(1,0) max over V2 perms 0
+== C-ent (CNOT law, A trivial): readback cut rank 2
+C-elim U_X O2(1,0)= [[1.0, 0.0], [0.0, 1.0]]
+C-elim W.U_X O2(1,0)= [[0.0, 0.0], [1.0, 1.0]]
+U_tau adm True O1 cut rank 81 Omega*256 (1+0j)
+ a28 condition entries G^(0,1)_(2,0),(2,1) vs G^(1,1)_(2,0),(2,1) (x16): (1+0j) 1j
+ NS-prep viol U_tau 0.5  Wd.U_P 0.08838834764831845
+Dn adm True O2(1,0) cut rank 2 O3(1,0) cut rank 4 O2 differs from U_PQ True same Gram class at t1 (D=anchored phases) True
+Dp adm True O2(1,0) cut rank 1 O3(1,0) cut rank 1 O2 differs from U_PQ True same Gram class at t1 (D=anchored phases) True
+C-cc unitary True Gamma=
+ [[0.36 0.   0.   0.64]
+ [0.   0.36 0.64 0.  ]
+ [0.   0.64 0.36 0.  ]
+ [0.64 0.   0.   0.36]] 
+ Gamma cut rank 2  NS-prep viol 0
+C-ent NS-prep viol 1.0

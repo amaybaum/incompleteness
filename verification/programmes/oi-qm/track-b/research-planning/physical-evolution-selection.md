@@ -36,11 +36,16 @@ No native round is designated or executed by opening this placeholder.
 Computational conclusions require green controls; universal claims need
 written arguments or kernel proofs at their stated evidence level.
 
+## Candidate under test
+
+- [Subsystem locality across an uncoupled cut](p0-subsystem-locality/RULES.md): rules fixed before
+  the exact runs. Research only; no carrier or principle is adopted.
+
 ## Related records and dependencies
 
 - [Current P0 roadmap](https://github.com/amaybaum/incompleteness/blob/dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4/verification/ROADMAP.md#the-queue)
 
-This PR adds only this planning note. Existing theorem and manuscript
+This PR adds this planning note and the research design it links. Existing theorem and manuscript
 classifications, ROADMAP rows, adopted modules, CI workflows and historical
 round records retain their current authority. Later work should be recorded
 forward, with its own scope and provenance.
