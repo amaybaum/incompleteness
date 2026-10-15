@@ -1,0 +1,39 @@
+PASS K-leap  three hand-computed steps and bijectivity on the frozen Conf sets
+PASS K-free  the isolated-site leap has order exactly 4 on every nonzero (p, c), q = 3, 5
+PASS K-prod  both product tests accept a product law and reject a correlated one
+PASS FAC  phi = phi1 x phi2 on U-free, U-edge and FAM; C-cut depends across the cut in both directions
+PASS K-cone-neg  site 0 reading site 3 breaks the cone check on C-chain
+     TC on C-chain: unchanged for t < 5 from every point mass: True; some intervention reaches c0 at t = 5: True
+     U-free(3): 32 ensembles (21 orbit laws, 16 with a non-product visible law or kernel), 81 point masses, 10 interventions
+     U-free(5): 208 ensembles (157 orbit laws, 144 with a non-product visible law or kernel), 625 point masses, 26 interventions
+     U-edge(3,1,1): 1500 ensembles (1137 orbit laws, 1020 with a non-product visible law or kernel), 6561 point masses, 10 interventions
+     U-edge(3,1,2): 1500 ensembles (1137 orbit laws, 1020 with a non-product visible law or kernel), 6561 point masses, 10 interventions
+     U-edge(3,2,1): 1500 ensembles (1137 orbit laws, 1020 with a non-product visible law or kernel), 6561 point masses, 10 interventions
+     U-edge(3,2,2): 1500 ensembles (1137 orbit laws, 1020 with a non-product visible law or kernel), 6561 point masses, 10 interventions
+PASS K-INS-neg  on C-cut a region-2 intervention changes region 1's visible value at t = 1
+PASS K-orbit  iteration and union-find agree on every joint orbit of FAM(3) and FAM(5)
+     W4 on FAM: q=3: 4909 joint orbits, 589 with a product law, 0 exceptions; q=5: 549317 joint orbits, 18101 with a product law, 0 exceptions
+     product-test disagreements between the two methods: 0
+PASS K-prod-agree  the entrywise and minor tests agree on every law tested
+     HI-rec: U-free(3): 9 records, 9 unconditioned laws not a product on Conf; U-free(5): 25 records, 25 unconditioned laws not a product on Conf; U-edge(3,1,1): 81 records, 81 unconditioned laws not a product on Conf; U-edge(3,1,2): 81 records, 81 unconditioned laws not a product on Conf; U-edge(3,2,1): 81 records, 81 unconditioned laws not a product on Conf; U-edge(3,2,2): 81 records, 81 unconditioned laws not a product on Conf
+     orbit laws non-product with INS: 4240 (first: [('U-free(3)', 'E-orb[4]'), ('U-free(3)', 'E-orb[5]'), ('U-free(3)', 'E-orb[6]')])
+     E-pri non-product kernel with INS: ['U-free(3)', 'U-free(5)', 'U-edge(3,1,1)', 'U-edge(3,1,2)', 'U-edge(3,2,1)', 'U-edge(3,2,2)']
+     selection-dependent correlated laws: 4092 (first: [('U-free(3)', 'E-orb[4]'), ('U-free(3)', 'E-orb[5]'), ('U-free(3)', 'E-orb[6]')]); default laws selection-dependent: False
+CELL TC         positive
+CELL FAC        positive
+CELL INS        positive
+CELL HI-default positive
+CELL HI-rec     positive
+CELL HI-orbit   positive
+CELL HI-prior   positive
+CELL SEL        positive
+TOKEN LS-TC
+TOKEN LS-FAC
+TOKEN LS-INS-ALL-PRIORS
+TOKEN LS-HI-DEFAULT
+TOKEN LS-HI-REC
+TOKEN LS-HI-ORBIT-FAILS
+TOKEN LS-HI-PRIOR-FAILS
+TOKEN LS-SEL-SPLIT
+VERDICT LS-SPLIT
+checks: 8, failures: 0
