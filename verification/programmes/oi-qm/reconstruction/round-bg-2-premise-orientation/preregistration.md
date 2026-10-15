@@ -1,15 +1,17 @@
-# Reconstruction round BG-2 — does the cited Bekir–Golomb premise hold as the kernel states it?: PREREGISTRATION (draft for owner review)
+# Reconstruction round BG-2 — does the cited Bekir–Golomb premise hold as the kernel states it?: PREREGISTRATION (candidate F for owner review)
 
-**Status: candidate control plane, native V3 draft for owner review. Not an F candidate.** Drafted on a pull request
-from `D`. It is built from BG-1's freeze (merge `d7d3094d835502f5e7248e406f5dc5952211480c`, #645; preregistration blob
-`9a74bcc7b9cacbd70d5e62d0182695ca2cefff85`, drafted at `b78eac87`; never executed), the landed modules cited below and
-the design package `verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/` (landed with
-#842), which compiles the proposed declarations in the research namespace `OIBridge.PremiseOrientationDesign`, outside
-the adopted library; the research branches hold no later BG work
-(`origin/research/equivalence:research/equivalence/LEDGER.md:75` is an inventory row). The design package is design
-evidence, not this round's execution: the module, probe and `controls.py` named below do not exist yet, and the
-statement surface below is proposed and is fixed only by design runs before `F`.
-Nothing is executed. Only the owner designates `F` under AGENTS §A.39; an instruction to proceed is not a designation.
+**Status: candidate control plane, native V3, presented for `F` designation review; `F` is not designated.**
+Drafted on a pull request from `D`. It is built from BG-1's freeze (merge `d7d3094d835502f5e7248e406f5dc5952211480c`,
+#645; preregistration blob `9a74bcc7b9cacbd70d5e62d0182695ca2cefff85`, drafted at `b78eac87`; never executed), the
+landed modules cited below and the design package
+`verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/` (landed with #842), which compiles the
+proposed declarations in the research namespace `OIBridge.PremiseOrientationDesign`, outside the adopted library; the
+research branches hold no later BG work (`origin/research/equivalence:research/equivalence/LEDGER.md:75` is an inventory
+row). The design package is design evidence, not this round's execution. The module, probe and `controls.py` named below
+were built from this control plane on a disposable branch as the predicted execution tree less the result note, and run
+at its exact head (*Design evidence* below); that run is evidence for the proposed execution tree, not a `check-run`
+attestation of `F` or `E`, and the three files' blobs are frozen there. Nothing is executed. Only the owner designates
+`F` under AGENTS §A.39; an instruction to proceed is not a designation.
 
 ```v3-round
 round BG-2
@@ -134,11 +136,12 @@ exhaustive `eS × eT` counts of signed and reversed solutions per variant; **O3*
 reproduces them. **O4** on a frozen box of the family the signed form holds at `(X,Y)`, `(Y,X)`, `(RX,RY)`, never at
 `(X,RY)`, `(RX,Y)`. **O5** among Golomb rulers of span ≤ 40: no nontrivial homometric pair at 3, 4, 5 or 7 marks;
 each nontrivial six-mark ordered pair attains exactly one form. **K1** `mu 0 2 ↔ mu 0 3` gives no solution at
-`(r1, r2)`; **K2** the checker rejects `(r1, 17 − r1 ∘ rev)`, `(r1, r1 + 3)`. Drafting values (to be re-measured):
-O2/O3 3/0 with zero or two reflections, 0/3 with one, as the design package's two exact checks also record; O4 146
-members (`p1 ≤ 7`, `p2 ≤ 29`); O5 248 pairs, 124 signed, 124 reversed, 0 neither. The design package's
-`quoted_family_check.py` checks the family's gap identities algebraically in both parameters rather than on a box;
-whether O4 takes that form is a design choice. Verdict `VERDICT PREMISE-ORIENTATION-EXACT`; shard `probes_bg2`.
+`(r1, r2)`; **K2** the checker rejects `(r1, 17 − r1 ∘ rev)`, `(r1, r1 + 3)`. Drafting values, re-measured
+unchanged at the design run: O2/O3 3/0 with zero or two reflections, 0/3 with one, as the design package's two exact
+checks also record; O4 146 members (`p1 ≤ 7`, `p2 ≤ 29`); O5 248 pairs, 124 signed, 124 reversed, 0 neither. O4
+takes the box form; the design package's `quoted_family_check.py`, which checks the family's gap identities
+algebraically in both parameters, stays design evidence. Verdict `VERDICT PREMISE-ORIENTATION-EXACT`; shard
+`probes_bg2`.
 
 ## The decision rules
 
@@ -200,28 +203,102 @@ cell are the owner's; the obligation stays open in every outcome.
 
 | invariant | checkpoint |
 | --- | --- |
-| execution begins from the frozen control plane; controls and probe are the frozen ones | `C1`: this file's blob at `F`; `C2`: blobs at stage 1 and at `E`, `controls.py --self-test` OK at `E` |
+| execution begins from the frozen control plane; controls, module and probe are the frozen ones | `C1`: this file's blob at `F`; `C2`: `git rev-parse <commit>:<path>` equal to the frozen blobs (*Design evidence*) for `controls.py` at stage 1 and for all three files at `E`, `controls.py --self-test` OK at `E` |
 | every frozen declaration elaborates within the three axioms, without `native_decide` | `C3`: the dispatch run at exactly `E`, every job `success`; the seven prints |
 | the refutation names the premise and its two lemmas | `C5`: S1 and S3 in `controls.py check E --freeze F` |
 | the exact layer tests the kernel's own objects, replays and renders | `C3`: shard `probes_bg2` green with O0 and the verdict line; the aggregate job green |
 | the module is registered, no manuscript changes, the change stays inside the governed paths, BG-1's record untouched | `C4`: the release gate at `E` passing every step; `C6`: `git diff --no-renames --name-status D E`; `C5` (G) |
 | the native receipts hold; the legacy records are untouched | `C7`: `v3_verifier --verify-round Q`; `legacy_records_check.py` at every stage commit and at `Q` |
 
-## Design work required before F
+## Design evidence
 
-1. Build the module on a disposable branch from `D`, porting the design package's declarations into the namespace
-   `OIBridge.PremiseOrientation`; record the run, the seven prints, the absence of `sorryAx` and `Lean.ofReduceBool`,
-   and the elaboration time of `not_muForm_r1_r2refl` under the design's route.
-2. Write the probe (O0's parsing; O4's box and O5's bound frozen; replay 3/3) and `controls.py` with a self-test
-   running every mutation; edit workflow, import line and census; dispatch the predicted tree less the result note.
-3. Owner decisions (2026-10-15), none governed here:
-   - the round keeps the label BG-2 and the record directory `round-bg-2-premise-orientation`;
-   - the module is `TurnpikePremiseOrientation.lean`, namespace `OIBridge.PremiseOrientation`;
-   - no corrected premise joins: BG-2 certifies the refutation and its controls only, and `SignedRepairDesign.lean`
-     stays design evidence;
-   - correcting the adopted `TurnpikeScopeTransfer.lean` is a separate governed follow-up;
-   - replacing the design-package citations at the ledger, ROADMAP, PROGRAMME and census sites with the adopted
-     module is a separate status update, made after native certification and adoption (§A.27).
+**The predicted tree and its run.** The module was ported from the design package into the namespace
+`OIBridge.PremiseOrientation`, and the probe and `controls.py` were written, on the disposable branch
+`tmp/bg2-predicted-20261015`, built from this control plane at `7586e61f32fd2fd4d43245a178eb1a7293820515`, whose
+preregistration differs from this one only where this one records the run: the status paragraph, the exact layer's
+values, the `C2` checkpoint, this section and the stage rule. Stage 1 is
+`41ef66c5aced7d9e123eeb878436e2dd1b80157b` (`controls.py`) and stage 2 is `7608a838923f55a7ad16689872cbec87c6f97abe`
+(module, probe, workflow shard, import line, census family). The workflow was dispatched on exactly that head:
+run 38733789118, `head_sha` `7608a838923f55a7ad16689872cbec87c6f97abe`, 37 jobs, every one `success`, the aggregate
+job included. The run is evidence for the proposed execution tree. It does not stand in for `F`'s or `E`'s exact-head
+`check-run` attestation, nor for any check this file assigns to `F`, `E` or `Q`.
+
+**Frozen execution blobs.** These blobs are the ones the run exercised, and `C2` checks them:
+
+| path | blob |
+| --- | --- |
+| `verification/programmes/oi-qm/reconstruction/round-bg-2-premise-orientation/controls.py` | `caf0dfe0b9a6ab0a40d8459882d9fb741c6f99c0` |
+| `verification/lean-mathlib/OIBridge/TurnpikePremiseOrientation.lean` | `9f7ef150219866065edb48a0587cbd7e782a899a` |
+| `verification/lean/bg2_orientation_probe.py` | `905ea4654a631b2df30259545284a178f9931390` |
+
+A different blob at stage 1 or at `E` is a deviation from the frozen design, not a proof repair: it is recorded in the
+result note and the round halts. The tested edits to the other execution paths, for reference (not frozen; `G`, the
+release gate and the exact-head run at `E` check them): `.github/workflows/verify.yml` `ea68461d` (at `D` `159936eb`),
+`verification/lean-mathlib/OIBridge.lean` `cc5fbefc` (at `D` `9c84d95e`), `verification/lean-manuscript-census.json`
+`907d188a` (at `D` `c8e0e184`).
+
+**Kernel (job "Mathlib bridge", 116417835223).** The build reports `Built OIBridge.TurnpikePremiseOrientation (5.5s)` and these
+axiom reports:
+
+| declaration | axioms |
+| --- | --- |
+| `hyps_r1_r2refl` | `propext, Classical.choice, Quot.sound` |
+| `source_difference_cases` | `propext, Classical.choice, Quot.sound` |
+| `reflected_difference_obstruction` | `propext` |
+| `not_muForm_r1_r2refl` | `propext, Classical.choice, Quot.sound` |
+| `not_BGIntegerClassification` | `propext, Classical.choice, Quot.sound` |
+| `muForm_r1_r2` | `propext, Quot.sound` |
+| `revMuForm_r1_r2refl` | `propext, Classical.choice, Quot.sound` |
+
+No report names `sorryAx` or `Lean.ofReduceBool`, and every one lies within the three axioms. The eight declarations
+elaborate under the design's route (`decide +kernel` for the two finite reductions). The 5.5 s is lake's build time for
+the whole module. It is not the elaboration time of any one declaration: `not_muForm_r1_r2refl`'s own time is bounded
+above by it and is not measured separately, since measuring it would add a profiler option to the frozen preamble. The
+same job's release gate passed every step, among them `lean-axioms` (5988 named results reported, no `sorry`),
+`lean-manuscript`, `legacy-records` (303 records in 75 closed namespaces, intact), `v3-corpus` (140 vectors) and
+`v3-receipts` (46 receipts, all hold).
+
+**Exact layer (shard `probes_bg2`, job 116417836267).** The probe printed `PASS` for O0–O5, K1 and K2, `checks: 8, failures: 0` and
+`VERDICT PREMISE-ORIENTATION-EXACT`, with the drafting values:
+- O2 and O3 give 3/0 at `---`, `-RR`, `S--` and `SRR`, and 0/3 at the four variants with one reflection;
+- O4 has 146 eligible members, signed at `(X,Y)`, `(Y,X)` and `(RX,RY)`, never at `(X,RY)` or `(RX,Y)`;
+- O5 at span ≤ 40 finds 760, 8406, 51394 and 75352 rulers at 3, 4, 5 and 7 marks, with no nontrivial pair;
+- at six marks O5 finds 132914 rulers and 248 ordered pairs: 124 signed, 124 reversed, 0 neither, 0 both.
+
+The same shard ran `controls.py --self-test`, which was OK: every frozen mutation was rejected. Three local replays of
+the probe were byte-identical.
+
+**The O4 population.** The first local version of the probe kept only members whose marks start at 0, and counted 125.
+The premise quantifies over every strictly increasing integer ruler and is invariant under translation, but the
+quoted family's coefficient rows include `(−2,1)`, `(−2,2)` and `(−1,3)`, so 21 of the 146 box members have a negative
+mark in `X` (4 of them also in `Y`). The filter therefore dropped eligible members that the premise covers, and it was
+removed before the stage-2 commit. The box, the eligibility test and the O4 rule are as frozen, and the frozen probe
+counts 146, the drafting value.
+
+**The verdict over the run.** `controls.py verdict 7608a838923f55a7ad16689872cbec87c6f97abe --freeze
+7586e61f32fd2fd4d43245a178eb1a7293820515 --axioms <the bridge job's log>`, run locally on that log, gave:
+- `PASS` for C1, S1, S2, S3, S4 (module header only) and G (7 paths, BG-1's directory and the legacy manifest
+  untouched);
+- the tokens `BG-2-PREMISE-REFUTED`, `BG-2-CONTROLS-PROVED` and `BG-2-ORIENTATION-EXACT`;
+- the earned reading, word for word.
+
+**Checks the design run does not cover.** They stay assigned to the round:
+- S4 on the result note, which is absent from the predicted tree;
+- `C1`–`C6` at `E`, `controls.py check E --freeze F` and `verdict E` over `E`'s own bridge log;
+- `F`'s and `E`'s exact-head `check-run` attestations;
+- `C7`: `v3_verifier --verify-round Q` at the receipt commit, and `legacy_records_check.py` at every stage commit and
+  at `Q`.
+
+## Owner decisions
+
+Owner decisions (2026-10-15), none governed here:
+- the round keeps the label BG-2 and the record directory `round-bg-2-premise-orientation`;
+- the module is `TurnpikePremiseOrientation.lean`, namespace `OIBridge.PremiseOrientation`;
+- no corrected premise joins: BG-2 certifies the refutation and its controls only, and `SignedRepairDesign.lean`
+  stays design evidence;
+- correcting the adopted `TurnpikeScopeTransfer.lean` is a separate governed follow-up;
+- replacing the design-package citations at the ledger, ROADMAP, PROGRAMME and census sites with the adopted
+  module is a separate status update, made after native certification and adoption (§A.27).
 
 **Owner decision on scope.** BG-2 certifies the refutation and its controls and nothing more. Correcting
 `TurnpikeScopeTransfer.lean` — whose docstring (:535–541) calls the premise "the ONLY unproved input" — and moving into it
@@ -231,7 +308,8 @@ changes in BG-2 under any outcome, and the identical-blob row above stands.
 
 ## Stages and outcomes
 
-Stage 1 commits `controls.py`; stage 2 the module, probe, workflow edit, import line and family (proof repairs only);
-stage 3 the result note, candidate `E`. **`BG-2-READ`**: `controls.py check E --freeze F` OK, three tokens printed, the
-exact-head run at `E` green on every job. **`BG-2-HALTED`**: anything else (`S12`). No outcome edits BG-1's record, a
+Stage 1 commits `controls.py` at its frozen blob; stage 2 the module and probe at their frozen blobs, the workflow edit,
+import line and family; stage 3 the result note, candidate `E`. **`BG-2-READ`**: `controls.py check E --freeze F` OK,
+three tokens printed, the three frozen blobs at `E` (`C2`), the exact-head run at `E` green on every job.
+**`BG-2-HALTED`**: anything else (`S12`). No outcome edits BG-1's record, a
 manuscript, the ROADMAP or a landed module; correctness bands unchanged (consistency axis).
