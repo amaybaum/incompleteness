@@ -165,7 +165,7 @@ The weak neutral current (Z boson exchange between electrons and nuclei) produce
 
 $$\Delta E_{\text{PV}} \sim G_F \alpha Z^5 m_e c^2 \left(\frac{a_0}{R}\right)^3$$
 
-where $G_F$ is the Fermi constant, $Z$ the nuclear charge, and $R$ the bond length. For amino acids: $\Delta E_{\text{PV}} \sim 10^{-14}$ eV $\sim 10^{-17} \, kT$ at 300 K [11]. The sign is universal — it favors L-amino acids — and is fixed by the observed left-handedness of the weak coupling: given SU(2)$_L$, L-amino acids are lower in energy. In the framework that left-handedness is carried as the open hypothesis H-χ' [2, §4.8], so the sign is inherited from the observed electroweak sector rather than derived from the partition.
+where $G_F$ is the Fermi constant, $Z$ the nuclear charge, and $R$ the bond length. For amino acids: $\Delta E_{\text{PV}} \sim 10^{-19}$ eV $\sim 10^{-17} \, kT$ at 300 K [11]. The sign is universal — it favors L-amino acids — and is fixed by the observed left-handedness of the weak coupling: given SU(2)$_L$, L-amino acids are lower in energy. In the framework that left-handedness is carried as the open hypothesis H-χ' [2, §4.8], so the sign is inherited from the observed electroweak sector rather than derived from the partition.
 
 ### 4.3 The amplification argument
 
