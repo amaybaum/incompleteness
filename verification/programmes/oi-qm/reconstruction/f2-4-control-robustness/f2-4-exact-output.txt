@@ -1,0 +1,124 @@
+
+====================================================================================================
+F2-4 exact runs (RULES.md)
+====================================================================================================
+sha256 e1_exact.py   e7d257bb09f5b75d4628cd0ebd85a0b189d377b3bdf91a48fd1196705a31e7a6
+sha256 f2_2_exact.py 246adb2bc6590a3d84234f6937409f2042bba796d646eae633f6383a62a90e57
+
+====================================================================================================
+Implementation self-tests (exact)
+====================================================================================================
+Kronecker product = schoolbook product, a * a^-1 = 1, conj o conj = id: True
+certified signs: sqrt3 - 1.7320 -> 1, sqrt3 - 1.7321 -> -1
+Gauss sums G^2 = (-1/q) q at q = 3, 5: True
+CONTROL K0 module hashes and F2-1 self-tests                               PASS
+
+====================================================================================================
+AD-X  all-duration algebra: modular lower bound on the dimension modulo the identity
+====================================================================================================
+(q,N)=(3,2): p = 33554137 (p = 1 mod 24), zeta_24 -> 18821429; full = 80
+  R_cf M0 principal   dimension >= 80
+  R_cf M1 bilinear    dimension >= 80
+  R_cf M2 lifted      dimension >= 80
+TOKEN   F24-AD-FULL(3,2)               yes
+  K-AD-mut: translations removed >= 22; local pair generators >= 16
+CONTROL K-AD-mut both mutations below full at (3,2)                        PASS
+  R_self principal >= 80 (positive control); R_self without translations >= 40
+CONTROL K-frozen (3,2): principal 80 (R_cf, R_self); without translations 22 (R_cf), 40 (R_self) PASS
+  K-indep (ii) exact dimensions: {'M1': 80, 'M2': 80, 'noX': 22, 'local': 16}
+CONTROL K-indep (ii) modular dimension equals the exact one at (3,2)       PASS
+(q,N)=(3,3): p = 33554137 (p = 1 mod 24), zeta_24 -> 18821429; full = 728
+  R_cf M0 principal   dimension >= 728
+  R_cf M1 bilinear    dimension >= 728
+  R_cf M2 lifted      dimension >= 728
+TOKEN   F24-AD-FULL(3,3)               yes
+  K-AD-mut: translations removed >= 363; local pair generators >= 24
+CONTROL K-AD-mut both mutations below full at (3,3)                        PASS
+(q,N)=(5,2): p = 33554201 (p = 1 mod 40), zeta_40 -> 25144379; full = 624
+  R_cf M0 principal   dimension >= 624
+  R_cf M1 bilinear    dimension >= 624
+  R_cf M2 lifted      dimension >= 624
+TOKEN   F24-AD-FULL(5,2)               yes
+
+====================================================================================================
+OD-1  one site: D1 under R_cf (orbits + free half-layer), D2 certificates, D1 under R_self
+====================================================================================================
+q=3: free patterns 4; R_cf orbits 2 (sizes [4]); R_self orbits 1
+  D1 (R_cf) per pattern: [True, True, True, True]; first certified word per pattern: ['X', 'X', 'X', 'X']
+CONTROL K-indep (v) q=3: R_h | R_h-dagger equals F2-2's adjoint_relation, every pattern PASS
+CONTROL K-D1neg q=3: no half-layer gives 2 = (q^2-1)/4 blocks; u gives the same PASS
+CONTROL K-D2neg q=3: no certificate on X, u, uX                            PASS
+CONTROL K-frozen q=3: 4 free patterns, first certified word X for each     PASS
+TOKEN   F24-OD1(3)                     D1(R_cf) ALL; D2 ALL; D1(R_self) yes
+q=5: free patterns 8; R_cf orbits 6 (sizes [4]); R_self orbits 1
+  D1 (R_cf) per pattern: [True, True, True, True, True, True, True, True]; first certified word per pattern: ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+CONTROL K-indep (v) q=5: R_h | R_h-dagger equals F2-2's adjoint_relation, every pattern PASS
+CONTROL K-D1neg q=5: no half-layer gives 6 = (q^2-1)/4 blocks; u gives the same PASS
+CONTROL K-D2neg q=5: no certificate on X, u, uX                            PASS
+CONTROL K-frozen q=5: 8 free patterns, first certified word X for each     PASS
+TOKEN   F24-OD1(5)                     D1(R_cf) ALL; D2 ALL; D1(R_self) yes
+q=7: free patterns 8; R_cf orbits 12 (sizes [4]); R_self orbits 1
+  D1 (R_cf) per pattern: [True, True, True, True, True, True, True, True]; first certified word per pattern: ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+CONTROL K-D1neg q=7: no half-layer gives 12 = (q^2-1)/4 blocks; u gives the same PASS
+CONTROL K-D2neg q=7: no certificate on X, u, uX                            PASS
+CONTROL K-frozen q=7: 8 free patterns, first certified word X for each     PASS
+TOKEN   F24-OD1(7)                     D1(R_cf) ALL; D2 ALL; D1(R_self) yes
+q=11: free patterns 8; R_cf orbits 30 (sizes [4]); R_self orbits 1
+  D1 (R_cf) per pattern: [True, True, True, True, True, True, True, True]; first certified word per pattern: ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+CONTROL K-D1neg q=11: no half-layer gives 30 = (q^2-1)/4 blocks; u gives the same PASS
+CONTROL K-D2neg q=11: no certificate on X, u, uX                           PASS
+TOKEN   F24-OD1(11)                    D1(R_cf) ALL; D2 ALL; D1(R_self) yes
+q=13: free patterns 8; R_cf orbits 42 (sizes [4]); R_self orbits 1
+  D1 (R_cf) per pattern: [True, True, True, True, True, True, True, True]; first certified word per pattern: ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
+CONTROL K-D1neg q=13: no half-layer gives 42 = (q^2-1)/4 blocks; u gives the same PASS
+CONTROL K-D2neg q=13: no certificate on X, u, uX                           PASS
+TOKEN   F24-OD1(13)                    D1(R_cf) ALL; D2 ALL; D1(R_self) yes
+
+====================================================================================================
+OD-2  two sites, R_cf, coupling-free: orbits + free half-layer h (x) h
+====================================================================================================
+q=3: R_cf orbits at N=2: 4 (sizes [8, 8, 16, 48]); one component per pattern: [True, True, True, True]; full link set used for 0
+CONTROL K-D1neg q=3 N=2: no half-layer gives 4 blocks (> 1); u (x) u gives the same PASS
+CONTROL K-frozen (3,2): R_cf orbit sizes 8, 8, 16, 48                      PASS
+CONTROL K-indep (i) product link set = exact relation of h (x) h at (3,2), every pattern PASS
+CONTROL K-indep (iii) the sound subset lies in the exact relation at (3,2) PASS
+TOKEN   F24-OD2(3)                     ALL
+q=5: R_cf orbits at N=2: 6 (sizes [24, 24, 48, 48, 240, 240]); one component per pattern: [True, True, True, True, True, True, True, True]; full link set used for 0
+CONTROL K-D1neg q=5 N=2: no half-layer gives 6 blocks (> 1); u (x) u gives the same PASS
+TOKEN   F24-OD2(5)                     ALL
+q=7: R_cf orbits at N=2: 8 (sizes [48, 48, 96, 96, 96, 672, 672, 672]); one component per pattern: [True, True, True, True, True, True, True, True]; full link set used for 0
+CONTROL K-D1neg q=7 N=2: no half-layer gives 8 blocks (> 1); u (x) u gives the same PASS
+TOKEN   F24-OD2(7)                     ALL
+q=11: R_cf orbits at N=2: 12 (sizes [120, 120, 240, 240, 240, 240, 240, 2640, 2640, 2640, 2640, 2640]); one component per pattern: [True, True, True, True, True, True, True, True]; full link set used for 0
+CONTROL K-D1neg q=11 N=2: no half-layer gives 12 blocks (> 1); u (x) u gives the same PASS
+TOKEN   F24-OD2(11)                    ALL
+q=13: R_cf orbits at N=2: 14 (sizes [168, 168, 336, 336, 336, 336, 336, 336, 4368, 4368, 4368, 4368, 4368, 4368]); one component per pattern: [True, True, True, True, True, True, True, True]; full link set used for 0
+CONTROL K-D1neg q=13 N=2: no half-layer gives 14 blocks (> 1); u (x) u gives the same PASS
+TOKEN   F24-OD2(13)                    ALL
+
+====================================================================================================
+OD-3  RED corroborated: every R_cf orbit contains a one-site vector
+====================================================================================================
+CONTROL K-indep (iv) (3,3): orbits of the reduced generators equal those of every R_cf leap PASS
+(q,N)=(3,3): orbits 1, sizes [728]; every orbit has a one-site vector: True
+(q,N)=(5,3): orbits 1, sizes [15624]; every orbit has a one-site vector: True
+(q,N)=(7,3): orbits 1, sizes [117648]; every orbit has a one-site vector: True
+(q,N)=(3,4): orbits 1, sizes [6560]; every orbit has a one-site vector: True
+TOKEN   F24-OD3                        yes
+
+====================================================================================================
+Conclusions and verdict
+====================================================================================================
+TOKEN   F24-CF-DENSE-ALL-N(3)          yes [CHAIN W]
+TOKEN   F24-SELF-DENSE-ALL-N(3)        yes [SP, PROD W]
+TOKEN   F24-CF-DENSE-ALL-N(5)          yes [CHAIN W]
+TOKEN   F24-SELF-DENSE-ALL-N(5)        yes [SP, PROD W]
+TOKEN   F24-CF-DENSE-ALL-N(7)          yes [CHAIN W]
+TOKEN   F24-SELF-DENSE-ALL-N(7)        yes [SP, PROD W]
+TOKEN   F24-CF-DENSE-ALL-N(11)         yes [CHAIN W]
+TOKEN   F24-SELF-DENSE-ALL-N(11)       yes [SP, PROD W]
+TOKEN   F24-CF-DENSE-ALL-N(13)         yes [CHAIN W]
+TOKEN   F24-SELF-DENSE-ALL-N(13)       yes [SP, PROD W]
+TOKEN   F24-AD-GENERAL                 [W] AD; corroborated exactly at (3,2), (3,3), (5,2): yes
+VERDICT F24-ROBUST-GENERAL
+classification: coupling generators universal (MONO); Gamma_spec(u) universal at the q listed; Gamma_all(u) minus Gamma_spec(u) not decided
