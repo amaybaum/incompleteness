@@ -27,7 +27,7 @@ execution M verification/lean-manuscript-census.json
 execution M .github/workflows/verify.yml
 ```
 
-D: bb49766edbaa3b82e27c8255e8c8ba60e311c5be. Delta(D, F) is this preregistration and any amendments in the round's
+D: 3519213a47c2c63f7ece3f55a81acffc2a96a3af. Delta(D, F) is this preregistration and any amendments in the round's
 `amendments/` directory; **no manuscript, built artifact, `verification/ROADMAP.md`, landed kernel module or other
 round's record changes under any outcome.** BG-1's directory is not a governed path and stays as it stands; nor is
 the design package, which stays as it stands.
@@ -42,15 +42,15 @@ asked for a kernel proof of `BGIntegerClassification` (TurnpikeScopeTransfer.lea
 `spectral_classification_of_BG` (:563, applied :701) and `twoBranch_of_BGClassification` (:826, applied :844).
 Nothing landed answers it: none of `BGClassificationAt`, `BGResidual`, `TurnpikeClassification`, `R7-BGC` occurs at
 `D` outside BG-1's directory, nor any BG receipt or seal; the design package proves `¬ BGIntegerClassification`
-outside the adopted library, and `OIBridge.lean` imports nothing from it. ROADMAP.md:71: `| **P2** | Sign-aware integer
+outside the adopted library, and `OIBridge.lean` imports nothing from it. ROADMAP.md:72: `| **P2** | Sign-aware integer
 classification | Reconstruction | **OPEN** | repair the premise and justify the classification |`. Moved since BG-1's
 base:
 
 | object | at `b78eac87` | at `D` |
 | --- | --- | --- |
 | TurnpikeScopeTransfer, CongruentReconstruction, HomometricSix, HomometricKill, PiccardBridge, FrequencyMatching, EdgeRigidity, BohrFrequency | blobs BG-1 pins | identical |
-| `gap_correspondence_probe.py` / `PROGRAMME.md` | `7a951f22` / `56b39944` (BG-1's pins) | `a46ff78d` / `2b1ea7ed`; the scope block (:953–956) states the unsigned premise refuted and reconstruction conditional on H-BG, and :597 states it refuted and the publication-facing reconstruction conditional on the sign-aware classification |
-| `papers/GR.md` / `LEDGER.json` / `ROADMAP.md` | `0258ccb7` / `7fd6a369` / P2 row :68, section :774–781 | `b7d6257b` / `82744f50` / :71, :1116–1120; the two-branch theorem (GR.md:176) assumes H-BG and GR.md:180 states the unsigned premise refuted; the entry `GR:T-d-gauge-completeness-two-branch` (:2602, backlog :3110) and the P2 row and section record the premise refuted and its replacement open |
+| `gap_correspondence_probe.py` / `PROGRAMME.md` | `7a951f22` / `56b39944` (BG-1's pins) | `a46ff78d` / `6590e274`; the scope block (:953–956) states the unsigned premise refuted and reconstruction conditional on H-BG, and :605 states it refuted and the publication-facing reconstruction conditional on the sign-aware classification |
+| `papers/GR.md` / `LEDGER.json` / `ROADMAP.md` | `0258ccb7` / `7fd6a369` / P2 row :68, section :774–781 | `ebbfa786` / `ff2ca408` / :72, :1139–1145; the two-branch theorem (GR.md:178) assumes H-BG and GR.md:182 states the unsigned premise refuted; the entry `GR:T-d-gauge-completeness-two-branch` (:2602, backlog :3110) and the P2 row and section record the premise refuted and its replacement open, and the section (:1143) records BG-2's scope and the condition that retires the design package |
 | `verification/lean/edge_rigidity_probe.py` | `6e334e83`, scope block :20037–20043 | `36dfadab`, block at :14676–14680, stating the unsigned premise refuted; the guard's ancestry and seal clauses, which BG-1's `R7-BGC` clause and `_BGC_*` constants would have joined, are retired (AGENTS.md:722–724) |
 | `AGENTS.md` / `OIBridge.lean` | sealing-round text BG-1 quotes / `0bff51eb` | §A.37 a record (:665), §A.39 native rounds (:731) / `9c84d95e`, last import `EqvK2MaxCone` (:268) |
 | design package `bekir-golomb-orientation-design/` | absent | `OrientationDesign.lean`, `SignedRepairDesign.lean`, three exact checks with committed outputs, `SHA256SUMS`; workflow `bg2-orientation-design.yml` |
@@ -164,19 +164,22 @@ No rule reads another cell's outcome. `BG-2-READ` when the three cells are assig
 > Non-inference rule: this round does not show that the 2007 classification, its exceptional family or the two-branch
 > theorem of GR is false, nor that a reversed exceptional correspondence is realizable by unitary eigenbases; it
 > refutes one formal statement at one instance and formalizes no classification, slice or corrected premise. The
-> sites its outcome bears on — GR.md:176 and :180, LEDGER.json:2602 and :3110, ROADMAP.md:71 and :1118,
-> PROGRAMME.md:597, the census family "Hamiltonian reconstruction" (lean-manuscript-census.json:144) and the scope blocks
+> sites its outcome bears on — GR.md:178 and :182, LEDGER.json:2602 and :3110, ROADMAP.md:72 and :1141,
+> PROGRAMME.md:605, the census family "Hamiltonian reconstruction" (lean-manuscript-census.json:144) and the scope blocks
 > at edge_rigidity_probe.py:14676–14680, bohr_frequency_probe.py:10082–10085 and gap_correspondence_probe.py:953–956 —
-> already state at `D` the unsigned premise refuted, on the design package, and reconstruction conditional on H-BG;
-> none of them changes here. The probe is not a kernel proof.
+> already state at `D` the unsigned premise refuted and reconstruction conditional on H-BG, the ledger, ROADMAP,
+> PROGRAMME and census sites citing the design package landed with #842; none of them changes here. The probe is
+> not a kernel proof.
 
 **Premises this round does not source:** the 2007 classification and its scope; the correct form of the exceptional
 clause; the exclusion of the reversed correspondence; the integer-to-real passage for any corrected premise.
 
 ## The ROADMAP wording the round would license
 
-Not applied by the round. At `D`, ROADMAP :1118 already records the refutation on the strength of #842's design
-package. Under `BG-2-READ` with Q-REF positive, that citation may become the adopted
+Not applied by the round. At `D`, ROADMAP :1141 already records the refutation on the strength of the design package
+landed with #842 and names BG-2 as its native certification; :1143 retires the package only once an adopted
+replacement covers both the refutation and its signed-repair results, so certifying the refutation alone does not
+retire it. Under `BG-2-READ` with Q-REF positive, that citation may become the adopted
 `OIBridge.PremiseOrientation.not_BGIntegerClassification` in `TurnpikePremiseOrientation.lean`. Label and "Unlocks"
 cell are the owner's; the obligation stays open in every outcome.
 
@@ -212,14 +215,15 @@ cell are the owner's; the obligation stays open in every outcome.
 2. Write the probe (O0's parsing; O4's box and O5's bound frozen; replay 3/3) and `controls.py` with a self-test
    running every mutation; edit workflow, import line and census; dispatch the predicted tree less the result note.
 3. Owner choices: slug and module name; whether a corrected premise joins (excluded here; `SignedRepairDesign.lean`
-   is a candidate); which change replaces the design-package citations at the sites the non-inference rule lists with
-   the adopted module (§A.27: same session once accepted) — none governed here.
+   is a candidate); which change replaces the design-package citations at the sites the non-inference rule lists (the
+   ledger, ROADMAP, PROGRAMME and census sites) with the adopted module (§A.27: same session once accepted) — none
+   governed here.
 
 **Owner decision on scope.** BG-2 certifies the refutation and its controls and nothing more. Correcting
 `TurnpikeScopeTransfer.lean` — whose docstring (:535–541) calls the premise "the ONLY unproved input" — and moving into it
 the reduction that `SignedRepairDesign.lean` factors as `real_to_integer_surrogate` belong to a separate round, whose
-governed paths include that module (#844 tracks both under ROADMAP P2). No landed module changes in BG-2 under any
-outcome, and the identical-blob row above stands.
+governed paths include that module (ROADMAP.md:1143, landed with #844, tracks both under P2). No landed module
+changes in BG-2 under any outcome, and the identical-blob row above stands.
 
 ## Stages and outcomes
 
