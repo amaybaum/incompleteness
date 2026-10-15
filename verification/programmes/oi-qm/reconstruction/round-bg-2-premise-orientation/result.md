@@ -10,13 +10,16 @@ Run under `AGENTS.md` §A.39 as a native round, in one pull request, #826.
   - Its exact-head `workflow_dispatch` run is 38740709601, attempt 1. It concluded `success` with all 36 jobs
     succeeded, and it is `F`'s `check-run` attestation. It attests the control plane only.
   - The owner designated `F` on 2026-10-15, with the three execution blobs frozen and execution authorized through
-    this stage. The designation was first given in session. Its host record, comment 6198856734, came after stages 1
-    and 2, and it accepts them as a recorded exception (see *Execution chronology*).
+    this stage. The designation was first given in session. Its host records came after stages 1 and 2:
+    - comment 6198856734 states the designation and accepts the two stages as a recorded exception;
+    - comment 6199095822 records the owner's personal confirmation of both.
+
+    See *Execution chronology*.
 - **Shape**: non-sealing, in three stages.
   - Stage 1, `0f37e5473b07a82a0ae306320b8d22722a267d95`: `controls.py`, blob `caf0dfe0`.
   - Stage 2, `cbe4f0bfa80a9c1914090f0330843ba18e6f47bc`: the module (blob `9f7ef150`), the probe (blob `905ea465`), the
     workflow shard, the import line and the census family.
-  - Stage 3: this note.
+  - Stage 3: this note, which supersedes the stage-3 note at `95e3246ac37b0df401f63eab02162c910979ef03`.
 
 **Cells:** `BG-2-PREMISE-REFUTED`, `BG-2-CONTROLS-PROVED`, `BG-2-ORIENTATION-EXACT`.
 
@@ -132,19 +135,27 @@ The non-inference rule, as frozen:
 - **14:30:17 and 14:30:35 UTC.** Stages 1 and 2 were committed.
 - **About 14:31 UTC.** Stages 1 and 2 were pushed to `draft/bg-2`.
 - **14:32:21 UTC.** The stage-2 exact-head run was dispatched.
-- **18:03:44 UTC.** The owner's designation of `F` was recorded on #826, in comment 6198856734.
+- **18:03:44 UTC.** The designation of `F` and the exception were posted on #826, in comment 6198856734.
+- **About 18:04 UTC.** The first stage-3 commit, `95e3246a`, was pushed as candidate `E`, and its exact-head run
+  38782670851 was dispatched.
+- **About 18:14 UTC.** The owner personally confirmed the designation and the exception, in comment 6199095822.
+- **After that.** This note superseded the one at `95e3246a`, whose provenance sentence overstated the authorship of
+  comment 6198856734.
 
 §A.39 and the specification's `S2` require the owner's designation of `F` before execution begins. Stages 1 and 2
 preceded any host record of that designation. Stage 1's commit message says it was made "under the owner's F
 designation". That refers to the in-session designation; no host record existed then. No commit has been rewritten.
 
 **The recorded exception.**
-- The owner's designation of `F` was recorded on #826 in comment 6198856734, at 18:03:44 UTC. That is after stages 1
-  and 2 were executed.
-- The text of that comment is the owner's. As the comment states, the executor posted it verbatim at the owner's
-  explicit request.
-- In that comment the owner accepted the two stages as a recorded exception to §A.39's requirement that designation
-  precede execution.
+- **The designation and the exception.** Comment 6198856734 states both. It was posted at 18:03:44 UTC, after stages
+  1 and 2 were executed.
+- **Who wrote what.** A reviewer whose analysis the owner relayed into the session drafted the comment's text. The
+  executor posted it verbatim at the owner's request. Comment 6199081087 corrects the comment's own provenance line on
+  this point.
+- **The owner's confirmation.** The owner personally confirmed the designation and the exception at about 18:14 UTC.
+  The executor recorded the confirmation at the owner's request, in comment 6199095822, quoting the owner's words.
+- **What the exception accepts.** Stages 1 and 2 are retained as a recorded exception to §A.39's requirement that
+  designation precede execution.
 - The exception does not change the chronology above, and it does not establish that the requirement was satisfied.
 - The V3 verifier reads no attestation (`G8`, `S5`). So a later `VERDICT HOLDS` on this round's receipt carries no
   evidence about the order of the designation and the execution.
@@ -159,7 +170,10 @@ designation". That refers to the in-session designation; no host record existed 
   stage 1. The preregistration requires it at `E` (`C2`). At stage 2 it is OK locally.
 - **Legacy records.** `tools/legacy_records_check.py` reports 303 records in 75 closed namespaces, intact, at stage 1
   and at stage 2.
-- **Deviations.** None from the frozen design. No proof repair was made.
+- **Execution status.**
+  - *Mathematical execution:* no deviation from the frozen proof, probe or control design, and no proof repair.
+  - *Governance execution:* a recorded exception to the designation-before-execution chronology, expressly
+    acknowledged by the owner (*Execution chronology*). It is not strict compliance with §A.39.
 
 **Scope.** BG-2 certifies the refutation of the premise as the kernel states it, and its controls. It changes no
 landed module, manuscript, ROADMAP or BG-1 record. Three pieces of work are separate and governed on their own:
