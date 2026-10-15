@@ -37,6 +37,8 @@ The programme therefore has two acceptable scientific endpoints:
 
 A negative result at an intermediate bridge is not a failure of the programme if it sharpens this classification.
 
+**The active endpoint is F2.** For the presently stated architecture the equivalence endpoint F1 is retired under the retirement rule of §5 (Arc F). The frozen-sourcing audit proves that every operation the present observer interface sources preserves nonnegative entries (`NonnegBounded`), a property that the quantum phases and dense unitary control each violate, and that the microscopic update rule contributes no availability beyond the configuration-level observer theory. The active objective is a small, physically meaningful extension of OI, stated as explicitly named physical principles, proved sufficient for finite operational quantum mechanics, with the necessity of each added principle assessed separately. Minimality and necessity are targets of that assessment, not established properties. Whether an extended architecture sources the nonclassical resource is open: it requires its own sourcing argument, and assuming the resource as a premise states it without sourcing it.
+
 ---
 
 ## 2. Three notions that must not be conflated
@@ -77,9 +79,9 @@ The strongest carrier-general forms reduce the operational package to implementa
 
 The substratum-source audits show that the current concrete OI substratum supplies the structural closure properties needed by the finite operational theory, but its directly sourced observable operators are monomial/permutation-like. Bijective dynamics and the existing read-write couplings do not by themselves source a continuously tunable off-diagonal generator.
 
-Thus the current substratum plus continuous off-diagonal controllability yields finite operational QM, but that controllability resource is not presently derived from the current OI axioms.
+Thus the current substratum plus continuous off-diagonal controllability yields finite operational QM, and the present architecture does not source that controllability resource. The frozen-sourcing audit proves that every operation the present interface sources preserves nonnegative entries, a property that continuous off-diagonal control and the quantum phases each violate, from separate witnesses, and that the microscopic update rule adds no availability beyond the configuration-level observer theory (`frozen_sourcing_verdict`, `nonnegBounded_verdict`, `sourcing_rule_independent`).
 
-**Interpretation:** this is a sourcing boundary, not a representation theorem and not a proof that OI forbids the missing control resource.
+**Interpretation:** this is a sourcing no-go for the presently stated architecture. It is not a representation theorem, and it does not show that an extended architecture cannot source the resource.
 
 Historical statements that the “OI → QM derivation programme is closed” refer to this completed Level-I substratum/control sourcing branch. They do **not** mean that the larger equivalence/classification programme described in this file is finished.
 
@@ -390,6 +392,8 @@ Behind it stand the question `BD3` leaves open — what `PIndivisibleWithin` add
 
 Arc E — composites, locality, entanglement and Bell structure — remains the required continuation of Track I wherever the final claim uses subsystem composition, local operations, incompatible measurements, or quantum correlation structure.
 
+The endpoint itself is decided: F1 is retired for the presently stated architecture and F2 is active (§1, §5 Arc F). The F2 obligations are a concrete extension principle that explains how observers obtain nonclassical operations, valid measurements and compatible state transformations, and the conditional reconstruction from that principle to finite operational quantum mechanics.
+
 No recurrence-scale result should be described as accessible quantum-like nonclassicality without an independent accessibility bound, and no representation result should be described as physical availability.
 
 ---
@@ -449,9 +453,9 @@ Then audit the converse direction:
 
 ### Arc D — attack physical sourcing of the quantum operational repertoire — **round 1 closed (RD1); further rounds paused pending the Barandes bridge audit**
 
-This is likely the decisive equivalence stage.
+For the presently stated architecture this stage has returned its verdict: the continuous off-diagonal control resource and the phases are Independent in the sense of §6 (§3.2), which retires F1 under Arc F's rule. Arc D continues as the sourcing stage of F2: which explicitly named extension of the architecture sources the resources below, and whether that source lifts through the interfaces of the physical lift seam.
 
-Determine whether the physical OI architecture itself can source, rather than merely represent or assume:
+Determine whether an explicitly named extension of the physical OI architecture can source, rather than merely represent or assume:
 
 - continuous coherent state mixing;
 - relative phases;
@@ -465,7 +469,7 @@ Determine whether the physical OI architecture itself can source, rather than me
 
 Existing conditional results should be used as assembly theorems: once a resource is physically sourced, determine exactly what operational repertoire follows from it.
 
-The crucial question is whether the currently missing continuous off-diagonal control resource can be derived from a deeper OI condition, or whether it is genuinely an independent empirical principle.
+Relative to the presently stated architecture the continuous off-diagonal control resource is independent. The crucial question for F2 is which physical principle, added to OI and separately motivated, sources it together with valid measurements and compatible state transformations, and what that principle predicts beyond the resource it is introduced to supply.
 
 #### Physical lift seam: from sourced single-system control to sourced instruments and composites
 
@@ -508,11 +512,13 @@ Assemble the previous arcs into the strongest justified final statement.
 
 **Which endpoint is live must be decidable in advance, not chosen at assembly time.** §1 records that a negative result at an intermediate bridge is not a programme failure if it sharpens the classification. That is correct, but on its own it lets every outcome be read as progress, which leaves the programme unfalsifiable at the strategic level. The endpoints are therefore governed by an explicit retirement condition, fixed here rather than after the fact:
 
-> **F1 is retired** when any arc returns an *Independent* verdict in the sense of §6 on a resource that F1 requires — a countermodel showing the resource does not follow from the OI axioms then in force. The standing candidate is Arc D's continuous off-diagonal control: a countermodel there retires F1, and the programme commits to F2 or F3 with that resource named as an additional principle.
+> **F1 is retired** when any arc returns an *Independent* verdict in the sense of §6 on a resource that F1 requires — a countermodel showing the resource does not follow from the OI axioms then in force. The programme then commits to F2 or F3 with that resource named as an additional principle.
 >
 > An *Open* verdict retires nothing. A construction or formalization that fails without an impossibility theorem leaves F1 live, and recording it otherwise would be the error §6 already forbids.
 
 Retiring F1 is a result, not a defeat: it converts the programme's endpoint from an equivalence claim to a classification with an explicitly identified selection principle, which §1 names as an acceptable terminus.
+
+**The trigger is met for the presently stated architecture.** The frozen-sourcing audit returns an *Independent* verdict on both the phase structure and dense unitary control (`frozen_sourcing_verdict`, `nonnegBounded_verdict`), each from its own witness, and shows that the microscopic update rule contributes no availability beyond the configuration-level observer theory (`obsTheory_rule_independent`, `sourcing_rule_independent`). A target that contains ordinary quantum operational control requires both resources. F1 is therefore retired for this architecture, and the active endpoint is F2 in the form stated in §1. The verdict concerns the presently stated architecture only. An extended architecture is a separate open question: it needs explicitly named physical principles and its own sourcing argument, and the verdict stands whatever that question's answer.
 
 Possible endpoints are:
 
@@ -527,6 +533,8 @@ Every condition is named, its sourcing status is known, and the target version o
 OI does not alone force QM, but there is a small, independently meaningful set of additional physical principles that is necessary and sufficient for QM.
 
 This remains a strong reconstruction result if the added principles are physically transparent and separately testable.
+
+The active form proves sufficiency first: a named extension, physically transparent and separately testable, proved sufficient for finite operational quantum mechanics — normalized probabilities, the available tests and arbitrary finite composites included — with the necessity of each added principle, and with it minimality, assessed separately.
 
 #### F3. Exact classification without uniqueness
 
@@ -622,6 +630,8 @@ Use the following sources for detailed status:
 ---
 
 ## 10. Current one-line programme state
+
+**The equivalence endpoint F1 is retired for the presently stated architecture (§5, Arc F): that architecture does not source the phase structure or dense unitary control. The active objective is F2, a named and physically meaningful extension of OI proved sufficient for finite operational quantum mechanics, its necessity assessed separately (§1).**
 
 At the post-act-6 boundary, with Track B acts 1 through 6 closed:
 
