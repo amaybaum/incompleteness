@@ -1,6 +1,6 @@
 /-
-  OIBridge/CongruentReconstruction.lean — the congruent-case assembly, and the conditional
-  two-branch theorem with the Piccard classification as its only unproved premise.
+  OIBridge/CongruentReconstruction.lean — the congruent-case assembly, and the two-branch
+  theorem conditional on a three-way classification hypothesis about the given pair.
 
   THE DIRECT ALGEBRA, NOT A HIDDEN DEPENDENCY. Given spectra aligned by a mode permutation τ
   (translation: E'_{τa} = E_a + E₀) and equality of every coefficient line, the route is four
@@ -21,13 +21,16 @@
   orientation, so the reflected matching C_W^{τa,τb} = C_V^{ba} is exactly the translated
   matching for V̄ — no duplicated proof.
 
-  THE CONDITIONAL WRAPPER `twoBranch_of_PiccardClassification` isolates the one external input:
-  its classification premise offers three alternatives — translation-congruent, reflection-
-  congruent, or the six-mode exceptional match (stated via equivalences Fin 6 ≃ Fin m, which
-  force m = 6 with no dependent casts) — and the third is REFUTED by `homometricSix_unrealizable`,
-  leaving the two Hamiltonian branches. Everything internal is kernel-proved; the premise is what
-  the Piccard/Bekir–Golomb turnpike classification (plus the frequency-matching layer of
-  BohrFrequency and the μ-orbit bridge of probe M10) will eventually supply.
+  THE CONDITIONAL WRAPPER `twoBranch_of_PiccardClassification` takes the classification as a
+  hypothesis about the given pair with three alternatives — translation-congruent, reflection-
+  congruent, or the six-mode exceptional match in the orientation of `mu` (stated via
+  equivalences Fin 6 ≃ Fin m, which force m = 6 with no dependent casts) — and the third is
+  REFUTED by `homometricSix_unrealizable`, leaving the two Hamiltonian branches. Everything
+  internal is kernel-proved. The theorem is a valid conditional; the derivation of its hypothesis
+  from the published turnpike classification is not established. Such a derivation must also
+  exclude the reversed correspondence: the non-congruent pair (0,1,4,10,12,17), (0,4,6,9,16,17)
+  realizes `mu` reversed and in no relabeling in the orientation listed here
+  (`OIBridge.PremiseOrientation.not_muForm_r1_r2refl`, `revMuForm_r1_r2refl`).
 
   DIMENSIONS 0, 1, 2. The main theorems hypothesize 3 ≤ m, and the printed Claim carries no
   lower-dimensional exclusion, so the small cases are dispatched explicitly:
@@ -707,9 +710,10 @@ theorem exceptional_impossible (V W : Matrix (Fin m) (Fin m) ℂ)
     (fun a b hab i j => hmatch a b hab i j)
 
 /-- THE CONDITIONAL TWO-BRANCH THEOREM. Everything internal is kernel-proved; the classification
-premise — translation-congruent, reflection-congruent, or the exceptional six-mode match — is
-what the Piccard/Bekir–Golomb turnpike classification supplies. The exceptional alternative is
-refuted by `homometricSix_unrealizable`, leaving exactly the two Hamiltonian branches. -/
+hypothesis — translation-congruent, reflection-congruent, or the exceptional six-mode match in
+the orientation of `mu` — is a hypothesis about the given pair, whose derivation from the
+published turnpike classification is not established. The exceptional alternative is refuted by
+`homometricSix_unrealizable`, leaving exactly the two Hamiltonian branches. -/
 theorem twoBranch_of_PiccardClassification (hm : 3 ≤ m)
     (V W : Matrix (Fin m) (Fin m) ℂ) (E E' : Fin m → ℝ)
     (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1)
@@ -746,9 +750,10 @@ spectra: the target energies are a translate of the source energies, their negat
 or (both spectra being six-mode) they realize the exceptional gap correspondence `mu`. Every
 coefficient hypothesis of `twoBranch_of_PiccardClassification` is manufactured from equal
 transition probabilities by `BohrFrequency.coefficient_line_extraction` — one spectral identity
-per line, using only that both gap structures are Golomb (all gaps distinct). This is the
-theorem in the form the Piccard/Bekir–Golomb turnpike classification can actually feed:
-Piccard classifies gap correspondences; quantum coefficient equality is derived, not assumed. -/
+per line, using only that both gap structures are Golomb (all gaps distinct). Quantum
+coefficient equality is derived, not assumed. The derivation of `hclass` from the published
+turnpike classification is not established; it also needs an exclusion of the reversed
+exceptional correspondence, which `hclass` does not list. -/
 theorem twoBranch_of_spectral_classification (hm : 3 ≤ m)
     (V W : Matrix (Fin m) (Fin m) ℂ) (E E' : Fin m → ℝ)
     (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1)

@@ -1,0 +1,209 @@
+{
+ "round": "BG-3",
+ "base": "e3ad5d7a71910ce5413ef6dacd25bf5a63d5a1e0",
+ "note": "Splices of the base text, 1-based inclusive line spans of the base; a span [a, a-1] inserts before line a; splices apply in the listed order.",
+ "design_source": "verification/programmes/oi-qm/reconstruction/bekir-golomb-orientation-design/SignedRepairDesign.lean",
+ "files": [
+  {
+   "path": "verification/lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean",
+   "base_sha256": "62267576a308d41083585f76bd9236c010c90afaa0a5d5fbfa19f56ea5b3a3b1",
+   "result_sha256": "957c275e4ca1134c94553e27d40bb6ea98437bb754d4884b6872dc2cf451be24",
+   "splices": [
+    {
+     "span": [
+      2,
+      4
+     ],
+     "old_sha256": "fba899698c5773f51b81b54e1415bafc28114bc7ac0945c1a8568e663244f372",
+     "old_lines": 3,
+     "new_sha256": "e17775e18d9a962dc4a5648feaa3b1e04a050621b0abd30b2041e1ab0b49c2bc",
+     "new_lines": 4,
+     "new": "  OIBridge/TurnpikeScopeTransfer.lean — real-to-integer scope transfer for gap correspondences\n  of ruler pairs, and the real classification and two-branch theorem as implications from the\n  unsigned integer premise `BGIntegerClassification`, which\n  `OIBridge.PremiseOrientation.not_BGIntegerClassification` refutes.",
+     "reason": "the title calls the refuted premise the only unproved premise"
+    },
+    {
+     "span": [
+      6,
+      14
+     ],
+     "old_sha256": "0851ef62eddc262f88c8016c0450c7e76c20b8e8d695b04851080b4ee0b0d1f2",
+     "old_lines": 9,
+     "new_sha256": "3775093adbf7f02b5e6ee4ee579f53e8b9278ddd70fddae4d5e5af9878c9518b",
+     "new_lines": 5,
+     "new": "  WHY THIS FILE EXISTS. The polynomial model of Bekir–Golomb 2007 is integer-presented, while\n  the reconstruction consumes real spectra. This file closes that scope gap mathematically: a\n  real realization of any fixed gap correspondence yields an INTEGER realization of the same\n  correspondence, preserving strict ordering, Golombness, and nontriviality, so an integer\n  classification premise transfers to real spectra without a real-scope reading of the paper.",
+     "reason": "identifies the premise with the published classification and calls the real classification derived"
+    },
+    {
+     "span": [
+      30,
+      41
+     ],
+     "old_sha256": "d4c1cf576fc4760d9e1f8dae13e2e09ef62136ebc0a9284b3988a33a8378153d",
+     "old_lines": 12,
+     "new_sha256": "aede80eb3948eb375f7c211d08962d00969a259e0076d22bbfc0e94161b55664",
+     "new_lines": 15,
+     "new": "  `integer_realization_of_real_realization` packages the three for a ruler pair with a fixed\n  ascending-pair correspondence, and `real_to_integer_surrogate` states the whole reduction: real\n  spectra with distinct gaps and equal gap sets are translation-congruent, reflection-congruent,\n  or sorted relabelings of an integer surrogate pair that meets every hypothesis of an integer\n  classification premise and whose directed gap identities transport back to the real spectra.\n\n  `BGIntegerClassification` is an unsigned integer premise in spectral μ-form: its conclusion\n  fixes the orientation of the exceptional correspondence μ. It is false: the six-mark pair\n  (0,1,4,10,12,17), (0,4,6,9,16,17) meets every hypothesis, admits no relabelings realizing μ in\n  that orientation, and realizes μ reversed\n  (`OIBridge.PremiseOrientation.not_BGIntegerClassification`,\n  `OIBridge.PremiseOrientation.revMuForm_r1_r2refl`). `spectral_classification_of_BG` and\n  `twoBranch_of_BGClassification` are implications from it, so they do not establish the real\n  classification or the two Hamiltonian branches. The comparison of any integer premise with the\n  published classification is open (`papers/GR.md` §3.3).",
+     "reason": "states the premise as the 2007 classification; adds the reduction lemma and the refutation"
+    },
+    {
+     "span": [
+      532,
+      531
+     ],
+     "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "old_lines": 0,
+     "new_sha256": "149009b52bc23a27f4a246dca076130cad96057a46fe7f1c9e42e643c2f34bcf",
+     "new_lines": 199,
+     "new": "/-- **The real-to-integer reduction.** Real spectra with distinct gaps and equal gap sets are\ntranslation-congruent, reflection-congruent, or sorted relabelings of an integer surrogate pair\nthat meets every hypothesis of `BGIntegerClassification` and whose directed gap identities\ntransport back to the real spectra. The reduction assumes no classification. -/\ntheorem real_to_integer_surrogate {n : ℕ} (E E' : Fin n → ℝ)\n    (hgapE : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)\n    (hgapE' : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)\n    (hsets : Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ\n      = Finset.image (fun q : Fin n × Fin n => E' q.2 - E' q.1) Finset.univ) :\n    (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)\n    ∨ (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)\n    ∨ ∃ (σ σ' : Equiv.Perm (Fin n)) (F F' : Fin n → ℤ),\n        StrictMono F ∧ StrictMono F' ∧\n        (∀ a b c d : Fin n, a < b → c < d → F b - F a = F d - F c → a = c ∧ b = d) ∧\n        (∀ a b c d : Fin n, a < b → c < d → F' b - F' a = F' d - F' c → a = c ∧ b = d) ∧\n        (Finset.image (fun p : AscPair n => F p.1.2 - F p.1.1) Finset.univ\n          = Finset.image (fun p : AscPair n => F' p.1.2 - F' p.1.1) Finset.univ) ∧\n        (¬ ∃ c : ℤ, ∀ i, F' i = F i + c) ∧\n        (¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev) ∧\n        (∀ a b c d : Fin n, a ≠ b → F' d - F' c = F b - F a →\n          (E' ∘ σ') d - (E' ∘ σ') c = (E ∘ σ) b - (E ∘ σ) a) := by\n  classical\n  rcases Nat.eq_zero_or_pos n with hn0 | npos\n  · subst hn0\n    exact Or.inl ⟨1, 0, fun a => a.elim0⟩\n  -- injectivity of both spectra\n  have hEinj : Function.Injective E := by\n    intro a b hab\n    by_contra hne\n    exact hne (hgapE a b b a hne (Ne.symm hne) (by rw [hab])).1\n  have hE'inj : Function.Injective E' := by\n    intro a b hab\n    by_contra hne\n    exact hne (hgapE' a b b a hne (Ne.symm hne) (by rw [hab])).1\n  -- sort both spectra\n  set σ : Equiv.Perm (Fin n) := Tuple.sort E with hσdef\n  set σ' : Equiv.Perm (Fin n) := Tuple.sort E' with hσ'def\n  have hmonoE : StrictMono (E ∘ σ) :=\n    (Tuple.monotone_sort E).strictMono_of_injective (hEinj.comp σ.injective)\n  have hmonoE' : StrictMono (E' ∘ σ') :=\n    (Tuple.monotone_sort E').strictMono_of_injective (hE'inj.comp σ'.injective)\n  -- the sorted signed distinct-gap hypotheses, and their ascending forms\n  have hgapS : ∀ a b c d : Fin n, a ≠ b → c ≠ d →\n      (E ∘ σ) b - (E ∘ σ) a = (E ∘ σ) d - (E ∘ σ) c → a = c ∧ b = d := by\n    intro a b c d hab hcd h\n    have := hgapE (σ a) (σ b) (σ c) (σ d)\n      (fun h' => hab (σ.injective h')) (fun h' => hcd (σ.injective h')) h\n    exact ⟨σ.injective this.1, σ.injective this.2⟩\n  have hgapS' : ∀ a b c d : Fin n, a ≠ b → c ≠ d →\n      (E' ∘ σ') b - (E' ∘ σ') a = (E' ∘ σ') d - (E' ∘ σ') c → a = c ∧ b = d := by\n    intro a b c d hab hcd h\n    have := hgapE' (σ' a) (σ' b) (σ' c) (σ' d)\n      (fun h' => hab (σ'.injective h')) (fun h' => hcd (σ'.injective h')) h\n    exact ⟨σ'.injective this.1, σ'.injective this.2⟩\n  have hascS : ∀ a b c d : Fin n, a < b → c < d →\n      (E ∘ σ) b - (E ∘ σ) a = (E ∘ σ) d - (E ∘ σ) c → a = c ∧ b = d :=\n    fun a b c d hab hcd => hgapS a b c d (ne_of_lt hab) (ne_of_lt hcd)\n  have hascS' : ∀ a b c d : Fin n, a < b → c < d →\n      (E' ∘ σ') b - (E' ∘ σ') a = (E' ∘ σ') d - (E' ∘ σ') c → a = c ∧ b = d :=\n    fun a b c d hab hcd => hgapS' a b c d (ne_of_lt hab) (ne_of_lt hcd)\n  -- gap-set equality survives sorting\n  have himg : ∀ (f : Fin n → ℝ) (τ : Equiv.Perm (Fin n)),\n      Finset.image (fun q : Fin n × Fin n => f (τ q.2) - f (τ q.1)) Finset.univ\n        = Finset.image (fun q : Fin n × Fin n => f q.2 - f q.1) Finset.univ := by\n    intro f τ\n    apply Finset.ext\n    intro v\n    simp only [Finset.mem_image, Finset.mem_univ, true_and]\n    constructor\n    · rintro ⟨q, rfl⟩\n      exact ⟨(τ q.1, τ q.2), rfl⟩\n    · rintro ⟨q, rfl⟩\n      exact ⟨(τ.symm q.1, τ.symm q.2), by simp⟩\n  -- the forced gap correspondence of the sorted pair\n  have hforce : ∀ p : AscPair n, ∃ cd : Fin n × Fin n, cd.1 < cd.2\n      ∧ (E' ∘ σ') cd.2 - (E' ∘ σ') cd.1 = (E ∘ σ) p.1.2 - (E ∘ σ) p.1.1 := by\n    intro p\n    have hv : (E ∘ σ) p.1.2 - (E ∘ σ) p.1.1\n        ∈ Finset.image (fun q : Fin n × Fin n => (E' ∘ σ') q.2 - (E' ∘ σ') q.1)\n            Finset.univ := by\n      have h1 : (E ∘ σ) p.1.2 - (E ∘ σ) p.1.1\n          ∈ Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ :=\n        Finset.mem_image_of_mem _ (Finset.mem_univ (σ p.1.1, σ p.1.2))\n      rw [hsets] at h1\n      rw [show (fun q : Fin n × Fin n => (E' ∘ σ') q.2 - (E' ∘ σ') q.1)\n        = fun q : Fin n × Fin n => E' (σ' q.2) - E' (σ' q.1) from rfl, himg E' σ']\n      exact h1\n    obtain ⟨q, _, hq⟩ := Finset.mem_image.mp hv\n    have hvpos : 0 < (E ∘ σ) p.1.2 - (E ∘ σ) p.1.1 := sub_pos.mpr (hmonoE p.2)\n    rcases lt_trichotomy q.1 q.2 with h | h | h\n    · exact ⟨q, h, hq⟩\n    · exfalso\n      rw [h] at hq\n      simp only [sub_self] at hq\n      linarith [hq ▸ hvpos]\n    · exfalso\n      have := hmonoE' h\n      linarith [hq]\n  choose νf hν1 hν2 using hforce\n  -- trichotomy: translate, reflect, or genuinely nontrivial\n  by_cases htr : ∃ c : ℝ, ∀ i, (E' ∘ σ') i = (E ∘ σ) i + c\n  · obtain ⟨c, hc⟩ := htr\n    left\n    refine ⟨σ.symm.trans σ', c, fun a => ?_⟩\n    have h2 : E' (σ' (σ.symm a)) = E (σ (σ.symm a)) + c := hc (σ.symm a)\n    rw [Equiv.apply_symm_apply] at h2\n    exact h2\n  by_cases hrf : ∃ c : ℝ, ∀ i, (E' ∘ σ') i = c - (E ∘ σ) i.rev\n  · obtain ⟨c, hc⟩ := hrf\n    right; left\n    refine ⟨σ.symm.trans (Fin.revPerm.trans σ'), c, fun a => ?_⟩\n    have h2 : E' (σ' ((σ.symm a).rev)) = c - E (σ ((σ.symm a).rev.rev)) := hc ((σ.symm a).rev)\n    rw [Fin.rev_rev, Equiv.apply_symm_apply] at h2\n    rw [show (σ.symm.trans (Fin.revPerm.trans σ')) a = σ' ((σ.symm a).rev) from rfl, h2]\n    ring\n  -- nontriviality witnesses\n  push Not at htr hrf\n  obtain ⟨i₀, hi₀⟩ := htr ((E' ∘ σ') ⟨0, npos⟩ - (E ∘ σ) ⟨0, npos⟩)\n  obtain ⟨i₁, hi₁⟩ := hrf ((E' ∘ σ') ⟨0, npos⟩ + (E ∘ σ) (⟨0, npos⟩ : Fin n).rev)\n  have hnt : (E' ∘ σ') i₀ - (E ∘ σ) i₀\n      ≠ (E' ∘ σ') ⟨0, npos⟩ - (E ∘ σ) ⟨0, npos⟩ := fun h => hi₀ (by linarith)\n  have hnr : (E' ∘ σ') i₁ + (E ∘ σ) i₁.rev\n      ≠ (E' ∘ σ') ⟨0, npos⟩ + (E ∘ σ) (⟨0, npos⟩ : Fin n).rev := fun h => hi₁ (by linarith)\n  -- the scope transfer\n  obtain ⟨F, F', hFm, hF'm, hFg, hF'g, hFν, hFnt, hFnr⟩ :=\n    integer_realization_of_real_realization νf (E ∘ σ) (E' ∘ σ')\n      hmonoE hmonoE' hascS hascS' hν2 hnt hnr\n  -- the premise inputs for the integer surrogate\n  have hinjF : Function.Injective (fun p : AscPair n => F p.1.2 - F p.1.1) := by\n    intro p p' h\n    have := hFg p.1.1 p.1.2 p'.1.1 p'.1.2 p.2 p'.2 h\n    exact Subtype.ext (Prod.ext this.1 this.2)\n  have hinjF' : Function.Injective (fun p : AscPair n => F' p.1.2 - F' p.1.1) := by\n    intro p p' h\n    have := hF'g p.1.1 p.1.2 p'.1.1 p'.1.2 p.2 p'.2 h\n    exact Subtype.ext (Prod.ext this.1 this.2)\n  have hFsets : Finset.image (fun p : AscPair n => F p.1.2 - F p.1.1) Finset.univ\n      = Finset.image (fun p : AscPair n => F' p.1.2 - F' p.1.1) Finset.univ := by\n    apply Finset.eq_of_subset_of_card_le\n    · intro v hv\n      obtain ⟨p, _, rfl⟩ := Finset.mem_image.mp hv\n      exact Finset.mem_image.mpr ⟨⟨νf p, hν1 p⟩, Finset.mem_univ _, hFν p⟩\n    · rw [Finset.card_image_of_injective _ hinjF', Finset.card_image_of_injective _ hinjF]\n  have hFnottr : ¬ ∃ c : ℤ, ∀ i, F' i = F i + c := by\n    rintro ⟨c, hc⟩\n    exact hFnt (by rw [hc i₀, hc ⟨0, npos⟩]; ring)\n  have hFnorf : ¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev := by\n    rintro ⟨c, hc⟩\n    exact hFnr (by rw [hc i₁, hc ⟨0, npos⟩]; ring)\n  -- The surrogate's forced directed gaps transport in either orientation.\n  have transfer_gap : ∀ a b c d : Fin n, a ≠ b →\n      F' d - F' c = F b - F a →\n      (E' ∘ σ') d - (E' ∘ σ') c = (E ∘ σ) b - (E ∘ σ) a := by\n    intro a b c d hab hint'\n    rcases lt_trichotomy (a) (b) with h | h | h\n    · have hFp : F' (νf ⟨(a, b), h⟩).2 - F' (νf ⟨(a, b), h⟩).1\n          = F (b) - F (a) := hFν ⟨(a, b), h⟩\n      have hupos : (0 : ℤ) < F (b) - F (a) := sub_pos.mpr (hFm h)\n      have ho : c < d := by\n        rcases lt_trichotomy (c) (d) with h' | h' | h'\n        · exact h'\n        · exfalso\n          rw [h'] at hint'\n          simp only [sub_self] at hint'\n          omega\n        · exfalso\n          have := hF'm h'\n          omega\n      have hpair := hF'g (c) (d)\n        (νf ⟨(a, b), h⟩).1 (νf ⟨(a, b), h⟩).2 ho (hν1 ⟨(a, b), h⟩)\n        (by rw [hint', hFp])\n      have hEp : (E' ∘ σ') (νf ⟨(a, b), h⟩).2 - (E' ∘ σ') (νf ⟨(a, b), h⟩).1\n          = (E ∘ σ) (b) - (E ∘ σ) (a) := hν2 ⟨(a, b), h⟩\n      rw [hpair.1, hpair.2]\n      exact hEp\n    · exact (hab h).elim\n    · have hFp : F' (νf ⟨(b, a), h⟩).2 - F' (νf ⟨(b, a), h⟩).1\n          = F (a) - F (b) := hFν ⟨(b, a), h⟩\n      have huneg : F (b) - F (a) < 0 := sub_neg.mpr (hFm h)\n      have ho : d < c := by\n        rcases lt_trichotomy (d) (c) with h' | h' | h'\n        · exact h'\n        · exfalso\n          rw [h'] at hint'\n          simp only [sub_self] at hint'\n          omega\n        · exfalso\n          have := hF'm h'\n          omega\n      have hpair := hF'g (d) (c)\n        (νf ⟨(b, a), h⟩).1 (νf ⟨(b, a), h⟩).2 ho (hν1 ⟨(b, a), h⟩)\n        (by omega)\n      have hEp : (E' ∘ σ') (νf ⟨(b, a), h⟩).2 - (E' ∘ σ') (νf ⟨(b, a), h⟩).1\n          = (E ∘ σ) (a) - (E ∘ σ) (b) := hν2 ⟨(b, a), h⟩\n      rw [hpair.1, hpair.2]\n      linarith [hEp]\n  right; right\n  exact ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩\n",
+     "reason": "the reduction, stated once: the design package's lemma, statement and proof byte-identical"
+    },
+    {
+     "span": [
+      532,
+      532
+     ],
+     "old_sha256": "97da327abfa7af69f0967de708e0d6b7aafa6ecda15439a1e3e8b8b6887c5c2f",
+     "old_lines": 1,
+     "new_sha256": "566acf3b41b5bd22fd756ee1f7dacba476550ae82e8ed6f62a56434f0acb49dc",
+     "new_lines": 1,
+     "new": "/-! ### The unsigned integer premise, and the real classification it implies -/",
+     "reason": "section title"
+    },
+    {
+     "span": [
+      535,
+      541
+     ],
+     "old_sha256": "4db4b6847199dc5818ad6fe8ecbce5fea4a85cd901b65de245cef51d107ea25c",
+     "old_lines": 7,
+     "new_sha256": "9d92d9446b46fd4b70483a59438305aec9ccba047da8b34e3fdc6cc0f72bf904",
+     "new_lines": 8,
+     "new": "/-- **The unsigned integer premise, in spectral μ-form.** Any two strictly increasing integer\nrulers with distinct internal differences and equal difference sets that are neither translates\nnor reflections of one another have six marks, with gap data realizing the exceptional\ncorrespondence μ, in the orientation the conclusion fixes, through explicit relabelings (the\nequivalences force `n = 6` with no casts). `PiccardBridge` proves that the paper's two-parameter\nfamily realizes μ in this orientation. The proposition is false:\n`OIBridge.PremiseOrientation.not_BGIntegerClassification` refutes it at the pair\n(0,1,4,10,12,17), (0,4,6,9,16,17), which meets every hypothesis and realizes μ reversed. -/",
+     "reason": "calls the premise Bekir–Golomb 2007 and the only unproved input"
+    },
+    {
+     "span": [
+      555,
+      562
+     ],
+     "old_sha256": "29dedcebb456ad632ee00391cb411cfbf9972d0c6a34814027a50083592358f7",
+     "old_lines": 8,
+     "new_sha256": "decfaeab078f4c2c4f8d3294149ade31e590a70a377f6c273691fa1b9abb8c03",
+     "new_lines": 8,
+     "new": "/-- **The real spectral classification, as an implication from `BGIntegerClassification`.**\nGiven the unsigned integer premise, real spectra with distinct gaps and equal gap sets are\ntranslation-congruent, reflection-congruent, or realize the exceptional correspondence μ — the\nclassification premise of `twoBranch_of_spectral_classification`. `real_to_integer_surrogate`\nreduces the real pair to an integer surrogate, the premise classifies the surrogate, and the\nsurrogate's directed gap identities transport the exceptional match back to the real spectra.\nThe premise is refuted (`OIBridge.PremiseOrientation.not_BGIntegerClassification`),\nso this theorem does not establish the real classification. -/",
+     "reason": "calls an implication from the refuted premise derived"
+    },
+    {
+     "span": [
+      573,
+      751
+     ],
+     "old_sha256": "927952efbf87db80610dbee99429b59d1186409cf7a266719483232e91eec3e6",
+     "old_lines": 179,
+     "new_sha256": "ac77a2ef689c8868a882a1c5a8a661facd4f3edc0dbcb95ee52549b2404c3f48",
+     "new_lines": 8,
+     "new": "  rcases real_to_integer_surrogate E E' hgapE hgapE' hsets with htr | hrf |\n    ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩\n  · exact Or.inl htr\n  · exact Or.inr (Or.inl hrf)\n  obtain ⟨eS, eT, hint⟩ := hBG n F F' hFm hF'm hFg hF'g hFsets hFnottr hFnorf\n  refine Or.inr (Or.inr ⟨eS.trans σ, eT.trans σ', fun a b hab => ?_⟩)\n  exact transfer_gap (eS a) (eS b) (eT (mu a b).1) (eT (mu a b).2)\n    (fun h => hab.ne (eS.injective h)) (hint a b hab)",
+     "reason": "the inline copy of the reduction, replaced by the design package's factored proof"
+    },
+    {
+     "span": [
+      820,
+      825
+     ],
+     "old_sha256": "ace8651df89c78cc9fa7b448adccbd6ec57a319240d2ceec0250b246d930bca3",
+     "old_lines": 6,
+     "new_sha256": "65b8ec18d97e5490f87b884886ae0f64de71243f4de47c05bb667197fa04d99a",
+     "new_lines": 9,
+     "new": "/-- **The two-branch theorem, as an implication from `BGIntegerClassification`.** Equal\ntransition probabilities for all times, distinct gaps on both sides, and the unsigned integer\npremise give the two Hamiltonian branches over real spectra: `gaps_eq_of_equal_probabilities`\nsupplies equal gap sets, `spectral_classification_of_BG` transfers the classification from ℤ to\nℝ, and `twoBranch_of_spectral_classification` finishes. Every step other than\n`BGIntegerClassification` is kernel-proved. The premise is refuted\n(`OIBridge.PremiseOrientation.not_BGIntegerClassification`), so this theorem does not\nestablish the two branches from the physical hypotheses; `papers/GR.md` §3.3 states the\ntwo-branch theorem conditional on the sign-aware hypothesis H-BG. -/",
+     "reason": "calls the refuted premise the Bekir–Golomb classification"
+    },
+    {
+     "span": [
+      851,
+      850
+     ],
+     "old_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+     "old_lines": 0,
+     "new_sha256": "a72ccd67ce8cb2e6c82a8e18700d1a53c47df64ca2ed1f0c3a84371aee903ff9",
+     "new_lines": 1,
+     "new": "#print axioms real_to_integer_surrogate",
+     "reason": "the new lemma's axiom report"
+    }
+   ]
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/CongruentReconstruction.lean",
+   "base_sha256": "9db2a36a30711a6a87376f19d422669cf837c32dd2851e62aee2fd028d7e299c",
+   "result_sha256": "139bd236ee1a448d901e1ef550d5caaaefa16fdfda3014c9b608a14411406bc7",
+   "splices": [
+    {
+     "span": [
+      2,
+      3
+     ],
+     "old_sha256": "bf025ca9334917ca3bac7f005dcba59dbe4d2a6ecd93dd80db3e2401c7c65bb7",
+     "old_lines": 2,
+     "new_sha256": "99cad266b6a9040f58bf1693ca690c5a8e13605402f230b2d0e39aa3d57ef497",
+     "new_lines": 2,
+     "new": "  OIBridge/CongruentReconstruction.lean — the congruent-case assembly, and the two-branch\n  theorem conditional on a three-way classification hypothesis about the given pair.",
+     "reason": "calls the classification hypothesis the only unproved premise"
+    },
+    {
+     "span": [
+      24,
+      30
+     ],
+     "old_sha256": "464f048b03214127455df3cd36c7f6e80777f641b330816a400462a1d71baddc",
+     "old_lines": 7,
+     "new_sha256": "e152348446d5f5e7f3b09d23842fa01b8b1a277b457793366b80b193911034f5",
+     "new_lines": 10,
+     "new": "  THE CONDITIONAL WRAPPER `twoBranch_of_PiccardClassification` takes the classification as a\n  hypothesis about the given pair with three alternatives — translation-congruent, reflection-\n  congruent, or the six-mode exceptional match in the orientation of `mu` (stated via\n  equivalences Fin 6 ≃ Fin m, which force m = 6 with no dependent casts) — and the third is\n  REFUTED by `homometricSix_unrealizable`, leaving the two Hamiltonian branches. Everything\n  internal is kernel-proved. The theorem is a valid conditional; the derivation of its hypothesis\n  from the published turnpike classification is not established. Such a derivation must also\n  exclude the reversed correspondence: the non-congruent pair (0,1,4,10,12,17), (0,4,6,9,16,17)\n  realizes `mu` reversed and in no relabeling in the orientation listed here\n  (`OIBridge.PremiseOrientation.not_muForm_r1_r2refl`, `revMuForm_r1_r2refl`).",
+     "reason": "says the turnpike classification will supply the three-way hypothesis"
+    },
+    {
+     "span": [
+      709,
+      712
+     ],
+     "old_sha256": "c1195ea86ab8be30ce72abf1c4de3847c825354ebbc43e0d36d720926e2f36b2",
+     "old_lines": 4,
+     "new_sha256": "8459120311f472d5673667f9dd9255a711be76473968961098364df9b1b06d7d",
+     "new_lines": 5,
+     "new": "/-- THE CONDITIONAL TWO-BRANCH THEOREM. Everything internal is kernel-proved; the classification\nhypothesis — translation-congruent, reflection-congruent, or the exceptional six-mode match in\nthe orientation of `mu` — is a hypothesis about the given pair, whose derivation from the\npublished turnpike classification is not established. The exceptional alternative is refuted by\n`homometricSix_unrealizable`, leaving exactly the two Hamiltonian branches. -/",
+     "reason": "says the turnpike classification supplies the three-way hypothesis"
+    },
+    {
+     "span": [
+      749,
+      751
+     ],
+     "old_sha256": "e9151c4ce8d880d860f4356fa153ecf6d966d787dca8d2a28e6711d992b1116d",
+     "old_lines": 3,
+     "new_sha256": "c70cf882fadd8f7d2c9b826176dc5b71c29ac51b8a58a6e10910830680dae379",
+     "new_lines": 4,
+     "new": "per line, using only that both gap structures are Golomb (all gaps distinct). Quantum\ncoefficient equality is derived, not assumed. The derivation of `hclass` from the published\nturnpike classification is not established; it also needs an exclusion of the reversed\nexceptional correspondence, which `hclass` does not list. -/",
+     "reason": "says the turnpike classification can feed the theorem as stated"
+    }
+   ]
+  },
+  {
+   "path": "verification/ROADMAP.md",
+   "base_sha256": "29f7a01fac28e145a3227d13c9aaf4513f3dd18ecb60d2fe8c80e5d35d7c846d",
+   "result_sha256": "4f266df5984c1cf54a83139a7b3015c2712f589a41c66bc2dfb60759203bada2",
+   "splices": [
+    {
+     "span": [
+      1143,
+      1143
+     ],
+     "old_sha256": "4e8f17130a762986cb0349d233831454951b0f4dc92d336aec8f54108a737a04",
+     "old_lines": 1,
+     "new_sha256": "2605d59ce4bc4b53178046efccf0a69bd8a6a14527f6c8dd03d6cb5780a5147a",
+     "new_lines": 1,
+     "new": "The adopted `TurnpikeScopeTransfer.lean` defines the refuted premise and states `spectral_classification_of_BG` and `twoBranch_of_BGClassification` as implications from it, which its docstrings record; the real-to-integer reduction is the adopted lemma `real_to_integer_surrogate`, through which `spectral_classification_of_BG` factors. The docstrings of `CongruentReconstruction.lean` record that the three-way classification hypothesis of `twoBranch_of_spectral_classification` omits the reversed exceptional branch. The design package and its workflow `bg2-orientation-design.yml` are retired only after an adopted replacement covers both the refutation and the conditional signed-repair results the package carries, passes the required validation, and replaces the citations to it; certifying the refutation alone does not retire the package.",
+     "reason": "describes the module docstrings and the inline reduction this round changes"
+    }
+   ]
+  }
+ ]
+}
