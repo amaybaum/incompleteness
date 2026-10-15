@@ -366,13 +366,13 @@ self-consistent dimension by three independent filters: propagating
 gravity (\(d \geq 3\)), stable matter (\(d \leq 3\)), and the boundary
 entropy concordance \(\rho_s/\rho_{\text{crit}} = 2/(d-1)\) (which
 equals unity only for \(d = 3\); its coefficient inherits the horizon
-conditions of {[}GR §2, §8.5{]} through \(\epsilon = 2\,l_P\)).
-Renormalizability of the emergent Yang-Mills coupling at \(d = 3\) is a
-downstream consequence rather than an independent filter (§3.2). The
-structural object is a theorem about the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), and the \(d = 3\) selection
-holds at self-consistency strength (§3.2; Tier 2 in §8.3); neither
-depends on which specific dynamics is selected.
+conditions of {[}GR §2, §8.5{]} through
+\(\epsilon = 2\sqrt{\sigma}\,l_P\)). Renormalizability of the emergent
+Yang-Mills coupling at \(d = 3\) is a downstream consequence rather than
+an independent filter (§3.2). The structural object is a theorem about
+the equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), and
+the \(d = 3\) selection holds at self-consistency strength (§3.2; Tier 2
+in §8.3); neither depends on which specific dynamics is selected.
 
 \textbf{Tier 2 --- Conditional physical-carrier chain.} The
 observer-level isotropy theorem and the geometric six-link decomposition
@@ -646,9 +646,11 @@ does not enter (§4.1, Scope). In the gravitational sector the entropy
 \(\sigma\) of one boundary mode enters the gap equation
 \(\hbar = c^3/(4G\eta)\) through the entropy density
 \(\eta = \sigma/\epsilon^2\) and cancels from the Bekenstein-Hawking law
-\(S = A/(4l_p^2)\) {[}GR §3.1{]}. At the normalization \(\sigma = 1\)
-neither contains \(q\); \(\sigma = \ln q\), the entropy of a \(q\)-state
-mode, would place \(q\) in the relation
+\(S = A/(4l_p^2)\) {[}GR §3.1{]}. At \(\sigma = 1\) neither contains
+\(q\), but \(\sigma = 1\) is itself an assumption about the entropy of a
+mode, and under the bound \(\sigma \leq \ln q\) it is unavailable for a
+single mode with \(q = 2\). The value \(\sigma = \ln q\), the entropy of
+a \(q\)-state mode, would place \(q\) in the relation
 \(\epsilon = 2\sqrt{\sigma}\,l_p\) {[}GR §4{]}. The alphabet-size
 hypothesis below does not fix \(\sigma\).
 
@@ -1383,17 +1385,19 @@ lattice-exact, corrections enter only through input (ii):
 \[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
 
 For the cosmological horizon,
-\(\varepsilon\kappa/c^2 = 2l_P \cdot H/c \sim 10^{-61}\), giving
-corrections of order \(10^{-122}\). For solar-mass black holes,
-\(\varepsilon\kappa/c^2 \sim 10^{-38}\), giving corrections of order
-\(10^{-76}\). The corrections are negligible for any horizon much larger
-than the Planck scale.
+\(\varepsilon\kappa/c^2 = 2\sqrt{\sigma}\,l_P \cdot H/c \sim 10^{-61}\)
+at \(\sigma = 1\), giving corrections of order \(10^{-122}\). For
+solar-mass black holes, \(\varepsilon\kappa/c^2 \sim 10^{-38}\) at
+\(\sigma = 1\), giving corrections of order \(10^{-76}\). The
+corrections are negligible for any horizon much larger than the Planck
+scale.
 
 \textbf{The \(\eta = 1/4\) coefficient.} The Bekenstein-Hawking formula
-\(S = A/(4l_P^2)\) follows from \(\varepsilon = 2l_P\) (the gap equation
-{[}GR, §3{]}): one entropy unit per cell of area
-\(\varepsilon^2 = 4l_P^2\), giving \(S = A/\varepsilon^2 = A/(4l_P^2)\).
-This cannot be confirmed via entanglement entropy because of the species
+\(S = A/(4l_P^2)\) follows from \(\varepsilon = 2\sqrt{\sigma}\,l_P\)
+(the gap equation {[}GR, §3{]}): an entropy \(\sigma\) per cell of area
+\(\varepsilon^2 = 4\sigma l_P^2\), giving
+\(S = \sigma A/\varepsilon^2 = A/(4l_P^2)\) for every \(\sigma\). This
+cannot be confirmed via entanglement entropy because of the species
 problem --- the entanglement entropy coefficient is species-dependent
 (Srednicki found \(\eta_{\text{ent}} \approx 0.295\) per scalar field),
 while the BH entropy is species-independent. The thermal matching route
@@ -1600,12 +1604,12 @@ branch}\label{observer-level-propagation-and-the-lattice-kleingordon-branch}}
 
 The OI substratum is represented here by a \(d\)-dimensional hypercubic
 coupling graph \(\Lambda=\mathbb Z^d\) with microscopic spacing
-\(\epsilon=2l_p\). The finite bijection is fundamental; a real/complex
-wave operator is an observer-level lift whose derivation must be stated
-separately. The following selection statement therefore classifies the
-\emph{form} of a nearest-neighbor center-free linear rule, while Theorem
-1a and its corollaries determine what finite equivariant observation
-forces at low momentum.
+\(\epsilon=2\sqrt{\sigma}\,l_p\). The finite bijection is fundamental; a
+real/complex wave operator is an observer-level lift whose derivation
+must be stated separately. The following selection statement therefore
+classifies the \emph{form} of a nearest-neighbor center-free linear
+rule, while Theorem 1a and its corollaries determine what finite
+equivariant observation forces at low momentum.
 
 \textbf{Lemma (form of the center-free isotropic linear rule).} \emph{At
 either the substratum-symbolic level or an observer-level linear lift, a
@@ -1630,9 +1634,9 @@ squared coupling over the gap. None of these moves one block's cone
 relative to another's unless the signed-permutation symmetry of the
 components is explicitly broken (§4.4, Proposition 4b). Nearest-neighbor
 is adopted as the minimal local branch used by the observer-level
-spectral calculation; the dispersion --- and the 4/45 coefficient of
-§6.4 --- is conditional on that branch and on the coarse-graining bridge
-of §4.1.
+spectral calculation; the dispersion --- and the coefficient
+\(4\sigma/45\) of §6.4 (\(4/45\) at \(\sigma = 1\)) --- is conditional
+on that branch and on the coarse-graining bridge of §4.1.
 
 \emph{Proof.} The update function has the form
 \(x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q\).
@@ -1679,7 +1683,7 @@ the map \(\varphi\to L_{\rm obs}\to\Delta_g\) is not proved anywhere in
 this framework.} {[}ch19{]} names preservation of low-energy locality,
 isotropy and spectral mode count under the substratum-to-observer
 coarse-graining as open, and that is precisely this bridge. Until it is
-supplied, §4's dispersion results --- including the \(4/45\)
+supplied, §4's dispersion results --- including the \(4\sigma/45\)
 coefficient, the Lorentz-invariance argument and Theorem 6's mode count
 --- rest on an operator whose relation to \(\varphi\) is assumed rather
 than derived, and the \(q\)-independence of the dispersion relation
@@ -3112,9 +3116,10 @@ lattice QCD, staggered chirality is a property of the regularization
 that maps to physical chirality only via the continuum limit \(a \to 0\)
 --- a procedure that requires the lattice to be a regulator
 approximating an underlying continuum theory. The OI lattice has no
-continuum limit because \(\epsilon = 2\,l_p\) is the fundamental scale,
-not a regulator. This raises the question of how lattice chirality
-becomes physical chirality without the standard universality argument.
+continuum limit because \(\epsilon = 2\sqrt{\sigma}\,l_p\) is the
+fundamental scale, not a regulator. This raises the question of how
+lattice chirality becomes physical chirality without the standard
+universality argument.
 
 The resolution: physical observers don't take continuum limits either.
 Every experimentally probed scale satisfies \(\lambda \gg \epsilon\), so
@@ -3713,10 +3718,11 @@ observed asymptotic behavior at higher loops --- is open work.
 \subsubsection{6.2 The threshold and logarithmic
 resummation}\label{the-threshold-and-logarithmic-resummation}}
 
-The universal induced coupling \(\alpha_0\) is defined at the lattice
-cutoff \(\mu = M_{\text{Pl}}\). This matching scale is a convention: the
-lattice scale is \(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) for an
-entropy \(\sigma\) per boundary mode {[}GR §3.1, §4{]}, and matching at
+The universal induced coupling \(\alpha_0\) is matched at
+\(\mu = M_{\text{Pl}}\). This matching scale is a convention, not the
+lattice cutoff: the lattice scale is
+\(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) for an entropy
+\(\sigma\) per boundary mode {[}GR §3.1, §4{]}, and matching at
 \(1/\epsilon\) instead shifts the running term of row \(i\) below by
 \(-(b_i/2\pi)\ln(2\sqrt{\sigma})\). The fitted \(\delta_0\), \(A\) and
 \(B\) of §6.3 absorb that shift; the U(1)-row value of \(\delta_0\)
@@ -3740,11 +3746,11 @@ resummation of the gauge self-energy:
 
 \[\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_{\delta_0} + \underbrace{8.3 \cdot \ln\!\left(1 + 5.59 \cdot C_2 g_0^2\right)}_{\text{resummed gauge self-energy}} + \underbrace{\frac{b_i}{2\pi}\ln\frac{M_{\text{Pl}}}{M_Z}}_{\text{SM RG running}}\]
 
-Above \(M_{\text{Pl}}\), the OI induced theory has no tree-level gauge
+Above the matching scale, the OI induced theory has no tree-level gauge
 action --- gauge dynamics arise entirely from the fermion determinant
 --- so its \(\beta\)-function differs at 2-loop and beyond from the
 standard SM running below the matching scale. The threshold function
-structurally absorbs this discontinuity at \(M_{\text{Pl}}\), which is
+structurally absorbs this discontinuity at the matching scale, which is
 why the matching formula has the form shown rather than continuous
 running across the scale. This reflects the substratum-vs-emergent split
 (group structural at the substratum; couplings emergent through the
@@ -3851,10 +3857,11 @@ The four components:
   lattice, non-perturbative effects in the discrete substratum measure
   (§6.5), or lattice topological invariants beyond the framework's
   currently-developed scope --- remains open and is treated as numerical
-  pending such structural mechanisms. The coincidence is stated at the
-  matching convention \(\mu = M_{\text{Pl}}\) of §6.2; matching at the
-  lattice scale \(1/\epsilon\) gives \(\delta_0 \approx 10.47\) at
-  \(\sigma = 1\).
+  pending such structural mechanisms. The coincidence holds in the
+  matching convention \(\mu = M_{\text{Pl}}\) of §6.2 and not
+  independently of it: matching at the lattice scale \(1/\epsilon\)
+  moves \(\delta_0\) by \(0.65\ln(2\sqrt{\sigma})\), to
+  \(\delta_0 \approx 10.47\) at \(\sigma = 1\).
 \item
   \(A \cdot \ln(1 + B \cdot C_2 g_0^2)\) with \((A, B) = (8.3, 5.59)\):
   the resummed gauge self-energy contribution. The logarithmic form is
@@ -6116,17 +6123,19 @@ literature \emph{postulates}, here \emph{derived} from the
 composite-Higgs (singlet-taste) construction.
 
 \textbf{Unified matching at the compositeness scale.} The framework's
-substratum produces a unified matching picture at the single scale
-\(M_{\mathrm{Pl}}\): gauge coupling matching (\(1/\alpha_0 = 23.25\) and
-the universal threshold \(\delta_0 = 10\), both independent of gauge
-group; §6), Higgs quartic matching (\(\lambda(M_{\mathrm{Pl}}) = 0\);
-this section), top Yukawa matching (\(y_t(M_{\mathrm{Pl}}) = 1\); this
-section), and bare Higgs mass matching (Veltman condition
-\(m_H^{\text{bare}}(M_{\mathrm{Pl}}) = 0\); §8.8). All four matching
-conditions hold at the same scale --- the substratum's intrinsic UV
-cutoff --- because they all arise from the same compositeness structure:
-emergent SM couplings inherit their UV boundary conditions from the
-substratum's structural features (group-theoretic, taste, chiral) at the
+substratum produces a unified matching picture at the single matching
+scale \(\mu = M_{\mathrm{Pl}}\): gauge coupling matching
+(\(1/\alpha_0 = 23.25\) and the universal threshold \(\delta_0 = 10\),
+both independent of gauge group; §6), Higgs quartic matching
+(\(\lambda(M_{\mathrm{Pl}}) = 0\); this section), top Yukawa matching
+(\(y_t(M_{\mathrm{Pl}}) = 1\); this section), and bare Higgs mass
+matching (Veltman condition \(m_H^{\text{bare}}(M_{\mathrm{Pl}}) = 0\);
+§8.8). All four matching conditions hold at the same scale --- the
+matching convention for the substratum's lattice scale
+\(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\) (§6.2) --- because
+they all arise from the same compositeness structure: emergent SM
+couplings inherit their UV boundary conditions from the substratum's
+structural features (group-theoretic, taste, chiral) at the
 compositeness scale. This is structurally analogous to (and
 significantly more constrained than) conventional composite-Higgs
 scenarios at \(f \sim\) TeV, where multiple matching conditions are
@@ -6717,13 +6726,14 @@ addressed by Arguments 1--3 above and the Residual gap subsection.
 predictions}\label{summary-table-of-all-predictions}}
 
 Twenty-two quantitative observables from a \(d = 3\) cubic lattice with
-spacing \(\epsilon = 2\,l_P\), classified by input status: \textbf{S} =
-parameter-free structural (no fitted input; the cubic substratum itself
-is empirically selected, §8.3); \textbf{L} = layered (structural form
-combined with a Layer-2(b) substrate-specific coefficient or Layer-3
-empirical input --- see §8.3 four-layer framing); \textbf{M} = one-input
-mass/parameter chain; \textbf{E} = uses explicit empirical input;
-\textbf{R} = retrodiction; \textbf{P} = phenomenological/ansatz input.
+spacing \(\epsilon = 2\sqrt{\sigma}\,l_P\), classified by input status:
+\textbf{S} = parameter-free structural (no fitted input; the cubic
+substratum itself is empirically selected, §8.3); \textbf{L} = layered
+(structural form combined with a Layer-2(b) substrate-specific
+coefficient or Layer-3 empirical input --- see §8.3 four-layer framing);
+\textbf{M} = one-input mass/parameter chain; \textbf{E} = uses explicit
+empirical input; \textbf{R} = retrodiction; \textbf{P} =
+phenomenological/ansatz input.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2308}}
@@ -7742,10 +7752,10 @@ Lorentz-invariance violation: linear LIV is forbidden at the substrate
 level (the cubic-lattice dispersion relation admits no
 \(\mathcal{O}(k^3)\) term), and the gauge-invariant quadratic
 coefficient evaluates to
-\(\omega^2 = k^2[1 - (4/45)(E/M_{\text{Pl}})^2 + \ldots]\) ---
-subluminal, with the specific \(4/45\) fixed by cubic coordination and
-the statistical-isotropy gauge average. Pre-registered as Class A in
-{[}Substratum, §6.4{]}.
+\(\omega^2 = k^2[1 - (k\epsilon)^2/45 + \ldots] = k^2[1 - (4\sigma/45)(E/M_{\text{Pl}})^2 + \ldots]\)
+--- subluminal, with the \(1/45\) fixed by cubic coordination and the
+statistical-isotropy gauge average, and \(4\sigma/45 = 4/45\) at
+\(\sigma = 1\). Pre-registered as Class A in {[}Substratum, §6.4{]}.
 
 \hypertarget{neutrino-masses-from-taste-breaking}{%
 \subsubsection{8.4 Neutrino masses from
@@ -8222,7 +8232,8 @@ coupling and \(f\) is the chiral-symmetry-breaking scale.
 \textbf{Scope and caveats.} Chiral protection bounds the Higgs mass by
 explicit breaking but does not automatically explain why the Higgs vev
 \(v\) sits 17 orders of magnitude below the compositeness scale \(f\).
-In OI, \(f\) is set by the substratum lattice scale and is effectively
+In OI, \(f\) is set by the substratum lattice scale
+\(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order
 \(M_{\mathrm{Pl}}\), so the ratio \(v/f \sim 10^{-17}\) remains.
 Standard composite-Higgs scenarios put \(f\) at \(\sim\) TeV to resolve
 this; OI does not have an analogous intermediate scale (per {[}Structure
@@ -8824,4 +8835,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 96e4aefafd80898e7d184ab943bd48b5c640de54f75c0a0bb6e0bf3bce316983
+% source-sha256: cbe08535488fc4c62fd4d8bb4b78d32d08a164eeddc4de9494798b2117dbd993
