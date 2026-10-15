@@ -352,7 +352,8 @@ lattice/gauge sector} is fixed up to the stated substratum-gauge
 freedoms: \(d=3\), \(K=6\), the \((3,2,1)\) decomposition,
 \(SU(3)\times SU(2)\times U(1)\) and the associated local representation
 data, with the qualifications stated in {[}SM{]}, and
-\(\hbar=c^3\epsilon^2/(4G)\). M1-B is a separate Bell input. A single
+\(\hbar=c^3\epsilon^2/(4G\sigma)\), \(\sigma\) the entropy per boundary
+mode {[}GR §3.1{]}. M1-B is a separate Bell input. A single
 measurement-independent deterministic completion containing both that
 local sector and the Bell-violating composite exists only conditional on
 H-Bell, now the curvature-stability requirement for preparation-indexed
@@ -370,7 +371,8 @@ parametrized by a four-generator gauge group:
   \emph{State relabeling.} Permutations of hidden-sector configurations.
 \item
   \emph{Alphabet change.} The local state-space size \(q\) in
-  \(\mathbb{Z}/q\mathbb{Z}\) is gauge ({[}SM §2.7{]}).
+  \(\mathbb{Z}/q\mathbb{Z}\) is gauge under the alphabet-size hypothesis
+  ({[}SM §2.7{]}).
 \item
   \emph{Deep-sector enlargement/reduction.} The hidden sector beyond the
   boundary layer admits arbitrary cardinality.
@@ -451,12 +453,12 @@ requires three pre-conditions:
 generator (ii) operates on the alphabet \(\mathbb{Z}/q\mathbb{Z}\), a
 discrete structure. String theory uses continuous degrees of freedom ---
 string positions on Calabi-Yau, complex-structure and Kähler moduli, RR
-flux quanta. The technical question is whether OI's \(q\)-gauge
-invariance theorem {[}SM §2.7{]} extends to continuum theories, or
-whether OI's discrete alphabet is essential to the reconstruction. If
-discrete nature is essential, the bridge between OI and string theory
-passes through finite-dimensional matrix-model formulations of strings
-(BFSS, IKKT), not the continuum string description directly.
+flux quanta. The technical question is whether OI's alphabet-size
+hypothesis {[}SM §2.7{]} extends to continuum theories, or whether OI's
+discrete alphabet is essential to the reconstruction. If discrete nature
+is essential, the bridge between OI and string theory passes through
+finite-dimensional matrix-model formulations of strings (BFSS, IKKT),
+not the continuum string description directly.
 
 \emph{Pre-condition 2: Existence of SM-reproducing compactifications.}
 Despite forty years of effort, no string compactification has been
@@ -722,16 +724,17 @@ observables --- identical transition probabilities, identical emergent
 Hamiltonian (up to G1), identical \(\hbar\) across all partitions of
 OI's structural class {[}Substratum §4 Theorem 24{]}. Four explicit
 families of generators: (i) hidden-sector relabeling, (ii) alphabet
-change ({[}SM §2.7{]} \(q\)-gauge), (iii) deep-sector enlargement, (iv)
-graph statistical-class equivalence. Stinespring uniqueness {[}Main
-§3.2{]}, extended per the semigroup-transfer step ({[}Substratum{]}
-Lemma 24.1), conditionally establishes that these four exhaust the
-freedom. G3 includes G1 and G2: the SM gauge group is the visible-sector
-shadow of \(\mathcal{G}_{\rm sub}\) under the trace-out {[}Substratum
-§4{]}. G3 is an \emph{equivalence-class symmetry}, not a Lagrangian
-symmetry --- no Lagrangian exists at the substratum level. It plays the
-same structural role at the substratum level that Lagrangian gauge plays
-at the field-theory level.
+change (under the {[}SM §2.7{]} alphabet-size hypothesis), (iii)
+deep-sector enlargement, (iv) graph statistical-class equivalence.
+Stinespring uniqueness {[}Main §3.2{]}, extended per the
+semigroup-transfer step ({[}Substratum{]} Lemma 24.1), conditionally
+establishes that these four exhaust the freedom. G3 includes G1 and G2:
+the SM gauge group is the visible-sector shadow of
+\(\mathcal{G}_{\rm sub}\) under the trace-out {[}Substratum §4{]}. G3 is
+an \emph{equivalence-class symmetry}, not a Lagrangian symmetry --- no
+Lagrangian exists at the substratum level. It plays the same structural
+role at the substratum level that Lagrangian gauge plays at the
+field-theory level.
 
 \textbf{Level G4 --- Universality-class equivalence.} The equivalence
 relation on substratum-with-observer systems by partial-trace
@@ -893,7 +896,8 @@ realism applies --- the content of Parts I, II, and III of this paper.
 compactifications}\label{per-generator-analysis-applied-to-string-compactifications}}
 
 OI's gauge group \(\mathcal{G}_{\rm sub}\) has four explicit generators:
-(i) hidden-sector relabeling, (ii) alphabet change, (iii) deep-sector
+(i) hidden-sector relabeling, (ii) alphabet change (under the
+alphabet-size hypothesis of {[}SM §2.7{]}), (iii) deep-sector
 enlargement/reduction, (iv) graph statistical-class equivalence. Each
 has a natural but inexact analog in string compactifications.
 \emph{Generator (i)} corresponds to relabeling internal-space
@@ -902,7 +906,7 @@ moduli not affecting four-dimensional physics) --- discrete in OI,
 continuous in strings. \emph{Generator (ii)} corresponds to the
 matrix-rank parameter \(N\) in matrix models, or possibly the worldsheet
 central charge; the detailed analysis (§4) shows no straightforward
-extension of \(q\)-gauge invariance to string-theoretic continuum
+extension of the alphabet-size hypothesis to string-theoretic continuum
 structure has been established. \emph{Generator (iii)} corresponds to
 the choice of compactification (which Calabi-Yau, which flux, which
 D-brane arrangement) --- structurally productive as deep-sector content,
@@ -934,25 +938,23 @@ This section examines the technical bridge between OI's discrete
 substratum (alphabet \(\mathbb{Z}/q\mathbb{Z}\)) and string theory's
 continuum structures (real-valued matrix entries in BFSS, complex moduli
 in compactifications, continuous fields on worldsheets). The bridge
-question is whether OI's \(q\)-gauge invariance theorem {[}SM §2.7{]}
-extends to continuum theories, or whether OI's discrete nature is
-essential to the reconstruction.
+question is whether OI's alphabet-size hypothesis {[}SM §2.7{]} extends
+to continuum theories, or whether OI's discrete nature is essential to
+the reconstruction.
 
-\hypertarget{the-q-gauge-invariance-theorem-sm-2.7}{%
-\subsubsection{\texorpdfstring{4.1 The \(q\)-gauge invariance theorem
-{[}SM
-§2.7{]}}{4.1 The q-gauge invariance theorem {[}SM §2.7{]}}}\label{the-q-gauge-invariance-theorem-sm-2.7}}
+\hypertarget{the-alphabet-size-hypothesis-sm-2.7}{%
+\subsubsection{4.1 The alphabet-size hypothesis {[}SM
+§2.7{]}}\label{the-alphabet-size-hypothesis-sm-2.7}}
 
 OI's substratum has local state-space \(\mathbb{Z}/q\mathbb{Z}\) for
-some integer \(q \geq 2\). The \(q\)-gauge invariance theorem {[}SM
-§2.7{]} establishes that the alphabet size \(q\) is a gauge parameter:
-no observable depends on the choice of \(q\), provided the dynamics is
-linear. The proof rests on showing that the cubic-group decomposition,
-the wave equation's spectrum, and all derived quantities are independent
-of \(q\) when the dynamics is linear over \(\mathbb{Z}/q\mathbb{Z}\).
+some integer \(q \geq 2\). That the alphabet size \(q\) is a gauge
+parameter --- that no observable depends on the choice of \(q\) --- is
+the alphabet-size hypothesis of {[}SM §2.7{]}, posed for linear
+dynamics. {[}SM §2.7{]} lists the results proved for every \(q\) and
+those that carry \(q\); no proof covers every observable.
 
-This theorem underwrites OI's claim that A5 (linearity) is forced rather
-than assumed, but conditionally: the forcing runs through
+This hypothesis bears on OI's claim that A5 (linearity) is forced rather
+than assumed, conditionally: the forcing runs through
 \emph{amplitude-scale} gauge (the unobservability of the absolute field
 scale), which {[}Substratum §4, Theorem 24, \emph{Status}{]} classifies
 as an adjoined operational input rather than a theorem ({[}SM §2.7{]})
@@ -961,8 +963,8 @@ referee-grade question. Linearity is therefore forced \emph{given} that
 operational principle, not unconditionally. Non-linear dynamics over
 \(\mathbb{Z}/q\mathbb{Z}\) generically produce \(q\)-dependent
 observable physics (\(x^2 \bmod 3\) and \(x^2 \bmod 5\) have different
-algebraic structure), violating the gauge equivalence. The theorem
-operates within the discrete alphabet structure; it does not address
+algebraic structure), violating the gauge equivalence. The hypothesis is
+stated within the discrete alphabet structure; it does not address
 whether \(q \to \infty\) limit produces continuum dynamics or what role
 real-valued degrees of freedom play.
 
@@ -989,7 +991,7 @@ approximates the continuum matrix-model in an appropriate limit.
 
 Candidate (a) is structurally suggestive --- both \(q\) and \(N\)
 parametrize the size of the basic representation space. The disanalogy
-is that OI's \(q\)-gauge theorem establishes \(q\)-independence of
+is that OI's alphabet-size hypothesis asserts \(q\)-independence of
 observables; the analogous claim for \(N\) would be \(N\)-independence
 of matrix-model observables, which is \emph{not} a feature of matrix
 models. Different \(N\) values give different theories (BFSS at \(N=2\)
@@ -1018,8 +1020,8 @@ Three structural possibilities for the discrete-to-continuum bridge:
   reading, OI's substratum at very large \(q\) approximates a continuum
   theory, with continuous matrix entries arising as the limit. This is
   the most direct continuum extension. The challenge is that the
-  \(q\)-gauge theorem requires linearity, which the continuum
-  matrix-model violates. The bridge fails at A5.
+  alphabet-size hypothesis is posed for linear dynamics, which the
+  continuum matrix-model violates. The bridge fails at A5.
 \item
   \emph{Matrix rank \(N\) as analog of \(q\).} Under this reading, the
   matrix-model parameter \(N\) plays the same gauge role as OI's \(q\),
@@ -1116,11 +1118,11 @@ following the V1 reformulation {[}Substratum §3.1{]}, are: A1
 (finiteness), A2 (determinism / bijection), A3 (bounded coupling
 degree), A4 (center independence), A5 (linearity), A6 (background
 independence). All six are forced by the empirical inputs E1--E4
-combined with the framework's gauge structure ({[}SM §2.7{]} \(q\)-gauge
-invariance, {[}Substratum §4{]} Theorem 24 classical-substratum
-descent). For matrix models to be candidate representatives of OI's
-equivalence class, the same conditions must hold for the matrix-model
-description.
+combined with the framework's gauge structure ({[}SM §2.7{]}
+alphabet-size hypothesis, {[}Substratum §4{]} Theorem 24
+classical-substratum descent). For matrix models to be candidate
+representatives of OI's equivalence class, the same conditions must hold
+for the matrix-model description.
 
 We address each condition in turn, taking the BFSS matrix model as the
 principal example. The conclusions extend to IKKT and to BFSS variants
@@ -1242,9 +1244,9 @@ noncommutative-geometry interpretation of matrix theory.
 
 OI's {[}SM §4.1{]} necessity argument for linearity rests on
 amplitude-scale gauge (§4.1 above; {[}Substratum §4{]}), an adjoined
-operational input that the \(q\)-size gauge of {[}SM §2.7{]} does not
-entail. The \(q\)-gauge invariance theorem adds a consistency statement:
-nonlinear dynamics over \(\mathbb{Z}/q\mathbb{Z}\) generically have
+operational input that the alphabet-size hypothesis of {[}SM §2.7{]}
+does not entail. The hypothesis adds a consistency statement: nonlinear
+dynamics over \(\mathbb{Z}/q\mathbb{Z}\) generically have
 \(q\)-dependent emergent physics (\(x^2 \bmod 3\) vs \(x^2 \bmod 5\) are
 algebraically distinct), violating it.
 
@@ -1335,13 +1337,12 @@ dynamics that diverge from OI's substratum.
 derives, conditionally on H-link, the Standard Model gauge group through
 cubic-group decomposition of the \(K = 6\) internal components, with the
 wave-equation linearity playing an essential role: it is the linearity
-that allows the \(q\)-gauge invariance theorem {[}SM §2.7{]} to pin down
-the dynamics, and it is the wave-equation structure that produces the
-cubic-lattice spectrum from which the gauge group is derived. Matrix
-models reach the gauge group through a different route --- emergent
-gauge fields from open strings ending on D-branes, or matrix-internal
-\(U(N)\) symmetries enhanced in specific limits --- and this route is
-genuinely nonlinear.
+that the alphabet-size hypothesis {[}SM §2.7{]} presupposes, and it is
+the wave-equation structure that produces the cubic-lattice spectrum
+from which the gauge group is derived. Matrix models reach the gauge
+group through a different route --- emergent gauge fields from open
+strings ending on D-branes, or matrix-internal \(U(N)\) symmetries
+enhanced in specific limits --- and this route is genuinely nonlinear.
 
 \textbf{The implication for the equivalence-class proposal.} For matrix
 models to be representatives of OI's equivalence class
@@ -1590,9 +1591,9 @@ string-theory predictions through gauge equivalence --- likewise does
 not follow. OI's prediction set (twenty-two classified quantitative SM
 relations, the sharpest matching observation at sub-percent precision)
 is a feature of OI's specific substratum derivation chain, which uses
-linearity of the wave equation, \(q\)-gauge invariance, and cubic-group
-decomposition. None of these is present in matrix models in the form OI
-requires, so the prediction chain does not transport.
+linearity of the wave equation, the alphabet-size hypothesis, and
+cubic-group decomposition. None of these is present in matrix models in
+the form OI requires, so the prediction chain does not transport.
 
 This means the empirical match of OI's predictions is OI-specific
 evidence, neither confirmed nor refuted by string-theoretic
@@ -2152,8 +2153,8 @@ reading, the landscape's multiplicity decomposes structurally:
   producing four-dimensional vacua with chiral matter, stable
   cosmological structure (de Sitter or near-de Sitter with horizon
   timescales \(\tau_B \sim H^{-1}\)), and sufficient information
-  capacity (the cosmological horizon's \(\sim 10^{122}\) degrees of
-  freedom) satisfy C1--C4 and are observer-admitting. The SM-reproducing
+  capacity (the cosmological horizon's entropy \(\sim 10^{122}\))
+  satisfy C1--C4 and are observer-admitting. The SM-reproducing
   compactifications surveyed in §5 --- heterotic on Calabi-Yau with
   appropriate bundles, Type II / D-brane Pati-Salam constructions,
   F-theory \(SU(5)\) with hypercharge flux --- fall in this class.
@@ -3088,12 +3089,13 @@ visible sector is the sublattice accessible to the embedded observer;
 the hidden sector is the complementary substratum. The visible-sector
 Hilbert space at the substratum scale is \(\ell^2(\mathcal{C}_V)\) where
 \(\mathcal{C}_V\) is the visible sublattice's configuration space. At
-wavelengths long compared to the lattice spacing \(\epsilon = 2 l_p\),
-\(\ell^2(\mathcal{C}_V)\) resolves to the Fock space
-\(\mathcal{H}_V^{\rm OI}\) of the emergent QFT --- the Standard Model
-with gauge group \(SU(3) \times SU(2) \times U(1)\), three generations
-(physical reading conditional on H-spin', {[}SM §4.7{]}; chirality on
-H-χ', {[}SM §4.8{]}), and one Higgs doublet ({[}SM §4{]}).
+wavelengths long compared to the lattice spacing
+\(\epsilon = 2\sqrt{\sigma}\,l_p\), \(\ell^2(\mathcal{C}_V)\) resolves
+to the Fock space \(\mathcal{H}_V^{\rm OI}\) of the emergent QFT --- the
+Standard Model with gauge group \(SU(3) \times SU(2) \times U(1)\),
+three generations (physical reading conditional on H-spin', {[}SM
+§4.7{]}; chirality on H-χ', {[}SM §4.8{]}), and one Higgs doublet ({[}SM
+§4{]}).
 
 \textbf{The algebra.} Let \(\mathcal{A}_V^{\rm OI}\) be the von Neumann
 algebra of gauge-invariant local observables on
@@ -3694,9 +3696,9 @@ in {[}SM §6.7{]}:
   exists at any scale.
 \item
   \emph{Coupling-level.} Gauge couplings do not unify. They are split at
-  the cutoff by \(C_2\)-dependent thresholds (induced-gauge-theory
-  structure), with pure SM running below \(M_{\mathrm{Pl}}\) continuing
-  the splitting.
+  the matching scale \(\mu = M_{\mathrm{Pl}}\) by \(C_2\)-dependent
+  thresholds (induced-gauge-theory structure), with pure SM running
+  below \(M_{\mathrm{Pl}}\) continuing the splitting.
 \item
   \emph{Mechanistic.} OI's gauge couplings emerge from the fermion
   determinant, with no fundamental gauge action and no moduli connecting
@@ -4317,13 +4319,14 @@ parameter. The observed neutrino mass scale \(m_\nu \sim 10^{-3}\) eV
 requires \(\Lambda_{\mathrm{seesaw}} \sim 10^{16}\) GeV ---
 coincidentally the GUT scale. In standard GUT scenarios, this scale is
 structurally explained by gauge-coupling unification. In OI's no-GUT
-framework, no GUT scale exists structurally; the natural cutoff is
-\(M_{\mathrm{Pl}} \sim 10^{19}\) GeV, which would give
-\(m_\nu \sim 10^{-6}\) eV --- three orders of magnitude too small. The
-framework currently treats \(\Lambda_{\mathrm{seesaw}}\) as
-solution-specific input rather than deriving it. \emph{Open question:}
-does the framework have an intermediate scale between \(M_Z\) and
-\(M_{\mathrm{Pl}}\) that arises structurally from the substratum's
+framework, no GUT scale exists structurally; the natural cutoff is the
+lattice scale \(M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order
+\(M_{\mathrm{Pl}} \sim 10^{19}\) GeV when \(\sigma\) is of order one,
+which would give \(m_\nu \sim 10^{-6}\) eV --- three orders of magnitude
+too small. The framework currently treats \(\Lambda_{\mathrm{seesaw}}\)
+as solution-specific input rather than deriving it. \emph{Open
+question:} does the framework have an intermediate scale between \(M_Z\)
+and \(M_{\mathrm{Pl}}\) that arises structurally from the substratum's
 staggered-taste structure or other lattice-level features, and that
 could naturally produce \(\Lambda_{\mathrm{seesaw}} \sim 10^{16}\) GeV?
 Speculative candidates include scales associated with the
@@ -4385,16 +4388,19 @@ GUT scale but plays the roles that GUT scales play in standard scenarios
 --- setting the seesaw scale for neutrino masses and protecting the
 Higgs mass via chiral mechanisms? \textbf{Tentative resolution:}
 negative on the analysis conducted here. The framework's
-substratum-level scales are essentially \(M_{\mathrm{Pl}}\) (lattice
-cutoff) and emergent scales below \(M_Z\); candidates for intermediate
-scales (staggered-taste mass gap, boundary-layer thickness,
-\(\delta_0 = \mathrm{Tr}[Y^2]\) coincidence, \(C_2\)-dependent threshold
-effective scales, cosmological-horizon-induced scales, emergent
-dimensional transmutation) all yield scales at \(M_{\mathrm{Pl}}\)
-modulo \(O(1)\) factors or scales below \(M_Z\), but none naturally at
-\(\sim 10^{16}\) GeV. The seesaw scale and the Higgs mass therefore
-remain as Tier 3 (solution-specific) parameters in the framework, set by
-the specific bijection \(\varphi\) rather than by structural derivation.
+substratum-level scales are essentially the lattice scale
+\(M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order \(M_{\mathrm{Pl}}\) when
+\(\sigma\) is of order one, and emergent scales below \(M_Z\);
+candidates for intermediate scales (staggered-taste mass gap,
+boundary-layer thickness, the \(\delta_0 = \mathrm{Tr}[Y^2]\)
+coincidence at the matching convention \(\mu = M_{\mathrm{Pl}}\),
+\(C_2\)-dependent threshold effective scales,
+cosmological-horizon-induced scales, emergent dimensional transmutation)
+all yield scales at \(M_{\mathrm{Pl}}\) modulo \(O(1)\) factors or
+scales below \(M_Z\), but none naturally at \(\sim 10^{16}\) GeV. The
+seesaw scale and the Higgs mass therefore remain as Tier 3
+(solution-specific) parameters in the framework, set by the specific
+bijection \(\varphi\) rather than by structural derivation.
 \emph{Implication:} OI's predictions on intermediate-scale physics are
 limited to what can be derived from \(M_{\mathrm{Pl}}\) + EW-scale
 physics, with no claim of structural intermediate-scale derivation. This
@@ -5837,4 +5843,4 @@ Press (1979), 790-831.
 quantum gravity'', Phys. Rev.~D 57, 971 (1998). arXiv:hep-th/9605030.
 
 \end{document}
-% source-sha256: c5f6c2348074b943ff25a25d156339171810400ac986c59c475dc6887fa50bae
+% source-sha256: 01099be4a4d64a77bdbcf6b5da22c79edfffae086bde9b849b201ea8fddeee43

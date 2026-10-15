@@ -296,8 +296,9 @@ size ε --- you can't resolve anything smaller. This means the
 configuration space is finite, not continuous. This matters because
 finite systems have a property infinite systems don't --- they must
 eventually return to their starting state (Poincaré recurrence). In Part
-I, ε is left unspecified. In Part II, self-consistency forces ε = 2 l\_p
-(twice the Planck length).
+I, ε is left unspecified. In Part II, self-consistency forces ε = 2√σ
+l\_p, where σ is the entropy carried by one boundary mode --- twice the
+Planck length at σ = 1, one nat per boundary mode.
 
 \textbf{Lemma 2} (Causal partition). \emph{An observer is a proper
 subsystem \(V \subsetneq S\). The complement \(H = S \setminus V\) is
@@ -437,10 +438,10 @@ environment decorrelates fast. Here, it never decorrelates at all.
 (Condition C2.)
 
 \textbf{It's vast.} The hidden sector has roughly \(10^{122}\)
-independent degrees of freedom --- the Bekenstein-Hawking entropy of the
-cosmological horizon. No experiment you could ever perform would
-appreciably disturb its state. Its memory never saturates. (Condition
-C3.)
+independent degrees of freedom at one nat each --- the
+Bekenstein-Hawking entropy of the cosmological horizon. No experiment
+you could ever perform would appreciably disturb its state. Its memory
+never saturates. (Condition C3.)
 
 A fast environment with vast capacity would wash out correlations
 (Markovian noise). A slow environment with limited capacity would
@@ -1369,9 +1370,10 @@ where H is the Hubble parameter. This implements Lemma 2 naturally: Γ\_V
 = everything inside the horizon, Γ\_H = everything beyond.
 
 \textbf{Why ℏ is the same for all observers:} Different observers have
-slightly different horizons. But the gap equation ℏ = c³ε²/(4G) depends
-only on local geometric quantities (c, G, ε) --- not on the horizon area
-or the observer's worldline. So all observers derive the same ℏ.
+slightly different horizons. But the gap equation ℏ = c³ε²/(4Gσ) depends
+only on local quantities (c, G, ε, and the entropy σ of one boundary
+mode) --- not on the horizon area or the observer's worldline. So all
+observers derive the same ℏ.
 
 \hypertarget{verification-of-the-conditions}{%
 \subsubsection{4.2 Verification of the
@@ -1389,10 +1391,10 @@ persist on all timescales.
 10⁻¹⁵ seconds (a typical atomic process). The ratio: τ\_S/τ\_B
 \textasciitilde{} 10⁻³².
 
-\textbf{C3 (sufficient capacity).} The hidden sector has A/ε²
-\textasciitilde{} 10¹²² modes (the de Sitter entropy). The visible
-sector has \textasciitilde{} 10⁸⁰ baryons. No experiment comes close to
-saturating the hidden sector.
+\textbf{C3 (sufficient capacity).} The hidden sector has A/ε² = S\_dS/σ
+\textasciitilde{} 10¹²² modes at σ = 1 (S\_dS the de Sitter entropy).
+The visible sector has \textasciitilde{} 10⁸⁰ baryons. No experiment
+comes close to saturating the hidden sector.
 
 \hypertarget{application}{%
 \subsubsection{4.3 Application}\label{application}}
@@ -1429,19 +1431,22 @@ where κ is the surface gravity and dA is the change in horizon area.
 This is a classical gravitational identity --- no quantum mechanics
 involved.
 
-The entropy density is η = 1/ε² --- one coupled mode per minimal cell of
-area ε². This is not an assumption about the number of states per cell:
-ε is defined as the minimal distinguishable scale (Lemma 1), so each
-cell of area ε² contributes exactly one boundary mode that couples
-across the partition. The number of internal states per mode (the
-alphabet size q) is a gauge freedom with no observable consequences
-{[}SM §2.7{]}. So dS = dA/ε². From dE = TdS:
+The entropy density is η = σ/ε² --- one coupled mode per minimal cell of
+area ε², each carrying an entropy σ. ε is defined as the minimal
+distinguishable scale (Lemma 1), so each cell of area ε² contributes
+exactly one boundary mode that couples across the partition. The entropy
+σ of a mode is a pure number, in nats: the number of internal states per
+mode (the alphabet size q) bounds it, σ ≤ ln q, and the alphabet-size
+hypothesis {[}SM §2.7{]} does not fix it. The Bekenstein-Hawking
+coefficient does not depend on σ, which cancels from the entropy law and
+enters only the discreteness scale, ε = 2√σ l\_p {[}GR §3.1, §4{]}. So
+dS = σ dA/ε². From dE = TdS:
 
-\[k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G}\]
+\[k_B T_{\text{cl}} = \frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma}\]
 
 For the de Sitter horizon, κ = cH:
 
-\[k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G}\]
+\[k_B T_{\text{cl}} = \frac{c^3 \epsilon^2 H}{8\pi G \sigma}\]
 
 \textbf{Critical point: no ℏ appears anywhere.} This temperature is
 computed from purely classical quantities.
@@ -1478,7 +1483,7 @@ mechanics.
 (deep-sector) quantities, leaving boundary quantities. The boundary
 carries both \emph{local} geometric data (ε, κ, and the constants c, G)
 and a \emph{global} quantity: the total area A, which forms the
-dimensionless ratio A/ε² = S\_dS. If ℏ depended on S\_dS, it would be
+dimensionless ratio A/ε² = S\_dS/σ. If ℏ depended on S\_dS, it would be
 observer-dependent --- different observers have different horizon areas
 --- contradicting the universality of the emergent action scale. This
 excludes A. The surface gravity κ is excluded by two independent
@@ -1497,7 +1502,7 @@ analysis alone can't fix.
 \textbf{Step 4 (Thermal self-consistency).} We have two independent
 descriptions of the horizon temperature:
 
-\emph{Classical:} T\_cl = c²ε²κ/(8πGk\_B) --- computed from the
+\emph{Classical:} T\_cl = c²ε²κ/(8πGk\_Bσ) --- computed from the
 geometric substratum, no ℏ.
 
 \emph{Quantum:} The emergent QFT lives on a spacetime with a bifurcate
@@ -1515,13 +1520,13 @@ classical one (Part I), and the derivation is exact at the boundary, the
 two descriptions cannot assign contradictory temperatures. Consistency
 requires \(T_{\text{cl}} = T_Q\):
 
-\[\frac{c^2 \epsilon^2 \kappa}{8\pi G} = \frac{\hbar \kappa}{2\pi c}\]
+\[\frac{c^2 \epsilon^2 \kappa}{8\pi G \sigma} = \frac{\hbar \kappa}{2\pi c}\]
 
 The surface gravity κ cancels from both sides. Solving:
 
-\[\boxed{\hbar = \frac{c^3 \epsilon^2}{4G}}\]
+\[\boxed{\hbar = \frac{c^3 \epsilon^2}{4G\sigma}}\]
 
-This fixes β = 1/4.
+This fixes β = 1/(4σ).
 
 \textbf{Why this is not circular.} The KMS temperature T\_Q contains ℏ
 as an \emph{unknown}. The classical temperature T\_cl contains no ℏ at
@@ -1535,14 +1540,14 @@ parameter, conditional on H-balance in its class), the matching wouldn't
 work. That neither pathology obtains makes the gap equation a genuine
 determination.
 
-\textbf{Predictive content.} The gap equation relates one free parameter
-(ε) to one output (ℏ), but the derivation has genuine content because it
-picks out the specific relationship ℏ = c³ε²/(4G) --- rather than any
-other function of c, G, ε --- as the one that produces the
-Bekenstein-Hawking factor 1/4 (§6), the CC dissolution (§7.3), and the
-Type II RVM dark-energy form (§8.1) simultaneously. Any alternative ℏ(ε)
-would fail at least one check. See Appendix item 1 for the detailed
-discussion.
+\textbf{Predictive content.} The gap equation relates one free geometric
+parameter (ε), at given σ, to one output (ℏ), but the derivation has
+genuine content because it picks out the specific relationship ℏ =
+c³ε²/(4Gσ) --- rather than any other function of c, G, ε --- as the one
+that produces the Bekenstein-Hawking factor 1/4 (§6), the CC dissolution
+(§7.3), and the Type II RVM dark-energy form (§8.1) simultaneously. Any
+alternative ℏ(ε) would fail at least one check. See Appendix item 1 for
+the detailed discussion.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1596,25 +1601,29 @@ dimensionful physical input enters the framework.
 \subsection{The Discreteness Scale
 (§6)}\label{the-discreteness-scale-6}}
 
-\hypertarget{what-ux3b5-2-l_p-means}{%
-\subsubsection{What ε = 2 l\_p means}\label{what-ux3b5-2-l_p-means}}
+\hypertarget{what-ux3b5-2ux3c3-l_p-means}{%
+\subsubsection{What ε = 2√σ l\_p
+means}\label{what-ux3b5-2ux3c3-l_p-means}}
 
-Rearranging the gap equation ℏ = c³ε²/(4G):
+Rearranging the gap equation ℏ = c³ε²/(4Gσ):
 
-\[\epsilon^2 = \frac{4\hbar G}{c^3} = 4 \, l_p^2\]
+\[\epsilon^2 = \frac{4\sigma\hbar G}{c^3} = 4\sigma \, l_p^2\]
 
-where l\_p = √(ℏG/c³) is the Planck length. Therefore ε = 2 l\_p.
+where l\_p = √(ℏG/c³) is the Planck length. Therefore ε = 2√σ l\_p,
+which is ε = 2 l\_p at σ = 1 (one nat per boundary mode).
 
 \textbf{What this is:} The framework has one free geometric parameter
 --- the discreteness scale ε. The gap equation fixes its relationship to
-ℏ. Given the measured value of ℏ, the discreteness scale is determined:
-ε = 2 l\_p ≈ 3.2 × 10⁻³⁵ meters.
+ℏ. Given the measured value of ℏ and the entropy σ per mode, the
+discreteness scale is determined: ε = 2√σ l\_p, which at σ = 1 is 2 l\_p
+≈ 3.2 × 10⁻³⁵ meters.
 
 \textbf{What this is NOT:} This is not an independent prediction of ε.
-The framework contains one free parameter and one equation relating it
-to known constants. The self-consistency condition pins ε to the Planck
-regime but doesn't predict a number that wasn't already implicitly
-known.
+The framework contains one free geometric parameter and one equation
+relating it to known constants and σ. The self-consistency condition
+fixes the ratio ε/√σ = 2 l\_p, which puts ε in the Planck regime only if
+σ is of order one, and doesn't predict a number that wasn't already
+implicitly known.
 
 \hypertarget{the-bekenstein-hawking-entropy-where-the-14-factor-comes-from}{%
 \subsubsection{The Bekenstein-Hawking Entropy --- Where the 1/4 factor
@@ -1623,40 +1632,37 @@ from}\label{the-bekenstein-hawking-entropy-where-the-14-factor-comes-from}}
 
 The number of independent modes on the cosmological horizon is:
 
-\[N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4 \, l_p^2}\]
+\[N_{\text{modes}} = \frac{A}{\epsilon^2} = \frac{A}{4\sigma \, l_p^2}\]
 
-This is the Bekenstein-Hawking entropy:
+Each mode carries the entropy σ, so the total entropy is the
+Bekenstein-Hawking entropy:
 
-\[S_{\text{BH}} = \frac{A}{4 \, l_p^2}\]
+\[S_{\text{BH}} = \sigma N_{\text{modes}} = \frac{A}{4 \, l_p^2}\]
 
 The factor of 1/4 --- which Bekenstein and Hawking introduced as a
 proportionality constant in 1973 --- is here fixed by the cell size:
-each minimal cell of area ε² = 4 l\_p² contributes one unit of entropy,
-and the 4 in the denominator comes from ε = 2 l\_p, which the gap
-equation supplies under one named condition on the horizon reservoir
-(H-slope, the infrared detailed-balance condition of {[}GR §3.2{]})
-together with the horizon and frame conditions of {[}GR §2, §8.5{]}.
+each minimal cell of area ε² = 4σ l\_p² contributes the entropy σ of one
+boundary mode, σ cancels, and the 4 in the denominator comes from ε² =
+4σ l\_p², which the gap equation supplies under one named condition on
+the horizon reservoir (H-slope, the infrared detailed-balance condition
+of {[}GR §3.2{]}) together with the horizon and frame conditions of
+{[}GR §2, §8.5{]}.
 
 \textbf{Why this is significant:} The 1/4 factor has been a mystery for
 50 years. Most frameworks either assume it or derive it within
 constructions specifically designed to produce it. Here it follows from
 the gap equation with no fitted input, under the named horizon
-conditions; the mode count itself, S = A/ε², needs none of them.
+conditions; the counting itself, S = σA/ε², needs none of them.
 
-\hypertarget{self-consistency-bounds-on-ux3b5}{%
-\subsubsection{Self-consistency bounds on
-ε}\label{self-consistency-bounds-on-ux3b5}}
+\hypertarget{what-self-consistency-does-not-bound}{%
+\subsubsection{What self-consistency does not
+bound}\label{what-self-consistency-does-not-bound}}
 
-\textbf{If ε² ≪ l\_p²:} Sub-Planckian cells would need further
-subdivision, creating a second trace-out within the first. This would
-make ℏ multi-valued --- contradicting the observed universality of ℏ.
-
-\textbf{If ε² ≫ l\_p²:} Super-Planckian cells would be too coarse. The
-emergent quantum description would assign distinct quantum states to
-configurations that are physically identical.
-
-The self-consistency condition ε = 2 l\_p is the unique value where
-neither pathology occurs.
+The gap equation fixes ε/√σ = 2 l\_p, not ε by itself. ε sits at the
+Planck scale only if σ is of order one. The count caps σ at ln q for a
+mode with q states but does not bound it from below: σ = 10⁻¹² would
+give ε = 2 × 10⁻⁶ l\_p.~The gap equation does not exclude scales far
+from l\_p; whether they are excluded on independent grounds is open.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1681,7 +1687,8 @@ in an infinitesimal time step --- so the transition probability between
 them is zero --- so the corresponding quantum Hamiltonian matrix element
 is zero. The emergent Hamiltonian couples only neighboring cells,
 exactly like the classical one. You get a lattice quantum field theory
-with a built-in ultraviolet cutoff at \(\epsilon = 2\,l_p\).
+with a built-in ultraviolet cutoff at
+\(\epsilon = 2\sqrt{\sigma}\,l_p\).
 
 This is what makes the CC dissolution work. The QFT has independent
 modes. Each mode gets a zero-point energy. The sum diverges. And the
@@ -1725,10 +1732,11 @@ universality.
 
 The \(10^{122}\) ratio between the two answers is not a discrepancy. It
 equals \(S_{\text{dS}}\) --- the Bekenstein-Hawking entropy of the
-cosmological horizon --- which is the number of hidden-sector degrees of
-freedom the trace-out compresses into the emergent quantum state. The
-``worst prediction in physics'' is the information compression ratio of
-the observer's blind spot. A category error, not a fine-tuning failure.
+cosmological horizon --- which is the entropy of the hidden-sector
+degrees of freedom the trace-out compresses into the emergent quantum
+state. The ``worst prediction in physics'' is the information
+compression ratio of the observer's blind spot. A category error, not a
+fine-tuning failure.
 
 This is not a prediction awaiting future data. The observed vacuum
 energy has been measured since 1998, and it sits exactly at the
@@ -1887,19 +1895,20 @@ would also demand its correlated Lorentz-violation co-signature.
 \textbf{The dark sector as corroboration.} The trace-out that produces
 the memory-bearing dynamics quantum mechanics represents has a
 gravitational consequence that the paper did not set out to find. The
-boundary entropy --- the \(S_{\text{dS}}\) modes traced out to produce
-the quantum description --- has thermal energy that, distributed over
-the Hubble volume, equals the critical density exactly. A crucial
-subtlety: this thermal energy is computed entirely from pre-trace-out
-(classical) quantities --- the number of boundary modes, the classical
-horizon temperature, and the Hubble volume --- with no reference to
-\(\hbar\) or the emergent quantum description. This is what
-distinguishes the boundary entropy's gravitational contribution from the
-QFT zero-point energy (\(\rho_{\text{QFT}} \sim 10^{113}\) J/m³), which
-exists only \emph{after} the trace-out and is an artifact of the
-emergent description. The framework denies that the zero-point energy
-gravitates (this is the CC dissolution of Part II); the boundary
-entropy's classical thermal energy \emph{does} gravitate, at the scale
+boundary entropy --- the entropy \(S_{\text{dS}}\) of the
+\(A/\epsilon^2\) modes traced out to produce the quantum description ---
+has thermal energy that, distributed over the Hubble volume, equals the
+critical density exactly. A crucial subtlety: this thermal energy is
+computed entirely from pre-trace-out (classical) quantities --- the
+boundary entropy, the classical horizon temperature, and the Hubble
+volume --- with no reference to \(\hbar\) or the emergent quantum
+description. This is what distinguishes the boundary entropy's
+gravitational contribution from the QFT zero-point energy
+(\(\rho_{\text{QFT}} \sim 10^{113}\) J/m³), which exists only
+\emph{after} the trace-out and is an artifact of the emergent
+description. The framework denies that the zero-point energy gravitates
+(this is the CC dissolution of Part II); the boundary entropy's
+classical thermal energy \emph{does} gravitate, at the scale
 \(\rho_{\text{crit}} \sim 10^{-9}\) J/m³.
 
 The paper proves that this entropy has no operator in the emergent QFT.
@@ -2010,15 +2019,15 @@ empirical pattern consistent with the framework's central mechanism.
 
 \textbf{Gauge coupling prediction.} The companion paper {[}SM §6{]}
 extends the derivation chain to the gauge coupling strengths. The
-fermion-induced coupling gives \(1/\alpha_0 = 23.25\) at the Planck
-scale --- a universal value determined by the lattice structure
-(\(N_f = 6\) flavors, \(T(R) = 1/2\)), not by the specific bijection
-\(\varphi\). Combined with non-perturbative gauge self-energy
-corrections (from pure-gauge Monte Carlo at the induced coupling) and
-Standard Model renormalization group running, this reproduces all three
-SM gauge couplings at \(M_Z\): \(1/\alpha_1 = 59.00\),
-\(1/\alpha_2 = 29.57\), \(1/\alpha_3 = 8.47\) --- matching the observed
-values to \(< 0.1\%\).
+fermion-induced coupling gives \(1/\alpha_0 = 23.25\) at the matching
+scale \(\mu = M_{\text{Pl}}\) --- a universal value determined by the
+lattice structure (\(N_f = 6\) flavors, \(T(R) = 1/2\)), not by the
+specific bijection \(\varphi\). Combined with non-perturbative gauge
+self-energy corrections (from pure-gauge Monte Carlo at the induced
+coupling) and Standard Model renormalization group running, this
+reproduces all three SM gauge couplings at \(M_Z\):
+\(1/\alpha_1 = 59.00\), \(1/\alpha_2 = 29.57\), \(1/\alpha_3 = 8.47\)
+--- matching the observed values to \(< 0.1\%\).
 
 \textbf{Independent corroboration of the trace-out mechanism.} The
 framework's central technical move --- that integrating out hidden
@@ -2744,14 +2753,18 @@ Lorentz-invariant dispersion relation at leading order, with linear
 Lorentz-invariance violation forbidden at the substrate level (the
 cubic-lattice dispersion admits no \(\mathcal{O}(k^3)\) term) and the
 leading correction fixed at
-\(\omega^2 = k^2[1 - (4/45)(E/M_{\text{Pl}})^2 + \ldots]\) ---
-subluminal, with the \(4/45\) coefficient a specific prediction, not a
-free parameter, (6) the correct Unruh temperature at horizons, and (7)
-all inputs to Jacobson's thermodynamic derivation of Einstein's field
-equations. Each of these is an independent check that could have come
-out wrong --- the entropy could have scaled with volume, the dispersion
-could have been non-relativistic or admitted linear LIV, the horizon
-state could have been non-thermal. None of these failures occurs.
+\(\omega^2 = k^2[1 - (4\sigma/45)(E/M_{\text{Pl}})^2 + \ldots]\), a
+coefficient \(4/45\) at one nat of entropy per boundary mode ---
+subluminal, with the lattice coefficient \(1/45\) of \((k\epsilon)^2\) a
+specific prediction, not a free parameter, while the amplitude
+\(4\sigma/45\) carries the undetermined \(\sigma\), so a measurement of
+it would constrain \(\sigma\), (6) the correct Unruh temperature at
+horizons, and (7) all inputs to Jacobson's thermodynamic derivation of
+Einstein's field equations. Each of these is an independent check that
+could have come out wrong --- the entropy could have scaled with volume,
+the dispersion could have been non-relativistic or admitted linear LIV,
+the horizon state could have been non-thermal. None of these failures
+occurs.
 
 \textbf{No free parameters.} The wave equation is selected, not chosen.
 The lattice spacing is fixed by the gap equation. The entropy
@@ -2819,14 +2832,18 @@ spatial embedding we draw is a representation for our convenience, not a
 physical fact. Asking ``what does the lattice sit in?'' is like asking
 what the number 7 sits in. It's a category error.
 
-\textbf{The alphabet is a gauge freedom.} The companion papers prove
-every result for any alphabet size q ≥ 2. The gap equation contains no
-q. The Bekenstein-Hawking formula contains no q. The dispersion relation
-is valid for any q. No experiment could measure q, even in principle.
-This makes q a gauge freedom --- a choice of mathematical description,
-like choosing a coordinate system or a gauge for the electromagnetic
-potential. The physical content is the coupling structure, not the
-microscopic state space.
+\textbf{The alphabet size.} Several results hold for every alphabet size
+q ≥ 2 and contain no q: P-indivisibility, center independence, the
+boundary scaling of the area law, and the dispersion relation of the
+observer-level operator. Others carry q: the period of the wave map, the
+coefficient of the area law, the capacity count of the hidden sector. In
+the gravitational sector q could enter only through the entropy assigned
+to one boundary cell, which cancels from the Bekenstein-Hawking formula.
+That no observable depends on q at all is a hypothesis, the
+alphabet-size hypothesis {[}SM §2.7{]}. Under it q is a gauge freedom
+--- a choice of mathematical description, like choosing a coordinate
+system or a gauge for the electromagnetic potential --- and the physical
+content is the coupling structure, not the microscopic state space.
 
 \textbf{Connection to causal set theory.} The bijection's coupling
 graph, extended in time, generates a causal partial order: event A
@@ -3187,8 +3204,8 @@ checks & GR + Substratum \\
 \textbf{Standard Model structure} & SU(3) × SU(2) × U(1), 3 generations,
 Higgs, chiral coupling & SM \\
 \textbf{Structural foundations} & \(d = 3\), coupling graph ontology,
-\(q\)-gauge, background independence (state-dependent geometry) &
-Substratum \\
+alphabet-size hypothesis, background independence (state-dependent
+geometry) & Substratum \\
 \textbf{Chemistry → life} & Orbitals, periodic table, carbon, water,
 chirality, autocatalysis, origin of life, evolution & Complexity \\
 \end{longtable}
@@ -3466,12 +3483,13 @@ just as the structural consequence of the halting problem is the
 architecture of computability theory.
 
 The framework also identifies a distinct class of inaccessible
-quantities: the alphabet size q and the deep-sector cardinality
-\textbar C\_D\textbar. These are not undecidable --- they are
-\emph{gauge}. Different values of q produce identical observables, and
-different values of \textbar C\_D\textbar{} produce the same transition
-data at leading order on accessible timescales, so within those data
-there is no fact of the matter to be inaccessible. The hidden state h is
+quantities: the deep-sector cardinality \textbar C\_D\textbar{} and,
+under the alphabet-size hypothesis {[}SM §2.7{]}, the alphabet size q.
+These are not undecidable --- they are \emph{gauge}. Different values of
+\textbar C\_D\textbar{} produce the same transition data at leading
+order on accessible timescales, and under the hypothesis different
+values of q produce identical observables, so within those data there is
+no fact of the matter to be inaccessible. The hidden state h is
 undecidable: it has a real answer the observer cannot reach. The
 cardinality \textbar C\_D\textbar{} is gauge: in the
 accessible-timescale data there is nothing there to reach.
@@ -3581,8 +3599,8 @@ consistent with QM emergence, isotropy, and linearity. If you see SU(3)
 × SU(2) × U(1) with three generations, the gauge structure pins K = 6
 with multiplicities (3, 2, 1) --- the cubic group decomposition is
 unique. If the visible transition counts are reciprocal, the substratum
-dynamics is T-invariant. If ℏ has the specific value c³ε²/(4G), the gap
-equation pins ε = 2l\_p.~And d = 3 is the unique self-consistent
+dynamics is T-invariant. If ℏ has the specific value c³ε²/(4Gσ), the gap
+equation pins ε = 2√σ l\_p.~And d = 3 is the unique self-consistent
 dimension.
 
 Chain the local reconstruction steps together and the observed inputs
@@ -3592,10 +3610,11 @@ lattice/gauge data pinned up to the substratum gauge group
 rule is extra composite data: H-Bell conditions its
 compatibility/existence, and its uniqueness is open. This gauge group
 has four generators: state relabeling (permuting the elements of S while
-conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ),
-deep-sector enlargement (the cardinality of a deep hidden sector that no
-dynamics couples to the boundary layer is unobservable --- it may even
-be infinite), and graph isomorphism up to statistical isotropy (any
+conjugating φ), alphabet change (replacing ℤ/qℤ with any ℤ/q'ℤ; a
+generator under the alphabet-size hypothesis {[}SM §2.7{]}), deep-sector
+enlargement (the cardinality of a deep hidden sector that no dynamics
+couples to the boundary layer is unobservable --- it may even be
+infinite), and graph isomorphism up to statistical isotropy (any
 bounded-degree graph with d = 3 polynomial growth and statistical
 isotropy is gauge-equivalent to ℤ³ \emph{for the emergent-QM,
 dimensional, and gravitational content}; for the Standard Model gauge
@@ -3787,25 +3806,26 @@ hidden-memory theorem & Biconditional + internal permutation unitary
 (compressed form imported under (T)) \\
 §4: Cosmological horizon & The universe satisfies the definition & C1 ✓,
 C2 ✓, C3 ✓, C4 ✓ \\
-§5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_B) & No ℏ \\
+§5.1: Classical temperature & T\_cl = c²ε²κ/(8πGk\_Bσ) & No ℏ \\
 §5.2 Step 1: Uniqueness & ℏ is determined, not free &
 Partition-relativity \\
 §5.2 Step 2: Boundary-only & ℏ depends only on c, G, ε & Deep sector
 frozen \\
 §5.2 Step 3: Dimensional analysis & ℏ = β c³ε²/G & Unique combination \\
-§5.2 Step 4: Thermal matching & T\_cl = T\_Q fixes β = 1/4 & ℏ =
-c³ε²/(4G) \\
+§5.2 Step 4: Thermal matching & T\_cl = T\_Q fixes β = 1/(4σ) & ℏ =
+c³ε²/(4Gσ) \\
 §5.3: Bohr-frequency completeness & Frequencies determined, ℏ not &
 Dimensional obstruction \\
-§6: Self-consistency & ε = 2 l\_p, S\_BH = A/(4l\_p²) & ε² = 4ℏG/c³ \\
+§6: Self-consistency & ε = 2√σ l\_p, S\_BH = A/(4l\_p²) & ε² =
+4σℏG/c³ \\
 \end{longtable}
 
 The chain from definition to ℏ:
 
 Definition → universal \(Q_{\mathrm{fb}}\) representation
 (P-indivisibility marking the memory sector) → Hamiltonian with unknown
-ℏ → thermal matching at the horizon → ℏ = c³ε²/(4G) → ε = 2 l\_p → S\_BH
-= A/(4 l\_p²)
+ℏ → thermal matching at the horizon → ℏ = c³ε²/(4Gσ) → ε = 2√σ l\_p →
+S\_BH = A/(4 l\_p²)
 
 Every link is either a proof or a calculation. No link requires quantum
 mechanics as input --- QM appears as output at step 3 and its parameters
@@ -3820,27 +3840,28 @@ Subtleties}\label{appendix-key-mathematical-subtleties}}
 \textbf{1. The gap equation is a gap equation, not a derivation from
 nothing.}
 
-The framework has one free parameter (ε). The gap equation relates ε to
-ℏ. You need to know one to determine the other. The predictive content
-lies not in the gap equation alone but in its consequences: the specific
-relationship ℏ = c³ε²/(4G) --- rather than any other function of c, G, ε
---- produces the Bekenstein-Hawking formula with the exact factor 1/4
-(§6), the CC dissolution with S\_dS as the compression ratio (§7.3), and
-the Type II running-vacuum form of the dark energy (§8.1). Any
-alternative ℏ(ε) would fail at least one of these checks. The situation
-is analogous to deriving the Schwarzschild metric with M as a free
-parameter: the derivation has genuine content (the functional form) even
-though one input is not determined from within.
+The framework has one free geometric parameter (ε). The gap equation
+relates ε to ℏ at given σ. You need to know one to determine the other.
+The predictive content lies not in the gap equation alone but in its
+consequences: the specific relationship ℏ = c³ε²/(4Gσ) --- rather than
+any other function of c, G, ε --- produces the Bekenstein-Hawking
+formula with the exact factor 1/4 (§6), the CC dissolution with S\_dS as
+the compression ratio (§7.3), and the Type II running-vacuum form of the
+dark energy (§8.1). Any alternative ℏ(ε) would fail at least one of
+these checks. The situation is analogous to deriving the Schwarzschild
+metric with M as a free parameter: the derivation has genuine content
+(the functional form) even though one input is not determined from
+within.
 
 \textbf{2. The KMS condition on the lattice.}
 
 The thermal matching in Step 4 uses the KMS condition, which is proved
 for continuum QFT on curved spacetime. The emergent QFT from Part I is
 lattice-regularized with cutoff ε. Thermal periodicity on a lattice has
-corrections of order (εκ/c)². For the cosmological horizon: εκ/c = εH/c
-\textasciitilde{} 10⁻⁶¹, so corrections are \textasciitilde{} 10⁻¹²².
-Negligible, but a lattice-native proof of the KMS condition would
-strengthen the argument.
+corrections of order (εκ/c²)². For the cosmological horizon at σ = 1:
+εκ/c² = εH/c \textasciitilde{} 10⁻⁶¹, so corrections are
+\textasciitilde{} 10⁻¹²². Negligible, but a lattice-native proof of the
+KMS condition would strengthen the argument.
 
 \textbf{3. The D-gauge reconstruction requires genericity, and is stated
 as a claim.}
@@ -3893,4 +3914,4 @@ The final text and all scientific claims were reviewed and verified by
 the author.
 
 \end{document}
-% source-sha256: 6ae44c0988227a4a0dc83aa7380df61d917c97e1a200837e13aa421b475b7f58
+% source-sha256: d2d42073ec533e29f064467c32981adf2665d2702aead6726f1e776694bc32a3

@@ -56,6 +56,10 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
+% Use the Computer Modern-compatible set-difference construction; the large
+% Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
+\AtBeginDocument{\let\setminus\smallsetminus}
 % --- Greek letters -> math (Latin Modern Math; consistent with CM body text) ---
 \newunicodechar{α}{\ensuremath{\alpha}}
 \newunicodechar{β}{\ensuremath{\beta}}
@@ -405,16 +409,16 @@ The ratio \(E_{\text{nuclear}} / E_{\text{atomic}} \sim 10^6\) is partly
 parametric (it depends on the specific couplings), but the
 \emph{existence} of two independent scales is structural --- it follows
 from having two independent gauge groups. The universal induced coupling
-\(1/\alpha_0 = 23.25\) at the Planck scale is itself structural ---
-determined by \(N_f = 6\) and the Dynkin index, not by the eigenvalues
-of \(M\) (ambient coefficient; for hypercharge under H-observer-bundle
-and H-Y-vertex, {[}SM §6.5{]}) --- and the framework reproduces all
-three SM gauge couplings at \(M_Z\) through non-perturbative gauge
-self-energy corrections and RG running {[}2, §6{]}. This separation has
-a consequence: nuclei are stable against chemical reactions. Chemistry
-rearranges electrons (eV) without touching nuclei (MeV). Atoms are
-permanent building blocks that can be assembled, disassembled, and
-reassembled without being destroyed.
+\(1/\alpha_0 = 23.25\) at the matching scale \(\mu = M_{\text{Pl}}\) is
+itself structural --- determined by \(N_f = 6\) and the Dynkin index,
+not by the eigenvalues of \(M\) (ambient coefficient; for hypercharge
+under H-observer-bundle and H-Y-vertex, {[}SM §6.5{]}) --- and the
+framework reproduces all three SM gauge couplings at \(M_Z\) through
+non-perturbative gauge self-energy corrections and RG running {[}2,
+§6{]}. This separation has a consequence: nuclei are stable against
+chemical reactions. Chemistry rearranges electrons (eV) without touching
+nuclei (MeV). Atoms are permanent building blocks that can be assembled,
+disassembled, and reassembled without being destroyed.
 
 \hypertarget{water}{%
 \subsubsection{2.6 Water}\label{water}}
@@ -627,7 +631,7 @@ right-handed (D) enantiomers {[}11, 12{]}:
 \[\Delta E_{\text{PV}} \sim G_F \alpha Z^5 m_e c^2 \left(\frac{a_0}{R}\right)^3\]
 
 where \(G_F\) is the Fermi constant, \(Z\) the nuclear charge, and \(R\)
-the bond length. For amino acids: \(\Delta E_{\text{PV}} \sim 10^{-14}\)
+the bond length. For amino acids: \(\Delta E_{\text{PV}} \sim 10^{-19}\)
 eV \(\sim 10^{-17} \, kT\) at 300 K {[}11{]}. The sign is universal ---
 it favors L-amino acids --- and is fixed by the observed left-handedness
 of the weak coupling: given SU(2)\(_L\), L-amino acids are lower in
@@ -737,12 +741,13 @@ makes this precise. The structural chain of §2 --- \(d = 3\), orbitals,
 the periodic table, carbon's tetrahedral bonding, water, the thermal
 window, and (conditional on H-χ') chirality --- is invariant under the
 generators of \(\mathcal{G}_{\text{sub}}\): state relabeling, alphabet
-change, deep-sector enlargement, and graph isomorphism up to statistical
-isotropy (as specified in {[}Substratum §4, Theorem 24(iv){]}: for the
-gauge sector, restricted to isomorphisms preserving the cubic octahedral
-structure). These preconditions for complexity are not contingent
-features that happen to hold in our universe. They are gauge-invariant
-properties of the equivalence class
+change (under the alphabet-size hypothesis; {[}Substratum §4, Theorem
+24(ii){]}), deep-sector enlargement, and graph isomorphism up to
+statistical isotropy (as specified in {[}Substratum §4, Theorem
+24(iv){]}: for the gauge sector, restricted to isomorphisms preserving
+the cubic octahedral structure). These preconditions for complexity are
+not contingent features that happen to hold in our universe. They are
+gauge-invariant properties of the equivalence class
 \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\) --- they hold for every
 \((S, \varphi)\) in the class. The only quantities that could have been
 different are the solution-specific parameters (gauge couplings, fermion
@@ -2166,4 +2171,4 @@ radical-pairs,'' \emph{PLoS ONE} \textbf{2}, e1106 (2007).
 error correction for non-Markovian noise,'' arXiv:2411.09637 (2024).
 
 \end{document}
-% source-sha256: e5c9ac2812593f2a94b52165108e109b3f81afe2ecd7d230224d40cc2b665417
+% source-sha256: caca07a23411a393bc030f1ac2a032afbd13228c2c5722b07743819a8a8a8d27

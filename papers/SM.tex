@@ -56,6 +56,7 @@
 % Included via: pandoc ... --include-in-header=unicode-fix.tex
 \usepackage{newunicodechar}
 \usepackage{pifont}
+\usepackage{graphicx} % unicode-math's smallsetminus uses rotatebox
 % Use the Computer Modern-compatible set-difference construction; the large
 % Unicode glyph selected by TeX Live 2022 is absent from Latin Modern Math.
 \AtBeginDocument{\let\setminus\smallsetminus}
@@ -365,13 +366,13 @@ self-consistent dimension by three independent filters: propagating
 gravity (\(d \geq 3\)), stable matter (\(d \leq 3\)), and the boundary
 entropy concordance \(\rho_s/\rho_{\text{crit}} = 2/(d-1)\) (which
 equals unity only for \(d = 3\); its coefficient inherits the horizon
-conditions of {[}GR §2, §8.5{]} through \(\epsilon = 2\,l_P\)).
-Renormalizability of the emergent Yang-Mills coupling at \(d = 3\) is a
-downstream consequence rather than an independent filter (§3.2). The
-structural object is a theorem about the equivalence class
-\([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), and the \(d = 3\) selection
-holds at self-consistency strength (§3.2; Tier 2 in §8.3); neither
-depends on which specific dynamics is selected.
+conditions of {[}GR §2, §8.5{]} through
+\(\epsilon = 2\sqrt{\sigma}\,l_P\)). Renormalizability of the emergent
+Yang-Mills coupling at \(d = 3\) is a downstream consequence rather than
+an independent filter (§3.2). The structural object is a theorem about
+the equivalence class \([(S, \varphi)]/\mathcal{G}_{\text{sub}}\), and
+the \(d = 3\) selection holds at self-consistency strength (§3.2; Tier 2
+in §8.3); neither depends on which specific dynamics is selected.
 
 \textbf{Tier 2 --- Conditional physical-carrier chain.} The
 observer-level isotropy theorem and the geometric six-link decomposition
@@ -505,12 +506,13 @@ forced by the observed \(\mathrm{SU}(3)\) factor (§8.3). The gauge group
 itself is a universality-class invariant, shared with any
 Standard-Model-reproducing class through different machinery
 ({[}Structure §2.3, §14.4{]}); the cubic-group commutant of §4.6 is OI's
-specific realization of it. A \emph{specific alphabet size q}. All
-proofs work for any q ≥ 2; no prediction depends on q. A \emph{specific
-dimensionality d}. The proofs work for any d ≥ 1; self-consistency
-selects d = 3 (§3.2). The \emph{wave equation}. It is derived from
-center independence, isotropy, and linearity (§4.1), each of which
-follows from the structural properties listed above.
+specific realization of it. A \emph{specific alphabet size q}, for the
+results that hold for every q ≥ 2 (§2.7); other results carry q, and the
+independence of every observable from q is a hypothesis (§2.7). A
+\emph{specific dimensionality d}. The proofs work for any d ≥ 1;
+self-consistency selects d = 3 (§3.2). The \emph{wave equation}. It is
+derived from center independence, isotropy, and linearity (§4.1), each
+of which follows from the structural properties listed above.
 
 \hypertarget{the-minimal-object}{%
 \subsubsection{2.3 The minimal object}\label{the-minimal-object}}
@@ -519,15 +521,15 @@ The theorems require exactly: a deterministic bijection on a finite set,
 whose state space factors into local degrees of freedom coupled by a
 bounded-degree graph with statistical isotropy, partitioned into visible
 and hidden sectors satisfying C1--C4. Everything else --- the regular
-lattice, the alphabet, the dimensionality, the wave equation, quantum
-mechanics, general relativity --- is either derived or irrelevant. The
-minimal object for the local lattice/gauge chain is the triple (S, φ,
-V): a finite set S, a bijection φ: S → S with bounded-degree coupling,
-and a partition V ⊂ S of the degrees of freedom into visible and hidden
-sectors. This local object does not by itself supply the ontic parameter
-dependence required for quantum Bell violation under measurement
-independence; the joint-completion issue is H-Bell in {[}Substratum
-§3.3{]}.
+lattice, the dimensionality, the wave equation, quantum mechanics,
+general relativity --- is either derived or irrelevant; the alphabet
+size enters as §2.7 states. The minimal object for the local
+lattice/gauge chain is the triple (S, φ, V): a finite set S, a bijection
+φ: S → S with bounded-degree coupling, and a partition V ⊂ S of the
+degrees of freedom into visible and hidden sectors. This local object
+does not by itself supply the ontic parameter dependence required for
+quantum Bell violation under measurement independence; the
+joint-completion issue is H-Bell in {[}Substratum §3.3{]}.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -628,39 +630,67 @@ the interactions, not by geography.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\hypertarget{the-alphabet-as-gauge-freedom}{%
-\subsubsection{2.7 The alphabet as gauge
-freedom}\label{the-alphabet-as-gauge-freedom}}
+\hypertarget{the-alphabet-size}{%
+\subsubsection{2.7 The alphabet size}\label{the-alphabet-size}}
 
-Every prediction of the OI framework is independent of the alphabet size
-q. The gap equation ℏ = c³ε²/(4G) contains no q. The Bekenstein-Hawking
-formula contains no q. The dispersion relation, area law,
-P-indivisibility, center independence, and Einstein's equations are all
-q-independent. Numerical confirmation: on a 1D ring of L = 40 sites, the
-wave equation produces significant P-indivisibility at every q tested
-from 2 to 64. No experiment, even in principle, could measure q.
+Several results of the derivation chain hold for every alphabet size
+\(q \geq 2\) and contain no \(q\). The P-indivisibility theorem {[}Main
+§2.3{]} assumes only finite configuration sets with
+\(|\mathcal{C}_V| \geq 2\) and a visible marginal that is not a
+permutation. Center independence (§4.3) is a property of the form of the
+update. The area law of §3.1 holds for every \(q\) in the uniform state
+class with the bound \(|\partial V|\log_2 q\), so its boundary scaling
+is \(q\)-independent while its coefficient carries \(q\). The dispersion
+relation of §4.1 belongs to the observer-level operator, where \(q\)
+does not enter (§4.1, Scope). In the gravitational sector the entropy
+\(\sigma\) of one boundary mode enters the gap equation
+\(\hbar = c^3/(4G\eta)\) through the entropy density
+\(\eta = \sigma/\epsilon^2\) and cancels from the Bekenstein-Hawking law
+\(S = A/(4l_p^2)\) {[}GR §3.1{]}. At \(\sigma = 1\) neither contains
+\(q\), but \(\sigma = 1\) is itself an assumption about the entropy of a
+mode, and under the bound \(\sigma \leq \ln q\) it is unavailable for a
+single mode with \(q = 2\). The value \(\sigma = \ln q\), the entropy of
+a \(q\)-state mode, would place \(q\) in the relation
+\(\epsilon = 2\sqrt{\sigma}\,l_p\) {[}GR §4{]}. The alphabet-size
+hypothesis below does not fix \(\sigma\).
 
-Two systems (S, φ) and (S', φ') with different alphabet sizes q and q'
-are \emph{physically equivalent} if they produce the same emergent
-transition probabilities. The analogy to electromagnetic gauge
-invariance is precise: the gauge potential A\_μ is not physical; the
-field strength F\_μν is. In the OI framework, the mod-q state space is
-not physical; the coupling structure and its emergent consequences are.
-Operationally this means the \emph{absolute scale} of the field value is
-unobservable --- only the coupling structure and emergent transition
-probabilities are (the discrete analogue of field-normalization
-redundancy in ordinary field theory). The transformations realizing this
-are the alphabet's \textbf{additive-group automorphisms} --- the size
-\(q\), rescalings \(x \mapsto \lambda x\) (for \(\lambda\) a unit), and
-shifts \(x \mapsto x + c\) --- not arbitrary relabellings of
-\(\mathbb{Z}/q\mathbb{Z}\). A nonlinear relabelling preserves the orbit
-structure (hence the transition probabilities under relabelling) but
-changes the fluctuation dispersion, so it is not a symmetry of the
-physical observables; the gauge group is the additive-automorphism
-group, a proper subgroup of all permutations. This amplitude-scale
-(additive-automorphism) gauge is what the §4.1 linearity argument
-invokes; whether it is entailed by the \(q\)-size statement above, or is
-an additional principle, is an identified open structural question.
+Other results carry \(q\) or hold under a condition on it. The period of
+the wave map on a ring of \(L\) sites is \(qL\) for prime \(q\) coprime
+to \(L\) (Theorem A.1). The capacity count
+\(\log_2|\mathcal{C}_H| = |H|\log_2 q\) of Theorem 22 and the
+coefficient of the area law carry \(q\). The substratum normalisation
+\(\alpha = 1/d\) exists in \(\mathbb{Z}/q\mathbb{Z}\) only when
+\(3 \nmid q\) (§4.1, Scope). The factorization-uniqueness argument of
+§2.4 uses \(q > 2\). The induced gauge measure of §6.5 depends on \(q\);
+its concentration near the identity is a large-\(q\) statement.
+
+That the emergent observables do not depend on \(q\) at all --- that two
+systems \((S, \varphi)\) and \((S', \varphi')\) with the same coupling
+structure and dynamics class but alphabet sizes \(q \neq q'\) produce
+the same emergent transition probabilities --- is the
+\emph{alphabet-size hypothesis}. It is not proved for every observable.
+The visible transition matrices of two such systems act on configuration
+spaces of different sizes, so the statement requires a correspondence
+between them, which is not constructed here. Uses of \(q\)-independence
+beyond the results listed above (§6.5) are conditional on this
+hypothesis.
+
+Within one alphabet, the transformations that preserve the emergent
+observables are the alphabet's \textbf{additive-group automorphisms} ---
+rescalings \(x \mapsto \lambda x\) (for \(\lambda\) a unit) and shifts
+\(x \mapsto x + c\) --- not arbitrary relabellings of
+\(\mathbb{Z}/q\mathbb{Z}\). Operationally the \emph{absolute scale} of
+the field value is unobservable; only the coupling structure and the
+emergent transition probabilities are (the discrete analogue of
+field-normalization redundancy in ordinary field theory). A nonlinear
+relabelling preserves the orbit structure (hence the transition
+probabilities under relabelling) but changes the fluctuation dispersion,
+so it is not a symmetry of the physical observables; the gauge group is
+the additive-automorphism group, a proper subgroup of all permutations.
+This amplitude-scale (additive-automorphism) gauge is what the §4.1
+linearity argument invokes; whether it is entailed by the alphabet-size
+hypothesis, or is an additional principle, is an identified open
+structural question.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
@@ -1355,17 +1385,19 @@ lattice-exact, corrections enter only through input (ii):
 \[G_{\mu\nu} + \Lambda g_{\mu\nu} = \frac{8\pi G}{c^4} T_{\mu\nu} \times \left[1 + \mathcal{O}\!\left(\frac{\varepsilon^2 \kappa^2}{c^2}\right)\right]\]
 
 For the cosmological horizon,
-\(\varepsilon\kappa/c^2 = 2l_P \cdot H/c \sim 10^{-61}\), giving
-corrections of order \(10^{-122}\). For solar-mass black holes,
-\(\varepsilon\kappa/c^2 \sim 10^{-38}\), giving corrections of order
-\(10^{-76}\). The corrections are negligible for any horizon much larger
-than the Planck scale.
+\(\varepsilon\kappa/c^2 = 2\sqrt{\sigma}\,l_P \cdot H/c \sim 10^{-61}\)
+at \(\sigma = 1\), giving corrections of order \(10^{-122}\). For
+solar-mass black holes, \(\varepsilon\kappa/c^2 \sim 10^{-38}\) at
+\(\sigma = 1\), giving corrections of order \(10^{-76}\). The
+corrections are negligible for any horizon much larger than the Planck
+scale.
 
 \textbf{The \(\eta = 1/4\) coefficient.} The Bekenstein-Hawking formula
-\(S = A/(4l_P^2)\) follows from \(\varepsilon = 2l_P\) (the gap equation
-{[}GR, §3{]}): one entropy unit per cell of area
-\(\varepsilon^2 = 4l_P^2\), giving \(S = A/\varepsilon^2 = A/(4l_P^2)\).
-This cannot be confirmed via entanglement entropy because of the species
+\(S = A/(4l_P^2)\) follows from \(\varepsilon = 2\sqrt{\sigma}\,l_P\)
+(the gap equation {[}GR, §3{]}): an entropy \(\sigma\) per cell of area
+\(\varepsilon^2 = 4\sigma l_P^2\), giving
+\(S = \sigma A/\varepsilon^2 = A/(4l_P^2)\) for every \(\sigma\). This
+cannot be confirmed via entanglement entropy because of the species
 problem --- the entanglement entropy coefficient is species-dependent
 (Srednicki found \(\eta_{\text{ent}} \approx 0.295\) per scalar field),
 while the BH entropy is species-independent. The thermal matching route
@@ -1572,12 +1604,12 @@ branch}\label{observer-level-propagation-and-the-lattice-kleingordon-branch}}
 
 The OI substratum is represented here by a \(d\)-dimensional hypercubic
 coupling graph \(\Lambda=\mathbb Z^d\) with microscopic spacing
-\(\epsilon=2l_p\). The finite bijection is fundamental; a real/complex
-wave operator is an observer-level lift whose derivation must be stated
-separately. The following selection statement therefore classifies the
-\emph{form} of a nearest-neighbor center-free linear rule, while Theorem
-1a and its corollaries determine what finite equivariant observation
-forces at low momentum.
+\(\epsilon=2\sqrt{\sigma}\,l_p\). The finite bijection is fundamental; a
+real/complex wave operator is an observer-level lift whose derivation
+must be stated separately. The following selection statement therefore
+classifies the \emph{form} of a nearest-neighbor center-free linear
+rule, while Theorem 1a and its corollaries determine what finite
+equivariant observation forces at low momentum.
 
 \textbf{Lemma (form of the center-free isotropic linear rule).} \emph{At
 either the substratum-symbolic level or an observer-level linear lift, a
@@ -1602,9 +1634,9 @@ squared coupling over the gap. None of these moves one block's cone
 relative to another's unless the signed-permutation symmetry of the
 components is explicitly broken (§4.4, Proposition 4b). Nearest-neighbor
 is adopted as the minimal local branch used by the observer-level
-spectral calculation; the dispersion --- and the 4/45 coefficient of
-§6.4 --- is conditional on that branch and on the coarse-graining bridge
-of §4.1.
+spectral calculation; the dispersion --- and the coefficient
+\(4\sigma/45\) of §6.4 (\(4/45\) at \(\sigma = 1\)) --- is conditional
+on that branch and on the coarse-graining bridge of §4.1.
 
 \emph{Proof.} The update function has the form
 \(x_i(t+1) = (f(\text{neighbors of } i \text{ at time } t) - x_i(t-1)) \bmod q\).
@@ -1651,12 +1683,12 @@ the map \(\varphi\to L_{\rm obs}\to\Delta_g\) is not proved anywhere in
 this framework.} {[}ch19{]} names preservation of low-energy locality,
 isotropy and spectral mode count under the substratum-to-observer
 coarse-graining as open, and that is precisely this bridge. Until it is
-supplied, §4's dispersion results --- including the \(4/45\)
+supplied, §4's dispersion results --- including the \(4\sigma/45\)
 coefficient, the Lorentz-invariance argument and Theorem 6's mode count
 --- rest on an operator whose relation to \(\varphi\) is assumed rather
-than derived, and the \(q\)-independence claim of §2.6 must be read as
-applying to the observer-level operator rather than to a substratum
-coefficient.
+than derived, and the \(q\)-independence of the dispersion relation
+(§2.7) applies to the observer-level operator rather than to a
+substratum coefficient.
 
 Each requirement has a physical justification.
 
@@ -3084,9 +3116,10 @@ lattice QCD, staggered chirality is a property of the regularization
 that maps to physical chirality only via the continuum limit \(a \to 0\)
 --- a procedure that requires the lattice to be a regulator
 approximating an underlying continuum theory. The OI lattice has no
-continuum limit because \(\epsilon = 2\,l_p\) is the fundamental scale,
-not a regulator. This raises the question of how lattice chirality
-becomes physical chirality without the standard universality argument.
+continuum limit because \(\epsilon = 2\sqrt{\sigma}\,l_p\) is the
+fundamental scale, not a regulator. This raises the question of how
+lattice chirality becomes physical chirality without the standard
+universality argument.
 
 The resolution: physical observers don't take continuum limits either.
 Every experimentally probed scale satisfies \(\lambda \gg \epsilon\), so
@@ -3685,10 +3718,21 @@ observed asymptotic behavior at higher loops --- is open work.
 \subsubsection{6.2 The threshold and logarithmic
 resummation}\label{the-threshold-and-logarithmic-resummation}}
 
-The universal induced coupling \(\alpha_0\) is defined at the lattice
-cutoff \(\mu = M_{\text{Pl}}\). At this scale, gauge self-interactions
---- which are proportional to the quadratic Casimir \(C_2\) --- generate
-a group-dependent threshold. A universal (\(C_2\)-independent) threshold
+The universal induced coupling \(\alpha_0\) is matched at
+\(\mu = M_{\text{Pl}}\). This matching scale is a convention, not the
+lattice cutoff: the lattice scale is
+\(1/\epsilon = M_{\text{Pl}}/(2\sqrt{\sigma})\) for an entropy
+\(\sigma\) per boundary mode {[}GR §3.1, §4{]}, and matching at
+\(1/\epsilon\) instead shifts the running term of row \(i\) below by
+\(-(b_i/2\pi)\ln(2\sqrt{\sigma})\). The fitted \(\delta_0\), \(A\) and
+\(B\) of §6.3 absorb that shift; the U(1)-row value of \(\delta_0\)
+moves by
+\((b_1/2\pi)\ln(2\sqrt{\sigma}) \approx 0.65\ln(2\sqrt{\sigma})\), to
+\(\delta_0 \approx 10.47\) at \(\sigma = 1\). The computed
+\(1/\alpha_0\) is a dimensionless lattice quantity and does not depend
+on \(\sigma\). At this scale, gauge self-interactions --- which are
+proportional to the quadratic Casimir \(C_2\) --- generate a
+group-dependent threshold. A universal (\(C_2\)-independent) threshold
 \(\delta_0\) also arises from higher-loop corrections to the vacuum
 polarization.
 
@@ -3702,11 +3746,11 @@ resummation of the gauge self-energy:
 
 \[\frac{1}{\alpha_i(M_Z)} = \underbrace{23.25}_{1/\alpha_0} + \underbrace{10.0}_{\delta_0} + \underbrace{8.3 \cdot \ln\!\left(1 + 5.59 \cdot C_2 g_0^2\right)}_{\text{resummed gauge self-energy}} + \underbrace{\frac{b_i}{2\pi}\ln\frac{M_{\text{Pl}}}{M_Z}}_{\text{SM RG running}}\]
 
-Above \(M_{\text{Pl}}\), the OI induced theory has no tree-level gauge
+Above the matching scale, the OI induced theory has no tree-level gauge
 action --- gauge dynamics arise entirely from the fermion determinant
 --- so its \(\beta\)-function differs at 2-loop and beyond from the
 standard SM running below the matching scale. The threshold function
-structurally absorbs this discontinuity at \(M_{\text{Pl}}\), which is
+structurally absorbs this discontinuity at the matching scale, which is
 why the matching formula has the form shown rather than continuous
 running across the scale. This reflects the substratum-vs-emergent split
 (group structural at the substratum; couplings emergent through the
@@ -3813,7 +3857,11 @@ The four components:
   lattice, non-perturbative effects in the discrete substratum measure
   (§6.5), or lattice topological invariants beyond the framework's
   currently-developed scope --- remains open and is treated as numerical
-  pending such structural mechanisms.
+  pending such structural mechanisms. The coincidence holds in the
+  matching convention \(\mu = M_{\text{Pl}}\) of §6.2 and not
+  independently of it: matching at the lattice scale \(1/\epsilon\)
+  moves \(\delta_0\) by \(0.65\ln(2\sqrt{\sigma})\), to
+  \(\delta_0 \approx 10.47\) at \(\sigma = 1\).
 \item
   \(A \cdot \ln(1 + B \cdot C_2 g_0^2)\) with \((A, B) = (8.3, 5.59)\):
   the resummed gauge self-energy contribution. The logarithmic form is
@@ -4287,21 +4335,21 @@ beyond the pre-registered \(2\%\) tolerance, reproducibly across
 independent streams. The universality reported in this section is
 thereby established only for ensembles generated by Wilson dynamics on
 the image; for the directly sampled measure it is empirically violated
-at this point. Since \(q\) is gauge (§2.7) and the physical coupling is
-\(q\)-independent after renormalization, neither form is load-bearing
---- \(\beta = 11.1\) below is fixed by \(\alpha_0\), not by \(q\) ---
-but the two differ by orders of magnitude in where they place a given
-\(\beta_{\text{eff}}\), and only the second is consistent with §4.2.
-Direct simulation of the 1D state-dependent coupling (§3.1, explicit
-construction) confirms that the wave equation creates no gauge
+at this point. Under the alphabet-size hypothesis (§2.7) the physical
+coupling is \(q\)-independent after renormalization, so neither form is
+load-bearing --- \(\beta = 11.1\) below is fixed by \(\alpha_0\), not by
+\(q\) --- but the two differ by orders of magnitude in where they place
+a given \(\beta_{\text{eff}}\), and only the second is consistent with
+§4.2. Direct simulation of the 1D state-dependent coupling (§3.1,
+explicit construction) confirms that the wave equation creates no gauge
 correlations beyond random matter, but the \((\mathbb{Z}/q\mathbb{Z})\)
 constraint itself acts as an effective gauge kinetic term.
 
-Since \(q\) is gauge (§2.7), the physical coupling is \(q\)-independent
-after renormalization. The perturbative calculation (§6.1) works in the
-\(q\)-independent sector and correctly determines the physical coupling.
-The Haar-measure Monte Carlo explored a confined phase that does not
-correspond to the OI framework's gauge measure.
+Under the alphabet-size hypothesis (§2.7), the physical coupling is
+\(q\)-independent after renormalization. The perturbative calculation
+(§6.1) works in the \(q\)-independent sector and correctly determines
+the physical coupling. The Haar-measure Monte Carlo explored a confined
+phase that does not correspond to the OI framework's gauge measure.
 
 \emph{Status of the induced-measure identification.} The step this
 argument turns on --- that the substratum's uniform measure pushes
@@ -4553,10 +4601,10 @@ observable at the coupling the mass relations use, so the induced
 measure inherits the standard-measure \(Z_S\). The same matching locates
 \(\beta = 11.1\) at \(q \approx 11\), rather than at the exponentially
 large value a \(\beta_{\text{eff}} \sim \ln q\) reading would place it;
-since \(q\) is gauge (§2.7) this fixes where the correspondence sits in
-the parameterization, not a physical alphabet size. The two families of
-residual correction separate cleanly under this test. The \(O(1/q)\)
-corrections are the discreteness of the
+under the alphabet-size hypothesis (§2.7) this fixes where the
+correspondence sits in the parameterization, not a physical alphabet
+size. The two families of residual correction separate cleanly under
+this test. The \(O(1/q)\) corrections are the discreteness of the
 \((\mathbb{Z}/q\mathbb{Z})\)-valued field, isolated by comparing the
 integer-valued field against its continuum idealization: at the §4.2
 amplitude the field occupies only some eight letters whatever \(q\) may
@@ -6075,17 +6123,19 @@ literature \emph{postulates}, here \emph{derived} from the
 composite-Higgs (singlet-taste) construction.
 
 \textbf{Unified matching at the compositeness scale.} The framework's
-substratum produces a unified matching picture at the single scale
-\(M_{\mathrm{Pl}}\): gauge coupling matching (\(1/\alpha_0 = 23.25\) and
-the universal threshold \(\delta_0 = 10\), both independent of gauge
-group; §6), Higgs quartic matching (\(\lambda(M_{\mathrm{Pl}}) = 0\);
-this section), top Yukawa matching (\(y_t(M_{\mathrm{Pl}}) = 1\); this
-section), and bare Higgs mass matching (Veltman condition
-\(m_H^{\text{bare}}(M_{\mathrm{Pl}}) = 0\); §8.8). All four matching
-conditions hold at the same scale --- the substratum's intrinsic UV
-cutoff --- because they all arise from the same compositeness structure:
-emergent SM couplings inherit their UV boundary conditions from the
-substratum's structural features (group-theoretic, taste, chiral) at the
+substratum produces a unified matching picture at the single matching
+scale \(\mu = M_{\mathrm{Pl}}\): gauge coupling matching
+(\(1/\alpha_0 = 23.25\) and the universal threshold \(\delta_0 = 10\),
+both independent of gauge group; §6), Higgs quartic matching
+(\(\lambda(M_{\mathrm{Pl}}) = 0\); this section), top Yukawa matching
+(\(y_t(M_{\mathrm{Pl}}) = 1\); this section), and bare Higgs mass
+matching (Veltman condition \(m_H^{\text{bare}}(M_{\mathrm{Pl}}) = 0\);
+§8.8). All four matching conditions hold at the same scale --- the
+matching convention for the substratum's lattice scale
+\(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\) (§6.2) --- because
+they all arise from the same compositeness structure: emergent SM
+couplings inherit their UV boundary conditions from the substratum's
+structural features (group-theoretic, taste, chiral) at the
 compositeness scale. This is structurally analogous to (and
 significantly more constrained than) conventional composite-Higgs
 scenarios at \(f \sim\) TeV, where multiple matching conditions are
@@ -6676,13 +6726,14 @@ addressed by Arguments 1--3 above and the Residual gap subsection.
 predictions}\label{summary-table-of-all-predictions}}
 
 Twenty-two quantitative observables from a \(d = 3\) cubic lattice with
-spacing \(\epsilon = 2\,l_P\), classified by input status: \textbf{S} =
-parameter-free structural (no fitted input; the cubic substratum itself
-is empirically selected, §8.3); \textbf{L} = layered (structural form
-combined with a Layer-2(b) substrate-specific coefficient or Layer-3
-empirical input --- see §8.3 four-layer framing); \textbf{M} = one-input
-mass/parameter chain; \textbf{E} = uses explicit empirical input;
-\textbf{R} = retrodiction; \textbf{P} = phenomenological/ansatz input.
+spacing \(\epsilon = 2\sqrt{\sigma}\,l_P\), classified by input status:
+\textbf{S} = parameter-free structural (no fitted input; the cubic
+substratum itself is empirically selected, §8.3); \textbf{L} = layered
+(structural form combined with a Layer-2(b) substrate-specific
+coefficient or Layer-3 empirical input --- see §8.3 four-layer framing);
+\textbf{M} = one-input mass/parameter chain; \textbf{E} = uses explicit
+empirical input; \textbf{R} = retrodiction; \textbf{P} =
+phenomenological/ansatz input.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2308}}
@@ -7685,25 +7736,30 @@ radiative correction within the emergent QFT (§4.11).
 \textbf{Remaining open problems.} (i) \emph{Lattice-continuum
 comparison} --- the structural predictions are exact theorems at the
 lattice level and do not require a continuum limit. The lattice is the
-fundamental description (\(\epsilon = 2l_p\) is physical, not a
-regulator), so there is no \(\epsilon \to 0\) limit to take. The
-comparison to experiment --- which is interpreted through continuum
-perturbation theory --- introduces corrections of order
-\((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC energies, far below any
-foreseeable experimental sensitivity. The Yang-Mills mass gap problem
-(proving rigorous existence of the continuum limit for Yang-Mills
-theory) is a famous open problem in mathematics, but it does not affect
-any prediction of the OI framework: the lattice theory is complete as
-stated, and the lattice is the fundamental description, not a
-regularization. The same \((E/M_{\text{Pl}})^2\) suppression sets the
-framework's structural commitment on Lorentz-invariance violation:
-linear LIV is forbidden at the substrate level (the cubic-lattice
-dispersion relation admits no \(\mathcal{O}(k^3)\) term), and the
-gauge-invariant quadratic coefficient evaluates to
-\(\omega^2 = k^2[1 - (4/45)(E/M_{\text{Pl}})^2 + \ldots]\) ---
-subluminal, with the specific \(4/45\) fixed by cubic coordination and
-the statistical-isotropy gauge average. Pre-registered as Class A in
-{[}Substratum, §6.4{]}.
+fundamental description (the spacing \(\epsilon = 2\sqrt{\sigma}\,l_p\)
+{[}GR §4{]} is physical, not a regulator), so there is no
+\(\epsilon \to 0\) limit to take. The comparison to experiment --- which
+is interpreted through continuum perturbation theory --- introduces
+corrections of order \((E/M_{\text{Pl}})^2 \sim 10^{-32}\) at LHC
+energies, far below any foreseeable experimental sensitivity. The
+Yang-Mills mass gap problem (proving rigorous existence of the continuum
+limit for Yang-Mills theory) is a famous open problem in mathematics,
+but it does not affect any prediction of the OI framework: the lattice
+theory is complete as stated, and the lattice is the fundamental
+description, not a regularization. The same \((E/M_{\text{Pl}})^2\)
+suppression sets the framework's structural commitment on
+Lorentz-invariance violation: linear LIV is forbidden at the substrate
+level (the cubic-lattice dispersion relation admits no
+\(\mathcal{O}(k^3)\) term), and the gauge-invariant quadratic
+coefficient evaluates to
+\(\omega^2 = k^2[1 - (k\epsilon)^2/45 + \ldots] = k^2[1 - (4\sigma/45)(E/M_{\text{Pl}})^2 + \ldots]\)
+--- subluminal, with the \(1/45\) fixed by cubic coordination and the
+statistical-isotropy gauge average, and \(4\sigma/45 = 4/45\) at
+\(\sigma = 1\). The tree-level lattice coefficient \(1/45\) is
+pre-registered as Class A in {[}Substratum, §6.4{]}; the amplitude
+\(4\sigma/45\) is conditional on the undetermined \(\sigma\), so a
+measurement of it would constrain \(\sigma\), and its protection in the
+interacting theory is open (§3.1).
 
 \hypertarget{neutrino-masses-from-taste-breaking}{%
 \subsubsection{8.4 Neutrino masses from
@@ -8171,22 +8227,25 @@ breaking the chiral pairing.
 By Goldstone's theorem, the Higgs mass is bounded by the \emph{explicit}
 breaking of the chiral symmetry --- that is, by gauge couplings and
 Yukawa couplings squared times the chiral-breaking scale, not by the
-cutoff \(M_{\mathrm{Pl}}\). The hierarchy problem is dissolved at the
-level of \emph{cutoff sensitivity}: the Higgs mass-squared does not
-receive \(O(M_{\mathrm{Pl}}^2)\) corrections, only
-\(O(g^2 f^2 / 16\pi^2)\) corrections where \(g\) is a gauge or Yukawa
-coupling and \(f\) is the chiral-symmetry-breaking scale.
+lattice cutoff \(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\). The
+hierarchy problem is dissolved at the level of \emph{cutoff
+sensitivity}: the Higgs mass-squared does not receive
+\(O(M_{\mathrm{Pl}}^2)\) corrections, only \(O(g^2 f^2 / 16\pi^2)\)
+corrections where \(g\) is a gauge or Yukawa coupling and \(f\) is the
+chiral-symmetry-breaking scale.
 
 \textbf{Scope and caveats.} Chiral protection bounds the Higgs mass by
 explicit breaking but does not automatically explain why the Higgs vev
 \(v\) sits 17 orders of magnitude below the compositeness scale \(f\).
-In OI, \(f\) is set by the substratum lattice scale and is effectively
-\(M_{\mathrm{Pl}}\), so the ratio \(v/f \sim 10^{-17}\) remains.
-Standard composite-Higgs scenarios put \(f\) at \(\sim\) TeV to resolve
-this; OI does not have an analogous intermediate scale (per {[}Structure
-§13.3{]} Q10). The full hierarchy resolution therefore consists of two
-parts: (a) chiral protection against cutoff corrections (developed
-here), and (b) the structural origin of \(v \ll f\) (open).
+In OI, \(f\) is set by the substratum lattice scale
+\(1/\epsilon = M_{\mathrm{Pl}}/(2\sqrt{\sigma})\), of order
+\(M_{\mathrm{Pl}}\) when \(\sigma\) is of order one, so the ratio
+\(v/f \sim 10^{-17}\) remains. Standard composite-Higgs scenarios put
+\(f\) at \(\sim\) TeV to resolve this; OI does not have an analogous
+intermediate scale (per {[}Structure §13.3{]} Q10). The full hierarchy
+resolution therefore consists of two parts: (a) chiral protection
+against cutoff corrections (developed here), and (b) the structural
+origin of \(v \ll f\) (open).
 
 Honest characterization: the framework structurally implements (a). For
 (b), the framework currently treats \(v\) as solution-specific (Tier 3)
@@ -8782,4 +8841,4 @@ the FCC-ee,'' arXiv:2504.05974 (2025).
 Compact Family Cycle,'' arXiv:2605.10245 (2026).
 
 \end{document}
-% source-sha256: 0a5fb4ac5af1feb0276ba8fe6bcb01cf076444fbcb33178620f608095a1862f1
+% source-sha256: c381d765c64584ce6b921232dc791f2623b15f08f97aa26e6ca7da489410f675

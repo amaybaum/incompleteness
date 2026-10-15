@@ -650,17 +650,18 @@ information: \(\log_2 |\mathcal{C}_H| \geq I^*\), the per-process bound
 of §3.4. (Status: necessity --- the data-processing bound,
 \(m \geq 2^{I^*}\), for any realization. Realization --- at the horizon
 the margin is astronomical: \(A/\epsilon^2 \sim 10^{122}\) hidden modes
-against \(\sim 10^{80}\) baryons, a hierarchy \(N_H \gg N_V\) with the
-bath imperturbable on laboratory timescales; the hierarchy and the
-imperturbability belong to this realization clause, not to the
-condition. Dependency --- like C1, C3 follows from C4 within any
-faithful realization: the observed conditional information must pass
-through the hidden sector, so data processing gives
-\(\log_2|\mathcal{C}_H| \geq I^*\) automatically. Exhaustive enumeration
-confirms it and finds the bound SATURATED --- realizations attaining
-\(I^* = \log_2|\mathcal{C}_H|\) exist at \((2,2)\) and \((3,2)\)
-(\texttt{primitive\_probes.py}) --- so C3 is tight rather than slack,
-and is retained as a separately checkable condition.)
+at one nat per boundary mode against \(\sim 10^{80}\) baryons, a
+hierarchy \(N_H \gg N_V\) with the bath imperturbable on laboratory
+timescales; the hierarchy and the imperturbability belong to this
+realization clause, not to the condition. Dependency --- like C1, C3
+follows from C4 within any faithful realization: the observed
+conditional information must pass through the hidden sector, so data
+processing gives \(\log_2|\mathcal{C}_H| \geq I^*\) automatically.
+Exhaustive enumeration confirms it and finds the bound SATURATED ---
+realizations attaining \(I^* = \log_2|\mathcal{C}_H|\) exist at
+\((2,2)\) and \((3,2)\) (\texttt{primitive\_probes.py}) --- so C3 is
+tight rather than slack, and is retained as a separately checkable
+condition.)
 
 \textbf{(C4) History readback.} History-sensitive hidden mediation: on
 accessible windows, hidden degrees of freedom carry information about
@@ -1303,8 +1304,9 @@ operators. The framework's position on this is that continuous spectra
 are the infrared limit of the discrete spectrum produced by Lemma 1, not
 a deeper reality that the framework fails to capture. The quantitative
 separation is extreme: for a visible sector bounded by the cosmological
-horizon with discreteness scale \(\epsilon = 2 l_p\), the number of
-distinguishable positions is
+horizon with discreteness scale \(\epsilon = 2\sqrt{\sigma}\,l_p\) for
+an entropy \(\sigma\) per boundary mode {[}GR §4{]}, the number of
+distinguishable positions at \(\sigma = 1\) is
 \(|\mathcal{C}_V| \sim (L_H/\epsilon)^3 \sim 10^{183}\), and the
 holographic bound on emergent Hilbert-space dimension is
 \(e^{S_{\text{dS}}} = e^{10^{122}}\). The discretization error
@@ -5202,4 +5204,4 @@ limitations of measurement,'' in W. C. Myrvold and J. Christian (eds.),
 Circle} (Springer, 2009).
 
 \end{document}
-% source-sha256: bba335bd406481ed138665c923061b975d1b8e8b2eedbb3af2f5fe95e5fa18ce
+% source-sha256: dc15e4c75b7c51823973fa5b1352c05c65714cf944f7ac993c00deec49cb86fe
