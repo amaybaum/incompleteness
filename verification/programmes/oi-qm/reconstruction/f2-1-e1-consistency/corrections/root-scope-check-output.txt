@@ -1,0 +1,61 @@
+F2-1 correction 1 (2026-10-15): scope of the square-root scans. Imports ../e1_exact.py unchanged.
+
+====================================================================================================
+[q=3,N=1] square roots of U_0, the canonical image of the zero-coupling leap
+====================================================================================================
+field Q(zeta_24); U_0 has order 4; eigenvalue zeta_4^j : multiplicity  j=0:1  j=1:1  j=3:1
+spectral square roots (one sign per eigenspace): 8, i.e. 4 modulo global phase
+every eigenspace one-dimensional: True -> the spectral roots are all of the square roots [W]
+Sp(2, 3) enumerated (24 elements); symplectic S with S^2 = J'_N: 0
+-> a Clifford square root of U_0 (up to rephasing) does not exist: every square root of U_0 is non-Clifford [W from the count]
+stabilizer rays (Clifford orbit of |0...0>): 12
+stabilizer rays equal to V|0...0> for some square root V of U_0: 0; for a spectral root: 0
+cross-check: explicit spectral roots (8) mapping |0...0> to a stabilizer ray: 0
+positive control: the test reports V|0...0> reachable for each of the 8 spectral roots V, in both modes: True
+those reached by some root have nonnegative Wigner function (stabilizer states): True
+
+====================================================================================================
+[q=5,N=1] square roots of U_0, the canonical image of the zero-coupling leap
+====================================================================================================
+field Q(zeta_40); U_0 has order 4; eigenvalue zeta_4^j : multiplicity  j=0:1  j=1:1  j=2:2  j=3:1
+spectral square roots (one sign per eigenspace): 16, i.e. 8 modulo global phase
+every eigenspace one-dimensional: False -> the spectral roots are a proper subset of (a continuum exists) the square roots [W]
+Sp(2, 5) enumerated (120 elements); symplectic S with S^2 = J'_N: 0
+-> a Clifford square root of U_0 (up to rephasing) does not exist: every square root of U_0 is non-Clifford [W from the count]
+stabilizer rays (Clifford orbit of |0...0>): 30
+stabilizer rays equal to V|0...0> for some square root V of U_0: 0; for a spectral root: 0
+cross-check: explicit spectral roots (16) mapping |0...0> to a stabilizer ray: 0
+positive control: the test reports V|0...0> reachable for each of the 16 spectral roots V, in both modes: True
+those reached by some root have nonnegative Wigner function (stabilizer states): True
+
+====================================================================================================
+[q=3,N=2] square roots of U_0, the canonical image of the zero-coupling leap
+====================================================================================================
+field Q(zeta_24); U_0 has order 4; eigenvalue zeta_4^j : multiplicity  j=0:3  j=1:2  j=2:2  j=3:2
+spectral square roots (one sign per eigenspace): 16, i.e. 8 modulo global phase
+every eigenspace one-dimensional: False -> the spectral roots are a proper subset of (a continuum exists) the square roots [W]
+Sp(4, 3) enumerated (51840 elements); symplectic S with S^2 = J'_N: 12
+-> a Clifford square root of U_0 (up to rephasing) exists [W from the count]
+stabilizer rays (Clifford orbit of |0...0>): 360
+stabilizer rays equal to V|0...0> for some square root V of U_0: 10; for a spectral root: 0
+cross-check: explicit spectral roots (16) mapping |0...0> to a stabilizer ray: 0
+positive control: the test reports V|0...0> reachable for each of the 16 spectral roots V, in both modes: True
+those reached by some root have nonnegative Wigner function (stabilizer states): True
+
+====================================================================================================
+[q=3,N=2] the two square roots named in the owner's review
+====================================================================================================
+U_0 = U (x) U with U the one-site image: True
+  V|00> is among the stabilizer rays the all-roots test reports reachable: False
+V (x) V, V the principal root of U     V^2 = U_0: True | unitary: True | proportional to a spectral root: False | operator-Schmidt rank 1 | Clifford: False | Wigner of V|00> nonnegative: False
+  C|00> is among the stabilizer rays the all-roots test reports reachable: True
+C = (U (x) 1) SWAP                     V^2 = U_0: True | unitary: True | proportional to a spectral root: False | operator-Schmidt rank 9 | Clifford: True | Wigner of V|00> nonnegative: True
+
+====================================================================================================
+Summary
+====================================================================================================
+q=3,N=1: spectral family exhaustive True | Clifford root exists False | stabilizer rays reached by some root 0, by a spectral root 0
+q=5,N=1: spectral family exhaustive False | Clifford root exists False | stabilizer rays reached by some root 0, by a spectral root 0
+q=3,N=2: spectral family exhaustive False | Clifford root exists True | stabilizer rays reached by some root 10, by a spectral root 0
+q=3,N=2: V (x) V is a non-spectral square root of operator-Schmidt rank 1, Clifford False; C is a non-spectral square root, Clifford True, Wigner of C|00> nonnegative True
+controls (spectral cross-check, positive reachability control, stabilizer nonnegativity, both named roots genuine and non-spectral, C|00> found by the all-roots test): PASS
