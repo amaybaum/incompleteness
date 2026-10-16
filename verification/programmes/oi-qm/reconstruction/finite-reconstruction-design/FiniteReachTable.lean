@@ -2,9 +2,9 @@ import FiniteReach
 
 /- Research/design only. Transport of the matrix-form k-token cone theorem to real Pauli
    tables on the recursive label carrier: products of ball states, product tests by
-   forward-cone vectors, and the generator actions carried through the dictionary. The
-   coordinate formulas of those actions and the effect form of the product tests are not
-   supplied here; no physical premise is supplied. -/
+   forward-cone vectors and by products of ball effects, and the generator actions carried
+   through the dictionary. The coordinate formulas of those actions are not supplied here;
+   no physical premise is supplied. -/
 namespace FiniteReconstructionDesign
 
 open Matrix
@@ -172,7 +172,7 @@ theorem quad_dictionary_prodVec (k : ℕ) (a : ℕ → Fin 2 → ℂ) (w : Label
 
 /-! ### §3 — the pure-product lower inclusion -/
 
-/-- **LOWER, pure products.** Rank-one products of unit one-token vectors suffice. -/
+/-- **Lower inclusion from pure products.** Rank-one products of unit one-token vectors suffice. -/
 theorem psd_subset_of_pure_cone_drive {k : ℕ} {C : Set (Mat k)}
     (hpure : ∀ a : ℕ → Fin 2 → ℂ, (∀ i, i < k → star (a i) ⬝ᵥ a i = 1) →
       vecMulVec (prodVec k a) (star (prodVec k a)) ∈ C)

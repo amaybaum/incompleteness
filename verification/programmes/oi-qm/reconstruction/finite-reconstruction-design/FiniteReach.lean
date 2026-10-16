@@ -783,7 +783,7 @@ theorem rank1_state (u : Fin 2 → ℂ) (hu : star u ⬝ᵥ u = 1) :
 /-- The positive semidefinite cone on `k` tokens. -/
 def psdSet (k : ℕ) : Set (Mat k) := {A | A.PosSemidef}
 
-/-- **UPPER.** Hermitian members with nonnegative expectation on every product vector, preserved
+/-- **Upper inclusion.** Hermitian members with nonnegative expectation on every product vector, preserved
 by the named generators, are positive semidefinite. Neither products in `C` nor cone closure is
 used. -/
 theorem subset_psd_of_maxCone_drive {k : ℕ} {C : Set (Mat k)}
@@ -803,7 +803,7 @@ theorem subset_psd_of_maxCone_drive {k : ℕ} {C : Set (Mat k)}
   rw [hx, Matrix.mulVec_smul, quad_smul, quad_conj]
   exact star_mul_mul_nonneg _ _ (hmax _ hmem a)
 
-/-- **LOWER.** A set containing every product of trace-one positive one-token matrices, closed
+/-- **Lower inclusion.** A set containing every product of trace-one positive one-token matrices, closed
 under addition and nonnegative scaling and preserved by the named generators, contains every
 positive semidefinite matrix. The product-test bound is not used. -/
 theorem psd_subset_of_products_cone_drive {k : ℕ} {C : Set (Mat k)}
