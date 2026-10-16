@@ -36,6 +36,17 @@ legacy check, all 46 receipts and artifact placement. This is research design
 evidence; it is not an F attestation or a native execution. Documentation added
 after this exact head reports its build and does not change these source bytes.
 
+The build uses this branch's design workflow,
+`.github/workflows/finite-reconstruction-design.yml`, changed here to build
+`OIBridge.EqvK2Generation` and to compile `FiniteReach.lean` and
+`FiniteReachTable.lean`; its commands for the earlier modules are unchanged.
+The owner approved that change on 2026-10-16 as a one-time exception to the
+rule against workflow changes in this research track, because Lean cannot be
+compiled in the research session. A further workflow change needs separate
+approval, and this design workflow is not incorporated into a native
+certification pull request without review. Neither `verify.yml` nor any
+adopted module is changed.
+
 Earlier development builds rejected type transparency, finite-sum ordering,
 delta-case simplification and division-normalization steps in the proof sources,
 and an equality-instance mismatch in the reachability module, described below.
