@@ -3,14 +3,18 @@
 Research/design record, 2026-10-13. Base D: `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
 This is a written all-k argument, an exact three-token design check and
 compiled research Lean sources for the conditional all-k theorem. It is neither
-an adopted Lean theorem nor a native round execution. No F is designated.
+an adopted Lean theorem nor a native round execution. No F is designated. This
+directory is on a research branch and is not on main; until it lands there,
+nothing in it is an authoritative reference. References outside this directory
+that are not adopted on main are marked as off main.
 
 The source drafts are [#829](https://github.com/amaybaum/incompleteness/pull/829)
 at `625f853ff70546f6e8d56d22fad15e968ad48354` and
 [#823](https://github.com/amaybaum/incompleteness/pull/823) at
-`c83954a5b7b8971eb3e5296912e403423fe0167e`.
-The first proposes a k-token table theorem; the second compresses implementation
-repertoires. They concern different objects and need a separate interface.
+`c83954a5b7b8971eb3e5296912e403423fe0167e`, both open pull requests and off
+main. The first proposes a k-token table theorem; the second compresses
+implementation repertoires. They concern different objects and need a separate
+interface.
 
 ## 1. Carrier and premises
 
@@ -38,9 +42,15 @@ Translate the proposed hypotheses to an exogenously specified C subset V_k:
 
 For the equivalence in item 3, scaled rank-one local projectors give one direction
 (compiled for tables as `lorPair_nonneg_of_maxConeTab`, used in
-`tableCone_eq_psd_of_drive_maxConeTab`). Conversely (written argument, not compiled), spectral decompositions of each local effect expand the product
-effect into a finite nonnegative sum of product rank-one projectors. No global
-PSD assumption is used. Effect normalizations only introduce positive factors.
+`tableCone_eq_psd_of_drive_maxConeTab`, and for Hermitian matrices as
+`prodVec_nonneg_of_maxConeTab`). Conversely, spectral decompositions of each
+local effect expand the product effect into a finite nonnegative sum of product
+rank-one projectors: compiled as `maxConeTab_of_prodVec_nonneg`, through
+`lor_blochH_decomp`, which writes each forward-cone vector as a nonnegative
+combination of two Bloch vectors, and `lorTests_of_blochTests`, which replaces
+the tokens one at a time. `maxConeTab_iff_prodVec_nonneg` states the
+equivalence with these two witnesses. No global PSD assumption is used. Effect
+normalizations only introduce positive factors.
 
 The desired conclusion is C = PSD(H_k). Closedness, self-duality, fixed-gate
 density and full unitary invariance are not premises of the argument below.
@@ -169,8 +179,13 @@ At k = 2, identify (mu_0,mu_1) with the existing `W 3` table slots and identify
 binary words with `Fin 2 × Fin 2`. The Pauli dictionary, products, pairing,
 CNOT(0 -> 1) and actions on token 1 then agree with the landed definitions.
 The written proof therefore recovers the statement of `pairCone_eq_Q3_of_drive_maxCone`
-without using that theorem as a premise. These five transports still require
-formal implementation before a kernel recovery claim is justified.
+without using that theorem as a premise. The research module
+`FiniteReachTable.lean` implements the five transports
+(`pairCarrierEquiv_prodState`, `pairCarrierEquiv_maxCone` with
+`maxCone_of_pairCarrierEquiv`, `mem_Q3_iff_pairCarrier`, `pairCarrierEquiv_cnot`,
+`pairCarrierEquiv_actT`) and proves that statement as `pairCone_eq_Q3_of_kToken`
+from its k-token theorem at k = 2. The adopted two-token theorem is not in that
+module's environment, which its compilation checks.
 
 ## 6. What does and does not combine with KN-DESC
 
@@ -244,19 +259,22 @@ This was a harness correction, not a change to the witness or decision rule.
 There is no Lean executable or Mathlib cache in this execution environment.
 The research Lean sources are recorded in [formalization.md](formalization.md),
 with their compilation status and remaining obligations. At design head
-`11fbcd597accf7fbe2eed9ef9c81107cd100f2f2`, in all-green run `38866415970`,
-they compile the all-k dictionary, angle inversion and abstract finite-circuit
-identities, the exact reachability of
-section 4, both inclusions of section 5 with separate witnesses, and the
-matrix and table forms of the conditional equivalence. These are research
-sources, not adopted theorems. The explicit coordinate formulas of the table
-actions proposed in #829, the reindexing to the carriers of section 1 and the
-five k = 2 transports remain open formal links. The same run freshly compiles
-the historical KN-DESC design against D;
-that design build is distinct from native execution and adoption. No current
-K2, Kn, manuscript, registry, receipt or native draft
-record is changed by this research record. Research-only compilation workflows
-provide design evidence and do not designate F.
+`30a65288c06aec5f598ab088fb91fd177150157f`, in all-green run `38880722296`
+(a GitHub Actions record outside the repository), they compile the all-k
+dictionary, angle inversion and abstract finite-circuit identities, the exact
+reachability of section 4, both inclusions of section 5 with separate
+witnesses, the matrix and table forms of the conditional equivalence, both
+directions of the equivalence in section 1 item 3, the coordinate formulas of
+the table actions proposed in #829 for every k, the reindexing to the carriers
+of section 1, the statement surface proposed in #829 with its two inclusions
+and both directions, and the five k = 2 transports with the recovery of
+section 5. These are research sources, not adopted theorems; adoption and the
+controls proposed in #829 are not executed here. The same run freshly compiles
+the historical KN-DESC design against D, from the sibling research directory
+`carrier-descent-design` (off main); that design build is distinct from native
+execution and adoption. No current K2, Kn, manuscript, registry, receipt or
+native draft record is changed by this research record. Research-only
+compilation workflows provide design evidence and do not designate F.
 
 Productivity classification: ELABORATING on the consistency axis. The two-sided
 conditional argument is supplied here and compiled in research form; it is not

@@ -3,16 +3,20 @@
 This record accompanies the five research Lean modules in this directory.
 They are design sources outside the adopted `OIBridge` population. They change
 neither the mathematical hypotheses of the written cone theorem nor a native
-round's control plane. No F is designated.
+round's control plane. No F is designated. This directory is on a research
+branch and is not on main; until it lands there, its files and the runs below
+are working evidence, not authoritative references. Every file this record
+relies on is in this directory or adopted on main, and each reference that is
+not is marked as off main.
 
 Compilation status: all five modules compile against the adopted library at D
-`dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`; the design branch leaves
-`verification/lean-mathlib` unchanged from D. The exact design head is
-`11fbcd597accf7fbe2eed9ef9c81107cd100f2f2`; GitHub Actions
-[run 38866415970](https://github.com/amaybaum/incompleteness/actions/runs/38866415970),
-job `116860178759`, is all green. The run checks this directory's `SHA256SUMS`
-before it compiles, so the compiled bytes are those listed. The source hashes
-are:
+`dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`, which is on main; the design branch
+leaves `verification/lean-mathlib` unchanged from D. The exact design head is
+`30a65288c06aec5f598ab088fb91fd177150157f`; GitHub Actions
+[run 38880722296](https://github.com/amaybaum/incompleteness/actions/runs/38880722296),
+job `116906532344`, is all green (GitHub Actions runs are host records outside the
+repository). The run checks this directory's `SHA256SUMS` before it compiles,
+so the compiled bytes are those listed. The source hashes are:
 
 | Module | SHA256 |
 | --- | --- |
@@ -20,38 +24,45 @@ are:
 | `FiniteWalsh.lean` | `d4815ec809fa37fefabe786886efb860f1da02788cea4f7e048e34726da8a5f0` |
 | `FiniteCircuit.lean` | `70ce411d9cd830b8d73a5eee3e1eed758da4633802b9734961a6a0021ecc9763` |
 | `FiniteReach.lean` | `5112671f1317d60e23b2fcb4a20953f38771e9c1f2f03b2c553f1360947985b4` |
-| `FiniteReachTable.lean` | `8c397a06510a9f447590c1662029d6d9e21fa31a97fd4893116f51f447044df5` |
+| `FiniteReachTable.lean` | `344afd7645a4c7e58d079eb0ed842bbb48fdfecd373d2ed96bdc838d3a09125b` |
 
-The modules contain 129 theorems: 14 Pauli/tensor/dictionary theorems, six
+The modules contain 234 theorems: 14 Pauli/tensor/dictionary theorems, six
 Walsh theorems, three circuit theorems, 77 gate, word, multiplexor,
-reachability and matrix-cone theorems, and 29 table theorems. All 38 requested
-main axiom reports list only `propext`, `Classical.choice` and `Quot.sound`.
-The successful log contains no `sorryAx` and no errors. No `sorry`, additional
-axiom or admitted synthesis hypothesis appears in these sources.
+reachability and matrix-cone theorems, and 134 table, carrier, coordinate-action
+and transport theorems. All 72 requested main axiom reports (8, 3, 3, 13 and 45
+in module order) list only `propext`, `Classical.choice` and `Quot.sound`. The
+successful log contains no `sorryAx` and no errors, and it contains the line
+`OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is not in the
+environment` (see the k = 2 recovery below). No `sorry`, additional axiom or
+admitted synthesis hypothesis appears in these sources.
 
 That same run replays the 242 finite controls and five mutations, the historical
 descent probe and the independent descent controls, checks the saved hashes,
-and compiles the historical KN-DESC design. It also passes the 303-record
+and compiles the historical KN-DESC design. The descent probe, its independent
+controls and the KN-DESC design source are in the sibling research directory
+`carrier-descent-design`, which is off main. The run also passes the 303-record
 legacy check, all 46 receipts and artifact placement. This is research design
 evidence; it is not an F attestation or a native execution. Documentation added
 after this exact head reports its build and does not change these source bytes.
 
 The build uses this branch's design workflow,
-`.github/workflows/finite-reconstruction-design.yml`, changed here to build
-`OIBridge.EqvK2Generation` and to compile `FiniteReach.lean` and
+`.github/workflows/finite-reconstruction-design.yml` (off main), changed here to
+build `OIBridge.EqvK2Generation` and to compile `FiniteReach.lean` and
 `FiniteReachTable.lean`; its commands for the earlier modules are unchanged.
 The owner approved that change on 2026-10-16 as a one-time exception to the
 rule against workflow changes in this research track, because Lean cannot be
 compiled in the research session. A further workflow change needs separate
 approval, and this design workflow is not incorporated into a native
 certification pull request without review. Neither `verify.yml` nor any
-adopted module is changed.
+adopted module is changed. Every declaration listed below is in one of the
+five modules the workflow already compiles.
 
 Earlier development builds rejected type transparency, finite-sum ordering,
 delta-case simplification and division-normalization steps in the proof sources,
-and an equality-instance mismatch in the reachability module, described below.
-Those failed builds supplied no certification. The corrections retain the
-mathematical statements and the all-k argument's stated hypotheses.
+an equality-instance mismatch in the reachability module, described below, and
+an unclosed zero-product goal in the unit-table CNOT lemma. Those failed builds
+supplied no certification. The corrections retain the mathematical statements
+and the all-k argument's stated hypotheses.
 
 ## Pauli coordinates and spectators
 
@@ -75,8 +86,9 @@ dictionary inverse directions:
 The complex-coordinate versions prove the full matrix expansion before the
 Hermitian restriction. These are mathematical carrier identities. Identifying
 this carrier with the framework's physical n-token states remains a premise.
-The explicit reindexing to `{0,1}^n`, and the five transports to the existing
-two-token carrier, are not implemented by these definitions.
+The reindexing to `Fin n → Fin 2` and `Fin n → Fin 4`, and the five transports
+to the existing two-token carrier, are proved in `FiniteReachTable.lean`
+(sections below).
 
 ## Walsh inversion and finite circuit algebra
 
@@ -166,9 +178,9 @@ written `drive`:
 
 ## Table form
 
-`FiniteReachTable.lean` carries these statements to real Pauli tables on the
-recursive label carrier. `dictionary_prodTab` identifies the dictionary image
-of a product table with the product of one-token matrices, and
+`FiniteReachTable.lean` §1–§5 carry these statements to real Pauli tables on
+the recursive label carrier. `dictionary_prodTab` identifies the dictionary
+image of a product table with the product of one-token matrices, and
 `trace_dictionary_mul` gives the trace pairing of two dictionary images as their
 table pairing divided by `2^n`. `blochH u` is the homogeneous Bloch vector of a
 one-token vector; `tokMat_blochH` identifies its matrix with `u u†`, and
@@ -186,33 +198,196 @@ actions on tables are conjugation through the dictionary,
 - `maxConeTab k` is the set of tables nonnegative on every product of effects
   of the ball. `lorPair_nonneg_of_maxConeTab` scales each forward-cone vector to
   an effect (`isEffectOn_lorScale`, through the adopted `affOf`), so the effect
-  form of the bound implies the forward-cone form. Only this direction is
-  compiled; the theorem does not use the converse.
+  form of the bound implies the forward-cone form. The table theorem uses this
+  direction only; the converse is the product-vector section below.
 - `tableCone_eq_psd_of_drive_maxConeTab` is the table theorem with
   `K ⊆ maxConeTab k`.
 - `tableDrive_of_eq_psd` gives the actions from equality, and
   `tableCone_eq_psd_iff_drive_maxConeTab` states the equivalence with these two
   directional witnesses.
 
+## Fin-indexed carriers and the coordinate actions
+
+`FiniteReachTable.lean` §6–§9 connect the recursive carriers with the carrier
+proposed in #829 and prove the coordinate formulas of the table actions for
+every k. #829 is an open pull request; its preregistration
+`verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md`
+at `625f853ff70546f6e8d56d22fad15e968ad48354` (SHA256
+`739dc162215771cf7bfe50b716825984df3408ec8013e6a9dcd4f90dc705cb5d`) is off main.
+Its definitions are restated in the module below, so the compiled statements do
+not depend on that file.
+
+- **Carriers.** `toTup n : Carrier d n → (Fin n → Fin d)` reads the tokens of a
+  recursive word (token `n` of `Carrier d (n+1)` is the last component), and
+  `ofTup` builds the word of a tuple. The two inverse laws `ofTup_toTup` and
+  `toTup_ofTup` give `carrierEquiv d n : Carrier d n ≃ (Fin n → Fin d)`
+  (FiniteReachTable.lean:471); `bitAt_eq_toTup` identifies the bits read by the
+  gates. `pauliWord_apply` writes each Pauli word as the product over tokens,
+  and `prodTab_eq_prod` does the same for product tables.
+- **The proposed objects.** `WK k`, `prodStateK`, `maxConeK`, `dictK`, `QK`,
+  `cnotK` and `actK` (lines 522–549) are the definitions of the preregistration's
+  statement surface (its lines 56–66), with the adopted `hom`, `ehom`, `homMap`,
+  `pauli`, `sgn`, `pc`, `pt` and `IsEffectOn`. `tabOf k ω = ω ∘ toTup k` and
+  `tupOf k w = w ∘ ofTup k` are inverse (`tupOf_tabOf`, `tabOf_tupOf`).
+- **Dictionary, products and product tests.** `dictionary_tabOf` (line 581)
+  states that the recursive dictionary of `tabOf k ω` is `dictK ω` reindexed by
+  `carrierEquiv 2 k`. `mem_QK_iff` (line 586) is the iff
+  `ω ∈ QK k ↔ (dictionary k (tabOf k ω)).PosSemidef`; both directions come from
+  Mathlib's `Matrix.posSemidef_submatrix_equiv` applied to that reindexing.
+  `tupOf_prodTab` carries the product tables of ball states to `prodStateK`, and
+  `sum_prodTab_tupOf` carries every product-test pairing to the pairing in
+  `maxConeK`.
+- **CNOT.** `cnotM_apply` (line 638) shows that `cnotM k i j` is the permutation
+  matrix of the bit map `cnotPerm k i j`, which flips bit `j` by bit `i`;
+  `toTup_cnotPerm` identifies it, for `i < j < k`, with `cflip` on token tuples.
+  `conj_perm_apply` evaluates conjugation by a permutation matrix entrywise.
+  The two-token identity `pauli_cnot_pair` (line 841),
+  `σ_m(x₁,y₁) σ_n(x₂+x₁, y₂+y₁) = sgn(pc m n, pt m n) σ_{pc m n}(x₁,y₁) σ_{pt m n}(x₂,y₂)`,
+  is read off the adopted `dict_cnot_block` (EqvK2Generation.lean:204) at the
+  unit tables `pairUnit m n`; it is not re-derived by case enumeration.
+  `dictK_cflip` reindexes the dictionary sum by the involution `cnotLab` of the
+  labels, splitting each product at the two tokens (`prod_two_index`).
+- **One-token actions.** `localM_conj_dictionary` (line 946) proves, by
+  recursion on the token count and the two splittings `dictionary_succ_tok` and
+  `dictionary_succ_pref`, that conjugating the dictionary by `localM k j V` is
+  the recursive slot action `slotAct N k j` whenever
+  `tokMat (homMap N v) = V · tokMat v · Vᴴ`; `slotAct_toTup` identifies the slot
+  action with `actK`.
+
+The compiled coordinate formulas:
+
+| Theorem | Statement |
+| --- | --- |
+| `tabAct_cnotM` (line 873) | `tabAct k (cnotM k i j) (tabOf k ω) = tabOf k (cnotK ⟨i,_⟩ ⟨j,_⟩ ω)` for `i < j < k` |
+| `tabAct_cnotM_eq` (line 886) | `tabAct k (cnotM k i j) w = tabOf k (cnotK ⟨i,_⟩ ⟨j,_⟩ (tupOf k w))` for every recursive table `w` |
+| `tabAct_localM` (line 984) | `tabAct k (localM k j V) (tabOf k ω) = tabOf k (actK ⟨j,_⟩ N ω)` for `j < k`, given the one-token intertwining |
+| `tabAct_localM_eq` (line 993) | the same for every recursive table `w` |
+
+They are used with the adopted `tokMat_rot t` (N = `rotLin t`, V = the phase
+flow) and `tokMat_cyc` (N = `cycEquiv`, V = `cycMat`); `tabAct_cnotK` and
+`tabAct_localK` state the same identities with `Fin k` token indices.
+
+## The statement surface proposed in #829
+
+`FiniteReachTable.lean` §10 first separates the table theorem into its two
+inclusions on the recursive carrier
+(`tableCone_subset_psd_of_maxCone_drive`, line 1069, which uses neither products
+nor cone closure, and `psd_subset_tableCone_of_products_cone_drive`, line 1085,
+which does not use the product bound), then transports a set `K : Set (WK k)`
+to its recursive tables `tabSet k K` (`tabSet_products`, `tabSet_add`,
+`tabSet_smul`, `tabSet_maxCone`, `tabSet_cnot`, `tabSet_local`). Each transport
+carries one hypothesis to the corresponding table hypothesis; none is absorbed
+into a definition, and every theorem below lists its hypotheses explicitly.
+
+With H1, H2 and A written out as in the preregistration's lines 67–69:
+
+- `subset_QK_of_maxCone_drive (hmax : K ⊆ maxConeK (eball 3)) (hH2) (hA) : K ⊆ QK k`
+  (line 1156).
+- `QK_subset_of_products_cone_drive (hH1) (hadd) (hsmul) (hH2) (hA) : QK k ⊆ K`
+  (line 1169).
+- `kCone_eq_QK_of_drive_maxCone (hH1) (hadd) (hsmul) (hmax) (hH2) (hA) : K = QK k`
+  (line 1186), the antisymmetry of the two inclusions.
+- `driveInvariantK_of_eq_QK (h : K = QK k) : H2 ∧ A` (line 1202), by positive
+  semidefinite conjugation through `tabAct_cnotK`, `tabAct_localK` and
+  `tabAct_psd`.
+- `kCone_eq_QK_iff_drive_maxCone (hH1) (hadd) (hsmul) (hmax) : K = QK k ↔ H2 ∧ A`
+  (line 1222), with `driveInvariantK_of_eq_QK` as the forward witness and
+  `kCone_eq_QK_of_drive_maxCone` as the reverse witness.
+
+The declarations live in the research namespace `FiniteReconstructionDesign`,
+not in the proposed `OIBridge/KTokenMaxCone.lean`, and refer to the adopted
+objects by their full names (`OIBridge.TransitiveBody.eball`,
+`OIBridge.KInfFoundations.rotLin`, `OIBridge.KInfFoundations.cycEquiv`). The
+hypotheses and conclusions are the preregistration's. Its proposed module
+imports `OIBridge.EqvK2MaxCone`; this module does not. The module text is not
+the preregistration's S1 surface, and none of its controls (S1–S4 and the
+probe of its Q-EXACT question) has been run on it.
+
+## The k = 2 recovery
+
+`pairCarrierEquiv : W 3 ≃ₗ[ℝ] WK 2` (line 1237) sends `ω` to
+`μ ↦ ω (μ 0) (μ 1)`. The five transports of argument section 5 are:
+
+| Object | Theorem |
+| --- | --- |
+| products | `pairCarrierEquiv_prodState : pairCarrierEquiv (prodState (x 0) (x 1)) = prodStateK x` (line 1249) |
+| product tests | `pairCarrierEquiv_maxCone` (maxCone → maxConeK, line 1265) and `maxCone_of_pairCarrierEquiv` (maxConeK → maxCone, line 1271), both through `sum_pairCarrier_eq` |
+| dictionary | `mem_Q3_iff_pairCarrier : ω ∈ Q3 ↔ pairCarrierEquiv ω ∈ QK 2` (line 1289); both directions from `dictK_pairCarrier` and Mathlib's `Matrix.posSemidef_submatrix_equiv` |
+| gate | `pairCarrierEquiv_cnot : pairCarrierEquiv (cnot ω) = cnotK 0 1 (pairCarrierEquiv ω)` (line 1300) |
+| target actions | `pairCarrierEquiv_actT : pairCarrierEquiv (actT N ω) = actK 1 N (pairCarrierEquiv ω)` (line 1308) |
+
+`pairCone_eq_Q3_of_kToken` (line 1324) has the hypotheses and conclusion of the
+adopted `pairCone_eq_Q3_of_drive_maxCone` (EqvK2MaxCone.lean:153–160, unchanged
+from D on main), with each of H1, hadd, hsmul, hmax, H2 and A an explicit
+hypothesis, and is proved by applying `kCone_eq_QK_of_drive_maxCone` at `k = 2`
+to the transported set `pairSet K`. At `k = 2` the guard `i < j` leaves only
+`CNOT(0 → 1)` and the guard `j ≠ 0` only token 1 (`fin2_lt`, `fin2_ne_zero`).
+
+The proof does not use the adopted two-token theorem or anything proved from
+it. This was checked in two ways. `OIBridge.EqvK2MaxCone` is not in the import
+closure of the design modules: FinitePauli imports `OIBridge.EqvK2Schema`,
+FiniteReach imports `OIBridge.EqvK2Generation`, and `EqvK2MaxCone` imports
+`EqvK2Generation`, not the reverse. Every declaration in the environment comes
+from a module in that closure, and a declaration proved from the two-token
+theorem would have to come from a module importing `EqvK2MaxCone`. The module
+also checks this when it is compiled: an `#eval` after the recovery (line 1378)
+fails the build if `OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone` is in
+the environment, and otherwise logs that it is not; run 38880722296 logs the second
+outcome.
+
+## The product-vector form of the product bound
+
+Argument section 1, item 3, states the product bound in two forms. §12 of
+`FiniteReachTable.lean` proves each direction separately, for a Hermitian
+matrix `A` on k tokens:
+
+- `prodVec_nonneg_of_maxConeTab` (line 1565), effect form to product-vector
+  form: `coordinates k A ∈ maxConeTab k` gives
+  `0 ≤ star (prodVec k a) ⬝ᵥ (A *ᵥ prodVec k a)` for every family `a` of
+  one-token vectors, through `lorPair_nonneg_of_maxConeTab`, `lor_blochH` and
+  `quad_dictionary_prodVec`.
+- `maxConeTab_of_prodVec_nonneg` (line 1550), product-vector form to effect
+  form. `lor_blochH_decomp` (line 1428) writes every forward-cone vector as a
+  nonnegative combination of two Bloch vectors, with an explicit formula and
+  no square root (the boundary case `v₀ + v₃ = 0` separately).
+  `lorTests_of_blochTests` (line 1513) replaces the forward-cone vectors one
+  token at a time by recursion on the token count, slicing a table along its
+  last token (`tokSlice`, `sum_prodTab_succ`). `maxConeTab_of_blochTests`
+  (line 1542) applies it to the homogenized coefficients of ball effects
+  (the adopted `lor_ehom`).
+- `maxConeTab_iff_prodVec_nonneg` (line 1580) states the equivalence with
+  these two witnesses, one per direction.
+
+No positive semidefinite hypothesis on `A` is used in either direction. The
+cone theorems above use only the first direction.
+
+## The finite control of the coordinate formulas
+
+`tabact_vs_829.py` re-implements, with standard-library exact Gaussian-rational
+arithmetic, the recursive definitions of `FiniteReach.lean` and
+`FiniteReachTable.lean` and the preregistration's `cnotK` and `actK`, and
+compares `tabAct` of every named generator with them for k = 1 to 4. Reversed
+CNOT, reversed rotation sign, the inverse cyclic map and a swapped
+control/target definition are countercontrols, each detected as a mismatch.
+`tabact_vs_829-output.txt` is its saved run: 89 checks, no failures and
+`VERDICT TABACT-MATCHES-829-FORMULAS-k1..4`; a local `python3 -I -B` replay
+reproduced it byte for byte. The design workflow does not replay this script.
+It is an independent finite control of the coordinate formulas, and the
+compiled theorems do not use it.
+
 ## Remaining obligations
 
-The synthesis steps between the generic algebra and the all-k theorem, namely
-concrete gates with qubit spectators, exact multiplexors in the Euler factor
-order, recursive preparation including zero blocks, the undriven first token and
-the scalar phase, and both cone inclusions, are established in the form above.
-The following steps separate the compiled theorems from the statement proposed
-in #829 and from the k = 2 recovery in `argument.md`:
+The steps between the compiled finite theorem and the statement proposed in
+#829 are established in the form above: the coordinate formulas of the named
+actions for every k, the transport to `Fin k → Fin 2` and `Fin k → Fin 4`,
+the statement surface with its two inclusions and both directions of the
+equivalence, and the k = 2 recovery. The following remain:
 
-1. Prove that `tabAct` of each named generator equals the explicit coordinate
-   action proposed in #829: the CNOT sign-and-label map and the one-token
-   homogeneous action on the target slot. The table hypotheses are otherwise
-   stated through the dictionary.
-2. Transport the recursive carriers `Bits k` and `Labels k`, with the
-   dictionary, product tables and gates, to `Fin k → Fin 2` and
-   `Fin k → Fin 4`.
-3. Implement the five k = 2 transports of argument section 5 and recover the
-   statement of `pairCone_eq_Q3_of_drive_maxCone` without using it.
-4. Optionally, construct the cyclic Gray schedule and prove the prefix-parity
+1. Adoption. The declarations are research sources. An adopted
+   `OIBridge/KTokenMaxCone.lean`, the preregistration's S1–S4 controls, its
+   k = 3 probe and its Q-EXACT question belong to a native round, which this
+   record does not execute.
+2. Optionally, construct the cyclic Gray schedule and prove the prefix-parity
    and Walsh correspondence, including zero controls. This identifies the
    compiled multiplexor with the Gray-ordered word of argument section 3; the
    cone theorems do not need it.
@@ -221,8 +396,8 @@ In particular, these modules do not prove arbitrary unitary universality. The
 target remains exact pure-state reachability from a product preparation. They
 also supply no implementation-class membership for KN-DESC and discharge no
 physical source or state/operation compatibility premise. Identifying the
-named generators with physical operations, and the cone with a physical state
-space, remains a premise.
+named generators with physical operations, the Pauli carrier with physical
+k-token states, and the cone with a physical state space remains a premise.
 
 The existing exact three-token checker remains a finite design comparison; it
 does not certify the declarations above.
