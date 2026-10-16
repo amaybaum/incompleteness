@@ -24,12 +24,12 @@ so the compiled bytes are those listed. The source hashes are:
 | `FiniteWalsh.lean` | `d4815ec809fa37fefabe786886efb860f1da02788cea4f7e048e34726da8a5f0` |
 | `FiniteCircuit.lean` | `70ce411d9cd830b8d73a5eee3e1eed758da4633802b9734961a6a0021ecc9763` |
 | `FiniteReach.lean` | `5112671f1317d60e23b2fcb4a20953f38771e9c1f2f03b2c553f1360947985b4` |
-| `FiniteReachTable.lean` | `344afd7645a4c7e58d079eb0ed842bbb48fdfecd373d2ed96bdc838d3a09125b` |
+| `FiniteReachTable.lean` | `a71fcb33477cfce4200643f967c2fd4382dc942749fe304b08135748af294f08` |
 
-The modules contain 234 theorems: 14 Pauli/tensor/dictionary theorems, six
+The modules contain 236 theorems: 14 Pauli/tensor/dictionary theorems, six
 Walsh theorems, three circuit theorems, 77 gate, word, multiplexor,
-reachability and matrix-cone theorems, and 134 table, carrier, coordinate-action
-and transport theorems. All 72 requested main axiom reports (8, 3, 3, 13 and 45
+reachability and matrix-cone theorems, and 136 table, carrier, coordinate-action
+and transport theorems. All 74 requested main axiom reports (8, 3, 3, 13 and 47
 in module order) list only `propext`, `Classical.choice` and `Quot.sound`. The
 successful log contains no `sorryAx` and no errors, and it contains the line
 `OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone is not in the
@@ -225,7 +225,7 @@ not depend on that file.
   gates. `pauliWord_apply` writes each Pauli word as the product over tokens,
   and `prodTab_eq_prod` does the same for product tables.
 - **The proposed objects.** `WK k`, `prodStateK`, `maxConeK`, `dictK`, `QK`,
-  `cnotK` and `actK` (lines 522–549) are the definitions of the preregistration's
+  `cnotK` and `actK` (lines 522–550) are the definitions of the preregistration's
   statement surface (its lines 56–66), with the adopted `hom`, `ehom`, `homMap`,
   `pauli`, `sgn`, `pc`, `pt` and `IsEffectOn`. `tabOf k ω = ω ∘ toTup k` and
   `tupOf k w = w ∘ ofTup k` are inverse (`tupOf_tabOf`, `tabOf_tupOf`).
@@ -266,13 +266,17 @@ The compiled coordinate formulas:
 They are used with the adopted `tokMat_rot t` (N = `rotLin t`, V = the phase
 flow) and `tokMat_cyc` (N = `cycEquiv`, V = `cycMat`); `tabAct_cnotK` and
 `tabAct_localK` state the same identities with `Fin k` token indices.
+`tabAct_localK` keeps the intertwining hypothesis. Its instances for `rotLin t`
+and `cycEquiv` are the named corollaries `tabAct_rotK` (line 1006) and
+`tabAct_cycK` (line 1012); inside `tabSet_local` and `driveInvariantK_of_eq_QK`
+the same instances are discharged inline.
 
 ## The statement surface proposed in #829
 
 `FiniteReachTable.lean` §10 first separates the table theorem into its two
 inclusions on the recursive carrier
-(`tableCone_subset_psd_of_maxCone_drive`, line 1069, which uses neither products
-nor cone closure, and `psd_subset_tableCone_of_products_cone_drive`, line 1085,
+(`tableCone_subset_psd_of_maxCone_drive`, line 1081, which uses neither products
+nor cone closure, and `psd_subset_tableCone_of_products_cone_drive`, line 1097,
 which does not use the product bound), then transports a set `K : Set (WK k)`
 to its recursive tables `tabSet k K` (`tabSet_products`, `tabSet_add`,
 `tabSet_smul`, `tabSet_maxCone`, `tabSet_cnot`, `tabSet_local`). Each transport
@@ -282,16 +286,16 @@ into a definition, and every theorem below lists its hypotheses explicitly.
 With H1, H2 and A written out as in the preregistration's lines 67–69:
 
 - `subset_QK_of_maxCone_drive (hmax : K ⊆ maxConeK (eball 3)) (hH2) (hA) : K ⊆ QK k`
-  (line 1156).
+  (line 1168).
 - `QK_subset_of_products_cone_drive (hH1) (hadd) (hsmul) (hH2) (hA) : QK k ⊆ K`
-  (line 1169).
+  (line 1181).
 - `kCone_eq_QK_of_drive_maxCone (hH1) (hadd) (hsmul) (hmax) (hH2) (hA) : K = QK k`
-  (line 1186), the antisymmetry of the two inclusions.
-- `driveInvariantK_of_eq_QK (h : K = QK k) : H2 ∧ A` (line 1202), by positive
+  (line 1198), the antisymmetry of the two inclusions.
+- `driveInvariantK_of_eq_QK (h : K = QK k) : H2 ∧ A` (line 1214), by positive
   semidefinite conjugation through `tabAct_cnotK`, `tabAct_localK` and
   `tabAct_psd`.
 - `kCone_eq_QK_iff_drive_maxCone (hH1) (hadd) (hsmul) (hmax) : K = QK k ↔ H2 ∧ A`
-  (line 1222), with `driveInvariantK_of_eq_QK` as the forward witness and
+  (line 1234), with `driveInvariantK_of_eq_QK` as the forward witness and
   `kCone_eq_QK_of_drive_maxCone` as the reverse witness.
 
 The declarations live in the research namespace `FiniteReconstructionDesign`,
@@ -305,18 +309,18 @@ probe of its Q-EXACT question) has been run on it.
 
 ## The k = 2 recovery
 
-`pairCarrierEquiv : W 3 ≃ₗ[ℝ] WK 2` (line 1237) sends `ω` to
+`pairCarrierEquiv : W 3 ≃ₗ[ℝ] WK 2` (line 1249) sends `ω` to
 `μ ↦ ω (μ 0) (μ 1)`. The five transports of argument section 5 are:
 
 | Object | Theorem |
 | --- | --- |
-| products | `pairCarrierEquiv_prodState : pairCarrierEquiv (prodState (x 0) (x 1)) = prodStateK x` (line 1249) |
-| product tests | `pairCarrierEquiv_maxCone` (maxCone → maxConeK, line 1265) and `maxCone_of_pairCarrierEquiv` (maxConeK → maxCone, line 1271), both through `sum_pairCarrier_eq` |
-| dictionary | `mem_Q3_iff_pairCarrier : ω ∈ Q3 ↔ pairCarrierEquiv ω ∈ QK 2` (line 1289); both directions from `dictK_pairCarrier` and Mathlib's `Matrix.posSemidef_submatrix_equiv` |
-| gate | `pairCarrierEquiv_cnot : pairCarrierEquiv (cnot ω) = cnotK 0 1 (pairCarrierEquiv ω)` (line 1300) |
-| target actions | `pairCarrierEquiv_actT : pairCarrierEquiv (actT N ω) = actK 1 N (pairCarrierEquiv ω)` (line 1308) |
+| products | `pairCarrierEquiv_prodState : pairCarrierEquiv (prodState (x 0) (x 1)) = prodStateK x` (line 1261) |
+| product tests | `pairCarrierEquiv_maxCone` (maxCone → maxConeK, line 1277) and `maxCone_of_pairCarrierEquiv` (maxConeK → maxCone, line 1283), both through `sum_pairCarrier_eq` |
+| dictionary | `mem_Q3_iff_pairCarrier : ω ∈ Q3 ↔ pairCarrierEquiv ω ∈ QK 2` (line 1301); both directions from `dictK_pairCarrier` and Mathlib's `Matrix.posSemidef_submatrix_equiv` |
+| gate | `pairCarrierEquiv_cnot : pairCarrierEquiv (cnot ω) = cnotK 0 1 (pairCarrierEquiv ω)` (line 1312) |
+| target actions | `pairCarrierEquiv_actT : pairCarrierEquiv (actT N ω) = actK 1 N (pairCarrierEquiv ω)` (line 1320) |
 
-`pairCone_eq_Q3_of_kToken` (line 1324) has the hypotheses and conclusion of the
+`pairCone_eq_Q3_of_kToken` (line 1336) has the hypotheses and conclusion of the
 adopted `pairCone_eq_Q3_of_drive_maxCone` (EqvK2MaxCone.lean:153–160, unchanged
 from D on main), with each of H1, hadd, hsmul, hmax, H2 and A an explicit
 hypothesis, and is proved by applying `kCone_eq_QK_of_drive_maxCone` at `k = 2`
@@ -330,10 +334,16 @@ FiniteReach imports `OIBridge.EqvK2Generation`, and `EqvK2MaxCone` imports
 `EqvK2Generation`, not the reverse. Every declaration in the environment comes
 from a module in that closure, and a declaration proved from the two-token
 theorem would have to come from a module importing `EqvK2MaxCone`. The module
-also checks this when it is compiled: an `#eval` after the recovery (line 1378)
+also checks this when it is compiled: an `#eval` after the recovery (line 1390)
 fails the build if `OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone` is in
 the environment, and otherwise logs that it is not; run 38880722296 logs the second
-outcome.
+outcome. The check excludes the adopted theorem and everything proved from it.
+It does not exclude the ingredients of that theorem's proof or sibling
+two-token theorems present in the environment
+(`EqvK2Generation.blockInvariant_of_drive`, `pairCone_eq_Q3_of_drive_exact`,
+`EqvK2Block.pairCone_eq_Q3_of_block`, `EqvK2Schema.pairCone_eq_Q3_of_drive`);
+the design sources cite none of them. Under #829's proposed
+`import OIBridge.EqvK2MaxCone` this check would fail by construction.
 
 ## The product-vector form of the product bound
 
@@ -341,21 +351,21 @@ Argument section 1, item 3, states the product bound in two forms. §12 of
 `FiniteReachTable.lean` proves each direction separately, for a Hermitian
 matrix `A` on k tokens:
 
-- `prodVec_nonneg_of_maxConeTab` (line 1565), effect form to product-vector
+- `prodVec_nonneg_of_maxConeTab` (line 1579), effect form to product-vector
   form: `coordinates k A ∈ maxConeTab k` gives
   `0 ≤ star (prodVec k a) ⬝ᵥ (A *ᵥ prodVec k a)` for every family `a` of
   one-token vectors, through `lorPair_nonneg_of_maxConeTab`, `lor_blochH` and
   `quad_dictionary_prodVec`.
-- `maxConeTab_of_prodVec_nonneg` (line 1550), product-vector form to effect
-  form. `lor_blochH_decomp` (line 1428) writes every forward-cone vector as a
+- `maxConeTab_of_prodVec_nonneg` (line 1564), product-vector form to effect
+  form. `lor_blochH_decomp` (line 1442) writes every forward-cone vector as a
   nonnegative combination of two Bloch vectors, with an explicit formula and
   no square root (the boundary case `v₀ + v₃ = 0` separately).
-  `lorTests_of_blochTests` (line 1513) replaces the forward-cone vectors one
+  `lorTests_of_blochTests` (line 1527) replaces the forward-cone vectors one
   token at a time by recursion on the token count, slicing a table along its
   last token (`tokSlice`, `sum_prodTab_succ`). `maxConeTab_of_blochTests`
-  (line 1542) applies it to the homogenized coefficients of ball effects
+  (line 1556) applies it to the homogenized coefficients of ball effects
   (the adopted `lor_ehom`).
-- `maxConeTab_iff_prodVec_nonneg` (line 1580) states the equivalence with
+- `maxConeTab_iff_prodVec_nonneg` (line 1594) states the equivalence with
   these two witnesses, one per direction.
 
 No positive semidefinite hypothesis on `A` is used in either direction. The
@@ -367,11 +377,13 @@ cone theorems above use only the first direction.
 arithmetic, the recursive definitions of `FiniteReach.lean` and
 `FiniteReachTable.lean` and the preregistration's `cnotK` and `actK`, and
 compares `tabAct` of every named generator with them for k = 1 to 4. Reversed
-CNOT, reversed rotation sign, the inverse cyclic map and a swapped
-control/target definition are countercontrols, each detected as a mismatch.
+CNOT direction (`NEG-REV`), reversed rotation sign and the inverse cyclic map
+are countercontrols, each detected as a mismatch. `NEG-SWAPDEF` is a degenerate
+CNOT whose control reads past the end of the prefix and so acts as the identity.
 `tabact_vs_829-output.txt` is its saved run: 89 checks, no failures and
-`VERDICT TABACT-MATCHES-829-FORMULAS-k1..4`; a local `python3 -I -B` replay
-reproduced it byte for byte. The design workflow does not replay this script.
+`VERDICT TABACT-MATCHES-829-FORMULAS-k1..4`; two local `python3 -I -B` replays
+of the script as listed in `SHA256SUMS` reproduced it byte for byte, with empty
+standard error. The design workflow does not replay this script.
 It is an independent finite control of the coordinate formulas, and the
 compiled theorems do not use it.
 
@@ -387,7 +399,15 @@ equivalence, and the k = 2 recovery. The following remain:
    `OIBridge/KTokenMaxCone.lean`, the preregistration's S1–S4 controls, its
    k = 3 probe and its Q-EXACT question belong to a native round, which this
    record does not execute.
-2. Optionally, construct the cyclic Gray schedule and prove the prefix-parity
+2. An owner decision before F, open: how the independence check of the k = 2
+   recovery is kept at adoption. Either the proposed module imports
+   `OIBridge.EqvK2Generation` instead of `OIBridge.EqvK2MaxCone` and keeps the
+   `#eval`, or it keeps that import and replaces the `#eval` by a transitive
+   used-constants check from `pairCone_eq_Q3_of_kToken` that fails on any
+   constant with prefix `OIBridge.EqvK2MaxCone.` and on the sibling theorems
+   listed above. The preregistration's S3, which checks direct names only, is
+   weaker than either.
+3. Optionally, construct the cyclic Gray schedule and prove the prefix-parity
    and Walsh correspondence, including zero controls. This identifies the
    compiled multiplexor with the Gray-ordered word of argument section 3; the
    cone theorems do not need it.

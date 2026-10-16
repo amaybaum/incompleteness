@@ -8,8 +8,9 @@ homMap of rotLin t and cycEquiv), compared with exact Gaussian-rational arithmet
 Also re-evaluates, under the literal design definitions, the hypothesis each named countermodel
 violates (SEP3, CUT3, SHIFT3, CM1 = Track B's H = S (x) I4, Gamma-Q3 at k = 2).
 
-Countercontrols: reversed CNOT, reversed rotation sign, inverse cyclic map and a swapped
-control/target definition must each be detected as mismatches.
+Countercontrols: reversed CNOT direction (NEG-REV), reversed rotation sign and the inverse
+cyclic map must each be detected as mismatches. NEG-SWAPDEF is a degenerate CNOT whose control
+reads past the end of the prefix and so acts as the identity.
 """
 from fractions import Fraction as F
 from itertools import product

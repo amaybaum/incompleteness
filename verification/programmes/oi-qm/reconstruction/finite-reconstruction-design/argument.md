@@ -43,9 +43,10 @@ Translate the proposed hypotheses to an exogenously specified C subset V_k:
 For the equivalence in item 3, scaled rank-one local projectors give one direction
 (compiled for tables as `lorPair_nonneg_of_maxConeTab`, used in
 `tableCone_eq_psd_of_drive_maxConeTab`, and for Hermitian matrices as
-`prodVec_nonneg_of_maxConeTab`). Conversely, spectral decompositions of each
-local effect expand the product effect into a finite nonnegative sum of product
-rank-one projectors: compiled as `maxConeTab_of_prodVec_nonneg`, through
+`prodVec_nonneg_of_maxConeTab`). Conversely, each local effect is a
+nonnegative combination of rank-one projectors. For Hermitian A on the
+recursive table carrier with ball effects, this is compiled as
+`maxConeTab_of_prodVec_nonneg`, through
 `lor_blochH_decomp`, which writes each forward-cone vector as a nonnegative
 combination of two Bloch vectors, and `lorTests_of_blochTests`, which replaces
 the tokens one at a time. `maxConeTab_iff_prodVec_nonneg` states the
@@ -185,7 +186,13 @@ without using that theorem as a premise. The research module
 `maxCone_of_pairCarrierEquiv`, `mem_Q3_iff_pairCarrier`, `pairCarrierEquiv_cnot`,
 `pairCarrierEquiv_actT`) and proves that statement as `pairCone_eq_Q3_of_kToken`
 from its k-token theorem at k = 2. The adopted two-token theorem is not in that
-module's environment, which its compilation checks.
+module's environment, which its compilation checks. That check excludes the
+adopted theorem and everything proved from it; it does not exclude the
+ingredients of its proof or sibling two-token theorems present in the
+environment, none of which the design sources cite. Under #829's proposed
+`import OIBridge.EqvK2MaxCone` the check would fail by construction; how it is
+kept at adoption is an open owner decision before F (formalization.md,
+remaining obligations).
 
 ## 6. What does and does not combine with KN-DESC
 
@@ -266,8 +273,10 @@ reachability of section 4, both inclusions of section 5 with separate
 witnesses, the matrix and table forms of the conditional equivalence, both
 directions of the equivalence in section 1 item 3, the coordinate formulas of
 the table actions proposed in #829 for every k, the reindexing to the carriers
-of section 1, the statement surface proposed in #829 with its two inclusions
-and both directions, and the five k = 2 transports with the recovery of
+of section 1, the statement surface proposed in #829 (its names, hypotheses
+and conclusions, in the research namespace and without #829's `EqvK2MaxCone`
+import; not its S1 module text, and none of its controls run) with its two
+inclusions and both directions, and the five k = 2 transports with the recovery of
 section 5. These are research sources, not adopted theorems; adoption and the
 controls proposed in #829 are not executed here. The same run freshly compiles
 the historical KN-DESC design against D, from the sibling research directory

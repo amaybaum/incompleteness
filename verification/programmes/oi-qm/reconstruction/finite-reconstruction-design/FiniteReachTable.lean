@@ -1002,6 +1002,18 @@ theorem tabAct_localK (N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) (V : Mat
     tabAct k (localM k j V) (tabOf k ω) = tabOf k (actK j N ω) :=
   tabAct_localM N V hV j.2 ω
 
+/-- The third-axis flow on token `j` in coordinates: `actK j (rotLin t)`. -/
+theorem tabAct_rotK {k : ℕ} (t : ℝ) (j : Fin k) (ω : WK k) :
+    tabAct k (localM k j (phaseMat (Real.cos t) (Real.sin t))) (tabOf k ω) =
+      tabOf k (actK j (OIBridge.KInfFoundations.rotLin t) ω) :=
+  tabAct_localK _ _ (tokMat_rot t) j ω
+
+/-- The cyclic map on token `j` in coordinates: `actK j cycEquiv`. -/
+theorem tabAct_cycK {k : ℕ} (j : Fin k) (ω : WK k) :
+    tabAct k (localM k j cycMat) (tabOf k ω) =
+      tabOf k (actK j (OIBridge.KInfFoundations.cycEquiv : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) ω) :=
+  tabAct_localK _ _ tokMat_cyc j ω
+
 /-! ### §10 — the separate table inclusions and the statement surface of #829 -/
 
 theorem mem_matCone_dictionary {k : ℕ} {K : Set (Labels k → ℝ)} {w : Labels k → ℝ}
@@ -1393,6 +1405,8 @@ open Lean Meta in
 #print axioms localM_conj_dictionary
 #print axioms tabAct_localM
 #print axioms tabAct_localM_eq
+#print axioms tabAct_rotK
+#print axioms tabAct_cycK
 #print axioms tableCone_subset_psd_of_maxCone_drive
 #print axioms psd_subset_tableCone_of_products_cone_drive
 #print axioms subset_QK_of_maxCone_drive
