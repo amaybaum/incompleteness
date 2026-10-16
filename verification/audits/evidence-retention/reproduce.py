@@ -9,7 +9,7 @@ Run from the repository root of a clone with full history and a Lean toolchain m
 verifier is this checkout: the manifest and results.json read here, and extract_result.py and compare_result.py
 beside this file. The historical commit supplies only its sources, its toolchain pin and its own
 tools/release_gate.py. The steps:
-  1. validate the arguments: RUN_ID decimal, SHA a full 40-hex commit id;
+  1. validate the arguments: RUN_ID decimal, SHA a full 40-hex commit id, each TEXT non-empty;
   2. find the entry ci-RUN_ID and its results.json; record the verifier commit;
   3. check that the commit to build is in the repository (a shallow clone fails here);
   4. check it out as a detached worktree under DIR;
@@ -20,10 +20,19 @@ tools/release_gate.py. The steps:
      lines from its source at the built commit; write DIR/verdict.json and DIR/verdict.txt.
 Reproduction holds, and the exit code is 0, only if every command succeeded and the comparison found nothing.
 
+DIR/verdict.json is written on every exit path once --work names a directory that can be written: a rejected
+argument, a missing entry, a failed checkout, and an exception raised by any step, extraction and comparison
+included. Its 'holds' is true only with exit code 0. A stop records its reason under 'stopped'; an exception
+records its type and message there ({"exception": TYPE, "message": MESSAGE}), and the exit code is 1. Without
+--work the usage text is printed, no verdict is written, and the exit code is 2; if the verdict cannot be
+written, the exit code is nonzero.
+
 Negative controls (--override-sha with --expect-scientific-mismatch) build another commit against the same
 expected result. They pass only if the build and the gate ran to completion and passed there, so that the
 failure cannot be an infrastructure or build failure, and the comparison then failed on scientific results
-alone (rules C2-C4, never C1), including each --expect-failure text. Anything else fails the control.
+alone (rules C2-C4, never C1), including each --expect-failure text. Anything else fails the control. An empty
+or whitespace-only --expect-failure, or one given without a value, is rejected: the empty text is contained in
+every failure, so it would expect nothing.
 """
 import json
 import os
@@ -64,39 +73,76 @@ def main():
     a = sys.argv[1:]
     run_id, work, override = arg(a, '--run'), arg(a, '--work'), arg(a, '--override-sha')
     negative, expect = '--expect-scientific-mismatch' in a, arg(a, '--expect-failure', many=True)
-    if not run_id or not work:
+    if not work:
+        # the one exit that writes no verdict: there is no directory to hold it
         print(__doc__)
         return 2
-    if not RUN_ID.match(run_id):
-        print('FAIL  --run must be a decimal run id, got %r' % run_id)
-        return 1
-    if override is not None and not SHA.match(override):
-        print('FAIL  --override-sha must be a full 40-hex commit id, got %r' % override)
-        return 1
-    if negative != (override is not None):
-        print('FAIL  --override-sha and --expect-scientific-mismatch go together: a control at another commit must state '
-              'that it expects a scientific mismatch, and only such a control may expect one')
-        return 1
-    if expect and not negative:
-        print('FAIL  --expect-failure needs --expect-scientific-mismatch')
-        return 1
     work = os.path.abspath(work)
-    os.makedirs(work, exist_ok=True)
-    txt = open(os.path.join(work, 'verdict.txt'), 'w')
     record = {'run_id': run_id, 'negative_control': negative, 'expect_failures': expect, 'commands': [], 'failures': []}
+    txt = []
 
     def out(msg):
         print(msg)
-        txt.write(msg + '\n')
-        txt.flush()
+        try:
+            if txt:
+                txt[0].write(msg + '\n')
+                txt[0].flush()
+        except (OSError, ValueError):
+            pass
 
-    def finish(ok, why=None):
+    def finish(ok, why=None, code=1):
+        """Writes verdict.json; the exit code is 0 only if the reproduction holds and its verdict was written."""
         record['holds'] = ok
         if why:
             record['stopped'] = why
-        json.dump(record, open(os.path.join(work, 'verdict.json'), 'w'), indent=1, sort_keys=True)
-        return 0 if ok else 1
+        try:
+            text = json.dumps(record, indent=1, sort_keys=True)
+        except (TypeError, ValueError) as exc:
+            ok = False
+            text = json.dumps({'run_id': str(run_id), 'holds': False,
+                               'stopped': {'exception': type(exc).__name__, 'message': str(exc)}}, indent=1, sort_keys=True)
+        try:
+            with open(os.path.join(work, 'verdict.json'), 'w', encoding='utf-8') as fh:
+                fh.write(text)
+        except OSError as exc:
+            print('FAIL  could not write %s: %s' % (os.path.join(work, 'verdict.json'), exc))
+            return code
+        return 0 if ok else code
 
+    try:
+        os.makedirs(work, exist_ok=True)
+        txt.append(open(os.path.join(work, 'verdict.txt'), 'w', encoding='utf-8'))
+        return reproduce(a, run_id, work, override, negative, expect, record, out, finish)
+    except (Exception, KeyboardInterrupt) as exc:
+        out('FAIL  stopped by %s: %s' % (type(exc).__name__, exc))
+        return finish(False, {'exception': type(exc).__name__, 'message': str(exc)})
+    finally:
+        if txt:
+            txt[0].close()
+
+
+def reproduce(a, run_id, work, override, negative, expect, record, out, finish):
+    """The steps of the docstring; every return goes through finish, which writes verdict.json."""
+    if not run_id:
+        out('FAIL  --run is required')
+        print(__doc__)
+        return finish(False, 'usage', code=2)
+    if not RUN_ID.match(run_id):
+        out('FAIL  --run must be a decimal run id, got %r' % run_id)
+        return finish(False, 'arguments')
+    if override is not None and not SHA.match(override):
+        out('FAIL  --override-sha must be a full 40-hex commit id, got %r' % override)
+        return finish(False, 'arguments')
+    if negative != (override is not None):
+        out('FAIL  --override-sha and --expect-scientific-mismatch go together: a control at another commit must state '
+            'that it expects a scientific mismatch, and only such a control may expect one')
+        return finish(False, 'arguments')
+    if expect and not negative:
+        out('FAIL  --expect-failure needs --expect-scientific-mismatch')
+        return finish(False, 'arguments')
+    if len(expect) != a.count('--expect-failure') or any(not t.strip() for t in expect):
+        out('FAIL  --expect-failure needs a non-empty text: the empty text is contained in every failure, so it expects nothing')
+        return finish(False, 'arguments')
     man = json.load(open(os.path.join(HERE, 'manifest.json'), encoding='utf-8'))
     ent = next((e for e in man['entries'] if e.get('id') == 'ci-' + run_id), None)
     if ent is None:
