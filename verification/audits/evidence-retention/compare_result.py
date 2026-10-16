@@ -170,10 +170,11 @@ def self_test(expected):
     exp = expected['expected']
     srcs = synth_source(expected)
     partial = next((m for m, em in exp['modules'].items() if em['status'] in ('partial', 'none')), None)
+    partial_r = next((m for m, em in exp['modules'].items() if em['status'] == 'partial' and em['reports']), None)
     complete = next((m for m, em in exp['modules'].items() if em['status'] == 'complete' and em['reports']), None)
     absent = next((m for m, em in exp['modules'].items() if em['status'] == 'absent'), None)
 
-    def case(name, mut_e=None, mut_r=None, rule=None, src=None):
+    def case(name, mut_e=None, mut_r=None, rule=None, src=None, msg=None):
         nonlocal ok
         e = copy.deepcopy(expected)
         if mut_e:
@@ -185,7 +186,8 @@ def self_test(expected):
         if src:
             src(s)
         fails = compare(e, r, s.get)
-        good = (not fails) if rule is None else any(f.startswith(rule + ' ') for f in fails)
+        # with msg, the case passes only if that site's own message fired, so the case isolates the site
+        good = (not fails) if rule is None else any(f.startswith(rule + ' ') and (msg is None or msg in f) for f in fails)
         ok &= good
         print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if rule is None else ' (%s)' % rule))
         if not good:
@@ -201,6 +203,15 @@ def self_test(expected):
     case('a gate step whose summary differs (a changed count)', mut_r=lambda r: r['gate']['steps'][-1].__setitem__('summary', 'x'), rule='C2')
     case('an extra gate step in the reproduction', mut_r=lambda r: r['gate']['steps'].append({'name': 'extra', 'status': 'PASS', 'summary': ''}), rule='C2')
     case('an expected result with no gate steps', mut_e=lambda e: e['expected']['gate'].__setitem__('steps', []), rule='C2')
+    case('an expected result recording no successful build', mut_e=lambda e: e['expected'].__setitem__('build_success', False),
+         rule='C1', msg='does not record a successful build')
+    case('a passing verdict whose line differs from the expected one',
+         mut_r=lambda r: r['gate']['verdict'].__setitem__('text', r['gate']['verdict']['text'] + ' (altered)'),
+         rule='C2', msg='the verdict line differs')
+    case('no gate steps in the expected result or the reproduction', mut_e=lambda e: e['expected']['gate'].__setitem__('steps', []),
+         mut_r=lambda r: r['gate'].__setitem__('steps', []), rule='C2', msg='records no gate steps')
+    case('a module table that is not a table', mut_e=lambda e: e['expected'].__setitem__('modules', ['not a table']),
+         rule='C3', msg='has no module table')
     if complete:
         case('a report missing from a complete module', mut_r=lambda r: r['reports'][complete].pop(0), rule='C3')
         case('a report with a changed axiom set', mut_r=lambda r: r['reports'][complete][0].__setitem__('axioms', ['propext']), rule='C3')
@@ -218,6 +229,9 @@ def self_test(expected):
              mut_r=lambda r: r['reports'][complete][0].__setitem__('line', 10 ** 6), rule='C3')
         case('an expected report whose axioms were altered', mut_e=lambda e: e['expected']['modules'][complete]['reports'][0].__setitem__('axioms', ['propext']), rule='C3')
         case('an expected report that was removed', mut_e=lambda e: e['expected']['modules'][complete]['reports'].pop(0), rule='C3')
+        case('a recorded declaration renamed at its own line in a complete module',
+             mut_r=lambda r: r['reports'][complete][0].__setitem__('name', 'renamed.declaration'), rule='C3',
+             msg='is missing from the reproduction')
     if partial:
         case('an expected report missing from a partial module', mut_r=lambda r: r['reports'][partial].pop(0), rule='C3')
         case('a partial module with fewer reports than its source\'s #print axioms commands',
@@ -228,6 +242,11 @@ def self_test(expected):
              mut_r=lambda r: r['reports'][partial][-1].__setitem__('axioms', ['Classical.choice', 'Lean.ofReduceBool']), rule='C3')
         case('a partial module\'s line reported twice',
              mut_r=lambda r: r['reports'][partial].append(dict(r['reports'][partial][0], name='dup')), rule='C3')
+    if partial_r:
+        # the line count, the axioms and the module's status are unchanged, so only the per-declaration rule can see it
+        case('a recorded declaration renamed at its own line in a partial module',
+             mut_r=lambda r: r['reports'][partial_r][0].__setitem__('name', 'renamed.declaration'), rule='C3',
+             msg='is missing from the reproduction')
     if absent:
         case('an absent module that is in the source', src=lambda s: s.__setitem__(absent, '#print axioms Y\n'), rule='C3')
         case('an absent module that the reproduction reports',
