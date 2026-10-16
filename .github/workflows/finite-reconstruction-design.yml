@@ -61,13 +61,15 @@ jobs:
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteWalsh.lean ResearchDesign/FiniteWalsh.lean
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteCircuit.lean ResearchDesign/FiniteCircuit.lean
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteReach.lean ResearchDesign/FiniteReach.lean
+          cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteReachTable.lean ResearchDesign/FiniteReachTable.lean
           lake env bash -c '
             export LEAN_PATH="$LEAN_PATH:$PWD/ResearchDesign:$PWD"
             design_status=0
             lean -o ResearchDesign/FinitePauli.olean ResearchDesign/FinitePauli.lean || design_status=1
             lean ResearchDesign/FiniteWalsh.lean || design_status=1
             lean ResearchDesign/FiniteCircuit.lean || design_status=1
-            lean ResearchDesign/FiniteReach.lean || design_status=1
+            lean -o ResearchDesign/FiniteReach.olean ResearchDesign/FiniteReach.lean || design_status=1
+            lean ResearchDesign/FiniteReachTable.lean || design_status=1
             lean ../programmes/oi-qm/reconstruction/carrier-descent-design/KnDescentDesign.lean || design_status=1
             exit "$design_status"
           '
