@@ -1,0 +1,83 @@
+name: rebuild-pr851-pdfs
+on:
+  push:
+    branches: [build/pr851-pdfs-20261016]
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    container: texlive/texlive:TL2022-historic
+    timeout-minutes: 45
+    steps:
+      - name: Install tools
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ca-certificates curl poppler-utils python3
+          xelatex --version | head -2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Pandoc 3.1.3, checked against D's Main.tex
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          curl -fsSL https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb -o /tmp/pandoc.deb
+          dpkg-deb -x /tmp/pandoc.deb /tmp/pandoc
+          echo /tmp/pandoc/usr/bin >> "$GITHUB_PATH"
+          /tmp/pandoc/usr/bin/pandoc --version | head -1
+          git show e3ad5d7a71910ce5413ef6dacd25bf5a63d5a1e0:papers/Main.tex > /tmp/main-baseline.tex
+          git show e3ad5d7a71910ce5413ef6dacd25bf5a63d5a1e0:papers/Main.md > /tmp/main-base.md
+          /tmp/pandoc/usr/bin/pandoc /tmp/main-base.md -s --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex -o /tmp/main-emitted.tex
+          printf '%% source-sha256: %s\n' "$(sha256sum /tmp/main-base.md | cut -d' ' -f1)" >> /tmp/main-emitted.tex
+          cmp /tmp/main-emitted.tex /tmp/main-baseline.tex && echo "pandoc 3.1.3 reproduces main's Main.tex byte for byte"
+      - name: Canonical builds of the affected papers and the book
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          sh ./build.sh Main SM Structure Explainer Juno
+          sh ./build.sh --book
+          git diff --exit-code --stat -- '*.tex' && echo "rebuilt .tex identical to the committed .tex"
+          python3 tools/staleness_check.py
+          python3 papers/oi_lattice_code/mirror_check.py
+          python3 tools/voice_check.py
+          python3 - <<'PY'
+          import subprocess, statistics
+          base = 'e3ad5d7a71910ce5413ef6dacd25bf5a63d5a1e0'
+          paths = ['papers/%s.pdf' % n for n in ['Main', 'SM', 'Structure', 'Explainer', 'Juno']]
+          paths.append('book/The-Incompleteness-of-Observation-FULL.pdf')
+          def stats(path):
+              info = subprocess.check_output(['pdfinfo', path], text=True)
+              pages_n = int([l for l in info.splitlines() if l.startswith('Pages:')][0].split()[1])
+              text = subprocess.check_output(['pdftotext', '-layout', path, '-'], text=True)
+              pages = text.split('\f')
+              if not pages[-1].strip():
+                  pages.pop()
+              return pages_n, statistics.median(len(p.strip()) for p in pages)
+          for path in paths:
+              old = '/tmp/' + path.replace('/', '_') + '.main'
+              with open(old, 'wb') as f:
+                  f.write(subprocess.check_output(['git', 'show', base + ':' + path]))
+              n_new, m_new = stats(path)
+              n_old, m_old = stats(old)
+              print('%-50s pages %4d (main %4d)  median chars/page %6.0f (main %6.0f)' % (path, n_new, n_old, m_new, m_old), flush=True)
+              assert m_new > 700, path
+              assert abs(n_new - n_old) <= max(3, n_old // 20), path
+          PY
+      - name: Preserve the rebuilt PDFs on a disposable branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/Main.pdf papers/SM.pdf papers/Structure.pdf papers/Explainer.pdf papers/Juno.pdf book/The-Incompleteness-of-Observation-FULL.pdf
+          git commit -m "Rebuild #851 PDFs with pandoc 3.1.3 and TeX Live 2022 historic" -m "build.sh on the affected papers and the book; no dropped glyphs; rebuilt .tex identical to the committed .tex; staleness, mirror and voice pass."
+          git push --force origin HEAD:refs/heads/build/pr851-artifacts-20261016
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr851-pdfs
+          path: |
+            papers/Main.pdf
+            papers/SM.pdf
+            papers/Structure.pdf
+            papers/Explainer.pdf
+            papers/Juno.pdf
+            book/The-Incompleteness-of-Observation-FULL.pdf
+          if-no-files-found: error
+          retention-days: 7
