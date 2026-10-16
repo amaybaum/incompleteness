@@ -198,9 +198,9 @@ The bridge would be: identify the framework's finite-bijection structure with a 
 
 *A2 (determinism / bijection).* The framework requires deterministic bijection dynamics. Matrix models with deterministic Hamiltonian evolution satisfy this; matrix models with quantum-mechanical evolution on the matrix degrees of freedom do not, unless the quantum mechanics is interpreted as emergent from the substratum (consistent with the framework's content but not with standard matrix-model interpretations).
 
-*A3 (bounded coupling degree).* The framework retains bounded local coupling as a substratum condition, but it no longer derives the physical carrier dimension $K=6$ from coupling-degree minimization. Matrix models with arbitrary connectivity therefore still need a bounded-locality bridge, while the separate H-link single-copy condition controls whether the six geometric links are the physical carrier.
+*A3 (bounded coupling degree).* The framework retains bounded local coupling as a substratum condition, but it does not derive the physical carrier dimension $K=6$ from coupling-degree minimization. Matrix models with arbitrary connectivity therefore still need a bounded-locality bridge, while the separate H-link single-copy condition controls whether the six geometric links are the physical carrier.
 
-*A4 (center independence).* The framework's predictions are independent of the choice of partition center. Matrix models have natural translation symmetries; the bridge is consistent here.
+*A4 (center independence).* The update commutes with lattice translations up to gauge, and the update at a site contains no explicit copy of that site's present value. Matrix models have natural translation symmetries, which supply the first clause; the second is a further condition on the matrix-model update.
 
 *A5 (linearity).* The framework's emergent dynamics is linear at the visible-sector level. Matrix models with linear evolution on matrix degrees of freedom are consistent; non-linear matrix dynamics would not be.
 
