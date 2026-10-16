@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Builds verification/audits/evidence-retention/ tranche 1 from retrieved CI responses.
 
-This script is retained as the record of how the archive was cut: which lines an excerpt keeps, which fields a
-derived file selects, and how each gap was found. It cannot be re-run from the repository tree alone, because its
-inputs are not retained:
-  - the staging directory of retrieved job lists and Mathlib-bridge job-log tails, copied byte for byte from
+This script is retained as the record of how the archive was cut: which fields a derived file selects, how each
+expected result was extracted, and how each gap was found. It cannot be re-run from the repository tree alone,
+because its inputs are not retained:
+  - the staging directory of retrieved job lists and Mathlib-bridge job-log texts, copied byte for byte from
     saved tool output;
   - the re-served responses for the four BG-3 logs;
   - the saved runs-API listing pages (run.json's source);
   - the per-citation claim annotations.
-The archive records each input's digest. Its retained copies are checked by check_retention.py from the tree.
+The archive records each input's digest. What it retains is checked by check_retention.py from the tree, and
+each expected result is reproducible at its commit by reproduce.py.
 
 Run from the repository root of a clone containing BASE and every attested commit; it reads the receipts,
 control planes, citing records and the governed Lean modules with `git show`. Standard library only.
@@ -25,6 +26,9 @@ import os
 import re
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from extract_result import extract  # noqa: E402
 
 BASE, STAGE, BG3DIR, REPLAY, AUDITDIR, RUNS_JSON, META_JSON, CLAIMS_JSON, OUT, PAGE1 = sys.argv[1:11]
 
@@ -127,74 +131,105 @@ cert_raw = show(CERT)
 coverage.append({'path': CERT, 'blob': blob_id(cert_raw)})
 cert_runs = {v['run']: dict(v, role=k) for k, v in json.loads(cert_raw)['ci'].items()}
 
-# ---------------------------------------------------------------- excerpt rules
-GATE_START = re.compile(r'^\S+ release gate$')
-GATE_END = re.compile(r'^\S+ release gate: ')
-GATE_STEP = re.compile(r'^\S+\s+(PASS|FAIL|SKIP)\s')   # timestamp, then the step's status
-KEEP = re.compile(r'Build completed successfully|error:|declaration uses .sorry.|sorryAx|Lean\.ofReduceBool'
-                  r'|Cache saved with key|Cache hit occurred on the primary key|Cache restored from key'
-                  r'|Cache not found for input keys|Failed to save|Failed to restore')
+# ---------------------------------------------------------------- expected results
 PRINT = re.compile(r'^#print axioms\b')
-
-
-def report_re(mod):
-    return re.compile(r' %s:(\d+):\d+: .*?(depends on axioms|does not depend on any axioms)' % re.escape(mod))
-
-
-def excerpt(lines, modules):
-    """Line numbers (0-based) to keep: the release-gate block, build status, errors and sorry markers, cache
-    lines, and each governed module's build line and axiom reports (with wrapped continuation lines)."""
-    keep = set()
-    for s in [i for i, l in enumerate(lines) if GATE_START.match(l)]:
-        e = next((j for j in range(s, len(lines)) if GATE_END.match(lines[j])), None)
-        if e is not None:
-            keep.update(range(s, e + 1))
-    for i, l in enumerate(lines):
-        if KEEP.search(l):
-            keep.add(i)
-    for mod in modules:
-        built = 'Built ' + mod[:-len('.lean')].replace('/', '.') + ' '
-        rr = report_re(mod)
-        for i, l in enumerate(lines):
-            if built in l + ' ':
-                keep.add(i)
-            m = rr.search(l)
-            if m:
-                keep.add(i)
-                j = i
-                while m.group(2) == 'depends on axioms' and ']' not in lines[j] and j + 1 < len(lines):
-                    j += 1
-                    keep.add(j)
-    return sorted(keep)
-
-
-def ranges(idx):
-    out = []
-    for i in idx:
-        if out and i == out[-1][1] + 1:
-            out[-1][1] = i
-        else:
-            out.append([i, i])
-    return [[a + 1, b + 1] for a, b in out]
+PERMITTED = ['propext', 'Classical.choice', 'Quot.sound']
+EXTRACTOR = 'verification/audits/evidence-retention/extract_result.py'
+RECIPE = ['git checkout <head_sha>', 'cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build',
+          'cd ../.. && python3 tools/release_gate.py',
+          'python3 -I %s <captured output> > reproduced.json' % EXTRACTOR,
+          'python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree .']
+SOURCE_NOTE = ('the digest identifies the text this result was read from: it is provenance of the extraction, not '
+               'independent proof of the result, which reproduction at the commit supplies')
 
 
 def spans(nums):
-    return [[a, b] for a, b in ranges([n - 1 for n in sorted(nums)])]
+    out = []
+    for n in sorted(nums):
+        if out and n == out[-1][1] + 1:
+            out[-1][1] = n
+        else:
+            out.append([n, n])
+    return out
 
 
-def gate_summary(kept):
-    block, inside = [], False
-    for l in kept:
-        if GATE_START.match(l):
-            block, inside = [], True
-        elif inside:
-            block.append(l)
-            inside = not GATE_END.match(l)
-    steps = [GATE_STEP.match(l) for l in block]
-    verdict = [l for l in block if GATE_END.match(l)]
-    return {'steps': sum(1 for s in steps if s), 'pass': sum(1 for s in steps if s and s.group(1) == 'PASS'),
-            'fail': sum(1 for s in steps if s and s.group(1) == 'FAIL'),
-            'verdict': verdict[-1].split(' ', 1)[1] if verdict else None}
+def results_for(text, head, mods, run, source, tool_recipe=None):
+    """The structured expected result of a Mathlib bridge job: what reproduction at head must reproduce."""
+    x = extract(text)
+    modules, gaps = {}, []
+    for mod in mods:
+        reps = x['reports'].get(mod, [])
+        src_text = show('verification/lean-mathlib/' + mod, head)
+        rec = {'reports': [{'line': r['line'], 'name': r['name'], 'axioms': r['axioms']} for r in reps]}
+        if any(r.get('unclosed') for r in reps):
+            problems.append('%s: an unclosed report of %s' % (run['id'], mod))
+        if src_text is None:
+            rec.update(status='absent', prints=None, print_lines=None, note='the module is not in the tree at %s' % head[:12])
+            if reps:
+                problems.append('%s: reports for %s, which is absent at the head' % (run['id'], mod))
+        else:
+            prints = [i + 1 for i, l in enumerate(src_text.decode('utf-8').split('\n')) if PRINT.match(l)]
+            reported = {r['line'] for r in reps}
+            if reported - set(prints):
+                problems.append('%s: %s reports at lines %s with no #print axioms there' % (run['id'], mod, sorted(reported - set(prints))[:5]))
+            lost = sorted(set(prints) - reported)
+            rec.update(status='complete' if not lost else 'partial' if reported else 'none', prints=len(prints), print_lines=spans(prints))
+            if lost:
+                rec['unreported_print_lines'] = spans(lost)
+                gaps.append({'what': 'axiom reports of %s' % mod,
+                             'why': '%d of the module\'s %d #print axioms reports are in the served lines; the served text is the '
+                                    'last %d of the log\'s %s lines; reproduction at the commit reports all %d'
+                                    % (len(reported), len(prints), x['lines'], source.get('original_lines'), len(prints))})
+        modules[mod] = rec
+    if not x['build'] or not x['gate'] or not x['gate']['verdict']:
+        problems.append('%s: no build line or no release-gate verdict in the served text' % run['id'])
+    expected = {
+        'build_success': bool(x['build'] and x['build']['success']),
+        'gate': {'verdict': x['gate']['verdict']['text'] if x['gate'] and x['gate']['verdict'] else None,
+                 'steps': [{'name': s['name'], 'status': s['status'], 'summary': s['summary']} for s in (x['gate']['steps'] if x['gate'] else [])],
+                 'steps_total': len(x['gate']['steps']) if x['gate'] else 0,
+                 'steps_pass': sum(1 for s in x['gate']['steps'] if s['status'] == 'PASS') if x['gate'] else 0},
+        'modules': modules,
+        'markers': x['markers'],
+        'permitted_axioms': PERMITTED,
+    }
+    observed = {
+        'build_line': 'Build completed successfully (%d jobs).' % x['build']['jobs'] if x['build'] else None,
+        'built': x['built'],
+        'cache': x['cache'],
+        'reports_in_served_text': sum(len(v) for v in x['reports'].values()),
+        'report_served_lines': {mod: {r['name']: r['served_line'] for r in x['reports'].get(mod, [])} for mod in mods},
+        'gate_served_lines': {'start': x['gate']['start_line'] if x['gate'] else None,
+                              'verdict': x['gate']['verdict']['served_line'] if x['gate'] and x['gate']['verdict'] else None},
+    }
+    res = {'schema': 'oi-evidence-result', 'version': 1, 'kind': 'bridge', 'run': run,
+           'source': dict(source, extractor=EXTRACTOR, note=SOURCE_NOTE),
+           'reproduce': {'recipe': RECIPE, 'tool': 'python3 -I verification/audits/evidence-retention/reproduce.py --run %s' % run['id'],
+                         'workflow': '.github/workflows/reproduce-evidence.yml',
+                         'compared': 'build success; the gate\'s steps and verdict; each governed module\'s reports and axioms; the markers',
+                         'not_compared': 'timestamps, durations, cache behaviour, job counts, output order'},
+           'expected': expected, 'observed': observed}
+    if tool_recipe:
+        res['reproduce'] = tool_recipe
+    return res, gaps
+
+
+def design_results(text, run, source):
+    """The structured expected result of the BG2-orientation-design diagnostic job: its own check lines."""
+    lines = [re.sub(r'^\d{4}-\d\d-\d\dT[\d:.]+Z ', '', l) for l in text.split('\n')]
+    oks = [l for l in lines if re.match(r'^(verification/\S+|\.github/workflows/\S+): OK$', l)]
+    alls = [l for l in lines if re.match(r'^All .* (use only standard axioms|match axiom-reports\.txt)', l)]
+    co = next((l for l in lines if 'HEAD is now at' in l), None)
+    expected = {'sha256sum_ok': oks, 'checks': alls,
+                'silent_diffs': ['exact_check.py', 'independent_check.py', 'quoted_family_check.py'],
+                'note': 'each silent diff is a check whose output must equal the committed JSON; the job runs under '
+                        'pipefail and -e, so any difference fails it'}
+    return {'schema': 'oi-evidence-result', 'version': 1, 'kind': 'design-diagnostic', 'run': run,
+            'source': dict(source, extractor='a line filter in build_archive.py (design_results)', note=SOURCE_NOTE),
+            'reproduce': {'recipe': ['dispatch .github/workflows/bg2-orientation-design.yml at %s, or run its diagnostic job\'s commands at that commit' % run['head_sha'][:12]],
+                          'compared': 'the sha256sum OK lines, the three "All …" check lines, and the silent diffs',
+                          'not_compared': 'timestamps and runner metadata', 'tool': None},
+            'expected': expected, 'observed': {'checkout_line': co}}
 
 
 # ---------------------------------------------------------------- build
@@ -266,6 +301,16 @@ for eid, src, digest, prov in BG3:
     form += ' (%d newline characters: the text ends without one)' % text.count('\n') if not text.endswith('\n') else ''
     f = write('bg3/' + os.path.basename(src), data)
     files = [f]
+    srcinfo = {'kind': 'the complete-as-cited log bg3/%s' % os.path.basename(src), 'sha256': f['sha256'],
+               'lines': len(lines_of(text)), 'original_lines': rs.get('original_length')}
+    if eid == 'bg3-e-design-log':
+        res = design_results(text, {'id': prov['run_id'], 'head_sha': prov['head_sha'], 'workflow': 'bg2-orientation-design.yml',
+                                    'job_id': prov['job_id'], 'job_name': prov['job_name']}, srcinfo)
+    else:
+        res, _ = results_for(text, prov['head_sha'], round_lean.get('BG-3', []),
+                             {'id': prov['run_id'], 'head_sha': prov['head_sha'], 'workflow': 'verify.yml',
+                              'job_id': prov['job_id'], 'job_name': prov['job_name']}, srcinfo)
+    files.append(dict(write('bg3/results-%s.json' % prov['job_id'], dumps(res)), kind='derived', source_sha256=f['sha256']))
     if eid in ('bg3-design-bridge-tail', 'bg3-first-design-bridge-tail'):
         # the design runs' metadata, from the saved runs-API listing page 1 (same field selection as ci/*/run.json)
         page = open(PAGE1, 'rb').read()
@@ -304,7 +349,7 @@ for r in runs:
     rid = r['run_id']
     d = os.path.join(STAGE, rid)
     eid = 'ci-' + rid
-    ent = {'id': eid, 'run_id': rid, 'roles': [], 'files': [], 'notes': [], 'retains': {}}
+    ent = {'id': eid, 'run_id': rid, 'roles': [], 'files': [], 'notes': []}
     for a in attested.get(rid, []):
         ent['roles'].append(dict(a, kind='receipt check-run'))
     if rid in cert_runs:
@@ -326,7 +371,6 @@ for r in runs:
         if x.get('attempt') is not None and x['attempt'] != mm['run_attempt']:
             ent['notes'].append('the attestation names attempt %d; the listing reports run_attempt %d'
                                 % (x['attempt'], mm['run_attempt']))
-    ent['retains']['run'] = {k: mm[k] for k in ('head_sha', 'event', 'status', 'conclusion', 'run_attempt', 'created_at')}
     if mm['event'] != 'workflow_dispatch':
         ent['notes'].append('the run\'s event is %s' % mm['event'])
     # jobs (derived from a saved jobs response)
@@ -348,72 +392,39 @@ for r in runs:
             p = per.setdefault(str(x['run_attempt']), {'jobs': 0, 'conclusions': {}})
             p['jobs'] += 1
             p['conclusions'][str(x['conclusion'])] = p['conclusions'].get(str(x['conclusion']), 0) + 1
-        ent['retains']['jobs'] = per
         if len(per) > 1:
-            ent['notes'].append('the job list holds attempts %s; the run\'s run_attempt is %d, and the excerpt is from '
+            ent['notes'].append('the job list holds attempts %s; the run\'s run_attempt is %d, and the expected result is from '
                                 'that attempt\'s Mathlib bridge job' % (', '.join(sorted(per)), mm['run_attempt']))
     else:
         why = 'served inline and not saved' if os.path.exists(os.path.join(d, 'jobs.INLINE')) else 'not retrieved'
-        ent['retains']['jobs'] = None
         missing.append({'id': eid, 'run_id': rid, 'what': 'job list', 'why': why})
-    # bridge excerpt
+    # the expected result, from the served bridge-job log
     if not os.path.exists(os.path.join(d, 'bridge.json')):
         problems.append('%s: no saved bridge log' % rid)
         continue
     raw = open(os.path.join(d, 'bridge.json'), 'rb').read()
     b = json.loads(raw)
     text = b['logs_content']
-    lines = lines_of(text)
-    mods = sorted({m for rnd in rounds for m in round_lean.get(rnd, [])})
-    idx = excerpt(lines, mods)
-    kept = [lines[i] for i in idx]
-    ex = '\n'.join(kept) + '\n'
-    if secret_hits(ex):
-        problems.append('%s: secret-pattern hits in excerpt %r' % (rid, secret_hits(ex)[:3]))
     job = open(os.path.join(d, 'bridge.job')).read().split(None, 1)
     if str(b.get('job_id')) != job[0]:
         problems.append('%s: bridge.job id %s differs from the saved response job_id %s' % (rid, job[0], b.get('job_id')))
     if jobs_sel is not None and not any(str(x['id']) == job[0] and x['name'] == 'Mathlib bridge'
                                         and x['run_attempt'] == mm['run_attempt'] for x in jobs_sel):
         problems.append('%s: bridge job %s is not the Mathlib bridge job of attempt %d' % (rid, job[0], mm['run_attempt']))
-    orig = b.get('original_length')
-    modrec = []
-    for mod in mods:
-        src_text = show('verification/lean-mathlib/' + mod, head)
-        rr = report_re(mod)
-        reported = sorted({int(rr.search(l).group(1)) for l in kept if rr.search(l)})
-        built = any(('Built ' + mod[:-len('.lean')].replace('/', '.') + ' ') in l + ' ' for l in kept)
-        rec = {'module': mod, 'reported_lines': spans(reported), 'reported': len(reported), 'build_line': built}
-        if src_text is None:
-            rec['status'] = 'absent'
-            rec['note'] = 'the module is not in the tree at %s' % head[:12]
-            if reported:
-                problems.append('%s: reports for %s, which is absent at the head' % (rid, mod))
-        else:
-            prints = [i + 1 for i, l in enumerate(src_text.decode('utf-8').split('\n')) if PRINT.match(l)]
-            rec['print_lines'] = spans(prints)
-            rec['prints'] = len(prints)
-            extra = set(reported) - set(prints)
-            if extra:
-                problems.append('%s: %s reports at lines %s with no #print axioms there' % (rid, mod, sorted(extra)[:5]))
-            lost = sorted(set(prints) - set(reported))
-            rec['status'] = 'complete' if not lost else 'partial' if reported else 'none'
-            if lost:
-                rec['unreported_print_lines'] = spans(lost)
-                missing.append({'id': eid, 'run_id': rid, 'what': 'axiom reports of %s' % mod,
-                                'why': '%d of the module\'s %d #print axioms reports are in the served lines; '
-                                       'the served text is the last %d of the log\'s %s lines, and the build line is %s'
-                                       % (len(reported), len(prints), len(lines), orig, 'in them' if built else 'not in them')})
-        modrec.append(rec)
-    ent['retains']['gate'] = gate_summary(kept)
-    ent['retains']['modules'] = modrec
-    ent['retains']['cache'] = [l[29:] for l in kept if re.search(r'Cache (saved|hit|restored|not found)|Failed to (save|restore)', l)]
-    ent['retains']['markers'] = sum(1 for l in kept if re.search(r'error:|declaration uses .sorry.|sorryAx|Lean\.ofReduceBool', l))
-    ent['files'].append(dict(write('ci/%s/bridge-excerpt.log' % rid, ex.encode('utf-8')), kind='excerpt',
-                             source={'job_id': job[0], 'job_name': 'Mathlib bridge', 'served_lines': len(lines),
-                                     'served_sha256': sha256(text.encode('utf-8')), 'original_lines': orig,
-                                     'line_ranges': ranges(idx), 'modules': mods}))
-    if ent['retains']['gate']['verdict'] is None:
+    mods = sorted({m for rnd in rounds for m in round_lean.get(rnd, [])})
+    res, gaps = results_for(text, head, mods,
+                            {'id': rid, 'head_sha': head, 'event': mm['event'], 'conclusion': mm['conclusion'],
+                             'attempt': mm['run_attempt'], 'workflow': 'verify.yml', 'job_id': job[0], 'job_name': 'Mathlib bridge'},
+                            {'kind': 'GitHub Actions job log, read through the session\'s job-log tool, which returns at most the last 5000 lines',
+                             'served_sha256': sha256(text.encode('utf-8')), 'served_lines': len(lines_of(text)),
+                             'original_lines': b.get('original_length')})
+    if secret_hits(json.dumps(res)):
+        problems.append('%s: secret-pattern hits in the result' % rid)
+    ent['files'].append(dict(write('ci/%s/results.json' % rid, dumps(res)), kind='derived',
+                             source_sha256=sha256(text.encode('utf-8'))))
+    for g in gaps:
+        missing.append(dict(g, id=eid, run_id=rid))
+    if res['expected']['gate']['verdict'] is None:
         ent['notes'].append('no release-gate verdict line in the served lines')
     ent['citations'] = dedupe(citing(rid))
     entries.append(ent)
@@ -421,6 +432,9 @@ for r in runs:
 # the archive's own retained record files
 own = []
 for rel, srcp in (('build_archive.py', os.path.abspath(__file__)),
+                  ('extract_result.py', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'extract_result.py')),
+                  ('compare_result.py', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'compare_result.py')),
+                  ('reproduce.py', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'reproduce.py')),
                   ('audit/offmain_audit.py', os.path.join(AUDITDIR, 'offmain_audit.py')),
                   ('audit/offmain_audit-output.txt', os.path.join(AUDITDIR, 'offmain_audit-output.txt')),
                   ('audit/audit.md', os.path.join(AUDITDIR, 'audit.md'))):
@@ -429,23 +443,31 @@ for rel, srcp in (('build_archive.py', os.path.abspath(__file__)),
         problems.append('%s: secret-pattern hits' % rel)
     own.append(dict(write(rel, data), kind='complete'))
 entries.append({'id': 'tranche-record', 'kind': 'complete', 'files': own, 'citations': [],
-                'provenance': {'source': 'written for this tranche: its build script and the off-main audit it acts on'}})
+                'provenance': {'source': 'written for this tranche: its build script, extractor, comparator and reproduction tool, '
+                                         'and the off-main audit it acts on'}})
 
 for e in entries:
     if e['citations']:
         attach_claims(e)
 
 manifest = {
-    'schema': 'oi-evidence-retention', 'version': 2, 'tranche': 1, 'base': BASE,
+    'schema': 'oi-evidence-retention', 'version': 3, 'tranche': 1, 'base': BASE,
     'line_convention': 'lines are counted by splitting on newline characters; a text that ends without one has one '
                        'more line than wc -l reports',
     'kinds': {
-        'complete-as-cited': 'byte-identical to the artifact the citing record names by digest',
+        'complete-as-cited': 'byte-identical to the artifact the citing record names by digest; retained only where a frozen '
+                             'record pins an artifact by digest',
         'complete': 'a file of this tranche, in full',
-        'excerpt': 'exact lines cut from a served log; line_ranges are 1-based within the served text, whose digest is '
-                   'served_sha256; the served text itself is not retained',
-        'derived': 'selected fields of an API response saved byte for byte; source_sha256 is that response, which is '
-                   'not retained',
+        'derived': 'a structured file read from a source that is not retained; source_sha256 is that source\'s digest, which '
+                   'is provenance of the derivation, not independent proof',
+    },
+    'reproduction': {
+        'rule': 'every results.json of kind "bridge" is an expected result reproducible at its run.head_sha by its reproduce '
+                'recipe; reproduce.py performs it and compare_result.py decides it, failing closed on any mismatch, missing '
+                'item or extraction failure; only deterministic results are compared',
+        'verifier': ['verification/audits/evidence-retention/reproduce.py', 'verification/audits/evidence-retention/extract_result.py',
+                     'verification/audits/evidence-retention/compare_result.py'],
+        'workflow': '.github/workflows/reproduce-evidence.yml',
     },
     'claim_status': {
         'retained': 'the archived files named in "in" carry the fragment',

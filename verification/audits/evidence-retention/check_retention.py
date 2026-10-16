@@ -14,16 +14,17 @@ Rules:
       tokens its citations carry;
   R3  every citing file exists with its recorded git blob id (the historical record is unchanged), its cited line
       holds every recorded token, and every claim's text stands verbatim on the line it names;
-  R4  an excerpt's ranges are non-empty, sorted, disjoint and within the served text, and name exactly its lines;
+  R4  every results.json is well formed: its schema, its run (id and head commit equal to the entry's run.json, and
+      its job the Mathlib bridge job of the attested attempt), a recorded build, a gate with steps and a verdict,
+      every governed module with a status consistent with its reports and #print axioms lines, every report's
+      axioms a list or null, marker counts for every marker, and the reproduction recipe;
   R5  no file in the archive directory matches the secret patterns, an IPv4 address or an e-mail address;
   R6  every file in the archive directory is listed, or is README.md, manifest.json or this checker;
   R7  the manifest is well formed: known kinds and claim statuses, paths inside the archive, every entry but the
       tranche's own record cited and only it uncited, every citing location annotated, every gap naming an entry;
-  R8  each CI entry's summary ("retains") is what its files say: run metadata, job counts per attempt, the
-      release-gate block, each governed module's reported lines and status, cache lines and markers; every
-      partial or missing set of axiom reports, and every missing job list, is a recorded gap; every wrapped
-      axiom report closes within the excerpt; a BG-3 entry's run metadata names the run and head commit of its
-      provenance;
+  R8  each CI entry's files agree: every job in jobs.json is at the run's head commit; every partial or
+      missing set of axiom reports, and every missing job list, is a recorded gap; a BG-3 entry's results and
+      run metadata name the run, job and head commit of its provenance, and its results derive from its log;
   R9  coverage, recomputed from the tree: every receipt, and every certificate attestation citing runs, is
       covered or named as later than this tranche, and every one an entry cites is covered; every check-run
       attestation in a covered receipt, and every run of a covered certificate attestation, has an entry whose
@@ -37,8 +38,9 @@ Rules:
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 cases
 read the repository's history, and the self-test fails when that history is absent.
 The gap list is printed: a gap is recorded, not a failure. R1-R9 check the archive against itself and against the
-tree. Whether a claim marked "retained" is carried by the files it names is a reading of those files; the claim
-annotations name the files, so a reviewer can make that reading from the tree.
+tree; they do not re-derive an expected result, which reproduce.py does at the commit. Whether a claim marked
+"retained" is carried by the files it names is a reading of those files; the claim annotations name the files,
+so a reviewer can make that reading from the tree.
 """
 import hashlib
 import json
@@ -54,56 +56,18 @@ SECRET = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
                     r'|private[_-]?key'
                     r'|(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?![\w.])|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', re.I)
-GATE_START = re.compile(r'^\S+ release gate$')
-GATE_END = re.compile(r'^\S+ release gate: ')
-GATE_STEP = re.compile(r'^\S+\s+(PASS|FAIL|SKIP)\s')
-CACHE = re.compile(r'Cache (saved|hit|restored|not found)|Failed to (save|restore)')
-MARKER = re.compile(r'error:|declaration uses .sorry.|sorryAx|Lean\.ofReduceBool')
 RUN_URL = re.compile(r'/actions/runs/(\d+)(?:/attempts/(\d+))?')
-RUN_KEYS = ('head_sha', 'event', 'status', 'conclusion', 'run_attempt', 'created_at')
+MARKERS = ('sorryAx', 'Lean.ofReduceBool', "declaration uses 'sorry'", 'error:')
+STATUSES = ('complete', 'partial', 'none', 'absent')
 
 
 def blob_id(data):
     return hashlib.sha1(b'blob %d\0' % len(data) + data).hexdigest()
 
 
-def lines_of(text):
-    ls = text.split('\n')
-    return ls[:-1] if text.endswith('\n') else ls
-
-
-def spans(nums):
-    out = []
-    for n in sorted(nums):
-        if out and n == out[-1][1] + 1:
-            out[-1][1] = n
-        else:
-            out.append([n, n])
-    return out
-
-
-def expand(sp):
-    return {n for a, b in sp for n in range(a, b + 1)}
-
-
 def inside(rel):
     return isinstance(rel, str) and bool(rel) and not os.path.isabs(rel) and '\\' not in rel and \
         os.path.normpath(rel) == rel and rel.split('/')[0] != '..'
-
-
-def gate_summary(kept):
-    block, on = [], False
-    for l in kept:
-        if GATE_START.match(l):
-            block, on = [], True
-        elif on:
-            block.append(l)
-            on = not GATE_END.match(l)
-    steps = [GATE_STEP.match(l) for l in block]
-    verdict = [l for l in block if GATE_END.match(l)]
-    return {'steps': sum(1 for s in steps if s), 'pass': sum(1 for s in steps if s and s.group(1) == 'PASS'),
-            'fail': sum(1 for s in steps if s and s.group(1) == 'FAIL'),
-            'verdict': verdict[-1].split(' ', 1)[1] if verdict else None}
 
 
 def check(archive, root, scope=None):
@@ -113,7 +77,7 @@ def check(archive, root, scope=None):
         man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     except (OSError, ValueError) as exc:
         return ['R7 manifest unreadable: %s' % exc], []
-    if man.get('schema') != 'oi-evidence-retention' or man.get('version') != 2:
+    if man.get('schema') != 'oi-evidence-retention' or man.get('version') != 3:
         return ['R7 manifest schema or version'], []
     kinds, statuses = set(man.get('kinds', {})), set(man.get('claim_status', {}))
     listed, ids, texts = set(), set(), {}
@@ -151,17 +115,8 @@ def check(archive, root, scope=None):
             if hashlib.sha256(data).hexdigest() != f.get('sha256'):
                 F('R1 %s: %s sha256 differs' % (eid, rel))
             files[rel] = texts[rel] = data.decode('utf-8', 'replace')
-            if f.get('kind') == 'excerpt':
-                src = f.get('source', {})
-                rg, n = src.get('line_ranges') or [], src.get('served_lines')
-                ok = bool(rg) and isinstance(n, int) and \
-                    all(isinstance(r, list) and len(r) == 2 and 1 <= r[0] <= r[1] <= n for r in rg) and \
-                    all(rg[i][1] < rg[i + 1][0] for i in range(len(rg) - 1))
-                if not ok:
-                    F('R4 %s: %s ranges are empty, unsorted, overlapping or outside the %r served lines' % (eid, rel, n))
-                named = sum(b - a + 1 for a, b in rg if isinstance(a, int) and isinstance(b, int))
-                if files[rel].count('\n') != named or not files[rel].endswith('\n'):
-                    F('R4 %s: %s has %d lines, its ranges name %d' % (eid, rel, files[rel].count('\n'), named))
+            if rel.endswith('/results.json') or (rel.startswith('bg3/results-') and rel.endswith('.json')):
+                check_results(eid, rel, files[rel], e, F)
         cites = e.get('citations', [])
         if e.get('kind') != 'complete' and not cites:
             F('R7 %s: no citations' % eid)
@@ -211,8 +166,17 @@ def check(archive, root, scope=None):
                     if str(run.get('id')) != pv.get('run_id') or run.get('head_sha') != pv.get('head_sha') or \
                             rel != 'bg3/run-%s.json' % pv.get('run_id'):
                         F('R8 %s: %s differs from the entry\'s provenance' % (eid, rel))
+                if rel.startswith('bg3/results-'):
+                    try:
+                        rr = json.loads(text).get('run') or {}
+                    except ValueError:
+                        rr = {}
+                    fr = next((f for f in e['files'] if f['path'] == rel), {})
+                    if rr.get('id') != pv.get('run_id') or rr.get('head_sha') != pv.get('head_sha') or rr.get('job_id') != pv.get('job_id') \
+                            or rel != 'bg3/results-%s.json' % pv.get('job_id') or fr.get('source_sha256') != f0.get('sha256'):
+                        F('R8 %s: %s names another run, job or head commit than the entry, or does not derive from its log' % (eid, rel))
         if is_ci:
-            check_summary(e, files, man, F)
+            check_entry_files(e, files, man, F)
     for g in man.get('missing', []):
         if g.get('id') not in ids or not g.get('what') or not g.get('why'):
             F('R7 gap %r names no entry, or has no what/why' % g)
@@ -233,70 +197,98 @@ def check(archive, root, scope=None):
     return fails, man.get('missing', [])
 
 
-def check_summary(e, files, man, F):
-    eid, rid, R = e['id'], e.get('run_id'), e.get('retains', {})
+def check_results(eid, rel, text, e, F):
+    """R4: a results.json is well formed and names what its entry names."""
+    try:
+        r = json.loads(text)
+    except ValueError:
+        F('R4 %s: %s is not JSON' % (eid, rel))
+        return
+    if r.get('schema') != 'oi-evidence-result' or r.get('version') != 1 or r.get('kind') not in ('bridge', 'design-diagnostic'):
+        F('R4 %s: %s has an unknown schema, version or kind' % (eid, rel))
+        return
+    run, exp = r.get('run') or {}, r.get('expected') or {}
+    if not run.get('id') or not re.fullmatch(r'[0-9a-f]{40}', str(run.get('head_sha', ''))) or not run.get('job_id'):
+        F('R4 %s: %s names no run, head commit or job' % (eid, rel))
+    if r['kind'] == 'design-diagnostic':
+        if not exp.get('sha256sum_ok') or not exp.get('checks') or not (r.get('reproduce') or {}).get('recipe'):
+            F('R4 %s: %s records no checks or no recipe' % (eid, rel))
+        return
+    if not r.get('source', {}).get('extractor') or not (r.get('reproduce') or {}).get('recipe'):
+        F('R4 %s: %s records no extractor or no reproduction recipe' % (eid, rel))
+    if exp.get('build_success') is not True:
+        F('R4 %s: %s records no successful build' % (eid, rel))
+    g = exp.get('gate') or {}
+    if not g.get('verdict') or not g.get('steps') or any(not st.get('name') or st.get('status') not in ('PASS', 'FAIL', 'SKIP')
+                                                           for st in g.get('steps', [])):
+        F('R4 %s: %s records no gate verdict or malformed gate steps' % (eid, rel))
+    mods = exp.get('modules')
+    if not isinstance(mods, dict):
+        F('R4 %s: %s has no module table' % (eid, rel))
+        mods = {}
+    for mod, m in mods.items():
+        st, reps = m.get('status'), m.get('reports')
+        if st not in STATUSES or not isinstance(reps, list):
+            F('R4 %s: %s module %s has status %r' % (eid, rel, mod, st))
+            continue
+        for rp in reps:
+            if not rp.get('name') or not isinstance(rp.get('line'), int) or not (rp.get('axioms') is None or isinstance(rp['axioms'], list)):
+                F('R4 %s: %s module %s has a malformed report' % (eid, rel, mod))
+        lines = {rp.get('line') for rp in reps}
+        if st == 'absent':
+            if reps or m.get('prints') is not None:
+                F('R4 %s: %s module %s is absent but has reports or prints' % (eid, rel, mod))
+            continue
+        pl = {n for a, b in (m.get('print_lines') or []) for n in range(a, b + 1)}
+        if not isinstance(m.get('prints'), int) or m['prints'] != len(pl) or not lines <= pl:
+            F('R4 %s: %s module %s has reports outside its #print axioms lines, or a wrong count' % (eid, rel, mod))
+            continue
+        want = 'complete' if lines == pl else 'partial' if lines else 'none'
+        if st != want:
+            F('R4 %s: %s module %s is recorded as %s, its lines give %s' % (eid, rel, mod, st, want))
+    mk = exp.get('markers') or {}
+    if any(k not in mk or not isinstance(mk[k], int) for k in MARKERS):
+        F('R4 %s: %s records no count for every marker' % (eid, rel))
+
+
+def check_entry_files(e, files, man, F):
+    """R8: a CI entry's files agree with each other and with the gap list."""
+    eid, rid = e['id'], e.get('run_id')
     gaps = {(g.get('id'), g.get('what')) for g in man.get('missing', [])}
     run = files.get('ci/%s/run.json' % rid)
-    if run is None:
-        F('R8 %s: no run.json' % eid)
+    res = files.get('ci/%s/results.json' % rid)
+    if run is None or res is None:
+        F('R8 %s: no run.json or no results.json' % eid)
         return
-    run = json.loads(run)
-    if str(run.get('id')) != rid or run.get('run_id') != rid or R.get('run') != {k: run.get(k) for k in RUN_KEYS}:
-        F('R8 %s: run summary differs from run.json' % eid)
-    exf = next((f for f in e['files'] if f.get('kind') == 'excerpt'), None)
+    try:
+        run, res = json.loads(run), json.loads(res)
+    except ValueError:
+        F('R8 %s: run.json or results.json is not JSON' % eid)
+        return
+    rr = res.get('run') or {}
+    if str(run.get('id')) != rid or run.get('run_id') != rid or rr.get('id') != rid or rr.get('head_sha') != run.get('head_sha') \
+            or rr.get('attempt') != run.get('run_attempt'):
+        F('R8 %s: results.json names another run, head commit or attempt than run.json' % eid)
     jobs = files.get('ci/%s/jobs.json' % rid)
     if jobs is None:
-        if R.get('jobs') is not None or (eid, 'job list') not in gaps:
+        if (eid, 'job list') not in gaps:
             F('R8 %s: no jobs.json, and its absence is not a recorded gap' % eid)
     else:
-        per, jl = {}, json.loads(jobs)['jobs']
+        try:
+            jl = json.loads(jobs)['jobs']
+        except (ValueError, KeyError, TypeError):
+            F('R8 %s: jobs.json is not a job list' % eid)
+            jl = []
         for x in jl:
-            p = per.setdefault(str(x['run_attempt']), {'jobs': 0, 'conclusions': {}})
-            p['jobs'] += 1
-            p['conclusions'][str(x['conclusion'])] = p['conclusions'].get(str(x['conclusion']), 0) + 1
             if x['head_sha'] != run.get('head_sha'):
                 F('R8 %s: job %s head_sha differs from the run' % (eid, x['id']))
-        if R.get('jobs') != per:
-            F('R8 %s: job summary differs from jobs.json' % eid)
-        if exf and not any(str(x['id']) == exf['source'].get('job_id') and x['name'] == 'Mathlib bridge'
-                           and x['run_attempt'] == run.get('run_attempt') for x in jl):
-            F('R8 %s: the excerpt is not from attempt %s\'s Mathlib bridge job' % (eid, run.get('run_attempt')))
-    kept = lines_of(files.get(exf['path'], '')) if exf else []
-    if not exf:
-        F('R8 %s: no excerpt' % eid)
-        return
-    if R.get('gate') != gate_summary(kept):
-        F('R8 %s: gate summary differs from the excerpt' % eid)
-    if R.get('cache') != [l[29:] for l in kept if CACHE.search(l)] or \
-            R.get('markers') != sum(1 for l in kept if MARKER.search(l)):
-        F('R8 %s: cache lines or marker count differ from the excerpt' % eid)
-    served = [n for a, b in exf['source'].get('line_ranges', []) for n in range(a, b + 1)]
-    for i, l in enumerate(kept):
-        if 'depends on axioms: [' in l and ']' not in l:
-            j, closed = i + 1, False
-            while j < len(kept) and 'depends on axioms' not in kept[j] and \
-                    (len(served) != len(kept) or served[j] == served[j - 1] + 1):
-                if ']' in kept[j]:
-                    closed = True
-                    break
-                j += 1
-            if not closed:
-                F('R8 %s: the report at excerpt line %d has an axiom list that does not close in the excerpt' % (eid, i + 1))
-    if sorted(m.get('module') for m in R.get('modules', [])) != sorted(exf['source'].get('modules', [])):
-        F('R8 %s: module list differs from the excerpt\'s' % eid)
-    for m in R.get('modules', []):
-        rr = re.compile(r' %s:(\d+):\d+: .*?(depends on axioms|does not depend on any axioms)' % re.escape(m['module']))
-        rep = {int(rr.search(l).group(1)) for l in kept if rr.search(l)}
-        if spans(rep) != m.get('reported_lines') or len(rep) != m.get('reported'):
-            F('R8 %s: %s reported lines differ from the excerpt' % (eid, m['module']))
-        has_src = 'print_lines' in m
-        pl = expand(m.get('print_lines', []))
-        want = ('complete' if pl == rep else 'partial' if rep else 'none') if has_src else 'absent'
-        if m.get('status') != want or (rep - pl if has_src else rep) or (has_src and m.get('prints') != len(pl)):
-            F('R8 %s: %s status %r, the lines give %r' % (eid, m['module'], m.get('status'), want))
-        if ((eid, 'axiom reports of %s' % m['module']) in gaps) != (want in ('partial', 'none')):
-            F('R8 %s: %s is %s, and its gap record is %s' % (eid, m['module'], want,
-                                                         'present' if want not in ('partial', 'none') else 'absent'))
+        if not any(str(x['id']) == rr.get('job_id') and x['name'] == 'Mathlib bridge' and x['run_attempt'] == run.get('run_attempt')
+                   for x in jl):
+            F('R8 %s: the results are not from attempt %s\'s Mathlib bridge job' % (eid, run.get('run_attempt')))
+    for mod, m in ((res.get('expected') or {}).get('modules') or {}).items():
+        want = m.get('status') in ('partial', 'none')
+        if ((eid, 'axiom reports of %s' % mod) in gaps) != want:
+            F('R8 %s: %s is %s, and its gap record is %s' % (eid, mod, m.get('status'), 'present' if not want else 'absent'))
 
 
 def check_coverage(man, archive, root, read_tree, F, scope=None):
@@ -494,35 +486,59 @@ def self_test(archive, root):
             orig = open(path, 'rb').read()
             return (lambda: open(path, 'wb').write(fn(orig))), (lambda: open(path, 'wb').write(orig))
 
+        noop = lambda: None
+        ents = man['entries']
+        idx = lambda pred: next(i for i, e in enumerate(ents) if pred(e))
+        has = lambda e, suffix: any(f['path'].endswith(suffix) for f in e.get('files', []))
+        ci = idx(lambda e: str(e.get('id', '')).startswith('ci-') and has(e, '/jobs.json'))
+        nojobs = idx(lambda e: str(e.get('id', '')).startswith('ci-') and not has(e, '/jobs.json'))
+        cac = idx(lambda e: e.get('kind') == 'complete-as-cited' and len(e['citations']) == 1)
+        bgr = idx(lambda e: any(f['path'].startswith('bg3/run-') for f in e['files']))
+        cert = idx(lambda e: any(r.get('kind') == 'V2 certificate' for r in e.get('roles', [])))
+        rec = idx(lambda e: any(r.get('kind') == 'receipt check-run' for r in e.get('roles', [])))
+        e_ci = ents[ci]
+        rid = e_ci['run_id']
+        rsj = next(j for j, f in enumerate(e_ci['files']) if f['path'].endswith('/results.json'))
+        runj = next(j for j, f in enumerate(e_ci['files']) if f['path'].endswith('/run.json'))
+        xp = os.path.join(tarch, e_ci['files'][rsj]['path'])
+        cp = os.path.join(troot, e_ci['citations'][0]['path'])
+        ret = next((j, k) for j, c in enumerate(e_ci['citations']) for k, x in enumerate(c['claims'])
+                   if x['status'] == 'retained')
+        loaded = {e['id']: json.load(open(os.path.join(tarch, next(f['path'] for f in e['files'] if f['path'].endswith('/results.json')))))
+                  for e in ents if str(e.get('id', '')).startswith('ci-')}
+        part = next(e['id'] for e in ents if e['id'] in loaded and any(m['status'] == 'partial' for m in loaded[e['id']]['expected']['modules'].values()))
+        pmod = next(m for m, x in loaded[part]['expected']['modules'].items() if x['status'] == 'partial')
+        pp = os.path.join(tarch, 'ci', part.split('-', 1)[1], 'results.json')
+        comp = next(e['id'] for e in ents if e['id'] in loaded and any(m['status'] == 'complete' and m['reports'] for m in loaded[e['id']]['expected']['modules'].values()))
+        cmod = next(m for m, x in loaded[comp]['expected']['modules'].items() if x['status'] == 'complete' and x['reports'])
+        cpth = os.path.join(tarch, 'ci', comp.split('-', 1)[1], 'results.json')
+        X = lambda m: m['entries'][ci]['files'][rsj]
+        C0 = lambda m: m['entries'][ci]['citations'][0]
+        RC = lambda m: m['entries'][ci]['citations'][ret[0]]['claims'][ret[1]]
+
         def json_edit(path, fn):
             def change(b):
                 d = json.loads(b)
                 fn(d)
                 return json.dumps(d).encode('utf-8')
-            return file_edit(path, change)
+            mutate, restore = file_edit(path, change)
+            # a changed file must still pass R1, so its recorded size and digest follow it
+            rel = os.path.relpath(path, tarch).replace(os.sep, '/')
 
-        noop = lambda: None
-        ents = man['entries']
-        idx = lambda pred: next(i for i, e in enumerate(ents) if pred(e))
-        ci = idx(lambda e: e.get('retains', {}).get('jobs'))
-        nojobs = idx(lambda e: 'retains' in e and e['retains'].get('jobs') is None)
-        cac = idx(lambda e: e.get('kind') == 'complete-as-cited' and len(e['citations']) == 1)
-        bgr = idx(lambda e: any(f['path'].startswith('bg3/run-') for f in e['files']))
-        part = idx(lambda e: any(m['status'] == 'partial' for m in e.get('retains', {}).get('modules', [])))
-        cert = idx(lambda e: any(r.get('kind') == 'V2 certificate' for r in e.get('roles', [])))
-        rec = idx(lambda e: any(r.get('kind') == 'receipt check-run' for r in e.get('roles', [])))
-        e_ci = ents[ci]
-        rid = e_ci['run_id']
-        exj = next(j for j, f in enumerate(e_ci['files']) if f.get('kind') == 'excerpt')
-        runj = next(j for j, f in enumerate(e_ci['files']) if f['path'].endswith('/run.json'))
-        xp = os.path.join(tarch, e_ci['files'][exj]['path'])
-        cp = os.path.join(troot, e_ci['citations'][0]['path'])
-        ret = next((j, k) for j, c in enumerate(e_ci['citations']) for k, x in enumerate(c['claims'])
-                   if x['status'] == 'retained')
-        pmod = next(m['module'] for m in ents[part]['retains']['modules'] if m['status'] == 'partial')
-        X = lambda m: m['entries'][ci]['files'][exj]
-        C0 = lambda m: m['entries'][ci]['citations'][0]
-        RC = lambda m: m['entries'][ci]['citations'][ret[0]]['claims'][ret[1]]
+            def go():
+                mutate()
+                m = json.loads(open(mp, 'rb').read())
+                for e in m['entries']:
+                    for f in e['files']:
+                        if f['path'] == rel:
+                            data = open(path, 'rb').read()
+                            f['bytes'], f['sha256'] = len(data), hashlib.sha256(data).hexdigest()
+                open(mp, 'w', encoding='utf-8').write(json.dumps(m))
+
+            def undo():
+                restore()
+                back()
+            return go, undo
 
         expect('unmutated copy passes', noop, noop)
         # manifest form (R7)
@@ -554,7 +570,7 @@ def self_test(archive, root):
                back, 'R7', 'without a note')
         expect('a gap that names no entry', edit(lambda m: m['missing'].append({'id': 'nowhere', 'what': 'x', 'why': 'y'})),
                back, 'R7', 'names no entry')
-        # files (R1, R2, R4, R5, R6)
+        # files (R1, R2, R5, R6)
         expect('a flipped byte in an archived file', *file_edit(xp, lambda b: bytes([b[0] ^ 1]) + b[1:]), rule='R1',
                msg='sha256 differs')
         expect('a removed archived file', lambda: os.rename(xp, xp + '.x'), lambda: os.rename(xp + '.x', xp), 'R1', 'missing')
@@ -566,20 +582,6 @@ def self_test(archive, root):
             c = m['entries'][cac]['citations'][0]
             c['tokens'] = [t for t in c['tokens'] if t != m['entries'][cac]['cited_digest']] or [m['entries'][cac]['files'][0]['path']]
         expect('a complete-as-cited digest that no citation carries', edit(drop_digest), back, 'R2', 'not byte-identical')
-
-        def shift_out(m):
-            s = X(m)['source']
-            a, b = s['line_ranges'][-1]
-            s['line_ranges'][-1] = [s['served_lines'] + 1, s['served_lines'] + 1 + b - a]
-        expect('an excerpt range beyond the served text, line count unchanged', edit(shift_out), back, 'R4', 'ranges are empty')
-
-        def overlap(m):
-            s = X(m)['source']
-            n = sum(b - a + 1 for a, b in s['line_ranges'])
-            s['line_ranges'] = [[1, n + 1], [100, 98]]
-        expect('malformed ranges whose total equals the line count', edit(overlap), back, 'R4', 'ranges are empty')
-        expect('an excerpt with one line more than its ranges name', *file_edit(xp, lambda b: b + b'extra\n'), rule='R4',
-               msg='its ranges name')
         expect('a token pattern in an archived file', *file_edit(xp, lambda b: b + b'ghp_' + b'A' * 36 + b'\n'), rule='R5',
                msg='secret pattern')
         expect('an IPv4 address in an archived file', *file_edit(xp, lambda b: b + b'connect 10.1.2' + b'.3 refused\n'),
@@ -599,57 +601,64 @@ def self_test(archive, root):
                'no longer contains')
         expect('a claim whose text is not on its line', edit(lambda m: C0(m)['claims'][0].__setitem__('text', 'Z' * 12)),
                back, 'R3', 'not verbatim')
-        # summaries (R8)
+        # expected results (R4)
+        expect('a results.json that is not JSON', *json_edit(xp, lambda d: None) if False else file_edit(xp, lambda b: b[:-3]),
+               rule='R4', msg='not JSON')
+        expect('a results.json of another schema', *json_edit(xp, lambda d: d.__setitem__('schema', 'x')), rule='R4',
+               msg='unknown schema')
+        expect('a results.json naming no head commit', *json_edit(xp, lambda d: d['run'].__setitem__('head_sha', 'abc')),
+               rule='R4', msg='names no run')
+        expect('a results.json without a reproduction recipe', *json_edit(xp, lambda d: d['reproduce'].__setitem__('recipe', [])),
+               rule='R4', msg='no reproduction recipe')
+        expect('a results.json recording no successful build', *json_edit(xp, lambda d: d['expected'].__setitem__('build_success', False)),
+               rule='R4', msg='no successful build')
+        expect('a results.json without a gate verdict', *json_edit(xp, lambda d: d['expected']['gate'].__setitem__('verdict', None)),
+               rule='R4', msg='no gate verdict')
+        expect('a gate step of unknown status',
+               *json_edit(xp, lambda d: d['expected']['gate']['steps'][0].__setitem__('status', 'OK')), rule='R4',
+               msg='malformed gate steps')
+        expect('a results.json without a module table', *json_edit(xp, lambda d: d['expected'].__setitem__('modules', [])),
+               rule='R4', msg='no module table')
+        expect('a module of unknown status',
+               *json_edit(cpth, lambda d: d['expected']['modules'][cmod].__setitem__('status', 'maybe')), rule='R4',
+               msg='has status')
+        expect('a malformed report',
+               *json_edit(cpth, lambda d: d['expected']['modules'][cmod]['reports'][0].__setitem__('axioms', 'propext')), rule='R4',
+               msg='malformed report')
+        expect('an absent module with reports',
+               *json_edit(cpth, lambda d: d['expected']['modules'][cmod].__setitem__('status', 'absent')), rule='R4',
+               msg='is absent but has')
+        expect('a report outside the module\'s #print axioms lines',
+               *json_edit(cpth, lambda d: d['expected']['modules'][cmod]['reports'][0].__setitem__('line', 10 ** 6)), rule='R4',
+               msg='outside its #print axioms lines')
+        expect('a partial module recorded as complete',
+               *json_edit(pp, lambda d: d['expected']['modules'][pmod].__setitem__('status', 'complete')), rule='R4',
+               msg='its lines give')
+        expect('a results.json without a marker count',
+               *json_edit(xp, lambda d: d['expected']['markers'].pop('sorryAx')), rule='R4', msg='no count for every marker')
+        # entry files agree (R8)
         expect('a BG-3 entry whose provenance names another head commit',
                edit(lambda m: m['entries'][bgr]['provenance'].__setitem__('head_sha', '0' * 40)), back, 'R8',
                'differs from the entry\'s provenance')
+        bgres = next(f['path'] for f in ents[bgr]['files'] if f['path'].startswith('bg3/results-'))
+        expect('a BG-3 results file naming another job',
+               *json_edit(os.path.join(tarch, bgres), lambda d: d['run'].__setitem__('job_id', '1')), rule='R8',
+               msg='names another run, job')
         expect('a CI entry without run.json', edit(lambda m: m['entries'][ci]['files'].pop(runj)), back, 'R8', 'no run.json')
-        expect('a run summary that contradicts run.json',
-               edit(lambda m: m['entries'][ci]['retains']['run'].__setitem__('conclusion', 'failure')), back, 'R8',
-               'run summary differs')
+        expect('a results.json naming another head commit than run.json',
+               *json_edit(xp, lambda d: d['run'].__setitem__('head_sha', '0' * 40)), rule='R8', msg='names another run, head commit')
         expect('a missing job list that is not a recorded gap', edit(lambda m: m.__setitem__('missing', [
             g for g in m['missing'] if not (g['id'] == ents[nojobs]['id'] and g['what'] == 'job list')])), back, 'R8',
                'not a recorded gap')
         jp = os.path.join(tarch, 'ci', rid, 'jobs.json')
         expect('a job at another head commit',
                *json_edit(jp, lambda d: d['jobs'][0].__setitem__('head_sha', '0' * 40)), rule='R8', msg='head_sha differs')
-        expect('a job summary that contradicts jobs.json',
-               edit(lambda m: m['entries'][ci]['retains'].__setitem__('jobs', {'9': {'jobs': 1, 'conclusions': {}}})), back,
-               'R8', 'job summary differs')
-        expect('an excerpt from another job', edit(lambda m: X(m)['source'].__setitem__('job_id', '1')), back, 'R8',
-               'is not from attempt')
-        expect('a CI entry without an excerpt', edit(lambda m: m['entries'][ci]['files'].pop(exj)), back, 'R8', 'no excerpt')
-        expect('a gate summary that contradicts the excerpt',
-               edit(lambda m: m['entries'][ci]['retains']['gate'].__setitem__('pass', -1)), back, 'R8', 'gate summary')
-        expect('a marker count that contradicts the excerpt',
-               edit(lambda m: m['entries'][ci]['retains'].__setitem__('markers', -1)), back, 'R8', 'marker count')
-        expect('a module list that differs from the excerpt\'s',
-               edit(lambda m: X(m)['source']['modules'].append('OIBridge/None.lean')), back, 'R8', 'module list')
-        expect('a module\'s reported count that contradicts the excerpt',
-               edit(lambda m: m['entries'][part]['retains']['modules'][0].__setitem__(
-                   'reported', m['entries'][part]['retains']['modules'][0]['reported'] + 1)), back, 'R8',
-               'reported lines differ')
-        expect('a partial module recorded as complete',
-               edit(lambda m: [x.__setitem__('status', 'complete') for x in m['entries'][part]['retains']['modules']
-                               if x['status'] == 'partial']), back, 'R8', 'the lines give')
+        expect('results from another job', *json_edit(xp, lambda d: d['run'].__setitem__('job_id', '1')), rule='R8',
+               msg='not from attempt')
         expect('a partial module whose gap record is removed', edit(lambda m: m.__setitem__('missing', [
-            g for g in m['missing'] if not (g['id'] == ents[part]['id'] and g['what'] == 'axiom reports of %s' % pmod)])),
+            g for g in m['missing'] if not (g['id'] == part and g['what'] == 'axiom reports of %s' % pmod)])),
                back, 'R8', 'its gap record is absent')
         # coverage (R9)
-        wrap = None
-        for i, e in enumerate(ents):
-            f = next((f for f in e['files'] if f.get('kind') == 'excerpt'), None)
-            if f and any('depends on axioms: [' in l and ']' not in l for l in open(os.path.join(tarch, f['path'])).read().split('\n')):
-                wrap = (i, os.path.join(tarch, f['path']))
-                break
-
-        def cut_continuation(b):
-            ls = b.decode('utf-8').split('\n')
-            i = next(i for i, l in enumerate(ls) if 'depends on axioms: [' in l and ']' not in l)
-            j = next(j for j in range(i + 1, len(ls)) if ']' in ls[j])
-            return '\n'.join(ls[:i + 1] + ls[j + 1:]).encode('utf-8')
-        expect('an excerpt that drops a wrapped report\'s continuation lines', *file_edit(wrap[1], cut_continuation),
-               rule='R8', msg='does not close')
         cited = next(c['path'] for c in man['coverage']['files']
                      if any(x['path'] == c['path'] for e in ents for x in e.get('citations', [])))
         expect('a cited receipt dropped from the coverage list', edit(lambda m: m['coverage'].__setitem__(

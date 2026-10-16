@@ -1,0 +1,550 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (129 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (5874 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  44 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      854,
+      872
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 854,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 855,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 856,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 857,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 858,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 859,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 860,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 861,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 862,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 863,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 864,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 865,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 866,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 867,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 868,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 869,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 870,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 871,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 872,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/BridgeFiniteProtocol.lean": {
+    "print_lines": [
+     [
+      283,
+      296
+     ]
+    ],
+    "prints": 14,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 283,
+      "name": "OIBridge.BridgeFiniteProtocol.instAvail_stopped_step"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 284,
+      "name": "OIBridge.BridgeFiniteProtocol.instAvail_stopped"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 285,
+      "name": "OIBridge.BridgeFiniteProtocol.stopped_closedForm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 286,
+      "name": "OIBridge.BridgeFiniteProtocol.instAvail_reset"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 287,
+      "name": "OIBridge.BridgeFiniteProtocol.reset_uniformAttach"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 288,
+      "name": "OIBridge.BridgeFiniteProtocol.reset_uniformAttach_eq_pure"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 289,
+      "name": "OIBridge.BridgeFiniteProtocol.balancedCircuit_isometry"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 290,
+      "name": "OIBridge.BridgeFiniteProtocol.correction_isometry"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 291,
+      "name": "OIBridge.BridgeFiniteProtocol.attempt_balanced_branch"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 292,
+      "name": "OIBridge.BridgeFiniteProtocol.instAvail_attempt"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 293,
+      "name": "OIBridge.BridgeFiniteProtocol.finite_protocol_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 294,
+      "name": "OIBridge.BridgeFiniteProtocol.balanced_stopped_formula"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 295,
+      "name": "OIBridge.BridgeFiniteProtocol.balanced_finite_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 296,
+      "name": "OIBridge.BridgeFiniteProtocol.finite_protocol_spectator"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3644 jobs).",
+  "built": [
+   {
+    "module": "OIBridge.BridgeFiniteProtocol",
+    "seconds": 70.0,
+    "served_line": 4717
+   },
+   {
+    "module": "OIBridge",
+    "seconds": 7.4,
+    "served_line": 4925
+   }
+  ],
+  "cache": [
+   {
+    "served_line": 4984,
+    "text": "Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-e8f7ecafeec7ca8061806e2aae8a5950eb93b557406600209f0909e3d0e13d0a"
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4952,
+   "verdict": 4976
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 4933,
+    "OIBridge.LinkJoin.act_op": 4931,
+    "OIBridge.LinkJoin.char_multiset_collision": 4927,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 4926,
+    "OIBridge.LinkJoin.character_PA_eq_one": 4938,
+    "OIBridge.LinkJoin.character_restrict_PT": 4937,
+    "OIBridge.LinkJoin.character_rhoA": 4942,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 4943,
+    "OIBridge.LinkJoin.character_rhoE": 4941,
+    "OIBridge.LinkJoin.character_rhoLink": 4935,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4944,
+    "OIBridge.LinkJoin.character_rhoT": 4940,
+    "OIBridge.LinkJoin.character_sum": 4939,
+    "OIBridge.LinkJoin.faceEquivLink_op": 4930,
+    "OIBridge.LinkJoin.linkHom_injective": 4934,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 4936,
+    "OIBridge.LinkJoin.sum_cube_collision": 4929,
+    "OIBridge.LinkJoin.sum_sq_collision": 4928,
+    "OIBridge.LinkJoin.sym_linkHom": 4932
+   },
+   "OIBridge/BridgeFiniteProtocol.lean": {
+    "OIBridge.BridgeFiniteProtocol.attempt_balanced_branch": 4919,
+    "OIBridge.BridgeFiniteProtocol.balancedCircuit_isometry": 4917,
+    "OIBridge.BridgeFiniteProtocol.balanced_finite_available": 4923,
+    "OIBridge.BridgeFiniteProtocol.balanced_stopped_formula": 4922,
+    "OIBridge.BridgeFiniteProtocol.correction_isometry": 4918,
+    "OIBridge.BridgeFiniteProtocol.finite_protocol_available": 4921,
+    "OIBridge.BridgeFiniteProtocol.finite_protocol_spectator": 4924,
+    "OIBridge.BridgeFiniteProtocol.instAvail_attempt": 4920,
+    "OIBridge.BridgeFiniteProtocol.instAvail_reset": 4914,
+    "OIBridge.BridgeFiniteProtocol.instAvail_stopped": 4912,
+    "OIBridge.BridgeFiniteProtocol.instAvail_stopped_step": 4911,
+    "OIBridge.BridgeFiniteProtocol.reset_uniformAttach": 4915,
+    "OIBridge.BridgeFiniteProtocol.reset_uniformAttach_eq_pure": 4916,
+    "OIBridge.BridgeFiniteProtocol.stopped_closedForm": 4913
+   }
+  },
+  "reports_in_served_text": 105
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "git checkout <head_sha>",
+   "cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
+   "cd ../.. && python3 tools/release_gate.py",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <captured output> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree ."
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 38253942780",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "ce46c2047c4ae22ec2373dc1ea81459545dd4c7f",
+  "id": "38253942780",
+  "job_id": "114827024783",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 37562,
+  "served_lines": 5000,
+  "served_sha256": "64491b18e1713b59ebfdda68abf9dd3accbc6f320d781e9c1b3f2fa0f40d5433"
+ },
+ "version": 1
+}

@@ -832,25 +832,31 @@ carries:
 
 ## §A.42 Durable evidence and self-contained verification
 
-Every enduring research result, certification claim or governed decision rests on evidence
-retained on `main`: what a record relies on can be read there, with its digest and provenance,
-and checked as item 7 states. Scratchpads, `/tmp`, local worktrees, disposable and research
-branches, external CI logs, host comments and reviews, and commits not reachable from `main` are
-working material and provenance. None of them is the sole source of an enduring claim, and an
-object id or digest that names such content does not retain it.
+Every enduring research result, certification claim or governed decision rests on evidence an
+independent reviewer can reproduce from `main`: the commit the claim is about, the result it
+expects, and the recipe that regenerates that result, with the regeneration compared to the
+expectation as item 7 states. A log records one observation of a result; a rebuild tests the
+claim. Scratchpads, `/tmp`, local worktrees, disposable and research branches, external CI logs,
+host comments and reviews, and commits not reachable from `main` are working material and
+provenance. None of them is the sole source of an enduring claim, and an object id or digest that
+names such content neither retains nor establishes it.
 
-1. **What is retained, and in what form.** Whatever a record relies on for a result, a verdict, a
-   measured hazard or a design claim: inputs, scripts, outputs, logs or log excerpts, axiom
-   reports and countermodels.
-   - Each retained item carries its content hash and its provenance (the original object id,
-     run, job or path).
-   - Its form is stated:
-     - **complete;**
-     - **an excerpt:** line ranges, plus the digest of the text they index;
-     - **derived:** selected fields of a named source, with that source's digest.
-   - Where a record pins content by digest, the copy is that content byte for byte. Otherwise the
-     copy is the smallest excerpt that carries the claim, and a complete log only when the claim
-     rests on all of it.
+1. **What is retained, and in what form.** For every computational claim a record relies on — a
+   verdict, a check run, an axiom report, a measured hazard, a design result — the expected
+   result, as a small structured file: the deterministic outputs the claim rests on (for a
+   bridge build: build success, the release gate's steps and verdict, each governed module's
+   `#print axioms` reports, and the failure markers), and nothing that varies between runs
+   (timestamps, durations, cache behaviour, output order).
+   - Each expected result names the commit it holds at, the recipe that regenerates it, and its
+     provenance: the run, job and the digest of the text it was read from. The digest is
+     provenance of the extraction, not independent proof.
+   - Its form is stated: **complete** (a file of the record's own), **derived** (read from a
+     named source, with that source's digest), or **complete-as-cited** (byte-identical to an
+     artifact a frozen record names by digest).
+   - A raw log or transcript is not committed as evidence. The one exception is an artifact a
+     frozen record pins by digest, whose line positions and digest that record asserts: it is
+     kept byte for byte, labelled as such, and its substantive claims are recorded as an expected
+     result as well.
    - §A.28 bounds the amount; it does not send such evidence to the off-repo log.
 2. **When.** Before the citing record lands.
    - **A native round's design evidence, drafting-time measurements and `F`'s exact-head run**
@@ -898,14 +904,20 @@ object id or digest that names such content does not retain it.
    - From the attested host run itself, whatever the round's records cite is retained, including
      the job conclusions, the release-gate block and the cited axiom reports.
    - An owner designation is retained as its text, its author and its time.
-7. **Checking.**
+7. **Checking and reproduction.**
    - `verification/audits/evidence-retention/check_retention.py` verifies the archive from the
      repository tree alone:
      - archived bytes match their hashes;
      - every mapped citation still reads as recorded, in a file whose blob id is unchanged;
      - every recorded claim stands verbatim in its citing file and names the retained files that
        carry it, so a reviewer can read those files to check it;
+     - every expected result is well formed and names its commit, job and recipe;
      - the manifest's gaps and the claims no retained file carries are printed.
+   - `verification/audits/evidence-retention/reproduce.py`, run by the `reproduce evidence`
+     workflow, regenerates an expected result at its commit and compares it with
+     `compare_result.py`, which fails closed: a missing report, an unexpected axiom, an absent
+     gate step, an extraction failure or any mismatch fails it. The verifier is the checkout
+     the workflow runs on; the historical commit supplies only its sources and its own gate.
    - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
 
 Enforcement:

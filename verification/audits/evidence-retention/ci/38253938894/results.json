@@ -1,0 +1,1634 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (129 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (5967 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  44 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      854,
+      872
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 854,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 855,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 856,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 857,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 858,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 859,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 860,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 861,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 862,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 863,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 864,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 865,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 866,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 867,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 868,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 869,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 870,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 871,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 872,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/BridgeConverge.lean": {
+    "print_lines": [
+     [
+      186,
+      206
+     ]
+    ],
+    "prints": 21,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 186,
+      "name": "OIBridge.BridgeConverge.pauli_converge"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 187,
+      "name": "OIBridge.BridgeConverge.tokMat_converge"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 188,
+      "name": "OIBridge.BridgeConverge.dict_converge"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 189,
+      "name": "OIBridge.BridgeConverge.dict_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 190,
+      "name": "OIBridge.BridgeConverge.dict_isHermitian"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 191,
+      "name": "OIBridge.BridgeConverge.dictEquiv_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 192,
+      "name": "OIBridge.BridgeConverge.dict_transferMap"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 193,
+      "name": "OIBridge.BridgeConverge.transferClause_iff"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 194,
+      "name": "OIBridge.BridgeConverge.transferClause_mono"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 195,
+      "name": "OIBridge.BridgeConverge.transfer_phase_table"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 196,
+      "name": "OIBridge.BridgeConverge.transfer_flow_table"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 197,
+      "name": "OIBridge.BridgeConverge.transfer_345_table"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 198,
+      "name": "OIBridge.BridgeConverge.pauli1_eq_perm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 199,
+      "name": "OIBridge.BridgeConverge.pauli1_permClass"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 200,
+      "name": "OIBridge.BridgeConverge.pauli1_unitary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 201,
+      "name": "OIBridge.BridgeConverge.transfer_nflip_table"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 202,
+      "name": "OIBridge.BridgeConverge.transfer_nflip_of_substratum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 203,
+      "name": "OIBridge.BridgeConverge.transferClause_Q3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 204,
+      "name": "OIBridge.BridgeConverge.Q3_phase_invariant"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 205,
+      "name": "OIBridge.BridgeConverge.e01_moved"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 206,
+      "name": "OIBridge.BridgeConverge.transfer_counter"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/BridgeDictionary.lean": {
+    "print_lines": [
+     [
+      364,
+      383
+     ]
+    ],
+    "prints": 20,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 364,
+      "name": "OIBridge.BridgeDictionary.dict_tens"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 365,
+      "name": "OIBridge.BridgeDictionary.dict_prodState"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 366,
+      "name": "OIBridge.BridgeDictionary.dict_cnot"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 367,
+      "name": "OIBridge.BridgeDictionary.rotZ_cos_sin"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 368,
+      "name": "OIBridge.BridgeDictionary.zPhase_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 369,
+      "name": "OIBridge.BridgeDictionary.zPhase_pauli0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 370,
+      "name": "OIBridge.BridgeDictionary.zPhase_pauli1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 371,
+      "name": "OIBridge.BridgeDictionary.zPhase_pauli2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 372,
+      "name": "OIBridge.BridgeDictionary.zPhase_pauli3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 373,
+      "name": "OIBridge.BridgeDictionary.conj_dict_right"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 374,
+      "name": "OIBridge.BridgeDictionary.conj_dict_left"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 375,
+      "name": "OIBridge.BridgeDictionary.dict_actT_rotZ"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 376,
+      "name": "OIBridge.BridgeDictionary.dict_actC_rotZ"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 377,
+      "name": "OIBridge.BridgeDictionary.dict_actT_nflip"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 378,
+      "name": "OIBridge.BridgeDictionary.dict_actC_nflip"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 379,
+      "name": "OIBridge.BridgeDictionary.monomial_extension_admissible"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 380,
+      "name": "OIBridge.BridgeDictionary.zPhase_unitary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 381,
+      "name": "OIBridge.BridgeDictionary.transfer_phase"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 382,
+      "name": "OIBridge.BridgeDictionary.dict_actT_rotZ_345"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 383,
+      "name": "OIBridge.BridgeDictionary.zPhase_pauli0_counter"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/EqvK2Block.lean": {
+    "print_lines": [
+     [
+      512,
+      522
+     ]
+    ],
+    "prints": 11,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 512,
+      "name": "OIBridge.EqvK2Block.dict_blockAct"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 513,
+      "name": "OIBridge.EqvK2Block.blockMat_mulVec"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 514,
+      "name": "OIBridge.EqvK2Block.conj_vecMulVec"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 515,
+      "name": "OIBridge.EqvK2Block.suTo_isSU"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 516,
+      "name": "OIBridge.EqvK2Block.suTo_mulVec"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 517,
+      "name": "OIBridge.EqvK2Block.dict_prod_bloch"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 518,
+      "name": "OIBridge.EqvK2Block.reach_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 519,
+      "name": "OIBridge.EqvK2Block.pairCone_eq_Q3_of_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 520,
+      "name": "OIBridge.EqvK2Block.Q3_blockInvariant"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 521,
+      "name": "OIBridge.EqvK2Block.pairCone_eq_Q3_iff_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 522,
+      "name": "OIBridge.EqvK2Block.aMiss_of_blockInvariant"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/EqvK2Converse.lean": {
+    "print_lines": [
+     [
+      212,
+      220
+     ]
+    ],
+    "prints": 9,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 212,
+      "name": "OIBridge.EqvK2Converse.dict_eq_sum_tensorOf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 213,
+      "name": "OIBridge.EqvK2Converse.tensorOf_conj"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 214,
+      "name": "OIBridge.EqvK2Converse.tokMat_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 215,
+      "name": "OIBridge.EqvK2Converse.tokMat_rot"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 216,
+      "name": "OIBridge.EqvK2Converse.tokMat_cyc"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 217,
+      "name": "OIBridge.EqvK2Converse.dict_actT_rotLin"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 218,
+      "name": "OIBridge.EqvK2Converse.dict_actT_cyc"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 219,
+      "name": "OIBridge.EqvK2Converse.Q3_aMiss"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 220,
+      "name": "OIBridge.EqvK2Converse.pairCone_eq_Q3_iff_drive"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/EqvK2Generation.lean": {
+    "print_lines": [
+     [
+      529,
+      540
+     ]
+    ],
+    "prints": 12,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 529,
+      "name": "OIBridge.EqvK2Generation.blockMat_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 530,
+      "name": "OIBridge.EqvK2Generation.cycMat_conjTranspose_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 531,
+      "name": "OIBridge.EqvK2Generation.rotRe_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 532,
+      "name": "OIBridge.EqvK2Generation.su_euler"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 533,
+      "name": "OIBridge.EqvK2Generation.conjInv_idle"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 534,
+      "name": "OIBridge.EqvK2Generation.rtrick"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 535,
+      "name": "OIBridge.EqvK2Generation.conjInv_ctrl"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 536,
+      "name": "OIBridge.EqvK2Generation.blockInvariant_of_drive"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 537,
+      "name": "OIBridge.EqvK2Generation.reachPure"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 538,
+      "name": "OIBridge.EqvK2Generation.pairCone_eq_Q3_of_drive_exact"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 539,
+      "name": "OIBridge.EqvK2Generation.Q3_cnot"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 540,
+      "name": "OIBridge.EqvK2Generation.pairCone_eq_Q3_iff_drive_exact"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/EqvK2MaxCone.lean": {
+    "print_lines": [
+     [
+      221,
+      236
+     ]
+    ],
+    "prints": 16,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 221,
+      "name": "OIBridge.EqvK2MaxCone.ipW_prodState"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 222,
+      "name": "OIBridge.EqvK2MaxCone.products_mem_dualW_of_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 223,
+      "name": "OIBridge.EqvK2MaxCone.ipW_blockAct_adjoint"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 224,
+      "name": "OIBridge.EqvK2MaxCone.dualW_blockInvariant"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 225,
+      "name": "OIBridge.EqvK2MaxCone.pure_mem_of_products_scaling_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 226,
+      "name": "OIBridge.EqvK2MaxCone.Q3_subset_of_products_cone_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 227,
+      "name": "OIBridge.EqvK2MaxCone.subset_Q3_of_maxCone_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 228,
+      "name": "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_block_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 229,
+      "name": "OIBridge.EqvK2MaxCone.blockInvariant_of_eq_Q3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 230,
+      "name": "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_block_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 231,
+      "name": "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 232,
+      "name": "OIBridge.EqvK2MaxCone.driveInvariant_of_eq_Q3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 233,
+      "name": "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_drive_maxCone"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 234,
+      "name": "OIBridge.EqvK2MaxCone.subset_Q3_of_sharp_products_block"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 235,
+      "name": "OIBridge.EqvK2MaxCone.maxCone_bound_of_sharp_available"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 236,
+      "name": "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_sharp_available"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/EqvK2Schema.lean": {
+    "print_lines": [
+     [
+      430,
+      451
+     ]
+    ],
+    "prints": 22,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 430,
+      "name": "OIBridge.EqvK2Schema.pauli_conjTranspose"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 431,
+      "name": "OIBridge.EqvK2Schema.trace_pauli_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 432,
+      "name": "OIBridge.EqvK2Schema.pauli_complete"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 433,
+      "name": "OIBridge.EqvK2Schema.trace_T_mul_T"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 434,
+      "name": "OIBridge.EqvK2Schema.dict_tens"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 435,
+      "name": "OIBridge.EqvK2Schema.dict_prodState"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 436,
+      "name": "OIBridge.EqvK2Schema.dict_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 437,
+      "name": "OIBridge.EqvK2Schema.dict_isHermitian"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 438,
+      "name": "OIBridge.EqvK2Schema.trace_T_mul_dict"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 439,
+      "name": "OIBridge.EqvK2Schema.trace_dict_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 440,
+      "name": "OIBridge.EqvK2Schema.ipW_eq_trace"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 441,
+      "name": "OIBridge.EqvK2Schema.dict_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 442,
+      "name": "OIBridge.EqvK2Schema.dict_complete4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 443,
+      "name": "OIBridge.EqvK2Schema.dict_coordOf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 444,
+      "name": "OIBridge.EqvK2Schema.dictEquiv"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 445,
+      "name": "OIBridge.EqvK2Schema.trace_vecMulVec_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 446,
+      "name": "OIBridge.EqvK2Schema.posSemidef_dict_of_pure"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 447,
+      "name": "OIBridge.EqvK2Schema.subset_Q3_of_pure_dual"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 448,
+      "name": "OIBridge.EqvK2Schema.Q3_subset_of_pure"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 449,
+      "name": "OIBridge.EqvK2Schema.Q3_selfDual"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 450,
+      "name": "OIBridge.EqvK2Schema.driveWords_preserve"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 451,
+      "name": "OIBridge.EqvK2Schema.pairCone_eq_Q3_of_drive"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3650 jobs).",
+  "built": [
+   {
+    "module": "OIBridge.EqvK2Schema",
+    "seconds": 9.9,
+    "served_line": 3921
+   },
+   {
+    "module": "OIBridge.EqvK2Converse",
+    "seconds": 12.0,
+    "served_line": 4002
+   },
+   {
+    "module": "OIBridge.EqvK2Block",
+    "seconds": 5.2,
+    "served_line": 4130
+   },
+   {
+    "module": "OIBridge.BridgeDictionary",
+    "seconds": 29.0,
+    "served_line": 4355
+   },
+   {
+    "module": "OIBridge.BridgeConverge",
+    "seconds": 2.1,
+    "served_line": 4710
+   },
+   {
+    "module": "OIBridge.EqvK2Generation",
+    "seconds": 4.4,
+    "served_line": 4738
+   },
+   {
+    "module": "OIBridge.EqvK2MaxCone",
+    "seconds": 2.3,
+    "served_line": 4907
+   },
+   {
+    "module": "OIBridge",
+    "seconds": 7.1,
+    "served_line": 4924
+   }
+  ],
+  "cache": [
+   {
+    "served_line": 4984,
+    "text": "Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-581d14682a78e8f8a0170f6aff06696abe524ff7eb875b8aadfae3781ba02b5c"
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4951,
+   "verdict": 4975
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 4932,
+    "OIBridge.LinkJoin.act_op": 4930,
+    "OIBridge.LinkJoin.char_multiset_collision": 4926,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 4925,
+    "OIBridge.LinkJoin.character_PA_eq_one": 4937,
+    "OIBridge.LinkJoin.character_restrict_PT": 4936,
+    "OIBridge.LinkJoin.character_rhoA": 4941,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 4942,
+    "OIBridge.LinkJoin.character_rhoE": 4940,
+    "OIBridge.LinkJoin.character_rhoLink": 4934,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4943,
+    "OIBridge.LinkJoin.character_rhoT": 4939,
+    "OIBridge.LinkJoin.character_sum": 4938,
+    "OIBridge.LinkJoin.faceEquivLink_op": 4929,
+    "OIBridge.LinkJoin.linkHom_injective": 4933,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 4935,
+    "OIBridge.LinkJoin.sum_cube_collision": 4928,
+    "OIBridge.LinkJoin.sum_sq_collision": 4927,
+    "OIBridge.LinkJoin.sym_linkHom": 4931
+   },
+   "OIBridge/BridgeConverge.lean": {
+    "OIBridge.BridgeConverge.Q3_phase_invariant": 4735,
+    "OIBridge.BridgeConverge.dictEquiv_eq": 4722,
+    "OIBridge.BridgeConverge.dict_converge": 4719,
+    "OIBridge.BridgeConverge.dict_injective": 4720,
+    "OIBridge.BridgeConverge.dict_isHermitian": 4721,
+    "OIBridge.BridgeConverge.dict_transferMap": 4723,
+    "OIBridge.BridgeConverge.e01_moved": 4736,
+    "OIBridge.BridgeConverge.pauli1_eq_perm": 4729,
+    "OIBridge.BridgeConverge.pauli1_permClass": 4730,
+    "OIBridge.BridgeConverge.pauli1_unitary": 4731,
+    "OIBridge.BridgeConverge.pauli_converge": 4717,
+    "OIBridge.BridgeConverge.tokMat_converge": 4718,
+    "OIBridge.BridgeConverge.transferClause_Q3": 4734,
+    "OIBridge.BridgeConverge.transferClause_iff": 4724,
+    "OIBridge.BridgeConverge.transferClause_mono": 4725,
+    "OIBridge.BridgeConverge.transfer_345_table": 4728,
+    "OIBridge.BridgeConverge.transfer_counter": 4737,
+    "OIBridge.BridgeConverge.transfer_flow_table": 4727,
+    "OIBridge.BridgeConverge.transfer_nflip_of_substratum": 4733,
+    "OIBridge.BridgeConverge.transfer_nflip_table": 4732,
+    "OIBridge.BridgeConverge.transfer_phase_table": 4726
+   },
+   "OIBridge/BridgeDictionary.lean": {
+    "OIBridge.BridgeDictionary.conj_dict_left": 4700,
+    "OIBridge.BridgeDictionary.conj_dict_right": 4699,
+    "OIBridge.BridgeDictionary.dict_actC_nflip": 4704,
+    "OIBridge.BridgeDictionary.dict_actC_rotZ": 4702,
+    "OIBridge.BridgeDictionary.dict_actT_nflip": 4703,
+    "OIBridge.BridgeDictionary.dict_actT_rotZ": 4701,
+    "OIBridge.BridgeDictionary.dict_actT_rotZ_345": 4708,
+    "OIBridge.BridgeDictionary.dict_cnot": 4692,
+    "OIBridge.BridgeDictionary.dict_prodState": 4691,
+    "OIBridge.BridgeDictionary.dict_tens": 4690,
+    "OIBridge.BridgeDictionary.monomial_extension_admissible": 4705,
+    "OIBridge.BridgeDictionary.rotZ_cos_sin": 4693,
+    "OIBridge.BridgeDictionary.transfer_phase": 4707,
+    "OIBridge.BridgeDictionary.zPhase_conjTranspose": 4694,
+    "OIBridge.BridgeDictionary.zPhase_pauli0": 4695,
+    "OIBridge.BridgeDictionary.zPhase_pauli0_counter": 4709,
+    "OIBridge.BridgeDictionary.zPhase_pauli1": 4696,
+    "OIBridge.BridgeDictionary.zPhase_pauli2": 4697,
+    "OIBridge.BridgeDictionary.zPhase_pauli3": 4698,
+    "OIBridge.BridgeDictionary.zPhase_unitary": 4706
+   },
+   "OIBridge/EqvK2Block.lean": {
+    "OIBridge.EqvK2Block.Q3_blockInvariant": 4352,
+    "OIBridge.EqvK2Block.aMiss_of_blockInvariant": 4354,
+    "OIBridge.EqvK2Block.blockMat_mulVec": 4345,
+    "OIBridge.EqvK2Block.conj_vecMulVec": 4346,
+    "OIBridge.EqvK2Block.dict_blockAct": 4344,
+    "OIBridge.EqvK2Block.dict_prod_bloch": 4349,
+    "OIBridge.EqvK2Block.pairCone_eq_Q3_iff_block": 4353,
+    "OIBridge.EqvK2Block.pairCone_eq_Q3_of_block": 4351,
+    "OIBridge.EqvK2Block.reach_block": 4350,
+    "OIBridge.EqvK2Block.suTo_isSU": 4347,
+    "OIBridge.EqvK2Block.suTo_mulVec": 4348
+   },
+   "OIBridge/EqvK2Converse.lean": {
+    "OIBridge.EqvK2Converse.Q3_aMiss": 4128,
+    "OIBridge.EqvK2Converse.dict_actT_cyc": 4127,
+    "OIBridge.EqvK2Converse.dict_actT_rotLin": 4126,
+    "OIBridge.EqvK2Converse.dict_eq_sum_tensorOf": 4121,
+    "OIBridge.EqvK2Converse.pairCone_eq_Q3_iff_drive": 4129,
+    "OIBridge.EqvK2Converse.tensorOf_conj": 4122,
+    "OIBridge.EqvK2Converse.tokMat_cyc": 4125,
+    "OIBridge.EqvK2Converse.tokMat_eq": 4123,
+    "OIBridge.EqvK2Converse.tokMat_rot": 4124
+   },
+   "OIBridge/EqvK2Generation.lean": {
+    "OIBridge.EqvK2Generation.Q3_cnot": 4905,
+    "OIBridge.EqvK2Generation.blockInvariant_of_drive": 4902,
+    "OIBridge.EqvK2Generation.blockMat_mul": 4895,
+    "OIBridge.EqvK2Generation.conjInv_ctrl": 4901,
+    "OIBridge.EqvK2Generation.conjInv_idle": 4899,
+    "OIBridge.EqvK2Generation.cycMat_conjTranspose_eq": 4896,
+    "OIBridge.EqvK2Generation.pairCone_eq_Q3_iff_drive_exact": 4906,
+    "OIBridge.EqvK2Generation.pairCone_eq_Q3_of_drive_exact": 4904,
+    "OIBridge.EqvK2Generation.reachPure": 4903,
+    "OIBridge.EqvK2Generation.rotRe_eq": 4897,
+    "OIBridge.EqvK2Generation.rtrick": 4900,
+    "OIBridge.EqvK2Generation.su_euler": 4898
+   },
+   "OIBridge/EqvK2MaxCone.lean": {
+    "OIBridge.EqvK2MaxCone.Q3_subset_of_products_cone_block": 4913,
+    "OIBridge.EqvK2MaxCone.blockInvariant_of_eq_Q3": 4916,
+    "OIBridge.EqvK2MaxCone.driveInvariant_of_eq_Q3": 4919,
+    "OIBridge.EqvK2MaxCone.dualW_blockInvariant": 4911,
+    "OIBridge.EqvK2MaxCone.ipW_blockAct_adjoint": 4910,
+    "OIBridge.EqvK2MaxCone.ipW_prodState": 4908,
+    "OIBridge.EqvK2MaxCone.maxCone_bound_of_sharp_available": 4922,
+    "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_block_maxCone": 4917,
+    "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_drive_maxCone": 4920,
+    "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_block_maxCone": 4915,
+    "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone": 4918,
+    "OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_sharp_available": 4923,
+    "OIBridge.EqvK2MaxCone.products_mem_dualW_of_maxCone": 4909,
+    "OIBridge.EqvK2MaxCone.pure_mem_of_products_scaling_block": 4912,
+    "OIBridge.EqvK2MaxCone.subset_Q3_of_maxCone_block": 4914,
+    "OIBridge.EqvK2MaxCone.subset_Q3_of_sharp_products_block": 4921
+   },
+   "OIBridge/EqvK2Schema.lean": {
+    "OIBridge.EqvK2Schema.Q3_selfDual": 3999,
+    "OIBridge.EqvK2Schema.Q3_subset_of_pure": 3998,
+    "OIBridge.EqvK2Schema.dictEquiv": 3994,
+    "OIBridge.EqvK2Schema.dict_complete4": 3992,
+    "OIBridge.EqvK2Schema.dict_coordOf": 3993,
+    "OIBridge.EqvK2Schema.dict_injective": 3991,
+    "OIBridge.EqvK2Schema.dict_isHermitian": 3987,
+    "OIBridge.EqvK2Schema.dict_prodState": 3985,
+    "OIBridge.EqvK2Schema.dict_sum": 3986,
+    "OIBridge.EqvK2Schema.dict_tens": 3984,
+    "OIBridge.EqvK2Schema.driveWords_preserve": 4000,
+    "OIBridge.EqvK2Schema.ipW_eq_trace": 3990,
+    "OIBridge.EqvK2Schema.pairCone_eq_Q3_of_drive": 4001,
+    "OIBridge.EqvK2Schema.pauli_complete": 3982,
+    "OIBridge.EqvK2Schema.pauli_conjTranspose": 3980,
+    "OIBridge.EqvK2Schema.posSemidef_dict_of_pure": 3996,
+    "OIBridge.EqvK2Schema.subset_Q3_of_pure_dual": 3997,
+    "OIBridge.EqvK2Schema.trace_T_mul_T": 3983,
+    "OIBridge.EqvK2Schema.trace_T_mul_dict": 3988,
+    "OIBridge.EqvK2Schema.trace_dict_mul": 3989,
+    "OIBridge.EqvK2Schema.trace_pauli_mul": 3981,
+    "OIBridge.EqvK2Schema.trace_vecMulVec_mul": 3995
+   }
+  },
+  "reports_in_served_text": 172
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "git checkout <head_sha>",
+   "cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
+   "cd ../.. && python3 tools/release_gate.py",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <captured output> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree ."
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 38253938894",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "6a7696a050f6d3fd9e16a9fb17665cbe01b4b3be",
+  "id": "38253938894",
+  "job_id": "114827013834",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 38384,
+  "served_lines": 5000,
+  "served_sha256": "2a576aba36217cb08a7bdb6e39828f5b3794513b50995d08f3ed4ca8a8f0067a"
+ },
+ "version": 1
+}

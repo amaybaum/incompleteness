@@ -1,0 +1,911 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (130 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (4803 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  11 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      826,
+      844
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 826,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 827,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 828,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 829,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 830,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 831,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 832,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 833,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 834,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 835,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 836,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 837,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 838,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 839,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 840,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 841,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 842,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 843,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 844,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/DitaHierarchy.lean": {
+    "print_lines": [
+     [
+      36,
+      36
+     ],
+     [
+      42,
+      42
+     ],
+     [
+      47,
+      47
+     ],
+     [
+      52,
+      52
+     ],
+     [
+      57,
+      57
+     ],
+     [
+      62,
+      62
+     ],
+     [
+      67,
+      67
+     ],
+     [
+      99,
+      99
+     ],
+     [
+      106,
+      106
+     ],
+     [
+      113,
+      113
+     ],
+     [
+      128,
+      128
+     ],
+     [
+      134,
+      134
+     ],
+     [
+      140,
+      140
+     ],
+     [
+      157,
+      157
+     ],
+     [
+      174,
+      174
+     ],
+     [
+      195,
+      195
+     ],
+     [
+      216,
+      216
+     ],
+     [
+      230,
+      230
+     ],
+     [
+      244,
+      244
+     ],
+     [
+      265,
+      265
+     ],
+     [
+      282,
+      282
+     ],
+     [
+      299,
+      299
+     ],
+     [
+      307,
+      307
+     ],
+     [
+      322,
+      322
+     ],
+     [
+      327,
+      327
+     ],
+     [
+      342,
+      342
+     ],
+     [
+      350,
+      350
+     ],
+     [
+      366,
+      366
+     ],
+     [
+      413,
+      413
+     ],
+     [
+      460,
+      460
+     ],
+     [
+      507,
+      507
+     ],
+     [
+      554,
+      554
+     ],
+     [
+      602,
+      602
+     ],
+     [
+      648,
+      648
+     ],
+     [
+      693,
+      693
+     ],
+     [
+      753,
+      753
+     ],
+     [
+      858,
+      858
+     ]
+    ],
+    "prints": 37,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 36,
+      "name": "OIBridge.DitaHierarchy.a36_shared_sq_quarter"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 42,
+      "name": "OIBridge.DitaHierarchy.a36_shared_pow_unit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 47,
+      "name": "OIBridge.DitaHierarchy.a36_shared_z_unit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 52,
+      "name": "OIBridge.DitaHierarchy.a36_shared_w_unit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 57,
+      "name": "OIBridge.DitaHierarchy.a36_shared_u60_unit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 62,
+      "name": "OIBridge.DitaHierarchy.a36_shared_div"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 67,
+      "name": "OIBridge.DitaHierarchy.a36_shared_mod"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 99,
+      "name": "OIBridge.DitaHierarchy.a36_shared_dg_unitary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 106,
+      "name": "OIBridge.DitaHierarchy.a36_shared_dgT_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 113,
+      "name": "OIBridge.DitaHierarchy.a36_shared_dgT_unitary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 128,
+      "name": "OIBridge.DitaHierarchy.a36_shared_reindex_unitary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 134,
+      "name": "OIBridge.DitaHierarchy.a36_shared_dg_norm_sq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 140,
+      "name": "OIBridge.DitaHierarchy.a36_shared_dgT_norm_sq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 157,
+      "name": "OIBridge.DitaHierarchy.a36_shared_hullg_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 174,
+      "name": "OIBridge.DitaHierarchy.a36_shared_hullgt_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 195,
+      "name": "OIBridge.DitaHierarchy.a36_shared_hull28_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 216,
+      "name": "OIBridge.DitaHierarchy.a36_shared_hull82_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 230,
+      "name": "OIBridge.DitaHierarchy.a36_shared_xo_flat"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 244,
+      "name": "OIBridge.DitaHierarchy.a36_shared_xi_flat"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 265,
+      "name": "OIBridge.DitaHierarchy.a36_shared_phase_unitary"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 282,
+      "name": "OIBridge.DitaHierarchy.a36_shared_zp_flat"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 299,
+      "name": "OIBridge.DitaHierarchy.a36_shared_y8_flat"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 307,
+      "name": "OIBridge.DitaHierarchy.a36_shared_nested_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 322,
+      "name": "OIBridge.DitaHierarchy.a36_shared_line_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 327,
+      "name": "OIBridge.DitaHierarchy.a36_shared_p_val"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 342,
+      "name": "OIBridge.DitaHierarchy.a36_shared_p_notin"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 350,
+      "name": "OIBridge.DitaHierarchy.a36_shared_point_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 366,
+      "name": "OIBridge.DitaHierarchy.a36_shared_one_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 413,
+      "name": "OIBridge.DitaHierarchy.a36_shared_hull_g"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 460,
+      "name": "OIBridge.DitaHierarchy.a36_shared_hull_gt"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 507,
+      "name": "OIBridge.DitaHierarchy.a36_control_hull28"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 554,
+      "name": "OIBridge.DitaHierarchy.a36_control_hull82"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 602,
+      "name": "OIBridge.DitaHierarchy.a36_shared_line"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 648,
+      "name": "OIBridge.DitaHierarchy.a36_shared_point"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 693,
+      "name": "OIBridge.DitaHierarchy.a36_control_stratum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 753,
+      "name": "OIBridge.DitaHierarchy.a36_hierarchy"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 858,
+      "name": "OIBridge.DitaHierarchy.a36_c_exclusive"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3605 jobs).",
+  "built": [],
+  "cache": [
+   {
+    "served_line": 4982,
+    "text": "Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-a48ceeffc0cdcc6065181d22d8d09ea7c252b75bc040cd60c9e177dcb4fa1986, not saving cache."
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4956,
+   "verdict": 4980
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 4937,
+    "OIBridge.LinkJoin.act_op": 4935,
+    "OIBridge.LinkJoin.char_multiset_collision": 4931,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 4930,
+    "OIBridge.LinkJoin.character_PA_eq_one": 4942,
+    "OIBridge.LinkJoin.character_restrict_PT": 4941,
+    "OIBridge.LinkJoin.character_rhoA": 4946,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 4947,
+    "OIBridge.LinkJoin.character_rhoE": 4945,
+    "OIBridge.LinkJoin.character_rhoLink": 4939,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4948,
+    "OIBridge.LinkJoin.character_rhoT": 4944,
+    "OIBridge.LinkJoin.character_sum": 4943,
+    "OIBridge.LinkJoin.faceEquivLink_op": 4934,
+    "OIBridge.LinkJoin.linkHom_injective": 4938,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 4940,
+    "OIBridge.LinkJoin.sum_cube_collision": 4933,
+    "OIBridge.LinkJoin.sum_sq_collision": 4932,
+    "OIBridge.LinkJoin.sym_linkHom": 4936
+   },
+   "OIBridge/DitaHierarchy.lean": {
+    "OIBridge.DitaHierarchy.a36_c_exclusive": 4928,
+    "OIBridge.DitaHierarchy.a36_control_hull28": 4538,
+    "OIBridge.DitaHierarchy.a36_control_hull82": 4605,
+    "OIBridge.DitaHierarchy.a36_control_stratum": 4800,
+    "OIBridge.DitaHierarchy.a36_hierarchy": 4843,
+    "OIBridge.DitaHierarchy.a36_shared_dgT_eq": 4183,
+    "OIBridge.DitaHierarchy.a36_shared_dgT_norm_sq": 4187,
+    "OIBridge.DitaHierarchy.a36_shared_dgT_unitary": 4184,
+    "OIBridge.DitaHierarchy.a36_shared_dg_norm_sq": 4186,
+    "OIBridge.DitaHierarchy.a36_shared_dg_unitary": 4182,
+    "OIBridge.DitaHierarchy.a36_shared_div": 4180,
+    "OIBridge.DitaHierarchy.a36_shared_hull28_core": 4229,
+    "OIBridge.DitaHierarchy.a36_shared_hull82_core": 4269,
+    "OIBridge.DitaHierarchy.a36_shared_hull_g": 4404,
+    "OIBridge.DitaHierarchy.a36_shared_hull_gt": 4471,
+    "OIBridge.DitaHierarchy.a36_shared_hullg_core": 4188,
+    "OIBridge.DitaHierarchy.a36_shared_hullgt_core": 4189,
+    "OIBridge.DitaHierarchy.a36_shared_line": 4666,
+    "OIBridge.DitaHierarchy.a36_shared_line_core": 4290,
+    "OIBridge.DitaHierarchy.a36_shared_mod": 4181,
+    "OIBridge.DitaHierarchy.a36_shared_nested_eq": 4289,
+    "OIBridge.DitaHierarchy.a36_shared_one_core": 4331,
+    "OIBridge.DitaHierarchy.a36_shared_p_notin": 4329,
+    "OIBridge.DitaHierarchy.a36_shared_p_val": 4301,
+    "OIBridge.DitaHierarchy.a36_shared_phase_unitary": 4286,
+    "OIBridge.DitaHierarchy.a36_shared_point": 4727,
+    "OIBridge.DitaHierarchy.a36_shared_point_core": 4330,
+    "OIBridge.DitaHierarchy.a36_shared_pow_unit": 4146,
+    "OIBridge.DitaHierarchy.a36_shared_reindex_unitary": 4185,
+    "OIBridge.DitaHierarchy.a36_shared_sq_quarter": 4145,
+    "OIBridge.DitaHierarchy.a36_shared_u60_unit": 4179,
+    "OIBridge.DitaHierarchy.a36_shared_w_unit": 4168,
+    "OIBridge.DitaHierarchy.a36_shared_xi_flat": 4285,
+    "OIBridge.DitaHierarchy.a36_shared_xo_flat": 4277,
+    "OIBridge.DitaHierarchy.a36_shared_y8_flat": 4288,
+    "OIBridge.DitaHierarchy.a36_shared_z_unit": 4157,
+    "OIBridge.DitaHierarchy.a36_shared_zp_flat": 4287
+   }
+  },
+  "reports_in_served_text": 841
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "git checkout <head_sha>",
+   "cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
+   "cd ../.. && python3 tools/release_gate.py",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <captured output> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree ."
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 36340582485",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "5375703c0058c76f5ad27746e3fb7b49f31abb08",
+  "id": "36340582485",
+  "job_id": "108679747445",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 12701,
+  "served_lines": 5000,
+  "served_sha256": "23021bfc2b800917768990cb66f4d8a8d1637f419fde40b8d1eedaf89f8d1fc4"
+ },
+ "version": 1
+}

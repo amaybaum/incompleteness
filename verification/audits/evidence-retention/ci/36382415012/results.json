@@ -1,0 +1,757 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (130 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (4829 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  12 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      827,
+      845
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 827,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 828,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 829,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 830,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 831,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 832,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 833,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 834,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 835,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 836,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 837,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 838,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 839,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 840,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 841,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 842,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 843,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 844,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 845,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/DitaArcExclusivity.lean": {
+    "print_lines": [
+     [
+      32,
+      32
+     ],
+     [
+      38,
+      38
+     ],
+     [
+      46,
+      46
+     ],
+     [
+      55,
+      55
+     ],
+     [
+      86,
+      86
+     ],
+     [
+      117,
+      117
+     ],
+     [
+      148,
+      148
+     ],
+     [
+      179,
+      179
+     ],
+     [
+      210,
+      210
+     ],
+     [
+      241,
+      241
+     ],
+     [
+      272,
+      272
+     ],
+     [
+      303,
+      303
+     ],
+     [
+      323,
+      323
+     ],
+     [
+      393,
+      393
+     ],
+     [
+      465,
+      465
+     ],
+     [
+      536,
+      536
+     ],
+     [
+      607,
+      607
+     ],
+     [
+      678,
+      678
+     ],
+     [
+      749,
+      749
+     ],
+     [
+      820,
+      820
+     ],
+     [
+      891,
+      891
+     ],
+     [
+      962,
+      962
+     ],
+     [
+      1033,
+      1033
+     ],
+     [
+      1102,
+      1102
+     ],
+     [
+      1198,
+      1198
+     ],
+     [
+      1395,
+      1395
+     ]
+    ],
+    "prints": 26,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 32,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_f4_symm"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 38,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_wt_symm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 46,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_sym_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 55,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_persist_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 86,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 117,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 148,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 179,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 210,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_e1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 241,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_e2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 272,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_t2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 303,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_core_t3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 323,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_base_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 393,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_symmetric"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 465,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_persistence"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 536,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_k1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 607,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_k2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 678,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_k3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 749,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_k4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 820,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_e1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 891,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_e2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 962,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_t2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1033,
+      "name": "OIBridge.DitaArcExclusivity.a37_shared_excl_t3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1102,
+      "name": "OIBridge.DitaArcExclusivity.a37_control_base"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1198,
+      "name": "OIBridge.DitaArcExclusivity.a37_exclusivity"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1395,
+      "name": "OIBridge.DitaArcExclusivity.a37_c_exclusive"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3606 jobs).",
+  "built": [],
+  "cache": [
+   {
+    "served_line": 4982,
+    "text": "Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-758bc9172d6162fae14181fc81d31b4c43beebadd4e21433f66ca3fbf9430ddd, not saving cache."
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4956,
+   "verdict": 4980
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 4937,
+    "OIBridge.LinkJoin.act_op": 4935,
+    "OIBridge.LinkJoin.char_multiset_collision": 4931,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 4930,
+    "OIBridge.LinkJoin.character_PA_eq_one": 4942,
+    "OIBridge.LinkJoin.character_restrict_PT": 4941,
+    "OIBridge.LinkJoin.character_rhoA": 4946,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 4947,
+    "OIBridge.LinkJoin.character_rhoE": 4945,
+    "OIBridge.LinkJoin.character_rhoLink": 4939,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4948,
+    "OIBridge.LinkJoin.character_rhoT": 4944,
+    "OIBridge.LinkJoin.character_sum": 4943,
+    "OIBridge.LinkJoin.faceEquivLink_op": 4934,
+    "OIBridge.LinkJoin.linkHom_injective": 4938,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 4940,
+    "OIBridge.LinkJoin.sum_cube_collision": 4933,
+    "OIBridge.LinkJoin.sum_sq_collision": 4932,
+    "OIBridge.LinkJoin.sym_linkHom": 4936
+   },
+   "OIBridge/DitaArcExclusivity.lean": {
+    "OIBridge.DitaArcExclusivity.a37_c_exclusive": 4928,
+    "OIBridge.DitaArcExclusivity.a37_control_base": 4728,
+    "OIBridge.DitaArcExclusivity.a37_exclusivity": 4795,
+    "OIBridge.DitaArcExclusivity.a37_shared_base_core": 3445,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_e1": 3399,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_e2": 3412,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k1": 3347,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k2": 3360,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k3": 3373,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_k4": 3386,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_t2": 3425,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_core_t3": 3438,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_e1": 4262,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_e2": 4377,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_k1": 3802,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_k2": 3917,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_k3": 4032,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_k4": 4147,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_t2": 4492,
+    "OIBridge.DitaArcExclusivity.a37_shared_excl_t3": 4607,
+    "OIBridge.DitaArcExclusivity.a37_shared_f4_symm": 3331,
+    "OIBridge.DitaArcExclusivity.a37_shared_persist_core": 3334,
+    "OIBridge.DitaArcExclusivity.a37_shared_persistence": 3687,
+    "OIBridge.DitaArcExclusivity.a37_shared_sym_core": 3333,
+    "OIBridge.DitaArcExclusivity.a37_shared_symmetric": 3572,
+    "OIBridge.DitaArcExclusivity.a37_shared_wt_symm": 3332
+   }
+  },
+  "reports_in_served_text": 419
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "git checkout <head_sha>",
+   "cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
+   "cd ../.. && python3 tools/release_gate.py",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <captured output> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree ."
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 36382415012",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "09c621e978822e0ee0b559ad16a249885020a998",
+  "id": "36382415012",
+  "job_id": "108800731177",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 14284,
+  "served_lines": 5000,
+  "served_sha256": "ff34901130186487e5ab7d44694a5589a54280b3fe28a11795046690038fd725"
+ },
+ "version": 1
+}

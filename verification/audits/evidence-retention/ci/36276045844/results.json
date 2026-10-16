@@ -1,0 +1,5331 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (130 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (4628 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  8 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge.lean": {
+    "print_lines": [
+     [
+      823,
+      841
+     ]
+    ],
+    "prints": 19,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 823,
+      "name": "OIBridge.LinkJoin.char_two_subset_ne_link"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 824,
+      "name": "OIBridge.LinkJoin.char_multiset_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 825,
+      "name": "OIBridge.LinkJoin.sum_sq_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 826,
+      "name": "OIBridge.LinkJoin.sum_cube_collision"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 827,
+      "name": "OIBridge.LinkJoin.faceEquivLink_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 828,
+      "name": "OIBridge.LinkJoin.act_op"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 829,
+      "name": "OIBridge.LinkJoin.sym_linkHom"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 830,
+      "name": "OIBridge.LinkJoin.act_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 831,
+      "name": "OIBridge.LinkJoin.linkHom_injective"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 832,
+      "name": "OIBridge.LinkJoin.character_rhoLink"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 833,
+      "name": "OIBridge.LinkJoin.rhoLink_comm_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 834,
+      "name": "OIBridge.LinkJoin.character_restrict_PT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 835,
+      "name": "OIBridge.LinkJoin.character_PA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 836,
+      "name": "OIBridge.LinkJoin.character_sum"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 837,
+      "name": "OIBridge.LinkJoin.character_rhoT"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 838,
+      "name": "OIBridge.LinkJoin.character_rhoE"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 839,
+      "name": "OIBridge.LinkJoin.character_rhoA"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 840,
+      "name": "OIBridge.LinkJoin.character_rhoA_eq_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 841,
+      "name": "OIBridge.LinkJoin.character_rhoLink_eq_sum"
+     }
+    ],
+    "status": "complete"
+   },
+   "OIBridge/OrbitIsometryGroup.lean": {
+    "print_lines": [
+     [
+      33,
+      33
+     ],
+     [
+      39,
+      39
+     ],
+     [
+      53,
+      53
+     ],
+     [
+      67,
+      67
+     ],
+     [
+      74,
+      74
+     ],
+     [
+      81,
+      81
+     ],
+     [
+      88,
+      88
+     ],
+     [
+      95,
+      95
+     ],
+     [
+      102,
+      102
+     ],
+     [
+      109,
+      109
+     ],
+     [
+      118,
+      118
+     ],
+     [
+      124,
+      124
+     ],
+     [
+      131,
+      131
+     ],
+     [
+      143,
+      143
+     ],
+     [
+      150,
+      150
+     ],
+     [
+      180,
+      180
+     ],
+     [
+      189,
+      189
+     ],
+     [
+      205,
+      205
+     ],
+     [
+      215,
+      215
+     ],
+     [
+      234,
+      234
+     ],
+     [
+      249,
+      249
+     ],
+     [
+      275,
+      275
+     ],
+     [
+      308,
+      308
+     ],
+     [
+      313,
+      313
+     ],
+     [
+      318,
+      318
+     ],
+     [
+      323,
+      323
+     ],
+     [
+      328,
+      328
+     ],
+     [
+      333,
+      333
+     ],
+     [
+      338,
+      338
+     ],
+     [
+      343,
+      343
+     ],
+     [
+      348,
+      348
+     ],
+     [
+      353,
+      353
+     ],
+     [
+      358,
+      358
+     ],
+     [
+      363,
+      363
+     ],
+     [
+      368,
+      368
+     ],
+     [
+      373,
+      373
+     ],
+     [
+      378,
+      378
+     ],
+     [
+      383,
+      383
+     ],
+     [
+      388,
+      388
+     ],
+     [
+      393,
+      393
+     ],
+     [
+      398,
+      398
+     ],
+     [
+      412,
+      412
+     ],
+     [
+      421,
+      421
+     ],
+     [
+      428,
+      428
+     ],
+     [
+      437,
+      437
+     ],
+     [
+      444,
+      444
+     ],
+     [
+      453,
+      453
+     ],
+     [
+      460,
+      460
+     ],
+     [
+      469,
+      469
+     ],
+     [
+      476,
+      476
+     ],
+     [
+      485,
+      485
+     ],
+     [
+      492,
+      492
+     ],
+     [
+      501,
+      501
+     ],
+     [
+      508,
+      508
+     ],
+     [
+      517,
+      517
+     ],
+     [
+      524,
+      524
+     ],
+     [
+      533,
+      533
+     ],
+     [
+      540,
+      540
+     ],
+     [
+      549,
+      549
+     ],
+     [
+      556,
+      556
+     ],
+     [
+      575,
+      575
+     ],
+     [
+      594,
+      594
+     ],
+     [
+      613,
+      613
+     ],
+     [
+      632,
+      632
+     ],
+     [
+      651,
+      651
+     ],
+     [
+      670,
+      670
+     ],
+     [
+      689,
+      689
+     ],
+     [
+      708,
+      708
+     ],
+     [
+      727,
+      727
+     ],
+     [
+      746,
+      746
+     ],
+     [
+      765,
+      765
+     ],
+     [
+      784,
+      784
+     ],
+     [
+      793,
+      793
+     ],
+     [
+      802,
+      802
+     ],
+     [
+      812,
+      812
+     ],
+     [
+      821,
+      821
+     ],
+     [
+      830,
+      830
+     ],
+     [
+      840,
+      840
+     ],
+     [
+      849,
+      849
+     ],
+     [
+      859,
+      859
+     ],
+     [
+      868,
+      868
+     ],
+     [
+      877,
+      877
+     ],
+     [
+      887,
+      887
+     ],
+     [
+      896,
+      896
+     ],
+     [
+      906,
+      906
+     ],
+     [
+      915,
+      915
+     ],
+     [
+      924,
+      924
+     ],
+     [
+      934,
+      934
+     ],
+     [
+      943,
+      943
+     ],
+     [
+      953,
+      953
+     ],
+     [
+      962,
+      962
+     ],
+     [
+      972,
+      972
+     ],
+     [
+      982,
+      982
+     ],
+     [
+      991,
+      991
+     ],
+     [
+      1001,
+      1001
+     ],
+     [
+      1010,
+      1010
+     ],
+     [
+      1019,
+      1019
+     ],
+     [
+      1029,
+      1029
+     ],
+     [
+      1038,
+      1038
+     ],
+     [
+      1047,
+      1047
+     ],
+     [
+      1057,
+      1057
+     ],
+     [
+      1067,
+      1067
+     ],
+     [
+      1076,
+      1076
+     ],
+     [
+      1086,
+      1086
+     ],
+     [
+      1095,
+      1095
+     ],
+     [
+      1104,
+      1104
+     ],
+     [
+      1114,
+      1114
+     ],
+     [
+      1124,
+      1124
+     ],
+     [
+      1134,
+      1134
+     ],
+     [
+      1144,
+      1144
+     ],
+     [
+      1153,
+      1153
+     ],
+     [
+      1163,
+      1163
+     ],
+     [
+      1172,
+      1172
+     ],
+     [
+      1181,
+      1181
+     ],
+     [
+      1191,
+      1191
+     ],
+     [
+      1200,
+      1200
+     ],
+     [
+      1210,
+      1210
+     ],
+     [
+      1219,
+      1219
+     ],
+     [
+      1229,
+      1229
+     ],
+     [
+      1238,
+      1238
+     ],
+     [
+      1248,
+      1248
+     ],
+     [
+      1257,
+      1257
+     ],
+     [
+      1266,
+      1266
+     ],
+     [
+      1276,
+      1276
+     ],
+     [
+      1286,
+      1286
+     ],
+     [
+      1295,
+      1295
+     ],
+     [
+      1304,
+      1304
+     ],
+     [
+      1314,
+      1314
+     ],
+     [
+      1323,
+      1323
+     ],
+     [
+      1333,
+      1333
+     ],
+     [
+      1342,
+      1342
+     ],
+     [
+      1351,
+      1351
+     ],
+     [
+      1361,
+      1361
+     ],
+     [
+      1370,
+      1370
+     ],
+     [
+      1379,
+      1379
+     ],
+     [
+      1389,
+      1389
+     ],
+     [
+      1398,
+      1398
+     ],
+     [
+      1408,
+      1408
+     ],
+     [
+      1418,
+      1418
+     ],
+     [
+      1428,
+      1428
+     ],
+     [
+      1437,
+      1437
+     ],
+     [
+      1446,
+      1446
+     ],
+     [
+      1456,
+      1456
+     ],
+     [
+      1466,
+      1466
+     ],
+     [
+      1476,
+      1476
+     ],
+     [
+      1486,
+      1486
+     ],
+     [
+      1495,
+      1495
+     ],
+     [
+      1505,
+      1505
+     ],
+     [
+      1515,
+      1515
+     ],
+     [
+      1524,
+      1524
+     ],
+     [
+      1534,
+      1534
+     ],
+     [
+      1544,
+      1544
+     ],
+     [
+      1553,
+      1553
+     ],
+     [
+      1563,
+      1563
+     ],
+     [
+      1572,
+      1572
+     ],
+     [
+      1581,
+      1581
+     ],
+     [
+      1591,
+      1591
+     ],
+     [
+      1601,
+      1601
+     ],
+     [
+      1611,
+      1611
+     ],
+     [
+      1621,
+      1621
+     ],
+     [
+      1631,
+      1631
+     ],
+     [
+      1641,
+      1641
+     ],
+     [
+      1650,
+      1650
+     ],
+     [
+      1660,
+      1660
+     ],
+     [
+      1670,
+      1670
+     ],
+     [
+      1679,
+      1679
+     ],
+     [
+      1689,
+      1689
+     ],
+     [
+      1698,
+      1698
+     ],
+     [
+      1708,
+      1708
+     ],
+     [
+      1718,
+      1718
+     ],
+     [
+      1727,
+      1727
+     ],
+     [
+      1736,
+      1736
+     ],
+     [
+      1746,
+      1746
+     ],
+     [
+      1755,
+      1755
+     ],
+     [
+      1765,
+      1765
+     ],
+     [
+      1774,
+      1774
+     ],
+     [
+      1784,
+      1784
+     ],
+     [
+      1793,
+      1793
+     ],
+     [
+      1803,
+      1803
+     ],
+     [
+      1812,
+      1812
+     ],
+     [
+      1822,
+      1822
+     ],
+     [
+      1832,
+      1832
+     ],
+     [
+      1842,
+      1842
+     ],
+     [
+      1851,
+      1851
+     ],
+     [
+      1860,
+      1860
+     ],
+     [
+      1870,
+      1870
+     ],
+     [
+      1880,
+      1880
+     ],
+     [
+      1890,
+      1890
+     ],
+     [
+      1900,
+      1900
+     ],
+     [
+      1909,
+      1909
+     ],
+     [
+      1919,
+      1919
+     ],
+     [
+      1928,
+      1928
+     ],
+     [
+      1938,
+      1938
+     ],
+     [
+      1947,
+      1947
+     ],
+     [
+      1957,
+      1957
+     ],
+     [
+      1967,
+      1967
+     ],
+     [
+      1976,
+      1976
+     ],
+     [
+      1986,
+      1986
+     ],
+     [
+      1995,
+      1995
+     ],
+     [
+      2004,
+      2004
+     ],
+     [
+      2014,
+      2014
+     ],
+     [
+      2024,
+      2024
+     ],
+     [
+      2034,
+      2034
+     ],
+     [
+      2044,
+      2044
+     ],
+     [
+      2053,
+      2053
+     ],
+     [
+      2062,
+      2062
+     ],
+     [
+      2071,
+      2071
+     ],
+     [
+      2080,
+      2080
+     ],
+     [
+      2089,
+      2089
+     ],
+     [
+      2098,
+      2098
+     ],
+     [
+      2107,
+      2107
+     ],
+     [
+      2116,
+      2116
+     ],
+     [
+      2125,
+      2125
+     ],
+     [
+      2134,
+      2134
+     ],
+     [
+      2143,
+      2143
+     ],
+     [
+      2152,
+      2152
+     ],
+     [
+      2161,
+      2161
+     ],
+     [
+      2170,
+      2170
+     ],
+     [
+      2179,
+      2179
+     ],
+     [
+      2188,
+      2188
+     ],
+     [
+      2197,
+      2197
+     ],
+     [
+      2206,
+      2206
+     ],
+     [
+      2215,
+      2215
+     ],
+     [
+      2224,
+      2224
+     ],
+     [
+      2233,
+      2233
+     ],
+     [
+      2242,
+      2242
+     ],
+     [
+      2251,
+      2251
+     ],
+     [
+      2260,
+      2260
+     ],
+     [
+      2269,
+      2269
+     ],
+     [
+      2278,
+      2278
+     ],
+     [
+      2287,
+      2287
+     ],
+     [
+      2312,
+      2312
+     ],
+     [
+      2326,
+      2326
+     ],
+     [
+      2359,
+      2359
+     ],
+     [
+      2426,
+      2426
+     ],
+     [
+      2456,
+      2456
+     ],
+     [
+      2464,
+      2464
+     ],
+     [
+      2479,
+      2479
+     ],
+     [
+      2484,
+      2484
+     ],
+     [
+      2566,
+      2566
+     ],
+     [
+      2572,
+      2572
+     ],
+     [
+      2607,
+      2607
+     ],
+     [
+      2660,
+      2660
+     ],
+     [
+      2666,
+      2666
+     ],
+     [
+      2672,
+      2672
+     ],
+     [
+      2678,
+      2678
+     ],
+     [
+      2684,
+      2684
+     ],
+     [
+      2694,
+      2694
+     ],
+     [
+      2700,
+      2700
+     ],
+     [
+      2711,
+      2711
+     ],
+     [
+      2721,
+      2721
+     ],
+     [
+      2880,
+      2880
+     ],
+     [
+      2913,
+      2913
+     ],
+     [
+      2935,
+      2935
+     ],
+     [
+      2942,
+      2942
+     ],
+     [
+      2951,
+      2951
+     ],
+     [
+      2957,
+      2957
+     ],
+     [
+      3017,
+      3017
+     ],
+     [
+      3057,
+      3057
+     ],
+     [
+      3190,
+      3190
+     ],
+     [
+      3196,
+      3196
+     ],
+     [
+      3202,
+      3202
+     ],
+     [
+      3209,
+      3209
+     ],
+     [
+      3216,
+      3216
+     ],
+     [
+      3221,
+      3221
+     ],
+     [
+      3226,
+      3226
+     ],
+     [
+      3231,
+      3231
+     ],
+     [
+      3236,
+      3236
+     ],
+     [
+      3246,
+      3246
+     ],
+     [
+      3257,
+      3257
+     ],
+     [
+      3282,
+      3282
+     ],
+     [
+      3346,
+      3346
+     ],
+     [
+      3361,
+      3361
+     ],
+     [
+      3374,
+      3374
+     ],
+     [
+      3382,
+      3382
+     ],
+     [
+      3390,
+      3390
+     ],
+     [
+      3428,
+      3428
+     ],
+     [
+      3441,
+      3441
+     ],
+     [
+      3454,
+      3454
+     ],
+     [
+      3468,
+      3468
+     ],
+     [
+      3479,
+      3479
+     ],
+     [
+      3493,
+      3493
+     ],
+     [
+      3502,
+      3502
+     ],
+     [
+      3511,
+      3511
+     ],
+     [
+      3519,
+      3519
+     ],
+     [
+      3527,
+      3527
+     ],
+     [
+      3541,
+      3541
+     ],
+     [
+      3555,
+      3555
+     ],
+     [
+      3738,
+      3738
+     ],
+     [
+      3921,
+      3921
+     ],
+     [
+      3998,
+      3998
+     ],
+     [
+      4181,
+      4181
+     ],
+     [
+      4364,
+      4364
+     ],
+     [
+      4547,
+      4547
+     ],
+     [
+      4730,
+      4730
+     ],
+     [
+      4801,
+      4801
+     ],
+     [
+      4806,
+      4806
+     ],
+     [
+      4839,
+      4839
+     ],
+     [
+      4851,
+      4851
+     ],
+     [
+      4859,
+      4859
+     ],
+     [
+      4865,
+      4865
+     ],
+     [
+      4964,
+      4964
+     ],
+     [
+      4972,
+      4972
+     ],
+     [
+      4991,
+      4991
+     ],
+     [
+      5008,
+      5008
+     ],
+     [
+      5016,
+      5016
+     ],
+     [
+      5094,
+      5094
+     ],
+     [
+      5190,
+      5190
+     ],
+     [
+      5534,
+      5534
+     ],
+     [
+      5601,
+      5601
+     ],
+     [
+      5623,
+      5623
+     ],
+     [
+      5633,
+      5633
+     ],
+     [
+      5641,
+      5641
+     ],
+     [
+      5646,
+      5646
+     ],
+     [
+      5662,
+      5662
+     ],
+     [
+      5667,
+      5667
+     ],
+     [
+      5725,
+      5725
+     ],
+     [
+      5879,
+      5879
+     ],
+     [
+      5900,
+      5900
+     ],
+     [
+      5906,
+      5906
+     ],
+     [
+      5912,
+      5912
+     ],
+     [
+      6147,
+      6147
+     ],
+     [
+      6174,
+      6174
+     ],
+     [
+      6200,
+      6200
+     ],
+     [
+      6227,
+      6227
+     ],
+     [
+      6272,
+      6272
+     ],
+     [
+      6322,
+      6322
+     ],
+     [
+      6353,
+      6353
+     ],
+     [
+      6385,
+      6385
+     ],
+     [
+      6406,
+      6406
+     ],
+     [
+      6426,
+      6426
+     ],
+     [
+      6446,
+      6446
+     ],
+     [
+      6465,
+      6465
+     ],
+     [
+      6527,
+      6527
+     ],
+     [
+      6581,
+      6581
+     ],
+     [
+      6586,
+      6586
+     ],
+     [
+      6591,
+      6591
+     ],
+     [
+      6617,
+      6617
+     ],
+     [
+      6629,
+      6629
+     ],
+     [
+      6639,
+      6639
+     ],
+     [
+      6647,
+      6647
+     ],
+     [
+      6652,
+      6652
+     ],
+     [
+      6657,
+      6657
+     ],
+     [
+      6662,
+      6662
+     ],
+     [
+      6667,
+      6667
+     ],
+     [
+      6694,
+      6694
+     ],
+     [
+      6770,
+      6770
+     ],
+     [
+      6857,
+      6857
+     ],
+     [
+      7016,
+      7016
+     ],
+     [
+      7051,
+      7051
+     ],
+     [
+      7071,
+      7071
+     ],
+     [
+      7100,
+      7100
+     ],
+     [
+      7133,
+      7133
+     ],
+     [
+      7187,
+      7187
+     ]
+    ],
+    "prints": 354,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 33,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_msgn_star"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 39,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_entry"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 53,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_coord"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 67,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_feature_ext"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 74,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_order"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 81,
+      "name": "OIBridge.OrbitIsometryGroup.a33_c_transitive_circles"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 88,
+      "name": "OIBridge.OrbitIsometryGroup.a33_c_stabilizer_circle"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 95,
+      "name": "OIBridge.OrbitIsometryGroup.a33_c_transitive_points"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 102,
+      "name": "OIBridge.OrbitIsometryGroup.a33_c_stabilizer_point"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 109,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_family_count"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 118,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_dist_sq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 124,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_pow"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 131,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_msgn_cast"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 143,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_coord_int"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Quot.sound"
+      ],
+      "line": 150,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_exp_range"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 180,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_coord_form"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Quot.sound"
+      ],
+      "line": 189,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_sgz_unit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 205,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_coord_Z"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 215,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_Z_unit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 234,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_term"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 249,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_re_bound"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 275,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_fibre"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 308,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cross"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 313,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 318,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 323,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 328,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 333,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 338,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 343,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 348,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 353,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 358,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 363,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 368,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 373,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 378,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 383,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 388,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 393,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R1_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 398,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_R2_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 412,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_pt_inj"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 421,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 428,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 437,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 444,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 453,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_96"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 460,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 469,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 476,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 485,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 492,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 501,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_96"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 508,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 517,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_144"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 524,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 533,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_144"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 540,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 549,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_160"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 556,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inj_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 575,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_p_4_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 594,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_p_8_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 613,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_m_5_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 632,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_m_7_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 651,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_p_3_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 670,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_p_8_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 689,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_m_5_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 708,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_m_6_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 727,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_p_4_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 746,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_p_6_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 765,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_m_3_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 784,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_m_7_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 793,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_130"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 802,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_130"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 812,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 821,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_129"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 830,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_129"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 840,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 849,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_130"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 859,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 868,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_82"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 877,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_82"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 887,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 896,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 906,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 915,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_66"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 924,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_66"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 934,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 943,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 953,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 962,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 972,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 982,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 991,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_129"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1001,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1010,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_83"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1019,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_83"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1029,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1038,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_131"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1047,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_131"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1057,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1067,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1076,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1086,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1095,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_67"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1104,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_67"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1114,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1124,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1134,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1144,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1153,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_96"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1163,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1172,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_97"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1181,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_97"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1191,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1200,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_129"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1210,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1219,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_96"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1229,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1238,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_96"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1248,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1257,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_65"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1266,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_65"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1276,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1286,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1295,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_82"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1304,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_82"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1314,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1323,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_80"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1333,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1342,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_194"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1351,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_194"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1361,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1370,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_193"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1379,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_193"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1389,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1398,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_66"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1408,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1418,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1428,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1437,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_83"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1446,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_83"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1456,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1466,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1476,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1486,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1495,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_193"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1505,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1515,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1524,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_67"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1534,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1544,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1553,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_96"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1563,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1572,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_97"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1581,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_97"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1591,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1601,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1611,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1621,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1631,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1641,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1650,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_65"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1660,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1670,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1679,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_144"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1689,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1698,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_144"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1708,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1718,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1727,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_146"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1736,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_146"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1746,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1755,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_144"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1765,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1774,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_66"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1784,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1793,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_65"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1803,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1812,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_144"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1822,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1832,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1842,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1851,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_147"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1860,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_147"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1870,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1880,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1890,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1900,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1909,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_65"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1919,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1928,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_160"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1938,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1947,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_160"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1957,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1967,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1976,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_160"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1986,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 1995,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_161"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2004,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_161"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2014,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2024,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2034,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2044,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2053,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_m_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2062,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_m_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2071,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_m_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2080,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_0_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2089,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_0_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2098,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_0_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2107,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_1_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2116,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_1_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2125,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_1_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2134,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_m_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2143,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_m_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2152,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_m_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2161,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_0_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2170,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_0_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2179,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_0_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2188,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_1_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2197,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_1_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2206,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_1_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2215,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_m_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2224,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_m_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2233,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_m_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2242,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_0_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2251,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_0_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2260,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_0_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2269,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_1_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2278,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_1_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2287,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_1_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2312,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_chord0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2326,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_chord"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2359,
+      "name": "OIBridge.OrbitIsometryGroup.a33_control_phase"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2426,
+      "name": "OIBridge.OrbitIsometryGroup.a33_control_incidence"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2456,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_mem"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2464,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_ext_pt"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2479,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_readq"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 2484,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_fin9"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2566,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_census"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2572,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_conj_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2607,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_affine_coord"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2660,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_vanish"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2666,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_I"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2672,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_ZF_m1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2678,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_ZF_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2684,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_ZF_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2694,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_form"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2700,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_star_form"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2711,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_ext"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2721,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_affine_ext"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2880,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_into"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2913,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_circle_eq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2935,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_circles"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2942,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_mul"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2951,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_if"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2957,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_if_pm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3017,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_circle_map"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3057,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_form"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3190,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_signs"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3196,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_bit"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3202,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_bit_neg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3209,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_neg"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3216,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_unit_star"
+     },
+     {
+      "axioms": null,
+      "line": 3221,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_bool_xnor"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 3226,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_fin3"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 3231,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_edge_inj"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 3236,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_edge_rev"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Quot.sound"
+      ],
+      "line": 3246,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_edge_unique"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3257,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_iso_comp"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3282,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_identity"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3346,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_composition"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3361,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_relabel_iso"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3374,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_relabel_invol"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3382,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_U0_symm"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3390,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_U0_conj"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3428,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_T_iso"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3441,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_T_circle"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3454,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_T_invol"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3468,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_C_iso"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3479,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_conj_F"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3493,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3502,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_s13_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3511,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_s13"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3519,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_dbl_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3527,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_dbl"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3541,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_dsd_one"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3555,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_dsd"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3738,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3921,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3998,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4181,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4364,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4547,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4730,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4801,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen_7"
+     },
+     {
+      "axioms": [
+       "propext"
+      ],
+      "line": 4806,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_fin8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4839,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_gen8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Quot.sound"
+      ],
+      "line": 4851,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_cond_comp"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4859,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_foldr_comp"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4865,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_wordf_append"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4964,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_word8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4972,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_aut_words"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4991,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_nu_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5008,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_pt_inj_gen"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5016,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_dist_of_sq"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5094,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_conj_dist"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5190,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_c0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5534,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_conj_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5601,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_kernel_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5623,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_real"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5633,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_if_I"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5641,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_if_I_inj"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5646,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_pmI_not_pm1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5662,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_two_points"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Quot.sound"
+      ],
+      "line": 5667,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_all_vertices"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5725,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_nf_unique"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5879,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_vertex"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5900,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_sigma_inj"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5906,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_sgn_mul_p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5912,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_sgn_mul_m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6147,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_exists_nf"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6174,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_nf_congr"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6200,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_nf_agree"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6227,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_family_congr"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6272,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_shape_family"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6322,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_family_shape"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6353,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rel_TR"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6385,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rel_TC"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6406,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rel_CR"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6426,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rel_RR"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6446,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rel_R1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6465,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rel_G"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6527,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_word_shape"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6581,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_rowcol_word"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6586,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_row_words"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6591,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_col_words"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6617,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_shape_word"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6629,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_shape_parity"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6639,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_kernel_shapes"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6647,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_aut_shapes"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6652,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_not_parity_0"
+     },
+     {
+      "axioms": null,
+      "line": 6657,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_bool_swap"
+     },
+     {
+      "axioms": null,
+      "line": 6662,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_bool_comm"
+     },
+     {
+      "axioms": null,
+      "line": 6667,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_bool_swap2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6694,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_word_family"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6770,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_word_parity"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 6857,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_family_kernel"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 7016,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_family_coset"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 7051,
+      "name": "OIBridge.OrbitIsometryGroup.a33_shared_family_onto"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 7071,
+      "name": "OIBridge.OrbitIsometryGroup.a33_control_conjugation"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 7100,
+      "name": "OIBridge.OrbitIsometryGroup.a33_control_a32"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 7133,
+      "name": "OIBridge.OrbitIsometryGroup.a33_classified"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 7187,
+      "name": "OIBridge.OrbitIsometryGroup.a33_c_exclusive"
+     }
+    ],
+    "status": "complete"
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3602 jobs).",
+  "built": [
+   {
+    "module": "OIBridge.OrbitIsometryGroup",
+    "seconds": 548.0,
+    "served_line": 3508
+   },
+   {
+    "module": "OIBridge",
+    "seconds": 8.3,
+    "served_line": 4925
+   }
+  ],
+  "cache": [
+   {
+    "served_line": 4984,
+    "text": "Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-c647e213eb47cda03a439c6354a40c584ccd21294622526f60e226e44d8bb97b"
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4952,
+   "verdict": 4976
+  },
+  "report_served_lines": {
+   "OIBridge.lean": {
+    "OIBridge.LinkJoin.act_injective": 4933,
+    "OIBridge.LinkJoin.act_op": 4931,
+    "OIBridge.LinkJoin.char_multiset_collision": 4927,
+    "OIBridge.LinkJoin.char_two_subset_ne_link": 4926,
+    "OIBridge.LinkJoin.character_PA_eq_one": 4938,
+    "OIBridge.LinkJoin.character_restrict_PT": 4937,
+    "OIBridge.LinkJoin.character_rhoA": 4942,
+    "OIBridge.LinkJoin.character_rhoA_eq_one": 4943,
+    "OIBridge.LinkJoin.character_rhoE": 4941,
+    "OIBridge.LinkJoin.character_rhoLink": 4935,
+    "OIBridge.LinkJoin.character_rhoLink_eq_sum": 4944,
+    "OIBridge.LinkJoin.character_rhoT": 4940,
+    "OIBridge.LinkJoin.character_sum": 4939,
+    "OIBridge.LinkJoin.faceEquivLink_op": 4930,
+    "OIBridge.LinkJoin.linkHom_injective": 4934,
+    "OIBridge.LinkJoin.rhoLink_comm_PT": 4936,
+    "OIBridge.LinkJoin.sum_cube_collision": 4929,
+    "OIBridge.LinkJoin.sum_sq_collision": 4928,
+    "OIBridge.LinkJoin.sym_linkHom": 4932
+   },
+   "OIBridge/OrbitIsometryGroup.lean": {
+    "OIBridge.OrbitIsometryGroup.a33_c_exclusive": 4924,
+    "OIBridge.OrbitIsometryGroup.a33_c_stabilizer_circle": 3522,
+    "OIBridge.OrbitIsometryGroup.a33_c_stabilizer_point": 3524,
+    "OIBridge.OrbitIsometryGroup.a33_c_transitive_circles": 3521,
+    "OIBridge.OrbitIsometryGroup.a33_c_transitive_points": 3523,
+    "OIBridge.OrbitIsometryGroup.a33_classified": 4923,
+    "OIBridge.OrbitIsometryGroup.a33_control_a32": 4922,
+    "OIBridge.OrbitIsometryGroup.a33_control_conjugation": 4921,
+    "OIBridge.OrbitIsometryGroup.a33_control_incidence": 4474,
+    "OIBridge.OrbitIsometryGroup.a33_control_phase": 4339,
+    "OIBridge.OrbitIsometryGroup.a33_shared_C_iso": 4660,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_0_0": 4141,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_0_1": 4142,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_0_m": 4140,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_1_0": 4144,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_1_1": 4145,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_1_m": 4143,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_m_0": 4138,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_m_1": 4139,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_0_m_m": 4137,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_0_0": 4159,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_0_1": 4160,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_0_m": 4158,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_1_0": 4162,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_1_1": 4163,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_1_m": 4161,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_m_0": 4156,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_m_1": 4157,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_3_m_m": 4155,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_0_0": 4150,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_0_1": 4151,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_0_m": 4149,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_1_0": 4153,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_1_1": 4154,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_1_m": 4152,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_m_0": 4147,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_m_1": 4148,
+    "OIBridge.OrbitIsometryGroup.a33_shared_N_0_4_m_m": 4146,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_0": 3587,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_1": 3589,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_2": 3591,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_3": 3593,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_4": 3595,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_5": 3597,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_6": 3599,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_7": 3601,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R1_8": 3603,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_0": 3588,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_1": 3590,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_2": 3592,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_3": 3594,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_4": 3596,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_5": 3598,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_6": 3600,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_7": 3602,
+    "OIBridge.OrbitIsometryGroup.a33_shared_R2_8": 3604,
+    "OIBridge.OrbitIsometryGroup.a33_shared_T_circle": 4658,
+    "OIBridge.OrbitIsometryGroup.a33_shared_T_invol": 4659,
+    "OIBridge.OrbitIsometryGroup.a33_shared_T_iso": 4657,
+    "OIBridge.OrbitIsometryGroup.a33_shared_U0_conj": 4656,
+    "OIBridge.OrbitIsometryGroup.a33_shared_U0_symm": 4648,
+    "OIBridge.OrbitIsometryGroup.a33_shared_ZF_0": 4493,
+    "OIBridge.OrbitIsometryGroup.a33_shared_ZF_1": 4494,
+    "OIBridge.OrbitIsometryGroup.a33_shared_ZF_m1": 4492,
+    "OIBridge.OrbitIsometryGroup.a33_shared_Z_unit": 3534,
+    "OIBridge.OrbitIsometryGroup.a33_shared_affine_coord": 4489,
+    "OIBridge.OrbitIsometryGroup.a33_shared_affine_ext": 4498,
+    "OIBridge.OrbitIsometryGroup.a33_shared_all_vertices": 4772,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_1": 3751,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_2": 3770,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_3": 3775,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_0_6": 3815,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_0": 3829,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_2": 3834,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_4": 3855,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_1_7": 3873,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_0": 3875,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_1": 3876,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_5": 3895,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_2_8": 3920,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_0": 3921,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_4": 3947,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_5": 3959,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_3_6": 3964,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_1": 3983,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_3": 3985,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_5": 3990,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_4_7": 3996,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_2": 4019,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_3": 4020,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_4": 4021,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_5_8": 4028,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_0": 4029,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_3": 4043,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_7": 4062,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_6_8": 4067,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_1": 4080,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_4": 4091,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_6": 4093,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_7_8": 4098,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_2": 4119,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_5": 4134,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_6": 4135,
+    "OIBridge.OrbitIsometryGroup.a33_shared_apart_8_7": 4136,
+    "OIBridge.OrbitIsometryGroup.a33_shared_aut_shapes": 4911,
+    "OIBridge.OrbitIsometryGroup.a33_shared_aut_words": 4697,
+    "OIBridge.OrbitIsometryGroup.a33_shared_bit": 4634,
+    "OIBridge.OrbitIsometryGroup.a33_shared_bit_neg": 4635,
+    "OIBridge.OrbitIsometryGroup.a33_shared_bool_comm": 4914,
+    "OIBridge.OrbitIsometryGroup.a33_shared_bool_swap": 4913,
+    "OIBridge.OrbitIsometryGroup.a33_shared_bool_swap2": 4915,
+    "OIBridge.OrbitIsometryGroup.a33_shared_bool_xnor": 4638,
+    "OIBridge.OrbitIsometryGroup.a33_shared_c0": 4702,
+    "OIBridge.OrbitIsometryGroup.a33_shared_census": 4480,
+    "OIBridge.OrbitIsometryGroup.a33_shared_chord": 4193,
+    "OIBridge.OrbitIsometryGroup.a33_shared_chord0": 4192,
+    "OIBridge.OrbitIsometryGroup.a33_shared_circle_eq": 4511,
+    "OIBridge.OrbitIsometryGroup.a33_shared_circle_map": 4535,
+    "OIBridge.OrbitIsometryGroup.a33_shared_circles": 4524,
+    "OIBridge.OrbitIsometryGroup.a33_shared_col_words": 4883,
+    "OIBridge.OrbitIsometryGroup.a33_shared_composition": 4645,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cond_comp": 4693,
+    "OIBridge.OrbitIsometryGroup.a33_shared_conj_F": 4661,
+    "OIBridge.OrbitIsometryGroup.a33_shared_conj_dist": 4701,
+    "OIBridge.OrbitIsometryGroup.a33_shared_conj_eq": 4481,
+    "OIBridge.OrbitIsometryGroup.a33_shared_conj_real": 4751,
+    "OIBridge.OrbitIsometryGroup.a33_shared_coord": 3518,
+    "OIBridge.OrbitIsometryGroup.a33_shared_coord_Z": 3533,
+    "OIBridge.OrbitIsometryGroup.a33_shared_coord_form": 3531,
+    "OIBridge.OrbitIsometryGroup.a33_shared_coord_int": 3529,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cross": 3586,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_129": 3762,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_130": 3746,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_144": 4078,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_160": 4112,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_66": 3807,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_80": 3623,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_82": 3786,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_83": 3981,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_0_96": 4008,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_129": 3833,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_130": 3750,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_131": 3850,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_144": 4033,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_160": 4117,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_67": 3865,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_80": 3628,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_82": 3929,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_83": 3838,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_1_97": 4017,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_129": 3769,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_144": 4041,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_65": 3912,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_80": 3934,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_96": 3633,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_2_97": 3885,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_130": 3774,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_147": 4089,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_160": 4123,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_193": 3951,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_194": 3942,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_66": 3963,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_80": 3638,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_82": 3925,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_83": 3842,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_3_96": 3880,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_131": 3854,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_146": 4051,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_161": 4132,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_193": 3989,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_194": 3946,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_67": 3995,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_80": 3643,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_82": 3790,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_83": 3970,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_4_97": 3889,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_129": 3894,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_144": 4056,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_193": 3958,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_65": 4027,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_80": 3795,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_96": 3648,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_5_97": 4013,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_144": 3653,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_146": 4047,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_65": 4066,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_66": 3814,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_80": 3860,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_6_96": 3902,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_144": 3658,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_147": 4085,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_65": 4097,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_66": 4061,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_67": 3872,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_80": 3819,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_7_96": 3907,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_160": 3663,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_161": 4128,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_65": 3919,
+    "OIBridge.OrbitIsometryGroup.a33_shared_cv_8_80": 3827,
+    "OIBridge.OrbitIsometryGroup.a33_shared_dist_of_sq": 4700,
+    "OIBridge.OrbitIsometryGroup.a33_shared_dist_sq": 3526,
+    "OIBridge.OrbitIsometryGroup.a33_shared_edge_inj": 4640,
+    "OIBridge.OrbitIsometryGroup.a33_shared_edge_rev": 4641,
+    "OIBridge.OrbitIsometryGroup.a33_shared_edge_unique": 4642,
+    "OIBridge.OrbitIsometryGroup.a33_shared_entry": 3510,
+    "OIBridge.OrbitIsometryGroup.a33_shared_exists_nf": 4792,
+    "OIBridge.OrbitIsometryGroup.a33_shared_exp_range": 3530,
+    "OIBridge.OrbitIsometryGroup.a33_shared_ext_pt": 4477,
+    "OIBridge.OrbitIsometryGroup.a33_shared_family_congr": 4795,
+    "OIBridge.OrbitIsometryGroup.a33_shared_family_coset": 4919,
+    "OIBridge.OrbitIsometryGroup.a33_shared_family_count": 3525,
+    "OIBridge.OrbitIsometryGroup.a33_shared_family_kernel": 4918,
+    "OIBridge.OrbitIsometryGroup.a33_shared_family_onto": 4920,
+    "OIBridge.OrbitIsometryGroup.a33_shared_family_shape": 4797,
+    "OIBridge.OrbitIsometryGroup.a33_shared_feature_ext": 3519,
+    "OIBridge.OrbitIsometryGroup.a33_shared_fibre": 3579,
+    "OIBridge.OrbitIsometryGroup.a33_shared_fin3": 4639,
+    "OIBridge.OrbitIsometryGroup.a33_shared_fin8": 4691,
+    "OIBridge.OrbitIsometryGroup.a33_shared_fin9": 4479,
+    "OIBridge.OrbitIsometryGroup.a33_shared_foldr_comp": 4694,
+    "OIBridge.OrbitIsometryGroup.a33_shared_form": 4548,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen8": 4692,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_0": 4683,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_1": 4684,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_2": 4685,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_3": 4686,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_4": 4687,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_5": 4688,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_6": 4689,
+    "OIBridge.OrbitIsometryGroup.a33_shared_gen_7": 4690,
+    "OIBridge.OrbitIsometryGroup.a33_shared_identity": 4644,
+    "OIBridge.OrbitIsometryGroup.a33_shared_if_I": 4761,
+    "OIBridge.OrbitIsometryGroup.a33_shared_if_I_inj": 4769,
+    "OIBridge.OrbitIsometryGroup.a33_shared_if_pm": 4527,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_m_5_m": 3688,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_m_7_m": 3696,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_p_4_p": 3672,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_0_p_8_p": 3680,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_m_5_p": 3706,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_m_6_m": 3714,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_p_3_p": 3704,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_1_p_8_m": 3705,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_m_3_m": 3731,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_m_7_p": 3732,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_p_4_m": 3715,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inc_2_p_6_p": 3723,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_0": 3624,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_1": 3629,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_2": 3634,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_3": 3639,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_4": 3644,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_5": 3649,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_6": 3654,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_7": 3659,
+    "OIBridge.OrbitIsometryGroup.a33_shared_inj_8": 3664,
+    "OIBridge.OrbitIsometryGroup.a33_shared_into": 4510,
+    "OIBridge.OrbitIsometryGroup.a33_shared_iso_comp": 4643,
+    "OIBridge.OrbitIsometryGroup.a33_shared_kernel_real": 4752,
+    "OIBridge.OrbitIsometryGroup.a33_shared_kernel_shapes": 4910,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_4": 3791,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_5": 3796,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_7": 3820,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_0_8": 3828,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_3": 3843,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_5": 3856,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_6": 3861,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_1_8": 3874,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_3": 3881,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_4": 3890,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_6": 3903,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_2_7": 3908,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_1": 3930,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_2": 3935,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_7": 3965,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_3_8": 3966,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_0": 3982,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_2": 3984,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_6": 3991,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_4_8": 3997,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_0": 4009,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_1": 4018,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_6": 4022,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_5_7": 4023,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_1": 4034,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_2": 4042,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_4": 4052,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_6_5": 4057,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_0": 4079,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_2": 4081,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_3": 4090,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_7_5": 4092,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_0": 4113,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_1": 4118,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_3": 4124,
+    "OIBridge.OrbitIsometryGroup.a33_shared_meet_8_4": 4133,
+    "OIBridge.OrbitIsometryGroup.a33_shared_mem": 4476,
+    "OIBridge.OrbitIsometryGroup.a33_shared_msgn_cast": 3528,
+    "OIBridge.OrbitIsometryGroup.a33_shared_msgn_star": 3509,
+    "OIBridge.OrbitIsometryGroup.a33_shared_nf_agree": 4794,
+    "OIBridge.OrbitIsometryGroup.a33_shared_nf_congr": 4793,
+    "OIBridge.OrbitIsometryGroup.a33_shared_nf_unique": 4773,
+    "OIBridge.OrbitIsometryGroup.a33_shared_not_parity_0": 4912,
+    "OIBridge.OrbitIsometryGroup.a33_shared_nu_real": 4698,
+    "OIBridge.OrbitIsometryGroup.a33_shared_order": 3520,
+    "OIBridge.OrbitIsometryGroup.a33_shared_pmI_not_pm1": 4770,
+    "OIBridge.OrbitIsometryGroup.a33_shared_pt_inj": 3605,
+    "OIBridge.OrbitIsometryGroup.a33_shared_pt_inj_gen": 4699,
+    "OIBridge.OrbitIsometryGroup.a33_shared_re_bound": 3578,
+    "OIBridge.OrbitIsometryGroup.a33_shared_readq": 4478,
+    "OIBridge.OrbitIsometryGroup.a33_shared_real": 4753,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rel_CR": 4800,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rel_G": 4809,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rel_R1": 4808,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rel_RR": 4801,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rel_TC": 4799,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rel_TR": 4798,
+    "OIBridge.OrbitIsometryGroup.a33_shared_relabel_invol": 4647,
+    "OIBridge.OrbitIsometryGroup.a33_shared_relabel_iso": 4646,
+    "OIBridge.OrbitIsometryGroup.a33_shared_row_words": 4882,
+    "OIBridge.OrbitIsometryGroup.a33_shared_rowcol_word": 4881,
+    "OIBridge.OrbitIsometryGroup.a33_shared_sgn_mul_m": 4777,
+    "OIBridge.OrbitIsometryGroup.a33_shared_sgn_mul_p": 4776,
+    "OIBridge.OrbitIsometryGroup.a33_shared_sgz_unit": 3532,
+    "OIBridge.OrbitIsometryGroup.a33_shared_shape_family": 4796,
+    "OIBridge.OrbitIsometryGroup.a33_shared_shape_parity": 4909,
+    "OIBridge.OrbitIsometryGroup.a33_shared_shape_word": 4908,
+    "OIBridge.OrbitIsometryGroup.a33_shared_sigma_inj": 4775,
+    "OIBridge.OrbitIsometryGroup.a33_shared_signs": 4633,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_dbl_one": 4665,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_dsd_one": 4681,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_dbl": 4666,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_dsd": 4682,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_one": 4662,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_one_s13": 4664,
+    "OIBridge.OrbitIsometryGroup.a33_shared_stab_s13_one": 4663,
+    "OIBridge.OrbitIsometryGroup.a33_shared_star_form": 4496,
+    "OIBridge.OrbitIsometryGroup.a33_shared_term": 3563,
+    "OIBridge.OrbitIsometryGroup.a33_shared_two_points": 4771,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_I": 4491,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_ext": 4497,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_form": 4495,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_if": 4526,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_mul": 4525,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_neg": 4636,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_pow": 3527,
+    "OIBridge.OrbitIsometryGroup.a33_shared_unit_star": 4637,
+    "OIBridge.OrbitIsometryGroup.a33_shared_vanish": 4490,
+    "OIBridge.OrbitIsometryGroup.a33_shared_vertex": 4774,
+    "OIBridge.OrbitIsometryGroup.a33_shared_word8": 4696,
+    "OIBridge.OrbitIsometryGroup.a33_shared_word_family": 4916,
+    "OIBridge.OrbitIsometryGroup.a33_shared_word_parity": 4917,
+    "OIBridge.OrbitIsometryGroup.a33_shared_word_shape": 4880,
+    "OIBridge.OrbitIsometryGroup.a33_shared_wordf_append": 4695
+   }
+  },
+  "reports_in_served_text": 2424
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "git checkout <head_sha>",
+   "cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
+   "cd ../.. && python3 tools/release_gate.py",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <captured output> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree ."
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 36276045844",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "ea0632781d587cdab182f003cfc1546c37db5c8f",
+  "id": "36276045844",
+  "job_id": "108498889923",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 9907,
+  "served_lines": 5000,
+  "served_sha256": "2ec27cfd7d6110409a62ca69b7448291c4f95d737adde5770a6292cfe5cefcca"
+ },
+ "version": 1
+}

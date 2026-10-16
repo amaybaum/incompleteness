@@ -1,0 +1,63 @@
+name: reproduce evidence
+
+# Reproduces one archived expected result of verification/audits/evidence-retention/ (AGENTS §A.42):
+# checks out the attested commit, rebuilds the Mathlib bridge and runs the release gate there, extracts the
+# same structured result the archive holds, and compares the two. The verifier (the archive's manifest,
+# reproduce.py, extract_result.py and compare_result.py) is read from the ref this workflow runs on; the
+# historical commit supplies only the sources, the toolchain pin and its own tools/release_gate.py.
+#
+# Deliberately not cached: the historical build starts from Mathlib's cache alone, so the verdict never
+# depends on what a previous run left behind. A cache miss costs time, never correctness.
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'the archived run to reproduce (an entry ci-<run_id> of the manifest)'
+        required: true
+      override_sha:
+        description: 'NEGATIVE CONTROL ONLY: check out this commit instead of the entry''s attested commit; the comparison must then fail'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  reproduce:
+    name: Reproduce ${{ inputs.run_id }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
+            -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Reproduce the expected result
+        run: |
+          python3 -I verification/audits/evidence-retention/reproduce.py \
+            --run "${{ inputs.run_id }}" \
+            ${{ inputs.override_sha != '' && format('--override-sha {0}', inputs.override_sha) || '' }} \
+            --work "$RUNNER_TEMP/reproduce"
+
+      - name: Comparator self-test (negative controls)
+        if: always()
+        run: python3 -I verification/audits/evidence-retention/compare_result.py --self-test
+
+      - name: Keep the reproduction's log and extraction
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reproduce-${{ inputs.run_id }}
+          path: |
+            ${{ runner.temp }}/reproduce/build-and-gate.log
+            ${{ runner.temp }}/reproduce/reproduced.json
+            ${{ runner.temp }}/reproduce/verdict.txt
+          if-no-files-found: ignore
