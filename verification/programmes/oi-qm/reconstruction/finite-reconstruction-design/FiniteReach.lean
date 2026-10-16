@@ -22,6 +22,17 @@ abbrev Mat (n : ℕ) := Matrix (Bits n) (Bits n) ℂ
 /-- The unique word of the empty tensor. -/
 def bitNil : Bits 0 := (0 : Fin 1)
 
+/-- Structural decidable equality on the recursive binary carrier. At `n + 1` it unfolds to the
+product instance, so the identity of a generic carrier specializes to the identity that is
+synthesized for an explicit successor carrier. -/
+def bitsDecEq : (n : ℕ) → DecidableEq (Bits n)
+  | 0 => inferInstanceAs (DecidableEq (Fin 1))
+  | n + 1 =>
+    letI := bitsDecEq n
+    inferInstanceAs (DecidableEq (Bits n × Fin 2))
+
+attribute [instance high] bitsDecEq
+
 section Generic
 
 variable {A B : Type*} [Fintype A] [DecidableEq A] [Fintype B] [DecidableEq B]
@@ -69,8 +80,7 @@ theorem vecMulVec_ofReal_smul {ι : Type*} (r : ℝ) (p : ι → ℂ) :
     vecMulVec (((r : ℝ) : ℂ) • p) (star (((r : ℝ) : ℂ) • p)) = (r ^ 2) • vecMulVec p (star p) := by
   ext i j
   simp only [Matrix.vecMulVec_apply, Pi.smul_apply, Pi.star_apply, smul_eq_mul, Matrix.smul_apply,
-    star_mul', Complex.real_smul, Complex.ofReal_pow, Complex.star_def, map_mul,
-    Complex.conj_ofReal]
+    star_mul', Complex.real_smul, Complex.ofReal_pow, Complex.star_def, Complex.conj_ofReal]
   ring
 
 /-- `star c * z * c` is nonnegative when `z` is. -/
@@ -115,7 +125,7 @@ theorem blockFam_mul (n : ℕ) (U V : Bits n → Matrix (Fin 2) (Fin 2) ℂ) :
   rw [Finset.sum_eq_single a]
   · by_cases h : a = c
     · subst h
-      simp [Matrix.mul_apply]
+      simp
     · simp [h]
   · intro x _ hx
     have hx' : a ≠ x := fun e => hx e.symm
@@ -167,7 +177,7 @@ theorem liftM_mulVec (n : ℕ) (M : Mat n) (y : Bits n → ℂ) (w : Fin 2 → �
   refine Finset.sum_congr rfl fun x _ => ?_
   rw [Fin.sum_univ_two]
   have hi : i = 0 ∨ i = 1 := by fin_cases i <;> simp
-  rcases hi with rfl | rfl <;> simp [Matrix.one_apply] <;> ring
+  rcases hi with rfl | rfl <;> simp <;> ring
 
 /-! ### §2 — the generator matrices -/
 
@@ -313,7 +323,9 @@ theorem cnotM_conjTranspose : ∀ n i j : ℕ, (cnotM n i j)ᴴ = cnotM n i j :=
     intro i j
     rw [cnotM_succ]
     by_cases h : j = n
-    · simp only [if_pos h, blockFam_conjTranspose, flipX_conjTranspose]
+    · rw [if_pos h]
+      exact (blockFam_conjTranspose n (fun b => flipX (bitAt n i b))).trans
+        (congrArg (blockFam n) (funext fun b => flipX_conjTranspose (bitAt n i b)))
     · simp only [if_neg h, tensor_star, ih, Matrix.conjTranspose_one]
 
 /-! ### §3 — words in the generators -/
@@ -513,14 +525,10 @@ theorem sign_induction : ∀ (n : ℕ) (Q : (Bits n → ℝ) → Prop),
     refine pred_congr Q (hadd _ _ hu hv) (funext fun p => ?_)
     rcases p with ⟨b, c⟩
     rcases fin2_cases c with rfl | rfl
-    · first
-        | (simp only [bsign_zero]; ring)
-        | (simp [bsign]; ring)
-        | simp [bsign]
-    · first
-        | (simp only [bsign_one]; ring)
-        | (simp [bsign]; ring)
-        | simp [bsign]
+    · simp only [bsign_zero]
+      ring
+    · simp only [bsign_one]
+      ring
 
 /-- A diagonal special unitary on the last token is a word when that token is not the first. -/
 theorem isWord_local_dUnit {n : ℕ} (hn : 0 < n) (z : ℂ) (hz : star z * z = 1) :
