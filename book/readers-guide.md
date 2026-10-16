@@ -14,7 +14,7 @@ Readers primarily interested in the framework's foundational claim should focus 
 
 **Essential.** Chapter 0 (the framing). Chapter 1 (the central theorem and characterization theorem). Chapter 2 (the substratum construction). Chapter 7 (the gravitational sector, particularly §§7.3, 7.5, 7.7 on $\hbar$, the Bekenstein-Hawking entropy, and the cosmological constant dissolution). Chapter 8 (JUNO as concrete empirical anchor). Appendix B (mathematical derivations) for technical detail.
 
-**Recommended.** Chapter 3 (structural realism). Appendix C (engagement with no-go theorems and standard-interpretation objections). Chapter 18 §18.5 (the cumulative quantum gravity dissolution).
+**Recommended.** Chapter 3 (structural realism). Appendix C (engagement with no-go theorems and standard-interpretation objections). Chapter 18 §18.5 (the cumulative case on quantum gravity).
 
 **Optional for this path.** The applied chapters (13-17) develop empirical content that supports the framework but is not load-bearing for the foundational claim. Chapter 19 provides systematic positioning against open problems.
 
