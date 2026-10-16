@@ -147,13 +147,14 @@
   "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
   "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
   "recipe": [
-   "git checkout <head_sha>",
-   "cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build",
-   "cd ../.. && python3 tools/release_gate.py",
-   "python3 -I verification/audits/evidence-retention/extract_result.py <captured output> > reproduced.json",
-   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree ."
+   "run from the root of a full-history clone at a commit that carries this archive (the verifier), never inside <head_sha>, which predates these tools; <dir> is a new directory and <log> a file outside it",
+   "git worktree add --detach <dir> <head_sha>",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree <dir>"
   ],
-  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 37337331051",
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 37337331051 --work <dir>",
   "workflow": ".github/workflows/reproduce-evidence.yml"
  },
  "run": {

@@ -361,10 +361,10 @@
      "sha256": "84de2bc0e2b2a2f6b34d27d25e5abad9037c5c42a8c12cdf7c1ce7ccc0acf649"
     },
     {
-     "bytes": 7854,
+     "bytes": 8032,
      "kind": "derived",
      "path": "bg3/results-116826161407.json",
-     "sha256": "1395073ab0db1c2e2ce839e5051f6c1eee652d56be3e0ede2ee96d9911fc87f7",
+     "sha256": "bd6aaa0b99345077e69e2e8be0407d2824bc17516bb9da8480181f65d4728de1",
      "source_sha256": "84de2bc0e2b2a2f6b34d27d25e5abad9037c5c42a8c12cdf7c1ce7ccc0acf649"
     }
    ],
@@ -726,10 +726,10 @@
      "sha256": "9f1abf3c88899306609cb3c02485892fcd6b97dfd12cbf05e128ad029e05e7b7"
     },
     {
-     "bytes": 7854,
+     "bytes": 8032,
      "kind": "derived",
      "path": "bg3/results-116805436638.json",
-     "sha256": "939e9e1d82bdc14406d39cd82fd84e1e402e58ab804f1d7e52f550e2af76326d",
+     "sha256": "7f4d531126582b5931aaa6d6fdb3c4af40c2651d027f8ee6341c37beb3674c1b",
      "source_sha256": "9f1abf3c88899306609cb3c02485892fcd6b97dfd12cbf05e128ad029e05e7b7"
     },
     {
@@ -967,10 +967,10 @@
      "sha256": "e77b0ded140a70ae90514a2d923bae20a062415c45ab3c8ec62ed65ce26bac47"
     },
     {
-     "bytes": 7854,
+     "bytes": 8032,
      "kind": "derived",
      "path": "bg3/results-116761232088.json",
-     "sha256": "1e185484527f06b5623ed15c70b3287571ccfb7a3b474ee972817092c9c0a4f1",
+     "sha256": "35874f9728050fe24accb349cf9258568f19fce0d4c0c1246fd96508f5796d0b",
      "source_sha256": "e77b0ded140a70ae90514a2d923bae20a062415c45ab3c8ec62ed65ce26bac47"
     },
     {
@@ -1138,10 +1138,10 @@
      "source_sha256": "26005753fae99501da11bedc6803b17524c5b199aeff38cb80265e1693526089"
     },
     {
-     "bytes": 5268,
+     "bytes": 5537,
      "kind": "derived",
      "path": "ci/35716484185/results.json",
-     "sha256": "14c51f7b53f1ff5c39a1200f54d5750684f71c84a0707431e1fb7051f76be23c",
+     "sha256": "dc5cda62b4a4c43e6c8a30a7285b2f4103f282bb2f360df90e38375f4fb53aac",
      "source_sha256": "5d277069075fcb093dd926552910ae74a739c1c00bc8e8633ed6cb772711e7b7"
     }
    ],
@@ -1251,7 +1251,7 @@
         "ci/35718385581/results.json"
        ],
        "line": 55,
-       "note": "the Mathlib bridge excerpt's release gate (19 PASS steps, verdict PASS) includes 'PASS  certificate-verifier certificate_verifier: authoritative OK (0 failure(s))'",
+       "note": "results.json's release gate (19 PASS steps, verdict PASS) includes certificate-verifier PASS, 'certificate_verifier: authoritative OK (0 failure(s))'",
        "status": "retained",
        "text": "carrying the authoritative verifier"
       },
@@ -1323,10 +1323,10 @@
      "source_sha256": "26005753fae99501da11bedc6803b17524c5b199aeff38cb80265e1693526089"
     },
     {
-     "bytes": 5268,
+     "bytes": 5537,
      "kind": "derived",
      "path": "ci/35718385581/results.json",
-     "sha256": "5bd10e56ff4b407aa180eb05e24f6ce23f6e59c0201c1ce47371f0ee92c31252",
+     "sha256": "cbafc5dc642d4a05ab05e65a04b34c31c6970114b1fd88138d4284db1ed41c86",
      "source_sha256": "5b6573606d515f20bb84c26d13573265cebe7a9464694569d8cf55c572741796"
     }
    ],
@@ -1404,10 +1404,10 @@
      "source_sha256": "26005753fae99501da11bedc6803b17524c5b199aeff38cb80265e1693526089"
     },
     {
-     "bytes": 5260,
+     "bytes": 5529,
      "kind": "derived",
      "path": "ci/35726597442/results.json",
-     "sha256": "d0f289d605291a47a929dc2eb47dd0f5809515ab4fe7bab6b45333aa65398627",
+     "sha256": "6f1b5257e3d37eba1d7154372be11862c4a04d8527449708c8f3d77447fbdc29",
      "source_sha256": "cb1f0ebf3c6f1260178bca042c75727e98f15a19f30b4cd1fa7f99d949eb45b5"
     }
    ],
@@ -1465,7 +1465,7 @@
       },
       {
        "line": 29,
-       "note": "the guard job's output is not archived; the excerpt is from the Mathlib bridge job",
+       "note": "the guard job's output is not archived; results.json is read from the Mathlib bridge job's log",
        "status": "not retained",
        "text": "reports 105 PASS and 0 FAIL"
       },
@@ -1480,7 +1480,7 @@
         "ci/36101255630/results.json"
        ],
        "line": 30,
-       "note": "bridge-excerpt.log: \"certificate-verifier certificate_verifier: authoritative OK (0 failure(s))\"",
+       "note": "results.json: gate step certificate-verifier PASS, 'certificate_verifier: authoritative OK (0 failure(s))'",
        "status": "retained",
        "text": "`V2` authoritative OK with 0 failures"
       },
@@ -1489,7 +1489,7 @@
         "ci/36101255630/results.json"
        ],
        "line": 30,
-       "note": "bridge-excerpt.log: 19 gate steps (toolchain … certificate-verifier), all PASS, and \"release gate: PASS\"",
+       "note": "results.json: 19 gate steps (toolchain … certificate-verifier), all PASS, and verdict PASS",
        "status": "retained",
        "text": "the release gate passes 19 of 19 steps"
       },
@@ -1573,10 +1573,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5273,
+     "bytes": 5542,
      "kind": "derived",
      "path": "ci/36101255630/results.json",
-     "sha256": "5b0bfcdce49cc32240e7116fc05302602ba7442f514a83449a92fb9c013f14f1",
+     "sha256": "bb508bde4e79fb36ce00752a9e9d7d6078f4ec2bdf6fa3031697e56978b82261",
      "source_sha256": "e8fe2e75b066f222aa6b48a8f800744a878b4e75904f7e41ba6759efaf07e4a4"
     }
    ],
@@ -1653,10 +1653,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5273,
+     "bytes": 5542,
      "kind": "derived",
      "path": "ci/36104170673/results.json",
-     "sha256": "f03f505a234988b3d8aa28ee149d1a08a051bf3ebe278446397a923b44f15643",
+     "sha256": "1a45369e0ff6619353cace19893aa582b9c5d858dd1b7eddb2abb402a09b3dab",
      "source_sha256": "8c0bd688335bf6d2ad63ac3cfae8c47a03816e69579f139b89535e62bd658299"
     }
    ],
@@ -1737,7 +1737,7 @@
         "ci/36112231466/results.json"
        ],
        "line": 31,
-       "note": "the bridge excerpt's release gate lists 19 PASS steps and verdict PASS",
+       "note": "results.json's release gate lists 19 PASS steps and verdict PASS",
        "status": "retained",
        "text": "passes 19 of 19 steps"
       },
@@ -1818,10 +1818,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5273,
+     "bytes": 5542,
      "kind": "derived",
      "path": "ci/36112231466/results.json",
-     "sha256": "17301c79ed9d9915237f09b203bf8441dd731ff8f28bce5c7b049cf299d7bbaf",
+     "sha256": "ba6a84f6cc00b1570d1a3da75253f60c006d6f37d7797045cd591f8946116b7c",
      "source_sha256": "14544ad47130d6a1b7ab74d8d4171b63dfd67105ae067b431615aeff92064b85"
     }
    ],
@@ -1898,10 +1898,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5388,
+     "bytes": 5657,
      "kind": "derived",
      "path": "ci/36121484718/results.json",
-     "sha256": "1f2956ff4388f1883257aed4781e2a47a73a0282aa2fb22b8aaaf167f4d933ac",
+     "sha256": "61267d366807fbb46cd3e4409c481611ea5a248c6ec079bf0b9bf3c7d9c16024",
      "source_sha256": "1d6e34417eb63116dd4b0ee93c9abeea742090c57223baf0c3a5887eb6c0e10b"
     }
    ],
@@ -1949,7 +1949,7 @@
       },
       {
        "line": 30,
-       "note": "the guard's output is in another job's log; only the Mathlib bridge job's excerpt is archived",
+       "note": "the guard's output is in another job's log; only the Mathlib bridge job's expected result is archived",
        "status": "not retained",
        "text": "reports 105 PASS and 0 FAIL"
       },
@@ -1982,7 +1982,7 @@
         "ci/36135049153/results.json"
        ],
        "line": 31,
-       "note": "the excerpt lists 20 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 20 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "passes 20 of 20"
       },
@@ -2060,10 +2060,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5388,
+     "bytes": 5657,
      "kind": "derived",
      "path": "ci/36135049153/results.json",
-     "sha256": "f8d1dd1ff7f3c187a8d0d526dcaa429d09225c7e46f7e22b14f24b4fe99afeb3",
+     "sha256": "6bee6884940a2cb399279d2c37bb74a18b0b5ab97257cf3b630dcd9beb45f445",
      "source_sha256": "76fcadfdd6c0520b60d45fe4929d10e4457cd84972b1d62ba902071203ef21f7"
     }
    ],
@@ -2140,10 +2140,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5388,
+     "bytes": 5657,
      "kind": "derived",
      "path": "ci/36142178196/results.json",
-     "sha256": "8743b8b07f051751d51ad1c68f9074cbe936ed2eb887c094f6c0c83c84a22b4f",
+     "sha256": "6a8e874bf895afe97b186658f76c253b8c0781fa2996c6599401c12f694d2bd3",
      "source_sha256": "bdc1d2794267e14e741d5a3e16f23d9be16c32565054eb344039454e5e6e4094"
     }
    ],
@@ -2233,7 +2233,7 @@
         "ci/36164944152/results.json"
        ],
        "line": 33,
-       "note": "the bridge excerpt's release gate lists 20 PASS steps and verdict PASS",
+       "note": "results.json's release gate lists 20 PASS steps and verdict PASS",
        "status": "retained",
        "text": "release gate passes"
       },
@@ -2302,10 +2302,10 @@
      "source_sha256": "ed761601575b23cd608ac594788e44d114850651fc01b853b7a80ce6468ec47c"
     },
     {
-     "bytes": 5388,
+     "bytes": 5657,
      "kind": "derived",
      "path": "ci/36164944152/results.json",
-     "sha256": "f6f6717c9e39cd9d158bf7fd51b87ebe8bdc6c7840a6b593a1b55e047246d184",
+     "sha256": "746ab972fbf03e4c1d808bf24b1c6dbe7087fed1892f6d0f2b718eacfe2481bb",
      "source_sha256": "c03bd77b93ebc33d499f788fcf131caaaf729ec745cba83818895982b972bda3"
     }
    ],
@@ -2362,7 +2362,7 @@
       },
       {
        "line": 30,
-       "note": "the guard job's output is not archived; the excerpt is from the Mathlib bridge job",
+       "note": "the guard job's output is not archived; results.json is read from the Mathlib bridge job's log",
        "status": "not retained",
        "text": "the guard reports 105 PASS and 0 FAIL"
       },
@@ -2383,7 +2383,7 @@
         "ci/36215374582/results.json"
        ],
        "line": 33,
-       "note": "continues \"failures\" on line 34; bridge-excerpt.log: \"certificate_verifier: authoritative OK (0 failure(s))\"",
+       "note": "continues \"failures\" on line 34; results.json: 'certificate_verifier: authoritative OK (0 failure(s))'",
        "status": "retained",
        "text": "`V2` authoritative OK with 0"
       },
@@ -2392,7 +2392,7 @@
         "ci/36215374582/results.json"
        ],
        "line": 33,
-       "note": "bridge-excerpt.log: 20 gate steps (toolchain … v3-receipts), all PASS, and \"release gate: PASS\"",
+       "note": "results.json: 20 gate steps (toolchain … v3-receipts), all PASS, and verdict PASS",
        "status": "retained",
        "text": "the release gate passes 20 of 20"
       },
@@ -2401,7 +2401,7 @@
         "ci/36215374582/results.json"
        ],
        "line": 33,
-       "note": "bridge-excerpt.log: \"PASS  control-plane-lint control_plane_lint: OK (25 control-plane file(s) linted; blo\"",
+       "note": "results.json: gate step control-plane-lint PASS, 'control_plane_lint: OK (25 control-plane file(s) linted; blo'",
        "status": "retained",
        "text": "with `control-plane-lint` OK"
       },
@@ -2410,7 +2410,7 @@
         "ci/36215374582/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: \"PASS  v3-receipts      RECEIPTS  4 receipt(s), all hold\"",
+       "note": "results.json: gate step v3-receipts PASS, 'RECEIPTS  4 receipt(s), all hold'",
        "status": "retained",
        "text": "`v3-receipts` holding on four receipts"
       },
@@ -2488,10 +2488,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 5388,
+     "bytes": 5657,
      "kind": "derived",
      "path": "ci/36215374582/results.json",
-     "sha256": "4e4a13cccc8b7f01e50e92546d4a9a870616114ea5a8df287275af78656587dd",
+     "sha256": "8e844ee69d0a6d22a8ddf551de8026017826cd3f175132ab857674eecafcbf71",
      "source_sha256": "722384903ff086d6e3e36a2f6148c51f7c5a1f759c068980b2b5124ef40b7fbc"
     }
    ],
@@ -2568,10 +2568,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 5472,
+     "bytes": 5741,
      "kind": "derived",
      "path": "ci/36216763387/results.json",
-     "sha256": "c6ae4eba6988430ed8672f6aa5ae456a3bd497ade2d03cc129ca66f0e35567ee",
+     "sha256": "5e3564cc17373c49a8797cb6e1712b0e42e7f1ee523149fa093ae5b93b0b8171",
      "source_sha256": "46b3b7e6f5e45ab067cffa4c6be0c8fa81b508a107cff41fd0fa96315250a1a0"
     }
    ],
@@ -2676,10 +2676,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 10193,
+     "bytes": 10462,
      "kind": "derived",
      "path": "ci/36225958085/results.json",
-     "sha256": "bc5e2e88edea8b29966b91df15dd8a0b390843e2056201d0dbcd4b99be80a47f",
+     "sha256": "3e65702ce6a634c3684569760e6e6a19c0a4060bf8ada58fab965e0af6d02f0f",
      "source_sha256": "060a2d6c95960d37f44ff2d076d3d6e6bc63f3c94d090d32f6798bcb33825fc1"
     }
    ],
@@ -2747,10 +2747,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 17098,
+     "bytes": 17367,
      "kind": "derived",
      "path": "ci/36228429141/results.json",
-     "sha256": "e8cbe6db02a5b1c06c7913619767cd11b47931d66c2cde5a2461808bc6f5f0a7",
+     "sha256": "1f873435c28202fdc1e4b661a731873d81c20234409fa0e949ad63b25bfd1fb8",
      "source_sha256": "53431f871696ed940cd0a5c8f9d6b248c19d387fcc166db31772ca892251ae6d"
     }
    ],
@@ -2855,10 +2855,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 10209,
+     "bytes": 10478,
      "kind": "derived",
      "path": "ci/36241183166/results.json",
-     "sha256": "652a98d796792320c3816214c9d6590bbabf55b44be2ff2847e389f759117ddd",
+     "sha256": "213b15a1eeaee744f9735a7f8e9285bb3a58f9096dd5445fb826cd2b9772e7e9",
      "source_sha256": "719dc4316d31038096b85092ff2ba8d34192ce4330f3d91daed305ed36937d11"
     }
    ],
@@ -2926,10 +2926,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 11812,
+     "bytes": 12081,
      "kind": "derived",
      "path": "ci/36244031979/results.json",
-     "sha256": "3b169359b4eb16d68d68557a3c8397976cab5b70e8d659853817834af1bfe188",
+     "sha256": "c9236558ce7364b08dbeacd90b2a3722dd67248215b0f8e42253aa33f1ab26cd",
      "source_sha256": "e80bd09da83da0e3b02fcaf94d8e486e6ed956cf7e8bf73b4c1bb0a3a050246e"
     }
    ],
@@ -3034,10 +3034,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 10213,
+     "bytes": 10482,
      "kind": "derived",
      "path": "ci/36245656078/results.json",
-     "sha256": "629e76d3a82fee8122836e26b58ed72c528434ea204025b0381545dc8b26bf13",
+     "sha256": "c74a9e4f45a16fa20fb441c924cd42d6105c5bdfd96047b09c867e7f069a21fc",
      "source_sha256": "83a0a949769720a143dc488347ebfee460e1bcf83d71d2834adb6cb47ac9a43d"
     }
    ],
@@ -3105,10 +3105,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 27354,
+     "bytes": 27623,
      "kind": "derived",
      "path": "ci/36248667202/results.json",
-     "sha256": "feb3962274c6136a3ff59ceceb53d88de1021c187399b485f58d630a0d6bcf66",
+     "sha256": "5838df43beafea6d5bf5cfaa2339fcb5ee06ee3ff21a5b8e12b5bc34fd26276f",
      "source_sha256": "9aa74cd2c77773c7c937534a740b67215ab149bc244c23bbe2169a2fee87d5ea"
     }
    ],
@@ -3213,10 +3213,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 10195,
+     "bytes": 10464,
      "kind": "derived",
      "path": "ci/36258860788/results.json",
-     "sha256": "6d43747cba39d127a3b57a52c59b45c209906e26a6d3f2493e2cb08214b81772",
+     "sha256": "f42d0f1466d1bc1f879c5dff3b216e1590fd84585c8a688e052b2a9d6385af9c",
      "source_sha256": "9bc077d0c6c0c7dc4731242bc4db36cb7fd1d7c3a07bc85f3e20f3bbb1a529f9"
     }
    ],
@@ -3284,10 +3284,10 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 111915,
+     "bytes": 112184,
      "kind": "derived",
      "path": "ci/36276045844/results.json",
-     "sha256": "5a5251ce330e0d15a0ab0ba96aa580b2e322639406baf1f3ef042a481000b47f",
+     "sha256": "46176d6f0adf34fa0345709452238a607888861e997a1690031c3c4c63c1179b",
      "source_sha256": "2ec27cfd7d6110409a62ca69b7448291c4f95d737adde5770a6292cfe5cefcca"
     }
    ],
@@ -3392,10 +3392,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 10187,
+     "bytes": 10456,
      "kind": "derived",
      "path": "ci/36297607823/results.json",
-     "sha256": "7bbf28383fe516040bb7964cec973471cee0ae4241b316ba39774cf9a5222c3d",
+     "sha256": "e06cf43a775e56fb8e458cac576897d4030e1f0d1e56b891688111f424afce31",
      "source_sha256": "7ab7e4b27f66016c074f5ba043fa1e8b524e5388b861169b3ed76cf3d40c216b"
     }
    ],
@@ -3463,10 +3463,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 33440,
+     "bytes": 33709,
      "kind": "derived",
      "path": "ci/36301534797/results.json",
-     "sha256": "b4d1acb785be19fa1ad57ac33094ba4740aa5db6344d199eb00132a471edf46c",
+     "sha256": "947aa3d0c28a223685a5f04b33ea843aa906cb7f49c82ecc7643d993999d30e8",
      "source_sha256": "62e645c8c21497560e698080be8d0f21dff7059e509f8575af9a8992019522b6"
     }
    ],
@@ -3562,10 +3562,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 10177,
+     "bytes": 10446,
      "kind": "derived",
      "path": "ci/36313785069/results.json",
-     "sha256": "ab2a6b3c794c981087b4076b092bc26b6e422f0ff400afa3825235a4deeebdc3",
+     "sha256": "6562580ab38a6db60b9a3a692377c6304dde964ebf2490ea2dcfe40111d3269c",
      "source_sha256": "aed921c7a295f08f73d47c4ccbc240e4f4058ca5bc27bf0a5d38b9b28ebb7fa5"
     }
    ],
@@ -3633,10 +3633,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 25256,
+     "bytes": 25525,
      "kind": "derived",
      "path": "ci/36314474613/results.json",
-     "sha256": "e54e1266fdba39a566e34d638b3f406380f3cc5a0bf176dfb4a15314dc1e491f",
+     "sha256": "2cf527391c9460de38c5c9a23d1a6bd3cdd64a89575c82624fa6513c07b7adf3",
      "source_sha256": "b2589d53fffb1636137672ed0a3a06bbabb502908253d98f841ada9a69da259e"
     }
    ],
@@ -3741,10 +3741,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 10187,
+     "bytes": 10456,
      "kind": "derived",
      "path": "ci/36335286607/results.json",
-     "sha256": "03673ccb33092c4be3e1bc4b1d0d91d374b6f007d4f219037e62b859667a6f61",
+     "sha256": "a92114e1b64b1bf946ffcb56efa48e5867b97b95753435ba3e0f0fc95fdb34da",
      "source_sha256": "aa09bad26d13cd2603ceb228cae366ac94a874160ba55471b9087b2588a1aea2"
     }
    ],
@@ -3812,10 +3812,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 20297,
+     "bytes": 20566,
      "kind": "derived",
      "path": "ci/36340582485/results.json",
-     "sha256": "6868f4c75d74471aefaf35f573cb1e91f91ca8c40bf1bc452e3f28c4a0199fb8",
+     "sha256": "b82957073c8565ef01032ae7526f8e27b53bc730d972a436bfec7349f666fba8",
      "source_sha256": "23021bfc2b800917768990cb66f4d8a8d1637f419fde40b8d1eedaf89f8d1fc4"
     }
    ],
@@ -3909,7 +3909,7 @@
         "ci/36379070237/results.json"
        ],
        "line": 168,
-       "note": "bridge-excerpt.log: 21 gate steps, all PASS, \"release gate: PASS\"; \"RECEIPTS  12 receipt(s), all hold\"",
+       "note": "results.json: 21 gate steps, all PASS, and verdict PASS; v3-receipts 'RECEIPTS  12 receipt(s), all hold'",
        "status": "retained",
        "text": "the release gate passes with twelve receipts holding"
       }
@@ -3978,10 +3978,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 10196,
+     "bytes": 10465,
      "kind": "derived",
      "path": "ci/36379070237/results.json",
-     "sha256": "ac73c002e3ff6ebc8daab3e2333e6332244807a3bf4f4bd15de202e9741f81cb",
+     "sha256": "1844c6781e5ce75505afd07db733acd944c110a259d4c6c9f9ba2a9cee4524d1",
      "source_sha256": "d117fe7fafd7dca847d0352ca6458fff1459d1b88ce24734a54541f1575b5ce1"
     }
    ],
@@ -4049,10 +4049,10 @@
      "source_sha256": "41eed1a0655d0af67f72ee56fe0504e3590b91c331c53c37ab3a7bfaf9860533"
     },
     {
-     "bytes": 17595,
+     "bytes": 17864,
      "kind": "derived",
      "path": "ci/36382415012/results.json",
-     "sha256": "7a9337c4fadd112c0cfc8feb5a0ea5077a749cf01f78a21a170f6d572071ff0b",
+     "sha256": "0d130cb38b240b6db3050b80a5e49e72d403a84338dcab307d74f5035ea7abb5",
      "source_sha256": "ff34901130186487e5ab7d44694a5589a54280b3fe28a11795046690038fd725"
     }
    ],
@@ -4128,7 +4128,7 @@
         "ci/36399875682/results.json"
        ],
        "line": 202,
-       "note": "the excerpt lists 21 gate steps, all PASS, release gate: PASS, and v3-receipts: RECEIPTS  13 receipt(s), all hold",
+       "note": "results.json lists 21 gate steps, all PASS, verdict PASS, and v3-receipts 'RECEIPTS  13 receipt(s), all hold'",
        "status": "retained",
        "text": "the release gate passes with thirteen receipts holding"
       },
@@ -4206,10 +4206,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 10190,
+     "bytes": 10459,
      "kind": "derived",
      "path": "ci/36399875682/results.json",
-     "sha256": "c39ffc08ef48a91f2a931440285cd3db62de29f34ced32ff1e403398276dba0c",
+     "sha256": "e8564d855d670ca6c442ef5d95c48d32446706319ba128020a6a05e581f7fa2e",
      "source_sha256": "b14b094d3b483b76dd8a5f5ed945cb84053b7148b4d75051b45989392c09792a"
     }
    ],
@@ -4277,10 +4277,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 39351,
+     "bytes": 39620,
      "kind": "derived",
      "path": "ci/36404006784/results.json",
-     "sha256": "52ce5ae8e8defe973ff8841ddd17d82fe44417f230b078b5d343fe394c9883cf",
+     "sha256": "3aab22eb2476f9bac40cc6ecc36052ee176a2b6f8269ba067a3742e20bf27396",
      "source_sha256": "14f1fdb68f64a3b0882aa8f0c226927859f45bc42a56fd47f71d337794ffc4a5"
     }
    ],
@@ -4367,10 +4367,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 10178,
+     "bytes": 10447,
      "kind": "derived",
      "path": "ci/36415055421/results.json",
-     "sha256": "602aa4fb750230bdcc0526127b00f71f572bad10728222e2bf75fa1686163a1c",
+     "sha256": "e439f8a8bcb1abd55f71fb3a0aa51c003dbea7cfcde0b2213e0113a259a7f143",
      "source_sha256": "6eab9a740a4f965e8a89ea2f95925ad7f766d7e5552305610ae3ba520a26d6f9"
     }
    ],
@@ -4447,10 +4447,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 31265,
+     "bytes": 31534,
      "kind": "derived",
      "path": "ci/36419265546/results.json",
-     "sha256": "c69bbbfdb5dfed54208ab8d744fa3c9c6c803f24475cbee731da983c9d73b940",
+     "sha256": "923d681a844e929adcf164d6faf58c82511a437214834e625dc94fd0d276d860",
      "source_sha256": "0359803f834656e7d41e3dca402915a0013e2d2ac4e180436739850d5d59286d"
     }
    ],
@@ -4546,10 +4546,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 10188,
+     "bytes": 10457,
      "kind": "derived",
      "path": "ci/36472063346/results.json",
-     "sha256": "95bb86f74d1740c11711c464b20e854c581b7c894385e84240db007511c59257",
+     "sha256": "637dd7339ee2a289118213997509a0fbaa1ee0a54a429889f4c72d089c3974db",
      "source_sha256": "eb1c54f0d3538e02f24718087661808906a409b15b2d293ccdcbd95ae58da301"
     }
    ],
@@ -4626,10 +4626,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 45187,
+     "bytes": 45456,
      "kind": "derived",
      "path": "ci/36480574662/results.json",
-     "sha256": "f4766a27ff81107932d83ff401bda9b1e49bfb9ec2f6414096c25712dd513117",
+     "sha256": "1ebfe0df7787a70be01e889191b306d78e647e2cd93e570cf2a263861f92c6b7",
      "source_sha256": "942d6444852467723a85b79c8fb8d8468d0f374e1d84af73fd50b81b5003c6cb"
     }
    ],
@@ -4716,10 +4716,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 59005,
+     "bytes": 59274,
      "kind": "derived",
      "path": "ci/36548545143/results.json",
-     "sha256": "6203b07d110c8fc4f69dc4b26a3590c1fc6f0faf51af1a13febdd5d5202cd93c",
+     "sha256": "e6b829d2005acec11fbab18d2735a12a3c871e9ce0c43e3e29f92a28e61cd7d5",
      "source_sha256": "40c0dd56a90a49c22f7604e8fb73e67804a6c6c69874366ac67d1b491c3d2bb0"
     }
    ],
@@ -4796,10 +4796,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 54790,
+     "bytes": 55059,
      "kind": "derived",
      "path": "ci/36561347220/results.json",
-     "sha256": "ca0e595e153f5edb3ce2cc8d789b567ea55dcbcc26db5d0e159340d0886ee982",
+     "sha256": "a275daf7b1ee56dcf5aead73c612f55ba0230ed548770fedced693b1e4ff59c6",
      "source_sha256": "07654430a0cfe87cf0d62469eee24c70ca63da62af417abbcfd8fb8cbaa2baef"
     }
    ],
@@ -4844,7 +4844,7 @@
         "ci/36615421546/results.json"
        ],
        "line": 45,
-       "note": "bridge-excerpt.log: 21 gate steps (toolchain … v3-receipts), all PASS, and \"release gate: PASS\"",
+       "note": "results.json: 21 gate steps (toolchain … v3-receipts), all PASS, and verdict PASS",
        "status": "retained",
        "text": "gate 21 of 21"
       },
@@ -4928,10 +4928,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 10190,
+     "bytes": 10459,
      "kind": "derived",
      "path": "ci/36615421546/results.json",
-     "sha256": "7316857ae3062f3aa9d611272356e05251d804140f808b3dcdec4cf52fc7ad9c",
+     "sha256": "a2585fea73490f1c9e440ded9db63acca4c6725b3ee9e0e4094c1906e67a8de9",
      "source_sha256": "42a5e07595b7dff2ee9f428ff0223361a8f5d2a8889e1dfde159b06185e712be"
     }
    ],
@@ -5008,10 +5008,10 @@
      "source_sha256": "7bd30cb0a73a34fd5cc37da6153966863931ea396cab67c6c5d8b4aa17bdf7cd"
     },
     {
-     "bytes": 12085,
+     "bytes": 12354,
      "kind": "derived",
      "path": "ci/36621973188/results.json",
-     "sha256": "684f62059c2d05cd212898e567707d59cb8a6e8a5f6668d94d4f432f4a65a867",
+     "sha256": "b36e764869e991ba284bfe0866f250cd6aaea1495e49e84113f5b4a13a44c36f",
      "source_sha256": "a5f5af40619ca81fd1a8e05a6491ece06d63874933a9f0d2d8720e7d0963b03e"
     }
    ],
@@ -5104,10 +5104,10 @@
      "source_sha256": "ce914b1a078983e614bb6102a02133b5a7378fd7fd1bd064bcbe114cf4ad6fa5"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/36662954968/results.json",
-     "sha256": "d02004db8ba42d4b52ed485dd112ffee225b0b9b747d48066fd2ba272c18d918",
+     "sha256": "3ba33fefab52f9cf0d12d6e0507de55d69dbbb47300ef331b96cf4f5b18bca85",
      "source_sha256": "744b0529d84a94bcdbecdd02f88ed3bfa2aeac40ef3faf911485e2b2f11b5ba3"
     }
    ],
@@ -5192,10 +5192,10 @@
      "source_sha256": "8a750c40a6a0200d600240d00f9251f9135dfec3226635b53ed2cefa3f1be32b"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/36666970373/results.json",
-     "sha256": "97f685c4c86450e2057746420f38c4100086ec08b9cf45a4753fdcdaa1d75917",
+     "sha256": "f39fc5e32fd582b21c2b4a5e4f25de86345808949320e2f50ad4670b31bae1fb",
      "source_sha256": "519cb5425787de7e2347ce1814d811a9d232e4ea28dea40cb828f89827a21bae"
     }
    ],
@@ -5319,10 +5319,10 @@
      "source_sha256": "ae17ce34dbf1785150b8c9d4517bb6b0d39f6aa9bfc923fb83b32517723a4a35"
     },
     {
-     "bytes": 10188,
+     "bytes": 10457,
      "kind": "derived",
      "path": "ci/36731516115/results.json",
-     "sha256": "1bb1b691969e4fb806b6c63e59423166144f4e36620f0c6574b5cf75cccdaaa8",
+     "sha256": "78065dcfde288218dcde59255f3ce62ed421208999130033b06bcf8f7ccfd77d",
      "source_sha256": "bec5a4ac5ba82ae3bd14b6fb856a31fe281300469c6d15852c3a9f874898c648"
     }
    ],
@@ -5407,10 +5407,10 @@
      "source_sha256": "cb34259904c0f5d9d9908a123da329e80232a9162b9020a8c63a54403a19b06e"
     },
     {
-     "bytes": 10235,
+     "bytes": 10504,
      "kind": "derived",
      "path": "ci/36747267290/results.json",
-     "sha256": "0c07ac5f86b51aec757d44f3123cdb14c9d82667300b0112fbd57133203b52e9",
+     "sha256": "49f26942dbcb4ffc750513e5ad573942d9bdc2f971bb1b2f126c0fab7b6f30a2",
      "source_sha256": "c589d9390b1ea322f2b5b50727741ba984606d01da222554f1931b620cce308a"
     }
    ],
@@ -5474,7 +5474,7 @@
         "ci/36772881017/results.json"
        ],
        "line": 16,
-       "note": "excerpt: 21 PASS steps, verdict PASS",
+       "note": "results.json: 21 PASS steps, verdict PASS",
        "status": "retained",
        "text": "release gate 21 of 21"
       },
@@ -5599,10 +5599,10 @@
      "source_sha256": "a115390ef188e8bccd6c93efdfd6d5b2b23c5f346681bef50004a2514c820a56"
     },
     {
-     "bytes": 10190,
+     "bytes": 10459,
      "kind": "derived",
      "path": "ci/36772881017/results.json",
-     "sha256": "dc08ad2d85b46152d6ce68e1a8a922abf255ac95739137ecf6179b6839271802",
+     "sha256": "53e17dc5811e68fd8d794a4b80474c4565683e97eec517b2ef06cec2b5ad2d40",
      "source_sha256": "20e090bfcf149d130186edb6f7c618c6b6e32f50a7bab83ef25f8daa0c9657b3"
     }
    ],
@@ -5704,7 +5704,7 @@
         "ci/36841329495/results.json"
        ],
        "line": 50,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate 21 of 21"
       },
@@ -5823,10 +5823,10 @@
      "source_sha256": "9dfcbc563aa2dc551a2396f60bf92a71edac3802645180af4a254a3f8da5115e"
     },
     {
-     "bytes": 10190,
+     "bytes": 10459,
      "kind": "derived",
      "path": "ci/36841329495/results.json",
-     "sha256": "69f3a4354942f2279cd81bc2bd59689d379e43043f5ed250a302abd3e281a5ef",
+     "sha256": "1990f8ad6fe4d6d6f4865cbbff3036af877550ddfd6648a66644155d6134f17c",
      "source_sha256": "87ad011cbcaf8ea4ac205e91f650fb962ea0a4e1e7774d74e0f26ce98490b18c"
     }
    ],
@@ -5911,10 +5911,10 @@
      "source_sha256": "6bda83981d089874cd97c27986a6430ae21d45d8372aa7f98587c02435fbe0ae"
     },
     {
-     "bytes": 10241,
+     "bytes": 10510,
      "kind": "derived",
      "path": "ci/36862525395/results.json",
-     "sha256": "b2b8fd7ad1c57d1c100a84195af6115cb9b6b6804d6810a9b85b01f2311c02a8",
+     "sha256": "c01f3ac4dddaa292b18db0c1187e138b693eab63fdc4b8ec53546bbd87e3ff16",
      "source_sha256": "410ad55c98867e7e686514f4b0fadeca221007d09c835a56aabb8e6f1aabed76"
     }
    ],
@@ -6008,7 +6008,7 @@
         "ci/36964248550/results.json"
        ],
        "line": 53,
-       "note": "bridge-excerpt.log: \"lean_axiom_check: OK (5355 named result(s) reported, no sorr\"",
+       "note": "results.json: gate step lean-axioms PASS, 'lean_axiom_check: OK (5355 named result(s) reported, no sorr'",
        "status": "retained",
        "text": "`lean-axioms` 5355"
       },
@@ -6027,7 +6027,7 @@
         "ci/36964248550/results.json"
        ],
        "line": 53,
-       "note": "bridge-excerpt.log: 21 gate steps (toolchain … v3-receipts), all PASS, and \"release gate: PASS\"",
+       "note": "results.json: 21 gate steps (toolchain … v3-receipts), all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate 21 of 21"
       }
@@ -6104,10 +6104,10 @@
      "source_sha256": "acea3e97f52ee3064b0b206244bcbfd56a20966e5b62e5346af0f32e26d0cbb6"
     },
     {
-     "bytes": 10428,
+     "bytes": 10697,
      "kind": "derived",
      "path": "ci/36964248550/results.json",
-     "sha256": "5d5e45d438a399062c403650e30d2dc31683724e4448f1e71a96157f38823aa3",
+     "sha256": "d486d0f3851912b2eba5de2a1b39e25eaef55f3a5e3c7cfaf7c148769ab8598b",
      "source_sha256": "8e177adfec4ecb8d2ac6a1c91eeb67caf159cfcba58aa785bd750669a48f3d30"
     }
    ],
@@ -6183,10 +6183,10 @@
      "source_sha256": "2576323e3c8060b4c1eb6ef247cb9e3d74138d8dc994b5b03ae0ae8cb59de0ca"
     },
     {
-     "bytes": 10522,
+     "bytes": 10791,
      "kind": "derived",
      "path": "ci/36967960295/results.json",
-     "sha256": "2b4cd556dcc524cb68275ba90561bfab7b500b30047d42fd8acb96a78e15c889",
+     "sha256": "2875a54a4398ea97dac21ab466f997fdf6fbd53a81c9e504641dd4a141527fd5",
      "source_sha256": "ec242252fafe970341714b13e7f1dcaa9a2828452addfb12c8994b532ca2ad60"
     }
    ],
@@ -6285,7 +6285,7 @@
       },
       {
        "line": 49,
-       "note": "the value 5439 is carried by this run's excerpt; D's run is not among this entry's files",
+       "note": "the value 5439 is carried by this run's results.json; D's run is not among this entry's files",
        "status": "not retained",
        "text": "as at `D`"
       },
@@ -6294,7 +6294,7 @@
         "ci/36983538236/results.json"
        ],
        "line": 49,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate 21 of 21"
       },
@@ -6380,10 +6380,10 @@
      "source_sha256": "1920db8860c053a11cae01e9c8a99871070de4261011f824f31fb433dae2dd1b"
     },
     {
-     "bytes": 10202,
+     "bytes": 10471,
      "kind": "derived",
      "path": "ci/36983538236/results.json",
-     "sha256": "68cd4cdc6f76403fd020ae4ecf4061a01254dae5cbd1f6c076deb7ea2347af51",
+     "sha256": "65a83514bcac6cbdccb540fdc98fbd93bcf694f10fceba77483fe7b87ccdeba4",
      "source_sha256": "30fc9a59c0d3b4548cc0cd41c3c3008e2dc275c6a7662c41fab799f73db0dfae"
     }
    ],
@@ -6483,7 +6483,7 @@
         "ci/36983545819/results.json"
        ],
        "line": 51,
-       "note": "excerpt: 21 PASS steps, verdict PASS",
+       "note": "results.json: 21 PASS steps, verdict PASS",
        "status": "retained",
        "text": "release gate 21 of 21"
       },
@@ -6560,10 +6560,10 @@
      "source_sha256": "7b184e12842e92fe6ad758cdf2116dc1d8671544779c6c84fd0d556e32b694ec"
     },
     {
-     "bytes": 10190,
+     "bytes": 10459,
      "kind": "derived",
      "path": "ci/36983545819/results.json",
-     "sha256": "fa22ff0de4fdb4b5f17674dd4529d15f85f8c57015e9db477240e6d011510299",
+     "sha256": "4bfd24590c104ad9276846d8e93d71e695513a4edd86a6ec081ca1ea58cbf495",
      "source_sha256": "7072a004dac5897ffa0ec7c6d24ad9c6f71a64468763464fcf2e37cd473e166c"
     }
    ],
@@ -6648,10 +6648,10 @@
      "source_sha256": "053524d6c4d49c3d3ff30a94069ea7f6c603c3e94c8ad6f2072a19257098bf52"
     },
     {
-     "bytes": 10249,
+     "bytes": 10518,
      "kind": "derived",
      "path": "ci/36990216533/results.json",
-     "sha256": "7edd60870105667ab5fec94857c58a757f266ba4318ea7d6ea46811947901b7e",
+     "sha256": "9e4e001466e953a3067ed78604b892dc41493768fc8cc2d8fbdea1a2d67cee07",
      "source_sha256": "d4f9a9b709e3ef86062b1429b05a4708ee8979a1c955393e2c091082261fec3f"
     }
    ],
@@ -6736,10 +6736,10 @@
      "source_sha256": "2bc4f1051cdefef04fea547fcc99d867af4d3de133cf9e780728192d475dc0e5"
     },
     {
-     "bytes": 10237,
+     "bytes": 10506,
      "kind": "derived",
      "path": "ci/36990219147/results.json",
-     "sha256": "ffe5d2e7db45d9aeff3c7494b023a7b5c2d98ea8f12cfc3cf3664b90c4cf3cc5",
+     "sha256": "97a59a5f6a191b573ec0670701dbe03d21838f70c893e66227c9288539653e65",
      "source_sha256": "05646eb869fdc30ecf78fb85b21066d4c2b9e56830abe40fd34bc71fd55ec9f2"
     }
    ],
@@ -6838,7 +6838,7 @@
       },
       {
        "line": 53,
-       "note": "the value 5475 is carried by this run's excerpt; D's run is not among this entry's files",
+       "note": "the value 5475 is carried by this run's results.json; D's run is not among this entry's files",
        "status": "not retained",
        "text": "as at `D`"
       },
@@ -6847,7 +6847,7 @@
         "ci/37021207087/results.json"
        ],
        "line": 53,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate 21 of 21"
       },
@@ -6933,10 +6933,10 @@
      "source_sha256": "352e1e27b07bceb268023e61770415da1de37f303df81d0e362a1c9a52de8694"
     },
     {
-     "bytes": 10192,
+     "bytes": 10461,
      "kind": "derived",
      "path": "ci/37021207087/results.json",
-     "sha256": "42b9a38b13e5015c0a8c758ff012b87cb79cb98cdd178078a6492a2704e2454b",
+     "sha256": "60e0fb85a165b3cfb0475e96bebee54e825cc03ea7e5da75069e920c9c3b20e8",
      "source_sha256": "a861d55adfdfd3024ea13e2ba488c92c72156faa8c2e055d8ed6e8bed660d6f3"
     }
    ],
@@ -7012,10 +7012,10 @@
      "source_sha256": "990897135ee48a2402d3fc39147394e3149e5b0b4dde9f1fa2d77b886fa5eb93"
     },
     {
-     "bytes": 10239,
+     "bytes": 10508,
      "kind": "derived",
      "path": "ci/37026174796/results.json",
-     "sha256": "7e313acb9f55df235c66acfc3669ef3b8bd5262d2801ca5a75a13ffa21229af9",
+     "sha256": "b592d106342bfb1070d7d79fc6490f834466fa2d5733676750acf37210d17130",
      "source_sha256": "bccb9cbe452b9d89864e96f93b0d260ee37d32070310854eef1a39dd891961ee"
     }
    ],
@@ -7139,10 +7139,10 @@
      "source_sha256": "3954929bb274b67d7e78f8a8e4bc7d9b6e84f37a2605c97e449597d8ea268b16"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37142054525/results.json",
-     "sha256": "c4ad32729d7b6abe5fa8469e8c56fd96d3d26f5486551a464c1cb1a03fa57097",
+     "sha256": "4ea1b2a936ce2d94b0342bccca87f71efe80b4a74560521eb6258b46fdcb9a7b",
      "source_sha256": "42e4eb328c63eb73344a56f0be23334eb254e072d2faf69945d2590385f70378"
     }
    ],
@@ -7266,10 +7266,10 @@
      "source_sha256": "5edd40412373a0cb98b2facfe383415d95a7f6ea4e54511ed9ba873fee5fa34b"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37148141531/results.json",
-     "sha256": "1febc88b99f2d8f9d52ddfa9f4bfd11f4662a655906d5eea03dac7d1b4659b45",
+     "sha256": "f7c4bb0a5297e4a4aa6f4c4be338e41623f86c206dc7f51d9bebf6dff6089417",
      "source_sha256": "7a98e42407eaa2e4b2c30c9d04c1698e5c6b4e1c753896a3a67adfd52902069f"
     }
    ],
@@ -7354,10 +7354,10 @@
      "source_sha256": "2628339ae5df5fe1386ffa88458b30de43de64d511f38908dcd4c77226e2ef59"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37149798654/results.json",
-     "sha256": "3ff2b565b40d875b16e317867b3c9af0f1907b899fefba9ba31c1946af7d2af4",
+     "sha256": "ef08fe3b0d0c82edd5e548133b7bfbc16f7f6170facae12bc9b5849c23ee2125",
      "source_sha256": "f086841e9bf7cedf69b44b6e62cf14a93f10dd2bc22f9044262d8970ecd2f852"
     }
    ],
@@ -7499,10 +7499,10 @@
      "source_sha256": "11733caa389a51e3fe6b5bbb54e42cfde48c586a6bc763823b45b528087a820e"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37165488993/results.json",
-     "sha256": "c4d30b4f62d5ecea7164bf19130d0c468488fc143f3ee6b1965711d81a35a7fa",
+     "sha256": "5e3de2cb8f598e681382df5d9bd8202f13589fd9807fd29fef7ecfd818fce0ea",
      "source_sha256": "0d9774a3170df543c5d34627a4c5a28ad712fc37abfbadbecb4f400432147d11"
     }
    ],
@@ -7578,10 +7578,10 @@
      "source_sha256": "a5f5a6bf8b36c435184960ddf12088abe4ee49900e2f51af0b7d5d66a55903ba"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37209971891/results.json",
-     "sha256": "b7feb7b0fba9587b2d59e703cc0b2a967e323ddc8021cfe29f9852d1c440533d",
+     "sha256": "2307995b93c6252bb95e7d72370250895823bb0cd47f7076a9b2bfe63befd397",
      "source_sha256": "0cf1deef0c90df5880f22a2854006bd8cc716c33b8f5f8374c10fff484444b4f"
     }
    ],
@@ -7675,7 +7675,7 @@
         "ci/37224683945/results.json"
        ],
        "line": 71,
-       "note": "bridge-excerpt.log: \"lean_axiom_check: OK (5491 named result(s) reported, no sorr\"",
+       "note": "results.json: gate step lean-axioms PASS, 'lean_axiom_check: OK (5491 named result(s) reported, no sorr'",
        "status": "retained",
        "text": "`lean-axioms` 5491"
       },
@@ -7694,7 +7694,7 @@
         "ci/37224683945/results.json"
        ],
        "line": 71,
-       "note": "bridge-excerpt.log: 21 gate steps, all PASS, and \"release gate: PASS\"",
+       "note": "results.json: 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate PASS"
       }
@@ -7771,10 +7771,10 @@
      "source_sha256": "48c76077d8f1808e58d4ec44c14c4a68b338bbea082a094bdfe38915620abcaf"
     },
     {
-     "bytes": 10188,
+     "bytes": 10457,
      "kind": "derived",
      "path": "ci/37224683945/results.json",
-     "sha256": "24ae10c8909826e4374152e4e98aaf305146602916570254ffd74b2329634f0a",
+     "sha256": "dbf2b98fcec605692bbc5a1d3a31f9bfbf379843362ff3ed2246f4545f995f4c",
      "source_sha256": "00df46df58014ee5876e97eede27e5a69aceebb42592461ede4d1c40209848a5"
     }
    ],
@@ -7850,10 +7850,10 @@
      "source_sha256": "4229fc863e57bbe0a438b422361e4bb93c80c8a795e0fe5770e8ce470f648e76"
     },
     {
-     "bytes": 10235,
+     "bytes": 10504,
      "kind": "derived",
      "path": "ci/37228318632/results.json",
-     "sha256": "08e2ab86aad71e9013285cf3a631f02d4751a384bdeb5026f6391df4f9d55973",
+     "sha256": "364c64a300cf1412e15ca05bdb638db2f474b83ecb378b9ba7159fd7c70a97cc",
      "source_sha256": "1e2e7bf21548604e5070d2a163b4a931a18d772ebfa6c5b45eeae64fed6ea890"
     }
    ],
@@ -7952,7 +7952,7 @@
       },
       {
        "line": 64,
-       "note": "the value 5517 is carried by this run's excerpt; D's run is not among this entry's files",
+       "note": "the value 5517 is carried by this run's results.json; D's run is not among this entry's files",
        "status": "not retained",
        "text": "as at `D`"
       },
@@ -7961,7 +7961,7 @@
         "ci/37233878948/results.json"
        ],
        "line": 64,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate PASS"
       },
@@ -8047,10 +8047,10 @@
      "source_sha256": "2efab503534486286057086929988e03783538076d38d16e031554760911fcd7"
     },
     {
-     "bytes": 10192,
+     "bytes": 10461,
      "kind": "derived",
      "path": "ci/37233878948/results.json",
-     "sha256": "c2ba35061f4c870a5f6449dda904900b06e6fcb634f7f986fd17fb27cbdff1a2",
+     "sha256": "03959da384727c925d5e9547e28d4802a7aabb9a0128ede0093afa2b267527cb",
      "source_sha256": "a50a303cf8cff4ade3fc4301d14c9faa2a44d798dbadf8921d14c58dae27b99b"
     }
    ],
@@ -8126,10 +8126,10 @@
      "source_sha256": "89008c42cb032d51faececad0caa0ea9896fb3a0c6383cde23fd925656eebfbb"
     },
     {
-     "bytes": 10239,
+     "bytes": 10508,
      "kind": "derived",
      "path": "ci/37237375751/results.json",
-     "sha256": "040e5a696e229a0b8b3a0a5c7760d09338ac6ef9d9ee720f3f5a7764c6e040c2",
+     "sha256": "4bbeb2f365cc88650debbd0f63001dc27816456dd8b5da7d3473a926c4f45154",
      "source_sha256": "2a418fd1856bdd815b227a35e65e132828708273a8d2150acedd94b7560eb9b7"
     }
    ],
@@ -8229,7 +8229,7 @@
         "ci/37264389776/results.json"
        ],
        "line": 64,
-       "note": "excerpt: 21 PASS steps, verdict release gate: PASS",
+       "note": "results.json: 21 PASS steps, verdict PASS",
        "status": "retained",
        "text": "release gate PASS"
       },
@@ -8306,10 +8306,10 @@
      "source_sha256": "b31e1c1460e14498955252adcd68af7111f76503d9862ccf66b3b1b869b09e9b"
     },
     {
-     "bytes": 10196,
+     "bytes": 10465,
      "kind": "derived",
      "path": "ci/37264389776/results.json",
-     "sha256": "69fb3311fe687640dbb80149d878f82a4577dcb27286d58d1bfb741323ecc30a",
+     "sha256": "6eb89786143876e3e10d0fde13eefdd8616fe74b32f76364a3c4902fed4c0b53",
      "source_sha256": "a5522f6634bf8feaef9f47ecf9bd78bd622376bbf23ceaa03718f403bbe5fecb"
     }
    ],
@@ -8394,10 +8394,10 @@
      "source_sha256": "a9d3941da3994bc533d636f75093a1e9fc37bb432c253d3cbacc10e24d58f2e0"
     },
     {
-     "bytes": 10245,
+     "bytes": 10514,
      "kind": "derived",
      "path": "ci/37272878865/results.json",
-     "sha256": "137874cf19f3081e2949e7ac72d39c9952227fc3457cd07d50db9d82fc7697c0",
+     "sha256": "a4eb7c555f3b30afdc9015adc1fc7a9f8067ab3ad6d4fb7724f4b03cf08b4245",
      "source_sha256": "01ae241657ef79fc04d5c858b749e7216228980c5eea415d06a8e6e61f6999e1"
     }
    ],
@@ -8491,7 +8491,7 @@
         "ci/37288883017/results.json"
        ],
        "line": 66,
-       "note": "bridge-excerpt.log: \"lean_axiom_check: OK (5616 named result(s) reported, no sorr\"",
+       "note": "results.json: gate step lean-axioms PASS, 'lean_axiom_check: OK (5616 named result(s) reported, no sorr'",
        "status": "retained",
        "text": "`lean-axioms` 5616"
       },
@@ -8510,7 +8510,7 @@
         "ci/37288883017/results.json"
        ],
        "line": 66,
-       "note": "bridge-excerpt.log: 21 gate steps, all PASS, and \"release gate: PASS\"",
+       "note": "results.json: 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate PASS"
       }
@@ -8587,10 +8587,10 @@
      "source_sha256": "563e446994960db638515eff016b1c853e781242ae338818b612e69a99d32afc"
     },
     {
-     "bytes": 10196,
+     "bytes": 10465,
      "kind": "derived",
      "path": "ci/37288883017/results.json",
-     "sha256": "b0ac3b48dc73c29fa5ca0a70214e56b4f4580ea49ed8775d3ef30a0a5b421fbf",
+     "sha256": "8274689543bb330b86d6baca6346a4c7443c1d18be043c2527e2ceab88e5af14",
      "source_sha256": "9aec9a8ffd012ab6501b1dbaf06ddd2b426e0e2966757508bc40f578195d51a5"
     }
    ],
@@ -8675,10 +8675,10 @@
      "source_sha256": "6759c63b660bc4e6cfc493e98cdb7973a9e64339a13dc158a26005fcc285c0c9"
     },
     {
-     "bytes": 10399,
+     "bytes": 10668,
      "kind": "derived",
      "path": "ci/37301654513/results.json",
-     "sha256": "9eca2e41958ba23d5c1252b9978857eb2241861f83706e9866a42df2aebdf530",
+     "sha256": "67ae45cb17bb46d5283d7c8210bd50b9625e07ae25d5a6ca62bc0dfbe4c5d6b3",
      "source_sha256": "eb9fe51910c827ebce4c12b5bcf1d2a879f3ab695ab7667d1478af6ea200a022"
     }
    ],
@@ -8754,13 +8754,13 @@
         "ci/37337331051/results.json"
        ],
        "line": 42,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "release gate PASS"
       },
       {
        "line": 42,
-       "note": "this run's excerpt carries lean-axioms 5702 named results and a passing lean-manuscript census; D's run is not among this entry's files, so the equality with D is not carried",
+       "note": "this run's results.json carries lean-axioms 5702 named results and a passing lean-manuscript census; D's run is not among this entry's files, so the equality with D is not carried",
        "status": "not retained",
        "text": "the census of `D`"
       },
@@ -8846,10 +8846,10 @@
      "source_sha256": "3bea691981690bf15c3b7bdcd56c77257c23da45e46766cacc54f86c82585330"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37337331051/results.json",
-     "sha256": "27be7ebc01fd8feedbf34dd3d7c68dd620e0cb68f514ef67c5891df35b886cb0",
+     "sha256": "afbbf1956b214ef5ec27120d579329647613d9b8e0db1866c8dde55af7c0a094",
      "source_sha256": "3879a22ac3f5c97efb41a8b915bffebe1513e80341c7e13981a603b007e9f6e2"
     }
    ],
@@ -8925,10 +8925,10 @@
      "source_sha256": "aff05a0553941a5c7b99be701cb1893edf33f01393b6c0f2b8e47beb64533e75"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37343077256/results.json",
-     "sha256": "f3ba217308134664fe189dd0dcb434dc89e705bc7cdef4b95f56d33ab881b39b",
+     "sha256": "76e1a257c522970ab2de85a554489abc1583cbc943913fbcbde182424599a358",
      "source_sha256": "42896e503c07b7192bab3f7b6e843731768a165c9a4b886700274158519b19d9"
     }
    ],
@@ -9043,10 +9043,10 @@
      "source_sha256": "e6b486aaac60e95de7639110e76b301550b41f34aaccd4e8de5039c6d4ee2a06"
     },
     {
-     "bytes": 10182,
+     "bytes": 10451,
      "kind": "derived",
      "path": "ci/37416488623/results.json",
-     "sha256": "5e0986b0d7c28c74ecb95fb327047b57f00687e5674e996cb0d60b5ab0ab6b10",
+     "sha256": "1f33e095978de694d9b42e29ceb978b47eef7ff99721037d7ddb1e1c5a7922e1",
      "source_sha256": "3154db58898f565567f5a4c394f0406b50265e184c196bf302acca79e6134e85"
     }
    ],
@@ -9131,10 +9131,10 @@
      "source_sha256": "39572d02424a677e57208c9efffe873f994c3c78dacdbb949f705519c7f5d489"
     },
     {
-     "bytes": 10229,
+     "bytes": 10498,
      "kind": "derived",
      "path": "ci/37419756840/results.json",
-     "sha256": "0d2b9eb1e1ce8778aa09dc26854297510dbdef2da44aa8312cfaf39ea28479cf",
+     "sha256": "12bc0134201f8c1f8191d46a791b2a49ab088c4c0ed26be59abbc0a6e0a7bab6",
      "source_sha256": "f0c45c6763c367f67d92dd4de2221664806c10a75586abc10870977aff9d11ae"
     }
    ],
@@ -9267,10 +9267,10 @@
      "source_sha256": "633534bda0455d6d3c12e52b1ef1a8516705dd2136c09aacf68dbfb29fff91f7"
     },
     {
-     "bytes": 10176,
+     "bytes": 10445,
      "kind": "derived",
      "path": "ci/37439409368/results.json",
-     "sha256": "8dd2fa50c64b9a9ec025d4e792b9283cde96efb8e7d3b0cb421ae92e8f91ec7f",
+     "sha256": "c800405d5cede4e20c5fe97e73146cc12f5211d004c1238c1474051807134693",
      "source_sha256": "dc9f69c2849f78a389489cfbf698e16b0c0e3b36a3ea610ec3fffcfa520f2a9f"
     }
    ],
@@ -9355,10 +9355,10 @@
      "source_sha256": "64853e9e3ec741c80f021f333e0d6d848dc9736c77336a3779bbc0a94d68a304"
     },
     {
-     "bytes": 10223,
+     "bytes": 10492,
      "kind": "derived",
      "path": "ci/37448159098/results.json",
-     "sha256": "adbd5c7e412da73c187dfdb06c9ce2209dff0e485a791c3d04f83a11757c27d5",
+     "sha256": "2682b206d095fd0bbb176a82f972bcee49d5669822e24eaabf172347b070a986",
      "source_sha256": "898278fe0d6c776b20856108649eb387c1904989ab92817d3601a92a80c6b7b7"
     }
    ],
@@ -9473,10 +9473,10 @@
      "source_sha256": "186d383b0d0b2a45d234247c678750bad524d4940eb82bcc0f4d717f6ecdd738"
     },
     {
-     "bytes": 10174,
+     "bytes": 10443,
      "kind": "derived",
      "path": "ci/37476267644/results.json",
-     "sha256": "8c0b0a78dafd2ccb4e758242ea6633aafe383fc5dea09a2568ce7c78607627a8",
+     "sha256": "f1e26d5f0ac42b713bea6eb6001a405f7d66002885b22cab1aa75751b4e3fd30",
      "source_sha256": "a3b2cd08173510c43dafaca872747a532fc5108654ea5cbcb1c7279a332f192b"
     }
    ],
@@ -9561,10 +9561,10 @@
      "source_sha256": "7dcc33142a9e20ca5f75d2f459a5dbf6668f949689d08cf787861c265c75f1a5"
     },
     {
-     "bytes": 10221,
+     "bytes": 10490,
      "kind": "derived",
      "path": "ci/37482167276/results.json",
-     "sha256": "9e3d80cf03b5712d4ee3615c59618f81638908a6005b080be6fdbc21c83a6a37",
+     "sha256": "62d9f273985cb4d57a89104360813bc03716a98b17d2c40fe216d884e5d86f1a",
      "source_sha256": "8f981d9436e2bb235b3908adf38d25d08b91c0b0a79928f07bc9e69c6a9fd620"
     }
    ],
@@ -9697,10 +9697,10 @@
      "source_sha256": "9faac312366bc1bfb1de706c22210ebb3904c68bfde597072737e04471dd8a2a"
     },
     {
-     "bytes": 10180,
+     "bytes": 10449,
      "kind": "derived",
      "path": "ci/37503335458/results.json",
-     "sha256": "fdc2a15b19fec3c0b8f4958d50238937b495d5ad3d36feaee1813e329edf7dbe",
+     "sha256": "20a2ac8a57547578756f2271e13e26cea09c7842fd484f79ab9be344e4cba39a",
      "source_sha256": "391fabec0baec9805b61d40f60e9a67bc0775ecd91c4aaf6174c6eaebd48f6b9"
     }
    ],
@@ -9785,10 +9785,10 @@
      "source_sha256": "cab8c27edd1e8ca022fbe970da5b7f593ebbe0849aae4adac479a3b9a7be0036"
     },
     {
-     "bytes": 10227,
+     "bytes": 10496,
      "kind": "derived",
      "path": "ci/37511855588/results.json",
-     "sha256": "4dedd69b3760948469ddf84bdb7b10959cb4abf3cf76ba8509f0fd9e34ddd76f",
+     "sha256": "ff86b7f1e6219218ad3ea577af9fe93fd3c33ab89412107f1b27e3c03e9e4402",
      "source_sha256": "ca5277595147489ee234b5fca1e53b1a4aea3cd244f35864d9530a830f2f6536"
     }
    ],
@@ -9903,10 +9903,10 @@
      "source_sha256": "6b29db8c0d8e6f51ba324253ba5a8dd6422ed213badada96437eafff61acf804"
     },
     {
-     "bytes": 10180,
+     "bytes": 10449,
      "kind": "derived",
      "path": "ci/37570742926/results.json",
-     "sha256": "3b758860a3e3536257698dc0d0caaed1f316f887c26b3158af818c25531620e6",
+     "sha256": "e97eee895fcdf7e6db0854e275a28e3db045b8862f1c32b89c8f306d89f7bd55",
      "source_sha256": "88c2afe207cb6a4ee5b5c167973256e6dd0d703a60a8ef10edc316ace9b15a4a"
     }
    ],
@@ -9991,10 +9991,10 @@
      "source_sha256": "633ef04e1ded4cd90593ebdca1438a3fa1947c8e5e57bed9544457296c93b6ad"
     },
     {
-     "bytes": 10227,
+     "bytes": 10496,
      "kind": "derived",
      "path": "ci/37577138373/results.json",
-     "sha256": "a7eea12337494dd7784985e47fed6097eb9ed645faf60f20e7ae1e95f474e222",
+     "sha256": "452e8636d189c252e354d1eb39b31557ef2cd06fc9045a40a23f8a0d896301cb",
      "source_sha256": "1d562de597f8d51550da5d37b1ed92e16662a5a54e01455e6f0e0216642ea1b6"
     }
    ],
@@ -10127,10 +10127,10 @@
      "source_sha256": "126f3141301dd3cfc238f3a7029202267509674258976c7f141b8b177bee8070"
     },
     {
-     "bytes": 10178,
+     "bytes": 10447,
      "kind": "derived",
      "path": "ci/37610937637/results.json",
-     "sha256": "401bf7bc46c4eff56a7d4d6e1d5355752b56b205d41bb0cf350ca4fa955c0a33",
+     "sha256": "93452bb6db368f9de2898b16e9e72eb2b37f29acf6cdc1aebc46f4b97d74dec0",
      "source_sha256": "b6c23d188055bc59181bbef28c2f13838f14ad845c6b89e197b6dd0d6e76ee10"
     }
    ],
@@ -10215,10 +10215,10 @@
      "source_sha256": "bf08cb79096edaf63d0170b477b39511948ff2c07e426d8d7310ac26148180ac"
     },
     {
-     "bytes": 10225,
+     "bytes": 10494,
      "kind": "derived",
      "path": "ci/37621575692/results.json",
-     "sha256": "7d0ce70826afa96344defb778d6f1213f0c9855d51759cc597b8b513271ea708",
+     "sha256": "96e36cf983841dbdaf3ce2e413da17fd0d65561cd6327b257268394ec278607f",
      "source_sha256": "32c78430ee74e51234742f0e8e70ce84a601eb6ccdc85ba884555e516f5bdd2e"
     }
    ],
@@ -10333,10 +10333,10 @@
      "source_sha256": "f69c1be99907887798c18739716f9055d424bb42e2e8cc683d7c8616ee3c718a"
     },
     {
-     "bytes": 10174,
+     "bytes": 10443,
      "kind": "derived",
      "path": "ci/37656780308/results.json",
-     "sha256": "f7b8e868178123c1facbd4ff4ccf8a6c0a9681e71afa033d73d7bd9e1843b810",
+     "sha256": "1bc09d96a34ea47749b8ef1283e0657d05f52f3ba40111fd35f3b3890b26b574",
      "source_sha256": "f0c3f0585e9dc6843d1f3ce5c9087bb1068b9a1b1e04550c1e29f87299266965"
     }
    ],
@@ -10421,10 +10421,10 @@
      "source_sha256": "8b125aace36ddf88d39957f00651c43913c91b6f475d9dedf29b2ec71152b025"
     },
     {
-     "bytes": 10221,
+     "bytes": 10490,
      "kind": "derived",
      "path": "ci/37661372161/results.json",
-     "sha256": "cb6e134510b3b98b8d2010fd045f0f364edddde6c10a4bbfa1abcee1c4ccf29e",
+     "sha256": "71b3b9327c7ef45e6f15404208d3cf2eaf2ce8babccf317b45211f97abbbed64",
      "source_sha256": "6b6ba8a030c2c6d41c13c72918b2e2ae8efe78e2c45f624637494c6fc71f3c7f"
     }
    ],
@@ -10567,10 +10567,10 @@
      "source_sha256": "e9468a2c0690588b274b8a2004ac13a45350f7bddb60be58f12bf44f8e35a2c1"
     },
     {
-     "bytes": 10886,
+     "bytes": 11155,
      "kind": "derived",
      "path": "ci/37727395526/results.json",
-     "sha256": "859523814f58016742425bab0dd4d8255f44d25b2aca1f9afc9789ef634dce8a",
+     "sha256": "48fe8a9ed7afb626e3c6ece997c9afbb9218285a35162d77037dfff870530db2",
      "source_sha256": "b72496fae8e4057c022e6a767426f89dedcb665602aebfc1179ac38b2a70c508"
     }
    ],
@@ -10655,10 +10655,10 @@
      "source_sha256": "8e15403e29e7f63c4cb576cdf806a02613883c9a393613a16a328120d684dbc3"
     },
     {
-     "bytes": 11072,
+     "bytes": 11341,
      "kind": "derived",
      "path": "ci/37734381834/results.json",
-     "sha256": "2e4562947fc4b8433d7d19731d8020e8c31ec7cbb05b2fecf03c48062043368e",
+     "sha256": "f83c626841456d02a996fa669ae1940a5aff9ea8004a4036d7eefd5aba07def7",
      "source_sha256": "b0a4cd4af2fb8bb2698824fff3448742cd378eec6cd15035d5c1847db35ae405"
     }
    ],
@@ -10763,10 +10763,10 @@
      "source_sha256": "ff61ae6e77684b501598cbc911d036d0ea8bb38e427fff580ccc9e432434da78"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37975083454/results.json",
-     "sha256": "c76911915f89f792951f0032b5d226dbf63934312522c8bc62420f8514532650",
+     "sha256": "a614ebda175ba55670dc46e34e32ef0153f0aa3fcec623c7e423370073506dfa",
      "source_sha256": "d53392a2395ccadbf54ce0a7d19ff690e423af6cc2d103f3436dad3a9ec9c03f"
     }
    ],
@@ -10851,10 +10851,10 @@
      "source_sha256": "398d36ff88c97bb6f732003fa73be8fadb2dfb69b6cba29de701a9de47bae44b"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/37982199559/results.json",
-     "sha256": "a2d87632b65a295a1b8a447b1ffc49256488dbd49e2b6fceb02e57abb442ca40",
+     "sha256": "abbec0ce2174ac3fffe5d568e70f6e624065bae27354033feebfe18f6c77fd86",
      "source_sha256": "3bdba2db0c2189ba3ae0e57f6517ffe14e8f293dabf9f59f66d019336a521809"
     }
    ],
@@ -11005,10 +11005,10 @@
      "source_sha256": "9228a6d053b93c75004eb3f54c0136c986b74e8607cd2e6af7de4903ba7df8bf"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/38164920166/results.json",
-     "sha256": "e62892cc79badf8c4423e4894a7c25ea61ced2e1f89496fff88b703c3ceb2855",
+     "sha256": "1e7485d2f36608204005aae8998a6986b2ec9103f814640ae32df84f72713187",
      "source_sha256": "2c89e03abaf34341bdfe42015b9d71761bba1a6d424859dde0fcdb5ac1260524"
     }
    ],
@@ -11137,10 +11137,10 @@
      "source_sha256": "a2aca259405585804ffaf5bece97cff2bbd583a13cd1501f45975f8dc3a8bd37"
     },
     {
-     "bytes": 5473,
+     "bytes": 5742,
      "kind": "derived",
      "path": "ci/38168537087/results.json",
-     "sha256": "bc775c90a789febd4e5dfacd5c4351bf3176294022b03e2c2c32ec0194d02505",
+     "sha256": "d3d6dab2f08109b6b897210b9154ab5898b3e120fee6357e0d8daad3d4c7c906",
      "source_sha256": "030d804aa6b9e82eb4d09571e75c969e31f35018099cb97dca4b740c05719fc8"
     }
    ],
@@ -11236,10 +11236,10 @@
      "source_sha256": "986bc9f37b30233df2dc8a455167ce7a700d70df517772b97c98ce1838599786"
     },
     {
-     "bytes": 11554,
+     "bytes": 11823,
      "kind": "derived",
      "path": "ci/38245407074/results.json",
-     "sha256": "28615f2ed4f096b6bcd2430628d6231e90b4e28e7c2c9009828e7e1511717ec3",
+     "sha256": "95ca3424a8bbb1f92e1d3dbc56b6701da08a0a1910e398190a871a7da65a2ce3",
      "source_sha256": "3c935c84f155b79b04ab7f4317f1836a2afced05332e7f27b810b4413c9f444d"
     }
    ],
@@ -11354,10 +11354,10 @@
      "source_sha256": "96192391e80ef206ff5e5dc900a3cbf7d3e684517763509e619d759854469543"
     },
     {
-     "bytes": 10200,
+     "bytes": 10469,
      "kind": "derived",
      "path": "ci/38245409846/results.json",
-     "sha256": "f2ae2f08adad34c8bb148942f7b33729284d8428fe92cbfe050ab607dae61b3e",
+     "sha256": "36fd8e8e3eb3e6dfa2a1a3a2dd8ebd35e208b71ebbd5332a7f40e277bfef6fbe",
      "source_sha256": "b11d09b49f9244da0ec1903cfee099136a5294b390c9c869c817ea0c670c7c3c"
     }
    ],
@@ -11395,7 +11395,7 @@
         "ci/38253938894/results.json"
        ],
        "line": 29,
-       "note": "the excerpt carries all 16 axiom reports of OIBridge/EqvK2MaxCone.lean, each [propext, Classical.choice, Quot.sound]; that they are the preregistration's named sixteen is not checked against the names",
+       "note": "results.json carries all 16 reports of OIBridge/EqvK2MaxCone.lean, each [propext, Classical.choice, Quot.sound]; that they are the preregistration's named sixteen is not checked against the names",
        "status": "retained",
        "text": "The sixteen named MaxCone reports use only standard axioms"
       },
@@ -11432,7 +11432,7 @@
         "ci/38253938894/results.json"
        ],
        "line": 29,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "the complete release gate"
       }
@@ -11510,10 +11510,10 @@
      "source_sha256": "515d832234564188e1c7c758210c6d636d88f017414d4b9e3e3f3db050d3c17f"
     },
     {
-     "bytes": 38511,
+     "bytes": 38780,
      "kind": "derived",
      "path": "ci/38253938894/results.json",
-     "sha256": "6c3a577d9f030316ce01614b2844c791623d09eb1155654873e4791d191d55bb",
+     "sha256": "a38870c3a1077179efb63c45d73e7674b38f9027f5dc4b40c7ccbd435df1dc37",
      "source_sha256": "2a576aba36217cb08a7bdb6e39828f5b3794513b50995d08f3ed4ca8a8f0067a"
     }
    ],
@@ -11549,7 +11549,7 @@
         "ci/38253942780/results.json"
        ],
        "line": 29,
-       "note": "excerpt: all 14 of OIBridge/BridgeFiniteProtocol.lean's #print axioms reports, after its build line, each [propext, Classical.choice, Quot.sound]",
+       "note": "results.json: all 14 of OIBridge/BridgeFiniteProtocol.lean's #print axioms reports, each [propext, Classical.choice, Quot.sound]",
        "status": "retained",
        "text": "Named finite-protocol reports use only standard axioms"
       },
@@ -11578,7 +11578,7 @@
         "ci/38253942780/results.json"
        ],
        "line": 29,
-       "note": "excerpt: 21 PASS steps, no FAIL, verdict release gate: PASS",
+       "note": "results.json: 21 PASS steps, no FAIL, verdict PASS",
        "status": "retained",
        "text": "complete release gate"
       },
@@ -11657,10 +11657,10 @@
      "source_sha256": "c3ea26da904ee8cdbad1b952eaf2698434c5530720b5b6f23044602b6146ea86"
     },
     {
-     "bytes": 13973,
+     "bytes": 14242,
      "kind": "derived",
      "path": "ci/38253942780/results.json",
-     "sha256": "8edfafe38426503657198694f497fa737675bc6e2941d5d7cacf79ca71d99f11",
+     "sha256": "52ad6a513857d50190abf05f71d0bf183ae6a66eb4894961985be10613b595a8",
      "source_sha256": "64491b18e1713b59ebfdda68abf9dd3accbc6f320d781e9c1b3f2fa0f40d5433"
     }
    ],
@@ -11812,10 +11812,10 @@
      "source_sha256": "8aa4cb2b7879091b38d781fe2bb84c4bb27127f6a85ee5f2dbcaa418721dedba"
     },
     {
-     "bytes": 10212,
+     "bytes": 10481,
      "kind": "derived",
      "path": "ci/38740709601/results.json",
-     "sha256": "029b9da59c69196c7fed9c74fd5a55e419138e800de632412a70aeec0d7b4451",
+     "sha256": "ad5f4da2f8daac12a98ef266206a1ab713120aab64a80e00f516e3719aad8f18",
      "source_sha256": "c21ecc387bf56148adbc7d75fcf85c34170f8df1796991ef50e3a7a6430ce3eb"
     }
    ],
@@ -11854,7 +11854,7 @@
       },
       {
        "line": 34,
-       "note": "116597188403 is the Mathlib bridge job (jobs.json; the excerpt is from its log), but none of OIBridge/TurnpikePremiseOrientation.lean's reports is in the archived excerpt; the count of seven is the manifest's count of the module's #print axioms commands, not something the log shows",
+       "note": "116597188403 is the Mathlib bridge job (jobs.json; results.json is read from its log), but results.json records none of OIBridge/TurnpikePremiseOrientation.lean's reports (status none); seven is the number of the module's #print axioms lines at the commit, not something the log shows",
        "status": "not retained",
        "text": "The seven axiom reports of bridge job 116597188403"
       },
@@ -11894,7 +11894,7 @@
       },
       {
        "line": 34,
-       "note": "a statement about the whole served text: the excerpt, cut by a rule that keeps the governed modules' reports, has none of OIBridge/TurnpikePremiseOrientation.lean's, but the served text itself is not retained",
+       "note": "a statement about the served text itself, which is not retained: results.json, read from it, records none of OIBridge/TurnpikePremiseOrientation.lean's reports (status none), and a rebuild at the commit prints all of them, so reproduction cannot re-check where they fell in the log",
        "status": "not retained",
        "text": "lie outside the 4999-line log window"
       },
@@ -11903,13 +11903,13 @@
         "ci/38785744562/results.json"
        ],
        "line": 34,
-       "note": "the gate line reads \"no sorr\", cut at the gate's column width, under a PASS of lean-axioms; the excerpt carries no sorry or error marker",
+       "note": "the gate line reads \"no sorr\", cut at the gate's column width, under a PASS of lean-axioms; results.json counts no sorry or error marker",
        "status": "retained",
        "text": "no sorry"
       },
       {
        "line": 34,
-       "note": "the verdict's output is not archived, and the served window itself is kept only as an excerpt (digest in the manifest), so the verdict cannot be replayed from the archive",
+       "note": "the verdict's output is not archived, and the served window is not retained (its digest is results.json's served_sha256), so the verdict cannot be replayed from the archive",
        "status": "not retained",
        "text": "over that window the frozen verdict prints BG-2-PREMISE-UNDECIDED and BG-2-CONTROLS-NOT-ESTABLISHED, missing-input outcomes, with BG-2-ORIENTATION-EXACT"
       },
@@ -11933,7 +11933,7 @@
         "ci/38785744562/results.json"
        ],
        "line": 34,
-       "note": "the excerpt lists 21 gate steps, all PASS, and release gate: PASS",
+       "note": "results.json lists 21 gate steps, all PASS, and verdict PASS",
        "status": "retained",
        "text": "the release gate passed every step"
       }
@@ -12011,10 +12011,10 @@
      "source_sha256": "18fc5a9cc48e06a7b00452696dec595d1d025bada106feefce14dae7fcfbe9d4"
     },
     {
-     "bytes": 10258,
+     "bytes": 10527,
      "kind": "derived",
      "path": "ci/38785744562/results.json",
-     "sha256": "509c1a35f9b9e24b487d0e98dc2a15a29ccd6da73f029a86dadadac1d43f0390",
+     "sha256": "bab95baa1169ebf5fc5f2b0341dba08d25972eaa02d34600f6df630d13f8c83d",
      "source_sha256": "84f2d04ff9cb4f9c0cbdb6066dd5835064b0fdf76a60aff58c12674752e4dfac"
     }
    ],
@@ -12099,7 +12099,7 @@
         "ci/38854027737/results.json"
        ],
        "line": 35,
-       "note": "excerpt cache line 'Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-68dd7c1cb5a56d93c9938cedcf3d07ca741ccf466c39fc01012913ab9fa4cebc, not saving cache.', which the cache action prints only after an exact primary-key restore",
+       "note": "results.json's observed cache line 'Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-68dd7c1cb5a56d93c9938cedcf3d07ca741ccf466c39fc01012913ab9fa4cebc, not saving cache.', which the cache action prints only after an exact primary-key restore",
        "status": "retained",
        "text": "Its build cache restored on an exact"
       },
@@ -12117,7 +12117,7 @@
         "ci/38854027737/results.json"
        ],
        "line": 36,
-       "note": "'…, not saving cache.'; no 'Cache saved' line in the excerpt",
+       "note": "'…, not saving cache.'; no 'Cache saved' line among results.json's observed cache lines",
        "status": "retained",
        "text": "and saved none"
       },
@@ -12126,7 +12126,7 @@
         "ci/38854027737/results.json"
        ],
        "line": 36,
-       "note": "the key in the excerpt cache line begins oibridge-Linux-324962b2… and ends -68dd7c1c…",
+       "note": "the key in results.json's observed cache line begins oibridge-Linux-324962b2… and ends -68dd7c1c…",
        "status": "retained",
        "text": "primary-key hit (`oibridge-Linux-324962b2…-68dd7c1c…`)"
       }
@@ -12224,10 +12224,10 @@
      "source_sha256": "71e328881a953e0bbfe3b39320995591326d749e927410058eb748d0ba6461da"
     },
     {
-     "bytes": 5767,
+     "bytes": 6036,
      "kind": "derived",
      "path": "ci/38854027737/results.json",
-     "sha256": "a22e59fbc04e703189dc596cd11cb7efe0b8bfcb9d05bcd5a08f754499fa915b",
+     "sha256": "cc9b151caaa66f52d499d68133a46d3659e8d7145083e12079a37623c0221285",
      "source_sha256": "a873f5292f7916738406e4f683dd57512421f4b2acd2000779385f18cf04b1b3"
     }
    ],
@@ -12254,7 +12254,7 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: \"LEGACY  303 record(s) in 75 closed namespace(s), all intact\"",
+       "note": "results.json: gate step legacy-records PASS, 'LEGACY  303 record(s) in 75 closed namespace(s), all intact'",
        "status": "retained",
        "text": "303 legacy records"
       },
@@ -12273,7 +12273,7 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: \"RECEIPTS  47 receipt(s), all hold\"",
+       "note": "results.json: gate step v3-receipts PASS, 'RECEIPTS  47 receipt(s), all hold'",
        "status": "retained",
        "text": "47 receipts"
       },
@@ -12288,7 +12288,7 @@
       },
       {
        "line": 34,
-       "note": "the excerpt carries only \"[3649/3652] Built OIBridge.TurnpikeScopeTransfer (4.5s)\"; a cut from a served tail cannot establish \"only\"",
+       "note": "results.json's observed build lines, read from the served tail, name OIBridge.TurnpikeScopeTransfer, OIBridge.TurnpikePremiseOrientation and OIBridge; a served tail cannot establish \"only\"",
        "status": "not retained",
        "text": "It rebuilt only TurnpikeScopeTransfer, TurnpikePremiseOrientation and the root"
       },
@@ -12303,7 +12303,7 @@
       },
       {
        "line": 34,
-       "note": "this entry holds a 36-line excerpt cut from that text; the full tail with that digest is the file of entry bg3-e-bridge-tail",
+       "note": "this entry holds the expected result read from that text (its digest is results.json's served_sha256), not the text; the full tail with that digest is the file of entry bg3-e-bridge-tail",
        "status": "not retained",
        "text": "The last 4999 lines of its log (sha256 84de2bc0e2b2a2f6b34d27d25e5abad9037c5c42a8c12cdf7c1ce7ccc0acf649)"
       },
@@ -12321,7 +12321,7 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: eight report lines, TurnpikeScopeTransfer.lean:879–886",
+       "note": "results.json: eight reports of OIBridge/TurnpikeScopeTransfer.lean, at lines 879–886",
        "status": "retained",
        "text": "carry the module's eight axiom reports"
       },
@@ -12348,13 +12348,13 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: \"lean_axiom_check: OK (5989 named result(s) reported, no sorr\"",
+       "note": "results.json: gate step lean-axioms PASS, 'lean_axiom_check: OK (5989 named result(s) reported, no sorr'",
        "status": "retained",
        "text": "lean-axioms 5989"
       },
       {
        "line": 34,
-       "note": "no cache-restore line is in the excerpt; it holds only the cache-save line",
+       "note": "results.json's observed cache lines hold only the cache-save line",
        "status": "not retained",
        "text": "missed on its own cache key"
       },
@@ -12372,7 +12372,7 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: \"Build completed successfully (3652 jobs).\"",
+       "note": "results.json: build line 'Build completed successfully (3652 jobs).'",
        "status": "retained",
        "text": "printed Build completed successfully"
       },
@@ -12381,7 +12381,7 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: 21 gate steps, all PASS, none FAIL, and \"release gate: PASS\"",
+       "note": "results.json: 21 gate steps, all PASS, none FAIL, and verdict PASS",
        "status": "retained",
        "text": "the release gate passed every step"
       },
@@ -12390,13 +12390,13 @@
         "ci/38855576525/results.json"
        ],
        "line": 34,
-       "note": "bridge-excerpt.log: \"Cache saved with key: oibridge-Linux-324962b2…-de5484e196eb…\"; the manifest's line ranges place it at line 4984 of the served text",
+       "note": "results.json's observed cache line 'Cache saved with key: oibridge-Linux-324962b2…-de5484e196eb…', at served line 4984",
        "status": "retained",
        "text": "which it saved afterwards (log line 4984)"
       },
       {
        "line": 34,
-       "note": "neither string is in the excerpt, but the excerpt holds 36 of the 5000 served lines, so it cannot show their absence from the window",
+       "note": "a statement about the log text: this entry's results.json counts no sorryAx or Lean.ofReduceBool marker but does not hold the text, which is the file of entry bg3-e-bridge-tail, where the claim is retained",
        "status": "not retained",
        "text": "with no sorryAx and no Lean.ofReduceBool"
       }
@@ -12483,10 +12483,10 @@
      "source_sha256": "c25ad600a97c97c91cf527a44a72a1b2c0aff766152409d066970da32170cefe"
     },
     {
-     "bytes": 7991,
+     "bytes": 8260,
      "kind": "derived",
      "path": "ci/38855576525/results.json",
-     "sha256": "db1a5b8efe2d864c7b813b73bc98a113de1dfe9f017c134b553f226fdf8ae9fe",
+     "sha256": "96359f43ff356df7db10d652dde755f071e697b955f9491804b0459f0602622d",
      "source_sha256": "84de2bc0e2b2a2f6b34d27d25e5abad9037c5c42a8c12cdf7c1ce7ccc0acf649"
     }
    ],
@@ -12507,10 +12507,10 @@
    "citations": [],
    "files": [
     {
-     "bytes": 28441,
+     "bytes": 28897,
      "kind": "complete",
      "path": "build_archive.py",
-     "sha256": "7ab9b93b7a577881dde0768518a220eee008d8d4c393a842d5a380a16a7cef9c"
+     "sha256": "42b365979277ed0585209b240e0d11d276afdb16eef929b233ddb517bb10ce6e"
     },
     {
      "bytes": 4920,

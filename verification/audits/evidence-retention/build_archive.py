@@ -135,10 +135,13 @@ cert_runs = {v['run']: dict(v, role=k) for k, v in json.loads(cert_raw)['ci'].it
 PRINT = re.compile(r'^#print axioms\b')
 PERMITTED = ['propext', 'Classical.choice', 'Quot.sound']
 EXTRACTOR = 'verification/audits/evidence-retention/extract_result.py'
-RECIPE = ['git checkout <head_sha>', 'cd verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build',
-          'cd ../.. && python3 tools/release_gate.py',
-          'python3 -I %s <captured output> > reproduced.json' % EXTRACTOR,
-          'python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree .']
+RECIPE = ['run from the root of a full-history clone at a commit that carries this archive (the verifier), never inside '
+          '<head_sha>, which predates these tools; <dir> is a new directory and <log> a file outside it',
+          'git worktree add --detach <dir> <head_sha>',
+          '(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1',
+          '(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1',
+          'python3 -I %s <log> > reproduced.json' % EXTRACTOR,
+          'python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree <dir>']
 SOURCE_NOTE = ('the digest identifies the text this result was read from: it is provenance of the extraction, not '
                'independent proof of the result, which reproduction at the commit supplies')
 
@@ -153,7 +156,7 @@ def spans(nums):
     return out
 
 
-def results_for(text, head, mods, run, source, tool_recipe=None):
+def results_for(text, head, mods, run, source, tool_recipe=None, tool=True):
     """The structured expected result of a Mathlib bridge job: what reproduction at head must reproduce."""
     x = extract(text)
     modules, gaps = {}, []
@@ -204,7 +207,7 @@ def results_for(text, head, mods, run, source, tool_recipe=None):
     }
     res = {'schema': 'oi-evidence-result', 'version': 1, 'kind': 'bridge', 'run': run,
            'source': dict(source, extractor=EXTRACTOR, note=SOURCE_NOTE),
-           'reproduce': {'recipe': RECIPE, 'tool': 'python3 -I verification/audits/evidence-retention/reproduce.py --run %s' % run['id'],
+           'reproduce': {'recipe': RECIPE, 'tool': ('python3 -I verification/audits/evidence-retention/reproduce.py --run %s --work <dir>' % run['id']) if tool else None,
                          'workflow': '.github/workflows/reproduce-evidence.yml',
                          'compared': 'build success; the gate\'s steps and verdict; each governed module\'s reports and axioms; the markers',
                          'not_compared': 'timestamps, durations, cache behaviour, job counts, output order'},
@@ -307,9 +310,10 @@ for eid, src, digest, prov in BG3:
         res = design_results(text, {'id': prov['run_id'], 'head_sha': prov['head_sha'], 'workflow': 'bg2-orientation-design.yml',
                                     'job_id': prov['job_id'], 'job_name': prov['job_name']}, srcinfo)
     else:
+        # reproduce.py takes manifest entries ci-<run> only, so a BG-3 result names the manual recipe and no tool
         res, _ = results_for(text, prov['head_sha'], round_lean.get('BG-3', []),
                              {'id': prov['run_id'], 'head_sha': prov['head_sha'], 'workflow': 'verify.yml',
-                              'job_id': prov['job_id'], 'job_name': prov['job_name']}, srcinfo)
+                              'job_id': prov['job_id'], 'job_name': prov['job_name']}, srcinfo, tool=False)
     files.append(dict(write('bg3/results-%s.json' % prov['job_id'], dumps(res)), kind='derived', source_sha256=f['sha256']))
     if eid in ('bg3-design-bridge-tail', 'bg3-first-design-bridge-tail'):
         # the design runs' metadata, from the saved runs-API listing page 1 (same field selection as ci/*/run.json)
