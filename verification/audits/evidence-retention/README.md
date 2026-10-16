@@ -22,7 +22,7 @@ It is a governed audit record. It is not a research round and changes no histori
 - every check run that a receipt under `verification/receipts/` records as `F`'s or `E`'s `check-run` attestation (93 runs);
 - the three runs the V2 certificates under `verification/certificates/` cite.
 
-They span 2026-09-21 to 2026-10-16. The oldest are the first to reach GitHub's log-retention limit.
+They span 2026-09-22 to 2026-10-16. The oldest are the first to reach GitHub's log-retention limit.
 
 **What "served" means.** The CI logs were read through GitHub's job-log API, which serves at most the last 5000 lines of a job log. Full log archives could not be downloaded from the session that built this tranche, because its network policy blocks the archive host. Each excerpt is therefore an excerpt of the served text, and the manifest records:
 - the served text's line count;
