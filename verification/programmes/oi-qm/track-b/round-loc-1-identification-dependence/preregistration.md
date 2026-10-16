@@ -1,10 +1,9 @@
 # Locality round LOC-1 — how locality verdicts depend on the identification of parts: PREREGISTRATION (draft)
 
 **Status: drafting, native V3; not a candidate `F`.** Drafted on a pull request from `D` for owner review. The owner's
-decisions of 2026-10-16 are applied (*Owner decisions*). Three design decisions, (a), (e) and (f), are still the
-owner's; until they are made, this text carries the proposed option, marked *proposed*. Nothing is executed. No
-workflow is dispatched for this round, and its code is not run on any target object before `F`. Only the owner
-designates `F` under AGENTS §A.39; an instruction to proceed is not a designation.
+design decisions of 2026-10-16, (a) to (f), are applied (§14). Nothing is executed. No workflow is dispatched for this
+round, and its code is not run on any target object before `F`. Only the owner designates `F` under AGENTS §A.39; an
+instruction to proceed is not a designation.
 
 ```v3-round
 round LOC-1
@@ -14,8 +13,12 @@ record-directory verification/programmes/oi-qm/track-b/round-loc-1-identificatio
 
 ```v3-governed-paths
 record AM verification/programmes/oi-qm/track-b/round-loc-1-identification-dependence/
+record A verification/programmes/oi-qm/track-b/round-loc-1-identification-dependence/objects/
 record AM verification/receipts/LOC-1.json
 ```
+
+The `objects/` entry admits additions only: stage 1 adds the copies of §2.1, and no later commit of the round modifies
+or deletes one.
 
 D: fc5abade2a8ca381caedaa93c0441570fc060319. It is `main` after #851, #849 and #850, and its push run 38870075770
 concluded `success`.
@@ -46,17 +49,42 @@ Each is used only as stated.
 
 | item | where | status |
 | --- | --- | --- |
-| P0's definitions: carriers `𝒪₁`–`𝒪₃`, `SL-U`, PC, RL, the frozen lifts and conventions | P0 `RULES.md`, blob `988b4fe2`; `p0_exact.py`, blob `85251bb2` (sha256 `00cb032b…`); at `55450d57`, `plan/p0-evolution-source-20261013` (#834) | research record, frozen |
-| P0's recorded statuses and pair verdicts | P0 `p0-exact-output.txt`, blob `b34eb953`, lines 15–76 and 113–178 | research record |
-| P2's configurations and register convention | P2 `RULES.md`, blob `d0b286ea`, §3–§4; `p0_ls_exact.py`, blob `41905335` (sha256 `904e242e…`); at `ea9a6b71`, `research/p2-locality-sources-20261015` | research record |
+| P0's definitions: carriers `𝒪₁`–`𝒪₃`, `SL-U`, PC, RL, the frozen lifts and conventions | P0 `RULES.md` and `p0_exact.py`, copied to `objects/p0-subsystem-locality/` (§2.1) | research record, frozen |
+| P0's recorded statuses and pair verdicts | P0 `p0-exact-output.txt`, copied to `objects/p0-subsystem-locality/` (§2.1), lines 15–76 and 113–178 | research record |
+| P2's configurations and register convention | P2 `RULES.md`, §3–§4, and `p0_ls_exact.py`, copied to `objects/p0-locality-sources/` (§2.1) | research record |
+| P2's recorded `FAC` cell and `LS-FAC` token, which K-repro reproduces | P2 `p0-ls-exact-output.txt`, copied to `objects/p0-locality-sources/` (§2.1), lines 4, 23 and 31 | research record |
 | the cone consumes site factorization and a neighbourhood function only | `iterate_dependsOnlyOn_ball`, RegionTower.lean:283 (at `D`) | kernel theorem |
 | visible configurations are registered values of a finite set | Main.md:48 (Lemma 1) | lemma |
 | deep sectors decoupled from the boundary are gauge | Substratum.md:92, Theorem 24(iii) | cross-check only (§7.S) |
 
-*Proposed (f):* the frozen configurations, lifts and conventions are **ported** into the record directory at stage 1
-(`objects/`), each pinned to its research commit by blob and checked by K-repro, so that the round runs from its own
-record without depending on unlanded branches. Not adopted, and used only as objects of test: any identification
-principle, `SL-U`, coupling-degree minimization and regional independence.
+P0's and P2's research commits are not reachable from `main`, so they are provenance only (AGENTS §A.42). Stage 1
+copies every object of theirs that the round reads into `objects/`, byte for byte, as §2.1 lists (owner decision (f)).
+The round reads those objects only from `objects/`, and K-obj checks every copy before any cell runs. Not adopted, and
+used only as objects of test: any identification principle, `SL-U`, coupling-degree minimization and regional
+independence.
+
+### 2.1 Frozen objects copied at stage 1
+
+Each row is one file. Its copy is `objects/<copy>`; its source is the file at
+`verification/programmes/oi-qm/track-b/research-planning/<copy>` in the source commit's tree. The blob id, size and
+sha256 are those of that source file, read from git (`git cat-file -s` and `git cat-file blob <blob> | sha256sum`), and
+`git rev-parse <commit>:<source path>` returns the blob id shown. Each copy is byte-identical to its source, so the git
+blob id is recomputable from the copy's bytes alone, without the source commit.
+
+| copy | source commit | blob | bytes | sha256 |
+| --- | --- | --- | --- | --- |
+| `p0-subsystem-locality/RULES.md` | `55450d571fe34112b5ed899052b9c97f0e2cda70` | `988b4fe218dcf014f91e0f883c56dd4a3bc2a1a0` | 26081 | `6f9493eed23652b7979333b09e1bbc3148a67ef10816ebfe2cf1ded59c3ec0df` |
+| `p0-subsystem-locality/p0_exact.py` | `55450d571fe34112b5ed899052b9c97f0e2cda70` | `85251bb2d9fa7542d0c7cf9d94b423692d1d23a4` | 34224 | `00cb032b71dce6eb994864e8e18bf6748192f38a644898a9c3685d453ecd155c` |
+| `p0-subsystem-locality/p0-exact-output.txt` | `55450d571fe34112b5ed899052b9c97f0e2cda70` | `b34eb9535a3d9bfed5cf94fe5388f6456afa43e4` | 14432 | `14428b8dd5e6008eb06bbe0e5516f05a570da056c3c9a6b20889a21f9fd58701` |
+| `p0-locality-sources/RULES.md` | `ea9a6b71e46d01f6bca7342b9f9fd6aa7f41bfef` | `d0b286ead9f7c039b3a9d8ea6dcd36b0627a457c` | 11530 | `7fe248c2fc5289c18853ff34ef98f5d64b62b05a71ad55bfe3ae00e0af7facd3` |
+| `p0-locality-sources/p0_ls_exact.py` | `ea9a6b71e46d01f6bca7342b9f9fd6aa7f41bfef` | `41905335b4f35ad7b2c10bb0cbe1951f918c70c4` | 22020 | `904e242ea52f3ddbd2462ed72dd6edd6f739737f404e9c3b517aefe19eceadf2` |
+| `p0-locality-sources/p0-ls-exact-output.txt` | `ea9a6b71e46d01f6bca7342b9f9fd6aa7f41bfef` | `354edb3f6152d93a6e3a3e094e1c9da93cc25a77` | 3069 | `880c29049a8b174b12cfd73b16c8852703e319e9e9dc432247e6bc6832194813` |
+
+Provenance: `55450d57` is a commit of branch `plan/p0-evolution-source-20261013` (#834), and `ea9a6b71` a commit of
+branch `research/p2-locality-sources-20261015`; `ea9a6b71` descends from `55450d57` and carries P0's three files with
+the same blob ids. The two output files hold the recorded lines that K-repro compares with the round's own
+regeneration, at `σ₀` for P0 and at the natural decompositions for P2. No other file of either research record is
+copied, and no cell reads one.
 
 ## 3. Definitions
 
@@ -87,8 +115,9 @@ principle, `SL-U`, coupling-degree minimization and regional independence.
 
 **Leg T** (P0's configurations `C`, frozen lifts `b`):
 
-- **I0(C)** *(proposed reading (a))* is the set of `σ ∈ D(C)` with `Γ^σ` a product, by PC on P0's `cut_stoch`: the
-  visible law is the law of two uncoupled parts in `σ`, which is what `SL-U` needs in order to apply at all.
+- **I0(C)** (owner decision (a)) is the set of `σ ∈ D(C)` with `Γ^σ` a product, by PC on P0's `cut_stoch`: the
+  visible law is the law of two uncoupled parts in `σ`, which is what `SL-U` needs in order to apply at all. This is
+  the broader factorization test; the symmetries of the visible law, `Γ^σ = Γ`, are not the scope.
 - **I1(C)** is the set of `σ ∈ I0(C)` with `σ_V` in the declared register class. The registers are the visible
   configurations with their declared readout into `V₁` and `V₂`; `σ_A` is free.
 - **I2(C, b)** is the set of `σ ∈ I1(C)` under which `b` is **regionally independent**: both `U_t^σ` reshuffle across
@@ -221,8 +250,9 @@ Proofs go in the result note. Each is checked where §8 says.
 
 ## 7. Cells and decision rules
 
-All arithmetic is exact: `Fraction`; P0's `ℚ(ζ₁₆)` class, ported, for `C21`; integers mod `q` for leg S. Every token
-prints from measurements. The decision rules fix what each measurement decides; they fix no expected number.
+All arithmetic is exact: `Fraction`; P0's `ℚ(ζ₁₆)` class, from its copy in `objects/` (§2.1), for `C21`; integers mod
+`q` for leg S. Every token prints from measurements. The decision rules fix what each measurement decides; they fix no
+expected number.
 
 ### 7.T Leg T
 
@@ -298,6 +328,7 @@ A token printed over a failed control is void, and the round then prints `VOID`.
 | --- | --- |
 | K-C21 | S16 finds the `τ` class for `T` (W-T) and the identity class for `P`, so REL is reachable; it finds no class for a transposition on `Fin 16` (W-CYC-16), so INV is reachable and S16 can return nothing |
 | K-repro | at `σ₀`, every P0 status line (output lines 15–76) and every pair-verdict line (113–178) for `CT4`/`CCT4` and the other frozen pairs is reproduced verbatim; at leg S's natural decompositions, P2's `LS-FAC` lines are reproduced |
+| K-obj | owner decision (f): before any cell runs, `objects/` holds exactly the six files of §2.1, and each file's size, sha256 and git blob id, computed from its bytes, equal its row; the run and the replay read P0's and P2's objects from `objects/` and from nowhere else |
 | K-ring | on `S-ring(3)`, re-derived and not imported: the spatial decomposition has `deg_max = 3` and 8 edges, the eigenmode decomposition `deg_max = 1` and 4 edges; the φ-pullback has the spatial graph and is a distinct decomposition; A4(b) holds spatially and fails in eigenmode coordinates |
 
 **Scope controls (I0/I1/I2):**
@@ -432,6 +463,7 @@ byte-identical output.
 | --- | --- |
 | the rules precede every run on a target | the code is frozen by blob at `F`; before `F` it runs only in control mode on non-target inputs (§12); K0 |
 | the frozen witnesses and conventions are P0's and P2's | K-repro |
+| the objects the round reads are P0's and P2's frozen files, byte for byte | K-obj, against §2.1's sizes, sha256 digests and blob ids, frozen at `F`; `objects/` is add-only (`v3-governed-paths`) |
 | identifications are complete per class | K-cls; W-CLS; K-search |
 | each quotient is by relabellings only | W-REL; the centralizer is not quotiented (§3.1) |
 | hidden relabelling cannot change SEP-PHYS | K-hid |
@@ -469,7 +501,7 @@ byte-identical output.
   locally and on a disposable branch at the predicted tree (design evidence, not attestations). The `F` check run is
   dispatched with the branch held at exactly `F`, before the designation record is posted, and no execution commit is
   made before that record.
-- **Stage 1:** the ported objects (`objects/`, proposed (f)), the disclosed prior scripts and outputs (`prior/`, §13), the
+- **Stage 1:** the copied objects (`objects/`, §2.1), the disclosed prior scripts and outputs (`prior/`, §13), the
   drafting-time cost measurements of §9 (`design/`), and the code, each at its frozen blob. After stage 1 every file the
   round cites is in its record directory or on `main`; nothing it relies on is a scratch file or a branch other than
   `main`.
@@ -478,8 +510,9 @@ byte-identical output.
 - **`E`:** the exact-head run at `E` is dispatched before `E` is designated. Then reconciliation, the receipt `Q` and
   `tools/v3_verifier.py --verify-round Q`.
 
-**What voids the round:** a failed control of §8; a departure from P0's or P2's frozen conventions found by K-repro; a
-difference between two runs; a disagreement with the independent replay.
+**What voids the round:** a failed control of §8; a copy in `objects/` that differs from its §2.1 row (K-obj); a
+departure from P0's or P2's frozen conventions found by K-repro; a difference between two runs; a disagreement with the
+independent replay.
 
 ## 13. Prior knowledge disclosed
 
@@ -517,6 +550,9 @@ disclosure points to content retained with the round; until then the names ident
   conjugacy is insufficient, so the condition must have discriminating content (§3.2, SC-I2). No enumeration or sampling
   result is promoted into an unrestricted uniqueness theorem (§7.V).
 - **The budget** and the mandatory controls `C21`, `CT4` and the four-site countermodel (§8, §9).
+- **(a) Leg T I0:** `Γ^σ` a product, by PC on `cut_stoch` (§3.2). It keeps the broader factorization test, the
+  condition under which `SL-U` applies at all; the stricter `Γ^σ = Γ`, the symmetries of the visible law, is not the
+  scope. At `C21`, where `Γ ≡ 1/16`, the two coincide.
 - **(b) `C21`:** no unrestricted enumeration; mathematically justified pruning and symmetry reduction first; if
   exhaustive coverage cannot be proved, up to 2,000 reproducible, preferably stratified samples plus targeted
   counterexamples, reported as sampled, not universal (§7.T, §9).
@@ -530,17 +566,11 @@ disclosure points to content retained with the round; until then the names ident
   exhaustive (at most six classes per configuration), so it is **tested** (T-I2) rather than marked unresolved. If
   the owner prefers not to test it, it is marked unresolved with this reason.
 - **Proven versus observed invariance** are separate tokens (§3.4).
-
-**Still the owner's, with the proposed option carried in this draft:**
-
-- **(a) I0 for leg T.** *Proposed:* "compatible with the visible law" as `Γ^σ` a product, which is what makes `SL-U`
-  applicable. *Alternative:* `Γ^σ = Γ` exactly, the symmetries of the visible law; stricter, and at `C21`, where
-  `Γ ≡ 1/16`, it coincides with the proposed reading.
-- **(e) Label, placement and kind.** *Proposed:* `LOC-1`; record directory
-  `verification/programmes/oi-qm/track-b/round-loc-1-identification-dependence/`; non-sealing; the P0 and P2 research
-  records cited as provenance and not edited.
-- **(f) The frozen objects.** P0's and P2's live on research branches, not on `main`, and a record may not rest on
-  content outside `main` (owner rule of 2026-10-16), so citing the research commits alone is not an option.
-  *Proposed:* port the frozen configurations, lifts and conventions into `objects/` at stage 1, with their blobs and
-  the research commits they come from recorded as provenance, and checked by K-repro. *Alternative:* land those research
-  records on `main` first, by a separate decision.
+- **(e) Round identity:** round `LOC-1`, kind non-sealing, record directory
+  `verification/programmes/oi-qm/track-b/round-loc-1-identification-dependence/`, as the `v3-round` block declares.
+  The P0 and P2 research records are cited as provenance and not edited.
+- **(f) Historical objects:** P0's and P2's research commits are not on `main`, and a record may not rest on content
+  outside `main` (AGENTS §A.42), so citing those commits alone does not retain the objects. Every object of theirs that
+  the round reads is copied into `objects/` at stage 1, byte for byte, with its source commit, path, size, blob id and
+  sha256 recorded in §2.1 and verified by K-obj; `objects/` is add-only in the `v3-governed-paths` block. Landing the
+  research records on `main` is not a precondition of the round.
