@@ -619,7 +619,7 @@ theorem bitAt_pair (n i : ℕ) (a : Bits n) (x : Fin 2) :
     bitAt (n + 1) i (a, x) = if i = n then x else bitAt n i a := rfl
 
 theorem flipX_apply (c x y : Fin 2) : flipX c x y = if y = x + c then 1 else 0 := by
-  fin_cases c <;> fin_cases x <;> fin_cases y <;> simp +decide [flipX, Xm, Matrix.one_apply]
+  fin_cases c <;> fin_cases x <;> fin_cases y <;> simp +decide [flipX, Xm]
 
 theorem bitsPair_eq {n : ℕ} {a b : Bits n} {x y : Fin 2} (h1 : a = b) (h2 : x = y) :
     ((a, x) : Bits (n + 1)) = (b, y) :=
@@ -817,7 +817,7 @@ theorem cnot_pairUnit_apply (m n μ ν : Fin 4) :
       constructor
       · rw [← h1, ← h2, pc_pc]
       · rw [← h1, ← h2, pt_pt]
-    rw [if_neg h', if_neg h]
+    rw [if_neg h', if_neg h, mul_zero, mul_zero]
 
 theorem cnot_pairUnit (m n : Fin 4) :
     cnot (pairUnit m n) = sgn (pc m n) (pt m n) • pairUnit (pc m n) (pt m n) :=
@@ -828,7 +828,7 @@ theorem blockMat_one_Xm_apply (p q : Fin 2 × Fin 2) :
   obtain ⟨a, b⟩ := p
   obtain ⟨c, d⟩ := q
   fin_cases a <;> fin_cases b <;> fin_cases c <;> fin_cases d <;>
-    simp +decide [blockMat, P0, P1, Xm, tensorOf_apply, Matrix.add_apply, Matrix.one_apply]
+    simp +decide [blockMat, P0, P1, Xm, tensorOf_apply, Matrix.add_apply]
 
 theorem blockMat_conj_apply (M : Matrix (Fin 2 × Fin 2) (Fin 2 × Fin 2) ℂ) (x1 x2 y1 y2 : Fin 2) :
     (blockMat 1 Xm * M * (blockMat 1 Xm)ᴴ) (x1, x2) (y1, y2) = M (x1, x2 + x1) (y1, y2 + y1) :=
@@ -955,13 +955,12 @@ theorem localM_conj_dictionary (N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ))
     · rw [if_pos hj, dictionary_succ_tok n w, Finset.mul_sum, Finset.sum_mul,
         slotAct_last N n j hj, dictionary_succ_tok]
       refine Finset.sum_congr rfl fun ν _ => ?_
-      rw [tensor_conjugation, Matrix.one_mul, Matrix.conjTranspose_one, Matrix.mul_one, ← hV] <;>
-        rfl
+      rw [tensor_conjugation, Matrix.one_mul, Matrix.conjTranspose_one, Matrix.mul_one, ← hV]
     · rw [if_neg hj, dictionary_succ_pref n w, Finset.mul_sum, Finset.sum_mul,
         slotAct_lift N n j hj, dictionary_succ_pref]
       refine Finset.sum_congr rfl fun m _ => ?_
       rw [tensor_conjugation, localM_conj_dictionary N V hV n j, Matrix.one_mul,
-        Matrix.conjTranspose_one, Matrix.mul_one] <;> rfl
+        Matrix.conjTranspose_one, Matrix.mul_one]
 
 /-- **The one-token transport**: the recursive slot action is #829's `actK` on token tuples. -/
 theorem slotAct_toTup (N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : ∀ (n j : ℕ) (hj : j < n) (ω : WK n)
@@ -972,12 +971,12 @@ theorem slotAct_toTup (N : (Fin 3 → ℝ) →ₗ[ℝ] (Fin 3 → ℝ)) : ∀ (n
     rw [slotAct_succ, actK_apply]
     by_cases hjn : j = n
     · rw [if_pos hjn, show (⟨j, hj⟩ : Fin (n + 1)) = Fin.last n from Fin.ext hjn]
-      simp only [toTup_succ, toTup_last, Fin.update_snoc_last, Fin.snoc_last]
+      simp only [toTup_succ, toTup_last, Fin.update_snoc_last]
     · have hj' : j < n := by omega
       rw [if_neg hjn, show (⟨j, hj⟩ : Fin (n + 1)) = Fin.castSucc ⟨j, hj'⟩ from Fin.ext rfl]
       refine (slotAct_toTup N n j hj' (fun a => ω (Fin.snoc (α := fun _ => Fin 4) a x)) ν).trans ?_
       rw [actK_apply]
-      simp only [toTup_succ, toTup_castSucc, Fin.snoc_castSucc, ← Fin.snoc_update]
+      simp only [toTup_succ, toTup_castSucc, ← Fin.snoc_update]
 
 /-- **Obligation 1, one-token actions**: the dictionary action of a one-token matrix carrying
 `N` is #829's homogeneous action `actK`, transported by the carrier equivalence. -/
