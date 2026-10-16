@@ -241,8 +241,9 @@ it, removes both sentences.
   - L: a byte changed outside every span, which P, R and S accept; a span whose old-text hash does not hold;
   - G: a manuscript, the design package, a probe, `CongruentReconstruction.lean` and the census flagged; a third
     modified file, or a missing one;
-  - K: synthetic logs with the lemma's report missing, `sorryAx` in it, a non-permitted axiom, the count 5988, or a
-    failed gate.
+  - K: a timestamped log with a report wrapped over three lines, accepted; the same with an extra axiom on a
+    continuation line, rejected; synthetic logs with the lemma's report missing, `sorryAx` in it, a non-permitted
+    axiom, the count 5988, or a failed gate.
 
   It also checks that the parser skips the docstring line at `CongruentReconstruction.lean:750`, and that S's phrase
   list splits seven and eight at `D`.
@@ -303,17 +304,46 @@ carried the edits above and the four `CongruentReconstruction.lean` docstrings.
 - For comparison, BG-2's stage-2 run (bridge job 116481534373), a small rebuild, printed its new module's reports at
   line 4918 of its window, after the same `DitaTorusLocus` block and before the root's.
 
-**The reduced predicted tree.** To come, on a fresh disposable branch at one exact SHA:
+**The reduced predicted tree, first form.** `6c160ad26a9831448e6e4cfca5761efb876a1baf` on
+`tmp/bg3-predicted-reduced-20261015`: this scope, with the previous form of `controls.py` (blob `1b5c4489`).
+- `verify.yml` dispatch run 38834744516, attempt 1, the branch's first run: every job `success`, 37 of 37.
+  - The Mathlib bridge (job 116761232088) took 3 minutes 16 seconds and rebuilt `TurnpikeScopeTransfer` (6.6 s),
+    `TurnpikePremiseOrientation` (5.8 s) and the root. Its release gate passed every step: `lean-axioms` 5989, no
+    `sorry`; `lean-manuscript` OK; 303 legacy records intact; 47 receipts holding.
+  - In the last 4999 lines of its log (sha256 `e77b0ded140a70ae90514a2d923bae20a062415c45ab3c8ec62ed65ce26bac47`) the
+    module's eight reports are at lines 4908–4917, after the `DitaTorusLocus` block and before
+    `TurnpikePremiseOrientation`'s and the root's. Each is within `propext`, `Classical.choice` and `Quot.sound`;
+    `real_to_integer_surrogate`'s is at line 4914. The window contains no `sorryAx` and no `Lean.ofReduceBool`.
+- `controls.py verdict 6c160ad2 --freeze f33b2fa2` over that tail, with the checker in that tree: C1, C2, L0, L, P, R,
+  S and G pass; `BG-3-REDUCTION-FACTORED`, `BG-3-STATEMENTS-PRESERVED`, `BG-3-DOCSTRINGS-CORRECTED`,
+  `BG-3-KERNEL-NOT-ESTABLISHED`. The last is a checker defect, recorded below.
+
+**Two defects of the checker, found by the design runs and fixed before the freeze.**
+- *The verdict's status line.* With the static controls passing and a token negative, the first form printed
+  `controls: FAILED (0 failure(s))`. It now prints `controls: static checks OK; not every token is positive`. The exit
+  status was right in both forms.
+- *Reports wrapped over several log lines.* The host prefixes every log line with a timestamp, and the report of
+  `integer_realization_of_real_realization` wraps its axiom list over three lines (4911–4913). The first form read the
+  prefixes into the axiom names, so `Classical.choice` failed the permitted-axiom test. K now removes the prefixes
+  before reading the reports. The self-test gains two cases: a timestamped log with a report wrapped over three lines,
+  accepted; and the same with an extra axiom on a continuation line, rejected. Under the first form the accepted case
+  fails, so the case covers the defect. Over the two saved bridge tails, the first form's K reads 8 and 0 reports and
+  rejects both; the corrected K reads the same reports, accepts the first and rejects the second, which has none. The
+  corrected checker's verdict over run 38834744516's tail prints the four positive tokens and the earned reading.
+
+**The reduced predicted tree, corrected checker.** To come, on the fresh disposable branch
+`tmp/bg3-predicted-reduced2-20261016`, at one exact SHA. The first branch now holds a build cache for these Lean
+sources, and a run that hits it replays the reports in an order that can put them outside the window (BG-2's `E`), so
+the corrected tree is not run there:
 - its `verify.yml` dispatch run: every job `success`; the gate's `lean-axioms` count; the eight report lines and their
-  positions in the executor's log window; then
+  positions in the executor's log window; then the verdict with the checker in the tree; then
 - `bg2-orientation-design.yml` dispatched at the same SHA (`C-ORDER`);
-- `controls.py --self-test`, and `controls.py check` and `verdict` over the predicted commit with this file's commit as
-  `--freeze`.
+- `controls.py --self-test`, and `controls.py check` over the predicted commit with this file's commit as `--freeze`.
 
 These runs are design evidence, not `check-run` attestations. The four files' blobs are frozen there:
 
 ```bg3-frozen-blobs
-verification/programmes/oi-qm/reconstruction/round-bg-3-scope-transfer-correction/controls.py 1b5c44893410be330d7663ab2c71abdf46446805
+verification/programmes/oi-qm/reconstruction/round-bg-3-scope-transfer-correction/controls.py 52b52095c6609166f428a4a61f8aae2a23f0efa0
 verification/programmes/oi-qm/reconstruction/round-bg-3-scope-transfer-correction/edit-ledger.json 1e82e5a628e9f12b8cb0b2882caeba5d8205013c
 verification/lean-mathlib/OIBridge/TurnpikeScopeTransfer.lean 6c2e3e33c6aedcf04672259d4b0588a42c36c6b7
 verification/ROADMAP.md 3209f8b0d010f6ce6a7b76bbfb9189352b3d1cbe
@@ -331,6 +361,7 @@ Owner decisions (2026-10-15):
 - drafting on `draft/bg-3-scope-transfer-20261015` with a draft pull request, and design testing on a disposable
   branch, both from `D`. This authorizes no designation of `F`, no execution and no merge;
 - at `E`, the exact-head `verify.yml` run first and its bridge log saved, then the design dispatch;
+- the corrected checker is tested on the fresh disposable branch `tmp/bg3-predicted-reduced2-20261016` (2026-10-16);
 - `CongruentReconstruction.lean`'s four docstrings were first included. After the first design run hid the module's
   axiom reports, the owner's standing instruction applied: their correction is deferred to a separate round, the scope
   is revised before the freeze, the deferral stays explicitly tracked, and BG-3 neither restores nor endorses the
