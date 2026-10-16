@@ -266,7 +266,7 @@ This was a harness correction, not a change to the witness or decision rule.
 There is no Lean executable or Mathlib cache in this execution environment.
 The research Lean sources are recorded in [formalization.md](formalization.md),
 with their compilation status and remaining obligations. At design head
-`30a65288c06aec5f598ab088fb91fd177150157f`, in all-green run `38880722296`
+`924dc9184c47e69f03beef0828f57edac668f3d7`, in all-green run `38885086040`
 (a GitHub Actions record outside the repository), they compile the all-k
 dictionary, angle inversion and abstract finite-circuit identities, the exact
 reachability of section 4, both inclusions of section 5 with separate

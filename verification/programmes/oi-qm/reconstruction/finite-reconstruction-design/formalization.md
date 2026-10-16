@@ -12,9 +12,9 @@ not is marked as off main.
 Compilation status: all five modules compile against the adopted library at D
 `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`, which is on main; the design branch
 leaves `verification/lean-mathlib` unchanged from D. The exact design head is
-`30a65288c06aec5f598ab088fb91fd177150157f`; GitHub Actions
-[run 38880722296](https://github.com/amaybaum/incompleteness/actions/runs/38880722296),
-job `116906532344`, is all green (GitHub Actions runs are host records outside the
+`924dc9184c47e69f03beef0828f57edac668f3d7`; GitHub Actions
+[run 38885086040](https://github.com/amaybaum/incompleteness/actions/runs/38885086040),
+job `116920768112`, is all green (GitHub Actions runs are host records outside the
 repository). The run checks this directory's `SHA256SUMS` before it compiles,
 so the compiled bytes are those listed. The source hashes are:
 
@@ -336,7 +336,7 @@ from a module in that closure, and a declaration proved from the two-token
 theorem would have to come from a module importing `EqvK2MaxCone`. The module
 also checks this when it is compiled: an `#eval` after the recovery (line 1390)
 fails the build if `OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone` is in
-the environment, and otherwise logs that it is not; run 38880722296 logs the second
+the environment, and otherwise logs that it is not; run 38885086040 logs the second
 outcome. The check excludes the adopted theorem and everything proved from it.
 It does not exclude the ingredients of that theorem's proof or sibling
 two-token theorems present in the environment
