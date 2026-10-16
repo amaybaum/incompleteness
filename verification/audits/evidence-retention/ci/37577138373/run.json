@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-07T05:36:18Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/ktrans-dense-1",
+ "head_sha": "a4f4f344408f7d7f2278d857105aea446583e1b9",
+ "id": 37577138373,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "37577138373",
+ "run_number": 1785,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-07T05:52:37Z"
+}

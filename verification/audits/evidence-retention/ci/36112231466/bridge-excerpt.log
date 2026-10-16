@@ -1,0 +1,24 @@
+2026-09-25T08:20:37.3713697Z Build completed successfully (3598 jobs).
+2026-09-25T08:21:35.5981417Z release gate
+2026-09-25T08:21:35.5981945Z ====================================================================
+2026-09-25T08:21:35.5982987Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-09-25T08:21:35.5984086Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-09-25T08:21:35.5984889Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-09-25T08:21:35.5985623Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-09-25T08:21:35.5986304Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-09-25T08:21:35.5987086Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-09-25T08:21:35.5988080Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-09-25T08:21:35.5988851Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-09-25T08:21:35.5989598Z   PASS  control-plane-lint control_plane_lint: OK (24 control-plane file(s) linted; blo
+2026-09-25T08:21:35.5990314Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-09-25T08:21:35.5991002Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-09-25T08:21:35.5991660Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-09-25T08:21:35.5992303Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-09-25T08:21:35.5992999Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-09-25T08:21:35.5993735Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-09-25T08:21:35.5994574Z   PASS  coverage         coverage_check: OK (130 canonical statements, 19 unattached 
+2026-09-25T08:21:35.5995262Z   PASS  lean-axioms      lean_axiom_check: OK (4187 named result(s) reported, no sorr
+2026-09-25T08:21:35.5995890Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-09-25T08:21:35.5996432Z   PASS  certificate-verifier certificate_verifier: authoritative OK (0 failure(s))
+2026-09-25T08:21:35.5996863Z ====================================================================
+2026-09-25T08:21:35.5997357Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

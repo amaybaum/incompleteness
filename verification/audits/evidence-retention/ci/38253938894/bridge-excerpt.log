@@ -1,0 +1,164 @@
+2026-10-12T13:13:49.4749031Z ⚠ [3642/3650] Built OIBridge.EqvK2Schema (9.9s)
+2026-10-12T13:13:49.4810187Z info: OIBridge/EqvK2Schema.lean:430:0: 'OIBridge.EqvK2Schema.pauli_conjTranspose' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4813532Z info: OIBridge/EqvK2Schema.lean:431:0: 'OIBridge.EqvK2Schema.trace_pauli_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4815081Z info: OIBridge/EqvK2Schema.lean:432:0: 'OIBridge.EqvK2Schema.pauli_complete' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4816741Z info: OIBridge/EqvK2Schema.lean:433:0: 'OIBridge.EqvK2Schema.trace_T_mul_T' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4818310Z info: OIBridge/EqvK2Schema.lean:434:0: 'OIBridge.EqvK2Schema.dict_tens' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4819864Z info: OIBridge/EqvK2Schema.lean:435:0: 'OIBridge.EqvK2Schema.dict_prodState' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4821401Z info: OIBridge/EqvK2Schema.lean:436:0: 'OIBridge.EqvK2Schema.dict_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4822956Z info: OIBridge/EqvK2Schema.lean:437:0: 'OIBridge.EqvK2Schema.dict_isHermitian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4824564Z info: OIBridge/EqvK2Schema.lean:438:0: 'OIBridge.EqvK2Schema.trace_T_mul_dict' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4826464Z info: OIBridge/EqvK2Schema.lean:439:0: 'OIBridge.EqvK2Schema.trace_dict_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4828036Z info: OIBridge/EqvK2Schema.lean:440:0: 'OIBridge.EqvK2Schema.ipW_eq_trace' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4829706Z info: OIBridge/EqvK2Schema.lean:441:0: 'OIBridge.EqvK2Schema.dict_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4831280Z info: OIBridge/EqvK2Schema.lean:442:0: 'OIBridge.EqvK2Schema.dict_complete4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4832841Z info: OIBridge/EqvK2Schema.lean:443:0: 'OIBridge.EqvK2Schema.dict_coordOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4834380Z info: OIBridge/EqvK2Schema.lean:444:0: 'OIBridge.EqvK2Schema.dictEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4836172Z info: OIBridge/EqvK2Schema.lean:445:0: 'OIBridge.EqvK2Schema.trace_vecMulVec_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4838859Z info: OIBridge/EqvK2Schema.lean:446:0: 'OIBridge.EqvK2Schema.posSemidef_dict_of_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4840723Z info: OIBridge/EqvK2Schema.lean:447:0: 'OIBridge.EqvK2Schema.subset_Q3_of_pure_dual' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4842521Z info: OIBridge/EqvK2Schema.lean:448:0: 'OIBridge.EqvK2Schema.Q3_subset_of_pure' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4844266Z info: OIBridge/EqvK2Schema.lean:449:0: 'OIBridge.EqvK2Schema.Q3_selfDual' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4846169Z info: OIBridge/EqvK2Schema.lean:450:0: 'OIBridge.EqvK2Schema.driveWords_preserve' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:13:49.4847922Z info: OIBridge/EqvK2Schema.lean:451:0: 'OIBridge.EqvK2Schema.pairCone_eq_Q3_of_drive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.7919014Z ⚠ [3643/3650] Built OIBridge.EqvK2Converse (12s)
+2026-10-12T13:14:01.8011898Z info: OIBridge/EqvK2Converse.lean:212:0: 'OIBridge.EqvK2Converse.dict_eq_sum_tensorOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8013757Z info: OIBridge/EqvK2Converse.lean:213:0: 'OIBridge.EqvK2Converse.tensorOf_conj' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8015811Z info: OIBridge/EqvK2Converse.lean:214:0: 'OIBridge.EqvK2Converse.tokMat_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8017539Z info: OIBridge/EqvK2Converse.lean:215:0: 'OIBridge.EqvK2Converse.tokMat_rot' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8019295Z info: OIBridge/EqvK2Converse.lean:216:0: 'OIBridge.EqvK2Converse.tokMat_cyc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8021219Z info: OIBridge/EqvK2Converse.lean:217:0: 'OIBridge.EqvK2Converse.dict_actT_rotLin' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8023024Z info: OIBridge/EqvK2Converse.lean:218:0: 'OIBridge.EqvK2Converse.dict_actT_cyc' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8024796Z info: OIBridge/EqvK2Converse.lean:219:0: 'OIBridge.EqvK2Converse.Q3_aMiss' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:01.8027087Z info: OIBridge/EqvK2Converse.lean:220:0: 'OIBridge.EqvK2Converse.pairCone_eq_Q3_iff_drive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9078913Z ⚠ [3644/3650] Built OIBridge.EqvK2Block (5.2s)
+2026-10-12T13:14:06.9173364Z info: OIBridge/EqvK2Block.lean:512:0: 'OIBridge.EqvK2Block.dict_blockAct' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9174250Z info: OIBridge/EqvK2Block.lean:513:0: 'OIBridge.EqvK2Block.blockMat_mulVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9175215Z info: OIBridge/EqvK2Block.lean:514:0: 'OIBridge.EqvK2Block.conj_vecMulVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9176304Z info: OIBridge/EqvK2Block.lean:515:0: 'OIBridge.EqvK2Block.suTo_isSU' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9177156Z info: OIBridge/EqvK2Block.lean:516:0: 'OIBridge.EqvK2Block.suTo_mulVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9178110Z info: OIBridge/EqvK2Block.lean:517:0: 'OIBridge.EqvK2Block.dict_prod_bloch' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9178981Z info: OIBridge/EqvK2Block.lean:518:0: 'OIBridge.EqvK2Block.reach_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9179883Z info: OIBridge/EqvK2Block.lean:519:0: 'OIBridge.EqvK2Block.pairCone_eq_Q3_of_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9180811Z info: OIBridge/EqvK2Block.lean:520:0: 'OIBridge.EqvK2Block.Q3_blockInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9181743Z info: OIBridge/EqvK2Block.lean:521:0: 'OIBridge.EqvK2Block.pairCone_eq_Q3_iff_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:06.9182754Z info: OIBridge/EqvK2Block.lean:522:0: 'OIBridge.EqvK2Block.aMiss_of_blockInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7107719Z ⚠ [3645/3650] Built OIBridge.BridgeDictionary (29s)
+2026-10-12T13:14:08.7255360Z info: OIBridge/BridgeDictionary.lean:364:0: 'OIBridge.BridgeDictionary.dict_tens' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7256578Z info: OIBridge/BridgeDictionary.lean:365:0: 'OIBridge.BridgeDictionary.dict_prodState' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7257696Z info: OIBridge/BridgeDictionary.lean:366:0: 'OIBridge.BridgeDictionary.dict_cnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7258656Z info: OIBridge/BridgeDictionary.lean:367:0: 'OIBridge.BridgeDictionary.rotZ_cos_sin' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7259736Z info: OIBridge/BridgeDictionary.lean:368:0: 'OIBridge.BridgeDictionary.zPhase_conjTranspose' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7260911Z info: OIBridge/BridgeDictionary.lean:369:0: 'OIBridge.BridgeDictionary.zPhase_pauli0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7262015Z info: OIBridge/BridgeDictionary.lean:370:0: 'OIBridge.BridgeDictionary.zPhase_pauli1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7263002Z info: OIBridge/BridgeDictionary.lean:371:0: 'OIBridge.BridgeDictionary.zPhase_pauli2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7263965Z info: OIBridge/BridgeDictionary.lean:372:0: 'OIBridge.BridgeDictionary.zPhase_pauli3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7264967Z info: OIBridge/BridgeDictionary.lean:373:0: 'OIBridge.BridgeDictionary.conj_dict_right' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7266237Z info: OIBridge/BridgeDictionary.lean:374:0: 'OIBridge.BridgeDictionary.conj_dict_left' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7267209Z info: OIBridge/BridgeDictionary.lean:375:0: 'OIBridge.BridgeDictionary.dict_actT_rotZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7268302Z info: OIBridge/BridgeDictionary.lean:376:0: 'OIBridge.BridgeDictionary.dict_actC_rotZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7269291Z info: OIBridge/BridgeDictionary.lean:377:0: 'OIBridge.BridgeDictionary.dict_actT_nflip' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7270265Z info: OIBridge/BridgeDictionary.lean:378:0: 'OIBridge.BridgeDictionary.dict_actC_nflip' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7271294Z info: OIBridge/BridgeDictionary.lean:379:0: 'OIBridge.BridgeDictionary.monomial_extension_admissible' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7272346Z info: OIBridge/BridgeDictionary.lean:380:0: 'OIBridge.BridgeDictionary.zPhase_unitary' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7273325Z info: OIBridge/BridgeDictionary.lean:381:0: 'OIBridge.BridgeDictionary.transfer_phase' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7274311Z info: OIBridge/BridgeDictionary.lean:382:0: 'OIBridge.BridgeDictionary.dict_actT_rotZ_345' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:08.7275325Z info: OIBridge/BridgeDictionary.lean:383:0: 'OIBridge.BridgeDictionary.zPhase_pauli0_counter' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8124404Z ⚠ [3646/3650] Built OIBridge.BridgeConverge (2.1s)
+2026-10-12T13:14:10.8131559Z info: OIBridge/BridgeConverge.lean:186:0: 'OIBridge.BridgeConverge.pauli_converge' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8133263Z info: OIBridge/BridgeConverge.lean:187:0: 'OIBridge.BridgeConverge.tokMat_converge' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8134964Z info: OIBridge/BridgeConverge.lean:188:0: 'OIBridge.BridgeConverge.dict_converge' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8136808Z info: OIBridge/BridgeConverge.lean:189:0: 'OIBridge.BridgeConverge.dict_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8138645Z info: OIBridge/BridgeConverge.lean:190:0: 'OIBridge.BridgeConverge.dict_isHermitian' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8140223Z info: OIBridge/BridgeConverge.lean:191:0: 'OIBridge.BridgeConverge.dictEquiv_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8141933Z info: OIBridge/BridgeConverge.lean:192:0: 'OIBridge.BridgeConverge.dict_transferMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8143612Z info: OIBridge/BridgeConverge.lean:193:0: 'OIBridge.BridgeConverge.transferClause_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8145271Z info: OIBridge/BridgeConverge.lean:194:0: 'OIBridge.BridgeConverge.transferClause_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8147133Z info: OIBridge/BridgeConverge.lean:195:0: 'OIBridge.BridgeConverge.transfer_phase_table' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8148787Z info: OIBridge/BridgeConverge.lean:196:0: 'OIBridge.BridgeConverge.transfer_flow_table' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8150419Z info: OIBridge/BridgeConverge.lean:197:0: 'OIBridge.BridgeConverge.transfer_345_table' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8152022Z info: OIBridge/BridgeConverge.lean:198:0: 'OIBridge.BridgeConverge.pauli1_eq_perm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8153613Z info: OIBridge/BridgeConverge.lean:199:0: 'OIBridge.BridgeConverge.pauli1_permClass' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8155220Z info: OIBridge/BridgeConverge.lean:200:0: 'OIBridge.BridgeConverge.pauli1_unitary' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8157125Z info: OIBridge/BridgeConverge.lean:201:0: 'OIBridge.BridgeConverge.transfer_nflip_table' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8158879Z info: OIBridge/BridgeConverge.lean:202:0: 'OIBridge.BridgeConverge.transfer_nflip_of_substratum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8160636Z info: OIBridge/BridgeConverge.lean:203:0: 'OIBridge.BridgeConverge.transferClause_Q3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8162312Z info: OIBridge/BridgeConverge.lean:204:0: 'OIBridge.BridgeConverge.Q3_phase_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8163917Z info: OIBridge/BridgeConverge.lean:205:0: 'OIBridge.BridgeConverge.e01_moved' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:10.8165822Z info: OIBridge/BridgeConverge.lean:206:0: 'OIBridge.BridgeConverge.transfer_counter' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1207836Z ⚠ [3647/3650] Built OIBridge.EqvK2Generation (4.4s)
+2026-10-12T13:14:15.1272332Z info: OIBridge/EqvK2Generation.lean:529:0: 'OIBridge.EqvK2Generation.blockMat_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1273400Z info: OIBridge/EqvK2Generation.lean:530:0: 'OIBridge.EqvK2Generation.cycMat_conjTranspose_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1274378Z info: OIBridge/EqvK2Generation.lean:531:0: 'OIBridge.EqvK2Generation.rotRe_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1275294Z info: OIBridge/EqvK2Generation.lean:532:0: 'OIBridge.EqvK2Generation.su_euler' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1276520Z info: OIBridge/EqvK2Generation.lean:533:0: 'OIBridge.EqvK2Generation.conjInv_idle' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1277451Z info: OIBridge/EqvK2Generation.lean:534:0: 'OIBridge.EqvK2Generation.rtrick' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1278384Z info: OIBridge/EqvK2Generation.lean:535:0: 'OIBridge.EqvK2Generation.conjInv_ctrl' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1279374Z info: OIBridge/EqvK2Generation.lean:536:0: 'OIBridge.EqvK2Generation.blockInvariant_of_drive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1280352Z info: OIBridge/EqvK2Generation.lean:537:0: 'OIBridge.EqvK2Generation.reachPure' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1281359Z info: OIBridge/EqvK2Generation.lean:538:0: 'OIBridge.EqvK2Generation.pairCone_eq_Q3_of_drive_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1282346Z info: OIBridge/EqvK2Generation.lean:539:0: 'OIBridge.EqvK2Generation.Q3_cnot' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:15.1283329Z info: OIBridge/EqvK2Generation.lean:540:0: 'OIBridge.EqvK2Generation.pairCone_eq_Q3_iff_drive_exact' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4243784Z ℹ [3648/3650] Built OIBridge.EqvK2MaxCone (2.3s)
+2026-10-12T13:14:17.4244984Z info: OIBridge/EqvK2MaxCone.lean:221:0: 'OIBridge.EqvK2MaxCone.ipW_prodState' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4246974Z info: OIBridge/EqvK2MaxCone.lean:222:0: 'OIBridge.EqvK2MaxCone.products_mem_dualW_of_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4248719Z info: OIBridge/EqvK2MaxCone.lean:223:0: 'OIBridge.EqvK2MaxCone.ipW_blockAct_adjoint' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4250413Z info: OIBridge/EqvK2MaxCone.lean:224:0: 'OIBridge.EqvK2MaxCone.dualW_blockInvariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4252141Z info: OIBridge/EqvK2MaxCone.lean:225:0: 'OIBridge.EqvK2MaxCone.pure_mem_of_products_scaling_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4254146Z info: OIBridge/EqvK2MaxCone.lean:226:0: 'OIBridge.EqvK2MaxCone.Q3_subset_of_products_cone_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4256111Z info: OIBridge/EqvK2MaxCone.lean:227:0: 'OIBridge.EqvK2MaxCone.subset_Q3_of_maxCone_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4257979Z info: OIBridge/EqvK2MaxCone.lean:228:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_block_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4259711Z info: OIBridge/EqvK2MaxCone.lean:229:0: 'OIBridge.EqvK2MaxCone.blockInvariant_of_eq_Q3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4261463Z info: OIBridge/EqvK2MaxCone.lean:230:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_block_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4263241Z info: OIBridge/EqvK2MaxCone.lean:231:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4264975Z info: OIBridge/EqvK2MaxCone.lean:232:0: 'OIBridge.EqvK2MaxCone.driveInvariant_of_eq_Q3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4267045Z info: OIBridge/EqvK2MaxCone.lean:233:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_iff_drive_maxCone' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4268868Z info: OIBridge/EqvK2MaxCone.lean:234:0: 'OIBridge.EqvK2MaxCone.subset_Q3_of_sharp_products_block' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4270779Z info: OIBridge/EqvK2MaxCone.lean:235:0: 'OIBridge.EqvK2MaxCone.maxCone_bound_of_sharp_available' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:17.4272593Z info: OIBridge/EqvK2MaxCone.lean:236:0: 'OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_sharp_available' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5323651Z ℹ [3649/3650] Built OIBridge (7.1s)
+2026-10-12T13:14:24.5324677Z info: OIBridge.lean:854:0: 'OIBridge.LinkJoin.char_two_subset_ne_link' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5326383Z info: OIBridge.lean:855:0: 'OIBridge.LinkJoin.char_multiset_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5327742Z info: OIBridge.lean:856:0: 'OIBridge.LinkJoin.sum_sq_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5328892Z info: OIBridge.lean:857:0: 'OIBridge.LinkJoin.sum_cube_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5329913Z info: OIBridge.lean:858:0: 'OIBridge.LinkJoin.faceEquivLink_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5330902Z info: OIBridge.lean:859:0: 'OIBridge.LinkJoin.act_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5331823Z info: OIBridge.lean:860:0: 'OIBridge.LinkJoin.sym_linkHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5332784Z info: OIBridge.lean:861:0: 'OIBridge.LinkJoin.act_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5333836Z info: OIBridge.lean:862:0: 'OIBridge.LinkJoin.linkHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5335195Z info: OIBridge.lean:863:0: 'OIBridge.LinkJoin.character_rhoLink' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5337132Z info: OIBridge.lean:864:0: 'OIBridge.LinkJoin.rhoLink_comm_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5338263Z info: OIBridge.lean:865:0: 'OIBridge.LinkJoin.character_restrict_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5339401Z info: OIBridge.lean:866:0: 'OIBridge.LinkJoin.character_PA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5340821Z info: OIBridge.lean:867:0: 'OIBridge.LinkJoin.character_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5341928Z info: OIBridge.lean:868:0: 'OIBridge.LinkJoin.character_rhoT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5343119Z info: OIBridge.lean:869:0: 'OIBridge.LinkJoin.character_rhoE' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5344187Z info: OIBridge.lean:870:0: 'OIBridge.LinkJoin.character_rhoA' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5345295Z info: OIBridge.lean:871:0: 'OIBridge.LinkJoin.character_rhoA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5374668Z info: OIBridge.lean:872:0: 'OIBridge.LinkJoin.character_rhoLink_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-12T13:14:24.5426233Z Build completed successfully (3650 jobs).
+2026-10-12T13:15:11.4283897Z release gate
+2026-10-12T13:15:11.4284329Z ====================================================================
+2026-10-12T13:15:11.4285016Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-10-12T13:15:11.4286148Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-10-12T13:15:11.4287347Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-10-12T13:15:11.4288288Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-10-12T13:15:11.4288993Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-10-12T13:15:11.4289615Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-10-12T13:15:11.4290200Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-10-12T13:15:11.4290794Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-10-12T13:15:11.4291329Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-10-12T13:15:11.4291846Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-10-12T13:15:11.4292324Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-10-12T13:15:11.4292825Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-10-12T13:15:11.4293342Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-10-12T13:15:11.4293899Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-10-12T13:15:11.4294438Z   PASS  coverage         coverage_check: OK (129 canonical statements, 19 unattached 
+2026-10-12T13:15:11.4294942Z   PASS  lean-axioms      lean_axiom_check: OK (5967 named result(s) reported, no sorr
+2026-10-12T13:15:11.4295467Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-10-12T13:15:11.4296333Z   PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+2026-10-12T13:15:11.4296774Z   PASS  v3-self-test     v3_verifier: self-test OK
+2026-10-12T13:15:11.4297146Z   PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+2026-10-12T13:15:11.4297560Z   PASS  v3-receipts      RECEIPTS  44 receipt(s), all hold
+2026-10-12T13:15:11.4297903Z ====================================================================
+2026-10-12T13:15:11.4298386Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

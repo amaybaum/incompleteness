@@ -1,0 +1,26 @@
+2026-10-04T00:42:57.7985941Z Build completed successfully (3624 jobs).
+2026-10-04T00:43:41.7483882Z release gate
+2026-10-04T00:43:41.7486069Z ====================================================================
+2026-10-04T00:43:41.7487140Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-10-04T00:43:41.7487986Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-10-04T00:43:41.7488984Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-10-04T00:43:41.7489681Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-10-04T00:43:41.7490375Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-10-04T00:43:41.7491174Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-10-04T00:43:41.7491928Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-10-04T00:43:41.7492758Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-10-04T00:43:41.7493420Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-10-04T00:43:41.7494062Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-10-04T00:43:41.7494663Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-10-04T00:43:41.7495265Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-10-04T00:43:41.7495929Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-10-04T00:43:41.7496902Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-10-04T00:43:41.7497587Z   PASS  coverage         coverage_check: OK (129 canonical statements, 19 unattached 
+2026-10-04T00:43:41.7498451Z   PASS  lean-axioms      lean_axiom_check: OK (5491 named result(s) reported, no sorr
+2026-10-04T00:43:41.7499204Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-10-04T00:43:41.7499911Z   PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+2026-10-04T00:43:41.7500462Z   PASS  v3-self-test     v3_verifier: self-test OK
+2026-10-04T00:43:41.7500933Z   PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+2026-10-04T00:43:41.7501440Z   PASS  v3-receipts      RECEIPTS  28 receipt(s), all hold
+2026-10-04T00:43:41.7501976Z ====================================================================
+2026-10-04T00:43:41.7502580Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

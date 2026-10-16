@@ -1,0 +1,121 @@
+2026-09-29T11:25:12.4112144Z info: OIBridge/DitaTorusLocus.lean:2379:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_t1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4113704Z info: OIBridge/DitaTorusLocus.lean:2389:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4115018Z info: OIBridge/DitaTorusLocus.lean:2396:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_col' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4116598Z info: OIBridge/DitaTorusLocus.lean:2402:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_sig0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4118212Z info: OIBridge/DitaTorusLocus.lean:2408:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_sig1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4118449Z info: OIBridge/DitaTorusLocus.lean:2414:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_reps' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4118686Z info: OIBridge/DitaTorusLocus.lean:2423:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4118918Z info: OIBridge/DitaTorusLocus.lean:2432:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4119152Z info: OIBridge/DitaTorusLocus.lean:2442:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4119384Z info: OIBridge/DitaTorusLocus.lean:2451:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4119615Z info: OIBridge/DitaTorusLocus.lean:2460:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4119847Z info: OIBridge/DitaTorusLocus.lean:2469:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4120081Z info: OIBridge/DitaTorusLocus.lean:2478:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4120311Z info: OIBridge/DitaTorusLocus.lean:2487:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4120542Z info: OIBridge/DitaTorusLocus.lean:2496:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row8' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4120774Z info: OIBridge/DitaTorusLocus.lean:2506:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row9' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4121012Z info: OIBridge/DitaTorusLocus.lean:2516:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row10' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4121249Z info: OIBridge/DitaTorusLocus.lean:2526:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row11' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4121517Z info: OIBridge/DitaTorusLocus.lean:2536:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row12' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4121753Z info: OIBridge/DitaTorusLocus.lean:2546:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row13' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4122044Z info: OIBridge/DitaTorusLocus.lean:2556:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row14' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4122281Z info: OIBridge/DitaTorusLocus.lean:2566:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr_row15' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4125682Z info: OIBridge/DitaTorusLocus.lean:2675:0: 'OIBridge.DitaTorusLocus.a40_shared_gen_mr' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4128110Z info: OIBridge/DitaTorusLocus.lean:2682:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4130445Z info: OIBridge/DitaTorusLocus.lean:2689:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4132838Z info: OIBridge/DitaTorusLocus.lean:2696:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4135268Z info: OIBridge/DitaTorusLocus.lean:2703:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4137524Z info: OIBridge/DitaTorusLocus.lean:2710:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4139907Z info: OIBridge/DitaTorusLocus.lean:2717:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4142238Z info: OIBridge/DitaTorusLocus.lean:2724:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4144745Z info: OIBridge/DitaTorusLocus.lean:2731:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_rel7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4144987Z info: OIBridge/DitaTorusLocus.lean:2737:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4147396Z info: OIBridge/DitaTorusLocus.lean:2744:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4149647Z info: OIBridge/DitaTorusLocus.lean:2751:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4152029Z info: OIBridge/DitaTorusLocus.lean:2758:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4154434Z info: OIBridge/DitaTorusLocus.lean:2765:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4157018Z info: OIBridge/DitaTorusLocus.lean:2772:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4159362Z info: OIBridge/DitaTorusLocus.lean:2779:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4162807Z info: OIBridge/DitaTorusLocus.lean:2786:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4165237Z info: OIBridge/DitaTorusLocus.lean:2793:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_rel7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4165479Z info: OIBridge/DitaTorusLocus.lean:2799:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4167276Z info: OIBridge/DitaTorusLocus.lean:2806:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4169186Z info: OIBridge/DitaTorusLocus.lean:2813:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4170979Z info: OIBridge/DitaTorusLocus.lean:2820:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4172976Z info: OIBridge/DitaTorusLocus.lean:2827:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4174766Z info: OIBridge/DitaTorusLocus.lean:2834:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4176676Z info: OIBridge/DitaTorusLocus.lean:2841:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4178499Z info: OIBridge/DitaTorusLocus.lean:2848:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4180351Z info: OIBridge/DitaTorusLocus.lean:2855:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_rel7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4180587Z info: OIBridge/DitaTorusLocus.lean:2861:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4182443Z info: OIBridge/DitaTorusLocus.lean:2869:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4184396Z info: OIBridge/DitaTorusLocus.lean:2877:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4186300Z info: OIBridge/DitaTorusLocus.lean:2885:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4188119Z info: OIBridge/DitaTorusLocus.lean:2893:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4189993Z info: OIBridge/DitaTorusLocus.lean:2901:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4191784Z info: OIBridge/DitaTorusLocus.lean:2909:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4193792Z info: OIBridge/DitaTorusLocus.lean:2917:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4195584Z info: OIBridge/DitaTorusLocus.lean:2925:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_rel7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4195824Z info: OIBridge/DitaTorusLocus.lean:2932:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4198215Z info: OIBridge/DitaTorusLocus.lean:2940:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4200493Z info: OIBridge/DitaTorusLocus.lean:2948:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4202906Z info: OIBridge/DitaTorusLocus.lean:2956:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4205279Z info: OIBridge/DitaTorusLocus.lean:2964:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4207575Z info: OIBridge/DitaTorusLocus.lean:2972:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4209960Z info: OIBridge/DitaTorusLocus.lean:2980:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4212241Z info: OIBridge/DitaTorusLocus.lean:2988:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4214679Z info: OIBridge/DitaTorusLocus.lean:2996:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_rel7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4214920Z info: OIBridge/DitaTorusLocus.lean:3003:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4227278Z info: OIBridge/DitaTorusLocus.lean:3086:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1p' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4239451Z info: OIBridge/DitaTorusLocus.lean:3169:0: 'OIBridge.DitaTorusLocus.a40_shared_face_1m' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4251588Z info: OIBridge/DitaTorusLocus.lean:3252:0: 'OIBridge.DitaTorusLocus.a40_shared_face_2p' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4263835Z info: OIBridge/DitaTorusLocus.lean:3335:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3p' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4276065Z info: OIBridge/DitaTorusLocus.lean:3418:0: 'OIBridge.DitaTorusLocus.a40_shared_face_3m' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4288259Z info: OIBridge/DitaTorusLocus.lean:3501:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k1_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4300421Z info: OIBridge/DitaTorusLocus.lean:3584:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k1_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4315014Z info: OIBridge/DitaTorusLocus.lean:3667:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k2_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4327207Z info: OIBridge/DitaTorusLocus.lean:3750:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k2_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4339364Z info: OIBridge/DitaTorusLocus.lean:3833:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k3_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4351535Z info: OIBridge/DitaTorusLocus.lean:3916:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k3_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4363865Z info: OIBridge/DitaTorusLocus.lean:3999:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k4_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4376149Z info: OIBridge/DitaTorusLocus.lean:4082:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_k4_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4388302Z info: OIBridge/DitaTorusLocus.lean:4165:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_e1_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4400547Z info: OIBridge/DitaTorusLocus.lean:4248:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_e1_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4412848Z info: OIBridge/DitaTorusLocus.lean:4331:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_e2_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4425135Z info: OIBridge/DitaTorusLocus.lean:4414:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_e2_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4437321Z info: OIBridge/DitaTorusLocus.lean:4497:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t1_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4449457Z info: OIBridge/DitaTorusLocus.lean:4580:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t1_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4461664Z info: OIBridge/DitaTorusLocus.lean:4663:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t2_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4474028Z info: OIBridge/DitaTorusLocus.lean:4746:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t2_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4487304Z info: OIBridge/DitaTorusLocus.lean:4829:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t3_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4499502Z info: OIBridge/DitaTorusLocus.lean:4912:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_t3_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4511634Z info: OIBridge/DitaTorusLocus.lean:4995:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_mc_c' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4524028Z info: OIBridge/DitaTorusLocus.lean:5078:0: 'OIBridge.DitaTorusLocus.a40_shared_excl_mr_r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4530873Z info: OIBridge/DitaTorusLocus.lean:5232:0: 'OIBridge.DitaTorusLocus.a40_locus_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4544306Z info: OIBridge/DitaTorusLocus.lean:5512:0: 'OIBridge.DitaTorusLocus.a40_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-29T11:25:12.4565229Z Build completed successfully (3609 jobs).
+2026-09-29T11:25:44.8952127Z release gate
+2026-09-29T11:25:44.8952397Z ====================================================================
+2026-09-29T11:25:44.8952934Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-09-29T11:25:44.8953365Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-09-29T11:25:44.8953732Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-09-29T11:25:44.8954150Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-09-29T11:25:44.8954618Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-09-29T11:25:44.8955013Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-09-29T11:25:44.8955323Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-09-29T11:25:44.8955641Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-09-29T11:25:44.8955934Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-09-29T11:25:44.8956211Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-09-29T11:25:44.8956470Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-09-29T11:25:44.8956728Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-09-29T11:25:44.8957005Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-09-29T11:25:44.8957306Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-09-29T11:25:44.8957596Z   PASS  coverage         coverage_check: OK (130 canonical statements, 19 unattached 
+2026-09-29T11:25:44.8957872Z   PASS  lean-axioms      lean_axiom_check: OK (5251 named result(s) reported, no sorr
+2026-09-29T11:25:44.8958191Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-09-29T11:25:44.8958486Z   PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+2026-09-29T11:25:44.8958728Z   PASS  v3-self-test     v3_verifier: self-test OK
+2026-09-29T11:25:44.8958943Z   PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+2026-09-29T11:25:44.8959166Z   PASS  v3-receipts      RECEIPTS  16 receipt(s), all hold
+2026-09-29T11:25:44.8959359Z ====================================================================
+2026-09-29T11:25:44.8959624Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

@@ -1,0 +1,113 @@
+2026-09-26T14:33:47.1512790Z ⚠ [3598/3600] Built OIBridge.OrbitIsometryClassification (143s)
+2026-09-26T14:33:47.1514779Z info: OIBridge/OrbitIsometryClassification.lean:35:0: 'OIBridge.OrbitIsometryClassification.a32_shared_entry_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1516523Z info: OIBridge/OrbitIsometryClassification.lean:45:0: 'OIBridge.OrbitIsometryClassification.a32_shared_entry_starI' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1518126Z info: OIBridge/OrbitIsometryClassification.lean:53:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1519686Z info: OIBridge/OrbitIsometryClassification.lean:61:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow3s' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1521284Z info: OIBridge/OrbitIsometryClassification.lean:70:0: 'OIBridge.OrbitIsometryClassification.a32_shared_value_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1522884Z info: OIBridge/OrbitIsometryClassification.lean:79:0: 'OIBridge.OrbitIsometryClassification.a32_shared_value_starI' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1524570Z info: OIBridge/OrbitIsometryClassification.lean:89:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1526193Z info: OIBridge/OrbitIsometryClassification.lean:108:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow_mod' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1527736Z info: OIBridge/OrbitIsometryClassification.lean:116:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_relabel' depends on axioms: [propext,
+2026-09-26T14:33:47.1528556Z  Classical.choice,
+2026-09-26T14:33:47.1529071Z  Quot.sound]
+2026-09-26T14:33:47.1530137Z info: OIBridge/OrbitIsometryClassification.lean:124:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_relabel' depends on axioms: [propext,
+2026-09-26T14:33:47.1531140Z  Classical.choice,
+2026-09-26T14:33:47.1531449Z  Quot.sound]
+2026-09-26T14:33:47.1532411Z info: OIBridge/OrbitIsometryClassification.lean:132:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_star_relabel' depends on axioms: [propext,
+2026-09-26T14:33:47.1533568Z  Classical.choice,
+2026-09-26T14:33:47.1533918Z  Quot.sound]
+2026-09-26T14:33:47.1535255Z info: OIBridge/OrbitIsometryClassification.lean:141:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1537427Z info: OIBridge/OrbitIsometryClassification.lean:150:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1539101Z info: OIBridge/OrbitIsometryClassification.lean:159:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1540206Z info: OIBridge/OrbitIsometryClassification.lean:168:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1543492Z info: OIBridge/OrbitIsometryClassification.lean:184:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_1d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1549292Z info: OIBridge/OrbitIsometryClassification.lean:201:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_1r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1550435Z info: OIBridge/OrbitIsometryClassification.lean:217:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_2d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1553797Z info: OIBridge/OrbitIsometryClassification.lean:234:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_2r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1555121Z info: OIBridge/OrbitIsometryClassification.lean:251:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_3d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1558322Z info: OIBridge/OrbitIsometryClassification.lean:269:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_3r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1561723Z info: OIBridge/OrbitIsometryClassification.lean:286:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_4d' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1567275Z info: OIBridge/OrbitIsometryClassification.lean:304:0: 'OIBridge.OrbitIsometryClassification.a32_shared_bridge_4r' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1568410Z info: OIBridge/OrbitIsometryClassification.lean:315:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1569524Z info: OIBridge/OrbitIsometryClassification.lean:327:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1570652Z info: OIBridge/OrbitIsometryClassification.lean:336:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1571768Z info: OIBridge/OrbitIsometryClassification.lean:345:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1572890Z info: OIBridge/OrbitIsometryClassification.lean:395:0: 'OIBridge.OrbitIsometryClassification.a32_shared_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1573989Z info: OIBridge/OrbitIsometryClassification.lean:404:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_mul_self' depends on axioms: [propext,
+2026-09-26T14:33:47.1574768Z  Classical.choice,
+2026-09-26T14:33:47.1574986Z  Quot.sound]
+2026-09-26T14:33:47.1575655Z info: OIBridge/OrbitIsometryClassification.lean:414:0: 'OIBridge.OrbitIsometryClassification.a32_shared_relabel' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1579064Z info: OIBridge/OrbitIsometryClassification.lean:425:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_star' depends on axioms: [propext,
+2026-09-26T14:33:47.1579683Z  Classical.choice,
+2026-09-26T14:33:47.1579898Z  Quot.sound]
+2026-09-26T14:33:47.1581805Z info: OIBridge/OrbitIsometryClassification.lean:433:0: 'OIBridge.OrbitIsometryClassification.a32_shared_coord_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1582962Z info: OIBridge/OrbitIsometryClassification.lean:442:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1584139Z info: OIBridge/OrbitIsometryClassification.lean:459:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_A' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1585437Z info: OIBridge/OrbitIsometryClassification.lean:476:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_B' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1586624Z info: OIBridge/OrbitIsometryClassification.lean:493:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_C' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1587763Z info: OIBridge/OrbitIsometryClassification.lean:510:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_D' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1591510Z info: OIBridge/OrbitIsometryClassification.lean:527:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1595374Z info: OIBridge/OrbitIsometryClassification.lean:544:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1600986Z info: OIBridge/OrbitIsometryClassification.lean:561:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1605118Z info: OIBridge/OrbitIsometryClassification.lean:578:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1608895Z info: OIBridge/OrbitIsometryClassification.lean:595:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_5' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1615240Z info: OIBridge/OrbitIsometryClassification.lean:612:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_6' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1619695Z info: OIBridge/OrbitIsometryClassification.lean:629:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_7' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1628212Z info: OIBridge/OrbitIsometryClassification.lean:646:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fix_8' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1630476Z info: OIBridge/OrbitIsometryClassification.lean:665:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1632406Z info: OIBridge/OrbitIsometryClassification.lean:690:0: 'OIBridge.OrbitIsometryClassification.a32_shared_classify' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1670484Z info: OIBridge/OrbitIsometryClassification.lean:766:0: 'OIBridge.OrbitIsometryClassification.a32_control_overlap' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1671806Z info: OIBridge/OrbitIsometryClassification.lean:802:0: 'OIBridge.OrbitIsometryClassification.a32_shared_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1673183Z info: OIBridge/OrbitIsometryClassification.lean:874:0: 'OIBridge.OrbitIsometryClassification.a32_shared_isometry' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1674345Z info: OIBridge/OrbitIsometryClassification.lean:902:0: 'OIBridge.OrbitIsometryClassification.a32_control_moves' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1675808Z info: OIBridge/OrbitIsometryClassification.lean:931:0: 'OIBridge.OrbitIsometryClassification.a32_control_global' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1677088Z info: OIBridge/OrbitIsometryClassification.lean:958:0: 'OIBridge.OrbitIsometryClassification.a32_control_identity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1701794Z info: OIBridge/OrbitIsometryClassification.lean:1047:0: 'OIBridge.OrbitIsometryClassification.a32_control_quarter' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1703972Z info: OIBridge/OrbitIsometryClassification.lean:1073:0: 'OIBridge.OrbitIsometryClassification.a32_not_rigid' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:47.1706175Z info: OIBridge/OrbitIsometryClassification.lean:1118:0: 'OIBridge.OrbitIsometryClassification.a32_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1607465Z ℹ [3599/3600] Built OIBridge (7.0s)
+2026-09-26T14:33:54.1608553Z info: OIBridge.lean:821:0: 'OIBridge.LinkJoin.char_two_subset_ne_link' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1609553Z info: OIBridge.lean:822:0: 'OIBridge.LinkJoin.char_multiset_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1610472Z info: OIBridge.lean:823:0: 'OIBridge.LinkJoin.sum_sq_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1611732Z info: OIBridge.lean:824:0: 'OIBridge.LinkJoin.sum_cube_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1612649Z info: OIBridge.lean:825:0: 'OIBridge.LinkJoin.faceEquivLink_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1613444Z info: OIBridge.lean:826:0: 'OIBridge.LinkJoin.act_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1614191Z info: OIBridge.lean:827:0: 'OIBridge.LinkJoin.sym_linkHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1615224Z info: OIBridge.lean:828:0: 'OIBridge.LinkJoin.act_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1616402Z info: OIBridge.lean:829:0: 'OIBridge.LinkJoin.linkHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1617675Z info: OIBridge.lean:830:0: 'OIBridge.LinkJoin.character_rhoLink' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1618737Z info: OIBridge.lean:831:0: 'OIBridge.LinkJoin.rhoLink_comm_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1619785Z info: OIBridge.lean:832:0: 'OIBridge.LinkJoin.character_restrict_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1620892Z info: OIBridge.lean:833:0: 'OIBridge.LinkJoin.character_PA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1621951Z info: OIBridge.lean:834:0: 'OIBridge.LinkJoin.character_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1622971Z info: OIBridge.lean:835:0: 'OIBridge.LinkJoin.character_rhoT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1623984Z info: OIBridge.lean:836:0: 'OIBridge.LinkJoin.character_rhoE' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1625178Z info: OIBridge.lean:837:0: 'OIBridge.LinkJoin.character_rhoA' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1626223Z info: OIBridge.lean:838:0: 'OIBridge.LinkJoin.character_rhoA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1627311Z info: OIBridge.lean:839:0: 'OIBridge.LinkJoin.character_rhoLink_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T14:33:54.1695481Z Build completed successfully (3600 jobs).
+2026-09-26T14:34:25.2669120Z release gate
+2026-09-26T14:34:25.2669580Z ====================================================================
+2026-09-26T14:34:25.2670211Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-09-26T14:34:25.2670703Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-09-26T14:34:25.2671196Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-09-26T14:34:25.2671698Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-09-26T14:34:25.2672226Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-09-26T14:34:25.2672832Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-09-26T14:34:25.2673402Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-09-26T14:34:25.2673961Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-09-26T14:34:25.2674703Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-09-26T14:34:25.2675214Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-09-26T14:34:25.2675693Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-09-26T14:34:25.2676161Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-09-26T14:34:25.2676664Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-09-26T14:34:25.2677205Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-09-26T14:34:25.2677727Z   PASS  coverage         coverage_check: OK (130 canonical statements, 19 unattached 
+2026-09-26T14:34:25.2678229Z   PASS  lean-axioms      lean_axiom_check: OK (4269 named result(s) reported, no sorr
+2026-09-26T14:34:25.2678752Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-09-26T14:34:25.2679302Z   PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+2026-09-26T14:34:25.2679736Z   PASS  v3-self-test     v3_verifier: self-test OK
+2026-09-26T14:34:25.2680115Z   PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+2026-09-26T14:34:25.2680513Z   PASS  v3-receipts      RECEIPTS  6 receipt(s), all hold
+2026-09-26T14:34:25.2680869Z ====================================================================
+2026-09-26T14:34:25.2681565Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

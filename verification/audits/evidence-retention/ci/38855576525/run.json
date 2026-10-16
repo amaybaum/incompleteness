@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-16T05:24:04Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "draft/bg-3-scope-transfer-20261015",
+ "head_sha": "194eb3fd0c0a58ee843a574d93d4a0fa94f6cb79",
+ "id": 38855576525,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "38855576525",
+ "run_number": 2038,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-16T05:43:54Z"
+}

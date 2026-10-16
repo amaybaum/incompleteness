@@ -1,0 +1,71 @@
+2026-09-28T05:35:26.8109561Z info: OIBridge/DitaArcExclusivity.lean:32:0: 'OIBridge.DitaArcExclusivity.a37_shared_f4_symm' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8109951Z info: OIBridge/DitaArcExclusivity.lean:38:0: 'OIBridge.DitaArcExclusivity.a37_shared_wt_symm' depends on axioms: [propext]
+2026-09-28T05:35:26.8110434Z info: OIBridge/DitaArcExclusivity.lean:46:0: 'OIBridge.DitaArcExclusivity.a37_shared_sym_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8110935Z info: OIBridge/DitaArcExclusivity.lean:55:0: 'OIBridge.DitaArcExclusivity.a37_shared_persist_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8114079Z info: OIBridge/DitaArcExclusivity.lean:86:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_k1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8116857Z info: OIBridge/DitaArcExclusivity.lean:117:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_k2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8119723Z info: OIBridge/DitaArcExclusivity.lean:148:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_k3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8122723Z info: OIBridge/DitaArcExclusivity.lean:179:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_k4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8125470Z info: OIBridge/DitaArcExclusivity.lean:210:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_e1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8128381Z info: OIBridge/DitaArcExclusivity.lean:241:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_e2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8131362Z info: OIBridge/DitaArcExclusivity.lean:272:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_t2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8134111Z info: OIBridge/DitaArcExclusivity.lean:303:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_core_t3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8135608Z info: OIBridge/DitaArcExclusivity.lean:323:0: 'OIBridge.DitaArcExclusivity.a37_shared_base_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8157991Z info: OIBridge/DitaArcExclusivity.lean:393:0: 'OIBridge.DitaArcExclusivity.a37_shared_symmetric' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8178658Z info: OIBridge/DitaArcExclusivity.lean:465:0: 'OIBridge.DitaArcExclusivity.a37_shared_persistence' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8198806Z info: OIBridge/DitaArcExclusivity.lean:536:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_k1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8218996Z info: OIBridge/DitaArcExclusivity.lean:607:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_k2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8239390Z info: OIBridge/DitaArcExclusivity.lean:678:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_k3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8259421Z info: OIBridge/DitaArcExclusivity.lean:749:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_k4' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8279450Z info: OIBridge/DitaArcExclusivity.lean:820:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_e1' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8299743Z info: OIBridge/DitaArcExclusivity.lean:891:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_e2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8319945Z info: OIBridge/DitaArcExclusivity.lean:962:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_t2' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8340058Z info: OIBridge/DitaArcExclusivity.lean:1033:0: 'OIBridge.DitaArcExclusivity.a37_shared_excl_t3' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8361402Z info: OIBridge/DitaArcExclusivity.lean:1102:0: 'OIBridge.DitaArcExclusivity.a37_control_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8373366Z info: OIBridge/DitaArcExclusivity.lean:1198:0: 'OIBridge.DitaArcExclusivity.a37_exclusivity' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8396864Z info: OIBridge/DitaArcExclusivity.lean:1395:0: 'OIBridge.DitaArcExclusivity.a37_c_exclusive' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8397378Z info: OIBridge.lean:827:0: 'OIBridge.LinkJoin.char_two_subset_ne_link' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8397759Z info: OIBridge.lean:828:0: 'OIBridge.LinkJoin.char_multiset_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8398113Z info: OIBridge.lean:829:0: 'OIBridge.LinkJoin.sum_sq_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8398476Z info: OIBridge.lean:830:0: 'OIBridge.LinkJoin.sum_cube_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8398835Z info: OIBridge.lean:831:0: 'OIBridge.LinkJoin.faceEquivLink_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8399157Z info: OIBridge.lean:832:0: 'OIBridge.LinkJoin.act_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8399490Z info: OIBridge.lean:833:0: 'OIBridge.LinkJoin.sym_linkHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8399948Z info: OIBridge.lean:834:0: 'OIBridge.LinkJoin.act_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8400316Z info: OIBridge.lean:835:0: 'OIBridge.LinkJoin.linkHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8400672Z info: OIBridge.lean:836:0: 'OIBridge.LinkJoin.character_rhoLink' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8401146Z info: OIBridge.lean:837:0: 'OIBridge.LinkJoin.rhoLink_comm_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8401522Z info: OIBridge.lean:838:0: 'OIBridge.LinkJoin.character_restrict_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8401884Z info: OIBridge.lean:839:0: 'OIBridge.LinkJoin.character_PA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8402224Z info: OIBridge.lean:840:0: 'OIBridge.LinkJoin.character_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8402571Z info: OIBridge.lean:841:0: 'OIBridge.LinkJoin.character_rhoT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8402916Z info: OIBridge.lean:842:0: 'OIBridge.LinkJoin.character_rhoE' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8403373Z info: OIBridge.lean:843:0: 'OIBridge.LinkJoin.character_rhoA' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8403742Z info: OIBridge.lean:844:0: 'OIBridge.LinkJoin.character_rhoA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8404120Z info: OIBridge.lean:845:0: 'OIBridge.LinkJoin.character_rhoLink_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-28T05:35:26.8404228Z Build completed successfully (3606 jobs).
+2026-09-28T05:36:08.1831919Z release gate
+2026-09-28T05:36:08.1832378Z ====================================================================
+2026-09-28T05:36:08.1833137Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-09-28T05:36:08.1834011Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-09-28T05:36:08.1834818Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-09-28T05:36:08.1835618Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-09-28T05:36:08.1836431Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-09-28T05:36:08.1837343Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-09-28T05:36:08.1838232Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-09-28T05:36:08.1839230Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-09-28T05:36:08.1840531Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-09-28T05:36:08.1841736Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-09-28T05:36:08.1842670Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-09-28T05:36:08.1843495Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-09-28T05:36:08.1844329Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-09-28T05:36:08.1845287Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-09-28T05:36:08.1846304Z   PASS  coverage         coverage_check: OK (130 canonical statements, 19 unattached 
+2026-09-28T05:36:08.1847284Z   PASS  lean-axioms      lean_axiom_check: OK (4829 named result(s) reported, no sorr
+2026-09-28T05:36:08.1848343Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-09-28T05:36:08.1849394Z   PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+2026-09-28T05:36:08.1850281Z   PASS  v3-self-test     v3_verifier: self-test OK
+2026-09-28T05:36:08.1850971Z   PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+2026-09-28T05:36:08.1852460Z   PASS  v3-receipts      RECEIPTS  12 receipt(s), all hold
+2026-09-28T05:36:08.1853058Z ====================================================================
+2026-09-28T05:36:08.1853873Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)

@@ -1,0 +1,45 @@
+2026-10-06T05:03:52.3897107Z info: OIBridge.lean:842:0: 'OIBridge.LinkJoin.char_two_subset_ne_link' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3897307Z info: OIBridge.lean:843:0: 'OIBridge.LinkJoin.char_multiset_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3897501Z info: OIBridge.lean:844:0: 'OIBridge.LinkJoin.sum_sq_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3897691Z info: OIBridge.lean:845:0: 'OIBridge.LinkJoin.sum_cube_collision' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3897927Z info: OIBridge.lean:846:0: 'OIBridge.LinkJoin.faceEquivLink_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3898102Z info: OIBridge.lean:847:0: 'OIBridge.LinkJoin.act_op' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3898278Z info: OIBridge.lean:848:0: 'OIBridge.LinkJoin.sym_linkHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3898462Z info: OIBridge.lean:849:0: 'OIBridge.LinkJoin.act_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3898658Z info: OIBridge.lean:850:0: 'OIBridge.LinkJoin.linkHom_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3898876Z info: OIBridge.lean:851:0: 'OIBridge.LinkJoin.character_rhoLink' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3899066Z info: OIBridge.lean:852:0: 'OIBridge.LinkJoin.rhoLink_comm_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3899297Z info: OIBridge.lean:853:0: 'OIBridge.LinkJoin.character_restrict_PT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3899489Z info: OIBridge.lean:854:0: 'OIBridge.LinkJoin.character_PA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3899677Z info: OIBridge.lean:855:0: 'OIBridge.LinkJoin.character_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3899862Z info: OIBridge.lean:856:0: 'OIBridge.LinkJoin.character_rhoT' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3900044Z info: OIBridge.lean:857:0: 'OIBridge.LinkJoin.character_rhoE' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3900231Z info: OIBridge.lean:858:0: 'OIBridge.LinkJoin.character_rhoA' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3900455Z info: OIBridge.lean:859:0: 'OIBridge.LinkJoin.character_rhoA_eq_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3900658Z info: OIBridge.lean:860:0: 'OIBridge.LinkJoin.character_rhoLink_eq_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-10-06T05:03:52.3900726Z Build completed successfully (3632 jobs).
+2026-10-06T05:04:24.9182313Z release gate
+2026-10-06T05:04:24.9182597Z ====================================================================
+2026-10-06T05:04:24.9183485Z   PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co
+2026-10-06T05:04:24.9183917Z   PASS  staleness        staleness_check: OK (13 matched, 0 unstamped)
+2026-10-06T05:04:24.9184359Z   PASS  baseline-label   baseline_label_check: OK (no baseline archives named)
+2026-10-06T05:04:24.9184793Z   PASS  voice            voice_check: OK (no manuscript-voice history narration; 40 m
+2026-10-06T05:04:24.9185211Z   PASS  voice-scope      voice_scope_test: OK (6 scope case(s); the checker scans the
+2026-10-06T05:04:24.9185718Z   PASS  ci-gate-presence ci_gate_presence_test: OK (CI runs the real release gate)
+2026-10-06T05:04:24.9186163Z   PASS  artifact-placement artifact_placement_check: OK (no unaccounted root artifact; 
+2026-10-06T05:04:24.9186616Z   PASS  manifest-drift   build_migration_manifest --check: OK (91 artifacts; both gen
+2026-10-06T05:04:24.9187028Z   PASS  claims           claims_check: OK (no withdrawn result asserted unconditional
+2026-10-06T05:04:24.9187427Z   PASS  duplicate        duplicate_check: OK (no paragraph repeated within a file)
+2026-10-06T05:04:24.9187802Z   PASS  mirror           mirror_check: 0 chapter line(s) absent from FULL.md
+2026-10-06T05:04:24.9188598Z   PASS  citation         citation_check: 112 citation(s), 0 broken, 0 duplicate bib n
+2026-10-06T05:04:24.9189009Z   PASS  architecture     architecture_check: 259 invariant(s), 0 violation(s), 0 self
+2026-10-06T05:04:24.9189448Z   PASS  dependency-label dependency_label_check: OK (no stale dependency label, 41 fi
+2026-10-06T05:04:24.9189870Z   PASS  coverage         coverage_check: OK (129 canonical statements, 19 unattached 
+2026-10-06T05:04:24.9190274Z   PASS  lean-axioms      lean_axiom_check: OK (5702 named result(s) reported, no sorr
+2026-10-06T05:04:24.9190709Z   PASS  lean-manuscript  lean_manuscript_census: OK (every cited identifier and path 
+2026-10-06T05:04:24.9191158Z   PASS  legacy-records   LEGACY  303 record(s) in 75 closed namespace(s), all intact
+2026-10-06T05:04:24.9191521Z   PASS  v3-self-test     v3_verifier: self-test OK
+2026-10-06T05:04:24.9191829Z   PASS  v3-corpus        CORPUS  140 vector(s), exact and as expected
+2026-10-06T05:04:24.9192167Z   PASS  v3-receipts      RECEIPTS  34 receipt(s), all hold
+2026-10-06T05:04:24.9192580Z ====================================================================
+2026-10-06T05:04:24.9194310Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)
