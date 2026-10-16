@@ -1416,7 +1416,7 @@ theorem blochH_real (a p q : ℝ) :
       ![a ^ 2 + p ^ 2 + q ^ 2, 2 * a * p, 2 * a * q, a ^ 2 - p ^ 2 - q ^ 2] := by
   funext μ
   fin_cases μ <;>
-    simp [blochH, Complex.normSq_apply, Complex.mul_re, Complex.mul_im, Complex.star_def] <;>
+    simp [blochH, Complex.normSq_apply, Complex.mul_re, Complex.mul_im] <;>
     ring
 
 /-- The Bloch vector of `|1⟩`. -/
@@ -1431,9 +1431,7 @@ theorem lor_blochH_decomp {v : HVec 3} (hv : Lor v) : ∃ α β : ℝ, 0 ≤ α 
   have h2' : v 1 ^ 2 + v 2 ^ 2 + v 3 ^ 2 ≤ v 0 ^ 2 := by
     have h := hv.2
     rw [Fin.sum_univ_three] at h
-    first
-    | exact h
-    | simpa using h
+    exact h
   by_cases hz : v 0 + v 3 = 0
   · have hv3 : v 3 = -v 0 := by linarith
     have h33 : v 3 ^ 2 = v 0 ^ 2 := by rw [hv3]; ring
