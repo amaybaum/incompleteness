@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-30T03:07:05Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a42-support-minimality",
+ "head_sha": "42845052f7ecf62ceb2a9787b9b3eb9c0bb4411a",
+ "id": 36662954968,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36662954968",
+ "run_number": 1450,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-30T03:18:10Z"
+}

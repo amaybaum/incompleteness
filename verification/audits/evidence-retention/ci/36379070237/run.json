@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-28T04:45:44Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a37-arc-exclusivity",
+ "head_sha": "8104323300a5d159cd16317d2fed3c43d44b4970",
+ "id": 36379070237,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36379070237",
+ "run_number": 1331,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-28T04:50:05Z"
+}

@@ -1,0 +1,3866 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (130 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (5251 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "legacy-records",
+     "status": "PASS",
+     "summary": "LEGACY  303 record(s) in 75 closed namespace(s), all intact"
+    },
+    {
+     "name": "v3-self-test",
+     "status": "PASS",
+     "summary": "v3_verifier: self-test OK"
+    },
+    {
+     "name": "v3-corpus",
+     "status": "PASS",
+     "summary": "CORPUS  140 vector(s), exact and as expected"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  16 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 21,
+   "steps_total": 21,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {
+   "OIBridge/DitaArcExclusivity.lean": {
+    "print_lines": [
+     [
+      31,
+      31
+     ],
+     [
+      37,
+      37
+     ],
+     [
+      45,
+      45
+     ],
+     [
+      54,
+      54
+     ],
+     [
+      85,
+      85
+     ],
+     [
+      116,
+      116
+     ],
+     [
+      147,
+      147
+     ],
+     [
+      178,
+      178
+     ],
+     [
+      209,
+      209
+     ],
+     [
+      240,
+      240
+     ],
+     [
+      271,
+      271
+     ],
+     [
+      302,
+      302
+     ],
+     [
+      322,
+      322
+     ],
+     [
+      392,
+      392
+     ],
+     [
+      464,
+      464
+     ],
+     [
+      535,
+      535
+     ],
+     [
+      606,
+      606
+     ],
+     [
+      677,
+      677
+     ],
+     [
+      748,
+      748
+     ],
+     [
+      819,
+      819
+     ],
+     [
+      890,
+      890
+     ],
+     [
+      961,
+      961
+     ],
+     [
+      1032,
+      1032
+     ],
+     [
+      1101,
+      1101
+     ],
+     [
+      1197,
+      1197
+     ],
+     [
+      1394,
+      1394
+     ]
+    ],
+    "prints": 26,
+    "reports": [],
+    "status": "none",
+    "unreported_print_lines": [
+     [
+      31,
+      31
+     ],
+     [
+      37,
+      37
+     ],
+     [
+      45,
+      45
+     ],
+     [
+      54,
+      54
+     ],
+     [
+      85,
+      85
+     ],
+     [
+      116,
+      116
+     ],
+     [
+      147,
+      147
+     ],
+     [
+      178,
+      178
+     ],
+     [
+      209,
+      209
+     ],
+     [
+      240,
+      240
+     ],
+     [
+      271,
+      271
+     ],
+     [
+      302,
+      302
+     ],
+     [
+      322,
+      322
+     ],
+     [
+      392,
+      392
+     ],
+     [
+      464,
+      464
+     ],
+     [
+      535,
+      535
+     ],
+     [
+      606,
+      606
+     ],
+     [
+      677,
+      677
+     ],
+     [
+      748,
+      748
+     ],
+     [
+      819,
+      819
+     ],
+     [
+      890,
+      890
+     ],
+     [
+      961,
+      961
+     ],
+     [
+      1032,
+      1032
+     ],
+     [
+      1101,
+      1101
+     ],
+     [
+      1197,
+      1197
+     ],
+     [
+      1394,
+      1394
+     ]
+    ]
+   },
+   "OIBridge/DitaHierarchy.lean": {
+    "print_lines": [
+     [
+      36,
+      36
+     ],
+     [
+      42,
+      42
+     ],
+     [
+      47,
+      47
+     ],
+     [
+      52,
+      52
+     ],
+     [
+      57,
+      57
+     ],
+     [
+      62,
+      62
+     ],
+     [
+      67,
+      67
+     ],
+     [
+      99,
+      99
+     ],
+     [
+      106,
+      106
+     ],
+     [
+      113,
+      113
+     ],
+     [
+      128,
+      128
+     ],
+     [
+      134,
+      134
+     ],
+     [
+      140,
+      140
+     ],
+     [
+      157,
+      157
+     ],
+     [
+      174,
+      174
+     ],
+     [
+      195,
+      195
+     ],
+     [
+      216,
+      216
+     ],
+     [
+      230,
+      230
+     ],
+     [
+      244,
+      244
+     ],
+     [
+      265,
+      265
+     ],
+     [
+      282,
+      282
+     ],
+     [
+      299,
+      299
+     ],
+     [
+      307,
+      307
+     ],
+     [
+      322,
+      322
+     ],
+     [
+      327,
+      327
+     ],
+     [
+      342,
+      342
+     ],
+     [
+      350,
+      350
+     ],
+     [
+      366,
+      366
+     ],
+     [
+      413,
+      413
+     ],
+     [
+      460,
+      460
+     ],
+     [
+      507,
+      507
+     ],
+     [
+      554,
+      554
+     ],
+     [
+      602,
+      602
+     ],
+     [
+      648,
+      648
+     ],
+     [
+      693,
+      693
+     ],
+     [
+      753,
+      753
+     ],
+     [
+      858,
+      858
+     ]
+    ],
+    "prints": 37,
+    "reports": [],
+    "status": "none",
+    "unreported_print_lines": [
+     [
+      36,
+      36
+     ],
+     [
+      42,
+      42
+     ],
+     [
+      47,
+      47
+     ],
+     [
+      52,
+      52
+     ],
+     [
+      57,
+      57
+     ],
+     [
+      62,
+      62
+     ],
+     [
+      67,
+      67
+     ],
+     [
+      99,
+      99
+     ],
+     [
+      106,
+      106
+     ],
+     [
+      113,
+      113
+     ],
+     [
+      128,
+      128
+     ],
+     [
+      134,
+      134
+     ],
+     [
+      140,
+      140
+     ],
+     [
+      157,
+      157
+     ],
+     [
+      174,
+      174
+     ],
+     [
+      195,
+      195
+     ],
+     [
+      216,
+      216
+     ],
+     [
+      230,
+      230
+     ],
+     [
+      244,
+      244
+     ],
+     [
+      265,
+      265
+     ],
+     [
+      282,
+      282
+     ],
+     [
+      299,
+      299
+     ],
+     [
+      307,
+      307
+     ],
+     [
+      322,
+      322
+     ],
+     [
+      327,
+      327
+     ],
+     [
+      342,
+      342
+     ],
+     [
+      350,
+      350
+     ],
+     [
+      366,
+      366
+     ],
+     [
+      413,
+      413
+     ],
+     [
+      460,
+      460
+     ],
+     [
+      507,
+      507
+     ],
+     [
+      554,
+      554
+     ],
+     [
+      602,
+      602
+     ],
+     [
+      648,
+      648
+     ],
+     [
+      693,
+      693
+     ],
+     [
+      753,
+      753
+     ],
+     [
+      858,
+      858
+     ]
+    ]
+   },
+   "OIBridge/DitaLocalEscape.lean": {
+    "print_lines": [
+     [
+      37,
+      37
+     ],
+     [
+      46,
+      46
+     ],
+     [
+      54,
+      54
+     ],
+     [
+      63,
+      63
+     ],
+     [
+      69,
+      69
+     ],
+     [
+      76,
+      76
+     ],
+     [
+      91,
+      91
+     ],
+     [
+      106,
+      106
+     ],
+     [
+      121,
+      121
+     ],
+     [
+      136,
+      136
+     ],
+     [
+      147,
+      147
+     ],
+     [
+      162,
+      162
+     ],
+     [
+      177,
+      177
+     ],
+     [
+      192,
+      192
+     ],
+     [
+      207,
+      207
+     ],
+     [
+      218,
+      218
+     ],
+     [
+      233,
+      233
+     ],
+     [
+      248,
+      248
+     ],
+     [
+      263,
+      263
+     ],
+     [
+      278,
+      278
+     ],
+     [
+      289,
+      289
+     ],
+     [
+      304,
+      304
+     ],
+     [
+      319,
+      319
+     ],
+     [
+      334,
+      334
+     ],
+     [
+      349,
+      349
+     ],
+     [
+      360,
+      360
+     ],
+     [
+      375,
+      375
+     ],
+     [
+      390,
+      390
+     ],
+     [
+      405,
+      405
+     ],
+     [
+      420,
+      420
+     ],
+     [
+      431,
+      431
+     ],
+     [
+      446,
+      446
+     ],
+     [
+      461,
+      461
+     ],
+     [
+      476,
+      476
+     ],
+     [
+      491,
+      491
+     ],
+     [
+      502,
+      502
+     ],
+     [
+      517,
+      517
+     ],
+     [
+      532,
+      532
+     ],
+     [
+      547,
+      547
+     ],
+     [
+      562,
+      562
+     ],
+     [
+      573,
+      573
+     ],
+     [
+      588,
+      588
+     ],
+     [
+      603,
+      603
+     ],
+     [
+      618,
+      618
+     ],
+     [
+      633,
+      633
+     ],
+     [
+      644,
+      644
+     ],
+     [
+      659,
+      659
+     ],
+     [
+      674,
+      674
+     ],
+     [
+      689,
+      689
+     ],
+     [
+      704,
+      704
+     ],
+     [
+      715,
+      715
+     ],
+     [
+      730,
+      730
+     ],
+     [
+      745,
+      745
+     ],
+     [
+      760,
+      760
+     ],
+     [
+      775,
+      775
+     ],
+     [
+      786,
+      786
+     ],
+     [
+      801,
+      801
+     ],
+     [
+      816,
+      816
+     ],
+     [
+      831,
+      831
+     ],
+     [
+      846,
+      846
+     ],
+     [
+      857,
+      857
+     ],
+     [
+      872,
+      872
+     ],
+     [
+      887,
+      887
+     ],
+     [
+      902,
+      902
+     ],
+     [
+      917,
+      917
+     ],
+     [
+      928,
+      928
+     ],
+     [
+      943,
+      943
+     ],
+     [
+      958,
+      958
+     ],
+     [
+      973,
+      973
+     ],
+     [
+      988,
+      988
+     ],
+     [
+      999,
+      999
+     ],
+     [
+      1014,
+      1014
+     ],
+     [
+      1029,
+      1029
+     ],
+     [
+      1044,
+      1044
+     ],
+     [
+      1059,
+      1059
+     ],
+     [
+      1070,
+      1070
+     ],
+     [
+      1085,
+      1085
+     ],
+     [
+      1100,
+      1100
+     ],
+     [
+      1115,
+      1115
+     ],
+     [
+      1130,
+      1130
+     ],
+     [
+      1141,
+      1141
+     ],
+     [
+      1156,
+      1156
+     ],
+     [
+      1171,
+      1171
+     ],
+     [
+      1186,
+      1186
+     ],
+     [
+      1201,
+      1201
+     ],
+     [
+      1212,
+      1212
+     ],
+     [
+      1222,
+      1222
+     ],
+     [
+      1232,
+      1232
+     ],
+     [
+      1242,
+      1242
+     ],
+     [
+      1252,
+      1252
+     ],
+     [
+      1263,
+      1263
+     ],
+     [
+      1273,
+      1273
+     ],
+     [
+      1283,
+      1283
+     ],
+     [
+      1292,
+      1292
+     ],
+     [
+      1320,
+      1320
+     ],
+     [
+      1348,
+      1348
+     ],
+     [
+      1376,
+      1376
+     ],
+     [
+      1404,
+      1404
+     ],
+     [
+      1432,
+      1432
+     ],
+     [
+      1460,
+      1460
+     ],
+     [
+      1488,
+      1488
+     ],
+     [
+      1523,
+      1523
+     ],
+     [
+      1551,
+      1551
+     ],
+     [
+      1573,
+      1573
+     ],
+     [
+      1587,
+      1587
+     ],
+     [
+      1593,
+      1593
+     ],
+     [
+      1642,
+      1642
+     ],
+     [
+      1661,
+      1661
+     ],
+     [
+      1735,
+      1735
+     ],
+     [
+      1808,
+      1808
+     ],
+     [
+      1881,
+      1881
+     ],
+     [
+      1954,
+      1954
+     ],
+     [
+      2027,
+      2027
+     ],
+     [
+      2100,
+      2100
+     ],
+     [
+      2173,
+      2173
+     ],
+     [
+      2246,
+      2246
+     ],
+     [
+      2319,
+      2319
+     ],
+     [
+      2392,
+      2392
+     ],
+     [
+      2482,
+      2482
+     ],
+     [
+      2553,
+      2553
+     ],
+     [
+      2653,
+      2653
+     ],
+     [
+      2858,
+      2858
+     ]
+    ],
+    "prints": 122,
+    "reports": [],
+    "status": "none",
+    "unreported_print_lines": [
+     [
+      37,
+      37
+     ],
+     [
+      46,
+      46
+     ],
+     [
+      54,
+      54
+     ],
+     [
+      63,
+      63
+     ],
+     [
+      69,
+      69
+     ],
+     [
+      76,
+      76
+     ],
+     [
+      91,
+      91
+     ],
+     [
+      106,
+      106
+     ],
+     [
+      121,
+      121
+     ],
+     [
+      136,
+      136
+     ],
+     [
+      147,
+      147
+     ],
+     [
+      162,
+      162
+     ],
+     [
+      177,
+      177
+     ],
+     [
+      192,
+      192
+     ],
+     [
+      207,
+      207
+     ],
+     [
+      218,
+      218
+     ],
+     [
+      233,
+      233
+     ],
+     [
+      248,
+      248
+     ],
+     [
+      263,
+      263
+     ],
+     [
+      278,
+      278
+     ],
+     [
+      289,
+      289
+     ],
+     [
+      304,
+      304
+     ],
+     [
+      319,
+      319
+     ],
+     [
+      334,
+      334
+     ],
+     [
+      349,
+      349
+     ],
+     [
+      360,
+      360
+     ],
+     [
+      375,
+      375
+     ],
+     [
+      390,
+      390
+     ],
+     [
+      405,
+      405
+     ],
+     [
+      420,
+      420
+     ],
+     [
+      431,
+      431
+     ],
+     [
+      446,
+      446
+     ],
+     [
+      461,
+      461
+     ],
+     [
+      476,
+      476
+     ],
+     [
+      491,
+      491
+     ],
+     [
+      502,
+      502
+     ],
+     [
+      517,
+      517
+     ],
+     [
+      532,
+      532
+     ],
+     [
+      547,
+      547
+     ],
+     [
+      562,
+      562
+     ],
+     [
+      573,
+      573
+     ],
+     [
+      588,
+      588
+     ],
+     [
+      603,
+      603
+     ],
+     [
+      618,
+      618
+     ],
+     [
+      633,
+      633
+     ],
+     [
+      644,
+      644
+     ],
+     [
+      659,
+      659
+     ],
+     [
+      674,
+      674
+     ],
+     [
+      689,
+      689
+     ],
+     [
+      704,
+      704
+     ],
+     [
+      715,
+      715
+     ],
+     [
+      730,
+      730
+     ],
+     [
+      745,
+      745
+     ],
+     [
+      760,
+      760
+     ],
+     [
+      775,
+      775
+     ],
+     [
+      786,
+      786
+     ],
+     [
+      801,
+      801
+     ],
+     [
+      816,
+      816
+     ],
+     [
+      831,
+      831
+     ],
+     [
+      846,
+      846
+     ],
+     [
+      857,
+      857
+     ],
+     [
+      872,
+      872
+     ],
+     [
+      887,
+      887
+     ],
+     [
+      902,
+      902
+     ],
+     [
+      917,
+      917
+     ],
+     [
+      928,
+      928
+     ],
+     [
+      943,
+      943
+     ],
+     [
+      958,
+      958
+     ],
+     [
+      973,
+      973
+     ],
+     [
+      988,
+      988
+     ],
+     [
+      999,
+      999
+     ],
+     [
+      1014,
+      1014
+     ],
+     [
+      1029,
+      1029
+     ],
+     [
+      1044,
+      1044
+     ],
+     [
+      1059,
+      1059
+     ],
+     [
+      1070,
+      1070
+     ],
+     [
+      1085,
+      1085
+     ],
+     [
+      1100,
+      1100
+     ],
+     [
+      1115,
+      1115
+     ],
+     [
+      1130,
+      1130
+     ],
+     [
+      1141,
+      1141
+     ],
+     [
+      1156,
+      1156
+     ],
+     [
+      1171,
+      1171
+     ],
+     [
+      1186,
+      1186
+     ],
+     [
+      1201,
+      1201
+     ],
+     [
+      1212,
+      1212
+     ],
+     [
+      1222,
+      1222
+     ],
+     [
+      1232,
+      1232
+     ],
+     [
+      1242,
+      1242
+     ],
+     [
+      1252,
+      1252
+     ],
+     [
+      1263,
+      1263
+     ],
+     [
+      1273,
+      1273
+     ],
+     [
+      1283,
+      1283
+     ],
+     [
+      1292,
+      1292
+     ],
+     [
+      1320,
+      1320
+     ],
+     [
+      1348,
+      1348
+     ],
+     [
+      1376,
+      1376
+     ],
+     [
+      1404,
+      1404
+     ],
+     [
+      1432,
+      1432
+     ],
+     [
+      1460,
+      1460
+     ],
+     [
+      1488,
+      1488
+     ],
+     [
+      1523,
+      1523
+     ],
+     [
+      1551,
+      1551
+     ],
+     [
+      1573,
+      1573
+     ],
+     [
+      1587,
+      1587
+     ],
+     [
+      1593,
+      1593
+     ],
+     [
+      1642,
+      1642
+     ],
+     [
+      1661,
+      1661
+     ],
+     [
+      1735,
+      1735
+     ],
+     [
+      1808,
+      1808
+     ],
+     [
+      1881,
+      1881
+     ],
+     [
+      1954,
+      1954
+     ],
+     [
+      2027,
+      2027
+     ],
+     [
+      2100,
+      2100
+     ],
+     [
+      2173,
+      2173
+     ],
+     [
+      2246,
+      2246
+     ],
+     [
+      2319,
+      2319
+     ],
+     [
+      2392,
+      2392
+     ],
+     [
+      2482,
+      2482
+     ],
+     [
+      2553,
+      2553
+     ],
+     [
+      2653,
+      2653
+     ],
+     [
+      2858,
+      2858
+     ]
+    ]
+   },
+   "OIBridge/DitaTorusLocus.lean": {
+    "print_lines": [
+     [
+      34,
+      34
+     ],
+     [
+      41,
+      41
+     ],
+     [
+      50,
+      50
+     ],
+     [
+      59,
+      59
+     ],
+     [
+      74,
+      74
+     ],
+     [
+      89,
+      89
+     ],
+     [
+      96,
+      96
+     ],
+     [
+      107,
+      107
+     ],
+     [
+      112,
+      112
+     ],
+     [
+      117,
+      117
+     ],
+     [
+      132,
+      132
+     ],
+     [
+      147,
+      147
+     ],
+     [
+      159,
+      159
+     ],
+     [
+      241,
+      241
+     ],
+     [
+      323,
+      323
+     ],
+     [
+      369,
+      369
+     ],
+     [
+      415,
+      415
+     ],
+     [
+      497,
+      497
+     ],
+     [
+      614,
+      614
+     ],
+     [
+      696,
+      696
+     ],
+     [
+      778,
+      778
+     ],
+     [
+      860,
+      860
+     ],
+     [
+      906,
+      906
+     ],
+     [
+      952,
+      952
+     ],
+     [
+      998,
+      998
+     ],
+     [
+      1044,
+      1044
+     ],
+     [
+      1090,
+      1090
+     ],
+     [
+      1136,
+      1136
+     ],
+     [
+      1218,
+      1218
+     ],
+     [
+      1300,
+      1300
+     ],
+     [
+      1346,
+      1346
+     ],
+     [
+      1392,
+      1392
+     ],
+     [
+      1438,
+      1438
+     ],
+     [
+      1447,
+      1447
+     ],
+     [
+      1453,
+      1453
+     ],
+     [
+      1464,
+      1464
+     ],
+     [
+      1470,
+      1470
+     ],
+     [
+      1476,
+      1476
+     ],
+     [
+      1491,
+      1491
+     ],
+     [
+      1501,
+      1501
+     ],
+     [
+      1508,
+      1508
+     ],
+     [
+      1514,
+      1514
+     ],
+     [
+      1520,
+      1520
+     ],
+     [
+      1526,
+      1526
+     ],
+     [
+      1535,
+      1535
+     ],
+     [
+      1544,
+      1544
+     ],
+     [
+      1554,
+      1554
+     ],
+     [
+      1564,
+      1564
+     ],
+     [
+      1573,
+      1573
+     ],
+     [
+      1582,
+      1582
+     ],
+     [
+      1592,
+      1592
+     ],
+     [
+      1602,
+      1602
+     ],
+     [
+      1611,
+      1611
+     ],
+     [
+      1620,
+      1620
+     ],
+     [
+      1630,
+      1630
+     ],
+     [
+      1640,
+      1640
+     ],
+     [
+      1649,
+      1649
+     ],
+     [
+      1658,
+      1658
+     ],
+     [
+      1668,
+      1668
+     ],
+     [
+      1678,
+      1678
+     ],
+     [
+      1787,
+      1787
+     ],
+     [
+      1797,
+      1797
+     ],
+     [
+      1804,
+      1804
+     ],
+     [
+      1810,
+      1810
+     ],
+     [
+      1816,
+      1816
+     ],
+     [
+      1822,
+      1822
+     ],
+     [
+      1831,
+      1831
+     ],
+     [
+      1840,
+      1840
+     ],
+     [
+      1850,
+      1850
+     ],
+     [
+      1860,
+      1860
+     ],
+     [
+      1869,
+      1869
+     ],
+     [
+      1878,
+      1878
+     ],
+     [
+      1888,
+      1888
+     ],
+     [
+      1897,
+      1897
+     ],
+     [
+      1906,
+      1906
+     ],
+     [
+      1915,
+      1915
+     ],
+     [
+      1925,
+      1925
+     ],
+     [
+      1935,
+      1935
+     ],
+     [
+      1944,
+      1944
+     ],
+     [
+      1954,
+      1954
+     ],
+     [
+      1964,
+      1964
+     ],
+     [
+      1974,
+      1974
+     ],
+     [
+      2083,
+      2083
+     ],
+     [
+      2093,
+      2093
+     ],
+     [
+      2100,
+      2100
+     ],
+     [
+      2106,
+      2106
+     ],
+     [
+      2112,
+      2112
+     ],
+     [
+      2118,
+      2118
+     ],
+     [
+      2127,
+      2127
+     ],
+     [
+      2136,
+      2136
+     ],
+     [
+      2145,
+      2145
+     ],
+     [
+      2154,
+      2154
+     ],
+     [
+      2163,
+      2163
+     ],
+     [
+      2172,
+      2172
+     ],
+     [
+      2181,
+      2181
+     ],
+     [
+      2190,
+      2190
+     ],
+     [
+      2200,
+      2200
+     ],
+     [
+      2210,
+      2210
+     ],
+     [
+      2220,
+      2220
+     ],
+     [
+      2230,
+      2230
+     ],
+     [
+      2240,
+      2240
+     ],
+     [
+      2250,
+      2250
+     ],
+     [
+      2260,
+      2260
+     ],
+     [
+      2270,
+      2270
+     ],
+     [
+      2379,
+      2379
+     ],
+     [
+      2389,
+      2389
+     ],
+     [
+      2396,
+      2396
+     ],
+     [
+      2402,
+      2402
+     ],
+     [
+      2408,
+      2408
+     ],
+     [
+      2414,
+      2414
+     ],
+     [
+      2423,
+      2423
+     ],
+     [
+      2432,
+      2432
+     ],
+     [
+      2442,
+      2442
+     ],
+     [
+      2451,
+      2451
+     ],
+     [
+      2460,
+      2460
+     ],
+     [
+      2469,
+      2469
+     ],
+     [
+      2478,
+      2478
+     ],
+     [
+      2487,
+      2487
+     ],
+     [
+      2496,
+      2496
+     ],
+     [
+      2506,
+      2506
+     ],
+     [
+      2516,
+      2516
+     ],
+     [
+      2526,
+      2526
+     ],
+     [
+      2536,
+      2536
+     ],
+     [
+      2546,
+      2546
+     ],
+     [
+      2556,
+      2556
+     ],
+     [
+      2566,
+      2566
+     ],
+     [
+      2675,
+      2675
+     ],
+     [
+      2682,
+      2682
+     ],
+     [
+      2689,
+      2689
+     ],
+     [
+      2696,
+      2696
+     ],
+     [
+      2703,
+      2703
+     ],
+     [
+      2710,
+      2710
+     ],
+     [
+      2717,
+      2717
+     ],
+     [
+      2724,
+      2724
+     ],
+     [
+      2731,
+      2731
+     ],
+     [
+      2737,
+      2737
+     ],
+     [
+      2744,
+      2744
+     ],
+     [
+      2751,
+      2751
+     ],
+     [
+      2758,
+      2758
+     ],
+     [
+      2765,
+      2765
+     ],
+     [
+      2772,
+      2772
+     ],
+     [
+      2779,
+      2779
+     ],
+     [
+      2786,
+      2786
+     ],
+     [
+      2793,
+      2793
+     ],
+     [
+      2799,
+      2799
+     ],
+     [
+      2806,
+      2806
+     ],
+     [
+      2813,
+      2813
+     ],
+     [
+      2820,
+      2820
+     ],
+     [
+      2827,
+      2827
+     ],
+     [
+      2834,
+      2834
+     ],
+     [
+      2841,
+      2841
+     ],
+     [
+      2848,
+      2848
+     ],
+     [
+      2855,
+      2855
+     ],
+     [
+      2861,
+      2861
+     ],
+     [
+      2869,
+      2869
+     ],
+     [
+      2877,
+      2877
+     ],
+     [
+      2885,
+      2885
+     ],
+     [
+      2893,
+      2893
+     ],
+     [
+      2901,
+      2901
+     ],
+     [
+      2909,
+      2909
+     ],
+     [
+      2917,
+      2917
+     ],
+     [
+      2925,
+      2925
+     ],
+     [
+      2932,
+      2932
+     ],
+     [
+      2940,
+      2940
+     ],
+     [
+      2948,
+      2948
+     ],
+     [
+      2956,
+      2956
+     ],
+     [
+      2964,
+      2964
+     ],
+     [
+      2972,
+      2972
+     ],
+     [
+      2980,
+      2980
+     ],
+     [
+      2988,
+      2988
+     ],
+     [
+      2996,
+      2996
+     ],
+     [
+      3003,
+      3003
+     ],
+     [
+      3086,
+      3086
+     ],
+     [
+      3169,
+      3169
+     ],
+     [
+      3252,
+      3252
+     ],
+     [
+      3335,
+      3335
+     ],
+     [
+      3418,
+      3418
+     ],
+     [
+      3501,
+      3501
+     ],
+     [
+      3584,
+      3584
+     ],
+     [
+      3667,
+      3667
+     ],
+     [
+      3750,
+      3750
+     ],
+     [
+      3833,
+      3833
+     ],
+     [
+      3916,
+      3916
+     ],
+     [
+      3999,
+      3999
+     ],
+     [
+      4082,
+      4082
+     ],
+     [
+      4165,
+      4165
+     ],
+     [
+      4248,
+      4248
+     ],
+     [
+      4331,
+      4331
+     ],
+     [
+      4414,
+      4414
+     ],
+     [
+      4497,
+      4497
+     ],
+     [
+      4580,
+      4580
+     ],
+     [
+      4663,
+      4663
+     ],
+     [
+      4746,
+      4746
+     ],
+     [
+      4829,
+      4829
+     ],
+     [
+      4912,
+      4912
+     ],
+     [
+      4995,
+      4995
+     ],
+     [
+      5078,
+      5078
+     ],
+     [
+      5232,
+      5232
+     ],
+     [
+      5512,
+      5512
+     ]
+    ],
+    "prints": 199,
+    "reports": [
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2379,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_t1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2389,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_split"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2396,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_col"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2402,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_sig0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2408,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_sig1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2414,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_reps"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2423,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2432,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2442,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2451,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2460,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2469,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2478,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2487,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2496,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row8"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2506,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row9"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2516,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row10"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2526,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row11"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2536,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row12"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2546,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row13"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2556,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row14"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2566,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row15"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2675,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_gen_mr"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2682,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2689,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2696,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2703,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2710,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2717,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2724,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2731,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2737,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2744,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2751,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2758,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2765,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2772,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2779,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2786,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2793,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2799,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2806,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2813,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2820,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2827,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2834,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2841,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2848,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2855,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2861,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2869,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2877,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2885,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2893,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2901,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2909,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2917,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2925,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2932,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2940,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel0"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2948,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel1"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2956,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel2"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2964,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel3"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2972,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel4"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2980,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel5"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2988,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel6"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 2996,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel7"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3003,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m_core"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3086,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3169,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_1m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3252,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_2p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3335,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3p"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3418,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_face_3m"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3501,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k1_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3584,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k1_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3667,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k2_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3750,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k2_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3833,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k3_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3916,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k3_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 3999,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k4_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4082,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_k4_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4165,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_e1_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4248,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_e1_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4331,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_e2_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4414,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_e2_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4497,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_t1_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4580,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_t1_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4663,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_t2_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4746,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_t2_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4829,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_t3_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4912,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_t3_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 4995,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_mc_c"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5078,
+      "name": "OIBridge.DitaTorusLocus.a40_shared_excl_mr_r"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5232,
+      "name": "OIBridge.DitaTorusLocus.a40_locus_kernel"
+     },
+     {
+      "axioms": [
+       "propext",
+       "Classical.choice",
+       "Quot.sound"
+      ],
+      "line": 5512,
+      "name": "OIBridge.DitaTorusLocus.a40_c_exclusive"
+     }
+    ],
+    "status": "partial",
+    "unreported_print_lines": [
+     [
+      34,
+      34
+     ],
+     [
+      41,
+      41
+     ],
+     [
+      50,
+      50
+     ],
+     [
+      59,
+      59
+     ],
+     [
+      74,
+      74
+     ],
+     [
+      89,
+      89
+     ],
+     [
+      96,
+      96
+     ],
+     [
+      107,
+      107
+     ],
+     [
+      112,
+      112
+     ],
+     [
+      117,
+      117
+     ],
+     [
+      132,
+      132
+     ],
+     [
+      147,
+      147
+     ],
+     [
+      159,
+      159
+     ],
+     [
+      241,
+      241
+     ],
+     [
+      323,
+      323
+     ],
+     [
+      369,
+      369
+     ],
+     [
+      415,
+      415
+     ],
+     [
+      497,
+      497
+     ],
+     [
+      614,
+      614
+     ],
+     [
+      696,
+      696
+     ],
+     [
+      778,
+      778
+     ],
+     [
+      860,
+      860
+     ],
+     [
+      906,
+      906
+     ],
+     [
+      952,
+      952
+     ],
+     [
+      998,
+      998
+     ],
+     [
+      1044,
+      1044
+     ],
+     [
+      1090,
+      1090
+     ],
+     [
+      1136,
+      1136
+     ],
+     [
+      1218,
+      1218
+     ],
+     [
+      1300,
+      1300
+     ],
+     [
+      1346,
+      1346
+     ],
+     [
+      1392,
+      1392
+     ],
+     [
+      1438,
+      1438
+     ],
+     [
+      1447,
+      1447
+     ],
+     [
+      1453,
+      1453
+     ],
+     [
+      1464,
+      1464
+     ],
+     [
+      1470,
+      1470
+     ],
+     [
+      1476,
+      1476
+     ],
+     [
+      1491,
+      1491
+     ],
+     [
+      1501,
+      1501
+     ],
+     [
+      1508,
+      1508
+     ],
+     [
+      1514,
+      1514
+     ],
+     [
+      1520,
+      1520
+     ],
+     [
+      1526,
+      1526
+     ],
+     [
+      1535,
+      1535
+     ],
+     [
+      1544,
+      1544
+     ],
+     [
+      1554,
+      1554
+     ],
+     [
+      1564,
+      1564
+     ],
+     [
+      1573,
+      1573
+     ],
+     [
+      1582,
+      1582
+     ],
+     [
+      1592,
+      1592
+     ],
+     [
+      1602,
+      1602
+     ],
+     [
+      1611,
+      1611
+     ],
+     [
+      1620,
+      1620
+     ],
+     [
+      1630,
+      1630
+     ],
+     [
+      1640,
+      1640
+     ],
+     [
+      1649,
+      1649
+     ],
+     [
+      1658,
+      1658
+     ],
+     [
+      1668,
+      1668
+     ],
+     [
+      1678,
+      1678
+     ],
+     [
+      1787,
+      1787
+     ],
+     [
+      1797,
+      1797
+     ],
+     [
+      1804,
+      1804
+     ],
+     [
+      1810,
+      1810
+     ],
+     [
+      1816,
+      1816
+     ],
+     [
+      1822,
+      1822
+     ],
+     [
+      1831,
+      1831
+     ],
+     [
+      1840,
+      1840
+     ],
+     [
+      1850,
+      1850
+     ],
+     [
+      1860,
+      1860
+     ],
+     [
+      1869,
+      1869
+     ],
+     [
+      1878,
+      1878
+     ],
+     [
+      1888,
+      1888
+     ],
+     [
+      1897,
+      1897
+     ],
+     [
+      1906,
+      1906
+     ],
+     [
+      1915,
+      1915
+     ],
+     [
+      1925,
+      1925
+     ],
+     [
+      1935,
+      1935
+     ],
+     [
+      1944,
+      1944
+     ],
+     [
+      1954,
+      1954
+     ],
+     [
+      1964,
+      1964
+     ],
+     [
+      1974,
+      1974
+     ],
+     [
+      2083,
+      2083
+     ],
+     [
+      2093,
+      2093
+     ],
+     [
+      2100,
+      2100
+     ],
+     [
+      2106,
+      2106
+     ],
+     [
+      2112,
+      2112
+     ],
+     [
+      2118,
+      2118
+     ],
+     [
+      2127,
+      2127
+     ],
+     [
+      2136,
+      2136
+     ],
+     [
+      2145,
+      2145
+     ],
+     [
+      2154,
+      2154
+     ],
+     [
+      2163,
+      2163
+     ],
+     [
+      2172,
+      2172
+     ],
+     [
+      2181,
+      2181
+     ],
+     [
+      2190,
+      2190
+     ],
+     [
+      2200,
+      2200
+     ],
+     [
+      2210,
+      2210
+     ],
+     [
+      2220,
+      2220
+     ],
+     [
+      2230,
+      2230
+     ],
+     [
+      2240,
+      2240
+     ],
+     [
+      2250,
+      2250
+     ],
+     [
+      2260,
+      2260
+     ],
+     [
+      2270,
+      2270
+     ]
+    ]
+   }
+  },
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3609 jobs).",
+  "built": [],
+  "cache": [
+   {
+    "served_line": 4982,
+    "text": "Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-7f00bfcfa7aa019c88fc039059ea000ea797ea140c7ba8e2223b24037f303a42, not saving cache."
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4956,
+   "verdict": 4980
+  },
+  "report_served_lines": {
+   "OIBridge/DitaArcExclusivity.lean": {},
+   "OIBridge/DitaHierarchy.lean": {},
+   "OIBridge/DitaLocalEscape.lean": {},
+   "OIBridge/DitaTorusLocus.lean": {
+    "OIBridge.DitaTorusLocus.a40_c_exclusive": 4874,
+    "OIBridge.DitaTorusLocus.a40_locus_kernel": 4729,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_e1_c": 3193,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_e1_r": 3326,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_e2_c": 3459,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_e2_r": 3592,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k1_c": 2129,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k1_r": 2262,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k2_c": 2395,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k2_r": 2528,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k3_c": 2661,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k3_r": 2794,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k4_c": 2927,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_k4_r": 3060,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_mc_c": 4523,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_mr_r": 4656,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_t1_c": 3725,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_t1_r": 3858,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_t2_c": 3991,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_t2_r": 4124,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_t3_c": 4257,
+    "OIBridge.DitaTorusLocus.a40_shared_excl_t3_r": 4390,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m": 1597,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_core": 672,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel0": 447,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel1": 479,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel2": 511,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel3": 543,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel4": 575,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel5": 607,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel6": 639,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1m_rel7": 671,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p": 1464,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_core": 415,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel0": 190,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel1": 222,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel2": 254,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel3": 286,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel4": 318,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel5": 350,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel6": 382,
+    "OIBridge.DitaTorusLocus.a40_shared_face_1p_rel7": 414,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p": 1730,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_core": 873,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel0": 697,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel1": 722,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel2": 747,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel3": 772,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel4": 797,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel5": 822,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel6": 847,
+    "OIBridge.DitaTorusLocus.a40_shared_face_2p_rel7": 872,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m": 1996,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_core": 1331,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel0": 1106,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel1": 1138,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel2": 1170,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel3": 1202,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel4": 1234,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel5": 1266,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel6": 1298,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3m_rel7": 1330,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p": 1863,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_core": 1074,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel0": 898,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel1": 923,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel2": 948,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel3": 973,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel4": 998,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel5": 1023,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel6": 1048,
+    "OIBridge.DitaTorusLocus.a40_shared_face_3p_rel7": 1073,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr": 158,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_col": 60,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_reps": 105,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row0": 106,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row1": 107,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row10": 116,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row11": 117,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row12": 118,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row13": 119,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row14": 120,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row15": 121,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row2": 108,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row3": 109,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row4": 110,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row5": 111,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row6": 112,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row7": 113,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row8": 114,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_row9": 115,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_sig0": 82,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_sig1": 104,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_mr_split": 46,
+    "OIBridge.DitaTorusLocus.a40_shared_gen_t1": 32
+   }
+  },
+  "reports_in_served_text": 151
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "run from the root of a full-history clone at a commit that carries this archive (the verifier), never inside <head_sha>, which predates these tools; <dir> is a new directory and <log> a file outside it",
+   "git worktree add --detach <dir> <head_sha>",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree <dir>"
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 36561347220 --work <dir>",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "1dc1a4238d1dc974ddc0081ed52b9ab84f16c88f",
+  "id": "36561347220",
+  "job_id": "109382706426",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 36386,
+  "served_lines": 5000,
+  "served_sha256": "07654430a0cfe87cf0d62469eee24c70ca63da62af417abbcfd8fb8cbaa2baef"
+ },
+ "version": 1
+}

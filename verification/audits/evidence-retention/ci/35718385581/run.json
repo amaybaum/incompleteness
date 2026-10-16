@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-22T10:52:51Z",
+ "display_title": "CV-1 execution [MERGE-HELD]: the V2 round-certificate protocol -- shadow, census and cutover",
+ "event": "pull_request",
+ "head_branch": "claude/cv1-execution",
+ "head_sha": "5fe921ce10e68a2496b9797b0ab2b0b08ae02cdb",
+ "id": 35718385581,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35718385581",
+ "run_number": 1032,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-22T11:02:50Z"
+}

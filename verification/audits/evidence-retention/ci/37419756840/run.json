@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-06T05:41:05Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/eff1-control-plane",
+ "head_sha": "458fb5bcf97a8c2c45775ce61f5ef78310a291d1",
+ "id": 37419756840,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "37419756840",
+ "run_number": 1725,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-06T05:57:58Z"
+}

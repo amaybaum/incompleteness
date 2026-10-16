@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-02T14:37:52Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/opact-1-completion-action",
+ "head_sha": "149b2b2864acc762a61d82f9bd161361d9465447",
+ "id": 37021207087,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "37021207087",
+ "run_number": 1579,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-02T14:58:21Z"
+}

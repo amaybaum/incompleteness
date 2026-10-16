@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-04T19:27:08Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/trb1",
+ "head_sha": "62cd9245a2cb3cf024dbbf8d360377a710493dfa",
+ "id": 37228318632,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "37228318632",
+ "run_number": 1638,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-04T19:45:59Z"
+}

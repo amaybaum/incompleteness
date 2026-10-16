@@ -1,0 +1,175 @@
+{
+ "expected": {
+  "build_success": true,
+  "gate": {
+   "steps": [
+    {
+     "name": "toolchain",
+     "status": "PASS",
+     "summary": "toolchain_check: OK (build entry present, unicode-fix.tex co"
+    },
+    {
+     "name": "staleness",
+     "status": "PASS",
+     "summary": "staleness_check: OK (13 matched, 0 unstamped)"
+    },
+    {
+     "name": "baseline-label",
+     "status": "PASS",
+     "summary": "baseline_label_check: OK (no baseline archives named)"
+    },
+    {
+     "name": "voice",
+     "status": "PASS",
+     "summary": "voice_check: OK (no manuscript-voice history narration; 40 m"
+    },
+    {
+     "name": "voice-scope",
+     "status": "PASS",
+     "summary": "voice_scope_test: OK (6 scope case(s); the checker scans the"
+    },
+    {
+     "name": "ci-gate-presence",
+     "status": "PASS",
+     "summary": "ci_gate_presence_test: OK (CI runs the real release gate)"
+    },
+    {
+     "name": "artifact-placement",
+     "status": "PASS",
+     "summary": "artifact_placement_check: OK (no unaccounted root artifact;"
+    },
+    {
+     "name": "manifest-drift",
+     "status": "PASS",
+     "summary": "build_migration_manifest --check: OK (91 artifacts; both gen"
+    },
+    {
+     "name": "control-plane-lint",
+     "status": "PASS",
+     "summary": "control_plane_lint: OK (25 control-plane file(s) linted; blo"
+    },
+    {
+     "name": "claims",
+     "status": "PASS",
+     "summary": "claims_check: OK (no withdrawn result asserted unconditional"
+    },
+    {
+     "name": "duplicate",
+     "status": "PASS",
+     "summary": "duplicate_check: OK (no paragraph repeated within a file)"
+    },
+    {
+     "name": "mirror",
+     "status": "PASS",
+     "summary": "mirror_check: 0 chapter line(s) absent from FULL.md"
+    },
+    {
+     "name": "citation",
+     "status": "PASS",
+     "summary": "citation_check: 112 citation(s), 0 broken, 0 duplicate bib n"
+    },
+    {
+     "name": "architecture",
+     "status": "PASS",
+     "summary": "architecture_check: 259 invariant(s), 0 violation(s), 0 self"
+    },
+    {
+     "name": "dependency-label",
+     "status": "PASS",
+     "summary": "dependency_label_check: OK (no stale dependency label, 41 fi"
+    },
+    {
+     "name": "coverage",
+     "status": "PASS",
+     "summary": "coverage_check: OK (130 canonical statements, 19 unattached"
+    },
+    {
+     "name": "lean-axioms",
+     "status": "PASS",
+     "summary": "lean_axiom_check: OK (4187 named result(s) reported, no sorr"
+    },
+    {
+     "name": "lean-manuscript",
+     "status": "PASS",
+     "summary": "lean_manuscript_census: OK (every cited identifier and path"
+    },
+    {
+     "name": "certificate-verifier",
+     "status": "PASS",
+     "summary": "certificate_verifier: authoritative OK (0 failure(s))"
+    },
+    {
+     "name": "v3-receipts",
+     "status": "PASS",
+     "summary": "RECEIPTS  2 receipt(s), all hold"
+    }
+   ],
+   "steps_pass": 20,
+   "steps_total": 20,
+   "verdict": "PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)"
+  },
+  "markers": {
+   "Lean.ofReduceBool": 0,
+   "declaration uses 'sorry'": 0,
+   "error:": 0,
+   "sorryAx": 0
+  },
+  "modules": {},
+  "permitted_axioms": [
+   "propext",
+   "Classical.choice",
+   "Quot.sound"
+  ]
+ },
+ "kind": "bridge",
+ "observed": {
+  "build_line": "Build completed successfully (3598 jobs).",
+  "built": [],
+  "cache": [
+   {
+    "served_line": 4982,
+    "text": "Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-3403ff771d9c0b1d068c4cc9938a7bf6d588399f972e9b493a63e568c47a34a8, not saving cache."
+   }
+  ],
+  "gate_served_lines": {
+   "start": 4957,
+   "verdict": 4980
+  },
+  "report_served_lines": {},
+  "reports_in_served_text": 2778
+ },
+ "reproduce": {
+  "compared": "build success; the gate's steps and verdict; each governed module's reports and axioms; the markers",
+  "not_compared": "timestamps, durations, cache behaviour, job counts, output order",
+  "recipe": [
+   "run from the root of a full-history clone at a commit that carries this archive (the verifier), never inside <head_sha>, which predates these tools; <dir> is a new directory and <log> a file outside it",
+   "git worktree add --detach <dir> <head_sha>",
+   "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build) > <log> 2>&1",
+   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
+   "python3 -I verification/audits/evidence-retention/compare_result.py <this results.json> reproduced.json --tree <dir>"
+  ],
+  "tool": "python3 -I verification/audits/evidence-retention/reproduce.py --run 36135049153 --work <dir>",
+  "workflow": ".github/workflows/reproduce-evidence.yml"
+ },
+ "run": {
+  "attempt": 1,
+  "conclusion": "success",
+  "event": "workflow_dispatch",
+  "head_sha": "4b506738d80125d5083032ede21088a13e28aca4",
+  "id": "36135049153",
+  "job_id": "108071013607",
+  "job_name": "Mathlib bridge",
+  "workflow": "verify.yml"
+ },
+ "schema": "oi-evidence-result",
+ "source": {
+  "extractor": "verification/audits/evidence-retention/extract_result.py",
+  "kind": "GitHub Actions job log, read through the session's job-log tool, which returns at most the last 5000 lines",
+  "note": "the digest identifies the text this result was read from: it is provenance of the extraction, not independent proof of the result, which reproduction at the commit supplies",
+  "original_lines": 8112,
+  "served_lines": 5000,
+  "served_sha256": "76fcadfdd6c0520b60d45fe4929d10e4457cd84972b1d62ba902071203ef21f7"
+ },
+ "version": 1
+}

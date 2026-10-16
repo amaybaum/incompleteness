@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-12T13:11:21Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "adopt/oi-finite-protocol-1-20261012",
+ "head_sha": "ce46c2047c4ae22ec2373dc1ea81459545dd4c7f",
+ "id": 38253942780,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "38253942780",
+ "run_number": 1917,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-12T13:36:34Z"
+}
