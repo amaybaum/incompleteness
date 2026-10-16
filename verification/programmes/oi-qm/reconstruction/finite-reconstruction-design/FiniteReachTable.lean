@@ -256,7 +256,7 @@ theorem tableCone_eq_psd_of_drive_maxCone {k : ℕ} {K : Set (Labels k → ℝ)}
     have hS := hmax _ hAK (fun i => blochH (a i)) fun i _ => lor_blochH (a i)
     rw [show ((∑ μ, prodTab k (fun i => blochH (a i)) μ * coordinates k A μ : ℝ) : ℂ) /
         (2 : ℂ) ^ k = (((∑ μ, prodTab k (fun i => blochH (a i)) μ * coordinates k A μ) /
-          2 ^ k : ℝ) : ℂ) by first | (push_cast; ring) | push_cast | simp,
+          2 ^ k : ℝ) : ℂ) by push_cast; ring,
       Complex.zero_le_real]
     exact div_nonneg hS (pow_nonneg (by norm_num) k)
   have hpureC : ∀ a : ℕ → Fin 2 → ℂ, (∀ i, i < k → star (a i) ⬝ᵥ a i = 1) →
@@ -301,6 +301,115 @@ theorem tableCone_eq_psd_of_drive_maxCone {k : ℕ} {K : Set (Labels k → ℝ)}
     have h2 := (mem_matCone.mp h).2
     rwa [coordinates_dictionary_real] at h2
 
+/-! ### §5 — the effect form of the product tests and the equivalence -/
+
+/-- The scale that turns a forward-cone vector into the homogeneous vector of an effect. -/
+def lorScale (v : HVec 3) : ℝ := 1 / (2 * (v 0 + 1))
+
+theorem lorScale_pos {v : HVec 3} (hv : Lor v) : 0 < lorScale v :=
+  div_pos one_pos (by linarith [hv.1])
+
+theorem isEffectOn_lorScale {v : HVec 3} (hv : Lor v) :
+    OIBridge.KInfFoundations.IsEffectOn (OIBridge.TransitiveBody.eball 3)
+      (affOf (lorScale v • v)) := by
+  have hp : 0 < 2 * (v 0 + 1) := by linarith [hv.1]
+  have hc0 : 0 < 1 / (2 * (v 0 + 1)) := div_pos one_pos hp
+  have hc1 : 1 / (2 * (v 0 + 1)) * (2 * (v 0 + 1)) = 1 := one_div_mul_cancel (ne_of_gt hp)
+  refine isEffectOn_affOf (lor_smul hv hc0.le) ?_
+  show 1 / (2 * (v 0 + 1)) * v 0 ≤ 1 / 2
+  linarith
+
+theorem prodTab_lorScale (v : ℕ → HVec 3) : ∀ (n : ℕ) (μ : Labels n),
+    prodTab n (fun i => lorScale (v i) • v i) μ =
+      (∏ i ∈ Finset.range n, lorScale (v i)) * prodTab n v μ := by
+  intro n
+  induction n with
+  | zero =>
+    intro μ
+    simp [prodTab]
+  | succ n ih =>
+    intro μ
+    simp only [prodTab_succ, ih, Finset.prod_range_succ, Pi.smul_apply, smul_eq_mul]
+    ring
+
+/-- The k-fold maximal cone of the ball on real Pauli tables: nonnegative on every product of
+effects. -/
+def maxConeTab (k : ℕ) : Set (Labels k → ℝ) :=
+  {w | ∀ e : ℕ → (Fin 3 → ℝ) →ᵃ[ℝ] ℝ,
+    (∀ i, i < k → OIBridge.KInfFoundations.IsEffectOn (OIBridge.TransitiveBody.eball 3) (e i)) →
+      0 ≤ ∑ μ, prodTab k (fun i => ehom (e i)) μ * w μ}
+
+/-- **Product effects give the forward-cone product tests.** -/
+theorem lorPair_nonneg_of_maxConeTab {k : ℕ} {w : Labels k → ℝ} (hw : w ∈ maxConeTab k)
+    {v : ℕ → HVec 3} (hv : ∀ i, i < k → Lor (v i)) : 0 ≤ ∑ μ, prodTab k v μ * w μ := by
+  have hP : 0 < ∏ i ∈ Finset.range k, lorScale (v i) :=
+    Finset.prod_pos fun i hi => lorScale_pos (hv i (Finset.mem_range.mp hi))
+  have hsum : ∑ μ, prodTab k (fun i => ehom (affOf (lorScale (v i) • v i))) μ * w μ =
+      (∏ i ∈ Finset.range k, lorScale (v i)) * ∑ μ, prodTab k v μ * w μ := by
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun μ _ => ?_
+    simp only [ehom_affOf]
+    rw [prodTab_lorScale v k μ]
+    ring
+  have h : 0 ≤ ∑ μ, prodTab k (fun i => ehom (affOf (lorScale (v i) • v i))) μ * w μ :=
+    hw (fun i => affOf (lorScale (v i) • v i)) fun i hi => isEffectOn_lorScale (hv i hi)
+  rw [hsum] at h
+  have h2 : (∏ i ∈ Finset.range k, lorScale (v i)) * 0 ≤
+      (∏ i ∈ Finset.range k, lorScale (v i)) * ∑ μ, prodTab k v μ * w μ := by
+    rw [mul_zero]
+    exact h
+  exact le_of_mul_le_mul_left h2 hP
+
+/-- **The table theorem with the effect-form product bound.** -/
+theorem tableCone_eq_psd_of_drive_maxConeTab {k : ℕ} {K : Set (Labels k → ℝ)}
+    (hH1 : ∀ x : ℕ → Fin 3 → ℝ, (∀ i, i < k → x i ∈ OIBridge.TransitiveBody.eball 3) →
+      prodTab k (fun i => hom (x i)) ∈ K)
+    (hadd : ∀ w ∈ K, ∀ w' ∈ K, w + w' ∈ K)
+    (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ w ∈ K, c • w ∈ K)
+    (hmax : K ⊆ maxConeTab k)
+    (hH2 : ∀ i j : ℕ, i < j → j < k → ∀ w ∈ K, tabAct k (cnotM k i j) w ∈ K)
+    (hA : ∀ j : ℕ, 0 < j → j < k → ∀ t : ℝ, ∀ w ∈ K,
+      tabAct k (localM k j (phaseMat (Real.cos t) (Real.sin t))) w ∈ K ∧
+        tabAct k (localM k j cycMat) w ∈ K) :
+    K = {w | (dictionary k w).PosSemidef} :=
+  tableCone_eq_psd_of_drive_maxCone hH1 hadd hsmul
+    (fun w hw v hv => lorPair_nonneg_of_maxConeTab (hmax hw) hv) hH2 hA
+
+theorem tabAct_psd {k : ℕ} (U : Mat k) {w : Labels k → ℝ} (hw : (dictionary k w).PosSemidef) :
+    (dictionary k (tabAct k U w)).PosSemidef := by
+  rw [tabAct, dictionary_coordinates_real k _
+    (Matrix.isHermitian_mul_mul_conjTranspose U (dictionary_hermitian k w))]
+  exact hw.mul_mul_conjTranspose_same U
+
+/-- Forward witness: the positive semidefinite tables are carried into themselves by every
+action through the dictionary. -/
+theorem tableDrive_of_eq_psd {k : ℕ} {K : Set (Labels k → ℝ)}
+    (h : K = {w | (dictionary k w).PosSemidef}) :
+    (∀ i j : ℕ, i < j → j < k → ∀ w ∈ K, tabAct k (cnotM k i j) w ∈ K) ∧
+      ∀ j : ℕ, 0 < j → j < k → ∀ t : ℝ, ∀ w ∈ K,
+        tabAct k (localM k j (phaseMat (Real.cos t) (Real.sin t))) w ∈ K ∧
+          tabAct k (localM k j cycMat) w ∈ K := by
+  subst h
+  exact ⟨fun i j _ _ w hw => tabAct_psd _ hw,
+    fun j _ _ t w hw => ⟨tabAct_psd _ hw, tabAct_psd _ hw⟩⟩
+
+/-- Given products of ball states, cone closure and the effect-form product bound, equality with
+the positive semidefinite tables is equivalent to invariance under the named actions.
+Witnesses: `tableDrive_of_eq_psd` and `tableCone_eq_psd_of_drive_maxConeTab`. -/
+theorem tableCone_eq_psd_iff_drive_maxConeTab {k : ℕ} {K : Set (Labels k → ℝ)}
+    (hH1 : ∀ x : ℕ → Fin 3 → ℝ, (∀ i, i < k → x i ∈ OIBridge.TransitiveBody.eball 3) →
+      prodTab k (fun i => hom (x i)) ∈ K)
+    (hadd : ∀ w ∈ K, ∀ w' ∈ K, w + w' ∈ K)
+    (hsmul : ∀ c : ℝ, 0 ≤ c → ∀ w ∈ K, c • w ∈ K)
+    (hmax : K ⊆ maxConeTab k) :
+    K = {w | (dictionary k w).PosSemidef} ↔
+      ((∀ i j : ℕ, i < j → j < k → ∀ w ∈ K, tabAct k (cnotM k i j) w ∈ K) ∧
+        ∀ j : ℕ, 0 < j → j < k → ∀ t : ℝ, ∀ w ∈ K,
+          tabAct k (localM k j (phaseMat (Real.cos t) (Real.sin t))) w ∈ K ∧
+            tabAct k (localM k j cycMat) w ∈ K) :=
+  ⟨tableDrive_of_eq_psd, fun h =>
+    tableCone_eq_psd_of_drive_maxConeTab hH1 hadd hsmul hmax h.1 h.2⟩
+
 #print axioms dictionary_prodTab
 #print axioms trace_dictionary_mul
 #print axioms tokMat_blochH
@@ -308,6 +417,10 @@ theorem tableCone_eq_psd_of_drive_maxCone {k : ℕ} {K : Set (Labels k → ℝ)}
 #print axioms quad_dictionary_prodVec
 #print axioms psd_subset_of_pure_cone_drive
 #print axioms tableCone_eq_psd_of_drive_maxCone
+#print axioms lorPair_nonneg_of_maxConeTab
+#print axioms tableCone_eq_psd_of_drive_maxConeTab
+#print axioms tableDrive_of_eq_psd
+#print axioms tableCone_eq_psd_iff_drive_maxConeTab
 
 end
 end FiniteReconstructionDesign
