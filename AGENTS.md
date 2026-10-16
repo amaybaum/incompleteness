@@ -499,6 +499,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   was executed faithfully, not that the plan was valid. Hence §A.39's rule for destructive
   transformations and §A.41.
 
+- An audit of `main` found frozen records citing design trees on disposable branches, CI logs that expire, and four
+  logs held only in a session scratchpad. Pinning such content by SHA had been treated as retaining it. Hence §A.42:
+  evidence for an enduring claim is retained on `main`, with a manifest for records already frozen.
+
 ---
 
 ## §A.32 Technical register only in paper prose
@@ -822,3 +826,55 @@ carries:
 - **the execution evidence** — the workflow run, on a disposable branch, on exactly the predicted
   execution tree less the result note, and in every event mode used to certify `E`. The runs are
   design evidence recorded in the preregistration, not `check-run` attestations.
+
+---
+
+## §A.42 Durable evidence and self-contained verification
+
+Every permanent research result, certification claim or governed decision is verifiable from evidence retained on
+`main`. Scratchpads, `/tmp`, local worktrees, disposable and research branches, external CI logs and commits not
+reachable from `main` are working material and provenance. None of them is the sole authoritative source for an
+enduring claim, and a SHA that pins such content does not retain it.
+
+1. **What is retained.** Retained evidence is whatever a record relies on for a result, a verdict, a measured hazard
+   or a design claim: inputs, scripts, outputs, logs or log excerpts, axiom reports and countermodels.
+   - Each retained item carries three things: its content hash; its provenance (the original object id, run, job or
+     path); and whether it is complete or an excerpt.
+   - An excerpt names the line range of the source it was cut from.
+   - An excerpt that carries the claim is enough; §A.28 still applies.
+2. **When.** Before the citing record lands.
+   - A native round retains its design evidence and drafting-time measurements in its record directory at stage 1.
+     The control plane pins them by hash, since it holds only the preregistration and its amendments (§A.39).
+   - Some evidence cannot exist inside the commit it attests, such as the exact-head runs at `F` and `E`. It is
+     retained by an evidence-retention commit on `main`, which the round's reconciliation brings in before `Q` is
+     built.
+3. **Where.**
+   - In the round's record directory, or the audit's or paper's own directory.
+   - Evidence for records that are already frozen goes under `verification/audits/evidence-retention/`, with a
+     manifest mapping each citing `file:line` to its retained copy.
+4. **Forward only.**
+   - A frozen record (G13, `legacy-records`) is never edited to point at retained evidence; the manifest carries
+     the mapping.
+   - Retention never strengthens a claim, never repairs a failed check by changing its evidence, and never presents
+     a re-cut or redacted copy as the original.
+   - A copy that is not byte-identical to its cited digest carries its own digest and says so.
+   - Evidence that cannot be recovered is recorded as missing.
+5. **Public repository.** Logs are scanned for secrets and sensitive operational data before they are committed. A
+   redaction is recorded with what was removed and where, and the redacted copy gets its own digest.
+6. **V3 host attestations.** §A.42 adds retention, not verification.
+   - Receipts record host attestations exactly as §A.39 and the specification define them.
+   - `tools/v3_verifier.py`'s verdict is unchanged: no predicate reads an attestation.
+   - What is retained, as in 2, is the decisive content of each attested check run: the job conclusions, the
+     release-gate block, and the axiom reports the round's records cite.
+7. **Checking.** A reproducible checker verifies retention from the repository tree alone:
+   - archived bytes match their hashes;
+   - every mapped citation still reads as recorded, in a file whose blob id is unchanged;
+   - every gap is listed.
+
+Adopted 2026-10-16, after an audit of `main` at `fc5abade` found:
+- 134 commits and 77 objects not reachable from `main`, cited in frozen records;
+- about 360 references to CI runs, whose logs expire;
+- four cited logs held only in a session scratchpad.
+
+Rounds landed before this section keep their records unchanged, and their evidence is retained by the archive
+under 3.
