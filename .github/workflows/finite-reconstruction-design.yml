@@ -55,17 +55,19 @@ jobs:
         working-directory: verification/lean-mathlib
         run: |
           lake exe cache get
-          lake --rehash build OIBridge.EqvK2Schema OIBridge.SubstratumSource OIBridge.LiftAudit
+          lake --rehash build OIBridge.EqvK2Schema OIBridge.EqvK2Generation OIBridge.SubstratumSource OIBridge.LiftAudit
           mkdir -p ResearchDesign
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FinitePauli.lean ResearchDesign/FinitePauli.lean
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteWalsh.lean ResearchDesign/FiniteWalsh.lean
           cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteCircuit.lean ResearchDesign/FiniteCircuit.lean
+          cp ../programmes/oi-qm/reconstruction/finite-reconstruction-design/FiniteReach.lean ResearchDesign/FiniteReach.lean
           lake env bash -c '
             export LEAN_PATH="$LEAN_PATH:$PWD/ResearchDesign:$PWD"
             design_status=0
             lean -o ResearchDesign/FinitePauli.olean ResearchDesign/FinitePauli.lean || design_status=1
             lean ResearchDesign/FiniteWalsh.lean || design_status=1
             lean ResearchDesign/FiniteCircuit.lean || design_status=1
+            lean ResearchDesign/FiniteReach.lean || design_status=1
             lean ../programmes/oi-qm/reconstruction/carrier-descent-design/KnDescentDesign.lean || design_status=1
             exit "$design_status"
           '
