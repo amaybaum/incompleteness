@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-16T01:22:16Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "tmp/bg3-predicted-reduced-20261015",
+ "head_sha": "6c160ad26a9831448e6e4cfca5761efb876a1baf",
+ "id": 38834744516,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "38834744516",
+ "run_number": 2031,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-16T01:35:04Z"
+}

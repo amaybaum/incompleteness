@@ -3,8 +3,6 @@
 2026-10-16T05:26:27.8490227Z info: OIBridge/TurnpikeScopeTransfer.lean:880:0: 'OIBridge.ScopeTransfer.rational_solutions' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8490784Z info: OIBridge/TurnpikeScopeTransfer.lean:881:0: 'OIBridge.ScopeTransfer.exists_int_scaling' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8491642Z info: OIBridge/TurnpikeScopeTransfer.lean:882:0: 'OIBridge.ScopeTransfer.integer_realization_of_real_realization' depends on axioms: [propext,
-2026-10-16T05:26:27.8491983Z  Classical.choice,
-2026-10-16T05:26:27.8492108Z  Quot.sound]
 2026-10-16T05:26:27.8492436Z info: OIBridge/TurnpikeScopeTransfer.lean:883:0: 'OIBridge.ScopeTransfer.real_to_integer_surrogate' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8493019Z info: OIBridge/TurnpikeScopeTransfer.lean:884:0: 'OIBridge.ScopeTransfer.spectral_classification_of_BG' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8493685Z info: OIBridge/TurnpikeScopeTransfer.lean:885:0: 'OIBridge.ScopeTransfer.gaps_eq_of_equal_probabilities' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -35,3 +33,4 @@
 2026-10-16T05:27:15.5235954Z   PASS  v3-receipts      RECEIPTS  47 receipt(s), all hold
 2026-10-16T05:27:15.5236145Z ====================================================================
 2026-10-16T05:27:15.5236416Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)
+2026-10-16T05:27:19.1290155Z Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-de5484e196eb453de62819189535292f1ded0ccca114d9735502f9b86b286e39

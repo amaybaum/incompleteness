@@ -24,3 +24,4 @@
 2026-10-03T19:33:26.9761358Z   PASS  v3-receipts      RECEIPTS  27 receipt(s), all hold
 2026-10-03T19:33:26.9761942Z ====================================================================
 2026-10-03T19:33:26.9762795Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)
+2026-10-03T19:33:27.4919315Z Cache hit occurred on the primary key oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-15a9c7d6576645181b7f9455be2f1e24c039ccc3858c7c5a7f35d8c60372aa2c, not saving cache.

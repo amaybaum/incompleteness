@@ -263,6 +263,7 @@
 2026-09-26T22:33:56.8091297Z info: OIBridge/OrbitIsometryGroup.lean:3202:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bit_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T22:33:56.8092378Z info: OIBridge/OrbitIsometryGroup.lean:3209:0: 'OIBridge.OrbitIsometryGroup.a33_shared_unit_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T22:33:56.8093448Z info: OIBridge/OrbitIsometryGroup.lean:3216:0: 'OIBridge.OrbitIsometryGroup.a33_shared_unit_star' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T22:33:56.8094426Z info: OIBridge/OrbitIsometryGroup.lean:3221:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_xnor' does not depend on any axioms
 2026-09-26T22:33:56.8095416Z info: OIBridge/OrbitIsometryGroup.lean:3226:0: 'OIBridge.OrbitIsometryGroup.a33_shared_fin3' depends on axioms: [propext]
 2026-09-26T22:33:56.8096387Z info: OIBridge/OrbitIsometryGroup.lean:3231:0: 'OIBridge.OrbitIsometryGroup.a33_shared_edge_inj' depends on axioms: [propext]
 2026-09-26T22:33:56.8097252Z info: OIBridge/OrbitIsometryGroup.lean:3236:0: 'OIBridge.OrbitIsometryGroup.a33_shared_edge_rev' depends on axioms: [propext]
@@ -340,6 +341,9 @@
 2026-09-26T22:33:56.8227258Z info: OIBridge/OrbitIsometryGroup.lean:6639:0: 'OIBridge.OrbitIsometryGroup.a33_shared_kernel_shapes' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T22:33:56.8227750Z info: OIBridge/OrbitIsometryGroup.lean:6647:0: 'OIBridge.OrbitIsometryGroup.a33_shared_aut_shapes' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T22:33:56.8228248Z info: OIBridge/OrbitIsometryGroup.lean:6652:0: 'OIBridge.OrbitIsometryGroup.a33_shared_not_parity_0' depends on axioms: [propext, Classical.choice, Quot.sound]
+2026-09-26T22:33:56.8228640Z info: OIBridge/OrbitIsometryGroup.lean:6657:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_swap' does not depend on any axioms
+2026-09-26T22:33:56.8229032Z info: OIBridge/OrbitIsometryGroup.lean:6662:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_comm' does not depend on any axioms
+2026-09-26T22:33:56.8229428Z info: OIBridge/OrbitIsometryGroup.lean:6667:0: 'OIBridge.OrbitIsometryGroup.a33_shared_bool_swap2' does not depend on any axioms
 2026-09-26T22:33:56.8229920Z info: OIBridge/OrbitIsometryGroup.lean:6694:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_family' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T22:33:56.8230419Z info: OIBridge/OrbitIsometryGroup.lean:6770:0: 'OIBridge.OrbitIsometryGroup.a33_shared_word_parity' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T22:33:56.8230925Z info: OIBridge/OrbitIsometryGroup.lean:6857:0: 'OIBridge.OrbitIsometryGroup.a33_shared_family_kernel' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -395,3 +399,4 @@
 2026-09-26T22:34:47.0689741Z   PASS  v3-receipts      RECEIPTS  8 receipt(s), all hold
 2026-09-26T22:34:47.0690085Z ====================================================================
 2026-09-26T22:34:47.0690571Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)
+2026-09-26T22:34:51.6213763Z Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-c647e213eb47cda03a439c6354a40c584ccd21294622526f60e226e44d8bb97b

@@ -8,14 +8,8 @@
 2026-09-26T14:33:47.1524570Z info: OIBridge/OrbitIsometryClassification.lean:89:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_pow' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1526193Z info: OIBridge/OrbitIsometryClassification.lean:108:0: 'OIBridge.OrbitIsometryClassification.a32_shared_pow_mod' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1527736Z info: OIBridge/OrbitIsometryClassification.lean:116:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_relabel' depends on axioms: [propext,
-2026-09-26T14:33:47.1528556Z  Classical.choice,
-2026-09-26T14:33:47.1529071Z  Quot.sound]
 2026-09-26T14:33:47.1530137Z info: OIBridge/OrbitIsometryClassification.lean:124:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_relabel' depends on axioms: [propext,
-2026-09-26T14:33:47.1531140Z  Classical.choice,
-2026-09-26T14:33:47.1531449Z  Quot.sound]
 2026-09-26T14:33:47.1532411Z info: OIBridge/OrbitIsometryClassification.lean:132:0: 'OIBridge.OrbitIsometryClassification.a32_shared_transpose_star_relabel' depends on axioms: [propext,
-2026-09-26T14:33:47.1533568Z  Classical.choice,
-2026-09-26T14:33:47.1533918Z  Quot.sound]
 2026-09-26T14:33:47.1535255Z info: OIBridge/OrbitIsometryClassification.lean:141:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_1' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1537427Z info: OIBridge/OrbitIsometryClassification.lean:150:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_2' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1539101Z info: OIBridge/OrbitIsometryClassification.lean:159:0: 'OIBridge.OrbitIsometryClassification.a32_shared_core_3' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -34,12 +28,8 @@
 2026-09-26T14:33:47.1571768Z info: OIBridge/OrbitIsometryClassification.lean:345:0: 'OIBridge.OrbitIsometryClassification.a32_shared_table_4' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1572890Z info: OIBridge/OrbitIsometryClassification.lean:395:0: 'OIBridge.OrbitIsometryClassification.a32_shared_separation' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1573989Z info: OIBridge/OrbitIsometryClassification.lean:404:0: 'OIBridge.OrbitIsometryClassification.a32_shared_star_mul_self' depends on axioms: [propext,
-2026-09-26T14:33:47.1574768Z  Classical.choice,
-2026-09-26T14:33:47.1574986Z  Quot.sound]
 2026-09-26T14:33:47.1575655Z info: OIBridge/OrbitIsometryClassification.lean:414:0: 'OIBridge.OrbitIsometryClassification.a32_shared_relabel' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1579064Z info: OIBridge/OrbitIsometryClassification.lean:425:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_star' depends on axioms: [propext,
-2026-09-26T14:33:47.1579683Z  Classical.choice,
-2026-09-26T14:33:47.1579898Z  Quot.sound]
 2026-09-26T14:33:47.1581805Z info: OIBridge/OrbitIsometryClassification.lean:433:0: 'OIBridge.OrbitIsometryClassification.a32_shared_coord_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1582962Z info: OIBridge/OrbitIsometryClassification.lean:442:0: 'OIBridge.OrbitIsometryClassification.a32_shared_fourier_inj' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-09-26T14:33:47.1584139Z info: OIBridge/OrbitIsometryClassification.lean:459:0: 'OIBridge.OrbitIsometryClassification.a32_shared_conj_A' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -111,3 +101,4 @@
 2026-09-26T14:34:25.2680513Z   PASS  v3-receipts      RECEIPTS  6 receipt(s), all hold
 2026-09-26T14:34:25.2680869Z ====================================================================
 2026-09-26T14:34:25.2681565Z release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)
+2026-09-26T14:34:30.0830421Z Cache saved with key: oibridge-Linux-324962b2357195e1544c06a1936656a7dafa7cf303e07c9c08c1e5a3b289622d-e72e347e7afa72d83924999d3ad8f982d4d69866c079a0d56f654c363524db09

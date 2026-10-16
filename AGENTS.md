@@ -499,9 +499,10 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   was executed faithfully, not that the plan was valid. Hence §A.39's rule for destructive
   transformations and §A.41.
 
-- An audit of `main` found frozen records citing design trees on disposable branches, CI logs that expire, and four
-  logs held only in a session scratchpad. Pinning such content by SHA had been treated as retaining it. Hence §A.42:
-  evidence for an enduring claim is retained on `main`, with a manifest for records already frozen.
+- An audit of `main` found frozen records citing design trees on disposable branches, CI logs that
+  expire, and four logs held only in a session scratchpad. Pinning such content by SHA had been
+  treated as retaining it. Hence §A.42: evidence for an enduring claim is retained on `main`, with a
+  manifest for records already frozen.
 
 ---
 
@@ -831,50 +832,94 @@ carries:
 
 ## §A.42 Durable evidence and self-contained verification
 
-Every permanent research result, certification claim or governed decision is verifiable from evidence retained on
-`main`. Scratchpads, `/tmp`, local worktrees, disposable and research branches, external CI logs and commits not
-reachable from `main` are working material and provenance. None of them is the sole authoritative source for an
-enduring claim, and a SHA that pins such content does not retain it.
+Every enduring research result, certification claim or governed decision rests on evidence
+retained on `main`: what a record relies on can be read there, with its digest and provenance,
+and checked as item 7 states. Scratchpads, `/tmp`, local worktrees, disposable and research
+branches, external CI logs, host comments and reviews, and commits not reachable from `main` are
+working material and provenance. None of them is the sole source of an enduring claim, and an
+object id or digest that names such content does not retain it.
 
-1. **What is retained.** Retained evidence is whatever a record relies on for a result, a verdict, a measured hazard
-   or a design claim: inputs, scripts, outputs, logs or log excerpts, axiom reports and countermodels.
-   - Each retained item carries three things: its content hash; its provenance (the original object id, run, job or
-     path); and whether it is complete or an excerpt.
-   - An excerpt names the line range of the source it was cut from.
-   - An excerpt that carries the claim is enough; §A.28 still applies.
+1. **What is retained, and in what form.** Whatever a record relies on for a result, a verdict, a
+   measured hazard or a design claim: inputs, scripts, outputs, logs or log excerpts, axiom
+   reports and countermodels.
+   - Each retained item carries its content hash and its provenance (the original object id,
+     run, job or path).
+   - Its form is stated:
+     - **complete;**
+     - **an excerpt:** line ranges, plus the digest of the text they index;
+     - **derived:** selected fields of a named source, with that source's digest.
+   - Where a record pins content by digest, the copy is that content byte for byte. Otherwise the
+     copy is the smallest excerpt that carries the claim, and a complete log only when the claim
+     rests on all of it.
+   - §A.28 bounds the amount; it does not send such evidence to the off-repo log.
 2. **When.** Before the citing record lands.
-   - A native round retains its design evidence and drafting-time measurements in its record directory at stage 1.
-     The control plane pins them by hash, since it holds only the preregistration and its amendments (§A.39).
-   - Some evidence cannot exist inside the commit it attests, such as the exact-head runs at `F` and `E`. It is
-     retained by an evidence-retention commit on `main`, which the round's reconciliation brings in before `Q` is
-     built.
+   - **A native round's design evidence, drafting-time measurements and `F`'s exact-head run**
+     are committed to its record directory, outside `amendments/`, by its first execution
+     commit. In a halted round without one, the commit in `W`'s place carries them.
+     - The preregistration pins the pre-`F` items by hash.
+     - Drafting commits change only control-plane files (`S2`).
+   - **`E`'s exact-head run cannot be carried by any later commit of the round** (`S9`
+     condition 2, `S10`).
+     - An evidence-retention commit, landed on `main` through its own pull request, adds it
+       under the record directory, outside its control-plane files.
+     - The round's reconciliation takes a base containing that commit.
+     - The receipt's candidate entry for `E` names each retained file's digest.
+     - Nothing writes to the record directory after `Q` is built. A later write fails `G13` at
+       the landing, and the round builds again (`S10`).
 3. **Where.**
-   - In the round's record directory, or the audit's or paper's own directory.
-   - Evidence for records that are already frozen goes under `verification/audits/evidence-retention/`, with a
-     manifest mapping each citing `file:line` to its retained copy.
+   - For a round before its receipt commit: its record directory.
+   - For an audit: its own directory.
+   - For a paper: beside its code and data, never as a `.md` under `papers/`.
+   - For frozen records: `verification/audits/evidence-retention/`, whose manifest maps each
+     citing `file:line` to its retained copy and states which claims made there the copy carries.
 4. **Forward only.**
-   - A frozen record (G13, `legacy-records`) is never edited to point at retained evidence; the manifest carries
-     the mapping.
-   - Retention never strengthens a claim, never repairs a failed check by changing its evidence, and never presents
-     a re-cut or redacted copy as the original.
-   - A copy that is not byte-identical to its cited digest carries its own digest and says so.
-   - Evidence that cannot be recovered is recorded as missing.
-5. **Public repository.** Logs are scanned for secrets and sensitive operational data before they are committed. A
-   redaction is recorded with what was removed and where, and the redacted copy gets its own digest.
+   - A frozen record is never edited to point at retained evidence. That covers a native
+     round's record under `G13`, a receipt, and a legacy record. The archive's manifest maps
+     frozen records only.
+   - A mutable file citing such content is corrected in place to cite the retained copy
+     (§A.27, §A.30).
+   - Retention never strengthens a claim, never repairs a failed check by changing its evidence,
+     and never presents a re-cut or redacted copy as the original. A copy that is not
+     byte-identical to its cited digest carries its own digest and says so.
+   - Evidence that cannot be recovered is recorded as missing. A claim resting only on missing
+     evidence is corrected in its mutable dependents (§A.30), and in a frozen record only by a
+     new native round (`G13`).
+5. **Public repository.**
+   - Before a log is committed, it is scanned for secrets and sensitive operational data:
+     tokens, keys, signed URLs, IP and e-mail addresses.
+   - A redaction is recorded, with what was removed and where, and the redacted copy gets its own
+     digest.
 6. **V3 host attestations.** §A.42 adds retention, not verification.
-   - Receipts record host attestations exactly as §A.39 and the specification define them.
-   - `tools/v3_verifier.py`'s verdict is unchanged: no predicate reads an attestation.
-   - What is retained, as in 2, is the decisive content of each attested check run: the job conclusions, the
-     release-gate block, and the axiom reports the round's records cite.
-7. **Checking.** A reproducible checker verifies retention from the repository tree alone:
-   - archived bytes match their hashes;
-   - every mapped citation still reads as recorded, in a file whose blob id is unchanged;
-   - every gap is listed.
+   - Receipts record host attestations as §A.39 and the specification define them, and
+     `tools/v3_verifier.py`'s verdict is unchanged: no predicate reads them.
+   - A retained copy is evidence of an attestation, not the attestation (`S5`). The receipt's
+     `record` still names the host object, and no retained or local output is recorded as a
+     `check-run` attestation (§A.40).
+   - From the attested host run itself, whatever the round's records cite is retained, including
+     the job conclusions, the release-gate block and the cited axiom reports.
+   - An owner designation is retained as its text, its author and its time.
+7. **Checking.**
+   - `verification/audits/evidence-retention/check_retention.py` verifies the archive from the
+     repository tree alone:
+     - archived bytes match their hashes;
+     - every mapped citation still reads as recorded, in a file whose blob id is unchanged;
+     - every recorded claim stands verbatim in its citing file and names the retained files that
+       carry it, so a reviewer can read those files to check it;
+     - the manifest's gaps and the claims no retained file carries are printed.
+   - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
+
+Enforcement:
+- `check_retention.py` and its self-test run locally before any push that touches the archive
+  (§A.40). Making it a release-gate step is a separate decision.
+- Reviewers check that `E`'s evidence reached `main` through its own pull request before the
+  round's reconciliation.
+- Reviewers check that each hash pin of item 2 resolves to retained content.
 
 Adopted 2026-10-16, after an audit of `main` at `fc5abade` found:
-- 134 commits and 77 objects not reachable from `main`, cited in frozen records;
-- about 360 references to CI runs, whose logs expire;
+- 107 commits and 75 objects not reachable from `main`, cited in frozen records and, once, in a
+  mutable script;
+- 842 citations of CI runs and jobs, whose logs expire;
 - four cited logs held only in a session scratchpad.
 
-Rounds landed before this section keep their records unchanged, and their evidence is retained by the archive
-under 3.
+Rounds landed, or frozen at `F`, before this section keep their records unchanged. Their evidence
+is retained by the archive under 3, or listed there as not yet retained.
