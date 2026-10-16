@@ -1,11 +1,11 @@
 # Reconstruction round BG-3 — the scope-transfer module after the premise refutation: PREREGISTRATION (draft)
 
-**Status: drafting, native V3; not a candidate `F`.** Drafted on a pull request from `D`. The owner decisions are
-recorded below, including the scope reduction made after the first design run (*Design evidence*). The reduced
-predicted execution tree — `D`, this control plane, `controls.py`, the edit ledger and the two governed files, less the
-result note — is to be tested on a fresh disposable branch; the blobs below are predicted and become frozen only with
-that evidence. Nothing is executed. Only the owner designates `F` under AGENTS §A.39; an instruction to proceed is not a
-designation.
+**Status: drafting, native V3; candidate `F`, for owner review.** Drafted on a pull request from `D`. The owner
+decisions are recorded below, including the scope reduction made after the first design run (*Design evidence*). The
+reduced predicted execution tree — `D`, this control plane, `controls.py`, the edit ledger and the two governed files,
+less the result note — was tested at one exact SHA on a fresh disposable branch, and the blobs below are the ones it
+carried (*Design evidence*). Nothing is executed. Only the owner designates `F` under AGENTS §A.39; an instruction to
+proceed is not a designation.
 
 ```v3-round
 round BG-3
@@ -331,14 +331,28 @@ carried the edits above and the four `CongruentReconstruction.lean` docstrings.
   rejects both; the corrected K reads the same reports, accepts the first and rejects the second, which has none. The
   corrected checker's verdict over run 38834744516's tail prints the four positive tokens and the earned reading.
 
-**The reduced predicted tree, corrected checker.** To come, on the fresh disposable branch
-`tmp/bg3-predicted-reduced2-20261016`, at one exact SHA. The first branch now holds a build cache for these Lean
-sources, and a run that hits it replays the reports in an order that can put them outside the window (BG-2's `E`), so
-the corrected tree is not run there:
-- its `verify.yml` dispatch run: every job `success`; the gate's `lean-axioms` count; the eight report lines and their
-  positions in the executor's log window; then the verdict with the checker in the tree; then
-- `bg2-orientation-design.yml` dispatched at the same SHA (`C-ORDER`);
-- `controls.py --self-test`, and `controls.py check` over the predicted commit with this file's commit as `--freeze`.
+**The reduced predicted tree, corrected checker.** `e3ef9358d6690220c21a9b32924af9b3f70cb890` on the fresh disposable
+branch `tmp/bg3-predicted-reduced2-20261016`: this scope and the checker frozen below, on top of `f0a9ee7c` (this file
+with the same frozen block). The first reduced branch holds a build cache for these Lean sources, and a run that hits it
+replays the reports in an order that can put them outside the window (BG-2's `E`), so this tree was not run there.
+- Locally, before the push: `controls.py --self-test`, 31 cases, all passing; `controls.py check e3ef9358 --freeze
+  f0a9ee7c`: C1, C2, L0, L, P, R, S and G pass; 303 legacy records intact; 47 receipts holding; placement OK.
+- `verify.yml` dispatch run 38848873989, attempt 1, the branch's first run and the first workflow dispatched on it:
+  every job `success`, 37 of 37.
+  - The Mathlib bridge (job 116805436638) took 2 minutes 52 seconds and rebuilt `TurnpikeScopeTransfer` (3.7 s),
+    `TurnpikePremiseOrientation` (4.4 s) and the root. Its release gate passed every step: `lean-axioms` 5989, no
+    `sorry`; `lean-manuscript` OK; 303 legacy records intact; 47 receipts holding.
+  - In the last 4999 lines of its log (sha256 `9f1abf3c88899306609cb3c02485892fcd6b97dfd12cbf05e128ad029e05e7b7`) the
+    module's eight reports are at lines 4907–4916, after the `DitaTorusLocus` block and before
+    `TurnpikePremiseOrientation`'s and the root's. The report of `integer_realization_of_real_realization` wraps over
+    4910–4912; `real_to_integer_surrogate`'s is at 4913. Each is within `propext`, `Classical.choice` and `Quot.sound`.
+    The window contains no `sorryAx` and no `Lean.ofReduceBool`.
+- `controls.py verdict e3ef9358 --freeze f0a9ee7c` over that tail, with the checker in that tree, exit status 0: C1, C2,
+  L0, L, P, R, S and G pass; K reads the eight reports; `BG-3-REDUCTION-FACTORED`, `BG-3-STATEMENTS-PRESERVED`,
+  `BG-3-DOCSTRINGS-CORRECTED`, `BG-3-KERNEL-CLEAN`, and the earned reading.
+- Then `bg2-orientation-design.yml` dispatch run 38850349827 at the same SHA (`C-ORDER`): `success`. The exact
+  independent orientation checks passed; both design files compiled against the changed module; all 10 axiom reports
+  matched `axiom-reports.txt`; 303 legacy records and 47 receipts.
 
 These runs are design evidence, not `check-run` attestations. The four files' blobs are frozen there:
 
