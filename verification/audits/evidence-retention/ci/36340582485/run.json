@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-27T18:25:23Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a36-dita-hierarchy",
+ "head_sha": "5375703c0058c76f5ad27746e3fb7b49f31abb08",
+ "id": 36340582485,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36340582485",
+ "run_number": 1302,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-27T19:00:56Z"
+}

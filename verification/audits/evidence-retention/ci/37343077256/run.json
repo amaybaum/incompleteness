@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-05T16:44:01Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/consc2",
+ "head_sha": "e34e6d5044aee68a81dabc0a67248934a6370fb2",
+ "id": 37343077256,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "37343077256",
+ "run_number": 1707,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-05T17:01:24Z"
+}

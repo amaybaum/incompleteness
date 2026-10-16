@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-28T19:24:54Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a40-dita-locus",
+ "head_sha": "db91869ee4e606c123013ab105e765d0719f46e1",
+ "id": 36472063346,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36472063346",
+ "run_number": 1403,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-28T19:31:18Z"
+}

@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-26T07:59:27Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a30-product-strict-lift",
+ "head_sha": "fbe4ff7a47268489d8e5aa5e5532c2874855e839",
+ "id": 36228429141,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36228429141",
+ "run_number": 1168,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-26T08:06:40Z"
+}

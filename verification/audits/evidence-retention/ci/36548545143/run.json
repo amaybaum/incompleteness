@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-29T09:20:34Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a41-index-map-semantics",
+ "head_sha": "fb6af214ce28f54baeab0ed6e9a85eb7e562126a",
+ "id": 36548545143,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36548545143",
+ "run_number": 1418,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-29T09:27:01Z"
+}

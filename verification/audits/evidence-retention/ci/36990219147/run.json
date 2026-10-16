@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-02T09:30:56Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/cmp-1-completion",
+ "head_sha": "0e515cf4ea0fab72c4d57814b7518c870c986870",
+ "id": 36990219147,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36990219147",
+ "run_number": 1560,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-02T09:58:52Z"
+}

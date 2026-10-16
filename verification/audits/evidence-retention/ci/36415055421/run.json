@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-28T11:20:21Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/a39-realizable-torus",
+ "head_sha": "7deb404e9c772ce3f7ae65c89509d9dd3965f16e",
+ "id": 36415055421,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36415055421",
+ "run_number": 1373,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-28T11:25:07Z"
+}

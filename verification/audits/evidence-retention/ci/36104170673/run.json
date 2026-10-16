@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-25T06:43:36Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/v3-10-native-pilot",
+ "head_sha": "c6e0a7c6b99eb4a6a97e2beb5d08e68a5226c214",
+ "id": 36104170673,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "36104170673",
+ "run_number": 1118,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-25T06:57:35Z"
+}

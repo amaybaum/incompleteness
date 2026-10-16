@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-10-04T00:36:59Z",
+ "display_title": "verify",
+ "event": "workflow_dispatch",
+ "head_branch": "claude/network-tool-access-8jtdhm",
+ "head_sha": "d04ab62799afc882c1bf5fb730427495c73c97b9",
+ "id": 37165488993,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "37165488993",
+ "run_number": 1608,
+ "source": "GitHub Actions runs API listing, selected fields",
+ "status": "completed",
+ "updated_at": "2026-10-04T00:54:40Z"
+}
