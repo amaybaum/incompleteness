@@ -1,9 +1,9 @@
 # Finite reconstruction: exact reachability and the descent interface
 
 Research/design record, 2026-10-13. Base D: `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
-This is a written all-k argument, an exact three-token design check and compiled
-generic algebra supporting the proposed formalization. It is neither an
-adopted all-k Lean theorem nor a native round execution. No F is designated.
+This is a written all-k argument, an exact three-token design check and
+compiled research Lean sources for the conditional all-k theorem. It is neither
+an adopted Lean theorem nor a native round execution. No F is designated.
 
 The source drafts are [#829](https://github.com/amaybaum/incompleteness/pull/829)
 at `625f853ff70546f6e8d56d22fad15e968ad48354` and
@@ -49,20 +49,29 @@ density and full unitary invariance are not premises of the argument below.
 The landed `EqvK2Generation.conjInv_idle` establishes the local algebra needed
 here: full third-axis flow plus the cyclic rotation gives every SU(2) action on
 the driven token by an exact Euler word. The same 2-by-2 identities act on an
-arbitrary spectator space. This extension is a written tensor identity here;
-it still needs a k-generic Lean intertwining proof.
+arbitrary spectator space. For qubit spectators and every token count, the
+research module `FiniteReach.lean` proves the controlled form used below
+(`isWord_suFam`, `isWord_lift`).
 
 All generator conjugations have available inverse words. CNOT squares to I.
 Rotation inverses use negative angles. The cyclic action has order three (its
 SU(2) lift may cube to a scalar), so its conjugation inverse is its square.
 Consequently preservation under the generators entails preservation under a
-finite word and under the inverse word. This does not assert physical availability
-of any of these operations; preservation is the given hypothesis.
+finite word and under the inverse word. The words also contain unit scalars:
+the third-axis flow diag(1, e^(it)) has determinant e^(it), and a unit scalar
+times it gives each diagonal special unitary. Scalar conjugation is the
+identity, so unit scalars need no preservation hypothesis. This does not assert
+physical availability of any of these operations; preservation is the given
+hypothesis.
 
 ## 3. A finite multiplexor identity
 
 Let R(theta) be a one-parameter SU(2) group with X R(theta) X = R(-theta), for
-example a real y-rotation or a diagonal z-rotation. Take n controls, a later
+example a real y-rotation or a diagonal z-rotation. The inventory supplies the
+diagonal family directly. The real family is its conjugate by the cyclic action
+on the target. That action is the same in every control branch, so conjugation
+acts branchwise and a real-rotation multiplexor is the cyclic conjugate of a
+diagonal one. Take n controls, a later
 target, and a cyclic binary reflected Gray order
 g_0 = 0, ..., g_(L-1), g_L = 0, L = 2^n. Consecutive strings differ in one bit.
 For n = 0 use a single local rotation with no CNOT. For n > 0 use this chronological
@@ -85,6 +94,10 @@ coordinate. Thus any prescribed angles theta_b are realized exactly by
 
 All control indices precede the target. No reverse CNOT and no operation on the
 first token is needed. This is a finite identity, not an approximation argument.
+The compiled proof realizes the same multiplexors by a different finite word:
+every real function of the control word is generated from constants by sums and
+by multiplication with single-bit signs, and each such sign is conjugation by
+the CNOT from that bit to the target. It does not use the Gray order.
 Every branch SU(2) matrix has an Euler decomposition into three one-axis rotations.
 Apply the construction to the three branch-dependent angle lists and concatenate
 the three multiplexors. This realizes every block diagonal SU(2) family controlled
@@ -228,19 +241,22 @@ before printing any result: the test selected the wrong partial-transpose minor
 This was a harness correction, not a change to the witness or decision rule.
 
 There is no Lean executable or Mathlib cache in this execution environment.
-The generic Pauli, Walsh and finite-circuit algebra sources are recorded in
-[formalization.md](formalization.md), with their separate compilation status
-and remaining obligations. They compile the all-k dictionary, angle inversion
-and abstract finite-circuit identities at design head
-`d3a95be6a0049ee1450f438803ebcf2896f69744`, in all-green run `38457070337`.
-They do not supply an adopted all-k synthesis theorem. The concrete
-Gray circuit transport and the induction in section 4 remain open formal
-links. The same run freshly compiles the historical KN-DESC design against D;
+The research Lean sources are recorded in [formalization.md](formalization.md),
+with their compilation status and remaining obligations. At design head
+`11fbcd597accf7fbe2eed9ef9c81107cd100f2f2`, in all-green run `38866415970`,
+they compile the all-k dictionary, angle inversion and abstract finite-circuit
+identities, the exact reachability of
+section 4, both inclusions of section 5 with separate witnesses, and the
+matrix and table forms of the conditional equivalence. These are research
+sources, not adopted theorems. The explicit coordinate formulas of the table
+actions proposed in #829, the reindexing to the carriers of section 1 and the
+five k = 2 transports remain open formal links. The same run freshly compiles
+the historical KN-DESC design against D;
 that design build is distinct from native execution and adoption. No current
 K2, Kn, manuscript, registry, receipt or native draft
 record is changed by this research record. Research-only compilation workflows
 provide design evidence and do not designate F.
 
 Productivity classification: ELABORATING on the consistency axis. The two-sided
-conditional argument is supplied here; exact all-k synthesis remains a written
-proof and its Lean certification remains open. No physical source is supplied.
+conditional argument is supplied here and compiled in research form; it is not
+adopted. No physical source is supplied.
