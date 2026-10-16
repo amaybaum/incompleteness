@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """check_retention.py -- verifies the evidence-retention archive from the repository tree alone.
 
-No git history, network or third-party package is used. From the repository root:
+No network or third-party package is used, and the check uses no git history. From the repository root:
 
     python3 -I verification/audits/evidence-retention/check_retention.py           # check, exit 1 on any failure
     python3 -I verification/audits/evidence-retention/check_retention.py --self-test
+    python3 -I verification/audits/evidence-retention/check_retention.py --later-provenance   # R10, uses git
+    python3 -I verification/audits/evidence-retention/check_retention.py --gate   # the release-gate step, uses git
 
 Rules:
   R1  every listed file exists, and its size and sha256 are the recorded ones;
@@ -16,14 +18,24 @@ Rules:
   R5  no file in the archive directory matches the secret patterns, an IPv4 address or an e-mail address;
   R6  every file in the archive directory is listed, or is README.md, manifest.json or this checker;
   R7  the manifest is well formed: known kinds and claim statuses, paths inside the archive, every entry but the
-      tranche's own record cited, every citing location annotated, every gap naming an entry;
+      tranche's own record cited and only it uncited, every citing location annotated, every gap naming an entry;
   R8  each CI entry's summary ("retains") is what its files say: run metadata, job counts per attempt, the
       release-gate block, each governed module's reported lines and status, cache lines and markers; every
-      partial or missing set of axiom reports, and every missing job list, is a recorded gap; a BG-3 entry's
-      run metadata names the run and head commit of its provenance;
-  R9  coverage: every check-run attestation in the receipts the manifest names, and every run in the certificate
-      attestation it names, has an entry whose run metadata matches it, and those files keep their blob ids.
-The self-test mutates a copy once per failure message of these checks and requires that message.
+      partial or missing set of axiom reports, and every missing job list, is a recorded gap; every wrapped
+      axiom report closes within the excerpt; a BG-3 entry's run metadata names the run and head commit of its
+      provenance;
+  R9  coverage, recomputed from the tree: every receipt, and every certificate attestation citing runs, is
+      covered or named as later than this tranche, and every one an entry cites is covered; every check-run
+      attestation in a covered receipt, and every run of a covered certificate attestation, has an entry whose
+      run metadata matches it; and covered files keep their blob ids. A path named as later must say where its
+      evidence is retained, and may be neither covered nor cited by the tranche;
+  R10 (with git history) the tranche base is in the repository and an ancestor of HEAD, and no path named as
+      later existed at the base: the tree cannot order commits, so this is the independent check that a receipt
+      named as later did land after this tranche. In history mode (--gate) R9's scope is read from git instead of
+      the tree: every receipt, and every certificate attestation citing runs, that existed at the base must be
+      covered, nothing else may be, and a receipt landed after the base is out of scope without a declaration.
+The self-test mutates a copy once per failure message of these checks and requires that message; its R10 cases
+read the repository's history, and the self-test fails when that history is absent.
 The gap list is printed: a gap is recorded, not a failure. R1-R9 check the archive against itself and against the
 tree. Whether a claim marked "retained" is carried by the files it names is a reading of those files; the claim
 annotations name the files, so a reviewer can make that reading from the tree.
@@ -94,7 +106,7 @@ def gate_summary(kept):
             'verdict': verdict[-1].split(' ', 1)[1] if verdict else None}
 
 
-def check(archive, root):
+def check(archive, root, scope=None):
     fails = []
     F = fails.append
     try:
@@ -153,6 +165,8 @@ def check(archive, root):
         cites = e.get('citations', [])
         if e.get('kind') != 'complete' and not cites:
             F('R7 %s: no citations' % eid)
+        if e.get('kind') == 'complete' and cites:
+            F('R7 %s: a "complete" entry carries citations' % eid)
         tokens = set()
         for c in cites:
             data = read_tree(c.get('path', ''))
@@ -202,7 +216,7 @@ def check(archive, root):
     for g in man.get('missing', []):
         if g.get('id') not in ids or not g.get('what') or not g.get('why'):
             F('R7 gap %r names no entry, or has no what/why' % g)
-    check_coverage(man, archive, read_tree, F)
+    check_coverage(man, archive, root, read_tree, F, scope)
     for dirpath, _, names in os.walk(archive):
         for fn in names:
             rel = os.path.relpath(os.path.join(dirpath, fn), archive).replace(os.sep, '/')
@@ -256,6 +270,18 @@ def check_summary(e, files, man, F):
     if R.get('cache') != [l[29:] for l in kept if CACHE.search(l)] or \
             R.get('markers') != sum(1 for l in kept if MARKER.search(l)):
         F('R8 %s: cache lines or marker count differ from the excerpt' % eid)
+    served = [n for a, b in exf['source'].get('line_ranges', []) for n in range(a, b + 1)]
+    for i, l in enumerate(kept):
+        if 'depends on axioms: [' in l and ']' not in l:
+            j, closed = i + 1, False
+            while j < len(kept) and 'depends on axioms' not in kept[j] and \
+                    (len(served) != len(kept) or served[j] == served[j - 1] + 1):
+                if ']' in kept[j]:
+                    closed = True
+                    break
+                j += 1
+            if not closed:
+                F('R8 %s: the report at excerpt line %d has an axiom list that does not close in the excerpt' % (eid, i + 1))
     if sorted(m.get('module') for m in R.get('modules', [])) != sorted(exf['source'].get('modules', [])):
         F('R8 %s: module list differs from the excerpt\'s' % eid)
     for m in R.get('modules', []):
@@ -273,11 +299,47 @@ def check_summary(e, files, man, F):
                                                          'present' if want not in ('partial', 'none') else 'absent'))
 
 
-def check_coverage(man, archive, read_tree, F):
+def check_coverage(man, archive, root, read_tree, F, scope=None):
     cov = man.get('coverage', {}).get('files', [])
     if not cov:
         F('R9 the manifest names no coverage files')
     by_run = {e.get('run_id'): e for e in man['entries'] if e.get('run_id')}
+    listed = {c['path'] for c in cov}
+    for p in sorted({c.get('path', '') for e in man['entries'] for c in e.get('citations', [])}):
+        if p.startswith(('verification/receipts/', 'verification/certificates/attestations/')) and p not in listed:
+            F('R9 cited file %s is not in the coverage list' % p)
+    # the files to cover, recomputed from the tree: every receipt, and every certificate attestation citing runs
+    later = {c.get('path') for c in man.get('coverage', {}).get('later', [])}
+    cited = {c.get('path', '') for e in man['entries'] for c in e.get('citations', [])}
+    for c in man.get('coverage', {}).get('later', []):
+        if c.get('path') in listed:
+            F('R9 %s is named both as covered and as later' % c.get('path'))
+        if c.get('path') in cited:
+            F('R9 %s is named as later, but the tranche cites it' % c.get('path'))
+        if not c.get('evidence'):
+            F('R9 %s is named as later without where its evidence is retained' % c.get('path'))
+    in_tree = []
+    rdir = os.path.join(root, 'verification', 'receipts')
+    adir = os.path.join(root, 'verification', 'certificates', 'attestations')
+    if os.path.isdir(rdir):
+        in_tree += ['verification/receipts/' + f for f in sorted(os.listdir(rdir)) if f.endswith('.json')]
+    if os.path.isdir(adir):
+        for f in sorted(os.listdir(adir)):
+            if f.endswith('.json'):
+                d = json.load(open(os.path.join(adir, f), encoding='utf-8'))
+                if any(isinstance(v, dict) and v.get('run') for v in (d.get('ci') or {}).values()):
+                    in_tree.append('verification/certificates/attestations/' + f)
+    if scope is None:
+        for p in in_tree:
+            if p not in listed and p not in later:
+                F('R9 %s is in the tree but neither covered nor named as later than this tranche' % p)
+    else:
+        for p in sorted(scope):
+            if p not in listed:
+                F('R10 %s existed at the tranche base but is not covered' % p)
+        for p in sorted(listed):
+            if p not in scope:
+                F('R10 covered file %s did not exist at the tranche base' % p)
 
     def run_of(rid):
         p = os.path.join(archive, 'ci', str(rid), 'run.json')
@@ -315,6 +377,55 @@ def check_coverage(man, archive, read_tree, F):
                     F('R9 %s %s: run %s has no matching entry' % (doc.get('round'), role, v['run']))
 
 
+def later_provenance(man, root, later=None, head='HEAD'):
+    """R10, which reads git history: no path named as later existed at the tranche base."""
+    import subprocess
+    base, fails = man.get('base', ''), []
+    git = lambda *a: subprocess.run(['git', '-C', root] + list(a), capture_output=True).returncode
+    if git('cat-file', '-e', base + '^{commit}') != 0:
+        return ['R10 the tranche base %s is not in the repository' % base[:12]]
+    if git('merge-base', '--is-ancestor', base, head) != 0:
+        fails.append('R10 the tranche base %s is not an ancestor of %s' % (base[:12], head))
+    for c in (man.get('coverage', {}).get('later', []) if later is None else later):
+        if git('cat-file', '-e', '%s:%s' % (base, c.get('path'))) == 0:
+            fails.append('R10 %s existed at the tranche base %s, so it is not later' % (c.get('path'), base[:12]))
+    return fails
+
+
+def base_scope(man, root):
+    """R10's scope for R9: the receipts, and the certificate attestations citing runs, at the tranche base."""
+    import subprocess
+    base = man.get('base', '')
+    git = lambda *a: subprocess.run(['git', '-C', root] + list(a), capture_output=True)
+    if git('cat-file', '-e', base + '^{commit}').returncode != 0:
+        return None, ['R10 the tranche base %s is not in the repository' % base[:12]]
+    scope = set()
+    names = git('ls-tree', '-r', '--name-only', base, '--', 'verification/receipts',
+                'verification/certificates/attestations').stdout.decode('utf-8').split('\n')
+    for p in names:
+        if p.startswith('verification/receipts/') and p.endswith('.json'):
+            scope.add(p)
+        elif p.startswith('verification/certificates/attestations/') and p.endswith('.json'):
+            d = json.loads(git('show', '%s:%s' % (base, p)).stdout)
+            if any(isinstance(v, dict) and v.get('run') for v in (d.get('ci') or {}).values()):
+                scope.add(p)
+    return scope, []
+
+
+def gate(archive, root):
+    """The release-gate step: the check in history mode (R1-R10), then the self-test."""
+    man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
+    scope, fails = base_scope(man, root)
+    if scope is not None:
+        fails += check(archive, root, scope)[0] + later_provenance(man, root)
+    for f in fails:
+        print('FAIL  %s' % f)
+    st = self_test(archive, root)
+    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s)' % (
+        'HOLDS' if not fails and st == 0 else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED'))
+    return 0 if not fails and st == 0 else 1
+
+
 def report(archive, root):
     fails, gaps = check(archive, root)
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
@@ -334,6 +445,8 @@ def report(archive, root):
             if k.get('status') in ('not retained', 'differs'):
                 print('%s  %s  %s:%d  %r%s' % ('DIFFERS' if k['status'] == 'differs' else 'NOT RETAINED', eid, c['path'],
                                               k['line'], k['text'], ': ' + k['note'] if k.get('note') else ''))
+    for c in man.get('coverage', {}).get('later', []):
+        print('LATER  %s: %s (declared; --later-provenance checks it against git history)' % (c.get('path'), c.get('evidence')))
     for f in fails:
         print('FAIL  %s' % f)
     print('RETENTION  %s (%d failure(s), %d gap(s))' % ('HOLDS' if not fails else 'FAILS', len(fails), len(gaps)))
@@ -419,6 +532,8 @@ def self_test(archive, root):
                'missing or repeated')
         expect('an unknown entry kind', edit(lambda m: m['entries'][cac].__setitem__('kind', 'complete-ish')), back, 'R7',
                ': unknown kind')
+        expect('a cited entry relabelled "complete"', edit(lambda m: m['entries'][cac].__setitem__('kind', 'complete')),
+               back, 'R7', 'carries citations')
         expect('an entry with no files', edit(lambda m: m['entries'][cac].__setitem__('files', [])), back, 'R7', 'no files')
         expect('a listed path outside the archive', edit(lambda m: m['entries'][ci]['files'].append(
             {'path': '../x', 'bytes': 0, 'sha256': '', 'kind': 'derived'})), back, 'R7', 'not inside the archive')
@@ -521,6 +636,84 @@ def self_test(archive, root):
             g for g in m['missing'] if not (g['id'] == ents[part]['id'] and g['what'] == 'axiom reports of %s' % pmod)])),
                back, 'R8', 'its gap record is absent')
         # coverage (R9)
+        wrap = None
+        for i, e in enumerate(ents):
+            f = next((f for f in e['files'] if f.get('kind') == 'excerpt'), None)
+            if f and any('depends on axioms: [' in l and ']' not in l for l in open(os.path.join(tarch, f['path'])).read().split('\n')):
+                wrap = (i, os.path.join(tarch, f['path']))
+                break
+
+        def cut_continuation(b):
+            ls = b.decode('utf-8').split('\n')
+            i = next(i for i, l in enumerate(ls) if 'depends on axioms: [' in l and ']' not in l)
+            j = next(j for j in range(i + 1, len(ls)) if ']' in ls[j])
+            return '\n'.join(ls[:i + 1] + ls[j + 1:]).encode('utf-8')
+        expect('an excerpt that drops a wrapped report\'s continuation lines', *file_edit(wrap[1], cut_continuation),
+               rule='R8', msg='does not close')
+        cited = next(c['path'] for c in man['coverage']['files']
+                     if any(x['path'] == c['path'] for e in ents for x in e.get('citations', [])))
+        expect('a cited receipt dropped from the coverage list', edit(lambda m: m['coverage'].__setitem__(
+            'files', [c for c in m['coverage']['files'] if c['path'] != cited])), back, 'R9', 'not in the coverage list')
+        newr = os.path.join(troot, 'verification', 'receipts', 'ZZ-LATER.json')
+        expect('a receipt in the tree that is neither covered nor named as later',
+               lambda: open(newr, 'w').write('{}'), lambda: os.remove(newr), 'R9', 'neither covered')
+        expect('a receipt named as later than this tranche passes',
+               lambda: (open(newr, 'w').write('{}'), edit(lambda m: m['coverage'].__setitem__(
+                   'later', [{'path': 'verification/receipts/ZZ-LATER.json', 'evidence': 'its own record directory'}]))()),
+               lambda: (os.remove(newr), back()))
+        expect('a cited, covered receipt moved to coverage.later', edit(lambda m: (
+            m['coverage'].__setitem__('files', [c for c in m['coverage']['files'] if c['path'] != cited]),
+            m['coverage'].__setitem__('later', [{'path': cited, 'evidence': 'x'}]))), back, 'R9', 'the tranche cites it')
+        expect('a receipt named both as covered and as later', edit(lambda m: m['coverage'].__setitem__(
+            'later', [{'path': cited, 'evidence': 'x'}])), back, 'R9', 'both as covered and as later')
+        expect('a later receipt without where its evidence is retained',
+               lambda: (open(newr, 'w').write('{}'), edit(lambda m: m['coverage'].__setitem__(
+                   'later', [{'path': 'verification/receipts/ZZ-LATER.json'}]))()),
+               lambda: (os.remove(newr), back()), 'R9', 'without where its evidence')
+        # R10 reads the real repository's history, read-only
+        import subprocess
+        hist = subprocess.run(['git', '-C', root, 'cat-file', '-e', man['base'] + '^{commit}'], capture_output=True).returncode == 0
+        if not hist:
+            ok = False
+            print('FAIL self: the R10 cases need the tranche base in this repository\'s history')
+        else:
+            def r10(name, fails, msg=None):
+                nonlocal ok
+                good = (not fails) if msg is None else any(f.startswith('R10 ') and msg in f for f in fails)
+                ok &= good
+                print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if msg is None else ' (R10)'))
+            r10('a receipt that did not exist at the base passes R10',
+                later_provenance(man, root, [{'path': 'verification/receipts/ZZ-LATER.json'}]))
+            r10('a frozen-tranche receipt named as later fails R10', later_provenance(man, root, [{'path': cited}]),
+                'existed at the tranche base')
+            r10('a tranche base absent from the repository fails R10',
+                later_provenance(dict(man, base='0' * 40), root, []), 'not in the repository')
+            r10('a HEAD that does not descend from the base fails R10',
+                later_provenance(man, root, [], head=man['base'] + '^'), 'not an ancestor')
+            scope, sf = base_scope(man, root)
+            r10('the base scope is read from git', sf)
+            r10('a tranche base absent from the repository has no scope', base_scope(dict(man, base='0' * 40), root)[1],
+                'not in the repository')
+            hist_check = lambda: check(tarch, troot, scope)[0]
+            for name, mut, res, msg in (
+                    ('history mode passes on the unmutated copy', noop, noop, None),
+                    ('a base receipt dropped from coverage, in history mode',
+                     edit(lambda m: m['coverage'].__setitem__('files', [c for c in m['coverage']['files'] if c['path'] != cited])),
+                     back, 'existed at the tranche base but is not covered'),
+                    ('a covered file that did not exist at the base, in history mode',
+                     lambda: (open(newr, 'w').write('{}'), edit(lambda m: m['coverage']['files'].append(
+                         {'path': 'verification/receipts/ZZ-LATER.json', 'blob': blob_id(b'{}')}))()),
+                     lambda: (os.remove(newr), back()), 'did not exist at the tranche base'),
+                    ('a receipt landed after the base needs no declaration in history mode',
+                     lambda: open(newr, 'w').write('{}'), lambda: os.remove(newr), None)):
+                mut()
+                fails = hist_check()
+                res()
+                good = (not fails) if msg is None else any(f.startswith('R10 ') and msg in f for f in fails)
+                ok &= good
+                print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if msg is None else ' (R10)'))
+                if not good:
+                    print('      got: %s' % (fails[:3],))
         expect('a manifest that names no coverage files', edit(lambda m: m['coverage'].__setitem__('files', [])), back, 'R9',
                'no coverage files')
         expect('a coverage file whose blob changed',
@@ -549,6 +742,16 @@ if __name__ == '__main__':
     root = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
     if sys.argv[1:] == ['--self-test']:
         sys.exit(self_test(HERE, root))
+    if sys.argv[1:] == ['--gate']:
+        sys.exit(gate(HERE, root))
+    if sys.argv[1:] == ['--later-provenance']:
+        man = json.load(open(os.path.join(HERE, 'manifest.json'), encoding='utf-8'))
+        fails = later_provenance(man, root)
+        for f in fails:
+            print('FAIL  %s' % f)
+        print('LATER-PROVENANCE  %s (%d path(s) named as later, %d failure(s))' % (
+            'HOLDS' if not fails else 'FAILS', len(man.get('coverage', {}).get('later', [])), len(fails)))
+        sys.exit(1 if fails else 0)
     if sys.argv[1:]:
         print(__doc__)
         sys.exit(2)

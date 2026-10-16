@@ -16,7 +16,7 @@ It is a governed audit record. It is not a research round and changes no histori
 | `bg3/run-*.json` | the run metadata of the two design-tree runs, 38848873989 and 38834744516 | `derived` |
 | `ci/<run>/run.json` | for each of the 96 runs below, the run's identity and outcome (`id`, `head_sha`, `event`, `conclusion`, `run_attempt`, …) | `derived`: selected fields of a saved runs-API listing page; `source_sha256` is that page |
 | `ci/<run>/jobs.json` | for 57 of the runs, every job, with its name, attempt and conclusion | `derived`: selected fields of a saved jobs-API response; `source_sha256` is that response |
-| `ci/<run>/bridge-excerpt.log` | from the run's Mathlib bridge job log: the release-gate block, the build status line, cache lines, any error or `sorry` marker, and the build lines and axiom reports of the round's own governed Lean modules | `excerpt`: exact lines of the served log; `line_ranges` are 1-based within it, and `served_sha256` is its digest |
+| `ci/<run>/bridge-excerpt.log` | from the run's Mathlib bridge job log: the release-gate block, the build status line, cache lines, any error or `sorry` marker, and the build lines and axiom reports of the round's own governed Lean modules, each wrapped report with its continuation lines | `excerpt`: exact lines of the served log; `line_ranges` are 1-based within it, and `served_sha256` is its digest |
 | `build_archive.py`, `audit/` | the script that cut this tranche, and the off-`main` reference audit at `fc5abade` it acts on | `complete` |
 
 **The 96 runs** are of two kinds:
@@ -42,12 +42,14 @@ The four BG-3 logs were re-served on 2026-10-16, after their records were writte
 
 Of the 164 module records, 84 are complete, 5 partial, 31 none and 44 absent. Each partial and none record is listed as a gap.
 
+The `#print axioms` lines come from each module's source at the attested commit. That source is on `main` but not in this archive, so the checker can check each status against the recorded lines, while the lines themselves can be checked only with git history.
+
 **`claims`**: for every citing location, the claims that record makes about the cited run or log. Each claim is a verbatim fragment of the citing file, on a stated line, with one of three statuses:
 - `retained`: the archived files it names carry the claim;
 - `not retained`: no archived file carries it;
 - `differs`: the archived files show something else.
 
-A note says what the files show where it is not plain. Tranche 1 annotates 751 claims at 172 citing locations: 687 retained, 64 not retained, none differing. The claims not retained are:
+A note says what the files show where it is not plain. Tranche 1 annotates 752 claims at 172 citing locations: 686 retained, 66 not retained, none differing. The claims not retained are:
 - mostly job counts for runs whose job list was not retained;
 - outputs of other jobs, such as probe, guard and shard results;
 - statements a log tail cannot establish, such as what was not rebuilt, or what happened before the served lines;
@@ -67,9 +69,11 @@ From the repository root:
 ```
 python3 -I verification/audits/evidence-retention/check_retention.py
 python3 -I verification/audits/evidence-retention/check_retention.py --self-test
+python3 -I verification/audits/evidence-retention/check_retention.py --later-provenance
+python3 -I verification/audits/evidence-retention/check_retention.py --gate
 ```
 
-The checker uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, listed in its docstring) verify:
+The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, listed in its docstring) verify:
 - every archived file's size and sha256, and the digest match of each `complete-as-cited` file;
 - that each citing file has its recorded blob id, the cited line still holds its tokens, and each claim's text stands verbatim where it says;
 - every excerpt's ranges against its line count and the served text;
@@ -77,7 +81,13 @@ The checker uses the tree alone: no git history, network or third-party package.
 - that no unlisted file sits in the archive;
 - the manifest's form;
 - that each CI entry's summary is what its files say;
-- coverage: every check-run attestation of the receipts at `fc5abade`, and every run of CV-1's certificate attestation, has an entry that matches it.
+- coverage, recomputed from the tree: every receipt under `verification/receipts/`, and every certificate attestation that cites runs, is covered by this tranche or named in the manifest's `coverage.later`; each of their check-run attestations and cited runs has an entry that matches it.
+
+At `fc5abade` every receipt is covered and `coverage.later` is empty. A receipt that lands after this tranche keeps its own evidence in its record directory (§A.42), and the checker reports it until `coverage.later` names it with that directory. A path named there may be neither covered nor cited by this tranche.
+
+The tree cannot order commits, so whether a path named as later really landed after this tranche is checked against git history. `--later-provenance` (R10) checks that the tranche base is an ancestor of HEAD, and that no path named as later existed at the base.
+
+`--gate` is the release gate's `evidence-retention` step. It runs the check in history mode, where R9's scope is read from git rather than from the tree: every receipt, and every certificate attestation citing runs, that existed at `fc5abade` must be covered, nothing else may be, and a receipt landed later needs no declaration. It then runs the self-test, whose R10 cases need that history and fail without it. The Mathlib bridge job, which runs the gate, checks out the full history.
 
 It prints the gaps and every claim not retained. The self-test mutates a copy once for each of the checker's failure messages, and requires that message.
 

@@ -3,6 +3,8 @@
 2026-10-16T05:26:27.8490227Z info: OIBridge/TurnpikeScopeTransfer.lean:880:0: 'OIBridge.ScopeTransfer.rational_solutions' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8490784Z info: OIBridge/TurnpikeScopeTransfer.lean:881:0: 'OIBridge.ScopeTransfer.exists_int_scaling' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8491642Z info: OIBridge/TurnpikeScopeTransfer.lean:882:0: 'OIBridge.ScopeTransfer.integer_realization_of_real_realization' depends on axioms: [propext,
+2026-10-16T05:26:27.8491983Z  Classical.choice,
+2026-10-16T05:26:27.8492108Z  Quot.sound]
 2026-10-16T05:26:27.8492436Z info: OIBridge/TurnpikeScopeTransfer.lean:883:0: 'OIBridge.ScopeTransfer.real_to_integer_surrogate' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8493019Z info: OIBridge/TurnpikeScopeTransfer.lean:884:0: 'OIBridge.ScopeTransfer.spectral_classification_of_BG' depends on axioms: [propext, Classical.choice, Quot.sound]
 2026-10-16T05:26:27.8493685Z info: OIBridge/TurnpikeScopeTransfer.lean:885:0: 'OIBridge.ScopeTransfer.gaps_eq_of_equal_probabilities' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -52,6 +52,14 @@ another. Each exists because a real defect shipped past the others:
                        this step is where a native round whose receipt does not
                        hold, or whose records were rewritten after it held, can
                        reject a build.
+  evidence-retention   the evidence-retention archive (AGENTS §A.42): its
+                       checker in history mode, which reads from git the
+                       receipts and certificate attestations at the archive's
+                       base and requires each to be covered, and its self-test.
+                       A record that pinned content by digest was once held to
+                       be retained when its evidence sat only in a session's
+                       scratchpad; this step is where an archived copy that
+                       changes, or a frozen record it maps that changes, fails.
 
 Post-packaging, verify the DECLARED checksum against the shipped archive:
     python3 tools/baseline_label_check.py --verify-archive PATH --root TRANSFER
@@ -161,6 +169,11 @@ def main():
         # history, so the workflow's Mathlib bridge job checks out with fetch-depth: 0.
         ("v3-receipts",
                       [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
+        # evidence-retention: the archive of AGENTS §A.42, in history mode. The receipts and certificate
+        # attestations at the archive's base are read from git and must all be covered; a receipt landed
+        # after that base is out of its scope. A repository too shallow to hold the base fails the step.
+        ("evidence-retention",
+                      [sys.executable, "verification/audits/evidence-retention/check_retention.py", "--gate"]),
     ]
     # baselines are named in the TRANSFER's docs, not the manuscript tree, so
     # point the label check there when a transfer path is supplied

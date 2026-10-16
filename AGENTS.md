@@ -910,7 +910,10 @@ object id or digest that names such content does not retain it.
 
 Enforcement:
 - `check_retention.py` and its self-test run locally before any push that touches the archive
-  (§A.40). Making it a release-gate step is a separate decision.
+  (§A.40).
+- The release gate's `evidence-retention` step runs it in history mode. That mode reads from git
+  the receipts and certificate attestations at the archive's base, requires each to be covered,
+  and treats a receipt landed after the base as outside the archive's scope.
 - Reviewers check that `E`'s evidence reached `main` through its own pull request before the
   round's reconciliation.
 - Reviewers check that each hash pin of item 2 resolves to retained content.

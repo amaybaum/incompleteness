@@ -162,7 +162,7 @@ def excerpt(lines, modules):
             if m:
                 keep.add(i)
                 j = i
-                while m.group(1) == 'depends on axioms' and ']' not in lines[j] and j + 1 < len(lines):
+                while m.group(2) == 'depends on axioms' and ']' not in lines[j] and j + 1 < len(lines):
                     j += 1
                     keep.add(j)
     return sorted(keep)
@@ -452,9 +452,10 @@ manifest = {
         'not retained': 'no archived file carries the fragment',
         'differs': 'the archived files named in "in" show something other than the fragment; "note" says what',
     },
-    'coverage': {'files': coverage,
-                 'rule': 'every check-run attestation in these receipts, and every run in the certificate attestation, '
-                         'has an entry'},
+    'coverage': {'files': coverage, 'later': [],
+                 'rule': 'every receipt in the tree, and every certificate attestation citing runs, is in files or in '
+                         'later; every check-run attestation of a file in files, and every run it cites, has an entry. '
+                         'later names a receipt landed after this tranche, with where its evidence is retained'},
     'entries': entries, 'missing': missing,
 }
 open(os.path.join(OUT, 'manifest.json'), 'wb').write(dumps(manifest))

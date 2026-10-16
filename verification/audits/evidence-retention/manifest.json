@@ -204,7 +204,8 @@
     "path": "verification/certificates/attestations/CV1.json"
    }
   ],
-  "rule": "every check-run attestation in these receipts, and every run in the certificate attestation, has an entry"
+  "later": [],
+  "rule": "every receipt in the tree, and every certificate attestation citing runs, is in files or in later; every check-run attestation of a file in files, and every run it cites, has an entry. later names a receipt landed after this tranche, with where its evidence is retained"
  },
  "entries": [
   {
@@ -403,12 +404,9 @@
        "text": "(log sha256 bf1ab94553e857faf1b684fbaee5b538270e78dac35a5c13df370c6c234f5bf7)"
       },
       {
-       "in": [
-        "bg3/design-116831668411.log"
-       ],
        "line": 34,
-       "note": "the log checks out draft/bg-3-scope-transfer-20261015 at 194eb3fd0c0a58ee843a574d93d4a0fa94f6cb79 (lines 445, 457), the commit this record (line 32) names; the run id itself comes from the manifest provenance, not the log",
-       "status": "retained",
+       "note": "the log checks out 194eb3fd (E) at its line 457, so \"at E\" is carried, but nothing archived names the design run: its run id is the citing record's, and its run metadata is a recorded gap",
+       "status": "not retained",
        "text": "38857340321 at E"
       },
       {
@@ -4079,28 +4077,16 @@
      "source_sha256": "c771353e327644f6eadf9717f052feec4866db687dca3b61fb771de607242113"
     },
     {
-     "bytes": 17136,
+     "bytes": 17586,
      "kind": "excerpt",
      "path": "ci/36248667202/bridge-excerpt.log",
-     "sha256": "7f5c8660a92a7864aa750631a2e7ec432845d40de3f867e083369d2a5659ec00",
+     "sha256": "6a59c2effdea57a854aac33f9d6e1dd0c3e4daaff16be4a6545b75aeebe3c817",
      "source": {
       "job_id": "108422479566",
       "job_name": "Mathlib bridge",
       "line_ranges": [
        [
         4588,
-        4597
-       ],
-       [
-        4600,
-        4600
-       ],
-       [
-        4603,
-        4603
-       ],
-       [
-        4606,
         4609
        ],
        [
@@ -4125,15 +4111,11 @@
        ],
        [
         4673,
-        4679
-       ],
-       [
-        4682,
         4682
        ],
        [
         4689,
-        4689
+        4691
        ],
        [
         4695,
@@ -25613,13 +25595,19 @@
        "text": "run to completion with no job cancelled"
       },
       {
+       "line": 56,
+       "note": "that these shards run only on dispatch is a property of the workflow, which the archive does not hold",
+       "status": "not retained",
+       "text": "act 42's dispatch-only"
+      },
+      {
        "in": [
         "ci/36841329495/jobs.json"
        ],
        "line": 56,
-       "note": "for run 36841329495: jobs.json lists fifteen Numerical probes / A42 exclusion jobs (cubes:0-2, dfs:0-5, n18:0-2, paths, r5, sathr), each success; that they run only on dispatch is not something the archive shows",
+       "note": "jobs.json lists fifteen Numerical probes / A42 exclusion jobs (cubes:0-2, dfs:0-5, n18:0-2, paths, r5, sathr), each success",
        "status": "retained",
-       "text": "act 42's dispatch-only exclusion shards included"
+       "text": "exclusion shards included"
       }
      ],
      "line": 50,
@@ -36044,12 +36032,9 @@
        "text": "lean-axioms 5988"
       },
       {
-       "in": [
-        "ci/38785744562/bridge-excerpt.log"
-       ],
        "line": 34,
-       "note": "the excerpt, which carries the governed modules' reports found in the served text, has only OIBridge.lean's 19 and none of TurnpikePremiseOrientation's; the served text is 5000 lines by splitting, 4999 newline characters (manifest served_lines 5000), the last part of a 38590-line log",
-       "status": "retained",
+       "note": "a statement about the whole served text: the excerpt, cut by a rule that keeps the governed modules' reports, has none of OIBridge/TurnpikePremiseOrientation.lean's, but the served text itself is not retained",
+       "status": "not retained",
        "text": "lie outside the 4999-line log window"
       },
       {
@@ -36655,9 +36640,12 @@
        "text": "dispatched 05:24:04Z"
       },
       {
+       "in": [
+        "ci/38855576525/bridge-excerpt.log"
+       ],
        "line": 34,
-       "note": "seven reports in the excerpt list propext, Classical.choice, Quot.sound; integer_realization_of_real_realization's is cut at \"[propext,\" because its continuation lines (served lines 4911–4912) are not in the excerpt",
-       "status": "not retained",
+       "note": "all eight reports list exactly propext, Classical.choice and Quot.sound; integer_realization_of_real_realization's wraps over served lines 4910-4912",
+       "status": "retained",
        "text": "each within propext, Classical.choice and Quot.sound"
       },
       {
@@ -36800,20 +36788,16 @@
      "source_sha256": "c25ad600a97c97c91cf527a44a72a1b2c0aff766152409d066970da32170cefe"
     },
     {
-     "bytes": 4500,
+     "bytes": 4590,
      "kind": "excerpt",
      "path": "ci/38855576525/bridge-excerpt.log",
-     "sha256": "37c198b70bd0f1084d95821dbff399d2980a34a9d2c2dfeb17776053430075be",
+     "sha256": "dc46f29f42bbe77aa1b0c662e76775e44d39a77f62f2c9b0873d7aba694cc113",
      "source": {
       "job_id": "116826161407",
       "job_name": "Mathlib bridge",
       "line_ranges": [
        [
         4906,
-        4910
-       ],
-       [
-        4913,
         4916
        ],
        [
@@ -36904,10 +36888,10 @@
    "citations": [],
    "files": [
     {
-     "bytes": 24188,
+     "bytes": 24393,
      "kind": "complete",
      "path": "build_archive.py",
-     "sha256": "664447f50f6e8ad8d272adbe66aa3291b477199700fe553610520274c1c7df69"
+     "sha256": "557767a7da836ed7d098eddb6d35207555e083758d5c9ccb15884a0974b22209"
     },
     {
      "bytes": 9827,
