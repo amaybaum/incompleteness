@@ -338,7 +338,10 @@ def check_coverage(man, archive, root, read_tree, F, scope=None):
         if rid not in by_run or 'ci/%s/run.json' % rid not in {f['path'] for f in by_run[rid]['files']} or \
                 not os.path.isfile(p):
             return None
-        return json.load(open(p, encoding='utf-8'))
+        try:
+            return json.load(open(p, encoding='utf-8'))
+        except ValueError:
+            return None
 
     for c in cov:
         data = read_tree(c['path'])
@@ -650,7 +653,14 @@ def self_test(archive, root):
         expect('a missing job list that is not a recorded gap', edit(lambda m: m.__setitem__('missing', [
             g for g in m['missing'] if not (g['id'] == ents[nojobs]['id'] and g['what'] == 'job list')])), back, 'R8',
                'not a recorded gap')
+        dres = next(f['path'] for e in ents for f in e['files'] if f['path'] == 'bg3/results-116831668411.json')
+        expect('a design-log result recording no checks',
+               *json_edit(os.path.join(tarch, dres), lambda d: d['expected'].__setitem__('checks', [])), rule='R4',
+               msg='records no checks or no recipe')
+        rjp = os.path.join(tarch, 'ci', rid, 'run.json')
+        expect('a run.json that is not JSON', *file_edit(rjp, lambda b: b[:-3]), rule='R8', msg='run.json or results.json is not JSON')
         jp = os.path.join(tarch, 'ci', rid, 'jobs.json')
+        expect('a jobs.json that is not a job list', *json_edit(jp, lambda d: d.pop('jobs')), rule='R8', msg='not a job list')
         expect('a job at another head commit',
                *json_edit(jp, lambda d: d['jobs'][0].__setitem__('head_sha', '0' * 40)), rule='R8', msg='head_sha differs')
         expect('results from another job', *json_edit(xp, lambda d: d['run'].__setitem__('job_id', '1')), rule='R8',

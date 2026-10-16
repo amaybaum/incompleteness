@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """compare_result.py -- compares an archived expected result with a reproduction, and fails closed.
 
-    python3 -I compare_result.py EXPECTED.json REPRODUCED.json [--tree DIR]
+    python3 -I compare_result.py EXPECTED.json REPRODUCED.json --tree DIR
     python3 -I compare_result.py --self-test [EXPECTED.json]
 
 EXPECTED.json is a results.json of the evidence-retention archive. REPRODUCED.json is the output of
 extract_result.py on the output of `lake --rehash build` and `tools/release_gate.py` at the expected commit.
---tree is that commit's checked-out tree, used to confirm that a module recorded as absent is absent.
+--tree is that commit's checked-out tree. Each governed module's `#print axioms` lines are read from its source
+there, not from the expected result, so the count a reproduction must reach is derived independently of the
+archive; without --tree the comparison fails.
 
 Only deterministic results are compared: build success, the release gate's steps and verdict, each governed
 module's `#print axioms` reports, and the failure markers. Timestamps, durations, cache behaviour, job counts
@@ -17,21 +19,34 @@ Rules:
   C1  the reproduction has a build line and it reports success;
   C2  the reproduction has a release-gate block whose verdict is PASS, with exactly the expected steps, each
       with the expected status and summary;
-  C3  for each governed module: an absent module is absent from the tree and reports nothing; a complete
-      module reports exactly the expected declarations with exactly the expected axioms; a partial or none
-      module reports every expected declaration with its expected axioms and as many reports as the module
-      has `#print axioms` commands; and every reproduced axiom of a governed module is one of propext,
-      Classical.choice and Quot.sound;
+  C3  for each governed module, against its source at the commit: a module recorded absent is absent from the
+      source and reports nothing; otherwise the module is in the source, the expected result's #print axioms
+      lines are the source's, and the reproduction reports exactly one report for each #print axioms line of
+      the source and no other; a complete module reports exactly the expected declarations, and a partial or
+      none module at least them, each with exactly the expected axioms; and every reproduced axiom of a
+      governed module is one of propext, Classical.choice and Quot.sound;
   C4  every failure marker is absent from the reproduction when the expected result has none.
 """
 import json
 import os
+import re
 import sys
 
 PERMITTED = {'propext', 'Classical.choice', 'Quot.sound'}
+PRINT = re.compile(r'^#print axioms\b')
 
 
-def compare(expected, rep, module_exists=None):
+def print_lines(text):
+    """The 1-based lines of a Lean source that hold a `#print axioms` command."""
+    return {i + 1 for i, l in enumerate(text.split('\n')) if PRINT.match(l)}
+
+
+def expand(spans):
+    return {n for a, b in (spans or []) for n in range(a, b + 1)}
+
+
+def compare(expected, rep, source):
+    """source(mod) is the module's text at the commit, or None if the module is not there."""
     fails = []
     F = fails.append
     exp = expected.get('expected', {})
@@ -73,14 +88,26 @@ def compare(expected, rep, module_exists=None):
             got[r['name']] = r['axioms']
         want = {r['name']: r['axioms'] for r in em.get('reports', [])}
         st = em.get('status')
+        text = source(mod)
+        if st not in ('complete', 'partial', 'none', 'absent'):
+            F('C3 %s: unknown status %r' % (mod, st))
+            continue
         if st == 'absent':
-            if module_exists is not None and module_exists(mod):
-                F('C3 %s is recorded as absent at the commit but exists in the tree' % mod)
+            if text is not None:
+                F('C3 %s is recorded as absent at the commit but is in its source' % mod)
             if reps:
                 F('C3 %s is recorded as absent but the reproduction reports it' % mod)
             continue
-        if module_exists is not None and not module_exists(mod):
-            F('C3 %s is not in the tree at the commit' % mod)
+        if text is None:
+            F('C3 %s is not in the source at the commit' % mod)
+            continue
+        src = print_lines(text)
+        if expand(em.get('print_lines')) != src:
+            F('C3 %s: the expected result\'s #print axioms lines differ from the source at the commit (%d there)' % (mod, len(src)))
+        lines = sorted(r['line'] for r in reps)
+        if sorted(src) != lines:
+            F('C3 %s: the reproduction reports %d line(s), the source at the commit has %d #print axioms command(s)%s' % (
+                mod, len(lines), len(src), '' if len(lines) == len(set(lines)) else ', with a line reported twice'))
         for name, ax in want.items():
             if name not in got:
                 F('C3 %s: expected report of %s is missing from the reproduction' % (mod, name))
@@ -90,14 +117,6 @@ def compare(expected, rep, module_exists=None):
             for name in got:
                 if name not in want:
                     F('C3 %s: the reproduction reports %s, which the complete expected result does not' % (mod, name))
-        elif st in ('partial', 'none'):
-            prints = em.get('prints')
-            if prints is None:
-                F('C3 %s: a %s module records no #print axioms count' % (mod, st))
-            elif len(got) != prints:
-                F('C3 %s: the reproduction has %d reports, the module has %d #print axioms commands' % (mod, len(got), prints))
-        else:
-            F('C3 %s: unknown status %r' % (mod, st))
         for name, ax in got.items():
             if ax is not None and not set(ax) <= PERMITTED:
                 F('C3 %s: %s depends on an axiom outside the permitted three: %s' % (mod, name, sorted(set(ax) - PERMITTED)))
@@ -133,17 +152,28 @@ def synth(expected):
     return rep
 
 
+def synth_source(expected):
+    """Module sources whose #print axioms lines are the expected result's: the self-test's stand-in for git."""
+    srcs = {}
+    for mod, em in expected['expected']['modules'].items():
+        if em['status'] == 'absent':
+            continue
+        lines = expand(em['print_lines'])
+        n = max(lines) if lines else 1
+        srcs[mod] = '\n'.join('#print axioms X%d' % i if i in lines else '-- line %d' % i for i in range(1, n + 1)) + '\n'
+    return srcs
+
+
 def self_test(expected):
     import copy
     ok = True
     exp = expected['expected']
-    tree = {m for m, em in exp['modules'].items() if em['status'] != 'absent'}
-    exists = lambda m: m in tree
+    srcs = synth_source(expected)
     partial = next((m for m, em in exp['modules'].items() if em['status'] in ('partial', 'none')), None)
     complete = next((m for m, em in exp['modules'].items() if em['status'] == 'complete' and em['reports']), None)
     absent = next((m for m, em in exp['modules'].items() if em['status'] == 'absent'), None)
 
-    def case(name, mut_e=None, mut_r=None, rule=None, exists_fn=exists):
+    def case(name, mut_e=None, mut_r=None, rule=None, src=None):
         nonlocal ok
         e = copy.deepcopy(expected)
         if mut_e:
@@ -151,7 +181,10 @@ def self_test(expected):
         r = synth(expected)
         if mut_r:
             mut_r(r)
-        fails = compare(e, r, exists_fn)
+        s = dict(srcs)
+        if src:
+            src(s)
+        fails = compare(e, r, s.get)
         good = (not fails) if rule is None else any(f.startswith(rule + ' ') for f in fails)
         ok &= good
         print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if rule is None else ' (%s)' % rule))
@@ -176,17 +209,27 @@ def self_test(expected):
         case('an extra report in a complete module',
              mut_r=lambda r: r['reports'][complete].append({'line': 1, 'name': 'extra', 'axioms': ['propext'], 'served_line': 0}), rule='C3')
         case('an unclosed axiom list in the reproduction', mut_r=lambda r: r['reports'][complete][0].__setitem__('unclosed', True), rule='C3')
-        case('a complete module missing from the tree', exists_fn=lambda m: m != complete, rule='C3')
+        case('a complete module missing from the source', src=lambda s: s.pop(complete), rule='C3')
+        case('a source with one more #print axioms than the reproduction reports',
+             src=lambda s: s.__setitem__(complete, s[complete] + '#print axioms Extra\n'), rule='C3')
+        case('expected #print axioms lines that differ from the source',
+             mut_e=lambda e: e['expected']['modules'][complete].__setitem__('print_lines', [[1, 1]]), rule='C3')
+        case('a reproduced report at a line with no #print axioms in the source',
+             mut_r=lambda r: r['reports'][complete][0].__setitem__('line', 10 ** 6), rule='C3')
         case('an expected report whose axioms were altered', mut_e=lambda e: e['expected']['modules'][complete]['reports'][0].__setitem__('axioms', ['propext']), rule='C3')
         case('an expected report that was removed', mut_e=lambda e: e['expected']['modules'][complete]['reports'].pop(0), rule='C3')
     if partial:
         case('an expected report missing from a partial module', mut_r=lambda r: r['reports'][partial].pop(0), rule='C3')
-        case('a partial module with fewer reports than #print axioms commands', mut_r=lambda r: r['reports'][partial].pop(), rule='C3')
+        case('a partial module with fewer reports than its source\'s #print axioms commands',
+             mut_r=lambda r: r['reports'][partial].pop(), rule='C3')
+        case('a partial module whose archived count was inflated, the source unchanged',
+             mut_e=lambda e: e['expected']['modules'][partial].__setitem__('prints', 10 ** 4), mut_r=None, rule=None)
         case('a new report in a partial module with an unpermitted axiom',
              mut_r=lambda r: r['reports'][partial][-1].__setitem__('axioms', ['Classical.choice', 'Lean.ofReduceBool']), rule='C3')
-        case('a partial module without a #print axioms count', mut_e=lambda e: e['expected']['modules'][partial].__setitem__('prints', None), rule='C3')
+        case('a partial module\'s line reported twice',
+             mut_r=lambda r: r['reports'][partial].append(dict(r['reports'][partial][0], name='dup')), rule='C3')
     if absent:
-        case('an absent module that exists in the tree', exists_fn=lambda m: True, rule='C3')
+        case('an absent module that is in the source', src=lambda s: s.__setitem__(absent, '#print axioms Y\n'), rule='C3')
         case('an absent module that the reproduction reports',
              mut_r=lambda r: r['reports'].__setitem__(absent, [{'line': 1, 'name': 'x', 'axioms': ['propext'], 'served_line': 0}]), rule='C3')
     case('a module of unknown status', mut_e=lambda e: next(iter(e['expected']['modules'].values())).__setitem__('status', 'maybe'), rule='C3')
@@ -198,22 +241,44 @@ def self_test(expected):
     return 0 if ok else 1
 
 
-def tree_module_exists(tree):
-    return lambda mod: os.path.isfile(os.path.join(tree, 'verification', 'lean-mathlib', mod))
+def tree_source(tree):
+    def get(mod):
+        p = os.path.join(tree, 'verification', 'lean-mathlib', mod)
+        return open(p, encoding='utf-8').read() if os.path.isfile(p) else None
+    return get
 
 
 if __name__ == '__main__':
     args = sys.argv[1:]
     if args and args[0] == '--self-test':
-        p = args[1] if len(args) > 1 else os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ci', '38855576525', 'results.json')
-        sys.exit(self_test(json.load(open(p, encoding='utf-8'))))
+        if len(args) > 1:
+            paths = args[1:]
+        else:
+            # BG-3's E, and for each module status the first expected result that has it, so every case runs
+            ci = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ci')
+            paths = [os.path.join(ci, '38855576525', 'results.json')]
+            for want in ('complete', 'partial', 'none', 'absent'):
+                for d in sorted(os.listdir(ci)):
+                    p = os.path.join(ci, d, 'results.json')
+                    if any(m['status'] == want for m in json.load(open(p, encoding='utf-8'))['expected']['modules'].values()):
+                        if p not in paths:
+                            paths.append(p)
+                        break
+        rc = 0
+        for p in paths:
+            print('== %s' % os.path.relpath(p, os.path.dirname(os.path.abspath(__file__))))
+            rc |= self_test(json.load(open(p, encoding='utf-8')))
+        print('comparator self-test: %s (%d expected result(s))' % ('OK' if rc == 0 else 'FAILED', len(paths)))
+        sys.exit(rc)
     if len(args) < 2:
         print(__doc__)
         sys.exit(2)
     expected = json.load(open(args[0], encoding='utf-8'))
     rep = json.load(open(args[1], encoding='utf-8'))
-    exists = tree_module_exists(args[args.index('--tree') + 1]) if '--tree' in args else None
-    fails = compare(expected, rep, exists)
+    if '--tree' not in args:
+        print('FAIL  --tree is required: the #print axioms lines are read from the commit\'s source')
+        sys.exit(1)
+    fails = compare(expected, rep, tree_source(args[args.index('--tree') + 1]))
     for f in fails:
         print('FAIL  %s' % f)
     print('REPRODUCTION  %s (%d failure(s)) for run %s at %s' % ('HOLDS' if not fails else 'FAILS', len(fails),

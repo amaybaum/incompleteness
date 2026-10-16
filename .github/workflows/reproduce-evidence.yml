@@ -8,6 +8,9 @@ name: reproduce evidence
 #
 # Deliberately not cached: the historical build starts from Mathlib's cache alone, so the verdict never
 # depends on what a previous run left behind. A cache miss costs time, never correctness.
+#
+# The inputs reach the shell only as environment variables, and are validated before use: run_id as a decimal
+# run id, override_sha as a full 40-hex commit id. reproduce.py validates them again.
 
 on:
   workflow_dispatch:
@@ -16,7 +19,11 @@ on:
         description: 'the archived run to reproduce (an entry ci-<run_id> of the manifest)'
         required: true
       override_sha:
-        description: 'NEGATIVE CONTROL ONLY: check out this commit instead of the entry''s attested commit; the comparison must then fail'
+        description: 'NEGATIVE CONTROL ONLY: build this full commit id against the entry''s expected result; the control passes only on a scientific mismatch after a complete, passing build and gate'
+        required: false
+        default: ''
+      expect_failure:
+        description: 'NEGATIVE CONTROL ONLY: text one of the comparison failures must contain'
         required: false
         default: ''
 
@@ -25,7 +32,7 @@ permissions:
 
 jobs:
   reproduce:
-    name: Reproduce ${{ inputs.run_id }}
+    name: Reproduce
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -41,23 +48,35 @@ jobs:
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
       - name: Reproduce the expected result
+        env:
+          RUN_ID: ${{ inputs.run_id }}
+          OVERRIDE_SHA: ${{ inputs.override_sha }}
+          EXPECT_FAILURE: ${{ inputs.expect_failure }}
         run: |
-          python3 -I verification/audits/evidence-retention/reproduce.py \
-            --run "${{ inputs.run_id }}" \
-            ${{ inputs.override_sha != '' && format('--override-sha {0}', inputs.override_sha) || '' }} \
-            --work "$RUNNER_TEMP/reproduce"
+          set -eu
+          [[ "$RUN_ID" =~ ^[0-9]{1,20}$ ]] || { echo "run_id must be a decimal run id"; exit 1; }
+          args=(--run "$RUN_ID" --work "$RUNNER_TEMP/reproduce")
+          if [ -n "$OVERRIDE_SHA" ]; then
+            [[ "$OVERRIDE_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo "override_sha must be a full 40-hex commit id"; exit 1; }
+            args+=(--override-sha "$OVERRIDE_SHA" --expect-scientific-mismatch)
+            if [ -n "$EXPECT_FAILURE" ]; then args+=(--expect-failure "$EXPECT_FAILURE"); fi
+          elif [ -n "$EXPECT_FAILURE" ]; then
+            echo "expect_failure is for negative controls only"; exit 1
+          fi
+          python3 -I verification/audits/evidence-retention/reproduce.py "${args[@]}"
 
       - name: Comparator self-test (negative controls)
         if: always()
         run: python3 -I verification/audits/evidence-retention/compare_result.py --self-test
 
-      - name: Keep the reproduction's log and extraction
+      - name: Keep the reproduction's log, extraction and verdict
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reproduce-${{ inputs.run_id }}
+          name: reproduce-evidence
           path: |
             ${{ runner.temp }}/reproduce/build-and-gate.log
             ${{ runner.temp }}/reproduce/reproduced.json
+            ${{ runner.temp }}/reproduce/verdict.json
             ${{ runner.temp }}/reproduce/verdict.txt
           if-no-files-found: ignore
