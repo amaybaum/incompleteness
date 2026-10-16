@@ -1,17 +1,14 @@
 /-
-  OIBridge/TurnpikeScopeTransfer.lean — real-to-integer scope transfer for the turnpike
-  classification, and the conditional two-branch theorem with the INTEGER Bekir–Golomb
-  classification as its only unproved premise.
+  OIBridge/TurnpikeScopeTransfer.lean — real-to-integer scope transfer for gap correspondences
+  of ruler pairs, and the real classification and two-branch theorem as implications from the
+  unsigned integer premise `BGIntegerClassification`, which
+  `OIBridge.PremiseOrientation.not_BGIntegerClassification` refutes.
 
-  WHY THIS FILE EXISTS. The primary-source audit of Bekir–Golomb 2007 found exactly one
-  equivocal point: the paper's polynomial model is integer-presented and never explicitly
-  quantifies over real configurations, although the theorem it completes (Piccard 1939) is a
-  real-Euclidean statement and its symbolic-exponent argument uses only linear relations.
-  Rather than consuming the paper under a real-scope INTERPRETATION, this file removes the gap
-  mathematically: a real realization of any fixed gap correspondence yields an INTEGER
-  realization of the same correspondence, preserving strict ordering, Golombness, and
-  nontriviality. Bekir–Golomb is then consumed in the integer scope its text unambiguously
-  uses, and the real classification is derived, not assumed.
+  WHY THIS FILE EXISTS. The polynomial model of Bekir–Golomb 2007 is integer-presented, while
+  the reconstruction consumes real spectra. This file closes that scope gap mathematically: a
+  real realization of any fixed gap correspondence yields an INTEGER realization of the same
+  correspondence, preserving strict ordering, Golombness, and nontriviality, so an integer
+  classification premise transfers to real spectra without a real-scope reading of the paper.
 
   THE TRANSFER. All realization constraints are homogeneous rational-linear: the correspondence
   identities are equalities, the orderings are strict inequalities, and Golombness plus the two
@@ -28,17 +25,20 @@
     3. `exists_int_scaling` — clear denominators; every constraint is homogeneous.
 
   `integer_realization_of_real_realization` packages the three for a ruler pair with a fixed
-  ascending-pair correspondence. `BGIntegerClassification` states the external premise — the
-  2007 classification for INTEGER spanning rulers, in the spectral μ-form the wrapper consumes
-  (nontrivial homometric Golomb integer pairs exist only at six marks, with gap data realizing
-  the exceptional correspondence μ; the μ-form is justified by PiccardBridge, which
-  kernel-proves that the paper's exceptional family realizes μ). `spectral_classification_of_BG`
-  then derives the REAL spectral classification: the forced correspondence of the real pair is
-  transferred to an integer pair, classified there, and the Golomb rigidity of the integer pair
-  forces the combinatorial identification ν = relabeled-μ, which transports back to the real
-  spectra. `twoBranch_of_BGClassification` composes with `twoBranch_of_spectral_classification`:
-  equal transition probabilities + distinct gaps + the INTEGER premise give the two Hamiltonian
-  branches over arbitrary real spectra.
+  ascending-pair correspondence, and `real_to_integer_surrogate` states the whole reduction: real
+  spectra with distinct gaps and equal gap sets are translation-congruent, reflection-congruent,
+  or sorted relabelings of an integer surrogate pair that meets every hypothesis of an integer
+  classification premise and whose directed gap identities transport back to the real spectra.
+
+  `BGIntegerClassification` is an unsigned integer premise in spectral μ-form: its conclusion
+  fixes the orientation of the exceptional correspondence μ. It is false: the six-mark pair
+  (0,1,4,10,12,17), (0,4,6,9,16,17) meets every hypothesis, admits no relabelings realizing μ in
+  that orientation, and realizes μ reversed
+  (`OIBridge.PremiseOrientation.not_BGIntegerClassification`,
+  `OIBridge.PremiseOrientation.revMuForm_r1_r2refl`). `spectral_classification_of_BG` and
+  `twoBranch_of_BGClassification` are implications from it, so they do not establish the real
+  classification or the two Hamiltonian branches. The comparison of any integer premise with the
+  published classification is open (`papers/GR.md` §3.3).
 -/
 import OIBridge.CongruentReconstruction
 import Mathlib.Data.Fin.Tuple.Sort
@@ -529,47 +529,27 @@ theorem integer_realization_of_real_realization {n : ℕ}
       exact_mod_cast hcon
     linarith
 
-/-! ### The external premise, and the conditional real classification -/
-
-open HomometricSix in
-/-- **THE EXTERNAL INTEGER PREMISE — Bekir–Golomb 2007, in the spectral form this repository
-consumes.** Any two strictly increasing INTEGER rulers with distinct internal differences and
-equal difference sets that are neither translates nor reflections of one another exist only at
-six marks, with gap data realizing the exceptional correspondence μ through explicit
-relabelings (the equivalences force `n = 6` with no casts). The μ-form of the exceptional
-clause is backed by `PiccardBridge`: the paper's own two-parameter family is kernel-proved to
-realize μ this way. This `Prop` is the ONLY unproved input of the reconstruction programme. -/
-def BGIntegerClassification : Prop :=
-  ∀ (n : ℕ) (F F' : Fin n → ℤ),
-    StrictMono F → StrictMono F' →
-    (∀ a b c d : Fin n, a < b → c < d → F b - F a = F d - F c → a = c ∧ b = d) →
-    (∀ a b c d : Fin n, a < b → c < d → F' b - F' a = F' d - F' c → a = c ∧ b = d) →
-    (Finset.image (fun p : AscPair n => F p.1.2 - F p.1.1) Finset.univ
-      = Finset.image (fun p : AscPair n => F' p.1.2 - F' p.1.1) Finset.univ) →
-    (¬ ∃ c : ℤ, ∀ i, F' i = F i + c) →
-    (¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev) →
-    ∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
-      F' (eT (mu a b).2) - F' (eT (mu a b).1) = F (eS b) - F (eS a)
-
-open HomometricSix in
-/-- **THE REAL SPECTRAL CLASSIFICATION, derived.** Given the INTEGER premise: real spectra with
-distinct gaps and equal gap sets are translation-congruent, reflection-congruent, or realize the
-exceptional correspondence μ — the exact classification premise of
-`twoBranch_of_spectral_classification`. The real pair is sorted, its forced gap correspondence
-is extracted, the scope transfer produces an integer surrogate with the SAME correspondence, the
-premise classifies the surrogate, and the integer pair's Golomb rigidity forces the
-combinatorial identification of the correspondence with relabeled μ, which transports back to
-the real spectra. -/
-theorem spectral_classification_of_BG (hBG : BGIntegerClassification)
-    {n : ℕ} (E E' : Fin n → ℝ)
+/-- **The real-to-integer reduction.** Real spectra with distinct gaps and equal gap sets are
+translation-congruent, reflection-congruent, or sorted relabelings of an integer surrogate pair
+that meets every hypothesis of `BGIntegerClassification` and whose directed gap identities
+transport back to the real spectra. The reduction assumes no classification. -/
+theorem real_to_integer_surrogate {n : ℕ} (E E' : Fin n → ℝ)
     (hgapE : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
     (hgapE' : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)
     (hsets : Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ
       = Finset.image (fun q : Fin n × Fin n => E' q.2 - E' q.1) Finset.univ) :
     (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)
     ∨ (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)
-    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
-        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS b) - E (eS a)) := by
+    ∨ ∃ (σ σ' : Equiv.Perm (Fin n)) (F F' : Fin n → ℤ),
+        StrictMono F ∧ StrictMono F' ∧
+        (∀ a b c d : Fin n, a < b → c < d → F b - F a = F d - F c → a = c ∧ b = d) ∧
+        (∀ a b c d : Fin n, a < b → c < d → F' b - F' a = F' d - F' c → a = c ∧ b = d) ∧
+        (Finset.image (fun p : AscPair n => F p.1.2 - F p.1.1) Finset.univ
+          = Finset.image (fun p : AscPair n => F' p.1.2 - F' p.1.1) Finset.univ) ∧
+        (¬ ∃ c : ℤ, ∀ i, F' i = F i + c) ∧
+        (¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev) ∧
+        (∀ a b c d : Fin n, a ≠ b → F' d - F' c = F b - F a →
+          (E' ∘ σ') d - (E' ∘ σ') c = (E ∘ σ) b - (E ∘ σ) a) := by
   classical
   rcases Nat.eq_zero_or_pos n with hn0 | npos
   · subst hn0
@@ -698,20 +678,17 @@ theorem spectral_classification_of_BG (hBG : BGIntegerClassification)
   have hFnorf : ¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev := by
     rintro ⟨c, hc⟩
     exact hFnr (by rw [hc i₁, hc ⟨0, npos⟩]; ring)
-  obtain ⟨eS, eT, hint⟩ := hBG n F F' hFm hF'm hFg hF'g hFsets hFnottr hFnorf
-  -- transport the exceptional match back to the real spectra
-  right; right
-  have key : ∀ a b : Fin 6, a < b →
-      (E' ∘ σ') (eT (mu a b).2) - (E' ∘ σ') (eT (mu a b).1)
-        = (E ∘ σ) (eS b) - (E ∘ σ) (eS a) := by
-    intro a b hab
-    have hint' := hint a b hab
-    rcases lt_trichotomy (eS a) (eS b) with h | h | h
-    · have hFp : F' (νf ⟨(eS a, eS b), h⟩).2 - F' (νf ⟨(eS a, eS b), h⟩).1
-          = F (eS b) - F (eS a) := hFν ⟨(eS a, eS b), h⟩
-      have hupos : (0 : ℤ) < F (eS b) - F (eS a) := sub_pos.mpr (hFm h)
-      have ho : eT (mu a b).1 < eT (mu a b).2 := by
-        rcases lt_trichotomy (eT (mu a b).1) (eT (mu a b).2) with h' | h' | h'
+  -- The surrogate's forced directed gaps transport in either orientation.
+  have transfer_gap : ∀ a b c d : Fin n, a ≠ b →
+      F' d - F' c = F b - F a →
+      (E' ∘ σ') d - (E' ∘ σ') c = (E ∘ σ) b - (E ∘ σ) a := by
+    intro a b c d hab hint'
+    rcases lt_trichotomy (a) (b) with h | h | h
+    · have hFp : F' (νf ⟨(a, b), h⟩).2 - F' (νf ⟨(a, b), h⟩).1
+          = F (b) - F (a) := hFν ⟨(a, b), h⟩
+      have hupos : (0 : ℤ) < F (b) - F (a) := sub_pos.mpr (hFm h)
+      have ho : c < d := by
+        rcases lt_trichotomy (c) (d) with h' | h' | h'
         · exact h'
         · exfalso
           rw [h'] at hint'
@@ -720,19 +697,19 @@ theorem spectral_classification_of_BG (hBG : BGIntegerClassification)
         · exfalso
           have := hF'm h'
           omega
-      have hpair := hF'g (eT (mu a b).1) (eT (mu a b).2)
-        (νf ⟨(eS a, eS b), h⟩).1 (νf ⟨(eS a, eS b), h⟩).2 ho (hν1 ⟨(eS a, eS b), h⟩)
+      have hpair := hF'g (c) (d)
+        (νf ⟨(a, b), h⟩).1 (νf ⟨(a, b), h⟩).2 ho (hν1 ⟨(a, b), h⟩)
         (by rw [hint', hFp])
-      have hEp : (E' ∘ σ') (νf ⟨(eS a, eS b), h⟩).2 - (E' ∘ σ') (νf ⟨(eS a, eS b), h⟩).1
-          = (E ∘ σ) (eS b) - (E ∘ σ) (eS a) := hν2 ⟨(eS a, eS b), h⟩
+      have hEp : (E' ∘ σ') (νf ⟨(a, b), h⟩).2 - (E' ∘ σ') (νf ⟨(a, b), h⟩).1
+          = (E ∘ σ) (b) - (E ∘ σ) (a) := hν2 ⟨(a, b), h⟩
       rw [hpair.1, hpair.2]
       exact hEp
-    · exact absurd (eS.injective h) (ne_of_lt hab)
-    · have hFp : F' (νf ⟨(eS b, eS a), h⟩).2 - F' (νf ⟨(eS b, eS a), h⟩).1
-          = F (eS a) - F (eS b) := hFν ⟨(eS b, eS a), h⟩
-      have huneg : F (eS b) - F (eS a) < 0 := sub_neg.mpr (hFm h)
-      have ho : eT (mu a b).2 < eT (mu a b).1 := by
-        rcases lt_trichotomy (eT (mu a b).2) (eT (mu a b).1) with h' | h' | h'
+    · exact (hab h).elim
+    · have hFp : F' (νf ⟨(b, a), h⟩).2 - F' (νf ⟨(b, a), h⟩).1
+          = F (a) - F (b) := hFν ⟨(b, a), h⟩
+      have huneg : F (b) - F (a) < 0 := sub_neg.mpr (hFm h)
+      have ho : d < c := by
+        rcases lt_trichotomy (d) (c) with h' | h' | h'
         · exact h'
         · exfalso
           rw [h'] at hint'
@@ -741,14 +718,66 @@ theorem spectral_classification_of_BG (hBG : BGIntegerClassification)
         · exfalso
           have := hF'm h'
           omega
-      have hpair := hF'g (eT (mu a b).2) (eT (mu a b).1)
-        (νf ⟨(eS b, eS a), h⟩).1 (νf ⟨(eS b, eS a), h⟩).2 ho (hν1 ⟨(eS b, eS a), h⟩)
+      have hpair := hF'g (d) (c)
+        (νf ⟨(b, a), h⟩).1 (νf ⟨(b, a), h⟩).2 ho (hν1 ⟨(b, a), h⟩)
         (by omega)
-      have hEp : (E' ∘ σ') (νf ⟨(eS b, eS a), h⟩).2 - (E' ∘ σ') (νf ⟨(eS b, eS a), h⟩).1
-          = (E ∘ σ) (eS a) - (E ∘ σ) (eS b) := hν2 ⟨(eS b, eS a), h⟩
+      have hEp : (E' ∘ σ') (νf ⟨(b, a), h⟩).2 - (E' ∘ σ') (νf ⟨(b, a), h⟩).1
+          = (E ∘ σ) (a) - (E ∘ σ) (b) := hν2 ⟨(b, a), h⟩
       rw [hpair.1, hpair.2]
       linarith [hEp]
-  exact ⟨eS.trans σ, eT.trans σ', fun a b hab => key a b hab⟩
+  right; right
+  exact ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩
+
+/-! ### The unsigned integer premise, and the real classification it implies -/
+
+open HomometricSix in
+/-- **The unsigned integer premise, in spectral μ-form.** Any two strictly increasing integer
+rulers with distinct internal differences and equal difference sets that are neither translates
+nor reflections of one another have six marks, with gap data realizing the exceptional
+correspondence μ, in the orientation the conclusion fixes, through explicit relabelings (the
+equivalences force `n = 6` with no casts). `PiccardBridge` proves that the paper's two-parameter
+family realizes μ in this orientation. The proposition is false:
+`OIBridge.PremiseOrientation.not_BGIntegerClassification` refutes it at the pair
+(0,1,4,10,12,17), (0,4,6,9,16,17), which meets every hypothesis and realizes μ reversed. -/
+def BGIntegerClassification : Prop :=
+  ∀ (n : ℕ) (F F' : Fin n → ℤ),
+    StrictMono F → StrictMono F' →
+    (∀ a b c d : Fin n, a < b → c < d → F b - F a = F d - F c → a = c ∧ b = d) →
+    (∀ a b c d : Fin n, a < b → c < d → F' b - F' a = F' d - F' c → a = c ∧ b = d) →
+    (Finset.image (fun p : AscPair n => F p.1.2 - F p.1.1) Finset.univ
+      = Finset.image (fun p : AscPair n => F' p.1.2 - F' p.1.1) Finset.univ) →
+    (¬ ∃ c : ℤ, ∀ i, F' i = F i + c) →
+    (¬ ∃ c : ℤ, ∀ i, F' i = c - F i.rev) →
+    ∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
+      F' (eT (mu a b).2) - F' (eT (mu a b).1) = F (eS b) - F (eS a)
+
+open HomometricSix in
+/-- **The real spectral classification, as an implication from `BGIntegerClassification`.**
+Given the unsigned integer premise, real spectra with distinct gaps and equal gap sets are
+translation-congruent, reflection-congruent, or realize the exceptional correspondence μ — the
+classification premise of `twoBranch_of_spectral_classification`. `real_to_integer_surrogate`
+reduces the real pair to an integer surrogate, the premise classifies the surrogate, and the
+surrogate's directed gap identities transport the exceptional match back to the real spectra.
+The premise is refuted (`OIBridge.PremiseOrientation.not_BGIntegerClassification`),
+so this theorem does not establish the real classification. -/
+theorem spectral_classification_of_BG (hBG : BGIntegerClassification)
+    {n : ℕ} (E E' : Fin n → ℝ)
+    (hgapE : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E b - E a = E d - E c → a = c ∧ b = d)
+    (hgapE' : ∀ a b c d : Fin n, a ≠ b → c ≠ d → E' b - E' a = E' d - E' c → a = c ∧ b = d)
+    (hsets : Finset.image (fun q : Fin n × Fin n => E q.2 - E q.1) Finset.univ
+      = Finset.image (fun q : Fin n × Fin n => E' q.2 - E' q.1) Finset.univ) :
+    (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = E a + E₀)
+    ∨ (∃ τ : Equiv.Perm (Fin n), ∃ E₀ : ℝ, ∀ a, E' (τ a) = -E a + E₀)
+    ∨ (∃ eS eT : Fin 6 ≃ Fin n, ∀ a b : Fin 6, a < b →
+        E' (eT (mu a b).2) - E' (eT (mu a b).1) = E (eS b) - E (eS a)) := by
+  rcases real_to_integer_surrogate E E' hgapE hgapE' hsets with htr | hrf |
+    ⟨σ, σ', F, F', hFm, hF'm, hFg, hF'g, hFsets, hFnottr, hFnorf, transfer_gap⟩
+  · exact Or.inl htr
+  · exact Or.inr (Or.inl hrf)
+  obtain ⟨eS, eT, hint⟩ := hBG n F F' hFm hF'm hFg hF'g hFsets hFnottr hFnorf
+  refine Or.inr (Or.inr ⟨eS.trans σ, eT.trans σ', fun a b hab => ?_⟩)
+  exact transfer_gap (eS a) (eS b) (eT (mu a b).1) (eT (mu a b).2)
+    (fun h => hab.ne (eS.injective h)) (hint a b hab)
 
 /-! ### From equal probabilities to equal gap sets, and the final assembly -/
 
@@ -817,12 +846,15 @@ lemma gaps_eq_of_equal_probabilities {m : ℕ} (hm : 0 < m)
 local notation "conj'" => (starRingEnd ℂ)
 
 open Matrix HomometricSix BohrFrequency CongruentReconstruction in
-/-- **THE TWO-BRANCH THEOREM, CONDITIONAL ON THE INTEGER CLASSIFICATION ALONE.** Equal
-transition probabilities for all times, distinct gaps on both sides, and the INTEGER
-Bekir–Golomb classification give the two Hamiltonian branches over arbitrary REAL spectra:
-`gaps_eq_of_equal_probabilities` supplies equal gap sets, `spectral_classification_of_BG`
-transfers the classification from ℤ to ℝ, and `twoBranch_of_spectral_classification` finishes.
-Every step other than `BGIntegerClassification` is kernel-proved. -/
+/-- **The two-branch theorem, as an implication from `BGIntegerClassification`.** Equal
+transition probabilities for all times, distinct gaps on both sides, and the unsigned integer
+premise give the two Hamiltonian branches over real spectra: `gaps_eq_of_equal_probabilities`
+supplies equal gap sets, `spectral_classification_of_BG` transfers the classification from ℤ to
+ℝ, and `twoBranch_of_spectral_classification` finishes. Every step other than
+`BGIntegerClassification` is kernel-proved. The premise is refuted
+(`OIBridge.PremiseOrientation.not_BGIntegerClassification`), so this theorem does not
+establish the two branches from the physical hypotheses; `papers/GR.md` §3.3 states the
+two-branch theorem conditional on the sign-aware hypothesis H-BG. -/
 theorem twoBranch_of_BGClassification (hBG : BGIntegerClassification) {m : ℕ} (hm : 3 ≤ m)
     (V W : Matrix (Fin m) (Fin m) ℂ) (E E' : Fin m → ℝ)
     (hV : V * Vᴴ = 1) (hW : W * Wᴴ = 1)
@@ -848,6 +880,7 @@ theorem twoBranch_of_BGClassification (hBG : BGIntegerClassification) {m : ℕ} 
 #print axioms rational_solutions
 #print axioms exists_int_scaling
 #print axioms integer_realization_of_real_realization
+#print axioms real_to_integer_surrogate
 #print axioms spectral_classification_of_BG
 #print axioms gaps_eq_of_equal_probabilities
 #print axioms twoBranch_of_BGClassification
