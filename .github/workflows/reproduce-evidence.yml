@@ -9,25 +9,34 @@ name: reproduce evidence
 # Deliberately not cached: the historical build starts from Mathlib's cache alone, so the verdict never
 # depends on what a previous run left behind. A cache miss costs time, never correctness.
 
+# DISPOSABLE PROOF VARIANT. A dispatch-only workflow cannot be dispatched before it exists on main, so this
+# branch runs the same job on push, twice: the positive control (BG-3's E, run 38855576525 at 194eb3fd) must
+# hold, and the negative control (the same expected result checked out at BG-3's F, 777ddf8d) must fail. The
+# archive, verifier and job steps are those of 12538191; only the trigger and this matrix differ.
 on:
-  workflow_dispatch:
-    inputs:
-      run_id:
-        description: 'the archived run to reproduce (an entry ci-<run_id> of the manifest)'
-        required: true
-      override_sha:
-        description: 'NEGATIVE CONTROL ONLY: check out this commit instead of the entry''s attested commit; the comparison must then fail'
-        required: false
-        default: ''
+  push:
+    branches: ['tmp/r1-reproduce-proof-*']
 
 permissions:
   contents: read
 
 jobs:
   reproduce:
-    name: Reproduce ${{ inputs.run_id }}
+    name: ${{ matrix.control }} control, run ${{ matrix.run_id }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - control: positive
+            run_id: '38855576525'
+            override_sha: ''
+            expect: 'HOLDS'
+          - control: negative
+            run_id: '38855576525'
+            override_sha: '777ddf8dcada759b5f3bcab26a4ff3833ba720bf'
+            expect: 'FAILS'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,12 +49,16 @@ jobs:
           sh elan-init.sh -y --default-toolchain none
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
 
-      - name: Reproduce the expected result
+      - name: Reproduce the expected result (the ${{ matrix.control }} control must ${{ matrix.expect == 'HOLDS' && 'hold' || 'fail' }})
         run: |
+          set +e
           python3 -I verification/audits/evidence-retention/reproduce.py \
-            --run "${{ inputs.run_id }}" \
-            ${{ inputs.override_sha != '' && format('--override-sha {0}', inputs.override_sha) || '' }} \
+            --run "${{ matrix.run_id }}" \
+            ${{ matrix.override_sha != '' && format('--override-sha {0}', matrix.override_sha) || '' }} \
             --work "$RUNNER_TEMP/reproduce"
+          rc=$?
+          echo "reproduce.py exited $rc"
+          if [ "${{ matrix.expect }}" = "HOLDS" ]; then test "$rc" -eq 0; else test "$rc" -ne 0; fi
 
       - name: Comparator self-test (negative controls)
         if: always()
@@ -55,7 +68,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reproduce-${{ inputs.run_id }}
+          name: reproduce-${{ matrix.control }}-${{ matrix.run_id }}
           path: |
             ${{ runner.temp }}/reproduce/build-and-gate.log
             ${{ runner.temp }}/reproduce/reproduced.json
