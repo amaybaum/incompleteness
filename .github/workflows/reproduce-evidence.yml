@@ -12,29 +12,39 @@ name: reproduce evidence
 # The inputs reach the shell only as environment variables, and are validated before use: run_id as a decimal
 # run id, override_sha as a full 40-hex commit id. reproduce.py validates them again.
 
+# DISPOSABLE PROOF VARIANT for PR #852. A dispatch-only workflow cannot be dispatched before it exists on main,
+# so this branch runs the same job on push, as two controls. The archive, the verifier and the reproduce step are
+# those of 8dc5947f; the step reads the matrix where the real workflow reads its dispatch inputs. Only the
+# trigger, the matrix and the final prediction check differ.
+#   positive: run 38855576525, BG-3's E at 194eb3fd. Must hold: every command succeeds, no comparison failure.
+#   negative: the same expected result built at BG-3's F, 777ddf8d. Must hold as a negative control (build and
+#     gate pass at F; every failure scientific), and its failures must be exactly the three predicted from F's
+#     own archived check run (38854027737) and its source: the lean-axioms count 5988 against 5989; the module's
+#     7 #print axioms lines against the 8 recorded; real_to_integer_surrogate missing.
 on:
-  workflow_dispatch:
-    inputs:
-      run_id:
-        description: 'the archived run to reproduce (an entry ci-<run_id> of the manifest)'
-        required: true
-      override_sha:
-        description: 'NEGATIVE CONTROL ONLY: build this full commit id against the entry''s expected result; the control passes only on a scientific mismatch after a complete, passing build and gate'
-        required: false
-        default: ''
-      expect_failure:
-        description: 'NEGATIVE CONTROL ONLY: text one of the comparison failures must contain'
-        required: false
-        default: ''
+  push:
+    branches: ['tmp/r1-reproduce-proof-*']
 
 permissions:
   contents: read
 
 jobs:
   reproduce:
-    name: Reproduce
+    name: ${{ matrix.control }} control, run ${{ matrix.run_id }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - control: positive
+            run_id: '38855576525'
+            override_sha: ''
+            expect_failure: ''
+          - control: negative
+            run_id: '38855576525'
+            override_sha: '777ddf8dcada759b5f3bcab26a4ff3833ba720bf'
+            expect_failure: 'expected report of OIBridge.ScopeTransfer.real_to_integer_surrogate is missing'
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,9 +59,9 @@ jobs:
 
       - name: Reproduce the expected result
         env:
-          RUN_ID: ${{ inputs.run_id }}
-          OVERRIDE_SHA: ${{ inputs.override_sha }}
-          EXPECT_FAILURE: ${{ inputs.expect_failure }}
+          RUN_ID: ${{ matrix.run_id }}
+          OVERRIDE_SHA: ${{ matrix.override_sha }}
+          EXPECT_FAILURE: ${{ matrix.expect_failure }}
         run: |
           set -eu
           [[ "$RUN_ID" =~ ^[0-9]{1,20}$ ]] || { echo "run_id must be a decimal run id"; exit 1; }
@@ -65,6 +75,33 @@ jobs:
           fi
           python3 -I verification/audits/evidence-retention/reproduce.py "${args[@]}"
 
+      - name: Check the verdict against the prediction
+        env:
+          CONTROL: ${{ matrix.control }}
+        run: |
+          python3 -I - "$RUNNER_TEMP/reproduce/verdict.json" <<'EOF'
+          import json, os, sys
+          v = json.load(open(sys.argv[1]))
+          base = v['commands_ok'] and v['build_success'] and v['gate_pass'] and v['holds']
+          if os.environ['CONTROL'] == 'positive':
+              ok = base and not v['negative_control'] and v['failures'] == []
+          else:
+              m = 'C3 OIBridge/TurnpikeScopeTransfer.lean: '
+              predicted = [
+                  ("C2 gate step lean-axioms differs: reproduced PASS 'lean_axiom_check: OK (5988 named result(s)",
+                   "expected PASS 'lean_axiom_check: OK (5989 named result(s)"),
+                  (m + "the expected result's #print axioms lines differ from the source at the commit (7 there)",),
+                  (m + 'expected report of OIBridge.ScopeTransfer.real_to_integer_surrogate is missing from the reproduction',),
+              ]
+              hit = [[p for p in predicted if all(t in f for t in p)] for f in v['failures']]
+              ok = (base and v['negative_control'] and v['control_problems'] == [] and len(v['failures']) == 3
+                    and all(len(h) == 1 for h in hit) and sorted(map(str, (h[0] for h in hit))) == sorted(map(str, predicted)))
+          for f in v['failures']:
+              print('failure:', f)
+          print('PREDICTION %s for the %s control' % ('MET' if ok else 'NOT MET', os.environ['CONTROL']))
+          sys.exit(0 if ok else 1)
+          EOF
+
       - name: Comparator self-test (negative controls)
         if: always()
         run: python3 -I verification/audits/evidence-retention/compare_result.py --self-test
@@ -73,7 +110,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: reproduce-evidence
+          name: reproduce-${{ matrix.control }}-${{ matrix.run_id }}
           path: |
             ${{ runner.temp }}/reproduce/build-and-gate.log
             ${{ runner.temp }}/reproduce/reproduced.json
