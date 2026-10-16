@@ -36,8 +36,9 @@ Translate the proposed hypotheses to an exogenously specified C subset V_k:
 5. At every token j > 0, the entire third-axis rotation flow and the cyclic
    Pauli-axis rotation preserve C.
 
-For the equivalence in item 3, scaled rank-one local projectors give one direction.
-Conversely, spectral decompositions of each local effect expand the product
+For the equivalence in item 3, scaled rank-one local projectors give one direction
+(compiled for tables as `lorPair_nonneg_of_maxConeTab`, used in
+`tableCone_eq_psd_of_drive_maxConeTab`). Conversely (written argument, not compiled), spectral decompositions of each local effect expand the product
 effect into a finite nonnegative sum of product rank-one projectors. No global
 PSD assumption is used. Effect normalizations only introduce positive factors.
 
