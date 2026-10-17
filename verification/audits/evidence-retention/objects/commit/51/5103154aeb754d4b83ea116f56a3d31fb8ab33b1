@@ -1,0 +1,45 @@
+tree 3712a7bf515524ce8a98bf30a7dd6b4730de04cf
+parent 52b64009419cc32c89dc1d37de183764b33476a1
+author Claude <noreply@anthropic.com> 1789627455 +0000
+committer Claude <noreply@anthropic.com> 1789627455 +0000
+
+act 19 DISCRIMINATION COMMIT: OL1, the shared structural theorem, which runs first
+
+This is the first commit on this branch carrying a discriminating result, and
+it is record 3 of the five the ordering obligation requires. The result that
+crosses the boundary is named exactly: the proof of the shared structural
+theorem OL1, in both of the forms the freeze fixes for it.
+
+  ol1a_descends_to_composition -- OL1 (a), the general form. An L-PROP law
+    that is quotient-well-defined (L4d, the first conjunct of TransitionLaw)
+    and compositional descends to a composition of maps on the admissible
+    orbit spaces. Four conjuncts: every E t is well defined on classes, so
+    the evolution from the initial orbit is a function of the initial class
+    alone; the solution set is read off the transition; every solution sits
+    at the composite applied to its own initial slice; and the composite's
+    own trajectories are solutions realized by a coherent lift. The composite
+    E is a bound variable pinned by its two defining equations and is not a
+    definition of this round.
+
+  ol1b_monoid_action -- OL1 (b), the homogeneous form, at time-homogeneous
+    visible families ONLY. The orbit space is then one set, the transition
+    family is constant, E_0 is the identity and E_{t+s} = E_s . E_t, so the
+    law is a monoid action of (N, +) on the admissible orbit space.
+
+ACT 17's TJ1 IS CITED AT THE STEP, not in a footnote: it is conjunct 4 of
+(a). Reading the solution set as a composition of maps on per-time state
+spaces requires the ambient admissible set to be the product over time of
+those spaces; intersecting a product constraint with a non-product ambient
+set need not factor, and tj1_sufficiency is what makes the assembled
+trajectory admissible. TJ1 is consumed at merged strength.
+
+This is a DESCENT statement and not an existence statement: that an L-PROP
+law exists is act 18's and is consumed here. It says nothing about
+faithfulness, transitivity, freeness or any symmetry property, the action is
+not claimed to be a group, and the transition is realized as no operator, no
+unitary, no generator and no group element.
+
+From this commit onward no rung statement and no frozen quotient may change.
+
+Both results print only [propext, Classical.choice, Quot.sound].
+lake build clean, release gate 17/17.

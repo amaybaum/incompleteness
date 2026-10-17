@@ -1,0 +1,26 @@
+tree 89383f4509f5319a2b199ab4440b04e08f73b8c8
+parent 8863c9c9d54d04413d7fe615cc1a4a25445931bf
+author Claude <noreply@anthropic.com> 1790704862 +0000
+committer Claude <noreply@anthropic.com> 1790704862 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQFkJDelR
+ rjWYNk3oEInoF1jcny1TZb5lxjseAVksFrcrlvvXl2croDjFtkLKvnuxZ2TCF4PtI3LNiENMnzaT
+ qgY=
+ -----END SSH SIGNATURE-----
+
+A45 manuscript draft (disposable, never landed): fixed-basis image of a single-time lift
+
+Main 3.4 scope remark, Explainer, ch01 and ch19 (with their FULL.md mirrors): at one time, with a
+trivial ancilla, the fixed-basis datum built from a lift's unitary has trajectory laws fixed by the
+visible law, also under contractively scaled partial permutations; equal laws exactly when the
+visible laws are equal; tensor-factor ancilla invisible, carried ancilla separating. ROADMAP P0 row
+clause. Census: new current family for TrackBQfbBridge; OperationalSourcing moves to current with
+the padData_rooted anchor.
+
+STALE: Main, Explainer and book .tex/.pdf are not regenerated (no pandoc/xelatex in this
+environment); staleness_check fails until ./build.sh Main Explainer --book runs on the canonical
+toolchain. The ancilla probe cited as exact computation is in research/, not yet in verification/.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

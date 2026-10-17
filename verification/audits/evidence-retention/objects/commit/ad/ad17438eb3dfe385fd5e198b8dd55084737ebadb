@@ -1,0 +1,15 @@
+tree 058279276bc9d76a2593a17cbeb275b8179152de
+parent 0e7b3f3f93544a4ccc9774a5710a88cc89d02974
+author Claude <noreply@anthropic.com> 1790460604 +0000
+committer Claude <noreply@anthropic.com> 1790460604 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQFijH6Q4
+ T+LKP/bx3E44tPy4wLT8o5infM0/IlYJhEKosY+HJDRy160mgk5IhmWhgGHc/gAq4e5C7cGaXKuI
+ RQ4=
+ -----END SSH SIGNATURE-----
+
+a33 dev: the stage-2 module text byte for byte (frozen docstring)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

@@ -1,0 +1,15 @@
+tree de6ae46d58a4b8b1d2db303307a4851695430fea
+parent 5eec100c794f2a4461ab345f83b8eec0ce8bbd35
+author Claude <noreply@anthropic.com> 1790612643 +0000
+committer Claude <noreply@anthropic.com> 1790612643 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQFf08NuR
+ fQI5ukFanzvSRv+Rmw7gjeiuB3+WMESyOwpEgdM8npdfPKRxETUrv6Q84nZyMtxWB4JsuAUUTcQC
+ lwo=
+ -----END SSH SIGNATURE-----
+
+A40 design countercontrol: absent face u2 = -1 under the t1 map and one exclusion value flipped (disposable, never landed)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

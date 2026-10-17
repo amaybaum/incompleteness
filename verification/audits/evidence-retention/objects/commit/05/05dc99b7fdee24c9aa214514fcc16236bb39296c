@@ -1,0 +1,15 @@
+tree 7cb43b52e36549647607fd3b19c1ac3df0b4d34e
+parent 9ec8a3416d2d602e461061cd7383aca39777a3ce
+author Claude <noreply@anthropic.com> 1790457271 +0000
+committer Claude <noreply@anthropic.com> 1790457271 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQNxD1mSc
+ RPEAzpM0zI4Wj+7GQ+TFHBzSxGj2p73jIpdkQjnImgdpBzzmw+pBYS2Z6Lt0IwhZnRBgYJzvlSmH
+ PAU=
+ -----END SSH SIGNATURE-----
+
+a33 dev: family_coset splits the kernel word through the split lemma
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

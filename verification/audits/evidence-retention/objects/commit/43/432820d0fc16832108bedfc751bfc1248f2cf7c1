@@ -1,0 +1,15 @@
+tree d2953a3370e06535b10fb4ab3a09a4a64645076e
+parent 4ad2037476059119524c03356ce9aeeae736e0a0
+author Claude <noreply@anthropic.com> 1790486803 +0000
+committer Claude <noreply@anthropic.com> 1790486803 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQLpRyi9j
+ pkzcygxlhDvqMf34vnAic0HhXk46SY6JDCAB2QvSGJuKhoyStAbUuy90CfdQ2NXWf5uoIfXDKk+w
+ 4Qs=
+ -----END SSH SIGNATURE-----
+
+a34-elaboration-counter: one deliberate defect, an extra argument in P_R (disposable, never landed)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

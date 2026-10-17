@@ -1,0 +1,32 @@
+tree 79e4854fd815ffefa0d9d82f0bfd015157058d77
+parent 124ccc66810e1728915f18be49e79f3c8dbe23c4
+author Claude <noreply@anthropic.com> 1789756037 +0000
+committer Claude <noreply@anthropic.com> 1789756037 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQGoWN19L
+ TiH9E2RVO5B6TmspytiDxbqhWyPxoWH+kDy8TYwbZj219Ccfvp6SogYFAh50jtf0Kt1N+XQnXUrC
+ RwY=
+ -----END SSH SIGNATURE-----
+
+SI-3 stage 3 (SI3-3): shadows, comparators and recordings retired
+
+The twenty-three shadow-ancestry definitions are deleted and their
+twenty-three keyed call sites made shadowless, each returning the
+manifest authority alone; the five per-round seal-integrity comparators,
+their eight recording lines, the TCF/RNC/TRJ fabrication controls and the
+XTS/RNT comparison loops are deleted. The XTS block reduces to U5; the
+RNT clause-9 block keeps its two rebindings, probe and restore lines
+without the comparator, so that SI2-6(b) holds its sixty-one statements
+as text until stage 4 retires it. _si2_clause_gates_on_u3 now wants the
+shadowless body; _si2_authority_measured drops the in-vivo part; SI2-3
+requires zero shadow reads and eighteen sealed verdicts; SI2-5 requires
+the shadow list empty. _si2_shadow_integrity and _SI2_SHADOW_INTEGRITY
+are retained inside SI2-AUTHORITY with no caller, as negative case 14
+bounds the region to the two authorized wiring edits; recorded as the
+round's one discrepancy.
+
+Dry-run history: the first stage-3 run failed only R7-SI2 SI2-6(b)
+(LEGACY-ALTERED, 59 statements) because the RNT rebindings had been
+deleted with the self-test block; the rebinding lines were restored and
+the rerun ended ALL CHECKS PASS, 92, with SI2-6(b) LEGACY-INTACT at 61.

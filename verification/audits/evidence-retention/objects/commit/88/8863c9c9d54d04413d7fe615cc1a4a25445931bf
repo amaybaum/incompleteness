@@ -1,0 +1,15 @@
+tree 87850fc31977040364f6e436c4e451395fb91745
+parent a77a7dfd7b373cbecd35d5eabfe971d0b5438924
+author Claude <noreply@anthropic.com> 1790700171 +0000
+committer Claude <noreply@anthropic.com> 1790700171 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQJqo/mLK
+ NuK2HGLWJzQhBZ/wR3yD+H2fqI2wP6YbQlSOrpB5288xDc2EDq7NupzYsUI1g8fkrvNf8kMRZhV2
+ cA8=
+ -----END SSH SIGNATURE-----
+
+A45 bridge dev build 4: trajectory-law congruence and Track-B -> Q_fb -> S corollary (disposable, never landed)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

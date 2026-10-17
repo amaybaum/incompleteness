@@ -1,0 +1,15 @@
+tree a201385eac0a93c9c2838c11612e00f8ccf1b97a
+parent a23573723c7191c3e24882244cdf210dfc87cd8f
+author Claude <noreply@anthropic.com> 1790603521 +0000
+committer Claude <noreply@anthropic.com> 1790603521 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQH1gqwi0
+ griBcI+YZkJLm9ddSCIpNpr1dAajePdZAMOc/yxAXvgwLpsurzdDpUbZfN2PnDNZ5uucN47PXHgm
+ ww8=
+ -----END SSH SIGNATURE-----
+
+A40 design (a40-dev): module header without generator output
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

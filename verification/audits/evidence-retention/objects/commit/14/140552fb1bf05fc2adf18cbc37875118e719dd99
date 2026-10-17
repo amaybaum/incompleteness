@@ -1,0 +1,15 @@
+tree 5debfed5467e738a0dcf1d6bd13ec310cc60e32f
+parent 071df3092ee3d7096dcaeb05188a0617c7b2ce73
+author Claude <noreply@anthropic.com> 1790611052 +0000
+committer Claude <noreply@anthropic.com> 1790611052 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQHskhgU3
+ glTeDZ2nLayvMd6wC+lO1pS5AvZGv9/IEKwKVaIXQsFuWIPhk6qPS9b4eio/FY8vzzBm8rJMD37n
+ rAs=
+ -----END SSH SIGNATURE-----
+
+A40 design (a40-dev): D value by linear_combination with i^2 = -1; kappa fallbacks in identity rows
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

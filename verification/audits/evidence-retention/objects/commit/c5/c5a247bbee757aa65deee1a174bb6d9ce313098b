@@ -1,0 +1,15 @@
+tree 7ac742e8389487be7374f44863ac4cb391d0c3fa
+parent f0c2c8c6c14b1e22c894c902f2578546378e22d4
+author Claude <noreply@anthropic.com> 1790453438 +0000
+committer Claude <noreply@anthropic.com> 1790453438 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQPtHSUvL
+ sKUveIGTfZo35VZ1g43CV/XP7D6ee/t94CM5Yhlh14LNB7uknWwOss1KKflvZQuOVgpIlXEJUbba
+ EQ8=
+ -----END SSH SIGNATURE-----
+
+a33 dev: one-circle conjugation built in the round (act 32 outside the frozen import closure), stab normalization, vertex and kernel_real fixes
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

@@ -1,0 +1,15 @@
+tree 2bd384c06382d0ec4bac6afb08b55d830f34acf2
+parent d79ac73c85ab51b06cd6541f3770a684e6d50ee8
+author Alex Maybaum <alex.maybaum@gmail.com> 1790570250 +0000
+committer Alex Maybaum <alex.maybaum@gmail.com> 1790570250 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQPTu0goM
+ Sb0+M2AiW+FDDUnoV6y+y12TwCqPUurk7fLejDEJ3PRraakfjk4BVL2lv+YlQ06OTlkEQeVJvBj9
+ pgs=
+ -----END SSH SIGNATURE-----
+
+A37 design: countercontrol, one deliberate defect in an exclusion witness (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

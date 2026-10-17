@@ -1,0 +1,15 @@
+tree a645560bba9cab854d0df3bb8ec1473de2359170
+parent ae1e671754c75583ff6c3b00e849bb055ce5d628
+author Claude <noreply@anthropic.com> 1790524313 +0000
+committer Claude <noreply@anthropic.com> 1790524313 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQJuCtm/j
+ JjyNG3PBD1CudLE2aB3elOPoDIReSgSmh7Wgo8r4txJg6E19DE+YLI/ZqMekdojn//9qYKr8NEe7
+ EQ8=
+ -----END SSH SIGNATURE-----
+
+a36 elaboration countercontrol: one deliberate defect, an extra argument to dg in P_R's HULLG conjunct (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1
