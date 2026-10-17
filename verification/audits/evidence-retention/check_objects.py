@@ -42,10 +42,14 @@ Tree mode (no git, no network):
       its inclusion paths); its recorded paths are exactly where those trees name it, each of a file type its
       mechanism covers (.log, .out or .err for a raw log, .txt for a raw output, .pdf for a build output); its
       needed_by entries are among them; and it records a size (which no tree records, so the size is as read from
-      the recovery copy when the archive was built, and is not checked).
+      the recovery copy when the archive was built, and is not checked). An approval that names commits (archive
+      tranche 4) is also bound to them: the commits whose retained trees name the blob are exactly those, and the
+      entry records each instance with its commit, path, size, blob id, sha256 and reason;
+  O10 a commit that no line on main cites names the record that is to cite it (awaiting_citation: pull request,
+      round and the record's path).
 History mode (--reconstitute) adds, in a temporary repository that borrows this repository's objects (H0: a git
 command that fails fails the check, rather than leaving a rule to read empty output):
-  H1  the base is in the repository and an ancestor of HEAD;
+  H1  the base, and each later tranche's base in tranche_bases, is in the repository and an ancestor of HEAD;
   H2  every stored object, written with git, gets exactly its recorded id;
   H3  every id the retained objects name that is not retained or withheld is reachable from the base;
   H4  connectivity, relative to the archive and the base, never to what else this clone holds: with a ref at
@@ -57,8 +61,9 @@ command that fails fails the check, rather than leaving a rule to read empty out
       object;
   H5  every listed identity digest is the digest of an address in the base's history;
   H6  no deny-listed id is reachable from HEAD of this repository, or from any reconstituted object;
-  H7  no entry, stored or withheld, and no id recorded as missing is reachable from the base: what main already
-      holds is never retained here.
+  H7  no entry, stored or withheld, is reachable from its own tranche's base, and no id recorded as missing is
+      reachable from the base: what main already holds is never retained here. H3 and H4 count as on main what
+      the latest tranche base reaches.
 """
 import bisect
 import hashlib
@@ -142,6 +147,14 @@ APPROVED_WITHHELD = {
         ['research/a42-rerun/quarantine/m0all_b39_a.log']),
     'fbc82c68dd2493e547e45b2fd948638cd325eb93': ('withheld:raw-log',
         ['research/a42-rerun/m0all_b39_b.log']),
+    # Archive tranche 4, approved by the owner on 2026-10-17 for exactly these paths in exactly these two commits
+    # (#831's research sources): a third element binds the approval to the commits whose trees name the blob.
+    'c697b82b8a7d6719d78dfc74bc8183c85fa12255': ('withheld:raw-output',
+        ['verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt'],
+        ['e684897da41b1c3d066b880194c9beb87a19b7ad', 'febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3']),
+    '8cdf3a83f78059d81a701c2e4951e54f3a2b06bd': ('withheld:raw-output',
+        ['verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt'],
+        ['e684897da41b1c3d066b880194c9beb87a19b7ad', 'febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3']),
 }
 ERRATA = 'verification/audits/provenance-errata/errata.json'
 TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
@@ -308,6 +321,10 @@ def check(objdir, root):
         if not isinstance(man.get(k), list) or not all(isinstance(x, str) and re.fullmatch(r'[0-9a-f]{64}', x)
                                                         for x in man[k]):
             return ['O3 %s is not a list of sha256 digests' % k], {}
+    tb = man.get('tranche_bases', {})
+    if not isinstance(tb, dict) or not all(re.fullmatch(r'[0-9]+', str(k)) and re.fullmatch(r'[0-9a-f]{40}', str(v))
+                                           for k, v in tb.items()):
+        return ['O3 tranche_bases is not a map of tranche numbers to commit ids'], {}
     deny = set(man['excerpt_denylist_sha256_of_id'])
     idents = set(man['identities_sha256'])
     ents, listed = {}, {'manifest.json'}
@@ -448,6 +465,13 @@ def check(objdir, root):
             F('O4 %s: raw:connected, but parent %s is not connected' % (oid[:12], bad[0][:12]))
         if m == 'raw:tree' and not bad:
             F('O4 %s: raw:tree, but every parent is connected' % oid[:12])
+    # O10 a commit that no line on main cites names the record that is to cite it
+    for oid, e in ents.items():
+        if e['type'] == 'commit' and not e.get('cited'):
+            a = e.get('awaiting_citation')
+            if not isinstance(a, dict) or not isinstance(a.get('pull_request'), int) or not a.get('round') or \
+                    not isinstance(a.get('record'), str) or not a['record'].endswith('.md') or a['record'].startswith('/'):
+                F('O10 %s: an uncited commit names no record, round and pull request that are to cite it' % oid[:12])
     # O7 citations
     texts = {}
     for oid, e in ents.items():
@@ -537,8 +561,20 @@ def check(objdir, root):
             F('O9 withheld %s: its needed_by entries are not where the retained trees name it' % w[:12])
         if type(e.get('bytes')) is not int or e['bytes'] <= 0:
             F('O9 withheld %s: it records no size, or a zero size (empty files are stored, not withheld)' % w[:12])
-        if APPROVED_WITHHELD.get(w) != (e['mechanism'], sorted(e.get('paths') or [])):
+        appr = APPROVED_WITHHELD.get(w)
+        if appr is None or appr[:2] != (e['mechanism'], sorted(e.get('paths') or [])):
             F('O9 withheld %s: not withheld as approved (mechanism and exact paths)' % w[:12])
+        elif len(appr) > 2:
+            # an approval bound to commits: the commits whose trees name the blob are exactly the approved ones, and
+            # each withheld instance is recorded with its commit, path, size, blob id, sha256 and reason
+            if {c for c, _ in occ} != set(appr[2]):
+                F('O9 withheld %s: not withheld as approved (the commits whose trees name it)' % w[:12])
+            inst = e.get('instances') or []
+            if {(i.get('commit'), i.get('path')) for i in inst} != occ or len(inst) != len(occ) or any(
+                    i.get('blob') != w or i.get('bytes') != e.get('bytes') or i.get('sha256') != e.get('content_sha256')
+                    or not re.fullmatch(r'[0-9a-f]{64}', str(i.get('sha256'))) or not i.get('reason') for i in inst):
+                F('O9 withheld %s: its instances do not record each commit and path with its size, id, sha256 and '
+                  'reason' % w[:12])
     for w in sorted(set(APPROVED_WITHHELD) - {o for o, e in ents.items() if e['mechanism'] in WITHHELD}):
         F('O9 approved withheld %s: not withheld here' % w[:12])
     info = {'entries': len(ents), 'stored': len(content), 'external': external, 'man': man, 'ents': ents,
@@ -605,10 +641,14 @@ def _history_checks(root, info, fails, clone_extra):
     F = fails.append
     man, ents, content, external = info['man'], info['ents'], info['content'], info['external']
     base = man['base']
-    if git(['cat-file', '-e', base + '^{commit}'], root).returncode or \
-            git(['merge-base', '--is-ancestor', base, 'HEAD'], root).returncode:
-        F('H1 the base %s is not an ancestor of HEAD in this repository' % base[:12])
-        return
+    # each archive tranche has its base: the manifest's for tranche 2, tranche_bases for a later one
+    tbases = {str(k): v for k, v in (man.get('tranche_bases') or {}).items()}
+    base_of = lambda e: tbases.get(str(e.get('tranche')), base)
+    for b in [base] + sorted(set(tbases.values())):
+        if git(['cat-file', '-e', b + '^{commit}'], root).returncode or \
+                git(['merge-base', '--is-ancestor', b, 'HEAD'], root).returncode:
+            F('H1 the base %s is not an ancestor of HEAD in this repository' % b[:12])
+            return
     objects = gitok(['rev-parse', '--path-format=absolute', '--git-path', 'objects'], root).stdout.decode().strip()
     deny = set(man.get('excerpt_denylist_sha256_of_id', []))
     withheld = {o for o, e in ents.items() if e['mechanism'] in WITHHELD}
@@ -645,12 +685,17 @@ def _history_checks(root, info, fails, clone_extra):
         for typ, blobs in sorted(clone_extra.items()):
             if write_objects(typ, blobs).returncode:
                 raise GitFailed('the self-test could not stage a clone-held %s' % typ)
-        main_objs, main_commits, known, head = base_history(root, base)
+        per_base = {b: base_history(root, b) for b in [base] + sorted(set(tbases.values()))}
+        main_objs, main_commits, known, head = per_base[base]
+        for b, (o2, c2, k2, _) in per_base.items():
+            if b != base:
+                # main at a later tranche's base contains main at the first base (H1 orders both before HEAD)
+                main_objs, main_commits, known = main_objs | o2, main_commits | c2, known | k2
         # what the archive or main holds: every verdict below is relative to this, never to what the clone holds
         held = set(content) | main_objs
-        # H7: nothing listed here is already on main
+        # H7: nothing listed here is already on main at its own tranche's base
         for o in sorted(ents):
-            if o in main_objs:
+            if o in per_base[base_of(ents[o])][0]:
                 F('H7 %s (%s) is reachable from the base, so it is not off-main' % (o[:12], ents[o]['mechanism']))
         for mg in man.get('missing', []):
             gid = mg.get('id', '')
@@ -966,8 +1011,10 @@ def self_test(root):
             rel = 'commit/%s/%s' % (oid[:2], oid)
             os.makedirs(os.path.join(d, os.path.dirname(rel)), exist_ok=True)
             open(os.path.join(d, rel), 'wb').write(data)
+            # uncited, so it names a record to cite it (O10), and only git's format check (H2) can refuse it
             man['objects'].append({'oid': oid, 'type': 'commit', 'mechanism': 'identity-anchor', 'form': 'raw',
                                    'file': rel, 'bytes': len(data), 'sha256': sha256(data), 'parents': [],
+                                   'awaiting_citation': {'pull_request': 1, 'round': 'SELF-TEST', 'record': 'x.md'},
                                    'tranche': 2})
             save(d, man)
         expect('a commit git refuses as malformed', malformed_commit, 'H2', history=True)
@@ -1103,6 +1150,92 @@ def self_test(root):
         def missing_on_main(info):
             info['man'] = dict(info['man'], missing=[dict(info['man']['missing'][0], id=info['man']['base'][:12])])
         expect_history('a missing id that names an object on main', missing_on_main, 'H7')
+
+        # archive tranche 4: withholding bound to exact paths and commits, the base per tranche, pending citations
+        bound = sorted(w for w, a in APPROVED_WITHHELD.items() if len(a) > 2)
+        third = next((e for e in man0['objects'] if e['type'] == 'blob' and e.get('file') and
+                      e.get('needed_by') and all(n['path'].endswith('.txt') for n in e['needed_by']) and
+                      all(next(x for x in man0['objects'] if x['oid'] == n['object'])['mechanism'] == 'raw:partial-tree'
+                          for n in e['needed_by'])), None)
+        uncited = next((e for e in man0['objects'] if e['type'] == 'commit' and not e.get('cited')), None)
+        t2raw = next((e for e in man0['objects'] if e['type'] == 'blob' and e.get('form') == 'raw' and e.get('tranche') == 2),
+                     None)
+        if not bound or third is None or uncited is None or t2raw is None or 'tranche_bases' not in man0:
+            results.append(('the tranche-4 cases need a commit-bound approval, a stored .txt under a partial tree, an '
+                            'uncited commit, a tranche-2 raw blob and tranche bases', '-', 'NOT DETECTED', []))
+        else:
+            def third_txt(d):
+                # a third .txt, stored under a partial tree: deleted, relabelled a raw output, its commit's list and
+                # the manifest edited to match; the checker's approved list does not name it
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                os.remove(os.path.join(d, third['file']))
+                e = next(x for x in man['objects'] if x['oid'] == third['oid'])
+                for k in ('file', 'form', 'sha256', 'content_sha256', 'content_bytes', 'cited'):
+                    e.pop(k, None)
+                e.update(mechanism='withheld:raw-output', bytes=third['content_bytes'],
+                         paths=sorted({n['path'] for n in third['needed_by']}))
+                for c in man['objects']:
+                    if c['oid'] in {n['object'] for n in third['needed_by']}:
+                        c['withheld_blobs'] = sorted(set(c['withheld_blobs']) | {third['oid']})
+                save(d, man)
+            expect('a third, unlisted .txt withheld, with the manifest and its commit\'s list edited to match', third_txt,
+                   'O9')
+
+            def one_commit(d):
+                # the approval narrowed to one of the two commits whose trees name the blob
+                w = bound[0]
+                APPROVED_WITHHELD[w] = APPROVED_WITHHELD[w][:2] + (APPROVED_WITHHELD[w][2][:1],)
+            saved = dict(APPROVED_WITHHELD)
+            try:
+                expect('an approved .txt withheld in a commit its approval does not name', one_commit, 'O9')
+            finally:
+                APPROVED_WITHHELD.clear()
+                APPROVED_WITHHELD.update(saved)
+
+            def instance_sha(d):
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                e = next(x for x in man['objects'] if x['oid'] == bound[0])
+                e['instances'][0]['sha256'] = '0' * 64
+                save(d, man)
+            expect('a withheld instance whose sha256 is not the recorded one', instance_sha, 'O9')
+
+            def instance_dropped(d):
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                e = next(x for x in man['objects'] if x['oid'] == bound[0])
+                e['instances'] = e['instances'][1:]
+                save(d, man)
+            expect('a withheld instance not recorded', instance_dropped, 'O9')
+
+            def no_awaiting(d):
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                next(x for x in man['objects'] if x['oid'] == uncited['oid']).pop('awaiting_citation')
+                save(d, man)
+            expect('an uncited commit that names no record to cite it', no_awaiting, 'O10')
+
+            def awaiting_no_round(d):
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                next(x for x in man['objects'] if x['oid'] == uncited['oid'])['awaiting_citation'].pop('round')
+                save(d, man)
+            expect('a pending citation without its round', awaiting_no_round, 'O10')
+
+            def bad_bases(d):
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                man['tranche_bases'] = {'4': 'main'}
+                save(d, man)
+            expect('a tranche base that is not a commit id', bad_bases, 'O3')
+
+            def base_off_head(d):
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                man['tranche_bases'] = {'4': uncited['oid']}
+                save(d, man)
+            expect('a tranche base that is not an ancestor of HEAD', base_off_head, 'H1', history=True)
+
+            def on_tranche_base(d):
+                # a tranche-2 blob stored as a plain file, which main reaches from the later base, counted as tranche 4
+                man = json.load(open(os.path.join(d, 'manifest.json')))
+                next(x for x in man['objects'] if x['oid'] == t2raw['oid'])['tranche'] = 4
+                save(d, man)
+            expect('an object its own tranche\'s base already reaches', on_tranche_base, 'H7', history=True)
     finally:
         _SCAN_MEMO = _HISTORY_MEMO = None
         shutil.rmtree(tmp, ignore_errors=True)

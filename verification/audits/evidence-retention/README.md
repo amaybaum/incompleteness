@@ -96,6 +96,31 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
 - **TRB-1's reference head** `7de2d549` (preregistration `:110`, `:207`) was held only in a local clone. It is
   retained here as a `raw:tree` commit whose parent `6027be54` is named.
 
+### Archive tranche 4: four off-main heads that records not yet on `main` cite
+
+By the owner's instructions of 2026-10-17, `objects/` also retains, in tranche 2's form, four commits that `main` does not reach:
+- #831's research sources `e684897d` and `febfe5e2`, the commits of the two research builds above, as `raw:partial-tree` commits;
+- #829's KTOKEN-MAXCONE-1 design-run heads `1ab0fd9d` (`dev-equivalence/ktoken-maxcone`) and `6959ced4` (`dev-equivalence/ktoken-maxcone-r2`), as `raw:tree` commits.
+
+Each is stored with every tree and blob that `main` lacks at the tranche's own base, `b96662e6` (`tranche_bases`). Its off-`main` parent is named and not retained. That is 66 entries: 4 commits, 37 trees, 23 blobs and 2 withheld blobs, in 64 files of 263,931 bytes. The branches that held the heads on 2026-10-17 are recorded and were not touched. #829's two heads hold no captured raw output: their off-`main` blobs are a workflow, the census registry, Lean sources, Python and a preregistration.
+
+**No line on `main` cites them yet.** Each commit records `awaiting_citation`: the pull request, the round and the record that is to cite it. A commit with no citation and no such record fails (O10).
+
+**Two outputs are withheld,** approved by the owner on 2026-10-17 for exactly these paths in exactly these two commits. The approval in `check_objects.py` binds each one to its commits as well as its mechanism and path. O9 refuses a withheld blob that a third commit's tree names, an instance not recorded with its commit, path, size, id, sha256 and reason, and any other `.txt` (the self-test tries `SOURCE-BLOBS.txt` under `1f19a347`).
+
+| path, in both `e684897d` and `febfe5e2` | bytes | blob | sha256 |
+| --- | --- | --- | --- |
+| `…/preservation-induction-design/exact-output.txt` | 196 | `c697b82b8a7d6719d78dfc74bc8183c85fa12255` | `937839edc3194a099217474bc831f68c8c55b06e095849b003a3664182017de2` |
+| `…/preservation-induction-design/independent-output.txt` | 175 | `8cdf3a83f78059d81a701c2e4951e54f3a2b06bd` | `b48342789486da727d8bb8d3571d9a1546d595898759fafa21c9c3faf51a08e9` |
+
+What they carry is kept in each withheld entry's `carries`, read from the bytes:
+- the primary check: sample manifest sha256 `a1f82e289ba07a4c60dd6b56396dcdf7c0c217b2ff49a8d779f1c4e923842ea9`, 107 exact controls, 7 mutations rejected, "finite constructor examples and named countercontrols only";
+- the independent check: the same manifest digest, 43 independent controls, "rational Kraus-path calculation, finite examples only".
+
+The recipe beside each entry regenerates the output byte for byte: run the commit's `exact_check.py` (with sympy 1.14.0) or `independent_check.py` with `python3 -I -B`, and compare the output's sha256. Both scripts did so at both commits when the tranche was cut.
+
+**History mode per tranche.** H1 requires each tranche's base to be an ancestor of HEAD. H7 checks each entry against its own tranche's base. H3 and H4 count as on `main` whatever the latest base reaches.
+
 **Not adopted as code.** The retained objects are evidence of what off-`main` heads contained:
 - nothing under `objects/` is a path that a build, the release gate or CI picks up;
 - the checker hashes and parses the objects but never executes them;
@@ -144,7 +169,7 @@ The other 7 runs are cited for their identity, outcome and jobs alone, which `ru
 
 ## Research builds retained ahead of their citing record
 
-By the owner's instruction of 2026-10-17 the archive retains two research builds before the record that cites them reaches `main`. They are runs 38450187534 (job 115478781754, source `e684897d`) and 38454439833 (job 115493410133, source `febfe5e2`). Both are pushes to `research/preservation-induction-design-20261013` on `.github/workflows/preservation-induction-design.yml`, which `main` does not carry. PRESERVE-INDUCT-1's control-plane draft (#831, `round-preserve-induct-1/preregistration.md` lines 69 and 127 at `65b85147`) cites them. Each entry, `research-<run>`, records that pending citation in `awaiting_citation` and carries no citation of its own. The check fails once a file outside this archive cites the run, so the entry must then carry the citation.
+By the owner's instruction of 2026-10-17 the archive retains two research builds before the record that cites them reaches `main`. They are runs 38450187534 (job 115478781754, source `e684897d`) and 38454439833 (job 115493410133, source `febfe5e2`). Both are pushes to `research/preservation-induction-design-20261013` on `.github/workflows/preservation-induction-design.yml`, which `main` does not carry. PRESERVE-INDUCT-1's control-plane draft (#831, `round-preserve-induct-1/preregistration.md` lines 69 and 127 at `65b85147`) cites them. Each entry, `research-<run>`, records that pending citation in `awaiting_citation`: the pull request, the round (PRESERVE-INDUCT-1), the record's path, the line and the record's head. It carries no citation of its own. Once a file outside this archive cites the run, the check fails until the entry maps every such line as a citation, `awaiting_citation` removed. The self-test lands a stand-in for the record on the copy and shows both: the entry fails while pending, passes once mapped, and fails again when one of two citing lines is left out.
 
 Each run has `ci/<run>/run.json` and `jobs.json`, from the runs and jobs APIs, and `ci/<run>/results.json` of kind `research-build`. The results were read by `main`'s `extract_result.py` (blob `05c41bce`), unchanged, from the served job log. That log was served whole: 3256 and 3692 lines, equal to the logs' `original_length`. Each result names its commit, run, job, recipe and the served text's sha256. It establishes what that run logged at that source, and nothing about any later tree.
 
@@ -157,9 +182,8 @@ What they do not carry, each a recorded gap, not inferred:
 - **Six `ImplementationLocality` reports per run.** Their declarations end in a prime (`sum_comp'`, …). The report lines stand in the served text, but `extract_result.py`'s report pattern does not match a name that contains an apostrophe. The module is recorded `partial`, 75 of 81.
 - **The design files' own axiom reports** (4 in the first run, 10 in the second). `lean`, run directly on the design files, prints them without the `file:line` prefix of a lake build, and the extractor reads only prefixed reports. These are the reports #831's preregistration describes at lines 66 to 70 ("Its five named theorems compiled … The four headline/corollary axiom reports contain only `propext`, …").
 - **The release gate.** The workflow runs none. Its final records check (`legacy_records_check.py`, `v3_verifier.py --receipts`, `artifact_placement_check.py`) and its exact-control replay print output the extractor does not read; `jobs.json` records each step's conclusion.
-- **The source commits.** Neither is reachable from `main`. On 2026-10-17 the host branch above held both (head `468e0f79`). They are not retained under `objects/`, because each tree holds two non-empty captured outputs, `exact-output.txt` (196 bytes) and `independent-output.txt` (175 bytes). The withholding policy withholds such a `.txt` output only once the owner approves it, and `check_objects.py`'s approved list does not name these two.
 
-`compare_result.py` and `reproduce.py` require a release gate, so the recipe's comparison is manual. The prime defect bears on any future result whose modules declare primed names; no tranche-1 module record has a primed `#print axioms` line.
+Both source commits, which `main` does not reach, are retained under `objects/` in archive tranche 4 (below), without their two withheld captured outputs. The recipe writes them into a clone with `check_objects.py --materialize` and checks them out sparsely without those two paths. `compare_result.py` and `reproduce.py` require a release gate, so the recipe's comparison is manual. The prime defect bears on any future result whose modules declare primed names; no tranche-1 module record has a primed `#print axioms` line.
 
 ## Checking
 

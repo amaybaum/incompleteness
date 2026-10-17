@@ -12549,16 +12549,16 @@
      "sha256": "8190c9187e17ac9a9761761ae8d9da23b6d7d0151f26adc870dc84a6a73a16ed"
     },
     {
-     "bytes": 64682,
+     "bytes": 74081,
      "kind": "complete",
      "path": "check_objects.py",
-     "sha256": "8c8cd29e0c64ca87862e4e640d569c81d2df69159e33c4dc73d95db337589c2a"
+     "sha256": "c4c6d93f48dcfe63cda8411acbb7098f5fadb739b9d519dadce39a99973b1114"
     },
     {
-     "bytes": 657200,
+     "bytes": 704662,
      "kind": "complete",
      "path": "objects/manifest.json",
-     "sha256": "dae8043f4334b2b2e447a56094550a66cc176c6328e7617e36e70bf3ef0f7b77"
+     "sha256": "d1ee1c6740143e346d40e3e50ba0002c4019eb8a90c48934982812c4c3fc72ba"
     }
    ],
    "id": "tranche-record",
@@ -14565,7 +14565,8 @@
     "line": 69,
     "note": "retained ahead of its citing record by the owner's instruction of 2026-10-17; no tracked file outside this archive cites the run",
     "pull_request": 831,
-    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md"
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+    "round": "PRESERVE-INDUCT-1"
    },
    "citations": [],
    "files": [
@@ -14584,10 +14585,10 @@
      "source_sha256": "2a6cf2a8f5a6a04e000a41b8290cf00cb036d12417bbbe1a4f249b7441dcf2f8"
     },
     {
-     "bytes": 22941,
+     "bytes": 23519,
      "kind": "derived",
      "path": "ci/38450187534/results.json",
-     "sha256": "b399a5094f5a6974a7b3b5f54b2923d8ccc44499ebebf9d4e0d28d37802882de",
+     "sha256": "8dfbeb2b950d3474e239c3398cd3cb76fc75aae22ef1b7c8942729883f41bba1",
      "source_sha256": "814d820bb2ea2cd8726979e7881b4bc5a6734ae286913960bb8aec2fcbdfab5f"
     }
    ],
@@ -14612,7 +14613,8 @@
     "line": 127,
     "note": "retained ahead of its citing record by the owner's instruction of 2026-10-17; no tracked file outside this archive cites the run",
     "pull_request": 831,
-    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md"
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
+    "round": "PRESERVE-INDUCT-1"
    },
    "citations": [],
    "files": [
@@ -14631,10 +14633,10 @@
      "source_sha256": "40cca2324dba6c22598352217f2754e01d8667a067b4688ec05da1ff72205e43"
     },
     {
-     "bytes": 32340,
+     "bytes": 32918,
      "kind": "derived",
      "path": "ci/38454439833/results.json",
-     "sha256": "6d47b3cd9940c6272aa992df2e8881375a3c43c184e5f4c4c2bd9df049998149",
+     "sha256": "647c69f0cadc7dd89e77d0b189eeabeab28e63ee77837818a8ec18d0c16b27e0",
      "source_sha256": "b8fde0612483687da594460dde87c6f86115a5c5a8f68b0d4ca0ad75491caf14"
     }
    ],
@@ -14657,16 +14659,32 @@
    "citations": [],
    "files": [
     {
-     "bytes": 14322,
+     "bytes": 14649,
      "kind": "complete",
      "path": "build_research_runs.py",
-     "sha256": "318e79e32839efd078352490fbf16d470c33c5e678e787f02c4aaa09baf63ee9"
+     "sha256": "42a553257362aa1f2ea7ae3324f4846d9746f5c83e20107840e1bcc992ba1d47"
     }
    ],
    "id": "research-runs-record",
    "kind": "complete",
    "provenance": {
     "source": "written for this archive: the script that cut the research-build entries"
+   }
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 11100,
+     "kind": "complete",
+     "path": "build_tranche4_objects.py",
+     "sha256": "a22f34852d709a5985dec5b56287c8fd3dac1fab606c841c41af11405387b23d"
+    }
+   ],
+   "id": "tranche4-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive: the script that cut archive tranche 4 of the retained off-main objects (objects/manifest.json, which tranche-record pins, holds the objects)"
    }
   }
  ],
@@ -15158,12 +15176,6 @@
    "why": "the step Replay independent exact controls compares the design's two scripts with their saved outputs and prints them; extract_result.py does not read that output; jobs.json records the step's conclusion"
   },
   {
-   "id": "research-38450187534",
-   "run_id": "38450187534",
-   "what": "source commit e684897da41b1c3d066b880194c9beb87a19b7ad",
-   "why": "the commit is not reachable from main; on 2026-10-17 host branch research/preservation-induction-design-20261013 held it (head 468e0f79cabb). It is not retained under objects/: its tree holds the non-empty captured outputs verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt (196 bytes) and independent-output.txt (175 bytes), which the withholding policy withholds only once the owner approves them, and check_objects.py's approved list does not name them"
-  },
-  {
    "id": "research-38454439833",
    "run_id": "38454439833",
    "what": "axiom reports of OIBridge/ImplementationLocality.lean",
@@ -15186,12 +15198,6 @@
    "run_id": "38454439833",
    "what": "exact-control replay output",
    "why": "the step Replay independent exact controls compares the design's two scripts with their saved outputs and prints them; extract_result.py does not read that output; jobs.json records the step's conclusion"
-  },
-  {
-   "id": "research-38454439833",
-   "run_id": "38454439833",
-   "what": "source commit febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
-   "why": "the commit is not reachable from main; on 2026-10-17 host branch research/preservation-induction-design-20261013 held it (head 468e0f79cabb). It is not retained under objects/: its tree holds the non-empty captured outputs verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt (196 bytes) and independent-output.txt (175 bytes), which the withholding policy withholds only once the owner approves them, and check_objects.py's approved list does not name them"
   }
  ],
  "reproduction": {

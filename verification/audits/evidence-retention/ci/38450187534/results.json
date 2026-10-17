@@ -817,8 +817,10 @@
   "compared": "build success; each target module's reports and axioms; the markers",
   "not_compared": "timestamps, durations, cache behaviour, job counts, output order; the design files' reports and the exact-control output (recorded gaps)",
   "recipe": [
-   "run from the root of a full-history clone at a commit that carries this archive (the verifier); the source commit is not on main, so fetch it first (git fetch origin research/preservation-induction-design-20261013, while that branch exists); <dir> is a new directory and <log> a file outside it",
-   "git worktree add --detach <dir> e684897da41b1c3d066b880194c9beb87a19b7ad",
+   "run from the root of a full-history clone at a commit that carries this archive (the verifier); <dir> is a new directory and <log> a file outside it",
+   "python3 -I verification/audits/evidence-retention/check_objects.py --materialize (the source commit is retained under objects/, without its two withheld outputs verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt and independent-output.txt; while research/preservation-induction-design-20261013 exists, git fetch origin research/preservation-induction-design-20261013 supplies them as well)",
+   "git worktree add --no-checkout --detach <dir> e684897da41b1c3d066b880194c9beb87a19b7ad",
+   "(cd <dir> && git sparse-checkout set --no-cone '/*' '!/verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt' '!/verification/programmes/oi-qm/reconstruction/preservation-induction-design/independent-output.txt' && git checkout)",
    "(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build OIBridge.ImplementationLocality) > <log> 2>&1",
    "python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json",
    "compare build success, the markers, and each target module's reports and axioms with expected; compare_result.py requires a release gate, which this build has none of, so the comparison is by hand"

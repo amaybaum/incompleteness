@@ -134,11 +134,10 @@ for rid, job, head, targets, design, cline in RUNS:
                  'why': 'the step Replay independent exact controls compares the design\'s two scripts with their saved '
                         'outputs and prints them; extract_result.py does not read that output; jobs.json records the step\'s '
                         'conclusion'})
-    gaps.append({'what': 'source commit %s' % head,
-                 'why': 'the commit is not reachable from main; on 2026-10-17 host branch %s held it (head %s). It is not '
-                        'retained under objects/: its tree holds the non-empty captured outputs %sexact-output.txt (196 bytes) '
-                        'and independent-output.txt (175 bytes), which the withholding policy withholds only once the owner '
-                        'approves them, and check_objects.py\'s approved list does not name them' % (BRANCH, HOLDER[:12], DESIGN)})
+    objs = json.load(open(os.path.join(ARCH, 'objects', 'manifest.json'), encoding='utf-8'))['objects']
+    if not any(o['oid'] == head and o['type'] == 'commit' for o in objs):
+        gaps.append({'what': 'source commit %s' % head,
+                     'why': 'the commit is not reachable from main, and it is not retained under objects/'})
     run = {'attempt': a['run_attempt'], 'conclusion': jb['conclusion'], 'event': a['event'], 'head_sha': head, 'id': rid,
            'job_id': str(job), 'job_name': jb['name'], 'workflow': os.path.basename(WORKFLOW)}
     res = {'schema': 'oi-evidence-result', 'version': 1, 'kind': 'research-build', 'run': run, 'scope': SCOPE,
@@ -158,9 +157,14 @@ for rid, job, head, targets, design, cline in RUNS:
                         'unprefixed_report_lines': len(bare)},
            'reproduce': {
                'recipe': ['run from the root of a full-history clone at a commit that carries this archive (the verifier); '
-                          'the source commit is not on main, so fetch it first (git fetch origin %s, while that branch '
-                          'exists); <dir> is a new directory and <log> a file outside it' % BRANCH,
-                          'git worktree add --detach <dir> %s' % head,
+                          '<dir> is a new directory and <log> a file outside it',
+                          'python3 -I verification/audits/evidence-retention/check_objects.py --materialize (the source '
+                          'commit is retained under objects/, without its two withheld outputs %sexact-output.txt and '
+                          'independent-output.txt; while %s exists, git fetch origin %s supplies them as well)'
+                          % (DESIGN, BRANCH, BRANCH),
+                          'git worktree add --no-checkout --detach <dir> %s' % head,
+                          '(cd <dir> && git sparse-checkout set --no-cone \'/*\' \'!/%sexact-output.txt\' '
+                          '\'!/%sindependent-output.txt\' && git checkout)' % (DESIGN, DESIGN),
                           '(cd <dir>/verification/lean-mathlib && lean --version && lake exe cache get && lake --rehash build %s) > <log> 2>&1'
                           % ' '.join(t[:-5].replace('/', '.') for t in targets),
                           'python3 -I verification/audits/evidence-retention/extract_result.py <log> > reproduced.json',
@@ -185,7 +189,8 @@ for rid, job, head, targets, design, cline in RUNS:
         files.append({'path': 'ci/%s/%s' % (rid, name), 'bytes': len(b), 'sha256': sha(b), 'kind': 'derived', 'source_sha256': sha(src)})
     man['entries'].append({
         'id': 'research-' + rid, 'kind': 'derived', 'run_id': rid, 'files': files, 'citations': [],
-        'awaiting_citation': {'pull_request': 831, 'record': CITER, 'line': cline, 'head': '65b85147f85aa01770e0e60551152bc5f1d9ef29',
+        'awaiting_citation': {'pull_request': 831, 'round': 'PRESERVE-INDUCT-1', 'record': CITER, 'line': cline,
+                              'head': '65b85147f85aa01770e0e60551152bc5f1d9ef29',
                               'note': 'retained ahead of its citing record by the owner\'s instruction of 2026-10-17; no tracked '
                                       'file outside this archive cites the run'},
         'roles': [{'kind': 'research build', 'workflow': WORKFLOW, 'branch': BRANCH, 'commit': head}],

@@ -1,0 +1,6 @@
+tree 324863d5ddf4a1f830c2d1ed8f49a8399f5a8b3e
+parent f1fc73a50b91cf0824611b2082445363ddec2e8d
+author amaybaum <amaybaum@users.noreply.github.com> 1791919399 +0300
+committer amaybaum <amaybaum@users.noreply.github.com> 1791919399 +0300
+
+Repair the helper proof obligations found by the research Lean build
