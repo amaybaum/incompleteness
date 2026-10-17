@@ -21,7 +21,9 @@ none of the excluded phrases, and no change outside the governed paths.
 
 Exit 1 on any failure.
 """
+import contextlib
 import hashlib
+import io
 import json
 import os
 import re
@@ -157,6 +159,9 @@ SPLICES = [
     ('          test "${BG2_RESULT}" = success\n',
      '          test "${BG2_RESULT}" = success\n          test "${KTOKENMAXCONE1_RESULT}" = success\n'),
 ]
+REQUIRED = ['C1', 'C2', 'S1', 'S2', 'S3', 'S4', 'W', 'I', 'J', 'P', 'R', 'G', 'T']
+POSITIVE = ['KTOKEN-MAXCONE-INCLUSIONS-PROVED', 'KTOKEN-MAXCONE-EQ-PROVED', 'KTOKEN-MAXCONE-PAIR-RECOVERED',
+            'KTOKEN-MAXCONE-K3-EXACT', 'KTOKEN-MAXCONE-1-READ']
 FIXED_RECORD = {'preregistration.md', 'controls.py', 'checks/KTokenPairCheck.lean', 'checks/run_checks.py'}
 
 FAIL = []
@@ -368,6 +373,8 @@ def s2(E):
 
 
 def check(E, F):
+    """Runs and prints every static control; returns {code: passed} for the codes in REQUIRED."""
+    start = len(FAIL)
     prereg_F, prereg_E = show(F, PREREG), show(E, PREREG)
     module = show(E, MODULE) or ''
     report('C1 the preregistration at E is the one at F', prereg_F is not None and prereg_F == prereg_E)
@@ -400,7 +407,8 @@ def check(E, F):
     report('T delta(D, F) is the control plane; the execution is linear after F',
            all(p == PREREG or p.startswith(RDIR + 'amendments/') for p in fdelta) and PREREG in fdelta
            and lin and all(len(x.split()) == 2 for x in lin))
-    return not FAIL
+    failed = {n.split()[0] for n in FAIL[start:]}
+    return {code: code not in failed for code in REQUIRED}
 
 
 def run_probe(E, *args):
@@ -441,22 +449,65 @@ def cells(static_s1, static_s2, static_s3, ax, log, exact):
     return incl, eq, pair, exact
 
 
-def verdict(E, F, axlog):
-    static = check(E, F)
-    rc, out, err = run_probe(E, '--self-test')
-    print(out.rstrip())
-    exact = probe_ok(rc, out, err, True)
-    log = open(axlog, encoding='utf-8', errors='replace').read() if axlog else ''
-    ax = axioms_from(log)
-    names = ''.join(FAIL)
-    incl, eq, pair, exact = cells('S1' not in names, 'S2' not in names, 'S3' not in names, ax, log, exact)
-    print('axiom reports read: %d of %d prints' % (len([p for p in PRINTS if p in ax]), len(PRINTS)))
+def verdict(E, F, axlog, check_fn=None, probe_fn=None):
+    """Every positive token is gated on every required static control: if any control in REQUIRED fails or is
+    not reported, the failed controls are printed, the probe is not run, every cell prints NOT-ESTABLISHED,
+    the round prints NOT-READ and the result is False. check_fn and probe_fn default to check and run_probe."""
+    results = (check_fn or check)(E, F)
+    results = results if isinstance(results, dict) else {}
+    failed = [c for c in REQUIRED if not results.get(c, False)]
+    if failed:
+        print('STATIC CONTROLS FAILED: ' + ', '.join(failed))
+        print('probe not run and axiom reports not read: a required static control failed')
+        incl = eq = pair = exact = False
+    else:
+        rc, out, err = (probe_fn or run_probe)(E, '--self-test')
+        print(out.rstrip())
+        log = open(axlog, encoding='utf-8', errors='replace').read() if axlog else ''
+        ax = axioms_from(log)
+        incl, eq, pair, exact = cells(True, True, True, ax, log, probe_ok(rc, out, err, True))
+        print('axiom reports read: %d of %d prints' % (len([p for p in PRINTS if p in ax]), len(PRINTS)))
     print('TOKEN Q-INCL  %s' % ('KTOKEN-MAXCONE-INCLUSIONS-PROVED' if incl else 'KTOKEN-MAXCONE-INCLUSIONS-NOT-ESTABLISHED'))
     print('TOKEN Q-EQ    %s' % ('KTOKEN-MAXCONE-EQ-PROVED' if eq else 'KTOKEN-MAXCONE-EQ-NOT-ESTABLISHED'))
     print('TOKEN Q-PAIR  %s' % ('KTOKEN-MAXCONE-PAIR-RECOVERED' if pair else 'KTOKEN-MAXCONE-PAIR-NOT-ESTABLISHED'))
     print('TOKEN Q-EXACT %s' % ('KTOKEN-MAXCONE-K3-EXACT' if exact else 'KTOKEN-MAXCONE-K3-NOT-ESTABLISHED'))
-    print('KTOKEN-MAXCONE-1-READ' if static else 'KTOKEN-MAXCONE-1-NOT-READ (a static control failed)')
-    return static
+    print('KTOKEN-MAXCONE-1-NOT-READ (static controls failed: %s)' % ', '.join(failed) if failed
+          else 'KTOKEN-MAXCONE-1-READ')
+    return not failed
+
+
+def verdict_regression():
+    """Through verdict() itself: each required static control failing alone, a control left unreported, and
+    the all-clean case. Returns a list of problems."""
+    log = '\n'.join("'%s.%s' depends on axioms: [propext, Classical.choice, Quot.sound]" % (NS, p) for p in PRINTS)
+    log += '\n' + EVAL_LOG + '\n' + A3_LOG + '\n'
+    pout = '\n'.join('PASS %s (1)' % c for c in PROBE_CODES) + '\nchecks: %d, failures: 0\n' % PROBE_N + \
+        '\n'.join('REJECTED ' + m for m in PROBE_MUTATIONS) + '\nmutations: 5 rejected, 0 accepted\n' \
+        'VERDICT KTOKEN-K3-EXACT\n'
+    probe = lambda E, *a: (0, pout, '')
+    problems = []
+    with tempfile.TemporaryDirectory() as tmp:
+        path = os.path.join(tmp, 'bridge.log')
+        with open(path, 'w', encoding='utf-8') as fh:
+            fh.write(log)
+
+        def run(results):
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                ok = verdict('E', 'F', path, check_fn=lambda E, F: dict(results), probe_fn=probe)
+            return ok, buf.getvalue()
+        clean = {c: True for c in REQUIRED}
+        ok, out = run(clean)
+        if not ok or not all(t in out for t in POSITIVE):
+            problems.append('all-clean case: result %s, positive tokens %s' % (ok, [t for t in POSITIVE if t in out]))
+        cases = [(c, dict(clean, **{c: False})) for c in REQUIRED]
+        cases.append(('C2 unreported', {c: True for c in REQUIRED if c != 'C2'}))
+        for name, results in cases:
+            ok, out = run(results)
+            leaked = [t for t in POSITIVE if t in out]
+            if ok or leaked or 'STATIC CONTROLS FAILED: ' + name.split()[0] not in out:
+                problems.append('%s alone failing: result %s, positive tokens printed %s' % (name, ok, leaked))
+    return problems, len(REQUIRED) + 2
 
 
 # ---------------------------------------------------------------- self-test
@@ -568,6 +619,10 @@ def self_test():
     report('self: the probe rule accepts the frozen output shape and rejects N, a missing code and stderr',
            probe_ok(0, pout, '', True) and not probe_ok(0, pout.replace(str(PROBE_N), '3195'), '', True)
            and not probe_ok(0, pout.replace('PASS SLICE3', 'PASS SLICE'), '', True) and not probe_ok(0, pout, 'x', True))
+    problems, n = verdict_regression()
+    report('self: verdict() prints no positive token when any one of the %d required static controls fails or is '
+           'unreported, and prints all of them when every control passes (%d cases)' % (len(REQUIRED), n),
+           not problems, '; '.join(problems))
     return not FAIL
 
 
@@ -575,7 +630,7 @@ def main(argv):
     if argv[:1] == ['--self-test']:
         ok = self_test()
     elif argv[:1] == ['check'] and len(argv) >= 4 and argv[2] == '--freeze':
-        ok = check(argv[1], argv[3])
+        ok = all(check(argv[1], argv[3]).values())
     elif argv[:1] == ['verdict'] and len(argv) >= 4 and argv[2] == '--freeze':
         ax = argv[argv.index('--axioms') + 1] if '--axioms' in argv else None
         ok = verdict(argv[1], argv[3], ax)

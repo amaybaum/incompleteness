@@ -285,9 +285,15 @@ Shard `probes_ktokenmaxcone1`.
 | Q-PAIR | `KTOKEN-MAXCONE-PAIR-RECOVERED` | Q-INCL's conditions for the six transports and `pairCone_eq_Q3_of_kToken`. S1: its statement equals EqvK2MaxCone.lean:153–160 but for its name and the `OIBridge.` qualification. S3: its proof names `kCone_eq_QK_of_drive_maxCone` and neither `EqvK2MaxCone` nor a sibling. In the bridge log, the absence line and `A3-CHECK-NONVACUOUS: 13 cases as expected` |
 | Q-EXACT | `KTOKEN-MAXCONE-K3-EXACT` | The probe blob at `E`, run by `controls.py` with `python3 -I -B --self-test`, prints the 14 codes, no `FAIL`, `checks: 3196, failures: 0`, the five rejections and `VERDICT KTOKEN-K3-EXACT`, with empty standard error |
 
-Otherwise each cell prints `KTOKEN-MAXCONE-<INCLUSIONS|EQ|PAIR|K3>-NOT-ESTABLISHED`. No rule reads another cell's
-outcome. `KTOKEN-MAXCONE-1-READ` is printed when the four cells are assigned and every static control passes. The tokens are printed by
-`controls.py verdict E --freeze F --axioms <E's bridge log>`.
+Every positive token is gated on the static controls. If any of C1, C2, S1–S4, W, I, J, P, R, G or T fails at `E`,
+or is not reported, `verdict` prints the failed controls, runs no probe and reads no axiom report. Every cell then
+prints `KTOKEN-MAXCONE-<INCLUSIONS|EQ|PAIR|K3>-NOT-ESTABLISHED`, the round prints `KTOKEN-MAXCONE-1-NOT-READ`, and the
+exit status is 1.
+
+When every static control passes, each cell prints its positive token or `…-NOT-ESTABLISHED` by its rule above, and the
+round prints `KTOKEN-MAXCONE-1-READ`. No rule reads another cell's outcome. The tokens are printed by
+`controls.py verdict E --freeze F --axioms <E's bridge log>`. `controls.py --self-test`, which the shard runs, drives
+`verdict` itself through each required control failing alone, one control unreported, and the all-clean case.
 
 ## The earned reading and the non-inference rule (frozen)
 
@@ -377,6 +383,7 @@ OPEN under every outcome.
 | one witness per direction of the iff; the `k = 2` recovery uses the k-token theorem | `C5`: S1 and S3 in `controls.py check E --freeze F` |
 | the `k = 2` recovery is independent of the pair theorem and its siblings, and its statement is the pair theorem's | `C3`: the bridge job's A3 step `success` with `A3-CHECK-NONVACUOUS: 13 cases as expected`, its eleven mutations failing in the same step; the absence line in the build log |
 | the exact layer replays; its mutations are rejected | `C3`: shard `probes_ktokenmaxcone1` green; `verdict` re-runs the probe blob at `E` (N = 3196) |
+| no positive token is printed while any required static control fails | `C3`: shard `probes_ktokenmaxcone1` running `controls.py --self-test`, whose `verdict` regression covers each of the 13 controls failing alone, one unreported, and the all-clean case |
 | the classical carrier instance does not leak to importers | `C5`: S1 (the two scoped lines) |
 | the module is registered; no manuscript or ROADMAP changes | `C4`: the release gate at `E` passing every step, `evidence-retention` included; `C5` (J, G) |
 | the change stays inside the governed paths, with exactly the frozen workflow, import and census edits | `C6`: `git diff --no-renames --name-status D E`; `C5` (G, W, I, J) |
@@ -413,7 +420,7 @@ below.
 
 | path | blob |
 | --- | --- |
-| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `ea052f2dd1cff2a80695cbe164ee9681ca705534` |
+| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `00a081de9b922a4e10d5832d6edb216e1a7ea588` |
 | `verification/lean-mathlib/OIBridge/KTokenMaxCone.lean` | `14bb9fc07bf65e59e3f412ac7270ffb734a30069` |
 | `verification/lean/ktoken_maxcone1_probe.py` | `04580c5104eaa4cf7eaa5fc32614582442f538e1` |
 | `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | `354bd7ce18119da451883ab5189010a5113ffa16` |
