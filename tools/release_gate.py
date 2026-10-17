@@ -63,7 +63,9 @@ another. Each exists because a real defect shipped past the others:
                        CV-1's runs, from the contributions of
                        verification/certificates/CV1.json (R11, a consistency
                        check), the tranche-3 run entries and the list of
-                       cited runs not yet retained (R12), and its self-test;
+                       cited runs not yet retained (R12), the research builds
+                       retained ahead of their citing record (R13), and its
+                       self-test;
                        then the checker of the retained off-main objects
                        (objects/) in history mode, and its self-test; then
                        the self-test of tranche 3's job-output comparator.

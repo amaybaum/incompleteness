@@ -14558,6 +14558,116 @@
    "provenance": {
     "source": "written for this archive: tranche 3's extractor, reproduction tool and comparator, and the script that cut the tranche"
    }
+  },
+  {
+   "awaiting_citation": {
+    "head": "65b85147f85aa01770e0e60551152bc5f1d9ef29",
+    "line": 69,
+    "note": "retained ahead of its citing record by the owner's instruction of 2026-10-17; no tracked file outside this archive cites the run",
+    "pull_request": 831,
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md"
+   },
+   "citations": [],
+   "files": [
+    {
+     "bytes": 608,
+     "kind": "derived",
+     "path": "ci/38450187534/run.json",
+     "sha256": "6005d6703d83187a4387c330a6cbc232864adba3a06642aa2cc2907de4a2d82e",
+     "source_sha256": "b7eeecf410db9bf77efe5f431c752983ec7d2f1851835494e6d48be249ced09c"
+    },
+    {
+     "bytes": 1821,
+     "kind": "derived",
+     "path": "ci/38450187534/jobs.json",
+     "sha256": "92a7ad6de5c823186cf4c6d6756b090a84afc6d590c00bd07630081903c27693",
+     "source_sha256": "2a6cf2a8f5a6a04e000a41b8290cf00cb036d12417bbbe1a4f249b7441dcf2f8"
+    },
+    {
+     "bytes": 22941,
+     "kind": "derived",
+     "path": "ci/38450187534/results.json",
+     "sha256": "b399a5094f5a6974a7b3b5f54b2923d8ccc44499ebebf9d4e0d28d37802882de",
+     "source_sha256": "814d820bb2ea2cd8726979e7881b4bc5a6734ae286913960bb8aec2fcbdfab5f"
+    }
+   ],
+   "id": "research-38450187534",
+   "kind": "derived",
+   "notes": [
+    "the result establishes what this run logged at e684897da41b, nothing about later trees"
+   ],
+   "roles": [
+    {
+     "branch": "research/preservation-induction-design-20261013",
+     "commit": "e684897da41b1c3d066b880194c9beb87a19b7ad",
+     "kind": "research build",
+     "workflow": ".github/workflows/preservation-induction-design.yml"
+    }
+   ],
+   "run_id": "38450187534"
+  },
+  {
+   "awaiting_citation": {
+    "head": "65b85147f85aa01770e0e60551152bc5f1d9ef29",
+    "line": 127,
+    "note": "retained ahead of its citing record by the owner's instruction of 2026-10-17; no tracked file outside this archive cites the run",
+    "pull_request": 831,
+    "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md"
+   },
+   "citations": [],
+   "files": [
+    {
+     "bytes": 601,
+     "kind": "derived",
+     "path": "ci/38454439833/run.json",
+     "sha256": "e03c712fe769561428f9b01e80549bc55ae2d98b6ce718c3a58de27fee7d90e3",
+     "source_sha256": "64db179a526fa3335d888b96b19b99a74afddafd21b07cbf779bef50ae671864"
+    },
+    {
+     "bytes": 1821,
+     "kind": "derived",
+     "path": "ci/38454439833/jobs.json",
+     "sha256": "88e862da8cd2d37fdf2479e3f7b0f7e24fa5a42e6aeff385bafef6efd3b0137f",
+     "source_sha256": "40cca2324dba6c22598352217f2754e01d8667a067b4688ec05da1ff72205e43"
+    },
+    {
+     "bytes": 32340,
+     "kind": "derived",
+     "path": "ci/38454439833/results.json",
+     "sha256": "6d47b3cd9940c6272aa992df2e8881375a3c43c184e5f4c4c2bd9df049998149",
+     "source_sha256": "b8fde0612483687da594460dde87c6f86115a5c5a8f68b0d4ca0ad75491caf14"
+    }
+   ],
+   "id": "research-38454439833",
+   "kind": "derived",
+   "notes": [
+    "the result establishes what this run logged at febfe5e2668d, nothing about later trees"
+   ],
+   "roles": [
+    {
+     "branch": "research/preservation-induction-design-20261013",
+     "commit": "febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+     "kind": "research build",
+     "workflow": ".github/workflows/preservation-induction-design.yml"
+    }
+   ],
+   "run_id": "38454439833"
+  },
+  {
+   "citations": [],
+   "files": [
+    {
+     "bytes": 14322,
+     "kind": "complete",
+     "path": "build_research_runs.py",
+     "sha256": "318e79e32839efd078352490fbf16d470c33c5e678e787f02c4aaa09baf63ee9"
+    }
+   ],
+   "id": "research-runs-record",
+   "kind": "complete",
+   "provenance": {
+    "source": "written for this archive: the script that cut the research-build entries"
+   }
   }
  ],
  "kinds": {
@@ -15022,6 +15132,66 @@
    "run_id": "38854027737",
    "what": "axiom reports of OIBridge/TurnpikeScopeTransfer.lean",
    "why": "0 of the module's 7 #print axioms reports are in the served lines; the served text is the last 5000 of the log's 38634 lines; reproduction at the commit reports all 7"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "axiom reports of OIBridge/ImplementationLocality.lean",
+   "why": "6 of the module's 81 #print axioms lines have no extracted report. The log was served whole (3256 lines); each of the 6 names a declaration ending in a prime, its report stands in the served text (served lines 3078, 3079, 3096, 3101, 3102, 3105), and extract_result.py's report pattern does not match a name that contains an apostrophe, so the report is not extracted"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "release gate",
+   "why": "the workflow runs no release gate, and the served log holds no gate block; its last step, Check retained records and artifact placement, runs legacy_records_check.py, v3_verifier.py --receipts and artifact_placement_check.py, whose output extract_result.py does not read; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "axiom reports of the research design (PreservationInduction.lean)",
+   "why": "`lean` run on the design files prints its 4 reports without the file:line prefix of a lake build (served lines 3164 to 3171); extract_result.py reads only prefixed reports, so none is extracted, and they are not inferred here"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "exact-control replay output",
+   "why": "the step Replay independent exact controls compares the design's two scripts with their saved outputs and prints them; extract_result.py does not read that output; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38450187534",
+   "run_id": "38450187534",
+   "what": "source commit e684897da41b1c3d066b880194c9beb87a19b7ad",
+   "why": "the commit is not reachable from main; on 2026-10-17 host branch research/preservation-induction-design-20261013 held it (head 468e0f79cabb). It is not retained under objects/: its tree holds the non-empty captured outputs verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt (196 bytes) and independent-output.txt (175 bytes), which the withholding policy withholds only once the owner approves them, and check_objects.py's approved list does not name them"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "axiom reports of OIBridge/ImplementationLocality.lean",
+   "why": "6 of the module's 81 #print axioms lines have no extracted report. The log was served whole (3692 lines); each of the 6 names a declaration ending in a prime, its report stands in the served text (served lines 3086, 3087, 3104, 3109, 3110, 3113), and extract_result.py's report pattern does not match a name that contains an apostrophe, so the report is not extracted"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "release gate",
+   "why": "the workflow runs no release gate, and the served log holds no gate block; its last step, Check retained records and artifact placement, runs legacy_records_check.py, v3_verifier.py --receipts and artifact_placement_check.py, whose output extract_result.py does not read; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "axiom reports of the research design (PreservationInduction.lean, ResearchInstances.lean)",
+   "why": "`lean` run on the design files prints its 10 reports without the file:line prefix of a lake build (served lines 3592 to 3607); extract_result.py reads only prefixed reports, so none is extracted, and they are not inferred here"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "exact-control replay output",
+   "why": "the step Replay independent exact controls compares the design's two scripts with their saved outputs and prints them; extract_result.py does not read that output; jobs.json records the step's conclusion"
+  },
+  {
+   "id": "research-38454439833",
+   "run_id": "38454439833",
+   "what": "source commit febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",
+   "why": "the commit is not reachable from main; on 2026-10-17 host branch research/preservation-induction-design-20261013 held it (head 468e0f79cabb). It is not retained under objects/: its tree holds the non-empty captured outputs verification/programmes/oi-qm/reconstruction/preservation-induction-design/exact-output.txt (196 bytes) and independent-output.txt (175 bytes), which the withholding policy withholds only once the owner approves them, and check_objects.py's approved list does not name them"
   }
  ],
  "reproduction": {

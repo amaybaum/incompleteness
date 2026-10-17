@@ -77,6 +77,14 @@ Rules:
       and expiry, in order of creation; no retained or remaining run is attested or already retained by
       tranches 1-2; no retained run expires after a remaining one (earliest expiry first); and its counts agree.
       R12 does not re-derive an expected result: job_outputs.py reproduce does, at the commit.
+  R13 each entry retained ahead of its citing record (research-<run_id>, a research build of a workflow not on main)
+      records where it is to be cited (pull request, record, line, head) and carries no citation, and no file of
+      the tree outside the archive cites the run (once one does, the entry must carry that citation); its run.json,
+      jobs.json and results.json, of kind research-build, name the same run, head commit and attempt and a job of
+      jobs.json, and the result derives from the served log whose digest the entry records; the run has no other
+      entry; and every item the result does not carry is a recorded gap: each partial or empty target module's
+      reports, the release gate (a research build runs none, and R4 requires its result to record none), the design
+      files' reports, the exact-control output and the off-main source commit.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -162,7 +170,7 @@ def check(archive, root, scope=None):
             if rel.endswith('/results.json') or (rel.startswith('bg3/results-') and rel.endswith('.json')):
                 check_results(eid, rel, files[rel], e, F)
         cites = e.get('citations', [])
-        if e.get('kind') != 'complete' and not cites:
+        if e.get('kind') != 'complete' and not cites and 'awaiting_citation' not in e:
             F('R7 %s: no citations' % eid)
         if e.get('kind') == 'complete' and cites:
             F('R7 %s: a "complete" entry carries citations' % eid)
@@ -223,6 +231,8 @@ def check(archive, root, scope=None):
             check_entry_files(e, files, man, F)
         if str(eid).startswith('run-') or e.get('tranche') == 3:
             check_run_entry(e, files, F)
+        if str(eid).startswith('research-') and eid != 'research-runs-record' or 'awaiting_citation' in e:
+            check_research_entry(e, files, man, archive, root, F)
     for g in man.get('missing', []):
         if g.get('id') not in ids or not g.get('what') or not g.get('why'):
             F('R7 gap %r names no entry, or has no what/why' % g)
@@ -253,7 +263,8 @@ def check_results(eid, rel, text, e, F):
     except ValueError:
         F('R4 %s: %s is not JSON' % (eid, rel))
         return
-    if r.get('schema') != 'oi-evidence-result' or r.get('version') != 1 or r.get('kind') not in ('bridge', 'design-diagnostic'):
+    if r.get('schema') != 'oi-evidence-result' or r.get('version') != 1 or \
+            r.get('kind') not in ('bridge', 'design-diagnostic', 'research-build'):
         F('R4 %s: %s has an unknown schema, version or kind' % (eid, rel))
         return
     run, exp = r.get('run') or {}, r.get('expected') or {}
@@ -267,10 +278,15 @@ def check_results(eid, rel, text, e, F):
         F('R4 %s: %s records no extractor or no reproduction recipe' % (eid, rel))
     if exp.get('build_success') is not True:
         F('R4 %s: %s records no successful build' % (eid, rel))
-    g = exp.get('gate') or {}
-    if not g.get('verdict') or not g.get('steps') or any(not st.get('name') or st.get('status') not in ('PASS', 'FAIL', 'SKIP')
-                                                           for st in g.get('steps', [])):
-        F('R4 %s: %s records no gate verdict or malformed gate steps' % (eid, rel))
+    if r['kind'] == 'research-build':
+        # a research workflow runs no release gate: the result records none, and the entry records the gap (R13)
+        if exp.get('gate') is not None:
+            F('R4 %s: %s is a research build and records a gate' % (eid, rel))
+    else:
+        g = exp.get('gate') or {}
+        if not g.get('verdict') or not g.get('steps') or any(not st.get('name') or st.get('status') not in ('PASS', 'FAIL', 'SKIP')
+                                                               for st in g.get('steps', [])):
+            F('R4 %s: %s records no gate verdict or malformed gate steps' % (eid, rel))
     mods = exp.get('modules')
     if not isinstance(mods, dict):
         F('R4 %s: %s has no module table' % (eid, rel))
@@ -448,6 +464,81 @@ def check_run_entry(e, files, F):
     fr = next((f for f in e.get('files', []) if f.get('path') == 'runs/%s/expected.json' % rid), {})
     if len(outs) != 1 or fr.get('source_sha256') != (outs[0].get('source') or {}).get('served_sha256'):
         F('R12 %s: expected.json does not derive from its one output\'s served log' % eid)
+
+
+SKIP_DIRS = {'.git', '.lake', 'node_modules', '__pycache__'}
+SKIP_EXT = ('.pdf', '.tex', '.olean', '.ilean', '.png', '.jpg', '.gz', '.zip', '.bundle')
+
+
+def cited_in_tree(root, token, archive):
+    """The first file under root, outside the archive directory, whose text contains token, or None."""
+    skip = os.path.realpath(archive)
+    for dirpath, dirs, names in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS and os.path.realpath(os.path.join(dirpath, d)) != skip]
+        for fn in names:
+            if fn.endswith(SKIP_EXT):
+                continue
+            p = os.path.join(dirpath, fn)
+            try:
+                if token.encode('ascii') in open(p, 'rb').read():
+                    return os.path.relpath(p, root).replace(os.sep, '/')
+            except OSError:
+                continue
+    return None
+
+
+def check_research_entry(e, files, man, archive, root, F):
+    """R13: an entry retained ahead of its citing record (a research build) is well formed and its files agree:
+    run.json, jobs.json and a research-build results.json of the job it names, at the run's head; it records where
+    it is to be cited, and no tracked file outside the archive cites the run yet (once one does, the entry carries
+    that citation instead); its run is not attested or already retained; and every item its result does not carry
+    is a recorded gap: each partial or empty target module's reports, the release gate, the design files' reports,
+    the exact-control output, and its off-main source commit."""
+    eid, rid = e.get('id'), str(e.get('run_id'))
+    if eid != 'research-' + rid or not re.fullmatch(r'[0-9]{1,20}', rid) or e.get('kind') != 'derived':
+        F('R13 %s: not a research-build entry' % eid)
+        return
+    aw = e.get('awaiting_citation')
+    if not isinstance(aw, dict) or not isinstance(aw.get('pull_request'), int) or not inside(aw.get('record')) \
+            or not isinstance(aw.get('line'), int) or not HEX40.fullmatch(str(aw.get('head'))) or e.get('citations'):
+        F('R13 %s: records no pending citation, or carries citations as well' % eid)
+    run, jobs, res = (files.get('ci/%s/%s' % (rid, n)) for n in ('run.json', 'jobs.json', 'results.json'))
+    if run is None or jobs is None or res is None:
+        F('R13 %s: no run.json, jobs.json or results.json' % eid)
+        return
+    try:
+        run, jobs, res = json.loads(run), json.loads(jobs), json.loads(res)
+    except ValueError:
+        F('R13 %s: run.json, jobs.json or results.json is not JSON' % eid)
+        return
+    head, rr = run.get('head_sha'), res.get('run') or {}
+    if str(run.get('id')) != rid or run.get('run_id') != rid or not HEX40.fullmatch(str(head)) or rr.get('id') != rid \
+            or rr.get('head_sha') != head or rr.get('attempt') != run.get('run_attempt'):
+        F('R13 %s: results.json names another run, head commit or attempt than run.json' % eid)
+    if res.get('kind') != 'research-build':
+        F('R13 %s: results.json is of kind %r, not a research-build result' % (eid, res.get('kind')))
+    jl = jobs.get('jobs') if isinstance(jobs, dict) else None
+    if not isinstance(jl, list) or not any(str(j.get('id')) == rr.get('job_id') and j.get('name') == rr.get('job_name')
+                                           and j.get('run_attempt') == run.get('run_attempt') and j.get('head_sha') == head
+                                           for j in jl):
+        F('R13 %s: the results are not from a job of jobs.json at the run\'s head and attempt' % eid)
+    fr = next((f for f in e.get('files', []) if f.get('path') == 'ci/%s/results.json' % rid), {})
+    if fr.get('source_sha256') != (res.get('source') or {}).get('served_sha256'):
+        F('R13 %s: results.json does not derive from its served log' % eid)
+    gaps = {g.get('what') for g in man.get('missing', []) if g.get('id') == eid}
+    want = {'release gate', 'exact-control replay output', 'source commit %s' % head}
+    want |= {'axiom reports of %s' % m for m, x in ((res.get('expected') or {}).get('modules') or {}).items()
+             if isinstance(x, dict) and x.get('status') in ('partial', 'none')}
+    if not want <= gaps or not any(str(g).startswith('axiom reports of the research design') for g in gaps):
+        F('R13 %s: an item its result does not carry is not a recorded gap: %s' % (eid, sorted(want - gaps)[:3] or
+                                                                                   ['axiom reports of the research design']))
+    attested = {str(x.get('run_id')) for x in man['entries'] if str(x.get('id', '')).startswith(('ci-', 'run-'))}
+    attested |= {str((x.get('provenance') or {}).get('run_id')) for x in man['entries'] if (x.get('provenance') or {}).get('run_id')}
+    if rid in attested:
+        F('R13 %s: run %s already has another entry' % (eid, rid))
+    where = cited_in_tree(root, rid, archive)
+    if where is not None:
+        F('R13 %s: run %s is now cited at %s; the entry must carry that citation' % (eid, rid, where))
 
 
 def check_tranche3(man, read_tree, F):
@@ -791,6 +882,9 @@ def module_sets(archive, root, man, show=None, on_main=None, scope=None):
                 elif rid in attest:
                     F('R11 %s: %s is of kind %r, but an attestation at the tranche base names its run %s, so it must be '
                       'a bridge result whose module table is checked' % (eid, rel, kind, rid))
+                elif kind == 'research-build':
+                    stats['unscoped'].append((rel, 'of kind %r, whose module table is the build targets its workflow names, '
+                                              'not a round\'s governed paths, and run %s %s' % (kind, rid, none_at_base)))
                 else:
                     stats['unscoped'].append((rel, 'of kind %r, which records no module table, and run %s %s'
                                               % (kind, rid, none_at_base)))
@@ -900,7 +994,7 @@ def job_outputs_gate(archive, root):
 
 
 def gate(archive, root):
-    """The release-gate step: the check in history mode (R1-R12), then the self-test, then the retained objects'
+    """The release-gate step: the check in history mode (R1-R13), then the self-test, then the retained objects'
     check and self-test, then tranche 3's comparator self-test."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
@@ -1031,6 +1125,56 @@ def r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit):
     expect('a retained run that expires after a remaining one',
            edit(lambda m: m['entries'][plain].__setitem__('expires', '2099-01-01')), back, 'R12', 'expires after a remaining one')
     expect('tranche-3 counts that disagree', edit(lambda m: m['tranche3'].__setitem__('retained', 0)), back, 'R12', 'counts disagree')
+
+
+def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_edit):
+    """The self-test's R4 research-build and R13 cases, each a mutation of a copy requiring its own message."""
+    i = rs[0]
+    e = ents[i]
+    rid, eid = e['run_id'], e['id']
+    P = lambda n: os.path.join(tarch, 'ci', rid, n)
+    ci = next((k for k, x in enumerate(ents) if str(x.get('id', '')).startswith('ci-')), None)
+    res = json.load(open(P('results.json'), encoding='utf-8'))
+    part = next((m for m, x in res['expected']['modules'].items() if x['status'] in ('partial', 'none')), None)
+    if ci is None or part is None:
+        expect('the R13 cases need a CI entry and a research build with a partial module', lambda: None, lambda: None,
+               'R13', 'an impossible message')
+        return
+    G = lambda m, what: m.__setitem__('missing', [g for g in m['missing'] if not (g['id'] == eid and g['what'] == what)])
+    expect('a research entry with neither citations nor a pending citation',
+           edit(lambda m: m['entries'][i].pop('awaiting_citation')), back, 'R7', 'no citations')
+    expect('a research entry whose pending citation names no pull request',
+           edit(lambda m: m['entries'][i]['awaiting_citation'].__setitem__('pull_request', 'x')), back, 'R13', 'no pending citation')
+    expect('a research entry whose id is not its run', edit(lambda m: m['entries'][i].__setitem__('id', 'research-1')), back,
+           'R13', 'not a research-build entry')
+    expect('a research entry without results.json', edit(lambda m: m['entries'][i].__setitem__(
+        'files', [f for f in m['entries'][i]['files'] if not f['path'].endswith('/results.json')])), back, 'R13',
+           'no run.json, jobs.json or results.json')
+    expect('a research run.json that is not JSON', *file_edit(P('run.json'), lambda b: b[:-3]), rule='R13', msg='is not JSON')
+    expect('a research result at another head commit', *json_edit(P('results.json'), lambda d: d['run'].__setitem__('head_sha', '0' * 40)),
+           rule='R13', msg='another run, head commit or attempt')
+    expect('a research result relabelled as a bridge result',
+           *json_edit(P('results.json'), lambda d: d.__setitem__('kind', 'bridge')), rule='R13', msg='not a research-build result')
+    expect('the same relabel fails the gate rule', *json_edit(P('results.json'), lambda d: d.__setitem__('kind', 'bridge')),
+           rule='R4', msg='no gate verdict')
+    expect('a research build that records a gate',
+           *json_edit(P('results.json'), lambda d: d['expected'].__setitem__('gate', {'verdict': 'PASS', 'steps': []})),
+           rule='R4', msg='research build and records a gate')
+    expect('a research result from another job', *json_edit(P('results.json'), lambda d: d['run'].__setitem__('job_id', '1')),
+           rule='R13', msg='not from a job of jobs.json')
+    expect('a research result whose source digest is not recorded',
+           edit(lambda m: next(f for f in m['entries'][i]['files'] if f['path'].endswith('/results.json')).__setitem__(
+               'source_sha256', '0' * 64)), back, 'R13', 'does not derive from its served log')
+    for what in ('release gate', 'exact-control replay output', 'source commit %s' % res['run']['head_sha'], 'axiom reports of %s' % part):
+        expect('a research entry without its gap %r' % what[:40], edit(lambda m, w=what: G(m, w)), back, 'R13', 'not a recorded gap')
+    expect('a research entry without its gap for the design files\' reports', edit(lambda m: m.__setitem__('missing', [
+        g for g in m['missing'] if not (g['id'] == eid and g['what'].startswith('axiom reports of the research design'))])), back,
+           'R13', 'not a recorded gap')
+    expect('a research run that a CI entry already retains',
+           edit(lambda m: m['entries'][ci].__setitem__('run_id', rid)), back, 'R13', 'already has another entry')
+    cite = os.path.join(troot, 'verification', 'ZZ-CITES.md')
+    expect('a research run that a tracked file now cites', lambda: open(cite, 'w').write('run %s\n' % rid),
+           lambda: os.remove(cite), 'R13', 'is now cited at verification/ZZ-CITES.md')
 
 
 def self_test(archive, root):
@@ -1466,7 +1610,7 @@ def self_test(archive, root):
                 r11('R11 passes on the unmutated copy, checks every CI entry\'s expected result, and lists every other '
                     'result outside its scope with a reason',
                     also=lambda st: st['checked'] >= len(cis) and st['runs'] > 0 and st['modules'] > 0 and
-                    all(not u[0].startswith('ci/') and u[1] for u in st['unscoped']) and
+                    all((not u[0].startswith('ci/') or "'research-build'" in u[1]) and u[1] for u in st['unscoped']) and
                     nonbridge <= {u[0] for u in st['unscoped']})
                 r11('a control plane altered only at the tranche base leaves R11 unchanged: it reads the run\'s commit',
                     over=lambda: {(base, pre): b'altered at the base'})
@@ -1557,6 +1701,9 @@ def self_test(archive, root):
         t3 = [i for i, e in enumerate(ents) if str(e.get('id', '')).startswith('run-')]
         if 'tranche3' in man or t3:
             r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit)
+        rs = [i for i, e in enumerate(ents) if 'awaiting_citation' in e]
+        if rs:
+            r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_edit)
     print('self-test: %s' % ('OK' if ok else 'FAILED'))
     return 0 if ok else 1
 
