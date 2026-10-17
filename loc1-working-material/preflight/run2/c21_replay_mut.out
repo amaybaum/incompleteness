@@ -1,0 +1,5 @@
+REPLAY-MUTATION corrupt-witness  on planted dense 0                              DETECTED
+REPLAY-MUTATION drop-class       on small 3x3 identity                           DETECTED
+REPLAY-MUTATION duplicate-class  on small 2x4 identity                           DETECTED
+REPLAY-MUTATION fake-perm-class  on perm 16 consecutive [excluded]               DETECTED
+REPLAY MUTATIONS: ALL DETECTED

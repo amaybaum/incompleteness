@@ -1,0 +1,4 @@
+TIMING enumeration_s 1.197
+TIMING coupling_graphs_3_rules_s 4.501  per_decomposition_per_rule_us 23.75
+TIMING brute_dependency_s 5.205 for 5898 checks
+TIMING main_run_s 11.807  mutation_harness_s 25.894  peak_rss_kB 180752

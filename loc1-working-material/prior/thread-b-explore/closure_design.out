@@ -1,0 +1,8 @@
+U-free(3): dim Z1=2 Z2=2 sum=4/4 direct=True complete=True Z1=natural1:True Z2=natural2:True
+U-edge(3,1,1): dim Z1=4 Z2=4 sum=8/8 direct=True complete=True Z1=natural1:True Z2=natural2:True
+U-edge(3,1,2): dim Z1=4 Z2=4 sum=8/8 direct=True complete=True Z1=natural1:True Z2=natural2:True
+U-edge(3,2,1): dim Z1=4 Z2=4 sum=8/8 direct=True complete=True Z1=natural1:True Z2=natural2:True
+U-edge(3,2,2): dim Z1=4 Z2=4 sum=8/8 direct=True complete=True Z1=natural1:True Z2=natural2:True
+C-cut: dim Z1=8 Z2=8 sum=8/8 direct=False complete=True Z1=natural1:False Z2=natural2:False
+C-chain {0}|{5}: dim Z1=12 Z2=12 sum=12/12 direct=False complete=True Z1=natural1:False Z2=natural2:False
+one 2-site edge a=1, regions {0}|{1} (coupled): dim Z1=4 Z2=4 sum=4/4 direct=False complete=True Z1=natural1:False Z2=natural2:False

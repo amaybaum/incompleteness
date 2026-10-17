@@ -1,0 +1,32 @@
+points of PG(3,3): 40
+decompositions enumerated: 63180  formula |GL(4,3)|/(4! 2^4) = 63180  (|GL(4,3)| = 24261120 )
+CONTROL K-count PASS 63180 vs 63180
+CONTROL K-distinct PASS 63180 distinct sets
+CONTROL K-inverse PASS 
+CONTROL K-rules PASS R-rand=[[1, 1, 2, 1], [0, 0, 1, 2], [0, 0, 1, 1], [1, 2, 2, 1]] R-block=[[2, 0, 1, 0], [2, 1, 1, 0], [1, 2, 1, 2], [1, 2, 1, 1]] M1=[[1, 1], [2, 0]] M2=[[0, 2], [2, 1]] S=[[2, 2, 2, 2], [1, 2, 0, 1], [0, 1, 1, 2], [1, 2, 2, 2]]
+CONTROL K-special-present PASS 
+rule R-id deg_max histogram: [(0, 63180)]
+rule R-id (deg_max, e) histogram: [((0, 0), 63180)]
+rule R-id min deg_max = 0  minimizers: 63180  lexicographic (deg_max, e) minimizers: 63180 at e = 0
+rule R-id natural decomposition: deg_max=0 e=0 self=4 edges=()
+rule R-id planted rows(S) decomposition: deg_max=0 e=0 self=4 edges=()
+rule R-rand deg_max histogram: [(1, 36), (2, 2340), (3, 60804)]
+rule R-rand (deg_max, e) histogram: [((1, 2), 36), ((2, 3), 852), ((2, 4), 1488), ((3, 3), 144), ((3, 4), 5064), ((3, 5), 23940), ((3, 6), 31656)]
+rule R-rand min deg_max = 1  minimizers: 36  lexicographic (deg_max, e) minimizers: 36 at e = 2
+rule R-rand natural decomposition: deg_max=3 e=6 self=3 edges=((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))
+rule R-rand planted rows(S) decomposition: deg_max=3 e=5 self=0 edges=((0, 1), (0, 2), (1, 2), (1, 3), (2, 3))
+rule R-block deg_max histogram: [(1, 36), (2, 2556), (3, 60588)]
+rule R-block (deg_max, e) histogram: [((1, 2), 36), ((2, 3), 888), ((2, 4), 1668), ((3, 3), 144), ((3, 4), 4992), ((3, 5), 23616), ((3, 6), 31836)]
+rule R-block min deg_max = 1  minimizers: 36  lexicographic (deg_max, e) minimizers: 36 at e = 2
+rule R-block natural decomposition: deg_max=3 e=6 self=4 edges=((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))
+rule R-block planted rows(S) decomposition: deg_max=1 e=2 self=2 edges=((0, 3), (1, 2))
+CONTROL K-planted PASS 
+CONTROL K-identity PASS 
+CONTROL K-invariance PASS 500 seeded decompositions x 3 rules, 0 mismatches
+CONTROL K-dep PASS 1966 seeded decompositions x 3 rules, 0 mismatches
+MUTATION noindep    expected failure of K-count  : DETECTED (failed controls: K-count)
+MUTATION duppoint   expected failure of K-count  : DETECTED (failed controls: K-count)
+MUTATION droppoint  expected failure of K-count  : DETECTED (failed controls: K-count)
+MUTATION conj       expected failure of K-dep    : DETECTED (failed controls: K-dep,K-invariance)
+MUTATION and        expected failure of K-dep    : DETECTED (failed controls: K-dep)
+F34 PREFLIGHT: CONTROLS GREEN

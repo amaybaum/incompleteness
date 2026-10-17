@@ -1,0 +1,426 @@
+== small shapes: K-canon and K-search inputs
+RUN small 2x2 identity                           all   ALL       found      3  tested          9  accepted         9  leaves        3  rules RWVP order greedy
+CONTROL K-canon 2x2 PASS found 3 classes, N!/|G| = 3
+RUN small 2x2 planted 0                          all   ALL       found      2  tested          7  accepted         6  leaves        2  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x2 planted 0 all ALL
+RUN small 2x2 planted 1                          all   ALL       found      1  tested          7  accepted         5  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x2 planted 1 all ALL
+RUN small 2x2 planted 2                          all   ALL       found      1  tested          8  accepted         6  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x2 planted 2 all ALL
+RUN small 2x2 random 0                           all   ALL       found      0  tested          6  accepted         3  leaves        0  rules RWVP order greedy
+RUN small 2x2 random 1                           all   ALL       found      0  tested          6  accepted         3  leaves        0  rules RWVP order greedy
+RUN small 2x2 transposition                      all   ALL       found      0  tested          6  accepted         3  leaves        0  rules RWVP order greedy
+RUN small 2x3 identity                           all   ALL       found     60  tested        164  accepted       164  leaves       60  rules RWVP order greedy
+CONTROL K-canon 2x3 PASS found 60 classes, N!/|G| = 60
+RUN small 2x3 planted 0                          all   ALL       found      1  tested         31  accepted        12  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x3 planted 0 all ALL
+RUN small 2x3 planted 1                          all   ALL       found      1  tested         18  accepted         8  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x3 planted 1 all ALL
+RUN small 2x3 planted 2                          all   ALL       found      1  tested         35  accepted        13  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x3 planted 2 all ALL
+RUN small 2x3 random 0                           all   ALL       found      0  tested         26  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 2x3 random 1                           all   ALL       found      0  tested         26  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 2x3 transposition                      all   ALL       found      0  tested         24  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 3x2 identity                           all   ALL       found     60  tested        164  accepted       164  leaves       60  rules RWVP order greedy
+CONTROL K-canon 3x2 PASS found 60 classes, N!/|G| = 60
+RUN small 3x2 planted 0                          all   ALL       found      1  tested         25  accepted        10  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 3x2 planted 0 all ALL
+RUN small 3x2 planted 1                          all   ALL       found      1  tested         36  accepted        15  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 3x2 planted 1 all ALL
+RUN small 3x2 planted 2                          all   ALL       found      1  tested         40  accepted        17  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 3x2 planted 2 all ALL
+RUN small 3x2 random 0                           all   ALL       found      0  tested         26  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 3x2 random 1                           all   ALL       found      0  tested         26  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 3x2 transposition                      all   ALL       found      0  tested         24  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 2x4 identity                           all   ALL       found    840  tested       2292  accepted      2292  leaves      840  rules RWVP order greedy
+CONTROL K-canon 2x4 PASS found 840 classes, N!/|G| = 840
+RUN small 2x4 planted 0                          all   ALL       found      1  tested         56  accepted        17  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x4 planted 0 all ALL
+RUN small 2x4 planted 1                          all   ALL       found      1  tested         76  accepted        21  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x4 planted 1 all ALL
+RUN small 2x4 planted 2                          all   ALL       found      1  tested         72  accepted        20  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 2x4 planted 2 all ALL
+RUN small 2x4 random 0                           all   ALL       found      0  tested         66  accepted        16  leaves        0  rules RWVP order greedy
+RUN small 2x4 random 1                           all   ALL       found      0  tested         66  accepted        16  leaves        0  rules RWVP order greedy
+RUN small 2x4 transposition                      all   ALL       found      0  tested        108  accepted        36  leaves        0  rules RWVP order greedy
+RUN small 4x2 identity                           all   ALL       found    840  tested       2292  accepted      2292  leaves      840  rules RWVP order greedy
+CONTROL K-canon 4x2 PASS found 840 classes, N!/|G| = 840
+RUN small 4x2 planted 0                          all   ALL       found      1  tested         79  accepted        22  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 4x2 planted 0 all ALL
+RUN small 4x2 planted 1                          all   ALL       found      1  tested         82  accepted        23  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 4x2 planted 1 all ALL
+RUN small 4x2 planted 2                          all   ALL       found      1  tested         82  accepted        23  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 4x2 planted 2 all ALL
+RUN small 4x2 random 0                           all   ALL       found      0  tested         66  accepted        16  leaves        0  rules RWVP order greedy
+RUN small 4x2 random 1                           all   ALL       found      0  tested         66  accepted        16  leaves        0  rules RWVP order greedy
+RUN small 4x2 transposition                      all   ALL       found      0  tested        108  accepted        36  leaves        0  rules RWVP order greedy
+RUN small 3x3 identity                           all   ALL       found   5040  tested      13703  accepted     13703  leaves     5040  rules RWVP order greedy
+CONTROL K-canon 3x3 PASS found 5040 classes, N!/|G| = 5040
+RUN small 3x3 planted 0                          all   ALL       found      1  tested         56  accepted        15  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 3x3 planted 0 all ALL
+RUN small 3x3 planted 1                          all   ALL       found      1  tested         66  accepted        17  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 3x3 planted 1 all ALL
+RUN small 3x3 planted 2                          all   ALL       found      1  tested         61  accepted        16  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-search-planted PASS small 3x3 planted 2 all ALL
+RUN small 3x3 random 0                           all   ALL       found      0  tested         35  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 3x3 random 1                           all   ALL       found      0  tested         35  accepted         8  leaves        0  rules RWVP order greedy
+RUN small 3x3 transposition                      all   ALL       found      0  tested         50  accepted        12  leaves        0  rules RWVP order greedy
+== 16 points as 4 x 4: proxies (preflight cap 200000 tested nodes per run unless stated)
+RUN P0 control P = H1(x)H1                       exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-rel-pos-P PASS P0 control P = H1(x)H1 exist FOUND
+RUN P0 control P = H1(x)H1                       all   ALL       found     10  tested      13613  accepted      1689  leaves       10  rules RWVP order greedy  planted-class-found True
+CONTROL K-rel-pos-P PASS P0 control P = H1(x)H1 all ALL
+RUN planted dense 0                              exist FOUND     found      1  tested         83  accepted        21  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted dense 0 exist FOUND
+RUN planted dense 0                              all   ALL       found      1  tested        474  accepted        57  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted dense 0 all ALL
+RUN planted dense 1                              exist FOUND     found      1  tested        196  accepted        32  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted dense 1 exist FOUND
+RUN planted dense 1                              all   ALL       found      1  tested        254  accepted        35  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted dense 1 all ALL
+RUN planted dense 2                              exist FOUND     found      1  tested         99  accepted        21  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted dense 2 exist FOUND
+RUN planted dense 2                              all   ALL       found      1  tested        288  accepted        38  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted dense 2 all ALL
+RUN planted dense 3                              exist FOUND     found      1  tested         62  accepted        19  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted dense 3 exist FOUND
+RUN planted dense 3                              all   ALL       found      1  tested        585  accepted        68  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted dense 3 all ALL
+RUN planted dense 4                              exist FOUND     found      1  tested         98  accepted        21  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted dense 4 exist FOUND
+RUN planted dense 4                              all   ALL       found      1  tested        363  accepted        46  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted dense 4 all ALL
+RUN planted with-zeros 0                         exist FOUND     found      1  tested        247  accepted        38  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted with-zeros 0 exist FOUND
+RUN planted with-zeros 0                         all   ALL       found      1  tested        494  accepted        61  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted with-zeros 0 all ALL
+RUN planted with-zeros 1                         exist FOUND     found      1  tested         54  accepted        19  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted with-zeros 1 exist FOUND
+RUN planted with-zeros 1                         all   ALL       found      1  tested        511  accepted        60  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted with-zeros 1 all ALL
+RUN planted with-zeros 2                         exist FOUND     found      1  tested         56  accepted        19  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted with-zeros 2 exist FOUND
+RUN planted with-zeros 2                         all   ALL       found      1  tested        502  accepted        59  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted with-zeros 2 all ALL
+RUN planted with-zeros 3                         exist FOUND     found      1  tested         91  accepted        22  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted with-zeros 3 exist FOUND
+RUN planted with-zeros 3                         all   ALL       found      1  tested        531  accepted        62  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted with-zeros 3 all ALL
+RUN planted with-zeros 4                         exist FOUND     found      1  tested         53  accepted        18  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted with-zeros 4 exist FOUND
+RUN planted with-zeros 4                         all   ALL       found      1  tested        228  accepted        31  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted with-zeros 4 all ALL
+RUN planted repeated{1,2} 0                      exist FOUND     found      1  tested         56  accepted        20  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted repeated{1,2} 0 exist FOUND
+RUN planted repeated{1,2} 0                      all   ALL       found      1  tested       1859  accepted       233  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted repeated{1,2} 0 all ALL
+RUN planted repeated{1,2} 1                      exist FOUND     found      1  tested        216  accepted        35  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted repeated{1,2} 1 exist FOUND
+RUN planted repeated{1,2} 1                      all   ALL       found      1  tested        862  accepted        94  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted repeated{1,2} 1 all ALL
+RUN planted repeated{1,2} 2                      exist FOUND     found      1  tested       2778  accepted       312  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted repeated{1,2} 2 exist FOUND
+RUN planted repeated{1,2} 2                      all   ALL       found      1  tested       6766  accepted       726  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted repeated{1,2} 2 all ALL
+RUN planted repeated{1,2} 3                      exist FOUND     found      1  tested        102  accepted        25  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted repeated{1,2} 3 exist FOUND
+RUN planted repeated{1,2} 3                      all   ALL       found      8  tested       2251  accepted       260  leaves        8  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted repeated{1,2} 3 all ALL
+RUN planted repeated{1,2} 4                      exist FOUND     found      1  tested        200  accepted        33  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted repeated{1,2} 4 exist FOUND
+RUN planted repeated{1,2} 4                      all   ALL       found      1  tested       1322  accepted       147  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted repeated{1,2} 4 all ALL
+RUN planted signs 0                              exist FOUND     found      1  tested        189  accepted        34  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted signs 0 exist FOUND
+RUN planted signs 0                              all   ALL       found      1  tested       2535  accepted       264  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted signs 0 all ALL
+RUN planted signs 1                              exist FOUND     found      1  tested       7513  accepted       911  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted signs 1 exist FOUND
+RUN planted signs 1                              all   ALL       found      1  tested      18629  accepted      2279  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted signs 1 all ALL
+RUN planted signs 2                              exist FOUND     found      1  tested       1598  accepted       178  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted signs 2 exist FOUND
+RUN planted signs 2                              all   ALL       found      1  tested       3343  accepted       359  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted signs 2 all ALL
+RUN planted signs 3                              exist FOUND     found      1  tested         72  accepted        20  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted signs 3 exist FOUND
+RUN planted signs 3                              all   ALL       found      1  tested       2095  accepted       232  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted signs 3 all ALL
+RUN planted signs 4                              exist FOUND     found      1  tested        635  accepted        74  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted signs 4 exist FOUND
+RUN planted signs 4                              all   ALL       found      1  tested        980  accepted       106  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted signs 4 all ALL
+RUN planted 0/1 C4 x C4 (tensor)                 exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted 0/1 C4 x C4 (tensor) exist FOUND
+RUN planted 0/1 C4 x C4 (tensor)                 all   EXHAUSTED found  31636  tested     200001  accepted    123074  leaves    31636  rules RWVP order greedy  planted-class-found False  knuth-estimate accepted 321660 tested 525333
+CONTROL K-plant FAIL planted 0/1 C4 x C4 (tensor) all EXHAUSTED
+RUN planted 0/1 K4 x K4 (tensor; complement of rook) exist FOUND     found      1  tested        459  accepted        57  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted 0/1 K4 x K4 (tensor; complement of rook) exist FOUND
+RUN planted 0/1 K4 x K4 (tensor; complement of rook) all   ALL       found      1  tested        488  accepted        57  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant PASS planted 0/1 K4 x K4 (tensor; complement of rook) all ALL
+RUN planted 0/1 J4 (x) I4                        exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted 0/1 J4 (x) I4 exist FOUND
+RUN planted 0/1 J4 (x) I4                        all   EXHAUSTED found  58071  tested     200001  accepted    165626  leaves    58071  rules RWVP order greedy  planted-class-found True  knuth-estimate accepted 215076 tested 251002
+CONTROL K-plant FAIL planted 0/1 J4 (x) I4 all EXHAUSTED
+RUN planted 0/1 C4 (x) (J2+J2)                   exist FOUND     found      1  tested         19  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-plant PASS planted 0/1 C4 (x) (J2+J2) exist FOUND
+RUN planted 0/1 C4 (x) (J2+J2)                   all   EXHAUSTED found  31656  tested     200001  accepted    123139  leaves    31656  rules RWVP order greedy  planted-class-found True  knuth-estimate accepted 286448 tested 469277
+CONTROL K-plant FAIL planted 0/1 C4 (x) (J2+J2) all EXHAUSTED
+RUN joint planted pair 0                         exist FOUND     found      1  tested         86  accepted        21  leaves        1  rules RWVP order greedy
+CONTROL K-plant-joint PASS joint planted pair 0 exist FOUND
+RUN joint planted pair 0                         all   ALL       found      1  tested        339  accepted        43  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant-joint PASS joint planted pair 0 all ALL
+RUN joint planted pair 1                         exist FOUND     found      1  tested        137  accepted        26  leaves        1  rules RWVP order greedy
+CONTROL K-plant-joint PASS joint planted pair 1 exist FOUND
+RUN joint planted pair 1                         all   ALL       found      1  tested        288  accepted        38  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant-joint PASS joint planted pair 1 all ALL
+RUN joint planted pair 2                         exist FOUND     found      1  tested        184  accepted        30  leaves        1  rules RWVP order greedy
+CONTROL K-plant-joint PASS joint planted pair 2 exist FOUND
+RUN joint planted pair 2                         all   ALL       found      1  tested        266  accepted        36  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-plant-joint PASS joint planted pair 2 all ALL
+RUN identity                                     exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-all PASS identity exist FOUND
+RUN all-ones J                                   exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-all PASS all-ones J exist FOUND
+RUN identity                                     all   EXHAUSTED found 735754  tested    2000001  accepted   2000000  leaves   735754  rules RWVP order greedy  knuth-estimate accepted 50869028519 tested 50869028518
+NOTE identity enumeration is expected to exhaust any budget: 18162144000 classes
+CONTROL K-cycle-formula PASS 25 type pairs of S_4 x S_4; 10 types of pi_1 x pi_2
+cycle types of pi_1 x pi_2 on 4 x 4: [(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), (2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1), (2, 2, 2, 2, 2, 2, 1, 1, 1, 1), (2, 2, 2, 2, 2, 2, 2, 2), (3, 3, 3, 3, 1, 1, 1, 1), (3, 3, 3, 3, 3, 1), (4, 4, 4, 4), (6, 3, 3, 2, 1, 1), (6, 6, 2, 2), (12, 4)]
+RUN perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist NONE      found      0  tested      64079  accepted      9162  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist NONE
+RUN perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist NONE      found      0  tested      64079  accepted      9162  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist NONE
+RUN perm 16 consecutive [excluded]               exist NONE      found      0  tested        133  accepted        19  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 16 consecutive [excluded] exist NONE
+RUN perm 16 seeded [excluded]                    exist NONE      found      0  tested        133  accepted        19  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 16 seeded [excluded] exist NONE
+RUN perm 8.8 consecutive [excluded]              exist NONE      found      0  tested        107  accepted        15  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 8.8 consecutive [excluded] exist NONE
+RUN perm 8.8 seeded [excluded]                   exist NONE      found      0  tested        107  accepted        15  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 8.8 seeded [excluded] exist NONE
+RUN perm 4.4.4.4 consecutive [admitted]          exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 4.4.4.4 consecutive [admitted] exist FOUND
+RUN perm 4.4.4.4 consecutive [admitted]          all   ALL       found    832  tested      10202  accepted      4237  leaves      832  rules RWVP order greedy
+RUN perm 4.4.4.4 seeded [admitted]               exist FOUND     found      1  tested         23  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 4.4.4.4 seeded [admitted] exist FOUND
+RUN perm 4.4.4.4 seeded [admitted]               all   ALL       found    832  tested      10202  accepted      4237  leaves      832  rules RWVP order greedy
+RUN perm 2.2.2.2.2.2.2.2 consecutive [admitted]  exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 2.2.2.2.2.2.2.2 consecutive [admitted] exist FOUND
+RUN perm 2.2.2.2.2.2.2.2 consecutive [admitted]  all   EXHAUSTED found 398546  tested    2000001  accepted   1319822  leaves   398546  rules RWVP order greedy  knuth-estimate accepted 1509735 tested 2283545
+RUN perm 2.2.2.2.2.2.2.2 seeded [admitted]       exist FOUND     found      1  tested         16  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 2.2.2.2.2.2.2.2 seeded [admitted] exist FOUND
+RUN perm 2.2.2.2.2.2.2.2 seeded [admitted]       all   EXHAUSTED found 398546  tested    2000001  accepted   1319822  leaves   398546  rules RWVP order greedy  knuth-estimate accepted 1575941 tested 2380068
+RUN perm 15.1 consecutive [excluded]             exist NONE      found      0  tested         83  accepted        12  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 15.1 consecutive [excluded] exist NONE
+RUN perm 15.1 seeded [excluded]                  exist NONE      found      0  tested         83  accepted        12  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 15.1 seeded [excluded] exist NONE
+RUN perm 12.4 consecutive [admitted]             exist FOUND     found      1  tested         79  accepted        23  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 12.4 consecutive [admitted] exist FOUND
+RUN perm 12.4 consecutive [admitted]             all   ALL       found      4  tested        161  accepted        36  leaves        4  rules RWVP order greedy
+RUN perm 12.4 seeded [admitted]                  exist FOUND     found      1  tested         85  accepted        23  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 12.4 seeded [admitted] exist FOUND
+RUN perm 12.4 seeded [admitted]                  all   ALL       found      4  tested        161  accepted        36  leaves        4  rules RWVP order greedy
+RUN perm 6.6.2.2 consecutive [admitted]          exist FOUND     found      1  tested         72  accepted        22  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 6.6.2.2 consecutive [admitted] exist FOUND
+RUN perm 6.6.2.2 consecutive [admitted]          all   ALL       found     24  tested        346  accepted       111  leaves       24  rules RWVP order greedy
+RUN perm 6.6.2.2 seeded [admitted]               exist FOUND     found      1  tested         75  accepted        22  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 6.6.2.2 seeded [admitted] exist FOUND
+RUN perm 6.6.2.2 seeded [admitted]               all   ALL       found     24  tested        346  accepted       111  leaves       24  rules RWVP order greedy
+RUN perm 4.4.4.2.2 consecutive [excluded]        exist NONE      found      0  tested       7706  accepted      1741  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 4.4.4.2.2 consecutive [excluded] exist NONE
+RUN perm 4.4.4.2.2 seeded [excluded]             exist NONE      found      0  tested        190  accepted        25  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 4.4.4.2.2 seeded [excluded] exist NONE
+RUN perm 3.3.3.3.1.1.1.1 consecutive [admitted]  exist FOUND     found      1  tested         34  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 3.3.3.3.1.1.1.1 consecutive [admitted] exist FOUND
+RUN perm 3.3.3.3.1.1.1.1 consecutive [admitted]  all   ALL       found    648  tested      10627  accepted      3241  leaves      648  rules RWVP order greedy
+RUN perm 3.3.3.3.1.1.1.1 seeded [admitted]       exist FOUND     found      1  tested         36  accepted        16  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 3.3.3.3.1.1.1.1 seeded [admitted] exist FOUND
+RUN perm 3.3.3.3.1.1.1.1 seeded [admitted]       all   ALL       found    648  tested      10627  accepted      3241  leaves      648  rules RWVP order greedy
+RUN perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist EXHAUSTED found      0  tested     200001  accepted     40006  leaves        0  rules RWVP order greedy  knuth-estimate accepted 53084 tested 266222
+CONTROL K-perm FAIL perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist EXHAUSTED
+RUN perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist EXHAUSTED found      0  tested     200001  accepted     40006  leaves        0  rules RWVP order greedy  knuth-estimate accepted 48070 tested 241132
+CONTROL K-perm FAIL perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist EXHAUSTED
+RUN perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist NONE      found      0  tested        142  accepted        19  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist NONE
+RUN perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist NONE      found      0  tested        142  accepted        19  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist NONE
+RUN perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted] exist FOUND     found      1  tested       1594  accepted       216  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted] exist FOUND
+RUN perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted] all   ALL       found 161280  tested     519497  accepted    452865  leaves   161280  rules RWVP order greedy
+RUN perm 2.2.2.2.1.1.1.1.1.1.1.1 seeded [admitted] exist FOUND     found      1  tested         79  accepted        23  leaves        1  rules RWVP order greedy
+CONTROL K-perm PASS perm 2.2.2.2.1.1.1.1.1.1.1.1 seeded [admitted] exist FOUND
+RUN perm 2.2.2.2.1.1.1.1.1.1.1.1 seeded [admitted] all   ALL       found 161280  tested     506930  accepted    451321  leaves   161280  rules RWVP order greedy
+RUN perm 5.5.5.1 consecutive [excluded]          exist NONE      found      0  tested         73  accepted        11  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 5.5.5.1 consecutive [excluded] exist NONE
+RUN perm 5.5.5.1 seeded [excluded]               exist NONE      found      0  tested         73  accepted        11  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 5.5.5.1 seeded [excluded] exist NONE
+RUN perm 7.7.1.1 consecutive [excluded]          exist NONE      found      0  tested        203  accepted        26  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 7.7.1.1 consecutive [excluded] exist NONE
+RUN perm 7.7.1.1 seeded [excluded]               exist NONE      found      0  tested        203  accepted        26  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 7.7.1.1 seeded [excluded] exist NONE
+RUN perm 4.4.2.2.2.2 consecutive [excluded]      exist NONE      found      0  tested       2090  accepted       285  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 4.4.2.2.2.2 consecutive [excluded] exist NONE
+RUN perm 4.4.2.2.2.2 seeded [excluded]           exist NONE      found      0  tested       1803  accepted       199  leaves        0  rules RWVP order greedy
+CONTROL K-perm PASS perm 4.4.2.2.2.2 seeded [excluded] exist NONE
+RUN graph Q4 hypercube declared                  exist NONE      found      0  tested      13644  accepted      1570  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph Q4 hypercube declared exist NONE
+RUN graph Q4 hypercube seeded                    exist NONE      found      0  tested      13644  accepted      1570  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph Q4 hypercube seeded exist NONE
+RUN graph rook K4 box K4 declared                exist NONE      found      0  tested        367  accepted        39  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph rook K4 box K4 declared exist NONE
+RUN graph rook K4 box K4 seeded                  exist NONE      found      0  tested        377  accepted        40  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph rook K4 box K4 seeded exist NONE
+RUN graph Shrikhande declared                    exist NONE      found      0  tested        255  accepted        29  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph Shrikhande declared exist NONE
+RUN graph Shrikhande seeded                      exist NONE      found      0  tested        255  accepted        29  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph Shrikhande seeded exist NONE
+RUN graph Clebsch declared                       exist NONE      found      0  tested       5458  accepted       600  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph Clebsch declared exist NONE
+RUN graph Clebsch seeded                         exist NONE      found      0  tested       5458  accepted       600  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph Clebsch seeded exist NONE
+RUN graph I + J declared                         exist NONE      found      0  tested        599  accepted        61  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph I + J declared exist NONE
+RUN graph I + J seeded                           exist NONE      found      0  tested        599  accepted        61  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph I + J seeded exist NONE
+RUN graph J - I declared                         exist NONE      found      0  tested        599  accepted        61  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph J - I declared exist NONE
+RUN graph J - I seeded                           exist NONE      found      0  tested        599  accepted        61  leaves        0  rules RWVP order greedy
+CONTROL K-none-graph PASS graph J - I seeded exist NONE
+RUN near-identity I+E(14,15) order=greedy rules=RWVP exist NONE      found      0  tested      63987  accepted      9152  leaves        0  rules RWVP order greedy
+CONTROL K-none-near-identity PASS near-identity I+E(14,15) order=greedy rules=RWVP exist NONE
+RUN near-identity I+E(14,15) order=nat rules=RWVP exist EXHAUSTED found      0  tested    2000001  accepted    836053  leaves        0  rules RWVP order nat  knuth-estimate accepted 13007133832 tested 31115809640
+CONTROL K-none-near-identity FAIL near-identity I+E(14,15) order=nat rules=RWVP exist EXHAUSTED
+RUN near-identity I+E(14,15) order=greedy rules=RWV exist EXHAUSTED found      0  tested    2000001  accepted    331807  leaves        0  rules RWV order greedy  knuth-estimate accepted 703491 tested 4214542
+RUN near-identity I+E(14,15) order=nat rules=RWV exist EXHAUSTED found      0  tested    2000001  accepted    836053  leaves        0  rules RWV order nat  knuth-estimate accepted 13132261114 tested 31415140611
+RUN random dense ints 0                          exist NONE      found      0  tested        188  accepted        23  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random dense ints 0
+RUN random dense ints 1                          exist NONE      found      0  tested        188  accepted        23  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random dense ints 1
+RUN random dense ints 2                          exist NONE      found      0  tested        188  accepted        23  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random dense ints 2
+RUN random dense ints 3                          exist NONE      found      0  tested        188  accepted        23  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random dense ints 3
+RUN random dense ints 4                          exist NONE      found      0  tested        188  accepted        23  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random dense ints 4
+RUN random {1,2} 0                               exist NONE      found      0  tested        300  accepted        33  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random {1,2} 0
+RUN random {1,2} 1                               exist NONE      found      0  tested        471  accepted        50  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random {1,2} 1
+RUN random {1,2} 2                               exist NONE      found      0  tested        243  accepted        28  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random {1,2} 2
+RUN random {1,2} 3                               exist NONE      found      0  tested        232  accepted        27  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random {1,2} 3
+RUN random {1,2} 4                               exist NONE      found      0  tested        267  accepted        30  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random {1,2} 4
+RUN random signs 0                               exist NONE      found      0  tested        899  accepted        92  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random signs 0
+RUN random signs 1                               exist NONE      found      0  tested        384  accepted        41  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random signs 1
+RUN random signs 2                               exist NONE      found      0  tested        376  accepted        40  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random signs 2
+RUN random signs 3                               exist NONE      found      0  tested        433  accepted        46  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random signs 3
+RUN random signs 4                               exist NONE      found      0  tested        488  accepted        51  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random signs 4
+RUN random sparse 0/1 0                          exist NONE      found      0  tested        232  accepted        27  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random sparse 0/1 0
+RUN random sparse 0/1 1                          exist NONE      found      0  tested         68  accepted        10  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random sparse 0/1 1
+RUN random sparse 0/1 2                          exist NONE      found      0  tested        211  accepted        25  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random sparse 0/1 2
+RUN random sparse 0/1 3                          exist NONE      found      0  tested        316  accepted        35  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random sparse 0/1 3
+RUN random sparse 0/1 4                          exist NONE      found      0  tested        288  accepted        32  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS random sparse 0/1 4
+RUN near-product 0                               exist NONE      found      0  tested       1033  accepted       111  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS near-product 0
+RUN near-product 1                               exist NONE      found      0  tested       1120  accepted       127  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS near-product 1
+RUN near-product 2                               exist NONE      found      0  tested        792  accepted        91  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS near-product 2
+RUN near-product 3                               exist NONE      found      0  tested        600  accepted        66  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS near-product 3
+RUN near-product 4                               exist NONE      found      0  tested        199  accepted        24  leaves        0  rules RWVP order greedy
+CONTROL K-verify PASS near-product 4
+== ablation and arithmetic cross-checks
+RUN ablation planted 0 rules=RWVP                all   ALL       found      1  tested        266  accepted        36  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 0 rules=RWVP
+RUN ablation planted 0 rules=RWV                 all   ALL       found      1  tested        299  accepted        39  leaves        1  rules RWV order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 0 rules=RWV
+RUN ablation planted 0 rules=RW                  all   ALL       found      1  tested        299  accepted        39  leaves        1  rules RW  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 0 rules=RW
+RUN ablation planted 0 rules=R                   all   ALL       found      1  tested        299  accepted        39  leaves        1  rules R   order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 0 rules=R
+RUN ablation planted 0 rules=RP                  all   ALL       found      1  tested        266  accepted        36  leaves        1  rules RP  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 0 rules=RP
+RUN ablation planted 0 rules=WV                  all   ALL       found      1  tested        935  accepted        99  leaves        1  rules WV  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 0 rules=WV
+RUN ablation planted 0 arith=exact               all   ALL       found      1  tested        266  accepted        36  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-arith PASS ablation planted 0 exact accepted 36, modp accepted 36
+RUN ablation planted 1 rules=RWVP                all   ALL       found      1  tested        913  accepted        99  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 1 rules=RWVP
+RUN ablation planted 1 rules=RWV                 all   ALL       found      1  tested       1590  accepted       191  leaves        1  rules RWV order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 1 rules=RWV
+RUN ablation planted 1 rules=RW                  all   ALL       found      1  tested       1590  accepted       191  leaves        1  rules RW  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 1 rules=RW
+RUN ablation planted 1 rules=R                   all   ALL       found      1  tested       4958  accepted       575  leaves        1  rules R   order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 1 rules=R
+RUN ablation planted 1 rules=RP                  all   ALL       found      1  tested       1950  accepted       204  leaves        1  rules RP  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 1 rules=RP
+RUN ablation planted 1 rules=WV                  all   ALL       found      1  tested       2754  accepted       310  leaves        1  rules WV  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 1 rules=WV
+RUN ablation planted 1 arith=exact               all   ALL       found      1  tested        913  accepted        99  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-arith PASS ablation planted 1 exact accepted 99, modp accepted 99
+RUN ablation planted 2 rules=RWVP                all   ALL       found      1  tested        374  accepted        46  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 2 rules=RWVP
+RUN ablation planted 2 rules=RWV                 all   ALL       found      1  tested        514  accepted        60  leaves        1  rules RWV order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 2 rules=RWV
+RUN ablation planted 2 rules=RW                  all   ALL       found      1  tested        514  accepted        60  leaves        1  rules RW  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 2 rules=RW
+RUN ablation planted 2 rules=R                   all   ALL       found      1  tested        514  accepted        60  leaves        1  rules R   order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 2 rules=R
+RUN ablation planted 2 rules=RP                  all   ALL       found      1  tested        374  accepted        46  leaves        1  rules RP  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 2 rules=RP
+RUN ablation planted 2 rules=WV                  all   ALL       found      1  tested       8306  accepted       872  leaves        1  rules WV  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted 2 rules=WV
+RUN ablation planted 2 arith=exact               all   ALL       found      1  tested        374  accepted        46  leaves        1  rules RWVP order greedy  planted-class-found True
+CONTROL K-arith PASS ablation planted 2 exact accepted 46, modp accepted 46
+RUN ablation planted C4 x C4 rules=RWVP          all   ALL       found  76032  tested     484889  accepted    296138  leaves    76032  rules RWVP order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted C4 x C4 rules=RWVP
+RUN ablation planted C4 x C4 rules=RWV           all   ALL       found  76032  tested    1634849  accepted    490538  leaves    76032  rules RWV order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted C4 x C4 rules=RWV
+RUN ablation planted C4 x C4 rules=RW            all   ALL       found  76032  tested    1634849  accepted    490538  leaves    76032  rules RW  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted C4 x C4 rules=RW
+RUN ablation planted C4 x C4 rules=R             all   ALL       found  76032  tested    1634849  accepted    490538  leaves    76032  rules R   order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted C4 x C4 rules=R
+RUN ablation planted C4 x C4 rules=RP            all   ALL       found  76032  tested     484889  accepted    296138  leaves    76032  rules RP  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted C4 x C4 rules=RP
+RUN ablation planted C4 x C4 rules=WV            all   ALL       found  76032  tested   17558471  accepted   5440309  leaves   573696  rules WV  order greedy  planted-class-found True
+CONTROL K-ablation PASS ablation planted C4 x C4 rules=WV
+RUN ablation planted C4 x C4 arith=exact         all   ALL       found  76032  tested     484889  accepted    296138  leaves    76032  rules RWVP order greedy  planted-class-found True
+CONTROL K-arith PASS ablation planted C4 x C4 exact accepted 296138, modp accepted 296138
+RUN ablation transposition rules=RWVP            all   ALL       found      0  tested      64079  accepted      9162  leaves        0  rules RWVP order greedy
+CONTROL K-ablation PASS ablation transposition rules=RWVP
+RUN ablation transposition rules=RWV             all   ALL       found      0  tested     261619  accepted     37234  leaves        0  rules RWV order greedy
+CONTROL K-ablation PASS ablation transposition rules=RWV
+RUN ablation transposition rules=RW              all   ALL       found      0  tested     261619  accepted     37234  leaves        0  rules RW  order greedy
+CONTROL K-ablation PASS ablation transposition rules=RW
+RUN ablation transposition rules=R               all   ALL       found      0  tested     261619  accepted     37234  leaves        0  rules R   order greedy
+CONTROL K-ablation PASS ablation transposition rules=R
+RUN ablation transposition rules=RP              all   ALL       found      0  tested      64079  accepted      9162  leaves        0  rules RP  order greedy
+CONTROL K-ablation PASS ablation transposition rules=RP
+RUN ablation transposition arith=exact           all   ALL       found      0  tested      64079  accepted      9162  leaves        0  rules RWVP order greedy
+CONTROL K-arith PASS ablation transposition exact accepted 9162, modp accepted 9162
+== mod-p collision control
+RUN mod-p collision (rules=R)                    all   ALL       found      0  tested        254  accepted        35  leaves        1  rules R   order greedy
+CONTROL K-collision PASS leaves reached 1 (the sigma* leaf passes every mod-p test), classes 0
+== summary
+mode exist: 98 runs complete; tested nodes min 16 median 196 max 64079 (perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded]); 5 runs exhausted the cap: ['perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded]', 'perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded]', 'near-identity I+E(14,15) order=nat rules=RWVP', 'near-identity I+E(14,15) order=greedy rules=RWV', 'near-identity I+E(14,15) order=nat rules=RWV']
+mode all: 35 runs complete; tested nodes min 161 median 585 max 519497 (perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted]); 6 runs exhausted the cap: ['planted 0/1 C4 x C4 (tensor)', 'planted 0/1 J4 (x) I4', 'planted 0/1 C4 (x) (J2+J2)', 'identity', 'perm 2.2.2.2.2.2.2.2 consecutive [admitted]', 'perm 2.2.2.2.2.2.2.2 seeded [admitted]']
+MUTATION MUT-INDEX           DETECTED  (controls failed: K-canon/K-search(small), K-plant(4x4))
+MUTATION MUT-SUPPORT-STRONG  DETECTED  (controls failed: K-canon/K-search(small), K-plant(4x4))
+MUTATION MUT-LEX-ALWAYS      DETECTED  (controls failed: K-canon/K-search(small), K-plant(4x4), K-collision)
+MUTATION MUT-NOLEX           DETECTED  (controls failed: K-canon/K-search(small), K-plant(4x4))
+MUTATION MUT-SECOND          DETECTED  (controls failed: K-canon/K-search(small), K-plant(4x4), K-collision)
+MUTATION MUT-LEAF            DETECTED  (controls failed: K-collision)
+C21 PREFLIGHT: VOID (failed: ['K-none-near-identity', 'K-perm', 'K-plant'])

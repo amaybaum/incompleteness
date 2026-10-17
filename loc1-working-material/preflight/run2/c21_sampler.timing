@@ -1,0 +1,3 @@
+TIMING classify random dense pair            0.059s  29.7 us/sample
+TIMING classify declared-class product pair  0.054s  27.1 us/sample
+TIMING sampling_s 1.287  draws 112150  us/draw 11.5

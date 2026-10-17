@@ -1,0 +1,6 @@
+{
+  "P0_C21_index_convention": "V = Fin 4 x Fin 4, declared index n = 4 i1 + i2, |A| = 1; grid point (a, b) has index a*4 + b",
+  "P0_H1_times_2": [[1, 1, 1, 1], [1, 1, -1, -1], [1, -1, 1, -1], [1, -1, -1, 1]],
+  "P0_P_definition": "P = (H1 (x) H1, H1 (x) H1) with H1 = (1/2) P0_H1_times_2; the suite uses 4 (H1 (x) H1) = kron(P0_H1_times_2, P0_H1_times_2), whose declared class is a product by construction",
+  "provenance": "values transcribed from P0's research record (p0_exact.py, H(z) at z = 1); the P control's verdict rests on the written argument (kron(H, H) is a product in its declared class for any H), not on that source"
+}

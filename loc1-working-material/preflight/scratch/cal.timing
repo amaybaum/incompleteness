@@ -1,0 +1,244 @@
+TIMING small 2x2 identity                           all   ALL       tested          9  0.000s  28.58 us/tested
+TIMING small 2x2 planted 0                          all   ALL       tested          7  0.000s  23.12 us/tested
+TIMING small 2x2 planted 1                          all   ALL       tested          7  0.000s  28.25 us/tested
+TIMING small 2x2 planted 2                          all   ALL       tested          8  0.000s  32.15 us/tested
+TIMING small 2x2 random 0                           all   ALL       tested          6  0.000s  15.40 us/tested
+TIMING small 2x2 random 1                           all   ALL       tested          6  0.000s  32.93 us/tested
+TIMING small 2x2 transposition                      all   ALL       tested          6  0.000s  12.60 us/tested
+TIMING small 2x3 identity                           all   ALL       tested        164  0.003s  19.27 us/tested
+TIMING small 2x3 planted 0                          all   ALL       tested         31  0.001s  21.29 us/tested
+TIMING small 2x3 planted 1                          all   ALL       tested         18  0.000s  16.70 us/tested
+TIMING small 2x3 planted 2                          all   ALL       tested         35  0.001s  18.49 us/tested
+TIMING small 2x3 random 0                           all   ALL       tested         26  0.000s  12.23 us/tested
+TIMING small 2x3 random 1                           all   ALL       tested         26  0.001s  19.25 us/tested
+TIMING small 2x3 transposition                      all   ALL       tested         24  0.000s  8.54 us/tested
+TIMING small 3x2 identity                           all   ALL       tested        164  0.003s  20.94 us/tested
+TIMING small 3x2 planted 0                          all   ALL       tested         25  0.000s  18.14 us/tested
+TIMING small 3x2 planted 1                          all   ALL       tested         36  0.001s  17.88 us/tested
+TIMING small 3x2 planted 2                          all   ALL       tested         40  0.001s  19.93 us/tested
+TIMING small 3x2 random 0                           all   ALL       tested         26  0.000s  11.38 us/tested
+TIMING small 3x2 random 1                           all   ALL       tested         26  0.000s  12.10 us/tested
+TIMING small 3x2 transposition                      all   ALL       tested         24  0.000s  8.34 us/tested
+TIMING small 2x4 identity                           all   ALL       tested       2292  0.053s  22.91 us/tested
+TIMING small 2x4 planted 0                          all   ALL       tested         56  0.001s  18.99 us/tested
+TIMING small 2x4 planted 1                          all   ALL       tested         76  0.001s  16.35 us/tested
+TIMING small 2x4 planted 2                          all   ALL       tested         72  0.001s  13.72 us/tested
+TIMING small 2x4 random 0                           all   ALL       tested         66  0.001s  15.14 us/tested
+TIMING small 2x4 random 1                           all   ALL       tested         66  0.001s  12.11 us/tested
+TIMING small 2x4 transposition                      all   ALL       tested        108  0.001s  7.37 us/tested
+TIMING small 4x2 identity                           all   ALL       tested       2292  0.057s  25.01 us/tested
+TIMING small 4x2 planted 0                          all   ALL       tested         79  0.001s  15.68 us/tested
+TIMING small 4x2 planted 1                          all   ALL       tested         82  0.001s  16.57 us/tested
+TIMING small 4x2 planted 2                          all   ALL       tested         82  0.001s  16.64 us/tested
+TIMING small 4x2 random 0                           all   ALL       tested         66  0.001s  9.18 us/tested
+TIMING small 4x2 random 1                           all   ALL       tested         66  0.001s  9.05 us/tested
+TIMING small 4x2 transposition                      all   ALL       tested        108  0.001s  9.00 us/tested
+TIMING small 3x3 identity                           all   ALL       tested      13703  0.373s  27.21 us/tested
+TIMING small 3x3 planted 0                          all   ALL       tested         56  0.001s  19.12 us/tested
+TIMING small 3x3 planted 1                          all   ALL       tested         66  0.001s  20.01 us/tested
+TIMING small 3x3 planted 2                          all   ALL       tested         61  0.001s  12.73 us/tested
+TIMING small 3x3 random 0                           all   ALL       tested         35  0.001s  20.16 us/tested
+TIMING small 3x3 random 1                           all   ALL       tested         35  0.000s  9.85 us/tested
+TIMING small 3x3 transposition                      all   ALL       tested         50  0.001s  10.42 us/tested
+TIMING P0 control P = H1(x)H1                       exist FOUND     tested         16  0.001s  36.48 us/tested
+TIMING P0 control P = H1(x)H1                       all   ALL       tested      13613  0.172s  12.61 us/tested
+TIMING planted dense 0                              exist FOUND     tested         83  0.002s  24.71 us/tested
+TIMING planted dense 0                              all   ALL       tested        474  0.014s  29.35 us/tested
+TIMING planted dense 1                              exist FOUND     tested        196  0.005s  26.71 us/tested
+TIMING planted dense 1                              all   ALL       tested        254  0.008s  30.98 us/tested
+TIMING planted dense 2                              exist FOUND     tested         99  0.003s  31.51 us/tested
+TIMING planted dense 2                              all   ALL       tested        288  0.016s  55.98 us/tested
+TIMING planted dense 3                              exist FOUND     tested         62  0.001s  23.21 us/tested
+TIMING planted dense 3                              all   ALL       tested        585  0.017s  29.68 us/tested
+TIMING planted dense 4                              exist FOUND     tested         98  0.003s  27.06 us/tested
+TIMING planted dense 4                              all   ALL       tested        363  0.015s  41.23 us/tested
+TIMING planted with-zeros 0                         exist FOUND     tested        247  0.002s  9.70 us/tested
+TIMING planted with-zeros 0                         all   ALL       tested        494  0.004s  8.97 us/tested
+TIMING planted with-zeros 1                         exist FOUND     tested         54  0.001s  13.75 us/tested
+TIMING planted with-zeros 1                         all   ALL       tested        511  0.005s  9.91 us/tested
+TIMING planted with-zeros 2                         exist FOUND     tested         56  0.001s  14.74 us/tested
+TIMING planted with-zeros 2                         all   ALL       tested        502  0.005s  9.63 us/tested
+TIMING planted with-zeros 3                         exist FOUND     tested         91  0.001s  16.27 us/tested
+TIMING planted with-zeros 3                         all   ALL       tested        531  0.005s  9.72 us/tested
+TIMING planted with-zeros 4                         exist FOUND     tested         53  0.001s  15.47 us/tested
+TIMING planted with-zeros 4                         all   ALL       tested        228  0.003s  11.82 us/tested
+TIMING planted repeated{1,2} 0                      exist FOUND     tested         56  0.001s  26.47 us/tested
+TIMING planted repeated{1,2} 0                      all   ALL       tested       1859  0.026s  14.16 us/tested
+TIMING planted repeated{1,2} 1                      exist FOUND     tested        216  0.004s  20.49 us/tested
+TIMING planted repeated{1,2} 1                      all   ALL       tested        862  0.020s  22.73 us/tested
+TIMING planted repeated{1,2} 2                      exist FOUND     tested       2778  0.038s  13.76 us/tested
+TIMING planted repeated{1,2} 2                      all   ALL       tested       6766  0.108s  15.95 us/tested
+TIMING planted repeated{1,2} 3                      exist FOUND     tested        102  0.002s  22.80 us/tested
+TIMING planted repeated{1,2} 3                      all   ALL       tested       2251  0.052s  22.94 us/tested
+TIMING planted repeated{1,2} 4                      exist FOUND     tested        200  0.004s  22.41 us/tested
+TIMING planted repeated{1,2} 4                      all   ALL       tested       1322  0.028s  21.07 us/tested
+TIMING planted signs 0                              exist FOUND     tested        189  0.003s  17.28 us/tested
+TIMING planted signs 0                              all   ALL       tested       2535  0.046s  18.26 us/tested
+TIMING planted signs 1                              exist FOUND     tested       7513  0.080s  10.71 us/tested
+TIMING planted signs 1                              all   ALL       tested      18629  0.199s  10.71 us/tested
+TIMING planted signs 2                              exist FOUND     tested       1598  0.021s  12.89 us/tested
+TIMING planted signs 2                              all   ALL       tested       3343  0.049s  14.70 us/tested
+TIMING planted signs 3                              exist FOUND     tested         72  0.002s  24.40 us/tested
+TIMING planted signs 3                              all   ALL       tested       2095  0.031s  14.65 us/tested
+TIMING planted signs 4                              exist FOUND     tested        635  0.035s  55.55 us/tested
+TIMING planted signs 4                              all   ALL       tested        980  0.016s  16.09 us/tested
+TIMING planted 0/1 C4 x C4 (tensor)                 exist FOUND     tested         16  0.001s  31.66 us/tested
+TIMING knuth planted 0/1 C4 x C4 (tensor)             probes 2000  2.15s
+TIMING planted 0/1 C4 x C4 (tensor)                 all   EXHAUSTED tested     200001  6.099s  30.50 us/tested
+TIMING planted 0/1 K4 x K4 (tensor; complement of rook) exist FOUND     tested        459  0.002s  5.38 us/tested
+TIMING planted 0/1 K4 x K4 (tensor; complement of rook) all   ALL       tested        488  0.002s  5.12 us/tested
+TIMING planted 0/1 J4 (x) I4                        exist FOUND     tested         16  0.000s  26.13 us/tested
+TIMING knuth planted 0/1 J4 (x) I4                    probes 2000  2.39s
+TIMING planted 0/1 J4 (x) I4                        all   EXHAUSTED tested     200001  8.964s  44.82 us/tested
+TIMING planted 0/1 C4 (x) (J2+J2)                   exist FOUND     tested         19  0.000s  25.57 us/tested
+TIMING knuth planted 0/1 C4 (x) (J2+J2)               probes 2000  2.49s
+TIMING planted 0/1 C4 (x) (J2+J2)                   all   EXHAUSTED tested     200001  6.177s  30.89 us/tested
+TIMING joint planted pair 0                         exist FOUND     tested         86  0.002s  19.78 us/tested
+TIMING joint planted pair 0                         all   ALL       tested        339  0.004s  12.24 us/tested
+TIMING joint planted pair 1                         exist FOUND     tested        137  0.002s  13.66 us/tested
+TIMING joint planted pair 1                         all   ALL       tested        288  0.003s  10.98 us/tested
+TIMING joint planted pair 2                         exist FOUND     tested        184  0.002s  13.27 us/tested
+TIMING joint planted pair 2                         all   ALL       tested        266  0.003s  12.96 us/tested
+TIMING identity                                     exist FOUND     tested         16  0.000s  25.16 us/tested
+TIMING all-ones J                                   exist FOUND     tested         16  0.001s  33.50 us/tested
+TIMING knuth identity                                 probes 2000  4.52s
+TIMING identity                                     all   EXHAUSTED tested    2000001  98.146s  49.07 us/tested
+TIMING perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist NONE      tested      64079  0.276s  4.31 us/tested
+TIMING perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist NONE      tested      64079  0.281s  4.39 us/tested
+TIMING perm 16 consecutive [excluded]               exist NONE      tested        133  0.002s  15.06 us/tested
+TIMING perm 16 seeded [excluded]                    exist NONE      tested        133  0.002s  15.30 us/tested
+TIMING perm 8.8 consecutive [excluded]              exist NONE      tested        107  0.002s  14.27 us/tested
+TIMING perm 8.8 seeded [excluded]                   exist NONE      tested        107  0.001s  13.89 us/tested
+TIMING perm 4.4.4.4 consecutive [admitted]          exist FOUND     tested         16  0.000s  25.98 us/tested
+TIMING perm 4.4.4.4 consecutive [admitted]          all   ALL       tested      10202  0.267s  26.16 us/tested
+TIMING perm 4.4.4.4 seeded [admitted]               exist FOUND     tested         23  0.001s  25.67 us/tested
+TIMING perm 4.4.4.4 seeded [admitted]               all   ALL       tested      10202  0.275s  26.97 us/tested
+TIMING perm 2.2.2.2.2.2.2.2 consecutive [admitted]  exist FOUND     tested         16  0.000s  29.23 us/tested
+TIMING knuth perm 2.2.2.2.2.2.2.2 consecutive [admitted] probes 2000  3.94s
+TIMING perm 2.2.2.2.2.2.2.2 consecutive [admitted]  all   EXHAUSTED tested    2000001  74.637s  37.32 us/tested
+TIMING perm 2.2.2.2.2.2.2.2 seeded [admitted]       exist FOUND     tested         16  0.001s  49.39 us/tested
+TIMING knuth perm 2.2.2.2.2.2.2.2 seeded [admitted]   probes 2000  3.28s
+TIMING perm 2.2.2.2.2.2.2.2 seeded [admitted]       all   EXHAUSTED tested    2000001  76.061s  38.03 us/tested
+TIMING perm 15.1 consecutive [excluded]             exist NONE      tested         83  0.001s  12.70 us/tested
+TIMING perm 15.1 seeded [excluded]                  exist NONE      tested         83  0.001s  11.64 us/tested
+TIMING perm 12.4 consecutive [admitted]             exist FOUND     tested         79  0.001s  15.96 us/tested
+TIMING perm 12.4 consecutive [admitted]             all   ALL       tested        161  0.002s  14.62 us/tested
+TIMING perm 12.4 seeded [admitted]                  exist FOUND     tested         85  0.001s  12.54 us/tested
+TIMING perm 12.4 seeded [admitted]                  all   ALL       tested        161  0.002s  15.47 us/tested
+TIMING perm 6.6.2.2 consecutive [admitted]          exist FOUND     tested         72  0.001s  15.08 us/tested
+TIMING perm 6.6.2.2 consecutive [admitted]          all   ALL       tested        346  0.007s  20.81 us/tested
+TIMING perm 6.6.2.2 seeded [admitted]               exist FOUND     tested         75  0.001s  15.45 us/tested
+TIMING perm 6.6.2.2 seeded [admitted]               all   ALL       tested        346  0.007s  19.02 us/tested
+TIMING perm 4.4.4.2.2 consecutive [excluded]        exist NONE      tested       7706  0.131s  16.99 us/tested
+TIMING perm 4.4.4.2.2 seeded [excluded]             exist NONE      tested        190  0.002s  11.56 us/tested
+TIMING perm 3.3.3.3.1.1.1.1 consecutive [admitted]  exist FOUND     tested         34  0.001s  15.78 us/tested
+TIMING perm 3.3.3.3.1.1.1.1 consecutive [admitted]  all   ALL       tested      10627  0.185s  17.42 us/tested
+TIMING perm 3.3.3.3.1.1.1.1 seeded [admitted]       exist FOUND     tested         36  0.001s  20.43 us/tested
+TIMING perm 3.3.3.3.1.1.1.1 seeded [admitted]       all   ALL       tested      10627  0.198s  18.66 us/tested
+TIMING knuth perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] probes 2000  1.28s
+TIMING perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist EXHAUSTED tested     200001  1.094s  5.47 us/tested
+TIMING knuth perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] probes 2000  1.41s
+TIMING perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist EXHAUSTED tested     200001  1.232s  6.16 us/tested
+TIMING perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded] exist NONE      tested        142  0.001s  5.75 us/tested
+TIMING perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded] exist NONE      tested        142  0.001s  5.81 us/tested
+TIMING perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted] exist FOUND     tested       1594  0.016s  10.21 us/tested
+TIMING perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted] all   ALL       tested     519497  21.564s  41.51 us/tested
+TIMING perm 2.2.2.2.1.1.1.1.1.1.1.1 seeded [admitted] exist FOUND     tested         79  0.001s  15.03 us/tested
+TIMING perm 2.2.2.2.1.1.1.1.1.1.1.1 seeded [admitted] all   ALL       tested     506930  20.771s  40.97 us/tested
+TIMING perm 5.5.5.1 consecutive [excluded]          exist NONE      tested         73  0.001s  13.09 us/tested
+TIMING perm 5.5.5.1 seeded [excluded]               exist NONE      tested         73  0.001s  11.94 us/tested
+TIMING perm 7.7.1.1 consecutive [excluded]          exist NONE      tested        203  0.003s  12.52 us/tested
+TIMING perm 7.7.1.1 seeded [excluded]               exist NONE      tested        203  0.003s  12.41 us/tested
+TIMING perm 4.4.2.2.2.2 consecutive [excluded]      exist NONE      tested       2090  0.032s  15.48 us/tested
+TIMING perm 4.4.2.2.2.2 seeded [excluded]           exist NONE      tested       1803  0.024s  13.44 us/tested
+TIMING graph Q4 hypercube declared                  exist NONE      tested      13644  0.064s  4.68 us/tested
+TIMING graph Q4 hypercube seeded                    exist NONE      tested      13644  0.060s  4.36 us/tested
+TIMING graph rook K4 box K4 declared                exist NONE      tested        367  0.001s  3.84 us/tested
+TIMING graph rook K4 box K4 seeded                  exist NONE      tested        377  0.001s  3.73 us/tested
+TIMING graph Shrikhande declared                    exist NONE      tested        255  0.001s  4.16 us/tested
+TIMING graph Shrikhande seeded                      exist NONE      tested        255  0.001s  4.03 us/tested
+TIMING graph Clebsch declared                       exist NONE      tested       5458  0.022s  4.00 us/tested
+TIMING graph Clebsch seeded                         exist NONE      tested       5458  0.022s  4.02 us/tested
+TIMING graph I + J declared                         exist NONE      tested        599  0.012s  20.49 us/tested
+TIMING graph I + J seeded                           exist NONE      tested        599  0.013s  21.30 us/tested
+TIMING graph J - I declared                         exist NONE      tested        599  0.002s  3.72 us/tested
+TIMING graph J - I seeded                           exist NONE      tested        599  0.002s  3.63 us/tested
+TIMING near-identity I+E(14,15) order=greedy rules=RWVP exist NONE      tested      63987  0.308s  4.82 us/tested
+TIMING knuth near-identity I+E(14,15) order=nat rules=RWVP probes 2000  4.25s
+TIMING near-identity I+E(14,15) order=nat rules=RWVP exist EXHAUSTED tested    2000001  28.050s  14.03 us/tested
+TIMING knuth near-identity I+E(14,15) order=greedy rules=RWV probes 2000  1.52s
+TIMING near-identity I+E(14,15) order=greedy rules=RWV exist EXHAUSTED tested    2000001  8.300s  4.15 us/tested
+TIMING knuth near-identity I+E(14,15) order=nat rules=RWV probes 2000  2.65s
+TIMING near-identity I+E(14,15) order=nat rules=RWV exist EXHAUSTED tested    2000001  22.158s  11.08 us/tested
+TIMING random dense ints 0                          exist NONE      tested        188  0.003s  14.10 us/tested
+TIMING random dense ints 1                          exist NONE      tested        188  0.002s  12.65 us/tested
+TIMING random dense ints 2                          exist NONE      tested        188  0.003s  15.56 us/tested
+TIMING random dense ints 3                          exist NONE      tested        188  0.002s  10.23 us/tested
+TIMING random dense ints 4                          exist NONE      tested        188  0.002s  8.35 us/tested
+TIMING random {1,2} 0                               exist NONE      tested        300  0.007s  23.23 us/tested
+TIMING random {1,2} 1                               exist NONE      tested        471  0.011s  23.28 us/tested
+TIMING random {1,2} 2                               exist NONE      tested        243  0.006s  23.72 us/tested
+TIMING random {1,2} 3                               exist NONE      tested        232  0.006s  26.09 us/tested
+TIMING random {1,2} 4                               exist NONE      tested        267  0.007s  24.96 us/tested
+TIMING random signs 0                               exist NONE      tested        899  0.023s  25.08 us/tested
+TIMING random signs 1                               exist NONE      tested        384  0.008s  19.65 us/tested
+TIMING random signs 2                               exist NONE      tested        376  0.006s  16.75 us/tested
+TIMING random signs 3                               exist NONE      tested        433  0.009s  20.41 us/tested
+TIMING random signs 4                               exist NONE      tested        488  0.012s  25.01 us/tested
+TIMING random sparse 0/1 0                          exist NONE      tested        232  0.002s  10.45 us/tested
+TIMING random sparse 0/1 1                          exist NONE      tested         68  0.000s  6.71 us/tested
+TIMING random sparse 0/1 2                          exist NONE      tested        211  0.001s  6.08 us/tested
+TIMING random sparse 0/1 3                          exist NONE      tested        316  0.002s  6.36 us/tested
+TIMING random sparse 0/1 4                          exist NONE      tested        288  0.001s  4.12 us/tested
+TIMING near-product 0                               exist NONE      tested       1033  0.025s  24.38 us/tested
+TIMING near-product 1                               exist NONE      tested       1120  0.016s  14.18 us/tested
+TIMING near-product 2                               exist NONE      tested        792  0.016s  20.06 us/tested
+TIMING near-product 3                               exist NONE      tested        600  0.012s  19.73 us/tested
+TIMING near-product 4                               exist NONE      tested        199  0.005s  26.48 us/tested
+TIMING ablation planted 0 rules=RWVP                all   ALL       tested        266  0.002s  6.90 us/tested
+TIMING ablation planted 0 rules=RWV                 all   ALL       tested        299  0.002s  5.21 us/tested
+TIMING ablation planted 0 rules=RW                  all   ALL       tested        299  0.002s  5.79 us/tested
+TIMING ablation planted 0 rules=R                   all   ALL       tested        299  0.003s  11.06 us/tested
+TIMING ablation planted 0 rules=RP                  all   ALL       tested        266  0.003s  12.54 us/tested
+TIMING ablation planted 0 rules=WV                  all   ALL       tested        935  0.001s  1.27 us/tested
+TIMING ablation planted 0 arith=exact               all   ALL       tested        266  0.002s  7.67 us/tested
+TIMING ablation planted 0 arith=modp                all   ALL       tested        266  0.002s  7.44 us/tested
+TIMING ablation planted 1 rules=RWVP                all   ALL       tested        913  0.007s  7.49 us/tested
+TIMING ablation planted 1 rules=RWV                 all   ALL       tested       1590  0.007s  4.62 us/tested
+TIMING ablation planted 1 rules=RW                  all   ALL       tested       1590  0.007s  4.49 us/tested
+TIMING ablation planted 1 rules=R                   all   ALL       tested       4958  0.050s  10.07 us/tested
+TIMING ablation planted 1 rules=RP                  all   ALL       tested       1950  0.033s  16.88 us/tested
+TIMING ablation planted 1 rules=WV                  all   ALL       tested       2754  0.004s  1.29 us/tested
+TIMING ablation planted 1 arith=exact               all   ALL       tested        913  0.008s  8.66 us/tested
+TIMING ablation planted 1 arith=modp                all   ALL       tested        913  0.007s  7.75 us/tested
+TIMING ablation planted 2 rules=RWVP                all   ALL       tested        374  0.005s  13.39 us/tested
+TIMING ablation planted 2 rules=RWV                 all   ALL       tested        514  0.005s  9.46 us/tested
+TIMING ablation planted 2 rules=RW                  all   ALL       tested        514  0.005s  9.48 us/tested
+TIMING ablation planted 2 rules=R                   all   ALL       tested        514  0.008s  14.88 us/tested
+TIMING ablation planted 2 rules=RP                  all   ALL       tested        374  0.007s  18.91 us/tested
+TIMING ablation planted 2 rules=WV                  all   ALL       tested       8306  0.010s  1.17 us/tested
+TIMING ablation planted 2 arith=exact               all   ALL       tested        374  0.004s  11.62 us/tested
+TIMING ablation planted 2 arith=modp                all   ALL       tested        374  0.005s  13.37 us/tested
+TIMING ablation planted C4 x C4 rules=RWVP          all   ALL       tested     484889  14.496s  29.89 us/tested
+TIMING ablation planted C4 x C4 rules=RWV           all   ALL       tested    1634849  19.509s  11.93 us/tested
+TIMING ablation planted C4 x C4 rules=RW            all   ALL       tested    1634849  19.693s  12.05 us/tested
+TIMING ablation planted C4 x C4 rules=R             all   ALL       tested    1634849  22.542s  13.79 us/tested
+TIMING ablation planted C4 x C4 rules=RP            all   ALL       tested     484889  14.775s  30.47 us/tested
+TIMING ablation planted C4 x C4 rules=WV            all   ALL       tested   17558471  51.060s  2.91 us/tested
+TIMING ablation planted C4 x C4 arith=exact         all   ALL       tested     484889  14.566s  30.04 us/tested
+TIMING ablation planted C4 x C4 arith=modp          all   ALL       tested     484889  12.316s  25.40 us/tested
+TIMING ablation transposition rules=RWVP            all   ALL       tested      64079  0.230s  3.59 us/tested
+TIMING ablation transposition rules=RWV             all   ALL       tested     261619  0.895s  3.42 us/tested
+TIMING ablation transposition rules=RW              all   ALL       tested     261619  1.699s  6.49 us/tested
+TIMING ablation transposition rules=R               all   ALL       tested     261619  1.527s  5.84 us/tested
+TIMING ablation transposition rules=RP              all   ALL       tested      64079  0.447s  6.98 us/tested
+TIMING ablation transposition arith=exact           all   ALL       tested      64079  0.289s  4.50 us/tested
+TIMING ablation transposition arith=modp            all   ALL       tested      64079  0.246s  3.84 us/tested
+TIMING mod-p collision (rules=R)                    all   ALL       tested        254  0.007s  27.31 us/tested
+TIMING mutation MUT-INDEX 1.35s
+TIMING mutation MUT-SUPPORT-STRONG 0.05s
+TIMING mutation MUT-LEX-ALWAYS 0.31s
+TIMING mutation MUT-NOLEX 2.36s
+TIMING mutation MUT-SECOND 0.70s
+TIMING mutation MUT-LEAF 1.19s
+TIMING suite_s 1442.8  mutation_harness_s 6.0  peak_rss_kB 1342604

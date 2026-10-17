@@ -1,0 +1,9 @@
+ordered placements of 0..3 by stratum: [(1, 576), (2, 33696), (3, 9216), (4, 192)] (total 43680)
+classes by stratum: [(1, 239500800), (2, 14010796800), (3, 3832012800), (4, 79833600)]  sum 18162144000  (total classes 18162144000)
+CONTROL K-strata PASS  (sums to 16!/1152; strata 4 and 1 match 2*4*4! and 16*9*4*1)
+draws 112150 to fill 4 x 500; draws per stratum [(1, 1512), (2, 86383), (3, 23755), (4, 500)]; duplicate classes rejected 0
+CONTROL K-sample-canonical PASS ; CONTROL K-sample-stratum PASS ; distinct classes 2000
+sample list sha256 6f1d6b6d4db6fb8db02d6922cea9052e29edf1d9836a5066f8395295a2bc2b13
+classified 2000 samples on random dense pair: product classes among them 0
+classified 2000 samples on declared-class product pair: product classes among them 0
+power note: each class of stratum k enters the sample with probability k=1: 500/239500800, k=2: 500/14010796800, k=3: 500/3832012800, k=4: 500/79833600; a target with r_k product classes in stratum k is hit with probability <= sum_k r_k * 500 / pop_k

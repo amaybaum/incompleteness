@@ -1,0 +1,16 @@
+PASS natural factorization: 8 edges, max degree 3  (8, 3)
+PASS (a) translation invariance: M commutes with the shift
+PASS (b) range 1: x_i depends only on x_{i±1}, p_i; p_i only on x_i
+PASS (c) bidirectional: every edge used in both directions
+PASS eigenvector [1, 1, 1, 1] of the ring adjacency over F_3  lambda=2
+PASS eigenvector [1, -1, 1, -1] of the ring adjacency over F_3  lambda=1
+PASS eigenvector [1, 0, -1, 0] of the ring adjacency over F_3  lambda=0
+PASS eigenvector [0, 1, 0, -1] of the ring adjacency over F_3  lambda=0
+PASS eigenmode factorization: 4 edges, max degree 1  (4, 1)
+PASS eigenmode factorization differs from the natural one (not a coordinate permutation with scalings)
+PASS brute force over all 6561 states reproduces the eigenmode graph  4
+PASS A4(b) holds in the spatial factorization: x_i' has no x_i term
+PASS A4(b) fails in the eigenmode factorization: c_k' depends on c_k for lambda_k != 0  [0, 1]
+PASS pullback of the eigenmode factorization by phi has the same coupling graph
+PASS pullback is a distinct factorization (transition is not monomial)
+controls: OK

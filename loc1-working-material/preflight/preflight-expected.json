@@ -1,0 +1,1117 @@
+{
+ "form": "derived",
+ "holds_at": "no commit: a drafting-time design result of the ten preflight inputs named in 'inputs' by sha256, which are self-contained (standard library; they read only their own directory, and c21_replay_mut.py also the temporary files it writes); from stage 1 they are the files of the LOC-1 record directory's design/",
+ "inputs": [
+  "c21_engine.py",
+  "c21_replay.py",
+  "c21_replay_mut.py",
+  "c21_sampler.py",
+  "c21_search.py",
+  "f34_count_indep.py",
+  "f34_enum.py",
+  "frozen_inputs.json",
+  "scope_T.py",
+  "sizes.py"
+ ],
+ "not_recorded": "timings: every script writes durations, per-node and per-decomposition costs and peak memory to stderr, which differs between runs; nothing here is read from stderr",
+ "recipe": [
+  "copy the ten inputs into an empty directory and run there, in order:",
+  "python3 -I sizes.py > sizes.out",
+  "python3 -I scope_T.py > scope_T.out",
+  "python3 -I f34_count_indep.py > f34_count_indep.out",
+  "python3 -I f34_enum.py > f34_enum.out 2> /dev/null",
+  "python3 -I f34_enum.py --kdep-all > f34_enum_kdepall.out 2> /dev/null",
+  "python3 -I c21_search.py > c21_search.out 2> /dev/null   (writes c21_witness.json)",
+  "python3 -I c21_replay.py > c21_replay.out",
+  "python3 -I c21_replay_mut.py > c21_replay_mut.out",
+  "python3 -I c21_sampler.py > c21_sampler.out 2> /dev/null   (writes c21_samples.json)",
+  "python3 -I preflight_expected.py . > preflight-expected.json",
+  "compare each source with 'sources' and this file with its pinned sha256, byte for byte"
+ ],
+ "results": {
+  "c21_replay": {
+   "bruteforced_shapes": 42,
+   "no_class_samples": 66,
+   "permutation_checks": 81,
+   "planted_checks": 64,
+   "records": 241,
+   "truncated_witness_lists": 17,
+   "verdict": "AGREES",
+   "witnesses_reverified": 47300
+  },
+  "c21_replay_mut": {
+   "mutations": {
+    "corrupt-witness": "DETECTED",
+    "drop-class": "DETECTED",
+    "duplicate-class": "DETECTED",
+    "fake-perm-class": "DETECTED"
+   },
+   "verdict": "ALL DETECTED"
+  },
+  "c21_sampler": {
+   "classes_by_stratum": [
+    [
+     1,
+     239500800
+    ],
+    [
+     2,
+     14010796800
+    ],
+    [
+     3,
+     3832012800
+    ],
+    [
+     4,
+     79833600
+    ]
+   ],
+   "classes_sum": 18162144000,
+   "classes_total": 18162144000,
+   "controls": [
+    [
+     "K-sample-canonical",
+     "PASS"
+    ],
+    [
+     "K-sample-stratum",
+     "PASS"
+    ],
+    [
+     "K-strata",
+     "PASS"
+    ]
+   ],
+   "distinct_classes": 2000,
+   "draws": 112150,
+   "draws_by_stratum": [
+    [
+     1,
+     1512
+    ],
+    [
+     2,
+     86383
+    ],
+    [
+     3,
+     23755
+    ],
+    [
+     4,
+     500
+    ]
+   ],
+   "duplicates_rejected": 0,
+   "placements_by_stratum": [
+    [
+     1,
+     576
+    ],
+    [
+     2,
+     33696
+    ],
+    [
+     3,
+     9216
+    ],
+    [
+     4,
+     192
+    ]
+   ],
+   "placements_total": 43680,
+   "product_classes_found": [
+    0,
+    0
+   ],
+   "sample_list_sha256": "6f1d6b6d4db6fb8db02d6922cea9052e29edf1d9836a5066f8395295a2bc2b13"
+  },
+  "c21_search": {
+   "controls": {
+    "fail": 0,
+    "k_ablation": 29,
+    "k_arith": 5,
+    "k_collision": 1,
+    "lines": 203,
+    "pass": 203
+   },
+   "exist_runs": [
+    {
+     "name": "P0 control P = H1(x)H1",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "planted dense 0",
+     "status": "FOUND",
+     "tested": 83
+    },
+    {
+     "name": "planted dense 1",
+     "status": "FOUND",
+     "tested": 196
+    },
+    {
+     "name": "planted dense 2",
+     "status": "FOUND",
+     "tested": 99
+    },
+    {
+     "name": "planted dense 3",
+     "status": "FOUND",
+     "tested": 62
+    },
+    {
+     "name": "planted dense 4",
+     "status": "FOUND",
+     "tested": 98
+    },
+    {
+     "name": "planted with-zeros 0",
+     "status": "FOUND",
+     "tested": 247
+    },
+    {
+     "name": "planted with-zeros 1",
+     "status": "FOUND",
+     "tested": 54
+    },
+    {
+     "name": "planted with-zeros 2",
+     "status": "FOUND",
+     "tested": 56
+    },
+    {
+     "name": "planted with-zeros 3",
+     "status": "FOUND",
+     "tested": 91
+    },
+    {
+     "name": "planted with-zeros 4",
+     "status": "FOUND",
+     "tested": 53
+    },
+    {
+     "name": "planted repeated{1,2} 0",
+     "status": "FOUND",
+     "tested": 56
+    },
+    {
+     "name": "planted repeated{1,2} 1",
+     "status": "FOUND",
+     "tested": 216
+    },
+    {
+     "name": "planted repeated{1,2} 2",
+     "status": "FOUND",
+     "tested": 2778
+    },
+    {
+     "name": "planted repeated{1,2} 3",
+     "status": "FOUND",
+     "tested": 102
+    },
+    {
+     "name": "planted repeated{1,2} 4",
+     "status": "FOUND",
+     "tested": 200
+    },
+    {
+     "name": "planted signs 0",
+     "status": "FOUND",
+     "tested": 189
+    },
+    {
+     "name": "planted signs 1",
+     "status": "FOUND",
+     "tested": 7513
+    },
+    {
+     "name": "planted signs 2",
+     "status": "FOUND",
+     "tested": 1598
+    },
+    {
+     "name": "planted signs 3",
+     "status": "FOUND",
+     "tested": 72
+    },
+    {
+     "name": "planted signs 4",
+     "status": "FOUND",
+     "tested": 635
+    },
+    {
+     "name": "planted 0/1 C4 x C4 (tensor)",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "planted 0/1 K4 x K4 (tensor; complement of rook)",
+     "status": "FOUND",
+     "tested": 459
+    },
+    {
+     "name": "planted 0/1 J4 (x) I4",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "planted 0/1 C4 (x) (J2+J2)",
+     "status": "FOUND",
+     "tested": 19
+    },
+    {
+     "name": "joint planted pair 0",
+     "status": "FOUND",
+     "tested": 86
+    },
+    {
+     "name": "joint planted pair 1",
+     "status": "FOUND",
+     "tested": 137
+    },
+    {
+     "name": "joint planted pair 2",
+     "status": "FOUND",
+     "tested": 184
+    },
+    {
+     "name": "identity",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "all-ones J",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 64079
+    },
+    {
+     "name": "perm 2.1.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 64079
+    },
+    {
+     "name": "perm 16 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 133
+    },
+    {
+     "name": "perm 16 seeded [excluded]",
+     "status": "NONE",
+     "tested": 133
+    },
+    {
+     "name": "perm 8.8 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 107
+    },
+    {
+     "name": "perm 8.8 seeded [excluded]",
+     "status": "NONE",
+     "tested": 107
+    },
+    {
+     "name": "perm 4.4.4.4 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "perm 4.4.4.4 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 23
+    },
+    {
+     "name": "perm 2.2.2.2.2.2.2.2 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "perm 2.2.2.2.2.2.2.2 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 16
+    },
+    {
+     "name": "perm 15.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 83
+    },
+    {
+     "name": "perm 15.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 83
+    },
+    {
+     "name": "perm 12.4 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 79
+    },
+    {
+     "name": "perm 12.4 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 85
+    },
+    {
+     "name": "perm 6.6.2.2 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 72
+    },
+    {
+     "name": "perm 6.6.2.2 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 75
+    },
+    {
+     "name": "perm 4.4.4.2.2 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 7706
+    },
+    {
+     "name": "perm 4.4.4.2.2 seeded [excluded]",
+     "status": "NONE",
+     "tested": 190
+    },
+    {
+     "name": "perm 3.3.3.3.1.1.1.1 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 34
+    },
+    {
+     "name": "perm 3.3.3.3.1.1.1.1 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 36
+    },
+    {
+     "name": "perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 276070
+    },
+    {
+     "name": "perm 2.2.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 276070
+    },
+    {
+     "name": "perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 142
+    },
+    {
+     "name": "perm 3.1.1.1.1.1.1.1.1.1.1.1.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 142
+    },
+    {
+     "name": "perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 1594
+    },
+    {
+     "name": "perm 2.2.2.2.1.1.1.1.1.1.1.1 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 79
+    },
+    {
+     "name": "perm 5.5.5.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 73
+    },
+    {
+     "name": "perm 5.5.5.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 73
+    },
+    {
+     "name": "perm 7.7.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 203
+    },
+    {
+     "name": "perm 7.7.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 203
+    },
+    {
+     "name": "perm 4.4.2.2.2.2 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 2090
+    },
+    {
+     "name": "perm 4.4.2.2.2.2 seeded [excluded]",
+     "status": "NONE",
+     "tested": 1803
+    },
+    {
+     "name": "perm 2.2.2.1.1.1.1.1.1.1.1.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 673491
+    },
+    {
+     "name": "perm 2.2.2.1.1.1.1.1.1.1.1.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 673491
+    },
+    {
+     "name": "perm 2.2.2.2.2.1.1.1.1.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 1144018
+    },
+    {
+     "name": "perm 2.2.2.2.2.1.1.1.1.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 1144018
+    },
+    {
+     "name": "perm 2.2.2.2.2.2.2.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 221684
+    },
+    {
+     "name": "perm 2.2.2.2.2.2.2.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 221684
+    },
+    {
+     "name": "perm 3.3.3.1.1.1.1.1.1.1 consecutive [excluded]",
+     "status": "NONE",
+     "tested": 1397548
+    },
+    {
+     "name": "perm 3.3.3.1.1.1.1.1.1.1 seeded [excluded]",
+     "status": "NONE",
+     "tested": 1397548
+    },
+    {
+     "name": "perm 2.2.2.2.2.2.1.1.1.1 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 27810
+    },
+    {
+     "name": "perm 2.2.2.2.2.2.1.1.1.1 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 27810
+    },
+    {
+     "name": "perm 6.3.3.2.1.1 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 174
+    },
+    {
+     "name": "perm 6.3.3.2.1.1 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 104
+    },
+    {
+     "name": "perm 3.3.3.3.3.1 consecutive [admitted]",
+     "status": "FOUND",
+     "tested": 38
+    },
+    {
+     "name": "perm 3.3.3.3.3.1 seeded [admitted]",
+     "status": "FOUND",
+     "tested": 40
+    },
+    {
+     "name": "graph Q4 hypercube declared",
+     "status": "NONE",
+     "tested": 13644
+    },
+    {
+     "name": "graph Q4 hypercube seeded",
+     "status": "NONE",
+     "tested": 13644
+    },
+    {
+     "name": "graph rook K4 box K4 declared",
+     "status": "NONE",
+     "tested": 367
+    },
+    {
+     "name": "graph rook K4 box K4 seeded",
+     "status": "NONE",
+     "tested": 377
+    },
+    {
+     "name": "graph Shrikhande declared",
+     "status": "NONE",
+     "tested": 255
+    },
+    {
+     "name": "graph Shrikhande seeded",
+     "status": "NONE",
+     "tested": 255
+    },
+    {
+     "name": "graph Clebsch declared",
+     "status": "NONE",
+     "tested": 5458
+    },
+    {
+     "name": "graph Clebsch seeded",
+     "status": "NONE",
+     "tested": 5458
+    },
+    {
+     "name": "graph I + J declared",
+     "status": "NONE",
+     "tested": 599
+    },
+    {
+     "name": "graph I + J seeded",
+     "status": "NONE",
+     "tested": 599
+    },
+    {
+     "name": "graph J - I declared",
+     "status": "NONE",
+     "tested": 599
+    },
+    {
+     "name": "graph J - I seeded",
+     "status": "NONE",
+     "tested": 599
+    },
+    {
+     "name": "near-identity I+E(14,15) order=greedy rules=RWVP",
+     "status": "NONE",
+     "tested": 63987
+    },
+    {
+     "name": "near-identity I+E(14,15) order=nat rules=RWVP",
+     "status": "EXHAUSTED",
+     "tested": 2000001
+    },
+    {
+     "name": "near-identity I+E(14,15) order=greedy rules=RWV",
+     "status": "EXHAUSTED",
+     "tested": 2000001
+    },
+    {
+     "name": "near-identity I+E(14,15) order=nat rules=RWV",
+     "status": "EXHAUSTED",
+     "tested": 2000001
+    },
+    {
+     "name": "random dense ints 0",
+     "status": "NONE",
+     "tested": 188
+    },
+    {
+     "name": "random dense ints 1",
+     "status": "NONE",
+     "tested": 188
+    },
+    {
+     "name": "random dense ints 2",
+     "status": "NONE",
+     "tested": 188
+    },
+    {
+     "name": "random dense ints 3",
+     "status": "NONE",
+     "tested": 188
+    },
+    {
+     "name": "random dense ints 4",
+     "status": "NONE",
+     "tested": 188
+    },
+    {
+     "name": "random {1,2} 0",
+     "status": "NONE",
+     "tested": 299
+    },
+    {
+     "name": "random {1,2} 1",
+     "status": "NONE",
+     "tested": 315
+    },
+    {
+     "name": "random {1,2} 2",
+     "status": "NONE",
+     "tested": 254
+    },
+    {
+     "name": "random {1,2} 3",
+     "status": "NONE",
+     "tested": 501
+    },
+    {
+     "name": "random {1,2} 4",
+     "status": "NONE",
+     "tested": 244
+    },
+    {
+     "name": "random signs 0",
+     "status": "NONE",
+     "tested": 539
+    },
+    {
+     "name": "random signs 1",
+     "status": "NONE",
+     "tested": 374
+    },
+    {
+     "name": "random signs 2",
+     "status": "NONE",
+     "tested": 243
+    },
+    {
+     "name": "random signs 3",
+     "status": "NONE",
+     "tested": 507
+    },
+    {
+     "name": "random signs 4",
+     "status": "NONE",
+     "tested": 333
+    },
+    {
+     "name": "random sparse 0/1 0",
+     "status": "NONE",
+     "tested": 54
+    },
+    {
+     "name": "random sparse 0/1 1",
+     "status": "NONE",
+     "tested": 333
+    },
+    {
+     "name": "random sparse 0/1 2",
+     "status": "NONE",
+     "tested": 86
+    },
+    {
+     "name": "random sparse 0/1 3",
+     "status": "NONE",
+     "tested": 188
+    },
+    {
+     "name": "random sparse 0/1 4",
+     "status": "NONE",
+     "tested": 394
+    },
+    {
+     "name": "near-product 0",
+     "status": "NONE",
+     "tested": 389
+    },
+    {
+     "name": "near-product 1",
+     "status": "NONE",
+     "tested": 413
+    },
+    {
+     "name": "near-product 2",
+     "status": "NONE",
+     "tested": 328
+    },
+    {
+     "name": "near-product 3",
+     "status": "NONE",
+     "tested": 535
+    },
+    {
+     "name": "near-product 4",
+     "status": "NONE",
+     "tested": 302
+    }
+   ],
+   "k_canon": {
+    "2x2": [
+     3,
+     3
+    ],
+    "2x3": [
+     60,
+     60
+    ],
+    "2x4": [
+     840,
+     840
+    ],
+    "3x2": [
+     60,
+     60
+    ],
+    "3x3": [
+     5040,
+     5040
+    ],
+    "4x2": [
+     840,
+     840
+    ]
+   },
+   "mode_all": {
+    "exhausted": [
+     {
+      "knuth_tested": 50869028518,
+      "name": "identity",
+      "order": "greedy",
+      "rules": "RWVP",
+      "tested": 2000001
+     },
+     {
+      "knuth_tested": 2283545,
+      "name": "perm 2.2.2.2.2.2.2.2 consecutive [admitted]",
+      "order": "greedy",
+      "rules": "RWVP",
+      "tested": 2000001
+     },
+     {
+      "knuth_tested": 2380068,
+      "name": "perm 2.2.2.2.2.2.2.2 seeded [admitted]",
+      "order": "greedy",
+      "rules": "RWVP",
+      "tested": 2000001
+     }
+    ],
+    "max_runs": [
+     "perm 2.2.2.2.1.1.1.1.1.1.1.1 consecutive [admitted]"
+    ],
+    "rules_order_of_terminated": [
+     "RWVP greedy"
+    ],
+    "runs": 47,
+    "statuses": {
+     "ALL": 44
+    },
+    "terminated": 44,
+    "tested_max": 519497,
+    "tested_min": 161,
+    "tested_sorted_index_n_div_2": 1460,
+    "tested_sorted_index_n_div_2_minus_1": 1322
+   },
+   "mode_exist": {
+    "exhausted": [
+     {
+      "knuth_tested": 31115809640,
+      "name": "near-identity I+E(14,15) order=nat rules=RWVP",
+      "order": "nat",
+      "rules": "RWVP",
+      "tested": 2000001
+     },
+     {
+      "knuth_tested": 4214542,
+      "name": "near-identity I+E(14,15) order=greedy rules=RWV",
+      "order": "greedy",
+      "rules": "RWV",
+      "tested": 2000001
+     },
+     {
+      "knuth_tested": 31415140611,
+      "name": "near-identity I+E(14,15) order=nat rules=RWV",
+      "order": "nat",
+      "rules": "RWV",
+      "tested": 2000001
+     }
+    ],
+    "max_runs": [
+     "perm 3.3.3.1.1.1.1.1.1.1 consecutive [excluded]",
+     "perm 3.3.3.1.1.1.1.1.1.1 seeded [excluded]"
+    ],
+    "rules_order_of_terminated": [
+     "RWVP greedy"
+    ],
+    "runs": 117,
+    "statuses": {
+     "FOUND": 48,
+     "NONE": 66
+    },
+    "terminated": 114,
+    "tested_max": 1397548,
+    "tested_min": 16,
+    "tested_sorted_index_n_div_2": 203,
+    "tested_sorted_index_n_div_2_minus_1": 200
+   },
+   "mutations": {
+    "MUT-INDEX": "DETECTED",
+    "MUT-LEAF": "DETECTED",
+    "MUT-LEX-ALWAYS": "DETECTED",
+    "MUT-NOLEX": "DETECTED",
+    "MUT-SECOND": "DETECTED",
+    "MUT-SUPPORT-STRONG": "DETECTED"
+   },
+   "named_runs": {
+    "near_identity_frozen": {
+     "found": 0,
+     "status": "NONE",
+     "tested": 63987
+    },
+    "p0_P_all": {
+     "found": 10,
+     "status": "ALL",
+     "tested": 13613
+    },
+    "p0_P_exist": {
+     "found": 1,
+     "status": "FOUND",
+     "tested": 16
+    },
+    "transposition_consecutive": {
+     "found": 0,
+     "status": "NONE",
+     "tested": 64079
+    },
+    "transposition_seeded": {
+     "found": 0,
+     "status": "NONE",
+     "tested": 64079
+    }
+   },
+   "verdict": "CONTROLS GREEN"
+  },
+  "data_files": {
+   "c21_samples.json": {
+    "samples": 2000
+   },
+   "c21_witness.json": {
+    "records": 241
+   }
+  },
+  "f34_count_indep": {
+   "ordered_4_tuples": 1516320,
+   "points": 40,
+   "unordered_4_sets": 63180,
+   "verdict": "AGREES (63180)"
+  },
+  "f34_enum": {
+   "controls": {
+    "K-count": "PASS",
+    "K-dep": "PASS",
+    "K-distinct": "PASS",
+    "K-identity": "PASS",
+    "K-invariance": "PASS",
+    "K-inverse": "PASS",
+    "K-planted": "PASS",
+    "K-rules": "PASS",
+    "K-special-present": "PASS"
+   },
+   "decompositions": 63180,
+   "formula": 63180,
+   "gl43": 24261120,
+   "k_dep": "1966 seeded decompositions x 3 rules, 0 mismatches",
+   "mutations": {
+    "and": "DETECTED",
+    "conj": "DETECTED",
+    "droppoint": "DETECTED",
+    "duppoint": "DETECTED",
+    "noindep": "DETECTED"
+   },
+   "points": 40,
+   "rules": {
+    "R-block": {
+     "(deg_max, e) histogram": "[((1, 2), 36), ((2, 3), 888), ((2, 4), 1668), ((3, 3), 144), ((3, 4), 4992), ((3, 5), 23616), ((3, 6), 31836)]",
+     "deg_max histogram": "[(1, 36), (2, 2556), (3, 60588)]",
+     "min deg_max": "1  minimizers: 36  lexicographic (deg_max, e) minimizers: 36 at e = 2",
+     "natural decomposition": "deg_max=3 e=6 self=4 edges=((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))",
+     "planted rows(S) decomposition": "deg_max=1 e=2 self=2 edges=((0, 3), (1, 2))"
+    },
+    "R-id": {
+     "(deg_max, e) histogram": "[((0, 0), 63180)]",
+     "deg_max histogram": "[(0, 63180)]",
+     "min deg_max": "0  minimizers: 63180  lexicographic (deg_max, e) minimizers: 63180 at e = 0",
+     "natural decomposition": "deg_max=0 e=0 self=4 edges=()",
+     "planted rows(S) decomposition": "deg_max=0 e=0 self=4 edges=()"
+    },
+    "R-rand": {
+     "(deg_max, e) histogram": "[((1, 2), 36), ((2, 3), 852), ((2, 4), 1488), ((3, 3), 144), ((3, 4), 5064), ((3, 5), 23940), ((3, 6), 31656)]",
+     "deg_max histogram": "[(1, 36), (2, 2340), (3, 60804)]",
+     "min deg_max": "1  minimizers: 36  lexicographic (deg_max, e) minimizers: 36 at e = 2",
+     "natural decomposition": "deg_max=3 e=6 self=3 edges=((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))",
+     "planted rows(S) decomposition": "deg_max=3 e=5 self=0 edges=((0, 1), (0, 2), (1, 2), (1, 3), (2, 3))"
+    }
+   },
+   "verdict": "CONTROLS GREEN"
+  },
+  "f34_enum_kdep_all": {
+   "controls": {
+    "K-count": "PASS",
+    "K-dep": "PASS",
+    "K-distinct": "PASS",
+    "K-identity": "PASS",
+    "K-invariance": "PASS",
+    "K-inverse": "PASS",
+    "K-planted": "PASS",
+    "K-rules": "PASS",
+    "K-special-present": "PASS"
+   },
+   "decompositions": 63180,
+   "formula": 63180,
+   "gl43": 24261120,
+   "k_dep": "63180 (all) decompositions x 3 rules, 0 mismatches",
+   "mutations": {
+    "and": "DETECTED",
+    "conj": "DETECTED",
+    "droppoint": "DETECTED",
+    "duppoint": "DETECTED",
+    "noindep": "DETECTED"
+   },
+   "points": 40,
+   "rules": {
+    "R-block": {
+     "(deg_max, e) histogram": "[((1, 2), 36), ((2, 3), 888), ((2, 4), 1668), ((3, 3), 144), ((3, 4), 4992), ((3, 5), 23616), ((3, 6), 31836)]",
+     "deg_max histogram": "[(1, 36), (2, 2556), (3, 60588)]",
+     "min deg_max": "1  minimizers: 36  lexicographic (deg_max, e) minimizers: 36 at e = 2",
+     "natural decomposition": "deg_max=3 e=6 self=4 edges=((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))",
+     "planted rows(S) decomposition": "deg_max=1 e=2 self=2 edges=((0, 3), (1, 2))"
+    },
+    "R-id": {
+     "(deg_max, e) histogram": "[((0, 0), 63180)]",
+     "deg_max histogram": "[(0, 63180)]",
+     "min deg_max": "0  minimizers: 63180  lexicographic (deg_max, e) minimizers: 63180 at e = 0",
+     "natural decomposition": "deg_max=0 e=0 self=4 edges=()",
+     "planted rows(S) decomposition": "deg_max=0 e=0 self=4 edges=()"
+    },
+    "R-rand": {
+     "(deg_max, e) histogram": "[((1, 2), 36), ((2, 3), 852), ((2, 4), 1488), ((3, 3), 144), ((3, 4), 5064), ((3, 5), 23940), ((3, 6), 31656)]",
+     "deg_max histogram": "[(1, 36), (2, 2340), (3, 60804)]",
+     "min deg_max": "1  minimizers: 36  lexicographic (deg_max, e) minimizers: 36 at e = 2",
+     "natural decomposition": "deg_max=3 e=6 self=3 edges=((0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3))",
+     "planted rows(S) decomposition": "deg_max=3 e=5 self=0 edges=((0, 1), (0, 2), (1, 2), (1, 3), (2, 3))"
+    }
+   },
+   "verdict": "CONTROLS GREEN"
+  },
+  "scope_T": {
+   "orbit_check": "OK",
+   "rows": [
+    {
+     "case": "CCT4",
+     "group_order": 32,
+     "i0_ambient": 18,
+     "i1_ambient": 6,
+     "quotient": "Q-part",
+     "shape": "V 2x2, A 2x2"
+    },
+    {
+     "case": "CCT4",
+     "group_order": 64,
+     "i0_ambient": 9,
+     "i1_ambient": 3,
+     "quotient": "Q-set",
+     "shape": "V 2x2, A 2x2"
+    },
+    {
+     "case": "CCC",
+     "group_order": 32,
+     "i0_ambient": 18,
+     "i1_ambient": 6,
+     "quotient": "Q-part",
+     "shape": "V 2x2, A 2x2"
+    },
+    {
+     "case": "CCC",
+     "group_order": 64,
+     "i0_ambient": 9,
+     "i1_ambient": 3,
+     "quotient": "Q-set",
+     "shape": "V 2x2, A 2x2"
+    },
+    {
+     "case": "CENT",
+     "group_order": 8,
+     "i0_ambient": 3,
+     "i1_ambient": 1,
+     "quotient": "Q-part",
+     "shape": "V 2x2, A 1x1"
+    },
+    {
+     "case": "CENT",
+     "group_order": 8,
+     "i0_ambient": 3,
+     "i1_ambient": 1,
+     "quotient": "Q-set",
+     "shape": "V 2x2, A 1x1"
+    },
+    {
+     "case": "C21",
+     "group_order": 1152,
+     "i0_ambient": 18162144000,
+     "i1_ambient": 1,
+     "quotient": "both",
+     "shape": "V 4x4,  A 1x1"
+    },
+    {
+     "case": "K-srch",
+     "group_order": 48,
+     "i0_ambient": 840,
+     "i1_ambient": null,
+     "quotient": "both",
+     "shape": "Fin 8 as 2x4"
+    }
+   ]
+  },
+  "sizes": {
+   "formula_controls": "OK",
+   "rows": [
+    "leg T  CCT4 / CT4 x CT4                       V=4 as 2x2, A=4 as 2x2                                9  exhaustive",
+    "leg T  CCC                                    V=4 as 2x2, A=4 as 2x2                                9  exhaustive",
+    "leg T  CENT (countercontrol)                  V=4 as 2x2, A=1                                       3  exhaustive",
+    "leg T  C21                                    V=16 as 4x4, A=1                            18162144000  over cap: sample 2000 or complete pruned search",
+    "leg T  K-search engine control                Fin 8 as 2x4                                        840  exhaustive",
+    "leg S  one coupled edge / U-free(3)           F_3^4, linear                                     63180  over cap: sample 2000 or complete pruned search",
+    "leg S  four-site ring, q=3 (counterexample)   F_3^8, linear                  186345411494319439773840  over cap: sample 2000 or complete pruned search",
+    "leg S  four-site ring, q=5                    F_5^8, linear              155985354749495901167392730712890625  over cap: sample 2000 or complete pruned search",
+    "leg S  two coupled edges U-edge(3)            F_3^8, linear                  186345411494319439773840  over cap: sample 2000 or complete pruned search"
+   ]
+  }
+ },
+ "schema": "loc1-preflight-expected",
+ "sources": {
+  "c21_replay.out": {
+   "bytes": 178,
+   "sha256": "d254d7cc2ca244a62aab0002918b680b13569f315a12593eec41fd39f10cc011"
+  },
+  "c21_replay_mut.out": {
+   "bytes": 391,
+   "sha256": "1b69431f3e63ded08410197935a6c48c746b58bf445927020a47b710a195f19c"
+  },
+  "c21_sampler.out": {
+   "bytes": 1021,
+   "sha256": "b61c10fa25c9aa056e80fbc38967fab0a62b874b16dcd0bd75d73371c86eacbc"
+  },
+  "c21_samples.json": {
+   "bytes": 88001,
+   "sha256": "6f1d6b6d4db6fb8db02d6922cea9052e29edf1d9836a5066f8395295a2bc2b13"
+  },
+  "c21_search.out": {
+   "bytes": 54521,
+   "sha256": "f09b4840c2471d27ab601a7029fd3bce07cd17c921da8b79ce44fb3350010a9d"
+  },
+  "c21_witness.json": {
+   "bytes": 1912475,
+   "sha256": "eca55c800cf6f19a5fb25cd586b8af43ac2ad0b5942b8c7f81b517a1e9866f15"
+  },
+  "f34_count_indep.out": {
+   "bytes": 208,
+   "sha256": "89253e0df60bae63193c6107ec57b0ead21bbd358fafdaf116154adf9dd1c2ac"
+  },
+  "f34_enum.out": {
+   "bytes": 2537,
+   "sha256": "93704f647192cd2f00bee30a2ddd4879e831aa18029558d67efa0000cbbd7128"
+  },
+  "f34_enum_kdepall.out": {
+   "bytes": 2537,
+   "sha256": "72485aef26438ddf08ce1fb1833d8bf5f63cfa6fcdd6d6eb157fe6061a5a1701"
+  },
+  "scope_T.out": {
+   "bytes": 631,
+   "sha256": "5f046ca1a24caa8c021d6a495b27293ffaee5f90655f90851752abc6d90625da"
+  },
+  "sizes.out": {
+   "bytes": 1350,
+   "sha256": "558bce27933c552d87dfc555bad043943296c3005d67e5c53614d8ea726e91fe"
+  }
+ },
+ "version": 1
+}

@@ -1,0 +1,10 @@
+case   shape                  quotient I0 ambient I1 ambient      |G|
+CCT4   V 2x2, A 2x2    Q-part         18          6       32
+CCT4   V 2x2, A 2x2     Q-set          9          3       64
+CCC    V 2x2, A 2x2    Q-part         18          6       32
+CCC    V 2x2, A 2x2     Q-set          9          3       64
+CENT   V 2x2, A 1x1    Q-part          3          1        8
+CENT   V 2x2, A 1x1     Q-set          3          1        8
+C21    V 4x4,  A 1x1        both    18162144000          1     1152
+K-srch Fin 8 as 2x4         both           840          -       48
+orbit counts equal |X|/|G| in every case (free actions): OK

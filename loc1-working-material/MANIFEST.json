@@ -1,0 +1,487 @@
+{
+ "what": "LOC-1 working material that exists only in the drafting session, as pinned by the preregistration at 026c00777d0fa09c72b82b7563b1238142b8fc29 (PR #853): the preflight scripts, inputs, both runs, the S16 completeness argument and the structured expected result, and the six prior-disclosure files; stage 1 copies them into design/ and prior/",
+ "not": "not evidence of any LOC-1 result; the preflight evaluated no target object",
+ "supersedes": "loc1-working-material-20261016.zip (which lacks S16-completeness.md, preflight_expected.py and preflight-expected.json)",
+ "files": [
+  {
+   "path": "preflight/S16-completeness.md",
+   "bytes": 15937,
+   "sha256": "d45ae28ab475745ad2125fa9b05cf49229adf52a2a96c2caeace62741a40ca36",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/c21_engine.py",
+   "bytes": 21164,
+   "sha256": "28a6a538245a250f7e4aa80957f9e420d191a38461e3cfc02955f5da7f5dd6fc",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/c21_replay.py",
+   "bytes": 7143,
+   "sha256": "c898a9bd628813d0641b3a1b72044d8d575aefd6dd4787d8034e4afc0f6895bd",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/c21_replay_mut.py",
+   "bytes": 2061,
+   "sha256": "a4443f5ec9094049d25104a4a77aa8e817235ced6cd2b3f6cad81b059795c951",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/c21_sampler.py",
+   "bytes": 7502,
+   "sha256": "c5df4f297f9d8501668cc0f6beedcbb497e70b255f1ec4f1743a5e075c2e36b8",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/c21_search.py",
+   "bytes": 24216,
+   "sha256": "715270755052258ff443d5967b0fddbb655f6345d19b52f979deea435a93a0ba",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/f34_count_indep.py",
+   "bytes": 2439,
+   "sha256": "f0bc84171fb69f631b28119f3b46ed0740cbb21723f564d6e6af4d00f68ce4bd",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/f34_enum.py",
+   "bytes": 14346,
+   "sha256": "594bd6a4b2cbdcddef0d52f6d9f05d17092838c25e295d8ccea808c9983b5efb",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/frozen_inputs.json",
+   "bytes": 637,
+   "sha256": "89e94743d08a07c74f5a7661da7839ca7434d627acfeb9c556805fe01059c803",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/preflight-expected.json",
+   "bytes": 26358,
+   "sha256": "70a1e1eda648d78b56b5b446285c66b8deeaf6d8a65412cc56c42cbbeca178ac",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/preflight_expected.py",
+   "bytes": 13458,
+   "sha256": "16a9fcbb0f823da2765bb770962c67782f1db888aea31167876cc3fad5a814f4",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_engine.py",
+   "bytes": 21164,
+   "sha256": "28a6a538245a250f7e4aa80957f9e420d191a38461e3cfc02955f5da7f5dd6fc",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_replay.err",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/c21_replay.out",
+   "bytes": 178,
+   "sha256": "d254d7cc2ca244a62aab0002918b680b13569f315a12593eec41fd39f10cc011",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_replay.py",
+   "bytes": 7143,
+   "sha256": "c898a9bd628813d0641b3a1b72044d8d575aefd6dd4787d8034e4afc0f6895bd",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_replay_mut.err",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/c21_replay_mut.out",
+   "bytes": 391,
+   "sha256": "1b69431f3e63ded08410197935a6c48c746b58bf445927020a47b710a195f19c",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_replay_mut.py",
+   "bytes": 2061,
+   "sha256": "a4443f5ec9094049d25104a4a77aa8e817235ced6cd2b3f6cad81b059795c951",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_sampler.out",
+   "bytes": 1021,
+   "sha256": "b61c10fa25c9aa056e80fbc38967fab0a62b874b16dcd0bd75d73371c86eacbc",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_sampler.py",
+   "bytes": 7502,
+   "sha256": "c5df4f297f9d8501668cc0f6beedcbb497e70b255f1ec4f1743a5e075c2e36b8",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_sampler.timing",
+   "bytes": 188,
+   "sha256": "7f444f704d36c789d3ea8fb0e98656169ca5e5dae1035037d123d3941dde9d9a",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/c21_samples.json",
+   "bytes": 88001,
+   "sha256": "6f1d6b6d4db6fb8db02d6922cea9052e29edf1d9836a5066f8395295a2bc2b13",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_search.out",
+   "bytes": 54521,
+   "sha256": "f09b4840c2471d27ab601a7029fd3bce07cd17c921da8b79ce44fb3350010a9d",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_search.py",
+   "bytes": 24216,
+   "sha256": "715270755052258ff443d5967b0fddbb655f6345d19b52f979deea435a93a0ba",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/c21_search.timing",
+   "bytes": 28115,
+   "sha256": "55bba70cf8a58316664e86fc1afc237a2cd9160448a20c9840675278be0cbb7c",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/c21_witness.json",
+   "bytes": 1912475,
+   "sha256": "eca55c800cf6f19a5fb25cd586b8af43ac2ad0b5942b8c7f81b517a1e9866f15",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/done.txt",
+   "bytes": 50,
+   "sha256": "97fe43350cbe9b2025e496b6e669652feca55c57da878a9b123d4b54d02854d0",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/f34_count_indep.out",
+   "bytes": 208,
+   "sha256": "89253e0df60bae63193c6107ec57b0ead21bbd358fafdaf116154adf9dd1c2ac",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/f34_count_indep.py",
+   "bytes": 2439,
+   "sha256": "f0bc84171fb69f631b28119f3b46ed0740cbb21723f564d6e6af4d00f68ce4bd",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/f34_enum.out",
+   "bytes": 2537,
+   "sha256": "93704f647192cd2f00bee30a2ddd4879e831aa18029558d67efa0000cbbd7128",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/f34_enum.py",
+   "bytes": 14346,
+   "sha256": "594bd6a4b2cbdcddef0d52f6d9f05d17092838c25e295d8ccea808c9983b5efb",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/f34_enum.timing",
+   "bytes": 223,
+   "sha256": "ddcb016b268065ef4a39b97864a3d93590cbb308f8288fd8b64968d249d81ee6",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/f34_enum_kdepall.out",
+   "bytes": 2537,
+   "sha256": "72485aef26438ddf08ce1fb1833d8bf5f63cfa6fcdd6d6eb157fe6061a5a1701",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/f34_enum_kdepall.timing",
+   "bytes": 228,
+   "sha256": "2e11ace14482d9a659e8a63bb657c9ebca7ff85cbc848e97ab79894940f41f38",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run1/frozen_inputs.json",
+   "bytes": 637,
+   "sha256": "89e94743d08a07c74f5a7661da7839ca7434d627acfeb9c556805fe01059c803",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/scope_T.out",
+   "bytes": 631,
+   "sha256": "5f046ca1a24caa8c021d6a495b27293ffaee5f90655f90851752abc6d90625da",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/scope_T.py",
+   "bytes": 4812,
+   "sha256": "b0edfc9322b68c022913433ac1069419f83bedd78252199d9e7d7ebfa8e03583",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/sizes.out",
+   "bytes": 1350,
+   "sha256": "558bce27933c552d87dfc555bad043943296c3005d67e5c53614d8ea726e91fe",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run1/sizes.py",
+   "bytes": 2106,
+   "sha256": "ab4d5ee342029a9d4907264609743762273045c58fa411d49cfc7dd3465304f1",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_engine.py",
+   "bytes": 21164,
+   "sha256": "28a6a538245a250f7e4aa80957f9e420d191a38461e3cfc02955f5da7f5dd6fc",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_replay.err",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run2/c21_replay.out",
+   "bytes": 178,
+   "sha256": "d254d7cc2ca244a62aab0002918b680b13569f315a12593eec41fd39f10cc011",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_replay.py",
+   "bytes": 7143,
+   "sha256": "c898a9bd628813d0641b3a1b72044d8d575aefd6dd4787d8034e4afc0f6895bd",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_replay_mut.err",
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run2/c21_replay_mut.out",
+   "bytes": 391,
+   "sha256": "1b69431f3e63ded08410197935a6c48c746b58bf445927020a47b710a195f19c",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_replay_mut.py",
+   "bytes": 2061,
+   "sha256": "a4443f5ec9094049d25104a4a77aa8e817235ced6cd2b3f6cad81b059795c951",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_sampler.out",
+   "bytes": 1021,
+   "sha256": "b61c10fa25c9aa056e80fbc38967fab0a62b874b16dcd0bd75d73371c86eacbc",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_sampler.py",
+   "bytes": 7502,
+   "sha256": "c5df4f297f9d8501668cc0f6beedcbb497e70b255f1ec4f1743a5e075c2e36b8",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_sampler.timing",
+   "bytes": 188,
+   "sha256": "7667a4d16a50850c33e6d1160cc877173173a80b1d5ba12702d801325fb0e9e5",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run2/c21_samples.json",
+   "bytes": 88001,
+   "sha256": "6f1d6b6d4db6fb8db02d6922cea9052e29edf1d9836a5066f8395295a2bc2b13",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_search.out",
+   "bytes": 54521,
+   "sha256": "f09b4840c2471d27ab601a7029fd3bce07cd17c921da8b79ce44fb3350010a9d",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_search.py",
+   "bytes": 24216,
+   "sha256": "715270755052258ff443d5967b0fddbb655f6345d19b52f979deea435a93a0ba",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/c21_search.timing",
+   "bytes": 28111,
+   "sha256": "88a9342fb0e362b9dc1919a9d4016ceabf42b9270a5552419cc84758455ec350",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run2/c21_witness.json",
+   "bytes": 1912475,
+   "sha256": "eca55c800cf6f19a5fb25cd586b8af43ac2ad0b5942b8c7f81b517a1e9866f15",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/done.txt",
+   "bytes": 50,
+   "sha256": "fa1bcd6236f002a60d0d9203e30c7720ae875feef4d006fdb2c3448da639271f",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run2/f34_count_indep.out",
+   "bytes": 208,
+   "sha256": "89253e0df60bae63193c6107ec57b0ead21bbd358fafdaf116154adf9dd1c2ac",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/f34_count_indep.py",
+   "bytes": 2439,
+   "sha256": "f0bc84171fb69f631b28119f3b46ed0740cbb21723f564d6e6af4d00f68ce4bd",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/f34_enum.out",
+   "bytes": 2537,
+   "sha256": "93704f647192cd2f00bee30a2ddd4879e831aa18029558d67efa0000cbbd7128",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/f34_enum.py",
+   "bytes": 14346,
+   "sha256": "594bd6a4b2cbdcddef0d52f6d9f05d17092838c25e295d8ccea808c9983b5efb",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/f34_enum.timing",
+   "bytes": 223,
+   "sha256": "7bd1b13e49d804ca9a667d35f8acdb0c6683c913cd86eebe7debd81db61021e7",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/run2/frozen_inputs.json",
+   "bytes": 637,
+   "sha256": "89e94743d08a07c74f5a7661da7839ca7434d627acfeb9c556805fe01059c803",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/scope_T.out",
+   "bytes": 631,
+   "sha256": "5f046ca1a24caa8c021d6a495b27293ffaee5f90655f90851752abc6d90625da",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/scope_T.py",
+   "bytes": 4812,
+   "sha256": "b0edfc9322b68c022913433ac1069419f83bedd78252199d9e7d7ebfa8e03583",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/sizes.out",
+   "bytes": 1350,
+   "sha256": "558bce27933c552d87dfc555bad043943296c3005d67e5c53614d8ea726e91fe",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/run2/sizes.py",
+   "bytes": 2106,
+   "sha256": "ab4d5ee342029a9d4907264609743762273045c58fa411d49cfc7dd3465304f1",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/scope_T.py",
+   "bytes": 4812,
+   "sha256": "b0edfc9322b68c022913433ac1069419f83bedd78252199d9e7d7ebfa8e03583",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "preflight/scratch/cal.out",
+   "bytes": 50411,
+   "sha256": "b9cf4bf5aad3aea7f12f0888c225c5c2a619cfb4f95121a3689b01cd748b6a9b",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/scratch/cal.timing",
+   "bytes": 26250,
+   "sha256": "2c6a149429dcb73b30e5447088d020723ca7ae7f1be1f019a596dcd7ce131a06",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/scratch/f34_mem.py",
+   "bytes": 615,
+   "sha256": "476384423062538ebdb1e22e1e4e68dd9118d7086b47d5add7405fdcfe00c5a0",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/scratch/ni.py",
+   "bytes": 764,
+   "sha256": "8eff652a7f535975d4f6fbe73f5715c70ad9c6323c991a9776dc8edcd4566f81",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/scratch/ni2.py",
+   "bytes": 1374,
+   "sha256": "9c56ebcf3af12b235b521dbb90dbdacd97dd0cffa1407369f78ac8b637017f2d",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/scratch/perm_explore.py",
+   "bytes": 769,
+   "sha256": "22231dcd5f8c065aef3d526d7b6f7c61977c7ccf1d17aea8e5726ed549b5cdf0",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/scratch/smoke.py",
+   "bytes": 1250,
+   "sha256": "d56db4e122a1f154b2d4cfe1156f6a540f65308083f8d158803d99f3c78dc09c",
+   "pinned_in_preregistration_026c0077": false
+  },
+  {
+   "path": "preflight/sizes.py",
+   "bytes": 2106,
+   "sha256": "ab4d5ee342029a9d4907264609743762273045c58fa411d49cfc7dd3465304f1",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "prior/factorization-check/factorization_check.out",
+   "bytes": 1095,
+   "sha256": "9ef260e7b54d7f339da5e3a29a30f8e62f00866c4993e82576689513f898d363",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "prior/factorization-check/factorization_check.py",
+   "bytes": 5496,
+   "sha256": "52694d4afd14c472ec9e7e265dae19183651e57cc284346d8d36981953a29126",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "prior/thread-b-explore/closure_design.out",
+   "bytes": 812,
+   "sha256": "88921a9967bb57581e084323a206481baf5bce18f0d7d73f9fc6d97cfb5cb1d8",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "prior/thread-b-explore/closure_design.py",
+   "bytes": 3078,
+   "sha256": "bb33939e6da3bd9c5638e547605d4541dae19118f6b564484fa007c34b3a7ed3",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "prior/thread-b-explore/decomposition_probe.out",
+   "bytes": 6381,
+   "sha256": "f32b7f820df7b80e2980b1a6409aea6e3e06aba2a3c12fe76e132b020acc527a",
+   "pinned_in_preregistration_026c0077": true
+  },
+  {
+   "path": "prior/thread-b-explore/decomposition_probe.py",
+   "bytes": 14708,
+   "sha256": "acdd998dd477b3fca26e41210b0f5b1634d0e795d47df4b4c1de1aad6472d40a",
+   "pinned_in_preregistration_026c0077": true
+  }
+ ]
+}
