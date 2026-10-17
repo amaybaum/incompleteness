@@ -1,20 +1,19 @@
 # Handoff: state at 2026-10-17, repair batch 1
 
-`main` is at `ea3155fd` (PR #855 landed 06:28Z on the owner's approval; before it, `66a981d5` with R1 and AGENTS §A.42
-at line 833). The other PRs below are drafts, and no further merge is authorized.
+`main` is at `49ba3297` (PR #854 landed 09:37Z on the owner's approval; before it, `ea3155fd` from PR #855 at 06:28Z,
+and `66a981d5` with R1 and AGENTS §A.42). The other PRs below are drafts, and no further merge is authorized.
 
 ## 0. Repair queue, small batches
 
 The owner requested closing the open repair work in small batches on 2026-10-17.
 
-1. **#854:** `e3a44e63` independently re-reviewed; the recorded counterexamples and local checks pass.
-   The PR branch remains at that exact SHA. PR integration CI, exact-head CI and both real reproductions
-   passed. Separate verdict: R1-HARDENING-ACCEPTANCE-READY. Owner approval to merge that exact SHA is
-   pending; #854 stays a draft. See `records/pr854/ACCEPTANCE-e3a44e63.md`.
+1. **#854: LANDED** as `49ba3297` (parents `ea3155fd`, `e3a44e63`; tree `18d4d6cc`, as precomputed). The main-push
+   run 39021837293 succeeded, and its release gate passed 22/22. See `records/pr854/LANDING.md`.
 2. **Handoff freshness:** #855's main-push run and #853's PR run are complete and successful. This snapshot
    closes those pending status entries and corrects the branch map.
-3. **F2 research-text repairs:** the four overclaims listed below remain a separate, bounded repair batch;
-   they require checking their source statements before edits. New scientific closure work is separate.
+3. **F2 research-text repairs:** the four corrections are drafted locally as commit `75c83f37` on
+   `wip/f2-text-corrections-20261017`, branched from `4872398e`. That branch is unpushed and awaits independent
+   review. New scientific closure work is separate.
 4. **Preservation and archiving:** keep the existing recovery branches. Pilot acceptance, storage decisions
    and the off-main retention design remain explicit later decisions; they are not silently adopted here.
 
@@ -102,9 +101,9 @@ Merged on the owner's approval as `ea3155fd` (`records/pr855/LANDING.md`).
 - The old `draft/provenance-errata-20261017` remote ref is now absent. The reviewed commit remains the merge's
   second parent on main. This session did not delete or recreate the branch.
 
-Main remains `ea3155fd`. The #854 repair preserves its history from `66a981d5`; no rebase was needed.
+### LANDED — PR #854, R1 hardening
 
-### P1 — PR #854, R1 hardening
+Merged on the owner's approval as `49ba3297` (`records/pr854/LANDING.md`). The record before landing follows.
 
 - **Current PR head:** `e3a44e63ebec41fccd109cf1ca945b3b8a200553` on
   `draft/evidence-retention-r1-hardening-20261017`. The same SHA remains on `wip/r1-hardening-fix-20261017`.
@@ -139,8 +138,8 @@ Main remains `ea3155fd`. The #854 repair preserves its history from `66a981d5`; 
 - The connection's missing dispatch operation was handled by the approved browser UI; no alternate trigger
   or workflow edit was introduced. No further workflows were launched.
 - The validation completion check has reached a conclusive result and is being disabled.
-- The PR stays a draft pending separate owner approval to merge exactly e3a44e63ebec41fccd109cf1ca945b3b8a200553.
-  Main remains ea3155fd; no F/E designation, frozen-record edit or recovery-branch deletion was made.
+- The owner then approved merging exactly e3a44e63ebec41fccd109cf1ca945b3b8a200553, and it landed as 49ba3297.
+  No F/E designation, frozen-record edit or recovery-branch deletion was made.
 
 The owner's requirement remains: attested-run versus checked-run set equality, identical semantics for both
 forms of `--expect-failure`, and successful replay of the reported counterexamples. Review and replay details:
@@ -193,7 +192,7 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | Branch | Head | Role |
 | --- | --- | --- |
 | `draft/provenance-errata-20261017` | ref absent | #855 reviewed commit `8021c1fc` retained through main `ea3155fd` |
-| `draft/evidence-retention-r1-hardening-20261017` | `e3a44e63` | #854 acceptance-ready repair; exact-SHA owner merge approval pending |
+| `draft/evidence-retention-r1-hardening-20261017` | ref absent | #854 accepted commit `e3a44e63` retained through main `49ba3297` |
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
