@@ -247,6 +247,154 @@ With an excessive inventory such as fullClass, preservation assumptions can
 already force quantum inclusion; that is an assumption audit, not a success
 for sourcing compatibility. No manuscript or ROADMAP change is licensed here.
 
+## Controls, verdict interface and invariants (draft, implemented by `controls.py`)
+
+`controls.py` is drafted beside this file on a preparation branch. The control
+plane at `F` holds only this file and `amendments/` (`S2`), so `controls.py`
+enters with the first execution commit, at the blob pinned below.
+
+**Stages.**
+1. `S1`: `controls.py` at its pinned blob, the retained evidence pinned in
+   the next section, and `F`'s exact-head run under `evidence/f-run/`.
+2. The two modules and the probe at their pinned blobs; the workflow, import
+   and census edits.
+3. The result note, candidate `E`.
+
+**Static controls.** `controls.py check E --freeze F` runs all thirteen at
+`E`. With `--stage S1` it runs C1, C2 (for `controls.py` only), P, R, G and T
+at the first execution commit. Any other stage or argument is refused.
+
+| code | measures |
+| --- | --- |
+| C1 | the preregistration at `E` is the one at `F`, and names this `D` and the round declaration |
+| C2 | the four frozen execution blobs below at `E` (at `S1`, `controls.py`'s); no pin pending |
+| S1 | each module equals its block in the frozen statement-surface section: imports, namespace and `open` lines, the declarations in the order named in this file with their statements (a definition's whole text), the two examples, the prints; no `sorry`, `admit`, `native_decide`, `axiom`, `implemented_by` or `extern` |
+| S2 | the landed objects below at their lines, with `D`'s blobs at `E` |
+| S3 | the core module mentions no PSD, Hermiticity, convexity, closedness, trace, reachability or iff; `AdditiveClosure` has exactly the fields `zero_mem` and `add_mem`, and `PrimitivePreservation` exactly `op` and `readout`; `instAvail_preserves` is one induction on the derivation with the arms `op`, `readout`, `coarse`, `bind`, `discard` in that order; the sum, spectator and transport corollaries apply `instAvail_preserves`, the latter two to `instAvail_spectator` and `instAvail_transport`; no research import or namespace remains; no preparation family is defined through `InstAvail` |
+| S4 | both module headers and the result note are present, without the excluded phrases frozen in `controls.py` (`PHRASES`) |
+| W | `verify.yml` at `E` is `D`'s with the frozen splices, each anchored once |
+| I | `OIBridge.lean` at `E` is `D`'s with `import OIBridge.PreservationInduction` and `import OIBridge.PreservationInductionInstances` directly after its last import line |
+| J | the census at `E` is `D`'s with the frozen families appended |
+| P | the retained evidence pinned in the next section is present with its digests; no pin pending |
+| R | the record directory holds exactly this file, `controls.py`, the pinned evidence, a non-empty `evidence/f-run/`, `amendments/` if present, and at `E` the result note |
+| G | the governed-path block equals the eight entries above; every change from `D` is authorized under `S7` (longest governing entry, status letter in its operations); the receipt is absent; the legacy manifest is present and unchanged |
+| T | `delta(D, F)` is this file and `amendments/`, drafted by single-parent commits from `D`; the execution after `F` is non-empty and linear, and `F` is an ancestor of `E` |
+
+**Parameters not yet fixed.** `controls.py` carries four as `None`; while any
+is `None`, the controls that depend on it fail. They are `NS`, the adopted
+namespace (item 2; S1); `SPLICES`, the workflow edits (item 5; W); `FAMILIES`,
+the census families (item 3; J); and `PROBE_SPEC`, the probe's codes, check
+count, mutations and final line (item 4; Q-EXACT). The statement-surface
+section (item 2), the frozen blobs below and the retained-evidence pins are
+pending in this file. Fixing any of them changes `controls.py` or this file
+before `F`.
+
+**Prints**, as in the research design. Core: `instAvail_preserves`,
+`instAvail_sum_preserves`, `instAvail_spectator_preserves`,
+`instAvail_transport_preserves`. Instances: `quantum_instAvail`,
+`classical_instAvail`, `quantum_attach`, `quantum_discard`,
+`classical_readProj`, `classical_native_readout`.
+
+**S2's landed objects at D.**
+
+| object | location |
+| --- | --- |
+| `ImplementationClass` | `ImplementationLocality.lean:244` |
+| `readProj` | `ImplementationLocality.lean:256` |
+| `InstAvail` | `ImplementationLocality.lean:268` |
+| `instAvail_trace` | `ImplementationLocality.lean:317` |
+| `ContextStable` | `ImplementationLocality.lean:359` |
+| `LabelInvariant` | `ImplementationLocality.lean:364` |
+| `fullClass` | `ImplementationLocality.lean:374` |
+| `instAvail_transport` | `ImplementationLocality.lean:644` |
+| `instAvail_spectator` | `ImplementationLocality.lean:789` |
+| `instAvail_withSpectator` | `ImplementationLocality.lean:820` |
+| `ptraceAnc` | `OperationalAssembly.lean:453` |
+| `uniformAttach` | `OperationalAssembly.lean:492` |
+| `discardWith` | `OperationalAssembly.lean:515` |
+| `conjChannel` | `MonoidalCompletion.lean:360` |
+| `amplRefL` | `ReferenceExtension.lean:131` |
+| `transport` | `SpectatorBridge.lean:348` |
+| `substratumClass` | `StructuralClosure.lean:180` |
+| `substratumClass_contextStable` | `StructuralClosure.lean:261` |
+| `substratumClass_labelInvariant` | `StructuralClosure.lean:275` |
+
+**Frozen execution blobs.** C2 checks these. A different blob at `S1` or at
+`E` is a deviation from the frozen design, not a repair: it is recorded in
+the result note, and the round halts.
+
+| path | blob |
+| --- | --- |
+| `verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/controls.py` | pending |
+| `verification/lean-mathlib/OIBridge/PreservationInduction.lean` | pending |
+| `verification/lean-mathlib/OIBridge/PreservationInductionInstances.lean` | pending |
+| `verification/lean/preserve_induct1_probe.py` | pending |
+
+**Verdict.** `controls.py verdict E --freeze F --axioms <E's exact-head bridge
+log>` prints one token per cell:
+
+| cell | positive | otherwise | rule as implemented |
+| --- | --- | --- | --- |
+| Q-CORE | `PRESERVE-INDUCT-CORE-PROVED` | `PRESERVE-INDUCT-CORE-NOT-ESTABLISHED` | the `instAvail_preserves` report and the six instance reports lie within `propext`, `Classical.choice` and `Quot.sound`, and the log carries no `sorryAx`, `Lean.ofReduceBool` or `Lean.trustCompiler` |
+| Q-COR | `PRESERVE-INDUCT-COROLLARIES-PROVED` | `PRESERVE-INDUCT-COROLLARIES-NOT-ESTABLISHED` | Q-CORE's conditions, measured again, and the three corollary reports |
+| Q-EXACT | `PRESERVE-INDUCT-EXACT-CHECKED` | `PRESERVE-INDUCT-EXACT-NOT-ESTABLISHED` | the probe blob at `E`, run with `python3 -I -B` and `--self-test`, prints every frozen code, no `FAIL`, the frozen check count with no failures, every frozen mutation rejected and the frozen final line, with empty standard error |
+
+In Q-CORE, the "constructor and positive controls" of the decision rule above
+are read as S3's five-arm check and the Lean instance module, so Q-CORE reads
+no probe output; the exact layer's constructor coverage belongs to Q-EXACT.
+This reading is the draft's and is fixed before `F`.
+
+Every positive token is gated on the static controls. If any of the thirteen
+fails or is not reported, `verdict` prints the failed controls, runs no probe
+and reads no axiom report. Every cell then prints its `NOT-ESTABLISHED`
+token, the round prints `PRESERVE-INDUCT-1-NOT-READ`, and the exit status is
+1. Otherwise each cell prints by its own rule, reading no other cell's
+outcome, and the round prints `PRESERVE-INDUCT-1-READ`. `check` records each
+control's outcome only when that control runs; a control that never recorded
+one is absent and counts as failed, in `verdict` and in `check`'s exit.
+
+**Self-test.** `controls.py --self-test`:
+- checks this file's tables against `controls.py` and resolves the landed
+  objects in its tree;
+- runs mutation controls on S1 and S3 over a synthetic fixture of the two
+  modules;
+- drives `verdict` with injected static results: each control failing alone,
+  one unreported, one non-bool, the all-clean case, and each cell reading only
+  its own reports;
+- drives `verdict` end to end through the real `check()` on an in-memory
+  synthetic `D`, `F` and `E`: unmutated; with each control's record call
+  removed from the source; with each control's inputs absent; in the shipped
+  state, with the parameters pending; and through `main`, which refuses unknown
+  stages and arguments.
+
+In every failing case `verdict` must return failure, name the control, print
+no positive token and never run the probe. The self-test freezes its own count
+of self-checks. Its fixture is synthetic and never compiled, and is not
+evidence for any theorem.
+
+**Invariants and their checkpoints (§A.41).**
+
+| invariant (where this file asserts it) | checkpoint |
+| --- | --- |
+| before `F` the control-plane delta is this file and its amendments (the paragraph under the governed paths) | T at `S1` and `E`; `G9` under `v3_verifier --verify-round Q` |
+| execution starts from the frozen control plane; `controls.py`, the modules and the probe are the frozen ones | C1; C2 at `S1` and `E` |
+| no manuscript, built artifact, ROADMAP, adopted kernel module or other round's record changes (the paragraph under the governed paths; non-inference rule) | G at `S1` and `E`; S2 |
+| the preparation family is specified independently: not a reachable closure, not PSD in the general statement (Question) | S3 |
+| the induction uses only zero and addition closure, and readout is a field separate from the isometric step (budget items 2 and 4) | S1; S3 |
+| the proof is one induction over the five constructors (Induction route) | S3; the kernel build at `E` |
+| the corollaries' extra premises are exactly those displayed, and transport preserves the destination carrier's cone without identifying it with a reindexing (budget) | S1; S3 |
+| the research import paths and namespace are replaced without changing the statements (item 2) | S1; S3 |
+| the root import and census entries (item 3) | I; J; the release gate's `lean-manuscript` step at `E` |
+| every declaration elaborates within `propext`, `Classical.choice` and `Quot.sound`, with no `sorryAx` | the exact-head run at `E`, every job `success`; the ten reports read by `verdict --axioms` |
+| the exact layer covers every constructor, an empty coarse fibre, nested bind/discard, a fresh positive-size ancilla and a nontrivial relabelling, without vacuous positives, and rejects the frozen mutations (Proposed controls) | the probe's frozen codes and mutations (`PROBE_SPEC`, item 4), read by Q-EXACT; the probe shard green at `E` |
+| the workflow runs the probe and `controls.py --self-test` (item 5) | W; the exact-head run at `E` |
+| no positive token over a failed or unreported required control (decision rules) | `controls.py --self-test` in the probe shard: the `verdict` regression and the end-to-end cases |
+| the result note asserts no source, closure or implication beyond the earned reading (non-inference rule) | S4; owner review of the result note |
+| the design evidence is retained by the first execution commit and pinned before `F` (§A.42 item 2) | P and R at `S1` and `E`; reviewers check that each pin resolves to retained content |
+| `F`'s exact-head run is retained by the first execution commit (§A.42 item 2) | R at `S1` (a non-empty `evidence/f-run/`); reviewers check that it names `F`'s run, job and digest |
+| `E`'s exact-head run reaches `main` through its own evidence-retention pull request before reconciliation, and the receipt names each retained file's digest (§A.42 item 2) | reviewer check of that pull request and of the receipt's candidate entry for `E`; `evidence-retention` at `Q` |
+| the native receipt holds; the legacy records are untouched | `v3_verifier --verify-round Q`; `legacy_records_check.py` at every stage commit and at `Q`; G |
+
 ## Design and freeze boundary
 
 Before F, all of the following remain explicit obligations:
