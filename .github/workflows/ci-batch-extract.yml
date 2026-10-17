@@ -1,0 +1,117 @@
+name: Cited CI runs, bridge-output batch extraction (read-only)
+
+# Read-only, in-CI extraction of the expected results (AGENTS §A.42 item 1, form `derived`) of the 223 cited CI runs
+# whose citing claims rest on Mathlib bridge output, from their bridge-job logs, which a session cannot download.
+# The run set is batchx/runs.json (sha256 pinned in batchx/assemble.py, host.py and collect.py): 32 shards of at
+# most 7 runs, earliest log expiry first. It runs only on a push to tmp/ci-batch-extract-design-20261017, a
+# parentless branch that holds only this workflow, batchx/ and DESIGN.md; no other workflow file is in that tree,
+# so a push to it starts no other workflow.
+#
+# Job `selftest` runs every self-test and the controls (end-to-end pass, code mutations, pins and plan) with no
+# token. Each `extract` shard then reads its runs with batchx/host.py, which sends the token only to the pinned
+# api.github.com endpoints built from the shard's run and job ids (the attempt-1 run record, its jobs list, the
+# bridge job's logs endpoint) and fetches each log's storage link without credentials, under a size cap, timeouts
+# and a deadline, never printing it; and batchx/assemble.py, with no token, reads each log with extract_result.py
+# from main at b96662e6 (blob 05c41bce, verified before it runs) and prints one RESULT line per run, each holding
+# run's result as it would be committed with its SHA256 line, and the shard's verdict line: EXTRACT SHARD K/32
+# HOLDS (exit 0), FAILS (exit 1) or UNVERIFIED (exit 2). No raw log line is printed.
+#
+# Nothing is written: no artifact, no cache, no commit, ref, tag or release, no step summary. GH_TOKEN is set only
+# on the host step; every checkout uses persist-credentials: false. Each shard's whole log stays under 5,000 lines,
+# so the session's job-log tool serves it whole; batchx/collect.py checks that and assembles the batch.
+
+on:
+  push:
+    branches: ['tmp/ci-batch-extract-design-20261017']
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: ci-batch-extract-20261017
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  selftest:
+    name: Self-tests and controls
+    if: github.ref == 'refs/heads/tmp/ci-batch-extract-design-20261017'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # actions/checkout, tag v4, pinned to 11d5960a326750d5838078e36cf38b85af677262: the commit the #829 extractor
+      # used. It is the only external action in this workflow.
+      - name: Check out the extractor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        timeout-minutes: 5
+        with:
+          persist-credentials: false
+
+      - name: Check out extract_result.py at main b96662e6
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        timeout-minutes: 5
+        with:
+          ref: b96662e6be4f537502c772db369ea32a35b213a8
+          path: main-src
+          sparse-checkout: verification/audits/evidence-retention
+          persist-credentials: false
+
+      - name: Self-tests and controls (local only, no network, no token)
+        timeout-minutes: 15
+        run: |
+          python3 --version
+          X=main-src/verification/audits/evidence-retention/extract_result.py
+          python3 -I batchx/host.py --self-test --work "$RUNNER_TEMP"
+          python3 -I batchx/collect.py --self-test --work "$RUNNER_TEMP"
+          python3 -I batchx/assemble.py --self-test --extractor "$X" --work "$RUNNER_TEMP"
+          python3 -I batchx/controls.py --extractor "$X" --plan .github/workflows/ci-batch-extract.yml --work "$RUNNER_TEMP"
+
+  extract:
+    name: Extract shard ${{ matrix.shard }}
+    needs: selftest
+    if: github.ref == 'refs/heads/tmp/ci-batch-extract-design-20261017'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+    env:
+      SHARD: ${{ matrix.shard }}
+    steps:
+      - name: Check out the extractor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        timeout-minutes: 5
+        with:
+          persist-credentials: false
+
+      - name: Check out extract_result.py at main b96662e6
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        timeout-minutes: 5
+        with:
+          ref: b96662e6be4f537502c772db369ea32a35b213a8
+          path: main-src
+          sparse-checkout: verification/audits/evidence-retention
+          persist-credentials: false
+
+      - name: Read the shard's run records, job lists and bridge-job logs (the token goes only to pinned endpoints)
+        id: host
+        timeout-minutes: 12
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I batchx/host.py --runs batchx/runs.json --shard "$SHARD" --out "$RUNNER_TEMP/host"
+
+      # Runs whenever the checkouts ran, so a failed or partial read still ends in a printed verdict that names each
+      # unread run, rather than in silence. No token here.
+      - name: Assemble, check and print the shard's expected results
+        if: ${{ !cancelled() }}
+        timeout-minutes: 8
+        run: |
+          python3 -I batchx/assemble.py \
+            --extractor main-src/verification/audits/evidence-retention/extract_result.py --extractor-repo main-src \
+            --runs batchx/runs.json --crosscheck batchx/crosscheck.json --shard "$SHARD" --host "$RUNNER_TEMP/host"

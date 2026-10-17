@@ -1,0 +1,37 @@
+{
+ "jobs": {
+  "106701210454": {
+   "observed": "2026-10-17, the job-log tool, tail_lines 40",
+   "original_length": 7863,
+   "tail_lines": 40,
+   "tail_sha256": "457f1ab6525aef6bf2cabd9b7801f62aed072315faff7d1fa4755cc2ffbdb280"
+  },
+  "108838503892": {
+   "observed": "2026-10-17, the job-log tool, tail_lines 40",
+   "original_length": 16993,
+   "tail_lines": 40,
+   "tail_sha256": "73672fa47be76705ea1a80b5135e958ee44e1be909b243d24a1382535c0336c8"
+  },
+  "109867659663": {
+   "observed": "2026-10-17, the job-log tool, tail_lines 40",
+   "original_length": 36379,
+   "tail_lines": 40,
+   "tail_sha256": "0827d6704abe4fe8eb61222356d8f5847f288045250eaf0e0be1c4f46007de89"
+  },
+  "114675816616": {
+   "observed": "2026-10-17, the job-log tool, tail_lines 40",
+   "original_length": 38387,
+   "tail_lines": 40,
+   "tail_sha256": "9c9d02c86605713a9834f37d94cc77ddbc9a5dc91af661d067bfac369077070e"
+  },
+  "116676857951": {
+   "observed": "2026-10-17, the job-log tool, tail_lines 40",
+   "original_length": 38608,
+   "tail_lines": 40,
+   "tail_sha256": "0c8c29247a5d4b6c4de326f6e2d087a6bc6ce0cee94ef0b0c3898737ed4127fc"
+  }
+ },
+ "note": "session observations of the job-log tool, for the printed cross-check only; never in a result and never decisive. tail_sha256 is sha256 of the served text: its last tail_lines lines joined with newlines, no final newline.",
+ "schema": "ci-batch-extract-crosscheck",
+ "version": 1
+}
