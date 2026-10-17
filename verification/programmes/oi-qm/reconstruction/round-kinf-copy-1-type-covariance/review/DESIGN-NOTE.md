@@ -148,3 +148,19 @@ The relative form adds three things:
    pull request? And when should it be re-cut relative to #829's and #831's landings?
 7. **Design-run allowance.** The predicted-tree run at `D` is required before F; it needs the owner's approval to push
    a disposable branch and dispatch.
+
+## Owner recommendations on the open questions (2026-10-17)
+
+These are the owner's recommendations on the questions above, given for `5338022b`. They are recorded as
+**recommendations, not adopted decisions**. The draft is prepared to match them, and each stays open until the owner
+adopts it explicitly.
+
+| # | Question | Recommendation |
+|---|---|---|
+| 1 | Module layout | Keep two modules, matching the compiled design (run 38606561330). |
+| 2 | "Weakening" wording | Leave the extra declaration out and keep the narrower sufficiency wording. An identity-instance witness alone would not establish a strict weakening. |
+| 3 | Probe 2's token | Accept `EQUALITY` → `INCLUSION`, matching what the countercontrol establishes. |
+| 4 | Relative entangling selector | Leave it outside this round's scope. |
+| 5 | Proof hygiene | Keep the existing proof bodies unless compilation identifies a problem. |
+| 6 | Drafting PR | Open a replacement PR, preserving #822's history and linking both. Finalize its `D` and anchors after the preceding landings (#829, then #831), before F. |
+| 7 | Predicted-tree run | Prepare the complete package now. Review its exact executable tree before any push or dispatch is authorized. |
