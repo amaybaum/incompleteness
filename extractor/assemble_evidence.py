@@ -97,13 +97,24 @@ A3_CASES, A3_MUTATIONS = 13, 11
 PRINTS = 68
 FROZEN_MODULE_BLOB = "14bb9fc07bf65e59e3f412ac7270ffb734a30069"
 
+# The release gate's steps, in the order it prints them, read from its source and never from a run's output:
+# tools/release_gate.py, blob d40e2acc9783704dcaf5793bb2228e96252dc6e8, which is the blob at both 1ab0fd9d (run 1)
+# and 6959ced4 (run 2), checked separately for each head: the 21 entries of `checks = [...]` (lines 103-187) with
+# `checks.insert(2, ("baseline-label", lab))` (line 195), and no other change to the list: 22 steps at each head.
+GATE_STEPS = ("toolchain", "staleness", "baseline-label", "voice", "voice-scope", "ci-gate-presence",
+              "artifact-placement", "manifest-drift", "claims", "duplicate", "mirror", "citation", "architecture",
+              "dependency-label", "coverage", "lean-axioms", "lean-manuscript", "legacy-records", "v3-self-test",
+              "v3-corpus", "v3-receipts", "evidence-retention")
+GATE_STEPS_RUN1 = GATE_STEPS   # tools/release_gate.py at 1ab0fd9d: blob d40e2acc, 22 steps
+GATE_STEPS_RUN2 = GATE_STEPS   # tools/release_gate.py at 6959ced4: blob d40e2acc, 22 steps
+
 RUNS = {
     "run1": {"path": "evidence/run1-39043849411.json", "design_run": 1, "run_id": "39043849411",
              "head": "1ab0fd9dd2c6701197f2e0ab18401cafb76a090d", "bridge_job": "117428550018",
-             "probe_job": "117428550439", "controls": False},
+             "probe_job": "117428550439", "controls": False, "gate_steps": GATE_STEPS_RUN1},
     "run2": {"path": "evidence/run2.json", "design_run": 2, "run_id": "39056982958",
              "head": "6959ced4c327ebb800cf6d463a049e4066e37288", "bridge_job": "117466847042",
-             "probe_job": "117466847062", "controls": True},
+             "probe_job": "117466847062", "controls": True, "gate_steps": GATE_STEPS_RUN2},
 }
 # Session observations (2026-10-17), for the printed cross-check only; never in a result. original_length is the
 # line count the job-log connector reported; the tail digest is sha256 of the text it served (its last 5000 lines,
@@ -397,6 +408,58 @@ def load_json(path):
         raise Unverified("%s unreadable: %s" % (os.path.basename(path), type(e).__name__))
 
 
+def _need(cond, what):
+    if not cond:
+        raise Unverified("malformed record: " + what)
+
+
+def _typed(obj, where, fields):
+    """Each (key, types) must be present and of one of the types (a bool is never an int; null is never allowed)."""
+    for k, t in fields:
+        _need(k in obj, "%s lacks %s" % (where, k))
+        v = obj[k]
+        _need(isinstance(v, t) and not (isinstance(v, bool) and bool not in (t if isinstance(t, tuple) else (t,))),
+              "%s field %s is %s" % (where, k, "null" if v is None else type(v).__name__))
+
+
+def check_run_record(run, rid):
+    where = "run-%s.json" % rid
+    _need(isinstance(run, dict), "%s is not a JSON object" % where)
+    _typed(run, where, (("id", int), ("head_sha", str), ("run_attempt", int), ("event", str),
+                        ("conclusion", str), ("path", str)))
+
+
+def check_jobs_record(jobsd, rid):
+    where = "jobs-%s.json" % rid
+    _need(isinstance(jobsd, dict), "%s is not a JSON object" % where)
+    _typed(jobsd, where, (("total_count", int), ("jobs", list)))
+    for n, j in enumerate(jobsd["jobs"]):
+        w = "%s job %d" % (where, n)
+        _need(isinstance(j, dict), "%s is not a JSON object" % w)
+        _typed(j, w, (("id", int), ("run_id", int), ("run_attempt", int), ("name", str), ("conclusion", str),
+                      ("head_sha", str), ("steps", list)))
+        for m, st in enumerate(j["steps"]):
+            ws = "%s step %d" % (w, m)
+            _need(isinstance(st, dict), "%s is not a JSON object" % ws)
+            _typed(st, ws, (("number", int), ("name", str), ("conclusion", str)))
+
+
+def check_download_record(d):
+    """{job id: record}; a record whose outcome is ok must carry its length, digest and line count."""
+    _need(isinstance(d, dict), "the download record is not a JSON object")
+    _typed(d, "the download record", (("logs", list),))
+    out = {}
+    for n, r in enumerate(d["logs"]):
+        w = "download record entry %d" % n
+        _need(isinstance(r, dict), "%s is not a JSON object" % w)
+        _typed(r, w, (("job_id", (str, int)), ("outcome", str)))
+        if r["outcome"] == "ok":
+            _typed(r, w, (("bytes", int), ("sha256", str), ("lines", int)))
+        _need(str(r["job_id"]) not in out, "%s repeats job %s" % (w, r["job_id"]))
+        out[str(r["job_id"])] = r
+    return out
+
+
 def module_sources(src, head, C):
     """{module: (text, blob)} from a checkout of the run's head, each checked with git."""
     if git(src, "rev-parse", "HEAD") != head:
@@ -422,16 +485,18 @@ def assemble_run(key, cfg, ex, inputs):
     head, rid = cfg["head"], cfg["run_id"]
     try:
         run = load_json(os.path.join(inputs["host"], "run-%s.json" % rid))
+        check_run_record(run, rid)
         jobsd = load_json(os.path.join(inputs["host"], "jobs-%s.json" % rid))
-        recs = {str(r.get("job_id")): r for r in load_json(inputs["download_record"]).get("logs", [])}
+        check_jobs_record(jobsd, rid)
+        recs = check_download_record(load_json(inputs["download_record"]))
         blog = Log(os.path.join(inputs["logs"], cfg["bridge_job"] + ".log"), recs.get(cfg["bridge_job"]), ex)
         plog = Log(os.path.join(inputs["logs"], cfg["probe_job"] + ".log"), recs.get(cfg["probe_job"]), ex)
         srcs = module_sources(inputs["src"][key], head, C)
     except Unverified as e:
         C.unverified.append(str(e))
         return C, None
-    except (KeyError, TypeError, AttributeError) as e:
-        C.unverified.append("malformed input: %s" % type(e).__name__)
+    except Exception as e:  # noqa: BLE001 - any other failure while reading the inputs is an unverified run
+        C.unverified.append("malformed input: %s: %s" % (type(e).__name__, str(e)[:200]))
         return C, None
 
     # --- run identity and jobs (API)
@@ -509,6 +574,13 @@ def assemble_run(key, cfg, ex, inputs):
     C("gate: verdict PASS and every step PASS", gv and gv.get("pass")
       and all(s["status"] == "PASS" for s in gate["steps"]),
       "" if not gate else "; ".join("%s %s" % (s["status"], s["name"]) for s in gate["steps"] if s["status"] != "PASS"))
+    got_steps = [s["name"] for s in gate["steps"]] if gate and gate.get("steps") else []
+    want_steps = list(cfg["gate_steps"])
+    C("gate: exactly the %d steps of tools/release_gate.py at the head, in its order" % len(want_steps),
+      gate is not None and len(got_steps) == len(want_steps) and got_steps == want_steps
+      and sum(1 for s in gate["steps"] if s["status"] == "PASS") == len(want_steps),
+      "%d steps; missing %s; unexpected %s" % (len(got_steps), [x for x in want_steps if x not in got_steps][:4],
+                                               [x for x in got_steps if x not in want_steps][:4]))
     exp_markers = {k: (bx.get("markers") or {}).get(k, 0) + (gx.get("markers") or {}).get(k, 0) for k in MARKER_KEYS}
     C("markers: none in the Build and Release gate sections", "build" in sec and "gate" in sec
       and not any(exp_markers.values()),
@@ -689,6 +761,16 @@ def assemble_run(key, cfg, ex, inputs):
     return C, result
 
 
+def overall(verdicts, runs):
+    """HOLDS only when every run carries an explicit verdict and every verdict is HOLDS."""
+    known = ("HOLDS", "FAILS", "UNVERIFIED")
+    if any(verdicts.get(k) == "FAILS" for k in runs):
+        return "FAILS"
+    if set(verdicts) != set(runs) or any(verdicts.get(k) not in known for k in runs):
+        return "UNVERIFIED"
+    return "HOLDS" if all(verdicts[k] == "HOLDS" for k in runs) else "UNVERIFIED"
+
+
 def canonical(obj):
     return json.dumps(obj, indent=1, sort_keys=True) + "\n"
 
@@ -709,13 +791,18 @@ def assemble(ex, inputs, runs=RUNS, out=None):
       % (own_blob("assemble_evidence.py")[:12], EXTRACT_RESULT_BLOB[:12], MAIN_COMMIT[:12]))
     verdicts, texts = {}, {}
     for key, cfg in runs.items():
-        C, res = assemble_run(key, cfg, ex, inputs)
-        if res is not None:
-            text = canonical(res)
-            hits = scan(text)
-            C("output: credential, signed-URL, IP and e-mail scan of the result", not hits, str(hits[:3]))
-            if not hits:
-                texts[key] = text
+        try:
+            C, res = assemble_run(key, cfg, ex, inputs)
+            if res is not None:
+                text = canonical(res)
+                hits = scan(text)
+                C("output: credential, signed-URL, IP and e-mail scan of the result", not hits, str(hits[:3]))
+                if not hits:
+                    texts[key] = text
+        except Exception as e:  # noqa: BLE001 - a run whose assembly stopped is unverified, never held
+            C = Checks(key)
+            C.unverified.append("assembly stopped: %s: %s" % (type(e).__name__, str(e)[:200]))
+            texts.pop(key, None)
         for name, ok, detail in C.items:
             P("CHECK %s %s %s%s" % (key, "ok  " if ok else "FAIL", name, (" -- " + redact(detail)) if detail and not ok else ""))
         for u in C.unverified:
@@ -728,7 +815,7 @@ def assemble(ex, inputs, runs=RUNS, out=None):
             out.write(texts[key])
             P(END % cfg["path"])
             P("SHA256 %s %s" % (cfg["path"], hashlib.sha256(texts[key].encode("ascii")).hexdigest()))
-    v = "FAILS" if "FAILS" in verdicts.values() else "UNVERIFIED" if "UNVERIFIED" in verdicts.values() else "HOLDS"
+    v = overall(verdicts, runs)
     P("EXTRACT %s" % v)
     return {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[v]
 
@@ -737,19 +824,32 @@ def crosscheck(inputs, ex, out=None):
     """Printed, never decisive: each downloaded log against the session's connector observation."""
     out = out or sys.stdout
     try:
-        recs = {str(r.get("job_id")): r for r in load_json(inputs["download_record"]).get("logs", [])}
-    except Unverified:
+        recs = check_download_record(load_json(inputs["download_record"]))
+    except Exception as e:  # noqa: BLE001 - the cross-check is never decisive
+        print("CROSSCHECK unavailable: %s" % redact(str(e))[:200], file=out)
         return
     for jid, (orig, served, tail_sha) in CONNECTOR.items():
         try:
             lg = Log(os.path.join(inputs["logs"], jid + ".log"), recs.get(jid), ex)
-        except Unverified as e:
-            print("CROSSCHECK job %s unavailable: %s" % (jid, redact(str(e))), file=out)
+        except Exception as e:  # noqa: BLE001
+            print("CROSSCHECK job %s unavailable: %s" % (jid, redact(str(e))[:200]), file=out)
             continue
         same_tail = hashlib.sha256(lg.tail_text.encode("utf-8")).hexdigest() == tail_sha
         print("CROSSCHECK job %s lines=%d connector_original_length=%d %s; last %d lines %s the session's served text"
               % (jid, lg.lines_n, orig, "equal" if lg.lines_n == orig else "DIFFERS", served,
                  "equal" if same_tail else "DIFFER FROM"), file=out)
+
+
+def run_all(ex, inputs, runs=RUNS, out=None):
+    """The cross-check, then the assembly; a verdict line is printed whatever is raised."""
+    out = out or sys.stdout
+    try:
+        crosscheck(inputs, ex, out)
+        return assemble(ex, inputs, runs, out)
+    except Exception as e:  # noqa: BLE001
+        print("CHECK all UNVERIFIED stopped: %s: %s" % (type(e).__name__, redact(str(e))[:200]), file=out)
+        print("EXTRACT UNVERIFIED", file=out)
+        return 2
 
 
 # ------------------------------------------------------------------------------------------------ self-test
@@ -822,12 +922,14 @@ def _bridge_lines(head, module_text, root_text, variant=0, mut=None):
     L += ["TIMING lake-exe-cache-get %ds" % (86 + variant), "TIMING lake-rehash-build %ds" % (23 + variant)]
     L += [HDR_GATE, "\x1b[36;1mpython3 tools/release_gate.py\x1b[0m", "shell: /usr/bin/bash -e {0}", "##[endgroup]"]
     if not mut.get("drop_gate"):
-        L += ["release gate", "=" * 20,
-              "  PASS  toolchain        toolchain_check: OK (build entry present, unicode-fix.tex co",
-              "  PASS  lean-axioms      lean_axiom_check: OK (6057 named result(s) reported, no sorr",
-              "  %s  evidence-retention EVIDENCE-RETENTION  HOLDS%s" % (mut.get("gate_status", "PASS"),
-                                                                       mut.get("gate_summary_extra", "")),
-              "=" * 20, "release gate: %s  (note: --label bNNN not given)" % mut.get("gate_verdict", "PASS")]
+        steps = [x for x in GATE_STEPS if x != mut.get("gate_drop_step")] + mut.get("gate_extra_steps", [])
+        L += ["release gate", "=" * 20]
+        for x in steps:
+            st = mut.get("gate_status", "PASS") if x == "evidence-retention" else "PASS"
+            summ = "EVIDENCE-RETENTION  HOLDS" + mut.get("gate_summary_extra", "") if x == "evidence-retention" \
+                else "%s_check: OK (fixture)" % x
+            L.append("  %s  %-16s %s" % (st, x, summ))
+        L += ["=" * 20, "release gate: %s  (note: --label bNNN not given)" % mut.get("gate_verdict", "PASS")]
     L += [HDR_A3, "\x1b[36;1mlake env python3 ...\x1b[0m", "shell: /usr/bin/bash -e {0}", "##[endgroup]"]
     tmp = "/tmp/tmp%06d/" % (variant * 7 + 3)
     for name, exp in A3_FIXTURE:
@@ -936,11 +1038,16 @@ def _fixture(base, variant=0, mut=None):
                  "steps": [{"number": i + 1, "name": s, "conclusion": "success"} for i, s in enumerate(psteps)]},
                 {"id": 9300 + cfg["design_run"], "name": "Numerical probes", "conclusion": mk.get("other_job", "success"),
                  "head_sha": cfg["head"], "run_id": int(cfg["run_id"]), "run_attempt": 1, "steps": []}]
-        with open(os.path.join(host, "run-%s.json" % cfg["run_id"]), "w") as f:
-            json.dump(run, f)
+        for edit in mk.get("run_edits", []):
+            edit(run)
+        jobsd = {"total_count": len(jobs), "jobs": jobs}
+        for edit in mk.get("jobs_edits", []):
+            edit(jobsd)
+        with open(os.path.join(host, "run-%s.json" % cfg["run_id"]), "wb") as f:
+            f.write(mk["run_raw"](json.dumps(run).encode()) if "run_raw" in mk else json.dumps(run).encode())
         if not mk.get("drop_jobs_json"):
-            with open(os.path.join(host, "jobs-%s.json" % cfg["run_id"]), "w") as f:
-                json.dump({"total_count": len(jobs), "jobs": jobs}, f)
+            with open(os.path.join(host, "jobs-%s.json" % cfg["run_id"]), "wb") as f:
+                f.write(mk["jobs_raw"](json.dumps(jobsd).encode()) if "jobs_raw" in mk else json.dumps(jobsd).encode())
         recs.append(_write_log(os.path.join(logs, cfg["bridge_job"] + ".log"),
                                _bridge_lines(cfg["head"], module, root, variant, mk.get("bridge")), variant))
         recs.append(_write_log(os.path.join(logs, cfg["probe_job"] + ".log"),
@@ -948,9 +1055,12 @@ def _fixture(base, variant=0, mut=None):
     for r in recs:
         if mut.get("bad_record") == r["job_id"]:
             r["sha256"] = "0" * 64
+    for edit in mut.get("record_edits", []):
+        edit(recs)
     rec_path = os.path.join(base, "download-record.json")
-    with open(rec_path, "w") as f:
-        json.dump({"logs": recs}, f)
+    body = json.dumps({"logs": recs}).encode()
+    with open(rec_path, "wb") as f:
+        f.write(mut["record_raw"](body) if "record_raw" in mut else body)
     return {"host": host, "logs": logs, "download_record": rec_path, "src": srcs}, runs, blob
 
 
@@ -969,7 +1079,7 @@ def self_test(extractor_path, work=None):
             inputs, runs, blob = _fixture(d, variant, mut)
             globals()["FROZEN_MODULE_BLOB"] = blob
             buf = io.StringIO()
-            code = assemble(ex, inputs, runs, out=buf)
+            code = run_all(ex, inputs, runs, out=buf)
             text = buf.getvalue()
             verdict = text.strip().split("\n")[-1]
             ok = verdict == "EXTRACT " + want and (needle is None or needle in text)
@@ -1064,6 +1174,75 @@ def self_test(extractor_path, work=None):
         run_case("a log that does not match its download record", {"bad_record": "9102"}, "UNVERIFIED",
                  "UNVERIFIED log 9102.log does not match its download record")
         run_case("a missing jobs record", {R2: {"drop_jobs_json": True}}, "UNVERIFIED", "UNVERIFIED jobs-902.json unreadable")
+        # N1: the gate's step lines against the 22 steps of tools/release_gate.py at the head
+        G = "FAIL gate: exactly the 22 steps of tools/release_gate.py"
+        run_case("a gate block with one step line deleted", {R2: {"bridge": {"gate_drop_step": "voice"}}}, "FAILS", G)
+        run_case("a gate block with an extra step line", {R2: {"bridge": {"gate_extra_steps": ["extra-step"]}}},
+                 "FAILS", G)
+        run_case("a gate block with a step line repeated", {R2: {"bridge": {"gate_extra_steps": ["voice"]}}},
+                 "FAILS", G)
+        # N2: malformed records are unverified, with a reason, and never crash or hold
+        U = "UNVERIFIED "
+        run_case("a truncated run record", {R2: {"run_raw": lambda b: b[:len(b) // 2]}}, "UNVERIFIED",
+                 U + "run-902.json unreadable: JSONDecodeError")
+        run_case("a truncated jobs record", {R2: {"jobs_raw": lambda b: b[:-7]}}, "UNVERIFIED",
+                 U + "jobs-902.json unreadable: JSONDecodeError")
+        run_case("a truncated download record", {"record_raw": lambda b: b[:-5]}, "UNVERIFIED",
+                 U + "download-record.json unreadable: JSONDecodeError")
+        run_case("a run record that is not an object", {R2: {"run_raw": lambda b: b'"run"'}}, "UNVERIFIED",
+                 U + "malformed record: run-902.json is not a JSON object")
+        run_case("a jobs record that is a list", {R2: {"jobs_raw": lambda b: b"[1, 2]"}}, "UNVERIFIED",
+                 U + "malformed record: jobs-902.json is not a JSON object")
+        run_case("a download record that is a list", {"record_raw": lambda b: b"[]"}, "UNVERIFIED",
+                 U + "malformed record: the download record is not a JSON object")
+        run_case("a jobs list holding null", {R2: {"jobs_edits": [lambda d: d["jobs"].insert(0, None)]}}, "UNVERIFIED",
+                 U + "malformed record: jobs-902.json job 0 is not a JSON object")
+        run_case("a run record without head_sha", {R2: {"run_edits": [lambda r: r.pop("head_sha")]}}, "UNVERIFIED",
+                 U + "malformed record: run-902.json lacks head_sha")
+        run_case("a jobs record without total_count", {R2: {"jobs_edits": [lambda d: d.pop("total_count")]}},
+                 "UNVERIFIED", U + "malformed record: jobs-902.json lacks total_count")
+        run_case("a job without a name", {R2: {"jobs_edits": [lambda d: d["jobs"][0].pop("name")]}}, "UNVERIFIED",
+                 U + "malformed record: jobs-902.json job 0 lacks name")
+        run_case("a download entry without sha256", {"record_edits": [lambda r: r[2].pop("sha256")]}, "UNVERIFIED",
+                 U + "malformed record: download record entry 2 lacks sha256")
+        run_case("a run record with a null conclusion", {R2: {"run_edits": [lambda r: r.update(conclusion=None)]}},
+                 "UNVERIFIED", U + "malformed record: run-902.json field conclusion is null")
+        run_case("a job with a null name", {R2: {"jobs_edits": [lambda d: d["jobs"][1].update(name=None)]}},
+                 "UNVERIFIED", U + "malformed record: jobs-902.json job 1 field name is null")
+        run_case("a step with a null conclusion",
+                 {R2: {"jobs_edits": [lambda d: d["jobs"][0]["steps"][1].update(conclusion=None)]}}, "UNVERIFIED",
+                 U + "malformed record: jobs-902.json job 0 step 1 field conclusion is null")
+        run_case("a download entry with null bytes", {"record_edits": [lambda r: r[2].update(bytes=None)]},
+                 "UNVERIFIED", U + "malformed record: download record entry 2 field bytes is null")
+        run_case("a run attempt given as true", {R2: {"run_edits": [lambda r: r.update(run_attempt=True)]}},
+                 "UNVERIFIED", U + "malformed record: run-902.json field run_attempt is bool")
+        run_case("a run record with a non-UTF-8 byte", {R2: {"run_raw": lambda b: b[:10] + b"\xff" + b[10:]}},
+                 "UNVERIFIED", U + "run-902.json unreadable: UnicodeDecodeError")
+        run_case("a download record with a non-UTF-8 byte", {"record_raw": lambda b: b[:10] + b"\xff" + b[10:]},
+                 "UNVERIFIED", U + "download-record.json unreadable: UnicodeDecodeError")
+        # N2: every run must carry an explicit verdict before the whole can hold
+        real = globals()["assemble_run"]
+
+        def stopping(key, cfg, ex_, inputs_):
+            if key == "run2":
+                raise RuntimeError("fixture stop")
+            return real(key, cfg, ex_, inputs_)
+        globals()["assemble_run"] = stopping
+        try:
+            run_case("a run whose assembly raises", {}, "UNVERIFIED", U + "assembly stopped: RuntimeError: fixture stop")
+        finally:
+            globals()["assemble_run"] = real
+        n += 1
+        two = {"run1": {}, "run2": {}}
+        ok = (overall({"run1": "HOLDS", "run2": "HOLDS"}, two) == "HOLDS"
+              and overall({"run1": "HOLDS"}, two) == "UNVERIFIED"
+              and overall({"run1": "HOLDS", "run2": None}, two) == "UNVERIFIED"
+              and overall({"run1": "HOLDS", "run2": "MAYBE"}, two) == "UNVERIFIED"
+              and overall({}, two) == "UNVERIFIED"
+              and overall({"run1": "HOLDS", "run2": "FAILS"}, two) == "FAILS"
+              and overall({"run1": "UNVERIFIED", "run2": "HOLDS"}, two) == "UNVERIFIED")
+        print("  %s  the whole holds only when both runs carry an explicit HOLDS" % ("ok  " if ok else "FAIL"))
+        fails += not ok
         n += 1
         bad = os.path.join(base, "extract_result.py")
         with open(extractor_path, "rb") as f, open(bad, "wb") as g:
@@ -1118,8 +1297,7 @@ def main(argv=None):
     inputs = {"host": a.host, "logs": a.logs, "download_record": a.download_record, "src": src}
     for k in RUNS:
         inputs["src"].setdefault(k, os.path.join(os.devnull, "absent"))
-    crosscheck(inputs, ex)
-    return assemble(ex, inputs)
+    return run_all(ex, inputs)
 
 
 if __name__ == "__main__":
