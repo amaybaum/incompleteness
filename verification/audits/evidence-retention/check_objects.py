@@ -151,8 +151,29 @@ def candidates(text):
         k = text.find('@', k + 1)
 
 
+# Within one self-test run, the O6 verdict on a text is memoised under the sha256 of the text itself, as decoded in
+# that check, and of the identity digests: the scan is a function of these alone, so a mutated byte or manifest
+# is a new key and is scanned afresh. Nothing is keyed by an object id. None outside a self-test run.
+_SCAN_MEMO = None
+# Within one self-test run, the lookups that depend only on this repository's history, keyed by the base and HEAD.
+_HISTORY_MEMO = None
+
+
 def scan_text(label, text, is_commit, idents, F):
     """O6: report the first line with a match that no declared exemption covers."""
+    if _SCAN_MEMO is None:
+        n = first_unexempt_line(text, is_commit, idents)
+    else:
+        key = (sha256(text.encode('utf-8', 'surrogatepass')), is_commit, sha256('\n'.join(sorted(idents)).encode()))
+        if key not in _SCAN_MEMO:
+            _SCAN_MEMO[key] = first_unexempt_line(text, is_commit, idents)
+        n = _SCAN_MEMO[key]
+    if n is not None:
+        F('O6 %s:%d matches a secret pattern' % (label, n + 1))
+
+
+def first_unexempt_line(text, is_commit, idents):
+    """The index of the first line with a match that no declared exemption covers, or None."""
     starts = [0] + [m.end() for m in re.finditer('\n', text)]
     lines = text.split('\n')
     exempt = set()
@@ -189,8 +210,8 @@ def scan_text(label, text, is_commit, idents, F):
         em = EMAIL.fullmatch(mt)
         if em and RESERVED.search(em.group(1)):
             continue
-        F('O6 %s:%d matches a secret pattern' % (label, n + 1))
-        return
+        return n
+    return None
 
 
 def check(objdir, root):
@@ -397,6 +418,21 @@ def git(args, cwd, inp=None, env=None):
     return subprocess.run(['git'] + args, cwd=cwd, input=inp, capture_output=True, env=env)
 
 
+def base_history(root, base):
+    """main's objects and commits, the digests of the addresses in its history, and the objects HEAD reaches."""
+    key = (os.path.realpath(root), base, git(['rev-parse', 'HEAD'], root).stdout.decode().strip())
+    if _HISTORY_MEMO is not None and key in _HISTORY_MEMO:
+        return _HISTORY_MEMO[key]
+    main_objs = set(l.split()[0] for l in git(['rev-list', '--objects', base], root).stdout.decode().split('\n') if l)
+    main_commits = set(git(['rev-list', base], root).stdout.decode().split())
+    log = git(['log', '--format=%ae%n%ce%n%B', base], root).stdout.decode('utf-8', 'replace')
+    known = {sha256(a.encode()) for a in re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', log)}
+    head = git(['rev-list', '--objects', 'HEAD'], root).stdout.decode().split('\n')
+    if _HISTORY_MEMO is not None:
+        _HISTORY_MEMO[key] = (main_objs, main_commits, known, head)
+    return main_objs, main_commits, known, head
+
+
 def history_checks(root, info, fails):
     F = fails.append
     man, ents, content, external = info['man'], info['ents'], info['content'], info['external']
@@ -432,8 +468,7 @@ def history_checks(root, info, fails):
             for pth in paths:
                 os.remove(pth)
         # H3: what the retained objects name and do not retain is on main
-        main_objs = set(l.split()[0] for l in git(['rev-list', '--objects', base], root).stdout.decode().split('\n') if l)
-        main_commits = set(git(['rev-list', base], root).stdout.decode().split())
+        main_objs, main_commits, known, head = base_history(root, base)
         for x in sorted(external):
             if x not in main_objs:
                 F('H3 %s is named by a retained object, is neither retained nor withheld, and is not on main' % x[:12])
@@ -475,13 +510,10 @@ def history_checks(root, info, fails):
                     if git(['cat-file', '-e', '%s:%s' % (o, pth.rstrip('/'))], tmp, env=env).returncode:
                         F('H4 %s: %s does not resolve' % (o[:12], pth))
         # H5: identities are addresses already public in main's history
-        log = git(['log', '--format=%ae%n%ce%n%B', base], root).stdout.decode('utf-8', 'replace')
-        known = {sha256(a.encode()) for a in re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', log)}
         for d in man.get('identities_sha256', []):
             if d not in known:
                 F('H5 identity digest %s names no address in the base\'s history' % d[:12])
         # H6: no excerpt reachable from HEAD, or from anything reconstituted
-        head = git(['rev-list', '--objects', 'HEAD'], root).stdout.decode().split('\n')
         allr = git(['rev-list', '--objects', '--all'], tmp, env=env).stdout.decode().split('\n')
         for name, lst in (('HEAD of this repository', head), ('the reconstituted objects', allr)):
             hit = [l.split()[0] for l in lst if l and sha256(l.split()[0].encode()) in deny]
@@ -506,8 +538,10 @@ def check_with(objdir, root, history, fails):
 
 def self_test(root):
     """Mutate a copy once per failure family, in both directions: the copy passes, each mutation fails as named."""
+    global _SCAN_MEMO, _HISTORY_MEMO
     tmp = tempfile.mkdtemp(prefix='objects-selftest-')
     results = []
+    _SCAN_MEMO, _HISTORY_MEMO = {}, {}
     try:
         base = os.path.join(tmp, 'objects')
         shutil.copytree(OBJ, base)
@@ -680,6 +714,7 @@ def self_test(root):
             save(d, man)
         expect('a missing id that is retained here', missing_retained, 'O8')
     finally:
+        _SCAN_MEMO = _HISTORY_MEMO = None
         shutil.rmtree(tmp, ignore_errors=True)
     width = max(len(r[0]) for r in results)
     bad = 0
