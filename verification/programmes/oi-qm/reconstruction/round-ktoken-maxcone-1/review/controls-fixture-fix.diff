@@ -1,0 +1,19 @@
+diff --git a/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py b/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py
+index 8c8eb522..904c1e70 100644
+--- a/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py
++++ b/verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py
+@@ -553,7 +553,13 @@ def fake_repo(root):
+     E = {p: rd(p) for p in {MODULE, PAIR, PROBE, CHECKFILE, RUNNER, CONTROLS, WORKFLOW, ROOT, REGISTRY}
+          | {path for path, _, _ in LANDED}}
+     prereg = rd(PREREG)
+-    for path in evidence_pins(prereg):
++    for path, pin in evidence_pins(prereg).items():
++        if pin is not None:
++            # A filled pin names a real retained file: the fixture uses it, so the unmutated case checks the real
++            # digest. If the file is absent, E lacks it and P fails the unmutated case.
++            if os.path.isfile(os.path.join(root, RDIR + path)):
++                E[RDIR + path] = rd(RDIR + path)
++            continue
+         body = '{"synthetic": "controls self-test fixture, not run evidence", "path": "%s"}\n' % path
+         E[RDIR + path] = body
+         prereg = re.sub(r'(\| `%s` \| )pending[^|]*\|' % re.escape(path),
