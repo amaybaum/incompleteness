@@ -94,7 +94,8 @@ operations, 216 of 362880. Two kinds of OI's maps are positive but not CP at `q 
 - the exchange `(p, c) ↦ (c, p)`, whose determinant is −1;
 - every other `det ≠ 1` linear map, which at `q = 3` has determinant −1.
 
-At `q ≥ 5` a linear map of determinant `d ∉ {1, −1}` is not even positive (check D [X]).
+At `q = 5, 7, 11, 13` a linear map of determinant `d ∉ {1, −1}` is not even positive (check D [X]); other `q ≥ 5`
+are not checked.
 
 These are transpose-type maps; compare `transposeMap_not_kraus`, CompositeSoundness.lean:382. Both the bare read-write
 copy and the non-affine bijections lack a physical image, which agrees with thread H's P6.a and P3.a (numerical there).
@@ -105,7 +106,7 @@ So E1-L does not extend OI's operational theory: it keeps its affine symplectic 
 **O1. E1-L keeps exactly the Clifford part of OI's reversible operations (OD-REV).** Thread H stated that the
 configuration-bijection class is "replaced, not enlarged". At `q = 3, N = 1` this is now exact: of OI's permutations,
 CP images are exactly the affine symplectic ones, and positive images exactly the affine ones. The second statement
-is specific to `q = 3`; at `q ≥ 5` affine maps of determinant `∉ {±1}` are not positive (check D [X]).
+is specific to `q = 3`; at `q = 5, 7, 11, 13` affine maps of determinant `∉ {±1}` are not positive (check D [X]).
 **Classification:** ELABORATING, as an exact upgrade of thread H's E1(b) and P3.a.
 
 **O2. Positivity under the dictionary forces the counting measure on the hidden half of a fully registered preparation,

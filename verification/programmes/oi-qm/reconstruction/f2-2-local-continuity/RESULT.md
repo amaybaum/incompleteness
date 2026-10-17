@@ -91,7 +91,9 @@ Control sizes: (q, N) = (3, 1), (5, 1), (7, 1), (3, 2). Locality cells also run 
     - the two-time law exact on 49 protocols;
     - normalization and back-action exact.
   - C4(a) at q = 7: 42 of 49 output entries are not nonnegative reals.
-  - Token `E1L-CONSISTENT`.
+  - Token `E1L-CONSISTENT`. The token covers these equalities only. Their two-time law is the law with one
+    symplectic, back-acting meter; OI's monitored law, which reads the visible value without disturbance, is not
+    reproduced (`../f2-census-checks/monitored_law.py`, check B [X]).
 
 ### Control content
 

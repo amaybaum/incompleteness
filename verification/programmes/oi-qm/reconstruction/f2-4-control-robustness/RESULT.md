@@ -280,7 +280,7 @@ The moves are `T_M`, `U_M` and `J`, for zero-diagonal symmetric `M`.
 ## 3. Findings
 
 1. **All-duration control is full for every generator choice, at every odd prime and every size.**
-   - This holds under both repertoires and is proved in general [W, AD].
+   - This holds under both repertoires and has a general written argument [W, AD].
    - It is corroborated exactly at `(3,2)`, `(3,3)` and `(5,2)`, by:
      - the principal member;
      - the bilinear `Γ_diag` lift;

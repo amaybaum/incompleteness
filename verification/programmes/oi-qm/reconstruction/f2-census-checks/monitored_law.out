@@ -1,4 +1,4 @@
-m=0  covariant V: True   QM == re-randomized classical: yes   entries QM != OI: 27 of 27   P(x2|x1,x0) depends on x0 -- OI: True, QM: False
-m=1  covariant V: True   QM == re-randomized classical: yes   entries QM != OI: 27 of 27   P(x2|x1,x0) depends on x0 -- OI: True, QM: False
-m=2  covariant V: True   QM == re-randomized classical: yes   entries QM != OI: 27 of 27   P(x2|x1,x0) depends on x0 -- OI: True, QM: False
+m=0  covariant V: True   QM == re-randomized classical: True   entries QM != OI: 27 of 27   P(x2|x1,x0) depends on x0 -- OI: True, QM: False
+m=1  covariant V: True   QM == re-randomized classical: True   entries QM != OI: 27 of 27   P(x2|x1,x0) depends on x0 -- OI: True, QM: False
+m=2  covariant V: True   QM == re-randomized classical: True   entries QM != OI: 27 of 27   P(x2|x1,x0) depends on x0 -- OI: True, QM: False
 CHECK-B PASS : E1 registration reproduces the rooted law but not OI's monitored trajectory law; the readback dependence of x2 on x0 given x1 is present in OI and absent under E1

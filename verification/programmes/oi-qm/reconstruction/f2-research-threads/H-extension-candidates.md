@@ -99,8 +99,9 @@ configuration-bijection class is replaced, not enlarged.
 
 - **R alone.** R places the Weil images into availability: the zero-coupling leap's Fourier-type map
   and the chirps. These are not entrywise-nonnegativity-preserving on ℂ^{V^N}, so I1 fails in the
-  amplitude frame. But R's theory is Wigner-positive (I5 [N P2.d]). It reproduces the classical
-  marginals exactly [N P2.a, P6.b], and its group is the Clifford group: finite modulo phases. So R
+  amplitude frame. But R's theory is Wigner-positive (I5 [N P2.d]). It reproduces the rooted classical
+  marginals exactly [N P2.a] and a back-acting classical two-time law [N P6.b], and its group is
+  the Clifford group: finite modulo phases. So R
   breaks I1 only in one frame.
 - **T.** T is what places I1-, I3-, I4- and I5-violating operations into availability: exp(t·log W(L))
   and exp(t·log X) at non-integer t.
@@ -138,8 +139,9 @@ Controls E1 must preserve:
 Predictions and postdictions beyond the barrier:
 
 - P-1 (postdiction). OI's canonical measure on the hidden half (Main.md:56) is exactly the Wigner
-  function of a registered-value eigenstate. In the linear sector, OI's visible laws are Born
-  statistics [N P2.a, P6.b]. This explains why the two descriptions coincide there.
+  function of a registered-value eigenstate. In the linear sector, OI's rooted visible law is Born
+  statistics [N P2.a]; the Born two-time law agrees with a back-acting classical law [N P6.b], not with
+  OI's monitored law (check B). This explains why the two descriptions coincide there.
 - P-2. A discrete uncertainty and back-action relation. No preparation fixes both components of a site
   [N P2.c], and registration disturbs the unregistered component (P6).
 - P-3. Every whole-period protocol is classically simulable [L Veitch 2012; Gottesman,
@@ -218,7 +220,8 @@ is the expected outcome given `SA2` and `CT4`.
 ### E3 (rank 3): R alone (Weyl–Lagrangian registration, odd q)
 
 Statement and invariants are as in E1. R breaks I1 in the amplitude frame and keeps I5. Its group is
-finite modulo phases, so there is no density. It reproduces OI's laws [N P2, P6].
+finite modulo phases, so there is no density. It reproduces OI's rooted law [N P2], and a different, back-acting two-time law [N P6.b]; OI's monitored
+law is not reproduced (check B).
 
 R supplies the phases at site level, a non-monomial Fourier map, and a native, disturbing measurement.
 It is the explanatory half of E1, and it is predicted insufficient alone.
@@ -280,9 +283,9 @@ reduces to "this gate or flow is available" falls here.
 
 | | principle | breaks I1? (operation) | I3 | I4 | I5 | tests / compatibility | independent prediction | controls held / conflicts | evidence |
 |---|---|---|---|---|---|---|---|---|---|
-| **E1** R⊕T | registration of the current half + continuous description time | yes: exp(t log W(L)), t ∉ ℤ | broken | broken | broken | native registration; PSD by R's kinematics | P-1 to P-6: Born = OI law at integer times; uncertainty and back-action; parity superselection; q odd | C-1, C-2 held; conflicts with q gauge, structured priors, bare read-write copy | [N] P2, P4, P6; [X] P1.d, P3.a; [L] |
+| **E1** R⊕T | registration of the current half + continuous description time | yes: exp(t log W(L)), t ∉ ℤ | broken | broken | broken | native registration; PSD by R's kinematics | P-1 to P-6: Born = OI rooted law at integer times; uncertainty and back-action; parity superselection; q odd | C-1 held; C-2 held for the back-acting two-time law; conflicts with q gauge, structured priors, bare read-write copy | [N] P2, P4, P6; [X] P1.d, P3.a; [L] |
 | E2 Track B lift | context-dependent lift + P0 selection | not at M | ? | ? | possibly (contextual) | division events; ? | none yet | RD1, SA2, TJ3 constrain it | [K] acts 6–17, [D] |
-| E3 R | registration alone | only in the amplitude frame | broken | holds | **holds** | native; PSD | P-1, P-2, P-5 | C-1, C-2 held | [N] P2, P6 |
+| E3 R | registration alone | only in the amplitude frame | broken | holds | **holds** | native; PSD | P-1, P-2, P-5 | C-1 held; C-2 held for the back-acting two-time law | [N] P2, P6 |
 | E4 T on Conf | gate flows of the layers | yes: unit g t | **holds** | broken | n/a | classical readout | no phases (refuted) | FlowEndpoint | [K], [N] P4.a |
 | E5 H-Bell | preparation-indexed adjacency | no | holds | holds | holds | none | composite / no-signalling | rule independence | [K], [W] |
 | E6 A6-op | local gauge as control | no (finite); off-carrier (ℂ) | holds | holds | n/a | none | none | `a6cov_all` vacuous; fails A1 | [K] |
@@ -314,8 +317,8 @@ restating the barrier, and it either constrains E1 or exposes a hidden assumptio
   `x₁` without disturbance, and it is not reproduced: at q = 3, N = 1, every entry of
   `P(x₁, x₂ | x₀)` differs for each coupling, and given `x₁` the law of `x₂` depends on `x₀` under OI
   and not under E1 (`../f2-census-checks/monitored_law.py`, check B [X]). Both agreements depend on the
-  counting measure on the conjugate component (P2.c fails with a point prior) and on symplectic
-  registration (P6.a, P6.c). **NEW: E1 reproduces OI's rooted law, not its monitored two-time law;
+  counting measure on the conjugate component (P2.c fails with a point prior); the two-time agreement
+  also depends on symplectic registration (P6.a, P6.c). **NEW: E1 reproduces OI's rooted law, not its monitored two-time law;
   two-time agreement requires replacing OI's non-disturbing readout by back-acting registration.**
 - **N3. q = 2.** The kernel's images are not even multiplicative: S² = Z while the shear is an
   involution [X P1.b]. They contradict the visible law [X P1.d], and no Clifford layer pair works
@@ -360,7 +363,8 @@ three of the owner's step-2 items:
 - valid measurements: registration through symplectic embedded coupling, with derived disturbance;
 - compatible transformations: conjugations on the description that registration reads.
 
-It reproduces OI's established visible laws where they are established (C-1, C-2). It is hard to vary
+It reproduces OI's rooted visible law (C-1) and a back-acting two-time law (C-2); OI's monitored two-time
+law is not reproduced (check B). It is hard to vary
 (P-1 to P-6), and it can be killed cheaply.
 
 **Required caveat (N1).** The nonclassical datum is T, the continuity of the description's evolution
@@ -439,7 +443,7 @@ All of these are in `scratchpad/threads/H-work/`.
 2. Countability [K] means exact QM needs an added continuum. Without one, F2 can at most reach `DenseFiniteQM`. The owner has to choose the target.
 3. Recommended: E1 = R ⊕ T. R: observers register the current half and are covariant under the Weil image. T: the update is a stroboscopic sample of continuous description time.
 4. E1 supplies phases, non-monomial and exact control (full u(q^N) at the tested sizes [N]), disturbing registration-based tests and compatibility, all through one stated map.
-5. E1 reproduces OI's single-time (rooted) visible law exactly at odd q [N], and the two-time law only with back-acting registration; OI's non-disturbing monitored two-time law is not reproduced (check B [X], q = 3). This postdicts Lemma 3's measure as the Wigner function of registered eigenstates.
+5. E1 reproduces OI's single-time (rooted) visible law exactly at odd q [N], and a different, back-acting two-time law; OI's non-disturbing monitored two-time law is not reproduced (check B [X], q = 3). This postdicts Lemma 3's measure as the Wigner function of registered eigenstates.
 6. Skeptic finding: R alone is Wigner-classical, so all nonclassicality lies in T. T posits continuity, not gates. The owner's "control as premise" objection applies in that modified form.
 7. E1 has costs: q must be odd (q = 2 contradicts OI's law: H·S²·H = X [X]), against SM's q gauge; point priors are excluded; and registration must be symplectic, not a bare copy.
 8. The kernel's `PolC` is dense at level two [N], but only through unsourced relabellings and permutations [X P3]. It is not a sourcing result.

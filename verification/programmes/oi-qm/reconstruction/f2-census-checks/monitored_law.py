@@ -37,7 +37,7 @@ for m in range(q):
     ok &= cov
     ev = lambda rho: scal(K(1) / lam, mm(mm(V, rho), dag(V)))
     P = [E(k, k) for k in range(q)]
-    diffs = 0; mem_oi = False; mem_qm = False
+    diffs = 0; mem_oi = False; mem_qm = False; qm_rr = True
     for a in range(q):
         oi, rr, qm = {}, {}, {}
         for k, l in product(range(q), repeat=2):
@@ -59,7 +59,7 @@ for m in range(q):
         for l in range(q):
             pc = sum(v for (k, l2), v in oi.items() if l2 == l)
             pq = tr(mm(mm(P[l], r2u), P[l])); ok &= pq.is_real() and pq.a == pc
-        ok &= all(qm[x] == rr[x] for x in qm)
+        qm_rr &= all(qm[x] == rr[x] for x in qm)
         diffs += sum(qm[x] != oi[x] for x in qm)
         # readback: does P(x2 | x1, x0) depend on x0?  record conditionals for comparison across a
         g.setdefault('cond', {}).setdefault(m, {})[a] = (
@@ -70,8 +70,8 @@ for m in range(q):
         oi_rows = {c[a][0][k] for a in range(q) if c[a][0][k][0] is not None}
         qm_rows = {c[a][1][k] for a in range(q)}
         mem_oi |= len(oi_rows) > 1; mem_qm |= len(qm_rows) > 1
-    print('m=%d  covariant V: %s   QM == re-randomized classical: yes   entries QM != OI: %d of 27   '
-          'P(x2|x1,x0) depends on x0 -- OI: %s, QM: %s' % (m, cov, diffs, mem_oi, mem_qm))
-    ok &= diffs > 0 and mem_oi and not mem_qm
+    print('m=%d  covariant V: %s   QM == re-randomized classical: %s   entries QM != OI: %d of 27   '
+          'P(x2|x1,x0) depends on x0 -- OI: %s, QM: %s' % (m, cov, qm_rr, diffs, mem_oi, mem_qm))
+    ok &= qm_rr and diffs > 0 and mem_oi and not mem_qm
 print('CHECK-B', 'PASS' if ok else 'FAIL', ': E1 registration reproduces the rooted law but not OI\'s monitored '
       'trajectory law; the readback dependence of x2 on x0 given x1 is present in OI and absent under E1')
