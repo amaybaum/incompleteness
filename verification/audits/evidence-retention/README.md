@@ -67,15 +67,18 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
 
 - **Counts.** 920 entries in all:
   - 165 cited objects;
-  - 895 stored files: 162 raw (2.1 MB), 733 loose (7.9 MB), with 73.6 MB of content;
-  - 25 withheld blobs: 22 raw logs and 3 build PDFs.
+  - 892 stored files: 162 raw (2.1 MB), 730 loose (7.9 MB), with 73.5 MB of content;
+  - 28 withheld blobs: 22 raw logs, 3 small raw outputs and 3 build PDFs.
 - **Mechanisms.** A commit is retained in one of four ways:
   - `raw:connected`: with every tree and blob `main` lacks, and every parent on `main` or retained (102 commits);
-  - `raw:tree`: the same, but with a parent named and not retained (31);
-  - `raw:partial-tree`: every tree is retained, and the raw logs or PDFs under it are named by id (2);
+  - `raw:tree`: the same, but with a parent that is neither on `main` nor a retained connected commit (31): 9 name
+    such a parent without retaining it, and the parent of each of the other 22 is a retained `raw:tree` commit;
+  - `raw:partial-tree`: every tree is retained, and the raw logs, raw outputs or PDFs under it are named by id (2);
   - `inclusion-proof`: the commit, its root tree and the trees on each cited path (2, the R3 pair).
-- **Withheld, by §A.42 item 1.** Raw logs are not committed. The three PDFs are build outputs, whose bytes no record
-  freezes.
+- **Withheld, by §A.42 item 1.** Raw logs, and the small raw outputs written beside them (three integer lists under
+  `1f19a347`), are not committed. The three PDFs, under act 45's head `ad64b603`, are build outputs whose bytes no
+  record freezes. Each withheld blob keeps its id, size and paths in the manifest, and its mechanism states why it
+  is withheld.
 - **Cited blobs are plain files.** Committing them makes those blob ids reachable from `main`, so a frozen control
   that reads them with `git cat-file` works in any clone.
 - **Recorded mappings.**
@@ -94,7 +97,7 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
 - retention changes no verdict and no claim's status, and no retained object is a `check-run` attestation.
 
 **Identities and secrets.**
-- Every stored object was scanned with R5's patterns plus four more token shapes.
+- Every stored object was scanned with the secret patterns of `check_retention.py`'s R5 plus four more token shapes.
 - The scan exempts three things:
   - commit identity lines and `Co-Authored-By:` trailers whose address digest is listed, provided the address is
     already in `main`'s history (the check verifies this);
@@ -152,8 +155,8 @@ Every file here was scanned before commit for token and key patterns, key-file h
 ## Not yet retained
 
 Recorded here so the gap is visible, not resolved. Counts are from `audit/offmain_audit-output.txt`:
-- **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Tranche 2 retains 6 of them: the R3 pair, BG-3's three heads, and `19985424`, the parent of a retained connected commit. The other 101 are held by host branches.
-- **Blobs and trees not reachable from `main`:** 75. Tranche 2 retains 14; 57 are held by host branches, and 4 are CONSC-2's build PDFs, which are withheld.
+- **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Host refs held all 107 when they were listed on 2026-10-17. Tranche 2 retains 6 of them: the R3 pair, BG-3's three heads, and `19985424`, the parent of a retained connected commit. The other 101 are not retained yet.
+- **Blobs and trees not reachable from `main`:** 75, all held by host refs when listed. Tranche 2 retains 14 of them. Of the other 61, four are CONSC-2's build PDFs (its preregistration `:514`–`:517`), which as build outputs are to be named, not retained.
 - **Other CI evidence:** 842 citations of 438 run ids and 173 job ids. This tranche covers 96 runs and BG-3's four logs.
 - **Act-26's scratchpad computation** (`result.md:931`), which the audit found saved nowhere.
 

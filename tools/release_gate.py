@@ -62,7 +62,9 @@ another. Each exists because a real defect shipped past the others:
                        rounds' governed paths at the run's commit or, for
                        CV-1's runs, from the contributions of
                        verification/certificates/CV1.json (R11, a consistency
-                       check), and its self-test.
+                       check), and its self-test; then the checker of the
+                       retained off-main objects (objects/) in history mode,
+                       and its self-test.
                        A record that pinned content by digest was once held to
                        be retained when its evidence sat only in a session's
                        scratchpad; this step is where an archived copy that
