@@ -65,6 +65,18 @@ Rules:
       same governed-paths blocks, at the tranche base and with its own parser. R11 shows that the archive applied
       those blocks faithfully, as they stand at each run's commit and as the receipts' digests commit to them; it
       cannot show that the governed paths name the right modules.
+  R12 each tranche-3 entry (run-<run_id>, a run no receipt or certificate attests, cited for its identity, its
+      jobs or what one job printed) is well formed and its files agree: run.json names the run and its head commit,
+      and the entry's expiry is its creation plus 90 days; every job in jobs.json is at that commit and attempt,
+      with its steps; expected.json, when present, names the same run, head commit, event and attempt, and each
+      output names a job of jobs.json, a known kind (base-check, guard), the commit it holds at (the run's head for
+      a push; for a pull request the recorded base and the run's head, whose synthetic merge is the REF the log
+      reports), a recipe, a source with its digest and line counts and job_outputs.py as extractor, and a well
+      formed expectation, a guard's counts agreeing with its checks; the file's source_sha256 is its output's
+      served digest. The tranche3 section lists every uncovered run not retained here, once, with its creation
+      and expiry, in order of creation; no retained or remaining run is attested or already retained by
+      tranches 1-2; no retained run expires after a remaining one (earliest expiry first); and its counts agree.
+      R12 does not re-derive an expected result: job_outputs.py reproduce does, at the commit.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -209,10 +221,13 @@ def check(archive, root, scope=None):
                         F('R8 %s: %s names another run, job or head commit than the entry, or does not derive from its log' % (eid, rel))
         if is_ci:
             check_entry_files(e, files, man, F)
+        if str(eid).startswith('run-') or e.get('tranche') == 3:
+            check_run_entry(e, files, F)
     for g in man.get('missing', []):
         if g.get('id') not in ids or not g.get('what') or not g.get('why'):
             F('R7 gap %r names no entry, or has no what/why' % g)
     check_coverage(man, archive, root, read_tree, F, scope)
+    check_tranche3(man, read_tree, F)
     for dirpath, _, names in os.walk(archive):
         for fn in names:
             rel = os.path.relpath(os.path.join(dirpath, fn), archive).replace(os.sep, '/')
@@ -326,6 +341,163 @@ def check_entry_files(e, files, man, F):
         want = m.get('status') in ('partial', 'none')
         if ((eid, 'axiom reports of %s' % mod) in gaps) != want:
             F('R8 %s: %s is %s, and its gap record is %s' % (eid, mod, m.get('status'), 'present' if not want else 'absent'))
+
+
+HEX40 = re.compile(r'[0-9a-f]{40}')
+HEX64 = re.compile(r'[0-9a-f]{64}')
+JOB_KINDS = ('base-check', 'guard')
+EXTRACTOR3 = 'verification/audits/evidence-retention/job_outputs.py'
+
+
+def expiry_of(created):
+    import datetime
+    try:
+        t = datetime.datetime.strptime(str(created), '%Y-%m-%dT%H:%M:%SZ')
+    except ValueError:
+        return None
+    return (t + datetime.timedelta(days=90)).strftime('%Y-%m-%d')
+
+
+def check_run_entry(e, files, F):
+    """R12: a tranche-3 entry's files agree with each other: run.json, jobs.json and, when a claim rests on what a
+    job printed, expected.json."""
+    eid, rid = e.get('id'), str(e.get('run_id'))
+    if e.get('tranche') != 3 or eid != 'run-' + rid or not re.fullmatch(r'[0-9]{1,20}', rid):
+        F('R12 %s: not an entry of tranche 3' % eid)
+        return
+    run, jobs, exp = (files.get('runs/%s/%s' % (rid, n)) for n in ('run.json', 'jobs.json', 'expected.json'))
+    if run is None or jobs is None:
+        F('R12 %s: no run.json or no jobs.json' % eid)
+        return
+    try:
+        run, jobs = json.loads(run), json.loads(jobs)
+        exp = json.loads(exp) if exp is not None else None
+    except ValueError:
+        F('R12 %s: run.json, jobs.json or expected.json is not JSON' % eid)
+        return
+    head = run.get('head_sha')
+    if str(run.get('id')) != rid or run.get('run_id') != rid or not HEX40.fullmatch(str(head)):
+        F('R12 %s: run.json names another run or no head commit' % eid)
+        return
+    if e.get('expires') is None or e.get('expires') != expiry_of(run.get('created_at')):
+        F('R12 %s: the recorded expiry is not the run\'s creation plus 90 days' % eid)
+    jl = jobs.get('jobs') if isinstance(jobs, dict) else None
+    if jobs.get('run_id') != rid or not isinstance(jl, list) or not jl:
+        F('R12 %s: jobs.json is not the run\'s job list' % eid)
+        jl = []
+    for j in jl:
+        if j.get('head_sha') != head or j.get('run_attempt') != run.get('run_attempt') or not isinstance(j.get('steps'), list):
+            F('R12 %s: job %s is at another head commit or attempt than the run, or has no steps' % (eid, j.get('id')))
+    if exp is None:
+        return
+    if exp.get('schema') != 'oi-evidence-job-outputs' or exp.get('version') != 1:
+        F('R12 %s: expected.json has an unknown schema or version' % eid)
+        return
+    er = exp.get('run') or {}
+    if er.get('id') != rid or er.get('head_sha') != head or er.get('event') != run.get('event') \
+            or er.get('attempt') != run.get('run_attempt'):
+        F('R12 %s: expected.json names another run, head commit, event or attempt than run.json' % eid)
+    outs = exp.get('outputs')
+    if not isinstance(outs, list) or not outs or not (exp.get('reproduce') or {}).get('tool'):
+        F('R12 %s: expected.json records no output or no reproduction tool' % eid)
+        return
+    byid = {str(j.get('id')): j for j in jl}
+    for n, o in enumerate(outs):
+        if o.get('kind') not in JOB_KINDS or str(o.get('job_id')) not in byid or \
+                byid[str(o.get('job_id'))].get('name') != o.get('job_name'):
+            F('R12 %s: output %d names no job of jobs.json, or has an unknown kind' % (eid, n))
+            continue
+        at = o.get('at') or {}
+        if run.get('event') == 'pull_request':
+            good = at.get('head') == head and all(HEX40.fullmatch(str(at.get(k))) for k in ('base', 'synthetic_merge')) \
+                and 'commit' not in at and (o['kind'] != 'base-check' or at.get('ref_as_served') == at.get('synthetic_merge'))
+        else:
+            good = at.get('commit') == head and 'head' not in at and 'base' not in at and \
+                (o['kind'] != 'base-check' or at.get('ref_as_served') == head)
+        if not good:
+            F('R12 %s: output %d is not at the run\'s commit' % (eid, n))
+        rc = o.get('recipe') or {}
+        if not isinstance(rc.get('argv'), list) or not rc['argv'] or not all(isinstance(x, str) and x for x in rc['argv']) \
+                or not inside(rc.get('cwd') if rc.get('cwd') != '.' else 'x') or not isinstance(rc.get('env'), dict) \
+                or not isinstance(rc.get('exit'), int):
+            F('R12 %s: output %d has a malformed recipe' % (eid, n))
+        src = o.get('source') or {}
+        if not HEX64.fullmatch(str(src.get('served_sha256'))) or src.get('extractor') != EXTRACTOR3 or \
+                not isinstance(src.get('served_lines'), int) or not isinstance(src.get('original_lines'), int) or \
+                not 0 < src['served_lines'] <= src['original_lines']:
+            F('R12 %s: output %d has a malformed source' % (eid, n))
+        x = o.get('expected') or {}
+        if o['kind'] == 'base-check':
+            ls = x.get('lines')
+            good = isinstance(ls, list) and ls and x.get('summary') == ls[-1] and \
+                str(x.get('summary')).startswith('control_plane_base_check: ') and \
+                sum(1 for l in ls if str(l).startswith('control_plane_base_check: mode ') and 'REF=<REF>,' in str(l)) == 1
+        else:
+            cs = x.get('checks')
+            good = isinstance(cs, list) and cs and isinstance(x.get('quoted'), list) and \
+                str(x.get('verdict')).startswith('edge_rigidity_probe: ') and \
+                all(c.get('status') in ('PASS', 'FAIL') and c.get('tag') and HEX64.fullmatch(str(c.get('message_sha256')))
+                    for c in cs)
+            if good:
+                ct = x.get('counts') or {}
+                if ct.get('checks') != len(cs) or ct.get('R7') != sum(1 for c in cs if c['tag'].startswith('R7-')) or \
+                        ct.get('PASS') != sum(1 for c in cs if c['status'] == 'PASS'):
+                    F('R12 %s: the guard counts of output %d disagree with its checks' % (eid, n))
+        if not good:
+            F('R12 %s: output %d has a malformed expectation' % (eid, n))
+    fr = next((f for f in e.get('files', []) if f.get('path') == 'runs/%s/expected.json' % rid), {})
+    if len(outs) != 1 or fr.get('source_sha256') != (outs[0].get('source') or {}).get('served_sha256'):
+        F('R12 %s: expected.json does not derive from its one output\'s served log' % eid)
+
+
+def check_tranche3(man, read_tree, F):
+    """R12: the tranche-3 section: the runs retained here are not attested runs (those are tranche 1's), and every
+    uncovered run is either retained here or listed as remaining, earliest log expiry first."""
+    t3 = [e for e in man.get('entries', []) if str(e.get('id', '')).startswith('run-')]
+    sec = man.get('tranche3')
+    if not t3 and sec is None:
+        return
+    if not isinstance(sec, dict) or not HEX40.fullmatch(str(sec.get('base'))) or not isinstance(sec.get('remaining'), list):
+        F('R12 tranche3 section missing or malformed')
+        return
+    attested = {str(e.get('run_id')) for e in man['entries'] if str(e.get('id', '')).startswith('ci-')}
+    attested |= {str((e.get('provenance') or {}).get('run_id')) for e in man['entries'] if (e.get('provenance') or {}).get('run_id')}
+    for c in man.get('coverage', {}).get('files', []):
+        data = read_tree(c.get('path', ''))
+        try:
+            doc = json.loads(data) if data is not None else {}
+        except ValueError:
+            doc = {}
+        for a in doc.get('attestations', []) if isinstance(doc, dict) else []:
+            m = a.get('kind') == 'check-run' and RUN_URL.search(str(a.get('record', '')))
+            if m:
+                attested.add(m.group(1))
+        for v in (doc.get('ci') or {}).values() if isinstance(doc, dict) else []:
+            if isinstance(v, dict) and v.get('run'):
+                attested.add(str(v['run']))
+    held = set()
+    for e in t3:
+        if str(e.get('run_id')) in attested:
+            F('R12 %s: run %s is attested or already retained, so it is not tranche 3\'s' % (e.get('id'), e.get('run_id')))
+        held.add(str(e.get('run_id')))
+    seen, prev = set(), None
+    for r in sec['remaining']:
+        rid = str(r.get('run_id'))
+        if not re.fullmatch(r'[0-9]{1,20}', rid) or rid in seen or r.get('expires') != expiry_of(r.get('created_at')):
+            F('R12 tranche3: remaining run %s is malformed or repeated' % rid)
+        seen.add(rid)
+        if rid in held or rid in attested:
+            F('R12 tranche3: remaining run %s has an entry' % rid)
+        key = (str(r.get('created_at')), rid)
+        if prev is not None and key < prev:
+            F('R12 tranche3: the remaining runs are not in order of creation')
+        prev = key
+    if t3 and sec['remaining']:
+        if max(str(e.get('expires')) for e in t3) > min(str(r.get('expires')) for r in sec['remaining']):
+            F('R12 tranche3: a retained run expires after a remaining one')
+    if sec.get('retained') != len(t3) or sec.get('uncovered') != len(t3) + len(sec['remaining']) or \
+            sec.get('cited_runs') != sec.get('covered_before', -1) + sec.get('uncovered', -1):
+        F('R12 tranche3: the counts disagree')
 
 
 def check_coverage(man, archive, root, read_tree, F, scope=None):
@@ -715,9 +887,21 @@ def objects_gate(archive, root):
     return True, ok
 
 
+def job_outputs_gate(archive, root):
+    """Tranche 3's comparator, when the archive holds it: job_outputs.py --self-test. Returns (ran, ok)."""
+    tool = os.path.join(archive, 'job_outputs.py')
+    if not os.path.isfile(tool):
+        return False, True
+    p = subprocess.run([sys.executable, '-I', '-B', tool, '--self-test'], cwd=root, capture_output=True, text=True)
+    print(p.stdout.rstrip())
+    if p.returncode:
+        print(p.stderr.rstrip()[-2000:])
+    return True, p.returncode == 0
+
+
 def gate(archive, root):
-    """The release-gate step: the check in history mode (R1-R11), then the self-test, then the retained objects'
-    check and self-test."""
+    """The release-gate step: the check in history mode (R1-R12), then the self-test, then the retained objects'
+    check and self-test, then tranche 3's comparator self-test."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
@@ -725,10 +909,13 @@ def gate(archive, root):
         print('FAIL  %s' % f)
     st = self_test(archive, root)
     ran, obj_ok = objects_gate(archive, root)
-    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s)' % (
-        'HOLDS' if not fails and st == 0 and obj_ok else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
-        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else ''))
-    return 0 if not fails and st == 0 and obj_ok else 1
+    jran, job_ok = job_outputs_gate(archive, root)
+    good = not fails and st == 0 and obj_ok and job_ok
+    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s%s)' % (
+        'HOLDS' if good else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
+        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else '',
+        ('; job-output comparator %s' % ('OK' if job_ok else 'FAILED')) if jran else ''))
+    return 0 if good else 1
 
 
 def report(archive, root):
@@ -756,6 +943,94 @@ def report(archive, root):
         print('FAIL  %s' % f)
     print('RETENTION  %s (%d failure(s), %d gap(s))' % ('HOLDS' if not fails else 'FAILS', len(fails), len(gaps)))
     return 0 if not fails else 1
+
+
+def r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit):
+    """The self-test's R12 cases, each a mutation of a copy requiring its own message."""
+    def has(e, n):
+        return any(f['path'] == 'runs/%s/%s' % (e['run_id'], n) for f in e['files'])
+
+    def load(e, n):
+        return json.load(open(os.path.join(tarch, 'runs', e['run_id'], n), encoding='utf-8'))
+    pick = lambda pred: next((i for i in t3 if pred(ents[i])), None)
+    plain = pick(lambda e: not has(e, 'expected.json'))
+    guard = pick(lambda e: has(e, 'expected.json') and load(e, 'expected.json')['outputs'][0]['kind'] == 'guard')
+    prbc = pick(lambda e: has(e, 'expected.json') and load(e, 'run.json')['event'] == 'pull_request')
+    pushbc = pick(lambda e: has(e, 'expected.json') and load(e, 'run.json')['event'] == 'push'
+                  and load(e, 'expected.json')['outputs'][0]['kind'] == 'base-check')
+    ci = next((i for i, e in enumerate(ents) if str(e.get('id', '')).startswith('ci-')), None)
+    if None in (plain, guard, prbc, pushbc, ci) or len(man.get('tranche3', {}).get('remaining', [])) < 2:
+        expect('the R12 cases need a plain, a guard, a pull-request and a push base-check entry, a CI entry and two '
+               'remaining runs', lambda: None, lambda: None, 'R12', 'an impossible message')
+        return
+    P = lambda i, n: os.path.join(tarch, 'runs', ents[i]['run_id'], n)
+    fi = lambda m, i, n: next(f for f in m['entries'][i]['files'] if f['path'].endswith('/' + n))
+    O = lambda d: d['outputs'][0]
+    expect('a tranche-3 entry whose id is not its run', edit(lambda m: m['entries'][plain].__setitem__('id', 'run-1')), back,
+           'R12', 'not an entry of tranche 3')
+    expect('a tranche-3 entry without jobs.json', edit(lambda m: m['entries'][plain].__setitem__(
+        'files', [f for f in m['entries'][plain]['files'] if not f['path'].endswith('/jobs.json')])), back, 'R12',
+           'no run.json or no jobs.json')
+    expect('a run.json that is not JSON', *file_edit(P(plain, 'run.json'), lambda b: b[:-3]), rule='R12', msg='is not JSON')
+    expect('a run.json naming no head commit', *json_edit(P(plain, 'run.json'), lambda d: d.__setitem__('head_sha', 'abc')),
+           rule='R12', msg='run.json names another run')
+    expect('a recorded expiry that is not the creation plus 90 days',
+           edit(lambda m: m['entries'][plain].__setitem__('expires', '2000-01-01')), back, 'R12', 'creation plus 90 days')
+    expect('a jobs.json with no jobs', *json_edit(P(plain, 'jobs.json'), lambda d: d.__setitem__('jobs', [])), rule='R12',
+           msg='not the run\'s job list')
+    expect('a job at another head commit', *json_edit(P(plain, 'jobs.json'), lambda d: d['jobs'][0].__setitem__('head_sha', '0' * 40)),
+           rule='R12', msg='another head commit or attempt')
+    expect('an expected.json of another schema', *json_edit(P(guard, 'expected.json'), lambda d: d.__setitem__('schema', 'x')),
+           rule='R12', msg='unknown schema or version')
+    expect('an expected.json naming another event', *json_edit(P(prbc, 'expected.json'), lambda d: d['run'].__setitem__('event', 'push')),
+           rule='R12', msg='head commit, event or attempt than run.json')
+    expect('an expected.json with no output', *json_edit(P(guard, 'expected.json'), lambda d: d.__setitem__('outputs', [])),
+           rule='R12', msg='records no output')
+    expect('an output naming no job of the run', *json_edit(P(guard, 'expected.json'), lambda d: O(d).__setitem__('job_id', '1')),
+           rule='R12', msg='names no job of jobs.json')
+    expect('an output of unknown kind', *json_edit(P(guard, 'expected.json'), lambda d: O(d).__setitem__('kind', 'lint')),
+           rule='R12', msg='unknown kind')
+    expect('a push output at another commit', *json_edit(P(pushbc, 'expected.json'),
+                                                        lambda d: O(d)['at'].__setitem__('commit', '0' * 40)),
+           rule='R12', msg='is not at the run\'s commit')
+    expect('a pull-request output whose head is not the run\'s', *json_edit(P(prbc, 'expected.json'),
+                                                                          lambda d: O(d)['at'].__setitem__('head', '0' * 40)),
+           rule='R12', msg='is not at the run\'s commit')
+    expect('a pull-request base check whose served REF is not the recorded merge',
+           *json_edit(P(prbc, 'expected.json'), lambda d: O(d)['at'].__setitem__('ref_as_served', '0' * 40)),
+           rule='R12', msg='is not at the run\'s commit')
+    expect('an output with an empty command', *json_edit(P(guard, 'expected.json'), lambda d: O(d)['recipe'].__setitem__('argv', [])),
+           rule='R12', msg='malformed recipe')
+    expect('an output served more lines than the log has',
+           *json_edit(P(guard, 'expected.json'), lambda d: O(d)['source'].__setitem__('served_lines', 10 ** 6)),
+           rule='R12', msg='malformed source')
+    expect('an output naming another extractor',
+           *json_edit(P(guard, 'expected.json'), lambda d: O(d)['source'].__setitem__('extractor', 'x.py')),
+           rule='R12', msg='malformed source')
+    expect('a base check whose summary is not its last line',
+           *json_edit(P(pushbc, 'expected.json'), lambda d: O(d)['expected'].__setitem__('summary', 'x')),
+           rule='R12', msg='malformed expectation')
+    expect('a guard check without a message digest',
+           *json_edit(P(guard, 'expected.json'), lambda d: O(d)['expected']['checks'][0].__setitem__('message_sha256', 'x')),
+           rule='R12', msg='malformed expectation')
+    expect('guard counts that disagree with the checks',
+           *json_edit(P(guard, 'expected.json'), lambda d: O(d)['expected']['counts'].__setitem__('R7', -1)),
+           rule='R12', msg='guard counts')
+    expect('an expected.json whose source digest is not its output\'s',
+           edit(lambda m: fi(m, guard, 'expected.json').__setitem__('source_sha256', '0' * 64)), back, 'R12', 'does not derive')
+    expect('a tranche-3 run that a CI entry already retains',
+           edit(lambda m: m['entries'][ci].__setitem__('run_id', ents[plain]['run_id'])), back, 'R12', 'attested or already retained')
+    expect('a manifest without its tranche3 section', edit(lambda m: m.pop('tranche3')), back, 'R12', 'section missing')
+    expect('a remaining run with a wrong expiry',
+           edit(lambda m: m['tranche3']['remaining'][0].__setitem__('expires', '2000-01-01')), back, 'R12', 'malformed or repeated')
+    expect('a remaining run listed twice',
+           edit(lambda m: m['tranche3']['remaining'].append(dict(m['tranche3']['remaining'][0]))), back, 'R12', 'malformed or repeated')
+    expect('a remaining run that has an entry',
+           edit(lambda m: m['tranche3']['remaining'][0].__setitem__('run_id', ents[plain]['run_id'])), back, 'R12', 'has an entry')
+    expect('remaining runs out of order', edit(lambda m: m['tranche3']['remaining'].reverse()), back, 'R12', 'order of creation')
+    expect('a retained run that expires after a remaining one',
+           edit(lambda m: m['entries'][plain].__setitem__('expires', '2099-01-01')), back, 'R12', 'expires after a remaining one')
+    expect('tranche-3 counts that disagree', edit(lambda m: m['tranche3'].__setitem__('retained', 0)), back, 'R12', 'counts disagree')
 
 
 def self_test(archive, root):
@@ -1278,6 +1553,10 @@ def self_test(archive, root):
             'roles', [r for r in m['entries'][rec]['roles'] if r.get('kind') != 'receipt check-run'])), back, 'R9',
                'does not record this role')
         expect('a certificate run with no entry', edit(drop(cert)), back, 'R9', 'no matching entry')
+        # tranche 3 (R12)
+        t3 = [i for i, e in enumerate(ents) if str(e.get('id', '')).startswith('run-')]
+        if 'tranche3' in man or t3:
+            r12_cases(man, ents, t3, tarch, expect, edit, back, json_edit, file_edit)
     print('self-test: %s' % ('OK' if ok else 'FAILED'))
     return 0 if ok else 1
 

@@ -115,6 +115,33 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
 **Excerpts.** None of the 194 bridge-log excerpts of R1's drafting branches is stored, named by a stored tree, or
 reachable from `HEAD`. The manifest lists the sha256 digests of their ids, never the ids themselves.
 
+## Tranche 3: cited runs that no receipt attests
+
+Frozen records also cite CI runs that no receipt or certificate attests: push runs that certified a base, pull-request runs at a candidate merge, and the runs whose output a precondition table quotes. Tranche 3 retains them in the tranche-1 form, an expected result with a recipe, earliest log expiry first.
+
+**The cited set.** At `main` `b96662e6` the tracked text outside this archive cites 487 runs. The count takes every 11-digit run id and 12-digit job id on a line that says run, job or `actions/` (the audit's rule R), the same id shapes on other lines when they name a run of this repository, and the inner runs of the corpus's one cited range (act 40's `preregistration.md:744`); a job id counts for its run. The set equals the 487 runs of the inventory accepted on 2026-10-17. Tranche 1 holds 99 of them: the 96 `ci-` entries and BG-3's three further runs. That leaves 388. This tranche retains the 22 whose 90-day expiry falls on 2026-12-17 or 2026-12-18. The manifest's `tranche3.remaining` lists the other 366 with their creation dates and expiries (2026-12-19 to 2027-01-14), in order of creation. No cited run's log had expired when this tranche was cut. The expiry is creation plus 90 days, GitHub's default for a public repository; the repository's own setting could not be read.
+
+| path | what | kind |
+| --- | --- | --- |
+| `runs/<run>/run.json` | the run's identity and outcome, selected fields of the runs API's answer | `derived`; `source_sha256` is the answer's digest |
+| `runs/<run>/jobs.json` | every job, with its attempt, conclusion and steps, from the jobs API's answer | `derived`, likewise |
+| `runs/<run>/expected.json` | for the 15 runs whose citing claims rest on what a job printed, that output, extracted by `job_outputs.py` from the served job log: the commit it holds at, the recipe that regenerates it, and the served text's line counts and digest | `derived` from the served log, whose digest is `source_sha256` |
+| `job_outputs.py`, `build_tranche3.py` | the extractor, reproduction tool and comparator for these outputs, and the script that cut the tranche | `complete`, hash-pinned |
+
+**Two outputs are retained.**
+- **The control-plane base check** (8 runs). These are its PASS, SKIP and FAIL lines, its header and its summary, such as `OK (mode B, 16 row(s), no failure)`. The header's REF is masked and kept beside the output as provenance. A push run's REF is its head. A pull-request run's REF is GitHub's synthetic merge, a commit not reachable from `main`. The expected result therefore records the merge's base and head, as the run's checkout reported them ("HEAD is now at 28ed5c98 Merge c6d94dda… into d08b932d…"). A reproduction rebuilds the merge from those two commits, both on `main`, under a new id.
+- **The guard,** `edge_rigidity_probe.py` in the probes job (7 runs). For each check it records the status, the tag and the sha256 of the message, with the counts and the verdict, and quotes in full only the lines a claim rests on (`R7-OGS … PASS (ARCHIVED; …)`).
+
+The other 7 runs are cited for their identity, outcome and jobs alone, which `run.json` and `jobs.json` carry.
+
+**What the served logs were.** They were read on 2026-10-17 through the session's job-log tool, which returns at most the last 5000 lines of a log, or fewer when asked. The seven probes logs were served whole (2181 to 2369 lines). Of the eight base-check logs, two were served whole, and six as their last 80 to 160 lines, which hold the base check's output and, for a pull-request run, the checkout's merge line. Each output records `original_lines`, `served_lines` and the served text's sha256. That digest identifies the text the result was read from. It is provenance of the extraction, not a copy of GitHub's log archive, and no served text is retained (§A.42 item 1).
+
+**Claims.** Tranche 3 annotates 94 claims at 46 citing locations: 83 retained and 11 not retained. Ten of the 11 are statements that `_SI2_LEGACY_RE` finds no assignment statement in the guard file, which is a reading of the file's text and not an output of the run; it is reproducible from the tree at that commit. The eleventh is SI-3's "local run at `L`", which was not a CI run. One count needed reading: SI-3's "92 tags" is the guard's 92 checks, R1 to R9 and 83 `R7-*` tags. Acts 21 to 25 count `R7-*` tags alone.
+
+**Reproduction.** `job_outputs.py reproduce --run <run> --work <dir>` runs each recorded command at its commit from a full-history clone. The guard needs numpy and scipy, as the probes job installs them. It compares every line, check, digest, summary, verdict and quoted line, and the exit code, but not timestamps, durations, REF's id or the order of the guard's checks. It fails closed and writes `verdict.json` on every exit. All 15 outputs were reproduced this way in a local clone before commit; that is evidence for the preparer, not an attestation. The `reproduce evidence` workflow runs `reproduce.py`, which handles bridge results only; it does not yet run these.
+
+**Not adopted as attestations.** None of these runs is a `check-run` attestation, and retention changes no verdict or claim.
+
 ## Checking
 
 From the repository root:
@@ -131,12 +158,14 @@ python3 -I verification/audits/evidence-retention/check_objects.py              
 python3 -I verification/audits/evidence-retention/check_objects.py --reconstitute  # history mode
 python3 -I verification/audits/evidence-retention/check_objects.py --self-test
 python3 -I verification/audits/evidence-retention/check_objects.py --materialize   # adds the objects to the clone's object store; no refs
+python3 -I verification/audits/evidence-retention/job_outputs.py --self-test
+python3 -I verification/audits/evidence-retention/job_outputs.py reproduce --run <run_id> --work <dir>   # tranche 3; needs history, numpy and scipy
 ```
 
 `check_retention.py` leaves the files under `objects/` to `check_objects.py`, whose manifest it pins, and `--gate`
-also runs `check_objects.py --reconstitute` and `--self-test`.
+also runs `check_objects.py --reconstitute` and `--self-test`, and `job_outputs.py --self-test`.
 
-The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, in its docstring) verify:
+The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9 and R12, in its docstring) verify:
 - every archived file's size and sha256, and the digest match of each `complete-as-cited` file;
 - that each citing file has its recorded blob id, the cited line still holds its tokens, and each claim's text stands verbatim where it says;
 - that every expected result is well formed and names its commit, job and recipe, with module statuses consistent with their reports;
@@ -144,6 +173,7 @@ The check uses the tree alone: no git history, network or third-party package. I
 - that no unlisted file sits in the archive;
 - the manifest's form, and that each entry's files agree with each other and with the gap list, a CI entry's expected result being a bridge result;
 - coverage, recomputed from the tree: every receipt under `verification/receipts/`, and every certificate attestation that cites runs, is covered by this tranche or named in the manifest's `coverage.later`; each of their check-run attestations and cited runs has an entry that matches it.
+- for tranche 3 (R12): that each `run-` entry's files agree: the run, its head commit and attempt, its jobs, each output's job, commit, recipe, source and expectation, and its expiry, creation plus 90 days. It also checks that no retained or remaining run is attested or already retained by tranche 1, that `tranche3.remaining` lists each run once in order of creation, that no retained run expires after a remaining one, and that the counts agree.
 
 At `fc5abade` every receipt is covered and `coverage.later` is empty. A receipt that lands after this tranche keeps its own evidence in its record directory (§A.42), and the plain check fails on it until `coverage.later` names it with that directory; a path named there may be neither covered nor cited by this tranche. The tree cannot order commits, so `--later-provenance` (R10) checks against git history that the tranche base is an ancestor of HEAD and that no path named as later existed at the base.
 
@@ -164,7 +194,7 @@ Every file here was scanned before commit for token and key patterns, key-file h
 Recorded here so the gap is visible, not resolved. Counts are from `audit/offmain_audit-output.txt`:
 - **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Host refs held all 107 when they were listed on 2026-10-17. Tranche 2 retains 6 of them: the R3 pair, BG-3's three heads, and `19985424`, the parent of a retained connected commit. The other 101 are not retained yet.
 - **Blobs and trees not reachable from `main`:** 75, all held by host refs when listed. Tranche 2 retains 14 of them. Of the other 61, four are CONSC-2's build PDFs (its preregistration `:516`–`:517`), which as build outputs are to be named, not retained.
-- **Other CI evidence:** 842 citations of 438 run ids and 173 job ids. This tranche covers 96 runs and BG-3's four logs.
+- **Other CI evidence:** 842 citations of 438 run ids and 173 job ids by the audit's rule R. The full cited set is 487 runs (tranche 3 above). Tranche 1 covers 96 runs and BG-3's four logs, whose entries name three more runs. Tranche 3 covers 22. The other 366 are listed with their expiries in `tranche3.remaining`, the earliest on 2026-12-19.
 - **Act-26's scratchpad computation** (`result.md:931`), which the audit found saved nowhere.
 
 Each needs a documented resolution in a later tranche: an expected result with a recipe, or a recorded gap.

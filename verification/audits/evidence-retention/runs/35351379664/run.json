@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-18T13:38:19Z",
+ "display_title": "SI-2 Amendment 2, append-only: the _SI2_BASE allowance in R7-SI1's co\u2026",
+ "event": "push",
+ "head_branch": "main",
+ "head_sha": "df54b99dba99dc043b11752163d8d348c9e54472",
+ "id": 35351379664,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35351379664",
+ "run_number": 930,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-17; selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-18T13:46:08Z"
+}

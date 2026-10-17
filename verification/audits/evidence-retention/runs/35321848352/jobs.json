@@ -1,0 +1,173 @@
+{
+ "jobs": [
+  {
+   "completed_at": "2026-09-18T08:04:02Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "da9d69d60b19482abfeb27b16af5aaebebba0e83",
+   "id": 105525872027,
+   "name": "Numerical probes",
+   "run_attempt": 1,
+   "started_at": "2026-09-18T07:56:18Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/setup-python@v5",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Install dependencies",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Probes",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Foundations probes",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/setup-python@v5",
+     "number": 11
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 12
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 13
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-09-18T07:58:22Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "da9d69d60b19482abfeb27b16af5aaebebba0e83",
+   "id": 105525872170,
+   "name": "Mathlib bridge",
+   "run_attempt": 1,
+   "started_at": "2026-09-18T07:56:18Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Install elan",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Restore the OIBridge build cache",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Build",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Release gate",
+     "number": 6
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Restore the OIBridge build cache",
+     "number": 11
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 12
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 13
+    }
+   ],
+   "workflow_name": "verify"
+  },
+  {
+   "completed_at": "2026-09-18T07:56:56Z",
+   "conclusion": "success",
+   "head_branch": "main",
+   "head_sha": "da9d69d60b19482abfeb27b16af5aaebebba0e83",
+   "id": 105525872330,
+   "name": "Lean kernel check",
+   "run_attempt": 1,
+   "started_at": "2026-09-18T07:56:19Z",
+   "status": "completed",
+   "steps": [
+    {
+     "conclusion": "success",
+     "name": "Set up job",
+     "number": 1
+    },
+    {
+     "conclusion": "success",
+     "name": "Run actions/checkout@v4",
+     "number": 2
+    },
+    {
+     "conclusion": "success",
+     "name": "Install Lean",
+     "number": 3
+    },
+    {
+     "conclusion": "success",
+     "name": "Report toolchain",
+     "number": 4
+    },
+    {
+     "conclusion": "success",
+     "name": "Kernel check",
+     "number": 5
+    },
+    {
+     "conclusion": "success",
+     "name": "Post Run actions/checkout@v4",
+     "number": 10
+    },
+    {
+     "conclusion": "success",
+     "name": "Complete job",
+     "number": 11
+    }
+   ],
+   "workflow_name": "verify"
+  }
+ ],
+ "run_id": "35321848352",
+ "source": "GitHub Actions jobs API, GET runs/<run_id>/jobs?filter=all, read 2026-10-17; selected fields"
+}

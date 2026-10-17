@@ -1,0 +1,16 @@
+{
+ "conclusion": "success",
+ "created_at": "2026-09-19T11:54:23Z",
+ "display_title": "Track B act 22 execution: L4n-RESTRICTS via \u03a6CTRL, L5-RESTRICTS via t\u2026",
+ "event": "push",
+ "head_branch": "main",
+ "head_sha": "59c1b7efe36d7768cf53120997ff201e32c8e458",
+ "id": 35441377788,
+ "path": ".github/workflows/verify.yml",
+ "run_attempt": 1,
+ "run_id": "35441377788",
+ "run_number": 964,
+ "source": "GitHub Actions runs API, GET runs/<run_id>, read 2026-10-17; selected fields",
+ "status": "completed",
+ "updated_at": "2026-09-19T12:01:12Z"
+}
