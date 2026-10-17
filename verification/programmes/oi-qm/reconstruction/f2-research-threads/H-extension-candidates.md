@@ -308,10 +308,15 @@ restating the barrier, and it either constrains E1 or exposes a hidden assumptio
     laws equal Born statistics in the linear sector. It does not explain why the description evolves
     between updates.
   - **Verdict: BORDERLINE as an explanation; POSITIVE as an F2 sufficiency candidate.**
-- **N2. Consistency with S⇔D⇔Q_fb.** At odd q, the single-time and two-time laws agree exactly in the
-  probes [N]. This depends on two conditions: the conjugate prior is the counting measure (P2.c fails
-  with a point prior), and registration is symplectic (P6.a, P6.c). **POSITIVE, with two NEW
-  constraints on OI's realization layer.**
+- **N2. Consistency with S⇔D⇔Q_fb.** At odd q, the single-time (rooted) law agrees exactly in the
+  probes [N]. The two-time agreement of P6.b is with a classical law whose intermediate registration
+  is symplectic and back-acting, re-randomizing the hidden half. OI's monitored trajectory law reads
+  `x₁` without disturbance, and it is not reproduced: at q = 3, N = 1, every entry of
+  `P(x₁, x₂ | x₀)` differs for each coupling, and given `x₁` the law of `x₂` depends on `x₀` under OI
+  and not under E1 (`../f2-census-checks/monitored_law.py`, check B [X]). Both agreements depend on the
+  counting measure on the conjugate component (P2.c fails with a point prior) and on symplectic
+  registration (P6.a, P6.c). **NEW: E1 reproduces OI's rooted law, not its monitored two-time law;
+  two-time agreement requires replacing OI's non-disturbing readout by back-acting registration.**
 - **N3. q = 2.** The kernel's images are not even multiplicative: S² = Z while the shear is an
   involution [X P1.b]. They contradict the visible law [X P1.d], and no Clifford layer pair works
   [N P1.f]. Leaps alone also fail for odd-diagonal couplings [N probe_H2]. So E1 needs odd q, against
@@ -434,7 +439,7 @@ All of these are in `scratchpad/threads/H-work/`.
 2. Countability [K] means exact QM needs an added continuum. Without one, F2 can at most reach `DenseFiniteQM`. The owner has to choose the target.
 3. Recommended: E1 = R ⊕ T. R: observers register the current half and are covariant under the Weil image. T: the update is a stroboscopic sample of continuous description time.
 4. E1 supplies phases, non-monomial and exact control (full u(q^N) at the tested sizes [N]), disturbing registration-based tests and compatibility, all through one stated map.
-5. E1 reproduces OI's single-time and two-time visible laws exactly at odd q [N]. This postdicts Lemma 3's measure as the Wigner function of registered eigenstates.
+5. E1 reproduces OI's single-time (rooted) visible law exactly at odd q [N], and the two-time law only with back-acting registration; OI's non-disturbing monitored two-time law is not reproduced (check B [X], q = 3). This postdicts Lemma 3's measure as the Wigner function of registered eigenstates.
 6. Skeptic finding: R alone is Wigner-classical, so all nonclassicality lies in T. T posits continuity, not gates. The owner's "control as premise" objection applies in that modified form.
 7. E1 has costs: q must be odd (q = 2 contradicts OI's law: H·S²·H = X [X]), against SM's q gauge; point priors are excluded; and registration must be symplectic, not a bare copy.
 8. The kernel's `PolC` is dense at level two [N], but only through unsourced relabellings and permutations [X P3]. It is not a sourcing result.

@@ -30,6 +30,10 @@ TOKEN   F24-OD3                        yes
 VERDICT F24-ROBUST-GENERAL
 ```
 
+`F24-ROBUST-GENERAL` is the identifier `RULES.md` fixed for this outcome class. Its "general" part rests on the
+written all-duration argument [W] and on one-duration checks at `q ≤ 13`; the scope table below states what is exact,
+what is written and what is open. The token asserts nothing beyond that table.
+
 This verdict is that of the rules as amended. The two-site link set as first frozen was invalid: it
 took the product of a relation that merged `h` with `h†`, which over-joins orbits. The development
 run that exposed it printed `VERDICT VOID` and is preserved as such (amendment 1). Nothing here

@@ -1,0 +1,4 @@
+N=1 registered sites [1]: |Sp| = 24 (control True); every row uniform on an affine coset: True; support sizes {size: rows} = {1: 18, 3: 54}
+N=2 registered sites [1, 2]: |Sp| = 51840 (control True); every row uniform on an affine coset: True; support sizes {size: rows} = {1: 11664, 3: 139968, 9: 314928}
+N=2 registered sites [1]: |Sp| = 51840 (control True); every row uniform on an affine coset: True; support sizes {size: rows} = {1: 3888, 3: 151632}
+CHECK-C PASS : E1-admissible classical data give only coset-uniform one-step laws; e.g. no row (2/3, 1/3, 0) is realizable in this class

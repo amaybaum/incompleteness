@@ -1,0 +1,12 @@
+kernel shear  m=0          det 2  CP False  positive(Phi o transpose CP) True 
+kernel shear  m=1          det 2  CP False  positive(Phi o transpose CP) True 
+kernel shear  m=2          det 2  CP False  positive(Phi o transpose CP) True 
+kernel swap                det 2  CP False  positive(Phi o transpose CP) True 
+leap = swap.shear m=0      det 1  CP True   positive(Phi o transpose CP) False
+leap = swap.shear m=1      det 1  CP True   positive(Phi o transpose CP) False
+leap = swap.shear m=2      det 1  CP True   positive(Phi o transpose CP) False
+E1-L coupling shear m=0    det 1  CP True   positive(Phi o transpose CP) False
+E1-L coupling shear m=1    det 1  CP True   positive(Phi o transpose CP) False
+E1-L coupling shear m=2    det 1  CP True   positive(Phi o transpose CP) False
+E1-L free J'               det 1  CP True   positive(Phi o transpose CP) False
+CHECK-A PASS : kernel shear and swap layers are det -1 (anti-symplectic), positive and not CP; both factorizations multiply to the leap, which is CP

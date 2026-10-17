@@ -110,7 +110,10 @@ Measurements:
   - The joint law equals the classical law exactly for every M, every meter site and every x₀: 9,
     486 and 25 protocols.
 
-Token at each size: `E1-CONSISTENT`.
+Token at each size: `E1-CONSISTENT`. The token is the identifier `RULES.md` fixed for C1; its content is C1's three
+equalities and no more. It does not assert consistency with OI's operational theory: the two-time equality uses a
+symplectic, back-acting meter, and OI's non-disturbing monitored two-time law is not reproduced
+(`../f2-census-checks/monitored_law.py`, check B [X]).
 
 Not established:
 

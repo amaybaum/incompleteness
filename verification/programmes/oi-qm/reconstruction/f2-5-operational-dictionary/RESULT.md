@@ -68,8 +68,13 @@ characteristic-polynomial PSD tests disagreed on no matrix.
 - **Born weights.** `Σ_ξ A(k, ξ) = q |k⟩⟨k|`. So the registration probability, which is the hidden-half marginal
   `Σ_ξ W_ρ(k, ξ)`, equals `⟨k|ρ|k⟩` for every `ρ`, Wigner-positive or not. OD-READ's equality with the Lüders map
   checks this on the operator basis.
-- **Positivity of `AGL ∖ ASL`.** For every `π ∈ AGL ∖ ASL`, `Φ_π = (Φ_π ∘ θ) ∘ θ` is a CP map composed with a positive
-  map, so it is positive. Positivity forces lines to lines (OD-SUB), so the positive set is exactly `AGL`.
+- **Positivity of `AGL ∖ ASL` at `q = 3`.** At `q = 3` every linear part has determinant `±1`. For every
+  `π ∈ AGL(2,3) ∖ ASL(2,3)`, `Φ_π = (Φ_π ∘ θ) ∘ θ` is a CP map composed with a positive map, so it is positive.
+  Positivity forces lines to lines (OD-SUB at `q = 3`), so at `q = 3` the positive set is exactly `AGL(2,3)`.
+  - For `q ≥ 5` this does not extend. A linear part of determinant `d` factors as `diag(1, d)` times a symplectic
+    map, and `Φ_{diag(1,d)}` has an exact non-positivity witness for every `d ∉ {1, −1}` at `q = 5, 7, 11, 13`
+    (`../f2-census-checks/scale_gauge.py`, check D: written reduction, exact witnesses). Within `AGL(2,q)` the positive images there are those of
+    determinant `±1`; whether positivity forces lines to lines at `q ≥ 5` is not checked.
 
 ## 3. The five ingredients
 
@@ -84,10 +89,12 @@ dictionary.
 | **ancillas** | Uniform attach and discard are structure fields (:594–649) | Both transfer exactly (OD-AD) | **Available through the bridge.** A pure ancilla is a registered preparation. Iterated ancilla closure remains its own condition (RankGapTheory.lean:702) |
 | **composites** | A product configuration space; spectator adjunction (`instAvail_withSpectator`, ImplementationLocality.lean:820) | Phase-point operators factorize. Correlated laws on Lagrangian subspaces map to entangled stabilizer states (OD-COMP) | **Available through the bridge** for tensor structure and stabilizer entanglement. **Independent** for Bell violation: Wigner-positive states with Clifford operations admit a noncontextual model [L: Veitch et al. 2012; Howard et al. 2014], so violation needs `T`'s sub-period flows. H-Bell stays open |
 
-**Reversible operations.** Of OI's configuration permutations, only `ASL(2,q)` acts as quantum operations. That is 216
-of 362880 at `q = 3, N = 1`. Two of OI's maps are positive but not CP:
+**Reversible operations.** At `q = 3, N = 1`, of OI's configuration permutations only `ASL(2,3)` acts as quantum
+operations, 216 of 362880. Two kinds of OI's maps are positive but not CP at `q = 3`:
 - the exchange `(p, c) ↦ (c, p)`, whose determinant is −1;
-- every other `det ≠ 1` linear map.
+- every other `det ≠ 1` linear map, which at `q = 3` has determinant −1.
+
+At `q ≥ 5` a linear map of determinant `d ∉ {1, −1}` is not even positive (check D [X]).
 
 These are transpose-type maps; compare `transposeMap_not_kraus`, CompositeSoundness.lean:382. Both the bare read-write
 copy and the non-affine bijections lack a physical image, which agrees with thread H's P6.a and P3.a (numerical there).
@@ -97,7 +104,8 @@ So E1-L does not extend OI's operational theory: it keeps its affine symplectic 
 
 **O1. E1-L keeps exactly the Clifford part of OI's reversible operations (OD-REV).** Thread H stated that the
 configuration-bijection class is "replaced, not enlarged". At `q = 3, N = 1` this is now exact: of OI's permutations,
-CP images are exactly the affine symplectic ones, and positive images exactly the affine ones.
+CP images are exactly the affine symplectic ones, and positive images exactly the affine ones. The second statement
+is specific to `q = 3`; at `q ≥ 5` affine maps of determinant `∉ {±1}` are not positive (check D [X]).
 **Classification:** ELABORATING, as an exact upgrade of thread H's E1(b) and P3.a.
 
 **O2. Positivity under the dictionary forces the counting measure on the hidden half of a fully registered preparation,
@@ -191,6 +199,7 @@ question for the framework, recorded in §6.
   - a point configuration;
   - a readout of both components of a site;
   - a non-uniform hidden prior on a fully registered preparation;
+  - a non-disturbing readout of the registered component (OD-READ);
   - a non-symplectic bijection.
 
   Each of these has no physical image under the dictionary.
