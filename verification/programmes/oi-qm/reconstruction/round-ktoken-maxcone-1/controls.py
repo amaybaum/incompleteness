@@ -554,10 +554,14 @@ def fake_repo(root):
          | {path for path, _, _ in LANDED}}
     prereg = rd(PREREG)
     for path in evidence_pins(prereg):
+        # Synthetic evidence only: the fixture never reads a retained evidence file. Each pin, pending or filled in
+        # the live preregistration, is replaced in the fixture's own copy by the digest of a labelled synthetic file.
         body = '{"synthetic": "controls self-test fixture, not run evidence", "path": "%s"}\n' % path
         E[RDIR + path] = body
-        prereg = re.sub(r'(\| `%s` \| )pending[^|]*\|' % re.escape(path),
-                        lambda m: m.group(1) + '`%s` |' % hashlib.sha256(body.encode()).hexdigest(), prereg)
+        prereg, n = re.subn(r'(\| `%s` \| )(?:pending[^|]*|`[0-9a-f]{64}` )\|' % re.escape(path),
+                            lambda m: m.group(1) + '`%s` |' % hashlib.sha256(body.encode()).hexdigest(), prereg)
+        if n != 1:
+            return None
     E[PREREG] = prereg
     E[RESULT] = '# KTOKEN-MAXCONE-1 result (self-test fixture)\n\nNo claim.\n'
     Dm = {p: E[p] for p in {PAIR} | {path for path, _, _ in LANDED}}
@@ -667,12 +671,26 @@ def e2e_mutations(root):
                 r[c].pop(pth, None)
             return r
         ev = sorted(x for x in repo['E'] if x.startswith(RDIR + 'evidence/'))[:1]
+
+        def pinned(value):
+            # F's and E's preregistration with the first pin set to `value`: a pending pin, or a digest that is not
+            # the evidence file's. The production check must reject both.
+            r = {k: dict(v) for k, v in repo.items()}
+            if not ev:
+                return r
+            rel = ev[0][len(RDIR):]
+            for c in ('F', 'E'):
+                r[c][PREREG] = re.sub(r'(\| `%s` \| )`[0-9a-f]{64}` \|' % re.escape(rel),
+                                      lambda m: m.group(1) + value + ' |', r[c][PREREG], count=1)
+            return r
         headerless = {k: dict(v) for k, v in repo.items()}
         headerless['E'][MODULE] = re.sub(r'\A\s*/-.*?-/\n', '', repo['E'][MODULE], count=1, flags=re.S)
         absences = [('workflow absent at D and E', ['W'], without([('D', WORKFLOW), ('E', WORKFLOW)])),
                     ('OIBridge.lean absent at D and E', ['I'], without([('D', ROOT), ('E', ROOT)])),
                     ('result note absent at E', ['S4', 'R'], without([('E', RESULT)])),
                     ('a pinned evidence file absent at E', ['P'], without([('E', e) for e in ev])),
+                    ('a pin left pending at F', ['P'], pinned('pending (self-test)')),
+                    ('a pin whose digest is not the file\'s', ['P'], pinned('`%s`' % hashlib.sha256(b'other').hexdigest())),
                     ('module header absent', ['S4'], headerless)]
         for name, codes, r in absences:
             ok, out, calls = end_to_end(src, r, path)
@@ -693,7 +711,7 @@ def e2e_mutations(root):
         problems.append('check() accepted the unknown stage \'e\'')
     except ValueError:
         pass
-    return problems, len(REQUIRED) + 1 + 5 + 1 + 1
+    return problems, len(REQUIRED) + 1 + 7 + 1 + 1
 
 
 def in_decl(text, name, old, new):
