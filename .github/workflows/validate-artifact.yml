@@ -1,0 +1,105 @@
+name: validate log-archive artifact (read-only)
+
+# Independent, read-only validation of workflow artifact 12090461970 (ci-logs-05df8cc18e0103ae9f3ffbf52b1ecb6a6aedf64b),
+# staged by run 39005152534 of the disposable log archiver. It runs only on a push to tmp/artifact-validate-20261017
+# (never tmp/log-archive-*, which would start the archiver).
+#
+# validator/download_artifact_zip.py fetches the artifact zip as GitHub stored it, in an explicit two-step: the token
+# goes only to the pinned endpoint on api.github.com, and the storage link is fetched without credentials, under a
+# size cap, timeouts and a deadline, and is never printed. validator/validate_artifact.py hashes those bytes against
+# the API metadata's digest, extracts them into a fresh directory, and runs every content check on that extraction.
+#
+# The job writes nothing: no artifact upload, no commit, ref, tag or release, no step summary. GH_TOKEN is set only on
+# the two steps that call the API. The verdict line is VALIDATE HOLDS (exit 0), VALIDATE FAILS (exit 1: the evidence
+# contradicts) or VALIDATE UNVERIFIED (exit 2: evidence unavailable).
+
+on:
+  push:
+    branches: ['tmp/artifact-validate-20261017']
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: artifact-validate-20261017
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  REPO: amaybaum/incompleteness
+  SOURCE_RUN_ID: '39005152534'
+  ARTIFACT_ID: '12090461970'
+  ARCHIVER_COMMIT: 05df8cc18e0103ae9f3ffbf52b1ecb6a6aedf64b
+
+jobs:
+  validate:
+    name: Validate artifact 12090461970
+    if: github.ref == 'refs/heads/tmp/artifact-validate-20261017'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # actions/checkout, tag v4, pinned to 11d5960a326750d5838078e36cf38b85af677262: the commit GitHub resolved
+      # actions/checkout@v4 to in run 39005152534's own logs, so the code that already ran there. It is the only
+      # external action in this workflow; with persist-credentials: false it leaves no token in the checkout.
+      - name: Check out the validator
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          persist-credentials: false
+
+      - name: Self-test the helper, the downloader and the validator (local servers only, no network)
+        id: selftest
+        run: |
+          python3 --version
+          python3 -I validator/fetch_host_records.py --self-test
+          python3 -I validator/download_artifact_zip.py --self-test --work "$RUNNER_TEMP"
+          python3 -I validator/validate_artifact.py --self-test --work "$RUNNER_TEMP"
+
+      # The same pinned actions/checkout (tag v4, commit as above), at the archiver commit, for batch.json and the
+      # inventory. Its files are only read; the validator checks their sha256 against the pins below.
+      - name: Check out the archiver's batch and inventory at the archiver commit
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          ref: 05df8cc18e0103ae9f3ffbf52b1ecb6a6aedf64b
+          path: archiver-src
+          persist-credentials: false
+
+      - name: Fetch the artifact metadata, run records and job lists (JSON endpoints only)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -I validator/fetch_host_records.py --repo "$REPO" --batch archiver-src/archiver/batch.json \
+            --out "$RUNNER_TEMP/host" --artifact-id "$ARTIFACT_ID"
+
+      - name: Download the artifact zip (two-step; the token goes only to the pinned API endpoint)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -I validator/download_artifact_zip.py --repo "$REPO" --artifact-id "$ARTIFACT_ID" \
+            --metadata "$RUNNER_TEMP/host/artifact-$ARTIFACT_ID.json" \
+            --out "$RUNNER_TEMP/artifact.zip" --record "$RUNNER_TEMP/download-record.json"
+
+      # Runs whenever the self-test passed, so a failed checkout, fetch or download still ends in a printed
+      # UNVERIFIED verdict rather than in silence.
+      - name: Validate
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        run: |
+          python3 -I validator/validate_artifact.py \
+            --zip "$RUNNER_TEMP/artifact.zip" --extract-to "$RUNNER_TEMP/extracted" \
+            --download-record "$RUNNER_TEMP/download-record.json" \
+            --metadata "$RUNNER_TEMP/host/artifact-$ARTIFACT_ID.json" --host "$RUNNER_TEMP/host" \
+            --batch archiver-src/archiver/batch.json \
+            --inventory-runs archiver-src/archiver/inventory-runs.csv \
+            --inventory-jobs archiver-src/archiver/inventory-jobs.csv \
+            --expect-input-sha256 batch.json=eeb54509b59776d1623875414bbfdb224e6117b9b8a932f40a81727b7a6f60f1 \
+            --expect-input-sha256 inventory-runs.csv=6ca5d1acc2dfc7ab53cf2b7d4da418469ebe1acddcdda49fdc876dab12d6812c \
+            --expect-input-sha256 inventory-jobs.csv=f8d2fed686cccbfeef1b88c70591e7407a7e66cb927db3f431b4cae30a46cfcc \
+            --repo "$REPO" --artifact-id "$ARTIFACT_ID" --source-run-id "$SOURCE_RUN_ID" \
+            --source-head-sha "$ARCHIVER_COMMIT" \
+            --validator-commit "$GITHUB_SHA" --workflow-run "$GITHUB_RUN_ID" --workflow-attempt "$GITHUB_RUN_ATTEMPT"
