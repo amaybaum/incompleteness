@@ -62,6 +62,13 @@ proceed with the off-main design refresh."
 - **Off-main objects, Q1–Q8:**
   - Q1: inside `verification/audits/evidence-retention/` (§A.42 item 3).
   - Q2: small raw outputs withheld (item 1).
+    - Clarified by the owner later on 2026-10-17: "The withholding policy covers non-empty captured raw run
+      outputs, including .out and .err, plus the three identified .txt outputs approved later. Empty, zero-byte
+      outputs may remain stored; documenting all four paths is appropriate." Also: "extensions alone must not
+      authorize withholding"; the reviewer verifies that the exact withheld paths match the approved scope,
+      including against coordinated manifest/list edits.
+    - The three .txt outputs (Rall_39.txt, Rle13_39_a.txt, Rle13_39_b.txt under 1f19a347) were approved for
+      withholding on 2026-10-17, after the first review of the tranche.
   - Q3: PDFs withheld. CONSC-2's preregistration :516–517 says their bytes are not frozen.
   - Q4: uncited parents named, not retained.
   - Q5: hybrid layout, as prototyped.

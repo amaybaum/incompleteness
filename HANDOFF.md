@@ -154,13 +154,15 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
     skip, including the numerical-probes rollup. The Mathlib bridge and release gate are green.
   - Design only: no F. The orphan branch `tmp/loc1-working-material-20261017` is temporary storage, never merged.
 - **Off-main preservation design.**
-  - 342 cited objects (1,725 with their dependencies) are recoverable today. Seven cited ids are unrecoverable: GR-1
-    `d5178e2f`, `70e34e82`, `2a67dfca` and `73f50597`; act 35 blob `52009e08`; CV-2 `46fb79d1`; TRB-1 `7de2d549`.
+  - 343 cited objects (with their dependencies) are recoverable today. Six cited ids are unrecoverable: GR-1
+    `d5178e2f`, `70e34e82`, `2a67dfca` and `73f50597`; act 35 blob `52009e08`; CV-2 `46fb79d1`.
+  - TRB-1's `7de2d549`, listed as unrecoverable by the survey, was recovered from this container: it is in
+    `preservation/b4/`, whose restore was verified in a fresh clone (`preservation/b4/README.md`). The survey's own
+    outputs (`preservation/offmain/manifest.json`, `wip/offmain-design/design.md`) are dated 2026-10-17 and kept as
+    they were produced; the refresh's `objects/manifest.json` records the six.
   - Prototype code and design: `wip/offmain-design/`. Objects: `preservation/offmain/`.
-  - No off-main preservation PR yet. It waits on #854 and the errata.
-  - Eight owner questions are open: placement inside the R1 archive or a sibling; `.out`/`.err` as logs; retain the 7
-    PDFs; retain the 38 parent commits; hybrid layout or single pack; move the R3/BG-3 heads to tranche 1; whether
-    the id discrepancies need a native round; e-mail addresses in raw commits.
+  - The eight owner questions are decided (`records/decisions/2026-10-17-owner-decisions.md`). The refresh is queue
+    item 4.
 - **F2 census** (`wip/f2-census-checks/`; the research branch `research/f2-extension-candidates-20261014` at
   `4872398e`).
   - Finding: E1-L is a replacement of OI's observer interface, not an extension. Extension, sufficiency and necessity
