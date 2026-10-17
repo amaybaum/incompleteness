@@ -1,11 +1,17 @@
 # KTOKEN-MAXCONE-1 (#829): run 2 for owner review
 
-**Where things are.** Nothing has been dispatched, and PR #829's branch is untouched.
+**Where things are.** Run 2 has run and meets every preregistered acceptance criterion (below). `F` is not
+designated, and the evidence pins are still pending.
 
 | Branch | State |
 |---|---|
-| Review branch `wip/ktoken-maxcone-run2-draft` | On GitHub. Its head is the commit carrying this note; the revised preregistration, `controls.py` and `review/preregistration.diff` are in its commits on top of `2b561a22` |
-| Run-2 tree branch `dev-equivalence/ktoken-maxcone-r2` | **Still local.** Head **`6959ced4c327ebb800cf6d463a049e4066e37288`** (tree `a02b3cc1`), which is `1a3439c9` plus the checker fixes below (`81462126`, `ea6a8ea3`, then `6959ced4`). This is the commit to push and dispatch for run 2. Pushing keeps the id |
+| Review branch `wip/ktoken-maxcone-run2-draft` | On GitHub. Its head is the commit carrying this note. The checker was reviewed by the owner at `9a37144796f93bddba695472e72b2ae6c5975552` |
+| Run-2 tree branch `dev-equivalence/ktoken-maxcone-r2` | On GitHub at exactly **`6959ced4c327ebb800cf6d463a049e4066e37288`** (tree `a02b3cc1`). That is `1a3439c9` plus the checker fixes `81462126`, `ea6a8ea3` and `6959ced4`. Before dispatch, all 2599 remote blobs were compared with the reviewed tree and found identical |
+| PR #829 `draft/ktoken-maxcone-1` | Unchanged at `625f853f` (D = `dee3b5ae`) |
+
+**Run 2 is a design run, not CI on #829.** Run 39056982958 was dispatched on the separate branch
+`dev-equivalence/ktoken-maxcone-r2`. It tests the proposed execution tree less the result note. It is not CI on PR
+#829's current head `625f853f`, and it is not a `check-run` attestation of `F` or `E`.
 
 The review branch is for reading, not for dispatching. It lacks the shard's `controls.py --self-test` step, which is in
 the run-2 tree. Its `review/` folder would also fail the round's record control R at `E`. For the same reason
@@ -14,6 +20,38 @@ workflow that lacks the frozen splices, so it fails closed with 0 cases. On the 
 
 The local result outputs quoted below (self-tests, the gate, the simulated chains) are kept only in the session
 scratchpad. They are not in either branch, so the relevant lines are reproduced here.
+
+## Run 2 result: PREDICTED-TREE-GREEN
+
+**The run.**
+- Run [39056982958](https://github.com/amaybaum/incompleteness/actions/runs/39056982958): `workflow_dispatch` on
+  `dev-equivalence/ktoken-maxcone-r2`, `head_sha` `6959ced4c327ebb800cf6d463a049e4066e37288`, attempt 1.
+- Created 2026-10-17T18:11:06Z, completed 18:25:51Z, conclusion `success`.
+- This uses the second and last design run of the allowance.
+
+**Assessment against the frozen criteria in (c).** Each is read from the job's own output, not from job conclusions
+alone. The jobs API reports `head_sha` `6959ced4…` for every job cited.
+
+| # | Criterion | Observed | Holds |
+|---|---|---|---|
+| 1 | every job `success`, including the aggregate and all 15 A42 exclusion shards | 38 of 38 jobs `success`: the aggregate `Numerical probes` (117469986251) and all 15 A42 exclusion shards. Every step of the bridge and probe jobs is `success` | yes |
+| 2 | the gate prints `release gate: PASS` | bridge job 117466847042, step Release gate: 22 `PASS` lines, then `release gate: PASS  (note: --label bNNN not given, so the baseline check ran in relative mode only)`. Among them: `lean-axioms … OK (6057 named result(s) reported, no sorr…`, `LEGACY  303 record(s) in 75 closed namespace(s), all intact`, `RECEIPTS  48 receipt(s), all hold`, `EVIDENCE-RETENTION  HOLDS (history mode: 0 failure(s); …` | yes |
+| 3 | the A3 step's final line is `A3-CHECK-NONVACUOUS: 13 cases as expected` | the same job, step A3: each mutation prints `OK   M_… expected fail`, and the step's last output line is `A3-CHECK-NONVACUOUS: 13 cases as expected` | yes |
+| 4 | the probe prints `VERDICT KTOKEN-K3-EXACT`, `checks: 3196, failures: 0`, `mutations: 5 rejected, 0 accepted` | probe job 117466847062: 14 `PASS` codes, `checks: 3196, failures: 0`, five `REJECTED` lines, `mutations: 5 rejected, 0 accepted`, `VERDICT KTOKEN-K3-EXACT`. Its checkout prints `6959ced4c327ebb800cf6d463a049e4066e37288` | yes |
+| 5 | the `controls.py --self-test` step prints `controls: OK (0 failure(s))` | the same job: 38 `PASS self:` lines, including the 15-case verdict regression, the 21-case end-to-end test and `38 self-checks ran, as frozen (38)`; then `controls: OK (0 failure(s))` | yes |
+
+The release gate's summary lines are cut off mid-word in the log itself (for example `no sorr`); they are quoted as
+logged.
+
+**What the result supports.** Run 2's tree builds and passes the gate, A3 and the probe. The checker reviewed at
+`9a371447` runs in CI. This is design evidence for the proposed execution tree. It is not a theorem landing, an
+attestation of `F` or `E`, or acceptance of any physical premise.
+
+**How the lines were read.** The job logs were read with the GitHub connector's job-log tool. That tool returns at
+most the last 5,000 lines of a log. The bridge log has 41,728 lines, so the window covers the release-gate and A3
+steps but not the Build step's output. The sha256 of the 5,000-line text as returned is
+`a96872536987cad624a4ed7c28f5afdbd970c12c214a54d9870e19042fafb694`; that digest is provenance of this reading, not of
+GitHub's log archive. No log is committed.
 
 ## (a) What changed after run 1, and why
 
@@ -274,15 +312,16 @@ what run 2 exercises.
 
 ## (e) Owner decisions before F
 
-1. **Approve the push of `dev-equivalence/ktoken-maxcone-r2` (`6959ced4`) and the run-2 dispatch.** This is the last
-   design run under the cap.
+1. **Push and run 2: done** on the owner's authorization. Run 39056982958 is accepted under (c), and the design-run
+   allowance is exhausted.
 2. **Retained evidence (§A.42).** The run-1 log (jobs 117428550018 and 117428550439) and the run-2 log must be turned
    into `evidence/run1-39043849411.json` and `evidence/run2.json`, and pinned by sha256 in the preregistration before
    `F`.
-   - These logs can be retrieved only through the browser or the evidence-retention archiver (`reproduce evidence`
-     workflow).
+   - In this environment the connector's job-log tool reaches only the last 5,000 lines of each log. That covers the
+     gate, A3 and probe lines, but not the bridge Build step's `#print axioms` reports, which the expected result
+     must carry. The full logs need the browser, or an owner-approved in-CI extraction.
    - Until then the pins are pending, and `check` and `verdict` fail on P and R.
-3. **Keep or drop `if: ${{ !cancelled() }}`** on the A3 step (before run 2).
+3. **`if: ${{ !cancelled() }}` kept**, on the owner's recommendation; run 2 exercised it.
 4. **A drafting PR at `D` = `b96662e6`.** Open a new one, or reset PR #829's branch, which is at `D` = `dee3b5ae`.
 5. **Landing order against #821–#825.** All of them splice after the same import line, census tail and aggregate lines.
    The W, I and J controls anchor on text, not on line numbers.
