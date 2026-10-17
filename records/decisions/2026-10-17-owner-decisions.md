@@ -49,3 +49,27 @@ on their established paths.
   and is not merged.
 - **#854:** pushing the independently reviewed SHA is authorized. Then exact-head CI, and the positive and negative
   reproductions the fix affects. It stays a draft and is not merged.
+
+## Preservation and archiving (later on 2026-10-17)
+The owner approved the recommendations, reconsidered against AGENTS §A.42 and §A.28: "Approve the recommendations,
+proceed with the off-main design refresh."
+
+- **Archiver pilot: accepted** under the pre-set rule (`VALIDATE HOLDS`, run 39008888084). The acceptance covers
+  integrity within GitHub's infrastructure only.
+- **388-run raw-log archive: not published.** Raw logs are not evidence under §A.42 item 1. Cited CI runs are
+  retained as expected results with recipes, like tranche 1, or recorded as gaps. This is to be done before the
+  earliest log expiry on 2026-12-17, as a separate reviewed change. No release assets or log refs.
+- **Off-main objects, Q1–Q8:**
+  - Q1: inside `verification/audits/evidence-retention/` (§A.42 item 3).
+  - Q2: small raw outputs withheld (item 1).
+  - Q3: PDFs withheld. CONSC-2's preregistration :516–517 says their bytes are not frozen.
+  - Q4: uncited parents named, not retained.
+  - Q5: hybrid layout, as prototyped.
+  - Q6: the R3 pair and BG-3's heads join the first tranche.
+  - Q7: id discrepancies cross-reference the landed provenance errata PE-1..PE-5 (#855); no native round.
+  - Q8: identity exemption only for addresses present in main's history, verified by the checker; no hiding by
+    compression.
+- **First tranche:** host-unreferenced objects plus R3 and BG-3. Branch-held objects follow later; the no-delete rule
+  protects them meanwhile.
+- **Recovery bundles:** stay on the handoff branch. The off-GitHub copy is the owner cloning that branch locally.
+- **The refresh** is rebased on main `49ba3297`, kept on a `wip/*` branch until independently reviewed, with no PR.

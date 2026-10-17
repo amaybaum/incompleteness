@@ -15,8 +15,9 @@ The owner requested closing the open repair work in small batches on 2026-10-17.
    is based on `4872398e`, after one CHANGES-NEEDED round. That branch is pushed, with no PR. Landing on the
    research branch is the owner's decision; see `records/f2-corrections/REVIEW-804843f1.md`. New scientific
    closure work is separate.
-4. **Preservation and archiving:** keep the existing recovery branches. Pilot acceptance, storage decisions
-   and the off-main retention design remain explicit later decisions; they are not silently adopted here.
+4. **Preservation and archiving:** decided by the owner; see `records/decisions/2026-10-17-owner-decisions.md`, last
+   section. The pilot is accepted, the raw logs are not published, and the off-main design refresh is in progress on
+   a `wip/*` branch. Keep the existing recovery branches.
 
 The existing separate approval requirements for merges and F/E designations still apply.
 
