@@ -18,7 +18,7 @@ The owner requested closing the open repair work in small batches on 2026-10-17.
 4. **Preservation and archiving:** decided by the owner; see `records/decisions/2026-10-17-owner-decisions.md`, last
    section. The pilot is accepted and the raw logs are not published. The off-main refresh (tranche 2) was approved
    by independent review at exactly `e01b3cc3`, pushed to `wip/offmain-tranche1-20261017`, and opened as draft
-   PR #856 against main for CI only; see `records/offmain-tranche2/REVIEW-LOG.md`. Merging needs a separate owner
+   PR #856 against main for CI only. Its PR run 39039283730 succeeded (release gate 22/22, evidence-retention HOLDS); see `records/offmain-tranche2/REVIEW-LOG.md`. Merging needs a separate owner
    decision. Keep the existing recovery branches.
 
 The existing separate approval requirements for merges and F/E designations still apply.

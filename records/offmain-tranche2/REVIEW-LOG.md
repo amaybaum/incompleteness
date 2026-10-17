@@ -34,3 +34,11 @@ Review files: session scratchpad `s1017/review-*/REVIEW.md`.
 ## Local evidence at `e01b3cc3` (main-only clone and a clone with all 151 host branches)
 `check_objects.py` tree, `--reconstitute` and `--self-test` (43 cases) OK; `check_retention.py --gate` HOLDS;
 legacy records 303 intact; 48 receipts hold. Lean and the full release gate run in CI (§A.40).
+
+## Hosted CI at `e01b3cc3` (PR #856)
+
+PR run 39039283730 (`pull_request`, a synthetic merge with main `49ba3297`): success, 21 jobs successful and the A42
+exclusion matrix skipped as expected. Mathlib bridge job 117415290417: build OK (3652 jobs); release gate PASS on all
+22 steps, including lean-axioms (5989 named results, no sorry), legacy-records (303 intact), v3-receipts (48 hold)
+and evidence-retention (HOLDS, history mode, 0 failures). Mergeable: clean. This is a pull-request run, not an
+exact-head attestation.
