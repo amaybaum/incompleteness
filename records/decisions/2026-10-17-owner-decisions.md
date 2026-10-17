@@ -80,3 +80,11 @@ proceed with the off-main design refresh."
   protects them meanwhile.
 - **Recovery bundles:** stay on the handoff branch. The off-GitHub copy is the owner cloning that branch locally.
 - **The refresh** is rebased on main `49ba3297`, kept on a `wip/*` branch until independently reviewed, with no PR.
+
+## Branches (owner, later on 2026-10-17)
+
+- Keep the evidence branches for now: `research/wip-checkpoints`, this handoff branch, and the R1 and preservation
+  recovery branches.
+- Merged working branches can go; the repository's automatic head-branch deletion on merge is acceptable. No other
+  branch cleanup is needed.
+- The F2 text corrections at `804843f1` are authorized to land on `research/f2-extension-candidates-20261014` only.

@@ -1,4 +1,4 @@
-390e745912ac0421805c6000e796b56cb207fd096164b51e10b1d23a6f199630  ./HANDOFF.md
+c010f43728aafb76ebc2a0321855cf1f90bd6e3e053e5a73b1008dfdca27f007  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -19,7 +19,7 @@ b7c2fab0060b429be6e45c89333758baf871b4df580c70c58c1b31250ac32cd5  ./preservation
 adeccda59b031d236cc5b6909e0cf1c083e8f70607fdfbc57a987c78e7263f09  ./records/archiver-pilot/EVALUATION.md
 95d168bcb5ea70d75e34baacaff42c956bf53529baf2beb710a59c5db3b66ea7  ./records/archiver-pilot/VALIDATION-39008888084.md
 678362790b8dd31f1e11f43ad79ed87867e4cc4b603465a5a3bd79613699384a  ./records/archiver-pilot/archiver-DESIGN.md
-7689d1a14b177bdefc0bd6895f3e033bd590bbd7aa4b7c15b5f974c3ec144fdb  ./records/decisions/2026-10-17-owner-decisions.md
+aa920e1ae62666fb9e7301fd8e71b48b422a4ff70dc4c98373c48102e83bedc8  ./records/decisions/2026-10-17-owner-decisions.md
 f9e882ab67ae1ad0d1740b3d6f4191fe26ea2ba5df339bef146b5c77f6b5af55  ./records/decisions/cleanup-20261017/LEDGER.md
 f4819448854b5eefa6d727712a681ea393c49a7a4a0109e40cd8410d749f36d6  ./records/decisions/cleanup-20261017/SHA256SUMS
 672d091281b5fe788b83de5988159670004becdc75152596df3a7cbdee9b5ebd  ./records/decisions/cleanup-20261017/clone-sd-README-vs-8021c1fc.diff
@@ -32,7 +32,7 @@ c26212bd0685604b8d27c48ca97667159a88f3953e7b9e7d7cd0f3bd26deeef5  ./records/deci
 b8856f03b858554829467c75c950be583650a588874143de515510a8b15a12f4  ./records/decisions/cleanup-20261017/precheck.out
 48bba41ef996d10bed2a2d3d547cc341018b53d4d33f7b5d231277ab6a2b645c  ./records/decisions/cleanup-20261017/precheck.py
 d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/decisions/cleanup-20261017/targets.txt
-53aad790be1cce6d8012bc382c0576f2ea25f33cbe77899e62e92076e7325dd8  ./records/f2-corrections/REVIEW-804843f1.md
+0383351a1364d3d4140325100fe11ef05841b610f40c3821e9e585ca4dbbde7a  ./records/f2-corrections/REVIEW-804843f1.md
 0b8f55f0720d334569592cbf234f516d40432d18dbe86b646ed86deaf2db8c3a  ./records/incidents/2026-10-17-lean-toolchain-removal.md
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md

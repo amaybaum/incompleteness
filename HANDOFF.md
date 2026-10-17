@@ -14,8 +14,9 @@ The owner requested closing the open repair work in small batches on 2026-10-17.
 2. **Handoff freshness:** #855's main-push run and #853's PR run are complete and successful. This snapshot
    closes those pending status entries and corrects the branch map.
 3. **F2 research-text repairs:** reviewed and APPROVED at `804843f1` on `wip/f2-text-corrections-20261017`, which
-   is based on `4872398e`, after one CHANGES-NEEDED round. That branch is pushed, with no PR. Landing on the
-   research branch is the owner's decision; see `records/f2-corrections/REVIEW-804843f1.md`. New scientific
+   is based on `4872398e`, after one CHANGES-NEEDED round. LANDED on the owner's authorization: the research branch
+   `research/f2-extension-candidates-20261014` was fast-forwarded from `4872398e` to exactly `804843f1`; see
+   `records/f2-corrections/REVIEW-804843f1.md`. New scientific
    closure work is separate.
 4. **Preservation and archiving:** decided by the owner; see `records/decisions/2026-10-17-owner-decisions.md`, last
    section. The pilot is accepted and the raw logs are not published. The off-main refresh (tranche 2) was approved
@@ -201,7 +202,7 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | `draft/provenance-errata-20261017` | ref absent | #855 reviewed commit `8021c1fc` retained through main `ea3155fd` |
 | `draft/evidence-retention-r1-hardening-20261017` | ref absent | #854 accepted commit `e3a44e63` retained through main `49ba3297` |
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
-| `wip/f2-text-corrections-20261017` | `804843f1` | reviewed F2 corrections (APPROVE); no PR |
+| `wip/f2-text-corrections-20261017` | `804843f1` | reviewed F2 corrections (APPROVE); landed on the research branch by fast-forward |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
 | `wip/offmain-tranche1-20261017` | `e01b3cc3` | reviewed tranche-2 refresh (APPROVE); landed via #856 as `b96662e6` |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
