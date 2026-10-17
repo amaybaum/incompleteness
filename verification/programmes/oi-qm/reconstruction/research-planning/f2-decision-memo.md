@@ -6,12 +6,18 @@
 [`f2-target-extension-scope.md`](f2-target-extension-scope.md) (:48–53). That milestone has five parts: (a) target
 statement, (b) extension criterion, (c) preserved-law checklist, (d) necessity scope, (e) dependency order.
 
-**What it does not do.** It is research planning. It adopts no physical extension, designates no F, and changes no
+**What it does not do.** It is research planning. It adopts no physical extension X, designates no F, and changes no
 theorem, manuscript, ROADMAP or programme classification. It is consistency-axis work and moves no correctness band
 (§A.23).
 
-**Decision status.** No decision in this memo is adopted. The **strict extension criterion** (§2) and the **narrowed
-necessity scope** (§4) are recommended (owner), open. Fixing the revised gates of §2.3 is open.
+**Decision status.** The owner adopted the four recommended choices on 2026-10-17, explicitly and choice by choice:
+- §1 target: A1 exact, B1 qubit-power registers (F2-reg); F2-fin stays the named later obligation Γ11;
+- §2 the strict extension criterion, with gates G1–G8 fixed exactly as written in §2.3;
+- §3.2 M1: the monitored law must survive on the retained original protocols only;
+- §4 the narrowed necessity scope: N1 and N3′; N2 (B24) stays open.
+
+These fix the criteria a candidate X is screened against. No X is adopted, and no screening result exists yet. The
+items in §6 stay open.
 
 **Base.** main `b96662e6`. The F2 research text is cited at `804843f1`.
 - #857 shows as merged at `804843f1` because the research branch `research/f2-extension-candidates-20261014` was
@@ -29,7 +35,8 @@ as a decision.
 | **[EC]** | exact computation: replayable, with exact arithmetic |
 | **[UP]** | unsourced premise: assumed, introduced, or an external postulate |
 | [NUM] | numerical float evidence. This is none of the five classes and is never evidence of exactness |
-| **DEC-OPEN** / **recommended (owner), open** | an owner decision not yet taken; the second form marks one the owner has recommended but not adopted |
+| **DEC-OPEN** | an owner decision not yet taken |
+| **DEC-ADOPTED (owner, 2026-10-17)** | adopted by the owner explicitly, choice by choice, on that date |
 
 **Citation abbreviations.**
 
@@ -63,19 +70,18 @@ as a decision.
 - Recommended: **exact finite QM on qubit-power registers (F2-reg)**.
 - All finite local dimensions (F2-fin) stays a named later obligation.
 - A dense endpoint is admissible only if it is defined *before* any candidate is screened.
-- Status: DEC-OPEN.
+- Status: DEC-ADOPTED (owner, 2026-10-17).
 
-**(b) Extension criterion.** The strict criterion is recommended (owner), open. The revised gates G1–G8 are in §2.3;
-fixing them is DEC-OPEN.
+**(b) Extension criterion.** The strict criterion and the gates G1–G8 of §2.3, as written: DEC-ADOPTED (owner, 2026-10-17).
 - An equivalence with cone selection is allowed.
 - Renaming preservation, or defining states or operations so as to obtain it, is not.
 
 **(c) Preserved laws.** Three laws are checked separately: rooted, monitored and back-acting.
 - Recommended: the monitored law must survive on the **retained original protocols only**.
 - The laws of new protocols are stated as predictions.
-- Status: DEC-OPEN.
+- Status: DEC-ADOPTED (owner, 2026-10-17).
 
-**(d) Necessity.** The narrowed scope is recommended (owner), open. It covers holds-in-QM and drop-one checks only.
+**(d) Necessity.** The narrowed scope: DEC-ADOPTED (owner, 2026-10-17). It covers holds-in-QM and drop-one checks only.
 - Global minimality is not established.
 - Independence from the complete OI framework is not established.
 - B24 is kept only in re-posed form, after X is fixed.
@@ -100,7 +106,7 @@ data, and arbitrary finite composites" (RM:1130–1132). Thread I's single targe
 | **A1 exact** | `QMfin`: `ShadowQuantum` (TypedCompletion.lean:291), characterized by `typed_determined_iff` (:850) | Any X whose operations form a countable set fails. So X must name an uncountable resource, such as a real duration or a real coupling | The endpoint objects are [AT]. Countable sets fail: `mixTheoryR_not_qm` StateMixingCoupling.lean:679, `countable_not_pairFlowSourced` PairFlowEquivalence.lean:218, `fixedGateTheory_not_qm` DiscreteCompletion.lean:1948, `uncountable_of_layerFlowExecutable` PolarizationClosure.lean:135 [AT]. Substratum-sourced maps are countable: H:46–55 [WA]. Summary at I:513–518 [WA] |
 | **A2 dense** | (T5) "onto a dense subset", plus a density endpoint (I:141–143) | A countable X becomes admissible | A density endpoint exists only on `Fin 2`: `DenseFiniteQM` DiscreteCompletion.lean:59 and `fixedGateTheory_denseFiniteQM` DenseInstrumentBridge.lean:521 [AT]. No endpoint is defined on all carriers (I:543–544) [WA]; it would have to be defined first |
 
-**Recommendation: A1, exact (DEC-OPEN).**
+**Recommendation: A1, exact (DEC-ADOPTED (owner, 2026-10-17)).**
 - **It gives the sharpest kill criterion.** A countable X fails A1 by an adopted theorem, not by judgement.
 - **A2 sits too close to excluded ground.** It admits "one irrational fixed gate" candidates, which are close to the
   excluded "gate as a premise" reading (H:273–278).
@@ -115,7 +121,7 @@ data, and arbitrary finite composites" (RM:1130–1132). Thread I's single targe
 | **B1 F2-reg** | (T6) restricted to local dimension 2^k (I:131); drops H26 and Γ11 (I:545) | Composites of the elementary system are covered. Other dimensions are excluded from the claim's wording | The elementary system is the d = 3 ball: the selector under K1 is CONDITIONAL (RM:68). The pair theorem is [AT] (EqvK2MaxCone.lean:153, :174). The k-token theorem is [CD] (#829's design run, see §5). Descent on the operation side: KN-DESC (#823) [CD] |
 | **B2 F2-fin** | every nonempty finite cardinality (I:131) | Needs a subspace principle (types as compressions of registers) or cone families beyond qubit powers | Γ11 "local dimensions ≠ 2^k as types": no evidence exists (I:410) [WA]; L10 is open |
 
-**Recommendation: B1, F2-reg first, with B2 kept as the named later obligation Γ11 (DEC-OPEN).**
+**Recommendation: B1, F2-reg first, with B2 kept as the named later obligation Γ11 (DEC-ADOPTED (owner, 2026-10-17)).**
 - **Wording.** Results are worded "qubit-power registers", never "finite QM".
 - **Interaction with candidates.** E1-type candidates have odd-prime local dimension and do not supply other
   dimensions (F25:181 [WA]; H:349–351 [WA]). So the choice of target constrains which candidates make sense, and it
@@ -123,7 +129,7 @@ data, and arbitrary finite composites" (RM:1130–1132). Thread I's single targe
 
 ***
 
-## 2. (b) The extension criterion (strict: recommended (owner), open)
+## 2. (b) The extension criterion (strict: DEC-ADOPTED (owner, 2026-10-17))
 
 ### 2.1 Three obligations, kept separate (planning note :26–27)
 
@@ -170,7 +176,7 @@ data, and arbitrary finite composites" (RM:1130–1132). Thread I's single targe
   and tests*. Constraining how an entangling native operation acts on physical states is one route ("a source has to
   fix the state cone and the entangling operations together", H:71 [WA]). It is not proved to be the only route.
 
-### 2.3 Gates proposed for fixing (DEC-OPEN)
+### 2.3 Gates, fixed as written (DEC-ADOPTED (owner, 2026-10-17))
 
 | gate | requirement | sources |
 |---|---|---|
@@ -243,7 +249,7 @@ another.
 | **monitored** | OI's trajectory law P(x₀, x₁, x₂), with intermediate values read *without disturbance*. Kernel trajectory object `RevReal.traj` Equivalence.lean:174 [AT]; [Main] §3.4 class (D) | E1 fails it: all 27/27 entries differ, and x₂'s dependence on x₀ given x₁ is lost (CB.out [EC], q = 3, N = 1) |
 | **back-acting** | The two-time law when the intermediate registration re-randomizes the hidden half, as with an embedded symplectic meter (CB "RR"; H:118–122) | E1's quantum law equals RR (CB.out [EC], q = 3, N = 1; P6.b [NUM]). An OI-side embedded-meter protocol realizing RR is not identified [UP] |
 
-### 3.2 Where the monitored law must survive (DEC-OPEN)
+### 3.2 Where the monitored law must survive (M1: DEC-ADOPTED (owner, 2026-10-17))
 
 | option | requirement | consequence |
 |---|---|---|
@@ -276,7 +282,7 @@ identified ([UP] at present).
 
 ***
 
-## 4. (d) Necessity scope (narrowed: recommended (owner), open)
+## 4. (d) Necessity scope (narrowed: DEC-ADOPTED (owner, 2026-10-17))
 
 ### 4.1 Three questions, never merged
 
@@ -362,14 +368,9 @@ Sources: the files on main at `b96662e6`, and the governed paths at P829:17–23
 
 ## 6. Open items and housekeeping
 
-- **Recommended (owner), open.**
-  - §2 the strict extension criterion;
-  - §4 the narrowed necessity scope.
+- **DEC-ADOPTED (owner, 2026-10-17):** §1.1 A1, §1.2 B1, §2 the strict criterion with §2.3's gates as written, §3.2 M1, §4 the
+  narrowed scope.
 - **DEC-OPEN.**
-  - §1.1 exact or dense;
-  - §1.2 registers or all dimensions;
-  - §2.3 fixing the revised gates;
-  - §3.2 M1 or M2;
   - when to run the re-posed B24 (§4.2);
   - E1's standing on the research branch: H:78 still headlines it as "rank 1, recommended". Under G4 it is a failed
     reading, and the branch can record that forward without rewriting history.
