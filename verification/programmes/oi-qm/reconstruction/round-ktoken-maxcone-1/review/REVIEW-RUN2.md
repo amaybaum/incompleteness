@@ -4,8 +4,8 @@
 
 | Branch | State |
 |---|---|
-| Review branch `wip/ktoken-maxcone-run2-draft` | On GitHub at `2b561a22`. This note, the revised preregistration, `controls.py` and `review/preregistration.diff` are in its follow-up commit on top of `2b561a22` |
-| Run-2 tree branch `dev-equivalence/ktoken-maxcone-r2` | **Still local.** Head **`814621265a70aa301199276d4338d2c88bbd9283`** (tree `59ed73a8`), which is `1a3439c9` plus the checker fix below. This is the commit to push and dispatch for run 2. Pushing keeps the id |
+| Review branch `wip/ktoken-maxcone-run2-draft` | On GitHub at `2b561a22`. This note, the revised preregistration, `controls.py` and `review/preregistration.diff` are in its follow-up commits on top of `2b561a22` |
+| Run-2 tree branch `dev-equivalence/ktoken-maxcone-r2` | **Still local.** Head **`ea6a8ea36ceb5ba64414401e39cf82013ef17901`** (tree `d163e522`), which is `1a3439c9` plus the two checker fixes below (`81462126`, then `ea6a8ea3`). This is the commit to push and dispatch for run 2. Pushing keeps the id |
 
 The review branch is for reading, not for dispatching. It lacks the shard's `controls.py --self-test` step, which is in
 the run-2 tree. Its `review/` folder would also fail the round's record control R at `E`.
@@ -46,7 +46,7 @@ The run-2 tree adds three things.
 
    The diff against the PR's file at `625f853f` is `review/preregistration.diff`.
 
-### The checker fix (owner review)
+### Checker fix 1: positive tokens gated on every static control (owner review)
 
 **The defect.** `verdict()` gated the cells only on S1–S3, so with C2 failing it still printed every positive token.
 Suppressing only `READ` did not fix it.
@@ -74,7 +74,7 @@ KTOKEN-MAXCONE-1-NOT-READ (a static control failed)
 verdict returned False
 ```
 
-After the fix, with the `controls.py` of `81462126`:
+After fix 1, with the `controls.py` of `81462126`:
 ```
 FAIL C2 (synthetic)
 STATIC CONTROLS FAILED: C2
@@ -97,18 +97,94 @@ Every failing case must print none of the positive tokens (including `READ`) and
 must print all of them.
 
 Results:
-- **Fixed `controls.py`:** 0 problems. `controls.py --self-test`: 36 PASS lines, `controls: OK (0 failure(s))`.
+- **Fixed `controls.py`:** 0 problems.
 - **The regression test is itself mutation-tested** (scratch only). It rejects:
   - the gate removed, which is the owner's defect reintroduced (14 problems);
   - a missing control treated as passing (1 problem);
   - cells gated on S1–S3 only (11 problems).
 
-**The simulated chain, repeated.** I built `D` → `F′` → `C1` → `S1` → `E′` locally, with a stub result note, and
-deleted it afterwards.
+### Checker fix 2: `check()` reports only recorded outcomes (owner review)
+
+**The defect.** `check()` built its map from the failure list (`{code: code not in failed}`). A control whose report
+call never ran therefore counted as passing. The owner removed C2's report call inside `check()`, and `check()` returned
+C2 = True with every control passing. Fix 1's missing-C2 test fed an incomplete map straight into `verdict()`, so it
+missed this defect on the producing side.
+
+**The fix.** Each control records its own outcome when it runs, and the map holds exactly the controls that recorded
+one. An unrecorded control is absent, and `verdict()` and `main` both treat absent, or anything other than `True`, as
+failed.
+
+**The same pattern elsewhere, also fixed:**
+- W and I passed when the file was absent at both `D` and `E`, because `None == None`;
+- S4 passed vacuously with the module header or the result note absent; both are now required at `E`;
+- R did not require the result note at `E`;
+- G passed with no governed paths or an empty diff;
+- `check`'s exit used `all()` over a map that could be empty.
+
+**Checked and correct:** `probe_ok` (it requires every positive marker, `FAIL` absent, rc 0, empty stderr), `cells` (an
+absent axiom report is not clean; the A3 and absence lines must be present), C1, C2, S1–S3, J, P and T.
+
+**Not changed:** `checks/run_checks.py` iterates the cases its frozen `cases()` generates and checks no count at run
+time. Its blob is frozen and checked by C2, so a dropped case changes the blob. It is unchanged because its blob is the
+one run 1 exercised.
+
+**The owner's mutation, reproduced end to end.** `check()` and then `verdict()`, with C2's report or record call removed
+from the source, on an in-memory `D`/`F`/`E` fixture built from the live files; inputs synthetic.
+
+Before, with the `controls.py` of `78463dce`:
+```
+check() map: {'C1': True, 'C2': True, 'G': True, 'I': True, 'J': True, 'P': True, 'R': True, 'S1': True, 'S2': True, 'S3': True, 'S4': True, 'T': True, 'W': True}
+TOKEN Q-INCL  KTOKEN-MAXCONE-INCLUSIONS-PROVED
+TOKEN Q-EQ    KTOKEN-MAXCONE-EQ-PROVED
+TOKEN Q-PAIR  KTOKEN-MAXCONE-PAIR-RECOVERED
+TOKEN Q-EXACT KTOKEN-MAXCONE-K3-EXACT
+KTOKEN-MAXCONE-1-READ
+verdict returned True | probe calls 1
+```
+
+After, with the `controls.py` of `ea6a8ea3`:
+```
+check() map: {'C1': True, 'G': True, 'I': True, 'J': True, 'P': True, 'R': True, 'S1': True, 'S2': True, 'S3': True, 'S4': True, 'T': True, 'W': True}
+STATIC CONTROLS FAILED: C2
+TOKEN Q-INCL  KTOKEN-MAXCONE-INCLUSIONS-NOT-ESTABLISHED
+TOKEN Q-EQ    KTOKEN-MAXCONE-EQ-NOT-ESTABLISHED
+TOKEN Q-PAIR  KTOKEN-MAXCONE-PAIR-NOT-ESTABLISHED
+TOKEN Q-EXACT KTOKEN-MAXCONE-K3-NOT-ESTABLISHED
+KTOKEN-MAXCONE-1-NOT-READ (static controls failed: C2)
+verdict returned False | probe calls 0
+```
+
+**The new end-to-end test, in `--self-test` and therefore in the CI shard.** It runs the real `check()` through
+`verdict()` on the in-memory fixture, which needs no git history. Its 20 cases:
+- unmutated: must pass, with the probe run once;
+- each of the 13 controls with its record call removed from the source;
+- five absence cases: the workflow, `OIBridge.lean`, the result note, a pinned evidence file, and the module header;
+- `passed()` on an empty map, a map of non-bool values, and the all-True map.
+
+Each failing case must return failure, name the control in `STATIC CONTROLS FAILED`, print no positive token and never
+call the probe. The probe stand-in records its calls. `--self-test` also freezes its own count of self-checks (38), so
+a dropped self-check fails.
+
+Results on `ea6a8ea3`:
+- `--self-test`: 38 PASS lines, `controls: OK (0 failure(s))`.
+- The test is itself mutation-tested (scratch only). It rejects every one of:
+
+  | Mutant | Problems |
+  |---|---|
+  | the map derived from the failure list again | 13 |
+  | `verdict` treating absent as passing | 13 |
+  | W passing with both files absent | 1 |
+  | I passing with both files absent | 1 |
+  | S4 passing with the header or result note absent | 2 |
+  | R not requiring the result note at `E` | 1 |
+  | `passed()` accepting an empty map | 1 |
+
+**The simulated chain, repeated on `ea6a8ea3`'s files.** I built `D` → `F′` → `C1` → `S1` → `E′` locally, with a stub
+result note, and deleted it afterwards.
 
 | Variant | `check` | `verdict` |
 |---|---|---|
-| As drafted (pins pending) | all PASS except **P** and **R**; exit 1 | `STATIC CONTROLS FAILED: P, R`, four `…-NOT-ESTABLISHED`, `NOT-READ`, exit 1 |
+| As drafted (pins pending) | every control passes except **P** and **R**; exit 1 | `STATIC CONTROLS FAILED: P, R`, four `…-NOT-ESTABLISHED`, `NOT-READ`, exit 1 |
 | With two dummy evidence files pinned (synthetic, labelled as such; not run evidence) | all 13 PASS; exit 0 | ran the real probe blob (`checks: 3196, failures: 0`, 5 rejections, `VERDICT KTOKEN-K3-EXACT`). With a **synthetic** axiom log, it printed the four positive tokens and `READ`; exit 0 |
 
 The positive tokens in the second variant exercise the code path only. They establish nothing about the theorem.
@@ -124,10 +200,10 @@ failure is resolved.
 |---|---|
 | `kernel` | success |
 | `bridge` › Build | success; the KTokenMaxCone blob is run 1's |
-| `bridge` › Release gate | `release gate: PASS`, all 22 steps. Locally, on `81462126`, 21 of 22 pass; `lean-axioms` needs Lean |
+| `bridge` › Release gate | `release gate: PASS`, all 22 steps. Locally, on `ea6a8ea3`, 21 of 22 pass; `lean-axioms` needs Lean |
 | `bridge` › A3 step | success, with `A3-CHECK-NONVACUOUS: 13 cases as expected` |
 | `probes_ktokenmaxcone1` › probe `--self-test` | 14 PASS codes, `checks: 3196, failures: 0`, 5/5 rejected, `VERDICT KTOKEN-K3-EXACT` |
-| `probes_ktokenmaxcone1` › `controls.py --self-test` | `controls: OK (0 failure(s))`, 36 PASS lines (as locally), including the `verdict()` regression. This is the step run 2 adds |
+| `probes_ktokenmaxcone1` › `controls.py --self-test` | `controls: OK (0 failure(s))`, 38 PASS lines (as locally), including the `verdict()` regression and the end-to-end `check()` test. This is the step run 2 adds |
 | other probe shards, A42 shards, aggregate | success. The 15 A42 exclusion shards cost about 6 CPU-hours on dispatch |
 
 Run 2 does not test these, which stay with the round:
@@ -138,7 +214,7 @@ Run 2 does not test these, which stay with the round:
 
 ## (c) Acceptance criteria for run 2 (preregistered decision rule)
 
-**PREDICTED-TREE-GREEN** requires all of the following on the dispatch at exactly `81462126`:
+**PREDICTED-TREE-GREEN** requires all of the following on the dispatch at exactly `ea6a8ea3`:
 1. every job concludes `success`, including the aggregate and all 15 A42 exclusion shards;
 2. the gate prints `release gate: PASS`;
 3. the A3 step's final line is `A3-CHECK-NONVACUOUS: 13 cases as expected`;
@@ -156,7 +232,7 @@ of two is reached with run 2, so any further run needs a new owner allowance.
 
 ## (d) Run 2's tree, exactly
 
-`git diff --stat b96662e6 81462126` touches 9 files, with 4726 insertions and 1 deletion. This is the predicted
+`git diff --stat b96662e6 ea6a8ea3` touches 9 files, with 4916 insertions and 1 deletion. This is the predicted
 execution tree less the result note **and less the §A.42 evidence files**, which cannot be produced before the logs are
 retrieved. Nothing in it is disposable.
 
@@ -166,7 +242,7 @@ retrieved. Nothing in it is disposable.
 | `verification/lean/ktoken_maxcone1_probe.py` | blob `04580c51`, frozen |
 | `round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | blob `354bd7ce`, frozen |
 | `round-ktoken-maxcone-1/checks/run_checks.py` | blob `dc6c77d1`, frozen |
-| `round-ktoken-maxcone-1/controls.py` | blob `00a081de`, frozen |
+| `round-ktoken-maxcone-1/controls.py` | blob `160e0c2a`, frozen |
 | `round-ktoken-maxcone-1/preregistration.md` | the `F` candidate's text, pins pending |
 | `.github/workflows/verify.yml` | six splices, checked by W |
 | `verification/lean-mathlib/OIBridge.lean` | +1 line |
@@ -179,13 +255,13 @@ retrieved. Nothing in it is disposable.
 `if: ${{ !cancelled() }}` is frozen with it. Dropping that line is an owner choice, and must be made before run 2,
 because it changes `verify.yml`, the W splice and the `controls.py` blob.
 
-**SHA.** Run 2's head will be `814621265a70aa301199276d4338d2c88bbd9283` once pushed. The real `E` will differ, because
+**SHA.** Run 2's head will be `ea6a8ea36ceb5ba64414401e39cf82013ef17901` once pushed. The real `E` will differ, because
 it is built `F` → stage 1 → stage 2 → stage 3 with the evidence files. C2, W, I and J check that `E`'s content equals
 what run 2 exercises.
 
 ## (e) Owner decisions before F
 
-1. **Approve the push of `dev-equivalence/ktoken-maxcone-r2` (`81462126`) and the run-2 dispatch.** This is the last
+1. **Approve the push of `dev-equivalence/ktoken-maxcone-r2` (`ea6a8ea3`) and the run-2 dispatch.** This is the last
    design run under the cap.
 2. **Retained evidence (§A.42).** The run-1 log (jobs 117428550018 and 117428550439) and the run-2 log must be turned
    into `evidence/run1-39043849411.json` and `evidence/run2.json`, and pinned by sha256 in the preregistration before

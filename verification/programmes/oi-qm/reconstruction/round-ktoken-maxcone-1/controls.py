@@ -30,6 +30,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import types
 
 D = 'b96662e6be4f537502c772db369ea32a35b213a8'
 RDIR = 'verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/'
@@ -162,13 +163,16 @@ SPLICES = [
 REQUIRED = ['C1', 'C2', 'S1', 'S2', 'S3', 'S4', 'W', 'I', 'J', 'P', 'R', 'G', 'T']
 POSITIVE = ['KTOKEN-MAXCONE-INCLUSIONS-PROVED', 'KTOKEN-MAXCONE-EQ-PROVED', 'KTOKEN-MAXCONE-PAIR-RECOVERED',
             'KTOKEN-MAXCONE-K3-EXACT', 'KTOKEN-MAXCONE-1-READ']
+SELF_CHECKS = 38  # set to the number of self-checks; a dropped self-check fails the count
 FIXED_RECORD = {'preregistration.md', 'controls.py', 'checks/KTokenPairCheck.lean', 'checks/run_checks.py'}
 
 FAIL = []
+RAN = []
 
 
 def report(name, ok, detail=''):
     print(('PASS ' if ok else 'FAIL ') + name + (('  ' + detail) if detail else ''))
+    RAN.append(name)
     if not ok:
         FAIL.append(name)
     return bool(ok)
@@ -372,43 +376,63 @@ def s2(E):
     return bool(ok)
 
 
-def check(E, F):
-    """Runs and prints every static control; returns {code: passed} for the codes in REQUIRED."""
-    start = len(FAIL)
+def check(E, F, stage='E'):
+    """Runs and prints every static control. Each control records its own outcome when it runs; the result maps
+    exactly the codes that recorded one ({code: passed}). A code that never ran is absent, and verdict and main
+    treat an absent code as failed. stage 'E' requires the result note; stage 'S1' does not."""
+    outcomes = {}
+
+    def record(code, name, ok, detail=''):
+        ok = bool(ok)
+        report(code + ' ' + name, ok, detail)
+        outcomes[code] = outcomes.get(code, True) and ok
+
+    at_e = stage == 'E'
     prereg_F, prereg_E = show(F, PREREG), show(E, PREREG)
     module = show(E, MODULE) or ''
-    report('C1 the preregistration at E is the one at F', prereg_F is not None and prereg_F == prereg_E)
+    result = show(E, RESULT)
+    record('C1', 'the preregistration at E is the one at F', prereg_F is not None and prereg_F == prereg_E)
     fb = frozen_blobs(prereg_F or '')
     bad = [p for p, b in fb.items() if blob(E, p) != b]
-    report('C2 the frozen execution blobs at E', len(fb) == 5 and not bad, str(bad) if bad else '')
+    record('C2', 'the frozen execution blobs at E', len(fb) == 5 and not bad, str(bad) if bad else '')
     frozen = frozen_block(prereg_F or '')
-    report('S1 surface: preamble, the frozen declarations in order, the %d prints' % len(PRINTS),
+    record('S1', 'surface: preamble, the frozen declarations in order, the %d prints' % len(PRINTS),
            s1(module, frozen) and pair_identity(module, show(E, PAIR) or ''))
-    report('S2 the landed objects resolve at D\'s blobs and lines', s2(E))
-    report('S3 the witnesses of the equivalence, the recovery\'s proof, the absence check', s3(module))
-    hits = s4([('module header', header_of(module)), ('result note', show(E, RESULT))])
-    report('S4 no excluded phrase in the module header or the result note', not hits, str(hits) if hits else '')
-    report('W the workflow at E is D\'s with the frozen splices', show(E, WORKFLOW) == workflow(show(D, WORKFLOW) or ''))
-    report('I one import line', show(E, ROOT) == root_expected(show(D, ROOT) or ''))
-    report('J one census family', registry_ok(show(D, REGISTRY), show(E, REGISTRY)))
+    record('S2', 'the landed objects resolve at D\'s blobs and lines', s2(E))
+    record('S3', 'the witnesses of the equivalence, the recovery\'s proof, the absence check', s3(module))
+    hits = s4([('module header', header_of(module)), ('result note', result)])
+    present = bool(header_of(module).strip()) and (result is not None or not at_e)
+    record('S4', 'the module header (and, at E, the result note) present, with no excluded phrase',
+           present and not hits, str(hits) if hits else ('' if present else 'header or result note absent'))
+    wd, we = workflow(show(D, WORKFLOW) or ''), show(E, WORKFLOW)
+    record('W', 'the workflow at E is D\'s with the frozen splices', wd is not None and we is not None and we == wd)
+    rd, re_ = root_expected(show(D, ROOT) or ''), show(E, ROOT)
+    record('I', 'one import line', rd is not None and re_ is not None and re_ == rd)
+    record('J', 'one census family', registry_ok(show(D, REGISTRY), show(E, REGISTRY)))
     pins = evidence_pins(prereg_F or '')
     pend = [p for p, h in pins.items() if h is None]
-    badpin = [p for p, h in pins.items() if h and hashlib.sha256((show(E, RDIR + p) or '\0').encode()).hexdigest() != h]
-    report('P retained evidence pinned at F is present at E with its digest', pins and not pend and not badpin,
+    badpin = [p for p, h in pins.items()
+              if h and (show(E, RDIR + p) is None or hashlib.sha256(show(E, RDIR + p).encode()).hexdigest() != h)]
+    record('P', 'retained evidence pinned at F is present at E with its digest', bool(pins) and not pend and not badpin,
            str(pend + badpin) if pend or badpin else '%d pins' % len(pins))
     names = git('ls-tree', '-r', '--name-only', E, '--', RDIR).splitlines()
-    report('R the record directory holds exactly the frozen files', record_ok(names, pins, show(E, RESULT) is not None))
-    diff = git('diff', '--no-renames', '--name-status', D, E).splitlines()
-    badg = g(diff, governed(prereg_F or ''))
-    report('G every change from D to E lies in the governed paths; the legacy manifest untouched',
-           not badg, str(badg) if badg else '%d paths' % len([x for x in diff if x.strip()]))
+    record('R', 'the record directory holds exactly the frozen files', record_ok(names, pins, at_e))
+    diff = [x for x in git('diff', '--no-renames', '--name-status', D, E).splitlines() if x.strip()]
+    gp = governed(prereg_F or '')
+    badg = g(diff, gp)
+    record('G', 'every change from D to E lies in the governed paths; the legacy manifest untouched',
+           len(gp) == 7 and diff and not badg, str(badg) if badg else '%d paths' % len(diff))
     fdelta = [x for x in git('diff', '--name-only', D, F).splitlines() if x.strip()]
     lin = git('rev-list', '--parents', F + '..' + E).splitlines()
-    report('T delta(D, F) is the control plane; the execution is linear after F',
+    record('T', 'delta(D, F) is the control plane; the execution is linear after F',
            all(p == PREREG or p.startswith(RDIR + 'amendments/') for p in fdelta) and PREREG in fdelta
            and lin and all(len(x.split()) == 2 for x in lin))
-    failed = {n.split()[0] for n in FAIL[start:]}
-    return {code: code not in failed for code in REQUIRED}
+    return outcomes
+
+
+def passed(results):
+    """True only when every REQUIRED code recorded an explicit True; absent or non-bool means failed."""
+    return isinstance(results, dict) and all(results.get(c) is True for c in REQUIRED)
 
 
 def run_probe(E, *args):
@@ -455,7 +479,7 @@ def verdict(E, F, axlog, check_fn=None, probe_fn=None):
     the round prints NOT-READ and the result is False. check_fn and probe_fn default to check and run_probe."""
     results = (check_fn or check)(E, F)
     results = results if isinstance(results, dict) else {}
-    failed = [c for c in REQUIRED if not results.get(c, False)]
+    failed = [c for c in REQUIRED if results.get(c) is not True]
     if failed:
         print('STATIC CONTROLS FAILED: ' + ', '.join(failed))
         print('probe not run and axiom reports not read: a required static control failed')
@@ -511,6 +535,152 @@ def verdict_regression():
 
 
 # ---------------------------------------------------------------- self-test
+
+def git_blob_id(text):
+    b = text.encode('utf-8')
+    return hashlib.sha1(b'blob %d\0' % len(b) + b).hexdigest()
+
+
+def fake_repo(root):
+    """An in-memory D, F, E built from the live round files, for the end-to-end controls test (no git history
+    needed): E holds the live execution files, a filled copy of the preregistration's evidence pins, two
+    synthetic evidence files and a synthetic result note; D is E with the frozen splices undone; F is D plus the
+    preregistration. Synthetic content is labelled as such and is not run evidence."""
+    rd = lambda p: open(os.path.join(root, p), encoding='utf-8').read()
+    E = {p: rd(p) for p in {MODULE, PAIR, PROBE, CHECKFILE, RUNNER, CONTROLS, WORKFLOW, ROOT, REGISTRY}
+         | {path for path, _, _ in LANDED}}
+    prereg = rd(PREREG)
+    for path in evidence_pins(prereg):
+        body = '{"synthetic": "controls self-test fixture, not run evidence", "path": "%s"}\n' % path
+        E[RDIR + path] = body
+        prereg = re.sub(r'(\| `%s` \| )pending[^|]*\|' % re.escape(path),
+                        lambda m: m.group(1) + '`%s` |' % hashlib.sha256(body.encode()).hexdigest(), prereg)
+    E[PREREG] = prereg
+    E[RESULT] = '# KTOKEN-MAXCONE-1 result (self-test fixture)\n\nNo claim.\n'
+    Dm = {p: E[p] for p in {PAIR} | {path for path, _, _ in LANDED}}
+    w = E[WORKFLOW]
+    for old, new in reversed(SPLICES):
+        if w.count(new) != 1:
+            return None
+        w = w.replace(new, old)
+    Dm[WORKFLOW] = w
+    if E[ROOT].count(ROOT_ANCHOR + ROOT_LINE) != 1:
+        return None
+    Dm[ROOT] = E[ROOT].replace(ROOT_ANCHOR + ROOT_LINE, ROOT_ANCHOR)
+    reg = json.loads(E[REGISTRY])
+    if reg['families'][-1] != FAMILY:
+        return None
+    reg['families'].pop()
+    Dm[REGISTRY] = json.dumps(reg, indent=2, ensure_ascii=False) + '\n'
+    Fm = dict(Dm)
+    Fm[PREREG] = E[PREREG]
+    return {'D': Dm, 'F': Fm, 'E': E}
+
+
+def install_fake(mod, repo):
+    key = lambda c: 'D' if c == D else c
+    mod.show = lambda c, p: repo[key(c)].get(p)
+    mod.blob = lambda c, p: git_blob_id(repo[key(c)][p]) if p in repo[key(c)] else None
+
+    def fgit(*args):
+        if args[0] == 'ls-tree':
+            return '\n'.join(sorted(p for p in repo[key(args[3])] if p.startswith(args[5])))
+        if args[:3] == ('diff', '--no-renames', '--name-status'):
+            a, b = repo[key(args[3])], repo[key(args[4])]
+            return '\n'.join(('A\t' if p not in a else 'M\t') + p for p in sorted(b) if a.get(p) != b[p])
+        if args[:2] == ('diff', '--name-only'):
+            a, b = repo[key(args[2])], repo[key(args[3])]
+            return '\n'.join(p for p in sorted(b) if a.get(p) != b[p])
+        if args[0] == 'rev-list':
+            return 'E S1\nS1 C1\nC1 F\n'
+        raise ValueError('fake git: unsupported ' + ' '.join(args))
+    mod.git = fgit
+
+
+def drop_record(src, code):
+    """Source mutation: remove the record call of `code` inside check(), whole statement, replaced by `pass`."""
+    start = src.index('def check(E, F')
+    i = src.index("record('%s'," % code, start)
+    depth, j = 0, i + len('record')
+    while True:
+        ch = src[j]
+        depth += ch == '('
+        depth -= ch == ')'
+        j += 1
+        if depth == 0:
+            break
+    return src[:i] + 'pass' + src[j:]
+
+
+def end_to_end(src, repo, axlog):
+    """check() then verdict() of the module built from src, on the fake repo; returns (ok, output, probe_calls)."""
+    mod = types.ModuleType('controls_e2e')
+    mod.__file__ = __file__
+    exec(compile(src, 'controls_e2e', 'exec'), mod.__dict__)
+    install_fake(mod, repo)
+    pout = '\n'.join('PASS %s (1)' % c for c in PROBE_CODES) + '\nchecks: %d, failures: 0\n' % PROBE_N + \
+        '\n'.join('REJECTED ' + m for m in PROBE_MUTATIONS) + '\nmutations: 5 rejected, 0 accepted\n' \
+        'VERDICT KTOKEN-K3-EXACT\n'
+    calls = []
+
+    def probe(E, *a):
+        calls.append(E)
+        return 0, pout, ''
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        ok = mod.verdict('E', 'F', axlog, probe_fn=probe)
+    return ok, buf.getvalue(), len(calls)
+
+
+def e2e_mutations(root):
+    """The real check(), unmutated and with each REQUIRED code's record call removed, run through verdict()."""
+    src = open(__file__, encoding='utf-8').read()
+    repo = fake_repo(root)
+    if repo is None:
+        return ['fake repo: the live workflow, root or registry lacks the frozen splices'], 0
+    problems = []
+    log = '\n'.join("'%s.%s' depends on axioms: [propext, Classical.choice, Quot.sound]" % (NS, p) for p in PRINTS)
+    log += '\n' + EVAL_LOG + '\n' + A3_LOG + '\n'
+    with tempfile.TemporaryDirectory() as tmp:
+        path = os.path.join(tmp, 'bridge.log')
+        with open(path, 'w', encoding='utf-8') as fh:
+            fh.write(log)
+        ok, out, calls = end_to_end(src, repo, path)
+        if not ok or calls != 1 or not all(t in out for t in POSITIVE) or 'FAIL ' in out:
+            problems.append('unmutated: result %s, probe calls %d, positive %s, failures %s' % (
+                ok, calls, [t for t in POSITIVE if t in out], re.findall(r'^FAIL .*$', out, re.M)))
+        for code in REQUIRED:
+            ok, out, calls = end_to_end(drop_record(src, code), repo, path)
+            leaked = [t for t in POSITIVE if t in out]
+            m = re.search(r'^STATIC CONTROLS FAILED: (.*)$', out, re.M)
+            named = m is not None and code in m.group(1).split(', ')
+            if ok or leaked or not named or calls:
+                problems.append('%s record removed: result %s, positive printed %s, named failed %s, probe calls %d'
+                                % (code, ok, leaked, named, calls))
+        # absence cases on the unmutated check(): a control must fail when its inputs are absent
+        def without(spec):
+            r = {k: dict(v) for k, v in repo.items()}
+            for c, pth in spec:
+                r[c].pop(pth, None)
+            return r
+        ev = sorted(x for x in repo['E'] if x.startswith(RDIR + 'evidence/'))[:1]
+        headerless = {k: dict(v) for k, v in repo.items()}
+        headerless['E'][MODULE] = re.sub(r'\A\s*/-.*?-/\n', '', repo['E'][MODULE], count=1, flags=re.S)
+        absences = [('workflow absent at D and E', ['W'], without([('D', WORKFLOW), ('E', WORKFLOW)])),
+                    ('OIBridge.lean absent at D and E', ['I'], without([('D', ROOT), ('E', ROOT)])),
+                    ('result note absent at E', ['S4', 'R'], without([('E', RESULT)])),
+                    ('a pinned evidence file absent at E', ['P'], without([('E', e) for e in ev])),
+                    ('module header absent', ['S4'], headerless)]
+        for name, codes, r in absences:
+            ok, out, calls = end_to_end(src, r, path)
+            m = re.search(r'^STATIC CONTROLS FAILED: (.*)$', out, re.M)
+            named = m is not None and all(c in m.group(1).split(', ') for c in codes)
+            if ok or calls or not named or any(t in out for t in POSITIVE):
+                problems.append('%s: result %s, %s named %s, probe calls %d' % (name, ok, codes, named, calls))
+    if passed({}) or passed({c: 1 for c in REQUIRED}) or not passed({c: True for c in REQUIRED}):
+        problems.append('passed() accepts an empty or non-bool map, or rejects the all-True map')
+    return problems, len(REQUIRED) + 1 + 5 + 1
+
 
 def in_decl(text, name, old, new):
     """Replace old by new once, inside the declaration `name` only."""
@@ -623,6 +793,12 @@ def self_test():
     report('self: verdict() prints no positive token when any one of the %d required static controls fails or is '
            'unreported, and prints all of them when every control passes (%d cases)' % (len(REQUIRED), n),
            not problems, '; '.join(problems))
+    problems, n = e2e_mutations(root)
+    report('self: the real check() with any one control\'s record call removed, run through verdict(), fails, names '
+           'that control, prints no positive token and never runs the probe; unmutated, it passes (%d cases)' % n,
+           not problems, '; '.join(problems))
+    selfs = len([r for r in RAN if r.startswith('self:')]) + 1
+    report('self: %d self-checks ran, as frozen (%d)' % (selfs, SELF_CHECKS), selfs == SELF_CHECKS)
     return not FAIL
 
 
@@ -630,7 +806,8 @@ def main(argv):
     if argv[:1] == ['--self-test']:
         ok = self_test()
     elif argv[:1] == ['check'] and len(argv) >= 4 and argv[2] == '--freeze':
-        ok = all(check(argv[1], argv[3]).values())
+        stage = argv[argv.index('--stage') + 1] if '--stage' in argv else 'E'
+        ok = passed(check(argv[1], argv[3], stage))
     elif argv[:1] == ['verdict'] and len(argv) >= 4 and argv[2] == '--freeze':
         ax = argv[argv.index('--axioms') + 1] if '--axioms' in argv else None
         ok = verdict(argv[1], argv[3], ax)
