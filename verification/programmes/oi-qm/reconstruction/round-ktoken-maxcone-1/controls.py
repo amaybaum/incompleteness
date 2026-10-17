@@ -163,6 +163,7 @@ SPLICES = [
 REQUIRED = ['C1', 'C2', 'S1', 'S2', 'S3', 'S4', 'W', 'I', 'J', 'P', 'R', 'G', 'T']
 POSITIVE = ['KTOKEN-MAXCONE-INCLUSIONS-PROVED', 'KTOKEN-MAXCONE-EQ-PROVED', 'KTOKEN-MAXCONE-PAIR-RECOVERED',
             'KTOKEN-MAXCONE-K3-EXACT', 'KTOKEN-MAXCONE-1-READ']
+STAGES = ('E', 'S1')
 SELF_CHECKS = 38  # set to the number of self-checks; a dropped self-check fails the count
 FIXED_RECORD = {'preregistration.md', 'controls.py', 'checks/KTokenPairCheck.lean', 'checks/run_checks.py'}
 
@@ -380,6 +381,8 @@ def check(E, F, stage='E'):
     """Runs and prints every static control. Each control records its own outcome when it runs; the result maps
     exactly the codes that recorded one ({code: passed}). A code that never ran is absent, and verdict and main
     treat an absent code as failed. stage 'E' requires the result note; stage 'S1' does not."""
+    if stage not in STAGES:
+        raise ValueError('check: unknown stage %r (expected one of %s)' % (stage, ', '.join(STAGES)))
     outcomes = {}
 
     def record(code, name, ok, detail=''):
@@ -679,7 +682,18 @@ def e2e_mutations(root):
                 problems.append('%s: result %s, %s named %s, probe calls %d' % (name, ok, codes, named, calls))
     if passed({}) or passed({c: 1 for c in REQUIRED}) or not passed({c: True for c in REQUIRED}):
         problems.append('passed() accepts an empty or non-bool map, or rejects the all-True map')
-    return problems, len(REQUIRED) + 1 + 5 + 1
+    # an unknown stage is refused, not read as the laxer stage 1
+    mod = types.ModuleType('controls_stage')
+    mod.__file__ = __file__
+    exec(compile(src, 'controls_stage', 'exec'), mod.__dict__)
+    install_fake(mod, repo)
+    try:
+        with contextlib.redirect_stdout(io.StringIO()):
+            mod.check('E', 'F', 'e')
+        problems.append('check() accepted the unknown stage \'e\'')
+    except ValueError:
+        pass
+    return problems, len(REQUIRED) + 1 + 5 + 1 + 1
 
 
 def in_decl(text, name, old, new):

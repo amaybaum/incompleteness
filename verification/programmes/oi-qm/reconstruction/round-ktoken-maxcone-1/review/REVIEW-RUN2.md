@@ -4,11 +4,13 @@
 
 | Branch | State |
 |---|---|
-| Review branch `wip/ktoken-maxcone-run2-draft` | On GitHub at `2b561a22`. This note, the revised preregistration, `controls.py` and `review/preregistration.diff` are in its follow-up commits on top of `2b561a22` |
-| Run-2 tree branch `dev-equivalence/ktoken-maxcone-r2` | **Still local.** Head **`ea6a8ea36ceb5ba64414401e39cf82013ef17901`** (tree `d163e522`), which is `1a3439c9` plus the two checker fixes below (`81462126`, then `ea6a8ea3`). This is the commit to push and dispatch for run 2. Pushing keeps the id |
+| Review branch `wip/ktoken-maxcone-run2-draft` | On GitHub. Its head is the commit carrying this note; the revised preregistration, `controls.py` and `review/preregistration.diff` are in its commits on top of `2b561a22` |
+| Run-2 tree branch `dev-equivalence/ktoken-maxcone-r2` | **Still local.** Head **`6959ced4c327ebb800cf6d463a049e4066e37288`** (tree `a02b3cc1`), which is `1a3439c9` plus the checker fixes below (`81462126`, `ea6a8ea3`, then `6959ced4`). This is the commit to push and dispatch for run 2. Pushing keeps the id |
 
 The review branch is for reading, not for dispatching. It lacks the shard's `controls.py --self-test` step, which is in
-the run-2 tree. Its `review/` folder would also fail the round's record control R at `E`.
+the run-2 tree. Its `review/` folder would also fail the round's record control R at `E`. For the same reason
+`controls.py --self-test` fails on the review branch with one failure: the end-to-end test cannot rebuild `D` from a
+workflow that lacks the frozen splices, so it fails closed with 0 cases. On the run-2 tree it passes.
 
 The local result outputs quoted below (self-tests, the gate, the simulated chains) are kept only in the session
 scratchpad. They are not in either branch, so the relevant lines are reproduced here.
@@ -155,11 +157,12 @@ verdict returned False | probe calls 0
 ```
 
 **The new end-to-end test, in `--self-test` and therefore in the CI shard.** It runs the real `check()` through
-`verdict()` on the in-memory fixture, which needs no git history. Its 20 cases:
+`verdict()` on the in-memory fixture, which needs no git history. Its 21 cases:
 - unmutated: must pass, with the probe run once;
 - each of the 13 controls with its record call removed from the source;
 - five absence cases: the workflow, `OIBridge.lean`, the result note, a pinned evidence file, and the module header;
-- `passed()` on an empty map, a map of non-bool values, and the all-True map.
+- `passed()` on an empty map, a map of non-bool values, and the all-True map;
+- `check()` called with an unknown stage: it must refuse (below).
 
 Each failing case must return failure, name the control in `STATIC CONTROLS FAILED`, print no positive token and never
 call the probe. The probe stand-in records its calls. `--self-test` also freezes its own count of self-checks (38), so
@@ -179,7 +182,17 @@ Results on `ea6a8ea3`:
   | R not requiring the result note at `E` | 1 |
   | `passed()` accepting an empty map | 1 |
 
-**The simulated chain, repeated on `ea6a8ea3`'s files.** I built `D` → `F′` → `C1` → `S1` → `E′` locally, with a stub
+**Found in review of `ea6a8ea3`: the stage argument failed open.** The R fix added `check(E, F, stage)`, and every
+stage other than `'E'` was read as stage 1, so a mistyped stage (`--stage e`) silently dropped the result-note
+requirement of S4 and R. `6959ced4` makes `check()` raise on any stage outside `('E', 'S1')`; `check E --freeze F
+--stage x` now exits 1 with `ValueError: check: unknown stage 'x'`. The end-to-end test gained the case above. With
+the guard removed (scratch copy, preregistration pin matched to the mutant), `--self-test` fails with `check()
+accepted the unknown stage 'e'`. Nothing else changed in `controls.py`; the preregistration pins the new blob.
+
+Results on `6959ced4`: `--self-test` 38 PASS lines, `controls: OK (0 failure(s))`. The C2 mutation above, rerun
+independently against this blob and against `78463dce`'s (`00a081de`), gives the same before/after output.
+
+**The simulated chain, repeated on `ea6a8ea3`'s files** (before the stage guard, which changes no stage-`E` path). I built `D` → `F′` → `C1` → `S1` → `E′` locally, with a stub
 result note, and deleted it afterwards.
 
 | Variant | `check` | `verdict` |
@@ -200,7 +213,7 @@ failure is resolved.
 |---|---|
 | `kernel` | success |
 | `bridge` › Build | success; the KTokenMaxCone blob is run 1's |
-| `bridge` › Release gate | `release gate: PASS`, all 22 steps. Locally, on `ea6a8ea3`, 21 of 22 pass; `lean-axioms` needs Lean |
+| `bridge` › Release gate | `release gate: PASS`, all 22 steps. Locally, on `6959ced4`, 21 of 22 pass; `lean-axioms` needs Lean |
 | `bridge` › A3 step | success, with `A3-CHECK-NONVACUOUS: 13 cases as expected` |
 | `probes_ktokenmaxcone1` › probe `--self-test` | 14 PASS codes, `checks: 3196, failures: 0`, 5/5 rejected, `VERDICT KTOKEN-K3-EXACT` |
 | `probes_ktokenmaxcone1` › `controls.py --self-test` | `controls: OK (0 failure(s))`, 38 PASS lines (as locally), including the `verdict()` regression and the end-to-end `check()` test. This is the step run 2 adds |
@@ -214,7 +227,7 @@ Run 2 does not test these, which stay with the round:
 
 ## (c) Acceptance criteria for run 2 (preregistered decision rule)
 
-**PREDICTED-TREE-GREEN** requires all of the following on the dispatch at exactly `ea6a8ea3`:
+**PREDICTED-TREE-GREEN** requires all of the following on the dispatch at exactly `6959ced4`:
 1. every job concludes `success`, including the aggregate and all 15 A42 exclusion shards;
 2. the gate prints `release gate: PASS`;
 3. the A3 step's final line is `A3-CHECK-NONVACUOUS: 13 cases as expected`;
@@ -232,7 +245,7 @@ of two is reached with run 2, so any further run needs a new owner allowance.
 
 ## (d) Run 2's tree, exactly
 
-`git diff --stat b96662e6 ea6a8ea3` touches 9 files, with 4916 insertions and 1 deletion. This is the predicted
+`git diff --stat b96662e6 6959ced4` touches 9 files, with 4930 insertions and 1 deletion. This is the predicted
 execution tree less the result note **and less the §A.42 evidence files**, which cannot be produced before the logs are
 retrieved. Nothing in it is disposable.
 
@@ -242,7 +255,7 @@ retrieved. Nothing in it is disposable.
 | `verification/lean/ktoken_maxcone1_probe.py` | blob `04580c51`, frozen |
 | `round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | blob `354bd7ce`, frozen |
 | `round-ktoken-maxcone-1/checks/run_checks.py` | blob `dc6c77d1`, frozen |
-| `round-ktoken-maxcone-1/controls.py` | blob `160e0c2a`, frozen |
+| `round-ktoken-maxcone-1/controls.py` | blob `8c8eb522`, frozen |
 | `round-ktoken-maxcone-1/preregistration.md` | the `F` candidate's text, pins pending |
 | `.github/workflows/verify.yml` | six splices, checked by W |
 | `verification/lean-mathlib/OIBridge.lean` | +1 line |
@@ -255,13 +268,13 @@ retrieved. Nothing in it is disposable.
 `if: ${{ !cancelled() }}` is frozen with it. Dropping that line is an owner choice, and must be made before run 2,
 because it changes `verify.yml`, the W splice and the `controls.py` blob.
 
-**SHA.** Run 2's head will be `ea6a8ea36ceb5ba64414401e39cf82013ef17901` once pushed. The real `E` will differ, because
+**SHA.** Run 2's head will be `6959ced4c327ebb800cf6d463a049e4066e37288` once pushed. The real `E` will differ, because
 it is built `F` → stage 1 → stage 2 → stage 3 with the evidence files. C2, W, I and J check that `E`'s content equals
 what run 2 exercises.
 
 ## (e) Owner decisions before F
 
-1. **Approve the push of `dev-equivalence/ktoken-maxcone-r2` (`ea6a8ea3`) and the run-2 dispatch.** This is the last
+1. **Approve the push of `dev-equivalence/ktoken-maxcone-r2` (`6959ced4`) and the run-2 dispatch.** This is the last
    design run under the cap.
 2. **Retained evidence (§A.42).** The run-1 log (jobs 117428550018 and 117428550439) and the run-2 log must be turned
    into `evidence/run1-39043849411.json` and `evidence/run2.json`, and pinned by sha256 in the preregistration before
