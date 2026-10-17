@@ -1,0 +1,107 @@
+name: log archive (disposable)
+
+# Read-only preservation of the raw CI logs of cited runs (AGENTS §A.42). It runs only on pushes to tmp/log-archive-*
+# branches, which hold nothing but this archiver, never on main. Through the Actions API and the job's own token
+# (actions: read) it fetches, for each run in archiver/batch.json, every attempt's log zip and the job logs the
+# batch asks for, and stages them as a workflow artifact, which expires (batch.json's retention_days, 14 by default).
+# The token cannot write to the repository,
+# so this workflow creates no commit, ref, tag or release. Durable publication is a separate, separately authorized
+# step.
+#
+# The archive job fails the run, after staging what it received, if anything the batch requires is missing or
+# incomplete; it stages nothing if the credential scan finds anything. The verify job then re-derives what the
+# batch must contain from batch.json, the inventory and the host, and re-reads every staged file
+# (archiver/verify_batch.py, which shares no code with the fetcher).
+#
+# Batches run one at a time and an active batch is never cancelled. GitHub keeps at most one run pending per
+# concurrency group, so push the next batch only after the previous run has finished.
+
+on:
+  push:
+    branches: ['tmp/log-archive-*']
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: log-archive
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  archive:
+    name: Archive batch
+    if: startsWith(github.ref, 'refs/heads/tmp/log-archive-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact-id }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Self-test the fetcher and the verifier
+        run: |
+          python3 -I archiver/fetch_ci_logs.py --self-test
+          python3 -I archiver/verify_batch.py --self-test
+      - name: Select the batch
+        run: |
+          python3 -I archiver/select_batch.py archiver/batch.json > batch.csv
+          mode="$(python3 -I archiver/select_batch.py archiver/batch.json --job-logs)"
+          days="$(python3 -I archiver/select_batch.py archiver/batch.json --retention-days)"
+          echo "JOB_LOGS=$mode" >> "$GITHUB_ENV"
+          echo "RETENTION_DAYS=$days" >> "$GITHUB_ENV"
+      - name: Fetch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I archiver/fetch_ci_logs.py --runs batch.csv --jobs archiver/inventory-jobs.csv --out ci-logs --job-logs "$JOB_LOGS"
+      - name: Manifest
+        run: python3 -I archiver/fetch_ci_logs.py --out ci-logs --manifest
+      - name: Completeness (recorded now; the gate below fails the run after staging)
+        id: complete
+        continue-on-error: true
+        run: python3 -I archiver/fetch_ci_logs.py --out ci-logs --complete --runs batch.csv --jobs archiver/inventory-jobs.csv --job-logs "$JOB_LOGS"
+      - name: Credential scan (any hit stops the batch before anything is staged)
+        run: python3 -I archiver/fetch_ci_logs.py --out ci-logs --scan
+      - name: Summary
+        if: always()
+        run: python3 -I archiver/summarize.py ci-logs | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Stage the batch as a workflow artifact
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs-${{ github.sha }}
+          path: ci-logs/
+          retention-days: ${{ env.RETENTION_DAYS }}
+          if-no-files-found: error
+      - name: Completeness gate
+        if: steps.complete.outcome != 'success'
+        run: |
+          echo "::error::the batch is not complete; completeness.json lists every missing or incomplete item"
+          exit 1
+
+  verify:
+    name: Verify the staged batch independently
+    needs: archive
+    if: ${{ !cancelled() && needs.archive.outputs.artifact_id != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        with:
+          name: ci-logs-${{ github.sha }}
+          path: ci-logs
+      - name: Re-derive the batch from the host and re-read every staged file
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I archiver/verify_batch.py --batch archiver/batch.json --out ci-logs | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Summary (to compare line for line with the archive job's)
+        if: always()
+        run: python3 -I archiver/summarize.py ci-logs

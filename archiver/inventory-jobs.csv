@@ -1,0 +1,178 @@
+job_id,cited_by,run_id,name,conclusion,started_at,request_error,run_cited_directly,run_r1_entry,logs_of_run,bytes,citations
+109089846008,rule-R,36470083819,Mathlib bridge,success,2026-09-28T19:08:00Z,,True,False,available,none,1
+109089846095,rule-R,36470083819,Numerical probes / A40 locus,success,2026-09-28T19:08:00Z,,True,False,available,none,1
+109089846186,rule-R,36470083819,Numerical probes / core B,success,2026-09-28T19:08:00Z,,True,False,available,none,1
+109091714677,rule-R,36470083819,Numerical probes,success,2026-09-28T19:12:44Z,,True,False,available,none,1
+109558562718,rule-R,36612901341,Mathlib bridge,success,2026-09-29T18:33:37Z,,True,False,available,none,1
+109558562779,rule-R,36612901341,Numerical probes / A45 ancilla,success,2026-09-29T18:33:36Z,,True,False,available,none,1
+109565848934,rule-R,36612901341,Numerical probes,success,2026-09-29T18:51:38Z,,True,False,available,none,1
+109580668417,outside-rule-R,36619408800,Mathlib bridge,success,2026-09-29T19:32:22Z,,True,False,available,none,1
+109580668489,rule-R,36619408800,Numerical probes / A45 ancilla,success,2026-09-29T19:32:56Z,,True,False,available,none,1
+109635391728,rule-R,36635614122,Numerical probes / A42 witness,success,2026-09-29T21:47:50Z,,True,False,available,none,1
+109635392096,rule-R,36635614122,Numerical probes / A42 census01,success,2026-09-29T21:48:09Z,,True,False,available,none,1
+109643296864,rule-R,36635614122,Numerical probes,success,2026-09-29T22:10:54Z,,True,False,available,none,1
+109871436278,rule-R,36710673482,Mathlib bridge,success,2026-09-30T11:47:39Z,,True,False,available,none,1
+109871436330,rule-R,36710673482,Numerical probes / NB-1 native-gate ball,success,2026-09-30T11:47:28Z,,True,False,available,none,1
+110062330911,rule-R,36766630415,Mathlib bridge,failure,2026-09-30T19:34:52Z,,True,False,available,none,1
+110064310524,rule-R,36767218862,Mathlib bridge,success,2026-09-30T19:40:08Z,,True,False,available,none,1
+110066667615,rule-R,36767922023,Mathlib bridge,success,2026-09-30T20:04:05Z,,True,False,available,none,1
+110066667736,rule-R,36767922023,Numerical probes / KINF-1 foundations,success,2026-09-30T20:02:02Z,,True,False,available,none,1
+110081986994,rule-R,36767922023,Numerical probes,success,2026-09-30T20:24:57Z,,True,False,available,none,1
+110099542969,rule-R,36777659398,Mathlib bridge,success,2026-09-30T21:10:17Z,,True,False,available,none,1
+110099543461,rule-R,36777659398,Numerical probes / KINF-1 foundations,success,2026-09-30T21:11:00Z,,True,False,available,none,1
+110271549259,rule-R,36832326177,Mathlib bridge,failure,2026-10-01T07:47:11Z,,True,False,available,none,1
+110272707373,rule-R,36832691716,Mathlib bridge,failure,2026-10-01T07:56:20Z,,True,False,available,none,1
+110277576191,rule-R,36834204549,Mathlib bridge,success,2026-10-01T08:08:33Z,,True,False,available,none,1
+110280131988,rule-R,36834982921,Mathlib bridge,success,2026-10-01T08:23:21Z,,True,False,available,none,1
+110280132237,rule-R,36834982921,Numerical probes / KINF-2 foundations,success,2026-10-01T08:35:08Z,,True,False,available,none,1
+110280927087,rule-R,36835228403,Mathlib bridge,success,2026-10-01T08:28:43Z,,True,False,available,none,1
+110280927089,rule-R,36835228403,Numerical probes / KINF-2 foundations,success,2026-10-01T08:30:37Z,,True,False,available,none,1
+110297900726,rule-R,36834982921,Numerical probes,success,2026-10-01T09:04:58Z,,True,False,available,none,1
+110300377541,rule-R,36835228403,Numerical probes,success,2026-10-01T09:12:12Z,,True,False,available,none,1
+110354973691,rule-R,36857990743,Numerical probes / KINF-2 foundations,success,2026-10-01T11:51:28Z,,True,False,available,none,1
+110754544598,rule-R,36980768233,Mathlib bridge,success,2026-10-02T07:56:41Z,,True,False,available,none,1
+110754562826,rule-R,36980774530,Mathlib bridge,success,2026-10-02T07:52:51Z,,True,False,available,none,1
+110775613332,rule-R,36987452281,Lean kernel check,success,2026-10-02T09:03:14Z,,True,False,available,none,1
+110775613503,rule-R,36987452281,Mathlib bridge,success,2026-10-02T09:02:56Z,,True,False,available,none,1
+110775621953,rule-R,36987454767,Lean kernel check,success,2026-10-02T09:02:32Z,,True,False,available,none,1
+110775622188,rule-R,36987454767,Mathlib bridge,success,2026-10-02T09:09:41Z,,True,False,available,none,1
+110783280159,rule-R,36987452281,Numerical probes,success,2026-10-02T09:27:17Z,,True,False,available,none,1
+110783787939,rule-R,36987454767,Numerical probes,success,2026-10-02T09:28:55Z,,True,False,available,none,1
+110858169641,rule-R,37013353037,Mathlib bridge,success,2026-10-02T13:40:39Z,,True,False,available,none,1
+110876494408,rule-R,37018873171,Mathlib bridge,success,2026-10-02T14:17:56Z,,True,False,available,none,1
+110893909713,rule-R,37024002953,Mathlib bridge,success,2026-10-02T15:01:29Z,,True,False,available,none,1
+110893910015,rule-R,37024002953,Lean kernel check,success,2026-10-02T15:01:29Z,,True,False,available,none,1
+110900880657,rule-R,37024002953,Numerical probes,success,2026-10-02T15:18:43Z,,True,False,available,none,1
+111498763237,rule-R,37223640106,Mathlib bridge,success,2026-10-04T18:14:20Z,,True,False,available,none,1
+111506414185,rule-R,37226256441,Lean kernel check,success,2026-10-04T18:56:29Z,,True,False,available,none,1
+111506414328,rule-R,37226256441,Mathlib bridge,success,2026-10-04T19:06:30Z,,True,False,available,none,1
+111512280510,rule-R,37226256441,Numerical probes,success,2026-10-04T19:25:59Z,,True,False,available,none,1
+111524992095,rule-R,37232501743,Mathlib bridge,success,2026-10-04T20:32:40Z,,True,False,available,none,1
+111533388807,rule-R,37235405513,Lean kernel check,success,2026-10-04T21:16:53Z,,True,False,available,none,1
+111533389002,rule-R,37235405513,Mathlib bridge,success,2026-10-04T21:21:43Z,,True,False,available,none,1
+111536178258,rule-R,37236372977,Lean kernel check,success,2026-10-04T21:31:56Z,,True,False,available,none,1
+111536178282,rule-R,37236372977,Mathlib bridge,success,2026-10-04T21:33:55Z,,True,False,available,none,1
+111538769043,rule-R,37235405513,Numerical probes,success,2026-10-04T21:43:52Z,,True,False,available,none,1
+111566436954,rule-R,37246891509,Mathlib bridge,success,2026-10-05T00:19:36Z,,False,False,available,none,1
+111608482252,rule-R,37261154814,Lean kernel check,success,2026-10-05T03:52:34Z,,True,False,available,none,1
+111608482263,rule-R,37261154814,Mathlib bridge,success,2026-10-05T03:52:34Z,,True,False,available,none,1
+111611746399,rule-R,37261154814,Numerical probes,success,2026-10-05T04:09:08Z,,True,False,available,none,1
+111612168434,rule-R,37262395333,Mathlib bridge,success,2026-10-05T04:17:33Z,,True,False,available,none,1
+111638791701,rule-R,37271337107,Mathlib bridge,success,2026-10-05T06:18:51Z,,True,False,available,none,1
+111638791719,rule-R,37271337107,Lean kernel check,success,2026-10-05T06:13:47Z,,True,False,available,none,1
+111639679874,rule-R,37271632718,Mathlib bridge,success,2026-10-05T06:21:42Z,,True,False,available,none,1
+111642971554,rule-R,37271337107,Numerical probes,success,2026-10-05T06:30:01Z,,True,False,available,none,1
+111649080160,rule-R,37274703967,Mathlib bridge,success,2026-10-05T06:53:19Z,,True,False,available,none,1
+111660097228,rule-R,37278262616,Mathlib bridge,success,2026-10-05T07:34:52Z,,True,False,available,none,1
+111682865361,rule-R,37285358151,Mathlib bridge,success,2026-10-05T08:43:05Z,,True,False,available,none,1
+111682865743,rule-R,37285358151,Lean kernel check,success,2026-10-05T08:43:21Z,,True,False,available,none,1
+111687598798,rule-R,37285358151,Numerical probes,success,2026-10-05T08:56:55Z,,True,False,available,none,1
+111688166367,rule-R,37287001071,Lean kernel check,success,2026-10-05T08:58:34Z,,True,False,available,none,1
+111688166716,rule-R,37287001071,Mathlib bridge,success,2026-10-05T08:58:36Z,,True,False,available,none,1
+111693304300,rule-R,37287001071,Numerical probes,success,2026-10-05T09:13:06Z,,True,False,available,none,1
+111728066298,rule-R,37299337191,Mathlib bridge,success,2026-10-05T10:52:37Z,,True,False,available,none,1
+111728066543,rule-R,37299337191,Lean kernel check,success,2026-10-05T10:52:36Z,,True,False,available,none,1
+111734918034,rule-R,37299337191,Numerical probes,success,2026-10-05T11:12:40Z,,True,False,available,none,1
+111847037191,rule-R,37334884651,Mathlib bridge,success,2026-10-05T15:41:45Z,,True,False,available,none,1
+111847037541,rule-R,37334884651,Lean kernel check,success,2026-10-05T15:41:45Z,,True,False,available,none,1
+111854214991,rule-R,37334884651,Numerical probes,success,2026-10-05T15:57:32Z,,True,False,available,none,1
+111865971498,rule-R,37340470069,Lean kernel check,success,2026-10-05T16:23:37Z,,True,False,available,none,1
+111865971933,rule-R,37340470069,Mathlib bridge,success,2026-10-05T16:23:37Z,,True,False,available,none,1
+111873978477,rule-R,37340470069,Numerical probes,success,2026-10-05T16:42:12Z,,True,False,available,none,1
+112106791785,rule-R,37413453969,Mathlib bridge,success,2026-10-06T04:23:12Z,,True,False,available,none,1
+112111649908,rule-R,37415025699,Mathlib bridge,success,2026-10-06T04:43:10Z,,True,False,available,none,1
+112111649978,rule-R,37415025699,Lean kernel check,success,2026-10-06T04:46:16Z,,True,False,available,none,1
+112115795752,rule-R,37415025699,Numerical probes,success,2026-10-06T05:00:18Z,,True,False,available,none,1
+112121310154,rule-R,37418155161,Mathlib bridge,success,2026-10-06T05:21:56Z,,True,False,available,none,1
+112121310161,rule-R,37418155161,Lean kernel check,success,2026-10-06T05:21:56Z,,True,False,available,none,1
+112125823670,rule-R,37418155161,Numerical probes,success,2026-10-06T05:39:28Z,,True,False,available,none,1
+112171981433,rule-R,37434227020,Mathlib bridge,success,2026-10-06T08:09:44Z,,True,False,available,none,1
+112173790899,rule-R,37434770553,Lean kernel check,success,2026-10-06T08:14:22Z,,True,False,available,none,1
+112173790986,rule-R,37434770553,Mathlib bridge,success,2026-10-06T08:22:11Z,,True,False,available,none,1
+112182155219,rule-R,37434770553,Numerical probes,success,2026-10-06T08:37:04Z,,True,False,available,none,1
+112182618777,rule-R,37437438347,Lean kernel check,success,2026-10-06T08:38:20Z,,True,False,available,none,1
+112182618820,rule-R,37437438347,Mathlib bridge,success,2026-10-06T08:38:19Z,,True,False,available,none,1
+112188706766,rule-R,37437438347,Numerical probes,success,2026-10-06T08:54:32Z,,True,False,available,none,1
+112211225366,rule-R,37446110629,Mathlib bridge,success,2026-10-06T09:53:56Z,,True,False,available,none,1
+112211225392,rule-R,37446110629,Lean kernel check,success,2026-10-06T09:53:57Z,,True,False,available,none,1
+112217482032,rule-R,37446110629,Numerical probes,success,2026-10-06T10:10:44Z,,True,False,available,none,1
+112282733126,rule-R,37467680750,Mathlib bridge,success,2026-10-06T13:02:20Z,,True,False,available,none,1
+112284902370,rule-R,37468315829,Mathlib bridge,failure,2026-10-06T13:16:15Z,,True,False,available,none,1
+112295768337,rule-R,37471469288,Mathlib bridge,success,2026-10-06T13:31:29Z,,True,False,available,none,1
+112295768399,rule-R,37471469288,Lean kernel check,success,2026-10-06T13:31:31Z,,True,False,available,none,1
+112302549748,rule-R,37471469288,Numerical probes,success,2026-10-06T13:46:14Z,,True,False,available,none,1
+112303125909,rule-R,37473592066,Mathlib bridge,success,2026-10-06T13:47:28Z,,True,False,available,none,1
+112303126113,rule-R,37473592066,Lean kernel check,success,2026-10-06T13:47:28Z,,True,False,available,none,1
+112311051465,rule-R,37473592066,Numerical probes,success,2026-10-06T14:04:19Z,,True,False,available,none,1
+112324979255,rule-R,37479897974,Lean kernel check,success,2026-10-06T14:33:06Z,,True,False,available,none,1
+112324979682,rule-R,37479897974,Mathlib bridge,success,2026-10-06T14:38:03Z,,True,False,available,none,1
+112332392458,rule-R,37479897974,Numerical probes,success,2026-10-06T14:48:25Z,,True,False,available,none,1
+112390484286,rule-R,37498896443,Mathlib bridge,success,2026-10-06T16:50:49Z,,True,False,available,none,1
+112390484303,rule-R,37498896443,Lean kernel check,success,2026-10-06T16:50:49Z,,True,False,available,none,1
+112398278760,rule-R,37498896443,Numerical probes,success,2026-10-06T17:08:12Z,,True,False,available,none,1
+112398743261,rule-R,37501311098,Lean kernel check,success,2026-10-06T17:09:15Z,,True,False,available,none,1
+112398743722,rule-R,37501311098,Mathlib bridge,success,2026-10-06T17:10:48Z,,True,False,available,none,1
+112405061418,rule-R,37501311098,Numerical probes,success,2026-10-06T17:23:29Z,,True,False,available,none,1
+112426335949,rule-R,37509405217,Lean kernel check,success,2026-10-06T18:11:44Z,,True,False,available,none,1
+112426336379,rule-R,37509405217,Mathlib bridge,success,2026-10-06T18:11:44Z,,True,False,available,none,1
+112434330382,rule-R,37509405217,Numerical probes,success,2026-10-06T18:29:45Z,,True,False,available,none,1
+112580071653,rule-R,37555310752,Mathlib bridge,success,2026-10-07T01:05:09Z,,True,False,available,none,1
+112580071664,rule-R,37555310752,Lean kernel check,success,2026-10-07T01:05:08Z,,True,False,available,none,1
+112584267287,rule-R,37555310752,Numerical probes,success,2026-10-07T01:20:50Z,,True,False,available,none,1
+112623659737,rule-R,37569163013,Lean kernel check,success,2026-10-07T03:57:41Z,,True,False,available,none,1
+112623659765,rule-R,37569163013,Mathlib bridge,success,2026-10-07T03:57:41Z,,True,False,available,none,1
+112627768660,rule-R,37569163013,Numerical probes,success,2026-10-07T04:14:20Z,,True,False,available,none,1
+112644271809,rule-R,37575788187,Lean kernel check,success,2026-10-07T05:20:09Z,,True,False,available,none,1
+112644271831,outside-rule-R,37575788187,Mathlib bridge,success,2026-10-07T05:20:10Z,,True,False,available,none,1
+112648157855,rule-R,37575788187,Numerical probes,success,2026-10-07T05:35:16Z,,True,False,available,none,1
+112707242858,rule-R,37595568691,Mathlib bridge,success,2026-10-07T08:42:35Z,,True,False,available,none,1
+112707242921,rule-R,37595568691,Lean kernel check,success,2026-10-07T08:42:36Z,,True,False,available,none,1
+112713747918,rule-R,37595568691,Numerical probes,success,2026-10-07T09:00:02Z,,True,False,available,none,1
+112751031196,rule-R,37608886234,Mathlib bridge,success,2026-10-07T10:39:55Z,,True,False,available,none,1
+112751032273,rule-R,37608886234,Lean kernel check,success,2026-10-07T10:43:30Z,,True,False,available,none,1
+112757220631,rule-R,37608886234,Numerical probes,success,2026-10-07T10:57:06Z,,True,False,available,none,1
+112786500375,rule-R,37619679678,Lean kernel check,success,2026-10-07T12:15:19Z,,True,False,available,none,1
+112786500703,outside-rule-R,37619679678,Mathlib bridge,success,2026-10-07T12:15:20Z,,True,False,available,none,1
+112792608351,rule-R,37619679678,Numerical probes,success,2026-10-07T12:30:38Z,,True,False,available,none,1
+112867031508,rule-R,37643178804,Mathlib bridge,success,2026-10-07T15:21:10Z,,True,False,available,none,1
+112877295130,rule-R,37646141082,Lean kernel check,success,2026-10-07T15:42:42Z,,True,False,available,none,1
+112877295405,rule-R,37646141082,Mathlib bridge,success,2026-10-07T15:42:42Z,,True,False,available,none,1
+112885299495,rule-R,37646141082,Numerical probes,success,2026-10-07T15:59:37Z,,True,False,available,none,1
+112885831600,rule-R,37648623767,Mathlib bridge,success,2026-10-07T16:00:45Z,,True,False,available,none,1
+112885831856,rule-R,37648623767,Lean kernel check,success,2026-10-07T16:00:45Z,,True,False,available,none,1
+112892616453,rule-R,37648623767,Numerical probes,success,2026-10-07T16:15:31Z,,True,False,available,none,1
+112921745895,rule-R,37659104049,Mathlib bridge,success,2026-10-07T17:26:45Z,,True,False,available,none,1
+112921746270,rule-R,37659104049,Lean kernel check,success,2026-10-07T17:30:55Z,,True,False,available,none,1
+112928987529,outside-rule-R,37659104049,Numerical probes,success,2026-10-07T17:43:12Z,,True,False,available,none,1
+113130207664,rule-R,37721579646,Lean kernel check,success,2026-10-08T03:12:04Z,,True,False,available,none,1
+113130207703,rule-R,37721579646,Mathlib bridge,success,2026-10-08T03:12:04Z,,True,False,available,none,1
+113134637673,rule-R,37721579646,Numerical probes,success,2026-10-08T03:29:39Z,,True,False,available,none,1
+113164554250,rule-R,37732488729,Lean kernel check,success,2026-10-08T05:27:49Z,,True,False,available,none,1
+113164554632,rule-R,37732488729,Mathlib bridge,success,2026-10-08T05:27:58Z,,True,False,available,none,1
+113169477892,rule-R,37732488729,Numerical probes,success,2026-10-08T05:46:59Z,,True,False,available,none,1
+113915755138,rule-R,37958712227,Numerical probes / KT4-PREM-1 premise audit,success,2026-10-09T16:23:04Z,,True,False,available,none,1
+113915755225,rule-R,37958712227,Mathlib bridge,failure,2026-10-09T16:23:04Z,,True,False,available,none,1
+113922207331,rule-R,37958712227,Numerical probes,success,2026-10-09T16:38:53Z,,True,False,available,none,1
+113960715480,rule-R,37972004827,Lean kernel check,success,2026-10-09T18:15:30Z,,True,False,available,none,1
+113960715618,rule-R,37972004827,Mathlib bridge,success,2026-10-09T18:16:48Z,,True,False,available,none,1
+113960715621,rule-R,37972004827,Numerical probes / KT4-PREM-1 premise audit,success,2026-10-09T18:15:30Z,,True,False,available,none,1
+113966588981,rule-R,37972004827,Numerical probes,success,2026-10-09T18:30:17Z,,True,False,available,none,1
+113986613985,rule-R,37979649705,Numerical probes / KT4-PREM-1 premise audit,success,2026-10-09T19:24:32Z,,True,False,available,none,1
+114538184326,rule-R,38162504147,Mathlib bridge,failure,2026-10-11T18:07:45Z,,True,False,available,none,2
+114675816616,rule-R,38208044012,Mathlib bridge,success,2026-10-12T05:28:00Z,,True,False,available,none,1
+114739543132,rule-R,38227812539,Mathlib bridge,success,2026-10-12T09:07:08Z,,True,False,available,none,1
+114814706272,rule-R,38250344438,Mathlib bridge,success,2026-10-12T12:39:03Z,,True,False,available,none,1
+114814907712,rule-R,38250404107,Mathlib bridge,success,2026-10-12T12:40:13Z,,True,False,available,none,1
+115755317698,rule-R,38534906783,diagnostic,success,2026-10-14T08:24:44Z,,True,False,available,none,1
+116417835223,rule-R,38733789118,Mathlib bridge,success,2026-10-15T12:19:46Z,,True,False,available,none,1
+116417836267,rule-R,38733789118,Numerical probes / BG-2 premise orientation,success,2026-10-15T12:23:10Z,,True,False,available,none,1
+116481534373,rule-R,38752296936,Mathlib bridge,success,2026-10-15T14:34:28Z,,True,False,available,none,5
+116481534563,rule-R,38752296936,Lean kernel check,success,2026-10-15T14:33:17Z,,True,False,available,none,1
+116481534630,rule-R,38752296936,Numerical probes / BG-2 premise orientation,success,2026-10-15T14:38:02Z,,True,False,available,none,2
+116490507665,rule-R,38752296936,Numerical probes,success,2026-10-15T14:49:42Z,,True,False,available,none,1
+116597188403,rule-R,38785744562,Mathlib bridge,success,2026-10-15T18:27:34Z,,True,True,available,expected-result-only,1
+116597189131,rule-R,38785744562,Numerical probes / BG-2 premise orientation,success,2026-10-15T18:31:00Z,,True,True,available,none,1
+116676857951,rule-R,38808914622,Mathlib bridge,success,2026-10-15T21:18:58Z,,True,False,available,none,1
+116761232088,rule-R,38834744516,Mathlib bridge,success,2026-10-16T01:22:19Z,,True,True,available,raw-log-bytes,1
+116805436638,rule-R,38848873989,Mathlib bridge,success,2026-10-16T04:06:26Z,,True,True,available,raw-log-bytes,1
+116826161407,rule-R,38855576525,Mathlib bridge,success,2026-10-16T05:24:21Z,,True,True,available,raw-log-bytes,1

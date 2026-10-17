@@ -1,0 +1,5 @@
+{"source": "inventory-runs.csv",
+ "run_ids": ["35351379664", "35436171509", "36247320536", "38245409846"],
+ "job_logs": "all",
+ "retention_days": 14,
+ "purpose": "pilot: the oldest tier-A run (push), a tier-A pull_request run, a failed run whose head is unreferenced on the host, and a run with two attempts (a partial re-run); every job that ran in them, to exercise the per-job log path"}
