@@ -245,13 +245,14 @@
   "byte-copy": "a blob, byte for byte",
   "identity-anchor": "the commit object only",
   "inclusion-proof": "commit, root tree, the trees on each inclusion path and what lies under it",
-  "raw": "a tree object, retained with everything under it that main lacks",
+  "raw": "a tree object, retained with every tree and blob under it that main lacks, except the blobs its commit withholds",
   "raw:connected": "commit with every tree and blob main lacks; every parent on main or a retained connected commit",
   "raw:partial-tree": "commit with every tree; withheld_blobs are named by id, not retained",
   "raw:proof-path": "a tree on an inclusion path: its entries off the path are named, not retained",
   "raw:tree": "commit with every tree and blob main lacks; parents_not_retained are named, not retained",
   "withheld:build-pdf": "a build output whose bytes no record freezes: named by id and size, not retained",
-  "withheld:raw-log": "a raw log or transcript (AGENTS \u00a7A.42 item 1): named by id and size, not retained"
+  "withheld:raw-log": "a raw log or transcript (AGENTS \u00a7A.42 item 1): named by id and size, not retained",
+  "withheld:raw-output": "a small raw output of a computation, beside its logs (AGENTS \u00a7A.42 item 1): named by id and size, not retained"
  },
  "missing": [
   {
@@ -2940,10 +2941,13 @@
     "68a70d013148a04066a149cb8a45092c6d5baed4",
     "6a7a010ab29ab09fc79e0d199222cade753ee505",
     "74badd4d5082acb54b6a8c673a92541f4fd11dd7",
+    "7792971561f0fb122e7742fc23df26ff9c277e2e",
     "7c9aa5e4481c37eeb582ee4290894173a48599b4",
     "8a0da161222b988e5300c95de129abf3cbbadf54",
     "8b73bdb948d7f2dfdc05eae8c31ddfb5ca8d6602",
     "95e474b742286e20a60485fc3b65a1a6f6676418",
+    "9ef11ead5816d767e7f6bf15bfd4104e0d6d9e94",
+    "a1c82766fc8fee04a11ab84477f766c76c10965b",
     "a4d6527933d6e55612199dfe1e463762694de822",
     "d68ca300d27823f5df11c7aeb15dab3d7448129c",
     "de2e4b294a5181b28f8d54663641de416ed02978",
@@ -10423,12 +10427,8 @@
    "type": "tree"
   },
   {
-   "bytes": 6445,
-   "content_bytes": 15798,
-   "content_sha256": "f93869d2a3e0d13b2e3cd0779a832cbc2eca403fe6556de20917aa8bfce0f497",
-   "file": "loose/77/92971561f0fb122e7742fc23df26ff9c277e2e",
-   "form": "zlib",
-   "mechanism": "byte-copy",
+   "bytes": 15798,
+   "mechanism": "withheld:raw-output",
    "needed_by": [
     {
      "object": "1f19a347108e4e017c33362e6a3f47e091ba84e5",
@@ -10436,7 +10436,9 @@
     }
    ],
    "oid": "7792971561f0fb122e7742fc23df26ff9c277e2e",
-   "sha256": "d89b2fefdc9d71dc27b9ddfd2350a2cafa9b27633e7ee69fa6668b300c93628c",
+   "paths": [
+    "research/a42-rerun/Rle13_39_a.txt"
+   ],
    "tranche": 2,
    "type": "blob"
   },
@@ -13449,12 +13451,8 @@
    "type": "tree"
   },
   {
-   "bytes": 6456,
-   "content_bytes": 15801,
-   "content_sha256": "a23a99e0b78b242cf8f3b2535dc2fdcf9b965ba46305a002691d2babf2e013b4",
-   "file": "loose/9e/f11ead5816d767e7f6bf15bfd4104e0d6d9e94",
-   "form": "zlib",
-   "mechanism": "byte-copy",
+   "bytes": 15801,
+   "mechanism": "withheld:raw-output",
    "needed_by": [
     {
      "object": "1f19a347108e4e017c33362e6a3f47e091ba84e5",
@@ -13462,7 +13460,9 @@
     }
    ],
    "oid": "9ef11ead5816d767e7f6bf15bfd4104e0d6d9e94",
-   "sha256": "cb52be22888ff005c159dcee86a4e20b5bac113ee9f5100176a4e90f79e529de",
+   "paths": [
+    "research/a42-rerun/Rle13_39_b.txt"
+   ],
    "tranche": 2,
    "type": "blob"
   },
@@ -13601,12 +13601,8 @@
    "type": "tree"
   },
   {
-   "bytes": 12939,
-   "content_bytes": 32223,
-   "content_sha256": "8e2387ddefd35aabc71fef6f74b37d914fcbcecfd34106ae37d6f7ada1e8cefa",
-   "file": "loose/a1/c82766fc8fee04a11ab84477f766c76c10965b",
-   "form": "zlib",
-   "mechanism": "byte-copy",
+   "bytes": 32223,
+   "mechanism": "withheld:raw-output",
    "needed_by": [
     {
      "object": "1f19a347108e4e017c33362e6a3f47e091ba84e5",
@@ -13614,7 +13610,9 @@
     }
    ],
    "oid": "a1c82766fc8fee04a11ab84477f766c76c10965b",
-   "sha256": "b615e3a9b5ae1d6b6a62c9ff15f8ae8995ea12e25e1389030db99a43b915ab4f",
+   "paths": [
+    "research/a42-rerun/Rall_39.txt"
+   ],
    "tranche": 2,
    "type": "blob"
   },

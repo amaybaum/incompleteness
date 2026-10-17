@@ -63,8 +63,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OBJ = os.path.join(HERE, 'objects')
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 MECH = {'commit': ('raw:connected', 'raw:tree', 'raw:partial-tree', 'inclusion-proof', 'identity-anchor'),
-        'tree': ('raw', 'raw:proof-path'), 'blob': ('byte-copy', 'withheld:raw-log', 'withheld:build-pdf')}
-WITHHELD = ('withheld:raw-log', 'withheld:build-pdf')
+        'tree': ('raw', 'raw:proof-path'),
+        'blob': ('byte-copy', 'withheld:raw-log', 'withheld:raw-output', 'withheld:build-pdf')}
+WITHHELD = ('withheld:raw-log', 'withheld:raw-output', 'withheld:build-pdf')
 ERRATA = 'verification/audits/provenance-errata/errata.json'
 TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
