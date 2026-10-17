@@ -42,3 +42,10 @@ exclusion matrix skipped as expected. Mathlib bridge job 117415290417: build OK 
 22 steps, including lean-axioms (5989 named results, no sorry), legacy-records (303 intact), v3-receipts (48 hold)
 and evidence-retention (HOLDS, history mode, 0 failures). Mergeable: clean. This is a pull-request run, not an
 exact-head attestation.
+
+## Landing
+
+Merged on the owner's authorization at 14:20Z, pinned to head `e01b3cc3`: main `b96662e6`, parents `49ba3297` and
+`e01b3cc3`, tree `323ce43e` (as predicted, equal to the head's tree). Main-push run 39040299401: success, 22 jobs
+successful and the A42 exclusion matrix skipped; Mathlib bridge job 117418219027 release gate PASS 22/22
+(lean-axioms 5989, legacy 303, receipts 48, evidence-retention HOLDS with 0 failures).

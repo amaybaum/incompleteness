@@ -1,7 +1,9 @@
 # Handoff: state at 2026-10-17, repair batch 1
 
-`main` is at `49ba3297` (PR #854 landed 09:37Z on the owner's approval; before it, `ea3155fd` from PR #855 at 06:28Z,
-and `66a981d5` with R1 and AGENTS §A.42). The other PRs below are drafts, and no further merge is authorized.
+`main` is at `b96662e6` (PR #856, evidence-retention tranche 2, landed 14:20Z on the owner's authorization; parents
+`49ba3297` and the reviewed head `e01b3cc3`, tree `323ce43e` equal to that head's; main-push run 39040299401 succeeded,
+release gate 22/22 with evidence-retention HOLDS). Before it: `49ba3297` from PR #854 at 09:37Z, `ea3155fd` from
+PR #855 at 06:28Z, and `66a981d5` with R1 and AGENTS §A.42. The other PRs below are drafts, and no further merge is authorized.
 
 ## 0. Repair queue, small batches
 
@@ -18,8 +20,7 @@ The owner requested closing the open repair work in small batches on 2026-10-17.
 4. **Preservation and archiving:** decided by the owner; see `records/decisions/2026-10-17-owner-decisions.md`, last
    section. The pilot is accepted and the raw logs are not published. The off-main refresh (tranche 2) was approved
    by independent review at exactly `e01b3cc3`, pushed to `wip/offmain-tranche1-20261017`, and opened as draft
-   PR #856 against main for CI only. Its PR run 39039283730 succeeded (release gate 22/22, evidence-retention HOLDS); see `records/offmain-tranche2/REVIEW-LOG.md`. Merging needs a separate owner
-   decision. Keep the existing recovery branches.
+   PR #856. Its PR run 39039283730 succeeded (release gate 22/22, evidence-retention HOLDS), and it LANDED as `b96662e6`; see `records/offmain-tranche2/REVIEW-LOG.md`. Keep the existing recovery branches.
 
 The existing separate approval requirements for merges and F/E designations still apply.
 
@@ -202,7 +203,7 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
 | `wip/f2-text-corrections-20261017` | `804843f1` | reviewed F2 corrections (APPROVE); no PR |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
-| `wip/offmain-tranche1-20261017` | `e01b3cc3` | reviewed tranche-2 refresh (APPROVE); draft PR #856, CI only |
+| `wip/offmain-tranche1-20261017` | `e01b3cc3` | reviewed tranche-2 refresh (APPROVE); landed via #856 as `b96662e6` |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
 | `tmp/artifact-validate-20261017` | `94814c50` | validator; a push re-runs it |
 | `tmp/session-handoff-20261017` | this branch | handoff |
