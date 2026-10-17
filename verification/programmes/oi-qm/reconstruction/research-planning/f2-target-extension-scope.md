@@ -51,6 +51,7 @@ One decision memo containing the target statement, extension criterion, preserve
 necessity scope and dependency order for the PRs above. Mark each entry as an adopted theorem,
 compiled design, written argument, exact computation or unsourced premise.
 An undecided item stays explicitly open.
+The decision memo for this milestone is [`f2-decision-memo.md`](f2-decision-memo.md).
 
 Any later main-facing research package must retain the evidence supporting each enduring claim
 with structured expectations and regeneration recipes under AGENTS §A.42.
