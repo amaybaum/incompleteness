@@ -1,4 +1,4 @@
-15956a4d4110a7506b7d8519a1a04a9ae50b1c4b3adc809b378cfe74737ba5e3  ./HANDOFF.md
+54cb90394796a4d3ca2364c1d69c975623437c35480bf292678725269ab09d34  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -13,6 +13,7 @@ b7c2fab0060b429be6e45c89333758baf871b4df580c70c58c1b31250ac32cd5  ./preservation
 256ef6c3e35a731d3d0208bb5180a2dc6901620882cde229f9a6987ddcd391ca  ./preservation/r1-drafting/r1-evidence-retention-drafting-20261016.bundle.sha256
 2258cd24f7d1a82c150ba0de50c79ec0c129cf197df6684278661bfbd779f7bb  ./preservation/r1-drafting/refs.txt
 adeccda59b031d236cc5b6909e0cf1c083e8f70607fdfbc57a987c78e7263f09  ./records/archiver-pilot/EVALUATION.md
+95d168bcb5ea70d75e34baacaff42c956bf53529baf2beb710a59c5db3b66ea7  ./records/archiver-pilot/VALIDATION-39008888084.md
 678362790b8dd31f1e11f43ad79ed87867e4cc4b603465a5a3bd79613699384a  ./records/archiver-pilot/archiver-DESIGN.md
 e2f3d4661c7c513081f04daf54195936ca923d34ed1c5780589dc81f917f9741  ./records/decisions/2026-10-17-owner-decisions.md
 f9e882ab67ae1ad0d1740b3d6f4191fe26ea2ba5df339bef146b5c77f6b5af55  ./records/decisions/cleanup-20261017/LEDGER.md

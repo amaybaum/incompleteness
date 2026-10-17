@@ -1,4 +1,4 @@
-# Handoff: state at 2026-10-17 ~06:15 UTC
+# Handoff: state at 2026-10-17 ~06:20 UTC
 
 `main` is at `66a981d5` (R1 landed; AGENTS §A.42 at line 833). Nothing in this session changed `main`. All PRs below
 are drafts, and no merge is authorized.
@@ -51,29 +51,19 @@ are drafts, and no merge is authorized.
   validation gives HOLDS. FAILS or UNVERIFIED is not acceptance.
 - A HOLDS establishes integrity within GitHub's infrastructure, not off-GitHub preservation.
 
-**The validation**
+**The validation (done): `VALIDATE HOLDS`, 57 PASS, 0 FAIL, 0 UNVERIFIED**
 - This environment's proxy blocks `*.blob.core.windows.net`, so the artifact cannot be downloaded here. The owner
   chose Route B and did not widen network permissions.
-- Validator: parentless branch **`tmp/artifact-validate-20261017` at `94814c50`**, written independently of the
-  archiver. All three self-tests pass. Run **39008888084** started 06:09:55Z; read its verdict.
-- The validator downloads the original zip from the pinned API endpoint in two steps. The token goes only to
-  api.github.com. The link is fetched without credentials, with timeouts and a size cap, and is never printed.
-- It hashes those bytes against the digest, extracts them, and checks: the 87 files, every record and member,
-  attempt semantics derived from the host's job lists, heads, zip-to-job-log mapping, and a credential scan.
-- Verdicts: `VALIDATE HOLDS` (exit 0), `FAILS` (1) or `UNVERIFIED` (2).
-- Read the job log (validator commit, run id, expected and computed digest, one PASS/FAIL line per check, verdict) and
-  report each gate to the owner:
-
-  | Gate | Requirement |
-  | --- | --- |
-  | Self-test | pass |
-  | Digest | computed over the original bytes, equal to the metadata digest |
-  | Files | 87 |
-  | Attempt semantics | 34 + 2 |
-  | Logs | match separately fetched logs |
-  | Credential scan | pass |
-  | Verdict | HOLDS / FAILS / UNVERIFIED |
-
+- Validator: parentless branch `tmp/artifact-validate-20261017` at `94814c50`, written independently of the archiver.
+  Run 39008888084.
+- The expected digest equals the computed digest over the original zip bytes.
+- 87 of 87 files, and attempt semantics 34 + 2.
+- 46 of 46 zip logs byte-identical to the per-job logs, and 32 of 32 copies identical to their originals.
+- The credential scan is clean.
+- Full gate table: `records/archiver-pilot/VALIDATION-39008888084.md`.
+- **Owner decision pending:**
+  - accept the pilot, within GitHub's infrastructure, per the acceptance rule;
+  - whether off-GitHub verification is needed before the 388-run archive.
 - Local evidence of the validator's design: `wip/artifact-validator/`.
 
 **Not authorized:** the 388-run archive, durable publication, branch deletion, and any change to the archiver.
@@ -133,7 +123,8 @@ are drafts, and no merge is authorized.
 ### Parked, nothing running
 
 - **#853, LOC-1 control plane** (`draft/loc-1-identification-dependence-20261016`, head `ccbfd9a9`).
-  - The claims-check fix was pushed at handoff time; its PR CI should be read.
+  - The claims-check fix was pushed at handoff time. PR CI run 39008783088 has the Mathlib bridge (release gate with
+    claims) green; one probe job was still running.
   - Design only: no F. The orphan branch `tmp/loc1-working-material-20261017` is temporary storage, never merged.
 - **Off-main preservation design.**
   - 342 cited objects (1,725 with their dependencies) are recoverable today. Seven cited ids are unrecoverable: GR-1
