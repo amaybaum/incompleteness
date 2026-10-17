@@ -37,9 +37,11 @@ Tree mode (no git, no network):
       its line, maps to a stored object with the same eight-digit prefix, and that object carries the run; and
       the provenance-errata entry it names records the same location, cited id, real head and run;
   O8  every id recorded as missing is retained nowhere here, and each of its citing lines still holds it;
-  O9  every withheld entry is named by a retained tree of a commit that lists it, at each of its recorded paths and
-      at each needed_by path, and records a size (which no tree records, so the size is as read from the recovery
-      copy when the archive was built, and is not checked).
+  O9  every withheld entry is named by a retained tree of a commit that lists it (for an inclusion proof, under
+      its inclusion paths); its recorded paths are exactly where those trees name it, each of a file type its
+      mechanism covers (.log, .out or .err for a raw log, .txt for a raw output, .pdf for a build output); its
+      needed_by entries are among them; and it records a size (which no tree records, so the size is as read from
+      the recovery copy when the archive was built, and is not checked).
 History mode (--reconstitute) adds, in a temporary repository that borrows this repository's objects (H0: a git
 command that fails fails the check, rather than leaving a rule to read empty output):
   H1  the base is in the repository and an ancestor of HEAD;
@@ -75,6 +77,9 @@ MECH = {'commit': ('raw:connected', 'raw:tree', 'raw:partial-tree', 'inclusion-p
         'tree': ('raw', 'raw:proof-path'),
         'blob': ('byte-copy', 'withheld:raw-log', 'withheld:raw-output', 'withheld:build-pdf')}
 WITHHELD = ('withheld:raw-log', 'withheld:raw-output', 'withheld:build-pdf')
+# the file types each withholding mechanism covers: a blob is withheld only at paths of its mechanism's kind
+WITHHELD_SUFFIXES = {'withheld:raw-log': ('.log', '.out', '.err'), 'withheld:raw-output': ('.txt',),
+                     'withheld:build-pdf': ('.pdf',)}
 ERRATA = 'verification/audits/provenance-errata/errata.json'
 TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
@@ -437,6 +442,7 @@ def check(objdir, root):
     for c, e in ents.items():
         if e['type'] != 'commit' or c not in content or not e.get('withheld_blobs'):
             continue
+        ips = e.get('inclusion_paths') if e['mechanism'] == 'inclusion-proof' else None
         stack = [(commit_fields(content[c])[0], '')]
         while stack:
             t, pre = stack.pop()
@@ -446,7 +452,11 @@ def check(objdir, root):
                 if mode == '40000':
                     stack.append((x, pre + name + '/'))
                 elif x in ents and ents[x]['mechanism'] in WITHHELD:
-                    occurs.setdefault(x, set()).add((c, pre + name))
+                    path = pre + name
+                    if ips is not None and not any(path == ip.rstrip('/') or (ip.endswith('/') and path.startswith(ip))
+                                                   for ip in ips):
+                        continue
+                    occurs.setdefault(x, set()).add((c, path))
     for w, e in sorted(ents.items()):
         if e['mechanism'] not in WITHHELD:
             continue
@@ -456,8 +466,10 @@ def check(objdir, root):
             continue
         if any(w not in ents[c].get('withheld_blobs', []) for c, _ in occ):
             F('O9 withheld %s: a commit whose tree names it does not list it' % w[:12])
-        if not e.get('paths') or not set(e['paths']) <= {p for _, p in occ}:
-            F('O9 withheld %s: its recorded paths are not where the retained trees name it' % w[:12])
+        if not e.get('paths') or set(e['paths']) != {p for _, p in occ}:
+            F('O9 withheld %s: its recorded paths are not exactly where the retained trees name it' % w[:12])
+        elif not all(p.endswith(WITHHELD_SUFFIXES[e['mechanism']]) for p in e['paths']):
+            F('O9 withheld %s: a %s entry at a path of another file type' % (w[:12], e['mechanism']))
         if not e.get('needed_by') or any((n.get('object'), n.get('path')) not in occ for n in e['needed_by']):
             F('O9 withheld %s: its needed_by entries are not where the retained trees name it' % w[:12])
         if type(e.get('bytes')) is not int or e['bytes'] < 0:
@@ -971,6 +983,30 @@ def self_test(root):
             e['paths'] = [e['paths'][0] + '.moved']
             save(d, man)
         expect('a withheld entry whose recorded path is not where it is named', withheld_path, 'O9')
+
+        def relabel_listed(d):
+            # a stored blob of the partial tree deleted, relabelled a raw log and added to its commit's list
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            os.remove(os.path.join(d, under_part['file']))
+            e = next(x for x in man['objects'] if x['oid'] == under_part['oid'])
+            for k in ('file', 'form', 'sha256', 'content_sha256', 'content_bytes', 'cited'):
+                e.pop(k, None)
+            e.update(mechanism='withheld:raw-log', bytes=under_part['content_bytes'],
+                     paths=[under_part['needed_by'][0]['path']])
+            c = next(x for x in man['objects'] if x['oid'] == part['oid'])
+            c['withheld_blobs'] = sorted(c['withheld_blobs'] + [under_part['oid']])
+            save(d, man)
+        expect('a stored blob relabelled a raw log, with its commit\'s list edited to match', relabel_listed, 'O9')
+
+        def as_pdf(d):
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            next(x for x in man['objects'] if x['mechanism'] == 'withheld:raw-log')['mechanism'] = 'withheld:build-pdf'
+            save(d, man)
+        expect('a raw log relabelled a build output', as_pdf, 'O9')
+
+        def git_fails(info):
+            return {'commit': [b'not a commit\n']}
+        expect_history('a git command that fails while staging objects', git_fails, 'H0')
 
         def bad_incl_path(info):
             info['ents'][incl['oid']]['inclusion_paths'] = info['ents'][incl['oid']]['inclusion_paths'] + ['no/such']
