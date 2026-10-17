@@ -55,7 +55,14 @@ another. Each exists because a real defect shipped past the others:
   evidence-retention   the evidence-retention archive (AGENTS §A.42): its
                        checker in history mode, which reads from git the
                        receipts and certificate attestations at the archive's
-                       base and requires each to be covered, and its self-test.
+                       base and requires each to be covered, checks the base's
+                       ancestry and the paths named as later (R10), re-derives
+                       the module table of each expected result whose run an
+                       attestation at the base names, from the attesting
+                       rounds' governed paths at the run's commit or, for
+                       CV-1's runs, from the contributions of
+                       verification/certificates/CV1.json (R11, a consistency
+                       check), and its self-test.
                        A record that pinned content by digest was once held to
                        be retained when its evidence sat only in a session's
                        scratchpad; this step is where an archived copy that
@@ -171,7 +178,8 @@ def main():
                       [sys.executable, "tools/v3_verifier.py", "--receipts", head]),
         # evidence-retention: the archive of AGENTS §A.42, in history mode. The receipts and certificate
         # attestations at the archive's base are read from git and must all be covered; a receipt landed
-        # after that base is out of its scope. A repository too shallow to hold the base fails the step.
+        # after that base is out of its scope. R10 and R11 read git history as well. A repository too
+        # shallow to hold the base fails the step.
         ("evidence-retention",
                       [sys.executable, "verification/audits/evidence-retention/check_retention.py", "--gate"]),
     ]
