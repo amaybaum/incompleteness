@@ -149,6 +149,11 @@ jobs:
       - name: Release gate
         run: python3 tools/release_gate.py
 
+      - name: KTOKEN-MAXCONE-1 check A3 (k = 2 statement identity and dependency walk, with mutations)
+        if: ${{ !cancelled() }}
+        working-directory: verification/lean-mathlib
+        run: lake env python3 -I -B ../programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/run_checks.py run
+
   # Probe shards run independently so the required Numerical probes check is bounded by
   # the slowest shard rather than by their sum. The final `probes` job below keeps the
   # historical required-check name and fails unless every shard succeeded.
