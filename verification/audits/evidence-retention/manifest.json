@@ -12549,10 +12549,10 @@
      "sha256": "8190c9187e17ac9a9761761ae8d9da23b6d7d0151f26adc870dc84a6a73a16ed"
     },
     {
-     "bytes": 40857,
+     "bytes": 42313,
      "kind": "complete",
      "path": "check_objects.py",
-     "sha256": "e72f645096a7f80b169adf9b882d06b31e061ef449f2ef7e9677c8a83421f148"
+     "sha256": "cf4e192c8e6dea38dd09d2e91cfe4f393ca876c5617cd8814ecf8a5f6fe48966"
     },
     {
      "bytes": 657200,

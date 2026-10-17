@@ -44,7 +44,9 @@ History mode (--reconstitute) adds, in a temporary repository whose only objects
       reaches the base only through retained raw:connected commits; a raw:partial-tree commit's tree misses exactly
       its withheld blobs; every inclusion path resolves;
   H5  every listed identity digest is the digest of an address in the base's history;
-  H6  no deny-listed id is reachable from HEAD of this repository, or from any reconstituted object.
+  H6  no deny-listed id is reachable from HEAD of this repository, or from any reconstituted object;
+  H7  no entry, stored or withheld, and no id recorded as missing is reachable from the base: what main already
+      holds is never retained here.
 """
 import bisect
 import hashlib
@@ -469,6 +471,14 @@ def history_checks(root, info, fails):
                 os.remove(pth)
         # H3: what the retained objects name and do not retain is on main
         main_objs, main_commits, known, head = base_history(root, base)
+        # H7: nothing listed here is already on main
+        for o in sorted(ents):
+            if o in main_objs:
+                F('H7 %s (%s) is reachable from the base, so it is not off-main' % (o[:12], ents[o]['mechanism']))
+        for mg in man.get('missing', []):
+            gid = mg.get('id', '')
+            if gid and any(x.startswith(gid) for x in main_objs):
+                F('H7 missing id %s names an object reachable from the base' % gid[:12])
         for x in sorted(external):
             if x not in main_objs:
                 F('H3 %s is named by a retained object, is neither retained nor withheld, and is not on main' % x[:12])
@@ -609,6 +619,19 @@ def self_test(root):
         def unlisted(d):
             open(os.path.join(d, 'blob', 'stray'), 'wb').write(b'x\n')
         expect('an unlisted file', unlisted, 'O2')
+
+        def on_main(d):
+            # the base's root tree, stored as a fully retained tree: well formed, and on main
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            tree = git(['rev-parse', man['base'] + '^{tree}'], root).stdout.decode().strip()
+            data = git(['cat-file', 'tree', tree], root).stdout
+            rel = 'tree/%s/%s' % (tree[:2], tree)
+            os.makedirs(os.path.join(d, os.path.dirname(rel)), exist_ok=True)
+            open(os.path.join(d, rel), 'wb').write(data)
+            man['objects'].append({'oid': tree, 'type': 'tree', 'mechanism': 'raw', 'form': 'raw', 'file': rel,
+                                   'bytes': len(data), 'sha256': sha256(data), 'tranche': 2})
+            save(d, man)
+        expect('an object already on main, stored here', on_main, 'H7', history=True)
 
         def deny_stored(d):
             man = json.load(open(os.path.join(d, 'manifest.json')))
