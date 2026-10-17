@@ -1,0 +1,47 @@
+== C: transcription controls (the kernel's pair vocabulary)
+PASS C1: coordOf (dict ω) = ω on 6 random rational tables (coordOf_dict)
+PASS C2: dict (prodState x y) = tokMat(hom x) ⊗ tokMat(hom y), PSD, 6 random ball pairs (dict_prodState)
+PASS C3: product law: prodEffVal (sharp a)(sharp b)(prodState x y) = sharp a x · sharp b y, 8 samples
+PASS C4: table route = trace route: prodEffVal (sharp a)(sharp b) ω = tr((Π_a⊗Π_b) dict ω), 8 samples
+PASS C5: marginal route agreement: Lorentz test on ω(·,0), ω(0,·) = PSD test on tr_B, tr_A of dict ω (30 samples)  [both outcomes seen: True]
+PASS C6a: A2(diag λ) = diag(λ_a + λ_b, a<b) on 4 spectra (additive compound)
+PASS C6b: unitary conjugation preserves the characteristic polynomial and A2-PSD membership (6 samples)
+PASS C7: the 10 Cayley matrices are exactly unitary
+PASS C8: fast PSD test agrees with the principal-minor test (25 random Hermitian, on H and A2 H)
+== S1: U(4)-invariant spectral cones C_λ = cone(Q3 ∪ U(4)·diag λ), λ sorted in [-3,3]^4, tr > 0
+PASS S1.route: two exact routes agree: permutation-conjugate marginal validity ⟺ A2(diag λ) ⪰ 0, min = λ1+λ2
+PASS S1.PC: positive control: violation found ⟺ λ1 < 0 on every spectrum (kernel subset_Q3_of_maxCone_block contrapositive for U(4)-invariant cones; none found for λ1 ≥ 0, consistent with Q3 ⊆ maxCone)
+FAIL S1.NC: negative control: no spectrum with λ1+λ2 < 0 or λ1 ≥ 0 is counted as a countermodel
+   S1 spectra examined: 96; countermodels (λ1 < 0 ≤ λ1+λ2): 62
+   S1 first countermodels: [(-3, -2, 3, 3), (-3, -1, 2, 3), (-3, -1, 3, 3), (-3, 0, 1, 3), (-3, 0, 2, 2), (-3, 0, 2, 3)]; z⊗z values: ['-3', '-3', '-3', '-3', '-3', '-3']
+== CM-2: K2 = {ω : A2(dict ω) ⪰ 0}; witness ω* = coordOf diag(-1,1,1,1)
+   ω* table: [['2', '0', '0', '-2'], ['0', '0', '0', '0'], ['0', '0', '0', '0'], ['-2', '0', '0', '-2']]
+PASS CM2.a: ω* ∈ K2 (A2 PSD), ω* ∉ Q3
+PASS CM2.b: ω* has valid one-token marginals (Lorentz)  [margA=['2', '0', '0', '-2']]
+PASS CM2.c: prodEffVal (sharp z3)(sharp z3) ω* < 0, so ω* ∉ maxConeOf avail for any avail ∋ sharp z3  [value -1]
+PASS CM2.d: orbit control: 10 Cayley images of ω* stay in K2 with valid marginals (PairCompat fullClass on samples)  [10/10 images also show a negative sharp product value on the sampled grid]
+PASS CM2.e: cone control: 21 pairwise sums of K2 generators (products and orbit points) stay in K2 with valid marginals
+PASS CM2.f: products of ball states lie in K2 (5 samples)
+PASS CM2.g: maximality negative control: diag(-2,1,1,1) ∉ K2 and its own A-marginal is invalid
+== S2: #820 fixtures K_B = SEP + R+ B and K(Z_F) = (Q3 ∩ Z_F*) + cone(Z_F), closed under fullClass
+PASS S2.B: B = |00+11><00+11|/2 is PSD of rank one, so U(4)·B ⊆ Q3: closure of K_B under fullClass is Q3 (valid)
+PASS S2.Z0: dict z_(s,t) = (I + s X⊗Z + t Y⊗Y - st Z⊗X)/16 for all four sign pairs (#820 result.md:202-204)
+PASS S2.Z1: each defect: spectrum (-1/8, 1/8, 1/8, 1/8) exactly, in K2 (boundary), not in Q3, valid marginals, nonnegative on the sampled sharp product grid (block-positive per #820 [W])
+PASS S2.Z2: seeded countermodel: V (exact unitary from the Bell-type columns) diagonalizes e_(1,1); V e V† ∈ K2, valid marginals, and its z3⊗z3 sharp value is -1/8  [diag [-1/8, 1/8, 1/8, 1/8]; value -1/8]
+== S3: tables ω00 = a ∈ {1,2,3,4}, at most three non-identity Pauli coefficients ±1 (exhaustive)
+   S3 counts: {'total': 16360, 'Q3': 9420, 'K2notQ3': 3180, 'outside': 3760, 'tried': 60, 'witnessed': 42, 'nowitness_in_box': 18}
+   S3 first witnessed countermodel generators (support, signs, a, (VHV†)_00): [(((0, 1), (1, 0)), (1, 1), 1, '-1/4'), (((0, 1), (1, 0)), (1, -1), 1, '-1/4'), (((0, 1), (1, 0)), (-1, 1), 1, '-1/4'), (((0, 1), (1, 0)), (-1, -1), 1, '-1/4')]
+PASS S3.W: the first 60 K2∖Q3 generators were tried for an exact Householder witness (v in a small Gaussian box with perfect-square norm); every witness found has valid marginals after conjugation and a negative z3⊗z3 value  [tried 60, witnessed 42, no witness in the small box 18]
+== S4: JS (stage-test validity) + local compatibility + availOf ⟹ hvalid [W]: controls
+PASS S4.CM4: local compatibility is load-bearing: ω_x = coordOf(I + 2X⊗X) passes every stage-test product (±z3, unit) and has valid marginals, yet sharp x ⊗ sharp(-x) is negative; its local Hadamard image fails a z3 stage product  [x⊗(-x) value -1]
+PASS S4.PC: positive control: 6 random PSD tables are nonnegative on the sampled sharp grid and stay PSD under Cayley unitaries (pairCompat_Q3 [D PID:286] on samples)
+PASS S4.CL: classical comparison: the four products of ±z3 (M_class generators) pass the whole sampled sharp grid
+== S5: FCC (FourCopyCoherent, FourCopyDefs.lean:56-60 @ ff9c3a35)
+PASS S5.F10: reproduce KT4-PREM-1 F10: famI(phiW, phiW, phiW/4, diag(1,-1,1,-1)/4) = -1/8, with phiW ∈ Q3, phiW/4 ∈ dualW Q3, F ∈ dualW twin (actT reflY F ∈ Q3)  [value -1/8]
+PASS S5.X: cross route: fourVal = 16 · tr(M ρ) on 16×16 matrices (2 random rational quadruples)
+PASS S5.ID: identity: famI(X, Y, ê⊗û, f̂⊗û) = prodEffVal e f X · Y00 (5 random rational samples)
+PASS S5.K2: uniform K2 violates FCC: ẑ⊗û is nonnegative on ω* and its 10 Cayley images (it lies in dualW K2 by marginal validity [W]); famI(ω*, prodState z3 z3, ẑ⊗û, ẑ⊗û) < 0  [value -1]
+PASS S5.PC: positive control: uniform Q3 passes famI on 4 random PSD quadruples (Kronecker positivity [W])
+== verdict
+VOID: 1 control(s) failed; no verdict.
+checks: 32, failures: 1

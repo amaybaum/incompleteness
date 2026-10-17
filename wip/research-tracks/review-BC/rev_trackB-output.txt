@@ -1,0 +1,11 @@
+PASS L1-k3  k=3: all 7 #829 generators (symbolic angle t) are unitary and commute with Pi0
+PASS L1NEG-k3  k=3: CNOT(1->0), cycMat on token 0, a y-rotation on token 0 do not commute with Pi0
+PASS L1-k4  k=4: all 12 #829 generators (symbolic angle t) are unitary and commute with Pi0
+PASS L1NEG-k4  k=4: CNOT(1->0), cycMat on token 0, a y-rotation on token 0 do not commute with Pi0
+PASS LIE-k3  k=3: smallest space containing i{X,Y,Z}_j (j>=1), closed under ad_seed and Ad_CNOT(i<j), has dimension 30 (mod-p lower bound) and lies in su(4)+su(4) of dimension 30: equality, so SU x SU (token-0 blocks) is inside G
+PASS LIE-k4  k=4: smallest space containing i{X,Y,Z}_j (j>=1), closed under ad_seed and Ad_CNOT(i<j), has dimension 126 (mod-p lower bound) and lies in su(8)+su(8) of dimension 126: equality, so SU x SU (token-0 blocks) is inside G
+PASS LIE-NEG  control: without CNOTs the generated algebra has dimension 6 (local su(2)+su(2) on tokens 1, 2)
+PASS CM-a  x*^T H x* = -1/25 on (3,4)(x)|00>; eig(S) = [-1/625, 1]
+PASS CM-b  S-form on ray (1,r) is 5609*r**2/15625 - 15024*r/15625 + 9991/15625; negative exactly for r in (97/79, 103/71) ~ (1.227848, 1.450704), strictly inside the gap (6/5, 3/2); F values [9991/15625, 5609/15625, 576/15625, 2379/15625, 621/625, 616/625, 50456/15625]; gap endpoint values [979/15625, 301/15625]
+PASS CM-c  generic block-diagonal U: U (S(x)I) U^* = [[S00 U0U0^*, S01 U0U1^*],[S01 U1U0^*, S11 U1U1^*]] (polynomial identity)
+checks: 10, failures: 0

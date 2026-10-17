@@ -1,0 +1,6 @@
+INDEPENDENT CHECK: PASS; 53 exact controls
+depth-one output: [((0, 0), (Fraction(1, 2), Fraction(0, 1))), ((0, 3), (Fraction(3, 8), Fraction(-1, 4))), ((3, 0), (Fraction(3, 8), Fraction(1, 4))), ((3, 3), (Fraction(1, 2), Fraction(0, 1)))]
+separating matrix trace: -1/4; PSD minor: 3/64
+CNOT product countercontrol: -1/2
+ZF generator index 1: drive trace -1/10; actual depth-one trace -1/16
+SCOPE: finite-protocol availability does not imply preservation of this given pair cone.

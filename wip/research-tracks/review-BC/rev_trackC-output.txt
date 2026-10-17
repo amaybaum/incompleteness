@@ -1,0 +1,10 @@
+PASS G1  Gamma2(Ad_(A(x)B)(Gamma2 E)) = Ad_(A(x)conj B)(E) for symbolic complex A, B on all 16 units
+PASS G2  Gamma2 o Phi_1 o Gamma2 = (5/8) Ad_(I(x)conj D) + (3/8) id on all 16 units
+PASS G3  CNOT|+0><+0|CNOT = Phi+, spectrum of Gamma2(Phi+) = {1/2: 3, -1/2: 1}: CNOT maps SEP outside Gamma(Q3)
+PASS CX1-iso  L, L^-1 inverse and Tr L(Y) = Tr(Y)/2 for symbolic Y; frame 2P_i - sigma (in C_sigma), effects pull back to P_j/2 for symbolic Y, sum to I, Tr(E_j X_i) = delta
+PASS CX1-out  spec(L^-1(|00><00| - I/20)) = [1/20, 13/20 - sqrt(26)/10, 1/4, sqrt(26)/10 + 13/20] >= 0 (member), <11|.|11> = -1/20: C_sigma not in maxCone
+PASS CX1-phi  <u|L^-1 Phi_1 L(|00><00|)|u> = -1/16 for u = |1>(1,i) (norm^2 2); min eigenvalue ~ -0.034938562 (float, sign only)
+PASS CX2  C'_sigma = L2(Q3) (symbolic inverse), |00><00| not a member, X2 = |00><00| + sigma a member, <u'|M2(Phi_1 X2)|u'> = -1/8
+PASS CW-phi  Tr(W rho) = 0, Tr(W Phi_1 rho) = -1/4, Tr(W Ad rho) = -2/5
+PASS CW-SP  [W, rho_bad] = 0; spec(M_w rho_bad) = [1/10 - w/20, -(w - 2)/10, -3*(w - 2)/20, w/5 + 2/5] (exact, symbolic w); pairwise coincidences at w in [[2], [2], [-6/5], [2], [-2/3], [-2/7]] (none in [0,2)); all lines > 0 on [0,2) (linear, endpoint check); Phi+ eigenvector with line w/5 + 2/5; <Phi+|W|Phi+> = -1/2
+checks: 9, failures: 0

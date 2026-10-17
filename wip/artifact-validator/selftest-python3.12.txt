@@ -1,0 +1,207 @@
+### python3.12 -I fetch_host_records.py --self-test
+  ok    allowed: repos/amaybaum/incompleteness/actions/runs/1
+  ok    allowed: repos/amaybaum/incompleteness/actions/runs/1/attempts/2
+  ok    allowed: repos/amaybaum/incompleteness/actions/runs/1/attempts/2/jobs?per_page=100&page=3
+  ok    allowed: repos/amaybaum/incompleteness/actions/artifacts/12090461970
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1/logs'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1/attempts/2/logs'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/jobs/5/logs'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/artifacts/1/zip'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1/artifacts'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1/rerun'
+  ok    refused: 'https://api.github.com/repos/amaybaum/incompleteness/actions/runs/1'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1/../logs'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1/attempts/2/jobs?per_page=100&page=3&x=1'
+  ok    refused: 'repos/amaybaum/incompleteness/actions/runs/1\n'
+  ok    refused: 'repos/a/b/contents/x'
+helper self-test: 15 of 15 cases ok
+exit=0
+### python3.12 -I download_artifact_zip.py --self-test
+download self-test (local API and storage servers, no network):
+  ok    clean two-step download writes the bytes and their sha256
+  ok    the token reaches the API server, as Bearer
+  ok    the storage server receives no Authorization header and never the token
+  ok    the link, its path and its query appear in neither the output nor the recorded files
+  ok    a second redirect is refused (RefusedRedirect), no file kept
+  ok    a non-https link is refused without the test-only flag, storage never contacted
+  ok    a different repo is refused before sending: RefusedEndpoint, API never contacted
+  ok    a different artifact id is refused before sending
+  ok    a different host than the pinned one is refused before sending
+  ok    a path-shaped repo 'o/r/../r' is refused before sending
+  ok    a path-shaped repo 'o/r?x=1' is refused before sending
+  ok    production pin: amaybaum/incompleteness artifact 12090461970 accepted
+  ok    production pin: amaybaum/other artifact 12090461970 refused
+  ok    production pin: amaybaum/incompleteness artifact 12090461971 refused
+  ok    production pin: base https://api.github.com.example.org refused before sending
+  ok    production pin: base https://uploads.github.com refused before sending
+  ok    production pin: base http://api.github.com refused before sending
+  ok    no token: refused before sending
+  ok    an API answer without a redirect is refused
+  ok    a link with user info is refused
+  ok    a relative link is refused
+  ok    an oversized body (Content-Length over the cap) is refused: RefusedTooLarge, no file kept
+  ok    an oversized body without Content-Length stops at the cap: RefusedTooLarge
+  ok    the cap is min(2 x size_in_bytes, fixed cap); missing or zero size refuses
+  ok    a body shorter than its Content-Length fails
+  ok    a slow server (no answer within the read timeout) fails with a timeout type
+  ok    a dribbling server is stopped by the overall deadline: DeadlineExceeded, no file kept
+  ok    a storage error records only stage, type and host
+download self-test: 28 of 28 cases ok
+exit=0
+### python3.12 -I validate_artifact.py --self-test
+validator self-test (synthetic artifact; no network)
+== clean copy, full report ==
+validator commit    selftest
+workflow run        0 attempt 0
+source run          900
+artifact id         77
+expected digest     sha256:5a43bdd5720e6691838c79acb2769087c66a1b20d305808f7cb9e9e919b9f541
+computed digest     sha256:5a43bdd5720e6691838c79acb2769087c66a1b20d305808f7cb9e9e919b9f541
+expected size       8446
+computed size       8446
+validator file      validate_artifact.py sha256=b9b201688daab36c3ad14e91e6ac6f598144aee7575cc09f298cf2f7a6d493bd
+validator file      download_artifact_zip.py sha256=a2c2bab55d580b52b5e353034250f15ba6d46ca548f7ed9c0902bf1cb7da4ede
+validator file      fetch_host_records.py sha256=abcf0843b9dc2bee942d98a22f14beab359d5a4e56c70353e1ec6b556f835fea
+input               batch.json sha256=4e2e99122b37b03883250e85c5adae75149314c36772377ee8ec68d35d0f7e13
+input               inventory-runs.csv sha256=dd7a15d13e94132314d579c4b021c3a9e8e9b8ca4753736b729103f4fbc12ae7
+input               inventory-jobs.csv sha256=fce397b6f47124603d66ed0a8a16b1d58088b5b01f3c5dbeca22f572ab4158e1
+expected-set source host job lists and run records (independent of the archiver)
+
+PASS       0.inputs           inputs match their pins: batch.json=4e2e99122b37b038, inventory-runs.csv=dd7a15d13e941323, inventory-jobs.csv=fce397b6f4712460
+PASS       1.digest           sha256 of the zip equals the metadata digest
+PASS       1.size             8446 bytes, as the metadata says
+PASS       1.identity         artifact 77 name ci-logs-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa from run 900 at aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+PASS       1.expiry           expired=false; staged 2026-10-17T05:09:37Z, expires 2026-10-31T05:09:33Z: 14 days -4 s (tolerance 60 s)
+INFO       1.expiry           time to expiry at validation: 335.1 h
+PASS       1.testzip          17 members, every CRC ok
+PASS       1.names            no absolute path, '..', link or duplicate among the member names
+PASS       1.extract          17 files, 27573 bytes, extracted into a fresh directory
+INFO       2.expected         run 1001 attempt 1: 4 jobs, 2 ran, 1 skipped, 1 without a runner, 0 copies of an earlier attempt; 2 expected in the zip
+INFO       2.expected         run 1002 attempt 1: 4 jobs, 4 ran, 0 skipped, 0 without a runner, 0 copies of an earlier attempt; 4 expected in the zip
+INFO       2.expected         run 1002 attempt 2: 4 jobs, 4 ran, 0 skipped, 0 without a runner, 2 copies of an earlier attempt; 2 expected in the zip
+PASS       2.expected         from batch (2 runs, job_logs=all), inventory and host job lists: 17 files = 3 zips + 10 job logs + 4 metadata; 8 top-level zip logs
+PASS       2.files            exactly the 17 expected files: 3 zips, 10 job logs, 4 metadata
+PASS       3.fetchlog         19 lines, 18 keys (1 superseded lines); every key and outcome as specified; key set = expected
+PASS       3.manifest         18 items equal the fetch log's last records
+PASS       3.rehash           rehash_mismatches is empty
+INFO       3.manifest         counts: {"job_logs": 10, "records": 18, "zips": 3}
+PASS       3.completeness     complete is true and missing_or_incomplete is empty
+INFO       3.completeness     required: 13; items: 18
+PASS       3.scanjson         scan.json is []
+PASS       3.files            13 archived files: size and sha256 equal their fetch-log record and manifest item; none empty
+PASS       3.lines            10 job-log line counts all fit: count of LF (2 logs distinguish the candidate definitions)
+PASS       3.run-records      run 1001: run_attempt 1 as the host says
+PASS       3.jobs-records     run 1001 attempt 1: 4 jobs equal the host list on 8 fields
+PASS       3.run-records      run 1002: run_attempt 2 as the host says
+PASS       3.jobs-records     run 1002 attempt 1: 4 jobs equal the host list on 8 fields
+PASS       3.jobs-records     run 1002 attempt 2: 4 jobs equal the host list on 8 fields
+PASS       4.testzip          runs/1001/attempt-1.zip: testzip ok, no duplicate names
+PASS       4.members          runs/1001/attempt-1.zip: 6 members (name, size, sha256) equal the record
+INFO       4.zips             runs/1001/attempt-1.zip: members 6, top-level job logs 2, expected 2, step logs 4, other top-level 0
+PASS       4.toplevel         runs/1001/attempt-1.zip: 2 top-level job logs = 2 jobs that ran in this attempt (not copies)
+PASS       4.record           runs/1001/attempt-1.zip: record crc_ok, complete, top_level_job_logs 2, logs_expected 2
+PASS       4.testzip          runs/1002/attempt-1.zip: testzip ok, no duplicate names
+PASS       4.members          runs/1002/attempt-1.zip: 12 members (name, size, sha256) equal the record
+INFO       4.zips             runs/1002/attempt-1.zip: members 12, top-level job logs 4, expected 4, step logs 8, other top-level 0
+PASS       4.toplevel         runs/1002/attempt-1.zip: 4 top-level job logs = 4 jobs that ran in this attempt (not copies)
+PASS       4.record           runs/1002/attempt-1.zip: record crc_ok, complete, top_level_job_logs 4, logs_expected 4
+PASS       4.testzip          runs/1002/attempt-2.zip: testzip ok, no duplicate names
+PASS       4.members          runs/1002/attempt-2.zip: 6 members (name, size, sha256) equal the record
+INFO       4.zips             runs/1002/attempt-2.zip: members 6, top-level job logs 2, expected 2, step logs 4, other top-level 0
+PASS       4.toplevel         runs/1002/attempt-2.zip: 2 top-level job logs = 2 jobs that ran in this attempt (not copies)
+PASS       4.record           runs/1002/attempt-2.zip: record crc_ok, complete, top_level_job_logs 2, logs_expected 2
+PASS       5.heads            run 1001: 1111111111111111111111111111111111111111 in all 7 sources; head_matches_inventory true
+PASS       5.heads            run 1002: 2222222222222222222222222222222222222222 in all 8 sources; head_matches_inventory true
+PASS       6.map              runs/1001/attempt-1.zip: 2 top-level logs map by name to 2 expected jobs; 0 unmatched, 0 ambiguous (not gating)
+INFO       6.bytes            job 12: zip 210 bytes, per-job 280 bytes (diff -70); zip is a prefix of the per-job log
+PASS       6.map              runs/1002/attempt-1.zip: 4 top-level logs map by name to 4 expected jobs; 0 unmatched, 0 ambiguous (not gating)
+PASS       6.map              runs/1002/attempt-2.zip: 2 top-level logs map by name to 2 expected jobs; 0 unmatched, 0 ambiguous (not gating)
+INFO       6.bytes            top-level zip logs vs per-job logs: 7 byte-identical, 1 differ, 0 unmatched, 0 ambiguous
+INFO       6.copies           per-job logs of copied jobs: 1 byte-identical to their originals, 1 differ
+INFO       6.copies           identical (copy=original): 33=23
+INFO       6.copies           differs: 32 vs 22: +1 bytes, prefix
+PASS       7.scan             17 files and 24 zip members (32661 bytes) against 15 patterns: no hits
+
+summary: 40 PASS, 0 FAIL, 0 UNVERIFIED
+VALIDATE  HOLDS
+  ok    clean synthetic artifact                             -> HOLDS      
+== targeted mutations (each must fail with its intended check) ==
+  ok    flipped byte in a zip (records stale)                -> FAILS      3.files
+  ok    flipped byte in a job log (records stale)            -> FAILS      3.files 3.lines
+  ok    extra file                                           -> FAILS      2.files 3.files
+  ok    missing file                                         -> FAILS      2.files 3.files
+  ok    member list differs from the zip                     -> FAILS      4.members
+  ok    re-run job's log missing from the zip (records agree) -> FAILS      4.record 4.toplevel
+  ok    copied job wrongly expected in the zip (log included) -> FAILS      4.record 4.toplevel 6.map
+  ok    copy no longer a copy on the host (runner differs)   -> FAILS      3.jobs-records 4.record 4.toplevel
+  ok    digest mismatch with the metadata                    -> FAILS      1.digest
+  ok    size mismatch with the metadata                      -> FAILS      1.size
+  ok    wrong expiry (7 days)                                -> FAILS      1.expiry
+  ok    wrong expiry (14 days + 2 min)                       -> FAILS      1.expiry
+  ok    metadata says expired                                -> FAILS      1.expiry
+  ok    artifact identity (name) differs                     -> FAILS      1.identity
+  ok    head mismatch: host run record                       -> FAILS      5.heads
+  ok    head mismatch: fetch-log run record                  -> FAILS      5.heads
+  ok    token in a compressed zip member (scan.json still []) -> FAILS      7.scan
+  ok    app token (ghs_<app>_<jwt>) in a job log             -> FAILS      7.scan
+  ok    non-empty scan.json                                  -> FAILS      3.scanjson
+  ok    manifest item differs from the fetch log             -> FAILS      3.files 3.manifest
+  ok    rehash_mismatches non-empty                          -> FAILS      3.rehash
+  ok    completeness false                                   -> FAILS      3.completeness
+  ok    skipped job given a log                              -> FAILS      2.files 3.fetchlog
+  ok    empty job log (records agree)                        -> FAILS      3.files
+  ok    CRC-corrupt zip member, records rehashed             -> FAILS      4.testzip
+  ok    job-log line count wrong                             -> FAILS      3.lines
+  ok    job record differs from the host list                -> FAILS      3.jobs-records
+  ok    last fetch-log line wins (a later wrong line)        -> FAILS      3.files
+  ok    record outcome not as specified                      -> FAILS      3.fetchlog
+  ok    unknown record key                                   -> FAILS      3.fetchlog
+  ok    unsafe member name ('..') in the artifact zip        -> FAILS      1.names
+  ok    CRC-corrupt artifact zip, metadata matches it        -> FAILS      1.testzip
+  ok    input pin mismatch                                   -> FAILS      0.inputs
+== missing evidence (each must be UNVERIFIED, never HOLDS) ==
+  ok    no host job lists                                    -> UNVERIFIED 2.expected 3.jobs-records 3.run-records 5.heads
+  ok    host job list of one attempt missing                 -> UNVERIFIED 2.expected 2.files 3.fetchlog 3.jobs-records 3.run-records 4.zips 5.heads 6.map
+  ok    no artifact zip (pre-extracted directory only)       -> UNVERIFIED 1.digest 1.size 1.testzip
+  ok    metadata without a digest                            -> UNVERIFIED 1.digest 1.size
+  ok    metadata absent                                      -> UNVERIFIED 1.digest 1.metadata 1.size
+  ok    no input pins                                        -> UNVERIFIED 0.inputs
+  ok    batch.json absent                                    -> UNVERIFIED 0.inputs 2.expected 2.files 3.fetchlog 3.jobs-records 3.run-records 4.zips 5.heads 6.map
+  ok    extraction directory not fresh                       -> UNVERIFIED 1.extract 2.files 3.records 4.zips 5.heads 6.map 7.scan
+== download path, end to end (local API and storage servers) ==
+  ok    clean download, validated                            -> HOLDS        [download ok]
+          PASS 1.download: downloaded from the pinned endpoint; storage host 127.0.0.1; record size and sha256 equal the file
+  ok    byte-flipped zip served: digest check fails          -> FAILS      1.digest 1.testzip  [download ok]
+          PASS 1.download: downloaded from the pinned endpoint; storage host 127.0.0.1; record size and sha256 equal the file
+  ok    failed download (storage 500)                        -> UNVERIFIED 1.digest 1.download 1.size 2.files 3.records 4.zips 5.heads 6.map 7.scan  [download failed HTTPError]
+          UNVERIFIED 1.download: download failed: stage=storage error_type=HTTPError host=127.0.0.1
+  ok    oversized body (3 x size_in_bytes)                   -> UNVERIFIED 1.digest 1.download 1.size 2.files 3.records 4.zips 5.heads 6.map 7.scan  [download failed RefusedTooLarge]
+          UNVERIFIED 1.download: download failed: stage=storage error_type=RefusedTooLarge host=127.0.0.1
+  ok    slow storage server (0.5 s read timeout)             -> UNVERIFIED 1.digest 1.download 1.size 2.files 3.records 4.zips 5.heads 6.map 7.scan  [download failed TimeoutError]
+          UNVERIFIED 1.download: download failed: stage=storage error_type=TimeoutError host=127.0.0.1
+  ok    endpoint refused (another artifact id)               -> UNVERIFIED 1.digest 1.download 1.size 2.files 3.records 4.zips 5.heads 6.map 7.scan  [download failed RefusedEndpoint]
+          UNVERIFIED 1.download: download failed: stage=endpoint error_type=RefusedEndpoint host=127.0.0.1
+== credential patterns ==
+  ok    positive sample matches github-token
+  ok    positive sample matches github-app-token-jwt
+  ok    positive sample matches github-fine-grained-pat
+  ok    positive sample matches github-installation-v1
+  ok    positive sample matches jwt
+  ok    positive sample matches azure-sas-sig
+  ok    positive sample matches azure-sas-se
+  ok    positive sample matches azure-sas-sv
+  ok    positive sample matches authorization-header
+  ok    positive sample matches x-access-token-url
+  ok    positive sample matches url-credentials
+  ok    positive sample matches aws-access-key-id
+  ok    positive sample matches aws-secret-access-key
+  ok    positive sample matches private-key
+  ok    masked/benign sample #0 has no hit
+  ok    masked/benign sample #1 has no hit
+  ok    masked/benign sample #2 has no hit
+  ok    masked/benign sample #3 has no hit
+  ok    masked/benign sample #4 has no hit
+  ok    masked/benign sample #5 has no hit
+  ok    control: a token in a deflated member is absent from the raw zip bytes and found after decompression
+validator self-test: all cases ok
+exit=0

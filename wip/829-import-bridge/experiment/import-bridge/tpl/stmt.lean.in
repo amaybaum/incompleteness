@@ -1,0 +1,40 @@
+/- Executable control STMT-IDENTITY (meta-level; the `example` is a kernel-checked `rfl`). The
+   recovery's statement and the adopted theorem's must be alpha-equivalent (`==`, which ignores
+   binder names and binder annotations: Lean/Expr.lean `instance : BEq Expr := ⟨Expr.eqv⟩`), carry
+   the same binder annotations in traversal order, and the same outermost hypothesis names. Plain
+   `Expr.equal` is not used: it also compares hygienic binder names, which carry the declaring
+   module in their macro scopes. -/
+namespace ImportBridge
+
+partial def binderInfos : Lean.Expr → Array Lean.BinderInfo
+  | .forallE _ t b bi => #[bi] ++ binderInfos t ++ binderInfos b
+  | .lam _ t b bi => #[bi] ++ binderInfos t ++ binderInfos b
+  | .app f a => binderInfos f ++ binderInfos a
+  | .letE _ t v b _ => binderInfos t ++ binderInfos v ++ binderInfos b
+  | .mdata _ e => binderInfos e
+  | .proj _ _ e => binderInfos e
+  | _ => #[]
+
+partial def topBinderNames : Lean.Expr → List Lean.Name
+  | .forallE n _ b _ => n :: topBinderNames b
+  | .mdata _ e => topBinderNames e
+  | _ => []
+
+end ImportBridge
+
+example : type_of% @@@RECOVERED@@ =
+    type_of% @OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone := rfl
+
+open Lean in
+#eval show Lean.Meta.MetaM Unit from do
+  let r ← getConstInfo `@@RECOVERED@@
+  let p ← getConstInfo `OIBridge.EqvK2MaxCone.pairCone_eq_Q3_of_drive_maxCone
+  unless r.levelParams == p.levelParams do
+    throwError "STMT-IDENTITY universe parameters differ"
+  unless r.type == p.type do
+    throwError "STMT-IDENTITY the statements are not alpha-equivalent"
+  unless ImportBridge.binderInfos r.type == ImportBridge.binderInfos p.type do
+    throwError "STMT-IDENTITY binder annotations differ"
+  unless ImportBridge.topBinderNames r.type == ImportBridge.topBinderNames p.type do
+    throwError "STMT-IDENTITY hypothesis names differ"
+  logInfo "STMT-IDENTITY ok"

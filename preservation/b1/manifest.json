@@ -1,0 +1,1536 @@
+{
+ "bundle": "host-unreferenced-84-20261016.bundle",
+ "bytes": 359249,
+ "sha256": "eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd",
+ "created": "2026-10-16",
+ "refs": "refs/preserve/<commit> for each commit below",
+ "prerequisite": "66a981d5a9cab35b9ebd253aa0e610c0afbfefb6 (main after the R1 landing); the bundle omits objects reachable from it",
+ "restore": "git fetch <bundle> 'refs/preserve/*:refs/preserve/*' in any clone holding 66a981d5; verified 2026-10-16 into fresh bare repositories holding only main (66a981d5) and only an older main (dee3b5ae): 84/84 refs, git fsck --full clean",
+ "why": "each commit is the head of a cited workflow run and is reachable from no branch, tag or pull ref on the host; GitHub serves it by SHA today, with no guarantee it will continue to",
+ "commits": [
+  {
+   "commit": "17de29c27ed43d7f105aa8518451d8ed61c59937",
+   "committed": "2026-09-26T05:50:50+00:00",
+   "subject": "A30 pre-freeze elaboration: #check of the four frozen propositions and three corollary implications (disposable)",
+   "runs": [
+    {
+     "run_id": "36222012214",
+     "tier": "B",
+     "created_at": "2026-09-26T05:51:07Z",
+     "head_branch": "claude/a30-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:501"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "0004afc9360117ba61523b72854de1aaf63705f0",
+   "committed": "2026-09-26T05:57:47+00:00",
+   "subject": "A30 pre-freeze rehearsal: retired R7-PFR/R7-PRA ROADMAP legs with the ADMITS P0 cell (disposable)",
+   "runs": [
+    {
+     "run_id": "36222326658",
+     "tier": "B",
+     "created_at": "2026-09-26T05:57:55Z",
+     "head_branch": "claude/a30-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:502"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "62ad3a5f9320fcea6ccd7d0ac08a8ded17c7e30f",
+   "committed": "2026-09-26T05:58:20+00:00",
+   "subject": "A30 pre-freeze rehearsal: the RESTRICTS P0 cell under the retired guard (disposable)",
+   "runs": [
+    {
+     "run_id": "36222347638",
+     "tier": "B",
+     "created_at": "2026-09-26T05:58:23Z",
+     "head_branch": "claude/a30-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:503"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "8bc262ddbe0c36a1ff822c8229b7b4aefdd8ee9b",
+   "committed": "2026-09-26T10:25:20+00:00",
+   "subject": "A31 pre-freeze elaboration (good): #check of the frozen propositions (disposable)",
+   "runs": [
+    {
+     "run_id": "36235746157",
+     "tier": "B",
+     "created_at": "2026-09-26T10:25:30Z",
+     "head_branch": "claude/a31-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-31-off-locus-uniqueness/preregistration.md:488"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "a5015f6a6b4ace5cc1a694b535bd7e8bf29ac3a2",
+   "committed": "2026-09-26T10:30:31+00:00",
+   "subject": "A31 pre-freeze rehearsal: the A31-1-NONUNIQUE P0 cell (disposable)",
+   "runs": [
+    {
+     "run_id": "36236002553",
+     "tier": "B",
+     "created_at": "2026-09-26T10:30:34Z",
+     "head_branch": "claude/a31-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-31-off-locus-uniqueness/preregistration.md:489"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "867bf901037d2fba895d8fbfdd14d949f6e82ee2",
+   "committed": "2026-09-26T10:30:43+00:00",
+   "subject": "A31 pre-freeze rehearsal: the A31-1-UNIQUE P0 cell (disposable)",
+   "runs": [
+    {
+     "run_id": "36236013813",
+     "tier": "B",
+     "created_at": "2026-09-26T10:30:46Z",
+     "head_branch": "claude/a31-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-31-off-locus-uniqueness/preregistration.md:490"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "ea8f9edd73ca9fc8076c0978983babcd94969961",
+   "committed": "2026-09-26T12:50:19+00:00",
+   "subject": "A32 pre-freeze elaboration: wire after StrictNaturalLift, keeping R7-NLV's pinned adjacency (disposable)",
+   "runs": [
+    {
+     "run_id": "36243196377",
+     "tier": "B",
+     "created_at": "2026-09-26T12:50:33Z",
+     "head_branch": "claude/a32-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:555"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "bcf6ee799b42e0b0c49ffeeb3370dd0723b6a2f0",
+   "committed": "2026-09-26T13:15:35+00:00",
+   "subject": "A32 S_SEP rehearsal: parenthesize the designated test class; tables by decide +kernel (disposable)",
+   "runs": [
+    {
+     "run_id": "36244571105",
+     "tier": "B",
+     "created_at": "2026-09-26T13:15:42Z",
+     "head_branch": "claude/a32-sep-rehearsal",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:572"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "55c72286ab31641a4a5908c7946794318cbb8e03",
+   "committed": "2026-09-26T13:19:13+00:00",
+   "subject": "A32 pre-freeze rehearsal: the retired guard and the A32-NOTRIGID P0 cell (disposable)",
+   "runs": [
+    {
+     "run_id": "36244774129",
+     "tier": "B",
+     "created_at": "2026-09-26T13:19:23Z",
+     "head_branch": "claude/a32-surfaces-notrigid",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:581"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "120e6de20271ed67cf12b90cf0ab3e55124078a7",
+   "committed": "2026-09-26T13:19:16+00:00",
+   "subject": "A32 pre-freeze rehearsal: the retired guard and the A32-RIGID P0 cell (disposable)",
+   "runs": [
+    {
+     "run_id": "36244775311",
+     "tier": "B",
+     "created_at": "2026-09-26T13:19:24Z",
+     "head_branch": "claude/a32-surfaces-rigid",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:582"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "3dca1e378ba38e174497886cb0453d6427334661",
+   "committed": "2026-09-26T14:05:24+00:00",
+   "subject": "A32 development: the full module (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36247320536",
+     "tier": "A",
+     "created_at": "2026-09-26T14:05:27Z",
+     "head_branch": "claude/a32-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/result.md:173"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "e8eb250a510f7a90f09343f40799dac8e0206f5a",
+   "committed": "2026-09-26T14:15:01+00:00",
+   "subject": "A32 development: parenthesized relabellings, coordinate values in goal form (disposable)",
+   "runs": [
+    {
+     "run_id": "36247897586",
+     "tier": "A",
+     "created_at": "2026-09-26T14:15:36Z",
+     "head_branch": "claude/a32-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/result.md:173"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "bcb851ad48e245f32c6221404f67ddeec5484443",
+   "committed": "2026-09-26T14:21:35+00:00",
+   "subject": "A32 development: own shared lemmas for two unlisted helpers, gauge direction (disposable)",
+   "runs": [
+    {
+     "run_id": "36248241812",
+     "tier": "A",
+     "created_at": "2026-09-26T14:21:41Z",
+     "head_branch": "claude/a32-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/result.md:173"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "cff3c1566228158acbf6cb710dbdf4ba4c5db91f",
+   "committed": "2026-09-26T17:03:23+00:00",
+   "subject": "A33 elaboration: coset text corrected, SemidirectProduct import for the probe (disposable)",
+   "runs": [
+    {
+     "run_id": "36257659584",
+     "tier": "B",
+     "created_at": "2026-09-26T17:03:30Z",
+     "head_branch": "claude/a33-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:711"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "8d2e3b9b14b99e6397a3533d9cf326e8820cf061",
+   "committed": "2026-09-26T17:11:23+00:00",
+   "subject": "A33 elaboration countercontrol: one deliberate defect in P_R (disposable)",
+   "runs": [
+    {
+     "run_id": "36258147032",
+     "tier": "B",
+     "created_at": "2026-09-26T17:11:40Z",
+     "head_branch": "claude/a33-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:713"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "baf76aa327a8cea603fc1fff9516a0effc006be1",
+   "committed": "2026-09-26T17:13:27+00:00",
+   "subject": "A33 elaboration: the final frozen texts, reorganized A33-1..4 (disposable)",
+   "runs": [
+    {
+     "run_id": "36258396274",
+     "tier": "B",
+     "created_at": "2026-09-26T17:15:44Z",
+     "head_branch": "claude/a33-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:712"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "9a16311e7a28bd96c50318c36053f87f427936ec",
+   "committed": "2026-09-26T17:43:11+00:00",
+   "subject": "A33 development: foundations, phase 1 (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36260031181",
+     "tier": "A",
+     "created_at": "2026-09-26T17:43:20Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "933fe823efd54545628b76d078adf4ef405e136e",
+   "committed": "2026-09-26T17:48:39+00:00",
+   "subject": "A33 development: phase 2 corrected (disposable)",
+   "runs": [
+    {
+     "run_id": "36260347617",
+     "tier": "A",
+     "created_at": "2026-09-26T17:48:48Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "ee3463dd9cf810026add733def1e6c3fa9730dd3",
+   "committed": "2026-09-26T17:52:32+00:00",
+   "subject": "A33 development: phase 3a, the exact cross-circle formula (disposable)",
+   "runs": [
+    {
+     "run_id": "36260577722",
+     "tier": "A",
+     "created_at": "2026-09-26T17:52:41Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "744397dd1bea336ba616a341c8d8627bb114abf0",
+   "committed": "2026-09-26T18:02:39+00:00",
+   "subject": "A33 development: phase 3 with the structured cross proof (disposable)",
+   "runs": [
+    {
+     "run_id": "36261156494",
+     "tier": "A",
+     "created_at": "2026-09-26T18:02:47Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "1c29812c19f47d39e75a5ca2983823047f2ec5a7",
+   "committed": "2026-09-26T18:17:38+00:00",
+   "subject": "a33 dev: phases 1-4 (fibre lemma, chord, controls fixed; A33-1 into/circle_eq/circles)",
+   "runs": [
+    {
+     "run_id": "36262031899",
+     "tier": "A",
+     "created_at": "2026-09-26T18:17:48Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "9f947d4bd41c16a8d67b654e8334201cdfa5f7f0",
+   "committed": "2026-09-26T18:34:51+00:00",
+   "subject": "a33 dev: phases 1-5 (phase-4 fixes; B2 normal form, B3 endpoint signs)",
+   "runs": [
+    {
+     "run_id": "36263052349",
+     "tier": "A",
+     "created_at": "2026-09-26T18:34:58Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "62026d6199f845100585584bcbaffe80f5c3b81d",
+   "committed": "2026-09-26T18:47:28+00:00",
+   "subject": "a33 dev: phases 1-5, into restructured on opaque coefficients",
+   "runs": [
+    {
+     "run_id": "36263793447",
+     "tier": "A",
+     "created_at": "2026-09-26T18:47:35Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "c9283e336a94bef580c300ee792fe7f53eea29fa",
+   "committed": "2026-09-26T19:05:13+00:00",
+   "subject": "a33 dev: phase 6 (composition, identity, generator isometries, words, nu-realization)",
+   "runs": [
+    {
+     "run_id": "36264819945",
+     "tier": "A",
+     "created_at": "2026-09-26T19:05:21Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "2bb548a36b238495d5535f18a9c3df13532fa3bf",
+   "committed": "2026-09-26T19:16:31+00:00",
+   "subject": "a33 dev: phases 6-8 (kernel, realization, normal-form uniqueness and existence, classification)",
+   "runs": [
+    {
+     "run_id": "36265488073",
+     "tier": "A",
+     "created_at": "2026-09-26T19:16:38Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "1ffe2d6fb839066479a6d9819a6ce17b87db7d65",
+   "committed": "2026-09-26T19:30:30+00:00",
+   "subject": "a33 dev: phase 7-8 fixes applied",
+   "runs": [
+    {
+     "run_id": "36266295674",
+     "tier": "A",
+     "created_at": "2026-09-26T19:30:36Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "7588cacc526bb953e7cabd9120b1da35c978b17f",
+   "committed": "2026-09-26T19:34:54+00:00",
+   "subject": "a33 dev: phase 10 (act-25 family theorems, conjugation and A32 controls) - full frozen set",
+   "runs": [
+    {
+     "run_id": "36266554482",
+     "tier": "A",
+     "created_at": "2026-09-26T19:35:01Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "f0c2c8c6c14b1e22c894c902f2578546378e22d4",
+   "committed": "2026-09-26T19:47:34+00:00",
+   "subject": "a33 dev: transpose-action hypothesis parenthesized, stab statements, word folds, act-32 namespace, conj_real binder",
+   "runs": [
+    {
+     "run_id": "36267279783",
+     "tier": "A",
+     "created_at": "2026-09-26T19:47:45Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "c5a247bbee757aa65deee1a174bb6d9ce313098b",
+   "committed": "2026-09-26T20:10:38+00:00",
+   "subject": "a33 dev: one-circle conjugation built in the round (act 32 outside the frozen import closure), stab normalization, vertex and kernel_real fixes",
+   "runs": [
+    {
+     "run_id": "36268604860",
+     "tier": "A",
+     "created_at": "2026-09-26T20:10:42Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "5c26a258954d98d0757c5c93fe48f31208f72368",
+   "committed": "2026-09-26T20:27:30+00:00",
+   "subject": "a33 dev: phase-10 fixes (word split lemma, normal-form congruence hypothesis, maps-to projections), vertex and conj_real tails",
+   "runs": [
+    {
+     "run_id": "36269594164",
+     "tier": "A",
+     "created_at": "2026-09-26T20:27:34Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "eb068252c0b6ef32627410c2130c4fbd5582067b",
+   "committed": "2026-09-26T20:38:44+00:00",
+   "subject": "a33 dev: family_coset identifies the word's normal form with the fibre's before composing",
+   "runs": [
+    {
+     "run_id": "36270236955",
+     "tier": "A",
+     "created_at": "2026-09-26T20:38:48Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "692b5595bef7ce6adc3076730c586d83f86aa792",
+   "committed": "2026-09-26T20:50:32+00:00",
+   "subject": "a33 dev: family_coset agreement through the word split lemma",
+   "runs": [
+    {
+     "run_id": "36270907147",
+     "tier": "A",
+     "created_at": "2026-09-26T20:50:36Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "9ec8a3416d2d602e461061cd7383aca39777a3ce",
+   "committed": "2026-09-26T21:02:11+00:00",
+   "subject": "a33 dev: family_coset reads the circle fixed by the kernel word without substituting",
+   "runs": [
+    {
+     "run_id": "36271548391",
+     "tier": "A",
+     "created_at": "2026-09-26T21:02:15Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "05dc99b7fdee24c9aa214514fcc16236bb39296c",
+   "committed": "2026-09-26T21:14:31+00:00",
+   "subject": "a33 dev: family_coset splits the kernel word through the split lemma",
+   "runs": [
+    {
+     "run_id": "36272252074",
+     "tier": "A",
+     "created_at": "2026-09-26T21:14:35Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "e2d497aebd409f006120c18f0d745e85f8903215",
+   "committed": "2026-09-26T21:31:30+00:00",
+   "subject": "a33 dev: shape_family binders, word_shape rewrite direction, explicit word isometries in the congruences; compact diagnostics step (disposable branch only)",
+   "runs": [
+    {
+     "run_id": "36273233977",
+     "tier": "A",
+     "created_at": "2026-09-26T21:31:34Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203",
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "f58cde0502cf1ca4570a960308c414870dc58d19",
+   "committed": "2026-09-26T21:44:31+00:00",
+   "subject": "a33 dev: witness conditional split, relabelling identities by rfl-or-simp, intro pattern; error contexts in diagnostics",
+   "runs": [
+    {
+     "run_id": "36273967096",
+     "tier": "A",
+     "created_at": "2026-09-26T21:44:35Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "0e7b3f3f93544a4ccc9774a5710a88cc89d02974",
+   "committed": "2026-09-26T21:56:05+00:00",
+   "subject": "a33 dev: witness normal form on the overlap through the conjugate of the chosen parameter",
+   "runs": [
+    {
+     "run_id": "36274601997",
+     "tier": "A",
+     "created_at": "2026-09-26T21:56:09Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "ad17438eb3dfe385fd5e198b8dd55084737ebadb",
+   "committed": "2026-09-26T22:10:04+00:00",
+   "subject": "a33 dev: the stage-2 module text byte for byte (frozen docstring)",
+   "runs": [
+    {
+     "run_id": "36275377264",
+     "tier": "A",
+     "created_at": "2026-09-26T22:10:08Z",
+     "head_branch": "claude/a33-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/result.md:203"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "d204841a6108a9fc85bfd6d372058f0d498e9804",
+   "committed": "2026-09-27T05:19:12+00:00",
+   "subject": "a34-dev: elaboration check of the frozen A34 propositions (disposable branch, never landed)",
+   "runs": [
+    {
+     "run_id": "36296861494",
+     "tier": "B",
+     "created_at": "2026-09-27T05:19:18Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/preregistration.md:824"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "4ad2037476059119524c03356ce9aeeae736e0a0",
+   "committed": "2026-09-27T05:25:22+00:00",
+   "subject": "a34-dev: disposable census family for the elaboration module (never landed)",
+   "runs": [
+    {
+     "run_id": "36297196513",
+     "tier": "B",
+     "created_at": "2026-09-27T05:26:13Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/preregistration.md:825"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "432820d0fc16832108bedfc751bfc1248f2cf7c1",
+   "committed": "2026-09-27T05:26:43+00:00",
+   "subject": "a34-elaboration-counter: one deliberate defect, an extra argument in P_R (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36297226027",
+     "tier": "B",
+     "created_at": "2026-09-27T05:26:51Z",
+     "head_branch": "claude/a34-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/preregistration.md:826"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "2e8357b90fff68ecb7bd807d7b1857151e0219a6",
+   "committed": "2026-09-27T06:12:01+00:00",
+   "subject": "a34-dev: first proof module for A34 (disposable branch from F, never landed)",
+   "runs": [
+    {
+     "run_id": "36299395269",
+     "tier": "A",
+     "created_at": "2026-09-27T06:12:07Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/result.md:190"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "48ee559b132e38408dd4c7ad056217a79dd39b30",
+   "committed": "2026-09-27T06:21:55+00:00",
+   "subject": "a34-dev: proof module p2 (disposable branch from F, never landed)",
+   "runs": [
+    {
+     "run_id": "36299880442",
+     "tier": "A",
+     "created_at": "2026-09-27T06:22:01Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/result.md:190"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "47ca9fce1492ae5e51065ce485bbf9a0c5f384cb",
+   "committed": "2026-09-27T06:33:57+00:00",
+   "subject": "a34-dev: proof module p3 (disposable branch from F, never landed)",
+   "runs": [
+    {
+     "run_id": "36300473449",
+     "tier": "A",
+     "created_at": "2026-09-27T06:34:04Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/result.md:190"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "54324ade409c63067542846f7d5495f08b4477e1",
+   "committed": "2026-09-27T09:02:10+00:00",
+   "subject": "a35-dev: elaboration of the frozen A35 propositions (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36308085118",
+     "tier": "A",
+     "created_at": "2026-09-27T09:02:13Z",
+     "head_branch": "claude/a35-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/preregistration.md:881",
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:215"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "bf78910f73f68f0d2c6348849c1a3f1cf7230131",
+   "committed": "2026-09-27T09:14:55+00:00",
+   "subject": "a35 elaboration countercontrol: one deliberate defect in P_R (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36308759834",
+     "tier": "A",
+     "created_at": "2026-09-27T09:14:59Z",
+     "head_branch": "claude/a35-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/preregistration.md:883",
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:217"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "28d9978b9a309d79886fc5f44690d25de8c81e85",
+   "committed": "2026-09-27T09:22:20+00:00",
+   "subject": "a35-dev: the corrected exact-computation probe (disposable branch)",
+   "runs": [
+    {
+     "run_id": "36309156707",
+     "tier": "A",
+     "created_at": "2026-09-27T09:22:24Z",
+     "head_branch": "claude/a35-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/amendments/amendment-1.md:27",
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/preregistration.md:882",
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:216"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "93346883183dbde00ca398b736f316bb56c29ed3",
+   "committed": "2026-09-27T10:32:15+00:00",
+   "subject": "a35 dev: third proof pass; amended probe (exact tangent test, exact stabilizers)",
+   "runs": [
+    {
+     "run_id": "36312854482",
+     "tier": "A",
+     "created_at": "2026-09-27T10:32:18Z",
+     "head_branch": "claude/a35-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:220"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "a936230b29a445088a53a6f64d0e93cb5f91ab2e",
+   "committed": "2026-09-27T10:37:36+00:00",
+   "subject": "a35 dev: corrected probe (exact stabilizers 8192 and 128 with the orbit control)",
+   "runs": [
+    {
+     "run_id": "36313140818",
+     "tier": "A",
+     "created_at": "2026-09-27T10:37:40Z",
+     "head_branch": "claude/a35-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/amendments/amendment-1.md:28",
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:221"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "ae1e671754c75583ff6c3b00e849bb055ce5d628",
+   "committed": "2026-09-27T15:41:36+00:00",
+   "subject": "a36 elaboration: explicit binders in the flatness predicate",
+   "runs": [
+    {
+     "run_id": "36330499550",
+     "tier": "B",
+     "created_at": "2026-09-27T15:41:41Z",
+     "head_branch": "claude/a36-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md:852"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "0a5c2f52119e6a1ad64dbb22cebcffadc842ac8c",
+   "committed": "2026-09-27T15:51:53+00:00",
+   "subject": "a36 elaboration countercontrol: one deliberate defect, an extra argument to dg in P_R's HULLG conjunct (disposable)",
+   "runs": [
+    {
+     "run_id": "36331117696",
+     "tier": "B",
+     "created_at": "2026-09-27T15:51:59Z",
+     "head_branch": "claude/a36-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md:853"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "3641125e17fb0b439c02d6a60a991158fc70ee9f",
+   "committed": "2026-09-27T16:00:34+00:00",
+   "subject": "a36 elaboration: the frozen probe wired into the probes job (disposable)",
+   "runs": [
+    {
+     "run_id": "36331629574",
+     "tier": "B",
+     "created_at": "2026-09-27T16:00:41Z",
+     "head_branch": "claude/a36-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md:854"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "2f9707a16757f110b7244fe4b48cd96593f69b44",
+   "committed": "2026-09-27T16:04:32+00:00",
+   "subject": "a36 elaboration: the frozen probe with the u = 1 control and the second point on the line (disposable)",
+   "runs": [
+    {
+     "run_id": "36331881958",
+     "tier": "B",
+     "created_at": "2026-09-27T16:04:38Z",
+     "head_branch": "claude/a36-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md:855"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "350030824c21456dfb680c5ee8d64121530b48b1",
+   "committed": "2026-09-27T16:31:19+00:00",
+   "subject": "a36 elaboration: the frozen probe with the sector certificate at seeded generic directions (disposable)",
+   "runs": [
+    {
+     "run_id": "36333554801",
+     "tier": "B",
+     "created_at": "2026-09-27T16:31:26Z",
+     "head_branch": "claude/a36-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md:856"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "d3fe85ea31f1b295da1589a02889d0856ba39af4",
+   "committed": "2026-09-27T17:32:46+00:00",
+   "subject": "a36 dev: first proof pass of the stage-1 module (disposable)",
+   "runs": [
+    {
+     "run_id": "36337348555",
+     "tier": "A",
+     "created_at": "2026-09-27T17:32:53Z",
+     "head_branch": "claude/a36-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/result.md:221"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "304f89e4eb79123e5311f2ef2ff502121b8d6232",
+   "committed": "2026-09-27T17:38:35+00:00",
+   "subject": "a36 dev: second proof pass (binder shadowing in the flatness hypotheses, the split_ifs cases, the phase lemma, the point's conjugates)",
+   "runs": [
+    {
+     "run_id": "36337705347",
+     "tier": "A",
+     "created_at": "2026-09-27T17:38:42Z",
+     "head_branch": "claude/a36-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/result.md:199"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "f1519a0d3e863504e4471c4870c06b11c6d6415e",
+   "committed": "2026-09-27T17:44:44+00:00",
+   "subject": "a36 dev: the verdict theorem and the corollary (disposable)",
+   "runs": [
+    {
+     "run_id": "36338078890",
+     "tier": "A",
+     "created_at": "2026-09-27T17:44:51Z",
+     "head_branch": "claude/a36-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/result.md:200"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "10781e7560210e9625076d9cc47d8f2c295317b0",
+   "committed": "2026-09-28T04:20:41+00:00",
+   "subject": "A37 design: elaboration of the thirteen frozen propositions and the corollary (disposable)",
+   "runs": [
+    {
+     "run_id": "36377310857",
+     "tier": "B",
+     "created_at": "2026-09-28T04:20:47Z",
+     "head_branch": "claude/a37-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md:1337"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "52ef3fb2dc4be0bc5fcaf3207b103e3096c676f7",
+   "committed": "2026-09-28T04:26:11+00:00",
+   "subject": "A37 design: first proof pass of the module with the verdict (disposable)",
+   "runs": [
+    {
+     "run_id": "36377702851",
+     "tier": "A",
+     "created_at": "2026-09-28T04:26:18Z",
+     "head_branch": "claude/a37-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md:1338",
+      "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/result.md:185"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "d79ac73c85ab51b06cd6541f3770a684e6d50ee8",
+   "committed": "2026-09-28T04:31:55+00:00",
+   "subject": "A37 design: second proof pass (symmetry lemma form, base control by table lemmas) (disposable)",
+   "runs": [
+    {
+     "run_id": "36378121576",
+     "tier": "B",
+     "created_at": "2026-09-28T04:32:02Z",
+     "head_branch": "claude/a37-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md:1339"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "133c9d17d6de18076873e2b0aa8bc58e140858cf",
+   "committed": "2026-09-28T04:37:30+00:00",
+   "subject": "A37 design: countercontrol, one deliberate defect in an exclusion witness (disposable)",
+   "runs": [
+    {
+     "run_id": "36378520807",
+     "tier": "B",
+     "created_at": "2026-09-28T04:37:36Z",
+     "head_branch": "claude/a37-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md:1340"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "2b1bfb971c4ecbcbdcd0d72519259099aa76deb8",
+   "committed": "2026-09-28T04:37:37+00:00",
+   "subject": "A37 design: the probe wired into the A36 shard (disposable)",
+   "runs": [
+    {
+     "run_id": "36378528259",
+     "tier": "B",
+     "created_at": "2026-09-28T04:37:43Z",
+     "head_branch": "claude/a37-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-37-arc-exclusivity/preregistration.md:1341"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "b4bdf70d2b7363aa1afd8b799e98be64562feebc",
+   "committed": "2026-09-28T08:00:04+00:00",
+   "subject": "A38 design (a38-elab): DitaLocalEscape module on a disposable branch from D",
+   "runs": [
+    {
+     "run_id": "36394779889",
+     "tier": "B",
+     "created_at": "2026-09-28T08:00:12Z",
+     "head_branch": "claude/a38-elab",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md:1522"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "3e6434100e6ecbc114e38b1b1ceffc04cb6f2d58",
+   "committed": "2026-09-28T08:00:07+00:00",
+   "subject": "A38 design (a38-dev): DitaLocalEscape module on a disposable branch from D",
+   "runs": [
+    {
+     "run_id": "36394783617",
+     "tier": "B",
+     "created_at": "2026-09-28T08:00:14Z",
+     "head_branch": "claude/a38-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md:1523"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "176b9584c01b3bbfb442899ffe159d9d47abc045",
+   "committed": "2026-09-28T08:12:43+00:00",
+   "subject": "A38 design: second proof pass (row cores, unitary core by bullets, witness positions, Cayley unit)",
+   "runs": [
+    {
+     "run_id": "36396014114",
+     "tier": "B",
+     "created_at": "2026-09-28T08:12:48Z",
+     "head_branch": "claude/a38-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md:1524"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "a3405193ff12b068bf396b5d3f9a09484b305194",
+   "committed": "2026-09-28T08:26:47+00:00",
+   "subject": "A38 design: third proof pass (row identities split by column block, t1 index evaluation, Cayley conjugate)",
+   "runs": [
+    {
+     "run_id": "36397409142",
+     "tier": "B",
+     "created_at": "2026-09-28T08:26:52Z",
+     "head_branch": "claude/a38-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md:1525"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "41ee6255e1f3c9aea70528b23803f26ce586293a",
+   "committed": "2026-09-28T08:40:00+00:00",
+   "subject": "A38 design: the probe in its own shard (design run)",
+   "runs": [
+    {
+     "run_id": "36398722159",
+     "tier": "B",
+     "created_at": "2026-09-28T08:40:03Z",
+     "head_branch": "claude/a38-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md:1527"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "fc0dd5e578a66f50603fcdca9d551393132df71c",
+   "committed": "2026-09-28T10:59:59+00:00",
+   "subject": "A39 design (a39-elab): DitaTorus module on a disposable branch from D",
+   "runs": [
+    {
+     "run_id": "36413005685",
+     "tier": "B",
+     "created_at": "2026-09-28T11:00:05Z",
+     "head_branch": "claude/a39-elab",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-39-realizable-torus/preregistration.md:677"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "6f03dc42cc35e8a18b2ffe4dd0b1b0967b3e364d",
+   "committed": "2026-09-28T11:00:05+00:00",
+   "subject": "A39 design (a39-dev): DitaTorus module on a disposable branch from D",
+   "runs": [
+    {
+     "run_id": "36413016990",
+     "tier": "B",
+     "created_at": "2026-09-28T11:00:11Z",
+     "head_branch": "claude/a39-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-39-realizable-torus/preregistration.md:678"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "4cefb665a3a36e7575449dcdcd6864276d969917",
+   "committed": "2026-09-28T11:09:46+00:00",
+   "subject": "A39 design: the probe in act 38's shard (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36413991352",
+     "tier": "B",
+     "created_at": "2026-09-28T11:09:51Z",
+     "head_branch": "claude/a39-probe",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-39-realizable-torus/preregistration.md:680"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "7dacbc0f0ef478ff026835fe52e3894fcabe4000",
+   "committed": "2026-09-28T16:24:03+00:00",
+   "subject": "A40 design countercontrol: absent face u2 = -1 under the t1 map and one exclusion value flipped (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36450749717",
+     "tier": "B",
+     "created_at": "2026-09-28T16:24:08Z",
+     "head_branch": "claude/a40-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:746"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "f34feea0bae1cd3d28a83755cfd6cd8d4dbb019d",
+   "committed": "2026-09-28T16:32:11+00:00",
+   "subject": "A40 design (a40-dev): row identities by definitional show to the class representative and one scalar lemma",
+   "runs": [
+    {
+     "run_id": "36451750208",
+     "tier": "B",
+     "created_at": "2026-09-28T16:32:15Z",
+     "head_branch": "claude/a40-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:745"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "c3821642f90c442dca898bc7a94709ac9f7472b7",
+   "committed": "2026-09-28T16:37:14+00:00",
+   "subject": "A40 design countercontrol on the v11 generator (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36452360434",
+     "tier": "B",
+     "created_at": "2026-09-28T16:37:18Z",
+     "head_branch": "claude/a40-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:747"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "97a8805fd3d503b1710aa997d2fa5f9e5f8b349d",
+   "committed": "2026-09-28T16:44:54+00:00",
+   "subject": "A40 design measurement: locus probe in its own shard (disposable, never landed)",
+   "runs": [
+    {
+     "run_id": "36453264799",
+     "tier": "B",
+     "created_at": "2026-09-28T16:44:58Z",
+     "head_branch": "claude/a40-probe",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:749"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "d6d95cdaab8001b17d1028abebb4e5baf5cf57f5",
+   "committed": "2026-09-28T16:46:03+00:00",
+   "subject": "A40 design (a40-dev): the module in its intended frozen form (no linter options, one axioms line per theorem)",
+   "runs": [
+    {
+     "run_id": "36453414586",
+     "tier": "B",
+     "created_at": "2026-09-28T16:46:09Z",
+     "head_branch": "claude/a40-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:748"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "91725db7bca398e5279fdd8659a9622d92a2c4e4",
+   "committed": "2026-09-28T19:07:18+00:00",
+   "subject": "A40 pre-freeze (disposable, never landed): census family and the P0 sentence; the predicted execution tree less the result note",
+   "runs": [
+    {
+     "run_id": "36470083819",
+     "tier": "B",
+     "created_at": "2026-09-28T19:07:56Z",
+     "head_branch": "claude/a40-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:750",
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:752"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "34efa117c80ab13c789e0282fc9b3abfdc3fb807",
+   "committed": "2026-09-29T07:59:02+00:00",
+   "subject": "A41 stage 2 (predicted-tree rehearsal): measurements.json and the surfaces rendered from it",
+   "runs": [
+    {
+     "run_id": "36542154102",
+     "tier": "B",
+     "created_at": "2026-09-29T08:20:59Z",
+     "head_branch": "claude/a41-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-41-index-map-semantics/preregistration.md:431"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "ad64b603b7a1dac18b7246d339abaf43a3642dd3",
+   "committed": "2026-09-29T18:33:15+00:00",
+   "subject": "A45 predicted tree (disposable): the execution less the result note",
+   "runs": [
+    {
+     "run_id": "36612901341",
+     "tier": "A",
+     "created_at": "2026-09-29T18:33:31Z",
+     "head_branch": "claude/a45-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:400",
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:402",
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/result.md:53"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "51bec3d5060c73b8afd5f3664b29ffb3b8838c96",
+   "committed": "2026-09-29T21:45:12+00:00",
+   "subject": "A42 predicted execution tree less the result note (design evidence, disposable)",
+   "runs": [
+    {
+     "run_id": "36635398265",
+     "tier": "B",
+     "created_at": "2026-09-29T21:45:41Z",
+     "head_branch": "claude/a42-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-42-support-minimality/preregistration.md:525"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "b177eef4a9d9ceae608e94c6061cd55c5f473825",
+   "committed": "2026-09-29T21:47:37+00:00",
+   "subject": "A42 predicted tree: the DFS part sets the argv its imported tool reads (design evidence, disposable)",
+   "runs": [
+    {
+     "run_id": "36635614122",
+     "tier": "B",
+     "created_at": "2026-09-29T21:47:44Z",
+     "head_branch": "claude/a42-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-42-support-minimality/preregistration.md:527"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "1391b9a6a3522087146ab34655e6ca248429f0c4",
+   "committed": "2026-09-30T11:27:19+00:00",
+   "subject": "NB-1 design: proof repairs; probe and shard (disposable)",
+   "runs": [
+    {
+     "run_id": "36708644229",
+     "tier": "B",
+     "created_at": "2026-09-30T11:27:22Z",
+     "head_branch": "claude/nb1-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:490"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "5e5a529c6b93470cc2726eb908eb814bfd19a444",
+   "committed": "2026-09-30T11:31:41+00:00",
+   "subject": "NB-1 design: census family; parity without the involution hypothesis (disposable)",
+   "runs": [
+    {
+     "run_id": "36709099600",
+     "tier": "B",
+     "created_at": "2026-09-30T11:31:45Z",
+     "head_branch": "claude/nb1-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:397"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "4f0fe7fb80f7bdf693cc3d974b8f83085cc84679",
+   "committed": "2026-09-30T11:39:05+00:00",
+   "subject": "NB-1 design: verdict nb1_kernel_core; layered header; S3 countercontrol (disposable)",
+   "runs": [
+    {
+     "run_id": "36709850033",
+     "tier": "B",
+     "created_at": "2026-09-30T11:39:09Z",
+     "head_branch": "claude/nb1-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:490"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "f41946312d56978569392a54e86f7e301bb7b029",
+   "committed": "2026-09-30T11:46:24+00:00",
+   "subject": "NB-1 predicted: the execution tree less the result note (disposable)",
+   "runs": [
+    {
+     "run_id": "36710673482",
+     "tier": "B",
+     "created_at": "2026-09-30T11:47:12Z",
+     "head_branch": "claude/nb1-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:400",
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:402",
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:490"
+     ]
+    }
+   ]
+  }
+ ]
+}

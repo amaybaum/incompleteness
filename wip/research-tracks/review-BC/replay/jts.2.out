@@ -1,0 +1,35 @@
+PASS DICT1  Pauli tensor orthogonality tr(T_mn T_ab) = 4 delta delta on all 256 pairs
+PASS DICT2  coordOf(dict E_mn) = E_mn and dict E_mn Hermitian, 16 basis tables
+PASS DICT3  pairVal(a,b,w) = tr((sum a.sigma (x) sum b.sigma) dict w), 24 seeded rational samples
+PASS DICT4  dict(prodState x y) = tokMat(hom x) (x) tokMat(hom y) on 25 rational unit pairs
+PASS QI1  Pi_b = (I + b.sigma)/2 is a rank-one projector for 8 rational unit b
+PASS QI2  every listed quantum pair state is PSD (exact LDL certificate), 9 states
+PASS QI3  [sample] normalized coincidences tr((Pi_a (x) Pi_b) rho)/tr rho lie in [0,1], 576 cases
+PASS QI4  P_+ = (I - 8 e_(1,1))/2 is a projector and tr(P_+ e_(1,1)) = -1/8: e_(1,1) in maxCone, not in Q3
+PASS CI1  every listed effect a + v x on [-1,1] is (a+v)(1+x)/2 + (a-v)(1-x)/2 with weights in [0,1], 85 effects
+PASS CI2  W 1 corner-coincidence map invertible (det 1/16); corner products give the unit distributions
+PASS FIX1a  K_B generator B = |00+11><00+11|/2 is a rank-one projector (B in Q3, so K_B in Q3 in maxCone)
+PASS FIX1b  #820 reproduced: Phi_1(B) as displayed, PSD; Tr(W B) = 0, Tr(W Phi_1(B)) = -1/4 (a preservation failure, not a validity failure)
+PASS FIX2a  K(Z_F) defects: product pairing (t00/4)(1 + a.M c) with M a signed permutation, all four sign pairs (so defects in maxCone)
+PASS FIX2b  [sample] every defect is nonnegative on all 64 rational sharp product tests
+PASS MER1  bloch(m,n) is a rational unit vector on the half-meridian x>=0, y=0, with tokMat = (m,n)(m,n)^T/(m^2+n^2); 48 pairs
+PASS MER2  reach_block instance: blockMat(U0,U1) (25 dict prodState(bloch(3,4), z3)) blockMat^dagger = x x^dagger, U0, U1 in SU(2)
+PASS MER3  cnot, 1(x)phaseMat(3/5,4/5), 1(x)cycMat are control-block-diagonal with unitary blocks (they fix the control weights)
+PASS MER4a  omega_c is Hermitian, not PSD (v^dag omega_c v = -1) and not in maxCone (product test |-><-|(x)|0><0| gives -1/2)
+PASS MER4b  for every control weight q in F = {0, 1/10, 1}: 4 c^2 q (1-q) <= 1 (the written lower bound 1 - 2c sqrt(q(1-q)) is >= 0)
+PASS MER4c  [sample] x^dag omega_c x >= 0 for 108 Gaussian-rational vectors with control weight in F
+PASS MER4d  the weight-1/2 meridian test after blockMat(I,-I) has value -1/2 on omega_c (a dense weight set excludes it)
+PASS MER5  -P0(x)P1 is zero on every listed meridian test (target z3) and -1 on the product test z3 (x) (-z3): invariance is load-bearing
+PASS SJV1  phi_1^*(Pi_b) is an effect (0 <= . <= I) for 8 rational b: pulled-back product tests stay product effects
+PASS SJV2  e_(1,1) is negative (-1/8 per unit) on the weight-1/2 meridian test moved by a block op of SU(2)xSU(2)
+
+MUTATION-REJECTED dict_factor: target DICT2; failing DICT2,DICT3,DICT4,MER2,MER4d,SJV2
+MUTATION-REJECTED adjoint: target MER2; failing MER2
+MUTATION-REJECTED cyc_on_control: target MER3; failing MER3
+MUTATION-REJECTED F_half: target MER4b; failing MER4b,MER4c
+MUTATION-REJECTED zf_coeff: target FIX2a; failing FIX2a,FIX2b,QI4,SJV2
+MUTATION-REJECTED classical_corner: target CI1; failing CI1
+MUTATION-REJECTED phi_weights: target FIX1b; failing FIX1b
+
+checks: 24, failures: 0; mutations: 7, missed: 0
+VERDICT JTS-EXACT: PASS (finite exact certificates and labelled samples; not universal proofs)

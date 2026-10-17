@@ -1,0 +1,19 @@
+mutation grid_small     target LAW   REJECTED (failing: ['LAW'])
+mutation no_ledger      target INJ   REJECTED (failing: ['BIJ', 'INJ', 'TBL'])
+mutation seed_reuse     target LAW   REJECTED (failing: ['LAW', 'SEED'])
+mutation L_one_site     target SITE  REJECTED (failing: ['SITE'])
+mutation local_reads_h  target SITE  REJECTED (failing: ['LAW', 'SITE'])
+PASS GRID: G = lcm of the conditional denominators = 4; seeds uniform on {0..3}
+PASS LAW: V16: realized joint law = dense Born law on all 287 distinct instrument sequences (the 301 preparation-test pairs)
+PASS INJ: V16: each of the 9 step maps is injective on its 7023 reached arguments in total, and the explicit inverse recovers each argument
+PASS BIJ: V16: every step map extends to a bijection of one finite set of 7117 states (partial permutation completed on the remainder)
+PASS SEED: V16: on every 7th reached argument, changing any seed other than that of the step's own measurement changes only that seed in the image
+PASS LAW: VS: realized joint law = dense Born law on all 287 distinct instrument sequences (the 301 preparation-test pairs)
+PASS INJ: VS: each of the 9 step maps is injective on its 28092 reached arguments in total, and the explicit inverse recovers each argument
+PASS BIJ: VS: every step map extends to a bijection of one finite set of 28468 states (partial permutation completed on the remainder)
+PASS SEED: VS: on every 7th reached argument, changing any seed other than that of the step's own measurement changes only that seed in the image
+PASS SITE: VS: every instrument other than L is independent of the hidden sites hA, hB and leaves them unchanged on all reached arguments; L's image depends on hA and on hB (exact witnesses)
+PASS SITE: V16: every reached register is block-diagonal in hh; every instrument other than L acts identically on the four hh blocks, and L conjugates exactly the odd-parity blocks by X_B
+PASS TBL: VS realized table: Qe and Qo agree on every local-only test word and differ on (L, RD)
+checks: 12, failures: 0, mutations rejected: 5/5
+VERDICT PADDED-PAIR-OI-REALIZED-EXACT

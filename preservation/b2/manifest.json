@@ -1,0 +1,476 @@
+{
+ "bundle": "host-unreferenced-23-supplement-20261016.bundle",
+ "bytes": 184402,
+ "sha256": "52e0a9f4f345e89578f8ddaf0fecd2e81966f9a0375cb2490b7800784891f0be",
+ "created": "2026-10-16",
+ "supplements": {
+  "bundle": "host-unreferenced-84-20261016.bundle",
+  "sha256": "eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd"
+ },
+ "why_a_supplement": "these 23 commits head cited runs whose citing lines lack the words run, job and actions/, so the audit rule did not count them and the first bundle did not include them; the two bundles are disjoint and together hold all 107 host-unreferenced commits of cited runs",
+ "refs": "refs/preserve/<commit> for each commit below",
+ "prerequisite": "66a981d5a9cab35b9ebd253aa0e610c0afbfefb6 (main after the R1 landing)",
+ "restore": "git fetch <bundle> 'refs/preserve/*:refs/preserve/*' in any clone holding 66a981d5; verified 2026-10-16 into a fresh bare repository holding only main 66a981d5 (23/23 refs, git fsck --full clean), and with both bundles into one fresh repository (107 refs, fsck clean)",
+ "commits": [
+  {
+   "commit": "6c30c61369dfa7245f080533099813b233e07d8b",
+   "committed": "2026-09-26T05:58:03+00:00",
+   "subject": "A30 pre-freeze elaboration countercontrol: one ill-typed proposition, which must fail the build (disposable)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36222335508",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-26T05:58:08Z",
+     "head_branch": "claude/a30-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-30-product-strict-lift/preregistration.md:504"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "743caf402767cb2df213b122498a93646641d53a",
+   "committed": "2026-09-26T10:25:22+00:00",
+   "subject": "A31 pre-freeze elaboration (counter): #check of the frozen propositions (disposable)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36235747207",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-26T10:25:32Z",
+     "head_branch": "claude/a31-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-31-off-locus-uniqueness/preregistration.md:491"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "9bbbde0d86b936e73287d2574431bde8b2c203fd",
+   "committed": "2026-09-26T12:22:21+00:00",
+   "subject": "A32 pre-freeze elaboration (good): #check of the frozen propositions (disposable)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36241719499",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-26T12:22:37Z",
+     "head_branch": "claude/a32-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:554"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "f521d8d4f6cc851a5872d2f474242e7e5710294c",
+   "committed": "2026-09-26T12:50:26+00:00",
+   "subject": "A32 pre-freeze elaboration: wire after StrictNaturalLift, keeping R7-NLV's pinned adjacency (disposable)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36243198088",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-26T12:50:34Z",
+     "head_branch": "claude/a32-elaboration-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:556"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "43e3b7b52186593fe8ec3c2ac3f8ebbe103cdd10",
+   "committed": "2026-09-26T13:11:39+00:00",
+   "subject": "A32 pre-freeze S_SEP timing rehearsal (disposable, never landed)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36244347747",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-26T13:11:42Z",
+     "head_branch": "claude/a32-sep-rehearsal",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-32-orbit-isometry-classification/preregistration.md:571"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "4c4155da059388a4724039fd5e60aaa96965f7c3",
+   "committed": "2026-09-26T16:58:01+00:00",
+   "subject": "A33 elaboration: candidate frozen propositions as #check (disposable, never landed)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36257341185",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-26T16:58:08Z",
+     "head_branch": "claude/a33-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:710"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "a96e21cf52ceb20509d4b6999520cfb54269118e",
+   "committed": "2026-09-27T06:40:36+00:00",
+   "subject": "a34-dev: proof module p4 (disposable branch from F, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36300803198",
+     "cited_by": "outside-rule-R",
+     "tier": "A",
+     "created_at": "2026-09-27T06:40:43Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/result.md:191"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "cf910de032f761a432e7c53b55a6534b645693be",
+   "committed": "2026-09-27T06:48:47+00:00",
+   "subject": "a34-dev: the stage-2 module text byte for byte (disposable branch from F, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36301205489",
+     "cited_by": "outside-rule-R",
+     "tier": "A",
+     "created_at": "2026-09-27T06:48:53Z",
+     "head_branch": "claude/a34-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "success",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-34-product-stratum/result.md:193"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "2ae4dbeeceae2b2e66bd43658045b67da0f0e650",
+   "committed": "2026-09-27T09:53:10+00:00",
+   "subject": "a35-dev: proof development, first pass (disposable branch)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36310787113",
+     "cited_by": "outside-rule-R",
+     "tier": "A",
+     "created_at": "2026-09-27T09:53:14Z",
+     "head_branch": "claude/a35-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:218"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "4f08873278b8da5624803099d23c23f324ba8e66",
+   "committed": "2026-09-27T10:23:18+00:00",
+   "subject": "a35 dev: second proof pass for DitaHull",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36312374265",
+     "cited_by": "outside-rule-R",
+     "tier": "A",
+     "created_at": "2026-09-27T10:23:22Z",
+     "head_branch": "claude/a35-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:219"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "8fb7e1ed82d48c8bbc1de7622095058e4987016a",
+   "committed": "2026-09-27T15:36:26+00:00",
+   "subject": "a36 elaboration: the nine frozen propositions and the corollary as #check commands (disposable)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36330185755",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-27T15:36:32Z",
+     "head_branch": "claude/a36-elaboration",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-36-dita-hierarchy/preregistration.md:851"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "e4d7ec1fa2f1a6764415433081309708ae165075",
+   "committed": "2026-09-28T08:40:20+00:00",
+   "subject": "A38 design countercontrol: one witness position of the k1 column exclusion moved (must be red)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36398762851",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-28T08:40:27Z",
+     "head_branch": "claude/a38-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-38-local-escape/preregistration.md:1526"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "ea0cd8f365453bcb61b2682981299ffe64ec58c8",
+   "committed": "2026-09-28T11:10:09+00:00",
+   "subject": "A39 design countercontrol: one entry of C cleared (disposable, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36414030731",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-28T11:10:13Z",
+     "head_branch": "claude/a39-counter",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-39-realizable-torus/preregistration.md:679"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "a23573723c7191c3e24882244cdf210dfc87cd8f",
+   "committed": "2026-09-28T13:45:10+00:00",
+   "subject": "A40 design (a40-dev): DitaTorusLocus rehearsal module on a disposable branch from D",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36430858292",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-28T13:45:14Z",
+     "head_branch": "claude/a40-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:744"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "5eec100c794f2a4461ab345f83b8eec0ce8bbd35",
+   "committed": "2026-09-28T16:22:17+00:00",
+   "subject": "A40 design (a40-dev): row identities close by explicit kappa cancellation and definitional index equality",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36450535104",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-28T16:22:21Z",
+     "head_branch": "claude/a40-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-40-dita-locus/preregistration.md:744"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "fa26d6a306c9894adfa2e6f74458722e4b991ae6",
+   "committed": "2026-09-29T16:09:42+00:00",
+   "subject": "A45 bridge dev build (disposable, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36595682134",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-29T16:09:47Z",
+     "head_branch": "claude/a45-bridge-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:395"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "68cf459699f891a222fbe9afe0c90bcd3a3fef77",
+   "committed": "2026-09-29T16:14:37+00:00",
+   "subject": "A45 bridge dev build 2 (disposable, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36596287670",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-29T16:14:42Z",
+     "head_branch": "claude/a45-bridge-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:396"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "a77a7dfd7b373cbecd35d5eabfe971d0b5438924",
+   "committed": "2026-09-29T16:35:56+00:00",
+   "subject": "A45 bridge dev build 3: converse (rooted => slice) and the iff (disposable, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36598896118",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-29T16:36:01Z",
+     "head_branch": "claude/a45-bridge-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:397"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "8863c9c9d54d04413d7fe615cc1a4a25445931bf",
+   "committed": "2026-09-29T16:42:51+00:00",
+   "subject": "A45 bridge dev build 4: trajectory-law congruence and Track-B -> Q_fb -> S corollary (disposable, never landed)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36599732472",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-29T16:42:55Z",
+     "head_branch": "claude/a45-bridge-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:398"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "d7f331581a59fe6214c98ab463ad3cb788042e69",
+   "committed": "2026-09-29T18:01:02+00:00",
+   "subject": "A45 manuscript draft (disposable, never landed): fixed-basis image of a single-time lift",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "36609040917",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-29T18:01:07Z",
+     "head_branch": "claude/a45-manuscript-draft",
+     "event": "workflow_dispatch",
+     "conclusion": "failure",
+     "locations": [
+      "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:399"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "509aeb7570f0e324d50c71a370f74ee54092c312",
+   "committed": "2026-09-30T11:23:41+00:00",
+   "subject": "NB-1 design: dimension-free kernel core (disposable)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36708282201",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-30T11:23:50Z",
+     "head_branch": "claude/nb1-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:395"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "7c66d5a463ff3a0da99e37ab5d7b77bf8cfdf0f8",
+   "committed": "2026-09-30T11:35:43+00:00",
+   "subject": "NB-1 design: deterministic probe (S3 determining set; C7 exact 1 - sqrt 3) (disposable)",
+   "host_served_by_sha": "present locally; host serves by sha (get_commit 2026-10-16)",
+   "runs": [
+    {
+     "run_id": "36709510536",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-09-30T11:35:47Z",
+     "head_branch": "claude/nb1-dev",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-nb-1-native-gate-ball/preregistration.md:398"
+     ]
+    }
+   ]
+  },
+  {
+   "commit": "5a8fd4619da02b3dae9b6998c03f688877154589",
+   "committed": "2026-10-08T03:07:02+00:00",
+   "subject": "RELC-SELECT-1 predicted execution tree (disposable design evidence)",
+   "host_served_by_sha": "fetched-by-sha",
+   "runs": [
+    {
+     "run_id": "37721238035",
+     "cited_by": "outside-rule-R",
+     "tier": "B",
+     "created_at": "2026-10-08T03:07:45Z",
+     "head_branch": "claude/relc-select-predicted",
+     "event": "workflow_dispatch",
+     "conclusion": "cancelled",
+     "locations": [
+      "verification/programmes/oi-qm/reconstruction/round-relc-select-1/preregistration.md:450"
+     ]
+    }
+   ]
+  }
+ ]
+}

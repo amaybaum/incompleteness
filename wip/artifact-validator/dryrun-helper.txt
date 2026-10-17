@@ -1,0 +1,10 @@
+artifact 12090461970 name=ci-logs-05df8cc18e0103ae9f3ffbf52b1ecb6a6aedf64b size_in_bytes=3840244 digest=sha256:218e615835b501270797a31ac861bb51c75aadc7096d8932415cd810633f08dc expired=False created_at=2026-10-17T05:09:37Z expires_at=2026-10-31T05:09:33Z run=39005152534
+run 35351379664 head_sha=df54b99dba99dc043b11752163d8d348c9e54472 run_attempt=1 status=completed conclusion=success event=push
+  attempt 1: head_sha=df54b99dba99dc043b11752163d8d348c9e54472 jobs=3 pages=1 conclusions={"success": 3} job_heads=['df54b99dba99dc043b11752163d8d348c9e54472']
+run 35436171509 head_sha=c6d94dda513b7918bcaff0e79abc51e2ff81f093 run_attempt=1 status=completed conclusion=success event=pull_request
+  attempt 1: head_sha=c6d94dda513b7918bcaff0e79abc51e2ff81f093 jobs=4 pages=1 conclusions={"success": 4} job_heads=['c6d94dda513b7918bcaff0e79abc51e2ff81f093']
+run 36247320536 head_sha=3dca1e378ba38e174497886cb0453d6427334661 run_attempt=1 status=completed conclusion=failure event=workflow_dispatch
+  attempt 1: head_sha=3dca1e378ba38e174497886cb0453d6427334661 jobs=3 pages=1 conclusions={"failure": 1, "success": 2} job_heads=['3dca1e378ba38e174497886cb0453d6427334661']
+run 38245409846 head_sha=1f17f1a631d5b8a57c1b70f5965c6e032e9873da run_attempt=2 status=completed conclusion=success event=workflow_dispatch
+  attempt 1: head_sha=1f17f1a631d5b8a57c1b70f5965c6e032e9873da jobs=34 pages=1 conclusions={"failure": 2, "success": 32} job_heads=['1f17f1a631d5b8a57c1b70f5965c6e032e9873da']
+  attempt 2: head_sha=1f17f1a631d5b8a57c1b70f5965c6e032e9873da jobs=34 pages=1 conclusions={"success": 34} job_heads=['1f17f1a631d5b8a57c1b70f5965c6e032e9873da']

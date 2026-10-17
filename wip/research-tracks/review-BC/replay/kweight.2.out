@@ -1,0 +1,24 @@
+PASS GEN1  the seven k=3 generators (CNOT01, CNOT02, CNOT12, third-axis phase and cyclic map on tokens 1, 2) are unitary
+PASS GEN2  every generator commutes with the token-0 projector P0 (x) I (x) I: token-0 weight is invariant
+PASS GEN-NEG  negative controls: CNOT(1->0), the cyclic map on token 0 and a real rotation on token 0 do not commute with it
+PASS GEN3  conjugation by the phase gate rotates sigma_x to (3/5)sigma_x+(4/5)sigma_y and fixes sigma_z; the cyclic map sends x->y->z->x
+PASS ORB1  a weight-9/25 Gaussian-rational vector is diag(U0,U1) applied to the seed (3,4)/5 (x) |00>, U0, U1 unitary (instance of level-set transitivity)
+PASS CM1  H = S (x) I_4 is Hermitian and x*^dag H x* = -1/25 < 0 on the product vector (3,4)(x)|00>: H is neither PSD nor in maxConeK
+PASS CM2  S-form >= 0 on every token-0 ray of F = [(1, 0), (0, 1), (1, 1), (1, 2), (2, 1), (1, 3), (3, 1)] (exact)
+PASS CM3  12 seeded gate words (length 1-5): each is token-0 block-diagonal and conjugates H to [[S00 I, S01 V],[S01 V^dag, S11 I]] with V unitary
+PASS CM4  [sample] x^dag (U H U^dag) x >= 0 for 336 Gaussian-rational vectors with token-0 ray in F (bound proved in report B2)
+PASS CM5  gapped family: S-form >= 0 at the gap endpoints ((5, 6), (2, 3)) and at q = 0, 1, with the bad ray (3,4) strictly inside the gap
+PASS POS1  the consumed seed test (token-0 ray (3,4), tokens 1, 2 along +z) excludes H: a family with dense weights excludes it
+PASS POS2  positive control: 4 exact PSD states and 12 gate-word images are PSD (LDL) and nonnegative on all 96 seed tests used
+PASS ST1  K(Z_F) defect, trace 1: its 64 coincidence records on rational sharp product tests lie in [0,1] (a valid stage table), yet the PSD projector P_+ gives -1/2
+
+MUTATION-REJECTED cnot_into_token0: target GEN2; failing CM3,GEN2
+MUTATION-REJECTED householder_sign: target ORB1; failing ORB1
+MUTATION-REJECTED psd_S: target CM1; failing CM1,POS1
+MUTATION-REJECTED bad_ray_in_F: target CM2; failing CM2,CM4
+MUTATION-REJECTED nonblock_word: target CM3; failing CM3,CM4
+MUTATION-REJECTED gap_endpoint: target CM5; failing CM5
+MUTATION-REJECTED zf_scale: target ST1; failing ST1
+
+checks: 13, failures: 0; mutations: 7, missed: 0
+VERDICT KWEIGHT-EXACT: PASS (exact k=3 certificates and labelled samples; not universal proofs)

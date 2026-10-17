@@ -1,0 +1,10 @@
+PASS PS1  triangle: its vertices form a frame (barycentric effects in [0,1]); sample points lie in the frame simplex (SP holds)
+PASS PS2  square: 6 of 6 vertex pairs distinguishable, 0 three-vertex frames, p = (1/2,1/5) on no frame segment: SP fails
+PASS PS3  hexagon: 9 distinguishable vertex pairs, 0 three-vertex frames, p = (1/3,1/7) on no frame segment: SP fails
+
+MUTATION-REJECTED triangle_to_square: target PS1; failing PS1
+MUTATION-REJECTED point_on_diagonal: target PS2; failing PS2
+MUTATION-REJECTED hex_center: target PS3; failing PS3
+
+checks: 3, failures: 0; mutations: 3, missed: 0
+VERDICT POLYTOPE-SP-EXACT: PASS (planar exact instances of a written theorem)

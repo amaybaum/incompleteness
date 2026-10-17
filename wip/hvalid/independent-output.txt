@@ -1,0 +1,12 @@
+ok   I1a tr((Π_z⊗Π_z)·diag(-1,1,1,1)) = -1
+ok   I1b both marginals PSD (diag(0,2)), the matrix itself not PSD
+ok   I1c λ1+λ2 = 0 for diag(-1,1,1,1)
+ok   I2a joint eigenvectors of X⊗Z and Y⊗Y found for sign pairs [(-1, -1), (-1, 1), (1, -1), (1, 1)]
+ok   I2b e_(1,1) v = (1 + a + b - ab)/16 · v on each: eigenvalues -2/16 once, 2/16 three times
+ok   I2c V is exactly unitary
+ok   I2d (V e V†): z3⊗z3 sharp value -1/8, both marginals PSD
+ok   I2e e_(1,1) itself is nonnegative on an 8×8 sharp grid
+ok   I3 z-stage products ≥ 0, marginals PSD, x⊗(-x) value -1
+ok   I4a F10 = -1/8
+ok   I4b uniform-K2 FCC violation = -1
+FINAL: 11 exact checks, 0 failed

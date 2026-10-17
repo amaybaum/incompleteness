@@ -1,0 +1,17 @@
+205d204
+<   - Every object read must be well formed and of the type its use requires.
+209,210d207
+<   - The entry ids are the ids the checker pins, `PE-1` to `PE-5` in order, so removing an entry from `errata.json`
+<     and the README alike still fails.
+212c209
+<   - The ids and the rows are in bijection, and their number is `expected_count`, which is the pinned count.
+---
+>   - The ids and the rows are in bijection, and their number is `expected_count`.
+224,226c221,223
+< `--self-test` applies at least one mutation for each place in the checker that reports a failure, and each mutation
+< must be caught by its own sub-code. It also requires that a missing blob, or a missing real-head commit, leaves the
+< verdict UNCHECKED with a nonzero exit. The git cross-check's mutation runs only where the real heads are present.
+---
+> `--self-test` applies at least one mutation per sub-code, and each must be caught by its own sub-code. It also
+> requires a missing object to leave the verdict UNCHECKED with a nonzero exit. The git cross-check's mutation runs only
+> where the real heads are present.

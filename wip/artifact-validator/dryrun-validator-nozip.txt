@@ -1,0 +1,31 @@
+validator commit    (not in GitHub Actions)
+workflow run        - attempt -
+source run          39005152534
+artifact id         12090461970
+expected digest     sha256:218e615835b501270797a31ac861bb51c75aadc7096d8932415cd810633f08dc
+computed digest     unavailable (zip absent (download failed or not run))
+expected size       3840244
+computed size       unavailable (zip absent (download failed or not run))
+validator file      validate_artifact.py sha256=b9b201688daab36c3ad14e91e6ac6f598144aee7575cc09f298cf2f7a6d493bd
+validator file      download_artifact_zip.py sha256=a2c2bab55d580b52b5e353034250f15ba6d46ca548f7ed9c0902bf1cb7da4ede
+validator file      fetch_host_records.py sha256=abcf0843b9dc2bee942d98a22f14beab359d5a4e56c70353e1ec6b556f835fea
+input               batch.json sha256=eeb54509b59776d1623875414bbfdb224e6117b9b8a932f40a81727b7a6f60f1
+input               inventory-runs.csv sha256=6ca5d1acc2dfc7ab53cf2b7d4da418469ebe1acddcdda49fdc876dab12d6812c
+input               inventory-jobs.csv sha256=f8d2fed686cccbfeef1b88c70591e7407a7e66cb927db3f431b4cae30a46cfcc
+expected-set source host job lists and run records (independent of the archiver)
+
+PASS       0.inputs           inputs match their pins: batch.json=eeb54509b59776d1, inventory-runs.csv=6ca5d1acc2dfc7ab, inventory-jobs.csv=f8d2fed686cccbfe
+UNVERIFIED 1.digest           cannot compare: no artifact zip
+UNVERIFIED 1.size             cannot compare: no artifact zip
+PASS       1.identity         artifact 12090461970 name ci-logs-05df8cc18e0103ae9f3ffbf52b1ecb6a6aedf64b from run 39005152534 at 05df8cc18e0103ae9f3ffbf52b1ecb6a6aedf64b
+PASS       1.expiry           expired=false; staged 2026-10-17T05:09:37Z, expires 2026-10-31T05:09:33Z: 14 days -4 s (tolerance 60 s)
+INFO       1.expiry           time to expiry at validation: 335.1 h
+UNVERIFIED 2.files            no verified artifact content to check
+UNVERIFIED 3.records          no verified artifact content to check
+UNVERIFIED 4.zips             no verified artifact content to check
+UNVERIFIED 5.heads            no verified artifact content to check
+UNVERIFIED 6.map              no verified artifact content to check
+UNVERIFIED 7.scan             no verified artifact content to check
+
+summary: 3 PASS, 0 FAIL, 8 UNVERIFIED
+VALIDATE  UNVERIFIED (8)

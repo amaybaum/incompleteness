@@ -1,0 +1,4 @@
+CONTROLS 112
+MUTATIONS rejected 4
+CERTIFICATES coPSD local preservation; CNOT tilt fails protocol and domain
+SP => guaranteed stopped-map preservation: OPEN on the common domain

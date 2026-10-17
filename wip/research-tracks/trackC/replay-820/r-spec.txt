@@ -1,0 +1,19 @@
+{
+  "controls": 57,
+  "kb_Bell_support_gap": "144/313",
+  "kb_distance_bound": "10/13",
+  "scope": "separate rational certificate verification; universal proof and source obligations remain written",
+  "zf_cut_pairings": [
+    "0",
+    "41/126",
+    "41/126",
+    "22/63"
+  ],
+  "zf_projection_weights": [
+    "3/4",
+    "37/84",
+    "37/84",
+    "31/84"
+  ],
+  "zf_weighted_overlap_lower": "(1+t)/3"
+}

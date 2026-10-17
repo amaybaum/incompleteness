@@ -1,0 +1,125 @@
+/- Executable controls WALK and DUMP (meta-level; not kernel proofs).
+   EXTRA is the set of modules in the import closure of `OIBridge.EqvK2MaxCone` and not in that
+   of `OIBridge.EqvK2Generation`, read from the environment header (present mode), or the three
+   OIBridge modules of that set, required to be absent (absent mode). WALK closes the
+   used-constant relation of the kernel-checked `ConstantInfo` of every constant declared in the
+   design modules and fails on any reached constant declared in an EXTRA module. DUMP prints,
+   for every non-internal constant of the design modules, its kind and its type under `pp.all`,
+   and a hash of its value; the comparison across regimes is made outside Lean. -/
+open Lean in
+#eval show Lean.Meta.MetaM Unit from do
+  let env ← getEnv
+  let kenv := env.toKernelEnv
+  let present : Bool := @@PRESENT@@
+  let designModules : Array Name := @@DESIGN_MODULES@@
+  let required : Array Name := @@WALK_REQUIRED@@
+  let theorems : Array Name := @@THEOREMS@@
+  let staticExtra : Array Name :=
+    #[`OIBridge.EqvK2MaxCone, `OIBridge.EffectSpace, `OIBridge.CompositeInterface]
+  -- import closures from the header
+  let mut closures : Std.HashMap Name (Std.HashSet Name) := {}
+  for root in #[`OIBridge.EqvK2MaxCone, `OIBridge.EqvK2Generation] do
+    if (env.getModuleIdx? root).isNone then
+      if present || root == `OIBridge.EqvK2Generation then
+        throwError "WALK-VACUOUS module {root} is not imported"
+      continue
+    let mut seen : Std.HashSet Name := ({} : Std.HashSet Name).insert root
+    let mut stack : Array Name := #[root]
+    while !stack.isEmpty do
+      let x := stack.back!
+      stack := stack.pop
+      let some i := env.getModuleIdx? x
+        | throwError "WALK-INCOMPLETE module {x} has no index"
+      let some md := env.header.moduleData[i.toNat]?
+        | throwError "BRIDGE-INCOMPLETE module {x} has no module data"
+      for imp in md.imports do
+        unless seen.contains imp.module do
+          seen := seen.insert imp.module
+          stack := stack.push imp.module
+    closures := closures.insert root seen
+  let mut extra : Array Name := staticExtra
+  if present then
+    let a := closures.getD `OIBridge.EqvK2MaxCone {}
+    let g := closures.getD `OIBridge.EqvK2Generation {}
+    extra := (a.toArray.filter fun m => !g.contains m).qsort Name.lt
+    for m in staticExtra do
+      unless extra.contains m do
+        throwError "WALK-VACUOUS {m} is not in EXTRA"
+  else
+    for m in staticExtra do
+      if (env.getModuleIdx? m).isSome then
+        throwError "WALK-ABSENT module {m} is imported"
+  logInfo m!"WALK EXTRA-MODULES ({extra.size}): {extra.toList}"
+  -- the roots: every constant declared in a design module
+  let mut roots : Array Name := #[]
+  for m in designModules do
+    let some i := env.getModuleIdx? m
+      | throwError "WALK-VACUOUS design module {m} is not imported"
+    let some md := env.header.moduleData[i.toNat]?
+      | throwError "WALK-INCOMPLETE design module {m} has no module data"
+    roots := roots ++ md.constNames
+  for r in (@@EXTRA_ROOTS@@ : Array Name) do
+    if (kenv.find? r).isNone then
+      throwError "WALK-VACUOUS root {r} is not a constant of the kernel environment"
+    roots := roots.push r
+  for t in theorems do
+    match kenv.find? t with
+    | some (.thmInfo _) => pure ()
+    | _ => throwError "DUMP-VACUOUS {t} is not a theorem of the kernel environment"
+  let modOf : Name → Name := fun c =>
+    match env.getModuleIdxFor? c with
+    | some i => env.allImportedModuleNames[i.toNat]!
+    | none => env.mainModule
+  -- WALK
+  let mut seen : Std.HashSet Name := {}
+  let mut parent : Std.HashMap Name Name := {}
+  let mut queue : Array Name := #[]
+  for r in roots do
+    unless seen.contains r do
+      seen := seen.insert r
+      queue := queue.push r
+  let mut k := 0
+  while k < queue.size do
+    let c := queue[k]!
+    k := k + 1
+    let some ci := kenv.find? c <|> env.find? c
+      | throwError "WALK-INCOMPLETE {c} has no ConstantInfo"
+    for d in ci.getUsedConstantsAsSet do
+      unless seen.contains d do
+        seen := seen.insert d
+        parent := parent.insert d c
+        queue := queue.push d
+  let mut failures : Array String := #[]
+  for r in required do
+    unless seen.contains r do
+      failures := failures.push s!"WALK-REQUIRED {r} is not reached"
+  let hits := (queue.filter fun c => extra.contains (modOf c)).qsort Name.lt
+  for h in hits do
+    let mut chain : Array String := #[toString h]
+    let mut cur := h
+    for _ in [0:queue.size] do
+      match parent[cur]? with
+      | some p => chain := chain.push (toString p); cur := p
+      | none => break
+    failures := failures.push s!"WALK-EXTRA {h} ({modOf h}): {" <- ".intercalate chain.toList}"
+  if failures.isEmpty then
+    logInfo m!"WALK PASS: {roots.size} design constants, {queue.size} constants reached, none declared in EXTRA"
+  else
+    throwError ("WALK FAIL\n" ++ "\n".intercalate failures.toList)
+  -- DUMP
+  let mut out : Array String := #[]
+  for n in roots.qsort Name.lt do
+    if n.isInternal then continue
+    let some ci := kenv.find? n
+      | throwError "DUMP-INCOMPLETE {n} has no ConstantInfo"
+    let kind := match ci with
+      | .thmInfo _ => "theorem" | .defnInfo _ => "def" | .inductInfo _ => "inductive"
+      | .ctorInfo _ => "ctor" | .recInfo _ => "rec" | .opaqueInfo _ => "opaque"
+      | .axiomInfo _ => "axiom" | .quotInfo _ => "quot"
+    let ty ← withOptions (fun o => o.setBool `pp.all true) (Lean.Meta.ppExpr ci.type)
+    let vh := match ci.value? (allowOpaque := true) with
+      | some v => toString v.hash
+      | none => "-"
+    out := out.push s!"STMT {modOf n} {n} {kind} {ci.levelParams} : {ty.pretty 1000000}"
+    out := out.push s!"VALUEHASH {n} {vh}"
+  logInfo ("DUMP-BEGIN\n" ++ "\n".intercalate out.toList ++ "\nDUMP-END")

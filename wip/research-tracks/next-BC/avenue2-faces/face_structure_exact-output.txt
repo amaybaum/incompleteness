@@ -1,0 +1,19 @@
+mutation shared_factor   target PROD  REJECTED (failing: ['NEG', 'PROD', 'W6', 'ZETA'])
+mutation drop_condition  target W6    REJECTED (failing: ['W6'])
+mutation fw_sign         target FW    REJECTED (failing: ['FW'])
+mutation neg_inside      target NEG   REJECTED (failing: ['NEG'])
+mutation gamma_wrong     target GF    REJECTED (failing: ['GF'])
+PASS W6: conditions rank 10, dim W = 6; the six coordinate directions lie in W and are independent
+PASS ZER: f_z vanishes at p1 = a_perp b'_perp and p2 = a'_perp b_perp
+PASS FW: f_w(c,d) = al|AB|^2 + be|A'B'|^2 + 2Re(ga A B conj(A'B')) + 2Re(de A B' conj(A'B)) as a polynomial identity in symbolic c, d
+PASS ZETA: for symbolic zeta, c = (a - zeta a')_perp gives <c|a> = zeta <c|a'> and d = (b - zeta b')_perp gives <d|b> = zeta <d|b'>, with <c|a'>, <d|b'> not identically zero
+PASS NEG: at (al,be,ga,de) = (1,1,1/2,3/5), with sqrt(al be) = 1 < |ga| + |de| = 11/10, the product vector from zeta = -1, xi = 1 gives f_w = -2304/21125 < 0
+PASS QF: w(al,be,ga,0) = sum_ij M_ij |e_i><e_j| with M = [[al,ga],[conj ga,be]], e = (ab, a'b'): the de = 0 slice is PSD(span{ab, a'b'}) = the Q3 face
+PASS GF: Gamma(|ab'><a'b|) = |a b*><a' b'*| and Gamma(x) = |a b*><a b*|: the ga = 0 slice is Gamma(PSD(span{a b*, a' b'*})), the Gamma(Q3) face
+PASS PROD: det of the coefficient matrix of u ab + v a'b' equals u v s s' with s = 4/5, s' = 12*I/13: a product only if u v = 0
+PASS LAM4: the slice de = ga is {al be >= 4|ga|^2, al, be >= 0}: a quadratic form of signature (1,3), a Lorentz cone Lambda_4 inside W cap BP; the slice {ga real, de = 0} has signature (1,2), a Lambda_3
+PASS SEPF: z = w(1,1,0,0) lies strictly inside every listed slice (al be = 1 > 0 = |ga| + |de|); with PROD, the products of each slice are x and y
+PASS DIST: <a'b'|ab> = 3/13 != 0: in a super-quantum domain cone (C* <= PSD) no effect separates x from y
+checks: 11, failures: 0, mutations rejected: 5/5
+sympy 1.14.0
+VERDICT FACE-NOT-DETERMINED-BY-DOMAIN-EXACT

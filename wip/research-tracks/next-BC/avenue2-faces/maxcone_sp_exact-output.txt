@@ -1,0 +1,17 @@
+mutation outside         target RI    REJECTED (failing: ['DEC', 'RI'])
+mutation wrong_root      target DEC   REJECTED (failing: ['DEC'])
+mutation weak_witness    target VIOL  REJECTED (failing: ['VIOL'])
+mutation gamma_mut       target GAMMA REJECTED (failing: ['GAMMA'])
+mutation not_close       target CLOSE REJECTED (failing: ['CLOSE'])
+mutation phi_nonunitary  target PHI   REJECTED (failing: ['PHI'])
+mutation same_pair       target SEPF  REJECTED (failing: ['SEPF'])
+PASS RI: (|ga| + |de|)^2 = 8/9 < 1 = al be: w lies in the relative interior of B6
+PASS DEC: the (1,1) decompositions of w are exactly A1 in ['1/3', '2/3']; for each, P = |psi><psi|/A1 and Q = Gamma(|u><u|)/A2 have the stated coordinates and sum to w
+PASS VIOL: at the product a (x) b the frame condition |<psi|cd>|^2 + |<phi|c d*>|^2 <= 1 fails for both decompositions: values ['46/39', '46/39'] > 1; with (1)-(3), w has no frame decomposition in maxCone, so maxCone is not SP
+PASS GAMMA: <c(x)e|Gamma(M)|c(x)e> = <c(x)e*|M|c(x)e*> for symbolic c, e on all 16 matrix units
+PASS CLOSE: close pair: |<a|a'>|^2 = 576/625, |<b|b'>|^2 = 7200/28561, sum 20951136/17850625 > 1; an effect with f(a,b) = 1, f(a',b') = 0 would need 7200/28561 <= f(a,b') <= 49/625: no domain cone distinguishes x' and y'
+PASS PHI: Tr(Phi_1(X)Y) = Tr(X Phi_1*(Y)) on all units; Phi_1*(|c><c| (x) |d><d|) = |c><c| (x) ((5/8) D^dag|d><d|D + (3/8)|d><d|) with D unitary: Phi_1* preserves SEP, so Phi_1 preserves maxCone = SEP*
+PASS SEPF: W(z) cap W(z') = {0} for the instance pair and the close pair (combined condition rank 16 = 16): in SEP + F (F <= B6(z)) the face of z' is cone{x', y'}, so by CLOSE the state z'/Tr z' has no frame and SEP + F is not SP
+checks: 7, failures: 0, mutations rejected: 7/7
+sympy 1.14.0
+VERDICT MAXCONE-NOT-SP-EXACT

@@ -1,0 +1,18 @@
+mutation L_descends         target NLT   REJECTED (failing: ['DIM', 'DSC', 'K829', 'NLT', 'NLT+', 'SH', 'ST'])
+mutation Qo_no_fix          target NLT   REJECTED (failing: ['DSC', 'NLT', 'NLT+'])
+mutation HB_nonlocal        target NS    REJECTED (failing: ['DSC', 'NS', 'SH'])
+mutation shadow_diag        target SH    REJECTED (failing: ['IF', 'K829', 'SH'])
+mutation rank_short         target DIM   REJECTED (failing: ['DIM'])
+PASS ST: 7 preparations x 43 tests x 4 outcomes (+ unit): every entry in [0,1], every test sums to 1: a valid finite stage
+PASS PF: all 84 effects of the 21 local-only words are E_A (x) E_B (x) I_hh (exact rank-one tensor identities)
+PASS TC: the product effects span Herm(4): rank 16 = 16, so the product-coincidence chart is the full Pauli chart of the shadow
+PASS SH: every shadow Tr_hh rho is a density matrix (exact LDL certificate), and every product-effect row equals the Born row of the shadow under the 4-dim local gates (independent code path)
+PASS NS: on every preparation, A's outcome marginal is independent of B's local word and conversely (exact)
+PASS NLT: Qe and Qo have the same shadow |00><00| and agree on all 84 product effects; on (L, RD=(0,1)) they give 0 and 1; 22 joint effects separate them: the stage is not locally tomographic
+PASS NLT+: Qe+ and Qo+ (shadow |+0><+0|) agree on all product effects and differ on 24 joint effects
+PASS DIM: every effect (depth <= 3) is block-diagonal in hh and depends on hh only through the parity; on the pair (rho_even, rho_odd), of dimension 32, the product effects have rank 16, all depth-2 effects rank 24, all depth-3 effects rank 28 > 16
+PASS DSC: HA, VA, HB, VB, XB, CN act as U (x) I_hh on all 64 block units (hence descend to the shadow); L does not descend: Qe, Qo have equal shadows while L(Qe), L(Qo) have shadows |00><00| and |01><01|
+PASS K829: product preparations have product shadows (|00>, |+0>), CN maps the |+0> shadow to Phi+, and every shadow image under CN and the local gates is a density matrix (shadow images are density matrices; the #829 premises hold for the continuum shadow cone Q3 [W])
+PASS IF: for local preparation words on A and B the composite state is shadow (x) I/4: the product state is a function of the two local states (the hidden prior is fixed)
+checks: 11, failures: 0, mutations rejected: 5/5
+VERDICT PADDED-PAIR-NOT-LT-EXACT

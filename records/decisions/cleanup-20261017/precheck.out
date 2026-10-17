@@ -1,0 +1,134 @@
+== agent-r2b/u1.git
+   exists: True
+   bytes: 600572260
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 174, refs whose object the main clone lacks 0; HEAD HEAD
+== agent-r2b/u2.git
+   exists: True
+   bytes: 602102453
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 1025, refs whose object the main clone lacks 0; HEAD HEAD
+== agent-r2b/u3.git
+   exists: True
+   bytes: 602132885
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 1269, refs whose object the main clone lacks 0; HEAD HEAD
+== agent-r2b/u4.git
+   exists: True
+   bytes: 606519607
+   processes using it: none
+   kept repos borrowing its objects: ['/tmp/claude-0/-home-user-incompleteness/ce7104bc-8508-557b-9490-8c1ce0f7a1ca/scratchpad/agent-r2b/probe.git', '/tmp/claude-0/-home-user-incompleteness/ce7104bc-8508-557b-9490-8c1ce0f7a1ca/scratchpad/agent-offmain/work/src.git', '/tmp/claude-0/-home-user-incompleteness/ce7104bc-8508-557b-9490-8c1ce0f7a1ca/scratchpad/shacheck/all.git']
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 1478, refs whose object the main clone lacks 0; HEAD HEAD
+== agent-r2b/probe-k2g
+   exists: True
+   bytes: 605574592
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo /clone: external worktrees none; modified files 0; refs 2, refs whose object the main clone lacks 0; HEAD 66a981d5a9ca
+== agent-r2b/mech
+   exists: True
+   bytes: 370238546
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+== agent-r2b/probe-og1
+   exists: True
+   bytes: 1816663344
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo /augwork: external worktrees none; modified files 0; refs 2, refs whose object the main clone lacks 1 ['refs/heads/main-66a981d5 f7c1a1afc6fa']; HEAD f7c1a1afc6fa (HEAD object absent from the main clone)
+   repo /augclone: external worktrees none; modified files 0; refs 3, refs whose object the main clone lacks 3 ['refs/heads/main-66a981d5 f7c1a1afc6fa', 'refs/remotes/origin/HEAD f7c1a1afc6fa', 'refs/remotes/origin/main-66a981d5 f7c1a1afc6fa']; HEAD f7c1a1afc6fa (HEAD object absent from the main clone)
+   repo /mainclone: external worktrees none; modified files 0; refs 2, refs whose object the main clone lacks 0; HEAD 66a981d5a9ca
+== agent-errata-fix/clone-branch2
+   exists: True
+   bytes: 605642949
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 213, refs whose object the main clone lacks 0; HEAD b2f06c78631b
+== agent-errata-fix/clone-branch3
+   exists: True
+   bytes: 607176970
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 213, refs whose object the main clone lacks 0; HEAD 8021c1fc4625
+== agent-errata-fix/clone-main2
+   exists: True
+   bytes: 605499352
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 1, refs whose object the main clone lacks 0; HEAD 66a981d5a9ca
+== agent-errata-fix/clone-sd
+   exists: True
+   bytes: 55639022
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 3; refs 217, refs whose object the main clone lacks 0; HEAD b2f06c78631b
+== agent-errata-fix/clone-bd
+   exists: True
+   bytes: 55634154
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 217, refs whose object the main clone lacks 0; HEAD 5b65c93c2396
+== agent-accept/host.git
+   exists: True
+   bytes: 612241814
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 1237, refs whose object the main clone lacks 25 ['refs/pullmerge/820 352f8083cb83', 'refs/pullmerge/821 1d4e934ba137', 'refs/pullmerge/822 4dc24e8dd2a4', 'refs/pullmerge/823 f1441353fc84', 'refs/pullmerge/824 21d8d8b94d7c', 'refs/pullmerge/825 aa224e393a56']; HEAD HEAD
+== agent-accept/restore.git
+   exists: True
+   bytes: 554633710
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 108, refs whose object the main clone lacks 0; HEAD HEAD
+== bundle/src.git
+   exists: True
+   bytes: 552183766
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 216, refs whose object the main clone lacks 0; HEAD HEAD
+== bundle/verify.git
+   exists: True
+   bytes: 552202271
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 216, refs whose object the main clone lacks 0; HEAD HEAD
+== review-855b/noobj
+   exists: True
+   bytes: 605726919
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 3; refs 2, refs whose object the main clone lacks 0; HEAD b2f06c78631b
+== review-855b/shared
+   exists: True
+   bytes: 55646087
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 3; refs 250, refs whose object the main clone lacks 0; HEAD b2f06c78631b
+== review-855/clone
+   exists: True
+   bytes: 55107831
+   processes using it: none
+   kept repos borrowing its objects: none
+   main-clone worktrees inside it: none
+   repo .: external worktrees none; modified files 0; refs 248, refs whose object the main clone lacks 0; HEAD 0326e56b8b8a

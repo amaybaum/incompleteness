@@ -1,0 +1,28 @@
+PASS R1  Gamma2(Ad_(A(x)B)(Gamma2 Y)) = Ad_(A(x)conj B)(Y) on all 16 matrix units, A, B non-unitary: local congruences (hence local CP maps) preserve Gamma(Q3)
+PASS R2  Gamma1 = transpose o Gamma2 and SWAP Gamma2(SWAP Y SWAP) SWAP = Gamma1(Y) on all 16 units: Gamma1(Q3) = Gamma2(Q3)
+PASS R3  the four computational product projectors sum to I and pair as delta_ij: a 4-element frame in every cone with SEP <= C <= maxCone (they lie in C and in C* >= SEP)
+PASS R4  X -> A X A^dag and X -> A X^T A^dag scale the Minkowski form det by |det A|^2 (polarized identity on the Pauli basis); transpose is diag(1,1,-1,1) in Pauli coordinates (improper)
+PASS R5  CNOT|+0> = Bell; <s|Gamma2(Bell)|s> = -1 < 0 for s = |01>-|10>, so CNOT maps a product state out of Gamma(Q3); CNOT conjugation preserves Q3
+PASS R6  Gamma2 o Phi_1 o Gamma2 = (5/8) Ad_(I(x)conj D) + (3/8) id on all 16 units: Phi_1 preserves Gamma(Q3)
+PASS R7  pure-marginal lemma, negative control: zero |1><1| block with a nonzero off-diagonal block gives <cd|X|cd> = -1/2 < 0 at c = (1,-2), d = |0>
+PASS CX0  sigma = (I + (1/2) I(x)sigma_x)/4 is a full-rank density matrix and not invariant under Ad_(I(x)D) (unless the invariant-sigma control is selected)
+PASS CX1a  L and X -> X + s Tr(X) sigma are inverse on all 16 units: C_sigma = L(Q3) is a closed convex cone order-isomorphic to Q3
+PASS CX1b  frame X_i = L(P_i)/(1-t), effects E_i = (1-t)P_i + t Tr(P_i sigma) I: sum E_i = I, Tr(E_j X_i) = delta, and Tr(E_j L(Y)) = (1-t)Tr(P_j Y) on all units (so E_j, I-E_j lie in C_sigma*)
+PASS CX1c  products lie in C_sigma (instances); X = |00><00| - I/20 lies in C_sigma but <11|X|11> = -1/20: C_sigma is not inside maxCone
+PASS CX1d  X = L(|00><00|) is in C_sigma, but <u| Linv(Phi_1 X) |u> = -1/16 < 0 for u = |1>(x)(1,i): Phi_1 does not preserve C_sigma
+PASS CX1e  controls: Phi_1(|00><00|) is PSD (Q3, s = 0, preserved); with the invariant sigma' = (I + (1/2)I(x)sigma_z)/4 the same witness gives 0 >= 0
+PASS CX2  C'_sigma = L2(Q3) (inverse identity on all units) lies in Q3, excludes |00><00| (<11|.|11> < 0), contains X2 = |00><00| + sigma, and <u'| M2(Phi_1 X2) |u'> = -1/8 < 0: Phi_1 does not preserve it
+PASS CW1  W = I/2 - Phi+ is nonnegative on sampled product vectors (zero at |+>|+> and |+i>|-i>): SEP <= C_W <= Q3 <= maxCone (written: product fidelity <= 1/2)
+PASS CW2  rho = |00 - i 11><00 - i 11|/2 has Tr(W rho) = 0 (in C_W); Tr(W Phi_1 rho) = -1/4, Tr(W Ad_(I(x)D) rho) = -2/5: Phi_1 does not preserve C_W
+PASS CW3  rho_bad = (2/5)Phi+ + (3/10)|01><01| + (1/5)|10><10| + (1/10)Phi- lies in C_W, commutes with every M_w, and Y_w has simple spectrum for all w in [0,2): its only M_w-orthogonal frame contains Phi+, which is outside C_W (SP fails; written C4)
+
+MUTATION-REJECTED missing_conj: target R1; failing R1
+MUTATION-REJECTED phi_weights: target R6; failing CW2,R6
+MUTATION-REJECTED invariant_sigma: target CX1d; failing CX1d,CX2
+MUTATION-REJECTED effect_unshifted: target CX1b; failing CX1b
+MUTATION-REJECTED cnot_reversed: target R5; failing R5
+MUTATION-REJECTED phi_identity: target CW2; failing CW2
+MUTATION-REJECTED degenerate_spectrum: target CW3; failing CW3
+
+checks: 17, failures: 0; mutations: 7, missed: 0
+VERDICT SYMRIGID-EXACT: PASS (exact certificates of finite identities and witnesses; the classification is a written argument)
