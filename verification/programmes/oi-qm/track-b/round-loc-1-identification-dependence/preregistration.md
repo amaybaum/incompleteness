@@ -69,7 +69,7 @@ P0's and P2's research commits are not reachable from `main`, so they are proven
 copies every object of theirs that the round reads into `objects/`, byte for byte, as §2.1 lists (owner decision (f)).
 The round reads those objects only from `objects/`, and K-obj checks every copy before any cell runs. Not adopted, and
 used only as objects of test: any identification principle, `SL-U`, coupling-degree minimization and regional
-independence.
+independence. None of them is a premise of the round.
 
 ### 2.1 Frozen objects copied at stage 1
 
@@ -310,8 +310,9 @@ measurement decides; they fix no expected number.
 
 ### 7.S Leg S
 
-- **S-I0 (coupling-degree minimization).** For each rule and decomposition `B`: `G_B = B M B⁻¹`; the coupling graph
-  `i ∼ j` (`i ≠ j`) iff `G_B[i][j] ≠ 0` or `G_B[j][i] ≠ 0`; `deg_max(B)` (primary order), `e(B)` (secondary), `self(B)`.
+- **S-I0 (coupling-degree minimization, an object of test here, not a premise).** For each rule and decomposition
+  `B`: `G_B = B M B⁻¹`; the coupling graph `i ∼ j` (`i ≠ j`) iff `G_B[i][j] ≠ 0` or `G_B[j][i] ≠ 0`; `deg_max(B)`
+  (primary order), `e(B)` (secondary), `self(B)`.
   - On `S-edge1(α)` and `S-free`: every decomposition (owner decision (c): all 63,180, at the measured cost of §9). List
     the minimizers and group them into `C(M)`-orbits.
   - On `S-ring(q)`: the special decompositions, then 2,000 stratified samples.
