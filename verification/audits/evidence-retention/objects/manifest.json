@@ -5070,8 +5070,7 @@
    ],
    "oid": "3a61f0ca7aefe695fb028dfbaa7acbc594f260bb",
    "paths": [
-    "research/a42-rerun/lemmas42.log",
-    "research/a42-support/lemmas42.log"
+    "research/a42-rerun/lemmas42.log"
    ],
    "tranche": 2,
    "type": "blob"
@@ -18432,8 +18431,7 @@
    ],
    "oid": "de2e4b294a5181b28f8d54663641de416ed02978",
    "paths": [
-    "research/a42-rerun/quarantine/sat_cubes39.log",
-    "research/a42-support/quarantine/sat_cubes47_killed.log"
+    "research/a42-rerun/quarantine/sat_cubes39.log"
    ],
    "tranche": 2,
    "type": "blob"
