@@ -58,6 +58,11 @@ GOVERNED = [('record', 'AM', RDIR), ('record', 'AM', RECEIPT), ('execution', 'A'
             ('execution', 'A', INST), ('execution', 'A', PROBE), ('execution', 'M', ROOT),
             ('execution', 'M', REGISTRY), ('execution', 'M', WORKFLOW)]
 FROZEN_PATHS = {CONTROLS, CORE, INST, PROBE}
+HISTORICAL = {'evidence/design-38450187534.json', 'evidence/design-38454439833.json'}  # digest or recorded gap
+REQUIRED_PIN = 'evidence/design-predicted-tree.json'                                  # digest only
+EVIDENCE_ROWS = HISTORICAL | {REQUIRED_PIN}
+GAP = 'GAP'
+SYMPY_PIN = '1.14.0'
 
 # The surface the preregistration names (sections "Research-design definition and theorem budget").
 CORE_NAMES = ['CarrierConeFamily', 'AdditiveClosure', 'PreservesCarrier', 'PrimitivePreservation',
@@ -120,7 +125,7 @@ BAD_LOG = ('sorryAx', 'Lean.ofReduceBool', 'Lean.trustCompiler')
 NS = None           # the adopted namespace (item 2)                        S1, verdict
 SPLICES = None      # [(old, new)] edits to verify.yml at D, each anchored once (item 5)   W
 FAMILIES = None     # the census families appended for the two modules (item 3)         J
-PROBE_SPEC = None   # {'codes': [...], 'n': int, 'mutations': [...], 'final': str} (item 4)  EXACT
+PROBE_SPEC = None   # {'codes', 'independent', 'n', 'mutations', 'final', 'stdout_sha256', ['sympy']} (item 4)  EXACT, W
 PENDING = ('NS', 'SPLICES', 'FAMILIES', 'PROBE_SPEC')
 
 REQUIRED = {'E': ['C1', 'C2', 'S1', 'S2', 'S3', 'S4', 'W', 'I', 'J', 'P', 'R', 'G', 'T'],
@@ -131,7 +136,7 @@ CELLS = [('Q-CORE', 'PRESERVE-INDUCT-CORE-PROVED', 'PRESERVE-INDUCT-CORE-NOT-EST
          ('Q-EXACT', 'PRESERVE-INDUCT-EXACT-CHECKED', 'PRESERVE-INDUCT-EXACT-NOT-ESTABLISHED')]
 READ, NOT_READ = 'PRESERVE-INDUCT-1-READ', 'PRESERVE-INDUCT-1-NOT-READ'
 POSITIVE = [c[1] for c in CELLS] + [READ]
-SELF_CHECKS = 42  # the number of self-checks; a dropped self-check fails the count
+SELF_CHECKS = 45  # the number of self-checks; a dropped self-check fails the count
 
 FAIL = []
 RAN = []
@@ -232,7 +237,8 @@ def table_after(prereg, title):
 
 
 def pinned(prereg, title, width):
-    """{path: digest or None (pending)} from a two-column pin table; None when a row is malformed or repeated."""
+    """{path: digest, None (pending) or GAP (a recorded gap)} from a two-column pin table; None when a row is
+    malformed or repeated. A gap cell is `gap:` followed by what is missing."""
     out = {}
     for r in table_after(prereg, title):
         if len(r) != 2 or not re.fullmatch(r'`[^`]+`', r[0]):
@@ -244,6 +250,8 @@ def pinned(prereg, title, width):
             out[path] = cell.strip('`')
         elif cell.startswith('pending'):
             out[path] = None
+        elif re.match(r'gap: \S', cell):
+            out[path] = GAP
         else:
             return None
     return out
@@ -457,6 +465,18 @@ def workflow(base, splices):
     return text
 
 
+def pin_ok(splices, spec):
+    """With the probe spec pending, False. When it names SymPy, the text the splices add installs exactly
+    sympy==<pin> and names lowercase `sympy` in no other form; otherwise the splices add no sympy install."""
+    if not splices or not spec:
+        return False
+    added = ''.join(new.replace(old, '', 1) if old in new else new for old, new in splices)
+    forms = re.findall(r'\bsympy\b[=<>!~]*[\w.*]*', added)
+    if spec.get('sympy'):
+        return spec['sympy'] == SYMPY_PIN and bool(forms) and all(f == 'sympy==' + SYMPY_PIN for f in forms)
+    return not forms
+
+
 def root_expected(base):
     """D's root with ROOT_LINES inserted directly after its last import line; None when that is undefined."""
     if base is None:
@@ -498,7 +518,8 @@ def g(diff_lines, entries):
 
 def record_ok(names, pins, at_e):
     rel = {n[len(RDIR):] for n in names if n.startswith(RDIR)}
-    want = {'preregistration.md', 'controls.py'} | set(pins) | ({'result.md'} if at_e else set())
+    want = {'preregistration.md', 'controls.py'} | {p for p, h in pins.items() if h not in (None, GAP)} | \
+        ({'result.md'} if at_e else set())
     extra = {r for r in rel - want if not r.startswith('amendments/') and not r.startswith(FRUN)}
     frun = any(r.startswith(FRUN) for r in rel)
     return not (want - rel) and not extra and frun
@@ -535,9 +556,13 @@ def check(E, F, stage='E'):
     def digest_ok(p, h):
         t = show(E, RDIR + p)
         return t is not None and hashlib.sha256(t.encode('utf-8')).hexdigest() == h
-    pbad = sorted(p for p, h in (pins or {}).items() if h and not digest_ok(p, h))
-    record('P', 'retained evidence pinned at F is present at %s with its digest' % stage,
-           bool(pins) and not ppend and not pbad, str(ppend + pbad) if ppend or pbad else '%d pins' % len(pins or {}))
+    pbad = sorted(p for p, h in (pins or {}).items() if h and h != GAP and not digest_ok(p, h))
+    gaps = sorted(p for p, h in (pins or {}).items() if h == GAP)
+    gbad = [p for p in gaps if p not in HISTORICAL or show(E, RDIR + p) is not None]
+    record('P', 'the retention rows at F: digests present at %s, gaps only on historical rows' % stage,
+           pins is not None and set(pins) == EVIDENCE_ROWS and not ppend and not pbad and not gbad,
+           str(ppend + pbad + gbad) if ppend or pbad or gbad else '%d digest(s), %d gap(s)' % (len(pins) - len(gaps),
+                                                                                             len(gaps)))
     names = [x for x in git('ls-tree', '-r', '--name-only', E, '--', RDIR).splitlines() if x.strip()]
     record('R', 'the record directory holds exactly the frozen files, the pinned evidence and evidence/f-run/',
            pins is not None and record_ok(names, pins or {}, at_e))
@@ -570,8 +595,10 @@ def check(E, F, stage='E'):
     record('S4', 'both module headers and the result note present, with no excluded phrase', present and not hits,
            str(hits) if hits else ('' if present else 'a header or the result note is absent'))
     wd, we = workflow(show(D, WORKFLOW), SPLICES), show(E, WORKFLOW)
-    record('W', 'the workflow at E is D\'s with the frozen splices', wd is not None and we is not None and we == wd,
-           'splices pending (SPLICES)' if SPLICES is None else '')
+    record('W', 'the workflow at E is D\'s with the frozen splices, installing the probe spec\'s SymPy pin',
+           wd is not None and we is not None and we == wd and pin_ok(SPLICES, PROBE_SPEC),
+           'splices pending (SPLICES)' if SPLICES is None else ('probe spec pending (PROBE_SPEC)' if PROBE_SPEC is None
+                                                                else ''))
     rd, re_ = root_expected(show(D, ROOT)), show(E, ROOT)
     record('I', 'the two import lines after D\'s last import', rd is not None and re_ is not None and re_ == rd)
     record('J', 'the census at E is D\'s with the frozen families', registry_ok(show(D, REGISTRY), show(E, REGISTRY),
@@ -595,10 +622,16 @@ def run_probe(E, *args):
 
 
 def probe_ok(rc, out, err, spec):
-    if not spec or not spec.get('codes') or not isinstance(spec.get('n'), int) or not spec.get('final'):
+    """Q-EXACT's rule. The spec must name the probe's codes, the separate arithmetic implementation's codes, the
+    check count, the mutations, the final line and the sha256 of the whole standard output (the byte replay)."""
+    if not spec or not spec.get('codes') or not spec.get('independent') or not isinstance(spec.get('n'), int) \
+            or not spec.get('final') or not re.fullmatch(r'[0-9a-f]{64}', spec.get('stdout_sha256') or ''):
         return False
     ok = rc == 0 and not err and not re.search(r'^FAIL\b', out, re.M)
-    ok &= all(re.search(r'^PASS %s \(\d+\)$' % re.escape(c), out, re.M) for c in spec['codes'])
+    ok &= hashlib.sha256(out.encode('utf-8')).hexdigest() == spec['stdout_sha256']
+    ok &= all(re.search(r'^PASS %s \(\d+\)$' % re.escape(c), out, re.M) for c in spec['codes'] + spec['independent'])
+    if spec.get('sympy'):
+        ok &= spec['sympy'] == SYMPY_PIN and re.search(r'^SYMPY %s$' % re.escape(SYMPY_PIN), out, re.M) is not None
     ok &= ('checks: %d, failures: 0' % spec['n']) in out and out.rstrip().endswith(spec['final'])
     muts = spec.get('mutations') or []
     ok &= bool(muts) and all(('REJECTED ' + m) in out for m in muts)
@@ -648,6 +681,9 @@ def verdict(E, F, axlog, check_fn=None, probe_fn=None):
                                                       len(CORE_PRINTS + INST_PRINTS)))
     for (cell, pos, neg), ok in zip(CELLS, got):
         print('TOKEN %-7s %s' % (cell, pos if ok is True else neg))
+    short = [c for (c, _, _), ok in zip(CELLS, got) if ok is not True]
+    print('earned reading: %s' % ('full (every cell positive)' if not short else 'not full (%s not positive)'
+                                  % ', '.join(short)))
     print('%s (static controls failed: %s)' % (NOT_READ, ', '.join(failed)) if failed else READ)
     return not failed
 
@@ -864,13 +900,16 @@ example : LabelInvariant classicalClass := substratumClass_labelInvariant
 end {NS}
 '''
 FIX_SPLICES = [('    needs: [probes_a]\n', '    needs: [probes_a, probes_preserveinduct1]\n'),
-               ('jobs:\n', 'jobs:\n  probes_preserveinduct1:\n    runs-on: fixture\n')]
+               ('jobs:\n', 'jobs:\n  probes_preserveinduct1:\n    runs-on: fixture\n'
+                '    steps:\n      - run: python -m pip install sympy==1.14.0\n')]
 FIX_FAMILIES = [{'name': 'fixture family (synthetic)', 'modules': ['PreservationInduction',
                                                                    'PreservationInductionInstances'],
                  'status': 'kernel-only', 'manuscript': [], 'note': 'synthetic'}]
-FIX_SPEC = {'codes': ['FIX1', 'FIX2'], 'n': 7, 'mutations': ['m1: FIX1'], 'final': 'VERDICT FIXTURE'}
-FIX_PROBE_OUT = 'PASS FIX1 (3)\nPASS FIX2 (4)\nchecks: 7, failures: 0\nREJECTED m1: FIX1\n' \
-                'mutations: 1 rejected, 0 accepted\nVERDICT FIXTURE\n'
+FIX_PROBE_OUT = 'SYMPY 1.14.0\nPASS FIX1 (3)\nPASS FIX2 (3)\nPASS IND1 (1)\nchecks: 7, failures: 0\n' \
+                'REJECTED m1: FIX1\nmutations: 1 rejected, 0 accepted\nVERDICT FIXTURE\n'
+FIX_SPEC = {'codes': ['FIX1', 'FIX2'], 'independent': ['IND1'], 'n': 7, 'mutations': ['m1: FIX1'],
+            'final': 'VERDICT FIXTURE', 'sympy': '1.14.0',
+            'stdout_sha256': hashlib.sha256(FIX_PROBE_OUT.encode('utf-8')).hexdigest()}
 
 
 def git_blob_id(text):
@@ -950,7 +989,7 @@ def install_fake(mod, repo):
     mod.git = fgit
 
 
-def load(src, name, params=True):
+def load(src, name, params=True, **override):
     """The module built from src, with the fixture's parameters (params True) or every PENDING one unset."""
     mod = types.ModuleType(name)
     mod.__file__ = __file__
@@ -959,12 +998,14 @@ def load(src, name, params=True):
         mod.NS, mod.SPLICES, mod.FAMILIES, mod.PROBE_SPEC = FIX_NS, FIX_SPLICES, FIX_FAMILIES, FIX_SPEC
     else:
         mod.NS = mod.SPLICES = mod.FAMILIES = mod.PROBE_SPEC = None
+    for k, v in override.items():
+        setattr(mod, k, v)
     return mod
 
 
-def end_to_end(src, repo, axlog, params=True):
+def end_to_end(src, repo, axlog, params=True, **override):
     """check() then verdict() of the module built from src, on the fake repo; (ok, output, probe calls)."""
-    mod = load(src, 'controls_e2e', params)
+    mod = load(src, 'controls_e2e', params, **override)
     install_fake(mod, repo)
     calls = []
 
@@ -1040,6 +1081,11 @@ def e2e_cases(prereg):
             def ed(r):
                 r['F'][PREREG] = r['E'][PREREG] = f(r['F'][PREREG])
             return ed
+        def gapped(r, rows):
+            for c in ('F', 'E'):
+                for row in rows:
+                    r[c][PREREG] = re.sub(r'(\| `%s` \| )`[0-9a-f]{64}` \|' % re.escape(row),
+                                          lambda m: m.group(1) + 'gap: log not recoverable (fixture) |', r[c][PREREG])
         ev = sorted(p for p in repo['E'] if p.startswith(RDIR + 'evidence/') and not p.startswith(RDIR + FRUN))[:1]
         frun = [p for p in repo['E'] if p.startswith(RDIR + FRUN)]
         strip_hdr = lambda t: re.sub(r'/-!.*?-/\n', '', t, count=1, flags=re.S)
@@ -1065,6 +1111,11 @@ def e2e_cases(prereg):
             ('E identical to D', ['G'], lambda r: r.__setitem__('E', dict(r['D']))),
             ('no execution commit after F', ['T'], lambda r: r['flags'].__setitem__('lin', '')),
             ('the legacy manifest absent at D and E', ['G'], drop(('D', LEGACY), ('E', LEGACY))),
+            ('the predicted-tree row recorded as a gap', ['P'], lambda r: (gapped(r, [REQUIRED_PIN]),
+                                                                          drop(('E', RDIR + REQUIRED_PIN))(r))),
+            ('a gap row whose file is present', ['P'], lambda r: gapped(r, sorted(HISTORICAL)[:1])),
+            ('a retention row dropped', ['P'], prereg_edit(lambda t: re.sub(
+                r'\| `%s` \|[^\n]*\n' % re.escape(REQUIRED_PIN), '', t, count=1))),
         ]
         for name, codes, edit in absences:
             n += 1
@@ -1072,6 +1123,21 @@ def e2e_cases(prereg):
             if ok or calls or not failed_named(out, codes) or leaked(out):
                 problems.append('%s: result %s, %s named %s, probe calls %d, positive %s'
                                 % (name, ok, codes, failed_named(out, codes), calls, leaked(out)))
+        # frozen splices that install SymPy unpinned, applied faithfully at E: W must still fail
+        n += 1
+        loose = [(o, nw.replace('sympy==1.14.0', 'sympy')) for o, nw in FIX_SPLICES]
+        lrepo = variant(lambda r: r['E'].__setitem__(WORKFLOW, workflow(r['D'][WORKFLOW], loose)))
+        ok, out, calls = end_to_end(src, lrepo, path, SPLICES=loose)
+        if ok or calls or not failed_named(out, ['W']) or leaked(out):
+            problems.append('unpinned SymPy splices: result %s, W named %s, probe calls %d' % (
+                ok, failed_named(out, ['W']), calls))
+        # historical rows recorded as gaps, their files absent: a passing state
+        n += 1
+        hist = variant(lambda r: (gapped(r, sorted(HISTORICAL)), drop(*[('E', RDIR + h) for h in HISTORICAL])(r)))
+        ok, out, calls = end_to_end(src, hist, path)
+        if not ok or calls != 1 or leaked(out) != POSITIVE:
+            problems.append('historical gaps: result %s, probe calls %d, positive %s, failures %s' % (
+                ok, calls, leaked(out), re.findall(r'^FAIL .*$', out, re.M)))
         # the pending state: the live preregistration as it stands, and every PENDING parameter unset
         n += 1
         shipped = variant(prereg_edit(lambda t: prereg))
@@ -1148,6 +1214,15 @@ def verdict_regression():
         ok, out, _ = run(clean, dirty)
         if not ok or leaked(out) != [CELLS[2][1], READ]:
             problems.append('dirty instance report: positive %s' % leaked(out))
+        for label, text in (('instance report with an extra axiom', fix_log(FIX_NS, CORE_PRINTS + INST_PRINTS[1:])
+                             + fix_log(FIX_NS, INST_PRINTS[:1], 'propext, Classical.choice, Quot.sound, oops')),
+                            ('instance report missing', fix_log(FIX_NS, CORE_PRINTS + INST_PRINTS[1:]))):
+            fp = os.path.join(tmp, 'inst.log')
+            with open(fp, 'w', encoding='utf-8') as fh:
+                fh.write(text)
+            ok, out, _ = run(clean, fp)
+            if not ok or leaked(out) != [CELLS[2][1], READ]:
+                problems.append('%s: positive %s' % (label, leaked(out)))
         cor_dirty = os.path.join(tmp, 'cor.log')
         with open(cor_dirty, 'w', encoding='utf-8') as fh:
             fh.write(fix_log(FIX_NS, [p for p in CORE_PRINTS + INST_PRINTS if p != COR_PRINTS[2]]))
@@ -1157,7 +1232,24 @@ def verdict_regression():
         ok, out, _ = run(clean, None)
         if not ok or leaked(out) != [CELLS[2][1], READ]:
             problems.append('no axiom log: positive %s' % leaked(out))
-    return problems, len(REQUIRED['E']) + 6
+        head_dirty = os.path.join(tmp, 'head.log')
+        with open(head_dirty, 'w', encoding='utf-8') as fh:
+            fh.write(fix_log(FIX_NS, CORE_PRINTS[1:] + INST_PRINTS) + fix_log(FIX_NS, [HEADLINE], 'propext, oops'))
+        ok, out, _ = run(clean, head_dirty)
+        if not ok or leaked(out) != [CELLS[2][1], READ] or 'earned reading: not full (Q-CORE, Q-COR' not in out:
+            problems.append('dirty headline report: positive %s' % leaked(out))
+        # a failing probe leaves the Lean cells positive and the earned reading not full
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            ok = mod.verdict('E', 'F', path, check_fn=lambda E, F: dict(clean),
+                             probe_fn=lambda E, *a: (0, FIX_PROBE_OUT.replace('PASS IND1 (1)', 'FAIL IND1'), ''))
+        out = buf.getvalue()
+        if not ok or leaked(out) != [CELLS[0][1], CELLS[1][1], READ] or 'earned reading: not full (Q-EXACT' not in out:
+            problems.append('failing probe: positive %s' % leaked(out))
+        ok, out, _ = run(clean)
+        if 'earned reading: full (every cell positive)' not in out:
+            problems.append('all-clean: the earned reading is not full')
+    return problems, len(REQUIRED['E']) + 11
 
 
 def in_decl(text, name, old, new):
@@ -1278,16 +1370,46 @@ def self_test():
     gwant = ['M\tpapers/GR.md', 'M\t' + LEGACY, 'M\tverification/ROADMAP.md', 'M\t' + CORE, 'D\t' + WORKFLOW,
              'M\t' + LP + 'ImplementationLocality.lean']
     report('self: G authorizes by status letter and longest prefix', bad == gwant, '' if bad == gwant else str(bad))
-    names = [RDIR + n for n in ['preregistration.md', 'controls.py', 'result.md', FRUN + 'x'] + list(pins or {})]
-    report('self: R requires the frozen files, the pins, f-run and (at E) the result note, and nothing else',
-           record_ok(names, pins or {}, True) and not record_ok(names + [RDIR + 'extra.md'], pins or {}, True)
-           and not record_ok([x for x in names if FRUN not in x], pins or {}, True)
-           and not record_ok([x for x in names if not x.endswith('result.md')], pins or {}, True)
-           and record_ok([x for x in names if not x.endswith('result.md')], pins or {}, False))
+    dig = {r: '0' * 64 for r in EVIDENCE_ROWS}
+    names = [RDIR + n for n in ['preregistration.md', 'controls.py', 'result.md', FRUN + 'x'] + sorted(dig)]
+    gapd = dict(dig, **{h: GAP for h in HISTORICAL})
+    report('self: R requires the frozen files, the digest rows\' files, f-run and (at E) the result note, and nothing '
+           'else; a gap row names no file',
+           record_ok(names, dig, True) and not record_ok(names + [RDIR + 'extra.md'], dig, True)
+           and not record_ok([x for x in names if FRUN not in x], dig, True)
+           and not record_ok([x for x in names if not x.endswith('result.md')], dig, True)
+           and record_ok([x for x in names if not x.endswith('result.md')], dig, False)
+           and record_ok([x for x in names if x[len(RDIR):] not in HISTORICAL], gapd, True)
+           and not record_ok([x for x in names if x[len(RDIR):] != REQUIRED_PIN], gapd, True))
     report('self: the probe rule accepts the frozen shape and fails closed with no spec, a code missing or stderr',
            probe_ok(0, FIX_PROBE_OUT, '', FIX_SPEC) and not probe_ok(0, FIX_PROBE_OUT, '', None)
            and not probe_ok(0, FIX_PROBE_OUT.replace('PASS FIX2', 'PASS FIX'), '', FIX_SPEC)
            and not probe_ok(0, FIX_PROBE_OUT, 'x', FIX_SPEC) and not probe_ok(1, FIX_PROBE_OUT, '', FIX_SPEC))
+    bump = FIX_PROBE_OUT + ' '
+    noind = FIX_PROBE_OUT.replace('PASS IND1 (1)\n', '')
+    report('self: the probe rule requires the separate implementation\'s codes, the byte replay and the SymPy line',
+           not probe_ok(0, FIX_PROBE_OUT, '', dict(FIX_SPEC, independent=[]))
+           and not probe_ok(0, bump, '', FIX_SPEC)
+           and not probe_ok(0, FIX_PROBE_OUT, '', dict(FIX_SPEC, stdout_sha256=None))
+           and not probe_ok(0, FIX_PROBE_OUT.replace('SYMPY 1.14.0', 'SYMPY 1.13.3'), '',
+                            dict(FIX_SPEC, stdout_sha256=hashlib.sha256(FIX_PROBE_OUT.replace(
+                                'SYMPY 1.14.0', 'SYMPY 1.13.3').encode()).hexdigest()))
+           and not probe_ok(0, FIX_PROBE_OUT, '', dict(FIX_SPEC, sympy='1.13.3'))
+           and not probe_ok(0, noind, '', dict(FIX_SPEC, stdout_sha256=hashlib.sha256(noind.encode()).hexdigest())))
+    loose = [(o, n.replace('sympy==1.14.0', 'sympy')) for o, n in FIX_SPLICES]
+    other = [(o, n.replace('sympy==1.14.0', 'sympy>=1.14')) for o, n in FIX_SPLICES]
+    report('self: W\'s pin rule requires exactly sympy==1.14.0 when the spec names SymPy, and fails with the spec pending',
+           pin_ok(FIX_SPLICES, FIX_SPEC) and not pin_ok(loose, FIX_SPEC) and not pin_ok(other, FIX_SPEC)
+           and not pin_ok(FIX_SPLICES, None) and not pin_ok(FIX_SPLICES, dict(FIX_SPEC, sympy=None))
+           and pin_ok([FIX_SPLICES[0]], dict(FIX_SPEC, sympy=None)))
+    gtab = prereg
+    for h in HISTORICAL:
+        gtab = re.sub(r'(\| `%s` \| )pending[^|\n]*\|' % re.escape(h), lambda m: m.group(1) + 'gap: log expired |', gtab)
+    gp_ = evidence_pins(gtab)
+    report('self: the retention table reads a recorded gap, and the frozen rows are the three named',
+           gp_ is not None and set(gp_) == EVIDENCE_ROWS and all(gp_[h] == GAP for h in HISTORICAL)
+           and set(evidence_pins(prereg) or {}) == EVIDENCE_ROWS
+           and evidence_pins(gtab.replace('gap: log expired', 'gap:', 1)) is None)
     report('self: passed() rejects an empty, non-bool or partial map and an unknown stage',
            not passed({}) and not passed({c: 1 for c in REQUIRED['E']}) and passed({c: True for c in REQUIRED['E']})
            and passed({c: True for c in REQUIRED['S1']}, 'S1') and not passed({c: True for c in REQUIRED['S1']})

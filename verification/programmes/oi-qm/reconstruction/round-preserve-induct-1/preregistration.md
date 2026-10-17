@@ -33,7 +33,9 @@ execution M verification/lean-manuscript-census.json
 execution M .github/workflows/verify.yml
 ```
 
-D: `b96662e6be4f537502c772db369ea32a35b213a8`, current main after #856.
+D: `b96662e6be4f537502c772db369ea32a35b213a8`, current main after #856. It is
+provisional: under owner recommendation 4 it is finalized after #829 lands,
+before F.
 Before F, the control-plane delta contains only this preregistration and
 review amendments. The execution edits listed above are prospective; none is
 made by publishing this draft. Manuscripts, built artifacts, ROADMAP, adopted
@@ -72,9 +74,11 @@ compiled at `e684897da41b1c3d066b880194c9beb87a19b7ad`, workflow run
 [38450187534](https://github.com/amaybaum/incompleteness/actions/runs/38450187534),
 job 115478781754, every step `success`. The research record reads the four
 headline/corollary axiom reports from that job's log as containing only
-`propext`, `Classical.choice` and `Quot.sound`. The log is not retained, and a
-step's success does not establish a report's contents, so the reports enter
-this round only through the retained expected result pinned below (§A.42).
+`propext`, `Classical.choice` and `Quot.sound`. The log is not yet retained,
+and a step's success does not establish a report's contents. The reports enter
+this round through the retained expected result pinned below where the log is
+recoverable, and otherwise as attributed provenance with the gap recorded
+(§A.42; owner recommendation 3).
 This is research-design evidence, not native execution. The six core
 definitions and their names are:
 
@@ -210,7 +214,10 @@ decision-token interface and frozen controls is still a design obligation.
   guards are not mutations of the Lean proof and do not establish minimality.
 
 Exact instance calculations need a separate checker or independently
-implemented arithmetic path and output replay. Written universal claims
+implemented arithmetic path and output replay. Under owner recommendation 2
+the probe may depend on SymPy, pinned explicitly to 1.14.0 and installed by
+the workflow as `sympy==1.14.0`; the separate arithmetic implementation and
+the byte replay are kept, and a standard-library-only probe is not required. Written universal claims
 require kernel proofs or explicit written arguments; finite checks do not
 upgrade them. Neither a syntactic mutation nor an example violating several
 other retained hypotheses proves a premise necessary. The round does not
@@ -218,17 +225,24 @@ claim minimality of its premise package.
 
 ## Proposed decision rules and earned reading
 
-- `PRESERVE-INDUCT-CORE-PROVED`: the frozen universal branchwise statement
-  compiles with only standard axioms and the exact, explicit preservation
-  assumptions; all required constructor and positive controls are green.
-- `PRESERVE-INDUCT-COROLLARIES-PROVED`: the frozen sum/spectator/transport
-  corollaries compile with every extra premise displayed and the same controls.
-- `PRESERVE-INDUCT-EXACT-CHECKED`: the independent exact layer and its replay
-  agree, all required controls are green and every frozen mutation is rejected.
+Under owner recommendation 1, Q-CORE reads the Lean layer only and the exact
+probe is read only by Q-EXACT:
+
+- `PRESERVE-INDUCT-CORE-PROVED`: every required static control passes; the
+  axiom report of the frozen universal branchwise statement
+  (`instAvail_preserves`) and the reports of the Lean positive instances
+  compile with only standard axioms, under the exact, explicit preservation
+  assumptions. No probe output is read.
+- `PRESERVE-INDUCT-COROLLARIES-PROVED`: Q-CORE's conditions, and the frozen
+  sum/spectator/transport corollaries compile with only standard axioms and
+  every extra premise displayed. No probe output is read.
+- `PRESERVE-INDUCT-EXACT-CHECKED`: every required static control passes; the
+  independent exact layer and its byte replay agree, all its frozen codes pass
+  and every frozen mutation is rejected. No axiom report is read.
 - Otherwise record the unresolved or halted result through the native
   lifecycle, with no successful token printed over a failed required control.
 
-**Earned reading if proved:** supplied primitive state-preservation,
+**Earned reading, only when all three cells are positive:** supplied primitive state-preservation,
 attachment/discard and zero/additive-closure premises propagate to every finite
 `InstAvail` derivation. This reduces a protocol-closure proof to a finite
 list of constructor obligations. It does **not** establish a finite list
@@ -272,19 +286,21 @@ at the first execution commit. Any other stage or argument is refused.
 | S2 | the landed objects below at their lines, with `D`'s blobs at `E` |
 | S3 | the core module mentions no PSD, Hermiticity, convexity, closedness, trace, reachability or iff; `AdditiveClosure` has exactly the fields `zero_mem` and `add_mem`, and `PrimitivePreservation` exactly `op` and `readout`; `instAvail_preserves` is one induction on the derivation with the arms `op`, `readout`, `coarse`, `bind`, `discard` in that order; the sum, spectator and transport corollaries apply `instAvail_preserves`, the latter two to `instAvail_spectator` and `instAvail_transport`; no research import or namespace remains; no preparation family is defined through `InstAvail` |
 | S4 | both module headers and the result note are present, without the excluded phrases frozen in `controls.py` (`PHRASES`) |
-| W | `verify.yml` at `E` is `D`'s with the frozen splices, each anchored once |
+| W | `verify.yml` at `E` is `D`'s with the frozen splices, each anchored once; when the probe spec names SymPy, the splices install it as `sympy==1.14.0` and name it in no other form |
 | I | `OIBridge.lean` at `E` is `D`'s with `import OIBridge.PreservationInduction` and `import OIBridge.PreservationInductionInstances` directly after its last import line |
 | J | the census at `E` is `D`'s with the frozen families appended |
-| P | the retained evidence pinned in the next section is present with its digests; no pin pending |
-| R | the record directory holds exactly this file, `controls.py`, the pinned evidence, a non-empty `evidence/f-run/`, `amendments/` if present, and at `E` the result note |
+| P | the three retention rows of the next section: each historical row a digest or a recorded gap, the predicted-tree row a digest; every digest row present with its digest, no gap row's file present; no row pending |
+| R | the record directory holds exactly this file, `controls.py`, the evidence of the digest rows, a non-empty `evidence/f-run/`, `amendments/` if present, and at `E` the result note |
 | G | the governed-path block equals the eight entries above; every change from `D` is authorized under `S7` (longest governing entry, status letter in its operations); the receipt is absent; the legacy manifest is present and unchanged |
 | T | `delta(D, F)` is this file and `amendments/`, drafted by single-parent commits from `D`; the execution after `F` is non-empty and linear, and `F` is an ancestor of `E` |
 
 **Parameters not yet fixed.** `controls.py` carries four as `None`; while any
 is `None`, the controls that depend on it fail. They are `NS`, the adopted
 namespace (item 2; S1); `SPLICES`, the workflow edits (item 5; W); `FAMILIES`,
-the census families (item 3; J); and `PROBE_SPEC`, the probe's codes, check
-count, mutations and final line (item 4; Q-EXACT). The statement-surface
+the census families (item 3; J); and `PROBE_SPEC`, the probe's codes, the
+separate arithmetic implementation's codes, check count, mutations, final
+line, the sha256 of its standard output and its SymPy pin (item 4; Q-EXACT,
+and W for the pin). The statement-surface
 section (item 2), the frozen blobs below and the retained-evidence pins are
 pending in this file. Fixing any of them changes `controls.py` or this file
 before `F`.
@@ -335,14 +351,14 @@ log>` prints one token per cell:
 
 | cell | positive | otherwise | rule as implemented |
 | --- | --- | --- | --- |
-| Q-CORE | `PRESERVE-INDUCT-CORE-PROVED` | `PRESERVE-INDUCT-CORE-NOT-ESTABLISHED` | the `instAvail_preserves` report and the six instance reports lie within `propext`, `Classical.choice` and `Quot.sound`, and the log carries no `sorryAx`, `Lean.ofReduceBool` or `Lean.trustCompiler` |
-| Q-COR | `PRESERVE-INDUCT-COROLLARIES-PROVED` | `PRESERVE-INDUCT-COROLLARIES-NOT-ESTABLISHED` | Q-CORE's conditions, measured again, and the three corollary reports |
-| Q-EXACT | `PRESERVE-INDUCT-EXACT-CHECKED` | `PRESERVE-INDUCT-EXACT-NOT-ESTABLISHED` | the probe blob at `E`, run with `python3 -I -B` and `--self-test`, prints every frozen code, no `FAIL`, the frozen check count with no failures, every frozen mutation rejected and the frozen final line, with empty standard error |
+| Q-CORE | `PRESERVE-INDUCT-CORE-PROVED` | `PRESERVE-INDUCT-CORE-NOT-ESTABLISHED` | the static controls pass; the report of the universal theorem `instAvail_preserves` and the six Lean positive-instance reports lie within `propext`, `Classical.choice` and `Quot.sound`, and the log carries no `sorryAx`, `Lean.ofReduceBool` or `Lean.trustCompiler`; no probe output is read |
+| Q-COR | `PRESERVE-INDUCT-COROLLARIES-PROVED` | `PRESERVE-INDUCT-COROLLARIES-NOT-ESTABLISHED` | Q-CORE's conditions, measured again, and the three corollary reports; no probe output is read |
+| Q-EXACT | `PRESERVE-INDUCT-EXACT-CHECKED` | `PRESERVE-INDUCT-EXACT-NOT-ESTABLISHED` | the probe blob at `E`, run with `python3 -I -B` and `--self-test`, prints every frozen code (those of the separate arithmetic implementation included), no `FAIL`, the frozen check count with no failures, every frozen mutation rejected, the frozen final line and, where the frozen spec names it, `SYMPY 1.14.0`; its standard output has the frozen sha256 (the byte replay), and its standard error is empty |
 
-In Q-CORE, the "constructor and positive controls" of the decision rule above
-are read as S3's five-arm check and the Lean instance module, so Q-CORE reads
-no probe output; the exact layer's constructor coverage belongs to Q-EXACT.
-This reading is the draft's and is fixed before `F`.
+Q-CORE and Q-COR read no probe output, and Q-EXACT reads no axiom report
+(owner recommendation 1); the static controls gate all three. `verdict` also
+prints whether the full earned reading is available: only when all three cells
+are positive.
 
 Every positive token is gated on the static controls. If any of the thirteen
 fails or is not reported, `verdict` prints the failed controls, runs no probe
@@ -359,8 +375,9 @@ one is absent and counts as failed, in `verdict` and in `check`'s exit.
 - runs mutation controls on S1 and S3 over a synthetic fixture of the two
   modules;
 - drives `verdict` with injected static results: each control failing alone,
-  one unreported, one non-bool, the all-clean case, and each cell reading only
-  its own reports;
+  one unreported, one non-bool, the all-clean case, and the cells'
+  separation (a failing probe leaves Q-CORE and Q-COR positive; a dirty
+  headline or instance report leaves Q-EXACT positive);
 - drives `verdict` end to end through the real `check()` on an in-memory
   synthetic `D`, `F` and `E`: unmutated; with each control's record call
   removed from the source; with each control's inputs absent; in the shipped
@@ -387,13 +404,42 @@ evidence for any theorem.
 | the root import and census entries (item 3) | I; J; the release gate's `lean-manuscript` step at `E` |
 | every declaration elaborates within `propext`, `Classical.choice` and `Quot.sound`, with no `sorryAx` | the exact-head run at `E`, every job `success`; the ten reports read by `verdict --axioms` |
 | the exact layer covers every constructor, an empty coarse fibre, nested bind/discard, a fresh positive-size ancilla and a nontrivial relabelling, without vacuous positives, and rejects the frozen mutations (Proposed controls) | the probe's frozen codes and mutations (`PROBE_SPEC`, item 4), read by Q-EXACT; the probe shard green at `E` |
+| a separate arithmetic implementation and a byte replay are kept; SymPy, if used, is pinned to 1.14.0 (Proposed controls; owner recommendation 2) | Q-EXACT (the separate implementation's codes, the frozen stdout sha256, the `SYMPY 1.14.0` line); W (the `sympy==1.14.0` install) |
+| Q-CORE reads the static controls, the universal theorem's report and the positive-instance reports only; Q-EXACT alone reads the probe (decision rules; owner recommendation 1) | `controls.py --self-test`: the `verdict` regression's separation cases (a failing probe leaves Q-CORE and Q-COR positive; a dirty instance or headline report leaves Q-EXACT positive) |
+| the full earned reading only when all three cells are positive (earned reading; owner recommendation 1) | the earned-reading line printed by `verdict`; owner review of the result note |
 | the workflow runs the probe and `controls.py --self-test` (item 5) | W; the exact-head run at `E` |
 | no positive token over a failed or unreported required control (decision rules) | `controls.py --self-test` in the probe shard: the `verdict` regression and the end-to-end cases |
 | the result note asserts no source, closure or implication beyond the earned reading (non-inference rule) | S4; owner review of the result note |
-| the design evidence is retained by the first execution commit and pinned before `F` (§A.42 item 2) | P and R at `S1` and `E`; reviewers check that each pin resolves to retained content |
+| the design evidence is retained by the first execution commit and pinned before `F`; a historical build whose log is unrecoverable is recorded as a gap and stays attributed provenance; the predicted-tree run establishes results for its own tree only (§A.42 items 2 and 4; owner recommendation 3) | P and R at `S1` and `E`; reviewers check that each pin resolves to retained content, that each gap names what is missing, and that no claim about the historical builds rests on the predicted-tree run |
 | `F`'s exact-head run is retained by the first execution commit (§A.42 item 2) | R at `S1` (a non-empty `evidence/f-run/`); reviewers check that it names `F`'s run, job and digest |
 | `E`'s exact-head run reaches `main` through its own evidence-retention pull request before reconciliation, and the receipt names each retained file's digest (§A.42 item 2) | reviewer check of that pull request and of the receipt's candidate entry for `E`; `evidence-retention` at `Q` |
 | the native receipt holds; the legacy records are untouched | `v3_verifier --verify-round Q`; `legacy_records_check.py` at every stage commit and at `Q`; G |
+
+## Owner recommendations (not decisions)
+
+Recorded as recommendations. None is a decision, a designation or an
+execution step.
+
+1. Q-CORE requires the static controls, the universal theorem's report and the
+   Lean positive-instance reports; the exact probe stays in Q-EXACT. The full
+   earned reading requires every advertised cell to pass.
+2. The probe may depend on SymPy 1.14.0, pinned explicitly, with the workflow
+   installing `sympy==1.14.0`. The separate arithmetic implementation and the
+   byte replay are kept; a standard-library-only probe is not required.
+3. The historical builds (`e684897d`, `febfe5e2`; runs 38450187534 and
+   38454439833) are retained where recoverable. Where they are not, the gap is
+   recorded and the old builds stay attributed provenance. The new
+   predicted-tree run establishes results only for its own tree and cannot
+   verify the historical logs retroactively.
+4. The drafting pull request is a replacement for #831 that preserves #831's
+   history and carries only control-plane files (this file and
+   `amendments/`). `controls.py` stays on the preparation branch until
+   execution. D is finalized after #829 lands.
+
+Still open before `F`, and not established by the self-test (which checks the
+draft checker's own tests): the adopted namespace and module bytes, the two
+statement surfaces, the probe specification, the workflow splices, the census
+entries, the frozen blobs and the retention rows.
 
 ## Design and freeze boundary
 
@@ -420,21 +466,33 @@ Before F, all of the following remain explicit obligations:
    modules, imports, registry entries, probe and workflow. Pin the complete
    design files, controls and parameters in this PR, then run its exact-head
    required checks. No predicted execution commit is supplied by this update.
-7. Retain the design evidence under AGENTS §A.42 item 2 and pin it below.
+7. Retain the evidence of the two historical design builds where it is
+   recoverable, record each unrecoverable part as a gap, and retain the
+   predicted-tree run's expected result; pin the table below. The
+   predicted-tree run establishes results only for its own tree and does not
+   verify the historical logs retroactively.
 
 **Retained evidence (§A.42).** Each file is a structured expected result in the
-form of §A.42 item 1: build success, the ten `#print axioms` reports, the exact
+form of §A.42 item 1: build success, the `#print axioms` reports, the exact
 replays' output lines and the failure markers. Each names its commit, run, job
 and recipe, and the digest of the log it is read from. The files are committed
 to the record directory by the first execution commit, outside `amendments/`,
 together with `F`'s exact-head run under `evidence/f-run/`, and pinned here by
-sha256 before `F`. `F` is not designated with a pending pin.
+sha256 before `F`. A historical row whose log cannot be recovered carries
+`gap:` and what is missing instead of a digest; the claims resting on that build
+then stay attributed provenance, the research record's reading. The available
+API client returns at most the last 5000 lines of a job log, and job-log
+downloads are refused in this environment, so a retained copy says which lines
+it covers and claims nothing outside them. At drafting, that client reported
+3256 lines for job 115478781754 and 3692 for job 115493410133; this is a
+measurement of availability, not retention. The predicted-tree row must carry
+a digest. `F` is not designated with a pending row.
 
 | path | sha256 |
 | --- | --- |
-| `evidence/design-38450187534.json` | pending (core design build, job 115478781754) |
-| `evidence/design-38454439833.json` | pending (instance design build, job 115493410133) |
-| `evidence/design-predicted-tree.json` | pending (the design run on the predicted execution tree, item 6) |
+| `evidence/design-38450187534.json` | pending (core design build at `e684897d`, job 115478781754: retained where recoverable, otherwise a recorded gap) |
+| `evidence/design-38454439833.json` | pending (instance design build at `febfe5e2`, job 115493410133: retained where recoverable, otherwise a recorded gap) |
+| `evidence/design-predicted-tree.json` | pending (the design run on the predicted execution tree, item 6; a digest is required) |
 
 The research core and exact layer are available, but these remaining edits
 are not yet a concrete, freeze-ready execution package. D is
