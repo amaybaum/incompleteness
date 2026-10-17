@@ -1,7 +1,8 @@
 # Off-main tranche 2: review log (2026-10-17)
 
-Branch `local/h7-not-on-main` in the session worktree; to be pushed to `wip/offmain-tranche1-20261017` only at an
-independently approved SHA. Base: main `49ba3297`.
+Branch `local/h7-not-on-main` in the session worktree. The approved SHA `e01b3cc3879ab47731af25325c897fd51375f157`
+was pushed to `wip/offmain-tranche1-20261017` and opened as draft PR #856 against main, for CI only. Base: main
+`49ba3297`.
 
 ## Commits
 | commit | content |
@@ -26,7 +27,7 @@ commit is not claimed to pass.
 | `bb01edfe` | CHANGES-NEEDED | H4 depended on the clone's objects and failed with all host branches (CI's checkout); four rules without cases; unchecked git exits; README counts |
 | `83fad8fa` | CHANGES-NEEDED | blobs withheld under inclusion paths unchecked; withheld metadata unchecked; descriptions and rule citation |
 | `0c12c520` | CHANGES-NEEDED | README on committed empty `.err`/`.log` files; relabelling with the list edited to match |
-| `e01b3cc3` | pending | |
+| `e01b3cc3` | APPROVE | three stored blobs could be relabelled withheld at `84e5b678`, fixed here; nits: no self-test case for two O9 branches, the zero-size rule reads the unchecked recorded size |
 
 Review files: session scratchpad `s1017/review-*/REVIEW.md`.
 

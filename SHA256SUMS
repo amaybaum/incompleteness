@@ -1,4 +1,4 @@
-15317d1bd977e537e58999ff00f13cc8ff95c296547e76be98c766a03c25e70e  ./HANDOFF.md
+7c7bd6ec22465b4e6dede0beb0c2fa30edb5c0f905b4b5b5eb76bcf2a401bbdc  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -37,6 +37,7 @@ d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/deci
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md
 9ed4140e01c5620d5e4071b6e4f5b523c6df716b2c76b9189723600330c07115  ./records/inventory/tranche2-inventory-20261016.zip
+634545ee0d59a00c704192f8006bebfea4d4bdf79847a7663d5c0a28b51df189  ./records/offmain-tranche2/REVIEW-LOG.md
 78733d715927307a432a6991804877ea78f8f5f7e7dc37626e2eaf01853e5ffa  ./records/pr854/ACCEPTANCE-e3a44e63.md
 92e6a44b02b07daeb5150d5c0c6708640089e8f4bc4a78b882a9b12949d6d360  ./records/pr854/LANDING.md
 1cd93336a0a0d893136731fcd2176bd0e29e7452d8ad5a5247b69e0ba1e328cc  ./records/pr854/REVIEW-e3a44e63.md
@@ -263,4 +264,3 @@ aab638dd9a5a5fed472d64736500696ffa0d4f0d9409ba6d1bd70535ff639f8b  ./wip/research
 4fce648f5689e79531bc5133f97fb761f7e1b389ce3a02daded3720773e484a4  ./wip/research-tracks/trackC/symrigid_exact-output.txt
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./wip/research-tracks/trackC/symrigid_exact-stderr.txt
 b4efd8af5a95ea858ff8da7d8e10df67e48903cfd6a7e165358f45f08c4108d6  ./wip/research-tracks/trackC/symrigid_exact.py
-8a5b43cd8444cdf810d0004bbed37762455426ae8a44f27257b010066aede047  ./records/offmain-tranche2/REVIEW-LOG.md

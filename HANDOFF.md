@@ -16,8 +16,10 @@ The owner requested closing the open repair work in small batches on 2026-10-17.
    research branch is the owner's decision; see `records/f2-corrections/REVIEW-804843f1.md`. New scientific
    closure work is separate.
 4. **Preservation and archiving:** decided by the owner; see `records/decisions/2026-10-17-owner-decisions.md`, last
-   section. The pilot is accepted, the raw logs are not published, and the off-main design refresh is in progress on
-   a `wip/*` branch. Keep the existing recovery branches.
+   section. The pilot is accepted and the raw logs are not published. The off-main refresh (tranche 2) was approved
+   by independent review at exactly `e01b3cc3`, pushed to `wip/offmain-tranche1-20261017`, and opened as draft
+   PR #856 against main for CI only; see `records/offmain-tranche2/REVIEW-LOG.md`. Merging needs a separate owner
+   decision. Keep the existing recovery branches.
 
 The existing separate approval requirements for merges and F/E designations still apply.
 
@@ -200,6 +202,7 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
 | `wip/f2-text-corrections-20261017` | `804843f1` | reviewed F2 corrections (APPROVE); no PR |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
+| `wip/offmain-tranche1-20261017` | `e01b3cc3` | reviewed tranche-2 refresh (APPROVE); draft PR #856, CI only |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
 | `tmp/artifact-validate-20261017` | `94814c50` | validator; a push re-runs it |
 | `tmp/session-handoff-20261017` | this branch | handoff |
