@@ -12,5 +12,6 @@
   - Tree: `4f3ca10023ebf549aee2c37d90b20d124d9abe12`, byte-identical to the reviewed head's tree.
   - Content: 58 files added (+2,933 lines), all under `verification/audits/provenance-errata/`, with none modified or
     deleted. Nothing outside that directory changed.
-- **Push CI on main:** `verify` run 39010013932 at `ea3155fd`. It was in progress when this record was written; see
-  `HANDOFF.md` for its result.
+- **Push CI on main:** `verify` run 39010013932 at `ea3155fd` succeeded. There were 22 successful jobs and one
+  expected skip, including the numerical-probes rollup. All 22 release-gate steps passed; `lean-axioms` reported
+  5989 named results, all 48 receipts held, and the 303 legacy records were intact.

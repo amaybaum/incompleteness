@@ -1,4 +1,4 @@
-53f3055f0cfb13cb8843cfc6bc54f64b484eebda528d44d8d7b25602d78de7d7  ./HANDOFF.md
+24b6023285d8b1785f19f4ef4c22de7949d68eae10b3831f7f4a016b46aea654  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -17,6 +17,7 @@ adeccda59b031d236cc5b6909e0cf1c083e8f70607fdfbc57a987c78e7263f09  ./records/arch
 678362790b8dd31f1e11f43ad79ed87867e4cc4b603465a5a3bd79613699384a  ./records/archiver-pilot/archiver-DESIGN.md
 e2f3d4661c7c513081f04daf54195936ca923d34ed1c5780589dc81f917f9741  ./records/decisions/2026-10-17-owner-decisions.md
 f9e882ab67ae1ad0d1740b3d6f4191fe26ea2ba5df339bef146b5c77f6b5af55  ./records/decisions/cleanup-20261017/LEDGER.md
+f4819448854b5eefa6d727712a681ea393c49a7a4a0109e40cd8410d749f36d6  ./records/decisions/cleanup-20261017/SHA256SUMS
 672d091281b5fe788b83de5988159670004becdc75152596df3a7cbdee9b5ebd  ./records/decisions/cleanup-20261017/clone-sd-README-vs-8021c1fc.diff
 177c268a56aa49478e6817143a0be7500e8a7c2aebb2043b0d40fb578e4e61c4  ./records/decisions/cleanup-20261017/clone-sd-README.sha256
 8fa083ef69ab00aedbc0044fe91890d78e00548a3244ca48bf2444a4481cc88a  ./records/decisions/cleanup-20261017/delete.py
@@ -31,8 +32,12 @@ d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/deci
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md
 9ed4140e01c5620d5e4071b6e4f5b523c6df716b2c76b9189723600330c07115  ./records/inventory/tranche2-inventory-20261016.zip
+2e3d023500df1b420283cbf44b6763dea62ede96408a0af5d7ab03bfec5fc04e  ./records/pr854/REVIEW-e3a44e63.md
+2d8beb2170574684cda358c126ff5194bcfe21dca336b795b322316a86d4b4ab  ./records/pr854/counterexamples.py
+fb73bf3a3accf68807479bc45ea40b35e52407dae75078da8e6b3648c62bf519  ./records/pr854/counterexamples.results.json
+a340085a417e6beb1551220fbd4aa8e84abe03d1fb3c7598b73f6f68e00a2475  ./records/pr854/local-checks.txt
 2ab817ba0f3187c4c52ba49151bd9267dcb50242e98acce2409ede71127ab5d3  ./records/pr855/ACCEPTANCE-8021c1fc.md
-9043aa56f306d89b75f8ad0c4f09a82c0b45a49dd54c216bfb41c11b5eec360f  ./records/pr855/LANDING.md
+46d67dbe400882fb0efb614bc15a191d8d44bd6bd071d52dfe9483682e85cd27  ./records/pr855/LANDING.md
 c774aacc49e71814aa1647967ab43d2f757a02e2d77d0d037d6354896e2cce50  ./wip/829-import-bridge/experiment/finite-reconstruction-design.disposable.yml
 8773c04d492e48b577ff9377b97f705676c811f7cc7c69dbb292a80afb572fdf  ./wip/829-import-bridge/experiment/gen/GENERATED.SHA256SUMS
 3ab77fc212dee61f766a861165d809a2fd354d5301b30bb1944704f6a2dc590e  ./wip/829-import-bridge/experiment/gen/cases/Control_remove.lean
@@ -90,6 +95,7 @@ a8a5ffd499655b523fb32d2d37db8e33cbb27fd60b4be78fd20888880e9bcba4  ./wip/f2-censu
 c7defe64bb41242735adf0c4842eae95a4ff630e664b47fe44310aa9582307b5  ./wip/f2-census-checks/scale_gauge.py
 fc1834b38ec9c50338680f7b6dd695018d06f787734144ed269f2caf3d9b0d4d  ./wip/f2-census-checks/scale_gauge_xcheck.out
 e0a05daa98312a8d48a2f8524dd8ba3fc147b616967f73723862c4a9df9ef7db  ./wip/f2-census-checks/scale_gauge_xcheck.py
+a4f878a72f60115f6b54583a22a2577ceaf3527b30bdde1b082fd9aa175dbd7d  ./wip/hvalid/SHA256SUMS
 e4ab7520c79f03826e40e84710c7e10429a13ebe5d1934924a256c89e95ad5dc  ./wip/hvalid/hvalid_search.py
 4b91a4463d44bcf97f256e46c95bba037973394f9ae5cc1e645a2f79879d1f0a  ./wip/hvalid/independent-output.txt
 b87c270a5037d02d2959accebadd9ec208fa7da91dd2320018b843a132bfe418  ./wip/hvalid/independent_check.py
@@ -214,6 +220,7 @@ d20f1d086acf3ada67788b5bee93f00a1b8df47c0379418b1d61357bbfcc7dbe  ./wip/research
 a14a6367a8984398d22864b4176560e43be479ca6ef034a8d93f75e430433de8  ./wip/research-tracks/trackB/kweight_exact-output.txt
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./wip/research-tracks/trackB/kweight_exact-stderr.txt
 24469a594d792d3bc079b2dd1a087778b25786054865d88e893eb16072ba04b2  ./wip/research-tracks/trackB/kweight_exact.py
+2a68b02bb0acda2a3c8df445a570c836e7101c228fea86e3b89bc3361213e373  ./wip/research-tracks/trackB/replay-829design/SHA256SUMS
 8df058c5d1599114f36520f81ebb9af317be649b0f7199496d20a3ea1c90024b  ./wip/research-tracks/trackB/replay-829design/exact_check.py
 eccc5f4bfd98e192a093dfbb1bf338f86fc69324a63db2f16b94ec3546e84bea  ./wip/research-tracks/trackB/replay-829design/output.txt
 eccc5f4bfd98e192a093dfbb1bf338f86fc69324a63db2f16b94ec3546e84bea  ./wip/research-tracks/trackB/replay-829design/replay-output.txt

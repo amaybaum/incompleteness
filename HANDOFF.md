@@ -1,7 +1,23 @@
-# Handoff: state at 2026-10-17 ~06:20 UTC
+# Handoff: state at 2026-10-17, repair batch 1
 
 `main` is at `ea3155fd` (PR #855 landed 06:28Z on the owner's approval; before it, `66a981d5` with R1 and AGENTS §A.42
 at line 833). The other PRs below are drafts, and no further merge is authorized.
+
+## 0. Repair queue, small batches
+
+The owner requested closing the open repair work in small batches on 2026-10-17.
+
+1. **#854:** `e3a44e63` independently re-reviewed; the recorded counterexamples and local checks pass.
+   The PR branch has been advanced to that exact SHA. Current-head CI and both real reproductions remain
+   required. See `records/pr854/REVIEW-e3a44e63.md` and the replay harness beside it.
+2. **Handoff freshness:** #855's main-push run and #853's PR run are complete and successful. This snapshot
+   closes those pending status entries and corrects the branch map.
+3. **F2 research-text repairs:** the four overclaims listed below remain a separate, bounded repair batch;
+   they require checking their source statements before edits. New scientific closure work is separate.
+4. **Preservation and archiving:** keep the existing recovery branches. Pilot acceptance, storage decisions
+   and the off-main retention design remain explicit later decisions; they are not silently adopted here.
+
+The existing separate approval requirements for merges and F/E designations still apply.
 
 ## 1. Standing constraints (owner)
 
@@ -74,70 +90,50 @@ at line 833). The other PRs below are drafts, and no further merge is authorized
 
 ### LANDED — PR #855, provenance errata
 
-**Merged on the owner's approval as `ea3155fd`** (`records/pr855/LANDING.md`).
-- Parents: `66a981d5` and the reviewed head `8021c1fc`.
-- Tree `4f3ca100`, identical to the head's.
+Merged on the owner's approval as `ea3155fd` (`records/pr855/LANDING.md`).
+- Parents: `66a981d5` and reviewed head `8021c1fc`.
+- Tree `4f3ca100`, identical to the reviewed head's.
 - 58 files added, only in `verification/audits/provenance-errata/`.
-- Push CI on main: run 39010013932 (result below).
+- Main-push verify run **39010013932 succeeded**: 22 successful jobs, one expected skip, including the
+  numerical-probes rollup. Release gate: 22/22 PASS; 5989 named results, 48 receipts and 303 legacy records.
+- Independent acceptance was ACCEPT-WITH-NOTES; see `records/pr855/ACCEPTANCE-8021c1fc.md` for its scope and
+  optional consistent-judgment-edit pinning note. That optional follow-up was not included in this repair batch.
+- The old `draft/provenance-errata-20261017` remote ref is now absent. The reviewed commit remains the merge's
+  second parent on main. This session did not delete or recreate the branch.
 
-`main` is now `ea3155fd`. Rebase nothing onto it without need. #854's PR branch is based on `66a981d5`; a later landing
-merges main in by merits (§A.39).
+Main remains `ea3155fd`. The #854 repair preserves its history from `66a981d5`; no rebase was needed.
 
-Background, as of before the landing:
+### P1 — PR #854, R1 hardening
 
-- **Head `8021c1fc`**, independently reviewed and approved after two rounds.
-- **Five entries, PE-1 to PE-5.** Five frozen records cite a run head by an id that names no object. Each run executed
-  at a real head that shares the cited id's leading digits.
-- **52 raw git objects are retained** in `objects/`. `check_errata.py` fails closed (HOLDS / UNCHECKED / FAILS) and
-  is not in CI.
-- **PR CI:** run 39005917661 is green on the synthetic merge `610d872d`, whose tree `4f3ca100` equals the head's.
-- **Exact-head run 39006747889:** green, 37/37 jobs at `8021c1fc`, release gate 22/22 PASS (`lean-axioms` 5989 with
-  no sorry; `evidence-retention` HOLDS; receipts 48; legacy records 303).
-- **Independent acceptance: ACCEPT-WITH-NOTES** (`records/pr855/ACCEPTANCE-8021c1fc.md`).
-  - All six conditions are met: the five entries, PE-3's wording, the retained objects, fail-closed behaviour,
-    exact-head evidence and scope.
-  - Main note (medium-low): consistent judgment edits are not detected. A verdict and its status changed the same way
-    in both files gives HOLDS. A cheap fix, if wanted: pin each id's (verdict, explanation, status) next to
-    `ENTRY_IDS`.
-  - **Owner decision pending:** accept, take the optional pin fix in a reviewed follow-up commit, or authorize a
-    merge.
-- **Optional nit:** at README.md:85-86 "Their" could be read as the log lines.
-- It stays a draft, with no merge.
+- **Current PR head:** `e3a44e63ebec41fccd109cf1ca945b3b8a200553` on
+  `draft/evidence-retention-r1-hardening-20261017`. The same SHA remains on `wip/r1-hardening-fix-20261017`.
+- The historical tested checkpoint `6bf56dc4` and intermediate fix `915ca926` remain unchanged in history.
+  Their earlier CI and reproduction results do not certify the new head.
+- The earlier R11 review returned CHANGES-NEEDED. The two fixes have now been independently reviewed and
+  their reported counterexamples replayed: **APPROVE-FOR-PR-UPDATE**. No new source commit was necessary.
+- Local results at the reviewed SHA: retention history gate HOLDS; 104 checker self-test cases; all 48
+  receipts and 303 legacy records hold; comparator, placement, voice, compilation and whitespace checks pass.
+- The independent harness has 28 passing assertions, including 68 split/joined parser pairs. It demonstrates
+  the old bypasses and the fixed rejections. Its CLI cases use declared toolchain stand-ins; they test exit
+  handling and do not substitute for real Lean reproductions.
+- **PR integration run:** 39014855014, in progress at this snapshot.
+- **Next:** finish that run, dispatch `verify.yml` on exactly this head, then dispatch
+  `reproduce-evidence.yml` twice with `run_id=38855576525`: positive with no override; negative with
+  `override_sha=777ddf8dcada759b5f3bcab26a4ff3833ba720bf` and
+  `expect_failure=real_to_integer_surrogate`.
+- Current connection constraint: the GitHub tools do not expose dispatch. Browser fallback requires approval
+  under the browser tool's instructions. No alternate trigger or workflow edit has been introduced.
+- The PR stays a draft pending separate acceptance and owner merge approval.
 
-### P1 — PR #854, R1 hardening (`draft/evidence-retention-r1-hardening-20261017`, head `6bf56dc4`)
-
-- **`6bf56dc4` is the historical tested checkpoint.** All four checks are green:
-  - PR verify 38997943535;
-  - exact-head 38997946157;
-  - negative control 38997949833 HOLDS, with exactly 3 scientific failures;
-  - positive reproduction 38997947966 HOLDS, with 0 comparison failures.
-- **The R11 review returned CHANGES-NEEDED.** The fix `915ca926` was re-reviewed: APPROVE-WITH-NOTES.
-- **Two notes were sent back to the fixer:**
-  1. **The `--expect-failure` forms.** `--expect-failure --work` is rejected but `--expect-failure=--work` is
-     accepted, so the two forms are not identical. This blocks under the owner's requirement of identical semantics
-     for both forms; it must be fixed for every valued flag, with harness cases.
-  2. **The BG-3 `E`-tail relabel.** It moves out of scope instead of failing; R11 should fail any non-CI, non-bridge
-     result whose run is attested. Optionally, add an R8 kind rule.
-- **The fixer committed `e3a44e63`** ("one token stream for both flag forms, R11 for attested non-bridge results, R8
-  kind"), pushed to **`wip/r1-hardening-fix-20261017`**.
-  - It is not yet reviewed, and the fixer's report was not received.
-  - Next: the original reviewer, or a fresh one, confirms both notes on `e3a44e63`.
-- **On approval** (owner-authorized):
-  - push exactly that SHA to the PR branch;
-  - run exact-head CI;
-  - repeat the positive and negative reproductions the fix affects, through `reproduce-evidence.yml` dispatch, which
-    takes `run_id`, `override_sha` and `expect_failure`;
-  - check for unexpected scope changes;
-  - the PR stays a draft until a separate acceptance verdict.
-- **The owner's requirement, verbatim:** "require attested-run versus checked-run set equality and identical semantics
-  for both forms of `--expect-failure`. The corrected implementation must pass the original reviewer's
-  counterexamples."
+The owner's requirement remains: attested-run versus checked-run set equality, identical semantics for both
+forms of `--expect-failure`, and successful replay of the reported counterexamples. Review and replay details:
+`records/pr854/REVIEW-e3a44e63.md`, `counterexamples.py`, `counterexamples.results.json`, `local-checks.txt`.
 
 ### Parked, nothing running
 
 - **#853, LOC-1 control plane** (`draft/loc-1-identification-dependence-20261016`, head `ccbfd9a9`).
-  - The claims-check fix was pushed at handoff time. PR CI run 39008783088 has the Mathlib bridge (release gate with
-    claims) green; one probe job was still running.
+  - The claims-check fix is complete. PR verify run 39008783088 succeeded: 22 successful jobs and one expected
+    skip, including the numerical-probes rollup. The Mathlib bridge and release gate are green.
   - Design only: no F. The orphan branch `tmp/loc1-working-material-20261017` is temporary storage, never merged.
 - **Off-main preservation design.**
   - 342 cited objects (1,725 with their dependencies) are recoverable today. Seven cited ids are unrecoverable: GR-1
@@ -179,9 +175,9 @@ Background, as of before the landing:
 
 | Branch | Head | Role |
 | --- | --- | --- |
-| `draft/provenance-errata-20261017` | `8021c1fc` | #855, merged as `ea3155fd`; keep the branch |
-| `draft/evidence-retention-r1-hardening-20261017` | `6bf56dc4` | #854 PR branch, the tested checkpoint |
-| `wip/r1-hardening-fix-20261017` | `e3a44e63` | #854 fix, unreviewed |
+| `draft/provenance-errata-20261017` | ref absent | #855 reviewed commit `8021c1fc` retained through main `ea3155fd` |
+| `draft/evidence-retention-r1-hardening-20261017` | `e3a44e63` | #854 reviewed repair; new-head validation pending |
+| `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
 | `tmp/artifact-validate-20261017` | `94814c50` | validator; a push re-runs it |

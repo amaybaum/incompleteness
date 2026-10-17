@@ -1,0 +1,181 @@
+{
+  "baseline": "6bf56dc4500770b6c32bc584b32d2198a1916215",
+  "checks": [
+    {
+      "details": null,
+      "name": "old checkpoint demonstrates silently ignored joined expectation",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "current rejects unmatched expectation ['--expect-failure', 'NEVER-MATCHES']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "current rejects unmatched expectation ['--expect-failure=NEVER-MATCHES']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "current accepts a matched expectation ['--expect-failure', 'required-report']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "current accepts a matched expectation ['--expect-failure=required-report']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "915ca926 demonstrates different flag-shaped-value verdicts",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "current flag-shaped-value forms give identical rejected verdicts",
+      "pass": true
+    },
+    {
+      "details": {
+        "pairs": 17
+      },
+      "name": "all split/joined parse cases agree for --run",
+      "pass": true
+    },
+    {
+      "details": {
+        "pairs": 17
+      },
+      "name": "all split/joined parse cases agree for --work",
+      "pass": true
+    },
+    {
+      "details": {
+        "pairs": 17
+      },
+      "name": "all split/joined parse cases agree for --override-sha",
+      "pass": true
+    },
+    {
+      "details": {
+        "pairs": 17
+      },
+      "name": "all split/joined parse cases agree for --expect-failure",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--unknown']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-failures', 'required-report']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-failure']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-failure', '']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-failure=']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-failure', '  ']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-failure=  ']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--run', '2']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--override-sha', '777ddf8dcada759b5f3bcab26a4ff3833ba720bf', '--override-sha', '777ddf8dcada759b5f3bcab26a4ff3833ba720bf']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "argument failure writes a false verdict: ['--expect-scientific-mismatch=yes']",
+      "pass": true
+    },
+    {
+      "details": null,
+      "name": "a comparator exception writes a false verdict and its cause",
+      "pass": true
+    },
+    {
+      "details": {
+        "checked": 97,
+        "modules": 165,
+        "reads": 96,
+        "runs": 96,
+        "unscoped": [
+          [
+            "bg3/results-116831668411.json",
+            "of kind 'design-diagnostic', which records no module table, and run 38857340321 is attested by no receipt or certificate attestation at the tranche base"
+          ],
+          [
+            "bg3/results-116805436638.json",
+            "run 38848873989 is attested by no receipt or certificate attestation at the tranche base, and its commit e3ef9358d669 is not on main there"
+          ],
+          [
+            "bg3/results-116761232088.json",
+            "run 38834744516 is attested by no receipt or certificate attestation at the tranche base, and its commit 6c160ad26a98 is not on main there"
+          ]
+        ]
+      },
+      "name": "unmodified R11 checks 97 results, 96 runs, 165 modules, 3 exclusions",
+      "pass": true
+    },
+    {
+      "details": [],
+      "name": "old checkpoint demonstrates the CI result relabel bypass",
+      "pass": true
+    },
+    {
+      "details": [
+        "R8 ci-38855576525: results.json is of kind 'design-diagnostic', and a CI entry's expected result is a Mathlib bridge result",
+        "R11 ci-38855576525: ci/38855576525/results.json is of kind 'design-diagnostic', not a Mathlib bridge result, so no module table of it is checked"
+      ],
+      "name": "current rejects the CI result relabel after size/digest repair",
+      "pass": true
+    },
+    {
+      "details": [],
+      "name": "old checkpoint demonstrates the BG-3 E tail relabel bypass",
+      "pass": true
+    },
+    {
+      "details": [
+        "R11 bg3-e-bridge-tail: bg3/results-116826161407.json is of kind 'design-diagnostic', but an attestation at the tranche base names its run 38855576525, so it must be a bridge result whose module table is checked"
+      ],
+      "name": "current rejects the BG-3 E tail relabel after size/digest repair",
+      "pass": true
+    },
+    {
+      "details": [
+        "R11 the runs with a checked expected result are not the runs attested at the tranche base: 96 attested, 95 checked; unchecked ['35716484185'], unattested []"
+      ],
+      "name": "dropping a required result fails attested-versus-checked set equality",
+      "pass": true
+    }
+  ],
+  "reviewed_commit": "e3a44e63ebec41fccd109cf1ca945b3b8a200553",
+  "scope": "archive checks plus mocked CLI handling; no Lean certification"
+}

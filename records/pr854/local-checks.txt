@@ -1,0 +1,9 @@
+retention gate: EVIDENCE-RETENTION  HOLDS (history mode: 0 failure(s); self-test OK)
+V3 self-test: v3_verifier: self-test OK
+legacy records: LEGACY  303 record(s) in 75 closed namespace(s), all intact
+receipts: RECEIPTS  48 receipt(s), all hold
+comparator: comparator self-test: OK (4 expected result(s))
+placement: artifact_placement_check: OK (no unaccounted root artifact; 95 name(s) permitted, self-test passed)
+voice: voice_check: OK (no manuscript-voice history narration; 40 manuscript file(s) scanned)
+retention checker self-test cases: 104 passed, 0 failed
+independent counterexample assertions: 28 passed, 0 failed; 68 split/joined parser pairs
