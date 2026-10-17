@@ -57,9 +57,12 @@ another. Each exists because a real defect shipped past the others:
                        receipts and certificate attestations at the archive's
                        base and requires each to be covered, checks the base's
                        ancestry and the paths named as later (R10), re-derives
-                       each expected result's module table from the attesting
-                       rounds' governed paths at the run's commit (R11, a
-                       consistency check), and its self-test.
+                       the module table of each expected result whose run an
+                       attestation at the base names, from the attesting
+                       rounds' governed paths at the run's commit or, for
+                       CV-1's runs, from the contributions of
+                       verification/certificates/CV1.json (R11, a consistency
+                       check), and its self-test.
                        A record that pinned content by digest was once held to
                        be retained when its evidence sat only in a session's
                        scratchpad; this step is where an archived copy that

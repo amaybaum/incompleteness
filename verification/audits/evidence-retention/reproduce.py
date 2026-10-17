@@ -5,11 +5,15 @@
     python3 -I verification/audits/evidence-retention/reproduce.py --run RUN_ID --work DIR \\
         --override-sha SHA --expect-scientific-mismatch [--expect-failure TEXT ...]
 
+A flag that takes a value takes it as the next argument or after '=' (--expect-failure=TEXT): the two forms are
+parsed identically and give the same verdict.
+
 Run from the repository root of a clone with full history and a Lean toolchain manager (elan) on PATH. The
 verifier is this checkout: the manifest and results.json read here, and extract_result.py and compare_result.py
 beside this file. The historical commit supplies only its sources, its toolchain pin and its own
 tools/release_gate.py. The steps:
-  1. validate the arguments: RUN_ID decimal, SHA a full 40-hex commit id, each TEXT non-empty;
+  1. validate the arguments: each a known flag or a flag's value, no value missing, empty or whitespace-only, no
+     flag but --expect-failure given twice, RUN_ID decimal, SHA a full 40-hex commit id;
   2. find the entry ci-RUN_ID and its results.json; record the verifier commit;
   3. check that the commit to build is in the repository (a shallow clone fails here);
   4. check it out as a detached worktree under DIR;
@@ -22,17 +26,19 @@ Reproduction holds, and the exit code is 0, only if every command succeeded and 
 
 DIR/verdict.json is written on every exit path once --work names a directory that can be written: a rejected
 argument, a missing entry, a failed checkout, and an exception raised by any step, extraction and comparison
-included. Its 'holds' is true only with exit code 0. A stop records its reason under 'stopped'; an exception
-records its type and message there ({"exception": TYPE, "message": MESSAGE}), and the exit code is 1. Without
---work the usage text is printed, no verdict is written, and the exit code is 2; if the verdict cannot be
-written, the exit code is nonzero.
+included. Its 'holds' is true only with exit code 0. A stop records its reason under 'stopped'; rejected
+arguments list each problem under 'argument_problems'; an exception records its type and message under 'stopped'
+({"exception": TYPE, "message": MESSAGE}), and the exit code is 1. Without a --work value the usage text is
+printed, no verdict is written, and the exit code is 2; if the verdict cannot be written, the exit code is
+nonzero.
 
 Negative controls (--override-sha with --expect-scientific-mismatch) build another commit against the same
 expected result. They pass only if the build and the gate ran to completion and passed there, so that the
 failure cannot be an infrastructure or build failure, and the comparison then failed on scientific results
 alone (rules C2-C4, never C1), including each --expect-failure text. Anything else fails the control. An empty
-or whitespace-only --expect-failure, or one given without a value, is rejected: the empty text is contained in
-every failure, so it would expect nothing.
+or whitespace-only --expect-failure, in either form, or one given without a value, is rejected: the empty text
+is contained in every failure, so it would expect nothing. So is an unknown argument, such as --expect-failures,
+which would otherwise drop the expectation it was meant to state.
 """
 import json
 import os
@@ -49,6 +55,9 @@ from compare_result import compare  # noqa: E402
 
 RUN_ID = re.compile(r'^[0-9]{1,20}$')
 SHA = re.compile(r'^[0-9a-f]{40}$')
+VALUED = ('--run', '--work', '--override-sha', '--expect-failure')
+SWITCHES = ('--expect-scientific-mismatch',)
+EMPTY_TEXT = '--expect-failure needs a non-empty text: the empty text is contained in every failure, so it expects nothing'
 
 
 def sh(args, cwd, log):
@@ -64,17 +73,50 @@ def sh(args, cwd, log):
     return rc
 
 
-def arg(a, name, many=False):
-    vals = [a[i + 1] for i, x in enumerate(a) if x == name and i + 1 < len(a)]
-    return vals if many else (vals[0] if vals else None)
+def parse(a):
+    """Strict arguments: each is a known flag, or the value of one, given as the next argument or after '='.
+    Returns ({flag: value}, problems), with --expect-failure's values as a list; any problem rejects the arguments.
+    The next argument is never taken as a value when it is itself a flag, so a flag without a value is a problem."""
+    flag = lambda x: x.partition('=')[0] in VALUED + SWITCHES
+    opts, problems, i = {'--expect-failure': []}, [], 0
+    while i < len(a):
+        tok = a[i]
+        name, eq, val = tok.partition('=')
+        i += 1
+        if name in SWITCHES:
+            if eq:
+                problems.append('%s takes no value' % name)
+            elif name in opts:
+                problems.append('%s is given twice' % name)
+            opts[name] = True
+            continue
+        if name not in VALUED:
+            problems.append('%r is not an argument of this tool' % tok)
+            continue
+        if not eq:
+            if i >= len(a) or flag(a[i]):
+                problems.append('%s needs a value' % name)
+                continue
+            val, i = a[i], i + 1
+        if not val.strip():
+            problems.append(EMPTY_TEXT if name == '--expect-failure' else '%s needs a non-empty value' % name)
+        elif name == '--expect-failure':
+            opts[name].append(val)
+        elif name in opts:
+            problems.append('%s is given twice' % name)
+        else:
+            opts[name] = val
+    return opts, problems
 
 
 def main():
-    a = sys.argv[1:]
-    run_id, work, override = arg(a, '--run'), arg(a, '--work'), arg(a, '--override-sha')
-    negative, expect = '--expect-scientific-mismatch' in a, arg(a, '--expect-failure', many=True)
+    opts, problems = parse(sys.argv[1:])
+    run_id, work, override = opts.get('--run'), opts.get('--work'), opts.get('--override-sha')
+    negative, expect = opts.get('--expect-scientific-mismatch', False), opts['--expect-failure']
     if not work:
         # the one exit that writes no verdict: there is no directory to hold it
+        for p_ in problems:
+            print('FAIL  %s' % p_)
         print(__doc__)
         return 2
     work = os.path.abspath(work)
@@ -112,7 +154,7 @@ def main():
     try:
         os.makedirs(work, exist_ok=True)
         txt.append(open(os.path.join(work, 'verdict.txt'), 'w', encoding='utf-8'))
-        return reproduce(a, run_id, work, override, negative, expect, record, out, finish)
+        return reproduce(problems, run_id, work, override, negative, expect, record, out, finish)
     except (Exception, KeyboardInterrupt) as exc:
         out('FAIL  stopped by %s: %s' % (type(exc).__name__, exc))
         return finish(False, {'exception': type(exc).__name__, 'message': str(exc)})
@@ -121,27 +163,29 @@ def main():
             txt[0].close()
 
 
-def reproduce(a, run_id, work, override, negative, expect, record, out, finish):
-    """The steps of the docstring; every return goes through finish, which writes verdict.json."""
+def reproduce(problems, run_id, work, override, negative, expect, record, out, finish):
+    """The steps of the docstring, from parse()'s problems and values; every return goes through finish, which
+    writes verdict.json."""
+    problems = list(problems)
     if not run_id:
-        out('FAIL  --run is required')
-        print(__doc__)
-        return finish(False, 'usage', code=2)
-    if not RUN_ID.match(run_id):
-        out('FAIL  --run must be a decimal run id, got %r' % run_id)
-        return finish(False, 'arguments')
+        if not problems:
+            out('FAIL  --run is required')
+            print(__doc__)
+            return finish(False, 'usage', code=2)
+        problems.append('--run is required')
+    elif not RUN_ID.match(run_id):
+        problems.append('--run must be a decimal run id, got %r' % run_id)
     if override is not None and not SHA.match(override):
-        out('FAIL  --override-sha must be a full 40-hex commit id, got %r' % override)
-        return finish(False, 'arguments')
+        problems.append('--override-sha must be a full 40-hex commit id, got %r' % override)
     if negative != (override is not None):
-        out('FAIL  --override-sha and --expect-scientific-mismatch go together: a control at another commit must state '
-            'that it expects a scientific mismatch, and only such a control may expect one')
-        return finish(False, 'arguments')
+        problems.append('--override-sha and --expect-scientific-mismatch go together: a control at another commit must '
+                        'state that it expects a scientific mismatch, and only such a control may expect one')
     if expect and not negative:
-        out('FAIL  --expect-failure needs --expect-scientific-mismatch')
-        return finish(False, 'arguments')
-    if len(expect) != a.count('--expect-failure') or any(not t.strip() for t in expect):
-        out('FAIL  --expect-failure needs a non-empty text: the empty text is contained in every failure, so it expects nothing')
+        problems.append('--expect-failure needs --expect-scientific-mismatch')
+    if problems:
+        for p_ in problems:
+            out('FAIL  %s' % p_)
+        record['argument_problems'] = problems
         return finish(False, 'arguments')
     man = json.load(open(os.path.join(HERE, 'manifest.json'), encoding='utf-8'))
     ent = next((e for e in man['entries'] if e.get('id') == 'ci-' + run_id), None)

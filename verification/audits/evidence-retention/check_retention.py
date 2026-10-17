@@ -38,22 +38,31 @@ Rules:
       covered, nothing else may be, and a receipt landed after the base is out of scope without a declaration.
   R11 (with git history; run by --module-sets and --gate) every expected result's module table is the set of Lean
       modules its run's rounds govern, re-derived from the rounds' records rather than from the archive. The
-      receipts and certificate attestations at the tranche base name the rounds that attest each run and the
-      commit each attests, which must be the expected result's. For a receipt, each control-plane file is read at
-      that commit and must be the blob the receipt pins; their one v3-governed-paths block, parsed here from S7
-      and G10 of the V3 specification, must hash to the receipt's governed_paths_digest; and its paths under
-      verification/lean-mathlib/ ending in .lean are the governed modules. For a certificate attestation, the
-      certificate is read at that commit and must be the blob the attestation pins, and the Lean modules among its
-      contributions are the governed ones. A governed directory inside verification/lean-mathlib/, or one
-      containing it, fails the check: it fixes no module set.
-      The table must equal the union over the run's rounds. Expected results of a run no covered file attests
-      (BG-3's design trees, at commits off main) are listed as outside its scope.
+      receipts and certificate attestations at the tranche base, read from git and not from the manifest, fix
+      the runs to check, the rounds that attest each run and the commit each attests, which must be the expected
+      result's. The runs with a checked bridge result must be exactly the runs they attest, whatever the archive
+      classifies its results as: a run with several bridge results has each checked, and counts once. For a
+      receipt, each control-plane file is read at that commit and must be the blob the receipt pins; their
+      v3-governed-paths block, its opener and closer recognized as G10 states and its entries hashed as S7
+      states, must hash to the receipt's governed_paths_digest; and its paths under verification/lean-mathlib/
+      ending in .lean are the governed modules. S7's validity rules and G10's near-miss rule are not applied
+      here: the digest ties the entries to the receipt, whose block the V3 verifier validated. For a certificate
+      attestation, which no v3-governed-paths block governs (CV-1's, with verification/certificates/CV1.json),
+      the certificate is read at that commit and must be the blob the attestation pins, and the Lean modules
+      among its contributions are the governed ones. A governed directory inside verification/lean-mathlib/, or
+      one containing it, fails the check: it fixes no module set.
+      The table must equal the union over the run's rounds. A CI entry's expected result must be a bridge result.
+      Any other expected result is listed as outside the rule's scope, with its reason, when it is of another
+      kind (BG-3's design diagnostic), or when no attestation at the base names its run and its commit is not
+      an ancestor of the base (BG-3's design trees, off main); such a result at a commit on main fails, and so
+      does one whose commit the repository cannot place (a shallow clone).
       R11 is a consistency check, not an independent derivation: build_archive.py read the module sets from the
       same governed-paths blocks, at the tranche base and with its own parser. R11 shows that the archive applied
       those blocks faithfully, as they stand at each run's commit and as the receipts' digests commit to them; it
       cannot show that the governed paths name the right modules.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
-cases read the repository's history, and the self-test fails when that history is absent.
+cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
+the cases read is absent.
 The gap list is printed: a gap is recorded, not a failure. R1-R9 check the archive against itself and against the
 tree; they do not re-derive an expected result, which reproduce.py does at the commit, and R11 re-derives only
 its module set. Whether a claim marked "retained" is carried by the files it names is a reading of those files;
@@ -438,10 +447,14 @@ def git_show(root):
 
 
 def governed_entries(texts):
-    """The (class, ops, path) lines of the one v3-governed-paths block across a control plane's files, as S7 and
-    G10 of the V3 specification state them (an opener and a closer are exact lines, fields are separated by one
-    space), or None if there is not exactly one closed block or a line is not a class and two fields. Written here
-    from the specification, not taken from build_archive.py or tools/v3_verifier.py."""
+    """The (class, ops, path) lines of the one v3-governed-paths block across a control plane's files, or None if
+    there is not exactly one closed block or a line is not a class and two fields. The opener and the closer are
+    recognized as G10 states them (exact lines), and the entries are split as S7 states them (fields separated by
+    one space). S7's validity rules (the ops letters and their order, the path rules, a path given twice) and
+    G10's near-miss rule are not applied, and the block is counted across all the files rather than required to
+    lie in the preregistration (K2): the digest ties the entries to the receipt, whose block the V3 verifier
+    validated. Its structure is close to tools/v3_verifier.py's parser, so it is not an independent
+    implementation of the specification."""
     blocks = []
     for t in texts:
         lines = t.split('\n')
@@ -515,56 +528,98 @@ def governed_modules(kind, doc, commit, show, F, eid):
     return {p[len(LEAN_ROOT):] for p in paths if p.startswith(LEAN_ROOT) and p.endswith('.lean')}
 
 
-def module_sets(archive, root, man, show=None):
+def git_on_main(root, base):
+    """on_main(commit): True if commit is an ancestor of base, False if it is not, None if this repository cannot
+    place it. A repository that is not shallow holds every ancestor of base, so a commit it lacks is not one; in a
+    shallow repository only an ancestor is decided."""
+    import subprocess
+    git = lambda *a: subprocess.run(['git', '-C', root] + list(a), capture_output=True)
+    shallow = git('rev-parse', '--is-shallow-repository').stdout.strip() != b'false'
+
+    def on_main(commit):
+        if not re.fullmatch(r'[0-9a-f]{40}', str(commit)):
+            return None
+        if git('merge-base', '--is-ancestor', commit, base).returncode == 0:
+            return True
+        return None if shallow else False
+    return on_main
+
+
+def module_sets(archive, root, man, show=None, on_main=None, scope=None):
     """R11, which reads git history: every expected result's module table is the set of Lean modules its run's
-    rounds govern, re-derived from each round's control plane at that run's commit. Returns (failures, stats)."""
+    rounds govern, re-derived from each round's control plane at that run's commit, and the runs checked are the
+    runs the receipts and certificate attestations at the tranche base attest. scope is base_scope's set, read
+    here when not given. Returns (failures, stats)."""
     show = show or git_show(root)
     fails = []
     F = fails.append
     base = man.get('base', '')
-    stats = {'checked': 0, 'modules': 0, 'reads': 0, 'unscoped': []}
+    on_main = on_main or git_on_main(root, base)
+    stats = {'checked': 0, 'runs': 0, 'modules': 0, 'reads': 0, 'unscoped': []}
+    if scope is None:
+        scope = base_scope(man, root)[0]
+    if scope is None:
+        F('R11 the tranche base %s is not in the repository, so no attestation can be read there' % base[:12])
+        return fails, stats
+    # the runs to check, from the attestations at the base alone: no result's kind or entry enters here
     attest = {}
-    for c in man.get('coverage', {}).get('files', []):
-        raw = show(base, str(c.get('path')))
+    for p in sorted(scope):
+        raw = show(base, str(p))
         try:
             doc = json.loads(raw) if raw is not None else None
         except ValueError:
             doc = None
         if not isinstance(doc, dict):
-            F('R11 coverage file %s cannot be read at the tranche base %s' % (c.get('path'), base[:12]))
+            F('R11 %s cannot be read at the tranche base %s' % (p, base[:12]))
             continue
-        if str(c.get('path')).startswith('verification/receipts/'):
+        if str(p).startswith('verification/receipts/'):
             for a in doc.get('attestations') or []:
-                m = a.get('kind') == 'check-run' and RUN_URL.search(str(a.get('record', '')))
+                m = isinstance(a, dict) and a.get('kind') == 'check-run' and RUN_URL.search(str(a.get('record', '')))
                 if m:
                     attest.setdefault(m.group(1), []).append(('receipt', doc, a.get('commit')))
         else:
             for v in (doc.get('ci') or {}).values():
                 if isinstance(v, dict) and v.get('run'):
                     attest.setdefault(str(v['run']), []).append(('certificate', doc, v.get('head_sha')))
-    cache = {}
+    cache, done = {}, set()
+    none_at_base = 'is attested by no receipt or certificate attestation at the tranche base'
     for e in man.get('entries', []):
         eid = e.get('id')
+        is_ci = str(eid).startswith('ci-')
         for f in e.get('files', []):
             rel = str(f.get('path', ''))
             if not (rel.endswith('/results.json') or (rel.startswith('bg3/results-') and rel.endswith('.json'))):
                 continue
             try:
                 r = json.load(open(os.path.join(archive, rel), encoding='utf-8'))
-                if r.get('kind') != 'bridge':
-                    continue
-                rid, head, table = str(r['run']['id']), r['run']['head_sha'], r['expected']['modules']
-                if not isinstance(table, dict):
-                    raise TypeError('module table')
+                kind = r.get('kind')
+                if kind == 'bridge':
+                    rid, head, table = str(r['run']['id']), r['run']['head_sha'], r['expected']['modules']
+                    if not isinstance(table, dict):
+                        raise TypeError('module table')
             except (OSError, ValueError, KeyError, TypeError, AttributeError):
                 F('R11 %s: %s is not a readable expected result' % (eid, rel))
                 continue
-            if rid not in attest:
-                if str(eid).startswith('ci-'):
-                    F('R11 %s: run %s is attested by no covered receipt or certificate, so no round governs its modules'
-                      % (eid, rid))
+            if kind != 'bridge':
+                if is_ci:
+                    F('R11 %s: %s is of kind %r, not a Mathlib bridge result, so no module table of it is checked'
+                      % (eid, rel, kind))
                 else:
-                    stats['unscoped'].append((rel, rid, head))
+                    stats['unscoped'].append((rel, 'of kind %r, which records no module table' % kind))
+                continue
+            if rid not in attest:
+                if is_ci:
+                    F('R11 %s: run %s %s, so no round governs its modules' % (eid, rid, none_at_base))
+                    continue
+                where = on_main(head)
+                if where is True:
+                    F('R11 %s: run %s %s, but its commit %s is on main there' % (eid, rid, none_at_base, str(head)[:12]))
+                elif where is None:
+                    F('R11 %s: run %s %s, and this repository cannot decide whether its commit %s is on main '
+                      '(a shallow clone)' % (eid, rid, none_at_base, str(head)[:12]))
+                else:
+                    stats['unscoped'].append((rel, 'run %s %s, and its commit %s is not on main there'
+                                              % (rid, none_at_base, str(head)[:12])))
                 continue
             derived, whole = set(), True
             for kind, doc, commit in attest[rid]:
@@ -588,31 +643,51 @@ def module_sets(archive, root, man, show=None):
                   'missing %s, extra %s' % (eid, rel, head[:12], sorted(derived - set(table)), sorted(set(table) - derived)))
             stats['checked'] += 1
             stats['modules'] += len(table)
+            done.add(rid)
+    stats['runs'] = len(done)
+    if done != set(attest):
+        F('R11 the runs with a checked expected result are not the runs attested at the tranche base: %d attested, '
+          '%d checked; unchecked %s, unattested %s' % (len(attest), len(done), sorted(set(attest) - done),
+                                                       sorted(done - set(attest))))
     if not stats['checked']:
         F('R11 no expected result was checked against its rounds\' governed paths')
     return fails, stats
+
+
+def print_unscoped(st):
+    for rel, why in (st or {}).get('unscoped', []):
+        print('UNSCOPED  %s: %s; R11 does not apply' % (rel, why))
 
 
 def module_report(archive, root):
     """--module-sets: R11 alone, with what it checked and what lies outside its scope."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st = module_sets(archive, root, man)
-    for rel, rid, head in st['unscoped']:
-        print('UNSCOPED  %s: run %s at %s is attested by no covered receipt or certificate, so R11 does not apply'
-              % (rel, rid, str(head)[:12]))
+    print_unscoped(st)
     for f in fails:
         print('FAIL  %s' % f)
-    print('MODULE-SETS  %s (%d expected result(s), %d module record(s), %d round control plane(s) read at their run\'s '
-          'commit; %d failure(s))' % ('HOLDS' if not fails else 'FAILS', st['checked'], st['modules'], st['reads'], len(fails)))
+    print('MODULE-SETS  %s (%d expected result(s) of %d attested run(s), %d module record(s), %d round control plane(s) '
+          'read at their run\'s commit; %d outside its scope; %d failure(s))' % (
+              'HOLDS' if not fails else 'FAILS', st['checked'], st['runs'], st['modules'], st['reads'], len(st['unscoped']),
+              len(fails)))
     return 0 if not fails else 1
+
+
+def history_mode(archive, root, man, tree=None):
+    """The check in history mode, R1-R11: R1-R9 against the tree at tree (root by default), with R9's scope read
+    from root's history, and R10 and R11 against that history. Returns (failures, R11's stats or None)."""
+    scope, fails = base_scope(man, root)
+    if scope is None:
+        return fails, None
+    f11, st = module_sets(archive, root, man, scope=scope)
+    return fails + check(archive, tree or root, scope)[0] + later_provenance(man, root) + f11, st
 
 
 def gate(archive, root):
     """The release-gate step: the check in history mode (R1-R11), then the self-test."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
-    scope, fails = base_scope(man, root)
-    if scope is not None:
-        fails += check(archive, root, scope)[0] + later_provenance(man, root) + module_sets(archive, root, man)[0]
+    fails, st11 = history_mode(archive, root, man)
+    print_unscoped(st11)
     for f in fails:
         print('FAIL  %s' % f)
     st = self_test(archive, root)
@@ -933,27 +1008,13 @@ def self_test(archive, root):
                 print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if msg is None else ' (R10)'))
                 if not good:
                     print('      got: %s' % (fails[:3],))
-            # R11 reads the real repository's history through show(); a case replaces some reads, or edits a copied
-            # expected result, and requires that site's own message
+            # R11 reads the real repository's history through show(); a case replaces some reads, the base scope or
+            # the ancestry test, or edits a copied expected result or the manifest, and requires that site's own
+            # message
             real = git_show(root)
             base = man['base']
-
-            def r11(name, msg=None, mutate=noop, restore=noop, over=None, m=None, also=None):
-                nonlocal ok
-                o = over() if over else {}
-                mutate()
-                try:
-                    fails, st = module_sets(tarch, root, man if m is None else m,
-                                            lambda rev, path: o[(rev, path)] if (rev, path) in o else real(rev, path))
-                finally:
-                    restore()
-                good = (not fails) if msg is None else any(f.startswith('R11 ') and msg in f for f in fails)
-                if also is not None:
-                    good = good and also(st)
-                ok &= good
-                print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if msg is None else ' (R11)'))
-                if not good:
-                    print('      got: %s' % (fails[:3],))
+            have = lambda c: c is not None and subprocess.run(['git', '-C', root, 'cat-file', '-e', str(c) + '^{commit}'],
+                                                              capture_output=True).returncode == 0
 
             def res_edit(path, fn):
                 def change(b):
@@ -980,60 +1041,160 @@ def self_test(archive, root):
                 return '\n'.join(ls[:i + 1] + fn(ls[i + 1:j]) + ls[j:]).encode('utf-8')
 
             crun = comp.split('-', 1)[1]
-            rpath, rdoc, rcommit = attestation_of(crun)
-            pre = next(b['path'] for b in rdoc['control_plane_blobs'] if b['path'].endswith('/preregistration.md'))
-            ptext = real(rcommit, pre)
-
-            def pinned(text, digest=False):
-                """The receipt and the preregistration at the run's commit, with the receipt's pin following the text."""
-                d = json.loads(json.dumps(rdoc))
-                for b in d['control_plane_blobs']:
-                    if b['path'] == pre:
-                        b['blob'] = blob_id(text)
-                if digest:
-                    texts = [(text if b['path'] == pre else real(rcommit, b['path'])).decode('utf-8')
-                             for b in d['control_plane_blobs']]
-                    d['governed_paths_digest'] = governed_digest(governed_entries(texts))
-                return {(rcommit, pre): text, (base, rpath): json.dumps(d).encode('utf-8')}
             ccert = ents[cert]
-            cpath_, cdoc, ccommit = attestation_of(ccert['run_id'])
             cres = os.path.join(tarch, 'ci', ccert['run_id'], 'results.json')
-            nci = sum(1 for e in ents if str(e.get('id', '')).startswith('ci-'))
-            r11('R11 passes on the unmutated copy and checks every CI entry\'s expected result',
-                also=lambda st: st['checked'] >= nci and st['modules'] > 0 and all(u[0].startswith('bg3/') for u in st['unscoped']))
-            r11('a control plane altered only at the tranche base leaves R11 unchanged: it reads the run\'s commit',
-                over=lambda: {(base, pre): b'altered at the base'})
-            r11('a coverage file that cannot be read at the tranche base', 'cannot be read at the tranche base',
-                m=dict(man, coverage=dict(man['coverage'], files=man['coverage']['files'] + [
-                    {'path': 'verification/receipts/ZZ-NONE.json', 'blob': '0' * 40}])))
-            r11('an expected result that cannot be read', 'is not a readable expected result',
-                *file_edit(cpth, lambda b: b[:-3]))
-            r11('an expected result of a run no covered file attests', 'is attested by no covered receipt',
-                *res_edit(cpth, lambda d: d['run'].__setitem__('id', '1')))
-            r11('an expected result at another commit than its attestation', 'the expected result holds at',
-                *res_edit(cpth, lambda d: d['run'].__setitem__('head_sha', '0' * 40)))
-            r11('a control-plane file that is not at its receipt\'s blob at the run\'s commit', 'is not at its receipt\'s blob',
-                over=lambda: {(rcommit, pre): ptext + b'\n'})
-            r11('a control plane without a well-formed governed-paths block, its pin following it',
-                'no single well-formed v3-governed-paths block',
-                over=lambda: pinned(ptext.replace(b'\n```v3-governed-paths\n', b'\n```v3-governed-pathz\n', 1)))
-            r11('governed paths that do not hash to the receipt\'s digest, the pin following them',
-                'do not hash to its receipt\'s governed_paths_digest',
-                over=lambda: pinned(block_edit(ptext, lambda body: [x for x in body if not x.endswith('.lean')])))
-            r11('governed paths naming a directory of Lean modules, pin and digest following them', 'name the directory',
-                over=lambda: pinned(block_edit(ptext, lambda body: body + ['execution M ' + LEAN_ROOT + 'OIBridge/']), True))
-            r11('a certificate that is not at the blob its attestation pins', 'is not the certificate its attestation pins',
-                over=lambda: {(ccommit, 'verification/certificates/%s.json' % cdoc['round']):
-                              real(ccommit, 'verification/certificates/%s.json' % cdoc['round']) + b' '})
-            r11('a module table missing a governed module', 'differs from the Lean modules',
-                *res_edit(cpth, lambda d: d['expected']['modules'].pop(cmod)))
-            r11('a module table with a module the round does not govern', 'differs from the Lean modules',
-                *res_edit(cpth, lambda d: d['expected']['modules'].__setitem__('OIBridge/NotGoverned.lean', {
-                    'status': 'absent', 'reports': [], 'prints': None, 'print_lines': None})))
-            r11('a certificate run\'s module table with a module its certificate does not contribute',
-                'differs from the Lean modules', *res_edit(cres, lambda d: d['expected']['modules'].__setitem__(
-                    'OIBridge/NotGoverned.lean', {'status': 'absent', 'reports': [], 'prints': None, 'print_lines': None})))
-            r11('a manifest with no expected result to check', 'no expected result was checked', m=dict(man, entries=[]))
+            att, catt = attestation_of(crun), attestation_of(ccert['run_id'])
+            rpath, rdoc, rcommit = att or (None, {}, None)
+            cpath_, cdoc, ccommit = catt or (None, {}, None)
+            pre = next((b['path'] for b in rdoc.get('control_plane_blobs', []) if b['path'].endswith('/preregistration.md')),
+                       None)
+            certp = 'verification/certificates/%s.json' % cdoc.get('round')
+            if not (pre and have(rcommit) and have(ccommit)) or real(rcommit, pre) is None or real(ccommit, certp) is None:
+                ok = False
+                print('FAIL self: the R11 cases need the commits %s and %s, which their attestations name, in this '
+                      'repository\'s history' % (str(rcommit)[:12], str(ccommit)[:12]))
+            else:
+                ptext = real(rcommit, pre)
+
+                def r11(name, msg=None, mutate=noop, restore=noop, over=None, m=None, also=None, sc=None, on_main=None,
+                        fresh=False):
+                    nonlocal ok
+                    o = over() if over else {}
+                    mutate()
+                    try:
+                        fails, st = module_sets(tarch, root, man if m is None else m,
+                                                lambda rev, path: o[(rev, path)] if (rev, path) in o else real(rev, path),
+                                                on_main, None if fresh else (scope if sc is None else sc))
+                    finally:
+                        restore()
+                    good = (not fails) if msg is None else any(f.startswith('R11 ') and msg in f for f in fails)
+                    if also is not None:
+                        good = good and also(st)
+                    ok &= good
+                    print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if msg is None else ' (R11)'))
+                    if not good:
+                        print('      got: %s' % (fails[:3],))
+
+                def pinned(text, digest=False):
+                    """The receipt and the preregistration at the run's commit, with the receipt's pin following the text."""
+                    d = json.loads(json.dumps(rdoc))
+                    for b in d['control_plane_blobs']:
+                        if b['path'] == pre:
+                            b['blob'] = blob_id(text)
+                    if digest:
+                        texts = [(text if b['path'] == pre else real(rcommit, b['path'])).decode('utf-8')
+                                 for b in d['control_plane_blobs']]
+                        d['governed_paths_digest'] = governed_digest(governed_entries(texts))
+                    return {(rcommit, pre): text, (base, rpath): json.dumps(d).encode('utf-8')}
+
+                def results_of(e):
+                    return [(f['path'], json.load(open(os.path.join(tarch, f['path']), encoding='utf-8'))) for f in e['files']
+                            if f['path'].endswith('/results.json') or
+                            (f['path'].startswith('bg3/results-') and f['path'].endswith('.json'))]
+                cis = [e for e in ents if str(e.get('id', '')).startswith('ci-')]
+                nonci = [(p, d) for e in ents if not str(e.get('id', '')).startswith('ci-') for p, d in results_of(e)]
+                bg_runs = {str(d['run']['id']) for p, d in nonci if d.get('kind') == 'bridge'}
+                # the relabel attack of a run with a second bridge result, so that only the kind rule can catch it
+                relab = next((e for e in cis if e['run_id'] in bg_runs), cis[0])
+                relp = os.path.join(tarch, next(f['path'] for f in relab['files'] if f['path'].endswith('/results.json')))
+                only = next(e for e in cis if e['run_id'] not in bg_runs)
+                other, _ = next((p, d) for p, d in nonci if d.get('kind') == 'bridge')
+                otherp = os.path.join(tarch, other)
+                nonbridge = {p for p, d in nonci if d.get('kind') != 'bridge'}
+
+                def relabel(d):
+                    d['kind'] = 'design-diagnostic'
+                    d['expected']['sha256sum_ok'] = True
+                    d['expected']['checks'] = ['a relabelled bridge result']
+
+                def unattested_on_main(d):
+                    d['run']['id'], d['run']['head_sha'] = '1', base
+
+                def drop_only(mm):
+                    mm = json.loads(json.dumps(mm))
+                    for e in mm['entries']:
+                        if e['id'] == only['id']:
+                            e['files'] = [f for f in e['files'] if not f['path'].endswith('/results.json')]
+                    return mm
+                # a second round attesting the run of cpth at the same commit, governing one more module
+                fpath, fpre, fmod = 'verification/receipts/ZZ-FORGED.json', 'verification/ZZ-FORGED/preregistration.md', \
+                    'OIBridge/ZZForged.lean'
+                ftext = ('```v3-governed-paths\nexecution AM %s%s\n```\n' % (LEAN_ROOT, fmod)).encode('utf-8')
+                fdoc = {'round': 'ZZ-FORGED', 'control_plane_blobs': [{'path': fpre, 'blob': blob_id(ftext)}],
+                        'governed_paths_digest': governed_digest(governed_entries([ftext.decode('utf-8')])),
+                        'attestations': [{'kind': 'check-run', 'subject': 'E', 'commit': rcommit,
+                                          'record': 'https://github.com/owner/repo/actions/runs/%s' % crun}]}
+                forged = lambda: {(base, fpath): json.dumps(fdoc).encode('utf-8'), (rcommit, fpre): ftext}
+                absent = {'status': 'absent', 'reports': [], 'prints': None, 'print_lines': None}
+
+                r11('R11 passes on the unmutated copy, checks every CI entry\'s expected result, and lists every other '
+                    'result outside its scope with a reason',
+                    also=lambda st: st['checked'] >= len(cis) and st['runs'] > 0 and st['modules'] > 0 and
+                    all(not u[0].startswith('ci/') and u[1] for u in st['unscoped']) and
+                    nonbridge <= {u[0] for u in st['unscoped']})
+                r11('a control plane altered only at the tranche base leaves R11 unchanged: it reads the run\'s commit',
+                    over=lambda: {(base, pre): b'altered at the base'})
+                r11('a tranche base absent from the repository', 'is not in the repository, so no attestation',
+                    m=dict(man, base='0' * 40), fresh=True)
+                r11('an attestation at the tranche base that cannot be read', 'cannot be read at the tranche base',
+                    sc=scope | {'verification/receipts/ZZ-NONE.json'})
+                r11('an expected result that cannot be read', 'is not a readable expected result',
+                    *file_edit(cpth, lambda b: b[:-3]))
+                r11('a CI entry\'s expected result relabelled as a design diagnostic', 'not a Mathlib bridge result',
+                    *res_edit(relp, relabel))
+                r11('a CI entry\'s expected result of a run no attestation at the base names', 'so no round governs its modules',
+                    *res_edit(cpth, lambda d: d['run'].__setitem__('id', '1')))
+                r11('another expected result of a run no attestation names, at a commit on main', 'is on main there',
+                    *res_edit(otherp, unattested_on_main))
+                r11('the same result, at a commit off main, is listed outside the scope', None,
+                    *res_edit(otherp, unattested_on_main), on_main=lambda c: False,
+                    also=lambda st: other in {u[0] for u in st['unscoped']})
+                r11('the same result, at a commit this repository cannot place', 'cannot decide whether',
+                    *res_edit(otherp, unattested_on_main), on_main=lambda c: None)
+                r11('a required run whose only expected result is dropped from its entry',
+                    'are not the runs attested at the tranche base', m=drop_only(man))
+                r11('an expected result at another commit than its attestation', 'the expected result holds at',
+                    *res_edit(cpth, lambda d: d['run'].__setitem__('head_sha', '0' * 40)))
+                r11('a control-plane file that is not at its receipt\'s blob at the run\'s commit',
+                    'is not at its receipt\'s blob', over=lambda: {(rcommit, pre): ptext + b'\n'})
+                r11('a control plane without a well-formed governed-paths block, its pin following it',
+                    'no single well-formed v3-governed-paths block',
+                    over=lambda: pinned(ptext.replace(b'\n```v3-governed-paths\n', b'\n```v3-governed-pathz\n', 1)))
+                r11('governed paths that do not hash to the receipt\'s digest, the pin following them',
+                    'do not hash to its receipt\'s governed_paths_digest',
+                    over=lambda: pinned(block_edit(ptext, lambda body: [x for x in body if not x.endswith('.lean')])))
+                r11('governed paths naming a directory of Lean modules, pin and digest following them', 'name the directory',
+                    over=lambda: pinned(block_edit(ptext, lambda body: body + ['execution M ' + LEAN_ROOT + 'OIBridge/']), True))
+                r11('a certificate that is not at the blob its attestation pins', 'is not the certificate its attestation pins',
+                    over=lambda: {(ccommit, certp): real(ccommit, certp) + b' '})
+                r11('a module table missing a governed module', 'differs from the Lean modules',
+                    *res_edit(cpth, lambda d: d['expected']['modules'].pop(cmod)))
+                r11('a module table with a module the round does not govern', 'differs from the Lean modules',
+                    *res_edit(cpth, lambda d: d['expected']['modules'].__setitem__('OIBridge/NotGoverned.lean', dict(absent))))
+                r11('a certificate run\'s module table with a module its certificate does not contribute',
+                    'differs from the Lean modules', *res_edit(cres, lambda d: d['expected']['modules'].__setitem__(
+                        'OIBridge/NotGoverned.lean', dict(absent))))
+                r11('a second round attesting a run: a module table without that round\'s module fails',
+                    'missing [%r]' % fmod, over=forged, sc=scope | {fpath})
+                r11('a second round attesting a run: a module table equal to the union of both rounds\' modules passes', None,
+                    *res_edit(cpth, lambda d: d['expected']['modules'].__setitem__(fmod, dict(absent))), over=forged,
+                    sc=scope | {fpath})
+                r11('a manifest with no expected result to check', 'no expected result was checked', m=dict(man, entries=[]))
+                # the relabel attack end to end: the classification, size and digest change together, so R1-R10 accept
+                # it in history mode, and R11 alone rejects it
+                mut, und = json_edit(relp, relabel)
+                mut()
+                try:
+                    hf = history_mode(tarch, root, json.load(open(mp, encoding='utf-8')), tree=troot)[0]
+                finally:
+                    und()
+                good = any(f.startswith('R11 ') and 'not a Mathlib bridge result' in f for f in hf) and \
+                    all(f.startswith('R11 ') for f in hf)
+                ok &= good
+                print('%s self: the relabel with its recorded size and digest following it passes R1-R10 in history mode '
+                      'and fails R11 (R11)' % ('PASS' if good else 'FAIL'))
+                if not good:
+                    print('      got: %s' % (hf[:3],))
         expect('a manifest that names no coverage files', edit(lambda m: m['coverage'].__setitem__('files', [])), back, 'R9',
                'no coverage files')
         expect('a coverage file whose blob changed',

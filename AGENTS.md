@@ -916,10 +916,13 @@ names such content neither retains nor establishes it.
    - As the release gate's `evidence-retention` step it also runs in history mode, reading git:
      - R9's scope is the receipts and certificate attestations at the archive's base;
      - R10 checks that the base is an ancestor and that no path named as later existed there;
-     - R11 re-derives each expected result's module table from its attesting rounds'
+     - R11 re-derives the module table of each expected result whose run a receipt or
+       certificate attestation at the base names: from the attesting rounds'
        `v3-governed-paths` blocks, read at the run's commit at the blobs and digest the receipts
-       pin. R11 is a consistency check: it shows the archive applied those blocks faithfully, not
-       that they name the right modules.
+       pin, or, for CV-1's runs, which no such block governs, from the contributions of
+       `verification/certificates/CV1.json` at the blob its attestation pins. The runs it checks
+       must be exactly the runs those attestations name. R11 is a consistency check: it shows the
+       archive applied those blocks faithfully, not that they name the right modules.
    - `verification/audits/evidence-retention/reproduce.py`, run by the `reproduce evidence`
      workflow, regenerates an expected result at its commit and compares it with
      `compare_result.py`, which fails closed: a missing report, an unexpected axiom, an absent
