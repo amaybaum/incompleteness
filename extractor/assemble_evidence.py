@@ -116,6 +116,8 @@ RUNS = {
              "head": "6959ced4c327ebb800cf6d463a049e4066e37288", "bridge_job": "117466847042",
              "probe_job": "117466847062", "controls": True, "gate_steps": GATE_STEPS_RUN2},
 }
+# The overall verdict covers exactly these two runs, each once (overall below).
+EXPECTED_RUN_IDS = ("39043849411", "39056982958")
 # Session observations (2026-10-17), for the printed cross-check only; never in a result. original_length is the
 # line count the job-log connector reported; the tail digest is sha256 of the text it served (its last 5000 lines,
 # joined with newlines, no final newline; the whole log for the two probe jobs).
@@ -761,9 +763,28 @@ def assemble_run(key, cfg, ex, inputs):
     return C, result
 
 
-def overall(verdicts, runs):
-    """HOLDS only when every run carries an explicit verdict and every verdict is HOLDS."""
+def run_set_problem(verdicts, runs, expected_ids=EXPECTED_RUN_IDS):
+    """None when the runs are exactly the expected run ids, each once, and each carries a verdict; else why not."""
+    if not isinstance(runs, dict) or not isinstance(verdicts, dict) or not runs:
+        return "no runs"
+    ids = [str(cfg.get("run_id")) if isinstance(cfg, dict) else None for cfg in runs.values()]
+    dup = sorted({i for i in ids if ids.count(i) > 1}, key=str)
+    if dup:
+        return "run %s appears more than once" % ", ".join(map(str, dup))
+    missing = [i for i in expected_ids if i not in ids]
+    extra = [i for i in ids if i not in expected_ids]
+    if missing or extra:
+        return "runs missing %s, unexpected %s" % (missing, extra)
+    if set(verdicts) != set(runs):
+        return "verdicts for %s, runs %s" % (sorted(verdicts), sorted(runs))
+    return None
+
+
+def overall(verdicts, runs, expected_ids=EXPECTED_RUN_IDS):
+    """HOLDS only when the runs are exactly the expected two, each once, each with an explicit HOLDS."""
     known = ("HOLDS", "FAILS", "UNVERIFIED")
+    if run_set_problem(verdicts, runs, expected_ids) is not None:
+        return "UNVERIFIED"
     if any(verdicts.get(k) == "FAILS" for k in runs):
         return "FAILS"
     if set(verdicts) != set(runs) or any(verdicts.get(k) not in known for k in runs):
@@ -783,7 +804,7 @@ def redact(s):
     return SECRET.sub("<redacted>", s)
 
 
-def assemble(ex, inputs, runs=RUNS, out=None):
+def assemble(ex, inputs, runs=RUNS, out=None, expected_ids=EXPECTED_RUN_IDS):
     """Prints the checks, the results and the verdict line; returns the exit code."""
     out = out or sys.stdout
     P = lambda s="": print(s, file=out)  # noqa: E731
@@ -815,7 +836,10 @@ def assemble(ex, inputs, runs=RUNS, out=None):
             out.write(texts[key])
             P(END % cfg["path"])
             P("SHA256 %s %s" % (cfg["path"], hashlib.sha256(texts[key].encode("ascii")).hexdigest()))
-    v = overall(verdicts, runs)
+    problem = run_set_problem(verdicts, runs, expected_ids)
+    if problem is not None:
+        P("CHECK all UNVERIFIED the run set: %s" % problem)
+    v = overall(verdicts, runs, expected_ids)
     P("EXTRACT %s" % v)
     return {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[v]
 
@@ -840,12 +864,12 @@ def crosscheck(inputs, ex, out=None):
                  "equal" if same_tail else "DIFFER FROM"), file=out)
 
 
-def run_all(ex, inputs, runs=RUNS, out=None):
+def run_all(ex, inputs, runs=RUNS, out=None, expected_ids=EXPECTED_RUN_IDS):
     """The cross-check, then the assembly; a verdict line is printed whatever is raised."""
     out = out or sys.stdout
     try:
         crosscheck(inputs, ex, out)
-        return assemble(ex, inputs, runs, out)
+        return assemble(ex, inputs, runs, out, expected_ids)
     except Exception as e:  # noqa: BLE001
         print("CHECK all UNVERIFIED stopped: %s: %s" % (type(e).__name__, redact(str(e))[:200]), file=out)
         print("EXTRACT UNVERIFIED", file=out)
@@ -1006,6 +1030,9 @@ def _git_repo(d, files):
     return git(d, "rev-parse", "HEAD")
 
 
+FIXTURE_RUN_IDS = ("901", "902")   # the fixtures' run ids (_fixture: 900 + design run)
+
+
 def _fixture(base, variant=0, mut=None):
     """Writes a complete synthetic input set under base; returns (inputs, runs)."""
     mut = mut or {}
@@ -1076,10 +1103,14 @@ def self_test(extractor_path, work=None):
             nonlocal fails, n
             n += 1
             d = os.path.join(base, "c%03d" % n)
+            mut = dict(mut)
+            edit_runs = mut.pop("runs_edit", None)
             inputs, runs, blob = _fixture(d, variant, mut)
+            if edit_runs:
+                runs = edit_runs(runs, inputs)
             globals()["FROZEN_MODULE_BLOB"] = blob
             buf = io.StringIO()
-            code = run_all(ex, inputs, runs, out=buf)
+            code = run_all(ex, inputs, runs, out=buf, expected_ids=FIXTURE_RUN_IDS)
             text = buf.getvalue()
             verdict = text.strip().split("\n")[-1]
             ok = verdict == "EXTRACT " + want and (needle is None or needle in text)
@@ -1233,7 +1264,39 @@ def self_test(extractor_path, work=None):
         finally:
             globals()["assemble_run"] = real
         n += 1
-        two = {"run1": {}, "run2": {}}
+        # the run set: exactly the expected two, each once
+        V = "CHECK all UNVERIFIED the run set: "
+        def third(run_id):
+            def edit(r, inputs_):
+                inputs_["src"]["run3"] = inputs_["src"]["run2"]
+                return dict(r, run3=dict(r["run2"], run_id=run_id, path="evidence/run3.json"))
+            return edit
+        run_case("no runs at all", {"runs_edit": lambda r, i: {}}, "UNVERIFIED", V + "no runs")
+        run_case("run 1 only", {"runs_edit": lambda r, i: {"run1": r["run1"]}}, "UNVERIFIED",
+                 V + "runs missing ['902']")
+        run_case("an unexpected third run", {"runs_edit": third("903")}, "UNVERIFIED",
+                 V + "runs missing [], unexpected ['903']")
+        t = run_case("run 2 twice, both holding", {"runs_edit": third("902")}, "UNVERIFIED",
+                     V + "run 902 appears more than once")
+        n += 1
+        ok = "RESULT run3 evidence/run3.json HOLDS" in t and "RESULT run2 evidence/run2.json HOLDS" in t
+        print("  %s  the duplicate holds on its own, so only the run-set rule refuses it" % ("ok  " if ok else "FAIL"))
+        fails += not ok
+        n += 1
+        E = EXPECTED_RUN_IDS
+        two = {"run1": {"run_id": E[0]}, "run2": {"run_id": E[1]}}
+        h = {"run1": "HOLDS", "run2": "HOLDS"}
+        ok = (overall({}, {}) == "UNVERIFIED" and overall({}, {}, ()) == "UNVERIFIED"
+              and overall({"run1": "HOLDS"}, {"run1": {"run_id": E[0]}}) == "UNVERIFIED"
+              and overall(dict(h, run3="HOLDS"), dict(two, run3={"run_id": "39043849412"})) == "UNVERIFIED"
+              and overall(dict(h, run3="HOLDS"), dict(two, run3={"run_id": E[0]})) == "UNVERIFIED"
+              and overall(h, {"run1": {"run_id": E[0]}, "run2": {"run_id": E[0]}}) == "UNVERIFIED"
+              and overall(h, {"run1": {"run_id": E[0]}, "run2": {}}) == "UNVERIFIED"
+              and overall(h, two) == "HOLDS" and overall(h, RUNS) == "HOLDS")
+        print("  %s  the verdict rule refuses an empty set, one run, an extra run and a duplicate, and holds on the "
+              "expected two" % ("ok  " if ok else "FAIL"))
+        fails += not ok
+        n += 1
         ok = (overall({"run1": "HOLDS", "run2": "HOLDS"}, two) == "HOLDS"
               and overall({"run1": "HOLDS"}, two) == "UNVERIFIED"
               and overall({"run1": "HOLDS", "run2": None}, two) == "UNVERIFIED"
