@@ -913,11 +913,20 @@ names such content neither retains nor establishes it.
        carry it, so a reviewer can read those files to check it;
      - every expected result is well formed and names its commit, job and recipe;
      - the manifest's gaps and the claims no retained file carries are printed.
+   - As the release gate's `evidence-retention` step it also runs in history mode, reading git:
+     - R9's scope is the receipts and certificate attestations at the archive's base;
+     - R10 checks that the base is an ancestor and that no path named as later existed there;
+     - R11 re-derives each expected result's module table from its attesting rounds'
+       `v3-governed-paths` blocks, read at the run's commit at the blobs and digest the receipts
+       pin. R11 is a consistency check: it shows the archive applied those blocks faithfully, not
+       that they name the right modules.
    - `verification/audits/evidence-retention/reproduce.py`, run by the `reproduce evidence`
      workflow, regenerates an expected result at its commit and compares it with
      `compare_result.py`, which fails closed: a missing report, an unexpected axiom, an absent
      gate step, an extraction failure or any mismatch fails it. The verifier is the checkout
      the workflow runs on; the historical commit supplies only its sources and its own gate.
+     It writes `verdict.json` on every exit once its work directory is writable, an exception
+     included, and the verdict holds only on a clean exit.
    - For a round, each hash pin of item 2 is a row of its invariant→checkpoint table (§A.41).
 
 Enforcement:
@@ -925,7 +934,8 @@ Enforcement:
   (§A.40).
 - The release gate's `evidence-retention` step runs it in history mode. That mode reads from git
   the receipts and certificate attestations at the archive's base, requires each to be covered,
-  and treats a receipt landed after the base as outside the archive's scope.
+  and treats a receipt landed after the base as outside the archive's scope. It also runs R10
+  and R11 (item 7).
 - Reviewers check that `E`'s evidence reached `main` through its own pull request before the
   round's reconciliation.
 - Reviewers check that each hash pin of item 2 resolves to retained content.
