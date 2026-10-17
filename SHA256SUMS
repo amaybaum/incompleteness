@@ -5,6 +5,10 @@ eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation
 52e0a9f4f345e89578f8ddaf0fecd2e81966f9a0375cb2490b7800784891f0be  ./preservation/b2/host-unreferenced-23-supplement-20261016.bundle
 c135e7cb6d131ddf77f836f5be3e8694abc88b7f88bcb8dd8d83219867b5a95c  ./preservation/b2/manifest.json
 fdd69e0a0b753e85eca2f8d75736d9fb5a2960b5784308902f842d3fdd1f37a3  ./preservation/b3/cited-unreferenced-13c-6b-20261016.zip
+77081b1626c69da9ec09e949d153f7c13972d3e0bf3d512ff1f4e1217e29df3d  ./preservation/b4/README.md
+64cc5dcbe08390ebcfe72cf7eebdb2cc2978b66ee9cb03c102aba80c472bb11a  ./preservation/b4/commits.txt
+f95292a05eefac2c09a791e9b13075f01c08d94cc2b4682338f4cf1e285f560c  ./preservation/b4/heads.txt
+822403888f67c5cba03dc357b2cbd8be82ea6cb9de7e556fe8884099e0ba9080  ./preservation/b4/local-only-supplement-56-20261017.bundle
 1e7c05aecc6ecf1289e9b6cf947e059774977ec7b48739c937f63125720f1921  ./preservation/host-synthetic-pr-merges-25-20261017.bundle
 b7c2fab0060b429be6e45c89333758baf871b4df580c70c58c1b31250ac32cd5  ./preservation/local-only-commits-20261017.bundle
 5bac5ea5089a3a910a776e8ad92bbecfaab3230d88cb4dad670a8e7408431b28  ./preservation/offmain/exact-objects.pack
