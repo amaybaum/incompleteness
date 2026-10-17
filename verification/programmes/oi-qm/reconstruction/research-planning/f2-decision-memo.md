@@ -37,6 +37,7 @@ as a decision.
 | [NUM] | numerical float evidence. This is none of the five classes and is never evidence of exactness |
 | **DEC-OPEN** | an owner decision not yet taken |
 | **DEC-ADOPTED (owner, 2026-10-17)** | adopted by the owner explicitly, choice by choice, on that date |
+| **recommended (owner), open** | the owner has recommended it but not adopted it |
 
 **Citation abbreviations.**
 
@@ -370,10 +371,12 @@ Sources: the files on main at `b96662e6`, and the governed paths at P829:17–23
 
 - **DEC-ADOPTED (owner, 2026-10-17):** §1.1 A1, §1.2 B1, §2 the strict criterion with §2.3's gates as written, §3.2 M1, §4 the
   narrowed scope.
-- **DEC-OPEN.**
-  - when to run the re-posed B24 (§4.2);
-  - E1's standing on the research branch: H:78 still headlines it as "rank 1, recommended". Under G4 it is a failed
-    reading, and the branch can record that forward without rewriting history.
+- **Recommended (owner), open.**
+  - §4.2 B24: run the re-posed investigation after X and its premise set are fixed.
+  - E1-L's standing on the research branch: describe it as a replacement-interface construction, outside the
+    conservative-extension lane, and keep its scoped results. Its failure there does not exclude other extensions.
+    H:78 still headlines it as "rank 1, recommended". The branch can record the new description forward without
+    rewriting history.
 - **Stale research index (F1 terminology), planning note :31–32.**
   - The research index `research/OVERVIEW.md` uses "F1" for the round-4 bridge finding: OV:80, :262, :276, :762, :777, :860, :881.
   - Main uses F1 for the retired equivalence endpoint (PG:515; RM:1538).
