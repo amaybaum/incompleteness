@@ -58,10 +58,14 @@ GOVERNED = [('record', 'AM', RDIR), ('record', 'AM', RECEIPT), ('execution', 'A'
             ('execution', 'A', INST), ('execution', 'A', PROBE), ('execution', 'M', ROOT),
             ('execution', 'M', REGISTRY), ('execution', 'M', WORKFLOW)]
 FROZEN_PATHS = {CONTROLS, CORE, INST, PROBE}
-HISTORICAL = {'evidence/design-38450187534.json', 'evidence/design-38454439833.json'}  # digest or recorded gap
-REQUIRED_PIN = 'evidence/design-predicted-tree.json'                                  # digest only
+RET_TITLE = 'Retained evidence (§A.42).'
+HISTORICAL = {'core-build-38450187534', 'instance-build-38454439833'}  # a digest or a recorded gap
+REQUIRED_PIN = 'predicted-tree'                                          # a digest only
 EVIDENCE_ROWS = HISTORICAL | {REQUIRED_PIN}
-GAP = 'GAP'
+GAP, NONE = 'GAP', 'NONE'
+# Owner decision of 2026-10-17: the replacement drafting chain cites #831 and imports none of its commits.
+OLD_CHAIN = {'5f614d60c3234cf35bc9b15e892388d576f77aa1', '65b85147f85aa01770e0e60551152bc5f1d9ef29'}
+SUPERSEDED_CITE = ('65b85147f85aa01770e0e60551152bc5f1d9ef29', 'https://github.com/amaybaum/incompleteness/pull/831')
 SYMPY_PIN = '1.14.0'
 
 # The surface the preregistration names (sections "Research-design definition and theorem budget").
@@ -136,7 +140,7 @@ CELLS = [('Q-CORE', 'PRESERVE-INDUCT-CORE-PROVED', 'PRESERVE-INDUCT-CORE-NOT-EST
          ('Q-EXACT', 'PRESERVE-INDUCT-EXACT-CHECKED', 'PRESERVE-INDUCT-EXACT-NOT-ESTABLISHED')]
 READ, NOT_READ = 'PRESERVE-INDUCT-1-READ', 'PRESERVE-INDUCT-1-NOT-READ'
 POSITIVE = [c[1] for c in CELLS] + [READ]
-SELF_CHECKS = 45  # the number of self-checks; a dropped self-check fails the count
+SELF_CHECKS = 46  # the number of self-checks; a dropped self-check fails the count
 
 FAIL = []
 RAN = []
@@ -237,8 +241,7 @@ def table_after(prereg, title):
 
 
 def pinned(prereg, title, width):
-    """{path: digest, None (pending) or GAP (a recorded gap)} from a two-column pin table; None when a row is
-    malformed or repeated. A gap cell is `gap:` followed by what is missing."""
+    """{path: digest or None (pending)} from a two-column pin table; None when a row is malformed or repeated."""
     out = {}
     for r in table_after(prereg, title):
         if len(r) != 2 or not re.fullmatch(r'`[^`]+`', r[0]):
@@ -250,8 +253,6 @@ def pinned(prereg, title, width):
             out[path] = cell.strip('`')
         elif cell.startswith('pending'):
             out[path] = None
-        elif re.match(r'gap: \S', cell):
-            out[path] = GAP
         else:
             return None
     return out
@@ -261,8 +262,48 @@ def frozen_blobs(prereg):
     return pinned(prereg, 'Frozen execution blobs.', 40)
 
 
-def evidence_pins(prereg):
-    return pinned(prereg, 'Retained evidence (§A.42).', 64)
+def retention(prereg):
+    """{row label: (file, digest)} from the three-column retention table; None when a row is malformed or repeated.
+    file: a record-relative `evidence/...` path, a repository path retained on main (`verification/...`, outside
+    the record directory), None (pending) or NONE (a gap row names no file). digest: sha256, None (pending) or GAP
+    (`gap:` and what is missing). Admitted pairs: (path, digest), (path or None, None), (NONE, GAP)."""
+    out = {}
+    for r in table_after(prereg, RET_TITLE):
+        if len(r) != 3 or not re.fullmatch(r'`[a-z0-9-]+`', r[0]) or r[0].strip('`') in out:
+            return None
+        f, h = r[1], r[2]
+        if re.fullmatch(r'`[^`\s]+`', f):
+            path = f.strip('`')
+            if not (path.startswith('evidence/') or (path.startswith('verification/') and not path.startswith(RDIR))):
+                return None
+        elif f.startswith('pending'):
+            path = None
+        elif f == 'none':
+            path = NONE
+        else:
+            return None
+        if re.fullmatch(r'`[0-9a-f]{64}`', h):
+            dig = h.strip('`')
+        elif h.startswith('pending'):
+            dig = None
+        elif re.match(r'gap: \S', h):
+            dig = GAP
+        else:
+            return None
+        if not ((dig not in (None, GAP) and path not in (None, NONE)) or (dig is None and path != NONE)
+                or (path == NONE and dig == GAP)):
+            return None
+        out[r[0].strip('`')] = (path, dig)
+    return out
+
+
+def resolve(path):
+    return RDIR + path if path.startswith('evidence/') else path
+
+
+def record_files(rows):
+    """The record-relative files the digest rows name."""
+    return {p for p, h in rows.values() if h not in (None, GAP) and p not in (None, NONE) and p.startswith('evidence/')}
 
 
 def landed_table(prereg):
@@ -516,10 +557,9 @@ def g(diff_lines, entries):
     return bad
 
 
-def record_ok(names, pins, at_e):
+def record_ok(names, files, at_e):
     rel = {n[len(RDIR):] for n in names if n.startswith(RDIR)}
-    want = {'preregistration.md', 'controls.py'} | {p for p, h in pins.items() if h not in (None, GAP)} | \
-        ({'result.md'} if at_e else set())
+    want = {'preregistration.md', 'controls.py'} | set(files) | ({'result.md'} if at_e else set())
     extra = {r for r in rel - want if not r.startswith('amendments/') and not r.startswith(FRUN)}
     frun = any(r.startswith(FRUN) for r in rel)
     return not (want - rel) and not extra and frun
@@ -541,31 +581,34 @@ def check(E, F, stage='E'):
     at_e = stage == 'E'
     prereg_F, prereg_E = show(F, PREREG), show(E, PREREG)
     pf = prereg_F or ''
-    record('C1', 'the preregistration at E is the one at F, with this round\'s D and declaration',
+    record('C1', 'the preregistration at E is the one at F, with this round\'s D, declaration and #831 citation',
            prereg_F is not None and prereg_F == prereg_E and ('D: `%s`' % D) in pf
-           and round_block(pf) == ROUND_BLOCK)
+           and round_block(pf) == ROUND_BLOCK and all(c in pf for c in SUPERSEDED_CITE))
     fb = frozen_blobs(pf)
     want = FROZEN_PATHS if at_e else {CONTROLS}
     pend = sorted(p for p, b in (fb or {}).items() if b is None)
     bad = sorted(p for p in want if fb and fb.get(p) and blob(E, p) != fb[p])
     record('C2', 'the frozen execution blobs at ' + stage, fb is not None and set(fb) == FROZEN_PATHS
            and not pend and not bad, ('pending %s' % pend if pend else '') + (' differ %s' % bad if bad else ''))
-    pins = evidence_pins(pf)
-    ppend = sorted(p for p, h in (pins or {}).items() if h is None)
+    rows = retention(pf)
+    ppend = sorted(l for l, (p, h) in (rows or {}).items() if p is None or h is None)
+    gbad = sorted(l for l, (p, h) in (rows or {}).items() if h == GAP and l not in HISTORICAL)
 
     def digest_ok(p, h):
-        t = show(E, RDIR + p)
-        return t is not None and hashlib.sha256(t.encode('utf-8')).hexdigest() == h
-    pbad = sorted(p for p, h in (pins or {}).items() if h and h != GAP and not digest_ok(p, h))
-    gaps = sorted(p for p, h in (pins or {}).items() if h == GAP)
-    gbad = [p for p in gaps if p not in HISTORICAL or show(E, RDIR + p) is not None]
+        q = resolve(p)
+        t = show(E, q)
+        ok = t is not None and hashlib.sha256(t.encode('utf-8')).hexdigest() == h
+        # a file retained on main outside the record directory is there at D and unchanged at E
+        return ok and (p.startswith('evidence/') or (blob(D, q) is not None and blob(D, q) == blob(E, q)))
+    pbad = sorted(l for l, (p, h) in (rows or {}).items() if p not in (None, NONE) and h not in (None, GAP)
+                  and not digest_ok(p, h))
+    ngap = sum(h == GAP for _, h in (rows or {}).values())
     record('P', 'the retention rows at F: digests present at %s, gaps only on historical rows' % stage,
-           pins is not None and set(pins) == EVIDENCE_ROWS and not ppend and not pbad and not gbad,
-           str(ppend + pbad + gbad) if ppend or pbad or gbad else '%d digest(s), %d gap(s)' % (len(pins) - len(gaps),
-                                                                                             len(gaps)))
+           rows is not None and set(rows) == EVIDENCE_ROWS and not ppend and not gbad and not pbad,
+           str(ppend + gbad + pbad) if ppend or gbad or pbad else '%d digest(s), %d gap(s)' % (len(rows) - ngap, ngap))
     names = [x for x in git('ls-tree', '-r', '--name-only', E, '--', RDIR).splitlines() if x.strip()]
-    record('R', 'the record directory holds exactly the frozen files, the pinned evidence and evidence/f-run/',
-           pins is not None and record_ok(names, pins or {}, at_e))
+    record('R', 'the record directory holds exactly the frozen files, the record-relative evidence and evidence/f-run/',
+           rows is not None and record_ok(names, record_files(rows or {}), at_e))
     diff = [x for x in git('diff', '--no-renames', '--name-status', D, E).splitlines() if x.strip()]
     gp = governed(pf)
     badg = g(diff, gp or [])
@@ -576,9 +619,11 @@ def check(E, F, stage='E'):
     fdelta = [x for x in git('diff', '--name-only', D, F).splitlines() if x.strip()]
     pre = [x for x in git('rev-list', '--parents', '%s..%s' % (D, F)).splitlines() if x.strip()]
     lin = [x for x in git('rev-list', '--parents', '%s..%s' % (F, E)).splitlines() if x.strip()]
-    record('T', 'delta(D, F) is the control plane, drafted linearly from D; the execution is linear after F',
+    record('T', 'delta(D, F) is the control plane, drafted linearly from D without #831\'s commits; the execution '
+           'is linear after F',
            PREREG in fdelta and all(p == PREREG or p.startswith(RDIR + 'amendments/') for p in fdelta)
            and bool(pre) and all(len(x.split()) == 2 for x in pre) and is_ancestor(D, F)
+           and not any(x.split()[0] in OLD_CHAIN for x in pre)
            and bool(lin) and all(len(x.split()) == 2 for x in lin) and is_ancestor(F, E))
     if not at_e:
         return outcomes
@@ -921,6 +966,12 @@ def fix_log(ns, names, axioms='propext, Classical.choice, Quot.sound'):
     return '\n'.join("info: x.lean:1:0: '%s.%s' depends on axioms: [%s]" % (ns, n, axioms) for n in names) + '\n'
 
 
+def set_row(prereg, label, file_cell, sha_cell):
+    """Rewrite the retention row `label` with the given cells."""
+    return re.sub(r'^\| `%s` \|[^\n]*$' % re.escape(label), lambda m: '| `%s` | %s | %s |' % (label, file_cell, sha_cell),
+                  prereg, count=1, flags=re.M)
+
+
 def fill(prereg, title, values):
     """Replace each pending cell of the pin table `title` by `values[path]`."""
     for path, v in values.items():
@@ -947,10 +998,11 @@ def fake_repo(prereg, src):
     E[CORE], E[INST] = core, inst
     E[PROBE] = '# synthetic stub probe; the self-test never runs it\n'
     E[CONTROLS] = src
-    ev = {}
-    for p in (evidence_pins(prereg) or {}):
-        E[RDIR + p] = '{"synthetic": "controls self-test fixture, not run evidence", "path": "%s"}\n' % p
-        ev[p] = hashlib.sha256(E[RDIR + p].encode('utf-8')).hexdigest()
+    rows = {}
+    for label in sorted(retention(prereg) or {}):
+        p = 'evidence/%s.json' % label
+        E[RDIR + p] = '{"synthetic": "controls self-test fixture, not run evidence", "row": "%s"}\n' % label
+        rows[label] = (p, hashlib.sha256(E[RDIR + p].encode('utf-8')).hexdigest())
     E[RDIR + FRUN + 'f-run.json'] = '{"synthetic": "fixture"}\n'
     E[RESULT] = '# PRESERVE-INDUCT-1 result (synthetic self-test fixture)\n\nNo claim.\n'
     E[WORKFLOW] = workflow(Dm[WORKFLOW], FIX_SPLICES)
@@ -958,7 +1010,8 @@ def fake_repo(prereg, src):
     reg = json.loads(Dm[REGISTRY]); reg['families'].extend(FIX_FAMILIES)
     E[REGISTRY] = json.dumps(reg, indent=2) + '\n'
     pf = fill(prereg, 'Frozen execution blobs.', {p: git_blob_id(E[p]) for p in FROZEN_PATHS})
-    pf = fill(pf, 'Retained evidence (§A.42).', ev)
+    for label, (p, h) in rows.items():
+        pf = set_row(pf, label, '`%s`' % p, '`%s`' % h)
     pf += '\n## The statement surface (frozen; synthetic fixture)\n\n```lean\n%s```\n\n```lean\n%s```\n' % (
         render_block(core), render_block(inst))
     Fm = dict(Dm); Fm[PREREG] = pf
@@ -1081,11 +1134,25 @@ def e2e_cases(prereg):
             def ed(r):
                 r['F'][PREREG] = r['E'][PREREG] = f(r['F'][PREREG])
             return ed
-        def gapped(r, rows):
+        def gapped(r, labels, keep=False):
             for c in ('F', 'E'):
-                for row in rows:
-                    r[c][PREREG] = re.sub(r'(\| `%s` \| )`[0-9a-f]{64}` \|' % re.escape(row),
-                                          lambda m: m.group(1) + 'gap: log not recoverable (fixture) |', r[c][PREREG])
+                for label in labels:
+                    r[c][PREREG] = set_row(r[c][PREREG], label, 'none', 'gap: log not recoverable (fixture)')
+            if not keep:
+                for label in labels:
+                    r['E'][RDIR + 'evidence/%s.json' % label] = None
+
+        def archived(r, labels, at_d=True):
+            for label in labels:
+                a = 'verification/audits/evidence-retention/fixture/%s.json' % label
+                body = '{"synthetic": "archived fixture, not run evidence", "row": "%s"}\n' % label
+                r['E'][a] = body
+                if at_d:
+                    r['D'][a] = r['F'][a] = body
+                r['E'][RDIR + 'evidence/%s.json' % label] = None
+                for c in ('F', 'E'):
+                    r[c][PREREG] = set_row(r[c][PREREG], label, '`%s`' % a,
+                                           '`%s`' % hashlib.sha256(body.encode('utf-8')).hexdigest())
         ev = sorted(p for p in repo['E'] if p.startswith(RDIR + 'evidence/') and not p.startswith(RDIR + FRUN))[:1]
         frun = [p for p in repo['E'] if p.startswith(RDIR + FRUN)]
         strip_hdr = lambda t: re.sub(r'/-!.*?-/\n', '', t, count=1, flags=re.S)
@@ -1111,11 +1178,16 @@ def e2e_cases(prereg):
             ('E identical to D', ['G'], lambda r: r.__setitem__('E', dict(r['D']))),
             ('no execution commit after F', ['T'], lambda r: r['flags'].__setitem__('lin', '')),
             ('the legacy manifest absent at D and E', ['G'], drop(('D', LEGACY), ('E', LEGACY))),
-            ('the predicted-tree row recorded as a gap', ['P'], lambda r: (gapped(r, [REQUIRED_PIN]),
-                                                                          drop(('E', RDIR + REQUIRED_PIN))(r))),
-            ('a gap row whose file is present', ['P'], lambda r: gapped(r, sorted(HISTORICAL)[:1])),
+            ('the predicted-tree row recorded as a gap', ['P'], lambda r: gapped(r, [REQUIRED_PIN])),
+            ('a historical gap whose file stays in the record directory', ['R'],
+             lambda r: gapped(r, sorted(HISTORICAL)[:1], keep=True)),
             ('a retention row dropped', ['P'], prereg_edit(lambda t: re.sub(
-                r'\| `%s` \|[^\n]*\n' % re.escape(REQUIRED_PIN), '', t, count=1))),
+                r'^\| `%s` \|[^\n]*\n' % re.escape(REQUIRED_PIN), '', t, count=1, flags=re.M))),
+            ('a historical row retained outside the record directory but absent at D', ['P'],
+             lambda r: archived(r, sorted(HISTORICAL)[:1], at_d=False)),
+            ('the #831 citation removed', ['C1'], prereg_edit(lambda t: t.replace(SUPERSEDED_CITE[1], '#831'))),
+            ('an old #831 commit in the drafting chain', ['T'], lambda r: r['flags'].__setitem__(
+                'pre', 'F %s\n%s D' % (sorted(OLD_CHAIN)[1], sorted(OLD_CHAIN)[1]))),
         ]
         for name, codes, edit in absences:
             n += 1
@@ -1131,13 +1203,14 @@ def e2e_cases(prereg):
         if ok or calls or not failed_named(out, ['W']) or leaked(out):
             problems.append('unpinned SymPy splices: result %s, W named %s, probe calls %d' % (
                 ok, failed_named(out, ['W']), calls))
-        # historical rows recorded as gaps, their files absent: a passing state
-        n += 1
-        hist = variant(lambda r: (gapped(r, sorted(HISTORICAL)), drop(*[('E', RDIR + h) for h in HISTORICAL])(r)))
-        ok, out, calls = end_to_end(src, hist, path)
-        if not ok or calls != 1 or leaked(out) != POSITIVE:
-            problems.append('historical gaps: result %s, probe calls %d, positive %s, failures %s' % (
-                ok, calls, leaked(out), re.findall(r'^FAIL .*$', out, re.M)))
+        # historical rows recorded as gaps, or retained on main before D: passing states
+        for label, edit in (('historical gaps', lambda r: gapped(r, sorted(HISTORICAL))),
+                            ('historical rows retained on main at D', lambda r: archived(r, sorted(HISTORICAL)))):
+            n += 1
+            ok, out, calls = end_to_end(src, variant(edit), path)
+            if not ok or calls != 1 or leaked(out) != POSITIVE:
+                problems.append('%s: result %s, probe calls %d, positive %s, failures %s' % (
+                    label, ok, calls, leaked(out), re.findall(r'^FAIL .*$', out, re.M)))
         # the pending state: the live preregistration as it stands, and every PENDING parameter unset
         n += 1
         shipped = variant(prereg_edit(lambda t: prereg))
@@ -1273,9 +1346,11 @@ def self_test():
     fb = frozen_blobs(prereg)
     report('self: the frozen-blob table names the four execution files', fb is not None and set(fb) == FROZEN_PATHS,
            '%s rows, %d pending' % (len(fb or {}), sum(v is None for v in (fb or {}).values())))
-    pins = evidence_pins(prereg)
-    report('self: the retained-evidence table parses', bool(pins),
-           '%d rows, %d pending' % (len(pins or {}), sum(v is None for v in (pins or {}).values())))
+    rows = retention(prereg)
+    report('self: the retention table parses into the three frozen rows', rows is not None and set(rows) == EVIDENCE_ROWS,
+           '%d rows, %d pending' % (len(rows or {}), sum(p is None or h is None for p, h in (rows or {}).values())))
+    report('self: the drafting decision\'s citation of 65b85147 and link to #831 are present',
+           all(c in prereg for c in SUPERSEDED_CITE))
     report("self: the preregistration's S2 table equals LANDED", landed_table(prereg) == LANDED)
     live = []
     for path, line, name in LANDED:
@@ -1288,7 +1363,7 @@ def self_test():
     report('self: every landed object resolves in this tree (%d)' % len(LANDED), not live, ', '.join(live))
     report('self: every surface name, print and token is named in the preregistration',
            all(('`%s`' % n) in prereg for n in CORE_NAMES + INST_NAMES + CORE_PRINTS + INST_PRINTS + POSITIVE
-               + [READ, NOT_READ] + [c[2] for c in CELLS] + list(PENDING)))
+               + [READ, NOT_READ] + [c[2] for c in CELLS] + list(PENDING) + sorted(EVIDENCE_ROWS)))
     unset = [p for p in PENDING if globals()[p] is None]
     report('self: every PENDING parameter is set, or a frozen blob is still pending here',
            not unset or any(v is None for v in (fb or {}).values()), 'unset: ' + ', '.join(unset) if unset else '')
@@ -1370,17 +1445,21 @@ def self_test():
     gwant = ['M\tpapers/GR.md', 'M\t' + LEGACY, 'M\tverification/ROADMAP.md', 'M\t' + CORE, 'D\t' + WORKFLOW,
              'M\t' + LP + 'ImplementationLocality.lean']
     report('self: G authorizes by status letter and longest prefix', bad == gwant, '' if bad == gwant else str(bad))
-    dig = {r: '0' * 64 for r in EVIDENCE_ROWS}
-    names = [RDIR + n for n in ['preregistration.md', 'controls.py', 'result.md', FRUN + 'x'] + sorted(dig)]
-    gapd = dict(dig, **{h: GAP for h in HISTORICAL})
-    report('self: R requires the frozen files, the digest rows\' files, f-run and (at E) the result note, and nothing '
-           'else; a gap row names no file',
-           record_ok(names, dig, True) and not record_ok(names + [RDIR + 'extra.md'], dig, True)
-           and not record_ok([x for x in names if FRUN not in x], dig, True)
-           and not record_ok([x for x in names if not x.endswith('result.md')], dig, True)
-           and record_ok([x for x in names if not x.endswith('result.md')], dig, False)
-           and record_ok([x for x in names if x[len(RDIR):] not in HISTORICAL], gapd, True)
-           and not record_ok([x for x in names if x[len(RDIR):] != REQUIRED_PIN], gapd, True))
+    dig = {l: ('evidence/%s.json' % l, '0' * 64) for l in EVIDENCE_ROWS}
+    files = record_files(dig)
+    names = [RDIR + n for n in ['preregistration.md', 'controls.py', 'result.md', FRUN + 'x'] + sorted(files)]
+    gapd = dict(dig, **{h: (NONE, GAP) for h in HISTORICAL})
+    arch = dict(dig, **{h: ('verification/audits/evidence-retention/x/%s.json' % h, '0' * 64) for h in HISTORICAL})
+    hist_files = {'evidence/%s.json' % h for h in HISTORICAL}
+    report('self: R requires the frozen files, the record-relative digest rows\' files, f-run and (at E) the result '
+           'note, and nothing else; a gap row or a file retained on main names no record file',
+           len(files) == 3 and record_ok(names, files, True) and not record_ok(names + [RDIR + 'extra.md'], files, True)
+           and not record_ok([x for x in names if FRUN not in x], files, True)
+           and not record_ok([x for x in names if not x.endswith('result.md')], files, True)
+           and record_ok([x for x in names if not x.endswith('result.md')], files, False)
+           and record_files(gapd) == record_files(arch) == {'evidence/%s.json' % REQUIRED_PIN}
+           and record_ok([x for x in names if x[len(RDIR):] not in hist_files], record_files(gapd), True)
+           and not record_ok(names, record_files(gapd), True))
     report('self: the probe rule accepts the frozen shape and fails closed with no spec, a code missing or stderr',
            probe_ok(0, FIX_PROBE_OUT, '', FIX_SPEC) and not probe_ok(0, FIX_PROBE_OUT, '', None)
            and not probe_ok(0, FIX_PROBE_OUT.replace('PASS FIX2', 'PASS FIX'), '', FIX_SPEC)
@@ -1402,14 +1481,21 @@ def self_test():
            pin_ok(FIX_SPLICES, FIX_SPEC) and not pin_ok(loose, FIX_SPEC) and not pin_ok(other, FIX_SPEC)
            and not pin_ok(FIX_SPLICES, None) and not pin_ok(FIX_SPLICES, dict(FIX_SPEC, sympy=None))
            and pin_ok([FIX_SPLICES[0]], dict(FIX_SPEC, sympy=None)))
+    h0 = sorted(HISTORICAL)[0]
     gtab = prereg
     for h in HISTORICAL:
-        gtab = re.sub(r'(\| `%s` \| )pending[^|\n]*\|' % re.escape(h), lambda m: m.group(1) + 'gap: log expired |', gtab)
-    gp_ = evidence_pins(gtab)
-    report('self: the retention table reads a recorded gap, and the frozen rows are the three named',
-           gp_ is not None and set(gp_) == EVIDENCE_ROWS and all(gp_[h] == GAP for h in HISTORICAL)
-           and set(evidence_pins(prereg) or {}) == EVIDENCE_ROWS
-           and evidence_pins(gtab.replace('gap: log expired', 'gap:', 1)) is None)
+        gtab = set_row(gtab, h, 'none', 'gap: log expired')
+    gp_ = retention(gtab)
+    atab = set_row(prereg, h0, '`verification/audits/evidence-retention/x/a.json`', '`%s`' % ('0' * 64))
+    bad_rows = [set_row(prereg, h0, 'none', 'gap:'), set_row(prereg, h0, '`evidence/a.json`', 'gap: lost'),
+                set_row(prereg, h0, 'none', '`%s`' % ('0' * 64)), set_row(prereg, h0, 'pending', '`%s`' % ('0' * 64)),
+                set_row(prereg, h0, '`%sx.json`' % RDIR, '`%s`' % ('0' * 64)),
+                set_row(prereg, h0, '`papers/x.md`', '`%s`' % ('0' * 64))]
+    report('self: the retention table takes an expected-result digest, a file retained on main or a recorded gap on '
+           'a historical row, and refuses the inconsistent forms',
+           gp_ is not None and set(gp_) == EVIDENCE_ROWS and all(gp_[h] == (NONE, GAP) for h in HISTORICAL)
+           and (retention(atab) or {}).get(h0) == ('verification/audits/evidence-retention/x/a.json', '0' * 64)
+           and all(retention(t) is None for t in bad_rows))
     report('self: passed() rejects an empty, non-bool or partial map and an unknown stage',
            not passed({}) and not passed({c: 1 for c in REQUIRED['E']}) and passed({c: True for c in REQUIRED['E']})
            and passed({c: True for c in REQUIRED['S1']}, 'S1') and not passed({c: True for c in REQUIRED['S1']})

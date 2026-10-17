@@ -280,7 +280,7 @@ at the first execution commit. Any other stage or argument is refused.
 
 | code | measures |
 | --- | --- |
-| C1 | the preregistration at `E` is the one at `F`, and names this `D` and the round declaration |
+| C1 | the preregistration at `E` is the one at `F`, and names this `D`, the round declaration, and the citation of `65b85147` with the link to #831 that the drafting decision requires |
 | C2 | the four frozen execution blobs below at `E` (at `S1`, `controls.py`'s); no pin pending |
 | S1 | each module equals its block in the frozen statement-surface section: imports, namespace and `open` lines, the declarations in the order named in this file with their statements (a definition's whole text), the two examples, the prints; no `sorry`, `admit`, `native_decide`, `axiom`, `implemented_by` or `extern` |
 | S2 | the landed objects below at their lines, with `D`'s blobs at `E` |
@@ -289,10 +289,10 @@ at the first execution commit. Any other stage or argument is refused.
 | W | `verify.yml` at `E` is `D`'s with the frozen splices, each anchored once; when the probe spec names SymPy, the splices install it as `sympy==1.14.0` and name it in no other form |
 | I | `OIBridge.lean` at `E` is `D`'s with `import OIBridge.PreservationInduction` and `import OIBridge.PreservationInductionInstances` directly after its last import line |
 | J | the census at `E` is `D`'s with the frozen families appended |
-| P | the three retention rows of the next section: each historical row a digest or a recorded gap, the predicted-tree row a digest; every digest row present with its digest, no gap row's file present; no row pending |
-| R | the record directory holds exactly this file, `controls.py`, the evidence of the digest rows, a non-empty `evidence/f-run/`, `amendments/` if present, and at `E` the result note |
+| P | the three retention rows of the next section: each historical row a digest or a recorded gap, the predicted-tree row a digest; every digest row's file present at `E` with that digest, and a file retained on main outside the record directory present at `D` and unchanged at `E`; no row pending |
+| R | the record directory holds exactly this file, `controls.py`, the record-relative files the digest rows name, a non-empty `evidence/f-run/`, `amendments/` if present, and at `E` the result note |
 | G | the governed-path block equals the eight entries above; every change from `D` is authorized under `S7` (longest governing entry, status letter in its operations); the receipt is absent; the legacy manifest is present and unchanged |
-| T | `delta(D, F)` is this file and `amendments/`, drafted by single-parent commits from `D`; the execution after `F` is non-empty and linear, and `F` is an ancestor of `E` |
+| T | `delta(D, F)` is this file and `amendments/`, drafted by single-parent commits from `D`, none of them #831's `5f614d60` or `65b85147`; the execution after `F` is non-empty and linear, and `F` is an ancestor of `E` |
 
 **Parameters not yet fixed.** `controls.py` carries four as `None`; while any
 is `None`, the controls that depend on it fail. They are `NS`, the adopted
@@ -394,6 +394,7 @@ evidence for any theorem.
 | invariant (where this file asserts it) | checkpoint |
 | --- | --- |
 | before `F` the control-plane delta is this file and its amendments (the paragraph under the governed paths) | T at `S1` and `E`; `G9` under `v3_verifier --verify-round Q` |
+| the drafting chain is a new linear branch from the finalized `D` that cites `65b85147` and links #831, and imports none of #831's commits (owner decision of 2026-10-17) | C1 (the citation and link); T (single-parent commits from `D`, neither `5f614d60` nor `65b85147` among them); reviewers check that #831 is closed as superseded once the replacement exists |
 | execution starts from the frozen control plane; `controls.py`, the modules and the probe are the frozen ones | C1; C2 at `S1` and `E` |
 | no manuscript, built artifact, ROADMAP, adopted kernel module or other round's record changes (the paragraph under the governed paths; non-inference rule) | G at `S1` and `E`; S2 |
 | the preparation family is specified independently: not a reachable closure, not PSD in the general statement (Question) | S3 |
@@ -410,7 +411,7 @@ evidence for any theorem.
 | the workflow runs the probe and `controls.py --self-test` (item 5) | W; the exact-head run at `E` |
 | no positive token over a failed or unreported required control (decision rules) | `controls.py --self-test` in the probe shard: the `verdict` regression and the end-to-end cases |
 | the result note asserts no source, closure or implication beyond the earned reading (non-inference rule) | S4; owner review of the result note |
-| the design evidence is retained by the first execution commit and pinned before `F`; a historical build whose log is unrecoverable is recorded as a gap and stays attributed provenance; the predicted-tree run establishes results for its own tree only (§A.42 items 2 and 4; owner recommendation 3) | P and R at `S1` and `E`; reviewers check that each pin resolves to retained content, that each gap names what is missing, and that no claim about the historical builds rests on the predicted-tree run |
+| the design evidence is retained by the first execution commit and pinned before `F`; a historical build whose log is unrecoverable is recorded as a gap and stays attributed provenance; the predicted-tree run establishes results for its own tree only (§A.42 items 2 and 4; owner recommendation 3) | P and R at `S1` and `E` (a historical row may name an expected result retained on main before `D`, present at `D` and unchanged at `E`); reviewers check that each pin resolves to retained content, that each gap names what is missing, and that no claim about the historical builds rests on the predicted-tree run |
 | `F`'s exact-head run is retained by the first execution commit (§A.42 item 2) | R at `S1` (a non-empty `evidence/f-run/`); reviewers check that it names `F`'s run, job and digest |
 | `E`'s exact-head run reaches `main` through its own evidence-retention pull request before reconciliation, and the receipt names each retained file's digest (§A.42 item 2) | reviewer check of that pull request and of the receipt's candidate entry for `E`; `evidence-retention` at `Q` |
 | the native receipt holds; the legacy records are untouched | `v3_verifier --verify-round Q`; `legacy_records_check.py` at every stage commit and at `Q`; G |
@@ -431,10 +432,22 @@ execution step.
    recorded and the old builds stay attributed provenance. The new
    predicted-tree run establishes results only for its own tree and cannot
    verify the historical logs retroactively.
-4. The drafting pull request is a replacement for #831 that preserves #831's
-   history and carries only control-plane files (this file and
-   `amendments/`). `controls.py` stays on the preparation branch until
-   execution. D is finalized after #829 lands.
+4. `controls.py` stays on the preparation branch until execution. D is
+   finalized after #829 lands.
+
+## Owner decision (2026-10-17): the replacement drafting pull request
+
+- It is a new linear branch from the finalized D, carrying the revised
+  control-plane text (this file and `amendments/`).
+- It cites #831's head `65b85147f85aa01770e0e60551152bc5f1d9ef29` and links
+  #831 (https://github.com/amaybaum/incompleteness/pull/831).
+- #831 stays open until the replacement pull request exists, and is then
+  closed as superseded.
+- #831's commits (`5f614d60`, `65b85147`) are not imported into the new
+  drafting chain.
+
+The branch and the pull request are created only after #829 lands and D is
+finalized.
 
 Still open before `F`, and not established by the self-test (which checks the
 draft checker's own tests): the adopted namespace and module bytes, the two
@@ -478,9 +491,16 @@ replays' output lines and the failure markers. Each names its commit, run, job
 and recipe, and the digest of the log it is read from. The files are committed
 to the record directory by the first execution commit, outside `amendments/`,
 together with `F`'s exact-head run under `evidence/f-run/`, and pinned here by
-sha256 before `F`. A historical row whose log cannot be recovered carries
-`gap:` and what is missing instead of a digest; the claims resting on that build
-then stay attributed provenance, the research record's reading. The available
+sha256 before `F`. The owner asked for the two historical build logs to be
+retained before `F` rather than at it; that is done by the separate CI-evidence
+retention work, whose expected results a historical row may name directly: its
+file column then gives the repository path of the retained expected result
+(`verification/…`, outside the record directory), which must be present at `D`
+and unchanged at `E`, and its sha256 column that file's digest. Any other
+retained file is record-relative (`evidence/…`). A historical row whose log
+cannot be recovered names `none` as its file and carries `gap:` and what is
+missing instead of a digest; the claims resting on that build then stay
+attributed provenance, the research record's reading. The available
 API client returns at most the last 5000 lines of a job log, and job-log
 downloads are refused in this environment, so a retained copy says which lines
 it covers and claims nothing outside them. At drafting, that client reported
@@ -488,11 +508,11 @@ it covers and claims nothing outside them. At drafting, that client reported
 measurement of availability, not retention. The predicted-tree row must carry
 a digest. `F` is not designated with a pending row.
 
-| path | sha256 |
-| --- | --- |
-| `evidence/design-38450187534.json` | pending (core design build at `e684897d`, job 115478781754: retained where recoverable, otherwise a recorded gap) |
-| `evidence/design-38454439833.json` | pending (instance design build at `febfe5e2`, job 115493410133: retained where recoverable, otherwise a recorded gap) |
-| `evidence/design-predicted-tree.json` | pending (the design run on the predicted execution tree, item 6; a digest is required) |
+| row | file | sha256 |
+| --- | --- | --- |
+| `core-build-38450187534` | pending (the expected result of the core design build at `e684897d`, job 115478781754) | pending (a digest, or a recorded gap) |
+| `instance-build-38454439833` | pending (the expected result of the instance design build at `febfe5e2`, job 115493410133) | pending (a digest, or a recorded gap) |
+| `predicted-tree` | pending (the expected result of the design run on the predicted execution tree, item 6) | pending (a digest is required) |
 
 The research core and exact layer are available, but these remaining edits
 are not yet a concrete, freeze-ready execution package. D is
