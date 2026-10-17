@@ -18,13 +18,15 @@ Tree mode (no git, no network):
       sha1("<type> <size>\\0" + content); a zlib file's header names the recorded type and size;
   O2  every file under objects/ is listed, or is manifest.json;
   O3  the manifest is well formed: known schema, mechanisms and forms, unique 40-hex ids, stored entries with a
-      file and withheld entries without one, a commit's mechanism consistent with its parent and withheld lists;
+      file and withheld entries without one, a commit's mechanism consistent with its parent and withheld lists
+      (withheld_blobs only on raw:partial-tree and inclusion-proof commits);
   O4  closure: every id a stored commit or fully retained tree names is stored, withheld, or outside the retained
       set (expected on main, which history mode checks); a path tree (raw:proof-path) names its entries off the
       inclusion path without retaining them, and never lies under a fully retained tree; an inclusion path walks
       from its commit through stored trees; a connected commit's parents are retained connected commits or (H3) on
       main; a raw:tree commit has a parent that is neither; parents_not_retained lists only parents that are not
-      retained; a raw:partial-tree commit's tree withholds exactly its listed blobs, and no other commit's any;
+      retained; a raw:partial-tree commit's tree, and an inclusion-proof commit's inclusion paths, withhold exactly
+      the commit's listed blobs, and no other commit's tree withholds any;
   O5  excerpt guard: no stored, named or listed id, and no stored file's own blob id, has its sha256 in the
       deny-list (the list holds sha256 digests of ids, so it cites no object itself);
   O6  scan: no stored object's content, decoded, and no file here matches the secret patterns, an IPv4 address or
@@ -34,7 +36,10 @@ Tree mode (no git, no network):
       (a cited full id that names no object, mapped to the retained head of the cited run) holds the cited id on
       its line, maps to a stored object with the same eight-digit prefix, and that object carries the run; and
       the provenance-errata entry it names records the same location, cited id, real head and run;
-  O8  every id recorded as missing is retained nowhere here, and each of its citing lines still holds it.
+  O8  every id recorded as missing is retained nowhere here, and each of its citing lines still holds it;
+  O9  every withheld entry is named by a retained tree of a commit that lists it, at each of its recorded paths and
+      at each needed_by path, and records a size (which no tree records, so the size is as read from the recovery
+      copy when the archive was built, and is not checked).
 History mode (--reconstitute) adds, in a temporary repository that borrows this repository's objects (H0: a git
 command that fails fails the check, rather than leaving a rule to read empty output):
   H1  the base is in the repository and an ancestor of HEAD;
@@ -44,8 +49,9 @@ command that fails fails the check, rather than leaving a rule to read empty out
       every raw:connected and raw:tree commit and every complete cited tree, every raw:tree commit a shallow
       boundary, git fsck --connectivity-only passes and every object the refs reach is retained or reachable from
       the base; each raw:connected commit's history reaches the base only through retained raw:connected commits;
-      what a raw:partial-tree commit's tree names beyond the archive and the base is exactly its withheld blobs;
-      every inclusion path resolves to a retained or withheld object;
+      what a raw:partial-tree commit's tree, or an inclusion-proof commit's inclusion paths, names beyond the
+      archive and the base is exactly its withheld blobs; every inclusion path resolves to a retained or withheld
+      object;
   H5  every listed identity digest is the digest of an address in the base's history;
   H6  no deny-listed id is reachable from HEAD of this repository, or from any reconstituted object;
   H7  no entry, stored or withheld, and no id recorded as missing is reachable from the base: what main already
@@ -332,9 +338,12 @@ def check(objdir, root):
         if any(p not in parents or p in ents for p in named):
             F('O3 %s: a parent named as not retained is not a parent, or is retained' % oid[:12])
         m = e['mechanism']
+        if e.get('withheld_blobs') and m not in ('raw:partial-tree', 'inclusion-proof'):
+            F('O3 %s: a %s commit carries a withheld_blobs list' % (oid[:12], m))
         if m == 'identity-anchor':
             continue
         if m == 'inclusion-proof':
+            iwh = set()
             for p in e.get('inclusion_paths') or ['(none)']:
                 cur = tree
                 for part in [x for x in p.split('/') if x]:
@@ -349,10 +358,14 @@ def check(objdir, root):
                 else:
                     if kind(cur) != 'stored' and kind(cur) != 'withheld':
                         F('O4 %s: inclusion path %s ends at an object not retained' % (oid[:12], p))
+                    elif kind(cur) == 'withheld':
+                        iwh.add(cur)
                     elif cur in content and ents[cur]['type'] == 'tree':
                         if not p.endswith('/') or ents[cur]['mechanism'] != 'raw':
                             F('O4 %s: inclusion path %s ends at a tree not retained in full' % (oid[:12], p))
-                        walk_tree(cur, set(), set(), oid)
+                        walk_tree(cur, set(), iwh, oid)
+            if sorted(iwh) != sorted(e.get('withheld_blobs', [])):
+                F('O4 %s: the blobs withheld under its inclusion paths are not exactly the recorded ones' % oid[:12])
             continue
         wh = set()
         walk_tree(tree, set(), wh, oid)
@@ -419,6 +432,36 @@ def check(objdir, root):
                 line = None
             if line is None or gid[:8] not in line:
                 F('O8 missing id %s: %s does not hold it' % (gid[:12], loc))
+    # O9 withheld entries: where the retained trees of the commits that list withheld blobs name each one
+    occurs = {}
+    for c, e in ents.items():
+        if e['type'] != 'commit' or c not in content or not e.get('withheld_blobs'):
+            continue
+        stack = [(commit_fields(content[c])[0], '')]
+        while stack:
+            t, pre = stack.pop()
+            if t not in content or ents[t]['type'] != 'tree':
+                continue
+            for mode, name, x in tree_entries(content[t]):
+                if mode == '40000':
+                    stack.append((x, pre + name + '/'))
+                elif x in ents and ents[x]['mechanism'] in WITHHELD:
+                    occurs.setdefault(x, set()).add((c, pre + name))
+    for w, e in sorted(ents.items()):
+        if e['mechanism'] not in WITHHELD:
+            continue
+        occ = occurs.get(w, set())
+        if not occ:
+            F('O9 withheld %s: no retained tree of a commit that lists withheld blobs names it' % w[:12])
+            continue
+        if any(w not in ents[c].get('withheld_blobs', []) for c, _ in occ):
+            F('O9 withheld %s: a commit whose tree names it does not list it' % w[:12])
+        if not e.get('paths') or not set(e['paths']) <= {p for _, p in occ}:
+            F('O9 withheld %s: its recorded paths are not where the retained trees name it' % w[:12])
+        if not e.get('needed_by') or any((n.get('object'), n.get('path')) not in occ for n in e['needed_by']):
+            F('O9 withheld %s: its needed_by entries are not where the retained trees name it' % w[:12])
+        if type(e.get('bytes')) is not int or e['bytes'] < 0:
+            F('O9 withheld %s: it records no size' % w[:12])
     info = {'entries': len(ents), 'stored': len(content), 'external': external, 'man': man, 'ents': ents,
             'content': content, 'incomplete_trees': incomplete_trees}
     return fails, info
@@ -587,11 +630,21 @@ def _history_checks(root, info, fails, clone_extra):
                 if sorted((pres | miss) - held) != sorted(e.get('withheld_blobs', [])):
                     F('H4 %s: what its tree names beyond the archive and main is not exactly its withheld blobs' % o[:12])
             if e['mechanism'] == 'inclusion-proof':
+                beyond = set()
                 for pth in e.get('inclusion_paths', []):
                     r = git(['rev-parse', '--verify', '-q', '%s:%s' % (o, pth.rstrip('/'))], tmp, env=env)
                     tip = r.stdout.decode().strip()
                     if r.returncode or tip not in set(content) | withheld:
                         F('H4 %s: %s does not resolve to a retained or withheld object' % (o[:12], pth))
+                    elif tip in withheld:
+                        beyond.add(tip)
+                    elif ents[tip]['type'] == 'tree':
+                        pres, miss = listing(gitok(['rev-list', '--objects', '--missing=print', tip], tmp,
+                                                   env=env).stdout)
+                        beyond |= (pres | miss) - held
+                if sorted(beyond) != sorted(e.get('withheld_blobs', [])):
+                    F('H4 %s: what its inclusion paths name beyond the archive and main is not exactly its withheld '
+                      'blobs' % o[:12])
         # H5: identities are addresses already public in main's history
         for d in man.get('identities_sha256', []):
             if d not in known:
@@ -867,7 +920,7 @@ def self_test(root):
 
         def drop_needed(info):
             del info['content'][under_conn['oid']]
-        expect_history('a required stored object missing from the archive and the clone', drop_needed, 'H4')
+        expect_history('a required stored object dropped from the archive', drop_needed, 'H4')
 
         def drop_needed_clone_holds(info):
             data = info['content'].pop(under_conn['oid'])
@@ -887,6 +940,49 @@ def self_test(root):
                                                                  [under_part['oid']])
             return {'blob': [data]}
         expect_history('a withheld blob that this clone holds', withheld_clone_holds, None)
+
+        incl = next(e for e in man0['objects'] if e['mechanism'] == 'inclusion-proof' and e.get('withheld_blobs'))
+        under_incl = next(e for e in man0['objects'] if e['type'] == 'blob' and e.get('file') and
+                          [n['object'] for n in e.get('needed_by', [])] == [incl['oid']])
+
+        def incl_relabel(d):
+            # a retained blob under an inclusion path deleted, its entry turned into a withheld one
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            os.remove(os.path.join(d, under_incl['file']))
+            e = next(x for x in man['objects'] if x['oid'] == under_incl['oid'])
+            for k in ('file', 'form', 'sha256', 'content_sha256', 'content_bytes', 'cited'):
+                e.pop(k, None)
+            e.update(mechanism='withheld:raw-log', bytes=under_incl['content_bytes'],
+                     paths=[under_incl['needed_by'][0]['path']])
+            save(d, man)
+        expect('a blob under an inclusion path dropped and relabelled withheld', incl_relabel, 'O4')
+
+        def orphan_withheld(d):
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            man['objects'].append({'oid': 'f' * 40, 'type': 'blob', 'mechanism': 'withheld:raw-log', 'bytes': 1,
+                                   'paths': ['x.log'], 'needed_by': [{'object': part['oid'], 'path': 'x.log'}],
+                                   'tranche': 2})
+            save(d, man)
+        expect('a withheld entry that no retained tree names', orphan_withheld, 'O9')
+
+        def withheld_path(d):
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            e = next(x for x in man['objects'] if x['mechanism'] in WITHHELD)
+            e['paths'] = [e['paths'][0] + '.moved']
+            save(d, man)
+        expect('a withheld entry whose recorded path is not where it is named', withheld_path, 'O9')
+
+        def bad_incl_path(info):
+            info['ents'][incl['oid']]['inclusion_paths'] = info['ents'][incl['oid']]['inclusion_paths'] + ['no/such']
+        expect_history('an inclusion path that does not resolve', bad_incl_path, 'H4')
+
+        def short_incl_withheld(info):
+            info['ents'][incl['oid']]['withheld_blobs'] = info['ents'][incl['oid']]['withheld_blobs'][1:]
+        expect_history('an inclusion proof whose withheld list omits one of its blobs', short_incl_withheld, 'H4')
+
+        def missing_on_main(info):
+            info['man'] = dict(info['man'], missing=[dict(info['man']['missing'][0], id=info['man']['base'][:12])])
+        expect_history('a missing id that names an object on main', missing_on_main, 'H7')
     finally:
         _SCAN_MEMO = _HISTORY_MEMO = None
         shutil.rmtree(tmp, ignore_errors=True)

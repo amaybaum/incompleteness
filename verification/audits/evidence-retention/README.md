@@ -50,7 +50,7 @@ An expected result is read from the served job log by `extract_result.py`, the s
 
 ## The BG-3 exception
 
-The four logs under `bg3/` are the only raw artifacts. BG-3's receipt and preregistration name each by its sha256 and assert positions in it ("the module's eight reports are at lines 4907–4916"). Such a claim is about one artifact and can only be re-checked against that artifact, never reproduced; so the artifact is kept byte for byte, and `check_retention.py` verifies each digest. Their substantive claims, the reports and their axioms and the gate's verdict, are recorded as expected results beside them (`bg3/results-*.json`), each with the manual recipe. `E`'s is also the expected result of entry `ci-38855576525`, which `reproduce.py` reproduces at `194eb3fd`. The two design-tree results hold at commits off `main` (`6c160ad2`, `e3ef9358`). Tranche 2 retains both, so that `check_objects.py --materialize` can write them into a clone's object store (see below). The exception is not widened: no other log is retained.
+The four logs under `bg3/` are the only raw artifacts. BG-3's receipt and preregistration name each by its sha256 and assert positions in it ("the module's eight reports are at lines 4907–4916"). Such a claim is about one artifact and can only be re-checked against that artifact, never reproduced; so the artifact is kept byte for byte, and `check_retention.py` verifies each digest. Their substantive claims, the reports and their axioms and the gate's verdict, are recorded as expected results beside them (`bg3/results-*.json`), each with the manual recipe. `E`'s is also the expected result of entry `ci-38855576525`, which `reproduce.py` reproduces at `194eb3fd`. The two design-tree results hold at commits off `main` (`6c160ad2`, `e3ef9358`). Tranche 2 retains both, so that `check_objects.py --materialize` can write them into a clone's object store (see below). The exception is not widened: no other raw log is retained. Tranche 2 names the raw logs under its commits and withholds them; the only stored files with log names are the empty blob (named `r5.log` and `channel_check.replay.err`) and `research/round7-channel/LOG.md`, a hand-written journal kept with R3's inclusion path.
 
 ## Tranche 2: retained off-main objects
 
@@ -74,11 +74,14 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
   - `raw:tree`: the same, but with a parent that is neither on `main` nor a retained connected commit (31): 9 name
     such a parent without retaining it, and the parent of each of the other 22 is a retained `raw:tree` commit;
   - `raw:partial-tree`: every tree is retained, and the raw logs, raw outputs or PDFs under it are named by id (2);
-  - `inclusion-proof`: the commit, its root tree and the trees on each cited path (2, the R3 pair).
-- **Withheld, by §A.42 item 1.** Raw logs, and the small raw outputs written beside them (three integer lists under
-  `1f19a347`), are not committed. The three PDFs, under act 45's head `ad64b603`, are build outputs whose bytes no
-  record freezes. Each withheld blob keeps its id, size and paths in the manifest, and its mechanism states why it
-  is withheld.
+  - `inclusion-proof`: the commit, its root tree, the trees on each cited path and what lies under it, the raw logs
+    there named by id (2, the R3 pair; `e7d380fc` withholds 4).
+- **Withheld.** Raw logs and transcripts are not committed (§A.42 item 1). By the owner's decision of 2026-10-17,
+  neither are captured `.out` and `.err` output nor the small raw outputs written beside the logs (three integer
+  lists under `1f19a347`). The three PDFs, under act 45's head `ad64b603`, are build outputs whose bytes no record
+  freezes. Each withheld blob keeps its id, size and paths in the manifest, its mechanism states why it is withheld,
+  and the check (O9) confirms that a retained tree of a commit listing it names it at those paths. No retained
+  object records a blob's size; the sizes were read from the recovery copies when the archive was built.
 - **Cited blobs are plain files.** Committing them makes those blob ids reachable from `main`, so a frozen control
   that reads them with `git cat-file` works in any clone.
 - **Recorded mappings.**
@@ -156,7 +159,7 @@ Every file here was scanned before commit for token and key patterns, key-file h
 
 Recorded here so the gap is visible, not resolved. Counts are from `audit/offmain_audit-output.txt`:
 - **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Host refs held all 107 when they were listed on 2026-10-17. Tranche 2 retains 6 of them: the R3 pair, BG-3's three heads, and `19985424`, the parent of a retained connected commit. The other 101 are not retained yet.
-- **Blobs and trees not reachable from `main`:** 75, all held by host refs when listed. Tranche 2 retains 14 of them. Of the other 61, four are CONSC-2's build PDFs (its preregistration `:514`–`:517`), which as build outputs are to be named, not retained.
+- **Blobs and trees not reachable from `main`:** 75, all held by host refs when listed. Tranche 2 retains 14 of them. Of the other 61, four are CONSC-2's build PDFs (its preregistration `:516`–`:517`), which as build outputs are to be named, not retained.
 - **Other CI evidence:** 842 citations of 438 run ids and 173 job ids. This tranche covers 96 runs and BG-3's four logs.
 - **Act-26's scratchpad computation** (`result.md:931`), which the audit found saved nowhere.
 

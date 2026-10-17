@@ -244,15 +244,15 @@
  "mechanisms": {
   "byte-copy": "a blob, byte for byte",
   "identity-anchor": "the commit object only",
-  "inclusion-proof": "commit, root tree, the trees on each inclusion path and what lies under it",
-  "raw": "a tree object, retained with every tree and blob under it that main lacks, except the blobs its commit withholds",
+  "inclusion-proof": "commit, root tree, the trees on each inclusion path and what lies under it; withheld_blobs are named by id, not retained",
+  "raw": "a tree object, retained with every tree and blob under it that main lacks, except the blobs its commit lists in withheld_blobs",
   "raw:connected": "commit with every tree and blob main lacks; every parent on main or a retained connected commit",
   "raw:partial-tree": "commit with every tree; withheld_blobs are named by id, not retained",
   "raw:proof-path": "a tree on an inclusion path: its entries off the path are named, not retained",
   "raw:tree": "commit with every tree and blob main lacks; parents_not_retained are named, not retained",
   "withheld:build-pdf": "a build output whose bytes no record freezes: named by id and size, not retained",
-  "withheld:raw-log": "a raw log or transcript (AGENTS \u00a7A.42 item 1): named by id and size, not retained",
-  "withheld:raw-output": "a small raw output of a computation, beside its logs (AGENTS \u00a7A.42 item 1): named by id and size, not retained"
+  "withheld:raw-log": "a raw log or transcript (AGENTS \u00a7A.42 item 1), including captured .out and .err output (owner decision of 2026-10-17): named by id and size, not retained",
+  "withheld:raw-output": "a small raw output of a computation, written beside its logs and withheld like them by the owner decision of 2026-10-17: named by id and size, not retained"
  },
  "missing": [
   {
@@ -19447,7 +19447,13 @@
    ],
    "sha256": "832d261288733153b44f0e5bc1062437f194a1ced6c13ecd29418408a3520356",
    "tranche": 2,
-   "type": "commit"
+   "type": "commit",
+   "withheld_blobs": [
+    "325c825566c37679bf09ec463a29c96572640cb9",
+    "71f55213eb0bc7c6fbc375c397739354a784ad86",
+    "aa639a024172876bb9b6dad5e00a180e0dfa4bb8",
+    "b3a6c133d46819a168393aaeb74af9b51a3b349b"
+   ]
   },
   {
    "bytes": 12859,
