@@ -1,7 +1,7 @@
 # Handoff: state at 2026-10-17 ~06:20 UTC
 
-`main` is at `66a981d5` (R1 landed; AGENTS §A.42 at line 833). Nothing in this session changed `main`. All PRs below
-are drafts, and no merge is authorized.
+`main` is at `ea3155fd` (PR #855 landed 06:28Z on the owner's approval; before it, `66a981d5` with R1 and AGENTS §A.42
+at line 833). The other PRs below are drafts, and no further merge is authorized.
 
 ## 1. Standing constraints (owner)
 
@@ -72,7 +72,18 @@ are drafts, and no merge is authorized.
 - a left boundary on the `gh[pousr]_` pattern;
 - `raise … from None` at the archiver fetcher's download wrapper.
 
-### P1 — PR #855, provenance errata
+### LANDED — PR #855, provenance errata
+
+**Merged on the owner's approval as `ea3155fd`** (`records/pr855/LANDING.md`).
+- Parents: `66a981d5` and the reviewed head `8021c1fc`.
+- Tree `4f3ca100`, identical to the head's.
+- 58 files added, only in `verification/audits/provenance-errata/`.
+- Push CI on main: run 39010013932 (result below).
+
+`main` is now `ea3155fd`. Rebase nothing onto it without need. #854's PR branch is based on `66a981d5`; a later landing
+merges main in by merits (§A.39).
+
+Background, as of before the landing:
 
 - **Head `8021c1fc`**, independently reviewed and approved after two rounds.
 - **Five entries, PE-1 to PE-5.** Five frozen records cite a run head by an id that names no object. Each run executed
@@ -168,7 +179,7 @@ are drafts, and no merge is authorized.
 
 | Branch | Head | Role |
 | --- | --- | --- |
-| `draft/provenance-errata-20261017` | `8021c1fc` | #855, approved, waiting on acceptance |
+| `draft/provenance-errata-20261017` | `8021c1fc` | #855, merged as `ea3155fd`; keep the branch |
 | `draft/evidence-retention-r1-hardening-20261017` | `6bf56dc4` | #854 PR branch, the tested checkpoint |
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | #854 fix, unreviewed |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
