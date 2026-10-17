@@ -33,7 +33,7 @@ execution M verification/lean-manuscript-census.json
 execution M .github/workflows/verify.yml
 ```
 
-D: `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`, current main after #818.
+D: `b96662e6be4f537502c772db369ea32a35b213a8`, current main after #856.
 Before F, the control-plane delta contains only this preregistration and
 review amendments. The execution edits listed above are prospective; none is
 made by publishing this draft. Manuscripts, built artifacts, ROADMAP, adopted
@@ -64,12 +64,19 @@ none discharges state preservation by itself.
 ## Research-design definition and theorem budget
 
 The core source is `PreservationInduction.lean` in the separate
-`preservation-induction-design/` research directory. Its five named theorems
+`preservation-induction-design/` research directory, on the research branch
+`research/preservation-induction-design-20261013` at
+`468e0f79cabb01c215a252721ee65a1ad1301a2f`, which is not reachable from D and
+is cited as provenance. Its five named theorems
 compiled at `e684897da41b1c3d066b880194c9beb87a19b7ad`, workflow run
-[38450187534](https://github.com/amaybaum/incompleteness/actions/runs/38450187534).
-The four headline/corollary axiom reports contain only `propext`,
-`Classical.choice` and `Quot.sound`. This is research-design evidence, not
-native execution. The six core definitions and their names are:
+[38450187534](https://github.com/amaybaum/incompleteness/actions/runs/38450187534),
+job 115478781754, every step `success`. The research record reads the four
+headline/corollary axiom reports from that job's log as containing only
+`propext`, `Classical.choice` and `Quot.sound`. The log is not retained, and a
+step's success does not establish a report's contents, so the reports enter
+this round only through the retained expected result pinned below (§A.42).
+This is research-design evidence, not native execution. The six core
+definitions and their names are:
 
 1. `CarrierConeFamily`: a set C_S of matrices for each finite carrier S,
    specified independently. Hermitian/cone structure can be exposed through
@@ -124,13 +131,16 @@ theorems are `classicalCone_iff`, `quantum_additive`, `quantum_conj`,
 classical inventory's context stability and label invariance. These
 instance declarations compiled at
 `febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3`, workflow run
-[38454439833](https://github.com/amaybaum/incompleteness/actions/runs/38454439833).
+[38454439833](https://github.com/amaybaum/incompleteness/actions/runs/38454439833),
+job 115493410133, every step `success`.
 The instance source SHA256 is
 `54b1451e1788fe6b71ca28eb81d2e9031abf1f78ee92d471bfddd73256044c65`.
-All six instance axiom reports contain exactly `propext`, `Classical.choice`
-and `Quot.sound`; the four core reports retain the same standard axioms.
+The research record reads all six instance axiom reports and the four core
+reports from that job's log as containing only `propext`, `Classical.choice`
+and `Quot.sound`; they enter this round as the core reports do.
 The run also replays both exact implementations and passes 303 legacy
-records, 46 receipts and artifact placement. The total proposed two-module surface
+records, 46 receipts and artifact placement, on its own tree, whose base is
+`dee3b5ae`. The total proposed two-module surface
 is ten definitions/abbreviations and twenty-four named theorems, plus those
 two inventory examples; no additional physical source is imported.
 
@@ -183,12 +193,14 @@ decision-token interface and frozen controls is still a design obligation.
   the five constructors, an empty coarse fibre, nested bind/discard, a fresh
   positive-size ancilla and nontrivial carrier relabelling. Empty outcome or
   carrier types must not make every positive example vacuous.
-- **Conditional scope:** the two bridge cones K_B and K(Z_F) have their exact
-  uniformly available depth-one failures. They diagnose the missing premise
-  source; do not claim that a family extending either cone satisfies all the
+- **Conditional scope:** the research record of PR #820 (at `1d4606b2`, not
+  reachable from D) reports exact, uniformly available depth-one failures for
+  the two bridge cones K_B and K(Z_F), from two independent bridge
+  implementations. They diagnose the missing premise source; do not claim
+  that a family extending either cone satisfies all the
   primitive/attachment/discard assumptions without supplying that family.
-  References are the research record in PR #820 at `1d4606b2` and its
-  two independent bridge implementations, not an adopted physical theorem.
+  That record is provenance, not an adopted physical theorem, and this round
+  does not rest a decision on it.
 - **Mutations:** reject, at named failed checks, conflating readout with
   isometric steps, replacing unnormalized branch preservation by aggregate
   trace preservation, omitting the enlarged-carrier discard obligation,
@@ -226,7 +238,11 @@ would be an additional, separate obligation.
 **Non-inference rule:** the theorem sources no primitive preservation,
 context stability, label/cone covariance, state-space identification, flow,
 gate, test validity or quantum inclusion. It does not close K2 or P0 and is
-not a substitute for the bridge audit's physical-source/disguise tests.
+not a substitute for the bridge audit's physical-source/disguise tests. It
+supplies no part of the extension that the `P1 — F2` row lists as open
+(ROADMAP :1124–1128 at D): the compatible state transformations named there
+are assumed by the `op`, `readout`, attachment and discard premises for the
+primitive steps, not supplied by the theorem.
 With an excessive inventory such as fullClass, preservation assumptions can
 already force quantum inclusion; that is an assumption audit, not a success
 for sourcing compatibility. No manuscript or ROADMAP change is licensed here.
@@ -256,10 +272,25 @@ Before F, all of the following remain explicit obligations:
    modules, imports, registry entries, probe and workflow. Pin the complete
    design files, controls and parameters in this PR, then run its exact-head
    required checks. No predicted execution commit is supplied by this update.
+7. Retain the design evidence under AGENTS §A.42 item 2 and pin it below.
+
+**Retained evidence (§A.42).** Each file is a structured expected result in the
+form of §A.42 item 1: build success, the ten `#print axioms` reports, the exact
+replays' output lines and the failure markers. Each names its commit, run, job
+and recipe, and the digest of the log it is read from. The files are committed
+to the record directory by the first execution commit, outside `amendments/`,
+together with `F`'s exact-head run under `evidence/f-run/`, and pinned here by
+sha256 before `F`. `F` is not designated with a pending pin.
+
+| path | sha256 |
+| --- | --- |
+| `evidence/design-38450187534.json` | pending (core design build, job 115478781754) |
+| `evidence/design-38454439833.json` | pending (instance design build, job 115493410133) |
+| `evidence/design-predicted-tree.json` | pending (the design run on the predicted execution tree, item 6) |
 
 The research core and exact layer are available, but these remaining edits
-are not yet a concrete, freeze-ready execution package. D remains fixed at
-`dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
+are not yet a concrete, freeze-ready execution package. D is
+`b96662e6be4f537502c772db369ea32a35b213a8`.
 
 After an owner designation of exact, all-green F, follow the linear execution,
 E/reconciliation and receipt process in AGENTS §A.39. No older native control
