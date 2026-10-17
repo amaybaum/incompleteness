@@ -1,4 +1,4 @@
-6ee524bc25a7403e9320d6292de646ae1b3db40d91aaff4eb6a23504644a305f  ./HANDOFF.md
+f7898fcd717a090f5ed4bb77d27f288b246a3a872806579ad0985262d1ca51f2  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -32,8 +32,9 @@ d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/deci
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md
 9ed4140e01c5620d5e4071b6e4f5b523c6df716b2c76b9189723600330c07115  ./records/inventory/tranche2-inventory-20261016.zip
+78733d715927307a432a6991804877ea78f8f5f7e7dc37626e2eaf01853e5ffa  ./records/pr854/ACCEPTANCE-e3a44e63.md
 1cd93336a0a0d893136731fcd2176bd0e29e7452d8ad5a5247b69e0ba1e328cc  ./records/pr854/REVIEW-e3a44e63.md
-5c4530a6ac868288f22056e465f3a2e3356fe4db1ecced5224886b53fc06215f  ./records/pr854/RUNS-e3a44e63.md
+7dd3a7ae24156ab1b383b40e45e05eecf99875dbbf3d542f92c7bc65ce2e28c0  ./records/pr854/RUNS-e3a44e63.md
 2d8beb2170574684cda358c126ff5194bcfe21dca336b795b322316a86d4b4ab  ./records/pr854/counterexamples.py
 fb73bf3a3accf68807479bc45ea40b35e52407dae75078da8e6b3648c62bf519  ./records/pr854/counterexamples.results.json
 a340085a417e6beb1551220fbd4aa8e84abe03d1fb3c7598b73f6f68e00a2475  ./records/pr854/local-checks.txt

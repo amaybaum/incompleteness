@@ -8,8 +8,9 @@ at line 833). The other PRs below are drafts, and no further merge is authorized
 The owner requested closing the open repair work in small batches on 2026-10-17.
 
 1. **#854:** `e3a44e63` independently re-reviewed; the recorded counterexamples and local checks pass.
-   The PR branch has been advanced to that exact SHA. PR integration CI passed; exact-head CI and both
-   real reproductions are now running. See `records/pr854/REVIEW-e3a44e63.md` and the replay harness beside it.
+   The PR branch remains at that exact SHA. PR integration CI, exact-head CI and both real reproductions
+   passed. Separate verdict: R1-HARDENING-ACCEPTANCE-READY. Owner approval to merge that exact SHA is
+   pending; #854 stays a draft. See `records/pr854/ACCEPTANCE-e3a44e63.md`.
 2. **Handoff freshness:** #855's main-push run and #853's PR run are complete and successful. This snapshot
    closes those pending status entries and corrects the branch map.
 3. **F2 research-text repairs:** the four overclaims listed below remain a separate, bounded repair batch;
@@ -117,21 +118,29 @@ Main remains `ea3155fd`. The #854 repair preserves its history from `66a981d5`; 
   the old bypasses and the fixed rejections. Its CLI cases use declared toolchain stand-ins; they test exit
   handling and do not substitute for real Lean reproductions.
 - **PR integration run:** 39014855014 succeeded: 22 successful jobs and one expected skip.
-- **Hosted validation launched on the owner's browser approval:** all three report workflow_dispatch at
-  exactly e3a44e63 on the reviewed PR branch:
-  - exact-head verify: 39015598932, in progress;
-  - positive reproduction: 39015652045, job 117347122609, in progress;
-  - negative control: 39015699107, job 117347262163, in progress.
-- Both reproductions use `run_id=38855576525`. The positive has no override or expected-failure text.
-  The negative uses `override_sha=777ddf8dcada759b5f3bcab26a4ff3833ba720bf` and
-  `expect_failure=real_to_integer_surrogate`. Its acceptance requires a complete passing build/gate and
-  only scientific comparison failures containing that required text.
-- A bounded hourly completion check starts at 12:01 Asia/Jerusalem, with at most three checks. It verifies
-  the actual logs, updates this handoff and the PR, then requests exact-SHA owner merge approval only if
-  every requirement holds. The batch remains open. Details: `records/pr854/RUNS-e3a44e63.md`.
+- **Hosted validation completed and logs reviewed on 2026-10-17:** all three report workflow_dispatch at
+  exactly e3a44e63ebec41fccd109cf1ca945b3b8a200553 on the reviewed PR branch:
+  - exact-head verify: 39015598932, success, updated 08:17:07Z; 37/37 jobs successful, no skips;
+    Mathlib bridge job 117346969109 passes all 22 release-gate steps, including lean-axioms (5989 named
+    results), retention history (zero failures), 48 receipts and 303 intact legacy records;
+  - positive reproduction: 39015652045, job 117347122609, success, updated 08:43:31Z;
+    REPRODUCTION HOLDS, zero comparison failures, commands ok, verifier e3a44e63ebec;
+  - negative control: 39015699107, job 117347262163, success, updated 08:56:46Z;
+    NEGATIVE-CONTROL HOLDS with exactly three scientific mismatches: C2 named-result count 5988 vs
+    5989; C3 source #print-axioms line mismatch; C3 missing real_to_integer_surrogate report.
+- Both reproductions use run_id=38855576525. The positive has no override or expected text.
+  The negative uses override_sha=777ddf8dcada759b5f3bcab26a4ff3833ba720bf and
+  expect_failure=real_to_integer_surrogate. At this verifier, its HOLDS verdict requires all four
+  commands to exit zero, successful build and gate, only C2-C4 mismatches and matching required text.
+  No infrastructure failure is being accepted as a scientific mismatch.
+- **Separate acceptance verdict: R1-HARDENING-ACCEPTANCE-READY**, based on the independent source review,
+  replay and local checks plus these exact-head hosted results. Details:
+  records/pr854/ACCEPTANCE-e3a44e63.md and records/pr854/RUNS-e3a44e63.md.
 - The connection's missing dispatch operation was handled by the approved browser UI; no alternate trigger
-  or workflow edit was introduced. Further workflow launches were not part of this approval.
-- The PR stays a draft pending separate acceptance and owner merge approval.
+  or workflow edit was introduced. No further workflows were launched.
+- The validation completion check has reached a conclusive result and is being disabled.
+- The PR stays a draft pending separate owner approval to merge exactly e3a44e63ebec41fccd109cf1ca945b3b8a200553.
+  Main remains ea3155fd; no F/E designation, frozen-record edit or recovery-branch deletion was made.
 
 The owner's requirement remains: attested-run versus checked-run set equality, identical semantics for both
 forms of `--expect-failure`, and successful replay of the reported counterexamples. Review and replay details:
@@ -184,7 +193,7 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | Branch | Head | Role |
 | --- | --- | --- |
 | `draft/provenance-errata-20261017` | ref absent | #855 reviewed commit `8021c1fc` retained through main `ea3155fd` |
-| `draft/evidence-retention-r1-hardening-20261017` | `e3a44e63` | #854 reviewed repair; new-head validation pending |
+| `draft/evidence-retention-r1-hardening-20261017` | `e3a44e63` | #854 acceptance-ready repair; exact-SHA owner merge approval pending |
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
