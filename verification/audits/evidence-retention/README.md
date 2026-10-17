@@ -82,7 +82,9 @@ off-`main` heads and blob. Objects that a host branch or pull ref still holds ar
   three `.err` names and one `.log` name. The three PDFs, under act 45's head `ad64b603`, are build outputs whose bytes no record
   freezes. Each withheld blob keeps its id, size and paths in the manifest, its mechanism states why it is withheld,
   and the check (O9) confirms that a retained tree of a commit listing it names it at exactly those paths, each
-  of a file type its mechanism covers (`.log`, `.out` or `.err`; `.txt`; `.pdf`). No retained object records a blob's
+  of a file type its mechanism covers (`.log`, `.out` or `.err`; `.txt`; `.pdf`). A file type does not authorize
+  withholding: `check_objects.py` holds the approved withheld entries (`APPROVED_WITHHELD`: id, mechanism and exact
+  paths), the manifest's withheld set must equal it, and no withheld blob is empty. No retained object records a blob's
   size; the sizes were read from the recovery copies when the archive was built.
 - **Cited blobs are plain files.** Committing them makes those blob ids reachable from `main`, so a frozen control
   that reads them with `git cat-file` works in any clone.

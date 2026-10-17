@@ -37,7 +37,8 @@ Tree mode (no git, no network):
       its line, maps to a stored object with the same eight-digit prefix, and that object carries the run; and
       the provenance-errata entry it names records the same location, cited id, real head and run;
   O8  every id recorded as missing is retained nowhere here, and each of its citing lines still holds it;
-  O9  every withheld entry is named by a retained tree of a commit that lists it (for an inclusion proof, under
+  O9  the withheld entries are exactly APPROVED_WITHHELD (id, mechanism, paths), each non-empty; every one is
+      named by a retained tree of a commit that lists it (for an inclusion proof, under
       its inclusion paths); its recorded paths are exactly where those trees name it, each of a file type its
       mechanism covers (.log, .out or .err for a raw log, .txt for a raw output, .pdf for a build output); its
       needed_by entries are among them; and it records a size (which no tree records, so the size is as read from
@@ -80,6 +81,68 @@ WITHHELD = ('withheld:raw-log', 'withheld:raw-output', 'withheld:build-pdf')
 # the file types each withholding mechanism covers: a blob is withheld only at paths of its mechanism's kind
 WITHHELD_SUFFIXES = {'withheld:raw-log': ('.log', '.out', '.err'), 'withheld:raw-output': ('.txt',),
                      'withheld:build-pdf': ('.pdf',)}
+# The withholding approved by the owner on 2026-10-17 (non-empty raw logs and captured .out/.err output; the three
+# raw outputs below; build PDFs), as exact entries. A withheld entry must be one of these, with this mechanism and
+# exactly these paths, so neither a file type nor a coordinated manifest and list edit can authorize withholding:
+# changing the withheld set changes this checker.
+APPROVED_WITHHELD = {
+    '12095f6f3a739c988e5d5da28667d1761e352ad5': ('withheld:build-pdf',
+        ['book/The-Incompleteness-of-Observation-FULL.pdf']),
+    '196d096d52d42ee2df3b4824f5ab6bc3e0939ca0': ('withheld:raw-log',
+        ['research/a42-revalidation/c6_control.log']),
+    '325c825566c37679bf09ec463a29c96572640cb9': ('withheld:raw-log',
+        ['research/round7-channel/CI-REPAIR.log']),
+    '38077af8485cb0e1f52c2d69863e1a4ac6ca1d16': ('withheld:raw-log',
+        ['research/a42-rerun/ctrl16.log']),
+    '3a61f0ca7aefe695fb028dfbaa7acbc594f260bb': ('withheld:raw-log',
+        ['research/a42-rerun/lemmas42.log']),
+    '43e18150962622cdd84daf5d46cc6f52d7638ee3': ('withheld:raw-log',
+        ['research/a42-rerun/quarantine/m0all_b39_b.log']),
+    '5c1bf575ba52f67d4d2e31077a5766e8b4c307eb': ('withheld:raw-log',
+        ['research/a42-rerun/m0all_b39_a.log']),
+    '609e70ae7d669939d25e90edd90ff140dc798668': ('withheld:raw-log',
+        ['research/a42-rerun/sat_hr39.log']),
+    '68a70d013148a04066a149cb8a45092c6d5baed4': ('withheld:raw-log',
+        ['research/a42-rerun/n18_in_a41.log']),
+    '6a7a010ab29ab09fc79e0d199222cade753ee505': ('withheld:raw-log',
+        ['research/a42-rerun/d01_zero.log']),
+    '71f55213eb0bc7c6fbc375c397739354a784ad86': ('withheld:raw-log',
+        ['research/round7-channel/native-controls.selftest.final.out']),
+    '74badd4d5082acb54b6a8c673a92541f4fd11dd7': ('withheld:raw-log',
+        ['research/a42-rerun/d01_two.log']),
+    '74bc976f85a728fa905124a63108d40f53bb4e6b': ('withheld:build-pdf',
+        ['papers/Main.pdf']),
+    '7792971561f0fb122e7742fc23df26ff9c277e2e': ('withheld:raw-output',
+        ['research/a42-rerun/Rle13_39_a.txt']),
+    '7c9aa5e4481c37eeb582ee4290894173a48599b4': ('withheld:raw-log',
+        ['research/a42-revalidation/r5.log']),
+    '8a0da161222b988e5300c95de129abf3cbbadf54': ('withheld:raw-log',
+        ['research/a42-revalidation/r2b2.log']),
+    '8b73bdb948d7f2dfdc05eae8c31ddfb5ca8d6602': ('withheld:raw-log',
+        ['research/a42-rerun/spanAll77.log']),
+    '95e474b742286e20a60485fc3b65a1a6f6676418': ('withheld:raw-log',
+        ['research/a42-rerun/sat_cubes39.log']),
+    '9ef11ead5816d767e7f6bf15bfd4104e0d6d9e94': ('withheld:raw-output',
+        ['research/a42-rerun/Rle13_39_b.txt']),
+    'a1c82766fc8fee04a11ab84477f766c76c10965b': ('withheld:raw-output',
+        ['research/a42-rerun/Rall_39.txt']),
+    'a4d6527933d6e55612199dfe1e463762694de822': ('withheld:raw-log',
+        ['research/a42-revalidation/r2a.log']),
+    'aa639a024172876bb9b6dad5e00a180e0dfa4bb8': ('withheld:raw-log',
+        ['research/AUDITS/2026-10-11-round6/CI-FAILED-B23.log']),
+    'b3a6c133d46819a168393aaeb74af9b51a3b349b': ('withheld:raw-log',
+        ['research/round7-channel/channel_check.replay.out', 'research/round7-channel/channel_check.run1.out']),
+    'bcdefc3c7091a6f50c1a52f5bb7c198a17538edb': ('withheld:build-pdf',
+        ['papers/Explainer.pdf']),
+    'd68ca300d27823f5df11c7aeb15dab3d7448129c': ('withheld:raw-log',
+        ['research/a42-rerun/cvsize.log']),
+    'de2e4b294a5181b28f8d54663641de416ed02978': ('withheld:raw-log',
+        ['research/a42-rerun/quarantine/sat_cubes39.log']),
+    'ecd7c48de5cb22ca19fa7a4b43fd7c990276e613': ('withheld:raw-log',
+        ['research/a42-rerun/quarantine/m0all_b39_a.log']),
+    'fbc82c68dd2493e547e45b2fd948638cd325eb93': ('withheld:raw-log',
+        ['research/a42-rerun/m0all_b39_b.log']),
+}
 ERRATA = 'verification/audits/provenance-errata/errata.json'
 TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
@@ -472,8 +535,12 @@ def check(objdir, root):
             F('O9 withheld %s: a %s entry at a path of another file type' % (w[:12], e['mechanism']))
         if not e.get('needed_by') or any((n.get('object'), n.get('path')) not in occ for n in e['needed_by']):
             F('O9 withheld %s: its needed_by entries are not where the retained trees name it' % w[:12])
-        if type(e.get('bytes')) is not int or e['bytes'] < 0:
-            F('O9 withheld %s: it records no size' % w[:12])
+        if type(e.get('bytes')) is not int or e['bytes'] <= 0:
+            F('O9 withheld %s: it records no size, or a zero size (empty files are stored, not withheld)' % w[:12])
+        if APPROVED_WITHHELD.get(w) != (e['mechanism'], sorted(e.get('paths') or [])):
+            F('O9 withheld %s: not withheld as approved (mechanism and exact paths)' % w[:12])
+    for w in sorted(set(APPROVED_WITHHELD) - {o for o, e in ents.items() if e['mechanism'] in WITHHELD}):
+        F('O9 approved withheld %s: not withheld here' % w[:12])
     info = {'entries': len(ents), 'stored': len(content), 'external': external, 'man': man, 'ents': ents,
             'content': content, 'incomplete_trees': incomplete_trees}
     return fails, info
@@ -997,6 +1064,23 @@ def self_test(root):
             c['withheld_blobs'] = sorted(c['withheld_blobs'] + [under_part['oid']])
             save(d, man)
         expect('a stored blob relabelled a raw log, with its commit\'s list edited to match', relabel_listed, 'O9')
+
+        def empty_relabelled(d):
+            # the empty blob, stored at log-type paths, deleted and withheld with both commits' lists edited to match
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            e = next(x for x in man['objects'] if x['oid'] == 'e69de29bb2d1d6434b8b29ae775ad8c2e48c5391')
+            os.remove(os.path.join(d, e['file']))
+            paths = ['research/a42-rerun/quarantine/r5.log', 'research/round7-channel/channel_check.replay.err',
+                     'research/round7-channel/channel_check.run1.err',
+                     'research/round7-channel/native-controls.selftest.final.err']
+            for k in ('file', 'form', 'sha256', 'content_sha256', 'content_bytes', 'cited'):
+                e.pop(k, None)
+            e.update(mechanism='withheld:raw-log', bytes=1, paths=paths)
+            for c in man['objects']:
+                if c['oid'] in {n['object'] for n in e['needed_by']}:
+                    c['withheld_blobs'] = sorted(set(c.get('withheld_blobs', [])) | {e['oid']})
+            save(d, man)
+        expect('a stored log-type blob withheld, with the manifest and lists edited to match', empty_relabelled, 'O9')
 
         def as_pdf(d):
             man = json.load(open(os.path.join(d, 'manifest.json')))
