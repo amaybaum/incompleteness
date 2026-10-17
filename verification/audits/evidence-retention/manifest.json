@@ -2752,6 +2752,22 @@
      "path": "ci/36228429141/results.json",
      "sha256": "1f873435c28202fdc1e4b661a731873d81c20234409fa0e949ad63b25bfd1fb8",
      "source_sha256": "53431f871696ed940cd0a5c8f9d6b248c19d387fcc166db31772ca892251ae6d"
+    },
+    {
+     "bytes": 20148,
+     "extractor_blob": "fdf3ec80cdaa06276a32d4518462161fdc7c8938",
+     "kind": "derived",
+     "path": "ci/36228429141/re-extraction-fdf3ec80cdaa.json",
+     "sha256": "bc9ac9a0eab146c8219ebd710cd65ebc6c797200e30a830648c28b0685723cdb",
+     "source_sha256": "53431f871696ed940cd0a5c8f9d6b248c19d387fcc166db31772ca892251ae6d"
+    },
+    {
+     "bytes": 6646,
+     "extractor_blob": "fdf3ec80cdaa06276a32d4518462161fdc7c8938",
+     "kind": "derived",
+     "path": "ci/36228429141/re-extraction-fdf3ec80cdaa-accounting.json",
+     "sha256": "02daf17a17d655ec8623f8246d0c280e98b95bbd602695fe4dc8ca627cd416fe",
+     "source_sha256": "53431f871696ed940cd0a5c8f9d6b248c19d387fcc166db31772ca892251ae6d"
     }
    ],
    "id": "ci-36228429141",

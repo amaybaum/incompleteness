@@ -65,6 +65,16 @@ Rules:
       same governed-paths blocks, at the tranche base and with its own parser. R11 shows that the archive applied
       those blocks faithfully, as they stand at each run's commit and as the receipts' digests commit to them; it
       cannot show that the governed paths name the right modules.
+  R14 a re-extraction of a CI entry's expected result is a separate version beside it, never a rewrite: a file
+      ci/<run>/re-extraction-<blob>.json of that entry names the original results.json, and the original's bytes
+      must have exactly the sha256 and git blob id it names, so a rewritten original fails even when its recorded
+      size and digest follow it. The record names the original extractor's blob and its own, distinct; its source
+      digest is the original's and its manifest file's; its run is the original's; its result differs from the
+      original in exactly the fields its differences list, with those values; and its accounting, a file of the
+      same entry, accounts for every difference: original + added_count = re_extracted, added_count is the
+      number of added reports, per_module counts them, and no added report is of a governed module. Every
+      accounting file is named by a record. R14 checks the records against the archive; the served text they
+      were read from is not retained, so it does not re-derive them.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -209,6 +219,9 @@ def check(archive, root, scope=None):
                         F('R8 %s: %s names another run, job or head commit than the entry, or does not derive from its log' % (eid, rel))
         if is_ci:
             check_entry_files(e, files, man, F)
+            check_reextractions(e, files, F)
+        elif any('/re-extraction-' in rel for rel in files):
+            F('R14 %s: a re-extraction outside a CI entry' % eid)
     for g in man.get('missing', []):
         if g.get('id') not in ids or not g.get('what') or not g.get('why'):
             F('R7 gap %r names no entry, or has no what/why' % g)
@@ -326,6 +339,98 @@ def check_entry_files(e, files, man, F):
         want = m.get('status') in ('partial', 'none')
         if ((eid, 'axiom reports of %s' % mod) in gaps) != want:
             F('R8 %s: %s is %s, and its gap record is %s' % (eid, mod, m.get('status'), 'present' if not want else 'absent'))
+
+
+def json_leaves(o, p=''):
+    """Every leaf of a JSON value with its dotted path; a list of objects or lists is indexed."""
+    if isinstance(o, dict):
+        for k in o:
+            yield from json_leaves(o[k], p + '.' + k if p else k)
+    elif isinstance(o, list) and o and all(isinstance(x, (dict, list)) for x in o):
+        for i, x in enumerate(o):
+            yield from json_leaves(x, '%s[%d]' % (p, i))
+    else:
+        yield p, o
+
+
+def check_reextractions(e, files, F):
+    """R14: each re-extraction of a CI entry's expected result is a separate version, and accounts for its differences."""
+    eid, rid = e['id'], e.get('run_id')
+    hexid = re.compile(r'^[0-9a-f]{40}$')
+    meta = {f['path']: f for f in e.get('files', [])}
+    named = set()
+    for rel in sorted(files):
+        if not rel.startswith('ci/%s/re-extraction-' % rid) or rel.endswith('-accounting.json'):
+            continue
+        try:
+            rec = json.loads(files[rel])
+        except ValueError:
+            F('R14 %s: %s is not JSON' % (eid, rel))
+            continue
+        if rec.get('schema') != 'oi-evidence-reextraction' or rec.get('version') != 1:
+            F('R14 %s: %s is of another schema' % (eid, rel))
+            continue
+        o, x = rec.get('original') or {}, rec.get('extractor') or {}
+        opath = 'ci/%s/results.json' % rid
+        raw = files.get(opath)
+        if o.get('path') != opath or raw is None:
+            F('R14 %s: %s does not name this entry\'s results.json' % (eid, rel))
+            continue
+        data = raw.encode('utf-8')
+        if hashlib.sha256(data).hexdigest() != o.get('sha256') or blob_id(data) != o.get('blob'):
+            F('R14 %s: the original result differs from the one %s names (it was rewritten)' % (eid, rel))
+        ob, nb = (o.get('extractor') or {}).get('blob'), x.get('blob')
+        if not (isinstance(ob, str) and hexid.match(ob) and isinstance(nb, str) and hexid.match(nb)) or ob == nb or \
+                (o.get('extractor') or {}).get('path') != x.get('path') or not str(x.get('path', '')).endswith('extract_result.py'):
+            F('R14 %s: %s does not name two distinct extractor blobs of extract_result.py' % (eid, rel))
+        if not rel.endswith('-%s.json' % str(nb)[:12]):
+            F('R14 %s: %s is not named by its extractor blob' % (eid, rel))
+        orig = json.loads(raw)
+        src = (rec.get('source') or {}).get('served_sha256')
+        if src != (orig.get('source') or {}).get('served_sha256') or src != meta.get(rel, {}).get('source_sha256'):
+            F('R14 %s: %s names another source than the original and its manifest file' % (eid, rel))
+        if rec.get('run') != orig.get('run'):
+            F('R14 %s: %s names another run than the original' % (eid, rel))
+        if not rec.get('recipe'):
+            F('R14 %s: %s has no recipe' % (eid, rel))
+        lo, ln = dict(json_leaves(orig)), dict(json_leaves(rec.get('result')))
+        got = {k: (lo.get(k), ln.get(k)) for k in set(lo) | set(ln) if lo.get(k) != ln.get(k) or (k in lo) != (k in ln)}
+        listed = {d.get('field'): (d.get('original'), d.get('re_extracted')) for d in rec.get('differences') or []}
+        if not listed or got != listed:
+            F('R14 %s: %s\'s result differs from the original in %s, and it lists %s' % (eid, rel, sorted(got)[:3], sorted(listed)[:3]))
+        arel = rec.get('accounting')
+        named.add(arel)
+        if arel not in files or not str(arel).startswith('ci/%s/re-extraction-' % rid):
+            F('R14 %s: %s names no accounting file of the entry' % (eid, rel))
+            continue
+        try:
+            acc = json.loads(files[arel])
+        except ValueError:
+            F('R14 %s: %s is not JSON' % (eid, arel))
+            continue
+        added = acc.get('added') if isinstance(acc.get('added'), list) else []
+        gov = {(m, r.get('line')) for m, em in ((orig.get('expected') or {}).get('modules') or {}).items() for r in em.get('reports', [])}
+        per = {}
+        for a in added:
+            per[a.get('module')] = per.get(a.get('module'), 0) + 1
+        diff = listed.get(acc.get('field'))
+        if acc.get('schema') != 'oi-evidence-reextraction-accounting' or str(acc.get('run_id')) != rid or len(listed) != 1 or diff is None \
+                or (acc.get('original'), acc.get('re_extracted')) != diff or not all(isinstance(v, int) for v in diff) \
+                or acc['original'] + acc.get('added_count', -1) != acc['re_extracted'] or acc.get('added_count') != len(added) \
+                or acc.get('per_module') != per:
+            F('R14 %s: %s does not account for the difference: original + added_count = re_extracted, with every added '
+              'report listed and counted by module' % (eid, arel))
+        for a in added:
+            if not (isinstance(a.get('name'), str) and isinstance(a.get('line'), int) and isinstance(a.get('served_line'), int)
+                    and isinstance(a.get('axioms'), (list, type(None)))) or a.get('module') in ((orig.get('expected') or {}).get('modules') or {}) \
+                    or (a.get('module'), a.get('line')) in gov:
+                F('R14 %s: %s lists a malformed report, or one of a governed module: %r' % (eid, arel, a.get('name')))
+                break
+        if len({a.get('served_line') for a in added}) != len(added):
+            F('R14 %s: %s lists a served line twice' % (eid, arel))
+    for rel in files:
+        if rel.startswith('ci/%s/re-extraction-' % rid) and rel.endswith('-accounting.json') and rel not in named:
+            F('R14 %s: %s is named by no re-extraction' % (eid, rel))
 
 
 def check_coverage(man, archive, root, read_tree, F, scope=None):
@@ -1278,6 +1383,82 @@ def self_test(archive, root):
             'roles', [r for r in m['entries'][rec]['roles'] if r.get('kind') != 'receipt check-run'])), back, 'R9',
                'does not record this role')
         expect('a certificate run with no entry', edit(drop(cert)), back, 'R9', 'no matching entry')
+        # R14: a re-extraction is a separate version; the original must stay byte for byte as the record names it
+        rx = next(((i, f['path']) for i, e in enumerate(ents) for f in e['files']
+                   if '/re-extraction-' in f['path'] and not f['path'].endswith('-accounting.json')), None)
+        if rx is None:
+            ok = False
+            print('FAIL self: no re-extraction in the archive, so R14 is not exercised')
+        else:
+            ri, rrel = rx
+            rpath = os.path.join(tarch, rrel)
+            rec0 = json.load(open(rpath, encoding='utf-8'))
+            opath = os.path.join(tarch, rec0['original']['path'])
+            apath = os.path.join(tarch, rec0['accounting'])
+            field = rec0['differences'][0]['field'].split('.')
+            corrected = rec0['differences'][0]['re_extracted']
+
+            def rewrite(d):
+                d[field[0]][field[1]] = corrected
+            go, undo = json_edit(opath, rewrite)
+            go()
+            hf, _ = check(tarch, troot)
+            undo()
+            good = any(f.startswith('R14 ') and 'was rewritten' in f for f in hf) and not any(f.startswith('R1 ') for f in hf)
+            ok &= good
+            print('%s self: the original result rewritten to the corrected count, its recorded size and digest following '
+                  'it, fails R14 and not R1 (R14)' % ('PASS' if good else 'FAIL'))
+            if not good:
+                print('      got: %s' % (hf[:3],))
+            expect('the original result rewritten in place', *file_edit(opath, lambda b: b.replace(b'"reports_in_served_text": ',
+                                                                                                  b'"reports_in_served_text":  ')),
+                   rule='R14', msg='was rewritten')
+            expect('a re-extraction that is not JSON', *file_edit(rpath, lambda b: b[:-3]), rule='R14', msg='is not JSON')
+            expect('a re-extraction of another schema', *json_edit(rpath, lambda d: d.__setitem__('schema', 'x')), rule='R14',
+                   msg='another schema')
+            expect('a re-extraction naming another original', *json_edit(rpath, lambda d: d['original'].__setitem__(
+                'path', 'ci/0/results.json')), rule='R14', msg='does not name this entry')
+            expect('a re-extraction whose file name is not its extractor blob', *json_edit(rpath, lambda d: d['extractor'].__setitem__(
+                'blob', 'a' * 40)), rule='R14', msg='not named by its extractor blob')
+            expect('an accounting that is not JSON', *file_edit(apath, lambda b: b[:-3]), rule='R14', msg='is not JSON')
+            tri = idx(lambda e: e.get('id') == 'tranche-record')
+            expect('a re-extraction listed outside a CI entry', edit(lambda m: m['entries'][tri]['files'].append(dict(
+                next(f for f in m['entries'][ri]['files'] if f['path'] == rrel), kind='complete'))), back, 'R14',
+                   'outside a CI entry')
+            expect('a re-extraction naming the same extractor blob twice', *json_edit(rpath, lambda d: d['extractor'].__setitem__(
+                'blob', d['original']['extractor']['blob'])), rule='R14', msg='two distinct extractor blobs')
+            expect('a re-extraction naming another source', *json_edit(rpath, lambda d: d['source'].__setitem__('served_sha256', '0' * 64)),
+                   rule='R14', msg='another source')
+            expect('a re-extraction naming another run', *json_edit(rpath, lambda d: d['run'].__setitem__('job_id', '1')), rule='R14',
+                   msg='another run')
+            expect('a re-extraction without a recipe', *json_edit(rpath, lambda d: d.__setitem__('recipe', [])), rule='R14', msg='no recipe')
+            expect('a re-extracted result differing in an unlisted field', *json_edit(rpath, lambda d: d['result']['expected'].__setitem__(
+                'build_success', False)), rule='R14', msg='differs from the original in')
+            expect('a listed difference with another value', *json_edit(rpath, lambda d: d['differences'][0].__setitem__(
+                're_extracted', corrected + 1)), rule='R14', msg='differs from the original in')
+            expect('an accounting with one added report dropped', *json_edit(apath, lambda d: d['added'].pop()), rule='R14',
+                   msg='does not account')
+            expect('an accounting whose sum does not hold', *json_edit(apath, lambda d: d.__setitem__('added_count', d['added_count'] - 1)),
+                   rule='R14', msg='does not account')
+            expect('an accounting whose module counts differ', *json_edit(apath, lambda d: d['per_module'].__setitem__('X.lean', 1)),
+                   rule='R14', msg='does not account')
+            expect('an accounting listing a report of a governed module', *json_edit(apath, lambda d: d['added'][0].__setitem__(
+                'module', next(iter(json.load(open(opath))['expected']['modules'])))), rule='R14', msg='governed module')
+            expect('an accounting listing a served line twice', *json_edit(apath, lambda d: d['added'][1].__setitem__(
+                'served_line', d['added'][0]['served_line'])), rule='R14', msg='served line twice')
+            expect('a re-extraction naming no accounting', *json_edit(rpath, lambda d: d.__setitem__('accounting', 'ci/x.json')),
+                   rule='R14', msg='names no accounting')
+            stray = rec0['accounting'].replace('-accounting.json', '-x-accounting.json')
+
+            def add_stray():
+                shutil.copyfile(apath, os.path.join(tarch, stray))
+                edit(lambda m: m['entries'][ri]['files'].append(dict(
+                    next(f for f in m['entries'][ri]['files'] if f['path'] == rec0['accounting']), path=stray)))()
+
+            def drop_stray():
+                os.remove(os.path.join(tarch, stray))
+                back()
+            expect('an accounting no re-extraction names', add_stray, drop_stray, 'R14', 'named by no re-extraction')
     print('self-test: %s' % ('OK' if ok else 'FAILED'))
     return 0 if ok else 1
 
