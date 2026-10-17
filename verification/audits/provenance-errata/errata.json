@@ -53,7 +53,7 @@
   "rule": "same line: on each line naming a listed run id, each hex token of 7 to 40 digits is compared with the heads of the runs the line names; a token that is no head's prefix, shares its first 7 hex digits with one, and names no object is a collision. Corpus-wide: every hex token on every scanned line, run id or not, that names no object and shares its first 7 hex digits with a listed head of which it is not a prefix",
   "listing": "GitHub Actions runs API, all 2,200 runs of amaybaum/incompleteness, read 2026-10-16; a host record, not committed",
   "listing_sha256": "e4ce15ee4331920e58fea80985ea712e8051b87d1c23859ecc07f074b85eb719",
-  "objects": "the clone the scan ran in, which holds the real heads and the off-main objects of the preservation bundles",
+  "objects": "the repository the scan ran in: a token names an object when git cat-file finds it there. That repository held main and, beyond it, the real heads and other commits not reachable from main, so a token naming no object there names none on main",
   "at_fc5abade": {
    "files_scanned": 1358,
    "binary_skipped": 13,
@@ -817,7 +817,7 @@
    "real_parent": "28d9978b9a309d79886fc5f44690d25de8c81e85",
    "assertion_verbatim": "| 36310787113 | `2ae4dbeef5d9a1c9f0fcf3fbbf1ceaf4de4d3a0d` | the first proof pass of the module on `claude/a35-dev`: the fifty-two theorems of the first draft | the `Mathlib bridge` build is red with 41 errors: variable capture in the generated flatness and Fourier texts (`∀ a c, ‖(Y c) a c‖` binding the block index), `rw` against beta-redexes, a `whnf` timeout in the witness core, `unitary.star_mem` absent from Mathlib, and the `norm_star` side goal of the unit-modulus twists |",
    "assertion_sha256": "0729d0e4b1d7a67299bc7d56efd922bbf9465771e5c6488a957932beddbb42a0",
-   "summary": "the first proof pass of the module on claude/a35-dev: the fifty-two theorems of the first draft; the Mathlib bridge build is red with 41 errors: variable capture in the generated flatness and Fourier texts, rw against beta-redexes, a whnf timeout in the witness core, unitary.star_mem absent from Mathlib, and the norm_star side goal of the unit-modulus twists",
+   "summary": "the first proof pass of the module on claude/a35-dev, in the row's words \"the fifty-two theorems of the first draft\"; the Mathlib bridge build red with 41 errors: variable capture in the generated flatness and Fourier texts, rw against beta-redexes, a whnf timeout in the witness core, unitary.star_mem absent from Mathlib, and the norm_star side goal of the unit-modulus twists",
    "content_checks": [
     {
      "kind": "diff_paths",
@@ -875,7 +875,9 @@
        "the raw build output lists 41 error lines in OIBridge/DitaHull.lean, at 41 distinct positions (served lines 527-3202), and the compact diagnostics repeat the same 41",
        "each kind the row names occurs: variable capture (160:55; the Fourier text at 740:2), rw against beta-redexes (307:12, 322:12, 407:14), unitary.star_mem unknown (433:27), the norm_star side goal (504:6), and the whnf timeout in the witness core a35_shared_wit_core, which is two errors (272:0 and 284:532)",
        "errors the row's list does not account for: a whnf timeout and a tactic timeout in a35_shared_f4_flat (74:10, 71:387), a Hermitian orientation mismatch (237:43), two function-expected errors on the two-argument diagonal field (236:65, 248:6), and the unsolved goals they leave (236:58, 245:329)",
-       "52 axiom reports for OIBridge/DitaHull.lean in the raw build output (served lines 522-3375), one for each #print axioms line: 30 list sorryAx, 21 are [propext, Classical.choice, Quot.sound], and one, a35_shared_wit_core (297:0, served line 656), reports that it depends on no axioms"
+       "52 axiom reports for OIBridge/DitaHull.lean in the raw build output (served lines 522-3375), one for each #print axioms line: 30 list sorryAx, 21 are [propext, Classical.choice, Quot.sound], and one, a35_shared_wit_core (297:0, served line 656), reports that it depends on no axioms",
+       "a35_shared_mod_core, one of the 21 reported within [propext, Classical.choice, Quot.sound], has an error inside its own declaration (lines 467-491): 491:2 No goals to be solved (served line 1455), the line before its report (1456)",
+       "a35_shared_wit_core's report that it depends on no axioms (served line 656) comes with its own two whnf timeouts: 272:0 at the declaration (served line 651) and 284:532 (646)"
       ]
      }
     ]
@@ -883,7 +885,7 @@
    "verdict": "confirmed",
    "explanation": "incomplete",
    "status": "partly holds",
-   "detail": "The run executed at its real head and failed with 41 errors; every error kind the row names occurs. The row's list of kinds is incomplete: at least seven errors are of kinds it does not account for. The row's count of fifty-two theorem declarations in the first draft is confirmed, and 30 of the 52 axiom reports carry sorryAx, so the 52 declarations are not 52 established proofs.",
+   "detail": "The run executed at its real head and failed with 41 errors; every error kind the row names occurs. The row's list of kinds is incomplete: at least seven errors are ones the row's list does not account for. 52 theorem declarations were counted, but 30 carry sorryAx. Their presence cannot be described as 52 established proofs. The other 22 reports come from the same failed build: a35_shared_mod_core, one of the 21 within the three axioms, has an error in its own declaration (491:2), and a35_shared_wit_core reports no axioms alongside its own two whnf timeouts (272:0, 284:532).",
    "disposition": {
     "citing_record": "frozen; kept byte-identical: round A35: a file of the record directory verification/programmes/oi-qm/track-b/act-35-dita-hull/, at blob 17e9c31d5656b990eaaab7debb17d9a58bab1dbe at the receipt commit cc8d2aed79eff09c60421f175ede8dec7b86715e, inside the record directory G13 keeps",
     "correction": "this entry records the attribution error and the run's real head with the evidence above; a correction of the frozen line's own text would be a native round's (G13)",

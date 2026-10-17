@@ -11,8 +11,8 @@ head, what the line asserts and what was checked. CODES below names every check 
       on main, from the repository), so a clone of main checks them without the real heads; where the real heads are
       also in the repository, each check is repeated through git commands and the two routes must agree, as must the
       stored objects and the repository's;
-  E4  the README table, parsed row by row against errata.json, the entry count, the vocabularies and the status rule,
-      and the outcome records;
+  E4  the entry ids against the ids this checker pins, the README table parsed row by row against errata.json, the
+      entry count, the vocabularies and the status rule, and the outcome records;
   E5  the object store: each file hashes to its name, the manifest lists exactly the files, and every stored object is
       read by some content check.
 The job conclusions, job heads and served-log facts are host records read through the API; they are recorded with
@@ -40,6 +40,9 @@ EXPLANATIONS = ('confirmed', 'incomplete', 'not confirmed')
 # is confirmed and partly holds otherwise.
 RULE = {(v, x): ('does not hold' if v == 'not confirmed' else 'holds' if x == 'confirmed' else 'partly holds')
         for v in VERDICTS for x in EXPLANATIONS}
+# The entry set is pinned here as well as in errata.json and the README, so a consistent edit of the data alone cannot
+# remove an entry: adding or retiring one changes this line too.
+ENTRY_IDS = ('PE-1', 'PE-2', 'PE-3', 'PE-4', 'PE-5')
 README_HEADER = ['id', 'location', 'run, attempt', 'cited id', 'real head', 'shared digits', 'verdict', 'explanation',
                  'status']
 
@@ -71,10 +74,11 @@ CODES = {
     'E3n': "frozen_edit: the base with the recorded edits applied is not the real head's blob",
     'E3o': 'a content check of unknown kind',
     'E3p': 'frozen_edit: the recorded edits are not the frozen source, or a base or source blob is not the recorded one',
+    'E3t': 'an object E3 reads is malformed, or is not of the type its use requires',
     'E3u': 'an object a check needs is neither stored nor on main (unchecked; a failure with --require-objects)',
     'E3x': 'the git route disagrees with the stored-object route, or a stored object differs from the repository',
     'E4a': 'the errata ids and the README rows are not in bijection',
-    'E4b': 'the entry count is not expected_count',
+    'E4b': 'the entry count or the README row count is not expected_count, or expected_count is not the pinned count',
     'E4c': 'a README cell differs from errata.json',
     'E4d': 'a verdict outside its vocabulary',
     'E4e': 'an explanation outside its vocabulary',
@@ -84,6 +88,7 @@ CODES = {
     'E4i': 'the outcome does not record that every job ran on the real head',
     'E4j': 'a log fact carries no served digest or no facts',
     'E4k': "the outcome's run record names another run, head or attempt",
+    'E4l': 'the errata ids are not the ids this checker pins, in order',
     'E5a': 'a stored object does not hash to its name, or is malformed',
     'E5b': 'the object manifest and the objects directory differ',
     'E5c': 'a stored object no content check reads',
@@ -466,7 +471,7 @@ def check(data, readme, require_objects=False, overlay=None, xflip=None):
     """Returns (fails, unchecked, info). `overlay` and `xflip` exist for the self-test: the first replaces or hides
     stored objects, the second inverts one check of the git route."""
     fails, unchecked = [], []
-    info = {'e3_entries': 0, 'cross_checked': [], 'stored': 0}
+    info = {'e3_entries': 0, 'cross_checked': [], 'stored': 0, 'entries': len(data.get('entries', []))}
 
     def fail(code, eid, msg, missing=False):
         (unchecked if missing and not require_objects else fails).append(Finding(code, eid, msg))
@@ -499,8 +504,11 @@ def check(data, readme, require_objects=False, overlay=None, xflip=None):
     eids = [e.get('id') for e in entries]
     if sorted(rids) != sorted(set(rids)) or sorted(eids) != sorted(set(eids)) or set(rids) != set(eids):
         fail('E4a', '-', 'README rows %r, errata entries %r' % (rids, eids))
-    if len(entries) != data.get('expected_count') or len(rows) != data.get('expected_count'):
-        fail('E4b', '-', '%d entries and %d README rows, expected_count %r' % (len(entries), len(rows), data.get('expected_count')))
+    if len(entries) != data.get('expected_count') or len(rows) != data.get('expected_count') or data.get('expected_count') != len(ENTRY_IDS):
+        fail('E4b', '-', '%d entries and %d README rows, expected_count %r, %d pinned' % (
+            len(entries), len(rows), data.get('expected_count'), len(ENTRY_IDS)))
+    if tuple(eids) != ENTRY_IDS:
+        fail('E4l', '-', 'errata ids %r, pinned %r' % (eids, list(ENTRY_IDS)))
     stated = {(r.get('verdict'), r.get('explanation')): r.get('status') for r in data.get('status_rule', {}).get('table', [])}
     if stated != RULE or len(data.get('status_rule', {}).get('table', [])) != len(RULE):
         fail('E4g', '-', 'the stated rule %r is not %r' % (sorted(stated.items()), sorted(RULE.items())))
@@ -584,7 +592,7 @@ def check(data, readme, require_objects=False, overlay=None, xflip=None):
         except Corrupt as x:
             complete = False
             results = None
-            fail('E5a', eid, str(x))
+            fail('E3t', eid, str(x))
         # E3x: the git route, where the real head is in the repository
         if results is not None and BATCH.query(h, True)[1] == 'commit':
             disagree = []
@@ -642,6 +650,19 @@ def check(data, readme, require_objects=False, overlay=None, xflip=None):
     return fails, unchecked, info
 
 
+def summary_line(fails, unchecked, info):
+    n = info['entries']
+    if not n:
+        cross = 'none (no entries)'
+    elif info['cross_checked']:
+        cross = ', '.join(info['cross_checked'])
+    else:
+        cross = 'none (no real head in this repository)'
+    return ('ERRATA  %s (%d entr%s; E3 from %d stored objects on %d entr%s; git cross-check on %s; %d failure(s), %d unchecked)'
+            % (verdict(fails, unchecked), n, 'y' if n == 1 else 'ies', info['stored'], info['e3_entries'],
+               'y' if info['e3_entries'] == 1 else 'ies', cross, len(fails), len(unchecked)))
+
+
 def verdict(fails, unchecked):
     return 'FAILS' if fails else 'UNCHECKED' if unchecked else 'HOLDS'
 
@@ -680,11 +701,28 @@ def self_test(data, readme):
     extra_raw = b'blob %d\0' % len(b'x\n') + b'x\n'
     extra_oid = hashlib.sha1(extra_raw).hexdigest()
     pe3_row = '| PE-3 |'
+    h5 = data['entries'][ix['PE-5']]['real_head']
+    pe1_line = next(l for l in readme.split('\n') if l.startswith('| PE-1 |'))
+    no_rows = '\n'.join(l for l in readme.split('\n') if not l.startswith('| PE-'))
+    no_pe5 = '\n'.join(l for l in readme.split('\n') if not l.startswith('| PE-5 |'))
+    def drop(oids):
+        def m(d, r):
+            d['object_store']['objects'] = [x for x in d['object_store']['objects'] if x['oid'] not in oids]
+            return d, r
+        return m
+    def emptied(d, r):
+        d['entries'], d['expected_count'], d['object_store']['objects'] = [], 0, []
+        return d, no_rows
+    def without_pe5(d, r):
+        d['entries'] = [e for e in d['entries'] if e['id'] != 'PE-5']
+        d['expected_count'] = 4
+        return d, no_pe5
     cases = [
         ('E0a', 'a truncated id', put('PE-4', 'real_tree', '12a695df'), {}),
         ('E1a', 'a changed citing blob', put('PE-1', 'citing_blob', '0' * 40), {}),
         ('E1b', 'a control-plane pin in another receipt', edit(lambda d: E(d, 'PE-1')['pin'].__setitem__('receipt', 'verification/receipts/A35.json')), {}),
         ('E1b', 'a record-directory pin at another commit', edit(lambda d: E(d, 'PE-3')['pin'].__setitem__('receipt_commit', head)), {}),
+        ('E1b', 'a pin of no known kind', put('PE-2', 'pin', {}), {}),
         ('E1c', 'a cited line that is not the recorded one', edit(lambda d: E(d, 'PE-2').__setitem__('location', E(d, 'PE-2')['location'].rsplit(':', 1)[0] + ':1')), {}),
         ('E1c', 'a paraphrase in place of the verbatim line', edit(lambda d: E(d, 'PE-4').__setitem__('assertion_verbatim', E(d, 'PE-4')['summary'])), {}),
         ('E1d', 'a run id the line does not name', put('PE-1', 'run_id', '36257341186'), {}),
@@ -714,11 +752,13 @@ def self_test(data, readme):
         ('E3p', 'edits read from another name in the source', edit(lambda d: E(d, 'PE-4')['content_checks'][ck('PE-4', 'frozen_edit')]['source'].__setitem__('name', 'IMPORT_EDIT')), {}),
         ('E3p', 'a base blob that is not the frozen one', edit(lambda d: E(d, 'PE-4')['content_checks'][ck('PE-4', 'frozen_edit')]['base'].__setitem__('blob', '0' * 40)), {}),
         ('E3o', 'a content check of unknown kind', edit(lambda d: E(d, 'PE-1')['content_checks'].append({'kind': 'line_count'})), {}),
+        ('E3t', 'a diff base that is a stored blob, not a commit', put_check('PE-2', 'diff_paths', 'against', a_blob), {}),
         ('E4a', 'a README without a row', lambda d, r: (d, r.replace(pe3_row, '| PE-X |')), {}),
         ('E4a', 'an entry missing from errata.json', edit(lambda d: d['entries'].pop(ix['PE-5'])), {}),
         ('E4b', 'a wrong expected count', put_top('expected_count', 6), {}),
         ('E4c', 'a README location mismatch', lambda d, r: (d, r.replace(E(d, 'PE-2')['location'] + ' |', E(d, 'PE-2')['location'][:-1] + '2 |')), {}),
         ('E4c', 'a README row with another status', lambda d, r: (d, r.replace('| incomplete | partly holds |', '| incomplete | holds |')), {}),
+        ('E4c', 'a README row with an extra cell', lambda d, r: (d, r.replace(pe1_line, pe1_line + ' extra |')), {}),
         ('E4d', 'a verdict outside the vocabulary', put('PE-1', 'verdict', 'mostly'), {}),
         ('E4e', 'an explanation outside the vocabulary', put('PE-2', 'explanation', 'partial'), {}),
         ('E4f', 'a status the rule does not derive', put('PE-3', 'status', 'holds'), {}),
@@ -727,33 +767,40 @@ def self_test(data, readme):
         ('E4i', 'every_job_head_is_the_real_head false', edit(lambda d: E(d, 'PE-5')['outcome'].__setitem__('every_job_head_is_the_real_head', False)), {}),
         ('E4j', 'an outcome without a served digest', edit(lambda d: E(d, 'PE-4')['outcome']['log_facts'][0].__setitem__('served_sha256', '')), {}),
         ('E4k', 'a run record with another attempt', edit(lambda d: E(d, 'PE-5')['outcome']['run'].__setitem__('attempt', 2)), {}),
+        ('E4l', 'an entry removed from errata.json, the README and the count alike', without_pe5, {}),
+        ('E4l', 'a consistent emptying: no entries, no rows, count 0, no objects', emptied, {'overlay': {o: None for o in first_stored}}),
         ('E5a', 'a stored object whose bytes changed', lambda d, r: (d, r), {'overlay': {first_stored[0]: (lambda raw: raw[:-1] + bytes([raw[-1] ^ 1]))(store.raw(first_stored[0]))}}),
+        ('E5a', 'a stored file no check reads that does not hash to its name', edit(lambda d: d['object_store']['objects'].append({'oid': '0' * 40, 'type': 'blob', 'size': 1})), {'overlay': {'0' * 40: b'blob 1\0x'}}),
         ('E5b', 'a manifest without one of the stored objects', edit(lambda d: d['object_store']['objects'].pop()), {}),
         ('E5c', 'a stored object no check reads', edit(lambda d: d['object_store']['objects'].append({'oid': extra_oid, 'type': 'blob', 'size': 2})), {'overlay': {extra_oid: extra_raw}}),
         ('E5d', 'a wrong recorded size', edit(lambda d: d['object_store']['objects'][0].__setitem__('size', d['object_store']['objects'][0]['size'] + 1)), {}),
-        ('E3u', 'a stored object removed, with --require-objects', edit(lambda d: d['object_store']['objects'].__setitem__(slice(None), [m for m in d['object_store']['objects'] if m['oid'] != a_blob])), {'overlay': {a_blob: None}, 'require': True}),
+        ('E3u', 'a stored blob removed, with --require-objects', drop({a_blob}), {'overlay': {a_blob: None}, 'require': True}),
+        ('E3u', "PE-5's real-head commit removed, with --require-objects", drop({h5}), {'overlay': {h5: None}, 'require': True}),
     ]
     if info['cross_checked']:
         cases.append(('E3x', 'a git route that disagrees', lambda d, r: (d, r), {'xflip': ('PE-1', 0)}))
     caught = []
     for code, name, mut, opts in cases:
         d, r = mut(copy.deepcopy(data), readme)
-        f, u, _ = check(d, r, opts.get('require', False), opts.get('overlay'), opts.get('xflip'))
+        f, u, i = check(d, r, opts.get('require', False), opts.get('overlay'), opts.get('xflip'))
         if not any(x.code == code for x in f):
             raise AssertionError('mutation not caught as %s: %s (%r)' % (code, name, [str(x) for x in f + u]))
+        if not d['entries'] and ('no real head' in summary_line(f, u, i) or 'no entries' not in summary_line(f, u, i)):
+            raise AssertionError('with no entries the summary reads %r' % summary_line(f, u, i))
         caught.append(code)
-    # without --require-objects a missing object leaves the verdict UNCHECKED, never HOLDS, and the exit nonzero
-    d = copy.deepcopy(data)
-    d['object_store']['objects'] = [m for m in d['object_store']['objects'] if m['oid'] != a_blob]
-    f, u, _ = check(d, readme, False, {a_blob: None})
-    if f or not any(x.code == 'E3u' for x in u) or verdict(f, u) != 'UNCHECKED' or not EXIT[verdict(f, u)]:
-        raise AssertionError('an unchecked E3 was not reported UNCHECKED with a nonzero exit: %r %r' % (
-            [str(x) for x in f], [str(x) for x in u]))
+    # without --require-objects a missing object, a blob or a real head, leaves the verdict UNCHECKED, never HOLDS,
+    # and the exit nonzero
+    for name, oid in (('a stored blob', a_blob), ("PE-5's real-head commit", h5)):
+        d, _ = drop({oid})(copy.deepcopy(data), readme)
+        f, u, _ = check(d, readme, False, {oid: None})
+        if f or not any(x.code == 'E3u' for x in u) or verdict(f, u) != 'UNCHECKED' or not EXIT[verdict(f, u)]:
+            raise AssertionError('%s removed was not reported UNCHECKED with a nonzero exit: %r %r' % (
+                name, [str(x) for x in f], [str(x) for x in u]))
     caught.append('E3u')
     missing = sorted(set(CODES) - set(caught) - ({'E3x'} if not info['cross_checked'] else set()))
     if missing:
         raise AssertionError('sub-codes without a mutation: %r' % missing)
-    return len(cases) + 1, info
+    return len(cases) + 2, info
 
 
 def put_top(key, val):
@@ -778,12 +825,8 @@ def main():
         print('FAIL', x)
     for x in unchecked:
         print('UNCHECKED', x)
-    v = verdict(fails, unchecked)
-    n = len(data.get('entries', []))
-    print('ERRATA  %s (%d entr%s; E3 from %d stored objects on %d entr%s; git cross-check on %s; %d failure(s), %d unchecked)'
-          % (v, n, 'y' if n == 1 else 'ies', info['stored'], info['e3_entries'], 'y' if info['e3_entries'] == 1 else 'ies',
-             ', '.join(info['cross_checked']) or 'none (no real head in this repository)', len(fails), len(unchecked)))
-    return EXIT[v]
+    print(summary_line(fails, unchecked, info))
+    return EXIT[verdict(fails, unchecked)]
 
 
 if __name__ == '__main__':

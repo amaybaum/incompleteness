@@ -81,11 +81,14 @@ None is a designated `F` or `E`, and none is a certification:
     - a Hermitian orientation mismatch (237:43);
     - two function-expected errors on the two-argument diagonal field (236:65, 248:6);
     - the unsolved goals they leave (236:58, 245:329).
-  - The row's count of fifty-two theorem declarations in the first draft is confirmed: the module has 52 declarations
-    and 52 `#print axioms` lines.
-  - In run 36310787113, 30 of the 52 axiom reports carry `sorryAx`. The evidence is job 108596164217, served text
-    sha256 `8bcc3331…`, lines 522-3375. Of the other 22, 21 are within `[propext, Classical.choice, Quot.sound]`, and
-    `a35_shared_wit_core` reports no axioms. The 52 declarations are not 52 established proofs.
+  - The row's count is confirmed: 52 theorem declarations were counted, and the module has 52 `#print axioms` lines.
+    But 30 carry `sorryAx`: in run 36310787113, 30 of the 52 axiom reports list it. The evidence is job 108596164217,
+    served text sha256 `8bcc3331…`, lines 522-3375. Their presence cannot be described as 52 established proofs.
+  - The other 22 reports come from the same failed build:
+    - 21 are within `[propext, Classical.choice, Quot.sound]`. One of them, `a35_shared_mod_core`, has an error inside
+      its own declaration: 491:2, "No goals to be solved" (served line 1455), the line before its report (1456).
+    - `a35_shared_wit_core` reports no axioms (served line 656). That report comes with its own two whnf timeouts:
+      272:0 at the declaration (served line 651) and 284:532 (646).
 
   The failure verdict and the error count are confirmed; an exhaustive classification is not established.
 
@@ -119,8 +122,11 @@ with its type, its size and where the stored commits reach it.
 - **E-mail:** 21 matches, all `noreply@anthropic.com`, in the seven commits' author and committer lines and
   `Co-Authored-By` trailers.
 - **Signatures:** seven `BEGIN SSH SIGNATURE` blocks, one per commit, each a public signature.
+- **URLs:** each of the seven commit messages carries one `Claude-Session:` trailer, its only URL. All seven name the
+  same claude.ai session link (`session_01XEQMD5kRhaU9WyeZt6dmM1`). It is a session link, not a credential, and 696
+  commit messages on `main` at `66a981d5` carry the same trailer.
 
-Commits on `main` carry the same address and signatures. No redaction was made, and none could be, since a redacted
+Commits on `main` carry the same address, signatures and trailer. No redaction was made, and none could be, since a redacted
 object would no longer have its id.
 
 ## Dispositions and cross-references
@@ -196,11 +202,14 @@ The 40-hex columns are `--full-only`, which restricts tokens to 40 digits.
 - **E3:** each real head's tree, parent and content checks.
   - These are read from `objects/` alone, and the commits on `main` from the repository, so E3 runs in a clone of
     `main`.
+  - Every object read must be well formed and of the type its use requires.
   - Where the real heads are also in the repository, each check is repeated through git commands. The two routes must
     agree, and so must the stored objects and the repository's.
 - **E4:** the README and the outcome records.
+  - The entry ids are the ids the checker pins, `PE-1` to `PE-5` in order, so removing an entry from `errata.json`
+    and the README alike still fails.
   - Each README row is parsed and compared cell by cell with `errata.json`.
-  - The ids and the rows are in bijection, and their number is `expected_count`.
+  - The ids and the rows are in bijection, and their number is `expected_count`, which is the pinned count.
   - Verdicts and explanations are in their vocabularies, each status follows by the rule, and the outcome records are
     well formed.
 - **E5:** each stored file hashes to its name, the manifest lists exactly the files, and every stored object is read
@@ -212,9 +221,9 @@ The 40-hex columns are `--full-only`, which restricts tokens to 40 digits.
   failure.
 - **FAILS** (exit 1): anything else.
 
-`--self-test` applies at least one mutation per sub-code, and each must be caught by its own sub-code. It also
-requires a missing object to leave the verdict UNCHECKED with a nonzero exit. The git cross-check's mutation runs only
-where the real heads are present.
+`--self-test` applies at least one mutation for each place in the checker that reports a failure, and each mutation
+must be caught by its own sub-code. It also requires that a missing blob, or a missing real-head commit, leaves the
+verdict UNCHECKED with a nonzero exit. The git cross-check's mutation runs only where the real heads are present.
 
 ## Not retained here
 
