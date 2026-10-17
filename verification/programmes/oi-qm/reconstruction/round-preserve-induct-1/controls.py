@@ -1095,8 +1095,11 @@ def e2e_cases(prereg):
             n += 1
             m = mods[which]
             del m.FAIL[:]
-            with contextlib.redirect_stdout(io.StringIO()):
-                got = m.main(argv)
+            try:
+                with contextlib.redirect_stdout(io.StringIO()):
+                    got = m.main(argv)
+            except Exception as e:  # a refusal must be an exit status, not an exception
+                got = '%s: %s' % (type(e).__name__, e)
             if got != want:
                 problems.append('main %s %s: exit %s, expected %s' % (which, ' '.join(argv), got, want))
         n += 1
