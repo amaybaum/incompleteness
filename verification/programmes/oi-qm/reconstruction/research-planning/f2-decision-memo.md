@@ -10,8 +10,8 @@ statement, (b) extension criterion, (c) preserved-law checklist, (d) necessity s
 theorem, manuscript, ROADMAP or programme classification. It is consistency-axis work and moves no correctness band
 (§A.23).
 
-**Decisions already taken.** Two are adopted: the **strict extension criterion** (§2) and the **narrowed necessity
-scope** (§4). Fixing the revised gates of §2.3 is still open.
+**Decision status.** No decision in this memo is adopted. The **strict extension criterion** (§2) and the **narrowed
+necessity scope** (§4) are recommended (owner), open. Fixing the revised gates of §2.3 is open.
 
 **Base.** main `b96662e6`. The F2 research text is cited at `804843f1`.
 - #857 shows as merged at `804843f1` because the research branch `research/f2-extension-candidates-20261014` was
@@ -29,7 +29,7 @@ as a decision.
 | **[EC]** | exact computation: replayable, with exact arithmetic |
 | **[UP]** | unsourced premise: assumed, introduced, or an external postulate |
 | [NUM] | numerical float evidence. This is none of the five classes and is never evidence of exactness |
-| **DEC-ADOPTED / DEC-OPEN** | an owner decision, adopted or still open |
+| **DEC-OPEN** / **recommended (owner), open** | an owner decision not yet taken; the second form marks one the owner has recommended but not adopted |
 
 **Citation abbreviations.**
 
@@ -65,8 +65,8 @@ as a decision.
 - A dense endpoint is admissible only if it is defined *before* any candidate is screened.
 - Status: DEC-OPEN.
 
-**(b) Extension criterion.** The strict criterion is DEC-ADOPTED. The revised gates G1–G8 are in §2.3; fixing them is
-DEC-OPEN.
+**(b) Extension criterion.** The strict criterion is recommended (owner), open. The revised gates G1–G8 are in §2.3;
+fixing them is DEC-OPEN.
 - An equivalence with cone selection is allowed.
 - Renaming preservation, or defining states or operations so as to obtain it, is not.
 
@@ -75,7 +75,7 @@ DEC-OPEN.
 - The laws of new protocols are stated as predictions.
 - Status: DEC-OPEN.
 
-**(d) Necessity.** The narrowed scope is DEC-ADOPTED. It covers holds-in-QM and drop-one checks only.
+**(d) Necessity.** The narrowed scope is recommended (owner), open. It covers holds-in-QM and drop-one checks only.
 - Global minimality is not established.
 - Independence from the complete OI framework is not established.
 - B24 is kept only in re-posed form, after X is fixed.
@@ -123,7 +123,7 @@ data, and arbitrary finite composites" (RM:1130–1132). Thread I's single targe
 
 ***
 
-## 2. (b) The extension criterion (DEC-ADOPTED: strict)
+## 2. (b) The extension criterion (strict: recommended (owner), open)
 
 ### 2.1 Three obligations, kept separate (planning note :26–27)
 
@@ -183,7 +183,7 @@ data, and arbitrary finite composites" (RM:1130–1132). Thread I's single targe
 | **G7 no knobs** | Every branch, parameter or frame is fixed in X's statement before testing: logarithm branch, alphabet, prior | H:168–173 [WA] |
 | **G8 target fixed first** | §1's choices (A1/A2, B1/B2) are fixed before any screening | PG:513; I:513–518 [WA] |
 
-The K route stays (Origin_K, RM:1131–1132), so **compatibility (X-4) and test validity (X-5) are substantive
+The F2 row names the K route as the assembly route (Origin_K, RM:1131–1132), so **compatibility (X-4) and test validity (X-5) are substantive
 obligations**, not consequences (I:527–530 [WA]).
 
 ### 2.4 Readings already failed or open
@@ -276,7 +276,7 @@ identified ([UP] at present).
 
 ***
 
-## 4. (d) Necessity scope (DEC-ADOPTED: narrowed)
+## 4. (d) Necessity scope (narrowed: recommended (owner), open)
 
 ### 4.1 Three questions, never merged
 
@@ -362,6 +362,9 @@ Sources: the files on main at `b96662e6`, and the governed paths at P829:17–23
 
 ## 6. Open items and housekeeping
 
+- **Recommended (owner), open.**
+  - §2 the strict extension criterion;
+  - §4 the narrowed necessity scope.
 - **DEC-OPEN.**
   - §1.1 exact or dense;
   - §1.2 registers or all dimensions;
@@ -418,7 +421,7 @@ Together with `hadd`, `hsmul` and `hmax : K ⊆ maxConeK (eball 3)`, these give 
 - The obligation rows X-1…X-5 (I:210–221).
 - The gap map Γ0–Γ14 (I:397–413). Γ1 is the cheapest step that does not depend on X (I:421–437); Γ10 is #829; Γ11 is
   B2; Γ13 is carrier identification; Γ14 is `X ⊢ R_X`.
-- The owner items of I:539–548 are absorbed here: item 1 (Origin_K retained, §2.3), item 2 (§1.1), item 3 (§1.2),
+- The owner items of I:539–548 are absorbed here: item 1 (Origin_K, as the F2 row states at RM:1131–1132; §2.3), item 2 (§1.1), item 3 (§1.2),
   item 4 (G1).
 
 **A.4 Status.**
