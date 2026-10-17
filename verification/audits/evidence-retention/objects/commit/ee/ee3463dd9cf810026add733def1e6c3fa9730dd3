@@ -1,0 +1,15 @@
+tree 70e623c824672d50cd05d96eb18b49ee2c06d1a7
+parent 933fe823efd54545628b76d078adf4ef405e136e
+author Claude <noreply@anthropic.com> 1790445152 +0000
+committer Claude <noreply@anthropic.com> 1790445152 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQNOIDG9L
+ wLe0NfXJ4Kxz+6oTuEJ1YKnNeA9DfsxljhMC0H17NVMtkXUC17+QsF8axOb8eEiJV5MLAznLxCBr
+ zgw=
+ -----END SSH SIGNATURE-----
+
+A33 development: phase 3a, the exact cross-circle formula (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

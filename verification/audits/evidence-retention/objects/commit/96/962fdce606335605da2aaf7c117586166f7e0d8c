@@ -1,0 +1,28 @@
+tree f66bb016b4e9265f443f2d3e545a5f24221d260b
+parent 03e94be29c911fcd1a0408b7236dd043a5de8e79
+author Claude <noreply@anthropic.com> 1789756411 +0000
+committer Claude <noreply@anthropic.com> 1789756411 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQLAGTKNU
+ RT5klmPQTSs5y0KullaBm2HJOxP4En2qmBDiQjhJZ0hE7pdPU2SUfCkH1iMbvVFqqiH4c5r3T86l
+ dQY=
+ -----END SSH SIGNATURE-----
+
+SI-3 stage 6 (SI3-6): A.37 amended, the representation retired
+
+AGENTS.md A.37's "Sealing through the manifest" subsection is amended
+prospectively. SI2-7's two halves are kept as history in the past
+tense, with every phrase R7-SI2's protocol contract reads still
+present; the sentence the freeze's precondition 7 names -- that the
+constants remain protected historical seal state -- is superseded in
+place by "remained ... until SI-3's landing". A new subsection, "The
+representation retired, from SI-3's landing", states what holds for
+rounds begun after that landing: the legacy representation retired and
+the zero-statement standing contract; how a sealing round carries its
+base through the prospective declaration, which P removes when it
+writes the record; how U5's baseline is declared per round; that a
+closed round's contracts are read over the records it manifested; and
+that the SI-1 and SI-2 censuses are history, never current evidence.
+
+Dry run at this stage: ALL CHECKS PASS, 92 tags, SI2-7 PROTOCOL-UPDATED.

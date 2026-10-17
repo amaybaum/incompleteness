@@ -1,0 +1,15 @@
+tree 13d0cb6969a6e80863943e4d8b2fa0091210751a
+parent a3405193ff12b068bf396b5d3f9a09484b305194
+author Claude <noreply@anthropic.com> 1790584820 +0000
+committer Claude <noreply@anthropic.com> 1790584820 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQHR6BIst
+ aZM+yxRKl7LPz1BS648vRFhBYfMKQYZ0qPzbs2Hr++AmiIVTfKrWcHVyO4RpNWI6pCgFhDI2mZKd
+ Hwo=
+ -----END SSH SIGNATURE-----
+
+A38 design countercontrol: one witness position of the k1 column exclusion moved (must be red)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

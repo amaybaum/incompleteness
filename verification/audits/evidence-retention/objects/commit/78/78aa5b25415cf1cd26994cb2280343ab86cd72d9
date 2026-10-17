@@ -1,0 +1,6 @@
+tree 077775bf18ac26f8ac9417dc34fb00a6d05032e9
+parent 5d3ccb3e737ded9dfccaabacc3ee901312cf5b20
+author amaybaum <amaybaum@users.noreply.github.com> 1791742044 +0300
+committer amaybaum <amaybaum@users.noreply.github.com> 1791742044 +0300
+
+research/round7-channel: preregister exact controls and one repair build before execution

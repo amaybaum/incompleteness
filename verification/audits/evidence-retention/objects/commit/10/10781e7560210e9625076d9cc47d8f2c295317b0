@@ -1,0 +1,15 @@
+tree 3a73e874afe6130d8425ef31a197263acf9d0b0f
+parent d014bafef404b991b4544e6d2041edcfab1ac765
+author Alex Maybaum <alex.maybaum@gmail.com> 1790569241 +0000
+committer Alex Maybaum <alex.maybaum@gmail.com> 1790569241 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQL2OqTeU
+ pw8lp4C9gkkHDmPIjhQxBYspc/XUgIvv1yBVaU9mlVXp2/p+4pv1QN0+IXkvUe4aoMBb+sXu1V+1
+ sAI=
+ -----END SSH SIGNATURE-----
+
+A37 design: elaboration of the thirteen frozen propositions and the corollary (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

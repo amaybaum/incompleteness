@@ -9,7 +9,7 @@ It is a governed audit record. It is not a research round and changes no histori
 - **Retention is not verification.** `tools/v3_verifier.py`'s verdicts are unchanged, and no retained file is a host attestation.
 - **Reproduction verifies the stated Lean and CI properties.** Whether the formal statements capture the intended physical claims is a separate scientific question, outside this archive.
 
-## Tranche 1 (this commit)
+## Tranche 1: expected results
 
 | path | what | kind |
 | --- | --- | --- |
@@ -50,7 +50,70 @@ An expected result is read from the served job log by `extract_result.py`, the s
 
 ## The BG-3 exception
 
-The four logs under `bg3/` are the only raw artifacts. BG-3's receipt and preregistration name each by its sha256 and assert positions in it ("the module's eight reports are at lines 4907–4916"). Such a claim is about one artifact and can only be re-checked against that artifact, never reproduced; so the artifact is kept byte for byte, and `check_retention.py` verifies each digest. Their substantive claims, the reports and their axioms and the gate's verdict, are recorded as expected results beside them (`bg3/results-*.json`), each with the manual recipe. `E`'s is also the expected result of entry `ci-38855576525`, which `reproduce.py` reproduces at `194eb3fd`. The two design-tree results hold at commits on temporary branches, so they can be reproduced only while those commits are kept (see below). The exception is not widened: no other log is retained.
+The four logs under `bg3/` are the only raw artifacts. BG-3's receipt and preregistration name each by its sha256 and assert positions in it ("the module's eight reports are at lines 4907–4916"). Such a claim is about one artifact and can only be re-checked against that artifact, never reproduced; so the artifact is kept byte for byte, and `check_retention.py` verifies each digest. Their substantive claims, the reports and their axioms and the gate's verdict, are recorded as expected results beside them (`bg3/results-*.json`), each with the manual recipe. `E`'s is also the expected result of entry `ci-38855576525`, which `reproduce.py` reproduces at `194eb3fd`. The two design-tree results hold at commits off `main` (`6c160ad2`, `e3ef9358`). Tranche 2 retains both, so that `check_objects.py --materialize` can write them into a clone's object store (see below). The exception is not widened: no other raw log is retained. Tranche 2 names the raw logs under its commits and withholds them; the only stored files with log names are the empty blob (0 bytes; named `r5.log`, `channel_check.replay.err`, `channel_check.run1.err` and `native-controls.selftest.final.err`) and `research/round7-channel/LOG.md`, a hand-written journal kept with R3's inclusion path.
+
+## Tranche 2: retained off-main objects
+
+`objects/` holds git objects that frozen records cite and `main` does not reach. It covers those most at risk: the
+objects that no host ref held when the host's refs were listed on 2026-10-17, together with the R3 pair and BG-3's
+off-`main` heads and blob. Objects that a host branch or pull ref still holds are left to later tranches.
+
+| path | what | kind |
+| --- | --- | --- |
+| `objects/manifest.json` | every object: id, type, mechanism, stored form, size and sha256 of the stored file and of the content, its citations or the cited objects that need it, its parents and the parents it names without retaining them, and the blobs it withholds | `complete` |
+| `objects/commit/<aa>/<id>`, `objects/blob/<aa>/<id>` | 137 cited commits as raw commit text, and 25 cited blobs as their raw bytes | `complete`: each file's content hashes to its id |
+| `objects/loose/<aa>/<rest>` | every tree, and every dependency blob, as a git loose object (`zlib("<type> <size>\0" + content)`) | `complete`: likewise |
+| `check_objects.py` | the checker of `objects/` (its rules are in its docstring) | `complete`, hash-pinned |
+
+- **Counts.** 920 entries in all:
+  - 165 cited objects;
+  - 892 stored files: 162 raw (2.1 MB), 730 loose (7.9 MB), with 73.5 MB of content;
+  - 28 withheld blobs: 22 raw logs, 3 small raw outputs and 3 build PDFs.
+- **Mechanisms.** A commit is retained in one of four ways:
+  - `raw:connected`: with every tree and blob `main` lacks, and every parent on `main` or retained (102 commits);
+  - `raw:tree`: the same, but with a parent that is neither on `main` nor a retained connected commit (31): 9 name
+    such a parent without retaining it, and the parent of each of the other 22 is a retained `raw:tree` commit;
+  - `raw:partial-tree`: every tree is retained, and the raw logs, raw outputs or PDFs under it are named by id (2);
+  - `inclusion-proof`: the commit, its root tree, the trees on each cited path and what lies under it, the raw logs
+    there named by id (2, the R3 pair; `e7d380fc` withholds 4).
+- **Withheld.** Raw logs and transcripts are not committed (§A.42 item 1). By the owner's decision of 2026-10-17,
+  neither are captured `.out` and `.err` output nor the small raw outputs written beside the logs (three integer
+  lists under `1f19a347`). Empty files are the exception: the empty blob, retained wherever it occurs, carries
+  three `.err` names and one `.log` name. The three PDFs, under act 45's head `ad64b603`, are build outputs whose bytes no record
+  freezes. Each withheld blob keeps its id, size and paths in the manifest, its mechanism states why it is withheld,
+  and the check (O9) confirms that a retained tree of a commit listing it names it at exactly those paths, each
+  of a file type its mechanism covers (`.log`, `.out` or `.err`; `.txt`; `.pdf`). A file type does not authorize
+  withholding: `check_objects.py` holds the approved withheld entries (`APPROVED_WITHHELD`: id, mechanism and exact
+  paths), the manifest's withheld set must equal it, and no withheld blob is empty. No retained object records a blob's
+  size; the sizes were read from the recovery copies when the archive was built.
+- **Cited blobs are plain files.** Committing them makes those blob ids reachable from `main`, so a frozen control
+  that reads them with `git cat-file` works in any clone.
+- **Recorded mappings.**
+  - `id_discrepancies` maps four cited ids that name no object to the run heads the provenance errata (PE-1 to PE-4)
+    record, and the check confirms each mapping against `../provenance-errata/errata.json`.
+  - `missing` lists the six cited ids that the host refuses and that no preserved copy holds, with their citing
+    lines.
+- **TRB-1's reference head** `7de2d549` (preregistration `:110`, `:207`) was held only in a local clone. It is
+  retained here as a `raw:tree` commit whose parent `6027be54` is named.
+
+**Not adopted as code.** The retained objects are evidence of what off-`main` heads contained:
+- nothing under `objects/` is a path that a build, the release gate or CI picks up;
+- the checker hashes and parses the objects but never executes them;
+- running a retained tree, after `--materialize`, is reproduction of a historical claim at that commit, with
+  `main`'s checkout as the verifier, as `reproduce.py` does for commits on `main`;
+- retention changes no verdict and no claim's status, and no retained object is a `check-run` attestation.
+
+**Identities and secrets.**
+- Every stored object was scanned with the secret patterns of `check_retention.py`'s R5 plus four more token shapes.
+- The scan exempts three things:
+  - commit identity lines and `Co-Authored-By:` trailers whose address digest is listed, provided the address is
+    already in `main`'s history (the check verifies this);
+  - commit signature blocks;
+  - addresses in reserved example domains.
+- Nothing was redacted, because a redacted copy would not keep its id.
+
+**Excerpts.** None of the 194 bridge-log excerpts of R1's drafting branches is stored, named by a stored tree, or
+reachable from `HEAD`. The manifest lists the sha256 digests of their ids, never the ids themselves.
 
 ## Checking
 
@@ -64,7 +127,14 @@ python3 -I verification/audits/evidence-retention/check_retention.py --module-se
 python3 -I verification/audits/evidence-retention/check_retention.py --gate
 python3 -I verification/audits/evidence-retention/compare_result.py --self-test
 python3 -I verification/audits/evidence-retention/reproduce.py --run <run_id> --work <dir>   # needs elan and history
+python3 -I verification/audits/evidence-retention/check_objects.py                 # tree mode, no git
+python3 -I verification/audits/evidence-retention/check_objects.py --reconstitute  # history mode
+python3 -I verification/audits/evidence-retention/check_objects.py --self-test
+python3 -I verification/audits/evidence-retention/check_objects.py --materialize   # adds the objects to the clone's object store; no refs
 ```
+
+`check_retention.py` leaves the files under `objects/` to `check_objects.py`, whose manifest it pins, and `--gate`
+also runs `check_objects.py --reconstitute` and `--self-test`.
 
 The check uses the tree alone: no git history, network or third-party package. Its rules (R1–R9, in its docstring) verify:
 - every archived file's size and sha256, and the digest match of each `complete-as-cited` file;
@@ -92,8 +162,8 @@ Every file here was scanned before commit for token and key patterns, key-file h
 ## Not yet retained
 
 Recorded here so the gap is visible, not resolved. Counts are from `audit/offmain_audit-output.txt`:
-- **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Two of BG-3's expected results hold at such commits (`6c160ad2`, `e3ef9358`); their reproduction needs those commits kept.
-- **Blobs and trees not reachable from `main`:** 75.
+- **Commits not reachable from `main`:** 107, cited at 236 locations in native-round records and one in a mutable script. Host refs held all 107 when they were listed on 2026-10-17. Tranche 2 retains 6 of them: the R3 pair, BG-3's three heads, and `19985424`, the parent of a retained connected commit. The other 101 are not retained yet.
+- **Blobs and trees not reachable from `main`:** 75, all held by host refs when listed. Tranche 2 retains 14 of them. Of the other 61, four are CONSC-2's build PDFs (its preregistration `:516`–`:517`), which as build outputs are to be named, not retained.
 - **Other CI evidence:** 842 citations of 438 run ids and 173 job ids. This tranche covers 96 runs and BG-3's four logs.
 - **Act-26's scratchpad computation** (`result.md:931`), which the audit found saved nowhere.
 

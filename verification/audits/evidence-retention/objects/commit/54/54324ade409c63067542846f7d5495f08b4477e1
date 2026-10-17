@@ -1,0 +1,19 @@
+tree df2f35cc0f25d6d895b792ddd61560049bb78c47
+parent 100bb1e86931fa769a200e9b117f4f9fb0a745b9
+author Claude <noreply@anthropic.com> 1790499730 +0000
+committer Claude <noreply@anthropic.com> 1790499730 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQOLT+wwl
+ +3hWvRbri4wHX0SXtGZ5igZM5v56nVaK2QbfC/GKnVXWcYXSsrfEusevqYLhued/tU9FuVQ5KXMx
+ KAY=
+ -----END SSH SIGNATURE-----
+
+a35-dev: elaboration of the frozen A35 propositions (disposable, never landed)
+
+The DitaHull module with the fifteen frozen propositions and the corollary as #check commands under
+the frozen header; the disposable census family; the exact-computation probe wired into the probes
+job; the compact diagnostics step.
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

@@ -1,0 +1,15 @@
+tree a55baba9f5e1710d94c316fd83c954e4e3d080d0
+parent 7a04184daa6a5b77938ff7e0f2466e5df043f801
+author Claude <noreply@anthropic.com> 1790622438 +0000
+committer Claude <noreply@anthropic.com> 1790622438 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQO43bGh/
+ Bp1Wp6v9RnkaJKECKVRM7avZ9Sp69Mb6bbD6uHD52+q8c7B0c2nTeGMg6bUZ1vAWxqDA4KGohMRy
+ TQQ=
+ -----END SSH SIGNATURE-----
+
+A40 pre-freeze (disposable, never landed): census family and the P0 sentence; the predicted execution tree less the result note
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

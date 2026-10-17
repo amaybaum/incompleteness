@@ -938,7 +938,8 @@ Enforcement:
 - The release gate's `evidence-retention` step runs it in history mode. That mode reads from git
   the receipts and certificate attestations at the archive's base, requires each to be covered,
   and treats a receipt landed after the base as outside the archive's scope. It also runs R10
-  and R11 (item 7).
+  and R11 (item 7), and `check_objects.py --reconstitute` and `--self-test` on the retained
+  off-main objects under `objects/`.
 - Reviewers check that `E`'s evidence reached `main` through its own pull request before the
   round's reconciliation.
 - Reviewers check that each hash pin of item 2 resolves to retained content.

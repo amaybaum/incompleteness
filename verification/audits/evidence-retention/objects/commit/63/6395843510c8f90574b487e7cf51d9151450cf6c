@@ -1,0 +1,15 @@
+tree 05513b448d3a51aede222afa8e30ac62cf1462fd
+parent fdebc6e39498367e15a8352fe0f01f8f75ab3671
+author Claude <noreply@anthropic.com> 1790768784 +0000
+committer Claude <noreply@anthropic.com> 1790768784 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQL5lX6l2
+ x2YxV4OTL04IfI51q0SLr2ZRjL14g4ig6geEACdt5dyux2/socfRxorpr+xOv74/7yB3joCyOSLX
+ ywg=
+ -----END SSH SIGNATURE-----
+
+NB-1 predicted: the preregistration draft alone (disposable)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

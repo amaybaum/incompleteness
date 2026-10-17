@@ -1,0 +1,15 @@
+tree e0716899d5fa437c0f9cb3b77eaba31273cb3f4a
+parent e8eb250a510f7a90f09343f40799dac8e0206f5a
+author Claude <noreply@anthropic.com> 1790432495 +0000
+committer Claude <noreply@anthropic.com> 1790432495 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQGXTYutr
+ +3usCmqHX6i4L9RkqA8F3SkvegeO6rTsO80R+E9xTd52P4UpyzP3ELt0RHKPKFQQtaVqFEJm+c5m
+ 7AI=
+ -----END SSH SIGNATURE-----
+
+A32 development: own shared lemmas for two unlisted helpers, gauge direction (disposable)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

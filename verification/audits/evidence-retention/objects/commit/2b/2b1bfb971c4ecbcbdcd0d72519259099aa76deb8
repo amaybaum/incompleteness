@@ -1,0 +1,15 @@
+tree 03916406cd3d1949bf6b364796c9ece67d5835b1
+parent d79ac73c85ab51b06cd6541f3770a684e6d50ee8
+author Alex Maybaum <alex.maybaum@gmail.com> 1790570257 +0000
+committer Alex Maybaum <alex.maybaum@gmail.com> 1790570257 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQBqyIaU+
+ Mo+8LIjVoacvPMrxaUSl4XXaTEPNW6kAkpm4GncGOr6m3s/1AB8bL1VXb5O7hePGr6ApA6cvKUN7
+ jQY=
+ -----END SSH SIGNATURE-----
+
+A37 design: the probe wired into the A36 shard (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

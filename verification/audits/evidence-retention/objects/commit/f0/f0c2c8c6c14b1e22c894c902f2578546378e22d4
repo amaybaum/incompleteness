@@ -1,0 +1,15 @@
+tree 44494685bf4eeb8a4d0ab5461977ad92ce3c38a3
+parent 7588cacc526bb953e7cabd9120b1da35c978b17f
+author Claude <noreply@anthropic.com> 1790452054 +0000
+committer Claude <noreply@anthropic.com> 1790452054 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQJr9UuHk
+ iaSQJEYHK1wmFjS8I5qFrcnkeCpMSbeQnQnjF4H0n65VbfejafagYKqz4/az7FjrRdruAY1JY2s/
+ 8Q0=
+ -----END SSH SIGNATURE-----
+
+a33 dev: transpose-action hypothesis parenthesized, stab statements, word folds, act-32 namespace, conj_real binder
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

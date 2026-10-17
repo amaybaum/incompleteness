@@ -1,0 +1,35 @@
+tree ec9f1dfef1cffd27fa54efa0601f11f930fc630f
+parent 220827b89c038d98dbe643a53c72a8fd00ed8480
+author Claude <noreply@anthropic.com> 1789755297 +0000
+committer Claude <noreply@anthropic.com> 1789755297 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQOSKWxQ4
+ 6zpq0YD0ZXBD12M7w6PvhU7/IjQqecEA0ZseF+oxNQb3NvCImLRKoDGGXRpplsbH5ZrIgNaOJAeE
+ jAE=
+ -----END SSH SIGNATURE-----
+
+SI-3 stage 1 (SI3-1): SI2.json, the round-declared baseline, and the closed-round scoping, atomically
+
+One commit, as the freeze requires, carrying together everything a twenty-fourth record needs:
+
+- verification/seals/SI2.json added, kind base-only, base df54b99dba99dc043b11752163d8d348c9e54472,
+  SI-2's mandated execution base, byte-for-byte in the shape of the other base-only records;
+- R3, _MANIFEST_BASELINE, declared outside both marker-bounded regions: U5's record set is the
+  seals tree at the current round's mandated base plus the additions the current round's
+  preregistration authorizes by stem, (SI2, SI3); the first of the two authorized wiring edits
+  inside SI2-AUTHORITY makes _si2_manifest_at_stage1 read it instead of _SI2_BASE and
+  _SI2_STAGE1_ADDITIONS;
+- R7-SI1's scoped-integrity contract generalized to the closed-round rule: the unauthorized-addition
+  gate retired, the transcription-containment check kept, records outside the historical scope
+  reported and policed by U5;
+- R7-SI2's twenty-three-record contracts scoped to _SI2_MANIFESTED: _si2_manifest_now, the SI2-3
+  ledger, SI2-4's census input and SI2-8's probe input;
+- _si2_guard_edits_bounded retired with its three assertions;
+- R7-SI2's chronology clause a keyed call to U3 on SI2.json, classified not-applicable with the
+  pinned base reachable; SI-2's negative cases 11 and 13 retired, the suite 1-8 and 12, nine rows.
+
+Dry run at this tree: ALL CHECKS PASS, 92 tags, R7-SI1 and R7-SI2 included; SI2-6(a)
+MAP-PRESERVED with the base's 91 tags all PASS. A first dry run of this stage failed R7-SI2 on
+SI2-4 and SI2-8 alone, both fed the whole manifest; the scoping of their input, part of this
+stage by the freeze, was added and the run repeated.

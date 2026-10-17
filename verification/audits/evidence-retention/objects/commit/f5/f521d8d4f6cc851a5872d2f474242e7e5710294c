@@ -1,0 +1,15 @@
+tree d0c3fbce821d5f02e20317d56f624a1c06f89e85
+parent f47437342032b9b6cea3b9c46e6084a37a2f9b8c
+author Claude <noreply@anthropic.com> 1790427019 +0000
+committer Claude <noreply@anthropic.com> 1790427026 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQLtjWgec
+ 08v+cMmuXzQyOCxcw881ILhyMBoUg7oVhgVxfgYbHaS2XBlWzC0WAO6UX22smB0GyD7YSRrv6+8D
+ gAs=
+ -----END SSH SIGNATURE-----
+
+A32 pre-freeze elaboration: wire after StrictNaturalLift, keeping R7-NLV's pinned adjacency (disposable)
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

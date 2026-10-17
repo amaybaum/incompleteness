@@ -1,0 +1,69 @@
+{
+ "base": "0bedff07fc1ad2675ecab205c8836e7a90a113d4",
+ "contributions": [
+  {
+   "path": "verification/ROADMAP.md"
+  },
+  {
+   "path": "verification/lean-manuscript-census.json"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge.lean"
+  },
+  {
+   "path": "verification/lean-mathlib/OIBridge/ProductAdmission.lean"
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py"
+  }
+ ],
+ "control_plane": [
+  {
+   "blob": "5451a52d87d7d2ab2aac48802bb80898d81f6a16",
+   "execution_affecting": true,
+   "merge": "0bedff07fc1ad2675ecab205c8836e7a90a113d4",
+   "path": "verification/programmes/oi-qm/track-b/act-29-product-admission/preregistration.md"
+  },
+  {
+   "blob": "3db13437baad75f4fe1a14390c146f875c592091",
+   "execution_affecting": false,
+   "merge": "eb11dd18d4abdc13a23b4034ae19cd3e35cf3b8c",
+   "path": "verification/programmes/oi-qm/track-b/act-29-product-admission/amendments/amendment-1.md"
+  }
+ ],
+ "dependencies": [
+  "PFR"
+ ],
+ "directory": "programmes/oi-qm/track-b/act-29-product-admission",
+ "evidence": [
+  {
+   "blob": "3db13437baad75f4fe1a14390c146f875c592091",
+   "id": "PRA/amendments/amendment-1.md",
+   "path": "verification/programmes/oi-qm/track-b/act-29-product-admission/amendments/amendment-1.md"
+  },
+  {
+   "blob": "5451a52d87d7d2ab2aac48802bb80898d81f6a16",
+   "id": "PRA/preregistration.md",
+   "path": "verification/programmes/oi-qm/track-b/act-29-product-admission/preregistration.md"
+  },
+  {
+   "blob": "9d0c707981e3bd05d543ba146aaafc5d290acf2c",
+   "id": "PRA/result.md",
+   "path": "verification/programmes/oi-qm/track-b/act-29-product-admission/result.md"
+  },
+  {
+   "blob": "6bfec3684724302a95d6fc05b1d481a4a3d552a8",
+   "id": "seals/PRA.json",
+   "path": "verification/seals/PRA.json"
+  }
+ ],
+ "origin": "translated-v1",
+ "protocol": 1,
+ "round": "PRA",
+ "schema": "oi-round-certificate",
+ "shape": "sealing",
+ "translation": {
+  "from": "seal-record",
+  "migration_snapshot": "b5cecce3168e84fce86eec54669141ae7c4791eb"
+ }
+}

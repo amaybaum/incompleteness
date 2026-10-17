@@ -1,0 +1,15 @@
+tree 24507d676879f95acd31755a5af82ecd678ae53a
+parent 3641125e17fb0b439c02d6a60a991158fc70ee9f
+author Claude <noreply@anthropic.com> 1790525072 +0000
+committer Claude <noreply@anthropic.com> 1790525072 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQCbZHtk7
+ WdlFe6RY8d70PsACq5j7sGRE+oaFLgEsQPaG3CJwR7t70ZG+ccmWgrV8aiOpJyNPoZTtSoGJ144W
+ zAs=
+ -----END SSH SIGNATURE-----
+
+a36 elaboration: the frozen probe with the u = 1 control and the second point on the line (disposable)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

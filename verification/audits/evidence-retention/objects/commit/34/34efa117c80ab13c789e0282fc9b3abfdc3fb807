@@ -1,0 +1,12 @@
+tree 661532cbee2c5c6a2daab558238e00ecb90f9664
+parent 39832fbe5ecce304c266c9415b710c7fe29ea1ae
+author Claude <noreply@anthropic.com> 1790668742 +0000
+committer Claude <noreply@anthropic.com> 1790668742 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQFVY4SpZ
+ fnwLOvvAzrICkzdBF3y8kXSo8xE9mohyfiT3zHzx3isihL4S23YP7xo7QgInotY0uSWOo5QPYxLs
+ kwI=
+ -----END SSH SIGNATURE-----
+
+A41 stage 2 (predicted-tree rehearsal): measurements.json and the surfaces rendered from it

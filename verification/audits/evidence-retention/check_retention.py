@@ -21,6 +21,9 @@ Rules:
       axioms a list or null, marker counts for every marker, and the reproduction recipe;
   R5  no file in the archive directory matches the secret patterns, an IPv4 address or an e-mail address;
   R6  every file in the archive directory is listed, or is README.md, manifest.json or this checker;
+      R5 and R6 do not walk objects/, the retained off-main git objects, when objects/manifest.json is a listed
+      file: that manifest is pinned here by size and sha256, and check_objects.py, also listed, verifies every
+      file under objects/ against it (its O2 and O6 are R6 and R5 for those files);
   R7  the manifest is well formed: known kinds and claim statuses, paths inside the archive, every entry but the
       tranche's own record cited and only it uncited, every citing location annotated, every gap naming an entry;
   R8  each CI entry's files agree: its results.json is a Mathlib bridge result (kind "bridge"); every job in
@@ -75,6 +78,7 @@ import json
 import os
 import re
 import shutil
+import subprocess
 import sys
 import tempfile
 
@@ -213,6 +217,8 @@ def check(archive, root, scope=None):
         for fn in names:
             rel = os.path.relpath(os.path.join(dirpath, fn), archive).replace(os.sep, '/')
             if '__pycache__' in rel:
+                continue
+            if rel.startswith('objects/') and rel != 'objects/manifest.json' and 'objects/manifest.json' in listed:
                 continue
             if rel not in listed and rel not in FIXED:
                 F('R6 unlisted file %s' % rel)
@@ -693,17 +699,36 @@ def history_mode(archive, root, man, tree=None):
     return fails + check(archive, tree or root, scope)[0] + later_provenance(man, root) + f11, st
 
 
+def objects_gate(archive, root):
+    """The retained off-main objects, when the archive holds them: check_objects.py in history mode, then its
+    self-test. Returns (ran, ok)."""
+    if not os.path.isdir(os.path.join(archive, 'objects')):
+        return False, True
+    tool = os.path.join(archive, 'check_objects.py')
+    ok = True
+    for args in (['--reconstitute'], ['--self-test']):
+        p = subprocess.run([sys.executable, '-I', tool] + args, cwd=root, capture_output=True, text=True)
+        print(p.stdout.rstrip())
+        if p.returncode:
+            print(p.stderr.rstrip()[-2000:])
+            ok = False
+    return True, ok
+
+
 def gate(archive, root):
-    """The release-gate step: the check in history mode (R1-R11), then the self-test."""
+    """The release-gate step: the check in history mode (R1-R11), then the self-test, then the retained objects'
+    check and self-test."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
     for f in fails:
         print('FAIL  %s' % f)
     st = self_test(archive, root)
-    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s)' % (
-        'HOLDS' if not fails and st == 0 else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED'))
-    return 0 if not fails and st == 0 else 1
+    ran, obj_ok = objects_gate(archive, root)
+    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s)' % (
+        'HOLDS' if not fails and st == 0 and obj_ok else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
+        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else ''))
+    return 0 if not fails and st == 0 and obj_ok else 1
 
 
 def report(archive, root):
@@ -881,6 +906,11 @@ def self_test(archive, root):
                msg='README.md')
         extra = os.path.join(tarch, 'ci', 'unlisted.txt')
         expect('an unlisted file in the archive', lambda: open(extra, 'w').write('x'), lambda: os.remove(extra), 'R6', 'unlisted')
+        if os.path.isdir(os.path.join(tarch, 'objects')):
+            def unpin(m):
+                for e in m['entries']:
+                    e['files'] = [f for f in e.get('files', []) if f['path'] != 'objects/manifest.json']
+            expect('retained objects whose manifest is not a listed file', edit(unpin), back, 'R6', 'unlisted file objects/')
         # citing files (R3)
         expect('a changed historical record', *file_edit(cp, lambda b: b + b'\n'), rule='R3', msg='changed (blob')
         expect('a removed historical record', lambda: os.rename(cp, cp + '.x'), lambda: os.rename(cp + '.x', cp), 'R3',

@@ -1,0 +1,15 @@
+tree 9a39dd8940a8b1c399eed7e4535c787deb0ede37
+parent ea12762c9f5c19234b4fa1b966f9effde130bb7f
+author Claude <noreply@anthropic.com> 1790608558 +0000
+committer Claude <noreply@anthropic.com> 1790608558 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQLeH+zcN
+ /AQY7Ef8g9Jw3t+0VisPF4/WAkEFV6iQwfy1IHh71YZ6/mL1jreFMJ4axMge7QKyDLYHuhq3eD+X
+ Ug0=
+ -----END SSH SIGNATURE-----
+
+A40 design (a40-dev): generic face lemma with 1 + i ≠ 0 in context and calc-based block unitarity
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

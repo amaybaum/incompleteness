@@ -1,0 +1,15 @@
+tree 66c653859680dc9a9a4808ce1235f6648b2e1c6e
+parent 4f08873278b8da5624803099d23c23f324ba8e66
+author Claude <noreply@anthropic.com> 1790505135 +0000
+committer Claude <noreply@anthropic.com> 1790505135 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQHD5Jtd9
+ AQEpdzuedTzK2FfaxT2I5z92ytr0WyT1NbDwZN7GtEl38oR9J7Wlb5U3ymrYAld1rkAlJ4KlnY7w
+ igA=
+ -----END SSH SIGNATURE-----
+
+a35 dev: third proof pass; amended probe (exact tangent test, exact stabilizers)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

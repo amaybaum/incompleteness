@@ -1,0 +1,15 @@
+tree 9967c97cba9b245dcdfabc6b0f3a2d1a8b063bb2
+parent 140552fb1bf05fc2adf18cbc37875118e719dd99
+author Claude <noreply@anthropic.com> 1790611719 +0000
+committer Claude <noreply@anthropic.com> 1790611719 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQO4zWRkg
+ xJQqJcnDQ81DP6YdRnNrvxih9b4mHYTsISDaROufLVYp9V2rtpaoiFNrGQwrO+J55naeSrEbBe1n
+ Sw8=
+ -----END SSH SIGNATURE-----
+
+A40 design (a40-dev): row identities as standalone theorems with explicit kappa nonzero
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

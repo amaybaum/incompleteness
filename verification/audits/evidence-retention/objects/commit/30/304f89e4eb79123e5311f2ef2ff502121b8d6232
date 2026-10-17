@@ -1,0 +1,15 @@
+tree 03a65ae952b64b23621c1b28131834708f003f5c
+parent d3fe85ea31f1b295da1589a02889d0856ba39af4
+author Claude <noreply@anthropic.com> 1790530715 +0000
+committer Claude <noreply@anthropic.com> 1790530715 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQPXuxu95
+ O3Rd7hRVwUxWhFZAW6pPpGNMIgH5ef0WNRH2fCLaRuYMdHxxP2kiKB5+wtqESUJqjsM6ei9RT07C
+ nQo=
+ -----END SSH SIGNATURE-----
+
+a36 dev: second proof pass (binder shadowing in the flatness hypotheses, the split_ifs cases, the phase lemma, the point's conjugates)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

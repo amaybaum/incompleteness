@@ -1,0 +1,15 @@
+tree 59d13b06c0741753655a32b2e6135e3a170fc71d
+parent 05dc99b7fdee24c9aa214514fcc16236bb39296c
+author Claude <noreply@anthropic.com> 1790458290 +0000
+committer Claude <noreply@anthropic.com> 1790458290 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQNmRtOn3
+ +b4FxHnOgacB1+e27aAq7XF5aI1+CtHt96mDg+Ik8NpUchRgp/kNhtt3nC+NRp3DbWpOPvXPP/Sn
+ qww=
+ -----END SSH SIGNATURE-----
+
+a33 dev: shape_family binders, word_shape rewrite direction, explicit word isometries in the congruences; compact diagnostics step (disposable branch only)
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

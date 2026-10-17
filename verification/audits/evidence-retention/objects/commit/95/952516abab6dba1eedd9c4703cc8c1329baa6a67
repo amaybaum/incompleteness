@@ -1,0 +1,15 @@
+tree b1dda0d4ee6899e83f2c4e2fb1e06c3f093661d1
+parent e601ab8f2c4c8e85020f578324f2baff7b7bf6db
+author Claude <noreply@anthropic.com> 1790609267 +0000
+committer Claude <noreply@anthropic.com> 1790609267 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgrLzsfFISF4by8Q+FKz27YpkK1USsBB+m
+ amu1QkJnbDsAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAAQA7nwlOk
+ SJ6hL3YEQ7c2Cem7w+nquK09smRdJWbRoEt8ssmQPYVSegyjOFI93akDpNeRceN7K+VOLo3ztZkY
+ iw4=
+ -----END SSH SIGNATURE-----
+
+A40 design (a40-dev): block unitarity with the block index kept abstract
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01XEQMD5kRhaU9WyeZt6dmM1

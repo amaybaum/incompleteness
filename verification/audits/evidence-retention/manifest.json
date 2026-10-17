@@ -12547,12 +12547,24 @@
      "kind": "complete",
      "path": "audit/audit.md",
      "sha256": "8190c9187e17ac9a9761761ae8d9da23b6d7d0151f26adc870dc84a6a73a16ed"
+    },
+    {
+     "bytes": 64682,
+     "kind": "complete",
+     "path": "check_objects.py",
+     "sha256": "8c8cd29e0c64ca87862e4e640d569c81d2df69159e33c4dc73d95db337589c2a"
+    },
+    {
+     "bytes": 657200,
+     "kind": "complete",
+     "path": "objects/manifest.json",
+     "sha256": "dae8043f4334b2b2e447a56094550a66cc176c6328e7617e36e70bf3ef0f7b77"
     }
    ],
    "id": "tranche-record",
    "kind": "complete",
    "provenance": {
-    "source": "written for this tranche: its build script, extractor, comparator and reproduction tool, and the off-main audit it acts on"
+    "source": "written for this archive: tranche 1's build script, extractor, comparator and reproduction tool and the off-main audit it acts on; tranche 2's object manifest, which pins every file under objects/, and its checker"
    }
   }
  ],
