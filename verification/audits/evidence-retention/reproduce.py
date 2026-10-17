@@ -74,38 +74,47 @@ def sh(args, cwd, log):
 
 
 def parse(a):
-    """Strict arguments: each is a known flag, or the value of one, given as the next argument or after '='.
-    Returns ({flag: value}, problems), with --expect-failure's values as a list; any problem rejects the arguments.
-    The next argument is never taken as a value when it is itself a flag, so a flag without a value is a problem."""
+    """Strict arguments: each is a known flag, or the value of one. Before anything else is read, every argument
+    FLAG=VALUE, for a flag that takes a value, becomes the two arguments FLAG VALUE, and VALUE is read the same way,
+    so the two forms are one token stream: the same values, the same problems, the same verdict. Returns
+    ({flag: value}, problems), with --expect-failure's values as a list; any problem rejects the arguments. The
+    next argument is never taken as a value when it is itself a flag, so a flag without a value is a problem."""
     flag = lambda x: x.partition('=')[0] in VALUED + SWITCHES
+    toks = []
+    for x in a:
+        name, eq, val = x.partition('=')
+        while eq and name in VALUED:
+            toks.append(name)
+            x = val
+            name, eq, val = x.partition('=')
+        toks.append(x)
     opts, problems, i = {'--expect-failure': []}, [], 0
-    while i < len(a):
-        tok = a[i]
-        name, eq, val = tok.partition('=')
+    while i < len(toks):
+        tok = toks[i]
+        name = tok.partition('=')[0]
         i += 1
         if name in SWITCHES:
-            if eq:
+            if tok != name:
                 problems.append('%s takes no value' % name)
             elif name in opts:
                 problems.append('%s is given twice' % name)
             opts[name] = True
             continue
-        if name not in VALUED:
+        if tok not in VALUED:
             problems.append('%r is not an argument of this tool' % tok)
             continue
-        if not eq:
-            if i >= len(a) or flag(a[i]):
-                problems.append('%s needs a value' % name)
-                continue
-            val, i = a[i], i + 1
+        if i >= len(toks) or flag(toks[i]):
+            problems.append('%s needs a value' % tok)
+            continue
+        val, i = toks[i], i + 1
         if not val.strip():
-            problems.append(EMPTY_TEXT if name == '--expect-failure' else '%s needs a non-empty value' % name)
-        elif name == '--expect-failure':
-            opts[name].append(val)
-        elif name in opts:
-            problems.append('%s is given twice' % name)
+            problems.append(EMPTY_TEXT if tok == '--expect-failure' else '%s needs a non-empty value' % tok)
+        elif tok == '--expect-failure':
+            opts[tok].append(val)
+        elif tok in opts:
+            problems.append('%s is given twice' % tok)
         else:
-            opts[name] = val
+            opts[tok] = val
     return opts, problems
 
 

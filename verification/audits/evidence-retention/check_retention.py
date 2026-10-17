@@ -23,9 +23,10 @@ Rules:
   R6  every file in the archive directory is listed, or is README.md, manifest.json or this checker;
   R7  the manifest is well formed: known kinds and claim statuses, paths inside the archive, every entry but the
       tranche's own record cited and only it uncited, every citing location annotated, every gap naming an entry;
-  R8  each CI entry's files agree: every job in jobs.json is at the run's head commit; every partial or
-      missing set of axiom reports, and every missing job list, is a recorded gap; a BG-3 entry's results and
-      run metadata name the run, job and head commit of its provenance, and its results derive from its log;
+  R8  each CI entry's files agree: its results.json is a Mathlib bridge result (kind "bridge"); every job in
+      jobs.json is at the run's head commit; every partial or missing set of axiom reports, and every missing
+      job list, is a recorded gap; a BG-3 entry's results and run metadata name the run, job and head commit of
+      its provenance, and its results derive from its log;
   R9  coverage, recomputed from the tree: every receipt, and every certificate attestation citing runs, is
       covered or named as later than this tranche, and every one an entry cites is covered; every check-run
       attestation in a covered receipt, and every run of a covered certificate attestation, has an entry whose
@@ -52,10 +53,11 @@ Rules:
       among its contributions are the governed ones. A governed directory inside verification/lean-mathlib/, or
       one containing it, fails the check: it fixes no module set.
       The table must equal the union over the run's rounds. A CI entry's expected result must be a bridge result.
-      Any other expected result is listed as outside the rule's scope, with its reason, when it is of another
-      kind (BG-3's design diagnostic), or when no attestation at the base names its run and its commit is not
-      an ancestor of the base (BG-3's design trees, off main); such a result at a commit on main fails, and so
-      does one whose commit the repository cannot place (a shallow clone).
+      Any other expected result is listed as outside the rule's scope, with its reason, only when no attestation
+      at the base names its run, and it is of another kind (BG-3's design diagnostic) or its commit is not an
+      ancestor of the base (BG-3's design trees, off main). A result of another kind whose run is attested fails;
+      so does a bridge result of an unattested run at a commit on main, and one whose commit the repository
+      cannot place (a shallow clone).
       R11 is a consistency check, not an independent derivation: build_archive.py read the module sets from the
       same governed-paths blocks, at the tranche base and with its own parser. R11 shows that the archive applied
       those blocks faithfully, as they stand at each run's commit and as the receipts' digests commit to them; it
@@ -295,6 +297,9 @@ def check_entry_files(e, files, man, F):
     if str(run.get('id')) != rid or run.get('run_id') != rid or rr.get('id') != rid or rr.get('head_sha') != run.get('head_sha') \
             or rr.get('attempt') != run.get('run_attempt'):
         F('R8 %s: results.json names another run, head commit or attempt than run.json' % eid)
+    if res.get('kind') != 'bridge':
+        F('R8 %s: results.json is of kind %r, and a CI entry\'s expected result is a Mathlib bridge result'
+          % (eid, res.get('kind')))
     jobs = files.get('ci/%s/jobs.json' % rid)
     if jobs is None:
         if (eid, 'job list') not in gaps:
@@ -593,8 +598,9 @@ def module_sets(archive, root, man, show=None, on_main=None, scope=None):
             try:
                 r = json.load(open(os.path.join(archive, rel), encoding='utf-8'))
                 kind = r.get('kind')
+                rid, head = str(r['run']['id']), r['run']['head_sha']
                 if kind == 'bridge':
-                    rid, head, table = str(r['run']['id']), r['run']['head_sha'], r['expected']['modules']
+                    table = r['expected']['modules']
                     if not isinstance(table, dict):
                         raise TypeError('module table')
             except (OSError, ValueError, KeyError, TypeError, AttributeError):
@@ -604,8 +610,12 @@ def module_sets(archive, root, man, show=None, on_main=None, scope=None):
                 if is_ci:
                     F('R11 %s: %s is of kind %r, not a Mathlib bridge result, so no module table of it is checked'
                       % (eid, rel, kind))
+                elif rid in attest:
+                    F('R11 %s: %s is of kind %r, but an attestation at the tranche base names its run %s, so it must be '
+                      'a bridge result whose module table is checked' % (eid, rel, kind, rid))
                 else:
-                    stats['unscoped'].append((rel, 'of kind %r, which records no module table' % kind))
+                    stats['unscoped'].append((rel, 'of kind %r, which records no module table, and run %s %s'
+                                              % (kind, rid, none_at_base)))
                 continue
             if rid not in attest:
                 if is_ci:
@@ -940,6 +950,13 @@ def self_test(archive, root):
                *json_edit(jp, lambda d: d['jobs'][0].__setitem__('head_sha', '0' * 40)), rule='R8', msg='head_sha differs')
         expect('results from another job', *json_edit(xp, lambda d: d['run'].__setitem__('job_id', '1')), rule='R8',
                msg='not from attempt')
+
+        def relabel(d):
+            d['kind'] = 'design-diagnostic'
+            d['expected']['sha256sum_ok'] = True
+            d['expected']['checks'] = ['a relabelled bridge result']
+        expect('a CI entry\'s results.json relabelled as a design diagnostic, its size and digest following it',
+               *json_edit(xp, relabel), rule='R8', msg='is of kind')
         expect('a partial module whose gap record is removed', edit(lambda m: m.__setitem__('missing', [
             g for g in m['missing'] if not (g['id'] == part and g['what'] == 'axiom reports of %s' % pmod)])),
                back, 'R8', 'its gap record is absent')
@@ -1049,7 +1066,40 @@ def self_test(archive, root):
             pre = next((b['path'] for b in rdoc.get('control_plane_blobs', []) if b['path'].endswith('/preregistration.md')),
                        None)
             certp = 'verification/certificates/%s.json' % cdoc.get('round')
-            if not (pre and have(rcommit) and have(ccommit)) or real(rcommit, pre) is None or real(ccommit, certp) is None:
+
+            def results_of(e):
+                out = []
+                for f in e['files']:
+                    rel = f['path']
+                    if rel.endswith('/results.json') or (rel.startswith('bg3/results-') and rel.endswith('.json')):
+                        try:
+                            d = json.load(open(os.path.join(tarch, rel), encoding='utf-8'))
+                        except (OSError, ValueError):
+                            continue
+                        if isinstance(d, dict):
+                            out.append((rel, d))
+                return out
+            run_of = lambda d: str((d.get('run') or {}).get('id'))
+            cis = [e for e in ents if str(e.get('id', '')).startswith('ci-')]
+            nonci = [(p, d) for e in ents if not str(e.get('id', '')).startswith('ci-') for p, d in results_of(e)]
+            bg_runs = {run_of(d) for p, d in nonci if d.get('kind') == 'bridge'}
+            # the relabel attack of a run with a second bridge result, so that only the kind rule can catch it
+            relab = next((e for e in cis if e['run_id'] in bg_runs), cis[0] if cis else None)
+            relp = next((os.path.join(tarch, f['path']) for f in (relab or {}).get('files', [])
+                         if f['path'].endswith('/results.json')), None)
+            only = next((e for e in cis if e['run_id'] not in bg_runs), None)
+            other = next((p for p, d in nonci if d.get('kind') == 'bridge'), None)
+            # a bridge result outside the CI entries whose run an attestation names (BG-3's E tail)
+            atto = next((p for p, d in nonci if d.get('kind') == 'bridge' and run_of(d) in {e['run_id'] for e in cis}), None)
+            otherp = other and os.path.join(tarch, other)
+            nonbridge = {p for p, d in nonci if d.get('kind') != 'bridge'}
+            lack = [what for what, v in (('a CI entry with a results.json', relp), ('a CI run with no other result', only),
+                                         ('a bridge result outside the CI entries', other),
+                                         ('such a result of an attested run', atto)) if v is None]
+            if lack:
+                ok = False
+                print('FAIL self: the R11 cases need, in the archive, %s' % '; '.join(lack))
+            elif not (pre and have(rcommit) and have(ccommit)) or real(rcommit, pre) is None or real(ccommit, certp) is None:
                 ok = False
                 print('FAIL self: the R11 cases need the commits %s and %s, which their attestations name, in this '
                       'repository\'s history' % (str(rcommit)[:12], str(ccommit)[:12]))
@@ -1087,25 +1137,6 @@ def self_test(archive, root):
                         d['governed_paths_digest'] = governed_digest(governed_entries(texts))
                     return {(rcommit, pre): text, (base, rpath): json.dumps(d).encode('utf-8')}
 
-                def results_of(e):
-                    return [(f['path'], json.load(open(os.path.join(tarch, f['path']), encoding='utf-8'))) for f in e['files']
-                            if f['path'].endswith('/results.json') or
-                            (f['path'].startswith('bg3/results-') and f['path'].endswith('.json'))]
-                cis = [e for e in ents if str(e.get('id', '')).startswith('ci-')]
-                nonci = [(p, d) for e in ents if not str(e.get('id', '')).startswith('ci-') for p, d in results_of(e)]
-                bg_runs = {str(d['run']['id']) for p, d in nonci if d.get('kind') == 'bridge'}
-                # the relabel attack of a run with a second bridge result, so that only the kind rule can catch it
-                relab = next((e for e in cis if e['run_id'] in bg_runs), cis[0])
-                relp = os.path.join(tarch, next(f['path'] for f in relab['files'] if f['path'].endswith('/results.json')))
-                only = next(e for e in cis if e['run_id'] not in bg_runs)
-                other, _ = next((p, d) for p, d in nonci if d.get('kind') == 'bridge')
-                otherp = os.path.join(tarch, other)
-                nonbridge = {p for p, d in nonci if d.get('kind') != 'bridge'}
-
-                def relabel(d):
-                    d['kind'] = 'design-diagnostic'
-                    d['expected']['sha256sum_ok'] = True
-                    d['expected']['checks'] = ['a relabelled bridge result']
 
                 def unattested_on_main(d):
                     d['run']['id'], d['run']['head_sha'] = '1', base
@@ -1142,6 +1173,8 @@ def self_test(archive, root):
                     *file_edit(cpth, lambda b: b[:-3]))
                 r11('a CI entry\'s expected result relabelled as a design diagnostic', 'not a Mathlib bridge result',
                     *res_edit(relp, relabel))
+                r11('an attested run\'s result outside the CI entries relabelled as a design diagnostic',
+                    'but an attestation at the tranche base names its run', *res_edit(os.path.join(tarch, atto), relabel))
                 r11('a CI entry\'s expected result of a run no attestation at the base names', 'so no round governs its modules',
                     *res_edit(cpth, lambda d: d['run'].__setitem__('id', '1')))
                 r11('another expected result of a run no attestation names, at a commit on main', 'is on main there',
@@ -1180,8 +1213,8 @@ def self_test(archive, root):
                     *res_edit(cpth, lambda d: d['expected']['modules'].__setitem__(fmod, dict(absent))), over=forged,
                     sc=scope | {fpath})
                 r11('a manifest with no expected result to check', 'no expected result was checked', m=dict(man, entries=[]))
-                # the relabel attack end to end: the classification, size and digest change together, so R1-R10 accept
-                # it in history mode, and R11 alone rejects it
+                # the relabel attack end to end: the classification, size and digest change together; R8 rejects it
+                # from the tree, R11 from history, and nothing else fails
                 mut, und = json_edit(relp, relabel)
                 mut()
                 try:
@@ -1189,10 +1222,10 @@ def self_test(archive, root):
                 finally:
                     und()
                 good = any(f.startswith('R11 ') and 'not a Mathlib bridge result' in f for f in hf) and \
-                    all(f.startswith('R11 ') for f in hf)
+                    any(f.startswith('R8 ') and 'is of kind' in f for f in hf) and all(f.startswith(('R8 ', 'R11 ')) for f in hf)
                 ok &= good
-                print('%s self: the relabel with its recorded size and digest following it passes R1-R10 in history mode '
-                      'and fails R11 (R11)' % ('PASS' if good else 'FAIL'))
+                print('%s self: the relabel with its recorded size and digest following it fails R8 and R11 in history '
+                      'mode, and nothing else (R8, R11)' % ('PASS' if good else 'FAIL'))
                 if not good:
                     print('      got: %s' % (hf[:3],))
         expect('a manifest that names no coverage files', edit(lambda m: m['coverage'].__setitem__('files', [])), back, 'R9',
