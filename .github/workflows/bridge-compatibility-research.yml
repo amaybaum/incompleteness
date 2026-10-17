@@ -1,0 +1,72 @@
+name: bridge compatibility research
+
+# Exploratory replay and Lean design check; no native designation or receipt.
+on:
+  push:
+    branches: [research/bridge-compatibility-20261013]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install exact arithmetic dependency
+        run: python -m pip install sympy==1.14.0
+      - name: Verify saved record digests
+        run: sha256sum -c verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit/SHA256SUMS
+      - name: Replay bridge implementations and spectrality certificates
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+          import sys
+          p = Path('verification/programmes/oi-qm/reconstruction/bridge-compatibility-audit')
+          q = Path('verification/programmes/oi-qm/reconstruction/physical-state-operation-compatibility')
+          replays = [(p, 'independent_check.py', 'independent-output.txt'),
+                     (p, 'probe.py', 'original-output.txt'),
+                     (q, 'spectrality_check.py', 'spectrality-output.txt'),
+                     (q, 'spectrality_independent.py', 'spectrality-independent-output.txt')]
+          for directory, script, saved in replays:
+              result = subprocess.run([sys.executable, '-I', '-B', str(directory / script)], check=True, capture_output=True)
+              if result.stderr or result.stdout != (directory / saved).read_bytes():
+                  raise SystemExit(f'Failed saved-output comparison: {script}')
+              print(result.stdout.decode(), end='')
+          PY
+      - name: Check artifact placement
+        run: python tools/artifact_placement_check.py
+
+  lean-instantiation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o elan-init.sh
+          sh elan-init.sh -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore adopted library build cache
+        uses: actions/cache/restore@v4
+        with:
+          path: verification/lean-mathlib/.lake/build
+          key: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-${{ hashFiles('verification/lean-mathlib/OIBridge.lean', 'verification/lean-mathlib/OIBridge/**/*.lean') }}
+          restore-keys: oibridge-${{ runner.os }}-${{ hashFiles('verification/lean-mathlib/lean-toolchain', 'verification/lean-mathlib/lake-manifest.json', 'verification/lean-mathlib/lakefile.toml') }}-
+      - name: Compile research-only anonymous example
+        working-directory: verification/lean-mathlib
+        run: |
+          lake exe cache get
+          lake --rehash build OIBridge.BridgeFiniteProtocol
+          lake env lean ../programmes/oi-qm/reconstruction/bridge-compatibility-audit/availability_example.lean
+      - name: Verify retained historical records
+        run: |
+          research_revision=$(git rev-parse HEAD)
+          python3 tools/legacy_records_check.py "$research_revision"
+          python3 tools/v3_verifier.py --receipts "$research_revision"

@@ -1,0 +1,19 @@
+Exploratory bridge-audit decision rule, registered before computation.
+
+Question: do the literal finite-protocol Architecture/InstAvail premises, including spectator extension, entail preservation of every candidate pair cone containing product states, closed under addition and nonnegative scaling, and bounded by maxCone?
+
+Test the actual balancedCircuit, reset, correction and drivePhase definitions. Derive the corrected branches independently from the eight-dimensional circuit, then compute the stopped map recursively. An exact cone-separating witness is decisive only after isometry, reset, branch-formula, trace/positivity and zero-depth controls pass.
+
+Use K = separable positive cone + the nonnegative ray of the Bell projector. Prove analytically that K contains all products, is a cone and is contained in Q3 and hence maxCone, and that a partial-transpose witness is nonnegative on K. Evaluate that witness on the actual stopped spectator channel applied to the Bell projector, in exact Q(i). A negative value refutes this universal bridge at the stated interface scope. No value with a failed control licenses a verdict. This is not a claim that K is the framework's physical cone, not full-model independence, and not a native-round or kernel certificate.
+
+Required mutation controls: remove reset; omit outcome correction; replace drivePhase by identity; reverse the witness phase. Each must break the corresponding independently checked expectation. Replay must be byte-identical.
+
+Sources (SHA256):
+9ae957839f49f57222bb968741d04b17496d2d355a47ab7918b0b6149d8aaba8  verification/lean-mathlib/OIBridge/BridgeFiniteProtocol.lean
+9222038440f742856480706c27569611bed15b82f650b3eab76c9c61e258169f  verification/lean-mathlib/OIBridge/EqvK2MaxCone.lean
+4e5b4b22298dfba7b0ee7ba26109ef3090eb48b23227734bb26bbf6834a545ac  verification/lean-mathlib/OIBridge/ImplementationLocality.lean
+c76991ba337ac3ac58a41eaa88c46af62e59a374117b31edecabaec9309f6a3e  verification/lean-mathlib/OIBridge/EqvK2Schema.lean
+
+Prepared probe SHA256 before execution: 5973bb1599455abc414d5e21de2e2beb487496cef45162c8a9ce177ff1d72304
+
+Before any execution, add independent checks of the Bell generator, the witness dictionary round-trip and the matrix/table trace normalization. The decision rule and candidate cone are unchanged. Updated prepared probe SHA256: e60d4cafac9d1a72cc9635fd49198f33863d39043844d9fdbfc1de930478f431
