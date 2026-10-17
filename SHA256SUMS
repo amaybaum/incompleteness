@@ -1,4 +1,4 @@
-5140392a624e91065b114a820215ee3a3a646c058927a1f88f060b8e41ed8c5d  ./HANDOFF.md
+aa5e56bcfa9bd9d6c8bb8706d105bf8d64933a714294e1d25d5061566442924a  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -28,6 +28,7 @@ c26212bd0685604b8d27c48ca97667159a88f3953e7b9e7d7cd0f3bd26deeef5  ./records/deci
 b8856f03b858554829467c75c950be583650a588874143de515510a8b15a12f4  ./records/decisions/cleanup-20261017/precheck.out
 48bba41ef996d10bed2a2d3d547cc341018b53d4d33f7b5d231277ab6a2b645c  ./records/decisions/cleanup-20261017/precheck.py
 d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/decisions/cleanup-20261017/targets.txt
+53aad790be1cce6d8012bc382c0576f2ea25f33cbe77899e62e92076e7325dd8  ./records/f2-corrections/REVIEW-804843f1.md
 0b8f55f0720d334569592cbf234f516d40432d18dbe86b646ed86deaf2db8c3a  ./records/incidents/2026-10-17-lean-toolchain-removal.md
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md

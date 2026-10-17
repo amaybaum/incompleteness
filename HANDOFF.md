@@ -11,9 +11,10 @@ The owner requested closing the open repair work in small batches on 2026-10-17.
    run 39021837293 succeeded, and its release gate passed 22/22. See `records/pr854/LANDING.md`.
 2. **Handoff freshness:** #855's main-push run and #853's PR run are complete and successful. This snapshot
    closes those pending status entries and corrects the branch map.
-3. **F2 research-text repairs:** the four corrections are drafted locally as commit `75c83f37` on
-   `wip/f2-text-corrections-20261017`, branched from `4872398e`. That branch is unpushed and awaits independent
-   review. New scientific closure work is separate.
+3. **F2 research-text repairs:** reviewed and APPROVED at `804843f1` on `wip/f2-text-corrections-20261017`, which
+   is based on `4872398e`, after one CHANGES-NEEDED round. That branch is pushed, with no PR. Landing on the
+   research branch is the owner's decision; see `records/f2-corrections/REVIEW-804843f1.md`. New scientific
+   closure work is separate.
 4. **Preservation and archiving:** keep the existing recovery branches. Pilot acceptance, storage decisions
    and the off-main retention design remain explicit later decisions; they are not silently adopted here.
 
@@ -194,6 +195,7 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | `draft/provenance-errata-20261017` | ref absent | #855 reviewed commit `8021c1fc` retained through main `ea3155fd` |
 | `draft/evidence-retention-r1-hardening-20261017` | ref absent | #854 accepted commit `e3a44e63` retained through main `49ba3297` |
 | `wip/r1-hardening-fix-20261017` | `e3a44e63` | reviewed #854 fix; retained |
+| `wip/f2-text-corrections-20261017` | `804843f1` | reviewed F2 corrections (APPROVE); no PR |
 | `draft/loc-1-identification-dependence-20261016` | `ccbfd9a9` | #853 |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
 | `tmp/artifact-validate-20261017` | `94814c50` | validator; a push re-runs it |
