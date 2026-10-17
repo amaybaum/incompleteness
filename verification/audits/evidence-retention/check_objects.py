@@ -35,14 +35,17 @@ Tree mode (no git, no network):
       its line, maps to a stored object with the same eight-digit prefix, and that object carries the run; and
       the provenance-errata entry it names records the same location, cited id, real head and run;
   O8  every id recorded as missing is retained nowhere here, and each of its citing lines still holds it.
-History mode (--reconstitute) adds, in a temporary repository whose only objects are this repository's:
+History mode (--reconstitute) adds, in a temporary repository that borrows this repository's objects (H0: a git
+command that fails fails the check, rather than leaving a rule to read empty output):
   H1  the base is in the repository and an ancestor of HEAD;
   H2  every stored object, written with git, gets exactly its recorded id;
   H3  every id the retained objects name that is not retained or withheld is reachable from the base;
-  H4  connectivity: git fsck --connectivity-only passes with a ref at every raw:connected and raw:tree commit and
-      every complete cited tree, every raw:tree commit being a shallow boundary; each raw:connected commit's history
-      reaches the base only through retained raw:connected commits; a raw:partial-tree commit's tree misses exactly
-      its withheld blobs; every inclusion path resolves;
+  H4  connectivity, relative to the archive and the base, never to what else this clone holds: with a ref at
+      every raw:connected and raw:tree commit and every complete cited tree, every raw:tree commit a shallow
+      boundary, git fsck --connectivity-only passes and every object the refs reach is retained or reachable from
+      the base; each raw:connected commit's history reaches the base only through retained raw:connected commits;
+      what a raw:partial-tree commit's tree names beyond the archive and the base is exactly its withheld blobs;
+      every inclusion path resolves to a retained or withheld object;
   H5  every listed identity digest is the digest of an address in the base's history;
   H6  no deny-listed id is reachable from HEAD of this repository, or from any reconstituted object;
   H7  no entry, stored or withheld, and no id recorded as missing is reachable from the base: what main already
@@ -72,7 +75,7 @@ TOKENS = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|
                     r'|private[_-]?key|xox[baprs]-[A-Za-z0-9-]{10,}|sk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{35}', re.I)
 IPV4 = re.compile(r'(?<![\w.])(?:\d{1,3}\.){3}\d{1,3}(?![\w.])')
 EMAIL_ANY = re.compile(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}')
-# the union is R1's check_retention.py SECRET pattern plus four token shapes
+# the union is check_retention.py's SECRET pattern (its R5) plus four token shapes
 SECRET = re.compile(TOKENS.pattern + r'|' + IPV4.pattern + r'|' + EMAIL_ANY.pattern, re.I)
 EMAIL = re.compile(r'[A-Za-z0-9._%+-]+@([A-Za-z0-9.-]+\.[A-Za-z]{2,})')
 RESERVED = re.compile(r'(^|\.)(example\.(com|org|net|invalid)|[a-z0-9-]+\.(test|invalid))$', re.I)
@@ -167,7 +170,7 @@ def scan_text(label, text, is_commit, idents, F):
     if _SCAN_MEMO is None:
         n = first_unexempt_line(text, is_commit, idents)
     else:
-        key = (sha256(text.encode('utf-8', 'surrogatepass')), is_commit, sha256('\n'.join(sorted(idents)).encode()))
+        key = (sha256(text.encode('utf-8', 'surrogatepass')), is_commit, sha256(json.dumps(sorted(idents)).encode()))
         if key not in _SCAN_MEMO:
             _SCAN_MEMO[key] = first_unexempt_line(text, is_commit, idents)
         n = _SCAN_MEMO[key]
@@ -227,8 +230,12 @@ def check(objdir, root):
     if man.get('schema') != 'oi-evidence-objects' or man.get('version') != 1 or \
             not re.fullmatch(r'[0-9a-f]{40}', str(man.get('base', ''))):
         return ['O3 unknown schema, version or base'], {}
-    deny = set(man.get('excerpt_denylist_sha256_of_id', []))
-    idents = set(man.get('identities_sha256', []))
+    for k in ('excerpt_denylist_sha256_of_id', 'identities_sha256'):
+        if not isinstance(man.get(k), list) or not all(isinstance(x, str) and re.fullmatch(r'[0-9a-f]{64}', x)
+                                                        for x in man[k]):
+            return ['O3 %s is not a list of sha256 digests' % k], {}
+    deny = set(man['excerpt_denylist_sha256_of_id'])
+    idents = set(man['identities_sha256'])
     ents, listed = {}, {'manifest.json'}
     for e in man.get('objects', []):
         oid = e.get('oid', '')
@@ -421,22 +428,58 @@ def git(args, cwd, inp=None, env=None):
     return subprocess.run(['git'] + args, cwd=cwd, input=inp, capture_output=True, env=env)
 
 
+class GitFailed(Exception):
+    pass
+
+
+def gitok(args, cwd, inp=None, env=None):
+    """Run git and return the completed process; a non-zero exit raises GitFailed, so no check reads empty output."""
+    p = git(args, cwd, inp, env)
+    if p.returncode:
+        raise GitFailed('git %s exited %d: %s' % (' '.join(args[:3]), p.returncode,
+                                                  p.stderr.decode('utf-8', 'replace').strip()[:100]))
+    return p
+
+
+def listing(out):
+    """(present, missing) ids from a rev-list --objects --missing=print listing."""
+    present, missing = set(), set()
+    for l in out.decode().split('\n'):
+        if l.startswith('?'):
+            missing.add(l[1:].split()[0])
+        elif l:
+            present.add(l.split()[0])
+    return present, missing
+
+
 def base_history(root, base):
     """main's objects and commits, the digests of the addresses in its history, and the objects HEAD reaches."""
-    key = (os.path.realpath(root), base, git(['rev-parse', 'HEAD'], root).stdout.decode().strip())
+    key = (os.path.realpath(root), base, gitok(['rev-parse', 'HEAD'], root).stdout.decode().strip())
     if _HISTORY_MEMO is not None and key in _HISTORY_MEMO:
         return _HISTORY_MEMO[key]
-    main_objs = set(l.split()[0] for l in git(['rev-list', '--objects', base], root).stdout.decode().split('\n') if l)
-    main_commits = set(git(['rev-list', base], root).stdout.decode().split())
-    log = git(['log', '--format=%ae%n%ce%n%B', base], root).stdout.decode('utf-8', 'replace')
+    main_objs = set(l.split()[0] for l in gitok(['rev-list', '--objects', base], root).stdout.decode().split('\n') if l)
+    main_commits = set(gitok(['rev-list', base], root).stdout.decode().split())
+    log = gitok(['log', '--format=%ae%n%ce%n%B', base], root).stdout.decode('utf-8', 'replace')
     known = {sha256(a.encode()) for a in re.findall(r'[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}', log)}
-    head = git(['rev-list', '--objects', 'HEAD'], root).stdout.decode().split('\n')
+    head = set(l.split()[0] for l in gitok(['rev-list', '--objects', 'HEAD'], root).stdout.decode().split('\n') if l)
+    if not main_objs or not main_commits or not head:
+        raise GitFailed('git returned no objects for the base or HEAD')
     if _HISTORY_MEMO is not None:
         _HISTORY_MEMO[key] = (main_objs, main_commits, known, head)
     return main_objs, main_commits, known, head
 
 
-def history_checks(root, info, fails):
+def history_checks(root, info, fails, clone_extra=None):
+    """H1-H7. clone_extra (self-test only): {type: [content]} written into the temporary repository as if this
+    clone held those objects beside the archive; no verdict may depend on them."""
+    F = fails.append
+    try:
+        _history_checks(root, info, fails, clone_extra or {})
+    except GitFailed as exc:
+        F('H0 %s' % exc)
+
+
+def _history_checks(root, info, fails, clone_extra):
     F = fails.append
     man, ents, content, external = info['man'], info['ents'], info['content'], info['external']
     base = man['base']
@@ -444,34 +487,45 @@ def history_checks(root, info, fails):
             git(['merge-base', '--is-ancestor', base, 'HEAD'], root).returncode:
         F('H1 the base %s is not an ancestor of HEAD in this repository' % base[:12])
         return
-    objects = git(['rev-parse', '--path-format=absolute', '--git-path', 'objects'], root).stdout.decode().strip()
+    objects = gitok(['rev-parse', '--path-format=absolute', '--git-path', 'objects'], root).stdout.decode().strip()
     deny = set(man.get('excerpt_denylist_sha256_of_id', []))
+    withheld = {o for o, e in ents.items() if e['mechanism'] in WITHHELD}
     tmp = tempfile.mkdtemp(prefix='retained-')
     try:
         g = os.path.join(tmp, 'r.git')
-        git(['init', '-q', '--bare', g], tmp)
+        gitok(['init', '-q', '--bare', g], tmp)
         with open(os.path.join(g, 'objects', 'info', 'alternates'), 'w') as fh:
             fh.write(objects + '\n')
         env = dict(os.environ, GIT_DIR=g)
+
+        def write_objects(typ, blobs):
+            paths = []
+            for i, data in enumerate(blobs):
+                pth = os.path.join(tmp, 'w-%s-%d' % (typ, i))
+                with open(pth, 'wb') as fh:
+                    fh.write(data)
+                paths.append(pth)
+            p = git(['hash-object', '-w', '-t', typ, '--stdin-paths'], tmp, inp=('\n'.join(paths) + '\n').encode(), env=env)
+            for pth in paths:
+                os.remove(pth)
+            return p
         # H2: git, not this script, computes each id (hash-object also checks a commit's and a tree's format)
         for typ in ('blob', 'tree', 'commit'):
             oids = sorted(o for o in content if ents[o]['type'] == typ)
-            paths = []
-            for o in oids:
-                pth = os.path.join(tmp, 'w-' + o)
-                with open(pth, 'wb') as fh:
-                    fh.write(content[o])
-                paths.append(pth)
-            p = git(['hash-object', '-w', '-t', typ, '--stdin-paths'], tmp, inp=('\n'.join(paths) + '\n').encode(), env=env)
+            if not oids:
+                continue
+            p = write_objects(typ, [content[o] for o in oids])
             got = p.stdout.decode().split()
             if p.returncode or got != oids:
                 bad = next((o for o, x in zip(oids, got) if o != x), oids[len(got)] if len(got) < len(oids) else '?')
                 F('H2 git does not write %s %s with its id: %s' % (typ, bad[:12], p.stderr.decode().strip()[:80]))
                 return
-            for pth in paths:
-                os.remove(pth)
-        # H3: what the retained objects name and do not retain is on main
+        for typ, blobs in sorted(clone_extra.items()):
+            if write_objects(typ, blobs).returncode:
+                raise GitFailed('the self-test could not stage a clone-held %s' % typ)
         main_objs, main_commits, known, head = base_history(root, base)
+        # what the archive or main holds: every verdict below is relative to this, never to what the clone holds
+        held = set(content) | main_objs
         # H7: nothing listed here is already on main
         for o in sorted(ents):
             if o in main_objs:
@@ -480,6 +534,7 @@ def history_checks(root, info, fails):
             gid = mg.get('id', '')
             if gid and any(x.startswith(gid) for x in main_objs):
                 F('H7 missing id %s names an object reachable from the base' % gid[:12])
+        # H3: what the retained objects name and do not retain is on main
         for x in sorted(external):
             if x not in main_objs:
                 F('H3 %s is named by a retained object, is neither retained nor withheld, and is not on main' % x[:12])
@@ -494,43 +549,59 @@ def history_checks(root, info, fails):
                     F('H3 %s: parent %s is named as not retained but is on main' % (c[:12], par[:12]))
         if any(f.startswith('H3') for f in fails):
             return
-        # H4: connectivity; every raw:tree commit is a shallow boundary, so fsck does not walk past it
-        refs = [o for o, e in ents.items() if o in content and (e['mechanism'] in ('raw:connected', 'raw:tree') or
-                                                                 (e['type'] == 'tree' and e.get('cited') and
-                                                                  o not in info['incomplete_trees']))]
-        git(['update-ref', '--stdin'], tmp, inp=''.join('create refs/retained/%s %s\n' % (o, o) for o in refs).encode(), env=env)
+        # H4: connectivity, relative to the archive and main. A ref at every raw:connected and raw:tree commit and
+        # every complete cited tree, every raw:tree commit a shallow boundary so nothing walks past it.
+        refs = sorted(o for o, e in ents.items() if o in content and (e['mechanism'] in ('raw:connected', 'raw:tree') or
+                                                                       (e['type'] == 'tree' and e.get('cited') and
+                                                                        o not in info['incomplete_trees'])))
+        gitok(['update-ref', '--stdin'], tmp, inp=''.join('create refs/retained/%s %s\n' % (o, o) for o in refs).encode(),
+              env=env)
+        made = gitok(['for-each-ref', '--format=%(objectname)', 'refs/retained/'], tmp, env=env).stdout.decode().split()
+        if sorted(made) != refs:
+            F('H4 %d of %d refs were created in the temporary repository' % (len(made), len(refs)))
+            return
         shallow = sorted(o for o, e in ents.items() if e['mechanism'] == 'raw:tree' and o in content)
         with open(os.path.join(g, 'shallow'), 'w') as fh:
             fh.write(''.join(x + '\n' for x in shallow))
         fs = git(['fsck', '--connectivity-only', '--no-dangling', '--no-progress'], tmp, env=env)
         if fs.returncode:
-            F('H4 git fsck --connectivity-only fails: %s' % (fs.stderr.decode().strip().split('\n') or [''])[0][:120])
-        for o, e in ents.items():
+            msg = [l for l in (fs.stdout + fs.stderr).decode('utf-8', 'replace').split('\n')
+                   if l.strip() and not l.startswith('notice:')]
+            F('H4 git fsck --connectivity-only fails: %s' % (msg or ['(no message)'])[0][:120])
+        # everything the refs reach is held by the archive or main; an object only this clone holds, or one no store
+        # holds, fails, whichever it is
+        reached, gone = listing(gitok(['rev-list', '--objects', '--missing=print', '--all'], tmp, env=env).stdout)
+        for x in sorted((reached | gone) - held):
+            F('H4 %s is reached from the retained refs but neither the archive nor main holds it%s'
+              % (x[:12], ' (this clone does)' if x in reached else ''))
+            break
+        for o, e in sorted(ents.items()):
             if e['mechanism'] == 'raw:connected':
-                out = git(['rev-list', o, '--not', base], tmp, env=env).stdout.decode().split()
+                out = gitok(['rev-list', o, '--not', base], tmp, env=env).stdout.decode().split()
                 stray = [x for x in out if x not in ents or ents[x]['mechanism'] != 'raw:connected']
                 if stray:
                     F('H4 %s: raw:connected, but its history leaves main through %s' % (o[:12], stray[0][:12]))
             if e['mechanism'] == 'raw:partial-tree' and o in content:
-                miss = git(['rev-list', '--objects', '--no-walk', '--missing=print', o], tmp, env=env).stdout.decode()
-                missing = sorted({l[1:] for l in miss.split('\n') if l.startswith('?')})
-                if missing != sorted(e.get('withheld_blobs', [])):
-                    F('H4 %s: the objects its tree misses are not exactly its withheld blobs' % o[:12])
+                pres, miss = listing(gitok(['rev-list', '--objects', '--no-walk', '--missing=print', o], tmp,
+                                           env=env).stdout)
+                if sorted((pres | miss) - held) != sorted(e.get('withheld_blobs', [])):
+                    F('H4 %s: what its tree names beyond the archive and main is not exactly its withheld blobs' % o[:12])
             if e['mechanism'] == 'inclusion-proof':
                 for pth in e.get('inclusion_paths', []):
-                    if git(['cat-file', '-e', '%s:%s' % (o, pth.rstrip('/'))], tmp, env=env).returncode:
-                        F('H4 %s: %s does not resolve' % (o[:12], pth))
+                    r = git(['rev-parse', '--verify', '-q', '%s:%s' % (o, pth.rstrip('/'))], tmp, env=env)
+                    tip = r.stdout.decode().strip()
+                    if r.returncode or tip not in set(content) | withheld:
+                        F('H4 %s: %s does not resolve to a retained or withheld object' % (o[:12], pth))
         # H5: identities are addresses already public in main's history
         for d in man.get('identities_sha256', []):
             if d not in known:
                 F('H5 identity digest %s names no address in the base\'s history' % d[:12])
         # H6: no excerpt reachable from HEAD, or from anything reconstituted
-        allr = git(['rev-list', '--objects', '--all'], tmp, env=env).stdout.decode().split('\n')
-        for name, lst in (('HEAD of this repository', head), ('the reconstituted objects', allr)):
-            hit = [l.split()[0] for l in lst if l and sha256(l.split()[0].encode()) in deny]
+        for name, lst in (('HEAD of this repository', head), ('the reconstituted objects', reached | gone)):
+            hit = sorted(x for x in lst if sha256(x.encode()) in deny)
             if hit:
                 F('H6 %d deny-listed (excerpt) object(s) reachable from %s, first %s' % (len(hit), name, hit[0][:12]))
-        info['reconstituted'] = {'refs': len(refs), 'shallow_boundaries': len(shallow)}
+        info['reconstituted'] = {'refs': len(made), 'shallow_boundaries': len(shallow)}
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 
@@ -737,6 +808,85 @@ def self_test(root):
                 man['missing'][0]['cited_at']
             save(d, man)
         expect('a missing id that is retained here', missing_retained, 'O8')
+        def bad_mechanism(d):
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            next(e for e in man['objects'] if e['oid'] == rawcommit['oid'])['mechanism'] = 'byte-copy'
+            save(d, man)
+        expect('a commit entry with a blob\'s mechanism', bad_mechanism, 'O3')
+
+        def bad_digest(d):
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            man['identities_sha256'].append('not-a-digest')
+            save(d, man)
+        expect('an identity digest that is not a sha256 digest', bad_digest, 'O3')
+
+        def unknown_base(d):
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            man['base'] = 'f' * 40
+            save(d, man)
+        expect('a base this repository does not hold', unknown_base, 'H1', history=True)
+
+        def malformed_commit(d):
+            # well formed for tree mode, but git's own format check refuses it: it has no committer line
+            man = json.load(open(os.path.join(d, 'manifest.json')))
+            data = b'tree 4b825dc642cb6eb9a060e54bf8d69288fbee4904\nauthor A <a> 0 +0000\n\nno committer\n'
+            oid = git_id('commit', data)
+            rel = 'commit/%s/%s' % (oid[:2], oid)
+            os.makedirs(os.path.join(d, os.path.dirname(rel)), exist_ok=True)
+            open(os.path.join(d, rel), 'wb').write(data)
+            man['objects'].append({'oid': oid, 'type': 'commit', 'mechanism': 'identity-anchor', 'form': 'raw',
+                                   'file': rel, 'bytes': len(data), 'sha256': sha256(data), 'parents': [],
+                                   'tranche': 2})
+            save(d, man)
+        expect('a commit git refuses as malformed', malformed_commit, 'H2', history=True)
+
+        # H4 re-derives connectivity with git. Tree mode (O4) already rejects these states, so each case changes
+        # the checked state after tree mode passes, and shows H4 rejects it on its own. clone_extra writes objects
+        # into the temporary repository as if this clone held them beside the archive.
+        def expect_history(name, mutate, rule):
+            fails, info = check(base, root)
+            if fails:
+                results.append((name, rule or '-', 'FAILS in tree mode', fails[:1]))
+                return
+            extra = mutate(info) or {}
+            hf = Fails()
+            history_checks(root, info, hf, extra)
+            if rule is None:
+                results.append((name, '-', 'PASSES as required' if not hf else 'FAILS', hf[:3]))
+            else:
+                ok = any(f.startswith(rule) for f in hf)
+                results.append((name, rule, 'FAILS as required' if ok else 'NOT DETECTED', hf[:1]))
+
+        part = next(e for e in man0['objects'] if e['mechanism'] == 'raw:partial-tree')
+        conn = {e['oid'] for e in man0['objects'] if e['mechanism'] == 'raw:connected'}
+        under_conn = next(e for e in man0['objects'] if e['type'] == 'blob' and e.get('form') == 'zlib' and
+                          not e.get('cited') and e.get('needed_by') and
+                          all(n['object'] in conn for n in e['needed_by']))
+        under_part = next(e for e in man0['objects'] if e['type'] == 'blob' and e.get('file') and
+                          not e.get('cited') and [n['object'] for n in e.get('needed_by', [])] == [part['oid']])
+
+        def drop_needed(info):
+            del info['content'][under_conn['oid']]
+        expect_history('a required stored object missing from the archive and the clone', drop_needed, 'H4')
+
+        def drop_needed_clone_holds(info):
+            data = info['content'].pop(under_conn['oid'])
+            return {'blob': [data]}
+        expect_history('a required object missing from the archive but held by this clone',
+                       drop_needed_clone_holds, 'H4')
+
+        def short_withheld(info):
+            info['ents'][part['oid']]['withheld_blobs'] = info['ents'][part['oid']]['withheld_blobs'][1:]
+        expect_history('a partial tree whose withheld list omits one of its blobs', short_withheld, 'H4')
+
+        def withheld_clone_holds(info):
+            # a blob of the partial tree, withheld from the archive, that this clone happens to hold
+            data = info['content'].pop(under_part['oid'])
+            info['ents'][under_part['oid']] = dict(info['ents'][under_part['oid']], mechanism='withheld:raw-log')
+            info['ents'][part['oid']]['withheld_blobs'] = sorted(info['ents'][part['oid']]['withheld_blobs'] +
+                                                                 [under_part['oid']])
+            return {'blob': [data]}
+        expect_history('a withheld blob that this clone holds', withheld_clone_holds, None)
     finally:
         _SCAN_MEMO = _HISTORY_MEMO = None
         shutil.rmtree(tmp, ignore_errors=True)
