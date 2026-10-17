@@ -477,6 +477,9 @@ jobs:
       - name: k = 3 exact witnesses and probe mutations
         run: python3 -I -B verification/lean/ktoken_maxcone1_probe.py --self-test
 
+      - name: Native control mutation tests
+        run: python3 -I -B verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py --self-test
+
   # Act 42. Two shards run on every event; the exclusion shards, about six CPU-hours between them,
   # run only on workflow_dispatch, which is how the exact-head attestations are taken (section A.39).
   # On any other event the matrix job is skipped and the aggregate below requires exactly that.
