@@ -1,4 +1,4 @@
-c010f43728aafb76ebc2a0321855cf1f90bd6e3e053e5a73b1008dfdca27f007  ./HANDOFF.md
+943dd6c2c67913efde77096dd47abc8aec41d086bd6fff7475533a5ddf362360  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -10,6 +10,7 @@ f39a1bd1f86aa528d27f4fb6d1b57a33dd0131932a034d573dd3f09d434c5f00  ./preservation
 f95292a05eefac2c09a791e9b13075f01c08d94cc2b4682338f4cf1e285f560c  ./preservation/b4/heads.txt
 822403888f67c5cba03dc357b2cbd8be82ea6cb9de7e556fe8884099e0ba9080  ./preservation/b4/local-only-supplement-56-20261017.bundle
 1e7c05aecc6ecf1289e9b6cf947e059774977ec7b48739c937f63125720f1921  ./preservation/host-synthetic-pr-merges-25-20261017.bundle
+b041d9d367e917c8db3d12f3e24696c24a83b243d507d5945fe9dc488e92e8bb  ./preservation/k829-run2-tree-20261017.bundle
 b7c2fab0060b429be6e45c89333758baf871b4df580c70c58c1b31250ac32cd5  ./preservation/local-only-commits-20261017.bundle
 5bac5ea5089a3a910a776e8ad92bbecfaab3230d88cb4dad670a8e7408431b28  ./preservation/offmain/exact-objects.pack
 1b8194ada69e6de3d320101b5ae38ad79a22158801facd4941a1ab3ff25ed582  ./preservation/offmain/manifest.json
@@ -19,7 +20,7 @@ b7c2fab0060b429be6e45c89333758baf871b4df580c70c58c1b31250ac32cd5  ./preservation
 adeccda59b031d236cc5b6909e0cf1c083e8f70607fdfbc57a987c78e7263f09  ./records/archiver-pilot/EVALUATION.md
 95d168bcb5ea70d75e34baacaff42c956bf53529baf2beb710a59c5db3b66ea7  ./records/archiver-pilot/VALIDATION-39008888084.md
 678362790b8dd31f1e11f43ad79ed87867e4cc4b603465a5a3bd79613699384a  ./records/archiver-pilot/archiver-DESIGN.md
-aa920e1ae62666fb9e7301fd8e71b48b422a4ff70dc4c98373c48102e83bedc8  ./records/decisions/2026-10-17-owner-decisions.md
+8a12f952e1084e05170cdd654f7550606fd7976fdc65269ad7a5c092ad90f984  ./records/decisions/2026-10-17-owner-decisions.md
 f9e882ab67ae1ad0d1740b3d6f4191fe26ea2ba5df339bef146b5c77f6b5af55  ./records/decisions/cleanup-20261017/LEDGER.md
 f4819448854b5eefa6d727712a681ea393c49a7a4a0109e40cd8410d749f36d6  ./records/decisions/cleanup-20261017/SHA256SUMS
 672d091281b5fe788b83de5988159670004becdc75152596df3a7cbdee9b5ebd  ./records/decisions/cleanup-20261017/clone-sd-README-vs-8021c1fc.diff
@@ -37,6 +38,7 @@ d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/deci
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md
 9ed4140e01c5620d5e4071b6e4f5b523c6df716b2c76b9189723600330c07115  ./records/inventory/tranche2-inventory-20261016.zip
+6f05d6c192fb3ca408b19fe6c0916f0694bc606fed2fae7f55f5461435c41870  ./records/k829/REVIEW-9a371447.md
 6518d86fa2a2e1e29c69a072373d21f55217f1d97c2f3571044a59015f4d45ac  ./records/offmain-tranche2/REVIEW-LOG.md
 78733d715927307a432a6991804877ea78f8f5f7e7dc37626e2eaf01853e5ffa  ./records/pr854/ACCEPTANCE-e3a44e63.md
 92e6a44b02b07daeb5150d5c0c6708640089e8f4bc4a78b882a9b12949d6d360  ./records/pr854/LANDING.md

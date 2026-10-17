@@ -88,3 +88,38 @@ proceed with the off-main design refresh."
 - Merged working branches can go; the repository's automatic head-branch deletion on merge is acceptable. No other
   branch cleanup is needed.
 - The F2 text corrections at `804843f1` are authorized to land on `research/f2-extension-candidates-20261014` only.
+
+## #829 checker review (owner, later on 2026-10-17)
+
+**Decisions**
+- The checker review passes at `9a37144796f93bddba695472e72b2ae6c5975552`, and both reported defects are resolved.
+  This clears the checker blocker for run 2.
+- This does not designate F or authorize merging.
+- Evidence retention and the evidence pins remain required before F.
+
+**Recommendations (owner), not decisions**
+- Keep `if: ${{ !cancelled() }}` on the A3 step.
+- Push exactly `6959ced4c327ebb800cf6d463a049e4066e37288`, verify its remote files against the reviewed package, then
+  launch the single remaining design run.
+
+The owner's verification scope and the reviewed objects are in `records/k829/REVIEW-9a371447.md`.
+
+## #859, F2 decision memo (owner review, earlier on 2026-10-17)
+
+**Recommendations (owner), not decisions.** The memo records each as "recommended (owner), open".
+- Target: exact operational QM on qubit-power registers first.
+- The eight revised admissibility gates.
+- The monitored law is preserved on retained original protocols only, with an explicit embedding and a compatibility
+  check. A failure there is an obstruction to report.
+- Necessity: holds-in-target plus drop-one countermodels. Global minimality and full-framework independence stay open.
+
+**Qualifications (owner)**
+- Conditional mathematics may proceed: the #829 checker repair, #831 control preparation, and #822 relative-form
+  drafting.
+- Candidate-dependent decisive testing needs these choices fixed first.
+- #829 → #831 → #822 is the preferred order, not a required one.
+- #853 and #838 need their pre-F evidence and controls reviewed before any F.
+- A round is re-cut only before F. Once frozen, it follows its lifecycle and reconciles after E.
+
+Memo: `plan/f2-target-extension-scope-20261017` at `362131e0` (draft PR #859). The previous commit, `28e9c06f`, carried
+DEC-ADOPTED labels for recommendations, which `362131e0` corrected.

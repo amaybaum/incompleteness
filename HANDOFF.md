@@ -57,6 +57,29 @@ The existing separate approval requirements for merges and F/E designations stil
 
 ## 2. Active threads
 
+### #829 KTOKEN-MAXCONE-1 — checker reviewed, run 2 not launched
+
+- **Run 1** (design run 1 of 2): dispatch 39043849411 at `1ab0fd9d`, 38/38 jobs green. Build OK, gate OK,
+  `A3-CHECK-NONVACUOUS: 13 cases`, probe `VERDICT KTOKEN-K3-EXACT` with 5/5 mutations rejected.
+- **Checker:** the owner's review passes at `9a37144796f93bddba695472e72b2ae6c5975552`
+  (`wip/ktoken-maxcone-run2-draft`). `controls.py` blob `8c8eb522`. Record: `records/k829/REVIEW-9a371447.md`.
+- **Run-2 tree:** `6959ced4c327ebb800cf6d463a049e4066e37288` on `dev-equivalence/ktoken-maxcone-r2`. **Local only,
+  not pushed.** Its four local-only commits (`1a3439c9`..`6959ced4`) are in
+  `preservation/k829-run2-tree-20261017.bundle`; prerequisite main `b96662e6`, single head `6959ced4`.
+- **Owner decision:** the checker blocker is cleared. No F, no merge.
+- **Owner recommendation, not yet an instruction:** keep `if: ${{ !cancelled() }}`; push exactly `6959ced4`; verify
+  the remote files against the reviewed package; launch the single remaining design run.
+- **Before F:** evidence retention and pins for the run-1 and run-2 logs (§A.42), a new drafting PR vs resetting
+  #829's branch (`draft/ktoken-maxcone-1`, head `625f853f`), the landing order, the port scope, and the F designation.
+
+### #859 F2 decision memo — owner choices recorded as recommendations
+
+- `plan/f2-target-extension-scope-20261017` at `362131e0` (draft PR #859).
+- The owner's recommended choices and qualifications are in `records/decisions/2026-10-17-owner-decisions.md`, last
+  section. None is adopted as a decision.
+- Conditional mathematics may proceed. Candidate-dependent decisive testing waits until the choices are fixed.
+- #831 control preparation and #822 relative-form drafting: not started.
+
 ### P0 — Archiver pilot: independent artifact validation (Route B)
 
 **The pilot**
@@ -187,7 +210,8 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 
 ## 3. Records (`records/`)
 
-- `decisions/2026-10-17-owner-decisions.md`: today's decisions.
+- `decisions/2026-10-17-owner-decisions.md`: today's decisions, with owner recommendations kept separate.
+- `k829/REVIEW-9a371447.md`: the #829 run-2 checker review.
 - `decisions/cleanup-20261017/`: the Tier 1 cleanup ledger, CLEANUP-ACCEPTED, with SHA256SUMS.
 - `incidents/`: the deletion of five scratch logs by an agent that had not created them, and the authorized removal of
   the Lean toolchain.
@@ -207,6 +231,10 @@ forms of `--expect-failure`, and successful replay of the reported counterexampl
 | `wip/offmain-tranche1-20261017` | `e01b3cc3` | reviewed tranche-2 refresh (APPROVE); landed via #856 as `b96662e6` |
 | `tmp/log-archive-20261017` | `05df8cc1` | archiver; a push re-runs it, so do not push to it without authorization |
 | `tmp/artifact-validate-20261017` | `94814c50` | validator; a push re-runs it |
+| `wip/ktoken-maxcone-run2-draft` | `9a371447` | #829 run-2 review package; checker review passes here; not a run tree |
+| `dev-equivalence/ktoken-maxcone-r2` | not on host | #829 run-2 tree `6959ced4`, local only |
+| `draft/ktoken-maxcone-1` | `625f853f` | #829 |
+| `plan/f2-target-extension-scope-20261017` | `362131e0` | #859, F2 decision memo |
 | `tmp/session-handoff-20261017` | this branch | handoff |
 | `tmp/loc1-working-material-20261017` | `08c33626` | LOC-1 working material |
 | `archive/r1-evidence-retention-drafting-20261016` and `tmp/r1-reproduce-proof-20261016[-2..-5]` | | keep |
@@ -238,6 +266,7 @@ The other `draft/*` and `research/*` branches predate this session's work.
 | `r1-drafting/r1-evidence-retention-drafting-20261016.bundle` | 682,569 | `71617e66…76e` | R1 drafting and proof branches |
 | `offmain/exact-objects.pack` + `manifest.json` | 2,748,760 | `5bac5ea5…b28` | the off-main design's stored objects, per its manifest |
 | `host-synthetic-pr-merges-25-20261017.bundle` | 31,811 | `1e7c05ae…21` | GitHub's synthetic merge commits for PRs #820–#855, as fetched on 2026-10-17 |
+| `k829-run2-tree-20261017.bundle` | 78,172 | `b041d9d3…e8bb` | #829 run-2 tree, `b96662e6..6959ced4` (head `refs/heads/dev-equivalence/ktoken-maxcone-r2`) |
 | `local-only-commits-20261017.bundle` | 23,681 | `b7c2fab0…5cd5` | 4 refs: BG-2 control-plane drafts (3 commits, `8224c690`); BG-2 stage tests (`5f871096`); a combined-tree test (`22bf25bf`); the #846 PDF build commit (`c7704c93`) |
 
 **Restoring:** in a clone of the repository, run `git bundle verify <file>`; prerequisites are `main` or other
