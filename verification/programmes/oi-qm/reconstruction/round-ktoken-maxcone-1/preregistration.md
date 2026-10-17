@@ -433,7 +433,7 @@ below.
 
 | path | blob |
 | --- | --- |
-| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `160e0c2a8ae057f36dcc52f31bd4d4695ace3663` |
+| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `8c8eb522623ee4c5da1d4ab9e40e10c20fd0bf69` |
 | `verification/lean-mathlib/OIBridge/KTokenMaxCone.lean` | `14bb9fc07bf65e59e3f412ac7270ffb734a30069` |
 | `verification/lean/ktoken_maxcone1_probe.py` | `04580c5104eaa4cf7eaa5fc32614582442f538e1` |
 | `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | `354bd7ce18119da451883ab5189010a5113ffa16` |
