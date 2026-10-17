@@ -1,43 +1,616 @@
 {
  "schema": "oi-provenance-errata",
- "version": 1,
- "scope": "frozen records on main that cite a CI run's head commit by a 40-hex id naming no object, where the run's real head shares the cited id's first 8 hex digits",
+ "version": 2,
+ "scope": "frozen records on main that cite a CI run's head commit by an id of 7 to 40 hex digits naming no object, which is not a prefix of the run's real head and shares at least its first 7 hex digits with it",
+ "expected_count": 5,
+ "status_rule": {
+  "rule": "a verdict not confirmed does not hold; a confirmed verdict holds when its explanation is confirmed, and partly holds when its explanation is incomplete or not confirmed",
+  "table": [
+   {
+    "verdict": "confirmed",
+    "explanation": "confirmed",
+    "status": "holds"
+   },
+   {
+    "verdict": "confirmed",
+    "explanation": "incomplete",
+    "status": "partly holds"
+   },
+   {
+    "verdict": "confirmed",
+    "explanation": "not confirmed",
+    "status": "partly holds"
+   },
+   {
+    "verdict": "not confirmed",
+    "explanation": "confirmed",
+    "status": "does not hold"
+   },
+   {
+    "verdict": "not confirmed",
+    "explanation": "incomplete",
+    "status": "does not hold"
+   },
+   {
+    "verdict": "not confirmed",
+    "explanation": "not confirmed",
+    "status": "does not hold"
+   }
+  ]
+ },
+ "fields": {
+  "assertion_verbatim": "the citing line exactly as it stands in the citing blob, without its newline",
+  "assertion_sha256": "sha256 of assertion_verbatim in UTF-8",
+  "summary": "a shortened paraphrase of the citing line, for reading; not the original",
+  "shared_digits": "the number of leading hex digits the cited id shares with the real head",
+  "pin": "how the citing blob is pinned: a receipt's control_plane_blobs entry, or the record directory at the receipt commit (the commit that last wrote the receipt)",
+  "content_checks": "statements about the real head that E3 re-derives from the stored objects",
+  "derived_facts": "facts computed from an object that is not retained here, with the method; E3 checks only what checked_here says",
+  "host_facts": "host answers not tied to one job, with their date and, for a listing, its digest"
+ },
  "found_by": {
-  "rule": "every line naming a listed run id and a 40-hex token; each token compared with that run's head_sha in the repository's run listing; a token equal to the head in its first 8 hex digits and different in full is a prefix collision",
-  "listing": "GitHub Actions runs API, all 2,200 runs of amaybaum/incompleteness, read 2026-10-16",
+  "tool": "collision_scan.py [--full-only] COMMIT LISTING; the hex_40_only counts are --full-only",
+  "rule": "same line: on each line naming a listed run id, each hex token of 7 to 40 digits is compared with the heads of the runs the line names; a token that is no head's prefix, shares its first 7 hex digits with one, and names no object is a collision. Corpus-wide: every hex token on every scanned line, run id or not, that names no object and shares its first 7 hex digits with a listed head of which it is not a prefix",
+  "listing": "GitHub Actions runs API, all 2,200 runs of amaybaum/incompleteness, read 2026-10-16; a host record, not committed",
+  "listing_sha256": "e4ce15ee4331920e58fea80985ea712e8051b87d1c23859ecc07f074b85eb719",
+  "objects": "the clone the scan ran in, which holds the real heads and the off-main objects of the preservation bundles",
   "at_fc5abade": {
-   "lines": 138,
-   "tokens_equal_to_the_head": 114,
-   "prefix_collisions": 4,
-   "other_tokens": 85
+   "files_scanned": 1358,
+   "binary_skipped": 13,
+   "hex_7_to_40": {
+    "lines": 308,
+    "head_full": 114,
+    "head_abbreviated": 142,
+    "collisions": 5,
+    "near_collisions_naming_an_object": 0,
+    "other_tokens": 275
+   },
+   "hex_40_only": {
+    "lines": 138,
+    "head_full": 114,
+    "collisions": 4,
+    "other_tokens": 85
+   },
+   "collisions": [
+    {
+     "location": "verification/programmes/oi-qm/reconstruction/round-k1-sharp-tests-1/preregistration.md:214",
+     "token": "0850281a",
+     "shared_digits": 7
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:710",
+     "token": "4c4155da7ccc2cf47d63bfe2ce7d8c4cba7f0ff2",
+     "shared_digits": 8
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:711",
+     "token": "cff3c1560f4c0fc09aba2c8af06e9f00e0fc0cd7",
+     "shared_digits": 8
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:218",
+     "token": "2ae4dbeef5d9a1c9f0fcf3fbbf1ceaf4de4d3a0d",
+     "shared_digits": 8
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:400",
+     "token": "ad64b60319e1ff2d40a5a5eed8e3aa4bfcf30b0e",
+     "shared_digits": 8
+    }
+   ],
+   "corpus_wide_collisions": 5,
+   "unlisted_run_id_tokens": 0
   },
   "at_66a981d5": {
-   "lines": 209,
-   "tokens_equal_to_the_head": 185,
-   "prefix_collisions": 4,
-   "other_tokens": 85
+   "files_scanned": 1628,
+   "binary_skipped": 13,
+   "hex_7_to_40": {
+    "lines": 396,
+    "head_full": 185,
+    "head_abbreviated": 155,
+    "collisions": 5,
+    "near_collisions_naming_an_object": 0,
+    "other_tokens": 279
+   },
+   "hex_40_only": {
+    "lines": 209,
+    "head_full": 185,
+    "collisions": 4,
+    "other_tokens": 85
+   },
+   "collisions": [
+    {
+     "location": "verification/programmes/oi-qm/reconstruction/round-k1-sharp-tests-1/preregistration.md:214",
+     "token": "0850281a",
+     "shared_digits": 7
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:710",
+     "token": "4c4155da7ccc2cf47d63bfe2ce7d8c4cba7f0ff2",
+     "shared_digits": 8
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:711",
+     "token": "cff3c1560f4c0fc09aba2c8af06e9f00e0fc0cd7",
+     "shared_digits": 8
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:218",
+     "token": "2ae4dbeef5d9a1c9f0fcf3fbbf1ceaf4de4d3a0d",
+     "shared_digits": 8
+    },
+    {
+     "location": "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:400",
+     "token": "ad64b60319e1ff2d40a5a5eed8e3aa4bfcf30b0e",
+     "shared_digits": 8
+    }
+   ],
+   "corpus_wide_collisions": 5,
+   "unlisted_run_id_tokens": 0
   },
-  "note": "other tokens are blobs, trees and other commits named on the same lines, not heads; the four collisions are the same four at both commits, and each cited id occurs once on main"
+  "note": "the 40-hex-only rule finds PE-1 to PE-4; the 7-to-40 rule finds those four and PE-5, whose cited id has 8 digits; the same five at both commits, and the corpus-wide pass finds no other; every 11-digit decimal token outside a decimal fraction is a listed run id, so no cited run lies outside the listing"
  },
  "evidence_kinds": {
   "listing": "the run's head_sha in the GitHub runs API listing",
-  "job_records": "each job's head_sha and conclusion from the GitHub jobs API (list_workflow_jobs), read 2026-10-17",
-  "host_refusal": "GitHub get_commit on the cited id answered 'No commit found for SHA', 2026-10-16",
+  "job_records": "each job's head_sha, run_attempt, conclusion and times from the GitHub jobs API (list_workflow_jobs), read 2026-10-17",
+  "host_refusal": "GitHub get_commit on the cited id answered 'No commit found for SHA' (PE-1 to PE-4 on 2026-10-16, PE-5 on 2026-10-17)",
   "served_log": "job-log text served by GitHub (get_job_logs, at most the last 5000 lines), 2026-10-17; the digest names the served text, which is not byte-identical to the original log and is not committed",
-  "git": "facts read from the real head's objects; check_errata.py re-derives them when the commit is present"
+  "git": "facts read from the git objects stored in objects/ (for a commit on main, from the repository); check_errata.py re-derives them in any clone of main, and through git commands as well where the real heads are present",
+  "derived": "a fact computed from a named object that is not retained here, with the method and the object id"
+ },
+ "object_store": {
+  "directory": "objects",
+  "form": "complete: each file is a git object exactly as git hashes it, the header \"<type> <size>\\0\" followed by the uncompressed body, so its sha1 is its name and it is byte-identical to the host's object of that id; check_errata.py verifies every file by id (E5a)",
+  "objects": [
+   {
+    "oid": "9d6086bbe3af28e576adf2fb51784b02a5d66e5f",
+    "type": "blob",
+    "size": 19959,
+    "at": [
+     "blob 08502810:verification/lean-mathlib/OIBridge/TrackBQfbBridge.lean",
+     "blob 92a09a1c:verification/lean-mathlib/OIBridge/TrackBQfbBridge.lean",
+     "blob ad64b603:verification/lean-mathlib/OIBridge/TrackBQfbBridge.lean"
+    ]
+   },
+   {
+    "oid": "119364ff51a19b6fe39e014351eb1ec6e5ba23e0",
+    "type": "blob",
+    "size": 8832,
+    "at": [
+     "blob 08502810:verification/lean-mathlib/OIBridge/TwoSharpTests.lean"
+    ]
+   },
+   {
+    "oid": "68ecafd299e62161664464a83e2ffc2f9a6099e3",
+    "type": "blob",
+    "size": 181299,
+    "at": [
+     "blob 2ae4dbee:verification/lean-mathlib/OIBridge/DitaHull.lean"
+    ]
+   },
+   {
+    "oid": "aed1598b29af06170c5577c78a491aafaa76987a",
+    "type": "blob",
+    "size": 41797,
+    "at": [
+     "blob 4c4155da:verification/lean-mathlib/OIBridge.lean",
+     "blob cff3c156:verification/lean-mathlib/OIBridge.lean"
+    ]
+   },
+   {
+    "oid": "608c9c321457a0bd8f3ecb4c4a53b6fd685d464f",
+    "type": "blob",
+    "size": 37828,
+    "at": [
+     "blob 4c4155da:verification/lean-mathlib/OIBridge/OrbitIsometryGroup.lean"
+    ]
+   },
+   {
+    "oid": "861ef56f9188c9421cc477c3b6622842c483795a",
+    "type": "blob",
+    "size": 8822,
+    "at": [
+     "blob 92a09a1c:verification/lean-mathlib/OIBridge/TwoSharpTests.lean"
+    ]
+   },
+   {
+    "oid": "876f2e6d15ea30a435c868cc29ed4d0dacf98ae3",
+    "type": "blob",
+    "size": 16536,
+    "at": [
+     "blob ad64b603:.github/workflows/verify.yml"
+    ]
+   },
+   {
+    "oid": "2508f5ea7cd4ea0ac3e2a5116a5eef6385789f2b",
+    "type": "blob",
+    "size": 37875,
+    "at": [
+     "blob cff3c156:verification/lean-mathlib/OIBridge/OrbitIsometryGroup.lean"
+    ]
+   },
+   {
+    "oid": "0850281082f0dd1cf2c6c906afa57726ab31b076",
+    "type": "commit",
+    "size": 884,
+    "at": [
+     "commit 08502810"
+    ]
+   },
+   {
+    "oid": "28d9978b9a309d79886fc5f44690d25de8c81e85",
+    "type": "commit",
+    "size": 968,
+    "at": [
+     "commit 28d9978b"
+    ]
+   },
+   {
+    "oid": "2ae4dbeeceae2b2e66bd43658045b67da0f0e650",
+    "type": "commit",
+    "size": 703,
+    "at": [
+     "commit 2ae4dbee"
+    ]
+   },
+   {
+    "oid": "4c4155da059388a4724039fd5e60aaa96965f7c3",
+    "type": "commit",
+    "size": 728,
+    "at": [
+     "commit 4c4155da"
+    ]
+   },
+   {
+    "oid": "92a09a1c961dea73a95cbf91b2ca4f0c882f77f0",
+    "type": "commit",
+    "size": 940,
+    "at": [
+     "commit 92a09a1c"
+    ]
+   },
+   {
+    "oid": "ad64b603b7a1dac18b7246d339abaf43a3642dd3",
+    "type": "commit",
+    "size": 932,
+    "at": [
+     "commit ad64b603"
+    ]
+   },
+   {
+    "oid": "cff3c1566228158acbf6cb710dbdf4ba4c5db91f",
+    "type": "commit",
+    "size": 735,
+    "at": [
+     "commit cff3c156"
+    ]
+   },
+   {
+    "oid": "afc40cccacaee91c14f70f5a5ac89d9f5c77a9a2",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree 08502810:"
+    ]
+   },
+   {
+    "oid": "b36c8d04c9dd2cd22fcb846d13181690c24602b7",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree 08502810:verification/"
+    ]
+   },
+   {
+    "oid": "5751d624cbc3361acda0f856ace1d757a6ad0ae5",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree 08502810:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "e03fca0b6b4880cad1b7807a9fcb876dbd8f766a",
+    "type": "tree",
+    "size": 10197,
+    "at": [
+     "tree 08502810:verification/lean-mathlib/OIBridge/"
+    ]
+   },
+   {
+    "oid": "3e0e0ebe462a6bff8d841aa86dad3bcb81283e38",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree 28d9978b:"
+    ]
+   },
+   {
+    "oid": "0d4894458cf493aac0b876b4eab5b03594d16a9a",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree 28d9978b:verification/"
+    ]
+   },
+   {
+    "oid": "886ec8e898adb3ab7b9dc0f17fd59ae42d8d5104",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree 28d9978b:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "d69a088e3421122b2d6ed75106d8c52b8b9148e5",
+    "type": "tree",
+    "size": 9241,
+    "at": [
+     "tree 28d9978b:verification/lean-mathlib/OIBridge/"
+    ]
+   },
+   {
+    "oid": "fa72b6dc6d0718cf43d6f49232e0a48ab26ae4c6",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree 2ae4dbee:"
+    ]
+   },
+   {
+    "oid": "af83c28ff62e330466b581e10ad5164f61c5acd1",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree 2ae4dbee:verification/"
+    ]
+   },
+   {
+    "oid": "2a0ff60b2bcec67825fc6c022e16ba99e726ebac",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree 2ae4dbee:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "b18410b264ffe822ef00787d96e894e6b18f9ed3",
+    "type": "tree",
+    "size": 9241,
+    "at": [
+     "tree 2ae4dbee:verification/lean-mathlib/OIBridge/"
+    ]
+   },
+   {
+    "oid": "f3c0c62cbdb7ce5f57bb86a023d2024f154c3465",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree 4c4155da:"
+    ]
+   },
+   {
+    "oid": "bf9a453fd842385d34f47979cdc0e2c868d48c95",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree 4c4155da:verification/"
+    ]
+   },
+   {
+    "oid": "aa4c123721c1b5e216710f696e297d357c19ff95",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree 4c4155da:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "4a9b15bc7eefaf2e4027bdb94ff8c55636ed0cc7",
+    "type": "tree",
+    "size": 9153,
+    "at": [
+     "tree 4c4155da:verification/lean-mathlib/OIBridge/"
+    ]
+   },
+   {
+    "oid": "4580613f1d14f97d4a343534a8ef139b8147cc41",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree 92a09a1c:"
+    ]
+   },
+   {
+    "oid": "861d5bfb9582ecb1349a9b3dfde98b472b5c3b8b",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree 92a09a1c:verification/"
+    ]
+   },
+   {
+    "oid": "ef0e75657f2a7f9ebdae6181695a9d122c8d2168",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree 92a09a1c:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "5941ad2a3c1c624a32879e5626c9f546dd19d608",
+    "type": "tree",
+    "size": 10197,
+    "at": [
+     "tree 92a09a1c:verification/lean-mathlib/OIBridge/"
+    ]
+   },
+   {
+    "oid": "12a695df15fcfc0634f6b0d7953c03482d980101",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree ad64b603:"
+    ]
+   },
+   {
+    "oid": "6b871209cfe02d8a4b79754de4e9b1531a1f81aa",
+    "type": "tree",
+    "size": 36,
+    "at": [
+     "tree ad64b603:.github/"
+    ]
+   },
+   {
+    "oid": "90a64c63b0d4a22e0c78a97f3873c1784b59e6a6",
+    "type": "tree",
+    "size": 38,
+    "at": [
+     "tree ad64b603:.github/workflows/"
+    ]
+   },
+   {
+    "oid": "e866558971f4399174e95166e1ab70d9299bce43",
+    "type": "tree",
+    "size": 1634,
+    "at": [
+     "tree ad64b603:book/"
+    ]
+   },
+   {
+    "oid": "ee91dbb416a6229c665c2b63481eb8a534c608ad",
+    "type": "tree",
+    "size": 1544,
+    "at": [
+     "tree ad64b603:papers/"
+    ]
+   },
+   {
+    "oid": "cae50d1b1d380dec2d052955f27d03727b41a35f",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree ad64b603:verification/"
+    ]
+   },
+   {
+    "oid": "1a1bc22ee4eef568ea38b4c278b0bae5ed9e084f",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree ad64b603:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "1a6891b552f05138c507ce50d3f2584c3c2b8b98",
+    "type": "tree",
+    "size": 9523,
+    "at": [
+     "tree ad64b603:verification/lean-mathlib/OIBridge/"
+    ]
+   },
+   {
+    "oid": "17bf2d7d9e1a3687d2850ba11a7cd0191cdecb41",
+    "type": "tree",
+    "size": 3343,
+    "at": [
+     "tree ad64b603:verification/lean/"
+    ]
+   },
+   {
+    "oid": "1c498598e751b57dda480abbb57ebf529aea6b32",
+    "type": "tree",
+    "size": 156,
+    "at": [
+     "tree ad64b603:verification/programmes/"
+    ]
+   },
+   {
+    "oid": "fe232681fab0f098c261e04d51bff4900b0d05f1",
+    "type": "tree",
+    "size": 219,
+    "at": [
+     "tree ad64b603:verification/programmes/oi-qm/"
+    ]
+   },
+   {
+    "oid": "648caa5da1cead0de82be313b93c19cd888b4dcd",
+    "type": "tree",
+    "size": 2352,
+    "at": [
+     "tree ad64b603:verification/programmes/oi-qm/track-b/"
+    ]
+   },
+   {
+    "oid": "7b6f49eefdc942e40a62bd22b9518cef54697ae7",
+    "type": "tree",
+    "size": 85,
+    "at": [
+     "tree ad64b603:verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/"
+    ]
+   },
+   {
+    "oid": "d5ef8df03d3ddb49541c4f3733a815609ab892c3",
+    "type": "tree",
+    "size": 392,
+    "at": [
+     "tree cff3c156:"
+    ]
+   },
+   {
+    "oid": "f819db962914213fca9f1378ad36d4d4959a5862",
+    "type": "tree",
+    "size": 678,
+    "at": [
+     "tree cff3c156:verification/"
+    ]
+   },
+   {
+    "oid": "5973875493d49a1c40ab63b0212a99e055104701",
+    "type": "tree",
+    "size": 159,
+    "at": [
+     "tree cff3c156:verification/lean-mathlib/"
+    ]
+   },
+   {
+    "oid": "2e841a02c603fcb11d64e22a4953abb78ceaa678",
+    "type": "tree",
+    "size": 9153,
+    "at": [
+     "tree cff3c156:verification/lean-mathlib/OIBridge/"
+    ]
+   }
+  ]
+ },
+ "cross_reference_census": {
+  "tool": "xref_census.py",
+  "commit": "66a981d5a9cab35b9ebd253aa0e610c0afbfefb6",
+  "output": "census-66a981d5.json",
+  "finding": "on main, each cited id occurs once, at its own citing line; no prefix of a cited id or of a real head occurs anywhere, and no real head is named; each run id occurs only at its citing line, except run 36612901341, whose id also occurs, without a head, at two lines of act 45 (PE-4); no mutable summary, roadmap, manuscript, manifest or archive entry names any of the five; .tex files are scanned"
  },
  "entries": [
   {
    "id": "PE-1",
    "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:710",
    "citing_blob": "c36574d20c6d0b6397b0f25bf7479b95ff6fbae1",
+   "pin": {
+    "kind": "control_plane_blob",
+    "receipt": "verification/receipts/A33.json"
+   },
    "record_role": "preregistration, design evidence before F: an elaboration run of candidate propositions",
+   "workflow": ".github/workflows/verify.yml",
+   "event": "workflow_dispatch",
    "run_id": "36257341185",
+   "attempt": 1,
    "cited_head": "4c4155da7ccc2cf47d63bfe2ce7d8c4cba7f0ff2",
    "real_head": "4c4155da059388a4724039fd5e60aaa96965f7c3",
+   "shared_digits": 8,
    "real_tree": "f3c0c62cbdb7ce5f57bb86a023d2024f154c3465",
    "real_parent": "db82376dfc0e2ae561ec541fd0d3a915f082beda",
-   "assertion": "twenty candidate propositions in an earlier organisation, plus two library probes, wired directly after OrbitIsometryClassification, with a disposable census family; red at the Mathlib bridge build for one reason: the ⋊[φ] notation of the SemidirectProduct probe is not in the kernel's import closure; the other 21 #checks elaborate; the kernel check and the numerical probes are green",
+   "assertion_verbatim": "| 36257341185 | `4c4155da7ccc2cf47d63bfe2ce7d8c4cba7f0ff2` | twenty candidate propositions in an earlier organisation, plus two library probes, wired directly after `OrbitIsometryClassification`, with a disposable census family | red at the `Mathlib bridge` build for one reason: the `⋊[φ]` notation of the `SemidirectProduct` probe is not in the kernel's import closure. The other 21 `#check`s elaborate; the kernel check and the numerical probes are green |",
+   "assertion_sha256": "08c9f3ca4c2e764443a159637b9d9087b55b7023b293d15d18996a8aa0a288e8",
+   "summary": "twenty candidate propositions in an earlier organisation, plus two library probes, wired directly after OrbitIsometryClassification, with a disposable census family; red at the Mathlib bridge build for one reason: the ⋊[φ] notation of the SemidirectProduct probe is not in the kernel's import closure; the other 21 #checks elaborate; the kernel check and the numerical probes are green",
    "content_checks": [
     {
      "kind": "diff_paths",
@@ -70,6 +643,13 @@
     }
    ],
    "outcome": {
+    "run": {
+     "id": "36257341185",
+     "head_sha": "4c4155da059388a4724039fd5e60aaa96965f7c3",
+     "attempt": 1,
+     "conclusion": "failure",
+     "head_branch": "claude/a33-elaboration"
+    },
     "jobs": [
      {
       "id": "108446521410",
@@ -102,16 +682,13 @@
      }
     ]
    },
-   "status": "holds",
-   "detail": "every content and outcome statement holds for the real head; that the notation is outside the import closure is an inference from the parse error, consistent with PE-2, where adding the import makes the probe elaborate",
-   "workflow": ".github/workflows/verify.yml",
-   "event": "workflow_dispatch",
-   "attempt": 1,
    "verdict": "confirmed",
    "explanation": "confirmed",
+   "status": "holds",
+   "detail": "every content and outcome statement holds for the real head; that the notation is outside the import closure is an inference from the parse error, consistent with PE-2, where adding the import makes the probe elaborate",
    "disposition": {
     "citing_record": "frozen; kept byte-identical: round A33: a control-plane file pinned by blob c36574d20c6d0b6397b0f25bf7479b95ff6fbae1 in verification/receipts/A33.json, inside the record directory G13 keeps",
-    "correction": "this entry: the run tested its real head, recorded with the evidence above; the cited id is an attribution error",
+    "correction": "this entry records the attribution error and the run's real head with the evidence above; a correction of the frozen line's own text would be a native round's (G13)",
     "mutable_dependents": "none",
     "integrity_bound_references": "the receipt pin above; it stays valid only while the citing bytes are unchanged"
    },
@@ -121,13 +698,23 @@
    "id": "PE-2",
    "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:711",
    "citing_blob": "c36574d20c6d0b6397b0f25bf7479b95ff6fbae1",
+   "pin": {
+    "kind": "control_plane_blob",
+    "receipt": "verification/receipts/A33.json"
+   },
    "record_role": "preregistration, design evidence before F: the corrected elaboration run",
+   "workflow": ".github/workflows/verify.yml",
+   "event": "workflow_dispatch",
    "run_id": "36257659584",
+   "attempt": 1,
    "cited_head": "cff3c1560f4c0fc09aba2c8af06e9f00e0fc0cd7",
    "real_head": "cff3c1566228158acbf6cb710dbdf4ba4c5db91f",
+   "shared_digits": 8,
    "real_tree": "d5ef8df03d3ddb49541c4f3733a815609ab892c3",
    "real_parent": "4c4155da059388a4724039fd5e60aaa96965f7c3",
-   "assertion": "the same, with the probe's own import Mathlib.GroupTheory.SemidirectProduct and one coset text corrected; all three jobs green; all 22 #checks elaborate, both probes included; the release gate passes all 21 steps with eight receipts holding",
+   "assertion_verbatim": "| 36257659584 | `cff3c1560f4c0fc09aba2c8af06e9f00e0fc0cd7` | the same, with the probe's own `import Mathlib.GroupTheory.SemidirectProduct` and one coset text corrected | all three jobs green. All 22 `#check`s elaborate, both probes included. The release gate passes all 21 steps with eight receipts holding |",
+   "assertion_sha256": "d3713d32b996f8d25f4178ffbc025688e4c8b69e94d16f9b4862ed65665ada80",
+   "summary": "the same, with the probe's own import Mathlib.GroupTheory.SemidirectProduct and one coset text corrected; all three jobs green; all 22 #checks elaborate, both probes included; the release gate passes all 21 steps with eight receipts holding",
    "content_checks": [
     {
      "kind": "diff_paths",
@@ -157,6 +744,13 @@
     }
    ],
    "outcome": {
+    "run": {
+     "id": "36257659584",
+     "head_sha": "cff3c1566228158acbf6cb710dbdf4ba4c5db91f",
+     "attempt": 1,
+     "conclusion": "success",
+     "head_branch": "claude/a33-elaboration"
+    },
     "jobs": [
      {
       "id": "108447399475",
@@ -189,16 +783,13 @@
      }
     ]
    },
-   "status": "holds",
-   "detail": "every content and outcome statement holds for the real head; the diff from PE-1's real head is the probe's import and one changed line in a coset text",
-   "workflow": ".github/workflows/verify.yml",
-   "event": "workflow_dispatch",
-   "attempt": 1,
    "verdict": "confirmed",
    "explanation": "confirmed",
+   "status": "holds",
+   "detail": "every content and outcome statement holds for the real head; the diff from PE-1's real head is the probe's import and one changed line in a coset text",
    "disposition": {
     "citing_record": "frozen; kept byte-identical: round A33: the same control-plane file, pinned by blob c36574d20c6d0b6397b0f25bf7479b95ff6fbae1 in verification/receipts/A33.json, inside the record directory G13 keeps",
-    "correction": "this entry: the run tested its real head, recorded with the evidence above; the cited id is an attribution error",
+    "correction": "this entry records the attribution error and the run's real head with the evidence above; a correction of the frozen line's own text would be a native round's (G13)",
     "mutable_dependents": "none",
     "integrity_bound_references": "the receipt pin above; it stays valid only while the citing bytes are unchanged"
    },
@@ -208,13 +799,25 @@
    "id": "PE-3",
    "location": "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:218",
    "citing_blob": "17e9c31d5656b990eaaab7debb17d9a58bab1dbe",
+   "pin": {
+    "kind": "record_directory",
+    "receipt": "verification/receipts/A35.json",
+    "receipt_commit": "cc8d2aed79eff09c60421f175ede8dec7b86715e",
+    "record_directory": "verification/programmes/oi-qm/track-b/act-35-dita-hull/"
+   },
    "record_role": "result note, design history: a failed first proof pass on a development branch",
+   "workflow": ".github/workflows/verify.yml",
+   "event": "workflow_dispatch",
    "run_id": "36310787113",
+   "attempt": 1,
    "cited_head": "2ae4dbeef5d9a1c9f0fcf3fbbf1ceaf4de4d3a0d",
    "real_head": "2ae4dbeeceae2b2e66bd43658045b67da0f0e650",
+   "shared_digits": 8,
    "real_tree": "fa72b6dc6d0718cf43d6f49232e0a48ab26ae4c6",
    "real_parent": "28d9978b9a309d79886fc5f44690d25de8c81e85",
-   "assertion": "the first proof pass of the module on claude/a35-dev: the fifty-two theorems of the first draft; the Mathlib bridge build is red with 41 errors: variable capture in the generated flatness and Fourier texts, rw against beta-redexes, a whnf timeout in the witness core, unitary.star_mem absent from Mathlib, and the norm_star side goal of the unit-modulus twists",
+   "assertion_verbatim": "| 36310787113 | `2ae4dbeef5d9a1c9f0fcf3fbbf1ceaf4de4d3a0d` | the first proof pass of the module on `claude/a35-dev`: the fifty-two theorems of the first draft | the `Mathlib bridge` build is red with 41 errors: variable capture in the generated flatness and Fourier texts (`∀ a c, ‖(Y c) a c‖` binding the block index), `rw` against beta-redexes, a `whnf` timeout in the witness core, `unitary.star_mem` absent from Mathlib, and the `norm_star` side goal of the unit-modulus twists |",
+   "assertion_sha256": "0729d0e4b1d7a67299bc7d56efd922bbf9465771e5c6488a957932beddbb42a0",
+   "summary": "the first proof pass of the module on claude/a35-dev: the fifty-two theorems of the first draft; the Mathlib bridge build is red with 41 errors: variable capture in the generated flatness and Fourier texts, rw against beta-redexes, a whnf timeout in the witness core, unitary.star_mem absent from Mathlib, and the norm_star side goal of the unit-modulus twists",
    "content_checks": [
     {
      "kind": "diff_paths",
@@ -228,9 +831,22 @@
      "path": "verification/lean-mathlib/OIBridge/DitaHull.lean",
      "regex": "^(private )?(theorem|lemma) ",
      "expect": 52
+    },
+    {
+     "kind": "count_lines_matching",
+     "path": "verification/lean-mathlib/OIBridge/DitaHull.lean",
+     "regex": "^#print axioms ",
+     "expect": 52
     }
    ],
    "outcome": {
+    "run": {
+     "id": "36310787113",
+     "head_sha": "2ae4dbeeceae2b2e66bd43658045b67da0f0e650",
+     "attempt": 1,
+     "conclusion": "failure",
+     "head_branch": "claude/a35-dev"
+    },
     "jobs": [
      {
       "id": "108596164015",
@@ -255,24 +871,22 @@
       "served": "tail, 5000 of 15155 lines",
       "served_sha256": "8bcc333171cf14203d55f92649006dce857e1ec64d3fb692de87d485885173b4",
       "facts": [
-       "the Build step failed; failed target OIBridge.DitaHull",
-       "the compact diagnostics list 41 errors in OIBridge/DitaHull.lean, and the raw build lines count 41",
-       "each named kind occurs: variable capture (160:55; the Fourier text at 740:2), rw against beta-redexes (307:12, 322:12, 407:14), whnf timeouts in a35_shared_wit_core (272:0, 284:532), unknown constant unitary.star_mem (433:27), the norm_star side goal (504:6)",
-       "errors of kinds the row does not name: whnf and tactic timeouts in a35_shared_f4_flat (74:10, 71:387), a Hermitian orientation mismatch (237:43), two function-expected errors on the two-argument diagonal field (236:65, 248:6), and the unsolved goals they leave (236:58, 245:329)"
+       "the Build step failed; failed target OIBridge.DitaHull (served lines 520, 3377-3379)",
+       "the raw build output lists 41 error lines in OIBridge/DitaHull.lean, at 41 distinct positions (served lines 527-3202), and the compact diagnostics repeat the same 41",
+       "each kind the row names occurs: variable capture (160:55; the Fourier text at 740:2), rw against beta-redexes (307:12, 322:12, 407:14), unitary.star_mem unknown (433:27), the norm_star side goal (504:6), and the whnf timeout in the witness core a35_shared_wit_core, which is two errors (272:0 and 284:532)",
+       "errors the row's list does not account for: a whnf timeout and a tactic timeout in a35_shared_f4_flat (74:10, 71:387), a Hermitian orientation mismatch (237:43), two function-expected errors on the two-argument diagonal field (236:65, 248:6), and the unsolved goals they leave (236:58, 245:329)",
+       "52 axiom reports for OIBridge/DitaHull.lean in the raw build output (served lines 522-3375), one for each #print axioms line: 30 list sorryAx, 21 are [propext, Classical.choice, Quot.sound], and one, a35_shared_wit_core (297:0, served line 656), reports that it depends on no axioms"
       ]
      }
     ]
    },
-   "status": "partly holds",
-   "detail": "The run executed at its verified GitHub head and failed with 41 errors. Every error category named in the original record occurred. However, the category list is incomplete: at least seven errors belong to additional categories. The failure verdict and error count are confirmed; an exhaustive classification is not established.",
-   "workflow": ".github/workflows/verify.yml",
-   "event": "workflow_dispatch",
-   "attempt": 1,
    "verdict": "confirmed",
    "explanation": "incomplete",
+   "status": "partly holds",
+   "detail": "The run executed at its real head and failed with 41 errors; every error kind the row names occurs. The row's list of kinds is incomplete: at least seven errors are of kinds it does not account for. The row's count of fifty-two theorem declarations in the first draft is confirmed, and 30 of the 52 axiom reports carry sorryAx, so the 52 declarations are not 52 established proofs.",
    "disposition": {
-    "citing_record": "frozen; kept byte-identical: round A35: a file of the record directory verification/programmes/oi-qm/track-b/act-35-dita-hull/, which G13 keeps as it stood at the receipt commit",
-    "correction": "this entry: the run tested its real head, recorded with the evidence above; the cited id is an attribution error",
+    "citing_record": "frozen; kept byte-identical: round A35: a file of the record directory verification/programmes/oi-qm/track-b/act-35-dita-hull/, at blob 17e9c31d5656b990eaaab7debb17d9a58bab1dbe at the receipt commit cc8d2aed79eff09c60421f175ede8dec7b86715e, inside the record directory G13 keeps",
+    "correction": "this entry records the attribution error and the run's real head with the evidence above; a correction of the frozen line's own text would be a native round's (G13)",
     "mutable_dependents": "none",
     "integrity_bound_references": "none beyond the record directory"
    },
@@ -282,13 +896,23 @@
    "id": "PE-4",
    "location": "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:400",
    "citing_blob": "626c6cb23897dcc3585089b59b10906b0e826277",
+   "pin": {
+    "kind": "control_plane_blob",
+    "receipt": "verification/receipts/A45.json"
+   },
    "record_role": "preregistration, design evidence before F: the predicted execution tree less the result note",
+   "workflow": ".github/workflows/verify.yml",
+   "event": "workflow_dispatch",
    "run_id": "36612901341",
+   "attempt": 1,
    "cited_head": "ad64b60319e1ff2d40a5a5eed8e3aa4bfcf30b0e",
    "real_head": "ad64b603b7a1dac18b7246d339abaf43a3642dd3",
+   "shared_digits": 8,
    "real_tree": "12a695df15fcfc0634f6b0d7953c03482d980101",
    "real_parent": "b4c7b0a71e12eeaa354491a5935ba67d07ceed9f",
-   "assertion": "the head on claude/a45-predicted, tree 12a695df15fcfc0634f6b0d7953c03482d980101, carrying thirteen named blobs; all thirteen jobs green: the Mathlib bridge (job 109558562718, 3 minutes 23 seconds) with the release gate passing all 21 steps, lean-axioms at 5278 named results and no sorry, each of the module's 27 axiom lines [propext, Classical.choice, Quot.sound], seventeen receipts holding and the 303 legacy records intact; Numerical probes / A45 ancilla (job 109558562779, 11 seconds) with 16 PASS, no FAIL and the probe's OK line; the aggregate Numerical probes (job 109565848934) green; every other job green",
+   "assertion_verbatim": "| 36612901341 | `ad64b60319e1ff2d40a5a5eed8e3aa4bfcf30b0e` on `claude/a45-predicted`, tree `12a695df15fcfc0634f6b0d7953c03482d980101` | **the predicted execution tree less the result note**: the reference implementation `9d6086bbe3af28e576adf2fb51784b02a5d66e5f`, the probe `8419549b598131a4bdef36e8c9ce82690cdaac6c`, `controls.py` `95ee78b284b4aec3ec487effd6018feb76c6e986`, the workflow `876f2e6d15ea30a435c868cc29ed4d0dacf98ae3` (`D`'s with the frozen edit), `OIBridge.lean` `0c400130d920b0b8bad9c70d6dab5cdf2f156ad3`, the census `bd4258a761ec0a533fb7fb6b9d25bae588d6811c`, `ROADMAP.md` `4e53a3b266d2b63ab1f1aa7728de329298e9fcf9`, `Main.md` `536e5f59c958cf1ea9790f89a592a2a448e5993d`, `Explainer.md` `83f99188c7e0cad114cb26fd959bed9bb2d29756`, `ch01-observation.md` `bffa69f3f2a3cb9cecc76d6a362b728a7ac369a5`, `ch19-open-problems.md` `f7bf7a7cfd7cd02ebe6e2e06128b16ecfd226175`, `FULL.md` `75c8e4c32e263bb243b476e4fe209c11b6a301c4`, `Main`, `Explainer` and the book rebuilt by `build.sh` (87, 67 and 540 pages), and this file's draft `2c0054744b887561d04130bb7ea82287d881b139`, before this row was filled | all thirteen jobs green: the `Mathlib bridge` (job 109558562718, 3 minutes 23 seconds) with the release gate passing all 21 steps — `staleness` (13 matched, 0 unstamped), `lean-manuscript`, `voice`, `claims`, `mirror` and `citation` among them — `lean-axioms` at 5278 named results and no sorry, each of the module's 27 axiom lines `[propext, Classical.choice, Quot.sound]`, seventeen receipts holding and the 303 legacy records intact; `Numerical probes / A45 ancilla` (job 109558562779, 11 seconds) with 16 `PASS`, no `FAIL` and the probe's `OK` line; the aggregate `Numerical probes` (job 109565848934) green; the kernel check and every other probe shard green |",
+   "assertion_sha256": "b4acd141eeb1bf25a81caf0419b0a3164d8950ca194e3290b512238757bd1321",
+   "summary": "the head on claude/a45-predicted, tree 12a695df15fcfc0634f6b0d7953c03482d980101, carrying thirteen named blobs; all thirteen jobs green: the Mathlib bridge (job 109558562718, 3 minutes 23 seconds) with the release gate passing all 21 steps, lean-axioms at 5278 named results and no sorry, each of the module's 27 axiom lines [propext, Classical.choice, Quot.sound], seventeen receipts holding and the 303 legacy records intact; Numerical probes / A45 ancilla (job 109558562779, 11 seconds) with 16 PASS, no FAIL and the probe's OK line; the aggregate Numerical probes (job 109565848934) green; every other job green",
    "content_checks": [
     {
      "kind": "tree_equals_cited",
@@ -360,6 +984,21 @@
      "blob": "2c0054744b887561d04130bb7ea82287d881b139"
     },
     {
+     "kind": "blob_at",
+     "path": "papers/Main.pdf",
+     "blob": "74bc976f85a728fa905124a63108d40f53bb4e6b"
+    },
+    {
+     "kind": "blob_at",
+     "path": "papers/Explainer.pdf",
+     "blob": "bcdefc3c7091a6f50c1a52f5bb7c198a17538edb"
+    },
+    {
+     "kind": "blob_at",
+     "path": "book/The-Incompleteness-of-Observation-FULL.pdf",
+     "blob": "12095f6f3a739c988e5d5da28667d1761e352ad5"
+    },
+    {
      "kind": "count_lines_matching",
      "path": "verification/lean-mathlib/OIBridge/TrackBQfbBridge.lean",
      "regex": "^#print axioms",
@@ -373,9 +1012,73 @@
       "papers/Explainer.tex",
       "book/The-Incompleteness-of-Observation-FULL.tex"
      ]
+    },
+    {
+     "kind": "frozen_edit",
+     "path": ".github/workflows/verify.yml",
+     "base": {
+      "commit": "fa6ddf77703a8ce7f9eaf573ef48355194d72541",
+      "blob": "d9e372f1dc4ba5b45031d5b7f5d87dc78fd6d854"
+     },
+     "source": {
+      "commit": "a5696e37aad5368a2348a5ffeff79197d00ba2c5",
+      "path": "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/controls.py",
+      "blob": "95ee78b284b4aec3ec487effd6018feb76c6e986",
+      "name": "WORKFLOW_EDITS"
+     },
+     "places": 5,
+     "edits": [
+      [
+       "  probes_foundations:\n    name: Numerical probes / foundations\n",
+       "  probes_a45:\n    name: Numerical probes / A45 ancilla\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - uses: actions/setup-python@v5\n        with:\n          python-version: '3.11'\n\n      - name: A45 fixed-basis ancilla probe\n        working-directory: verification/lean\n        run: |\n          echo \"=== fixed_basis_ancilla_probe.py ===\"\n          python3 fixed_basis_ancilla_probe.py\n\n  probes_foundations:\n    name: Numerical probes / foundations\n"
+      ],
+      [
+       "probes_a41_hulls, probes_foundations]",
+       "probes_a41_hulls, probes_a45, probes_foundations]"
+      ],
+      [
+       "          A41H_RESULT: ${{ needs.probes_a41_hulls.result }}\n",
+       "          A41H_RESULT: ${{ needs.probes_a41_hulls.result }}\n          A45_RESULT: ${{ needs.probes_a45.result }}\n"
+      ],
+      [
+       "          echo \"a41_hulls=${A41H_RESULT}\"\n",
+       "          echo \"a41_hulls=${A41H_RESULT}\"\n          echo \"a45=${A45_RESULT}\"\n"
+      ],
+      [
+       "          test \"${A41H_RESULT}\" = success\n",
+       "          test \"${A41H_RESULT}\" = success\n          test \"${A45_RESULT}\" = success\n"
+      ]
+     ]
+    }
+   ],
+   "derived_facts": [
+    {
+     "fact": "papers/Main.pdf, blob 74bc976f85a728fa905124a63108d40f53bb4e6b at the real head, has 87 pages",
+     "form": "derived",
+     "method": "pdfinfo 24.02.0 (poppler) on the blob's bytes, 2026-10-17",
+     "checked_here": "E3 checks that the blob is at its path in the real head; the page count is read from the blob, which is not retained"
+    },
+    {
+     "fact": "papers/Explainer.pdf, blob bcdefc3c7091a6f50c1a52f5bb7c198a17538edb at the real head, has 67 pages",
+     "form": "derived",
+     "method": "pdfinfo 24.02.0 (poppler) on the blob's bytes, 2026-10-17",
+     "checked_here": "E3 checks that the blob is at its path in the real head; the page count is read from the blob, which is not retained"
+    },
+    {
+     "fact": "book/The-Incompleteness-of-Observation-FULL.pdf, blob 12095f6f3a739c988e5d5da28667d1761e352ad5 at the real head, has 540 pages",
+     "form": "derived",
+     "method": "pdfinfo 24.02.0 (poppler) on the blob's bytes, 2026-10-17",
+     "checked_here": "E3 checks that the blob is at its path in the real head; the page count is read from the blob, which is not retained"
     }
    ],
    "outcome": {
+    "run": {
+     "id": "36612901341",
+     "head_sha": "ad64b603b7a1dac18b7246d339abaf43a3642dd3",
+     "attempt": 1,
+     "conclusion": "success",
+     "head_branch": "claude/a45-predicted"
+    },
     "jobs": [
      {
       "id": "109558562492",
@@ -444,6 +1147,11 @@
      }
     ],
     "every_job_head_is_the_real_head": true,
+    "job_record_facts": [
+     "Mathlib bridge (job 109558562718): started 18:33:37Z, completed 18:37:00Z on 2026-09-29, 3 minutes 23 seconds",
+     "Numerical probes / A45 ancilla (job 109558562779): started 18:33:36Z, completed 18:33:47Z, 11 seconds",
+     "all 13 jobs: conclusion success, run_attempt 1, head_sha the real head"
+    ],
     "log_facts": [
      {
       "job": "109558562718",
@@ -465,18 +1173,22 @@
        "16 PASS lines, no FAIL, fixed_basis_ancilla_probe: OK -- 16 checks"
       ]
      }
+    ],
+    "job_record_sources": [
+     {
+      "call": "list_workflow_jobs, run 36612901341, filter all, 2026-10-17",
+      "served_sha256": null,
+      "note": "read as returned; no digest of the served text was taken"
+     }
     ]
    },
-   "status": "holds",
-   "detail": "every content and outcome statement holds for the real head, whose tree is the tree the row cites; the served checkout lines name the real head",
-   "workflow": ".github/workflows/verify.yml",
-   "event": "workflow_dispatch",
-   "attempt": 1,
    "verdict": "confirmed",
    "explanation": "confirmed",
+   "status": "holds",
+   "detail": "every content statement holds for the real head, whose tree is the tree the row cites: the thirteen named blobs are at their paths, the workflow is D's with the five-place edit frozen in controls.py, and the three PDFs at their paths have 87, 67 and 540 pages by pdfinfo; every outcome statement holds against the job records and the served logs; the served checkout lines name the real head",
    "disposition": {
     "citing_record": "frozen; kept byte-identical: round A45: a control-plane file pinned by blob 626c6cb23897dcc3585089b59b10906b0e826277 in verification/receipts/A45.json, inside the record directory G13 keeps",
-    "correction": "this entry: the run tested its real head, recorded with the evidence above; the cited id is an attribution error",
+    "correction": "this entry records the attribution error and the run's real head with the evidence above; a correction of the frozen line's own text would be a native round's (G13)",
     "mutable_dependents": "none",
     "integrity_bound_references": "the receipt pin above; it stays valid only while the citing bytes are unchanged"
    },
@@ -498,12 +1210,276 @@
      "assessment": "holds: the three .tex rebuilt at stage 3 (papers/Main.tex, papers/Explainer.tex, book/The-Incompleteness-of-Observation-FULL.tex) have at A45's E (a5696e37aad5368a2348a5ffeff79197d00ba2c5) the blob ids they have in the real head's tree 12a695df15fcfc0634f6b0d7953c03482d980101: cd4ffaa3c2a7d680acb2d7d21ad053b26b45d7eb, d09bd6e63d16a88c207c70ded2c133e964f26181, 6db12b56d782fadbfdbe03d5ff1b4b0f258dabb1"
     }
    ]
+  },
+  {
+   "id": "PE-5",
+   "location": "verification/programmes/oi-qm/reconstruction/round-k1-sharp-tests-1/preregistration.md:214",
+   "citing_blob": "bddfa3401dd16674958fc1de40eaa0d94fd30072",
+   "pin": {
+    "kind": "control_plane_blob",
+    "receipt": "verification/receipts/K1-SHARP-TESTS-1.json"
+   },
+   "record_role": "preregistration, design evidence before F: pre-round run b on the disposable branch claude/twole-design, supporting history only",
+   "workflow": ".github/workflows/verify.yml",
+   "event": "workflow_dispatch",
+   "run_id": "37494787556",
+   "attempt": 1,
+   "cited_head": "0850281a",
+   "real_head": "0850281082f0dd1cf2c6c906afa57726ab31b076",
+   "shared_digits": 7,
+   "real_tree": "afc40cccacaee91c14f70f5a5ac89d9f5c77a9a2",
+   "real_parent": "92a09a1c961dea73a95cbf91b2ca4f0c882f77f0",
+   "assertion_verbatim": "| b | `0850281a` | 37494787556 | **green**: all 32 jobs `success`; the only change from run a was that `variable` line; the ten prints within `[propext, Classical.choice, Quot.sound]`; release gate PASS (`lean-axioms` 5753) |",
+   "assertion_sha256": "f160ed34aa5173e501884f039a83c11ddd33c201e0617e4ae54a3d196f0d9d62",
+   "summary": "run b: green, all 32 jobs success; the only change from run a (92a09a1c) was the variable line; the ten prints within [propext, Classical.choice, Quot.sound]; release gate PASS, lean-axioms 5753",
+   "content_checks": [
+    {
+     "kind": "diff_paths",
+     "against": "92a09a1c961dea73a95cbf91b2ca4f0c882f77f0",
+     "expect": [
+      "verification/lean-mathlib/OIBridge/TwoSharpTests.lean"
+     ]
+    },
+    {
+     "kind": "diff_line_counts",
+     "against": "92a09a1c961dea73a95cbf91b2ca4f0c882f77f0",
+     "path": "verification/lean-mathlib/OIBridge/TwoSharpTests.lean",
+     "added": 1,
+     "removed": 1
+    },
+    {
+     "kind": "diff_removes_line",
+     "against": "92a09a1c961dea73a95cbf91b2ca4f0c882f77f0",
+     "path": "verification/lean-mathlib/OIBridge/TwoSharpTests.lean",
+     "text": "variable {V : Type*} [AddCommGroup V] [Module ℝ V] {d : ℕ}"
+    },
+    {
+     "kind": "diff_adds_line",
+     "against": "92a09a1c961dea73a95cbf91b2ca4f0c882f77f0",
+     "path": "verification/lean-mathlib/OIBridge/TwoSharpTests.lean",
+     "text": "variable {V : Type} [NormedAddCommGroup V] [NormedSpace ℝ V] {d : ℕ}"
+    },
+    {
+     "kind": "count_lines_matching",
+     "path": "verification/lean-mathlib/OIBridge/TwoSharpTests.lean",
+     "regex": "^#print axioms ",
+     "expect": 10
+    }
+   ],
+   "outcome": {
+    "run": {
+     "id": "37494787556",
+     "head_sha": "0850281082f0dd1cf2c6c906afa57726ab31b076",
+     "attempt": 1,
+     "conclusion": "success",
+     "head_branch": "claude/twole-design"
+    },
+    "jobs": [
+     {
+      "id": "112376438515",
+      "name": "Numerical probes / core A",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376438753",
+      "name": "Numerical probes / core B",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376438870",
+      "name": "Lean kernel check",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376438898",
+      "name": "Numerical probes / A41 independent",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376438912",
+      "name": "Mathlib bridge",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376438972",
+      "name": "Numerical probes / A41 production",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439060",
+      "name": "Numerical probes / A42 witness",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439089",
+      "name": "Numerical probes / A45 ancilla",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439095",
+      "name": "Numerical probes / NB-1 native-gate ball",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439107",
+      "name": "Numerical probes / foundations",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439159",
+      "name": "Numerical probes / A38 escape",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439178",
+      "name": "Numerical probes / A42 census01",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439200",
+      "name": "Numerical probes / A41 hulls",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439221",
+      "name": "Numerical probes / KINF-2 foundations",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439287",
+      "name": "Numerical probes / A40 locus",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439529",
+      "name": "Numerical probes / A36 hierarchy",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439758",
+      "name": "Numerical probes / A42 exclusion (n18:1)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439799",
+      "name": "Numerical probes / A42 exclusion (paths)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439818",
+      "name": "Numerical probes / A42 exclusion (n18:2)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439842",
+      "name": "Numerical probes / A42 exclusion (dfs:2)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439911",
+      "name": "Numerical probes / A42 exclusion (dfs:1)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439937",
+      "name": "Numerical probes / A42 exclusion (dfs:0)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439970",
+      "name": "Numerical probes / A42 exclusion (cubes:1)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439981",
+      "name": "Numerical probes / A42 exclusion (cubes:0)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376439985",
+      "name": "Numerical probes / A42 exclusion (dfs:3)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376440065",
+      "name": "Numerical probes / A42 exclusion (n18:0)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376440080",
+      "name": "Numerical probes / A42 exclusion (dfs:5)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376440090",
+      "name": "Numerical probes / A42 exclusion (r5)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376440149",
+      "name": "Numerical probes / A42 exclusion (sathr)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376440218",
+      "name": "Numerical probes / A42 exclusion (dfs:4)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112376440297",
+      "name": "Numerical probes / A42 exclusion (cubes:2)",
+      "conclusion": "success"
+     },
+     {
+      "id": "112384559724",
+      "name": "Numerical probes",
+      "conclusion": "success"
+     }
+    ],
+    "every_job_head_is_the_real_head": true,
+    "job_record_facts": [
+     "all 32 jobs: conclusion success, run_attempt 1, head_sha 0850281082f0dd1cf2c6c906afa57726ab31b076 (list_workflow_jobs, 2026-10-17)",
+     "run a, 37492945459 (the line above the citing line): head_sha 92a09a1c961dea73a95cbf91b2ca4f0c882f77f0, run_attempt 1, conclusion failure; its 32 jobs ran on that head, the Mathlib bridge (job 112370081942) failing (get_workflow_run and list_workflow_jobs, 2026-10-17)"
+    ],
+    "log_facts": [
+     {
+      "job": "112376438912",
+      "served": "tail, 5000 of 37165 lines",
+      "served_sha256": "42a2eef9bbbfa13c51945d6b02b3b3829a47030fdbc72cd37cae317acabce34e",
+      "facts": [
+       "OIBridge.TwoSharpTests built (served line 4910); Build completed successfully (3635 jobs) (4944)",
+       "ten axiom reports for OIBridge/TwoSharpTests.lean, at its lines 193-202, each [propext, Classical.choice, Quot.sound] (served lines 4914-4923)",
+       "no sorryAx and no error line anywhere in the served text",
+       "the release gate: 21 steps, all PASS (served lines 4953-4973), lean-axioms 5753 named results (4968), RECEIPTS 36 receipt(s), all hold (4973), release gate: PASS (4975)"
+      ]
+     }
+    ],
+    "job_record_sources": [
+     {
+      "call": "list_workflow_jobs, run 37494787556, filter all, 2026-10-17",
+      "served_sha256": "d2085d136868d60855295839cf855f0d91ef3524d0c061fabc60ae0a0337ca88"
+     },
+     {
+      "call": "list_workflow_jobs, run 37492945459, filter all, 2026-10-17",
+      "served_sha256": "51513ddcb9f6e8f7a4c9a02f6009bde5bc21e07348c908820be842dd2bcce64b"
+     }
+    ]
+   },
+   "host_facts": [
+    "GitHub get_commit on 0850281a answered 'No commit found for SHA: 0850281a', 2026-10-17",
+    "git ls-remote at 2026-10-17T03:53Z (1238 refs, sha256 bfb3a7ebe9f4e7c6257e1a9332ba944c1d504ead3e8e730c7211f1b3ac0ebbb7): the real head and run a's head are reachable from refs/heads/claude/twole-design"
+   ],
+   "verdict": "confirmed",
+   "explanation": "confirmed",
+   "status": "holds",
+   "detail": "every content and outcome statement holds for the real head: its parent is run a's head 92a09a1c, and the diff from it is exactly the variable line, Type* over AddCommGroup/Module replaced by Type over NormedAddCommGroup/NormedSpace; the module carries ten #print axioms lines, each reported within the three axioms; all 32 jobs succeeded on the real head and the release gate passed with lean-axioms at 5753",
+   "disposition": {
+    "citing_record": "frozen; kept byte-identical: round K1-SHARP-TESTS-1: a control-plane file pinned by blob bddfa3401dd16674958fc1de40eaa0d94fd30072 in verification/receipts/K1-SHARP-TESTS-1.json, inside the record directory G13 keeps",
+    "correction": "this entry records the attribution error and the run's real head with the evidence above; a correction of the frozen line's own text would be a native round's (G13)",
+    "mutable_dependents": "none",
+    "integrity_bound_references": "the receipt pin above; it stays valid only while the citing bytes are unchanged"
+   },
+   "cross_references": []
   }
- ],
- "cross_reference_census": {
-  "tool": "xref_census.py",
-  "commit": "66a981d5a9cab35b9ebd253aa0e610c0afbfefb6",
-  "output": "census-66a981d5.json",
-  "finding": "on main, each cited id occurs once, at its own citing line; no prefix of a cited id or of a real head occurs anywhere, and no real head is named; each run id occurs only at its citing line, except run 36612901341, whose id also occurs, without a head, at two lines of act 45 (PE-4); no mutable summary, roadmap, manifest or archive entry names any of the four"
- }
+ ]
 }

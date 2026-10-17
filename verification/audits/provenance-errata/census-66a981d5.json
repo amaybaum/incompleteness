@@ -1,10 +1,13 @@
 {
  "commit": "66a981d5a9cab35b9ebd253aa0e610c0afbfefb6",
- "rule": "Cross-reference census for the provenance errata: every place a commit's tracked text names an errata entry's\ncited head, its real head, a prefix of either, or its run id.",
+ "rule": "Cross-reference census for the provenance errata: every place a commit's tracked text names an errata entry's\ncited id, its real head, a prefix of either, or its run id.",
+ "files_scanned": 1628,
+ "files_skipped_binary": 13,
  "entries": [
   {
    "id": "PE-1",
    "run_id": "36257341185",
+   "shared_digits": 8,
    "occurrences": [
     {
      "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:710",
@@ -21,6 +24,7 @@
   {
    "id": "PE-2",
    "run_id": "36257659584",
+   "shared_digits": 8,
    "occurrences": [
     {
      "location": "verification/programmes/oi-qm/track-b/act-33-orbit-isometry-group/preregistration.md:711",
@@ -37,6 +41,7 @@
   {
    "id": "PE-3",
    "run_id": "36310787113",
+   "shared_digits": 8,
    "occurrences": [
     {
      "location": "verification/programmes/oi-qm/track-b/act-35-dita-hull/result.md:218",
@@ -53,6 +58,7 @@
   {
    "id": "PE-4",
    "run_id": "36612901341",
+   "shared_digits": 8,
    "occurrences": [
     {
      "location": "verification/programmes/oi-qm/track-b/act-45-fixed-basis-image/preregistration.md:400",
@@ -81,6 +87,23 @@
      ],
      "names_a_head": false,
      "text": "those of the predicted tree carried by the pre-freeze run 36612901341."
+    }
+   ]
+  },
+  {
+   "id": "PE-5",
+   "run_id": "37494787556",
+   "shared_digits": 7,
+   "occurrences": [
+    {
+     "location": "verification/programmes/oi-qm/reconstruction/round-k1-sharp-tests-1/preregistration.md:214",
+     "class": "frozen",
+     "kinds": [
+      "cited-full",
+      "run-id"
+     ],
+     "names_a_head": true,
+     "text": "| b | `0850281a` | 37494787556 | **green**: all 32 jobs `success`; the only change from run a was that `variable` line; the ten prints within `[propext, Classical.choice, Quot.sound]`; release gate PASS (`lean-axioms` 57"
     }
    ]
   }
