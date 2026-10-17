@@ -80,14 +80,16 @@ are drafts, and no merge is authorized.
 - **52 raw git objects are retained** in `objects/`. `check_errata.py` fails closed (HOLDS / UNCHECKED / FAILS) and
   is not in CI.
 - **PR CI:** run 39005917661 is green on the synthetic merge `610d872d`, whose tree `4f3ca100` equals the head's.
-- **Exact-head run 39006747889:** green, 30/30 jobs at `8021c1fc`, release gate 22/22 PASS (`lean-axioms` 5989 with
+- **Exact-head run 39006747889:** green, 37/37 jobs at `8021c1fc`, release gate 22/22 PASS (`lean-axioms` 5989 with
   no sorry; `evidence-retention` HOLDS; receipts 48; legacy records 303).
-- **Next:** an independent acceptance review of the unchanged `8021c1fc`.
-  - The reviewer must run `check_errata.py` and verify the five entries, PE-3's wording, the retained objects and the
-    fail-closed behaviour.
-  - That review was running in the old session; if no verdict is recorded on the PR or in this file, re-run it.
-  - PE-3's required finding, verbatim: "52 theorem declarations were counted, but 30 carry `sorryAx`. Their presence
-    cannot be described as 52 established proofs."
+- **Independent acceptance: ACCEPT-WITH-NOTES** (`records/pr855/ACCEPTANCE-8021c1fc.md`).
+  - All six conditions are met: the five entries, PE-3's wording, the retained objects, fail-closed behaviour,
+    exact-head evidence and scope.
+  - Main note (medium-low): consistent judgment edits are not detected. A verdict and its status changed the same way
+    in both files gives HOLDS. A cheap fix, if wanted: pin each id's (verdict, explanation, status) next to
+    `ENTRY_IDS`.
+  - **Owner decision pending:** accept, take the optional pin fix in a reviewed follow-up commit, or authorize a
+    merge.
 - **Optional nit:** at README.md:85-86 "Their" could be read as the log lines.
 - It stays a draft, with no merge.
 

@@ -1,4 +1,4 @@
-54cb90394796a4d3ca2364c1d69c975623437c35480bf292678725269ab09d34  ./HANDOFF.md
+0e81cff85406996ab9f8f6c099bb60f158431063f2c3405b0091ec39bc71b1de  ./HANDOFF.md
 ec6d0fac3a0caeae5bc6572d60c9a1b2b556c7aff1ad2395fd5c642a3b317ec7  ./README.md
 eee429d1b3e6e7f05af1cf7e11fb30081f7e1030a9703997c75969fe0f350ebd  ./preservation/b1/host-unreferenced-84-20261016.bundle
 26c1a7649b36a8249a7d31089297ef22bf33dadfbd11732d5c67f87c913cbaa7  ./preservation/b1/manifest.json
@@ -31,6 +31,7 @@ d98860439b26bc47f1007abd95d33f014a05733ccb1474b5c30c56c24719fd4f  ./records/deci
 525e20a04408c92a13dd73aba368241329d56aae484bcb601c72f6d2f5a95758  ./records/incidents/2026-10-17-scratch-log-deletion.md
 346251bb44f4d6b4f5e102027f727bcfa2945433dc0b0d399333235099863f55  ./records/inventory/inventory-reconciliation-20261017.md
 9ed4140e01c5620d5e4071b6e4f5b523c6df716b2c76b9189723600330c07115  ./records/inventory/tranche2-inventory-20261016.zip
+2ab817ba0f3187c4c52ba49151bd9267dcb50242e98acce2409ede71127ab5d3  ./records/pr855/ACCEPTANCE-8021c1fc.md
 c774aacc49e71814aa1647967ab43d2f757a02e2d77d0d037d6354896e2cce50  ./wip/829-import-bridge/experiment/finite-reconstruction-design.disposable.yml
 8773c04d492e48b577ff9377b97f705676c811f7cc7c69dbb292a80afb572fdf  ./wip/829-import-bridge/experiment/gen/GENERATED.SHA256SUMS
 3ab77fc212dee61f766a861165d809a2fd354d5301b30bb1944704f6a2dc590e  ./wip/829-import-bridge/experiment/gen/cases/Control_remove.lean
