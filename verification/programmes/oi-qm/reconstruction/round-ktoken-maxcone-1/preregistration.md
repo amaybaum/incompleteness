@@ -292,8 +292,21 @@ exit status is 1.
 
 When every static control passes, each cell prints its positive token or `…-NOT-ESTABLISHED` by its rule above, and the
 round prints `KTOKEN-MAXCONE-1-READ`. No rule reads another cell's outcome. The tokens are printed by
-`controls.py verdict E --freeze F --axioms <E's bridge log>`. `controls.py --self-test`, which the shard runs, drives
-`verdict` itself through each required control failing alone, one control unreported, and the all-clean case.
+`controls.py verdict E --freeze F --axioms <E's bridge log>`.
+
+`check` records each control's outcome only when that control runs. Its result maps exactly the controls that ran, and
+a control that never recorded an outcome is absent and counts as failed.
+
+`controls.py --self-test`, which the shard runs, drives `verdict` in two ways:
+- **Through injected static results:** each required control failing alone, one control unreported, and the all-clean
+  case.
+- **End to end, through the real `check()`, on an in-memory fixture of `D`, `F` and `E`:**
+  - with each control's record call removed from the source;
+  - with a control's inputs absent (the workflow, `OIBridge.lean`, the result note, a pinned evidence file, the module
+    header);
+  - unmutated.
+
+In every failing case `verdict` must return failure, name the control, print no positive token and never run the probe.
 
 ## The earned reading and the non-inference rule (frozen)
 
@@ -356,7 +369,7 @@ OPEN under every outcome.
   - The absence `#eval` is present verbatim, and `EqvK2MaxCone` appears nowhere else in the code.
   - Mutations: citing the pair theorem fails S3 alone; so do naming a sibling, an equivalence not built from its
     witnesses, and the module without the absence check.
-- **S4 phrases** (module header, result note): "OI supplies", "sources the k-token", "local tomography is derived",
+- **S4 phrases.** The module header and, at `E`, the result note must be present, with none of: "OI supplies", "sources the k-token", "local tomography is derived",
   "is invariant under every unitary", "Kn is discharged", "Kn is closed", "K2 is closed", "OI implies QM", "kernel proof
   of" (for the probe).
 - **W.** `verify.yml` at `E` is `D`'s with exactly six splices, each anchored once:
@@ -367,7 +380,7 @@ OPEN under every outcome.
 - **J.** The census at `E` is `D`'s with the one family.
 - **C2.** The five frozen blobs (*Design evidence*).
 - **P.** The retained evidence pinned below is present at `E` with its digests.
-- **R.** The record directory holds exactly:
+- **R.** The record directory holds exactly (the result note is required at `E`):
   - this file, `controls.py`, the two check files and the pinned evidence;
   - `evidence/f-run/` and `amendments/` if present;
   - the result note at `E`.
@@ -383,7 +396,7 @@ OPEN under every outcome.
 | one witness per direction of the iff; the `k = 2` recovery uses the k-token theorem | `C5`: S1 and S3 in `controls.py check E --freeze F` |
 | the `k = 2` recovery is independent of the pair theorem and its siblings, and its statement is the pair theorem's | `C3`: the bridge job's A3 step `success` with `A3-CHECK-NONVACUOUS: 13 cases as expected`, its eleven mutations failing in the same step; the absence line in the build log |
 | the exact layer replays; its mutations are rejected | `C3`: shard `probes_ktokenmaxcone1` green; `verdict` re-runs the probe blob at `E` (N = 3196) |
-| no positive token is printed while any required static control fails | `C3`: shard `probes_ktokenmaxcone1` running `controls.py --self-test`, whose `verdict` regression covers each of the 13 controls failing alone, one unreported, and the all-clean case |
+| no positive token is printed while any required static control fails or never ran | `C3`: shard `probes_ktokenmaxcone1` running `controls.py --self-test`, whose `verdict` regression covers each of the 13 controls failing alone, one unreported, and the all-clean case, and whose end-to-end test runs the real `check()` with each control's record call removed and with each control's inputs absent |
 | the classical carrier instance does not leak to importers | `C5`: S1 (the two scoped lines) |
 | the module is registered; no manuscript or ROADMAP changes | `C4`: the release gate at `E` passing every step, `evidence-retention` included; `C5` (J, G) |
 | the change stays inside the governed paths, with exactly the frozen workflow, import and census edits | `C6`: `git diff --no-renames --name-status D E`; `C5` (G, W, I, J) |
@@ -420,7 +433,7 @@ below.
 
 | path | blob |
 | --- | --- |
-| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `00a081de9b922a4e10d5832d6edb216e1a7ea588` |
+| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `160e0c2a8ae057f36dcc52f31bd4d4695ace3663` |
 | `verification/lean-mathlib/OIBridge/KTokenMaxCone.lean` | `14bb9fc07bf65e59e3f412ac7270ffb734a30069` |
 | `verification/lean/ktoken_maxcone1_probe.py` | `04580c5104eaa4cf7eaa5fc32614582442f538e1` |
 | `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | `354bd7ce18119da451883ab5189010a5113ffa16` |
