@@ -8,8 +8,8 @@ at line 833). The other PRs below are drafts, and no further merge is authorized
 The owner requested closing the open repair work in small batches on 2026-10-17.
 
 1. **#854:** `e3a44e63` independently re-reviewed; the recorded counterexamples and local checks pass.
-   The PR branch has been advanced to that exact SHA. Current-head CI and both real reproductions remain
-   required. See `records/pr854/REVIEW-e3a44e63.md` and the replay harness beside it.
+   The PR branch has been advanced to that exact SHA. PR integration CI passed; exact-head CI and both
+   real reproductions are now running. See `records/pr854/REVIEW-e3a44e63.md` and the replay harness beside it.
 2. **Handoff freshness:** #855's main-push run and #853's PR run are complete and successful. This snapshot
    closes those pending status entries and corrects the branch map.
 3. **F2 research-text repairs:** the four overclaims listed below remain a separate, bounded repair batch;
@@ -116,13 +116,21 @@ Main remains `ea3155fd`. The #854 repair preserves its history from `66a981d5`; 
 - The independent harness has 28 passing assertions, including 68 split/joined parser pairs. It demonstrates
   the old bypasses and the fixed rejections. Its CLI cases use declared toolchain stand-ins; they test exit
   handling and do not substitute for real Lean reproductions.
-- **PR integration run:** 39014855014, in progress at this snapshot.
-- **Next:** finish that run, dispatch `verify.yml` on exactly this head, then dispatch
-  `reproduce-evidence.yml` twice with `run_id=38855576525`: positive with no override; negative with
-  `override_sha=777ddf8dcada759b5f3bcab26a4ff3833ba720bf` and
-  `expect_failure=real_to_integer_surrogate`.
-- Current connection constraint: the GitHub tools do not expose dispatch. Browser fallback requires approval
-  under the browser tool's instructions. No alternate trigger or workflow edit has been introduced.
+- **PR integration run:** 39014855014 succeeded: 22 successful jobs and one expected skip.
+- **Hosted validation launched on the owner's browser approval:** all three report workflow_dispatch at
+  exactly e3a44e63 on the reviewed PR branch:
+  - exact-head verify: 39015598932, in progress;
+  - positive reproduction: 39015652045, job 117347122609, in progress;
+  - negative control: 39015699107, job 117347262163, in progress.
+- Both reproductions use `run_id=38855576525`. The positive has no override or expected-failure text.
+  The negative uses `override_sha=777ddf8dcada759b5f3bcab26a4ff3833ba720bf` and
+  `expect_failure=real_to_integer_surrogate`. Its acceptance requires a complete passing build/gate and
+  only scientific comparison failures containing that required text.
+- A bounded hourly completion check starts at 12:01 Asia/Jerusalem, with at most three checks. It verifies
+  the actual logs, updates this handoff and the PR, then requests exact-SHA owner merge approval only if
+  every requirement holds. The batch remains open. Details: `records/pr854/RUNS-e3a44e63.md`.
+- The connection's missing dispatch operation was handled by the approved browser UI; no alternate trigger
+  or workflow edit was introduced. Further workflow launches were not part of this approval.
 - The PR stays a draft pending separate acceptance and owner merge approval.
 
 The owner's requirement remains: attested-run versus checked-run set equality, identical semantics for both

@@ -62,6 +62,7 @@ from `6bf56dc4` to exactly `e3a44e63`; the old checkpoint and intermediate fix r
 
 The pull-request run is an integration check. It does not replace a `workflow_dispatch` run on exactly
 `e3a44e63`, or the real positive and negative reproductions with the verifier at that SHA.
-The connected GitHub tools expose no workflow-dispatch operation. Browser fallback requires approval
-under the session's browser instructions. No workflow workaround or change to the workflow is introduced.
+The connected GitHub tools expose no workflow-dispatch operation. The owner subsequently approved browser
+fallback, and the three required workflows were launched at this exact head. See RUNS-e3a44e63.md for the
+run ids, exact inputs and pending acceptance requirements. No alternate trigger or workflow edit was used.
 The PR remains a draft. No merge is authorized by this review.
