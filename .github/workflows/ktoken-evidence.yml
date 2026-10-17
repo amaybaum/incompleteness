@@ -1,0 +1,112 @@
+name: KTOKEN-MAXCONE-1 evidence extraction (read-only)
+
+# Read-only, in-CI extraction of KTOKEN-MAXCONE-1's two retained expected results (AGENTS §A.42 item 1), from the
+# design runs' job logs, which a session cannot download:
+#   run 39043849411 at 1ab0fd9d: Mathlib bridge 117428550018, probe shard 117428550439
+#   run 39056982958 at 6959ced4: Mathlib bridge 117466847042, probe shard 117466847062
+# It runs only on a push to tmp/ktoken-evidence-20261017, a parentless branch that holds only this workflow and
+# extractor/; no other workflow file is in that tree, so a push to it starts no other workflow.
+#
+# extractor/download_job_logs.py fetches each log in an explicit two-step: the token goes only to the four pinned
+# jobs/<id>/logs endpoints on api.github.com; the storage link is fetched without credentials, under a size cap,
+# timeouts and a deadline, and is never printed. extractor/fetch_records.py reads the two runs' JSON records from
+# allow-listed endpoints. extractor/assemble_evidence.py checks the logs against the download record, reads them
+# with extract_result.py from main at b96662e6 (blob 05c41bce, verified before it runs), and prints each result as
+# it would be committed, its sha256, and one verdict line: EXTRACT HOLDS (exit 0), EXTRACT FAILS (exit 1) or
+# EXTRACT UNVERIFIED (exit 2).
+#
+# The job writes nothing: no artifact, no cache, no commit, ref, tag or release, no step summary. GH_TOKEN is set
+# only on the two steps that call the API; every checkout uses persist-credentials: false.
+
+on:
+  push:
+    branches: ['tmp/ktoken-evidence-20261017']
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: ktoken-evidence-20261017
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  extract:
+    name: Extract KTOKEN-MAXCONE-1 expected results
+    if: github.ref == 'refs/heads/tmp/ktoken-evidence-20261017'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # actions/checkout, tag v4, pinned to 11d5960a326750d5838078e36cf38b85af677262: the commit GitHub resolved
+      # actions/checkout@v4 to in the design runs' own logs. It is the only external action in this workflow.
+      - name: Check out the extractor
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          persist-credentials: false
+
+      # main at b96662e6, for extract_result.py only; assemble_evidence.py checks this checkout's HEAD and the
+      # file's blob (05c41bce610b8d02ccbaca8e69377b771bef4a35) before it executes it.
+      - name: Check out extract_result.py at main b96662e6
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          ref: b96662e6be4f537502c772db369ea32a35b213a8
+          path: main-src
+          sparse-checkout: verification/audits/evidence-retention
+          persist-credentials: false
+
+      - name: Self-test the fetcher, the downloader and the assembler (local only, no network)
+        id: selftest
+        run: |
+          python3 --version
+          python3 -I extractor/fetch_records.py --self-test
+          python3 -I extractor/download_job_logs.py --self-test --work "$RUNNER_TEMP"
+          python3 -I extractor/assemble_evidence.py --self-test \
+            --extractor main-src/verification/audits/evidence-retention/extract_result.py --work "$RUNNER_TEMP"
+
+      # The two design-run heads, for the governed modules' sources (their #print axioms lines). Only read; the
+      # assembler checks each checkout's HEAD and each file's blob with git.
+      - name: Check out run 1's head (governed module sources)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          ref: 1ab0fd9dd2c6701197f2e0ab18401cafb76a090d
+          path: src-run1
+          sparse-checkout: verification/lean-mathlib/OIBridge
+          persist-credentials: false
+
+      - name: Check out run 2's head (governed module sources)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+        with:
+          ref: 6959ced4c327ebb800cf6d463a049e4066e37288
+          path: src-run2
+          sparse-checkout: verification/lean-mathlib/OIBridge
+          persist-credentials: false
+
+      - name: Fetch the two runs' records and job lists (JSON endpoints only)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -I extractor/fetch_records.py --out "$RUNNER_TEMP/host"
+
+      - name: Download the four job logs (two-step; the token goes only to the pinned API endpoints)
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 -I extractor/download_job_logs.py --out-dir "$RUNNER_TEMP/logs" \
+            --record "$RUNNER_TEMP/download-record.json"
+
+      # Runs whenever the self-test passed, so a failed checkout, fetch or download still ends in a printed
+      # UNVERIFIED verdict rather than in silence. No token here.
+      - name: Assemble, check and print the expected results
+        if: ${{ !cancelled() && steps.selftest.outcome == 'success' }}
+        run: |
+          python3 -I extractor/assemble_evidence.py \
+            --extractor main-src/verification/audits/evidence-retention/extract_result.py --extractor-repo main-src \
+            --host "$RUNNER_TEMP/host" --logs "$RUNNER_TEMP/logs" --download-record "$RUNNER_TEMP/download-record.json" \
+            --src run1=src-run1 --src run2=src-run2
