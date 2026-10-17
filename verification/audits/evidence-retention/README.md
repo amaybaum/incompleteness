@@ -126,6 +126,7 @@ python3 -I verification/audits/evidence-retention/check_retention.py --later-pro
 python3 -I verification/audits/evidence-retention/check_retention.py --module-sets
 python3 -I verification/audits/evidence-retention/check_retention.py --gate
 python3 -I verification/audits/evidence-retention/compare_result.py --self-test
+python3 -I verification/audits/evidence-retention/extract_result.py --self-test     # needs history
 python3 -I verification/audits/evidence-retention/reproduce.py --run <run_id> --work <dir>   # needs elan and history
 python3 -I verification/audits/evidence-retention/check_objects.py                 # tree mode, no git
 python3 -I verification/audits/evidence-retention/check_objects.py --reconstitute  # history mode
@@ -152,6 +153,8 @@ At `fc5abade` every receipt is covered and `coverage.later` is empty. A receipt 
 `--gate` is the release gate's `evidence-retention` step. It runs the check in history mode, where R9's scope is read from git rather than from the tree: every receipt, and every certificate attestation citing runs, that existed at `fc5abade` must be covered, nothing else may be, and a receipt landed later needs no declaration. It runs R10 and R11, printing the results outside R11's scope, then the self-test, whose R10 and R11 cases need that history and fail without it. The Mathlib bridge job, which runs the gate, checks out the full history. The gate does not rebuild anything; reproduction is the separate workflow above.
 
 It prints the gaps and every claim not retained. The self-test mutates a copy once for each of the checker's failure messages, and requires that message.
+
+**Two report formats.** `lake build` prints each `#print axioms` report with its `file:line:col:` prefix; `lean FILE`, run directly, prints it without one. `extract_result.py` reads both: prefixed reports by module, and direct reports by the Actions step that printed them, attributed to a file only when that step's script runs `lean` on exactly one file and otherwise recorded with the reason the log does not determine it. A declaration name may end in primes (`sum_comp'`). A wrapped axiom list is joined only over the continuation lines Lean prints, so a cut list is marked unclosed and never absorbs the next report. Its `check` function tests the reports against named sources and fails closed: a missing, extra, duplicated, renamed or truncated report, `sorryAx`, an axiom outside the permitted three and a failure marker each fail it under their own name, and an unattributed direct report is a named gap. Its `--self-test` runs these cases on BG-3's retained bridge tails and design-run log, with their sources at `E`, and on verbatim lines of two research-build logs, and requires each failure by name; the three tails must also reproduce their archived expected results.
 
 **`build_archive.py` documents how the tranche was cut.** It cannot be re-run from the tree, because its inputs (the saved API responses and served logs) are not retained; their digests are. The checker and the reproduction tool are the reproducible parts.
 
