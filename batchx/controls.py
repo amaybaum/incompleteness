@@ -129,9 +129,9 @@ MUTANTS = [
     ('collect.py', (('        involved = named | {inv[job]}\n', '        involved = {inv[job]}\n'), ('        elif len({identity(a[1]) for a in ans}) > 1:\n', '        elif False:\n'), ), None,
      'R1/R2 (reviewer M6): the first answer per job decides, no identity comparison, the log names nothing',
      ["[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both", "[R1b] the mirror, shard 1's job serving shard 3's content, voids the same two shards", '[R2d] a clean shard 1, then a conflicting copy of the same job arriving after it: shard 1 UNVERIFIED']),
-    ('collect.py', (('    return named  # every shard the log names\n', '    return {int(m.group(1)) for m in [next((BANNER.match(l) for l in L if BANNER.match(l)), None)] if m}\n'), ), None,
+    ('collect.py', (('    return named  # every shard the log names\n', '    return {int(m.group(1)) for m in [next((BANNER.match(l) for l in L if BANNER.match(l)), None)] if m}\n'), ('        named |= set().union(*(a[5] for a in ans))  # the raw scan of every answer\n', ''), ), None,
      'F1: only the first readable RUNSET line names a shard (the 56913c6e reading)',
-     ["[F1b] shard 3's job serving shard 1's log with its RUNSET line malformed voids shards 1 and 3, no run usable but shard 2's", "[F1c] shard 3's job serving shard 1's log with its RUNSET line deleted voids shards 1 and 3, no run usable but shard 2's", "[F1d] shard 3's job serving shard 1's log as shard 3's log followed by shard 1's in one answer voids shards 1 and 3, no run usable but shard 2's"]),
+     ["[F1b] shard 3's job serving shard 1's log with its RUNSET line malformed voids shards 1 and 3, only shard 2's runs eligible, none usable", "[F1c] shard 3's job serving shard 1's log with its RUNSET line deleted voids shards 1 and 3, only shard 2's runs eligible, none usable", "[F1d] shard 3's job serving shard 1's log as shard 3's log followed by shard 1's in one answer voids shards 1 and 3, only shard 2's runs eligible, none usable"]),
     ('collect.py', (('    if span is not None and any(L[i].startswith("CHECK all ") for i in range(span[0], span[1])):\n', '    if False:\n'), ), None,
      "F2: a CHECK all line inside the assembler's output is ignored",
      ["[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard"]),
@@ -168,6 +168,69 @@ MUTANTS = [
     ('collect.py', (('    if not re.fullmatch(r"[0-9a-f]{40}", str(head)):\n', '    if False:\n'), ), None,
      'R4: a launched commit that is not a full sha is accepted',
      ['[R4d] a launched commit that is not a full 40-hex sha is refused']),
+    ('collect.py', (('            quarantine.append({"kind": "missing", "shard": k, "job_id": job_index.get(k),\n', '            ({"kind": "missing", "shard": k, "job_id": job_index.get(k),\n'), ), None,
+     'I/completeness: a shard whose expected answer was not served is ignored',
+     ["[I5] one shard's answer missing quarantines the whole collection, recorded by its expected name: zero runs eligible or usable, read back from disk", 'a shard missing quarantines the whole collection']),
+    ('collect.py', (('            failed.append({"file": name, "sha256": dig, "shard": k, "problems": probs})  # traceability\n', ''), ), None,
+     'I/traceability: a file that fails validation is not recorded',
+     ['[I6] a file that fails validation is recorded by name and digest, read back from disk']),
+    ('collect.py', (('            quarantine.append({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n', '            ({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n'), ), None,
+     'I: an unattributable file is dropped silently (no quarantine)',
+     ['[I1] an unreadable (compressed) served file with no recoverable shard identifier quarantines the whole collection: no run eligible or usable', '[I1] the quarantined file is recorded by name and digest', "[G1a] shard 3's job saving shard 1's log cut off halfway (not JSON) quarantines the whole collection: no run eligible or usable", "[G1b] shard 3's job saving shard 1's log with its job_id written as a string quarantines the whole collection: no run eligible or usable", "[G1c] shard 3's job saving shard 1's log wrapped in a tool envelope quarantines the whole collection: no run eligible or usable", "[G1d] shard 3's job saving shard 1's log with a byte that is not UTF-8 quarantines the whole collection: no run eligible or usable"]),
+    ('collect.py', (('            quarantine.append({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n', '            [voided.setdefault(s_, set()).add("named by an unparseable file") for s_ in raw]\n            bad = True\n            ({"kind": "unattributable", "file": os.path.basename(path), "sha256": hashlib.sha256(data).hexdigest(),\n'), ), None,
+     'I/G1: an unattributable file voids only the shards it names (the previous design), no quarantine',
+     ['[I1] an unreadable (compressed) served file with no recoverable shard identifier quarantines the whole collection: no run eligible or usable', "[G1a] shard 3's job saving shard 1's log cut off halfway (not JSON) quarantines the whole collection: no run eligible or usable", "[G1b] shard 3's job saving shard 1's log with its job_id written as a string quarantines the whole collection: no run eligible or usable", "[G1c] shard 3's job saving shard 1's log wrapped in a tool envelope quarantines the whole collection: no run eligible or usable", "[G1d] shard 3's job saving shard 1's log with a byte that is not UTF-8 quarantines the whole collection: no run eligible or usable"]),
+    ('collect.py', (('        if job not in inv and not named:\n', '        if False:\n'), ), None,
+     'I: an answer of a job outside the run that names no shard is not quarantined',
+     ['[I4] an answer of a job outside the run that names no shard quarantines the whole collection']),
+    ('collect.py', (('        e["usable"] = bool(e["eligible"] and verdict == "HOLDS")\n', '        e["usable"] = bool(e["eligible"])\n'), ), None,
+     "I: a run is usable on its own result, whatever the collection's verdict (the withdrawn DESIGN rule)",
+     ['[I2] a COLLECT FAILS outcome marks zero runs usable and writes no result file, read back from disk: a truncated mislabelled copy (quarantined) and a reformatted one (two runs still eligible)', '[I2b] an UNVERIFIED outcome (one run UNVERIFIED) marks zero runs usable and writes no result file, though five runs are eligible']),
+    ('collect.py', (('        e["usable"] = bool(e["eligible"] and verdict == "HOLDS")\n', '        e["usable"] = bool(e["eligible"] and False)\n'), ), None,
+     'I: no run is ever usable (the invariant met vacuously)',
+     ['[I3] positive control: a clean collection marks all six runs usable and writes all six result files']),
+    ('collect.py', (('    return named  # the raw scan\n', '    return set()  # the raw scan\n'), ), None,
+     'G2: no raw scan (only the parsed, line-anchored reading)',
+     ["[G2a] shard 3's job saving shard 1's log with timestamps without fractional seconds voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2b] shard 3's job saving shard 1's log with an ANSI code after each timestamp voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2c] shard 3's job saving shard 1's log with each line indented by one space voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2d] shard 3's job saving shard 1's log reduced to its block bodies, END and SHA256 lines voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2e] shard 3's job saving shard 1's log reduced to one RUNSET line with an ANSI code inside the name voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2f] shard 3's job saving shard 1's log reduced to one RUNSET line with a tab and doubled spaces voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2g] shard 3's job saving shard 1's log reduced to one RUNSET line in lower case voids shards 1 and 3, only shard 2's runs eligible, none usable", '[G2h] a bare 11-digit run id or 12-digit bridge job id anywhere names its shard', "[G2i] a job_id of another shard's job written inside an answer's log voids both shards"]),
+    ('collect.py', (('        named |= set().union(*(a[5] for a in ans))  # the raw scan of every answer\n', ''), ), None,
+     "G2: a parseable answer's raw names are not added",
+     ["[G2a] shard 3's job saving shard 1's log with timestamps without fractional seconds voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2b] shard 3's job saving shard 1's log with an ANSI code after each timestamp voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2c] shard 3's job saving shard 1's log with each line indented by one space voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2d] shard 3's job saving shard 1's log reduced to its block bodies, END and SHA256 lines voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2e] shard 3's job saving shard 1's log reduced to one RUNSET line with an ANSI code inside the name voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2f] shard 3's job saving shard 1's log reduced to one RUNSET line with a tab and doubled spaces voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2g] shard 3's job saving shard 1's log reduced to one RUNSET line in lower case voids shards 1 and 3, only shard 2's runs eligible, none usable", "[G2i] a job_id of another shard's job written inside an answer's log voids both shards"]),
+    ('collect.py', (('    text = ANSI.sub("", data.decode("utf-8", "replace"))\n', '    text = data.decode("utf-8", "replace")\n'), ), None,
+     'G2: ANSI codes are not removed before the scan',
+     ["[G2e] shard 3's job saving shard 1's log reduced to one RUNSET line with an ANSI code inside the name voids shards 1 and 3, only shard 2's runs eligible, none usable"]),
+    ('collect.py', (('_SP = r"(?:\\s|\\\\[ntr]|\\\\u0020|\\\\u00[aA]0)+"\n', '_SP = r" "\n'), ), None,
+     'G2: only a single space separates the words of a name',
+     ["[G2f] shard 3's job saving shard 1's log reduced to one RUNSET line with a tab and doubled spaces voids shards 1 and 3, only shard 2's runs eligible, none usable"]),
+    ('collect.py', (('                       r"(?:\\s|\\\\[ntr])*/".format(_SP), re.I)\n', '                       r"(?:\\s|\\\\[ntr])*/".format(_SP))\n'), ), None,
+     'G2: names are matched case-sensitively',
+     ["[G2g] shard 3's job saving shard 1's log reduced to one RUNSET line in lower case voids shards 1 and 3, only shard 2's runs eligible, none usable"]),
+    ('collect.py', (('    for rx in (RAW_ID, RAW_LONG):\n', '    for rx in (RAW_LONG,):\n'), ), None,
+     'G2: run and job ids in their contexts (ci/, RESULT, id keys...) are not read',
+     ["[G2d] shard 3's job saving shard 1's log reduced to its block bodies, END and SHA256 lines voids shards 1 and 3, only shard 2's runs eligible, none usable"]),
+    ('collect.py', (('    for rx in (RAW_ID, RAW_LONG):\n', '    for rx in (RAW_ID,):\n'), ), None,
+     'G2: a bare long run or job id is not read',
+     ['[G2h] a bare 11-digit run id or 12-digit bridge job id anywhere names its shard']),
+    ('collect.py', (('    named |= {inv[int(m.group(1))] for m in RAW_JOB.finditer(text) if int(m.group(1)) in inv}\n', ''), ), None,
+     "G2: a job_id written in the raw bytes does not name its job's shard",
+     ["[G2i] a job_id of another shard's job written inside an answer's log voids both shards"]),
+    ('collect.py', (('            for s_ in sorted(named):\n', '            for s_ in sorted({a[3] for a in ans if a[3] is not None}):\n'), ), None,
+     'N3 (reviewer A7): a job outside the run voids only the shard of its first RUNSET line',
+     ["[N3] a job outside the run saving shard 1's log with its RUNSET line deleted voids shard 1"]),
+    ('collect.py', (('    if set(res) != set(byid):\n', '    if not set(byid) <= set(res):\n'), ), None,
+     'N2 (reviewer C1): an extra RESULT run is no longer detected',
+     ['[N2] a RESULT line for a run outside runs.json is refused']),
+    ('collect.py', (('any(L[i].startswith("CHECK all ") for i in range(span[0], span[1]))', 'any(L[i].startswith("CHECK all ") for i in range(span[0], first if first is not None else span[1]))'), ), None,
+     'F2 (reviewer B1): CHECK all is looked for only before the first RESULT line',
+     ["[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard"]),
+    ('collect.py', (('any(L[i].startswith("CHECK all ") for i in range(span[0], span[1]))', 'any(raw[i].startswith("CHECK all ") for i in range(span[0], span[1]))'), ), None,
+     'F2 (reviewer B2): CHECK all is looked for on the raw, timestamped lines',
+     ["[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard"]),
+    ('collect.py', (('any(L[i].startswith("CHECK all ") for i in range(span[0], span[1]))', 'any(L[i].startswith("CHECK all UNVERIFIED the run set") for i in range(span[0], span[1]))'), ), None,
+     "F2 (reviewer B3): only 'CHECK all UNVERIFIED the run set' counts",
+     ["[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard"]),
+    ('collect.py', (('_shard_text(pd, perm[k - 1], verdicts, dict(mut,', '_shard_text(pd, perm[k - 1], None, dict(mut,'), ), None,
+     'RP (reviewer D1): the permuted fixture drops its verdicts again',
+     ['[RP] permutation: contradicting copies of shard 2 gives exit 2 and 4 eligible runs, none usable unless it holds, under all 6 shard numberings and 4 orders and name pairings of the answers', '[RP] permutation: a conflicting copy of shard 1 after a clean one gives exit 2 and 4 eligible runs, none usable unless it holds, under all 6 shard numberings and 4 orders and name pairings of the answers']),
     ("collect.py", 'if res.get(rid) != "HOLDS":', "if False:", "a block of a run that does not hold is taken"),
 ]
 
@@ -221,7 +284,18 @@ def end_to_end(extractor, work):
             after = (["##[error]Process completed with exit code %d." % code] if red else []) + \
                 (["Post job cleanup.", "[command]/usr/bin/git version"] + ["[command]/usr/bin/git config --local x"] * 10) * 2 \
                 + ["Cleaning up orphan processes", "##[warning]Node.js 20 is deprecated."]
-            lines = ["Current runner version: '2.337.0'", "##[group]Run python3 -I batchx/assemble.py", "##[endgroup]"] \
+            # the host step's own lines, from host.py's own format strings, for this shard's runs
+            hsrc = open(os.path.join(HERE, "host.py"), encoding="utf-8").read()
+            fmts = re.findall(r'print\("(host [^"]*)"', hsrc)
+            sh_runs = [r for r in doc["runs"] if r["shard"] == 1]
+            host_lines = []
+            for f_ in fmts:
+                for r in sh_runs:
+                    vals = iter([1, r["run_id"], r["bridge_job_id"], "ok", "ok", "ok", "", 7, 1000, "ok"])
+                    host_lines.append(re.sub(r"%[sd]", lambda m_: str(next(vals)), f_))
+            lines = ["Current runner version: '2.337.0'", "Complete job name: Extract shard 1", "env:", "  SHARD: 1",
+                     "##[group]Run python3 -I batchx/host.py --runs batchx/runs.json --shard \"$SHARD\" --out x"] \
+                + host_lines + ["##[group]Run python3 -I batchx/assemble.py", "##[endgroup]"] \
                 + out.rstrip("\n").split("\n") + after
             text = "\n".join("2026-12-01T10:%02d:%02d.1234567Z %s" % (i // 60 % 60, i % 60, l) for i, l in enumerate(lines))
             return code, dict(A._blocks(out)), doc, text, len(lines)
@@ -241,7 +315,14 @@ def end_to_end(extractor, work):
         ok3 = code3 == 1 and k3 == 1 and not probs3 and res3["901"][0] == "FAILS" and res3["902"] == ("HOLDS", printed3["902"])
         print("  %s  a red shard's real output, with its exit annotation and runner lines after the verdict, is read: "
               "its FAILS run named, its holding runs collected%s" % ("ok  " if ok3 else "FAIL", "" if ok3 else " -- %s" % probs3[:3]))
-        return int(not ok) + int(not ok2) + int(not ok3)
+        # N1: the real output, the host step's lines and the runner's lines name the shard's own shard only
+        inv = {1: 1}
+        names = [K.raw_named(json.dumps({"job_id": 1, "logs_content": t_, "original_length": n_}).encode(), d_, inv)
+                 for t_, n_, d_ in ((text, nl, doc), (text3, nl3, doc3))]
+        ok4 = names == [{1}, {1}]
+        print("  %s  [N1] the assembler's real output, host.py's own lines and the runner's lines name only their own "
+              "shard (green and red shard)%s" % ("ok  " if ok4 else "FAIL", "" if ok4 else " -- %s" % names))
+        return int(not ok) + int(not ok2) + int(not ok3) + int(not ok4)
     finally:
         shutil.rmtree(base, ignore_errors=True)
 
@@ -279,6 +360,11 @@ def plan_problems(wf, runs_text, scripts, xc_text):
     refs = re.findall(r"^\s+ref: (\S+)$", wf, re.M)
     if not mc or len(refs) != 2 or any(r_ != mc[0] for r_ in refs):
         P.append("workflow: the extract_result.py checkouts are not at assemble.py's MAIN_COMMIT")
+    steps = re.split(r"^\s+- name:", wf, flags=re.M)[1:]
+    main_src = [st for st in steps if re.search(r"^\s+path: main-src$", st, re.M)]
+    if len(main_src) != 2 or any(re.findall(r"^\s+ref: (\S+)$", st, re.M) != mc[:1] for st in main_src) \
+            or any("ref:" in st and st not in main_src for st in steps):
+        P.append("workflow: a ref is not on exactly the two main-src checkouts, or they are not at MAIN_COMMIT")
     for const, name in (("ASSEMBLER_BLOB", "assemble.py"), ("HOST_BLOB", "host.py")):
         blob = hashlib.sha1(b"blob %d\0" % len(scripts[name].encode()) + scripts[name].encode()).hexdigest()
         if not re.search(r'^%s = "%s"$' % (const, blob), scripts["collect.py"], re.M):
@@ -360,6 +446,14 @@ def plan(path):
         caught = s4 != scripts and bool(plan_problems(wf, runs_text, s4, xc_text))
         print("  %s  plan negative control: a collect.py %s other than assemble.py's is caught" % ("ok  " if caught else "FAIL", const))
         fails += not caught
+    MC = "b96662e6be4f537502c772db369ea32a35b213a8"
+    w6 = wf.replace("          ref: %s\n" % MC, "", 1)
+    w6 = w6.replace("        with:\n          persist-credentials: false\n",
+                    "        with:\n          ref: %s\n          persist-credentials: false\n" % MC, 1)
+    caught = w6 != wf and w6.count("ref: %s" % MC) == 2 and bool(plan_problems(w6, runs_text, scripts, xc_text))
+    print("  %s  plan negative control: the ref moved from a main-src checkout onto a batchx checkout is caught"
+          % ("ok  " if caught else "FAIL"))
+    fails += not caught
     w5 = wf.replace("ref: b96662e6be4f537502c772db369ea32a35b213a8", "ref: " + "0" * 40, 1)
     caught = w5 != wf and bool(plan_problems(w5, runs_text, scripts, xc_text))
     print("  %s  plan negative control: an extract_result.py checkout at another commit is caught" % ("ok  " if caught else "FAIL"))
