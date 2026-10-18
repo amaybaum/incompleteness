@@ -47,6 +47,19 @@ jobs:
           mkdir -p out
           set -o pipefail
           cd target && python3 -I -B ../harness/.ci-ret-mutants/baseline.py "$PWD" ../out | tee ../out/baseline.log
+      - name: report baseline as annotations
+        if: always()
+        run: python3 -I -B harness/.ci-ret-mutants/annotate.py out/baseline.log baseline
+      - name: report check_objects self-test red lines
+        if: always()
+        run: |
+          grep -E '\s(NOT DETECTED|FAILS)(\s|$)' out/baseline-check_objects.out | grep -v 'as required' > out/red-co.txt || true
+          python3 -I -B harness/.ci-ret-mutants/annotate.py out/red-co.txt red-check_objects
+      - name: report check_retention self-test red lines
+        if: always()
+        run: |
+          grep '^FAIL self: ' out/baseline-check_retention.out > out/red-cr.txt || true
+          python3 -I -B harness/.ci-ret-mutants/annotate.py out/red-cr.txt red-check_retention
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -81,6 +94,11 @@ jobs:
           mkdir -p out
           set -o pipefail
           cd target && python3 -I -B ../harness/.ci-ret-mutants/mutants_all.py "$PWD" "$NAME" ../out | tee "../out/$NAME.log"
+      - name: report as annotation
+        if: always()
+        env:
+          NAME: ${{ matrix.name }}
+        run: python3 -I -B harness/.ci-ret-mutants/annotate.py "out/$NAME.log" "$NAME"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -105,6 +123,9 @@ jobs:
           merge-multiple: true
       - name: table and comparison with the local run
         run: python3 -I -B harness/.ci-ret-mutants/summarize.py logs harness/.ci-ret-mutants/local-expected.txt | tee logs/SUMMARY.txt
+      - name: report summary as annotations
+        if: always()
+        run: python3 -I -B harness/.ci-ret-mutants/annotate.py logs/SUMMARY.txt summary
       - uses: actions/upload-artifact@v4
         if: always()
         with:
