@@ -1,0 +1,136 @@
+{
+ "compared": "every line, in order; the rendering of the items reproduces the output byte for byte",
+ "content": {
+  "checks": {
+   "FAIL": 0,
+   "PASS": 0
+  },
+  "ends_with_newline": true,
+  "items": [
+   {
+    "Z1_natural": true,
+    "Z2_natural": true,
+    "complete": true,
+    "config": "U-free(3)",
+    "dim": 4,
+    "dimSum": 4,
+    "dimZ1": 2,
+    "dimZ2": 2,
+    "direct": true,
+    "kind": "record",
+    "line": 1
+   },
+   {
+    "Z1_natural": true,
+    "Z2_natural": true,
+    "complete": true,
+    "config": "U-edge(3,1,1)",
+    "dim": 8,
+    "dimSum": 8,
+    "dimZ1": 4,
+    "dimZ2": 4,
+    "direct": true,
+    "kind": "record",
+    "line": 2
+   },
+   {
+    "Z1_natural": true,
+    "Z2_natural": true,
+    "complete": true,
+    "config": "U-edge(3,1,2)",
+    "dim": 8,
+    "dimSum": 8,
+    "dimZ1": 4,
+    "dimZ2": 4,
+    "direct": true,
+    "kind": "record",
+    "line": 3
+   },
+   {
+    "Z1_natural": true,
+    "Z2_natural": true,
+    "complete": true,
+    "config": "U-edge(3,2,1)",
+    "dim": 8,
+    "dimSum": 8,
+    "dimZ1": 4,
+    "dimZ2": 4,
+    "direct": true,
+    "kind": "record",
+    "line": 4
+   },
+   {
+    "Z1_natural": true,
+    "Z2_natural": true,
+    "complete": true,
+    "config": "U-edge(3,2,2)",
+    "dim": 8,
+    "dimSum": 8,
+    "dimZ1": 4,
+    "dimZ2": 4,
+    "direct": true,
+    "kind": "record",
+    "line": 5
+   },
+   {
+    "Z1_natural": false,
+    "Z2_natural": false,
+    "complete": true,
+    "config": "C-cut",
+    "dim": 8,
+    "dimSum": 8,
+    "dimZ1": 8,
+    "dimZ2": 8,
+    "direct": false,
+    "kind": "record",
+    "line": 6
+   },
+   {
+    "Z1_natural": false,
+    "Z2_natural": false,
+    "complete": true,
+    "config": "C-chain {0}|{5}",
+    "dim": 12,
+    "dimSum": 12,
+    "dimZ1": 12,
+    "dimZ2": 12,
+    "direct": false,
+    "kind": "record",
+    "line": 7
+   },
+   {
+    "Z1_natural": false,
+    "Z2_natural": false,
+    "complete": true,
+    "config": "one 2-site edge a=1, regions {0}|{1} (coupled)",
+    "dim": 4,
+    "dimSum": 4,
+    "dimZ1": 4,
+    "dimZ2": 4,
+    "direct": false,
+    "kind": "record",
+    "line": 8
+   }
+  ],
+  "lines": 8
+ },
+ "form": "derived",
+ "holds_at": {
+  "note": "the script is copied byte for byte into prior/ at stage 1; the result holds for it",
+  "script": "prior/closure_design.py",
+  "script_sha256": "bb33939e6da3bd9c5638e547605d4541dae19118f6b564484fa007c34b3a7ed3"
+ },
+ "name": "closure_design",
+ "recipe": [
+  "python3 -I -B closure_design.py > closure_design.out   (in a fresh copy of prior/; the script reads no file)",
+  "python3 -I -B prior_expected.py compare closure_design-expected.json closure_design.out"
+ ],
+ "schema": "loc1-prior-expected",
+ "source": {
+  "bytes": 812,
+  "file": "closure_design.out",
+  "note": "the digest is provenance of the extraction; the output is not copied (owner's artifact ruling of 2026-10-18)",
+  "sha256": "88921a9967bb57581e084323a206481baf5bce18f0d7d73f9fc6d97cfb5cb1d8"
+ },
+ "version": 1
+}

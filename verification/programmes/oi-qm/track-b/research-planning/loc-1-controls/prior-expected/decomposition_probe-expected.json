@@ -1,0 +1,352 @@
+{
+ "compared": "every line, in order; the rendering of the items reproduces the output byte for byte",
+ "content": {
+  "checks": {
+   "FAIL": 0,
+   "PASS": 25
+  },
+  "ends_with_newline": true,
+  "items": [
+   {
+    "kind": "check",
+    "line": 1,
+    "status": "PASS",
+    "text": "K-unit every ported and hand-built operator is exactly unitary"
+   },
+   {
+    "kind": "check",
+    "line": 2,
+    "status": "PASS",
+    "text": "K-indep O1 by the defining sum equals O1 by dilation (CCT4 lifts, Ucv)"
+   },
+   {
+    "kind": "check",
+    "line": 3,
+    "status": "PASS",
+    "text": "K-classes 3 decomposition classes of V and 3 of A (anchor fixed)"
+   },
+   {
+    "kind": "header",
+    "line": 4,
+    "text": "CCT4: every V-class x A-class"
+   },
+   {
+    "kind": "check",
+    "line": 5,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 1, 2, 3) sa=(0, 1, 2, 3): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 6,
+    "text": "sv=(0, 1, 2, 3) sa=(0, 1, 2, 3) Gamma product=True; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-PHYS/SEP-REP/SEP-REP; WW.Ke: SEP-REP/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 7,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 1, 2, 3) sa=(0, 1, 3, 2): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 8,
+    "text": "sv=(0, 1, 2, 3) sa=(0, 1, 3, 2) Gamma product=True; X: SEP-REP/SEP-REP/SEP-REP; W1.X: SEP-OPEN/SEP-OPEN/SEP-OPEN; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-PHYS/SEP-REP/SEP-REP; Llp: SEP-OPEN/SEP-REP/SEP-REP; WW: SEP-OPEN/SEP-REP/SEP-REP; WW.Ke: SEP-OPEN/SEP-PHYS/SEP-PHYS; WW.X1: SEP-OPEN/SEP-OPEN/SEP-OPEN"
+   },
+   {
+    "kind": "check",
+    "line": 9,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 1, 2, 3) sa=(0, 3, 1, 2): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 10,
+    "text": "sv=(0, 1, 2, 3) sa=(0, 3, 1, 2) Gamma product=True; X: SEP-REP/SEP-REP/SEP-REP; W1.X: SEP-OPEN/SEP-OPEN/SEP-OPEN; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-PHYS/SEP-REP/SEP-REP; Llp: SEP-OPEN/SEP-REP/SEP-REP; WW: SEP-OPEN/SEP-REP/SEP-REP; WW.Ke: SEP-OPEN/SEP-PHYS/SEP-PHYS; WW.X1: SEP-OPEN/SEP-OPEN/SEP-OPEN"
+   },
+   {
+    "kind": "check",
+    "line": 11,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 1, 3, 2) sa=(0, 1, 2, 3): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 12,
+    "text": "sv=(0, 1, 3, 2) sa=(0, 1, 2, 3) Gamma product=True; X: SEP-REP/SEP-REP/SEP-REP; W1.X: SEP-OPEN/SEP-PHYS/SEP-PHYS; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-REP/SEP-REP/SEP-REP; Llp: SEP-PHYS/SEP-REP/SEP-REP; WW: SEP-OPEN/SEP-REP/SEP-REP; WW.Ke: SEP-OPEN/SEP-PHYS/SEP-PHYS; WW.X1: SEP-OPEN/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 13,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 1, 3, 2) sa=(0, 1, 3, 2): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 14,
+    "text": "sv=(0, 1, 3, 2) sa=(0, 1, 3, 2) Gamma product=True; W1.X: SEP-OPEN/SEP-PHYS/SEP-PHYS; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-REP/SEP-REP/SEP-REP; Llp: SEP-PHYS/SEP-REP/SEP-REP; WW.Ke: SEP-REP/SEP-PHYS/SEP-PHYS; WW.X1: SEP-REP/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 15,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 1, 3, 2) sa=(0, 3, 1, 2): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 16,
+    "text": "sv=(0, 1, 3, 2) sa=(0, 3, 1, 2) Gamma product=True; X: SEP-REP/SEP-REP/SEP-REP; W1.X: SEP-OPEN/SEP-PHYS/SEP-PHYS; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-REP/SEP-REP/SEP-REP; Llp: SEP-PHYS/SEP-REP/SEP-REP; WW: SEP-OPEN/SEP-REP/SEP-REP; WW.Ke: SEP-OPEN/SEP-PHYS/SEP-PHYS; WW.X1: SEP-OPEN/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 17,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 3, 1, 2) sa=(0, 1, 2, 3): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 18,
+    "text": "sv=(0, 3, 1, 2) sa=(0, 1, 2, 3) Gamma product=True; X: SEP-REP/SEP-REP/SEP-REP; W1.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-REP/SEP-REP/SEP-REP; Llp: SEP-PHYS/SEP-REP/SEP-REP; WW: SEP-OPEN/SEP-REP/SEP-REP; WW.Ke: SEP-OPEN/SEP-PHYS/SEP-PHYS; WW.X1: SEP-OPEN/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 19,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 3, 1, 2) sa=(0, 1, 3, 2): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 20,
+    "text": "sv=(0, 3, 1, 2) sa=(0, 1, 3, 2) Gamma product=True; X: SEP-REP/SEP-REP/SEP-REP; W1.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-REP/SEP-REP/SEP-REP; Llp: SEP-PHYS/SEP-REP/SEP-REP; WW: SEP-OPEN/SEP-REP/SEP-REP; WW.Ke: SEP-OPEN/SEP-PHYS/SEP-PHYS; WW.X1: SEP-OPEN/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 21,
+    "status": "PASS",
+    "text": "K-adm CCT4 sv=(0, 3, 1, 2) sa=(0, 3, 1, 2): every relabelled lift is admissible for the relabelled Gamma"
+   },
+   {
+    "kind": "record",
+    "line": 22,
+    "text": "sv=(0, 3, 1, 2) sa=(0, 3, 1, 2) Gamma product=True; W1.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; We.X: SEP-PHYS/SEP-PHYS/SEP-PHYS; Lcc: SEP-REP/SEP-REP/SEP-REP; Llp: SEP-PHYS/SEP-REP/SEP-REP; WW.Ke: SEP-REP/SEP-PHYS/SEP-PHYS; WW.X1: SEP-REP/SEP-PHYS/SEP-PHYS"
+   },
+   {
+    "kind": "check",
+    "line": 23,
+    "status": "PASS",
+    "text": "K-repro at the declared decomposition, computed SL-U status equals P0's table"
+   },
+   {
+    "kind": "check",
+    "line": 24,
+    "status": "PASS",
+    "text": "K-repro at the declared decomposition, Lcc O1 SEP-PHYS, We.X SEP-PHYS on O1-O3, WW.Ke O1 SEP-REP and O2,O3 SEP-PHYS"
+   },
+   {
+    "kind": "record",
+    "line": 25,
+    "text": "Lcc O1: SEP-PHYS in 3/9 decompositions, rep-or-admitted in 6/9"
+   },
+   {
+    "kind": "record",
+    "line": 26,
+    "text": "Lcc O2: SEP-PHYS in 0/9 decompositions, rep-or-admitted in 9/9"
+   },
+   {
+    "kind": "record",
+    "line": 27,
+    "text": "Lcc O3: SEP-PHYS in 0/9 decompositions, rep-or-admitted in 9/9"
+   },
+   {
+    "kind": "record",
+    "line": 28,
+    "text": "We.X O1: SEP-PHYS in 9/9 decompositions, rep-or-admitted in 0/9"
+   },
+   {
+    "kind": "record",
+    "line": 29,
+    "text": "We.X O2: SEP-PHYS in 9/9 decompositions, rep-or-admitted in 0/9"
+   },
+   {
+    "kind": "record",
+    "line": 30,
+    "text": "We.X O3: SEP-PHYS in 9/9 decompositions, rep-or-admitted in 0/9"
+   },
+   {
+    "kind": "record",
+    "line": 31,
+    "text": "WW.Ke O1: SEP-PHYS in 0/9 decompositions, rep-or-admitted in 3/9"
+   },
+   {
+    "kind": "record",
+    "line": 32,
+    "text": "WW.Ke O2: SEP-PHYS in 9/9 decompositions, rep-or-admitted in 0/9"
+   },
+   {
+    "kind": "record",
+    "line": 33,
+    "text": "WW.Ke O3: SEP-PHYS in 9/9 decompositions, rep-or-admitted in 0/9"
+   },
+   {
+    "kind": "header",
+    "line": 34,
+    "text": "CCC: every V-class x A-class"
+   },
+   {
+    "kind": "check",
+    "line": 35,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 1, 2, 3) sa=(0, 1, 2, 3)"
+   },
+   {
+    "kind": "record",
+    "line": 36,
+    "text": "sv=(0, 1, 2, 3) sa=(0, 1, 2, 3) Gamma product=False; Ucv SL-U=False; SEP-PHYS/SEP-OPEN/SEP-OPEN"
+   },
+   {
+    "kind": "check",
+    "line": 37,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 1, 2, 3) sa=(0, 1, 3, 2)"
+   },
+   {
+    "kind": "record",
+    "line": 38,
+    "text": "sv=(0, 1, 2, 3) sa=(0, 1, 3, 2) Gamma product=False; Ucv SL-U=False; SEP-PHYS/SEP-OPEN/SEP-OPEN"
+   },
+   {
+    "kind": "check",
+    "line": 39,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 1, 2, 3) sa=(0, 3, 1, 2)"
+   },
+   {
+    "kind": "record",
+    "line": 40,
+    "text": "sv=(0, 1, 2, 3) sa=(0, 3, 1, 2) Gamma product=False; Ucv SL-U=False; SEP-PHYS/SEP-OPEN/SEP-OPEN"
+   },
+   {
+    "kind": "check",
+    "line": 41,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 1, 3, 2) sa=(0, 1, 2, 3)"
+   },
+   {
+    "kind": "record",
+    "line": 42,
+    "text": "sv=(0, 1, 3, 2) sa=(0, 1, 2, 3) Gamma product=True; Ucv SL-U=False; SEP-REP by R1(x)1/SEP-REP by R1(x)1/SEP-REP by R1(x)1"
+   },
+   {
+    "kind": "check",
+    "line": 43,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 1, 3, 2) sa=(0, 1, 3, 2)"
+   },
+   {
+    "kind": "record",
+    "line": 44,
+    "text": "sv=(0, 1, 3, 2) sa=(0, 1, 3, 2) Gamma product=True; Ucv SL-U=False; SEP-REP by R1(x)1/SEP-REP by R1(x)1/SEP-REP by R1(x)1"
+   },
+   {
+    "kind": "check",
+    "line": 45,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 1, 3, 2) sa=(0, 3, 1, 2)"
+   },
+   {
+    "kind": "record",
+    "line": 46,
+    "text": "sv=(0, 1, 3, 2) sa=(0, 3, 1, 2) Gamma product=True; Ucv SL-U=False; SEP-REP by R1(x)1/SEP-REP by R1(x)1/SEP-REP by R1(x)1"
+   },
+   {
+    "kind": "check",
+    "line": 47,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 3, 1, 2) sa=(0, 1, 2, 3)"
+   },
+   {
+    "kind": "record",
+    "line": 48,
+    "text": "sv=(0, 3, 1, 2) sa=(0, 1, 2, 3) Gamma product=True; Ucv SL-U=False; SEP-REP by R1(x)1/SEP-REP by R1(x)1/SEP-REP by R1(x)1"
+   },
+   {
+    "kind": "check",
+    "line": 49,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 3, 1, 2) sa=(0, 1, 3, 2)"
+   },
+   {
+    "kind": "record",
+    "line": 50,
+    "text": "sv=(0, 3, 1, 2) sa=(0, 1, 3, 2) Gamma product=True; Ucv SL-U=False; SEP-REP by R1(x)1/SEP-REP by R1(x)1/SEP-REP by R1(x)1"
+   },
+   {
+    "kind": "check",
+    "line": 51,
+    "status": "PASS",
+    "text": "K-adm CCC sv=(0, 3, 1, 2) sa=(0, 3, 1, 2)"
+   },
+   {
+    "kind": "record",
+    "line": 52,
+    "text": "sv=(0, 3, 1, 2) sa=(0, 3, 1, 2) Gamma product=True; Ucv SL-U=False; SEP-REP by R1(x)1/SEP-REP by R1(x)1/SEP-REP by R1(x)1"
+   },
+   {
+    "kind": "check",
+    "line": 53,
+    "status": "PASS",
+    "text": "K-repro CCC at the declared decomposition: Gamma is not a product (EXCLUDES-ALL)"
+   },
+   {
+    "kind": "record",
+    "line": 54,
+    "text": "CCC: Gamma is a product in 6/9 decompositions"
+   },
+   {
+    "kind": "header",
+    "line": 55,
+    "text": "CENT (countercontrol): every V-class"
+   },
+   {
+    "kind": "check",
+    "line": 56,
+    "status": "PASS",
+    "text": "K-robust-neg CENT's CNOT law is a non-product under every identification of V (so the sweep can return an invariant exclusion)  [False, False, False]"
+   },
+   {
+    "kind": "header",
+    "line": 57,
+    "text": "summary"
+   },
+   {
+    "kind": "verdict",
+    "line": 58,
+    "text": "failures: 0"
+   },
+   {
+    "kind": "verdict",
+    "line": 59,
+    "text": "EXPLORATORY-VERDICT DECOMPOSITION-RELATIVE"
+   }
+  ],
+  "lines": 59
+ },
+ "form": "derived",
+ "holds_at": {
+  "note": "the script is copied byte for byte into prior/ at stage 1; the result holds for it",
+  "script": "prior/decomposition_probe.py",
+  "script_sha256": "acdd998dd477b3fca26e41210b0f5b1634d0e795d47df4b4c1de1aad6472d40a"
+ },
+ "name": "decomposition_probe",
+ "recipe": [
+  "python3 -I -B decomposition_probe.py > decomposition_probe.out   (in a fresh copy of prior/; the script reads no file)",
+  "python3 -I -B prior_expected.py compare decomposition_probe-expected.json decomposition_probe.out"
+ ],
+ "schema": "loc1-prior-expected",
+ "source": {
+  "bytes": 6381,
+  "file": "decomposition_probe.out",
+  "note": "the digest is provenance of the extraction; the output is not copied (owner's artifact ruling of 2026-10-18)",
+  "sha256": "f32b7f820df7b80e2980b1a6409aea6e3e06aba2a3c12fe76e132b020acc527a"
+ },
+ "version": 1
+}

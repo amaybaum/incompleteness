@@ -1,0 +1,127 @@
+{
+ "compared": "every line, in order; the rendering of the items reproduces the output byte for byte",
+ "content": {
+  "checks": {
+   "FAIL": 0,
+   "PASS": 15
+  },
+  "ends_with_newline": true,
+  "items": [
+   {
+    "kind": "check",
+    "line": 1,
+    "status": "PASS",
+    "text": "natural factorization: 8 edges, max degree 3  (8, 3)"
+   },
+   {
+    "kind": "check",
+    "line": 2,
+    "status": "PASS",
+    "text": "(a) translation invariance: M commutes with the shift"
+   },
+   {
+    "kind": "check",
+    "line": 3,
+    "status": "PASS",
+    "text": "(b) range 1: x_i depends only on x_{i\u00b11}, p_i; p_i only on x_i"
+   },
+   {
+    "kind": "check",
+    "line": 4,
+    "status": "PASS",
+    "text": "(c) bidirectional: every edge used in both directions"
+   },
+   {
+    "kind": "check",
+    "line": 5,
+    "status": "PASS",
+    "text": "eigenvector [1, 1, 1, 1] of the ring adjacency over F_3  lambda=2"
+   },
+   {
+    "kind": "check",
+    "line": 6,
+    "status": "PASS",
+    "text": "eigenvector [1, -1, 1, -1] of the ring adjacency over F_3  lambda=1"
+   },
+   {
+    "kind": "check",
+    "line": 7,
+    "status": "PASS",
+    "text": "eigenvector [1, 0, -1, 0] of the ring adjacency over F_3  lambda=0"
+   },
+   {
+    "kind": "check",
+    "line": 8,
+    "status": "PASS",
+    "text": "eigenvector [0, 1, 0, -1] of the ring adjacency over F_3  lambda=0"
+   },
+   {
+    "kind": "check",
+    "line": 9,
+    "status": "PASS",
+    "text": "eigenmode factorization: 4 edges, max degree 1  (4, 1)"
+   },
+   {
+    "kind": "check",
+    "line": 10,
+    "status": "PASS",
+    "text": "eigenmode factorization differs from the natural one (not a coordinate permutation with scalings)"
+   },
+   {
+    "kind": "check",
+    "line": 11,
+    "status": "PASS",
+    "text": "brute force over all 6561 states reproduces the eigenmode graph  4"
+   },
+   {
+    "kind": "check",
+    "line": 12,
+    "status": "PASS",
+    "text": "A4(b) holds in the spatial factorization: x_i' has no x_i term"
+   },
+   {
+    "kind": "check",
+    "line": 13,
+    "status": "PASS",
+    "text": "A4(b) fails in the eigenmode factorization: c_k' depends on c_k for lambda_k != 0  [0, 1]"
+   },
+   {
+    "kind": "check",
+    "line": 14,
+    "status": "PASS",
+    "text": "pullback of the eigenmode factorization by phi has the same coupling graph"
+   },
+   {
+    "kind": "check",
+    "line": 15,
+    "status": "PASS",
+    "text": "pullback is a distinct factorization (transition is not monomial)"
+   },
+   {
+    "kind": "verdict",
+    "line": 16,
+    "text": "controls: OK"
+   }
+  ],
+  "lines": 16
+ },
+ "form": "derived",
+ "holds_at": {
+  "note": "the script is copied byte for byte into prior/ at stage 1; the result holds for it",
+  "script": "prior/factorization_check.py",
+  "script_sha256": "52694d4afd14c472ec9e7e265dae19183651e57cc284346d8d36981953a29126"
+ },
+ "name": "factorization_check",
+ "recipe": [
+  "python3 -I -B factorization_check.py > factorization_check.out   (in a fresh copy of prior/; the script reads no file)",
+  "python3 -I -B prior_expected.py compare factorization_check-expected.json factorization_check.out"
+ ],
+ "schema": "loc1-prior-expected",
+ "source": {
+  "bytes": 1095,
+  "file": "factorization_check.out",
+  "note": "the digest is provenance of the extraction; the output is not copied (owner's artifact ruling of 2026-10-18)",
+  "sha256": "9ef260e7b54d7f339da5e3a29a30f8e62f00866c4993e82576689513f898d363"
+ },
+ "version": 1
+}
