@@ -1,0 +1,34 @@
+Gamma(Q3): preserving permutations (8):
+    (0, 1, 2, 3) I CP
+    (0, 2, 1, 3) SWAP coCP
+    (1, 0, 3, 2) I(x)X CP
+    (1, 3, 0, 2)  coCP
+    (2, 0, 3, 1)  coCP
+    (2, 3, 0, 1) X(x)I CP
+    (3, 1, 2, 0)  coCP
+    (3, 2, 1, 0) X(x)X CP
+Gamma(Q3): failing permutations (16), each with an exact rank-one witness:
+    (0, 1, 3, 2) CNOT(1->2) witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (0, 2, 3, 1)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (0, 3, 1, 2)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (0, 3, 2, 1) CNOT(2->1) witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (1, 0, 2, 3)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (1, 2, 0, 3)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (1, 2, 3, 0)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (1, 3, 2, 0)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (2, 0, 1, 3)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (2, 1, 0, 3)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (2, 1, 3, 0)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (2, 3, 1, 0)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (3, 0, 1, 2)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (3, 0, 2, 1)  witness [sqrt(2)/2, sqrt(2)/2, 0, 0]
+    (3, 1, 0, 2)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+    (3, 2, 0, 1)  witness [sqrt(2)/2, 0, sqrt(2)/2, 0]
+preserving set closed under composition: True
+local+swap subgroup order: 8  equals preserving set: True
+POS Q3 preserved by all 24 permutations (CP Choi): True
+POS classical diagonal cone preserved by all 24: True
+MUT identity frame: all 24 preserve: True ; full-transpose frame: all 24 preserve: True
+MI input |+>: output in Q3 True, in Gamma(Q3) False, in K_B True
+MI input |+i>: output in Q3 True, in Gamma(Q3) False, in K_B False
+VERDICT PC-SCAN: 8 of 24 native permutations preserve Gamma(Q3) (equal to the local/swap subgroup of order 8); 16 refute it with rank-one witnesses (CNOT among them: True). MI separates Q3 from Gamma(Q3): True; from K_B: True.

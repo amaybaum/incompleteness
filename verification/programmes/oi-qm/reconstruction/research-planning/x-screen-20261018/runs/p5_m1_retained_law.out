@@ -1,0 +1,10 @@
+m=0 a=0  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=0 a=1  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=0 a=2  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=1 a=0  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=1 a=1  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=1 a=2  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=2 a=0  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=2 a=1  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+m=2 a=2  CONS(diag)==OI: True  CONS(coherent)==OI: True  RR!=OI: True  NEW!=OI: True
+VERDICT M1-CONS: retained-protocol monitored law REPRODUCED entrywise under the conservative extension at q = 3 (diagonal and coherent starts); the RR readout and a new inserted operation each change the law.

@@ -1,0 +1,3 @@
+Gamma(B) eigenvalues: {1/2: 3, -1/2: 1} -> B in Gamma(Q3): False
+Gamma(CNOT X CNOT) eigenvalues: {1/2: 3, -1/2: 1} -> invariant on this element: False
+Gamma(product) is a PSD product: True
