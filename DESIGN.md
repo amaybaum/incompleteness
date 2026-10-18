@@ -121,8 +121,10 @@ consistently.
   - every served log to be whole and under 5,000 lines;
   - an answer to belong to the shard the job index gives its job id. Identity comes from trusted collection
     metadata (the tool's job id and the extraction run's jobs list, every job at the launched 40-hex commit, on
-    the launch branch, of this workflow), never from the log's own banner, which can only add a shard to those a
-    job is involved with;
+    the launch branch, of this workflow), never from the log's own text. The log can only add shards to those a job
+    is involved with, and every place it names one counts: every RUNSET line, the assembler banner, the end-of-output
+    marker, the verdict line, and the `runs.json` shard of every RESULT line and block. A damaged, missing or
+    reordered banner therefore cannot hide a mislabelled copy;
   - the job rule, decided after every file is read, so neither file order nor shard numbering can change it:
     - a job involved with two or more shards voids every one of them;
     - a job whose answers differ, or with an answer whose banner is missing or malformed, voids its shard
@@ -134,7 +136,9 @@ consistently.
   - a block exactly for each HOLDS run, matching its SHA256 line, canonical, naming that run's job and head, and
     naming in `source` the same pinned blobs and digest;
   - exactly one start marker (the assembler banner) and exactly one end-of-output marker, in that order, the end
-    marker naming that shard and the pinned assembler; every RESULT line and block between them;
+    marker naming that shard and the pinned assembler; every RESULT line and block between them; and no
+    `CHECK all ...` line between them, which is the assembler's own report that it stopped or that its run set is
+    wrong;
   - exactly one verdict line in the whole log: the line just before the end-of-output marker, and the one the
     RESULT lines imply. A verdict-shaped line outside the pair, or an assembler that never printed its end marker,
     refuses the shard;
@@ -230,8 +234,8 @@ All run in the `selftest` job with no token, before any shard reads anything. Al
 |---|---|---|
 | `host.py --self-test` | 51 | 28 allow-list cases (6 allowed, 22 refused shapes); runs-file pin; a clean shard against local servers; the token only as Bearer to the API, never to storage; no leak of link, path, query or token; HTTP 410/404 recorded; rate-limit reserve stops JSON and log reads mid-shard; second redirect; non-https link; JSON redirect refused; no-redirect log; cap; short body; deadline; no token; job-count mismatch |
 | `assemble.py --self-test` | 75 | clean shard (green dispatch, green PR, red build), variant invariance, canonical/SHA256, no run-varying content; red gate, cancelled, not-built recorded and held; each fail-closed rule above as a mutation case with its expected verdict and reason; primed name under the pinned blob and under a simulated repair; malformed records; the run-set rule (missing, extra, duplicate, none) and the verdict table; line budget; CROSSCHECK never decisive; blob pin; interface pin; scan; host.py's digest pin |
-| `collect.py --self-test` | 78 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders |
-| `controls.py` | 59 | the plan and pins (including collect.py's pins of the assemble.py and host.py blobs), with 13 negative controls (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer, is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **41 code mutants across the three scripts, all killed**; each mutant for a fix of the two reviews must fail its named regression tests, and a table lists every test each one fails |
+| `collect.py --self-test` | 85 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders |
+| `controls.py` | 71 | the plan and pins, with 16 negative controls. The pins are cross-validated: collect.py's pins of the assemble.py and host.py blobs against the files' blobs; collect.py's `EXTRACT_RESULT_BLOB` and `MAIN_COMMIT` against assemble.py's; and the workflow's two `extract_result.py` checkout refs against `MAIN_COMMIT` (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer, is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **50 code mutants across the three scripts, all killed**, including the third review's own M1, M1b, M2, M3, M3b, M4 and M6. Each mutant for a review fix must fail every one of its named regression tests, matched by exact name; a table lists every test each one fails. The `[RP]` tests vary the real order of the answers and the name each is paired with, and pin each scenario's exit code and usable-run count |
 
 CROSSCHECK lines compare each downloaded log with a session observation in `batchx/crosscheck.json`, sha256-pinned.
 The observation is `original_length` plus the sha256 of the last 40 served lines, recorded for five jobs that

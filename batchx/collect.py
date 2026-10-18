@@ -15,8 +15,18 @@ Run in the session, after the launch, never in CI. Nothing here downloads anythi
 From --run-jobs it builds the job index: exactly one job named "Extract shard K" for each shard K, every job of
 one run, at --head, on the launch branch, of this workflow.
 
-For each served file it checks, fail closed:
-  - the answer names a job id, and that id is the index's job for the shard its banner names;
+Identity. An answer belongs to the shard the job index gives its job id: trusted collection metadata (the tool's
+job id and the extraction run's jobs list), never the log's own text. Every file is read before anything is decided,
+and the answers are grouped by that trusted job id. For each job the shards it is involved with are its trusted
+shard and every shard its answers' logs name anywhere: every RUNSET line, the assembler banner, the end-of-output
+marker, the verdict line, and the runs.json shard of every RESULT line and block. A job involved with two or more
+shards voids every one of them; a job whose answers differ, or with an answer that has no single readable RUNSET
+banner, voids its shard (UNVERIFIED, none of its runs usable); an answer of a job outside the run FAILS and voids
+every shard its log names. Byte-identical copies are taken once. So neither file order, nor shard numbering, nor
+a damaged or reordered banner can decide which runs are usable.
+
+For the one answer of each surviving shard it checks, fail closed:
+  - the answer's job id is the index's job for that shard, and the log's banner names that shard;
   - the log was served whole, its line count equal to original_length, and is under 5,000 lines;
   - one assembler banner, naming the pinned assembler, host-reader and extractor blobs, the extractor's commit and
     runs.json's digest; one `BATCH SHARD K/N RUNSET <sha256> RUNS n` line whose N and digest are shard K's in the
@@ -26,13 +36,12 @@ For each served file it checks, fail closed:
     text (timestamps stripped, lines joined with newlines, ending with one) is canonical ASCII JSON whose sha256
     equals its SHA256 line, naming that run, its pinned bridge job and head, kind cited-bridge, and in `source`
     the pinned extractor blob and commit, assembler blob, host-reader blob and runs.json digest;
-  - exactly one `EXTRACT SHARD K/N <verdict>` line in the whole log, after the last RESULT line and the last block,
+  - the assembler's output is bounded: exactly one start marker (its banner) and exactly one end-of-output marker
+    (`BATCH END shard K/N: assembler <blob prefix>`), in that order, every RESULT line and block between them, and no
+    `CHECK all ...` line between them (the assembler's own report that it stopped or that its run set is wrong);
+  - exactly one `EXTRACT SHARD K/N <verdict>` line in the whole log, the line just before the end-of-output marker,
     and that verdict is the one the RESULT lines imply.
 A file that fails any check contributes no result, and the collection FAILS.
-
-Copies. Files are grouped by the shard their banner names before anything is decided, so the order of --served
-never matters. Byte-identical copies (the same job id, text and original_length) are taken once. Copies that differ
-in anything make that shard UNVERIFIED: none of its runs is usable.
 
 A run is usable when its RESULT is HOLDS and its shard passed every check. Its block is written to
 DIR/ci/<run>/results.json and listed in DIR/collected.json with its digest, shard, source job id and served-text
@@ -128,12 +137,30 @@ def parse_served(served):
 
 
 def shard_of(obj):
-    """The shard the answer's RUNSET banner names, read loosely (for grouping only), or None."""
-    for l in obj["logs_content"].split("\n"):
-        m = BANNER.match(strip(l))
+    """The shard of the answer's RUNSET banner when it has exactly one readable one, else None (no readable banner)."""
+    ms = [m for m in (BANNER.match(strip(l)) for l in obj["logs_content"].split("\n")) if m]
+    return int(ms[0].group(1)) if len(ms) == 1 else None
+
+
+NAMES_SHARD = re.compile(r"^(?:BATCH SHARD|BATCH ci-batch-extract shard|BATCH END shard|EXTRACT SHARD) (\d+)\b")
+NAMES_RUN = re.compile(r"^(?:RESULT (\d+) |===== BEGIN EXPECTED RESULT ci/(\d+)/)")
+
+
+def shards_named(obj, doc):
+    """Every shard the log names anywhere, read loosely so that a damaged line still counts: every RUNSET line, the
+    assembler banner, the end-of-output marker and the verdict line, and the runs.json shard of every RESULT line and
+    block. Used only to widen the shards a job is involved with, never to choose one."""
+    L = [strip(l) for l in obj["logs_content"].split("\n")]
+    shard_of_run = {r["run_id"]: r["shard"] for r in doc["runs"]}
+    named = set()
+    for l in L:
+        m = NAMES_SHARD.match(l)
         if m:
-            return int(m.group(1))
-    return None
+            named.add(int(m.group(1)))
+        m = NAMES_RUN.match(l)
+        if m and (m.group(1) or m.group(2)) in shard_of_run:
+            named.add(shard_of_run[m.group(1) or m.group(2)])
+    return named  # every shard the log names
 
 
 def read_shard(obj, doc, job_index, shard=None):
@@ -244,6 +271,8 @@ def read_shard(obj, doc, job_index, shard=None):
             span = None
     if span is not None and first is not None and (first < span[0] or last > span[1]):
         probs.append("shard %d: a RESULT line or block lies outside the assembler's output" % k)
+    if span is not None and any(L[i].startswith("CHECK all ") for i in range(span[0], span[1])):
+        probs.append("shard %d: the assembler reported a CHECK all line (it stopped, or its run set is wrong)" % k)
     vs = [(i, m) for i, m in ((i, VERDICT.match(l)) for i, l in enumerate(L)) if m]
     want = "FAILS" if "FAILS" in res.values() else "HOLDS" if res and all(v == "HOLDS" for v in res.values()) \
         and set(res) == set(byid) else "UNVERIFIED"
@@ -295,7 +324,8 @@ def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None
             P("COLLECT FAIL %s: the served file is not a job-log answer" % os.path.basename(path))
             bad = True
             continue
-        answers.append((os.path.basename(path), obj, hashlib.sha256(served.encode("utf-8")).hexdigest(), shard_of(obj)))
+        answers.append((os.path.basename(path), obj, hashlib.sha256(served.encode("utf-8")).hexdigest(), shard_of(obj),
+                        shards_named(obj, doc)))
     # The job rule. An answer belongs to the shard the job index gives its job id: trusted metadata (the extraction
     # run's jobs list and the tool's job id), never the log's own banner. A banner can only add a shard to the
     # shards a job is involved with, never choose one. A job involved with two or more shards voids every one of
@@ -306,7 +336,7 @@ def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None
         by_job.setdefault(a[1]["job_id"], []).append(a)
     for job in sorted(by_job):
         ans = by_job[job]
-        named = {a[3] for a in ans if a[3] is not None}
+        named = set().union(*(a[4] for a in ans))
         if job not in inv:
             P("COLLECT FAIL job %s (%s) is no job of the extraction run; shard %s is void"
               % (job, ", ".join(sorted(a[0] for a in ans)), sorted(named)))
@@ -334,7 +364,7 @@ def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None
             shards[k], why[k] = None, "; ".join(sorted(voided[k]))
             continue
         copies = by_job[job_index[k]]
-        name, obj, dig, _ = sorted(copies, key=lambda c: c[0])[0]
+        name, obj, dig = sorted(copies, key=lambda c: c[0])[0][:3]
         if len(copies) > 1:
             P("COLLECT NOTE shard %d: %d identical copies of job %s, taken once" % (k, len(copies), job_index[k]))
         kk, probs, res = read_shard(obj, doc, job_index, k)
@@ -344,7 +374,7 @@ def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None
             bad = True
             shards[k], why[k] = None, "failed a check"
             continue
-        shards[k] = {"file": name, "files": sorted(n for n, _, _, _ in copies), "served_sha256": dig,
+        shards[k] = {"file": name, "files": sorted(c[0] for c in copies), "served_sha256": dig,
                      "job_id": obj["job_id"], "copies": len(copies), "runs": res}
         for rid in res:
             runs_seen.setdefault(rid, []).append(k)
@@ -457,6 +487,8 @@ def _shard_text(doc, k, verdicts=None, mut=None):
         L += body.rstrip("\n").split("\n")
         L.append("===== END EXPECTED RESULT ci/%s/results.json =====" % r["run_id"])
         L.append("SHA256 ci/%s/results.json %s" % (r["run_id"], sha))
+    if mut.get("stopped"):
+        L.append("CHECK all UNVERIFIED stopped: OSError: [Errno 28] No space left on device")
     if not mut.get("verdict_early") and not mut.get("no_verdict") and not mut.get("died"):
         L.append(vline)
         if mut.get("two_inside"):
@@ -537,13 +569,27 @@ def self_test(work=None):
         chk("[R4a] collected.json records the full 40-hex launched commit, the --head value the job index required",
             cj.get("launched_commit") == HEAD and re.fullmatch(r"[0-9a-f]{40}", cj["launched_commit"])
             and "every job of extraction_run's jobs list is at launched_commit" in cj.get("launched_commit_check", ""))
-        ident = collector_identity()
-        chk("[R4b] collected.json records the collector's identity apart from the launched commit",
-            all(k_ in cj["collector"] for k_ in ("commit", "committed_blob", "executed_blob", "executed_sha256",
-                                                 "executed_matches_committed_blob", "path", "pins"))
-            and cj["collector"]["executed_sha256"] == ident["executed_sha256"]
-            and cj["collector"]["executed_blob"] == git_blob_id(open(os.path.abspath(__file__), "rb").read())
-            and "launched_commit" not in cj["collector"] and "collector" not in cj["shards"])
+        # the expected identity is computed here, independently of collector_identity(): git asked directly, and the
+        # executed bytes hashed directly
+        here = os.path.abspath(__file__)
+        genv0 = dict(os.environ, GIT_CONFIG_NOSYSTEM="1", GIT_CONFIG_GLOBAL=os.devnull, GIT_TERMINAL_PROMPT="0")
+
+        def g(*args):
+            p_ = subprocess.run(["git", "-C", os.path.dirname(here)] + list(args), capture_output=True, text=True,
+                                env=genv0, timeout=60)
+            return p_.stdout.strip() if p_.returncode == 0 else None
+        exp_commit = g("rev-parse", "--verify", "HEAD")
+        exp_rel = g("ls-files", "--full-name", "--", os.path.basename(here))
+        exp_blob = g("rev-parse", "--verify", "HEAD:%s" % exp_rel) if exp_commit and exp_rel else None
+        data_ = open(here, "rb").read()
+        exp_exec = hashlib.sha1(("blob %d\0" % len(data_)).encode() + data_).hexdigest()
+        c_ = cj["collector"]
+        chk("[R4b] collected.json's collector fields equal git's own answers and the executed bytes' digests",
+            c_.get("commit") == exp_commit and c_.get("committed_blob") == exp_blob and c_.get("path") == exp_rel
+            and c_.get("executed_sha256") == hashlib.sha256(data_).hexdigest() and c_.get("executed_blob") == exp_exec
+            and c_.get("executed_matches_committed_blob") == (exp_blob is not None and exp_blob == exp_exec)
+            and c_.get("pins", {}).get("extractor_blob") == EXTRACT_RESULT_BLOB
+            and "launched_commit" not in c_ and cj.get("launched_commit") not in (c_.get("commit"), c_.get("committed_blob")))
         n += 1
         gd = os.path.join(base, "repo")
         os.makedirs(os.path.join(gd, "batchx"))
@@ -581,8 +627,8 @@ def self_test(work=None):
         case("a RUNSET digest other than runs.json's", [S(1, runset="0" * 64), S(2), S(3)], "FAILS", "banner does not match",
              usable=4)
         case("a run's RESULT line missing", [S(1, drop_result=["800"]), S(2), S(3)], "FAILS", "RESULT lines for", usable=4)
-        case("an extra run in a shard", [S(1, extra_runs=[dict(runs[2])]), S(2), S(3)], "FAILS", "RESULT lines for",
-             usable=4)
+        case("an extra run of shard 2 in shard 1's log voids shards 1 and 2", [S(1, extra_runs=[dict(runs[2])]), S(2), S(3)],
+             "FAILS", "job 77001 answers for shards [1, 2]", usable=2)
         case("a tampered block (its SHA256 line no longer matches)", [S(1, tamper=["801"]), S(2), S(3)], "FAILS",
              "does not match its SHA256 line", usable=4)
         case("a block for a run that does not hold", [S(1, verdicts={"800": "UNVERIFIED"}, block_for=["800"]), S(2), S(3)],
@@ -597,7 +643,7 @@ def self_test(work=None):
              "FAILS", "RUN 801 shard 1 expires 2026-12-20 FAILS not usable", usable=5)
         case("a file that is not a job-log answer", ["not json", S(1), S(2), S(3)], "FAILS", "not a job-log answer",
              usable=6)
-        # note 1: the verdict line, found wherever it is after the last result
+        # N1: the verdict line
         case("a verdict line followed by 40 runner lines is found", [S(1, trailer=40), S(2, trailer=40), S(3)], "HOLDS",
              usable=6)
         case("a red shard's verdict line with 40 runner lines after it is found and checked",
@@ -606,7 +652,7 @@ def self_test(work=None):
         case("two verdict lines", [S(1, second_verdict=True), S(2), S(3)], "FAILS", "2 verdict lines, not one", usable=4)
         case("a verdict line before the last block", [S(1, verdict_early=True), S(2), S(3)], "FAILS",
              "not the assembler's last line before its end-of-output marker", usable=4)
-        # note 2: copies
+        # N2: copies
         case("a shard collected twice, byte-identical, is taken once", [S(1), S(1), S(2), S(3)], "HOLDS",
              "2 identical copies of job 77001, taken once", usable=6)
         _, ta = case("a shard collected twice with contradicting content: UNVERIFIED, none taken (good copy first)",
@@ -617,15 +663,41 @@ def self_test(work=None):
             == [l for l in tb.split("\n") if l.startswith("RUN ")])
         case("copies differing only in a tampered block are UNVERIFIED, whichever comes first",
              [S(1, tamper=["801"]), S(1), S(2), S(3)], "UNVERIFIED", "answers that differ", usable=4)
-        # note 3: provenance and pins
+        # N3: provenance and pins
         case("a log from another job (another push of this branch) is refused and voids the shard it names",
              [S(1, job_id=99999), S(2), S(3)], "FAILS", "job 99999 (served-0.json) is no job of the extraction run", usable=4)
         case("one job serving two shards is refused", [S(1), S(2, job_id=77001), S(3)], "FAILS", "usable", usable=2)
         # R1: a job id under two shards voids every shard involved, whatever the shard numbers
-        case("[R1a] shard 3's job serving shard 1's content voids shards 1 and 3", [S(1, job_id=77003), S(2), S(3)], "FAILS",
+        case("[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both",
+             [S(1), S(2), S(3), S(1, job_id=77003)], "FAILS", "job 77003 answers for shards [1, 3]: every one of them is void",
+             usable=2)
+        case("[R1a] the same with the mislabelled copy first by name", [S(1, job_id=77003), S(1), S(2), S(3)], "FAILS",
              "job 77003 answers for shards [1, 3]: every one of them is void", usable=2)
+        # F1: every place a log names a shard counts, so a damaged or reordered banner cannot hide a mislabelled copy
+        s1, s3 = json.loads(S(1)), json.loads(S(3))
+
+        def answer(job, *parts):
+            text = "\n".join(p_["logs_content"] for p_ in parts)
+            return json.dumps({"job_id": job, "logs_content": text, "original_length": len(text.split("\n"))})
+
+        def drop_runset(js):
+            o = json.loads(js)
+            L_ = [l for l in o["logs_content"].split("\n") if " BATCH SHARD " not in l]
+            return json.dumps({"job_id": o["job_id"], "logs_content": "\n".join(L_), "original_length": len(L_)})
+        for tag, nm, copy in (
+                ("F1a", "with its banner intact", S(1, job_id=77003)),
+                ("F1b", "with its RUNSET line malformed", S(1, job_id=77003, malformed_banner=True)),
+                ("F1c", "with its RUNSET line deleted", drop_runset(S(1, job_id=77003))),
+                ("F1d", "as shard 3's log followed by shard 1's in one answer", answer(77003, s3, s1)),
+                ("F1e", "as shard 1's log followed by shard 3's in one answer", answer(77003, s1, s3))):
+            case("[%s] shard 3's job serving shard 1's log %s voids shards 1 and 3, no run usable but shard 2's"
+                 % (tag, nm), [S(1), S(2), S(3), copy], "FAILS", "job 77003 answers for shards [1, 3]", usable=2)
+        # F2: the assembler's own CHECK all line inside its output voids the shard
+        case("[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard",
+             [S(1, verdicts={"801": "UNVERIFIED"}, stopped=True), S(2), S(3)], "FAILS", "reported a CHECK all line",
+             usable=4)
         case("[R1b] the mirror, shard 1's job serving shard 3's content, voids the same two shards",
-             [S(1), S(2), S(3, job_id=77001)], "FAILS", "job 77001 answers for shards [1, 3]: every one of them is void",
+             [S(1), S(2), S(3), S(3, job_id=77001)], "FAILS", "job 77001 answers for shards [1, 3]: every one of them is void",
              usable=2)
         # R2: a duplicate cannot escape by its banner: copies are grouped by the trusted job id
         t = json.loads(S(1, trailer=40))
@@ -670,60 +742,71 @@ def self_test(work=None):
              "the verdict line is not the assembler's last line before its end-of-output marker"),
             ("R3k", "an end-of-output marker naming another assembler blob",
              dict(end_line="BATCH END shard 1/3: assembler " + "0" * 12), "names another shard or assembler"),
-            ("R3l", "an end-of-output marker of another shard",
-             dict(end_line="BATCH END shard 2/3: assembler %s" % ASSEMBLER_BLOB[:12]), "names another shard or assembler"),
+            ("R3l", "an end-of-output marker of another shard (it names shard 2, so the job rule voids 1 and 2)",
+             dict(end_line="BATCH END shard 2/3: assembler %s" % ASSEMBLER_BLOB[:12]), "job 77001 answers for shards [1, 2]"),
         )
         for tag, nm, mut, needle in R3:
-            case("[%s] %s is refused" % (tag, nm), [S(1, **mut), S(2), S(3)], "FAILS", needle, usable=4)
+            case("[%s] %s is refused" % (tag, nm), [S(1, **mut), S(2), S(3)], "FAILS", needle,
+                 usable=2 if tag == "R3l" else 4)
         # R1, R2: the result is the same under every numbering of the shards and every order of the files
         import itertools
 
         def outcome(perm, order, scenario):
+            """order is a permutation of the scenario's answers: answer order[i] is written as served-<i>.json, so
+            both the order and the name each answer is paired with vary."""
             pd = {"shards": 3, "runs": [dict(r, shard=perm[r["shard"] - 1]) for r in runs]}
             pix = {perm[k - 1]: 77000 + perm[k - 1] for k in (1, 2, 3)}
-            PS = lambda k, **mut: _shard_text(pd, perm[k - 1], None, dict(mut, **(  # noqa: E731
+            PS = lambda k, verdicts=None, **mut: _shard_text(pd, perm[k - 1], verdicts, dict(mut, **(  # noqa: E731
                 {"job_id": pix[perm[mut.pop("job_of") - 1]]} if "job_of" in mut else {})))
             texts = scenario(PS)
             d = tempfile.mkdtemp(dir=base)
             files = []
-            for label, t in sorted(zip("abcdefgh", texts), key=lambda x: order.index(x[0]) if x[0] in order else 9):
-                p = os.path.join(d, "served-%s.json" % label)
+            idx = [i for i in order if i < len(texts)] + [i for i in range(len(texts)) if i not in order]
+            for pos, i in enumerate(idx):
+                t = texts[i]
+                p = os.path.join(d, "served-%d.json" % pos)
                 with open(p, "w", encoding="utf-8") as f:
                     f.write(t)
                 files.append(p)
             buf = io.StringIO()
             code = collect(pd, files, os.path.join(d, "out"), pix, 42, buf, head=HEAD)
             cjp = json.load(open(os.path.join(d, "out", "collected.json")))
-            return code, frozenset((e["run_id"], e["usable"], e["verdict"]) for e in cjp["runs"])
+            return code, frozenset((e["run_id"], e["usable"], e["verdict"]) for e in cjp["runs"]), \
+                sum(1 for e in cjp["runs"] if e["usable"])
 
         def bl(PS):
             t_ = json.loads(PS(1, trailer=40))
             ls = t_["logs_content"].split("\n")
             return json.dumps({"job_id": t_["job_id"], "logs_content": "\n".join(ls[6:]), "original_length": t_["original_length"]})
+        # each scenario: (name, answers, the exit code and the number of usable runs it must give everywhere)
         scenarios = [
-            ("clean", lambda PS: [PS(1), PS(2), PS(3)]),
-            ("shard 3's job with shard 1's content", lambda PS: [PS(1, job_of=3), PS(2), PS(3)]),
-            ("shard 1's job with shard 3's content", lambda PS: [PS(1), PS(2), PS(3, job_of=1)]),
-            ("shard 2's job with shard 1's content, shard 1 also whole", lambda PS: [PS(1), PS(1, job_of=2), PS(2), PS(3)]),
-            ("a bannerless copy of shard 1's job", lambda PS: [PS(1, trailer=40), bl(PS), PS(2), PS(3)]),
-            ("contradicting copies of shard 2", lambda PS: [PS(1), PS(2), PS(2, verdicts={"802": "FAILS"}), PS(3)]),
-            ("an identical duplicate of shard 3", lambda PS: [PS(1), PS(2), PS(3), PS(3)]),
-            ("a malformed-banner duplicate of shard 2", lambda PS: [PS(1), PS(2), PS(2, malformed_banner=True), PS(3)]),
-            ("a conflicting copy of shard 1 after a clean one", lambda PS: [PS(1), PS(2), PS(3), PS(1, verdicts={"801": "FAILS"})]),
-            ("shard 2 missing", lambda PS: [PS(1), PS(3)]),
+            ("clean", lambda PS: [PS(1), PS(2), PS(3)], 0, 6),
+            ("shard 3's job with shard 1's content", lambda PS: [PS(1, job_of=3), PS(2), PS(3)], 1, 2),
+            ("shard 1's job with shard 3's content", lambda PS: [PS(1), PS(2), PS(3, job_of=1)], 1, 2),
+            ("shard 2's job with shard 1's content, shard 1 also whole", lambda PS: [PS(1), PS(1, job_of=2), PS(2), PS(3)],
+             1, 2),
+            ("a bannerless copy of shard 1's job", lambda PS: [PS(1, trailer=40), bl(PS), PS(2), PS(3)], 2, 4),
+            ("contradicting copies of shard 2", lambda PS: [PS(1), PS(2), PS(2, verdicts={"802": "FAILS"}), PS(3)], 2, 4),
+            ("an identical duplicate of shard 3", lambda PS: [PS(1), PS(2), PS(3), PS(3)], 0, 6),
+            ("a malformed-banner duplicate of shard 2", lambda PS: [PS(1), PS(2), PS(2, malformed_banner=True), PS(3)], 2, 4),
+            ("a conflicting copy of shard 1 after a clean one",
+             lambda PS: [PS(1), PS(2), PS(3), PS(1, verdicts={"801": "FAILS"})], 2, 4),
+            ("shard 2 missing", lambda PS: [PS(1), PS(3)], 2, 4),
         ]
-        for nm, sc in scenarios:
+        for nm, sc, want_code, want_usable in scenarios:
             res_ = {(perm, order): outcome(perm, order, sc)
-                    for perm in itertools.permutations((1, 2, 3)) for order in ("abcd", "dcba", "cadb", "bdac")}
-            chk("[RP] permutation: %s gives one result under all 6 shard numberings and 4 file orders (%s)"
-                % (nm, ["HOLDS", "FAILS", "UNVERIFIED"][next(iter(res_.values()))[0]]), len(set(res_.values())) == 1)
+                    for perm in itertools.permutations((1, 2, 3)) for order in ((0, 1, 2, 3), (3, 2, 1, 0), (2, 0, 3, 1), (1, 3, 0, 2))}
+            outs = set(res_.values())
+            chk("[RP] permutation: %s gives exit %d and %d usable runs under all 6 shard numberings and 4 orders and name "
+                "pairings of the answers" % (nm, want_code, want_usable),
+                len(outs) == 1 and all(o[0] == want_code and o[2] == want_usable for o in outs))
         for key, val in (("assembler_blob", "0" * 40), ("host_reader_blob", "0" * 40), ("extractor_blob", "0" * 40),
                          ("extractor_commit", "0" * 40), ("runs_sha256", "0" * 64)):
             case("a block naming another %s is refused" % key, [S(1, edit_source={"800": {key: val}}), S(2), S(3)], "FAILS",
                  "names another extractor, assembler, host reader or runs.json", usable=4)
         case("a banner naming another host-reader blob is refused", [S(1, host_prefix="0" * 12), S(2), S(3)], "FAILS",
              "assembler banner is absent or names other blobs", usable=4)
-        # note 4: under 5,000 lines
+        # N9: under 5,000 lines
         case("a whole answer of 4,999 lines is accepted", [S(1, pad_to=4999), S(2), S(3)], "HOLDS", usable=6)
         case("a whole answer of 5,000 lines is refused: not under 5,000", [S(1, pad_to=5000), S(2), S(3)], "FAILS",
              "has 5000 lines: not under 5000", usable=4)

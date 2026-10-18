@@ -14,7 +14,9 @@
    stopped with a traceback, so the catch is shown to be that regression test's, not only an unrelated one's; the
    table printed at the end lists, for each such mutant, every test it fails.
 3. Plan and pins (with --plan WORKFLOW). runs.json is the 223 runs, each once, in expiry order, in contiguous
-   shards of at most shard_size; the three scripts pin its sha256 and assemble.py pins crosscheck.json's; the
+   shards of at most shard_size; the three scripts pin its sha256 and assemble.py pins crosscheck.json's; the pins
+   are cross-validated: collect.py's ASSEMBLER_BLOB and HOST_BLOB are the files' blobs, its EXTRACT_RESULT_BLOB and
+   MAIN_COMMIT are assemble.py's, and the workflow's extract_result.py checkouts are at that MAIN_COMMIT; the
    workflow's matrix lists exactly shards 1..N; it triggers only on a push to its own branch; its permissions are
    actions: read and contents: read and nothing else; every `uses:` is pinned by a full SHA and is actions/checkout;
    every checkout sets persist-credentials: false; GH_TOKEN is set once, on the host step, from github.token, and
@@ -75,58 +77,97 @@ MUTANTS = [
     ("collect.py", 'sm.group(2) != hashlib.sha256(body.encode("utf-8")).hexdigest()', "False",
      "a block's digest is not checked"),
     # Each entry from here: (file, edits, None, what, expected tests). edits is (old, new) pairs; the mutant must fail
-    # every expected test by name, so the catch is shown to be that regression test's, not only an unrelated one's.
-    ("collect.py", (("        elif len({identity(a[1]) for a in ans}) > 1:\n", "        elif False:\n"),), None,
-     "N2: a job's copies that differ are not detected", ["[R2d]", "contradicting content", "tampered block"]),
-    ("collect.py", (("enumerate(L)) if m]\n    want", "enumerate(L) if i >= len(L) - 30) if m]\n    want"),), None,
-     "N1: the verdict line is looked for only in the last 30 lines", ["a verdict line followed by 40 runner lines"]),
-    ("collect.py", (("    if len(vs) != 1:\n", "    if not vs:\n"),), None, "N1/R3: a second verdict line is allowed",
-     ["two verdict lines", "[R3f]", "[R3g]", "[R3i]"]),
-    ("collect.py", (("    elif span is not None and vs[0][0] != span[1] - 1:\n", "    elif False:\n"),), None,
+    # every expected test, matched by its exact name, so the catch is shown to be that regression test's.
+    ('collect.py', (('        elif len({identity(a[1]) for a in ans}) > 1:\n', '        elif False:\n'), ), None,
+     "N2: a job's copies that differ are not detected",
+     ['[R2d] a clean shard 1, then a conflicting copy of the same job arriving after it: shard 1 UNVERIFIED', 'a shard collected twice with contradicting content: UNVERIFIED, none taken (good copy first)', 'copies differing only in a tampered block are UNVERIFIED, whichever comes first']),
+    ('collect.py', (('enumerate(L)) if m]\n    want', 'enumerate(L) if i >= len(L) - 30) if m]\n    want'), ), None,
+     'N1: the verdict line is looked for only in the last 30 lines',
+     ['a verdict line followed by 40 runner lines is found']),
+    ('collect.py', (('    if len(vs) != 1:\n', '    if not vs:\n'), ), None,
+     'N1/R3: a second verdict line is allowed',
+     ['two verdict lines', '[R3f] two verdict lines inside the output is refused', '[R3g] a verdict-like line before the start, with a real verdict inside is refused', '[R3i] a verdict-like line after the end, with a real verdict inside is refused']),
+    ('collect.py', (('    elif span is not None and vs[0][0] != span[1] - 1:\n', '    elif False:\n'), ), None,
      "N1/R3: a verdict line other than the assembler's last line before its end marker is allowed",
-     ["[R3h]", "[R3j]", "a verdict line before the last block"]),
-    ("collect.py", (("            bad = True  # an answer of a job outside the run\n", ""),
-                    ('                voided.setdefault(s_, set()).add("an answer of job %s, which is no job of the run, '
-                     'names it" % job)\n', "                pass\n")), None,
-     "N3: an answer of a job outside the run is not refused", ["a log from another job"]),
-    ("collect.py", (("        elif not pins:\n", "        elif False:\n"),), None, "N3: the blobs a result names are not checked",
-     ["a block naming another"]),
-    ("collect.py", (("    if not ab or any(m.groups() != (", "    if not ab or False and any(m.groups() != ("),), None,
-     "N3: the banner's blobs are not checked", ["a banner naming another host-reader blob"]),
-    ("collect.py", (("    if orig >= MAX_LINES:\n", "    if False:\n"),), None, "N9: a log of 5,000 lines or more is accepted",
-     ["a whole answer of 5,000 lines is refused"]),
-    ("assemble.py", (("    if nblocks > 1:\n", "    if False:\n"),), None, "N5: of two gate blocks the last is taken",
-     ["two gate blocks in one gate section"]),
-    ("assemble.py", (('run["conclusion"] == cfg.get("run_conclusion"), str(run["conclusion"]))',
-                      'True, str(run["conclusion"]))'),), None, "N6: the pinned run conclusion is not compared",
-     ["attempt-1 conclusion other than the pinned one", "a pinned conclusion of another value"]),
-    ("host.py", (("        write_record(rec_path, record)  # every read is on disk as soon as it is done\n", "        pass\n"),),
-     None, "N8: the fetch record is not written after each read", ["a step stopped during run 9002's log"]),
-    ("collect.py", (("            for s_ in sorted(involved):  # every shard involved\n",
-                     "            for s_ in sorted(involved)[-1:]:  # every shard involved\n"),), None,
-     "R1: a job under two shards voids only the later one, so shard numbering decides",
-     ["[R1b]", "[RP] permutation: shard 1's job with shard 3's content"]),
-    ("collect.py", (("        ans = by_job[job]\n", "        ans = [a for a in by_job[job] if a[3] is not None]\n"),), None,
-     "R2: copies grouped by banner, so a bannerless or malformed-banner duplicate escapes",
-     ["[R2a]", "[R2b]", "[R2c]", "[R2e]"]),
-    ("collect.py", (("    if len(ends) != 1:\n", "    if False:\n"),), None,
-     "R3: no single end-of-output marker is required (the pre-fix acceptance)", ["[R3a]", "[R3b]", "[R3d]"]),
-    ("collect.py", (("    if len(starts) != 1:\n", "    if False:\n"),), None, "R3: two start markers are allowed",
-     ["[R3c]"]),
-    ("collect.py", (("        if span[1] < span[0]:\n", "        if False:\n"),), None,
-     "R3: an end marker before the start marker is allowed", ["[R3e]"]),
-    ("collect.py", (("        elif AEND.match(L[span[1]]).groups() != (str(k), str(nsh), ASSEMBLER_BLOB[:12]):\n",
-                     "        elif False:\n"),), None, "R3: the end marker's shard and assembler are not checked",
-     ["[R3k]", "[R3l]"]),
-    ("collect.py", (('                   "launched_commit": head,\n', ""),), None,
-     "R4: collected.json does not record the launched commit", ["[R4a]"]),
-    ("collect.py", (('    return {"path": rel, "commit": commit,', '    return {"path": rel, "commit": None,'),), None,
-     "R4: the collector's commit is not recorded", ["[R4c]"]),
-    ("collect.py", (('            "executed_matches_committed_blob": committed is not None and committed == executed}',
-                     '            "executed_matches_committed_blob": True}'),), None,
-     "R4: uncommitted collector changes are not marked", ["[R4c]"]),
-    ("collect.py", (('    if not re.fullmatch(r"[0-9a-f]{40}", str(head)):\n', "    if False:\n"),), None,
-     "R4: a launched commit that is not a full sha is accepted", ["[R4d]"]),
+     ['[R3h] a verdict-like line before the start, with no verdict inside is refused', '[R3j] a verdict-like line after the end, with no verdict inside is refused', 'a verdict line before the last block']),
+    ('collect.py', (('            bad = True  # an answer of a job outside the run\n', ''), ('                voided.setdefault(s_, set()).add("an answer of job %s, which is no job of the run, names it" % job)\n', '                pass\n'), ), None,
+     'N3: an answer of a job outside the run is not refused',
+     ['a log from another job (another push of this branch) is refused and voids the shard it names']),
+    ('collect.py', (('        elif not pins:\n', '        elif False:\n'), ), None,
+     'N3: the blobs a result names are not checked',
+     ['a block naming another assembler_blob is refused', 'a block naming another host_reader_blob is refused', 'a block naming another extractor_blob is refused', 'a block naming another extractor_commit is refused', 'a block naming another runs_sha256 is refused']),
+    ('collect.py', (('    if not ab or any(m.groups() != (', '    if not ab or False and any(m.groups() != ('), ), None,
+     "N3: the banner's blobs are not checked",
+     ['a banner naming another host-reader blob is refused']),
+    ('collect.py', (('    if orig >= MAX_LINES:\n', '    if False:\n'), ), None,
+     'N9: a log of 5,000 lines or more is accepted',
+     ['a whole answer of 5,000 lines is refused: not under 5,000']),
+    ('assemble.py', (('    if nblocks > 1:\n', '    if False:\n'), ), None,
+     'N5: of two gate blocks the last is taken',
+     ['two gate blocks in one gate section (FAILED, then PASS) are UNVERIFIED; the last is not taken']),
+    ('assemble.py', (('run["conclusion"] == cfg.get("run_conclusion"), str(run["conclusion"]))', 'True, str(run["conclusion"]))'), ), None,
+     'N6: the pinned run conclusion is not compared',
+     ["a run's attempt-1 conclusion other than the pinned one FAILS", 'a pinned conclusion of another value FAILS']),
+    ('host.py', (('        write_record(rec_path, record)  # every read is on disk as soon as it is done\n', '        pass\n'), ), None,
+     'N8: the fetch record is not written after each read',
+     ["a step stopped during run 9002's log keeps run 9001's reads and run 9002's run and jobs reads on disk"]),
+    ('collect.py', (('            for s_ in sorted(involved):  # every shard involved\n', '            for s_ in sorted(involved)[-1:]:  # every shard involved\n'), ), None,
+     'R1: a job under two shards voids only the highest-numbered one',
+     ["[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both", "[R1b] the mirror, shard 1's job serving shard 3's content, voids the same two shards"]),
+    ('collect.py', (('            for s_ in sorted(involved):  # every shard involved\n', '            for s_ in sorted(involved - {inv[job]}):  # every shard involved\n'), ), None,
+     "R1 (reviewer M1): only the shards the foreign content names are voided, never the job's own",
+     ["[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both", "[R1b] the mirror, shard 1's job serving shard 3's content, voids the same two shards"]),
+    ('collect.py', (('            for s_ in sorted(involved):  # every shard involved\n', '            for s_ in sorted(involved)[:1]:  # every shard involved\n'), ), None,
+     'R1 (reviewer M1b): only the lowest-numbered shard involved is voided',
+     ["[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both", "[R1b] the mirror, shard 1's job serving shard 3's content, voids the same two shards"]),
+    ('collect.py', (('        ans = by_job[job]\n', '        ans = [a for a in by_job[job] if a[3] is not None]\n'), ), None,
+     "R2: a bannerless or malformed-banner duplicate is left out of its job's copies",
+     ['[R2a] a whole shard 1, then a bannerless duplicate of the same job: shard 1 UNVERIFIED, none of its runs usable', '[R2a] a bannerless duplicate, then the whole shard 1: the same', '[R2b] a whole shard 1, then a contradicting bannerless duplicate of the same job: shard 1 UNVERIFIED, none of its runs usable', '[R2b] a contradicting bannerless duplicate, then the whole shard 1: the same', '[R2c] a whole shard 1, then a malformed-banner duplicate of the same job: shard 1 UNVERIFIED, none of its runs usable', '[R2c] a malformed-banner duplicate, then the whole shard 1: the same', '[R2e] a lone bannerless answer of an indexed job leaves its shard void, never usable']),
+    ('collect.py', (('    for a in answers:\n        by_job.setdefault(', "    for a in answers:\n        if a[3] is None:\n            P('COLLECT FAIL %s: names no shard' % a[0])\n            bad = True\n            continue\n        by_job.setdefault("), ), None,
+     'R2 (reviewer M2): a bannerless answer is refused but never grouped with its job',
+     ['[R2a] a whole shard 1, then a bannerless duplicate of the same job: shard 1 UNVERIFIED, none of its runs usable', '[R2a] a bannerless duplicate, then the whole shard 1: the same', '[R2b] a whole shard 1, then a contradicting bannerless duplicate of the same job: shard 1 UNVERIFIED, none of its runs usable', '[R2b] a contradicting bannerless duplicate, then the whole shard 1: the same', '[R2c] a whole shard 1, then a malformed-banner duplicate of the same job: shard 1 UNVERIFIED, none of its runs usable', '[R2c] a malformed-banner duplicate, then the whole shard 1: the same', '[R2e] a lone bannerless answer of an indexed job leaves its shard void, never usable']),
+    ('collect.py', (('        involved = named | {inv[job]}\n', '        involved = {inv[job]}\n'), ('        elif len({identity(a[1]) for a in ans}) > 1:\n', '        elif False:\n'), ), None,
+     'R1/R2 (reviewer M6): the first answer per job decides, no identity comparison, the log names nothing',
+     ["[R1a] shard 3's job serving shard 1's content, beside genuine shards 1 and 3, voids both", "[R1b] the mirror, shard 1's job serving shard 3's content, voids the same two shards", '[R2d] a clean shard 1, then a conflicting copy of the same job arriving after it: shard 1 UNVERIFIED']),
+    ('collect.py', (('    return named  # every shard the log names\n', '    return {int(m.group(1)) for m in [next((BANNER.match(l) for l in L if BANNER.match(l)), None)] if m}\n'), ), None,
+     'F1: only the first readable RUNSET line names a shard (the 56913c6e reading)',
+     ["[F1b] shard 3's job serving shard 1's log with its RUNSET line malformed voids shards 1 and 3, no run usable but shard 2's", "[F1c] shard 3's job serving shard 1's log with its RUNSET line deleted voids shards 1 and 3, no run usable but shard 2's", "[F1d] shard 3's job serving shard 1's log as shard 3's log followed by shard 1's in one answer voids shards 1 and 3, no run usable but shard 2's"]),
+    ('collect.py', (('    if span is not None and any(L[i].startswith("CHECK all ") for i in range(span[0], span[1])):\n', '    if False:\n'), ), None,
+     "F2: a CHECK all line inside the assembler's output is ignored",
+     ["[F2] a 'CHECK all UNVERIFIED stopped' line inside the assembler's output voids the shard"]),
+    ('collect.py', (('    if len(ends) != 1:\n', '    if False:\n'), ), None,
+     'R3: no single end-of-output marker is required (the pre-fix acceptance)',
+     ['[R3a] the assembler died before its verdict; a verdict-shaped line appears later in the trailer is refused', '[R3b] a missing end-of-output marker (truncated output) is refused', '[R3d] two end-of-output markers is refused']),
+    ('collect.py', (('    if len(starts) != 1:\n', '    if False:\n'), ), None,
+     'R3: two start markers are allowed',
+     ['[R3c] two start markers is refused']),
+    ('collect.py', (('        if span[1] < span[0]:\n', '        if False:\n'), ), None,
+     'R3: an end marker before the start marker is allowed',
+     ['[R3e] the end-of-output marker before the start marker is refused']),
+    ('collect.py', (('        elif AEND.match(L[span[1]]).groups() != (str(k), str(nsh), ASSEMBLER_BLOB[:12]):\n', '        elif False:\n'), ), None,
+     "R3: the end marker's assembler is not checked",
+     ['[R3k] an end-of-output marker naming another assembler blob is refused']),
+    ('collect.py', (('    elif span is not None and vs[0][0] != span[1] - 1:\n', '    elif span is not None and vs[0][0] < span[0]:\n'), ), None,
+     'R3 (reviewer M3): a verdict anywhere after the start marker is accepted',
+     ['[R3j] a verdict-like line after the end, with no verdict inside is refused', 'a verdict line before the last block']),
+    ('collect.py', (('    if len(vs) != 1:\n', '    vs = [x for x in vs if span is None or span[0] < x[0] < span[1]]\n    if len(vs) != 1:\n'), ), None,
+     'R3 (reviewer M3b): only verdict lines inside the span are counted',
+     ['two verdict lines', '[R3g] a verdict-like line before the start, with a real verdict inside is refused', '[R3h] a verdict-like line before the start, with no verdict inside is refused', '[R3i] a verdict-like line after the end, with a real verdict inside is refused', '[R3j] a verdict-like line after the end, with no verdict inside is refused']),
+    ('collect.py', (('                   "launched_commit": head,\n', ''), ), None,
+     'R4: collected.json does not record the launched commit',
+     ['[R4a] collected.json records the full 40-hex launched commit, the --head value the job index required']),
+    ('collect.py', (('                   "launched_commit": head,\n', '                   "launched_commit": head and head[:12],\n'), ), None,
+     'R4 (reviewer M4): only a 12-hex prefix of the launched commit is recorded',
+     ['[R4a] collected.json records the full 40-hex launched commit, the --head value the job index required']),
+    ('collect.py', (('    return {"path": rel, "commit": commit,', '    return {"path": rel, "commit": None,'), ), None,
+     "R4: the collector's commit is not recorded",
+     ["[R4c] the collector's commit and committed blob come from git, and local uncommitted changes are recorded by the executed bytes' sha256 and a false match flag"]),
+    ('collect.py', (('            "executed_matches_committed_blob": committed is not None and committed == executed}', '            "executed_matches_committed_blob": True}'), ), None,
+     'R4: uncommitted collector changes are not marked',
+     ["[R4c] the collector's commit and committed blob come from git, and local uncommitted changes are recorded by the executed bytes' sha256 and a false match flag"]),
+    ('collect.py', (('    if not re.fullmatch(r"[0-9a-f]{40}", str(head)):\n', '    if False:\n'), ), None,
+     'R4: a launched commit that is not a full sha is accepted',
+     ['[R4d] a launched commit that is not a full 40-hex sha is refused']),
     ("collect.py", 'if res.get(rid) != "HOLDS":', "if False:", "a block of a run that does not hold is taken"),
 ]
 
@@ -230,6 +271,14 @@ def plan_problems(wf, runs_text, scripts, xc_text):
             P.append("%s does not pin runs.json's sha256" % name)
     if not re.search(r'^CROSSCHECK_SHA256 = "%s"$' % hashlib.sha256(xc_text.encode()).hexdigest(), scripts["assemble.py"], re.M):
         P.append("assemble.py does not pin crosscheck.json's sha256")
+    for const in ("EXTRACT_RESULT_BLOB", "MAIN_COMMIT"):
+        vals = {n_: re.findall(r'^%s = "([0-9a-f]{40})"$' % const, scripts[n_], re.M) for n_ in ("assemble.py", "collect.py")}
+        if any(len(v) != 1 for v in vals.values()) or vals["assemble.py"] != vals["collect.py"]:
+            P.append("collect.py's %s is not assemble.py's" % const)
+    mc = re.findall(r'^MAIN_COMMIT = "([0-9a-f]{40})"$', scripts["assemble.py"], re.M)
+    refs = re.findall(r"^\s+ref: (\S+)$", wf, re.M)
+    if not mc or len(refs) != 2 or any(r_ != mc[0] for r_ in refs):
+        P.append("workflow: the extract_result.py checkouts are not at assemble.py's MAIN_COMMIT")
     for const, name in (("ASSEMBLER_BLOB", "assemble.py"), ("HOST_BLOB", "host.py")):
         blob = hashlib.sha1(b"blob %d\0" % len(scripts[name].encode()) + scripts[name].encode()).hexdigest()
         if not re.search(r'^%s = "%s"$' % (const, blob), scripts["collect.py"], re.M):
@@ -304,6 +353,17 @@ def plan(path):
     caught = bool(plan_problems(wf, runs_text, s2, xc_text))
     print("  %s  plan negative control: a script pinning another runs.json is caught" % ("ok  " if caught else "FAIL"))
     fails += not caught
+    for const in ("EXTRACT_RESULT_BLOB", "MAIN_COMMIT"):
+        s4 = dict(scripts, **{"collect.py": re.sub(r'^(%s = ")([0-9a-f])' % const,
+                                                   lambda m: m.group(1) + ("1" if m.group(2) == "0" else "0"),
+                                                   scripts["collect.py"], count=1, flags=re.M)})
+        caught = s4 != scripts and bool(plan_problems(wf, runs_text, s4, xc_text))
+        print("  %s  plan negative control: a collect.py %s other than assemble.py's is caught" % ("ok  " if caught else "FAIL", const))
+        fails += not caught
+    w5 = wf.replace("ref: b96662e6be4f537502c772db369ea32a35b213a8", "ref: " + "0" * 40, 1)
+    caught = w5 != wf and bool(plan_problems(w5, runs_text, scripts, xc_text))
+    print("  %s  plan negative control: an extract_result.py checkout at another commit is caught" % ("ok  " if caught else "FAIL"))
+    fails += not caught
     s3 = dict(scripts, **{"assemble.py": scripts["assemble.py"] + "\n"})
     caught = bool(plan_problems(wf, runs_text, s3, xc_text))
     print("  %s  plan negative control: an assemble.py other than the one collect.py pins is caught" % ("ok  " if caught else "FAIL"))
@@ -361,7 +421,7 @@ def main(argv=None):
             rc = selftests(d, extractor, work, outs)
             names, crashed = failing_cases(outs)
             k = any(rc)
-            missing = [e for e in (expect or []) if not any(e in nm for nm in names)]
+            missing = [e for e in (expect or []) if e not in names]   # exact names, never substrings
             specific = expect is None or (not missing and not crashed)
             killed += k and specific
             print("  %s  mutant %02d %s: %s (exit codes %s)%s" % (
