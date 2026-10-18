@@ -60,9 +60,14 @@ def from_coords(ns, cs):
 
 
 def _layer():
-    sys.path.insert(0, os.path.join(os.path.dirname(HERE), "loc-1-arith"))
-    import cyclo16
-    return cyclo16
+    """The layer's arithmetic: design/ in a record directory, loc-1-arith/ beside this directory in research."""
+    for d in (os.environ.get("LOC1_LAYER_DIR"), os.path.join(os.path.dirname(HERE), "design"),
+              os.path.join(os.path.dirname(HERE), "loc-1-arith")):
+        if d and os.path.isfile(os.path.join(d, "cyclo16.py")):
+            sys.path.insert(0, d)
+            import cyclo16
+            return cyclo16
+    raise SystemExit("cyclo16.py (the layer's arithmetic) not found in design/ or loc-1-arith/")
 
 
 def to_layer(ns, mats, conv=coords):

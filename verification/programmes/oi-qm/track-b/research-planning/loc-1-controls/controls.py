@@ -155,14 +155,19 @@ def check_ret(d, commit, label):
     src = cr.get("source") or {}
     if not HEX64.match(str(src.get("served_sha256", ""))) or not src.get("extractor", "").endswith("extract_result.py"):
         fails.append("check-run.json source lacks the served text's sha256 or the extractor")
-    rec = (cr.get("reproduce") or {}).get("recipe")
-    # main's reproduce.py --run finds an expected result only through an archive entry ci-<run>; a run retained in
-    # the record directory has none, so its recipe is the manual one ending in compare_result.py on this file
-    by_archive = rec and any(("reproduce.py --run %s" % run.get("id")) in str(x) for x in rec)
-    by_hand = rec and any("compare_result.py" in str(x) and ("retained/%s/check-run.json" % label) in str(x)
-                          for x in rec) and any(("worktree add --detach <dir> %s" % commit) in str(x) for x in rec)
-    if not (by_archive or by_hand):
-        fails.append("check-run.json names no recipe that regenerates and compares it")
+    rep = cr.get("reproduce") or {}
+    rec = [str(x) for x in (rep.get("recipe") or [])]
+    # the archive's results.json form: a manual recipe (worktree at the commit, build, gate, extract, compare) and,
+    # for an archive entry ci-<run>, the tool reproduce.py --run <run>, which reads only archive entries
+    steps = ("git worktree add --detach <dir>", "lake --rehash build", "tools/release_gate.py", "extract_result.py",
+             "compare_result.py")
+    manual = all(any(st in x for x in rec) for st in steps) and \
+        any("git worktree add --detach <dir>" in x and (commit in x or "<head_sha>" in x) for x in rec)
+    if not manual:
+        fails.append("check-run.json names no recipe that rebuilds the commit, reruns the gate, extracts and compares")
+    tool = str(rep.get("tool") or "")
+    if tool and ("reproduce.py --run %s" % run.get("id")) not in tool:
+        fails.append("check-run.json names a reproduction tool for another run")
     exp = cr.get("expected") or {}
     if exp.get("build_success") is not True or not (exp.get("gate") or {}).get("steps") or \
             "verdict" not in (exp.get("gate") or {}) or "modules" not in exp or "markers" not in exp:
@@ -266,7 +271,12 @@ def _ret_fixture(d, F):
           "run": {"id": "1", "job_id": "2", "job_name": "Mathlib bridge", "attempt": 1, "event": "workflow_dispatch",
                   "workflow": "verify.yml", "conclusion": "success", "head_sha": F},
           "source": {"extractor": "verification/audits/evidence-retention/extract_result.py", "served_sha256": "a" * 64},
-          "reproduce": {"recipe": ["python3 -I verification/audits/evidence-retention/reproduce.py --run 1 --work <d>"]},
+          "reproduce": {"recipe": ["git worktree add --detach <dir> %s" % F,
+                                   "(cd <dir>/verification/lean-mathlib && lake --rehash build) > <log> 2>&1",
+                                   "(cd <dir> && python3 tools/release_gate.py) >> <log> 2>&1",
+                                   "python3 -I verification/audits/evidence-retention/extract_result.py <log> > r.json",
+                                   "python3 -I verification/audits/evidence-retention/compare_result.py "
+                                   "<record>/retained/F/check-run.json r.json --tree <dir>"]},
           "expected": {"build_success": True, "gate": {"steps": [{"name": "x", "status": "PASS", "summary": ""}],
                                                        "verdict": "PASS"}, "modules": {}, "markers": {}}}
     jobs = {"jobs": [{"id": 2, "name": "Mathlib bridge", "run_attempt": 1, "conclusion": "success", "head_sha": F},
