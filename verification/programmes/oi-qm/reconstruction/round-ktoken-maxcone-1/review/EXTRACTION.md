@@ -1,9 +1,9 @@
 # KTOKEN-MAXCONE-1 (#829): evidence extraction for the two design runs
 
 **Where things are.** The two design runs' expected results were extracted in CI and hold every acceptance check below.
-They are committed at `evidence/run1-39043849411.json` and `evidence/run2.json`. The preregistration's pins are
-still pending: filling them makes the reviewed checker's self-test fail (see "Pins and the checker"). `F` is not
-designated.
+They are committed at `evidence/run1-39043849411.json` and `evidence/run2.json`, and the preregistration pins both
+digests. The checker's frozen blob is now `78c8ba36`, a fixture-only change after run 2 that the owner reviewed and
+approved; run 2 exercised `8c8eb522`. `F` is not designated.
 
 ## The extraction run
 
@@ -61,25 +61,32 @@ execution tree, not a `check-run` attestation of `F` or `E`.
 
 ## Pins and the checker
 
-Filling the two pins in the preregistration makes the reviewed `controls.py` (`8c8eb522`) fail its own self-test. Its
-end-to-end fixture writes synthetic evidence files and fills only pins that are still `pending`, so with real digests
-pinned, its unmutated case fails P. Both pins therefore stay pending, and `controls.py` is unchanged.
+With real digests pinned, the reviewed checker `8c8eb522` failed its own self-test. Its end-to-end fixture filled only
+pins that were still pending, so its unmutated case failed P. The repair, `controls-fixture-fix.diff` in this folder,
+changes only that fixture. It now uses synthetic evidence only, never a retained file. It replaces every pin, pending or
+filled, in its own copy of the preregistration, and fails closed if a pin cannot be replaced exactly once. Two added
+cases check that the production P control rejects a pin left pending at `F` and a pin whose digest is not the file's at
+`E`. No control, rule or token changed.
 
-A proposed fix, `controls-fixture-fix.diff` in this folder, is not applied and needs review. It changes only the
-fixture: when a pin is filled, it uses the real retained file, and if that file is absent, P fails. Applying it gives
-`controls.py` the blob `904c1e700586d008b54078b2cf03f9b7a021a9b5`, so the preregistration's frozen-blob pin for
-`controls.py` moves with it. Local self-test results on the run-2 tree, with that pin moved:
+The owner reviewed the exact diff and approved it on 2026-10-18, having reconstructed blob
+`78c8ba364104b6efc465a901f25cfc70ee6967d7` independently. The preregistration now pins `controls.py` at that blob and
+both evidence digests. Run 2 exercised the earlier blob `8c8eb522`; the change came after it and was not exercised by
+any design run.
+
+Local self-test of `78c8ba36` on the run-2 tree, with the preregistration as committed here:
 
 | mode | result |
 |---|---|
-| pins filled, real files present | `controls: OK (0 failure(s))`, 38 self-checks |
-| pins pending, as reviewed | `controls: OK (0 failure(s))`, 38 self-checks |
-| pins filled, `run2.json` altered | `controls: FAILED`, P |
-| pins filled, `run1-39043849411.json` absent | `controls: FAILED`, P, no traceback |
+| pins filled, real files present | `controls: OK (0 failure(s))`, 38 self-checks, 23 end-to-end cases |
+| pins pending | `controls: OK (0 failure(s))`, 38 self-checks |
+| pins filled, real files absent | `controls: OK (0 failure(s))`: the fixture does not read them |
+| P weakened to ignore pending pins, digest mismatch, or an absent file | `controls: FAILED` |
+
+The checker's own `evidence_pins` parses both pins from the committed preregistration (2 rows, 0 pending), and each
+matches its file's sha256.
 
 ## Still open before F
 
-- Review of the fixture fix; then filling the pins and moving the `controls.py` pin.
 - Retaining both heads, `1ab0fd9d` and `6959ced4`, under main's off-main object mechanism. This is being prepared in
   the evidence-retention change, which has not been pushed.
 - Bringing #829's PR head up to the revised preregistration, and finalizing `D`.

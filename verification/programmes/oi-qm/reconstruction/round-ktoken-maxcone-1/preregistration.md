@@ -428,12 +428,15 @@ OPEN under every outcome.
 the shard's `controls.py --self-test` step added. It is to be dispatched before `F`, and its expected result is pinned
 below.
 
-**Frozen execution blobs.** These are the blobs run 1 exercised, together with `controls.py`, which run 2 exercises.
-`C2` checks them:
+**Frozen execution blobs.** These are the blobs run 1 exercised, together with `controls.py`. Run 2 exercised
+`controls.py` at `8c8eb522623ee4c5da1d4ab9e40e10c20fd0bf69`. The frozen blob below differs from it only in the
+self-test's end-to-end fixture, a change made after run 2: the fixture uses synthetic evidence only, never a retained
+file, and two added cases check that `P` rejects a pin left pending and a pin whose digest is not the file's. No
+control, rule or token changed. `C2` checks them:
 
 | path | blob |
 | --- | --- |
-| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `8c8eb522623ee4c5da1d4ab9e40e10c20fd0bf69` |
+| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `78c8ba364104b6efc465a901f25cfc70ee6967d7` |
 | `verification/lean-mathlib/OIBridge/KTokenMaxCone.lean` | `14bb9fc07bf65e59e3f412ac7270ffb734a30069` |
 | `verification/lean/ktoken_maxcone1_probe.py` | `04580c5104eaa4cf7eaa5fc32614582442f538e1` |
 | `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | `354bd7ce18119da451883ab5189010a5113ffa16` |
@@ -451,14 +454,15 @@ result note, and the round halts.
 - the failure markers.
 
 Each file names its commit, run, job and recipe, and the digest of the log it was read from. The files are committed to
-the record directory by the first execution commit, outside `amendments/`, and pinned here before `F`. The logs can be
-retrieved only through the browser or the evidence-retention archiver (`reproduce evidence` workflow); the built-in API
-client does not fetch them. Until then, the pins are pending, and `F` is not designated with a pending pin.
+the record directory by the first execution commit, outside `amendments/`, and pinned here before `F`. Both were
+extracted in CI from the full job logs by run 39063510375 (job 117486234075), using the independently reviewed
+extractor at `0d94937d4d8dbc6662b4464842bcdb1523ede18e` with main's `extract_result.py` blob `05c41bce`. Each digest
+below was recomputed from the extracted block. `F` is not designated with a pending pin.
 
 | path | sha256 |
 | --- | --- |
-| `evidence/run1-39043849411.json` | pending (run 1's log, job 117428550018 and 117428550439) |
-| `evidence/run2.json` | pending (run 2) |
+| `evidence/run1-39043849411.json` | `4e6303690387740559e4e37ca35037722f22c45a0b3da311365be06ca3be9b5c` |
+| `evidence/run2.json` | `bc896c46a7ea528cc9010ac124a3c12866ec4b32669ddbd73dea016f47cd2a53` |
 
 ## Owner decisions
 
