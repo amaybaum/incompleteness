@@ -122,9 +122,9 @@ Rules:
   R15 every expected result read by extract_result.py, and every re-extraction, names the git blob of the extractor
       that read it, so that a later change to extract_result.py, and to its pin in the tranche record, leaves each
       result's extractor identity as it was. The name is its manifest file's extractor_blob or, for the results of
-      tranche 1, the manifest's extractor_blobs map, which stands after the entries so that no line a record cites
-      moves; a file named in both must name one blob, and the map names only such files. A re-extraction's record
-      names its own blob and the original's as the manifest does. With git
+      tranche 1 and the research builds, the manifest's extractor_blobs map, which stands after the entries so that
+      no line a record cites moves; a file named in both must name one blob, and the map names only such files. A
+      re-extraction's record names its own blob and the original's as the manifest does. With git
       history (run by --gate) each named blob is re-derived, not read: it must be the blob of extract_result.py at
       the commit that added the file, which makes it an object of the repository that reproduce.py can run.
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
