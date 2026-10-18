@@ -66,15 +66,25 @@ def build(repo, prereg_commit, dev_commit, out):
                 git(repo, "cat-file", "-e", "%s:loc1-working-material/preflight/%s" % (WORKING, f))
                 plan.append(("design/" + f, WORKING, "loc1-working-material/preflight/" + f))
             except SystemExit:
-                plan.append(("design/" + f, dev_commit, RP + "/loc-1-arith/" + f))
+                for sub in ("loc-1-arith", "loc-1-controls"):
+                    try:
+                        git(repo, "cat-file", "-e", "%s:%s/%s/%s" % (dev_commit, RP, sub, f))
+                    except SystemExit:
+                        continue
+                    plan.append(("design/" + f, dev_commit, RP + "/" + sub + "/" + f))
+                    break
+                else:
+                    raise SystemExit("no source for design/%s" % f)
     for r in controls.copied_prior(prior):
         f = r["file"]
         if f in PRIOR_SRC:
             plan.append(("prior/" + f, WORKING, PRIOR_SRC[f]))
         else:
             plan.append(("prior/" + f, dev_commit, RP + "/loc-1-controls/prior-expected/" + f))
+    pinned = {r["file"] for r in design}
     for f in CODE:
-        plan.append(("code/" + f, dev_commit, RP + "/loc-1-controls/" + f))
+        if f not in pinned:                               # a file pinned in design/ is not copied twice
+            plan.append(("code/" + f, dev_commit, RP + "/loc-1-controls/" + f))
     for dst, c, src in plan:
         p = os.path.join(rec, dst)
         os.makedirs(os.path.dirname(p), exist_ok=True)
