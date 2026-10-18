@@ -915,9 +915,26 @@ def objects_gate(archive, root):
     return True, ok
 
 
+def extractor_gate(archive, root):
+    """extract_result.py's self-test, which reads BG-3's sources at E from git. Returns ok."""
+    p = subprocess.run([sys.executable, '-I', os.path.join(archive, 'extract_result.py'), '--self-test'], cwd=root,
+                       capture_output=True, text=True)
+    lines = p.stdout.rstrip().split('\n')
+    for ln in lines:
+        if not ln.startswith('PASS'):
+            print(ln)
+    if p.returncode:
+        print(p.stderr.rstrip()[-2000:])
+    return p.returncode == 0 and lines[-1:] == ['extractor self-test: OK']
+
+
+# the self-tests of the archive's other tools that the gate runs, after the retained objects' check
+GATE_SELF_TESTS = (('extractor self-test', extractor_gate),)
+
+
 def gate(archive, root):
     """The release-gate step: the check in history mode (R1-R11), then the self-test, then the retained objects'
-    check and self-test."""
+    check and self-test, then each of GATE_SELF_TESTS."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
@@ -925,10 +942,13 @@ def gate(archive, root):
         print('FAIL  %s' % f)
     st = self_test(archive, root)
     ran, obj_ok = objects_gate(archive, root)
-    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s)' % (
-        'HOLDS' if not fails and st == 0 and obj_ok else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
-        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else ''))
-    return 0 if not fails and st == 0 and obj_ok else 1
+    tools = [(name, fn(archive, root)) for name, fn in GATE_SELF_TESTS]
+    holds = not fails and st == 0 and obj_ok and all(t_ok for _, t_ok in tools)
+    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s%s)' % (
+        'HOLDS' if holds else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
+        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else '',
+        ''.join('; %s %s' % (name, 'OK' if t_ok else 'FAILED') for name, t_ok in tools)))
+    return 0 if holds else 1
 
 
 def report(archive, root):
@@ -1585,6 +1605,20 @@ def self_test(archive, root):
                 print('      got: %s' % (fails[:3],))
         later = next((f['extractor_blob'] for e in ents for f in e['files'] if '/re-extraction-' in f['path'] and 'extractor_blob' in f), None)
         r15('every named extractor blob is the one at the commit that added its file', lambda m: None)
+        # the gate runs the extractor's self-test, and a failing one fails the gate
+        named = dict(GATE_SELF_TESTS)
+        good = named.get('extractor self-test') is extractor_gate
+        ok &= good
+        print('%s self: the gate runs the extractor\'s self-test' % ('PASS' if good else 'FAIL'))
+        good = extractor_gate(archive, root)
+        ok &= good
+        print('%s self: the extractor\'s self-test passes as the gate runs it' % ('PASS' if good else 'FAIL'))
+        lone = os.path.join(tmp, 'lone')
+        os.makedirs(lone)
+        shutil.copyfile(os.path.join(archive, 'extract_result.py'), os.path.join(lone, 'extract_result.py'))
+        good = not extractor_gate(lone, root)
+        ok &= good
+        print('%s self: an extractor whose self-test fails (no bg3/ beside it) fails the gate\'s run of it' % ('PASS' if good else 'FAIL'))
         r15('a result naming a later extractor than the one that read it, in history mode',
             lambda m: m['extractor_blobs'].__setitem__(rjp, later or 'c' * 40), 'was added at')
         r15('a listed file that no commit adds, in history mode',
