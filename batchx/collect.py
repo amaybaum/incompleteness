@@ -2701,6 +2701,116 @@ def self_test(work=None):
                 and ie.get("kind") == "unreadable" and ie.get("sha256") is None and len(R["cj"]["files"]) == 3
         chk("[TB-INVHC] EACCES on --runs or --run-jobs is that input's own condition: published (exit 1), the input "
             "recorded unreadable with no digest, every served file recorded", ok)
+        # The acceptance review of de9c56a1, notes N1-N5. N1 and N2 go through main with the pinned runs.json, so
+        # runs.json loads and build_job_index would run on any list the schema passed.
+
+        def jobs_refused(t_, want_):
+            """t_ through main with the pinned runs.json: published quarantined, the one served file and both inputs
+            recorded, runs.json loaded, and exactly one jobs-list entry, whose problem is want_; no internal entry."""
+            R_ = via_main([("served-0.json", S1)], t_)
+            cj2 = R_["cj"] or {}
+            e2 = input_entry(R_, "jobs list")
+            ins2 = (cj2.get("collection") or {}).get("inputs") or {}
+            good = (published_quarantined(R_) and len(e2) == 1 and e2[0].get("problems") == [want_]
+                    and e2[0].get("sha256") == hashlib.sha256(t_).hexdigest() and len(cj2.get("files") or []) == 1
+                    and not any(q_.get("kind") == "internal" for q_ in cj2.get("quarantine", []))
+                    and (ins2.get("runs_json") or {}).get("pinned") is True and cj2.get("runs_sha256") == RUNS_SHA256)
+            if not good:
+                print("        | %s -> %s, want %s" % (t_[:60], [x.get("problems") for x in e2] or [
+                    (q_.get("kind"), q_.get("stage"), q_.get("exception")) for q_ in cj2.get("quarantine", [])], want_))
+            return good
+        R = via_main([("served-0.json", S1)], jl33.encode())
+        exp_ = (R["cj"] or {}).get("expected") or []
+        ok = (published_quarantined(R) and not input_entry(R, "jobs list") and R["cj"].get("runs_sha256") == RUNS_SHA256
+              and [x.get("job_id") for x in exp_] == [100 + k for k in range(1, 33)]
+              and not any(x.get("status") == "undetermined" for x in exp_))
+        for old_, new_, want_ in ((TC, '"total_count": true', J2), (TC, '"total_count": "33"', J2),
+                                  (TC, '"total_count": -1', J2), (TC, '"total_count": 1001', J2),
+                                  (ID1, '"id": true, ', J4(1, "id")), (ID1, '"id": "101", ', J4(1, "id")),
+                                  (RID0, '"run_id": "5"', J4(0, "run_id")),
+                                  ('"head_sha": "%s"' % HEADM, '"head_sha": null', "job 0: head_sha is not a string")):
+            t_ = jl33.replace(old_, new_, 1).encode()
+            ok = jobs_refused(t_, want_) and ok and t_ != jl33.encode()
+        chk("[TB-JNUMp] through main with the pinned runs.json, which builds the job index for a list the schema "
+            "passes, a bool, string or out-of-range count, id or run_id and a null head_sha are refused by the schema "
+            "with its exact problem, before build_job_index reads them", ok)
+        J3 = "jobs is not a list of at most 1000 objects"
+        ok = True
+        for el in ("5", '"id"', '["id"]', "[]", "null", "true"):
+            t_ = jl33.replace('"jobs": [', '"jobs": [%s, ' % el, 1).replace(TC, '"total_count": 34', 1).encode()
+            try:
+                v_, why_ = _decode_strict(t_, JOBS_DECODER, False)
+                got_ = [why_] if v_ is None else jobs_schema(v_)
+            except Exception as e_:  # noqa: BLE001 - "nothing raises" is part of what is tested
+                got_ = ["raised %s" % type(e_).__name__]
+            if got_ != [J3]:
+                print("        | job element %s -> %s, want %s" % (el, got_, J3))
+            ok = jobs_refused(t_, J3) and ok and got_ == [J3] and t_ != jl33.encode()
+        chk("[TB-JOBJ] a job that is not an object (a number, a string, a list, an empty list, null, a bool) is refused "
+            "by J-3 with its exact problem, in the unit and through main with the pinned runs.json, never an internal "
+            "error", ok)
+        # N3: two faults. An unforeseen exception in S5 (argument 1's grammar), then a second exception while S10's
+        # handler lists the run set: a host failure there is ABORTED, never an internal record; anything else is the
+        # fallback's run set too malformed to list (the control).
+
+        class _ArmedRuns(list):
+            """doc["runs"], iterated as a list until armed; then iterating it raises exc (the second fault)."""
+
+            def __init__(self, items, exc, fired):
+                list.__init__(self, items)
+                self.exc, self.fired, self.armed = exc, fired, False
+
+            def __iter__(self):
+                if self.armed:
+                    self.fired.append(type(self.exc).__name__)
+                    raise self.exc
+                return list.__iter__(self)
+
+        def double_fault(second, fired):
+            """(the run set, a setup): parse_served raises TypeError on argument 1 and arms the run set."""
+            runs2 = _ArmedRuns(runs, second, fired)
+
+            def setup(d):
+                real = G["parse_served"]
+
+                def fake(data, *a_, **k_):
+                    if b"scanx-marker" in data:
+                        fired.append("TypeError")
+                        runs2.armed = True
+                        raise TypeError("test")
+                    return real(data, *a_, **k_)
+                G["parse_served"] = fake
+                return lambda: G.__setitem__("parse_served", real)
+            return dict(doc, runs=runs2), setup
+        ok = True
+        for exc in (MemoryError(), E(errno.ENOSPC), E(errno.EIO)):
+            fired = []
+            dc_, setup_ = double_fault(exc, fired)
+            R = coll(X_ITEMS, dc=dc_, setup=setup_)
+            ok = ok and fired == ["TypeError", type(exc).__name__] and aborted(R, _errname(exc), IN_S5, fired)
+        chk("[TB-INVINTh] a host failure (MemoryError, ENOSPC, EIO) while S10's internal handler lists the run set, "
+            "after an unforeseen exception in S5, is ABORTED (exit 4), nothing published, never an internal record", ok)
+        fired = []
+        dc_, setup_ = double_fault(KeyError("test"), fired)
+        R = coll(X_ITEMS, dc=dc_, setup=setup_)
+        chk("[TB-INVINTk] control: any other exception there (KeyError) is a run set too malformed to list: the internal "
+            "record is published (exit 1) with every served file and no run", fired == ["TypeError", "KeyError"]
+            and internal_with_inventory(R, "S5", IN_S5) and len(R["cj"]["files"]) == 4 and R["cj"].get("runs") == [])
+        # N5: esc and the COLLECT FILE lines are strict JSON. No input reaches them with a float, so this is their
+        # contract tested directly: a non-finite number raises ValueError and nothing is printed.
+        ok = True
+        for x_ in (float("nan"), float("inf"), -float("inf")):
+            for call in (lambda P_: P_(esc(x_)), lambda P_: _file_lines(P_, [dict(
+                    arg=0, name="x", kind="regular", size=x_, sha256=None, status="rejected", reason=None)])):
+                buf = io.StringIO()
+                try:
+                    call(lambda s_: emit(buf, s_))
+                    got_ = None
+                except Exception as e_:  # noqa: BLE001 - only a ValueError is the contract
+                    got_ = type(e_).__name__
+                ok = ok and got_ == "ValueError" and buf.getvalue() == ""
+        chk("[TB-NANLINE] esc and the COLLECT FILE lines refuse NaN, Infinity and -Infinity (ValueError) and print "
+            "nothing", ok)
     finally:
         shutil.rmtree(base, ignore_errors=True)
     print("collect self-test: %d of %d cases ok" % (n - fails, n))
