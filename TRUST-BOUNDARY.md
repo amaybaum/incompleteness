@@ -335,8 +335,8 @@ file names (`collect.py:401`; the `[RP]` tests).
 | 5 | PUBLISHED, durability not confirmed: the rename completed, then the parent `fsync` or a later step failed or was interrupted | present and complete: this invocation's collection, of whatever verdict |
 
 **What each code guarantees.**
-- **0** means stdout carries a `COLLECT PUBLISHED` line followed by a final `COLLECT HOLDS` line. No other path
-  exits 0.
+- **0** means stdout carries a `COLLECT PUBLISHED` line followed by a final `COLLECT HOLDS` line. In collection
+  mode no other path exits 0. The separate `--self-test` mode exits 0 when its tests pass.
 - **1, 2 and 5** also follow a `COLLECT PUBLISHED` line.
 - **3 and 4** print no `COLLECT PUBLISHED` line. A wrapper that sees one of them has no result from this
   invocation, whatever is at `--out`.
@@ -387,11 +387,21 @@ collected.json sha256 <hex>`. The last line is `COLLECT <verdict>`, as now.
   `COLLECT FILE <json>`. The JSON is `json.dumps({arg, name, kind, size, sha256, status, reason},
   sort_keys=True, ensure_ascii=True)`, the fields of `files[i]` in section 5. An ABORTED run (4) publishes no
   record, so these lines are its trace of every file, read and judged.
-- **No injected lines.** Every file name, path and reason that any `COLLECT` line prints is written with
-  `json.dumps(..., ensure_ascii=True)`. That includes the existing `COLLECT FAIL` lines (`collect.py:439-440`,
-  `:453`, `:457`, `:470`, `:488`) and the `COLLECT PUBLISHED` path. A newline or control character in a name
-  therefore stays inside one line and cannot inject a `COLLECT PUBLISHED` or `COLLECT HOLDS` line. Names are not
-  restricted otherwise.
+- **No injected lines.** The rule covers **every line the collector writes to stdout or stderr**, whatever its
+  prefix. In each such line, every value that comes from an input is written with `json.dumps(...,
+  ensure_ascii=True)`: a file name, a path, a reason built from either, a decoder message, the `--head` value as
+  given. That includes:
+  - the `COLLECT FAIL` lines (`collect.py:439-440`, `:453`, `:457`, `:470`, `:488`);
+  - the `COLLECT PUBLISHED` path;
+  - the `RUN` lines (`collect.py:524-526`). Under quarantine their reason joins the quarantined files' names
+    (`collect.py:497-498`). For stdout, that reason is built from the JSON-escaped names.
+
+  **The backstop.** Every line goes out through one function, `emit`. It writes printable ASCII only: any character
+  outside U+0020–U+007E that still reaches it is written as its JSON escape. So no character of any value can end a
+  line, whether a line feed, a carriage return, a form feed, U+0085, U+2028 or U+2029. One output line is always
+  exactly one `emit` call. Values in `collected.json` are unaffected, because `json.dump` already encodes them.
+
+  A name can therefore never inject a line, and names are not restricted otherwise.
 
 **Closing the review's notes.**
 - **N1 (stale output).** S1 refuses any existing `--out` before any input is read:
@@ -446,7 +456,7 @@ refused early is therefore still traceable file by file. With no index, `files[i
   (S11). Under HOLDS, a failure while writing the result files means this invocation never creates `--out`
   (ABORTED).
 - **Durability.** `fsync` runs only when `durable` is true. `main` passes true; the self-test passes false, except
-  in the one test that checks it (section 6). This is the only difference between the self-test and production,
+  in the two tests that check it, `[TB-SYNC]` and `[TB-NDUR]` (section 6). This is the only difference between the self-test and production,
   and it decides nothing: visibility comes from the rename, not from `fsync`. It exists because each self-test run
   makes about 300 collections, and controls.py repeats the suite once per mutant.
 - **Leftover staging directories.** An ABORTED run may leave `.<name>.staging-<nonce>` behind. It is never a result:
@@ -575,6 +585,7 @@ extended so that each rule is asserted, not only stated.
    test computed itself with `hashlib`, independently of the collector.
 6. **The file lines match.** stdout carries exactly one `COLLECT FILE` line per argument, and each one parses as JSON
    equal to the matching fields of `files[i]` (A3).
+7. **One-line output.** Every line on stdout is printable ASCII (U+0020–U+007E), as `emit` guarantees (A3).
 
 Tests that drive `main` run it in-process, with argv and stdout redirected; `main` returns a code and never calls
 `sys.exit`. They read the result from disk the same way.
@@ -650,7 +661,7 @@ so is `[I5]`'s if its dict changes. Both keep their names, so the existing mutan
 | `[TB-O6]` | a HOLDS collection with the third result-file write made to raise `ENOSPC` | exit 4; `--out` absent; no `collected.json` anywhere at `--out`; stdout's `COLLECT FILE` lines trace every served file by name, kind, size, sha256, status and reason (A3) |
 | `[TB-O6x]` | the same with the write made to raise a non-`OSError` (`UnicodeEncodeError`), and with `KeyboardInterrupt` | exit 4 in both; no uncaught exception; `--out` absent (A1) |
 | `[TB-NDUR]` | a HOLDS collection whose parent `fsync` after the rename is made to raise | exit 5; `--out` present and complete; the `COLLECT PUBLISHED` line, with the nonce and the digest of the file on disk, then `COLLECT NOT DURABLE` (A1) |
-| `[TB-INJ]` | a served file whose basename contains a newline followed by `COLLECT HOLDS` | the name appears JSON-escaped on one line; no injected line; the last line is the real verdict (A3) |
+| `[TB-INJ]` | beside genuine S1, S2 and S3, one extra **rejected** file (content `not json`), run twice with two basenames: one with a line feed, `COLLECT HOLDS` and a line feed in the middle (as in the review's `probe_inj.py`), and one with a line feed, `COLLECT PUBLISHED x nonce y` and a line feed in the middle. The rejection quarantines the collection, so the quarantine reason reaches the `RUN` lines | exit 1, and the record is published. On stdout: no line other than the last equals `COLLECT HOLDS`, and the last is `COLLECT FAILS`; exactly one line starts with `COLLECT PUBLISHED`, and its nonce equals `collected.json`'s `collection.nonce`; every line is printable ASCII; and each line that names the file carries its name JSON-escaped, the `RUN` lines included (A3) |
 | `[TB-O7]` | a QUARANTINED collection | the listing of `--out` is exactly `["collected.json"]` |
 | `[TB-O8]` | two collections of the same inputs into two fresh locations | distinct nonces; `collection.inputs` and `files` equal the on-disk digests; `manifest` equals the listing |
 | `[TB-SYNC]` | `durable=True`, with `os.fsync` counted | each published file, the staging directory and the parent are synced |
@@ -751,8 +762,8 @@ One commit, a single-parent child of the commit the design review accepts. It to
   - `collect`, which becomes `open_staging`, `evaluate`, `publish`, with its signature kept and a `durable`
     parameter added. A direct call records `inputs.runs_json` as null;
   - `main`, which follows S0-S12 and returns 0 to 5. It builds the parser with `add_help=False`, catches
-    `BaseException` as section 3 prescribes, prints the `COLLECT FILE` lines, and writes every name in a `COLLECT`
-    line JSON-escaped (A1, A3);
+    `BaseException` as section 3 prescribes, prints the `COLLECT FILE` lines, and sends every output line through `emit`,
+    with every input-derived value JSON-escaped, the `RUN` lines included (A1, A3);
   - `_shard_text`, which gains the real-byte-format option;
   - `self_test`, which gains the harness rules and the tests of section 6;
   - the module docstring, for the corpus statements.
@@ -850,3 +861,4 @@ section 5 adopts.
 | A7 | (a) the D1 counts; (b) the selftest-log path; (c) the decoded and byte scans compared without the `job_id` envelope | 9 (D1); 8 (DESIGN.md propagation); 2.5 (step 5) |
 | D1 recommendation | a quarantined record's `runs[*]` drop `outcome` and the block `sha256` | 5 (the `runs[*]` bullet and field meanings); 8 (`write_collection`); 9 (D1) |
 | Text repair (not an amendment) | in `3c0e1d72`, the escape sequences intended in six places were stored as the characters they denote, among them a raw U+2028 and U+2029 in 2.1. Restored as escapes | 0 (E-esc); 1 (escaped duplicate key); 2.1 (canonical form); 6 (`[TB-ESC]`, `[TB-REAL]`) |
+| A3(b) closure (confirmation pass at `ffa383e6`) | the escaping rule covers every output line, the `RUN` lines (`collect.py:524-526`, reason built at `:497-498`) included, with one `emit` backstop; `[TB-INJ]` uses a rejected file and asserts on every stdout line; two text slips (the two `durable=True` tests; "in collection mode") | 3 ("What each code guarantees", "Safe names on stdout"); 4 ("Durability"); 6 (harness rule 7, `[TB-INJ]`); 8 (`main`) |
