@@ -899,9 +899,22 @@ def objects_gate(archive, root):
     return True, ok
 
 
+def extractor_gate(archive, root):
+    """extract_result.py's self-test, which reads BG-3's sources at E from git. Returns ok."""
+    p = subprocess.run([sys.executable, '-I', os.path.join(archive, 'extract_result.py'), '--self-test'], cwd=root,
+                       capture_output=True, text=True)
+    lines = p.stdout.rstrip().split('\n')
+    for ln in lines:
+        if not ln.startswith('PASS'):
+            print(ln)
+    if p.returncode:
+        print(p.stderr.rstrip()[-2000:])
+    return p.returncode == 0 and lines[-1:] == ['extractor self-test: OK']
+
+
 def gate(archive, root):
-    """The release-gate step: the check in history mode (R1-R11), then the self-test, then the retained objects'
-    check and self-test."""
+    """The release-gate step: the check in history mode (R1-R11), then the self-test, then the retained
+    objects' check and self-test, then the extractor's self-test."""
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
@@ -909,10 +922,12 @@ def gate(archive, root):
         print('FAIL  %s' % f)
     st = self_test(archive, root)
     ran, obj_ok = objects_gate(archive, root)
-    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s)' % (
-        'HOLDS' if not fails and st == 0 and obj_ok else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
-        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else ''))
-    return 0 if not fails and st == 0 and obj_ok else 1
+    ex_ok = extractor_gate(archive, root)
+    holds = not fails and st == 0 and obj_ok and ex_ok
+    print('EVIDENCE-RETENTION  %s (history mode: %d failure(s); self-test %s%s; extractor self-test %s)' % (
+        'HOLDS' if holds else 'FAILS', len(fails), 'OK' if st == 0 else 'FAILED',
+        ('; retained objects %s' % ('OK' if obj_ok else 'FAILED')) if ran else '', 'OK' if ex_ok else 'FAILED'))
+    return 0 if holds else 1
 
 
 def report(archive, root):
