@@ -1,0 +1,62 @@
+name: hidden-sector replay
+
+# Replays the two exact checkers of the hidden-sector research records against their committed
+# expected results (AGENTS §A.42): each checker's output must match its expected result byte for
+# byte, each directory's SHA256SUMS must verify, and each evidence.json must name the digests of the
+# files it describes. Read-only: the job pushes, dispatches and writes nothing.
+#
+# push is restricted to main; pull_request runs for pull requests into main. Both are path-filtered
+# to the two record directories and this file.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'verification/programmes/physical-realization/hidden-sector-propagator-template/**'
+      - 'verification/programmes/physical-realization/hidden-sector-route-selection/**'
+      - '.github/workflows/hidden-sector-replay.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'verification/programmes/physical-realization/hidden-sector-propagator-template/**'
+      - 'verification/programmes/physical-realization/hidden-sector-route-selection/**'
+      - '.github/workflows/hidden-sector-replay.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Replay the checkers against their expected results
+        run: |
+          set -euo pipefail
+          base=verification/programmes/physical-realization
+          (cd "$base/hidden-sector-propagator-template" && python3 -I -B check.py | cmp - output.json && sha256sum -c SHA256SUMS)
+          (cd "$base/hidden-sector-route-selection" && python3 -I -B exact_check.py | cmp - exact-output.json && sha256sum -c SHA256SUMS)
+      - name: Check each evidence.json against the files it names
+        run: |
+          python3 -I -B - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          base = Path('verification/programmes/physical-realization')
+          for name in ('hidden-sector-propagator-template', 'hidden-sector-route-selection'):
+              record = base / name
+              evidence = json.loads((record / 'evidence.json').read_text())
+              for role in ('expected_result', 'checker'):
+                  entry = evidence[role]
+                  digest = hashlib.sha256((record / entry['path']).read_bytes()).hexdigest()
+                  if digest != entry['sha256']:
+                      raise SystemExit(f'{name}: {entry["path"]} digest {digest} != {entry["sha256"]}')
+              for key in ('commit', 'recipe', 'form', 'provenance'):
+                  if not evidence.get(key):
+                      raise SystemExit(f'{name}: evidence.json lacks {key}')
+              if ' -O' in evidence['recipe']['command']:
+                  raise SystemExit(f'{name}: recipe must not use -O')
+              print(f'{name}: evidence.json names the current expected result and checker')
+          PY
