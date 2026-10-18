@@ -2442,6 +2442,9 @@ def self_test(archive, root):
                back, 'R15', 'names no extractor blob')
         expect('a result naming a malformed extractor blob', edit(lambda m: m['extractor_blobs'].__setitem__(rjp, 'x')),
                back, 'R15', 'names no extractor blob')
+        expect('a result naming its extractor blob with a hex digit appended (only a full 40-digit id names a blob)',
+               edit(lambda m: m['extractor_blobs'].__setitem__(rjp, m['extractor_blobs'][rjp] + '0')), back, 'R15',
+               'names no extractor blob')
         expect('a result naming one blob in its file and another in extractor_blobs', edit(
             lambda m: m['entries'][ci]['files'][rj].__setitem__('extractor_blob', 'b' * 40)), back, 'R15', 'in extractor_blobs')
         expect('extractor_blobs naming a file the extractor did not read', edit(
@@ -2480,6 +2483,39 @@ def self_test(archive, root):
         good = not extractor_gate(lone, root)
         ok &= good
         print('%s self: an extractor whose self-test fails (no bg3/ beside it) fails the gate\'s run of it' % ('PASS' if good else 'FAIL'))
+        # gate() itself, its other steps stubbed: it runs each of GATE_SELF_TESTS, and a failing one fails it
+        import contextlib
+        import io
+        g = globals()
+        saved = {k: g[k] for k in ('history_mode', 'print_unscoped', 'self_test', 'objects_gate', 'job_outputs_gate',
+                                   'GATE_SELF_TESTS')}
+        calls, codes = [], []
+        try:
+            g.update(history_mode=lambda a, r, m: ([], None), print_unscoped=lambda st: None, self_test=lambda a, r: 0,
+                     objects_gate=lambda a, r: (False, True), job_outputs_gate=lambda a, r: (False, True))
+            for res in (True, False):
+                g['GATE_SELF_TESTS'] = tuple((n, lambda a, r, n=n, res=res: calls.append(n) or res)
+                                             for n, fn in saved['GATE_SELF_TESTS'] if fn is extractor_gate)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    codes.append(gate(archive, root))
+        finally:
+            g.update(saved)
+        good = codes == [0, 1] and calls == ['extractor self-test'] * 2
+        ok &= good
+        print('%s self: gate() runs the extractor\'s self-test, and holds only when it passes' % ('PASS' if good else 'FAIL'))
+        if not good:
+            print('      got: exit codes %s, runs %s' % (codes, calls))
+        # the gate's history mode runs R15's re-derivation: a result naming a later extractor fails there
+        edit(lambda m: m['extractor_blobs'].__setitem__(rjp, later or 'c' * 40))()
+        try:
+            hf = history_mode(tarch, root, json.load(open(mp, encoding='utf-8')), tree=troot)[0]
+        finally:
+            back()
+        good = any(f.startswith('R15 ') and 'was added at' in f for f in hf)
+        ok &= good
+        print('%s self: history mode, as the gate runs it, re-derives each named extractor blob (R15)' % ('PASS' if good else 'FAIL'))
+        if not good:
+            print('      got: %s' % (hf[:3],))
         r15('a result naming a later extractor than the one that read it, in history mode',
             lambda m: m['extractor_blobs'].__setitem__(rjp, later or 'c' * 40), 'was added at')
         r15('a listed file that no commit adds, in history mode',
