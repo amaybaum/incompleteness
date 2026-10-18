@@ -18,7 +18,7 @@ obstruction for the explicitly fixed finite/autonomous domain; or obtain a
 source-derived projected propagator for a physically specified model. An
 illustrative finite cycle cannot count as the third outcome.
 
-Source benchmark added before its certificate run: derive the same blocks for
+Source benchmark (committed together with its result, so the history does not show it preceding the local check run): derive the same blocks for
 Main §2.4's specified twelve-state involution and visible-bit partition, using
 its uniform hidden preparation. Check literal index evolution, the involution,
 the single-step comparison, the two-step return and the memory kernel. This

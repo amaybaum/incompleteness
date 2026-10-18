@@ -1,17 +1,33 @@
 #!/usr/bin/env python3
-"""Exact design examples; no empirical data and no claimed native OI model."""
+"""Exact design examples; no empirical data and no claimed native OI model.
+
+Recipe: python3 -I -B exact_check.py | cmp - exact-output.json  (never -O).
+A failed check prints its name to stderr and exits with status 1.
+"""
 from fractions import Fraction as F
 from itertools import permutations, product
 import json
+import sys
 
 checks = 0
+families = {}
+countercontrols = []
 
 
-def require(condition, name):
+def require(condition, name, family="other"):
     global checks
-    checks += 1
     if not condition:
-        raise AssertionError(name)
+        print(f"CHECK FAILED: {name}", file=sys.stderr)
+        sys.exit(1)
+    checks += 1
+    families[family] = families.get(family, 0) + 1
+
+
+def reject(name, rejected):
+    # A countercontrol runs a corrupted input through the predicate a positive check
+    # uses; it passes only if that predicate rejects it.
+    require(rejected, f"countercontrol accepted: {name}", "countercontrol")
+    countercontrols.append(name)
 
 
 def tv(p, q):
@@ -25,8 +41,11 @@ def push(p, f):
     return out
 
 
-def project(p):
-    return [p[0] + p[1], p[2] + p[3]]
+def project(p, cells=(0, 0, 1, 1)):
+    out = [F(0)] * (max(cells) + 1)
+    for i, c in enumerate(cells):
+        out[c] += p[i]
+    return out
 
 
 def stochastic(m):
@@ -38,8 +57,28 @@ def evolve(p, m):
             for j in range(len(p))]
 
 
-def moment(p, degree):
-    return sum(weight * x ** degree for weight, x in zip(p, (-1, 0, 1)))
+def moment(p, degree, support=(-1, 0, 1)):
+    return sum(weight * x ** degree for weight, x in zip(p, support))
+
+
+def is_law(p):
+    return sum(p) == 1 and min(p) >= 0
+
+
+# 1. Total variation from a stationary reference is invariant under a bijection.
+def tv_preserved(p, f, ref):
+    return tv(push(p, f), ref) == tv(p, ref)
+
+
+def cycle_constant_law(perm):
+    # A stationary law, constant on each cycle; nonuniform unless perm is one cycle.
+    weights = [None] * len(perm)
+    for i in range(len(perm)):
+        j = i
+        while weights[j] is None:
+            weights[j] = i + 1
+            j = perm[j]
+    return [F(w, sum(weights)) for w in weights]
 
 
 for n in range(2, 5):
@@ -49,77 +88,154 @@ for n in range(2, 5):
             continue
         p = [F(x, sum(numerators)) for x in numerators]
         for perm in permutations(range(n)):
-            require(tv(push(p, perm), u) == tv(p, u), "permutation TV")
+            require(tv_preserved(p, perm, u), "permutation TV, uniform", "tv_uniform")
+            pi = cycle_constant_law(perm)
+            if len(set(pi)) > 1:
+                require(push(pi, perm) == pi, "reference stationary", "tv_nonuniform")
+                require(tv_preserved(p, perm, pi), "permutation TV, nonuniform",
+                        "tv_nonuniform")
 
-nonuniform = [F(1), F(0)]
-require(tv(nonuniform, [F(1, 2)] * 2) > 0, "nonvacuous initial deviation")
+require(tv([F(1), F(0)], [F(1, 2)] * 2) > 0, "nonvacuous initial deviation")
 stationary = [F(1, 2), F(0), F(1, 2)]
-initial = [F(0), F(1, 2), F(1, 2)]
-require(push(stationary, (0, 0, 2)) == stationary
-        and tv(push(initial, (0, 0, 2)), stationary) < tv(initial, stationary),
-        "nonbijection countercontrol")
+require(push(stationary, (0, 0, 2)) == stationary, "reference fixed by the nonbijection")
+reject("nonbijective map", not tv_preserved([F(0), F(1, 2), F(1, 2)], (0, 0, 2),
+                                            stationary))
+reject("nonstationary reference", not tv_preserved([F(1), F(0)], (1, 0),
+                                                   [F(3, 4), F(1, 4)]))
 
-cycle = (1, 2, 3, 0)
-p = [F(1, 2), F(1, 2), F(0), F(0)]
-fine, coarse = [], []
-for _ in range(5):
-    fine.append(tv(p, [F(1, 4)] * 4))
-    coarse.append(tv(project(p), [F(1, 2)] * 2))
-    p = push(p, cycle)
+
+# 2. Four-cycle: constant fine deviation, recurrent projected deviation, no closure.
+def series(f, cells, p, steps=5):
+    k = max(cells) + 1
+    fine, coarse = [], []
+    for _ in range(steps):
+        fine.append(tv(p, [F(1, len(p))] * len(p)))
+        coarse.append(tv(project(p, cells), [F(1, k)] * k))
+        p = push(p, f)
+    return fine, coarse
+
+
+def revives(coarse):
+    return any(coarse[s] == 0 and coarse[t] > 0
+               for s in range(len(coarse)) for t in range(s + 1, len(coarse)))
+
+
+def closure_fails(f, cells):
+    points = [[F(i == j) for j in range(len(f))] for i in range(len(f))]
+    return any(project(a, cells) == project(b, cells)
+               and project(push(a, f), cells) != project(push(b, f), cells)
+               for a in points for b in points)
+
+
+cycle, cells = (1, 2, 3, 0), (0, 0, 1, 1)
+start = [F(1, 2), F(1, 2), F(0), F(0)]
+fine, coarse = series(cycle, cells, start)
 require(fine == [F(1, 2)] * 5, "constant fine deviation")
-require(coarse == [F(1, 2), F(0), F(1, 2), F(0), F(1, 2)],
-        "projected revival")
-p0, p1 = [F(1), F(0), F(0), F(0)], [F(0), F(1), F(0), F(0)]
-require(project(p0) == project(p1), "equal input projections")
-require(project(push(p0, cycle)) != project(push(p1, cycle)),
-        "different output projections")
+require(coarse == [F(1, 2), F(0), F(1, 2), F(0), F(1, 2)], "projected series")
+require(revives(coarse), "projected revival")
+require(closure_fails(cycle, cells), "no autonomous projected update")
+reject("within-cell swaps do not revive", not revives(series((1, 0, 3, 2), cells, start)[1]))
+reject("lumpable partition admits closure", not closure_fails(cycle, (0, 1, 0, 1)))
 
+# 3. A symmetric perturbation changes the variance with zero odd moments.
 q = [F(1, 4), F(1, 2), F(1, 4)]
-eps = F(1, 16)
-rho = [q[0] + eps, q[1] - 2 * eps, q[2] + eps]
-require(sum(rho) == 1 and min(rho) >= 0, "perturbation is probability law")
-require(moment(rho, 1) == 0 and moment(rho, 3) == 0, "odd moments zero")
-require(moment(rho, 2) == F(5, 8), "variance changed")
-require(moment(rho, 2) / moment(q, 2) == F(5, 4), "response amplitude")
 
-for retained in (F(1), F(1, 2), F(1, 4), F(0)):
-    m = [[retained * F(i == j) + (1 - retained) * q[j]
-          for j in range(3)] for i in range(3)]
-    require(stochastic(m), "reset stochastic")
-    require(evolve(q, m) == q, "reset reference invariant")
+
+def law(eps, q=q):
+    return [q[0] + eps, q[1] - 2 * eps, q[2] + eps]
+
+
+def variance_only(r, support=(-1, 0, 1)):
+    return (is_law(r) and moment(r, 1, support) == 0 and moment(r, 3, support) == 0
+            and moment(r, 2, support) != moment(q, 2))
+
+
+eps = F(1, 16)
+rho = law(eps)
+require(variance_only(rho), "variance changed with zero odd moments")
+require(moment(rho, 2) == F(5, 8), "variance value")
+require(moment(rho, 2) / moment(q, 2) == F(5, 4), "response amplitude")
+require(law(F(0)) == q and moment(q, 3) == 0, "zero perturbation null")
+reject("zero perturbation", not variance_only(law(F(0))))
+reject("asymmetric perturbation (odd moments)",
+       not variance_only([q[0] + eps, q[1] - eps, q[2]]))
+# On (-1, 0, 1) the mean and the third moment coincide, so each clause is exercised
+# alone on a law supported on (-1, 0, 2).
+reject("skewed zero-mean law (nonzero third moment)",
+       not variance_only([F(1, 2), F(1, 4), F(1, 4)], (-1, 0, 2)))
+reject("shifted law with zero third moment (nonzero mean)",
+       not variance_only([F(4, 5), F(1, 10), F(1, 10)], (-1, 0, 2)))
+reject("perturbation outside the law interval", not variance_only(law(F(1, 4) + F(1, 1000))))
+
+
+# 4. Reset kernels: stochastic, reference-preserving, contracting.
+def reset(retained):
+    return [[retained * F(i == j) + (1 - retained) * q[j]
+             for j in range(3)] for i in range(3)]
+
+
+def contracts(p, m):
+    return stochastic(m) and evolve(q, m) == q and tv(evolve(p, m), q) < tv(p, q)
+
+
+for retained in (F(1, 2), F(1, 4), F(0)):
+    m = reset(retained)
+    require(contracts(rho, m), "reset contracts")
     expected = [q[i] + retained * (rho[i] - q[i]) for i in range(3)]
     require(evolve(rho, m) == expected, "reset eigenmode")
-require(evolve(rho, [[F(i == j) for j in range(3)] for i in range(3)]) == rho,
-        "identity does not relax")
-require(not stochastic([[F(1), F(1), F(0)]] * 3), "invalid kernel rejected")
-require([q[0], q[1], q[2]] == q and moment(q, 3) == 0,
-        "zero perturbation null")
+reject("identity kernel", not contracts(rho, reset(F(1))))
+reject("nonstochastic kernel", not contracts(rho, [[F(1), F(1), F(0)]] * 3))
 
-amplitude = F(1, 4)
-exit_l1, exit_l2, variable_initial, continued = [], [], [], []
-for ratio in (1, 2, 4, 8):
-    exit_l1.append(amplitude / ratio)
-    exit_l2.append(amplitude / ratio ** 2)
-    variable_initial.append(F(ratio, 32) / ratio)
-    continued.append((amplitude / ratio) * F(ratio, 16))
-require(exit_l1 != exit_l2, "order-H rates do not fix exponent")
-require(variable_initial == [F(1, 32)] * 4, "initial scale dependence cancels trend")
-require(continued == [F(1, 64)] * 4, "common end cancels exit trend")
+# 5. Exit rule, end rule and initial data, computed by evolving the laws.
+# One step is Delta ln a = ln 2; with constant H, the mode k = 2^s k_i exits after s steps.
+# Retained fraction 1/2 per step is lambda = 1; 1/4 per step is lambda = 2.
+EXITS, END = (0, 1, 2, 3), 4
 
-mutations = {
-    "nonbijective permutation": tv(push([F(1, 2)] * 2, (0, 0)), [F(1, 2)] * 2) != 0,
-    "no projected revival": coarse != [F(1, 2), F(0), F(0), F(0), F(0)],
-    "wrong second moment": moment(rho, 2) != moment(q, 2),
-    "forced third moment": moment(rho, 3) != eps,
-    "unit exponent for both rates": exit_l2 != exit_l1,
-    "frozen-exit formula after common-end relaxation": continued != exit_l1,
-}
-for name, rejected in mutations.items():
-    require(rejected, name)
+
+def run(p, retained, steps):
+    for _ in range(steps):
+        p = evolve(p, reset(retained))
+        require(is_law(p), "evolved law is a probability law", "evolution")
+    return p
+
+
+def response(p):
+    return moment(p, 2) / moment(q, 2) - 1
+
+
+amplitude = 4 * eps  # xi - 1 at the onset
+exit_l1 = [response(run(rho, F(1, 2), s)) for s in EXITS]
+exit_l2 = [response(run(rho, F(1, 4), s)) for s in EXITS]
+continued = [response(run(run(rho, F(1, 2), s), F(1, 2), END - s)) for s in EXITS]
+initial = [law(F(2 ** s, 128)) for s in EXITS]  # xi - 1 = (k/k_i)/32 at the onset
+variable_initial = [response(run(p, F(1, 2), s)) for p, s in zip(initial, EXITS)]
+variable_initial_l2 = [response(run(p, F(1, 4), s)) for p, s in zip(initial, EXITS)]
+
+
+def exit_formula(lam):
+    return [amplitude / F(2 ** s) ** lam for s in EXITS]
+
+
+def scale_independent(values):
+    return len(set(values)) == 1
+
+
+require(exit_l1 == exit_formula(1), "frozen exit, lambda = 1, matches (k_i/k)")
+require(exit_l2 == exit_formula(2), "frozen exit, lambda = 2, matches (k_i/k)^2")
+require(exit_l1 != exit_l2, "order-H rates do not fix the exponent")
+require(continued == [amplitude / 2 ** END] * len(EXITS), "common end matches (a_i/a_end)")
+require(scale_independent(continued), "common end cancels the exit trend")
+require(scale_independent(variable_initial), "initial scale dependence cancels the trend")
+reject("frozen exit is scale-independent", not scale_independent(exit_l1))
+reject("unit exponent for the rate-2 history", exit_l2 != exit_formula(1))
+reject("frozen-exit formula after common-end relaxation", continued != exit_formula(1))
+reject("lambda = 1 initial data under the rate-2 history",
+       not scale_independent(variable_initial_l2))
 
 print(json.dumps({
     "controls": checks,
-    "mutation_countercontrols_rejected": len(mutations),
+    "controls_by_family": families,
+    "countercontrols_rejected": countercontrols,
     "fine_tv": [str(x) for x in fine],
     "projected_tv": [str(x) for x in coarse],
     "variance_ratio": str(moment(rho, 2) / moment(q, 2)),
@@ -127,5 +243,6 @@ print(json.dumps({
     "exit_exponent_1": [str(x) for x in exit_l1],
     "exit_exponent_2": [str(x) for x in exit_l2],
     "common_end": [str(x) for x in continued],
+    "scale_dependent_initial": [str(x) for x in variable_initial],
     "verdict": "DESIGN_CHECKS_PASS; no empirical or native OI verdict",
 }, sort_keys=True, indent=2))

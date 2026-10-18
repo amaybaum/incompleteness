@@ -6,7 +6,7 @@ Planning snapshot: main `dee3b5ae6fd3fb20fa1bad3337963e5af947f3a4`.
 
 ## First research update (2026-10-13)
 
-[The route-selection result](../hidden-sector-route-selection/result.md) selects H-NEQ-PROPAGATOR with a conditional variance/power response. It proves the fine-grained TV boundary and audits rate, initial-data and exit/end assumptions; 2,126 exact checks pass. The next task is to derive the projected/conditioned propagator for a specified completion before preregistering any data analysis.
+[The route-selection result](../hidden-sector-route-selection/result.md) selects H-NEQ-PROPAGATOR with a conditional variance/power response. It proves the fine-grained TV boundary and audits rate, initial-data and exit/end assumptions; its 5,273 exact checks, fifteen of them countercontrols, pass. The next task is to derive the projected/conditioned propagator for a specified completion before preregistering any data analysis.
 
 ## Current gap
 

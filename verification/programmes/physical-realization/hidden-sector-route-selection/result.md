@@ -10,8 +10,9 @@ trend. This record does not establish a non-equilibrium signal or an empirical
 discriminator of the hidden-sector ontology.
 
 This is research/design, not a native execution. The preceding
-`decision-rule.md` fixes its scope and controls. No data, fitting, manuscript
-edit, adopted module, historical record, receipt, or CI job is added.
+`decision-rule.md` fixes its scope and controls. No data, fitting, adopted
+module, historical record or receipt is added; the manuscript corrections and
+the replay workflow that accompany this record are described in §5.
 Evidence labels: **W** written argument; **X** exact finite example/check;
 **S** external source; **P** physical/model premise still required.
 Productivity classification: **ELABORATING**, on the consistency axis; the
@@ -222,20 +223,55 @@ falsify the unrestricted hidden-sector ontology.
 
 ## 5. Check record and provenance
 
-The stdlib Fraction checker passes **2,126 exact checks**, including six
-deliberately corrupted premise/output countercontrols. Its output is saved
-in `exact-output.json`; a second invocation matches bytes. These are design
-example controls, not kernel certification, a native run, or an independent
-implementation of the checker. The independent mathematical evidence is
-the reindexing argument and the scalar integrations above.
+The stdlib Fraction checker passes **5,273 exact checks**. Most instantiate
+one identity, the total-variation invariance of §2.1: 2,092 against the
+uniform reference, and 3,104 against a nonuniform stationary reference
+(1,552 permutation–law pairs, each checked for stationarity and invariance).
+The exit-rule, common-end and initial-data results of §2.3 are computed by
+evolving three-point laws under the reset kernel and are then compared with
+the closed forms; 40 checks confirm that every evolved law is a probability
+law. Fifteen countercontrols each run a corrupted input through the predicate
+that its positive check uses, which must reject it. The corrupted inputs are:
 
-Manuscript anchors were read at the snapshot named above: Main §§3.4/4.5,
-GR §6.2, Chapter 18 §18.2, and ROADMAP's direct-hidden-sector P2 row.
-The existing manuscript already labels the relaxation estimate heuristic.
-Its additional assertions about a distinctive history-dependent
-non-Gaussianity shape deserve a separate source/readout audit; no actual
-OI mode evolution has been derived here, so the comparison examples are
-not promoted into a manuscript contradiction or a corpus status change.
+- a nonbijective map;
+- a nonstationary reference;
+- a cycle that does not revive, and a lumpable partition;
+- perturbations with no variance change, with nonzero odd moments, with a
+  nonzero third moment, or with a nonzero mean;
+- an invalid law;
+- an identity kernel and a nonstochastic kernel;
+- the wrong exit, exponent or end rule.
+
+The output is saved in `exact-output.json`. `evidence.json` states the recipe
+and the provenance of its byte-for-byte replay, and the
+`hidden-sector-replay` workflow reruns both checkers of this programme. These
+are design-example controls, not kernel certification, a native run, or an
+independent implementation of the checker. The independent mathematical
+evidence is the reindexing argument and the scalar integrations above.
+`decision-rule.md` was committed together with this result, so the history
+does not show it preceding the check.
+
+Manuscript anchors were read at the manuscript snapshot `dee3b5ae` named in
+`decision-rule.md`: Main §§3.4/4.5, GR §6.2, Chapter 18 §18.2, and ROADMAP's
+direct-hidden-sector P2 row. At that snapshot the book labelled the
+relaxation estimate heuristic, but it:
+
+- derived an `a_i/a` decay from the relaxation timescale alone;
+- named non-Gaussianity as the consequence of modified statistics;
+- asserted a distinctive history-dependent shape.
+
+§§2–3 bear on each of these:
+
+- a Hubble-order timescale does not by itself fix a decay law;
+- a changed variance does not entail a third moment or any non-Gaussianity;
+- a cosmological prediction needs a specified source dynamics,
+  initial-deviation family and map to observables.
+
+After independent review, Chapter 18 §18.2, its summaries, Chapter 19,
+appendix A's F7 row and ROADMAP H-NEQ items 2–3 were corrected in place on
+these three points. The corrections stand on the mathematics stated here. No
+actual OI mode evolution has been derived, and F7's classification as a
+conditional prospect is unchanged.
 
 ## Sources read for the comparison
 

@@ -5,7 +5,31 @@
     "1/64",
     "1/64"
   ],
-  "controls": 2126,
+  "controls": 5273,
+  "controls_by_family": {
+    "countercontrol": 15,
+    "evolution": 40,
+    "other": 22,
+    "tv_nonuniform": 3104,
+    "tv_uniform": 2092
+  },
+  "countercontrols_rejected": [
+    "nonbijective map",
+    "nonstationary reference",
+    "within-cell swaps do not revive",
+    "lumpable partition admits closure",
+    "zero perturbation",
+    "asymmetric perturbation (odd moments)",
+    "skewed zero-mean law (nonzero third moment)",
+    "shifted law with zero third moment (nonzero mean)",
+    "perturbation outside the law interval",
+    "identity kernel",
+    "nonstochastic kernel",
+    "frozen exit is scale-independent",
+    "unit exponent for the rate-2 history",
+    "frozen-exit formula after common-end relaxation",
+    "lambda = 1 initial data under the rate-2 history"
+  ],
   "exit_exponent_1": [
     "1/4",
     "1/8",
@@ -25,13 +49,18 @@
     "1/2",
     "1/2"
   ],
-  "mutation_countercontrols_rejected": 6,
   "projected_tv": [
     "1/2",
     "0",
     "1/2",
     "0",
     "1/2"
+  ],
+  "scale_dependent_initial": [
+    "1/32",
+    "1/32",
+    "1/32",
+    "1/32"
   ],
   "third_moment": "0",
   "variance_ratio": "5/4",

@@ -67,12 +67,16 @@ lifted macro law (1,0), the direct projected laws are
 The one-step A maps every law to (1/2,1/2); its powers already fail at t=2.
 Here eta_0=0, so the discrepancy tests the memory term itself. A point mass
 at 0 has a nonzero initial hidden term, testing that separate clause.
-The generic checker passes 13,709 exact checks over 492 cases, including five
-countercontrols. It computes direct trajectories by state-index reallocation
-and compares them with independently assembled projection/lift matrices and
-memory sums. These are two computational paths in one stdlib checker, not
-independent authorship. Invalid bijections, partitions and stationary priors
-are rejected. Saved outputs replay byte for byte and SHA256SUMS records the run.
+The generic checker passes 13,704 exact checks over 492 cases. It computes
+direct trajectories by state-index reallocation and compares them with
+independently assembled projection/lift matrices and memory sums. These are
+two computational paths in one stdlib checker, not independent authorship.
+The four-cycle adds seven checks and five countercontrols. Each countercontrol
+runs a corrupted input through the same checks, which must reject it: the
+recurrence with its memory terms omitted, the recurrence with its initial
+hidden term omitted, and an invalid bijection, partition and stationary prior.
+The saved output replays byte for byte. `evidence.json` states the recipe and
+the replay's provenance; SHA256SUMS digests the files.
 The examples test block elimination; they discharge no (C1)–(C4) observer
 realization or cosmological mode readout.
 
@@ -95,9 +99,12 @@ decays geometrically, yet the true visible law returns every two steps.
 Thus neither that comparison gap nor decay of the memory coefficients
 alone is a source for scalar visible relaxation. This evaluates the actual
 construction, rather than transferring a reset-model calculation into it.
-The literal index checker adds 25 source-model checks for a total of 13,734,
-verifying all twelve point-state updates and the first eight memory
-coefficients. It checks the model's quoted probability
+The literal index checker adds 25 source-model checks, verifying all twelve
+point-state updates and the first eight memory coefficients. It adds 378
+checks of the full projected recurrence against literal index evolution,
+from all twelve point states and both lifted visible laws over nine steps.
+Replacing E by −E, which gives the kernel ratio +1/3, is rejected. The total is
+14,120 checks, six of them countercontrols. It checks the model's quoted probability
 construction; it does not certify every observer-condition claim or give
 it a cosmological mode or scale-factor interpretation.
 
