@@ -1,0 +1,112 @@
+# Disposable CI for PR #860's mutation tests. Lives only on branch ci/ret-mutants-20261018 and runs only on a push
+# to it. It checks out the target commit (TARGET) unchanged, separately from the harness, so the tested tree is
+# exactly that commit. It reads the repository and uploads logs; it pushes, dispatches and writes nothing.
+name: ci-ret-mutants (disposable, PR 860)
+on:
+  push:
+    branches: [ci/ret-mutants-20261018]
+permissions:
+  contents: read
+concurrency:
+  group: ci-ret-mutants-20261018
+  cancel-in-progress: false
+env:
+  TARGET: d3d09572eb84e6998064610f1dd1603600f168a5
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      names: ${{ steps.n.outputs.names }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-mutants
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - id: n
+        run: python3 -I -B harness/.ci-ret-mutants/names.py | tee -a "$GITHUB_OUTPUT"
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-mutants
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET }}
+          path: target
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: unmutated self-tests at TARGET
+        run: |
+          test "$(git -C target rev-parse HEAD)" = "$TARGET"
+          mkdir -p out
+          set -o pipefail
+          cd target && python3 -I -B ../harness/.ci-ret-mutants/baseline.py "$PWD" ../out | tee ../out/baseline.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: log-baseline
+          path: out/
+  mutant:
+    needs: plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        name: ${{ fromJSON(needs.plan.outputs.names) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-mutants
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TARGET }}
+          path: target
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: mutant ${{ matrix.name }}
+        env:
+          NAME: ${{ matrix.name }}
+        run: |
+          test "$(git -C target rev-parse HEAD)" = "$TARGET"
+          test -z "$(git -C target status --porcelain)"
+          mkdir -p out
+          set -o pipefail
+          cd target && python3 -I -B ../harness/.ci-ret-mutants/mutants_all.py "$PWD" "$NAME" ../out | tee "../out/$NAME.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: log-${{ matrix.name }}
+          path: out/
+  summary:
+    needs: [baseline, mutant]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: harness
+          sparse-checkout: .ci-ret-mutants
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: log-*
+          path: logs
+          merge-multiple: true
+      - name: table and comparison with the local run
+        run: python3 -I -B harness/.ci-ret-mutants/summarize.py logs harness/.ci-ret-mutants/local-expected.txt | tee logs/SUMMARY.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: summary
+          path: logs/SUMMARY.txt
