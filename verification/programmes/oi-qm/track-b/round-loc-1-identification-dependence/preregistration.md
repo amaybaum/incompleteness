@@ -632,6 +632,13 @@ replay reads. Both are scanned at stage 1 as §12 requires. The preflight's othe
 | `preflight_expected.py` | extractor of the expected result | complete | 13458 | `16a9fcbb0f823da2765bb770962c67782f1db888aea31167876cc3fad5a814f4` |
 | `preflight-expected.json` | expected result: the deterministic content of the preflight's eleven outputs, which it names by sha256 under `sources` | derived | 26358 | `70a1e1eda648d78b56b5b446285c66b8deeaf6d8a65412cc56c42cbbeca178ac` |
 | `S16-completeness.md` | the S16 completeness argument | complete, [W] | 15937 | `d45ae28ab475745ad2125fa9b05cf49229adf52a2a96c2caeace62741a40ca36` |
+| `cyclo16.py` | exact `ℚ(ζ₁₆)` arithmetic and the place `(p, ω)` of §7, with its self-test | complete | 19464 | `df7f84328106a0afce9f001a681001b320233eb870d88d52b3459e6f2a6b2abf` |
+| `s16_layer.py` | the `ℚ(ζ₁₆)` layer of §7 over `c21_engine.py`, and K-arith-16 on synthetic inputs | complete | 16315 | `f869d5d7e66ae0962a67cad270867d5686c3cbe30f74c1ba80ef1cd75971d00f` |
+| `replay_cyclo16.py` | the independent replay's `ℚ(ζ₁₆)` arithmetic and its self-test (K-replay-arith) | complete | 13109 | `3573f081a21161f066e7ee85648325926046b1d2b964782ce3220a37889c1dd5` |
+| `run_controls.py` | runs the three arithmetic self-tests and their cross-check through written vectors | complete | 1417 | `f61174f1319550741aba4bb417d8d69e9ba05a9fdec8749f07e83c428efc6218` |
+| `emit_claims.py` | writes every claim of the arithmetic controls, captured from the controls themselves | complete | 6665 | `859a7bad170010e0cb695c40d8a105a667aa2f62d403eb8d1f23133dbef86886` |
+| `indep_arith_check.py` | independent check of those claims: tower arithmetic, a Lucas certificate for `p`, class enumeration by partitions | complete | 38320 | `222e470e32fb321a3e311034023c10329bb5a69fe1d06d11f72b328a64a75562` |
+| `prior_expected.py` | extractor and comparator of §13's expected results | complete | 8606 | `7facd8bbc95ed869b774509e37225ac7e150b99d3aae85f93dc2107d7f093180` |
 
 - **Outputs not copied.** `sizes.out`, `scope_T.out`, `f34_count_indep.out`, `f34_enum.out`, `f34_enum_kdepall.out`,
   `c21_replay.out`, `c21_replay_mut.out`, `c21_sampler.out` and `c21_samples.json`. Their deterministic content is
@@ -803,19 +810,19 @@ round; until then the names identify working material, not evidence.
 **Files copied to `prior/` at stage 1.** Each row is one file. Its copy is `prior/<file>`, byte-identical to the working
 file pinned here; K-prior checks every copy against its row. Each script uses the standard library only and reads no
 file. Rerun in a fresh copy on 2026-10-17, each reproduced its output byte for byte. Under the owner's artifact ruling
-of 2026-10-18 the three outputs are not copied: no frozen record cites their line positions. Before `F`, each output's
-row is replaced by a row for its expected result `<name>-expected.json`, form derived: the output's deterministic
-content, the output's sha256 as the provenance of the extraction, and the recipe `python3 -I -B <name>.py`. Until then
-the output rows below record that provenance and pin nothing that stage 1 copies.
+of 2026-10-18 the three outputs are not copied: no frozen record cites their line positions. Each output is retained
+as its expected result `<name>-expected.json`, form derived: the output's deterministic content, its size and sha256
+as the provenance of the extraction, and the recipe `python3 -I -B <name>.py`, whose output `design/prior_expected.py
+compare` checks against the expected result. The extraction re-renders each pinned output byte for byte.
 
 | file | what | form | bytes | sha256 |
 | --- | --- | --- | --- | --- |
 | `decomposition_probe.py` | thread B's `explore/decomposition_probe.py` | complete-as-cited | 14708 | `acdd998dd477b3fca26e41210b0f5b1634d0e795d47df4b4c1de1aad6472d40a` |
-| `decomposition_probe.out` | its output; not copied, provenance of `decomposition_probe-expected.json` | derived source | 6381 | `f32b7f820df7b80e2980b1a6409aea6e3e06aba2a3c12fe76e132b020acc527a` |
+| `decomposition_probe-expected.json` | expected result of its output (6381 bytes, sha256 `f32b7f820df7b80e2980b1a6409aea6e3e06aba2a3c12fe76e132b020acc527a`) | derived | 11569 | `96e5533fe4996d04f48c62ad9ed19bf26f7cc0ad9eeedebfe08ca466a30de930` |
 | `factorization_check.py` | #851's check of the four-site countermodel | complete-as-cited | 5496 | `52694d4afd14c472ec9e7e265dae19183651e57cc284346d8d36981953a29126` |
-| `factorization_check.out` | its output; not copied, provenance of `factorization_check-expected.json` | derived source | 1095 | `9ef260e7b54d7f339da5e3a29a30f8e62f00866c4993e82576689513f898d363` |
+| `factorization_check-expected.json` | expected result of its output (1095 bytes, sha256 `9ef260e7b54d7f339da5e3a29a30f8e62f00866c4993e82576689513f898d363`) | derived | 3429 | `4f3624a53b4fb9549da5d810aec083d75a66bbdd13cdc1bb03d9a8560db0ad2d` |
 | `closure_design.py` | thread B's `explore/closure_design.py` | complete-as-cited | 3078 | `bb33939e6da3bd9c5638e547605d4541dae19118f6b564484fa007c34b3a7ed3` |
-| `closure_design.out` | its output; not copied, provenance of `closure_design-expected.json` | derived source | 812 | `88921a9967bb57581e084323a206481baf5bce18f0d7d73f9fc6d97cfb5cb1d8` |
+| `closure_design-expected.json` | expected result of its output (812 bytes, sha256 `88921a9967bb57581e084323a206481baf5bce18f0d7d73f9fc6d97cfb5cb1d8`) | derived | 2936 | `a7e689c36cfbe1823924e4ad03fe395d31208bd0855ffc5054830961ca6aad6a` |
 
 ## 14. Owner decisions
 
