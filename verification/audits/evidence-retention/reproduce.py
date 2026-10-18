@@ -377,6 +377,45 @@ def self_test():
              == {m: em['reports'] for m, em in mods.items()} and x['markers'] == res['expected']['markers']
              and sum(len(v) for v in x['reports'].values()) == res['observed']['reports_in_served_text']
              and (x['gate'] or {}).get('verdict', {}).get('text') == res['expected']['gate']['verdict'], prob)
+    # reproduce() itself, its build stubbed: the captured output is BG-3 E's retained tail, so the extraction it
+    # writes shows which extractor it ran
+    if e38 is not None:
+        import contextlib, io, tempfile, types
+        g = globals()
+        real_sh, real_sub = g['sh'], g['subprocess']
+
+        def fake_sh(args, cwd, log):
+            if args[:3] == ['git', 'worktree', 'add']:
+                os.makedirs(args[-2], exist_ok=True)
+            elif args[0] == 'lean':
+                log.write(tail)
+            return 0
+
+        def fake_run(args, **kw):
+            if args == ['git', 'rev-parse', 'HEAD'] and str(kw.get('cwd', '')).endswith(os.sep + 'tree'):
+                return types.SimpleNamespace(returncode=0, stdout=res['run']['head_sha'] + '\n', stderr='')
+            if args[:3] == ['git', 'worktree', 'remove']:
+                return types.SimpleNamespace(returncode=0, stdout='', stderr='')
+            return real_sub.run(args, **kw)
+        argv = sys.argv
+        with tempfile.TemporaryDirectory() as tmp:
+            try:
+                g['sh'], g['subprocess'] = fake_sh, types.SimpleNamespace(run=fake_run)
+                sys.argv = ['reproduce.py', '--run', '38855576525', '--work', tmp]
+                with contextlib.redirect_stdout(io.StringIO()):
+                    rc = main()
+            finally:
+                g['sh'], g['subprocess'], sys.argv = real_sh, real_sub, argv
+            verdict = json.load(open(os.path.join(tmp, 'verdict.json'), encoding='utf-8'))
+            rep = json.load(open(os.path.join(tmp, 'reproduced.json'), encoding='utf-8'))
+            logtext = open(os.path.join(tmp, 'build-and-gate.log'), encoding='utf-8', errors='replace').read()
+        named = named_blob(man, e38[1])[0]
+        ex = named_extractor(man, e38[1])[0]
+        want = json.loads(json.dumps(ex(logtext))) if ex else None
+        case('reproduce() for ci-38855576525, its build stubbed with the retained tail, records and runs blob %s'
+             % str(named)[:12], verdict.get('extractor_blob') == named and rep == want
+             and (named == current or rep != json.loads(json.dumps(checkout.extract(logtext)))),
+             'verdict names %s; exit %s' % (verdict.get('extractor_blob'), rc))
     fe0 = ci[0][1] if ci else {}
     at_head = lambda f: subprocess.run(['git', 'rev-parse', 'HEAD:verification/audits/evidence-retention/' + f], cwd=ROOT,
                                        capture_output=True, text=True).stdout.strip()
