@@ -21538,13 +21538,13 @@
   },
   {
    "awaiting_citation": {
-    "note": "a KTOKEN-MAXCONE-1 design-run head; the round's record at its draft head 625f853f does not yet cite it, and main does not carry that record",
+    "note": "the head of KTOKEN-MAXCONE-1's design run 1, run 39043849411, which the record is to cite beside the run",
     "pull_request": 829,
     "record": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md",
-    "round": "KTOKEN-MAXCONE-1"
+    "round": "KTOKEN-MAXCONE-1",
+    "run": "39043849411"
    },
    "bytes": 1144,
-   "cited": [],
    "content_bytes": 1144,
    "content_sha256": "2f01a80ca521487763fdbc4449858bba60ae9016822eb5ce23a164454944acb0",
    "file": "commit/1a/1ab0fd9dd2c6701197f2e0ab18401cafb76a090d",
@@ -21955,13 +21955,13 @@
   },
   {
    "awaiting_citation": {
-    "note": "a KTOKEN-MAXCONE-1 design-run head; the round's record at its draft head 625f853f does not yet cite it, and main does not carry that record",
+    "note": "the head of KTOKEN-MAXCONE-1's design run 2, run 39056982958, which the record is to cite beside the run",
     "pull_request": 829,
     "record": "verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/preregistration.md",
-    "round": "KTOKEN-MAXCONE-1"
+    "round": "KTOKEN-MAXCONE-1",
+    "run": "39056982958"
    },
    "bytes": 1014,
-   "cited": [],
    "content_bytes": 1014,
    "content_sha256": "f512b52889be6f88fab44f32bc21b063e64942df94e96ffdc590babf763d1497",
    "file": "commit/69/6959ced4c327ebb800cf6d463a049e4066e37288",
@@ -22541,13 +22541,13 @@
   },
   {
    "awaiting_citation": {
-    "note": "the record names this commit as the source of run 38450187534 at its head 65b85147 (line 68), which main does not yet carry",
+    "note": "the source commit of research run 38450187534, which the record is to cite beside the run",
     "pull_request": 831,
     "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
-    "round": "PRESERVE-INDUCT-1"
+    "round": "PRESERVE-INDUCT-1",
+    "run": "38450187534"
    },
    "bytes": 309,
-   "cited": [],
    "content_bytes": 309,
    "content_sha256": "e680e16922f35d0605bcecdff704a0c5937017c3418c6fce235f0320a222af4b",
    "file": "commit/e6/e684897da41b1c3d066b880194c9beb87a19b7ad",
@@ -22722,13 +22722,13 @@
   },
   {
    "awaiting_citation": {
-    "note": "the record names this commit as the source of run 38454439833 at its head 65b85147 (line 126), which main does not yet carry",
+    "note": "the source commit of research run 38454439833, which the record is to cite beside the run",
     "pull_request": 831,
     "record": "verification/programmes/oi-qm/reconstruction/round-preserve-induct-1/preregistration.md",
-    "round": "PRESERVE-INDUCT-1"
+    "round": "PRESERVE-INDUCT-1",
+    "run": "38454439833"
    },
    "bytes": 304,
-   "cited": [],
    "content_bytes": 304,
    "content_sha256": "103d04676c2c791f13cc2d21c498d139253404920959941880527668b1cf4f7a",
    "file": "commit/fe/febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3",

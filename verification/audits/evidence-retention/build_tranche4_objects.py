@@ -33,23 +33,27 @@ COMMITS = {
     'e684897da41b1c3d066b880194c9beb87a19b7ad': {
         'mechanism': 'raw:partial-tree', 'branch': 'research/preservation-induction-design-20261013',
         'awaiting_citation': {'pull_request': 831, 'round': 'PRESERVE-INDUCT-1', 'record': P831,
-                              'note': 'the record names this commit as the source of run 38450187534 at its head '
-                                      '65b85147 (line 68), which main does not yet carry'}},
+                              'run': '38450187534',
+                              'note': 'the source commit of research run 38450187534, which the record is to cite '
+                                      'beside the run'}},
     'febfe5e2668d3c000ec1d4ce7e4041f4feabd3c3': {
         'mechanism': 'raw:partial-tree', 'branch': 'research/preservation-induction-design-20261013',
         'awaiting_citation': {'pull_request': 831, 'round': 'PRESERVE-INDUCT-1', 'record': P831,
-                              'note': 'the record names this commit as the source of run 38454439833 at its head '
-                                      '65b85147 (line 126), which main does not yet carry'}},
+                              'run': '38454439833',
+                              'note': 'the source commit of research run 38454439833, which the record is to cite '
+                                      'beside the run'}},
     '1ab0fd9dd2c6701197f2e0ab18401cafb76a090d': {
         'mechanism': 'raw:tree', 'branch': 'dev-equivalence/ktoken-maxcone',
         'awaiting_citation': {'pull_request': 829, 'round': 'KTOKEN-MAXCONE-1', 'record': P829,
-                              'note': 'a KTOKEN-MAXCONE-1 design-run head; the round\'s record at its draft head '
-                                      '625f853f does not yet cite it, and main does not carry that record'}},
+                              'run': '39043849411',
+                              'note': 'the head of KTOKEN-MAXCONE-1\'s design run 1, run 39043849411, which the record '
+                                      'is to cite beside the run'}},
     '6959ced4c327ebb800cf6d463a049e4066e37288': {
         'mechanism': 'raw:tree', 'branch': 'dev-equivalence/ktoken-maxcone-r2',
         'awaiting_citation': {'pull_request': 829, 'round': 'KTOKEN-MAXCONE-1', 'record': P829,
-                              'note': 'a KTOKEN-MAXCONE-1 design-run head; the round\'s record at its draft head '
-                                      '625f853f does not yet cite it, and main does not carry that record'}},
+                              'run': '39056982958',
+                              'note': 'the head of KTOKEN-MAXCONE-1\'s design run 2, run 39056982958, which the record '
+                                      'is to cite beside the run'}},
 }
 WITHHOLD = {
     'c697b82b8a7d6719d78dfc74bc8183c85fa12255': {
@@ -125,7 +129,7 @@ for c, spec in COMMITS.items():
     open(os.path.join(OBJ, rel), 'wb').write(body)
     e = {'oid': c, 'type': 'commit', 'mechanism': spec['mechanism'], 'form': 'raw', 'file': rel, 'bytes': len(body),
          'sha256': sha(body), 'content_bytes': len(body), 'content_sha256': sha(body), 'parents': parents,
-         'parents_not_retained': parents, 'cited': [], 'awaiting_citation': spec['awaiting_citation'],
+         'parents_not_retained': parents, 'awaiting_citation': spec['awaiting_citation'],
          'held_by': {'branch': spec['branch'], 'listed_at': '2026-10-17'}, 'tranche': 4}
     if withheld:
         e['withheld_blobs'] = withheld

@@ -104,7 +104,13 @@ By the owner's instructions of 2026-10-17, `objects/` also retains, in tranche 2
 
 Each is stored with every tree and blob that `main` lacks at the tranche's own base, `b96662e6` (`tranche_bases`). Its off-`main` parent is named and not retained. That is 66 entries: 4 commits, 37 trees, 23 blobs and 2 withheld blobs, in 64 files of 263,931 bytes. The branches that held the heads on 2026-10-17 are recorded and were not touched. #829's two heads hold no captured raw output: their off-`main` blobs are a workflow, the census registry, Lean sources, Python and a preregistration.
 
-**No line on `main` cites them yet.** Each commit records `awaiting_citation`: the pull request, the round and the record that is to cite it. A commit with no citation and no such record fails (O10).
+**Their citations are pending.** Each commit records `awaiting_citation`: the pull request, the round, the record that is to cite it and the run the record names beside it. O10 judges a pending citation against the tree under check, never against a pull request:
+- while the record is not in the tree, the entry is pending. It passes and counts as not cited, and a pull request that never lands leaves it so;
+- once the record is in the tree and cites the id (in full, or as a hex prefix of seven or more digits) with the run on a citing line or the line next to one, the entry is eligible for promotion. It passes, so the commit that lands the record need not change this manifest, and the check prints the citing lines;
+- a later archive commit replaces `awaiting_citation` with those lines as citations, which O7 then verifies, and O7 fails if the record later leaves the tree;
+- the check fails if the record is in the tree and does not cite the id, cites it on other lines or in other forms than the entry records, or does not name the recorded run beside it; if a recorded run is retained under `ci/` with another head; or if an entry carries `cited` and `awaiting_citation` together, or neither.
+
+Archive integrity and citation are separate: O1–O9 and H1–H7 verify these objects whatever the state of their citation. The self-test runs the sequence on a stand-in record: absent (pending), landed with the manifest unchanged (eligible), promoted (cited), landed citing another commit (fails), removed under a promoted entry (fails).
 
 **Two outputs are withheld,** approved by the owner on 2026-10-17 for exactly these paths in exactly these two commits. The approval in `check_objects.py` binds each one to its commits as well as its mechanism and path. O9 refuses a withheld blob that a third commit's tree names, an instance not recorded with its commit, path, size, id, sha256 and reason, and any other `.txt` (the self-test tries `SOURCE-BLOBS.txt` under `1f19a347`).
 

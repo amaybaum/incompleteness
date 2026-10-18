@@ -12549,16 +12549,16 @@
      "sha256": "8190c9187e17ac9a9761761ae8d9da23b6d7d0151f26adc870dc84a6a73a16ed"
     },
     {
-     "bytes": 74081,
+     "bytes": 90581,
      "kind": "complete",
      "path": "check_objects.py",
-     "sha256": "c4c6d93f48dcfe63cda8411acbb7098f5fadb739b9d519dadce39a99973b1114"
+     "sha256": "07f2f18fc85bf46f48d6b0b8e7a639fbb500075e1e867706075aab33cfb4d2a6"
     },
     {
-     "bytes": 704662,
+     "bytes": 704563,
      "kind": "complete",
      "path": "objects/manifest.json",
-     "sha256": "d1ee1c6740143e346d40e3e50ba0002c4019eb8a90c48934982812c4c3fc72ba"
+     "sha256": "bf36b0d7d912a5db1c2c75acf97066800c37a9edcebb64dfcb2e693cb46d9651"
     }
    ],
    "id": "tranche-record",
@@ -14675,10 +14675,10 @@
    "citations": [],
    "files": [
     {
-     "bytes": 11100,
+     "bytes": 11156,
      "kind": "complete",
      "path": "build_tranche4_objects.py",
-     "sha256": "a22f34852d709a5985dec5b56287c8fd3dac1fab606c841c41af11405387b23d"
+     "sha256": "c2b45ee9f5f80080a6d976de123273ca874e5f3ac1c3b5d2e213c301b2e0225e"
     }
    ],
    "id": "tranche4-record",
