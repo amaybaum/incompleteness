@@ -119,6 +119,13 @@ consistently.
   ids> RUNS n` names the set.
 - **Global, in the session.** `collect.py` implements the trust boundary of `TRUST-BOUNDARY.md`; its section
   numbers are cited here. It requires:
+  - every input to be read and hashed before any input is interpreted (the inventory, S2b): `runs.json`, then the
+    jobs list, then every served argument in argument order, each read once, with its name, kind, size and sha256
+    recorded. A file's own condition (a path that names nothing, a non-regular file, its own refused access, over
+    the cap) is recorded and the inventory goes on. Anything else during the inventory (a host failure, an
+    interrupt, a bug) leaves it incomplete: the run is ABORTED (exit 4) and publishes nothing. An unforeseen
+    exception after the inventory publishes a quarantined record that lists the whole inventory, with every served
+    argument not yet judged marked `unjudged`;
   - every served file to pass the strict grammar (2.2) before anything reads its content. Each file is read once,
     and its size and sha256 are recorded first. It must then be one regular file of at most 16 MiB, valid UTF-8
     with no byte-order mark before the object, and exactly one JSON object with nothing before or after it. The
@@ -142,8 +149,11 @@ consistently.
   - every expected served file to be present. Each shard's expected answer is the log of job "Extract shard K" in
     the extraction run's jobs list, for every shard of the plan in `runs.json`. If any is absent, the collection is
     quarantined in the same way, and the missing shard is recorded by its expected name (job id and job name);
-  - the jobs list to parse strictly (no duplicate key at any depth, no `NaN`), and its 32 shard job ids to be
-    distinct;
+  - the jobs list to parse strictly (no duplicate key at any depth; no fraction, exponent, `NaN` or `Infinity`
+    anywhere in it), every field the job index reads to pass the integer schema J-1 to J-5 (2.3) before any value is
+    formatted, looked up, compared or used in arithmetic (`total_count` an integer from 0 to 1000, `jobs` a list of
+    at most 1000 objects, each job's `id` and `run_id` integers from 1 to 10^16 - 1, its `name`, `head_sha`,
+    `head_branch` and `workflow_name` strings; a bool is not an integer), and its 32 shard job ids to be distinct;
   - every served log to be whole and under 5,000 lines: `original_length == logs_content.count("\n") + 1`, with no
     trailing newline;
   - an answer to belong to the shard the job index gives its job id. Identity comes from trusted collection
@@ -181,13 +191,15 @@ consistently.
     every rejected input (runs.json, the jobs list, `--head`), and any internal error by stage and exception type;
   - `failed_files`: every file that failed validation, by name and every copy's sha256, with its problems; and
     `voided_shards`, every shard the job rule voided, with its reasons;
-  - `files`: every served argument, in order, with its name, kind, size, sha256, status and reason, the job and
-    shard it is an answer of, the shards its scans name (null when unknown), and whether it is the same file as an
-    earlier argument;
+  - `files`: every served argument, in order, with its name, kind, size, sha256, status (`accepted`, `rejected`,
+    or `unjudged`: inventoried but not judged, which appears only beside an `internal` quarantine entry) and reason,
+    the job and shard it is an answer of, the shards its scans name (null when unknown), and whether it is the same
+    file as an earlier argument;
   - `expected`: every shard's expected answer, present, missing or undetermined, with every accepted copy's name and
     digest, and the rejected files known to name it;
-  - `collection`: a nonce fresh for each invocation, the start and write times, the output name, the digests of the
-    inputs (runs.json, the jobs list, `--head`) and a manifest of every other published file with its digest;
+  - `collection`: a nonce fresh for each invocation, the start and write times, the output name, the inputs
+    (runs.json and the jobs list, each by name, kind, size and sha256, written in the inventory, and `--head`) and a
+    manifest of every other published file with its digest;
   - `runs_sha256`: the digest of the runs.json bytes actually loaded, or null in a direct `collect()` call;
   - for each run: `eligible` (diagnostic) and `usable`; under quarantine no run entry carries a result digest or
     outcome;
@@ -198,8 +210,9 @@ consistently.
 
   It prints one `COLLECT FILE` line per served file, one `RUN` line per run with its expiry and verdict, and a
   `COLLECT PUBLISHED` line with the nonce and the sha256 of `collected.json`. It ends `COLLECT HOLDS` only when all
-  223 are usable. Every output line is printable ASCII, with every value from an input JSON-escaped, so no file name
-  can inject a line.
+  223 are usable. Every output line is printable ASCII, with every value from an input JSON-escaped (a usable run's
+  `outcome` on its `RUN` line included), so no file name can inject a line. `collected.json` and every output line
+  are strict JSON where they carry JSON: no `NaN`, `Infinity` or `-Infinity`.
 
 **The governing invariant.** A run may be marked usable only when the complete evidence collection succeeds
 (`COLLECT HOLDS`) and every relevant served file has been identified, validated and reconciled.
@@ -321,13 +334,69 @@ All run in the `selftest` job with no token, before any shard reads anything. Al
 |---|---|---|
 | `host.py --self-test` | 51 | 28 allow-list cases (6 allowed, 22 refused shapes); runs-file pin; a clean shard against local servers; the token only as Bearer to the API, never to storage; no leak of link, path, query or token; HTTP 410/404 recorded; rate-limit reserve stops JSON and log reads mid-shard; second redirect; non-https link; JSON redirect refused; no-redirect log; cap; short body; deadline; no token; job-count mismatch |
 | `assemble.py --self-test` | 75 | clean shard (green dispatch, green PR, red build), variant invariance, canonical/SHA256, no run-varying content; red gate, cancelled, not-built recorded and held; each fail-closed rule above as a mutation case with its expected verdict and reason; primed name under the pinned blob and under a simulated repair; malformed records; the run-set rule (missing, extra, duplicate, none) and the verdict table; line budget; CROSSCHECK never decisive; blob pin; interface pin; scan; host.py's digest pin |
-| `collect.py --self-test` | 162 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders; and the 52 trust-boundary tests of `TRUST-BOUNDARY.md` 6: the strict grammar (duplicate keys at every depth, D5, D1, D1b, D4, X3, unknown keys, types, `NaN`, BOM, UTF-8, trailing data, nesting, the cap, the trailing newline, JSON-escaped names), paths and copies (a directory, a missing, mistyped or mangled path, a link, a FIFO, the same file twice, one name for two files, byte-distinct copies), a scan's conversion error rejecting only its file (`[TB-SCAN]`) and a host failure at intake aborting the run (`[TB-SCANX]`), early failures and traceability (runs.json, the jobs list, `--head`, arguments, `expected` blocks, an internal error, candidates), stale output and publication (refusal, staging, the atomic rename, durability, output injection), and the positive controls in the fixture format and the real tool format. Every collection is read back from disk under the harness rules: the verdict and `quarantined` agree, the listing is exactly the manifest, no staging directory remains, every served file is recorded with the digest the test computes, the `COLLECT FILE` lines match, and every output line is printable ASCII with nothing on stderr |
-| `controls.py` | 115 | the plan and pins, with 17 negative controls (including a `ref:` moved off the main-src checkout). The pins are cross-validated: collect.py's pins of the assemble.py and host.py blobs against the files' blobs; collect.py's `EXTRACT_RESULT_BLOB` and `MAIN_COMMIT` against assemble.py's; and the workflow's two `extract_result.py` checkout refs against `MAIN_COMMIT` (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer in the job-log tool's byte format, passes the strict grammar and is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **92 code mutants across the three scripts, all killed**, among them the 21 of `TRUST-BOUNDARY.md` 6 (L1–L20 and L2j: lenient parsing, last-wins and first-wins hooks, extra keys, an unchecked message, constants in blocks, a tolerated BOM, trailing data, no staging, no existence check, unpublished early failures, first-copy digests, no decoded scan, repeated job ids, the trailing-newline tolerance, no `expected.outcome` check, no per-file catch, a blanket catch, host failures swallowed as internal, `EIO` as `unreadable`), and including the reviews' own M1, M1b, M2, M3, M3b, M4, M6, A7, B1–B3, C1 and D1; mutants for the raw scan, the quarantine, the completeness rule, the failed-file record and the governing invariant (both the withdrawn per-run rule and a vacuous never-usable variant); and an `[N1]` end-to-end check that the assembler's real output, `host.py`'s own lines and the runner's lines name only their own shard, in the byte scan and in the decoded scan. A mutant runs only the suites that can read its file. Each mutant for a review fix must fail every one of its named regression tests, matched by exact name; a table lists every test each one fails. The `[RP]` tests vary the real order of the answers and the name each is paired with, and pin each scenario's exit code and usable-run count |
+| `collect.py --self-test` | 182 | whole shards in any order; byte-identical output; a tail or a wrong `original_length` refused; missing and duplicate shard; RUNSET mismatch; missing or extra RESULT; tampered block; a block for a non-holding run; a block naming another head; a verdict line at odds with the RESULT lines; one UNVERIFIED or FAILS run among holders; and the 72 trust-boundary tests of `TRUST-BOUNDARY.md` 6: the strict grammar (duplicate keys at every depth, D5, D1, D1b, D4, X3, unknown keys, types, `NaN`, BOM, UTF-8, trailing data, nesting, the cap, the trailing newline, JSON-escaped names), paths and copies (a directory, a missing, mistyped or mangled path, a link, a FIFO, the same file twice, one name for two files, byte-distinct copies), a scan's conversion error rejecting only its file (`[TB-SCAN]`) and a host failure at intake aborting the run (`[TB-SCANX]`), a host failure at every intake stage aborting the run with its file-specific control published (`[TB-SCANXd]`, `[TB-SCANXp]`, `[TB-LSTATX]`/`[TB-LSTATC]`, `[TB-OPENX]`/`[TB-OPENC]`, `[TB-LINKX]`/`[TB-LINKC]`, and S2b's reads of `--runs` and `--run-jobs`, `[TB-INVHX]`/`[TB-INVHC]`), the inventory (an unforeseen exception in S3, S4 or S5 publishing the whole inventory with `unjudged` arguments, `[TB-INVINTr]`, `[TB-INVINT]`, `[TB-INVINTf]`, and one inside the inventory aborting the run, `[TB-INVX]`), the jobs-list integers (`1e400` refused at the jobs-input gate with the full inventory, `[TB-INVJ]`; every fraction, exponent, constant, bool, string, null, out-of-range or absent value, `[TB-JNUM]`; a jobs list in the provider's exact shape, `[TB-JREAL]`), output (a non-finite number never published, `[TB-NANOUT]`; a usable run's `outcome` escaped, `[TB-OUTC]`; the `emit` backstop on its own, `[TB-EMIT]`), early failures and traceability (runs.json, the jobs list, `--head`, arguments, `expected` blocks, an internal error, candidates), stale output and publication (refusal, staging, the atomic rename, durability, output injection), and the positive controls in the fixture format and the real tool format. Every collection is read back from disk under the harness rules: `collected.json` read with a strict decoder (no duplicate key, no `NaN` or `Infinity`), the verdict and `quarantined` agree, the listing is exactly the manifest, no staging directory remains, exactly one `files` entry per served argument in order, every served file recorded with the digest the test computes, through `main` both `collection.inputs` with the digests of the bytes the test wrote, no `unjudged` entry without an `internal` one, the `COLLECT FILE` lines match, and every output line is printable ASCII with nothing on stderr |
+| `controls.py` | 132 | the plan and pins, with 17 negative controls (including a `ref:` moved off the main-src checkout). The pins are cross-validated: collect.py's pins of the assemble.py and host.py blobs against the files' blobs; collect.py's `EXTRACT_RESULT_BLOB` and `MAIN_COMMIT` against assemble.py's; and the workflow's two `extract_result.py` checkout refs against `MAIN_COMMIT` (each must be caught); end to end: assemble.py's real output, served whole with a real-shaped runner trailer in the job-log tool's byte format, passes the strict grammar and is collected byte-identical, a red shard's output is read with its FAILS run named, and a tail is refused; the unmutated copy passes; **107 code mutants across the three scripts, all killed**, among them the 21 of `TRUST-BOUNDARY.md` 6 (L1–L20 and L2j: lenient parsing, last-wins and first-wins hooks, extra keys, an unchecked message, constants in blocks, a tolerated BOM, trailing data, no staging, no existence check, unpublished early failures, first-copy digests, no decoded scan, repeated job ids, the trailing-newline tolerance, no `expected.outcome` check, no per-file catch, a blanket catch, host failures swallowed as internal, `EIO` as `unreadable`), the 13 of its revision (L21–L33: the decoded-scan and parsed-readings catches each widened alone, every `lstat` error as `missing`, every `open` error as `unreadable`, a host failure while hashing a link's target swallowed, the served arguments inventoried after S3 and S4, a bug inside the inventory published as internal, the `unjudged` entries dropped from an internal record, the `OverflowError` label fix, a schema that tests presence only, `allow_nan` dropped, no `emit` backstop, a raw `outcome`), and L34 and L35 for the design review's note N3 (an internal record losing `collection.inputs`; a host failure reading `--runs` or `--run-jobs` recorded as that input's condition), and including the reviews' own M1, M1b, M2, M3, M3b, M4, M6, A7, B1–B3, C1 and D1; mutants for the raw scan, the quarantine, the completeness rule, the failed-file record and the governing invariant (both the withdrawn per-run rule and a vacuous never-usable variant); and an `[N1]` end-to-end check that the assembler's real output, `host.py`'s own lines and the runner's lines name only their own shard, in the byte scan and in the decoded scan. A mutant runs only the suites that can read its file, and two mutants run at a time, each in its own copy, their results printed in `MUTANTS` order. The free space under `--work` is read before and after each mutant; a reading under 64 MiB makes that mutant an infrastructure failure of the run, never a kill or a survival, and an exception in a worker fails the run (two self-checks, `[N1-DISK]` and `[N1-WORKER]`, show both on simulated readings and workers). Each mutant for a review fix must fail every one of its named regression tests, matched by exact name; a table lists every test each one fails. The `[RP]` tests vary the real order of the answers and the name each is paired with, and pin each scenario's exit code and usable-run count |
 
 CROSSCHECK lines compare each downloaded log with a session observation in `batchx/crosscheck.json`, sha256-pinned.
 The observation is `original_length` plus the sha256 of the last 40 served lines, recorded for five jobs that
 exercise the main shapes (red gate, red build, cancelled, green PR, latest green). The lines are printed for
 diagnosis and never decide a verdict. Every other run prints `not observed in session`.
+
+### The implementation of `TRUST-BOUNDARY.md` at `009b7062`
+
+The collector and the controls implement that revision (the inventory first, strict jobs-list integers, the five
+host-failure regressions) and the notes of its design review. Where the code departs from the design text:
+
+1. **Counts.** The design states 179 self-test cases and 105 mutants, 85 of them on `collect.py`. The design review's
+   note N3 adds three tests, `[TB-INVINTr]` (an unforeseen exception in S3), `[TB-INVHX]` (a host failure in S2b's
+   read of `--runs` or `--run-jobs`) and its control `[TB-INVHC]`, and two mutants, L34 and L35. So the self-test has
+   182 cases, `MUTANTS` 107 entries, 87 of them on `collect.py`, and `controls.py` 132 checks: the 23 others, the two
+   mutant-phase self-checks of note N1 and the 107 mutants.
+2. **Re-anchored mutants.** L11 (`main` now hands both paths to the collection; the mutant takes the inventory and S3
+   and S4 before it and returns 1 on any problem, and its own pre-check lets an exception through to the collection,
+   so the new injection tests fail by assertion and never crash the suite) and L19 (the host-failure clause of
+   `evaluate` now also prints the `COLLECT FILE` lines). Both keep their meaning and their must-fail lists.
+3. **The free-space floor of note N1** is 64 MiB, read with `statvfs` on `--work` before and after each mutant. One
+   collect self-test peaks at 23.7 MB, so two workers need about 50 MB. A worker's exception is printed as that
+   mutant's failure and fails the run; a `BaseException` that is not an `Exception` propagates and fails it too.
+4. **`<n>` in the J-4 and J-5 problems** counts from 0: it is the job's index in the list.
+5. **Harness and fixture changes.**
+   - `coll()` takes `unread`, the arguments whose bytes the test's own injection makes unobtainable (the `…C`
+     targets), which harness rule 5 then leaves out of its digest check, and `run_id`.
+   - `via_main()` takes an injection `setup` and `unread_inputs`.
+   - `write_items` gains a dangling link and a path under a symbolic-link loop.
+   - Harness rule 5 also asserts the statement of section 5 that an `unjudged` entry appears only beside an
+     `internal` quarantine entry. Without it the acceptance review's X5 (the intake stopping after the first
+     rejected argument), re-anchored to the new loop, survives: the inventory already holds every entry, and the
+     record is quarantined anyway. With it, X5 fails 13 tests.
+   - `[TB-LSTATX]` (d) and `[TB-LINKC]` (a) inject nothing. Each asserts, before the run, that its condition holds
+     (`lstat` gives `ELOOP`; the link's `stat` gives `ENOENT`), in place of "the injection fired" (note N6).
+   - `[TB-NANOUT]` asserts what the design lists for it. Its staging directory holds the result files written before
+     the strict serialization failed, so it does not assert "no `ci/` anywhere", which the `…X` tests do.
+   - In the new tests, a check that would raise on a missing record reads it defensively, so that a mutant fails a
+     test by assertion and never by a traceback.
+
+**Text corrections to `TRUST-BOUNDARY.md` at `009b7062`.** That file is outside this implementation's scope, so these
+are recorded here (the design review's notes):
+
+- **N2.** "The review's X1/X2" names the served fixtures of the review of `09d439d0` in section 1, `[TB-X3]` and
+  `[TB-KEY]`, and the acceptance review's mutants in `[TB-SCANXd]`, `[TB-SCANXp]`, L21 and L22. "D1–D3" (the owner's
+  directions) collides with section 9's D1–D5 and the fixtures D1–D5. Prefix the second of each, as was done for
+  AR-B and AR-N.
+- **N4.** After an S3 or S4 internal error an S2b-rejected served file is `rejected` but has no `unattributable`
+  entry, because those entries are made after the S5 loop; the `internal` entry quarantines the collection. Section
+  5's `unjudged` rule should say so.
+- **N5.** The revision markers are missing on the status paragraph's "Nothing in the revision is implemented" (now
+  also out of date), 2.5's "The snapshots" paragraph and its `(S2b)`/`(S5)` step labels, section 4's `runs_json` and
+  `jobs_list` lines (`kind`), and section 5's `files` schema (`unjudged`).
+- **N6.** `[TB-LSTATX]` (d) has no injection to assert. `[TB-NANOUT]` publishes nothing and belongs with "the `…X`
+  tests and `[TB-INVX]`". `[TB-SCAN]` (c) and (d) are the controls of `[TB-SCANXd]` and `[TB-SCANXp]`. Harness rule
+  5's "They are null only …" means their `size` and `sha256`. Section 8's DESIGN.md list should name
+  `controls.py`'s own count in section 7.
+- **The counts** of sections 6 and 8 (179, 105, 85) become 182, 107 and 87 with item 1, and harness rule 5 gains
+  the `unjudged` assertion of item 5.
+- **N7** (record only). A kernel OOM kill is outside the exit table. It prints no `COLLECT PUBLISHED` line, so
+  reader check 2 rejects whatever is at `--out`.
 
 ## 8. Exact launch behaviour
 
@@ -368,7 +437,8 @@ tree holds no other workflow.
    - 1: published, quarantined, `COLLECT FAILS`;
    - 2: published, quarantined, `COLLECT UNVERIFIED`;
    - 3: refused, nothing read or written;
-   - 4: aborted (a host failure, an interrupt, or a failure while staging or publishing), nothing published;
+   - 4: aborted (an inventory that could not complete, a host failure, an interrupt, or a failure while staging or
+     publishing), nothing published;
    - 5: published, but its durability not confirmed.
 3. Before any result is used, the reader's currentness check (`TRUST-BOUNDARY.md` 4) is mandatory:
    - `<dir>` is the path named for this collection;

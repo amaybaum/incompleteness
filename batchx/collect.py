@@ -17,12 +17,14 @@ implements is TRUST-BOUNDARY.md; the section numbers cited below are its own.
   --out DIR       a new path, which must not exist. The collection is written into a fresh staging directory beside
                   it and published by one atomic rename (section 4).
 From --run-jobs it builds the job index: exactly one job named "Extract shard K" for each shard K, every job of
-one run, at --head, on the launch branch, of this workflow, and the shard jobs' ids distinct.
+one run, at --head, on the launch branch, of this workflow, and the shard jobs' ids distinct. The jobs list is read
+by a decoder that refuses every fraction, exponent and constant, and every value the index reads passes the
+integer schema J-1 to J-5 (TRUST-BOUNDARY.md 2.3) first.
 
 Exit codes (section 3). 0: published, COLLECT HOLDS. 1: published, quarantined, COLLECT FAILS. 2: published,
 quarantined, COLLECT UNVERIFIED. 3: refused (an argument error, or --out exists): nothing read, nothing written.
-4: aborted (a host failure, an interrupt, or an error while staging or publishing): nothing published by
-this invocation. 5: published, but its
+4: aborted (an inventory that could not complete, a host failure, an interrupt, or an error while staging or
+publishing): nothing published by this invocation. 5: published, but its
 durability not confirmed. Exit 0 always follows a COLLECT PUBLISHED line and ends with COLLECT HOLDS. Every output
 line goes through emit(): printable ASCII only, with every input-derived value JSON-escaped. A reader takes a
 collection as current only after the check of section 4 (the nonce and digest printed by this invocation, the
@@ -34,8 +36,14 @@ quarantined: collected.json marks no run usable, no result file is written and n
 decided in one place, write_collection(). Each run's own result is recorded as `eligible`, which is diagnostic only
 and licenses nothing.
 
-The intake (section 2.5). Each served file is read once; its sha256 and size are recorded before anything else, so
-every file that can be read is traceable. Its bytes are then scanned for every shard they name, unanchored and
+The inventory (S2b, section 3). Before any input is interpreted, runs.json, the jobs list and every served argument
+are each read once, and each one's name, kind, size and sha256 are recorded, so every file that can be read is
+traceable. A file's own condition (a path that names nothing, a non-regular file, its own refused access, over the
+cap) is recorded and the inventory goes on; anything else stops it, and the run is ABORTED with nothing published.
+Every published record therefore lists the whole inventory; an unforeseen exception after it publishes the
+quarantined record with the arguments not yet judged marked `unjudged`.
+
+The intake (section 2.5). Each served file's snapshot is scanned for every shard it names, unanchored and
 independent of timestamps, ANSI codes, whitespace, case, JSON escapes and line position (see raw_named). Then the
 strict grammar: duplicate keys at any depth, unknown keys, wrong types, non-standard constants, a BOM, non-UTF-8,
 anything before or after the one object, and a message other than the tool's success message are all rejected. An
@@ -211,7 +219,7 @@ def _jobs_int(s):
 SERVED_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates, parse_constant=_no_constant,
                                   parse_float=_no_float, parse_int=_served_int)
 JOBS_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates, parse_constant=_no_constant,
-                                parse_int=_jobs_int)
+                                parse_float=_no_float, parse_int=_jobs_int)
 BLOCK_DECODER = json.JSONDecoder(strict=True, object_pairs_hook=_no_duplicates, parse_constant=_no_constant)
 
 
@@ -265,6 +273,36 @@ def _served_answer(data):
 def parse_served(data):
     """A served file's bytes: (the tool's answer, None), or (None, the reason it is rejected) (2.2)."""
     return _served_answer(data)
+
+
+# The jobs-list integer schema (TRUST-BOUNDARY.md 2.3, rules J-1 to J-5). It runs on the decoded jobs list before
+# build_job_index reads any value, so before any format, lookup, comparison or arithmetic on one. The problems carry
+# no input text: <n> is the job's position in the list (from 0) and <field> one of the six names below.
+MAX_JOBS = 1000            # this workflow's run has 33 jobs; the largest saved list has 37
+MAX_ID = 10 ** 16 - 1      # the range of a served job_id (2.2): every index id can be matched by an answer
+JOB_INT_FIELDS = ("id", "run_id")
+JOB_STR_FIELDS = ("name", "head_sha", "head_branch", "workflow_name")
+
+
+def jobs_schema(value):
+    """J-1 to J-5 on the decoded jobs list: [] when it holds, else [the first problem]. A bool is refused by
+    type(v) is int; a value outside a bound is refused, never clipped."""
+    if type(value) is not dict or "total_count" not in value or "jobs" not in value:
+        return ["the jobs list is not an object with total_count and jobs"]                        # J-1
+    tc, jobs = value["total_count"], value["jobs"]
+    if type(tc) is not int or not 0 <= tc <= MAX_JOBS:
+        return ["total_count is not an integer from 0 to %d" % MAX_JOBS]                           # J-2
+    if type(jobs) is not list or len(jobs) > MAX_JOBS or any(type(j) is not dict for j in jobs):
+        return ["jobs is not a list of at most %d objects" % MAX_JOBS]                             # J-3
+    for n, j in enumerate(jobs):                                                                    # J-4
+        for f in JOB_INT_FIELDS:
+            if f not in j or type(j[f]) is not int or not 1 <= j[f] <= MAX_ID:
+                return ["job %d: %s is not an integer from 1 to %d" % (n, f, MAX_ID)]
+    for n, j in enumerate(jobs):                                                                    # J-5
+        for f in JOB_STR_FIELDS:
+            if f not in j or type(j[f]) is not str:
+                return ["job %d: %s is not a string" % (n, f)]
+    return []
 
 
 def _errname(e):
@@ -360,7 +398,7 @@ def read_input(path, cap=MAX_SERVED_BYTES):
 
 def esc(v):
     """An input-derived value as any output line carries it: JSON-escaped (TRUST-BOUNDARY.md 3)."""
-    return json.dumps(v, ensure_ascii=True)
+    return json.dumps(v, ensure_ascii=True, allow_nan=False)
 
 
 def emit(outp, line):
@@ -657,7 +695,7 @@ def write_collection(out, table, verdict, quarantine, shards, run_id, head, fail
                          for k, v in sorted(shards.items())}, "runs": table,
               "schema": "batchx-collected/2", "quarantined": verdict != "HOLDS", "collection": coll,
               "files": extra.get("files", []), "expected": extra.get("expected")}
-    text = json.dumps(record, indent=1, sort_keys=True) + "\n"
+    text = json.dumps(record, indent=1, sort_keys=True, allow_nan=False) + "\n"   # strict JSON: no NaN, no Infinity
     with open(os.path.join(out, "collected.json"), "x", encoding="utf-8") as f:
         f.write(text)
         f.flush()
@@ -680,100 +718,209 @@ FILE_FIELDS = ("arg", "name", "kind", "size", "sha256", "status", "reason")
 SCAN_ERRORS = (ValueError,)   # the per-file catch (TRUST-BOUNDARY.md 2.5): a scan's conversion error, and nothing else
 
 
+HOST_FAILURES = (MemoryError, OSError)   # 2.5, the boundary: by S3 every OSError that is a file's own is recorded
+
+
 def _file_lines(P, files):
     for e in files:
-        P("COLLECT FILE %s" % json.dumps({k: e[k] for k in FILE_FIELDS}, sort_keys=True, ensure_ascii=True))
+        P("COLLECT FILE %s" % json.dumps({k: e[k] for k in FILE_FIELDS}, sort_keys=True, ensure_ascii=True,
+                                         allow_nan=False))
 
 
-def _take_in(i, path, doc, inv, known):
-    """Steps 1-5 of 2.5 for one served argument: (its files entry, (answer, names, parsed readings) when accepted,
-    else None, its file id). A ValueError raised by the byte scan, the decoded scan or the parsed readings rejects
-    this file with names_shards null, and nothing after the failed scan runs on it. Every other exception propagates
-    (a host failure: ABORTED; a bug: S10's internal quarantine)."""
+def _lines_once(P, st):
+    """The COLLECT FILE lines, printed exactly once (section 3): at the end of S5, or, for an error raised before it,
+    by S10 or the ABORTED path, each argument with the status it has then."""
+    if not st["lines_printed"]:
+        st["lines_printed"] = True
+        _file_lines(P, st["files"])
+
+
+# ------------------------------------------------------------------ S2b, the inventory (TRUST-BOUNDARY.md 2.5, 3)
+def _inventory_input(path, runs):
+    """--runs or --run-jobs, read once and hashed (2.5 steps 1-2): (its collection.inputs entry, its record, its
+    bytes or None). Nothing is decoded; the one derived fact is runs.json's `pinned`."""
     rec, data = read_input(path)
-    fid = rec.pop("_id")
-    entry = {"arg": i, "name": rec["name"], "kind": rec["kind"], "size": rec["size"], "sha256": rec["sha256"],
-             "status": "rejected", "reason": rec["reason"], "job_id": None, "shard": None, "names_shards": None,
-             "same_file_as": None}
+    rec.pop("_id")
+    meta = {"name": rec["name"], "kind": rec["kind"], "size": rec["size"], "sha256": rec["sha256"]}
+    if runs:
+        meta["pinned"] = rec["sha256"] == RUNS_SHA256
+    return meta, rec, data
+
+
+def _inventory_served(inv, served_files):
+    """Every --served argument in argument order, read once and hashed (2.5 steps 1-2). Each gets its files entry
+    as soon as its read returns: `unjudged`, or `rejected` for a file's own condition (a path that names nothing, a
+    non-regular file, the file's own refused access, over the cap). Its snapshot is kept for S5."""
+    ids = {}
+    for i, path in enumerate(served_files):
+        rec, data = read_input(path)
+        fid = rec.pop("_id")
+        inv["files"].append({"arg": i, "name": rec["name"], "kind": rec["kind"], "size": rec["size"],
+                             "sha256": rec["sha256"], "status": "unjudged" if rec["reason"] is None else "rejected",
+                             "reason": rec["reason"], "job_id": None, "shard": None, "names_shards": None,
+                             "same_file_as": ids.get(fid) if fid is not None else None})
+        if fid is not None:
+            ids.setdefault(fid, i)
+        inv["snaps"].append(data)
+        inv["fids"].append(fid)
+
+
+def inventory(served_files, P, runs_path=None, jobs_path=None):
+    """S2b: --runs, then --run-jobs (both only through main), then every --served argument, each read with read_input
+    before any input is interpreted. It returns at the checkpoint INVENTORY COMPLETE, with every entry and snapshot.
+    A file's own condition is recorded and the inventory goes on; anything else (a host failure, an interrupt, a
+    bug) leaves it incomplete: the COLLECT FILE lines of the arguments inventoried so far, then ABORTED (exit 4),
+    and nothing is published."""
+    inv = {"inputs": {"runs_json": None, "jobs_list": None}, "runs": None, "jobs": None, "files": [], "snaps": [],
+           "fids": [], "paths": list(served_files)}
+    try:
+        if runs_path is not None:
+            inv["runs"] = _inventory_input(runs_path, True)
+            inv["inputs"]["runs_json"] = inv["runs"][0]
+        if jobs_path is not None:
+            inv["jobs"] = _inventory_input(jobs_path, False)
+            inv["inputs"]["jobs_list"] = inv["jobs"][0]
+        _inventory_served(inv, served_files)
+    except BaseException:   # S2b: the inventory is incomplete, so nothing may be published (exit 4)
+        _file_lines(P, inv["files"])
+        raise
+    return inv
+
+
+# ------------------------------------------------------------------ S3 and S4: the two input snapshots interpreted
+def interpret_runs(runs):
+    """S3, on the snapshot S2b took: the condition S2b recorded, the pin, the strict load (2.3). (doc or None, the
+    digest of the bytes loaded or None, quarantine entries)."""
+    meta, rec, data = runs
+    doc, runs_sha, why = None, None, rec["reason"]
+    if why is None:
+        if not meta["pinned"]:
+            why = "runs.json is not the pinned file"
+        else:
+            doc, why = _decode_strict(data, JOBS_DECODER, False)
+            runs_sha = rec["sha256"] if doc is not None else None
+    if why is None:
+        return doc, runs_sha, []
+    return doc, runs_sha, [{"kind": "input", "input": "runs.json", "name": rec["name"], "file_kind": rec["kind"],
+                            "size": rec["size"], "sha256": rec["sha256"], "pinned": meta["pinned"], "reason": why}]
+
+
+def interpret_jobs(jobs, doc, head):
+    """S4, on the snapshot S2b took: the condition S2b recorded; the strict load, which refuses every fraction,
+    exponent and constant (2.3); the integer schema J-1 to J-5, whether or not doc exists; then, when doc exists,
+    build_job_index. (index or None, the extraction run id or None, quarantine entries)."""
+    meta, rec, data = jobs
+    index, run_id = None, None
+    probs = [rec["reason"]] if rec["reason"] is not None else []
+    if not probs:
+        jobsd, jwhy = _decode_strict(data, JOBS_DECODER, False)
+        if jobsd is None:
+            probs = [jwhy]
+        else:
+            probs = jobs_schema(jobsd)   # J-1 to J-5, before build_job_index reads any value (2.3)
+            if not probs and doc is not None:
+                index, run_id, probs = build_job_index(jobsd, head, doc["shards"])
+    if not probs:
+        return index, run_id, []
+    return None, None, [{"kind": "input", "input": "jobs list", "name": rec["name"], "file_kind": rec["kind"],
+                         "size": rec["size"], "sha256": rec["sha256"], "problems": probs,
+                         "reason": "; ".join(probs)}]
+
+
+def _take_in(rec, data, doc, inv, known):
+    """Steps 3-5 of 2.5 for one served argument, on the snapshot S2b took: (its judged files entry, (answer, names,
+    parsed readings) when accepted, else None). The entry is a copy: the caller records it only when this returns,
+    so an argument whose intake raised stays `unjudged`. A ValueError raised by the byte scan, the decoded scan or
+    the parsed readings rejects this file with names_shards null, and nothing after the failed scan runs on it.
+    Every other exception propagates (a host failure: ABORTED; a bug: S10's internal quarantine)."""
+    entry = dict(rec, status="rejected")
     if data is None:
-        return entry, None, fid
+        return entry, None   # S2b's rejection of a file's own condition stands
     try:
         raw = raw_named(data, doc, inv) if known else None          # the byte scan, before any parsing
     except SCAN_ERRORS as e:
         entry["reason"] = "byte scan failed (%s)" % type(e).__name__   # never reaches the grammar
-        return entry, None, fid
+        return entry, None
     obj, why = parse_served(data)
     if obj is None:
         entry.update(reason=why, names_shards=sorted(raw) if raw is not None else None)
-        return entry, None, fid
+        return entry, None
     try:
         raw = raw if raw is None else raw | raw_named(obj["logs_content"].encode("utf-8"), doc, inv)  # the decoded scan
     except SCAN_ERRORS as e:
         entry["reason"] = "decoded scan failed (%s)" % type(e).__name__
-        return entry, None, fid
+        return entry, None
     try:
         parsed = (shard_of(obj), shards_named(obj, doc)) if known else (None, set())   # the parsed readings
     except SCAN_ERRORS as e:
         entry["reason"] = "parsed scan failed (%s)" % type(e).__name__
-        return entry, None, fid
+        return entry, None
     entry.update(status="accepted", reason=None, job_id=obj["job_id"], shard=inv.get(obj["job_id"]),
                  names_shards=sorted(raw) if raw is not None else None)
-    return entry, (obj, raw, parsed), fid
+    return entry, (obj, raw, parsed)
 
 
-def evaluate(load, served_files, outp, head):
-    """S3-S10 (TRUST-BOUNDARY.md 3): read every input, decide, write nothing. An exception that no check foresaw
-    becomes an internal quarantine (S10). A host failure (MemoryError, an OSError that is not a file's own
-    condition) and an interrupt are not caught here: the run is ABORTED (2.5, the boundary)."""
+def evaluate(inv, outp, head, given=None):
+    """S3-S10 (TRUST-BOUNDARY.md 3) on the inventory of S2b: decide, write nothing. given is (doc, job_index,
+    run_id) for a direct collect(), else S3 and S4 interpret the two input snapshots. An exception that no check
+    foresaw becomes an internal quarantine (S10), whose record keeps the whole inventory. A host failure
+    (MemoryError, an OSError) and an interrupt are not caught here: the run is ABORTED (2.5, the boundary)."""
     P = lambda s: emit(outp, s)  # noqa: E731
-    st = {"stage": "S3", "doc": None, "job_index": None, "run_id": None,
-          "inputs": {"runs_json": None, "jobs_list": None}, "runs_sha256": None, "files": [], "expected": None,
-          "quarantine": [], "failed": [], "voids": [], "shards": {}, "table": [], "verdict": "FAILS",
-          "eligible": 0}
+    st = {"stage": "S3", "doc": None, "job_index": None, "run_id": None, "inputs": inv["inputs"],
+          "runs_sha256": None, "files": inv["files"], "expected": None, "quarantine": [], "failed": [], "voids": [],
+          "shards": {}, "table": [], "verdict": "FAILS", "eligible": 0, "lines_printed": False}
     try:
-        _evaluate(load, served_files, P, st)
-    except (MemoryError, OSError):   # a host failure is never an internal quarantine: ABORTED (2.5)
+        _evaluate(inv, given, head, P, st)
+    except HOST_FAILURES:   # a host failure is never an internal quarantine: ABORTED (2.5)
+        _lines_once(P, st)
         raise
     except Exception as e:  # noqa: BLE001 - S10: quarantine, never a traceback
         st["quarantine"].append({"kind": "internal", "stage": st["stage"], "exception": type(e).__name__})
+        _lines_once(P, st)   # the arguments S5 had not judged stay unjudged (TRUST-BOUNDARY.md 3, S10)
         P("COLLECT FAIL internal error at %s: %s; the whole collection is quarantined" % (st["stage"], type(e).__name__))
         st.update(verdict="FAILS", shards={}, eligible=0)
         try:
             st["table"] = [{"run_id": c["run_id"], "shard": c["shard"], "expires": c["expires"], "eligible": False,
                             "verdict": None, "reason": "the collection is quarantined (internal error at %s)"
                             % st["stage"]} for c in (st["doc"]["runs"] if st["doc"] is not None else [])]
+        except HOST_FAILURES:
+            raise
         except Exception:  # noqa: BLE001 - a run set too malformed to list
             st["table"] = []
+    except BaseException:   # an interrupt: ABORTED
+        _lines_once(P, st)
+        raise
     return st
 
 
-def _evaluate(load, served_files, P, st):
-    doc, job_index, run_id, inputs, runs_sha256, input_q = load()
-    st.update(doc=doc, job_index=job_index, run_id=run_id, inputs=inputs, runs_sha256=runs_sha256)
+def _evaluate(iv, given, head, P, st):
+    if given is not None:   # a direct collect(): the run set and index as given, no input files (A2)
+        doc, job_index, run_id = given
+        runs_sha256, input_q = None, []
+    else:
+        st["stage"] = "S3"
+        doc, runs_sha256, input_q = interpret_runs(iv["runs"])
+        st.update(doc=doc, runs_sha256=runs_sha256)
+        st["stage"] = "S4"
+        job_index, run_id, q4 = interpret_jobs(iv["jobs"], doc, head)
+        input_q = input_q + q4
+    st.update(doc=doc, job_index=job_index, run_id=run_id, runs_sha256=runs_sha256)
     known = doc is not None and job_index is not None   # the run set and the index: attribution can run
     inv = {j: k for k, j in job_index.items()} if job_index is not None else {}
     bad, answers = False, []
     voided, quarantine, failed = {}, st["quarantine"], st["failed"]
     quarantine.extend(input_q)
-    # S5, the intake (2.5): every served argument, in argument order, whatever S3 and S4 gave. Every file is read
-    # before anything is decided; the decisions below depend only on the set of answers. A scan's ValueError rejects
-    # its file (the per-file catch); a host failure, an interrupt or a bug propagates, after the COLLECT FILE lines
-    # of the files already taken in.
+    # S5, the intake (2.5 steps 3-5): every served argument, in argument order, on the snapshot S2b took, whatever S3
+    # and S4 gave. The decisions below depend only on the set of answers. A scan's ValueError rejects its file (the
+    # per-file catch); a host failure, an interrupt or a bug propagates, and the arguments not yet judged stay
+    # unjudged in the COLLECT FILE lines and, for a bug, in S10's record.
     st["stage"] = "S5"
-    files, objs, ids, fids = st["files"], {}, {}, {}
-    try:
-        for i, path in enumerate(served_files):
-            entry, got, fid = _take_in(i, path, doc, inv, known)
-            entry["same_file_as"] = ids.get(fid) if fid is not None else None
-            if fid is not None:
-                ids.setdefault(fid, i)
-            fids[i] = fid
-            files.append(entry)
-            if got is not None:
-                objs[i] = got
-    except BaseException:
-        _file_lines(P, files)
-        raise
+    files, objs, fids = st["files"], {}, iv["fids"]
+    for i, rec in enumerate(files):
+        entry, got = _take_in(rec, iv["snaps"][i], doc, inv, known)
+        rec.update(entry)
+        if got is not None:
+            objs[i] = got
     by_name = {}
     for e in files:
         by_name.setdefault(e["name"], []).append(e)
@@ -787,7 +934,7 @@ def _evaluate(load, served_files, P, st):
             # It cannot be attributed reliably, so the whole collection is quarantined, whatever it seems to name.
             quarantine.append({"kind": "unattributable", "file": e["name"], "sha256": e["sha256"], "size": e["size"],
                                "reason": e["reason"], "names_shards": e["names_shards"]})
-    _file_lines(P, files)
+    _lines_once(P, st)
     st["stage"] = "S6"
     for i in sorted(objs) if known else []:
         obj, raw, (so, sn) = objs[i]
@@ -918,8 +1065,9 @@ def _evaluate(load, served_files, P, st):
     st.update(verdict=v, eligible=eligible)
 
 
-def run_collection(load, served_files, out, outp=None, head=None, durable=True):
-    """S1-S12 (TRUST-BOUNDARY.md 3-4); returns the exit code, 0 to 5, and never raises."""
+def run_collection(served_files, out, outp=None, head=None, durable=True, inputs=None, given=None):
+    """S1-S12 (TRUST-BOUNDARY.md 3-4); returns the exit code, 0 to 5, and never raises. inputs is (--runs,
+    --run-jobs) through main; given is (doc, job_index, run_id) for a direct collect()."""
     outp = outp or sys.stdout
     P = lambda s: emit(outp, s)  # noqa: E731
     phase, said, v = "S1", False, "FAILS"
@@ -937,8 +1085,10 @@ def run_collection(load, served_files, out, outp=None, head=None, durable=True):
         staging = os.path.join(parent, ".%s.staging-%s" % (os.path.basename(out), nonce))
         os.mkdir(staging, 0o700)
         started = _utc()
+        phase = "S2b"   # every exception from here to the rename is ABORTED, unless a state turns it into a record
+        iv = inventory(served_files, P, *(inputs or (None, None)))   # returns at INVENTORY COMPLETE
         phase = "S3"
-        st = evaluate(load, served_files, outp, head)
+        st = evaluate(iv, outp, head, given)
         phase = "S11"
         v = st["verdict"]
         extra = {"runs_sha256": st["runs_sha256"], "files": st["files"], "expected": st["expected"],
@@ -953,7 +1103,7 @@ def run_collection(load, served_files, out, outp=None, head=None, durable=True):
         nruns = len(st["table"])
         for e in st["table"]:
             P("RUN %s shard %d expires %s %s%s" % (e["run_id"], e["shard"], e["expires"], e.get("verdict"),
-                                                   (" " + e.get("outcome", "")) if e["usable"] else
+                                                   (" " + esc(e.get("outcome", ""))) if e["usable"] else
                                                    " not usable: " + (e.get("reason") or "the collection's verdict is %s" % v)))
         P("COLLECT %d of %d runs passed every check of their shard" % (st["eligible"], nruns))
         P("COLLECT %d of %d runs usable" % (usable, nruns))
@@ -983,43 +1133,7 @@ def collect(doc, served_files, out, job_index, run_id=None, outp=None, head=None
     """A collection from a run set and job index given directly (the self-test's entry): S1-S12, with
     collection.inputs.runs_json, inputs.jobs_list and the top-level runs_sha256 recorded as null (section 4, A2).
     Returns the exit code."""
-    return run_collection(lambda: (doc, job_index, run_id, {"runs_json": None, "jobs_list": None}, None, []),
-                          served_files, out, outp, head, durable)
-
-
-def load_inputs(runs_path, jobs_path, head):
-    """S3-S4: the run set and the job index, each file read once (2.5 steps 1-2) and parsed strictly (2.3)."""
-    q = []
-    rrec, data = read_input(runs_path)
-    rrec.pop("_id")
-    runs_meta = {"name": rrec["name"], "size": rrec["size"], "sha256": rrec["sha256"],
-                 "pinned": rrec["sha256"] == RUNS_SHA256}
-    doc, runs_sha, why = None, None, rrec["reason"]
-    if why is None:
-        if not runs_meta["pinned"]:
-            why = "runs.json is not the pinned file"
-        else:
-            doc, why = _decode_strict(data, JOBS_DECODER, False)
-            runs_sha = rrec["sha256"] if doc is not None else None
-    if why is not None:
-        q.append({"kind": "input", "input": "runs.json", "name": rrec["name"], "file_kind": rrec["kind"],
-                  "size": rrec["size"], "sha256": rrec["sha256"], "pinned": runs_meta["pinned"], "reason": why})
-    jrec, jdata = read_input(jobs_path)
-    jrec.pop("_id")
-    jobs_meta = {"name": jrec["name"], "size": jrec["size"], "sha256": jrec["sha256"]}
-    index, run_id = None, None
-    probs = [jrec["reason"]] if jrec["reason"] is not None else []
-    if not probs:
-        jobsd, jwhy = _decode_strict(jdata, JOBS_DECODER, False)
-        if jobsd is None:
-            probs = [jwhy]
-        elif doc is not None:
-            index, run_id, probs = build_job_index(jobsd, head, doc["shards"])
-    if probs:
-        q.append({"kind": "input", "input": "jobs list", "name": jrec["name"], "file_kind": jrec["kind"],
-                  "size": jrec["size"], "sha256": jrec["sha256"], "problems": probs, "reason": "; ".join(probs)})
-        index = None
-    return doc, index, run_id, {"runs_json": runs_meta, "jobs_list": jobs_meta}, runs_sha, q
+    return run_collection(served_files, out, outp, head, durable, given=(doc, job_index, run_id))
 
 
 # ------------------------------------------------------------------------------------------------ self-test
@@ -1130,15 +1244,28 @@ def self_test(work=None):
     try:
         FILE_KEYS = ("arg", "name", "kind", "size", "sha256", "status", "reason")
 
-        def harness(d, out, written, text, err):
+        def _strict_pairs(pairs):
+            keys_ = [k_ for k_, _ in pairs]
+            if len(set(keys_)) != len(keys_):
+                raise ValueError("a duplicate key")
+            return dict(pairs)
+
+        def _strict_const(c_):
+            raise ValueError("a non-standard constant %s" % c_)
+        # the harness's own strict reader of collected.json (rule 1), independent of the collector's decoders
+        READ_STRICT = json.JSONDecoder(object_pairs_hook=_strict_pairs, parse_constant=_strict_const)
+
+        def harness(d, out, written, text, err, nargs=None, inputs=None):
             """The harness rules of TRUST-BOUNDARY.md 6, checked on what is on disk: (ok, collected.json, problems).
-            written maps an argument number to the bytes the test itself wrote there."""
+            written maps an argument number to the bytes the test itself wrote there; nargs is the number of
+            --served arguments; inputs, through main, maps runs_json and jobs_list to the bytes the test wrote
+            there, or to None for an input the test made unreadable."""
             hp = []
             try:
                 with open(os.path.join(out, "collected.json"), encoding="utf-8") as f_:
-                    cj_ = json.load(f_)
+                    cj_ = READ_STRICT.decode(f_.read())
             except (OSError, ValueError):
-                return False, None, ["1: no collected.json on disk"]
+                return False, None, ["1: no collected.json on disk, or not strict JSON"]
             nu = sum(1 for e in cj_["runs"] if e["usable"])
             if cj_.get("quarantined") is not (cj_["verdict"] != "HOLDS"):
                 hp.append("2: quarantined is not verdict != HOLDS")
@@ -1161,6 +1288,16 @@ def self_test(work=None):
                 fe = cj_["files"][i] if i < len(cj_["files"]) else {}
                 if (fe.get("size"), fe.get("sha256")) != (len(b_), hashlib.sha256(b_).hexdigest()):
                     hp.append("5: file %d's size and sha256" % i)
+            if nargs is not None and [fe.get("arg") for fe in cj_["files"]] != list(range(nargs)):
+                hp.append("5: not one files entry per --served argument, in order")
+            if any(fe.get("status") == "unjudged" for fe in cj_["files"]) and not any(
+                    q_.get("kind") == "internal" for q_ in cj_.get("quarantine", [])):
+                hp.append("5: an unjudged files entry in a record with no internal quarantine entry (section 5)")
+            for k_, b_ in (inputs or {}).items():
+                ie = ((cj_.get("collection") or {}).get("inputs") or {}).get(k_)
+                want_ = (None, None) if b_ is None else (len(b_), hashlib.sha256(b_).hexdigest())
+                if ie is None or (ie.get("size"), ie.get("sha256")) != want_:
+                    hp.append("5: collection.inputs.%s" % k_)
             fl = [json.loads(l[len("COLLECT FILE "):]) for l in text.split("\n") if l.startswith("COLLECT FILE ")]
             if fl != [{k: fe[k] for k in FILE_KEYS} for fe in cj_["files"]]:
                 hp.append("6: the COLLECT FILE lines")
@@ -1173,8 +1310,9 @@ def self_test(work=None):
         def write_items(d, items):
             """items: [(name relative to d, payload)]. A payload is bytes, a str (written as UTF-8), or ("dir",),
             ("missing",), ("fifo",), ("same", j) (item j's path again), ("hardlink", j), ("symlink_to", bytes)
-            (a link to a file the test writes outside the served set), ("sparse", size) or ("rawpath",) (the name
-            as a path, nothing created: e.g. a path through a regular file)."""
+            (a link to a file the test writes outside the served set), ("sparse", size), ("rawpath",) (the name
+            as a path, nothing created: e.g. a path through a regular file), ("dangling",) (a link naming nothing)
+            or ("looppath",) (the name under a symbolic-link loop)."""
             paths, written = [], {}
             for i, (nm, pl) in enumerate(items):
                 p = os.path.join(d, nm)
@@ -1204,14 +1342,23 @@ def self_test(work=None):
                 elif pl[0] == "sparse":
                     with open(p, "wb") as f_:
                         f_.truncate(pl[1])
+                elif pl[0] == "dangling":
+                    os.symlink(os.path.join(d, "nowhere", "x"), p)
+                elif pl[0] == "looppath":   # a path through a symbolic-link loop: lstat gives ELOOP
+                    os.symlink("lp2", os.path.join(d, "lp1"))
+                    os.symlink("lp1", os.path.join(d, "lp2"))
+                    p = os.path.join(d, "lp1", nm)
                 paths.append(p)   # ("missing",) is a path the test never creates
             return paths, written
 
-        def coll(items, ix=None, dc=None, durable=False, pre=None, setup=None, out_name="out"):
+        def coll(items, ix=None, dc=None, durable=False, pre=None, setup=None, out_name="out", unread=(), run_id=42):
             """One collection of items through collect(), with stdout and stderr captured, read back from disk
-            under the harness rules (not for the refused and aborted outcomes, which publish nothing)."""
+            under the harness rules (not for the refused and aborted outcomes, which publish nothing). unread names
+            the arguments whose bytes the test's own injection makes unobtainable."""
             d = tempfile.mkdtemp(dir=base)
             paths, written = write_items(d, items)
+            for i in unread:
+                written.pop(i, None)
             out = os.path.join(d, out_name)
             if pre:
                 pre(out)
@@ -1219,13 +1366,14 @@ def self_test(work=None):
             buf, err = io.StringIO(), io.StringIO()
             try:
                 with contextlib.redirect_stderr(err):
-                    code = collect(dc or doc, paths, out, index if ix is None else ix, 42, buf, head=HEAD,
+                    code = collect(dc or doc, paths, out, index if ix is None else ix, run_id, buf, head=HEAD,
                                    durable=durable)
             finally:
                 if undo:
                     undo()
             t = buf.getvalue()
-            hok, cj, hp = harness(d, out, written, t, err.getvalue()) if code not in (3, 4) else (None, None, [])
+            hok, cj, hp = harness(d, out, written, t, err.getvalue(), nargs=len(items)) if code not in (3, 4) \
+                else (None, None, [])
             return {"code": code, "t": t, "err": err.getvalue(), "cj": cj, "hok": hok, "hp": hp, "d": d, "out": out,
                     "paths": paths, "written": written}
 
@@ -1719,20 +1867,32 @@ def self_test(work=None):
                 j.update(run_id=5, head_sha=HEADM, head_branch=BRANCH, workflow_name=WORKFLOW_NAME)
             return {"total_count": len(jobs), "jobs": jobs}
 
-        def via_main(items, jobs_bytes, runs_path=None, head=HEADM):
-            """One collection through main(), in-process, with stdout and stderr captured, read back from disk."""
+        def via_main(items, jobs_bytes, runs_path=None, head=HEADM, setup=None, unread_inputs=()):
+            """One collection through main(), in-process, with stdout and stderr captured, read back from disk;
+            setup(d, runs path, jobs path) may install an injection and returns its undo."""
             d = tempfile.mkdtemp(dir=base)
             paths, written = write_items(d, items)
             jp, out = os.path.join(d, "jobs.json"), os.path.join(d, "out")
             with open(jp, "wb") as f_:
                 f_.write(jobs_bytes)
-            argv = ["--runs", runs_path or RUNS_REAL, "--run-jobs", jp, "--head", head, "--out", out] + [
+            rp = runs_path or RUNS_REAL
+            with open(rp, "rb") as f_:
+                ins = {"runs_json": f_.read(), "jobs_list": jobs_bytes}
+            for k_ in unread_inputs:
+                ins[k_] = None
+            argv = ["--runs", rp, "--run-jobs", jp, "--head", head, "--out", out] + [
                 x for p in paths for x in ("--served", p)]
             buf, err = io.StringIO(), io.StringIO()
-            with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(err):
-                code = main(argv, durable=False)
+            undo = setup(d, rp, jp) if setup else None
+            try:
+                with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(err):
+                    code = main(argv, durable=False)
+            finally:
+                if undo:
+                    undo()
             t = buf.getvalue()
-            hok, cj, hp = harness(d, out, written, t, err.getvalue()) if code not in (3, 4) else (None, None, [])
+            hok, cj, hp = harness(d, out, written, t, err.getvalue(), nargs=len(items), inputs=ins) \
+                if code not in (3, 4) else (None, None, [])
             return {"code": code, "t": t, "err": err.getvalue(), "cj": cj, "hok": hok, "hp": hp, "d": d, "out": out}
 
         def input_entry(R, which):
@@ -2086,7 +2246,8 @@ def self_test(work=None):
             buf, err = io.StringIO(), io.StringIO()
             with contextlib.redirect_stderr(err):
                 code_ = collect(doc, paths, os.path.join(d_, o_), index, 42, buf, head=HEAD, durable=False)
-            outs.append((code_,) + harness(d_, os.path.join(d_, o_), written, buf.getvalue(), err.getvalue())[:2])
+            outs.append((code_,) + harness(d_, os.path.join(d_, o_), written, buf.getvalue(), err.getvalue(),
+                                           nargs=3)[:2])
         chk("[TB-O8] two collections of the same inputs into two fresh locations have distinct nonces and record the "
             "on-disk digests", all(c_ == 0 and h_ for c_, h_, _ in outs)
             and outs[0][2]["collection"]["nonce"] != outs[1][2]["collection"]["nonce"]
@@ -2159,15 +2320,19 @@ def self_test(work=None):
                 return patch(os, "read", fake)
             return setup
         ok = True
-        for setup_ in (scan_fault(MemoryError()), scan_fault(OSError(errno.ENOSPC, "test")),
-                       scan_fault(OSError(errno.EIO, "test")), read_fault(OSError(errno.EIO, "test")),
-                       read_fault(MemoryError()), scan_fault(KeyboardInterrupt())):
+        # the byte-scan cases fail in S5, after INVENTORY COMPLETE: a line for each of the four arguments, 0 to 2
+        # accepted and 3 unjudged; the read cases fail in S2b: lines for arguments 0 to 2 only, each unjudged
+        in_s5 = [("accepted", None)] * 3 + [("unjudged", None)]
+        in_s2b = [("unjudged", None)] * 3
+        for setup_, want_ in ((scan_fault(MemoryError()), in_s5), (scan_fault(OSError(errno.ENOSPC, "test")), in_s5),
+                              (scan_fault(OSError(errno.EIO, "test")), in_s5), (read_fault(OSError(errno.EIO, "test")), in_s2b),
+                              (read_fault(MemoryError()), in_s2b), (scan_fault(KeyboardInterrupt()), in_s5)):
             R = coll(CLEAN + [("served-3.json", ansx(77001, "scanx-marker", 1))], setup=setup_)
             L_ = R["t"].rstrip("\n").split("\n")
             fl = [json.loads(l[len("COLLECT FILE "):]) for l in L_ if l.startswith("COLLECT FILE ")]
             ok = ok and R["code"] == 4 and not os.path.lexists(R["out"]) and not R["err"] \
                 and not any(l.startswith("COLLECT PUBLISHED") for l in L_) and L_[-1].startswith("COLLECT ABORTED ") \
-                and [f_["arg"] for f_ in fl] == [0, 1, 2] \
+                and [(f_["status"], f_["reason"]) for f_ in fl] == want_ and [f_["arg"] for f_ in fl] == list(range(len(want_))) \
                 and not any(w_ in l for l in L_ for w_ in ("scan failed", "unreadable"))
         chk("[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the "
             "read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection", ok)
@@ -2189,6 +2354,353 @@ def self_test(work=None):
                     and b"<" not in b_ for b_ in reals)
             and bool(R["hok"]) and R["code"] == 0 and sum(e["usable"] for e in R["cj"]["runs"]) == 6
             and os.path.exists(f800) and open(f800).read() == json.dumps(_result(runs[0]), indent=1, sort_keys=True) + "\n")
+        # ------------------------------------------------ TRUST-BOUNDARY.md 6: host failures at every intake stage, the
+        # inventory, the jobs-list integers and output (D1, D2, D3, AR-N1, AR-N2). The target is argument 1 of
+        # [S1, target, S2, S3]; each injection patches one call, raises only when it is made on the target, and
+        # records that it fired, and every test asserts that it fired.
+        TGT = ansx(77001, "scanx-marker", 1)
+        X_ITEMS = [("served-0.json", S1), ("served-1.json", TGT), ("served-2.json", S2), ("served-3.json", S3)]
+        TNAME = "served-1.json"
+
+        def fl_lines(R_):
+            return [json.loads(l[len("COLLECT FILE "):]) for l in R_["t"].rstrip("\n").split("\n")
+                    if l.startswith("COLLECT FILE ")]
+
+        def want_lines(R_, statuses):
+            """The COLLECT FILE lines the test states: argument i with statuses[i], a null reason, and the name,
+            kind, size and sha256 of the bytes the test wrote."""
+            return [{"arg": i, "name": os.path.basename(R_["paths"][i]), "kind": "regular",
+                     "size": len(R_["written"][i]), "sha256": hashlib.sha256(R_["written"][i]).hexdigest(),
+                     "status": st_, "reason": None} for i, st_ in enumerate(statuses)]
+
+        def nothing_published(R_, name):
+            """exit 4; --out absent; no collected.json and no ci/ anywhere in the test's directory, the staging
+            directory included; no PUBLISHED or HOLDS line; the last line COLLECT ABORTED <name>; stderr empty."""
+            L2 = R_["t"].rstrip("\n").split("\n")
+            found = [x for _, ds_, fs_ in os.walk(R_["d"]) for x in ds_ + fs_ if x in ("collected.json", "ci")]
+            return (R_["code"] == 4 and not os.path.lexists(R_["out"]) and not found
+                    and not any(l.startswith("COLLECT PUBLISHED") or l == "COLLECT HOLDS" for l in L2)
+                    and L2[-1] == "COLLECT ABORTED " + name and not R_["err"])
+
+        def aborted(R_, name, statuses, fired):
+            """The common assertions of the ...X tests: nothing published, the COLLECT FILE lines exactly those
+            stated, and no line gives the target a reason (a line naming it is its unjudged COLLECT FILE line)."""
+            L2 = R_["t"].rstrip("\n").split("\n")
+            tl = [l for l in L2 if TNAME in l]
+            return (bool(fired) and nothing_published(R_, name) and fl_lines(R_) == want_lines(R_, statuses)
+                    and all(l.startswith("COLLECT FILE ") and json.loads(l[len("COLLECT FILE "):])["reason"] is None
+                            and json.loads(l[len("COLLECT FILE "):])["status"] == "unjudged" for l in tl))
+
+        def file_at(R_, i):
+            fs2 = (R_["cj"] or {}).get("files") or []
+            return fs2[i] if i < len(fs2) else {}
+
+        def inject(ns, name, when, exc, fired):
+            """A setup that makes ns[name] raise exc on a call for which when(d, *args) holds, recording that it
+            fired. ns is a namespace dict: this module's globals(), or vars(os)."""
+            def setup(d):
+                real = ns[name]
+
+                def fake(*a_, **k_):
+                    if when(d, *a_):
+                        fired.append(name)
+                        raise exc
+                    return real(*a_, **k_)
+                ns[name] = fake
+                return lambda: ns.__setitem__(name, real)
+            return setup
+        G, OS = globals(), vars(os)
+        at_target = lambda d, p, *a_: p == os.path.join(d, TNAME)  # noqa: E731
+
+        def fd_of(path_of):
+            """when(): the call's descriptor is the file path_of(d) names."""
+            def when(d, fd, *a_):
+                s_, t_ = os.fstat(fd), os.stat(path_of(d))
+                return (s_.st_dev, s_.st_ino) == (t_.st_dev, t_.st_ino)
+            return when
+        E = lambda n_: OSError(n_, "test")  # noqa: E731
+
+        def decoded_fault(exc, fired, byte_ok):
+            """raw_named raises exc on the target's decoded logs_content (the call whose data does not begin with
+            '{'), after recording that the byte scan of the target ran and returned."""
+            def setup(d):
+                real = G["raw_named"]
+
+                def fake(data, *a_):
+                    if b"scanx-marker" in data and data.startswith(b"{"):
+                        r_ = real(data, *a_)
+                        byte_ok.append(True)
+                        return r_
+                    if b"scanx-marker" in data:
+                        fired.append("decoded")
+                        raise exc
+                    return real(data, *a_)
+                G["raw_named"] = fake
+                return lambda: G.__setitem__("raw_named", real)
+            return setup
+        IN_S5 = ["accepted", "unjudged", "unjudged", "unjudged"]
+        ok = True
+        for exc in (MemoryError(), E(errno.ENOSPC), E(errno.EIO)):
+            fired, byte_ok = [], []
+            R = coll(X_ITEMS, setup=decoded_fault(exc, fired, byte_ok))
+            ok = ok and bool(byte_ok) and aborted(R, _errname(exc), IN_S5, fired)
+        chk("[TB-SCANXd] a host failure in the decoded scan (MemoryError, ENOSPC, EIO) is ABORTED (exit 4), nothing "
+            "published, never decoded scan failed", ok)
+        ok = True
+        on_tgt_obj = lambda d, o_, *a_: o_["logs_content"] == "scanx-marker"  # noqa: E731
+        for fn, exc in (("shard_of", MemoryError()), ("shard_of", E(errno.ENOSPC)), ("shard_of", E(errno.EIO)),
+                        ("shards_named", E(errno.EIO))):
+            fired = []
+            R = coll(X_ITEMS, setup=inject(G, fn, on_tgt_obj, exc, fired))
+            ok = ok and aborted(R, _errname(exc), IN_S5, fired)
+        chk("[TB-SCANXp] a host failure in the parsed readings (MemoryError, ENOSPC, EIO from shard_of, EIO from "
+            "shards_named) is ABORTED (exit 4), nothing published, never parsed scan failed", ok)
+        ok = True
+        for exc in (E(errno.EIO), E(errno.ENOSPC), MemoryError()):
+            fired = []
+            R = coll(X_ITEMS, setup=inject(OS, "lstat", at_target, exc, fired))
+            ok = ok and aborted(R, _errname(exc), ["unjudged"], fired)
+        fired = []
+
+        def loop_pre(d):   # no injection: the condition is checked to hold (lstat gives ELOOP) before the run
+            try:
+                os.lstat(os.path.join(d, "lp1", TNAME))
+            except OSError as e_:
+                if e_.errno == errno.ELOOP:
+                    fired.append("ELOOP")
+        R = coll([X_ITEMS[0], (TNAME, ("looppath",))] + X_ITEMS[2:], setup=loop_pre)
+        ok = ok and aborted(R, "ELOOP", ["unjudged"], fired)
+        chk("[TB-LSTATX] a host failure at lstat (EIO, ENOSPC, MemoryError, a path through a symbolic-link loop) is "
+            "ABORTED in S2b, never missing", ok)
+        ok = True
+        for exc, kind, why in ((E(errno.ENOENT), "missing", "not a regular file (missing)"),
+                               (E(errno.EACCES), "unreadable", "not a regular file (unreadable: EACCES)")):
+            fired = []
+            R = coll(X_ITEMS, setup=inject(OS, "lstat", at_target, exc, fired), unread=(1,))
+            fe = file_at(R, 1)
+            ok = ok and bool(fired) and len((R["cj"] or {}).get("files") or []) == 4 and rej(R, 1, why) and fe.get("reason") == why \
+                and fe.get("kind") == kind and fe.get("sha256") is None
+        chk("[TB-LSTATC] ENOENT and EACCES at lstat are the file's own conditions, missing and unreadable: published "
+            "(exit 1), all four files recorded", ok)
+        ok = True
+        for exc in (E(errno.EIO), E(errno.ENOSPC), MemoryError()):
+            fired = []
+            R = coll(X_ITEMS, setup=inject(OS, "open", at_target, exc, fired))
+            ok = ok and aborted(R, _errname(exc), ["unjudged"], fired)
+        chk("[TB-OPENX] a host failure at open (EIO, ENOSPC, MemoryError) is ABORTED in S2b, never unreadable", ok)
+        ok = True
+        for exc, why in ((E(errno.EACCES), "not a regular file (unreadable: EACCES)"),
+                         (E(errno.ELOOP), "not a regular file (unreadable: ELOOP)")):
+            fired = []
+            R = coll(X_ITEMS, setup=inject(OS, "open", at_target, exc, fired), unread=(1,))
+            fe = file_at(R, 1)
+            ok = ok and bool(fired) and len((R["cj"] or {}).get("files") or []) == 4 and rej(R, 1, why) and fe.get("reason") == why \
+                and fe.get("kind") == "unreadable" and fe.get("sha256") is None
+        chk("[TB-OPENC] EACCES and ELOOP (it became a link) at open are the file's own conditions: unreadable, "
+            "published (exit 1)", ok)
+        LINK_ITEMS = [X_ITEMS[0], (TNAME, ("symlink_to", TGT.encode()))] + X_ITEMS[2:]
+        link_tgt = lambda d: os.path.join(d, "targets", "target-1")  # noqa: E731
+        ok = True
+        for ns, fn, when, exc in ((OS, "stat", at_target, E(errno.EIO)), (OS, "read", fd_of(link_tgt), E(errno.ENOSPC)),
+                                  (OS, "read", fd_of(link_tgt), MemoryError())):
+            fired = []
+            R = coll(LINK_ITEMS, setup=inject(ns, fn, when, exc, fired))
+            ok = ok and aborted(R, _errname(exc), ["unjudged"], fired)
+        chk("[TB-LINKX] a host failure while hashing a symbolic link's target (EIO at stat, ENOSPC or MemoryError at "
+            "the read) is ABORTED in S2b, never a symlink record with a null digest", ok)
+        ok = True
+        fired = []
+
+        def dangling_pre(d):   # no injection: the link is checked to name nothing before the run
+            try:
+                os.stat(os.path.join(d, TNAME))
+            except OSError as e_:
+                if e_.errno == errno.ENOENT:
+                    fired.append("ENOENT")
+        for items_, setup_ in (([X_ITEMS[0], (TNAME, ("dangling",))] + X_ITEMS[2:], dangling_pre),
+                               (LINK_ITEMS, inject(OS, "open", at_target, E(errno.EACCES), fired))):
+            n_fired = len(fired)
+            R = coll(items_, setup=setup_)
+            fe = file_at(R, 1)
+            ok = ok and len(fired) > n_fired and len((R["cj"] or {}).get("files") or []) == 4 and rej(R, 1, "not a regular file (symlink)") \
+                and fe.get("reason") == "not a regular file (symlink)" and fe.get("kind") == "symlink" \
+                and fe.get("size") is None and fe.get("sha256") is None
+        chk("[TB-LINKC] a dangling link and a link whose open is refused (EACCES) are symlink rejections with no "
+            "digest, published (exit 1)", ok)
+        with open(RUNS_REAL, "rb") as f_:
+            runs_b = f_.read()
+        THREE = [("served-0.json", S1), ("served-1.json", S2), ("served-2.json", S3)]
+        jl33 = json.dumps(jobs_list(32))
+        jb = jl33.replace('"total_count": 33', '"total_count": 1e400').encode()
+        R = via_main(THREE, jb)
+        cj_ = R["cj"] or {}
+        e_ = input_entry(R, "jobs list")
+        ins_ = (cj_.get("collection") or {}).get("inputs") or {}
+        chk("[TB-INVJ] a jobs list whose total_count is 1e400 is refused at the jobs-input gate (non-integer number) "
+            "with the full inventory, published (exit 1)", jb != jl33.encode() and published_quarantined(R)
+            and len(e_) == 1 and e_[0]["problems"] == ["non-integer number"]
+            and (e_[0]["size"], e_[0]["sha256"]) == (len(jb), hashlib.sha256(jb).hexdigest())
+            and not any(q_["kind"] == "internal" for q_ in cj_["quarantine"])
+            and ins_.get("runs_json") == {"name": "runs.json", "kind": "regular", "size": len(runs_b),
+                                          "sha256": RUNS_SHA256, "pinned": True}
+            and ((ins_.get("jobs_list") or {}).get("name"), (ins_.get("jobs_list") or {}).get("kind")) == ("jobs.json", "regular")
+            and [f_["status"] for f_ in cj_["files"]] == ["accepted"] * 3
+            and len(cj_["expected"] or []) == 32 and all(x["status"] == "undetermined" for x in cj_["expected"])
+            and stdout_ok(R))
+
+        def unforeseen(fn, fired):
+            """via_main's setup: fn (looked up as a global) raises TypeError."""
+            return lambda d, rp, jp: inject(G, fn, lambda *a_: True, TypeError("test"), fired)(d)
+
+        def internal_with_inventory(R_, stage, statuses):
+            cj2 = R_["cj"] or {}
+            iq = [q_ for q_ in cj2.get("quarantine", []) if q_["kind"] == "internal"]
+            return (published_quarantined(R_) and iq == [{"kind": "internal", "stage": stage, "exception": "TypeError"}]
+                    and [(f_["status"], f_["reason"]) for f_ in cj2["files"]] == [(s_, None) for s_ in statuses]
+                    and len(fl_lines(R_)) == len(statuses) and stdout_ok(R_))
+        fired = []
+        R = via_main(THREE, jl33.encode(), setup=unforeseen("jobs_schema", fired))
+        chk("[TB-INVINT] an unforeseen exception while the jobs list is interpreted (S4) publishes the full inventory, "
+            "every served file unjudged", bool(fired) and internal_with_inventory(R, "S4", ["unjudged"] * 3)
+            and None not in (R["cj"]["collection"]["inputs"].get("runs_json"), R["cj"]["collection"]["inputs"].get("jobs_list")))
+        fired = []
+        R = coll(X_ITEMS, setup=inject(G, "parse_served", lambda d, data, *a_: b"scanx-marker" in data,
+                                       TypeError("test"), fired))
+        chk("[TB-INVINTf] an unforeseen exception in the intake of argument 1 (S5) publishes every served file, the "
+            "ones not judged marked unjudged", bool(fired) and bool(R["hok"])
+            and internal_with_inventory(R, "S5", IN_S5) and len(R["cj"]["files"]) == 4
+            and not any(q_["kind"] == "unattributable" for q_ in R["cj"]["quarantine"]))
+        fired = []
+        R = coll(X_ITEMS, setup=inject(G, "read_input", at_target, TypeError("test"), fired))
+        chk("[TB-INVX] an unforeseen exception in the inventory (read_input on argument 1) is ABORTED in S2b, nothing "
+            "published", aborted(R, "TypeError", ["unjudged"], fired))
+        NI, J2 = "non-integer number", "total_count is not an integer from 0 to 1000"
+        J4 = lambda n_, f_: "job %d: %s is not an integer from 1 to 9999999999999999" % (n_, f_)  # noqa: E731
+        TC, ID1, RID0 = '"total_count": 33', '"id": 101, ', '"run_id": 5'
+        forms = [(TC, '"total_count": ' + v, w) for v, w in (
+            ("1e400", NI), ("-1e400", NI), ("1.0", NI), ("33.0", NI), ("3.3e1", NI), ("NaN", "non-standard constant NaN"),
+            ("Infinity", "non-standard constant Infinity"), ("-Infinity", "non-standard constant -Infinity"),
+            ("true", J2), ("false", J2), ("null", J2), ('"33"', J2), ("-1", J2), ("1001", J2),
+            ("1" * 21, "integer out of range"))]
+        forms += [(ID1, '"id": %s, ' % v, w) for v, w in (
+            ("1e11", NI), ("101.0", NI), ("true", J4(1, "id")), ('"101"', J4(1, "id")), ("null", J4(1, "id")),
+            ("0", J4(1, "id")), ("-101", J4(1, "id")), ("10000000000000000", J4(1, "id")), ("[[101]]", J4(1, "id")))]
+        forms += [(ID1, "", J4(1, "id"))]   # the key absent
+        forms += [(RID0, '"run_id": ' + v, w) for v, w in (
+            ("5.0", NI), ("1e400", NI), ("true", J4(0, "run_id")), ('"5"', J4(0, "run_id")), ("0", J4(0, "run_id")),
+            ("-5", J4(0, "run_id")), ("10000000000000000", J4(0, "run_id")))]
+        forms += [('"name": "Self-tests and controls"', '"name": 5', "job 0: name is not a string"),
+                  ('"head_sha": "%s"' % HEADM, '"head_sha": null', "job 0: head_sha is not a string")]
+        ok = True
+        for old_, new_, want_ in forms:
+            t_ = jl33.replace(old_, new_, 1)
+            try:
+                v_, why_ = _decode_strict(t_.encode(), JOBS_DECODER, False)
+                got_ = [why_] if v_ is None else jobs_schema(v_)
+            except Exception as e_:  # noqa: BLE001 - "nothing raises" is part of what is tested
+                got_ = ["raised %s" % type(e_).__name__]
+            ok = ok and t_ != jl33 and got_ == [want_]
+            if got_ != [want_]:
+                print("        | %s -> %s, want %s" % (new_[:40], got_, want_))
+        for old_, new_, want_ in ((ID1, '"id": true, ', J4(1, "id")), (RID0, '"run_id": 5.0', NI),
+                                  (TC, '"total_count": NaN', "non-standard constant NaN")):
+            t_ = jl33.replace(old_, new_, 1).encode()
+            R = via_main([("served-0.json", S1)], t_, runs_path=fake_runs)
+            e_ = input_entry(R, "jobs list")
+            ok = ok and published_quarantined(R) and len(e_) == 1 and e_[0]["problems"] == [want_] \
+                and e_[0]["sha256"] == hashlib.sha256(t_).hexdigest() and len(R["cj"]["files"]) == 1
+        chk("[TB-JNUM] every fraction, exponent, constant, bool, string, null, out-of-range or absent count or id of "
+            "the jobs list is refused with its exact problem, in the unit and through main", ok)
+        RID = 38900000001
+        API = "https://api.github.com/repos/amaybaum/incompleteness"
+        KEYS23 = ("id", "run_id", "workflow_name", "head_branch", "run_url", "run_attempt", "node_id", "head_sha", "url",
+                  "html_url", "status", "conclusion", "created_at", "started_at", "completed_at", "name", "steps",
+                  "check_run_url", "labels", "runner_id", "runner_name", "runner_group_id", "runner_group_name")
+
+        def real_job(jid, nm, null_runner):
+            stp = [{"name": s_, "status": "completed", "conclusion": "success", "number": n_ + 1,
+                    "started_at": "2026-11-20T10:0%d:00Z" % n_, "completed_at": "2026-11-20T10:0%d:30Z" % n_}
+                   for n_, s_ in enumerate(("Set up job", "Check out the extractor", "Complete job"))]
+            return {"id": jid, "run_id": RID, "workflow_name": WORKFLOW_NAME, "head_branch": BRANCH,
+                    "run_url": "%s/actions/runs/%d" % (API, RID), "run_attempt": 1, "node_id": "CR_kwDOROrj288AAAAY%06d" % (jid % 10 ** 6),
+                    "head_sha": HEADM, "url": "%s/actions/jobs/%d" % (API, jid),
+                    "html_url": "https://github.com/amaybaum/incompleteness/actions/runs/%d/job/%d" % (RID, jid),
+                    "status": "completed", "conclusion": "success", "created_at": "2026-11-20T10:00:00Z",
+                    "started_at": "2026-11-20T10:00:05Z", "completed_at": "2026-11-20T10:03:00Z", "name": nm, "steps": stp,
+                    "check_run_url": "%s/check-runs/%d" % (API, jid), "labels": ["ubuntu-latest"],
+                    "runner_id": None if null_runner else 1000002836,
+                    "runner_name": None if null_runner else "GitHub Actions 1000002836",
+                    "runner_group_id": None if null_runner else 0, "runner_group_name": "GitHub Actions"}
+        rjobs = [real_job(116000000000, "Self-tests and controls", False)] + [
+            real_job(116000000000 + k, JOB_NAME % k, k == 5) for k in range(1, 33)]
+        rjb = json.dumps({"total_count": 33, "jobs": rjobs}, separators=(",", ":")).encode()
+        v_, why_ = _decode_strict(rjb, JOBS_DECODER, False)
+        ix_, rid_, pr_ = build_job_index(v_, HEADM, 32) if v_ is not None and not jobs_schema(v_) else ({}, None, ["x"])
+        ok = (all(tuple(j_) == KEYS23 for j_ in rjobs) and not rjb.endswith(b"\n") and b": " not in rjb
+              and v_ is not None and jobs_schema(v_) == [] and not pr_ and rid_ == RID
+              and ix_ == {k: 116000000000 + k for k in range(1, 33)} and len(set(ix_.values())) == 32)
+        R = via_main([("served-0.json", S1)], rjb)
+        ok = ok and published_quarantined(R) and not input_entry(R, "jobs list") and len(R["cj"]["expected"] or []) == 32 \
+            and [x["job_id"] for x in R["cj"]["expected"]] == [116000000000 + k for k in range(1, 33)] \
+            and not any(x["status"] == "undetermined" for x in R["cj"]["expected"])
+        chk("[TB-JREAL] positive control: a jobs list in the provider's exact shape (33 jobs, 23 keys in the API's "
+            "order, integer step numbers, null runner fields, compact) passes the decoder, the integer schema and the "
+            "job index, and through main", ok)
+        R = coll(CLEAN, run_id=float("inf"))
+        chk("[TB-NANOUT] a non-finite run id given directly is never published: ABORTED (exit 4) at the strict "
+            "serialization", R["code"] == 4 and not os.path.lexists(R["out"]) and not R["err"]
+            and not any(l.startswith("COLLECT PUBLISHED") for l in R["t"].split("\n"))
+            and R["t"].rstrip("\n").split("\n")[-1] == "COLLECT ABORTED ValueError")
+        oc = "gate\nCOLLECT FAILS" + chr(0x2028) + "x"
+        R = coll([("served-0.json", S(1, edit_result={"800": {"expected": {"outcome": oc}}})), CLEAN[1], CLEAN[2]])
+        L_ = R["t"].rstrip("\n").split("\n")
+        r800 = [l for l in L_ if l.startswith("RUN 800 ")]
+        chk("[TB-OUTC] a usable run's outcome holding a line feed, COLLECT FAILS and U+2028 is JSON-escaped on its RUN "
+            "line", bool(R["hok"]) and R["code"] == 0 and sum(e["usable"] for e in R["cj"]["runs"]) == 6
+            and len(r800) == 1 and r800[0].endswith(" " + esc(oc)) and "COLLECT FAILS" not in L_
+            and all(all(" " <= c <= "~" for c in l) for l in L_))
+        buf = io.StringIO()
+        emit(buf, "a\nb\rc\fd" + chr(0x85) + "e" + chr(0x2028) + "f" + chr(0x2029) + "g" + chr(0xe9) + "h")
+        chk("[TB-EMIT] emit writes one printable-ASCII line, writing a line feed, a carriage return, a form feed, "
+            "U+0085, U+2028, U+2029 and U+00E9 as their JSON escapes", buf.getvalue()
+            == "a\\nb\\rc\\fd\\u0085e\\u2028f\\u2029g\\u00e9h\n")
+        # the design review's note N3: an unforeseen exception in S3, and host failures in S2b's reads of --runs and
+        # --run-jobs, with their control
+        fired = []
+        R = via_main(THREE, jl33.encode(), setup=unforeseen("interpret_runs", fired))
+        chk("[TB-INVINTr] an unforeseen exception while runs.json is interpreted (S3) publishes the full inventory, "
+            "every served file unjudged", bool(fired) and internal_with_inventory(R, "S3", ["unjudged"] * 3)
+            and None not in (R["cj"]["collection"]["inputs"].get("runs_json"), R["cj"]["collection"]["inputs"].get("jobs_list"))
+            and not input_entry(R, "runs.json"))
+        ok = True
+        for which, fn, exc in (("runs", "read", E(errno.EIO)), ("jobs", "lstat", E(errno.ENOSPC)),
+                               ("jobs", "read", MemoryError())):
+            fired = []
+
+            def setup_(d, rp, jp, which=which, fn=fn, exc=exc, fired=fired):
+                p_ = rp if which == "runs" else jp
+                when = fd_of(lambda d_: p_) if fn == "read" else (lambda d_, p2, *a_: p2 == p_)
+                return inject(OS, fn, when, exc, fired)(d)
+            R = via_main(THREE, jl33.encode(), setup=setup_)
+            R["paths"], R["written"] = [], {}
+            ok = ok and bool(fired) and nothing_published(R, _errname(exc)) and fl_lines(R) == []
+        chk("[TB-INVHX] a host failure in S2b's read of --runs or --run-jobs (EIO, ENOSPC, MemoryError) is ABORTED "
+            "(exit 4), nothing published", ok)
+        ok = True
+        for which, fn, key in (("runs", "open", "runs_json"), ("jobs", "lstat", "jobs_list")):
+            fired = []
+
+            def setup_(d, rp, jp, which=which, fn=fn, fired=fired):
+                p_ = rp if which == "runs" else jp
+                return inject(OS, fn, lambda d_, p2, *a_: p2 == p_, E(errno.EACCES), fired)(d)
+            R = via_main(THREE, jl33.encode(), setup=setup_, unread_inputs=(key,))
+            e_ = input_entry(R, "runs.json" if which == "runs" else "jobs list")
+            ie = ((R["cj"] or {}).get("collection") or {}).get("inputs", {}).get(key) or {}
+            ok = ok and bool(fired) and published_quarantined(R) and len(e_) == 1 \
+                and e_[0]["reason"] == "not a regular file (unreadable: EACCES)" and e_[0]["file_kind"] == "unreadable" \
+                and ie.get("kind") == "unreadable" and ie.get("sha256") is None and len(R["cj"]["files"]) == 3
+        chk("[TB-INVHC] EACCES on --runs or --run-jobs is that input's own condition: published (exit 1), the input "
+            "recorded unreadable with no digest, every served file recorded", ok)
     finally:
         shutil.rmtree(base, ignore_errors=True)
     print("collect self-test: %d of %d cases ok" % (n - fails, n))
@@ -2228,7 +2740,7 @@ def main(argv=None, durable=True):
         return 3
     if a.self_test:
         return 1 if self_test(a.work) else 0
-    return run_collection(lambda: load_inputs(a.runs, a.run_jobs, a.head), a.served, a.out, head=a.head, durable=durable)
+    return run_collection(a.served, a.out, head=a.head, durable=durable, inputs=(a.runs, a.run_jobs))
 
 
 if __name__ == "__main__":
