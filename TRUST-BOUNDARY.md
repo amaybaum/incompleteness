@@ -5,10 +5,21 @@ A7. This text includes them, together with the review's D1 recommendation and th
 (comments 6247145466 and 6247194704): a per-file catch of a scan's conversion error (`ValueError`), and a boundary
 by stage and error kind that sends host failures to ABORTED. The table at the end shows where each one landed.
 
-Nothing here is implemented. The design was written against commit `09d439d0`, and every "now" statement below
-describes the code at that commit. Each one cites `batchx/collect.py` as `collect.py:N`, or names the other file it
-is in. After design review, one bounded implementation (section 8) follows, and then a fresh exact-SHA acceptance
-review. If that review finds a fail-open escape, the work returns to the owner. It is not patched again.
+**Revision after the acceptance review of `a77c85a5` [rev D1, D2, D3].** The design confirmed at `ab2a17fb` is
+implemented at `a77c85a5`. Its acceptance review returned two blockers, AR-B1 and AR-B2 (section 0). The owner's
+decision on PR #862 (comment 6247938850) authorized one design-first revision with three directions: D1, the
+inventory precedes every interpretation; D2, a strict integer schema for the jobs list; D3, five named host-failure
+regressions with old-behaviour mutants. Every block this revision changes or adds carries the marker
+`[rev Dn]`, naming the direction it implements. `[rev AR-N1]` and `[rev AR-N2]` mark the two non-blocking notes of
+the acceptance review that it also closes; its notes are called AR-N1 to AR-N6 here, to keep them apart from the N1
+to N3 of the review of `09d439d0`. A block without a marker is as confirmed at `ab2a17fb`.
+
+Nothing in the revision is implemented. The design was first written against commit `09d439d0`, and every unmarked
+"now" statement below describes the code at that commit. Each one cites `batchx/collect.py` as `collect.py:N`, or
+names the other file it is in. The revision's own citations are to the implementation and are written
+`a77c85a5:collect.py:N`. After design review, one bounded correction (section 8) follows, and then a fresh exact-SHA
+acceptance review. If that review finds a fail-open escape, an incomplete published inventory or a substantive design
+contradiction, the work returns to the owner. It is not patched again.
 
 The owner's binding invariants (PR #862, comment 6246308787) are restated where they are enforced, so each one
 can be checked against a mechanism:
@@ -51,6 +62,46 @@ parser kept. So content the collector never saw could sit in an accepted file. D
   start. No shard-1 result is taken from S3's file, so no wrong result is published. But a file that names
   shard 1 leaves shard 1 usable, which DESIGN.md:184-185 says cannot happen.
 
+**Two findings of the acceptance review of `a77c85a5` [rev D1, D2, D3].** Neither is a usability escape: every input
+the review tried gave zero usable runs. Both break a guarantee of this design.
+
+- **AR-B1. A malformed jobs list loses the inventory.** `JOBS_DECODER` admits floats
+  (`a77c85a5:collect.py:213-214`), so a `total_count` of `1e400` decodes to `inf`. The `"%d"` at
+  `a77c85a5:collect.py:145` raises `OverflowError`, which the `except (KeyError, TypeError, AttributeError)` at `:162`
+  does not catch. S10 publishes an `internal` quarantine at stage S3, exit 1, with `files: []` and both
+  `collection.inputs.runs_json` and `collection.inputs.jobs_list` null. The served files were never read, and the
+  pinned runs.json, which was read correctly, is not recorded. That contradicts section 1 (such a jobs list is an
+  `input` rejection with its digest), section 3's N2 note ("lists every served file"), "S5 always runs" and I-PUB.
+  The cause is in the design: each input was read in the state that interprets it, and S10 can record only what had
+  been read. The implementation's declared deviation (4) is the same mechanism inside S5: an unforeseen exception at
+  one argument publishes a record without it and every later argument. D1 reorders the states so that every input
+  is inventoried before any is interpreted (2.5, section 3); D2 refuses the input itself (2.3).
+- **AR-B2. Five boundary mutants survive.** The host-failure boundary of 2.5 is implemented as designed, but no
+  test notices if the decoded-scan or the parsed-readings catch is widened to `Exception` (the review's X1 and X2),
+  if `lstat` records every `OSError` as `missing` (X6), if `open` records every `OSError` as `unreadable` (X7), or if
+  a host failure while hashing a symbolic link's target is swallowed (X14). Each would publish a host failure as a
+  file's rejection. `[TB-SCANX]` injects only into the byte scan and `os.read`, and mutant L18 widens all three
+  catches at once. D3 adds one named test and one independent old-behaviour mutant for each (section 6).
+
+**The review's six non-blocking notes [rev D1, D2, D3].**
+- **AR-N1, the `RUN` line's `outcome` printed raw.** Closed. A3(b) already required it escaped (section 3).
+  `[TB-OUTC]` tests it, and `[TB-EMIT]` tests the backstop on its own, so the review's X9 is now killed (L32, L33).
+- **AR-N2, `Infinity` in `collected.json`.** Closed by D2, which refuses every float in the jobs list, and by strict
+  serialization (section 5), `[TB-NANOUT]` and L31.
+- **AR-N3, unbounded reason length.** Closed for the review's case: a jobs-list `id` is a validated integer before
+  any message names it, and the schema's problems carry no input text (2.3). Carried for the other reasons that
+  quote input-derived text (`duplicate key <names>`, `key set <keys>`): their length is bounded only by the file cap.
+  They stay one JSON-escaped line, so this is not an injection or a fail-open path.
+- **AR-N4, a 3,000-deep result block.** Carried, unchanged. It gives `internal` at S8, not `failed_files`; that
+  fails closed, and every file is recorded and judged by then (R10 of the design review stays not adopted).
+- **AR-N5, `--self-test` with collection arguments exits 0 and publishes nothing.** Carried, unchanged. The
+  self-test is a separate mode, and reader check 2 still requires a `COLLECT PUBLISHED` line. A regression test
+  for a refusal would, under its own reverting mutant, run the whole self-test recursively inside the self-test.
+- **AR-N6, low disk on the host.** Carried, as an environmental condition. The new tests write only small files
+  (`[TB-CAP]`'s sparse file is unchanged), the snapshots of S2b are held in memory, not on disk, and the two-worker
+  mutant phase holds two copies of `batchx/` at a time, under 1 MB. A disk or timeout failure is reported as
+  infrastructure.
+
 **The closure property the design must deliver.** `collected.json` at the published location says HOLDS only if
 all of the following hold:
 
@@ -70,30 +121,45 @@ file that carries content. The only other bytes are JSON structure (punctuation,
 decode to the same text) and the fixed `message` constant. So no byte of any served file reaches a HOLDS collection
 without being validated and reconciled. H1 broke exactly this property.
 
+**The inventory property [rev D1].** The closure property is about HOLDS. This one holds for every published record,
+whatever its verdict, and AR-B1 broke it:
+
+1. A `collected.json` is written only after the inventory (S2b, section 3) has reached its checkpoint, INVENTORY
+   COMPLETE: every input of the invocation has been read with the bounded, safe read of 2.5 and has its entry.
+2. Every published record lists that whole inventory: exactly one `files` entry per `--served` argument, in argument
+   order, each with its name, kind, size and sha256; and, when `main` ran, a non-null
+   `collection.inputs.runs_json` and `collection.inputs.jobs_list` with the same four facts. A digest and a size are
+   null only for a file whose bytes could not be obtained: a missing path, a non-regular file, a file whose own
+   access is refused, or a symbolic link whose target could not be hashed.
+3. An invocation that cannot reach the checkpoint publishes nothing: ABORTED, exit 4. No record ever presents a
+   partial inventory as complete.
+
 ## 1. Inputs and trust levels
 
 | Input | Who produces it | Trusted | Untrusted | Gate |
 |---|---|---|---|---|
-| `batchx/runs.json` | reviewed, committed | its content, once its bytes equal the pin `RUNS_SHA256` (`collect.py:79`) | anything not equal to the pin | sha256 before parsing (`collect.py:1076`), then the strict loader |
+| `batchx/runs.json` | reviewed, committed | its content, once its bytes equal the pin `RUNS_SHA256` (`collect.py:79`) | anything not equal to the pin | read and hashed in the inventory (S2b) before anything is parsed; sha256 against the pin, then the strict loader (S3) [rev D1] |
 | `batchx/crosscheck.json` | reviewed, committed | — | — | not read by the collector. `assemble.py` reads it in CI under its own pin, and it never decides a verdict (DESIGN §7) |
-| jobs list (`--run-jobs`) | GitHub jobs API via `gh api`, saved by the operator | the API's values: job ids, names, run id, head, branch, workflow. The design assumes the file is the API's answer. It does not authenticate it | the file's bytes: integrity, encoding, duplicates, shape | strict loader (section 2.3), then `build_job_index` |
+| jobs list (`--run-jobs`) | GitHub jobs API via `gh api`, saved by the operator | the API's values: job ids, names, run id, head, branch, workflow. The design assumes the file is the API's answer. It does not authenticate it | the file's bytes: integrity, encoding, duplicates, shape, and the type and range of every value the collector reads [rev D2] | read and hashed in the inventory (S2b); then the strict loader, which refuses every fraction, exponent and constant, and the integer schema (2.3), before `build_job_index` reads any value (S4) [rev D1, D2] |
 | `--head` | the operator | — | the value | 40 lower-case hex digits (`collect.py:112`), and equal to every job's `head_sha` |
-| served files (`--served`) | the job-log tool's answer, saved verbatim by the harness or by `from_transcript.py` | the tool's `job_id` and `original_length`, *as values*, once the file passes the strict grammar | everything else: the bytes, the encoding, the shape, the log text | path checks, strict grammar, raw and decoded scans, the job rule, `read_shard` |
+| served files (`--served`) | the job-log tool's answer, saved verbatim by the harness or by `from_transcript.py` | the tool's `job_id` and `original_length`, *as values*, once the file passes the strict grammar | everything else: the bytes, the encoding, the shape, the log text | path checks and hashing in the inventory (S2b); then strict grammar, raw and decoded scans, the job rule, `read_shard` [rev D1] |
 | host metadata (`fetch-record.json`, run and jobs records) | `host.py` in CI | pinned code under a pinned workflow | — | never seen by the collector. It reaches the session only through what `assemble.py` prints into the shard log |
 | shard outputs (the assembler's lines inside `logs_content`) | `assemble.py` in CI | nothing by itself. The SHA256 lines detect corruption, not authorship, because they travel in the same log | the whole text | `read_shard` (`collect.py:213-332`), against the pins and `runs.json` |
 | the output location (`--out`) and its parent directory | the operator's filesystem | — | any pre-existing state | must not exist (section 4) |
 | the collector's own code | the session's checkout | recorded, not trusted: `collector_identity` (`collect.py:339-357`) | — | — |
 
 **Served files: every malformation and where it is stopped.** Each line names the state of section 3 that stops
-it. Every case is rejected and quarantines the collection unless the line says otherwise.
+it. Every case is rejected and quarantines the collection unless the line says otherwise. [rev D1] The path and
+size conditions are found in the inventory (S2b), which records them and goes on to the next argument; S5 then
+takes them as that file's rejection. Every other line is found in S5, on the bytes the inventory read.
 
-- **Not a regular file (S5).** A directory (review E12), a missing path (E13), a FIFO or a device: rejected
+- **Not a regular file (S2b).** A directory (review E12), a missing path (E13), a FIFO or a device: rejected
   without reading. A symbolic link: rejected and never parsed. The regular file it points to is hashed for the
   record only. A path that names nothing is rejected as `missing`: `lstat` gives `ENOENT`, or, for a mistyped
   or mangled path, `ENOTDIR` (a component is not a directory) or `ENAMETOOLONG`. A file whose own access is refused
   (`EACCES`, `EPERM`) is rejected as `unreadable`. Any other `OSError` while reading is a host failure, which gives
   ABORTED (2.5, the boundary).
-- **Too large (S5).** Over `MAX_SERVED_BYTES = 16 MiB`. The largest saved answer seen is 812 KB. The file is
+- **Too large (S2b).** Over `MAX_SERVED_BYTES = 16 MiB`. The largest saved answer seen is 812 KB. The file is
   hashed by streaming and never parsed.
 - **Encoding (S5).**
   - Bytes that are not valid UTF-8 (G1d).
@@ -154,10 +220,25 @@ it. Every case is rejected and quarantines the collection unless the line says o
 - A job at another head, branch or workflow. Rejected (`:121-123`).
 - No job, or two jobs, named `Extract shard K`, or an id that is not an int. Rejected (`:125-130`).
 - **New:** the 32 shard job ids must be distinct (J1).
+- **Numbers that are not bounded integers [rev D2].** Each is rejected at S4, as an `input` quarantine carrying the
+  jobs list's digest, in a record that holds the full inventory. None reaches a format, a lookup, a comparison or
+  arithmetic.
+  - Refused by `JOBS_DECODER` itself, anywhere in the file: a fraction or an exponent (`1e400`, `-1e400`, `1.0`,
+    `33.0`, `3.3e1`), so no jobs-list number ever becomes a float or `inf`; `NaN`, `Infinity` and `-Infinity`; an
+    integer of more than 20 digits.
+  - Refused by the integer schema of 2.3, before `build_job_index` reads any value: a `total_count` that is a bool, a
+    string, null, negative or over 1,000; a `jobs` that is not a list of at most 1,000 objects; a job whose `id` or
+    `run_id` is absent, a bool, a string, null, an array or an object, below 1, or more than 16 digits long; a job
+    whose `name`, `head_sha`, `head_branch` or `workflow_name` is absent or not a string.
 
 Unknown fields are allowed here, because the API object carries many. Whitespace around the value is allowed,
 because the file is written by `gh api`, not by the job-log tool. All 388 jobs lists saved in the session's work
-area (`cier-work/api-jobs/*.json`) parse under this loader, each with distinct ids.
+area (`cier-work/api-jobs/*.json`) parse under this loader, each with distinct ids. [rev D2] They also pass the
+integer schema of 2.3, measured in scratch for this revision. The 388 lists hold 5,933 jobs, and every job has the
+same 23 keys, with `name`, `head_sha`, `head_branch` and `workflow_name` strings. No list contains a fraction, an
+exponent, a constant, a bool or a negative number. The longest integer has 12 digits, the largest `total_count` is
+37, and the only nulls are the runner fields of 38 jobs, which the collector does not read. Each list is compact, in
+the API's key order, with no trailing newline.
 
 **runs.json.** Its bytes are pinned before parsing, so no malformation reaches the parser. It parses under the
 strict loader as it stands (checked: no duplicate keys, no constants), and the loader is applied to it anyway.
@@ -283,13 +364,60 @@ The last two share `object_pairs_hook` and `parse_constant` with `SERVED_DECODER
 three hooks raise exceptions that subclass `ValueError`, so the existing `except` tuple at `collect.py:291` also
 catches them.
 
-- **The jobs list, through `JOBS_DECODER`.**
-  - Steps 1 to 3 of 2.2 apply.
+- **The jobs list, through `JOBS_DECODER` [rev D2].**
+  - Steps 1 to 3 of 2.2 apply, to the bytes the inventory read (S2b).
   - The value is read with `raw_decode`, and the rest must be JSON whitespace.
-  - `parse_int` accepts `-?(0|[1-9][0-9]{0,19})`. Floats are allowed.
-  - Unknown keys are allowed. The fields `build_job_index` reads are type-checked as now, and the 32 shard job ids
-    must be distinct.
-- **runs.json, through `JOBS_DECODER`.** The pin is checked first.
+  - `parse_int` accepts `-?(0|[1-9][0-9]{0,19})`, as before.
+  - `parse_float` always raises, with the reason `non-integer number`, exactly as in `SERVED_DECODER`. A number with
+    a fraction or an exponent is refused wherever it stands in the file, so `1e400` is refused as text and never
+    becomes `inf`. At `a77c85a5`, floats were allowed (`a77c85a5:collect.py:213-214`), which is how AR-B1's `1e400`
+    reached the `"%d"` at `:145`.
+  - Unknown keys are allowed. Before `build_job_index` reads any value, the integer schema below checks every field
+    it reads. The 32 shard job ids must be distinct.
+- **runs.json, through `JOBS_DECODER`.** The pin is checked first. [rev D2] runs.json contains no fraction and no
+  exponent (checked for this revision), so refusing floats changes nothing for the pinned file.
+
+**The jobs-list integer schema [rev D2].** `jobs_schema(value)` runs on the decoded jobs list in S4. It runs before
+`build_job_index` reads any value, so before any `"%d"` or other interpolation, any set or dict lookup, any comparison
+and any arithmetic on a jobs-list value. It runs whether or not runs.json loaded, because it needs no run set. The
+rules are checked in the order J-1 to J-5. J-4 checks every job, in list order, before J-5 checks any, and within a
+job the fields are checked in the order given. The first check that fails gives the one recorded problem, and
+`build_job_index` does not run:
+
+| Rule | Requirement | The problem recorded |
+|---|---|---|
+| J-1 | the value is an object with the keys `total_count` and `jobs` | `the jobs list is not an object with total_count and jobs` |
+| J-2 | `type(total_count) is int` and `0 <= total_count <= 1000` (`MAX_JOBS`) | `total_count is not an integer from 0 to 1000` |
+| J-3 | `type(jobs) is list`, `len(jobs) <= 1000`, and every element is an object | `jobs is not a list of at most 1000 objects` |
+| J-4 | for each job, `id` and then `run_id`: present, `type(v) is int`, and `1 <= v <= 9999999999999999` (`MAX_ID`, 16 digits) | `job <n>: <field> is not an integer from 1 to 9999999999999999` |
+| J-5 | for each job, `name`, `head_sha`, `head_branch` and `workflow_name`: present, and `type(v) is str` | `job <n>: <field> is not a string` |
+
+- **Text in the problems.** `<n>` is the job's position in the list and `<field>` one of the six field names. Both
+  come from the collector, never from the input, so every problem has a bounded length. This closes AR-N3 for its
+  source: `build_job_index` echoed a job's `id` through `json.dumps(j.get("id"))` (`a77c85a5:collect.py:151`), and
+  that `id` is now a validated integer.
+- **Bools.** `type(v) is int` refuses `true` and `false`. A bool is an int subclass: as a key of the job index,
+  `True` would equal job id 1.
+- **Floats.** `JOBS_DECODER` already refuses every float. The schema's `type(v) is int` would refuse one again.
+- **The bounds.**
+  - `MAX_ID` is the range of a served `job_id` (2.2: at most 16 digits, at least 1), so every index id can be matched
+    by an answer. Real ids have 11 or 12 digits.
+  - `MAX_JOBS` is a sanity bound. This workflow's run has 33 jobs, and the largest saved list has 37. A run with more
+    jobs is refused, never truncated.
+  - A value outside a bound is refused, never clipped.
+- **Fields the collector does not read** (`run_attempt`, `steps`, the runner fields and the rest) are not checked
+  beyond the decoder. The decoder still refuses every fraction, exponent and constant in them.
+
+After the schema, `build_job_index` runs as now when `doc` exists: the `--head` check, `total_count == len(jobs)`,
+one run, every job at the head on the branch of this workflow, one job named `Extract shard K` per shard, and
+distinct ids. Every value it reads is then a validated integer or string, so its `"%d"` formats, its set of run ids
+and the job index's keys are safe. The `run_id` it returns, which becomes `collected.json`'s `extraction_run`, is a
+validated integer too (AR-N2).
+
+**What is not the fix.** Catching `OverflowError` after an unsafe format is not the fix. `build_job_index`'s
+`except (KeyError, TypeError, AttributeError)` (`a77c85a5:collect.py:162`) stays as it is, and no class is added to
+it: not `OverflowError`, not `ValueError`, not `Exception`. After the schema, no input can reach that clause.
+Mutant L29 is the label fix, and `[TB-INVJ]` and `[TB-JNUM]` must kill it.
 - **Result blocks** (`collect.py:282-292`), through `BLOCK_DECODER`.
   - `json.loads(body)` is replaced by `BLOCK_DECODER`. Duplicates at every depth and non-standard constants are
     refused.
@@ -313,18 +441,37 @@ Requiring a leading U+FEFF on a whole answer is not part of this design (section
 
 ### 2.5 Order of operations, and why it matters
 
-For each served argument, in argument order:
+**Two phases, split at one checkpoint [rev D1].** At `a77c85a5` each input was read in the state that interprets it:
+runs.json in S3, the jobs list in S4, and each served argument in S5, just before its scans. Under this revision,
+steps 1 and 2 below run for every input before step 3 runs for any.
 
-1. `lstat`, open with `O_RDONLY | O_NOFOLLOW | O_NONBLOCK`, and `fstat`. The file must be regular and within the
+- **The inventory (S2b): steps 1 and 2, for every input.** The order is `--runs`, then `--run-jobs` (both only when
+  `main` runs), then every `--served` argument in argument order. Nothing in this phase decodes, scans, parses or
+  compares content. The one derived fact is runs.json's `pinned`, a comparison of its digest with `RUNS_SHA256`. Each
+  input gets its entry (section 3, S2b), and an input that is a file-specific condition is recorded with its kind
+  and reason; the inventory then goes on to the next input. The phase ends at the checkpoint **INVENTORY COMPLETE**,
+  when every input has its entry.
+- **The interpretation (S3-S5): steps 3 to 5, and every other reading of content.** It runs on the bytes the
+  inventory read, never on a second read. S3 and S4 interpret runs.json and the jobs list. S5 takes each served
+  argument through steps 3 to 5.
+
+**The snapshots.** They stay in memory from S2b until S5 has finished with them. Each regular file within the cap is
+still read exactly once, but all of a collection's inputs are now held at the same time. Their total is bounded by
+the number of inputs times `MAX_SERVED_BYTES`; real answers are under 1 MB each. A `MemoryError` while snapshotting
+is a host failure under the boundary below: ABORTED, and nothing is published.
+
+For each input in S2b, and then for each served argument in S5, in argument order:
+
+1. (S2b) `lstat`, open with `O_RDONLY | O_NOFOLLOW | O_NONBLOCK`, and `fstat`. The file must be regular and within the
    cap. It is then read once into memory. All later steps use that one buffer, so the file cannot change between
    hashing and parsing.
-2. sha256 and size. Every file that can be read is traceable even if every later step rejects it.
-3. The raw byte scan (`raw_named`, unchanged), when the run set and index are known. A rejected file still records
-   the shards it names. The scan only adds shards a file is involved with, so it can never make a run usable.
-4. The strict grammar (2.2). No semantic function (`shard_of`, `shards_named`, `identity`, `read_shard`) ever sees an
-   object that has not passed it. H1 was semantics applied to a last-wins object.
-5. For accepted answers only: the decoded scan, `raw_named(obj["logs_content"].encode("utf-8"), …)`, joined with
-   step 3. Under 2.2, `logs_content` is the only free text in an accepted file, so its decoded form is complete.
+2. (S2b) sha256 and size. Every file that can be read is traceable even if every later step rejects it.
+3. (S5) The raw byte scan (`raw_named`, unchanged), when the run set and index are known. A rejected file still
+   records the shards it names. The scan only adds shards a file is involved with, so it can never make a run usable.
+4. (S5) The strict grammar (2.2). No semantic function (`shard_of`, `shards_named`, `identity`, `read_shard`) ever
+   sees an object that has not passed it. H1 was semantics applied to a last-wins object.
+5. (S5) For accepted answers only: the decoded scan, `raw_named(obj["logs_content"].encode("utf-8"), …)`, joined
+   with step 3. Under 2.2, `logs_content` is the only free text in an accepted file, so its decoded form is complete.
    This closes E-esc.
 
    The real format escapes only quotes, backslashes, control characters and `<`, `>`, `&`, never a letter or a
@@ -356,23 +503,42 @@ when a decoded `logs_content` cannot be encoded, and the decoders' own errors. N
   the byte scan finished and only a later scan raised. It quarantines the collection like any other rejected file.
 - **No fall-through.** A file whose byte scan raised never reaches the grammar. A file whose decoded scan or parsed
   reading raised is never taken as an answer. It never reaches the job rule, a copy, `read_shard` or a result.
-- **What happens next.** The intake continues with the next argument, so S5 still hashes and records every served
-  argument.
+- **What happens next.** The intake continues with the next argument, so S5 still judges every served argument.
+  [rev D1] Every argument was already hashed and recorded in S2b.
 - **What it does not cover.** Every exception other than `ValueError` propagates. The table below says where.
 
 **The boundary, by stage and error kind.** Every condition met while one input file is taken in falls into exactly
 one of three classes. It applies to the served files in S5 and, by the same rules, to runs.json in S3 and the jobs
-list in S4.
+list in S4. [rev D1] Steps 1 and 2 of all three now run in S2b, under the same classes.
 
 | Class | Conditions | Stage | Outcome |
 |---|---|---|---|
-| **File-specific condition** (an attributed rejection, existing S5 rules) | the path names nothing (`lstat` gives `ENOENT`, `ENOTDIR` or `ENAMETOOLONG`; kind `missing`); it is a directory, a symbolic link, a FIFO, a device or another non-regular kind; it is over the cap; the file's own access is refused (`EACCES` or `EPERM` from `lstat`, `open` or `read`), or it became a link between `lstat` and `open` (`ELOOP`); every grammar rejection of 2.2 | step 1 (the kinds `missing`, `directory`, `symlink`, `other`, `unreadable`) and step 4 | the file is rejected with its kind and reason, recorded with what steps 1 and 2 established, and the collection is quarantined. The intake continues |
+| **File-specific condition** (an attributed rejection, existing S5 rules) | the path names nothing (`lstat` gives `ENOENT`, `ENOTDIR` or `ENAMETOOLONG`; kind `missing`); it is a directory, a symbolic link, a FIFO, a device or another non-regular kind; it is over the cap; the file's own access is refused (`EACCES` or `EPERM` from `lstat`, `open` or `read`), or it became a link between `lstat` and `open` (`ELOOP`); every grammar rejection of 2.2 | step 1, in S2b (the kinds `missing`, `directory`, `symlink`, `other`, `unreadable`), and step 4, in S5 [rev D1] | the file is rejected with its kind and reason, recorded with what steps 1 and 2 established, and the collection is quarantined. The inventory, or the intake, continues [rev D1] |
 | **Recoverable scan or conversion error** (the per-file catch above) | `ValueError`, with its subclasses, raised by the byte scan, the decoded scan or the parsed readings | steps 3 and 5 | the file is rejected with `byte scan failed`, `decoded scan failed` or `parsed scan failed`, and `names_shards` is null. The collection is quarantined, and the intake continues |
-| **Host failure** (the infrastructure route) | `MemoryError`; any `OSError` that is not one of the file-specific errors above, for example `EIO`, `ENOSPC`, `ENOMEM`, `EMFILE` or `ENFILE`, at any step; an interrupt, or any `BaseException` that is not an `Exception` | any step of S3, S4 or S5, and any later state | ABORTED, exit 4. The stdout lines and the existing guarantees apply: no `COLLECT PUBLISHED` line, and `--out` not created by this invocation. The `COLLECT FILE` lines of the files already taken in are printed before the `COLLECT ABORTED` line. Nothing is published, so a host failure is never recorded as a file's rejection, never counted as an evidence failure, and never leaves a current HOLDS |
+| **Host failure** (the infrastructure route) | `MemoryError`; any `OSError` that is not one of the file-specific errors above, for example `EIO`, `ENOSPC`, `ENOMEM`, `EMFILE` or `ENFILE`, at any step; an interrupt, or any `BaseException` that is not an `Exception` | any step of S2b, S3, S4 or S5, and any later state [rev D1] | ABORTED, exit 4. The stdout lines and the existing guarantees apply: no `COLLECT PUBLISHED` line, and `--out` not created by this invocation. The `COLLECT FILE` lines are printed before the `COLLECT ABORTED` line: one per served argument inventoried before the failure, when it comes in S2b, and one per served argument, when it comes later (section 3, "Safe names on stdout") [rev D1]. Nothing is published, so a host failure is never recorded as a file's rejection, never counted as an evidence failure, and never leaves a current HOLDS |
 
 Any other exception, a bug for example (`TypeError`, `KeyError`, `RecursionError`), is neither a file's condition
-nor a host failure. It keeps the existing rule: S10's `internal` quarantine, published with exit 1 and zero usable
-runs, its record naming the stage and the exception type, not a file.
+nor a host failure. [rev D1] Where it is raised decides its outcome:
+- **In S2b,** it leaves the inventory incomplete. The outcome is ABORTED, exit 4, as for a host failure. An
+  incomplete inventory is never published, and no record claims to be complete when it is not.
+- **In S3-S10,** after INVENTORY COMPLETE, it keeps the existing rule: S10's `internal` quarantine, published with
+  exit 1 and zero usable runs, its record naming the stage and the exception type, not a file. The record holds the
+  full inventory (section 3, S10).
+- **In S11 or S12,** it is ABORTED, exit 4, as A1 confirmed. The writer that would publish the record is the one
+  that failed. The owner's D1 ("may publish an explicitly quarantined `collected.json`") covers S3-S10; it does not
+  ask the failed writer to publish.
+
+**Declared deviation (4) of `a77c85a5`, resolved [rev D1].** At `a77c85a5`, a served argument's `files` entry was
+made only when its whole intake had completed (`a77c85a5:collect.py:762-776`). An internal error at one argument in
+S5 therefore published a record without that argument and every later one, and an internal error in S3 or S4
+published a record with no entries at all (AR-B1). Under this revision every entry is made in S2b, and:
+- an unforeseen exception inside the inventory loop is ABORTED (above), because the inventory is then incomplete;
+- an unforeseen exception inside a later per-file step (the byte scan, the grammar, the decoded scan, the parsed
+  readings, the same-name rule) is S10's `internal` quarantine. Its record lists every argument: those S5 had judged
+  with their status and reason, and the rest with the status `unjudged` and their inventory facts (section 5);
+- a host failure or an interrupt at either point is ABORTED, as before.
+
+The deviation is withdrawn, and the per-file entries no longer depend on the intake completing.
 
 The catch never makes anything usable: a file it rejects has failed, and its collection is quarantined. An
 exception after S5 (for example a 5,000-digit `RUNS` count, which only `read_shard` converts, at S8) reaches S10's
@@ -392,7 +558,7 @@ file names (`collect.py:401`; the `[RP]` tests).
 | 1 | PUBLISHED, QUARANTINED, verdict FAILS | `collected.json` only; no `ci/` directory |
 | 2 | PUBLISHED, QUARANTINED, verdict UNVERIFIED | `collected.json` only; no `ci/` directory |
 | 3 | REFUSED. Nothing was read and nothing was written | not created by this invocation. If it exists it is untouched, and it is not a result of this invocation |
-| 4 | ABORTED: an error of any kind, after S2 and before the rename in S12 completes, that the states below do not turn into a quarantine | not created by this invocation; it may hold another process's content (section 4). The staging directory may remain beside it, and is never a result |
+| 4 | ABORTED: an error of any kind, after S2 and before the rename in S12 completes, that the states below do not turn into a quarantine. [rev D1] That is: any failure in S2b other than a file's own condition, a bug included; a host failure or an interrupt in any later state; and any exception in S11 or S12 | not created by this invocation; it may hold another process's content (section 4). The staging directory may remain beside it, and is never a result |
 | 5 | PUBLISHED, durability not confirmed: the rename completed, then the parent `fsync` or a later step failed or was interrupted | present and complete: this invocation's collection, of whatever verdict |
 
 **What each code guarantees.**
@@ -414,11 +580,12 @@ tests keep their meaning.
 - **One catch from S0 on.** `main` catches `BaseException`, so `KeyboardInterrupt` and every non-`OSError`
   exception are included:
   - before S2: 3;
-  - from S2 until the rename in S12 completes: 4. A `ValueError` raised by a scan of one served file is first
-    turned into that file's rejection by the per-file catch of 2.5. A host failure, that is a `MemoryError` or an
-    `OSError` other than a file's own conditions (2.5, the boundary), reaches 4 from any state, S3-S10 included:
-    nothing is published. Any other exception in S3-S10 is turned into an `internal` quarantine by S10, and the
-    collection goes on to be published. In S11 or S12 every exception reaches 4, an example being a
+  - from S2 until the rename in S12 completes: 4. [rev D1] In S2b every exception that is not a file's own
+    condition reaches 4, a bug included, because the inventory is then incomplete. A `ValueError` raised by a scan
+    of one served file is first turned into that file's rejection by the per-file catch of 2.5. A host failure,
+    that is a `MemoryError` or an `OSError` other than a file's own conditions (2.5, the boundary), reaches 4 from
+    any state, S3-S10 included: nothing is published. Any other exception in S3-S10 is turned into an `internal`
+    quarantine by S10, and the collection goes on to be published, with the full inventory [rev D1]. In S11 or S12 every exception reaches 4, an example being a
     `UnicodeEncodeError` from the ASCII result write. An interrupt always reaches 4;
   - after the rename: 5.
 - **No uncaught exit.** An exception never leaves `main` uncaught, because Python's default exit code 1 would
@@ -432,14 +599,15 @@ so that one record holds every failure. The table lists each failure edge and wh
 | S0 ARGS | parse argv with `add_help=False`; `--runs`, `--run-jobs`, `--head`, at least one `--served`, `--out` | → REFUSED (3) | stdout `COLLECT REFUSED <reason>; --out is not a result of this invocation`; no file anywhere |
 | S1 TARGET | `out = abspath(--out)`; its parent exists and is a directory; `os.path.lexists(out)` is false | → REFUSED (3) | stdout `COLLECT REFUSED the output location exists (or: its parent is not a directory); --out is not a result of this invocation`; `--out` and its contents untouched |
 | S2 STAGED | `nonce = os.urandom(16).hex()`; `os.mkdir(parent/".<name>.staging-<nonce>", 0o700)` | → ABORTED (4) | stdout `COLLECT ABORTED <exception type or errno name>`; nothing else |
-| S3 RUNS | read `--runs` as in 2.5 steps 1-2; pin; strict load | → quarantine `{kind: "input", input: "runs.json"}` with name, size, sha256 (or kind and no digest), `pinned`, reason; `doc = None` | carried into the record; S4 and S5 still run |
-| S4 INDEX | read `--run-jobs` as in 2.5 steps 1-2; strict load; `build_job_index` with distinct ids; `--head` check | → quarantine `{kind: "input", input: "jobs list"}` with name, size, sha256, and every problem; `index = None` | as S3 |
-| S5 INTAKE | 2.5 steps 1-5 for **every** served argument, whatever S3 and S4 gave, its scans inside the per-file catch of 2.5; scans need `doc` and `index`. At its end, one `COLLECT FILE` line per argument on stdout (below) | → per file, including a scan that raised `ValueError`: `files[i].status = "rejected"`, and quarantine `{kind: "unattributable", file, sha256 or null, size, reason, names_shards}`; the intake continues with the next argument | as S3, and the `COLLECT FILE` lines |
+| **S2b INVENTORY** [rev D1] | 2.5 steps 1-2 for every input, before any input is interpreted: `--runs`, then `--run-jobs` (through `main`), then every `--served` argument in argument order. Each input gets its entry. runs.json gets `collection.inputs.runs_json` `{name, kind, size, sha256, pinned}`, with `pinned` the digest's equality with the pin. The jobs list gets `collection.inputs.jobs_list` `{name, kind, size, sha256}`. A served argument gets `files[i]`, with `arg`, `name`, `kind`, `size`, `sha256` and `same_file_as`. Its `status` is `unjudged` and its `reason` null, or, for a file-specific condition, its `status` is `rejected` with that condition's reason. Ends at the checkpoint INVENTORY COMPLETE | a file's own condition (2.5, the boundary) → its entry records the kind and the reason, with `size` and `sha256` null where no bytes could be obtained, and the inventory continues. Anything else → ABORTED (4): a host failure, an interrupt, or any other exception, a bug included | for ABORTED: one `COLLECT FILE` line per served argument inventoried before the failure, then `COLLECT ABORTED <exception type or errno name>`; nothing at `--out` |
+| S3 RUNS | [rev D1] from the snapshot S2b took: the file-specific condition S2b recorded, if any; the pin; the strict load | → quarantine `{kind: "input", input: "runs.json"}` with name, size, sha256 (or kind and no digest), `pinned`, reason; `doc = None` | carried into the record; S4 and S5 still run |
+| S4 INDEX | [rev D1, D2] from the snapshot S2b took: the file-specific condition S2b recorded, if any; the strict load (no fraction, exponent or constant, 2.3); the integer schema of 2.3, whether or not `doc` exists; then, when `doc` exists, `build_job_index` with distinct ids, and the `--head` check | → quarantine `{kind: "input", input: "jobs list"}` with name, size, sha256, and every problem (the schema gives one); `index = None` | as S3 |
+| S5 INTAKE | [rev D1] 2.5 steps 3-5 for **every** served argument, on its snapshot, whatever S3 and S4 gave, its scans inside the per-file catch of 2.5; scans need `doc` and `index`. An argument S2b rejected keeps that rejection. At its end, one `COLLECT FILE` line per argument on stdout (below) | → per file, including a scan that raised `ValueError`: `files[i].status = "rejected"`, and quarantine `{kind: "unattributable", file, sha256 or null, size, reason, names_shards}`; the intake continues with the next argument | as S3, and the `COLLECT FILE` lines |
 | S6 ATTRIBUTED | runs only if `doc` and `index` exist: the job rule (`collect.py:425-458`), unchanged except that the decoded scan joins `named` | existing edges: a foreign job naming no shard → quarantine (`:432-437`); a foreign job naming shards → FAILS and voids (`:438-444`); several shards → FAILS and voids; copies differ, or a copy has no banner → voids | `voided_shards`, quarantine |
 | S7 COMPLETE | each shard K = 1…N has an accepted answer of job `index[K]` (`collect.py:480-483`) | → quarantine `{kind: "missing", shard, job_id, expected}`, plus `expected[K].status = "missing"` | as S3 |
 | S8 VALIDATED | `read_shard` on one copy of each surviving shard, with the strict blocks and the `expected.outcome` check | → `failed_files` `{file, sha256, sha256s, shard, problems}`; FAILS | as S3 |
 | S9 RECONCILED | each run seen in exactly one shard; no run outside `runs.json` (`collect.py:501`, `:512-514`); all runs eligible | → FAILS (extra run) or UNVERIFIED (a run not eligible, a shard not collected) | `runs[*].reason` |
-| S10 DECIDED | `v` as at `collect.py:519-520`; `quarantined = v != "HOLDS"`. An exception raised in S3-S10 that no check foresaw is caught here, except a host failure (`MemoryError`, or an `OSError` that is not a file's own condition), which is not caught and gives ABORTED (4) | an internal error → quarantine `{kind: "internal", stage, exception: <type name>}`, `v = "FAILS"` | as S3 |
+| S10 DECIDED | `v` as at `collect.py:519-520`; `quarantined = v != "HOLDS"`. An exception raised in S3-S10 that no check foresaw is caught here, except a host failure (`MemoryError`, or an `OSError` that is not a file's own condition), which is not caught and gives ABORTED (4). [rev D1] An interrupt is not caught either. The internal record keeps the whole inventory of S2b, which nothing in S3-S10 resets: `collection.inputs` and every `files` entry. The arguments S5 had judged keep their status and reason; the rest stay `unjudged`. If S5 had not yet printed the `COLLECT FILE` lines, S10 prints them. The handler's fallback, which rebuilds the run table, catches `Exception` less host failures: at `a77c85a5:collect.py:745` a `MemoryError` there would have been swallowed | an internal error → quarantine `{kind: "internal", stage, exception: <type name>}`, `v = "FAILS"` | as S3 |
 | S11 WRITTEN | `write_collection` into the staging directory. The only usable-run rule stays at `collect.py:367`, character for character. Result files only under HOLDS, opened `"x"`; `collected.json` written last, with the manifest; flush and `fsync` each file and the directories when `durable` | any exception or interrupt → ABORTED (4) | stdout `COLLECT ABORTED <exception type or errno name>`; `--out` not created by this invocation; the staging directory is left in place |
 | S12 PUBLISHED | `os.rename(staging, out)`, then `fsync` the parent when `durable` | the rename raises, or an interrupt arrives before it completes → ABORTED (4), as S11. The parent `fsync` fails, or anything later fails or is interrupted → PUBLISHED, durability not confirmed (5) | for 5: the `COLLECT PUBLISHED` line, with the nonce and digest, then `COLLECT NOT DURABLE <exception type or errno name>`, then `COLLECT <verdict>` |
 
@@ -449,9 +617,19 @@ collected.json sha256 <hex>`. The last line is `COLLECT <verdict>`, as now.
 **Safe names on stdout (A3).**
 - **The file lines.** At the end of S5, the collector prints one line per served argument:
   `COLLECT FILE <json>`. The JSON is `json.dumps({arg, name, kind, size, sha256, status, reason},
-  sort_keys=True, ensure_ascii=True)`, the fields of `files[i]` in section 5. An ABORTED run (4) publishes no
-  record, so these lines are its trace of every file, read and judged. A host failure during S5 itself (2.5, the
-  boundary) prints the lines of the files taken in before it, then `COLLECT ABORTED`.
+  sort_keys=True, ensure_ascii=True, allow_nan=False)`, the fields of `files[i]` in section 5. An ABORTED run (4)
+  publishes no record, so these lines are its trace of every file, read and judged.
+
+  [rev D1] The lines are printed exactly once, and always before `COLLECT PUBLISHED` or `COLLECT ABORTED`, by
+  whichever comes first:
+  - the end of S5;
+  - S10, for an internal error raised before the end of S5;
+  - the ABORTED path, for a host failure or an interrupt after INVENTORY COMPLETE and before the end of S5.
+
+  Each argument carries the status it has at that moment, `unjudged` if S5 had not judged it. An ABORTED in S2b
+  prints one line per served argument inventoried before the failure. So whenever the inventory completed, an ABORTED
+  run's trace names every served argument with its kind, size and sha256. Only an ABORTED inside the inventory traces
+  fewer.
 - **No injected lines.** The rule covers **every line the collector writes to stdout or stderr**, whatever its
   prefix. In each such line, every value that comes from an input is written with `json.dumps(...,
   ensure_ascii=True)`: a file name, a path, a reason built from either, a decoder message, the `--head` value as
@@ -460,6 +638,11 @@ collected.json sha256 <hex>`. The last line is `COLLECT <verdict>`, as now.
   - the `COLLECT PUBLISHED` path;
   - the `RUN` lines (`collect.py:524-526`). Under quarantine their reason joins the quarantined files' names
     (`collect.py:497-498`). For stdout, that reason is built from the JSON-escaped names.
+  - [rev AR-N1] a usable run's `outcome` on its `RUN` line. It comes from a served result block, so it is written
+    `esc(outcome)`. `a77c85a5:collect.py:956` printed it raw and relied on the backstop alone (acceptance review N1).
+
+  [rev AR-N2] Every `json.dumps` that writes output passes `allow_nan=False`: `esc`, the `COLLECT FILE` lines and
+  `collected.json` (section 5, "Strict serialization").
 
   **The backstop.** Every line goes out through one function, `emit`. It writes printable ASCII only: any character
   outside U+0020–U+007E that still reaches it is written as its JSON escape. So no character of any value can end a
@@ -483,16 +666,23 @@ collected.json sha256 <hex>`. The last line is `COLLECT <verdict>`, as now.
   - a jobs list that is not JSON or not UTF-8, which is a traceback at `09d439d0`;
   - a served directory or missing path, reached through S5 (E12, E13);
   - a null or non-object `expected`, reached through S8 (K1, K2);
-  - an unforeseen exception, reached through S10.
+  - an unforeseen exception, reached through S10;
+  - [rev D1, D2] a jobs list with a fraction, an exponent or a constant, such as AR-B1's `total_count` of `1e400`,
+    or one that breaks the integer schema of 2.3, reached through S4. At `a77c85a5` the `1e400` case reached S10
+    with no inventory; under this revision it is an `input` rejection, and an unforeseen exception there would still
+    publish the full inventory.
 
-  Only the REFUSED and ABORTED outcomes publish nothing. REFUSED has read nothing. ABORTED is a failure of the
-  writer or of the host. After S5, its `COLLECT FILE` lines trace every served file; a host failure that ends S5
-  early traces the files taken in before it (2.5).
+  Only the REFUSED and ABORTED outcomes publish nothing. REFUSED has read nothing. [rev D1] ABORTED is a failure of
+  the writer, of the host, or of an inventory that could not complete. Whenever the inventory completed, its
+  `COLLECT FILE` lines trace every served file; an ABORTED inside S2b traces the arguments inventoried before it.
 
-**S5 always runs.** Every served argument is hashed and grammar-checked even when S3 or S4 failed. A scan's
-`ValueError` on one file rejects that file and does not stop the intake (the per-file catch of 2.5). A collection
-refused early is therefore still traceable file by file. Only a host failure ends S5 early: a `MemoryError`, an
-`OSError` that is not a file's own condition, or an interrupt. Each gives ABORTED, exit 4, with nothing published.
+**S5 always runs.** [rev D1] Every served argument is hashed in S2b, before S3 or S4 reads anything, and is
+grammar-checked in S5 even when S3 or S4 failed. A scan's `ValueError` on one file rejects that file and does not
+stop the intake (the per-file catch of 2.5). A collection refused early is therefore still traceable file by file.
+A host failure ends S5 early: a `MemoryError`, an `OSError` that is not a file's own condition, or an interrupt. Each
+gives ABORTED, exit 4, with nothing published. An unforeseen exception in S3-S5 also ends S5 early, and S10 then
+publishes the full inventory, with the arguments S5 had not judged marked `unjudged`. Whether an argument is hashed
+never depends on what S3, S4 or another argument gave.
 With no index, `files[i].shard` is null and `expected[*].status` is `"undetermined"`. With no run set, `expected` is null and `runs` is `[]`.
 
 ## 4. Transactional publication
@@ -536,8 +726,12 @@ With no index, `files[i].shard` is null and `expected[*].status` is `"undetermin
 - `started_utc` and `written_utc`;
 - `out_name`: the basename of `--out`;
 - `inputs`:
-  - `runs_json`: `{name, size, sha256, pinned}`, or null when `collect()` is called directly with a `doc` (A2);
-  - `jobs_list`: `{name, size, sha256}`, or null when `collect()` is called directly;
+  - `runs_json`: `{name, kind, size, sha256, pinned}`, or null when `collect()` is called directly with a `doc` (A2);
+  - `jobs_list`: `{name, kind, size, sha256}`, or null when `collect()` is called directly;
+  - [rev D1] both are written in S2b, before either file is parsed, and nothing later resets them. `kind` is the
+    inventory's kind (`regular`, `missing`, `unreadable`, …), and `size` and `sha256` are null only where the
+    file's bytes could not be obtained. At `a77c85a5` they were set only once both files had been interpreted, which
+    is why AR-B1's record has them null;
   - `head`: as given, cut to 100 characters;
 - `manifest`: one `{path, size, sha256}` for every other file published in `--out`. It is `[]` unless the verdict
   is HOLDS.
@@ -589,9 +783,17 @@ The procedure is mandatory before any result is used. DESIGN.md §8 says so (sec
 
   ```
   {"arg": i, "name": <basename>, "kind": "regular"|"symlink"|"directory"|"missing"|"other"|"unreadable",
-   "size": <int>|null, "sha256": <hex>|null, "status": "accepted"|"rejected", "reason": <str>|null,
+   "size": <int>|null, "sha256": <hex>|null, "status": "accepted"|"rejected"|"unjudged", "reason": <str>|null,
    "job_id": <int>|null, "shard": <int>|null, "names_shards": [<int>, ...]|null, "same_file_as": <arg>|null}
   ```
+
+  - [rev D1] The entry is made in S2b. `arg`, `name`, `kind`, `size`, `sha256` and `same_file_as` are fixed there,
+    and so are `status` and `reason` for a file-specific condition (`rejected`). For every other argument S2b sets
+    `status` to `unjudged` and `reason` to null, and S5 replaces them with its judgement.
+  - [rev D1] `unjudged` means inventoried but not judged. It appears only in a record whose `quarantine` holds an
+    `internal` entry, for the arguments S5 had not reached, and in the `COLLECT FILE` lines of an ABORTED run. An
+    `unjudged` file adds no `unattributable` entry, because the `internal` entry already quarantines the collection.
+    It is never `accepted`, so no run can be usable through it. A HOLDS record has none.
 
   - The digest is of the raw bytes. That is the same value as `served_sha256` now, because a UTF-8 decode and
     re-encode is the identity.
@@ -626,6 +828,13 @@ The procedure is mandatory before any result is used. DESIGN.md §8 says so (sec
   - `undetermined` means the index could not be built.
 - **`shards[K]`** gains `sha256s`: every distinct digest among its copies.
 - **`failed_files[*]`** gains `sha256s` for the same reason.
+- **Strict serialization [rev AR-N2, D2].** `collected.json` is written with `json.dumps(record, indent=1,
+  sort_keys=True, allow_nan=False)`. The `COLLECT FILE` lines and `esc` pass `allow_nan=False` too (section 3). So no
+  published record and no output line contains `NaN`, `Infinity` or `-Infinity`. Under D2 no such value can come from
+  an input: the served grammar, the jobs list and runs.json admit no float, and a result block's float must
+  round-trip canonically (2.3). Only a direct `collect()` call given a non-finite value in its `doc` or `run_id` can
+  produce one. Its `ValueError` is raised in S11, which is ABORTED (exit 4), and nothing is published. At
+  `a77c85a5`, a jobs-list `run_id` of `1e400` put `"extraction_run": Infinity` into a published record (AR-N2).
 - **`quarantine`** keeps its two kinds, `unattributable` and `missing`, and adds `input` (S3, S4) and `internal`
   (S10). Every entry names its file or input, its digest when one exists, and its reason. A quarantine entry of any
   kind sets `eligible = false` for every run, as now (`collect.py:496-498`). Under I-QUAR, `failed_files` and
@@ -647,14 +856,19 @@ The procedure is mandatory before any result is used. DESIGN.md §8 says so (sec
 **Harness rules, enforced for every collection the self-test makes.** The `case()` and `outcome_of()` helpers are
 extended so that each rule is asserted, not only stated.
 
-1. **Read from disk.** Each test reads `--out/collected.json` from disk (`collect.py:644` does this now).
+1. **Read from disk.** Each test reads `--out/collected.json` from disk (`collect.py:644` does this now). [rev AR-N2]
+   It reads it with a strict decoder that refuses `NaN`, `Infinity`, `-Infinity` and duplicate keys at any depth, in
+   place of `json.load`, so the strict read costs nothing extra.
 2. **One verdict view.** `quarantined == (verdict != "HOLDS")`, and the count of usable runs is the number of
    runs under HOLDS and 0 otherwise.
 3. **Exact listing.** The listing of `--out` is exactly `collected.json` plus the `manifest` paths, with matching
    digests. With no usable run there is no `ci/` directory at all.
 4. **No staging left.** No `.out.staging-*` remains in the test's directory after a published outcome.
 5. **Every file recorded.** Every served file the test wrote appears in `files` with the size and sha256 the
-   test computed itself with `hashlib`, independently of the collector.
+   test computed itself with `hashlib`, independently of the collector. [rev D1] `files` has exactly one entry per
+   `--served` argument, and `files[i]["arg"] == i`. Through `main`, `collection.inputs.runs_json` and
+   `collection.inputs.jobs_list` are non-null, and their `size` and `sha256` are those the test computes over the
+   bytes it wrote. They are null only for an input the test made unreadable.
 6. **The file lines match.** stdout carries exactly one `COLLECT FILE` line per argument, and each one parses as JSON
    equal to the matching fields of `files[i]` (A3).
 7. **One-line output.** The harness captures stdout and stderr separately. Every line on stdout is printable ASCII
@@ -673,6 +887,12 @@ several faults the reason depends on their positions (2.2, A6).
 **Existing exact-record tests whose expectations move.** `[I1]` asserts the whole quarantine dict, old reason string
 included, and the new entries add `size` and specific reasons. Its expected dict is updated to the new record, and
 so is `[I5]`'s if its dict changes. Both keep their names, so the existing mutants that name them still apply.
+
+[rev D1] **`[TB-SCANX]`'s line expectation moves.** Its name and every other assertion stay. The byte-scan cases
+(a), (b), (c) and (f) now fail in S5, after INVENTORY COMPLETE, so they print a `COLLECT FILE` line for each of the
+four arguments. Arguments 0 to 2 are `accepted`, and argument 3 is `unjudged` with a null reason. The read cases (d)
+and (e) now fail in S2b, so they print lines for arguments 0 to 2 only, each `unjudged`. In every case no line gives
+argument 3 a reason. L18, L19 and L20 still fail it, for the same reasons as before.
 
 *Strict grammar (I-PARSE)*
 
@@ -752,6 +972,59 @@ so is `[I5]`'s if its dict changes. Both keep their names, so the existing mutan
 | `[TB-REAL]` | all three shards in the real byte format of 2.1 (compact, sorted keys, the success `message`, raw UTF-8, `\u003c`, `\u003e`, `\u0026`, `\u001b`, and U+FEFF as the first character of `logs_content`) | HOLDS with 6 usable. The fixture writer's output must also match the layout pattern of 2.1, so the control is shown to be in the real format |
 | controls.py end to end | `assemble.py`'s real output, serialized in the real byte format, through the full intake (strict grammar, then `read_shard`). `[N1]` extended to the decoded scan | the real assembler output passes the new boundary, and genuine logs name only their own shard in decoded form as well |
 
+*Host failures at every intake stage, the inventory, the jobs-list integers and output (D1, D2, D3, AR-N1, AR-N2)
+[rev D1, D2, D3]*
+
+**Common to the host-failure tests.** In these tests the target is argument 1 of
+`[S1, target, S2, S3]`, so that arguments come after it, as in the acceptance review's injection matrix. The target
+is a well-formed answer of job 77001 whose `logs_content` is `scanx-marker`, or, in `[TB-LINKX]` and `[TB-LINKC]`, a
+symbolic link to such an answer written outside the served set. Each injection patches one call, raises only when
+that call is made on the target, and records that it fired. Every test asserts that it fired, so a mistargeted
+injection fails the test instead of passing it vacuously. A test named `…X` expects ABORTED. In each of its cases it
+asserts all of the following:
+- exit 4;
+- `--out` does not exist (`os.path.lexists` is false);
+- no `collected.json` and no `ci/` exist anywhere in the test's directory, the staging directory this invocation
+  left included, so no stale or partial output exists;
+- no line starts with `COLLECT PUBLISHED`, and no line equals `COLLECT HOLDS`;
+- the last line is `COLLECT ABORTED <name>`, with the injected errno's name or exception class;
+- the `COLLECT FILE` lines are exactly those the test states;
+- no stdout line gives the target a reason: no `missing`, `unreadable`, `symlink`, `scan failed` or other reason on
+  any line naming it;
+- stderr is empty.
+
+So a host failure is never counted as a file's rejection or an evidence failure, and never yields a success or a
+usable run. A test named `…C` is that stage's control. It injects the file-specific errnos at the same call and
+expects a published, quarantined record, read back from disk under harness rules 1 to 7. The record gives the
+target its kind and reason, records all four files, and quarantines the target by name: the `rej()` check of the
+existing tests, exit 1. The controls show that the injection point distinguishes a file's condition from a host
+failure, and that a regression to "every error is the file's" fails a named test.
+
+| Test | Case | Proves |
+|---|---|---|
+| `[TB-SCANXd]` | the decoded scan: `raw_named` raises when it scans the target's decoded `logs_content` (the call whose data does not begin with `{`), with (a) `MemoryError`, (b) `OSError(ENOSPC)`, (c) `OSError(EIO)`. The test also asserts that the byte scan of the target ran and returned | ABORTED as above. `COLLECT FILE` lines for arguments 0-3: 0 `accepted`, 1-3 `unjudged`, with null reasons. A host failure in the decoded scan is never `decoded scan failed` (the review's X1) |
+| `[TB-SCANXp]` | the parsed readings: (a) `MemoryError`, (b) `OSError(ENOSPC)` and (c) `OSError(EIO)` from `shard_of` on the target, and (d) `OSError(EIO)` from `shards_named` on the target | ABORTED, with the lines of `[TB-SCANXd]`. Never `parsed scan failed` (X2) |
+| `[TB-LSTATX]` | `os.lstat` of the target raises (a) `OSError(EIO)`, (b) `OSError(ENOSPC)`, (c) `MemoryError`; and (d), with no injection, a target path through a symbolic-link loop (`ELOOP` from `lstat`, a host failure under 13.2 of the design review) | ABORTED in S2b. One `COLLECT FILE` line, argument 0's, `unjudged`. Never `missing` (X6) |
+| `[TB-LSTATC]` | `os.lstat` of the target raises (a) `OSError(ENOENT)`, (b) `OSError(EACCES)` | published, exit 1. The target is `kind: "missing"`, reason `not a regular file (missing)`, in (a), and `kind: "unreadable"`, reason `not a regular file (unreadable: EACCES)`, in (b) |
+| `[TB-OPENX]` | `lstat` succeeds and `os.open` of the target raises (a) `OSError(EIO)`, (b) `OSError(ENOSPC)`, (c) `MemoryError` | ABORTED in S2b, with the line of `[TB-LSTATX]`. Never `unreadable` (X7) |
+| `[TB-OPENC]` | `os.open` of the target raises (a) `OSError(EACCES)`, (b) `OSError(ELOOP)` (it became a link) | published, exit 1. The target is `kind: "unreadable"`, with reason `not a regular file (unreadable: EACCES)` or `(unreadable: ELOOP)` |
+| `[TB-LINKX]` | the target is a link to a regular answer: (a) `os.stat` of the link raises `OSError(EIO)`; (b) `os.read` of the link target's descriptor raises `OSError(ENOSPC)`; (c) the same read raises `MemoryError` | ABORTED in S2b, with the line of `[TB-LSTATX]`. A host failure while hashing a link's target is never swallowed into a `symlink` record with a null digest (X14) |
+| `[TB-LINKC]` | (a) a dangling link; (b) a link whose `os.open` raises `OSError(EACCES)` | published, exit 1. The target is `kind: "symlink"`, reason `not a regular file (symlink)`, `size` and `sha256` null. `[TB-LINK]` remains the case in which the target's digest is recorded |
+| `[TB-INVJ]` | AR-B1's input, through `main` with the real runs.json: the `jobs_list(32)` fixture with `"total_count": 33` written as `"total_count": 1e400` in the bytes, and S1, S2 and S3 served | published, exit 1, under harness rules 1-7. Exactly one `input` entry for `jobs list`, with the test's sha256 and size of those bytes and `problems == ["non-integer number"]`; no `internal` entry. `collection.inputs.runs_json` is `{name: "runs.json", kind: "regular", size, sha256: RUNS_SHA256, pinned: true}`, and `collection.inputs.jobs_list` has the test's size and sha256. `files` has 3 entries with the test's digests, each `accepted`; `expected` has 32 entries, all `undetermined`. The stdout checks of `[TB-INJ]` hold, and the strict read finds no `Infinity` or `NaN`. A malformed jobs list yields the full inventory (D1) and is refused at the jobs-input gate (D2) |
+| `[TB-INVINT]` | through `main` with the real runs.json, `jobs_list(32)` and S1, S2, S3, with `jobs_schema` replaced in the test by a function that raises `TypeError` | published, exit 1. An `internal` entry with `stage: "S4"` and `exception: "TypeError"`. Both `collection.inputs` are non-null with the test's digests. `files` has 3 entries with the test's digests, each `unjudged` with a null reason, and there are 3 `COLLECT FILE` lines. An unforeseen exception while a jobs list is interpreted publishes the full inventory (AR-B1's mechanism) |
+| `[TB-INVINTf]` | a direct collection of `[S1, target, S2, S3]`, with `parse_served` replaced in the test by a function that raises `TypeError` on the target's bytes | published, exit 1. An `internal` entry with `stage: "S5"`. `files` has 4 entries with the test's digests: argument 0 `accepted`, arguments 1-3 `unjudged` with null reasons; no `unattributable` entry; 4 `COLLECT FILE` lines; the stdout checks of `[TB-INJ]`. Declared deviation (4) is gone |
+| `[TB-INVX]` | a direct collection of `[S1, target, S2, S3]`, with `read_input` (the inventory's read) replaced in the test by a function that raises `TypeError` on the target's path | ABORTED in S2b, as in the common assertions: exit 4, `--out` absent, no `collected.json` anywhere, last line `COLLECT ABORTED TypeError`, and one `COLLECT FILE` line, argument 0's, `unjudged`. A bug that prevents a complete inventory never publishes a partial one |
+| `[TB-JNUM]` | (i) **unit:** `JOBS_DECODER` and then `jobs_schema` applied to `jobs_list(32)` with one value's JSON text replaced, one fault per fixture. `total_count`: `1e400`, `-1e400`, `1.0`, `33.0`, `3.3e1`, `NaN`, `Infinity`, `-Infinity`, `true`, `false`, `null`, `"33"`, `-1`, `1001`, and a 21-digit integer. The `id` of the job named `Extract shard 1`: `1e11`, `101.0`, `true`, `"101"`, `null`, `0`, `-101`, `10000000000000000`, the array `[[101]]` (AR-N3's shape: whatever an array holds, its problem is the fixed J-4 text), and the key absent. The `run_id` of the first job: `5.0`, `1e400`, `true`, `"5"`, `0`, `-5`, `10000000000000000`. The `name` of a job: `5`. The `head_sha` of a job: `null`. (ii) **through `main`,** with [TB-RUNS]'s two-line runs.json, which is not pinned, so the record stays small: the `id` `true`, the `run_id` `5.0` and the `total_count` `NaN` | (i) Each form is refused, and nothing raises. A fraction or an exponent gives `non-integer number`; `NaN`, `Infinity` and `-Infinity` give `non-standard constant <c>`; the 21-digit integer gives `integer out of range`; every other form gives the exact J-1 to J-5 problem of 2.3. (ii) Each is published, exit 1, with one `input` entry for `jobs list` carrying the test's sha256 and that problem, both `collection.inputs` non-null, and every served file recorded. The schema runs even when runs.json is not loaded |
+| `[TB-JREAL]` | the positive control: a jobs list in the provider's exact shape. It has 33 jobs, 32 named `Extract shard K` and one `Self-tests and controls`, each with the 23 keys of the saved lists in the API's order, and a `steps` list whose objects carry an integer `number`. Ids have 12 digits and the run id 11. One job has null `runner_id`, `runner_name` and `runner_group_id`. The list is serialized compact, with no trailing newline. (i) **unit:** the decoder, `jobs_schema` and `build_job_index` with 32 shards. (ii) **through `main`,** with the real runs.json and S1 served | (i) No problem, and an index of the 32 distinct ids. (ii) Published, exit 1 (31 shards are not served). No `input` entry for the jobs list. `expected` has 32 entries whose `job_id`s are the list's, none `undetermined`. `collection.inputs.jobs_list` has the test's digest. A genuine provider record passes the jobs-input gate |
+| `[TB-NANOUT]` | a direct collection of S1, S2 and S3 with `run_id=float("inf")`, which no input can produce | exit 4, `--out` absent, no `COLLECT PUBLISHED` line, last line `COLLECT ABORTED ValueError`. A non-finite number is never published (AR-N2) |
+| `[TB-OUTC]` | S1 with run 800's block carrying an `expected.outcome` made of `gate`, a line feed, `COLLECT FAILS`, U+2028 and `x` (a canonical block with its SHA256 line), beside S2 and S3 | HOLDS with 6 usable. Run 800's `RUN` line ends with `esc(outcome)`, no line equals `COLLECT FAILS`, and every line is printable ASCII (AR-N1) |
+| `[TB-EMIT]` | **unit:** `emit` into a buffer with a line holding a line feed, a carriage return, a form feed, U+0085, U+2028, U+2029 and U+00E9 | the buffer holds exactly one line, printable ASCII, each of those characters written as its JSON escape. The backstop is tested on its own (the review's X9) |
+
+The `…X` tests and `[TB-INVX]` publish nothing, so they cannot use harness rules 1 to 7. They assert the
+filesystem directly, as listed above. Every other new test reads its record back from disk under the harness rules.
+Each test must fail by assertion under its mutant, not by a traceback, because controls.py counts a crashed suite
+as not specific (L16's rule).
+
 **Mutants.** These are added to controls.py's `MUTANTS`, each with the exact names of the tests it must fail.
 
 | Mutant | Old behaviour restored | Must fail |
@@ -777,11 +1050,32 @@ so is `[I5]`'s if its dict changes. Both keep their names, so the existing mutan
 | L18 | the per-file catch widened from `ValueError` to `Exception` (the blanket catch the owner excluded) | `[TB-SCANX]` |
 | L19 | S10 catches a host failure (`MemoryError`, `OSError`) as an `internal` quarantine and publishes it | `[TB-SCANX]` |
 | L20 | step 1 records every `OSError` of a read as the file's `unreadable` kind, `EIO` included | `[TB-SCANX]` |
+| L21 [rev D3] | the review's X1: the decoded scan's catch widened from `SCAN_ERRORS` to `Exception`; the other two catches unchanged | `[TB-SCANXd]` |
+| L22 [rev D3] | the review's X2: the parsed readings' catch widened from `SCAN_ERRORS` to `Exception`; the other two catches unchanged | `[TB-SCANXp]` |
+| L23 [rev D3] | the review's X6: every `OSError` from `lstat` recorded as `missing`, `EIO` included (the `NAMES_NOTHING` test replaced by `True`) | `[TB-LSTATX]`, `[TB-LSTATC]` (its `EACCES` case becomes `missing`) |
+| L24 [rev D3] | the review's X7: every `OSError` from `open` recorded as `unreadable` (the re-raise after the `OWN_ACCESS + (ELOOP,)` test removed) | `[TB-OPENX]` |
+| L25 [rev D3] | the review's X14: every `OSError` while hashing a link's target swallowed, so the link is recorded with a null digest (the re-raise after the `NAMES_NOTHING + OWN_ACCESS + (ELOOP,)` test removed) | `[TB-LINKX]` |
+| L26 [rev D1] | `a77c85a5`'s order: the served arguments are inventoried only after S3 and S4 have interpreted runs.json and the jobs list, so an internal error in S3 or S4 publishes a record with no `files` entries | `[TB-INVINT]` |
+| L27 [rev D1] | an exception inside S2b that is neither a file's condition, a host failure nor an interrupt is turned into S10's `internal` quarantine, and the entries made so far are published | `[TB-INVX]` |
+| L28 [rev D1] | declared deviation (4) restored: an internal error's record keeps only the `files` entries S5 had judged, and drops the `unjudged` ones | `[TB-INVINTf]`, `[TB-INVINT]` |
+| L29 [rev D2] | the label fix: `JOBS_DECODER` admits floats again, `jobs_schema` is skipped, and `OverflowError` is added to `build_job_index`'s `except` tuple | `[TB-INVJ]` (the problem is no longer `non-integer number`), `[TB-JNUM]` (for example `"total_count": 33.0` beside 33 jobs is accepted) |
+| L30 [rev D2] | the integer schema's type and range conditions removed (J-2, J-4 and J-5 test presence only); the decoder still refuses floats | `[TB-JNUM]` |
+| L31 [rev AR-N2] | `allow_nan=False` dropped from the serialization of `collected.json` | `[TB-NANOUT]` |
+| L32 [rev AR-N1] | the review's X9: the `emit` backstop removed (the line printed as given) | `[TB-EMIT]` |
+| L33 [rev AR-N1] | a usable run's `outcome` printed raw on its `RUN` line (`a77c85a5:collect.py:956`) | `[TB-OUTC]` |
 
 The 71 existing mutants stay. If a change of code text moves an anchor, the mutant is re-anchored with the same
 meaning. A mutant whose target code is removed (the lenient `parse_served`) is replaced by its counterpart on the
 new code. Each replacement is listed by number in the implementation's change note. The 71/71 and earlier
 clean controls certify nothing about this design; only the fresh acceptance review does.
+
+[rev D3] At `a77c85a5`, `MUTANTS` holds 92 entries: the 71 and the 21 of L1-L20 with L2j. All 92 stay. Any whose
+text the correction moves is re-anchored with the same meaning and listed in the change note. L21-L33 are added,
+105 in all, 85 of them on `collect.py`. L21-L25 are independent mutants: each restores one of the review's X1, X2,
+X6, X7 and X14 alone, and L18 is not reused for any of them. The 17 new tests, `[TB-SCANXd]` to `[TB-EMIT]`, take
+the collect self-test from 162 cases to 179.
+The positive controls `[I3]`, `[TB-P0m]`, `[TB-REAL]`, `[TB-JREAL]` and controls.py's end-to-end check must keep
+holding.
 
 **Runtime budget (workflow unchanged).**
 - **The baseline.** At `09d439d0`, controls.py takes 11 min 37 s locally (review §1). The selftest step's timeout
@@ -795,6 +1089,29 @@ clean controls certify nothing about this design; only the fresh acceptance revi
   (`.github/workflows/ci-batch-extract.yml:66-71`). If it exceeds 10 minutes, the implementation stops and returns
   to the owner rather than editing the workflow. With the 21 new mutants, the design review estimates about 9
   minutes, so this stop condition may fire.
+- **This revision's cost, and two workers for the mutant phase [rev D3].**
+  - **Measured for this revision,** at `a77c85a5`, on the local host (4 cores), with a scratch timing probe. One
+    collect self-test takes 4.4 s alone. A collection of four files that aborts takes about 5 ms. One that publishes
+    takes 7 to 10 ms. One through `main` with the real runs.json takes about 25 ms. The 17 new tests make about 35
+    collections, three of them through `main` with the real runs.json. They add about 0.25 to 0.3 s to each collect
+    self-test.
+  - **The baseline.** The acceptance review measured about 490 s for the full selftest step sequence. controls.py
+    took 482 s of it, with the review's probes running alongside; the implementer reported 465 s. So a `collect.py`
+    mutant costs about 6 s inside controls.py.
+  - **Run serially, the revision would add about 115 s.** The 13 new mutants cost about 6.3 s each, about 82 s. The
+    collect suite runs 87 times (the workflow's own step, the unmutated copy and 85 mutants), each about 0.4 s
+    slower inside controls.py, about 35 s more. The total would be 580 to 605 s. That is at the 10-minute stop rule,
+    and would probably trip it.
+  - **So the correction runs controls.py's mutant phase with two workers.** At most two mutants' self-tests run at
+    a time, each in its own copy of `batchx/` and its own temporary directory under the work directory, as now.
+    The suites already isolate themselves: every self-test makes its own `mkdtemp` under `--work`, and `host.py`'s
+    local servers bind port 0. The plan check, the end-to-end check and the unmutated copy still run first, serially,
+    as now. Each mutant's result is collected and printed in `MUTANTS` order. So the output, the kill rule (every
+    named test failing by exact name, no traceback) and the table are what one worker gives. The estimated wall time
+    of the full step sequence is then 330 to 370 s.
+  - **The stop rule stands.** If the measured local wall time of the full selftest step sequence exceeds 10 minutes,
+    the correction stops and returns to the owner. A disk or timeout problem is reported as infrastructure, never as
+    a verdict. The workflow, with its 15-minute step timeout, is unchanged.
 
 ## 7. Scope and non-goals
 
@@ -822,6 +1139,63 @@ does not defend against:
 and nothing beyond it. That property is a target until the implementation and the fresh acceptance review exist.
 
 ## 8. Implementation bound
+
+**The correction after the acceptance review of `a77c85a5` [rev D1, D2, D3].** The first implementation is
+`a77c85a5`, bounded as described from "One commit" below. The correction is one commit. It is a single-parent child
+of the commit at which the design review confirms this revision, which is itself a child of `a77c85a5`, so
+`a77c85a5` is amended forward, never rewritten or deleted. It touches exactly `batchx/collect.py`,
+`batchx/controls.py` and `DESIGN.md`: `git diff --name-status <confirmed> <correction>` shows those three `M` lines
+and nothing else. Every other file is byte-identical, `TRUST-BOUNDARY.md` included. Its content:
+
+- **`batchx/collect.py`.**
+  - **The inventory (S2b).** A new `inventory(...)` calls `read_input` for `--runs`, `--run-jobs` and every
+    `--served` argument, in that order. It returns the entries of section 3 and the snapshots. `load_inputs` is split
+    in two: the inventory part moves into S2b, and the interpretation of the two snapshots stays in S3 and S4.
+    `collect()`'s direct form inventories only the served arguments.
+  - **The intake (S5).** `_take_in` takes an inventory entry and its snapshot, and runs steps 3 to 5 only.
+  - **`run_collection` and `evaluate`.** They follow the revised state machine: S2b, its checkpoint, and ABORTED
+    for every non-file exception in S2b. The `COLLECT FILE` lines are printed once, by the rule of section 3. The
+    internal record keeps the inventory and the `unjudged` statuses. The fallback in S10's handler does not catch a
+    host failure.
+  - **The jobs list.** `JOBS_DECODER` gets `parse_float=_no_float`. A new `jobs_schema` holds rules J-1 to J-5
+    (`MAX_JOBS = 1000`, `MAX_ID = 10**16 - 1`). `build_job_index` is unchanged in its rules, and its `except` tuple
+    is unchanged.
+  - **Output.** `allow_nan=False` in `write_collection`'s `json.dumps`, in `esc`, and in the `COLLECT FILE` lines.
+    `esc(outcome)` on the `RUN` line.
+  - **`self_test`.** Harness rules 1 and 5 as revised; the 17 tests of section 6; the moved `[TB-SCANX]` line
+    expectation; and a genuine-shape jobs-list fixture for `[TB-JREAL]`.
+  - **Unchanged.** `raw_named` and its patterns, byte for byte, together with `shards_named`, `shard_of`,
+    `identity`, `strip`, `runset_digest`, `read_shard`, `git_blob_id`, `collector_identity`, every pin constant,
+    `SERVED_DECODER`, `BLOCK_DECODER` and the grammar of 2.2. `read_input` and `_read_fd` are unchanged too, so the
+    inventory classifies errnos exactly as the acceptance review's injection matrix verified, and so is `emit`.
+- **`batchx/controls.py`.** L21-L33 in `MUTANTS`, with their must-fail lists; existing entries re-anchored only
+  where their text moved; the two-worker mutant phase of section 6. `plan_problems`, `FILES`, `SUITES` and
+  `end_to_end` are unchanged.
+- **`DESIGN.md`** (AGENTS.md §A.25). The changed statements are propagated:
+  - §4 "Global, in the session": every input is read and hashed before any is interpreted; the jobs list admits no
+    fraction, exponent or constant, and its consumed fields pass the integer schema; an unforeseen exception after
+    the inventory publishes the full inventory, and one during it publishes nothing.
+  - §4's `collected.json` field list: `files[*].status` can be `unjudged`, and `collection.inputs` entries carry
+    `kind`.
+  - §7: the collect self-test's 179 cases; the 105 mutants with L21-L33; the two workers.
+  - §8 "After the run": exit 4 now also covers an inventory that could not complete.
+
+**The fresh acceptance review of the correction [rev D1, D2, D3]** expects, beyond the list at the end of this
+section:
+- **AR-B1's input** (`total_count` `1e400`), and every form of `[TB-JNUM]`: an `input` rejection with the jobs
+  list's digest. Both `collection.inputs` are non-null, every served file is recorded, there is no `internal` entry,
+  and no `Infinity` appears in the record.
+- **An unforeseen exception** in S3, S4 or S5: published `internal`, with the full inventory and `unjudged` statuses.
+  The same exception inside S2b: ABORTED, nothing published.
+- **The review's injection matrix**, re-run, with the target as argument 1. Every host-failure cell (`EIO`,
+  `ENOSPC`, `EMFILE`, `ENFILE`, `ENOMEM`, `MemoryError`, `KeyboardInterrupt`) is ABORTED at every stage, the
+  link target's hashing included. Every `EACCES`/`EPERM` and `ENOENT` cell stays as the review found it. The old
+  **I** column (`TypeError`, one file of four recorded) becomes: ABORTED for `lstat`, `open`, `fstat` and `read`,
+  which are in S2b, and published `internal` with all four files recorded for every later stage.
+- **The review's X1, X2, X6, X7 and X14, re-applied:** each killed by its named test. X9 is killed by `[TB-EMIT]`.
+- **The positive controls** hold: `[I3]`, `[TB-P0m]`, `[TB-REAL]`, `[TB-JREAL]` and controls.py's end-to-end check.
+
+**The first implementation (`a77c85a5`), as bounded before this revision.**
 
 One commit, a single-parent child of the commit the design review accepts. It touches exactly these three files.
 
@@ -953,3 +1327,4 @@ section 5 adopts.
 | Per-file catch for intake-step failures (owner's option 2, after the implementation halted at `1f0b3abe`) | the unchanged `raw_named` raises `ValueError` on more than 4,300 digits after a `"job_id"` key or a shard name, before the grammar; any exception in a per-file intake step now rejects that file with its reason, records it, and lets the intake continue, so S5 still traces every argument; `[TB-SCAN]` and mutant L17 test it; the 5,000-digit `job_id` moves from `[TB-TYPE]` to `[TB-SCAN]` | 1 (malformations); 2.2 (rejection order, the reasons); 2.5 (the per-file catch); 3 ("Every path gets a code", S5, "S5 always runs"); 6 (`[TB-TYPE]`, `[TB-SCAN]`, L17, the mutant count); 8 (`evaluate`, `raw_named`, `MUTANTS`, the acceptance list); the status line |
 | Per-file catch narrowed; the boundary by stage and error kind (confirmation pass at `08b1ac45`; the owner's comments 6247145466 and 6247194704) | the catch covers only `ValueError` (with its subclasses) from the byte scan, the decoded scan and the parsed readings `shard_of` and `shards_named`, which now run in the intake; the catch-all `intake failed` reason removed; a three-class boundary: file-specific conditions (missing, non-regular, over the cap, the file's own `EACCES`/`EPERM`/`ELOOP`, grammar rejections) stay attributed rejections, recoverable scan errors are per-file rejections, and host failures (`MemoryError`, any other `OSError` such as `EIO` or `ENOSPC`, interrupts) at any step are ABORTED (exit 4), never published and never a file's rejection; S10 no longer catches host failures; other exceptions keep S10's `internal` quarantine; `names_shards` null whenever a scan raised; `candidates` qualified; the huge-integer case stated as a scan conversion failure with no fall-through; `[TB-SCAN]` gains case (d) and the `[TB-INJ]` stdout checks; `[TB-SCANX]` injects `MemoryError`, `ENOSPC` and `EIO` at the scan and at the read; mutants L18-L20; the §1 bullet moved after X3 | status line; 1 (malformations, not a regular file); 2.2 (rejection order, the reasons); 2.5 (the parsed readings, the per-file catch, the boundary table); 3 ("Every path gets a code", S5, S10, "S5 always runs"); 5 (`names_shards`, `candidates`); 6 (`[TB-SCAN]`, `[TB-SCANX]`, L17-L20, the mutant count); 8 (`evaluate`, `raw_named`, `MUTANTS`, the acceptance list) |
 | N2 wording and path errnos (confirmation pass at `3db007b3`) | §3's N2 note made consistent with 2.5: an ABORTED after S5 traces every served file, and one that a host failure ends during S5 traces the files taken in before it; a mistyped or mangled `--served` path (`ENOTDIR`, `ENAMETOOLONG` from `lstat`) is a file-specific `missing` condition, not a host failure; `[TB-MISS]` gains both cases; the status paragraph rewrapped | status paragraph; 1 (not a regular file); 2.5 (the boundary table); 3 (the N2 note); 6 (`[TB-MISS]`) |
+| Inventory first, strict jobs-list integers, five host-failure regressions (owner's comment 6247938850, D1-D3, after the acceptance review of `a77c85a5`) [rev D1, D2, D3] | D1: a new state S2b inventories every input (runs.json, the jobs list, every served argument) with 2.5 steps 1-2 before anything is interpreted; any non-file exception in S2b is ABORTED, so no incomplete inventory is published; an unforeseen exception in S3-S10 publishes the full inventory, with `unjudged` arguments; `collection.inputs` are written in S2b and gain `kind`; declared deviation (4) is withdrawn; the `COLLECT FILE` lines are printed once by a stated rule. D2: `JOBS_DECODER` refuses floats; the integer schema J-1 to J-5 runs before `build_job_index` reads any value; no `except` is widened; `allow_nan=False` on every output serialization. D3: `[TB-SCANXd]`, `[TB-SCANXp]`, `[TB-LSTATX]`, `[TB-OPENX]` and `[TB-LINKX]` with their controls, and the independent mutants L21-L25 for the review's X1, X2, X6, X7 and X14. Also: `[TB-INVJ]`, `[TB-INVINT]`, `[TB-INVINTf]`, `[TB-INVX]`, `[TB-JNUM]`, `[TB-JREAL]`, `[TB-NANOUT]`, `[TB-OUTC]` and `[TB-EMIT]`, with mutants L26-L33; AR-N1 (the `RUN` line's `outcome` escaped; X9) and AR-N2 (non-finite output) closed, AR-N3 closed for the jobs list; harness rules 1 and 5 strengthened; the `[TB-SCANX]` line expectation moved; the two-worker mutant phase for the runtime bound | status paragraph; 0 (AR-B1, AR-B2, the inventory property); 1 (the input table, served malformations, the jobs list); 2.3 (`JOBS_DECODER`, the integer schema); 2.5 (the two phases, the steps, the per-file catch, the boundary table, other exceptions, deviation (4)); 3 (exit 4, "Every path gets a code", S2b, S3, S4, S5, S10, the file lines, the `RUN` outcome, the N2 note, "S5 always runs"); 4 (`collection.inputs`); 5 (`files`, `unjudged`, strict serialization); 6 (harness rules 1 and 5, the moved `[TB-SCANX]` expectation, the new tests, L21-L33, the mutant count, the runtime budget); 8 (the correction and its acceptance list) |
