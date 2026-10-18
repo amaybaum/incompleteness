@@ -14,7 +14,8 @@
    first, so a kill is not an artefact of the copy. Two mutants run at a time, each in its own copy, and their results
    are printed in MUTANTS order. The free space under --work is read before and after each mutant: a reading under
    DISK_FLOOR makes that mutant an INFRASTRUCTURE failure of the run, never a kill or a survival; an exception in a
-   worker fails the run. A self-check shows both on simulated readings and workers. A mutation whose text is not
+   worker fails the run. A self-check shows both on simulated readings and workers, and another drives main's own tally
+   with a simulated INFRASTRUCTURE result. A mutation whose text is not
    found exactly once is itself a failure. An entry that names expected tests is killed only when every one of them fails by name and no suite
    stopped with a traceback, so the catch is shown to be that regression test's, not only an unrelated one's; the
    table printed at the end lists, for each such mutant, every test it fails.
@@ -351,6 +352,22 @@ MUTANTS = [
     ('collect.py', (('    rec, data = read_input(path)\n    rec.pop("_id")\n    meta = ', '    try:\n        rec, data = read_input(path)\n    except OSError as e:\n        rec, data = {"name": os.path.basename(path), "kind": "unreadable", "size": None, "sha256": None,\n                     "reason": "not a regular file (unreadable: %s)" % _errname(e), "_id": None}, None\n    rec.pop("_id")\n    meta = '),), None,
      "L35 (design review N3): a host failure while --runs or --run-jobs is read is recorded as that input's unreadable condition",
      ["[TB-INVHX] a host failure in S2b's read of --runs or --run-jobs (EIO, ENOSPC, MemoryError) is ABORTED (exit 4), nothing published"]),
+    # The acceptance review of de9c56a1: its surviving mutants R3, R12, X15, R5 and R6, each with its regression test.
+    ('collect.py', (('            probs = jobs_schema(jobsd)   # J-1 to J-5, before build_job_index reads any value (2.3)\n            if not probs and doc is not None:\n                index, run_id, probs = build_job_index(jobsd, head, doc["shards"])\n', '            probs = []\n            if doc is not None:\n                index, run_id, probs = build_job_index(jobsd, head, doc["shards"])\n            probs = probs or jobs_schema(jobsd)\n'),), None,
+     "L36 (acceptance review R3, note N1): the jobs schema runs after build_job_index, only when the index found no problem",
+     ['[TB-JNUMp] through main with the pinned runs.json, which builds the job index for a list the schema passes, a bool, string or out-of-range count, id or run_id and a null head_sha are refused by the schema with its exact problem, before build_job_index reads them']),
+    ('collect.py', ((' or any(type(j) is not dict for j in jobs):', ':'),), None,
+     "L37 (acceptance review R12, note N2): J-3's every-job-is-an-object check dropped",
+     ['[TB-JOBJ] a job that is not an object (a number, a string, a list, an empty list, null, a bool) is refused by J-3 with its exact problem, in the unit and through main with the pinned runs.json, never an internal error']),
+    ('collect.py', (('        except HOST_FAILURES:\n            raise\n        except Exception:  # noqa: BLE001 - a run set too malformed to list\n', '        except Exception:  # noqa: BLE001 - a run set too malformed to list\n'),), None,
+     "L38 (acceptance review X15, note N3): the S10 fallback swallows a host failure again (a77c85a5:745)",
+     ["[TB-INVINTh] a host failure (MemoryError, ENOSPC, EIO) while S10's internal handler lists the run set, after an unforeseen exception in S5, is ABORTED (exit 4), nothing published, never an internal record"]),
+    ('collect.py', (('sort_keys=True, ensure_ascii=True,\n                                         allow_nan=False))', 'sort_keys=True, ensure_ascii=True))'),), None,
+     "L39 (acceptance review R5, note N5): allow_nan=False dropped from the COLLECT FILE lines",
+     ['[TB-NANLINE] esc and the COLLECT FILE lines refuse NaN, Infinity and -Infinity (ValueError) and print nothing']),
+    ('collect.py', (('    return json.dumps(v, ensure_ascii=True, allow_nan=False)\n', '    return json.dumps(v, ensure_ascii=True)\n'),), None,
+     "L40 (acceptance review R6, note N5): allow_nan=False dropped from esc",
+     ['[TB-NANLINE] esc and the COLLECT FILE lines refuse NaN, Infinity and -Infinity (ValueError) and print nothing']),
 ]
 
 
@@ -456,6 +473,53 @@ def phase_selfcheck():
     print("  %s  [N1-WORKER] an exception in a mutant-phase worker fails the run and is never dropped; results come "
           "back in MUTANTS order" % ("ok  " if worker else "FAIL"))
     return int(not disk) + int(not worker)
+
+
+def tally_selfcheck(work):
+    """main's own tally of the mutant phase (the acceptance review's note N4), on a fresh copy of this module whose
+    main runs unchanged: the end-to-end pass, the suites, the self-checks and four mutants are simulated (no suite
+    runs), and the free-space reading after mutant 1, in the worker that ran it, is under the floor. main must report
+    that mutant INFRASTRUCTURE and nothing else, count it neither as a kill nor as a survival, and fail the run."""
+    import contextlib
+    import threading
+    m = load(os.path.abspath(__file__), "controls_tally")
+    tl = threading.local()
+
+    def fake_free(path):
+        if getattr(tl, "low", False):
+            tl.low = False
+            return 1 << 20
+        return 1 << 40
+
+    def fake_run(i, entry, base, extractor, work_):
+        tl.low = i == 1
+        return {"lines": ["  ok    mutant %02d %s: %s (exit codes [1])" % (i, entry[0], entry[3])], "killed": True,
+                "row": None}
+    m.MUTANTS = [("collect.py", "a", "b", "simulated %d" % k) for k in range(4)]
+    m.end_to_end = lambda extractor, work_: 0
+    m.selftests = lambda d, extractor, work_, outputs=None, only=None: [0, 0, 0]
+    m.phase_selfcheck = lambda: 0
+    m.tally_selfcheck = lambda work_: 0
+    m.run_mutant, m.free_bytes = fake_run, fake_free
+    buf = io.StringIO()
+    try:
+        with contextlib.redirect_stdout(buf):
+            rc = m.main(["--extractor", os.devnull, "--work", work])
+        err = None
+    except Exception as e:  # noqa: BLE001 - a crash of main is this check's failure, never the run's traceback
+        rc, err = None, type(e).__name__
+    L = buf.getvalue().split("\n")
+    m01 = [l for l in L if "mutant 01" in l]
+    ok = (err is None and rc == 1 and len(m01) == 1 and m01[0].startswith("  FAIL  mutant 01: INFRASTRUCTURE")
+          and "neither a kill nor a survival" in m01[0]
+          and all(sum(1 for l in L if l.startswith("  ok    mutant %02d " % k)) == 1 for k in (0, 2, 3))
+          and "controls: 3 of 4 mutants killed" in L and "controls: 1 failure(s)" in L
+          and any(l.startswith("controls: 1 mutant(s) not judged: INFRASTRUCTURE") for l in L))
+    print("  %s  [N4-TALLY] main reports a mutant whose free-space reading falls under the floor as INFRASTRUCTURE: it "
+          "fails the run and is counted neither as a kill nor as a survival" % ("ok  " if ok else "FAIL"))
+    if not ok:
+        print("        | exit %s, raised %s; %s" % (rc, err, [l for l in L if "mutant" in l or l.startswith("controls:")]))
+    return int(not ok)
 
 
 FAILED_CASE = re.compile(r"^  FAIL  (.*?)(?: -> .*)?$")
@@ -733,6 +797,7 @@ def main(argv=None):
         print("  %s  the unmutated copy's three self-tests pass (exit codes %s)" % ("ok  " if ok else "FAIL", rc))
         fails += not ok
         fails += phase_selfcheck()
+        fails += tally_selfcheck(work)
         results = mutant_phase(MUTANTS, lambda i, entry: run_mutant(i, entry, base, extractor, work),
                                lambda i, when: free_bytes(work), DISK_FLOOR, WORKERS)
         killed, infra, table = 0, 0, []
