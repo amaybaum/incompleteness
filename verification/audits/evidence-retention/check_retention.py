@@ -85,9 +85,23 @@ Rules:
       entry; and every item the result does not carry is a recorded gap: each partial or empty target module's
       reports, the release gate (a research build runs none, and R4 requires its result to record none), the design
       files' reports and the exact-control output; and its off-main source commit is retained under objects/ or
-      is a recorded gap, not both. While pending, it records awaiting_citation (pull request, round, record, line,
-      head) and carries no citation, and no line of the tree outside the archive may cite the run; once mapped, it
-      carries citations instead, and every line of the tree that cites the run must be one of them.
+      is a recorded gap, not both. Its citation goes through the states check_objects.py's O10 gives a pending
+      commit, judged against the tree under check, never against a pull request:
+        pending   it records awaiting_citation (pull request, round, record, the line that is to cite the run, and
+                  the record's head when the entry was cut) and carries no citation, and its record is not in the
+                  tree. This passes, and the entry counts as not cited;
+        eligible  the record is in the tree, every line of the tree outside the archive that cites the run is in
+                  it, the recorded line is one of them, and each of them states the run's head (run.json's
+                  head_sha) by O10's head rule: on it and on the line either side, every 40-digit hex word is the
+                  head, every shorter hex word (not all decimal) is a prefix of it, and the full head is among them.
+                  This passes, is printed as eligible for promotion and counts as not cited: the commit that lands
+                  the record need not change this manifest;
+        cited     a later archive commit replaces awaiting_citation with citations (R3 and R7 check them); every
+                  line of the tree that cites the run is one of them, and each states the head by the same rule;
+        failing   a line outside the record cites the run while it is pending; the record is in the tree and does
+                  not cite the run, cites it on other lines than recorded, or names another head beside it; a
+                  citing line is not mapped once cited; or the run's metadata is missing, not JSON or names no
+                  head commit (the lifecycle is not judged then, so such an entry is never eligible).
 The self-test mutates a copy once per failure message of these checks and requires that message; its R10 and R11
 cases read the repository's history, and the self-test fails, with a FAIL line, when that history or a commit
 the cases read is absent.
@@ -104,8 +118,25 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import types
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# R13's citation state of each research-build entry at the last check(): eid -> (pending | eligible | cited, lines)
+R13_STATES = {}
+_OBJECTS_RULES = None
+
+
+def objects_rules():
+    """check_objects.py, beside this file, as a module, for its head rule: O10 and R13 apply the same one. Loaded
+    from source, so no bytecode is written."""
+    global _OBJECTS_RULES
+    if _OBJECTS_RULES is None:
+        p = os.path.join(HERE, 'check_objects.py')
+        mod = types.ModuleType('check_objects_rules')
+        mod.__file__ = p
+        exec(compile(open(p, encoding='utf-8').read(), p, 'exec'), mod.__dict__)
+        _OBJECTS_RULES = mod
+    return _OBJECTS_RULES
 FIXED = {'README.md', 'manifest.json', 'check_retention.py'}
 SECRET = re.compile(r'gh[pousr]_[A-Za-z0-9]{20,}|github_pat[_]|AKIA[0-9A-Z]{16}|-{5}BEGIN|bearer [a-z0-9]'
                     r'|x-access-toke[n]|[?&](sig|signature|sv|se|token)=|passw(or)?d\s*[:=]|api[_-]?key\s*[:=]'
@@ -128,6 +159,7 @@ def inside(rel):
 def check(archive, root, scope=None):
     fails = []
     F = fails.append
+    R13_STATES.clear()
     try:
         man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     except (OSError, ValueError) as exc:
@@ -497,9 +529,9 @@ def citing_lines(root, token, archive):
 
 def check_research_entry(e, files, man, archive, root, F):
     """R13: an entry retained ahead of its citing record (a research build) is well formed and its files agree:
-    run.json, jobs.json and a research-build results.json of the job it names, at the run's head; it records where
-    it is to be cited, and no tracked file outside the archive cites the run yet (once one does, the entry carries
-    that citation instead); its run is not attested or already retained; and every item its result does not carry
+    run.json, jobs.json and a research-build results.json of the job it names, at the run's head; its citation is
+    pending, eligible or cited (research_lifecycle); its run is not attested or already retained; and every item
+    its result does not carry
     is a recorded gap: each partial or empty target module's reports, the release gate, the design files' reports,
     the exact-control output, and its off-main source commit."""
     eid, rid = e.get('id'), str(e.get('run_id'))
@@ -507,13 +539,16 @@ def check_research_entry(e, files, man, archive, root, F):
         F('R13 %s: not a research-build entry' % eid)
         return
     aw = e.get('awaiting_citation')
+    shaped = True
     if e.get('citations'):
         if aw is not None:
             F('R13 %s: carries citations and a pending citation together' % eid)
+            shaped = False
     elif not isinstance(aw, dict) or not isinstance(aw.get('pull_request'), int) or not inside(aw.get('record')) \
             or not str(aw.get('record')).endswith('.md') or not isinstance(aw.get('round'), str) or not aw['round'] \
             or not isinstance(aw.get('line'), int) or not HEX40.fullmatch(str(aw.get('head'))):
         F('R13 %s: records no pending citation naming its record, round, pull request, line and head' % eid)
+        shaped = False
     run, jobs, res = (files.get('ci/%s/%s' % (rid, n)) for n in ('run.json', 'jobs.json', 'results.json'))
     if run is None or jobs is None or res is None:
         F('R13 %s: no run.json, jobs.json or results.json' % eid)
@@ -557,12 +592,83 @@ def check_research_entry(e, files, man, archive, root, F):
     attested |= {str((x.get('provenance') or {}).get('run_id')) for x in man['entries'] if (x.get('provenance') or {}).get('run_id')}
     if rid in attested:
         F('R13 %s: run %s already has another entry' % (eid, rid))
-    # once a file outside the archive cites the run, the entry maps every such line, and a pending entry fails
-    mapped = {(c.get('path'), c.get('line')) for c in e.get('citations') or []}
-    for path, line in citing_lines(root, rid, archive):
-        if (path, line) not in mapped:
+    research_lifecycle(e, eid, rid, head if HEX40.fullmatch(str(head)) else None, aw, shaped, archive, root, F)
+
+
+def research_lifecycle(e, eid, rid, head, aw, shaped, archive, root, F):
+    """R13's citation states (pending, eligible, cited); records the state in R13_STATES, or a failure. head is
+    run.json's head_sha, or None when the run's metadata names none (a failure already reported), and then no state
+    is judged."""
+    cl = citing_lines(root, rid, archive)
+    if e.get('citations'):
+        # cited: every line that cites the run is mapped, and each mapped line states the head
+        mapped = {(c.get('path'), c.get('line')) for c in e['citations']}
+        for path, line in cl:
+            if (path, line) not in mapped:
+                F('R13 %s: run %s is now cited at %s:%d, and the entry does not map that citation' % (eid, rid, path, line))
+                return
+        if head is None or not shaped:
+            return
+        for c in e['citations']:
+            p = os.path.join(root, str(c.get('path')))
+            try:
+                L = open(p, encoding='utf-8').read().split('\n') if inside(c.get('path')) else None
+            except (OSError, UnicodeDecodeError):
+                L = None
+            ln = c.get('line')
+            if L is None or not isinstance(ln, int) or not 0 < ln <= len(L):
+                return                                  # R3 reports the missing file or line
+            r = objects_rules().head_rule(head, L, ln)
+            if r:
+                F('R13 %s: its citation at %s:%d %s' % (eid, c['path'], ln, r.replace('head', 'run head')))
+                return
+        R13_STATES[eid] = ('cited', sorted(mapped))
+        return
+    if not shaped:
+        return
+    rec = aw['record']
+    # pending: no line outside the record may cite the run
+    for path, line in cl:
+        if path != rec:
             F('R13 %s: run %s is now cited at %s:%d, and the entry does not map that citation' % (eid, rid, path, line))
-            break
+            return
+    if not os.path.isfile(os.path.join(root, rec)):
+        if head is not None:
+            R13_STATES[eid] = ('pending', None)
+        return
+    if head is None:
+        return
+    lines = [n for _, n in cl]
+    if not lines:
+        F('R13 %s: its record %s is in the tree and does not cite run %s' % (eid, rec, rid))
+        return
+    if aw['line'] not in lines:
+        F('R13 %s: its record %s cites run %s on line(s) %s, not on the recorded line %d' % (eid, rec, rid, lines,
+                                                                                            aw['line']))
+        return
+    try:
+        L = open(os.path.join(root, rec), encoding='utf-8').read().split('\n')
+    except (OSError, UnicodeDecodeError):
+        F('R13 %s: its record %s is in the tree and cannot be read' % (eid, rec))
+        return
+    for n in lines:
+        r = objects_rules().head_rule(head, L, n)
+        if r:
+            F('R13 %s: its record %s %s' % (eid, rec, r.replace('head', 'run head')))
+            return
+    R13_STATES[eid] = ('eligible', lines)
+
+
+def print_r13_states():
+    """The research-build entries' citation states; an eligible entry is listed apart and counts as not cited."""
+    if not R13_STATES:
+        return
+    n = lambda s: sum(1 for v in R13_STATES.values() if v[0] == s)
+    print('citations (R13): %d cited, %d pending (record not in the tree), %d eligible for promotion (not cited)'
+          % (n('cited'), n('pending'), n('eligible')))
+    for eid, (s, lines) in sorted(R13_STATES.items()):
+        if s != 'cited':
+            print('  %-9s %s%s' % (s, eid, '  at line(s) %s' % ','.join(map(str, lines)) if lines else ''))
 
 
 def check_tranche3(man, read_tree, F):
@@ -1023,6 +1129,7 @@ def gate(archive, root):
     man = json.load(open(os.path.join(archive, 'manifest.json'), encoding='utf-8'))
     fails, st11 = history_mode(archive, root, man)
     print_unscoped(st11)
+    print_r13_states()
     for f in fails:
         print('FAIL  %s' % f)
     st = self_test(archive, root)
@@ -1057,6 +1164,7 @@ def report(archive, root):
                                               k['line'], k['text'], ': ' + k['note'] if k.get('note') else ''))
     for c in man.get('coverage', {}).get('later', []):
         print('LATER  %s: %s (declared; --later-provenance checks it against git history)' % (c.get('path'), c.get('evidence')))
+    print_r13_states()
     for f in fails:
         print('FAIL  %s' % f)
     print('RETENTION  %s (%d failure(s), %d gap(s))' % ('HOLDS' if not fails else 'FAILS', len(fails), len(gaps)))
@@ -1169,6 +1277,9 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
            edit(lambda m: m['entries'][i].pop('awaiting_citation')), back, 'R7', 'no citations')
     expect('a research entry whose pending citation names no pull request',
            edit(lambda m: m['entries'][i]['awaiting_citation'].__setitem__('pull_request', 'x')), back, 'R13', 'no pending citation')
+    expect('a research entry that carries citations and a pending citation together', edit(
+        lambda m: m['entries'][i].__setitem__('citations', [{'path': 'x.md', 'line': 1, 'blob': '0' * 40, 'tokens': [rid],
+                                                             'claims': []}])), back, 'R13', 'a pending citation together')
     expect('a research entry whose id is not its run', edit(lambda m: m['entries'][i].__setitem__('id', 'research-1')), back,
            'R13', 'not a research-build entry')
     expect('a research entry without results.json', edit(lambda m: m['entries'][i].__setitem__(
@@ -1208,13 +1319,27 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
            lambda: os.remove(cite), 'R13', 'is now cited at verification/ZZ-CITES.md')
     expect('a pending citation that names no round', edit(lambda m: m['entries'][i]['awaiting_citation'].pop('round')),
            back, 'R13', 'no pending citation naming its record, round')
-    # the intended record lands on main citing the run: the entry fails until its citation is mapped, and passes once
-    # it is; a mapping that leaves a citing line out still fails
-    rec = e['awaiting_citation']['record']
+    # the citation lifecycle, on a stand-in for the record laid out as PRESERVE-INDUCT-1's is: the run's head in full
+    # on the line before the recorded line, the run on the recorded line. Pending while the record is absent,
+    # eligible (and not cited) once it lands, cited once mapped; a wrong head or run, a line elsewhere, an unmapped
+    # line, or the record removed after the mapping fails.
+    aw = e['awaiting_citation']
+    rec, at = aw['record'], aw['line']
     rpath = os.path.join(troot, rec)
-    text = '# a stand-in for %s as it lands on main\n\nThe design compiled at the source, workflow run\n%s.\n' % (
-        e['awaiting_citation']['round'], rid)
-    two = text + 'Run %s again.\n' % rid
+    head = json.load(open(P('run.json'), encoding='utf-8'))['head_sha']
+    other = hashlib.sha1(b'another head ' + head.encode()).hexdigest()
+    # every research entry pending on the same record: its run's head on the line before its recorded line
+    same = [(x['run_id'], json.load(open(os.path.join(tarch, 'ci', x['run_id'], 'run.json'), encoding='utf-8'))['head_sha'],
+             x['awaiting_citation']['line']) for x in ents if (x.get('awaiting_citation') or {}).get('record') == rec]
+
+    def record(h=head, r=rid, extra=''):
+        L = ['# a stand-in for %s as it lands on main' % aw['round']] + [''] * (max(n for _, _, n in same) - 1)
+        for run_, h_, n in same:
+            if run_ == rid:
+                h_, run_ = h, r
+            L[n - 2] = 'The design compiled at `%s`, workflow run' % h_
+            L[n - 1] = '[%s](runs/%s).' % (run_, run_)
+        return '\n'.join(L) + '\n' + extra
 
     def land(t):
         def go():
@@ -1238,19 +1363,45 @@ def r13_cases(man, ents, rs, troot, tarch, expect, edit, back, json_edit, file_e
                                            'note': 'results.json names the run'}]} for n in lines]
             assert all(rid in L[n - 1] for n in lines)
         return fn
-    n1 = text.split('\n').index('%s.' % rid) + 1
-    expect('the intended record lands on main citing the run, the entry still pending', land(text), unland, 'R13',
-           'is now cited at %s:%d' % (rec, n1))
 
     def land_and_map(t, lines):
         def go():
             land(t)()
             edit(mapped(t, lines))()
         return go
-    expect('the intended record lands and the entry maps its citation', land_and_map(text, [n1]),
-           lambda: (unland(), back()))
-    expect('the record cites the run on two lines and the entry maps one', land_and_map(two, [n1]),
-           lambda: (unland(), back()), 'R13', 'is now cited at %s:%d' % (rec, n1 + 1))
+    unmap = lambda: (unland(), back())
+    good = record()
+    assert good.split('\n')[at - 1].startswith('[%s]' % rid)
+    expect('lifecycle (a): the intended record not in the tree, the entry pending', lambda: None, lambda: None,
+           state=(eid, 'pending'))
+    expect('lifecycle (b): the intended record lands citing the run and its head, the manifest unchanged (eligible)',
+           land(good), unland, state=(eid, 'eligible'))
+    expect('lifecycle (c): the entry maps the record\'s citing line (cited)', land_and_map(good, [at]), unmap,
+           state=(eid, 'cited'))
+    expect('lifecycle (d): the intended record lands naming another head beside the run', land(record(h=other)), unland,
+           'R13', 'names another run head beside the run')
+    expect('lifecycle (d): the intended record lands citing another run', land(record(r='1' + rid)), unland, 'R13',
+           'is in the tree and does not cite run %s' % rid)
+    expect('lifecycle (e): the record removed while the entry maps it', edit(mapped(good, [at])), back, 'R3',
+           'citing file %s missing' % rec)
+    expect('the intended record lands citing the run without its head', land(
+        good.replace('The design compiled at `%s`, workflow run' % head, 'The design compiled at the source, workflow run')),
+           unland, 'R13', 'does not state the full id beside the run')
+    expect('the intended record lands with the head mistyped after digit 10', land(record(
+        h=head[:10] + ''.join('1' if c == '0' else '0' for c in head[10:18]) + head[18:])), unland, 'R13',
+           'names another run head beside the run')
+    expect('the intended record lands citing the run on another line than recorded', land('\n' + good), unland, 'R13',
+           'not on the recorded line %d' % at)
+    expect('the intended record lands, and another file also cites the run', lambda: (land(good)(), open(
+        os.path.join(troot, 'verification', 'ZZ-CITES.md'), 'w').write('run %s\n' % rid)),
+           lambda: (unland(), os.remove(os.path.join(troot, 'verification', 'ZZ-CITES.md'))), 'R13',
+           'is now cited at verification/ZZ-CITES.md')
+    expect('a mapped citation whose line names another head', land_and_map(record(h=other), [at]), unmap, 'R13',
+           'names another run head beside the run')
+    expect('the record cites the run on two lines and the entry maps one', land_and_map(good + 'Run %s again.\n' % rid, [at]),
+           unmap, 'R13', 'is now cited at %s:%d' % (rec, good.count('\n') + 1))
+    expect('a research run.json that names no head commit', *json_edit(P('run.json'), lambda d: d.pop('head_sha')),
+           rule='R13', msg='another run, head commit or attempt')
 
 
 def self_test(archive, root):
@@ -1271,12 +1422,17 @@ def self_test(archive, root):
         mp = os.path.join(tarch, 'manifest.json')
         morig = open(mp, 'rb').read()
 
-        def expect(name, mutate, restore, rule=None, msg=''):
+        def expect(name, mutate, restore, rule=None, msg='', state=None):
             nonlocal ok
             mutate()
             fails, _ = check(tarch, troot)
             restore()
             good = (not fails) if rule is None else any(f.startswith(rule + ' ') and msg in f for f in fails)
+            if state is not None:
+                # (entry id, state): the entry's R13 citation state after the check
+                good = good and R13_STATES.get(state[0], ('none',))[0] == state[1]
+                if not good:
+                    fails = fails + ['R13 state %s, not %s' % (R13_STATES.get(state[0], ('none',))[0], state[1])]
             ok &= good
             print('%s self: %s%s' % ('PASS' if good else 'FAIL', name, '' if rule is None else ' (%s)' % rule))
             if not good:
