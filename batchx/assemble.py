@@ -22,12 +22,14 @@ a red run is recorded as red.
 Per-run verdict, fail closed:
   HOLDS       every input present and matching its record; the log complete, of this job, at this head, in a
               known format; every step's conclusion consistent with its section of the log; the result printed.
-  FAILS       the evidence is present and contradicts itself or the pinned run set: another head, a step that
+  FAILS       the evidence is present and contradicts itself or the pinned run set: another head, an attempt-1
+              run conclusion other than the pinned one, a step that
               succeeded with no build line or gate verdict, a build line under a failed step, a gate verdict at odds
               with its steps, a job conclusion at odds with its steps, a credential-shaped string in the result.
   UNVERIFIED  an input is absent, unreadable or unread (expired or missing log, rate-limit reserve, malformed
-              record, truncated log), the format is not recognized, a step failed without a located cause, or the
-              block would pass the shard's line budget.
+              record, truncated log, a read the host step never completed), the format is not recognized (two
+              gate blocks in one gate section among them), a step failed without a located cause, or the block would
+              pass the shard's line budget.
 Shard verdict, the last line: EXTRACT SHARD K/N HOLDS (exit 0) only when the runs are exactly shard K's runs of the
 pinned file, each once, each with an explicit HOLDS; FAILS (exit 1) when any run FAILS; UNVERIFIED (exit 2)
 otherwise. A run's block is printed only when that run HOLDS, between
@@ -304,6 +306,8 @@ def unread_reason(what, rec):
     st, status = rec.get("stage"), rec.get("http_status")
     if st == "rate-limit-reserve":
         return "%s not read: the rate-limit reserve was reached" % what
+    if st in ("not-reached", "started"):
+        return "%s not read: the host step stopped before it completed (stage %s)" % (what, st)
     if what == "log" and status in (404, 410):
         return "log not available (HTTP %d): expired or deleted" % status
     return "%s not read: stage %s, %s%s" % (what, st, rec.get("error_type"), (", HTTP %s" % status) if status else "")
@@ -362,6 +366,8 @@ def assemble_run(cfg, ex, inputs, fetch):
       and run["path"] == WORKFLOW,
       "id=%s head=%s event=%s attempt=%s path=%s" % (run["id"], run["head_sha"][:12], event, run["run_attempt"],
                                                      run["path"]))
+    C("run: the attempt-1 conclusion is the pinned %s" % cfg.get("run_conclusion"),
+      run["conclusion"] == cfg.get("run_conclusion"), str(run["conclusion"]))
     jobs = jobsd["jobs"]
     C("jobs: the list is complete, each job once", jobs and len(jobs) == jobsd["total_count"]
       and len({j["id"] for j in jobs}) == len(jobs), "%d of %d" % (len(jobs), jobsd["total_count"]))
@@ -434,6 +440,11 @@ def assemble_run(cfg, ex, inputs, fetch):
     empty = {"build": None, "gate": None, "reports": {}, "markers": {k_: 0 for k_ in MARKER_KEYS}}
     bx = ex.extract("\n".join(lg.raw[b0:b1])) if STEP_BUILD in sec else empty
     gx = ex.extract("\n".join(lg.raw[g0:g1])) if STEP_GATE in sec else empty
+    nblocks = sum(1 for i in range(g0, g1) if lg.s[i] == "release gate") if STEP_GATE in sec else 0
+    if nblocks > 1:
+        C.need("gate: at most one gate block in the gate section", False,
+               "%d found; the extractor would keep the last, so none is taken" % nblocks)
+        return C, None
     if any(r.get("unclosed") for x in (bx, gx) for reps in (x.get("reports") or {}).values() for r in reps):
         C.need("reports: every axiom list closes", False, "an unclosed list makes the section's reading unreliable")
         return C, None
@@ -586,6 +597,7 @@ def assemble_run(cfg, ex, inputs, fetch):
             "log": {"job_id": jid, "bytes": lg.bytes, "lines": lg.lines_n, "byte_order_mark": lg.bom,
                     "carriage_returns": lg.cr},
             "source_sha256": lg.sha256,
+            "runs_sha256": RUNS_SHA256,
         },
         "reproduce": {
             "compared": "for outcome gate-verdict, compare_result.py compares build success, the gate's steps and "
@@ -689,8 +701,9 @@ def assemble_shard(ex, doc, shard, inputs, xc, out=None, budget=LINE_BUDGET, run
     exp = [r for r in doc["runs"] if r["shard"] == shard]
     expected_ids = [r["run_id"] for r in exp] if expected_ids is None else expected_ids
     runs = exp if runs is None else runs
-    P("BATCH ci-batch-extract shard %d/%s: assembler %s, host reader %s, extract_result %s at %s"
-      % (shard, nsh, own_blob("assemble.py")[:12], own_blob("host.py")[:12], EXTRACT_RESULT_BLOB[:12], MAIN_COMMIT[:12]))
+    P("BATCH ci-batch-extract shard %d/%s: assembler %s, host reader %s, extract_result %s at %s, runs.json %s"
+      % (shard, nsh, own_blob("assemble.py")[:12], own_blob("host.py")[:12], EXTRACT_RESULT_BLOB[:12], MAIN_COMMIT[:12],
+         RUNS_SHA256[:12]))
     P("BATCH SHARD %d/%s RUNSET %s RUNS %d" % (shard, nsh, runset_digest(expected_ids), len(expected_ids)))
     try:
         fetch = load_json(inputs["fetch_record"])
@@ -838,6 +851,9 @@ def _bridge_lines(cfg, variant=0, mut=None):
         L += ["TIMING lake-exe-cache-get %ds" % (86 + variant), "TIMING lake-rehash-build %ds" % (23 + variant)]
     if mut.get("gate_section", True):
         L += [HDR_GATE, "\x1b[36;1mpython3 tools/release_gate.py\x1b[0m", "shell: /usr/bin/bash -e {0}", "##[endgroup]"]
+        if mut.get("double_gate"):
+            L += ["release gate", "=" * 20, "  FAIL  voice            voice_check: FAIL (fixture)", "=" * 20,
+                  "release gate: FAILED -> voice"]
         if mut.get("gate_block", True):
             L += ["release gate", "=" * 20]
             steps = list(GATE_FIXTURE) + mut.get("gate_extra_steps", [])
@@ -868,13 +884,13 @@ def _bridge_lines(cfg, variant=0, mut=None):
 
 
 FIXTURE_RUNS = [
-    {"run_id": "901", "bridge_job_id": "9101", "head_sha": "1" * 40, "event": "workflow_dispatch", "shard": 1,
+    {"run_id": "901", "run_conclusion": "success", "bridge_job_id": "9101", "head_sha": "1" * 40, "event": "workflow_dispatch", "shard": 1,
      "bridge_conclusion": "success", "expires": "2026-12-21"},
-    {"run_id": "902", "bridge_job_id": "9102", "head_sha": "2" * 40, "event": "pull_request", "shard": 1,
+    {"run_id": "902", "run_conclusion": "success", "bridge_job_id": "9102", "head_sha": "2" * 40, "event": "pull_request", "shard": 1,
      "bridge_conclusion": "success", "expires": "2026-12-22"},
-    {"run_id": "903", "bridge_job_id": "9103", "head_sha": "3" * 40, "event": "workflow_dispatch", "shard": 1,
+    {"run_id": "903", "run_conclusion": "failure", "bridge_job_id": "9103", "head_sha": "3" * 40, "event": "workflow_dispatch", "shard": 1,
      "bridge_conclusion": "failure", "expires": "2026-12-22"},
-    {"run_id": "904", "bridge_job_id": "9104", "head_sha": "4" * 40, "event": "push", "shard": 2,
+    {"run_id": "904", "run_conclusion": "success", "bridge_job_id": "9104", "head_sha": "4" * 40, "event": "push", "shard": 2,
      "bridge_conclusion": "success", "expires": "2026-12-23"},
 ]
 # 903 is a build failure by default.
@@ -889,7 +905,10 @@ def _fixture(base, variant=0, mut=None, runs=FIXTURE_RUNS):
     fetch = {"shard": 1, "runs": {}}
     runs = copy.deepcopy(runs)
     for r in runs:
-        r.update(mut.get("cfg", {}).get(r["run_id"], {}))
+        upd = mut.get("cfg", {}).get(r["run_id"], {})
+        r.update(upd)
+        if "bridge_conclusion" in upd and "run_conclusion" not in upd:
+            r["run_conclusion"] = upd["bridge_conclusion"]
     xc = {"jobs": {}}
     for cfg in runs:
         if cfg["shard"] != 1:
@@ -1026,6 +1045,9 @@ def self_test(extractor_path, work=None, pinned=True):
         chk("the module digest is sha256 of the canonical report lines",
             r1["expected"]["axiom_reports"]["OIBridge/B.lean"].endswith(hashlib.sha256(
                 b"7\tOIBridge.B.u\tpropext\n9\tOIBridge.B.v\t(none)\n").hexdigest()))
+        chk("each result names runs.json's pinned sha256 and the banner its prefix",
+            all(json.loads(x)["source"]["runs_sha256"] == RUNS_SHA256 for x in b0.values())
+            and ("runs.json %s" % RUNS_SHA256[:12]) in t0.split("\n")[0])
         chk("CROSSCHECK lines say equal for logs matching the session's observation",
             t0.count("CROSSCHECK job") == 3 and "DIFFER" not in t0)
 
@@ -1095,6 +1117,16 @@ def self_test(extractor_path, work=None, pinned=True):
         run_case("a failed gate step without a verdict is UNVERIFIED",
                  {A: {"gate_block": False, "step_conclusions": {STEP_GATE: "failure"}, "job_conclusion": "failure"},
                   "cfg": {A: {"bridge_conclusion": "failure"}}}, U, {A: U}, "printed a verdict")
+        run_case("two gate blocks in one gate section (FAILED, then PASS) are UNVERIFIED; the last is not taken",
+                 {A: {"double_gate": True}}, U, {A: U}, "UNVERIFIED gate: at most one gate block in the gate section")
+        run_case("a run's attempt-1 conclusion other than the pinned one FAILS", {A: {"run_conclusion": "failure"}}, F,
+                 {A: F}, "FAIL run: the attempt-1 conclusion is the pinned success")
+        run_case("a pinned conclusion of another value FAILS", {"cfg": {A: {"run_conclusion": "cancelled"}}}, F, {A: F},
+                 "FAIL run: the attempt-1 conclusion is the pinned cancelled")
+        run_case("a run the host step never reached (stopped by a timeout) is UNVERIFIED and named",
+                 {A: {"drop_log": True, "fetch_edits": [lambda r: [r[k].update(outcome="failed", stage="not-reached")
+                                                                   for k in ("run", "jobs", "log")]]}},
+                 U, {A: U, "902": "HOLDS"}, "run not read: the host step stopped before it completed (stage not-reached)")
         run_case("a PASS verdict with a FAIL step FAILS", {A: {"gate_fail_step": "voice", "gate_verdict": "PASS"}}, F,
                  {A: F}, "FAIL gate: a PASS verdict has no FAIL step")
         run_case("a gate step line repeated FAILS", {A: {"gate_extra_steps": ["voice"]}}, F, {A: F},

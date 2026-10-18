@@ -11,6 +11,9 @@ shard K, in the file's order, it saves into DIR:
                    {"total_count": N, "jobs": [...], "pages": k}
   logs/<job>.log   the pinned bridge job's log: GET .../actions/jobs/<job>/logs, then its redirect target
 and one record, DIR/fetch-record.json, holding for every run of the shard the outcome of each of the three reads.
+The record is written before the first read, every read pre-filled as "not-reached", and replaced atomically after
+each read (a log's entry reads "started" while it downloads), so a step stopped by its timeout keeps every completed
+read on disk and names every other one; the assembler reads a read that is not "ok" as UNVERIFIED.
 
 Adapted from extractor/download_job_logs.py and extractor/fetch_records.py of tmp/ktoken-evidence-20261017 at
 0d94937d. Every URL is checked before anything is sent: it must be one of the endpoints built from the shard's
@@ -324,26 +327,50 @@ def fetch_shard(doc, shard, out, token, t=None, outp=None):
         shard, len(runs), core.get("remaining"), core.get("limit"), rrec["outcome"]), file=outp)
     if isinstance(core.get("remaining"), int):
         t.remaining = core["remaining"]
-    record = {"shard": shard, "runs": {}}
+    # The record is on disk from the start, every read pre-filled as not reached, and rewritten (atomically) after
+    # each read, so a step stopped by its timeout leaves every completed read recorded and every other one named.
+    rec_path = os.path.join(out, "fetch-record.json")
+    if os.path.lexists(rec_path):
+        raise RefusedExists()
+    nr = {"outcome": "failed", "stage": "not-reached", "error_type": None, "http_status": None}
+    record = {"shard": shard, "runs": {r["run_id"]: {"run": dict(nr), "jobs": dict(nr),
+                                                     "log": dict(nr, job_id=r["bridge_job_id"])} for r in runs}}
+    write_record(rec_path, record)
+
+    def note(rid, what, rec):
+        record["runs"][rid][what] = rec
+        write_record(rec_path, record)  # every read is on disk as soon as it is done
+
     for r in runs:
         rid, jid = r["run_id"], r["bridge_job_id"]
         run, rec_run = get_json("/repos/%s/actions/runs/%s/attempts/1" % (REPO, rid), token, t)
         if run is not None:
             save(out, "run-%s.json" % rid, run)
+        note(rid, "run", rec_run)
         jobs, rec_jobs = fetch_jobs(rid, token, t)
         if jobs is not None:
             save(out, "jobs-%s.json" % rid, jobs)
+        note(rid, "jobs", rec_jobs)
+        note(rid, "log", dict(nr, job_id=jid, stage="started"))
         rec_log = download_log(jid, token, os.path.join(out, "logs", jid + ".log"), t)
-        record["runs"][rid] = {"run": rec_run, "jobs": rec_jobs, "log": rec_log}
+        note(rid, "log", rec_log)
         print("host run %s job %s: run %s, jobs %s, log %s%s" % (
             rid, jid, _brief(rec_run), _brief(rec_jobs), _brief(rec_log),
             (" bytes=%d lines=%d sha256=%s" % (rec_log["bytes"], rec_log["lines"], rec_log["sha256"]))
             if rec_log["outcome"] == "ok" else ""), file=outp)
     print("host shard %d: rate_limit remaining after=%s" % (shard, t.remaining), file=outp)
-    with open(os.path.join(out, "fetch-record.json"), "x", encoding="utf-8") as f:
+    return all(all(x["outcome"] == "ok" for x in v.values()) for v in record["runs"].values())
+
+
+def write_record(path, record):
+    """Replace the record atomically: a reader, or a step killed mid-write, sees the old or the new, never a part."""
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
         json.dump(record, f, indent=1, sort_keys=True)
         f.write("\n")
-    return all(all(x["outcome"] == "ok" for x in v.values()) for v in record["runs"].values())
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
 
 
 def _brief(rec):
@@ -488,8 +515,11 @@ def _self_test(base):
     case("a runs file repeating a run is refused", ok)
 
     # --- a whole shard against local servers
+    class _Killed(BaseException):
+        """Stands in for the step's timeout: nothing in host.py catches it."""
+
     def run_shard(api_fn, storage_fn, runs=fx, shard=1, cap=None, reserve=10, timeout=5.0, deadline=10.0,
-                  use_token=token, allow_http_link=True):
+                  use_token=token, allow_http_link=True, kill_job=None):
         storage = _Server(storage_fn)
         link = storage.base + secret_path + "?" + secret_query
         api = _Server(lambda h, st, stop: api_fn(h, st, stop, link))
@@ -499,8 +529,20 @@ def _self_test(base):
                        cap=cap if cap is not None else 2 * len(body), reserve=reserve)
         out = tempfile.mkdtemp(dir=base)
         buf = io.StringIO()
-        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
-            ok = fetch_shard({"runs": runs}, shard, out, use_token, tt, outp=buf)
+        real = globals()["download_log"]
+
+        def killing(job_id, *a, **k):
+            if job_id == kill_job:
+                raise _Killed()
+            return real(job_id, *a, **k)
+        globals()["download_log"] = killing
+        try:
+            with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+                ok = fetch_shard({"runs": runs}, shard, out, use_token, tt, outp=buf)
+        except _Killed:
+            ok = "killed"
+        finally:
+            globals()["download_log"] = real
         api.close()
         storage.close()
         blob = b""
@@ -554,6 +596,19 @@ def _self_test(base):
     case("the rate limit is read once and printed as numbers only",
          sum(1 for r in a["requests"] if r["path"] == "/rate_limit") == 1 and "remaining=4000 limit=1000" in text)
 
+    ok, rec, a, s, out, leak, text = run_shard(api_ok(), serve, kill_job="9102")
+    r1, r2 = rec["runs"]["9001"], rec["runs"]["9002"]
+    case("a step stopped during run 9002's log keeps run 9001's reads and run 9002's run and jobs reads on disk",
+         ok == "killed" and all(r1[k]["outcome"] == "ok" for k in ("run", "jobs", "log"))
+         and r2["run"]["outcome"] == "ok" and r2["jobs"]["outcome"] == "ok"
+         and os.path.exists(os.path.join(out, "logs", "9101.log")))
+    case("  ... and names run 9002's log as started, not read, with no partial record file left",
+         r2["log"]["outcome"] == "failed" and r2["log"]["stage"] == "started"
+         and not os.path.exists(os.path.join(out, "fetch-record.json.tmp")))
+    ok, rec, a, s, out, leak, text = run_shard(api_ok(), serve, runs=fx, kill_job="9101")
+    case("a step stopped at the first log leaves the later run pre-filled as not reached",
+         ok == "killed" and rec["runs"]["9002"]["run"]["stage"] == "not-reached"
+         and rec["runs"]["9002"]["log"]["stage"] == "not-reached" and rec["runs"]["9002"]["log"]["job_id"] == "9102")
     ok, rec, a, s, out, leak, text = run_shard(api_ok(log_code=410), serve)
     case("an expired log (HTTP 410) is recorded with its status, the run named, no file kept",
          not ok and rec["runs"]["9001"]["log"]["http_status"] == 410 and rec["runs"]["9001"]["log"]["outcome"] == "failed"

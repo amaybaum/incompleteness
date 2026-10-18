@@ -71,7 +71,22 @@ MUTANTS = [
     ("collect.py", "    if len(raw) != orig:", "    if False:", "a served tail is accepted"),
     ("collect.py", 'sm.group(2) != hashlib.sha256(body.encode("utf-8")).hexdigest()', "False",
      "a block's digest is not checked"),
-    ("collect.py", "if k is not None and k in shards:", "if False:", "a shard is collected twice"),
+    ("collect.py", "if len({identity(o) for _, o, _ in copies}) > 1:", "if False:",
+     "note 2: copies that differ are not detected, and the first by name is taken"),
+    ("collect.py", "enumerate(L)) if m]\n    want", "enumerate(L) if i >= len(L) - 30) if m]\n    want",
+     "note 1: the verdict line is looked for only in the last 30 lines"),
+    ("collect.py", "    if len(vs) != 1:\n", "    if not vs:\n", "note 1: a second verdict line is allowed"),
+    ("collect.py", "    elif vs[0][0] <= last:\n", "    elif False:\n", "note 1: a verdict line before the last block is allowed"),
+    ("collect.py", "    if job_index.get(k) != job:\n", "    if False:\n", "note 3: the served job id is not checked"),
+    ("collect.py", "        elif not pins:\n", "        elif False:\n", "note 3: the blobs a result names are not checked"),
+    ("collect.py", "if len(ab) != 1 or ab[0].groups() != (str(k)", "if len(ab) > 1 and ab[0].groups() != (str(k)",
+     "note 3: the banner's blobs are not checked"),
+    ("collect.py", "    if orig >= MAX_LINES:\n", "    if False:\n", "note 4: a log of 5,000 lines or more is accepted"),
+    ("assemble.py", "    if nblocks > 1:\n", "    if False:\n", "note 5: of two gate blocks the last is taken"),
+    ("assemble.py", 'run["conclusion"] == cfg.get("run_conclusion"), str(run["conclusion"]))',
+     'True, str(run["conclusion"]))', "note 6: the pinned run conclusion is not compared"),
+    ("host.py", "        write_record(rec_path, record)  # every read is on disk as soon as it is done\n", "        pass\n",
+     "note 7: the fetch record is not written after each read"),
     ("collect.py", 'if res.get(rid) != "HOLDS":', "if False:", "a block of a run that does not hold is taken"),
 ]
 
@@ -97,25 +112,37 @@ def end_to_end(extractor, work):
     ex = A.load_extractor(extractor)
     base = tempfile.mkdtemp(prefix="controls-e2e-", dir=work)
     try:
-        inputs, doc, xc = A._fixture(os.path.join(base, "f"), 0, {})
-        buf = io.StringIO()
-        code = A.run_all(ex, doc, 1, inputs, xc, out=buf)
-        out = buf.getvalue()
-        printed = dict(A._blocks(out))
-        lines = ["Current runner version: '2.337.0'", "##[group]Run python3 -I batchx/assemble.py", "##[endgroup]"] \
-            + out.rstrip("\n").split("\n") + ["Post job cleanup.", "Cleaning up orphan processes"]
-        text = "\n".join("2026-12-01T10:%02d:%02d.1234567Z %s" % (i // 60 % 60, i % 60, l) for i, l in enumerate(lines))
-        served = json.dumps({"job_id": 1, "logs_content": text, "original_length": len(lines)})
-        k, probs, res = K.read_shard(served, doc)
+        def serve(mut, red):
+            inputs, doc, xc = A._fixture(os.path.join(base, "f%d" % len(os.listdir(base))), 0, mut)
+            buf = io.StringIO()
+            code = A.run_all(ex, doc, 1, inputs, xc, out=buf)
+            out = buf.getvalue()
+            # the runner's own lines after the verdict, as a real shard log has them: two post-checkout blocks of
+            # 12 lines, the orphan cleanup and the Node.js warning, and the exit annotation when the shard is red
+            after = (["##[error]Process completed with exit code %d." % code] if red else []) + \
+                (["Post job cleanup.", "[command]/usr/bin/git version"] + ["[command]/usr/bin/git config --local x"] * 10) * 2 \
+                + ["Cleaning up orphan processes", "##[warning]Node.js 20 is deprecated."]
+            lines = ["Current runner version: '2.337.0'", "##[group]Run python3 -I batchx/assemble.py", "##[endgroup]"] \
+                + out.rstrip("\n").split("\n") + after
+            text = "\n".join("2026-12-01T10:%02d:%02d.1234567Z %s" % (i // 60 % 60, i % 60, l) for i, l in enumerate(lines))
+            return code, dict(A._blocks(out)), doc, text, len(lines)
+
+        code, printed, doc, text, nl = serve({}, False)
+        k, probs, res = K.read_shard({"job_id": 1, "logs_content": text, "original_length": nl}, doc, {1: 1})
         ok = code == 0 and k == 1 and not probs and sorted(res) == ["901", "902", "903"] and all(
             v == "HOLDS" and body == printed[rid] for rid, (v, body) in res.items())
-        print("  %s  assemble.py's real output, served whole, is collected: 3 runs, blocks byte-identical%s"
-              % ("ok  " if ok else "FAIL", "" if ok else " -- %s %s" % (code, probs[:3])))
-        tail = json.dumps({"job_id": 1, "logs_content": "\n".join(text.split("\n")[5:]), "original_length": len(lines)})
-        k2, probs2, _ = K.read_shard(tail, doc)
+        print("  %s  assemble.py's real output, served whole with 26 runner lines after it, is collected: 3 runs, "
+              "blocks byte-identical, the pinned blobs named%s" % ("ok  " if ok else "FAIL", "" if ok else " -- %s %s" % (code, probs[:3])))
+        k2, probs2, _ = K.read_shard({"job_id": 1, "logs_content": "\n".join(text.split("\n")[5:]), "original_length": nl},
+                                     doc, {1: 1})
         ok2 = k2 is None and probs2 and "not whole" in probs2[0]
         print("  %s  the same output served as a tail is refused" % ("ok  " if ok2 else "FAIL"))
-        return int(not ok) + int(not ok2)
+        code3, printed3, doc3, text3, nl3 = serve({"901": {"head": "f" * 40}}, True)
+        k3, probs3, res3 = K.read_shard({"job_id": 1, "logs_content": text3, "original_length": nl3}, doc3, {1: 1})
+        ok3 = code3 == 1 and k3 == 1 and not probs3 and res3["901"][0] == "FAILS" and res3["902"] == ("HOLDS", printed3["902"])
+        print("  %s  a red shard's real output, with its exit annotation and runner lines after the verdict, is read: "
+              "its FAILS run named, its holding runs collected%s" % ("ok  " if ok3 else "FAIL", "" if ok3 else " -- %s" % probs3[:3]))
+        return int(not ok) + int(not ok2) + int(not ok3)
     finally:
         shutil.rmtree(base, ignore_errors=True)
 
@@ -145,6 +172,10 @@ def plan_problems(wf, runs_text, scripts, xc_text):
             P.append("%s does not pin runs.json's sha256" % name)
     if not re.search(r'^CROSSCHECK_SHA256 = "%s"$' % hashlib.sha256(xc_text.encode()).hexdigest(), scripts["assemble.py"], re.M):
         P.append("assemble.py does not pin crosscheck.json's sha256")
+    for const, name in (("ASSEMBLER_BLOB", "assemble.py"), ("HOST_BLOB", "host.py")):
+        blob = hashlib.sha1(b"blob %d\0" % len(scripts[name].encode()) + scripts[name].encode()).hexdigest()
+        if not re.search(r'^%s = "%s"$' % (const, blob), scripts["collect.py"], re.M):
+            P.append("collect.py's %s is not %s's blob %s" % (const, name, blob[:12]))
     m = re.findall(r"^\s+shard: \[([0-9, ]+)\]$", wf, re.M)
     if len(m) != 1 or [int(x) for x in m[0].split(",")] != list(range(1, doc["shards"] + 1)):
         P.append("workflow: the matrix does not list exactly shards 1..%d" % doc["shards"])
@@ -214,6 +245,10 @@ def plan(path):
     s2 = dict(scripts, **{"collect.py": scripts["collect.py"].replace("RUNS_SHA256 = \"", "RUNS_SHA256 = \"0", 1)})
     caught = bool(plan_problems(wf, runs_text, s2, xc_text))
     print("  %s  plan negative control: a script pinning another runs.json is caught" % ("ok  " if caught else "FAIL"))
+    fails += not caught
+    s3 = dict(scripts, **{"assemble.py": scripts["assemble.py"] + "\n"})
+    caught = bool(plan_problems(wf, runs_text, s3, xc_text))
+    print("  %s  plan negative control: an assemble.py other than the one collect.py pins is caught" % ("ok  " if caught else "FAIL"))
     fails += not caught
     r2 = json.loads(runs_text)
     r2["runs"] = r2["runs"][1:]

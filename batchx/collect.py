@@ -1,33 +1,48 @@
 #!/usr/bin/env python3
 """Collect the batch's expected results from the shard job logs as the session's job-log tool served them.
 
-  python3 -I collect.py --runs batchx/runs.json --served FILE [--served FILE ...] --out DIR
+  python3 -I collect.py --runs batchx/runs.json --run-jobs JOBS.json --head SHA --served FILE [--served FILE ...] \
+      --out DIR
   python3 -I collect.py --self-test [--work DIR]
 
-Run in the session, after the launch, never in CI. Each --served FILE is one answer of the job-log tool for one
-shard job, saved as the tool returned it: a JSON object with job_id, logs_content and original_length (the tool's
-own file, or from_transcript.py's extraction of it). Nothing here downloads anything.
+Run in the session, after the launch, never in CI. Nothing here downloads anything.
+  --served FILE   one answer of the job-log tool for one shard job, saved as the tool returned it: a JSON object
+                  with job_id, logs_content and original_length (the tool's own file, or from_transcript.py's
+                  extraction of it).
+  --run-jobs      the jobs list of the extraction's workflow run, from the JSON endpoint
+                  repos/amaybaum/incompleteness/actions/runs/<run>/jobs?per_page=100, merged over its pages.
+  --head          the commit the owner launched.
+From --run-jobs it builds the job index: exactly one job named "Extract shard K" for each shard K, every job of
+one run, at --head, on the launch branch, of this workflow.
 
-For each file it checks, fail closed:
-  - the log was served whole: the served text's line count equals original_length (a tail is refused);
-  - the shard's banner line, `BATCH SHARD K/N RUNSET <sha256> RUNS n`, appears once; K is not already collected;
-    N and the RUNSET digest equal those of shard K's runs in the pinned runs.json;
+For each served file it checks, fail closed:
+  - the answer names a job id, and that id is the index's job for the shard its banner names;
+  - the log was served whole, its line count equal to original_length, and is under 5,000 lines;
+  - one assembler banner, naming the pinned assembler, host-reader and extractor blobs, the extractor's commit and
+    runs.json's digest; one `BATCH SHARD K/N RUNSET <sha256> RUNS n` line whose N and digest are shard K's in the
+    pinned runs.json;
   - one RESULT line for each of shard K's runs and for no other run;
   - one block, BEGIN/END/SHA256, for each run whose RESULT line is HOLDS, and none for any other run; the block's
     text (timestamps stripped, lines joined with newlines, ending with one) is canonical ASCII JSON whose sha256
-    equals its SHA256 line, and it names that run, its pinned bridge job and head, and kind cited-bridge;
-  - the last line is `EXTRACT SHARD K/N <verdict>`, and that verdict is the one the RESULT lines imply.
-A shard that fails any check contributes no result. Across files: each shard 1..N is collected once, and the runs
-collected are exactly runs.json's, each once.
+    equals its SHA256 line, naming that run, its pinned bridge job and head, kind cited-bridge, and in `source`
+    the pinned extractor blob and commit, assembler blob, host-reader blob and runs.json digest;
+  - exactly one `EXTRACT SHARD K/N <verdict>` line in the whole log, after the last RESULT line and the last block,
+    and that verdict is the one the RESULT lines imply.
+A file that fails any check contributes no result, and the collection FAILS.
 
-A run is usable when its RESULT is HOLDS and its shard passed every check; its block is written to
-DIR/ci/<run>/results.json and listed in DIR/collected.json with its digest, shard, source job and served-text
-sha256. Every other run is listed with its verdict and the reason it is not usable. The last line is
-COLLECT HOLDS (exit 0) when every run of runs.json is usable, COLLECT FAILS (exit 1) when a run FAILS or a shard
-fails a check, and COLLECT UNVERIFIED (exit 2) otherwise. Python 3 stdlib.
+Copies. Files are grouped by the shard their banner names before anything is decided, so the order of --served
+never matters. Byte-identical copies (the same job id, text and original_length) are taken once. Copies that differ
+in anything make that shard UNVERIFIED: none of its runs is usable.
+
+A run is usable when its RESULT is HOLDS and its shard passed every check. Its block is written to
+DIR/ci/<run>/results.json and listed in DIR/collected.json with its digest, shard, source job id and served-text
+sha256. Every other run is listed with its verdict and the reason it is not usable. The last line is COLLECT HOLDS
+(exit 0) when every run of runs.json is usable, COLLECT FAILS (exit 1) when a run FAILS or a file fails a check,
+and COLLECT UNVERIFIED (exit 2) otherwise. Python 3 stdlib.
 """
 import argparse
 import hashlib
+import io
 import json
 import os
 import re
@@ -37,7 +52,18 @@ import tempfile
 
 sys.dont_write_bytecode = True
 RUNS_SHA256 = "5436c5b6325e5efca8b9d9a737ba832b6556ae9ffc15524b33774f701f672edb"
+# The launched tree's blobs of the two CI scripts; controls.py's plan check requires them to equal the files' blobs.
+ASSEMBLER_BLOB = "16e435c44db0dc42570199a91a50fcd3fcb4b7ff"
+HOST_BLOB = "4d290fc4fdf4dcd67f2bfc9d8a388ff2a3d4d57b"
+EXTRACT_RESULT_BLOB = "05c41bce610b8d02ccbaca8e69377b771bef4a35"
+MAIN_COMMIT = "b96662e6be4f537502c772db369ea32a35b213a8"
+BRANCH = "tmp/ci-batch-extract-design-20261017"
+WORKFLOW_NAME = "Cited CI runs, bridge-output batch extraction (read-only)"
+JOB_NAME = "Extract shard %d"
+MAX_LINES = 5000           # the job-log tool serves at most this many lines; a shard log must be under it
 TS = re.compile(r"^\ufeff?\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d+Z ")
+ABANNER = re.compile(r"^BATCH ci-batch-extract shard (\d+)/(\d+): assembler ([0-9a-f]{12}), host reader ([0-9a-f]{12}), "
+                     r"extract_result ([0-9a-f]{12}) at ([0-9a-f]{12}), runs\.json ([0-9a-f]{12})$")
 BANNER = re.compile(r"^BATCH SHARD (\d+)/(\d+) RUNSET ([0-9a-f]{64}) RUNS (\d+)$")
 RESULT = re.compile(r"^RESULT (\d+) (HOLDS|FAILS|UNVERIFIED) (\S+) \(")
 BEGIN = re.compile(r"^===== BEGIN EXPECTED RESULT ci/(\d+)/results\.json =====$")
@@ -54,40 +80,92 @@ def strip(l):
     return TS.sub("", l, count=1)
 
 
-def read_shard(served, doc):
-    """Returns (shard or None, problems, {run: (verdict, block text or None)})."""
+def build_job_index(jobsd, head, nshards):
+    """{shard: job id} from the extraction run's jobs list; (index, run id, problems)."""
     probs = []
     try:
+        jobs = jobsd["jobs"]
+        if len(jobs) != jobsd["total_count"]:
+            probs.append("the jobs list holds %d of %d jobs" % (len(jobs), jobsd["total_count"]))
+        runs = {j["run_id"] for j in jobs}
+        if len(runs) != 1:
+            probs.append("the jobs list spans %d runs" % len(runs))
+        for j in jobs:
+            if j["head_sha"] != head or j.get("head_branch") != BRANCH or j.get("workflow_name") != WORKFLOW_NAME:
+                probs.append("job %s is not of this workflow at %s on %s" % (j.get("id"), head[:12], BRANCH))
+        index = {}
+        for k in range(1, nshards + 1):
+            ids = [j["id"] for j in jobs if j["name"] == JOB_NAME % k]
+            if len(ids) != 1 or not isinstance(ids[0], int) or isinstance(ids[0], bool):
+                probs.append("%d jobs named %r" % (len(ids), JOB_NAME % k))
+            else:
+                index[k] = ids[0]
+        return index, (sorted(runs)[0] if len(runs) == 1 else None), probs
+    except (KeyError, TypeError, AttributeError):
+        return {}, None, ["the jobs list is malformed"]
+
+
+def identity(obj):
+    return hashlib.sha256(json.dumps([obj.get("job_id"), obj.get("logs_content"), obj.get("original_length")],
+                                     sort_keys=True).encode("utf-8")).hexdigest()
+
+
+def parse_served(served):
+    """The tool's answer, or None."""
+    try:
         obj = json.loads(served)
-        text, orig = obj["logs_content"], obj["original_length"]
-        job = obj.get("job_id")
-        if not isinstance(text, str) or not isinstance(orig, int):
-            raise ValueError("fields")
-    except (ValueError, KeyError, TypeError):
-        return None, ["the served file is not a job-log answer"], {}
+        if not (isinstance(obj, dict) and isinstance(obj.get("logs_content"), str)
+                and isinstance(obj.get("original_length"), int) and not isinstance(obj.get("original_length"), bool)
+                and isinstance(obj.get("job_id"), int) and not isinstance(obj.get("job_id"), bool)):
+            return None
+        return obj
+    except ValueError:
+        return None
+
+
+def shard_of(obj):
+    """The shard the answer's RUNSET banner names, read loosely (for grouping only), or None."""
+    for l in obj["logs_content"].split("\n"):
+        m = BANNER.match(strip(l))
+        if m:
+            return int(m.group(1))
+    return None
+
+
+def read_shard(obj, doc, job_index):
+    """Returns (shard or None, problems, {run: (verdict, block text or None)})."""
+    probs = []
+    text, orig, job = obj["logs_content"], obj["original_length"], obj["job_id"]
     raw = text.split("\n")
     if raw and raw[-1] == "":
         raw.pop()
     if len(raw) != orig:
         return None, ["job %s served %d of %d lines: not whole" % (job, len(raw), orig)], {}
+    if orig >= MAX_LINES:
+        return None, ["job %s has %d lines: not under %d" % (job, orig, MAX_LINES)], {}
     L = [strip(l) for l in raw]
-    ban = [BANNER.match(l) for l in L]
-    ban = [m for m in ban if m]
+    ban = [m for m in (BANNER.match(l) for l in L) if m]
     if len(ban) != 1:
-        return None, ["job %s: %d banner lines" % (job, len(ban))], {}
+        return None, ["job %s: %d RUNSET lines" % (job, len(ban))], {}
     k, nsh, rs, nr = int(ban[0].group(1)), int(ban[0].group(2)), ban[0].group(3), int(ban[0].group(4))
+    if job_index.get(k) != job:
+        probs.append("shard %d: served job %s is not the run's job %s for this shard" % (k, job, job_index.get(k)))
+    ab = [m for m in (ABANNER.match(l) for l in L) if m]
+    if len(ab) != 1 or ab[0].groups() != (str(k), str(nsh), ASSEMBLER_BLOB[:12], HOST_BLOB[:12],
+                                          EXTRACT_RESULT_BLOB[:12], MAIN_COMMIT[:12], RUNS_SHA256[:12]):
+        probs.append("shard %d: the assembler banner is absent, repeated or names other blobs" % k)
     exp = [r for r in doc["runs"] if r["shard"] == k]
     byid = {r["run_id"]: r for r in exp}
     if nsh != doc["shards"] or rs != runset_digest(byid) or nr != len(exp) or not exp:
         probs.append("shard %d: banner does not match runs.json (N %d, %d runs)" % (k, nsh, nr))
-    res, order = {}, []
-    for l in L:
+    res, last = {}, -1
+    for i, l in enumerate(L):
         m = RESULT.match(l)
         if m:
             if m.group(1) in res:
                 probs.append("shard %d: run %s has two RESULT lines" % (k, m.group(1)))
             res[m.group(1)] = m.group(2)
-            order.append(m.group(1))
+            last = max(last, i)
     if set(res) != set(byid):
         probs.append("shard %d: RESULT lines for %s, runs.json %s" % (k, sorted(res), sorted(byid)))
     blocks = {}
@@ -100,6 +178,7 @@ def read_shard(served, doc):
                 j = L.index(END % rid, i + 1)
             except ValueError:
                 probs.append("shard %d: run %s's block never ends" % (k, rid))
+                last = len(L)
                 break
             body = "\n".join(L[i + 1:j]) + "\n"
             sm = SHA.match(L[j + 1]) if j + 1 < len(L) else None
@@ -108,6 +187,7 @@ def read_shard(served, doc):
             if not sm or sm.group(1) != rid or sm.group(2) != hashlib.sha256(body.encode("utf-8")).hexdigest():
                 probs.append("shard %d: run %s's block does not match its SHA256 line" % (k, rid))
             blocks[rid] = body
+            last = max(last, j + 1)
             i = j + 1
         i += 1
     for rid, body in blocks.items():
@@ -116,46 +196,77 @@ def read_shard(served, doc):
             continue
         try:
             r = json.loads(body)
-            cfg = byid[rid]
+            cfg, src = byid[rid], r["source"]
             ok = (body.isascii() and body == json.dumps(r, indent=1, sort_keys=True) + "\n"
                   and r.get("kind") == "cited-bridge" and r["run"]["id"] == rid and r["run"]["job_id"] == cfg["bridge_job_id"]
                   and r["commit"] == r["run"]["head_sha"] == cfg["head_sha"])
-        except (ValueError, KeyError, TypeError):
-            ok = False
+            pins = (src.get("extractor_blob") == EXTRACT_RESULT_BLOB and src.get("extractor_commit") == MAIN_COMMIT
+                    and src.get("assembler_blob") == ASSEMBLER_BLOB and src.get("host_reader_blob") == HOST_BLOB
+                    and src.get("runs_sha256") == RUNS_SHA256)
+        except (ValueError, KeyError, TypeError, AttributeError):
+            ok = pins = False
         if not ok:
             probs.append("shard %d: run %s's block is not a canonical result of that run" % (k, rid))
+        elif not pins:
+            probs.append("shard %d: run %s's block names another extractor, assembler, host reader or runs.json" % (k, rid))
     for rid, v in res.items():
         if v == "HOLDS" and rid not in blocks:
             probs.append("shard %d: run %s holds but has no block" % (k, rid))
-    last = L[-30:]
-    vs = [VERDICT.match(l) for l in last]
-    vs = [m for m in vs if m]
+    vs = [(i, m) for i, m in ((i, VERDICT.match(l)) for i, l in enumerate(L)) if m]
     want = "FAILS" if "FAILS" in res.values() else "HOLDS" if res and all(v == "HOLDS" for v in res.values()) \
         and set(res) == set(byid) else "UNVERIFIED"
-    if len(vs) != 1 or int(vs[0].group(1)) != k or vs[0].group(3) != want:
-        probs.append("shard %d: the verdict line is absent or is not the one its RESULT lines imply (%s)" % (k, want))
+    if len(vs) != 1:
+        probs.append("shard %d: %d verdict lines, not one" % (k, len(vs)))
+    elif vs[0][0] <= last:
+        probs.append("shard %d: the verdict line comes before the last RESULT line or block" % k)
+    elif (int(vs[0][1].group(1)), int(vs[0][1].group(2))) != (k, nsh) or vs[0][1].group(3) != want:
+        probs.append("shard %d: the verdict line is not the one its RESULT lines imply (%s)" % (k, want))
     return k, probs, {rid: (v, blocks.get(rid)) for rid, v in res.items()}
 
 
-def collect(doc, served_files, out, outp=None):
+def collect(doc, served_files, out, job_index, run_id=None, outp=None):
     outp = outp or sys.stdout
     P = lambda s: print(s, file=outp)  # noqa: E731
-    shards, bad, runs_seen = {}, False, {}
+    bad, groups = False, {}
     for path in served_files:
         with open(path, encoding="utf-8") as f:
             served = f.read()
-        k, probs, res = read_shard(served, doc)
-        dig = hashlib.sha256(served.encode("utf-8")).hexdigest()
-        if k is not None and k in shards:
-            probs.append("shard %d collected twice" % k)
+        obj = parse_served(served)
+        if obj is None:
+            P("COLLECT FAIL %s: the served file is not a job-log answer" % os.path.basename(path))
+            bad = True
+            continue
+        k = shard_of(obj)
+        if k is None:
+            P("COLLECT FAIL %s: job %s names no shard" % (os.path.basename(path), obj["job_id"]))
+            bad = True
+            continue
+        groups.setdefault(k, []).append((os.path.basename(path), obj, hashlib.sha256(served.encode("utf-8")).hexdigest()))
+    shards, contradicted, runs_seen, jobs_seen = {}, set(), {}, {}
+    for k in sorted(groups):
+        copies = groups[k]
+        if len({identity(o) for _, o, _ in copies}) > 1:
+            P("COLLECT UNVERIFIED shard %d: %d copies that differ (%s); none is taken"
+              % (k, len(copies), ", ".join(sorted(n for n, _, _ in copies))))
+            contradicted.add(k)
+            shards[k] = None
+            continue
+        name, obj, dig = sorted(copies, key=lambda c: c[0])[0]
+        if len(copies) > 1:
+            P("COLLECT NOTE shard %d: %d identical copies, taken once" % (k, len(copies)))
+        kk, probs, res = read_shard(obj, doc, job_index)
+        if kk is not None and kk != k:
+            probs.append("the shard read (%s) is not the shard grouped (%d)" % (kk, k))
+        if obj["job_id"] in jobs_seen and jobs_seen[obj["job_id"]] != k:
+            probs.append("job %s serves shards %d and %d" % (obj["job_id"], jobs_seen[obj["job_id"]], k))
+        jobs_seen.setdefault(obj["job_id"], k)
         for p in probs:
-            P("COLLECT FAIL %s: %s" % (os.path.basename(path), p))
+            P("COLLECT FAIL %s: %s" % (name, p))
         if probs:
             bad = True
-            if k is not None and k not in shards:
-                shards[k] = None
+            shards[k] = None
             continue
-        shards[k] = {"file": os.path.basename(path), "served_sha256": dig, "runs": res}
+        shards[k] = {"file": name, "served_sha256": dig, "job_id": obj["job_id"], "copies": len(copies), "runs": res}
         for rid in res:
             runs_seen.setdefault(rid, []).append(k)
     table, usable = [], 0
@@ -165,12 +276,13 @@ def collect(doc, served_files, out, outp=None):
         sh = shards.get(k)
         entry = {"run_id": rid, "shard": k, "expires": cfg["expires"]}
         if sh is None:
-            entry.update(verdict=None, usable=False, reason="shard %d not collected or failed a check" % k)
+            entry.update(verdict=None, usable=False, reason="shard %d %s" % (
+                k, "had copies that differ" if k in contradicted else "not collected or failed a check"))
         elif len(runs_seen.get(rid, [])) != 1:
             entry.update(verdict=None, usable=False, reason="run seen in shards %s" % runs_seen.get(rid))
         else:
             v, body = sh["runs"][rid]
-            entry.update(verdict=v, served_sha256=sh["served_sha256"], file=sh["file"])
+            entry.update(verdict=v, served_sha256=sh["served_sha256"], file=sh["file"], job_id=sh["job_id"])
             if v == "HOLDS":
                 d = os.path.join(out, "ci", rid)
                 os.makedirs(d, exist_ok=True)
@@ -192,8 +304,12 @@ def collect(doc, served_files, out, outp=None):
     if missing:
         P("COLLECT UNVERIFIED shards not collected: %s" % missing)
     with open(os.path.join(out, "collected.json"), "x", encoding="utf-8") as f:
-        json.dump({"runs_sha256": RUNS_SHA256, "shards": {str(k): (v and {"file": v["file"], "served_sha256": v["served_sha256"]})
-                                                           for k, v in sorted(shards.items())}, "runs": table},
+        json.dump({"runs_sha256": RUNS_SHA256, "extraction_run": run_id,
+                   "pins": {"assembler_blob": ASSEMBLER_BLOB, "host_reader_blob": HOST_BLOB,
+                            "extractor_blob": EXTRACT_RESULT_BLOB, "extractor_commit": MAIN_COMMIT},
+                   "shards": {str(k): (v and {"file": v["file"], "served_sha256": v["served_sha256"],
+                                              "job_id": v["job_id"], "copies": v["copies"]})
+                              for k, v in sorted(shards.items())}, "runs": table},
                   f, indent=1, sort_keys=True)
         f.write("\n")
     fails = bad or extra or any(e.get("verdict") == "FAILS" for e in table)
@@ -207,28 +323,39 @@ def collect(doc, served_files, out, outp=None):
 
 def _result(cfg):
     return {"kind": "cited-bridge", "commit": cfg["head_sha"], "expected": {"outcome": "gate-verdict"},
-            "run": {"id": cfg["run_id"], "job_id": cfg["bridge_job_id"], "head_sha": cfg["head_sha"]}}
+            "run": {"id": cfg["run_id"], "job_id": cfg["bridge_job_id"], "head_sha": cfg["head_sha"]},
+            "source": {"extractor_blob": EXTRACT_RESULT_BLOB, "extractor_commit": MAIN_COMMIT,
+                       "assembler_blob": ASSEMBLER_BLOB, "host_reader_blob": HOST_BLOB, "runs_sha256": RUNS_SHA256}}
 
 
 def _shard_text(doc, k, verdicts=None, mut=None):
-    """A shard log as assemble.py prints it, inside runner lines, timestamped."""
+    """A shard log as assemble.py prints it, inside runner lines, timestamped, as the job-log tool serves it."""
     mut = mut or {}
     exp = [r for r in doc["runs"] if r["shard"] == k]
     verdicts = verdicts or {}
     L = ["Current runner version: '2.337.0'", "##[group]Run python3 -I batchx/assemble.py", "##[endgroup]",
-         "BATCH ci-batch-extract shard %d/%d: assembler x" % (k, doc["shards"]),
+         "BATCH ci-batch-extract shard %d/%d: assembler %s, host reader %s, extract_result %s at %s, runs.json %s"
+         % (k, doc["shards"], ASSEMBLER_BLOB[:12], mut.get("host_prefix", HOST_BLOB[:12]), EXTRACT_RESULT_BLOB[:12],
+            MAIN_COMMIT[:12], RUNS_SHA256[:12]),
          "BATCH SHARD %d/%d RUNSET %s RUNS %d" % (k, doc["shards"], mut.get("runset", runset_digest([r["run_id"] for r in exp])), len(exp))]
     rs = exp + mut.get("extra_runs", [])
     for r in rs:
         if r["run_id"] in mut.get("drop_result", []):
             continue
         L.append("RESULT %s %s gate-verdict (15 checks, 0 failed, 0 unverified)" % (r["run_id"], verdicts.get(r["run_id"], "HOLDS")))
+    vs = [verdicts.get(r["run_id"], "HOLDS") for r in exp]
+    v = mut.get("verdict") or ("FAILS" if "FAILS" in vs else "HOLDS" if all(x == "HOLDS" for x in vs) else "UNVERIFIED")
+    vline = "EXTRACT SHARD %d/%d %s" % (k, doc["shards"], v)
+    if mut.get("verdict_early"):
+        L.append(vline)
     for r in rs:
-        v = verdicts.get(r["run_id"], "HOLDS")
-        if v != "HOLDS" and r["run_id"] not in mut.get("block_for", []):
+        rv = verdicts.get(r["run_id"], "HOLDS")
+        if rv != "HOLDS" and r["run_id"] not in mut.get("block_for", []):
             continue
         res = _result(r)
         res.update(mut.get("edit_result", {}).get(r["run_id"], {}))
+        for key, val in mut.get("edit_source", {}).get(r["run_id"], {}).items():
+            res["source"][key] = val
         body = json.dumps(res, indent=1, sort_keys=True) + "\n"
         sha = hashlib.sha256(body.encode()).hexdigest()
         if r["run_id"] in mut.get("tamper", []):
@@ -237,15 +364,20 @@ def _shard_text(doc, k, verdicts=None, mut=None):
         L += body.rstrip("\n").split("\n")
         L.append("===== END EXPECTED RESULT ci/%s/results.json =====" % r["run_id"])
         L.append("SHA256 ci/%s/results.json %s" % (r["run_id"], sha))
-    vs = [verdicts.get(r["run_id"], "HOLDS") for r in exp]
-    v = mut.get("verdict") or ("FAILS" if "FAILS" in vs else "HOLDS" if all(x == "HOLDS" for x in vs) else "UNVERIFIED")
-    L.append("EXTRACT SHARD %d/%d %s" % (k, doc["shards"], v))
-    L += ["Post job cleanup.", "Cleaning up orphan processes"]
+    if not mut.get("verdict_early") and not mut.get("no_verdict"):
+        L.append(vline)
+    if mut.get("second_verdict"):
+        L.append(vline)
+    L += ["##[error]Process completed with exit code 1."] if v != "HOLDS" else []
+    L += ["Post job cleanup."] + ["[command]/usr/bin/git config --local --unset-all x"] * mut.get("trailer", 2) \
+        + ["Cleaning up orphan processes"]
+    if mut.get("pad_to"):
+        L += ["##[warning]padding"] * (mut["pad_to"] - len(L))
     text = "\n".join("2026-12-01T10:00:%02d.0000000Z %s" % (i % 60, l) for i, l in enumerate(L))
     orig = len(L) + mut.get("orig_delta", 0)
     if mut.get("tail"):
         text = "\n".join(text.split("\n")[mut["tail"]:])
-    return json.dumps({"job_id": 77000 + k, "logs_content": text, "original_length": orig})
+    return json.dumps({"job_id": mut.get("job_id", 77000 + k), "logs_content": text, "original_length": orig})
 
 
 def self_test(work=None):
@@ -254,9 +386,10 @@ def self_test(work=None):
     runs = [{"run_id": str(800 + i), "bridge_job_id": str(8800 + i), "head_sha": "%040x" % i, "shard": 1 + i // 2,
              "expires": "2026-12-2%d" % (i // 2)} for i in range(6)]
     doc = {"shards": 3, "runs": runs}
+    index = {k: 77000 + k for k in (1, 2, 3)}
     print("collect self-test (synthetic served shard logs, no network):")
     try:
-        def case(name, texts, want, needle=None, usable=None):
+        def case(name, texts, want, needle=None, usable=None, absent=None):
             nonlocal fails, n
             n += 1
             d = os.path.join(base, "c%03d" % n)
@@ -267,12 +400,11 @@ def self_test(work=None):
                 with open(p, "w", encoding="utf-8") as f:
                     f.write(t)
                 files.append(p)
-            import io
             buf = io.StringIO()
-            code = collect(doc, files, os.path.join(d, "out"), buf)
+            code = collect(doc, files, os.path.join(d, "out"), index, 42, buf)
             t = buf.getvalue()
             ok = t.rstrip("\n").split("\n")[-1] == "COLLECT " + want and code == {"HOLDS": 0, "FAILS": 1, "UNVERIFIED": 2}[want]
-            ok = ok and (needle is None or needle in t)
+            ok = ok and (needle is None or needle in t) and (absent is None or absent not in t)
             if usable is not None:
                 ok = ok and ("COLLECT %d of 6 runs usable" % usable) in t
                 written = sorted(os.listdir(os.path.join(d, "out", "ci"))) if os.path.isdir(os.path.join(d, "out", "ci")) else []
@@ -281,21 +413,29 @@ def self_test(work=None):
             if not ok:
                 fails += 1
                 print("\n".join("        | " + l for l in t.split("\n") if l.startswith("COLLECT")))
-            return d
+            return d, t
+
+        def chk(name, cond):
+            nonlocal fails, n
+            n += 1
+            print("  %s  %s" % ("ok  " if cond else "FAIL", name))
+            fails += not cond
 
         S = lambda k, verdicts=None, **mut: _shard_text(doc, k, verdicts, mut)  # noqa: E731
-        d = case("three whole shards, every run holding", [S(1), S(2), S(3)], "HOLDS", usable=6)
-        n += 1
+        d, _ = case("three whole shards, every run holding", [S(1), S(2), S(3)], "HOLDS", usable=6)
         got = open(os.path.join(d, "out", "ci", "800", "results.json")).read()
-        ok = got == json.dumps(_result(runs[0]), indent=1, sort_keys=True) + "\n"
-        print("  %s  the written file is byte-identical to the canonical block" % ("ok  " if ok else "FAIL"))
-        fails += not ok
+        chk("the written file is byte-identical to the canonical block",
+            got == json.dumps(_result(runs[0]), indent=1, sort_keys=True) + "\n")
+        cj = json.load(open(os.path.join(d, "out", "collected.json")))
+        chk("collected.json records each shard's job id, the extraction run and the pinned blobs",
+            {k: v["job_id"] for k, v in cj["shards"].items()} == {"1": 77001, "2": 77002, "3": 77003}
+            and cj["extraction_run"] == 42 and cj["pins"]["assembler_blob"] == ASSEMBLER_BLOB
+            and all(e["job_id"] == 77000 + e["shard"] for e in cj["runs"]))
         case("the same shards in another order", [S(3), S(1), S(2)], "HOLDS", usable=6)
         case("a shard served as a tail is refused", [S(1, tail=2), S(2), S(3)], "FAILS", "not whole", usable=4)
         case("a served line count other than original_length is refused", [S(1, orig_delta=1), S(2), S(3)], "FAILS",
              "not whole", usable=4)
         case("a shard missing", [S(1), S(2)], "UNVERIFIED", "shards not collected: [3]", usable=4)
-        case("a shard collected twice", [S(1), S(1), S(2), S(3)], "FAILS", "collected twice", usable=6)
         case("a RUNSET digest other than runs.json's", [S(1, runset="0" * 64), S(2), S(3)], "FAILS", "banner does not match",
              usable=4)
         case("a run's RESULT line missing", [S(1, drop_result=["800"]), S(2), S(3)], "FAILS", "RESULT lines for", usable=4)
@@ -308,13 +448,62 @@ def self_test(work=None):
         case("a block naming another head", [S(1, edit_result={"800": {"commit": "f" * 40}}), S(2), S(3)], "FAILS",
              "not a canonical result of that run", usable=4)
         case("a verdict line at odds with the RESULT lines", [S(1, verdict="HOLDS", verdicts={"800": "FAILS"}), S(2), S(3)],
-             "FAILS", "the verdict line", usable=4)
+             "FAILS", "not the one its RESULT lines imply", usable=4)
         case("one run UNVERIFIED: the others are usable, the batch is not", [S(1, verdicts={"801": "UNVERIFIED"}), S(2), S(3)],
              "UNVERIFIED", "RUN 801 shard 1 expires 2026-12-20 UNVERIFIED not usable", usable=5)
         case("one run FAILS: the batch FAILS, the others are usable", [S(1, verdicts={"801": "FAILS"}), S(2), S(3)],
              "FAILS", "RUN 801 shard 1 expires 2026-12-20 FAILS not usable", usable=5)
         case("a file that is not a job-log answer", ["not json", S(1), S(2), S(3)], "FAILS", "not a job-log answer",
              usable=6)
+        # note 1: the verdict line, found wherever it is after the last result
+        case("a verdict line followed by 40 runner lines is found", [S(1, trailer=40), S(2, trailer=40), S(3)], "HOLDS",
+             usable=6)
+        case("a red shard's verdict line with 40 runner lines after it is found and checked",
+             [S(1, verdicts={"801": "UNVERIFIED"}, trailer=40), S(2), S(3)], "UNVERIFIED", usable=5, absent="COLLECT FAIL")
+        case("no verdict line", [S(1, no_verdict=True), S(2), S(3)], "FAILS", "0 verdict lines, not one", usable=4)
+        case("two verdict lines", [S(1, second_verdict=True), S(2), S(3)], "FAILS", "2 verdict lines, not one", usable=4)
+        case("a verdict line before the last block", [S(1, verdict_early=True), S(2), S(3)], "FAILS",
+             "comes before the last RESULT line or block", usable=4)
+        # note 2: copies
+        case("a shard collected twice, byte-identical, is taken once", [S(1), S(1), S(2), S(3)], "HOLDS",
+             "2 identical copies, taken once", usable=6)
+        _, ta = case("a shard collected twice with contradicting content: UNVERIFIED, none taken (good copy first)",
+                     [S(1), S(1, verdicts={"800": "UNVERIFIED"}), S(2), S(3)], "UNVERIFIED", "copies that differ", usable=4)
+        _, tb = case("  ... and the same with the contradicting copy first",
+                     [S(1, verdicts={"800": "UNVERIFIED"}), S(1), S(2), S(3)], "UNVERIFIED", "copies that differ", usable=4)
+        chk("  ... and the argument order changes no RUN line", [l for l in ta.split("\n") if l.startswith("RUN ")]
+            == [l for l in tb.split("\n") if l.startswith("RUN ")])
+        case("copies differing only in a tampered block are UNVERIFIED, whichever comes first",
+             [S(1, tamper=["801"]), S(1), S(2), S(3)], "UNVERIFIED", "copies that differ", usable=4)
+        # note 3: provenance and pins
+        case("a log from another job (another push of this branch) is refused", [S(1, job_id=99999), S(2), S(3)], "FAILS",
+             "served job 99999 is not the run's job 77001", usable=4)
+        case("one job serving two shards is refused", [S(1), S(2, job_id=77001), S(3)], "FAILS", "usable", usable=4)
+        for key, val in (("assembler_blob", "0" * 40), ("host_reader_blob", "0" * 40), ("extractor_blob", "0" * 40),
+                         ("extractor_commit", "0" * 40), ("runs_sha256", "0" * 64)):
+            case("a block naming another %s is refused" % key, [S(1, edit_source={"800": {key: val}}), S(2), S(3)], "FAILS",
+                 "names another extractor, assembler, host reader or runs.json", usable=4)
+        case("a banner naming another host-reader blob is refused", [S(1, host_prefix="0" * 12), S(2), S(3)], "FAILS",
+             "assembler banner is absent, repeated or names other blobs", usable=4)
+        # note 4: under 5,000 lines
+        case("a whole answer of 4,999 lines is accepted", [S(1, pad_to=4999), S(2), S(3)], "HOLDS", usable=6)
+        case("a whole answer of 5,000 lines is refused: not under 5,000", [S(1, pad_to=5000), S(2), S(3)], "FAILS",
+             "has 5000 lines: not under 5000", usable=4)
+        # the job index
+        n += 1
+        jobsd = {"total_count": 4, "jobs": [{"id": 70, "name": "Self-tests and controls"}] + [
+            {"id": 70 + k, "name": JOB_NAME % k} for k in (1, 2, 3)]}
+        for j in jobsd["jobs"]:
+            j.update(run_id=5, head_sha="a" * 40, head_branch=BRANCH, workflow_name=WORKFLOW_NAME)
+        ix, rid, pr = build_job_index(jobsd, "a" * 40, 3)
+        ix2, _, pr2 = build_job_index(jobsd, "b" * 40, 3)
+        jd3 = json.loads(json.dumps(jobsd))
+        jd3["jobs"][2]["name"] = JOB_NAME % 1
+        _, _, pr3 = build_job_index(jd3, "a" * 40, 3)
+        ok = ix == {1: 71, 2: 72, 3: 73} and rid == 5 and not pr and pr2 and pr3
+        print("  %s  the job index maps each shard to its one job, and refuses another head or a doubled name"
+              % ("ok  " if ok else "FAIL"))
+        fails += not ok
     finally:
         shutil.rmtree(base, ignore_errors=True)
     print("collect self-test: %d of %d cases ok" % (n - fails, n))
@@ -324,6 +513,8 @@ def self_test(work=None):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--runs")
+    ap.add_argument("--run-jobs")
+    ap.add_argument("--head")
     ap.add_argument("--served", action="append", default=[])
     ap.add_argument("--out")
     ap.add_argument("--self-test", action="store_true")
@@ -331,15 +522,23 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if a.self_test:
         return 1 if self_test(a.work) else 0
-    if not (a.runs and a.served and a.out):
-        ap.error("--runs, --served and --out are required")
+    if not (a.runs and a.run_jobs and a.head and a.served and a.out):
+        ap.error("--runs, --run-jobs, --head, --served and --out are required")
     with open(a.runs, "rb") as f:
         data = f.read()
     if hashlib.sha256(data).hexdigest() != RUNS_SHA256:
         print("COLLECT FAIL runs.json is not the pinned file")
         print("COLLECT FAILS")
         return 1
-    return collect(json.loads(data), a.served, a.out)
+    doc = json.loads(data)
+    with open(a.run_jobs, encoding="utf-8") as f:
+        index, run_id, probs = build_job_index(json.load(f), a.head, doc["shards"])
+    if probs:
+        for p in probs:
+            print("COLLECT FAIL job index: %s" % p)
+        print("COLLECT FAILS")
+        return 1
+    return collect(doc, a.served, a.out, index, run_id)
 
 
 if __name__ == "__main__":
