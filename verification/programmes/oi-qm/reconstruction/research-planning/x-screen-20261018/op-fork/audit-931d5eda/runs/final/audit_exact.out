@@ -1,0 +1,55 @@
+PASS a     I/2 - z_k are rank-one projectors, mutually orthogonal, summing to I
+PASS a     each m_k maximally entangled: M_k M_k^dag = (|m_k|^2/2) I
+PASS a     symbolic identity <ab|z_k|ab> = |a|^2|b|^2/2 - |<m_k|ab>|^2  (=> SEP <= Z_F*, z_k block-positive) [EC+WA:C-S]
+PASS a     Gamma(z_k) is a rank-one projector (z_k in Gamma(Q3) <= maxCone)
+PASS a     Gamma(B) = SWAP/2 and <ab|SWAP|ab> = |<a|b>|^2 symbolically (Gamma(B) block-positive)
+PASS a     z_k not PSD (=> KZ != Q3); Gamma(B) not PSD (=> KG != Q3); B PSD with Gamma(B) not PSD (=> B not in Gamma(Q3), all three != Gamma(Q3))
+PASS a     L != Q3: P_{m_k} PSD with Tr(z_k P_{m_k}) = -1/2
+PASS e     extreme in maxCone by own zero-set nullspace (dim=1): rank-one psi_A (Schmidt rank 2, non-maximal)
+PASS e     extreme in maxCone by own zero-set nullspace (dim=1): P_{m_(1,1)} (max-ent)
+PASS e     extreme in maxCone by own zero-set nullspace (dim=1): defect z_(1,1)
+PASS e     extreme in maxCone by own zero-set nullspace (dim=1): defect z_(-1,-1)
+PASS e     extreme in maxCone by own zero-set nullspace (dim=1): Gamma(B) = SWAP/2
+PASS e     countercontrol: a single zero leaves dim >= 2 (dim=11)
+PASS e     countercontrol: non-extreme P_0 (x) I gives dim >= 2 (dim=4)
+PASS e     L spot check [rank 2 on span{m1,m2}, two active cuts]: in L=True, rank=2, active cuts=2, face dim=3, explicit X+-eps*Y in L at eps=1/2
+PASS e     L spot check [rank 2, one active cut: P_m1 + phi phi^dag, phi = (m2+m3)/sqrt2]: in L=True, rank=2, active cuts=1, face dim=3, explicit X+-eps*Y in L at eps=1/2
+PASS e     L spot check [rank 2: z1 + z2 = P_m3 + P_m4]: in L=True, rank=2, active cuts=2, face dim=3, explicit X+-eps*Y in L at eps=1/2
+PASS e     L spot check [rank 2: Phi+ Phi+^dag/2 + psi_A psi_A^dag/|psi_A|^2]: in L=True, rank=2, active cuts=0, face dim=4, explicit X+-eps*Y in L at eps=1/4
+PASS e     L spot check [rank 3: P_m1 + P_m2 + P_m3]: in L=True, rank=3, active cuts=0, face dim=9, explicit X+-eps*Y in L at eps=1/2
+PASS e     L spot check [rank 4: I]: in L=True, rank=4, active cuts=0, face dim=16, explicit X+-eps*Y in L at eps=1/2
+PASS e     L spot check rank-one psi_A: in L=True, face dim=1 (extreme)
+PASS e     symbolic: sum_k <m_k|X|m_k> = Tr X and Tr(z_k X) = Tr X/2 - <m_k|X|m_k> (=> <= 2 active cuts on PSD X != 0)
+PASS b     Tr(z_k vec(S)vec(S)^dag) = c_k det S + SOS_k (c_k in {0,1}) for symbolic Hermitian S: canonical purification vec(sqrt rho) in L for EVERY rho in the ball (S = sqrt rho PSD => det S >= 0) [EC identity + 1-line WA]
+PASS b     countercontrol: the certificate needs PSD S -- Hermitian S = diag(1,-1)+X gives a negative cut
+PASS b     Cayley unitaries are exactly unitary
+PASS b     [I/2] existence: canonical purification is a rank-one PSD element of L (hence of KZ, KG; extreme by N1)
+PASS b     [I/2] U-weak among rank-one pure states: 4 further pure states (I(x)u)psi in L, each related by an exactly solved unitary Ad_g (SO(3) action)
+PASS b     [rho_A = S_A^2/Tr (non-diagonal)] existence: canonical purification is a rank-one PSD element of L (hence of KZ, KG; extreme by N1)
+PASS b     [rho_A = S_A^2/Tr (non-diagonal)] U-weak among rank-one pure states: 5 further pure states (I(x)u)psi in L, each related by an exactly solved unitary Ad_g (SO(3) action)
+PASS b     [rho_B = S_B^2/Tr (non-diagonal)] existence: canonical purification is a rank-one PSD element of L (hence of KZ, KG; extreme by N1)
+PASS b     [rho_B = S_B^2/Tr (non-diagonal)] U-weak among rank-one pure states: 5 further pure states (I(x)u)psi in L, each related by an exactly solved unitary Ad_g (SO(3) action)
+PASS b     [I/2] KZ: Phi+ -> z_k related by improper g = Gamma o Ad_v (exact v, det -1), m1(z_k) = I/2, all k
+PASS b     [I/2] KZ: z_j -> z_k related by proper Ad_{conj w} (exact), all 16 ordered pairs
+PASS b     [I/2] KG: Phi+ -> Gamma(B) related by g = Gamma (det -1)
+PASS c     symbolic covariance Gamma((I(x)G) H (I(x)G)^dag) = (I(x)conj G) Gamma(H) (I(x)conj G)^dag, G, H symbolic
+PASS c     z_k in KZ* (pairs >= 0 with L by definition; Tr(z_k z_j) = delta_jk)
+PASS c     [I/2] L and KZ fail U-strong: psi, (I(x)u)psi pure in L; only relating map Ad_u (S invertible fixes u up to phase; improper images non-PSD, det Gamma(psi psi^dag) < 0: True); x = (I(x)u^dag)m_(1, 1) in L but Ad_u x = P_m outside KZ (Tr(z_k P_m) = -1/2, z_k in KZ*); u = [-1/3, 2/3 - 2*I/3, -2/3 - 2*I/3, -1/3]
+PASS c     [rho_A] L and KZ fail U-strong: psi, (I(x)u)psi pure in L; only relating map Ad_u (S invertible fixes u up to phase; improper images non-PSD, det Gamma(psi psi^dag) < 0: True); x = (I(x)u^dag)m_(1, 1) in L but Ad_u x = P_m outside KZ (Tr(z_k P_m) = -1/2, z_k in KZ*); u = [15/41 + 12*I/41, -36/41 + 4*I/41, -4/41 - 36*I/41, -15/41 - 12*I/41]
+PASS c     U-strong failure witnessed at I/2 and at a non-diagonal marginal for L and KZ
+PASS c     KG fails U-strong: W = P_singlet + P11 is PSD, Tr(W Gamma(B)) = 0 (W in KG*), Tr(W Gamma(chi chi^T)) = b(b-a) < 0 for a > b; Phi+ and Gamma(B) are pure at I/2, every relating g is improper Gamma o Ad_v, and g(Ad_{v^dag} chi chi^T) = Gamma(chi chi^T)
+PASS c     U-weak-SO: KZ fails it (Phi+ PSD and z_k non-PSD both pure at I/2; Ad_u preserves PSD); KG fails it likewise
+PASS d     all 24 native permutation conjugations permute Z_F exactly (=> preserve Q3, Z_F*, L, KZ): 24/24; CNOT True, SWAP True
+PASS d     countercontrol: the non-native local unitary I(x)diag(1,i) does not permute Z_F
+PASS d     side: KG -- CNOT does not fix Gamma(B) (native perms fixing it: 4/24)
+PASS MI    CNOT(rho(x)P0)CNOT pairs with z_k as [1/4 - x/4, x/4 + 1/4, 1/4 - x/4, x/4 + 1/4] (affine, >= 0 on the ball); PSD since it is rho embedded in span{|00>,|11>}
+PASS MI    MI follows from PC for every domain cone: rho(x)P0 in SEP <= K and CNOT K = K
+PASS ctl   K_mut = Q3 + R+ D, D = Gamma(B) + P00/2: D not PSD and Gamma(D) rank 2, so D lies outside the O(3)-orbit {rank-one PSD} u {Gamma(rank-one PSD)} of any purification; m1(D)/Tr D = diag(2/3,1/3)
+SUMMARY checks=47 failed=0
+RESULT a=GREEN
+RESULT b=GREEN
+RESULT c=GREEN
+RESULT d=GREEN
+RESULT e=GREEN
+RESULT MI=GREEN
+RESULT ctl=GREEN
