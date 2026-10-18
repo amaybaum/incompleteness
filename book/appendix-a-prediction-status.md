@@ -165,7 +165,7 @@ The framework's empirical content in biology and medicine is concentrated in the
 
 ## A.5 Forward predictions and falsification targets
 
-Beyond the predictions with current empirical match, the framework makes specific forward-looking predictions that are testable but not yet tested. These provide the framework's empirical exposure for the next several years of experimental research.
+Beyond the predictions with current empirical match, the framework makes specific forward-looking predictions that are testable but not yet tested. The table also lists one conditional prospect, F7, a proposed mechanism whose observable response is not yet specified and which carries no quantitative prediction until it is. These provide the framework's empirical exposure for the next several years of experimental research.
 
 **Quantum engineering.**
 
