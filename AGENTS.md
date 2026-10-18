@@ -454,6 +454,11 @@ The `.tex` outputs are unaffected (pandoc emits them without invoking LaTeX).
   invariant with no checkpoint is either given one or not asserted. A named hazard whose mitigation
   is cheap carries the mitigation as a frozen precondition or checkpoint; naming it is not enough.
 
+
+- **§A.43 PR-first WIP publication.** Every substantive thread has a guiding draft PR;
+  commit and push safe checkpoints continuously, including clearly marked unverified work.
+  A push is not merge, F/E designation or manual dispatch; special workflow-trigger refs
+  still need explicit authorization, and V3 freezes retain §A.39's exact-head rules.
 ---
 
 ## Lessons register (why the rules exist — one line each)
@@ -952,3 +957,51 @@ Adopted 2026-10-16, after an audit of `main` at `fc5abade` found:
 
 Rounds landed, or frozen at `F`, before this section keep their records unchanged. Their evidence
 is retained by the archive under 3, or listed there as not yet retained.
+
+---
+
+## §A.43 PR-first work-in-progress publication
+
+Every substantive repository workstream — research, formalization, native V3 rounds, plans,
+audits, evidence retention, extractors and repairs — has a GitHub branch and **one guiding
+draft pull request** from its first meaningful commit. The PR is the continuously updated
+record of work in progress; a local checkout, agent scratchpad or private worktree is not.
+An existing guiding PR may be reused; do not create a duplicate PR for each reviewer or
+checkpoint. A draft PR is not approval, certification or the durable evidence on `main`
+required by §A.42.
+
+1. **Make the work visible early.** Open the guiding draft PR after the first scoped commit,
+   before extended investigation or independent review. Identify the objective, base or
+   drafting snapshot `D`, authority limits, dependencies and next check. For native rounds,
+   preserve §A.39's one-PR-from-`D` lifecycle. Independent research or staging branches
+   needed for a round may be separate, but push their safe checkpoints and link their exact
+   SHAs from the guiding PR; do not leave the substantive work available only locally.
+2. **Publish checkpoints continuously.** Run the applicable cheap local checks (§A.40),
+   then commit and push each meaningful milestone promptly to its workstream branch,
+   rather than holding it until independent review, F designation or merge approval.
+   Incomplete or failing work may be published as clearly labelled `WIP / UNVERIFIED`,
+   with the failing checks and limitations stated. Keep the guiding PR's head, description
+   and checkpoint comments aligned with the actual current work and its exact SHAs.
+   Reviewers inspect pushed immutable SHAs and record verdicts and outstanding findings
+   on the guiding PR. A reviewer's local-only results are not a substitute for a pushed
+   author checkpoint.
+3. **Keep history and freezes intact.** Do not silently amend, force-push away or delete
+   prior reviewed candidates or evidence. If the next candidate must be re-cut from an
+   incompatible `D`, preserve the old head under a named remote ref before a separately
+   authorized, lease-checked head update, or open a linked successor draft PR. After `F`
+   is designated, §A.39's exact-head hold, linear `F`→`E` execution and reconciliation
+   rules override ordinary WIP branch movement.
+4. **Do not confuse publication with authorization.** A normal WIP branch push or draft
+   PR update is allowed by default. It does **not** authorize `workflow_dispatch`, a
+   special workflow launch, F/E designation, acceptance, merge to `main`, destructive
+   ref movement, branch deletion or evidence-retention promotion. Before pushing, inspect
+   workflow triggers: a push to a special trigger branch that starts a governed launch
+   is itself a launch and still needs separate owner authorization. Ordinary automatic
+   draft-PR CI is not an exact-head F/E attestation (§A.39, §A.40).
+5. **Exceptions are narrow and explicit.** An owner-imposed hold on pushing must name
+   its affected ref or artifact, reason and release condition and be recorded on the
+   guiding PR where safe. Never infer a blanket `no push` rule from `no merge`,
+   `no dispatch`, `no F/E designation`, or a hold on a special launch branch. Do not
+   publish secrets, unredacted sensitive logs, prohibited artifacts or bulky temporary
+   repositories; follow §A.28 and §A.42 and publish safe source, structured evidence,
+   digests and traceable omission notes instead.
