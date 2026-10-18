@@ -106,12 +106,33 @@ Each is stored with every tree and blob that `main` lacks at the tranche's own b
 
 **Their citations are pending.** Each commit records `awaiting_citation`: the pull request, the round, the record that is to cite it and the run whose head or source the record names it as. The run is required, since without it any mention of the id in the record would do. O10 judges a pending citation against the tree under check, never against a pull request:
 - while the record is not in the tree, the entry is pending. It passes and counts as not cited, and a pull request that never lands leaves it so;
-- once the record is in the tree and cites the id (in full, or as a hex prefix of seven or more digits) with the run on a citing line or the line next to one, and the record states the id as that run's head, the entry is eligible for promotion. The head is stated when, on the run's line and the line either side, every 40-digit hex word is the id, every shorter hex word is a prefix of it, and the full id is among them;
-- an eligible entry passes, so the commit that lands the record need not change this manifest, and the check prints the citing lines;
-- a later archive commit replaces `awaiting_citation` with those lines as citations. O7 verifies them by the same rule, for every commit of tranche 4 or later, and fails if the record later leaves the tree. Earlier tranches map frozen records that name several heads beside one run, and keep O7's token rule;
-- the check fails if the record is in the tree and does not cite the id, cites it on other lines or in other forms than the entry records, or does not name the recorded run beside it, or names another head beside the run; if a recorded run is retained under `ci/` with another head, or its `run.json` is not readable JSON naming a head; or if an entry carries `cited` and `awaiting_citation` together, or neither.
+- once the record is in the tree, cites the id (in full, or as a hex prefix of seven or more digits), cites the run free-standing at least once, and every line naming the run obeys the citation rule below, the entry is eligible for promotion;
+- an eligible entry passes, so the commit that lands the record need not change this manifest, and the check prints its qualifying lines: the id's lines and the run's free-standing citations;
+- a later archive commit replaces `awaiting_citation` with citations of exactly those lines. O7 verifies them by the same rule: no location mapped twice, every qualifying line mapped, each run citation a free-standing citation stating the id as head. It fails if the record later leaves the tree. The rule applies to every commit outside tranche 2's pinned membership. Tranche 2's entries map frozen records that name several heads beside one run, and keep O7's token rule;
+- the check fails if the record is in the tree and does not cite the id, cites it on other lines or in other forms than the entry records, does not cite the recorded run free-standing, or a line naming the run breaks the rule; if a recorded run is retained under `ci/` with another head, or its `run.json` is not readable JSON naming a head; or if an entry carries `cited` and `awaiting_citation` together, or neither.
 
-Archive integrity and citation are separate: O1–O9 and H1–H7 verify these objects whatever the state of their citation. The self-test runs the sequence on a stand-in record: absent (pending), landed with the manifest unchanged (eligible), promoted (cited), landed citing another commit (fails), removed under a promoted entry (fails). It also runs, pending and promoted, the three wrong-head records an independent review measured on the real record: the two full ids swapped with their eight-digit forms kept, the full id mistyped after digit 10, and the run line stating another head.
+**The citation rule** (`run_citations` in `check_objects.py`; R13 loads the same code). A run is matched as a number with no digit beside it.
+- An occurrence is embedded when it is part of one identifier or file name: an ASCII letter stands beside it, or a joiner (`-`, `_` or `.`) that is itself beside an ASCII letter or digit, as in `evidence/run1-39043849411.json`.
+- Any other occurrence is free-standing: a word, a link text, or a `/runs/` URL.
+- A line with a free-standing occurrence is a citation of the run, and must state the head. On it and on the line either side, every hex id word is a form of the id, and the full id is among them.
+- A line naming the run only embedded is not a citation. It is never mapped, and no other head may stand on it or the line either side.
+- Hex words are read case-folded. A word of 7 to 40 digits names another head unless it is a form of the id. A word of 41 to 63 digits always does.
+- A hex word of 64 digits or more is an opaque value. It names no head, never states the id, and never makes a mention a citation.
+
+Limitation: because such a word is opaque, another commit's id written as part of one is not read as a head. The self-tests record that case with its passing verdict.
+
+**Tranche membership is pinned by id** in `check_objects.py`: tranche 2's 920 entries and tranche 4's 66, each set checked against its count and sha256. O3 requires every label to be an exact int; each pinned entry to carry its pinned tranche; and any other entry to carry a later tranche that has a base. O7 decides which commits the citation rule applies to by id against the same pin, never by the label.
+
+Archive integrity and citation are separate: O1–O9 and H1–H7 verify these objects whatever the state of their citation.
+
+The self-test builds its own fixture in its copy, so its lifecycle cases run whatever the live entries' states are: it makes two pinned tranche-4 commits pending on a stand-in record that no tree holds. Any named case that does not run fails the self-test. It runs the sequence on the stand-in record:
+- absent: pending;
+- landed with the manifest unchanged: eligible;
+- one entry promoted, then both: cited;
+- landed citing another commit: fails;
+- removed under promoted entries: fails.
+
+It also runs the citation rule's cases, the tranche relabels `3`, `"4"`, `2`, `True` and `4.0`, and the digest boundary. It also runs, pending and promoted, the three wrong-head records an independent review measured on the real record: the two full ids swapped with their eight-digit forms kept, the full id mistyped after digit 10, and the run line stating another head.
 
 **Two outputs are withheld,** approved by the owner on 2026-10-17 for exactly these paths in exactly these two commits. The approval in `check_objects.py` binds each one to its commits as well as its mechanism and path. O9 refuses a withheld blob that a third commit's tree names, an instance not recorded with its commit, path, size, id, sha256 and reason, and any other `.txt` (the self-test tries `SOURCE-BLOBS.txt` under `1f19a347`).
 
@@ -178,11 +199,24 @@ The other 7 runs are cited for their identity, outcome and jobs alone, which `ru
 
 By the owner's instruction of 2026-10-17 the archive retains two research builds before the record that cites them reaches `main`. They are runs 38450187534 (job 115478781754, source `e684897d`) and 38454439833 (job 115493410133, source `febfe5e2`). Both are pushes to `research/preservation-induction-design-20261013` on `.github/workflows/preservation-induction-design.yml`, which `main` does not carry. PRESERVE-INDUCT-1's control-plane draft (#831, `round-preserve-induct-1/preregistration.md` lines 69 and 127 at `65b85147`) cites them. Each entry, `research-<run>`, records that pending citation in `awaiting_citation`: the pull request, the round (PRESERVE-INDUCT-1), the record's path, the line and the record's head. It carries no citation of its own. R13 gives these entries the states O10 gives a pending commit, judged against the tree under check:
 - while the record is not in the tree, the entry is pending. It passes and counts as not cited, and no other file outside this archive may cite the run;
-- once the record is in the tree, every line outside this archive that cites the run is in it, the recorded line is one of them, and each states the run's head (`run.json`'s `head_sha`) by O10's head rule, the entry is eligible for promotion. It passes, is printed apart and counts as not cited, so the commit that lands the record need not change this manifest. R13 and O10 apply the same rule, from `check_objects.py`;
-- a later archive commit replaces `awaiting_citation` with the citing lines as citations (R3 and R7 check them); every line that cites the run must be one of them, and each must state the head by the same rule;
-- the check fails if another file cites the run while it is pending; if the record is in the tree and does not cite the run, cites it on another line than recorded, or names another head beside it; if a citing line is left unmapped; or if the run's metadata is missing, not JSON or names no head commit, in which case no state is judged.
+- once the record is in the tree, every line outside this archive that names the run is in it, the recorded line is a free-standing citation of it, and every line naming it obeys O10's citation rule for the run's head (`run.json`'s `head_sha`), the entry is eligible for promotion. It passes, is printed apart and counts as not cited, so the commit that lands the record need not change this manifest. R13 and O10 apply the same rule, from `check_objects.py`;
+- a later archive commit replaces `awaiting_citation` with the citations (R3 and R7 check them). Every free-standing citation of the run must be one of them, every mapped line must be one, no line may be mapped twice, and no file outside the mapped ones may name the run;
+- the check fails if another file names the run while it is pending; if the record is in the tree and does not cite the run, cites it on another line than recorded or only inside an identifier there, or a line naming it breaks the rule; if a citation is left unmapped or mapped twice; or if the run's metadata is missing, not JSON or names no head commit, in which case no state is judged.
 
-The self-test lands a stand-in for the record, laid out as the real one, and runs the sequence: absent (pending), landed with the manifest unchanged (eligible), mapped (cited), landed naming another head or another run (fails), removed under a mapped entry (fails).
+The two checkers differ in two recorded ways.
+- **Matching a run.** Both now match a run with no digit beside it. O7's token check on tranche 2's frozen citations keeps its letter-bounded match.
+- **Other files.** While an entry is pending, R13 fails on any other file of the tree that names its run, in any form, even a file name in a result note. O10 has no such rule for a commit's id. A round whose research builds are retained ahead of their record therefore names those runs only in the record until the promotion maps them.
+
+The self-test builds its own fixture in its copy, so its lifecycle cases run in every live state. Every research-build entry is made pending on a stand-in record, and the copied records that only their citations needed are removed. A fixture that cannot be built, or a named case that does not run, fails the self-test.
+
+It runs the sequence:
+- absent: pending;
+- landed with the manifest unchanged: eligible;
+- one entry mapped, then every entry: cited;
+- landed naming another head or another run: fails;
+- removed under a mapped entry: fails.
+
+It also runs the citation rule's cases and the digest boundary.
 
 Each run has `ci/<run>/run.json` and `jobs.json`, from the runs and jobs APIs, and `ci/<run>/results.json` of kind `research-build`. The results were read by `main`'s `extract_result.py` (blob `05c41bce`), unchanged, from the served job log. That log was served whole: 3256 and 3692 lines, equal to the logs' `original_length`. Each result names its commit, run, job, recipe and the served text's sha256. It establishes what that run logged at that source, and nothing about any later tree.
 
