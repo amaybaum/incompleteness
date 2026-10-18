@@ -158,6 +158,8 @@ It prints the gaps and every claim not retained. The self-test mutates a copy on
 
 **Re-extractions.** An expected result is never rewritten. A re-extraction by a later extractor is kept beside it as `ci/<run>/re-extraction-<blob>.json`: it names the original with its sha256 and blob id, both extractor blobs, the source digest and the recipe, holds the re-extracted result, and lists every field in which it differs; its accounting file explains each difference. R14 requires the original to have exactly the bytes the record names, so a rewritten original fails even when its recorded digest follows it. `ci/36228429141` has one: the extractor at `fdf3ec80` reads 24 reports, of modules the result does not govern, whose declaration names contain a prime and which `05c41bce` did not match, so its `reports_in_served_text` is 2793 against the original's 2769. The expected section is the same.
 
+**Extractor identity.** Each file read by `extract_result.py`, an expected result or a re-extraction, names in its manifest file the git blob of the extractor that read it (`extractor_blob`), so a later change to the extractor or to its pin leaves each result's identity as it was. R15 requires the name, and in history mode re-derives it as the blob of `extract_result.py` at the commit that added the file. Every expected result of tranche 1 names `05c41bce`.
+
 **`build_archive.py` documents how the tranche was cut.** It cannot be re-run from the tree, because its inputs (the saved API responses and served logs) are not retained; their digests are. The checker and the reproduction tool are the reproducible parts.
 
 ## Secrets and operational data
