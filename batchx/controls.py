@@ -11,8 +11,11 @@
    batchx/; the copy's self-test must then fail (the mutant is killed). A mutant runs only the suites that can read
    its file (SUITES): collect.py's suite for a collect.py mutant, assemble.py's for an assemble.py mutant, and both
    for a host.py mutant. The unmutated copy's self-tests must pass
-   first, so a kill is not an artefact of the copy. A mutation whose text is not found exactly once is itself a
-   failure. An entry that names expected tests is killed only when every one of them fails by name and no suite
+   first, so a kill is not an artefact of the copy. Two mutants run at a time, each in its own copy, and their results
+   are printed in MUTANTS order. The free space under --work is read before and after each mutant: a reading under
+   DISK_FLOOR makes that mutant an INFRASTRUCTURE failure of the run, never a kill or a survival; an exception in a
+   worker fails the run. A self-check shows both on simulated readings and workers. A mutation whose text is not
+   found exactly once is itself a failure. An entry that names expected tests is killed only when every one of them fails by name and no suite
    stopped with a traceback, so the catch is shown to be that regression test's, not only an unrelated one's; the
    table printed at the end lists, for each such mutant, every test it fails.
 3. Plan and pins (with --plan WORKFLOW). runs.json is the 223 runs, each once, in expiry order, in contiguous
@@ -27,6 +30,7 @@
 Exit 0 when every part holds and every mutant is killed, 1 otherwise. Local and CI; no network.
 """
 import argparse
+import concurrent.futures
 import hashlib
 import io
 import json
@@ -36,6 +40,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 import types
 
 sys.dont_write_bytecode = True
@@ -269,7 +274,7 @@ MUTANTS = [
     ('collect.py', (('        if os.path.lexists(out):\n', '        if False:\n'),), None,
      'L10: the S1 existence check removed',
      ['[TB-O1] a collection into an existing --out holding a stale ci/800/results.json is refused (exit 3), the stale file untouched', '[TB-O2] a collection into an existing --out holding a stale HOLDS collected.json is refused (exit 3), untouched', '[TB-O3] an --out that is an empty directory, a file, a symbolic link or a dangling link is refused (exit 3), untouched']),
-    ('collect.py', (('    return run_collection(lambda: load_inputs(a.runs, a.run_jobs, a.head), a.served, a.out, head=a.head, durable=durable)\n', '    pre = load_inputs(a.runs, a.run_jobs, a.head)\n    if pre[5]:\n        emit(sys.stdout, "COLLECT FAILS")\n        return 1\n    return run_collection(lambda: pre, a.served, a.out, head=a.head, durable=durable)\n'),), None,
+    ('collect.py', (('    return run_collection(a.served, a.out, head=a.head, durable=durable, inputs=(a.runs, a.run_jobs))\n', '    try:   # an exception here is left to the collection below, so the mutant never crashes a suite\n        iv0 = inventory([], lambda s_: None, a.runs, a.run_jobs)\n        d0, _, q3 = interpret_runs(iv0["runs"])\n        early = q3 or interpret_jobs(iv0["jobs"], d0, a.head)[2]\n    except BaseException:\n        early = False\n    if early:\n        emit(sys.stdout, "COLLECT FAILS")\n        return 1\n    return run_collection(a.served, a.out, head=a.head, durable=durable, inputs=(a.runs, a.run_jobs))\n'),), None,
      'L11: the early S3 and S4 failures return before publishing (the 09d439d0 main)',
      ['[TB-RUNS] a runs.json other than the pinned file is published quarantined (exit 1), its digest recorded with pinned false, every served file recorded', '[TB-JOBS] a jobs list omitting shard 32, not JSON, not UTF-8 or with a BOM is published quarantined (exit 1), recorded by digest, every expected answer undetermined']),
     ('collect.py', (("        digests = sorted({c[2] for c in copies})   # every copy's digest (N3)\n", '        digests = [dig]\n'),), None,
@@ -293,13 +298,164 @@ MUTANTS = [
     ('collect.py', (('SCAN_ERRORS = (ValueError,)', 'SCAN_ERRORS = (Exception,)'),), None,
      'L18: the per-file catch widened from ValueError to Exception',
      ["[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection"]),
-    ('collect.py', (('    except (MemoryError, OSError):   # a host failure is never an internal quarantine: ABORTED (2.5)\n        raise\n', ''),), None,
+    ('collect.py', (('    except HOST_FAILURES:   # a host failure is never an internal quarantine: ABORTED (2.5)\n        _lines_once(P, st)\n        raise\n', ''),), None,
      'L19: S10 catches a host failure (MemoryError, OSError) as an internal quarantine and publishes it',
      ["[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection"]),
     ('collect.py', (('        if e.errno not in OWN_ACCESS:   # the read: EIO and every other host failure propagate (2.5)\n            raise\n', '        if False:\n            raise\n'),), None,
      "L20: step 1 records every OSError of a read as the file's unreadable kind, EIO included",
      ["[TB-SCANX] a host failure at intake (MemoryError, ENOSPC or EIO in the byte scan, EIO or MemoryError in the read, an interrupt) is ABORTED (exit 4), nothing published, never a file's rejection"]),
+    # TRUST-BOUNDARY.md 6 at 009b7062: L21-L33, the old behaviours of the inventory-first revision, and L34-L35 for the
+    # design review's note N3, each with the tests it must fail by exact name.
+    ('collect.py', (('    except SCAN_ERRORS as e:\n        entry["reason"] = "decoded scan failed', '    except Exception as e:\n        entry["reason"] = "decoded scan failed'),), None,
+     "L21: the review's X1: the decoded scan's catch widened from SCAN_ERRORS to Exception (the other two catches unchanged)",
+     ['[TB-SCANXd] a host failure in the decoded scan (MemoryError, ENOSPC, EIO) is ABORTED (exit 4), nothing published, never decoded scan failed']),
+    ('collect.py', (('    except SCAN_ERRORS as e:\n        entry["reason"] = "parsed scan failed', '    except Exception as e:\n        entry["reason"] = "parsed scan failed'),), None,
+     "L22: the review's X2: the parsed readings' catch widened from SCAN_ERRORS to Exception (the other two catches unchanged)",
+     ['[TB-SCANXp] a host failure in the parsed readings (MemoryError, ENOSPC, EIO from shard_of, EIO from shards_named) is ABORTED (exit 4), nothing published, never parsed scan failed']),
+    ('collect.py', (('        if e.errno in NAMES_NOTHING:   # a missing, mistyped or mangled path\n', '        if True:\n'),), None,
+     "L23: the review's X6: every OSError from lstat recorded as missing, EIO included",
+     ['[TB-LSTATX] a host failure at lstat (EIO, ENOSPC, MemoryError, a path through a symbolic-link loop) is ABORTED in S2b, never missing', "[TB-LSTATC] ENOENT and EACCES at lstat are the file's own conditions, missing and unreadable: published (exit 1), all four files recorded"]),
+    ('collect.py', (('        if e.errno not in OWN_ACCESS + (errno.ELOOP,):   # ELOOP: it became a link between lstat and open\n            raise\n', '        if False:\n            raise\n'),), None,
+     "L24: the review's X7: every OSError from open recorded as unreadable (the re-raise removed)",
+     ['[TB-OPENX] a host failure at open (EIO, ENOSPC, MemoryError) is ABORTED in S2b, never unreadable']),
+    ('collect.py', (('            if e.errno not in NAMES_NOTHING + OWN_ACCESS + (errno.ELOOP,):   # a dangling or looping link: no digest\n                raise\n', '            if False:\n                raise\n'),), None,
+     "L25: the review's X14: every OSError while hashing a link's target swallowed, the link recorded with a null digest",
+     ["[TB-LINKX] a host failure while hashing a symbolic link's target (EIO at stat, ENOSPC or MemoryError at the read) is ABORTED in S2b, never a symlink record with a null digest"]),
+    ('collect.py', (('        _inventory_served(inv, served_files)\n', ''), ('    st["stage"] = "S5"\n', '    _inventory_served(iv, iv["paths"])\n    st["stage"] = "S5"\n'),), None,
+     "L26: a77c85a5's order: the served arguments are inventoried only after S3 and S4 have interpreted runs.json and the jobs list",
+     ['[TB-INVINT] an unforeseen exception while the jobs list is interpreted (S4) publishes the full inventory, every served file unjudged']),
+    ('collect.py', (('    except BaseException:   # S2b: the inventory is incomplete, so nothing may be published (exit 4)\n        _file_lines(P, inv["files"])\n        raise\n', '    except Exception as e:\n        if isinstance(e, HOST_FAILURES):\n            _file_lines(P, inv["files"])\n            raise\n        inv["deferred"] = e\n'), ('def _evaluate(iv, given, head, P, st):\n', 'def _evaluate(iv, given, head, P, st):\n    if iv.get("deferred") is not None:\n        raise iv["deferred"]\n'),), None,
+     "L27: an exception inside S2b that is no file's condition, host failure or interrupt becomes S10's internal quarantine, the entries so far published",
+     ['[TB-INVX] an unforeseen exception in the inventory (read_input on argument 1) is ABORTED in S2b, nothing published']),
+    ('collect.py', (('        _lines_once(P, st)   # the arguments S5 had not judged stay unjudged (TRUST-BOUNDARY.md 3, S10)\n', '        st["files"][:] = [x for x in st["files"] if x["status"] != "unjudged"]\n        _lines_once(P, st)\n'),), None,
+     "L28: declared deviation (4) restored: an internal error's record keeps only the entries S5 had judged",
+     ['[TB-INVINTf] an unforeseen exception in the intake of argument 1 (S5) publishes every served file, the ones not judged marked unjudged', '[TB-INVINT] an unforeseen exception while the jobs list is interpreted (S4) publishes the full inventory, every served file unjudged']),
+    ('collect.py', (('                                parse_float=_no_float, parse_int=_jobs_int)', '                                parse_int=_jobs_int)'), ('            probs = jobs_schema(jobsd)   # J-1 to J-5, before build_job_index reads any value (2.3)\n', '            probs = []\n'), ('    except (KeyError, TypeError, AttributeError):\n', '    except (KeyError, TypeError, AttributeError, OverflowError):\n'),), None,
+     "L29: the label fix: JOBS_DECODER admits floats, jobs_schema skipped, OverflowError added to build_job_index's except tuple",
+     ['[TB-INVJ] a jobs list whose total_count is 1e400 is refused at the jobs-input gate (non-integer number) with the full inventory, published (exit 1)', '[TB-JNUM] every fraction, exponent, constant, bool, string, null, out-of-range or absent count or id of the jobs list is refused with its exact problem, in the unit and through main']),
+    ('collect.py', (('    if type(tc) is not int or not 0 <= tc <= MAX_JOBS:\n', '    if False:\n'), ('            if f not in j or type(j[f]) is not int or not 1 <= j[f] <= MAX_ID:\n', '            if f not in j:\n'), ('            if f not in j or type(j[f]) is not str:\n', '            if f not in j:\n'),), None,
+     "L30: the integer schema's type and range conditions removed (J-2, J-4 and J-5 test presence only)",
+     ['[TB-JNUM] every fraction, exponent, constant, bool, string, null, out-of-range or absent count or id of the jobs list is refused with its exact problem, in the unit and through main']),
+    ('collect.py', (('    text = json.dumps(record, indent=1, sort_keys=True, allow_nan=False) + "\\n"', '    text = json.dumps(record, indent=1, sort_keys=True) + "\\n"'),), None,
+     'L31: allow_nan=False dropped from the serialization of collected.json',
+     ['[TB-NANOUT] a non-finite run id given directly is never published: ABORTED (exit 4) at the strict serialization']),
+    ('collect.py', (('    print("".join(out), file=outp)\n', '    print(line, file=outp)\n'),), None,
+     "L32: the review's X9: the emit backstop removed (the line printed as given)",
+     ['[TB-EMIT] emit writes one printable-ASCII line, writing a line feed, a carriage return, a form feed, U+0085, U+2028, U+2029 and U+00E9 as their JSON escapes']),
+    ('collect.py', (('(" " + esc(e.get("outcome", ""))) if e["usable"] else', '(" " + e.get("outcome", "")) if e["usable"] else'),), None,
+     "L33: a usable run's outcome printed raw on its RUN line (a77c85a5)",
+     ["[TB-OUTC] a usable run's outcome holding a line feed, COLLECT FAILS and U+2028 is JSON-escaped on its RUN line"]),
+    ('collect.py', (('        P("COLLECT FAIL internal error at %s: %s; the whole collection is quarantined" % (st["stage"], type(e).__name__))\n', '        st["inputs"] = {"runs_json": None, "jobs_list": None}\n        P("COLLECT FAIL internal error at %s: %s; the whole collection is quarantined" % (st["stage"], type(e).__name__))\n'),), None,
+     "L34 (design review N3): an internal error's record loses collection.inputs (AR-B1's null inputs)",
+     ['[TB-INVINTr] an unforeseen exception while runs.json is interpreted (S3) publishes the full inventory, every served file unjudged', '[TB-INVINT] an unforeseen exception while the jobs list is interpreted (S4) publishes the full inventory, every served file unjudged']),
+    ('collect.py', (('    rec, data = read_input(path)\n    rec.pop("_id")\n    meta = ', '    try:\n        rec, data = read_input(path)\n    except OSError as e:\n        rec, data = {"name": os.path.basename(path), "kind": "unreadable", "size": None, "sha256": None,\n                     "reason": "not a regular file (unreadable: %s)" % _errname(e), "_id": None}, None\n    rec.pop("_id")\n    meta = '),), None,
+     "L35 (design review N3): a host failure while --runs or --run-jobs is read is recorded as that input's unreadable condition",
+     ["[TB-INVHX] a host failure in S2b's read of --runs or --run-jobs (EIO, ENOSPC, MemoryError) is ABORTED (exit 4), nothing published"]),
 ]
+
+
+# The mutant phase runs two mutants at a time (TRUST-BOUNDARY.md 6, the runtime budget). Each runs in its own copy of
+# batchx/ and its suites in their own mkdtemp under --work; results are printed in MUTANTS order, so the output, the
+# kill rule and the table are what one worker gives. Two conditions of the design review of 009b7062 (note N1):
+# - the free space on the work filesystem is read before and after each mutant. A reading under DISK_FLOOR makes that
+#   mutant an INFRASTRUCTURE failure of this run: never a kill, never a survival, and the run fails. One collect
+#   self-test peaks at 23.7 MB of temporary files, so two workers need about 50 MB; the floor leaves a margin over that.
+# - an exception in a worker (a copy that fails, a suite that times out) fails this run; it is never dropped.
+WORKERS = 2
+DISK_FLOOR = 64 << 20
+
+
+def free_bytes(path):
+    st = os.statvfs(path)
+    return st.f_bavail * st.f_frsize
+
+
+def run_mutant(i, entry, base, extractor, work):
+    """One mutant in its own copy: {lines, killed, row}. Printing is left to the caller."""
+    fname, old, new, what = entry[:4]
+    expect = entry[4] if len(entry) > 4 else None
+    d = os.path.join(work, "m%02d" % i)
+    pairs = old if isinstance(old, tuple) else ((old, new),)
+    src = open(os.path.join(base, fname), encoding="utf-8").read()
+    counts = [src.count(o) for o, _ in pairs]
+    if counts != [1] * len(pairs):
+        return {"lines": ["  FAIL  mutant %02d (%s): its text occurs %s times" % (i, what, counts)], "killed": False,
+                "row": None}
+    shutil.copytree(base, d)
+    try:
+        for o, nw in pairs:
+            src = src.replace(o, nw)
+        with open(os.path.join(d, fname), "w", encoding="utf-8") as f:
+            f.write(src)
+        outs = []
+        rc = selftests(d, extractor, work, outs, only=SUITES[fname])
+        names, crashed = failing_cases(outs)
+        k = any(rc)
+        missing = [e for e in (expect or []) if e not in names]   # exact names, never substrings
+        specific = expect is None or (not missing and not crashed)
+        line = "  %s  mutant %02d %s: %s (exit codes %s)%s" % (
+            "ok  " if k and specific else "FAIL", i, fname, what, rc,
+            "" if specific else " -- expected tests not failing: %s%s" % (missing, " (a suite crashed)" if crashed else ""))
+        return {"lines": [line], "killed": bool(k and specific),
+                "row": (i, what, expect, names) if expect is not None else None}
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+
+
+def mutant_phase(entries, run_one, free, floor, workers):
+    """Every entry through run_one(i, entry), at most `workers` at a time; the results in entries' order. Each result
+    is {lines, killed, infra, row}. free(i, when) reads the free space before and after mutant i."""
+    def guarded(i, entry):
+        before = free(i, "before")
+        if before < floor:
+            return {"lines": ["  FAIL  mutant %02d: INFRASTRUCTURE: %d MiB free before it ran, under the %d MiB floor; "
+                              "not run, neither a kill nor a survival" % (i, before >> 20, floor >> 20)],
+                    "killed": False, "infra": True, "row": None}
+        r = run_one(i, entry)
+        after = free(i, "after")
+        if after < floor:
+            return {"lines": ["  FAIL  mutant %02d: INFRASTRUCTURE: %d MiB free after it ran, under the %d MiB floor; "
+                              "its result is void, neither a kill nor a survival" % (i, after >> 20, floor >> 20)],
+                    "killed": False, "infra": True, "row": None}
+        return dict(r, infra=False)
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = [ex.submit(guarded, i, e) for i, e in enumerate(entries)]
+        results = []
+        for i, fut in enumerate(futs):
+            try:
+                results.append(fut.result())
+            except Exception as e:  # noqa: BLE001 - a worker's exception fails the run, never dropped
+                results.append({"lines": ["  FAIL  mutant %02d: the worker raised %s: %s" % (i, type(e).__name__, e)],
+                                "killed": False, "infra": False, "row": None})
+    return results
+
+
+def phase_selfcheck():
+    """The two conditions of the mutant phase, shown on simulated readings and workers (no disk is filled, no suite
+    runs): a free-space reading under the floor, before or after a mutant, is INFRASTRUCTURE and fails the run;
+    a worker's exception fails the run; neither counts as a kill; and results come back in entries' order."""
+    entries = [("collect.py", "a", "b", "m%d" % k) for k in range(5)]
+    low = {(1, "after"), (3, "before")}
+    ran = []
+
+    def run_one(i, entry):
+        time.sleep(0.02 * (5 - i))   # finish out of order
+        ran.append(i)
+        if i == 2:
+            raise OSError(28, "simulated: No space left on device")
+        return {"lines": ["  ok    mutant %02d" % i], "killed": True, "row": None}
+    res = mutant_phase(entries, run_one, lambda i, when: (1 << 20) if (i, when) in low else (1 << 40), 64 << 20, 2)
+    disk = (len(res) == 5 and res[1]["infra"] and not res[1]["killed"] and "INFRASTRUCTURE" in res[1]["lines"][0]
+            and res[3]["infra"] and not res[3]["killed"] and 3 not in ran and "not run" in res[3]["lines"][0]
+            and all(res[k]["killed"] and not res[k]["infra"] for k in (0, 4)))
+    worker = (not res[2]["killed"] and not res[2]["infra"] and "the worker raised OSError" in res[2]["lines"][0]
+              and all(("mutant %02d" % k) in res[k]["lines"][0] for k in range(5)) and sorted(ran) == [0, 1, 2, 4]
+              and ran != sorted(ran))
+    print("  %s  [N1-DISK] the mutant phase reports a free-space reading under the floor, before or after a mutant, as "
+          "INFRASTRUCTURE: never a kill or a survival, and the run fails" % ("ok  " if disk else "FAIL"))
+    print("  %s  [N1-WORKER] an exception in a mutant-phase worker fails the run and is never dropped; results come "
+          "back in MUTANTS order" % ("ok  " if worker else "FAIL"))
+    return int(not disk) + int(not worker)
 
 
 FAILED_CASE = re.compile(r"^  FAIL  (.*?)(?: -> .*)?$")
@@ -576,39 +732,21 @@ def main(argv=None):
         ok = rc == [0, 0, 0]
         print("  %s  the unmutated copy's three self-tests pass (exit codes %s)" % ("ok  " if ok else "FAIL", rc))
         fails += not ok
-        killed = 0
-        table = []
-        for i, entry in enumerate(MUTANTS):
-            fname, old, new, what = entry[:4]
-            expect = entry[4] if len(entry) > 4 else None
-            d = os.path.join(work, "m%02d" % i)
-            shutil.copytree(base, d)
-            p = os.path.join(d, fname)
-            src = open(p, encoding="utf-8").read()
-            pairs = old if isinstance(old, tuple) else ((old, new),)
-            counts = [src.count(o) for o, _ in pairs]
-            if counts != [1] * len(pairs):
-                print("  FAIL  mutant %02d (%s): its text occurs %s times" % (i, what, counts))
-                fails += 1
-                continue
-            for o, nw in pairs:
-                src = src.replace(o, nw)
-            with open(p, "w", encoding="utf-8") as f:
-                f.write(src)
-            outs = []
-            rc = selftests(d, extractor, work, outs, only=SUITES[fname])
-            names, crashed = failing_cases(outs)
-            k = any(rc)
-            missing = [e for e in (expect or []) if e not in names]   # exact names, never substrings
-            specific = expect is None or (not missing and not crashed)
-            killed += k and specific
-            print("  %s  mutant %02d %s: %s (exit codes %s)%s" % (
-                "ok  " if k and specific else "FAIL", i, fname, what, rc,
-                "" if specific else " -- expected tests not failing: %s%s" % (missing, " (a suite crashed)" if crashed else "")))
-            fails += not (k and specific)
-            if expect is not None:
-                table.append((i, what, expect, names))
-            shutil.rmtree(d, ignore_errors=True)
+        fails += phase_selfcheck()
+        results = mutant_phase(MUTANTS, lambda i, entry: run_mutant(i, entry, base, extractor, work),
+                               lambda i, when: free_bytes(work), DISK_FLOOR, WORKERS)
+        killed, infra, table = 0, 0, []
+        for r in results:   # in MUTANTS order, whatever order the workers finished in
+            for l in r["lines"]:
+                print(l)
+            killed += r["killed"]
+            infra += r["infra"]
+            fails += not r["killed"]
+            if r["row"] is not None:
+                table.append(r["row"])
+        if infra:
+            print("controls: %d mutant(s) not judged: INFRASTRUCTURE (free space under the %d MiB floor); neither a kill "
+                  "nor a survival, and the run fails" % (infra, DISK_FLOOR >> 20))
         print("controls: %d of %d mutants killed" % (killed, len(MUTANTS)))
         print("mutant -> the tests it fails (each expected regression test must be among them):")
         for i, what, expect, names in table:
