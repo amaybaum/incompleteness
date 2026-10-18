@@ -48,7 +48,10 @@ Tags are as in `../REPORT.md`: [AT], [EC], [WA], [MP], [L], [UP].
 ## Gates G1–G8 and M1 for OP-weak
 
 Memo @ `acfef447` §2.3, §3.2, §3.3, applied to OP-weak as written; the table is the independent audit's
-(`audit-931d5eda/AUDIT.md`). OP-strong stays as `../REPORT.md` S1 has it.
+(`audit-931d5eda/AUDIT.md`). OP-strong stays as `../REPORT.md` S1 has it. G5 for a standalone candidate carries both
+obligations of the memo: its controls are separately specified and fixed in advance (§2.3), and the candidate itself
+excludes K_B, K(Z_F) and Γ(Q3) (§3.3). The headline G5 verdict requires both, control preparation alone is never a G5
+PASS, and OP-weak's G5 is FAIL (standalone) because K(Z_F) and Γ(Q3) survive.
 
 | gate | OP-weak | evidence |
 |---|---|---|

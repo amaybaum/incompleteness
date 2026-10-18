@@ -1,8 +1,8 @@
 # Extension-X candidate screen against F2-reg gates G1–G8
 
-Research only: no X adopted, no F, no status/theorem/branch change (consistency axis, §A.23). Saved by the coordinator from the screening agent's final report (the agent could not write files); text as delivered, except where S1–S3 and the source-claims list cite `op-fork/`, the OP-weak vs OP-strong fork and its independent audit.
+Research only: no X adopted, no F, no status/theorem/branch change (consistency axis, §A.23). Saved by the coordinator from the screening agent's final report (the agent could not write files); text as delivered, except where S1–S3 and the source-claims list cite `op-fork/`, the OP-weak vs OP-strong fork and its independent audit, and where the gate legend and the S1–S3 G5 entries apply the owner's reading of G5 for standalone candidates (PR #864, comment 6248203342).
 
-Base main `b96662e6`; memo #859 `acfef447`; #832 `f48b11fd`, #833 `9fc5ec2e`, #836 `0e0b3ddc`, #820 `1d4606b2`, #831 `65b85147`; F2 threads H/I `804843f1`. Criteria: the memo's adopted A1 exact, B1 qubit-power registers (F2-reg), G1–G8 (§2.3), M1, applied as written. Tags: [AT] kernel on main (grep-checked), [CD] compiled design, [WA] written argument, [EC] exact computation in this screen, [EC-up] upstream exact replayed, [MP] manuscript exhaustive Python probe, [L] literature, [UP] unsourced.
+Base main `b96662e6`; memo #859 `acfef447`; #832 `f48b11fd`, #833 `9fc5ec2e`, #836 `0e0b3ddc`, #820 `1d4606b2`, #831 `65b85147`; F2 threads H/I `804843f1`. Criteria: the memo's adopted A1 exact, B1 qubit-power registers (F2-reg), G1–G8 (§2.3), M1, applied as written. Tags: [AT] kernel on main (grep-checked), [CD] compiled design, [WA] written argument, [EC] exact computation in this screen, [EC-up] upstream exact replayed, [MP] manuscript exhaustive Python probe, [L] literature, [UP] unsourced. G5 for a standalone candidate carries both obligations of the memo: its controls are separately specified and fixed in advance (§2.3), and the candidate itself excludes K_B, K(Z_F) and Γ(Q3) (§3.3). The headline G5 verdict requires both; control preparation is reported as a separately labelled §2.3 subfinding and is never a G5 PASS on its own.
 
 Coordinator replay (2026-10-18): all five probes re-run with `python3 -I -B probes/<p>.py`, rc 0, outputs byte-identical to `runs/SHA256SUMS`. A first replay attempt used the wrong path (rc 2, file not found); its outputs are kept in `../xscreen-replay/run1-harness-error/`.
 
@@ -51,7 +51,7 @@ Premise: every token state is the marginal of a pure joint description with an u
 | G2 | FAIL (strict) | uniqueness unsourced, and `fiber_freedom` [MP] refutes its substratum analogue; the automorphism clause is compatibility by definition, and P3 shows it alone excludes K(Z_F) |
 | G3 | FAIL | Γ(Q3) satisfies OP via the native map Ad_{I⊗S̄} [EC P1] |
 | G4 | PASS, conditional [WA] | transitivity on the token sphere forces a map \|+⟩ ↦ \|+i⟩, breaking NonnegBounded, the uniform ray and reality; whether OP contradicts `fiber_freedom` is OPEN. The pass rests on the automorphism clause and does not carry over to OP-weak (G4 OPEN, `op-fork/RESULT.md` gate table) |
-| G5 | PASS | controls designed here |
+| G5 | FAIL (standalone) | §3.3: Γ(Q3) survives (G3; countercontrols below), notwithstanding the correctly prepared controls; K_B fails existence and K(Z_F) fails OP-strong uniqueness [WA + EC]. §2.3 subfinding (control preparation): met, controls designed here |
 | G6 | OPEN | no novel empirical confrontation |
 | G7 | PASS | no branch, alphabet or prior parameter |
 | G8 | PASS | A1/B1 fixed before screening |
@@ -80,7 +80,7 @@ Premise: a native readout is the native read-write coupling (CNOT) to a meter in
 | G2 | FAIL (borderline) | a restricted preservation clause whose Γ-breaking content is off-diagonal, which OI's diagonal-level sourcing does not reach [UP] |
 | G3 | PASS | CNOT(\|+⟩\|0⟩) = Bell ∉ Γ(Q3); with \|+i⟩ the output lies outside K_B [EC] |
 | G4 | FAIL | adds no operation |
-| G5 | PASS | — |
+| G5 | FAIL (standalone) | §3.3: K(Z_F) survives, since it satisfies MI [EC] (below), notwithstanding the Γ(Q3)-breaking test (G3); K_B is excluded (G3, P2) [EC]. §2.3 subfinding (control preparation): met, controls designed here as in S1 |
 | G6 | OPEN | — |
 | G7 | PASS | coupling and ready state fixed by OI's read-write |
 | G8 | PASS | — |
@@ -105,7 +105,7 @@ Sufficiency [WA, unformalized]:
 4. PC gives hH2.
 5. The adopted `pairCone_eq_Q3_of_drive_maxCone` (EqvK2MaxCone.lean:153 [AT]) then gives K = Q3. This is an implication, not an iff.
 
-Gates: G1, G3, G5, G7, G8 PASS; G4 PASS (conditional); G6 OPEN; G2 FAIL (two compatibility clauses, one definitional — OP's automorphism clause — and one a bare assertion, PC).
+Gates: G1, G3, G7, G8 PASS; G4 PASS (conditional); G5 PASS (conditional) for its §3.3 exclusion aspect: K_B fails OP-strong existence (S1), K(Z_F) fails OP-strong uniqueness and Γ(Q3) fails PC (drop-one controls below) [EC + WA]. This conditional mathematical exclusion of the named fixtures does not upgrade G2 sourcing, G6, full operational validity or adoption of X. §2.3 subfinding (control preparation): met, as in S1. G6 OPEN; G2 FAIL (two compatibility clauses, one definitional — OP's automorphism clause — and one a bare assertion, PC).
 
 Drop-one controls, both exact:
 - Drop PC: Γ(Q3) remains [EC].
