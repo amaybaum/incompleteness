@@ -1489,6 +1489,14 @@
       ],
       "status": "kernel-only",
       "manuscript": []
+    },
+    {
+      "manuscript": [],
+      "modules": [
+        "TransSeparation"
+      ],
+      "name": "Ω₄, the ℓ⁴-sum of the Euclidean 3-ball and the segment, is compact, convex, with interior, drivable, with a sharp seed, relatively strictly convex and centrally symmetric, is no affine image of the Euclidean ball, and admits no body-preserving family that is boundary transitive or has a dense boundary orbit (round KTRANS-SEP-1, reconstruction)",
+      "status": "kernel-only"
     }
   ]
 }
