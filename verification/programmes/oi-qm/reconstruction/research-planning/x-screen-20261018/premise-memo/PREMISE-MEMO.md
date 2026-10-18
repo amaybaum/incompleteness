@@ -1,11 +1,13 @@
 # Additional physical premise for quantum-compatible joint evolution: design memo
 
 Design-only research memo for PR #864 (F2-reg physical-extension X screen). Consistency axis (§A.23). This memo
-adopts no X, designates no F or E, and changes no status, theorem, ROADMAP entry or manuscript. It makes no commit,
-push, probe or repository edit. Every claim below is relative to the alternatives named; none is a global minimality,
-equivalence or impossibility claim.
+adopts no X, designates no F or E, and changes no status, theorem, ROADMAP entry or manuscript. It is a research
+record kept in this directory with its correction record `CORRECTIONS.md`; it runs no probe and edits no other
+repository file. Every claim below is relative to the alternatives named; none is a global minimality, equivalence or
+impossibility claim.
 
-**Base.** Tree `s1018/xop/wt` at `85e949ad583db593768b9bb399f7192e6c8d30ba` (PR #864 head), clean. D =
+**Base.** `85e949ad583db593768b9bb399f7192e6c8d30ba` (PR #864 head), read in a clean local worktree that is not
+retained in the repository. D =
 `verification/programmes/oi-qm/reconstruction/research-planning/x-screen-20261018/`. Lean paths are under
 `verification/lean-mathlib/OIBridge/`.
 
@@ -14,7 +16,8 @@ equivalence or impossibility claim.
   `D/mi-plus/amendments/A1-A2-sources.md`.
 - The F2 decision memo at `acfef447` (§1–§4).
 - The readout-as-interaction search: `s1018/ri-native/SEARCH-LEDGER.md`, `s1018/ri-review/REVIEW-SEARCH.md` and
-  `s1018/ri-review/SEARCH-LEDGER.corrected.md`.
+  `s1018/ri-review/SEARCH-LEDGER.corrected.md`. These are working files outside the repository and are not retained
+  in it.
 - At `1d4606b2`: #820 `physical-state-operation-compatibility/spectrality.md`, plus `bridge-compatibility-audit/`
   `result.md` and `source-assessment.md`.
 - ROADMAP :1011–1019, :1044–1046 and :1088–1091; Main.md :600–602 and :628–632; GR.md :184–190.
@@ -26,19 +29,19 @@ equivalence or impossibility claim.
   - [EC, rec] is recorded in the cited screen.
   - [EC, dc] is this memo's design-evidence check (below). It is not a probe of any screen and certifies no verdict.
 - [W]: written argument. "[W, new]" marks an argument first made here and not yet reviewed.
-- [W, rev] and [EC, rev]: a written argument or exact check from the independent review of this memo (PR #864
-  comment 6254408285). They are cited from the review and not replayed here.
+- [W, rev] and [EC, rev]: a written argument or exact check from the independent reviews of this memo (PR #864
+  comments 6254408285 and 6254747204). They are cited from the reviews and not replayed here.
 - [U]: unresolved.
 - [I]: imported (literature or an external postulate).
 
 **Design evidence (record only).**
-- Script: `s1018/premise-memo/dc_premise.py`, sha256 `ce9971be4ae90f9c98f9f74df3902d65ce376e0eb4906ef21c19b60af68f357e`.
+- Script: `dc_premise.py` in this directory, sha256 `ce9971be4ae90f9c98f9f74df3902d65ce376e0eb4906ef21c19b60af68f357e`.
 - Output: `dc.out`, sha256 `5cc79d31536d470363a028b51ea1e16be2174b43686e0eaee4b29b8720b577fe`.
 - Runs: twice under `python3 -I -B` (SymPy, exact `Rational`/`I`), rc 0, byte-identical. 27 PASS, 0 FAIL; one
   countercontrol and one mutation are included.
 - An earlier run had one FAIL, caused by a wrong expected formula: a spurious transpose in the pairing identity.
-  Its output and script are kept in `run1-wrong-expected/` (output sha256 `8908337e…800ef`). The corrected check
-  includes the wrong form as a mutation that must fail.
+  Its output and script are in a working directory, `run1-wrong-expected/`, that is not retained in the repository
+  (output sha256 `8908337e…800ef`). The corrected check includes the wrong form as a mutation that must fail.
 
 ## 1. Question and scope
 
@@ -97,12 +100,13 @@ Each premise has exactly one class, or is marked unresolved:
 - **(i)** a new postulate;
 - **(ii)** an existing OI consequence, with a citation;
 - **(iii)** a compatibility restatement. This covers a membership "native coherent output ∈ K" (MI+ D2(a)/(b)) and
-  PSD/CP on K by definition (D3). It also covers a transfer clause in the sense of F2 G2: preservation of physical
-  states by named operations, or its dual, closure of a test family under pullback (F2 §2.2 Fact A, §2.3 G2, §2.4
-  LO and DT).
+  PSD/CP on K by definition (D3). It also covers a bare transfer clause in the sense of F2 G2: a statement that named
+  operations preserve physical states (F2 §2.1, §2.2 Fact A, §2.3 G2, §2.4 LO), and F2's DT, complete dual-test
+  closure, which is its dual form (F2 §2.4; SA:48–59). Closure of a smaller test family under pullback is not F2's DT
+  (SA:57–59).
 
-A composite takes class (iii) if a load-bearing component is (iii). UPD is classified against the transfer-clause
-form. OVr, whose basis is UPD's, is unresolved (U3). The other rows keep the class assigned against the membership
+A composite takes class (iii) if a load-bearing component is (iii). UPD is classified on its state-side reading,
+against the transfer-clause form. OVr, whose basis is UPD's, is unresolved (U3). The other rows keep the class assigned against the membership
 and PSD forms; their reading against the transfer-clause form is open (U3).
 
 | id | premise, stated operationally | class | basis | source status |
@@ -126,7 +130,7 @@ and PSD forms; their reading against the transfer-clause form is open (U3).
 | SWP | **Factor exchange.** Native SWAP routes token structure across the cut | (ii) | SWAP ∈ permClass; `factorExchange_exposes_ancTranspose` FactorExchange.lean:140 [AT, conditional on KrausSound] | sourced (operation); its cone use is PC24-type |
 | NST | native-statistics clauses: DIAG, RO, REC, NS, readback | (ii) | MI+ C1–C7, N2–N3 [W]; `recordInstr_apply` [AT]; F-α | — |
 | SD | **Self-duality**, K = K\* under the trace pairing | (i) | Jordan route [I]; ROADMAP :1053–1056 names it as an unsourced alternative | [U] |
-| **UPD** | **Update validity after native premeasurement.** For every physical pair state and each native readout outcome k of token 2 after the native coupling, token 1's conditional description cond_k(X) is a token state. Equivalent forms on the domain: Π_eXΠ_e ⪰ 0 and Π_oXΠ_o ⪰ 0 [EC, dc]; nonnegative probability for "coupling, native readout of the target, token test on the control" (test side). The protocol class is the native one: no local unitary precedes the coupling | (iii) | A transfer clause under F2 G2 [W, rev]. The state-side reading is preservation by one pair-to-token operation, which is compatibility (F2 §2.1). The test-side reading is closure of the product-test subfamily under pullback through CN, a restricted dual-test closure (DT). Unfolded, it requires PSD of the two parity compressions of every X ∈ K, a fragment of K ⊆ Q3, and it reads as a token state only through the coherent update (U2). Under continuous local rotations, UPD applied uniformly to "local unitary → CN → native readout" is equivalent to K ⊆ Q3 (disguise note) [W, rev] | [U]: Main.md:632 sources the Lüders update for the diagonal sector only; the coherent extension "belongs to the operational bridge". U3 open |
+| **UPD** | **Update validity after native premeasurement.** For every physical pair state and each native readout outcome k of token 2 after the native coupling, token 1's conditional description cond_k(X) is a token state. Equivalent forms on the domain: Π_eXΠ_e ⪰ 0 and Π_oXΠ_o ⪰ 0 [EC, dc]; nonnegative probability for "coupling, native readout of the target, token test on the control" (test side). The protocol class is the native one: no local unitary precedes the coupling | (iii) | A transfer clause under F2 G2, on the state-side reading [W, rev]: preservation of physical states by one pair-to-token operation, which is compatibility (F2 §2.1, §2.2 Fact A, §2.3 G2). The test-side reading is closure of the product-test subfamily under pullback through CN. That is DT-type closure restricted to product tests, not F2's DT, which is complete dual-test closure (SA:48–59); the class does not rest on it. Unfolded, UPD requires PSD of the two parity compressions of every X ∈ K, a fragment of K ⊆ Q3, and it reads as a token state only through the coherent update (U2). Under continuous local rotations, UPD applied uniformly to "local unitary → CN → native readout" is equivalent to K ⊆ Q3 (disguise note) [W, rev]. Neither fact is a G2 ground under the present F2 rules: MI+ D3 is not among them, and Fact A permits equivalence to cone selection | [U]: Main.md:632 sources the Lüders update for the diagonal sector only; the coherent extension "belongs to the operational bridge". U3 open |
 | OVr | UPD at outcome 0 only (equivalently G ⊆ K\*) | unresolved | as UPD; open under U3 | [U]; carries a knob (which outcome) |
 | OVc | OV-CNOT: CN(K) ⊆ maxCone (every product test after the coupling is valid) | (i) | not flagged by D2 | [U]; non-native tests (MI+ review, A4) |
 | OVn | OV-nat (MI+ C11): Π(K) ⊆ maxCone for every native protocol Π | (i) | MI+ D2 must-not-flag control (§5.2) | S13 [U] (MI+ RESULT C11) |
@@ -147,12 +151,14 @@ and PSD forms; their reading against the transfer-clause form is open (U3).
 
 The MI+ checks D2(a) and D2(b) were written for conclusions of the form "∈ K", and neither fires: the target cone
 is the fixed token cone and is self-dual, so the D2(a) shadow is the clause itself. F2 G2 is not limited to those
-checks. It rejects a bare transfer clause and dual-test closure as renamings of preservation (F2 §2.2 Fact A, §2.4 LO
-and DT). Both readings above have that form: the state side is preservation by one operation, and the test side is
-closure of the product tests e⊗P_k under pullback through CN [W, rev]. MI+ D3 bears on the same point: UPD requires
-PSD of two compressions of each element of K, and with local unitaries admitted it implies K ⊆ Q3. UPD is therefore
-class (iii) under the present F2 rules. Whether a disguise criterion frozen in advance, with no built-in outcome,
-classifies any statement of UPD's content otherwise is U3.
+checks. It rejects a bare transfer clause as a renaming of preservation (F2 §2.1, §2.2 Fact A, §2.3 G2). The state
+side has that form: it is preservation of physical states by one named operation [W, rev]. UPD is therefore class
+(iii) under the present F2 rules, on the state-side reading. The test side is closure of the product tests e⊗P_k
+under pullback through CN. That is DT-type closure restricted to product tests; it is not F2's DT, which is complete
+dual-test closure (F2 §2.4; SA:48–59), and the class does not rest on it. UPD's PSD use (§4) and its equivalence to
+K ⊆ Q3 under local rotations (below) are not G2 grounds either: Fact A states that equivalence to cone selection is
+not by itself a circularity. Whether a disguise criterion frozen in advance, with no built-in outcome, classifies any
+statement of UPD's content otherwise is U3.
 
 **Collapse under local rotations [W, rev].** Every pure pair vector is a local-unitary image of a vector in
 span{|00⟩, |11⟩} (Schmidt form). The outcome-0 conditional after "local unitary → CN → native readout" is the even
@@ -160,8 +166,11 @@ compression of the rotated X, so requiring it to be a token state for every loca
 vector. Under the continuous local rotations the target needs (A1, F2 Fact A, §5 G4), UPD applied uniformly to that
 protocol class is therefore equivalent to K ⊆ Q3.
 - Exact witness [EC, rev]: on the K(Z_F) defects z = I/2 − P_m, native UPD and all six configuration 2-subset
-  compressions are PSD. After I⊗V with V = √2·Cᵀ, a local unitary built from the defect's coefficient matrix C
-  (convention as in the review), the outcome-0 conditional has eigenvalue −½.
+  compressions are PSD. The convention: |ij⟩ = |i⟩⊗|j⟩ with token 1 first; m is the defect's maximally entangled
+  vector, m = (|00⟩ + b|01⟩ − bd|10⟩ + d|11⟩)/2 with b, d = ±1 (as in `dc_premise.py`); C is its coefficient
+  matrix with C_ij = ⟨ji|m⟩; V = √2·Cᵀ; and I⊗V acts by z ↦ (I⊗V) z (I⊗V)†. With that convention the outcome-0
+  conditional has eigenvalue −½ for all four defects. Transcribed with C_ij = ⟨ij|m⟩, the same formula puts −½ at
+  outcome 0 only for the d = −1 defects [EC, rev]; UPD excludes all four either way.
 - Mutation control: V = I gives no violation.
 
 **What UPD does contain.** UPD is not vacuous: on native operations it excludes Γ(Q3), K_Γ and maxCone [EC, dc].
@@ -200,7 +209,7 @@ satisfies the rest and is not Q3.
 | | outcome 1 (UPD → OVr) | K_Γ satisfies OVr and fails UPD: even(Γ(B)) = I/2, odd(Γ(B)) has eigenvalue −½ | [EC, dc] |
 | | the coupling (local filters only) | reduces to `hmax`: holds on every domain cone | [W] |
 | | the restriction to CN (all 24 native pair permutations, either readout token) | no change: the conditional after σ and a readout is a compression to a 2-subset of configurations. The product 2-subsets are PSD on every domain cone by LC, and the two entangled 2-subsets are the CN parity blocks, so UPD-24 ≡ UPD-CN | [W, new] |
-| | the native-protocol restriction (admit local unitaries before the coupling) | no non-Q3 survivor: UPD becomes K ⊆ Q3 (Schmidt form). K(Z_F) is excluded: V = √2·Cᵀ gives an outcome-0 eigenvalue −½, and the mutation V = I gives none | [W, rev]; [EC, rev] |
+| | the native-protocol restriction (admit local unitaries before the coupling) | no non-Q3 survivor: UPD becomes K ⊆ Q3 (Schmidt form). K(Z_F) is excluded: V = √2·Cᵀ (convention of §2) gives an outcome-0 eigenvalue −½, and the mutation V = I gives none | [W, rev]; [EC, rev] |
 | MI | non-configuration inputs (ρ diagonal only) | vacuous: the outputs are diagonal, hence in SEP | [W] |
 | | the coupling | reduces to `hH1` | [W] |
 | CH | cross-token identification (relabel token-2 tests f ↦ fᵀ) | Γ(Q3) satisfies it | [W] F-β |
@@ -255,12 +264,19 @@ nothing.
 
 Identification is fixed throughout.
 
-**PSD assumptions.** The UPD, OVr and OVc rows evaluate PSD of compressions of competing-cone elements. UPD tests its
-two parity compressions, OVr the even one, and OVc the conditionals that its tests e⊗P_k yield after the coupling.
-For example, Γ(Q3) is excluded because Γ(P_singlet)'s even block has eigenvalues ±½. These rows read a compression
-as a token state only through the coherent update, whose source is open (U2). Apart from these rows, no entry uses
-PSD or CP of a competing cone's elements. Entries that use K_B ⊆ Q3 or L ⊆ Q3 concern a cone's fixed membership, not
-an import.
+**PSD assumptions.** The UPD, OVr, OVc, OVn and MEV rows evaluate PSD-type positivity on competing-cone elements:
+compressions to planes or vectors that are not product, which the competing cone's own membership does not supply.
+- UPD tests its two parity compressions, OVr the even one, and OVc the conditionals that its tests e⊗P_k yield after
+  the coupling. For example, Γ(Q3) is excluded because Γ(P_singlet)'s even block has eigenvalues ±½. These rows read
+  a compression as a token state only through the coherent update, whose source is open (U2).
+- OVn's recorded exclusion, CN Γ(B) CN ∉ maxCone (`D/mi-plus/PREREG.md` §5.2), is the same product-test evaluation
+  after the coupling.
+- MEV excludes K(Z_F) through the negative rank-one compression Tr(P_m z) = −½ [EC, dc], and its other exclusions
+  are rank-one compressions to maximally entangled vectors.
+- SP⊕UPD inherits UPD's use. The CPK row records that its exclusions need PSD imported (D3).
+
+Apart from these rows, no entry uses PSD or CP of a competing cone's elements. Entries that use K_B ⊆ Q3 or L ⊆ Q3
+concern a cone's fixed membership, not an import.
 
 | premise | Q3 | Γ(Q3) | K_B | K(Z_F) | SEP | classical | other |
 |---|---|---|---|---|---|---|---|
@@ -283,8 +299,8 @@ an import.
 | SWP | pass | surv [EC, rec P2: local/swap subgroup] | surv [W] | surv [EC, rec] | surv | pass | — |
 | NST | pass | surv [W] F-α | surv | surv | surv | pass | vacuous [W, rec] |
 | SD | pass | surv [W] | excl: K_B\* ⊋ Q3 ⊋ K_B [W] | surv (historical) [W] | excl: SEP\* = maxCone [W] | pass | — |
-| **UPD** | pass [W] | **excl** [EC, dc]: Γ(P_singlet) has even block eigenvalues ±½ | surv [W] | surv on native protocols [EC, dc defects + W]; excl once local unitaries precede the coupling, where UPD ≡ K ⊆ Q3 [EC, rev] | surv [W] | pass [W] | K_Γ excl, maxCone excl [EC, dc]; L surv [W] |
-| OVr | pass | excl [EC, dc] | surv | surv [EC, dc] | surv | pass | K_Γ surv [EC, dc] |
+| **UPD** | pass [W] | **excl** [EC, dc]: Γ(P_singlet) has even block eigenvalues ±½ | surv [W] | surv on native protocols [EC, dc defects + W]; excl once local unitaries precede the coupling (witness [EC, rev]), where UPD ≡ K ⊆ Q3 [W, rev] | surv [W] | pass [W] | K_Γ excl, maxCone excl [EC, dc]; L surv [W] |
+| OVr | pass | excl [EC, dc] | surv | surv on native protocols [EC, dc]; with local unitaries admitted before the coupling, OVr also reduces to K ⊆ Q3 [W, rev] | surv | pass | K_Γ surv [EC, dc] |
 | OVc | pass | excl [EC, rec] | surv [W] | surv: PC [EC, rec] and K(Z_F) ⊆ maxCone | surv | pass | maxCone excl [EC, rec] |
 | OVn (C11) | pass [AT `cp_of_instAvail` + W] | excl [EC, rec] | surv [W] | [U]: Δ2 unrun | surv | pass | — |
 | MEV | pass [W] | excl [EC, rec Fact B] | surv [W] | **excl**: Tr(P_m z) = −½ [EC, dc] | surv | pass | K_Γ excl [W]; maxCone excl; L surv |
@@ -344,7 +360,7 @@ A premise that is only named does not pass G2.
 | SWP | PASS | sourced/non-discriminating | FAIL | FAIL | FAIL | OPEN | PASS | PASS | PASS |
 | NST | PASS | vacuous | FAIL | FAIL | FAIL | OPEN | PASS | PASS | PASS |
 | SD | PASS | [I] → FAIL | FAIL | FAIL | FAIL | OPEN | PASS | PASS | PASS |
-| **UPD** | PASS: readout, coupling, conditional state | transfer clause, class (iii) [W, rev] (U3) / [U]: the coherent update is not sourced (Main.md:632) / none → FAIL | PASS [EC, dc] | FAIL (adds no operation) | FAIL standalone on native protocols (K_B, K(Z_F) survive); with local unitaries admitted K(Z_F) is excluded and UPD ≡ K ⊆ Q3 [W + EC, rev] | OPEN | not a pass: outcomes and orientation are fixed, but either the restriction to native protocols is a knob, or, lifted, UPD collapses to K ⊆ Q3 [W, rev] | PASS | PASS [W]: uses the retained readout; retained protocols unchanged |
+| **UPD** | PASS: readout, coupling, conditional state | transfer clause on the state-side reading, class (iii) [W, rev] (U3) / [U]: the coherent update is not sourced (Main.md:632) / none → FAIL | PASS [EC, dc] | FAIL (adds no operation) | FAIL standalone on native protocols (K_B, K(Z_F) survive); with local unitaries admitted K(Z_F) is excluded and UPD ≡ K ⊆ Q3 [W + EC, rev] | OPEN | not a pass: outcomes and orientation are fixed, but either the restriction to native protocols is a knob, or, lifted, UPD collapses to K ⊆ Q3 [W, rev] | PASS | PASS [W]: uses the retained readout; retained protocols unchanged |
 | OVr | PASS | as UPD → FAIL | PASS | FAIL | FAIL | OPEN | FAIL (outcome knob) | PASS | PASS |
 | OVc / OVn | PASS | yes/[U] S13/none → FAIL | PASS | FAIL | FAIL | OPEN | PASS | PASS | PASS [W] |
 | MEV | BORDERLINE: lists test matrices unless stated as OV-LU | yes/[U]/none → FAIL | PASS | FAIL (posits non-native local unitaries) | FAIL (K_B) | OPEN | PASS | PASS | PASS [W] |
@@ -365,13 +381,16 @@ reality invariants. That component is an uncountable resource under A1, and it i
 ## 6. Conclusion and next preregistration target
 
 **The weakest candidates, under the relative criteria.** The criteria: logical strength on the domain; exclusion of
-the named alternatives under fixed identification; no membership clause; native readout and M1 retained. Each item
-states its F2 class and its PSD use (§2, §4). The weakest premises form an antichain, not a single premise.
+the named alternatives under fixed identification; no membership and no PSD import; native readout and M1 retained.
+UPD, OVr, OVc and MEV do not meet the no-PSD-import criterion: their exclusions evaluate PSD-type positivity on
+competing-cone elements (§4), as do OVn's. Each item states its F2 class and whether it meets that criterion (§2, §4).
+The weakest premises form an antichain, not a single premise.
 
 1. **Γ-breaking content without a membership clause: UPD.** "After the native read-write coupling and a native
    readout of the partner, the token's conditional description is a token state."
-   - Under the present F2 rules it is a transfer clause, class (iii) (§2; U3). Its discrimination evaluates PSD of
-     two compressions of each element of K (§4).
+   - Under the present F2 rules it is a transfer clause on its state-side reading, class (iii) (§2; U3). Its
+     discrimination evaluates PSD of two compressions of each element of K (§4), so it does not meet the
+     no-PSD-import criterion; nor do OVr and OVc below.
    - Its separation from K ⊆ Q3 rests on the restriction to native protocols. With local unitaries admitted before
      the coupling it is equivalent to K ⊆ Q3 (§3.2), so either the restriction is a knob (G7) or UPD collapses to
      K ⊆ Q3.
@@ -382,9 +401,11 @@ states its F2 class and its PSD use (§2, §4). The weakest premises form an ant
      (G ⊆ K\*).
 2. **Γ(Q3) and K(Z_F) together in one premise: CH, or its convex form MEV.** CH is the weaker of the two
    (MEV ⇒ CH, CH ⇏ MEV [W]). Both are incomparable with native UPD (§3.4). CH is G1-borderline: on the domain it is
-   equivalent to excluding a named matrix family [W, new]. MEV needs non-native local unitaries before the coupling.
+   equivalent to excluding a named matrix family [W, new]. MEV needs non-native local unitaries before the coupling,
+   and it does not meet the no-PSD-import criterion (its exclusion of K(Z_F) is Tr(P_m z) = −½, §4). CH's
+   exclusions use no PSD evaluation (§4).
 3. **All named alternatives (K_B, K(Z_F), Γ(Q3), SEP, L, maxCone) excluded without a membership clause: SP⊕UPD,
-   conditionally.** The conditions:
+   conditionally.** Through UPD it does not meet the no-PSD-import criterion. The conditions:
    - As a composite free of compatibility clauses, it holds only if U3 resolves in UPD's favour.
    - The exclusion of L rests on U7, a written argument not yet reviewed.
    - SP's exclusion of K(Z_F) rests on U6, a historical certificate.
@@ -396,7 +417,8 @@ No examined premise passes G2(ii), G4 or G6. No examined premise is adopted.
 
 **The physical content a premise must add.** In one line: a constraint tying the two tokens' relative orientation,
 which is visible only in joint coherences (for example the parity block that the native coupling maps onto one
-token), to the physical state space through validity of the update or test, not through membership.
+token), to the physical state space by a route that is neither membership nor a transfer clause (F2 G2), for example
+test validity. Update validity in UPD's form is a transfer clause under the present F2 rules (§2; U3).
 
 **Testing the review's claim** that "excluding Γ(Q3) requires the entangling action fixed independently of K, from a
 source other than membership". The claim is confirmed in substance and corrected in two respects.
@@ -443,7 +465,8 @@ needs the following.
 
 1. U1: H-CAR. Physical pair descriptions transform by the native conjugation (EA) [U].
 2. U2: the source of UPD. The coherent update beyond the diagonal sector [U] (Main.md:632).
-3. U3: the classification of UPD. Under the present F2 rules it is a transfer clause, class (iii) (§2). Open [U]:
+3. U3: the classification of UPD. Under the present F2 rules it is a transfer clause on its state-side reading, class
+   (iii) (§2). Open [U]:
    - whether a disguise criterion frozen in advance, with no built-in outcome, classifies any statement of UPD's
      content otherwise;
    - whether the restriction to native protocols can be fixed other than as a knob, given that UPD with local
