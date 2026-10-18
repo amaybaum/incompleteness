@@ -1,8 +1,8 @@
 # Locality round LOC-1 — how locality verdicts depend on the identification of parts: PREREGISTRATION (draft)
 
 **Status: drafting, native V3; not a candidate `F`.** Drafted on a pull request from `D` for owner review. The owner's
-design decisions of 2026-10-16, (a) to (f), are applied (§14); the choices §14 marks "(proposed)" await the owner's
-decision. Nothing is executed. No workflow is dispatched for this round, and its code is not run on any target object
+design decisions (a) to (f) of 2026-10-16 and (g) to (k) and the artifact ruling of 2026-10-18 are applied (§14).
+Nothing is executed. No workflow is dispatched for this round, and its code is not run on any target object
 before `F`. Only the owner designates `F` under AGENTS §A.39; an instruction to proceed is not a designation.
 
 ```v3-round
@@ -309,11 +309,26 @@ open direction stands without the citation.
 ## 7. Cells and decision rules
 
 All arithmetic is exact: `Fraction`; P0's `ℚ(ζ₁₆)` class, from its copy in `objects/` (§2.1), for `C21`; integers mod
-`q` for leg S. At `C21` the S16 engine reaches that class through an arithmetic layer meeting E1–E4 of
-`design/S16-completeness.md`: exact zero tests, N3 products and leaf test in `ℚ(ζ₁₆)`, and N2 on images under a ring
-homomorphism to `F_p`, `p ≡ 1 (mod 16)`, with an assertion that no nonzero entry has image 0. The independent replay
-uses its own implementation of `ℚ(ζ₁₆)` (§8). Every token prints from measurements. The decision rules fix what each
-measurement decides; they fix no expected number.
+`q` for leg S. At `C21` the S16 engine runs through an arithmetic layer meeting E1–E4 of `design/S16-completeness.md`
+(owner decision (k)):
+
+- The layer executes the frozen engine's bytes (`design/c21_engine.py`, §9) unchanged, in a module namespace where
+  exactly three names are rebound after the source has run: the entry conversion `int` and the cross-check's
+  `Fraction` to the layer's own `ℚ(ζ₁₆)` normal form, and `PR` to the place `(p, ω)`. The symmetry breaking, the four
+  rules, the leaf rule, the budget and the undo records are therefore the frozen code's (E4), and K-arith-16 checks the
+  source digest and the set of rebound names.
+- Zero tests, N3 products and the leaf test are exact in `ℚ(ζ₁₆)`, on the power basis `1, ζ, …, ζ⁷` with `ζ⁸ = −1`
+  (E1). The static order sorts entries by the lexicographic order of their normal forms (E3).
+- N2 runs on images under `ρ: ζ ↦ ω` in `F_p` (E2), with `p` the least prime `≡ 1 (mod 16)` above `2⁶¹`,
+  `p = 2,305,843,009,213,694,017`, and `ω = a^{(p−1)/16}` for the least `a ≥ 2` with `ω⁸ ≡ −1 (mod p)`. The engine's own
+  assertion that no nonzero entry has image 0 is then E2's assertion, and `ρ` refuses an entry with a denominator
+  divisible by `p`.
+- Each target built with P0's class enters the layer through its eight power-basis coordinates; K-arith-16 checks that
+  they round-trip exactly.
+
+The layer and K-arith-16 are developed on the round's linked research branch and are pinned in §9's table, by size and
+sha256, before `F` (§12). The independent replay uses its own implementation of `ℚ(ζ₁₆)` (§8). Every token prints from
+measurements. The decision rules fix what each measurement decides; they fix no expected number.
 
 ### 7.T Leg T
 
@@ -419,6 +434,9 @@ examined, and no sampled cell is stated as universal.
 ## 8. Controls
 
 A token printed over a failed control is void, and the round then prints `VOID`. Budget exhaustion is never `VOID`.
+K-arith-16 is the one exception (owner decision (k)): if it fails, S16 is not run on `C21`'s targets, and each `C21`
+target set takes the EXHAUSTED route of §9 with the reason printed, so its result stays unresolved by the search and no
+`C21` exclusion is INV.
 
 **Mandatory (owner):**
 
@@ -427,9 +445,9 @@ A token printed over a failed control is void, and the round then prints `VOID`.
 | K-C21 | S16 finds the `τ` class for `T` (W-T) and the identity class for `P`, so REL is reachable; it finds no class for a transposition on `Fin 16` (W-CYC-16), so INV is reachable and S16 can return nothing |
 | K-repro | at `σ₀`, every P0 status line (output lines 15–76) and every pair-verdict line (113–178) for `CT4`/`CCT4` and the other frozen pairs is reproduced verbatim; at leg S's natural decompositions, P2's lines 4, 23 and 31 (§2) are reproduced |
 | K-obj | owner decision (f): before any cell runs, `objects/` holds exactly the six files of §2.1, and each file's size, sha256 and git blob id, computed from its bytes, equal its row; the run reads P0's and P2's objects from `objects/` and from nowhere else |
-| K-design | (proposed, §14 (g)) before any cell runs, `design/` holds exactly the files of §9's table, and each file's size and sha256, computed from its bytes, equal its row |
-| K-prior | (proposed, §14 (g)) before any cell runs, `prior/` holds exactly the six files of §13's table, and each file's size and sha256, computed from its bytes, equal its row |
-| K-arith-16 | (proposed, §14 (k)) on the S16 engine's `ℚ(ζ₁₆)` layer, before it runs on a target: E1–E4 of `design/S16-completeness.md` hold; `ρ` is a ring homomorphism on `ζ⁸ = −1` and on seeded sums and products; on seeded synthetic `ℚ(ζ₁₆)` instances (planted products relabelled by a seeded `σ*`, near-products, non-products) enumeration returns the same class sets with N2 exact and on images; an entry changed by `ζ − ω ∈ ker ρ` passes every image test at its planted leaf and is rejected by the exact leaf test; and the assertion `ρ(x) ≠ 0` holds for every entry of every `C21` target |
+| K-design | owner decision (g): before any cell runs, `design/` holds exactly the files of §9's table, and each file's size and sha256, computed from its bytes, equal its row |
+| K-prior | owner decision (g): before any cell runs, `prior/` holds exactly the six files of §13's table, and each file's size and sha256, computed from its bytes, equal its row |
+| K-arith-16 | owner decision (k): on the S16 engine's `ℚ(ζ₁₆)` layer, before it runs on a target: E1–E4 of `design/S16-completeness.md` hold, E4 by the source digest and the rebound names of §7; on integer instances the layer returns the frozen integer engine's statuses, classes and static order; `ρ` is a ring homomorphism on `ζ⁸ = −1` and on seeded sums and products; on seeded synthetic `ℚ(ζ₁₆)` instances (planted products relabelled by a seeded `σ*`, near-products, non-products) enumeration returns the same class sets with N2 exact and on images; an entry changed by `ζ − ω ∈ ker ρ` passes every image test at its planted leaf and is rejected by the exact leaf test; a reduction with `ω` of order 8 instead of 16 and each frozen engine mutation are detected; every target's power-basis coordinates round-trip exactly; and the assertion `ρ(x) ≠ 0` holds for every nonzero entry of every `C21` target |
 | K-ring | on `S-ring(3)`, re-derived and not imported: the spatial decomposition has `deg_max = 3` and 8 edges, the eigenmode decomposition `deg_max = 1` and 4 edges; the φ-pullback has the spatial graph and is a distinct decomposition; A4(b) holds spatially and fails in eigenmode coordinates |
 
 **Scope controls (I0/I1/I2):**
@@ -452,19 +470,20 @@ A token printed over a failed control is void, and the round then prints `VOID`.
 | K-adm | every transported lift is admissible for the transported `Γ` (readback equality) |
 | K-hid | W-HID: carrier values under `(σ_V, σ_A)` equal those under `(σ_V, id)`, exactly, for every lift and carrier |
 | K-prod | PC accepts a constructed product and rejects `F₁₆` and P0's mutated `H₁ ⊠ H₁` |
-| K-rep | the W-REP certificate agrees with an explicit product lift on two constructed instances, and its rank clause rejects a product channel with a factor of Kraus rank 4 > `|A₁|` |
+| K-rep | the W-REP certificate agrees with an explicit product lift on two constructed instances, and its rank clause rejects a product channel with a factor of Kraus rank 4, more than the size of `A₁` |
 | K-rel-pos | the `CCC` sweep finds the W-PAR class with `Γ` a product |
 | K-search | S16, generalized to `m × n`, returns exactly the brute-force class set on `Fin 8 ≅ Fin 2 × Fin 4` (840 classes) for a seeded product relabelled by a seeded `σ*`, and recovers a planted class on `Fin 16`; a weakened pruning test and a broken symmetry breaker are each detected |
-| K-sample | the stratified sampler is reproducible from its seed and its strata are the ones §9 fixes; the I1 sampler of S-I1 is reproducible from its seed, and every draw lies in I1 |
-| K-engine | the preflight's frozen engine controls (K-canon class counts on small shapes; the brute-force replay for `N ≤ 9`; K-plant; K-perm; K-collision) and its engine and replay mutation harnesses, rerun at stage 2 on the frozen integer engine and on the engine with its `ℚ(ζ₁₆)` layer. On the integer engine the rerun follows the recipe of `design/preflight-expected.json`, and the regenerated outputs and expected result equal their §9 rows byte for byte |
+| K-sample | the stratified sampler is reproducible from its seed, its strata are the ones §9 fixes, and the regenerated `c21_samples.json` has the sha256 `preflight-expected.json` records for it; the I1 sampler of S-I1 is reproducible from its seed, and every draw lies in I1 |
+| K-engine | the preflight's frozen engine controls (K-canon class counts on small shapes; the brute-force replay for `N ≤ 9`; K-plant; K-perm; K-collision) and its engine and replay mutation harnesses, rerun at stage 2 on the frozen integer engine and on the engine with its `ℚ(ζ₁₆)` layer. On the integer engine the rerun follows the recipe of `design/preflight-expected.json`: the regenerated expected result, `c21_search.out` and `c21_witness.json` equal their §9 rows byte for byte, and every other regenerated output's sha256 equals the digest `preflight-expected.json` records for it under `sources` |
 | K-leap, K-dep | each leg-S rule's matrix equals the direct leap formula on every state; coupling graphs from the matrix pattern equal brute-force dependency over every state of each frozen decomposition on `F_3^4` and `F_3^8`, and on 2,000 seeded states on `F_5^8` |
 | K-eig, K-same | the eigenmode columns are eigenvectors with the stated eigenvalues; the pullback by the site shift is the natural factorization and the φ-pullback is not (W-PB) |
 | K-obs | on `S-free`, the closure assignment equals the exhaustive enumeration's unique assignment; on `S-deep`, whose sum is proper, CL-Q's `A(M)` equals the exhaustive enumeration's; on every `F_3^4` rule, the enumerated size of I1(M) equals W-I1C |
 
 **Independent replay of every decisive witness.** A second script, sharing no code with the first, recomputes each
 witness that decides a token — the identification, the transported operators, the product test and the verdict —
-reading only the witness list the first script writes. Any disagreement voids the token. (Proposed, §14 (j).) The
-replay imports nothing from `objects/`, the run script or `controls.py`:
+reading only the witness list the first script writes. Any disagreement voids the token. Owner decision (j) requires
+separately implemented cyclotomic arithmetic and the reconstruction of the frozen lifts. The replay imports nothing from
+`objects/`, the run script or `controls.py`:
 
 - it implements its own exact `ℚ(ζ₁₆)` arithmetic, on the power basis `1, ζ, …, ζ⁷` over `Fraction` with
   `ζ⁸ = −1`, and its own integers mod `q` for leg S;
@@ -474,9 +493,14 @@ replay imports nothing from `objects/`, the run script or `controls.py`:
   carries, exactly (K-replay-lifts); a difference voids the token.
 
 Its independence therefore extends to the arithmetic, the lifts and the rule matrices, not only to the transport, the
-product test and the verdict.
+product test and the verdict. Its arithmetic is checked by **K-replay-arith**: its own self-test (field identities on
+seeded elements, `ζ⁸ = −1`, the norm as the determinant of multiplication equal to the product of the conjugates,
+known units, and a mutant product with `ζ⁸ = +1` that must fail), a check that it imports only the standard library,
+and agreement with the run's layer on seeded sums, products, inverses, norms, Galois images and images under `ρ`,
+exchanged as written normal forms rather than through shared code. A failed K-replay-arith voids every token the
+replay decides.
 
-**Retention (AGENTS §A.42; proposed, §14 (h)):**
+**Retention (AGENTS §A.42; owner decision (h)):**
 
 | id | content |
 | --- | --- |
@@ -562,8 +586,9 @@ varies between runs, is not retained, and freezes nothing.
     `c21_samples.json`. Observed: about 1.3 s.
   - Any one class is sampled with probability at most 500 / 79,833,600, about 6.3 × 10⁻⁶. INV-SAMPLED(2000) therefore
     carries little weight against a rare REL witness, which is why it is never read as invariance.
-- **Exact arithmetic in ℚ(ζ₁₆).** Not measured: the engine as measured converts every entry to an integer. The layer of
-  §7 is part of the round's run script, written before `F`, and K-arith-16 checks it.
+- **Exact arithmetic in ℚ(ζ₁₆).** Not measured on any target: the engine as measured converts every entry to an
+  integer. The layer of §7 and K-arith-16 are written before `F` and exercised on synthetic inputs only; any
+  disposable-branch run of them that this preregistration cites is retained as a design run (below).
 
 **Rules frozen from these measurements.**
 - **`F_3^4`.**
@@ -575,15 +600,20 @@ varies between runs, is not retained, and freezes nothing.
   terminated proxy run (1,397,548 tested nodes) and about 5.0 × 10⁵ times the median (201.5), and it lies below the
   3.1 × 10¹⁰ estimate for the adversarial order, so exhaustion is not excluded. No duration enters the rule.
   - **FOUND:** the witness goes to the independent replay, and the verdict is the replayed one.
-  - **NONE within the budget:** certifies that no class exists (W-SEP, within its scope).
+  - **NONE within the budget:** certifies that no class exists (W-SEP, within its scope), provided K-arith-16 passed.
   - **EXHAUSTED:** OPEN, with the node count.
     - It is followed by the special identifications of §5 and then the 2,000 stratified samples.
     - A replayed hit is read as REL; otherwise the class is INV-SAMPLED(N), never INV.
+- **K-arith-16 failed:** S16 is not run on `C21`'s targets; each target set takes the EXHAUSTED route above, with the
+  reason in place of the node count.
 - **Supplementary.** Enumeration of all classes runs under its own budget and is reported as bounded if it stops early.
   No token needs it.
 
 **Files copied to `design/` at stage 1.** Each row is one file. Its copy is `design/<file>`, byte-identical to the
-working file pinned here; K-design checks every copy against its row.
+working file pinned here; K-design checks every copy against its row. Under the owner's artifact ruling of 2026-10-18,
+two outputs are retained byte for byte: `c21_search.out`, because `S16-completeness.md` cites its line positions and
+digest (AGENTS §A.42 item 1's exception), and `c21_witness.json`, the deterministic witness list the independent
+replay reads. Both are scanned at stage 1 as §12 requires. The preflight's other outputs are not copied (below).
 
 | file | role | form | bytes | sha256 |
 | --- | --- | --- | --- | --- |
@@ -597,22 +627,18 @@ working file pinned here; K-design checks every copy against its row.
 | `scope_T.py` | leg-T scope sizes | complete | 4812 | `b0edfc9322b68c022913433ac1069419f83bedd78252199d9e7d7ebfa8e03583` |
 | `frozen_inputs.json` | P0's `H₁` (times 2) and index convention, read by `c21_search.py` | complete | 637 | `89e94743d08a07c74f5a7661da7839ca7434d627acfeb9c556805fe01059c803` |
 | `sizes.py` | scope sizes against the frozen limits | complete | 2106 | `ab4d5ee342029a9d4907264609743762273045c58fa411d49cfc7dd3465304f1` |
-| `sizes.out` | stdout of `sizes.py` | complete-as-cited | 1350 | `558bce27933c552d87dfc555bad043943296c3005d67e5c53614d8ea726e91fe` |
-| `scope_T.out` | stdout of `scope_T.py` | complete-as-cited | 631 | `5f046ca1a24caa8c021d6a495b27293ffaee5f90655f90851752abc6d90625da` |
-| `f34_count_indep.out` | stdout of `f34_count_indep.py` | complete-as-cited | 208 | `89253e0df60bae63193c6107ec57b0ead21bbd358fafdaf116154adf9dd1c2ac` |
-| `f34_enum.out` | stdout of `f34_enum.py` | complete-as-cited | 2537 | `93704f647192cd2f00bee30a2ddd4879e831aa18029558d67efa0000cbbd7128` |
-| `f34_enum_kdepall.out` | stdout of `f34_enum.py --kdep-all` | complete-as-cited | 2537 | `72485aef26438ddf08ce1fb1833d8bf5f63cfa6fcdd6d6eb157fe6061a5a1701` |
-| `c21_search.out` | stdout of `c21_search.py`; its line positions are cited | complete-as-cited | 54521 | `f09b4840c2471d27ab601a7029fd3bce07cd17c921da8b79ce44fb3350010a9d` |
-| `c21_witness.json` | witness list written by `c21_search.py`, read by the replay | complete-as-cited | 1912475 | `eca55c800cf6f19a5fb25cd586b8af43ac2ad0b5942b8c7f81b517a1e9866f15` |
-| `c21_replay.out` | stdout of `c21_replay.py` | complete-as-cited | 178 | `d254d7cc2ca244a62aab0002918b680b13569f315a12593eec41fd39f10cc011` |
-| `c21_replay_mut.out` | stdout of `c21_replay_mut.py` | complete-as-cited | 391 | `1b69431f3e63ded08410197935a6c48c746b58bf445927020a47b710a195f19c` |
-| `c21_sampler.out` | stdout of `c21_sampler.py` | complete-as-cited | 1021 | `b61c10fa25c9aa056e80fbc38967fab0a62b874b16dcd0bd75d73371c86eacbc` |
-| `c21_samples.json` | sample list written by `c21_sampler.py` | complete-as-cited | 88001 | `6f1d6b6d4db6fb8db02d6922cea9052e29edf1d9836a5066f8395295a2bc2b13` |
+| `c21_search.out` | stdout of `c21_search.py`; `S16-completeness.md` cites its line positions and digest; its substantive claims are carried by `preflight-expected.json` | complete-as-cited | 54521 | `f09b4840c2471d27ab601a7029fd3bce07cd17c921da8b79ce44fb3350010a9d` |
+| `c21_witness.json` | witness list written by `c21_search.py`, read by the replay; deterministic and content-addressed | complete | 1912475 | `eca55c800cf6f19a5fb25cd586b8af43ac2ad0b5942b8c7f81b517a1e9866f15` |
 | `preflight_expected.py` | extractor of the expected result | complete | 13458 | `16a9fcbb0f823da2765bb770962c67782f1db888aea31167876cc3fad5a814f4` |
-| `preflight-expected.json` | expected result: the deterministic content of the eleven outputs above | derived | 26358 | `70a1e1eda648d78b56b5b446285c66b8deeaf6d8a65412cc56c42cbbeca178ac` |
+| `preflight-expected.json` | expected result: the deterministic content of the preflight's eleven outputs, which it names by sha256 under `sources` | derived | 26358 | `70a1e1eda648d78b56b5b446285c66b8deeaf6d8a65412cc56c42cbbeca178ac` |
 | `S16-completeness.md` | the S16 completeness argument | complete, [W] | 15937 | `d45ae28ab475745ad2125fa9b05cf49229adf52a2a96c2caeace62741a40ca36` |
 
-- **Runs.** Each output in the table was produced three times, in separate copies, byte for byte the same. For every
+- **Outputs not copied.** `sizes.out`, `scope_T.out`, `f34_count_indep.out`, `f34_enum.out`, `f34_enum_kdepall.out`,
+  `c21_replay.out`, `c21_replay_mut.out`, `c21_sampler.out` and `c21_samples.json`. Their deterministic content is
+  `preflight-expected.json`'s, and the sha256 it records for each is the provenance of that extraction. K-engine
+  regenerates each by the recipe and compares its digest with that record; K-sample does the same for
+  `c21_samples.json`.
+- **Runs.** Each output of the preflight was produced three times, in separate copies, byte for byte the same. For every
   output but `f34_enum_kdepall.out`, the three runs are the two drafting runs and a run of the whole set in a fresh
   copy, all on 2026-10-16. `f34_enum.py --kdep-all` was not part of the second drafting run; its three runs are the
   first drafting run, that fresh-copy run, and a run in a further fresh copy on 2026-10-17.
@@ -623,9 +649,10 @@ working file pinned here; K-design checks every copy against its row.
   temporary files `c21_replay_mut.py` writes and hands to `c21_replay.py`.
 - **The expected result.** `preflight_expected.py` regenerates `preflight-expected.json` byte for byte from each of the
   three output sets. The file names its sources by sha256 and the recipe that regenerates them.
-- **Scope counts.** `sizes.out` lists `CCT4` and `CCC` at 9 classes, under thread B's set quotient (§13). The round's
-  counts are those of `scope_T.out` under the quotient of §3.1: 18 classes and an I1 ambient of 6.
-- **Design runs (proposed, §14 (h)).** Each disposable-branch design run that §12 cites is retained as an expected
+- **Scope counts.** The expected result's `sizes` rows list `CCT4` and `CCC` at 9 classes, under thread B's set
+  quotient (§13). The round's counts are those of its `scope_T` rows under the quotient of §3.1: 18 classes and an I1
+  ambient of 6.
+- **Design runs (owner decision (h)).** Each disposable-branch design run that §12 cites is retained as an expected
   result `design/runs/<run>.json`, in the form of `retained/F/check-run.json` (§12). Its row is added to this table,
   with its size and sha256, before `F`, and the file is copied at stage 1.
 
@@ -645,7 +672,8 @@ working file pinned here; K-design checks every copy against its row.
 | each direction of each equivalence of §6 has its own proof and status | §6.1, the result note at stage 3 (§12); a reading that uses an open direction is not printed as decided |
 | both INV and REL are reachable | K-C21; SC-I0 |
 | the search is complete when it terminates | W-SEP, argued in `design/S16-completeness.md`; K-search; K-engine; node counts reported |
-| at `C21` the search's arithmetic meets E1–E4 of that argument | K-arith-16; K-engine on the extended engine |
+| at `C21` the search's arithmetic meets E1–E4 of that argument, or the search's results there stay unresolved | K-arith-16; K-engine on the extended engine; §9's rule for a failed K-arith-16 |
+| the replay's arithmetic is separately implemented and correct | K-replay-arith |
 | a sampled result is never read as invariance | §3.4; §7.V; K-sample |
 | the coupling graphs are computed, not assumed | K-dep; K-leap |
 | the closure route agrees with enumeration | K-obs |
@@ -654,11 +682,12 @@ working file pinned here; K-design checks every copy against its row.
 | every decisive witness is replayed independently | the replay script, with its own `ℚ(ζ₁₆)` arithmetic and its own lifts (K-replay-lifts) |
 | replayable | K0 |
 | the preflight's ten scripts and inputs are the pinned files | K-design, against §9's table; `design/` is add-only (`v3-governed-paths`) |
-| the preflight's eleven outputs are the pinned files and are deterministic | K-design; K-engine's byte-for-byte regeneration at stage 2 |
+| the two retained preflight outputs are the pinned files, and every preflight output is deterministic | K-design; K-engine's regeneration at stage 2, against §9's rows and the digests `preflight-expected.json` records |
 | §9's deterministic counts are those of the pinned expected result | K-design (`preflight-expected.json`, `preflight_expected.py`); K-engine |
 | the S16 argument is the pinned file | K-design (`S16-completeness.md`) |
 | each cited design run is retained as an expected result | K-design, its row added to §9's table before `F` |
 | the disclosed prior files are the pinned files | K-prior, against §13's table; `prior/` is add-only |
+| the retention arrangements match the evidence-retention schema accepted on `main` | the recheck §14 (h) requires before `F`; K-ret-F; K-ret-E |
 | `F`'s exact-head run and designation are retained by the first execution commit | K-ret-F; `retained/` is add-only |
 | `E`'s exact-head run and designation reach `main` before reconciliation, and the receipt names their digests | K-ret-E |
 | nothing writes to the record directory after `Q` | G13, checked by `tools/v3_verifier.py --receipts` at every later commit |
@@ -683,14 +712,17 @@ working file pinned here; K-design checks every copy against its row.
 
 ## 12. Stages and outcomes
 
-- **Before `F`:** the round's code — the run script with the `ℚ(ζ₁₆)` layer of §7, the independent replay script and
-  `controls.py` — is written and its blobs are recorded here. It is exercised only in control mode, on the synthetic
-  and written-answer inputs of §8, locally and on a disposable branch at the predicted tree (design evidence, not
-  attestations). Each disposable-branch run this preregistration cites is retained as an expected result in
-  `design/runs/` and pinned in §9's table before `F` (below). The `F` check run is dispatched with the branch held at
-  exactly `F`, before the designation record is posted, and no execution commit is made before that record.
-- **Stage 1, the first execution commit:** the copied objects (`objects/`, §2.1), the disclosed prior scripts and
-  outputs (`prior/`, §13), the design files of §9 (`design/`), the code, each at its frozen blob, and `retained/F/`
+- **Before `F`:** the round's code — the run script with the `ℚ(ζ₁₆)` layer of §7 and K-arith-16, the independent replay
+  script with its own arithmetic and K-replay-arith, and `controls.py` — is written and its blobs are recorded here
+  (owner decisions (j) and (k)). It is exercised only in control mode, on the synthetic and written-answer inputs of §8,
+  locally and on a disposable branch at the predicted tree (design evidence, not attestations). Each disposable-branch
+  run this preregistration cites is retained as an expected result in `design/runs/` and pinned in §9's table before `F`
+  (below). The expected results of §13's three outputs are pinned there before `F`. The retention arrangements below are
+  rechecked against the evidence-retention schema accepted on `main` (§14 (h)). The `F` check run is dispatched with the
+  branch held at exactly `F`, before the designation record is posted, and no execution commit is made before that
+  record.
+- **Stage 1, the first execution commit:** the copied objects (`objects/`, §2.1), the disclosed prior scripts and the
+  expected results of their outputs (`prior/`, §13), the design files of §9 (`design/`), the code, each at its frozen blob, and `retained/F/`
   (below). After stage 1 every file the round cites is in its record directory or on `main`; nothing it relies on is a
   scratch file or a branch other than `main`.
 - **Stage 2:** the run, twice, byte-identical; the replay; the outputs and the witness list as record files.
@@ -699,7 +731,7 @@ working file pinned here; K-design checks every copy against its row.
 - **`E`:** the exact-head run at `E` is dispatched before `E` is designated. Then `E`'s evidence-retention pull request
   (below), reconciliation on a base that contains it, the receipt `Q` and `tools/v3_verifier.py --verify-round Q`.
 
-**Retention (AGENTS §A.42 items 2 and 6; proposed, §14 (h)).**
+**Retention (AGENTS §A.42 items 2 and 6; owner decision (h)).**
 
 - **`F`'s exact-head run, in `retained/F/` by the first execution commit.**
   - `check-run.json`: the expected result of the run dispatched on `F`, in the form of the evidence-retention archive's
@@ -727,23 +759,24 @@ working file pinned here; K-design checks every copy against its row.
   - The receipt's candidate entry for `E` names, in its `measured` string, each file of `retained/E/` with its sha256.
   - Nothing writes to the record directory after `Q` is built. A later write fails G13 at the landing, and the round
     builds again (S10).
-- **Each retained file** is scanned before it is committed for tokens, keys, signed-URL parameters, IP addresses and
-  e-mail addresses (§A.42 item 5). A redaction is recorded with what was removed and where, and the redacted copy
-  carries its own digest.
+- **Each retained file**, `c21_search.out` and `c21_witness.json` among them, is scanned before it is committed for
+  tokens, keys, signed-URL parameters, IP addresses and e-mail addresses (§A.42 item 5). A redaction is recorded with
+  what was removed and where, and the redacted copy carries its own digest.
 - **Attestations.** A retained file is evidence of an attestation, not the attestation. The receipt's `check-run` and
   `owner-designation` entries name the host objects (S5), and no retained or local output is recorded as a `check-run`
   attestation (§A.40).
 
-**What voids the round:** a failed control of §8; a copy in `objects/` that differs from its §2.1 row (K-obj); a file in
-`design/` or `prior/` that differs from its row in §9 or §13 (K-design, K-prior); a departure from P0's or P2's frozen
-conventions found by K-repro; a difference between two runs; a disagreement with the independent replay.
+**What voids the round:** a failed control of §8 other than K-arith-16, whose failure §9 handles; a copy in `objects/`
+that differs from its §2.1 row (K-obj); a file in `design/` or `prior/` that differs from its row in §9 or §13
+(K-design, K-prior); a departure from P0's or P2's frozen conventions found by K-repro; a difference between two runs; a
+disagreement with the independent replay.
 
 ## 13. Prior knowledge disclosed
 
-The cells were chosen with the following knowledge. **None of these results is used as a token.** Each script and
-output named below is copied into the record directory at stage 1 (`prior/`), pinned by size and sha256 in the table at
-the end of this section, so that this disclosure points to content retained with the round; until then the names
-identify working material, not evidence.
+The cells were chosen with the following knowledge. **None of these results is used as a token.** Each script named
+below, and the expected result of each output, is copied into the record directory at stage 1 (`prior/`), pinned by
+size and sha256 in the table at the end of this section, so that this disclosure points to content retained with the
+round; until then the names identify working material, not evidence.
 
 - **Thread B's exploratory sweep** (`prior/decomposition_probe.py` and its output), exact
   with green controls, over the 3 × 3 identifications at `CCT4` and `CCC` and the three at `CENT`: `Lcc` on `𝒪₁`
@@ -769,16 +802,20 @@ identify working material, not evidence.
 
 **Files copied to `prior/` at stage 1.** Each row is one file. Its copy is `prior/<file>`, byte-identical to the working
 file pinned here; K-prior checks every copy against its row. Each script uses the standard library only and reads no
-file. Rerun in a fresh copy on 2026-10-17, each reproduced its output byte for byte.
+file. Rerun in a fresh copy on 2026-10-17, each reproduced its output byte for byte. Under the owner's artifact ruling
+of 2026-10-18 the three outputs are not copied: no frozen record cites their line positions. Before `F`, each output's
+row is replaced by a row for its expected result `<name>-expected.json`, form derived: the output's deterministic
+content, the output's sha256 as the provenance of the extraction, and the recipe `python3 -I -B <name>.py`. Until then
+the output rows below record that provenance and pin nothing that stage 1 copies.
 
 | file | what | form | bytes | sha256 |
 | --- | --- | --- | --- | --- |
 | `decomposition_probe.py` | thread B's `explore/decomposition_probe.py` | complete-as-cited | 14708 | `acdd998dd477b3fca26e41210b0f5b1634d0e795d47df4b4c1de1aad6472d40a` |
-| `decomposition_probe.out` | its output | complete-as-cited | 6381 | `f32b7f820df7b80e2980b1a6409aea6e3e06aba2a3c12fe76e132b020acc527a` |
+| `decomposition_probe.out` | its output; not copied, provenance of `decomposition_probe-expected.json` | derived source | 6381 | `f32b7f820df7b80e2980b1a6409aea6e3e06aba2a3c12fe76e132b020acc527a` |
 | `factorization_check.py` | #851's check of the four-site countermodel | complete-as-cited | 5496 | `52694d4afd14c472ec9e7e265dae19183651e57cc284346d8d36981953a29126` |
-| `factorization_check.out` | its output | complete-as-cited | 1095 | `9ef260e7b54d7f339da5e3a29a30f8e62f00866c4993e82576689513f898d363` |
+| `factorization_check.out` | its output; not copied, provenance of `factorization_check-expected.json` | derived source | 1095 | `9ef260e7b54d7f339da5e3a29a30f8e62f00866c4993e82576689513f898d363` |
 | `closure_design.py` | thread B's `explore/closure_design.py` | complete-as-cited | 3078 | `bb33939e6da3bd9c5638e547605d4541dae19118f6b564484fa007c34b3a7ed3` |
-| `closure_design.out` | its output | complete-as-cited | 812 | `88921a9967bb57581e084323a206481baf5bce18f0d7d73f9fc6d97cfb5cb1d8` |
+| `closure_design.out` | its output; not copied, provenance of `closure_design-expected.json` | derived source | 812 | `88921a9967bb57581e084323a206481baf5bce18f0d7d73f9fc6d97cfb5cb1d8` |
 
 ## 14. Owner decisions
 
@@ -813,23 +850,34 @@ file. Rerun in a fresh copy on 2026-10-17, each reproduced its output byte for b
   sha256 recorded in §2.1 and verified by K-obj; `objects/` is add-only in the `v3-governed-paths` block. Landing the
   research records on `main` is not a precondition of the round.
 
-**Proposed, for the owner's decision.** Each takes the stricter of the options considered.
+**Made on 2026-10-18:**
 
-- **(g) `design/`, `prior/` and `retained/` add-only (proposed).** The `v3-governed-paths` block carries `record A`
-  entries for them, as for `objects/`. K-design and K-prior require, before any cell runs, that each file's size and
-  sha256 equal its pinned row in §9 or §13; a mismatch voids the round (§8, §10, §12).
-- **(h) Retention (proposed).** The arrangements of §12 for `F`'s and `E`'s exact-head runs, for every cited
-  disposable-branch design run and for the owner's designations of `F` and `E`, checked by K-ret-F and K-ret-E (§8).
-  `E`'s evidence-retention pull request also adds the archive's `coverage.later` entry for
-  `verification/receipts/LOC-1.json`, which the round cannot write.
-- **(i) `D`'s standing (proposed).** `D` is cited only for the repository facts the round reads: it is an ancestor of
-  `F`, and it lies on the first-parent chain of every reconciliation's first parent (K3). No CI run of `D` is cited, so
-  none needs retaining. The alternative is to cite `D`'s push run as a claim, with its expected result retained under
-  §A.42.
-- **(j) Replay independence (proposed).** The independent replay implements its own `ℚ(ζ₁₆)` arithmetic and rebuilds
-  every frozen lift and rule matrix from its closed form instead of importing P0's class from `objects/` (§8). The
-  alternative, importing that class, would leave the replay sharing P0's arithmetic with the run.
-- **(k) The `ℚ(ζ₁₆)` layer of S16 (proposed).** `design/S16-completeness.md` argues completeness for integer entries,
-  the only entries the engine as measured accepts. For `C21`'s targets the exhaustive reading of S16 (NONE certifies
-  that no class exists; termination gives an exact class) holds only through a layer meeting its conditions E1–E4.
-  K-arith-16 checks that layer before any run on a target, and a failure is VOID.
+- **(g) `design/`, `prior/` and `retained/` add-only.** Approved, with the proposed checks. The `v3-governed-paths`
+  block carries `record A` entries for them, as for `objects/`. K-design and K-prior require, before any cell runs,
+  that each file's size and sha256 equal its pinned row in §9 or §13; a mismatch voids the round (§8, §10, §12).
+- **(h) Retention.** Approved on condition. The arrangements of §12 for `F`'s and `E`'s exact-head runs, for every
+  cited disposable-branch design run and for the owner's designations of `F` and `E`, checked by K-ret-F and K-ret-E
+  (§8), follow AGENTS §A.42's sequence: `F`'s run in `retained/F/` by the first execution commit; `E`'s run in
+  `retained/E/` through its own evidence-retention pull request on `main` before the reconciliation, which also adds
+  the archive's `coverage.later` entry for `verification/receipts/LOC-1.json`, which the round cannot write. Before
+  `F`, the integration is rechecked against the evidence-retention schema accepted on `main` at that time
+  (`extract_result.py`, `check_retention.py` and its modes, the manifest's `coverage.later` form, the archive's
+  per-run files); the recheck names the commit and the blobs it read, and any difference is corrected in the control
+  plane before `F`.
+- **(i) `D`'s standing.** Approved: `D` rests on its actual ancestry and on K3. It is cited only for the repository
+  facts the round reads: it is an ancestor of `F`, and it lies on the first-parent chain of every reconciliation's first
+  parent. No CI run of `D` is cited or retained, and no check-run attestation is recorded for it.
+- **(j) Replay independence.** Approved: separately implemented cyclotomic arithmetic and the reconstruction of the
+  frozen lifts. The independent replay implements its own `ℚ(ζ₁₆)` arithmetic, checked by K-replay-arith, and rebuilds
+  every frozen lift and rule matrix from its closed form instead of importing P0's class from `objects/` (§8).
+- **(k) The `ℚ(ζ₁₆)` layer of S16.** Approved: the layer and K-arith-16 are implemented before `F`.
+  `design/S16-completeness.md` argues completeness for integer entries, the only entries the engine as measured
+  accepts. For `C21`'s targets the exhaustive reading of S16 (NONE certifies that no class exists; termination gives an
+  exact class) holds only through a layer meeting its conditions E1–E4 (§7). K-arith-16 checks that layer before any
+  run on a target. If completeness is not established there, the affected result remains unresolved: S16 is not run on
+  `C21`'s targets and each target set takes the EXHAUSTED route of §9, so no `C21` exclusion is INV.
+- **Artifacts.** The ~1.9 MB `c21_witness.json` is retained as a deterministic, content-addressed witness that the
+  independent replay needs, after integrity and sensitive-content checks; this is not permission for arbitrary large
+  artifacts. Raw `.out` transcripts are not committed merely because their digests are recorded: compact structured
+  expected results and regeneration recipes are retained instead, and exact raw bytes only where AGENTS §A.42's
+  frozen-citation exception requires them, with the substantive result retained separately (§9, §13).
