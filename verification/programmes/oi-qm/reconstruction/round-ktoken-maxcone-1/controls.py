@@ -426,11 +426,29 @@ def check(E, F, stage='E'):
     record('G', 'every change from D to E lies in the governed paths; the legacy manifest untouched',
            len(gp) == 7 and diff and not badg, str(badg) if badg else '%d paths' % len(diff))
     fdelta = [x for x in git('diff', '--name-only', D, F).splitlines() if x.strip()]
-    lin = git('rev-list', '--parents', F + '..' + E).splitlines()
-    record('T', 'delta(D, F) is the control plane; the execution is linear after F',
+    record('T', 'delta(D, F) is the control plane; F descends from D and E from F, each by single-parent commits',
            all(p == PREREG or p.startswith(RDIR + 'amendments/') for p in fdelta) and PREREG in fdelta
-           and lin and all(len(x.split()) == 2 for x in lin))
+           and descends(D, F) and descends(F, E))
     return outcomes
+
+
+def descends(base, tip):
+    """True iff tip reaches base through one or more commits, each with exactly one parent, and base..tip holds
+    exactly the commits on that walk. Commit identity, not content: a re-cut base with the same tree or the same
+    preregistration bytes is a different commit, the walk never reaches it, and the check fails."""
+    base, tip = git('rev-parse', '--verify', base + '^{commit}').strip(), git('rev-parse', '--verify', tip + '^{commit}').strip()
+    par = {}
+    for line in git('rev-list', '--parents', base + '..' + tip).splitlines():
+        f = line.split()
+        if f:
+            par[f[0]] = f[1:]
+    cur, n = tip, 0
+    while cur != base:
+        ps = par.get(cur)
+        if ps is None or len(ps) != 1 or n >= len(par):
+            return False
+        cur, n = ps[0], n + 1
+    return n >= 1 and n == len(par)
 
 
 def passed(results):
@@ -584,8 +602,21 @@ def fake_repo(root):
     return {'D': Dm, 'F': Fm, 'E': E}
 
 
-def install_fake(mod, repo):
+FAKE_PARENTS = {'E': ['S1'], 'S1': ['C1'], 'C1': ['F'], 'F': ['D'], 'D': []}
+
+
+def install_fake(mod, repo, parents=None):
     key = lambda c: 'D' if c == D else c
+    graph = dict(FAKE_PARENTS if parents is None else parents)
+
+    def reach(c):
+        seen, todo = set(), [c]
+        while todo:
+            x = todo.pop()
+            if x not in seen:
+                seen.add(x)
+                todo.extend(graph[x])
+        return seen
     mod.show = lambda c, p: repo[key(c)].get(p)
     mod.blob = lambda c, p: git_blob_id(repo[key(c)][p]) if p in repo[key(c)] else None
 
@@ -598,8 +629,14 @@ def install_fake(mod, repo):
         if args[:2] == ('diff', '--name-only'):
             a, b = repo[key(args[2])], repo[key(args[3])]
             return '\n'.join(p for p in sorted(b) if a.get(p) != b[p])
-        if args[0] == 'rev-list':
-            return 'E S1\nS1 C1\nC1 F\n'
+        if args[:2] == ('rev-parse', '--verify'):
+            c = key(args[2][:-len('^{commit}')] if args[2].endswith('^{commit}') else args[2])
+            if c not in graph:
+                raise ValueError('fake git: unknown commit ' + args[2])
+            return c + '\n'
+        if args[:2] == ('rev-list', '--parents'):
+            a, b = (key(x) for x in args[2].split('..'))
+            return ''.join(' '.join([c] + graph[c]) + '\n' for c in sorted(reach(b) - reach(a)))
         raise ValueError('fake git: unsupported ' + ' '.join(args))
     mod.git = fgit
 
@@ -619,12 +656,12 @@ def drop_record(src, code):
     return src[:i] + 'pass' + src[j:]
 
 
-def end_to_end(src, repo, axlog):
+def end_to_end(src, repo, axlog, freeze='F', parents=None):
     """check() then verdict() of the module built from src, on the fake repo; returns (ok, output, probe_calls)."""
     mod = types.ModuleType('controls_e2e')
     mod.__file__ = __file__
     exec(compile(src, 'controls_e2e', 'exec'), mod.__dict__)
-    install_fake(mod, repo)
+    install_fake(mod, repo, parents)
     pout = '\n'.join('PASS %s (1)' % c for c in PROBE_CODES) + '\nchecks: %d, failures: 0\n' % PROBE_N + \
         '\n'.join('REJECTED ' + m for m in PROBE_MUTATIONS) + '\nmutations: 5 rejected, 0 accepted\n' \
         'VERDICT KTOKEN-K3-EXACT\n'
@@ -635,7 +672,7 @@ def end_to_end(src, repo, axlog):
         return 0, pout, ''
     buf = io.StringIO()
     with contextlib.redirect_stdout(buf):
-        ok = mod.verdict('E', 'F', axlog, probe_fn=probe)
+        ok = mod.verdict('E', freeze, axlog, probe_fn=probe)
     return ok, buf.getvalue(), len(calls)
 
 
@@ -698,6 +735,21 @@ def e2e_mutations(root):
             named = m is not None and all(c in m.group(1).split(', ') for c in codes)
             if ok or calls or not named or any(t in out for t in POSITIVE):
                 problems.append('%s: result %s, %s named %s, probe calls %d' % (name, ok, codes, named, calls))
+        # ancestry: commit identity, not content. Each case must fail T, and T alone.
+        recut = {k: dict(v) for k, v in repo.items()}
+        recut['F2'] = dict(repo['F'])
+        ancestry = [
+            ('a re-cut F with identical preregistration bytes, not an ancestor of E', recut, 'F2',
+             dict(FAKE_PARENTS, F2=['D'])),
+            ('a merge commit in the execution', repo, 'F', dict(FAKE_PARENTS, S1=['C1', 'X'], X=['D'])),
+            ('an F that does not descend from D', repo, 'F', dict(FAKE_PARENTS, F=['X'], X=[])),
+        ]
+        for name, r, fz, graph in ancestry:
+            ok, out, calls = end_to_end(src, r, path, fz, graph)
+            m = re.search(r'^STATIC CONTROLS FAILED: (.*)$', out, re.M)
+            exact = m is not None and m.group(1).split(', ') == ['T']
+            if ok or calls or not exact or any(t in out for t in POSITIVE):
+                problems.append('%s: result %s, failed %s, probe calls %d' % (name, ok, m and m.group(1), calls))
     if passed({}) or passed({c: 1 for c in REQUIRED}) or not passed({c: True for c in REQUIRED}):
         problems.append('passed() accepts an empty or non-bool map, or rejects the all-True map')
     # an unknown stage is refused, not read as the laxer stage 1
@@ -711,7 +763,7 @@ def e2e_mutations(root):
         problems.append('check() accepted the unknown stage \'e\'')
     except ValueError:
         pass
-    return problems, len(REQUIRED) + 1 + 7 + 1 + 1
+    return problems, len(REQUIRED) + 1 + 7 + 3 + 1 + 1
 
 
 def in_decl(text, name, old, new):

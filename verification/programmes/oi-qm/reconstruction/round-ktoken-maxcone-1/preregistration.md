@@ -5,12 +5,15 @@ and built from three sources:
 - the landed OI-PAIR-MAXCONE-1 record (`round-oi-pair-maxcone-1/`, and `EqvK2MaxCone.lean` at `D`);
 - the research design sources `FinitePauli.lean`, `FiniteReach.lean` and `FiniteReachTable.lean` of
   `research/finite-reconstruction-design-20261013` at `924dc918`. These are off main, cited as provenance only;
-- the predicted execution tree built from them on the disposable branch `dev-equivalence/ktoken-maxcone`, and run at its
-  exact head (*Design evidence* below).
+- two design runs of the predicted execution tree, each dispatched at the exact head of a disposable branch (*Design
+  evidence* below). Run 1 is on `dev-equivalence/ktoken-maxcone`, without `controls.py`. Run 2 is on
+  `dev-equivalence/ktoken-maxcone-r2`, with `controls.py` at an earlier blob.
 
-That run is evidence for the proposed execution tree, not a `check-run` attestation of `F` or `E`. The five execution
-files' blobs are frozen there. Nothing is executed. Only the owner designates `F` under AGENTS §A.39; an instruction
-to proceed is not a designation.
+Both runs are evidence for the proposed execution tree, not `check-run` attestations of `F` or `E`. Run 1 exercised the
+frozen blobs of the module, the probe and the two check files. No design run exercised the frozen `controls.py` blob:
+it has passed only local self-tests, and the workflow first runs its `--self-test` from stage 2, where the shard step is
+added. Nothing is executed. Only the owner designates `F` under AGENTS §A.39; an instruction to proceed is not a
+designation.
 
 ```v3-round
 round KTOKEN-MAXCONE-1
@@ -385,7 +388,12 @@ OPEN under every outcome.
   - `evidence/f-run/` and `amendments/` if present;
   - the result note at `E`.
 - **G.** `git diff --no-renames --name-status D E` lies inside the governed paths, and the legacy manifest is untouched.
-- **T.** `delta(D, F)` is the control plane, and the execution is linear after `F`.
+- **T.** `delta(D, F)` is the control plane. `F` descends from `D`, and `E` from `F`, each through commits with exactly
+  one parent, and the range between them holds only the commits on that walk. The check is on commit identity: a
+  re-cut `F` with identical preregistration bytes is not an ancestor of `E` and fails `T`.
+- `check E --freeze F` runs the controls at `E`, the default. `--stage S1` runs them at the commit before the result
+  note, stage 2 below: it does not require the result note. Neither option applies at stage 1, where only `controls.py`,
+  the pinned evidence and `evidence/f-run/` are present and most controls fail by design.
 
 ## Invariants and their checkpoints (§A.41)
 
@@ -424,19 +432,29 @@ OPEN under every outcome.
 - The run is evidence for the proposed execution tree. It does not stand in for `F`'s or `E`'s exact-head `check-run`
   attestation, nor for any check this file assigns to `F`, `E` or `Q`.
 
-**Run 2: the predicted tree less the result note.** This is run 1's tree with `controls.py`, this preregistration and
-the shard's `controls.py --self-test` step added. It is to be dispatched before `F`, and its expected result is pinned
-below.
+**Run 2: the predicted tree less the result note and the evidence files.** This is run 1's tree with `controls.py`, a draft of this
+preregistration and the shard's `controls.py --self-test` step added.
+- The tree is on the disposable branch `dev-equivalence/ktoken-maxcone-r2` at
+  `6959ced4c327ebb800cf6d463a049e4066e37288`.
+- The workflow was dispatched on exactly that head: run 39056982958, `head_sha` `6959ced4…`, 38 jobs, every one
+  `success`, the aggregate included.
+- Mathlib bridge job 117466847042 and probe job 117466847062. Their expected result is pinned below.
+- Like run 1, the run is evidence for the proposed execution tree, not a `check-run` attestation of `F` or `E`.
 
 **Frozen execution blobs.** These are the blobs run 1 exercised, together with `controls.py`. Run 2 exercised
-`controls.py` at `8c8eb522623ee4c5da1d4ab9e40e10c20fd0bf69`. The frozen blob below differs from it only in the
-self-test's end-to-end fixture, a change made after run 2: the fixture uses synthetic evidence only, never a retained
-file, and two added cases check that `P` rejects a pin left pending and a pin whose digest is not the file's. No
-control, rule or token changed. `C2` checks them:
+`controls.py` at `8c8eb522623ee4c5da1d4ab9e40e10c20fd0bf69`. The frozen blob below differs from it in two changes
+made after run 2:
+- the self-test's end-to-end fixture uses synthetic evidence only, never a retained file, and two added cases check that
+  `P` rejects a pin left pending and a pin whose digest is not the file's;
+- control `T` checks ancestry by commit identity (*The controls* above), and three added end-to-end cases check that it
+  fails, alone, on a re-cut `F` with identical preregistration bytes, on a merge commit in the execution and on an `F`
+  that does not descend from `D`.
+
+No other control, and no rule or token, changed. `C2` checks them:
 
 | path | blob |
 | --- | --- |
-| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `78c8ba364104b6efc465a901f25cfc70ee6967d7` |
+| `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/controls.py` | `7c9672a170210f8c2496787cb8cb3bc16cb30ba2` |
 | `verification/lean-mathlib/OIBridge/KTokenMaxCone.lean` | `14bb9fc07bf65e59e3f412ac7270ffb734a30069` |
 | `verification/lean/ktoken_maxcone1_probe.py` | `04580c5104eaa4cf7eaa5fc32614582442f538e1` |
 | `verification/programmes/oi-qm/reconstruction/round-ktoken-maxcone-1/checks/KTokenPairCheck.lean` | `354bd7ce18119da451883ab5189010a5113ffa16` |
