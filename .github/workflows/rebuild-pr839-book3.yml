@@ -1,0 +1,75 @@
+name: rebuild-pr839-book3
+on:
+  push:
+    branches: [build/pr839-book3-20261018]
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    container: texlive/texlive:TL2022-historic
+    timeout-minutes: 45
+    steps:
+      - name: Install tools
+        run: |
+          apt-get update -qq
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ca-certificates curl poppler-utils python3
+          xelatex --version | head -2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Pandoc 3.1.3, checked against main's book .tex
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          curl -fsSL https://github.com/jgm/pandoc/releases/download/3.1.3/pandoc-3.1.3-1-amd64.deb -o /tmp/pandoc.deb
+          dpkg-deb -x /tmp/pandoc.deb /tmp/pandoc
+          echo /tmp/pandoc/usr/bin >> "$GITHUB_PATH"
+          /tmp/pandoc/usr/bin/pandoc --version | head -1
+          B=$(git rev-parse 415fc868)
+          git show $B:book/The-Incompleteness-of-Observation-FULL.tex > /tmp/book-baseline.tex
+          git show $B:book/The-Incompleteness-of-Observation-FULL.md > /tmp/book-base.md
+          /tmp/pandoc/usr/bin/pandoc /tmp/book-base.md -s --toc --toc-depth=3 --pdf-engine=xelatex --include-in-header=tools/unicode-fix.tex -o /tmp/book-emitted.tex
+          printf '%% source-sha256: %s\n' "$(sha256sum /tmp/book-base.md | cut -d' ' -f1)" >> /tmp/book-emitted.tex
+          cmp /tmp/book-emitted.tex /tmp/book-baseline.tex
+          echo "pandoc 3.1.3 reproduces main's book .tex byte for byte"
+      - name: Canonical book build
+        run: |
+          set -o pipefail
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          sh ./build.sh --book | tee /tmp/build.log
+          grep -q '^build: OK' /tmp/build.log
+          changed=$(git status --porcelain | awk '{print $2}' | sort | tr '\n' ' ')
+          echo "changed: $changed"
+          test "$changed" = "book/The-Incompleteness-of-Observation-FULL.pdf book/The-Incompleteness-of-Observation-FULL.tex "
+          python3 tools/staleness_check.py
+          python3 papers/oi_lattice_code/mirror_check.py
+          python3 tools/voice_check.py
+          python3 - <<'PY'
+          import subprocess, statistics
+          base = subprocess.check_output(['git', 'rev-parse', '415fc868'], text=True).strip()
+          path = 'book/The-Incompleteness-of-Observation-FULL.pdf'
+          def stats(p):
+              info = subprocess.check_output(['pdfinfo', p], text=True)
+              n = int([l for l in info.splitlines() if l.startswith('Pages:')][0].split()[1])
+              text = subprocess.check_output(['pdftotext', '-layout', p, '-'], text=True)
+              pages = text.split('\f')
+              if not pages[-1].strip():
+                  pages.pop()
+              return n, statistics.median(len(x.strip()) for x in pages)
+          old = '/tmp/book-main.pdf'
+          with open(old, 'wb') as f:
+              f.write(subprocess.check_output(['git', 'show', base + ':' + path]))
+          n_new, m_new = stats(path)
+          n_old, m_old = stats(old)
+          print('%s pages %d (main %d)  median chars/page %.0f (main %.0f)' % (path, n_new, n_old, m_new, m_old), flush=True)
+          assert m_new > 700
+          assert abs(n_new - n_old) <= 3
+          PY
+          sha256sum book/The-Incompleteness-of-Observation-FULL.tex book/The-Incompleteness-of-Observation-FULL.pdf
+      - name: Preserve the rebuilt book on a disposable branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add book/The-Incompleteness-of-Observation-FULL.tex book/The-Incompleteness-of-Observation-FULL.pdf
+          git commit -m "Rebuild #839 book with pandoc 3.1.3 and TeX Live 2022 historic" -m "build.sh --book; no dropped glyphs; only the book .tex and .pdf change; staleness, mirror and voice pass."
+          git push origin HEAD:refs/heads/build/pr839-artifacts3-20261018
